@@ -1,84 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548863AEF51;
-	Thu, 10 Sep 2026 08:24:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D9C13DA7D2
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:26:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789028701; cv=none; b=o6WYmb18S7mcDIZ/lAgriplowC8D08pyOmRdRe4DUSk5REyZsLJC5l9j33pE7xO3bhmUuC0hvyimNhcK8U8PZ3W83Oj2/WLI5T13QPtbHLtjbIcJRiPHMWodaDt+oBxLbg7VDcIMHHoEB45PuzgEIIQUq/JNJss97GOnJrMokTk=
+	t=1789028799; cv=none; b=bdTZ+7MO+GxCs44KqqWI2PbSXTN+c5/NpBrMOIMnW7iTecy8beEzULWcGPq/62t27PmH1un4CQ+6cI7az6/d1SBX53IIvhhRVmBP/uyaSJdSLUBQWhD28ViTAbW7yU++5+4TN0NnlH6K6BDxDtqi+I3j72DeYr0HjenfJjcB2gM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789028701; c=relaxed/simple;
-	bh=cNgogUyCXQ5C0C+s+vEwUwbUb4/RySuQS6UxVHOIolk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ScTzJjvIUauM9Gkyeu+9Ab/0npVPnoPSN2JOoJ9KuzUX3YBjngiMHNM1xSU3nlnRO0G1ct2z+5T17azkmGLABln4ApFxVdyIOn78QTiz/Ed/tWPkuKXCDESIko8SJnPEY+IVoGqJtLkJpHj1UCRDMcagK6puDPlXLa9PYKDmrIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hX5Yl2YN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789028799; c=relaxed/simple;
+	bh=mzo4cVt3mNmVzNt3LENuMKhMcD0uQol2sk4lmhQlYU8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=c4ckckvCyYr/eMjV8m4x5d9dwa9WS5pk4ojMY5eH6DXTpDo9Nb2POLrdifBBkayCaL6km2vfpCfN+vAhmiNvHtXmd/rTL4qG1TcSgi+E1lAq3gwZa1sMJRwpzOiH0WB560fzDdfGKINVQE+0EAwKE7q4W1Sh7rWM/rawHOMg+x4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=TIw2R9QF; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hX5Yl2YN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE8B41F000FF;
-	Thu, 10 Sep 2026 08:24:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789028698;
-	bh=N2SURyTcbduKJLk+a5NWhlHR0NrFlRiMGnI7Q6438/M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hX5Yl2YNobLqEoQGyfzkEC3/pXkCXYI1wPtA3nQRL90+U2tsjl585qPkt2jJeYlqR
-	 r9+BLuQ7nyuawukphAupVDlLTa3wei1BP4VCCAUHNdvw8kXsXcmmvGchTQoPDBrtFD
-	 mKv39Bwq/YCJv6IONs7Rll0waiH9WdLTHkXtV566YbpD0TYUOmLfVIfnyooheTo6ie
-	 p+izrXrqrW62my+otdagP4QucslAmrJ61ClZT1fGkJp5DDzma+CnOf1tOeIfkN6a44
-	 7DbDUNtkgPRsmmhRxjFlD0e/O2a4JzedQWdEKRu1Q5GqZG2x3Ktg8y9EcXkhMcy1Rr
-	 ic9Wp2U5bnphA==
-Date: Thu, 10 Sep 2026 10:24:50 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Rudi Heitbaum <rudi@heitbaum.com>
-Cc: Richard Zhu <hongxing.zhu@nxp.com>, 
-	Lucas Stach <l.stach@pengutronix.de>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	imx@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] PCI: imx6: Avoid dereferencing a NULL clock name
-Message-ID: <v5xbens6xr63smpdm4qugj6vtstd2efvezhbic2j3vctxcdbme@lh42pxcn7qp2>
-References: <am8iBwJSEhYhWTqk@6cfee64030a6>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="TIw2R9QF"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A5VMbX103872;
+	Thu, 10 Sep 2026 08:26:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=+yz3BR
+	kdAokO04A7Rf20m/zglgAa8AOrj9pXzNWBaLw=; b=TIw2R9QFXjVwmpcPTajDnn
+	jQ6/0/OmX9mdxFSNi1SFY7ybA6E0KJq4T5CTaEb/L3lqOVLl9uS8/l9OHUl6+HQ4
+	rWGA5NXZfQCfmlQrT/0rtJu+58zI021YhHSouX3yimxftJsR9EFHifrdnevj1+49
+	TU/WRkplMM/FjIrPFTTTfOvJAgt1gYANjDuHqPZeeWQkpYlUoxZIidPpuAZCoGL3
+	u0MUZGsVZH0HHcGzVGtrzBWVbWaptidyCZWQID/R3YTS1d3ACnKq6EzpdDLmdfSA
+	yjeprC0HMQbaSgOSeFgMFVBXVMGGWAuaJa/YGX7XEPNMlLEa+YfSb1/VW0PUzCPA
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gkd8n3axs-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 10 Sep 2026 08:26:09 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 68A7uYKa014691;
+	Thu, 10 Sep 2026 08:26:08 GMT
+Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gkcr3bc7m-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 10 Sep 2026 08:26:08 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
+	by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68A8Q8Pw27329124
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 10 Sep 2026 08:26:08 GMT
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 021D058064;
+	Thu, 10 Sep 2026 08:26:08 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8B2BF58057;
+	Thu, 10 Sep 2026 08:26:03 +0000 (GMT)
+Received: from [9.123.7.57] (unknown [9.123.7.57])
+	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 10 Sep 2026 08:26:03 +0000 (GMT)
+Message-ID: <8dfee10f-89f3-463b-8d16-587873c3394c@linux.ibm.com>
+Date: Thu, 10 Sep 2026 13:55:59 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <am8iBwJSEhYhWTqk@6cfee64030a6>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] nvme-tcp: allow setting per-queue io_cpu through sysfs
+To: Saravanan D <saravanand@crusoe.ai>, linux-nvme@lists.infradead.org
+Cc: kbusch@kernel.org, hch@lst.de, sagi@grimberg.me, axboe@kernel.dk,
+        dwagner@suse.de, linux-kernel@vger.kernel.org, iyamahata@crusoe.ai,
+        kiyer@crusoe.ai, ganbalagane@crusoe.ai, sj@kernel.org
+References: <20260909211432.6741-1-saravanand@crusoe.ai>
+Content-Language: en-US
+From: Nilay Shroff <nilay@linux.ibm.com>
+In-Reply-To: <20260909211432.6741-1-saravanand@crusoe.ai>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=NMVAaE6g c=1 sm=1 tr=0 ts=6aa269a1 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=Swr8LgwRl-hf65YLT7AA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: 6STJJ1tSbV-_Y0TuKoKFzaTZDU2Ok3hB
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA4OCBTYWx0ZWRfX44tSxnh+IqVE
+ BFONQ/dKxJyiFqCqJgv9YBSEaaP6GTbAVn6vkwof/e0bgVpqEE8nVaNVPCTsVPxW9a+n1RH6I0C
+ sQreAMkP21KtDrchVu/TfV7evM2xgx8FMxmiq2PNDQA4zCtzTHUw6JTBR5fK7TbrZG/vrGq+APV
+ KB6+2Gx3PjAV+WnpB3GR32FjCBM3PPThjxp0NptNsZAZ+87IUc6VvXxQ9ocQvpmZM0UniOXD/S0
+ VCluIT0hGgVB3PodfFifrd+i2XvIlre/muvQx77a2+9lh6ky1KsLVJvbeV5N6HhzKlJ+waJS2P1
+ rCNhuCOvl8AEYX19dutkeV9PILD55o5W1eq0kTp3ORyiUPm7nbj5JA9eyBnpVz+4kI7DYgok0re
+ 5P8uZQT6L892Rg+Jol9gg0WRlhpJRxR5cOgwCu32zw2kWbvcK+57CA3T7xd5ZDiT3qHmIuL6rgf
+ txogfu+/Kzz6k7YDUAQ==
+X-Proofpoint-ORIG-GUID: 6STJJ1tSbV-_Y0TuKoKFzaTZDU2Ok3hB
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA4OCBTYWx0ZWRfX2b2TRnGyEZYi
+ 1dvtNks1l7xasafxzJgDOyTuBN/zw29lJGKOyZvipZwHe+LrE+lzc5xGuPcvAQmy5gu1Dim8Nn2
+ gdzpkQ4txZ7C/rdycFRQvkWwt3PN6x0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_02,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 clxscore=1011 malwarescore=0 lowpriorityscore=0
+ priorityscore=1501 adultscore=0 suspectscore=0 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100088
 
-On Sun, Aug 02, 2026 at 10:55:03AM +0000, Rudi Heitbaum wrote:
-> of_clk_bulk_get() leaves clk_bulk_data::id as NULL for every clock that
-> has no matching entry in "clock-names", which is legal: a node may list
-> more "clocks" phandles than it names. The extref scan dereferences that
-> id unconditionally, so such a node oopses during probe.
+On 9/10/26 2:44 AM, Saravanan D wrote:
+> nvme_tcp_set_queue_io_cpu() picks each queue's io_cpu at connect time
+> as the least loaded CPU in the queue's blk-mq map group, and all socket
+> work runs there for the connection's lifetime. This decision falls
+> short when the host partitions its CPUs after connect time. On a 384
+> cpu multi tenant host with 128 queue controllers, blk-mq folds three
+> CPUs into every map group, some groups straddle two tenants' cpusets,
+> and 9% of nvme_tcp_io_work executions ran outside the submitting VM's
+> cpuset, seen by the neighbor as steal time.
 > 
-> Check clk_bulk_data::id before dereferencing it.
+> Expose each I/O queue's io_cpu as a writable sysfs attribute
 > 
-> Fixes: d8574ce57d76 ("PCI: imx6: Add external reference clock input mode support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Rudi Heitbaum <rudi@heitbaum.com>
-> ---
->  drivers/pci/controller/dwc/pci-imx6.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>    /sys/class/nvme/nvmeX/tcp_queues/<qid>/io_cpu
 > 
-> diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
-> index f7389b5437df..dcdeba1856f7 100644
-> --- a/drivers/pci/controller/dwc/pci-imx6.c
-> +++ b/drivers/pci/controller/dwc/pci-imx6.c
-> @@ -1831,7 +1831,8 @@ static int imx_pcie_probe(struct platform_device *pdev)
->  		return dev_err_probe(dev, imx_pcie->num_clks,
->  				     "failed to get clocks\n");
->  	for (i = 0; i < imx_pcie->num_clks; i++)
-> -		if (strncmp(imx_pcie->clks[i].id, "extref", 6) == 0)
-> +		if (imx_pcie->clks[i].id &&
-> +		    strncmp(imx_pcie->clks[i].id, "extref", 6) == 0)
 
-As Sashiko mentioned, there are other places in this driver without the check.
-Please fix all of them in a single patch.
+I wonder if we should avoid introducing a transport-specific tcp_queues hierarchy
+here. io_cpu describes CPU placement of an NVMe I/O queue rather than something
+inherently specific to TCP, and other transports may have similar queue-level
+attributes in the future. Could we instead introduce a generic "queues/<qid>/"
+hierarchy under each NVMe controller, e.g.
 
-- Mani
+      /sys/class/nvme/nvmeX/queues/<qid>/
 
--- 
-மணிவண்ணன் சதாசிவம்
+and have transports expose queue-specific attributes there? The "queues/<qid>"
+object could be created for every controller, while transports that need queue-
+specific sysfs attributes can populate the corresponding <qid> objects. This
+would give us a transport-independent ABI and avoid introducing separate
+tcp_queues, rdma_queues, etc. hierarchies.
+
+> so a control plane that owns CPU placement can set it directly instead
+> of relying on the driver's heuristic. A written value persists across
+> reconnects, marked by NVME_TCP_Q_IO_CPU_USER. Writing -1 clears the
+> mark and re-runs the connect time selection. Reading returns the CPU,
+> or -1 when the queue is unbound.
+> 
+> The store, the connect time selection and queue stop serialize their
+> accounting of nvme_tcp_cpu_queues under the queue lock.
+> 
+Also, based on the current design, it seems possible to have some queues whose
+io_cpu is driver-managed while other queues are explicitly managed by the
+control plane. This gives useful flexibility for the tenant use case. However,
+looking at the io_cpu sysfs attribute alone, it is not possible to determine
+whether the current CPU was selected by the driver or explicitly assigned by
+the control plane. So could we expose this state through an additional read-only
+attribute alongside io_cpu, for example:
+
+     /sys/class/nvme/nvmeX/queues/<qid>/io_cpu
+     /sys/class/nvme/nvmeX/queues/<qid>/managed
+
+where "managed" indicates who currently owns the CPU placement. For example, "1"
+could indicate that io_cpu is driver-managed and "0" indicates it is managed by
+the control plane or user. This would make the current ownership state observable
+without making any wild guess.
+
+Thanks,
+--Nilay
