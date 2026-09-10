@@ -1,48 +1,47 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39659545DB8;
-	Thu, 10 Sep 2026 17:40:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE92F36212C;
+	Thu, 10 Sep 2026 17:40:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789062065; cv=none; b=MCuSxz68+gCq5L67J4U0W0q+MaDC0xtZieikhA8ffctVINLwQZvY2NUGEhufnJtFxStWxz/oUeFDH48GNMN7QQNErc/My3tta+zHA4qa122kp0Bp3AW7rTFfzLe5qRzF3mb6hMlO7FIzCXlMEXSIVtHRVH2poZSdLuBI7s1sWcA=
+	t=1789062063; cv=none; b=pcSGUE1ripH7eNXVJRAHL4Q+KF01q+Fu2HjMn5VAhnOqvqzqfXTh2vaj29RaGqoSLPbmgyY840144X0AHJJ5xBqY35yo4XxuCPfpCLvxIW7OaBIFmsDbYhZL4lpnkg0cFTq3Mc2eJ3XRO30Z+UaR9JXzOzkT2xhQXrStFJUviHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789062065; c=relaxed/simple;
-	bh=xFCDOkvk2TofjVGFvEcPYHDr8qB7EOl4xYV+VmLtdNo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=JqjL3qICAkX5G2r88QmDd86jpsXcpnzAH+inL74NKOXd4R7sAC4yCwOhzNgOyggbq3nW683yuoGmSh9S1Bc9YmOzbSQM+MTTkhvCSuHLaD6pjkobhSBOKz3H4T6H6A4FSASqE7vIFXpq4v/pjY/yXYZIdJuZOrQ7c+JKdPCZVrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=D7TVETxk; arc=none smtp.client-ip=198.175.65.19
+	s=arc-20240116; t=1789062063; c=relaxed/simple;
+	bh=Pw2ile9UJm9sSX8bIRs5HbF7n8pZFfyy9pU9RW/L6dY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YXGuUfjyRGrhpJABzJYD+lEdr9PPxwmW1fz54JHIetks9L4Klvxami5t9RQnEdlg+8J+RvuTTJFql4GXtsNaviDv4eA32/9+qgeFrU2+G98OHhzg5A8/UKoQuwjPpwfuu50kMN5UKklvqTcjVbIDpmvdny2NiLVqEV1U+jKQMv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gcw4o46r; arc=none smtp.client-ip=198.175.65.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="D7TVETxk"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gcw4o46r"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789062057; x=1820598057;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=xFCDOkvk2TofjVGFvEcPYHDr8qB7EOl4xYV+VmLtdNo=;
-  b=D7TVETxkfzJHJ3PSU1LnkOuQiw6bHpYMwoflJv9pmQ3TlhEdcii7KPl7
-   8mYkkvk1CIGO7WRg90GeQQfWKfHhGe7z/FObih0mjD9yBO/DZXnj2xwlt
-   K6IvRgq0l5V31d4UMmIKNefIuM81kiSUi6sqBFmgtPpT79UqU64ENnMcp
-   pYXVUOAtztYhu20i/0VE/oivHqjgMuR9I/3hwEUzLBpKc387w2P98w6hw
-   9HNit/e4+JR0SSK6CfqhSn/VVzWcloWjm1y03ueuxI9lV4GQQSTaN/dUk
-   JYlBPN4S3tb6udWDXTxdxkkrnmqbJY3gwbxpOEex4AAHzns3OS5Oh5mp1
+  t=1789062056; x=1820598056;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Pw2ile9UJm9sSX8bIRs5HbF7n8pZFfyy9pU9RW/L6dY=;
+  b=gcw4o46rlGXZEcweavAluGM3OIbnHyz4sYib9apgKTKayWlD3H4+SHFW
+   U8scg8a+R89QW6HnDPnlFDwCOlyUtSWZkAFtHU0+4grxjIfzTtvdCJTUd
+   jF8uQoAAFIG9IzJMkZwt8sECm6EVaeACLvilDCavff+hL1p23wZq5KD/C
+   KrJA5FYf5X7eN72wafMJJZghUukWBxLh6Es7awuu6hViFCvy5fgcTmCG6
+   5Hyx9yr/HnHReutv3SLI8f+vZkNJJ+C1LKmI4xL0RThfoIFW51tcWcDnf
+   MlTVDDdhgd24itLMKesB8D4hPLy07PyTGqdXwukON4qqh4S2Jgk8N+jqf
    g==;
-X-CSE-ConnectionGUID: OTTKg9IbQTWuG3TQLQQuJg==
-X-CSE-MsgGUID: JeoGrdE5TNeg/9B3788QWw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="89453788"
+X-CSE-ConnectionGUID: XslhPgcXTsS+kfY2bEysBQ==
+X-CSE-MsgGUID: YeUKpJ2URfi6bl45qQSRaQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="89453770"
 X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="89453788"
+   d="scan'208";a="89453770"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 10:40:50 -0700
-X-CSE-ConnectionGUID: ikLY6dI3QV64wg6PT8UPgw==
-X-CSE-MsgGUID: UanPt+boQNeAlNLKbJnhTg==
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 10:40:49 -0700
+X-CSE-ConnectionGUID: ykw0HvrzSzSnsZLcrRAFXg==
+X-CSE-MsgGUID: qRKwknrZTm6tjcrtG2htfg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="275222012"
+   d="scan'208";a="275222006"
 Received: from b04f130c83f2.jf.intel.com ([10.165.154.98])
-  by orviesa003.jf.intel.com with ESMTP; 10 Sep 2026 10:40:50 -0700
+  by orviesa003.jf.intel.com with ESMTP; 10 Sep 2026 10:40:49 -0700
 From: Tim Chen <tim.c.chen@linux.intel.com>
 To: Peter Zijlstra <peterz@infradead.org>,
 	Ingo Molnar <mingo@redhat.com>
@@ -74,12 +73,10 @@ Cc: Tim Chen <tim.c.chen@linux.intel.com>,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org,
 	linux-fsdevel@vger.kernel.org
-Subject: [PATCH 1/4] sched/cache: Keep nr_pref_llc_running in the runnable domain
-Date: Thu, 10 Sep 2026 10:46:09 -0700
-Message-Id: <82736e1329bf8ed195bbbc4990486c87094e6789.1789061845.git.tim.c.chen@linux.intel.com>
+Subject: [PATCH 0/4] sched/cache: Fixes for cache aware scheduling
+Date: Thu, 10 Sep 2026 10:46:08 -0700
+Message-Id: <cover.1789061845.git.tim.c.chen@linux.intel.com>
 X-Mailer: git-send-email 2.32.0
-In-Reply-To: <cover.1789061845.git.tim.c.chen@linux.intel.com>
-References: <cover.1789061845.git.tim.c.chen@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,151 +85,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-alb_break_llc() decides whether to break LLC preference during active
-load balance. It does so by testing that every runnable fair task on the
-source rq prefers its LLC:
+Hi all,
 
-	env->src_rq->nr_pref_llc_running == env->src_rq->cfs.h_nr_runnable
+Cache aware scheduling went in for v7.2 and people have found a few
+things wrong with it since.  We collect the fixes in this series
+so it is easier to track. Two keep tasks from
+being stranded outside, or yanked away from, their preferred LLC; two
+fix a use after free.  Patches 1-2 stand alone, 3 and 4 go together.
 
-But the two counters cover different sets. nr_pref_llc_running is updated
-in account_llc_enqueue()/account_llc_dequeue(), next to cfs_rq->nr_queued,
-so it follows queued tasks. h_nr_runnable is updated in set_delayed()/
-clear_delayed() and drops delay-dequeued tasks.
+Patch 1: alb_break_llc() compares nr_pref_llc_running with
+cfs.h_nr_runnable, but those count different sets - one follows queued
+tasks, the other drops delay-dequeued ones.  With DELAY_DEQUEUE the
+equality stops holding and active balance pulls a task off its preferred
+LLC.  So fix the counter.  Reported by Zhan Xusheng:
+https://lore.kernel.org/lkml/20260827135000.735138-1-zhanxusheng@xiaomi.com/
 
-So under DELAY_DEQUEUE, a preferring task that goes to sleep stays counted
-in nr_pref_llc_running while h_nr_runnable falls. The equality then breaks,
-alb_break_llc() returns false, and active balance is free to pull a task
-off its preferred LLC. Active balance only moves runnable tasks, and this
-is the only LLC check it consults: once the stopper runs, LBF_ACTIVE_LB
-skips the per-task test in can_migrate_task(). The runnable set is the one
-we want.
+Patch 2 (Lu Wang): the stopper doing active load balance builds a fresh
+lb_env that doesn't inherit migration_type, so can_migrate_task() can
+move a task *out* of its preferred LLC.  A new LBF_ACTIVE_LB_LLC flag
+and picking the stopper callback at kick time keep the intent; passing
+migration_type through the stopper would muddy delayed dequeue.  v4:
+https://lore.kernel.org/lkml/20260903020656.3793626-1-wanglu.priv@gmail.com/
 
-Fix it on the counter side. A task should be counted in
-nr_pref_llc_running exactly while it is both queued on its preferred LLC
-(pref_llc_queued) and runnable (!sched_delayed). Define that membership
-once in task_pref_llc_runnable(), and adjust the counter only through
-pref_llc_running_inc()/pref_llc_running_dec() from the four sites that
-change either input: account_llc_enqueue(), account_llc_dequeue(),
-set_delayed() and clear_delayed(). Gating every update on the same
-predicate keeps the delay, wake and dequeue paths from double-counting
-or underflowing; see the comments at those sites for the ordering.
+Patches 3-4 are for the use after free Hyunwoo Kim caught with KASAN:
+https://lore.kernel.org/lkml/apPb-Dr4nPYuHQOK@v4bel/
+account_mm_sched() reaches the stats via p->mm->sc_stat, but a task can
+be switching mm on one CPU while another is inside account_mm_sched(),
+so the mm and the stats inside it can go away underneath.  Locking the
+rq in the mm free path felt like the wrong trade, so patch 4 pulls
+sched_cache_stat out of mm_struct into a refcounted, RCU freed
+sched_cache_group - just moving code - and patch 5 does the real fix:
+each task takes its own reference (copy_mm(), exec_mmap(), dropped in
+exit_mm()), so the group outlives any mm switch.  Same Fixes: tag and
+Hyunwoo's Tested-by on both; they want to go in together.
 
-nr_llc_running and sd->llc_counts are not touched and stay on queued
-semantics.
+Nice side effect: the group no longer follows the address space,
+so a user defined group, or cgroup or numa_group could own it later.
+These are also the grouping by prctl RFC's first two patches, sent here
+so the fix isn't held up by that discussion.
 
-Reported-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-Closes: https://lore.kernel.org/lkml/20260827135000.735138-1-zhanxusheng@xiaomi.com/
-Suggested-by: Chen Yu <yu.c.chen@intel.com>
-Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
----
- kernel/sched/fair.c | 52 +++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 50 insertions(+), 2 deletions(-)
+BTW, there are two other issues in discussion currently and need
+a bit more work:
+1. Incorrect donor context being passed to task_tick_cache().  
+https://lore.kernel.org/lkml/20260909092901.2989564-1-sh_def@163.com/
+It is currently under discussion and is not included in this series.
+2. Cache aware scheduling interfering with ITMT.
+https://lore.kernel.org/lkml/20260810033742.1688718-1-yu.c.chen@intel.com/
+https://lore.kernel.org/lkml/2fe2c681-b748-41fa-8b56-1169c86cefbc@intel.com/ 
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index d5989b53adef..b1ef013b0342 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -1551,6 +1551,28 @@ static bool invalid_llc_nr(struct mm_struct *mm, struct task_struct *p,
- 			(scale * per_cpu(sd_llc_size, cpu)));
- }
- 
-+/*
-+ * A task counts in nr_pref_llc_running while it is queued on its preferred
-+ * LLC (pref_llc_queued) and runnable (!sched_delayed), keeping the counter in
-+ * the runnable domain so alb_break_llc() can compare it with h_nr_runnable.
-+ */
-+static bool task_pref_llc_runnable(struct task_struct *p)
-+{
-+	return p->pref_llc_queued && !p->se.sched_delayed;
-+}
-+
-+static void pref_llc_running_inc(struct rq *rq, struct task_struct *p)
-+{
-+	if (task_pref_llc_runnable(p))
-+		rq->nr_pref_llc_running++;
-+}
-+
-+static void pref_llc_running_dec(struct rq *rq, struct task_struct *p)
-+{
-+	if (task_pref_llc_runnable(p))
-+		rq->nr_pref_llc_running--;
-+}
-+
- static void account_llc_enqueue(struct rq *rq, struct task_struct *p)
- {
- 	int pref_llc, pref_llc_queued;
-@@ -1562,7 +1584,6 @@ static void account_llc_enqueue(struct rq *rq, struct task_struct *p)
- 
- 	pref_llc_queued = (pref_llc == task_llc(p));
- 	rq->nr_llc_running++;
--	rq->nr_pref_llc_running += pref_llc_queued;
- 
- 	/*
- 	 * Record whether p is enqueued on its preferred
-@@ -1580,6 +1601,9 @@ static void account_llc_enqueue(struct rq *rq, struct task_struct *p)
- 	 */
- 	p->pref_llc_queued = pref_llc_queued;
- 
-+	/* Skipped while delayed; clear_delayed() adds it back on wake. */
-+	pref_llc_running_inc(rq, p);
-+
- 	sd = rcu_dereference_all(rq->sd);
- 	if (sd && (unsigned int)pref_llc < sd->llc_max)
- 		sd->llc_counts[pref_llc]++;
-@@ -1596,7 +1620,12 @@ static void account_llc_dequeue(struct rq *rq, struct task_struct *p)
- 
- 	rq->nr_llc_running--;
- 	if (p->pref_llc_queued) {
--		rq->nr_pref_llc_running--;
-+		/*
-+		 * Skipped if still delayed (set_delayed() already removed it);
-+		 * clearing pref_llc_queued below also stops clear_delayed()
-+		 * from re-adding it.
-+		 */
-+		pref_llc_running_dec(rq, p);
- 		/*
- 		 * Update the status in case
- 		 * other logic might query
-@@ -2021,6 +2050,10 @@ static void account_llc_enqueue(struct rq *rq, struct task_struct *p) {}
- 
- static void account_llc_dequeue(struct rq *rq, struct task_struct *p) {}
- 
-+static void pref_llc_running_inc(struct rq *rq, struct task_struct *p) {}
-+
-+static void pref_llc_running_dec(struct rq *rq, struct task_struct *p) {}
-+
- #endif /* CONFIG_SCHED_CACHE */
- 
- /*
-@@ -6395,6 +6428,14 @@ static __always_inline void return_cfs_rq_runtime(struct cfs_rq *cfs_rq);
- 
- static void set_delayed(struct sched_entity *se)
- {
-+	/*
-+	 * Drop a task leaving the runnable set. Must run before sched_delayed
-+	 * is set, or task_pref_llc_runnable() would already exclude it;
-+	 * clear_delayed() mirrors this after clearing the flag.
-+	 */
-+	if (entity_is_task(se))
-+		pref_llc_running_dec(rq_of(cfs_rq_of(se)), task_of(se));
-+
- 	se->sched_delayed = 1;
- 
- 	/*
-@@ -6425,6 +6466,13 @@ static void clear_delayed(struct sched_entity *se)
- 	if (!entity_is_task(se))
- 		return;
- 
-+	/*
-+	 * Re-add on wake, after sched_delayed is cleared. On a final delayed
-+	 * dequeue account_llc_dequeue() already cleared pref_llc_queued, so
-+	 * this does nothing.
-+	 */
-+	pref_llc_running_inc(rq_of(cfs_rq_of(se)), task_of(se));
-+
- 	for_each_sched_entity(se) {
- 		struct cfs_rq *cfs_rq = cfs_rq_of(se);
- 
+Applies on sched/urgent branch. 
+
+Tim Chen and Chen Yu
+
+Lu Wang (1):
+  sched/cache: Honor migrate_llc_task semantics in active load balance
+
+Tim Chen (3):
+  sched/cache: Keep nr_pref_llc_running in the runnable domain
+  sched/cache: Decouple sched_cache_group from mm
+  sched/cache: Introduce task_struct->sched_cache_grp
+
+ fs/exec.c                    |  14 ++
+ include/linux/mm_types.h     |  15 +-
+ include/linux/sched.h        |  11 +-
+ kernel/exit.c                |  28 +++-
+ kernel/fork.c                |  23 +++
+ kernel/sched/build_utility.c |   4 +
+ kernel/sched/cache_sched.c   |  39 +++++
+ kernel/sched/fair.c          | 297 ++++++++++++++++++++++++++---------
+ kernel/sched/sched.h         |   3 +
+ 9 files changed, 340 insertions(+), 94 deletions(-)
+ create mode 100644 kernel/sched/cache_sched.c
+
 -- 
 2.32.0
 
