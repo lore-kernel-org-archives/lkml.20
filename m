@@ -1,191 +1,200 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012013.outbound.protection.outlook.com [40.107.209.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD0B64A1DFB;
-	Thu, 10 Sep 2026 14:27:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789050437; cv=none; b=P2ix58T4rfiJlXd5y8qzHdrgesJ5xn3TxWEZ/ssvisn2XelHov7jGsmY5rob5/Cbs6uTV7qfwJ0E5KZtuBE/5KpL0W08CpuXEdm3cRdRDTuZ7fxba+o+erX3E/AJD68Wc/BX1Pru6HH4r3hMSDAvI8r758gA1nqKFqIljkM99Mk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789050437; c=relaxed/simple;
-	bh=1uZ4ZGna+PhskcuJmNzd/28vPy7Uw3Ree2Foa3UydOg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X7GkWJEXLJc8zb6eppH+rLTweMig+h4SzhAGcOtFmWEzyhOhE/WUY6z8l48zTiEvN6OhZOlHV2+4bCZTtTQSVJSDaHc4RIeAE5wpsAxlkXyldji50ahq0F6HxzGwLOPfQjzl+XUTkSq87+92S7xKvj81o5rRfA+GidF4sTqwVdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ftTz6hzn; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 887D049E5C1;
+	Thu, 10 Sep 2026 14:28:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789050521; cv=fail; b=HWHpSyisvPROsr/NK/2jEhNSmmVEN8x0XnFgZ/koxUobGsAcck9vEo3KVxjdk2mE2tulB2tUgcx+aeHaY4IXH6hAT/ECvpvgSXXZ+CFRGSJh2rxfgCXU7iv8wjrlGX8NExaIAXclC0l3EitXMRFLu3dK70zR6qOLgkSzS26rGhs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789050521; c=relaxed/simple;
+	bh=cWF9eC7yZOC8uSjYvCfosVRiIemWgga+1M/IgTIizEs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=HjOlZmUp4tsKxxrMUaFlttMXfbY0Q7TrI3gEJe4UWQDP4YdnR8qtbUMK3Vdy9nDfDocYWDfSimLHTiwsmU5QJCETdgUOHzfvheFgqJCSNaYFTMSCXIaAFi5Kx1Q9rQTScJ3I23e7YuJHuv9SR+wiAGVNkaCGM+Cv03TyQ4uvV+I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=EqKNAqDe; arc=fail smtp.client-ip=40.107.209.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ftTz6hzn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3E8C1F000FF;
-	Thu, 10 Sep 2026 14:27:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789050435;
-	bh=fjmjeL0fo+qZvcOSZUel0KmILfsMo70LzvFm90HVMgY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ftTz6hznc8SUZalHQpTx+KZ7om6BFyqwfgpRU/G0qsVbxJFzDmYGK26ur2OE0Jvhv
-	 4RwJgwDGFzlGY3HEr4cFqJbMWGfhv/uEFqvlQoo+O2nQciUt3UacNDOq0/GpPeJPoC
-	 AEZybWEmuYAn0wtO6KIyjFlPhOQLlUh+DhwvJWTGcinEhb+dyp1717vj+j2zjknY6H
-	 Y9Gb1VsKkJdsXRvZk86ndn8YNqG57uz0jahBuzAogFYCxKEwecsySvw2TCWy9EgLdh
-	 iL2AuGpdUp/nTJBvlF8wSzUdRq/NPZsQATCGue8GDWreZBdTJ1JNK6Bj5nvOIjhx+0
-	 tE2G3hh7kVkww==
-Date: Thu, 10 Sep 2026 16:27:06 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
-Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, robh@kernel.org, 
-	bhelgaas@google.com, p.zabel@pengutronix.de, claudiu.beznea@tuxon.dev, 
-	linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/7] PCI: rzg3s-host: Fix runtime PM handling in the
- NOIRQ suspend/resume phase
-Message-ID: <rv4yjo55edby5dkinwoz32rdnsnjffjhhwbhs7wvrtvvtz7nkw@gpffv2q3i4kq>
-References: <20260814141312.2947972-1-claudiu.beznea+renesas@tuxon.dev>
- <20260814141312.2947972-3-claudiu.beznea+renesas@tuxon.dev>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="EqKNAqDe"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bxcXF0mR3LZQh/H2SIkyul2SGdDX4hq8G9T5t+7V9JpHUPrWvfyJp08pURVy9LDWezm1PojBFvDFnVODGqFLdb9nyU2Qo43EzxOY9eZ6FtPfkVnLhagFqIMsgnwZQ9ZqUG1cEfCFwkr9MbflE8jNOK5zydaPmjdBEMfWxY9QLOloCqddue47mLAaUwCigP34C1JDHWUCQYL3+2B8ov30CykH+6OjBHfRUhuvthgy9rR38R4K37LWKXBrxiI3Bo2L8sqAQgq4VtKUwQ+o2xadDG+cFBmB2vj33Y30QlEgRBzLsJn3fONDVjCAQONB4axUS2+96NP6gyC6DqzK+CIz7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=L7cA5AYlYtqoyA0K92p5DOLIFsCJt2ByckcXzIqodcM=;
+ b=Bg3uESTfl0trgbMMGzYGsjrvfd1ULkzzxUzymuv52tdZvXnIWPublBFy/JiqKZByEbWWuei41IH3ArXBhzzW/Xuo0KfIwHP2AjGFP3M70CDgoxsybLiBFD74MWOYTHBsGwWqCpO1BrFb0h8LV5ch09ko5Sx6nMArdI7wzHm7WnWWkpBuC2inpN5agiJtcovx0fcv8fDWUNdl06SNyEt1Qc+jQ+ZVB8fcCtOaSW6KCRU3EVybHHURQBRpyOphTjYuC1X0yjUYUQDPv2+cvoHU/e22rHdVMFWCCjk3CG+KPboE4hHrVIe9cMJwxcwIrILJb90Qe0LiQmH64gVndAxcxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=L7cA5AYlYtqoyA0K92p5DOLIFsCJt2ByckcXzIqodcM=;
+ b=EqKNAqDetu7a3jX2i/5T6bZBcO7RrLEhR+M/JisJkXwk8OfhMsdJwEOEP+2vMoPMMGOU3Zeh+h81xfvfF4NWjTUw5Qdw+5Jnmpagctt7DpQY49PFcU3+HmoIwE4ZBtoDG+/NsrjMdyAnPMQ9DKhyCaAVKLYExgG50eTqbE7mKaIMDJ8jwdZrp7fYtiSU/uuGMO9BxWjOPYQUaFSXLFGfwLR4nDTr/cChG7COSQNs1s3fHg4Dnp2qewIQH9MCmioQ7XBvWIUYBKvEmnfGC73z0j9nAiW5sdmNU+VsuQVwgeyAlwoNrbISX2imSXZYXkbYqdEtDwb5ojZ0RRu2kVFBqg==
+Received: from SJ0PR03CA0149.namprd03.prod.outlook.com (2603:10b6:a03:33c::34)
+ by CY5PR12MB6060.namprd12.prod.outlook.com (2603:10b6:930:2f::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Thu, 10 Sep
+ 2026 14:28:26 +0000
+Received: from SJ1PEPF000023D4.namprd21.prod.outlook.com
+ (2603:10b6:a03:33c:cafe::83) by SJ0PR03CA0149.outlook.office365.com
+ (2603:10b6:a03:33c::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Thu, 10
+ Sep 2026 14:28:26 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ SJ1PEPF000023D4.mail.protection.outlook.com (10.167.244.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.1 via Frontend Transport; Thu, 10 Sep 2026 14:28:26 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
+ 2026 07:28:00 -0700
+Received: from [10.221.192.238] (10.126.231.37) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
+ 2026 07:27:53 -0700
+Message-ID: <b55e9bb6-b248-4291-9b10-6b8cabddd272@nvidia.com>
+Date: Thu, 10 Sep 2026 17:27:51 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net V2 3/4] net/mlx5: SD, unload reps on shared FDB create
+ error path
+To: <netdev-bot+sashiko@kernel.org>, <tariqt@nvidia.com>
+CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+	<kuba@kernel.org>, <netdev@vger.kernel.org>, <pabeni@redhat.com>,
+	<agoldberger@nvidia.com>, <edwards@nvidia.com>, <gal@nvidia.com>,
+	<kees@kernel.org>, <leon@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-rdma@vger.kernel.org>, <msanalla@nvidia.com>, <mbloch@nvidia.com>,
+	<ohartoov@nvidia.com>, <parav@nvidia.com>, <phaddad@nvidia.com>,
+	<saeedm@nvidia.com>, <horms@kernel.org>
+References: <20260906071332.3759199-4-tariqt@nvidia.com>
+ <178895614589.219967.9154250282246662158@kernel.org>
+Content-Language: en-US
+From: Shay Drori <shayd@nvidia.com>
+In-Reply-To: <178895614589.219967.9154250282246662158@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260814141312.2947972-3-claudiu.beznea+renesas@tuxon.dev>
+X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D4:EE_|CY5PR12MB6060:EE_
+X-MS-Office365-Filtering-Correlation-Id: cefed145-b464-4636-9e39-08df0f47c712
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700016|1800799024|82310400026|23010399003|7416014|11063799006|56012099006|4143699003|10067099003|18002099003|22082099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	41mO0s1u+HbU3cxT2xZbCpGXh8O1T8Ld/3qar/HDrrPH+2iDcCqTKpvSzJx1Q7j6yLLiHmAFNayJdTbktgOgf33OtNB0cqud9tAiYZqqHENhhUQP3zgTGRFD2Qplz4rWgbGgNXI63h+ARM0egnWV2m8Di1kup9vGN+humZjCX/IlHvxprjISVoWEEI+ZD52aX6FLWGqpl6Ly63N+AscVF6jO7e0rUJ5zWNL6AheuCSW1FW4uCLxlf8923/8zWqCUZTm6Zf2vfBb+8bdSrDfYsfTbm1lUqM95F1TPv2yXbrWl53WPFinxQ9F7CamViY2YrfxZkSF5dsogWhQ1mpb+esfZYUZJSezKSkNT9XJWxVkBNqk5ydTVa8AYzPCmCif57L3kXbFOVAwwol0gt53f3Ocvt7bKkeWzqLzSyI6qBXGKwmLuUL16BY+TmxJ5zmrD7TlOIB0vcHxwQwtRSFia5Ftt0TeemuRQF43obGoNtqV1lUR200ppArFyV7mAD2NW03qVmZrpmvskkQ9nu+NgB8FnHsm4iy/x0h6sbZcD8tVyw2RbePN5NU3teqBjMdZyfSmnKxirIgG0T5h2s7tCv9u6VsImhyakGmWGJio0v/tabzbgbW6+aDQcfLAazqY+Oct7duamfmJWG9vlkG6l+aRoWV2s2l/jaCXlWJa0zNhAcHEtRdPRwkbfqkEJ1zQDXxAwdsjJzMk0/UZROt+rOg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(23010399003)(7416014)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	MFw9hGnCcYjiK9+WZvvxeURbsTjLIRmaBJ/03eDEHBROU+rICK+jINmMrleoGUNaM2+IMIPU3O35XRl7ND8auBy405yfRANq9mwdJzUZNNVgD+6b3hkWBZmx0Wnb+FxRxul8LS2Q8/4g6bNgDpQaoxw+mtCHj/eEZpfQxgzwXzEbSRZdBgS/+jsSHgNoL+KnriTkRxubVg0mp9+wSjVKWwVSViXG0JX+Z3yEP/S4TmeIl7lyhLiaU/mHdFOZW0Bj4s2LRB0KiQ1mph3JWx/JCvvEPxgMlq4daGCw4S9hhKB7IhvHlSCed7ioUiKtDqp+jF46mWGuNUYbEpDTDSnpZ/lOdQDNme265hPkdmTeN8VlmA9az/muAiG2IvBTyLUv5+x3JUK2CPb98UTvZXjGYBb+CEEvdSF79eFuCY1F0t6TVuZgNmMvMUYw6fceyvNf
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 14:28:26.6488
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cefed145-b464-4636-9e39-08df0f47c712
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000023D4.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6060
 
-On Fri, Aug 14, 2026 at 05:13:07PM +0300, Claudiu Beznea wrote:
-> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-> 
-> The runtime PM documentation states the following:
-> - During system suspend, pm_runtime_get_noresume() is called for every
->   device right before executing the subsystem-level .prepare() callback
->   (in device_prepare()). In addition, the PM core disables runtime PM for
->   every device right before executing the subsystem-level .suspend_late()
->   callback (in device_suspend_late()).
-> - During system resume, pm_runtime_enable() is called for every device
->   right after executing the subsystem-level .resume_early() callback (in
->   device_resume_early()), and pm_runtime_put() is called right after
->   executing the subsystem-level .complete() callback (in
->   device_complete()).
-> 
-> The driver's .suspend_noirq() callback is invoked after .suspend_late(),
-> while .resume_noirq() is invoked before .resume_early().
-> 
-> If:
-> - the device is not part of the wake-up path, and
-> - its runtime PM status is not RPM_SUSPENDED,
-> the generic power domain .suspend_noirq()/.resume_noirq() callbacks
-> (genpd_suspend_noirq()/genpd_resume_noirq()) invoke the driver's
-> .suspend_noirq()/.resume_noirq() callbacks and call
-> genpd_stop_dev()/genpd_start_dev() before and after them, respectively.
-> 
-> Calling genpd_stop_dev()/genpd_start_dev() allows devices whose power is
-> controlled by generic power domains to be powered off and on during
-> system suspend and resume, even though their runtime PM usage count does
-> not reach zero.
-> 
-> Since the runtime PM usage count is incremented in device_prepare() and
-> decremented in device_complete(), runtime PM operations performed from
-> the driver's .suspend_noirq()/.resume_noirq() callbacks are no-ops. The
-> actual power transitions are handled by the generic power domain
-> .suspend_noirq()/.resume_noirq() callbacks.
-> 
-> Moreover, attempting to runtime resume a device while runtime PM is
-> disabled may return -EACCES. This may cause system resume to fail when
-> resuming after a failed Root Port reset, as described in a subsequent
-> patch adding hot-plug support.
-> 
-> Remove the runtime PM calls from the driver's
-> .suspend_noirq()/.resume_noirq() callbacks and rely on the generic power
-> domain callbacks to power the device off and on.
-> 
-> Fixes: 7ef502fb35b2 ("PCI: Add Renesas RZ/G3S host controller driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-> ---
-> 
-> Changes in v3:
-> - none, this patch is new
-> 
->  drivers/pci/controller/pcie-rzg3s-host.c | 50 ++++++++++++++++++------
->  1 file changed, 38 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/controller/pcie-rzg3s-host.c
-> index 830cd7c76699..bbc5bcec03f1 100644
-> --- a/drivers/pci/controller/pcie-rzg3s-host.c
-> +++ b/drivers/pci/controller/pcie-rzg3s-host.c
-> @@ -1961,19 +1961,32 @@ static int rzg3s_pcie_suspend_noirq(struct device *dev)
->  	if (ret)
->  		goto config_reinit;
->  
-> -	ret = pm_runtime_put_sync(dev);
-> -	if (ret)
-> -		goto power_resets_restore;
-> +	/*
-> +	 * Since:
-> +	 * - the runtime PM usage count was incremented by
-> +	 *   pm_runtime_get_noresume() in the system suspend/resume code before
-> +	 *   executing the subsystem-level .prepare() callback
-> +	 *   (in device_prepare()),
-> +	 * - runtime PM has been disabled by the system suspend/resume code
-> +	 *   before executing the subsystem-level .suspend_late() callback
-> +	 *   (in device_suspend_late()), and
-> +	 * - the PCIe driver's runtime PM state remains RPM_ACTIVE (it was
-> +	 *   runtime resumed in probe()),
-> +	 *
-> +	 * any runtime PM operation becomes a no-op and may lead to unexpected
-> +	 * failures.
-> +	 *
-> +	 * Let the power domain's genpd_suspend_noirq() callback disable the
-> +	 * clocks, as it already does.
-> +	 */
 
-I believe you can shorten the comment. Like:
 
-	/*
-	 * Since the power domain's genpd_suspend_noirq() will disable clocks,
-	 * there is no need to manually invoke runtime PM API here.
-	 */
+On 09/09/2026 15:15, netdev-bot+sashiko@kernel.org wrote:
+> External email: Use caution opening links or attachments
+> 
+> 
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider:
+> 
+> Critical: 0 · High: 0 · Medium: 0 · Low: 1
+> 
+> - [Low] Commit message of "net/mlx5: SD, unload reps on shared FDB create
+>    error path" describes the change only as symmetry ("The teardown path…
+> 
+> --
+> 
+> net/mlx5: SD, unload reps on shared FDB create error path
+> 
+> The SD branch of mlx5_lag_shared_fdb_create() now unloads the
+> representors on the error path after destroying the single FDB, matching
+> what mlx5_lag_shared_fdb_destroy() does.  The patch carries a Fixes: tag
+> for 68c2dd59a6c7 ("net/mlx5: E-Switch, Tie rep load/unload to SD LAG
+> state").
+> 
+>> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lag/shared_fdb.c b/drivers/net/ethernet/mellanox/mlx5/core/lag/shared_fdb.c
+>> index 6b4ad3c53f2f3..424040918fa37 100644
+>> --- a/drivers/net/ethernet/mellanox/mlx5/core/lag/shared_fdb.c
+>> +++ b/drivers/net/ethernet/mellanox/mlx5/core/lag/shared_fdb.c
+>> @@ -270,6 +270,7 @@ int mlx5_lag_shared_fdb_create(struct mlx5_lag *ldev,
+>>                        pf->sd_fdb_active = false;
+>>                }
+>>                mlx5_lag_destroy_single_fdb_filter(ldev, group_id);
+>> +             mlx5_lag_unload_reps_from_locked(ldev, filter);
+> 
+> [Severity: Low]
+> This isn't a bug in the code, but could the changelog say what state was
+> actually left behind before this call was added?
+> 
+> The commit message only describes symmetry:
+> 
+>      The teardown path unloads the representors; align the create error
+>      path to do the same.
+> 
+> In the SD branch, mlx5_lag_shared_fdb_create() sets sd_fdb_active for
+> every group member before the rescan and the reps reload:
+> 
+>          mlx5_lag_for_each(i, 0, ldev, filter) {
+>                  pf = mlx5_lag_pf(ldev, i);
+>                  pf->sd_fdb_active = true;
+>          }
+>          ...
+>          mlx5_lag_rescan_dev_locked(ldev, dev0, true);
+>          err = mlx5_lag_reload_ib_reps_from_locked(ldev, 0, filter, false);
+>          if (err) {
+>                  mlx5_core_err(dev0, "Failed to enable lag\n");
+>                  goto err_rescan_drivers;
+>          }
+> 
+> Non-uplink reps are only skipped while SD LAG is inactive, per
+> mlx5_esw_offloads_rep_load() in eswitch_offloads.c:
+> 
+>          if (vport_num != MLX5_VPORT_UPLINK &&
+>              mlx5_get_sd(esw->dev) && !mlx5_lag_is_active(esw->dev))
+>                  return 0;
+> 
+> so reps do get loaded in that window.  If
+> mlx5_lag_reload_ib_reps_from_locked() then fails, err_rescan_drivers
+> clears pf->sd_fdb_active and calls
+> mlx5_lag_destroy_single_fdb_filter(), which left the VF/SF reps loaded
+> while SD LAG is no longer active, i.e. exactly the state that
+> 68c2dd59a6c7 was written to avoid.
+> 
+> Since this is Fixes-tagged and therefore stable material, would it help
+> to spell that resulting state out in the changelog?
 
->  
->  	ret = rzg3s_sysc_config_func(sysc, RZG3S_SYSC_FUNC_ID_RST_RSM_B, 0);
->  	if (ret)
-> -		goto rpm_resume;
-> +		goto power_resets_restore;
->  
->  	return 0;
->  
->  	/* Restore the previous state if any error happens */
-> -rpm_resume:
-> -	pm_runtime_resume_and_get(dev);
->  power_resets_restore:
->  	reset_control_bulk_deassert(data->num_power_resets,
->  				    host->power_resets);
-> @@ -2011,13 +2024,28 @@ static int rzg3s_pcie_resume_noirq(struct device *dev)
->  			goto assert_rst_rsm_b;
->  	}
->  
-> -	ret = pm_runtime_resume_and_get(dev);
-> -	if (ret)
-> -		goto assert_rst_rsm_b;
-> +	/*
-> +	 * Since:
-> +	 * - the runtime PM usage count was incremented by
-> +	 *   pm_runtime_get_noresume() in the system suspend/resume code before
-> +	 *   executing the subsystem-level .prepare() callback
-> +	 *   (in device_prepare()),
-> +	 * - runtime PM has been disabled by the system suspend/resume code
-> +	 *   before executing the subsystem-level .suspend_late() callback
-> +	 *   (in device_suspend_late()),
-> +	 * - on resume pm_runtime_enable() is called after executing the
-> +	 *   subsystem-level .resume_early() (in device_resume_early())
-> +	 *
-> +	 * any runtime PM operation becomes a no-op and may lead to unexpected
-> +	 * failures.
-> +	 *
-> +	 * Let the power domain's genpd_resume_noirq() callback enable the
-> +	 * clocks, as it already does.
-> +	 */
 
-Same as above.
+good finding, will spell it out in next version
 
-- Mani
 
--- 
-மணிவண்ணன் சதாசிவம்
+> 
+> --
+> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260906071332.3759199-1-tariqt%40nvidia.com
+
