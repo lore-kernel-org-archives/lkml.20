@@ -1,117 +1,83 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA7C4AC16D
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:14:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C538E4AA028;
+	Thu, 10 Sep 2026 15:15:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789053299; cv=none; b=GowbmmOmUe3pCBjAh2Rgr8WvmkcvkjtU63JzyBB92rFAi0FCREIj6Ao5oySIL2eKIBPV0Mjogpnr/uypS1DBdUMlDQymixV2434H2uqMPFIANkbVinrHUjgX4o14HjpdbH02aViN78vZ2cCor/1i9sgVBFnIc4q0Yuifby18Fec=
+	t=1789053326; cv=none; b=hk/wYPW+457xvtk9RojcLWR2UGQ1tpA5PrE2lOtU+cs3APcjCt/5uj1F6FjEc2VI4xfw7y/bC8ljKX1KEAbp5fBLkNa6seseia9sOZVxKmuTOEMozNMPifXwMvn/PNTe10lqLd6LSUqmqkpMaYpkeOowSSnbVCidYJr4C5B51ao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789053299; c=relaxed/simple;
-	bh=0lVp4AjJ0cED1bbit+uYOsbChUQdrS+rWhX4sd/7pk4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eTjJvQiSJxc1cqgbCjBErUBR7AT6o7sfkHBQLDKmMJ0s28exfP61NaKRoC73ZDPo5rVm2Y+iHa5VYuGY/cuNWsVrXpWh4JCISNL7QPo+3vc7ARSYU03EUkSCScSs7LtcfJe8WVHMancGYAfJDRExwiEqypuczFt+Otky4xZdq5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Ejt7K3Of; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789053326; c=relaxed/simple;
+	bh=bS0iTk6y+iWy1QAqA6OGZlrz7j5cIbruQlCr8yObKrk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=e/BkYtXYL/Lv4GQNd4LATQVTPOSBKMp5v1QxDwcF5jnbGJRQmamY1WzUBFASDv7uhe1cJPW/Y0jxvPzyJSn5IALftETKeIaHQW/WpD3G++xm9R4xVf4/dkWZ9/QmdbQfZRN4uEoqz7iBIFsNCP1PQ7uyrTLDC96AIgTwGqPhxcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h/SKbX9A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Ejt7K3Of"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 51574C653E5;
-	Thu, 10 Sep 2026 15:15:30 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E9C425FA2F;
-	Thu, 10 Sep 2026 15:14:48 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AD77D11C7926E;
-	Thu, 10 Sep 2026 17:14:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789053287; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=yAsi3cGu3TI2BDEMG0McW5k+U5cb9+s/V5vDEJqx/gQ=;
-	b=Ejt7K3OfGInw+hfhX6r+/ekZZwYvgCR7ywEG9UdyAexrsSGT3SFgn0qpvOrlv1cpOE6Xx5
-	PXA9EOZCiVipYDw6OUmhBZSbf9KfuahmG0Qrw2I6ukfaZ4IEs/sI6rE8AM7/ddlQSoCx7b
-	1Bua3KlVnCTwNF/DzAJo0QMGUML4zaSkBtBhtu2Ww0FfYw98GLFGuMcgtsI0FC5GysxLTo
-	Vq5q/oIrh4VR95gU+jgw7IGtUPLL5yaxJ7eCsBwhFl4EodqdT54NQ8zixsqmX6m2bq1XFC
-	uJc/+vtjhgbjk2Y6QsqQUKZMP/qqJ/ciMiSlC91Q1L7XgKSpluH8yo64pmJtEQ==
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Minda Chen <minda.chen@starfivetech.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Jan Petrous <jan.petrous@oss.nxp.com>,
-	Ovidiu Panait <ovidiu.panait.rb@renesas.com>,
-	Jose.Abreu@synopsys.com,
-	Nicolai Buchwitz <nb@tipi-net.de>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h/SKbX9A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F6EF1F00893;
+	Thu, 10 Sep 2026 15:15:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789053318;
+	bh=fVdN/IdPyKrChyTaVTrvxaC1UxDNqKSBthXzuxU3lS0=;
+	h=From:To:Cc:Subject:Date;
+	b=h/SKbX9AtmJDV1I72SaIwh2PHJ/VuQZUe9BPd/VhFtOFztHqu8TIOV3irEgOx0K6d
+	 6OZZNPpE/I8XVXgvXjUsiRp+wL0MvI+rmV5GP4esJP1ROIfUKrrWi7A9FQmo88AJrc
+	 VB8W1Ksk3EGyDz6nr4d0ihfq/8QX1G+Y8WkmvUQa1+m8XUg4rLbu/4eftzM4lC7ieO
+	 qV8hC1KNgxfWUN29w9XHTK+FVfLBIYtR9ZjNHdiscyhI2hXfaAG1yyxSkTVec3tdwk
+	 ToedSeJi1bIfZ8+uPuTk1izBDzHFpjYJw0O9uYG3em0RBfj/4Zhj0WSP1M3Vlu2QxU
+	 viHJjEhZ2kwNw==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Masami Hiramatsu <mhiramat@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Breno Leitao <leitao@debian.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+	Douglas Anderson <dianders@chromium.org>,
+	Huacai Chen <chenhuacai@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>,
 	linux-kernel@vger.kernel.org,
-	thomas.petazzoni@bootlin.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	PKneuper@dspace.de,
-	David Laight <david.laight.linux@gmail.com>
-Subject: [PATCH net v2 6/6] net: stmmac: selftests: Account for alignment shift on dwmac1000 for Jumbo test
-Date: Thu, 10 Sep 2026 17:14:03 +0200
-Message-ID: <20260910151404.976753-7-maxime.chevallier@bootlin.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910151404.976753-1-maxime.chevallier@bootlin.com>
-References: <20260910151404.976753-1-maxime.chevallier@bootlin.com>
+	linux-trace-kernel@vger.kernel.org,
+	Sang-Heon Jeon <ekffu200098@gmail.com>
+Subject: [PATCH v4 0/2] bootconfig: Fix integer overflow problems
+Date: Fri, 11 Sep 2026 00:15:13 +0900
+Message-ID: <178905331374.213925.295025394754459843.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+User-Agent: StGit/0.19
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-On dwmac1000, we currently only support single-descriptor frames. The
-Jumbo test started failing when NET_IP_ALIGN was added to align the IP
-header, as this tests tries to send the biggest possible frame.
+Hi,
 
-On dwmac1000 the DMA transfer is aligned on 4-bytes, so adding a 2-byte
-shift at the start-of-buffer address means it takes a whole extra 4-byte
-DMA burst to receive the Jumbo packet, causing it to spill over the next
-descriptor.
+Here are v4 patches to fix bootconfig size overflow issue. If there is a wrong
+bootconfig size is recorded, it can bypass the size check in the tool and the
+kernel.
 
-This doesn't seem to happen on dwmac4 and xgmac that appear to correctly
-handle unaligned xfers (only tested on dwmac4)
+Here is the previous version.
 
-Let's account for that in the Jumbo test, reduce the size of our big
-packet by the align size.
+  https://lore.kernel.org/all/178900555453.200943.4719889510443114485.stgit@devnote2/
 
-Fixes: 23680bf5f8c6 ("net: stmmac: restore NET_IP_ALIGN in the RX DMA offset")
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+This version removes redundant and wrong size check in setup_boot_config()
+and add correct error message for size > XBC_DATA_MAX.
+
+Thank you,
+
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c | 3 +++
- 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-index ec56ee0031ab..fc8d69260f43 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-@@ -1776,6 +1776,9 @@ static int __stmmac_test_jumbo(struct stmmac_priv *priv, u16 queue)
- 	struct stmmac_packet_attrs attr = { };
- 	int size = priv->dma_conf.dma_buf_sz;
- 
-+	if (!dwmac_is_xmac(priv->plat->core_type))
-+		size -= NET_IP_ALIGN;
-+
- 	attr.dst = priv->dev->dev_addr;
- 	attr.max_size = size - ETH_FCS_LEN;
- 	attr.queue_mapping = queue;
--- 
-2.55.0
+Masami Hiramatsu (Google) (2):
+      tools/bootconfig: Fix integer overflow and truncation in size checks
+      bootconfig: Fix integer overflow in initrd size check
 
+
+ init/main.c             |   25 +++++++++++++++----------
+ tools/bootconfig/main.c |   13 ++++++++++++-
+ 2 files changed, 27 insertions(+), 11 deletions(-)
+
+--
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
