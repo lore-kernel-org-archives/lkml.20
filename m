@@ -1,197 +1,215 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EA0D3B2FC8;
-	Thu, 10 Sep 2026 21:05:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD633AEF51
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:05:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789074303; cv=none; b=JZKgniN2xURnWkVpduh9T3iZ9HvW3cNaoQasWuirI9nI5M5Zwg77ntjRAxPqPrRQKhBZD0n/S0/NUdnqqfOeYW1zZ1pIZl73TubmmY7mMBj0QzwyhqDSWFPOCL6Ansv1vzd9OgPWPxhdoNm+xKTdr9opO4UOapqWc3sE7wb03PU=
+	t=1789074314; cv=none; b=AbBtOW0bFwrS2zgtSUrVeJ1jcheC98IcKzRKE5Aacn/UIGGe7d7XRldaKM1akrSbRlAagawCsiVYt8dJN8qCD6MOC/KdWBM7YamMl0jXiXoAk6uLZp9tYI1KoECeg2hicamRtEjNGqep4pfLcazY992UOeitzxR5mukO0vZ69TU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789074303; c=relaxed/simple;
-	bh=g4G2N9tTCSNJgv0JkQxbG0D0XViQ1kqc6lqIGOspZaU=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=W00yrluA+V0CHJTQNj8nQzcWnpMHJzZPpL4iVgzHe4mVZIA9aCSydxjx8Egxz/DcuvYxHgPvJORIngqAkS+DJWLUHhsowEM6M8/+vC+gDG/MHAYpZVIB/DizENmcH1TSRnqmEsr4ca1Q5KpAYbgf7JNuGelz2qdqg2Gr91+E9hc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kH706mDG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789074314; c=relaxed/simple;
+	bh=8CAYbrJPxz+s8RC8coWglgAogcKoHYCar7gy9Kwb38c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ek6LJqLyi8AomwzyEtTjHoKxfORRhWN4kji3GZ61hvmQhoNAxCijGFJEYOTyA7xdYQ0YNelvG5cTd4xWbryl5MiEV/pm7tJu4ghW0uik2U9uXzwkgAfm8f3cVBMufjgfhTwfAaRmfvykHbMtX7m7e2/pG5XJIPZWd3pMGAwj7RQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Gev1zpaq; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=YK3SmORO; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kH706mDG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40D471F00893;
-	Thu, 10 Sep 2026 21:05:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789074301;
-	bh=NgfEzAFz9xy3/yPYVq2IScFdGQbsyE2c+oXPOxTIUVw=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=kH706mDGHlUrM+NBu/Z9H9ve09XdKCvcZzfNCvzzMm0dAqMnEVjyT+zqlCulzhevM
-	 X9Vc2O2eqfvsXLYUREsKMwiuGBQja/ZLbLhKY90a8v6gNBz3i5shhG2o20qRHYUxBC
-	 eGf3GMZYf/7Y4hTQ/AbWCS/ZLcTWFIQNMj1pB/DbwHNxsoR1Ds89xQ6C/08LpaNSIw
-	 G3xkhS1L7JIo/HwO+Vrz/SWr1g8qU4KMHmXAr8yF9uuzJm0GP/j2VG0+yDM/ZYI34F
-	 VyHL8srXfDJo2Km7P2x9W708VEok2t1+Ce+YX7ZhThPztinGXP3vzFTM/sY6eVLtkf
-	 O3VsQR5DvFKug==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 8D1EF198003A;
-	Thu, 10 Sep 2026 17:04:59 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Thu, 10 Sep 2026 17:04:59 -0400
-X-ME-Sender: <xms:ehujaop0KjGCWDnOidhQXdXr2Ucze5XrCYAOr1GQKjZj-2yHPsT1aw>
-    <xme:ehujapdujgoeuEbVKST7sIUSRo06jwmaUNDZaohTKJmxw2f0jXJrAD7nsttxgC_wp
-    nuT9MCmqNZuN4OOUauTGXeau-API5ADsxVoapTeZ72cSwcV1x9_lC33>
-X-ME-Proxy-Cause: dmFkZTEWXG8uXABZnDp8COYBIV980lHBjkhUnJ4A8HsZSGNLXrY6/ZCramCh3PXHEgeUY3
-    7Pj2ahlMjc0X2NwZNd04Ot8HSRe7D7v/2l82ANFNTqAe28Mi1IDiqtizfk881n/bGq2Ngh
-    UcEwWZhoIIR30sp8Glbuf1bZMz/LGD96fM3OHW50xjOEy8unfRLyLv7Afop3UBBvXjuN6B
-    bty8npgWpNjS05xmBaIO5RlSmncXhf0oAuvCG708r94nYAzOBIkWq4erTvpK7BzqJRgWWs
-    Oc2V7oZm/7+bTKwHM01vtqo3rNLJhYjJ55s36457S0VGUolrzIZe0Pvx/Ci3iOre7l2Zkn
-    TpHaILeWXn8xTBvB2MX2Gz0Ni+FCEGKId0kbObna0ut3wxT05+8jRxV4PwtTqDEyUozGC0
-    1fB3z+6Ga15+OaLlTdZ8ntOGwyfULVD//2ywaJgXLQ4zMKZCplQQZu3U+Op1lnUEwutzbU
-    EoCC74M091wxoibEysIyh/DC4yWRKoviq2fCWPiG3xjvmad0G/1scqGIIRTxypvfOFXXnx
-    xV3i8YOTlMrAEmCUFNL0Tgbb1gmUJtDpv38VbFA5wDOtAeWT2aAD+nSafqG+3GeBkNsk4w
-    zSguvqWi9ULX0IQh6oKBO/9loUwkDXZx8LIicWnDwjvgbEdwV5g7jvS8+k6w
-X-ME-Proxy: <xmx:exujaldg2hKd_jOwjUq2e6iMWUrbh8Aza-vGhf8jPqBsTjw9Vn8TzA>
-    <xmx:exujam5wLnOE3cOY4FAID6yObT6RebxzJDn2GX8JTD8-z2OzyyT3Xg>
-    <xmx:exujaoUN9BWSBNzpIEu4bcn4z-27hk9vI_B5b_njtBAcV8FEP3vQZQ>
-    <xmx:exujal6vmE1F8E0nsIKqWvpjFUW1biGd1iyE701YBQOfOUxVszyYeg>
-    <xmx:exujajrurszmh9Y3-1n-NcCfKl6RwyKGIQoYL0kgL_NBqFosktthP_-4>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 185E1F8007D; Thu, 10 Sep 2026 17:04:58 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Gev1zpaq";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="YK3SmORO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789074311;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=MXKna9dovDvqL7SIQlWbS8xMZO8QuDNAqOqMbSq+Onw=;
+	b=Gev1zpaqYmKg2DhqSP+StZ/lxLlIQJelUWLkCaKdG8X+HM29W0Nt41k/ZEuwNh8nH6k46m
+	IZ4PnrgPuSZuKVGC2UB1rpvxGnaXripP4xyXNMOOT02INh/srxOKkr1I2r0gTNJ+DnCMuP
+	hcTSTUci5f5vDfLgGluPLfZJJC28DeQ=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-310-N0AI-0g8MruL6o2mC0dGzw-1; Thu, 10 Sep 2026 17:05:10 -0400
+X-MC-Unique: N0AI-0g8MruL6o2mC0dGzw-1
+X-Mimecast-MFC-AGG-ID: N0AI-0g8MruL6o2mC0dGzw_1789074310
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-53018848232so2846711cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:05:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789074310; x=1789679110; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MXKna9dovDvqL7SIQlWbS8xMZO8QuDNAqOqMbSq+Onw=;
+        b=YK3SmOROM38tUDNBUmrzu72gcqky4NlcBEQAcBeOJ5lXR8TgGmIlHlSVOp5SSKNlfu
+         RcXhpwG5Hkptr3N5cUERt7isqoVJTXiODLCw11zLKzK1sVlq9pbiqXJ623F2OzvQkjel
+         FG/UKLv3DnDtTjY9ReHQ/WpB2FHrkDWdVjLJE9QYVZN1lF+HJsPz6q3lfJmmfLyL6aSO
+         +eLb8OikGtNBVCu5QRDfXohlVlJLbk81yWq6Tq+P8wMkfUpqIpRbusMO32ILHyVEFF4+
+         RUbURBn1s2CJj9FuqvrlhyPP5Px6VXEEfjqgqQZWXn/WhiyrgIgBg3o6v5rcfC0voq9g
+         Ou3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789074310; x=1789679110;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MXKna9dovDvqL7SIQlWbS8xMZO8QuDNAqOqMbSq+Onw=;
+        b=Ou35JpMFhx2JsNSgkhruoo6mtiHJpSjc5lGtYxZuJkGheOv2zhvDobTk0uehtS9dTx
+         CAaGWRkKHoGpp98yhbjpeDf8ic9CDh1OUmsM5XWCO9qREWxBdSFBbvjO3ZzMr5ToJz46
+         sBpv/jF68AJnBBPIpwhF2SexMp0iz2ra5S0nkfbi7QZ7EmZf9urLS2sJGAq9JL98t3MQ
+         ZAI7Yk52rnSO0ErXOtapzZqC7RN3pN9x/WBjxhXZefyCQouL3LU4c43yqepMDtpaNvx0
+         v6WdEeE6kw3xJ08BXhx0CUMB7pYI8NlOytYxziMtw4iK+OunQNoEcVPk7He1+5Gqe7Ti
+         OrkA==
+X-Gm-Message-State: AFuF++lQd7Xx32HaV2Q5ZOF5mDEWzWk2e+/WOxKgHWMJbjq3mrKpYLVh
+	Lo6/9tBtWV+DdKQhe5xUb7ClALxRhDxIoAZwBX203ol6wxUy9/LETEoOvqCsXP+Au5pQykLz1bM
+	M7rtZJfxgphdkjRMFvp+4obclw6LNqBzt1ApeJNob8mfs/buOu5isT52PGVtvQpUKHLzdI+0deA
+	==
+X-Gm-Gg: AYBFou0kD9lZMfrJDk+sq+ymmVkJUOhxdPlfqULX61udOt0u2dr3b5GTabixfBPzJWK
+	hba0B56tMvopzXvLrNfDuDalaxg1X6fn5HiDQnCFw896Dq5vV7xDijzLTL0fBz9PadOzK56u2o5
+	mZjUTvIdI7KzfUXXsb+/XbMhQSZiFfwiat9EgvWPfZymT0l32M7clvOV+yIR0wlV83ZNyets8pU
+	JYitokearHKgvCNvzmo0Skxa0UjG8pn5oYwAs2/5G0GoTzUwLN2geD010gEf24GlKA2WcZI+QlC
+	a/prr5Mb5QYvMSV9wAQL054iztD6Q6YUXm1VdJG4sB94p3z5NYLWVtIQkozv2Xc0ARkD3kY/FUN
+	wlQ3oWwZxOH9VEZDcuYcTBpR/1F+792X191yOSySAAv55gV5buHxHhgVG
+X-Received: by 2002:a05:622a:4c8d:b0:530:780e:9613 with SMTP id d75a77b69052e-530c84d450amr22513501cf.8.1789074309803;
+        Thu, 10 Sep 2026 14:05:09 -0700 (PDT)
+X-Received: by 2002:a05:622a:4c8d:b0:530:780e:9613 with SMTP id d75a77b69052e-530c84d450amr22512641cf.8.1789074309197;
+        Thu, 10 Sep 2026 14:05:09 -0700 (PDT)
+Received: from [192.168.1.20] (pool-68-160-160-85.bstnma.fios.verizon.net. [68.160.160.85])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca45bbd7sm2903821cf.8.2026.09.10.14.05.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Sep 2026 14:05:08 -0700 (PDT)
+Message-ID: <be81497f-1b88-4337-b577-0f3a2b7828b0@redhat.com>
+Date: Thu, 10 Sep 2026 17:05:06 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 10 Sep 2026 23:04:35 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- "Ard Biesheuvel" <ardb+git@google.com>
-Cc: linux-pci@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- "Bjorn Helgaas" <bhelgaas@google.com>
-Message-Id: <41345c53-fea4-4f98-8569-b3dc4e84cdcb@app.fastmail.com>
-In-Reply-To: <aa0e034d-fc68-69d6-8d27-8f30d138b9be@linux.intel.com>
-References: <20260910143440.3865663-2-ardb+git@google.com>
- <aa0e034d-fc68-69d6-8d27-8f30d138b9be@linux.intel.com>
-Subject: Re: [RFC PATCH] PCI: Tolerate non-prefetchable 64-bit BARs in prefetchable
- windows
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] objtool/klp: Fix checksums for constant pool
+ references
+To: Josh Poimboeuf <jpoimboe@kernel.org>, x86@kernel.org
+Cc: linux-kernel@vger.kernel.org, live-patching@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>, Song Liu <song@kernel.org>,
+ Miroslav Benes <mbenes@suse.cz>, Petr Mladek <pmladek@suse.com>
+References: <f3a9e74ceebc6475ce94bcfe985401140857814a.1787939301.git.jpoimboe@kernel.org>
+Content-Language: en-US
+From: Joe Lawrence <joe.lawrence@redhat.com>
+Autocrypt: addr=joe.lawrence@redhat.com; keydata=
+ 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
+ pNzsRQ==
+In-Reply-To: <f3a9e74ceebc6475ce94bcfe985401140857814a.1787939301.git.jpoimboe@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 8/28/26 1:48 PM, Josh Poimboeuf wrote:
+> Adding a line of code to __link_shadow_page() with a literal string
+> causes a false positive changed function with GCC:
+> 
+>   arch/x86/kvm/kvm.ko.o: changed function: kvm_tdp_mmu_map_private_pfn
+> 
+> While the patch only touched __link_shadow_page(), the string addition
+> triggered a rename of .LC64 -> .LC65 in kvm_tdp_mmu_map_private_pfn()
+> even though the underlying referenced constant data didn't change.
+> 
+> So for .LC* symbols, the suffix is arbitrary but the data isn't.  Add
+> the underlying data to the checksum calculation rather than the symbol
+> name.
+> 
+> Clang also uses .LC* symbols, but also uses anonymous data.  Both
+> compilers put this data in .rodata.cst<num> sections.
+> 
+> Fixes: 0d83da43b1e1 ("objtool/klp: Add --checksum option to generate per-function checksums")
+> Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
+> ---
+>  tools/objtool/klp-checksum.c | 21 +++++++++++++++++++++
+>  1 file changed, 21 insertions(+)
+> 
+> diff --git a/tools/objtool/klp-checksum.c b/tools/objtool/klp-checksum.c
+> index b8e47f28997e9..ebe25f9c5260a 100644
+> --- a/tools/objtool/klp-checksum.c
+> +++ b/tools/objtool/klp-checksum.c
+> @@ -54,6 +54,19 @@ static int checksum_debug_init(struct objtool_file *file)
+>  	return 0;
+>  }
+>  
+> +/*
+> + * Detect a reference to anonymous constant pool data which the compiler places
+> + * in .rodata.cst<num> and which either has an .LC<num> symbol associated with
+> + * it or (with Clang) no symbol at all.  These are typically initializers for
+> + * local function stack data, so they're considered part of the function rather
+> + * than data per se.
+> + */
+> +static bool is_anonymous_const_data(struct symbol *sym)
+> +{
+> +	return strstarts(sym->sec->name, ".rodata.cst") &&
+> +	       (is_sec_sym(sym) || strstarts(sym->name, ".LC"));
+> +}
+> +
+>  static void checksum_update_insn(struct objtool_file *file, struct symbol *func,
+>  				 struct instruction *insn)
+>  {
+> @@ -129,6 +142,14 @@ static void checksum_update_insn(struct objtool_file *file, struct symbol *func,
+>  		goto alts;
+>  	}
+>  
+> +	if (is_anonymous_const_data(sym)) {
+> +		void *cst;
+> +
+> +		cst = sym->sec->data->d_buf + sym->offset + offset;
+> +		__checksum_update_insn(func, insn, cst, sym->sec->sh.sh_entsize);
+> +		goto alts;
+> +	}
+> +
+>  	if (is_sec_sym(sym)) {
+>  		sym = find_symbol_containing(reloc->sym->sec, offset);
+>  		if (!sym)
 
-On Thu, 10 Sep 2026, at 19:31, Ilpo J=C3=A4rvinen wrote:
-> On Thu, 10 Sep 2026, Ard Biesheuvel wrote:
->
->> From: Ard Biesheuvel <ardb@kernel.org>
->>=20
->> The prefetchable vs. non-prefetchable distinction is a relic of
->> conventional PCI, to denote from which regions PCI-PCI bridges were
->> permitted to perform speculative readahead.
->>=20
->> For software compatibility reasons, PCI Express inherited the Type 1
->> header and models PCIe root ports as PCI-PCI bridges. However, this
->> readahead behavior does not exist in PCIe, and so this distinction has
->> mostly become meaningless on the bridge level.
->>=20
->> As per the PCIe r6.3 ECN "Removing Prefetchable Terminology", the
->> 'prefetchable' designation has been removed from the specification
->> entirely, on the basis that it is obsolete, and is being abused to
->> inform memory mapping attributes and other device/BAR level properties
->> that it was never intended for.
->>=20
->> Given the limited range for non-prefetchable windows in the Type 1
->> header, and the fact that the distinction no longer exists for PCIe,
->> resource allocation performed by firmware may result in non-prefetcha=
-ble
->> 64-bit BARs being allocated inside prefetchable bridge windows.
->>=20
->> Linux rejects such allocations ("can't claim; no compatible bridge
->> window") when it encounters them, but will usually fail to produce an
->> alternative allocation, given that firmware wouldn't have placed them
->> there in the first place if there was sufficient space in the
->> non-prefetchable window.
->>=20
->> So at the very least, let's not reject such allocations when they were
->> made by the firmware.
->>=20
->> Cc: Bjorn Helgaas <bhelgaas@google.com>
->> Cc: "Ilpo J=C3=A4rvinen" <ilpo.jarvinen@linux.intel.com>
->> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
->> ---
->> Link: https://github.com/tianocore/edk2/issues/13104
->>=20
->>  drivers/pci/pci.c   | 3 ++-
->>  include/linux/pci.h | 4 ++--
->>  2 files changed, 4 insertions(+), 3 deletions(-)
->>=20
->> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
->> index b2879a6be5f8..e33eb9f3a139 100644
->> --- a/drivers/pci/pci.c
->> +++ b/drivers/pci/pci.c
->> @@ -761,7 +761,8 @@ struct resource *pci_find_parent_resource(const s=
-truct pci_dev *dev,
->>  			 * not, the allocator made a mistake.
->>  			 */
->>  			if (r->flags & IORESOURCE_PREFETCH &&
->> -			    !(res->flags & IORESOURCE_PREFETCH))
->> +			    !(res->flags & IORESOURCE_PREFETCH) &&
->> +			    !pci_is_pcie(dev))
->>  				return NULL;
->> =20
->>  			/*
->
-> I was more thinking along the lines of always setting IORESOURCE_PREFE=
-TCH=20
-> for 64-bit BARs on PCIe devices but I've not had time to look at that/=
-test=20
-> how many things would break as a result. ...It would seem much simpler=20
-> solution to differentiate PCI from PCIe while keeping the existing log=
-ic=20
-> without adding similar pci_is_pcie() checks everywhere.
->
+Acked-by: Joe Lawrence <joe.lawrence@redhat.com>
 
-I agree that the code changes would be much simpler.
-
-However, would this impact the PCI metadata observed by all consumers,
-including userspace, and drivers that may expect a certain BAR layout,
-and/or base decisions about memory attributes on this?
-
-In particular, I am concerned about non-prefetchable BARs that actually
-have side effects on read, being mapped with WC (or Normal-NC on arm64)
-semantics, where the interconnect may widen, combine or reorder accesses.
-
-
->> diff --git a/include/linux/pci.h b/include/linux/pci.h
->> index d31a8d107b1e..1cbb4b6c02c3 100644
->> --- a/include/linux/pci.h
->> +++ b/include/linux/pci.h
->> @@ -2684,7 +2684,7 @@ static inline void pci_vf_drivers_autoprobe(str=
-uct pci_dev *dev, bool probe) { }
->>   * need to calculate PCIe capability offset from raw device for some
->>   * reasons, please use pci_find_capability() instead.
->>   */
->> -static inline int pci_pcie_cap(struct pci_dev *dev)
->> +static inline int pci_pcie_cap(const struct pci_dev *dev)
->>  {
->>  	return dev->pcie_cap;
->>  }
->> @@ -2695,7 +2695,7 @@ static inline int pci_pcie_cap(struct pci_dev *=
-dev)
->>   *
->>   * Returns: true if the PCI device is PCI Express capable, false oth=
-erwise.
->>   */
->> -static inline bool pci_is_pcie(struct pci_dev *dev)
->> +static inline bool pci_is_pcie(const struct pci_dev *dev)
->>  {
->>  	return pci_pcie_cap(dev);
->>  }
->>=20
->
-> This const conversion should be done in a separate preparatory patch (=
-if=20
-> needed in the end, though IMO it wouldn't hurt to have it as const=20
-> anyway even if it's not necessary for the 64-bit/pref change in the en=
-d).
->
-
-Of course. But this is just an RFC to get the discussion going, so I did=
-n't
-bother at this point.
+-- 
+Joe
 
