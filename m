@@ -1,69 +1,69 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3284A1DF8
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:33:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78ABE49158A
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:33:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789050796; cv=none; b=LVclppbytGD7Bqt4NuV3LGADMhwRx8h7HcXeS1iqnYYCd6fczRjkUJa8R0KEmxTd4RHkM7R8bMbrS49Zutb7Vm90kuVO36c8jx+TmIsfnljxvW8YhjIEYVpmutFdrz5o5ua/yqj4xJmkqr9KxZPpl99N5CAXg6AH5F6tI0KeZrY=
+	t=1789050795; cv=none; b=NmeTpXp7vpfavzHFSQgtJcjnJN5/Jhf0Igvy5ctSJo5ZOVuIk9HZZwRXLUYPOrzaRA54U66cp9gsHrhy7Ds5EOnxQw+ePWy7wNZn8eVCb7RObP/4HdqqRfpmwu1Y6/MPlCss6t1M2ctfU+tgGXuN6zHtUiYOTFSTRYZA3cc1cTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789050796; c=relaxed/simple;
-	bh=puqbhfoUN1h0hVmNuH0sDEYWMQDzUtBnG/jCV80xhEI=;
+	s=arc-20240116; t=1789050795; c=relaxed/simple;
+	bh=uu+2lcKvfJGi/5CNbofvvGBfTiVgP3doGLL1WgijQqw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FAui3J0LrKksGu6mAHgciOFxSvuwHdu1mdDJXxu18h2qDdKLf9ApTuAgniUQDM03AOFtcH1ejKha3RoaO8tuWzdgRE2bVEmpfbevuGr1c0E15hXYPGwTKEAGrMTAAI/VVyFGo6uXgZpckvO7yXpcxE+wM98q+TDpmQiaTYQnDWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=Wm/8Jmrh; arc=none smtp.client-ip=74.125.225.140
+	 In-Reply-To:To:Cc; b=AT6NHhoJ7nrn8JqaWt0MoHFkdVGRG7jh1WjUSeOrvU6+aR5+Gl3Bzl1FO1Z6iUIWE1eOoe5trTtrbhubtwKeApZt/E+DVcHmzorykT21+wGuF7h+DoAJEfvda3B53GLpCsVRw5Q5FFI2Bz6rZK4s3FrhAbF3qCvQKJwRvns5TVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=EZDZbhOI; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="Wm/8Jmrh"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b5so14786155e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:33:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="EZDZbhOI"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4956869750eso64645515e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:33:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1789050793; x=1789655593; darn=vger.kernel.org;
+        d=flipper.net; s=google; t=1789050790; x=1789655590; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xZ2NMqgSdO9GLsjUUfKBwt+Y9+3g0pO5mWSs9o4+92M=;
-        b=Wm/8JmrhdvJk3BWYTKYMEB5YwRuh6fn5Rsl0VISU3ufLj+UcqAAXMQctR7qSQrjM5n
-         K2utvo5XrD7DqzJbjJslJkmQmFB9kcz0ceiKgGz1Bxoj0DP/8oi7HvS5pePS2Ep7yafP
-         cbP588TV/dnz723v7TAa8o7yCRIVpje1V0hx4KOhGiq3dQw8gcyRweD6Yb+JJHPEIkoO
-         +R+4T5ZRwjd0m/hVvDG4pSnVT2VCLbto1tp5io1Kw40RKYRFRYTsnooRI1UwOl1Vh9jn
-         tmU94FORTUFD3CedyDWSVk8Y18mJPsSAd2i32kNFmyj2LP8qHMX9fkJVtEKDE0yyuoM0
-         nfYg==
+        bh=ATWBzXgtximDnM1arJgBep/Ega/TVarG2T9lOXViDEw=;
+        b=EZDZbhOI6HPqHxGLh0hchaszlfqg4SGnoLXnZn7ylmRSclUipqACGsx1+fPhITOslB
+         sz+VF/IFmsupjDZaA+FzMDMF1KVhNvk3HpsWUNXBF37tItZf4mzc4bawBmxJ24yLoH2d
+         q4kXjHNIOqQ+n51quafHglm5R2HT58uLDPMK8ix+nZxt4xBMTQewGVsRGg4mz5G0dkeM
+         qmgGy+dDiwL1k0RVJb5fm97r4zC+korYZZnuUkYDdSXyFE1eikXvGWXEl3fN3dolUheE
+         t+NB+mgtqITg7/dw332nSBs2VLf1gQqCaIqV8mRKijSQapuMuz4VC+qGCSqcXIOGNTNq
+         4YWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789050793; x=1789655593;
+        d=1e100.net; s=20251104; t=1789050790; x=1789655590;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xZ2NMqgSdO9GLsjUUfKBwt+Y9+3g0pO5mWSs9o4+92M=;
-        b=gwA+MVQfuChWC4/Y2VkDiZECiEPrkzvcjuweMZNiHgfqrSSMq1eUyjtxTx1JKphJ21
-         +/YLT78f+5e90/uiDK4/5SwrD0LEmoOYEcC5IteKM4/taqvvc1BMhMh5fPL34pBGX1BO
-         fGzFIXodK8BF7vMw4bnMjchrGCZJj59p5O9U9vtQH9N4sj032yX/2U8JPDRSoQ/x/4O0
-         KUVO3eiKJzhjwVPwyjYwWcHaT3enujP7ShYN5TI9sGcK5Kc/tQYxMiWV0pM4YW3xh1P7
-         1oxQRaKwXtd61lGn7rvN1Z+3PHCYW6L9h9LEGKJ3VX+NAULMitauIqFj8s8LeIRW536g
-         lsYg==
-X-Forwarded-Encrypted: i=1; AKwUvBxw9r/dpyXl2NFtFNcfogmN7TL72PIT/XWFw47A6TL75yScag4K50Oj8CSWywBincAB/gBbotCjeKgUEOw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nh00wiiIm1J9ZhH1o9HFHkpEiKeEKs2sggJDncFAU5akORPpQd
-	C5V9dv+/UbzRW6rkN9jLTIE0BiTxWxZkPvTdP21scZu9PM2rezDrSo+k+PfVebgMuKs=
-X-Gm-Gg: AYBFou2zzAcpI1AqHYQ6k/rZa4LBwdqnoBD6MXLvD/0RHTfQ0rjgAHMe6s79Zgjl2YR
-	M8f92P2XxA8tgfn5V8xGAkmqDh9+/LdvoEpbY6FhBzn9GAj0rARVzfqEePMd9SIHELD9rVzRMqv
-	6o/FVUFjwXJ0O3jT1l6MOJoDdmSCnAXAEdqvock74r2VshHnBcQUtQeA9cmfRkeOyFnnRjA/wAy
-	g5+OMjpWywpRnFi6Ht/CygyFAI9I67Op95ud9/ZrugOpLFWSKARZGrkMKyb0P3NinLRV8oA+tTt
-	mHfv7X6V+6L/OfBetUxE7Sw1hx+Sm5HexCpXIRU0vDKgJ4MVH+RV3+fTMe0AxLzNMAxYS7QmHRP
-	1zse8YDD+rVeYjiz39AN7DyTDnl0fUGXOFlQe6m1Uqnc3dKbE46qBuSJxDgHKgaiV+yQ3a7/Fuj
-	ZQvdoSyHmETa7PqIbWhjrAPGO24AL0nHuIi9VorrKFLfh72TxlIEQFB2AZdtf+PdnZcnxn1BM+k
-	4KWiQFdWqGdHtanr3fE3WBpxaFpr+0V/ADxZX2a21VHVmEt/zsyHQ==
-X-Received: by 2002:a05:600c:4f8e:b0:49d:726:cc9f with SMTP id 5b1f17b1804b1-49d1f22755amr233708505e9.5.1789050792624;
-        Thu, 10 Sep 2026 07:33:12 -0700 (PDT)
+        bh=ATWBzXgtximDnM1arJgBep/Ega/TVarG2T9lOXViDEw=;
+        b=Ks/17vQeO/4SK1b0LHv6ExdTJf/be2jIlCQ5YLhF5BxFqL4SDsCh9XGUly2clPHfmz
+         tuqe9RYwnLaTJxhEwFJ3ISgfaoZDIDcNAUt9lRd/ItbV+pTxxP+2Swd/AGCe0nHL9Hw1
+         GkCiMmKGItTUXKWm+4j3YNHbzCodgfs7t4gkvTvifhGtBmpZIRZ0ud+Hy5/VxYCD3ci9
+         kvGJMboQ8fyH4NMEPRyA9k6UpyMpTvKUU388InDEuu04D29SpjRJz0hmv85s5GixclKi
+         R1JBoyQAU2I9AKHFytzMZqz8t9eo/Dv/rsLJkJRrSTS9cIxbyvSv8X9tJYoGBFRY2hoT
+         rB5g==
+X-Forwarded-Encrypted: i=1; AKwUvBzVC2o/wpVa1PczzWnBn9ihJ0KYwgjphXuoklaMFbq7VBwsOyHxryceNskdyURfs9H/t2UUWI6dVZzB4vs=@vger.kernel.org
+X-Gm-Message-State: AFuF++meaY/v4+z0G1z7tHrMyecvvPW0mKRBd3DKZ4raWuwtPZXkmJ8B
+	/6acOFzqvmLsrkgXIRwT+iUbguwvMfeq+nXnKizZzgCyAAwmE92J7N6rWuxDjrnrAnw=
+X-Gm-Gg: AYBFou19P5z+/TpIebXFgZ0O3wT1k0R/Jm9rCHkMNFZ6sv7HCULJGChTwKOuIHbof5E
+	KfM1iOTqdG0+aV1CrcDzXuVD14gUe9dqcudjqjeaRZO2BdvX0bmdZdubusdulsGj2apVzS97H7g
+	nBpNC0YmiF4KabVUoBe3sWiR+Ur0w7ZPJr+wa/ashiIZpLkzB1M72FhxUpy9BcJZQZ5GIAhQX9n
+	MXBtDPD87ofpxW+OVDClruhXz4bk1m6pFOx1zxHhIXsvfqGCBAGFfOnf87cikoXMSvZl1ULNJ4m
+	FNxalV/1lcjAYcV1meJqwdPi6ebB04H30ZXvAKcuBTRpfaSe2rb0NEB2lu1RHVSgWyIGBknFbGa
+	LSk9ghZisixlIXrcZomabSiryi5m0RLHg2fkiJZEZUc7ZsxrMHg8veQlwbE4+quGSjEk0purNIj
+	HD5dLv+6bibtCJClaYuE/c/6tWy6p1BS8Cqd1Au2iPHCd+CROnsoQmB1q2uH70Gb0MAq0FcPKvt
+	sT879Fuig5zMf1b80xNccG8KSbhiD4Zuhw0lMl/y+z7KBp7AHJw
+X-Received: by 2002:a05:600d:8446:20b0:49c:fc7a:22d5 with SMTP id 5b1f17b1804b1-49cfc7a2342mr292687845e9.4.1789050790421;
+        Thu, 10 Sep 2026 07:33:10 -0700 (PDT)
 Received: from alchark-surface.localdomain (bba-2-51-220-108.alshamil.net.ae. [2.51.220.108])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e5fbda49asm12537135e9.3.2026.09.10.07.33.10
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e5fbda49asm12537135e9.3.2026.09.10.07.33.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 07:33:12 -0700 (PDT)
+        Thu, 10 Sep 2026 07:33:10 -0700 (PDT)
 From: Alexey Charkov <alchark@flipper.net>
-Date: Thu, 10 Sep 2026 18:32:59 +0400
-Subject: [PATCH v3 2/3] power: supply: bq257xx: Use psy directly instead of
- driver data
+Date: Thu, 10 Sep 2026 18:32:58 +0400
+Subject: [PATCH v3 1/3] power: supply: core: prevent unregistering a power
+ supply while a callback runs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-bq257xx-init-v3-2-4e219a1a04a5@flipper.net>
+Message-Id: <20260910-bq257xx-init-v3-1-4e219a1a04a5@flipper.net>
 References: <20260910-bq257xx-init-v3-0-4e219a1a04a5@flipper.net>
 In-Reply-To: <20260910-bq257xx-init-v3-0-4e219a1a04a5@flipper.net>
 To: Sebastian Reichel <sre@kernel.org>, Lee Jones <lee@kernel.org>, 
@@ -83,42 +83,159 @@ Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
  linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Alexey Charkov <alchark@flipper.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1213; i=alchark@flipper.net;
- h=from:subject:message-id; bh=puqbhfoUN1h0hVmNuH0sDEYWMQDzUtBnG/jCV80xhEI=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWQt2j8nJC4k4PQ5w/aiTh7JPDVJvzm5AQGlflNqCm7kz
- GzK1t3YMZGFQYyLwVJMkWXutyW2U434Zu3y8PgKM4eVCWSItEgDAxCwMPDlJuaVGukY6ZlqG+oZ
- GukY6xgxcHEKwFR/msDwT1fLynGRz26NPIaqLd68X4/ubWR90ZWzifkju/khh0sLKxn+h2YxSp4
- skMrXF84KOGIt2KSUIBTdJ+v5dMPsz/379gmyAgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7060; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=uu+2lcKvfJGi/5CNbofvvGBfTiVgP3doGLL1WgijQqw=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWQt2j+nuaJK/3DU95CZrx/P2/hdcNezl2VTcq6EdmSus
+ tg09+qboI6JLAxiXAyWYoosc78tsZ1qxDdrl4fHV5g5rEwgQ6RFGhiAgIWBLzcxr9RIx0jPVNtQ
+ z9BIx1jHiIGLUwCmet1URobj1RdPT7rd4VtZPm2u1bp1B7bcMO3l3KxkFpMYdHRKwRo/RoYnXFe
+ vX8uOyOEpvb5/2vQgx5aNKy89W6Yjc+Gw3MRVEqwMAA==
 X-Developer-Key: i=alchark@flipper.net; a=openpgp;
  fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-bq257xx_external_power_changed() is handed the power supply it is called
-for, but passes pdata->charger to power_supply_am_i_supplied(). Those are
-not equivalent during probe or teardown, and a supplier's changed_work can
-reach power_supply_external_power_changed() when pdata->charger doesn't
-point anywhere meaningful (e.g. freed memory during teardown).
+Once a power supply is registered, its callbacks can immediately start
+firing from other contexts, such as external_power_changed() triggered by
+the TCPM stack. If a power supply is unregistered while the callback is
+still running, the driver data can already be freed when the callback
+tries to access it, leading to a use-after-free.
 
-Use the psy argument, which is valid whenever the callback runs.
+This happens e.g. when the hardware bus carrying the power supply device
+malfunctions (e.g. I2C is hogged down by another malfunctioning device)
+immediately after the power supply is registered, and thus the core is
+still processing the callbacks which were queued up when the driver
+starts the removal, leading in some cases to a kernel crash, e.g.:
 
-Fixes: 1cc017b7f9c7 ("power: supply: bq257xx: Add support for BQ257XX charger")
+[   11.645942] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000005
+[   11.646751] Mem abort info:
+[   11.647006]   ESR = 0x0000000096000004
+[   11.647338]   EC = 0x25: DABT (current EL), IL = 32 bits
+[   11.647806]   SET = 0, FnV = 0
+[   11.648077]   EA = 0, S1PTW = 0
+[   11.648356]   FSC = 0x04: level 0 translation fault
+[   11.648785] Data abort info:
+[   11.649041]   ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
+[   11.649524]   CM = 0, WnR = 0, TnD = 0, TagAccess = 0
+[   11.649981]   GCS = 0, Overlay = 0, DirtyBit = 0
+[   11.650390] [0000000000000005] user address but active_mm is swapper
+[   11.650955] Internal error: Oops: 0000000096000004 [#1]  SMP
+[   11.651460] Modules linked in:
+[   11.651742] CPU: 1 UID: 0 PID: 144 Comm: kworker/1:2 Not tainted 7.2.0-rc6-g62a9297af2cd #1 PREEMPT
+[   11.652553] Hardware name: Flipper One rev. F0B1C2 (DT)
+[   11.653024] Workqueue: events power_supply_changed_work
+[   11.653511] pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[   11.654135] pc : __power_supply_is_supplied_by+0x18/0x100
+[   11.654624] lr : __power_supply_am_i_supplied+0x40/0xb8
+[   11.655098] sp : ffff80008192bb30
+[   11.655399] x29: ffff80008192bb30 x28: 0000000000000000 x27: 0000000000000000
+[   11.656049] x26: 0000000000000000 x25: 0000000000000000 x24: 0000000000000000
+[   11.656695] x23: ffff0000c19f4200 x22: ffffdb2232ba4ea8 x21: ffff80008192bc28
+[   11.657344] x20: ffff0000c1eef000 x19: ffff80008192bc18 x18: 00000000a0886e62
+[   11.657991] x17: 000000040044ffff x16: 04500072b5503510 x15: 0000000000000000
+[   11.658639] x14: 0000000000000000 x13: 0000000000000220 x12: 0000000000000000
+[   11.659286] x11: 0000000000000000 x10: ffff0000c1fdb2b0 x9 : ffffdb2232ba5590
+[   11.659934] x8 : 00000000e5b906e6 x7 : ffff0000c2502778 x6 : ffffdb22339793d0
+[   11.660581] x5 : ffff80008192bc18 x4 : ffff0000c19cbca0 x3 : 0000000000000000
+[   11.661228] x2 : ffff0000c1fdaf40 x1 : ffffffffffffffed x0 : ffff0000c1eef000
+[   11.661878] Call trace:
+[   11.662103]  __power_supply_is_supplied_by+0x18/0x100 (P)
+[   11.662596]  __power_supply_am_i_supplied+0x40/0xb8
+[   11.663040]  psy_for_each_psy_cb+0x20/0x40
+[   11.663416]  class_for_each_device+0x110/0x150
+[   11.663825]  power_supply_am_i_supplied+0x68/0x100
+[   11.664262]  bq257xx_external_power_changed+0x58/0x140
+[   11.664733]  __power_supply_changed_work+0x60/0x80
+[   11.665170]  psy_for_each_psy_cb+0x20/0x40
+[   11.665545]  class_for_each_device+0x110/0x150
+[   11.665953]  power_supply_changed_work+0x98/0x1b8
+[   11.666382]  process_one_work+0x164/0x4c0
+[   11.666758]  worker_thread+0x19c/0x320
+[   11.667104]  kthread+0x138/0x150
+[   11.667408]  ret_from_fork+0x10/0x20
+[   11.667744] Code: d503233f a9bd7bfd 910003fd a90153f3 (f9400c34)
+[   11.668294] ---[ end trace 0000000000000000 ]---
+
+Add a read-write semaphore between external_power_changed() and
+power_supply_unregister() to prevent the latter from returning (and thus
+the driver from freeing its data) while the callback is still running.
+
+Fixes: bc1540561c9e ("power_supply: Add API for safe access of power supply function attrs")
 Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
- drivers/power/supply/bq257xx_charger.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/power/supply/power_supply_core.c | 26 +++++++++++++++++++++++++-
+ include/linux/power_supply.h             | 10 ++++++++++
+ 2 files changed, 35 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/power/supply/bq257xx_charger.c b/drivers/power/supply/bq257xx_charger.c
-index b735bb02a8e0..ab3519454193 100644
---- a/drivers/power/supply/bq257xx_charger.c
-+++ b/drivers/power/supply/bq257xx_charger.c
-@@ -1055,7 +1055,7 @@ static void bq257xx_external_power_changed(struct power_supply *psy)
- 
- 	pdata->chip->bq257xx_get_state(pdata);
- 
--	pdata->supplied = power_supply_am_i_supplied(pdata->charger);
-+	pdata->supplied = power_supply_am_i_supplied(psy);
- 	if (pdata->supplied < 0)
+diff --git a/drivers/power/supply/power_supply_core.c b/drivers/power/supply/power_supply_core.c
+index 47e307709e5e..1279785645fb 100644
+--- a/drivers/power/supply/power_supply_core.c
++++ b/drivers/power/supply/power_supply_core.c
+@@ -1530,6 +1530,19 @@ void power_supply_external_power_changed(struct power_supply *psy)
+ 			!psy->desc->external_power_changed)
  		return;
  
++	/*
++	 * Keep power_supply_unregister() from returning, and thus from letting
++	 * the driver's data be freed, while the callback is running. The
++	 * ->removing check has to happen under the lock: on its own, just like
++	 * the use_cnt check above, it only tells us the supply was still there
++	 * when we looked, not that it still is by the time the callback
++	 * dereferences its driver data.
++	 */
++	guard(rwsem_read)(&psy->epc_sem);
++
++	if (psy->removing)
++		return;
++
+ 	psy->desc->external_power_changed(psy);
+ }
+ EXPORT_SYMBOL_GPL(power_supply_external_power_changed);
+@@ -1774,6 +1787,7 @@ __power_supply_register(struct device *parent,
+ 	}
+ 
+ 	spin_lock_init(&psy->changed_lock);
++	init_rwsem(&psy->epc_sem);
+ 	init_rwsem(&psy->extensions_sem);
+ 	INIT_LIST_HEAD(&psy->extensions);
+ 
+@@ -1914,7 +1928,17 @@ EXPORT_SYMBOL_GPL(devm_power_supply_register);
+ void power_supply_unregister(struct power_supply *psy)
+ {
+ 	WARN_ON(atomic_dec_return(&psy->use_cnt));
+-	psy->removing = true;
++
++	/*
++	 * Publish ->removing so that no new ->external_power_changed() call can
++	 * start, and wait via semaphore for one that is already running: it may
++	 * be a supplier's changed_work, which cancel_work_sync() below does not
++	 * cover, and it may still dereference driver data that the caller is
++	 * about to free.
++	 */
++	scoped_guard(rwsem_write, &psy->epc_sem)
++		psy->removing = true;
++
+ 	cancel_work_sync(&psy->changed_work);
+ 	cancel_delayed_work_sync(&psy->deferred_register_work);
+ 	sysfs_remove_link(&psy->dev.kobj, "powers");
+diff --git a/include/linux/power_supply.h b/include/linux/power_supply.h
+index e749d2189335..131cafded72f 100644
+--- a/include/linux/power_supply.h
++++ b/include/linux/power_supply.h
+@@ -351,6 +351,16 @@ struct power_supply {
+ 	bool removing;
+ 	atomic_t use_cnt;
+ 	struct power_supply_battery_info *battery_info;
++	/*
++	 * Held for read while ->external_power_changed() runs, and for write by
++	 * power_supply_unregister() when it publishes @removing, so that it
++	 * waits for an in-flight callback to finish. Without this a driver's
++	 * data, typically devm-allocated on its own device, can be freed while
++	 * the callback is still using it.
++	 * Must not be shared with extensions_sem: callbacks may read their own
++	 * properties, which takes that one for read.
++	 */
++	struct rw_semaphore epc_sem;
+ 	struct rw_semaphore extensions_sem; /* protects "extensions" */
+ 	struct list_head extensions;
+ #ifdef CONFIG_THERMAL
 
 -- 
 2.55.0
