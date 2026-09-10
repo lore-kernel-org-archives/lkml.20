@@ -1,140 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43BFD3A5E97
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:57:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8860A3D9549;
+	Thu, 10 Sep 2026 16:58:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789059474; cv=none; b=h5EPs0WOKhnf4yJDzsIb0vWmhO9bKpydXbwVyzLqGBcPqwtoq8G2NTnjADTl2EcpazSr9U5nVngUUcSCxrIEMyX2ddzIUc3A8nkKJflhC7/zNnZFKnq4fCpNJb2uJ05XwCC4iujz8V+1ols/Y6jKoL5xIldK96vTyIzcYuE82GY=
+	t=1789059503; cv=none; b=l/zlBXIheSJ8dMT8aj0u3fV/ac02/aJnYDx40X4OFU5jiLTsMEFO5k5OCrN2WdMwk5Lve7ijoqL93puqOMxTN/ZHbhxCKAJtq47+qaBfuvUWAGWQEMck5e9Z/Vch7GvK4iSJ37NYWWa2f5nJbZ7V2mZcvdIJhkELucZC4BRvWL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789059474; c=relaxed/simple;
-	bh=ZcU1pNuReJ/My7fcfjnVjArrANl6zGC1sES6K9HVAjs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NeoutkhSR4CS4eh22u6sc7OqzXICxdLJMyoCc5LIjI5zDHnzvbDzn/mVwYaRdIw05wJGWV7iON3JzmK2pgGCosmGSaDa6XqpDK4DVJYH/fQclrGhcDcrjsFJNxbXcdr6EKrLdJR6cDsdyA0Js5gtQr3RPZbpTA7MhaI9KvERadQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VHUW1P2c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789059503; c=relaxed/simple;
+	bh=BzZJSjIuyGXLWzPj2Rfe1QLd5VAJxrndxiWXjXMv0a4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KCcB2wvTgNA186lUjIcmjs0PCyz2IM3XWrf7n2/lBQ0uKGadskqYQux2dHSp/ZNeRa56sTDolxNS6gxfFKXruXJKYuk5CBfdgnv5xX4au0c8ZFEGuAIj9VpFYz9S9bYyMFrZioqIVslW+BicGwSJPAi4niMb25f+L7Lp5o4mKO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H5Vf41CA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VHUW1P2c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DBBB1F00893;
-	Thu, 10 Sep 2026 16:57:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H5Vf41CA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 411D91F000FF;
+	Thu, 10 Sep 2026 16:58:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789059472;
-	bh=SydUxsZS+bSoa1t5GI+dsmdirvhjFORum6ucYa25lyg=;
-	h=From:To:Cc:Subject:Date:Reply-To;
-	b=VHUW1P2c2JS31SzScIqlQTMoZcvj78zQzZ+fMkeOwFmS6Ck8RigvIwJ6h5RNtSQJt
-	 DARIKloqKUQolKi9AqwFi1slMGTE540lmnBD7wybxsbY5lgcLW+FhtOey9BRYC8bGJ
-	 avVlsmiiLq+cpuuFKaZoImtKnnWB55//K2E1yzM+XoUw2ieTCwln/ZczxBtczXDs6z
-	 LldQkLqZQBov/OUiEe5+VTzJ9uHvzXJdvjGG7H8B/N6qcsC9ycF526bQLVr0/MchMQ
-	 shiIOx8vUrNnMUvcnT40eJRg5PDu7NtkZV6rNItvOZK+nb/BQvk3ThO/yEIBD8ds3z
-	 Ey6b6DfJ4189w==
-From: Gary Guo <gary@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>
-Cc: Gary Guo <gary@garyguo.net>,
-	dri-devel@lists.freedesktop.org,
+	s=k20260515; t=1789059500;
+	bh=uQ9Z76diTPpbcOLgsY33fOM3q6PtV9hbrRW14or5nmE=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=H5Vf41CAs54zudqOZMQd86DIu18nmM9o+3YGLzIpgXB8S8M1e9Bzb2/Cu9LDeshC+
+	 PdAJCjVVZN81ZrV8BtphKQPyMLY0kv0K4bTj84O8n1Wqxnc/BNcLBCkPMG63cyvRro
+	 AHhTLrJyib4Pn/NE/8o2S/EBfHSb0C5OE3uTpevuOHs9wasKIeaWwD0YVzdpZf1T9T
+	 TsAb7v9dwhqmecA3BEj5vhwrCN4ydYK1mJkzueJfnlXnAu1xYxFJ0LvlEKhRKRUXeD
+	 fF5IEn5eg3qNYPWANVej4CyQokg0aDOy7pt6/jtTCvIcLzEK12BcZrp/GWIkudyyDG
+	 ml4ipXSjQEUwA==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 08E57CE1580; Thu, 10 Sep 2026 09:58:20 -0700 (PDT)
+Date: Thu, 10 Sep 2026 09:58:20 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Kunwu Chan <kunwu.chan@gmail.com>
+Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/tyr: use `bitfield!` instead of `register!` for non-registers
-Date: Thu, 10 Sep 2026 17:57:33 +0100
-Message-ID: <20260910165734.80378-1-gary@kernel.org>
-X-Mailer: git-send-email 2.54.0
-Reply-To: Gary Guo <gary@garyguo.net>
+Subject: Re: [PATCH v2] srcutree: Add WARN_ON_ONCE() for atomic SRCU in
+ srcu_gp_end()
+Message-ID: <d1bf830e-8755-4eef-a8f6-35612640a478@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260910084629.3695383-1-kunwu.chan@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910084629.3695383-1-kunwu.chan@gmail.com>
 
-From: Gary Guo <gary@garyguo.net>
+On Thu, Sep 10, 2026 at 04:46:29PM +0800, Kunwu Chan wrote:
+> Atomic SRCU remain in the small size state, so add a
+> WARN_ON_ONCE() before the transition check to catch any future
+> code path that might violate this invariant.
+> 
+> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> ---
+> Changes since v1:
+> - Drop the !is_atomic guard from v1 and add WARN_ON_ONCE() instead,
+>   per Paul McKenney's suggestion.
+> - v1: https://lore.kernel.org/rcu/20260907075829.2073224-8-kunwu.chan@linux.dev/
+> ---
+>  kernel/rcu/srcutree.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
+> index 84c022ec8e09..68441c32cebf 100644
+> --- a/kernel/rcu/srcutree.c
+> +++ b/kernel/rcu/srcutree.c
+> @@ -1074,6 +1074,8 @@ static void srcu_gp_end(struct srcu_struct *ssp, bool is_atomic)
+>  	}
+>  
+>  	/* Transition to big if needed. */
+> +	WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC &&
+> +			ss_state != SRCU_SIZE_SMALL);
 
-`SectionFlags` and `MMU_MEMATTR_STAGE1` are not registers themselves. Use
-`bitfield!` directly.
+Also much better, but we also need to avoid doing the transition in this
+case, because doing that transition breaks atomic SRCU.  On way to make
+this happen is something like this:
 
-Signed-off-by: Gary Guo <gary@garyguo.net>
----
- drivers/gpu/drm/tyr/fw.rs   | 12 ++++--------
- drivers/gpu/drm/tyr/regs.rs | 11 +++++------
- 2 files changed, 9 insertions(+), 14 deletions(-)
+	if (ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC && ss_state != SRCU_SIZE_SMALL) {
+		WARN_ON_ONCE(1);
+	} else if (ss_state != SRCU_SIZE_SMALL && ss_state != SRCU_SIZE_BIG) {
+		if (ss_state == SRCU_SIZE_ALLOC)
+			init_srcu_struct_nodes(ssp, GFP_KERNEL);
 
-diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
-index 7edb5eff1707..aea151ff1f93 100644
---- a/drivers/gpu/drm/tyr/fw.rs
-+++ b/drivers/gpu/drm/tyr/fw.rs
-@@ -14,6 +14,7 @@
- //! [`Section`]: crate::fw::Section
- 
- use kernel::{
-+    bitfield,
-     device::{
-         Bound,
-         Device, //
-@@ -27,7 +28,6 @@
-     },
-     num::Bounded,
-     prelude::*,
--    register,
-     str::CString,
-     sync::{
-         Arc,
-@@ -39,8 +39,7 @@
- use crate::{
-     driver::{
-         IoMem,
--        TyrDrmDevice,
--        TyrRegisters, //
-+        TyrDrmDevice, //
-     },
-     fw::parser::{
-         FwParser,
-@@ -101,11 +100,8 @@ fn from(value: CacheMode) -> Self {
-     }
- }
- 
--register! {
--    base: TyrRegisters;
--
--     #[allow(non_upper_case_globals)]
--    pub(super) SectionFlags(u32) @ 0x0 {
-+bitfield! {
-+    pub(super) struct SectionFlags(u32) {
-         0:0 read => bool;
-         1:1 write => bool;
-         2:2 exec => bool;
-diff --git a/drivers/gpu/drm/tyr/regs.rs b/drivers/gpu/drm/tyr/regs.rs
-index 0c419c4e1186..6f626957a010 100644
---- a/drivers/gpu/drm/tyr/regs.rs
-+++ b/drivers/gpu/drm/tyr/regs.rs
-@@ -986,6 +986,7 @@ pub(crate) mod mmu_control {
-     /// This array contains 16 instances of the MMU_AS_CONTROL register page.
-     pub(crate) mod mmu_as_control {
-         use kernel::{
-+            bitfield,
-             num::Bounded,
-             prelude::*,
-             register, //
-@@ -1130,14 +1131,12 @@ fn from(val: MemoryType) -> Self {
-             }
-         }
- 
--        register! {
--            base: TyrRegisters;
--
-+        bitfield! {
-             /// Stage 1 memory attributes (8-bit bitfield).
-             ///
--            /// This is not an actual register, but a bitfield definition used by the MEMATTR
--            /// register. Each of the 8 bytes in MEMATTR follows this layout.
--            MMU_MEMATTR_STAGE1(u8) @ 0x0 {
-+            /// Each of the 8 bytes in MEMATTR follows this layout.
-+            #[allow(non_camel_case_types)]
-+            struct MMU_MEMATTR_STAGE1(u8) {
-                 /// Inner cache write allocation policy.
-                 0:0     alloc_w => bool;
-                 /// Inner cache read allocation policy.
+Other approaches might take advantage of the fact that WARN_ON_ONCE()
+returns the value of its argument, allowing WARN_ON_ONCE() to be used
+as a condition in an "if" statement.
 
-base-commit: 73e5616f3d197c1af5a04a481fe0f13aa3913bd1
--- 
-2.54.0
+							Thanx, Paul
 
+>  	if (ss_state != SRCU_SIZE_SMALL && ss_state != SRCU_SIZE_BIG) {
+>  		if (ss_state == SRCU_SIZE_ALLOC)
+>  			init_srcu_struct_nodes(ssp, GFP_KERNEL);
+> -- 
+> 2.43.0
+> 
