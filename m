@@ -1,76 +1,73 @@
 Received: from mail-oo2-f42.google.com (mail-oo2-f42.google.com [74.125.231.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AA3E3A48CA
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:21:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DCE33A7F52
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:21:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789010500; cv=none; b=NPY7sRrzxhYRiI54YPsPoMPev356U3ShkWeENhmDNy2NqTHPAX4QfEniCIXDJDdL3IthwGxfK/v528kk42xT+jJpWiGOjlo43HSNZFDio2pCiUJI+xU4OYyYfSjgKh5+kmVZsKRZDkzOIAWyZejQDeB7GR7QrgkriuicFlAHapo=
+	t=1789010502; cv=none; b=jOYFC6cMvwCbE1k6Rt2LDy+FquQC3y0ygD/rp28ozFFFE+FtHhdUSeLUTnSzRDM94K6dyR70ADM/SHLkj2torhZKIsqE+0206NY1mBvOHocKTy/wy+bftsk48vofNNQ+VSDCseU01QRcl1GZrRjgJWfbuXvOSVvq6W7cEcUX4Vk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789010500; c=relaxed/simple;
-	bh=LdBAAecAZ1OMl0W7f6TntsYbB4NODXa++UY4rORV7Es=;
+	s=arc-20240116; t=1789010502; c=relaxed/simple;
+	bh=AeLnTpy9Imgwdp3HIzHn/henHDdgDKkOfb55UxqoU0k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Fg/CbFGWQIGixwJuTya7Ti0cHvbnPN7rLNYGZHbC3gqzR5xcIVbfgdoMx+1svH8c7DgZOretHXZXa8t6F7R/2L9CDbTDRXVzSIIf00bBguH00ufetz17LLax+OhkyaqYSKRRmjDHGWbG6lfs5OznCxMC30ydrZgAj2Jd8Nie1fE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XuzUXXcX; arc=none smtp.client-ip=74.125.231.170
+	 MIME-Version; b=oQH0Q4+PKmcYKIGC6HcGEBgIy4dhX4xKPtRL67FVhYTsda0sWf2Uycy5EQFGAGQgfQa1N+1/6iNKQgd3wSHJfKvtW1FqIlwvW4Tf0Pb0Ucc0+OEvJIGZ/f4fImSTh36D8v9hWastYh/rf1IYjKzGR07yISHwSwGT+UYbite/QFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GLj+z0me; arc=none smtp.client-ip=74.125.231.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XuzUXXcX"
-Received: by mail-oo2-f42.google.com with SMTP id 46e09a7af769-801d2f7a00eso164356a34.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 20:21:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GLj+z0me"
+Received: by mail-oo2-f42.google.com with SMTP id 46e09a7af769-7f4bdf4f0e9so697756a34.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 20:21:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789010497; x=1789615297; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789010499; x=1789615299; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kyJeD3MenqHe8/v7HjjLsYU8Leth5wrcbz4y8p2ZViM=;
-        b=XuzUXXcXxv3GM6VztOLRmyptG+gUUXvWz7PYGeisZ8ke/EoVl88nDDo5H6UBMaQyGl
-         PxzWCb5/lPfsFkH7EVz/8uLBPrc/lvEWrYQGViVWr93LGvEk4YVmoTMEAyzSkZZ+XVvx
-         viPKco7XvktUuNSmeR/9QjrN7up2ui8ibaBOVVuptoYJnpqBTCgyYOWHjYYB1/wdV72Z
-         C18NJ3b61bJ2DzQejvhdMrm463ZzxackXoQ+96K6VJL8Njsx42gJ4TLGGHRfrxXhnf5T
-         q7fGO7yU+W7uleM4J7C5atwBDfjatnWHyuSyFj9YL0eXaZ5u+dfkOH3Q1dgozf6weYsD
-         ZkZw==
+        bh=SgtfPs4JGN+ren3NYbKyWAaqrzZ1zJ4bq29kq6OscHA=;
+        b=GLj+z0mehQBKa3TMx2Zmj5d7Ej9p+vnFaLzGUwAUTpylHm22EYr5FrcLQrjE443Mxo
+         5i2qKnatpN4qJTp3Og8GkXW0DoPyfrX9DsfMLGRbHSQUWixgPCapfpgGIhZ9zxEG81t2
+         SgY8rEpSqyGYbx4Qu4nQ/rGlAsB5fqNgxsEEX9Us2/QkhkvX17l8HIDF5V25OCrTmQaf
+         mncl5o1FYsnYnPUdlX3CrC+YadHSQiVeFGDQxZeEcXk5ry5vAMCVMnVZm/1Nu7xvwuKW
+         q4GHGsAXFxTRhHkGzen+/+gw1gVRkJlmV1gko5tTPTs5bdakoOLCdrhB8cX+95vqWILI
+         L/XQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789010497; x=1789615297;
+        d=1e100.net; s=20251104; t=1789010499; x=1789615299;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kyJeD3MenqHe8/v7HjjLsYU8Leth5wrcbz4y8p2ZViM=;
-        b=rNmXE7hL1wce/Tu5v033PXiuZcCXwr0zApbQUHl4Ti6LcW9Uq21CGzRsOnKu9pytQj
-         BZnZ1nEcnuR4cY8YN/sz60BYX6StCgfxqrjR5AgZaSMSm5SeBHKEAWQQptlg18epEy/e
-         UhCKda77V5GqkEBC1eeURiazePHdHi5tvPfiu2sIJK8IbDSvPWlbWAnZLeAJyXWWJHw/
-         8wj8KLxErTHEusoqmtR3LlGikR50eVA6dFzmFJufrLST85gTwrO6TQ3+P8+RheICamCn
-         8ecVkRUA/GPePKOrAQOEG7sjN/X6IO5Qs8inccbpBH23WWjuN39kp0JL1YGv5Jpt7RZR
-         P1SA==
-X-Forwarded-Encrypted: i=1; AKwUvBxxIjlFICuzdp8qtwV7Gxx2HfEcPzkhyokwf3HG8MhswmOshJZUIA9uNUdhQ2qMgU1Ab+LwUIN6P/4p5lk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mhMbRI3/JMe2gpsHg6xiK76vL6OKDgHgWDw1AdRQKxhx/WVf9l
-	VNzbPES7RW+DIO+EeFXY03xoZBNB6DokYarxTLNq6Ag/YT0GFcS19/zi
-X-Gm-Gg: AYBFou2ac1W5KSmCmNlfXUIsoPxxG+9uQ80QLAi4lgqMGg65RNEoSwe7vvOQ+VrcKIr
-	dJD61kWgMHGbC8ptICmoqAhDrXziuomt2jUi7WofIhCqqrkub0Vc8ZtGCv2A0AQnJDDvgPu+iJN
-	CoOlsWYrprXjiB1BYglCghzaF7BY7296WvvnCDClt2SX1ln0A8X4QVZnEwCYCFJxlenvVpB4kB6
-	G1tU3ntHXoe25AA2eKk/1Jri06JLj8iJkB/kGqqcBkz1LJf9wb/FsnO9mfR2hMDWeHop99BuLP4
-	rXCF49oChq5zuQ1f0MODzVK8jxbGdq4ddQYYRBhCbAnSfxGFG097rQ3p1Zd8P4ZYBk9D/tm+1Tz
-	CYQ+u3kQyBzBhfbiYAvYAMvmmdRBpH1thy0L6VGJ4boilqx155rmhdTLovNifQh6mKxXX0Yk4IT
-	3MlxWyeGnArFTdBqGTw4rUy4Ps4s+qL0JjwwEI7G6hrKp9TtjGzx0yv690r61XyOR+VKHpS/K4j
-	M7Tf1HDdd4MOQZC6JvCir2HQiV+toSjGt/URo2erEjia/Ig2iILS9I=
-X-Received: by 2002:a05:6830:91a:b0:7f4:5b0c:36a4 with SMTP id 46e09a7af769-7fb7be96d99mr19851635a34.3.1789010497206;
-        Wed, 09 Sep 2026 20:21:37 -0700 (PDT)
+        bh=SgtfPs4JGN+ren3NYbKyWAaqrzZ1zJ4bq29kq6OscHA=;
+        b=BrQUDBlniD4vZnyrO8gJw3+UJhCbFMOLqXQPcWyExwrRT1+73lCPyGntejbXokbP7w
+         1xtg9Cw9m/a65hbleDkL/3qo2bXAZ5JHt38PTasyi29I4q2h6z0LkkoDfw8gNe6NcUEP
+         jqrLg4dOuaFguNiJCEmzmk/w1pJLbMGCwX8QxjP3HqxMp+Ri9WUV2ju93JSicPXBR1AZ
+         4aZhIFWyPn0Cw2zbylZGDjzdnONEMNgSvKW2F/7FBq5gZnLtwszhNvr0J74Tqvt1jTh+
+         Spt4hLPmZpm81GuT83M3tpK2EPMNHe3dUDwY5AzPZI1/bDxkqvq4CC6M27XvGZal/Ecp
+         efxA==
+X-Forwarded-Encrypted: i=1; AKwUvBwyj6sNcbhKmcqr/NScBrzPtUsWJ9gJ1GmoI/Tp2D3Y5rDUNwAF9A++0bRbPQ9WSi3OKCxegBbtp26oBNk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nVUY36LXDJMaMA9YR4ohlzMSNDLRFMJFvLqmo/LnUMrHCV4sby
+	g/bLMN+eANomqmMrbB4wHQt2ouZk++5Rx217T+Vi5Tbk8ZFuahlTW28Y
+X-Gm-Gg: AYBFou0g2w71/l7VY0KIOL3tVSgnFwj4gAeu+tNOxWsEA6Gr3Cwger3BNyCAV1NiPzW
+	Vb/Ekzyrj2CWNSSNpuV/+1O7uC6by8ibFDt07LtEW/KTWrLfa4rK0QYUk3BMkSGhjlaLnsFjm+L
+	/nJ3Dmg4P4skFtpYm5C2SDY3M2s8P9IpyURJdIFLy0xQejcH2URUAIJJTyWqiYUX3tXob3MVs55
+	WQBcPn9o6iyxoAi6HeN3Ifv73QhoW6No0zakSbadC966DTrwMVdcqMf3Mo/q0bEZxeEfIuz2o0C
+	HA7sd6KDYr1wMrxnB96fpwSSd8lIWlhSl617KrycKfmHvHmCuLy5EzkPY9T/ggTqwBBbpOQkEcK
+	adCiYwJAH2XnrDzlvaVU7P4Ao9mjJkRYIYPbBudiyFfrFHmMiy1kT4F1YDco7rf0Hu53S5Ra+Am
+	ZtwCe3bOcrGILGVqa58LtZD6lKHv2Syj8nNdP/IkdDlePo5LWN9vjq6VGnlgjKmggkiLnzCO2mQ
+	5YH21CWhA4brc74qfLU5g98KYJbHa/BZOi1laQTASz9YT6COjdngDLm+g==
+X-Received: by 2002:a05:6830:a1c8:20b0:800:92d0:df8c with SMTP id 46e09a7af769-80092d0e1damr5057405a34.1.1789010499237;
+        Wed, 09 Sep 2026 20:21:39 -0700 (PDT)
 Received: from localhost ([76.187.192.44])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f9f6da9a49sm19758315a34.13.2026.09.09.20.21.36
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f9f6da9a49sm19758315a34.13.2026.09.09.20.21.38
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 09 Sep 2026 20:21:36 -0700 (PDT)
+        Wed, 09 Sep 2026 20:21:38 -0700 (PDT)
 From: Andrei Aldea <andrei1998@gmail.com>
 To: Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>,
 	"Derek J. Clark" <derekjohn.clark@gmail.com>
 Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	linux-leds@vger.kernel.org
-Subject: [PATCH 10/15] HID: hid-oxp: handle controller reinitialization across suspend
-Date: Wed,  9 Sep 2026 22:21:10 -0500
-Message-ID: <20260910032115.28669-11-andrei1998@gmail.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 12/15] HID: hid-oxp: support three-page button maps on X2 controllers
+Date: Wed,  9 Sep 2026 22:21:12 -0500
+Message-ID: <20260910032115.28669-13-andrei1998@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260910032115.28669-1-andrei1998@gmail.com>
 References: <20260910032115.28669-1-andrei1998@gmail.com>
@@ -82,280 +79,240 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A Gen2 monocolor reply uses the same command value as the asynchronous MCU
-reset notification. Treating every such report as a reset can schedule a
-spurious controller reinitialization.
+The ONEXPLAYER 3 and X2 Mini Pro need mapping format 0x02 and a third
+page preserving the extra buttons' factory mappings. Use exact DMI
+matches and select configuration interface 2; the other HID interfaces
+remain available without duplicate configuration or LED registration.
 
-Track an outstanding monocolor write by command and zone under a per-HID
-spinlock, and consume its matching acknowledgment before considering the
-report a reset notification. Clear pending reply state during suspend and
-teardown. A missing reply does not change legacy transport success
-semantics.
+Initialize each page with the selected format. Page three is fixed because
+its factory encodings have no entries in the public mapping table.
+Legacy devices keep their two-page format 0x20 transaction.
 
-For system suspend, disable and drain initialized configuration work and
-reject new output while the device is suspended. Re-enable work on resume
-and queue a fallback reinitialization after the documented MCU reset
-interval. A qualifying reset notification can still bring that work
-forward. Leave runtime autosuspend unchanged.
-
-Fixes: 2f424f28fb39 ("HID: hid-oxp: Add Second Generation Gamepad Mode Switch")
+Fixes: e4c850a6e750 ("HID: hid-oxp: Add Button Mapping Interface")
 Assisted-by: LLM
 Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
 Signed-off-by: Andrei Aldea <andrei1998@gmail.com>
 ---
- drivers/hid/hid-oxp.c | 116 ++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 107 insertions(+), 9 deletions(-)
+ drivers/hid/hid-oxp.c | 94 ++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 79 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/hid/hid-oxp.c b/drivers/hid/hid-oxp.c
-index 7b36687..e26e6a9 100644
+index 8c44f57..48fa916 100644
 --- a/drivers/hid/hid-oxp.c
 +++ b/drivers/hid/hid-oxp.c
-@@ -16,6 +16,7 @@
- #include <linux/kstrtox.h>
- #include <linux/led-class-multicolor.h>
- #include <linux/mutex.h>
-+#include <linux/spinlock.h>
+@@ -19,6 +19,7 @@
+ #include <linux/spinlock.h>
  #include <linux/sysfs.h>
  #include <linux/types.h>
++#include <linux/usb.h>
  #include <linux/workqueue.h>
-@@ -24,6 +25,7 @@
  
- #define OXP_PACKET_SIZE 64
- #define OXP_STATUS_HEADER_SIZE 6
-+#define OXP_STATUS_ACK 0x20
+ #include "hid-ids.h"
+@@ -35,6 +36,8 @@
  
- #define GEN1_MESSAGE_ID	0xff
- #define GEN2_MESSAGE_ID	0x3f
-@@ -185,6 +187,10 @@ struct oxp_hid_cfg {
- 	struct hid_device *hdev;
- 	struct mutex cfg_mutex; /*ensure single synchronous output report*/
- 	struct mutex rgb_mutex; /*serialize complete RGB transactions*/
-+	spinlock_t rgb_reply_lock;
-+	u8 rgb_reply_command;
-+	u8 rgb_reply_zone;
-+	bool rgb_reply_pending;
- 	u8 rgb_brightness;
- 	u8 gamepad_mode;
- 	u8 rumble_intensity;
-@@ -193,6 +199,7 @@ struct oxp_hid_cfg {
- 	u8 rgb_en;
- 	bool rgb_work_initialized;
+ #define OXP_MAPPING_GAMEPAD	0x01
+ #define OXP_MAPPING_KEYBOARD	0x02
++#define OXP_BMAP_FORMAT_DEFAULT	0x20
++#define OXP_BMAP_FORMAT_X2	0x02
+ #define OXP_FILL_PAGE_SLOT(page, btn)            \
+ 	{ .button_idx = (page)->btn.button_idx,  \
+ 	  .mapping_idx = (page)->btn.mapping_idx }
+@@ -159,9 +162,9 @@ enum oxp_joybutton_index {
+ 	BUTTON_DRIGHT,
+ 	BUTTON_M1 =	0x22,
+ 	BUTTON_M2,
+-	/* These are unused currently, reserved for future devices */
+ 	BUTTON_M3,
+ 	BUTTON_M4,
++	/* These are unused currently, reserved for future devices */
+ 	BUTTON_M5,
+ 	BUTTON_M6,
+ };
+@@ -209,8 +212,10 @@ struct oxp_hid_cfg {
+ 	struct oxp_bmap_page_1 *bmap_1;
+ 	struct oxp_bmap_page_2 *bmap_2;
  	bool gen2_work_initialized;
-+	bool suspended;
- 	bool removing;
++	bool bmap_page_3;
+ 	u8 rumble_intensity;
+ 	u8 gamepad_mode;
++	u8 bmap_format;
+ 
+ 	/* RGB state */
+ 	struct delayed_work oxp_rgb_queue;
+@@ -337,6 +342,9 @@ struct oxp_attr {
+ 
+ struct quirk_entry {
+ 	bool hybrid_mcu;
++	bool bmap_page_3;
++	u8 cfg_interface_num;
++	u8 bmap_format;
  };
  
-@@ -371,7 +378,7 @@ static void oxp_mcu_init_fn(struct work_struct *work)
- 	u8 gp_mode_data[3] = { OXP_GP_MODE_DEBUG, 0x01, 0x02 };
- 	int ret;
+ static u16 get_usage_page(struct hid_device *hdev)
+@@ -735,8 +743,17 @@ static void oxp_page_fill_data(char *buf, const struct oxp_button_idx *buttons,
  
--	if (READ_ONCE(cfg->removing))
-+	if (READ_ONCE(cfg->suspended) || READ_ONCE(cfg->removing))
- 		return;
- 
- 	/* Re-apply the button mapping */
-@@ -410,6 +417,7 @@ static int oxp_hid_raw_event_gen_2(struct hid_device *hdev,
- 	struct oxp_hid_cfg *cfg = hid_get_drvdata(hdev);
- 	struct led_classdev_mc *led_mc = cfg->led_mc;
- 	struct oxp_gen_2_rgb_report *rgb_rep;
-+	bool solicited = false;
- 
- 	if (size < OXP_STATUS_HEADER_SIZE)
- 		return 0;
-@@ -417,11 +425,26 @@ static int oxp_hid_raw_event_gen_2(struct hid_device *hdev,
- 	if (data[0] != OXP_FID_GEN2_STATUS_EVENT)
- 		return 0;
- 
-+	/* A monocolor acknowledgment is not an MCU reset notification. */
-+	if (data[5] == OXP_STATUS_ACK) {
-+		scoped_guard(spinlock_irqsave, &cfg->rgb_reply_lock) {
-+			if (cfg->rgb_reply_pending &&
-+			    data[3] == cfg->rgb_reply_command &&
-+			    data[4] == cfg->rgb_reply_zone) {
-+				cfg->rgb_reply_pending = false;
-+				solicited = true;
-+			}
-+		}
-+		if (solicited)
-+			return 0;
-+	}
-+
- 	/* Sent ~6s after resume event, indicating the MCU has fully reset.
- 	 * Re-apply our settings after this has been received.
- 	 */
- 	if (data[3] == OXP_EFFECT_MONO_TRUE) {
- 		if (READ_ONCE(cfg->gen2_work_initialized) &&
-+		    !READ_ONCE(cfg->suspended) &&
- 		    !READ_ONCE(cfg->removing))
- 			mod_delayed_work(system_dfl_wq, &cfg->oxp_mcu_init,
- 					 msecs_to_jiffies(50));
-@@ -489,6 +512,7 @@ static int mcu_property_out(struct oxp_hid_cfg *cfg, u8 *header, size_t header_s
- 			    size_t data_size, u8 *footer, size_t footer_size)
+ static int oxp_set_buttons(struct oxp_hid_cfg *cfg)
  {
- 	unsigned char *dmabuf __free(kfree) = kzalloc(OXP_PACKET_SIZE, GFP_KERNEL);
-+	bool rgb_write;
+-	u8 page_1[59] = { 0x02, 0x38, 0x20, 0x01, 0x01 };
+-	u8 page_2[59] = { 0x02, 0x38, 0x20, 0x02, 0x01 };
++	u8 page_1[59] = { 0x02, 0x38, cfg->bmap_format, 0x01, 0x01 };
++	u8 page_2[59] = { 0x02, 0x38, cfg->bmap_format, 0x02, 0x01 };
++	u8 page_3[59] = {
++		0x02, 0x38, cfg->bmap_format, 0x03, 0x01,
++		/*
++		 * M3/M4 have no mutable sysfs mapping slots. Keep their factory
++		 * encodings, which are not entries in oxp_button_table.
++		 */
++		BUTTON_M3, OXP_MAPPING_KEYBOARD, 0x02, 0x05, 0x00, 0x00,
++		BUTTON_M4, OXP_MAPPING_GAMEPAD, 0x21, 0x00, 0x00, 0x00,
++	};
+ 	u16 up = get_usage_page(cfg->hdev);
  	int ret;
  
- 	if (!dmabuf)
-@@ -500,6 +524,19 @@ static int mcu_property_out(struct oxp_hid_cfg *cfg, u8 *header, size_t header_s
- 	guard(mutex)(&cfg->cfg_mutex);
- 	if (READ_ONCE(cfg->removing))
- 		return -ENODEV;
-+	if (READ_ONCE(cfg->suspended))
-+		return -EHOSTDOWN;
+@@ -774,7 +791,11 @@ static int oxp_set_buttons(struct oxp_hid_cfg *cfg)
+ 	if (ret)
+ 		return ret;
+ 
+-	return oxp_gen_2_property_out(cfg, OXP_FID_GEN2_KEY_STATE, page_2, ARRAY_SIZE(page_2));
++	ret = oxp_gen_2_property_out(cfg, OXP_FID_GEN2_KEY_STATE, page_2, ARRAY_SIZE(page_2));
++	if (ret || !cfg->bmap_page_3)
++		return ret;
 +
-+	rgb_write = header_size && data_size > 1 &&
-+		    header[0] == OXP_FID_GEN2_STATUS_EVENT &&
-+		    data[0] == OXP_EFFECT_MONO_TRUE;
-+	if (rgb_write) {
-+		scoped_guard(spinlock_irqsave, &cfg->rgb_reply_lock) {
-+			cfg->rgb_reply_command = data[0];
-+			cfg->rgb_reply_zone = data[1];
-+			cfg->rgb_reply_pending = true;
-+		}
-+	}
++	return oxp_gen_2_property_out(cfg, OXP_FID_GEN2_KEY_STATE, page_3, ARRAY_SIZE(page_3));
+ }
  
- 	memcpy(dmabuf, header, header_size);
- 	memcpy(dmabuf + header_size, data, data_size);
-@@ -509,12 +546,18 @@ static int mcu_property_out(struct oxp_hid_cfg *cfg, u8 *header, size_t header_s
- 	dev_dbg(&cfg->hdev->dev, "raw data: [%*ph]\n", OXP_PACKET_SIZE, dmabuf);
+ static void oxp_reset_buttons(struct oxp_hid_cfg *cfg)
+@@ -1550,7 +1571,13 @@ static struct quirk_entry quirk_hybrid_mcu = {
+ 	.hybrid_mcu = true,
+ };
  
- 	ret = hid_hw_output_report(cfg->hdev, dmabuf, OXP_PACKET_SIZE);
--	if (ret < 0)
--		return ret;
+-static const struct dmi_system_id oxp_hybrid_mcu_list[] = {
++static struct quirk_entry quirk_x2_bmap = {
++	.bmap_format = OXP_BMAP_FORMAT_X2,
++	.bmap_page_3 = true,
++	.cfg_interface_num = 2,
++};
++
++static const struct dmi_system_id oxp_quirk_list[] = {
+ 	{
+ 		.ident = "OneXPlayer Apex",
+ 		.matches = {
+@@ -1575,21 +1602,34 @@ static const struct dmi_system_id oxp_hybrid_mcu_list[] = {
+ 		},
+ 		.driver_data = &quirk_hybrid_mcu,
+ 	},
++	{
++		.ident = "OneXPlayer 3",
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "ONE-NETBOOK"),
++			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "ONEXPLAYER 3"),
++		},
++		.driver_data = &quirk_x2_bmap,
++	},
++	{
++		.ident = "OneXPlayer X2 Mini Pro",
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "ONE-NETBOOK"),
++			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "ONEXPLAYER X2Mini PRO"),
++		},
++		.driver_data = &quirk_x2_bmap,
++	},
+ 	{},
+ };
+ 
+-static bool oxp_hybrid_mcu_device(void)
++static const struct quirk_entry *oxp_get_quirks(void)
+ {
+ 	const struct dmi_system_id *dmi_id;
+-	struct quirk_entry *quirks;
+ 
+-	dmi_id = dmi_first_match(oxp_hybrid_mcu_list);
++	dmi_id = dmi_first_match(oxp_quirk_list);
+ 	if (!dmi_id)
+-		return false;
++		return NULL;
+ 
+-	quirks = dmi_id->driver_data;
 -
- 	/* MCU takes 200ms to be ready for another command. */
- 	msleep(200);
--	return ret == OXP_PACKET_SIZE ? 0 : -EIO;
-+	if (ret >= 0)
-+		ret = ret == OXP_PACKET_SIZE ? 0 : -EIO;
-+
-+	if (rgb_write) {
-+		scoped_guard(spinlock_irqsave, &cfg->rgb_reply_lock) {
-+			cfg->rgb_reply_pending = false;
-+		}
-+	}
-+
-+	return ret;
+-	return quirks->hybrid_mcu;
++	return dmi_id->driver_data;
  }
  
- static int oxp_gen_1_property_out(struct oxp_hid_cfg *cfg, enum oxp_function_index fid, u8 *data,
-@@ -748,7 +791,7 @@ static void oxp_btn_queue_fn(struct work_struct *work)
- 					      struct oxp_hid_cfg, oxp_btn_queue);
- 	int ret;
+ static void oxp_drain_output(struct oxp_hid_cfg *cfg)
+@@ -1613,6 +1653,21 @@ static void oxp_quiesce_work(struct oxp_hid_cfg *cfg)
+ 	oxp_drain_output(cfg);
+ }
  
--	if (READ_ONCE(cfg->removing))
-+	if (READ_ONCE(cfg->suspended) || READ_ONCE(cfg->removing))
- 		return;
- 
- 	ret = oxp_set_buttons(cfg);
-@@ -837,7 +880,7 @@ static ssize_t map_button_store(struct device *dev,
- 	default:
- 		return -EINVAL;
- 	}
--	if (!READ_ONCE(cfg->removing))
-+	if (!READ_ONCE(cfg->suspended) && !READ_ONCE(cfg->removing))
- 		mod_delayed_work(system_dfl_wq, &cfg->oxp_btn_queue,
- 				 msecs_to_jiffies(50));
- 	return count;
-@@ -1413,7 +1456,7 @@ static void oxp_rgb_queue_fn(struct work_struct *work)
- 	u8 val = 4 * brightness / max_brightness;
- 	int ret;
- 
--	if (READ_ONCE(cfg->removing))
-+	if (READ_ONCE(cfg->suspended) || READ_ONCE(cfg->removing))
- 		return;
- 
- 	guard(mutex)(&cfg->rgb_mutex);
-@@ -1442,7 +1485,7 @@ static void oxp_rgb_brightness_set(struct led_classdev *led_cdev,
- 	struct led_classdev_mc *mc_cdev = lcdev_to_mccdev(led_cdev);
- 	struct oxp_hid_cfg *cfg = container_of(mc_cdev, struct oxp_hid_cfg, cdev);
- 
--	if (READ_ONCE(cfg->removing))
-+	if (READ_ONCE(cfg->suspended) || READ_ONCE(cfg->removing))
- 		return;
- 
- 	led_cdev->brightness = brightness;
-@@ -1554,6 +1597,9 @@ static void oxp_drain_output(struct oxp_hid_cfg *cfg)
- static void oxp_quiesce_work(struct oxp_hid_cfg *cfg)
++static bool oxp_is_cfg_interface(struct hid_device *hdev,
++				 const struct quirk_entry *quirks)
++{
++	struct usb_interface *intf;
++
++	if (!quirks || !quirks->cfg_interface_num)
++		return true;
++	if (hdev->bus != BUS_USB)
++		return false;
++
++	intf = to_usb_interface(hdev->dev.parent);
++	return intf->cur_altsetting->desc.bInterfaceNumber ==
++	       quirks->cfg_interface_num;
++}
++
+ static void oxp_cfg_release(void *data)
  {
- 	WRITE_ONCE(cfg->removing, true);
-+	scoped_guard(spinlock_irqsave, &cfg->rgb_reply_lock) {
-+		cfg->rgb_reply_pending = false;
-+	}
- 	if (cfg->rgb_work_initialized)
- 		disable_delayed_work_sync(&cfg->oxp_rgb_queue);
- 	if (cfg->gen2_work_initialized) {
-@@ -1584,6 +1630,7 @@ static int oxp_cfg_probe(struct hid_device *hdev, u16 up)
- 	cfg->hdev = hdev;
- 	mutex_init(&cfg->cfg_mutex);
- 	mutex_init(&cfg->rgb_mutex);
-+	spin_lock_init(&cfg->rgb_reply_lock);
- 
- 	/* Clear drvdata after registered callback objects have been released. */
- 	hid_set_drvdata(hdev, cfg);
-@@ -1714,6 +1761,54 @@ static void oxp_hid_remove(struct hid_device *hdev)
- 	hid_hw_stop(hdev);
+ 	struct oxp_hid_cfg *cfg = data;
+@@ -1620,7 +1675,8 @@ static void oxp_cfg_release(void *data)
+ 	hid_set_drvdata(cfg->hdev, NULL);
  }
  
-+static int __maybe_unused oxp_hid_suspend(struct hid_device *hdev,
-+					  pm_message_t message)
-+{
-+	struct oxp_hid_cfg *cfg = hid_get_drvdata(hdev);
-+
-+	if (!cfg || PMSG_IS_AUTO(message))
-+		return 0;
-+
-+	WRITE_ONCE(cfg->suspended, true);
-+	scoped_guard(spinlock_irqsave, &cfg->rgb_reply_lock) {
-+		cfg->rgb_reply_pending = false;
-+	}
-+	if (cfg->rgb_work_initialized)
-+		disable_delayed_work_sync(&cfg->oxp_rgb_queue);
-+	if (cfg->gen2_work_initialized) {
-+		disable_delayed_work_sync(&cfg->oxp_btn_queue);
-+		disable_delayed_work_sync(&cfg->oxp_mcu_init);
-+	}
-+	oxp_drain_output(cfg);
-+
-+	return 0;
-+}
-+
-+static int __maybe_unused oxp_hid_resume(struct hid_device *hdev)
-+{
-+	struct oxp_hid_cfg *cfg = hid_get_drvdata(hdev);
-+
-+	if (!cfg || !READ_ONCE(cfg->suspended) ||
-+	    READ_ONCE(cfg->removing))
-+		return 0;
-+
-+	if (cfg->rgb_work_initialized)
-+		enable_delayed_work(&cfg->oxp_rgb_queue);
-+	if (cfg->gen2_work_initialized) {
-+		enable_delayed_work(&cfg->oxp_btn_queue);
-+		enable_delayed_work(&cfg->oxp_mcu_init);
-+	}
-+	WRITE_ONCE(cfg->suspended, false);
-+	if (!cfg->gen2_work_initialized)
-+		return 0;
-+
-+	/* Allow the controller MCU to finish rebooting before restoring state. */
-+	queue_delayed_work(system_dfl_wq, &cfg->oxp_mcu_init,
-+			   msecs_to_jiffies(6500));
-+
-+	return 0;
-+}
-+
- static const struct hid_device_id oxp_devices[] = {
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_CRSC, USB_DEVICE_ID_ONEXPLAYER_GEN1) },
- 	{ HID_USB_DEVICE(USB_VENDOR_ID_WCH, USB_DEVICE_ID_ONEXPLAYER_GEN2) },
-@@ -1727,6 +1822,9 @@ static struct hid_driver hid_oxp = {
- 	.probe = oxp_hid_probe,
- 	.remove = oxp_hid_remove,
- 	.raw_event = oxp_hid_raw_event,
-+	.suspend = pm_ptr(oxp_hid_suspend),
-+	.resume = pm_ptr(oxp_hid_resume),
-+	.reset_resume = pm_ptr(oxp_hid_resume),
- };
- module_hid_driver(hid_oxp);
+-static int oxp_cfg_probe(struct hid_device *hdev, u16 up)
++static int oxp_cfg_probe(struct hid_device *hdev, u16 up,
++			 const struct quirk_entry *quirks)
+ {
+ 	struct oxp_bmap_page_1 *bmap_1;
+ 	struct oxp_bmap_page_2 *bmap_2;
+@@ -1642,7 +1698,7 @@ static int oxp_cfg_probe(struct hid_device *hdev, u16 up)
+ 	if (ret)
+ 		return ret;
  
+-	if (up == GEN2_USAGE_PAGE && oxp_hybrid_mcu_device())
++	if (up == GEN2_USAGE_PAGE && quirks && quirks->hybrid_mcu)
+ 		goto skip_rgb;
+ 
+ 	cfg->cdev = oxp_cdev_rgb;
+@@ -1693,6 +1749,9 @@ skip_rgb:
+ 
+ 	cfg->bmap_1 = bmap_1;
+ 	cfg->bmap_2 = bmap_2;
++	cfg->bmap_format = quirks && quirks->bmap_format ?
++			   quirks->bmap_format : OXP_BMAP_FORMAT_DEFAULT;
++	cfg->bmap_page_3 = quirks && quirks->bmap_page_3;
+ 	oxp_reset_buttons(cfg);
+ 	INIT_DELAYED_WORK(&cfg->oxp_btn_queue, oxp_btn_queue_fn);
+ 
+@@ -1720,6 +1779,7 @@ err_quiesce:
+ static int oxp_hid_probe(struct hid_device *hdev,
+ 			 const struct hid_device_id *id)
+ {
++	const struct quirk_entry *quirks;
+ 	int ret;
+ 	u16 up;
+ 
+@@ -1738,12 +1798,16 @@ static int oxp_hid_probe(struct hid_device *hdev,
+ 	}
+ 
+ 	up = get_usage_page(hdev);
++	quirks = oxp_get_quirks();
+ 	dev_dbg(&hdev->dev, "Got usage page %04x\n", up);
+ 
+ 	switch (up) {
+ 	case GEN1_USAGE_PAGE:
+ 	case GEN2_USAGE_PAGE:
+-		ret = oxp_cfg_probe(hdev, up);
++		if (!oxp_is_cfg_interface(hdev, quirks))
++			return 0;
++
++		ret = oxp_cfg_probe(hdev, up, quirks);
+ 		if (ret) {
+ 			hid_hw_close(hdev);
+ 			hid_hw_stop(hdev);
