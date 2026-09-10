@@ -1,69 +1,69 @@
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84E0558E2CC
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:51:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F0C35AC34
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:51:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789066282; cv=none; b=jewweMUJpgpJ/9nQOuaQ+3c1cSZrI64s8iHIWh0q+zRS0h454nznPlqxqS5tsof7onsU4LJ3EJcn21zqbuJdHTw4mLrvPwtgtFzYYzfPuGmDeHwrsNHq1yMCUpVlqyTpGUgl1bZQMeOcWwQZoU+basfzak6oKWa26r+A3+dbxEQ=
+	t=1789066284; cv=none; b=B30SVXsVIVEjSWc9Hpn0sWeunvlDladd+hjNGlbl8FoR4FArPzRjTIG80V2WC87VipQRTQDq5cjOAuSIr4Dn4pQGfJMDmwv61bhEQa9iYbZr8GKVzLVe33H+dHtCSa4GKaENZOIaGfMeSvmtqlq5tE4PrHLD/KW8BWLDMU+tqes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789066282; c=relaxed/simple;
-	bh=ZoHASPcgXPkyj8nhWq6Qxe/k1AFcC7iFexyU3IrpvR8=;
+	s=arc-20240116; t=1789066284; c=relaxed/simple;
+	bh=8cFDFeD2IXPN8Vlj1EymtW9Bi32PSZwsbXS468MRSTs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HHLEEz14CZsor7YO2PNDpAmzPkt1FpqO6ywrItSWAuBiEbrJxSF78wyapQuIgKOGrHITLKA+a1lOr30CBAvz8+9BlZJvznTJlFn9y0t+d3j5+T6AfPT8u7U7y3uwT4x5L/Pwpo4lML2RY9axBZrc33ajtVbhe1Pt+rIsvJbqQmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=FkS5t4r7; arc=none smtp.client-ip=209.85.160.173
+	 In-Reply-To:To:Cc; b=s9+ZHlEd9/ZN47b0Ky95K8ji2jzul60uf6Z26FgALS0Egk7qmyPE/CD4Rw8Zzg75lJ0kZcymxIilAQf8wrUJ5ZPBwpxd7jS0ZzHbXU/4EfV2aVec0nHysq+ElquXw+vQ5U31hUiafHS8G20qHOn/MjaFi5TLLJ63BnJ+DKISqcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=P4yoQ+mO; arc=none smtp.client-ip=209.85.160.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="FkS5t4r7"
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-53091987029so1492451cf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:51:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="P4yoQ+mO"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-53016020b2fso1772431cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:51:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=toxicpanda.com; s=google; t=1789066267; x=1789671067; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7VM45t8rF8CqlHWPsaSwdk7BD4ox5LDNpAeDrj6m5qM=;
-        b=FkS5t4r7+3j2UfZ0RLVolamkigBb+vJssuPf16u8K6YX23oCdm/HHhL3NfNXesmLkc
-         AJckDRrELidS7z9cyjTlXOH6wKMTF/SzZYuA0OiRU/kgbdgSehYJfqGxaoBns7oARu43
-         bQKw06h9OmHkWYoMAxkqKMDTV+XmWBupGz+IQuXsGTuAURAOG7Eihotj5Cm6jCFP8B0S
-         MJbWE3cjw4/VUXbQ0M6TkMcE7c+UXpdoHAqhV1dgssC7/7/nkE766QgqdFFQ2cwscBUh
-         a3m/ZBUhN9FSJUs7mFewpZaByujqKJOuZoBtNpF9cMKHyOjijeiueTPZ5iJP2aCR0a/h
-         FSDQ==
+        bh=hbVlQmHCpb9zv+5BDFsE+SK081jwlXFhk4tZhnaWY5k=;
+        b=P4yoQ+mOM4WUgBz9RADqBb404TunTklUBQ5AA9f11bVMHualuNKPRLtCOEtWC+e5in
+         plReejw9msm5E59hkMfnBzgUksGKvliqi/JRHAJ3G+v2C3UP7S4R69h0KlJmznFG+8+S
+         DGHZNnSgvHbjPjrIkqNSVrAUndW4qJl8PSkGe7guaopCJzQqxNAwI5qEg6UnK1N803M4
+         boOa1klgsemeZGF6GHo1Fpxx/HcEhm253pFxlvbPmsNon6+t5CbXZ/DasMOIoJ+BwAfH
+         rCFxlmfVc6RpAZv507EUKj3DQ4Jnj2+94prQC+Duu4Ka9hPC0dmRKmF7qp6AYdjSAkIk
+         efRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1789066267; x=1789671067;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7VM45t8rF8CqlHWPsaSwdk7BD4ox5LDNpAeDrj6m5qM=;
-        b=nyEYrQUOtRWnJ9tQn5K4YJGz6pI5+KjtKBEZY2mcXoNpRhk2g8BdiLaDDScK7Xo6mh
-         CogsmvOJM+tppaaFNVrq49dJmhioryZdm9tLt3EdwpgFe9nvMv/DPB7mKWUiVkuBLQQZ
-         Q6c+EdSkAF6+dwS9hYKurKXyuXaVFyXbbpHwl2iOm75CK3C4kWP7ck2sIkShQ2/fw0jo
-         kXYVuqn5u5mmtCdSSEhlJY/Nmr1sx93C1ylORN4ko0FT+f+TlQkqo9Xx8Mb1O07v0Bso
-         QFRvAEFkakXbvzxuFDWzCiIKaRoxVwauGClrz11kqYjbMEYSIbG2DFyjXdXKDA/AeoFv
-         c0DA==
-X-Forwarded-Encrypted: i=1; AKwUvBy9LvzqoQDT+7yhj5Qex1ob3u+2PK6X1zR20f0jTsah1gDXcWivFynKlmdMNiCUfzl1J7MsQ9HptuFAGOc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lARJ/wmOEz5mikI7Ud2n16pQ0LUJ2uaGktTD3WUbrnozoqwa7A
-	1939RaouW8GwiprsaO6z+caGB7iZyg+eE0JAzbU61EzeReysb2YcQGmF4FTUAMoRWVw=
-X-Gm-Gg: AYBFou2BlCljwa29Bh9x1HWNPlC1Oxw0Kq0fsJcWh/ogN1Ch/QCVGL4VddI/apkhYfF
-	Z0jzOUnhDYFjFdPGEiMmCpEUyRjYYT716O6GbtvD2Ktq+qopMuJPaJdK1R1FpZNqOzbbDdYnb0G
-	H5/hHOdIy+CfMGXzQROxzz3INEPKbdz1LdE/hO+aUNxe5Khkpt9TGWA2HyarnQnq53ygU8NUycC
-	frXfFYyWGtj+Iwj/P2UhMXiuDAsFIXVqIm3UeWKM4IrnyC6W3igaaccvXZSxtI24WgQg+bSB3mC
-	SAloq4LfKCSyZl9eY9Jj7JRTu7h2pz6jNNoE/Q0omnUep3PFAHyrgavSjiYEj+cJxNuJn+FuKNm
-	CcvYWMbQuQt+wcNzlPharJoveKx882aV+KmRjoE7UPqITYrKSbBTMkxor9qz+22ucj8JGwmhqcu
-	DR9ZC4MLAHxT27JKTZO6OCeM2g2mL1neJaCkKAPPtIz6lbgtjTDBZgzIW6udQm3vmol+K2pP9vK
-	vzo5e79TPeAoEQoGVvQOhK8SQi+VlEaJQBmZVMBCDrr0B7zmUfewCsB
-X-Received: by 2002:a05:622a:2294:b0:530:b2e4:d597 with SMTP id d75a77b69052e-530c87487damr11129971cf.50.1789066266848;
-        Thu, 10 Sep 2026 11:51:06 -0700 (PDT)
+        bh=hbVlQmHCpb9zv+5BDFsE+SK081jwlXFhk4tZhnaWY5k=;
+        b=HnRrFbVWRezJqVf4D0avbwzPj/5qHOkHIGhS7ILc10Yv8rIBro2Y11KB0o7nu8sZuN
+         e8j+/QLSzslMd8XbVpPHkoO2ncS/DsVzo7D1PnCIJ//9gBWwTMwJG9MFF5zQPcebtUv6
+         gGFUKkOvGSJO6h4au2LfKwNhRMq0eyULZ8kdXPiA+TTAfQPv3SzR71Xp4AE+9Y6EHPzd
+         EDgmFyWHPKjzh5ZRgdq6NTI+Zbw2qSo1WjNc+AjwPGK7q5b66CyWYq+JIscn/1ey/JfR
+         hFIvwmEeoxtsoONHHqR9w9Q/LxRojdcAqNYd2RJgNLiyCsQnx82YhSuSxC39gdOqZQ//
+         CAsA==
+X-Forwarded-Encrypted: i=1; AKwUvByQHJ7voAtZU6Z/PY/LleQfIYnBT26B/5UHtZvgkVIbWcOohxruOyP77thjL5V4JW33vF5P0pd83IZzw3E=@vger.kernel.org
+X-Gm-Message-State: AFuF++nymPRW1DbUHsKULYgu0w4Ajolco7Xfyq3z3S5064KZXa4KcDta
+	uPD9YcPrP4+SYMfS4BeV0tj5jhytY6wdQ4Px56xEG4LhK68dA2d0rMK4aa8WtNTmQEo=
+X-Gm-Gg: AYBFou197rMahnno7Hh4TVrJM2iZ1Hmn3bfuXzLwxS5HLHsxV4BXhWch+AoIzgo0xwJ
+	OPlVfm0v6heWPRUAZjYoudWgIAMDfG1lJAWIIaEpBLF/xnz/jpBaiPvBH1KDFAab1fgM5k9KUZx
+	FEzQ+DAG6EW/Fy0lyD1T/dLe3dtKleCpxEQNmXE4BIKSA/wUYSjD3IuIleE2ouYpUHXlKwOXyXb
+	ZHqSuGuPvsTs218LeSFvJoIgeCQm9zpzsnFvGeNXmt0QPLK9ggxu6ZWQjnF6b0Ze+Vry9S/Dqmx
+	6WAbkHdj6qjG0hs87XrA1F2vsFMdf1L9QxkT4H6Nzc8P897MBMMT2q+qvmTdhcY35otBadKggzM
+	2O6a+dxm4CuLJGU+qQuur1ftQbBX2NPWDrbx1YkswZ/sNx3tJ5/j4peJabGxTefi+5XtH6WPDar
+	5lv6iuxetgpmBd7DEwnbwgGMhDbkljSYqz+3T54fVPgAyQm5S/Nsq/RPgpJudAfquyTT4HT7FZD
+	cKz31ttDQ6OHzNczlHacaxu7K8Zdxh6U0aMjv7xK9hOFQz4H4DR47FS
+X-Received: by 2002:a05:622a:1309:b0:530:42e4:effc with SMTP id d75a77b69052e-530c87566f0mr10949261cf.41.1789066264886;
+        Thu, 10 Sep 2026 11:51:04 -0700 (PDT)
 Received: from toxicpanda.com (ec2-34-228-114-98.compute-1.amazonaws.com. [34.228.114.98])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f47a239sm2556366d6.26.2026.09.10.11.51.06
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca47efa2sm216291cf.11.2026.09.10.11.51.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 11:51:06 -0700 (PDT)
+        Thu, 10 Sep 2026 11:51:04 -0700 (PDT)
 From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 10 Sep 2026 18:50:31 +0000
-Subject: [PATCH RFC 08/13] bpf, x86: Maintain Tasks RCU trampoline nesting
- in the BPF trampoline
+Date: Thu, 10 Sep 2026 18:50:30 +0000
+Subject: [PATCH RFC 07/13] x86/kprobes: Maintain Tasks RCU trampoline
+ nesting in the optprobe template
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-b4-rcu-tasks-preempt-qs-v1-8-d4469f4cc101@toxicpanda.com>
+Message-Id: <20260910-b4-rcu-tasks-preempt-qs-v1-7-d4469f4cc101@toxicpanda.com>
 References: <20260910-b4-rcu-tasks-preempt-qs-v1-0-d4469f4cc101@toxicpanda.com>
 In-Reply-To: <20260910-b4-rcu-tasks-preempt-qs-v1-0-d4469f4cc101@toxicpanda.com>
 To: "Paul E. McKenney" <paulmck@kernel.org>, 
@@ -98,113 +98,77 @@ Cc: Andy Lutomirski <luto@kernel.org>,
  xen-devel@lists.xenproject.org, Josef Bacik <josef@toxicpanda.com>
 X-Mailer: b4 0.15.2
 
-Emit an increment of current->rcu_tramp_nesting once the trampoline's
-frame is set up and a decrement before the final register restore, so
-that a task preempted while running fentry/fexit/fmod_ret/LSM programs
-or the __bpf_tramp_enter()/__bpf_tramp_exit() glue is not treated as
-Tasks-RCU quiescent.  Drop the count around the call to the original
-function: that may run arbitrarily long without sleeping and must not pin
-a Tasks RCU grace period, and the trampoline frame above it is held by
-im->pcref rather than by Tasks RCU (see bpf_tramp_image_put()).  The
-fmod_ret early-exit branch and the ip_after_call -> ip_epilogue poke both
-skip the decrement/increment pair around the original call, so the count
-stays balanced on every path.
+The jump-optimized kprobe template calls optimized_callback() with
+preemption still enabled for its first few instructions, so bracket the
+call with an increment/decrement of current->rcu_tramp_nesting.  The
+template lives in .rodata and is memcpy()d into each optinsn slot without
+relocation processing, so the per-CPU reference to current_task must be
+an absolute %gs: address (R_X86_64_32S, relocated for KASLR like any
+other) rather than %rip-relative.  %rax has already been saved by
+SAVE_REGS_STRING and is dead after the call.
 
-The sequence is "mov r11, gs:[current_task]; inc/dec dword [r11 + off]";
-r11 is scratch at every emission point and (u32)&current_task is a valid
-sign-extended %gs-absolute with the current per-CPU layout, the same form
-the JIT already uses for this_cpu_off.  The image is dynamically
-allocated text, so the instructions outside the bracketed region are
-covered by the irq-exit IP check.
+The slot itself is dynamically allocated text, so the instructions before
+the increment and after the decrement are covered by the irq-exit IP
+check.  64-bit only; 32-bit x86 does not take part.
 
 Assisted-by: LLM
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- arch/x86/net/bpf_jit_comp.c | 43 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 43 insertions(+)
+ arch/x86/kernel/kprobes/opt.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/arch/x86/net/bpf_jit_comp.c b/arch/x86/net/bpf_jit_comp.c
-index 2853e87797a7..a375c1b7bd50 100644
---- a/arch/x86/net/bpf_jit_comp.c
-+++ b/arch/x86/net/bpf_jit_comp.c
-@@ -722,6 +722,31 @@ static void emit_indirect_jump(u8 **pprog, int bpf_reg, u8 *ip)
- 	*pprog = prog;
+diff --git a/arch/x86/kernel/kprobes/opt.c b/arch/x86/kernel/kprobes/opt.c
+index 3f8fea52619f..f722520bb989 100644
+--- a/arch/x86/kernel/kprobes/opt.c
++++ b/arch/x86/kernel/kprobes/opt.c
+@@ -31,6 +31,7 @@
+ #include <asm/set_memory.h>
+ #include <asm/sections.h>
+ #include <asm/nospec-branch.h>
++#include <asm/asm-offsets.h>
+ 
+ #include "common.h"
+ 
+@@ -101,6 +102,23 @@ static void synthesize_set_arg1(kprobe_opcode_t *addr, unsigned long val)
+ 	*(unsigned long *)addr = val;
  }
  
 +/*
-+ * Tasks RCU trampoline nesting, see rcu_tasks_trampoline_enter().
-+ *
-+ *   mov r11, QWORD PTR gs:[current_task]
-+ *   inc/dec DWORD PTR [r11 + offsetof(struct task_struct, rcu_tramp_nesting)]
-+ *
-+ * r11 (AUX_REG) is scratch in the trampoline at every point this is emitted.
++ * Tasks RCU trampoline nesting, see rcu_tasks_trampoline_enter().  The
++ * template is memcpy()d into the slot without relocation processing, so the
++ * per-CPU reference must be absolute, not %rip-relative.
 + */
-+static void emit_rcu_tasks_tramp_nesting(u8 **pprog, bool enter)
-+{
-+#ifdef CONFIG_TASKS_RCU
-+	u8 *prog = *pprog;
-+
-+	/* mov r11, gs:[abs32] */
-+	EMIT2(0x65, 0x4C);
-+	EMIT3(0x8B, 0x1C, 0x25);
-+	EMIT((u32)(unsigned long)&current_task, 4);
-+	/* inc/dec dword ptr [r11 + disp32] */
-+	EMIT3(0x41, 0xFF, enter ? 0x83 : 0x8B);
-+	EMIT(offsetof(struct task_struct, rcu_tramp_nesting), 4);
-+
-+	*pprog = prog;
++#if defined(CONFIG_TASKS_RCU) && defined(CONFIG_X86_64)
++#define OPTPROBE_RCU_TASKS_ENTER					\
++			"	movq %gs:current_task, %rax\n"		\
++			"	incl " __stringify(TASK_rcu_tramp_nesting) "(%rax)\n"
++#define OPTPROBE_RCU_TASKS_EXIT					\
++			"	movq %gs:current_task, %rax\n"		\
++			"	decl " __stringify(TASK_rcu_tramp_nesting) "(%rax)\n"
++#else
++#define OPTPROBE_RCU_TASKS_ENTER
++#define OPTPROBE_RCU_TASKS_EXIT
 +#endif
-+}
 +
- static void emit_return(u8 **pprog, u8 *ip)
- {
- 	u8 *prog = *pprog;
-@@ -3610,6 +3635,13 @@ static int __arch_prepare_bpf_trampoline(struct bpf_tramp_image *im, void *rw_im
- 	/* mov QWORD PTR [rbp - rbx_off], rbx */
- 	emit_stx(&prog, BPF_DW, BPF_REG_FP, BPF_REG_6, -rbx_off);
- 
-+	/*
-+	 * From here until the matching decrement before the final return, a
-+	 * preemption of this task is not a Tasks RCU quiescent state.  The
-+	 * instructions above this point are covered by the irq-exit IP check.
-+	 */
-+	emit_rcu_tasks_tramp_nesting(&prog, true);
-+
- 	func_meta = nr_regs;
- 	/* Store number of argument registers of the traced function */
- 	emit_store_stack_imm64(&prog, BPF_REG_0, -func_meta_off, func_meta);
-@@ -3670,6 +3702,13 @@ static int __arch_prepare_bpf_trampoline(struct bpf_tramp_image *im, void *rw_im
- 			LOAD_TRAMP_TAIL_CALL_CNT_PTR(stack_size);
- 		}
- 
-+		/*
-+		 * The original function may run for a long time without
-+		 * sleeping; do not let it pin a Tasks RCU grace period.  The
-+		 * trampoline frame above it is held by im->pcref
-+		 * (__bpf_tramp_enter()), not by Tasks RCU, across the call.
-+		 */
-+		emit_rcu_tasks_tramp_nesting(&prog, false);
- 		if (flags & BPF_TRAMP_F_ORIG_STACK) {
- 			emit_ldx(&prog, BPF_DW, BPF_REG_6, BPF_REG_FP, 8);
- 			EMIT2(0xff, 0xd3); /* call *rbx */
-@@ -3680,6 +3719,7 @@ static int __arch_prepare_bpf_trampoline(struct bpf_tramp_image *im, void *rw_im
- 				goto cleanup;
- 			}
- 		}
-+		emit_rcu_tasks_tramp_nesting(&prog, true);
- 		/* remember return value in a stack for bpf prog to access */
- 		emit_stx(&prog, BPF_DW, BPF_REG_FP, BPF_REG_0, -8);
- 		im->ip_after_call = image + (prog - (u8 *)rw_image);
-@@ -3741,6 +3781,9 @@ static int __arch_prepare_bpf_trampoline(struct bpf_tramp_image *im, void *rw_im
- 	if (save_ret)
- 		emit_ldx(&prog, BPF_DW, BPF_REG_0, BPF_REG_FP, -8);
- 
-+	/* Remaining instructions are covered by the irq-exit IP check. */
-+	emit_rcu_tasks_tramp_nesting(&prog, false);
-+
- 	emit_ldx(&prog, BPF_DW, BPF_REG_6, BPF_REG_FP, -rbx_off);
- 
- 	EMIT1(0xC9); /* leave */
+ asm (
+ 			".pushsection .rodata\n"
+ 			".global optprobe_template_entry\n"
+@@ -114,6 +132,7 @@ asm (
+ 			"optprobe_template_clac:\n"
+ 			ASM_NOP3
+ 			SAVE_REGS_STRING
++			OPTPROBE_RCU_TASKS_ENTER
+ 			"	movq %rsp, %rsi\n"
+ 			".global optprobe_template_val\n"
+ 			"optprobe_template_val:\n"
+@@ -122,6 +141,7 @@ asm (
+ 			".global optprobe_template_call\n"
+ 			"optprobe_template_call:\n"
+ 			ASM_NOP5
++			OPTPROBE_RCU_TASKS_EXIT
+ 			/* Copy 'regs->flags' into 'regs->ss'. */
+ 			"	movq 18*8(%rsp), %rdx\n"
+ 			"	movq %rdx, 20*8(%rsp)\n"
 
 -- 
 2.55.0
