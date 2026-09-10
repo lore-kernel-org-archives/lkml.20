@@ -1,195 +1,195 @@
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3342B5AEC45
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:46:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E79C65964E0
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:47:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789069583; cv=none; b=pz5Eohed2MZsR1Hb/9bhd7fa1GLlN0QK1QUv36ma8fE3GvSA8WK6wz+sS2ZxXoN0fUqW5hQXPbktXCVQPDRyE8EzgSb7TE7z2AbkBK6e68Ova6t3zG1+Rmr7pO87/h5DLSvku+nDx0mcwOAROyFpXKeM88QdFPFr7ItGSU/mjKI=
+	t=1789069635; cv=none; b=cB9VZAsCX63Wj4NVXYdw6UiV6j9EmdSrNUe2/aIM6Hcmb/bd0qB3BTWOwUPRuLejmPiwQJ/gEf3ZeqJLt+nXXN51HhPPArncKapfd+ora7znUT5t4CA9IzEEG8s/SzK91b/f2zsYEd26BFj7cGDCfJ/ltRx5/uVwGMcjMjnr4I8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789069583; c=relaxed/simple;
-	bh=nzNtocB+3tL6bfmY7+uDsAetxYXocuFeoxUiOCBkU4E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FenRi+nsmEi1gWx9wQIHIx9Xq+zyLD5YKkZFg+kc+RE5zIX7PD4GDTzYIyikpThDTkdcL40eN/XRf4UuCkhV5H1r72MPBUBwu4x5XwXDv7uGqao7gfrv5tbb1c56MKQjNcsFxqwx3ZIDhbmvr+0Yw7ldYhdd1KEVooRPiYVzOig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bNPKOWLl; arc=none smtp.client-ip=209.85.160.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789069635; c=relaxed/simple;
+	bh=RX071a9PQBNiEQBheV1K3UmyIzBezfZtMt1I3s6KoNQ=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=V0+lhRGKFohknCEj3qVeKJOFUaVC07Zc4SyDZsa8hy/AtAH1MMA0lHTIu75opuxMD6+9Q5muvGRJ/7+aE8lSzpn+yEmrfSN42duQDhVEL1OIvsR9ALZcesSJDIL8UCYT6R46s8NbhfA+Bn2uhpB49TRyj2iFPuJCvTqJTBBKOHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mdhD67lL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bNPKOWLl"
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-52ff0b7c98aso2216691cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:46:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789069579; x=1789674379; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Vg8Qli77O1R5GWc9/5RodbMpVM7POzgBfYCRgn9i5to=;
-        b=bNPKOWLlNZzh758tfREv7nhACTc/vnFD97tGgOEK/Cq0xHKO1qkA+fuO+y/4ob0dov
-         vKuGfjAooQpO0zmRBHt5pcSyU1FHj+/6cHoRUT2vrJJ/J6s/ncoOSwRQDz9ZmqhTuetd
-         lrCZIfSJMoFdbPKidElMlMeBLorUs22wqpK0vcItYZH7PaB0+N8RTDl+2gNPR6uyYV3N
-         VDr77vtdJiYjWw1rgilzOxkNs48GDelN8Syt/AxBCF/V4y7eduvvHC++mtBwAhPmeo+u
-         Wx+hlfwCm39FGTcVSO2iKiy8pjCjuVQKJpf+GUbqtgWuflULIVj7q7PcBLDSg7xpSnfG
-         aD1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789069579; x=1789674379;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Vg8Qli77O1R5GWc9/5RodbMpVM7POzgBfYCRgn9i5to=;
-        b=b3h4BuumM6nPmp3ooUvInp0elvezKQS0lVSCAmbMCRqtGI74BjTqF0QQyLrHSL6Phe
-         N0bfxNng35SdaoIfiQfngtQ64qm/BZSw1AiR0mA4RIapTIjSX0f3U8+LeZZ60iqvY1l2
-         rcNt/twacpLWNzA++dhnUp9dGn2pzdGYmnHWKxo0acZZctjkBfqePxQ3sNZ0ETPTz1Is
-         r6XXQG4d7ZoUriQs1KCoiinEXVaNoFDizHPuoZfctkM1UDOb6tSpiqg2yoZ0LaqrfdKX
-         M2cAjFk3vDhFMuNFm3ICtTaROMPphSOU0ebVU76SpWh2le09s7mBSGRN3SOzJ7+8L8tc
-         m5+g==
-X-Forwarded-Encrypted: i=1; AKwUvByLZ0zFXG7gLU9YCKDb2afH9depy2DwC62OEE/Ak3CqzuYBvz1UcasSyTjDOe7uvVpN26soCNEIY0iAuL4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBCkV+iDEj1re+lMkaKieub2x2isZgTizUgGas4quZDrnW+0Ii
-	2ARZBBwyrHYt8BhnknWXNyqWcrWZgHxl/e7zIcB9JmMpXkS3172tD4YcUs6d3A==
-X-Gm-Gg: AYBFou0orkJvqzl9vWvdlS+/QpsQZBuSGHoY9GiOkccoGZm0gdCG5msszvmPh1gb+nX
-	HYrHLbSOcycL04Tkai7TPgFKgPZQ+O1A9AQxbue71MJuQELQHHCJ6JUN/NMXWdILeNSZP9Y5a1F
-	jVm33+McafkbekHD79ljm6bwCNxcM+161Y4RLTfR331RWmuei0SMl03nhrMr1zgafpGdDqQa9pt
-	zYWrXfcsoY+Gtk0AftoFZFKUCaeFItOhtcGDaO2Q82BtQIJiK44tRFNgFphXaymvF/dNnnCg1zP
-	yw5eeAbSvJPur+k5MpN9pUTBTbvGC8hsqbCmlV7nVUQCp0Q1da5b+5iTL5DGBan9XHThBjaf/r+
-	LNhSCQiACDoevjAHl7lxduGf1bddVrf6Smraif0QGPd6fic4ZGlcV7LsrX6E3CJWwhNQG3uKQ3W
-	bNF4zDmrJGvp4oNpr7TbNzIH7VrDCCBrvOdv4VuPdyVpcrE+cJSkReScagzIy8reXCtbs6GTeuH
-	+tIbIYp62BkGWRSVHdnsLenqChDJAKu8KRx68N7ZHp/im401X9WI/5kfkT80fsYy4OqY6bUx24S
-	vyrZqF/Q8gviYQl+N+X1/odFZhfxesL2J+jj05xBkXlgYVQQ
-X-Received: by 2002:a05:622a:1389:b0:530:b2e4:d5a2 with SMTP id d75a77b69052e-530c87a548amr14474691cf.61.1789069578795;
-        Thu, 10 Sep 2026 12:46:18 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca50cd05sm1174131cf.29.2026.09.10.12.46.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 12:46:18 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: dmaengine@vger.kernel.org
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Rosen Penev <rosenp@gmail.com>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv2] dmaengine: fsl_raid: switch __b32 to u32
-Date: Thu, 10 Sep 2026 12:46:16 -0700
-Message-ID: <20260910194616.34760-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mdhD67lL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0F2A1F00893;
+	Thu, 10 Sep 2026 19:47:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789069632;
+	bh=ZffiQYbGLW+VYKyj9G1IXT3ZIe+gXXWyt3eyqmXRCyU=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=mdhD67lL5P9YOgg7HpKq7NpzrhFf/GCIbmiP+NTpjV8tpFlau2/lwecpkzHaFxN0U
+	 tDMXsD1CYFoQ984ZfHJKyNlmfKACwYZGuUEeNbmynEcx6UwBeiv1tzA9eAzGNCBNHJ
+	 PkcBZmODfEcA1z70YMCpVdM6OU9ZeExU3l+/4zKNyxVTr1noGrmvlOSkDpmw3AP7N7
+	 RG3Fw/U657sLA1k1y2Kq6ieGbMjBzy0OHXhrZwJbid8WnB450kL7P8YNWlYuxJ8MVt
+	 N6CoICjthgca24MsutXZ1+rbuCHbG7yWo15wLppk3JY+yf7P760SE0tqu/LDbjQAoD
+	 5gqFBE2m9Yl4g==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 21509F4006C;
+	Thu, 10 Sep 2026 15:47:11 -0400 (EDT)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Thu, 10 Sep 2026 15:47:11 -0400
+X-ME-Sender: <xms:PwmjaiY31azRpJ6WADEzOrGS_RzT1Q3vFRbos7NSwGYTI6i-VKOlrw>
+    <xme:PwmjagNz68zilixW2T8i9z2DfPvfhNaD125l1Esn4lYtlW9_Oy93qhBRlc00WGf13
+    AZCnNDiafNM8gzACms2X54H8DkW5UbzhHIxGq7J4uzO-Wub0K_fMmfC>
+X-ME-Proxy-Cause: dmFkZTEk5kidKWEsHw6tcAwcrd1DRhsdAEyJmVHoXJViIP9MoT6XSLAEa3dgVU3vDQ8PCt
+    3uJlxew+vCHxhjCEkGB9K4q4YvNCll78mINsejPAPv2f7A8rx/by5L/wMOPhr7GgdojMGl
+    mnXqZ7t8u3NY1AQw1jfsoZ59E/bWTRtZObQpdgTWwdMBGhUhoqsL8YIgTQx00JG6UNMEuO
+    8Ilamerm2V5Ga6H1/BtEHiTodTCvmooX/eYaJ9uiRYrohmMRz+u0jwptMcXqk692iU72AF
+    2IAfu11hEWQXgQaACAaJ1zgeFVG6i3giL9wLCXq+tMouNh1Q0Ts4gaNy3CJ5PY4BJWSjEN
+    wV1yA8EUAkJq24vw5ZK1PqUABbUE45Jyg4HUKo4vURKNuFukUSqpXRlfUj/T6lIRK4Z3rP
+    LROp/epZKJ1HtPGSy8tVmNtvDfzmWjAyZfsmiJWPWqndxj/D24BXFdDsiWIfBGo60lfSHk
+    Wxz7T+YuOToXqN4B9eBLXaI4Df54I0migMCTEAPJAzAWkfjjJoRm1qtndXNG2pvdsu12KN
+    vf33lKc0tvW8es7Hzby4tIPPMk3sQClj48jktF9IpaChQ5kT3RM5KwsnB0aYf2FqHx5wZj
+    32YCr0zgdIUFiYai7TniZpsmXsN6jhPVbB4GzBQIoEdaWiY6EWSfApy+nvzQ
+X-ME-Proxy: <xmx:PwmjauuCiMSXhZhNP8ifBcYQ7zc9_iKBcn34uyIwncDCHRdoBroGIA>
+    <xmx:Pwmjak13fTAkrEM6MXrIaINyRc1fbgxhdHLhYghLe_luwH9hDKef3A>
+    <xmx:PwmjajC5TbuogHWJqY8F8YR5xYmL1VXnwv-9m65-Ine3Xs4UDFjX8g>
+    <xmx:Pwmjahewr_C6xThl1vZw9YGaAVeQWw798YZwO7LUKUqN3tPe2fBctw>
+    <xmx:Pwmjalyt3K9f9BCJTopE8HUD0znOpmJP2LgZcpJwVO32A2zygfmaPOmd>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 027437811F0; Thu, 10 Sep 2026 15:47:11 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: ADEgH0paMfes
+Date: Thu, 10 Sep 2026 15:46:48 -0400
+From: "Chuck Lever" <cel@kernel.org>
+To: "Jeff Layton" <jlayton@kernel.org>
+Cc: "Trond Myklebust" <trondmy@kernel.org>,
+ "Anna Schumaker" <anna@kernel.org>, NeilBrown <neil@brown.name>,
+ "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <Dai.Ngo@oracle.com>,
+ "Tom Talpey" <tom@talpey.com>, "David S. Miller" <davem@davemloft.net>,
+ "Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>,
+ "Paolo Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>,
+ "Donald Hunter" <donald.hunter@gmail.com>, "Shuah Khan" <shuah@kernel.org>,
+ linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kselftest@vger.kernel.org
+Message-Id: <a9efbd67-4a73-49f5-b65e-ea37074e419d@slotpi15m67>
+In-Reply-To: <20260910-nfsd-norpcb-v1-4-b4d5182d634c@kernel.org>
+References: <20260910-nfsd-norpcb-v1-0-b4d5182d634c@kernel.org>
+ <20260910-nfsd-norpcb-v1-4-b4d5182d634c@kernel.org>
+Subject: Re: [PATCH 4/5] NFSD: report registerable programs in the listener_set reply
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-The register maps in fsl_raid.h annotate every field as __be32, but
-they are accessed only through ioread32be()/iowrite32be(), which
-already perform the byte swap and take plain u32 __iomem pointers.
-The __be32 annotation therefore makes sparse reject each access:
+On Thu, 10 Sep 2026, Jeff Layton wrote:
 
-  drivers/dma/fsl_raid.c:116:17: sparse: incorrect type in argument 1
-      (different base types) ... got restricted __be32 [noderef] __iomem *
+> --- a/fs/nfsd/nfsctl.c
+> +++ b/fs/nfsd/nfsctl.c
+> @@ -2273,12 +2396,28 @@ int nfsd_nl_listener_set_doit(struct sk_buff *skb, struct genl_info *info)
+> +	/*
+> +	 * Build the reply before the serv can go away, and only on success.
+> +	 * A caller that got an errno has nothing to register.
+> +	 */
+> +	if (!err && userspace_rpcbind) {
+> +		rskb = nfsd_nl_listener_set_msg(info, net, serv);
+> +		if (IS_ERR(rskb)) {
+> +			err = PTR_ERR(rskb);
+> +			rskb = NULL;
+> +		}
+> +	}
 
-Drop __be32 from struct fsl_re_ctrl and struct fsl_re_chan_cfg; the
-descriptor/CDB structures written via cpu_to_be32() keep their
-annotations.
+The second sentence of the comment is not true after a partial
+failure. Take a request with userspace-rpcbind carrying {tcp:2049,
+tcp:<port already in use>}. The creation loop continues past the
+second failure and keeps only the last errno. The 2049 xprt is on
+sv_permsocks, so the serv survives the list_empty() check below, but
+this gate skips the reply and the caller sees -EADDRINUSE. nfsd is
+now serving on 2049 with nothing registered in rpcbind, and the caller
+was never told which listeners came up or which programs to register.
+The same end state results when nfsd_nl_listener_set_msg() itself
+fails with -ENOMEM.
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202608200637.ro1CqMxi-lkp@intel.com/
-Fixes: 68b7fbc23529 ("dma: fsl_raid: keep MMIO bases as void __iomem and cast at access")
-Assisted-by: opencode:deepseek-v4-flash-free
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
----
- v2: split patch up.
- drivers/dma/fsl_raid.h | 54 +++++++++++++++++++++---------------------
- 1 file changed, 27 insertions(+), 27 deletions(-)
+In kernel-owned mode the survivor would already have been registered
+inside svc_xprt_create_from_sa(), so this is a behavioral gap specific
+to the new mode. Either tear down the listeners that were created when
+any of them fails, or send the reply whenever at least one listener
+exists on the serv, regardless of err. The second keeps the existing
+partial-success semantics; the caller can then act on what it got.
 
-diff --git a/drivers/dma/fsl_raid.h b/drivers/dma/fsl_raid.h
-index adbfede330a7..6fde5192ab77 100644
---- a/drivers/dma/fsl_raid.h
-+++ b/drivers/dma/fsl_raid.h
-@@ -110,59 +110,59 @@
- 
- struct fsl_re_ctrl {
- 	/* General Configuration Registers */
--	__be32 global_config;	/* Global Configuration Register */
-+	u32 global_config;	/* Global Configuration Register */
- 	u8     rsvd1[4];
--	__be32 galois_field_config; /* Galois Field Configuration Register */
-+	u32 galois_field_config; /* Galois Field Configuration Register */
- 	u8     rsvd2[4];
--	__be32 jq_wrr_config;   /* WRR Configuration register */
-+	u32 jq_wrr_config;	/* WRR Configuration register */
- 	u8     rsvd3[4];
--	__be32 crc_config;	/* CRC Configuration register */
-+	u32 crc_config;		/* CRC Configuration register */
- 	u8     rsvd4[228];
--	__be32 system_reset;	/* System Reset Register */
-+	u32 system_reset;	/* System Reset Register */
- 	u8     rsvd5[252];
--	__be32 global_status;	/* Global Status Register */
-+	u32 global_status;	/* Global Status Register */
- 	u8     rsvd6[832];
--	__be32 re_liodn_base;	/* LIODN Base Register */
-+	u32 re_liodn_base;	/* LIODN Base Register */
- 	u8     rsvd7[1712];
--	__be32 re_version_id;	/* Version ID register of RE */
--	__be32 re_version_id_2; /* Version ID 2 register of RE */
-+	u32 re_version_id;	/* Version ID register of RE */
-+	u32 re_version_id_2;	/* Version ID 2 register of RE */
- 	u8     rsvd8[512];
--	__be32 host_config;	/* Host I/F Configuration Register */
-+	u32 host_config;	/* Host I/F Configuration Register */
- };
- 
- struct fsl_re_chan_cfg {
- 	/* Registers for JR interface */
--	__be32 jr_config_0;	/* Job Queue Configuration 0 Register */
--	__be32 jr_config_1;	/* Job Queue Configuration 1 Register */
--	__be32 jr_interrupt_status; /* Job Queue Interrupt Status Register */
-+	u32 jr_config_0;	/* Job Queue Configuration 0 Register */
-+	u32 jr_config_1;	/* Job Queue Configuration 1 Register */
-+	u32 jr_interrupt_status; /* Job Queue Interrupt Status Register */
- 	u8     rsvd1[4];
--	__be32 jr_command;	/* Job Queue Command Register */
-+	u32 jr_command;		/* Job Queue Command Register */
- 	u8     rsvd2[4];
--	__be32 jr_status;	/* Job Queue Status Register */
-+	u32 jr_status;		/* Job Queue Status Register */
- 	u8     rsvd3[228];
- 
- 	/* Input Ring */
--	__be32 inbring_base_h;	/* Inbound Ring Base Address Register - High */
--	__be32 inbring_base_l;	/* Inbound Ring Base Address Register - Low */
--	__be32 inbring_size;	/* Inbound Ring Size Register */
-+	u32 inbring_base_h;	/* Inbound Ring Base Address Register - High */
-+	u32 inbring_base_l;	/* Inbound Ring Base Address Register - Low */
-+	u32 inbring_size;	/* Inbound Ring Size Register */
- 	u8     rsvd4[4];
--	__be32 inbring_slot_avail; /* Inbound Ring Slot Available Register */
-+	u32 inbring_slot_avail; /* Inbound Ring Slot Available Register */
- 	u8     rsvd5[4];
--	__be32 inbring_add_job;	/* Inbound Ring Add Job Register */
-+	u32 inbring_add_job;	/* Inbound Ring Add Job Register */
- 	u8     rsvd6[4];
--	__be32 inbring_cnsmr_indx; /* Inbound Ring Consumer Index Register */
-+	u32 inbring_cnsmr_indx; /* Inbound Ring Consumer Index Register */
- 	u8     rsvd7[220];
- 
- 	/* Output Ring */
--	__be32 oubring_base_h;	/* Outbound Ring Base Address Register - High */
--	__be32 oubring_base_l;	/* Outbound Ring Base Address Register - Low */
--	__be32 oubring_size;	/* Outbound Ring Size Register */
-+	u32 oubring_base_h;	/* Outbound Ring Base Address Register - High */
-+	u32 oubring_base_l;	/* Outbound Ring Base Address Register - Low */
-+	u32 oubring_size;	/* Outbound Ring Size Register */
- 	u8     rsvd8[4];
--	__be32 oubring_job_rmvd; /* Outbound Ring Job Removed Register */
-+	u32 oubring_job_rmvd;	/* Outbound Ring Job Removed Register */
- 	u8     rsvd9[4];
--	__be32 oubring_slot_full; /* Outbound Ring Slot Full Register */
-+	u32 oubring_slot_full;	/* Outbound Ring Slot Full Register */
- 	u8     rsvd10[4];
--	__be32 oubring_prdcr_indx; /* Outbound Ring Producer Index */
-+	u32 oubring_prdcr_indx;	/* Outbound Ring Producer Index */
- };
- 
- /*
+
+> +static size_t nfsd_nl_listener_set_msgsize(struct svc_serv *serv)
+> +{
+> +	size_t size = GENL_HDRLEN +		    /* genlmsg_iput() */
+> +		      nla_total_size(0);	    /* userspace-rpcbind */
+
+genlmsg_new() already adds GENL_HDRLEN via genlmsg_total_size(), so
+this term double-counts it. Harmless, but the comment will mislead the
+next person sizing a reply. Pass only the attribute payload here.
+
+
+> +	spin_lock_bh(&serv->sv_lock);
+> +	list_for_each_entry(xprt, &serv->sv_permsocks, xpt_list) {
+> +		struct nlattr *attr;
+> +
+> +		if (!test_bit(XPT_RPCB_UNREG, &xprt->xpt_flags))
+> +			continue;
+> +
+> +		attr = nla_nest_start(skb, NFSD_A_SERVER_SOCK_ADDR);
+> +		if (!attr) {
+> +			err = -EMSGSIZE;
+> +			goto err_serv_unlock;
+> +		}
+> +
+> +		if (nla_put_string(skb, NFSD_A_SOCK_TRANSPORT_NAME,
+> +				   xprt->xpt_class->xcl_name) ||
+> +		    nla_put(skb, NFSD_A_SOCK_ADDR,
+> +			    sizeof(struct sockaddr_storage),
+> +			    &xprt->xpt_local)) {
+> +			err = -EMSGSIZE;
+> +			goto err_serv_unlock;
+> +		}
+> +
+> +		nla_nest_end(skb, attr);
+> +	}
+
+This is the same nest emission as the loop in
+nfsd_nl_listener_get_doit(), apart from the XPT_RPCB_UNREG filter and
+the errno (that one returns -EINVAL). A small helper that emits one
+addr nest for an xprt, called from both loops, would keep the two from
+drifting, with the size accounting above as the third place to keep
+in step.
+
+Also, as noted on patch 2, this filter selects TCP and UDP only; the
+spec doc should match.
+
+
+> --- a/fs/nfsd/nfssvc.c
+> +++ b/fs/nfsd/nfssvc.c
+> @@ -859,12 +842,44 @@ nfsd_acl_init_request(struct svc_rqst *rqstp,
+> +bool nfsd_version_registerable(struct net *net,
+> +			       const struct svc_program *progp, u32 version)
+> +{
+> +	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
+> +
+> +	if (version >= progp->pg_nvers || !progp->pg_vers[version])
+> +		return false;
+> +
+> +	/* nfslocalio is hidden and never reaches rpcbind. */
+> +	if (progp->pg_vers[version]->vs_hidden)
+> +		return false;
+> +
+> +#if defined(CONFIG_NFSD_V2_ACL) || defined(CONFIG_NFSD_V3_ACL)
+> +	if (progp->pg_prog == NFS_ACL_PROGRAM &&
+> +	    !nfsd_support_acl_version(version))
+> +		return false;
+> +#endif
+
+The ACL block is redundant with the first test. The ACL program has
+pg_nvers = NFSD_ACL_NRVERS and pg_vers = nfsd_acl_version, whose
+slots 0 and 1 and any compiled-out version are NULL, and
+nfsd_support_acl_version() checks exactly that range and that array.
+Dropping the block removes the function's only program-number special
+case and the #if with it.
+
+
 -- 
-2.55.0
-
+Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
