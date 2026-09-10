@@ -1,38 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43BE9396562
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:23:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E5C43859E6
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:26:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789075409; cv=none; b=RNunQjTkpdID/vsSnuTQlHwHRu8P7XcmhGPGQC0D5shUI/PezF6ImmLX1gLY1jlLXqz5gAXogn54XJ7Zb/XNJTqZkx3O+HNVypHApEkkW+jt/4YtFVug36Jwt7hcYWhH1x/GmA7nmS0mY3ANPNq96jHhvLA+ouqRlecO2D9WknA=
+	t=1789075618; cv=none; b=RweFe51Or8F+x0L8FQlZmiBHRAGAp8aSG4Mt6AhkCLrxOS7O/nRmhVQl3R9QT58PiCmY3zL/0G71Otn3GZK/H0urLai+aeOd7F/F+y4KKk8HtR89M7+l3d1H38U/U0DOJbxrW2ci95Tis3SQWpBJ0BcwN0v23lO2iPMuGB1p3l8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789075409; c=relaxed/simple;
-	bh=IV6a8vovk2qeqHC1KI5aBGnSvK9te3AEXtuFJ6F2HO0=;
+	s=arc-20240116; t=1789075618; c=relaxed/simple;
+	bh=JjcfqAaG1S1v46CyBneVA9pzUWvSHTjojxk8roA6rkA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=f92AwKAi0LXu2HqQPeAFlPDO2yhwNrZ98sTfRRgJ181buvTLQkt+93OIW75PXX4EDmw8Cs4/neIIs7T8zHua1/1eoR4qWu5luMJCF6HDHyBOzkdJVAvIgnmOSveHgW0kiBWCe3+Z8mCXaaXSY2ehgrNOEF6ymGTj3+R6D0NzuOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TBz9ec3a; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=u1KD8a80SS6wcDM2MuCBjmSB4dRxd2eOCQGkYhDU6P1i/qs7aDllEcmwyr6+MZxgYh7kjujDpmPeel6uolLu3EcU7CaEIxGR3jIV62K28yP9WjVTpozhtoGzTF6fGkFMvNbUYn5kIPXpoyc/3Mr3oDCH+kl9hjZMr3Sj845709Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fxCSOyWR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TBz9ec3a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18F2E1F000FF;
-	Thu, 10 Sep 2026 21:23:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fxCSOyWR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85F8A1F000FF;
+	Thu, 10 Sep 2026 21:26:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789075405;
-	bh=jrKyfGF3YwyTZyCCcTuOWVspj/oOyv4I0oZZMBmTPis=;
+	s=k20260515; t=1789075615;
+	bh=bu68vbqNnGp2CQdc7xwHZtBbShMb5uR0NI7RGHf5Elk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TBz9ec3aHi/bD0cZQkwQpSAaaT3KmtzFWf/CdFb2lS6QaovQEKJLnS69BBqOQZgAW
-	 +DUpatGrC+7bR03CHHL+8m5+zDJxO71dHlR9BVrxzhP72EDvA/wz/uoKCqfWHMPYXP
-	 MGU3bApEp1zZ2YOxcwZfSmdZRHICBg46Ss+pMTtdNH6ZA1eiCg+y0ejYAMLMBNBs/L
-	 7E/h2p4u1wtOdT9/5kpd0SfebN+AuNfqwMV0MPfMEMoO6KK9LopD90VJmaLkcAu6TJ
-	 OZdBBhZMc0UZr99IRhguI2c17OKlIvwxfvi03yVTEf/nP2WIG50iRHUKxNlYY77+Qi
-	 PuEaqvpDJp7qw==
-Date: Thu, 10 Sep 2026 21:23:23 +0000
+	b=fxCSOyWRk/swTL+6vQQvsIi8QjkyYM5rFfQVhb/Tq1h8uKy2vfpQnM+pjCvOFI35F
+	 /SGbZ5JRnK02uxFRjrh2/swah/dC6w6kcM31d5hPeBGjSGQ+2xMaRSvNUeKA7EX2Of
+	 9RMPO+sEOOYE9HOoa4uIDYYWrtzwB+8WiBFsiIzUUJbAX1wyauQtlM2+Ok/4kx9CgE
+	 4Jhr6hjXST4j/87SdbKo7gVf4+WYQAsATXN/OoZPUaU5unzoBBuQ42rnHtjXKcf0wa
+	 nqtM76q/v3+bC9lPYTWyfBxFLStloll2kvCjrTknW9z2hafOIS4UPsL5Kyaj8ro8oE
+	 egdpuQ5Ion7mA==
+Date: Thu, 10 Sep 2026 21:26:54 +0000
 From: Jaegeuk Kim <jaegeuk@kernel.org>
 To: Chao Yu <chao@kernel.org>
-Cc: linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 00/12] f2fs: introduce metadata cache
-Message-ID: <aqMfy0vzj5lzOyde@google.com>
-References: <20260909013611.3418568-1-chao@kernel.org>
+Cc: Zhiguo Niu <zhiguo.niu@unisoc.com>, stable@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net
+Subject: Re: [f2fs-dev] [PATCH] f2fs: fix to avoid folio->mapping dereference
+ in is_{meta, node}_folio()
+Message-ID: <aqMgnpBYj0zBpioI@google.com>
+References: <20260910022026.3301257-1-chao@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,181 +44,248 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260909013611.3418568-1-chao@kernel.org>
+In-Reply-To: <20260910022026.3301257-1-chao@kernel.org>
 
-Chao, can you take a look at these patches?
+Can you rebase on -dev?
 
-https://github.com/Sys-AI-Foundation/f2fs/commit/e22a482931fb57d8e093e6cc5617f1f0a35539f5
-https://github.com/Sys-AI-Foundation/f2fs/commit/902febb3650c6b5d63bc2d1f1e4a0b28b0796757
-https://github.com/Sys-AI-Foundation/f2fs/commit/4a7dd5420623701c12c814f74a1211a5f86bd89b
-https://github.com/Sys-AI-Foundation/f2fs/commit/f609f4b93bd68e3caabdfaf7442bd196bfca4d21
-
-On 09/09, Chao Yu wrote:
-> This patchset introduces a self-managed metadata block cache in f2fs,
-> decoupling meta blocks, node blocks, and compressed data blocks from
-> the Linux VFS page cache and fake internal inodes.
+On 09/10, Chao Yu via Linux-f2fs-devel wrote:
+> From: Chao Yu <chao@kernel.org>
 > 
-> === 1. Background & Motivation ===
+> Otherwise, it may cause NULL pointer dereference in race condition:
 > 
-> Currently, F2FS uses fake VFS inodes (meta_inode, node_inode, and
-> compress_inode) to manage internal block caching through the VFS page
-> cache. Because of this implementation, the f2fs block size was
-> historically coupled to the kernel page size.
+> Thread A			Thread B
+> 				- f2fs_setattr
+> 				 - f2fs_truncate
+> 				  - f2fs_truncate_blocks
+> 			    	   - f2fs_do_truncate_blocks
+> 				    - f2fs_truncate_inode_blocks
+> 				     - truncate_dnode
+> 				      - truncate_node
+> 				       - invalidate_mapping_pages
+> 				        - folio->mapping = NULL
+> - folio_lock
+> - is_node_folio
+>  - F2FS_F_SB(folio): dereference on folio->mapping
 > 
-> We now want to unbind block size from page size to support configurations
-> where block size <= PAGE_SIZE (e.g., mounting a 4KB-block F2FS image on a
-> 16KB or 64KB page system).
+> Cc: stable@kernel.org
+> Fixes: 019a8912425e ("f2fs: introduce is_{meta,node}_folio")
+> Reported-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
+> Closes: https://lore.kernel.org/linux-f2fs-devel/c5d29b31-e764-4782-9639-be84b1b2bfc2@kernel.org
+> Signed-off-by: Chao Yu <chao@kernel.org>
+> ---
+>  fs/f2fs/checkpoint.c |  4 ++--
+>  fs/f2fs/data.c       |  7 ++++---
+>  fs/f2fs/f2fs.h       | 10 +++++-----
+>  fs/f2fs/gc.c         |  2 +-
+>  fs/f2fs/node.c       | 22 +++++++++++-----------
+>  fs/f2fs/segment.c    |  2 +-
+>  6 files changed, 24 insertions(+), 23 deletions(-)
 > 
-> One possible approach is to continue using the VFS page cache to store
-> metadata blocks. However, doing so introduces three major architectural
-> issues (illustrated by a 4KB block on a 16KB page system):
-> 
-> 1. Memory Overhead:
->    Metadata access patterns are typically random and sparse. Caching a
->    single 4KB metadata block inside a page cache folio forces the
->    allocation of an entire 16KB folio, resulting in 4x memory waste.
-> 
-> 2. Folio and Sub-block Conversion Complexity:
->    Using larger folios requires tracking individual sub-block dirty/uptodate
->    states within each folio and performing index-to-offset conversions across
->    function boundaries. Because core metadata structures (e.g., f2fs_checkpoint,
->    f2fs_sit_block, f2fs_nat_block, f2fs_summary_block, f2fs_node) are accessed
->    extensively throughout the filesystem, this sub-block management and offset
->    calculation complexity would spread across the entire F2FS codebase.
-> 
-> 3. Lock Contention:
->    Multiple independent node blocks (e.g., dnode blocks belonging to
->    different files) can reside within the same folio. Concurrent fsync()
->    calls on unrelated files would contend on the same folio_lock(),
->    serializing metadata updates and degrading multi-threaded performance.
-> 
-> Decoupling metadata caching from PAGE_SIZE by allocating exact
-> block-sized cache entries is the critical first step toward supporting
-> 4KB-block F2FS images on 16KB/64KB page systems.
-> 
-> === 2. Metadata Cache Architecture & Design ===
-> 
-> This patchset introduces a dedicated, block-size-aligned caching
-> infrastructure with the following key components:
-> 
-> - Block-Size Aligned Allocation:
->   Allocates memory buffers matching exactly the filesystem block size
->   (4KB or 16KB) via kzalloc(), fully independent of the host
->   architecture's PAGE_SIZE.
-> 
-> - Radix Tree Indexing with Fast Tag Scanning:
->   Each cache instance (META_CACHE, NODE_CACHE, COMPRESS_CACHE) indexes
->   cached blocks via a radix tree (keyed by Physical Block Address for meta/
->   compress cache, and Node ID for node cache). Radix tree tags
->   (F2FS_CACHE_TAG_DIRTY, F2FS_CACHE_TAG_WRITEBACK) provide O(1) batch gang
->   lookups for flushing and writeback without dual-list shuffling.
-> 
-> - Lightweight Bit-Locking:
->   Individual entries use atomic bit locks (F2FS_BLOCK_LOCKED via
->   wait_on_bit_lock() / clear_and_wake_up_bit()) rather than heavyweight
->   embedded mutexes/semaphores, minimizing memory footprint per entry.
-> 
-> - Direct BIO Read/Write & BIO Merging:
->   Decouples metadata/node I/O from VFS address spaces by submitting direct
->   BIOs (f2fs_submit_cache_read / f2fs_submit_cache_write) with chained
->   adjacent vector merging (entry->next_entry) and dedicated completion
->   handlers.
-> 
-> - Memory Reclamation Shrinker:
->   Integrates with the kernel shrinker subsystem via a 3-phase isolation
->   algorithm (isolate unreferenced clean entries -> truncate from radix tree
->   under lock -> splice un-reclaimed entries back to LRU) to safely reclaim
->   clean cached blocks under system memory pressure.
-> 
-> - Background Writeback Kthread & Checkpoint Integration:
->   Provides a dedicated background kthread (f2fs_writeback-X:Y) for periodic
->   dirty cache flushing, combined with synchronous flushing during checkpoint
->   commit.
-> 
-> - Fault Injection, Tracepoints & Debugfs Observability:
->   Integrates FAULT_KALLOC fault injection, tracepoints for cache state
->   transitions and batch writeback, and per-cache memory breakdowns in debugfs.
-> 
-> === 3. Patchset Organization ===
-> 
-> - Patch 01: Implement the core metadata cache infrastructure & direct BIO I/O.
-> - Patch 02: Initialize and teardown META_CACHE in sb_info.
-> - Patch 03: Integrate metadata cache into the memory shrinker subsystem.
-> - Patch 04: Introduce the background writeback kernel thread.
-> - Patch 05: Migrate metadata block caching (SIT, NAT, SSA, CP, recovery, GC)
->             from meta_inode to META_CACHE.
-> - Patch 06: Initialize and teardown NODE_CACHE in sb_info.
-> - Patch 07: Migrate node and inode block caching from node_inode to NODE_CACHE.
-> - Patch 08: Initialize and teardown COMPRESS_CACHE in sb_info.
-> - Patch 09: Migrate compressed cluster caching from compress_inode to COMPRESS_CACHE.
-> - Patch 10: Add fault injection support for cache allocation paths.
-> - Patch 11: Introduce ftrace tracepoints for cache dirty and writeback events.
-> - Patch 12: Expose per-cache memory usage in debugfs.
-> 
-> Changelog:
-> 
-> v5->v6:
-> - rebase on last dev-test
-> - rely on ("f2fs: parameterize node helpers and macros")
-> - remove unneeded f2fs_cache_test_dirty() check in f2fs_mark_cache_dirty()
-> - drop f2fs_force_clear_cache_dirty()
-> - avoid unnecessary type cast before cache_address() in checkpoint.c
-> - fix to init cache_wb_interval in prior create f2fs_writeback kthread
-> - fix to goto restore_wb label if f2fs_sync_fs() failed in f2fs_remount()
-> - fix to avoid race condition when access entry->ino in between
->   f2fs_cache_compressed_page() and f2fs_invalidate_compress_pages()
-> - rebase on decoupling patchset from Kelvin
-> - fix to access IS_INODE() and ino_of_inode() under cache lock
-> 
-> Chao Yu (12):
->   f2fs: cache: implement metadata cache
->   f2fs: cache: initialize meta cache
->   f2fs: cache: introduce shrinker
->   f2fs: cache: introduce writeback thread
->   f2fs: cache: use meta cache
->   f2fs: cache: initialize node cache
->   f2fs: cache: use node cache
->   f2fs: cache: initialize compress cache
->   f2fs: cache: use compress cache
->   f2fs: cache: support fault injection
->   f2fs: cache: introduce tracepoints
->   f2fs: cache: show per-cache usage in debugfs
-> 
->  Documentation/ABI/testing/sysfs-fs-f2fs |    6 +
->  fs/f2fs/Makefile                        |    2 +-
->  fs/f2fs/acl.c                           |   26 +-
->  fs/f2fs/acl.h                           |    8 +-
->  fs/f2fs/cache.c                         |  704 ++++++++++++++++
->  fs/f2fs/cache.h                         |  242 ++++++
->  fs/f2fs/checkpoint.c                    |  397 ++++-----
->  fs/f2fs/compress.c                      |  163 ++--
->  fs/f2fs/data.c                          |  520 ++++++++----
->  fs/f2fs/debug.c                         |   70 +-
->  fs/f2fs/dir.c                           |  170 ++--
->  fs/f2fs/extent_cache.c                  |   14 +-
->  fs/f2fs/f2fs.h                          |  361 ++++----
->  fs/f2fs/file.c                          |   78 +-
->  fs/f2fs/gc.c                            |  185 ++--
->  fs/f2fs/inline.c                        |  284 +++----
->  fs/f2fs/inode.c                         |  205 ++---
->  fs/f2fs/iostat.h                        |   11 +
->  fs/f2fs/namei.c                         |  114 +--
->  fs/f2fs/node.c                          | 1023 +++++++++++------------
->  fs/f2fs/node.h                          |  104 +--
->  fs/f2fs/recovery.c                      |  251 +++---
->  fs/f2fs/segment.c                       |  261 +++---
->  fs/f2fs/segment.h                       |   37 +-
->  fs/f2fs/shrinker.c                      |   14 +
->  fs/f2fs/super.c                         |  145 ++--
->  fs/f2fs/sysfs.c                         |   13 +-
->  fs/f2fs/xattr.c                         |  123 ++-
->  fs/f2fs/xattr.h                         |   12 +-
->  include/linux/f2fs_fs.h                 |    3 -
->  include/trace/events/f2fs.h             |   71 ++
->  31 files changed, 3401 insertions(+), 2216 deletions(-)
->  create mode 100644 fs/f2fs/cache.c
->  create mode 100644 fs/f2fs/cache.h
-> 
+> diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
+> index 712c4508f38c..dfbfe42086f2 100644
+> --- a/fs/f2fs/checkpoint.c
+> +++ b/fs/f2fs/checkpoint.c
+> @@ -291,7 +291,7 @@ static struct folio *__get_meta_folio(struct f2fs_sb_info *sbi, pgoff_t index,
+>  	f2fs_update_iostat(sbi, NULL, FS_META_READ_IO, F2FS_BLKSIZE(sbi));
+>  
+>  	folio_lock(folio);
+> -	if (unlikely(!is_meta_folio(folio))) {
+> +	if (unlikely(!is_meta_folio(sbi, folio))) {
+>  		f2fs_folio_put(folio, true);
+>  		goto repeat;
+>  	}
+> @@ -638,7 +638,7 @@ long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, long nr_to_write,
+>  
+>  			folio_lock(folio);
+>  
+> -			if (unlikely(!is_meta_folio(folio))) {
+> +			if (unlikely(!is_meta_folio(sbi, folio))) {
+>  continue_unlock:
+>  				folio_unlock(folio);
+>  				continue;
+> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+> index 93ed8416a289..0da78bf05ac0 100644
+> --- a/fs/f2fs/data.c
+> +++ b/fs/f2fs/data.c
+> @@ -172,7 +172,8 @@ static void f2fs_finish_read_bio(struct bio *bio, bool in_task)
+>  			dec_page_count(F2FS_F_SB(folio), __read_io_type(folio));
+>  
+>  		if (bio->bi_status == BLK_STS_OK &&
+> -			F2FS_F_SB(folio)->node_inode && is_node_folio(folio) &&
+> +			F2FS_F_SB(folio)->node_inode &&
+> +			is_node_folio(F2FS_F_SB(folio), folio) &&
+>  			f2fs_sanity_check_node_footer(F2FS_F_SB(folio),
+>  				folio, folio->index, NODE_TYPE_REGULAR, true))
+>  			bio->bi_status = BLK_STS_IOERR;
+> @@ -359,12 +360,12 @@ static void f2fs_write_end_bio(struct bio *bio)
+>  			}
+>  		}
+>  
+> -		if (is_node_folio(folio)) {
+> +		if (is_node_folio(sbi, folio)) {
+>  			f2fs_sanity_check_node_footer(sbi, folio,
+>  				folio->index, NODE_TYPE_REGULAR, true);
+>  			f2fs_bug_on(sbi, folio->index != nid_of_node(sbi, folio));
+>  		}
+> -		if (f2fs_in_warm_node_list(folio))
+> +		if (f2fs_in_warm_node_list(sbi, folio))
+>  			f2fs_del_fsync_node_entry(sbi, folio);
+>  
+>  		dec_page_count(sbi, type);
+> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+> index 693153cbd8a0..ebc621f302e1 100644
+> --- a/fs/f2fs/f2fs.h
+> +++ b/fs/f2fs/f2fs.h
+> @@ -2371,14 +2371,14 @@ static inline struct address_space *NODE_MAPPING(struct f2fs_sb_info *sbi)
+>  	return sbi->node_inode->i_mapping;
+>  }
+>  
+> -static inline bool is_meta_folio(struct folio *folio)
+> +static inline bool is_meta_folio(struct f2fs_sb_info *sbi, struct folio *folio)
+>  {
+> -	return folio->mapping == META_MAPPING(F2FS_F_SB(folio));
+> +	return folio->mapping == META_MAPPING(sbi);
+>  }
+>  
+> -static inline bool is_node_folio(struct folio *folio)
+> +static inline bool is_node_folio(struct f2fs_sb_info *sbi, struct folio *folio)
+>  {
+> -	return folio->mapping == NODE_MAPPING(F2FS_F_SB(folio));
+> +	return folio->mapping == NODE_MAPPING(sbi);
+>  }
+>  
+>  static inline bool is_sbi_flag_set(struct f2fs_sb_info *sbi, unsigned int type)
+> @@ -4063,7 +4063,7 @@ enum node_type;
+>  
+>  int f2fs_check_nid_range(struct f2fs_sb_info *sbi, nid_t nid);
+>  bool f2fs_available_free_memory(struct f2fs_sb_info *sbi, int type);
+> -bool f2fs_in_warm_node_list(struct folio *folio);
+> +bool f2fs_in_warm_node_list(struct f2fs_sb_info *sbi, struct folio *folio);
+>  void f2fs_init_fsync_node_info(struct f2fs_sb_info *sbi);
+>  void f2fs_del_fsync_node_entry(struct f2fs_sb_info *sbi, struct folio *folio);
+>  void f2fs_reset_fsync_node_info(struct f2fs_sb_info *sbi);
+> diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+> index aedb45c8ee4a..c70deac9f1a3 100644
+> --- a/fs/f2fs/gc.c
+> +++ b/fs/f2fs/gc.c
+> @@ -1431,7 +1431,7 @@ static int move_data_block(struct inode *inode, block_t bidx,
+>  						F2FS_BLKSIZE(fio.sbi));
+>  
+>  		folio_lock(mfolio);
+> -		if (unlikely(!is_meta_folio(mfolio) ||
+> +		if (unlikely(!is_meta_folio(fio.sbi, mfolio) ||
+>  			     !folio_test_uptodate(mfolio))) {
+>  			err = -EIO;
+>  			f2fs_folio_put(mfolio, true);
+> diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+> index 8c150d4966e5..f16144b75d11 100644
+> --- a/fs/f2fs/node.c
+> +++ b/fs/f2fs/node.c
+> @@ -332,10 +332,10 @@ static unsigned int __gang_lookup_nat_set(struct f2fs_nm_info *nm_i,
+>  							start, nr);
+>  }
+>  
+> -bool f2fs_in_warm_node_list(struct folio *folio)
+> +bool f2fs_in_warm_node_list(struct f2fs_sb_info *sbi, struct folio *folio)
+>  {
+> -	return is_node_folio(folio) && IS_DNODE(F2FS_F_SB(folio), folio) &&
+> -					is_cold_node(F2FS_F_SB(folio), folio);
+> +	return is_node_folio(sbi, folio) && IS_DNODE(sbi, folio) &&
+> +					is_cold_node(sbi, folio);
+>  }
+>  
+>  void f2fs_init_fsync_node_info(struct f2fs_sb_info *sbi)
+> @@ -1296,7 +1296,7 @@ int f2fs_truncate_inode_blocks(struct inode *inode, pgoff_t from)
+>  			goto fail;
+>  		if (offset[1] == 0 && get_nid(sbi, folio, offset[0], true)) {
+>  			folio_lock(folio);
+> -			BUG_ON(!is_node_folio(folio));
+> +			BUG_ON(!is_node_folio(sbi, folio));
+>  			set_nid(sbi, folio, offset[0], 0, true);
+>  			folio_unlock(folio);
+>  		}
+> @@ -1612,7 +1612,7 @@ static struct folio *__get_node_folio(struct f2fs_sb_info *sbi, pgoff_t nid,
+>  
+>  	folio_lock(folio);
+>  
+> -	if (unlikely(!is_node_folio(folio))) {
+> +	if (unlikely(!is_node_folio(sbi, folio))) {
+>  		f2fs_folio_put(folio, true);
+>  		goto repeat;
+>  	}
+> @@ -1731,7 +1731,7 @@ static struct folio *last_fsync_dnode(struct f2fs_sb_info *sbi, nid_t ino)
+>  
+>  			folio_lock(folio);
+>  
+> -			if (unlikely(!is_node_folio(folio))) {
+> +			if (unlikely(!is_node_folio(sbi, folio))) {
+>  continue_unlock:
+>  				folio_unlock(folio);
+>  				continue;
+> @@ -1841,7 +1841,7 @@ static bool __write_node_folio(struct folio *folio, bool atomic, bool do_fsync,
+>  				f2fs_need_dentry_mark(sbi, ino_of_node(sbi, folio)));
+>  
+>  	/* should add to global list before clearing PAGECACHE status */
+> -	if (f2fs_in_warm_node_list(folio)) {
+> +	if (f2fs_in_warm_node_list(sbi, folio)) {
+>  		seq = f2fs_add_fsync_node_entry(sbi, folio);
+>  		if (seq_id)
+>  			*seq_id = seq;
+> @@ -1965,7 +1965,7 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
+>  
+>  			folio_lock(folio);
+>  
+> -			if (unlikely(!is_node_folio(folio))) {
+> +			if (unlikely(!is_node_folio(sbi, folio))) {
+>  continue_unlock:
+>  				folio_unlock(folio);
+>  				continue;
+> @@ -2023,7 +2023,7 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
+>  		f2fs_debug(sbi, "Retry to write fsync mark: ino=%u, idx=%lx",
+>  			   ino, last_folio->index);
+>  		folio_lock(last_folio);
+> -		if (unlikely(!is_node_folio(last_folio))) {
+> +		if (unlikely(!is_node_folio(sbi, last_folio))) {
+>  			f2fs_folio_put(last_folio, true);
+>  			ret = -EAGAIN;
+>  			goto out;
+> @@ -2101,7 +2101,7 @@ void f2fs_flush_inline_data(struct f2fs_sb_info *sbi)
+>  
+>  			folio_lock(folio);
+>  
+> -			if (unlikely(!is_node_folio(folio)))
+> +			if (unlikely(!is_node_folio(sbi, folio)))
+>  				goto unlock;
+>  			if (!folio_test_dirty(folio))
+>  				goto unlock;
+> @@ -2173,7 +2173,7 @@ int f2fs_sync_node_pages(struct f2fs_sb_info *sbi,
+>  			else if (!folio_trylock(folio))
+>  				continue;
+>  
+> -			if (unlikely(!is_node_folio(folio))) {
+> +			if (unlikely(!is_node_folio(sbi, folio))) {
+>  continue_unlock:
+>  				folio_unlock(folio);
+>  				continue;
+> diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+> index 0b6267d0354e..ffdd2c510b3c 100644
+> --- a/fs/f2fs/segment.c
+> +++ b/fs/f2fs/segment.c
+> @@ -4161,7 +4161,7 @@ static void do_write_page(struct f2fs_summary *sum, struct f2fs_io_info *fio)
+>  			__func__, fio->ino, folio->index, type,
+>  			fio->old_blkaddr, fio->new_blkaddr, err);
+>  		folio_end_writeback(folio);
+> -		if (f2fs_in_warm_node_list(folio))
+> +		if (f2fs_in_warm_node_list(fio->sbi, folio))
+>  			f2fs_del_fsync_node_entry(fio->sbi, folio);
+>  		f2fs_bug_on(fio->sbi, !is_set_ckpt_flags(fio->sbi,
+>  							CP_ERROR_FLAG));
 > -- 
 > 2.49.0
 > 
+> 
+> 
+> _______________________________________________
+> Linux-f2fs-devel mailing list
+> Linux-f2fs-devel@lists.sourceforge.net
+> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
