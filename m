@@ -1,54 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35214A3F3A;
-	Thu, 10 Sep 2026 14:06:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D584A3F3F;
+	Thu, 10 Sep 2026 14:06:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789049216; cv=none; b=dFnvsoulJpXqtAnpS8ppCYHI04QWoy/rS/7PgiQOOsBw7vwq9scDMtua53S0BtZFYEcqvC5ebegrTQNaZz1Gv20o8/q8hPdYXoYK6wR4Wgg4VTbzkyaGHh7zreQD5utvKAir8OBDK3kEFDLaFky6MUry3h0swjw4gF31N3BNl3Q=
+	t=1789049216; cv=none; b=GeNi60+PvnLbyUO0kD+E8MzyA3DwyuBfFbv+mjzolpTCQSh31CwvvcPibnlP4K35OFr9NCzGtcyuplDUN64MPLtjpBZMFSGXhwl5RX7uMJb0Q4adRROmqOAp3DiOaRchKLzNBgmIF8rx0Gy5k/r54myswBXo6dhzVlqfx0AkN64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789049216; c=relaxed/simple;
-	bh=c5lfmiCJYlY+UhANXT9srmqmEWUJIiCKECCxpceAQII=;
+	bh=usjgwNwq8e5FVuDuIy//fKbw8DVuTnjixnyIZu/Ku78=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NgdqUnfNE5TSjppgS/zyBYpDgMCrw2Z9zdMyVg1SMUvmvyryxFncAuwN/0bblHG/Zvxc+tmtEZeWOEUqqxikz6NubOt4g6iDkqYpNUmT2Fkjljqckr/eTo0V2E3TgpGHSloyCddb0JQmRtUoVlVIdj2NAgqnPMlOpcpDMPfRwwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g16gXhhx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=lY8ZpZDY6Afi7C7XMldN7G1hHFMN2dwWquzdALp2oW/LHbpV1l+ZZg1IHGX4rmXTquRgAOhgrC/sx62gnXfDfIF0iYLQVgkerTcvXLaWIzy7aDx4J6MXg5ABwc/t5rHS3dhcztL9QTpIi0mmM6AnphvEX7HDYGOxmxsBnfjW5dQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=khYqYYox; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g16gXhhx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 039471F00898;
-	Thu, 10 Sep 2026 14:06:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="khYqYYox"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 970881F0089A;
+	Thu, 10 Sep 2026 14:06:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789049214;
-	bh=HfACVSTqqZWVHHMsfW9j7D8zjVuyoIFAMlGVkuERVwY=;
+	s=k20260515; t=1789049215;
+	bh=70DL84P6JTZYmHCwquU+RidyFpbSEn3EbhgRLehum0s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g16gXhhxkVq5S5oxzfWsaWCw3urd025JZW1sxsu9eBUu1CdJDqpISr68hktAo/CHr
-	 2F2O/QCunWoL+37JccgSRDvuhWzbmLGW4J0X2PhPFNGRVwApRS5XmPH5Lf0Ylg4PPa
-	 YbhNeDsiLtUHHK83QQtbLdaJ3I9v5IhzjCI5tAM3J049vv7Atw+WEUIhjtbQvwAAf4
-	 dDzmBw1Y1FPRD6I1J8/MaZjYuBAMNfvOZl1N2XddNvNnW4w4BWdXCZSt6NfMABdXqd
-	 KBVRcFCrHkdq0LMLI22NTuK2daML6fj7B3HFs5psQJtkawQQmgXk/MYUp4/fhuY4nP
-	 mtTkAoj8KrYTA==
-From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-To: linux-coco@lists.linux.dev,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Xu Yilun <yilun.xu@linux.intel.com>
-Subject: [PATCH v5 14/15] coco: host: arm64: Add NCOH_SYS stream support for RC endpoints
-Date: Thu, 10 Sep 2026 19:35:07 +0530
-Message-ID: <20260910140509.868402-15-aneesh.kumar@kernel.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260910140509.868402-1-aneesh.kumar@kernel.org>
-References: <20260910140509.868402-1-aneesh.kumar@kernel.org>
+	b=khYqYYoxLCC3IHUZhWSZ/5k6MaUU7a5qG9Uq/H2as3L0W6BL+uxN7k2+pKlEBL0yR
+	 dghTPtHKwmo6niWKCE/e7CEN8xnGbaRJ7ryTnxA4eepLVos7utuH62ktBK1Q3ynEdA
+	 mdUmxTQ9yw+NMXWXyeBG0zO325JsctZUk79B/RHN+V+0ZYQ+50sPC8n8eD8y3pPFBB
+	 05j6cHp94XsGsHj1GusZhoju5knkCNRv/37JUqphBcqKTnaYIRFBjwzHiKXiGecGar
+	 zIt2dcm1Q/eBn9ED6HySRxntqymbCFq4JhBd0JZYXKsLDP+6QtIP8duViFjxKlMAKT
+	 IJS3xyspz9d7Q==
+From: SJ Park <sj@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: SJ Park <sj@kernel.org>,
+	Gregory Price <gourry@gourry.net>,
+	balbirs@nvidia.com,
+	brendan.jackman@linux.dev,
+	yuzenghui@huawei.com,
+	apopple@nvidia.com,
+	alucerop@amd.com,
+	matthew.brost@intel.com,
+	akpm@linux-foundation.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	gregkh@linuxfoundation.org,
+	rafael@kernel.org,
+	dakr@kernel.org,
+	djbw@kernel.org,
+	vishal.l.verma@intel.com,
+	dave.jiang@intel.com,
+	alison.schofield@intel.com,
+	osandov@osandov.com,
+	jannh@google.com,
+	pfalcato@suse.de,
+	jackmanb@google.com,
+	hannes@cmpxchg.org,
+	ziy@nvidia.com,
+	pbonzini@redhat.com,
+	osalvador@suse.de,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	byungchul@sk.com,
+	ying.huang@linux.alibaba.com,
+	kasong@tencent.com,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	yury.norov@gmail.com,
+	linux@rasmusvillemoes.dk,
+	longman@redhat.com,
+	ridong.chen@linux.dev,
+	tj@kernel.org,
+	mkoutny@suse.com,
+	jgg@ziepe.ca,
+	jhubbard@nvidia.com,
+	peterx@redhat.com,
+	baolin.wang@linux.alibaba.com,
+	npache@redhat.com,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	xu.xin16@zte.com.cn,
+	chengming.zhou@linux.dev,
+	roman.gushchin@linux.dev,
+	muchun.song@linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	nvdimm@lists.linux.dev,
+	linux-cxl@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	kvm@vger.kernel.org,
+	cgroups@vger.kernel.org,
+	damon@lists.linux.dev,
+	linux-kselftest@vger.kernel.org,
+	kernel-team@meta.com
+Subject: Re: [PATCH v5 14/36] mm/damon: skip private node memory in DAMON migration and pageout
+Date: Thu, 10 Sep 2026 07:06:45 -0700
+Message-ID: <20260910140645.168914-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <e2d2b01e-e6eb-4009-a07e-e615d576c0c3@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,88 +116,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Teach the host CCA pdev setup to handle PCI_EXP_TYPE_RC_END devices.
+On Thu, 10 Sep 2026 10:58:05 +0200 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
 
-Classify RC integrated endpoints as RMI_PDEV_FLAGS_CATEGORY_ON_CHIP_EP when
-building the RMM pdev parameters, and only advertise SPDM support when a
-DOE mailbox is present.
+> On 7/23/26 05:25, Gregory Price wrote:
+> > On Wed, Jul 22, 2026 at 05:19:42PM -0700, SJ Park wrote:
+> >> On Wed, 22 Jul 2026 08:16:56 -0400 Gregory Price <gourry@gourry.net> wrote:
+> >>
+> >>>
+> >>> See the damon changes in:
+> >>>
+> >>> https://lore.kernel.org/linux-mm/al-pkvmgIxGu3LzM@gourry-fedora-PF4VCD3F/T/#mfb99303c85dd9d4c3f58832dc28fc55583a7217a
+> >>
+> >> Summarizing what you want to say, quoting something from the patch, or at least
+> >> calling it "26th patch of this series" would have made reviewing much easier.
+> >> Cc-ing damon@ for only patches that toucing DAMON source files and the cover
+> >> letter of the series could also be helpful.  Please consider doing some of
+> >> these for future replies.
+> >>
+> > 
+> > I have been very much discouraged from this kind of trimming because it
+> > removes the context of the series from the individual patches - making it
+> > even more confusing.
+> 
+> Yes, 99% of upstream maintainers will scream at you if you CC them only on
+> individual patches :)
 
-Also add the stream setup path for these devices by creating an
-RMI_PDEV_STREAM_NCOH_SYS stream using the endpoint pdev and its bridge
-address windows. This allows RC endpoints to participate in the TDISP flow
-without requiring a separate root-port pdev.
+I agree that not everyone would like selective Cc-ing, like I also replied.
+But the number might be changed after we got modern mailing archives and tools
+like lore (public-inbox)?
 
-Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
----
- drivers/virt/coco/arm-cca-host/main.c   | 28 +++++++++++++++++++++++++
- drivers/virt/coco/arm-cca-host/rmi-da.c | 10 +++++++++
- 2 files changed, 38 insertions(+)
+At least for me, selective Cc-ing works better as long as the cover letter is
+Cc-ing all recipients of all patches.  I can understand the high level picture
+from the cover letter and directly jump to the specific patch that require my
+attention.  Of course the sender might failed at figuring out to which mails I
+really need to pay attention.  If the cover letter doesn't tell me some details
+or I feel the sender might not Cc-ed me on all the patches that require my
+attention, I can fetch the entire thread from lore (public-inbox).
 
-diff --git a/drivers/virt/coco/arm-cca-host/main.c b/drivers/virt/coco/arm-cca-host/main.c
-index 70cbff181561..b7b0cc0a016c 100644
---- a/drivers/virt/coco/arm-cca-host/main.c
-+++ b/drivers/virt/coco/arm-cca-host/main.c
-@@ -252,11 +252,39 @@ static int cca_pdev_create_ncoh_stream(struct pci_dev *pdev, unsigned long strea
- 	return ret;
- }
- 
-+static int cca_pdev_create_ncoh_sys_stream(struct pci_dev *pdev)
-+{
-+	int ret;
-+	long stream_handle;
-+	struct rmi_pdev_stream_params *params;
-+	struct cca_host_pf0_ep_dsc *pf0_ep_dsc = to_cca_pf0_ep_dsc(pdev);
-+
-+	params = (struct rmi_pdev_stream_params *)get_zeroed_page(GFP_KERNEL);
-+	if (!params)
-+		return -ENOMEM;
-+
-+	params->flags = 0;
-+	params->stream_type = RMI_PDEV_STREAM_NCOH_SYS;
-+	params->pdev_1 = virt_to_phys(pf0_ep_dsc->pdev.rmm_pdev);
-+	params->pdev_2 = 0; /* ignored */
-+	params->ide_sid = 0; /* ignored */
-+	params->num_addr_range = pci_dev_addr_range(pdev, params->addr_range);
-+
-+	ret = cca_pdev_stream_connect(pdev, NULL, params, &stream_handle);
-+	if (!ret)
-+		pf0_ep_dsc->stream_handle = stream_handle;
-+
-+	free_page((unsigned long)params);
-+	return ret;
-+}
-+
- static int cca_pdev_create_streams(struct pci_dev *pdev, unsigned long stream_id)
- {
- 	switch (pci_pcie_type(pdev)) {
- 	case PCI_EXP_TYPE_ENDPOINT:
- 		return cca_pdev_create_ncoh_stream(pdev, stream_id);
-+	case PCI_EXP_TYPE_RC_END:
-+		return cca_pdev_create_ncoh_sys_stream(pdev);
- 	default:
- 		return -EINVAL;
- 	}
-diff --git a/drivers/virt/coco/arm-cca-host/rmi-da.c b/drivers/virt/coco/arm-cca-host/rmi-da.c
-index fcca9f73b5fb..794385f818ce 100644
---- a/drivers/virt/coco/arm-cca-host/rmi-da.c
-+++ b/drivers/virt/coco/arm-cca-host/rmi-da.c
-@@ -66,6 +66,16 @@ static int init_pdev_params(struct pci_dev *pdev, struct rmi_pdev_params *params
- 		category = RMI_PDEV_FLAGS_CATEGORY_ROOT_PORT;
- 		break;
- 	}
-+	case PCI_EXP_TYPE_RC_END: {
-+		struct cca_host_pf0_ep_dsc *pf0_ep_dsc = to_cca_pf0_ep_dsc(pdev);
-+
-+		/* Use SPDM if present */
-+		if (pf0_ep_dsc->pci.doe_mb)
-+			params->flags = RMI_PDEV_FLAGS_SPDM;
-+
-+		category = RMI_PDEV_FLAGS_CATEGORY_ON_CHIP_EP;
-+		break;
-+	}
- 	default:
- 		return -EINVAL;
- 	}
--- 
-2.43.0
+Meanwhile, my private inbox have limited space and suboptimal UI.  Hence I use
+my private inbox as just an alarm and usually work on only public-inbox with a
+CLI tool.  Hence keeping noise in private inbox lower is more important to my
+specific workflow.  Again, my workflow may be very different from others.
 
+
+Thanks,
+SJ
+
+[...]
