@@ -1,129 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15630346A04;
-	Thu, 10 Sep 2026 06:08:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1272324B33
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:08:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789020502; cv=none; b=bjs/25K4c5Q5qBiKUzbg16SDpMSEP/wfIt6snPN+fOL9zz1VCLXiF2hp2RblkzZ4wPLw3l0ZAJBgNL94YKyGwXWbA5Gd4oFuPWzSvPtHxryRv0U5pppGiGyMKtf1z2cK/t/Mq1hnerlUuF26P9mlq7byWwk/7djF1qKlE6zoUMA=
+	t=1789020541; cv=none; b=PBxXEYbZkFt3XK6TAXGHSiAN1VoYSlCQldgB+bntF86QG+WfCq2UAdIOf9pKsm8TNTWbw5T/oXweG8zEKfRXNIpxVc3vrISfpAZ16FRriif1NAabvOOb+bNweAoSyIbSPEx/gzz9dLms+UWmlZ9obXEkwcc82XFhHRiMTEpFL44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789020502; c=relaxed/simple;
-	bh=K2E8HJKKwmixZBGMikxuRE6av/5UwFtViroEDqpWL7k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IhHLTeTpb5OTjdd4wQNHy3xnTD65R7m/ov79+7XLwXCesLRQUeMKep9XKVgzl7tdbW2I7+A6oNfR66dMQLAM5Tcs0NKcC/cVI3TpbBXuQQVM83PIsFW8QQoLa2q+k2hzGD5QxCI4bTJiIoWkLC1mSb/lwrGhk1Bg8LVjvYCbSgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X9gWFHds; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X9gWFHds"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B64A1F00893;
-	Thu, 10 Sep 2026 06:08:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789020500;
-	bh=yFkpzRTGUxAa/gcYZ+xpuv+1HVYwbL6IIJ/xeFkQyRE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=X9gWFHdsNieV0H8nFH56LOOdari/6PCxjiNUid9zuK64ipvL7/msC0CE6j6Xe5FsH
-	 mcU064QBh7Bf0a0wKmuePmXOvVMPHOLPZkzOnjrKXfYGZHP8O1k97hJM5ONvGa/1XW
-	 5YyWd8JW1oBoH7LDzyX2REN17DaNMqmKWczf/P1yXzOrFz3FnTH66c9CIWZRG1gZj1
-	 y2bkFdJqdWoVYWweb6Unl+Suz1cj1Ncql5F6FRL6DUgcrgmS2gU0hwnNqoS4btrfQq
-	 unVw3JANRQWQmhuu9YJYgMZ5WxiPa94g4yYj8CIVIPyPxSUsEijbY7ZaL487cGyOSY
-	 aqsCx8Lek1tiw==
-Date: Thu, 10 Sep 2026 08:08:10 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Niklas Cassel <cassel@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Kishon Vijay Abraham I <kishon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>, 
-	Allen Hubbe <allenbh@gmail.com>, linux-pci@vger.kernel.org, ntb@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] PCI: endpoint: pci-epf-vntb: Pass PF/VF number when
- BAR programming
-Message-ID: <b4mtzimdzlk6r3yihye7f3gkdqbk7gi64ymdrhf5twmn35zej7@s3n7bqe4g6vq>
-References: <rmso2szdpfjy4qoqalhhpf3zxzn2te25m573qmwmpmoilk5jz2@arvvr4hdzbbj>
- <20260909160949.GA216221@bhelgaas>
- <sbmyv6wgmdtow7rg4m7vkfpn42ts2xobqwvzjdh7japgyremyb@p5zmzskzcdvc>
+	s=arc-20240116; t=1789020541; c=relaxed/simple;
+	bh=SbC+dA/AQ/crXji6m5W8ChM2Su/gCfCkulOxgfe5WtI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uzG00jHRjtjBZ86Zs86ex61+fPmB6J8Qk0Gji3c0bvjfoNXpVYpkkDEZFqlO1x0VkG0g2dJLxieUQEHqB/2/QiF8v9UmoOMyKqTgto9YlvN9RKW8a1tDsnkatC5XPDAVJOl+9Pg+f3dRAw3UfvtBTdaA92zEeNs0ZhCQMrX96Bk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 19036beaacde11f19a56ed5b684f684d-20260910
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:b0e10523-3e76-42cd-b276-f7809b28f558,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:b0056e57dd2b11b60f476725df901ee8,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
+	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 19036beaacde11f19a56ed5b684f684d-20260910
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 804052028; Thu, 10 Sep 2026 14:08:52 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>
+Subject: [PATCH v7 0/4] ntfs: fix volume flag update races and persist the recorded error state
+Date: Thu, 10 Sep 2026 14:08:45 +0800
+Message-Id: <20260910060849.1817072-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <sbmyv6wgmdtow7rg4m7vkfpn42ts2xobqwvzjdh7japgyremyb@p5zmzskzcdvc>
 
-On Thu, Sep 10, 2026 at 01:56:53PM +0900, Koichiro Den wrote:
-> On Wed, Sep 09, 2026 at 11:09:49AM -0500, Bjorn Helgaas wrote:
-> > On Wed, Sep 09, 2026 at 01:53:53PM +0900, Koichiro Den wrote:
-> > > On Tue, Sep 08, 2026 at 09:23:11PM -0500, Bjorn Helgaas wrote:
-> > > > On Wed, Sep 09, 2026 at 11:01:48AM +0900, Koichiro Den wrote:
-> > > > > On Tue, Sep 08, 2026 at 11:53:15AM -0500, Bjorn Helgaas wrote:
-> > > > > > On Wed, Jul 29, 2026 at 02:23:04AM +0900, Koichiro Den wrote:
-> > > > > > > vntb_epf_mw_set_trans() programs the memory-window BAR through
-> > > > > > > pci_epc_set_bar() with hardcoded function numbers (0, 0), so the BAR
-> > > > > > > lands on the wrong function whenever the vNTB EPF is bound to anything
-> > > > > > > but PF0. The other BAR programming sites in the vNTB driver already pass
-> > > > > > > the EPF's own numbers.
-> > > > > > > 
-> > > > > > > Pass the EPF's own func_no/vfunc_no here as well.
-> > > > > > 
-> > > > > > We're referring to these as "PF" and "VF" in the subject and "physical
-> > > > > > endpoint function" and "virtual endpoint function" in the
-> > > > > > pci_epc_set_bar() kernel-doc, but I don't think these have anything to
-> > > > > > do with the SR-IOV PF and VF concepts, do they?
-> > > > > 
-> > > > > Not in the specific case that motivated this series. But AFAICT, the EPC API
-> > > > > uses the same (func_no, vfunc_no) pair to cover both ordinary functions and
-> > > > > SR-IOV PFs/VFs scenarios. With vfunc_no == 0, func_no can identify either an
-> > > > > ordinary function or an SR-IOV PF. A non-zero vfunc_no identifies a VF
-> > > > > associated with the PF selected by func_no.
-> > > > 
-> > > > Now I'm even more confused :)
-> > > > 
-> > > > Are you saying that a non-zero vfunc_no always identifies an SR-IOV
-> > > > VF?  And there's some dependency on that?  I don't any mention of
-> > > > "iov" in drivers/pci/endpoint/.
-> > > 
-> > > Yes, that is my understanding of the current in-tree implementation. You're
-> > > right that drivers/pci/endpoint/ itself contains no explicit reference to
-> > > SR-IOV. E.g. pci_epf_add_vepf() just calls it a "virtual EP function".
-> > > So my saying was kind of assumptive, but I still think the same because:
-> > > 
-> > > - The support was introduced for SR-IOV:
-> > >   https://lore.kernel.org/r/20210819123343.1951-1-kishon@ti.com/
-> > > 
-> > > - The core rejects a non-zero vfunc_no unless the EPC provides max_vfs, and
-> > >   Cadence is the only in-tree EPC driver I found that does so. For example,
-> > >   cdns_pcie_ep_set_bar() calls cdns_pcie_get_fn_from_vfn(), which uses the
-> > >   SR-IOV First VF Offset and VF Stride for a non-zero vfn.
-> > 
+Hi all,
 
-Your understanding is correct.
+v5 of the series, incorporating Baolin's review of v3.  The 3/3
+hygiene patch ("ntfs: NULL vol->vol_ino in the load_system_files()
+error teardown") has been applied separately, so this respin carries
+the remaining work as four patches.  1/4 and 3/4 are unchanged from v3
+(formerly 1/3 and 2/3); 2/4 and 4/4 are new and close the two races
+Baolin spotted.
 
-> > Thanks, that's helpful.  I still have to work hard to change my point
-> > of view from host-side drivers to endpoint drivers operating on the
-> > other end of the link.  The fact that there are several interfaces
-> > that need (func_no, vfunc_no) suggests that callers really do need to
-> > understand what's going on, and maybe we should try to connect the
-> > kernel-doc and abbreviations more closely with PCIe spec terms.
-> > 
-> > E.g., if "physical EP function" and "virtual EP function" refer to
-> > SR-IOV PF and VF, maybe we should word them as "endpoint PF" or
-> > "endpoint VF" (or "EP PF", "EP VF" for short).  If
-> 
-> I personally agree. That sounds reasonable and would help clarify things.
-> 
-> > "pci_epf_add_vepf()" adds an SR-IOV VF, maybe "pci_epf_add_vf()" would
-> > be descriptive enough.  We already know we're on the endpoint because
-> > of "epf", so we probably don't need another hint in "vepf", which
-> > includes a "pf" that doesn't mean SR-IOV PF.
-> 
-> True. But I'd also like to hear what the PCI EP maintainers think about this.
-> 
+Changes since v3:
 
-Fine with me.
+  2/4 (new): the callers in file.c and namei.c checked VOLUME_IS_DIRTY
+      without any lock before calling ntfs_set_volume_flags(), so the
+      check could race with the ntfs_sync_fs() clear and leave the
+      volume clean on disk despite a metadata modification.  They now
+      call ntfs_set_volume_flags() unconditionally; with the
+      unchanged-value check under the mrec_lock from 1/4 this is a
+      cheap no-op in the write itself when the bit is already set, at
+      the cost of taking the lock on every call - see 2/4's commit
+      message for why that cannot be avoided.
 
-- Mani
+  4/4 (new): ntfs_put_super() persisted the dirty state before the
+      just-in-case mftmirr/mft commits and the final write_inode_now(),
+      which can themselves record NVolErrors(); errors from those
+      points would leave the volume unmounted with a clean on-disk
+      dirty bit, contradicting the "cannot unmount clean" guarantee.
+      The persistence now happens after the last of them, with the
+      iput(vol->vol_ino) moved to the end of ntfs_put_super() so
+      vol->vol_ino is still available.
 
--- 
-மணிவண்ணன் சதாசிவம்
+To recap the discussion that shaped v3:
+
+The original patch (now 1/4) fixed the lost-update race where
+ntfs_set_volume_flags() and ntfs_clear_volume_flags() computed the new
+value from vol->vol_flags outside any lock.  The review correctly
+pointed out that a race remained in ntfs_sync_fs(): it checked
+NVolErrors() outside the critical section, so a concurrent error path
+could still record an error after the check and before the clear, and
+the volume would end up persisted as clean despite the recorded error.
+1/4 fixes both: the read-modify-write and the NVolErrors()-checked
+clearing of VOLUME_IS_DIRTY happen inside the same mrec_lock critical
+section.
+
+3/4 closes the writer-side half of the window: the runtime
+metadata-corruption paths in fs/ntfs recorded only the in-memory
+NVolErrors() flag and never persisted VOLUME_IS_DIRTY at all, so a
+volume could unmount with a clean on-disk flag despite recorded
+corruption.  Persisting from the error paths themselves is not an
+option: they run under a wide variety of ntfs locks (runlist locks,
+vol->lcnbmp_lock, vol->mftbmp_lock, mrec_locks) while the dirty-bit
+write needs the $Volume mrec_lock and can take the $MFT runlist lock,
+which self-deadlocks or forms ABBA cycles.  Instead, 3/4 makes
+persistence a property of the lock-free sync contexts: the new
+ntfs_sync_volume_dirty_state() sets VOLUME_IS_DIRTY when NVolErrors()
+is recorded and clears it otherwise, evaluating the error flag under
+the $Volume mrec_lock.  It is called from ntfs_sync_fs(), the
+remount-to-read-only path and ntfs_put_super(), with NV_Hibernated
+gating so a hibernated volume is never written by these paths.  The
+guarantee is eventual rather than instantaneous (a crash between the
+error record and the next persistence point remains a window); with
+4/4, ntfs_put_super() persists after the last commit that can record
+errors, so a volume that is read-write at unmount time cannot unmount
+clean.
+
+One housekeeping note: this series was rebased onto the current ntfs
+tree after the first posting failed to apply there.  Dennis Tighe's
+"ntfs: do not mark the volume clean in sync_fs when errors were
+recorded" landed in the meantime and fixed part of the same sync_fs
+problem this series addresses; 3/4 supersedes that fix with the
+ntfs_sync_volume_dirty_state() helper, which guards the clear in every
+persistence context, not just sync_fs.  No conflict with its intent.
+
+Patch layout:
+
+  1/4 ntfs: fix volume flag update races
+      Move the read-modify-write of vol->vol_flags inside the
+      $Volume mrec_lock; ntfs_sync_fs() clears the dirty bit under
+      the lock with the NVolErrors() check.
+
+  2/4 ntfs: set the volume dirty bit unconditionally on metadata
+      changes
+      Drop the racy caller-side VOLUME_IS_DIRTY checks in file.c and
+      namei.c; the locked unchanged-value check makes the unconditional
+      call skip the write when the bit is already set.
+
+  3/4 ntfs: sync the volume dirty bit with the recorded error state
+      New ntfs_sync_volume_dirty_state(), called from the lock-free
+      sync contexts (sync_fs / remount-ro / put_super); NV_Hibernated
+      gating.
+
+  4/4 ntfs: persist the dirty state after the final put_super()
+      commits
+      Move the persistence after the last commits that can record
+      errors, with the iput(vol->vol_ino) moved to the end.
+
+Thanks,
+Hongling Zeng (4):
+  ntfs: fix volume flag update races
+  ntfs: set the volume dirty bit unconditionally on metadata changes
+  ntfs: sync the volume dirty bit with the recorded error state
+  ntfs: persist the dirty state after the final put_super() commits
+
+ fs/ntfs/file.c   |  14 ++--
+ fs/ntfs/namei.c  |  24 +++----
+ fs/ntfs/super.c  | 140 +++++++++++++++++++++++++++++++------------
+ fs/ntfs/volume.h |   4 ++
+ 4 files changed, 130 insertions(+), 52 deletions(-)
