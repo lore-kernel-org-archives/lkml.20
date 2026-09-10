@@ -1,190 +1,210 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010011.outbound.protection.outlook.com [52.101.61.11])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39C98371860
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:09:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A1C3C3F6B
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:09:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789027765; cv=fail; b=VEx2bFCqRxBr+xA9sBMXskYPKitgRYtR+h0ygjeiFRR5V+tdr4CykNCfMPv2dxSmoQJ8mEuEaaaWCpp3NJDaO196xnwkL0DCkRpQpN2zKzgM9PGZinO9nk9pH9KXZ3JvOFsrG/B6E0wjTAJiOTY9f4zgRo0tiDhtp+za4kb6EHk=
+	t=1789027772; cv=pass; b=etnBXnZyrdqn57GSZPY3G/Ubhk/0Q7ZNcHI83OGfoOa6BdYjP/9RIdxNVepJH/8S3X0hGJsbWCeu6Txp9VhDMsVkO0aQdiPIj3UkpWckDLBTFSoHcV99eF3yfLQLKQbr24TWBrBflj+aE3CboD1ZON3Ewj6AI+mgg3x13fffh1Y=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789027765; c=relaxed/simple;
-	bh=LhmEioZDC0My7x2e4tQr0Ez8v3ULjiJNkO+7y4pDO+c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=uqmUetR0cZikTBf8ZuQrB/AemH87lBjuWycRoiFabbSslfnrovSmLKlPjhQEDg8wKLeV5lsISFr3wKPOn1XYStsVOSDLrW/o/TIUjVqKD1EBl9uTm77tLvfhleP+o/43VHG869Nu5K5KX7/JeuGdrxpJu/JsBhgGHU1vNBM09ew=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=2s/umHVS; arc=fail smtp.client-ip=52.101.61.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1789027772; c=relaxed/simple;
+	bh=e+oi/7PVMHZr0yXmqHSvM8XmVBC199Drw87zijqnF1w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=h/28fq6zsBY40vGPUmxfW9OezfLgcT/t/MXWjgGn0j7UbVF8YSqEpFWhWUXkI0SyyXbxFWad9opHAkHsCXtvJ9DnuVXO8UlDPXxF5lVUa6MyNBRzEhWO7pakObWo3QflhoRJz7oM3NA2O4/WCzvIptGtEoXJBNquje/WeccNjMI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QnuYhC7A; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KESZCpMu; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="2s/umHVS"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ldTORc+PMNiu91J4F/IKwPcV4QACvWYuM942VySRjoDhEj5jyocZGm2juoC2yP2TfHSYUKJmBlASC/DkvmXN4y3Jx8GsiOllkL71ugLpBCraEcRYNGxyKz0YaUFDHSWnV1JBN+e4JXsplvRF/RkKPeBRebfZfUTWEeqJsy1EglW0gYi22dC/wHMvWU5ObXlSeccOcJ8+0rWY9Wi+7fw+/p1pSIxrAOMguueddjBqwKFEnvLQ3Eb7Uqvr4VPsLS9PahUV0kSvP8/jF1bVMhn9qDeYxsb8nMVWUy7vVy/qAQThasN7j5FxfSM33Q+CiMVeZxK47FvxiRb8oJN3GHQsNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+CEqbR72SNV2kmoesGh1brp268Q7oskNAY14JDefDMA=;
- b=xlahf3VkrnF8UxN4sXyh3mEbhRV+QQLCg5uktA70QsyM5Br4pQj7UOmb7qJKdwuyxb5xU7SJIiLoQr1r/rAObtDz4/5zeOrXHvKbZwtvtF/2Jk/lNprA5P4bQjLE537bPx/T4p5CGrRWGKU2d4fFlcIrEijEWmy5FUkusHGbXo6p70i2h6syZI4l0ec8BFBtvTHZFl9u3LYGPrACOFmLlcu/0ARYjMUnj+LkaupvZvVX+WsT+FIppfhrN4Pk5XRcsOfir6BL5YQljrrIz0wU//4lrlA63YNcUOGIV0mLVzN3y/v55VBTAg1DWeb+Q7aZOZOOZK9OG5DU72Y9JVPG1w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=163.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+CEqbR72SNV2kmoesGh1brp268Q7oskNAY14JDefDMA=;
- b=2s/umHVSwvm/0WwwaFfkdrnmKce+vGb4ltiiv+9owkqsMJk7I+yhw4BINm+M34/tzZ7Dm6TxPTXNKmavyR4kV6Z3LQM7KDKl1KknwOSI7OdNcrv5xB7adoZ/XiC5zRdsSdBoUAxrSGFzYlNz7y6xSDZDaJRTT5txCltrep4E1Vk=
-Received: from BN0PR04CA0014.namprd04.prod.outlook.com (2603:10b6:408:ee::19)
- by SAVPR12MB999144.namprd12.prod.outlook.com (2603:10b6:806:4e6::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Thu, 10 Sep
- 2026 08:09:20 +0000
-Received: from BL6PEPF00020E60.namprd04.prod.outlook.com
- (2603:10b6:408:ee:cafe::14) by BN0PR04CA0014.outlook.office365.com
- (2603:10b6:408:ee::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Thu, 10
- Sep 2026 08:09:20 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL6PEPF00020E60.mail.protection.outlook.com (10.167.249.21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 08:09:19 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
- 2026 03:09:19 -0500
-Received: from [10.136.42.177] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Thu, 10 Sep 2026 03:09:16 -0500
-Message-ID: <f771bdd6-3e4b-47db-bfa9-b04bd58b9a06@amd.com>
-Date: Thu, 10 Sep 2026 13:39:10 +0530
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QnuYhC7A";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KESZCpMu"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A5HLDZ2974614
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:09:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	hrcreM8EzHtIJPybaks7D9tmnm5FFMtbNZvHl062kt0=; b=QnuYhC7AcE37eJFg
+	jvAa9uaIU5U5Vs4O6u1T7WQMvGVxhQsbjnkHsXUFISkoJMLC5f+sQfw8A5uU2W7U
+	nYyQVgD+GkbYAmEfVYYk0et3A55xXWVCtKpfQakPJLQRKQ9OrtzvYgC6wYUYTX5I
+	Oc9jLRnSOC6K2U0a9W+WBkNmNQx9GTRrq4A95VYU+WNf6f+jTMjQbawatgqTcC2x
+	A7IseivJpEmmEs1rLyQtIzkn7sLN8MDA/flWavDKujiDiC4nXmUpa4cZVGFVwwf+
+	5P8UkxxANiFRCwWuGFinpIMJSJuAq7M3g3gcXm5IhfYINEX/qKz6iS5uAvzs4tOO
+	GQ7vYg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyg2sh2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:09:29 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93917f4ccb4so832141185a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:09:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789027768; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UYBUmwKDz1KHcubRHJNktpvTZsH3bQ92pIDbeWKhicW7DpzVSamZ1s0ufo1bpVGycI
+         GQgKVe+7xiZmPJfxLK3WfyXs9ghlxe3YmFc9J/pTPD14uKWesGjjrrFdTelT917tHisu
+         vBF51943zwwAQasgB96DsKOF/gdFk6TMJ24dg08qpoZNDIhj3n9QCYiZSKfV5iQQ9gwM
+         EK+/qXyskd01nBGou9i+iOh9gdQKhiibn7N312XLVvxT1dCoah2hxxM+zbGpNgKnz3YH
+         xUUZR+P0DTUbsG1qryqjznF1vU9M1JwhYW5NlT2MDKpgcY81ub6jbNyra2IlNeXyELes
+         Pg7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hrcreM8EzHtIJPybaks7D9tmnm5FFMtbNZvHl062kt0=;
+        fh=bCpPHEy7Om9wz40WPuVm7OjYCFCFjDdg9c71/7u/y8k=;
+        b=KjxSiBcRbIEBVa98PKAcyqdxIwMobV2i/+1S2skwJLPjQIdCi1DkTvgOvftu4+SDNw
+         stzRLDrejcWJuS3XvPmkOo9gA6o+9KCJ74MnAuf33LKPoVb+BHFoDbQQwMVrtyqzYWkS
+         mBcrYAf+q2+wKew5h9AyaB9gnyHT5v8/fo/qFzUVQJyz7QbB6PIQ4M3qgBflmtH/jXxQ
+         G1+g9xak2thZkidpOxZv+c//WL2ry57HUw6dlXvBpXdOYhvB8bhhtGgzYcjHXwJLFePr
+         bDdvuowxST+46ZQEmW1tAo//kC/olpn0/zzLU9/iAuplH5e/6KbfDOskIykYy0F8yItg
+         S/Ug==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789027768; x=1789632568; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hrcreM8EzHtIJPybaks7D9tmnm5FFMtbNZvHl062kt0=;
+        b=KESZCpMuHpgIrSgbTFZvNukqz8adFOI6az8OxiBszlH0ZOQ4NFX1cQfk3oRvhfKaNz
+         PzOTd6EfiUPR+DBh6GLJQn2YC6gWExKver97uJMPFVUis1CqTZ0qDpXNT0FS630H+Yc1
+         cd0anqSz6lwZP47BqDfB4YY6LC60Q2SFkjf4R8uxaCXjoEFDgQTtRSS6O/GE6jaXzBXF
+         eMyTdI+pJ6CqfF9XvywS/LWksXF5+byrFy7uW8tZ9AbRwvJrhA+7FgkS6b7SJEJFgPvt
+         rlKL9of68mWy2wKChabhMcX3pXLxe/mMGhtnZVxCrL/up/PxIzfjZr4iOScjkt9PHv83
+         vTng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789027768; x=1789632568;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hrcreM8EzHtIJPybaks7D9tmnm5FFMtbNZvHl062kt0=;
+        b=RQ7QvZ5W2mwnYCJ3HG2JsRL7z5IZBmvmzgjQTyV0YkXTAvCaZ3WiZhwm1oYKCozB17
+         Wp8XH94jtCfvhgrzmqUXod0Ffl1RmbESKRw46BEFBINcCNBHzEmFqHwbV/vdG9ZEUu9T
+         aCThcJY46wL5Z5qbIqGF5Jbxw2R50Ddb2aGGAXVtVDcX7aRGJW1wTr9vzUTPtMBP8ZiF
+         Tk6QM3D5gO+FtNbdthf/+JneCpWK3Cu5nIY1XnE1KKW8LiFfcjdRTUhDgw0Wrmz1AlD9
+         UTrGxSK/JqmZA1jKZODJm9A30iwQBJoo9OMLkbyjlxblEdM+gbPfDjh28TfPKeDUvIAz
+         aAMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxSvUog7gfnzRRGueOHqaEeqNKmoYE4hMreU+Vm3c7GeQJw+VtbUjQ6mFD+f1M/IQIVt8tLG+jvWuMc85g=@vger.kernel.org
+X-Gm-Message-State: AFuF++mlKWd1VVTCyYbXfL7SS40xOjYmPUowTyonfZyPdW0kEGbQYomi
+	9oQH4Uegw/7dmViTDDG31LKrOhNN5RT0UD6Ktm1WS+uYCTS9nAldxVCR5o9MUQUl6b23pABUA15
+	GtOFvDvTceUuBu3SQ1XWdCDRlQLxAC5md3XFbjwW5rERD1kAwYnpSq6W+Y8jlFOyef/nVAvqpfT
+	ywSvzCquwXfiZXp0+O+uE5BIwdwFzXdVRJOOhgmhfN4Q==
+X-Gm-Gg: AYBFou1TSm2QEuk8X+wAzMMcEmKm2beQv2xtjsz3UteEvRI7lMbnAiGfiC8/WXEbnJc
+	xJTgwPh596+fJbB0g0f1ZJTDPOnBW44I0e5r4SX3jC5I20kYGFTIoHUUkgNQQPiclL5kdB5qkzh
+	36KDHkuTUobFXnJ1+6C2/m0h9wgpcyhnIXgAurr5m/eO50iw0duWNFMaHSu1FGXTBLThdpaA7WH
+	NHdC15FSOv71668eUfcqmY6bAP4pfx5DMLo2xa3oAbgDI9LX9ypFOAHpVCgW50rSTZPNdIFsAUN
+X-Received: by 2002:a05:620a:8105:b0:939:6de8:43e2 with SMTP id af79cd13be357-939804cadaamr3577777585a.47.1789027768177;
+        Thu, 10 Sep 2026 01:09:28 -0700 (PDT)
+X-Received: by 2002:a05:620a:8105:b0:939:6de8:43e2 with SMTP id
+ af79cd13be357-939804cadaamr3577772285a.47.1789027767689; Thu, 10 Sep 2026
+ 01:09:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH RESEND 03/10] sched/fair: Clear active_balance at the
- end of active_load_balance_cpu_stop()
-To: Xin Zhao <jackzxcui1989@163.com>, <mingo@redhat.com>,
-	<peterz@infradead.org>, <juri.lelli@redhat.com>,
-	<vincent.guittot@linaro.org>, <dietmar.eggemann@arm.com>,
-	<rostedt@goodmis.org>, <bsegall@google.com>, <mgorman@suse.de>,
-	<vschneid@redhat.com>
-CC: <linux-kernel@vger.kernel.org>
-References: <20260910042950.1619727-1-jackzxcui1989@163.com>
- <20260910042950.1619727-4-jackzxcui1989@163.com>
-Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <20260910042950.1619727-4-jackzxcui1989@163.com>
+References: <20260910033356.1052661-1-zhugl3@xiaopeng.com> <20260910033356.1052661-2-zhugl3@xiaopeng.com>
+In-Reply-To: <20260910033356.1052661-2-zhugl3@xiaopeng.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Thu, 10 Sep 2026 10:09:16 +0200
+X-Gm-Features: AcwNN1Ve1L8LMjcOpqIQaJD_QJYZ6Rdp4UWA7GwnfSgFAJr5DOKNJ8SBomTQUyw
+Message-ID: <CAFEp6-1VVVk94T_EoaXSW8aJzRNuWeGTo72ZQNPJePa=aAL5-g@mail.gmail.com>
+Subject: Re: [PATCH 2/3] net: wwan: mhi_wwan_mbim: check skb_copy_bits()
+ return value
+To: Guanglei Zhu <zhugl3@xiaopeng.com>
+Cc: Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+        Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
+        Liu Haijun <haijun.liu@mediatek.com>,
+        Ricardo Martinez <ricardo.martinez@linux.intel.com>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E60:EE_|SAVPR12MB999144:EE_
-X-MS-Office365-Filtering-Correlation-Id: 29b5f3ae-c427-404f-0ed1-08df0f12d0b6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|1800799024|36860700016|7416014|376014|10067099003|6133799003|22082099003|18002099003|4143699003|56012099006|11063799006|921020;
-X-Microsoft-Antispam-Message-Info:
-	wEwF+ZqfsRkOuRUNJtrQouENNOJRBN25ujkBFcaRYfhdlavcroT/UVJUOzAS3GP2H8SyP4AAPJ242MfPDGmEYqrVgFXTBaeJE1lKnMkDUoImGne1arU9GJc8luQ8iHhbe0z16nsl0iQrNCNA8NrQpBR0WMF/qxgKXa3EimHyL93M4asTsZQB1veUblHlrnhqJgp9vz2ACJS5BOjepycjsONOMEoE0m5OR3dRj1QJwbsJXRm+E1waKUNzZx7k/uWDrmUbvPWTC4DBFJYnOBzgxu4RbIh5PfYw0aDHmMumwdfTx/yAhuFM10SMc2l/9rjHJVZ6tQsui7K6cGONmroKWyQPlk6iqoShcDFFnH5kwTT0fXORvwwBWn/PSozh/pz5XgzXsFzv+x5881OmNrg6Rfdjd/V9V/VlH71arL97gC/Y5VxtBZ3yi292UHieKd0zVoqVGrtCYiQ59nM3Aewnot3w4TLGeEUEn3vdTWxLs+FFEhTc2ylY02ph+aQTBA7VIDAoCkAyOuKWPxhuO3rpq4ZY9qj6DP2NmENJbao2BrjFQU0ESNINyEfVtgxv9k+7uPcRA+Mrq+xGoYutsMG04vH0MUDJBYfoi3Gfmdqh0jwVNANOukPhQNIxs/JGrQUCY2GVgQQiHchtUzCXwjgtFN8pPXu2aUglDJbyZTrS5rpLYG6rZpzlzkGC+Zjm/hlk91W+o0xqcRUk0YND32F8jSMZu1yk9EE3wUgTYbn2VwMl4I8JZoeVUwtwlANKFW06
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(1800799024)(36860700016)(7416014)(376014)(10067099003)(6133799003)(22082099003)(18002099003)(4143699003)(56012099006)(11063799006)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	IAPCt7hwpqf7H1CxP6LTgfaW6cqJ4OuryZTh4/znAfe1XJVxtTKvxi7j3Ye+OTO6zsF4qnM+sMMkOERS29GOBDEZIITsPj4tSQFJIrNJFYSb7xwdMJal2AyHbrTPYl+UaXOoMMPsRUJALLZkFeYJSFqpHPS/+PLX8wNIDW36KTPhVju/6bkk54GnMP4Nhjyezri4ST7n+memGDQHEElDA13udteJu50JzSxc7E5Zbf+gVHAx/l/gx+xw8mPZQhh0bfC/r0bgnTZJdVcTJmkS7j2rkSAFQNfvh9ajN+2jeu3qEbO69952AaF/ZN6Ox7sWh8YY6Nhmjk3yAZSM0b8sSy5OVaRdumK+lZqI8F7WIyJYkSTEZdmPdXUEZnVu4/M84nghVojEQxULaWXE7YB1+OY3yQZ9g/eW81SCw18iflQ4dbxLFSaVa7H/wkReF/Iq
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 08:09:19.4956
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29b5f3ae-c427-404f-0ed1-08df0f12d0b6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF00020E60.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAVPR12MB999144
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=bMqDs/+Z c=1 sm=1 tr=0 ts=6aa265b9 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=DJpcGTmdVt4CTyJn9g5Z:22 a=EgahoUkMAAAA:8 a=VwQbUJbxAAAA:8
+ a=wIlMCVVetkfELOPdIZwA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+ a=D2SkTF70-_n5gOfERQdM:22
+X-Proofpoint-GUID: 9DKw3gUyvJ4EvYf4HqGDoVw6ensBnZrb
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA4OCBTYWx0ZWRfX2JOZ1SXPUtJ8
+ uPqNz6IAUsfwd6PQh14OonmkScXZpPgxEZGbZ6RcLIWkBgS1Ca8bIr8hIgYpfJ4meiRe8B9jpTM
+ d6OrtCcscvu9ma/Ixcs4dIE8a8lcuzE394OqcPbZkh8d2lvmsmLmMv09IxI/a44DjxmTsyguRxa
+ DHmnGBUNYMGbxV215GPNGEp3OBlXSrSkZ//pSW+Wk0b4XEv4Z5SsBImxWWp7li6ExyXkc3v28nG
+ DLUNcx3kTLoSDgF1ohRaG2rNSDG3xdhlVyuT56bZ671G2UxfY4jeyQgBs/ZPBbBd1yC7ghYLvuN
+ cDHoy8BL5CgruAoJ5e8nJUwrDBTgbEAJCPuaSPZ6GONIMjZvpC1McVIbMWXgv4L003YuwuOxQgL
+ m0m1tar3BSGjal4WHx5zifBmQ1VTSe3iZ6tyLM6J5/rpuAq89TEBWQsKyJQpLZ2bZsgzG6wH3wj
+ QZiOSjsfBP5ViAVijTA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA4OCBTYWx0ZWRfX2I9KQXaMI5mb
+ MU0abeiClLW241eEy3SEEL0l5+iPAWX6cikCzCEhdZ0QLEfVm9rxDgg0RBx2jOOF2PseR+DSlmF
+ 0+Zz5cqyy8eEFIM8PI8j70S6c1JgXf4=
+X-Proofpoint-ORIG-GUID: 9DKw3gUyvJ4EvYf4HqGDoVw6ensBnZrb
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_02,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 malwarescore=0 adultscore=0 suspectscore=0
+ spamscore=0 impostorscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100088
 
-Hello Xin,
-
-On 9/10/2026 9:59 AM, Xin Zhao wrote:
-> The rq->active_balance flag is used to prevent multiple CPUs from
-> simultaneously dispatching active balance stop tasks. Since there can only
-> ever be one consumer of the stop task, it is not strictly necessary to
-> protect the setting of rq->active_balance to 0 with the rq lock in
-> active_load_balance_cpu_stop(). Therefore, we can move the action of
-> clearing rq->active_balance to the end of active_load_balance_cpu_stop().
-> The benefit of this approach is that the task load of dst_rq will change
-> due to the execution of attach_one_task(), which helps avoid prematurely
-> clearing rq->active_balance before attach_one_task(), thus preventing
-> unnecessary dispatch of duplicate active balance stop tasks.
-
-Aren't we moving tasks *out* of the busiest CPU where the stopper is
-scheduled?
-
-As soon as we do detach_one_task() within the rq_lock, the load is
-reflected correctly. There is no need to wait until we attach task to
-a remote target_rq. TASK_ON_RQ_MIGRATING will immediately detach its
-PELT signal from busiest.
-
-That last statement seems to be inaccurate.
-
-> 
-> Active balance stop task is triggered only when rq->active_balance flag
-> changes from 0 to 1, and there can be at most one consumer of active
-> balance stop task at any given time. Therefore, we should never see zero
-> rq->active_balance in active_load_balance_cpu_stop(), use WARN_ON_ONCE
-> instead.
-> 
-> Signed-off-by: Xin Zhao <jackzxcui1989@163.com>
+On Thu, Sep 10, 2026 at 5:34=E2=80=AFAM Guanglei Zhu <zhugl3@xiaopeng.com> =
+wrote:
+>
+> mhi_mbim_rx() ignores the return value of skb_copy_bits() when it
+> copies each datagram out of the NTB.  The datagram offset and length
+> come from the DPE, which is only checked to lie within the NTB
+> itself, so a modem can point a datagram outside the received skb.
+> The copy then fails and the freshly allocated skbn is passed to
+> netif_rx() with its uninitialized contents still in place, leaking
+> kernel heap memory into the network stack.
+>
+> Free the skb and account an error when the copy fails.
+>
+> Fixes: aa730a9905b7 ("net: wwan: Add MHI MBIM network driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
 > ---
->  kernel/sched/fair.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
-> 
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 11c104010b2e..20d03ceed9d7 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -13769,8 +13769,7 @@ static int active_load_balance_cpu_stop(void *data)
->  	if (!cpu_active(busiest_cpu) || !cpu_active(target_cpu))
->  		goto out_unlock;
->  
-> -	if (unlikely(!busiest_rq->active_balance))
-> -		goto out_unlock;
-> +	WARN_ON_ONCE(!busiest_rq->active_balance);
->  
->  	/* Is there any task to move? */
->  	if (busiest_rq->nr_running <= 1)
-> @@ -13815,13 +13814,13 @@ static int active_load_balance_cpu_stop(void *data)
->  	}
->  	rcu_read_unlock();
->  out_unlock:
-> -	busiest_rq->active_balance = 0;
->  	rq_unlock(busiest_rq, &rf);
->  
->  	if (p)
->  		attach_one_task(target_rq, p);
->  
->  	local_irq_enable();
+>
+> Verified in a QEMU guest with a fault injector pointing a DPE
+> outside the received NTB: the copy fails, and the unpatched driver
+> hands the uninitialized skbn to the network stack (observed as
+> "unknown protocol" on bytes that were never written).  With this
+> check the failed datagram is dropped and counted as an rx error.
+>  drivers/net/wwan/mhi_wwan_mbim.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/net/wwan/mhi_wwan_mbim.c b/drivers/net/wwan/mhi_wwan=
+_mbim.c
+> index ef158edeb..71e700008 100644
+> --- a/drivers/net/wwan/mhi_wwan_mbim.c
+> +++ b/drivers/net/wwan/mhi_wwan_mbim.c
+> @@ -328,7 +328,13 @@ static void mhi_mbim_rx(struct mhi_mbim_context *mbi=
+m, struct sk_buff *skb)
+>                                 continue;
+>
+>                         skb_put(skbn, dgram_len);
+> -                       skb_copy_bits(skb, dgram_offset, skbn->data, dgra=
+m_len);
+> +                       if (skb_copy_bits(skb, dgram_offset, skbn->data, =
+dgram_len)) {
+> +                               dev_kfree_skb_any(skbn);
+> +                               u64_stats_update_begin(&link->rx_syncp);
+> +                               u64_stats_inc(&link->rx_errors);
+> +                               u64_stats_update_end(&link->rx_syncp);
+> +                               continue;
 
-As soon as we enable IRQs, a timer for a remote tick may go off which
-may want to push the task from this CPU again but it sees
-->active_balance still set.
+We perform the same error handling in the switch cases below, so it
+would be better to factor it out into a common helper or a shared
+error path.
 
-At the very least, I think this should be done before IRQs are enabled
-but I'm not convinced by the justification for this in the commit
-message.
-
-> +	busiest_rq->active_balance = 0;
->  
->  	return 0;
->  }
-
--- 
-Thanks and Regards,
-Prateek
-
+> +                       }
+>
+>                         switch (skbn->data[0] & 0xf0) {
+>                         case 0x40:
+> --
+> 2.43.0
+>
