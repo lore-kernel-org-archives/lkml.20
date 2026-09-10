@@ -1,69 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F39433AD85;
-	Thu, 10 Sep 2026 01:08:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C04233938D
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:10:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789002540; cv=none; b=W7aqSi4yWHM4P2Ia+vZeEddoHcKXS66HJofaNyjyukjGffn6nwRQsNq9g4Wmqno9h5XoH9YSxLwTh3uH4qxrlPiH1IRsH7LXO7AL6DVqOthlAWRvhNwz93HyRggglI/ZOkr53HTGKEoEbYO4NKo/MgbFEbCwrgdiw35t90iq7Ew=
+	t=1789002616; cv=none; b=N9W6TzJQFuLOl+3YmzHSNpOFE2tmB4ymoRPvtbERZJ+zT9Mw9xpm1bSUXvwg7XBNuQ3c+a3zt+XDdLzz/uRtdiXVmUvI/aoJEPpgCFkMjU4Aq4uf/dkkIh4u4btiAHuV9wDWrBJRdlDhikOU4xeb1+quzra10e5a40mcqiepbHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789002540; c=relaxed/simple;
-	bh=wvQO0DQGI8pBQqS9tilbSsOZVdFoYHcw8f1LdzJny9A=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kPvFBZoeny2U/BBbj29eImIBHZuWUTC3yDGmbUqsmdE/FzP0fQn2z3y66cl3hf8GeKhXyOk/THlHQZHWB7JNwDbNMFAurMpl4EOEiv1anb1vhzkC4xAiirPZI+49BNGYK3NZrRno3xw3+vtNk9DjlNasQx1+vsnXef7iK2h16FI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fvlObo+h; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789002616; c=relaxed/simple;
+	bh=or0xzMswmj9Tj7ceDBe8I/7LXee47Ypd8r/+wEXzH2Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=brFCKirFW5SJ/QORnMSQp0UFkdeWCcPj+1P1TsPXSjdqqM4abIsoV6lecXeawDiyuBUTZo+OcwcX/U/xXDWUK8Vot9bauGg6zFpZ5/lHF/DGg+6eIFTWNV6BHXcbjDVv7xskEzq1i4inVw+tiQbAgtL69BIS2w9iWgVXJv4X/84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FTmvnOc6; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fvlObo+h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5234E1F000FF;
-	Thu, 10 Sep 2026 01:08:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789002532;
-	bh=J1v1M1ChXuvCldJXEtP/MlrTpnP0zRIR+mHnUD9ZX5A=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=fvlObo+h35YMEFYsYQPZ3gBZ3C3MZ/5L8xB6CcRVBfnp1ak8gMctL1vm8q9AHr//z
-	 DAYaEOM5oFUk/tZPNf3aDK3XPhjjxNE7Q4MD8xFFSxE3aKrUIH+S3U4PDF4b6cwNDd
-	 AiAF/SxrVTIRcswHnLkPUi2Ce3aPMwDQz26dAgk3HVL5fkB+/KnsAPaDroqzhzC+Ca
-	 n2LsqSfhUIbhydWgn9uWpruSuxcV8PR5OVCotwqOA7CizDMlKX+fhBpMvk1QwknUed
-	 SZvwkuAbGUu2hKlFtiVQLp6OBXpTgT7Tr45kSAPbBk0neIzULHNyi5f7URN0wCdJae
-	 eIs5dbryczL6w==
-Date: Wed, 9 Sep 2026 18:08:51 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: shuo huang <f64116045@gs.ncku.edu.tw>
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
- pabeni@redhat.com, horms@kernel.org, shuah@kernel.org
-Subject: Re: [PATCH net-next] selftests: net: Add TCP payload verification
- to udpgso_bench_rx
-Message-ID: <20260909180851.01488994@kernel.org>
-In-Reply-To: <20260906145643.219609-1-f64116045@gs.ncku.edu.tw>
-References: <20260906145643.219609-1-f64116045@gs.ncku.edu.tw>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FTmvnOc6"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-39b24d114d4so7121280a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 18:10:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789002609; x=1789607409; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=or0xzMswmj9Tj7ceDBe8I/7LXee47Ypd8r/+wEXzH2Y=;
+        b=FTmvnOc6cGfZDjXV4TDY7Uv0rqr/p8hHPAhoSa4cgWbuz2LR4ku/LJUWn+hjpuo/oC
+         8ivazSWxugwwnmth31ELknTRH2rZnyp7XouX4D+iSoshsjCcEacNBPoTmlx0ggHiS9SV
+         UHoGzPJXSyaq+/HAWyAAgd9rBOXsTuznz53c7ZrHSB6vheKweLp8yQs8igYZFeBlb2RJ
+         y3SqOlb7QzUwtDrdmoaWj4KdZ6Q/MU5qP6pxjC4mIKr8Qe5tz833qq4jPGJJDn/1WAnA
+         g0ZLeGdWK2JBBsBMRpL+QuSfIkwOGDe/DQobxXU71/Vok5Td3MQVFaIggJi6K6iXLM2h
+         xj8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789002609; x=1789607409;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=or0xzMswmj9Tj7ceDBe8I/7LXee47Ypd8r/+wEXzH2Y=;
+        b=MUH9U8zCN8Zx12BmDgfdllAjVcMGbAWatWHzIOSYZ9SzhQhpjEvKDfU5uDAX7Y8GjW
+         su19kQr23kKFg1WaaRBxA+it5LT/haegS/AYxpw+bZ+ZUXEm/MNOjPuDyRVK8tzjAAlt
+         gq5SEiZH3Cq9AbE0FTcAU/uuX2T9Ra3kPMcjHNm14oczyDl2r2b7yxRlFTqnNEOYXkQK
+         NH9Sl7mijX1kSDofec+EuqnBGYrrk1mBDS0oWgoh9YfwyxNHceK+lRqzGxlwd35AhRUC
+         heAPETAOe+J1jGsGxp9Gadjz3H/VGsvgG38/R6lnesYtd/gYAjVnJFuol4DrqjObM19L
+         z5gQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxKR9gUVPE1t5lWzcMUEyrdb9Ngiw74M7XWHVZiCh1jbeOYJtfX88wCPqjhpVEL8OAZ3+Abf+qxEFfebpg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nUgRSk5e8j8G0TL15UKhC79TYTx+R0Yd3lxZverccbQTm71JIn
+	/SuYxOEkaJboabxKWX0o9rbqY/VAT4AZldYUkT8x2eGp0NAR79MA2tvVkzRCjw4=
+X-Gm-Gg: AYBFou2JWoTEKkTm9zV8Dc/QLdG2A40pKjeyo53b+b4ZGx0iNc6Cdxl60D4R2p4rZfu
+	cpc4fnYRX3BzotyhasWpWeQU5Ar+7Lvl1doSV+LKo/1ROoee+8o7oRqoFt6gZUnjaRxDe/J2Rah
+	nWRYq6O9zR0YVSNod8+hanwGl925qzD4jv0FXOImiJISR+IezSveX4Q7S4VQxNg6EFJuJpBFAhU
+	k0VJFuVo6sUycwmxA/sgpBr7E4beCP+8CFC25GTF5QTHi9Z3FYhVfCfyYwzQyDCNb1JaJr6pBPy
+	9MTbNBrH6N6r6ZVR/mu/2mlOAA0MZ8JXchBH8kjXgV92oNsw9OsA4fbk/4f2UdqjSgmhNHmJp3E
+	IkEVIi4bdeFd+1f2WsYvjKBZPuzz7MozDMoAmRhN7hGjdN/+T3HvB4hF84GU+vYsp5+yQYQASg2
+	AMgxYt/Y52xkZQKSY/31l3WrIqt4+TEjOapvrKyNnb261tPYxk+MZZJU/T8HzHVeWPbNxjkVUB+
+	x6yB3tzu/tgoOEBdmxoBENN5w==
+X-Received: by 2002:a17:90a:2c9:b0:39b:2b5a:8dc5 with SMTP id 98e67ed59e1d1-39b2b5a9b24mr36753936a91.6.1789002609041;
+        Wed, 09 Sep 2026 18:10:09 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f04:fd2a:f01d:1dc7:1e5:47d8])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d7e7f4369sm863377a91.8.2026.09.09.18.10.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 18:10:08 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Tom Zanussi <zanussi@kernel.org>
+Cc: linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	sashiko-reviews@lists.linux.dev,
+	donggeunyoo.kernel@gmail.com
+Subject: Re: [PATCH] tracing: hist: free the var ref when its initialization fails
+Date: Thu, 10 Sep 2026 10:10:03 +0900
+Message-ID: <20260910011003.532262-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260906133352.3815019-1-donggeunyoo.kernel@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Sun,  6 Sep 2026 22:56:43 +0800 shuo huang wrote:
-> udpgso_bench_rx supports UDP payload verification but rejects the
-> combination of TCP and verification mode. Its TCP receive path discards
-> the payload, so it cannot check the data generated by udpgso_bench_tx.
-> 
-> Read the TCP payload into a buffer when verification is requested
-> and check it against the transmitter's repeating alphabetic
-> pattern. Preserve the verification position across recv() calls
-> because TCP does not preserve send boundaries. Restart the pattern
-> at the payload length supplied with -l, matching the transmitter's
-> pattern restart on each message.
-> 
-> Require a nonzero -l value for TCP verification and retain the existing
-> discard path when verification is disabled.
+The Sashiko AI reviewer reported this bug before I sent the fix, in its
+review of "tracing: hist: free var refs regardless of how often they are
+referenced". The patch should carry:
 
-This new option is not exercised by any in-tree test.
-Do you have any special use case that needs it?
-Otherwise either its useful and in-tree tests should run it, or it's
-not useful and we shouldn't merge this patch either..
--- 
-pw-bot: cr
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/linux-trace-kernel/20260906125025.711111F00A3A@smtp.kernel.org/
+
+No change to the patch itself.
+
+Thanks,
+Donggeun
