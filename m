@@ -1,517 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA6802931CD;
-	Thu, 10 Sep 2026 15:23:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0943379966
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:24:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789053839; cv=none; b=eeMtElhgE4cJ4eLG5X3HQiya4Y/iFMOctlfBHZN/WkIghVFYYP9yBKUu9898n/2N5VGlFMONx95hQMtgJjZbwYNOgLqNjHxomjRAd9jb5Mdluf57kV9dsc4obrC+U58pvcHLj2i0iioMoVdZnCzCEkTTF8F47qs0i+x/dkOX9+0=
+	t=1789053867; cv=none; b=hMoACYTM1CMBF4sC7+9l4np6F5YobCY7kE90Gk0bvp62XD227KyknxlDHyOXiq3SEi2Mk4ypItsGN8SbfYy3eLr1/Qw7V/ajgQ//z4aD+FwkVAMNqEgEwnIOFI4sf2NIXx6EVuVAZJJGVhZJxjPTVrs9nln8/G+2B+joao3Y+BI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789053839; c=relaxed/simple;
-	bh=hMcJevfWjnoJSiqOu6NsVtstzcKgTY4rNZYzGtmdw9k=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=WIfedWmHm1JOeP119piuAPh5MU6mQQpb1EJuEAfUS05zwMChslkNtZWperxOOuKatTvXSTM9rl6qUDsqecjTla8ECoVU9ZJXt+MOZh0epQ6vR8J318zQNlJGiDFhHb++qoI31SuUOF2tCr6xcbF2BngkNp9rmQ/r97IeDCMNZRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LN1sVdry; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789053867; c=relaxed/simple;
+	bh=d7Q5M1vI7/120q4pHA5b5xHQjtrAs56xYi6z/xR6of0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jWa0gEc6pj1nWAzFsjrLfpWYQ8K1Lz5TNzN42XVA66ujS7sFcooFTZHEGhXS6zxpMffgVzt8DwMlfnt7SzeLzx0E/pSPTfr3Cxr04zc1M+UamqPaEgdnbaGJ+sdCxodjs90DZG4aNk7BCZmNzD3CX8QOiUJg+SF/1oR39Wlp5SM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T4NW+Iq/; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LN1sVdry"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4A041F000FF;
-	Thu, 10 Sep 2026 15:23:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789053837;
-	bh=OSuV66xvBDocO51COl30gjhf09+s3jUVMuJpH2SnHPw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=LN1sVdryVXe0+8owdOFneFXdLt1Q3A0+wAHHD7mzqOAqxQZ758E0X7dA9BrqLSWhN
-	 FrSocPDim66XpZc5EDp3pEbmG+LOoL4LOh9FtiIpS9F2IHdEBhaL0F2ZtyGhYdkBaE
-	 hY/kWU2MBTJgEz95tuZ6diXzdFJO8KIO54Dvhr+f22l/FIgJ8sJ65XQNKj9cWhSztq
-	 9LU9g5QqrO8dVBJNJs4/zZcp+NOk/18Sk6Ay9XfjCZ0KkCrjwO8vEOiGw7/lrs3e42
-	 axPjg4X2uyFv6bmuSVaOYjo4TW9E8DnkP69HJ1rlO5pZ/V22TIyNhCBk7ITC13b1sh
-	 R1Xh6GAvHDsiw==
-Subject: Re: [PATCH net-next v13 2/2] ptp: ocp: add TAP CPLD firmware upload
- for ADVA TimeCard X1
-From: netdev-bot+sashiko@kernel.org
-To: maimon.sagi@gmail.com
-Cc: netdev@vger.kernel.org, vadim.fedorenko@linux.dev,
- richardcochran@gmail.com, kuba@kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
-Date: Thu, 10 Sep 2026 15:23:56 +0000
-Message-ID: <178905383648.219967.14391517503747135549@kernel.org>
-In-Reply-To: <20260908122328.52641-3-maimon.sagi@gmail.com>
-References: <20260908122328.52641-3-maimon.sagi@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T4NW+Iq/"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d9520b9155so60636605ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:24:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789053865; x=1789658665; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qSoq+0T0RQWwUv3FBS9ojV1fof/Vt3X7sSwGsvkfUEI=;
+        b=T4NW+Iq/vixBGsmM1hS6Hrgvvxg0rZFI6VDfgZYs3Z1F2ipUcng77CRuUu0hnqllwL
+         Z52SmyEFWGGNkuP+dCn0Gl7c98fF0aU8NZhFgyubVKJFwYW16GLKSJih/U3OuEiePPUO
+         rdb6+LA+HZfdLd7mfGah/MS9lNqKnUbF+XVZ1yZ3YAylPCOIYpVaADaNry/gBCssBQmc
+         YmUFYOUO9dim+KoSKlN57rzWLuQSH9mqWCCRO0i8dh69naiihMNpQvonxK36jgCmudww
+         67OW+VCbqjQs0qFy93lG9gniiSul7M7SP8RzaTrSk+VriTXtDVVywVF4q8qWJaihKRoQ
+         jFcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789053865; x=1789658665;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qSoq+0T0RQWwUv3FBS9ojV1fof/Vt3X7sSwGsvkfUEI=;
+        b=kEfODCHZiQr4ghDxFYm+JIg4hdSf6E1xNxTvOdijt7b6N4w/PxCor5CFvUVLZQMQUw
+         5imoVUqj4zBc+68DcyEnjn1qL+PW41Tz367HoN+HQgsJJCKo8crjFJhtKNludBx4XlPe
+         W9n83G08nfAO8nU7jP5uPe0MmW0d6bkDTU377eLAH0JzhApdVCXHpIYAo1odQoXfuqeG
+         MUAix33zlz3E3TPSLnu5JReKA64qYv5Hi6QWkDXSbMiDrFZIC3S3y77rsEJ5T3fpBH5D
+         CjzCe1XB0fx1pat/DW6NpDj4m0/QYOFZLxIZUFWUgx8Yq5xAmQs7xEVGUfl64hWaJf9w
+         G94A==
+X-Forwarded-Encrypted: i=1; AKwUvBz67QZ2WJaCD/KPQRcZ8iexE18Cv372/rjXodRKV7DjrJl77hHG0CDuiUwEYvsssCVCDzYslkqEC9fPRUo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLlBIyE4pMv5qJhPR+WKKsg/IEhUW9xENZs3AXpoifiiaRSQel
+	+k0LvQVMCO3oifFq+Hy78RFU6niVus3JbHUB127MYeDdQa+UejhmhXU5PUbRCfdMC+Q1Xg==
+X-Gm-Gg: AYBFou1vI1G6xvZ0Oax1tng2mQsRpqJrn5jfzrwSgcVoIgHte2myWUh+n0dbdAbWiGV
+	+qTLwDbY00PmZispD0LBiapuB5iHDJpMfmB9LFP04TsbMcQFDB77okF6PgcgMUt22Zwze7JidWr
+	BRhbkwYdQ4cxl45xKrH5UT2BRIhClyyGXUJVWHtlCSCViAzJeDdygaJQlptQWbo3HUGpK87YtMe
+	OTkdle2cJEFTgTHUVJd84KH4DR0+/2YTrytildfF4UPU7hI7ajBSMdfQ+94RgxiZUED+T+U3dPQ
+	d6bgAVR0roM9r7674I1+1RLVHh5KB9jw32sjMqUDPVcWzqYNWRnL9eIV1UTzz7OJRei56CA6JbT
+	+0CSZTul7eEu8W835j0nJQFWnEkZGVKxqS926ZoMyHj6lFgQW4VbH57lqKLLF9Mmcy4eZd6MGTw
+	4lsb5M1XjexFFVJAB054NYJBuDpOSxSQo4fW/69ek4WJ7+q0I6kTt4kB5ROTpEgoe7v9ZA2Sh+k
+	AbRZ13TSivftl9il9oyW7bmroXBZXXf
+X-Received: by 2002:a17:903:3803:b0:2d7:7cb:a44a with SMTP id d9443c01a7336-2db127bf3damr666893425ad.11.1789053864925;
+        Thu, 10 Sep 2026 08:24:24 -0700 (PDT)
+Received: from 192.168.50.3 ([198.176.50.208])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db148404b8sm91545235ad.2.2026.09.10.08.24.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 08:24:24 -0700 (PDT)
+From: Weiming Shi <bestswngs@gmail.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>
+Cc: linux-can@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?St=C3=A9phane=20Grosjean?= <s.grosjean@peak-system.fr>,
+	Wolfgang Grandegger <wg@grandegger.com>,
+	co+4bda3bf8e1a2b780@bugs.sh,
+	Weiming Shi <bestswngs@gmail.com>
+Subject: [PATCH net] can: peak_usb: validate PCAN-USB Pro receive lengths
+Date: Thu, 10 Sep 2026 23:24:07 +0800
+Message-ID: <20260910152406.3865455-2-bestswngs@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 6 potential
-issue(s) to consider:
-
-Critical: 0 · High: 0 (1) · Medium: 3 · Low: 3
-
-- [Medium] bp->cpld_cancel is a single per-device boolean cleared at
-  driver-chosen points (entry of adva_cpld_prepare(), prepare()'s…
-- [Medium] adva_x1_cpld_wait_ready() returns as soon as
-  READ_ONCE(bp->cpld_cancel) is observed (-ECANCELED) or a status read…
-- [Medium] adva_cpld_poll_complete() reports FW_UPLOAD_ERR_NONE without
-  verifying that the CPLD reconfigured successfully.
-- [Low] The new paragraph in Documentation/ABI/testing/sysfs-timecard
-  directs userspace to program the CPLD via /sys/class/firmware/adva-…
-- [Low] In adva_cpld_poll_complete() the post-REFRESH mux-reselect poll
-  `read_poll_timeout(adva_x1_mux_select, err, !err, CPLD_POLL_US, 3000 *…
-- [Low] adva_x1_cpld_wait_ready() exits its poll as soon as the status
-  read fails (`err` is part of the termination condition) but then…
-
-Pre-existing issues:
-- [High] ptp_ocp_detach() relies on firmware_upload_unregister() to
-  cancel *and* flush an in-flight upload before cpld_lock, the i2c_ctrl…
-
---
-
-ptp: ocp: add TAP CPLD firmware upload for ADVA TimeCard X1
-
-This adds an in-system programming path for the Lattice MachXO3 CPLD on the
-ADVA TimeCard X1, exposed through the kernel firmware-upload subsystem as
-/sys/class/firmware/adva-cpld.N/.  The prepare/write/poll_complete/cleanup
-callbacks run under cpld_lock with the i2c adapter lock held, and the upload
-node is unregistered first in ptp_ocp_detach().
-
-A few questions below.
-
-> diff --git a/Documentation/ABI/testing/sysfs-timecard b/Documentation/ABI/testing/sysfs-timecard
-> index 70ecc15b347f..8c0d41c941ad 100644
-> --- a/Documentation/ABI/testing/sysfs-timecard
-> +++ b/Documentation/ABI/testing/sysfs-timecard
-> @@ -30,6 +30,10 @@ Description:	(RO, root only) The status register of the TAP CPLD, in
->  		ID of the CPLD is read once at probe and reported as the
->  		fixed "cpld.id" version by devlink dev info.
->  
-> +		To program new CPLD firmware use the standard kernel
-> +		firmware-upload interface, registered per card at:
-> +		/sys/class/firmware/adva-cpld.N/
-> +		where N is the index of this ocpN device.
-
-[Severity: Low]
-Should this paragraph also state the image format the driver accepts?
-
-adva_cpld_prepare() rejects anything that is not an exact multiple of
-CPLD_PAGE_SIZE:
-
-	if (!size || size % CPLD_PAGE_SIZE) {
-		WRITE_ONCE(bp->cpld_cancel, false);
-		return FW_UPLOAD_ERR_INVALID_SIZE;
-	}
-
-and adva_cpld_write() copies the bytes verbatim into the page-program
-payload, so the node takes a raw page-aligned bitstream rather than a
-Lattice .jed/.hex container.  The internal comment above the callbacks does
-say "Userspace writes the raw binary page data directly", but the ABI text
-does not, and the only feedback a user gets from a container file is the
-framework's generic "invalid-file-size" in the error attribute.
-
-[ ... ]
-
-> diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
-> index 7db1dc9b94bd..6eefc3db586f 100644
-> --- a/drivers/ptp/ptp_ocp.c
-> +++ b/drivers/ptp/ptp_ocp.c
-
-[ ... ]
-
-> @@ -4500,6 +4587,55 @@ static int adva_x1_cpld_read_status(struct ptp_ocp *bp, u32 *status)
->  	return 0;
->  }
->  
-> +/* Poll the status register until the CPLD goes idle, or @max_ms elapses.
-> + * The deadline is on wall time, so the I2C transactions count against it,
-> + * and the status is read once more after it expires before giving up.
-> + */
-> +static int adva_x1_cpld_wait_ready(struct ptp_ocp *bp, unsigned int max_ms)
-> +{
-> +	u32 status = 0;
-> +	int err, ret;
-> +
-> +	ret = read_poll_timeout(adva_x1_cpld_read_status, err,
-> +				err || READ_ONCE(bp->cpld_cancel) ||
-> +				(status & CPLD_STATUS_FAILED) ||
-> +				!(status & CPLD_STATUS_BUSY),
-> +				CPLD_POLL_US, max_ms * USEC_PER_MSEC, false,
-> +				bp, &status);
-> +	if (ret)
-> +		return ret;
-> +	if (READ_ONCE(bp->cpld_cancel))
-> +		return -ECANCELED;
-> +	if (err || (status & CPLD_STATUS_FAILED))
-> +		return -EIO;
-> +
-> +	return 0;
-> +}
-
-[Severity: Low]
-Is collapsing every transport errno to -EIO here intentional?
-
-adva_x1_cpld_read_status() returns the underlying I2C errno (-ETIMEDOUT,
--ENXIO, -EREMOTEIO, ...), and err is part of the termination condition, so
-the poll exits with that errno available.  It is then replaced:
-
-	if (err || (status & CPLD_STATUS_FAILED))
-		return -EIO;
-
-adva_cpld_err() distinguishes those categories, but by the time it is
-consulted the distinction is gone:
-
-	case -ETIMEDOUT:
-		return FW_UPLOAD_ERR_TIMEOUT;
-	...
-	case -EIO:		/* FAILED status, or a short transfer */
-		return FW_UPLOAD_ERR_HW_ERROR;
-
-so an I2C controller timeout during a status poll is reported as "hw-error"
-instead of "timeout", and a NACK as "hw-error" instead of
-"read-write-error".  The same -EIO is also used for a genuine CPLD FAILED
-status, so the two are indistinguishable in the error attribute.  Would
-returning err when it is non-zero, and -EIO only for CPLD_STATUS_FAILED,
-keep the mapping useful?
-
-> +
-> +/* Map an errno onto the category userspace reads back from
-> + * /sys/class/firmware/adva-cpld.N/error.  A step aborted by cancel() must
-> + * be reported as such, not as a HW error.
-> + */
-> +static enum fw_upload_err adva_cpld_err(struct ptp_ocp *bp, int err)
-> +{
-> +	if (READ_ONCE(bp->cpld_cancel))
-> +		return FW_UPLOAD_ERR_CANCELED;
-
-[ ... ]
-
-> @@ -4572,6 +4708,234 @@ cpld_status_show(struct device *dev, struct device_attribute *attr,
->  }
->  static DEVICE_ATTR_ADMIN_RO(cpld_status);
->  
-
-[ ... ]
-
-> +static enum fw_upload_err
-> +adva_cpld_prepare(struct fw_upload *fwl, const u8 *data, u32 size)
-> +{
-> +	enum fw_upload_err ret = FW_UPLOAD_ERR_NONE;
-> +	struct ptp_ocp *bp = fwl->dd_handle;
-> +	int err;
-> +
-> +	/* Do not clear cpld_cancel here: fw_upload_start() queues the work
-> +	 * before this runs, so a cancel may already have arrived - honour it
-> +	 * before touching the hardware.  It is cleared once the upload is
-> +	 * over, on every exit below and in cleanup().
-> +	 */
-> +	if (READ_ONCE(bp->cpld_cancel)) {
-> +		WRITE_ONCE(bp->cpld_cancel, false);
-> +		return FW_UPLOAD_ERR_CANCELED;
-> +	}
-
-[Severity: Medium]
-Can this consume a cpld_cancel left over from the previous upload?
-
-adva_cpld_cleanup() clears the flag and unlocks, but the framework only
-returns progress to IDLE afterwards:
-
-drivers/base/firmware_loader/sysfs_upload.c:fw_upload_main() {
-	...
-done:
-	if (fwlp->ops->cleanup)
-		fwlp->ops->cleanup(fwl);
-	...
-	fw_upload_prog_complete(fwlp);
-}
-
-In that window cancel_store() still accepts a cancel, since it only rejects
-the IDLE state:
-
-	mutex_lock(&fwlp->lock);
-	if (fwlp->progress == FW_UPLOAD_PROG_IDLE) {
-		mutex_unlock(&fwlp->lock);
-		return -ENODEV;
-	}
-
-	fwlp->ops->cancel(fwlp->fw_upload);
-
-so adva_cpld_cancel() sets cpld_cancel = true with no upload running, and
-nothing clears it until the next adva_cpld_prepare(), which aborts a fresh
-and unrelated upload with "user-abort".
-
-Relatedly, adva_cpld_err() tests the same flag before looking at err, so a
-cancel racing a real transfer failure reports a hardware or I2C error as a
-user abort.  Would tying cancellation to an upload generation counter rather
-than a bare bool cleared from several driver-side points close both cases?
-
-> +
-> +	if (!size || size % CPLD_PAGE_SIZE) {
-> +		WRITE_ONCE(bp->cpld_cancel, false);
-> +		return FW_UPLOAD_ERR_INVALID_SIZE;
-> +	}
-> +
-> +	bp->cpld_in_config_mode = false;
-> +
-> +	mutex_lock(&bp->cpld_lock);
-> +
-> +	err = adva_x1_bus_claim(bp);
-> +	if (err) {
-> +		ret = adva_cpld_err(bp, err);
-> +		goto err_unlock;
-> +	}
-
-[ ... ]
-
-> +	err = adva_x1_cpld_write(bp, CPLD_CMD_ERASE);
-> +	if (!err)
-> +		err = adva_x1_cpld_wait_ready(bp, 15000);
-> +	if (err) {
-> +		ret = adva_cpld_err(bp, err);
-> +		goto err_deselect;
-> +	}
-
-[ ... ]
-
-> +err_deselect:
-> +	if (bp->cpld_in_config_mode) {
-> +		adva_x1_cpld_write(bp, CPLD_CMD_DIS_CFG);
-> +		bp->cpld_in_config_mode = false;
-> +	}
-> +	adva_x1_mux_select(bp, -1);
-> +err_release:
-> +	adva_x1_bus_release(bp);
-> +err_unlock:
-> +	WRITE_ONCE(bp->cpld_cancel, false);
-> +	mutex_unlock(&bp->cpld_lock);
-> +	return ret;
-> +}
-
-[Severity: Medium]
-Can DIS_CFG reach the CPLD while it is still busy erasing?
-
-adva_x1_cpld_wait_ready() returns as soon as the cancel flag is seen, or as
-soon as a status read fails, i.e. possibly with CPLD_STATUS_BUSY still
-asserted:
-
-	ret = read_poll_timeout(adva_x1_cpld_read_status, err,
-				err || READ_ONCE(bp->cpld_cancel) ||
-				(status & CPLD_STATUS_FAILED) ||
-				!(status & CPLD_STATUS_BUSY),
-
-A "echo 1 > cancel" during the 15 s config-sector erase therefore lands in
-err_deselect with the erase in flight.  The abort path then sends DIS_CFG,
-discards its result and clears the bookkeeping unconditionally:
-
-	if (bp->cpld_in_config_mode) {
-		adva_x1_cpld_write(bp, CPLD_CMD_DIS_CFG);
-		bp->cpld_in_config_mode = false;
-	}
-
-before deselecting the mux and handing the TMC segment back to the
-MicroBlaze.  If the ISC_DISABLE is not latched (device busy, NACK, I2C
-error) the part stays in transparent configuration mode with a partially
-erased configuration flash, while the driver records that it left the mode,
-so nothing will issue DIS_CFG again.  adva_cpld_cleanup() has the same shape
-for a canceled page write.
-
-Would waiting for BUSY to clear under a hard deadline before DIS_CFG, and
-keeping cpld_in_config_mode set when the DIS_CFG transfer itself fails, be
-safer here?
-
-> +
-> +static enum fw_upload_err
-> +adva_cpld_write(struct fw_upload *fwl, const u8 *data,
-> +		u32 offset, u32 size, u32 *written)
-> +{
-
-[ ... ]
-
-> +static enum fw_upload_err
-> +adva_cpld_poll_complete(struct fw_upload *fwl)
-> +{
-> +	struct ptp_ocp *bp = fwl->dd_handle;
-> +	int err;
-> +	u32 st;
-> +
-> +	lockdep_assert_held(&bp->cpld_lock);
-> +
-> +	if (READ_ONCE(bp->cpld_cancel))
-> +		return FW_UPLOAD_ERR_CANCELED;
-> +
-> +	err = adva_x1_cpld_write(bp, CPLD_CMD_SET_DONE);
-> +	if (!err)
-> +		err = adva_x1_cpld_wait_ready(bp, 1000);
-> +	if (err)
-> +		return adva_cpld_err(bp, err);
-> +
-> +	err = adva_x1_cpld_read_status(bp, &st);
-> +	if (err)
-> +		return adva_cpld_err(bp, err);
-> +	if (!(st & CPLD_STATUS_DONE))
-> +		return FW_UPLOAD_ERR_HW_ERROR;
-> +
-> +	err = adva_x1_cpld_write(bp, CPLD_CMD_REFRESH);
-> +	if (err)
-> +		return adva_cpld_err(bp, err);
-> +
-> +	/* REFRESH reboots the CPLD out of configuration mode, so cleanup()
-> +	 * must not send DIS_CFG afterwards even if the checks below fail.
-> +	 */
-> +	bp->cpld_in_config_mode = false;
-> +
-> +	/* The new image is already running at this point, so a segment that
-> +	 * is not back yet must not be reported as a failed update: retry the
-> +	 * reselect instead of sampling the mux once at a fixed delay.
-> +	 */
-> +	msleep(1500);
-> +	if (read_poll_timeout(adva_x1_mux_select, err, !err, CPLD_POLL_US,
-> +			      3000 * USEC_PER_MSEC, false,
-> +			      bp, ADVA_MUX_CHANNEL))
-> +		return FW_UPLOAD_ERR_TIMEOUT;
-
-[Severity: Low]
-Should this poll also look at bp->cpld_cancel?
-
-The exit condition is only !err, and the failure branch returns
-FW_UPLOAD_ERR_TIMEOUT without going through adva_cpld_err(), so a cancel
-arriving while the mux keeps failing neither ends the loop nor produces
-FW_UPLOAD_ERR_CANCELED, and the flush_work() inside
-firmware_upload_unregister() waits out the full 3 s on top of the preceding
-msleep(1500).  The adva_x1_cpld_wait_ready() below does honour the flag, but
-only once the mux answers.
-
-> +
-> +	err = adva_x1_cpld_wait_ready(bp, 3000);
-> +	if (err)
-> +		return adva_cpld_err(bp, err);
-> +
-> +	return FW_UPLOAD_ERR_NONE;
-> +}
-
-[Severity: Medium]
-Is the CPLD state validated after REFRESH before reporting success?
-
-CPLD_STATUS_DONE is only sampled before CPLD_CMD_REFRESH.  The single
-post-REFRESH check is adva_x1_cpld_wait_ready(), which accepts any status
-with BUSY clear and CPLD_STATUS_FAILED clear, and discards the status word,
-so neither DONE nor the MachXO3 configuration error field is examined after
-the device reloads the newly programmed image.  A CRC or preamble error, or
-a refresh that leaves DONE deasserted, would be reported to userspace as a
-successful update.
-
-The other in-tree MachXO drivers do check both after refresh:
-
-drivers/fpga/machxo2-spi.c:machxo2_write_complete() {
-	...
-		if (!test_bit(BUSY, &status) && test_bit(DONE, &status) &&
-		    get_err(&status) == ENOERR)
-			break;
-	...
-}
-
-Would a similar DONE plus error-field check after REFRESH be appropriate
-here?
-
-> +
-> +static void
-> +adva_cpld_cancel(struct fw_upload *fwl)
-> +{
-> +	struct ptp_ocp *bp = fwl->dd_handle;
-> +
-> +	WRITE_ONCE(bp->cpld_cancel, true);
-> +}
-> +
-> +static void
-> +adva_cpld_cleanup(struct fw_upload *fwl)
-> +{
-> +	struct ptp_ocp *bp = fwl->dd_handle;
-> +
-> +	__acquire(&bp->cpld_lock);	/* held since prepare() returned ok */
-> +	lockdep_assert_held(&bp->cpld_lock);
-> +
-> +	if (bp->cpld_in_config_mode) {
-> +		adva_x1_cpld_write(bp, CPLD_CMD_DIS_CFG);
-> +		bp->cpld_in_config_mode = false;
-> +	}
-> +	adva_x1_mux_select(bp, -1);
-> +	adva_x1_bus_release(bp);
-> +	WRITE_ONCE(bp->cpld_cancel, false);
-> +	mutex_unlock(&bp->cpld_lock);
-> +}
-
-[ ... ]
-
-> @@ -5214,6 +5578,15 @@ ptp_ocp_detach(struct ptp_ocp *bp)
->  {
->  	int i;
->  
-> +	/* Must come first: cancels and flushes an in-flight upload while the
-> +	 * I2C controller is still up, and drops cpld_lock so a cpld_status
-> +	 * reader cannot stall ptp_ocp_attr_group_del() below.
-> +	 */
-> +	if (bp->cpld_fw_upload) {
-> +		firmware_upload_unregister(bp->cpld_fw_upload);
-> +		bp->cpld_fw_upload = NULL;
-> +	}
-> +
->  	ptp_ocp_debugfs_remove_device(bp);
->  	ptp_ocp_detach_sysfs(bp);
->  	ptp_ocp_attr_group_del(bp);
-
-[Severity: High]
-This window is not introduced by this patch, but is the cancel-and-flush
-guarantee the comment relies on unconditional?
-
-firmware_upload_unregister() skips both the cancel and the flush when it
-samples IDLE:
-
-drivers/base/firmware_loader/sysfs_upload.c:firmware_upload_unregister() {
-	mutex_lock(&fw_upload_priv->lock);
-	if (fw_upload_priv->progress == FW_UPLOAD_PROG_IDLE) {
-		mutex_unlock(&fw_upload_priv->lock);
-		goto unregister;
-	}
-	...
-	flush_work(&fw_upload_priv->work);
-
-unregister:
-	device_unregister(&fw_sysfs->dev);
-	module_put(module);
-}
-
-A "echo 0 > loading" taking the same lock immediately afterwards queues the
-work:
-
-fw_upload_start() {
-	...
-	fwlp->progress = FW_UPLOAD_PROG_RECEIVING;
-	...
-	queue_work(system_long_wq, &fwlp->work);
-}
-
-and the device_unregister() above then reaches fw_dev_release() ->
-fw_upload_free(), which kfree()s fw_upload_priv, the structure embedding
-that work_struct, and fw_upload itself.
-
-A queued fw_upload_main() would then run adva_cpld_prepare() with
-fwl->dd_handle == bp after ptp_ocp_detach() has done
-mutex_destroy(&bp->cpld_lock) and devlink_free() has freed bp.  Since
-prepare() now takes cpld_lock, the i2c root-adapter lock, an
-i2c_get_adapter() reference and a kzalloc'd cpld_buf, and only drops them in
-cleanup(), the same window could also leave the i2c bus lock held and the
-adapter reference leaked.
-
-The commit message states this as a guarantee:
-
-  "The upload is unregistered first on detach, which cancels and flushes an
-  in-flight programming cycle while the I2C controller is still up."
-
-Could that be qualified, or could the driver gate adva_cpld_prepare() on its
-own "detaching" flag so it does not depend on the core flushing?
-
+Content-Transfer-Encoding: 8bit
+
+The PCAN-USB Pro decoder validates each receive record using the size
+implied by its type, but copies CAN data using a separate device-supplied
+DLC.  A zero-data record at the end of the 1024-byte RX buffer can
+therefore make memcpy() read up to 15 bytes beyond the kmalloc-1k object
+and write seven bytes beyond can_frame::data.
+
+Convert the classic-CAN DLC before use and reject non-RTR records whose
+converted length exceeds the payload present in that record type.  Keep
+RTR records exempt from the payload check because they legitimately carry
+a DLC without data.
+
+KASAN reports:
+
+  memcpy: detected field-spanning write (size 15) of single field "can_frame->data" at drivers/net/can/usb/peak_usb/pcan_usb_pro.c:562 (size 8)
+  BUG: KASAN: slab-out-of-bounds in pcan_usb_pro_decode_buf
+  Read of size 15 at addr ffff888021468800 by task swapper/0/0
+  Call Trace:
+   <IRQ>
+   kasan_report mm/kasan/report.c:595
+   kasan_check_range mm/kasan/generic.c:200
+   __asan_memcpy mm/kasan/shadow.c:105
+   pcan_usb_pro_decode_buf drivers/net/can/usb/peak_usb/pcan_usb_pro.c:562
+   peak_usb_read_bulk_callback drivers/net/can/usb/peak_usb/pcan_usb_core.c:267
+   __usb_hcd_giveback_urb drivers/usb/core/hcd.c:1657
+
+  The buggy address is located 0 bytes to the right of
+   allocated 1024-byte region [ffff888021468400, ffff888021468800)
+
+Fixes: d8a199355f8f ("can: usb: PEAK-System Technik PCAN-USB Pro specific part")
+Reported-by: co+4bda3bf8e1a2b780@bugs.sh
+Closes: https://lore.kernel.org/all/XNNBJQCVSRi1dUNtFoqHoHlP3XDSNifVcPOu%40bugs.sh/
+Assisted-by: Claude:gpt-5
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+---
+ drivers/net/can/usb/peak_usb/pcan_usb_pro.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
+index b6be8c19e537f..84ebe2904f6ef 100644
+--- a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
++++ b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
+@@ -531,7 +531,8 @@ struct pcan_usb_pro_interface *pcan_usb_pro_dev_if(struct peak_usb_device *dev)
+ }
+ 
+ static int pcan_usb_pro_handle_canmsg(struct pcan_usb_pro_interface *usb_if,
+-				      struct pcan_usb_pro_rxmsg *rx)
++				      struct pcan_usb_pro_rxmsg *rx,
++				      u16 sizeof_rec)
+ {
+ 	const unsigned int ctrl_idx = (rx->len >> 4) & 0x0f;
+ 	struct peak_usb_device *dev;
+@@ -551,7 +552,14 @@ static int pcan_usb_pro_handle_canmsg(struct pcan_usb_pro_interface *usb_if,
+ 		return -ENOMEM;
+ 
+ 	can_frame->can_id = le32_to_cpu(rx->id);
+-	can_frame->len = rx->len & 0x0f;
++	can_frame_set_cc_len(can_frame, rx->len & 0x0f, dev->can.ctrlmode);
++
++	if (!(rx->flags & PCAN_USBPRO_RTR) &&
++	    sizeof_rec - offsetof(struct pcan_usb_pro_rxmsg, data) <
++	    can_frame->len) {
++		kfree_skb(skb);
++		return -EBADMSG;
++	}
+ 
+ 	if (rx->flags & PCAN_USBPRO_EXT)
+ 		can_frame->can_id |= CAN_EFF_FLAG;
+@@ -750,7 +758,8 @@ static int pcan_usb_pro_decode_buf(struct peak_usb_device *dev, struct urb *urb)
+ 		case PCAN_USBPRO_RXMSG4:
+ 		case PCAN_USBPRO_RXMSG0:
+ 		case PCAN_USBPRO_RXRTR:
+-			err = pcan_usb_pro_handle_canmsg(usb_if, &pr->rx_msg);
++			err = pcan_usb_pro_handle_canmsg(usb_if, &pr->rx_msg,
++							 sizeof_rec);
+ 			if (err < 0)
+ 				goto fail;
+ 			break;
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260908122328.52641-1-maimon.sagi%40gmail.com
+2.55.0
+
