@@ -1,117 +1,161 @@
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4451037A841;
-	Thu, 10 Sep 2026 02:39:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE58737A841;
+	Thu, 10 Sep 2026 02:39:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789007955; cv=none; b=Gcs+to7IytXMC+ApYCccHVRMgD4LLKx+tq7ZTelCQsFUOY3ZS0epyBtszxla7lPUhqFarUm8oNjfk2x5K6t4oH7lthgzKB78L5WTe1Bt3SrUHxc9eGj1oiDv1LXjayfvvW6jXYaf3A/T5X/7QoYNtg/AojhLcwjjP7HULQaNNNQ=
+	t=1789007962; cv=none; b=TJkIbMvZ6+4cms4pLBxF8FyF9A8D4DjeprbrxeZJ+b5VtGZfxJwwRIpGUQ/JmegRvJDo9CBYp3EOeMmnm65FmJNrsCLnH+tnOcX16nHxbsUmzhQm4F97IdLl+Gl1JaX8TVy2VFP0PJnViGwkZNVXrsdFeM8FaopxC5vxankU8yo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789007955; c=relaxed/simple;
-	bh=3Rt5XZxZMXvxve0JJoXTpXKQPDBu78q9YkIhK80J8Gw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Teh0PCijXwb7nOBXvcU0xuYaD0H8jZxOVnHw6bsinbmz2MhvYsqASLH3d/xQN6RIQx0hxRwe0vn4jRlYIbL0b3WdZK/4VxI2l7Hy08yiBSGQnB75aWl8Zv3xt9cLGKC6F4GJyfvgjVeOYNUrHrJa3/oHeUEaQ0fCenUDWbSpSL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.207.19.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip4t1789007894t75f9c366
-X-QQ-Originating-IP: A0rt413Ujb470P1a1KbdvKLSTH0sDKyRuwh7lGjqd98=
-Received: from [192.168.30.32] ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 10 Sep 2026 10:38:08 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 13822099932689461020
-EX-QQ-RecipientCnt: 8
-From: Xilin Wu <sophon@radxa.com>
-Date: Thu, 10 Sep 2026 10:38:07 +0800
-Subject: [PATCH] scsi: ufs: core: Disable timestamp for Kioxia
- THGJFJT2T85BAT0A
+	s=arc-20240116; t=1789007962; c=relaxed/simple;
+	bh=Bx1VX/15yWu9NCF3Az7dEIpPPBDhZA23G+v8REPX9lk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OCwbxOTpEIfkx11lu9foxKKHZ3dApeA23BKG8MFM3NZ5msK0qqV5feYGPjLipAaiEX30ApiLEUT464kO41UjzoYqzdew1EWsDfxlidZ3TjkGmDWWuOfnXAa0KuOUYsriq2+ZIoAoeHKJthtidAqBhHcRYLDMRj3l46SQ3DWyatI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nZkbskY0; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nZkbskY0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789007960; x=1820543960;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=Bx1VX/15yWu9NCF3Az7dEIpPPBDhZA23G+v8REPX9lk=;
+  b=nZkbskY0oxi4lQIegeNcCpdsjLOgRz11iosVZ0oVkyKIEWoDKDBrFKJQ
+   WqEuXU3qUymqa4gX+scD4QadBYC/F6fG0Jg6pnWdY707Y2NGC15U9Zj9C
+   IMxkch4e1V1slY0Bc553DSXCW6dVMaNTpCO+ep/VYGvcf5YpietchEL4e
+   rGC1sN71pnId7blYGjjSeczmTlCFKJPZo680lGG418f8riqCczAz2aYZS
+   JnztyQYahHwKItellY5B2CUDY//9RuQbhXeByd2OvTAcnNQ34DvjaTyx5
+   NjFfXthHJbdwJLvzyeJV2Y++mFJ7gT9SgciYrMgTncD6A9oe7FJE3LwxS
+   A==;
+X-CSE-ConnectionGUID: z9BSrL/cT0mGzbzfPSZMHg==
+X-CSE-MsgGUID: xpM34bM2TFSbXRjZf4FDBA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="88392994"
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="88392994"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 19:39:18 -0700
+X-CSE-ConnectionGUID: n91tFLOfRoSsBD8hIdUWSw==
+X-CSE-MsgGUID: wj+lylllRDuMnixh2vxSew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="265290060"
+Received: from unknown (HELO [10.238.2.139]) ([10.238.2.139])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 19:39:16 -0700
+Message-ID: <ac43e7f1-2ee3-41a4-85ff-edab7a7caa35@linux.intel.com>
+Date: Thu, 10 Sep 2026 10:39:13 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-kioxia-ufs4-fix-v1-1-ac796423057a@radxa.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM3QpAQBCG4VvRHJtam/9bkYPFLEOhHaTk3i0On
- 6++9wIhxyRQBhc4Olh4mT2iMIB2MHNPyJ03aKVTVUQKJ15ONrhbidHyiV3eZLowcZokFvxrdeT
- nr1jVv2VvRmq3NwP3/QC6MDTxcwAAAA==
-X-Change-ID: 20260910-kioxia-ufs4-fix-d8b729a4655f
-To: Alim Akhtar <alim.akhtar@samsung.com>, 
- Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>
-Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Xilin Wu <sophon@radxa.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1431; i=sophon@radxa.com;
- h=from:subject:message-id; bh=3Rt5XZxZMXvxve0JJoXTpXKQPDBu78q9YkIhK80J8Gw=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFmLJASPXlqz/03fq/sRnJP/sCTLWDC+920vaI/ap/taz
- K9Rtcixo5SFQYyLQVZMkUUhnmEue2XutadipXowc1iZQIYwcHEKwEQU3jEydOy4nSV++nPD7T+3
- t+6sPC3+bkWfzdFtb51PJ34Q9d6UuJDhf+VXrX8iXiJhameebGo6J7u4w+3jMjnFnvOWOubyC/M
- +sAAA
-X-Developer-Key: i=sophon@radxa.com; a=openpgp;
- fpr=205F009D07796DD6E516752E32C31567AD9E324E
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: MKP/ykXjBfbuuseeF1dgy62ADwriVvQi3Ifs3TSVyhiLYfvEjh9QcyMO
-	UxgXnEH/nYqxm8PFNKZDcjxrFPvd+MuKfoY/oF7AgGAqPveWl2xCKiCBx+O7pHeVlvH1KDV
-	mD7eFY72SJn1hIII9VJc57nQlIFsHcFKffbmSAOsDMvJIMAx7CtVk2s3hTXp+71apG83x/3
-	rreTH9x3FWh7svbKcRXMvP98GQ4FzStujXxpKXm+EAmYV8Ow/L+qTw9A9//Cy4l24dR1jvY
-	H8bZXEH8LdRvujVDZgub3jZPoBihOOXGcxj7A8V1ILwspvpciybYmnF0JcCit4TfSSZ8Lk+
-	POJd9ddKsWXA3Yh4p/wpKxS4KX+CbLWJsl1lZqIlQjxBdxxA4LfEg1h/ocWWd1YypIdzEc7
-	nQksFpE+jolBKa45pN3tGIRcfO0lE6hI1Xo7kwne2S22n4zHmsxi2CXY9HFAx3l+ozNrg/q
-	kFaJCC0sYneA4/Whra6k1yhi2d1HkquhuFXaol37/C6Phu01wyOb+kZ2Vq54M5SFRwbkM1E
-	Glmnyqqhgdd/MG92hGr3Bi1Cu4HlQZuhFwzJmxd4naJ8ZSBN7wWTTD7f5Gnab2vcw4YUqsI
-	tmrtCI8GF17eocRzyWSWzvqZHSSmHQ40WfrUzgPudcLiud3fE5YmVZWgtHRuHdxBzwasfbn
-	JvQNylf3MiJNxcGYksyTeTvi7iNTXVrnhqG+hIEamP3+ewb4z0GjXsxYZqBDsuk+/yHhk/j
-	bLuUZ94HTW0iV+Xuk781PJUUR1XXJHoJ71ZxmvgT+aKNDuZZKHMVq7Qc7BBUVqfl/T/i55Z
-	cBebTTt+j2VitOzUQvPJWiHkJOvnZL2omZO/Y2uhJqmyzAtpy2c9FUruhWt5ikyy5rORMYG
-	U0Mv+SGu7IBqC1DOYeBTfjl65bLKqzxIMwd3wM26Qh3Q9tHF7aP7APhtm8bGyOg8TumUx05
-	CLvfjarnAe/3rc3YTCh1uRRZ/u5Ze8WG0SYKryajk1sAmRUROBETGj45mpFD/yEkDymZpBl
-	tvJnBTwA==
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/4] KVM: TDX: Track configurable CPUID bits allowed by
+ KVM
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+ "Li, Xiaoyao" <xiaoyao.li@intel.com>, "seanjc@google.com" <seanjc@google.com>
+Cc: "Gao, Chao" <chao.gao@intel.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "kas@kernel.org" <kas@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "pbonzini@redhat.com" <pbonzini@redhat.com>,
+ "nik.borisov@suse.com" <nik.borisov@suse.com>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
+References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
+ <20260827031837.2863609-2-binbin.wu@linux.intel.com>
+ <55488b92-66a8-45e5-ad0f-8fed63ce1187@intel.com>
+ <a30741f8-b99b-4f36-80a5-4688c2578d99@linux.intel.com>
+ <6b565572-b316-4e86-906d-f150c896fe21@intel.com>
+ <84891108-55be-48c1-9993-c730a5334d5b@linux.intel.com>
+ <cfe57e67-49ce-47d7-b20b-a29e23fe16d4@intel.com>
+ <d8012e9acbe3c733b082c87fdbe9f229a8f7750c.camel@intel.com>
+ <9abeed40-bcdc-48d9-8cbb-cb87154bb9f6@intel.com>
+ <aqHdwkOFVR4XoS2M@google.com>
+ <c967dc3eb6b128055e415bae45d1c14a52dc4acd.camel@intel.com>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <c967dc3eb6b128055e415bae45d1c14a52dc4acd.camel@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The Kioxia THGJFJT2T85BAT0A with firmware revision 0002 reports UFS 4.0
-but rejects writes to the qTimestamp attribute with
-QUERY_RESULT_INVALID_IDN. This causes errors during device initialization
-and whenever the device resumes from runtime suspend:
+On 9/10/2026 7:18 AM, Edgecombe, Rick P wrote:
+> On Wed, 2026-09-09 at 15:29 -0700, Sean Christopherson wrote:
+>> Eh, I'm with Xiaoyao.
+> 
+> I'm not sure what the disagreement is actually. No one is saying *never* TD
+> first I think? Everyone agrees it is ideal to solve normal VMs before settling
+> the TDX behavior.
+> 
+>>   Yeah, *ideally* we'd magically enable everything everywhere all at once.  In
+>> reality, different VM types are going to support features at different times. 
+>> More importantly, as Xiaoyao points out below in #1, unless we enable
+>> everyting in a single patch, which is probably a terrible idea in most cases,
+>> we'll still end up with staged/progressive enabling, i.e. we still need to
+>> have patches that selectively enable and advertise a feature only for the VM
+>> types that actually support the feature.
+>>
+>> This is all quite similar to Intel and AMD feature enabling being done at
+>> different times.  The biggest difference is that Intel and AMD are mutually
+>> exclusive and so KVM_GET_SUPPORTED_CPUID always reports the correct
+>> information, but TDX already provides KVM_TDX_CAPABILITIES, so AFAICT we still
+>> get accurate reporting for TDX, just in a slightly different way.
+> 
+> I think this actually surfaces another problem with TD-first enabling.
+> KVM_TDX_CAPABILITIES only returns the directly configurable bits. Then recall,
+> KVM_TDX_GET_CPUID returns the actual TDX module's view of CPUID bits to
+> userspace. Then userspace calls KVM_SET_CPUID to actually put them on KVM's vcpu
+> so they can match between Qemu, KVM and TDX
 
-  ufshcd_dev_cmd_completion: unexpected response in Query RSP: fd
-  ufshcd_query_attr_qword: opcode 0x04 for idn 48 failed, index 0, selector 0, err = -22
-  ufshcd_set_timestamp_attr: failed to set timestamp -22
+That brings up a point..
 
-Add UFS_DEVICE_QUIRK_NO_TIMESTAMP_SUPPORT for this model to skip the
-unsupported timestamp writes, as for the other affected Kioxia devices.
+Today, vcpu->arch.cpu_caps[] is capped by kvm_cpu_caps[] (plus a few special
+cases).  As mentioned in the cover letter, this patch series doesn't enforce
+consistency between KVM's view and the guest's view of vCPU capabilities because
+KVM doesn't currently use its own view to make decisions for TDs (e.g.
+saving/restoring feature-related MSRs).
 
-Signed-off-by: Xilin Wu <sophon@radxa.com>
----
- drivers/ufs/core/ufshcd.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index 2ba244cf40ac..b0fea67d1585 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -321,6 +321,9 @@ static const struct ufs_dev_quirk ufs_fixups[] = {
- 	{ .wmanufacturerid = UFS_VENDOR_TOSHIBA,
- 	  .model = "THGJFJT1E45BATP",
- 	  .quirk = UFS_DEVICE_QUIRK_NO_TIMESTAMP_SUPPORT },
-+	{ .wmanufacturerid = UFS_VENDOR_TOSHIBA,
-+	  .model = "THGJFJT2T85BAT0A",
-+	  .quirk = UFS_DEVICE_QUIRK_NO_TIMESTAMP_SUPPORT },
- 	{}
- };
- 
-
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260910-kioxia-ufs4-fix-d8b729a4655f
-
-Best regards,
---  
-Xilin Wu <sophon@radxa.com>
+However, if KVM starts making decisions for TDX based on vcpu->arch.cpu_caps[],
+intersecting userspace input with kvm_cpu_caps[] will not work for TDX.  I think
+this is probably needed in the future?  If so, allowing features outside of
+kvm_cpu_caps[] for TDX means we will need TDX-specific handling to construct
+KVM's view of vCPU capabilities.  That likely implies tracking all
+known/supported TDX features, which is doable, but it will make the allow list
+bigger.
+> 
+> So if a bit is enabled for KVM_TDX_CAPABILITIES, but not yet in
+> KVM_GET_SUPPORTED_CPUID. How should userspace interpret KVM_GET_SUPPORTED_CPUID?
+> It can ignore it for TDX, but that is how it can find the PV bits today.
+> 
+> If we have a TD first feature, it could be a documentation update on how to
+> interpret it. Or we could stuff the PV bits somewhere else for TDX and say to
+> ignore KVM_GET_SUPPORTED_CPUID for TDX. I think we don't need to solve it before
+> we begin filtering like this series has.
+> 
+>>
+>>> I don't think "split lock detection" is a good example. We are discussing
+>>> virtualizing a feature, or allowing a feature to be exposed to non-TDX and
+>>> TDX guests. While "split lock detection" is not a virtualizable feature and
+>>> how KVM handles it is all about how KVM fixes the architectural flaw of it.
+>>
+>> Yep.  If there are actual decisions to be made, versus simply adhering to the
+>> architecture, then we'll need to incorporate the needs/abilities of flavors of
+>> VMs KVM supports.  But for feature virtualization where right vs. wrong is
+>> dictated by hardware specs, there really isn't anything we can do in KVM to
+>> affect the guest-visible behavior (beyond things like performance
+>> characteristics, but those aren't ABI in any case).
+> 
+> (Copying from my now aborted response).
+> 
+> I think it is not just the the behavior to the guest that matters. I agree guest
+> behavior should normally be settled by the bare metal arch. But it is also how
+> the TDX module decides to make the host side behave. And how it ends up fitting
+> in to KVM for normal VMs. For "normal bits" it doesn't matter too much. But for
+> anything with extra TDX arch decisions on top, ideally the TDX arch would not be
+> finalized before the normal VM KVM design got to some level of maturity.
+> 
+> In any case, I don't see any big disagreement between anyone actually. If anyone
+> has any big worry please make it clear.
 
