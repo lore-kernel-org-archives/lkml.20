@@ -1,171 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E621E47425C;
-	Thu, 10 Sep 2026 11:55:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789041310; cv=none; b=Dpz0ljk+rSgph+rBmY2H1Zl2LiTIVRhT9vJu5V4Me1oS6QfRKQWLikNUTPQ+nmLCk/tIwlUXtPECzPL2H0fJwaWd053moXVM8JOquxWRPwMZftz5IyiUre4TIk+IMSskYMHPvv0ZnK3Kq+Mwp5VxJWhTeh04MGK0FH2lx7US5Sc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789041310; c=relaxed/simple;
-	bh=08vR67eDLLam5Ol6PmipNh2+kA+2F9Qr6vOEB9hurTo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=P3C+bSZNbSgVyvExyGLSV8QiuV2Gchp1z212I5xyaGvajtyiYnByEUp2eE5Tg/scx8CtvvAqAfYSF73IprjHPUrT8kvqruzBbCj8vvckrt+Pg15VeZ22jIJkEJEH0FR9fBS9ml+PqtajjNKgmu08vVFuJDWLBPOnDgxItHT85+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FYsoNed8; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD6C47F788
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:55:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789041331; cv=pass; b=JtJddVjXGjDiV0VrsFcAv6A+CQoWmNBmjE1kMbv6NIDjeujzPYlfUxYbLGetEVOcFk0G4JxuUyKdqu8Qr9KzN2ggMDBQ2dSBD9PnLVUeCVCZz9M0NXGrFRe02BUSc6S3qlTCplylfyOjsfmJEdEA5tl7BbkEr8ZzhYcBnJKp9jI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789041331; c=relaxed/simple;
+	bh=S0FLkqwloJK80/wATJskq/ItQstxHs/9zbYL1VDZJe8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NlPv20XHkEKyOdLw4vwnjz22XqPhiN+/eiew9zuZT2ss2e0d7CsDUQ9F/zi7D/97t7EnsbpFPissQ+hbcqXimrw39Qr4oh1WZd2fJXRmqWFe4IyfihDgx98ttB9YwicRIgtt1hGgLIHAgawdOJ8tx3iUpl5e8W9sKJF/ALxeeew=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XHPr1df3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=V/SX4Qwi; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FYsoNed8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64FB11F00893;
-	Thu, 10 Sep 2026 11:55:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789041308;
-	bh=HndTqnttNHPeJm/zRQ/NFvgMrbPvSUK2ZR4N90t4mPU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FYsoNed8dt8TFC++FzMGu0IQeDK2UoI3RLPtEpoT0pnBrmFQ1lOa3rVFou475gEXs
-	 wkFbUQIkNQaEcJ4+QS3+FnqJvWKEJvRtuzkJUsXSY2kZpsIK8lTJPV9eikYrB4eU93
-	 /bv0s5gJ2ijqFZiP73TUy2y6jmcGaVKL18zOTa5XILUKhdFUv2XgvTmslSxveItrBK
-	 KMaS+cgEmgwRfu3KPSyCkmlhQ0xnc/LNefctnBfIhP3DdD5/E9dc+rkiVbROsBg6ah
-	 FBNPRGq+N1xZ5ooO4fEvSi2/N0497/4dM+qJLv1rJFSLIMJzE33zke+VznPP0rnZgT
-	 PKVhV8f+YzOrA==
-Message-ID: <d6f2e6b2-9dc9-4f02-be37-14329c1a6798@kernel.org>
-Date: Thu, 10 Sep 2026 13:55:00 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XHPr1df3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V/SX4Qwi"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A8q0Jh427121
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:55:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	S0FLkqwloJK80/wATJskq/ItQstxHs/9zbYL1VDZJe8=; b=XHPr1df32s7zoAET
+	uTIuamvAgLFXlMPACiKiWZ//xbW0A6kjU/VhM2q6C3c7D6oBVZV2f6aXaCV9lAH6
+	5/tSAJ8qOJnm0geGCARPJK8obnAULfLziPc6Z3l7AQrN4onfnVQj9w67MRmVg6Ya
+	mge8GSdHsg5mmhf790rp+w14O3dKrUm/hvXIXUfslxlt2bCKNmkdwWVSN+sEQR/q
+	KZ6+WnGJUrBcdOo8ldDS9ya/hANMJxBynTBClkoQ0eLSjk6DbC2bYH+ke9WQd0hS
+	TadS8ibjvJiSQII1H4szEQl0MtOrpaSAy39Vim+4oA4kZfrgK7zYMhNXoboITier
+	abgzEg==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyd3mug-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:55:28 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d6fb956002so102895125ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:55:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789041327; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IyeCcys/Apxl4izDE4FsF4zgR2dqJdbya6EgbcLksH7sgbOBmx8C6dT+XrrZXMm5J5
+         oWl2E1wxkFI27V0y6n76STt/v49FuldeZx6eforUnVCvygqQKJ+KkEj3Og+6ZYEOr3SG
+         r+HjHPfT6UN+r+R5jzfOg8og6YMed+jatrUz682VkHrgQMVcDhejAbuGwGH0ub522aIa
+         VQZYfwu8PrQzOnp9omx5sF/VPiRXcjadE9D0h9tXblYNcKEvCfqb/UEdlhmUCzPFjKCy
+         cO7wZ3nQk6EiG6CZhhn2r5eDZ6/avARktuXCiK+zdnuo9HaoppDk3udS+0cj/HO+8WOc
+         oqtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=S0FLkqwloJK80/wATJskq/ItQstxHs/9zbYL1VDZJe8=;
+        fh=Kv0hlX6F87jc0E9tf+3ai/khicXRx5hUjrBQVz2XmR8=;
+        b=G84L277mY82X5c/8iEHTywPbMdWse9+EZ3MyWzqQ2xBsrZLJ+bQcuLlWG7M7uPPly9
+         TCy5jEdojgE7R3qX5/yD69ETy7z1/ptly8AePXobSQsUCJw88Jh5BSMIdhOwfo4kEmRj
+         XHK/KfnggDe7yTTG5qHujLWkklqxJBGP1/32vGL99jbCnB1n/G8sQKemKNTiyfJs2P6H
+         37FEXEoN1N2sWTccojgRdQAP0Hmn5PauGkJnffHybe3e6uLS83r8SB1TZIDUMbtnMF6V
+         Q9pNp4kYkBRwppjOs8+DV4FQvs/69Ozp7FEOEYmsBfTQpX/HcT/3ehJy2KqTMNzEk9QD
+         Lrxg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789041327; x=1789646127; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=S0FLkqwloJK80/wATJskq/ItQstxHs/9zbYL1VDZJe8=;
+        b=V/SX4QwiKMYIJu8kShQShDZuHOLEghAlBJ86uwtp2ossIGFAWbrS0yZPJzSp0CDlU5
+         O5RSXDoD/pftOWPThMEBu7KfXpkvehAdVsN1bAttTGtCvMla/oo7ZVR7cgjYtL5jWMqi
+         Br7Qts8pCDn4LBzyoqMtGioKJIje2FxRmP7bEMNsvpXvnG+g5p7ggjiz0B0sendJNjmj
+         QLo/riGNlAlzYknALuyFZHDbg+gOxP7MdBn4LqNNRxNLfxFNy+SCGKnF+OAVQD4uEJZG
+         q3sFSXfd5K2oQRqeOhUW8VyEyEbbvAf8EBXecmXQJvwB8QcNjQbDNb8FCq2FpK//GVT+
+         Xiag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789041327; x=1789646127;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S0FLkqwloJK80/wATJskq/ItQstxHs/9zbYL1VDZJe8=;
+        b=jMwFBbV2b13M3XmfRs9GII1RZc3O96iCAC+yk3pxEsjehD056KOBocGh6CKzhXZO8J
+         tgsF7U4ZTKEAsZnW0ysE7pwqB8VW0xY9USXNnUC3ACP7jlBKkndqhcqY3vCwj43xfNAf
+         bOC5oi4Qtz5/P0J/JT8SSKgfESnKgJ5W886MUYOXo8ldZNtMr4nenWf3RYe+0r/NWNfj
+         /mta9ODhxVbp9QIjhpj9QosYxGzeq+hi1sy997UkMV0VF8vqR4a3HIHFAGl6J+7+VfU/
+         fbcVRjrqRLGOdqJOOJnisgMw8wgTiW9LZ/VsqYMVao5c1BuAQOYRJhxNSJLrGG6mBUQh
+         JwYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBywubV1ypiuxBnhVcAw8y71k9fB7aKpwPFNVZRIvGrjdhzZ16VyRk14o7m0h0jMLNLgZjZGRxPYj+m2gjA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nb2rc6kwppv5wMrSe4n+0Zq4B4OI7BDnptkseNO3THv/c1X0fh
+	q7AGSYZT39w6Ib+fchrLw7oD+BT1qXPFjtGb832C9LAutjPKzcSrX9e3XHiSFIsC23t7cAkOSlO
+	G43tYxDIQPIhy6u5rNYp4N/T/juTKqQHmM7JhSVwt5E6CEzboq6wlCjgj/Qa+6lItYefF0KXMzK
+	l7cFJ0iCVnZQ+eF39wRQP+9PiSUNUtYUrn1kSOrik4e8PlISDfNA==
+X-Gm-Gg: AYBFou1aXLNLc+943a8q7lNYPq7hFtqmZis5pSE088oG0R01NNH4qr4d9vgz55TXsUq
+	BPix2Nbx8NkgJjryZ64mmayfhjptRklsm4dMmhoH1kht/2iwtSDDpCcok8WnN8Ee/TnCfyaFDVZ
+	2U40EJ3c4BPou3BbF56M6pJuSQIrM2rsbgL/jkJSryQCk+IEVthnAKiIhaCA==
+X-Received: by 2002:a17:90b:258d:b0:396:4c63:7193 with SMTP id 98e67ed59e1d1-39b261323e0mr66322492a91.11.1789041327082;
+        Thu, 10 Sep 2026 04:55:27 -0700 (PDT)
+X-Received: by 2002:a17:90b:258d:b0:396:4c63:7193 with SMTP id
+ 98e67ed59e1d1-39b261323e0mr66322419a91.11.1789041326634; Thu, 10 Sep 2026
+ 04:55:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/3] kselftest: mm: introduce alloc_isolated_mem()
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
- Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260907-fix_split-v5-0-822b810458bc@arm.com>
- <20260907-fix_split-v5-3-822b810458bc@arm.com>
- <5c05b620-7a2f-453d-9725-fed4f536a019@kernel.org>
- <aqKOVGECsCNtSMIV@e129823.arm.com>
- <d0b3ea99-e20b-4883-8fa3-67fdbf5b1ee4@kernel.org>
- <aqKS7CP67X4h6NiM@e129823.arm.com>
- <31418d0e-9745-4e8d-bc02-dbbd5cb9e193@kernel.org>
- <aqKU0-Gm4yh78F3V@e129823.arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <aqKU0-Gm4yh78F3V@e129823.arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260826095217.2885229-1-neeraj.soni@oss.qualcomm.com>
+In-Reply-To: <20260826095217.2885229-1-neeraj.soni@oss.qualcomm.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Thu, 10 Sep 2026 13:55:15 +0200
+X-Gm-Features: AcwNN1X17Z3L39bGH3N9FTd6tOAl9kGgw4CpwVGwNcjsk3O551oqwHOl_exeF0g
+Message-ID: <CAPx+jO8hLqgW9aXDcAE2tsWx=tWoxKSJzvs-KQme5UPo4v9kPw@mail.gmail.com>
+Subject: Re: [PATCH v8 0/2] mmc: Avoid reprogram all keys to Inline Crypto
+ Engine for MMC runtime suspend resume
+To: Neeraj Soni <neeraj.soni@oss.qualcomm.com>
+Cc: ebiggers@kernel.org, ulf.hansson@linaro.org, adrian.hunter@intel.com,
+        quic_dmukhopa@quicinc.com, quic_rampraka@quicinc.com,
+        quic_nitirawa@quicinc.com, quic_sachgupt@quicinc.com,
+        quic_bhaskarv@quicinc.com, quic_gaurkash@quicinc.com,
+        quic_sartgarg@quicinc.com, ram.gupta@oss.qualcomm.com,
+        linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: FATd4KZwhOrI2n7jJVEesfOU_E5U1Mr3
+X-Authority-Analysis: v=2.4 cv=ef+o7LEH c=1 sm=1 tr=0 ts=6aa29ab0 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=f4iapASk6-FZxEQnkJAA:9
+ a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10 a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-ORIG-GUID: FATd4KZwhOrI2n7jJVEesfOU_E5U1Mr3
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDE0MCBTYWx0ZWRfX45VroSjRhfIJ
+ pf+HNprOAdfjWX26czaonKkknfrnhgN98SUNmPuWZPf3o+uO3na51N6six8LBfk+KrnMuoSJgL3
+ cnnsOZNkEtLwlulyxpbx4a+uQ/17xTA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDE0MCBTYWx0ZWRfX/5CONUnInOgf
+ WkuhCi787qUKyVoX5/W/zEFsGIhEJre2FW6hooRrBK033ngRg6X8f+65fsS4MiYLoyG7/1oPWri
+ xyPUGTQy6FH4PPUyNnw6a/5sZINvcE8sEvob6dBjIGRc2XII5IsCERFOcjSnpdE/gQHjEBKOBuU
+ 4+bA5xoNEGqQgrxHzR6XyC60uwxiCbO6N6Ld/NgWnteFjDEMBL16mlS/4CNRZV9DXQWzNczUZpt
+ ck8C4CC+IsI9M7z6jdxTygZnPd5XuQOltm0QR1348wKcvtV1ZAafltP0wH8ulArnuIHm3lIWIPS
+ /tEML9hkCDWl+4jRvbrfV1a4ouhATdcbSsyaFAEYxvpHipEy5fOiBMeYxbTfstXwxsmWJit26DV
+ 5McO1tQc5xwINylFYGCUcLDGPG+xHMYSb18CZnLnmwvItWNIbpGuGASznLL8IHVj2FeChYUmiE5
+ MvcPnPRgeTtovHf3xSA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_03,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 adultscore=0 priorityscore=1501
+ lowpriorityscore=0 clxscore=1015 phishscore=0 impostorscore=0 bulkscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609100140
 
-On 9/10/26 13:30, Yeoreum Yun wrote:
->> On 9/10/26 13:22, Yeoreum Yun wrote:
->>>
->>> As I mentioned in my previous reply, what I’m trying to prevent here is
->>> a failure when checking, immediately after memory allocation,
->>> that a specific vm_flag is not set.
->>>
->>> Yes, I agree that this could have been a problem even before
->>> the internal changes to memalign(). An unwanted VMA merge could already
->>> occur at the time of memory allocation.
->>>
->>> So what I’m trying to avoid is a test failure where, due to such an
->>> unexpected VMA merge during allocation, the subsequent check that
->>> a specific vm_flag is not present fails.
->> Which is only a guard-region marker problem?
-> 
-> Yes. so if we remove ASSERT_FALSE(check_vmflag_guard(ptr)), TBH
-> we don't need this patch unless other usage comes up to prevent unwanted
-> VMA merge.
-> 
-> Would it be better to drop ASSERT_FALSE(check_vmflag_guard(ptr)) in
-> guard test?
+On Wed, Aug 26, 2026 at 11:52=E2=80=AFAM Neeraj Soni
+<neeraj.soni@oss.qualcomm.com> wrote:
+>
+> Crypto reprogram all keys is called for each MMC runtime suspend/resume i=
+n
+> current upstream design. If this is implemented as a non-interruptible
+> call to TEE for security, the cpu core is blocked for execution while thi=
+s
+> call executes although the crypto engine already has the keys.
+> For example, glitches in audio/video streaming applications have been
+> observed due to this.
+>
+> Fix this by allowing host driver to control when to re-program the
+> crypto keys.
+>
+> ---
+> Changes in v8:
+> - Update the commit message for [PATCH 2/2] to clarify the expected key
+> reprogramming behavior following hibernation image creation failures,
+> suspend-to-RAM transitions and CQE recovery events.
 
-I guess there is value in asserting that not all VMAs by accident start
-with an over-indication of maybe having guard pages, which is why Lorenzo
-added that check :)
+[...]
 
-But I think even alloc_isolated_mem() is wrong in that regard: if the
-original VMA gets merged, we could inherit the guard-marker, no?
+The v8 series applied for next, thanks!
 
-Maybe the following would be good enough?
-
-diff --git a/tools/testing/selftests/mm/guard-regions.c b/tools/testing/selftests/mm/guard-regions.c
-index 5c8ec3ca75d7d..791bf6a68b9e6 100644
---- a/tools/testing/selftests/mm/guard-regions.c
-+++ b/tools/testing/selftests/mm/guard-regions.c
-@@ -2257,10 +2257,20 @@ TEST_F(guard_regions, smaps)
-        char *ptr, *ptr2;
-        int i;
-
--       /* Map a region. */
--       ptr = mmap_(self, variant, NULL, 10 * page_size, PROT_READ | PROT_WRITE, 0, 0);
-+       /* Reserve a 10 page region with 1 page space to both sides. */
-+       ptr = mmap_(self, variant, NULL, 12 * page_size, PROT_NONE, 0, 0);
-        ASSERT_NE(ptr, MAP_FAILED);
-
-+       /* Map a new region that is guaranteed to not get merged in any way. */
-+       ptr = mmap_(self, variant | MAP_FIXED, ptr + pagesize, 10 * page_size,
-+                   PROT_READ | PROT_WRITE, 0, 0);
-+       ASSERT_EQ(ptr, ptr + pagesize);
-+
-+       /* Clean up the excess pages left and right. */
-+       munmap(ptr, pagesize);
-+       munmap(ptr + 11, pagesize);
-+       ptr + = pagesize;
-+
-        /* We shouldn't yet see a guard flag. */
-        ASSERT_FALSE(check_vmflag_guard(ptr));
-
--- 
-Cheers,
-
-David
+Kind regards
+Uffe
