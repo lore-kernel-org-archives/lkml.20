@@ -1,256 +1,144 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A7D258E2DC
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:50:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E3158E2AF
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:50:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789066261; cv=none; b=gwvNA6G5XIFsDhOyBG/J90lJidmziGj5ld6leZCbu4jsL7G18vIdjUIdQM7regnKcJL+ekuqBVN3jtD/qvbPgnQ+x7C64ucMlw0rjVOBqPdIzpzCbPPK9mX4mH6883NQr10PtigZD9LoDEz+Ws5Fhft6Ud/8qRvD9SwT0STwh7M=
+	t=1789066266; cv=none; b=k/8UTXP6kQyQgKzGmLjNVCHkP/S+dUilJ0uNBzfzkJOcGAelO82XFBszyRaI31r0D5MwPKNKEzm/47lI9+FtYcJGfcbxLVkKCXLbuVGf6BycQP5FxhjUWFzvTQkark9hUzHRTcgfAmpP4E8R1Bt/owkGdsBphuxYbs0pRJcK6oo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789066261; c=relaxed/simple;
-	bh=JGB9TElpRBgk6QzCzF9poMsfUxxS/A8RtDDCOyt7z54=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lcjO9glACWh/aOnmXeayd4D1a9EqBGJqAJZf2ImkxwAXr35MDHpbW6FmcdanT5oqbv4fGfR+3B9VdHd+3dLPffR7TRhxDiLdn8Ha1UPj9zTQTYJcMU3AA+dSIIaI3o4m8++SsKEpA2SD6h+gQjgV9xASY47hniN6c/2/jAlxhTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=Ka0MeZUG; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	s=arc-20240116; t=1789066266; c=relaxed/simple;
+	bh=zg4ZXoQW1lBVXevyB7FHyoLPVQea+sda59vxlY0CKlk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SCR3i9p8QsF9ELkw/pi3YCdZCOGMH+0d0ADzqquIRonotSG6K3jVIWZMPuj6wQTNG8fNp4A1OChytXltJ0cqWZzW3WV/YLRKw2kKIdf8aXuokmDDyAvajHg7We/gCKnqYc2fuxJwym6gFjRV7ZWx3XWzCw5PFcXK+PyFAQW7TXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HUwe7e/M; arc=none smtp.client-ip=209.85.128.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="Ka0MeZUG"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc9b6ebso282166d6.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:50:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HUwe7e/M"
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8565d77c277so235877b3.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:50:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1789066252; x=1789671052; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AwJvzjOst2er6K+UDT8eDw5lj3PdpLVthroXGjj7dNM=;
-        b=Ka0MeZUG+ShhGpead4iP9O+duhA9gbSP9HyHbPYEvdJYzZPxFqV6HleLkID4gZjja7
-         Zl2MdzZF0MoCLpPw9k7sAe3QhzzxW/NcH2KllXG8sqCB6rZ1jjnXmk4rfAwXIvObl9wW
-         siS2GozR+X77q5xGmvXQULPYYSlvR+639QufTlIdiipbL9CkG/WznfHonhqXBHGJX2Ud
-         ihhuRtZ5QatIUumWL+ASG6ntwEb0YBQxDsCmlBekG3lau1TKlCzzrDFjkcGna/cR6MnV
-         s0+7hNV1jfD+/Yx5bPkjJHg0iFsCX3v1zKGQF3c3H4PvkxuVs53o3BKtH8IgAd6pPe4N
-         QDgw==
+        d=gmail.com; s=20251104; t=1789066256; x=1789671056; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6Rfwhxk1A76QniOAI6EKL6UVagwZS9SNuRHfI/gzEVs=;
+        b=HUwe7e/McKQ7dENfXcgIXRNFIXioAkqcNYeI1MDWoKUXxKfc1HcuRZfr6tTvUVrwl4
+         qXGCfs7KqVkoA48XFTA5W9lXugag4/rDvAltHDlOB3qVxf0R4Uipy8FBP2RXUAKYb/18
+         quM/8IGQsu0KTgavhRhJu0MhfHxMZ5F2WitYdMqAqJ800N3nzRQKiCVdARvcOKxJe/Gs
+         siqfsVxLgZEzEiVE3MYoko2j5QZBzQhq5CxcBkRc8JKa6Z36VLq5sbrxY9+sDeoztyKR
+         nfgAexEzW7QmFLCd+IbHq2NM5e5wxdQNuR3daKk/4HZLcAYHa0xQoLvSfB/dlvvvlV87
+         yjDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789066252; x=1789671052;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AwJvzjOst2er6K+UDT8eDw5lj3PdpLVthroXGjj7dNM=;
-        b=FlrZZNcKvm5mQnr1xktavgI/KS2P/hzJjY5WB8KFvEwTgOFCMEV33zstpjVyOJI9Sp
-         ZktHpR+rhBcUDsesXjX5stVfHLRCTyl/DHVUTDl8u8T/eEVQEHsRb271FhbbP1eefcqX
-         QYAzf/6yotUj5PuY4rhQWFXT44c2Xy18xHJl+j0aXQ3SBLS0N9WcYlIxUyHPdGx0Xhq2
-         COS4W+G0B8cnqhw5v5VvGw440E40IkueyF8AsJozXtDOiqQUdScNp+V+HFBoiEnRUu1I
-         vY/LBVUkTHSjungq57ND38H0+rpD/bHH7w5wTeowSoeJrAjH5LkHlm+xPEEuA0O04pDS
-         0zSg==
-X-Forwarded-Encrypted: i=1; AKwUvByDYF3r+0AyjxZzw8slyFyx7DU9f6defs9euk3cdb/k8PDFQhKOvf366jKSmjLVnbdKbatn9AHqPNT0p7c=@vger.kernel.org
-X-Gm-Message-State: AFuF++nD9ogO2+Z3nNhBMAMUAubUsprF6/KZiiicdujv7QRXl4/Wrtf2
-	wu8g2TCce2lw0HmVcGM2+T/XMX/mwsgt8Ew4lA8KIZTIhqc2w8hRI82Vv7TZxpnh1nE=
-X-Gm-Gg: AYBFou1PC8JTMsactxqe8YDXooS1szHyto1pL6Q/Xf5UQUfiwlsMEwK223XDCuDwW3V
-	AnF4KWdoMHVpIv10XQX64ZoJzs9vigql2VQVWZgB5IcMJEbQKadT0LF553g962mDTa4sn3P9XKL
-	HUy8QwF3mk3RvgVbLCB9JbBMJ21zXMP0QQyKETI4qbRTFn1PW45Z5XIzP/q12QKapjb81y9SNpe
-	ik+yuEa7YuHlqZy6zpyjzCrIsah2XKp6oUC9bDLi1FF5RPUrLni2KMM7CXHtY+D4QLc8fb+sTG8
-	QXW2xdsCbEtzkODFML9+LrcWT5IVF8A+u2NgO9I0gIdm1CJwRmYwaMjLD5eAuoqRvBsXnROGA34
-	5cTuMtcegxFVCLyCj6aCG2uiExYM7xwAMkNA44/TNV7FSjd7hgyjNLpT5GM92le/Q9r9RJk8FKQ
-	wMRG3t500e4IJZyq2c4pDUePnRYbkXLLcVx5TQs2zIM2rBLRvRtj8Qnu+hUyYG5Ezvy+eCS+NbM
-	L+ANQkLI9GXP81ex+NUXG/lr73/qHb00QEoYLKmhfNuIFU0hRB8vFfV8g==
-X-Received: by 2002:a05:622a:1b8b:b0:530:5ed1:561a with SMTP id d75a77b69052e-530c876e50amr12423551cf.43.1789066252311;
-        Thu, 10 Sep 2026 11:50:52 -0700 (PDT)
-Received: from toxicpanda.com (ec2-34-228-114-98.compute-1.amazonaws.com. [34.228.114.98])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca45b61dsm239421cf.6.2026.09.10.11.50.51
+        d=1e100.net; s=20251104; t=1789066256; x=1789671056;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6Rfwhxk1A76QniOAI6EKL6UVagwZS9SNuRHfI/gzEVs=;
+        b=hahnf8XzEmUJTzc2lBxS/3uVl1tLSehyZefXZzyCi21LbDX8p/B2kAWrY7o2mMdZiw
+         7kaFPy0I4ugOBB94rrSlouuM5u7fv69BhmUpDarC8Lobr6smrgaxCtVQE1Z7cFAgG505
+         sTMHt+zO1ox0N/8ExHAr3EBRfh1R8REp9SwcYWfnOQzdCXx+ehSoWdHt7GQT55frh4Y5
+         Ua8sf1+oE1NiJ4GmO4MRD73/f84d3iEo5wwdDhnJqy+I4re5h0U/oSEpNl0uyJMGma4w
+         UKpcNNGCs7QSYJJWGBEAfURR7WZUAF60Z8+E/a/aKYgCq9ZbR8bRWxUcjJWcL+q2Pssj
+         P3eA==
+X-Forwarded-Encrypted: i=1; AKwUvBzoU46HKvGeJA5Y4Xw+G6Zm9fwJTWNKyhveJRAlxY5CjJqQrGZ8X+eGngJ8OR7jYLajUrUMQe2GIdqsCRQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mpu+zzwUYwhdkEeOOZqc65E5/vSDn8IyGa1WLTNfEYypeQrBUa
+	BFnz5pQZHobrk/r9iprTnn+rB5G1LAv6TlrMUhN/KRoA12cZXLWUKoSQ
+X-Gm-Gg: AYBFou2Xj3ZCTp96zOcN318DgcECKwz7nzupRoAWPkJEDW4ALdCqHdX2uDbrsaAvghI
+	OPGiTm6RLOqzEAQ/P9DE/t6LEYrQxBb5XUmHZmFMqYotWUJ1EXEYcznajRsaN8TBAotfTBrKbO2
+	JCjSQOPvIkit3llhIJa4f5LOiiobQdlElkiKGAnrzcNdPysOX8vWWa/F2WHF7zkw0yqaq5rEn3N
+	Le2f3t+0enmMUCwMdElufzbrJc4uoMQw/6/9d820OpoBPKCgxnUa7K/b3CIb2+A3CXg6+M5bZZ4
+	sNK4kf/tuyjatF4mRzsVdS0MYMI8zbVV2R6PDpcabQTaU8UOHblhXxbZVadHy3K+lVcR4fWWLxd
+	fXHdpIgi7VDrbc8kse8Aq0f/aMD7clUoU8vv/IYCoVgfL73VqAR200kCT4ZRawj9O9UwPhLatKc
+	7RTNWFjk93aJsosX6Krt3EseeWFY+Rtodi9cqyFtWFl21UWITWMp5KDOgfAfneyN+MC8ToFauPo
+	G5EIaOPOymPqn4RyyaT
+X-Received: by 2002:a05:690c:e3c8:b0:883:2240:7df1 with SMTP id 00721157ae682-884b2eb25c0mr4391407b3.48.1789066255746;
+        Thu, 10 Sep 2026 11:50:55 -0700 (PDT)
+Received: from DESKTOP-TLFH1MG ([76.255.203.42])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-88486086a50sm3291707b3.17.2026.09.10.11.50.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 11:50:51 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 10 Sep 2026 18:50:24 +0000
-Subject: [PATCH RFC 01/13] rcu-tasks: Add per-task trampoline nesting count
+        Thu, 10 Sep 2026 11:50:55 -0700 (PDT)
+From: Jonathan Frazin <frazinjonathan@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+	Maxime Ripard <mripard@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
+	Alex Lanzano <lanzano.alex@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Jonathan Frazin <frazinjonathan@gmail.com>
+Subject: [PATCH v1 0/2] drm/mipi-dbi: display a cropped region of an oversized framebuffer
+Date: Thu, 10 Sep 2026 13:48:55 -0500
+Message-ID: <20260910185030.870-1-frazinjonathan@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-b4-rcu-tasks-preempt-qs-v1-1-d4469f4cc101@toxicpanda.com>
-References: <20260910-b4-rcu-tasks-preempt-qs-v1-0-d4469f4cc101@toxicpanda.com>
-In-Reply-To: <20260910-b4-rcu-tasks-preempt-qs-v1-0-d4469f4cc101@toxicpanda.com>
-To: "Paul E. McKenney" <paulmck@kernel.org>, 
- Frederic Weisbecker <frederic@kernel.org>, 
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
- Joel Fernandes <joelagnelf@nvidia.com>, Boqun Feng <boqun@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Jiri Olsa <jolsa@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- x86@kernel.org, Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, 
- Xu Kuohai <xukuohai@huaweicloud.com>
-Cc: Andy Lutomirski <luto@kernel.org>, 
- Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, 
- Juergen Gross <jgross@suse.com>, Luis Chamberlain <mcgrof@kernel.org>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, linux-kernel@vger.kernel.org, 
- rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
- bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- xen-devel@lists.xenproject.org, Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-Tasks RCU exists so that ftrace, BPF and kprobes can free trampoline
-text once no task can still be executing in it.  Today the only way a
-task tells Tasks RCU "I am not in a trampoline" is a voluntary context
-switch, so a preempted task is always assumed to be inside one.
+A drm/tiny MIPI DBI panel can currently only scan out a framebuffer that
+is exactly panel-sized, always from the origin. This series lets a client
+allocate a larger framebuffer and choose the displayed region via the
+plane source rectangle - a crop / pan with no scaling.
 
-Add task_struct::rcu_tramp_nesting so that trampolines can say so
-directly: a trampoline increments it before calling out and decrements
-it before returning, and while it is non-zero the task must not be
-treated as Tasks-RCU quiescent.  Provide rcu_tasks_trampoline_enter()
-and rcu_tasks_trampoline_exit() for C users, report the count in the
-Tasks RCU stall output, and, under CONFIG_PROVE_RCU, assert that it is
-zero on every return to userspace since no task can legitimately reach
-userspace with a trampoline on its stack.
+Motivation: feeding hardware-decoded video to a small SPI panel. The
+video decoder emits a fixed frame size; being able to point the panel at
+a panel-sized window of that buffer avoids a full-frame CPU copy on every
+flush and lets userspace pan/centre the image.
 
-Only current ever writes the count and every nested user (interrupts
-running their own trampolines) is balanced, so plain accesses suffice.
+Patch 1 is the actual fix - mipi_dbi_fb_dirty() addressed the controller
+in framebuffer coordinates, which is only correct while src_x/src_y are
+zero. It now subtracts the plane source origin.
 
-Nothing increments the count and nothing consults it for quiescent-state
-decisions yet; both come in later patches.
+Patch 2 raises mode_config.max_width/height (pinned to the panel size) on
+the six drm/tiny drivers that flush through the shared
+drm_mipi_dbi_plane_helper_atomic_update(). ili9225 is excluded - it has
+its own flush path that does not carry the source offset.
 
-Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- include/linux/irq-entry-common.h |  2 ++
- include/linux/rcupdate.h         | 37 +++++++++++++++++++++++++++++++++++++
- include/linux/sched.h            |  1 +
- kernel/fork.c                    |  1 +
- kernel/rcu/tasks.h               |  3 ++-
- 5 files changed, 43 insertions(+), 1 deletion(-)
+Open question for patch 2: the six drivers each set the limits identically
+in their probe. This could instead be a shared helper (or folded into
+drm_mipi_dbi_dev_init / the DRM_MIPI_DBI_MODE_CONFIG_* macros) so future
+drivers get it for free. Happy to respin that way if preferred - the
+per-driver form is what is shown here because it is the smaller diff and
+easier to review a first pass.
 
-diff --git a/include/linux/irq-entry-common.h b/include/linux/irq-entry-common.h
-index 0bb6c03481fa..8da571622000 100644
---- a/include/linux/irq-entry-common.h
-+++ b/include/linux/irq-entry-common.h
-@@ -5,6 +5,7 @@
- #include <linux/context_tracking.h>
- #include <linux/hrtimer_rearm.h>
- #include <linux/kmsan.h>
-+#include <linux/rcupdate.h>
- #include <linux/rseq_entry.h>
- #include <linux/static_call_types.h>
- #include <linux/syscalls.h>
-@@ -214,6 +215,7 @@ static __always_inline void __exit_to_user_mode_validate(void)
- {
- 	/* Ensure that kernel state is sane for a return to userspace */
- 	kmap_assert_nomap();
-+	rcu_tasks_trampoline_assert_none();
- 	lockdep_assert_irqs_disabled();
- 	lockdep_sys_exit();
- }
-diff --git a/include/linux/rcupdate.h b/include/linux/rcupdate.h
-index 44c07a66edff..b5c666c82479 100644
---- a/include/linux/rcupdate.h
-+++ b/include/linux/rcupdate.h
-@@ -180,6 +180,37 @@ static inline void rcu_nocb_flush_deferred_wakeup(void) { }
- #ifdef CONFIG_TASKS_RCU_GENERIC
- 
- # ifdef CONFIG_TASKS_RCU
-+
-+/*
-+ * Trampoline nesting: dynamically allocated text (ftrace trampolines, BPF
-+ * trampoline images, kprobe optinsn slots) that relies on Tasks RCU for its
-+ * lifetime brackets itself with an increment/decrement of
-+ * current->rcu_tramp_nesting.  While the count is non-zero the task is inside,
-+ * or was called from, such text and an involuntary context switch must not be
-+ * treated as a Tasks RCU quiescent state.
-+ *
-+ * Only current writes the count and only current (or an interrupt on the same
-+ * CPU) reads it, so plain accesses suffice.
-+ */
-+static __always_inline void rcu_tasks_trampoline_enter(void)
-+{
-+	current->rcu_tramp_nesting++;
-+	barrier();
-+}
-+
-+static __always_inline void rcu_tasks_trampoline_exit(void)
-+{
-+	barrier();
-+	current->rcu_tramp_nesting--;
-+}
-+
-+/* A task must never reach userspace with a trampoline on its stack. */
-+static __always_inline void rcu_tasks_trampoline_assert_none(void)
-+{
-+	if (IS_ENABLED(CONFIG_PROVE_RCU))
-+		WARN_ON_ONCE(current->rcu_tramp_nesting);
-+}
-+
- # define rcu_tasks_classic_qs(t, preempt)				\
- 	do {								\
- 		if (!(preempt) && READ_ONCE((t)->rcu_tasks_holdout))	\
-@@ -192,6 +223,9 @@ void rcu_tasks_torture_stats_print(char *tt, char *tf);
- # define rcu_tasks_classic_qs(t, preempt) do { } while (0)
- # define call_rcu_tasks call_rcu
- # define synchronize_rcu_tasks synchronize_rcu
-+static inline void rcu_tasks_trampoline_enter(void) { }
-+static inline void rcu_tasks_trampoline_exit(void) { }
-+static inline void rcu_tasks_trampoline_assert_none(void) { }
- # endif
- 
- #define rcu_tasks_qs(t, preempt) rcu_tasks_classic_qs((t), (preempt))
-@@ -208,6 +242,9 @@ void exit_tasks_rcu_finish(void);
- #define rcu_tasks_classic_qs(t, preempt) do { } while (0)
- #define rcu_tasks_qs(t, preempt) do { } while (0)
- #define rcu_note_voluntary_context_switch(t) do { } while (0)
-+static inline void rcu_tasks_trampoline_enter(void) { }
-+static inline void rcu_tasks_trampoline_exit(void) { }
-+static inline void rcu_tasks_trampoline_assert_none(void) { }
- #define call_rcu_tasks call_rcu
- #define synchronize_rcu_tasks synchronize_rcu
- static inline void exit_tasks_rcu_start(void) { }
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 8b3d47a325cc..d2e7b1b3c9d2 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -956,6 +956,7 @@ struct task_struct {
- 	unsigned long			rcu_tasks_nvcsw;
- 	u8				rcu_tasks_holdout;
- 	u8				rcu_tasks_idx;
-+	int				rcu_tramp_nesting;
- 	int				rcu_tasks_idle_cpu;
- 	struct list_head		rcu_tasks_holdout_list;
- 	int				rcu_tasks_exit_cpu;
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 416758c8a3d4..cfe3a8e53fbd 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -1869,6 +1869,7 @@ static inline void rcu_copy_process(struct task_struct *p)
- #endif /* #ifdef CONFIG_PREEMPT_RCU */
- #ifdef CONFIG_TASKS_RCU
- 	p->rcu_tasks_holdout = false;
-+	p->rcu_tramp_nesting = 0;
- 	INIT_LIST_HEAD(&p->rcu_tasks_holdout_list);
- 	p->rcu_tasks_idle_cpu = -1;
- 	INIT_LIST_HEAD(&p->rcu_tasks_exit_list);
-diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
-index 627295396cd9..1662ba18bf34 100644
---- a/kernel/rcu/tasks.h
-+++ b/kernel/rcu/tasks.h
-@@ -1113,10 +1113,11 @@ static void check_holdout_task(struct task_struct *t,
- 		*firstreport = false;
- 	}
- 	cpu = task_cpu(t);
--	pr_alert("%p: %c%c nvcsw: %lu/%lu holdout: %d idle_cpu: %d/%d\n",
-+	pr_alert("%p: %c%c nvcsw: %lu/%lu holdout: %d tramp_nesting: %d idle_cpu: %d/%d\n",
- 		 t, ".I"[is_idle_task(t)],
- 		 "N."[cpu < 0 || !tick_nohz_full_cpu(cpu)],
- 		 t->rcu_tasks_nvcsw, t->nvcsw, t->rcu_tasks_holdout,
-+		 data_race(t->rcu_tramp_nesting),
- 		 data_race(t->rcu_tasks_idle_cpu), cpu);
- 	sched_show_task(t);
- }
+The min_width/min_height, the fixed mode, the connector and the
+mode-sized transfer buffer are all unchanged, and
+drm_mipi_dbi_plane_helper_atomic_check() still enforces DRM_PLANE_NO_SCALING
+and no repositioning, so the flushed rectangle stays bounded by the panel
+regardless of the framebuffer dimensions.
+
+Tested on hardware: ILI9341 and ST7789V (through panel-mipi-dbi), both
+240x320 - an oversized framebuffer is accepted and a non-zero-offset
+panel-sized window scans out correctly; a panel-sized framebuffer is
+unchanged. HX8357D was tested during the downstream review by Dave
+Stevenson (Cc'd). ili9486, mi0283qt and ili9163 are build-tested only.
+
+Both patches have been carried in the Raspberry Pi kernel (rpi-7.2.y) and
+in use there:
+https://github.com/raspberrypi/linux/pull/7589
+
+Applies to current mainline / drm-misc-next; the touched files are
+identical there.
+
+Jonathan Frazin (2):
+  drm/mipi-dbi: honour the plane source offset when flushing
+  drm/tiny: allow a framebuffer larger than the panel on MIPI DBI
+    drivers
+
+ drivers/gpu/drm/drm_mipi_dbi.c        | 14 +++++++++++---
+ drivers/gpu/drm/tiny/hx8357d.c        |  8 ++++++--
+ drivers/gpu/drm/tiny/ili9163.c        |  8 ++++++--
+ drivers/gpu/drm/tiny/ili9341.c        |  8 ++++++--
+ drivers/gpu/drm/tiny/ili9486.c        |  8 ++++++--
+ drivers/gpu/drm/tiny/mi0283qt.c       |  8 ++++++--
+ drivers/gpu/drm/tiny/panel-mipi-dbi.c |  8 ++++++--
+ 7 files changed, 47 insertions(+), 15 deletions(-)
 
 -- 
-2.55.0
+2.53.0
 
