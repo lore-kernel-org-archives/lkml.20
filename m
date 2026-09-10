@@ -1,43 +1,52 @@
-Received: from out28-124.mail.aliyun.com (out28-124.mail.aliyun.com [115.124.28.124])
+Received: from ms2.novatek.com.tw (ms2.novatek.com.tw [210.202.87.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D16B67E;
-	Thu, 10 Sep 2026 03:00:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D18C336EDA;
+	Thu, 10 Sep 2026 03:01:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789009243; cv=none; b=oaKnG+m0bxxnEY4G6DNQRrAkioeGtaOHtydLJ69uHr9twdRy9G27xMGDp309AGQnSUQ/K1a3qilRiyxgMTdJ/o4qva82WAN1WAII7/Ofen8ndkhSp9jKZRDZIWqgQahuVadSRtwC/WCkYKaVwdx2YsLTIkozuvUla47oLY62phk=
+	t=1789009296; cv=none; b=KTV1KpfjiNFNV0xp3pYDWzewTFnBkNExqLK7oD3RiX5Q9wykFhnI4Y1sXZ361ATSBNi/ORHpqvyGjb6ukb9ZGhV6GjQ9QN/o8/kZZmb93buP66y9A1BDodSTFYXhWv++WMg1+3HDP4bxcnouIeWzJiFDK+UWiF9jN+MVKL4vv+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789009243; c=relaxed/simple;
-	bh=A7PNGMGbQtnRVCFeuXx3tq5V8XXMyBCnWap9FB6QgiM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m9TQe3bwcjXxD3FZXNDZpo8MsvKmcwGptin4eCI7eOS3tEW3z5x9DIdXl9nvheN9oCb35bFKQSMMZnttZzR58j8lx0wD4eRKDwHxR5JElj+b5MyO/xGwDzA9WxGqFb+w8NkKD6TjHOLAWCtjBo/xMoMMziWEjdHGW5pMtEQ/giw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=XOeb8x3y; arc=none smtp.client-ip=115.124.28.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1789009296; c=relaxed/simple;
+	bh=EEqiWU7cZvXAzZ9csQjQnedtLTAVMQ0aBVt+/XCpE6A=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=f3e7F1FM327E8QVYZN7Xm8PBQwaO0OQ7quYrwki9STga+1jaVEtj54w3X+JWATNKhF/MgCVZc3V9DRliLsD6Ax5/c+OkIUc8sg8LkvR6flSwR/1QL+OrY3YPbDSB0GusRb87uY1gtSverND3kVsh5sWiYppj9sbGCbi+kSbFOno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw; spf=pass smtp.mailfrom=novatek.com.tw; dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b=A5k4To6p; arc=none smtp.client-ip=210.202.87.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=novatek.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="XOeb8x3y"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789009237; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=OTFLWrl+qAjkSWXHIgQqkXGjVHwsQiyRzO/dH1S63EM=;
-	b=XOeb8x3yHfSkpmaam6xnfRH+F9KD46ZSwKSH7ZJKNiyNznabGswKfOEHZlHiXIw4K23Sv/WT1ZsRM0i/pLdsQr9drOdm3GbwiOR7jRvpCai2yzAqa8yMS1SQwwdkdB5Nt5nE09wD3E82sbP75AOy+MucBR5FjX58pUcHX/NRaK8=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07731052|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0118688-0.000212665-0.987919;FP=6717226604748474298|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032053168;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jA1h9UI_1789009236;
-Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jA1h9UI_1789009236 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 10 Sep 2026 11:00:36 +0800
-From: Guanglei Zhu <zhugl3@xiaopeng.com>
-To: Ilya Dryomov <idryomov@gmail.com>,
-	Alex Markuze <amarkuze@redhat.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: ceph-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] ceph: clamp the inline data length in ceph_fill_inline_data()
-Date: Thu, 10 Sep 2026 11:00:35 +0800
-Message-ID: <20260910030036.1045515-1-zhugl3@xiaopeng.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260908062119.402027-1-zhugl3@xiaopeng.com>
-References: <20260908062119.402027-1-zhugl3@xiaopeng.com>
+	dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b="A5k4To6p"
+X-UUID: e87934ceacc311f191248d90cf864ef8-20260910
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=novatek.com.tw; s=dk;
+	h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From; bh=ohXBQ9cjjLeOILIUCU8A0Er0GcQi4hKc916yvsLLEuk=;
+	b=A5k4To6pWe/QkfNlvb911bZEM/4VVBtLZSWMdpSDjMkpIp7h2WMJXLqdo23/69OTtBIQaCoiPcwG3grnubIvSto7Me0qynQbIvxyNtej+tNqZc0d5KgtS6r/7j0pEelsQuDciyqO5oAHo0L6KGn5pDIEMQxHkW21xN/uJ4cXuH8=;
+X-UUID: e87934ceacc311f191248d90cf864ef8-20260910
+Received: from spmgt1 [(172.20.13.10)] by ms2.novatek.com.tw
+	(envelope-from <sp_isw1_at@novatek.com.tw>)
+	(Generic MTA)
+	with ESMTP id 132575931; Thu, 10 Sep 2026 11:01:24 +0800
+Received: from oabuild50.novatek.com.tw (oabuild50.novatek.com.tw [172.20.20.160])
+	by spmgt1 (Postfix) with ESMTP id 6B9EE1A22CB;
+	Thu, 10 Sep 2026 11:01:24 +0800 (CST)
+Received: by oabuild50.novatek.com.tw (Postfix, from userid 1005)
+	id 0E7EAC600DC; Thu, 10 Sep 2026 11:01:23 +0800 (CST)
+From: nina_kuo@novatek.com.tw
+To: andi.shyti@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ben_huang@novatek.com.tw,
+	toby_chui@novatek.com.tw,
+	shihpei_hsu@novatek.com.tw
+Subject: [PATCH v9 1/3] dt-bindings: i2c: Add Novatek NT72676 I2C controller
+Date: Thu, 10 Sep 2026 11:01:20 +0800
+Message-Id: <20260910030123.215609-2-nina_kuo@novatek.com.tw>
+X-Mailer: git-send-email 2.26.1
+In-Reply-To: <20260910030123.215609-1-nina_kuo@novatek.com.tw>
+References: <20260910030123.215609-1-nina_kuo@novatek.com.tw>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,45 +55,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The MDS decides how much inline data to attach to a reply, and the
-client parses inline_len without any upper bound: ceph_decode_need()
-only verifies that the message actually carries that many bytes.
-ceph_fill_inline_data() then copies the data into a single folio
-with no length check, so a malicious or buggy MDS returning more
-inline data than the folio can hold writes past its end.
+From: Ben Huang <Ben_Huang@novatek.com.tw>
 
-Clamp the length to folio_size() so both callers, handle_cap_grant()
-and fill_inode(), are covered.
+Add Devicetree binding documentation for Novatek NT72676 I2C
+controller.
 
-Fixes: 31c542a199d7 ("ceph: add inline data to pagecache")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+Signed-off-by: Ben Huang <Ben_Huang@novatek.com.tw>
+Signed-off-by: Nina Kuo <Nina_Kuo@novatek.com.tw>
 ---
+ .../bindings/i2c/novatek,nt72676-i2c.yaml     | 76 +++++++++++++++++++
+ 1 file changed, 76 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/i2c/novatek,nt72676-i2c.yaml
 
-- rebase onto ceph-client.git testing, where ceph_fill_inline_data()
-  was converted to folios; clamp to folio_size() instead of PAGE_SIZE
-  (reported by Alex Markuze)
-
- fs/ceph/addr.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-index 4a2d3352a..3c7cf8a5e 100644
---- a/fs/ceph/addr.c
-+++ b/fs/ceph/addr.c
-@@ -2266,6 +2266,12 @@ void ceph_fill_inline_data(struct inode *inode, struct folio *locked_folio,
- 	doutc(cl, "%p %llx.%llx len %zu locked_folio %p\n", inode,
- 	      ceph_vinop(inode), len, locked_folio);
- 
-+	if (len > folio_size(folio)) {
-+		pr_warn_ratelimited_client(cl, "oversized inline data %zu\n",
-+					   len);
-+		len = folio_size(folio);
-+	}
+diff --git a/Documentation/devicetree/bindings/i2c/novatek,nt72676-i2c.yaml b/Documentation/devicetree/bindings/i2c/novatek,nt72676-i2c.yaml
+new file mode 100644
+index 000000000000..7d9275b1039c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/i2c/novatek,nt72676-i2c.yaml
+@@ -0,0 +1,76 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/i2c/novatek,nt72676-i2c.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- 	if (len > 0)
- 		memcpy_to_folio(folio, 0, data, len);
- 
++title: Novatek NT72676 I2C Controller
++
++maintainers:
++  - Ben Huang <ben_huang@novatek.com.tw>
++  - Jason JJ Wu <jason_jj_wu@novatek.com.tw>
++
++description: >
++  Novatek NT72676 SoC provides multiple I2C controller instances that share
++  the same register layout and transfer programming model.
++
++  Generic I2C controllers are directly accessible by the host CPU and driven
++  by a 96 MHz AHB clock.
++
++  STBC I2C controllers are driven by a 12 MHz clock from the STBC (Standby
++  Controller, an 8051-based microcontroller). Before accessing an STBC I2C
++  controller, the host CPU must authenticate with the STBC and switch
++  ownership of the controller to the host CPU. The presence of the
++  novatek,stbc-syscon property identifies an STBC I2C controller requiring
++  this initialization sequence.
++
++properties:
++  compatible:
++    const: novatek,nt72676-i2c
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  clock-frequency:
++    default: 100000
++    enum: [ 100000, 400000 ]
++
++  novatek,stbc-syscon:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: >
++      Phandle to the STBC system controller used to authenticate host
++      access and switch ownership of the STBC I2C controller to the host
++      CPU during initialization.
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++
++allOf:
++  - $ref: /schemas/i2c/i2c-controller.yaml#
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c@fc040a00 {
++      compatible = "novatek,nt72676-i2c";
++      reg = <0xfc040a00 0x40>;
++      interrupts = <GIC_SPI 77 IRQ_TYPE_LEVEL_HIGH>;
++      clocks = <&stbc_i2c_clock>;
++      clock-frequency = <400000>;
++      novatek,stbc-syscon = <&stbc>;
++      #address-cells = <1>;
++      #size-cells = <0>;
++    };
 -- 
-2.43.0
+2.40.1
 
