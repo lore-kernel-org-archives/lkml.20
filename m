@@ -1,183 +1,208 @@
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B28311C15;
-	Thu, 10 Sep 2026 03:35:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EC1E37E5C9
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:36:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789011311; cv=none; b=qaVXHPVwWtkDs3CHY1T89yXUhhEKQ2WaGRa61c/tvNLQccakyUchgy87+TiCFpJPPui6dkLHbzWvkPaHntK4+iPdFu0aqz4w6y8WLL/FN1tZ6B/J34CJ3lk82NXiZ04WZw3snEZtCV/oS+P9yzpNc7R0TzAMvKXniHiWcSzlmgQ=
+	t=1789011375; cv=none; b=RZPcOTeO4Y10ubvL/YHG2Q/o4xpfnKVsHRHAjdneFq4fcddCdUWsjUDFDN3KEfbEpodKzl6NdmJtLSXfsgoBM3K1zp59pNcaQERlIQRnV2nprlbHxAQrPu1LhFMOI31tViSoadcnb/mVu7HoC4GPihwRPlEFUsaTWG9j/8qooRs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789011311; c=relaxed/simple;
-	bh=uwbLdH4JlMUhHwB9Ehu4aTO25qAW+UrPjFrmpWTCWMM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=kELMnwW+IFfxB/yqt/78b6orWuAV6gz+wWtVDY9lYbRjxJ8RFaVLMBWdzmW42icP+pML7wfToMs3C0gV9p0kx3Q8WxRpCsstnFE1TAOCkjXlwD/U1R42dpbsQJViGHqCpoJp/Lh75ZS6xGQs17Xn0XQ/iaseloTR0geEKqI8Op8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.206.34.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip3t1789011270ta45063a6
-X-QQ-Originating-IP: mzJpXuLuvAHubzsSSmDTo7/IgQ5p7XcdOadsdYhpsIM=
-Received: from [192.168.30.32] ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 10 Sep 2026 11:34:24 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 6148723628812340598
-EX-QQ-RecipientCnt: 9
-From: Xilin Wu <sophon@radxa.com>
-Date: Thu, 10 Sep 2026 11:34:24 +0800
-Subject: [PATCH] media: iris: Add SC8280XP platform data
+	s=arc-20240116; t=1789011375; c=relaxed/simple;
+	bh=7dJYZIzG3Oi0vO9RaTy06gwPmtBYzFkra05nhb44Z2M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QN0ypJCWkjjBW32Tr9bvm3TMoYa5LMO4mkGfDvriqV+3qlVeXr4quD9W5A61VvM93byuGGGmV1tBjgZX8/Ayjm5bHrBAz7NtMJ3jLGVkSCQqM+mPQnY7QogYplFZrrjYC4744d8Cp9xRBpc5qiwJdfkq6xK3YseQQrGjCrizBGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=fail (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=EvyJcIhB reason="signature verification failed"; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=fail reason="signature verification failed" (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="EvyJcIhB"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 67AED40E00B9;
+	Thu, 10 Sep 2026 03:36:11 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id dRY_Vk06yFGE; Thu, 10 Sep 2026 03:36:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789011360; bh=9yTC/8K7DkEW7wNBiOeYCl6vp4+4UfmoiV8qnzg+trY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=EvyJcIhBDYhrN+NM2dP8a9+I4mlIS36ehHtOmAqNUQpY1Gi4KGadWSEI/y6wQMu3t
+	 +zVQqGDrvgfvxSkLA+6WQQ/VQniS1xPJXzJPh97YeFTnEjF6+n1Yxjmjud6Lin/LcA
+	 MaHQLURA7AM0rm5ym0P1ulWCihZM7WzFciJj/EF1uovU0Oa7oxEV9NeEkWLaKuW1qV
+	 fT+kFSVcdKrse8y+ov51TujwLO+TSwMMk7HXthpKrKkX0Obc2Yl6gTBIUQCt72JSi+
+	 EohPhVgfI8oiz2My2mT1biOV43ihYImt3gE0jb94PtD32Qbiu8kYNnBUGrLBCdx4s2
+	 ngodQlmdt3EPHtx9kKIhwu5h1rZdI099Uztq9zRw6x0CwOAD+71OlGg5A9QveMRl2b
+	 m2U8fcGdxEM/RMoLsRvWVl4cmebTN1aD9duJQ35Ha3p359+P1HWcupwGNrUyoICpft
+	 kYFMcuBhP00KGOYVY5hmsq67EPalSj1XitggJaH57UvVHV9s7o5n4l0wgiuJXBflyp
+	 wTknCTIjmr9+GC8KqGbjJClfMjsYL15pXXlzVDNWK7qZfp4JN/v1aps9vsAtSVODwN
+	 q48Lm63iWWTBUOe7Lef+ELeamUufE3SxHJlaggQFr5OOayBkDUDBqMZS/kP0+zsWP3
+	 ldwkenbXwLvhoqWgkZfNzCfA=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 9C7B840E00E8;
+	Thu, 10 Sep 2026 03:35:49 +0000 (UTC)
+Date: Wed, 9 Sep 2026 20:35:46 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: =?utf-8?B?SsO2cmcgUsO2ZGVs?= <joro@8bytes.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	hpa@zytor.com, Tom Lendacky <thomas.lendacky@amd.com>,
+	linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
+	Joerg Roedel <joerg.roedel@amd.com>
+Subject: Re: [PATCH 1/3] x86/coco: Add CC_ATTR_GUEST_SEV
+Message-ID: <20260910033546.GAaqIlkhwE9V2vbz-l@fat_crate.local>
+References: <20260803125827.718024-1-joro@8bytes.org>
+ <20260803125827.718024-2-joro@8bytes.org>
+ <20260910024027.GEaqIYmy___31vI-iZ@fat_crate.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-sc8280xp-hfi-gen2-v1-1-ea51d0386fdf@radxa.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ5FMBCF4VeRWZukGprWq4gFvYOxKOkgEvHue
- ll+Jzn/BUKRSaDOLoh0sPASEoo8Az91YSTkXzJopY1yhULxVlt1rjgNjCMFjc5U3pRlWq2D9Fs
- jDXy+zab9LHs/k9/+IbjvB+19/t11AAAA
-X-Change-ID: 20260910-sc8280xp-hfi-gen2-965c64428089
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Xilin Wu <sophon@radxa.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4474; i=sophon@radxa.com;
- h=from:subject:message-id; bh=uwbLdH4JlMUhHwB9Ehu4aTO25qAW+UrPjFrmpWTCWMM=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFmLVB37N4s//3Y6dV7H97iVdpNbnd87HbxoY7L8xOs0F
- qtlF547d5SyMIhxMciKKbIoxDPMZa/MvfZUrFQPZg4rE8gQBi5OAZjIt1sM/8za/qaY3uc4r8nd
- x+Z1wLK5ZJ9mz+xoxY9Zxzl/uk6ceY+RoatJ7fwP7sT+i7kr+hyrZ3+79FXHkidwvaT+F95N29f
- dYwcA
-X-Developer-Key: i=sophon@radxa.com; a=openpgp;
- fpr=205F009D07796DD6E516752E32C31567AD9E324E
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: M9t1NOw+1P4Gxc7+Av82q/rWjdR0s8eOgMQ8d3wCBYQvXefDu0daImds
-	U63W/4ynV96W3Qh6gu5vz3WW0Cyoc35cHxqtoRi6jrYrmbTAtlE0sJ2yRVHRxZlFRcTudCe
-	szApwQQThCGTjzAP3IQg7Z9+rKS4UdPFT1kLWKIgezBlVSI8a82BLQ1mkSspz1fDZBpjHz3
-	H5png+fx1oOXY2/xgkJoS4GzJ2OxigRMpEQrIodPn/dSlGfgSZqv2OASHMDaOevRzhG7PAw
-	Sz9lFG8ZTdxQ4NXPFeA+X794yO8Os5MTzTgzqs32XTLjk51YFPbX+cYi+0ItCya8jha8HBC
-	jvrhUvcC8Wkj0iQhGKL6Cl8Zht9BwCz86GAmwaRBYFo/dwntnIADIEqcbcDmv1DLW4+Fbab
-	Bb64HRsEFkilyoN0EuvhBI8ADyd6UPYmTBB1F4emraIdFpRzs5Q9re3PA0/E17WyjSZy0pd
-	Ci5h5dRqHphREzQgXLfSi20gvn8mH42oE9VwE5HGNndCP9iZuM1MU1d2to2ySi0k9I9s5op
-	BWbH3SUvZFQCJhwEDRUWc+Z0ZeQF+7Ni0wcIZAz/jm+H23bI+nJJ8MozapJOMmnVarUyG7J
-	XctVKegCg94ifeb01C7GBiKjB3KOTYZ9id3gtvyAS+WdmiaZw1cjV+o+TGFJX/KLL6ngrg4
-	pJtrjT+cMJE5Q9vbYNGoTTyQGLQJiPeFB7lmNlZjK0PmfjmPW40ukBUzPFU7gd2fYVKb8k1
-	xYHwdg6MKUnHdiHy0rFzPaj6JGgsycLvyuZoCm6VmWwClPfWqMmJhg2Xd9OzYtT/Xqxk89n
-	h6ARzzVucXababCr/NUNYk02Nfd4n/G4cxP/FYvG/QHx0vwUayE/HuBcmW304NLisUFwVz+
-	FtUXZqwNUhgzQEV05mkraZoh55uTeUjgLj9s6XsnjoRpH8APFTnE4DFt/bY0aKAdP1ZHAHi
-	caQNFcGVpuqNS5ztQOSNlmkQMKb7T8gKcuE+hk5Tzq9HhWq3o3SrwW3r1VvuSd70jzefydO
-	fvU8w39fvtLID5ACsJsCkYBlD/wS9rtv1oE9KzDw==
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260910024027.GEaqIYmy___31vI-iZ@fat_crate.local>
+Content-Transfer-Encoding: quoted-printable
 
-Add platform data for the Iris VPU on SC8280XP and hook up the
-qcom,sc8280xp-iris compatible.
+On Wed, Sep 09, 2026 at 07:40:27PM -0700, Borislav Petkov wrote:
+> On Mon, Aug 03, 2026 at 02:58:25PM +0200, J=C3=B6rg R=C3=B6del wrote:
+> > From: Joerg Roedel <joerg.roedel@amd.com>
+> >=20
+> > Add a new attribute to the CC platform code to check whether the
+> > kernel runs in an environment using SEV memory encryption. This will
+> > be used to establish the an sev/ directory in SYSFS (which is
+> > currently SEV-SNP-only).
+>=20
+> Yeah, the initial intention for cc_plaform_has() is to use it in arch-a=
+gnostic
+> code and for something which you're going to use in coco code itself, y=
+ou're
+> better off simply doing:
+>=20
+> 	if (sev_status & MSR_AMD64_SEV_ENABLED)
+>=20
+> I can fix that up when applying if you prefer - it is easy enough.
 
-SC8280XP uses the VPU2 programming model, but can run the newer HFI Gen2
-firmware.  Describe both the legacy Gen1 firmware and the Gen2 firmware
-so the driver can select the available firmware at runtime.
+IOW, I merged them all three into this simple one.
 
-Set up the SC8280XP clocks, resets, power domains, bandwidth tables,
-format list, capabilities and DMA address limit needed by the Iris driver.
+Author: Joerg Roedel <joerg.roedel@amd.com>
+Date:   Mon Aug 3 14:58:25 2026 +0200
 
-Signed-off-by: Xilin Wu <sophon@radxa.com>
----
- .../platform/qcom/iris/iris_platform_common.h      |  1 +
- .../media/platform/qcom/iris/iris_platform_vpu2.c  | 36 ++++++++++++++++++++++
- drivers/media/platform/qcom/iris/iris_probe.c      |  4 +++
- 3 files changed, 41 insertions(+)
+    x86/sev: Report MSR_AMD64_SEV in sysfs
+   =20
+    Add SEV_STATUS to the cpu/sev/ sysfs hierarchy and report it for all =
+SEV
+    guest types.
+   =20
+      [ bp: Merge into a single patch, simplify. ]
+   =20
+    Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
+    Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+    Link: https://patch.msgid.link/20260803125827.718024-2-joro@8bytes.or=
+g
 
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-index 974809509146..5b5306dcd69f 100644
---- a/drivers/media/platform/qcom/iris/iris_platform_common.h
-+++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-@@ -57,6 +57,7 @@ extern const struct iris_firmware_data iris_hfi_milos_data;
- extern const struct iris_platform_data milos_data;
- extern const struct iris_platform_data qcs8300_data;
- extern const struct iris_platform_data sc7280_data;
-+extern const struct iris_platform_data sc8280xp_data;
- extern const struct iris_platform_data sm8250_data;
- extern const struct iris_platform_data sm8550_data;
- extern const struct iris_platform_data sm8650_data;
-diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-index bbdbf21961d7..e0cca55c0873 100644
---- a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-+++ b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-@@ -41,6 +41,12 @@ static const struct iris_firmware_desc iris_vpu20_p4_gen1_desc = {
- 	.fwname = "qcom/vpu/vpu20_p4.mbn",
- };
- 
-+static const struct iris_firmware_desc iris_vpu20_p4_gen2_s6_desc = {
-+	.firmware_data = &iris_hfi_gen2_data,
-+	.get_vpu_buffer_size = iris_vpu33_buf_size,
-+	.fwname = "qcom/vpu/vpu20_p4_gen2_s6.mbn",
-+};
+diff --git a/Documentation/ABI/testing/sysfs-devices-system-cpu b/Documen=
+tation/ABI/testing/sysfs-devices-system-cpu
+index 82d10d556cc8..cec413a71491 100644
+--- a/Documentation/ABI/testing/sysfs-devices-system-cpu
++++ b/Documentation/ABI/testing/sysfs-devices-system-cpu
+@@ -690,15 +690,20 @@ Description:	Umwait control
+=20
+ What:		/sys/devices/system/cpu/sev
+ 		/sys/devices/system/cpu/sev/vmpl
++		/sys/devices/system/cpu/sev/sev_status
+ Date:		May 2024
+ Contact:	Linux kernel mailing list <linux-kernel@vger.kernel.org>
+ Description:	Secure Encrypted Virtualization (SEV) information
+=20
+-		This directory is only present when running as an SEV-SNP guest.
++		This directory is only present when running as an SEV guest.
+=20
+ 		vmpl: Reports the Virtual Machine Privilege Level (VMPL) at which
+-		      the SEV-SNP guest is running.
++		      the SEV-SNP guest is running. This file is only present
++		      when running as an SEV-SNP guest.
+=20
++		sev_status: Reports the value of the SEV_STATUS MSR which
++			    enumerates the enabled features of an SEV
++			    environment.
+=20
+ What:		/sys/devices/system/cpu/svm
+ Date:		August 2019
+diff --git a/arch/x86/coco/sev/core.c b/arch/x86/coco/sev/core.c
+index ec8fc02bd636..4751bfbe694f 100644
+--- a/arch/x86/coco/sev/core.c
++++ b/arch/x86/coco/sev/core.c
+@@ -1431,15 +1431,22 @@ static ssize_t vmpl_show(struct kobject *kobj,
+ 	return sysfs_emit(buf, "%d\n", snp_vmpl);
+ }
+=20
++static ssize_t sev_status_show(struct kobject *kobj,
++			       struct kobj_attribute *attr, char *buf)
++{
++	return sysfs_emit(buf, "0x%llx\n", sev_status);
++}
 +
- static const u32 iris_fmts_vpu2_dec[] = {
- 	[IRIS_FMT_H264] = V4L2_PIX_FMT_H264,
- 	[IRIS_FMT_HEVC] = V4L2_PIX_FMT_HEVC,
-@@ -135,6 +141,36 @@ const struct iris_platform_data sc7280_data = {
- 	.max_core_mbps = 4096 * 2176 / 256 * 60,
+ static struct kobj_attribute vmpl_attr =3D __ATTR_RO(vmpl);
++static struct kobj_attribute sev_status_attr =3D __ATTR_RO(sev_status);
+=20
+-static struct attribute *vmpl_attrs[] =3D {
+-	&vmpl_attr.attr,
++static struct attribute *sev_status_attrs[] =3D {
++	&sev_status_attr.attr,
+ 	NULL
  };
- 
-+const struct iris_platform_data sc8280xp_data = {
-+	.firmware_desc_gen1 = &iris_vpu20_p4_gen1_desc,
-+	.firmware_desc_gen2 = &iris_vpu20_p4_gen2_s6_desc,
-+	.vpu_ops = &iris_vpu2_ops,
-+	.icc_tbl = iris_icc_info_vpu2,
-+	.icc_tbl_size = ARRAY_SIZE(iris_icc_info_vpu2),
-+	.clk_rst_tbl = iris_clk_reset_table_vpu2,
-+	.clk_rst_tbl_size = ARRAY_SIZE(iris_clk_reset_table_vpu2),
-+	.bw_tbl_dec = sm8250_bw_table_dec,
-+	.bw_tbl_dec_size = ARRAY_SIZE(sm8250_bw_table_dec),
-+	.pmdomain_tbl = iris_pmdomain_table_vpu2,
-+	.pmdomain_tbl_size = ARRAY_SIZE(iris_pmdomain_table_vpu2),
-+	.opp_pd_tbl = sm8250_opp_pd_table,
-+	.opp_pd_tbl_size = ARRAY_SIZE(sm8250_opp_pd_table),
-+	.clk_tbl = sm8250_clk_table,
-+	.clk_tbl_size = ARRAY_SIZE(sm8250_clk_table),
-+	.opp_clk_tbl = sm8250_opp_clk_table,
-+	/* Upper bound of DMA address range */
-+	.dma_mask = 0xe0000000 - 1,
-+	.inst_iris_fmts = iris_fmts_vpu2_dec,
-+	.inst_iris_fmts_size = ARRAY_SIZE(iris_fmts_vpu2_dec),
-+	.inst_caps = &platform_inst_cap_vpu2,
-+	.tz_cp_config_data = tz_cp_config_vpu2,
-+	.tz_cp_config_data_size = ARRAY_SIZE(tz_cp_config_vpu2),
-+	.num_vpp_pipe = 4,
-+	.max_session_count = 16,
-+	.max_core_mbpf = NUM_MBS_8K,
-+	.max_core_mbps = ((7680 * 4320) / 256) * 60,
-+};
+=20
+ static struct attribute_group sev_attr_group =3D {
+-	.attrs =3D vmpl_attrs,
++	.attrs =3D sev_status_attrs,
+ };
+=20
+ static int __init sev_sysfs_init(void)
+@@ -1448,7 +1455,7 @@ static int __init sev_sysfs_init(void)
+ 	struct device *dev_root;
+ 	int ret;
+=20
+-	if (!cc_platform_has(CC_ATTR_GUEST_SEV_SNP))
++	if (!(sev_status & MSR_AMD64_SEV_ENABLED))
+ 		return -ENODEV;
+=20
+ 	dev_root =3D bus_get_dev_root(&cpu_subsys);
+@@ -1463,7 +1470,20 @@ static int __init sev_sysfs_init(void)
+=20
+ 	ret =3D sysfs_create_group(sev_kobj, &sev_attr_group);
+ 	if (ret)
+-		kobject_put(sev_kobj);
++		goto drop_kobj;
 +
- const struct iris_platform_data sm8250_data = {
- 	.firmware_desc_gen1 = &iris_vpu20_p4_gen1_desc,
- 	.vpu_ops = &iris_vpu2_ops,
-diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
-index e4acf4a74f94..5986a5e77986 100644
---- a/drivers/media/platform/qcom/iris/iris_probe.c
-+++ b/drivers/media/platform/qcom/iris/iris_probe.c
-@@ -368,6 +368,10 @@ static const struct of_device_id iris_dt_match[] = {
- 		.compatible = "qcom,sc7280-venus",
- 		.data = &sc7280_data,
- 	},
-+	{
-+		.compatible = "qcom,sc8280xp-iris",
-+		.data = &sc8280xp_data,
-+	},
- 	{
- 		.compatible = "qcom,sm8250-venus",
- 		.data = &sm8250_data,
++	if (sev_status & MSR_AMD64_SEV_SNP_ENABLED) {
++		ret =3D sysfs_add_file_to_group(sev_kobj, &vmpl_attr.attr, NULL);
++		if (ret)
++			goto drop_sysfs;
++	}
++
++	return 0;
++
++drop_sysfs:
++	sysfs_remove_group(sev_kobj, &sev_attr_group);
++drop_kobj:
++	kobject_put(sev_kobj);
+=20
+ 	return ret;
+ }
 
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260910-sc8280xp-hfi-gen2-965c64428089
+>=20
+> --=20
+> Regards/Gruss,
+>     Boris.
+>=20
+> https://people.kernel.org/tglx/notes-about-netiquette
 
-Best regards,
---  
-Xilin Wu <sophon@radxa.com>
+--=20
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
