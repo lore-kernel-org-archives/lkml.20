@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BB2F3B47CC;
-	Thu, 10 Sep 2026 23:55:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D5063BFAF5;
+	Thu, 10 Sep 2026 23:55:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789084538; cv=none; b=eenJTuYraJkYSDcrtJi2UR+5CUaW0NqBwzvnC+GWFjtNmhK6RRKGLj/JZqyRl5b0n26pTQkGKO/dU4DXUTOu9SSWMmsjEeNiM1KR+NGCGmRM3Q54kQFMVWCrjBud3Xyv/OQ3QGKPe8/IoPn8ZyP9aS81rdWqtRun7Zs0SYol5Og=
+	t=1789084539; cv=none; b=XwJN5tFPzdX5r0rqEHCmNTlYsw3DmckoVBLzNESZMZZrCvYlcxi+KyvNKl/hDx198Lr1ih0T/L6Nh83HnerRJmz1KsLcmgLpZZVdLt701VT5+L6nTyNxjXXSUq86b8NZi1mKO1GE07yzUmXmVEpDTCHRWAXpHqF4rKIiMOLBKTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789084538; c=relaxed/simple;
-	bh=AKnq3mfGG77mv+gq3PNJT06gkFvH6br0vIP3tfVxk8M=;
+	s=arc-20240116; t=1789084539; c=relaxed/simple;
+	bh=jk1LanJjrko9+DRZ9uXvKjbkkmM3bdKeA1IL7qQc0gc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QkquM9I4uLDpivekeVA8e6TLWv/dFQGXARmi4e+FrSLYIItpOe/z+3luLxrhvpMx8dM+PG3sEuS+6JX7vqvXa+SxkpPapUBIibBb55fTBcsifaP6uWWvG4KX6r9Pq9LsOaFAZWm+QTMJNMQY/4Hyo+pgpLUNKQTmjUPiwDVWbgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mAWqa6HN; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=L3MUyYetDFK7rXsH7sBKOWdcWqXLwcwwRlBxJxVBX+2CfaBKad/WIZZL4heK/OzfYXSJj3nwSu6V8XxNWlsv5voN93KAyNbV99p0tndwVezUXX7mx0hR8WRVrxzPinNid2aI2DrNAPrp3MA5drBXNSQoifh3mknd/fbFPNWITM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s79bPsSn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mAWqa6HN"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E2C22C2BCFC;
-	Thu, 10 Sep 2026 23:55:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s79bPsSn"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3BAD6C4AF09;
+	Thu, 10 Sep 2026 23:55:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789084538;
-	bh=AKnq3mfGG77mv+gq3PNJT06gkFvH6br0vIP3tfVxk8M=;
+	s=k20201202; t=1789084539;
+	bh=jk1LanJjrko9+DRZ9uXvKjbkkmM3bdKeA1IL7qQc0gc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=mAWqa6HNhQOZLMGnaET8GvLt/RbWXdF5Rp97p5omjedV9D1vBxgLAY2ibAsD5P904
-	 /akbgtQxHzHYhOVjluMU+HFYTHNnCVNI51UczcWhIsODyxrmhV8aP3itMsD4B4m/04
-	 ZG8nXaBbdMY5XFDDGC8GCiaO7Jb/YJjIscEsDA1z8Qt1TbFoMr/KOfc8ym/tuTWkY3
-	 6HiPenLL6XjSSopKfuZNAvcBu7x1rMKj6xxKiR/a40gVOycb4tvs7yVKMkTIpuXvWu
-	 2JYGHZjW0fblBFKmfbdNOSiTN6hW+6SVSolbEnQfm37570nK2LHC4CkebJbHzaM6Mt
-	 YDJb3QuvrxP0g==
+	b=s79bPsSnDE6MzflWYCF67EGgJ+LAi2Ad+GMZHe+wU0Mt+FKRWMWVzSlh8z2Kzosss
+	 ASPFQkf3zIHgQEflx/cMYx4zdgy07RkYAw3c/oI5wIreCy0QaGaidjhjjTbHjw56lv
+	 ZoahOjCXl7GwDsTOU0q2G4LZ0tCDOZbszFGNJ+MaxqM7QsfqtYsNsvFIp/jZ7+TvUa
+	 ESZdmhbTGsCNV9Dd2t5YqV2IDzc2hMyzk1WI9KL0ZlEZtROXUrRgXiuDKYScvUW11h
+	 abW6Ges628YViWKMcRutzZsBkQgZ2jj8S8+w9YvEogH46isJ6yvK7HJLJXn4TLArNz
+	 88QVw5OwyMNSw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C53ABC88E46;
-	Thu, 10 Sep 2026 23:55:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 27ACCC88E41;
+	Thu, 10 Sep 2026 23:55:39 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Thu, 10 Sep 2026 16:55:39 -0700
-Subject: [PATCH v13 13/44] KVM: guest_memfd: Pass mapping type filter to
- invalidation helper
+Date: Thu, 10 Sep 2026 16:55:51 -0700
+Subject: [PATCH v13 25/44] KVM: selftests: Rename guest_memfd{,_offset} to
+ gmem_{fd,offset}
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-gmem-inplace-conversion-v13-13-dd6fbf94f4e1@google.com>
+Message-Id: <20260910-gmem-inplace-conversion-v13-25-dd6fbf94f4e1@google.com>
 References: <20260910-gmem-inplace-conversion-v13-0-dd6fbf94f4e1@google.com>
 In-Reply-To: <20260910-gmem-inplace-conversion-v13-0-dd6fbf94f4e1@google.com>
 To: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
@@ -78,14 +78,13 @@ To: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com,
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
  linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
- linux-coco@lists.linux.dev, Ackerley Tng <ackerleytng@google.com>, 
- Fuad Tabba <fuad.tabba@linux.dev>
+ linux-coco@lists.linux.dev, Ackerley Tng <ackerleytng@google.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789084533; l=3075;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789084533; l=5048;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=olcJqZe/kIoxozaeU+OrcoTgHksLE0XmCcjni2I7E2I=;
- b=PuzcQplh7gT51UloHv+ksBnamz11cj9OVdlBS5Uv6zl9EQj3TJbbaqQLWZ/soHHP9gmqJhceI
- hjoYykTAE84BkNyY+4TA4mZ6z4mYfa48tiQc0dA3c5wb0giaT/aBERH
+ bh=PuKR62AgtIL/OgppZyqUKkCf7z3QM7wFLt7eBK4n464=;
+ b=zdD6arnW0KJmJy9TLSGNEKNQNEmzt27arSC2EDcx3IQ8D+gJ3ahPRQY/OTZlGPNTnPd9QnnAF
+ 0V2hQ9tA7W/AAYZBQTrf7iOAO6qNfc91wCbK07JtT2YKiVVorb8B1AB
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -93,84 +92,126 @@ X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
 X-Original-From: Ackerley Tng <ackerleytng@google.com>
 Reply-To: ackerleytng@google.com
 
-From: Ackerley Tng <ackerleytng@google.com>
+From: Sean Christopherson <seanjc@google.com>
 
-Accept the mapping type filter as a parameter in the invalidation start
-helper instead of querying it internally. This allows callers to specify
-which mappings (shared, private, or both) should be invalidated.
-
-In the next patch, the conversion process will use this new parameter to
-invalidate mappings only when they're different from the target state of
-the conversion, i.e. invalidate only shared mappings on a shared to private
-conversion and not both.
+Rename local variables and function parameters for the guest memory file
+descriptor and its offset to use a "gmem_" prefix instead of
+"guest_memfd_".
 
 No functional change intended.
 
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+Tested-by: Shivank Garg <shivankg@amd.com>
+Reviewed-by: Fuad Tabba <tabba@google.com>
 ---
- virt/kvm/guest_memfd.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ tools/testing/selftests/kvm/include/kvm_util.h |  6 +++---
+ tools/testing/selftests/kvm/lib/kvm_util.c     | 26 +++++++++++++-------------
+ 2 files changed, 16 insertions(+), 16 deletions(-)
 
-diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-index e41802944756b..e19de803149c2 100644
---- a/virt/kvm/guest_memfd.c
-+++ b/virt/kvm/guest_memfd.c
-@@ -192,13 +192,13 @@ static void __kvm_gmem_invalidate_start(struct gmem_file *f, pgoff_t start,
- }
+diff --git a/tools/testing/selftests/kvm/include/kvm_util.h b/tools/testing/selftests/kvm/include/kvm_util.h
+index 5a7a455b53875..cf49a84de02e8 100644
+--- a/tools/testing/selftests/kvm/include/kvm_util.h
++++ b/tools/testing/selftests/kvm/include/kvm_util.h
+@@ -690,17 +690,17 @@ int __vm_set_user_memory_region(struct kvm_vm *vm, u32 slot, u32 flags,
+ 				gpa_t gpa, u64 size, void *hva);
+ void vm_set_user_memory_region2(struct kvm_vm *vm, u32 slot, u32 flags,
+ 				gpa_t gpa, u64 size, void *hva,
+-				u32 guest_memfd, u64 guest_memfd_offset);
++				u32 gmem_fd, u64 gmem_offset);
+ int __vm_set_user_memory_region2(struct kvm_vm *vm, u32 slot, u32 flags,
+ 				 gpa_t gpa, u64 size, void *hva,
+-				 u32 guest_memfd, u64 guest_memfd_offset);
++				 u32 gmem_fd, u64 gmem_offset);
  
- static void kvm_gmem_invalidate_start(struct inode *inode, pgoff_t start,
--				      pgoff_t end)
-+				      pgoff_t end,
-+				      enum kvm_gfn_range_filter filter)
+ void vm_userspace_mem_region_add(struct kvm_vm *vm,
+ 				 enum vm_mem_backing_src_type src_type,
+ 				 gpa_t gpa, u32 slot, u64 npages, u32 flags);
+ void vm_mem_add(struct kvm_vm *vm, enum vm_mem_backing_src_type src_type,
+ 		gpa_t gpa, u32 slot, u64 npages, u32 flags,
+-		int guest_memfd_fd, u64 guest_memfd_offset);
++		int gmem_fd, u64 gmem_offset);
+ 
+ #ifndef vm_arch_has_protected_memory
+ static inline bool vm_arch_has_protected_memory(struct kvm_vm *vm)
+diff --git a/tools/testing/selftests/kvm/lib/kvm_util.c b/tools/testing/selftests/kvm/lib/kvm_util.c
+index 3413d45e34faf..af501a27211a2 100644
+--- a/tools/testing/selftests/kvm/lib/kvm_util.c
++++ b/tools/testing/selftests/kvm/lib/kvm_util.c
+@@ -970,7 +970,7 @@ void vm_set_user_memory_region(struct kvm_vm *vm, u32 slot, u32 flags,
+ 
+ int __vm_set_user_memory_region2(struct kvm_vm *vm, u32 slot, u32 flags,
+ 				 gpa_t gpa, u64 size, void *hva,
+-				 u32 guest_memfd, u64 guest_memfd_offset)
++				 u32 gmem_fd, u64 gmem_offset)
  {
--	enum kvm_gfn_range_filter attr_filter = kvm_gmem_get_all_gfns_filter(inode);
- 	struct gmem_file *f;
+ 	struct kvm_userspace_memory_region2 region = {
+ 		.slot = slot,
+@@ -978,8 +978,8 @@ int __vm_set_user_memory_region2(struct kvm_vm *vm, u32 slot, u32 flags,
+ 		.guest_phys_addr = gpa,
+ 		.memory_size = size,
+ 		.userspace_addr = (uintptr_t)hva,
+-		.guest_memfd = guest_memfd,
+-		.guest_memfd_offset = guest_memfd_offset,
++		.guest_memfd = gmem_fd,
++		.guest_memfd_offset = gmem_offset,
+ 	};
  
- 	kvm_gmem_for_each_file(f, inode)
--		__kvm_gmem_invalidate_start(f, start, end, attr_filter);
-+		__kvm_gmem_invalidate_start(f, start, end, filter);
- }
+ 	TEST_REQUIRE_SET_USER_MEMORY_REGION2();
+@@ -989,10 +989,10 @@ int __vm_set_user_memory_region2(struct kvm_vm *vm, u32 slot, u32 flags,
  
- static void __kvm_gmem_invalidate_end(struct gmem_file *f, pgoff_t start,
-@@ -224,6 +224,7 @@ static void kvm_gmem_invalidate_end(struct inode *inode, pgoff_t start,
- 
- static long kvm_gmem_punch_hole(struct inode *inode, loff_t offset, loff_t len)
+ void vm_set_user_memory_region2(struct kvm_vm *vm, u32 slot, u32 flags,
+ 				gpa_t gpa, u64 size, void *hva,
+-				u32 guest_memfd, u64 guest_memfd_offset)
++				u32 gmem_fd, u64 gmem_offset)
  {
-+	enum kvm_gfn_range_filter filter = kvm_gmem_get_all_gfns_filter(inode);
- 	pgoff_t start = offset >> PAGE_SHIFT;
- 	pgoff_t end = (offset + len) >> PAGE_SHIFT;
+ 	int ret = __vm_set_user_memory_region2(vm, slot, flags, gpa, size, hva,
+-					       guest_memfd, guest_memfd_offset);
++					       gmem_fd, gmem_offset);
  
-@@ -233,7 +234,7 @@ static long kvm_gmem_punch_hole(struct inode *inode, loff_t offset, loff_t len)
- 	 */
- 	filemap_invalidate_lock(inode->i_mapping);
- 
--	kvm_gmem_invalidate_start(inode, start, end);
-+	kvm_gmem_invalidate_start(inode, start, end, filter);
- 
- 	truncate_inode_pages_range(inode->i_mapping, offset, offset + len - 1);
- 
-@@ -522,6 +523,8 @@ static int kvm_gmem_migrate_folio(struct address_space *mapping,
- 
- static int kvm_gmem_error_folio(struct address_space *mapping, struct folio *folio)
+ 	TEST_ASSERT(!ret, "KVM_SET_USER_MEMORY_REGION2 failed, errno = %d (%s)",
+ 		    errno, strerror(errno));
+@@ -1002,7 +1002,7 @@ void vm_set_user_memory_region2(struct kvm_vm *vm, u32 slot, u32 flags,
+ /* FIXME: This thing needs to be ripped apart and rewritten. */
+ void vm_mem_add(struct kvm_vm *vm, enum vm_mem_backing_src_type src_type,
+ 		gpa_t gpa, u32 slot, u64 npages, u32 flags,
+-		int guest_memfd, u64 guest_memfd_offset)
++		int gmem_fd, u64 gmem_offset)
  {
-+	struct inode *inode = mapping->host;
-+	enum kvm_gfn_range_filter filter;
- 	pgoff_t start, end;
+ 	int ret;
+ 	struct userspace_mem_region *region;
+@@ -1078,12 +1078,12 @@ void vm_mem_add(struct kvm_vm *vm, enum vm_mem_backing_src_type src_type,
+ 		region->mmap_size += alignment;
  
- 	filemap_invalidate_lock_shared(mapping);
-@@ -529,7 +532,8 @@ static int kvm_gmem_error_folio(struct address_space *mapping, struct folio *fol
- 	start = folio->index;
- 	end = start + folio_nr_pages(folio);
+ 	if (flags & KVM_MEM_GUEST_MEMFD) {
+-		if (guest_memfd < 0) {
+-			u32 guest_memfd_flags = 0;
++		if (gmem_fd < 0) {
++			u32 gmem_flags = 0;
  
--	kvm_gmem_invalidate_start(mapping->host, start, end);
-+	filter = kvm_gmem_get_all_gfns_filter(inode);
-+	kvm_gmem_invalidate_start(inode, start, end, filter);
+-			TEST_ASSERT(!guest_memfd_offset,
++			TEST_ASSERT(!gmem_offset,
+ 				    "Offset must be zero when creating new guest_memfd");
+-			guest_memfd = vm_create_guest_memfd(vm, mem_size, guest_memfd_flags);
++			gmem_fd = vm_create_guest_memfd(vm, mem_size, gmem_flags);
+ 		} else {
+ 			/*
+ 			 * Install a unique fd for each memslot so that the fd
+@@ -1091,11 +1091,11 @@ void vm_mem_add(struct kvm_vm *vm, enum vm_mem_backing_src_type src_type,
+ 			 * needing to track if the fd is owned by the framework
+ 			 * or by the caller.
+ 			 */
+-			guest_memfd = kvm_dup(guest_memfd);
++			gmem_fd = kvm_dup(gmem_fd);
+ 		}
  
- 	/*
- 	 * Do not truncate the range, what action is taken in response to the
+-		region->region.guest_memfd = guest_memfd;
+-		region->region.guest_memfd_offset = guest_memfd_offset;
++		region->region.guest_memfd = gmem_fd;
++		region->region.guest_memfd_offset = gmem_offset;
+ 	} else {
+ 		region->region.guest_memfd = -1;
+ 	}
 
 -- 
 2.55.0.1007.g17ff1f9808-goog
