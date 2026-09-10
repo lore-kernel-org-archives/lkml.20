@@ -1,208 +1,145 @@
-Received: from mail.fris.de (mail.fris.de [116.203.77.234])
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 236F84A014B;
-	Thu, 10 Sep 2026 15:20:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25EEA4A9D51
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:20:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789053629; cv=none; b=IK/3rv4OvK4dSTFrWGNxkt0Uu/A/AMuSlO6cObShfdE9xc3IN0w/aYwq/L2xHvEkP+nmluxPsvVmW0lkPU3/2PH3RL1K7dLabhNtvJEV1JWLJLg9d++Z52pwObUSEn3otRIufJVwdDSUtoIqnBdNkryHBcpq8xDFEcWlvv8WcJ8=
+	t=1789053646; cv=none; b=CLg043Immni/eeL6LUYRA6s17QrozwjiskSF1dqwIMlOX0I+f356OHHPc+Sl2HV2J6Rf6OOk6of7c7iqSGvkgz3EjumwGw2flPGdIP+o281ABnz4y+I/Aa3fCmcwKSFxIlgKdAl5qZm1CnZwQdtKqNBWt2yidpxno92dlR8F9SA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789053629; c=relaxed/simple;
-	bh=qaVLtP24eUQigpsXQ1uRih63mTqL4A2y+Pni/SWk3gs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZM0Fd16xlPxCAiTtQ0FefigtNPV6Mo88lotmqqmIPAbrltlHfkvFd4Dp/AKC3rursynupurPCm1J/sNVajHWM/cBda+nYczuOIu/9sjfvqmTBsDT1zNLUxaNtr23z0JPwo99T5n8aKMeNmAtmXdi5m9cMnoLkXKptVA6R6G67hw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=zfxCzCRx; arc=none smtp.client-ip=116.203.77.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
+	s=arc-20240116; t=1789053646; c=relaxed/simple;
+	bh=xWU5xEbyBzdKIWf3CvUYZb/YMCiCU8pzO97VajjyhCI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=K6YKuwLHR3UqhB6P0DexF+oCj/ITEIFL1/dy+rlTynlG5UmOW76lmfZubBUE3YLX9uLi/0m83E2bJFeMOcQCdATj7m0Zpye5oT7R8jFjMloilM8lYJFUkBRvUH5gzv9VlzGTJs3s+GRf8RiKw62F7T0Dhq+q6Lz21lc95WLT+7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=o+PGVAam; arc=none smtp.client-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="zfxCzCRx"
-From: Frieder Schrempf <frieder@fris.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
-	t=1789053611;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fMLzyvdCDhOp+LMAXMo33v6YgTadM1kq8Lfjv4tjsH8=;
-	b=zfxCzCRxpsgEG1AjAnutkwMFKvd7iRH45PJsNk0Dy+mqADVvnFefwJquPyrOot9SkABRCM
-	jaZjpQZyhKBCSAmcM4DFWZsU/eKXFfTy+ug9SVtC17DBjlg1YOPAgTGnUYXsyeL4b/teyt
-	8+x/y3sOvq3TuFddB616qpGaR/nHDsXfkGsGAZhcuZ61sr5jJTY5Mein1r2oYriBa3ELyr
-	7ucQ3fKNyXaApS43UrWsqVWYASv7DVvKMgme81/+gB8Hq15P5jCIrJOCOaFMezG4BHrQzr
-	Vu438FaX8iHdStoMdMJq8tOgf5lOjJTkE6arpaHXnW+w23006731o1JJiivaog==
-Date: Thu, 10 Sep 2026 17:19:07 +0200
-Subject: [PATCH 2/2] arm64: dts: imx93-kontron: Add support for Kontron
- i.MX93 DL
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="o+PGVAam"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260910152030euoutp02db43d074862a12f4680ed5be9cbc6b06~T-sxMFoBu2404124041euoutp024
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:20:30 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260910152030euoutp02db43d074862a12f4680ed5be9cbc6b06~T-sxMFoBu2404124041euoutp024
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789053630;
+	bh=izFHd1RA+/2Fh1sAs5H355El9G+IR0JNrZBtgpSNdTU=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=o+PGVAamrGuZJIq5ZBtsHzbopMnELdgTdEygVYagjfRGthDID706s0UX1ntU9c7UA
+	 3D0tiAV2Dv9Xh7ql5krC4ypxX4lbDHSGlyZhGgwzg/7GkedYTTABE7gYtyDJiD/2+W
+	 hmYABDL8NDG99JuHrtdPgaByzEWOmsvhHyEwoXX0=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260910152029eucas1p10ea2e109779b1e8cd23a832adcbbd0fc~T-swhAOzC1238912389eucas1p1U;
+	Thu, 10 Sep 2026 15:20:29 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260910152029eusmtip1fa72d122c1c1cc8d3fc529180af1982b~T-sv66MgV2099520995eusmtip1O;
+	Thu, 10 Sep 2026 15:20:28 +0000 (GMT)
+Message-ID: <518729f2-db28-4af5-8ed3-9985c124db3e@samsung.com>
+Date: Thu, 10 Sep 2026 17:20:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH v2 1/5] of: reserved_mem: skip init for regions whose
+ early reservation failed
+To: Wandun <chenwandun1@gmail.com>, robh@kernel.org, saravanak@kernel.org,
+	rppt@kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Cc: akpm@linux-foundation.org
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <7dd9e1c3-ddc8-482e-a560-e8dc4f2f0aac@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20260910152029eucas1p10ea2e109779b1e8cd23a832adcbbd0fc
+X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-upstreaming-v7-3-imx93-displayline-v1-2-bb9446e6ed6e@kontron.de>
-References: <20260910-upstreaming-v7-3-imx93-displayline-v1-0-bb9446e6ed6e@kontron.de>
-In-Reply-To: <20260910-upstreaming-v7-3-imx93-displayline-v1-0-bb9446e6ed6e@kontron.de>
-To: Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-clk@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Frieder Schrempf <frieder.schrempf@kontron.de>, 
- Mikhail Vaniulin <mikhail.vaniulin@axians.rs>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3435;
- i=frieder.schrempf@kontron.de; h=from:subject:message-id;
- bh=2MoUiiYl7TgFn82k5cuGD2bvJWlqdJspTEKCJ86zaqY=;
- b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIWvRqZViT9U8Lm1gjAv1zTzaq2L+omzz04+Oay1eTtrX0
- Lrs54RlHaUsDGJcDLJiiixS/Bavbc1ifeSPVUfBzGFlAhnCwMUpABM5vpbhn9K6RS5HtmU/M8g+
- 4Ou1pKziTbfdhi1qm9flK6XoNz0Jnsjwv6DfLXTlaaY5McUpegY/WtZZB9XcCa2stFvmacx09PM
- NPgA=
-X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
- fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
+X-RootMTR: 20260818092438eucas1p20115e5d33908e32ef4433cb246da8098
+X-EPHeader: CA
+X-CMS-RootMailID: 20260818092438eucas1p20115e5d33908e32ef4433cb246da8098
+References: <20260818092420.2859026-1-chenwandun1@gmail.com>
+	<CGME20260818092438eucas1p20115e5d33908e32ef4433cb246da8098@eucas1p2.samsung.com>
+	<20260818092420.2859026-2-chenwandun1@gmail.com>
+	<72074a49-2963-4f96-b939-79bf95a829cb@samsung.com>
+	<af87036b-0809-4880-b088-545780b4d963@gmail.com>
+	<7a964778-adc3-4186-9122-3858bb61c372@samsung.com>
+	<7dd9e1c3-ddc8-482e-a560-e8dc4f2f0aac@gmail.com>
 
-From: Mikhail Vaniulin <mikhail.vaniulin@axians.rs>
+On 10.09.2026 12:55, Wandun wrote:
+> On 9/4/26 16:49, Marek Szyprowski wrote:
+>> On 31.08.2026 15:04, Wandun wrote:
+>>> On 8/26/26 21:14, Marek Szyprowski wrote:
+>>>> On 18.08.2026 11:24, Wandun Chen wrote:
+>>>>> From: Wandun Chen <chenwandun@lixiang.com>
+>>>>>
+>>>>> __reserved_mem_reserve_reg() discards the error from
+>>>>> early_init_dt_reserve_memory() and returns 0 unconditionally, so the
+>>>>> caller counts the node in total_reserved_mem_cnt and the late scan
+>>>>> initializes it without checking whether the early reservation actually
+>>>>> succeeded. A region whose reservation failed is then handed to a
+>>>>> device assuming the memory is protected.
+>>>>>
+>>>>> Propagate the error so failed reservations are no longer counted, and
+>>>>> record the failed nodes so fdt_scan_reserved_mem_late() can skip them.
+>>>>>
+>>>>> Recording the failed nodes explicitly is necessary because
+>>>>> fdt_scan_reserved_mem_late() rescans the DT independently. It cannot
+>>>>> tell from memblock whether early reservation succeeded.
+>>>>>
+>>>>> The failed-node array is bounded by MAX_RESERVED_REGIONS, the number
+>>>>> of static regions is not bounded by it, so on overflow the extra nodes
+>>>>> fall back to being initialized, which is the current behavior.
+>>>> I'm not very keen on such partial solution. Indeed we have no place to
+>>>>
+>>>> store the result of the early init call, but we can check if the given
+>>>>
+>>>> region has been earlier marked in memblock as reserved or no-map in
+>>>>
+>>>> fdt_scan_reserved_mem_late(). If those attributes don't match the
+>>>>
+>>>> region can be simply skipped then.
+>>> Considering the later patches that reject reservations for overlapping
+>>> nodes, checking the memblock state in fdt_scan_reserved_mem_late() may
+>>> produce false positives.
+>>>
+>>> For example, if region A is reserved first and region B is a subset of
+>>> A, reserving B will fail because it overlaps with A (in patch 02/03).
+>>> However, during fdt_scan_reserved_mem_late(), B will still appear to
+>>> be reserved because its range is already covered by A. As a result,
+>>> B would be initialized even though its own reservation failed, which
+>>> is contrary to the intended behavior.
+>> Imho the overlapping reserved regions are some kind of configuration 
+>> mismatch and it is enough to detect them. fdt_scan_reserved_mem_late()
+>> can first store all regions to dynamic reserved_mem array, then check
+>> for overlaps, and only then initialize those, which don't overlap and
+>> have proper memblock attributes?
+> Thanks a lot for reviewing this series.
+>
+> I did try this approach, and it looks clean. The overlap check works
+> well for regions within /reserved-memory. But there's one case I
+> couldn't make it handle, where it seems to still produce a false
+> positive, please correct me if I'm missing something.
+>
+> For example, region A is reserved before /reserved-memory nodes are
+> processed. A is not a /reserved-memory node, so it never appears in
+> the reserved_mem array. Now region B in /reserved-memory is a subset
+> of A. At early reservation, patch 02/03 rejects B due to the overlap.
+> But at the late scan, B's range already appears reserved (covered by A),
+> so it looks like a successful reservation and gets initialized.
+>
+> The root issue is that the late scan can only tell whether a region is
+> reserved, but it can't tell whether the reservation was made by
+> /reserved-memory node itself or by something else. Maybe we still need
+> to record during the early reservation stage.
+Then maybe it will be easier and cleaner just to add a new flag to 
+memblock_flags (see include/linux/memblock.h) and mark each successfully
+reserved region with it? There are some spare bits there.
 
-This provides an overlay to enable the 7" LVDS panel on Kontron
-i.MX93 DL devices.
-
-Signed-off-by: Mikhail Vaniulin <mikhail.vaniulin@axians.rs>
-Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
----
- arch/arm64/boot/dts/freescale/Makefile             |   4 +
- .../arm64/boot/dts/freescale/imx93-kontron-dl.dtso | 104 +++++++++++++++++++++
- 2 files changed, 108 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index 95ae85ab4adf..2f0d3378c050 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -653,6 +653,10 @@ dtb-$(CONFIG_ARCH_MXC) += imx93-11x11-frdm-pixpaper.dtb
- 
- dtb-$(CONFIG_ARCH_MXC) += imx93-14x14-evk.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx93-kontron-bl-osm-s.dtb
-+
-+imx93-kontron-dl-dtbs += imx93-kontron-bl-osm-s.dtb imx93-kontron-dl.dtbo
-+dtb-$(CONFIG_ARCH_MXC) += imx93-kontron-dl.dtb
-+
- dtb-$(CONFIG_ARCH_MXC) += imx93-phyboard-nash.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx93-phyboard-segin.dtb
- 
-diff --git a/arch/arm64/boot/dts/freescale/imx93-kontron-dl.dtso b/arch/arm64/boot/dts/freescale/imx93-kontron-dl.dtso
-new file mode 100644
-index 000000000000..2d962823dfeb
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx93-kontron-dl.dtso
-@@ -0,0 +1,104 @@
-+// SPDX-License-Identifier: GPL-2.0+ OR MIT
-+/*
-+ * Copyright (C) 2024 Kontron Electronics GmbH
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+
-+&{/} {
-+	model = "Kontron DL i.MX93 OSM-S";
-+	compatible = "kontron,imx93-bl-osm-s", "kontron,imx93-osm-s", "fsl,imx93";
-+
-+	backlight: backlight {
-+		compatible = "pwm-backlight";
-+		pwms = <&tpm3 3 50000 0>;
-+		brightness-levels = <0 100>;
-+		num-interpolated-steps = <100>;
-+		default-brightness-level = <100>;
-+	};
-+
-+	panel {
-+		compatible = "jenson,bl-jt60050-01a", "panel-lvds";
-+		backlight = <&backlight>;
-+		data-mapping = "vesa-24";
-+		enable-gpios = <&gpio2 29 GPIO_ACTIVE_HIGH>;
-+		power-supply = <&reg_vcc_panel>;
-+		height-mm = <86>;
-+		width-mm = <154>;
-+
-+		panel-timing {
-+			clock-frequency = <50000000>;
-+			hactive = <1024>;
-+			hback-porch = <160>;
-+			hfront-porch = <160>;
-+			hsync-len = <1>;
-+			vactive = <600>;
-+			vback-porch = <23>;
-+			vfront-porch = <12>;
-+			vsync-len = <1>;
-+		};
-+
-+		port {
-+			panel_in_lvds0: endpoint {
-+				remote-endpoint = <&ldb_lvds_ch0>;
-+			};
-+		};
-+	};
-+};
-+
-+&gpio3 {
-+	panel-rst-hog {
-+		gpio-hog;
-+		gpios = <26 GPIO_ACTIVE_LOW>;
-+		output-low;
-+		line-name = "panel-reset";
-+	};
-+
-+	panel-stby-hog {
-+		gpio-hog;
-+		gpios = <27 GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "panel-standby";
-+	};
-+};
-+
-+&lcdif {
-+	status = "okay";
-+};
-+
-+&ldb_lvds_ch0 {
-+	remote-endpoint = <&panel_in_lvds0>;
-+};
-+
-+&lpi2c2 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	status = "okay";
-+
-+	touchscreen@5d {
-+		compatible = "goodix,gt928";
-+		reg = <0x5d>;
-+		interrupt-parent = <&gpio2>;
-+		interrupts = <22 IRQ_TYPE_LEVEL_LOW>;
-+		irq-gpios = <&gpio2 22 GPIO_ACTIVE_HIGH>;
-+		AVDD28-supply = <&reg_vcc_panel>;
-+		VDDIO-supply = <&reg_vcc_panel>;
-+		reset-gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>;
-+	};
-+};
-+
-+&lvds_bridge {
-+	status = "okay";
-+};
-+
-+&media_blk_ctrl {
-+	status = "okay";
-+};
-+
-+&tpm3 {
-+	status = "okay";
-+};
-
+Best regards
 -- 
-2.55.0
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
