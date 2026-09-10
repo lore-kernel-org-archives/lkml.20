@@ -1,123 +1,74 @@
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B724A2601
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:36:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2D5E453A5E;
+	Thu, 10 Sep 2026 14:36:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789050971; cv=none; b=WD7ziBZrp+U66BlhUT5KMIrvmHiKDQQH9ycoj7PtDl67YOPfKaUlHlPC+cLCNKNlZhUJbJKE5eNGagJhrbAe07zz4vSCFb/JKQDiN91ITernIh9tC0aBVhUvYWqVpLqliys4Hz/6Q9E3KSEJt3dTg42Grw+gjFk/HvRsWlyJYIU=
+	t=1789050972; cv=none; b=sDcV2cvkVmXsEHCHyy14gV05PA3hq0iHcAmx4kc1PoKpeT+wXJJDIenVCX0B4T1TwXKVAUZ8jq1uKiuyiHkdiASdcCN+otJEeCd6E4CYCiUChjVjXdwJ4acj/NiLXc2IaYCO84S15licnYO6s7lfOpO7Up0nyohuCocCSeZIo3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789050971; c=relaxed/simple;
-	bh=C519sVSPJfsNUw48D24+ejPOXQ7FspwzLtOYq5ZLgBE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NLrPXW8v7zo43xUFJYPUqeuRV2YZyZ4YyA1lU95fw0RmzxtiufZwCdzl2J4gzXwjxlmxCTeI7595Ah6VEn8ICPKqat1ijDwtcBkvBuZoStrMoTPx4GLT/j7SKD1Eyd2ZIDUWGQ/n6oBnHQmsBmKLiwCp60ww0wfOOWlfU8vcXw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IzyHE5Qz; arc=none smtp.client-ip=209.85.161.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789050972; c=relaxed/simple;
+	bh=dJcwlHSrk8Uc1scS/UQ2C54Oi/ibr3avJ3v6PU8C6v4=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=egCCy4Kr6SdDK2jqgBnqcUcXlOm2a0q+v1FMTAGhy6+j8XLHOLDvXwGGzuinkM0Poa1jYJjxg+ZinxVe2mx3ouy+VYEkS6AetslXucZCe21BGxQyHCzVbd5syert08YS4v3WNYNhy6W9M4RXzVI1tOrIfSOQHIZGhr1ETZ28aaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mmYrOd0j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IzyHE5Qz"
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6b1b3d7f10eso5093153eaf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:36:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789050968; x=1789655768; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=sZUs35JrSr8EiZKEgDZvUwYD31+8yR5UTcOb/ueQ2Do=;
-        b=IzyHE5Qz5IEAsYGgSVggZNmoEf/+IZab8VLhYZuMnHVLAgNb5N2AXjqgeaKQvbOLcY
-         YVJBrCMuT+JlVgn0KcpOawjAIiKphOYMjDrzvZshKt5UgB5ZtguaE/ff524IaWT9I3/k
-         6psKB6G9sAsF7f0qr52TupgnSONPBCN2EpRieHRRlQsDmjE4XEhW06AsqjBOBVM3469F
-         PBc80+Q6YswayDD8j22nVztgSa1iftjOu+MiCzDSHEmNS8j2ZbM/uQEWy2jgQQ1FAlsN
-         XnFGWCOYlZK9StFuUsQrrxyyNiKSjTd9w7tBuVWqR6vyyqnc5uMpsHBKnzqMDFBjavk9
-         Ufbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789050968; x=1789655768;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sZUs35JrSr8EiZKEgDZvUwYD31+8yR5UTcOb/ueQ2Do=;
-        b=l70fqeV8Zij7G/0I9oS253MvWzXMGgkKhsPRvrptdc6cexyXXRG34blBKNH8PWcY6p
-         0qv408/0pDudWjLTQRdtm9INbUwk/k4zWwaHWY082kja4XX9pCOCsrymZZU/x1rzUkNV
-         SFj49fORRopRmgkiY08HFrbwk5jTSj8xrs3UtR79XN+WnGh87XWstk6AidX58wI1jQXA
-         ahnBOYIaZp7biC5Fol3F712VGyF2G2qJhg1yXoisbFLeY34vrR6h1XF5T+iqSQXMqjjp
-         Cfqyncx/FHgSerwndvnm2FOGfDIwYh87mXhVWi/jDQAEAikI4J6bOAVXxpBp0TRtefxp
-         VzrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzJ72V/QknRv8JVa+tJNqhldWHUQPdsh9i+ETvOlJMzw10uG75P/y6qQRBplYEx/EiTzpP4rDHSOcNcby4=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/fU+KkPClJE62mHn5Q6MBf4Tb6MbyLK4xrml1qC9uqjkxnJcX
-	wrXeOz/prqm6oByzHZl4wfUMATxVoxmHRYAJyyQa/29E/zKPX64CXW7J
-X-Gm-Gg: AYBFou1LPz8QKWaqO3lYoM2LuExfCIw+qbONuiAw+66I2PS0fb0gQ7rZVBXyYwOiVHQ
-	qk75NCyz+7LycXXCMAyFD8xHy2oki7bpWnrslS3394qYMrgOqQ0A60N1PEYqAkvOHx/t1aaeM8d
-	+34Bj5IllcfLUEodLMudzBcv6Mz4OkL2WZKSYmgFwU3kZlLyQxpIW5SFMLAV2Fn/qzcGlt6raBl
-	tW2gjEyctZHt8PnsEMuanIjbkgOlTMTQZFkejRS13FG4zI8jM1GEI0mhA7eGnk8JWO2vguEmzrf
-	PZz6V74P0SqESxxlavUPSQMlarA9W6ufzCi9u99Kypg01BrgBxt7C4MGMZlXfGB4N1Nfe8EnYI7
-	8r2XkNtT3K5ZKJIpTCMwPR1TxBCvo0nE/yJgrB1M5rZyruroRcLS/Gfv/Zoe36hD0v5LC+V+0GB
-	pzTCIe10OEou8yj2jGzVP19iYJ7WzdrsxYiPzILE0rK3CKBlYCJLHwnE4d7l4dzR/Hmp0gu819J
-	kZx7My5OuSsPsJhs80=
-X-Received: by 2002:a05:6820:2212:b0:6b7:8415:d77f with SMTP id 006d021491bc7-6b78415d8a4mr23181127eaf.42.1789050967825;
-        Thu, 10 Sep 2026 07:36:07 -0700 (PDT)
-Received: from [10.255.206.241] ([139.177.225.253])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b6d93df1easm18058555eaf.1.2026.09.10.07.36.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 07:36:07 -0700 (PDT)
-Message-ID: <95f672f6-21fc-4bfe-b629-fc4b88b145b5@gmail.com>
-Date: Thu, 10 Sep 2026 22:35:57 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mmYrOd0j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F32901F000FF;
+	Thu, 10 Sep 2026 14:36:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789050970;
+	bh=vwBroyK2ArSODGHueMlq5V0IhUwKrMhcJFB9fs6tk6s=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mmYrOd0jEyiHPMPZX27wW70Qn2UCRBJnl4wd/qtJCPsnmCtv/YagumQCfBkYD4BJa
+	 xAQX4pfciy5M9ciwrQGvEWi8Avn37DPa5l2yotjxb+y36vl1dENjLsS15FkfzRpZBg
+	 suLnJIWhnEb9NUX5eBQFDr+vL16D5CVKu5vYMWg8FOzx/+Y5eJ+TZOauqMS00yODvV
+	 lhhJI81LBNx7powZ3awNa0ecG+fzYiWtiy2UoLvglqzmDRRND4bVmyhOsCxjYk/EfA
+	 LWxkXuRbLICKhDyyE5hmlbxDs6RMCqPFKQZvyIpsp9UkyHOMU8GS54SCTXoj680jtf
+	 hr1v2wPrqw9TA==
+Date: Thu, 10 Sep 2026 23:36:06 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] tools/bootconfig: Consolidate xbc_init() to error
+ message wrapper
+Message-Id: <20260910233606.83bbc260bf8684110b81cf31@kernel.org>
+In-Reply-To: <CABFDxMFbHoDrGKr7039XL3BwHOjZC+4Qt2YQNeGbyuAitQPGDg@mail.gmail.com>
+References: <178896921555.177508.434402948295885560.stgit@devnote2>
+	<178896923375.177508.14682854552827605824.stgit@devnote2>
+	<CABFDxMFbHoDrGKr7039XL3BwHOjZC+4Qt2YQNeGbyuAitQPGDg@mail.gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: =?UTF-8?B?UmU6IOetlOWkjTogWz8/Pz9dIFJlOiBbUEFUQ0hdIEtWTTogaXJxY2hp?=
- =?UTF-8?Q?p=3A_allocate_routing_entries_in_chunks?=
-To: "Li,Rongqing" <lirongqing@baidu.com>,
- Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Yanfei Xu <yanfei.xu@bytedance.com>
-References: <20260908120133.2381-1-lirongqing@baidu.com>
- <aqH6YcHWk_GmJlqF@google.com> <7d6d2449013a4435b71148177820e26d@baidu.com>
-From: Yanfei Xu <isyanfei.xu@gmail.com>
-In-Reply-To: <7d6d2449013a4435b71148177820e26d@baidu.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
+On Thu, 10 Sep 2026 14:30:02 +0900
+Sang-Heon Jeon <ekffu200098@gmail.com> wrote:
 
-
-On 2026/9/10 11:26, Li,Rongqing wrote:
+> > +static int init_xbc_with_error(char *buf, int len)
+> > +{
+> > +       char *copy = malloc(len);
+> > +       const char *msg;
+> > +       int ret, pos;
+> > +
+> > +       if (!copy)
+> > +               return -ENOMEM;
+> > +
+> > +       memcpy(copy, buf, len);
 > 
-> 
->> Please look at Yanfei's series and help come to an agreement on how best to fix
->> this.  I am trying to get to Yanfei's series, and normally would take a close look
->> at both, but I am extremely short on cycles at the moment.
->>
->> https://lore.kernel.org/all/20260525035242.107264-1-yanfei.xu@bytedance.
->> com
->>
-> Hi Sean,
-> 
-> Thanks for pointing me to Yanfei's series. I agree that both approaches
-> aim to reduce the allocation overhead in KVM_SET_GSI_ROUTING().
-> 
-> One main concern with using kvalloc() for the entire routing entry array is
-> that, under severe memory fragmentation, it may fall back to vmalloc().
-> The vmalloc() path can have relatively high and less predictable overhead,
-> especially when routing tables are updated frequently when guest OS is
-> running irqbalance.
-Hi Rongqing,
+> Can we remove this? xbc_init() already copies buf and does not change
+> it, so show_xbc_error() can use buf directly.
 
-You are right, fallbacking to vmalloc is not friendly to frequently
-updating senarios. I assume Sean also noticed that and suggested to
-introduce the patch2 at v2. It could avoid to allocate memory when
-the rounded size of total entries is same with previous cached
-allocation. I think irqblance could benefit from patch2.
+Ah, good catch! OK, let me fix it.
 
-Regards,
-Yanfei
+Thanks,
 
-> 
-> Thanks
-> [Li,Rongqing]
 
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
