@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DC5D3CA487;
-	Thu, 10 Sep 2026 23:55:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B8A83BBFD0;
+	Thu, 10 Sep 2026 23:55:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789084540; cv=none; b=PIxPX7YZDdui37hwWZ9rb4YppiS4vfZLsjId3kitZAXOd8ZBJP5xwEkgo6m56blZAc4C1fSY7wINMDaN68R/Wic7nIoDHyAkzYeqG8wnU5pMzmrQojOe/gROdd4ODKS6BdnvQpyb3Zi+2zCbjH3e2I5+uS1m+RcxTQlUzBQHujw=
+	t=1789084539; cv=none; b=ISrJyy5vrc41nlvVg3EnpiUJ/jvQU/YkB4ozDPc27cg2iqQ+dM8dmCSMFnwpmkGfrUY3Dxjwqso3yosUY3ZqdT0FnejCf1SaD0g2skyZLr9ANQjwoLrzYXeS+z4dyIGzGELMm2e0Dr4vKlIpIeJhoXiyEE7X4+Vn2/NI0eO3284=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789084540; c=relaxed/simple;
-	bh=IbvsCeECqLpAFLA4lW2aKkT7BsDLcy8ynt0OyYVtkDU=;
+	s=arc-20240116; t=1789084539; c=relaxed/simple;
+	bh=EQZ7fThtZ0mv0GbdIDzzKHGH1Enl9yVk/17whHPCbNc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IjbA0qliBwXN7/OMb7Hl784pAr3jrdqkEKSafCKGgpc02sObZbAvc1d6blkAsTngMVK40YwI4FpJ3NRt0/oYYtRc5a440d5Rf/MWzN6xSTLLWS8PaS/Z+WWeqtVlXiVeADfa3FgwpA/ZOHFyPL7IMeIS0cd3n8K25GZgEfDkqWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rWWgBS3i; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=cmcl+/+H3TMdp7FuWYms5eC/C3K9Lovb2+N92K8UfO88hRq2QtqMcqFa77cDppHdezEa/oQ1n1nDLJQfZzOUzbIYN/aDGRwi8JyY36YQ6wJaVk0aQRF/Fr3bNTtpjNlDvIfn5z+PSeFddbtxU6RoHQi2PCCiFPc2qdRGP99CCvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=es8Z2iTS; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rWWgBS3i"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 02D02C2BCFB;
-	Thu, 10 Sep 2026 23:55:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="es8Z2iTS"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id AF9E2C4AF62;
+	Thu, 10 Sep 2026 23:55:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789084540;
-	bh=IbvsCeECqLpAFLA4lW2aKkT7BsDLcy8ynt0OyYVtkDU=;
+	s=k20201202; t=1789084538;
+	bh=EQZ7fThtZ0mv0GbdIDzzKHGH1Enl9yVk/17whHPCbNc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=rWWgBS3iHSd06REJIMRGF4K/NYNMx/SSZIpA16hC8kr/9siZYFlcI6dmtFjir7vNd
-	 kAyZKfKUIAtTFq75CdS+FFjtQPAgWNbBZQl8PeR9tOWsmR9oDIFMzg07p9WDFRo8PS
-	 67Ou6gNc878Uuwr2Aj0NMi7zphCqQXD0rMHWdlzFJSSB5a9wcwXtfzy4oHDrWMZ8hL
-	 je4tsVlFB60rJ8IMmDmAwhqX9rbXQfgK4TzbThSCH6wdVrfG0IU5+8oA8inx4o1tKj
-	 recdineZDRIaJ9S8/MShtwnhNsALcIoc0TLA1r8F/jy+Pn5kcnrLIbp28fxtgYNULF
-	 2fcTTGwK8n/zQ==
+	b=es8Z2iTSW3+0RS4RJNn95OgQab9cNJgtwk0rBqyELLDJ2iT5Ge/QkceuFrjG4GqA6
+	 WwMrqQAhGzrgtq6F/7CJDds78nWL5OXpsfaqT8RN3BWsn6R4foA4C+vfbSehfOFVBr
+	 vuyfRYTlToAi8cgyNikX7Kqao/dow75UfUusECVZJBxYWDI4r1QKs9Osw2na+Lj1s1
+	 Aa+Hlj6DeoFFY7iKJ4ycLcfcB6tuzC+068Pn4cnVpMNNhOeTAAvCfc76joOqbtpkKH
+	 XFWMeZQfp93LR7QUe673qZA+Q7NcStxGUrbw6xwG/7izr1txM9f2piLsH2wttDnzyW
+	 PE8AzCgKsm7kA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E28C0C88E4C;
-	Thu, 10 Sep 2026 23:55:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9659DC88E49;
+	Thu, 10 Sep 2026 23:55:38 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Thu, 10 Sep 2026 16:55:58 -0700
-Subject: [PATCH v13 32/44] KVM: selftests: Test conversion before
- allocation
+Date: Thu, 10 Sep 2026 16:55:45 -0700
+Subject: [PATCH v13 19/44] KVM: SEV: Make 'uaddr' parameter optional for
+ KVM_SEV_SNP_LAUNCH_UPDATE
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-gmem-inplace-conversion-v13-32-dd6fbf94f4e1@google.com>
+Message-Id: <20260910-gmem-inplace-conversion-v13-19-dd6fbf94f4e1@google.com>
 References: <20260910-gmem-inplace-conversion-v13-0-dd6fbf94f4e1@google.com>
 In-Reply-To: <20260910-gmem-inplace-conversion-v13-0-dd6fbf94f4e1@google.com>
 To: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
@@ -80,11 +80,11 @@ Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
  linux-coco@lists.linux.dev, Ackerley Tng <ackerleytng@google.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789084533; l=1812;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789084533; l=5607;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=98GD8e5loqEnXNVFPjaeOasgv+hm0t7FDCQbewQpebI=;
- b=n2YWnfFCUr/68G9CJiIyjPa+YiRgiDobEcV20zejrZ3jz0tklSJMSvQm+CRKttBAvNjajh/S+
- xM1eV9OODsEBbzk78S7e3dwOiEOZnLFdXCpQbWG1k641W/Y7yG0/5zb
+ bh=M0KJetB6k9uxwlfv5vfaVdz3anpPnZs7qNbQ2GOmmnY=;
+ b=f6mG6Ov0l451S9qRAr8+7G13FnMboNwr1+8jNER3FqzT82TPxgBm/4tIIUOT78QMFnvcVw7DX
+ jFvnN8dlljdD8y1sAoh8g9VM1HhcmMoqwGhP39NSDxQ36fUVY7YC1AQ
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -92,53 +92,120 @@ X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
 X-Original-From: Ackerley Tng <ackerleytng@google.com>
 Reply-To: ackerleytng@google.com
 
-From: Ackerley Tng <ackerleytng@google.com>
+From: Michael Roth <michael.roth@amd.com>
 
-Add two test cases to the guest_memfd conversions selftest to cover
-the scenario where a conversion is requested before any memory has been
-allocated in the guest_memfd region.
+Make the source page for populating an SNP guest_memfd instance optional
+if in-place conversion/population is enabled.  If KVM can convert the page
+in-place, then it's possible for guest memory to be initialized directly
+from userspace by mmap()'ing the guest_memfd and writing to it while the
+corresponding GPA ranges are in a 'shared' state, before converting them
+to the 'private' state expected by KVM_SEV_SNP_LAUNCH_UPDATE.
 
-The KVM_SET_MEMORY_ATTRIBUTES2 ioctl can be called on a memory region at
-any time. If the guest had not yet faulted in any pages for that region,
-the kernel must record the conversion request and apply the requested state
-when the pages are eventually allocated.
+Update the handling/documentation for KVM_SEV_SNP_LAUNCH_UPDATE to allow
+for 'uaddr' to be set to NULL when in-place conversion is enabled, which
+SNP_LAUNCH_UPDATE will then use to determine when it should/shouldn't
+copy in data from a separate memory location. Continue to enforce
+non-NULL when PRIVATE is tracked per-VM, not per-guest_memfd.
 
-The new tests cover both conversion directions.
+[ Sean: Moved condition to snp_launch_update ]
 
-Co-developed-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Michael Roth <michael.roth@amd.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 Tested-by: Shivank Garg <shivankg@amd.com>
-Reviewed-by: Fuad Tabba <tabba@google.com>
 ---
- .../selftests/kvm/x86/guest_memfd_conversions_test.c       | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ Documentation/virt/kvm/x86/amd-memory-encryption.rst | 14 ++++++++++----
+ arch/x86/kvm/svm/sev.c                               | 11 ++++++-----
+ virt/kvm/kvm_main.c                                  |  1 +
+ 3 files changed, 17 insertions(+), 9 deletions(-)
 
-diff --git a/tools/testing/selftests/kvm/x86/guest_memfd_conversions_test.c b/tools/testing/selftests/kvm/x86/guest_memfd_conversions_test.c
-index a8d89df53e46d..f46f1530a94b9 100644
---- a/tools/testing/selftests/kvm/x86/guest_memfd_conversions_test.c
-+++ b/tools/testing/selftests/kvm/x86/guest_memfd_conversions_test.c
-@@ -268,6 +268,20 @@ GMEM_CONVERSION_MULTIPAGE_TEST_INIT_SHARED(indexing, 4)
- #undef combine
- }
+diff --git a/Documentation/virt/kvm/x86/amd-memory-encryption.rst b/Documentation/virt/kvm/x86/amd-memory-encryption.rst
+index bd04a908a8dbd..5977fbe33b98c 100644
+--- a/Documentation/virt/kvm/x86/amd-memory-encryption.rst
++++ b/Documentation/virt/kvm/x86/amd-memory-encryption.rst
+@@ -503,7 +503,8 @@ secrets.
  
-+/*
-+ * Test that even if there are no folios yet, conversion requests are recorded
-+ * in guest_memfd.
-+ */
-+GMEM_CONVERSION_TEST_INIT_SHARED(before_allocation_shared)
-+{
-+	test_convert_to_private(t, 0, 0, 'A');
-+}
+ It is required that the GPA ranges initialized by this command have had the
+ KVM_MEMORY_ATTRIBUTE_PRIVATE attribute set in advance. See the documentation
+-for KVM_SET_MEMORY_ATTRIBUTES for more details on this aspect.
++for KVM_SET_MEMORY_ATTRIBUTES/KVM_SET_MEMORY_ATTRIBUTES2 for more details on
++this aspect.
+ 
+ Upon success, this command is not guaranteed to have processed the entire
+ range requested. Instead, the ``gfn_start``, ``uaddr``, and ``len`` fields of
+@@ -511,9 +512,14 @@ range requested. Instead, the ``gfn_start``, ``uaddr``, and ``len`` fields of
+ remaining range that has yet to be processed. The caller should continue
+ calling this command until those fields indicate the entire range has been
+ processed, e.g. ``len`` is 0, ``gfn_start`` is equal to the last GFN in the
+-range plus 1, and ``uaddr`` is the last byte of the userspace-provided source
+-buffer address plus 1. In the case where ``type`` is KVM_SEV_SNP_PAGE_TYPE_ZERO,
+-``uaddr`` will be ignored completely.
++range plus 1, and ``uaddr`` (if specified) is the last byte of the
++userspace-provided source buffer address plus 1.
 +
-+GMEM_CONVERSION_TEST_INIT_PRIVATE(before_allocation_private)
-+{
-+	test_convert_to_shared(t, 0, 0, 'A', 'B');
-+}
-+
- int main(int argc, char *argv[])
- {
- 	TEST_REQUIRE(kvm_check_cap(KVM_CAP_VM_TYPES) & BIT(KVM_X86_SW_PROTECTED_VM));
++In the case where ``type`` is KVM_SEV_SNP_PAGE_TYPE_ZERO, ``uaddr`` will be
++ignored completely. For all other page types, ``uaddr`` is optional if in-place
++conversion is enabled (i.e. when the data had been written directly to
++guest_memfd while the page was in the shared state) and is required if in-place
++conversion is disabled.
+ 
+ Parameters (in): struct  kvm_sev_snp_launch_update
+ 
+diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
+index dff684b88f153..63e8cfa9bf559 100644
+--- a/arch/x86/kvm/svm/sev.c
++++ b/arch/x86/kvm/svm/sev.c
+@@ -2400,7 +2400,7 @@ static int sev_gmem_post_populate(struct kvm *kvm, gfn_t gfn, kvm_pfn_t pfn,
+ 	 */
+ 	if (ret && !snp_page_reclaim(kvm, pfn) &&
+ 	    sev_populate_args->type == KVM_SEV_SNP_PAGE_TYPE_CPUID &&
+-	    sev_populate_args->fw_error == SEV_RET_INVALID_PARAM) {
++	    sev_populate_args->fw_error == SEV_RET_INVALID_PARAM && src_page) {
+ 		void *src_vaddr = kmap_local_page(src_page);
+ 		void *dst_vaddr = kmap_local_pfn(pfn);
+ 
+@@ -2433,8 +2433,8 @@ static int snp_launch_update(struct kvm *kvm, struct kvm_sev_cmd *argp)
+ 	if (copy_from_user(&params, u64_to_user_ptr(argp->data), sizeof(params)))
+ 		return -EFAULT;
+ 
+-	pr_debug("%s: GFN start 0x%llx length 0x%llx type %d flags %d\n", __func__,
+-		 params.gfn_start, params.len, params.type, params.flags);
++	pr_debug("%s: GFN start 0x%llx length 0x%llx type %d flags %d src %llx\n", __func__,
++		 params.gfn_start, params.len, params.type, params.flags, params.uaddr);
+ 
+ 	if (!params.len || !PAGE_ALIGNED(params.len) || params.flags ||
+ 	    (params.type != KVM_SEV_SNP_PAGE_TYPE_NORMAL &&
+@@ -2446,7 +2446,8 @@ static int snp_launch_update(struct kvm *kvm, struct kvm_sev_cmd *argp)
+ 
+ 	if (params.type == KVM_SEV_SNP_PAGE_TYPE_ZERO)
+ 		src = NULL;
+-	else if (!params.uaddr || !PAGE_ALIGNED(params.uaddr))
++	else if ((!gmem_in_place_conversion && !params.uaddr) ||
++		 !PAGE_ALIGNED(params.uaddr))
+ 		return -EINVAL;
+ 	else
+ 		src = u64_to_user_ptr(params.uaddr);
+@@ -2493,7 +2494,7 @@ static int snp_launch_update(struct kvm *kvm, struct kvm_sev_cmd *argp)
+ 
+ 	params.gfn_start += count;
+ 	params.len -= count * PAGE_SIZE;
+-	if (params.type != KVM_SEV_SNP_PAGE_TYPE_ZERO)
++	if (src && params.type != KVM_SEV_SNP_PAGE_TYPE_ZERO)
+ 		params.uaddr += count * PAGE_SIZE;
+ 
+ 	if (copy_to_user(u64_to_user_ptr(argp->data), &params, sizeof(params)))
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 1ea8198821917..05c518c9b8078 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -104,6 +104,7 @@ module_param(allow_unsafe_mappings, bool, 0444);
+ 
+ #ifdef kvm_arch_has_private_mem
+ bool __ro_after_init gmem_in_place_conversion = false;
++EXPORT_SYMBOL_FOR_KVM_INTERNAL(gmem_in_place_conversion);
+ #endif
+ 
+ /*
 
 -- 
 2.55.0.1007.g17ff1f9808-goog
