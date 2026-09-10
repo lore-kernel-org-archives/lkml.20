@@ -1,67 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDCE43E44EB;
-	Thu, 10 Sep 2026 09:21:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89FFD3DE45A
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:22:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789032099; cv=none; b=Ib6y/z55sZPBliyJ196o6Qpu6QsIsyErjHYIqEPLCXVy/x5BG4J0e/OC1BEqFn+wfVallPkvlWLY8/YDEUqxQSqf/S5uYdgDRW0X80+Zo9uausErw8EtZZ9+elcvIi+/J2JDFvJ+lmO0it7FLIlI5SfaYNfV4TwZfFuAoSrYh5g=
+	t=1789032130; cv=none; b=lguHnF4luFpO1nymCilj56ApubezA5+VpvPr2SQbBa3HzcrNunPq0VJiUhaC4N63Bkn29hiketVB2ZJvawqBPY5glT8tZSaMA+sLgJ5077YzdVOL0WaXIhFTHp3rGNZHYqoQvw3BceuRogu064fFIfgF1eYfx0b0UHLRdGpwLB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789032099; c=relaxed/simple;
-	bh=aCdo8Bbt4RuE2BEnSXUF/igiOBHVMvKWYIliqMf4Hnk=;
+	s=arc-20240116; t=1789032130; c=relaxed/simple;
+	bh=SqMaIe31ErlyZPftI1VMm9z3onoE7TnEmVuwCwe1Z8c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jZjdq5mYBL4xGQQ5nj8+BEGiyO/0oYHTt/755QpxeerOh4v8uzWFf3VCn7NBQ40gCR5NN1Al7LiLGNjTAPeVq14XOqHkwRlWOUdIFoEB7CHNqh4q5F9/T7VhJ2H6I7H2Uv9ya9SZOqSf3awCa85ReRWSQmtzVlqOBYIusj6iYEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SWenu4/b; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=lVI0CYhHq4f62lWw86c7sFhx1N3FWAXr8TV/Gb0EeO0FfMarH3lJT/wYN2g+I2jz85fGIxd+aZJ0HZkgN1HIUhYWZ/5Uxf51eNDADdVyXNX6iqrFMWnLfSBgdaFODMR8ESBAb6sXA4crdS/mwWGa26WCrSV1pjGjp312KGV3CqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=REL0V7zV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FO0aLXm+; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SWenu4/b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE2DF1F000FF;
-	Thu, 10 Sep 2026 09:21:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789032097;
-	bh=etegQPhHDYYXKpgN5HhrDD3ja2BilOp/q9xebohgcXg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SWenu4/bhQp/ebHqQ47mZ8ttape8v/6aPUf2kjB/Ld/j9zBiWoVDmMFM2WXUeFpA4
-	 Tz4kQl6h6D02ibEHqRfMCGmzm4F4W385fd4iPw4EV/b0R7FrEPUyPOdgqYghnwGSlg
-	 wlCNkIv6fYWAYcTfK4O6DgrRMLRvCHdb42c6Z5fPxcblq5pU74lnZfaSijO4QJtgql
-	 XWi5JzunvwkhvBE8/kV9Y4Q9psgLSZ8fOLaxugK+zflWpyfdSLe5ID2gv+8YzALlTs
-	 DNEG/urmvrS21JPGf+b18of+CcOKc6HBFiQHYWy3kARa8VmrNDWDGEakhoATI6H2NQ
-	 gKLgojcgqTT1g==
-Date: Thu, 10 Sep 2026 11:21:34 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Sowjanya Komatineni <skomatineni@nvidia.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Russell King <linux@armlinux.org.uk>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
-	Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
-	"T.J. Mercier" <tjmercier@google.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Chun Ng <chunn@nvidia.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Thierry Reding <thierry.reding@gmail.com>, 
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, linux-mm@kvack.org, 
-	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
-	linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
-Subject: Re: [PATCH v6 04/12] arm64/mm: Export set_direct_map_*_noflush() APIs
-Message-ID: <aqJjL-kDfl2_wwHG@orome>
-References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
- <20260904-tegra-vpr-v6-4-79042cfa8de5@nvidia.com>
- <aqJFb3VtsYtnIa1c@infradead.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="REL0V7zV";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FO0aLXm+"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A96Jqf3486533
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:22:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=6tGM9diftK82uEPdEwwEmZx3
+	599l3xHAru6r160uTxg=; b=REL0V7zVLnqqNklSk92VK2ksvnh73yn+uXTKLHJa
+	u5ee37RDZSmQNr8DYqK9BkKvuyr7VMA5Oa6ujFJloJjRdacBPvicVOMa74qSvF9A
+	MQanvxpWteCjrq8sPhgOzkWJItBWBhLMYS2NA4wsrU6dryGnJCOxlBbxZ8nx6Fqj
+	Hc5ozfR7FsG908utiitSriOOmvQ7PviR+6ErTkQYQAxy3zBw/azQQRo8HLwHWB89
+	+9aGRIg55uI+MNM5ozqnjGZOzwNvo55WT/EjcBOQZ0JpophFPRystsnrGEs5K4dC
+	0UgGNmrdymloI4GKJ5op/zuv9ayWDHJpnmqPgedlxUExHw==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gksh8r3sy-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:22:07 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91055aae7f4so15374526d6.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:22:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789032127; x=1789636927; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6tGM9diftK82uEPdEwwEmZx3599l3xHAru6r160uTxg=;
+        b=FO0aLXm+aFZnZ7Fc02jJqTVjmlZuFqI5eTdhRD8Rs2MS0mQpJXpZ+YC7/eTDdMTBNN
+         9E1pIdjXah6nu9jWKxgbUlHZxi79v46yhf4QA4kR8Oa/pru+u2GMZEaTYczCsQ9SJqxR
+         flEfnGutq0IX5n+59Peg7OyltgqegfqumhUvpbaJqTAxKMVD4JdD/sbz7QizDFjmkpJt
+         vhfsgOoICfAtZ4XBXxj+GZfbLxp1p5IMpkp9d1EHRpDMSfEdoUj/4+xuFS4JB5bWOyBQ
+         rzedTvwQ8rMd+F4qp99Mx9psAZZnKZr/Cc9HYAUDmQwy4ukUoIYDIbYq7S3VqMLkiO7Z
+         CrLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789032127; x=1789636927;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6tGM9diftK82uEPdEwwEmZx3599l3xHAru6r160uTxg=;
+        b=mteuAoJxTcyU/ehncR6TA7tLiJgzWkYXZAEQMxLDiGMZlswk4hVJexDSSRMgINp4rg
+         tWsg9k9LD81qcz5PlVfjm5atTRuHTQ+V3N8VJ5rY/dOyEYZcEvQqhOa2lMu+RNWJ1GE5
+         T/XpDZXnZ2MSj32b4Mi+5xvQnU/maYPzoX8pofT6E5DrR6LYSz6FfM8fNS+lVMljOlHe
+         +NIQHMlps2f3n8y8cPDZwSyn8XqCXY6egJ09NvrYNLp5zSmfkKRdT/UizutmekwGfxad
+         NXCCKYTSHYd0dcpW4e/5zV1g3rzO4HSf57Cldq5GEe0aqbSPQX/DCM92q6GhcEawjOMI
+         fdQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw0ATvBHWxw26+Lg1JO5VW/wAxG5IF0NmD6MrILdEECZy/BOCSGc27yT7Dfr18USi7pZGNDyy6aijAwdnI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwDb0R+aKgAYYv4FeDBgc06ziFXrb+vIJuFS2qcnw4B3yWenFo
+	kjzLzN7b7tHFKPS2qEhiRVFlPX9TSRm9E4yhvvSKj+HCv/jPVTjHaa5rxmOffoqH2G6syTBU0Ww
+	Yps0Cv+5IG23x1GaSEfwKByBs4j6Z9S/JFlmzFrEs9LYMqD0Tgv0cL1kIJsgBnzdStI8=
+X-Gm-Gg: AYBFou0oxSyquLXUmE7j6U9GVw6cL7ZiKF393Uci4+qnpgqI2tJXoDLdn8i2HLH0/9b
+	x6R2dEYBLd2Xb9QbJ66kdk6+MeeualdfW1MjLAjkpjg+NpNPuw4/qQjMS7kOsIquphcy67CqKZt
+	amBWiUXadubjHIsS/cHX7k4y9qYR/qqBYzb6Mp3GZTteVJDzirOK/D32YpCM5j+wuj1COPaHtOk
+	pkcFregLrJfEzLJOlZBCFDajjm6CeuqZEUrERHKewWxT1iOZqYMjIs5zK1b/witbnIx0daP5roH
+	sJOMTQ34hqCsxATSSFJN/RcW5yGARbz3U9vXWUUtz2s07/2dk+Voy/zjhlwMrRXoRICGptxwa2P
+	hY2KKjH8qmCI3pw==
+X-Received: by 2002:a05:620a:8801:b0:939:319f:d6e3 with SMTP id af79cd13be357-939d7e4028amr435139285a.5.1789032126631;
+        Thu, 10 Sep 2026 02:22:06 -0700 (PDT)
+X-Received: by 2002:a05:620a:8801:b0:939:319f:d6e3 with SMTP id af79cd13be357-939d7e4028amr435133485a.5.1789032126022;
+        Thu, 10 Sep 2026 02:22:06 -0700 (PDT)
+Received: from localhost ([188.216.77.92])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883a9b49sm41732270f8f.17.2026.09.10.02.22.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 02:22:05 -0700 (PDT)
+Date: Thu, 10 Sep 2026 11:22:04 +0200
+From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+To: ZhaoJinming <zhaojinming@uniontech.com>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+        Alexandre Torgue <alexandre.torgue@foss.st.com>,
+        Jose Abreu <Jose.Abreu@synopsys.com>, netdev@vger.kernel.org,
+        linux-stm32@st-md-mailman.stormreply.com,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: stmmac: fix stale descriptors and DMA mapping
+ leak on Tx map failure
+Message-ID: <aqJ2vGaushx4EL5q@lore-desk>
+References: <20260910-stmmac-fix-vlan-desc-leak-v1-1-6b07dca5e5e8@uniontech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,63 +102,117 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nc5ni6zymi4hrk6h"
+	protocol="application/pgp-signature"; boundary="KcOlHxOUPHTI2fBm"
 Content-Disposition: inline
-In-Reply-To: <aqJFb3VtsYtnIa1c@infradead.org>
+In-Reply-To: <20260910-stmmac-fix-vlan-desc-leak-v1-1-6b07dca5e5e8@uniontech.com>
+X-Proofpoint-GUID: N1uAOD8mrVphpSW42veisobRpvtXb2gR
+X-Proofpoint-ORIG-GUID: N1uAOD8mrVphpSW42veisobRpvtXb2gR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDEwNCBTYWx0ZWRfXwh110cYmaMbm
+ BI/H0Tas0Jp7Dzm/VAknGQU5c72kkgHmPIyhpWR+M/lEzAoDjfnsK383wQg3yM7OTQIDQrtRtgN
+ RBlMQuPlRkOf8RvbrAeu2Z5Q6YX5sg+ziskwcmLeLNzQhmaQIe90y3p5M50Sy+76pWoVi0zp8UA
+ zPasyuYld5GqZNtTKCN/jNJwGxYeejvnxCcFdbW/Ky2yuS3JYMAXfBTQAHQnkt39pt2qcfKHKJw
+ BQ40FeZScC6jWCfiesA2SzhLwNqexhLE7bINkkJG7mS7WEFBuFMk/g6StwQs7BV6ZXUvcVJX9ZT
+ 23+5Cp+FwvoNXWhmulvcDjng1wX4vIUxyOmNm2qeT2Vbf/rdBjf04Iqf2+z2aqwP7NG402Z2ahT
+ J2+V2b60m1yTI0E3WCfEvO8lk3v3XpPpABd6SX5jjFVUYEsv/FAmVBLibn3S6e7oSfW/TLkCoXI
+ Fqoh3ontrDz3+yVRNUw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDEwNCBTYWx0ZWRfX8+y030JYBmJ9
+ EvdSRXSNYrcmCO9ZMe/pJ08sTAjibbFemV+sVsc+JjvlkLqPeKcerXBg5Lqtg9rvSxJah+7HZaZ
+ u4TLWZZct17ffjQLtRZwi0ij/7kxhnM=
+X-Authority-Analysis: v=2.4 cv=a56lZkSF c=1 sm=1 tr=0 ts=6aa276bf cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=iHwBjlyiAAAA:8
+ a=w8qe9T3wKc6gY-gyingA:9 a=CjuIK1q_8ugA:10 a=dhHhmpoG3uERpqc57R0A:9
+ a=1HOtulTD9v-eNWfpl4qZ:22 a=uNSKXYNwxGiU6LD0JREI:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_03,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 priorityscore=1501 spamscore=0
+ adultscore=0 malwarescore=0 phishscore=0 bulkscore=0 clxscore=1015
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609100104
 
-
---nc5ni6zymi4hrk6h
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--KcOlHxOUPHTI2fBm
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 04/12] arm64/mm: Export set_direct_map_*_noflush() APIs
-MIME-Version: 1.0
 
-On Wed, Sep 09, 2026 at 10:51:43PM -0700, Christoph Hellwig wrote:
-> On Fri, Sep 04, 2026 at 12:44:55PM +0200, Thierry Reding wrote:
-> > From: Thierry Reding <treding@nvidia.com>
-> >=20
-> > Drivers that use this may want to be built as a module, so export them.
+> In stmmac_xmit(), when the DMA mapping of the linear part or of a
+
+[...]
+
+>  	if (unlikely(is_jumbo)) {
+> -		entry =3D stmmac_jumbo_frm(priv, tx_q, skb, csum_insertion);
+> -		if (unlikely(entry < 0) && (entry !=3D -EINVAL))
+> +		ret =3D stmmac_jumbo_frm(priv, tx_q, skb, csum_insertion);
+
+if jumbo_frm() returns an error on the subsequent frames, entry is not upda=
+ted
+here, so we will end up with a DMA leak. Am I missing something?
+
+
+> +		if (unlikely(ret < 0) && (ret !=3D -EINVAL))
+>  			goto dma_map_err;
+> +		entry =3D ret;
+>  	} else {
+>  		bool last_segment =3D (nfrags =3D=3D 0);
+> =20
+> @@ -4984,6 +4985,26 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb=
+, struct net_device *dev)
+> =20
+>  dma_map_err:
+>  	netdev_err(priv->dev, "Tx DMA map failed\n");
+> +
+> +	/* entry points one past the last descriptor written for this frame:
+> +	 * on failure it is the descriptor whose DMA mapping failed, so walk
+> +	 * from first_entry up to, but not including, entry.  Reset cur_tx
+> +	 * unconditionally as both stmmac_vlan_insert() and stmmac_jumbo_frm()
+> +	 * may have advanced it, and release the VLAN context descriptor.
+> +	 */
+> +	while (first_entry !=3D entry) {
+> +		desc =3D stmmac_get_tx_desc(priv, tx_q, first_entry);
+> +		stmmac_release_tx_desc(priv, desc, priv->descriptor_mode);
+> +		stmmac_free_tx_buffer(priv, &priv->dma_conf, queue, first_entry);
+> +		first_entry =3D STMMAC_NEXT_ENTRY(first_entry,
+> +						priv->dma_conf.dma_tx_size);
+> +	}
+> +
+> +	tx_q->cur_tx =3D first_tx;
+
+do we really need to update tx_q->cur_tx here?
+
+Regards,
+Lorenzo
+
+> +	if (has_vlan) {
+> +		desc =3D stmmac_get_tx_desc(priv, tx_q, first_tx);
+> +		stmmac_release_tx_desc(priv, desc, priv->descriptor_mode);
+> +	}
+>  max_sdu_err:
+>  	dev_kfree_skb(skb);
+>  	priv->xstats.tx_dropped++;
 >=20
-> That's one of the worst commit log ever.  No, we don't just export
-> core symbols dealing with the kernel direct map because
-> "Drivers that use this may want to be built as a module".
+> ---
+> base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
+> change-id: 20260909-stmmac-fix-vlan-desc-leak-f057bb061daa
 >=20
-> For one exporting this at all needs a very good justification and
-> not just hand waiving.  But more importantly if we can't avoid
-> exporting it, it needs to be exported at the tightest sensible
-> scope.  E.g. for a given module if it is so special, or a namespace
-> if it's not that special.  But in doubt we should have a proper
-> core abstraction instead of opening up direct map manipulation to
-> random modules.
+> Best regards,
+> --=20
+> ZhaoJinming <zhaojinming@uniontech.com>
+>=20
+>=20
 
-Fair points. In an earlier set of patches this was abstracted behind a
-set of set_memory_*() functions, modelled after set_memory_encrypted()
-and set_memory_decrypted(), which I think I'd still prefer, too.
-
-Is that more along the lines of what you had in mind?
-
-Thanks,
-Thierry
-
---nc5ni6zymi4hrk6h
-Content-Type: application/pgp-signature; name="signature.asc"
+--KcOlHxOUPHTI2fBm
+Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqidpsACgkQ3SOs138+
-s6GwVg//eIawY/jpVU95C05IvqaJG4LAKMlyvX0vCt0yTbFrsPQhY7RDigfanDMo
-ycZhJCp/jyLprOkhxYEUmbLqCr6cn+5taI7LSQYIjkP+XRbG7rM7vYOynCANDeOS
-uvUxtRu/8HlB0epcBAco9xhyX6Orb7w61HB8DspHAB/maQpHwCg8ce2/etTREXvK
-qXc3uVrtfrsVNKgZgNtSuHcYX5NyIIwuNKc7rwiU+Q3EFcYAF3RpG6XCrncuKajI
-GReiAWqBsyzzgM93zbemv3DKjbQkqVBl2fSZzTeguSv5KrJnFFd6n+JnHpHMPQPJ
-gg6l3zWb7P8nlPRtlEJh87sNZJ3F8nVYStP5WpaCgjFDW5WrMcTTj/SBKMQqeroe
-tgGkEMSMZAew1mtkyy5v0oaaialjMZ7796mpFs9J5GZv1PilvW/3Gn7D91zK4Yii
-N923BVwEz9EnkPER42dP9AfLUCDE0lwc4A5t7ezgKbOKLXUIfDN6zlZe3jWQ6LO3
-ALOl0JSYvlMX2izpQ4Pyl0/CSFHa5im5+5+o734Ql7U0mBOfpYYziOfPE9NJg5Xm
-hINUJ4RiAi1x2e7iP05HqJutCO2hXPdalSnK5rzuosZjqma4SvMo/Ma1P7bcFkJw
-2WDAAeRbtHk8qNOioz1Kp3UhdQCwFSP9Wa5RAtfvrmhE1X5Ap8I=
-=EeFB
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaqJ2vAAKCRA6cBh0uS2t
+rO4sAP9QplCgEOl7LHiJtVRsPPgK9CPA9e9w9UD6ia60BXo9jgD/QCPFa663G/VC
+TKZ5L1wUNGHzBoI5o+tS5xidHxQsLww=
+=LJmx
 -----END PGP SIGNATURE-----
 
---nc5ni6zymi4hrk6h--
+--KcOlHxOUPHTI2fBm--
