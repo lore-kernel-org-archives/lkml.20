@@ -1,96 +1,91 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4C7EB3C98AF;
-	Thu, 10 Sep 2026 08:43:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 610F73D413C
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:43:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789029805; cv=none; b=aml/WdPWOcFpZWgY4uwDbLEPuHk9C7ChZ6PGBPmgmzNhTHwA0tYFcczuMsXhhjcjg5Vms/pNTDj/sisaY9F3IyWD5O9epZ1Lis1ynfyRnk48o1f3QAKiJYvK5c7AHGNGWKOP0e+8N8lW6ZaDPyQhOhOowf/yOlf+YaXuiQawftY=
+	t=1789029817; cv=none; b=gh8YfJdKKVwbHFj8ZzJAUTQhlN2ybrpM1LM6rYONSmwO0ODI1kAK3bzI1ndJe1yr2nbeL4runizvbf1KcgW/1JAcg7cRh2owSc7u9tKcC1WyfuVrrMpTWyyWUvQ5hLQqLhSzsy/CBDVK7P2GpVBObBpsm37wZSdYO/a4DhIEJTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789029805; c=relaxed/simple;
-	bh=pZUMNn7G6bEmWkSQbLz54BigM3O4mPAIKyE7XJ1QN/I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VYnQEzxZLN5GwxzTA4/kQtQpVl7LKa2XPeK61qg7yqIwhjx2w2KS9toxbQQEmjv/hdo9MSJBP//mMIlbD8/SIhmzYQ7TKo3ZOFLeDouDrgWX0UK2Rvi0By31qdQYRdUYmMg1273feRpUmm4E66tKi0o/39NBWnrfFWiNK2p1ECg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=EHjRVZpn; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789029817; c=relaxed/simple;
+	bh=SRKp64lnNA77dUylf7XN64gLz/cHoFfXPA1J0Sc1KA0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=NmNkeP9nO9ARVz/3Uoa6AgHhYzR8S/A3Tg3RjWOqcnX7Pisu/y7hb7tw6qtF1AGsSCBpIh+sFkYdFMWCtkHLKZ4pCpSJLryfZzovmNjPS3ifn+72cq6F1JIhCFacRk4Rdf80Oy2/Lsnzo5hRIJJdNiSo92RRFIW3FuwLMN8dSJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=LriDdKDr; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=kvbAzSlM; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="EHjRVZpn"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EA6D81570;
-	Thu, 10 Sep 2026 01:43:18 -0700 (PDT)
-Received: from [10.0.129.245] (unknown [10.0.129.245])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A30433F7B4;
-	Thu, 10 Sep 2026 01:43:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789029802; bh=pZUMNn7G6bEmWkSQbLz54BigM3O4mPAIKyE7XJ1QN/I=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=EHjRVZpnJR2Yspv1pcvSj5E8gglrpU8NcIRqk/eLWDvSmVhmkEnt5wHKbiTXtnFSU
-	 vm/P1PsmftSvQMuEhWVLOoJYES5EwyAheGCUV7Jar3sxHe6GayFDDE1GnvT012cb3G
-	 h34jwHoi3ZpFOpzyb3GvlaGfqIIVa8VCneQYTc48=
-Message-ID: <40d3312a-c695-44ed-857a-fc6bf293f3e6@arm.com>
-Date: Thu, 10 Sep 2026 09:43:17 +0100
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="LriDdKDr";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="kvbAzSlM"
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789029809;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SRKp64lnNA77dUylf7XN64gLz/cHoFfXPA1J0Sc1KA0=;
+	b=LriDdKDrcYC7k/oKtbFe8PjrGbTz8K+1ND9KQkeLBSgMxwFFCPeeUsYRBTVqBrhN2aFMXZ
+	HvsrR5AjWjpZpzWDP7qakP1KrI+Su4Y+rrmXeczbA1oBuU+KvZe47UnUsqJ+bH4sPlwxjF
+	/Z/7l++hRgIXIgY99uQJvBrfpY20YPabqt4Vi2XLSeQJ3cmONFHhwIthyMSOeEqlQaBpP3
+	EGDw97CJHxs1rZY0jHa8bXE4ViGH9DEnSf0PLDSrpz0VloFnAx1i93h+rJsCMGvC3X4vSd
+	qNJ4m0PE31lPmKF+tIP+Wid4lfGHQNTRG/0HFjDl5S1xKW7LQjbZGLK2B+U6RA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789029809;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SRKp64lnNA77dUylf7XN64gLz/cHoFfXPA1J0Sc1KA0=;
+	b=kvbAzSlMuECbTwo5ZVuNwHjLZkb7duC66H9dryUK+kGp3Fo+Cx7rHLFbbJiZijjjlDimoB
+	q/f6bAFzHzRPpdCw==
+To: Aditya Chillara <aditya.chillara@oss.qualcomm.com>, Petr Mladek
+ <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, Sergey
+ Senozhatsky <senozhatsky@chromium.org>
+Cc: linux-kernel@vger.kernel.org, Aditya Chillara
+ <aditya.chillara@oss.qualcomm.com>
+Subject: Re: [PATCH v2] stop_machine: Defer legacy console flushes while a
+ CPU runs a stopper callback
+In-Reply-To: <20260910-defer-legacy-console-write-on-multi_cpu_stop-v2-1-88324d2f4e7f@oss.qualcomm.com>
+References: <20260910-defer-legacy-console-write-on-multi_cpu_stop-v2-1-88324d2f4e7f@oss.qualcomm.com>
+Date: Thu, 10 Sep 2026 10:49:28 +0206
+Message-ID: <87fqzhts27.fsf@jogness.linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 06/20] KVM: arm64: CCA: Add a new mode for supporting
- Realm guests
-Content-Language: en-GB
-To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260908162223.1683432-1-suzuki.poulose@arm.com>
- <20260908162223.1683432-7-suzuki.poulose@arm.com>
- <e66698e1-e582-4ff8-9881-4ddda5bc1d94@redhat.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <e66698e1-e582-4ff8-9881-4ddda5bc1d94@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On 10/09/2026 06:53, Gavin Shan wrote:
-> Hi Suzuki,
-> 
-> On 9/9/26 2:22 AM, Suzuki K Poulose wrote:
->> Add an explicit mode to support Arm CCA guests.
->>
->> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->> ---
->>   Documentation/admin-guide/kernel-parameters.txt | 3 +++
->>   arch/arm64/include/asm/kvm_host.h               | 1 +
->>   arch/arm64/kvm/arm.c                            | 5 +++++
->>   3 files changed, 9 insertions(+)
->>
->> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/ 
->> Documentation/admin-guide/kernel-parameters.txt
->> index 68647ff4bdd24..1afe3df3b923e 100644
->> --- a/Documentation/admin-guide/kernel-parameters.txt
->> +++ b/Documentation/admin-guide/kernel-parameters.txt
->> @@ -3256,6 +3256,9 @@ Kernel parameters
->>               nested: VHE-based mode with support for nested
->>                   virtualization. Requires at least ARMv8.4
->>                   hardware (with FEAT_NV2).
->> +            rmm: Support for running confidential guests in Realm
->> +                 world using RMM, as defined by Arm Confidential
->> +                 Compute Architecture (CCA)
->>
-> 
-> I'm not sure, but 'realm' would be more appropriate name. rmm (Real 
-> Management Monitor) is
-> the term limited to the firmware to me. Besides, we have been using 
-> 'realm' broadly in this
-> series like kvm_vm_is_realm(), kvm_realm_state() and so on.
+On 2026-09-10, Aditya Chillara <aditya.chillara@oss.qualcomm.com> wrote:
+> The cpu stopper thread runs above every other scheduling class, so while a
+> stopper callback executes, nothing else on that CPU is scheduled. If such a
+> callback emits a normal-priority printk(), the legacy console path can
+> synchronously flush the pending console backlog. On systems with a slow
+> UART and a large backlog, this holds the CPU long enough to starve RT
+> kthreads such as the watchdog pet, and for multi_cpu_stop() prevents the
+> CPU from advancing the state machine while the other CPUs wait. The
+> resulting delay can prevent watchdog servicing long enough to trigger a
+> watchdog bark or bite.
+>
+> The same can happen from an interrupt taken during the callback:
+> multi_cpu_stop() keeps interrupts enabled during MULTI_STOP_PREPARE, and a
+> printk() may be emitted from a softirq run on irq exit.
+>
+> Run CPU stopper callbacks in printk-deferred context to prevent legacy
+> console flushes while they execute.
+>
+> Signed-off-by: Aditya Chillara <aditya.chillara@oss.qualcomm.com>
 
-May be. But we use the "mode" of the hypervisor in question here, 
-mostly. e.g., nvhe, vhe, protected etc. So, I went with RMM (in favor
-of CCA). Does that make sense ? Also, we rely on firmware/arm_rmm for
-the support. So, it kind of make sense to keep it "rmm" ?
+Reviewed-by: John Ogness <john.ogness@linutronix.de>
 
-Cheers
-Suzuki
+> Heavy SELinux denial logging had built up a large backlog on the
+> console. One CPU took an interrupt while spinning in MULTI_STOP_PREPARE.
+> Handling it eventually led to a printk(), and because the console was a
+> legacy console, that printk() synchronously drained the whole backlog
+> over the slow UART.
+
+Note that with the new nbcon consoles, this will still happen if the CPU
+is in an emergency state (WARN/panic), but that is the intended
+behavior.
+
+John
