@@ -1,262 +1,298 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013028.outbound.protection.outlook.com [40.107.162.28])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7988E4FDE6C;
-	Thu, 10 Sep 2026 16:26:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789057599; cv=fail; b=khMOhdN60v1oH4PmtfeiAkda1oQr5svfmsM5yjEMteztaTosvmXyKlBEjAC89jHhEYChcKOWqVd//WVapt1PAOXCsYezFahd4w6Qsq7yDeXSLlkXHoz+75il3yiCFAXQNcoWb4LyWIlrXaU8TkKVCNYLqjwQj1DTJJdm/xe/Hlc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789057599; c=relaxed/simple;
-	bh=iC1BNZj61U7UCVwaXSwNwEiOPVbtOt9Fg2rN53FNzRA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=EOj2YGzs5ieNEgzcWhPyp8gF6/BEPr8pxkvbDrVdz4Wp+vbxwHfsJWFX810iIYzi6nWgsviNkW7z5OZHAICGMpAoPLcZvbeK/CVCq18g1J+t7fus7PeGFJZa4GVbKP0p+FzDbs2p/xz2HgSg0lpf/VgSJjuAsViyk8c3gOi3WhA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=NHrV4XuF; arc=fail smtp.client-ip=40.107.162.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE7435C6A3
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:27:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789057633; cv=none; b=oR8jBeCKCMYpc6BU6TJCzbsWsjD9w3dFfXsnb5dysWKKeDPqAKscNnMAC253rscjiGRinDBxWdVy/3MdSaUIcOCdRYjSTbg7JElV31Wo3cY3qO3f+B8ntghMd3sH+8zuQyeHbvdO02Ikir9tVpaU+HzMufRRrXnb6sDU/tNPPaw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789057633; c=relaxed/simple;
+	bh=OR/0aL75NB6kFfjOqwZgJyYvWo9KOsGN/WkMJwy+cPM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Vt99E/8ENYLqCe0xtshv1aSNlYwFtMZjS0IpgUg4OvrwKWjpu0Sva+G/wL3X3zsvW2xAHAbMee+yxHESNoqIL+hv2zzpIE1Bi/XTQoUVoXg6sFGiH8d0J1l0NtZs7p6ruFH0Vp6K1LhVxe7OktxtijMyQZSJmnDxby3gJ+cwYBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=eDvzTLMQ; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="NHrV4XuF"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eZEXKDlufwgROnDlTXgJ5cFDpaKDhSjk3+AUjm1d7ChnL4FMTfBtNmG54aVW7TrWVFnWSHtXd6Cp0tQIq70/DS+0xc8I6Nec9SA4MpoqaYPtwdfeJ5TkA8xs+zPV2St750RvOz9CUwJjVnqULkERF5ReQHjJpk0kD6AQa3xIHuMlSGupqeiIQ+C7sQi0Anek6Ue8h7shbf0cLIkHovLK4ctb5H+vNnhveBGiRUEzNWIgAAb9RwrjY3uPB0FEPx4mOmuvHnbdCzuX4v4ZI3CI+Ud7QRDL0YlEwqEJKjUS5QU/yvfpVYL3fF1iNNtfCrhLRjxEvS/U6lv0EMdvIIeT1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kPUTII5jib0Plmd2JAI4VZ2bRIQ0d18sbZnWQYHBjDA=;
- b=iE8OHJBG1xlVy9brB58RPkLAYhLbVsYzLSB0RXdxfR7+KKtseUm4Ecw4JFlRkML3YnTtrm16wswh2kVswtygkxfBPXiE7L4zF+KgOqFKYxXLyOcmBWru2M7uuegOkliW2SrGaOl5Qd9pNIFDHxWMnJcdKksxazr+HB6OZK0Cj5o3awrZDlG++w+GeQN5QqnCzi8IuMnRjSFtC7CES3k+XLilw89CfZRMgFY0mAel9aokJl3HxDoDliyLhW7oYyFHGmv/aHAH5bvlesLBdmrwhe22TA9JWVmQJ754XP36Wh+18AI3R3YYk8Q0ojyKk9PrDsgk8zgsabBZ4XV5vW4NGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kPUTII5jib0Plmd2JAI4VZ2bRIQ0d18sbZnWQYHBjDA=;
- b=NHrV4XuFqEU7MsMf4+6K9g/LGmiyftBPb0FCt7XU0QKFVxvQ4f6409VWrSz+pYG9OUZf+bs+AM3Re88jlN58HDJjp38SATax1tQLSvr2MjDmAx0IoEYQ4cOEmTWWNG5e/VD1Jka/OnDt5UVXwPPlnawddb10jzoRsmT8+p/hWK/7ovUoZQmK7JVXC5q/uLuDTFdWc8MvD3LjxsFBQX6GGYYS+3IIUbFsGJhJQ8i9P90/R0Qo4HQdbHLZ/n7yhWkUoYjlRBV1lkTXxTjYa7zIuSfBJViOMSY68dVBv0AIg2uiETEzJUiGgaBJUt2yzjH0/d5JT3UybuFTXtzpH5ci9w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS8PR04MB8293.eurprd04.prod.outlook.com (2603:10a6:20b:3fa::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 16:26:33 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
- 16:26:33 +0000
-Date: Thu, 10 Sep 2026 11:26:22 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-Subject: Re: [PATCH 3/6] dt-bindings: connector: Add Toradex camera connector
-Message-ID: <aqLaLmz7n31P6igy@SMW015318>
-References: <20260910-verdin-imx8mp-hmp-camera-ready-v1-0-3c9349ecdb9f@toradex.com>
- <20260910-verdin-imx8mp-hmp-camera-ready-v1-3-3c9349ecdb9f@toradex.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910-verdin-imx8mp-hmp-camera-ready-v1-3-3c9349ecdb9f@toradex.com>
-X-ClientProxiedBy: CY5PR15CA0238.namprd15.prod.outlook.com
- (2603:10b6:930:66::9) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eDvzTLMQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789057621;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=1puZjxs3lQ0OZGjrziHtT77SfFjdKoASATdow4jmCoE=;
+	b=eDvzTLMQD1zk/gF2P1wYfL/knlCJKtqGxuq9L1nx7f55iGLirlEH0FAkCRPpuIskqXIixQ
+	wwn04Zu3hJCdkQvB5U0/8dPcSsim+hU2f4wt40ZswRyJY0FxqnWOrj0kPVlJRdHa+Nqrsh
+	n434uqSSJs5/3KKpJoCVSIoygBwxOX4=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-212-KUPKdFIrNTa6Fvcwg-c9oA-1; Thu,
+ 10 Sep 2026 12:26:55 -0400
+X-MC-Unique: KUPKdFIrNTa6Fvcwg-c9oA-1
+X-Mimecast-MFC-AGG-ID: KUPKdFIrNTa6Fvcwg-c9oA_1789057610
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 433171955E7A;
+	Thu, 10 Sep 2026 16:26:49 +0000 (UTC)
+Received: from bfoster (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D1D101800351;
+	Thu, 10 Sep 2026 16:26:43 +0000 (UTC)
+Date: Thu, 10 Sep 2026 12:26:41 -0400
+From: Brian Foster <bfoster@redhat.com>
+To: Zhang Yi <yi.zhang@huaweicloud.com>
+Cc: linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org,
+	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
+	surenb@google.com, mhocko@suse.com, hughd@google.com,
+	baolin.wang@linux.alibaba.com, willy@infradead.org, jack@suse.cz,
+	ziy@nvidia.com, joannelkoong@gmail.com, djwong@kernel.org,
+	yi.zhang@huawei.com, yizhang089@gmail.com, yangerkun@huawei.com,
+	chengzhihao1@huawei.com, wangkefeng.wang@huawei.com,
+	yukuai@fnnas.com
+Subject: Re: [PATCH v2] mm/truncate: fix data loss when truncating straddling
+ large folios
+Message-ID: <aqLaQcZvaFIrAz0e@bfoster>
+References: <20260909062339.473816-1-yi.zhang@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB8293:EE_
-X-MS-Office365-Filtering-Correlation-Id: eabc1c01-4576-448a-5b90-08df0f58469b
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|1800799024|23010399003|376014|7416014|10067099003|6133799003|3023799007|22082099003|18002099003|56012099006|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	jMKRGq6Xv/C0uqd+S0o2smxa7hyQ3RrB+Wa44FOc7sbEFkMSrvUpbbVxD+eFkaGYEy/tHpGFXKWGFhmcy80bpVpg5DoRif2Iw3lqvW9bnpWE4vtyzi4x1fq8rtf5aHLJS73zWx4rpb/Xg8GDFpaz70e0ROHBHOcoeJBNJ32Lg9d9g0ijaQTyTclyZvAcjrFChTYeHuCdsptmSmrp9Z6mF2n3UQYWn3o9OGfn2chr+y8CEtbHJDakzd7Cy2GD5YQWj3bBKxQBTKIJIQKQdg/mMotYYjTZXPrC7iBV1P+v8AC5AMQJYgtmDZPUHv97wSLtMQz04SIY1uA+dDz/z0sKs5HWyO4+my9Z1Sw97MWN6fUmOcTmNk9fexJjnU4CgTv3BgqntDGCexq9UshF/slAgCGwKH28n1xs0idQvTS8SBwjhiJQn38kss2aV1BTr8bnH6UeG+QknAJxBN0qUKcmlcoPc+iHriwilCWLgt0v44vxxN9KyeFotlbhhIRTKMs7zgRYhcAbp2cgiEQgT4OmWrkMvtEPsBUC+/Z1pfHBqzBeyTvzm2UEocyi9NEZ47BAZPMuHspsaKJjoGTX3ZHijYXdZHXGbtwMA/vEBQ+AOjFpfMx4hUnDDmtCJILYJ3Wu
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(23010399003)(376014)(7416014)(10067099003)(6133799003)(3023799007)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?f4jJf6nWfT45VeHiUeWuKhh4k71//aGM6h/xzVs+ab8qKf5rHtR3cXALwipM?=
- =?us-ascii?Q?anGEXi0r7tC275BryBd9Zxgz3DPRp5ACwnpEv87dGC4QeOoDt85NzoI0ANSY?=
- =?us-ascii?Q?uxclEYA8w82c48au6v/EvLDlR2rebqO9wqFwALdkA0aohgmRxn5gZdrGl4PF?=
- =?us-ascii?Q?zPLOxwXkIhuE+hZZZxfTymzZB9IGIF3rl/xrX3lJ+YA6TD8JXbZJoHv4gHb+?=
- =?us-ascii?Q?TcTW+Ojx8sX0t93QtKtayZZz5uqh9WgBhZELMyg9eWm3RjG6NF5+AuRHDo3K?=
- =?us-ascii?Q?cePcA2uhUB8cCBLTbysEylUJSyXNZVRZeO4fwio+eCaOXHcnKHjb6BWiB1me?=
- =?us-ascii?Q?gRtyM9RJcZDP4JUfAB0ziTdDNmMLjlYWLS7L6IN6jbb1BFh0kefghzw8B8i2?=
- =?us-ascii?Q?9pQuVhtAKHFt0IzCKLzvrOLGq8Xxlqkz3udpO5G6VurteyFpA+oZztK9paQW?=
- =?us-ascii?Q?D4W/2999180PKJPlzFnuIc0SMUp2mU0ACidX1fWZOWUZCC2wHc2+xnIKvX7n?=
- =?us-ascii?Q?uyM88yUSh49YRKyLVmQbQkX4+fVXODVZt9wXgzmrdRuKfWuH1V996rABoGxs?=
- =?us-ascii?Q?itXJ5uD/eKDYgEJB17svsUGtwqw1UUbS270YV5LZ+xKLzdRgkUVE9oFvqhyt?=
- =?us-ascii?Q?ZkjIdyIqemSXtp18H6w7ju7VVT9UmkJ+4V7rRP0tm3lc4AUpnj93kNvLnOLk?=
- =?us-ascii?Q?fVWIbYCXVtlnrlq/p/Wu9GhCxE/LGIqM2jy8MqGGRIREH3ONa0QjnbaBHX3B?=
- =?us-ascii?Q?CMPhVuGpR52diiNlMiwJObUy4qiAENw7cvkqbBKM467ps2gNUR+NV7GwI8Jz?=
- =?us-ascii?Q?QJuA4KL8yrKQhPsSIfO3NowKrTBK7/ceVH4R6IJDl7ZNwvzpmsebT8YYVe0C?=
- =?us-ascii?Q?6v+Fp2ODDZ9B0YwapvmpMOUew1FAC9nCTJDiHN6mbBV+Qap3tdBbx/OdT1aD?=
- =?us-ascii?Q?5YzwiHWZcHMnmuSK6xUpuNue7itZIGYxiqUC7J4B/ZHFZnvUeUQtyAFwVctn?=
- =?us-ascii?Q?Eo7otKndAgqUeIAh9TF5Cr0sh/t842aqrmeuMEvMrMIzO5MMfTnp4pLcs8aR?=
- =?us-ascii?Q?z/bAVREg87kJm68/Sp+XYlpAVt7feD4BpbO7gWfZJuek5pdn5oiGSsgQBTV5?=
- =?us-ascii?Q?qBbtmG87ijleRm9ZmMlN2tTSimWha5ler6smv5IilS27JjZG/cwbHwVnyMSG?=
- =?us-ascii?Q?a//84CPjOOenO5Td2SSQYgxqNk/FVGyhJRglycE1IMmPBDBSD+Z1irFM9dHs?=
- =?us-ascii?Q?bivdgy+MFwLDc1ajmosgOeSFo44ZECsEQ07ujixKnCl/UmOohE1XO4jzyVQc?=
- =?us-ascii?Q?hsK4L1PrwTtf5vT9hFbm2kCuZHrQKvSVScjt7ffogm3Oy74Lt022DF0cuNmz?=
- =?us-ascii?Q?U5ww2018Wa52PKByezeAhWbN5uMaQVb12B6eIlGTT6XKvpDoRKEU8yEF2lxZ?=
- =?us-ascii?Q?/SQKQth5pG+z+J9HNf097eQnxsmJz7l6RFlQgOI3kXCII3r3TfsivadCuZih?=
- =?us-ascii?Q?QLhM3ki4wzAzynDO8K6vdnox5RL1b0HdnYXbISfH4OFw4YMw8+V4QijA+ukZ?=
- =?us-ascii?Q?FSkWUDDOBIcD5AzHxnuv7Iljols7Y0XqjGRYF8qVxz0snkS5aATKrvLoJ05c?=
- =?us-ascii?Q?U58HsLErl2mhBwl1D8gYdmZhCmt8MO12psHNHNbrNHpkGE9dW60pI/lIULEi?=
- =?us-ascii?Q?w6KcWvUUKpTTjUrNu5ADRRMyZ1OgdU6ruUuZsrKD6nZ7tk1AzUjzBmUTgUzM?=
- =?us-ascii?Q?fbqfymdvs23t4bSztA+pjdyuzNCMzsHbp1J5W0SSJBsvtkN4fDk4?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eabc1c01-4576-448a-5b90-08df0f58469b
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 16:26:32.8906
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vUz79t3hjBGoN1iw8MrO0hPUuoZBE0jYnksh5Ad6I0EUtJcdaJ8aMTVepYQU7tMsV9aDYk+MlWliBsqAHjkAZDHoW9onaQx1+7/VjBkgB5BS3L59hQufNhKtCPYJ9/hF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8293
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909062339.473816-1-yi.zhang@huaweicloud.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On Thu, Sep 10, 2026 at 05:37:59PM +0200, Ernest Van Hoecke wrote:
-> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
->
-> Toradex boards route the sideband signals of their 24-pin camera
-> connectors to different GPIO controllers. Camera overlays which name
-> those controllers directly must therefore be duplicated for each host
-> board.
->
-> Describe reset, power-down, detection and power-control as
-> connector-local GPIO functions. This lets an accessory overlay remain
-> independent of the host wiring. MIPI CSI-2, I2C, clocks and supplies
-> remain described separately because the GPIO nexus does not abstract
-> them.
->
-> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+On Wed, Sep 09, 2026 at 02:23:39PM +0800, Zhang Yi wrote:
+> From: Zhang Yi <yi.zhang@huawei.com>
+> 
+> truncate_inode_partial_folio() splits a large folio so that the caller's
+> truncate loop can drop the in-range sub-folios while keeping the
+> out-of-range tail. The first split at the punch start edge is
+> non-uniform, which leaves the sub-folio at the truncation end edge as
+> large as possible, this means it may still straddle the range, holding
+> both zeroed in-range and valid out-of-range data. The function then
+> attempts a second split at offset + length to isolate that tail.
+> 
+> If the second split fails the straddling sub-folio stays merged. The
+> function returned true unconditionally on all exit paths of the success
+> block, telling the caller it was fully handled. The caller kept its
+> default end and the truncate loop truncated every sub-folio below it,
+> including the merged straddler, discarding the valid out-of-range tail.
+> 
+> For example, a 4-page order-2 folio punched from offset 0 to the middle
+> of the last page:
+> 
+>   truncate_inode_pages_range()
+>     truncate_inode_partial_folio()      # same_folio == true
+>       1st split at page0 -> [p0, p1, p2-3]   # non-uniform, success
+>       folio2 = p2-3 # straddles: p2 zeroed, p3 tail valid
+>       2nd split of folio2 fails / cannot lock
+>       return true                       # BUG: caller keeps default end
+>     end = 3
+>     loop truncates p0, p1, p2-3        # p3's valid tail is lost
+> 
+> This became reachable after commit 7460b470a131 ("mm/truncate: use
+> folio_split() in truncate operation") replaced the atomic split_folio()
+> with folio_split(), whose non-uniform split can partially split a folio
+> and leave the end edge merged.
+> 
+> It has gone unnoticed because a dirty large folio normally carries the
+> filesystem's private data, for example buffer_head, so
+> filemap_release_folio() -> iomap_release_folio() returns false on a
+> dirty folio and folio_split() aborts with -EBUSY before any split,
+> leaving the straddler safely unsplit. The bug is only reachable on paths
+> that produce dirty large folios without filesystem private data, and it
+> was caught on the upcoming ext4 iomap buffered I/O path when no ifs is
+> attached.
+> 
+> In addition, even when both splits succeed, data can still be lost when
+> the mapping's minimum folio order (min_order) is non-zero. folio_split()
+> stops at min_order instead of order 0, so the sub-folio containing a
+> split point stays aligned to 1 << min_order rather than to a page. The
+> original success path left start at the page-aligned head of the range
+> and set end to the exact page index of the end edge, neither of which is
+> a folio boundary in general. Either one could land inside the large
+> folio at its edge, and the truncate loop would drop that straddling
+> folio together with its valid out-of-range tail.
+> 
+> For example, a 64K (order-4) folio with min_order = 2 punched from
+> offset 0 to 36K:
+> 
+>   truncate_inode_pages_range()
+>     truncate_inode_partial_folio()        # same_folio == true
+>       1st split at p0 -> [p0-p3, p4-p7, p8-p15]  # non-uniform, min_order
+>       folio2 = p8-p15 # straddles: p8 in range, p9-p15 tail valid
+>       2nd split of folio2 -> [p8-p11, p12-p15]   # success
+>       end = p9                           # BUG: p9 inside [p8-p11]
+>     loop truncates ... p8-p11           # p9-p11's valid tail is lost
+> 
+> Rework the contract so the caller is told the page range to discard:
+> 
+>   - Return true only when a split occurred, false otherwise. This
+>     clarifies the existing confusing return value semantics.
+> 
+>   - Add pgoff_t *pstart and *pend out-parameters that receive the page
+>     range fully covered by [lstart, lend] after any split (or none),
+>     i.e. the pages wholly within the range and safe to discard. They are
+>     aligned up (pstart) and down (pend) to the mapping's minimum folio
+>     order so they always fall on a folio boundary.
+> 
+>   - Rename the byte-range parameters start/end to lstart/lend to avoid
+>     clashing with the new outputs and to separate byte offsets from
+>     folio indices.
+> 
+> Callers in truncate_inode_pages_range() and shmem_undo_range() pass
+> &pstart for the folio at the start edge and &pend for the folio at the
+> end edge, so the truncate loop drops exactly the fully covered pages and
+> never touches a straddling folio that still holds valid out-of-range
+> data.
+> 
+> Suggested-by: Brian Foster <bfoster@redhat.com>
+> Link: https://lore.kernel.org/linux-fsdevel/anH-WKA1coW6wtfG@bfoster/
+> Fixes: 7460b470a131 ("mm/truncate: use folio_split() in truncate operation")
+> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
 > ---
->  .../connector/toradex,camera-connector.yaml        | 86 ++++++++++++++++++++++
->  1 file changed, 86 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml b/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml
-> new file mode 100644
-> index 000000000000..06e6836e1aa6
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml
-> @@ -0,0 +1,86 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/connector/toradex,camera-connector.yaml#
-> +$schema: http://devicetree.org/meta-schemas/base.yaml#
-> +
-> +title: Toradex camera connector GPIO nexus
-> +
-> +maintainers:
-> +  - Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> +  - Toradex Linux BSP Team <linux-bsp@toradex.com>
-> +
-> +description: |
-> +  Toradex boards provide 24-pin camera connectors carrying MIPI CSI-2, I2C,
-> +  clock, power, and sideband GPIO signals. This binding describes the sideband
-> +  signals as a GPIO nexus. The other connector resources remain described by
-> +  the surrounding board device tree.
-> +
-> +  The nexus exposes connector-local GPIO function numbers to camera overlays
-> +  and maps the functions wired by a carrier board to their GPIO controllers.
-> +  GPIO specifiers contain a function number followed by standard GPIO flags.
-> +  A board may omit functions which it does not wire.
-> +
-> +  The function numbers are:
-> +    - 0: Camera reset, connector pin 11
-> +    - 1: Camera power-down, connector pin 22
-> +    - 2: Camera identification, connector pin 23
-> +    - 3: Camera power control, connector pin 24
-> +
-> +properties:
-> +  compatible:
-> +    const: toradex,camera-connector
+> v1->v2:
+>  - Export pstart as a new parameter so that the generic and shmem
+>    truncate paths don't need to recompute the start value from the
+>    return value. (Brian)
+>  - When min_order is nonzero, align [pstart, pend] to the inner
+>    boundaries of the folio to ensure they do not point into the middle
+>    of a large folio, which could otherwise cause valid data within the
+>    folio to be incorrectly cleared. (Joanne)
+> 
+> v1: https://lore.kernel.org/linux-mm/20260903115018.2034541-1-yi.zhang@huaweicloud.com/
+> 
 
-Name is too generally, suggest use board name, we got similar comments at
+Hi Zhang,
 
-https://lore.kernel.org/imx/20260629074734.3643227-2-chancel.liu@oss.nxp.com/
+Thanks for the tweaks. I still found some of the logic circuitous as I
+read through it so I spent some time playing with this just to
+experiment with cleaning it up a bit. I ended up removing a couple of
+the labels, lifting the pstart/pend assignment to a default init/case,
+and reshuffling the split case pstart/pend assignments in a way that I
+think also elides the need for the boolean or using folio2. (I'm curious
+if this happens to address the Sashiko feedback as well..?)
 
-> +
-> +  "#gpio-cells":
-> +    const: 2
-> +
-> +  gpio-map:
-> +    minItems: 1
-> +    maxItems: 4
-> +
-> +  gpio-map-mask:
-> +    items:
-> +      - const: 0xffffffff
+Note that this is completely untested and needs further review. Since
+the current patch looked mostly Ok to me functionally (though I do agree
+with the comment about possibly splitting up into smaller changes) and
+has other reviews, I'm just posting this as an FYI. Here's a diff of the
+changes I made on top of this patch (Assisted-by: LLM, fwiw). Feel free
+to use some, all or none of it. Thanks!
 
-are you sure need full 32bit, only 4 pin, maybe 0xf should enough?
+Brian
 
-> +      - const: 0
-> +
-> +  gpio-map-pass-thru:
-> +    items:
-> +      - const: 0
-> +      - const: 0xffffffff
-> +
+--- 8< ---
 
-missed
-	gpio-controller: true
+diff --git a/mm/truncate.c b/mm/truncate.c
+index d88a1b159084..8da16d7e6763 100644
+--- a/mm/truncate.c
++++ b/mm/truncate.c
+@@ -237,10 +237,16 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
+ 	else
+ 		length = lend + 1 - pos - offset;
+ 
++	if (pstart)
++		*pstart = offset ? folio_next_index(folio) : folio->index;
++	if (pend)
++		*pend = (pos + size > (u64)lend) ? folio->index :
++						   folio_next_index(folio);
++
+ 	folio_wait_writeback(folio);
+ 	if (length == size) {
+ 		truncate_inode_folio(folio->mapping, folio);
+-		goto no_split;
++		return false;
+ 	}
+ 
+ 	/*
+@@ -254,7 +260,7 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
+ 	if (folio_needs_release(folio))
+ 		folio_invalidate(folio, offset, length);
+ 	if (!folio_test_large(folio))
+-		goto no_split;
++		return false;
+ 
+ 	min_order = mapping_min_folio_order(folio->mapping);
+ 	min_nrbytes = mapping_min_folio_nrbytes(folio->mapping);
+@@ -266,29 +272,30 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
+ 		 * for shmem truncate
+ 		 */
+ 		struct folio *folio2;
+-		bool tail_isolated = true;
+ 
+-		if (pend)
+-			*pend = round_down(pos + offset + length,
++		if (pstart)
++			*pstart = round_up(pos + offset,
+ 					   min_nrbytes) >> PAGE_SHIFT;
+ 
+-		if (offset + length == size)
+-			goto split;
++		if (offset + length == size) {
++			if (pend)
++				*pend = round_down(pos + offset + length,
++						   min_nrbytes) >> PAGE_SHIFT;
++			return true;
++		}
+ retry:
+ 		split_at2 = folio_page(folio,
+ 				PAGE_ALIGN_DOWN(offset + length) / PAGE_SIZE);
+ 		folio2 = page_folio(split_at2);
+ 
+ 		if (!folio_try_get(folio2))
+-			goto split;
++			return true;
+ 
+ 		if (!folio_test_large(folio2))
+ 			goto out;
+ 
+-		if (!folio_trylock(folio2)) {
+-			tail_isolated = false;
++		if (!folio_trylock(folio2))
+ 			goto out;
+-		}
+ 
+ 		/*
+ 		 * split_at2 may no longer belong to folio2 due to concurrent
+@@ -304,28 +311,18 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
+ 		/* make sure folio2 is large and does not change its mapping */
+ 		if (folio_test_large(folio2) &&
+ 		    folio2->mapping == folio->mapping &&
+-		    folio_split_or_unmap(folio2, split_at2, min_order))
+-			tail_isolated = false;
++		    !folio_split_or_unmap(folio2, split_at2, min_order) &&
++		    pend)
++			*pend = round_down(pos + offset + length,
++					   min_nrbytes) >> PAGE_SHIFT;
+ 
+ 		folio_unlock(folio2);
+ out:
+-		if (!tail_isolated && pend)
+-			*pend = folio2->index;
+ 		folio_put(folio2);
+-split:
+-		if (pstart)
+-			*pstart = round_up(pos + offset,
+-					   min_nrbytes) >> PAGE_SHIFT;
+ 		return true;
+ 	}
+ 	if (!folio_test_dirty(folio))
+ 		truncate_inode_folio(folio->mapping, folio);
+-no_split:
+-	if (pstart)
+-		*pstart = offset ? folio_next_index(folio) : folio->index;
+-	if (pend)
+-		*pend = (pos + size > (u64)lend) ? folio->index :
+-						   folio_next_index(folio);
+ 	return false;
+ }
 
-> +required:
-> +  - compatible
-> +  - "#gpio-cells"
-> +  - gpio-map
-> +  - gpio-map-mask
-> +  - gpio-map-pass-thru
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    camera-connector {
-> +        compatible = "toradex,camera-connector";
-> +        #gpio-cells = <2>;
-> +        /*
-> +         * 0: Camera reset, connector pin 11
-> +         * 1: Camera power-down, connector pin 22
-> +         * 2: Camera identification, connector pin 23
-> +         * 3: Camera power control, connector pin 24
-> +         */
-> +        gpio-map = <0 0 &gpio1 0 GPIO_ACTIVE_HIGH>,
-> +                   <1 0 &gpio1 1 GPIO_ACTIVE_HIGH>,
-> +                   <2 0 &gpio1 2 GPIO_ACTIVE_HIGH>,
-> +                   <3 0 &gpio1 3 GPIO_ACTIVE_HIGH>;
-> +        gpio-map-mask = <0xffffffff 0x0>;
-> +        gpio-map-pass-thru = <0x0 0xffffffff>;
-> +    };
-> +
-> +    gpio1: gpio-controller {
-> +        #gpio-cells = <2>;
-> +        gpio-controller;
-> +    };
-
-Need't gpio-controller.
-
-Frank
-
-> +
-> +...
->
-> --
-> 2.43.0
->
->
