@@ -1,150 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A0A3456E05;
-	Thu, 10 Sep 2026 10:40:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66985459AD0;
+	Thu, 10 Sep 2026 10:41:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789036860; cv=none; b=campJdZXaX8Z50SgT9QOHYSmpt9XrFqbuXEoDJZ/Ew1OZZ7dQeLITDJfgnb9DpEoPOQX0qOWMyWWOGbnm03ap0SCHsYr6GskAeMSWJJw4ciqHnCYrB9i0+tbBVOv5VQFqNDZd/Gnu6sRUjpkW3HcuEE7Ejgbm/nzt3FQn6auZV8=
+	t=1789036899; cv=none; b=a6AkTO/MAtzKQda5G58exyQmAML8gY1Ci4+GuD94AgPszPBJFE+eJvhBhH/BJ0YRylAqUOK7SFGlDvu/1FLzKt3lBCVgIctjQtoUZ9QVyEOEaYWtT8cXnYETJokgL0xHSf3SoJEAgWeULvfyVMJ9MzxIt4zAzwlbogR1dr8jDXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789036860; c=relaxed/simple;
-	bh=hkkcVOj/rSJNbATKfUukGH582NyaCnD1NBGF1zphExk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ogj8WnZtUSSnL6MWQ3x3SDmO59qBJtAZlnS7FKjDGzYpLYdWo1XZ6yB//MPO5tBSRw8MvRTM9OMVk9vSqW3EyBpyc8wFPOj1IyGqZFZinf6wCqBZY8/C1MSj880qjmlaR+QbfGNG2tRvkcIeCKMxdsw8/LjULaLO9MeiNGVpaWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b1EYKIpK; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b1EYKIpK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B305D1F00893;
-	Thu, 10 Sep 2026 10:40:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789036858;
-	bh=KWxT80cynlb4zIAOYzQS8Ncj1BaRkxy5Cmg155xMdQs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=b1EYKIpKm/JybExizljNgQKizptuBMZ8kMH8KT/8JlC207RHIAqutl7A3bWFHHdqe
-	 8rqzWkPBn/6YzUcXbJaF8uWbEdf7iRhK16HGLS1IpdAKC5JxD8vpATCuXozp75NPcM
-	 CrV/7Sl2KQZN8gABJf7/jjsKNZvUjwuO2KfgEQ0Dtu484kb6z1QjAPpcb5NvhKyY4C
-	 AgMCV3uTgBKXLJSSKkCLxbxI1wQswZiz0OvbcMHkcrs760ZQ9XNpYQ/+8I83y/+LVG
-	 /B/XpqZOkOcMwjlOC2xkuvujKjmrdRWa/4hr/kMHRTk9eoykIPT+6YDTGyo512kcS9
-	 9SdZ6ZHA27ipg==
-Date: Thu, 10 Sep 2026 11:40:51 +0100
-From: Will Deacon <will@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>,
-	Xi Ruoyao <xry111@xry111.site>, Mark Rutland <mark.rutland@arm.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>, Gavin Shan <gshan@redhat.com>,
-	Yuan Yao <yaoyuan@linux.alibaba.com>, Fuad Tabba <tabba@google.com>,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] KVM: arm64: Trap guest MPAM accesses whenever MPAM is
- implemented
-Message-ID: <aqKJM3CF-i3VyJk2@willie-the-truck>
-References: <20260908145651.2828597-1-fuad.tabba@linux.dev>
+	s=arc-20240116; t=1789036899; c=relaxed/simple;
+	bh=/skYv2yzHIxthX3aknMIMFqKrjldJ+Fkb54yK/1E1ZE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XXJ84FG/y0lfZtOonedBC5hC1wUXVNjmkzp1jtESZXatGuELm5FGTENT85LM/roQIoGdyjqMe1Vd3dEwTaKS9klwNjnLPVQLXXBXSB0ote7eR9XSbjb2TWQQlsyZQgb1tu1ta2xUVr5nkmk86XzPYq6SQZU6V0QMIgrtPJH5ViU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 2d5ca4bead0411f19a56ed5b684f684d-20260910
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+	HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED
+	SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS
+	DMARC_NOPASS, CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS
+	GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:dc81be4c-e366-494c-b627-ee1c97b218b8,IP:15,
+	URL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:-10
+X-CID-INFO: VERSION:1.3.19,REQID:dc81be4c-e366-494c-b627-ee1c97b218b8,IP:15,UR
+	L:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-10
+X-CID-META: VersionHash:7db8b62,CLOUDID:89fc20b376641820f1ece78b656561da,BulkI
+	D:2609101841301J4GYU9S,BulkQuantity:0,SF:10|38|66|78|102|127|850|865|898,T
+	C:nil,Content:0|15|50|99,EDM:-3,IP:-2,URL:99|1,File:nil,RT:nil,Bulk:nil,QS
+	:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,A
+	RC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 2d5ca4bead0411f19a56ed5b684f684d-20260910
+X-User: yijiangshan@kylinos.cn
+Received: from localhost.localdomain [(116.128.244.171)] by mailgw.kylinos.cn
+	(envelope-from <yijiangshan@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 419294889; Thu, 10 Sep 2026 18:41:27 +0800
+From: Jiangshan Yi <yijiangshan@kylinos.cn>
+To: sgoutham@marvell.com,
+	rkannoth@marvell.com,
+	gakula@marvell.com,
+	sbhatta@marvell.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	13667453960@163.com,
+	Jiangshan Yi <yijiangshan@kylinos.cn>
+Subject: [PATCH net-next v2] octeontx2-af: consolidate RVU AFVF device id definitions
+Date: Thu, 10 Sep 2026 18:41:02 +0800
+Message-Id: <20260910104102.590989-1-yijiangshan@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908145651.2828597-1-fuad.tabba@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08, 2026 at 03:56:51PM +0100, Fuad Tabba wrote:
-> finalise_el2_state() clears the EL2 MPAM traps whenever the ID
-> registers advertise MPAM, while KVM sets them only under ARM64_MPAM,
-> which also requires MPAMEN. Without EL3 nothing sets that enable, so a
-> guest reaches the MPAM registers while ID_AA64PFR0_EL1.MPAM reads 0
-> for it.
-> 
-> Gate the traps on the ID registers alone: MPAMEN isn't a term in any
-> MPAM accessor, so they take effect without it. The cap tests the
-> sanitised ID fields, which never exceed a CPU's own, so it's set only
-> where finalise_el2_state already wrote MPAM2_EL2. MPAM3_EL3.TRAPLOWER
-> is clear there, and arm64.nompam turns the cap off too.
-> 
-> Fixes: 23b33d1e168c ("arm64: head.S: Initialise MPAM EL2 registers and disable traps")
-> Reviewed-by: Yuan Yao <yaoyuan@linux.alibaba.com>
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
-> 
-> Notes:
->     Changes since v1:
->      - Commit message only. The code is unchanged, so Yuan Yao's
->        Reviewed-by is carried.
->      - Fixes: names the commit that cleared the traps, rather than the
->        one that added KVM's trapping.
->      - Says why the sanitised ID fields are the safe gate: the cap is set
->        only where finalise_el2_state already wrote MPAM2_EL2.
->     
->     Not covered, and answered on the v1 thread: a machine whose CPUs
->     differ on MPAM, raised by Ben and by sashiko.
->     
->     v1: https://lore.kernel.org/all/20260903160819.831518-1-fuad.tabba@linux.dev/
-> 
->  arch/arm64/include/asm/cpufeature.h     |  5 +++++
->  arch/arm64/kernel/cpufeature.c          | 13 +++++++++++++
->  arch/arm64/kvm/hyp/include/hyp/switch.h |  4 ++--
->  arch/arm64/tools/cpucaps                |  1 +
->  4 files changed, 21 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/cpufeature.h b/arch/arm64/include/asm/cpufeature.h
-> index 7404a6e83a930..8863ae99596bc 100644
-> --- a/arch/arm64/include/asm/cpufeature.h
-> +++ b/arch/arm64/include/asm/cpufeature.h
-> @@ -873,6 +873,11 @@ static __always_inline bool system_supports_mpam_hcr(void)
->  	return alternative_has_cap_unlikely(ARM64_MPAM_HCR);
->  }
->  
-> +static __always_inline bool system_supports_mpam_sysregs(void)
-> +{
-> +	return alternative_has_cap_unlikely(ARM64_MPAM_SYSREGS);
-> +}
-> +
->  static inline bool system_supports_pmuv3(void)
->  {
->  	return cpus_have_final_cap(ARM64_HAS_PMUV3);
-> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
-> index 17b83a2518a8f..36a27692e5cf7 100644
-> --- a/arch/arm64/kernel/cpufeature.c
-> +++ b/arch/arm64/kernel/cpufeature.c
-> @@ -2501,6 +2501,13 @@ test_has_mpam(const struct arm64_cpu_capabilities *entry, int scope)
->  	return (read_sysreg_s(SYS_MPAM1_EL1) & MPAM1_EL1_MPAMEN);
->  }
->  
-> +static bool
-> +test_has_mpam_sysregs(const struct arm64_cpu_capabilities *entry, int __unused)
-> +{
-> +	/* The registers exist whether or not firmware enabled MPAM. */
-> +	return detect_ftr_has_mpam();
-> +}
-> +
->  static void
->  cpu_enable_mpam(const struct arm64_cpu_capabilities *entry)
->  {
-> @@ -3116,6 +3123,12 @@ static const struct arm64_cpu_capabilities arm64_features[] = {
->  		.matches = test_has_mpam,
->  		.cpu_enable = cpu_enable_mpam,
->  	},
-> +	{
-> +		.desc = "Memory Partitioning And Monitoring system registers",
-> +		.type = ARM64_CPUCAP_SYSTEM_FEATURE,
-> +		.capability = ARM64_MPAM_SYSREGS,
-> +		.matches = test_has_mpam_sysregs,
-> +	},
+commit f695390ea639 ("octeontx2-af: Fix limiting SRIOV VF count logic")
+added a local PCI_DEVID_OCTEONTX2_RVU_AFVF define in rvu.c, although
+the same value was already defined twice elsewhere: as RVU_LBK_VF_DEVID
+in af/rvu.h and as PCI_DEVID_OCTEONTX2_RVU_AFVF in nic/otx2_common.h.
 
-We already have two system capabilities for MPAM so I'm not overly keen
-to add a third, especially as the MPAM code is largely confined to the
-resctrl driver. In fact, this feels a bit similar to things like TRBE
-and SPE in the sense that (a) we have to probe it per-cpu (b) it can
-be disabled by a higher EL and (c) most of the code is in a driver, but
-KVM needs to know how to switch it.
+Move the definition into the "PCI device IDs" block in af/rvu.h, rename
+RVU_LBK_VF_DEVID to match the PCI_DEVID_* naming convention of its
+peers, and drop the redundant copies in rvu.c and nic/otx2_common.h,
+the latter already including <rvu.h> through the af include path.
 
-Neither TRBE nor SPE need entries in arm64_features[] at all, so something
-isn't right here...
+No functional change.
 
-Will
+Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+Acked-by: Ratheesh Kannoth <rkannoth@marvell.com>
+---
+Changes in v2:
+- also drop the duplicate PCI_DEVID_OCTEONTX2_RVU_AFVF define in
+  nic/otx2_common.h, which already includes <rvu.h>, so that all three
+  definitions of this device id are consolidated into af/rvu.h
+  (suggested by the Sashiko netdev review).
+
+Link: https://lore.kernel.org/r/20260908094051.666769-1-yijiangshan@kylinos.cn
+
+ drivers/net/ethernet/marvell/octeontx2/af/rvu.c          | 2 --
+ drivers/net/ethernet/marvell/octeontx2/af/rvu.h          | 4 ++--
+ drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.h | 1 -
+ 3 files changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu.c
+index 937b085582b5..65e08ad9d82e 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/af/rvu.c
++++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu.c
+@@ -3468,8 +3468,6 @@ int rvu_get_num_lbk_chans(void)
+ 	return ret;
+ }
+ 
+-#define PCI_DEVID_OCTEONTX2_RVU_AFVF	0xA0F8
+-
+ static int rvu_enable_sriov(struct rvu *rvu)
+ {
+ 	struct pci_dev *pdev = rvu->pdev;
+diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu.h b/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
+index 094227404ef9..16846eeb793d 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
++++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
+@@ -22,6 +22,7 @@
+ 
+ /* PCI device IDs */
+ #define	PCI_DEVID_OCTEONTX2_RVU_AF		0xA065
++#define	PCI_DEVID_OCTEONTX2_RVU_AFVF		0xA0F8
+ #define	PCI_DEVID_OCTEONTX2_LBK			0xA061
+ 
+ /* Subsystem Device ID */
+@@ -882,11 +883,10 @@ static inline bool is_rvu_supports_nix1(struct rvu *rvu)
+ /* Function Prototypes
+  * RVU
+  */
+-#define	RVU_LBK_VF_DEVID	0xA0F8
+ static inline bool is_lbk_vf(struct rvu *rvu, u16 pcifunc)
+ {
+ 	return (!(pcifunc & ~RVU_PFVF_FUNC_MASK) &&
+-		(rvu->vf_devid == RVU_LBK_VF_DEVID));
++		(rvu->vf_devid == PCI_DEVID_OCTEONTX2_RVU_AFVF));
+ }
+ 
+ static inline bool is_vf(u16 pcifunc)
+diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.h b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.h
+index eecee612b7b2..5850bc1870a1 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.h
++++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.h
+@@ -42,7 +42,6 @@
+ /* PCI device IDs */
+ #define PCI_DEVID_OCTEONTX2_RVU_PF              0xA063
+ #define PCI_DEVID_OCTEONTX2_RVU_VF		0xA064
+-#define PCI_DEVID_OCTEONTX2_RVU_AFVF		0xA0F8
+ 
+ #define PCI_SUBSYS_DEVID_96XX_RVU_PFVF		0xB200
+ #define PCI_SUBSYS_DEVID_CN10K_A_RVU_PFVF	0xB900
+-- 
+2.25.1
+
