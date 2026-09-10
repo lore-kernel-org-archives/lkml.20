@@ -1,77 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender5-op-o15.zoho.com (sender5-op-o15.zoho.com [165.173.182.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5235B498922;
-	Thu, 10 Sep 2026 13:32:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789047122; cv=none; b=dSC2piLVoMQ0ewhxd/mfh8ec+Tphit6i8pLC0qW4v7zEos87pgKDTlh9olK++p6OVlIWtbedhbpPmTsiRv6i8pZy4kdWFjVlGw6Zpwfjj7sFs90vRbb1UM3MYo36hCXnDrc8qesc04JXV6F5QdMv5MSvnOf24Xl/CEBwiIvd2N0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789047122; c=relaxed/simple;
-	bh=NRavYKMQUZLmfecX6DKlFNtycZ+Chz42tfmFszNynrk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pkMiWBBAGXA9JI2F1xZ7tHXG6NZ+G6uWlRbZ39LfRfdNj54JOEBCJQnp2klNxYzD8xJO5fKul7i+hbzaSaGTzrdQ2ltM/Txg0qqRuTBYCYrVmMUU8uObo1vlLW+1+D5V0LVzSAbzoF5/UMI2wfvsBp1JLP9IbicnFiPpvi1tWN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R4WttS6q; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F2449BD6A;
+	Thu, 10 Sep 2026 13:32:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789047137; cv=pass; b=cxj2I1AZnKyBfTfyCWAiBfgjvcf9xCy3JhprQjL2Vv0G2spcvBsqUxfKxRXTgeHitMU9yXm0orSgm45ymNF9iryCGncma+PaXdoX3g8MMOKDR+BjiBOQVJmkag6J2WwYiguWCa7ZyQMx6oSHouuwsuOugef3kTX36Z/EoUWMZ4I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789047137; c=relaxed/simple;
+	bh=7vm9LXBnBksA7BUFdsEzvRoWR4iuOsiQeSyFd63loFk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mVNHM0JvcHyHh2m6+D+VcdR5zRreaRUeL4zvFon4I+MZJnJ/M5a6J9TotmS3kbZpdMa2IireF/F5dIim/8NSsDVvPHojKU86w1LkAwl8yDVpvibkNtcmX0hxbGg7j8nbPTxZWdDaohR04JLnO0ItVuF6Hg2Qc1xr/qfW/BicSgE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc; spf=pass smtp.mailfrom=ziyao.cc; dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b=lgmF7+hd; arc=pass smtp.client-ip=165.173.182.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R4WttS6q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 561431F000FF;
-	Thu, 10 Sep 2026 13:32:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789047120;
-	bh=coMvVXK/TxKnMVFzn0IefsGaDxIVGH1isKpbAtxRNAs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=R4WttS6qblEzH2QiRFytSgiBzNU/kRp/i/IysLstNEPKsvvR+QhN5bDbNbMk/OWzX
-	 Xx49wBFj9u2TR8Slh6VKRrdkTCkynKF27xecGdx4OhwJyvAqGKDY3LDw+YREESedRJ
-	 W83OFa5iCHDCAkz+TNegddm8dnir++zmzsdAXFSJ07FLBLaX3um9Ibv+Fd9fggs502
-	 SOAw4SJIuG3sxDhIuXr6XXTfYva6NDczIb206QeHmikA4LYVrMRFNqAWfS3yRhCq0i
-	 lS4twW9SuaJV35F21kQ58oU6ly06NBIs7vGp/0h2zSQpSLxUj8jFDJHOYvvRxSQyCj
-	 h4t1J/lSUielw==
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>
-Cc: Charan Pedumuru <charan.pedumuru@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH 0/8] arm64: tegra: Clean up AHUB device tree nodes
-Date: Thu, 10 Sep 2026 15:31:53 +0200
-Message-ID: <178904710143.3571688.17875564695233750329.b4-ty@b4>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260902-tegra-ahub-dt-cleanup-v1-0-028f3c5e72f6@nvidia.com>
-References: <20260902-tegra-ahub-dt-cleanup-v1-0-028f3c5e72f6@nvidia.com>
+	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b="lgmF7+hd"
+ARC-Seal: i=1; a=rsa-sha256; t=1789047110; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=PWleW4TiyktR2f0EHZ9mwGoDojVKJftnewHry74RhnvpGAvtKipeyRDDUoOMARIcxwbFS4jCiyE2/dZquBT5Sufm/j84i8GEW8PjOTJ0KykuDLdvTZ5TBmkYUsAsb51lUkyWiCHaj2+jV9rZzy+k8U5mV6CQ5CYnR8ke+9lxxyQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789047110; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=QH+V9w9Z80FoWtzevrNm8AoJe6kQe6v9Q0++V5yLfDs=; 
+	b=cY+1fW+XDwvoCBE4MbMYO92tLurFAnByflni2Ex5Ygxhp/emLcfH9IalQZA8wIUcISNEmjmsxSci6/B073aRfE9jEoV68UNCn0zQ75yCeos0TFieIsfhtOVxFQVj2bXcEeIrTNL/DCk25gdIm2/r6YsjGsCChp828H3lVQGo59c=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ziyao.cc;
+	spf=pass  smtp.mailfrom=me@ziyao.cc;
+	dmarc=pass header.from=<me@ziyao.cc>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789047110;
+	s=zmail; d=ziyao.cc; i=me@ziyao.cc;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=QH+V9w9Z80FoWtzevrNm8AoJe6kQe6v9Q0++V5yLfDs=;
+	b=lgmF7+hdb6EFZi7h2f5+cgYne1yz7xjTWBiRWsQ3mii7W1ME9QtCkcjeAtete8yr
+	cwPdcrWSRlEJC4MW8wQR5cwxE9zB6wWsSL6iO9XX03uSGdV/XVLtOXcM1ivXoIKgppb
+	9ljJhdVT/4nE91vgBBLDqyfhRNNV+3UdQbxQvscs=
+Received: by mx.zohomail.com with SMTPS id 1789047108143553.7058137232074;
+	Thu, 10 Sep 2026 06:31:48 -0700 (PDT)
+Date: Thu, 10 Sep 2026 13:31:30 +0000
+From: Yao Zi <me@ziyao.cc>
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Yixun Lan <dlan@kernel.org>, Alex Elder <elder@riscstar.com>,
+	Inochi Amaoto <inochiama@outlook.com>,
+	Haylen Chu <heylenay@4d2.org>
+Cc: linux-clk@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Yao Zi <me@ziyao.cc>
+Subject: Re: [PATCH 4/5] clk: spacemit: reject rate changes to running
+ firmware PLLs
+Message-ID: <aqKxMmgpFLE3CmQ8@pie>
+References: <20260909-spacemit-pll-init-v1-0-b3065ad5a4ac@linux.spacemit.com>
+ <20260909-spacemit-pll-init-v1-4-b3065ad5a4ac@linux.spacemit.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909-spacemit-pll-init-v1-4-b3065ad5a4ac@linux.spacemit.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/289.29.40
+X-ZohoMailClient: External
 
-From: Thierry Reding <treding@nvidia.com>
+On Wed, Sep 09, 2026 at 10:07:04PM +0800, Troy Mitchell wrote:
+> CLK_SET_RATE_GATE only protects clocks prepared through CCF. A PLL left
+> running by firmware can have a zero prepare count, so this flag alone
+> cannot prevent set_rate() from reprogramming a live PLL.
 
+Would it be a better idea to simply turn off the PLL before reprogramming,
+since protected by CLK_SET_RATE_GATE, re-programming never happens when
+the PLL is required by downstream? This also seems to be simpler.
 
-On Wed, 02 Sep 2026 12:17:36 +0200, Thierry Reding wrote:
-> This series was prompted by some discussion on this thread:
+> Check the hardware state and reject set_rate() while either the enable
+> or lock bit is set on K1 PLLs and K3 PLLAs. Propagate register read/write
+> failures and reject rate requests with no table candidate. Callers must
+> still move consumers away and stop the PLL before changing its rate.
 > 
->   https://lore.kernel.org/linux-tegra/20260705-nvidia-ahub-v3-1-bacb7e05bf68@gmail.com/
-> 
-> In a nutshell, yes, the AHUB can do with #address-cells = <1> and the
-> corresponding #size-cells = <1> since all of the children are in a
-> fairly small register region. I suspect the primary reason we stuck to
-> the #address-cells = <2> was so that the ranges property wasn't
-> required.
-> 
-> [...]
-
-Applied, thanks!
-
-[1/8] ARM: tegra: Clean up AHUB on Tegra124
-      (no commit info)
+> Fixes: 1b72c59db0ad ("clk: spacemit: Add clock support for SpacemiT K1 SoC")
+> Fixes: 3a086236c600 ("clk: spacemit: ccu_pll: add plla type clock")
+> Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
 
 Best regards,
--- 
-Thierry Reding <treding@nvidia.com>
+Yao Zi
