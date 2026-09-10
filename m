@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 412203AD510;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA203B05B2;
 	Thu, 10 Sep 2026 23:55:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789084537; cv=none; b=I7vi/FHpoRzoIVokCtYAI5ENdGGiD+i29g/WOktnc8dGqX0tCgBVzW4qbHEkjoiYcTu1+UKnt+TgRnbuDrUOtg/ylACkGsm2UsGgrjb2Wk0akhl0Xz1ecxFCBvtnZUaUzmJdIQu2jEU4SnG4cDvCJ4LogqMViwbIx6oxxfwl/I4=
+	t=1789084537; cv=none; b=K/lqTYt23COgGazHJKCqw05uzZAvRSa7tZonYSeNrWV5cKE3h3rZ7JrZlzQurf3tRPZHJaW7WQPB6ObV3p6jRa16oI/X6X7kaieZmZWgJYuhEdnhbe896IHl8V+iorKsUr0k/8lWi1oNZJ4oRaV9FeXabShR+VtZiS5di+DwbIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789084537; c=relaxed/simple;
-	bh=Kemej0jCw7h7ikYa35Qx9+U1O1Ro3V7ZhJlVculzUsU=;
+	bh=hjyEUAJ+jhWaxhmjTF0iGEgrP8zFWvXv64ZHYkopano=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Iy0Gvzd5MozQOp/mxFkIntK7JHZT7S7BPQbK+cC2loMVguMnT371jiWmipuUf8BFVDXjJubzGE1v+wS575tP6Mm02AzoqDvo5DGXepM9q089r5CkyeDAbJIWamJCB23xJ6u19YGstq7Lk/0VHKHczXfnduRtCiNODMcj2TYe40s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O7P/JVmN; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=VkPXvdt6LwIP+MAhNvsYg7gYj23gCedsjKZ74b92oP98HxVrHTgLsynweukd67Tk8SckLa0CisZer+YGn9I647xOsbSBQcSkbQUKlvKGwu9jGix7HnhsDhLjpw9RzcLH3bXk3IDVifpDxV30P287KjmnGpIREza39hTOSqHOgL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fbuont0q; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O7P/JVmN"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9A45BC4AF10;
-	Thu, 10 Sep 2026 23:55:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fbuont0q"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 57FEAC2BCFA;
+	Thu, 10 Sep 2026 23:55:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789084536;
-	bh=Kemej0jCw7h7ikYa35Qx9+U1O1Ro3V7ZhJlVculzUsU=;
+	s=k20201202; t=1789084537;
+	bh=hjyEUAJ+jhWaxhmjTF0iGEgrP8zFWvXv64ZHYkopano=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=O7P/JVmNLI1EnSEz6RH5llteFY1N0sqCt052QXTIH3HbEiyHGVNP/Aj9g26JJMdoP
-	 xoyb7fN7h6GUpLDE9bRzpyopk9lXNYmVDHnSsjx1LUWuErnWxoaIehRjwPgWqo4Ksn
-	 KwO1QIg5OkGoW1/Hg/7A7+TSkU35IuI+h+2tmcjFdslMtg654lQpApP7wPmDL6Mzde
-	 BkRS781mYl0heuRUt7oAo2EfsvVcdpRPYb/FrkMi8gO6U1lTlVUE1KuglEIQ6JBDr1
-	 swVKYWP+RGNWQe4eb5k7QtDn8tPtxjgAEcPB6ky83r0no8X23bunc1hRpH+RjZbSdp
-	 ogzBhEhO5bpyQ==
+	b=fbuont0qgl04sUkQJBPwHnL0vyuy3b1lV8kDhg340wcMOCmnBbQAORRrmS9gdHpoG
+	 2++AiPBGRGRnMnf/vQOAe9d8OcQ/HDXbCTsIVAM8aOBXxSVQxkF3MwwDNE5u6lT1in
+	 UVqmDkimOwbmP2h6enZRaJYFkhzkml0f5Ycz47AJbY5mAGok1c9NkKXVLGHLKrB7gX
+	 kwHqpXiwCazvyHQHSzOu3fEyWzlBEsrP20kQgje6gvGH3y7ILHKDLHUB6bDFex3SRe
+	 jubg+R6pKA3A6ni1q1sQl7af7wMSGMhVHaUviKVIDdqCij4AfM/KS2JNaTtD4hAdPE
+	 4dGxbulYDwvnA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 75F56C79FBB;
-	Thu, 10 Sep 2026 23:55:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3EB90C88E47;
+	Thu, 10 Sep 2026 23:55:37 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Thu, 10 Sep 2026 16:55:27 -0700
-Subject: [PATCH v13 01/44] KVM: guest_memfd: Optimize away conversion
- overheads via dead-code elimination
+Date: Thu, 10 Sep 2026 16:55:34 -0700
+Subject: [PATCH v13 08/44] KVM: Provide generic interface for checking
+ memory private/shared status
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-gmem-inplace-conversion-v13-1-dd6fbf94f4e1@google.com>
+Message-Id: <20260910-gmem-inplace-conversion-v13-8-dd6fbf94f4e1@google.com>
 References: <20260910-gmem-inplace-conversion-v13-0-dd6fbf94f4e1@google.com>
 In-Reply-To: <20260910-gmem-inplace-conversion-v13-0-dd6fbf94f4e1@google.com>
 To: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
@@ -79,13 +79,13 @@ Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
  linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
  linux-coco@lists.linux.dev, Ackerley Tng <ackerleytng@google.com>, 
- Fuad Tabba <fuad.tabba@linux.dev>
+ Xiaoyao Li <xiaoyao.li@intel.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789084533; l=3368;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789084533; l=3262;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=jdeuN8QAludHAg4pQOQtYLnhlGiFogxOH8nIW0ZEBXU=;
- b=sww7etsIuwKRvcfuD8DJ8EQ6FFI8MsNcKxp95SrzPjrCWGonLp4p47TacW9Do8Uk33c+xvNLV
- eZ8ISUk5/WfAr0WBMyA/jilQOtj6AdalhDVD7M/1i+snixje8pJKuVS
+ bh=6GGPpLviZBl4jqQUaYcKJ+tOY9xiIEbPpyZFIZSx8zA=;
+ b=lZ+Qe53KpaqQSKaY4al3zERjE8Tg1dHaqtQ7vOFXCwY8FhKk0J8dhwB7IpQQgXXA8WWVxe1HK
+ xjStRnFzvVYDwLiU/L4oLpF/soB1bfAFrjUuNx3na5OSijhIAuiraCY
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -95,82 +95,92 @@ Reply-To: ackerleytng@google.com
 
 From: Sean Christopherson <seanjc@google.com>
 
-Add and use kvm_arch_has_gmem_convert() to guard guest_memfd's invocation
-of arch hooks related to converting memory between private and shared, as
-only one half of the x86 CoCo duo needs the runtime hooks (any pre-work is
-pure overhead for TDX).  At this exact moment, the overhead is negligible,
-but that will change when in-place conversion comes along, at which point
-to-shared conversions will "need" to find all affected folios prior to
-calling into arch code.  In quotes because very technically that work could
-be pushed to arch code, but that would bleed guest_memfd details into arch
-code and would be far worse than adding yet another kvm_arch_has... hook.
+Introduce a generic kvm_is_private_gfn() interface using a static call to
+determine if a GFN is private. This allows the implementation for checking
+a GFN's private/shared status to be set at runtime.
 
-Opportunistically provide the kvm_arch_gmem_make_private() declaration, and
-rely on dead-code elimination to eliminate the call to non-existent code
-when CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT=n.
+In preparation for choosing implementations between a guest_memfd lookup
+and the existing VM attribute lookup, rename the existing
+VM-attribute-based check to kvm_vm_is_private_gfn() to emphasize that it
+looks up VM attributes.
 
-Reported-by: Binbin Wu <binbin.wu@linux.intel.com>
-Closes: https://lore.kernel.org/all/1ec08cd8-3072-4753-ad5e-cd34956647f8@linux.intel.com
-Suggested-by: Ackerley Tng <ackerleytng@google.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Tested-by: Shivank Garg <shivankg@amd.com>
+Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Reviewed-by: Fuad Tabba <tabba@google.com>
 Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- arch/x86/include/asm/kvm_host.h | 3 +++
- include/linux/kvm_host.h        | 3 ++-
- virt/kvm/guest_memfd.c          | 5 ++---
- 3 files changed, 7 insertions(+), 4 deletions(-)
+ include/linux/kvm_host.h | 14 ++++++++++++--
+ virt/kvm/kvm_main.c      | 15 +++++++++++++++
+ 2 files changed, 27 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index 683bb8bf43a94..6beddd8a0c749 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -1854,6 +1854,9 @@ enum kvm_intr_type {
- #ifdef CONFIG_KVM_GENERIC_MEMORY_ATTRIBUTES
- #define kvm_arch_has_private_mem(kvm) ((kvm)->arch.has_private_mem)
- #endif
-+#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT
-+#define kvm_arch_has_gmem_convert() (!!kvm_x86_ops.gmem_make_private)
-+#endif
- 
- #define kvm_arch_has_readonly_mem(kvm) (!(kvm)->arch.has_protected_state)
- 
 diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-index 502465119ca0c..b7516e19ef419 100644
+index 9b97266f61ec8..3579feb631775 100644
 --- a/include/linux/kvm_host.h
 +++ b/include/linux/kvm_host.h
-@@ -2597,9 +2597,10 @@ static inline int kvm_gmem_get_pfn(struct kvm *kvm,
+@@ -2573,16 +2573,26 @@ bool kvm_arch_pre_set_vm_memory_attributes(struct kvm *kvm,
+ bool kvm_arch_post_set_vm_memory_attributes(struct kvm *kvm,
+ 					    struct kvm_gfn_range *range);
+ 
+-static inline bool kvm_is_private_gfn(struct kvm *kvm, gfn_t gfn)
++static inline bool kvm_vm_is_private_gfn(struct kvm *kvm, gfn_t gfn)
+ {
+ 	return kvm_get_vm_memory_attributes(kvm, gfn) & KVM_MEMORY_ATTRIBUTE_PRIVATE;
  }
- #endif /* CONFIG_KVM_GUEST_MEMFD */
++#endif  /* CONFIG_KVM_VM_MEMORY_ATTRIBUTES */
++
++#ifdef kvm_arch_has_private_mem
++typedef bool (kvm_is_private_gfn_t)(struct kvm *kvm, gfn_t gfn);
++DECLARE_STATIC_CALL(__kvm_is_private_gfn, kvm_is_private_gfn_t);
++
++static inline bool kvm_is_private_gfn(struct kvm *kvm, gfn_t gfn)
++{
++	return static_call(__kvm_is_private_gfn)(kvm, gfn);
++}
+ #else
+ static inline bool kvm_is_private_gfn(struct kvm *kvm, gfn_t gfn)
+ {
+ 	return false;
+ }
+-#endif /* CONFIG_KVM_VM_MEMORY_ATTRIBUTES */
++#endif /* kvm_arch_has_private_mem */
  
--#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT
- int kvm_arch_gmem_make_private(struct kvm *kvm, gfn_t gfn, kvm_pfn_t pfn,
- 			       kvm_pfn_t nr_pages);
-+#ifndef CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT
-+#define kvm_arch_has_gmem_convert() false
- #endif
+ #ifdef CONFIG_KVM_GUEST_MEMFD
+ int kvm_gmem_get_pfn(struct kvm *kvm, struct kvm_memory_slot *slot,
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 91d5af7d60d0f..78278730b2ae4 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -2628,6 +2628,20 @@ static int kvm_vm_ioctl_set_mem_attributes(struct kvm *kvm,
+ }
+ #endif /* CONFIG_KVM_VM_MEMORY_ATTRIBUTES */
  
- #ifdef CONFIG_HAVE_KVM_ARCH_GMEM_POPULATE
-diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-index 798d91df69537..2190e4d6b6bea 100644
---- a/virt/kvm/guest_memfd.c
-+++ b/virt/kvm/guest_memfd.c
-@@ -772,11 +772,10 @@ int kvm_gmem_get_pfn(struct kvm *kvm, struct kvm_memory_slot *slot,
- 		folio_mark_uptodate(folio);
- 	}
++#ifdef kvm_arch_has_private_mem
++DEFINE_STATIC_CALL_RET0(__kvm_is_private_gfn, kvm_is_private_gfn_t);
++EXPORT_STATIC_CALL_GPL(__kvm_is_private_gfn);
++
++static void kvm_init_memory_attributes(void)
++{
++#ifdef CONFIG_KVM_VM_MEMORY_ATTRIBUTES
++	static_call_update(__kvm_is_private_gfn, kvm_vm_is_private_gfn);
++#endif
++}
++#else
++static void kvm_init_memory_attributes(void) { }
++#endif
++
+ struct kvm_memory_slot *gfn_to_memslot(struct kvm *kvm, gfn_t gfn)
+ {
+ 	return __gfn_to_memslot(kvm_memslots(kvm), gfn);
+@@ -6541,6 +6555,7 @@ int kvm_init(unsigned vcpu_size, unsigned vcpu_align, struct module *module)
+ 	kvm_preempt_ops.sched_in = kvm_sched_in;
+ 	kvm_preempt_ops.sched_out = kvm_sched_out;
  
--#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT
--	if (kvm_gmem_is_private_mem(file_inode(file), index))
-+	if (kvm_arch_has_gmem_convert() &&
-+	    kvm_gmem_is_private_mem(file_inode(file), index))
- 		r = kvm_arch_gmem_make_private(kvm, gfn, *pfn,
- 					       (kvm_pfn_t)1 << *max_order);
--#endif
++	kvm_init_memory_attributes();
+ 	kvm_init_debug();
  
- 	folio_unlock(folio);
- 	folio_put(folio);
+ 	r = kvm_vfio_ops_init();
 
 -- 
 2.55.0.1007.g17ff1f9808-goog
