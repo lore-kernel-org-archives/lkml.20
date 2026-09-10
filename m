@@ -1,38 +1,63 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6961B3B19BA;
-	Thu, 10 Sep 2026 06:12:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A97AB3C1F5B;
+	Thu, 10 Sep 2026 06:12:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789020732; cv=none; b=cFfknGM7yIHQp/EILJ7NHDTLcJgTTQP2coO+MVrkat1nkkPUEuruIv43LisD2mSv8t07FGLZfJcpkdC8kQ4nSMnsT+6e8SLl+qEm4ivnoP86W82DIlevYk6FfGSTOxHiDJe1Q7jmTz4XlbaESCimNQruOevDAtUgTCRaSuZZMQ0=
+	t=1789020772; cv=none; b=LJaoNs+yfc9k+Y8fCs40mBOSiLQHRK2Dx7GmIe3hEkKC4fLmUVxtH1f+8O069eymnEsY+3GJyMfy7y108QPj32TCFLwpKs+FdvjGxgAkB30KMCZ4wllF/cU9xsmpuB3MSTwKknj4FG97u8lJ1mV1QGamGc5JnNi8um4+j22MiE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789020732; c=relaxed/simple;
-	bh=311saYwwKPTfQAVsdL8cI0CojdN932dYzqRIxDGhcjo=;
+	s=arc-20240116; t=1789020772; c=relaxed/simple;
+	bh=KobOE/h8JrfDHgAwD+CS5A6vwB7noAIfgQFcvdDu6JA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n6Cwn0jU6v34fNcEgu+MNxrcxmiFK4JOfApZ5CirmN/+R8hpqS3GfOj8fYMPZF2JQuyZvT2qWhvZ5+1E7K2aj9OXZQnCPPhb3nsjKmMBXvwbFFoCIsWPJMeqCP+dTLDgn48cw1eTkBJ1ic2zppbOPEvZxx89HxT9QIUAuoAlbpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vdgVN9L/; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=C8nAb7nqTnFicoCxyiqrc+2NBXEb8F4RNH33s+eXkcHfpnDwrYkRcX2LSVekBEb/3HuKs8WO6gf8ikMmeSF3EwSgZAq7kaXVfy7Wa8FuWEE8Z0X1sxmHIRdqbsWljhoplrbM9ZP+bF8hBTFnCXM9eDamwIAKH4xA1vkEZCQuDiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SqEMEu63; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vdgVN9L/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8EBC1F000FF;
-	Thu, 10 Sep 2026 06:11:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789020718;
-	bh=QoybkwdFrnLK7llMYHPgBUkmKlSi8hvY6f51nkYo6kU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=vdgVN9L/Ie0clCMd2WwbM79esqcn4YF8Bs3yAkPFofFbTkv7uu9LIKcYJJ1U+qE9t
-	 vTVuvlY/BYk82NBdEkeQ+ipnAYpxENZzOFPQOYN3AWIwKzonx8f8gFldxq3x+zchwZ
-	 sAIxg8KOXJPWlNLtRaivjH4k2Q9qkmV+D5pVfsp4=
-Date: Thu, 10 Sep 2026 08:10:02 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Farhad Alemi <farhad.alemi@berkeley.edu>
-Cc: Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>,
-	Alex Elder <elder@kernel.org>, Farhad Alemi <falemi@asu.edu>,
-	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [BUG] KASAN: slab-out-of-bounds Write in gb_hid_raw_request
-Message-ID: <2026091048-expediter-lubricate-a2df@gregkh>
-References: <CA+0ovCgLrz4WhPKP5LGW5HZa8VOodgeo6pWuyQGgHE7UY57Oog@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SqEMEu63"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789020756; x=1820556756;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=KobOE/h8JrfDHgAwD+CS5A6vwB7noAIfgQFcvdDu6JA=;
+  b=SqEMEu63LUp6l+yaiXHcjefO3JsVdV2pMAEKT2fIyZHgC18JkB2IFTdF
+   NJ3FEAQL3dayompJ4rclPuZR36RIZ3TdUph4qV3qQ6l8qDakseIRYOf1H
+   UJRNGFIVBhAl1ROva7JvrqQVmeFXHWHTaEtbmzGnr6C9CITQ3BaWzs0lN
+   ITYFwbQrLIm4aYJwSQrVOsq0yT0FMZFTp0Dxakv9oyUSZemxcQ3giiwcu
+   T6YhmZmxCAT96Q8yzmOFQ3teQqCx6gZbyCRRphLFDAhNqluMpbsy7VXpo
+   VM3rOtUuQO1ANyQ+88gBRd454Lu0bvSgARB7Qz0x0GQ4C97VVdZxI0tbt
+   g==;
+X-CSE-ConnectionGUID: iCe8fzzkQBKVx5RfEPysow==
+X-CSE-MsgGUID: hrxdBnLiRZKKz6OwowsL3g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89224761"
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="89224761"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 23:12:32 -0700
+X-CSE-ConnectionGUID: RJoLa3dgSPiHts8DSjba/g==
+X-CSE-MsgGUID: 78+5gUQdTOuNqszUdDNe5A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="301435425"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.177])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 23:12:29 -0700
+Date: Thu, 10 Sep 2026 09:12:26 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Ariana Lazar <ariana.lazar@microchip.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 05/10] iio: dac: mcp47feb02: Avoid unjustified probe
+ failure on missing label
+Message-ID: <aqJKSjET9wLNeHDm@ashevche-desk.local>
+References: <20260909-mcp47feb02_refactor-v5-0-8b67bcab93d1@microchip.com>
+ <20260909-mcp47feb02_refactor-v5-5-8b67bcab93d1@microchip.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,39 +66,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CA+0ovCgLrz4WhPKP5LGW5HZa8VOodgeo6pWuyQGgHE7UY57Oog@mail.gmail.com>
+In-Reply-To: <20260909-mcp47feb02_refactor-v5-5-8b67bcab93d1@microchip.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Sep 09, 2026 at 06:38:02PM -0700, Farhad Alemi wrote:
-> Hello,
-> 
-> We are reporting the following crash (reproducer and a proposed patch attached):
+On Wed, Sep 09, 2026 at 05:18:48PM +0300, Ariana Lazar wrote:
+> Fix unjustified probe failure on missing optional 'label' property by
+> replacing dev_err_probe() with dev_err(). Correct %pfw usage by passing the
+> child fwnode handle directly in the error message.
 
-Great, please submit the patch properly so that we can review and apply
-it if it works.
+...
 
-> Linux version 7.3.0-rc2 50d05c7c76c96b90462f24debacca971d2e86713
-> Build Config: UpstreamAppArmorKASAN (KASAN + UBSAN, panic_on_warn=1)
-> 
-> [   44.000772][  T804] usb 3-1: new high-speed USB device number 2
-> using dummy_hcd
-> [   44.163699][  T804] usb 3-1: New USB device found, idVendor=18d1,
-> idProduct=1eaf, bcdDevice= 1.00
-> [   44.169786][  T804] usb 3-1: New USB device strings: Mfr=0,
-> Product=0, SerialNumber=0
-> [   44.212054][   T12] greybus 1-svc: set power mode = 0
-> [   44.212064][   T12] greybus 1-svc: power mode change failed on AP
-> to switch link: -5
-> [   44.213758][    C1] greybus greybus1: 0/0:0: short response 0x94
-> received (8 < 9)
-> [   44.215179][ T9337] greybus greybus1: 0/0:0: synchronous operation
-> id 0x0003 of type 0x14 failed: -90
-> [   44.215216][ T9337] greybus 1-svc: failed to get rail count: -90
-> [   44.234071][ T9337] greybus 1-2.2: Interface added (greybus)
-> [   44.234080][ T9337] greybus 1-2.2: GMP VID=0x00000001, PID=0x00000001
-> [   44.234087][ T9337] greybus 1-2.2: DDBL1 Manufacturer=0x00000126,
+>  		ret = fwnode_property_read_string(child, "label", &data->labels[reg]);
+>  		if (ret)
+> -			return dev_err_probe(dev, ret, "%pfw: invalid label\n",
+> -					     fwnode_get_name(child));
+> +			dev_err(dev, "%pfw: invalid label\n", child);
 
-I'm guessing this is an emulated device, not a real one?
+Why not leaving dev_err_probe()? And why error in such a case? Perhaps you want
+dev_warn_probe()?
 
-thanks,
+-- 
+With Best Regards,
+Andy Shevchenko
 
-greg k-h
+
