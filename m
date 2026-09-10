@@ -1,182 +1,121 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70DF4594805
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:00:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3A459480C
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:00:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789066817; cv=none; b=OhMnAceWr0c4/JNs56rH/P7n39gwfTD7oHEvvhzhpzcd3NU/OSPaPCN/l6Xeejcf1CKrWTNjv57GrzOaldiGcfJg9ahIadh50U2zc4sDoIz1bkurD+fR1cffXeiFrkTbiJGGGviP9G54oPEkAtChhXHzxHVTdjhakXUwHWJkJh4=
+	t=1789066820; cv=none; b=fsVPPkt3L8g0o7++Hug8wbwGFVRhGOxp2WmTuh8nLCF4rDmOzGklkefBEEik9B+gMAubLQ8cTG1nM2jzgcxafWztHXp/XZ1DjLAMGo6uLOkrlsu8ZNg94b5EO5BBcShjQsDn4QUbU8ij//QZGG51avj4ObzhkvogGVTOJG3AVIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789066817; c=relaxed/simple;
-	bh=XsWWzJ3IPV9YHVEnX8wdPH+IKbTWzfHSnvzKc+j31FA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SHkE7SzoaT/fGz51v52Nm7ZYXyi+sX4lqt5N1629fSw1X2M2YHODMsoQyx/fjl8Fof6mKgb/tbAcJU0UYRgZnwNt5xJ9ijtCXqn64SNdcA7UuQFT0f76bRFhWxHA7Vo2ThW79tKQwc+GxPRiy6XS4NaTX5DDis4YTz6jsTkqdOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=POlXFFrj; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789066820; c=relaxed/simple;
+	bh=0vvZwREGhVLOGIz6V7/e3vYEdb98WjrdXPg4bmpdzmM=;
+	h=Date:Message-ID:MIME-Version:Content-Type:From:To:Cc:Subject:
+	 References:In-Reply-To; b=eqDYUocOz0uT+sif201qCeuqEs/qGwAtR4BmgGA07K7EOmd/wCB3CxWrvfRQSp11fbY4ypz4ULUgIT3hfxp+GBZz1cW8fqCQobm1mMU5B86OQPAMdJLPRKQPCmBUlChbgHt/hd/cRqktVUNbYxk/F8TBpUkQXRBRTKa08Byxfg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=KfUXvnD1; arc=none smtp.client-ip=209.85.160.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="POlXFFrj"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc4902427c1so124111a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:00:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="KfUXvnD1"
+Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-5300bdf61d9so1355961cf.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:00:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789066816; x=1789671616; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MbRV6E8Gg+PMhfe4AgURv+79xV19fYMyihA7ZKo+a9I=;
-        b=POlXFFrjixHIGR6Bu/9r5WMFTFPOetGjD34RXwPeQ2LF4kQfEwm+jO25U2R2u4w5Ar
-         V1KO7N8D3QiuQLGHfchfEyIDsU/5F32zi8sbcw4XbmbNU6MRyz1/qcV4MB4/+IW1VGp3
-         yZ6B2SXnbQYHml1xW+57PO088dFqe4qSlugN5m7WRBzZIXByQCBUufEjraxGtB2qV9lD
-         uOENiPs09V5apLvJlmCX8RnXghY1UqPf2jZSVeYJ0kYlPKV3z8NK5qKUlr6ua0vk1804
-         vDQ95PRxvWtLG6S/IHJQXH23S9aTUbFMXfv1VSCxYvRXePwQo7lGHEQbsMfWHsnMmhin
-         zw+Q==
+        d=paul-moore.com; s=google; t=1789066817; x=1789671617; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+         :content-type:mime-version:message-id:date:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uy7q6C+WBEDRAlNlGjV9EVm7qH12BqCcTHIyf0ThSEU=;
+        b=KfUXvnD16lizCzF9wvGLcS2je7B/yEqIi9sboIHbA1cMJ+emGPxk+sSiCucig8SpXK
+         hYv3/m8+oYneYZlQicJmBZfZBqM6aID/qplSJtPJL/Q5U3GHW6Jat3VX4ypsnLkafnxg
+         jkelDKYNQTbL2awAL4/xmSnPGgySwJ9KjipDv/S581d4aW0sNobZQVJuOSw6jvrFwAL8
+         5o7orzIu8kaSOUEw3aBSuMIfjcrorTOYzxAO8BmXf1XitD4t4xG8M/O8K6PF+fK4AMWj
+         Xsu1ZTknwnfunmzbay0cAuhsVOV4vuGJHIH7F7IH+8otWPTFga7D9poq/fsUmz+gcKrl
+         USLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789066816; x=1789671616;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=MbRV6E8Gg+PMhfe4AgURv+79xV19fYMyihA7ZKo+a9I=;
-        b=R7t8vjMVZ6XRnr5farHMbbVPyhrH51JlPGfGKpWLlNY/2PZjeTbR9bqZLexBlxpATq
-         JtnRy99oyQVp/ZDJwgXIYn4Zx39qMB6XN7m3zr5+UgDVTHgJEQl6Twcc+2rYFBsRSnS+
-         zH56MG5r+aIxkGu07RRJXL5E8pQOAZQXL6d3SjJzbQ4OF6TuWJ17nbtvLyfibKaAaVWm
-         YIA9o88B618EMlMAzaRVrvV1KFHUwDdUPicCjEo8sNbMaJLmLAI/OFo401lGdW1+Ec0Q
-         xpBHVbPKEB+kbPksOwNpOwdDyEgAAlcoqLokCHrHBL/00YLpp0iJ/mIZ0XnEvpv2AS21
-         E5+w==
-X-Forwarded-Encrypted: i=1; AKwUvBzlJwT05jQj6hjU2ak1mpV5RB6H5zdvqlFBeUfOt+8ZG+AKQOofxIo/9wMhYfyVE4X2SvMBHpIl12otGcI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nETqyhsjzgme1xn0gpAyiceBYB511FyMyPp5OKrh+vioTgXXXT
-	vHKArQ0DWdwBCZjJwloSPNE/UYWAn/90bBNq0z2U9x7yle1In+n6pSqh
-X-Gm-Gg: AYBFou3eUQd05CEjAFkcR0NIVZKIvD8r7/dJRN4VTYsY/NiovP+3An3Gh7nHJfyjEBU
-	/NoUFXMXkxTPQAWcxwXQPVvieTsKpckYuMWkZubIXvUKuTawGkAYXxJAW/pIxJMi/JZIMEzVgPh
-	rTlasOODi6wzHBCe8P+iCM1BlVTDNwrsf9hFvrhnv188Wj26btsOc08KZSKCNV7WFmcwqY8hcij
-	ga/eei/ST02ICDGzVQLF2l0TYnFwG/VZt87+SC2FjYK6Ofj+WClBu+XHVaLCIavLRTAOcgJASpl
-	NUTzd4AWSiNwi1kqm+q59X7JVoBr5z9SVRon7rstBZ0vufh9LDNb+t2PCbJ5ar6WVXSiezns+Np
-	ND0K6RGPeQU5bfaWvmuns2vxgm9YAmTKSlaTFioNYeMUNeRNtsiJ6dvXRHJ2PGG79mj9yVYv0cS
-	FYx61SpJVliziA+oBpkRJw1fAbsCDlufyu9zHxr0hp6DL65wK3mnjOWL9RU0s2oTOHbDCc0NV+8
-	SRj9sAw4QLce4mRHSYICsGp+Oh8lZVz+98UJONQmhf24vnm
-X-Received: by 2002:a05:6a20:258b:b0:3bf:b7e8:68ab with SMTP id adf61e73a8af0-3dad26bda32mr7053932637.2.1789066815615;
-        Thu, 10 Sep 2026 12:00:15 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c6549ec0sm134989a12.15.2026.09.10.12.00.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 12:00:15 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <54a5620c-36cb-4dc1-bbd8-9647ff7cb708@roeck-us.net>
-Date: Thu, 10 Sep 2026 12:00:13 -0700
+        d=1e100.net; s=20251104; t=1789066817; x=1789671617;
+        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+         :content-type:mime-version:message-id:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uy7q6C+WBEDRAlNlGjV9EVm7qH12BqCcTHIyf0ThSEU=;
+        b=lucM+pHhFvmAsaOdKWvmvy0U+PrF6EeDHxK+iiWY1y7O79tpm/dkRd+6YDncjHofa/
+         2qn6RN4g6MrGKsAX3Pprh/uWVB0GlXf+MejhrmOVCqheGpB9WupMvkt7x12v7vhlqphB
+         LYMyaQ5/TS4FdLdI6xYzbFShzcZ6qrC5BCYNBIVbn1dTRNL8Afptt21aUByJ5yaBNnS3
+         S/NfswpcDWC0GSu9AJOIcsIqN93F5GN1WE6o/ISupthrJN7loQxoSd9C27+Ah8Ch/7jx
+         zpaavj+2DUUZ7E/qlIE3PjRuoG2/wYCJ/cUJS68ny8iAGHxUlGa+Btb/NXCL7nGqYteQ
+         sHlg==
+X-Forwarded-Encrypted: i=1; AKwUvBxD/8St5q4R6ceRwghOPR7uFuaYl2KkaF8XbxPUAymHZFTvzkIwzSRuI0XQFcLLagleBP3hUfm604JGnSQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++ljzwSK0nw2o7fqiFGJgGYim8cp2eFaYyuSY9BdRSJzCTbQuqmM
+	noc+rfT9y5lmjcHGOT1mHrCb1CdOgLX/CmER7NLCjA5K4OBFD4Hd++tfKD6slAthZg==
+X-Gm-Gg: AYBFou3BbckGpraa3h8FYj8lCiqtRyFqxOkO0S/Q2ZifCQNyWbH4KfWH0QjRpU8+IfU
+	ZbPOgBL41P3eJ5DRUrMkPvsnff47Lqi5ZC80TS4Hm/ouXiZHawxB3rj4AUK8rwia8Z808DILD9M
+	baPgmcnT1jaGyrY8e0/XaCaA/GAygwJTcgZhvY3Rm2ea7NbhAsPHQifmQ1oWvoPeOEXyULTxHVX
+	/rIpj761yc1uA1NTaaJyg8OYNsfHMPleD09iWUEas3ZD8wE/mA3R3HxgX7EWFj4guNdCcAzUhwk
+	2xE1v0RZ4Cn0o7EaCZMTNL0QJa4CY1Xso2Ur8mlumAoAOW2C/1hbC9Yy6sYv7hbH9tG7uZgw+G8
+	QOh0uxiRukiZUWZiI8MccziRH9rJ2rGW0vZb+ymeW5Rs4lfyItR94sqTOp0eEdLtyMF66ZwafCv
+	IkrkqxuaUqvAtChFsq1aVTyMfZbU02f0ItZo3Y4SN/j2tK/GAe8XqIpJ97ZrUGpYPRLzaqocFmO
+	d8Q42GhHys1YoCXQJbsJAtjar9x9Iz0ucjZkCCCrpuTgVyk7Cdp/IlAY5m3LGhx1yX0vZ+ASMUM
+	hg==
+X-Received: by 2002:a05:622a:514:b0:530:b2e4:91bc with SMTP id d75a77b69052e-530c878ffdamr12092271cf.53.1789066816931;
+        Thu, 10 Sep 2026 12:00:16 -0700 (PDT)
+Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca50cd05sm270221cf.29.2026.09.10.12.00.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 12:00:16 -0700 (PDT)
+Date: Thu, 10 Sep 2026 15:00:15 -0400
+Message-ID: <f7363063f6457ebe9eed74f878ec579a@paul-moore.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hwmon: (k10temp) Fix model id range of Zen5 Turin
-To: Rong Zhang <i@rong.moe>, Clemens Ladisch <clemens@ladisch.de>,
- Gabriel Ford <gabriel@gford.dev>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260911-k10temp-fix-zen5-epyc-v1-1-643f5a248ae1@rong.moe>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260911-k10temp-fix-zen5-epyc-v1-1-643f5a248ae1@rong.moe>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 
+Content-Type: text/plain; charset=UTF-8 
+Content-Transfer-Encoding: 8bit 
+X-Mailer: pstg-pwork:20260909_1743/pstg-lib:20260909_1550/pstg-pwork:20260909_1743
+From: Paul Moore <paul@paul-moore.com>
+To: Nils Lehnen <nils.lehnen@proton.me>, James Morris <jmorris@namei.org>, "Serge E . Hallyn" <serge@hallyn.com>, Miguel Ojeda <ojeda@kernel.org>
+Cc: Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Gary Guo <gary@garyguo.net>, Boqun Feng <boqun@kernel.org>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>, Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, Onur Ozkan <work@onurozkan.dev>, Atharv Dubey <atharvd440@gmail.com>, Ke Sun <sunke@kylinos.cn>, linux-security-module@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, Nils Lehnen <nils.lehnen@proton.me>
+Subject: Re: [PATCH] rust: security: replace `core::mem::zeroed` with  `pin_init::zeroed`
+References: <20260828024335.946-1-nils.lehnen@proton.me>
+In-Reply-To: <20260828024335.946-1-nils.lehnen@proton.me>
 
-On 9/10/26 11:39, Rong Zhang wrote:
-> Model 20h-2Fh are mobile processors with single CCD. For example, model
-> 24h is Strix Point, i.e., Ryzen AI 7 (PRO) (H/HX) 360/365/370.
+On Aug 27, 2026 Nils Lehnen <nils.lehnen@proton.me> wrote:
 > 
-> Including mobile processors in the model id range of Zen5 Turin
-> processors leads to bogus reporting:
+> All types in `bindings` implement `Zeroable` if they can, so use
+> `pin_init::zeroed` instead of relying on `unsafe` code.
 > 
->    k10temp-pci-00c3
->    Adapter: PCI adapter
->    Tctl:         +54.1°C
->    Tccd4:       +148.6°C
->    Tccd6:       +148.4°C
->    Tccd7:       +149.1°C
->    Tccd8:       +149.2°C
->    Tccd9:       +149.2°C
->    Tccd12:      +149.1°C
->    Tccd14:       +22.0°C
->    Tccd15:       +22.0°C
->    Tccd16:       +22.0°C
+> If this ends up not compiling in the future, something in bindgen or on
+> the C side changed and is most likely incorrect.
 > 
-> Fix it by removing the said range.
-> 
-> Fixes: 8440d5aca227 ("hwmon: (k10temp) Add per-CCD temperature monitoring for Zen5 Turin")
-> Signed-off-by: Rong Zhang <i@rong.moe>
+> Link: https://lore.kernel.org/r/20250814093046.2071971-8-lossin@kernel.org
+> Link: https://github.com/Rust-for-Linux/linux/issues/1189
+> Signed-off-by: Benno Lossin <lossin@kernel.org>
+> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Signed-off-by: Nils Lehnen <nils.lehnen@proton.me>
+> Link: https://patch.msgid.link/...
+> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+> Reviewed-by: Miguel Ojeda <ojeda@kernel.org>
+> Reviewed-by: Gary Guo <gary@garyguo.net>
 > ---
->   drivers/hwmon/k10temp.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+> Resend of Benno's patch from the Zeroable series [1]: only patches 1, 2
+> and 11 of that series were applied, and the issue [2] asks for the rest
+> to be re-sent. Rebased onto rust-next; it applied cleanly, and a
+> defconfig build with CONFIG_RUST=y and CONFIG_SECURITY=y passes.
 > 
-> diff --git a/drivers/hwmon/k10temp.c b/drivers/hwmon/k10temp.c
-> index 75a45010d687..3e7e63edc6a3 100644
-> --- a/drivers/hwmon/k10temp.c
-> +++ b/drivers/hwmon/k10temp.c
-> @@ -523,7 +523,7 @@ static int k10temp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
->   		}
->   	} else if (boot_cpu_data.x86 == 0x1a) {
->   		switch (boot_cpu_data.x86_model) {
-> -		case 0x00 ... 0x2f:	/* Zen5 Turin */
-> +		case 0x00 ... 0x1f:	/* Zen5 Turin */
-
-Doesn't that drop _all_ CCD temperature reporting for those chips ?
-
-Guenter
-
->   			data->ccd_offset = 0x1F0;
->   			k10temp_get_ccd_support(data, 16);
->   			break;
+> Two equivalent one-off patches were posted earlier [3][4]; Miguel asked
+> in [5] for a resend that keeps Benno's authorship, which this is.
+> Cc'ing the LSM list per Paul's request on the original thread.
 > 
-> ---
-> base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
-> change-id: 7b515a4b-k10temp-fix-zen5-epyc-14334e85a3b9
+> [1] https://lore.kernel.org/r/20250814093046.2071971-1-lossin@kernel.org
+> [2] https://github.com/Rust-for-Linux/linux/issues/1189
+> [3] https://lore.kernel.org/r/20251129135657.36144-1-atharvd440@gmail.com
+> [4] https://lore.kernel.org/r/20260120083824.477339-8-sunke@kylinos.cn
+> [5] https://lore.kernel.org/r/CANiq72nJqFOR9vhPBfZUNrxU+M1HMV6wN9bN6i8e9rf_oOD2qw@mail.gmail.com
 > 
-> Thanks,
-> Rong
+>  rust/kernel/security.rs | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 
+Merged into lsm/dev, thanks everyone!
+
+--
+paul-moore.com
