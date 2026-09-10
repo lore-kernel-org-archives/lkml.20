@@ -1,266 +1,185 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BBF123BB680;
-	Thu, 10 Sep 2026 08:41:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mta0.migadu.com (out-224.mta0.migadu.com [91.218.175.224])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9134C3C3459
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:41:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.224
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789029665; cv=none; b=SMM7dXvgB5+r0xnplBCFnXv+7Qujy5/Tbda03M1VEX2t833Ecy4lyvA9ebA2dVI3WscWlXlNgtaWwPsDpZFQQYEEyzto1Z+mtYZ+Sn1ctdOL1x5BXCkoA+e3STTi/+Xtxn+LdjA+r+FoDUxuWyomU/c9L5Ly/LY8wDH63LVwaR8=
+	t=1789029683; cv=none; b=osLO7KMiy2rAb5eyPpkBqnjsSsafyW9heo0ZTBggXYacrOyREXuwBUKDUyRDKfLwkAHD7nS7fqt+af+/IkntNfCRo0Te8hq2WyIRDiXTxHQHkNA55ypBVBn0xjT5LOjNtZPDyIjzAx3i1srzzro0mosgH5neRpxg5usYxp4oOBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789029665; c=relaxed/simple;
-	bh=pUx4XouHWYESXemkI76Ps33KgVnihThvJRf6HxpJWrc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dcrw2lueAYZv6nl7maNoxNylC1ISWSZPTT9yiGQ382vxdi2s9icVM08JHl4g6U1z74vUQzFS9GR5K/ptb2re3SwSw8wyR6e8kQTIjSRZhWe+NVyxRQfpv8eyr8s9JGhMEKfIWcKn66BQ+nCKJbNI40TnJ0bMPmd6KSa+LizD8qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=mBK9qm53; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789029683; c=relaxed/simple;
+	bh=qylLZ1SIaMrhXfONKdy81GiXEDGBxa/m+KiPwamBoKg=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=kaXCo7URCMIlHLM7iVNzndNsKxkQp1IEbwW8Q+2DIxGpj0ju73U+irqjEVmXC+OACaj3rLdQUs5yzyMVIyxHeERs7Ho7TkTxIRo4lqq9azgjbFnuHW9zsGdGNGLNaDxXqRp+lxV22NEkn/jZKxCSLwr+pwbDfIxub50dcXae724=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qobnmHrx; arc=none smtp.client-ip=91.218.175.224
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="mBK9qm53"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 70BD715A1;
-	Thu, 10 Sep 2026 01:40:57 -0700 (PDT)
-Received: from [10.0.129.245] (unknown [10.0.129.245])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A7E5F3F7B4;
-	Thu, 10 Sep 2026 01:40:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789029661; bh=pUx4XouHWYESXemkI76Ps33KgVnihThvJRf6HxpJWrc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=mBK9qm53pB00eTsmHk6y7JPEZrVx4dh4mqxt++d3n8MvUVQ0eeB2plEswWhCUeJEf
-	 njukunSrzJCIkygqJGuQU26k5lvOzDDiaIfC4tO3Q4fZF4k/WWaP+qIcYwG46JH6oR
-	 RIoX8Cwyllf/YGnFC1WcbtAro16LsstpEiyV2Zxs=
-Message-ID: <665c6498-f215-4acc-8e2c-6a7064e787fc@arm.com>
-Date: Thu, 10 Sep 2026 09:40:55 +0100
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qobnmHrx"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=qylLZ1SIaMrhXfONKdy81GiXEDGBxa/m+KiPwamBoKg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789029677; v=1; x=1789634477;
+ b=qobnmHrxMG+4H012iOBuF07zQsO4/TOO6UL9EFBAjwypFoxRq1A3MaGrCfB3YEKXOkmRbKlS
+ z+wifzOWw3pNk6/R2C9bqC+fHLKitgVKYuR63G+2+UoKUdljTnOKlshI1UQ8YRJbPs29EPVv8ft
+ Y7mtZoHxoGitX6Yx/dKKh5jI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 502bbddc9c24ce59;
+	Thu, 10 Sep 2026 08:41:17 +0000
+X-Mizu-Trace-ID: 502bbddc9c24ce59
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 05/20] KVM: arm64: Add vcpu load/put call backs for
- flavors
-Content-Language: en-GB
-To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260908162223.1683432-1-suzuki.poulose@arm.com>
- <20260908162223.1683432-6-suzuki.poulose@arm.com>
- <09f1d245-2104-4ca2-93af-a004c44b4161@redhat.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <09f1d245-2104-4ca2-93af-a004c44b4161@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Date: Thu, 10 Sep 2026 08:41:17 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Tianchu Chen" <tianchu.chen@linux.dev>
+Message-ID: <7d58756ac12f7b324c2d8693b03287b786020fd6@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH v2] staging: rtl8723bs: fix protected RX frame validation
+ in decrypt path
+To: "Greg KH" <gregkh@linuxfoundation.org>
+Cc: hansg@kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <2026090919-stammer-outclass-5c6f@gregkh>
+References: <7848fcb635963ddb8474924ed71fdd687b5d6ec7@linux.dev>
+ <2026090714-sneezing-unrated-b0ef@gregkh>
+ <aa1496d71e0867c1e04f6442ab97520f531531ca@linux.dev>
+ <2026090919-stammer-outclass-5c6f@gregkh>
 
-Hi Gavin
-
-On 10/09/2026 06:33, Gavin Shan wrote:
-> Hi Suzuki,
-> 
-> On 9/9/26 2:22 AM, Suzuki K Poulose wrote:
->> Add VM flavor specific handlers for VCPU load/put, in an effort to 
->> make it
->> easier to follow the code.
->>
->> Based on a patch by Marc Zyngier
->>
->> Suggested-by: Marc Zyngier <maz@kernel.org>
->> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->> ---
->>   arch/arm64/include/asm/kvm_host.h |   6 ++
->>   arch/arm64/kvm/arm.c              | 156 ++++++++++++++++++++++--------
->>   2 files changed, 123 insertions(+), 39 deletions(-)
->>
->> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/ 
->> asm/kvm_host.h
->> index d0dccc9ad6aa8..b2e99c5cb1cd3 100644
->> --- a/arch/arm64/include/asm/kvm_host.h
->> +++ b/arch/arm64/include/asm/kvm_host.h
->> @@ -150,6 +150,11 @@ struct kvm_vmid {
->>       atomic64_t id;
->>   };
->> +struct kvm_vcpu_ops {
->> +    void (*vcpu_load)(struct kvm_vcpu *vcpu, int cpu);
->> +    void (*vcpu_put)(struct kvm_vcpu *vcpu);
->> +};
->> +
-> 
-> struct kvm_vcpu::cpu has been set to 'cpu' before vcpu_load() is called in
-> kvm_arch_vcpu_load(), so we needn't explicitly pass @cpu to vcpu_load()?
-
-Ack
-
-> 
->>   struct kvm_s2_mmu {
->>       struct kvm_vmid vmid;
->> @@ -854,6 +859,7 @@ struct vncr_tlb;
->>   struct kvm_vcpu_arch {
->>       struct kvm_cpu_context ctxt;
->> +    const struct kvm_vcpu_ops *vcpu_ops;
-> 
-> I think this would be a field of 'struct kvm_arch' if all vCPUs inside a VM
-> have same vCPU operations.
-
-This was done to avoid the long list of pointer chasing :
-
-vcpu->kvm->arch.vcpu_ops->
-
-Given this is vcpu specific ops and a single pointer per vcpu, we can 
-make that easier to read.
+September 9, 2026 at 3:44 PM, "Greg KH" <gregkh@linuxfoundation.org mailt=
+o:gregkh@linuxfoundation.org?to=3D%22Greg%20KH%22%20%3Cgregkh%40linuxfoun=
+dation.org%3E > wrote:
 
 
-> 
->>       /*
->>        * Guest floating point state
->> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
->> index 51fc651267157..9af3bbb2f8c24 100644
->> --- a/arch/arm64/kvm/arm.c
->> +++ b/arch/arm64/kvm/arm.c
->> @@ -74,6 +74,8 @@ struct kvm_ioctl_cap_map {
->>       long ext;
->>   };
->> +static const struct kvm_vcpu_ops *arm64_vcpu_ops[VM_FLAVOR_MAX];
->> +
->>   /* Make KVM_CAP_NR_VCPUS the reference for features we always 
->> supported */
->>   #define KVM_CAP_ARM_BASIC    KVM_CAP_NR_VCPUS
->> @@ -569,6 +571,8 @@ int kvm_arch_vcpu_create(struct kvm_vcpu *vcpu)
->>       mutex_unlock(&vcpu->mutex);
->>   #endif
->> +    vcpu->arch.vcpu_ops = arm64_vcpu_ops[vcpu->kvm->arch.vm_flavor];
->> +
->>       /* Force users to call KVM_ARM_VCPU_INIT */
->>       vcpu_clear_flag(vcpu, VCPU_INITIALIZED);
->> @@ -738,36 +742,72 @@ static void vcpu_load_pvtime(struct kvm_vcpu *vcpu)
->>           kvm_make_request(KVM_REQ_RECORD_STEAL, vcpu);
->>   }
->> +static void vhe_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
->> +{
->> +    vcpu_prepare_mmu(vcpu);
->> +    /*
->> +     * The timer must be loaded before the vgic to correctly set up 
->> physical
->> +     * interrupt deactivation in nested state (e.g. timer interrupt).
->> +     */
->> +    kvm_timer_vcpu_load(vcpu);
->> +    kvm_vgic_load(vcpu);
->> +    kvm_vcpu_load_debug(vcpu);
->> +    kvm_vcpu_load_fgt(vcpu);
->> +    kvm_vcpu_load_vhe(vcpu);
->> +    kvm_arch_vcpu_load_fp(vcpu);
->> +    kvm_vcpu_pmu_restore_guest(vcpu);
->> +
->> +    vcpu_load_pvtime(vcpu);
->> +    vcpu_set_wfx_traps(vcpu);
->> +    vcpu_set_pauth_traps(vcpu);
->> +}
->> +
->> +static void nvhe_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
->> +{
->> +    vcpu_prepare_mmu(vcpu);
->> +    /*
->> +     * The timer must be loaded before the vgic to correctly set up 
->> physical
->> +     * interrupt deactivation in nested state (e.g. timer interrupt).
->> +     */
->> +    kvm_timer_vcpu_load(vcpu);
->> +    kvm_vgic_load(vcpu);
->> +    kvm_vcpu_load_debug(vcpu);
->> +    kvm_vcpu_load_fgt(vcpu);
->> +    kvm_arch_vcpu_load_fp(vcpu);
->> +    kvm_vcpu_pmu_restore_guest(vcpu);
->> +
->> +    vcpu_load_pvtime(vcpu);
->> +    vcpu_set_wfx_traps(vcpu);
->> +    vcpu_set_pauth_traps(vcpu);
->> +}
->> +
->> +static void pkvm_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
->> +{
->> +    /*
->> +     * The timer must be loaded before the vgic to correctly set up 
->> physical
->> +     * interrupt deactivation in nested state (e.g. timer interrupt).
->> +     */
->> +    kvm_timer_vcpu_load(vcpu);
->> +    kvm_vgic_load(vcpu);
->> +    kvm_vcpu_load_debug(vcpu);
->> +    kvm_vcpu_load_fgt(vcpu);
->> +    kvm_arch_vcpu_load_fp(vcpu);
->> +    kvm_vcpu_pmu_restore_guest(vcpu);
->> +
->> +    vcpu_load_pvtime(vcpu);
->> +    vcpu_set_wfx_traps(vcpu);
-> 
-> It seems vcpu_set_pauth_traps(vcpu) has been missed here?
-
-No, if you see the vcpu_set_pauth_traps(), we do nothing for 
-is_protected_kvm_enabled(). So skipped that explicitly here.
-I didn't remove that condition from vcpu_set_pauth_traps()
-just to keep it safer.
-
-> 
->> +
->> +    kvm_call_hyp_nvhe(__pkvm_vcpu_load,
->> +              vcpu->kvm->arch.pkvm.handle,
->> +              vcpu->vcpu_idx, vcpu->arch.hcr_el2);
->> +    kvm_call_hyp(__vgic_v3_restore_vmcr_aprs,
->> +             &vcpu->arch.vgic_cpu.vgic_v3);
->> +}
->> +
-
-...
-
->> +static const struct kvm_vcpu_ops vhe_vcpu_ops = {
->> +    .vcpu_load = vhe_vcpu_load,
->> +    .vcpu_put = vhe_vcpu_put,
->> +};
->> +
->> +static const struct kvm_vcpu_ops nvhe_vcpu_ops = {
->> +    .vcpu_load = nvhe_vcpu_load,
->> +    .vcpu_put = nvhe_vcpu_put,
->> +};
->> +
->> +static const struct kvm_vcpu_ops pkvm_vcpu_ops = {
->> +    .vcpu_load = pkvm_vcpu_load,
->> +    .vcpu_put = pkvm_vcpu_put,
->> +};
->> +
->> +static const struct kvm_vcpu_ops *arm64_vcpu_ops[] = {
->> +    [VM_VHE] = &vhe_vcpu_ops,
->> +    [VM_NVHE] = &nvhe_vcpu_ops,
->> +    [VM_PKVM] = &pkvm_vcpu_ops,
->> +    [VM_PROTECTED_PKVM] = &pkvm_vcpu_ops,
->> +};
->> +
-> 
-> We may avoid the variables {vhe, nvhe, pkvm}_vcpu_ops which are used for 
-> once:
-> 
-> static const struct kvm_vcpu_ops kvm_vcpu_ops[] = {
->      [VM_VHE]            = { vhe_vcpu_load,  vhe_vcpu_put  },
->      [VM_NVHE]           = { nvhe_vcpu_load, nvhe_vcpu_put },
->      [VM_PKVM]           = { pkvm_vcpu_load, pkvm_vcpu_put },
->      [VM_PROTECTED_PKVM] = { pkvm_vcpu_load, pkvm_vcpu_put },
-> };
-
-The structure might grow in the future (I have a vcpu_run callback in 
-testing). So it does make sense to use the variables to keep it tidy.
-
-I will add checks to make sure that the fields are initialised properly.
+>=20
+>=20On Tue, Sep 08, 2026 at 04:02:15PM +0000, Tianchu Chen wrote:
+>=20
+>=20>=20
+>=20> September 8, 2026 at 12:13 AM, "Greg KH" <gregkh@linuxfoundation.or=
+g mailto:gregkh@linuxfoundation.org?to=3D%22Greg%20KH%22%20%3Cgregkh%40li=
+nuxfoundation.org%3E > wrote:
+> >=20=20
+>=20>=20=20
+>=20>  -snip-
+> >=20=20
+>=20>  >=20
+>=20>  > drivers/staging/rtl8723bs/core/rtw_recv.c | 21 +++++++++++++++++=
++---
+> >  > 1 file changed, 18 insertions(+), 3 deletions(-)
+> >  >=20
+>=20>  > diff --git a/drivers/staging/rtl8723bs/core/rtw_recv.c b/drivers=
+/staging/rtl8723bs/core/rtw_recv.c
+> >  > index 7568fc514d7ce..4756e0fedd46f 100644
+> >  > --- a/drivers/staging/rtl8723bs/core/rtw_recv.c
+> >  > +++ b/drivers/staging/rtl8723bs/core/rtw_recv.c
+> >  > @@ -426,8 +426,21 @@ static union recv_frame *decryptor(struct ada=
+pter *padapter, union recv_frame *p
+> >  > u32 res =3D _SUCCESS;
+> >  >=20
+>=20>  > if (prxattrib->encrypt > 0) {
+> >  > - u8 *iv =3D precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
+> >  > + u8 *iv;
+> >  > + u32 min_len =3D prxattrib->hdrlen + prxattrib->iv_len + prxattri=
+b->icv_len;
+> >  >=20
+>=20>  Why will this not overflow?
+> >=20=20
+>=20>  The overflow(without this fix) happens inside the per-suite decryp=
+t routines
+> >  when a received frame is shorter than this minimum. For example:
+> >=20=20
+>=20>  rtw_aes_decrypt() computes length =3D len - hdrlen - iv_len, so a
+> >  30-byte frame with hdrlen =3D 26 and iv_len =3D 8 wraps length to ~4=
+GiB,
+> >  and aes_decipher() then iterates num_blocks =3D (plen - 8) / 16 16-b=
+yte
+> >  blocks, reading and writing gigabytes past the skb.
+> >=20=20
+>=20>  The WEP and TKIP decryptors start from the same subtraction and
+> >  underflow the same way.=20
+>=20>=20=20
+>=20>  min_len is the minimum size of a legitimate protected frame: heade=
+r +
+> >  IV + ICV, plus the 8-byte Michael MIC for TKIP.
+> >=20=20
+>=20>  The min_len computation itself cannot wrap either: all three
+> >  addends are u8 fields, hdrlen is at most 36 and iv_len/icv_len are
+> >  per-suite constants (max 18/16), so the sum stays below 80 even with
+> >  the TKIP +8. A frame shorter than min_len cannot even hold its IV
+> >  and ICV, so only malformed frames are dropped.
+> >=20=20
+>=20>=20=20
+>=20>  >=20
+>=20>  > + /* TKIP appends an 8-byte Michael MIC that icv_len doesn't acc=
+ount for */
+> >  > + if (prxattrib->encrypt =3D=3D _TKIP_)
+> >  > + min_len +=3D 8;
+> >  > +
+> >  > + /* a protected frame must be long enough to hold the IV and ICV/=
+MIC */
+> >  > + if (precv_frame->u.hdr.len < min_len) {
+> >  > + rtw_free_recvframe(precv_frame,
+> >  > + &padapter->recvpriv.free_recv_queue);
+> >  > + return NULL;
+> >  > + }
+> >  > +
+> >  > + iv =3D precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
+> >  >=20
+>=20>  What prevents this from overflowing?
+> >=20=20
+>=20>  The check above keeps the offset within the frame: it guarantees
+> >  len >=3D hdrlen + iv_len + icv_len, and iv_len >=3D 4 for every suit=
+e, so
+> >  len >=3D hdrlen + 4 and both iv and the iv[3] dereference stay withi=
+n the
+> >  first len bytes ([rx_data, rx_data + len)).
+> >=20=20
+>=20>=20=20
+>=20>  Those len bytes are in turn inside the allocation: hdr.len is set =
+by
+> >  recvframe_put() only after pkt_exceeds_tail() verified that pkt_len
+> >  bytes were actually copied from the RX FIFO into an skb sized for
+> >  them (rtl8723bs_recv.c), so any offset below len is inside the
+> >  buffer.
+> >=20=20
+>=20>  This is also why the iv assignment moved: the iv[3] read that foll=
+ows
+> >  it would otherwise be an out-of-bounds read when the frame is shorte=
+r
+> >  than hdrlen + 4. The IV may only be examined once the frame is known
+> >  to actually contain it.
+> >=20=20
+>=20>=20=20
+>=20>=20=20
+>=20>  thanks,
+> >=20=20
+>=20>  greg k-h
+> >=20
+>=20>=20=20
+>=20>  Regarding the format issue being mentioned earlier, I can send a v=
+3
+> >  patch. Also, I believe decryptor() is also where this check should b=
+elongs.
+> >=20
+>=20Please send a v3.
+>=20
+>=20thanks,
+>=20
+>=20greg k-h
+>
 
 
-Cheers
-Suzuki
+Hi Greg,
 
-> 
->>   static unsigned long nvhe_percpu_size(void)
->>   {
->>       return (unsigned long)CHOOSE_NVHE_SYM(__per_cpu_end) -
-> 
-> Thanks,
-> Gavin
-> 
+V3 has been sent: https://lore.kernel.org/all/8ee3bdd1c45034200cb1aa9a7e9=
+b575b9584643a@linux.dev/
 
+Best regards,
+
+Tianchu
