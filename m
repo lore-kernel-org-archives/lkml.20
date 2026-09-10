@@ -1,221 +1,97 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7296137D121;
-	Thu, 10 Sep 2026 14:14:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0B9349481A;
+	Thu, 10 Sep 2026 14:14:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789049653; cv=none; b=TQQUPw48KPLY2pzVBnoc7akjz1ysMjrgR0xT51bVLILSmVi/6y73seAcyBMrsKr5lKoiovMxWQ78MMnnWY8NQv9lLNUFZpMFQHJOOEUllcu883jiYLa6VV5YF2Deas/+szrtDkvFplq8z0g/r4w5EufHGyTWM7n6/kTJUlIajKI=
+	t=1789049699; cv=none; b=GbzLqfNXAIemeR1zPxrX1C3NZMqSqTjlf5+ovb9IovV5tWe7kBNBhA2W2kMdkwWJdo7BY/F8EksEhLU8p6MrmKtZhH4OO+817cK/mu18S/qon2Xw8T74aVgibCxn4shAYRGtYwfZAH16Z0zG1To99ygOVvZog+Upsa0uhov0bvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789049653; c=relaxed/simple;
-	bh=N+VYy96hJF7Ow2jt7AGfjc+msF2xsHBls6lmkJ/54+s=;
+	s=arc-20240116; t=1789049699; c=relaxed/simple;
+	bh=vZb+To3dn7nxMqAF+xniM1hj6OZWHwB4F6mWcKx9Qw8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sIEZB2Q+9CA6MdvWTH4tHLaTFmI6+sOIA9l9sPu0YV/Yi2RwCKL7mAcPkd0g3DRVSi/LElfEwhj327SOAr/XKZ9h4+Xiw4cG7dynqhzxOE/50LxONi8WtZw8f9T6iUPnJQSa8k4XlIuASwYJZY1wIRbOroTNWXj1rO9EDj9/FXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=s1bpGVeK; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=hreJcXSvc/iUepvLXXcmhwDBH+vJg5WWyKm50zivo0BVtA34p3ElEyvMqI/nfsy/QxcE63XkTgu4JBFKGbD+XALSSGD9zTXBqjTEC95rF7tSiFekiRAtgUwaCrMmaE3cxwVJRcpq+/LG+Blori7tQQTLc8lgRDFxoBHh14K/x1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=niPBdpix; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="s1bpGVeK"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ACVQ4k1017565;
-	Thu, 10 Sep 2026 14:13:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=Rsa+09
-	XshQBqt7KTDIU4LcA8wjLUXgeN7I6YUPic3UE=; b=s1bpGVeKIHCAIsOQ244fhy
-	3aYYKpAjVo0mejHL5QN2bZNUeyeniAEdR87tUIT7rwlVqOXaSDLeEOjx2Pbh+ESJ
-	Xx+C+JohjyHuRtRmc4aKny/LB2iNpw/NxXEdKfhRwmiScTktMWTq7gHpgMuiAFcj
-	LHeurv0bZJvgmg982oLTjXTIxuZMUEWUD/B61pNgT3aODnjeMUec5zK1FmYi3t+h
-	+/xamNHp4pyrjnzYQWuq2f6CB1m2khHECuK/9nQgRS8Sqe67FJFi8VU7x9BV+uRy
-	sOHsDNuIJFcAB8ts4DIHakXHCqfp75Js5c6y3kPS3LEZt62o5scEM3aLc/2JE2Qw
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gkd8n52ea-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 14:13:59 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68ADAVaq044169;
-	Thu, 10 Sep 2026 14:13:58 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gkvtf8d8t-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 14:13:58 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68AEDuHu52887898
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 10 Sep 2026 14:13:56 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0F42720043;
-	Thu, 10 Sep 2026 14:13:56 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6484020040;
-	Thu, 10 Sep 2026 14:13:54 +0000 (GMT)
-Received: from fedora (unknown [9.5.7.39])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Thu, 10 Sep 2026 14:13:54 +0000 (GMT)
-Date: Thu, 10 Sep 2026 19:51:39 +0530
-From: Amit Machhiwal <amachhiw@linux.ibm.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Jordan Niethe <jniethe5@gmail.com>, linuxppc-dev@lists.ozlabs.org,
-        kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] KVM: PPC: Fix guest state buffer kernel-doc names and
- parameters
-Message-ID: <20260910195045.996cb331-f4-amachhiw@linux.ibm.com>
-Mail-Followup-To: Karl Mehltretter <kmehltretter@gmail.com>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Nicholas Piggin <npiggin@gmail.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Jordan Niethe <jniethe5@gmail.com>, 
-	linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260910033655.16127-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="niPBdpix"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C0281F000FF;
+	Thu, 10 Sep 2026 14:14:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789049698;
+	bh=aaH94r2pnTGyhZ2s2DCtMt9jAIlcwDGgoPae43u3KbI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=niPBdpixKg9E9hqQj+GTyb42eVqDLarLNBGOOajS0BYsqMl6xxrV2LQ5OtyQkYEEY
+	 4Ta6rgMg8Ik1nw2cS2V9VsO7QgTwjlx1i4ayNDlfGFs/bNK3XrVMHw3tWLqgN5Z6CZ
+	 Ppw5qTar0i9NxUqC6AfaeVbUB3jrkFhpWKisjhC4wLIWyVIrh64Q45UnHydlWziIuF
+	 vtoq/d6Dc85jiyZCOPKYlntu0vzvT2gHx5+AdagFeOKbE7M1eGVJ8OaE+8h78vy/J6
+	 SPMM4iZHxysLD5C06I907FHrcU+orF4ce+WOOTLOEU2biAyop0fu6zOGBmYejd3o+C
+	 6U0FlgGyyTocw==
+Date: Thu, 10 Sep 2026 09:14:56 -0500
+From: Eric Biggers <ebiggers@kernel.org>
+To: Thomas Huth <thuth@redhat.com>
+Cc: Joachim Vandersmissen <joachim@jvdsn.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Herbert Xu <herbert@gondor.apana.org.au>
+Subject: Re: [PATCH] crypto: testmgr - block Crypto API xxhash64 in FIPS mode
+Message-ID: <20260910141456.GA1936@quark>
+References: <20260303060509.246038-1-git@jvdsn.com>
+ <abTuFto8Tc3mhRRe@gondor.apana.org.au>
+ <64592fee-1956-4a70-a751-9ac3335cfc27@jvdsn.com>
+ <9926908a-5f08-43ba-99dd-b83c7067d52b@redhat.com>
+ <83d09aa1-729a-47a2-a8e9-381c74e92f42@jvdsn.com>
+ <48f12b65-428d-4809-9735-18876b09e759@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260910033655.16127-1-kmehltretter@gmail.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=NMVAaE6g c=1 sm=1 tr=0 ts=6aa2bb27 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=pGLkceISAAAA:8
- a=VnNF1IyMAAAA:8 a=yPVLcobRgUjX84E6IAMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: J-dMCcHPRX6nTUw6TjgMFsEGwK3oj0ut
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDE2OSBTYWx0ZWRfX04YIj3PSJDwq
- RCLzvLTxLEk94vfEWWmk9+1WPi6AkxRV8dBRWX6ZZXAj7wsZzKeW0Kd0ovYhiqu7NbnxA/7nDim
- 7Ms7xvVkByMKRy/pnjb4qoWhE76SQYKyKxG1KvyzBy7uQqxVyci0BBNaihEm8FcsdjT2TnN/Ma+
- /m/DJ4wlifhh0xWyY4dCdu//KsJTqNiRh1hah/iHCVCC6Kk4mjR6NDIkkcD3gwNvfTAnR7Ld2a4
- zR4dg+27VjlUKaDBc9IftpXMRBdrHdd9RdINL6ds5na0zAFTYD9G3uhlYrgkSb6cpfW4OQzR6aH
- GiL+wJIMcdyv25LiuA1XQoWduuhhwjtzTFydeFFc9JhDjZrHrvr/pmfu85TpBUY8WNmrzq9siWC
- i4cpgQgpuaYLHxO3BrUct6/5Zlpybyb368F9TzOjIkT4WkhBBYRtYyITQ7IWNX8RDT7FPjOegmv
- kGgdSR54Rmhp1p5aYLg==
-X-Proofpoint-ORIG-GUID: rwg0wXi8uBU91HmEltVOagbEFNv1f0Dv
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDE2OSBTYWx0ZWRfX0XnZOaffguB6
- jj9xE44WgyDH1CUjulw9PIvKwROWpRrjKgeztW1SJ6djVQqlkY4OtQR3GuQHc8Jjfrqj6G4GqBz
- SG/EutO39/hDio6+52TzFO004Qm9Pz4=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_04,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0
- priorityscore=1501 adultscore=0 suspectscore=0 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100169
+In-Reply-To: <48f12b65-428d-4809-9735-18876b09e759@redhat.com>
 
-On 2026/09/10 05:36 AM, Karl Mehltretter wrote:
-> Several guest state buffer comments use copied function or parameter
-> names. In particular, kvmppc_gsm_for_each() describes a parser and an
-> element argument, although it takes a message and yields IDs.
-> kvmppc_gsm_include_all() also describes an ID argument it does not take.
+On Thu, Sep 10, 2026 at 10:57:32AM +0200, Thomas Huth wrote:
+> On 10/09/2026 05.24, Joachim Vandersmissen wrote:
+> > Hi Thomas,
+> > 
+> > On 9/9/26 9:36 AM, Thomas Huth wrote:
+> > > On 15/03/2026 01.43, Joachim Vandersmissen wrote:
+> > > > Hi Herbert,
+> > > > 
+> > > > I don't think this one can be applied yet since dm-integrity
+> > > > still uses xxhash64 through the crypto API. This would break
+> > > > fips=1 systems that use it.
+> > > 
+> > > Out of curiosity: Wouldn't such a system be FIPS-incompliant anyway?
+> > > If xxhash64 isn't FIPS-compliant, nobody should use it for
+> > > dm-integrity there, right? So I doubt that there are any systems out
+> > > there that use fips=1 and use xxhash64 at the same time?
+> > 
+> > There is a risk that users may not know that xxhash64 is not FIPS
+> > compliant and would still use it. Especially considering it was marked
+> > as "fips_allowed = 1" for a while.
 > 
-> Match the headings and parameter descriptions to their declarations,
-> and describe the parser argument and vector output with their actual
-> roles.
-> 
-> Fixes: 6ccbbc33f06a ("KVM: PPC: Add helper library for Guest State Buffers")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
->  arch/powerpc/include/asm/guest-state-buffer.h | 17 ++++++++---------
->  1 file changed, 8 insertions(+), 9 deletions(-)
+> So isn't that a very bad situation? They think they are FIPS compliant, but
+> actually they are not since they use an unapproved algorithm by accident.
+> Maybe it would be better to include this patch so that they are aware of the
+> mistake? If there is really somebody running into this issue, they could
+> boot once with fips=0, fix their system, reboot again with fips=1 and
+> finally be really compliant. Sounds like the better solution to me. WDYT?
 
-The kernel-doc fixes are all accurate — heading names, parameter names, and
-parameter lists now match their declarations. In particular, the
-kvmppc_gsm_for_each / kvmppc_gsm_include_all / kvmppc_gsm_reset /
-kvmppc_gsb_receive_datum / kvmppc_gsb_send_datum corrections are a clear
-improvement over the copy-paste state left by the original commit.
+As described in the dm-integrity documentation, dm-integrity supports
+non-cryptographic checksums for protection from accidental corruption.
+That use case is no different from any other use case of a checksum.
 
-Reviewed-by: Amit Machhiwal <amachhiw@linux.ibm.com>
+It's also no different from using crc32 or crc32c, which similarly have
+fips_allowed=1 and this patch completely ignores.
 
-> 
-> diff --git a/arch/powerpc/include/asm/guest-state-buffer.h b/arch/powerpc/include/asm/guest-state-buffer.h
-> index acd61eb36d59..95d50ec7f2a9 100644
-> --- a/arch/powerpc/include/asm/guest-state-buffer.h
-> +++ b/arch/powerpc/include/asm/guest-state-buffer.h
-> @@ -224,7 +224,7 @@ struct kvmppc_gs_buff_info {
->  
->  /**
->   * struct kvmppc_gs_header - serialized guest state buffer header
-> - * @nelem: count of guest state elements in the buffer
-> + * @nelems: count of guest state elements in the buffer
->   * @data: start of the stream of elements in the buffer
->   */
->  struct kvmppc_gs_header {
-> @@ -779,6 +779,7 @@ static inline u64 kvmppc_gse_get_u64(const struct kvmppc_gs_elem *gse)
->  /**
->   * kvmppc_gse_get_vector128() - return the data of a vector element
->   * @gse: guest state element
-> + * @v: output vector in host endianness
->   */
->  static inline void kvmppc_gse_get_vector128(const struct kvmppc_gs_elem *gse,
->  					    vector128 *v)
-> @@ -849,7 +850,7 @@ struct kvmppc_gs_elem *kvmppc_gsp_lookup(struct kvmppc_gs_parser *gsp,
->  /**
->   * kvmppc_gsp_for_each - iterate the <guest state IDs, guest state element>
->   * pairs
-> - * @gsp: guest state buffer bitmap
-> + * @gsp: guest state parser
->   * @iden: current guest state ID
->   * @gse: guest state element
->   */
-> @@ -866,9 +867,8 @@ struct kvmppc_gs_elem *kvmppc_gsp_lookup(struct kvmppc_gs_parser *gsp,
->  /**
->   * kvmppc_gsm_for_each - iterate the guest state IDs included in a guest state
->   * message
-> - * @gsp: guest state buffer bitmap
-> + * @gsm: guest state message
->   * @iden: current guest state ID
-> - * @gse: guest state element
->   */
->  #define kvmppc_gsm_for_each(gsm, iden)                            \
->  	for (iden = kvmppc_gsbm_next(&gsm->bitmap, 0); iden != 0; \
-> @@ -908,10 +908,9 @@ static inline bool kvmppc_gsm_includes(struct kvmppc_gs_msg *gsm, u16 iden)
->  }
->  
->  /**
-> - * kvmppc_gsm_includes - indicate all guest state IDs should be included when
-> + * kvmppc_gsm_include_all - indicate all guest state IDs should be included when
->   * serializing
->   * @gsm: guest state message
-> - * @iden: guest state ID
->   */
->  static inline void kvmppc_gsm_include_all(struct kvmppc_gs_msg *gsm)
->  {
-> @@ -919,7 +918,7 @@ static inline void kvmppc_gsm_include_all(struct kvmppc_gs_msg *gsm)
->  }
->  
->  /**
-> - * kvmppc_gsm_include - clear the guest state IDs that should be included when
-> + * kvmppc_gsm_reset - clear the guest state IDs that should be included when
->   * serializing
->   * @gsm: guest state message
->   */
-> @@ -958,7 +957,7 @@ static inline int kvmppc_gsb_receive_data(struct kvmppc_gs_buff *gsb,
->  }
->  
->  /**
-> - * kvmppc_gsb_recv - receive a single guest state ID
-> + * kvmppc_gsb_receive_datum - receive a single guest state ID
->   * @gsb: guest state buffer
->   * @gsm: guest state message
->   * @iden: guest state identity
-> @@ -998,7 +997,7 @@ static inline int kvmppc_gsb_send_data(struct kvmppc_gs_buff *gsb,
->  }
->  
->  /**
-> - * kvmppc_gsb_recv - send a single guest state ID
-> + * kvmppc_gsb_send_datum - send a single guest state ID
->   * @gsb: guest state buffer
->   * @gsm: guest state message
->   * @iden: guest state identity
-> 
-> base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
-> -- 
-> 2.39.5 (Apple Git-154)
-> 
+The solution is not banning checksums or making any other code change,
+but rather just doing what it seems everyone has already been doing:
+documenting in their FIPS security policy that checksums are only for
+use cases that are not "security functions".
+
+- Eric
