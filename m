@@ -1,164 +1,181 @@
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEC5E486B8F
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:47:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789051625; cv=none; b=APujtLmGNtX30N4UdJbNARFxRKqbk1LIdE6odbxWQGhN9Yc0Z2lgUxhHOPgss9QcLCrBw4luR93IR83+Lu1ZZl50MgYghgT2MFEGZHKDtzXt2LDNb8MiqBroE3i6/1+lAHIFSOCLw5N27WPPjzzeYPQC9Mu76H7AeTvzE+EvqNk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789051625; c=relaxed/simple;
-	bh=h8iMGTXNDfX416b2xMAs1icLiy2Uqo2H7u5+lxwE2RI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p6a+z581lFs6Vs2P/S6rQDwSikG0VFDEWsrlTDxVZvxydHQvpPcvci3x4GmgtdsdactD0s8Il+A8EQExgG4UZWxqjZtBOEuKzVVUTnqYwjsGwkcViXUQBxHmqquuzN0jg/xG5PdQTi03FaWDXC/vsOmXKUT85IS2g4CGqrzFisM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=jJ+qeFzO; arc=none smtp.client-ip=209.85.222.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB4D2DEA89
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:47:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789051654; cv=pass; b=HejAyQ8xjsdst0esVaD32BHd51O9PdglHkv03PuL9X8RAOgDxo3kFAqtWU2SZsuaT2Ft/FjCbiNLTlfpAwJHOpvYScyTvoWvMAGlpRwzdYdi482EB+T6bQw+rpvDWKfkVZpoYTdC2DlN9MuGu6tXK1etgHd4tGJbg78fZZJmML8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789051654; c=relaxed/simple;
+	bh=Okm/jzRAvTBw58BaCq0sxyEyxRDfCrz26IinG233cnc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZsS0lPSFJW0vDenCP06xlFQ0X2zBIOU73KBcdyFefQTddKlY1eiSzKPBlB/un38TCluZdmAOaclg+KC++yffB+8AutVCiiQDPCE4DKLKKEGgkbKbagz64aIJSrZy/wAqEnTjFZ6a1IEMmMUUXe5499tkSK+NTwGo61uYh3ETt4s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=u+Vz9SeE; arc=pass smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="jJ+qeFzO"
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93997065344so557345385a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:47:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="u+Vz9SeE"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485b1d2874aso1262491f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:47:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789051651; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Lx+2Ej0dlLtacNPoF77P1/J9Fc9YkXxG1IVIVWapacs874YJHXfxtqNB3N4EgfaXNd
+         XGrIaU5rvxKMmTg/g7u1JxwCQ8vOiBiWlIQvbvX4UgNQciABuS/ykQe9MjLdviNsxNNl
+         dDDesJa203xM4tylM5MkW6c+SdsM35Ac+qTkmnsL42JGEb9KvhpR/ztbFovtRMApxpoV
+         zyapemR02hmY4G53YEDSOvHYARZy3dCN1P/FDGbzY8ocw1mHGXpcfL1Aa+kdPZa2mNrO
+         WL0sJgDsxOSHsfC/28B9RdF2JXoD2NGRK4E2jqOUBczfjuZdelrpzKgvP22I066wQS0Q
+         xbjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=1Fj+UUPwjPg1SwSshTqSVQg8NUJ6uD77121d863dA0c=;
+        fh=YIWmZ7NO4rqyiEo6py8IxR1JsaU9aASBPUX3tHXxrf8=;
+        b=fuieZ1WDToGLYv5JLJL1QvHxXiYEm5ll7jDTacqi5iOQjiYgu+4TjpOS5nh8SyYOYY
+         m1wpN3iKvDGhKE9Nw8WRB5LJXL1Z6/hCWkOC4Sj9Muvi8W9IHkSEkQr+8pQzSMWATT4b
+         WEZInXAsPG0OB412C63uND60MpQKNRaFFetWNVzqXsg1yTGF3Sdmp98rk1gZAastsDGS
+         4j8AsPj3gVhJftdaVXyCxMebGxokxOYELk8Sqk7Aymn5c6WBwX6ptizpgVYdszsm5dgK
+         11LYonfUXZoDiPlBYNyNYRTDdA0auW0VV5WzcCmrO0kqxHcPfAX+Fx0K7ItLiMUHTFvY
+         a6UQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789051622; x=1789656422; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=brainfault.org; s=google; t=1789051651; x=1789656451; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=kKkfTdA2RhAgMUbRVAzf0FG3CakpaY+N8UoEfITRbZc=;
-        b=jJ+qeFzOZisIC61FODF8T/Lvvbm58PRoJAFp5egn/iacWl2ZbLqfekB4/dzC/QyZUz
-         ETCZM6+WtNa2fedVTROcsfeKvhSG4BAXNjrcYqewGUwL7RbsHDTHqdh/A4Y400Se5iJg
-         cStvWvyRMjFvJ4gYRD3PjC7VLCrpvrDe5t/GXGUrzksCVO9N7PgIO/kKJPP4pieR8kxk
-         lT/8raeUqd6zWYJEaLyTeiVLmo9KsIhjXK8CmJdtvlZ8EkT0y6vGWmXq3o81QnvnT/zi
-         FPgNTkXvO62Vem3n4BSzI+exFyraI6Cd5br9DBawia6/av1zXMiWBNuOpFKWn8jFPh5h
-         gCLw==
+        bh=1Fj+UUPwjPg1SwSshTqSVQg8NUJ6uD77121d863dA0c=;
+        b=u+Vz9SeEUFgLgqvkphmPxt2MBqMzqo2OxbN7B8UqfxONUYOQJVwXeVIKa9IK4JcOzk
+         MTb6s46WtcMwqEH1r9xVKf+NL/Wy+ZYsHO5Hq4zKo2zX6mZ64vN7m3OTv4UgNJf0pwsi
+         8KnOFF4ujhBHIaHVOH+UeGooqTgFWB6Vw+FzHX+MTClIAfp/rpzhD+lO16m7jRQkzfAK
+         VJg+npsIOwqMNuvHNtKrVNdHTibNcVYECxP5VhMrXQ54WQ3TSdvauiHYb6clYzBcZSAw
+         wg2WRlFlw/Yi1vXq/f4rEDaIknr9jT4lQtSgqUtTxTkTyq1SurOkFKm//0VnAUm6S8BM
+         q3zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789051622; x=1789656422;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1789051651; x=1789656451;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kKkfTdA2RhAgMUbRVAzf0FG3CakpaY+N8UoEfITRbZc=;
-        b=gcCxFxi6Qn2v8uYMtLPhKk/wVxnip3w5Sj9cnyOCBHqPshZYJS4e8up7MC4T4AXQce
-         vZxNWyf/AQD6ODSWnUXBAT6oFDGhnbXfpIlv1RsiIJ1qsReBr/oPz1xInSlaGIJRISzl
-         p5Z75QDHzV/HgbudHhQPBZL/WTi4ULGARjATWWUBuj2spzwz23QC5k1kdBFjtOCSnesm
-         6Vw0iAIvqynjVmEEZI0FtSopjKZr0zKviNFwOMg/fAFde9kjitdKjRLTbDL8x2j+a2Qr
-         rpU51s2hDxwK4C1ipAn4LR5veQ5mgKy8wEuWPO9mUYYzbEtG/D+KVbaof8j4WRxx84bo
-         FYNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw7qoyMgtmSFHiamuPc/Q7t87RzIqHmgHJkc3WtiGT7uTKJQIPJ8yB7Zq0tCyPJvK3V1mawLfbKbfrrEj8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kOqnm1+2wPIvgwKaBBZt9oAtsTEuIXkAqP0y6UoMkziRdyIDCv
-	0xf6+WJU4szoPLWLTfVA/PtCBjX27FcFK3DWD3aVkHRg0+4EYQTl1Yc5Jxk2IE/5UE8=
-X-Gm-Gg: AYBFou2d3OfBG7gq6MBQJ0esbhBv9YdhdVImW6+/W7vnadhfaZxSp9i/E25WMJoSinM
-	PDA74238MDwinQLkAnxlxZLDNHBo493nBk8f1sbCUkIxyo8Et+YDIlw/WA5EWWiZAT8vCeyFOKS
-	cP4AYmKs70ULzihYz4dDMPa9aNjCLrR4IhQ2KnTLm45quzFBmb++FWiivkQZfArbhUQmRE+xGuF
-	VFDL5sI7y7+g0790wYW4/qkn+7LdgiNHYmopZk6gdCDwMqgI112usBzRo6FMXnsnmHPBW37jpXu
-	x2ytwihQkjQljWMRyIE3JanVjX7b2VeWdMSScrN6kpm/E6XPBOfrl04a4LlrVwFD/NcNE4GocTf
-	eNnyVAMv9uFCKzlYUX5w+UdhmXLe8u+G96xsHCvJeQhhe26qEUqG5eRG/se36ikkascmWDs5mih
-	pKQRMMrQgxpGZc8bj3GsDiJ/TGEL69UVvLc7t7go1SSfxO6UJURzkRkSXOAwxG/7OjwjODt9mks
-	GOaZr1GlEulkaDXWhgMo9EqTNye6VkumC4kIhEwmGvq/FblyaMZfXw=
-X-Received: by 2002:a05:620a:46a7:b0:939:744:b5a3 with SMTP id af79cd13be357-939806da02cmr4694331285a.29.1789051621645;
-        Thu, 10 Sep 2026 07:47:01 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e7da5f59sm1310085a.1.2026.09.10.07.47.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 07:47:01 -0700 (PDT)
-Date: Thu, 10 Sep 2026 10:46:59 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org, kvm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	pbonzini@redhat.com, seanjc@google.com, akpm@linux-foundation.org, ziy@nvidia.com, 
-	matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com, 
-	ying.huang@linux.alibaba.com, apopple@nvidia.com, shuah@kernel.org
-Subject: Re: [PATCH 0/5] KVM: guest_memfd: bind backing memory to a NUMA node
-Message-ID: <aqK6aj44Tn3bilry@gourry-fedora-PF4VCD3F>
-References: <20260902194657.79075-1-gourry@gourry.net>
- <9b67424d-70e5-442b-9ec7-22b1d3db12f4@kernel.org>
- <aqKzIO3DD66Dhkdw@gourry-fedora-PF4VCD3F>
- <6285ebc9-fee5-4f51-9ce6-b840f9dba65a@kernel.org>
+        bh=1Fj+UUPwjPg1SwSshTqSVQg8NUJ6uD77121d863dA0c=;
+        b=lY7aO09tijffaW7yHehsu+fVj1iJoqbPrlU5K2NjaDNH0gM5DiqdXPdGuD+wfMPbdu
+         iZMDiUI0GYNyX/ZY7iazB1CbRwWGvc64B/a4iFnpMXzFqrXF71wyw9mWTD6eiGNlG2w2
+         jrvW4hratzrNqpMXImWRdUyoglAg9tn/mvzHb5tfAnMv+o4jkTrhTfjpgyFigZtFZa9/
+         wQRRLBLtIL0jJzPcWyvQYKTuO56BdbS20lD25ZmqRhJcZYj5nbLN5HagkMmEJL2PMUk+
+         MFo/UB7EqNFRFo5/GopT5bA6IpFEIkyuegZ32FuT/xGYgEw04dzBO2V/oAjKgGdlRjDh
+         U04Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw+f/tXAf8gGgqtsQ3PBIW84FpzHfSW+pI8werhJRTqRhS0C0az9vhZMuOa/39p84mtmu5J48Q3hOKlEi8=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+Xr7mnNqj7KLAKAmSLGInKCALGw1HLI8rSrnodAeLXciRVTXH
+	4iaLjtUZnR97Dbj3ax+Pk4Mcoo1gX6HPmiNLkFg2WKrmp/KYU0GLt+3N8RWhyFrS3SjKW2xht0i
+	Z94vSZgBPj+C0P9DoWlICmY+1aYQNU5Yh8MA98fbphg==
+X-Gm-Gg: AYBFou3gB8bZKAwsQgIcZ0T5jGOaKOY3KDEo2itgf8olXPcumRJUNPfsWp9bZ906f8y
+	9NrUxuoAUHIN/sHhabPpL8g32wZypdPm1LC15/MvdoZDsCDmavMEJarFPN+UZzYEKzAIXoLAKoN
+	I8uiEFuga1kLQ3u3Foqe3BHDZ05Bcd9bzKEr9fBgQLrg7aCyYyrlfqU2swwkiHhk+IYVkR1ktzf
+	LFwg5uslYWwZ58df3aoC0JqPKmcpZvs1ouKDZ2KYHzbrN4xr/F9RkE3nrNkFTbZ56E1QyaKv2pF
+	Jz+I95E5WuXX7vdeOPEDIBG1hZRPSl8V+FA3gCJO0lmppgJEAwwm97WSLh+1N3u+J9Y8E1SQD9B
+	tC/f7RnxEtpYq+zGnGUJFndjJHyQ0NCX2nZYLskt6ycYsV7EgHIx1Tbo9iF2JluXxRVRm5+7jMD
+	c=
+X-Received: by 2002:a05:6000:4801:b0:482:f61c:7cdd with SMTP id
+ ffacd0b85a97d-485ba5ac39bmr18503655f8f.4.1789051650755; Thu, 10 Sep 2026
+ 07:47:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6285ebc9-fee5-4f51-9ce6-b840f9dba65a@kernel.org>
+References: <20260826075009.68952-1-min_halo@163.com>
+In-Reply-To: <20260826075009.68952-1-min_halo@163.com>
+From: Anup Patel <anup@brainfault.org>
+Date: Thu, 10 Sep 2026 20:17:18 +0530
+X-Gm-Features: AcwNN1XuamBEFO0Lo4789f27od5JxTL3ZDB6v9YGVoHyrw05uNbK6gYYJBs_SaA
+Message-ID: <CAAhSdy3dymMWApBRrSw4YveTC8we8d2QaQ_3MHM0rp=BeP+AZg@mail.gmail.com>
+Subject: Re: [PATCH] KVM: riscv: Fix NACL hfence entry update order
+To: Zongmin Zhou <min_halo@163.com>
+Cc: atish.patra@linux.dev, pjw@kernel.org, palmer@dabbelt.com, 
+	aou@eecs.berkeley.edu, alex@ghiti.fr, kvm@vger.kernel.org, 
+	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Zongmin Zhou <zhouzongmin@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 10, 2026 at 04:05:36PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/10/26 15:40, Gregory Price wrote:
-> > On Thu, Sep 10, 2026 at 01:30:04PM +0200, David Hildenbrand (Arm) wrote:
-> >> On 9/2/26 21:46, Gregory Price wrote:
-> >>> guest_memfd allocates its folios through a per-inode shared mempolicy.
-> >>>
-> >>> Today that policy can only be set after the fact, with mbind() on a host
-> >>> mmap of the fd. That requires the fd to be mappable, and it cannot reach
-> >>> folios that are only ever guest-faulted. Neither holds for a
-> >>> non-mappable (confidential) guest_memfd.
-> >>
-> >> That looks like an investment into a mechanism we will soon consider legacy, so
-> >> I am not convinced this is the right approach?
-> >>
-> > 
-> > Hm, I think i've missed recent work in this space / this context.
-> > Any suggested reading here? Don't want to eat too much of your time.
-> 
-> So the big development happening right now is in-place conversion (having shared
-> and private pages managed in guest_memfd):
-> 
-> https://lore.kernel.org/r/20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com
-> 
-> 
-> The final series where we added mempolicy support should be:
-> 
-> https://lore.kernel.org/linux-mm/20250827175247.83322-2-shivankg@amd.com/
-> 
-> (I think you are aware of that, you commented on some)
-> 
-> See my other reply regarding the use of GUEST_MEMFD_FLAG_MMAP on private-only
-> guest_memfd.
-> 
+On Wed, Aug 26, 2026 at 1:20=E2=80=AFPM Zongmin Zhou <min_halo@163.com> wro=
+te:
+>
+> From: Zongmin Zhou <zhouzongmin@kylinos.cn>
+>
+> The SBI v3.0 specification (section 15.1.2) requires a nested HFENCE
+> entry to be populated as follows:
+> 1) find an unused entry with Config.Pending =3D=3D 0
+> 2) update the Page_Number and Page_Count words
+> 3) update the Config word with Config.Pending set
+>
+> __kvm_riscv_nacl_hfence() writes the Config word first, so the SBI
+> implementation (or NACL hardware) can observe a pending entry with
+> pnum/pcount values left over from the previous use of that entry,
+> resulting in incorrect TLB flush ranges.
+>
+> Write pnum and pcount first and the Config word last. Since the
+> consumer is an external agent on coherent shared memory, use
+> WRITE_ONCE() to stop the compiler from reordering the stores and
+> smp_wmb() to make the parameter words globally visible before the
+> Pending bit is set.
+>
+> Fixes: d466c19cead5 ("RISC-V: KVM: Add common nested acceleration support=
+")
+> Signed-off-by: Zongmin Zhou <zhouzongmin@kylinos.cn>
 
-Ah yes, i do remember this series.  In fact...
+LGTM.
 
-https://lore.kernel.org/linux-mm/aPD-dbl5KWNSHu5R@gourry-fedora-PF4VCD3F/
+Reviewed-by: Anup Patel <anup@brainfault.org>
 
-```
-So this inode mempolicy in guest_memfd is really acting more as a the
-filesystem-default mempolicy, which you want to survive even if userland
-never maps the memory/unmaps the memory.
+Queued this patch as fix for Linux-7.3-rcX
 
-So the relationship is more like
+Thanks,
+Anup
 
-guest_memfd -> creates fd/inode <- copies task mempolicy (if set)
-  vm:  allocates memory via filemap_get_folio_mpol()
-  userland mmap(fd):
-  	creates new inode<->vma mapping
-	vma->mpol = kvm_gmem_get_policy()
-	calls to set/get_policy/mbind go through kvm_gmem
-```
-
-And quick skim of in-place conversion (wow that's dense) 
-
-```
-  #define KVM_MEMORY_ATTRIBUTE_PRIVATE           (1ULL << 3)
-
-  Set attributes for a range of offsets within a guest_memfd to
-  KVM_MEMORY_ATTRIBUTE_PRIVATE to limit the specified guest_memfd backed
-  memory range for guest use. Even if KVM_CAP_GUEST_MEMFD_MMAP is
-  supported, after a successful call to set KVM_MEMORY_ATTRIBUTE_PRIVATE,
-  the requested range will not be mappable into host userspace and will
-  only be mappable by the guest.
-```
-
-I guess the thought here would be something like...
-
-1. create guest memfd
-2. mmap(fd)               -> prior to full guest setup
-3. mbind(buf)             -> shared policy hits the inode
-4. munmap(buf)            -> policy is NOT reaped
-5. set ATTRIBUTE_PRIVATE
-6. no longer user mappable
-
-That doesn't seem unreasonable
-
-~Gregory
+> ---
+>  arch/riscv/kvm/nacl.c | 20 ++++++++++++++++----
+>  1 file changed, 16 insertions(+), 4 deletions(-)
+>
+> diff --git a/arch/riscv/kvm/nacl.c b/arch/riscv/kvm/nacl.c
+> index 9aff03c4f667..a5cda9a65156 100644
+> --- a/arch/riscv/kvm/nacl.c
+> +++ b/arch/riscv/kvm/nacl.c
+> @@ -42,12 +42,24 @@ void __kvm_riscv_nacl_hfence(void *shmem,
+>                 }
+>         }
+>
+> -       entp =3D shmem + SBI_NACL_SHMEM_HFENCE_ENTRY_CONFIG(i);
+> -       *entp =3D cpu_to_lelong(control);
+> +       /*
+> +        * Per SBI v3.0 section 15.1.2, the Page_Number and Page_Count
+> +        * words must be updated before the Config word with its Pending
+> +        * bit set. WRITE_ONCE() stops the compiler from reordering the
+> +        * stores and smp_wmb() makes the parameter words globally
+> +        * visible to the SBI implementation (or NACL hardware) before
+> +        * the Pending bit is set.
+> +        */
+>         entp =3D shmem + SBI_NACL_SHMEM_HFENCE_ENTRY_PNUM(i);
+> -       *entp =3D cpu_to_lelong(page_num);
+> +       WRITE_ONCE(*entp, cpu_to_lelong(page_num));
+>         entp =3D shmem + SBI_NACL_SHMEM_HFENCE_ENTRY_PCOUNT(i);
+> -       *entp =3D cpu_to_lelong(page_count);
+> +       WRITE_ONCE(*entp, cpu_to_lelong(page_count));
+> +
+> +       /* Ensure the parameter words are visible before the Pending bit =
+*/
+> +       smp_wmb();
+> +
+> +       entp =3D shmem + SBI_NACL_SHMEM_HFENCE_ENTRY_CONFIG(i);
+> +       WRITE_ONCE(*entp, cpu_to_lelong(control));
+>  }
+>
+>  int kvm_riscv_nacl_enable(void)
+> --
+> 2.34.1
+>
+>
+> No virus found
+>                 Checked by Hillstone Network AntiVirus
+>
