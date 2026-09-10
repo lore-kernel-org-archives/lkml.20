@@ -1,140 +1,276 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F350B379EC6;
-	Thu, 10 Sep 2026 09:01:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 147C33E024B
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:01:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789030882; cv=none; b=cKb8B1MsZW1bXXBkoRejRiBR3HvV4DcFUA1hQucz3p+mFwVQ3jOupK8InnG/NPS4wfhY1BBWvhzTAqb/Gbo1kojY/lXath5R+0aNc59uLIvKKPsfBWWVdW+EZppqFf1tovym7hPH+dps/9GEj3PszVNep3Rvm4LLehre5GGVvjs=
+	t=1789030903; cv=none; b=nN2XFYwQCnq8Fe4wB+lASsFE55HNsIjaXLvaDkmyVwlKjjLLdl0YUzbryTIJ1lhVOJfZsPUZoyiHaOCxdW+HNNtQI6NtAV/uG9KDUEsyKe5qXdxWChh7X0YLr/lIAFLvgQoI1/QCH3PmxfGcs2VIKY402mEyUMGU68Jev4WLECA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789030882; c=relaxed/simple;
-	bh=SXD5uNcrjbDkLGWlPX/KbflXX1vgmQ5tBA1rgWw6Oxo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=U+egxhW+zjea3siP0mvtjZsoJvveloY54fMQdwWI9500OW3PicCqX8qBljw3B9Ipd86Zo8HH32vAN6MvRtJ76YXkFrnxsJ26sg0ehS5MYixIbjBNWkC6RkoNpLed/12QCyjTGTgN2dSzcDuGQFXwB8iknZ498GbZp8kGioaOFbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IJ+XqesX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789030903; c=relaxed/simple;
+	bh=1qOiklvTtnsD2yXRLJknPEOXVu0hrGmFrv5D9jTxI/k=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dk//UAbjHClRmmPvK5Yg2MYV4eaeFsH947+JqW7w1KT/wXhfzXPqBiOObCWD1Wsqf2jUUHI6EcwaWpMepnexI0i6jJQx8xqJ4CHRCppqVBSlEZr1slhlF5FV7vT7JtjhiTOD1kClQWRnnyZI4h7Im/9xuoHRK/nQtd8oIJoHfeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pmGCuqcZ; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IJ+XqesX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AEF11F00898;
-	Thu, 10 Sep 2026 09:01:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789030872;
-	bh=s7S7XXrE3nWzY3ONCdrsA6SEjg/y++hz7JJ/gIuPEcM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=IJ+XqesXeR3rwnE8YiSGAMy74CDSFRf2vn9CkYC94FFki3qkJju9gP347J8asQYy1
-	 Ba4hgpuYSs1N56xySaWeWTdoWQLbFuJf3QU0GE2gD//1hacXnchFL+XZyvbRWckVud
-	 43sG/uMibp+/HuD70PSFtTf+xbxQVPfiBghz7yXppW+a0mFJck0q0ErSG4AKF4+lvF
-	 0vsVu83SO6vFPFQOsm+r2wtgEisrUEHNUgPza4UklC7aewEaRRYDHU/lX2LBcIS0EH
-	 tg9wd9zfGWKo6QLeDt2BSO+Vm3gjyr81Onnwto6R/eTQNwDvJtKQklRZ987kcoS4It
-	 w4akeFg8drFyw==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-Date: Thu, 10 Sep 2026 11:00:12 +0200
-Subject: [PATCH v21 8/9] rust: page: add `from_raw()`
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pmGCuqcZ"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6356f6bso968544f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:01:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789030890; x=1789635690; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AUQQGZZN7QEXDMbD59CT5uaYffxlADRJRdOW5f3RXTg=;
+        b=pmGCuqcZ0nWSppph6SOa1rQIP+D7hCXu28cJA+AEKVEeUNQ3qu4gmoVLPP4OLBfQlA
+         YJ7u6u3O2QDrZHmNQrKIhQiA7LfLHsd++/PIwRMyfQLCBH81qpvzB+jpW4XVr7hECqKm
+         xkwcKbVq+w6hu3xT1aSqZQdZJeULAyyenYRDSCQK943wJ6ZgDQxpNB2IhLQH3009CFLy
+         Ut/wkWyjUh+GpE8dn4CY3q8b+/K+jRPllCa85xUu0YX6588xDqeqh6Kgd5+VEXf9Qi/3
+         9L4OKMByR/HtMn0a/IXs0rfJtfD/vbkj9fh/B0Xhl9GWgozmwpO7f2wXyTTMdnSiP5QY
+         TGlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789030890; x=1789635690;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AUQQGZZN7QEXDMbD59CT5uaYffxlADRJRdOW5f3RXTg=;
+        b=rJuImn7ZvYpOU2FnxYZaovb+AZywedalxpTc87IIxWxqkIDIY1bVr+pheu/nvsv/RM
+         DaNEJotVRFvDvDv5u0uaSHvjbBP9jC9sLBK4H4EEbYbUldnqwUtKseVDdP1NCBw/il5t
+         /hmBFJmMRUNhzFnvOjOTTkKU8vmGKnMOnpmDU79LVF6Xk2jo9iIr6jo/EJbl4IwQg4Zd
+         dNxEJFzKMS+KvDLFgHXEc7CG95qrwRfp+K/7xdUKoY9D1RgpFiBeAr5yRi++pNdyjJrg
+         zT1fFTLvGKRMrsnCqsmb0yju85dnvUh5mjy5VbfiuO9vAyDL9phnNrasDgMkTnL31y3H
+         SMwg==
+X-Forwarded-Encrypted: i=1; AKwUvByoH0QcYLJZsGsdp9eaxTQKUq9oEDZR1C9vEcPI+os1cdhFAE2F5tZuj3WoGoUK3YkoZdu71aF3FNwGy/U=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkxZIaapuORHe0EA510Eyxhv2AhO1eXIidoCMVchMsM5IfNphg
+	vRnQgF1OSQ+AjWPiCZ+ZBl3CMHAPR9c/dHuaTnps+5ST6VMCuAlzowug
+X-Gm-Gg: AYBFou3fiMxkj4ny0mdhjyN4vfq5OWY3jeP8/eVpQnnRDs3KmsKwW4k4xIoX6A8Kss3
+	Cdy+vjn3vMdoq7Ie/cRdZmyQ/TzAhRC/bjFXAJRhtfGrYfN5+KvNjBxAms71bjDQ5fI4AAB/csz
+	N+WvHBpAyO9f9M+iZT4hcE9aLnwp55RYGSeKQZklQA9e62suC/GALgwdxTGvuRhZxfH/54VBElT
+	HKqUQ+Zavnyj987FA5+Y+PWZ5JsMtVQe9nZHnaxyfUXP15ktFcO77OjKVNvwYY+5D82inagCw1F
+	vG68PIAf0Yqin9Sps8XgB2+CXfX064KMKPxx4lS/1kUY+AtWb0jaPe61CYAuwVJnvu7VQmBIBeR
+	xdzS7a3mX44U+rOoI62TLcB/ZiKMde85xiCJPJM2D+OkgIiYP5sG0vBqLIJpgnGlQPZRAeEInGq
+	w4LtfB5YDrIeONHKrdI4i0pnQBq6TgaAOWLVKkPwox3tWKAGfg3zddfhIzV3LvHCPN4wSLbyvJb
+	ge2nst8L+P8Qmr+NGvGvqEN8ZZ5ThGqKPJo
+X-Received: by 2002:a05:6000:26cf:b0:486:e727:a9cc with SMTP id ffacd0b85a97d-486e727a9e8mr112600f8f.6.1789030889052;
+        Thu, 10 Sep 2026 02:01:29 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858ab73c2bsm48344103f8f.22.2026.09.10.02.01.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 02:01:28 -0700 (PDT)
+Date: Thu, 10 Sep 2026 10:01:22 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: omermetekaya0@gmail.com, netdev@vger.kernel.org, oneukum@suse.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ syzbot+04cd90bb99c6ef81a65d@syzkaller.appspotmail.com
+Subject: Re: [PATCH net v4] usbnet: fix smp_processor_id() use in
+ preemptible context
+Message-ID: <20260910100122.205d2608@pumpkin>
+In-Reply-To: <178899045475.219967.8804711454240391662@kernel.org>
+References: <20260907214727.692307-1-omermetekaya0@gmail.com>
+	<178899045475.219967.8804711454240391662@kernel.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260910-unique-ref-v21-8-e83257373062@kernel.org>
-References: <20260910-unique-ref-v21-0-e83257373062@kernel.org>
-In-Reply-To: <20260910-unique-ref-v21-0-e83257373062@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Trevor Gross <tmgross@umich.edu>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Lyude Paul <lyude@redhat.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, 
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
- Carlos Llamas <cmllamas@google.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, Serge Hallyn <sergeh@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- Igor Korotin <igor.korotin@linux.dev>, Viresh Kumar <vireshk@kernel.org>, 
- Nishanth Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, 
- Michal Wilczynski <m.wilczynski@samsung.com>, Ira Weiny <iweiny@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Ira Weiny <iweiny@kernel.org>
-Cc: Andreas Hindborg <a.hindborg@kernel.org>, 
- Philipp Stanner <phasta@kernel.org>, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- driver-core@lists.linux.dev, linux-block@vger.kernel.org, 
- linux-security-module@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-fsdevel@vger.kernel.org, linux-pm@vger.kernel.org, 
- linux-pci@vger.kernel.org, linux-pwm@vger.kernel.org, 
- linux-usb@vger.kernel.org, Andreas Hindborg <a.hindborg@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1342; i=a.hindborg@kernel.org;
- h=from:subject:message-id; bh=qsvOsH5eJ/6SOy/kG5D1q9n3SKwDVeax/chnlBoc3Xo=;
- b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBqonGoab6vY8s20eqgiCSmL4uGzV7sGy2smNjbZ
- wuNFu6zRxGJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCaqJxqAAKCRD6UCkIqsW9
- 0P2ED/4y0eQDwdjf1HYThRZR1AGuMa3kPD5Z55q5tNW5zGzFQWEjGOPwoKokVlha/nFjzxaddX+
- REzqMGWyTOcbuX/SXoeDCy0OhknY/kwnhAsS+xJxaARcFVrwakURX9JQs91mLwqDYGSNHC20cFy
- U+YgPREcQJVQzzJAGyOK/2PCUqC0bDxTjUWVdtTIV6RMUE7U89ulN79TUItTzt4bjrw4IpFCY6U
- sTBgSAf3wfNHkKD5JazKA3TyWPREJUNfqTAdSIz+f/hTa1qbLHcRQlL93CFB+9FmUxVCcCiaD4s
- q1z82eE61CdMs6UWpHhYDll19pW6abxVa5iNqq+WNxz2QYfYhOCzc4es7H+PiT+CbxrSaFTImWk
- x+XNqAwXFQ10L2uHjklUOUIcJ6KAmrBeXazqL/6UgXMRe8ISncWYSC9nAnITCrtOOr/puGiEF1E
- m5zLFhTnvBu7N0872U1cJqrESNiReM4HckNcw5GEOH9xOHRcoM2tI7B+gnogw7atqjMmWVEneMv
- 6v/v0CDDBmwj1/jjMupa8FRmoz9xr3zMIOZMZVYMz7AtueK6DiKX5Rbg8srWyL7FalAf4ifRHJG
- i1JpqOo/KpwQCCRSzIlJYJw/LSWKs6dcfoLoD09ol2jQkAsfpqkEERGE/JQO8mlhgHR6VNnOdL6
- gKJ8ZCKmAm5v1mg==
-X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
- fpr=3108C10F46872E248D1FB221376EB100563EF7A7
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Andreas Hindborg <a.hindborg@samsung.com>
+On Wed, 09 Sep 2026 21:47:34 +0000
+netdev-bot+sashiko@kernel.org wrote:
 
-Add a method to `Page` that allows construction of an instance from `struct
-page` pointer.
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider:
+>=20
+> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 =C2=B7 Low: 0
+>=20
+> - [High] usbnet: dropping
+>   u64_stats_update_begin_irqsave()/u64_stats_update_end_irqrestore() in=
+=E2=80=A6
+>=20
+> --
+>=20
+> usbnet: fix smp_processor_id() use in preemptible context
+>=20
+> This changes usbnet_skb_return() and tx_complete() to fetch the per-CPU
+> pcpu_sw_netstats pointer with get_cpu_ptr()/put_cpu_ptr() instead of a ba=
+re
+> this_cpu_ptr(), addressing a smp_processor_id()-in-preemptible-code report
+> from syzbot.  Along with the pointer change it also switches the seqcount
+> write helpers from the _irqsave variants to the plain ones.
+>=20
+> Closes: https://syzkaller.appspot.com/bug?extid=3D04cd90bb99c6ef81a65d
+>=20
+> > diff --git a/drivers/net/usb/usbnet.c b/drivers/net/usb/usbnet.c
+> > index a19ecf718f36a..3df72b0c6bcfc 100644
+> > --- a/drivers/net/usb/usbnet.c
+> > +++ b/drivers/net/usb/usbnet.c
+> > @@ -325,8 +325,7 @@ static void __usbnet_status_stop_force(struct usbne=
+t *dev)
+> >   */
+> >  void usbnet_skb_return(struct usbnet *dev, struct sk_buff *skb)
+> >  {
+> > -	struct pcpu_sw_netstats *stats64 =3D this_cpu_ptr(dev->net->tstats);
+> > -	unsigned long flags;
+> > +	struct pcpu_sw_netstats *stats64;
+> >  	int	status;
+> > =20
+> >  	if (test_bit(EVENT_RX_PAUSED, &dev->flags)) {
+> > @@ -338,10 +337,12 @@ void usbnet_skb_return(struct usbnet *dev, struct=
+ sk_buff *skb)
+> >  	if (skb->protocol =3D=3D 0)
+> >  		skb->protocol =3D eth_type_trans(skb, dev->net);
+> > =20
+> > -	flags =3D u64_stats_update_begin_irqsave(&stats64->syncp);
+> > +	stats64 =3D get_cpu_ptr(dev->net->tstats);
+> > +	u64_stats_update_begin(&stats64->syncp);
+> >  	u64_stats_inc(&stats64->rx_packets);
+> >  	u64_stats_add(&stats64->rx_bytes, skb->len);
+> > -	u64_stats_update_end_irqrestore(&stats64->syncp, flags);
+> > +	u64_stats_update_end(&stats64->syncp);
+> > +	put_cpu_ptr(dev->net->tstats); =20
+>=20
+> [Severity: High]
+>=20
+> Does dropping the _irqsave seqcount helpers here re-open the problem that
+> commit 2695578b896a ("net: usbnet: fix potential deadlock on 32bit hosts")
+> closed?
 
-Assisted-by: LLM
-Signed-off-by: Andreas Hindborg <a.hindborg@samsung.com>
-Reviewed-by: Onur Özkan <work@onurozkan.dev>
----
- rust/kernel/page.rs | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+Looks that way.
+I think you need the following sequence:
+	local_irq_save(flags);
+	stats64 =3D this_cpu_ptr(...)
+	u64_stats_update_begin(...)
+	...
+	u64_stats_update_end(...);
+	local_irq_restore(flags);
 
-diff --git a/rust/kernel/page.rs b/rust/kernel/page.rs
-index a2610774c749..cd394b0656c0 100644
---- a/rust/kernel/page.rs
-+++ b/rust/kernel/page.rs
-@@ -146,6 +146,20 @@ pub fn nid(&self) -> i32 {
-         unsafe { bindings::page_to_nid(self.as_ptr()) }
-     }
- 
-+    /// Create a `&Page` from a raw `struct page` pointer.
-+    ///
-+    /// # Safety
-+    ///
-+    /// `ptr` must be convertible to a shared reference with a lifetime of `'a`.
-+    #[inline]
-+    pub unsafe fn from_raw<'a>(ptr: *const bindings::page) -> &'a Self {
-+        // INVARIANT: By the function safety requirements, `ptr` refers to a valid `struct page`, so
-+        // the returned reference upholds the type invariant of `Page`.
-+        // SAFETY: By function safety requirements, `ptr` is not null and is convertible to a shared
-+        // reference.
-+        unsafe { &*ptr.cast() }
-+    }
-+
-     /// Runs a piece of code with this page mapped to an address.
-     ///
-     /// The page is unmapped when this call returns.
+David
 
--- 
-2.51.2
 
+>=20
+> The reported splat is about the per-CPU pointer being taken outside of a
+> preempt-disabled section, which get_cpu_ptr() addresses.  But get_cpu_ptr=
+()
+> only disables preemption:
+>=20
+>   include/linux/percpu-defs.h
+>   #define get_cpu_ptr(var)						\
+>   ({									\
+> 	preempt_disable();						\
+> 	this_cpu_ptr(var);						\
+>   })
+>=20
+> so nothing masks interrupts across the seqcount write section anymore.
+>=20
+> usbnet_skb_return() runs from usbnet_bh_work()->rx_process() (and from
+> usbnet_resume_rx() in BH-disabled process context), i.e. with hardirqs
+> enabled.  tx_complete() below is the urb->complete callback, and for host
+> controllers that do not set HCD_BH it is invoked straight from the
+> controller's hardirq handler:
+>=20
+>   drivers/usb/core/hcd.c:usb_hcd_giveback_urb() {
+> 	if (!hcd_giveback_urb_in_bh(hcd) && !is_root_hub(urb->dev)) {
+> 		__usb_hcd_giveback_urb(urb);
+> 		return;
+> 	}
+>   }
+>=20
+>   drivers/usb/core/hcd.c:__usb_hcd_giveback_urb() {
+> 	kcov_remote_start_usb_softirq((u64)urb->dev->bus->busnum);
+> 	urb->complete(urb);
+> 	kcov_remote_stop_softirq();
+>   }
+>=20
+> There is no local_irq_save() around urb->complete().  In-tree only
+> ehci-hcd, xhci and dwc2 set HCD_BH, so on OHCI/UHCI/musb/max3421/sl811 and
+> friends tx_complete() is a hardirq-context writer.
+>=20
+> Both sites write the same object, since struct pcpu_sw_netstats has a
+> single u64_stats_sync shared by the rx and tx counters:
+>=20
+>   include/linux/netdevice.h
+>   struct pcpu_sw_netstats {
+> 	u64_stats_t		rx_packets;
+> 	u64_stats_t		rx_bytes;
+> 	u64_stats_t		tx_packets;
+> 	u64_stats_t		tx_bytes;
+> 	struct u64_stats_sync   syncp;
+>   };
+>=20
+> On 32-bit, where u64_stats_sync is a real seqcount, can the following
+> nesting happen on one CPU?
+>=20
+>   usbnet_bh_work() -> rx_process() -> usbnet_skb_return()
+>      u64_stats_update_begin()          /* seq odd, rx_bytes half written =
+*/
+>         <HCD hardirq>
+>         usb_hcd_giveback_urb() -> __usb_hcd_giveback_urb() -> tx_complete=
+()
+>            u64_stats_update_begin()    /* seq even again */
+>            u64_stats_update_end()      /* seq odd */
+>      u64_stats_update_end()            /* seq even */
+>=20
+> A reader coming in via dev_get_tstats64()->dev_fetch_sw_netstats() (for
+> example "ip -s link show") would then see an even sequence in the middle =
+of
+> the outer update and accept a torn 64-bit counter without
+> u64_stats_fetch_retry() firing.  With lockdep on 32-bit, is this also the
+> "inconsistent {IN-HARDIRQ-W} -> {HARDIRQ-ON-W}" report that 2695578b896a
+> removed?
+>=20
+> This is the constraint documented in include/linux/u64_stats_sync.h:
+>=20
+>    * 3) Write side must use the _irqsave() variant if other writers, or a=
+ reader,
+>    *    can be invoked from an IRQ context. On 64bit systems this variant=
+ does not
+>    *    disable interrupts.
+>=20
+> Since the _irqsave variant compiles away on 64-bit, would it work to keep
+> it and only change the pointer acquisition?
+>=20
+>   stats64 =3D get_cpu_ptr(dev->net->tstats);
+>   flags =3D u64_stats_update_begin_irqsave(&stats64->syncp);
+>   u64_stats_inc(&stats64->rx_packets);
+>   u64_stats_add(&stats64->rx_bytes, skb->len);
+>   u64_stats_update_end_irqrestore(&stats64->syncp, flags);
+>   put_cpu_ptr(dev->net->tstats);
+>=20
+> The changelog only mentions the get_cpu_ptr()/put_cpu_ptr() conversion and
+> says nothing about dropping the IRQ-safe helpers; could that be spelled o=
+ut
+> if the removal is intentional?
+>=20
+> > =20
+> >  	netif_dbg(dev, rx_status, dev->net, "< rx, len %zu, type 0x%x\n",
+> >  		  skb->len + sizeof(struct ethhdr), skb->protocol);
+> > @@ -1298,13 +1299,14 @@ static void tx_complete(struct urb *urb)
+> >  	struct usbnet		*dev =3D entry->dev;
+> > =20
+> >  	if (urb->status =3D=3D 0) {
+> > -		struct pcpu_sw_netstats *stats64 =3D this_cpu_ptr(dev->net->tstats);
+> > -		unsigned long flags;
+> > +		struct pcpu_sw_netstats *stats64;
+> > =20
+> > -		flags =3D u64_stats_update_begin_irqsave(&stats64->syncp);
+> > +		stats64 =3D get_cpu_ptr(dev->net->tstats);
+> > +		u64_stats_update_begin(&stats64->syncp);
+> >  		u64_stats_add(&stats64->tx_packets, entry->packets);
+> >  		u64_stats_add(&stats64->tx_bytes, entry->length);
+> > -		u64_stats_update_end_irqrestore(&stats64->syncp, flags);
+> > +		u64_stats_update_end(&stats64->syncp);
+> > +		put_cpu_ptr(dev->net->tstats);
+> >  	} else { =20
+>=20
+> [ ... ]
+>=20
 
