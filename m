@@ -1,150 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB065221D6;
-	Thu, 10 Sep 2026 16:54:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 690A1529403;
+	Thu, 10 Sep 2026 16:55:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789059302; cv=none; b=d2TQ2w8aHSAoXt9rdoive35NYj1AUFD1+X50fOVdeQfLYrOMpzwKpoKq3k7fsvSpEERbTI8VcLFB4ltked+dXHxcXLpcyxORTb1OAHaYJez09RS+4KEDufRDjnuy8+0pMkixk/8HEe3qnngW1AJq5p+kWekUJiG1ayr64rULxZY=
+	t=1789059307; cv=none; b=Be7z1JAIlCYu/T+1V/fS5XJzjYBdV1occlahueRl6o+YJFb9jZT3UZ2VyrnCMCnm/dzWtn04CuQYogjOuTS4E0tpYt4lBf5UEc9Rx7g1X/ourGjFsx95IbFM1K+QY1M0bubjYtFIR8OpZ45VSt+ulz5DuuYaN1lhZQn7m3wro3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789059302; c=relaxed/simple;
-	bh=l7i/FO1ItoWOLmKL7zTyq4d9VrtQVV2+6x8TR7qImU0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qRRbmyECCUegtRdoMG+Xz8vFIxb64KPZquY3tzxHWF7k7zYsKtyhApSkqEYm96FzPEyrmk5u/r/YZvoE0WNNFKTnwWurRaIIKDqfvzOpo/iVHFnLAzM3QZDbqMZYUydNkEpyxabjxkTKj56emnuBpQjKeGyiQMLKHlEYLuRWitQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LKHpXbcY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789059307; c=relaxed/simple;
+	bh=7QNs6NXWWKKkLOjDA8WTZScjj03/02sVjQQ7yEMIzYY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M/fCOZRRyD3Io62SSoFuzA5N+PLFVcVmnuiKw+5PUyyBl7s/u3jHRYy4Gp2PFkhqXrGaF7qI55xxJuL4NUBymtHdmJ4KDskYN8X/mwjF6wPl2I7K6IFybnRf5BG7SKjMA5qzXv4byyDk7XlhJXCySd0+TuBXHDfMFM06QMnMbNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=f2zww/OM; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LKHpXbcY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A30F01F000FF;
-	Thu, 10 Sep 2026 16:54:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789059292;
-	bh=ZnntZIkyGVTGxk6jStVbEP5g1lkb1af5stHGst1a5AM=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=LKHpXbcYWyvQdn8IXrrAPSVPVdOAiSfGtGiq/Ls/lEU5XAl4+K1rU6PwqE2lpVeNX
-	 pi8seuTI0UxlQ2PhTW/JuIBrxlNXAACiSCCHda58LFlt2ZI+bSKHa7e6rXwLf6o7jc
-	 o/Q9dhQa0evHklHEMKEPyZm/QHZWqdYKz4DgYUCjZNoPyGEDzbyvGxoCvleX+GeBBc
-	 rs3DfWdrOVCM8JPStrmtHvzDJ3E0x44Zfy3CURI1/oij2zoVG4qKvYHV43yWsfzimF
-	 BmKAGkeltcGDkz52yJmfBWGS+PsvnzeFRhhl5Kn68S+AxqxG/DXZBp3bTqHQwhitCK
-	 eJ4QqgRXe1B6g==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 73042CE1580; Thu, 10 Sep 2026 09:54:52 -0700 (PDT)
-Date: Thu, 10 Sep 2026 09:54:52 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: kernel test robot <lkp@intel.com>
-Cc: Kunwu Chan <kunwu.chan@gmail.com>, jiangshanlai@gmail.com,
-	josh@joshtriplett.org, rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com, llvm@lists.linux.dev,
-	oe-kbuild-all@lists.linux.dev, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] srcutree: Skip torture to-big transition for atomic SRCU
-Message-ID: <c3c8e941-93eb-4f1f-ab2b-abc48f4ce146@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260910041427.3579817-1-kunwu.chan@gmail.com>
- <202609102247.8X7GUWSj-lkp@intel.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="f2zww/OM"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 9B806C653ED;
+	Thu, 10 Sep 2026 16:55:38 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0C7065FC38;
+	Thu, 10 Sep 2026 16:54:57 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9DA3A11C7926E;
+	Thu, 10 Sep 2026 18:54:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789059295; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=aDmdjhRY3UHSS7iyezWcdpKTYmGRyljkJNG/pl1HU84=;
+	b=f2zww/OMGhzX/YwoJEamCphjxEtQAb9F8TuTw3e6RoblSleiLMGEdpLn8pd2SVpPeXhamF
+	lFaqqisyZuyF50HShDRJ3LEja+aUMxh3SE9eEQcp1kuQDU7GD/g3XpaeNv2bJrpPaOhHaV
+	gPDBxeprBNUL9nM9NTQxp4g2IiBPhWZi6jzPbtICdId5OkcSCdNVoOVWG7Q45/HL3xCosD
+	WTgelmFF2l41on6Wifp64wpmi/AVAJgy839MvzJOBpQwq+zYqTy90A11dXAjLdiH8ievac
+	NmFs/HIXV+a0v4KiUt9WSJEZTASXrIeO/vZoFnu3CwzFFNui/TXs1waRWT3E7w==
+From: "Maxime Chevallier (Netdev Foundation)" <maxime.chevallier@bootlin.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Bobby Eshleman <bobbyeshleman@gmail.com>,
+	Donald Hunter <donald.hunter@gmail.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	matttbe@kernel.org,
+	Stanislav Fomichev <sdf@fomichev.me>
+Cc: "Maxime Chevallier (Netdev Foundation)" <maxime.chevallier@bootlin.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	thomas.petazzoni@bootlin.com,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH RESEND net-next] tools: ynl: Fix out-of-tree build for ynltool
+Date: Thu, 10 Sep 2026 18:54:50 +0200
+Message-ID: <20260910165451.1027541-1-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <202609102247.8X7GUWSj-lkp@intel.com>
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Sep 10, 2026 at 10:34:21PM +0800, kernel test robot wrote:
-> Hi Kunwu,
-> 
-> kernel test robot noticed the following build errors:
-> 
-> [auto build test ERROR on rcu/rcu/dev]
-> [also build test ERROR on linus/master v7.3-rc2 next-20260909]
-> [If your patch is applied to the wrong git tree, kindly drop us a note.
-> And when submitting patch, we suggest to use '--base' as documented in
-> https://git-scm.com/docs/git-format-patch#_base_tree_information]
+After the blamed commit, running a out-of-tree build for ynltool fails :
 
-Indeed, this patch would need to be applied to the "dev" branch of my
--rcu tree.
+  # make -C tools/net/ynl/ynltool O=/tmp/o1
+  make: Entering directory 'tools/net/ynl/ynltool'
+  make: *** No rule to make target '/tmp/o1/json_writer.o', needed by '/tmp/o1/ynltool'.  Stop.
 
-							Thanx, Paul
+ynltool's Makefile correctly accounts for $(OUTPUT) to get the list of
+object files to generate :
 
-> url:    https://github.com/intel-lab-lkp/linux/commits/Kunwu-Chan/srcutree-Skip-torture-to-big-transition-for-atomic-SRCU/20260910-121427
-> base:   https://git.kernel.org/pub/scm/linux/kernel/git/rcu/linux.git rcu/dev
-> patch link:    https://lore.kernel.org/r/20260910041427.3579817-1-kunwu.chan%40gmail.com
-> patch subject: [PATCH] srcutree: Skip torture to-big transition for atomic SRCU
-> config: s390-allnoconfig (https://download.01.org/0day-ci/archive/20260910/202609102247.8X7GUWSj-lkp@intel.com/config)
-> compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project d3db069999553568848400c84cbf815c03f5470f)
-> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260910/202609102247.8X7GUWSj-lkp@intel.com/reproduce)
-> 
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202609102247.8X7GUWSj-lkp@intel.com/
-> 
-> All errors (new ones prefixed by >>):
-> 
-> >> kernel/rcu/srcutree.c:2080:61: error: use of undeclared identifier 'SRCU_READ_FLAVOR_ATOMIC'
->     2080 |         if (SRCU_SIZING_IS_TORTURE() && ssp->srcu_reader_flavor != SRCU_READ_FLAVOR_ATOMIC)
->          |                                                                    ^~~~~~~~~~~~~~~~~~~~~~~
->    1 error generated.
-> 
-> 
-> vim +/SRCU_READ_FLAVOR_ATOMIC +2080 kernel/rcu/srcutree.c
-> 
->   2031	
->   2032	void srcu_torture_stats_print(struct srcu_struct *ssp, char *tt, char *tf)
->   2033	{
->   2034		int cpu;
->   2035		int idx;
->   2036		unsigned long s0 = 0, s1 = 0;
->   2037		int ss_state = READ_ONCE(ssp->srcu_sup->srcu_size_state);
->   2038		int ss_state_idx = ss_state;
->   2039	
->   2040		idx = ssp->srcu_ctrp - &ssp->sda->srcu_ctrs[0];
->   2041		if (ss_state < 0 || ss_state >= ARRAY_SIZE(srcu_size_state_name))
->   2042			ss_state_idx = ARRAY_SIZE(srcu_size_state_name) - 1;
->   2043		pr_alert("%s%s Tree SRCU g%ld state %d (%s)",
->   2044			 tt, tf, rcu_seq_current(&ssp->srcu_sup->srcu_gp_seq), ss_state,
->   2045			 srcu_size_state_name[ss_state_idx]);
->   2046		if (!ssp->sda) {
->   2047			// Called after cleanup_srcu_struct(), perhaps.
->   2048			pr_cont(" No per-CPU srcu_data structures (->sda == NULL).\n");
->   2049		} else {
->   2050			pr_cont(" per-CPU(idx=%d):", idx);
->   2051			for_each_possible_cpu(cpu) {
->   2052				unsigned long l0, l1;
->   2053				unsigned long u0, u1;
->   2054				long c0, c1;
->   2055				struct srcu_data *sdp;
->   2056	
->   2057				sdp = per_cpu_ptr(ssp->sda, cpu);
->   2058				u0 = data_race(atomic_long_read(&sdp->srcu_ctrs[!idx].srcu_unlocks));
->   2059				u1 = data_race(atomic_long_read(&sdp->srcu_ctrs[idx].srcu_unlocks));
->   2060	
->   2061				/*
->   2062				 * Make sure that a lock is always counted if the corresponding
->   2063				 * unlock is counted.
->   2064				 */
->   2065				smp_rmb();
->   2066	
->   2067				l0 = data_race(atomic_long_read(&sdp->srcu_ctrs[!idx].srcu_locks));
->   2068				l1 = data_race(atomic_long_read(&sdp->srcu_ctrs[idx].srcu_locks));
->   2069	
->   2070				c0 = l0 - u0;
->   2071				c1 = l1 - u1;
->   2072				pr_cont(" %d(%ld,%ld %c)",
->   2073					cpu, c0, c1,
->   2074					"C."[rcu_segcblist_empty(&sdp->srcu_cblist)]);
->   2075				s0 += c0;
->   2076				s1 += c1;
->   2077			}
->   2078			pr_cont(" T(%ld,%ld)\n", s0, s1);
->   2079		}
-> > 2080		if (SRCU_SIZING_IS_TORTURE() && ssp->srcu_reader_flavor != SRCU_READ_FLAVOR_ATOMIC)
->   2081			srcu_transition_to_big(ssp);
->   2082	}
->   2083	EXPORT_SYMBOL_GPL(srcu_torture_stats_print);
->   2084	
-> 
-> --
-> 0-DAY CI Kernel Test Service
-> https://github.com/intel/lkp-tests/wiki
+OBJS := $(patsubst %.c,$(OUTPUT)%.o,$(SRCS))
+
+but it never actually set $(OUTPUT) before the blamed commit, meaning
+that out-of-tree buils of ynltool were always actually in-tree.
+
+Now, the O= parameter is correctly accounted for, and the %o: %c rule fails.
+
+Let's update the %o: %c rule to also use $(OUTPUT).
+
+Reported-by: Bobby Eshleman <bobbyeshleman@gmail.com>
+Closes: https://lore.kernel.org/all/aqCyWQxqKDuQnZYR@devvm29614.prn0.facebook.com/
+Fixes: 917f713b4ec4 ("tools: ynl: Allow cross-compiling ynl and associated tools")
+Signed-off-by: Maxime Chevallier (Netdev Foundation) <maxime.chevallier@bootlin.com>
+---
+Re-sending, the previous submission didn't reach netdev@ :/
+Fixes a bug in net-next, so targetting net-next.
+
+ tools/net/ynl/ynltool/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/net/ynl/ynltool/Makefile b/tools/net/ynl/ynltool/Makefile
+index b8c67cdb4fdf..1053e7606c86 100644
+--- a/tools/net/ynl/ynltool/Makefile
++++ b/tools/net/ynl/ynltool/Makefile
+@@ -31,7 +31,7 @@ $(YNLTOOL): ../libynl.a $(OBJS)
+ 	$(Q)echo -e "\tLINK $@"
+ 	$(Q)$(CC) $(CFLAGS) -o $@ $(OBJS) ../libynl.a -lm
+ 
+-%.o: %.c ../libynl.a
++$(OUTPUT)%.o: %.c ../libynl.a
+ 	$(Q)echo -e "\tCC $@"
+ 	$(Q)$(COMPILE.c) -MMD -c -o $@ $<
+ 
+-- 
+2.55.0
+
