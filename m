@@ -1,129 +1,166 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE7604E66B8
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:05:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789067142; cv=none; b=R7dNSyygYGdK/HlfP7DgIQLWzoVH7SB7ct52FHffoJIIEsBWvrCwgHlzohztf4xNMufV3D8RO9Htl3q4ep43HQzCd6Vaq6RDn8MGUP2pbmheo7WM9tW/KfXIlY+8PHkAxSqqZlUZg48PVrBunu0osdiuJPuZrdx3S3tsNf0c/2k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789067142; c=relaxed/simple;
-	bh=BrRosa09qPfnnT8wFRJjyDdW1mX7VGPRwUOLAULnwBw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=iQGvI3gPG6i9OF/udgiucRHXVqY4wyMot51fmDVb/n3VhjuURIeyRIGtSTCW7FoHGNlIauzgIteGmSbZxtruA/EWZkYedhFpGBf4uCDWU29Y5D13j2KbqFjGBVPhrG5dmrcJE2U0quAQWWLH+svaTlcgfV4e7mVZ+wu2I9DGfwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cbNpHyg7; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA5ED4E66B8
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:06:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789067194; cv=pass; b=CARaJ+3Qu+Zoc0QTTVA7e1YpvantZLtkHJy7Ft2SD6iahgiyJcOxMPoqyVN2y2LTCY0QsuBK4zg9AKVMsXANq4MCeGfgG2q2sQmhrziIKGJUObcbo4ICEEjFxN6gBrVetXbqI8gWEXqQi/uXfQ0aCPhsj7cZt+dXMqo7pCmPkYw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789067194; c=relaxed/simple;
+	bh=p7RzuJYGdHnY3mqs80U7yu9Qn6ww9UEb3p+WQH1n6P0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XDrPBpHQWtZa84LsYFhjsTcuivPKjRQe4daAOsvHyQKZNQxdxQJIvbi+ZORAXsYm7U4wNMBLv03YRbOId8NaqJvqooNsB3SbMerDqZppq1Z0gp8YvauVnciVLvt0Q20Vq6pLhYBWYY3IJxb+3IhWWq4Vws2EaFVWFFX61nMLgD4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OBzoWmZf; arc=pass smtp.client-ip=74.125.224.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cbNpHyg7"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49b8e527d63so2918585e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:05:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OBzoWmZf"
+Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-66f8053e7afso51933d50.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:06:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789067192; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qFDyx2U8vhknyP7RjhwRGLRAT0vu+MDlgixwhaaH/sgZthjAZoQWqzMxQHeM/GaOZq
+         dGu2b/LR62RVMP3gKe3fs/+NllBfi1N/0GWouKhFNUFxiJOTA8DJo79sAi8HjPeMOhKh
+         gE0NFjpYcH4lHotsbusvpubK0aMLM4EEL7/PkUO2QMSQoUJCoA9psbBIB6W80JkxPwfO
+         0n433znVR8ExTCYHsUWdp1TsE6CunP0NCHnHWRMQz2CdMSnxcznZWTN+2Cng7Ad08b/y
+         GFOO3ci5CZ6xOhCQYKqqHYCLuMpwYKR8T8QMyyQD2QbjbE8VTdwkRGCL41V+wk3ttf4n
+         yZew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=hhbPkWTyvpq7C4VmKx5074Xp8YIC7XsOu3FWGtgnxq8=;
+        fh=7C3qB4H+qJEEz0qXi79u4oisSsotyE6hN4lnUoNAqjI=;
+        b=hjkOz7wywbwftRbxU/Bi4QeOYn3MDlqxZ37aBj/4IuxUwXgqweuntLyKsqBK4SJ7kV
+         lZUktIrYaCmiH6UK5b2FZcOm6q/ZkrMP6bBZJUGqx9IrMzQJZgzhOG8Diod89lHMsZ6F
+         4Y0aD4Q4OUXTOwZxZVRdkvemS4QVfDkEpL1qILR2Y9ORXiWjTL4mxrh3ll7Ipdvt1v1h
+         ui/b059DLjZMx7x4RvOdmyYhVNbXvOJehmOLf3oP4+wgJ6yW5ma5XywxzJYExWbLQwmj
+         Vn+IyK8QKDN8FLQFBPmEIYnWFjXNBAFv8v2yc4YVBhxEp5Xh8/8JYTtROb9jSHqm4AWF
+         PTEQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789067139; x=1789671939; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bDPWQKpYK210YH7pdRtFQhVqun7oclqubAHor3TmIiA=;
-        b=cbNpHyg7+15NxTj+DbNi/W+pMuFp6ptpL3MQEGqJ+4pnk7+NKdQ5/e6AEzo5jPiaTb
-         QNNlb773bh4OqnfiG7+DO4VGeo1Bl4nA5o9arpUb/LHWonYiTQmx2qZZYyKo8uAqoKdo
-         8i029AhbxwgRFwvoK2wSrDU3mbLXY48YR+aGe2z9DMDFkJw9XRmGCt2k9odCIn4mZJec
-         wgAvmNgfKxiqsNaZiOuDcaq2yLIRMZ1fvO4JrMy2RNSfj41AA4pEZ4CL5XylPUx9YcEE
-         g/b8BXUWlZEX8PhBRMzXl/DKsQf9TOet1zIld8hIuZpyOvM+i4dc/zOUBy772wIxaKMi
-         sowA==
+        d=google.com; s=20251104; t=1789067192; x=1789671992; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hhbPkWTyvpq7C4VmKx5074Xp8YIC7XsOu3FWGtgnxq8=;
+        b=OBzoWmZfG2xnKQ21vOgPbtSoKlvFZ8OwbP2af6uEP2pvsss+12ziYFwAyd61V7mMYi
+         QpWqC6GP5qIjAXeO7/IBaVMfrITbNwmYsikESWH3Y+G/Z+dGmUQ9zrSSNLpt/H0KVTcD
+         Wv/VASUIeXTq9qBta10tUzN/pYvAH1cqERw1ex0ZjNP3UltNKm6l589ZVUfbWOy4qNsI
+         jIIs5l3hjUAxKRgowy/lYG485+B4s4XcfkL019BXl/tmix7EtJgB7oeKxZ4/WjYV2k8Q
+         DJlXqYwgxfL92UagMNjZ48RFxo2YRomv+s9i6bZEb49Ad4CkcEgMkW+Inad2ftFsXrlH
+         kW1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789067139; x=1789671939;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bDPWQKpYK210YH7pdRtFQhVqun7oclqubAHor3TmIiA=;
-        b=bTWUEqy8JWvmusRg4cN2JmojTVREPPX5Uqkuols7dXhFCLr6B6ZvsiqyFKKQS2jF2X
-         Y7zgNQJOtHbRK80p2W8CV5mTXBjmnReyilXw1IE0iVC4MhuLncpI048aK02Lo+GUFYq1
-         3mcXEBMLOSbqAhq9t0AtF3HdV0XVCGUs/SbcgNg/hwGvMOdu23w35kVkhBMTyMWIl8X4
-         Dk3xFpKDXJNgQt0hK2HDvfsD/53PrCKRFh+SOtfmQr41R6NX9j1DxONYGo/msU2h8wY0
-         V/n8nNeOKtT2J6Kb61CCVwBf9avhboabbDpaGaaJdrY39d+6spq/gRlWTvK3PNp3NLA2
-         Q5cw==
-X-Forwarded-Encrypted: i=1; AKwUvBwU5ymUBKGIiav0AoagaQQtusQoxoMCnWLH169e5MqN30nK4cqmAB2FoQnY680MTUU8soHLnD6B1nn+c08=@vger.kernel.org
-X-Gm-Message-State: AFuF++kq6ucd65NJhlfEyFRehRiBLynTZ2GrACTngnyN1MOukbZMlq/n
-	bpbk8r+stI0hw7xAqa/HnmfuXLFxcFOGwbnIego/zWApqlKlZqb60mXk
-X-Gm-Gg: AYBFou0iLvoaTC4X0X4+vHGCnscotK7vLxT2F56w7j3uFgBQAqdRj5T8sSJNWM26gel
-	fUPUHC4tuVR1U11M5A0C0rFFAZDIQebfavx+C3dY+gHXupdl1rIDTjsjqnNM/CwTrbt2CwwLPpJ
-	d3tzL9mYI+lRKTn0AmYWOdD4XYb6lhOt/S2jHqMeRWIVPaUTwiAn7amogqeYr2qFYi4fN87cet0
-	xITXv2xO2eReNPTmLm88NgIMisqeyPLHFBcX6T2ErD8WhNIDwPM6VjH4UcrT74BY7gl8ubkTUPz
-	YuxYujUEWn5/jg/Au5AnQFTENgtUucXGbkr5zKZT/7GJ1+CDbWfo+ZU8I7cd2a2KXCedAUU8yXY
-	92TnAs7t3DvWhShQxf4CJVuolxAaZ5rqDNctwS2vQAt4BJMvHJNSpIiCoYwTmUy8ZuHgrPBLUsq
-	j1xWOpA9kVoZagM10oQCCFE0ZxU5fnkXDf5sUOmkFD2w7uvphUVr5j+0yBm6RBAfTrg0pyhMN8m
-	UD29tdbOI3Pab+hbT/Azx/VuDKUxZO8V8SIfnkMXqSpgUhc1ZSZhZI3KrwV9xRVL9GfqlfijCoa
-	wXJW0mmdUA6/83Y7oysVN8LEfkTh8VKVTLOksjSFrAJvc7cuPvhgmv+7xYlWZfnc+wuMfspqKub
-	8fjr38CQ=
-X-Received: by 2002:a05:600c:1f8d:b0:499:be2d:c290 with SMTP id 5b1f17b1804b1-49e6198933cmr5181655e9.9.1789067138621;
-        Thu, 10 Sep 2026 12:05:38 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-b3d9-b901-601c-58ef-b3f5-74f5.310.pool.telefonica.de. [2a02:3100:b3d9:b901:601c:58ef:b3f5:74f5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60adb075sm14811665e9.13.2026.09.10.12.05.37
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 10 Sep 2026 12:05:38 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Quentin Perret <qperret@google.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] KVM: arm64: Fix kvm_get_vtcr() kernel-doc
-Date: Thu, 10 Sep 2026 21:05:28 +0200
-Message-Id: <20260910190528.4483-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <CA+EHjTx3fmj_fkD_ybPANyTrEApMUyBscfP4JtP-F_MRL-L=2w@mail.gmail.com>
-References: <20260909063156.89636-1-kmehltretter@gmail.com> <CA+EHjTx3fmj_fkD_ybPANyTrEApMUyBscfP4JtP-F_MRL-L=2w@mail.gmail.com>
+        d=1e100.net; s=20251104; t=1789067192; x=1789671992;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=hhbPkWTyvpq7C4VmKx5074Xp8YIC7XsOu3FWGtgnxq8=;
+        b=mdCl4Sh8Mpa4qz2cdQzrrfrTHFoU2wsQO51QAk0UtAzXzz3/D7RPREqblxM1D6/kA/
+         Gbh2qrnWpUOoKWPqYbj57nVL5Mr3tfYRCSfTlUfDmguuEqheFTObC6skbp2KrLoV+O7Y
+         JKNYc9wGZJCj4miuUUyPDROkN+PGh7nyUJ6dF0JJaL7CBFO0iZnKX6bxGy8HRAYQNozN
+         WY8xix54Tb6Sil8lp8YJEUO/IR6Lpa75oVakBduNwEND3wO9oqpyoK/bku3+W4p0EMbc
+         9C1m2F8BH9rmVrfyQAQiqZpzLXg87ZO7277q9EueAIHQkcFhuNBrmBP7Zyi62b+uPrwL
+         A6tA==
+X-Forwarded-Encrypted: i=1; AKwUvBytUdcx0OkcVDaOcO659150OPy1dgPilLPEDuTmdiAIXTEgGn035ykt5uQvOUZwZegQgxh+XJBpcgGbWvs=@vger.kernel.org
+X-Gm-Message-State: AFuF++k3dWDEWfT1DqXPOkgFjilPHS8baW3ZMZjbIExXTeBx4QqY7jEO
+	5Tgai2ZHvBdrQ4JB6oVvhoXC+MPj5fJzBcn/OhKFLDlQ72YT+mSfwQn2jarRf5ASbIkDMH7Jsjz
+	2C1oZsPJv9UeW2QCEOxJyynqcbpZPYc+LOSx8PNCG
+X-Gm-Gg: AYBFou1GU624c94aSvtdIjsaGnZpGqwYImdGyud9m0GNtsDgF1x6TWjxymp0a3a+zlf
+	INoVacm+WM9oE8AH96Qf+t8A5t2IfiqsMq/JXQ+qNijI2ZhveMKfJkmORwrIrqGXn07xmVQSLJ0
+	bkepe4nMC61XSdYlzktVOEsfT9BVn+SoMzSe3t0wLIkZB6SRSCMxnPgeJnEFIx2PmJvfK4dCaBH
+	huPYqE419H9c/GXWVaOnEyZ5BZD+X9lCyg7ZkOwNhWCh4dAdoeg/ZLeGfErcmUcGLMPc3zP4sO8
+	TkzB+YdWMd88UHk2GqXOI7oDWKuwqr6Uu+ajI3Q2PjfakCO0uV5B7yvHDFo1mCYgdkwxUfSKTUn
+	PlebzuEKGQQ==
+X-Received: by 2002:a05:690c:3347:b0:874:894:9a52 with SMTP id
+ 00721157ae682-884b5d8d588mr3519787b3.40.1789067191005; Thu, 10 Sep 2026
+ 12:06:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260910162343.4092060-1-elver@google.com> <20260910162343.4092060-3-elver@google.com>
+ <aqLbHvD5lqQP8PRd@google.com> <CANpmjNOZPFQ9FcaA6+GH9PZ8DRyEMYW3+FKBO9B3d2CY+2C-5w@mail.gmail.com>
+ <aqLuZ9gGzK07R_Ei@google.com>
+In-Reply-To: <aqLuZ9gGzK07R_Ei@google.com>
+From: Marco Elver <elver@google.com>
+Date: Thu, 10 Sep 2026 21:05:52 +0200
+X-Gm-Features: AcwNN1V0oYbeLDh86sT0uPw3XpZ9Y8gnfB3S8ZdXuCAMO68mt6oSE3z_9GgR0M4
+Message-ID: <CANpmjNMn-i3ZgQgRC8JhhDt5-RFTXCsBrf47MzfXjKG8H1c2sA@mail.gmail.com>
+Subject: Re: [PATCH RFC 02/10] KVM: Allow reading memslots while holding slots_arch_lock
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, 
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-kvm_get_vtcr() takes a parameter named phys_shift, but its kernel-doc
-describes phys_shfit. This leaves the real parameter undescribed and
-adds an excess parameter description to the generated documentation.
+On Thu, 10 Sept 2026 at 19:52, Sean Christopherson <seanjc@google.com> wrote:
+> On Thu, Sep 10, 2026, Marco Elver wrote:
+> > On Thu, 10 Sept 2026 at 18:30, Sean Christopherson <seanjc@google.com> wrote:
+> > >
+> > > On Thu, Sep 10, 2026, Marco Elver wrote:
+> > > > kvm_swap_active_memslots() updates kvm->memslots[as_id] while holding both
+> > > > kvm->slots_lock and kvm->slots_arch_lock. Holding either lock guarantees
+> > > > that memslots cannot be concurrently modified.
+> > >
+> > > Sure, but that's irrelevant.  The goal of the srcu_dereference_check() is to
+> > > ensure that readers see a stable view of the VM's overall memory, not simply that
+> > > kvm->memslots can't be written.
+> >
+> > Functionally, this is irrelevant for readers. But under lockdep it
+> > isn't for writers: srcu_dereference_check() (with lockdep) asserts
+> > that the srcu reader-lock is held, or the condition 'c' holds, which
+> > here is holding any of the writer locks.
+>
+> No, the rules for writing kvm->memslots is that *both* are held.
 
-Correct the spelling and describe phys_shift as the IPA size in bits.
-The value written to VTCR_EL2.T0SZ is 64 - phys_shift, rather than
-phys_shift itself.
+Right. But the condition 'c' is only the srcu-less fallback for reads,
+which is "any".
 
-Fixes: bcb25a2b86b4 ("KVM: arm64: Refactor kvm_arm_setup_stage2()")
-Suggested-by: Fuad Tabba <fuad.tabba@linux.dev>
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Changes in v2:
-- Describe phys_shift as the IPA size in bits (Fuad).
+> > > > Allow reading memslots in __kvm_memslots() when kvm->slots_arch_lock is
+> > > > held.
+> > >
+> > > Why?
+> >
+> > Holding any of the writer locks guarantees no concurrent modification;
+> > therefore, if any writer lock is held, it's not required that the srcu
+> > reader-lock is held. There are few places where only either slots_lock
+> > or slots_arch_lock is held, which is sufficient for reading.
+>
+> Yes, but with caveats.  And more importantly, pure readers really shouldn't be
+> taking slots_arch_lock, because either it's overkill and will generate unnecessary
+> lock content, or the alleged reader is doing more than just reading.
 
- arch/arm64/include/asm/kvm_pgtable.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Pure readers never should, and not what this patch suggested. But
+writers (or those about to become writers if they only hold one lock)
+can read w/o the srcu reader-lock held.
 
-diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
-index 41a8687938eb..20d12da3d28e 100644
---- a/arch/arm64/include/asm/kvm_pgtable.h
-+++ b/arch/arm64/include/asm/kvm_pgtable.h
-@@ -532,7 +532,7 @@ u64 kvm_pgtable_hyp_unmap(struct kvm_pgtable *pgt, u64 addr, u64 size);
-  * kvm_get_vtcr() - Helper to construct VTCR_EL2
-  * @mmfr0:	Sanitized value of SYS_ID_AA64MMFR0_EL1 register.
-  * @mmfr1:	Sanitized value of SYS_ID_AA64MMFR1_EL1 register.
-- * @phys_shfit:	Value to set in VTCR_EL2.T0SZ.
-+ * @phys_shift:	IPA size, in bits.
-  *
-  * The VTCR value is common across all the physical CPUs on the system.
-  * We use system wide sanitised values to fill in different fields,
+> Holding just slots_arch_lock *could* be fine, depending on the usage, but those
+> details matter, which is why I asked "why".  I want to know exactly why we should
+> relax the locking rules.
+>
+> Ah, poking around the code, I suspect that the motivation is
+> kvm_enable_external_write_tracking()?  Which grabs __kvm_memslots() but only
+> holds slots_arch_lock, i.e. would get a lockdep splat if someone with KVMGT ran
+> with lockdep enabled.
 
-base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
--- 
-2.53.0
+Right.
+
+> That thing isn't a pure reader.  It only reads the actual kvm->memslots pointer,
+> but it writes to each of the slots metadata.
+>
+> So, allowing __kvm_memslots() to be called with just slot_arch_lock is ok in
+> this situation, and if my guess is right, necessary to fix a false positive.  But
+> I'm on the fence as to whether or not we generally want to allow that, versus
+> taking kvm->srcu in kvm_enable_external_write_tracking() even though strictly
+> speaking it's unnecessary.
+
+Clarification here would be good. In building up the locking
+annotations, this was one inconsistency I found vs. what
+srcu_dereference_check() said, so the conclusion was that the fallback
+condition 'c' was outdated (or there was a bug).
