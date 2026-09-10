@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC1023BADA9;
-	Thu, 10 Sep 2026 23:55:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D273C0A1A;
+	Thu, 10 Sep 2026 23:55:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789084539; cv=none; b=AqSOdDvZQs9BHvq1cQ9tVsWl4M13aYY+y6RO6wBXhd+cD054X2PMaa1K6llzDkf9ZfkQuxwCNtl6nIxQjo33yAkYLsnXo+FwwiAQtQ0FxUjXtQiz1yPHj0iAq44LBEEBpBY+zJ8HDIFwETddDtfTWHjM4qqiB6cP9BoUvfgAP5U=
+	t=1789084539; cv=none; b=AGK7Fj17ERUNGMAI3Mmjdm0VxvNnVDfzqSauVO//IbBLzhITd1UeDci6Ca2kWO4KBESWJyVpSNIGzfhyWw+zK0NByfjdqYA9OhUK5CLEpWVswCzJv4MrfhhNShpOfxqxzsbqX+UvnNh2LyPEFmVwUzLOObzy1+WpjyuHOtOMmuQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789084539; c=relaxed/simple;
-	bh=07bg5wm9NPNH7Z9soHiasshjg1qxD93bsnT0TJcLFMk=;
+	bh=FN18zr23aI2YioULWDVANOgYN/7iYJIHXZfHK/jVsFI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jzp1ph0s3Pm2cfYxr+Wo+x16fK4SpepvgrNA13JnoKqKGnsR0KdCckK6X2BA7y9q5dOgZkYQ8WmnuJrBfPedYQZpOCBMlVbMoLLO6r1wJlfQHsdDDwgvpLp7lNb7uNyNGvBgf5H11Q0DryJP1/SLVKaS9caWyvi2fONaI2ispk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SVnW4/t1; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=I+oW7f17dK8p5qXUO7P3WhRuP3IDD7RsekpXAiQuHsisK1cilzfb3nTMx60TXAcjgrR1FnCLRMIKnyLmv9v5JqFltSEcIj3Mz47fNNY+QlqyLm53qR438/bzzEdfaSB5nlzPa80Lv/Rc0d/w415zCDFtER5qFBnKRqe3YojMIps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=moQB4dZY; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SVnW4/t1"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 96860C4AF0C;
-	Thu, 10 Sep 2026 23:55:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="moQB4dZY"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 68F7CC4AF48;
+	Thu, 10 Sep 2026 23:55:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789084538;
-	bh=07bg5wm9NPNH7Z9soHiasshjg1qxD93bsnT0TJcLFMk=;
+	s=k20201202; t=1789084539;
+	bh=FN18zr23aI2YioULWDVANOgYN/7iYJIHXZfHK/jVsFI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=SVnW4/t1M49n0g8qFLprlrsNELL3XQb4W/oGQl8WMA271551pDJF9/OHB9OzH3T1A
-	 wHIzzssf7V1ytp/5Jc+J+TN655MQlBTSxqcVyckcLVR1Gm5BhBdbxK6EOcCVWH7li5
-	 oqgG4TMMO5QMfMw2Fg3fobfjinZgQhnv8zjKelSZDzuSBFhsPNUOSu6zuX61++eUGc
-	 yQzBkOaYpai9r5PUULiG45+uIa4CCQE5OWiY0G27TDcQTYSUW9L9smOjcdhD7U4pU+
-	 D55V0xISBLFr54G7DXCACk6jgiDpAQuwyPORJu5sxX8CWZM0lqE8UksM1xGaSjjrln
-	 SXyGCyzqzIxmw==
+	b=moQB4dZY601NlQqsLZYwLQfRC0ErloQJ8suwJmXupKPbihBeykksEnEvJhXfgspPW
+	 L52W42vFS7FK85f7O8Q9DD4Szrv/G71Bp/6Hk7/LxJ0MZnDMaM8BHj1x9/Sd37ARpj
+	 oxBeBhDTfb4kc0zzgA46dznVgSGpOlYE5XzkTY6rHZkzPOrmcc8E/Jajv1y/CFUsKt
+	 eRvPLj81+famV9Mtv5x9A1r8PyRpwxkP0KSN+I6hiH33PASpyJoBBAo4VhQ2YnKEhO
+	 WHyM+qTMwRi0SWjMvEUJzKdogP35TGKRKaB24xdiSL/V4Su8yllUsCHSQNlH4k6LVS
+	 wPUqkHeHEQSwA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 79E60C88E41;
-	Thu, 10 Sep 2026 23:55:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 52593C88E45;
+	Thu, 10 Sep 2026 23:55:39 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Thu, 10 Sep 2026 16:55:44 -0700
-Subject: [PATCH v13 18/44] KVM: guest_memfd: Zero page while getting pfn
+Date: Thu, 10 Sep 2026 16:55:53 -0700
+Subject: [PATCH v13 27/44] KVM: selftests: Add selftests global for guest
+ memory attributes capability
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-gmem-inplace-conversion-v13-18-dd6fbf94f4e1@google.com>
+Message-Id: <20260910-gmem-inplace-conversion-v13-27-dd6fbf94f4e1@google.com>
 References: <20260910-gmem-inplace-conversion-v13-0-dd6fbf94f4e1@google.com>
 In-Reply-To: <20260910-gmem-inplace-conversion-v13-0-dd6fbf94f4e1@google.com>
 To: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
@@ -77,14 +78,13 @@ To: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com,
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
  linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
- linux-coco@lists.linux.dev, Ackerley Tng <ackerleytng@google.com>, 
- Xiaoyao Li <xiaoyao.li@intel.com>
+ linux-coco@lists.linux.dev, Ackerley Tng <ackerleytng@google.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789084533; l=3086;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789084533; l=2381;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=UTds+uB88Pvv734MhYhg7cYOppWN0b7k4dN51AkvmNs=;
- b=cDtkvlZKqZf70bHLRjVFDSDzjoD3T8abnkfI3UpEMGEsChfY+iEpuyTNsIWJynXQQecW6gr7L
- qnjf/0Jpoo2AAK1FvM7Q2CWmfckf5/qlvGdaoEbZl3dy6+KWRRKsqKA
+ bh=A2BGJl0NqlKbP8kqzcvuxy5LjiQiBIoRQH4XzKOaoYY=;
+ b=uA13NRN/W2IUSoKc7303OoTK37SUcvedwrTz3e42gu1e8H3uBq7WyP5WSTpHG4mjjBp+/aZMt
+ p3q2P07KW8cC6NLxWdSgfVBKj11vNhoMcnqd4SOfJiChTtr0SYE5kDm
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -92,89 +92,69 @@ X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
 X-Original-From: Ackerley Tng <ackerleytng@google.com>
 Reply-To: ackerleytng@google.com
 
-From: Ackerley Tng <ackerleytng@google.com>
+From: Sean Christopherson <seanjc@google.com>
 
-Move the folio initialization logic from kvm_gmem_get_pfn() into
-__kvm_gmem_get_pfn() to also zero pages if the page is to be used in
-kvm_gmem_populate().
+Add a global variable, kvm_has_gmem_attributes, to make the result of
+checking for KVM_CAP_GUEST_MEMFD_MEMORY_ATTRIBUTES available to all tests.
 
-With in-place conversion, the existing data in a guest_memfd page can be
-populated into guest memory through platform-specific ioctls.
+kvm_has_gmem_attributes is true if guest_memfd tracks memory attributes, as
+opposed to VM-level tracking.
 
-Without first zeroing the page obtained using __kvm_gmem_get_pfn(), it
-might contain uninitialized host memory, which would leak to the guest if
-the populate completes.
+This global variable is synced to the guest for testing convenience, to
+avoid introducing subtle bugs when host/guest state is desynced.
 
-guest_memfd pages are zeroed at most once in the page's entire lifetime
-with guest_memfd, and that is tracked using the uptodate flag.
-
-Zeroing the page in __kvm_gmem_get_pfn() is chosen over zeroing in
-kvm_gmem_get_folio() since other flows, such as a future write() syscall,
-can get a page, write to the page and then set page uptodate without
-zeroing.
-
-There may be some performance penalty due to redundant zeroing, but this
-would pale in comparison to the cost of actually assigning the page to the
-VM.
-
-This aligns with the concept of zeroing before first use - the other place
-where zeroing happens is in kvm_gmem_fault_user_mapping().
-
-On populate failure, the page is not re-zeroed, since on SNP, if firmware
-rejects a CPUID page, the expected CPUID values provided by firmware are
-returned to userspace via page contents. More generally, page contents may
-be modified on populate failure.
-
-Don't mark the page uptodate again after populating, since the page would
-already be marked uptodate before the post_populate() call.
-
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 Tested-by: Shivank Garg <shivankg@amd.com>
 Reviewed-by: Fuad Tabba <tabba@google.com>
-Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- virt/kvm/guest_memfd.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ tools/testing/selftests/kvm/include/test_util.h | 2 ++
+ tools/testing/selftests/kvm/lib/kvm_util.c      | 5 +++++
+ 2 files changed, 7 insertions(+)
 
-diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-index f1c36e99cd3ce..5bbf9a5306c66 100644
---- a/virt/kvm/guest_memfd.c
-+++ b/virt/kvm/guest_memfd.c
-@@ -1104,6 +1104,11 @@ static struct folio *__kvm_gmem_get_pfn(struct file *file,
- 		return ERR_PTR(-EHWPOISON);
- 	}
+diff --git a/tools/testing/selftests/kvm/include/test_util.h b/tools/testing/selftests/kvm/include/test_util.h
+index a6a3e16578959..d5825211f2727 100644
+--- a/tools/testing/selftests/kvm/include/test_util.h
++++ b/tools/testing/selftests/kvm/include/test_util.h
+@@ -116,6 +116,8 @@ struct kvm_random_state {
+ extern u32 kvm_random_seed;
+ extern struct kvm_random_state kvm_rng;
  
-+	if (!folio_test_uptodate(folio)) {
-+		clear_highpage(folio_page(folio, 0));
-+		folio_mark_uptodate(folio);
-+	}
++extern bool kvm_has_gmem_attributes;
 +
- 	*pfn = folio_file_pfn(folio, index);
- 	if (max_order)
- 		*max_order = 0;
-@@ -1132,11 +1137,6 @@ int kvm_gmem_get_pfn(struct kvm *kvm, struct kvm_memory_slot *slot,
- 		goto out;
- 	}
+ struct kvm_random_state new_kvm_random_state(u32 seed);
+ u32 kvm_random_u32(struct kvm_random_state *state);
  
--	if (!folio_test_uptodate(folio)) {
--		clear_highpage(folio_page(folio, 0));
--		folio_mark_uptodate(folio);
--	}
--
- 	if (kvm_arch_has_gmem_convert() &&
- 	    kvm_gmem_is_private_mem(file_inode(file), index))
- 		r = kvm_arch_gmem_make_private(kvm, gfn, *pfn,
-@@ -1178,8 +1178,6 @@ static long __kvm_gmem_populate(struct kvm *kvm, struct kvm_memory_slot *slot,
- 	}
+diff --git a/tools/testing/selftests/kvm/lib/kvm_util.c b/tools/testing/selftests/kvm/lib/kvm_util.c
+index 08d0bbcd421ea..cd468b2bb8343 100644
+--- a/tools/testing/selftests/kvm/lib/kvm_util.c
++++ b/tools/testing/selftests/kvm/lib/kvm_util.c
+@@ -32,6 +32,8 @@ static void kvm_seed_rng(u32 seed)
+ 	kvm_rng = new_kvm_random_state(kvm_random_seed);
+ }
  
- 	ret = post_populate(kvm, gfn, pfn, src_page, opaque);
--	if (!ret)
--		folio_mark_uptodate(folio);
++bool kvm_has_gmem_attributes;
++
+ static size_t vcpu_mmap_sz(void);
  
- out_put_folio:
- 	folio_put(folio);
+ int __open_path_or_exit(const char *path, int flags, const char *enoent_help)
+@@ -527,6 +529,7 @@ struct kvm_vm *__vm_create(struct vm_shape shape, u32 nr_runnable_vcpus,
+ 		kvm_seed_rng(kvm_random_seed);
+ 
+ 	sync_global_to_guest(vm, kvm_rng);
++	sync_global_to_guest(vm, kvm_has_gmem_attributes);
+ 
+ 	kvm_arch_vm_post_create(vm, nr_runnable_vcpus);
+ 
+@@ -2311,6 +2314,8 @@ void __attribute((constructor)) kvm_selftest_init(void)
+ 	srandom(time(0));
+ 	kvm_seed_rng(random());
+ 
++	kvm_has_gmem_attributes = kvm_has_cap(KVM_CAP_GUEST_MEMFD_MEMORY_ATTRIBUTES);
++
+ 	kvm_selftest_arch_init();
+ }
+ 
 
 -- 
 2.55.0.1007.g17ff1f9808-goog
