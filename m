@@ -1,137 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A815360EF6;
-	Thu, 10 Sep 2026 13:14:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789046087; cv=none; b=GU1bres5VNH+7VmakVlHVar7BWgYVhyhLZv0mSHMLfKNAuN7iQI7cIUAgLiVTruJFXvwRCggG5wi6dz++0H4ZTNn6BAVvfsvwDrtNiF+9O/DKzHA7KO1Us6UFrdr/e9mF2H8o5KLOYBH9hNnStWq/YVh8tURzFOTLNR0nue7Yc8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789046087; c=relaxed/simple;
-	bh=q5dx5vdC7jgTdn5dH1WIZZ8Ax2heETi+DvzQR7TMSMQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ad79Ti7/DO2YimObTMUdwR1lHk53qEsN3d2Bs9lVVEeaiytTzjaWHRF5/+QYHWerwyfJrMOkhmroH41RPU2PdUzoYl16tgGE/458jNBuSbBWeymkSqhO84qXFIsWXU0QZqLqCZ5hxkcUdDsjyGtJpH8BlaWopxwOG65ZqfzhgC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O1UWoH0w; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7DC3803C7
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:16:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789046164; cv=pass; b=HoWsW2B/ezfUx1M0siDTFIElibkIU7BMX/HXP2AX5di/PFmdmxEbFz1jdoKMqg/MqA2Bxd6f5rNfSL26D4UG0pB1F0a7F54133lcYZnD0CdHMCMtufzgEqnpN1yBS+XZWaK6OR7E8CthToaHE8Mzz+OBHecGaG0TeBrEu7RalLg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789046164; c=relaxed/simple;
+	bh=r9p+KqcSZBzwlNv4UIOkluYxZzxF3C9CkP39r42NlUU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WUySdfL1xIk4YroJhO/vsnZGwALO/ANGYwDC71zkkyB6EB03j8HGZQkZPCL9/t5r6i9MIhbbTOUS7/gQis8QNJcb2iDm9XsVIwTrYUPy/PM76lxMGXwlT+Pmb1fR9x15WiFLDM8wBhGJv5S8DEbU/ximW9aYgmTfFi+dPG4A4Cc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b66tnTQ8; arc=pass smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O1UWoH0w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 337541F00893;
-	Thu, 10 Sep 2026 13:14:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789046086;
-	bh=obrsEf1MMzEije3mF7OvjrrlMFk7kbRaeS4alytnrZA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=O1UWoH0wjxnkd0+6YaNDY/1W8OkDpvWuJwac8Ox+sLdrh2d5ZeNWuC552Ce3xc6OL
-	 Lerke7gJsYZX24q11I5HKpfvO17Ai28S+4dD2G5Xhx3uOfQruwhU9n4u3f5dCTNKc6
-	 lEjiFdilNrqqyf6ZK3giQ8X08NnunzlK6mWbdt616AQ3aDdFEigHIm44+JrAigQMJE
-	 sgfMLJrYiJNVrOiE2AcZZoSq26Ng1A4Dynn7jetvjnO9gMCFBvXh4NWGOHXEThUjNf
-	 gabXjDTR3V5R+OkhxLRjN6Hg3RcUBvRNgfzZ2KbnwGBckpsv0FdDIJ54mYyqNbU8Ni
-	 k4kak9nneVsAg==
-Message-ID: <8d27168e-5443-4073-bc65-24ddbe32e29a@kernel.org>
-Date: Thu, 10 Sep 2026 15:14:36 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b66tnTQ8"
+Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-791391ddb18so28293137.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:16:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789046162; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rV5SKhTvTCO95s8zEeW5xYhm/zUjQaulnfsJtIVGNeiYHXGFHj9+qcEqnOHpIB5FEv
+         tO+Tsv6q7lAJKLZ7ashyjkLQUawGRPsaApr+b80OEH5QjzrqAy/g+1U3z0Y1SWm0bo4/
+         gqmXJTrI3tvYMO1CX3REhxiMwc+CxzFX/7cBIjmeYMVjZKjtgZEUjcB4l+wXArVUslda
+         zsklr1zWOphLG/p/9t01IAu+NzOl50g+kelpEQyeni1EQgoZ8U5IbYMz1uOBuxph0osH
+         Cu1b7lvNT6D3q2viwwS0jQ77YCV9vE7sgCuiiOS4gpyeB9AWxKiM7g3e5YP/PxKPVez8
+         9ybg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=moA5jUO3uVa6D/ugtSObUrS5bANjOYs5c5g0mj7H5a0=;
+        fh=NP2tubvknPrFnQrSsOmcSrTHgVY7sQb2L5R3bIXwF1w=;
+        b=c5Y3b3pvtCyG32+96yZ8jyndzdF0bj0J6yn04B6mE5LuHh5amaBrnEwl3xZ1Lw7Xlk
+         DZOhi30z4xxuFM1wzehplgNqcFrHsPeZCXNQqqFkMWpOSQg9hrN5sWOy4rUJXixkY+3s
+         4mpgxAu6bVuD1i8rlTd1AVp7oNphJE2BgAhkGaOkBLlD9spI7LAFgRKFqfP520/jOfgI
+         FZNnwsT4QJqZ8gLFxZp8Wne6k3N4Fcmjy7UYFtf1ryxL3LzsMAvP3HUjs84m9IGJB3zK
+         AsA2TVtHIOP+GGjkOJZV0Yf5AwnL4U8HPf/oDP14SAVN7SYm47Cc6p70ZPU4c1QlZhPt
+         vnww==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789046162; x=1789650962; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=moA5jUO3uVa6D/ugtSObUrS5bANjOYs5c5g0mj7H5a0=;
+        b=b66tnTQ84Smqti3gL2sPo+HpSbXYjnKsqMTwwxQtewG+Os+PQYomsDy8Ia41zmBATc
+         B0HM3lXvJ9bi08YezVh7B8GUrU8LJn7d4q4SWeeCGDtdAZxuT5Hb8oJk8kWFnFa2G7zD
+         Brq9uDxXnFVz9j6pHt/EL8txXU/OS1xRIBgzV5NzpR7fHpfF2v1zPM0H2RKXi9z31Lsa
+         iF4xlIdM6AflRERNgUpnrnuTkOgFi2abagtSvyJkf4EKxFyJ5fCQUmMKEI9LpMAhHoYQ
+         DJGnwQkOXSuGZDvSMAwLYKvpL0Y0PJQNAjhHua748I0UZ3i21RIIxeOHlMrlKCU/4vKB
+         NiAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789046162; x=1789650962;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=moA5jUO3uVa6D/ugtSObUrS5bANjOYs5c5g0mj7H5a0=;
+        b=AQw67fFJ9RHl5S8NNjDn2C875I53Oi4KXryBNhxjJsHox2/vUqeXh6B+j58ePxGw89
+         0fsQZUf5YBDUY9Jc1Hga/wXZbLyLYwJX5haKs+tE6WSjjwuTIbMigUDCQgWWS79YECe8
+         k/WEtl3vciZJ5qlvU3XGMef9Mc8fYBs5iSg+PphSRUU8VCI2hh+kkJUSe6aWdnQQG4v4
+         ReC7ktdKa7N5TKoBSrwwpmpTHEdItxqS8x8SLTxjW6M2hpBrSvuN8u1AxeXvPD027ASh
+         D+esxgGCqBuF5xcA8BZnlQSVJMTiERDNJg5Y0eFhYhfZyZfVRfPwMmNq/67WKYYURjT8
+         Ryng==
+X-Forwarded-Encrypted: i=1; AKwUvBzuqeTqWPqxLLj/wGIJyJ9fOWnnFelEmyaYJ2moQgnNKVNnrvYZww7yVO0w4yW2oHXy4dNUlDFCRnLCNMM=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2GbHj/b3VrI65jMd4tp/JfeeqrGTEI5MpkDqCmMdUQMlwOW34
+	NgonAwkfihFGhC/P8pBlD2HQBsH3HSVsdYY9NCAsLfN5QFLCuQcJtaylfz4v/RlgNfm4EgU8enF
+	/4SO74vet1zq8GEv6puoqhCLZrrdJW30=
+X-Gm-Gg: AYBFou1KAh1YAAy43PqByYSS2dXs7m/kZXumws6os3bZFdz1eRP6ZrAGMC0nOI9LtFi
+	vsJtbeR+8pqpgZtQ0MSWeNtrlTBhwGk3XGhVg+wc3d+p0fmQW/25nFrALxgSTAjPw677xERD0OU
+	BsIY4mITqZn2/Dg3GJ5iMvjICVT0Th+S0Y0KMV/A3FeVR7+lZl5MbWHXNaRoqo4EWnDrz4hkGuv
+	hYKzDjg6Dm98zHQXmY3kZhyZi0bdA7FLVsiaec++Q8PFqEbbEMSl+rAO+DUREfgR1YaqqTGNvlc
+	J0coPWyffHM2FZQVLaXZeTpTeS+dJHFNmGQ4PQqA8OcieDSiOy3+XLrCbgfx5+8iI19WP05Divb
+	fpYMOZxJWCwSCM/mmkekUcDzyA72LehicffUB9B5TSg==
+X-Received: by 2002:a67:ebd5:0:b0:790:563:8d1b with SMTP id
+ ada2fe7eead31-79005639f22mr1869415137.0.1789046161658; Thu, 10 Sep 2026
+ 06:16:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/3] kselftest: mm: introduce alloc_isolated_mem()
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
- Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260907-fix_split-v5-3-822b810458bc@arm.com>
- <5c05b620-7a2f-453d-9725-fed4f536a019@kernel.org>
- <aqKOVGECsCNtSMIV@e129823.arm.com>
- <d0b3ea99-e20b-4883-8fa3-67fdbf5b1ee4@kernel.org>
- <aqKS7CP67X4h6NiM@e129823.arm.com>
- <31418d0e-9745-4e8d-bc02-dbbd5cb9e193@kernel.org>
- <aqKU0-Gm4yh78F3V@e129823.arm.com>
- <d6f2e6b2-9dc9-4f02-be37-14329c1a6798@kernel.org>
- <aqKfjqa6ye2AOU5k@e129823.arm.com>
- <11a36d52-89a0-4f43-8a51-a4930e171ba0@kernel.org>
- <aqKj5ojQ3dabOV5g@e129823.arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <aqKj5ojQ3dabOV5g@e129823.arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260909173103.73656-1-klarasmodin@gmail.com>
+In-Reply-To: <20260909173103.73656-1-klarasmodin@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 10 Sep 2026 09:15:48 -0400
+X-Gm-Features: AcwNN1XHoZUcFvWmvZ91jrJEiVXoE4O9xNxPdZc5AmfqfU3fK8LxM3IuZyCmVsY
+Message-ID: <CADnq5_MCChZJ3vFmAeMPhq1xHLC5Ba+=g+v4+OUKZ8ciLbKY3A@mail.gmail.com>
+Subject: Re: [PATCH v2] rust/drm/gem: initialize callbacks with ..pin_init::zeroed()
+To: Klara Modin <klarasmodin@gmail.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
+	Alex Deucher <alexander.deucher@amd.com>, Mukul Joshi <mukul.joshi@amd.com>, 
+	Felix Kuehling <felix.kuehling@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Thorsten Leemhuis <linux@leemhuis.info>, Manuel Ebner <manuelebner@mailbox.org>, 
+	Gary Guo <gary@garyguo.net>, Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/10/26 14:34, Yeoreum Yun wrote:
-> On Thu, Sep 10, 2026 at 02:25:40PM +0200, David Hildenbrand (Arm) wrote:
->> On 9/10/26 14:16, Yeoreum Yun wrote:
->>>
->>> True. I overlooked guard bit is sticky.
->>>
->>>
->>> It's enough but alloc_isolated_mem() could be modified to allocate with
->>> PROT_NONE first and then change the prot.
->>>
->>> It seems whether make a helper or testcase should write the code
->>> properly in case of unwanted VMA merge.
->>>
->>> IMHO, instead of testcase write them all
->>
->> So far I am aware of exactly one test case, which others do absolutely need this?
-> 
-> True. I'll respin with your suggestion.
+Applied.  Thanks.
 
-Don't get me wrong, if we'll need this for other tests we can add helpers. But
-for a single user adding a helper is not really worth it.
+Alex
 
--- 
-Cheers,
-
-David
+On Thu, Sep 10, 2026 at 6:08=E2=80=AFAM Klara Modin <klarasmodin@gmail.com>=
+ wrote:
+>
+> When the commit b67d2d039f64 ("drm/gem: Add callback for when handle
+> count goes to 0") added the handle_free callback, it did not update the
+> rust abstraction, which will cause a build failure when that is enabled.
+> Rather than just adding another None initializer, use
+> ..pin_init::zeroed() to make all unlisted callbacks None, and remove the
+> existing zero-initializations.
+>
+> Fixes: b67d2d039f64 ("drm/gem: Add callback for when handle count goes to=
+ 0")
+> Reported-by: Thorsten Leemhuis <linux@leemhuis.info>
+> Closes: https://lore.kernel.org/all/aaef18cd-ab55-4fb8-8563-ca3a5ea9cbc6@=
+leemhuis.info
+> Reported-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Closes: https://lore.kernel.org/all/4da62a4b-c4ef-492a-9a27-b56bd4784acf@=
+suse.de
+> Suggested-by: Gary Guo <gary@garyguo.net>
+> Signed-off-by: Klara Modin <klarasmodin@gmail.com>
+> ---
+> v2:
+> - also remove initialization of vm_ops, which is also handled by
+>   ..pin_init::zeroed() (thanks Gary)
+> - fix the same issue in the shmem helper (thanks Thomas, also reported
+>   by Sashiko)
+> - v1: https://lore.kernel.org/lkml/20260908175427.47207-1-klarasmodin@gma=
+il.com
+> ---
+>  rust/kernel/drm/gem/mod.rs   | 13 +------------
+>  rust/kernel/drm/gem/shmem.rs |  5 +----
+>  2 files changed, 2 insertions(+), 16 deletions(-)
+>
+> diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
+> index 80d8f524f9d5..9d4280002765 100644
+> --- a/rust/kernel/drm/gem/mod.rs
+> +++ b/rust/kernel/drm/gem/mod.rs
+> @@ -266,18 +266,7 @@ impl<T: DriverObject, Ctx: DeviceContext> Object<T, =
+Ctx> {
+>          free: Some(Self::free_callback),
+>          open: Some(open_callback::<T>),
+>          close: Some(close_callback::<T>),
+> -        print_info: None,
+> -        export: None,
+> -        pin: None,
+> -        unpin: None,
+> -        get_sg_table: None,
+> -        vmap: None,
+> -        vunmap: None,
+> -        mmap: None,
+> -        status: None,
+> -        vm_ops: core::ptr::null_mut(),
+> -        evict: None,
+> -        rss: None,
+> +        ..pin_init::zeroed()
+>      };
+>
+>      /// Returns the `Device` that owns this GEM object.
+> diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
+> index a687d46d170d..24cb5343e0db 100644
+> --- a/rust/kernel/drm/gem/shmem.rs
+> +++ b/rust/kernel/drm/gem/shmem.rs
+> @@ -132,19 +132,16 @@ impl<T: DriverObject> Object<T> {
+>          open: Some(super::open_callback::<T>),
+>          close: Some(super::close_callback::<T>),
+>          print_info: Some(bindings::drm_gem_shmem_object_print_info),
+> -        export: None,
+>          pin: Some(bindings::drm_gem_shmem_object_pin),
+>          unpin: Some(bindings::drm_gem_shmem_object_unpin),
+>          get_sg_table: Some(bindings::drm_gem_shmem_object_get_sg_table),
+>          vmap: Some(bindings::drm_gem_shmem_object_vmap),
+>          vunmap: Some(bindings::drm_gem_shmem_object_vunmap),
+>          mmap: Some(bindings::drm_gem_shmem_object_mmap),
+> -        status: None,
+> -        rss: None,
+>          #[allow(unused_unsafe, reason =3D "Safe since Rust 1.82.0")]
+>          // SAFETY: `drm_gem_shmem_vm_ops` is a valid, static const on th=
+e C side.
+>          vm_ops: unsafe { &raw const bindings::drm_gem_shmem_vm_ops },
+> -        evict: None,
+> +        ..pin_init::zeroed()
+>      };
+>
+>      /// Return a raw pointer to the embedded drm_gem_shmem_object.
+> --
+> 2.55.0
+>
