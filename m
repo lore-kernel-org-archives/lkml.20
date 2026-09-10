@@ -1,97 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D9A343CE7F;
-	Thu, 10 Sep 2026 08:15:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6203943B3F9
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:15:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789028149; cv=none; b=OUZ8rv1wCJnYQ9pLOnj+t8oKnsELbpcUf6mkuc+6WRYKOqc8iNacXyrRonOoAF3xnlvX0AKFoKwmNNjMKxnpQrQhnapqVDTJURJj2yWJuO4kuVkpYitvGmxWUMX8Ko7KixBlvb5/sqkz/ady7h+Zes0SdR1wUH05t0EYenkVZrg=
+	t=1789028152; cv=none; b=JJ2NvsPKCq3XU6yr7Rt77Tn/fPXrL67iQ/dzautQ+HR/W5jpkijU0haielvJdNwLDr9cthTk0t88DBKFOPZmQnnyp3R2rwAtJJnkIOjwpp++EXMM5I78IuqTzNQu7J+PY4OZo3kxlCBIxzq8AJoL6XHL6rxavhqQOo9aMouADzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789028149; c=relaxed/simple;
-	bh=3gq0RFMdJclzfJxFzLp1eQN0N7a+xavx9I/D0sjlg+w=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Deerqz2x6r0VLOTcfoMElgDVnhhzxSGsnw4SGQbjjR/OJMM+ZLnk68Tq/ReusVCf01DV4uV6rev2Lw84wgHTSp8xcxg/S4+kKspYiBN+xN3uClad5dvFSgVc1lEbPhS/9hXT4kcXpdU2GB0TRX+wVA3KbjsnFB1qv2/IXUBMtBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HX6Jk197; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789028152; c=relaxed/simple;
+	bh=NMJcZVUYBAIAJjUbFOtjhLKA0JZJQS/EwwJD+FlJj1c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=b84/7j7l0MK+9V0hBr+xuMpa9LaJyEuv0x8zJaYwcVSmXmc6uagjAKbRGqx3AlcJqrmNIe2Yx7SIbIoonsE4xPflGKGKR6gFPA6A+KiwP5oBjss3r1dYKrNJyc251lFTRm+MDS9QLgjEY2OnxZuCfaAQ/LCYF43e18LWE0uFrkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=WlqygN3o; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HX6Jk197"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1399E1F00893;
-	Thu, 10 Sep 2026 08:15:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789028147;
-	bh=cQvvaoG1lMvUXXuqPW4x4BfHpu4GyKiKwKXuUucQD6I=;
-	h=From:Date:Subject:To:Cc;
-	b=HX6Jk197W9hdCAlM8Ce9CWgkOOeuKRtbWFAjKOcOONVr9Ol5rmw8wKgfVdVM1lNQa
-	 O7CYUjK198zCsi+jz9QDwpBrjVFoT0/fNgBHRlxIbkYHxbOMo1nEp0US8y823C0pmh
-	 wLpWf/EpgUcTyapG1dgBLZFwwopy2FqYzZBkQ8I16uL+A1n8zFnT5NAKpkR3XkJWM6
-	 qcjnU/DN4Gfiu8E+pGJmUXultIjpVXqaZMOX/VTN1bqV5bRpfjIXFpYz2vlgMExf+j
-	 lzuaY5pzAJ4uyS3aoryxTzHyzRgzO7GELkwkDpRmyow3KzinpMyXo9trJsRYYrKch9
-	 xWlJbxtrv2sQQ==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Thu, 10 Sep 2026 10:15:42 +0200
-Subject: [PATCH] arm64: dts: qcom: glymur-asus-zenbook-a16: Fix up the mic
- sample rate
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="WlqygN3o"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=JqPbgfm2s+1OMKIjxGnNiaxLWwBSEVGST3nJQuEhokk=; b=WlqygN3ou0UYH3cRdGscLUsKsS
+	gr8s5ZAdC+rfzeKwFKs5gdL/rb337jTxoTkZmFSZ6FJdG6j4VvEyae5lkYTKLvKrWjfXFgU3sGrkZ
+	PDidZEr8hYwGcLWR1WW1+US+6BrIUTto8i1raDrkQhz/5BEOZfbsDKZ0tFml2n1HUAu8Bu9kqUVWO
+	l28LPeDK5Qy2PufLVXlXnwrhlvACm4YCfBRUwGJeFxs2pkDKM1Y3urj7jMd7sxIdusRPdOI9hP46p
+	GJiHJoOYkMc8SaoZI9YUa9Nac8565TLrY6YjUapSBwT1rFLtupPNBp9HVRLGfKEDHDSE5HhYLcHwy
+	hu/vfxXA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x4ZwO-0000000EASD-0hao;
+	Thu, 10 Sep 2026 08:15:28 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 0308C3005AF; Thu, 10 Sep 2026 10:15:27 +0200 (CEST)
+Date: Thu, 10 Sep 2026 10:15:26 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Tejun Heo <tj@kernel.org>
+Cc: Hui Su <sh_def@163.com>, linux-kernel@vger.kernel.org, mingo@redhat.com,
+	juri.lelli@redhat.com, vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+	jstultz@google.com
+Subject: Re: [PATCH] sched/core: Call wq_worker_tick() for the execution
+ context
+Message-ID: <20260910081526.GD4120091@noisy.programming.kicks-ass.net>
+References: <20260902150208.1209922-2-sh_def@163.com>
+ <aphpMkGmuOrUByf3@slm.duckdns.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-topic-zenbook_mic_sampling-v1-1-2532136d5a9b@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBAAwK+QPdukYFT0K4aQdllgUdqmi4RI+
- LsFj3OZFYQik8AjWyHSzMLeJeSnDLA3riPFTTIUurjqe67V5AOj+pKz3r/qkbEWM4Y3u06haUo
- 6l/bS3ghSECK1vBz5s/pbPnYgnPYRtu0HQPM1o34AAAA=
-X-Change-ID: 20260910-topic-zenbook_mic_sampling-cad8e38b5f7e
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789028143; l=1135;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=+cEY6rhxTB/F0M6Gc6IN+lIDNC82LAF+/DdHfogTqnM=;
- b=RRHdGU8kI5rZKm6daF5ZQEbL0MW3Mzr2y7RJ5julphPfrkMknCyOXMxQ/lSPT+DJgbeq2B78u
- ElMJoPe5Wi3AqUrvPNPMJSlVnVNqa+w2IWBQa+42TYtm1PQJE15KWwK
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aphpMkGmuOrUByf3@slm.duckdns.org>
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Wed, Sep 02, 2026 at 08:21:38AM -1000, Tejun Heo wrote:
+> On Wed, Sep 02, 2026 at 11:02:09PM +0800, Hui Su wrote:
+> > wq_worker_tick() accounts CPU time and detects CPU-intensive work for
+> > the kworker that is actually running. With proxy execution, rq->donor
+> > is the scheduling context while rq->curr is the execution context.
+> > 
+> > Calling the hook with rq->donor can skip workqueue accounting when a
+> > kworker is executing on behalf of a donor task. It can also account a
+> > blocked kworker when the donor is a worker but rq->curr is the task
+> > actually executing. The former can delay WORKER_CPU_INTENSIVE handling
+> > and pool concurrency management, which can delay pending kernel work
+> > and userspace operations depending on it.
+> > 
+> > Use rq->curr for the workqueue tick hook while retaining rq->donor for
+> > scheduler accounting.
+> > 
+> > Fixes: af0c8b2bf67b ("sched: Split scheduler and execution contexts")
+> > Signed-off-by: Hui Su <sh_def@163.com>
+> 
+> Acked-by: Tejun Heo <tj@kernel.org>
+> 
+> Peter, how do you want to route this patch? It can go through either sched
+> or wq.
 
-Set the correct value for the hardware, matching the readout from
-Windows during audio recording.
-
-The microphone seems to work fine either way.
-
-Fixes: e8fbbca94db7 ("arm64: dts: qcom: glymur: Add Asus Zenbook A16 (UX3607OA)")
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-index 939e1a927a79..40433dc2d6cf 100644
---- a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-+++ b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-@@ -737,7 +737,7 @@ &lpass_vamacro {
- 	pinctrl-0 = <&dmic01_default>;
- 	pinctrl-names = "default";
- 
--	qcom,dmic-sample-rate = <4800000>;
-+	qcom,dmic-sample-rate = <2400000>;
- };
- 
- &mdss {
-
----
-base-commit: c68a982815dcce5464e3bf2a31ac94f5146c04ca
-change-id: 20260910-topic-zenbook_mic_sampling-cad8e38b5f7e
-
-Best regards,
---  
-Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
+Sorry, seems this got lost in the email deluge :/ I can take it through
+sched/urgent.
