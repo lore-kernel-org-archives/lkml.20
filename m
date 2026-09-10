@@ -1,183 +1,169 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1D1568FDC;
-	Thu, 10 Sep 2026 17:51:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1BF95678C9;
+	Thu, 10 Sep 2026 17:52:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789062727; cv=none; b=bGcMyVHbLbAXxZW6NCKMJa902/CAgx5EebEHwQhqm0RohtguCzjb8+xw5sac06JkEdp7lMHt/S8pBJ2p4t8ZDINhupz1H9gMNNwBzUmWu1Q7aCM1Gud8tD+m0vcM9DYCHWml8vGqLMq5S1s6B4CLq2fj84/L/tmjP1rywBhtPEI=
+	t=1789062736; cv=none; b=gs7ppcwLrIi+MjE1jPg/Q/TZW8Hb0JRpkAerbI1SyCx7lRahOW38EkDz8dRLHhnmURc1agTZDMCBvIm9y4hS9lGnioha4MuHRAiXk4A7oCXJtV4Iz6Vd3GGWp+OWphzBdWcpQErL2h+Wm2AfJfBHD3XBNGYG0oP6lp75DylXGk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789062727; c=relaxed/simple;
-	bh=AnnNIzpbOfyYqkmvYoAw7hwb2MzMdlHdv89Xe+blWGI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bF2QmkcRTUHT4SHStEUZBHfGV+e0xAOP3rVNeDCJd0rJsTczy2unNyMld+9X8sxJmGW4BFBaFWpFWGNUQ3AwLVB2oAwM/6mpdJSHL93MSXWooXw9fhA/wit3stiP+XuTYXnI78QITVL49TLrMUz9B64wKQLmzGN0KfGZvCJVa/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i2j9lgpD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789062736; c=relaxed/simple;
+	bh=GOGYs9yTwHdzorC8tVK0sxJhBpZG+pEwQaWaAoR7TTE=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=Yb0tvdQ/rI+BjvHqHPdr0C8yrQNFzpcmxGRZO9kxuwDJimBu1gigMhpT0maDHBb2r2LLGE5+hcMsvwWzZB/icDZHLLafMmjT5ypOSIVyNxtUJe4dpj/Ck2CUjU+wJ+sjVckNJ05itSGanl2wGbrbl/ZJG/yIfwVRc8AesKOHz7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ll1x28+r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i2j9lgpD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 919901F00893;
-	Thu, 10 Sep 2026 17:51:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ll1x28+r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46EC11F000FF;
+	Thu, 10 Sep 2026 17:52:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789062716;
-	bh=Ga2HOa1loKq0jBHu59mKdChd26mC2i9x8MQreihVwCk=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=i2j9lgpDVLRaoN4+nZpvoEmxQjIWi/WUTqHCARRpW9v1qb0eK+3RomrY+8XNJgSDP
-	 njKLU11hVrGVJLXioGK4gl5m1cjfT3RNs5V7PG5Ki9DH95snF4uL29cpl8voGj9mDl
-	 vUXwjugOv/Vc4FmiIRdY4Nhqmm3OyqoiGybf4BecBn6G6I4cU0q0NqVsJ8QiLuTE/S
-	 4VQ2j2k7aontLvX2UayKWOric2A5BPY11UEoqEGsc/LcSg2D2WyBfvGMaD24FFPmVW
-	 ftCDpluXqe1KapNtb/eIYxW/2Kzn86gNc+RCE48SIhq4+PZEv7cMzrRB3gm6PHler3
-	 xFI37FcWoJVSw==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 4662DCE19CD; Thu, 10 Sep 2026 10:51:56 -0700 (PDT)
-Date: Thu, 10 Sep 2026 10:51:56 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: urezki@gmail.com, harry@kernel.org, frederic@kernel.org,
-	neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com,
-	josh@joshtriplett.org, boqun@kernel.org, rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev, corbet@lwn.net, skhan@linuxfoundation.org,
-	rdunlap@infradead.org, surenb@google.com, vbabka@kernel.org,
-	rcu@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/1] rcu: make userspace barrier hook drain kvfree_rcu
- work
-Message-ID: <6092a9d0-0125-4da4-ac48-85ccaeb83beb@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260910101112.1648978-1-matthias.goergens@gmail.com>
- <20260910170040.344864-1-matthias.goergens@gmail.com>
- <20260910170040.344864-2-matthias.goergens@gmail.com>
+	s=k20260515; t=1789062730;
+	bh=YrqrIjdyKnBWYjMwIRcLZddqKSeufHfRNBxrhshS8sM=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=ll1x28+rJIgBto1mf8T0HXKQk9tls0YZElGwlUQ8TQwdaE8IpnnQKL4N9uD6GUZhB
+	 rPZ0sRbdmOax9nObgWntMWE71GzC2bDxTX2Wk80GTBsIbEqzp/glWwDac/FCVfSBZX
+	 pVwiD47TvNbWkjqs2mjliqzH/eSCGqFb92XJEuDJ2I8Hpq2AW7geAVucNpBhV1qp+O
+	 89AW2VBkIIGIEpPngqM2LGRlhvhFC10kEVWGKgZM7P/ZeLXMj10CfRwCMUtQaXrXKL
+	 63yFXr7+jZGgzrY/97+Gzqo5sUCGMWuRkK5SjqbIMUJwXdii2zZHqCMUbnfZ4lE8Wx
+	 fdlvmfpwc7HZQ==
+Content-Type: multipart/mixed; boundary="===============4355563254654798491=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910170040.344864-2-matthias.goergens@gmail.com>
+Message-Id: <92fc8746a5a16b3e0e544244b584cc6b287a466539230bdb4043e0e8a716c9af@mail.kernel.org>
+In-Reply-To: <20260910164635.459558-6-vineet.gupta@linux.dev>
+References: <20260910164635.459558-6-vineet.gupta@linux.dev>
+Subject: Re: [PATCH bpf-next v2 05/13] bpf: keep the range across a sign extension that cannot change it
+From: bot+bpf-ci@kernel.org
+To: vineet.gupta@linux.dev,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
+Cc: martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,john.fastabend@gmail.com,shuah@kernel.org,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,vineet.gupta@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Thu, 10 Sep 2026 17:52:09 +0000 (UTC)
 
-On Fri, Sep 11, 2026 at 01:00:40AM +0800, Matthias Goergens wrote:
-> The bcachefs ktest allocation-leak check writes rcutree.do_rcu_barrier
-> before reading /proc/allocinfo. While testing bcachefs performance
-> changes, small objects released with kfree_rcu() remained visible after
-> repeated writes to the hook and 20 seconds of waiting, causing otherwise
-> clean tests to fail their leak check.
-> 
-> The test assumes a stronger contract than the hook currently documents:
-> rcu_barrier() waits for ordinary callbacks, but does not flush objects
-> still held in kfree_rcu() batching or per-CPU SLUB sheaves. The retained
-> population eventually fell as a sheaf filled; there is no evidence here
-> of unbounded growth or OOM.
-> 
-> Changing the hook to drain kvfree_rcu() work let the same unmodified
-> bcachefs workload pass its allocation check. All eight checkpoints in
-> one VM, after 50 through 400 option changes, reported zero retained
-> reconcile_scan objects. This motivated the separate private-cache
-> reproducer used to isolate the incomplete drain from bcachefs.
-> 
-> Calling kvfree_rcu_barrier() from rcu_barrier_throttled() was proposed
-> when the former API was added in 2024, to restore a clean baseline
-> between userspace benchmark runs. The discussion concluded that keeping
-> the existing hook name, adding the second operation and documenting both
-> was the safest compatibility choice, but the follow-up was not added.
-> 
-> Add that drain and document the stronger test interface. Keep the
-> explicit rcu_barrier() so the hook's ordinary-callback contract does not
-> depend on kvfree_rcu_barrier() reaching an ordinary barrier internally.
-> 
-> Do not reuse the ordinary rcu_barrier() sequence as an early-completion
-> check while throttling: an unrelated ordinary barrier does not establish
-> that kvfree_rcu() work was drained. Retain the existing start-rate limit.
-> 
-> Four fresh VM pairs with the full private-cache fixture retained the
-> queued object without the patch (60 to 60 active objects) and drained it
-> with the patch (60 to 59). A separate ordinary-callback regression test
-> passed on both kernels.
-> 
-> Link: https://lore.kernel.org/all/20240820155935.1167988-1-urezki@gmail.com/
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-> ---
->  .../admin-guide/kernel-parameters.txt         |  7 ++---
->  kernel/rcu/tree.c                             | 27 ++++++++++++-------
->  2 files changed, 21 insertions(+), 13 deletions(-)
-> 
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-> index 68647ff4bdd2..244a53166249 100644
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -5699,9 +5699,10 @@ Kernel parameters
->  			there is an ongoing too-long CSD-lock wait.
->  
->  	rcutree.do_rcu_barrier=	[KNL]
-> -			Request a call to rcu_barrier().  This is
-> -			throttled so that userspace tests can safely
-> -			hammer on the sysfs variable if they so choose.
-> +			Request that deferred kfree_rcu() objects and
-> +			ordinary call_rcu() callbacks be drained.  This is
-> +			throttled so that userspace tests can safely hammer
-> +			on the sysfs variable if they so choose.
->  			If triggered before the RCU grace-period machinery
->  			is fully active, this will error out with EAGAIN.
->  
-> diff --git a/kernel/rcu/tree.c b/kernel/rcu/tree.c
-> index 96848fc1f02b..014e28ec3bd3 100644
-> --- a/kernel/rcu/tree.c
-> +++ b/kernel/rcu/tree.c
-> @@ -3989,12 +3989,12 @@ EXPORT_SYMBOL_GPL(rcu_barrier);
->  static unsigned long rcu_barrier_last_throttle;
->  
->  /**
-> - * rcu_barrier_throttled - Do rcu_barrier(), but limit to one per second
-> + * rcu_barrier_throttled - Drain deferred RCU frees, but rate-limit starts
->   *
-> - * This can be thought of as guard rails around rcu_barrier() that
-> - * permits unrestricted userspace use, at least assuming the hardware's
-> - * try_cmpxchg() is robust.  There will be at most one call per second to
-> - * rcu_barrier() system-wide from use of this function, which means that
-> + * This can be thought of as guard rails around the deferred-free barriers
-> + * that permit unrestricted userspace use, at least assuming the hardware's
-> + * try_cmpxchg() is robust.  There will be at most one drain operation started
-> + * per sixteenth of a second from use of this function, which means that
->   * callers might needlessly wait a second or three.
->   *
->   * This is intended for use by test suites to avoid OOM by flushing RCU
-> @@ -4011,18 +4011,25 @@ static void rcu_barrier_throttled(void)
+--===============4355563254654798491==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+> bpf: keep the range across a sign extension that cannot change it
+>
+> coerce_reg_to_size_sx() decides whether a sign extension is lossless by
+> comparing the bits above the field in smin and smax:
+>
+>         top_smax_value = ((u64)reg_smax(reg) >> num_bits) << num_bits;
+>         top_smin_value = ((u64)reg_smin(reg) >> num_bits) << num_bits;
+>         if (top_smax_value != top_smin_value)
+>                 goto out;
+>
+> Equal high bits do imply the truncation is lossless, but the converse does
+> not hold. Whenever the range straddles zero the high bits necessarily
+> differ -- smin sign-extends to all ones, smax to all zeroes -- even when
+> every value in the range fits the field and (sN)v == v throughout. The
+> second gate, "both of s64_max/s64_min positive or negative", rejects the
+> same shape again for the same reason.
+>
+> So a register holding an errno-or-zero value, [-4095, 0], comes out of r0
+> = (s32)r0 as the full [S32_MIN, S32_MAX] even though the instruction is a
+> no-op on it. The no_sext test at the call site does not help: it is an
+> unsigned check, so it only covers non-negative values that fit.
+>
+> Test the range against the field directly and return early when it fits.
+> Sign extension is then the identity, so nothing needs updating -- which
+> also preserves var_off, where the existing path would have replaced known
+> bits with a coarse tnum_range().
+>
+> This only tightens: the early return fires exactly where the value is
+> provably unchanged, and the cases the current tests do accept still take
+> the same path and produce the same bounds.
+
+Does the last sentence accurately describe the change? The early return
+is placed before the top_s*_value and sign gates, so it intercepts every
+fitting range, including those the existing gates accept.
+
+For example, with 'w0 &= 0x3c; r0 = (s8)r0', the register holds [0, 60]
+with var_off = (0; 0x3c). The old path passed both gates (equal top bits,
+both non-negative) and set var_off = tnum_range(0, 60) = TNUM(0, 0x3f),
+losing the known low bits. The early return now keeps (0; 0x3c).
+
+This is the var_off preservation the message describes two sentences
+earlier, so "produce the same bounds" seems inaccurate. Would "produce
+bounds no wider than before" be more precise, given that the accepted
+cases are where the behaviour actually changes?
+
+>
+> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+
+This looks like a bug fix for sign extension handling in the verifier.
+Should this include:
+
+  Fixes: 1f9a1ea821ff ("bpf: Support new sign-extension load insns")
+
+> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+> index 58e788f53ae5..eb093194e2a3 100644
+> --- a/kernel/bpf/verifier.c
+> +++ b/kernel/bpf/verifier.c
+> @@ -5754,6 +5754,7 @@ static void set_sext64_default_val(struct bpf_reg_state *reg, int size)
+>  static void coerce_reg_to_size_sx(struct bpf_reg_state *reg, int size)
 >  {
->  	unsigned long j = jiffies;
->  	unsigned long old = READ_ONCE(rcu_barrier_last_throttle);
-> -	unsigned long s = rcu_seq_snap(&rcu_state.barrier_sequence);
->  
->  	while (time_in_range(j, old, old + HZ / 16) ||
->  	       !try_cmpxchg(&rcu_barrier_last_throttle, &old, j)) {
->  		schedule_timeout_idle(HZ / 16);
-> -		if (rcu_seq_done(&rcu_state.barrier_sequence, s)) {
-> -			smp_mb(); /* caller's subsequent code after above check. */
-> -			return;
-
-Don't we still want to skip the rcu_barrier() in this case?  Or am I missing
-something subtle here?
-
-								Thanx, Paul
-
-> -		}
->  		j = jiffies;
->  		old = READ_ONCE(rcu_barrier_last_throttle);
+>  	s64 init_s64_max, init_s64_min, s64_max, s64_min, u64_cval;
+> +	s64 field_smin, field_smax;
+>  	u64 top_smax_value, top_smin_value;
+>  	u64 num_bits = size * 8;
+>
+> @@ -5773,6 +5774,27 @@ static void coerce_reg_to_size_sx(struct bpf_reg_state *reg, int size)
+>  		return;
 >  	}
+>
+> +	if (size == 1) {
+> +		field_smin = S8_MIN;
+> +		field_smax = S8_MAX;
+> +	} else if (size == 2) {
+> +		field_smin = S16_MIN;
+> +		field_smax = S16_MAX;
+> +	} else {
+> +		/* size == 4 */
+> +		field_smin = S32_MIN;
+> +		field_smax = S32_MAX;
+> +	}
+> +
 > +	/*
-> +	 * kfree_rcu() can retain objects outside the ordinary callback lists in
-> +	 * per-CPU SLUB sheaves and kvfree_rcu batches.  Test suites use this hook
-> +	 * to prevent deferred frees from spilling into the following test, so
-> +	 * drain those queues as well as ordinary call_rcu() callbacks.
-> +	 *
-> +	 * kvfree_rcu_barrier() currently includes an ordinary barrier, but that
-> +	 * is not part of its documented API.  Keep the explicit rcu_barrier() so
-> +	 * this hook's original contract does not depend on slab implementation
-> +	 * details.
+> +	 * The range already fits the field, so (sN)v == v for every value the
+> +	 * register can hold and the sign extension changes nothing. The tests
+> +	 * below cannot reach this case once smin is negative: a negative smin
+> +	 * and a non-negative smax never share their high bits.
 > +	 */
-> +	kvfree_rcu_barrier();
->  	rcu_barrier();
->  }
->  
-> -- 
-> 2.55.0
-> 
+
+Is the comment's condition accurate? It says the tests below cannot
+reach this case once smin is negative, but the justification only covers
+a negative smin together with a non-negative smax.
+
+A fitting range that is entirely negative is reached and accepted by
+the tests below. For reg_smin = -63, reg_smax = -1 with size == 1:
+
+  top_smax_value = ((u64)-1 >> 8) << 8 = 0xffffffffffffff00
+  top_smin_value = ((u64)-63 >> 8) << 8 = 0xffffffffffffff00
+
+The first gate passes (equal top bits), and the second gate also accepts
+since (s64_max >= 0) == (s64_min >= 0) holds for both negative. The same
+is true for entirely non-negative fitting cases like [0, 60] with size == 1.
+
+So the early return intercepts cases the tests below handle, which is
+the var_off-preserving improvement the commit message describes. Should
+the condition be "once the range straddles zero" rather than "once smin
+is negative"?
+
+> +	if (reg_smin(reg) >= field_smin && reg_smax(reg) <= field_smax)
+> +		return;
+> +
+>  	top_smax_value = ((u64)reg_smax(reg) >> num_bits) << num_bits;
+>  	top_smin_value = ((u64)reg_smin(reg) >> num_bits) << num_bits;
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34506184282
+--===============4355563254654798491==--
