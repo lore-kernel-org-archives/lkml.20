@@ -1,127 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D75F47276D;
-	Thu, 10 Sep 2026 11:21:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E0A47276D
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:21:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789039291; cv=none; b=qwQ5E0XzfV0bORbCZiOlImjeq1+I0xw5DtzscRTqls6yi8jhry9pM6NiMA33lL6Gu4tT858+iZItKFHstmsrYkLi92GmsszzUMreuDlCyH7/ciCVThcQfCm5Ta2ly77xUtl0vtdV6nvyC1ucjTq3u8OStC6V3GlSL8vi9E+kkRg=
+	t=1789039315; cv=none; b=bNcwecNUuxdV6RCaBRjCYckljvAxIrZ6deq/Y3K8CdpcHbBrdPwKN+MNuHnN5RkGPKYQybQcMCuRAXDUDq6xaG51SiFKKBhh8lyBKv7bsmzGN4VGDtvBScZn3asW1M8hlbG/6XcmV72B/kdk0FHdYLpOZkGr0gx9VdJoLZ/pTdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789039291; c=relaxed/simple;
-	bh=FPzIvtgmhSbpU/1pbVMJisRzxaJmuZeATD8N0wykZxk=;
+	s=arc-20240116; t=1789039315; c=relaxed/simple;
+	bh=bQ7EDgQbbXpJSNaeNFPpm9AtQY2rbEb9xngXnYeZMA4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DRVvF7JFQf1ChKPKCJSa1dC6T36LbypTv95uGrntjNcc7WTbg1IXT+DtGEJJtg01dKxRxenotDY0fNYXwTnxA1tKEI+vTXG8N3UkVRrELHq8OQgHNHIb8YGvnzg5Mp+Z1vWx0/35LzHEHb9qYm3Xqqm8Y9G9CMsLJPYiF6RHDVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kxzxAAUf; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qk0BTvVYL14H1JOlAplIEpTT9R/jkofk38KboyiGovSciGCOmAx8raeF3j/02P3jV139bKQ7hFttjHep4lo3MlvJ90EdPeEJ22UqlU8KDEFQfKFp1nZx2uph8wEFeVkFUE0Q1yNNizThkHsb4fI8wp572w/XxYxpLs4cI8E9ock=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=hGJz1iII; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kxzxAAUf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A6961F000FF;
-	Thu, 10 Sep 2026 11:21:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789039290;
-	bh=FPzIvtgmhSbpU/1pbVMJisRzxaJmuZeATD8N0wykZxk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kxzxAAUfjYsWGUsxd77ZTX3tE3JJL5QVTDc0CoN+OGKRsVNwA8taMOgIhooTrG+RC
-	 dwnR0jlai7SFJ9MxapDb8HTbs0SXwe63sPA/OQ/0HAk1p7qxIZg1fRSVJLlU43nCZl
-	 Mml1FPN4smCiHdGL3gQjgRXgL7F0ej45TsSHiztJsSrADV6hX4RtKmnD4TJJ1Dzofo
-	 Gab0hIcgNwLcYSZC7AW89krjF+d3XB7egDqIdHoeNNEN08xRs1nHZuRVFuOeNEI+kY
-	 bBFtt8tpbGAdUJvjTV6Y77zp96xkeUlxIhcC8wn68YMAfyNhQ1MqRixMbJb/Ya78xq
-	 WbSFvnPTAlwnQ==
-Date: Thu, 10 Sep 2026 12:21:15 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
-	Nicolas Schier <nsc@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	llvm@lists.linux.dev, linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
-Subject: Re: [PATCH 02/23] scripts/mksysmap: fix escape of '$' in the __pi_
- pattern
-Message-ID: <aqKO4idury5TND0u@gremlin>
-References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
- <20260908-build-speedup-v1-2-5dc1ac01672d@kernel.org>
- <178901395289.3971858.3678831513020211615.b4-review@b4>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="hGJz1iII"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49d05d51553so44267015e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:21:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1789039312; x=1789644112; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JuRvNfKlSmkziI3OYLlgbXnb4SXxwddW+G4p+yafYnI=;
+        b=hGJz1iIIjhVbkuCGuTNRQkbWWNoWbS8YTrLozcm4YI8gYqcUnHSQG6zcQynJis4cty
+         CkQyRQz21Upxtki8s4dUbl8DZRfY/rzkxVue2eBePRYv+3tRXI4MXVZtHH+IW5Ooe5Xr
+         W5AeyhDgvQkchiyP53Q1wWIHgIA0ZVQUYzbM3aIDvLHFZ0xNH7Kkw8ZGS80+5qccJbfL
+         IfmA70I/gGbIeramkmZx6/yg5Q3i3g5Tw0zVUXz4X0uX7ifAupxWwZ1F4qke5jJrIWv4
+         cSjWJQJTJxC17tRSufHm0Shvq9FujNwhId4bETuN880y7hihfZ5eoUMEgLQ+rr8hAM7k
+         84Gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789039312; x=1789644112;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JuRvNfKlSmkziI3OYLlgbXnb4SXxwddW+G4p+yafYnI=;
+        b=mmmytCivLJYvdXD61KbzWjnGUzl79ORU8tDsyYoaMFti3mXBNl54mSBLrQGYBFFse5
+         F4+lNqazSKf30cHvT3jJ6LZHaPapptFFTAuXZf8e5ahVNbCNbj0XUWAnz5PJ+dMGQMtt
+         A8nOKf3H3tzat5PfEU1dGbEW3oZnyhgTiyf3ip0KFKzieCCJOwuy6/l5+5QadWPCcPjd
+         j6HkTvk1YnxL8Tj8V8+2sVi2Mr6oggfYUoRa8vmutT52gbPx+n48m8gO2C47Vi51Enol
+         b2mAr3BICdI1JlYCT7LSo3kLumD3SZ6gLgob+r8n+5su9UvCJBGoxPEn7yOJKSgwCn+/
+         FePw==
+X-Forwarded-Encrypted: i=1; AKwUvBykMj7Rkb7V/URiWpj+61CxwCDC8HEN9Q7FXCkQXWTTa+8gSlYrZAk9TmGPBzJIXmlVW+PSjioSRJKhgDE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQ9joIVQVEPMStCj4w0hwHZZssvTeFvUbi1xDXrZXwtMJjBM9/
+	Ms1Vyf7z2teQvJKPFn4DHfZ69uWFdquGix6iwbrfCeD6tMQWxbAJ6Sz/SvdRPi0uGV0=
+X-Gm-Gg: AYBFou2ElxNK7M4U1gdZfNPdSMqJraOTUChUYXCcHVUCkV35stxTD4mMUYsoMWbY2A4
+	aeUv8mBYzJbyevZBUNqDVQRrGSXUaleKchJoKQnHUNTh+r59dsysymkL3jRLnOaH6SjKicJguXR
+	6oj7rcQ4FCn0r3mzK9MkFSedv1AtPpKHDAqiD6Kpc/je3tzPTBEt9l24z2fkoepa2/U66hhpRV8
+	l3rFkb2T+q3/TnPz+DerlkgR50sL2+CDS4Ioyyf/Ltc/m2mdv9mEwMxHNyQJo0gXRJc12OP2iL5
+	bMn+5CS00G8YGRyPlq2W8gFWM0V1xRcRzXrt1sNsOofvNef6v2PuD+CmG0I0qaaKdGLdQLHeK31
+	OvNgtadg/eCzw8ao1sFmmDChCm/Lbi+FeCcWkTSY9GqRfjnQHziruxG+g6fK7w/pQZSWxRlHuCu
+	KulKOO3TdFc2Zl6J3Xna3IPgmHE9QvjgvzCx8heTpqfp1nQpXWPNbiQssqa0F0ob21+f2XwkhM5
+	9/NNqArb40comWFFX6u8iW6AIVmK+EebkwB+AD1s7Cbedkyeh2hNJCoJSqC4g==
+X-Received: by 2002:a05:600c:4f12:b0:499:da8b:1476 with SMTP id 5b1f17b1804b1-49cf825a5bcmr431125955e9.14.1789039311780;
+        Thu, 10 Sep 2026 04:21:51 -0700 (PDT)
+Received: from localhost (p200300f65f19a904b5d271c2a69836a6.dip0.t-ipconnect.de. [2003:f6:5f19:a904:b5d2:71c2:a698:36a6])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49d26be5b72sm60221685e9.4.2026.09.10.04.21.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 04:21:50 -0700 (PDT)
+Date: Thu, 10 Sep 2026 13:21:49 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Kartik Rajput <kkartik@nvidia.com>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <mkp@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Thierry Reding <treding@nvidia.com>, linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/4] scsi: ufs: tegra: Add Tegra264 UFS host controller
+ driver
+Message-ID: <aqKOipmg5V4oqZlB@monoceros>
+References: <20260909-tegra264-ufs-v1-0-e4a9831702a0@nvidia.com>
+ <20260909-tegra264-ufs-v1-4-e4a9831702a0@nvidia.com>
+ <aqFqhNA50674GtPo@monoceros>
+ <45a04396-c6c1-41f4-ace8-0ee0ccbc50ad@acm.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dz72gahbmwoko6vr"
 Content-Disposition: inline
-In-Reply-To: <178901395289.3971858.3678831513020211615.b4-review@b4>
+In-Reply-To: <45a04396-c6c1-41f4-ace8-0ee0ccbc50ad@acm.org>
 
-On Wed, Sep 09, 2026 at 09:19:12PM -0700, Nathan Chancellor wrote:
-> > Commit b18b047002b7 ("kbuild: change scripts/mksysmap into sed script")
-> > converted scripts/mksysmap from a shell script to a sed script.
-> >
-> > However an error was made - escaping of '$' required \\ escaping in shell
-> > but only \ in a sed script.
-> >
-> > This was mostly corrected in commit 7a6c355b55c0 ("scripts/mksysmap: Fix
-> > escape chars '$'"), but this fix missed arm64 PIE namespace local symbols
-> > like __pi_$x and __pi_$d which appear in System.mapand /proc/kallsyms:
-> >
-> > $ grep __pi_\\$ /proc/kallsyms | sort -u
-> > 0000000000000000 d __pi_$d
-> > 0000000000000000 t __pi_$x
-> >
-> > Fix the escaping properly.
-> >
-> > Fixes: b18b047002b7 ("kbuild: change scripts/mksysmap into sed script")
-> >
-> > No measurable change in build time.
->
-> Same comments as before.
 
-Yeah sorry same screw up!
+--dz72gahbmwoko6vr
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 4/4] scsi: ufs: tegra: Add Tegra264 UFS host controller
+ driver
+MIME-Version: 1.0
 
->
-> > Assisted-by: LLM
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->
-> Same thing, is this worth taking to stable? Truthfully, you could
+On Wed, Sep 09, 2026 at 09:10:26AM -0700, Bart Van Assche wrote:
+> On 9/9/26 7:20 AM, Uwe Kleine-K=F6nig wrote:
+> > > +	{}
+> >=20
+> > { } please (i.e. a space between the braces)
+>=20
+> The preferred style for Linux kernel code is {} (no space).
 
-Ack I think it's probably worth it yes like patch 1.
+Looking at the style in of_device_id arrays in next-20260909:
 
-> probably send these two changes separately from the series so that we
-> could send them to Linus with the other pending Kbuild fixes, unless
-> there are objections from Linus or Nicolas on taking that route? Shaving
-> two patches off of an ~20 patch series is a 10% reduction so seems worth
-> it?
+$ git grep -l of_device_id | xargs -n 1 perl -g -n -e 'print "$1\n" if m/of=
+_device_id\s*[a-zA-Z_0-9]*\[\]\s*=3D\s*{(?:\s*{[^}]*},\s*({\s*}))/' | sort =
+| uniq -c
+      1 	}
+      1 {
+      3 {  }
+   1410 { }
+   1098 {}
 
-Patch 8 relies on 1 + 2, so as long as that ordering was enforced then that's
-OK.
+and extending to *_device_id:
 
-I mean if these go as hotfixes then we naturally get that ordering of cousre!
+$ git grep -l device_id | xargs -n 1 perl -g -n -e 'print "$1\n" if m/devic=
+e_id\s*[a-zA-Z_0-9]*\[\]\s*=3D\s*{(?:\s*{[^}]*},\s*({\s*}))/' | sort | uniq=
+ -c
+      2 	}
+      2 {
+      7 {  }
+   2492 { }
+   1304 {}
 
->
-> I'll review some of the other low hanging fruit now so that we can start
-> chunking this series out, since I too care deeply about build times.
+So { } is slightly more usual and also better matches the spaces used in
 
-Thanks!
+	{ .compatible =3D "nvidia,tegra264-ufs", },
 
->
-> --
-> Cheers,
-> Nathan
->
+(but I agree, the latter might be subjective).
 
---
-Cheers, Lorenzo
+What makes you claim that {} is preferred?
+
+Best regards
+Uwe
+
+--dz72gahbmwoko6vr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqikssACgkQj4D7WH0S
+/k72JAf9HYoPZJ8wxymKY1IzQfsS4PqPWy1ZdB4F1pajrp0c+nftHQ6dC58aZFJz
+v0Gke4rN4XaOO0k9eUhQ3lcz9Ao9rvz5aGzrzLXLaNpYPL6CeRhXAjhm6/SnB8e8
+nYxAgXmi8iPfPyzuvDQfFU6L4/rGn09JP6wonOcJe3WRaB4jfFafLDmcHByGcuq9
+XSytQmf/ipMr10+mX/47ilou7PEfMX++0Zr+4Weavny2e7VFatxMxXI8AzISjafg
+bMYyt3sn3E9GepPQRcBrsssIFCBfjsxkFHmtrIMmnENsUizlKogGjhK0Y718FDBB
+ailpTwWtqmZiREUyg1lVpY+BBSRnTQ==
+=uj5D
+-----END PGP SIGNATURE-----
+
+--dz72gahbmwoko6vr--
