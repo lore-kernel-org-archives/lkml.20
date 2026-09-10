@@ -1,186 +1,231 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010044.outbound.protection.outlook.com [52.101.69.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ED004A6898
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:38:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789065491; cv=none; b=uB3+Tm6ujVqnKjqA4viXDgPC4A45SlnAMirjXJ37+VERgeJ5sYCXBz6l+FIWfGNsdTg198BPgWunDB+qx7Mfv6cwpzqVhBOWH+lDgHy+aMNatF1hZEKdrW4x5usMjuNG5adfYCVk3ryW3NGNN1rGZjPiPWACgTZbNORMNO6xJWQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789065491; c=relaxed/simple;
-	bh=XqQ/TBdyys53bJSV2TlOxB+9gn0LoZosuGJ+Op+jijg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=knwsOTRQRqreG7zZ200GK6zXufpgajm3CFnvCQ/heQtEVP+fB25q8f8cwv1cMjCSXZAFCOHk+0zmvcUTcWhBGT+z2LTHmkZ4o4zx11druGpad7/whr0pn1TqyOcd2mNpPqZzY6Kt8Ia9hRhwBNzWcatQPalSDoI9C/obavoVj3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ByiblXtc; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDF543B4407;
+	Thu, 10 Sep 2026 18:38:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789065515; cv=fail; b=A2SxYvf1B9EhEuz6b3NlwFF63afw2x39CnLpLu5Chzg1786W/2sImgs06ayhziUYPci49RfCawxDCE7FxJ2X+6OPz101uG9IAcqnAiBGR4Ym37zZOhCJZPaz125nPgM27vCDRRpAxb//JAFMIff799hh+O2pIfU/EhSMvklXxio=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789065515; c=relaxed/simple;
+	bh=RZ98HjroxG0QRJ5UG8eFeKikzKBztu84B1FRWUFq7BY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=SaTVVIOQvaCD1De4nNSZTHeyvP+YjKRj6GWqL8KwVPyidZkKhv8zEkdw3ndE/c/1+AmYhZBCQW8WK6/y9wtEKaGg1Nm0hc4IMxTjRxiMQbMjCIpmBPDoAe5dYJewTFtClfFoNt2p9YJ1cJ4G3uXL6VTWupQFV9++ZZgjwuW51y0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=D6NGYadR; arc=fail smtp.client-ip=52.101.69.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ByiblXtc"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-381b831d535so102537a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:38:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789065487; x=1789670287; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9u7TJ9tgwm2KnuZFSYIca8LwnX5gbxqDtxG2LPSH6i0=;
-        b=ByiblXtc3+xG0Oh2cV0vBgSMKuqQtcRusXb89NrFQsnx41PBnsEtuNsoJ95Wrw2fMF
-         8RdITLXQ2BAgyIbQRdFDCTbBCNvrWhrhglJ4fSPw2G/Khp+aha2xy60L8EX92MDwC2q5
-         1n2d0lhk9L90B8Z/IHmcEnGRpAQnUFQFzweH2z+xskdkPUzwkiB042sQ7k7UdKKxP3yX
-         PjE0jP1l9ISxDvP7PJWkgkGSdf8PCnNj8gqSJkOXxuU3GgyB8xVrLSpJm9qkg2INdzs9
-         jC6zyRl7S5N2xWI4TPbPYsnMtmFELgKVjgZBfteAxH2aL7ec56dgJvSvbqM3k5hg961W
-         BVsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789065487; x=1789670287;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=9u7TJ9tgwm2KnuZFSYIca8LwnX5gbxqDtxG2LPSH6i0=;
-        b=BOyVDyx5Y5hLBrnnj8ESbxRdycQ9D5JmnHWoyv52XjKZjIMPbt/MFEuV+TOUJ4Sg0G
-         pUZf/Ga/G/SdRWBHFsHd4t5ZzlhqRfc5V41f8NKetns/6jU04Kbh0Rup2armeQnU42uE
-         0BbAxGLNwOY0Nn327o1P22Q1a4Pr9Se4N5NrHVJ3kBKsxbXMdRBkixl6SudKc2fbzoBT
-         RFaozGrgUvd5w7WcTur8QSpPdyy0IM5MGKNGdNPJAx1f4zuDhxr+5zOFECVYXeM8JcH1
-         dMAGox7EHznQjJTZ2ooD/mUJtjTCbRvtfvtJvCafm5JHhjniUlo1Kw9eySrfKLgW48b7
-         qMEA==
-X-Forwarded-Encrypted: i=1; AKwUvBwAccbannHWrRNf80qLFNnV65IpHsASLIhos6p+7OuY8JdPsQbR7PnSkAqT3BZJ3cui0i03Y8Ji5omt2fc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nbNwFS88SXEOijzTEBVLjGeM6CL4NrnqE0FT21AG+55lxwXOAN
-	lPezcOf8bBvYRgWo2URXYHtV45yE8qgVAsi+va2qg5yiIRmAEvd0fDp2
-X-Gm-Gg: AYBFou3WhUdpcPydh7MVQza2vn0hvC3x9Wr0Z7Qg/9ANy0Z6QTXUBWyKkIeC7FoRX32
-	JK3YS5ue1p8HwBRXaNCjwFe6X+XIF6qqQs4hFLhQwmlZQ9jH7enF1FnPGyJofliMw0GgdPfy5RO
-	/mwQQ0OCD1LM63a3mpNHjz7vf/ywEBkEE231trPBL/PPvvgc6PdqSvlcy7xRPLdJ5nslYogNkmP
-	r1o8+ZNa0FbzVbWpFValP79L7Itto+pyY9fGWYIjcGp5GWKjJNNpu4o5fs9/+GQLDKNwYah9Z7X
-	uzVZNXNXx4iTp7JZpvjoMvszFETJuN3y2YGcC947KL1fcs7ugYUkfENFxbxPQscWVaKYhQ5z5QK
-	5INpDy9WFL+Nn0/hwvfeJM3yGW21ZcOjNXmvmqj2MrGt4nUaEMgOyxCauIUgngwuIj0iiCEkbr1
-	GDJQHNeVBRxEsbBF4tis52+UUe/ZbmfUgGAp7CJbVFUJWqXwvKlNawqVxe+a2FH6/sRDfJNB4ND
-	nKX+nxN3kfF/r1EfWq3cV3gnBug+8pMntF9s8M25rZ6tMwM
-X-Received: by 2002:a17:90b:35d2:b0:39d:8d38:8b04 with SMTP id 98e67ed59e1d1-39d9bbea1d3mr52593a91.1.1789065486698;
-        Thu, 10 Sep 2026 11:38:06 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95752809sm851731a91.13.2026.09.10.11.38.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 11:38:06 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <7a92a79e-e22a-4e34-9f11-4086b88f62cc@roeck-us.net>
-Date: Thu, 10 Sep 2026 11:38:03 -0700
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="D6NGYadR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AFvx1RIh/mEwNSP5o8hyzG3gv4LdHYVhUIj3I7pOjFd8WhjaEzq9vnDfJbvcSiJplDcYi2EkSpxOhGqGKmxlqAofzllG/PTnypa3mujSI/H9ZS/Y78sMVORgCgc++oK/tM0sYHQ0R0g0j3wuwE0uPHQ30NvvXOma/XNU+Ce4d7KrcNYGXNBXpno54sqj+kYWTOYLcTWWnElrGMuOy803K5fji0w4m6PD5G+a/NO5yrO5w8COSfXY/+lke9qamjGJr+tTj3iLChkrkDhmN2CQntCxNruI+Q2tQ01/4vNmEg+X3Yjlifppg/DPvyT9Abx5cAd/xWeuFkPA+dgy5LesGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CFX6FttHVDfP4RsI+fLqhqmLyj9OPi7KCX3beiiWEf0=;
+ b=m/g3GtQG3s87j5N6YHWhCz3nNDcrH/5aad9cAxVRG3G0v/JC/eW/+OOA+E0Lkhn8/qbdZo7XMvGM8Q1D3xNdJCVwF3tkKLQSQjAG/gz6QLzFve1wwyYXgTCRRl5vOjZwo+nrdgcPj4sEAGAycTEVtL1HbyLcSCd3F5HIkx8GTjEtJjYGgaNUWT6xCQr7ExpFMnu2o821C8XHm2HPHJfcr/aIc+68KJwNupKHkIZn9iI+F1bqI7keLwwQsANN77mWtYFXSpzAhBKyHUbAAZrr6VaHI+bryf23xWbo6ZzVV8ubwnqOLOK6o7XUmxUOA55Ds1UKjIarGB42IBxTYYOSHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CFX6FttHVDfP4RsI+fLqhqmLyj9OPi7KCX3beiiWEf0=;
+ b=D6NGYadRQTwkjfr4/+Lt8zT6rop+cWucCqgup5DtfWYZrVoufXns65yzQOZ5fJJgf3F+xkGhW3xHyyquDITzOp+ZZ18HrFluyFAI8QXpXsRdYPwM4uOBSFibPpSCaKeBusgMx8+V+hD2ElekOUzjsrqLTIrvev47NI8q5LL7SkMegPKORwFJD+OUgn0J2l5erBYgb9eHJKzUmbn2T29k1kw9icKlJseS1HbZd/8H/f5mFqpk5erGX4JaJYgbLLLukN9PBnYHLkuEFBfTqRcl5341+VKccxMFXWPIuYkDcKZUKn/hD2994T9CFaDXcxb1SVQdDrXCf3H1YZyWTmYBpA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GV4PR04MB11306.eurprd04.prod.outlook.com (2603:10a6:150:297::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
+ 2026 18:38:30 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
+ 18:38:29 +0000
+Date: Thu, 10 Sep 2026 13:38:17 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Francesco Dolcini <francesco.dolcini@toradex.com>
+Cc: Ernest Van Hoecke <ernestvanhoecke@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Subject: Re: [PATCH 3/6] dt-bindings: connector: Add Toradex camera connector
+Message-ID: <aqL5GRAP3JFFRWSV@SMW015318>
+References: <20260910-verdin-imx8mp-hmp-camera-ready-v1-0-3c9349ecdb9f@toradex.com>
+ <20260910-verdin-imx8mp-hmp-camera-ready-v1-3-3c9349ecdb9f@toradex.com>
+ <aqLaLmz7n31P6igy@SMW015318>
+ <prwghb3ftrz5xd3hapxtlv2o2gm5xmuapnpz2h7fqulf75phqz@lk4yiaepormb>
+ <aqLif2zrrsbYd5sM@SMW015318>
+ <aqLk5UAv-j39Jxd3@francesco-nb>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqLk5UAv-j39Jxd3@francesco-nb>
+X-ClientProxiedBy: PH3PEPF000040B0.namprd05.prod.outlook.com
+ (2603:10b6:518:1::5c) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/14] mfd: remove unused aat2870 driver
-To: Arnd Bergmann <arnd@arndb.de>, Svyatoslav Ryhel <clamor95@gmail.com>,
- Arnd Bergmann <arnd@kernel.org>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Bartosz Golaszewski <brgl@kernel.org>, Mark Brown <broonie@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Helge Deller <deller@gmx.de>, devicetree@vger.kernel.org,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- dri-devel@lists.freedesktop.org, Jonathan Cameron <jic23@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Lee Jones <lee@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Linus Walleij <linusw@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-doc@vger.kernel.org, linux-fbdev@vger.kernel.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-watchdog@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, llvm@lists.linux.dev,
- Mauro Carvalho Chehab <mchehab@kernel.org>, mfd@lists.linux.dev,
- Michael Hennerich <michael.hennerich@analog.com>,
- patches@opensource.cirrus.com, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Sebastian Reichel <sre@kernel.org>,
- Support Opensource <support.opensource@diasemi.com>
-References: <CAPVz0n0ryOns2sCJE_jFana9MVzwEj1QZuPEa8FNhGbHXnMB+A@mail.gmail.com>
- <11652e5e-053e-45b0-98a0-0c1cb2aeedc4@app.fastmail.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <11652e5e-053e-45b0-98a0-0c1cb2aeedc4@app.fastmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV4PR04MB11306:EE_
+X-MS-Office365-Filtering-Correlation-Id: 363eca0c-0d3b-422d-927d-08df0f6ab55a
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|19092799006|366016|10067099003|6133799003|3023799007|18002099003|22082099003|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	LXZ0yjTSB44CCL/UgAJCbPVa9JfSc7n7YfSKjXNbji6axF9tUgagbyYlVcheDpbgUGqxf04zHwAuH9Inn0+rGVBFjFlsPvjuFlIdo/Bz+hZeiHG2pFR4egs+hJ4iS9YZeAwlaJZINoqigljKBmG91mNpw6H2CNuyuQ4FOWM3MhaaClwbtTCk9LQAAB2ET9+WnexIDxm0T+tXz83mldb9Szxpm3GRu/GQl3Y2+IapVd0Z6EjIlWzl/wfrvNpjzcylpUYFmFwXY9O3u675DlPY0+iTOydaJ/2PJ/PVdw/5NJ1rlf8rXyAuatuUuPBKw7yN4DRma6TW3dhgAeYgtjoq2RzMhZgBrFCQhuIGaQdCx3m2y5WctZcUWh3fNI7Lqy8Ut/uvjXOz8/tpnEurzSNcgmlaxVPf6wWFCdX+BC4mvFCKQSOo6lwMWrK+Kf6Nj61wCkl047dFfwTVMZ6wa0klZnviwdMXYuth/BaY5cik7L3DeJqGNlRJHTcYmvU4v6fa0mL6q2dNorqPaBpMGBjxl/arhsHiZY9PtEsPP2uPVM13MOZ8r96TFkb24qyE6gV/apn6SElCkyEBYjlP91/G65S75Efjw30LSc0whCqwtxpWKJhqZUlk+bMHwTbq0Sm1
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(19092799006)(366016)(10067099003)(6133799003)(3023799007)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?j5JU7fVZ5HXCqa092q6PzIT73uXKe5rO9hhfZk467KYeEthBwY/2r3P5aCt0?=
+ =?us-ascii?Q?mI2f3cbjCeMkqK+ShjkZw+ULYocUaqMbo5Rui2w4RUHE8vyxXcdU3pbe046g?=
+ =?us-ascii?Q?jVN9XPaSDGSu0RlnnbfNTOClURr8lABE9FLI0QuXhd0cNTFvFEyiphhV2OcC?=
+ =?us-ascii?Q?MmY+qqa4y7TaazVJY5VKVuABYBEmyWiYwu95FkWFiWTdhDfD0MRDQnHiwy12?=
+ =?us-ascii?Q?AX4dstNuvsJEc6Qy1MLrUOIFPJwDinZ/bxwvznWFv0DBCzJvLhjqQB2xV05Q?=
+ =?us-ascii?Q?ljWpkaYL4mkW8j668H/585EcitwhhdurzYHVQeK6zt+6gw2wyuvpnKj9FHVn?=
+ =?us-ascii?Q?9ETm+UZ1HkpcK/bn1hfRzcV13di8Y2egw8/0rDVxW/VkDHk4tsJ9Bk1DgQVJ?=
+ =?us-ascii?Q?lYvKUpNAY49+jcMDs9J+cTYQVE6BwOQ59cMYHrY7RlFbPATPDV9bgkJoxmFb?=
+ =?us-ascii?Q?t98a7lQ4WasOzuY6xqJkNYw2ZJ/Xvsyc95c4OkJt04UkjhuT/z4n0spLvnKL?=
+ =?us-ascii?Q?TFCxn41WB2BUqFeeuUHSu/x7sQTHh8uzO5iUkd9DIHacS/ADJwX1l6ioox07?=
+ =?us-ascii?Q?qjg11LlFO5v5gwWeipSJAKf1Y3NhyIpA98gRBspO2OACx918nm7LPbGje9ly?=
+ =?us-ascii?Q?MT+r/ALfZ0Qt1BIqO9vjnsRT5Sx5CZ21fMCmJOOyAOy7myAn+1EAnjXJmthp?=
+ =?us-ascii?Q?UY/fABFPljo71aD94NlUdW51pmvHR8NyLvPBqkWFbbmRrIxpTRmcH55o/Tba?=
+ =?us-ascii?Q?UurNVARXe0X4UNn84r3fWWHCQD9QP9WayqeYrtjEi3hKymjkz9MR2P0REIUi?=
+ =?us-ascii?Q?kjUMK2sw0NLwtrx5o86HSA6Vy4QhX1LLcpBcNQP4yJKugxv9gd4xGnFaZLF4?=
+ =?us-ascii?Q?U0YYo9+fvi4cq1U60sOVxDdZ8+R6KmIQQgP+Ky6GvQDqHTzjeETCt902PMFT?=
+ =?us-ascii?Q?vf5yNMONspMM+mf9ThUm0TyB7jQQ+F/C1Zw0Wp9+v9rV+iLJC/W1BmMwg5wM?=
+ =?us-ascii?Q?ca+FYtvJjfSldRNgPOHEhQK2MO5w+7fwzyzqv2sp/mJuZn8p1UT/O8qIsTuH?=
+ =?us-ascii?Q?ZMzJyO/IdqbtgBV1CxqNZ6IMeCaNwIZkaWc7EDnFNzC5sJ7mU03elcOZT0FW?=
+ =?us-ascii?Q?4XjuhK13xmfrqdDNfd+4YkLeNhT15MS7ZGP2Hiw3AEEUr7SjZU4C0EPUHr6M?=
+ =?us-ascii?Q?xQyUgkWIretmCZrFQJubLpAUnmEx20/Zm+wfrAgc7x9DBnF0zduKIA4zHJPJ?=
+ =?us-ascii?Q?m25NNreHAEde+mTql1no3wDuRPt0qBmBYacdgL6FKgutxIHz7kC2RsOrfa9F?=
+ =?us-ascii?Q?DyYwv4/fuN4c8xCUMGIpFA0Knhssl/aGjZcSoTFIJcsspqJzw4KpUm8klJBq?=
+ =?us-ascii?Q?fAjSR5Pb4arB3+/Hn2NlF9gCWANlMuJZ3G7TZuUz0YCEdVKeT4tt80Lru4J5?=
+ =?us-ascii?Q?7c8VXspiuRNr2DupxhfxuArGuXHl6cRCrxYlF+hKAnZQek3CglgsG2gmNqD1?=
+ =?us-ascii?Q?iORy5ZFhHdUGbWtcmN8AJOGf9jULqQJ5+UfvZXZo/OKJPi246Mr9F3A2LXv+?=
+ =?us-ascii?Q?eck94I+TaGso9iZDEKknSy+g5bMWfVydko4i+QZARjCYM7+ef7pY6958YqfM?=
+ =?us-ascii?Q?puUWFR5P2WdTRPVP6aAec2YS1RqirAy6+eOBFtH1HpXV6ORVdmjhwK3Q66C2?=
+ =?us-ascii?Q?HlgbE30PP82zlb4NsyMy3kW+g6pA9QMrj70cztB9UX4mHU5TW2BjrqCnFgKO?=
+ =?us-ascii?Q?JYQb7W8ES2V2v+7vuqCTdbvPdKWzv6h2q1zP2EMv7gFXSwgbbubv?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 363eca0c-0d3b-422d-927d-08df0f6ab55a
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 18:38:29.6833
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: l5Hnpq5mBw9nF174u17U9RiVHXD8csVlJkWTENF+37jW5scOsCI6g7GsrMfCY19NhJqqCRNmw6S7as4NVNvbvcNwbxnLEbZ8jlNSPYHvl5r/07sVkZdoe0zCMA/A7E6A
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR04MB11306
 
-On 9/10/26 11:14, Arnd Bergmann wrote:
-> On Thu, Sep 10, 2026, at 18:40, Svyatoslav Ryhel wrote:
->> __
->> Hello Arnd! May you please spare AAT2870 from being removed? I have a
->> device which uses aat2870 (LG Optimus 2X P990 Tegra 2, not upstreamed
->> yet, but in process as well) and atm I am working on converting this
->> driver to use OF. Thank you!
-> 
-> Sure, I have removed this patch from my series now.
-> 
->> P. S. If you are planning to remove more old drivers, please CC me in
->> since I may be interested in some additional driver upgrades for
->> devices I own.
-> 
-> Please have a look at
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/log/?h=board-remove-7.3
-> 
-> I tried to be careful about figuring out exactly which drivers are
-> unused, but I'm sure there are still a few false positive and false
-> negative ones in there. I've added the current list of driver files below,
-> let me know if you see something that shouldn't be there.
-> 
->       Arnd
-> 
-...
-> drivers/hwmon/ds620.c
-> drivers/hwmon/f75375s.c
-> drivers/hwmon/max1111.c
-> drivers/hwmon/max197.c
+On Thu, Sep 10, 2026 at 07:12:05PM +0200, Francesco Dolcini wrote:
+> On Thu, Sep 10, 2026 at 12:01:51PM -0500, Frank Li wrote:
+> > On Thu, Sep 10, 2026 at 06:39:30PM +0200, Ernest Van Hoecke wrote:
+> > > Hi Frank,
+> > >
+> > > Thanks for reviewing this so quickly.
+> > >
+> > > On Thu, Sep 10, 2026 at 11:26:22AM -0500, Frank Li wrote:
+> > > > On Thu, Sep 10, 2026 at 05:37:59PM +0200, Ernest Van Hoecke wrote:
+> > > > > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > > > >
+> > > > > Toradex boards route the sideband signals of their 24-pin camera
+> > > > > connectors to different GPIO controllers. Camera overlays which name
+> > > > > those controllers directly must therefore be duplicated for each host
+> > > > > board.
+> > > > >
+> > > > > Describe reset, power-down, detection and power-control as
+> > > > > connector-local GPIO functions. This lets an accessory overlay remain
+> > > > > independent of the host wiring. MIPI CSI-2, I2C, clocks and supplies
+> > > > > remain described separately because the GPIO nexus does not abstract
+> > > > > them.
+> > > > >
+> > > > > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > > > > ---
+> > > > >  .../connector/toradex,camera-connector.yaml        | 86 ++++++++++++++++++++++
+> > > > >  1 file changed, 86 insertions(+)
+> > > > >
+> > > > > diff --git a/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml b/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml
+> > > > > new file mode 100644
+> > > > > index 000000000000..06e6836e1aa6
+> > > > > --- /dev/null
+> > > > > +++ b/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml
+> > > > > @@ -0,0 +1,86 @@
+> > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > > > +%YAML 1.2
+> > > > > +---
+> > > > > +$id: http://devicetree.org/schemas/connector/toradex,camera-connector.yaml#
+> > > > > +$schema: http://devicetree.org/meta-schemas/base.yaml#
+> > > > > +
+> > > > > +title: Toradex camera connector GPIO nexus
+> > > > > +
+> > > > > +maintainers:
+> > > > > +  - Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > > > > +  - Toradex Linux BSP Team <linux-bsp@toradex.com>
+> > > > > +
+> > > > > +description: |
+> > > > > +  Toradex boards provide 24-pin camera connectors carrying MIPI CSI-2, I2C,
+> > > > > +  clock, power, and sideband GPIO signals. This binding describes the sideband
+> > > > > +  signals as a GPIO nexus. The other connector resources remain described by
+> > > > > +  the surrounding board device tree.
+> > > > > +
+> > > > > +  The nexus exposes connector-local GPIO function numbers to camera overlays
+> > > > > +  and maps the functions wired by a carrier board to their GPIO controllers.
+> > > > > +  GPIO specifiers contain a function number followed by standard GPIO flags.
+> > > > > +  A board may omit functions which it does not wire.
+> > > > > +
+> > > > > +  The function numbers are:
+> > > > > +    - 0: Camera reset, connector pin 11
+> > > > > +    - 1: Camera power-down, connector pin 22
+> > > > > +    - 2: Camera identification, connector pin 23
+> > > > > +    - 3: Camera power control, connector pin 24
+> > > > > +
+> > > > > +properties:
+> > > > > +  compatible:
+> > > > > +    const: toradex,camera-connector
+> > > >
+> > > > Name is too generally, suggest use board name, we got similar comments at
+> > > >
+> > > > https://lore.kernel.org/imx/20260629074734.3643227-2-chancel.liu@oss.nxp.com/
+> > >
+> > > I saw that and it made me reconsider this name.
+> > >
+> > > However, I believe that in our case it is specific enough. It is really
+> > > the same on all our carrier boards, and Toradex specific. It's also only
+> > > for cameras, which is more defined than just "io". Curious to see if
+> > > others agree or if we should come up with a name for this.
+> >
+> > If some days later, you update hardware connector to 30pin from 24pins.
+>
+> That connector is there since years, not days.
+>
+> We have multiple cameras, designed to mate with it.
+>
+> If tomorrow we will define a new camera connector (that is absolutely
+> possible), the new connector will get its name, maybe
+> toradex,camera-connector-v2, or toradex,camera-connector-22pin or
+> whatever that connector would be named, not just in the DT, but also as
+> a product and on the actual HW.
 
-I missed the rationale for removing those, but then I don't really
-mind either. I guess we'll hear if someone still uses any of those
-drivers/chips.
+You can wait for DT team to comments this.
 
-Guenter
+Frank
 
+>
+>
+> Francesco
+>
