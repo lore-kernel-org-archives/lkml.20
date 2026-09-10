@@ -1,188 +1,171 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012015.outbound.protection.outlook.com [52.101.53.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC7E83CC32E;
-	Thu, 10 Sep 2026 07:09:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789024146; cv=fail; b=aXGZ8l48+TqfSmU1yFTJhKBc6cDM58YKE+7V6dZ483hMzqq7LAd4Hux6y1GjNtwEIFQ+BWDt3V13yGH2mldgseWN7VrEU8yzoTLX1WviUDaRS4x0QyeHbMgf57GAruOJaHukTRk4UUi6xDs45cyxj1vgkWEm2H1uWvFGhAi4Iuw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789024146; c=relaxed/simple;
-	bh=AHaSHH0Ioxm/AOBtW6K6D4kykEpYJJfJtRypLwB3ok4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MtF/Q7DH8xOercOwvkz2knm52ZHzpH+3xzbdW5ExADIT7wPE8CpmcjBKE23/6OzgkDcTfuZWTr0owpooNp3Cd0Lt0w8IhrJn6Uc9TdK2bNN67Rs6p1+fn5/ZSpGSF7wXRrmWHlZF7SVNfeJ/Do3Vfxd2/Jiv/8+XXTQjFhTq2Z4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ubQ8m1l4; arc=fail smtp.client-ip=52.101.53.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ubQ8m1l4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uM4j3suDPtZX13GUNQJw+FfDfKVUaS+kBpbjnLbmkvClhm9Y9/ZCv9+z7aHHecvtU6sXAc5g1ZNHEmpkB+5eOZqFZH8EosJT9jdha1v+w1iyReXEFgVYdFJrdlxgo44VBom7+NMh0MvEd0+38E4yqUbgn86BdjHk4xoWj3wUAknNwSpFZoHG2cICXz/h7QCHrFuXO1NxMNA7wKVkZusnRZzRcOlOpfpk36L1l2Uv43vUybSO9FnjJ0/KU4QhE3Vy2lCyzV2C9yT7yEv7aLw06MsGSmUudCDydU/G84iHJFYgPaMABjBrSROBNbsHZRYo2vQbLn2N63gT/NDzQCawDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wirV8JOBZR5TuhJCwfuFQeDMyHjK3WB2mAr9HcYDBMs=;
- b=GY2//ZI1vfoRAHuwJPz00gJNIuaCw0/dSCgg5Wvuzo2ZKp622XXoRUJTVuI3MMvw/6NYkASWUE2RBXJA/1AvwKaAw3zjYG9scCOpLWaNXOywut9QIGKwMRlBTHyaWAXc0gwZQd8JOgAnS5A8eMIL2KXgWXM+quYuCFGSOhyDZ3tg9rRH3bschZAqzih0A6z9zACWl5SLXo3K1MR9aI244blziXVMwJfukxQLhmg8R9TmKnaqlcPwa4P/99nwTNFjx5KRn2Y2Y0co9bLx0ZpwXtB6oqTgLuvwlXSmENExR1pmdOZe32sYVbl4ezUXoUqDG1C018x+baTgqdlNDq6Yew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wirV8JOBZR5TuhJCwfuFQeDMyHjK3WB2mAr9HcYDBMs=;
- b=ubQ8m1l4WfsPrWapXR2zJf6w6PwSXK36JBYsLteO6kjQh1aea+GCkCSPswa1T0JccFTii2L3V4w60AADJHmA4fMlRgCjVI+hvPNFF1mnrJA6qLzL/8enlVwsul16l0IATTG/pocDkKYefc5HUWs8dGsS3fPJF9v3Pa3Mh+CYKgzmev3nINpVMnbY/tPbyxdfY1CWYBRpjLr6x6p6lsLZgB/+A1C42C/9KraWsR7RIoCp7Ez1Fa+6qo6BiS8Tx3Y7sY6RdtPycHKK0Olz2tJ2um33t9J9l7OC7ZMc8P+xfYsI/M32mQ90Akt582tCZ1xl0xkfshY3g3aoRRY4yhonOA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS7PR12MB9474.namprd12.prod.outlook.com (2603:10b6:8:252::17)
- by IA1PR12MB6210.namprd12.prod.outlook.com (2603:10b6:208:3e6::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 07:08:55 +0000
-Received: from DS7PR12MB9474.namprd12.prod.outlook.com
- ([fe80::31ad:931:ef07:8ad7]) by DS7PR12MB9474.namprd12.prod.outlook.com
- ([fe80::31ad:931:ef07:8ad7%4]) with mapi id 15.21.0406.007; Thu, 10 Sep 2026
- 07:08:55 +0000
-From: Srirangan Madhavan <smadhavan@nvidia.com>
-To: Alison Schofield <alison.schofield@intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Ira Weiny <ira.weiny@intel.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	linux-cxl@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Alex Williamson <alex.williamson@redhat.com>,
-	vsethi@nvidia.com,
-	alwilliamson@nvidia.com,
-	Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
-	Vishal Aslot <vaslot@nvidia.com>,
-	Manish Honap <mhonap@nvidia.com>,
-	Jiandi An <jan@nvidia.com>,
-	Richard Cheng <icheng@nvidia.com>,
-	linux-tegra@vger.kernel.org,
-	Srirangan Madhavan <smadhavan@nvidia.com>
-Subject: [PATCH v12 11/12] Documentation/ABI: Document CXL Reset PCI reset method
-Date: Thu, 10 Sep 2026 07:08:07 +0000
-Message-ID: <20260910070808.1444264-12-smadhavan@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260910070808.1444264-1-smadhavan@nvidia.com>
-References: <20260910070808.1444264-1-smadhavan@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR05CA0123.namprd05.prod.outlook.com
- (2603:10b6:a03:33d::8) To DS7PR12MB9474.namprd12.prod.outlook.com
- (2603:10b6:8:252::17)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 470A23DA7C8;
+	Thu, 10 Sep 2026 07:09:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789024149; cv=none; b=jtUCxWh6k4p9yxzubKVTYdpmq/F/ugTdacroaJTomr5ucuUqjt46XVzG/WqcRdsQAP/6GgymretQ7t54peWQo8309JCSWi6mpatIKaAdjf1+tWL7xtzElR57yc1vxP5X+olKBkbzR8OGEkuaznvVEYi9yW90q5xiCAUXZyj0Ku8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789024149; c=relaxed/simple;
+	bh=YQkoOuX6WnLhx/AmQpe6x/iJf+IsXzH/a8NpwjXQ35I=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=nFvI5IqlIfrEXr8WhBx9aKPr7/AlEmoMAwlAZSaaaYXMpIOoPu3d0A9kY2W3yiHxfcXBaD0KXQb71hC5fhwDvEmYC9L3B8NK3hQwc/ZIpBy1jx65sVpvC9NGqtr5RZ5pzI37On/nJmEt/CZhorFInznpOiwZmlIiLF8HaRu04p4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.66])
+	by APP-01 (Coremail) with SMTP id qwCowADXqOx5V6JqeFCWBw--.33693S2;
+	Thu, 10 Sep 2026 15:08:43 +0800 (CST)
+Message-ID: <14f7fdf36a25b9669145b766becc6f32ef205320.camel@iscas.ac.cn>
+Subject: Re: [PATCH v6 1/6] dt-bindings: display: verisilicon,dc: add
+ support for nuvoton,ma35d1-dcu
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Thu, 10 Sep 2026 15:08:41 +0800
+In-Reply-To: <9d697240-3632-401f-aeba-c1fa5c2a29d4@gmail.com>
+References: <20260908092840.225220-1-a0987203069@gmail.com>
+	 <20260908092840.225220-2-a0987203069@gmail.com>
+	 <f74168b54fe8f070b7cfe79dc2fc83a63c2e8842.camel@iscas.ac.cn>
+	 <9d697240-3632-401f-aeba-c1fa5c2a29d4@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS7PR12MB9474:EE_|IA1PR12MB6210:EE_
-X-MS-Office365-Filtering-Correlation-Id: c3447d56-fb5d-48cc-9dac-08df0f0a6073
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|10067099003|56012099006|11063799006|6133799003|3023799007|18002099003|22082099003|921020;
-X-Microsoft-Antispam-Message-Info:
-	hYA8Ec6RSKG2bm2k3Y28PvpjIwS52rG22kGBF53gw3/3npxHl7IQIe2FGbG9hxwQN59x9gbg3bWfyPJJXtBUDvdZ0oj/aZue7mJHFUvLW2yT9ERZRARgpyQ1Ark0ssDCkIq6w2aMlwzOGIgPZQib7liBz3wb7gKmE2Vp6KqZMUXdytQIrGZYcboJ592pdAUu8itTotnOIvBe0D6LJeDMvQv3hZnQtuf7D2stI4Aua4x0l4/66pWLNq3zWgBTGoXSRTdRR0TwpzEqtZZxFjVdzMwcsDudeTRsBoWDiPFLbEqMRsqyJfYE0TveubzLcvrwjBWlmIPWEeYmJ+7p9ILkJWl8MjphwCsO8TtYcgGyfu+q/wJk0pQEFSmmYHhb6sJmexa4MM9VOQHc5jqZmLUMxmYpim8t0k31/uq4eIxfNpY2xQ9q+C3Xms8fy0RnV81HGiWDLP2+LJxgW21AhJNecpRQP5i59gjGKlfOQ3Sjjby5Sxf7F+Izy0ai2AgUwh6WeCKKVNwJ13TqPS9ka8fjNR1J/F8E7O9HcyzCyQm1PQOdhI31fKLWQDeo1xwvzf1sJaGyV/Gt9SjM7WhCQfJAzBPGlxX2laCuinFdiOUyANjBztmp34A8DRyQvRfD7gPPfpwleS7Ke9gpRIj7zs7gQIZW6KqND8k4IRDqNkHmrapudqL095MAqANHysiffgqBE03dXE8p805UFHofkjPZhQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR12MB9474.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(6133799003)(3023799007)(18002099003)(22082099003)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?B17Y3fwu3rHzjz4F8ytzpmXMMaULM5hzu6Hf0HhRp+4QMZqiCVsmjP0ZsO5E?=
- =?us-ascii?Q?1Jy3hbQuR+dRDe6B2ghqzWgcjIoHCTHNkKcv7U1E6SFWU62eHg1XQgQjYcPX?=
- =?us-ascii?Q?8Qhlz+hpeFZ3J0dkaSvdORfNn6nWKw1QBBRI+RGSyjtKHYQ44AjwIEgA5xrO?=
- =?us-ascii?Q?IXPUEDFAAun+IpXSFrVIFYfuCWol8VUwrPd4SC0zwYM9Vvp/KWuxX5OwucgB?=
- =?us-ascii?Q?qy9swUjwDmMiE8q3TX+ayOt0mUR9Dii2BzcyO2VAM0msrd0k/Ys/uFkfXKRn?=
- =?us-ascii?Q?BMYa1Idb8Rq9CYJPeDdO4eTfwp/78sFnoaxEyxtRXxYKR8YY79qUkONJn7hz?=
- =?us-ascii?Q?0E/n8RWMTE+BMXC/d7EPk/thj6paDYW+xP40tOTzLpuLETaakPF++mUKhiPI?=
- =?us-ascii?Q?gp0pPgAr9sE58yt8qmWeVwF66HIE+qoINkyTQsmAy7AGzCbnNuffxqq9ay8l?=
- =?us-ascii?Q?CxOBsc025o14aSEqtznYnwGrY4urc8zKmhh+ZqFhdLPf3+rvmbxwienCD9UU?=
- =?us-ascii?Q?j7WKaOVoBv62DaUZjEKgMl+8Mcl2W2vv8AG4LOp7IbsBBPdaabgDrv51+T/g?=
- =?us-ascii?Q?bYtauzdaWgq61GHF456NYUibeOxhBhQoDDFTltzdBiFbIAJ2Phd6wE87+fq/?=
- =?us-ascii?Q?5T26dvT0P1YNxz82wjMvcVc4pSPsyZngte7rdoESzxJjOhSwRTEZp6cLaulJ?=
- =?us-ascii?Q?P8seXN4oTPPy5ZKR9NNsjMNXd5i1INNGPBGrIEO1NyCc6w1X06x+kCTAGkb9?=
- =?us-ascii?Q?1asMlaymKZOmMQU1PCW7Dqo2ebGgySOpAe9gVe9N5rcY76VSDd6oHu1ggKNv?=
- =?us-ascii?Q?r2YD6Jycxa4WQ+y6VoP2K+vn1IfgZOs1gl0VVyDIyzb74pI1pp5UFFxV74AD?=
- =?us-ascii?Q?YsEuHgRaPCiNqyh7mreoCyif5JD5k4oGWiSeOFm2B75Z3CgHpKMwSjPP0x+N?=
- =?us-ascii?Q?l2CrSPuCxMSSUpWBAcDT/EegT7EjWCp//SWm8D4gmfZnPEprT3KiefUsBBOi?=
- =?us-ascii?Q?vUD79aPQFHy1TaXSeQwDdBoBohu11DcQ74NB2T58KbKMG8UdBFjR6jpXCkta?=
- =?us-ascii?Q?Xb3J9lHI7h69417pAYC2WN6zE2kKgt/whOC+BawZiVtxMHg+hYAC/blz51MA?=
- =?us-ascii?Q?hKXJbu2D1A3WDE9HSYEbBGhgw9UbKXTj+K13R+t8q0X+c7H0Zzhn5SYpOC7I?=
- =?us-ascii?Q?MtjivxlOJyE70jMKwpTqbvqlMKzDIogF9ROGGtK536dvTYT7vwj8wvENieDt?=
- =?us-ascii?Q?0N4kfb3i4l4L90zloK96d94+8+vw3XUbt64fxhVGxUpUrsZTMfy38PxTLQ5U?=
- =?us-ascii?Q?Ce2sDjR7Jg9+0+ebaMME7+hy1IhlJvXS1uPjRBVa9Ra47UfIPkp3LUd06wS/?=
- =?us-ascii?Q?60i+c/4gQLCugEySF3/lkh02l2id/QECItn6z20J3TR/F3tAG5rx+XZO1uqB?=
- =?us-ascii?Q?5YXtKrRldl1/z6lWZ2d0k+7eNIajY/Sa55XMPIckfrBpWlGyLhwVExjOmGJj?=
- =?us-ascii?Q?tm07HZFbIRI8Qo/DQsAatbRmJYuOk5kgU3/vNwYOKsggdNYzuDRfT+qyDE3g?=
- =?us-ascii?Q?b0NXukeyrrBNyU71wRxnYnyBNvlr353TkIv5J6KD5FI1lyi3HtSAqFqKl28l?=
- =?us-ascii?Q?7TtjJfKw32mMc9YU66GhfRGwTHjX+XPkhh8lRix6nZGkj1G5DZ1lADlA+mHb?=
- =?us-ascii?Q?znHhzZttu/QQEvL/VyDR8qz8Y7g+s0QKXX3K9RkNUdS93nNhCUIWunhDqFbG?=
- =?us-ascii?Q?YYVymHrSdA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c3447d56-fb5d-48cc-9dac-08df0f0a6073
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB9474.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 07:08:55.3431
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cF4rOjIf0vI+K+tVifn7Xl8bqthqHYCQfGIWMT4swDsK4qJUqqirYu5c7pWu3w7/CPyL++TPrxklKvUuYA/87g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6210
+X-CM-TRANSID:qwCowADXqOx5V6JqeFCWBw--.33693S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3XFWfCF1rJFyDAFyxAF47Jwb_yoW7tr1rpF
+	9YyFWUJryrGrn3Xr1UKr1UJFyUJr1kJ3WDJr18XF1UJFsrJr12gr4Ygr1qgF1UXr48Jr1U
+	tF1jqr13Zr1ayFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPGb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFcxC0VAYjxAxZF0Ew4CEw7xC0wAC
+	Y4xI67k04243AVC20s07M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r
+	43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
+	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x
+	0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
+	JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIx
+	AIcVC2z280aVCY1x0267AKxVW8JVW8Jr1l6VACY4xI67k04243AbIYCTnIWIevJa73UjIF
+	yTuYvjxUgrHjUUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Document the "cxl_reset" PCI reset_method value for Type 2 CXL devices
-and its reset-safety contract. Describe generic PCI driver quiescing,
-exclusive HDM range reservation, cache and IOMMU handling, function-scope
-restrictions, and state restoration. Clarify that the method does not
-offline memory or revoke mappings, and that it requests CXL Reset Memory
-Clear.
+5ZyoIDIwMjYtMDktMTDlm5vnmoQgMDk6NTIgKzA4MDDvvIxKb2V5IEx15YaZ6YGT77yaCj4gCj4g
+SWNlbm93eSBaaGVuZyDmlrwgMjAyNi85Lzkg5LiL5Y2IIDAxOjQ0IOWvq+mBkzoKPiA+IOWcqCAy
+MDI2LTA5LTA45LqM55qEIDE3OjI4ICswODAw77yMSm9leSBMdeWGmemBk++8mgo+ID4gPiBBZGQg
+dGhlIE51dm90b24gTUEzNUQxIERDVWx0cmFMaXRlIChudXZvdG9uLG1hMzVkMS1kY3UpIHRvIHRo
+ZQo+ID4gPiBiaW5kaW5nLgo+ID4gPiBUaGUgRENVbHRyYUxpdGUgdXNlcyBvbmx5IGZvdXIgY2xv
+Y2tzIChjb3JlLCBheGksIGFoYiwgcGl4MCkgYW5kCj4gPiA+IG9uZQo+ID4gPiByZXNldCAoY29y
+ZSksIHdpdGggYSBzaW5nbGUgb3V0cHV0IHBvcnQuCj4gPiA+IAo+ID4gPiBUaGUgTUEzNUQxIGNs
+b2NrIGNvbnRyb2xsZXIgZ2F0ZXMgdGhlIGNvcmUsIEFYSSBhbmQgQUhCIGNsb2Nrcwo+ID4gPiB3
+aXRoIGEKPiA+ID4gc2luZ2xlIGJpdCwgYnV0IGVhY2ggcmVtYWlucyBhIGRpc3RpbmN0IGNsb2Nr
+IGxpbmUgZmVlZGluZyB0aGUgSVAKPiA+ID4gd2l0aAo+ID4gPiBpdHMgb3duIHJhdGUgY29uc3Ry
+YWludHMsIHNvIGFsbCBmb3VyIG11c3Qgc3RpbGwgYmUgbGlzdGVkCj4gPiA+IGluZGl2aWR1YWxs
+eQo+ID4gPiBpbiB0aGUgZGV2aWNldHJlZTsgY29yZSwgYXhpIGFuZCBhaGIgaGFwcGVuIHRvIHNo
+YXJlIHRoZSBzYW1lCj4gPiA+IGNsb2NrCj4gPiA+IHBoYW5kbGUuCj4gPiBUaGlzIGlzIHdlaXJk
+LCBidXQgSSBtdXN0IGFkbWl0IHRoYXQgd2UncmUgbGltaXRlZCBieSB0aGUgQ29tbW9uCj4gPiBD
+bG9jawo+ID4gRnJhbWV3b3JrIGhlcmUsIHNvIEkgY2Fubm90IGdpdmUgYSBiZXR0ZXIgc29sdXRp
+b24gZWl0aGVyLgo+ID4gCj4gPiBBbnl3YXkgbGV0J3Mgc2V0dGxlIHdpdGggdGhlIGN1cnJlbnQg
+cmVzdWx0Lgo+ID4gCj4gPiA+IE1vdmUgdGhlIGNsb2Nrcy9jbG9jay1uYW1lcyBtaW5JdGVtcyB0
+byA0IGFuZCByZXNldHMvcmVzZXQtbmFtZXMKPiA+ID4gbWluSXRlbXMgdG8gMSBhdCB0aGUgdG9w
+IGxldmVsLCBzaW5jZSB0aGF0IGlzIHRoZSBsb3dlc3QgY291bnQKPiA+ID4gYW55Cj4gPiA+IHN1
+cHBvcnRlZCB2YXJpYW50IG5lZWRzLsKgIEFkZCBhbiBhbGxPZi9pZiBibG9jayB0aGF0IHRpZ2h0
+ZW5zIHRoZQo+ID4gPiBjb25zdHJhaW50IGJhY2sgdXAgdG8gdGhlIGZpeGVkIDUtY2xvY2svMy1y
+ZXNldCB0b3BvbG9neSByZXF1aXJlZAo+ID4gPiBieQo+ID4gPiB0aGUgZXhpc3RpbmcgdGhlYWQs
+dGgxNTIwLWRjODIwMCBjb21wYXRpYmxlLCBhbmQgYW5vdGhlciBvbmUgdGhhdAo+ID4gPiBjYXBz
+Cj4gPiA+IHRoZSBuZXcgbnV2b3RvbixtYTM1ZDEtZGN1IGNvbXBhdGlibGUgYXQgdGhlIDQtY2xv
+Y2svMS1yZXNldAo+ID4gPiBjb3VudCBpdAo+ID4gPiBhY3R1YWxseSB3aXJlcyB1cC4KPiA+ID4g
+Cj4gPiA+IFNpZ25lZC1vZmYtYnk6IEpvZXkgTHUgPGEwOTg3MjAzMDY5QGdtYWlsLmNvbT4KPiA+
+ID4gLS0tCj4gPiA+IMKgwqAuLi4vYmluZGluZ3MvZGlzcGxheS92ZXJpc2lsaWNvbixkYy55YW1s
+wqDCoMKgwqDCoCB8IDQ0Cj4gPiA+ICsrKysrKysrKysrKysrKysrKysKPiA+ID4gwqDCoDEgZmls
+ZSBjaGFuZ2VkLCA0NCBpbnNlcnRpb25zKCspCj4gPiA+IAo+ID4gPiBkaWZmIC0tZ2l0Cj4gPiA+
+IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVyaXNpbGljb24s
+ZGMueWFtbAo+ID4gPiBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5
+L3ZlcmlzaWxpY29uLGRjLnlhbWwKPiA+ID4gaW5kZXggOTE5YTkwMDEyMjAxMi4uNzczOTY2Njc3
+ZDBmNCAxMDA2NDQKPiA+ID4gLS0tCj4gPiA+IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2Jp
+bmRpbmdzL2Rpc3BsYXkvdmVyaXNpbGljb24sZGMueWFtbAo+ID4gPiArKysKPiA+ID4gYi9Eb2N1
+bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS92ZXJpc2lsaWNvbixkYy55YW1s
+Cj4gPiA+IEBAIC0xNyw2ICsxNyw3IEBAIHByb3BlcnRpZXM6Cj4gPiA+IMKgwqDCoMKgwqAgaXRl
+bXM6Cj4gPiA+IMKgwqDCoMKgwqDCoMKgIC0gZW51bToKPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCAtIHRoZWFkLHRoMTUyMC1kYzgyMDAKPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoCAtIG51
+dm90b24sbWEzNWQxLWRjdQo+ID4gPiDCoMKgwqDCoMKgwqDCoCAtIGNvbnN0OiB2ZXJpc2lsaWNv
+bixkYyAjIERDIElQcyBoYXZlIGRpc2NvdmVyYWJsZQo+ID4gPiBJRC9yZXZpc2lvbgo+ID4gPiBy
+ZWdpc3RlcnMKPiA+ID4gwqAgCj4gPiA+IMKgwqDCoCByZWc6Cj4gPiA+IEBAIC0yNiw2ICsyNyw3
+IEBAIHByb3BlcnRpZXM6Cj4gPiA+IMKgwqDCoMKgwqAgbWF4SXRlbXM6IDEKPiA+ID4gwqAgCj4g
+PiA+IMKgwqDCoCBjbG9ja3M6Cj4gPiA+ICvCoMKgwqAgbWluSXRlbXM6IDQKPiA+ID4gwqDCoMKg
+wqDCoCBpdGVtczoKPiA+ID4gwqDCoMKgwqDCoMKgwqAgLSBkZXNjcmlwdGlvbjogREMgQ29yZSBj
+bG9jawo+ID4gPiDCoMKgwqDCoMKgwqDCoCAtIGRlc2NyaXB0aW9uOiBETUEgQVhJIGJ1cyBjbG9j
+awo+ID4gPiBAQCAtMzQsNiArMzYsNyBAQCBwcm9wZXJ0aWVzOgo+ID4gPiDCoMKgwqDCoMKgwqDC
+oCAtIGRlc2NyaXB0aW9uOiBQaXhlbCBjbG9jayBvZiBvdXRwdXQgMQo+ID4gPiDCoCAKPiA+ID4g
+wqDCoMKgIGNsb2NrLW5hbWVzOgo+ID4gPiArwqDCoMKgIG1pbkl0ZW1zOiA0Cj4gPiA+IMKgwqDC
+oMKgwqAgaXRlbXM6Cj4gPiA+IMKgwqDCoMKgwqDCoMKgIC0gY29uc3Q6IGNvcmUKPiA+ID4gwqDC
+oMKgwqDCoMKgwqAgLSBjb25zdDogYXhpCj4gPiA+IEBAIC00MiwxMiArNDUsMTQgQEAgcHJvcGVy
+dGllczoKPiA+ID4gwqDCoMKgwqDCoMKgwqAgLSBjb25zdDogcGl4MQo+ID4gPiDCoCAKPiA+ID4g
+wqDCoMKgIHJlc2V0czoKPiA+ID4gK8KgwqDCoCBtaW5JdGVtczogMQo+ID4gPiDCoMKgwqDCoMKg
+IGl0ZW1zOgo+ID4gPiDCoMKgwqDCoMKgwqDCoCAtIGRlc2NyaXB0aW9uOiBEQyBDb3JlIHJlc2V0
+Cj4gPiA+IMKgwqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IERNQSBBWEkgYnVzIHJlc2V0Cj4g
+PiA+IMKgwqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IENvbmZpZ3VyYXRpb24gQUhCIGJ1cyBy
+ZXNldAo+ID4gPiDCoCAKPiA+ID4gwqDCoMKgIHJlc2V0LW5hbWVzOgo+ID4gPiArwqDCoMKgIG1p
+bkl0ZW1zOiAxCj4gPiA+IMKgwqDCoMKgwqAgaXRlbXM6Cj4gPiA+IMKgwqDCoMKgwqDCoMKgIC0g
+Y29uc3Q6IGNvcmUKPiA+ID4gwqDCoMKgwqDCoMKgwqAgLSBjb25zdDogYXhpCj4gPiA+IEBAIC03
+OSw2ICs4NCw0NSBAQCByZXF1aXJlZDoKPiA+ID4gwqDCoMKgIC0gcmVzZXQtbmFtZXMKPiA+ID4g
+wqDCoMKgIC0gcG9ydHMKPiA+ID4gwqAgCj4gPiA+ICthbGxPZjoKPiA+ID4gK8KgIC0gaWY6Cj4g
+PiA+ICvCoMKgwqDCoMKgIHByb3BlcnRpZXM6Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoCBjb21wYXRp
+YmxlOgo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgIGNvbnRhaW5zOgo+ID4gPiArwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCBjb25zdDogdGhlYWQsdGgxNTIwLWRjODIwMAo+ID4gPiArwqDCoMKgIHRo
+ZW46Cj4gPiA+ICvCoMKgwqDCoMKgIHByb3BlcnRpZXM6Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoCBj
+bG9ja3M6Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWluSXRlbXM6IDUKPiA+ID4gKwo+ID4g
+PiArwqDCoMKgwqDCoMKgwqAgY2xvY2stbmFtZXM6Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqAg
+bWluSXRlbXM6IDUKPiA+ID4gKwo+ID4gPiArwqDCoMKgwqDCoMKgwqAgcmVzZXRzOgo+ID4gPiAr
+wqDCoMKgwqDCoMKgwqDCoMKgIG1pbkl0ZW1zOiAzCj4gPiA+ICsKPiA+ID4gK8KgwqDCoMKgwqDC
+oMKgIHJlc2V0LW5hbWVzOgo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1pbkl0ZW1zOiAzCj4g
+PiA+ICsKPiA+ID4gK8KgIC0gaWY6Cj4gPiA+ICvCoMKgwqDCoMKgIHByb3BlcnRpZXM6Cj4gPiA+
+ICvCoMKgwqDCoMKgwqDCoCBjb21wYXRpYmxlOgo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgIGNv
+bnRhaW5zOgo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb25zdDogbnV2b3RvbixtYTM1
+ZDEtZGN1Cj4gPiA+ICvCoMKgwqAgdGhlbjoKPiA+ID4gK8KgwqDCoMKgwqAgcHJvcGVydGllczoK
+PiA+ID4gK8KgwqDCoMKgwqDCoMKgIGNsb2NrczoKPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoCBt
+YXhJdGVtczogNAo+ID4gPiArCj4gPiA+ICvCoMKgwqDCoMKgwqDCoCBjbG9jay1uYW1lczoKPiA+
+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoCBtYXhJdGVtczogNAo+ID4gPiArCj4gPiA+ICvCoMKgwqDC
+oMKgwqDCoCByZXNldHM6Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWF4SXRlbXM6IDEKPiA+
+ID4gKwo+ID4gPiArwqDCoMKgwqDCoMKgwqAgcmVzZXQtbmFtZXM6Cj4gPiA+ICvCoMKgwqDCoMKg
+wqDCoMKgwqAgbWF4SXRlbXM6IDEKPiA+IE1heWJlIGl0J3MgcmVhc29uYWJsZSB0byByZXN0cmlj
+dCBtYXggcG9ydCBjb3VudCB0byAxIGZvciBNQTM1RDE/Cj4gPiBBbHRob3VnaCBJIGFtIG5vdCBz
+dXJlIGFib3V0IGhvdyB0byBkbyB0aGlzLi4uCj4gPiAKPiA+IFRoYW5rcywKPiA+IEljZW5vd3kK
+PiDCoMKgSSBmb3VuZCB0aGUgc2FtZSBraW5kIG9mIHBlci1jb21wYXRpYmxlIHBvcnQgcmVzdHJp
+Y3Rpb24gYWxyZWFkeQo+IHVzZWQgCj4gdXBzdHJlYW0gaW4gcmVuZXNhcyxkdS55YW1sLCBlLmcu
+Ogo+IAo+IMKgwqAgwqAgwqAgwqAgcG9ydHM6Cj4gwqDCoCDCoCDCoCDCoCDCoCBwcm9wZXJ0aWVz
+Ogo+IMKgwqAgwqAgwqAgwqAgwqAgwqAgcG9ydEAyOiBmYWxzZQo+IMKgwqAgwqAgwqAgwqAgwqAg
+wqAgcG9ydEAzOiBmYWxzZQo+IMKgwqAgwqAgwqAgwqAgwqAgcmVxdWlyZWQ6Cj4gwqDCoCDCoCDC
+oCDCoCDCoCDCoCAtIHBvcnRAMAo+IMKgwqAgwqAgwqAgwqAgwqAgwqAgLSBwb3J0QDEKPiAKPiBB
+cHBsaWVkIHRvIG91ciBiaW5kaW5nLCB0aGF0IHdvdWxkIGxvb2sgbGlrZToKPiAKPiDCoMKgIMKg
+IMKgIMKgIHBvcnRzOgo+IMKgwqAgwqAgwqAgwqAgwqAgcHJvcGVydGllczoKPiDCoMKgIMKgIMKg
+IMKgIMKgIMKgIHBvcnRAMTogZmFsc2UKPiDCoMKgIMKgIMKgIMKgIMKgIHJlcXVpcmVkOgo+IMKg
+wqAgwqAgwqAgwqAgwqAgwqAgLSBwb3J0QDAKPiAKPiBpbiB0aGUgZXhpc3RpbmcgbnV2b3Rvbixt
+YTM1ZDEtZGN1IGFsbE9mL2lmL3RoZW4gYmxvY2ssIHNvIHNjaGVtYQo+IGNoZWNrcyAKPiB3b3Vs
+ZCByZWplY3QgYSBwb3J0QDEgbm9kZSBvbiB0aGlzIGNvbXBhdGlibGUgaW5zdGVhZCBvZiBzaWxl
+bnRseSAKPiBhY2NlcHRpbmcgaXQuCj4gCj4gSGFwcHkgdG8gYWRkIGl0IGlmIHlvdSdkIGxpa2Ug
+dGhlIHNjaGVtYSB0byBlbmZvcmNlIHRoaXMsIGJ1dCB3YW50ZWQKPiB0byAKPiBjaGVjayB3aGV0
+aGVyIHlvdSBjb25zaWRlciBpdCB3b3J0aCB0aGUgZXh0cmEgbGluZXMgZ2l2ZW4gaXQgZG9lc24n
+dCAKPiByZWZsZWN0IGFuIGFjdHVhbCBidWcgaW4gYW55IERUIHRvZGF5LiBMZXQgbWUga25vdyB3
+aGljaCB3YXkgeW91J2QgCj4gcHJlZmVyIGFuZCBJJ2xsIGZvbGQgaXQgaW50byB0aGUgbmV4dCB2
+ZXJzaW9uLgoKUGVyc29uYWxseSBJIHRoaW5rIHRoaXMgaXMgZ29vZCwgYnV0IG1heWJlIGFkZGlu
+ZyBpdCBhcyBhbiBhZGRpdGlvbmFsCnBhdGNoIGFmdGVyIG1lcmdpbmcgaXNuJ3QgYSBiaWcgcHJv
+YmxlbSwgYmVjYXVzZSB0aGlzIGp1c3QgcGxheXMgYXMKa2luZCBvZiBhIHNhZmV0eSBndWFyZC4K
+CldlbGwgdGhpcyBkZXBlbmRzIG9uIGhvdyBEVCBiaW5kaW5nIG1haW50YWluZXJzIHRoaW5rLCBi
+dXQgYXMgQ29ub3IgaGFzCmRyb3BwZWQgaGlzIEFjaywgdGhpcyBzaG91bGRuJ3QgYmUgYSBiaWcg
+aXNzdWUuCgpUaGFua3MsCkljZW5vd3kKCj4gCj4gVGhhbmtzLgo+ID4gPiArCj4gPiA+IMKgwqBh
+ZGRpdGlvbmFsUHJvcGVydGllczogZmFsc2UKPiA+ID4gwqAgCj4gPiA+IMKgwqBleGFtcGxlczoK
 
-Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
----
- Documentation/ABI/testing/sysfs-bus-pci | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
-
-diff --git a/Documentation/ABI/testing/sysfs-bus-pci b/Documentation/ABI/testing/sysfs-bus-pci
-index 55ea1db749a1..248d4f427589 100644
---- a/Documentation/ABI/testing/sysfs-bus-pci
-+++ b/Documentation/ABI/testing/sysfs-bus-pci
-@@ -153,6 +153,31 @@ Description:
- 		"default" enables all supported reset methods in the
- 		default ordering.
- 
-+		If present, "cxl_reset" selects CXL Reset for CXL Type 2
-+		devices that advertise CXL Reset and CXL Reset Memory Clear
-+		support.  The method is only listed for single-function devices,
-+		and reset is rejected if the device has enabled VFs, so CXL Reset
-+		cannot affect another PCI function.
-+
-+		When reset is triggered through the reset attribute, the generic
-+		PCI reset path calls the device driver's reset_prepare() callback,
-+		when provided, and disables PCI I/O, memory decoding, and bus
-+		mastering before invoking this method.
-+		The method then rejects the operation if cached HDM state is
-+		unavailable or an affected HDM range cannot be exclusively
-+		reserved.  It does not offline memory or revoke mappings; CXL.mem
-+		users are expected to retain conflicting iomem resources while
-+		access to an affected range remains active.
-+
-+		Before issuing CXL Reset, the kernel invalidates CPU caches for
-+		affected HDM ranges where supported, disables CXL.cache, initiates
-+		cache write-back where supported, and blocks IOMMU translations
-+		where applicable.  After reset, it restores PCI config state needed
-+		to access HDM MMIO, cached HDM decoder state, and the CXL Device
-+		DVSEC Cache and Mem Enable controls before completing PCI reset
-+		recovery.  "cxl_reset" requests CXL Reset Memory Clear so that a
-+		successful generic PCI reset does not preserve tenant memory.
-+
- What:		/sys/bus/pci/devices/.../reset
- Date:		July 2009
- Contact:	Michael S. Tsirkin <mst@redhat.com>
--- 
-2.43.0
 
