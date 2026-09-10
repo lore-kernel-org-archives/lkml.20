@@ -1,201 +1,203 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E378647D952
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:06:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EEFB4825D7
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:07:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789045621; cv=none; b=V4xO8J8C4y805dRgdZiDcQNJ4sqZjBrhV5qHBnXGf3JywkL3/X0yXDHJ4SOMb2st/GeOqSe15cqx9rWaEcz65zkY6OhmfXYQGYAeSwY2IFY3uANHz5RNGZgJJX4ozw3beY2cl4T9zoGMESldXeds84Ukxg1HM40OGD0kDh9cCOM=
+	t=1789045634; cv=none; b=ebPQpaZkdQQspM0j2prvBsPL+dVlo9l7JD36FCaMImdqydXrE4dOW1uNuBXn0Lwl9R2eWO+cQFnrYiCUqVgoPkeMAgOS+Dc5EYE75Jk/XmBzWhRX2ZuBJUD6vlN9xj/DwLFebF3mPUWPAx7xWhda2Z1x54sssGaoS8GLvTcFeNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789045621; c=relaxed/simple;
-	bh=j++54T3sUZ+8HaFYRaDy0ZlOlzbDf1s23ZOYnPY0yUI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=fs0qaNw1GJF8TPzwv8J3ZL1vK2+xohD/ANRycJ7l0SJT9ij+9MI5Z+0RqTNJtNgwA5kWCQAgZLBQQggWCzoSGr9PW1UvsNcoAEu/ClUKKFwivbEgX2R8XmvITQLWP0bE0PDC6gIaht9hWK26yY7Uo9taHRxpPzrBuIM8dtla3mM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=fgAJpA13; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789045634; c=relaxed/simple;
+	bh=+q94hW+kiltzd6oZ8H14oSSW0osx3J/1PTA4e8Zi7ro=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=UqdI41EUr9cwIcQWX/zYCzQjVs3aBG5HWkWq1+GrY3mAEKWHoQPj0r6KdIvaF4zgIr5cyThbCJWp7fbZoCyybnhGWUCIih90Zah3GP7gav+AcFO2GQWdWuapnGmNc5Qe2DvbkxfDtbRetcelk0hRdZVhvsQfBbxwXWreLczc3AY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=P+Sm01bS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bo116O0T; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="fgAJpA13"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-484366874b0so1334650f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:06:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="P+Sm01bS";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bo116O0T"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68AC7l1i245046
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:07:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Apr68ly3hCT/cD0oaIKI9KYaRUniJ63SnCFjliTBbmo=; b=P+Sm01bSkMAvGkup
+	dVKFfucx9enT6NmWax115NJ25NxPUw0H4GqTMoA1ZJR9L/4Dn+o+9TJhgS2Lyvbf
+	uzEbB1K9Bj9KVRMs48a/LlPLyvyDNFJjmP397VgzzcnTDvk0HXWcKrEfxeQn7oy+
+	y53XvphpRVGHb902oAohk2Q2IzYmvPLeXoKIQzjh6+2UKvMxCCwhMBVxf/faeg09
+	o0cviNhrIg8LzlyK+Bac9ReJzLo2ai4n1OycTAzgfS6mRG+IZhmAQ2rDCAkOtXbx
+	yR45jy1hFCjmkSdhW2wg/moM2dbWWHWnS1VPQulwhCfh1U0XrZoXQkT/gxwolt/t
+	+exAtw==
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyfm0sy-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:07:08 +0000 (GMT)
+Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-81eddfe28b4so148807977b3.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:07:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789045613; x=1789650413; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s417j/ysygJZ4xE0jMBISIxl2zgVW4JEiLwZ40hycxA=;
-        b=fgAJpA13geelJvMo236lMup0m+UVq79aH2cHRkifKGekwSlg2wdMqhwx8yEcs3jubI
-         aQiLDugU7Ybtc1d+a3nPPlP7Ki2LO2ZJ1DKlWPRrEMv/FAlatVpC6jcnloRTz6vUrP+D
-         3ERhtVyC2o/FMu/xpKpuJVOQEqspvxCJqJqOiU1K89CJrcllk65/4xHuYq4SZRSgvUwD
-         LDvKt8NwjMkLhS5J+JRBZyPrmGuCOxo5EnMlQhFn0oFg5Q6LAkz9ZE5etDNqkM2Qfwvg
-         n2BV/u4h9ry1oVUXq/xsc217Cm+9j++B9s8Ln20p5/Xh+8dlEt1IoOQhuIuJGJPUrxGl
-         SEGQ==
+        d=oss.qualcomm.com; s=google; t=1789045628; x=1789650428; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Apr68ly3hCT/cD0oaIKI9KYaRUniJ63SnCFjliTBbmo=;
+        b=bo116O0T5EN+v86MN84JWXltYaoYJQRkNRqckwEjhFfEKuEunI9NzuvvK5AlFElgH1
+         4usbrYy85WjInpk/ZtR1lFcWOvQWEfOY9vuL103HlSBLlnt2Xy2t8Fg0Qacj/fwA7Jly
+         oo+rC1eP3iF4alIcA+kT7sw9NxM7LLGLHDH7keJjXHFO4WBnd3lMaC5s9dXBdbXY6JY2
+         RK7fXqJvC3h/JU3GmRHVoD05IhvCFnUnMkKryEzXnHX0lt1bppxIyy4PUnG76h3NkelN
+         V9x8OW76kklU5NMP9dBcdmh5h5s/9jrIu+hhj9zPSB20iWy+yTIFlMXJAnYVBIRe3pxp
+         HIiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789045613; x=1789650413;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s417j/ysygJZ4xE0jMBISIxl2zgVW4JEiLwZ40hycxA=;
-        b=V4x/WrRTGhEociOXQLVBTns3zRmU4ii13G+oJRVlwcS340NaY8Y74L8W3v9y+8YYax
-         ppDhvcXz755Am8BQzDv2a98sJtlPHGnVo+vu64xRszwnU4e6redms5rOYNXZOjETuYni
-         JC3WHUmWla2C9taetQNfBQNLns4G0SAa6gYIhw+g3d0HZxPPQhyWNBOZ/5ohCTgho+F3
-         VokhdWjYrBusO6lD5mqOgvoKaDA5oQ42g0rbu+FuGSGshfAmoPRzkqalZfuFmNeVahTU
-         KPbx7rkINDuAnXRfX//Yx4N42kcYB6c4l131aMwmAd8XYM1E1K3I9qkafQ9g2AmpCeSj
-         wQow==
-X-Forwarded-Encrypted: i=1; AKwUvBzmcrFYxZlemBboQ3/P7wUbBzax4Y+5ZuspyI4iq1N3qoHfj2m33ovHizkAznDNmJvgM5LMt3esA7VfhbI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lAMDVYQqutdJPQO7Q2BUgFdSIJzQ4u/hMmV0hwA6pNwaBLy6yQ
-	oAl7HnU3vrj5dGBu4wOWJhsdib+oxkbFkaDSMQ2dJ8llmfP/EnOiNvj7GZfmr4AosXM=
-X-Gm-Gg: AYBFou2DCfuik8P8Q03G11H7TG9tgAUVDVpAPdVh1kd2ng7MOyyrdkNihpJKAWFH2kI
-	GBNNHiuHVlV/28VWzLwFhlTUd5u+aRIA4bRJRnejt3SgsNJoftAOin+rt5m52VDHlA5jBzHKNBT
-	0nD7pZ2C4soL+MdAhKshb+4UemH33AYY+OQATnmMzmJlQ0JbyzymcJkg3ThwxnLSejDZ/SkYhvY
-	v26EOoK90Nj4AUqU+5+6zeUNT6v0A+nWba4unY+NmtR3VsJmBgsY5NFoBdvNY/lT/fbuk9nTW3g
-	PmxSZy47+ZTws4Vm8DNHrbOpAYwdCeIVpMRKl7lkOPUPZrmfMzqxXfmDrcUKGOBTGCpsjxuWQQA
-	xjQncYeApE/jPsPjJyh6rpC6nkEDMqMDthkhIL24pXJfwVe+LiYqBG4NyTBKb8kD0u1QNyuw4U1
-	SP5kqUvNDOZe6KU8S6T2n/tYrI5xGtdqdw7qcvBY15/KW+ZFiqsOCG4FaFUj9cSvzAGAMnk2uDG
-	98YNrA0dDSkhzNmmPV3cP9ixfbC
-X-Received: by 2002:a05:6000:22c8:b0:484:3310:710d with SMTP id ffacd0b85a97d-485aae0e29amr22786196f8f.25.1789045613146;
-        Thu, 10 Sep 2026 06:06:53 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588135600sm44969402f8f.2.2026.09.10.06.06.52
+        d=1e100.net; s=20251104; t=1789045628; x=1789650428;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Apr68ly3hCT/cD0oaIKI9KYaRUniJ63SnCFjliTBbmo=;
+        b=i4yFRxYisZKLr9M8GvU4F+Ll/5pzjTkFW8/+8s0jAjIM9c3P3F6wDq4GosltSx2C7c
+         lhyhTt8j/AxYHRhYTZFtbykweONA5xkXZ2MQ2zr/UgMAobLmIrBSp+Fytao5HWLfpUfE
+         lkOL88Iw9zSph0HZpX8+WgtBojayCYSxsvuwZiHeHHhj6FIpXqMMRQMOcGYkAUotA+IT
+         cmA3uwMfWKD73DxPPiX3cP5wgqeIhZk+KgX98r2Y3Ydrh9JBKHDSmF/GAPWLSJGscdHu
+         PpwZU6v120l86fkeJCEBTH1SH3YyBd5l1CkXGogd5xvG9LZ4Nj4c7X0uJqWJKPu6a7xF
+         e0Hw==
+X-Forwarded-Encrypted: i=1; AKwUvBzLNLhTjU2DLsgety8WSWPLA8crSowBD3iWeIf1VgIiAG4C9TP/R8dSIuSABhbAwd79Yyaum8EJVdhgA3k=@vger.kernel.org
+X-Gm-Message-State: AFuF++nEmvvzLKY31ASJaV5LHoH7owivlm9R0KTl471KqkTgju9G7ZaT
+	60B+iENaOIGywTfIfRZs2PSLq3n3T16t3xraZ+9NH6fOkv+zdNNgXH26VUhfGXArefQWqJVlpaG
+	P3UNSAQQFDADI/UbafR2s9xRRG8vGQp+hCGLhiY3MFRVF5G70A1SNF00vePoYmYsoP/Yi81c12Y
+	s=
+X-Gm-Gg: AYBFou2dgqXviaLgt8srY0s/uclDQ5ZzH4r0lKVYyIUJKPKkykhGlCGyMzrIo9M35pk
+	O/LfagNY4UdhXKSxUbY4aCdu4Jln5SQNoH+HWQjK7b1oYpSn/31cZXxMfik3DWBG4aKo8Ibva/C
+	WDKfYaquBFlic/uL+bTbPKSO5K2jSKUfS3CGNH+DuM4ykDUpwa+h9GbvfWU2zC9D7d7JIkTMqFf
+	m1dEUIZiGqquym01mu0nh+HZpInh6duB0SVZ1Uxz8NkBVp0UYovshmWqZHjdUSvKZZC3mvO0bnd
+	3sq/pSZB4xcxXuiTjf7v8SZe6L632eebtxwjyYWKuSiQQtfUerPQWqEqsj4aEHqwSP8yV3WgMRf
+	Ipv2KKvKpU1aT5GDS0Ns/AKtDAlpf
+X-Received: by 2002:a05:690e:bcc:b0:66f:c1bc:402e with SMTP id 956f58d0204a3-66fc1bc499fmr11508279d50.91.1789045627975;
+        Thu, 10 Sep 2026 06:07:07 -0700 (PDT)
+X-Received: by 2002:a05:6102:5e91:b0:784:b882:9567 with SMTP id ada2fe7eead31-78a4a9d9306mr22259771137.6.1789045285030;
+        Thu, 10 Sep 2026 06:01:25 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:c9b1:abfb:f300:5e98])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c26204ecdbcsm831849866b.25.2026.09.10.06.01.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 06:06:52 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Richard Cochran
- <richardcochran@gmail.com>, Maxime Ripard <mripard@kernel.org>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [PATCH net-next v2 2/2] net: stmmac: Add support for Allwinner
- A733 GMAC210
-In-Reply-To: <44d7840d-0cde-4022-937c-4c630398c45d@bootlin.com>
-References: <20260910-allwinner-a733-gmac-support-v2-0-4f4a1e520c23@baylibre.com>
- <20260910-allwinner-a733-gmac-support-v2-2-4f4a1e520c23@baylibre.com>
- <44d7840d-0cde-4022-937c-4c630398c45d@bootlin.com>
-Date: Thu, 10 Sep 2026 15:06:51 +0200
-Message-ID: <1jqzj16ys4.fsf@starbuckisacylon.baylibre.com>
+        Thu, 10 Sep 2026 06:01:23 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Date: Thu, 10 Sep 2026 15:00:46 +0200
+Subject: [PATCH v7 05/12] crypto: qce - Use fallback for fragmented
+ skcipher payloads
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260910-qce-fix-self-tests-v7-5-cdbd2718af14@oss.qualcomm.com>
+References: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
+In-Reply-To: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
+To: Thara Gopinath <thara.gopinath@gmail.com>,
+        Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>,
+        Stanimir Varbanov <svarbanov@mm-sol.com>,
+        Eneas U de Queiroz <cotequeiroz@gmail.com>,
+        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Eric Biggers <ebiggers@kernel.org>,
+        Demi Marie Obenour <demiobenour@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, brgl@kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        stable@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2137;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=+q94hW+kiltzd6oZ8H14oSSW0osx3J/1PTA4e8Zi7ro=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqoqoOYC9y0PnnwCtT9kBv8b0ovnRcrryw4KSyj
+ wGEI5TzlV+JAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCaqKqDgAKCRAFnS7L/zaE
+ wxskEACFOaBj8VCu5B2daTrv5BL1EJdlpaGjPEAc0+autgVw4uDpHrgV+3wQF3YrzSRkh/fJvpA
+ hbD1xtYeBJiSF2Ufat0CflOkswP9FSXfiQRPHThyNoRWSS33fwoflUiKMJgGcQqFwtb3fbb0Ntw
+ kdthQfMGge4Cbc2g5veN43m/7MpABusDQfWkoWy+RPYyJX1Xc4q/VZwNoVPzUEViD23Bjtp7oV/
+ QORX0mTsV9En+Ac5bpj98aM4C1zgYbyF29uemcDC6NwAUEuL2NzpmLjY3OcCPJl83pGNOx+ND8g
+ GKAEHiaSouMnH5Gz7P1md81OLNWq65D0nSThs67VRqOaX3q47TSr5BBRvWY9FniDfWR0eMjth4L
+ L/Q5u6sVi2IfDxrN+e3LhTOF2L/Du6mTR3yxafNhyke3I1IhBn3cq8IGk2BfQsKpnqiyQ7h4xEd
+ gNWzwFH3+IXb1b/vclTk2sIPE41p1kkNcdGqzrjbjp7pLHNu1odQAdJeyMs3iqQsbuMgJqApxWV
+ dSH9x53GNGoylA2PkFmmDmhU4FqUowB9r6DzPK+gPWwx+hpo+IX/n1mxV5XVyKhwNEaCdfjy+aE
+ Yw4Td64K0jdXuxvTWoL4F7Vk9KReUSLCyLGByeDUmJIr0HsLDJFsfwNnedw1YkSk/VdP7Ii6kaG
+ JLQ/08FYJW5Z0VA==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDE1NyBTYWx0ZWRfX/D7sYw2qX8/Z
+ qE9JloYFBxTrI5AyBQMtBJX9hdeRv40K1GDo5jHmp26DBDrQlEoIz9a7ys3iuQ9YZONh4wTKG5/
+ Mrc1QG2wewRhia04Ei6/Z+f1D75W/NQ=
+X-Proofpoint-ORIG-GUID: tnxMQ7QslBmSOyXcTDgQ_Pzx7KBPjuLu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDE1NyBTYWx0ZWRfX3tvLl2TzNGFH
+ PjWPnJCHQjGradrJRPomaGdL2pyX7sJTKaPvSHfXiLIndz/4cwVdf96rNSV9H1yfwKom7aChu9G
+ DUtDPiFUg5RZZYQSvZfmvZH5mC3cPklBYFODVTAEtdJJLIdGY9GuOU2RfJPYbtD9EdrCbe0itxx
+ ZpjrPm0oLv5lHPmQLVW2wDHJzewGUGbpoxRGucBJ97zuL8tO2Ac4CJyNIg6yqOAvF/aaXUNYPNU
+ nyRd0BEqNWoBaPovSfjVngobd+9/74hwr60wjkwWExpB89vuIQMERAtLeYLqqHF4dgz1m/rWdXX
+ DjCSSzMKe45ecm/pbIvnavBojU0NJ0l4ygk56TJSudNsoGCKFzMN6iSRTpd6NL9ZMhTKO5dLaOM
+ FKw5PFuGzJJbgOn9n+RN1io6hSHD5klGeHnauhjrCmX7GsbovsqH1+AONx4aUjHjsOY5BKteXVJ
+ 0JRauSRrig4eCDcsReg==
+X-Authority-Analysis: v=2.4 cv=H5pOUOYi c=1 sm=1 tr=0 ts=6aa2ab7c cx=c_pps
+ a=NMvoxGxYzVyQPkMeJjVPKg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=2ArJjka39wvl4ErYtigA:9 a=QEXdDO2ut3YA:10
+ a=kLokIza1BN8a-hAJ3hfR:22
+X-Proofpoint-GUID: tnxMQ7QslBmSOyXcTDgQ_Pzx7KBPjuLu
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_04,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 spamscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 bulkscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100157
 
-On jeu. 10 sept. 2026 at 12:59, Maxime Chevallier <maxime.chevallier@bootlin.com> wrote:
+The crypto engine reliably processes AES requests only when the payload
+is a single contiguous buffer. A payload split across multiple
+scatterlist entries makes the engine stall waiting for input, failing
+the request with a hardware operation error. This was uncovered by the
+crypto self-tests, which feed the algorithms randomly fragmented
+buffers.
 
-> Hi Jerome,
->
-> On 9/10/26 12:25, Jerome Brunet wrote:
->> The A733 GMAC210 is a DesignWare MAC 5.20 using an Allwinner glue close to
->> the A523 GMAC200 already supported by this driver, with the following
->> differences to handle:
->> 
->> * The glue configuration registers are a dedicated MMIO region of the
->>   controller instead of a syscon register. This new register region
->>   appears to be in the reset domain of stmmac's main reset. This requires
->>   the glue driver to handle the reset rather than letting stmmac deal with
->>   it.
->> * The TX clock delay value is 5 bits wide, split over 2 register fields,
->>   allowing delays up to 3100ps.
->> * The DMA channels have their own interrupt lines, so the per-DMA-channel
->>   interrupt mode is enabled, as the vendor SDK does.
->> * TX LPI clock gating is supported, as the vendor SDK indicates. Follow
->>   the PHY capability with STMMAC_FLAG_EN_TX_LPI_CLK_PHY_CAP rather than
->>   forcing it on with the deprecated 'snps,en-tx-lpi-clockgating' DT
->>   property.
->> 
->> Unlike the A523, both GMAC instances are supported by the same driver.
->> 
->> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
->
-> [...]
->
->> +
->> +static struct regmap *sun60i_gmac210_get_regmap(struct platform_device *pdev,
->> +						struct plat_stmmacenet_data *plat)
->> +{
->> +	struct device *dev = &pdev->dev;
->> +	void __iomem *base;
->> +	int ret;
->> +
->> +	base = devm_platform_ioremap_resource(pdev, 1);
->> +	if (IS_ERR(base)) {
->> +		dev_err_probe(dev, PTR_ERR(base), "unable to get glue memory region\n");
->> +		return ERR_CAST(base);
->> +	}
->> +
->> +	if (!plat->stmmac_rst || !plat->stmmac_ahb_rst) {
->
-> Why check stmmac_ahb_rst, but not do anything with it ?
+Detect a payload that spans more than one scatterlist entry, in either
+the source or the destination, and route the request to the software
+fallback.
 
-Not strictly required, it was cheap to do and catch mis-configuration
-since the stmmac treat them as optional. I'll drop it
+Cc: stable@vger.kernel.org
+Fixes: 25b71d61d631 ("crypto: qce - Improve the conditions for requesting AES fallback cipher")
+Tested-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+---
+ drivers/crypto/qce/skcipher.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
->
->> +		dev_err(dev, "missing required reset controls\n");
->> +		return ERR_PTR(-EINVAL);
->> +	}
->> +
->> +	/*
->> +	 * The configuration registers are inside the controller
->> +	 * reset domain, so the reset must happen before any write to them
->> +	 * and should not be done again by stmmac or the configuration will
->> +	 * be lost.
->> +	 */
->> +	ret = reset_control_assert(plat->stmmac_rst);
->> +	if (!ret)
->> +		ret = reset_control_deassert(plat->stmmac_rst);
->> +
->> +	if (ret) {
->> +		dev_err_probe(dev, ret, "device reset failed\n");
->> +		return ERR_PTR(ret);
->> +	}
->> +
->> +	ret = devm_add_action_or_reset(dev, sun60i_gmac210_reset_assert,
->> +				       plat->stmmac_rst);
->> +	if (ret)
->> +		return ERR_PTR(ret);
->> +
->> +	plat->stmmac_rst = NULL;
->> +
->> +	return devm_regmap_init_mmio(&pdev->dev, base, &sun60i_a733_regmap_cfg);
->
-> I wonder if this is the first glue to face this...
->
-> If you need further setup to be done after reset has been deasserted, I suggest
-> adding a dedicated callback in plat_stmmacenet_data, instead of doing this behind
-> the generic code's back.
->
-> maybe something like "post_reset_init()", something like that ?
->
-
-I'll check in this direction.
-
-The idea was to do things behind anything's back, more to handle the
-specifities of this SoC without polluting the rest. The timing seemed a
-bit sensitve. For example touching the other reset in here broke the
-link for some reason (recognize as GMII instead of RGMII)
-
-> the ->mac_setup already runs after reset, but isn't really for this type of usecase.
->
-> For readability of the patch, maybe you should split this patch to first do the
-> a523 rework, then add a733 support.
-
-ok
-
->
-> Thanks !
->
-> Maxime
+diff --git a/drivers/crypto/qce/skcipher.c b/drivers/crypto/qce/skcipher.c
+index e2ca2f7a6eea1129edb724fe30659d55aaae8190..4b7545e6aed220b7fb5af7dbf20ab47db5d1d180 100644
+--- a/drivers/crypto/qce/skcipher.c
++++ b/drivers/crypto/qce/skcipher.c
+@@ -261,13 +261,17 @@ static int qce_skcipher_crypt(struct skcipher_request *req, int encrypt)
+ 	 * needed in all versions of CE)
+ 	 * AES-CTR with a partial final block (the CE stalls waiting for a full
+ 	 * block of input).
++	 * A payload fragmented across more than one scatterlist entry (the CE
++	 * stalls waiting for input in that case too).
+ 	 */
+ 	if (IS_AES(rctx->flags) &&
+ 	    ((keylen != AES_KEYSIZE_128 && keylen != AES_KEYSIZE_256) ||
+ 	    (IS_CTR(rctx->flags) && !IS_ALIGNED(req->cryptlen, AES_BLOCK_SIZE)) ||
+ 	    (IS_XTS(rctx->flags) && ((req->cryptlen <= aes_sw_max_len) ||
+ 	    (req->cryptlen > QCE_SECTOR_SIZE &&
+-	    req->cryptlen % QCE_SECTOR_SIZE))))) {
++	    req->cryptlen % QCE_SECTOR_SIZE))) ||
++	    sg_nents_for_len(req->src, req->cryptlen) > 1 ||
++	    sg_nents_for_len(req->dst, req->cryptlen) > 1)) {
+ 		skcipher_request_set_tfm(&rctx->fallback_req, ctx->fallback);
+ 		skcipher_request_set_callback(&rctx->fallback_req,
+ 					      req->base.flags,
 
 -- 
-Jerome
+2.47.3
+
