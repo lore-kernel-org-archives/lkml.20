@@ -1,33 +1,50 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42FDE267B89
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:36:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9787C267B89;
+	Thu, 10 Sep 2026 06:37:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789022220; cv=none; b=dl94g2Mkez1oSmggxCO8YyhEQoOBYmJuGITNsfQVfBQ9RXhUaO4ZXQwOltHptdjevwn01bFryhUGD8HgG5sf0F5a0d1XVBz54ksNwsbgqaxovR50B+bwONbB3pE8r/aBF9oT1lSeGPy1cn3a00NJ68cOb59nVaPUNa5uY49iFhA=
+	t=1789022275; cv=none; b=Qa4xC+DipgAW7VcDBUtPK/ew4/lTWPAbl0dAABU914CZroESw7OvDxkL13t/v+UpIO524kpb/XYpavQ5G+5SQFjcQF8uqFiiANlmMsJp3JNtZ8q2FHYbUU85CNUGjqBcxaGLgKR8DMz0r3ltSgCR9dfaUC1hDDqM/AHWNqABwKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789022220; c=relaxed/simple;
-	bh=KVoOa1dvnZ4fL5rAPwbZj8mW4Ay75l6ClzM7igadRUk=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=RLzTrj745PeYOY12+NtxY+fNf2YFpg8O73SLaoGMq593GnQQp7nRxYhbnWYeijW2MNmtQh+x6IBDGqe/bcwAjpVzLAcObmcmuKkvVjIz6W5ND4geANXeCJnFgxJqmBKpwRE1wKIK/0LcRYUbXaNMmHw4M/HAPoebka8Q4/pyv9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gAa1EU1Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789022275; c=relaxed/simple;
+	bh=16SXiI5wNMmwhVqmP0FjLcwQ0WtlDpOxPzp0tTsfNjQ=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Dvl2mP6F+b/mMLKgbkGIB07GvoqvToKFTHGnvq5UWcUC2oJJo3++XIku+5RCgVVGTFVMkG7lRIRWkwiLlzD7ry0csxXOr7qby07nJpJ9PdiplapK5EKp+6K9r0hw4DOen+Yvnhj/4J8M5wzL7XyWHD6m2kjI2PzQRVYkhnhH3+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZZEniQBS; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gAa1EU1Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB38D1F000FF;
-	Thu, 10 Sep 2026 06:36:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789022218;
-	bh=ULSOjoxc9C4LAIJYFZvWWrEYRpEvNKnRn1S91Ea0S+g=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=gAa1EU1Y78m/qKj0lQHmMj9PZMe6jZ75qmcHpuYIeCiU8DunX/EFLyYH22xdCsL6k
-	 NQ3ScUXTNIsl7KoEPdDCHjla8Xn1CTuvL1/i/zGbQ8NkHQHI0y96lFlmzovLbkxCMk
-	 6YMVioco8bjlhFIHsKH+MoriJWB4lv71szyYzDXa792kN1e0QP2RVKZr/8HrJzwG6y
-	 Rcxn8/4pWSOwxpAz1POAsbjserEbHBZO/hX7T+j8aj8gj76+Gcy/Jf2Ad4ZGV4VSoX
-	 16TiaNQkiMXdWwB7t8Juck359uexW2PTdirJn/YGa+r/gv47r4HdBIC+9JDU1v/SxI
-	 MMkvb93vpIJ/g==
-Message-ID: <ee7e034f-82ac-4de6-a368-4ff5e42eac65@kernel.org>
-Date: Thu, 10 Sep 2026 14:36:56 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZZEniQBS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789022273; x=1820558273;
+  h=message-id:date:mime-version:subject:from:to:cc:
+   references:in-reply-to:content-transfer-encoding;
+  bh=16SXiI5wNMmwhVqmP0FjLcwQ0WtlDpOxPzp0tTsfNjQ=;
+  b=ZZEniQBS70iREGo5RXPUBVwCCYl0CKcXl2eTtPERho2gzp9IYQzK+fby
+   jQ/P3NeQnyfNfMGfXSrenTegMMrwd39MnHeYkvtmWtKyzsM2n4EwJPJpC
+   88llEPxjI0nO7ZYARy0Z9dwUQFaR4LtNWTyZZlYsobUyI4iFgucl54qMU
+   Xy5jK+246IQWf8UVX8+MflsE+WAvhx13fvMoB0W2MwRPjWHMNkFETrIPv
+   s2bLDfdftm9yvpjACHacm+bYfYxB3V0getO8E66Tc2Uf+ZLGqa8vUcLV/
+   0XrzbrOGjHuezvQl5dfrogLCz95mKpTX2CXG8EhHclcRDDLK7pNdvU1UK
+   g==;
+X-CSE-ConnectionGUID: skG+r8xSRC+UlrM+3LyO8Q==
+X-CSE-MsgGUID: 4GTwXO7pRo+QEzyRrKv4QA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89226887"
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="89226887"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 23:37:53 -0700
+X-CSE-ConnectionGUID: afIK6i93Tj6v0wKj76mFow==
+X-CSE-MsgGUID: cDplNW4RRP+1Lzfz1lgB+w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="273506178"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 23:37:50 -0700
+Message-ID: <6d8d3687-bb8b-4e83-a67b-d79cb7218816@linux.intel.com>
+Date: Thu, 10 Sep 2026 14:37:46 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,35 +52,175 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-kernel@vger.kernel.org, niuzhiguo84@gmail.com, ke.wang@unisoc.com
-Subject: Re: [PATCH] f2fs: fix to record both APPEND and UPDATE ino entries
-To: Zhiguo Niu <zhiguo.niu@unisoc.com>, jaegeuk@kernel.org
-References: <20260910030243.3005578-1-zhiguo.niu@unisoc.com>
+Subject: Re: [Patch v10 00/10] Perf tools: Support eGPRs/SSP/SIMD registers
+ sampling
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Zide Chen <zide.chen@intel.com>, Falcon Thomas <thomas.falcon@intel.com>,
+ Dapeng Mi <dapeng1.mi@intel.com>, Xudong Hao <xudong.hao@intel.com>
+References: <20260721072707.3787848-1-dapeng1.mi@linux.intel.com>
+ <23909a5e-2600-4d52-a0e4-5260cbeadb1c@linux.intel.com>
 Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20260910030243.3005578-1-zhiguo.niu@unisoc.com>
+In-Reply-To: <23909a5e-2600-4d52-a0e4-5260cbeadb1c@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/10/26 11:02, Zhiguo Niu wrote:
-> In f2fs_post_evict_inode(), record_bits is assigned with BIT(APPEND_INO)
-> and BIT(UPDATE_INO) respectively, so the second assignment overwrites
-> the first one: when both FI_APPEND_WRITE and FI_UPDATE_WRITE are set,
-> only the UPDATE_INO entry is recorded.
-> 
-> The two flags are not mutually exclusive.Once the APPEND_INO entry is
-> lost after the inode eviction, the shortcut in f2fs_do_sync_file() can
-> take the flush_out path in the next fsync(), skipping f2fs_fsync_node_pages().
-> As a result, the dnodes holding the newly allocated blocks are not
-> fsync-marked, and after a sudden power loss, the data appended before the
-> eviction is silently lost.
-> 
-> This restores the previous behavior where the two ino entries were
-> added independently.
-> 
-> Fixes: 314c9e476ffc ("f2fs: call __add_ino_entry out of the eviction path")
-> Signed-off-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
 
-Thanks,
+On 9/10/2026 10:59 AM, Mi, Dapeng wrote:
+> Peter queued the dependent perf patches into the tip perf/core tree.
+>
+> https://lore.kernel.org/all/20260824082731.1013973-1-dapeng1.mi@linux.intel.com/
+>
+> But since there are UAPI changes, these perf-tools patches would lead to
+> errors without the corresponding perf patches. 
+
+The statement looks wrong. I tried to run these perf tools patches on DMR
+with the old kernel, no issues are found.
+
+# ./perf record -I?
+available registers: AX BX CX DX SI DI BP SP IP FLAGS CS SS R8 R9 R10 R11
+R12 R13 R14 R15 XMM0 XMM1 XMM2 XMM3 XMM4 XMM5 XMM6 XMM7 XMM8 XMM9 XMM10
+XMM11 XMM12 XMM13 XMM14 XMM15
+
+# ./perf record --user-regs=?
+available registers: AX BX CX DX SI DI BP SP IP FLAGS CS SS R8 R9 R10 R11
+R12 R13 R14 R15
+
+The copy_struct_from_user() in perf_copy_attr() would reject any new
+non-zero field in user space perf_event_attr structure and this would
+ensure perf tools falls back to the legacy register list.
+
+So it looks we don't need to wait for next release cycle and I would rebase
+and send new patch series. 
+
+Thanks.
+
+
+>
+> @Arnaldo, @Namhyung, @Ian how would we handle such kind of dependency
+> issues generally? Wait for the dependent perf patches merged into mainline
+> and then merge the perf-tools patches?
+>
+> Thanks.
+>
+>
+> On 7/21/2026 3:26 PM, Dapeng Mi wrote:
+>> Patch layout:
+>> - Patches 1-2: Fix two bugs in DWARF register bounds checking and event
+>>   attribute printing/swapping.
+>> - Patches 3-4: Sync tools and perf headers with the kernel sources.
+>> - Patches 5-8: Add SIMD/eGPR/SSP sampling and dump support.
+>> - Patches 9-10: Add unit tests for SIMD/eGPR/SSP sampling.
+>>
+>> Changes since v9:
+>> - Patch 05/10: Fix the issue that cpu-clock/task-clock fails to sample
+>>   GPRs.
+>> - Patch 06/10: Ensure sample_intr_{pred|vec}_regs and
+>>   sample_user_{pred|vec}_regs to keep identical if both are set since
+>>   they share sample_{pred|vec}_reg_qwords.
+>>
+>> Changes since v8:
+>> - Patch 01/10: Fix incorrect DWARF register bounds checking.
+>> - Patch 02/10: Add missing event attribute printing and swapping support
+>>   (Sashiko).
+>> - Patch 07/10: Remove dead code ([idx++]) in SIMD register dumping
+>>   (Sashiko).
+>> - Patch 08/10: Restore the original x86 libdw_frame_nregs value (17), as
+>>   libdw still lacks x86 SIMD/eGPR support (Ian).
+>> - Patch 09/10: Add x86 eGPR/SSP sampling unit tests (Ian).
+>> - Patch 10/10: Add x86 SIMD register sampling unit tests (Ian).
+>>
+>> Changes since v7:
+>> - Address Sashiko's comments including,
+>>   * documents are not update availably; SIMD registers bitmask may be
+>>     overwritten by shorter mask; u16 type in sample meta-data break the
+>>     cross-endian conversion, etc.
+>> - Add SIMD/eGPRs/SSP support in dwarf-regs (Ian).
+>> - Misc enhancements.
+>>
+>> Changes since v6:
+>> - Address Ian's comments including,
+>>   * Add more comments for newly added register indexes (patch 1/4).
+>>   * Several minor enhancements in patch 4/4.
+>> - Limit dwarf minimal regs to legacy GPRs (excluding APX eGPRs)
+>>   (patch 2/4).
+>>
+>> Changes since v5:
+>> - Split the sampling support for eGPRs/SSP registers and SIMD registers
+>>   into 2 patches.
+>> - Address Ian's comments including,
+>>   * Convert the architecture dependent functions into regular
+>>     architectural independent functions, like whatperf_reg_name() does.
+>>   * Refine the functions name to represent what the functions really do.
+>>   * Add comments for some key functions arguments.
+>>   * Misc enhancements.
+>>
+>> This patch-set adds sampling support for x86 eGPRs/SSP/SIMD registers in
+>> perf tools base on the corresponding sampling support for eGPRs/SSP/SIMD
+>> registers in kernel[1]. In versions before v6, these perf-tools patches
+>> are integrated as a whole patch-set with the kernel patches, but it's
+>> split and posted to an independent perf-tools patch-set for convenient
+>> review.
+>>
+>> History:
+>> v9: https://lore.kernel.org/all/20260706023444.3067660-1-dapeng1.mi@linux.intel.com/
+>> v8: https://lore.kernel.org/all/20260529082451.591783-1-dapeng1.mi@linux.intel.com/
+>> v7: https://lore.kernel.org/all/20260324005706.3778057-1-dapeng1.mi@linux.intel.com/
+>> v6: https://lore.kernel.org/all/20260209083514.2225115-1-dapeng1.mi@linux.intel.com/
+>> v5: https://lore.kernel.org/all/20251203065500.2597594-1-dapeng1.mi@linux.intel.com/
+>> v4: https://lore.kernel.org/all/20250925061213.178796-1-dapeng1.mi@linux.intel.com/
+>> v3: https://lore.kernel.org/lkml/20250815213435.1702022-1-kan.liang@linux.intel.com/
+>> v2: https://lore.kernel.org/lkml/20250626195610.405379-1-kan.liang@linux.intel.com/
+>> v1: https://lore.kernel.org/lkml/20250613134943.3186517-1-kan.liang@linux.intel.com/
+>>
+>> Ref:
+>> [1] Kernel patches of supporting eGPRs/SSP/SIMD registers sampling:
+>> https://lore.kernel.org/all/20260721062506.3745816-1-dapeng1.mi@linux.intel.com/
+>>
+>> Dapeng Mi (10):
+>>   perf dwarf-regs: Fix DWARF register index bounds check
+>>   perf util: Add missed fields in _attr__fprintf() and __attr_swap()
+>>   tools headers: Sync x86 headers with kernel sources
+>>   perf headers: Sync perf_event.h/perf_regs.h with the kernel headers
+>>   perf regs: Support x86 eGPRs/SSP sampling
+>>   perf regs: Support x86 SIMD registers sampling
+>>   perf regs: Enable dumping of SIMD registers
+>>   perf dwarf-regs: Add SIMD/eGPRs support for x86 DWARF registers
+>>   perf tests: Add x86 eGPRs/SSP registers sampling test
+>>   perf tests: Add SIMD registers sampling test
+>>
+>>  tools/arch/x86/include/asm/msr-index.h        |   7 +
+>>  tools/arch/x86/include/uapi/asm/perf_regs.h   |  53 +++
+>>  tools/include/uapi/linux/perf_event.h         |  49 +-
+>>  tools/perf/Documentation/perf-record.txt      |  10 +-
+>>  tools/perf/builtin-script.c                   |  93 +++-
+>>  tools/perf/tests/shell/record.sh              | 257 +++++++++++
+>>  .../util/dwarf-regs-arch/dwarf-regs-csky.c    |   2 +-
+>>  .../util/dwarf-regs-arch/dwarf-regs-powerpc.c |   2 +-
+>>  .../util/dwarf-regs-arch/dwarf-regs-s390.c    |   2 +-
+>>  .../util/dwarf-regs-arch/dwarf-regs-x86.c     | 140 +++++-
+>>  tools/perf/util/dwarf-regs.c                  |   9 +-
+>>  tools/perf/util/evsel.c                       | 106 ++++-
+>>  tools/perf/util/evsel.h                       |   7 +
+>>  tools/perf/util/header.c                      |   3 +-
+>>  tools/perf/util/include/dwarf-regs.h          |   7 +-
+>>  tools/perf/util/parse-regs-options.c          | 210 ++++++++-
+>>  .../perf/util/perf-regs-arch/perf_regs_x86.c  | 436 +++++++++++++++++-
+>>  tools/perf/util/perf_event_attr_fprintf.c     |  13 +
+>>  tools/perf/util/perf_regs.c                   |  84 +++-
+>>  tools/perf/util/perf_regs.h                   |  21 +-
+>>  tools/perf/util/record.h                      |   7 +
+>>  tools/perf/util/sample.h                      |   5 +
+>>  .../scripting-engines/trace-event-python.c    | 127 ++++-
+>>  tools/perf/util/session.c                     | 112 ++++-
+>>  tools/perf/util/synthetic-events.c            |  38 ++
+>>  tools/perf/util/unwind-libdw.c                |   6 +-
+>>  26 files changed, 1696 insertions(+), 110 deletions(-)
+>>
+>>
+>> base-commit: e01c7bd5b1eece254bcbf282db066b12c4815d21
