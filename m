@@ -1,192 +1,124 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from b224-5.smtp-out.eu-central-1.amazonses.com (b224-5.smtp-out.eu-central-1.amazonses.com [69.169.224.5])
+	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA862397321
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:46:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68309355F2A
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:46:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=69.169.224.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789058799; cv=none; b=tL4p+hBcpSyGf3vjpVsov/0XwsWJze4PsCkFp+PkREYgyuYJ4RizTs1HtsJiDtjANkFGooVEafgvdCMMP2ty8FXTkuKzrhYv13WmJFysJ9YxJHZcYNdFnOvW/8isnHbTmrdWskNiZxycwSewgPc3mjLHIXyfyvUF/kb9HplE9Hw=
+	t=1789058810; cv=none; b=H/I8tJ11eUdYzI1ANsEGZOdYQtNa3mr10Kswb9eWuXqUNsptWztTDFFpogFSQaxQ3mpZz+Vk7Y3m+y2eNiOhI65fNDhmc5MKZAcV4+5GgjXGQTwai3RBjndp2536vqPZUw2KVAS0c/NXifAM+iKiE6iUVGf3XWLMn/l8ohQvqRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789058799; c=relaxed/simple;
-	bh=MtoWeA55Bs2YjWy/YgwYvBdXP31YZOiX0PTrX4B18d8=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=mZdsq7BjTXAc/aOSWVOUhybiby+D+d+SxINQa/vWFaX1VVdcCi0uIkgfmMxy5PyOzac3nPI2+oibceY65tHWE4v0HHVncfx8VtY+8AXH39SjlUceuIk/kISmO8B2Ym53qxAStv2cX6VKgNbFwWiPdVUK2jn+1rMH2K36SCYKsto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=aG7d8IC4; arc=none smtp.client-ip=209.85.215.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1789058810; c=relaxed/simple;
+	bh=iQkPZUSu5QWYmK5BMUGn5RN8QWahDFyWb9DjqGJqkn8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uc3YU8HZcovQJcVn+wkUopgBdZa04V84PvGHFNJyfEshoixAgQlavBcqrPNdY+9ZLeyIoO6NSMWN9puz5tmZJAug7csXQ6iZUqnKaaqIxDfhMLqO1nfN4qV0h29OEYqvw9RE0gKngbGKn8boCQ9yQDK3s12mSpgs1QqQl6NTFjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sagnik.me; spf=pass smtp.mailfrom=mailer.sagnik.me; dkim=pass (2048-bit key) header.d=sagnik.me header.i=@sagnik.me header.b=lrUuQlMS; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=Zu4Uycla; arc=none smtp.client-ip=69.169.224.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sagnik.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailer.sagnik.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="aG7d8IC4"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc1a439db36so33096a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:46:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789058793; x=1789663593; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jsW6Qm+aSslCH5e3RaevgVxgzzrweE8oFKyJCoFEERE=;
-        b=aG7d8IC4FF0PMgQfjYp8hrJvorS062Yoo7NoVchEAOHoh673DnAYxMyvi37c5au/AQ
-         fCjRSXGHsat/LcTdjl4trxkVvGH7VvP4yn9isXze+Z0r/1vmgwA4vSMPsgY1OkifSM6C
-         /NHNlUPyASOS6FgpDGhxLN1NJ/8ifc137xNZ4Md3Lg/JelldGw8v6TbXadGTeo8WbC83
-         79p1ZlnomWxKZg36O7jilSMyL2Z9oJZq2nNNPa6LSpSoQjhswQGGCyfAbLxSx7fGLQC8
-         NGrHjScBkMUkiBsG5RScySCu00MyRPdBuOaPrcKWE0pUxmyLdArPyS/b1rSA08KqDwFP
-         Gk3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789058793; x=1789663593;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jsW6Qm+aSslCH5e3RaevgVxgzzrweE8oFKyJCoFEERE=;
-        b=gz5oHQRIlj/ONi4u9/kEf7mj6+EvjoC9AtwTImwA1rmM5ntS6eCMAYqxdbSkD9naqL
-         plvmG4uj2gwrF4r0vyM9GB0D50RGoGcMytCkqiviFxwc7/op11L/QoPPxDuJ5RB8NmxG
-         DbBxrgQWw8VeSds/+7JVk3ksXpY19SXb4OVwocCsKI0zn7K3r6X25kP+ytM0B8gLuDND
-         bNaOb/mQGQx27OiO8Iq9YpXPHy0RFyOZd6gg8E3BUDVnQhcmB8qtwfmzVNbLrj37H3Nu
-         0+AP37RemPHtjz079AEEgLP0C2EHvNP/roE6IqwNF6Pk65C7mt4WjUVcuzWVUFu/k++p
-         sPnQ==
-X-Forwarded-Encrypted: i=1; AKwUvByeVig5JAXmmOlPpHiBLYHE0ZVq+xpGZUSgLgMTYvqNuknVG3AC604HElOnID/65ek5dyIm6X7IhU9RNIo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nmsjbwaqB2KXgM2kXRuuBS2CBHAODM+8a2eA3ekxy27vUIYFSE
-	/NPk7wCVV10NznoYPJEa364RKGkVJovfkQrCaPglL3sUxRBbQ2cVh05427NqtCffvREHx/71qsm
-	czMAZQg==
-X-Received: from pgte26.prod.google.com ([2002:a65:689a:0:b0:cc4:bede:3dc7])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:b40a:b0:3d3:ae1f:d7f3
- with SMTP id adf61e73a8af0-3da3a0763d2mr68289720637.19.1789058792902; Thu, 10
- Sep 2026 09:46:32 -0700 (PDT)
-Date: Thu, 10 Sep 2026 09:46:32 -0700
-In-Reply-To: <20260910162343.4092060-2-elver@google.com>
+	dkim=pass (2048-bit key) header.d=sagnik.me header.i=@sagnik.me header.b="lrUuQlMS";
+	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="Zu4Uycla"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=hi6pntjfnmhxrdkbpi4sl3ndfqswqs3i; d=sagnik.me; t=1789058804;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=iQkPZUSu5QWYmK5BMUGn5RN8QWahDFyWb9DjqGJqkn8=;
+	b=lrUuQlMSprZa8++GPrUUKsWC/KdxSgPI3IRa9P7I7oMuTctxj1PUTpJK6G3rw/MZ
+	aEEGcCgKJaIh9runijL6DNxDB+PYAuH2I+sLAf5E8WgZm3vicSeXIznx9wRJ7wDbWzh
+	i8zuYQVKk2oOPJ23Df9rG9avMFme4O1LIJG2inYtPDQWvMdWNjuQvMTjG8y58ZVtqku
+	TIFAHNXvwF3Nn7dCFTZbRWF4I+WLK4DeIeTinLJ7rv15Oq2pEdSeSI4SeEqZ6YHiUbU
+	aclpS0zPykpy1Dr0szkEww7oweAFUO1oClq3mAG2eeHflIoG2yx9P+YjJRhzWVAJAys
+	9VhJSAIOPw==
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=sokbgaaqhfgd6qjht2wmdajpuuanpimv; d=amazonses.com; t=1789058804;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Feedback-ID;
+	bh=iQkPZUSu5QWYmK5BMUGn5RN8QWahDFyWb9DjqGJqkn8=;
+	b=Zu4Uyclab4nZH8g2mEzsd0iwpPqr9GCSBuRDjZW63nKziiJwylM1Y0Tfb5KidoNN
+	4u1yZfp1Bh1CqKFN5vePKdHSFdSsC5GQJ7ngQt8KtevNLM022LewrTQHkbxfBZ328kX
+	/BJ0x+uEi7GPluKySk+zdTMJAkqD7aCR0fTscRPw=
+From: Sagnik Sasmal <sagnik@sagnik.me>
+To: miquel.raynal@bootlin.com
+Cc: richard@nod.at, vigneshr@ti.com, tudor.ambarus@linaro.org, 
+	mikhail.kshevetskiy@iopsys.eu, linux-mtd@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] mtd: spinand: Do not update the QE bit on devices without one
+Date: Thu, 10 Sep 2026 16:46:44 +0000
+Message-ID: <010701a08c36e962-eb595dbe-b80b-44eb-858d-c1033f8a86a1-000000@eu-central-1.amazonses.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <878q59s2iv.fsf@bootlin.com>
+References: <878q59s2iv.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260910162343.4092060-1-elver@google.com> <20260910162343.4092060-2-elver@google.com>
-Message-ID: <aqLe6FcPZIgj2RA6@google.com>
-Subject: Re: [PATCH RFC 01/10] KVM: x86/pmu: Acquire SRCU in
- pmc_is_event_allowed() to protect filter lookup
-From: Sean Christopherson <seanjc@google.com>
-To: Marco Elver <elver@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, 
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
+Feedback-ID: ::1.eu-central-1.PI0qW2sOnv0WHLkqY53RTxXQVzstwFEIoB04n7YZrig=:AmazonSES
+X-SES-Outgoing: 2026.09.10-69.169.224.5
 
-On Thu, Sep 10, 2026, Marco Elver wrote:
-> Dereferencing kvm->arch.pmu_event_filter via srcu_dereference() requires
-> holding kvm->srcu to guard against concurrent filter replacement and
-> freeing by kvm_vm_ioctl_set_pmu_event_filter().
-> 
-> Counter reprogramming can reach pmc_is_event_allowed() without holding
-> kvm->srcu. Specifically, on AMD SVM, toggling EFER.SVME via KVM_SET_SREGS
-> or KVM_SET_SREGS2 triggers synchronous counter reprogramming outside of
-> any SRCU read-side critical section:
-> 
->   kvm_vcpu_ioctl(KVM_SET_SREGS{,2})
->     kvm_vcpu_ioctl_x86_set_sregs{,2}()
->       __set_sregs_common()
->         kvm_x86_call(set_efer)()
->           svm_set_efer()
->             svm_pmu_handle_nested_transition()
->               __svm_pmu_handle_nested_transition(..., defer=false)
->                 __kvm_pmu_reprogram_counters()
->                   kvm_pmu_handle_event()
->                     reprogram_counter()
->                       pmc_is_event_allowed()
->                         srcu_dereference(kvm->arch.pmu_event_filter, &kvm->srcu)
-> 
-> If userspace concurrently updates the filter (KVM_SET_PMU_EVENT_FILTER),
-> a concurrent free and subsequent use-after-free is possible.
-> 
-> Protect filter lookups directly in pmc_is_event_allowed():
-> 1. check rcu_access_pointer() first for the common fast path;
-> 2. acquire guard(srcu)(&kvm->srcu) only when a filter is present;
-> 3. drop redundant outer srcu_read_lock() in kvm_pmu_trigger_event().
-> 
-> Found with Clang context analysis.
-> 
-> Fixes: a02a25a65246 ("KVM: x86/pmu: Reprogram Host/Guest-Only counters on nested transitions")
-> Signed-off-by: Marco Elver <elver@google.com>
-> ---
->  arch/x86/kvm/pmu.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
-> index a7d60c8785cd..3ad1e696edca 100644
-> --- a/arch/x86/kvm/pmu.c
-> +++ b/arch/x86/kvm/pmu.c
-> @@ -536,6 +536,11 @@ static bool pmc_is_event_allowed(struct kvm_pmc *pmc)
->  	struct kvm_x86_pmu_event_filter *filter;
->  	struct kvm *kvm = pmc->vcpu->kvm;
->  
-> +	if (!rcu_access_pointer(kvm->arch.pmu_event_filter))
-> +		return true;
-> +
-> +	guard(srcu)(&kvm->srcu);
-> +
->  	filter = srcu_dereference(kvm->arch.pmu_event_filter, &kvm->srcu);
->  	if (!filter)
->  		return true;
-> @@ -1132,7 +1137,7 @@ static void kvm_pmu_trigger_event(struct kvm_vcpu *vcpu,
->  	DECLARE_BITMAP(bitmap, X86_PMC_IDX_MAX);
->  	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
->  	struct kvm_pmc *pmc;
-> -	int i, idx;
-> +	int i;
->  
->  	BUILD_BUG_ON(sizeof(pmu->global_ctrl) * BITS_PER_BYTE != X86_PMC_IDX_MAX);
->  
-> @@ -1145,14 +1150,12 @@ static void kvm_pmu_trigger_event(struct kvm_vcpu *vcpu,
->  			     (unsigned long *)&pmu->global_ctrl, X86_PMC_IDX_MAX))
->  		return;
->  
-> -	idx = srcu_read_lock(&vcpu->kvm->srcu);
->  	kvm_for_each_pmc(pmu, pmc, i, bitmap) {
->  		if (!pmc_is_event_allowed(pmc) || !cpl_is_matched(pmc))
->  			continue;
->  
->  		kvm_pmu_incr_counter(pmc);
->  	}
-> -	srcu_read_unlock(&vcpu->kvm->srcu, idx);
->  }
+Commit be0b86c648bf ("mtd: spinand: Gather all the bus interface
+steps in one single function") moved quad-enable setup into
+spinand_configure_chip(). The new code only determines whether quad
+mode is needed when SPINAND_HAS_QE_BIT is set, but calls
+spinand_init_quad_enable() unconditionally. This clears configuration
+register bit 0 on devices without a QE bit.
 
-I would very strongly prefer to fix this in __set_sregs_common():
+That bit is not universally a QE bit. On the Winbond W25N02KV it is
+H-DIS, which disables the active-low HOLD function. Clearing H-DIS
+enables HOLD during single and dual I/O operations. If IO3 is not kept
+high, the flash can pause a command and ignore clock and data.
 
-diff --git a/arch/x86/kvm/regs.c b/arch/x86/kvm/regs.c
-index 8f66438989e4..2ce16e96d796 100644
---- a/arch/x86/kvm/regs.c
-+++ b/arch/x86/kvm/regs.c
-@@ -571,9 +571,10 @@ static bool kvm_is_valid_sregs(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs)
- static int __set_sregs_common(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs,
- 			      int *mmu_reset_needed, bool update_pdptrs)
- {
--	int idx;
- 	struct desc_ptr dt;
- 
-+	guard(srcu)(&vcpu->kvm->srcu);
-+
- 	if (!kvm_is_valid_sregs(vcpu, sregs))
- 		return -EINVAL;
- 
-@@ -605,13 +606,9 @@ static int __set_sregs_common(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs,
- 	*mmu_reset_needed |= kvm_read_cr4(vcpu) != sregs->cr4;
- 	kvm_x86_call(set_cr4)(vcpu, sregs->cr4);
- 
--	if (update_pdptrs) {
--		idx = srcu_read_lock(&vcpu->kvm->srcu);
--		if (is_pae_paging(vcpu)) {
--			load_pdptrs(vcpu, kvm_read_cr3(vcpu));
--			*mmu_reset_needed = 1;
--		}
--		srcu_read_unlock(&vcpu->kvm->srcu, idx);
-+	if (update_pdptrs && is_pae_paging(vcpu)) {
-+		load_pdptrs(vcpu, kvm_read_cr3(vcpu));
-+		*mmu_reset_needed = 1;
- 	}
- 
- 	kvm_set_segment(vcpu, &sregs->cs, VCPU_SREG_CS);
+H-DIS is not restored by the FFh reset command, allowing the incorrect
+state to survive an SoC warm reboot while the flash remains powered.
 
->  
->  void kvm_pmu_instruction_retired(struct kvm_vcpu *vcpu)
-> -- 
-> 2.55.0.1003.g10538fe699-goog
-> 
+Before the refactoring, spinand_init_quad_enable() returned without
+touching the configuration register on devices without
+SPINAND_HAS_QE_BIT. Restore that behavior by only calling the helper
+when the flag is set.
+
+The regression was reproduced on a JioRouter JIDU6401 with an MT7986
+SoC and a W25N02KV. With Linux 6.18.44, sysupgrade failed and the
+following warm reboot hung in BL2. With this change applied, both
+sysupgrade and warm reboot completed successfully.
+
+Fixes: be0b86c648bf ("mtd: spinand: Gather all the bus interface steps in one single function")
+Cc: stable@vger.kernel.org
+Suggested-by: Miquel Raynal <miquel.raynal@bootlin.com>
+Assisted-by: LLM
+Signed-off-by: Sagnik Sasmal <sagnik@sagnik.me>
+---
+I really appreciate the prompt review and your suggestion for a cleaner
+approach. Thank you.
+
+Changes in v2:
+- Call spinand_init_quad_enable() only inside the
+  SPINAND_HAS_QE_BIT condition, as suggested by Miquel.
+- Retested on a JioRouter JIDU6401; sysupgrade and the following warm
+  reboot completed successfully.
+
+ drivers/mtd/nand/spi/core.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
+index 43bbe2629..e59581d35 100644
+--- a/drivers/mtd/nand/spi/core.c
++++ b/drivers/mtd/nand/spi/core.c
+@@ -1813,11 +1813,11 @@ static int spinand_configure_chip(struct spinand_device *spinand)
+ 		    spinand->ssdr_op_templates.write_cache->data.buswidth == 4 ||
+ 		    spinand->ssdr_op_templates.update_cache->data.buswidth == 4)
+ 			quad_enable = true;
+-	}
+ 
+-	ret = spinand_init_quad_enable(spinand, quad_enable);
+-	if (ret)
+-		return ret;
++		ret = spinand_init_quad_enable(spinand, quad_enable);
++		if (ret)
++			return ret;
++	}
+ 
+ 	if (spinand->configure_chip) {
+ 		ret = spinand->configure_chip(spinand, SSDR);
+-- 
+2.53.0
+
