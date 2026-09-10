@@ -1,156 +1,224 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD2E24908BD;
-	Thu, 10 Sep 2026 13:05:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D42747A87A
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:06:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789045558; cv=none; b=HYdFrrvwuuyflFw3QtSQ6hx/4WK0Zdsgzi97knVgeER+mQfEQGdiWg6XeY5+rP/QHPahTmerJ3fJn5wfGhsEbdt/zmTe9TT6g3Gmx/K4ehT/egp0GG8V6vZLVoBFH+SJelMob3V+xphpyniF9YtI1p711fIP7byY8Xr8IKt/RWk=
+	t=1789045603; cv=none; b=O8Jz9igtpja/ghB29Cp/LnNjLHgAGg5Tlatv4BFC2GexvWq9gStxOlV7ticcDdcJDuG2ZBLmYcB+LhnyoD0ng8VXOG1za0HeKwql9dhIhIHe0STTHnVxfunHdXwVDlBug4Oc08u0Fmrjs1qBCVqUrKlyBqEK4R0lNp9cgIqqSaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789045558; c=relaxed/simple;
-	bh=8xrp+PLWGWnGNr1R2Q9RlDhdl4OMwI9ky7GEV/tOcfw=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QAaR3hxlZ0oSmFVmUiLSxBqQBMKSJpw5TQHmM4Kj5bOFViYLYthkVvEu+6S8O9cYYk3WxAa3E3BRh7/SaWCCUMgaNdNsp3iZsyld1c0xJ2Cfhdr01/ZlkTOb4XoDOwzNynNOi2Bv8Gn7OJZsxKv10iE7YCLx5CLLSwsDSNH9LbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J5oDrT12; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789045603; c=relaxed/simple;
+	bh=c+p6s9yVI0Yq+ycRUv6lRoOCSIgxZ5LCLv0Aqa3oIhA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=eBoz772zKJ38GUo+M6s7fd/NqEdTVenS4ikeKacFs3SOkWWcMbpNGBo7GSNBGaHNCxk2EFFO+E1TDWlygPyRPjoIen8czmd7TwfGbYj8FLa4zAXjLRR+zkUJ9tMMIMKriUAYjpNYbB0rb47isf17couTbaWWi7NhJihbJ93ZHJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=j/zu8NBD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TiiYIbR9; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J5oDrT12"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ACEE1F00893;
-	Thu, 10 Sep 2026 13:05:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789045556;
-	bh=Cdo+rmDstdi/wv4Vrglb7Q5HOr6Q/8S05d4OuI8eWG4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=J5oDrT12yCwmsUKLG9nicehVw3jTNlBNGaqYxZOQe1B+nB8odrDQ8RSpt5b9+85bZ
-	 gC2zUpht3+5ySeGRRnC1AuPSehaUspWuKS3cYunfWyMCXY4vf55YEQCsyBv+60BNAS
-	 wys4QZN5tTRxpPFN2Cs/xKxjsXYLtPbRYL1sf2y3N3E+e+SsbeDlRTtTeIUsheau1R
-	 tVB0zRpKAWj+KC7CwgGycXPPJdgQGQtVW6mJ5+a5tbfsuGTuiyc1fJ8T/zlHf4Vgsf
-	 6W007kjJKQNvwpOjkVqQ3NYtM3evI6aUsTWp0g12lhvUBOsyh+Z45r8DXMiu+V+qTe
-	 bPBM5ZGbpBESA==
-Subject: Re: [PATCH net-next v6 14/14] misc: lan966x-pci: dts: add fdma
- interrupt to overlay
-From: netdev-bot+sashiko@kernel.org
-To: daniel.machon@microchip.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horatiu.vultur@microchip.com,
- steen.hegelund@microchip.com, UNGLinuxDriver@microchip.com, ast@kernel.org,
- daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com,
- sdf@fomichev.me, herve.codina@bootlin.com, arnd@arndb.de,
- gregkh@linuxfoundation.org, mohsin.bashr@gmail.com, richardcochran@gmail.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Date: Thu, 10 Sep 2026 13:05:54 +0000
-Message-ID: <178904555475.219967.711870735307370384@kernel.org>
-In-Reply-To: <20260909-lan966x-pci-fdma-v6-14-6f48dab9d671@microchip.com>
-References: <20260909-lan966x-pci-fdma-v6-14-6f48dab9d671@microchip.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="j/zu8NBD";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TiiYIbR9"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68AC7ad33893069
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:06:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	relBmYOFO1X/TjoPGlxLYddWYAexqzPnTlPv4wKY+6A=; b=j/zu8NBDplKfFUpL
+	TAoC/Ri+PfVEgkZSNvUVQSYHBe//57LS89YpLcbJYj5Q3SsmciFDRFZKW1dYnMpe
+	mzDm2dniDmHzSxklPb5WOVIWpOJYCxWR6V28eotCG1a+xSR6x3xSo/dDCG5dsRdQ
+	ZC4O1pz2wZYoM1u7F7yuVT0z15A45LPO7WRAArZav6olBOSRbxYU2ecyoAzXaBcn
+	qmxtYUzDNIp+iMYDamrPIWRGi5Xf7SCXTzTFM4EZR9APzhC2MCnXTN9VK55VTsjW
+	sa18zBg4ew+NMOw2tillchvH3zHX3kUOzZWKQnnIsZ3bXE6trjuKRvVut5iT8VP9
+	B/NugA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gksh8rxje-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:06:38 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93918756165so1229629185a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:06:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789045598; x=1789650398; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=relBmYOFO1X/TjoPGlxLYddWYAexqzPnTlPv4wKY+6A=;
+        b=TiiYIbR9+DKjvYDtcvQDljneonXeB4ylryd3sEz6i4G/CHDy8FdNkW+9q6rG0qTQWg
+         YZkkIXLDU7EU6jZN0JkQ8FM7goWj+RJvIIRs/IWx4XgcmQiqxVTH2zjwkxZN2NKJSfXe
+         eawT2XiP8Wmuy9jy8H4Ss3oeWOGsX0PMZw7BBtom/1xDI4pETg7OsfZVxg9nYdoqz0QX
+         LJfS8XSz+gJknA2K1oI4VUejcVLPy1pKrq/C/74WZ7zn13hn2X3El50lPpU2NMVj6oow
+         S3TZslW51IY7b31lulPI9AXMorix3bUnb8tthv5ccsJy9oLLT042kx1SzMjxETjDDIz+
+         W2xA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789045598; x=1789650398;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=relBmYOFO1X/TjoPGlxLYddWYAexqzPnTlPv4wKY+6A=;
+        b=a3mCGD9WSm3J6Eiu6ib/Rh13fc8tDkOcS+6FKNOzmywaKLHck5D8A5togT0h5mERbP
+         Ffr/6fxnXhXWYNfnYn5WRyhPE0j994DtfQSR3mmN5yKLmocAkWr5Sanm/WuZ1PlS49J+
+         raGz//VNYGKuUOD8rAVKv1ybB8XNfWwc9WjXw1Qs+RP3Tm+Oqnw0mEVEGR3nTct9UX+i
+         IIW1j4G6Dpk2tLeeDfI1cBatiCLzS6mSITxwcOBgHntZNsl4Fxcn/PA+nYSz/CAa/7Pm
+         nloHrtkCYsxCgoEy6M3zdzVne91OD5bDWnpTx0l3EgMreDtrMlyRzfNRctks7BOpoE+X
+         SMqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwpiQzIi878wYsTooyd0CcXplT8lxVblInkRSF0syw2LXBtOoCOohjuA2LSTgmtX6zXf/gNlv0Jvm3+E3M=@vger.kernel.org
+X-Gm-Message-State: AFuF++mauMMnrVF0yVSKD8jjybEZF/vAO874EceLx/otHuNXb2Sm2eaf
+	Zs9GijagJMzPjE1ctOmccwnkf/sUbwiohDrBZGQsK1IEYACfGar/U6H9CxO8Q2VWdHpKXL7Sn8S
+	J4i6LArXMHk8XH7BgNNSkVCg0OowovSW3uSmCLeY/rQTA43Kqfqa1mjOm9bfFItdTivm8S2nJm4
+	I=
+X-Gm-Gg: AYBFou3u+FWzoTeqqoSN5KlbD5RRdJCK0h92rDQzJLqcqG9REMbK47k7YDQhDnrSQFn
+	lNP6ZpvP9NcNm0+Myk53mfSw9KnuGkK9iiiOL8Nkks299PGOq0zMmqCD4PCtgAg+/O6gbNVghCp
+	fStXabfqjK3KWmh17wvg34zIeaIo6oNRhz7qx/kn9Etjnlt1pE0CpJjFMDWnScRhNOVh+l86ab0
+	cm0lcGF7nwx8phkj+FzveLQTowzx+N38ZLjM7YZ6eQgt19sgwL7vn3cQu4v682ncNcNlY9ZyzZd
+	NqRMkg6aisLzCiEen3byAzJ0upt/VdK+0Bq4gnwfNdgeW1s5Qowi7RbnA9SwQG/D77ZXEO2KHVA
+	PSQXz0m6VmCsidx+tC+zyFsavxgYM
+X-Received: by 2002:a05:620a:1a19:b0:939:8856:d8d2 with SMTP id af79cd13be357-939d4a464c3mr916072985a.25.1789045597768;
+        Thu, 10 Sep 2026 06:06:37 -0700 (PDT)
+X-Received: by 2002:a05:6102:508a:b0:785:d308:cc2e with SMTP id ada2fe7eead31-790782135b2mr3092851137.9.1789045291582;
+        Thu, 10 Sep 2026 06:01:31 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:c9b1:abfb:f300:5e98])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c26204ecdbcsm831849866b.25.2026.09.10.06.01.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 06:01:30 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Date: Thu, 10 Sep 2026 15:00:49 +0200
+Subject: [PATCH v7 08/12] crypto: qce - Use fallback for CCM with a
+ fragmented payload
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260910-qce-fix-self-tests-v7-8-cdbd2718af14@oss.qualcomm.com>
+References: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
+In-Reply-To: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
+To: Thara Gopinath <thara.gopinath@gmail.com>,
+        Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>,
+        Stanimir Varbanov <svarbanov@mm-sol.com>,
+        Eneas U de Queiroz <cotequeiroz@gmail.com>,
+        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Eric Biggers <ebiggers@kernel.org>,
+        Demi Marie Obenour <demiobenour@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, brgl@kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        stable@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2908;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=c+p6s9yVI0Yq+ycRUv6lRoOCSIgxZ5LCLv0Aqa3oIhA=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqoqoRbRuzkoShNdtafGIAgnA0xnyF+lEcp06+H
+ kgD2ZQkLDeJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCaqKqEQAKCRAFnS7L/zaE
+ wzP2D/9hGuL67BDBK626TexNAQhxhQOnt3xU/y99CgCzBWmniHe1EDoxiWB76ijWDYnK747FI+k
+ IO7qzuXvb1Foj5AIuSK0Pz2SG5PNBUJbYcYH5zdcDAwUSM14bvjp09Fl5ptswMbH26GRlsODQzc
+ Su56Ayh8sTqVIQa0s6VQM0ZDBthULVt8Bssv35qIElmbr1apZH5yjuoG3Jdw2gyEreNflamLF7C
+ t1fHgRXt/gHEXtO8hqnMbfDrWGaVImdamkDEUkIZSgfVcFn9bMlV77uOv2QbcAUjb7tmWFrx/3N
+ c47YTXni1YPv7E+oFfB38W6UPS6NnS0kL/9yIuimyojopjkeI7baUu+8KydaWvEH7fDmEcO/YWz
+ c7liyBbY1tZWuFuy71GQSh+fWLaYigze1Mqh78IsJPqrRadfxpmj0ue77sMo5madqR+DuSw8M69
+ jEuWER8BOOlkLqZ3abvl6YZT1iLMnwN+M+OqBIvxVixvh7b7SSl183xvqzPDMflyOA5yu9CJ8jp
+ dVgHnbwgDIrfTume4n6SAyuMWR76VpQkgZiNlD5cT4TL7jrIWoukQ2V5sJnWtcGM6kZTyvHn0gs
+ cg3eqiTPQ+XBnQyHziymbJTSsj9NhfWeX2lVRpQuOFFGyYMqpWyQnJe06kwD88ytRq8fKcUEyPv
+ bKJTCYgwQmUxP6w==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-GUID: 8fvXEUm5fHFXdB6yza6f0ftCvSI7D7dH
+X-Proofpoint-ORIG-GUID: 8fvXEUm5fHFXdB6yza6f0ftCvSI7D7dH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDE1NyBTYWx0ZWRfX4XoQ6D5lzgeB
+ WeG3kF2tM8o3yzoHMhO4E/MW/zh/dQC+1iFrLEuzEkoMENHWAlGmC/Mzx7mSDVWoqnJFVlTKt8b
+ 0v60QbfrC5U82Esdcp9ckOUH9KrZbAkOWfgN2CkbYMw/535okNZtGRlUnWCC9kk7qZgLcN5e+eh
+ h3cma75UjsF8wiJvR8WE1x8t53tTA12U046ot3R6n52tAHbYWIUE+iN+SX3xcV4kM7J3TKJwIzR
+ IpB1rjbURyKi+uZaIoSApCtGDao4keCWpf19XRNoxvfAb9ecUJgWUj7ZKP+H+CIMVC01m61kO3F
+ QQ02UsGgSJ+etnyec5jBtdpj80HVgdT1X0Ps+WQhQqnCtytmzIpiCWGtC/CrN34x2/bBmn2+WUE
+ TVjoDjvRYhy/iOigfbeEuqZf658r/hTwPbably5LzfA7l6zoCGMkzBv3PbNaK3EmwybhpiHhscv
+ JTgSPX3KDi1+RgZY7KA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDE1NyBTYWx0ZWRfX4ehSYflVeANX
+ KkFWdYbF3iwuCHtzUlZm9s+q3twE0o91v8Q3gMDpnA4olgXudWf1WoxTZGz+uAT1cKod2tbSFDD
+ 5uIZ/iiHDXPD86anamYs+DDBlP4U60s=
+X-Authority-Analysis: v=2.4 cv=a56lZkSF c=1 sm=1 tr=0 ts=6aa2ab5f cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=phyxH6jkQibGXiXynFEA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_04,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 priorityscore=1501 spamscore=0
+ adultscore=0 malwarescore=0 phishscore=0 bulkscore=0 clxscore=1015
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609100157
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+The crypto engine reliably processes CCM only when the message payload
+is a single contiguous buffer. The associated data is already linearized
+into a bounce buffer before being submitted, but when the payload itself
+is split across multiple scatterlist entries the engine stalls waiting
+for input and the request fails with a hardware operation error. This
+was uncovered by the crypto self-tests, which feed the algorithms
+randomly fragmented buffers.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Detect a payload that spans more than one scatterlist entry (in either
+the source or the destination, skipping past the associated data) and
+route the request to the software fallback.
 
-- [Medium] The FDMA interrupt is hooked up (and thereby unmasked in the
-  OIC) long before any FDMA state exists.
+Cc: stable@vger.kernel.org
+Fixes: 9363efb4181c ("crypto: qce - Add support for AEAD algorithms")
+Tested-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+---
+ drivers/crypto/qce/aead.c | 24 +++++++++++++++++++++++-
+ 1 file changed, 23 insertions(+), 1 deletion(-)
 
---
-
-misc: lan966x-pci: dts: add fdma interrupt to overlay
-
-This adds OIC interrupt 14 as the "fdma" named interrupt to the lan966x
-PCI device tree overlay, so FDMA-based injection/extraction can be used
-when the switch is reached over PCIe.
-
-> diff --git a/drivers/misc/lan966x_pci.dtso b/drivers/misc/lan966x_pci.dtso
-> index 7bb726550caf..5bb12dbc0843 100644
-> --- a/drivers/misc/lan966x_pci.dtso
-> +++ b/drivers/misc/lan966x_pci.dtso
-> @@ -141,8 +141,9 @@ switch: switch@e0000000 {
->  
->  					interrupt-parent = <&oic>;
->  					interrupts = <12 IRQ_TYPE_LEVEL_HIGH>,
-> +						     <14 IRQ_TYPE_LEVEL_HIGH>,
->  						     <9 IRQ_TYPE_LEVEL_HIGH>;
-> -					interrupt-names = "xtr", "ana";
-> +					interrupt-names = "xtr", "fdma", "ana";
-
-[Severity: Medium]
-With source 14 now named "fdma", platform_get_irq_byname(pdev, "fdma")
-starts succeeding on the PCIe path, and lan966x_probe() requests the
-handler right there:
-
-drivers/net/ethernet/microchip/lan966x/lan966x_main.c:lan966x_probe() {
-	lan966x->fdma_irq = platform_get_irq_byname(pdev, "fdma");
-	if (lan966x->fdma_irq > 0) {
-		err = devm_request_irq(&pdev->dev, lan966x->fdma_irq,
-				       lan966x_fdma_irq_handler, 0,
-				       "fdma irq", lan966x);
-		...
-		lan966x->fdma = true;
-	}
-}
-
-Is this ordering safe?  The OIC maps and unmasks source 14 at
-devm_request_irq() time, but at that point no FDMA state exists yet:
-
-- netif_napi_add()/napi_enable() only run later, from
-  lan966x_port_init() -> lan966x_fdma_netdev_init() in the per-port
-  probe loop, so lan966x->napi is still the zeroed devm_kzalloc()
-  memory and napi.poll is NULL.
-
-- the DCB rings, the LLP/ATU windows and the FDMA_CTRL NRESET pulse are
-  all done even later, from lan966x->ops->fdma_init() ->
-  lan966x_fdma_pci_init().
-
-If the OIC delivers an FDMA interrupt in that window, the handler
-schedules NAPI unconditionally:
-
-drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c:lan966x_fdma_irq_handler() {
-	db = lan_rd(lan966x, FDMA_INTR_DB);
-	err = lan_rd(lan966x, FDMA_INTR_ERR);
-
-	if (db) {
-		lan_wr(0, lan966x, FDMA_INTR_DB_ENA);
-		lan_wr(db, lan966x, FDMA_INTR_DB);
-
-		napi_schedule(&lan966x->napi);
-	}
-}
-
-Can this then oops in __napi_poll(), either calling n->poll() while it
-is still NULL, or running lan966x_fdma_pci_napi_poll() against
-rx->fdma.dcbs == NULL and n_dcbs == 0, where fdma_has_frames() ->
-fdma_db_get() dereferences the dcbs array?
-
-How reachable is that window in practice?  The series itself describes
-the card arriving with FDMA state from a previous boot.  The commit
-"net: lan966x: clear FDMA interrupt stickies after switch reset" says
-the stickies "sit in FDMA_INTR_ERR until the FDMA IRQ is requested later
-in probe, at which point the handler fires immediately and WARNs", and
-"net: lan966x: add shutdown callback to stop FDMA on reboot" says that
-on the endpoint "channels stay active and interrupt sources stay armed
-across the reset" and that "FDMA_INTR_ENA persists on the card across a
-warm reboot".
-
-The sticky clear in lan966x_reset_switch() clears the latched bits at
-one instant, but does not mask FDMA_INTR_ENA/FDMA_INTR_DB_ENA and does
-not stop the channels.  After a reboot that skips device_shutdown()
-(panic reboot, kexec/kdump, watchdog warm reset with the card still
-powered), could a still-active channel latch FDMA_INTR_DB again after
-the clear and have it delivered as soon as source 14 is unmasked?
-
-Would it be more robust to reset and mask the FDMA block (the
-FDMA_CTRL NRESET pulse that already exists in lan966x_fdma_pci_init(),
-plus clearing FDMA_INTR_ENA/FDMA_INTR_DB_ENA) before
-devm_request_irq(), or to request the FDMA IRQ only after fdma_init()
-has built the rings and added the NAPI instance?
+diff --git a/drivers/crypto/qce/aead.c b/drivers/crypto/qce/aead.c
+index ddae743903229f248d1dc7037c4ae78537476563..bcd505579556c4d54b793d280a6a7f819ba573c9 100644
+--- a/drivers/crypto/qce/aead.c
++++ b/drivers/crypto/qce/aead.c
+@@ -498,7 +498,8 @@ static int qce_aead_crypt(struct aead_request *req, int encrypt)
+ 	struct qce_aead_reqctx *rctx = aead_request_ctx_dma(req);
+ 	struct qce_aead_ctx *ctx = crypto_aead_ctx(tfm);
+ 	struct qce_alg_template *tmpl = to_aead_tmpl(tfm);
+-	unsigned int blocksize = crypto_aead_blocksize(tfm);
++	unsigned int blocksize = crypto_aead_blocksize(tfm), authsize;
++	struct scatterlist __sg[2], *msg_sg;
+ 
+ 	rctx->flags  = tmpl->alg_flags;
+ 	rctx->flags |= encrypt ? QCE_ENCRYPT : QCE_DECRYPT;
+@@ -522,6 +523,27 @@ static int qce_aead_crypt(struct aead_request *req, int encrypt)
+ 	if (IS_CCM(rctx->flags) && !IS_ALIGNED(rctx->cryptlen, AES_BLOCK_SIZE))
+ 		ctx->need_fallback = true;
+ 
++	/*
++	 * The CE reliably processes CCM only when the message payload is a
++	 * single contiguous buffer. The associated data is linearized into a
++	 * bounce buffer before being handed to the engine, but a fragmented
++	 * payload makes the engine stall waiting for input, so route those
++	 * requests to the fallback.
++	 */
++	if (IS_CCM(rctx->flags) && rctx->cryptlen) {
++		authsize = ctx->authsize;
++
++		msg_sg = scatterwalk_ffwd(__sg, req->src, req->assoclen);
++		if (sg_nents_for_len(msg_sg, rctx->cryptlen +
++				     (encrypt ? 0 : authsize)) > 1)
++			ctx->need_fallback = true;
++
++		msg_sg = scatterwalk_ffwd(__sg, req->dst, req->assoclen);
++		if (sg_nents_for_len(msg_sg, rctx->cryptlen +
++				     (encrypt ? authsize : 0)) > 1)
++			ctx->need_fallback = true;
++	}
++
+ 	/* If fallback is needed, schedule and exit */
+ 	if (ctx->need_fallback) {
+ 		/* Reset need_fallback in case the same ctx is used for another transaction */
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260909-lan966x-pci-fdma-v6-0-6f48dab9d671%40microchip.com
+2.47.3
+
