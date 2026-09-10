@@ -1,155 +1,276 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from out28-50.mail.aliyun.com (out28-50.mail.aliyun.com [115.124.28.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C66F196C7C;
-	Thu, 10 Sep 2026 01:23:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F77E25DB12;
+	Thu, 10 Sep 2026 01:24:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789003412; cv=none; b=R9S8lfZXEJ3h1b3I71GUCq2sPfuPHtBUQDDvnS+g1Eu/+i2YUfv0mfiJYMGbpexLAhKANIR5ljH6ygsZrZBg5zjAd2Mb8FwVYVmKMZjUGHi7qhev/2fyNBwzMKBkq81oPZYcCkNBtgINOMUJJp7InUEWk9ipH7nQfSw7zv2Jrro=
+	t=1789003476; cv=none; b=Sqz1xrtL3k8HZ8jBMWJ/ErmUDYU0KoOhhoFzD2naGlOh19zUfFDd82p6c51r/Sw0r4RD6mqglflTIq2c60jCbMOkTYBuLzvGLIsJyFvuHzVh9f5FvWBr/zQ6r1Ni5u9nEfV6nuL2worqDrE+g9dqMPOK4ZQucltn0IYatQVi7xM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789003412; c=relaxed/simple;
-	bh=cd4/itkR2z/uYptRKT8sgjBiPd3C482KD0TEqaf3ySg=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=Eh2FKL5uL0mNtXZOsncQC3ZIKVdmiRu6hDVH9E7Io/pzUSVYWCIFj+yABuk1LTp4vuroVFMSmgBNs5zHXZXUQijxxA1w3V4kKtUYWblDRLEh4t/c/L1beTWqFaKl5y30mLeuR5BiBjsg+h7eYP8EqJWX9nI/Ff9NtOvHirKCSXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=aIt1Cf8h; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="aIt1Cf8h"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689MVmbb1075777;
-	Thu, 10 Sep 2026 01:23:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=bSdP0m
-	KK6GEv6pHkHPvouHqxEGB7Xe7KCWL0InguvIQ=; b=aIt1Cf8hyN+tC5MshNUn7O
-	5Cip4979ZDtWloMY5S16HL4lvu4r0EVfbEfegH6ZEw8mJSAWBoIVEz+vcfGbyai1
-	c5do8TfgzbRcv1rJpoDSXTs+97SozYkSyYsNZuasvCeLkSvWJWETxF2fG6RA6hRm
-	EwuyTYk6T2ucLMg6mJEuFKs1fnMuZrpLME5IZwazXsB3qbAk0x3Ydx6F3u8qo0k9
-	iswElTWzn50ixBLA0rscFB9cEp5alcg1GjLHdSy8lAKUeUdH24i0bps8CNdI4Dkv
-	Nj8KrRE6SU4MW9wMyg6oJtw3v16FtwS7yJXLEkBE+LRq5Fhcgm6l78V//8KeA4CA
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gkd8phkfr-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 01:23:09 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 68A1BCiF010380;
-	Thu, 10 Sep 2026 01:23:08 GMT
-Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gkcr31qgx-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 01:23:08 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
-	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68A1N7Z818023110
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 10 Sep 2026 01:23:07 GMT
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 70ED95805B;
-	Thu, 10 Sep 2026 01:23:07 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0A30D58059;
-	Thu, 10 Sep 2026 01:23:06 +0000 (GMT)
-Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.156.196])
-	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 10 Sep 2026 01:23:05 +0000 (GMT)
-Message-ID: <64cd28d394d692c9a452d7262190fff6f4b6c328.camel@linux.ibm.com>
-Subject: Re: [PATCH v2 0/3] integrity: Return error codes in audit messages
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: Frederick Lawler <fred@cloudflare.com>,
-        Roberto Sassu	
- <roberto.sassu@huawei.com>,
-        Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
-        Eric Snowberg <eric.snowberg@oracle.com>,
-        Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-        "Serge E. Hallyn"	 <serge@hallyn.com>
-Cc: linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org,
-        linux-kernel@vger.kernel.org, kernel-team@cloudflare.com
-In-Reply-To: <weadqcqqw3e4snwysfnx2fszrxctppkqqgdjrkfyn7uh5poczp@dpnp6tl3mk6u>
-References: <20260727-report-hash-error-v2-0-30e394f524fc@cloudflare.com>
-	 <weadqcqqw3e4snwysfnx2fszrxctppkqqgdjrkfyn7uh5poczp@dpnp6tl3mk6u>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 21:23:04 -0400
+	s=arc-20240116; t=1789003476; c=relaxed/simple;
+	bh=D6aKgK/SdIhoUEN7Fn/JpSmeBW9e2XvVl0o1hcPlcEA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=U0DRO0YksrjZ0XGV74ItsFDsGR5tuDf0LbhVXXw2rMnPIlYO9kjDN33AlC/NZmtMmIVXh0uealmn83T0Kcb/Pp+ws6r8Ji+Zsl3VUA4sJx63hIu0E/rV7jqa2ytaNovb/dCHDMP0TMB6cSDrwDkGLhhWzWclrr7fCS7XP0W4J7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.06712908|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.209368-0.0122002-0.778432;FP=17587502375196298806|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037006180;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=17;RT=17;SR=0;TI=SMTPD_---.jA40LXX_1789003461;
+Received: from 10.10.26.192(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jA40LXX_1789003461 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Thu, 10 Sep 2026 09:24:23 +0800
+Message-ID: <be83ed89-aae6-4dfb-ab1f-2e88d3138f22@motor-comm.com>
+Date: Thu, 10 Sep 2026 09:24:21 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=eM2GH3p1 c=1 sm=1 tr=0 ts=6aa2067d cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=EG7W4yiQAAAA:8 a=URXeEHRefUtLXCjPl0oA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: U8LCBmuhUfoPQgk4O1q5qjsSWqHL8TfO
-X-Proofpoint-GUID: Sa64SLqVefjn_jmohwpB-G4y8RvPQ0Kx
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDAwOSBTYWx0ZWRfX9rmQIkhA3bbB
- VRQ+ImBp96mUPxlJSZv4lMfJaPS46rjt+h4yRYL8VUx47hzb2bKTEDysHgbxxwJJMnba6AUxIYW
- /EjfCB1XbIQo7088JRIQ19Xm4VdazIY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDAwOSBTYWx0ZWRfX/j5s6e4zoxLk
- x+0YDzEINdLX91gL1064SPWl2rFhQ5UR2+S3O0ZMrbXoR5T5DdhPIYskI0YAy+sCYLLamOxpMJD
- ECPIduGkoJnpT0Sxbmfg+88/9YTzC1DeBMif5PY0+Te0PuIreaiKEiK2H5uEMvitbG+NZXHXHf9
- Fdis3b+VY4712RhUpLhrkOJoPbsWiD+o11NYOyKi7aFDTFJmSGC9h/F/2qh1o2d8tKFoNnuo2jt
- ytA1BPXYkft1JqNjVwuZD1iwlv2hllsS9y1baKMj919Q5AJKgwXqKmUE/kZwTS63PMaH6OJqNcV
- TyRBPy6LpI4lCzrpADvT8JrFKfiHHJRmazm/nDeWBoUsXk0MYcN9CUQ16TAAurR6zzgHb3Ui1IP
- OYU5CC17+YYJ/VpPEKD/47tl6AMW5dssIti7a+BwaTWb9b1i9qQb/14sf9ChEgsOomQ8a4/cfiU
- FKuLsEeJuGoN6w3Xsaw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-09_02,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 malwarescore=0 adultscore=0 phishscore=0
- lowpriorityscore=0 suspectscore=0 spamscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100009
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v15] net: phy: Add driver for Motorcomm Quad
+ 2.5GbE phy
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Frank.Sae@motor-comm.com, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
+ jianmin.wang@motor-comm.com, jie.han@motor-comm.com, wei.zhang@gl-inet.com,
+ sijia.huang@gl-inet.com
+References: <20260909074911.2378402-1-kyle.switch@motor-comm.com>
+ <5cd9d733-546d-44e1-ab4f-029cb37399cb@bootlin.com>
+Content-Language: en-US
+From: Kyle Switch <kyle.switch@motor-comm.com>
+In-Reply-To: <5cd9d733-546d-44e1-ab4f-029cb37399cb@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, 2026-09-09 at 12:53 -0500, Frederick Lawler wrote:
-> Hi Mimi and Roberto,
->=20
-> On Mon, Jul 27, 2026 at 05:21:46PM -0500, Frederick Lawler wrote:
-> > Commit 2f845882ecd2 ("integrity: Add errno field in audit message")
-> > introduced an audit log function that can take an error code. It is
-> > wrapped by integrity_audit_msg() that implicitly sets the error code
-> > argument to zero. The problem is that there are uses of integrity_audit=
-_msg()
-> > such as ima_collect_measurement() that hide the failure cause for
-> > the message.
-> >=20
-> > This series aims to convert integrity_audit_msg() call sites to
-> > integrity_audit_message(), and then expose error codes based on the
-> > following criteria:
-> >=20
-> >     1. The log depends on a result from earlier callee, and/or
-> >     2. The caller function itself returns with that result
-> >=20
-> > ima_release_policy() is the only caller I thought made sense to keep as
-> > is. The message doesn't correlate with a return code, nor does it
-> > depend on a result from an earlier callee in the function.
-> >=20
-> > Signed-off-by: Frederick Lawler <fred@cloudflare.com>
-> > ---
-> > This is probably a bit more than what was asked from v1, but as I was
-> > making changes and looking at other call sites, I didn't think it made
-> > sense to keep integrity_audit_msg() around anymore.
-> >=20
-> > Changes in v2:
-> > - Changes from v1 are now reflected in patch 3.
-> > - Replace all instances of integrity_audit_msg().
-> > - Convert to patch series.
-> > - Link to v1: https://lore.kernel.org/r/20260716-report-hash-error-v1-1=
--ac19281112e4@cloudflare.com
-> >=20
->=20
-> I think this series may have fallen through the cracks between the merge
-> windows. Shall I respin + rebase?
 
-Thanks for the reminder.  Let me take a look at it again, before you post
-another version.  It might take a few days until I get to it.
+On 9/9/26 20:03, Maxime Chevallier wrote:
+> Hi Kyle
+>
+> On 9/9/26 09:49, Kyle Switch wrote:
+>> Add support for Motorcomm YT8824 quad-port 2.5G PHY to the existing
+>> motorcomm driver, using the phy_package helpers for the shared top
+>> extended register space.
+>> It also adds a new exported phylib helper, genphy_c45_template_testmode().
+>>
+> [...]
+>
+>> +/**
+>> + * yt8824_resume() - resume the hardware
+>> + * @phydev: a pointer to a &struct phy_device
+>> + *
+>> + * Returns: 0 or negative errno code
+>> + */
+>> +static int yt8824_resume(struct phy_device *phydev)
+>> +{
+>> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
+>> +	int ret = 0;
+> No need to zero-init
+Ans: will be fixed in next version.
+>
+>> +
+>> +	mutex_lock(&priv->shared_lock);
+>> +	ret = yt8824_power_on(phydev);
+>> +	mutex_unlock(&priv->shared_lock);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +/**
+>> + * yt8824_power_down()  - set utp power down.
+>> + * @phydev: a pointer to a &struct phy_device
+>> + *
+>> + * NOTE: need WA like softreset
+>> + *
+>> + * Returns: 0 or negative errno code
+>> + */
+>> +static int yt8824_power_down(struct phy_device *phydev)
+>> +{
+>> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
+>> +	int ret;
+>> +	int r;
+>> +
+>> +	if (priv->interface_mode == PHY_INTERFACE_MODE_INTERNAL) {
+>> +		/* invalid test mode */
+>> +		ret = yt8824_utp_invalid_test_mode_paged(phydev);
+>> +		if (ret < 0)
+>> +			goto retry;
+>> +		/* utp power down */
+>> +		ret = yt8824_utp_power_down(phydev);
+>> +		if (ret < 0)
+>> +			goto retry;
+>> +		/* normal mode */
+>> +		ret = yt8824_utp_normal_test_mode_paged(phydev);
+>> +		if (ret < 0)
+>> +			goto retry;
+>> +	} else {
+>> +		/* invalid test mode */
+>> +		ret = yt8824_utp_invalid_test_mode_paged(phydev);
+>> +		if (ret < 0)
+>> +			goto retry;
+>> +
+>> +		/* sds isolation */
+>> +		ret = yt8824_sds_isolate_paged(phydev);
+>> +		if (ret < 0)
+>> +			goto retry;
+>> +
+>> +		/* utp power down */
+>> +		ret = yt8824_utp_power_down(phydev);
+>> +		if (ret < 0)
+>> +			goto retry;
+>> +
+>> +		/* normal mode */
+>> +		ret = yt8824_utp_normal_test_mode_paged(phydev);
+>> +		if (ret < 0)
+>> +			goto retry;
+>> +
+>> +		/* sds soft reset and disable isolation */
+>> +		ret = yt8824_sds_isolate_and_softreset_paged(phydev);
+>> +		if (ret < 0)
+>> +			goto retry;
+>> +	}
+>> +	return 0;
+>> +
+>> +retry:
+>> +	/*
+>> +	 * If the PHY down operation succeeds but the subsequent operation
+>> +	 * fails, revert to the default state.
+>> +	 */
+>> +	r = yt8824_utp_power_on(phydev);
+>> +	if (ret >= 0 && r < 0)
+>> +		ret = r;
+>> +	ret = yt8824_restore_working_status(phydev, ret);
+>> +	return ret;
+>> +}
+>> +
+>> +/**
+>> + * yt8824_suspend() - suspend the hardware
+>> + * @phydev: a pointer to a &struct phy_device
+>> + *
+>> + * Returns: 0 or negative errno code
+>> + */
+>> +static int yt8824_suspend(struct phy_device *phydev)
+>> +{
+>> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
+>> +	int ret = 0;
+> No need to zero-initialize it
+Ans: will be fixed in next version.
+>> +
+>> +	mutex_lock(&priv->shared_lock);
+>> +	ret = yt8824_power_down(phydev);
+>> +	mutex_unlock(&priv->shared_lock);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +/**
+>> + * yt8824_config_aneg() - config negotiation
+>> + * @phydev: a pointer to a &struct phy_device
+>> + *
+>> + * Returns: 0 or negative errno code
+>> + */
+>> +static int yt8824_config_aneg(struct phy_device *phydev)
+>> +{
+>> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
+>> +	int phy_ctrl = 0;
+>> +	int ret = 0;
+>> +
+>> +	mutex_lock(&priv->shared_lock);
+>> +	ret = phy8824_page_write_with_lock(phydev, YT8824_RSSR_UTP_SPACE);
+>> +	if (ret < 0)
+>> +		goto err;
+>> +
+>> +	if (linkmode_test_bit(ETHTOOL_LINK_MODE_2500baseT_Full_BIT,
+>> +			      phydev->advertising))
+>> +		phy_ctrl = MDIO_AN_10GBT_CTRL_ADV2_5G;
+>> +
+>> +	ret = phy_modify_mmd_changed(phydev, MDIO_MMD_AN,
+>> +				     MDIO_AN_10GBT_CTRL,
+>> +				     MDIO_AN_10GBT_CTRL_ADV2_5G,
+>> +				     phy_ctrl);
+>> +	if (ret < 0)
+>> +		goto err;
+>> +
+>> +	ret = __genphy_config_aneg(phydev, ret);
+>> +
+>> +err:
+>> +	mutex_unlock(&priv->shared_lock);
+>> +	return ret;
+>> +}
+>> +
+>> +/**
+>> + * yt8824_phy_package_probe_once()  - init phy packet for phy8824.
+>                                                     ^^ package ?
+>
+Ans: will be fixed in next version.
+>> + * @phydev: a pointer to a &struct phy_device
+>> + *
+>> + * Returns: 0 or negative errno code
+>> + */
+>> +static int yt8824_phy_package_probe_once(struct phy_device *phydev)
+>> +{
+>> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
+>> +	struct device_node *np = phy_package_get_node(phydev);
+>> +	const char *interface_mode_name;
+>> +
+>> +	/* Initialise shared lock for YT8824 */
+>> +	mutex_init(&priv->shared_lock);
+>> +	priv->interface_mode = PHY_INTERFACE_MODE_INTERNAL;
+>> +	if (!of_property_read_string(np, "motorcomm,interface-mode",
+>> +				     &interface_mode_name)) {
+> I don't see that property documented anywhere in the bindings, and besides that
+> the typical way we deal with quad PHYs is to have each MAC node use
+> QSGMII / USXGMII as their phy-interface-mode. Any reason for needing that at
+> the package level ?
 
-Thanks,
+Ans: in the next version,we will add the corresponding dts.
 
-Mimi
+The interface_mode here is used to indicate the current mode of the four 
+ports,
+
+which mainly includes two scenarios: 1. An independent external PHY 8824;
+
+2. Four UTPs embedded in the switch. Different scenarios have somewhat
+
+different processing logic for power down and power up, so an 
+interface_mode
+
+is defined separately here.
+
+>
+>
+>> +		if (!strcasecmp(interface_mode_name,
+>> +				phy_modes(PHY_INTERFACE_MODE_USXGMII))) {
+>> +			priv->interface_mode = PHY_INTERFACE_MODE_USXGMII;
+>> +		} else if (!strcasecmp
+>> +				(interface_mode_name,
+>> +				 phy_modes(PHY_INTERFACE_MODE_INTERNAL))) {
+>> +			priv->interface_mode = PHY_INTERFACE_MODE_INTERNAL;
+>> +		} else {
+>> +			return -EINVAL;
+>> +		}
+>> +	} else {
+>> +		phydev_warn(phydev, "%s, motorcomm,interface-mode missing in DTS.\n",
+>> +			    __func__);
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+> Maxime>
+>> +/* PMA 10GBASE-T Template Test Mode Register*/
+>> +#define MDIO_PMA_10GBT_TESTMODE_MASK 0xE000	/* Template test mode */
+>> +#define MDIO_PMA_10GBT_TESTMODE_NORMAL 0x0000	/* Template Normal */
+>> +#define MDIO_PMA_10GBT_TESTMODE_1 0x2000 /* Template TestMode1 */
+>> +#define MDIO_PMA_10GBT_TESTMODE_2 0x4000 /* Template TestMode2 */
+>> +#define MDIO_PMA_10GBT_TESTMODE_3 0x6000 /* Template TestMode3 */
+>> +#define MDIO_PMA_10GBT_TESTMODE_4 0x8000 /* Template TestMode4 */
+>> +#define MDIO_PMA_10GBT_TESTMODE_5 0xa000 /* Template TestMode5 */
+>> +#define MDIO_PMA_10GBT_TESTMODE_6 0xc000 /* Template TestMode6 */
+>> +#define MDIO_PMA_10GBT_TESTMODE_7 0xe000 /* Template TestMode7 */
+>> +
+>>   /* PCS 10GBASE-R/-T status register 1. */
+>>   #define MDIO_PCS_10GBRT_STAT1_BLKLK	0x0001	/* Block lock attained */
+>>   
