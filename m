@@ -1,62 +1,64 @@
-Received: from mail-yx2-f8.google.com (mail-yx2-f8.google.com [74.125.224.136])
+Received: from mail-yx2-f3.google.com (mail-yx2-f3.google.com [74.125.224.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F06145540A8
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:16:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3F253FD25
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:16:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789060607; cv=none; b=KWiK/9amT3YAtUXABKmxQRqIb/FHS7mpKZeeO3kc3NzDbac70MNcCJlm4QmZEBwEF4KLZ1YGSMTFlgCJ2xcQUhoGM/OeCCVYajJ0LZQYyOg/u+4i7iYQusEIfYMNOYBGexv2IVy9e737IpgmTQpkqLM2UrgP8uuDk4yt0rzeykE=
+	t=1789060616; cv=none; b=gczkNVlbpdiLjANrGqRwvkNABBYgMRRETSYLK26+1s6OpvhwTUauffxBoaUYFmb8vrXUYNT0cF2gD8gWWCo/7a48ngMR3c2pA98Di/cTn08OgPNwcJOzdz09KHCFtZPp+phFOAbgbpW9By9Hle0C7pz1RmbNaN7e48ZTPtJcNHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789060607; c=relaxed/simple;
-	bh=mP0ZMDH+IQi6Bl+eymFBOQjEqyio0BazLJvqqYA/ato=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AmKXnG6/bxw0jWO4lidwxvVVWixlrDhd9SUX5U3qIWi7Bk76vs0LENXkYKJU1bgTthPf6F9iOpbUc9jPctb4cpz8AQR6Q9PNJhndXw33plKuWIUlOPAPqXQJ5zVinwKJi7QAsTFqWJhVV4MQ1c503FV4k1FBS90isJV0FSeeFiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jBqwBrZg; arc=none smtp.client-ip=74.125.224.136
+	s=arc-20240116; t=1789060616; c=relaxed/simple;
+	bh=dKBhc/qYjs60oa/k5fBVE/b8yc5t8ryc/K02fqOJhvU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MjuBGOz5UJVGOKq9d0p+o+BnXGPH9KTE8QnPhp+rd6pMLLbwwAi0DqHPeybPpqwFH8ruMoTKsBqtuwYPmVdMSgp3XuYBddozljVzogCjJf4qckQ7kzRuTgjGszSa1MR0tXSZ9wo5q6cN4buKpaR12zWcW1uWXBlaczX1dHYEatU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pecCy4tt; arc=none smtp.client-ip=74.125.224.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jBqwBrZg"
-Received: by mail-yx2-f8.google.com with SMTP id 956f58d0204a3-66d0f3138aeso2622862d50.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:16:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pecCy4tt"
+Received: by mail-yx2-f3.google.com with SMTP id 956f58d0204a3-66fd0af9eb0so2123118d50.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:16:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789060589; x=1789665389; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6ZFo6loCSbYpy8qelkbAHjDjCPXMds8CC2/U524kG4U=;
-        b=jBqwBrZgDgDMxioapCBOtmUFoTpkqIEeXTFPX61VQcQQnLVVdjCd2nJQEthfVGSpet
-         +99i8r5+QcOVtC5+24tJjtwBLJb0Rjh0PWF0/4WjEW5og/FvKuna+60J/VC0EWCoWELI
-         CTtzKPdXzAkO1XJ8RTlJO2Q5GrcREksSCiPwe6dNizIpW2zHm1OVT50xlCCPUBmO7GWL
-         AYL5PTCAxrQB+DTn061ZfEmVZ1fv/HEllujo1phY+5oY9rEM4faDhDVpWgDGvYng7d8W
-         27j7ZVQoZHPEb0AMzDwC9MgO8APVjmMYVBHAgYKTQtEUzpZlZUTbLXZFSVnFTD28cDn4
-         XUig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789060589; x=1789665389;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789060596; x=1789665396; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6ZFo6loCSbYpy8qelkbAHjDjCPXMds8CC2/U524kG4U=;
-        b=VcvnA2FxA/f+9Mnv+PXZWf7hiuuAwT0MrMQ2vjtPPnwWw/+BXcifHXGKMAvuSqsUiJ
-         YZT1kU4VTbexPSg/im+64mfuQODa5uM/ytaSIVr9H5xNtrAV6O46kYu9tZZf4pf6V99l
-         7OdE2BAn0N1eNg4p3cQpolqfsGFre4XbE3eEjm2ODClGfF12cgIDjnM3hWILS4Oczl/i
-         6yMREIEvs6bmqMGtlJTg9Ks/ZnPCZNAQWcpj2HtQHRqry+ov4qkJkI1gvBNR90HPFj0t
-         0xGyL5luKrhmEG19TkKW3gziBLVAq507Fcpu4TCAA8ERnBTSD4oq7jevqYFe3Zt3HhVs
-         dBNw==
-X-Forwarded-Encrypted: i=1; AKwUvBzT4wLma5KK0Z6bZi+GOCTe4qPvo8Hyc/8+iiaxLuBDsSRkzVOD40m48zD2pZtzRvLh06y/HrUyrgOecoE=@vger.kernel.org
-X-Gm-Message-State: AFuF++linwmtUuVZgHf6YPb95tlJgTcphtEzzIZ0lN11PVWzS0emZMPH
-	wfdmb0lUJWUZTUOOZDZxsRaKOhzYUzgEXlhpLpAippc7l6wLiZTtYBs=
-X-Gm-Gg: AYBFou2bDOK3azoqGGyVAUFunyw/ZnU19ekvo0PFcJ+bnoPYQxU1xJsFyn37SyKTFf7
-	HBsjKJaAHRGfkL/BWWxrIFYZyUACxO/caNkRMaT4IfAmfLf99DPBpzJxOeFXrBvf3ORjW1zVItc
-	Lk8Ekno/KoDAddLgkEhN1/KKO/kJHI7sRMkA/DXSSiNpaC/3nigiGQ+ShDsKZIPt9WVHSGaPNYw
-	aa36RCMx7H5dkz546GfRnHho/jwjhUI9fq/xDMadID3jD6vltWqJQI1khy9LFYch6BDfQZDwpLe
-	dJeUa8KsI9RdfEXO8uSkqAZI5EaYfeOZ+bcB6QzmXdX+B5zcNSw9m+2Z2JJZrWnAvvSiRsRjhwC
-	HIQJb0fcN6iGRwv1BAkzcY3Sqkk3zpSdh0/go4X4hPxuiLO18dUaC2eXWBCWj8re1ctLe24YjIz
-	/f5OQHkTS3v45H2q9qARNFRb+f9gKRlO6sycw2hFWWlREba7e3w/NFmAqv1RNlvAJt8RkG8UrW/
-	OX3vfzq57LzrrIEeuFsnb8I70ND1L08dCiJXLX4ZGBPEy2rhw==
-X-Received: by 2002:a05:690c:a1d5:b0:85e:27b2:8f46 with SMTP id 00721157ae682-884aec8f7fdmr1640917b3.19.1789060588129;
-        Thu, 10 Sep 2026 10:16:28 -0700 (PDT)
+        bh=zCG1VvuHQ6SCJdLVUga8vZowwN0KJmpgx8fDOpUOTA0=;
+        b=pecCy4ttlFl92E3wsXFv+ZcV84Dc4f8C+QaE9brprA8uXDDVhGT0s30NhqH4gAMIOe
+         rIIlxMmii2msTY9q4p7V3t3vKJqpoNV2jCmPTQ2xDWXFOpZ3QolPaFEc4GAS1EH3HQ5K
+         ezTfAGIuAqucg0+7grBz+bHimblBEsLAcHPADrvTv7BtxhgCrlHnGEPzypipn6Q2ZXbX
+         CdtzUeKYOIz9D32iTpr10Vrjyb3W8uBIghz2RgbuJySJq9ZZrCSEfcLBTxkwp9iHLDAI
+         raUAuPBQiE45/Qkm5TDrhJ7zEFoD84+nMKaXKBGK3vxdktX17YUeRnsTfBH5eQCMX/rJ
+         DOew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789060596; x=1789665396;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zCG1VvuHQ6SCJdLVUga8vZowwN0KJmpgx8fDOpUOTA0=;
+        b=dvB8VQRfx/rZHFUBVXKoTberPlIZA5UsDgbZa3IJX6yCvP+RHBtMQkVVcoT086ClPj
+         YvJm0ObkNQDuYJh1NxY9QXcfxlXMlMoLqFaOg8cTfRKcSwrnfvlJIjkMLSE+cF/wV5cV
+         nPyu+pSrAf4VBgTBp0n7MydE0YXnLqdXxYgAOynlA6o1sj/SsCqNtu/DrNHWbkA1KEJm
+         6UecKFYwzexvPQVjGyeOvovtoTwj8qW3IHZwQpJJYv5DKxu5nEj+36Qa+fKknj9hyTaG
+         ZXunkq08OrKKOgRJ6k5HIDA47pqufMsEPr8JBy9H0O1/Hch8391f4Zivxs/rtcBvI3iL
+         /r3w==
+X-Forwarded-Encrypted: i=1; AKwUvByAIBhiHzxa9r4APMTHuy6I4Ti4uJuiJdyhzAIrshSaQK5UjczAPGbQpK1aHYmdikEhwzfpGGHne/b0fFM=@vger.kernel.org
+X-Gm-Message-State: AFuF++n7Ibas0EssP9I/rP+4VM5bmJDBVhbOQR4enSaZCUgcnak3ZdxF
+	U53XR/pOfe8gj9CTy/3wf56o5epNJ0mJlHrYy1awg3fkcP6N9oi+8Vo=
+X-Gm-Gg: AYBFou09gzbaS7QE/umUK+WjbrldQkfiWTIrFnf7Z2eaH0Tdra3iHJMjpxkatz8ilLB
+	GNOtUUzEZXeanWAM42p5V0GACFeYYOHQPjW2IL+lcYffu7N9n/NijFsnODfQxpgG9JhTIL/f9pV
+	BXhOR10vih/OkCpThalsmVQeRK+ITY1z9EDL3331JwobcLVZc97mY55cBm9p6ZrKyZOHgKhiO/F
+	5eR+w280gFKQIT3kp/YWiGhu6Ftgsy7kAbX420UvR5MN8Ut5SX8SzpVCTvpILZngzeQH3eFITFK
+	0nQexB8+lY1IGNzCiX+7BF7UhLh6n/++Oj0HSBZaJxPlXLmGrGz+YRhgezlekR6ohmWXqaQuZkD
+	A1En/a18CDgar/nl+9RF4DwcqiiXib+BVNokv6i+drWTo+Ud8rzqD2TYupBGXMk4hFBes2dMGSW
+	i1RmoygRLe8+2Fjy4IVlXUY5flTpZGP7Eiofbqfx7cl+6vLG+K93C8hlCh252iHrNKRt6CQ4nkF
+	7OUmwzLSEAFo5o+SZgIFlAOobFlcM0llUAJfHwdIvqz4K37wl9rzKMsoaua
+X-Received: by 2002:a05:690e:12c2:b0:66f:ca93:eae4 with SMTP id 956f58d0204a3-67124722b0dmr151051d50.92.1789060595769;
+        Thu, 10 Sep 2026 10:16:35 -0700 (PDT)
 Received: from localhost (23-116-43-216.lightspeed.sntcca.sbcglobal.net. [23.116.43.216])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-88488190880sm2253967b3.35.2026.09.10.10.16.27
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb47a8b8fsm14316278d50.2.2026.09.10.10.16.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 10:16:27 -0700 (PDT)
+        Thu, 10 Sep 2026 10:16:35 -0700 (PDT)
 From: Ravi Jonnalagadda <ravis.opensrc@gmail.com>
 To: sj@kernel.org,
 	akinobu.mita@gmail.com,
@@ -75,10 +77,12 @@ Cc: akpm@linux-foundation.org,
 	weixugc@google.com,
 	jic23@kernel.org,
 	gourry@gourry.net
-Subject: [RFC PATCH v2 0/9] mm/damon: hardware-sampled access reports
-Date: Thu, 10 Sep 2026 10:16:14 -0700
-Message-ID: <20260910171623.6638-1-ravis.opensrc@gmail.com>
+Subject: [RFC PATCH v2 4/9] mm/damon: add damos_node_eligible_mem_bp tracepoint
+Date: Thu, 10 Sep 2026 10:16:18 -0700
+Message-ID: <20260910171623.6638-5-ravis.opensrc@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260910171623.6638-1-ravis.opensrc@gmail.com>
+References: <20260910171623.6638-1-ravis.opensrc@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,461 +91,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series lets DAMON take its access information from a hardware sampler
-instead of from a page-table scan, and lets a scheme's score be weighted by what
-that sampler reported.
+Add a per-tick tracepoint for DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP goal
+evaluation, exposing the goal target/current values for observability of
+the node-eligible-memory bandwidth quota loop.  Bandwidth-feedback tiering
+loops read this goal metric to detect convergence.
 
-The change from v1 [1] is that it is now built on the data attribute probe
-infrastructure that has since landed in mm-new: a PMU is expressed as one more
-probe on a context, with its own weight and probe hits, rather than as a
-mechanism of its own beside the ops set.  The rest of this posting is the same
-substrate reworked onto that, plus two consumers.
+Signed-off-by: Ravi Jonnalagadda <ravis.opensrc@gmail.com>
+---
+ include/trace/events/damon.h | 32 ++++++++++++++++++++++++++++++++
+ mm/damon/core.c              | 28 ++++++++++++++++++++++++++++
+ 2 files changed, 60 insertions(+)
 
-This is not a merge request.  The series is based on damon/next at the
-base-commit below, which moves, so the tree it was built and tested from is also
-on
-
-  https://github.com/ravis-opensrc/linux/tree/damon/perf-rfc-v2-09-06-26
-
-It is posted for design feedback, on the substrate and on where it belongs in
-the roadmap for extending DAMON beyond the pte-accessed bit [2].  That roadmap's
-second milestone, now open, is a first data attribute monitored through
-`damon_report_access()`, and that is what a sampling PMU is here.  So this
-series keeps that function and its callers and replaces its body: the reporting
-path a hardware sampler needs cannot take a mutex, and the drain has to reach a
-virtual-address context as well as a physical one.  The shape of the ring, the
-drain and the sysfs surface are what is most useful to review.
-
-## Why a unified perf-event substrate
-
-DAMON derives its access information from the PTE Accessed bit.  A sampling PMU
-carries what that bit cannot: which addresses the hardware went to, and how
-often it went there.  Many machines already have such a unit, and more than one
-kind of it, so what this series is after is letting DAMON's regions be tuned
-from whichever perf-based hardware source a machine offers rather than from the
-Accessed bit alone.  A sampler does not arrive on a kdamond's terms, though: it
-delivers an address when the hardware decides to, in NMI context, with no
-relation to the sampling interval and no mm to walk.
-
-The alternative is a backend per PMU vendor, each owning its own configuration,
-sysfs knobs and lifecycle.  The perf-event direction [3] avoids that: let DAMON
-register kernel-counter perf events and consume samples from any sampling PMU the
-perf core already knows about.  This series follows it, adding one substrate below
-the ops sets rather than an ops set per PMU -- a report ring that any in-kernel
-access source can push into, and a drain that folds those reports into region
-probe hits on the aggregation boundary the kdamond already has.  What running it
-across vendors needed on top of that direction is:
-
-  - per-CPU lockless rings between the NMI sample handler and the kdamond drain,
-  - a ring partitioned by probe class, so the page-fault primitive and a PMU can
-    populate one context without either seeing the other's reports,
-  - per-CPU events that follow CPU hotplug, armed when the kdamond starts and
-    disarmed and drained when it stops,
-  - a per-PMU owner, so two contexts cannot claim the same PMU type,
-  - whichever address a PMU does report carried on the report and matched
-    against the context's own address space, so one source serves a paddr or a
-    vaddr context without a backend per address space.
-
-This is tested with PEBS on Intel and IBS on AMD, both configured as `perf_event`
-attributes on a probe and using the perf core's event plumbing rather than
-per-vendor MSR code.  A third source has already been written against the same
-ring: Kunwu Chan's ARM SPE backend [5], which reaches it through an AUX buffer
-drained in process context instead of an overflow callback, and which the
-roadmap [2] places in its third milestone.
-
-The partitioning is what lets promotion and demotion run in one context.  A
-sampler says which regions are hot; it says nothing about which are cold, because
-a sampler that reports nothing about a page cannot distinguish untouched from
-unsampled.  Region age is what a demotion scheme matches on, and age comes from
-the page-fault primitive.  With the ring partitioned by class both are live at
-once: the probe supplies hotness, the primitive supplies age, and two schemes
-over the same regions can move memory in both directions under one kdamond.
-
-The two classes are not symmetric, and the asymmetry is in where a report comes
-from rather than in what it carries.  A page fault has no monitoring context at
-report time, so a per-context ring is not expressible for it: those reports go to
-one global set of per-CPU rings, drained by the single context whose page-fault
-primitive is enabled.  A PMU overflow handler does carry the context that armed
-the event, so those reports go to that context's own per-CPU rings and each
-context drains only what it owns.  Both classes share the ring layout and the
-producer side, so the barrier pairing cannot drift between them.
-
-```
-  page-fault report                    PMU sample, NMI context
-  no ctx at report time                handler carries the owning ctx
-          |                                     |
-          v                                     v
-  +----------------------------+       +----------------------------+
-  | one global per-CPU ring    |       | per-CPU rings per context  |
-  | set, shared by every ctx   |       | that armed a perf event    |
-  +----------------------------+       +----------------------------+
-  | drained by the one ctx     |       | each ctx drains only the   |
-  | with the pf primitive on   |       | rings it owns              |
-  +----------------------------+       +----------------------------+
-          |                                     |
-          +------------------+------------------+
-                             |
-                 drain on the aggregation boundary,
-                 each report matched to a region
-                             |
-             +---------------+---------------+
-             |                               |
-        region age                    region probe hits
-        demotion scheme               promotion scheme
-```
-
-That is the property this series exists to enable, and three things follow from
-it:
-
-  - One measurement drives both directions, at whichever scope the mode gives.
-    Bandwidth comes from resctrl MBM, which is where the discussion on a
-    platform-independent bandwidth signal for tiering has pointed [6]: a
-    virtual-address context reads a monitoring group created for the processes
-    it monitors, and a physical-address context reads the root monitoring
-    group, so the same controller is scoped to a set of processes or to the
-    whole machine without changing what it does.  Reading it there also means a
-    bandwidth allocation reserved for an application bounds what the controller
-    optimises within.  It spreads the hot set across nodes in the ratio that
-    maximises achieved bandwidth when bandwidth is what the workload is short of,
-    and it demotes cold pages off the near node in the same context at the same
-    time -- either proactively under a fixed quota or only once DRAM is under
-    memory pressure.  Neither direction is configured as a target ratio; the
-    proportion or weight the controller writes bounds how much memory moves while
-    the score decides which pages move, and a hardware sample makes that score
-    proportional to the traffic a region generates rather than one bit per page
-    per scan.  Earlier work on bandwidth-driven interleaving [4] measured the same
-    effect from userspace.
-
-  - Bandwidth and capacity are expanded at once rather than one being chosen.
-    Static weighted interleaving expands bandwidth, but it is a placement rule
-    rather than a decision about any particular page, so cold pages keep their
-    share of DRAM.  NUMA balancing expands usable DRAM by promoting whatever is
-    hot, but it does so without reference to what the far node can deliver, so it
-    keeps promoting after the near node has stopped being the better place to
-    read from.  Here the hot set's distribution comes from a bandwidth
-    measurement and the cold set is demoted on region age, in one context, so the
-    far node's bandwidth is used and DRAM is not held by memory nothing is
-    touching.  The decision itself is a quota goal the kernel already carries:
-    `node_eligible_mem_bp` [8] bounds how much of a node a scheme may fill, so
-    what the controller supplies is the bandwidth measurement, not the
-    placement.
-
-  - When bandwidth is not the constraint it reverts to latency-first tiering on
-    its own.  The search starts with everything on the near node and moves memory
-    outward only when the measurement improves, so on a workload that does not
-    saturate that node no step outward improves anything: the hot set stays in
-    DRAM for the lower access latency and cold pages keep being demoted.  The
-    same configuration covers both cases, with nothing to switch on and no ratio
-    to revise.
-
-## What the series adds
-
-  1. `mm/damon/vaddr: support page fault access check primitive` -- implements
-     the page-fault primitive for a virtual address space context; it was
-     available for physical addresses only.  The marker whose fault reports the
-     access is installed through the target mm and the vma of the sampling
-     address directly, and prepare_access_checks() dispatches on the enabled
-     primitive as the physical address space one does.
-
-  2. `mm/damon/core: read the CPU number with preemption disabled` -- the report
-     path runs in fault context, which is preemptible.  Read the CPU number with
-     preemption disabled and keep it disabled across the report, so the recorded
-     CPU stays consistent with the per-CPU ring the report is queued to.
-
-  3. `mm/damon/paddr: lock the folio for the page fault primitive rmap walk` --
-     take the folio lock unconditionally around the walk, as the other reverse
-     mapping walks in DAMON do, so every mapping type reaches it locked, and
-     release the reference the lookup took on each exit path.
-
-  4. `mm/damon: add damos_node_eligible_mem_bp tracepoint` -- a per-tick
-     tracepoint over the node-eligible-memory quota goal evaluation, exposing
-     the goal's target and current values, so the loop a bandwidth-driven
-     controller steers is visible to a tracer.
-
-  5. `mm/damon/core: add per-probe-class report rings and unified drain` -- the
-     substrate.  Per-CPU SPSC rings an NMI-context source can publish into,
-     partitioned by probe index into a global page-fault ring and a per-context
-     perf ring, plus the kdamond-side drain that matches each report to a region
-     by binary search over a per-target snapshot and credits it to that region's
-     probe hits on the aggregation boundary.  The address space of the target
-     selects which address of a report is matched, and pid targets are filtered
-     by thread group id.
-
-  6. `mm/damon: add perf-event overflow handler feeding the report ring` -- an
-     ops-agnostic perf-event source whose overflow handler turns a PMU sample
-     into a report, setting each address field the PMU reported as valid.  A PMU
-     that reports a virtual address only can therefore drive a virtual-address
-     context, one that reports a physical address a physical-address context, and
-     the same source serves either without a backend per address space.  Per-CPU
-     events are armed and released through cpuhp callbacks, and a per-PMU owner
-     keeps two contexts from claiming the same PMU type.
-
-  7. `mm/damon/ops-common: use probe-weighted score when probe weights are set`
-     -- lets a scheme's frequency subscore come from the probe hits, weighted per
-     probe class, so what the sampler reported reaches the tiering decision.
-     With no weights set the subscore comes from the access rate as before.
-
-  8. `mm/damon: add perf_event prep for PMU-driven hotness probes` -- the sysfs
-     surface and the event lifecycle: a perf_event prep action carrying the PMU
-     type, the event config and the sample attributes per probe, with per-CPU or
-     single-instance arming depending on how many counters the PMU needs.
-     Arming is deferred on a context built for a commit, so a weight-only commit
-     leaves the running event untouched.
-
-  9. `mm/damon/tests/drain-kunit: kunit for report rings and unified drain` --
-     unit tests for the rings and the drain: inject and drain, overflow on wrap,
-     producer routing by probe index, ring partitioning, pf-ring ownership,
-     thread-group filtering, the address space match, and both primitives live
-     on one context.
-
-Patches 1-4 apply standalone on damon/next and are useful without the rest;
-5-8 are the substrate and its first two consumers, and 9 covers them.  If the
-first four read right, they need not wait on the rest of this series -- happy
-to repost them on their own for damon/next if that is easier to take.  Two of
-them, 2 and 3, correct code that is already in mm-new rather than adding
-anything new, so they could instead go as a small fixes series carrying
-Fixes: tags; guidance on which of the two routes is preferred is welcome.
-
-## Userspace setup model
-
-The runs were driven by an `auto_tier` subcommand added to damo on the branch
-below, which reads achieved bandwidth from resctrl MBM and searches for the hot
-set's distribution that maximises it, while the demotion scheme runs alongside
-it in the same context.  That tooling is not part of this posting; it is on
-
-  https://github.com/ravis-opensrc/damo/tree/damo/auto-tier-bw-2026-09-08
-
-  - `--bw_source resctrl` is the option this adds: the controller reads achieved
-    bandwidth from an MBM monitoring group and searches, rather than being given
-    a distribution to install.
-  - Everything else -- intervals, schemes, filters, the probe's `perf_event`
-    attributes -- is what the generator writes from the command line shown: 5 ms
-    sampling, 100 ms aggregation, a 1 s ops update.
-  - Both configurations select proactive demotion, so they demote continuously
-    rather than waiting for pressure, and both were left closed loop throughout.
-  - The search is the algorithm described in [4].
-
-### Configuration A: AMD IBS Op, paddr ops, system-wide
-
-```
-$ sudo mount -t resctrl resctrl /sys/fs/resctrl
-$ sudo python3 tools/damon_tier_gen.py --hotness ibs \
-        --near_node 0 --far_node 4 \
-        --cold_demote --cold_demote_mode proactive \
-        -o tier.yaml
-$ sudo damo auto_tier tier.yaml --bw_source resctrl --verbose
-```
-
-  - Scope is the machine, not a process set.  The distribution is steered
-    through `node_eligible_mem_bp` quota goals over each node's own physical
-    ranges, which the generator reads from `/proc/iomem`.
-  - AMD Turin, DRAM on node 0 and a CXL node.  IBS Op at a `sample_period` of
-    262144 with `sample_phys_addr` set, which is what a physical-address context
-    needs from the sample.
-  - Workload is a hot-and-cold mix so both schemes have something to act on:
-    `multiload` drives the bandwidth-hungry hot set, and a second process
-    allocates on the near node, touches it once and goes idle, leaving pages
-    that age out for the demotion scheme to find.
-
-### Configuration B: Intel PEBS L3-miss, vaddr ops, per-PID
-
-```
-$ sudo mount -t resctrl resctrl /sys/fs/resctrl
-$ sudo python3 tools/damon_tier_gen.py --hotness pebs \
-        --pid $HOT_PID --pid $COLD_PID \
-        --near_node 0 --far_node 1 \
-        --cold_demote --cold_demote_mode proactive \
-        --min_nr_regions 1000 --max_nr_regions 20000 \
-        -o tier.yaml
-$ sudo damo auto_tier tier.yaml --bw_source resctrl --verbose
-```
-
-  - Scope is the processes the monitoring group names and nothing else.  The
-    distribution is steered through the hot scheme's `DamosDest` weights [9].
-  - Intel Granite Rapids, DRAM on node 0 and CXL on node 1.  PEBS L3-miss at
-    `sample_freq` 5003 with `precise_ip` 2.
-  - Same workload shape.
-
-## What the runs show
-
-Per-node reference, each figure measured by binding the same workload to one
-node:
-
-```
-  Granite Rapids, 64 threads x 8 GiB
-    node 0   1.0 TB DRAM      DRAM only   269,885 MB/s
-    node 1   2.0 TB CXL       CXL only    249,903 MB/s
-
-  Turin, 32 threads x 4 GiB
-    node 0   386 GB DRAM      DRAM only   113,596 MB/s
-    node 4   1.0 TB CXL       CXL only     33,253 MB/s
-```
-
-  - The two machines differ in the way that matters: on the Turin the far node
-    is 3.4x slower than the near one, on the Granite Rapids the two are within
-    8%.
-  - Each configuration gets one graph, the climb: the run itself, one mark per
-    decision taken from the bandwidth just measured, with the share it moved to
-    under each mark.  The settled line below it is the median over the samples
-    the run went on to hold at that share.
-
-### Configuration B, virtual-address mode
-
-```
-   MB/s                                                       climb
-   460k |                                                          *
-   440k |                                                      *
-   420k |                                                  *
-   400k |
-   380k |                                             *
-   360k |                                       *
-   340k |                             *    *
-   320k |                        *
-   300k |              *    *
-   280k |          *
-   260k | *   *
-         --------+------------+--------------+---------------+------------+--
-                 1            4              7              10           13
-                 92           80             68              56           44
-                     decision index, near-node share (%)
-
-   settled        share 44, 430,547 MB/s held
-```
-
-  - Thirteen decisions to settle at 44%, no target given: about 60% more than
-    the better of the two nodes on its own, and the share does not change again
-    over the 81 samples that follow.
-  - Cold demotion runs over the same interval, in the same context, actuated by
-    the same kdamond: 34 regions totalling 15.4 GiB applied, and the idle
-    process ends with 4,099,980 pages -- 15.6 GiB -- on the CXL node having
-    started on DRAM.
-  - The promotion scheme's applied byte count is flat across the demotion ramp,
-    291.1 GiB before against 291.3 GiB after, so the recovered capacity is the
-    demotion scheme's.
-
-### Configuration A, physical-address mode
-
-```
-   MB/s                                                   climb
-   136k |
-   134k |                                        *     *
-   132k |                            *     *
-   130k |                      *
-   128k |
-   126k |                *
-   124k |
-   122k |          *
-   120k |
-   118k |    *
-        +----+-----+-----+-----+-----+-----+-----+-----+--
-             1     2     3     4     5     6     7     8
-             92    88    84    80    76    78    80    78
-          decision index, near-node share (%)
-
-   settled        share 78, 134,107 MB/s held
-```
-
-  - Eight decisions to settle at 78, from a start with almost everything on the
-    near node: the same algorithm reaches the optimum share on its own from the
-    bandwidth reading alone, and cold pages are demoted to the far node while it
-    does so.
-  - A distribution beats either end because both nodes supply at once: at the
-    settled share the near node is supplying 104,618 MB/s against the 113,596 it
-    reaches with the whole working set bound to it, so the further 37,669 MB/s
-    arriving over CXL is bandwidth it could not have supplied at any share.
-  - The idle process ends with 2,863,156 pages -- 10.9 GiB -- on the CXL node,
-    out of the 32 GiB it allocated on DRAM and stopped touching.  Residency is
-    the attributable figure in this mode rather than a per-scheme applied count,
-    because the schemes share physical ranges.
-
-### What the runs are meant to establish
-
-Not the settled share and not the absolute bandwidth; those are properties of
-these machines and these workloads.  What reproduces is:
-
-  - A controller reading achieved bandwidth converges unattended, from a
-    configuration naming no target, to a distribution that beats either node on
-    its own, and holds it once found.
-  - A demotion scheme recovers near-node capacity in the same context while that
-    happens.
-  - One code path does both, steering `node_eligible_mem_bp` over physical
-    ranges system-wide on one machine and `DamosDest` weights over a named
-    process group on the other.
-
-## Beyond a CPU PMU
-
-Nothing above is specific to PEBS or IBS.  A source qualifies if it can report
-an accessed address to the ring, which is the only thing the substrate asks of
-it.  A CXL device's Hotness Monitoring Unit, whose r3.2 perf driver has been
-posted [7] exposing its hotlist through an AUX buffer, or a custom monitoring
-unit on an accelerator or a memory expander, reports exactly that, and a
-backend delivering those reports through a perf event reaches the same drain,
-the same probe hits and the same schemes already in the tree.  Such a unit sees
-the traffic that reaches its own device rather than a system-wide view, so what
-it contributes is the hot set resident on that device: the tiering logic can
-promote those pages to DRAM without the host having to detect that hotness
-itself, and without depending on what produced the reports.  That posting names
-driving tiering from such a unit as the intent and the in-kernel step as future
-work, and consuming it as a DAMON access-check primitive was raised there as
-one way to get it; a backend on this substrate is that path.
-
-[1] v1 of this series
-    https://lore.kernel.org/damon/20260529165640.820-1-ravis.opensrc@gmail.com/
-[2] Roadmap for extending DAMON beyond pte-accessed bit
-    https://lore.kernel.org/damon/20260525225208.1179-1-sj@kernel.org/
-[3] mm/damon: introduce perf event based access check
-    https://lore.kernel.org/damon/20260423004211.7037-1-akinobu.mita@gmail.com/
-[4] B. Tabatabai, R. Jonnalagadda et al., "Bandwidth Speaks, We Listen:
-    Dynamic Interleaving for Tiered Memory", ISMM 2026.
-    https://dl.acm.org/doi/10.1145/3814942.3816137
-[5] mm/damon/perf: add ARM SPE AUX backend
-    https://lore.kernel.org/damon/20260816142222.689624-1-kunwu.chan@linux.dev/
-[6] A platform-independent subsystem for bandwidth information, and resctrl
-    as that source
-    https://lore.kernel.org/linux-mm/d952a84f-332e-8f7a-4816-2c1cbd8f5b00@google.com/
-[7] CXL Hotness Monitoring Unit perf driver
-    https://lore.kernel.org/linux-mm/20241121101845.1815660-1-Jonathan.Cameron@huawei.com/
-[8] mm/damon: add node_eligible_mem_bp goal metric, merged for v7.2
-    https://lore.kernel.org/linux-mm/20260428030520.701-1-ravis.opensrc@gmail.com/
-[9] mm/damon/vaddr: allow interleaving in migrate_{hot,cold} actions, merged
-    for v6.17
-    https://lore.kernel.org/linux-mm/20250709005952.17776-1-bijan311@gmail.com/
-
-Ravi Jonnalagadda (9):
-  mm/damon/vaddr: support page fault access check primitive
-  mm/damon/core: read the CPU number with preemption disabled
-  mm/damon/paddr: lock the folio for the page fault primitive rmap walk
-  mm/damon: add damos_node_eligible_mem_bp tracepoint
-  mm/damon/core: add per-probe-class report rings and unified drain
-  mm/damon: add perf-event overflow handler feeding the report ring
-  mm/damon/ops-common: use probe-weighted score when probe weights are
-    set
-  mm/damon: add perf_event prep for PMU-driven hotness probes
-  mm/damon/tests/drain-kunit: kunit for report rings and unified drain
-
- include/linux/damon.h        |  136 ++++-
- include/trace/events/damon.h |   32 +
- mm/damon/Kconfig             |   18 +
- mm/damon/Makefile            |    1 +
- mm/damon/core.c              |  995 +++++++++++++++++++++++++++----
- mm/damon/ops-common.c        |   21 +-
- mm/damon/paddr.c             |   37 +-
- mm/damon/perf_source.c       |  489 +++++++++++++++
- mm/damon/perf_source.h       |   54 ++
- mm/damon/sysfs.c             |  266 ++++++++-
- mm/damon/tests/.kunitconfig  |    4 +
- mm/damon/tests/core-kunit.h  |    2 +-
- mm/damon/tests/drain-kunit.h | 1091 ++++++++++++++++++++++++++++++++++
- mm/damon/tests/perf-kunit.h  |  133 +++++
- mm/damon/vaddr.c             |   83 ++-
- 15 files changed, 3220 insertions(+), 142 deletions(-)
- create mode 100644 mm/damon/perf_source.c
- create mode 100644 mm/damon/perf_source.h
- create mode 100644 mm/damon/tests/drain-kunit.h
- create mode 100644 mm/damon/tests/perf-kunit.h
-
-
-base-commit: e1f34dce183a96fc93bf9a42dcdc0ec0bf82a3d2
+diff --git a/include/trace/events/damon.h b/include/trace/events/damon.h
+index 4dfc9467ea4b5..b2a472eb45d95 100644
+--- a/include/trace/events/damon.h
++++ b/include/trace/events/damon.h
+@@ -74,6 +74,38 @@ TRACE_EVENT(damos_esz,
+ 			__entry->esz)
+ );
+ 
++/* Per-tick DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP goal evaluation. */
++TRACE_EVENT(damos_node_eligible_mem_bp,
++
++	TP_PROTO(unsigned int context_idx, unsigned int scheme_idx,
++		int nid,
++		unsigned long target_value, unsigned long current_value),
++
++	TP_ARGS(context_idx, scheme_idx, nid, target_value, current_value),
++
++	TP_STRUCT__entry(
++		__field(unsigned int, context_idx)
++		__field(unsigned int, scheme_idx)
++		__field(int, nid)
++		__field(unsigned long, target_value)
++		__field(unsigned long, current_value)
++	),
++
++	TP_fast_assign(
++		__entry->context_idx = context_idx;
++		__entry->scheme_idx = scheme_idx;
++		__entry->nid = nid;
++		__entry->target_value = target_value;
++		__entry->current_value = current_value;
++	),
++
++	TP_printk("ctx_idx=%u scheme_idx=%u nid=%d "
++			"target_value=%lu current_value=%lu",
++			__entry->context_idx, __entry->scheme_idx,
++			__entry->nid,
++			__entry->target_value, __entry->current_value)
++);
++
+ TRACE_EVENT_CONDITION(damos_before_apply,
+ 
+ 	TP_PROTO(unsigned int context_idx, unsigned int scheme_idx,
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 991ddb9a09414..6b56a3e961c4e 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3461,6 +3461,34 @@ static unsigned long damos_quota_score(struct damon_ctx *c, struct damos *s)
+ 		highest_score = max(highest_score,
+ 				mult_frac(goal->current_value, 10000,
+ 					goal->target_value));
++
++		/*
++		 * Per-tick visibility of NODE_ELIGIBLE_MEM_BP goal evaluation
++		 * for userspace convergence-detection.
++		 */
++		if (goal->metric == DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP &&
++		    trace_damos_node_eligible_mem_bp_enabled()) {
++			/*
++			 * cidx is hardcoded 0 because DAMON sysfs currently
++			 * supports a single context per kdamond.  Other DAMOS
++			 * tracepoints (damos_before_apply, damos_esz,
++			 * damos_stat_after_apply_interval) follow the same
++			 * convention; once multi-ctx-per-kdamond lands the
++			 * field becomes meaningful.
++			 */
++			unsigned int cidx = 0, sidx = 0;
++			struct damos *siter;
++
++			damon_for_each_scheme(siter, c) {
++				if (siter == s)
++					break;
++				sidx++;
++			}
++			trace_damos_node_eligible_mem_bp(cidx, sidx,
++					goal->nid,
++					goal->target_value,
++					goal->current_value);
++		}
+ 	}
+ 
+ 	return highest_score;
 -- 
 2.43.0
 
