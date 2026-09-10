@@ -1,26 +1,26 @@
 Received: from mx1.zhaoxin.com (MX1.ZHAOXIN.COM [210.0.225.12])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EC85A47F2CB;
-	Thu, 10 Sep 2026 11:54:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8460348094A;
+	Thu, 10 Sep 2026 11:54:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.0.225.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789041270; cv=none; b=McYPrXBRY3ZEgjhQRvd7GZEiJfkOOEjJ+s2RRpM48TJdbb/ZuNqm3EOxv3d0B0nPDNdh/IZtYRnHWMvbkBuw4iwv8g9kHS/LdumFPN94z0FOm8NHIa6NnPd17Z5/v66Q7Wi0VeNsLbXBHaoevM/gsLr+n0vV9iDXy4k5J1kygxw=
+	t=1789041271; cv=none; b=nlcB10LiUA5tcxpx61VjMJG2oI2p8pg2z7muA5WBo6e4X504dAoxoqWE+rv+er1qZjB8rbl3ylbtD/mGduST0Az/l35nAhI6mzOFv0oXgSc4EAkUyz6cDfu3ItgnosK5pz4cxBUxg0SLhORwwFMhZ6YXm9x8iDfLXZ0hQ26Arc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789041270; c=relaxed/simple;
-	bh=AXS2t2pnpKQ8X41YuO34w5QbpEIpeQqHxTUCN4B5oaE=;
+	s=arc-20240116; t=1789041271; c=relaxed/simple;
+	bh=Pd4ATw6gTHfY7Lv8ZYbBNlu+6nxrHVMa+m6WOUrQ8Pw=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=shPMbFyJDDP5wpAgmhsxzb8uC2MBASKKDI4lq+nUiUcSb2jt0hGZo4S2/veGBQNc479kVIkOR/sYwk/69q0hdgotcKCSfWUMjg0++78+Pe5IgaEoPaPjgbQyfy1vo7eKzTuiqkHVUuot1wQCPwUhFv4xuV9wzcmag4xv76lINFk=
+	 MIME-Version; b=NoshjGI2+jA75tpbEThTJdUPc3wYms/lsnDqjeHE8RB3IrJnvH3bTKqC3qiTU1pp6R88L99hjWUgZzxrOZxHoEjPWOm5yPiZVuLJCRmu2iEmFtPw/DqnrYz09Vo6Utr29iX4hwi06i/ZJUjXt/iY9wTTAkz21rWdD8rKHMugyc8=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com; spf=pass smtp.mailfrom=zhaoxin.com; arc=none smtp.client-ip=210.0.225.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zhaoxin.com
 Received: from zhaoxin.com (unknown [127.0.0.1])
-	by mx1.zhaoxin.com (MTA) with ESMTP id 4hgbgj0ZJHzbKSt2;
+	by mx1.zhaoxin.com (MTA) with ESMTP id 4hgbgj0ZBRzbKSsx;
 	Thu, 10 Sep 2026 19:54:25 +0800 (CST)
 Received: from zhaoxin.com (unknown [10.28.208.166])
-	by mx1.zhaoxin.com (MTA) with ESMTP id 4hgbgf6flczb0tj9;
+	by mx1.zhaoxin.com (MTA) with ESMTP id 4hgbgf5sZszb0tj9;
 	Thu, 10 Sep 2026 19:54:22 +0800 (CST)
 Received: from ewan-server.tailb932da.ts.net (ewan-server.tailb932da.ts.net [10.28.24.2])
-	by zhaoxin.com (8.30) with ESMTPebf2f47cf2d09d27d59131a3eeef50e2
-	Thu, 10 Sep 2026 19:54:21 +0800
+	by zhaoxin.com (8.30) with ESMTPc912bb700f5899f2adcbc011148850e2
+	Thu, 10 Sep 2026 19:54:22 +0800
 X-Eyou-Smtpauth: ewanhai-oc@zhaoxin.com
 X-Eyou-EnvelopeSender: ewanhai-oc@zhaoxin.com
 X-Eyou-From: Ewan Hai <ewanhai-oc@zhaoxin.com>
@@ -34,9 +34,9 @@ Cc: Shuah Khan <shuah@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	ewanhai@zhaoxin.com,
 	cobechen@zhaoxin.com
-Subject: [PATCH v2 5/9] KVM: selftests: fix_hypercall_test: Add Zhaoxin CPU support
-Date: Thu, 10 Sep 2026 19:54:10 +0800
-Message-Id: <20260910115414.3015260-6-ewanhai-oc@zhaoxin.com>
+Subject: [PATCH v2 6/9] KVM: selftests: Skip PERF_CAPABILITIES vCPU checks without PDCM
+Date: Thu, 10 Sep 2026 19:54:11 +0800
+Message-Id: <20260910115414.3015260-7-ewanhai-oc@zhaoxin.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260910115414.3015260-1-ewanhai-oc@zhaoxin.com>
 References: <20260910115414.3015260-1-ewanhai-oc@zhaoxin.com>
@@ -51,28 +51,43 @@ X-Eyou-Sender: <ewanhai-oc@zhaoxin.com>
 
 From: Frank Zhu <frankzhu@zhaoxin.com>
 
-Zhaoxin CPUs use VMCALL as the native hypercall instruction. Use
-host_cpu_is_intel_compatible so that fix_hypercall_test selects the
-VMX hypercall path on Zhaoxin CPUs.
+KVM allows userspace to query MSR_IA32_PERF_CAPABILITIES through
+KVM_GET_MSRS even when PDCM is not exposed in KVM_GET_SUPPORTED_CPUID.
+However, vCPU accesses to the MSR fail without PDCM.
+
+Keep the feature MSR query, but skip its checks when KVM does not
+expose PDCM, allowing feature_msrs_test to continue checking the
+remaining feature MSRs.
 
 Signed-off-by: Frank Zhu <frankzhu@zhaoxin.com>
 ---
- tools/testing/selftests/kvm/x86/fix_hypercall_test.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/testing/selftests/kvm/x86/feature_msrs_test.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/tools/testing/selftests/kvm/x86/fix_hypercall_test.c b/tools/testing/selftests/kvm/x86/fix_hypercall_test.c
-index 4931ec227..f11fcc520 100644
---- a/tools/testing/selftests/kvm/x86/fix_hypercall_test.c
-+++ b/tools/testing/selftests/kvm/x86/fix_hypercall_test.c
-@@ -48,7 +48,7 @@ static void guest_main(void)
- 	const u8 *other_hypercall_insn;
- 	u64 ret;
+diff --git a/tools/testing/selftests/kvm/x86/feature_msrs_test.c b/tools/testing/selftests/kvm/x86/feature_msrs_test.c
+index 158550701..9602e29bf 100644
+--- a/tools/testing/selftests/kvm/x86/feature_msrs_test.c
++++ b/tools/testing/selftests/kvm/x86/feature_msrs_test.c
+@@ -54,6 +54,19 @@ static void test_feature_msr(u32 msr)
+ 	if (is_kvm_controlled_msr(msr))
+ 		return;
  
--	if (host_cpu_is_intel) {
-+	if (host_cpu_is_intel_compatible) {
- 		native_hypercall_insn = vmx_vmcall;
- 		other_hypercall_insn  = svm_vmmcall;
- 	} else if (host_cpu_is_amd_compatible) {
++	/*
++	 * KVM allows userspace to query MSR_IA32_PERF_CAPABILITIES as a
++	 * feature MSR even if KVM doesn't expose PDCM, but vCPU accesses to
++	 * the MSR will fail in that case. Skip the vCPU checks so that the
++	 * remaining feature MSRs can be tested.
++	 */
++	if (msr == MSR_IA32_PERF_CAPABILITIES &&
++	    !kvm_cpu_has(X86_FEATURE_PDCM)) {
++		printf("KVM does not expose PDCM, skipping vCPU checks for "
++		       "MSR_IA32_PERF_CAPABILITIES (0x%x).\n", msr);
++		return;
++	}
++
+ 	/*
+ 	 * More goofy behavior.  KVM reports the host CPU's actual revision ID,
+ 	 * but initializes the vCPU's revision ID to an arbitrary value.
 -- 
 2.34.1
 
