@@ -1,161 +1,235 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42518493D36
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:29:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4893489FB1;
+	Thu, 10 Sep 2026 14:29:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789050546; cv=none; b=nA7f7cpSql88zSS4fXxQdSI4nmJJeYs6aNCWa50i2EGMpdrR2jTbYcrHIvk/zeQjmQKTuRv4NYjZP0BzT8fEg2i9CYZk3C08wyK7wqpkjnRnqiBtn7yL/KDnr7lyczc9BvrU5hG2xhiCN8bBVEY/i93AE2s7GJ6dUkVZ8VCxQEU=
+	t=1789050559; cv=none; b=NMq43LY8+ZJhLla+RPIuz/k+tbQI8GcR1Lt3zipdEx//ItHPu5oOCLO4CGpVFgwVxUMbcbGZ0beLWpH3zy31klzfI2CyCszn4e2/gZLN+fhw/0jkQqRNiLP8QCuCt1goy8qaSqT91pafMFdNWpu/SaXqOpwuQNShzFxds5eJhXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789050546; c=relaxed/simple;
-	bh=lyspu3aOKLbIRf5XENbtCVfMBm8FA06IHpc+MnfQ5hI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Qb66w7eZdIPzgYNiysWlUft6fFtJQ6QX/hvhOPOlH0+uwwW13YEZ7FpuCbUUZ712PztzZ2RvoLwrG9wVJV1n+caPEvosfqT5APz3X9Y2MsN6RoN6TqiVEvWtnHgUHhvBkDa8tni5JCbfWMnq1FISqF7DValZKztE0usnQWuWeAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qc3FFWC1; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1789050559; c=relaxed/simple;
+	bh=TAOYR8njee2iwqwI0d4esXJMuuALxt6G0+X5gSu7Jtk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=W3cxVaureMPw7BReKHIQjJBp6S4eebPIZY6hopcBl2oITmuI0wJXcWKGbJ5eT0JtzxsFY4lB4e77kE5Ml1N7ueB78z2wPqteUkJe93+fSSae+zlf1kLOKreJgSHDHQuxvQF7CsttS8bnNnDh0M5GlMnnN289UkIbP1/D/oFZ+3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I/DKz63I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qc3FFWC1"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-53012819c04so230261cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:29:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789050544; x=1789655344; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=U4B0H2819dU8lEDJ1XLSE6/+8p+h2NlR6cCuK8RNsxY=;
-        b=qc3FFWC1HUyyNzEFobjj3oObW2yalxpGDLwSNwVqvxnC+LCUUB5Jxgz4YtcUGtFup+
-         TdHK9PVo4tC/e3RRo55grkhz4e90w6I6u1c0NYheGeJbhpf3U0ed6HjIQiacYLZICGtH
-         XCan3FkoqktWHhkJqMebIhxGthTtZZnf8IxvzqqBdYT1y5ccky/gIDBzqmR9EX0XKOZB
-         n40tbkHmdfcc7PX1vYgrwxEbUCZo8jBrvrVLDG0WOGiMt7W49w6mVaISePsQRM81/Wkr
-         rtVTl/69Q8aYD/t+OcJUpyjp8UELv+wA1xsT97i709w3/TFOJ1YZkGth6/hrnJLUE6nX
-         xZQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789050544; x=1789655344;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=U4B0H2819dU8lEDJ1XLSE6/+8p+h2NlR6cCuK8RNsxY=;
-        b=XFA/ktpdeEp6vVUQoWcgwqcFnjqKVD+J7wbOZulYrB6NjvqnkDQFT0sPGPQGliaxIZ
-         HdHFjsxW7czQDl9i2LnnMBN+6/aInpd7Imf2yZPOd2GOiEjjKRUimfwkmIjdBofoqGCB
-         Jz/dEP9kItU4vpF/VZOVcchk8ab87sOAQ7shuYpF51CbUguM0ZoeotYeH/cDVNKSnL/U
-         IRFXntMX4LZHxwoCpy6pPP+o1YnTbeAZ3ra46ZQmgBxEbhTF+F4IgKb/bqfXJgNok18g
-         ZjNYupaSQkw89VTijbuL/BYgZuZKmcYHSuVX/ToYLjGQnk9mlt/Sv6jisahwsTuJYVoW
-         ryrg==
-X-Forwarded-Encrypted: i=1; AKwUvBwDdbAgHJktyYDL0gwHFnb1JyqcG6Iry5jkbbuhLcd1HWcYCr/Wl2g1uLJmMYxGG/K1HNjdx5f8zDVLsP4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kcU/rv7FMCbXnhvMEfOBvtsnLhsC1oKhonCSRYj5HZFL+sPeRS
-	MoFxGuJrOq9fDHd25QhOH0lpN6thneXuMVC30Ms/wNBFjYVbtE9GVx0QXtGNFKtN0g==
-X-Gm-Gg: AYBFou1SzLD1uo3VZhQUVSIb8HneODxdvurRVwmizCyzSiAzBKHPfbvFeQG3dQaYgmi
-	dn7kkofUQXDH5dPC1VoybJmW3o5z8jtUb7FOb0di53uR1gDECua+fXa2/VxbCjCQq7moqBjANKZ
-	D7PNmm7BPg2+DzP0FlsC1Iq6T8BVcN52jhs+N3J/tHWZtHqc+8Ybpe2DBTeXhe87EGNvmrvVDkL
-	3dvP4kz/MrMAI/vDafuQvbWW2QcMibEedI/MGKjMB+MDc8kmJ6mwDPhlMVpdxo0rKf9zZwZDxcI
-	zrgdLfyWBcCm4QwxYygBUJmWqDO7w0yTlqPDnnx9smtRix2UP/h776yUszZWrcgiz9Hvq2QpKeU
-	/nxCWzg2YdzywSWwYhutOf/Cb1G51ZFNeMbr07bCbjbqyHq7gr2y/NHQMqzgVSn2WNX9pZHdfm0
-	BnVit8ZNJBciB99HZyE5Dui7o9K+JaLBgccwxRxVMjEtHJA5D8gPKbs8SZHpPFYAVz4wpDR2+aS
-	5/L9HXxaN2qT3TYCOCBzxWDEnIbMjbwg3Z2eHEKzUgceq8=
-X-Received: by 2002:ac8:5cd6:0:b0:530:2f98:cebb with SMTP id d75a77b69052e-530b62fb6a3mr16703951cf.11.1789050543398;
-        Thu, 10 Sep 2026 07:29:03 -0700 (PDT)
-Received: from google.com (164.210.142.34.bc.googleusercontent.com. [34.142.210.164])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6bebe8d3f3fsm3196267eaf.10.2026.09.10.07.29.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 07:29:03 -0700 (PDT)
-Date: Thu, 10 Sep 2026 14:28:57 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Vasant Hegde <vasant.hegde@amd.com>
-Cc: Jason Gunthorpe <jgg@nvidia.com>, iommu@lists.linux.dev,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Joerg Roedel <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Ankit Soni <ankit.soni@amd.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Samiullah Khawaja <skhawaja@google.com>, sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/5] iommu/amd: Fix DTE clearing and rename
- iommu_ignore_device()
-Message-ID: <aqK-qfJ0x8-RLMgT@google.com>
-References: <ao3oHn8HiXIx5Wrl@google.com>
- <50ffc453-f918-47f8-9556-9813308690a9@amd.com>
- <20260826122147.GA3666382@nvidia.com>
- <bfb7be5b-2da3-4bd3-8146-9bd079011a75@amd.com>
- <20260828115331.GC3922654@nvidia.com>
- <399db967-050d-48dc-afb5-5c77ee9cce65@amd.com>
- <20260904142547.GU4157646@nvidia.com>
- <9be08ef1-7ae0-483a-938e-17e606b5d214@amd.com>
- <aqK04hq575iwY5BR@google.com>
- <cb98a268-c709-4489-981a-07d662a1f4da@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I/DKz63I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B7D71F00893;
+	Thu, 10 Sep 2026 14:29:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789050557;
+	bh=u57NC1k6Bqf0mo7Kdt9/SiH0AeFRP72u3trAgFtt4Ns=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=I/DKz63Io0owfDmvuXF1ij9DmOob8NZ36qEzesmm68JMcrvrYC1f9gjBLiqyS1NNR
+	 AtCUF797lcT2SlhbFdyyfPMwXX7BVth8RKdT6q/+2i2gr+l5ZkVvEhyUoGhVzOTBBE
+	 TPZQ+UX9U1okNoy8vHDfi6hfrlJ3BUiXuQoEfNuvUWkkawQ8KJOY8pC0J/xMqPhq+j
+	 TbjK+5Q+Rj30wCkFfkJfcmIkdzpJrAKsK9oJPvJ5RVpQbDI3w2BX3trSlemnHEe/3p
+	 2JLdlKg1fVyDjQDOYsSmtD5VuIKY26NLB+G1PhOILay33McJMAqhXw32euDxhrsGEL
+	 +s4H7uJsegykQ==
+Message-ID: <c72f7358-cb6c-448d-9ce9-c17b425964bf@kernel.org>
+Date: Thu, 10 Sep 2026 16:29:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cb98a268-c709-4489-981a-07d662a1f4da@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 08/12] mm/sparse: move __highest_used_section_nr handling
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Kairui Song <kasong@tencent.com>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ Oscar Salvador <osalvador@suse.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-cxl@vger.kernel.org,
+ driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org
+References: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
+ <20260909-b4-sparsemem_cleanups-v1-8-008fc8d579fe@kernel.org>
+ <aqK2_RpAlMbVYcuN@gremlin>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <aqK2_RpAlMbVYcuN@gremlin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 10, 2026 at 07:45:01PM +0530, Vasant Hegde wrote:
+On 9/10/26 16:16, Lorenzo Stoakes (ARM) wrote:
+> On Wed, Sep 09, 2026 at 03:33:01PM +0200, David Hildenbrand (Arm) wrote:
+>> Let's move it to sparse_init_one_section(). However, to keep early
+>> boot processing working, we also have to initialize it in
+>> sparse_sections_init().
+> 
+> A why might be nice :)
+
+Agreed, I'll mention that.
+
+> 
+> I guess preparing for removal of __section_mark_present()?
+> 
+
+Right intuition :)
+
+> Also good to have arguments as to why this is equivalent of previous
+> behaviour.
+> 
+> E.g. higher pfn = higher section nr so naturally the highest is the one you
+> end up wtih at the end of sparse_sections_init()?
+
+We go over all sections, just earlier.
+
+> 
+>>
+>> Should we use READ_ONCE/WRITE_ONCE with __highest_used_section_nr?
+>> Probably, something for another day.
+> 
+> It might be worth expanding this a bit. Do multiple threads read/write this
+> concurrently?
+
+Hah, I'll probably just drop it. I was just stumbling over readers vs.
+concurrent updates and thought "that looks suspicious".
+
+> 
+> No functional change intended here or is one intended? :)
+> 
+
+Certainly no change intended ;)
+
+> Before it was:
+> 
+> mm_core_init_early() -> sparse_sections_init() -> __section_mark_present()
+>                           sparse_add_section() -> __section_mark_present()
+> 
+> Now:
+> 
+>                                                  mm_core_init_early() -> sparse_sections_init() [early]
+>                                                  sparse_add_section() -> sparse_init_one_section()
+> 
+> But also called from mm_core_init_early():
+> 
+> sparse_init() -> sparse_metadata_init() -> sparse_metadata_init_nid() -> sparse_init_one_section()
+> 
+> Are both required?
+
+sparse_metadata_init() relies on __highest_used_section_nr in the
+for_each_early_section_nr / for_each_present_section_nr, so it is required.
+
+I could probable move the update on the hotplug side into sparse_add_section()
+instead!
+
 > 
 > 
-> On 9/10/2026 7:17 PM, Pranjal Shrivastava wrote:
-> > On Thu, Sep 10, 2026 at 05:25:25PM +0530, Vasant Hegde wrote:
-> >>
-> >>
-> >> On 9/4/2026 7:55 PM, Jason Gunthorpe wrote:
-> >>> On Fri, Sep 04, 2026 at 03:43:01PM +0530, Vasant Hegde wrote:
-> >>>> Jason,
-> >>>>
-> >>>>
-
-[...]
-
-> >>>>
-> >>>> During boot, it sets certain default values includ dte.v. It doesn't
-> >>>> clear everything.
-> >>>
-> >>> ?? It starts out with a 0 DTE table? There is no inherited DTE table
-> >>> except for kdump.
-> >>>
-> >>>> May be we should just remove ignore_device() completely? as
-> >>>>   - normal boot, its not yet configured, so no DMA is allowed
-> >>>>   - kdump boot, old DTE is still valid and let it continue?
-> >>>
-> >>> Yes, that makes alot more sense to me.
-> >>
-> >> Ack. @Pranjal, Can you fixup and send v4?
-
-[...]
-
-> >>
-> >> Yeah. One of the cleanup patch missed to update below comment.
-> >>
-> >>>
-> >>>         /*
-> >>>          * Order is important here to make sure any unity map requirements are
-> >>>          * fulfilled. The unity mappings are created and written to the device
-> >>>          * table during the iommu_init_pci() call.
-> >>>          *
-> >>>          * After that we call init_device_table_dma() to make sure any
-> >>>          * uninitialized DTE will block DMA, and in the end we flush the caches
-> >>>          * of all IOMMUs to make sure the changes to the device table are
-> >>>          * active.
-> >>>          */
-> >>>         for_each_pci_segment(pci_seg)
-> >>>                 init_device_table_dma(pci_seg);
-> >>>
-> >>> The DTE starts out with blocking because it starts out as 0. This
-> >>> isn't making the DTE blocking, it is doing something else. And it is
-> >>> very suspicious and racey looking to me.
-> >>
-> >> IIRC there were some requirement to keep V bit ON. Otherwise I don't see why we
-> >> should set and flush the dte here. Let me dig the details.
-> >>
-> > 
-> > Should I also update the comment in this series? (It seems less relevant
-> > to the ATS stuff)
+>>
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>> ---
+>>  mm/sparse.c | 5 +++--
+>>  mm/sparse.h | 6 +++---
+>>  2 files changed, 6 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/mm/sparse.c b/mm/sparse.c
+>> index 2b41ae36f20b8..2d0f2db34f4cf 100644
+>> --- a/mm/sparse.c
+>> +++ b/mm/sparse.c
+>> @@ -177,7 +177,7 @@ static inline unsigned long first_present_section_nr(void)
+>>
+>>  void __init sparse_sections_init(void)
+>>  {
+>> -	unsigned long pfn, start_pfn, end_pfn;
+>> +	unsigned long pfn, start_pfn, end_pfn, section_nr;
+>>  	int i, nid;
+>>
+>>  	sparse_extreme_init();
+>> @@ -187,9 +187,9 @@ void __init sparse_sections_init(void)
+>>  		mminit_validate_memmodel_limits(&start_pfn, &end_pfn);
+>>
+>>  		for (pfn = start_pfn; pfn < end_pfn; pfn += PAGES_PER_SECTION) {
+>> -			unsigned long section_nr = pfn_to_section_nr(pfn);
+>>  			struct mem_section *ms;
+>>
+>> +			section_nr = pfn_to_section_nr(pfn);
+>>  			sparse_index_init(section_nr, nid);
+>>  			ms = __nr_to_section(section_nr);
+>>  			if (ms->section_mem_map)
+>> @@ -201,6 +201,7 @@ void __init sparse_sections_init(void)
+>>  			__section_mark_present(ms, section_nr);
+>>  		}
+>>  	}
+>> +	__highest_used_section_nr = section_nr;
+>>  }
+>>
+>>  #ifndef CONFIG_SPARSEMEM_VMEMMAP
+>> diff --git a/mm/sparse.h b/mm/sparse.h
+>> index 7c5d82ceb7142..a3af4967fd5c5 100644
+>> --- a/mm/sparse.h
+>> +++ b/mm/sparse.h
+>> @@ -97,6 +97,9 @@ static inline void sparse_init_one_section(struct mem_section *ms,
+>>
+>>  	BUILD_BUG_ON(SECTION_MAP_LAST_BIT > PFN_SECTION_SHIFT);
+>>
+>> +	if (section_nr > __highest_used_section_nr)
+>> +		__highest_used_section_nr = section_nr;
+>> +
 > 
-> I'd say lets do that as separate patch. For now lets get this series finalized.
+> Could also be:
+> 
+> 	section_nr = max(section_nr, __highest_used_section_nr);
 
-Ack. Sent out: https://lore.kernel.org/all/20260910142655.3281464-1-praan@google.com/
+Ack!
 
-Thanks,
-Praan
+-- 
+Cheers,
+
+David
