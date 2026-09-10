@@ -1,123 +1,121 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96DC834750D
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:46:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D982D2877DA;
+	Thu, 10 Sep 2026 02:47:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789008395; cv=none; b=XfNrwkGWMySPJF4rAn3JWgFxRYfpGk5gygsBgsn6NkbGQAkN+RtO+HDudwUAVF6OVkWf11Jf54K9uA1iAw1t+thbooQcGYLsGInxMnTifE3ocL6lVS0xBkb75z0ui8joI/EQuHI1wO7+sgTq1jMTzwIJdOs3Jm+BBJ/JxUMJCWg=
+	t=1789008435; cv=none; b=aHX4qb8JrbZ59LokwtOeTC/H9kXMTtK4wc13l25EnhG+ssKHZaSimtqccILT7bI/227h6eWEzbn4dIOdMAoah/ei9J/3bJVE80Gzo6AHIUYgnXb/msVNLvVl36u4ql8EydBoy1Aszf/qkKRdKhFrqqfVAZ1LbYiE6+cfDja95A8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789008395; c=relaxed/simple;
-	bh=5plLy/akUgnW+2omHUcDOEnJjRaaas6WdXfuN0Z4nP0=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=soUZWqHBZfjjfWJGdONuOa9E33ZcIJOMJs3HnbWsWgo0JtAxmKgFmHQ03+o3dDXpmSXPV5QPllhl2KY9YrURQ+DN30gdt7i+MDLUEeafeacHHG3qvIU28zw8XWdlHTh94z1JxSe47PMXIxCq+HaPs9LMnAP5BC3PV97VMOLTWw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=AP0t3lNC; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1789008435; c=relaxed/simple;
+	bh=d0dcrt7bn2rzR78vVZyWJIxQ+SHzCjONmEeWXccRBQ4=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=j+HNgcsi9HwScyhYVzXlRifVtau04Gz1Qe8sJepc5SBItf93yh3uiobrbu6fTXnYt+QAOuLJnRBGV5lyWvARUMelQzg++kp3TLzmHo5zzk2ZxVR9xwxA7Qy8Seti3NnMrCyJNUcWPi3LKQsdGxAJR4ff6om22W7pPUQxyPYwnDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=GqB8NuMi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="AP0t3lNC"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a996c8adf3so2211691a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 19:46:33 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="GqB8NuMi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFF841F000FF;
+	Thu, 10 Sep 2026 02:47:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789008392; x=1789613192; darn=vger.kernel.org;
-        h=user-agent:content-disposition:content-type:mime-version:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RGo0BucmWwjHY/M/mqoExTi1Uj0ClHrt9derWN+gAl8=;
-        b=AP0t3lNChJ+/TnMVFnpsWHoh37Pd8wHsacbBixmxZ+hcHJlwibN9+gtxWfDhAVHJcy
-         dC+B9H8iuts2NYiy1/50EAjFtEbzjJhmS7mxDWpCiyEMqQ8c68jFmlS/8Rdz6J9S4gcZ
-         L5BLXy6aRXEKoZDHwI7bT1zTXJXlUTYguRwoCaiyvK8TtW67AEVEg++T5oQ865Q/w9mG
-         44zM3oWjIomisQylcXZs42H2iXQyX2XLvxTWdYYmsT3L+qI2ON3rgERWr9TAAfzgi9Yl
-         92pfQOYxE0ceaujFzOR7+UEVRcpMtkEFKanZIuPFFMIGv54Hf0zq+9WEiqTVnGiWFMq5
-         4l5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789008392; x=1789613192;
-        h=user-agent:content-disposition:content-type:mime-version:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=RGo0BucmWwjHY/M/mqoExTi1Uj0ClHrt9derWN+gAl8=;
-        b=hmiPpgrsaLcYFz60/lhobc+kyeRhAA/xt/RSG/CK8xDVbl/2KHn/1q4GFolYaXMChY
-         pXpgBzyw/oeOyhgAateTr8le7XepybFpF4LCU09yhQwq/9kvpyubrnDIkJMT21MUKuql
-         xtEHhqG9jP0gUzbylsvq6eCTT3E8vSP3cWAf7VxOohLFM4GXeZOZqPLfTfA+dr8kythJ
-         POEdQ0kkcqGXYCeVrbCGo8toaZxa8qw7rfezQDtcJjf5JyzNeGn/gGldNZI0s3/CWmU4
-         n+6v8YreK5yGt9eJCcpS9Eg2EpGpA6f2IwXx/Mq3U1QiwrJUaLpapTV/gyu2o+I2alFe
-         yCiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzJNAC7af1YVL+lQVt2EC8Q3OJnKkvjXFV15MynD2sz8PUTtyAw2pujy24KtSwrbGx6pr69VzrAx25TMuw=@vger.kernel.org
-X-Gm-Message-State: AFuF++khyoZdECjM+wVkpHLXZomkHHUINoqHJY1G6FuHRzQ47xYFqWbM
-	2OeJ5tjLVAIhldCX9b6xAOxTGI5Kg/zrGPpwEyP0T2U1IM+yCil9l+jN2rlBWx32cbk=
-X-Gm-Gg: AYBFou2xkwhr6l5Xp6LPNk7AzRxvHPUG88u+SSWz9nwR/BkU+qRAkeXqW7Kr1rF6jjL
-	o0RKSA+oIEIQpbiRnIehvDFEFkgGCyoXL5IgM2r1XxMIWgggDw20rEAWC+a1Ms8NmPeVhXc7/3d
-	ufHtssV0tSoGzQN6sIwU8VCOPD7jLxnHmyMkfbSx6yWNX4KOGUqmK6CimAPYt6VmMhugcFhkSC7
-	limlumHNMVOUzh0XN8kgPiTp1bxkQ//PoVGqkjc1m/tOWckXEYxI6pAX/dzhlwTi3bBAXLuayeV
-	DWPi1y30k+xV/4osPAdwnp2yCI9ekVApsLs5bxyKDKZiKXrmbBhTClboija/Scy/tuOXPAXWsCj
-	keJ/z4+jMTNFvgibTQdcUqzzz5sHf77T/GoHVb8ZvC9xh/a0Tud0LBFQwMzGRs9cP4zPVPUmMEt
-	OePGTNkWZTT1es4weoNgeLeWvsaD4yytxMN2JmUx56hobVJZ/rOsJ2urkcQlHAT07VVMbMCeygb
-	nKUXTUQ9iS1yc+c27TYpxGQ0JZb
-X-Received: by 2002:a05:6402:c44:b0:6a8:3962:2b85 with SMTP id 4fb4d7f45d1cf-6a98df800c7mr7115034a12.3.1789008391853;
-        Wed, 09 Sep 2026 19:46:31 -0700 (PDT)
-Received: from r1chard ([2401:e180:8d23:5f05:2c5b:a1bb:33f1:a712])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d770bc2e1sm2641321a91.1.2026.09.09.19.46.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 19:46:30 -0700 (PDT)
-Date: Thu, 10 Sep 2026 10:46:26 +0800
-From: Richard Lyu <richard.lyu@suse.com>
-To: jarkko@kernel.org
-Cc: fourier.thomas@gmail.com, jgg@ziepe.ca, linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org, peterhuewe@gmx.de,
-	richard.lyu@suse.com
-Subject: [PATCH v2] tpm: Remove ineffective wmb() from tpm_pm_resume()
-Message-ID: <20260910024624.41195-1-richard.lyu@suse.com>
+	d=linux-foundation.org; s=korg; t=1789008433;
+	bh=DwQIpJL6XFgYeovLrOfrrQBEuXDvt/nYNYAROMqmr4U=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=GqB8NuMiJIO3o52zIm9Um/v0WDyjDNDLMrzcmqdqsCMJGuke572wcg3uVfMlUl2Q7
+	 7KReR5eczs3MlwumyAKo3tUFyHPQ5FI+Qtr24G4RkCYGbyy+h9XQ4DI5hFNhz4UJ9d
+	 MKZe2wBRBN3bcLtW/VDIPE3RVoPHuQgVkwlD0VUU=
+Date: Wed, 9 Sep 2026 19:47:12 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: yosry@kernel.org, chengming.zhou@linux.dev, hannes@cmpxchg.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, nphamcs@gmail.com,
+ kernel-team@meta.com, stable@vger.kernel.org, Alexandre Ghiti
+ <alex@ghiti.fr>
+Subject: Re: [PATCH] mm: zswap: don't fail a large-folio swapin whose range
+ is not in zswap
+Message-Id: <20260909194712.706fb2e87a6e59097424c31d@linux-foundation.org>
+In-Reply-To: <20260907161938.1932355-1-usama.arif@linux.dev>
+References: <20260907161938.1932355-1-usama.arif@linux.dev>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email 2.51.0
-User-Agent: Mutt/2.2.16 (2025-11-22)
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The comment above the wmb() in tpm_pm_resume() states that the barrier
-guarantees TPM_CHIP_FLAG_SUSPENDED is written last, so that hwrng does
-not activate before the chip has been fully resumed.  It cannot do so:
-it is placed after the store that clears the flag, and therefore does
-not order the preceding resume work before that store.  It also has
-nothing to pair with, as tpm_try_get_ops() contains no matching read
-barrier.
+On Mon,  7 Sep 2026 09:19:38 -0700 Usama Arif <usama.arif@linux.dev> wrote:
 
-Drop the barrier along with the comment rather than leave a no-op
-behind.  Should such ordering turn out to be needed, it would require
-paired barriers or locking.
+> thp_swapin_suitable_orders() and shmem_swap_alloc_folio() sample
+> zswap_never_enabled() to decide whether a swapin may use a large folio.
+> zswap_load() samples the same one-way static key again once the read
+> reaches it.  Nothing serialises the two reads, and in between the task
+> allocates and pins a high-order folio, which can sleep.
+> 
+> If zswap is enabled for the first time in that window, a large folio that
+> was correctly permitted reaches zswap_load(), which rejects every large
+> folio with -EINVAL.  swap_read_folio() treats anything other than -ENOENT
+> as "zswap handled it" and skips the backing-device read, so the folio
+> comes back unlocked and not uptodate: SIGBUS for an anonymous fault, -EIO
+> for shmem.  The data is intact on the swap device - it was written there
+> before zswap was ever enabled - and the not-uptodate folio stays in the
+> swap cache, so every retry of the fault fails the same way.  With
+> panic_on_warn the WARN takes the machine down rather than the task.
+> 
+> Scan the range instead of rejecting the folio.  The caller has pinned
+> every slot before issuing the read, so zswap cannot start a store or a
+> writeback into the range and the scan is stable.  If nothing in the range
+> is in zswap it is all on the backing device: return -ENOENT and let
+> swap_read_folio() read it.
+> 
+> A range that does have a slot in zswap is still refused, because zswap
+> stores large folios as order-0 entries and cannot reconstruct one.  That
+> stays reachable - a slot shared with another task can be stored inside
+> the same window - and refusing is correct, since the alternative is
+> returning the stale device copy.  Report it as -EIO rather than -EINVAL:
+> the request is valid, zswap just cannot serve it.  The only caller
+> distinguishes -ENOENT from everything else, so that part is a
+> documentation fix.
 
-Link: https://lore.kernel.org/all/a62fc816-259a-4d28-a265-e425bc17ed50@gmail.com/
-Signed-off-by: Richard Lyu <richard.lyu@suse.com>
+So to hit this bug the user needs to enable zswap system-wide during a
+teeny race window in the swapin code?
 
----
-v2:
-- Drop the Fixes tag: this is a cleanup, not a bug fix.
-- Link to v1: https://lore.kernel.org/all/aqIVn0cDBvIYKggE@r1chard/
----
- drivers/char/tpm/tpm-interface.c | 6 ------
- 1 file changed, 6 deletions(-)
+I suspect nobody has ever hit this and couldn't do so if they tried?
 
-diff --git a/drivers/char/tpm/tpm-interface.c b/drivers/char/tpm/tpm-interface.c
-index b4e749e70b02..0bab78c8767c 100644
---- a/drivers/char/tpm/tpm-interface.c
-+++ b/drivers/char/tpm/tpm-interface.c
-@@ -497,12 +497,6 @@ int tpm_pm_resume(struct device *dev)
- 
- 	chip->flags &= ~TPM_CHIP_FLAG_SUSPENDED;
- 
--	/*
--	 * Guarantee that SUSPENDED is written last, so that hwrng does not
--	 * activate before the chip has been fully resumed.
--	 */
--	wmb();
--
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(tpm_pm_resume);
--- 
-2.51.0
+> Fixes: 242d12c98174 ("mm: support large folios swap-in for sync io devices")
+> Cc: stable@vger.kernel.org
+
+
+Documentation/process/stable-kernel-rules.rst, with which I agree:
+
+Rules on what kind of patches are accepted, and which ones are not, into the
+"-stable" tree:
+
+- It or an equivalent fix must already exist in Linux mainline (upstream).
+- It must be obviously correct and tested.
+- It cannot be bigger than 100 lines, with context.
+- It must follow the
+  :ref:`Documentation/process/submitting-patches.rst <submittingpatches>`
+  rules.
+- It must either fix a real bug that bothers people or just add a device ID.
+  To elaborate on the former:
+
+  - It fixes a problem like an oops, a hang, data corruption, a real security
+    issue, a hardware quirk, a build error (but not for things marked
+    CONFIG_BROKEN), or some "oh, that's not good" issue.
+  - Serious issues as reported by a user of a distribution kernel may also
+    be considered if they fix a notable performance or interactivity issue.
+    As these fixes are not as obvious and have a higher risk of a subtle
+    regression they should only be submitted by a distribution kernel
+    maintainer and include an addendum linking to a bugzilla entry if it
+    exists and additional information on the user-visible impact.
+  - No "This could be a problem..." type of things like a "theoretical race
+    condition", unless an explanation of how the bug can be exploited is also
+    provided.
+  - No "trivial" fixes without benefit for users (spelling changes, whitespace
+    cleanups, etc).
+
+
+If this patch meets the above then its changelog needs an update!
 
