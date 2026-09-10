@@ -1,156 +1,226 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F2A47D937
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:10:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789063850; cv=none; b=TiQ5aPhzvgyTxq1zw19UMtoRF8icMSSSzh56KcXFJHogEfzdPKIyTSz6uE65s9wZiSqKNZLWC6+xAv29zMU6M0T4TnQVuyidOHd/hJXhAk5Ndgj3WiGjVbxIDYmskyAc/MloTuZ3nrbjhAcZLhdT7wBrfVFzmCt6jDMc5dNu+Vg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789063850; c=relaxed/simple;
-	bh=e9PkTtlYqMxaHfAu8LpieQ7czgbprlFJBVaH88XOm7Q=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=jWa7KYp7nX0iCrKyfoE0X8zQjTsOVp7p9f7ws5DZoqXCpUUffHzjSYRD3D85SCeYfD2P5xP7O/hhn7rIP654BejmCscdt5BTuNMhhFb9qyGNNXuMr2AC7YvPWsEy1MMTw1R6xeCWvitoRl+BJwUvMvXCi60jPXjA2LIv5US86Sg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=S396ilnZ; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FDBA56E04B
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:11:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789063895; cv=pass; b=YVZFVxNRs8Vdj/hEcXbZU0qhrO/xsKGiDMuYSyejFd/p5uhNifvZh/PtrJSS/DCsDH0JYn2KUa95vR+25HupyI672GQUsB8n5G0Uqttp/KdiOlvLZt5e79e1bB5qy+k5O+2V3RmL62pbueY9tl+tCr5CtYGgOqIcPHX8HpLeSVA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789063895; c=relaxed/simple;
+	bh=NT0Z/LF1SMhtkavx81DR2GGYYK6aB7iX5ZVgmCMPgvQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lKpO1BSIzXanHX4ajKDZSE6HacXj4ByF/Y8M6raJW30UmgHDCGpvXrvRaMRP7HNYG2cD1IwRxEdsZfsmY4qG1WKi9pLFnqdex1DkU+aM7UksFArlbOFE269RwpOgYpG5+BpV3Q9yswVsST7hP/UtbCNY6s4ySfoIdURRMYiD67U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FKybIG7v; arc=pass smtp.client-ip=74.125.231.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="S396ilnZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789063849; x=1820599849;
-  h=date:from:to:cc:subject:message-id;
-  bh=e9PkTtlYqMxaHfAu8LpieQ7czgbprlFJBVaH88XOm7Q=;
-  b=S396ilnZT92vtTscnnMxFwFdQwdAwBCKGLluFi9w54umMOHZ0/StT4Ll
-   PKQMDePCEDCxHaW6zeNvQ94GbL0h/jCu8uZmMFtTOME3/TV8WOAc+yvGZ
-   AYlMHuPOB/oKYVwbPVQHRsYPETSwllu3GGtmdF1H5tSgTcOJUx/eZ9mWA
-   5yPGW8YJ6MR8jGE0qw2wkG3C+Ag4nuAKL8+TiB70xA/iJ/vhWwGbxKVEj
-   dMeE17dfrXYZP52xhHExc/NhA53mUFChPVVjcvSAoNz2qHIxWzKKdp0g/
-   ICxF3DcCrOShJencBpSKpxmqJJpe8DiaM8W776ZctqOrupMpjApf5E+X5
-   A==;
-X-CSE-ConnectionGUID: drN5rKZaSpmLNFrwLoaByg==
-X-CSE-MsgGUID: +1IoPQQ/Ss+Lw7l51SxVhw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="112297607"
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="112297607"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 11:10:49 -0700
-X-CSE-ConnectionGUID: uTF0ZRz2T2ydjHdOU1vWPw==
-X-CSE-MsgGUID: gf6MNX1ZQBeN0VVwfUvn5w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="273649797"
-Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
-  by fmviesa004.fm.intel.com with ESMTP; 10 Sep 2026 11:10:47 -0700
-Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x4jES-000000000O8-196A;
-	Thu, 10 Sep 2026 18:10:44 +0000
-Date: Fri, 11 Sep 2026 02:10:30 +0800
-From: kernel test robot <lkp@intel.com>
-To: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [paulmck-rcu:dev.2026.09.03a] BUILD SUCCESS
- 6c5c244f4b239bc4d284e58a2f79a143648557cb
-Message-ID: <202609110223.bO8OBHSX-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FKybIG7v"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-47b5043f191so4248fac.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:11:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789063890; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kHBWkUAeVtGTu3TGDkdLkKfTwzkN3TRFb0r3MP6FiYsabpaASZuRYVLCdY6Kqoo5OY
+         RFtqg6MGsBRJpZw89KrJ9w6e/PaSIO3KRiVcRkSRtSJX0Bn8AVbcs/K3ZPZD4C1BaHIt
+         LIFkjdGcfOCZtQng1sANGnuHpauUDo/oOE3noplyHRaLqxOVf/OC7EPhEVH7WBLcj43n
+         Atpng5pe5orD3sLosWCck3w5XBIGZK8t0NBDgxxPyMGKl6kQlI5QLYT62dhZv48Xns3l
+         O0QsHC0E1AWbUn1sarICEk4ioGEAFgTM0SB23N1IECjVmyHT6ZcHrVEWcKl9oAN3NPlI
+         cZrQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gxuS67QpsgmiVo7SJODgVn7jNGL8PaTVeXELBYXj9Vc=;
+        fh=0H1EeSd3LpYdYoOsWQlatiYv6UKCPulpIJxQWsEylts=;
+        b=hqYnbQ9Nnmu3wKcLYWHTBoQIHW8Np2TGXFDac1A8Jai0IstQ73Tbq2R/yLrUPWAFoT
+         wTPpJef2e0k3md2mtLIGDOesdClY7yO+rShN4aa8AhpGJBLpLwNBlGwPVoxlmX3/n/bX
+         trt9tmj1bvDBbxfgd60W0qJNU72nurhRyuluaYLZSt82rf/PW4plv2KjDQWYuaEqaMbX
+         nPaG4Q3qntgS0Yi+uW0GE1eZrU43E9xuI9347ABzySH+IG62MuqylrY1l/gxT7aGsVv3
+         zt/8MmCdzb51wF71j//J5ZXfpcJtRZ8t9FNLvX3WprR8Z2/3lFjwBCd1YCMbK2ani1LQ
+         mHfw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789063890; x=1789668690; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gxuS67QpsgmiVo7SJODgVn7jNGL8PaTVeXELBYXj9Vc=;
+        b=FKybIG7vbPrID6z1nHaj6kVvqnRQk9kvLUdCSO2+2ma9Rrzv9SNsMhpf6H6ntsMUds
+         JkyN3NfvnmjEM6fiuIEbDJ9ubreYKGMr4WB5YW+WP8daIgGmV93h2QhGZncGxUruNTVl
+         xb2WebfNbk637VrINs16GyzSfy6Udi4tcRoeH/5/HvD6JJC39vardYEfjksmVtn+eq90
+         6nNKA546KE5FFVTONnyAW7NH0ZI0JriDM3YVglc1gMZq/J8BylnjF7IuIBmBXSUxR5sk
+         pKWbcKzTldmYVXmq15a181+DQWmWqY+Hy9X3XmqX1apU7j5PpWG+JMXCx6tSMMlVkN1h
+         l9ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789063890; x=1789668690;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gxuS67QpsgmiVo7SJODgVn7jNGL8PaTVeXELBYXj9Vc=;
+        b=kzChz/85lwh9dP/WR8cRZ9IZVuplz4QjboSP//e8caoUSZpSBa1yJp7BNCmj4oLsbH
+         +rzRU+l5cBX1+JBT04YSh/e1W8T+8dniIkzLp0QLwNpEcqfU1ucz4RBC+ueFNicot5OZ
+         T+vmfnvMXe+oJkwcyXXWWAKBbVYlaaqCZbgynoY4huggFQMQxgHbZ0iwFd6F3fyulr/6
+         0AVZKBpf2u5d7zVrUmw1f9Ln+GwnmsEC8+Qn5iF8U/smsQREEdkgMOYvzHVQuXLE5bb1
+         4optGYTAgXWEj1gI2x1AL/ipm3buYKo0sgsf2pcJOZdXOU1geuhD8rC6wrxuiCMvv+7+
+         X+Lw==
+X-Forwarded-Encrypted: i=1; AKwUvBzojIBsINDZq7ZBCo5vuPsQINaBwRYFQivzwECWOI4kghJgLjbEaQrVku1cOjzM74+CNavuzQuKTRGCOvc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nO+oUirnYqVDpbesTaDukqVn6LvruugXNCYmrLBzqQr+NbJjVK
+	fbJAoQFG/vqWO4klQpAjlrn3AyJLtJRvqr5wbE+7VGQVz4zwoNeWT49nt4obfur0WcDlXSgv4AG
+	2VK1dRT6tUTfYF9PCiFNgwEfXM3IdGYE=
+X-Gm-Gg: AYBFou1ZpiAG9XnxAwoPjAGx0dVfUreE4wB3NSTUU27kZ9CVxnlZrPzF+EtaUVfxUKc
+	z+vtWxfy8ykCsKSunLHJoevo1iBmIDclwyqc+m64cgt8hbeLMKlscGTqGGZ6slAFI3nkvoANZfV
+	C8YHHSWTp8wlPhCi7svz8bM9vPCoXuyYQxqPXynYQ+Gsn0+gpd1WeNENHOpdEdLBx2RBJE2+VyF
+	9QsApVAee6Rm/d8pvYBAxqC2ARuYfexePIfE2YdkZSpMNK4bHeAnE9i8YhQgPc1/rPcyUKd4VvD
+	JsuovUZzkaUvSmpBjwpJdl7vopBvlQkMMCcuyI6VBAYVlmMr1/bGriI=
+X-Received: by 2002:a05:6820:55d3:20b0:6b1:ac4f:f708 with SMTP id
+ 006d021491bc7-6c0bc1d3ad3mr241038eaf.17.1789063890425; Thu, 10 Sep 2026
+ 11:11:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
+ <20260908-b4-mmap-prepare-vma-flag-sanify-v1-11-dacf19cce22b@kernel.org>
+In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-11-dacf19cce22b@kernel.org>
+From: Stephen Smalley <stephen.smalley.work@gmail.com>
+Date: Thu, 10 Sep 2026 14:11:18 -0400
+X-Gm-Features: AcwNN1XLr_yN2lEzELD3PcXDse2cuW9BBHCwsQpnROCV_SxzPvFmiqhSaiK704I
+Message-ID: <CAEjxPJ7hXSi=oLtQPV+7GEvN+txfYwZ-u-v_EysNHM0gSGNrCw@mail.gmail.com>
+Subject: Re: [PATCH 11/39] selinux: reject writable opens of policy file, drop
+ mmap shared/write check
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, Jaroslav Kysela <perex@perex.cz>, 
+	Takashi Iwai <tiwai@suse.com>, Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, Simona Vetter <simona@ffwll.ch>, 
+	Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+	Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Arnd Bergmann <arnd@arndb.de>, Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+	Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+	Miklos Szeredi <miklos@szeredi.hu>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+	linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+	linux-sound@vger.kernel.org, bpf@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+	fuse-devel@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/paulmck/linux-rcu.git dev.2026.09.03a
-branch HEAD: 6c5c244f4b239bc4d284e58a2f79a143648557cb  EXP drivers/usb/mtu3: Work around mtu3_log_ep double-indirection issue
+On Tue, Sep 8, 2026 at 4:07=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.or=
+g> wrote:
+>
+> The policy file has no write method and is exposed read-only (S_IRUGO in
+> selinux_files[]), yet sel_open_policy() performs no open mode check, so a
+> CAP_DAC_OVERRIDE caller can open it O_RDWR. Reject FMODE_WRITE at open, a=
+s
+> kernfs does.
+>
+> The file can then never be mapped with FMODE_WRITE, so do_mmap() always
+> clears VM_MAYWRITE and VM_SHARED for MAP_SHARED mappings and the VM_SHARE=
+D
+> check in sel_mmap_policy() cannot be reached. Remove it.
+>
+> This also stops sel_mmap_policy() clearing VM_MAYWRITE on a mapping that =
+is
+> neither a PFN map nor a mixed map, ahead of the core enforcing that only
+> such mappings may do so.
+>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-elapsed time: 1467m
+We should likely do something similar for the other sel_open_*() and
+sel_mmap_*() functions too.
+In particular, truncation of the status file can bring down systemd
+since it is mapped by libselinux.
 
-configs tested: 79
-configs skipped: 0
+Acked-by: Stephen Smalley <stephen.smalley.work@gmail.com>
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
-
-tested configs:
-alpha         allnoconfig    gcc-16.1.0
-alpha        allyesconfig    gcc-16.1.0
-arc          allmodconfig    clang-24
-arc          allmodconfig    gcc-16.1.0
-arc           allnoconfig    gcc-16.1.0
-arc          allyesconfig    clang-24
-arm           allnoconfig    clang-17
-arm           allnoconfig    gcc-16.1.0
-arm          allyesconfig    clang-24
-arm          allyesconfig    gcc-16.1.0
-arm64        allmodconfig    clang-24
-arm64         allnoconfig    gcc-16.1.0
-csky         allmodconfig    gcc-16.1.0
-csky          allnoconfig    gcc-16.1.0
-hexagon      allmodconfig    clang-24
-hexagon      allmodconfig    gcc-16.1.0
-hexagon       allnoconfig    clang-24
-hexagon       allnoconfig    gcc-16.1.0
-i386         allmodconfig    clang-22
-i386          allnoconfig    gcc-14
-i386          allnoconfig    gcc-16.1.0
-i386         allyesconfig    clang-22
-loongarch    allmodconfig    clang-24
-loongarch     allnoconfig    clang-20
-loongarch     allnoconfig    gcc-16.1.0
-m68k         allmodconfig    gcc-16.1.0
-m68k          allnoconfig    gcc-16.1.0
-m68k         allyesconfig    clang-24
-m68k         allyesconfig    gcc-16.1.0
-microblaze    allnoconfig    gcc-16.1.0
-microblaze   allyesconfig    gcc-16.1.0
-mips         allmodconfig    gcc-16.1.0
-mips          allnoconfig    gcc-16.1.0
-mips         allyesconfig    gcc-16.1.0
-nios2        allmodconfig    clang-20
-nios2        allmodconfig    gcc-11.5.0
-nios2         allnoconfig    clang-24
-nios2         allnoconfig    gcc-11.5.0
-openrisc     allmodconfig    clang-20
-openrisc     allmodconfig    gcc-16.1.0
-openrisc      allnoconfig    clang-24
-openrisc      allnoconfig    gcc-16.1.0
-parisc       allmodconfig    gcc-16.1.0
-parisc        allnoconfig    clang-24
-parisc        allnoconfig    gcc-16.1.0
-parisc       allyesconfig    clang-17
-parisc       allyesconfig    gcc-16.1.0
-powerpc      allmodconfig    gcc-16.1.0
-powerpc       allnoconfig    clang-24
-powerpc       allnoconfig    gcc-16.1.0
-riscv        allmodconfig    clang-24
-riscv         allnoconfig    clang-24
-riscv         allnoconfig    gcc-16.1.0
-riscv        allyesconfig    clang-24
-s390         allmodconfig    clang-17
-s390          allnoconfig    clang-24
-s390         allyesconfig    gcc-16.1.0
-sh           allmodconfig    gcc-16.1.0
-sh            allnoconfig    clang-24
-sh            allnoconfig    gcc-16.1.0
-sh           allyesconfig    clang-17
-sh           allyesconfig    gcc-16.1.0
-sparc         allnoconfig    clang-24
-sparc         allnoconfig    gcc-16.1.0
-sparc64      allmodconfig    clang-20
-um           allmodconfig    clang-17
-um            allnoconfig    clang-17
-um            allnoconfig    clang-24
-um           allyesconfig    gcc-14
-um           allyesconfig    gcc-16.1.0
-x86_64       allmodconfig    clang-22
-x86_64        allnoconfig    clang-22
-x86_64        allnoconfig    clang-24
-x86_64       allyesconfig    clang-22
-x86_64      rhel-9.4-rust    clang-22
-xtensa        allnoconfig    clang-24
-xtensa        allnoconfig    gcc-16.1.0
-xtensa       allyesconfig    clang-20
-xtensa       allyesconfig    gcc-16.1.0
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> ---
+>  security/selinux/selinuxfs.c | 11 +++--------
+>  1 file changed, 3 insertions(+), 8 deletions(-)
+>
+> diff --git a/security/selinux/selinuxfs.c b/security/selinux/selinuxfs.c
+> index c7d91476971c..545a6f89f9e7 100644
+> --- a/security/selinux/selinuxfs.c
+> +++ b/security/selinux/selinuxfs.c
+> @@ -340,6 +340,9 @@ static int sel_open_policy(struct inode *inode, struc=
+t file *filp)
+>         struct policy_load_memory *plm =3D NULL;
+>         int rc;
+>
+> +       if (filp->f_mode & FMODE_WRITE)
+> +               return -EACCES;
+> +
+>         rc =3D avc_has_perm(current_sid(), SECINITSID_SECURITY,
+>                           SECCLASS_SECURITY, SECURITY__READ_POLICY, NULL)=
+;
+>         if (rc)
+> @@ -424,14 +427,6 @@ static const struct vm_operations_struct sel_mmap_po=
+licy_ops =3D {
+>
+>  static int sel_mmap_policy(struct file *filp, struct vm_area_struct *vma=
+)
+>  {
+> -       if (vma->vm_flags & VM_SHARED) {
+> -               /* do not allow mprotect to make mapping writable */
+> -               vm_flags_clear(vma, VM_MAYWRITE);
+> -
+> -               if (vma->vm_flags & VM_WRITE)
+> -                       return -EACCES;
+> -       }
+> -
+>         vm_flags_set(vma, VM_DONTEXPAND | VM_DONTDUMP);
+>         vma->vm_ops =3D &sel_mmap_policy_ops;
+>
+>
+> --
+> 2.55.0
+>
