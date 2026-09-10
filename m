@@ -1,149 +1,102 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-43.mta1.migadu.com [95.215.58.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF48391846;
-	Thu, 10 Sep 2026 09:34:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDE03D1AAA
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:34:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789032855; cv=none; b=hMCogrjlFH7tWngzCIRMYO2ZL6kuY44rMmvYL62wVeeBUtAocy7rNIiGM/m8LZRwW9h2TDulKoGxN9GjWE99jhxxA7l3tTIAVaX66IZcec67yMyoqd/RmaD5KjvTVmTZIIM3knrsKIINY51pDNMXsmXGawIUF7rNCV+fRYNCZII=
+	t=1789032874; cv=none; b=gMmdV4iFoX/alrhtR1Df+Lvh+WJmRyDxI9dNbT+193LTUkjPUcDv+L1Z48ONa9WvBvu+1JInvIQiN+SLXRJmF/+IAcM8d/dswHJOKsAljOO0buSzY/BfQLlzDFtXVE2qU6OSbCbAhdK7pEnKDNCJOwoh/ILvqqOv85u4i4Qv2pI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789032855; c=relaxed/simple;
-	bh=KWIqtCsgFy3CMIbB0nDeszb6lj7Mdoybp0t1DOWIgg8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=swJwBRW3G4ME64P2ar6lF8xYJRPFf03coAv8fayqhvSymRxaKHSCXjqLZjGcwMwJLz4P0rqY0Xix3IQ/mT7nquzOp+mIAHCZSh6iK5b183HzawNIUTLWTiRG1esvTzgIQmBNhOxZMjr6TD98WKTNu9qFwWycNdB1BHhseb3Qb3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AzNN1uQk; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789032874; c=relaxed/simple;
+	bh=O5RJIBAf8bdM+SFjmTJLRNSqjUhosM/VE9Wbdt3m/JM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mQmpjc5/aw5V1cr+rs8kmiTtg/kjmrfyAkeGHC9ESwZESv80nmFGfyChQs3UY8qezVNHf3tp1OWauIdBuX6lAVM3hySwbLMqnOk/UgTkxnV7q3vkBQTnj+hmsvB7rwIiRoqwsrHrbY8YWHKXD7/rpsh7uikbDm6c1eFD/NCgeq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kKEPIE+T; arc=none smtp.client-ip=95.215.58.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AzNN1uQk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789032853; x=1820568853;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=KWIqtCsgFy3CMIbB0nDeszb6lj7Mdoybp0t1DOWIgg8=;
-  b=AzNN1uQklffATvvr638Mv0kgeCD6WUJs+8Tb3c0ied/6hiU7igifIfRo
-   HtHUY/yNhw91WzRAjPAugQxhQYrhw/eX95YEC/6RUCNi/11kOoV6DURwg
-   0nKq4K/QK+C6hPAkatg3hZTezIhB9BiFNeY2I0J1TgyH1dYtVi8Ugo5s6
-   ZtaCVBUMptoOENSFi/KKizcdy1eYIg6tIRzxIt3hiTOMy6ELHzX8my0F3
-   NPo5W+kLhYBEcEAxr/aZTg21PODX3d8Tig9OCOgZwJXx45TXV4Radlt+K
-   kOUl26gzriamJWhwpK16ZDpGnq9GFCkaiKIWT0VbKqU+y22q9mxh+BByL
-   A==;
-X-CSE-ConnectionGUID: 0J+nBdFQSmSEHKa+Y1SSyg==
-X-CSE-MsgGUID: d4JZyBhfRwKTtkc7wX1qSQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89601511"
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="89601511"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:34:12 -0700
-X-CSE-ConnectionGUID: I3CdQm0pTVyez/256/13dA==
-X-CSE-MsgGUID: hRs1CcGuSgSNJSyivTGacg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="268308887"
-Received: from carterle-desk.ger.corp.intel.com (HELO [10.245.245.216]) ([10.245.245.216])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:34:10 -0700
-Message-ID: <c17e0351-d390-4a40-89c4-51d4be9f0123@linux.intel.com>
-Date: Thu, 10 Sep 2026 12:34:07 +0300
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kKEPIE+T"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=O5RJIBAf8bdM+SFjmTJLRNSqjUhosM/VE9Wbdt3m/JM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789032868; v=1; x=1789637668;
+ b=kKEPIE+TQJuOLKMBCD4vd/Yklk3RS8Ft4N7vEu7dBndTumZhqUFr5rSqxaIqAud192yJ2XlV
+ 9wmRsfswhorUNWcDazEYnM6+M8gMuzqOHpIvo6O1Jsjr+542CurCC6ddxuix5cqr12P8hRcbrPy
+ 1CateQQqXVlVAjxVyVQ/2UWE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b741d43ade1385a0;
+	Thu, 10 Sep 2026 09:34:28 +0000
+X-Mizu-Trace-ID: b741d43ade1385a0
+X-Migadu-Flow: FLOW_OUT
+From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+To: netdev@vger.kernel.org
+Cc: jhs@mojatatu.com,
+	jiri@resnulli.us,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	shuah@kernel.org,
+	marcelo.leitner@gmail.com,
+	pctammela@mojatatu.com,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Subject: [PATCH net v1 0/2] net/sched: fix action batch deletion cleanup
+Date: Thu, 10 Sep 2026 17:34:11 +0800
+Message-ID: <20260910093413.34509-1-xuanqiang.luo@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xhci: sideband: check vdev liveness before removing
- endpoints on unregister
-To: =?UTF-8?B?6IOh6L+e5Yuk?= <hulianqin@vivo.com>,
- Mathias Nyman <mathias.nyman@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "quic_wcheng@quicinc.com" <quic_wcheng@quicinc.com>,
- "broonie@kernel.org" <broonie@kernel.org>
-Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <TYUPR06MB6217000B59003EDF233D7246D2B22@TYUPR06MB6217.apcprd06.prod.outlook.com>
-Content-Language: en-US
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-In-Reply-To: <TYUPR06MB6217000B59003EDF233D7246D2B22@TYUPR06MB6217.apcprd06.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 9/7/26 15:24, 胡连勤 wrote:
-> xhci_sideband_unregister() assumes the virtual device (vdev) is still
-> alive when iterating sideband endpoints and issuing stop endpoint
-> commands. However, xhci_disable_and_free_slot() may have already freed
-> vdev and its out_ctx before xhci_sideband_unregister() is invoked.
-> 
-> This happens when xhci_setup_device() gets COMP_USB_TRANSACTION_ERROR
-> (e.g. device not responding to setup address during bus reset recovery),
-> causing vdev to be freed before xhci_sideband_unregister() is called:
-> 
->    hub_event()
->      xhci_setup_device()                  <-- COMP_USB_TRANSACTION_ERROR
->      xhci_disable_and_free_slot()
->        xhci_free_virt_device()
->          kfree(out_ctx), kfree(vdev)
->          xhci->devs[slot_id] = NULL
->      ...
->      usb_disconnect()
->        uaudio_disconnect()
->          xhci_sideband_unregister()
->            xhci_stop_endpoint_sync()
->              xhci_get_ep_ctx()            <-- CRASH (deref freed out_ctx)
-> 
-> Unable to handle kernel paging request at virtual address dead000000000122
-> Call trace:
->   xhci_get_ep_ctx+0x0/0x38
->   xhci_sideband_unregister+0x68/0xf0
->   uaudio_disconnect+0x70/0x144
->   usb_audio_disconnect+0x7c/0x268
->   usb_unbind_interface+0x13c/0x340
->   device_release_driver_internal+0x1c4/0x2bc
->   device_release_driver+0x18/0x28
->   bus_remove_device+0x158/0x170
->   device_del+0x1c8/0x320
->   usb_disable_device+0x84/0x190
->   usb_disconnect+0xe8/0x338
->   hub_event+0xbd8/0x19ac
->   process_scheduled_works+0x200/0x9d8
->   worker_thread+0x154/0x3b0
->   kthread+0x11c/0x1a0
-> 
-> Fix this by caching the slot_id in the sideband structure at
-> registration time, then checking under xhci->lock whether
-> xhci->devs[slot_id] still matches sb->vdev before issuing stop
-> endpoint commands. If vdev has been freed, skip endpoint cleanup
-> entirely - the xHCI has already disabled the slot.
-> The interrupter is still removed as it does not depend on vdev.
-> 
-> The slot_id is cached in sb->slot_id rather than read from vdev at
-> unregister time because vdev may already be freed, making
-> sb->vdev->slot_id a dangling dereference.
-> 
-> Fixes: de66754e9f80 ("xhci: sideband: add initial api to register a secondary interrupter entity")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lianqin Hu <hulianqin@vivo.com>
+From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 
-Thanks, nice catch and layout of the problem.
+Batched RTM_DELACTION requests can leak references to unprocessed actions
+when deletion stops at a filter-bound action.
 
-I think we need to address this issue a lot earlier than in xhci_sideband_unregister()
+Patch 1 fixes the failure cleanup.
 
-xhci_free_virt_device() shouldn't leave any dangling pointers, if vdev->sideband
-is still set at this point then something is wrong, and should as a final resort be
-fixed here. Print a debug message and set  vdev->sideband->vdev = NULL before freeing vdev.
+Patch 2 adds tc-testing regression coverage.
 
-Another issue is the transaction error recovery during address device.
-xHCI specs say we should disable and re-enable the slot.
-xhci driver additionally frees and reallocates the vdev.
-We could probably avoid this and just re-initialize the contexts without
-reallocating vdev.  This being said I think it would be even better to not
-try to 'usb persist' sideband over a usb device reset.
+Failure reproduction (key output excerpts):
 
-Might be best to unregister sideband in qualcomm usb audio driver completely in
-the drv->pre_reset, and re-register it back in drv->post_reset
+  python3 tdc.py -f /root/tc-testing/batch-delete.json
 
-But to avoid this specific issue we should also set vdev->sideband->vdev to NULL
-in xhci_free_virt_device()
+not ok 1 d710 - Release tail references after first action deletion fails
+	Could not match regex pattern. Verify command output:
+[...]
+	 index 2 ref 2 bind 0
+[...]
+	 index 3 ref 2 bind 0
 
-Thanks
-Mathias
+not ok 2 d711 - Release tail references after middle action deletion fails
+	Could not match regex pattern. Verify command output:
+[...]
+	 index 3 ref 2 bind 0
+
+not ok 3 d713 - Delete a tail action once after a failed batch
+	Could not match regex pattern. Verify command output:
+total acts 2
+[...]
+	 index 2 ref 1 bind 0
+
+Xuanqiang Luo (2):
+  net/sched: act_api: release tail references on DELACTION failure
+  selftests: tc-testing: test action batch deletion failure cleanup
+
+ net/sched/act_api.c                           |  11 +-
+ .../tc-tests/actions/batch-delete.json        | 115 ++++++++++++++++++
+ 2 files changed, 123 insertions(+), 3 deletions(-)
+ create mode 100644 tools/testing/selftests/tc-testing/tc-tests/actions/batch-delete.json
+
+
+base-commit: 7f26a5e8040b4957ef4dbdfcde6cc7ba2db53937
+-- 
+2.43.0
+
