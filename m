@@ -1,231 +1,93 @@
-Received: from mta1.migadu.com (out-148.mta1.migadu.com [95.215.58.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E2838D3F4
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:40:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3DA7383305;
+	Thu, 10 Sep 2026 06:40:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789022440; cv=none; b=WP54snvCtnuZPScw2ubEUm7TcmPqdPBavAKjbD7Kh2SCp0AlHWN47maMklWbHT2XYgjb3gQLmEy+ddIXKO9spLaki9lovz+39lYNgDQLHNY4viEuny6vDJkuraPIl72In4Zuvg88qq195Qe5VosSllLJVZN2JO2632oGGwkw9LA=
+	t=1789022456; cv=none; b=bBBRk8BeG9qHj1iM2iUhesBkpnHoCostWZu4+bRvuCarg21kk/sGviHBr1QY34OJw+o+I0KeQWeuxcj0FOpeFFjkiKLBSFkBNxwb4JvqA1MY+/y92p0pBUt1ds9mgTBM5tvJwM5xsCZvpLAUGAl+cKudT3ZO+6fh57nv9YiLurI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789022440; c=relaxed/simple;
-	bh=45ddndeuvjrwAlwAAEb+M6XzqAT3yVc1IPjOk3qKoyM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JUvUceBznBRpkfZedgS9ZYjRg8HmpvSxxOY1aZYH6TkO3g4oVaBiAVE1RBtgNRS3T8CE27EmAod4/gXzpPPSkf1hLxd06icbNRkCznksAiS1Q+BeAG+scHsaJzXfAayJiJQnNAK1m9NvMS30CqDxA2CG2nuJI3xeL2RJ2RQ1GMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bP6IaI7M; arc=none smtp.client-ip=95.215.58.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789022456; c=relaxed/simple;
+	bh=AU7p2eSR//jayR3C19gBuBIxS69n4oXnhNgdy1B/xtg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KJdKkcq3SmJOnaQtNN5Etdt8Xa+qajtdDX+JNvQeJq9AN7HY2Ni1wT7L7rM8UZVy2PnsSkq7UG1ng4oSdXObppDiF3k718Ynx4bbZYZJAT0vcMVg8ak07OYHXeJHrLlbAfBEHUVvj765kpu8OYepxiPlVy9gdjSakYBaCU9wqqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JOqVa/xd; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bP6IaI7M"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=45ddndeuvjrwAlwAAEb+M6XzqAT3yVc1IPjOk3qKoyM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789022435; v=1; x=1789627235;
- b=bP6IaI7MvvDQu2Nx2A7STmcXTR3DScJ+YO4yNsjsquc8ksTiqs2BD9Zn1T4Oyf2r6kMfmnJi
- TYTAaObmbueooKdbe0qYDYY8VPlEk8ahsrhuDi7qNubUGg+S7zEBUxlyMRJZFvaX9FR1tIhwml4
- qnUajkzhukH8gXKhr8IhsbNA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 1094519f23a8d5e8;
-	Thu, 10 Sep 2026 06:40:34 +0000
-X-Mizu-Trace-ID: 1094519f23a8d5e8
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <6db46600-0e39-4924-b006-92ceb9fcf5e3@linux.dev>
-Date: Thu, 10 Sep 2026 07:40:34 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JOqVa/xd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789022454; x=1820558454;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=AU7p2eSR//jayR3C19gBuBIxS69n4oXnhNgdy1B/xtg=;
+  b=JOqVa/xdELlQezUdTAlcTAZ1gIuhcmA2q6q6QbpQZhu2karIUUxtpell
+   zQxaHBYGR0kgfpRf2YoWv5ZALlAVr6BbFo0wZv5MkZ0YDoGCzuPvNC4XB
+   N7pn99246hNuXlM6OfBoaE7m7k7Tpxv+4y3iuGFG13CZdHLURQK0IkwK5
+   ajDDF37CvVxbd1MIJTpmo8G51PAVRcGOCqzdQ+hrmuZazfR15bzeqv1h5
+   T3afnWdC8rn25RWMN/sME8jluqyxDolhLFVb9MR62/5KbniJRvUYTLDkc
+   1KTTtSC6dmzPIfkyt1Vhryfj+sSLt5ggJHG0cVKCBJm0yHTExtrOP+ViG
+   Q==;
+X-CSE-ConnectionGUID: /dsE46atSRSTlg80OboyqQ==
+X-CSE-MsgGUID: yW3gt+92R8GlS4OlaQ6DCA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89675204"
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="89675204"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 23:40:53 -0700
+X-CSE-ConnectionGUID: pntFyr5xTUq0BMpGMNtSIg==
+X-CSE-MsgGUID: nRXqZGz7RjWBULdZbtd/1Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="268279890"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.177])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 23:40:51 -0700
+Date: Thu, 10 Sep 2026 09:40:49 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Cc: Michal Simek <michal.simek@amd.com>, Andi Shyti <andi.shyti@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7] i2c: xiic: restore non-managed runtime PM to fix clk
+ WARN flood
+Message-ID: <aqJQ8Qm_nhBaWR-s@ashevche-desk.local>
+References: <20260821-i2c-xiic-restore-runtime-pm-teardown-v7-1-954e06765144@nexthop.ai>
+ <DLBBXHXIVHZL.BIOFL7T9OAM7@nexthop.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/7] block: fail atomic writes instead of falling back
- to buffered I/O
-To: Tal Zussman <tz2294@columbia.edu>, Jens Axboe <axboe@kernel.dk>,
- Christoph Hellwig <hch@lst.de>,
- Johannes Thumshirn <johannes.thumshirn@wdc.com>,
- Luis Chamberlain <mcgrof@kernel.org>, Hannes Reinecke <hare@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- John Garry <john.g.garry@oracle.com>, Christian Brauner
- <brauner@kernel.org>, "Darrick J. Wong" <djwong@kernel.org>,
- Keith Busch <kbusch@kernel.org>,
- "Martin K. Petersen" <martin.petersen@oracle.com>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>
-References: <20260909-blkdev-fixes-v3-0-1a5222c6e8ad@columbia.edu>
- <20260909-blkdev-fixes-v3-5-1a5222c6e8ad@columbia.edu>
-Content-Language: en-US
-From: John Garry <john.garry@linux.dev>
-In-Reply-To: <20260909-blkdev-fixes-v3-5-1a5222c6e8ad@columbia.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLBBXHXIVHZL.BIOFL7T9OAM7@nexthop.ai>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 9/9/26 23:05, Tal Zussman wrote:
-> An IOCB_ATOMIC direct write to a block device can silently lose its
-> torn-write guarantee in two ways:
+On Wed, Sep 09, 2026 at 08:51:33PM -0700, Abdurrahman Hussain wrote:
+> On Fri Aug 21, 2026 at 6:12 PM PDT, Abdurrahman Hussain wrote:
+
+> Gentle ping on this one. It has been quiet since v7 went out on Aug 21.
 > 
->    1. blkdev_direct_write() turns an -EBUSY from page cache invalidation
->       into a 0 return, so the whole write is retried through
->       blkdev_buffered_write(), with no atomicity guarantee.
-> 
->    2. On a partial page pin, __blkdev_direct_IO_simple() and
->       __blkdev_direct_IO_async() submit what was pinned with REQ_ATOMIC
->       set and leave the rest to the buffered fallback.
+> Andy, v4 onwards switched to request_threaded_irq()/free_irq() with the
+> explicit free in the probe error path and in remove(), per your comment on
+> v3. Does that address your concern, or is there anything else you would
+> like changed?
 
-This really should be 2x separate changes - 1x for fops.c and 1x for bio.c
+Seems okay to me.
 
-> 
-> The second case can be triggered deterministically. A 16K
-> pwritev2(RWF_ATOMIC) whose last page is PROT_NONE, on a scsi_debug
-> device with atomic_wr=1, completes short with only three of the four
-> pages written, violating RWF_ATOMIC semantics.
-> 
-> Fail the I/O instead. Make bio_iov_iter_get_pages() release the pins
-> and return -EINVAL when a REQ_ATOMIC bio doesn't cover the whole
-> iterator, since an atomic write is submitted as a single bio and a
-> short one would be torn. That covers iomap as well, where a partially
-> unmapped buffer could trip the WARN_ON_ONCE() in
-> iomap_dio_bio_iter_one(). The async block device path currently sets
-> REQ_ATOMIC after pinning, so set it before.
-> 
-> Skip the buffered fallback in blkdev_write_iter() for IOCB_ATOMIC, as
-> it already does for IOCB_NOWAIT, so the -EBUSY case returns -EAGAIN and
-> the caller retries, matching __iomap_dio_rw().
-> 
-> ext4 has the same fallback and only warns in it. For block devices both
-> ways in can be detected before any I/O is submitted, so fail early instead.
-> 
-> Fixes: caf336f81b3a ("block: Add fops atomic write support")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://sashiko.dev/#/patchset/20260802-blkdev-fixes-v1-0-a82fc549fd74%40columbia.edu?part=2
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
-> ---
->   block/bio.c  | 29 ++++++++++++++++++++++-------
->   block/fops.c | 10 +++++-----
->   2 files changed, 27 insertions(+), 12 deletions(-)
-> 
-> diff --git a/block/bio.c b/block/bio.c
-> index 898b2f5ef8c8..63e266d861f1 100644
-> --- a/block/bio.c
-> +++ b/block/bio.c
-> @@ -1284,6 +1284,7 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
->   			   unsigned mem_align_mask, unsigned len_align_mask)
->   {
->   	iov_iter_extraction_t flags = 0;
-> +	int ret;
->   
->   	if (WARN_ON_ONCE(bio_flagged(bio, BIO_CLONED)))
->   		return -EIO;
-> @@ -1303,34 +1304,48 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
->   		flags |= ITER_ALLOW_P2PDMA;
->   
->   	do {
-> -		ssize_t ret;
-> +		ssize_t len;
+> Andi, this is a regression fix for 50c63491ff26 (the devres conversion),
+> and the WARN fires on every unbind/rmmod of the driver, so it would be
+> good to get it into 7.2 or early 7.3 fixes if the patch looks OK to you.
 
-iov_iter_extract_bvecs() local variable is called "size", so maybe use 
-the same here
+v7.2 is already released, so v7.3-rcX is the best you can get.
 
->   
-> -		ret = iov_iter_extract_bvecs(iter, bio->bi_io_vec,
-> +		len = iov_iter_extract_bvecs(iter, bio->bi_io_vec,
->   				BIO_MAX_SIZE - bio->bi_iter.bi_size,
->   				&bio->bi_vcnt, bio->bi_max_vecs,
->   				mem_align_mask, flags);
-> -		if (ret <= 0) {
-> +		if (len <= 0) {
->   			/*
->   			 * A misaligned vector fails the whole I/O.  Release any
->   			 * pages pinned by earlier iterations before returning
->   			 * since this bio won't be submitted to release them.
->   			 */
-> -			if (ret == -EINVAL) {
-> +			if (len == -EINVAL) {
->   				bio_release_pages(bio, false);
->   				bio_clear_flag(bio, BIO_PAGE_PINNED);
->   				bio->bi_vcnt = 0;
->   			}
->   			if (!bio->bi_vcnt)
-> -				return ret;
-> +				return len;
->   			break;
->   		}
-> -		bio->bi_iter.bi_size += ret;
-> +		bio->bi_iter.bi_size += len;
->   	} while (iov_iter_count(iter) && !bio_full(bio, 0));
->   
->   	if (is_pci_p2pdma_page(bio->bi_io_vec->bv_page))
->   		bio->bi_opf |= REQ_NOMERGE;
-> -	return bio_iov_iter_align_down(bio, iter,
-> +	ret = bio_iov_iter_align_down(bio, iter,
->   			&bio->bi_io_vec[bio->bi_vcnt - 1], len_align_mask);
-> +	if (ret)
-> +		return ret;
- > +> +	/*
-> +	 * An atomic write is submitted as a single bio, so it has to cover
-> +	 * the whole iterator or it would be torn.
-> +	 */
-> +	if ((bio->bi_opf & REQ_ATOMIC) && iov_iter_count(iter)) {
-> +		bio_release_pages(bio, false);
-> +		bio_clear_flag(bio, BIO_PAGE_PINNED);
-> +		bio->bi_vcnt = 0;
-> +		return -EINVAL;
-> +	}
+> Happy to respin if anything is still open.
 
-This all looks ok, but I'll check again ...
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> +	return 0;
->   }
-
-iomap_dio_bio_iter_one() can be updated at some stage to remove its own 
-check for improper length returned from bio_iov_iter_get_pages() for 
-IOCB_ATOMIC
-
->   
->   static struct folio *folio_alloc_greedy(gfp_t gfp, size_t *size,
-> diff --git a/block/fops.c b/block/fops.c
-> index a3a709697b40..0b614d76d128 100644
-> --- a/block/fops.c
-> +++ b/block/fops.c
-> @@ -341,6 +341,8 @@ static ssize_t __blkdev_direct_IO_async(struct kiocb *iocb,
->   	bio->bi_write_stream = iocb->ki_write_stream;
->   	bio->bi_end_io = blkdev_bio_end_io_async;
->   	bio->bi_ioprio = iocb->ki_ioprio;
-> +	if (iocb->ki_flags & IOCB_ATOMIC)
-> +		bio->bi_opf |= REQ_ATOMIC;
->   
->   	/*
->   	 * Users don't rely on the iterator being in any particular
-> @@ -371,9 +373,6 @@ static ssize_t __blkdev_direct_IO_async(struct kiocb *iocb,
->   			goto out_bio_put;
->   	}
->   
-> -	if (iocb->ki_flags & IOCB_ATOMIC)
-> -		bio->bi_opf |= REQ_ATOMIC;
-> -
->   	if (iocb->ki_flags & IOCB_NOWAIT)
->   		bio->bi_opf |= REQ_NOWAIT;
-
-I think that you relocate this as well to have similar functionality 
-co-located
-
->   
-> @@ -766,10 +765,11 @@ static ssize_t blkdev_write_iter(struct kiocb *iocb, struct iov_iter *from)
->   	if (iocb->ki_flags & IOCB_DIRECT) {
->   		ret = blkdev_direct_write(iocb, from);
->   		if (ret >= 0 && iov_iter_count(from)) {
-> -			if (iocb->ki_flags & IOCB_NOWAIT) {
-> +			if (iocb->ki_flags & (IOCB_NOWAIT | IOCB_ATOMIC)) {
-
-An alternative could be to have iomap_file_buffered_write() reject 
-IOCB_ATOMIC.
-
->   				/*
->   				 * The buffered fallback blocks on i_rwsem and
-> -				 * on writeback of the data it copied: return
-> +				 * on writeback of the data it copied, and
-> +				 * can't provide torn-write protection: return
->   				 * the short direct write instead and let the
->   				 * caller retry.
->   				 */
 
