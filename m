@@ -1,240 +1,184 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B070139656D;
-	Thu, 10 Sep 2026 03:39:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789011601; cv=fail; b=qVveV1XTygiLGMG3qFdYUM30gWcJ9Hsbm55VLvuGetr51v6m8Qq+N0k12au5tbA68eJ0E8K7oUAHnZ0lIhF8S7HqMVmag2itsE1DQnKTc/60BHVLaflbqhzXDYOc8cM5Tr4hMxyZDtOFXeTnygXywkf5Ck2w+aLIIV0wvRySbUE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789011601; c=relaxed/simple;
-	bh=o2VK52HpqNc+WJUPK3KFRubx/wTlyjKNABixmnFDJ8Y=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=p1m+U8K1H/0krprCnlKFIRJkjctq7G9m45p5TjBA4iBhq81Nd1372lGApsqPNdP6fhVtc//ii1itGuJa5FI6BK/pSY0WuSoq2Py+jVImzh82wAL5cZtaQSrO844xxb2pegTx7zdSizxRVLDRYAO4F0JBdJPOFiy8Yg8rHzevsmg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OEVqOf+W; arc=fail smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92EE93939B6
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:40:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789011609; cv=none; b=FcBEDZ721F6twV8dcwiP0l9We1IeE5Shmd3HucL3CltKwRtwI+oKVrN1v1ciqjBhK0R1mq07XMc48PW4kdzbvjm+QaypmK4UGzKgTovXdHZD8Fo5zNegbVsRVwtoH3oGKewaXlPNqYKbB/5KxWc92Rjzq7en7EJsTFJLaoqahww=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789011609; c=relaxed/simple;
+	bh=fbHi+gXipZ3MdJzUzGm17xyICy+psgM5NB9TegAjnbE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Rc9fDZt5B5nwdFiwOitMPj1U4BHhBmmC0EN1O67XIIJ9csNWXiqVfGfIqgMI45CS+p5mpZbHVWCNB5c98tvGRnIQ++0zoDdp9/WUCk8GO8MbcGszHMMkJQD7E9SLrIKsADqGVMjhUoHEhy7PNqUlkhcBzMggMrng3+JPw1cDS6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=LYNtCinm; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OEVqOf+W"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789011600; x=1820547600;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=o2VK52HpqNc+WJUPK3KFRubx/wTlyjKNABixmnFDJ8Y=;
-  b=OEVqOf+WX92ALaPU6M3+sOQYvh8mR0+/oYkH+YiFW4601WQILVW4ijWS
-   mkIpdcMsXaToLcDsN7Z5h43WXfRxKlx5uS2TMwUhKGB2UZU2+obOPY/aP
-   nHJw50DFVvywJcMFoNPCgJM1pznTrmI/Am92qBuneEU0Dwy96+A6pt4Ed
-   SeBqgY0fRGQPG0je9dI6PLE+G3go9I7PDPQtqoHkwJDkjVFLykkq5/89i
-   NY6Vbf5XPoH6MKId9515F0W2ux4zOMn00PYYenKC339Vgu0+5WKm4FsLx
-   phNr5LMozOgKFkZziow6VednxRFB3CuydJTFfontnnMfvXWw/8Cpt4uGP
-   Q==;
-X-CSE-ConnectionGUID: arNk9HaFSQOQCZwUa8uMtQ==
-X-CSE-MsgGUID: DQS9ol5ZRqiA4bY90mNNxg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89325115"
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="89325115"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 20:39:59 -0700
-X-CSE-ConnectionGUID: 5hue6rOTTHef6CxdaPuYIQ==
-X-CSE-MsgGUID: DAHJERe7SaCKkI6Dj0cjYA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="270158952"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 20:39:53 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 9 Sep 2026 20:39:49 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Wed, 9 Sep 2026 20:39:49 -0700
-Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.71) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 9 Sep 2026 20:39:48 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gBzeBqM2gTCFMgt3IBBe38+ia+pS2OhuoXwJNl/e+lly6x/cN7RjMoBI7FIURIYpf5tfFvf7rCdInB45pex1oPDB2ixb/hhCg1/4kvzRWBd5T5hgVPTQSskBxl6vpf5FhCSaIvNszO/11BM0f20VNpT+jP94E31vskF/0Q929zNCD4ofKkL9OthvRAST5h1VeNjbAr4o5fSOd1Zn5ZNmL+lgOaLg9IlCotczhs7BEXr990k1M1pbzkJ6KDITZtn9yG3dyj1UJTA6tGDOZRpA+2kmADMQiP4orCXUfpTuwkvYfmnjfUiy1kyW+cWtpEhteJSCxUer4BKAV6Kql8MuoQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DziKIxwX5o7gOx7ebEqyUcUq4wKUBOhOQciRiZNkj1A=;
- b=DnaFSb9ZRE3yDrVEs5vL6uqA0tvYfSeLjrZv+aOsL1DenjXZvVICDN5gmBD8TSq9vWyrA4JwUzkNJp9UbU1/i+MAQAWQR2BUbJh93tfidJh0Be4QnZxjcHK2uJ/t3b/P+wWnXj0FWWHHoktDYEPpAz2z7Pfn7R4dUMx+6im109kFkQyl34PKEmEsUOOaMOKlnSL60Pgp6pw72AsMBTWrtpyi9r86WDTotoJ8PyFSbOM++/k96DWj4A+HeNPtemxci8jE+In9T0e/eWEHSbJWzwNDQPDkSlpVGtrZcaIYcwfWHwsOdKuaUYm5Zd3yBgHIp4xRNmPeJLmr7mdS5MCYCA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA1PR11MB6241.namprd11.prod.outlook.com (2603:10b6:208:3e9::5)
- by LV2PR11MB9538.namprd11.prod.outlook.com (2603:10b6:408:378::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Thu, 10 Sep
- 2026 03:39:40 +0000
-Received: from IA1PR11MB6241.namprd11.prod.outlook.com
- ([fe80::7ac8:884c:5d56:9919]) by IA1PR11MB6241.namprd11.prod.outlook.com
- ([fe80::7ac8:884c:5d56:9919%3]) with mapi id 15.21.0406.007; Thu, 10 Sep 2026
- 03:39:40 +0000
-From: "Rinitha, SX" <sx.rinitha@intel.com>
-To: "Oros, Petr" <poros@redhat.com>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>
-CC: "Vecera, Ivan" <ivecera@redhat.com>, Alice Michael
-	<alice.michael@intel.com>, "Kitszel, Przemyslaw"
-	<przemyslaw.kitszel@intel.com>, Eric Dumazet <edumazet@google.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Martyna
- Szapar-Mudlaw" <martyna.szapar-mudlaw@linux.intel.com>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, Marcin Szycik <marcin.szycik@linux.intel.com>,
-	"Nguyen, Anthony L" <anthony.l.nguyen@intel.com>, Simon Horman
-	<horms@kernel.org>, "intel-wired-lan@lists.osuosl.org"
-	<intel-wired-lan@lists.osuosl.org>, "Keller, Jacob E"
-	<jacob.e.keller@intel.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>
-Subject: RE: [Intel-wired-lan] [PATCH iwl-net v4 1/2] ice: skip per-VLAN
- promisc rules when default VSI Rx rule is set
-Thread-Topic: [Intel-wired-lan] [PATCH iwl-net v4 1/2] ice: skip per-VLAN
- promisc rules when default VSI Rx rule is set
-Thread-Index: AQHdDtmI0Xq5iS1pvk6EOBK3yUUWiLbHjX7A
-Date: Thu, 10 Sep 2026 03:39:40 +0000
-Message-ID: <IA1PR11MB624104E0EDBB194323D6EFA68BBF2@IA1PR11MB6241.namprd11.prod.outlook.com>
-References: <20260708125755.706263-1-poros@redhat.com>
- <20260708125755.706263-2-poros@redhat.com>
-In-Reply-To: <20260708125755.706263-2-poros@redhat.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA1PR11MB6241:EE_|LV2PR11MB9538:EE_
-x-ms-office365-filtering-correlation-id: bf4d71b8-61a0-41a8-e327-08df0eed2539
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|7416014|376014|366016|23010399003|1800799024|38070700021|10067099003|56012099006|4143699003|11063799006|22082099003|18002099003;
-x-microsoft-antispam-message-info: hryRlLXcnsoT6v56LOt8KxZc+3P3bhl1EFnRPcIlxlMHvlHTg0gvn88Vuh4v+rOz+TPJ81UReVklCN3GQ5wMsR7AbyiOUJxXcTpm1u3Gl4/7w+d6v41+B+Mz51/4MxTwrJEm1zKRKkrbEyC+hkYTCPfkTmPW+uJmPPNoZvl9ckA1FlkFQ8F/uH01zrAhv+TUs1qaHfibwIB7cIXBCs6RYUy2Tcf0Ic6SGJIjlcXrXpJQ7S8Dcfoc7bVLAFv0V2pDBrTag/ilvqRXW+ffNXC+5raT01+y2L2UpJC5ONCzK4aA1jOuSC4GHAMoiFSoWsrB5oHpGjVDhWyGEwC63aYnJOs51PyGZnDttjz4N28yiJzQNb0a6HdF1OxI7HU7e6MJIHRKGD/c5K6BjpAwA4OThScrkl9LRtwWNfEbVNlDOV3H2OlW/xDMmXqpx1rqa62PxUoUPOKDvp4zmjERWIbljoKg+8MAnY1kwJiCyTfXmdq2l3YHMAMaQIcX8aMoLCrOCEr2ns8uz3o3+YrrBY86O+vDTjQSrm5bWsw7qLXLFJ7Xsb9ZEHO6aEhA8ANLnzHYC3oeteMU+LvvhcZZRi5lKtY+XVukojPC5wlVufXSSGiRWpWRUwUtZg3QXnit6fyRjnWd6cHenoA43glZHWPQBI3nyYZ79D1O/ZVsmfO6uRBexyqToB50xcscXKzH4PRTqTlW/DNAmRvieUlyHC9CsG9OuZRueYG0/Of1BzWH1Nc=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR11MB6241.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(23010399003)(1800799024)(38070700021)(10067099003)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?uZbOnIeAqthIfOz5qfKBco5P1ZGDgWI1P/stEz7aZ4bslNeYMTWoJSEYBbAP?=
- =?us-ascii?Q?1VGLIJ7qsy2VuekKeLHrLuL+fPi+eYU/e5g/Xj08uy+WhZynJu3Z+4Wk+wRD?=
- =?us-ascii?Q?INzmsS99c30XkkrkVqxxTbeLxus7H/TMS01XEduXfeuYoFR3zjF9Hwy7Sc2p?=
- =?us-ascii?Q?JE8VLhvSv0MLey8CB92P7OW46c0dEH4BWRK4U5kFg2egprBOV/F4T9G6+O91?=
- =?us-ascii?Q?we7mNbiHtx8c2dA3MQL+vS8n4FVYp/f7tSwqAHOREDDogDzt3rpo0EdYZd2e?=
- =?us-ascii?Q?qs7HRAnUaHTkBl5YUodhQhijF3heDFkPaoxys7RWiqm8tIhmR5WEkQfozJAw?=
- =?us-ascii?Q?xZ7NOyDrE/nONX1HyjUS5l/k16A6sBuLlL14ydQXK6WX55pGYVqHpmKgwwS7?=
- =?us-ascii?Q?CweJPsDfkOvWOMZ658YyDRxtgcmtyhus3IiGWghb5VF4GTnKd4L91+7U5by3?=
- =?us-ascii?Q?YteWFWcdgKDK2SsWl687Dulx0iGdJQKg/9xUyv3eDxkYPWhRTfEvroOp9UKS?=
- =?us-ascii?Q?fDdtDY/4SqB+UIPrfZvPEm8kJkTvafJt04xaM7eHFtyDKte+BQtQQU875B3V?=
- =?us-ascii?Q?TNtgYht8HahdApBtUrrl79pPiZ6oJAaa0uILP8O0WGsbaao8/55t3UhjjXo/?=
- =?us-ascii?Q?Po7rLG/1XSgpHzaUlNHv0CTF1WwnD7O4+Q5rZmqvshU746Xocki83CCkO3Xu?=
- =?us-ascii?Q?CTfBoVxEzbkmDj8uzjexTtcZVL/41CjuswSrv7Be3Q43wbBFJ6fWVoQBPl28?=
- =?us-ascii?Q?lXGX3ZFp7Vv0BE/tSuuQvE+J3C4tQ8hC5uw2ydcXEdUpUhTxNY4IMmL+QByZ?=
- =?us-ascii?Q?ZMZKD0VEL3eW5CgCMnbAMJ1XS5LRtJNNzP3i9AWV6IqdkNCHo15qa9mWMbAK?=
- =?us-ascii?Q?GpA2T90SYwxdAniw6Ak2vp1z/Cds6xZcYsGvr+X/Eb1pdsMF5Vp+aJ8aZpLg?=
- =?us-ascii?Q?Y+xrpU7JR4OOMZBizT6nufEst36TIy7wZEsUcmbWUgzE0QyPwEiAFLdc8Zy+?=
- =?us-ascii?Q?Vxi/cuKDZ+dT22+kTGOCANgA+0IRvvJuoZwb/0O8QxtEyHO2ikWmrrwYCKJe?=
- =?us-ascii?Q?UhM+9/D9z6hgRDpVFyYhawz/cdIinkVmiil+fd95uWpIyivjGXgJ2V2APuFd?=
- =?us-ascii?Q?xay26oy7GVGndwgTFEl0JKYjZzZXKfsvCTOxig99CJqV2BXshV/NB4HuqBKY?=
- =?us-ascii?Q?EIfnwGyKlYEdt9iAjURwQSF+w5HPkacRyFXX/9hJw8uAKTTuiHf6Wnc2y0CH?=
- =?us-ascii?Q?rRpjAhoev0JSy5zrFmVRT8H9h2CCqaZ3hRUbjdYsoVjZSvJRNqCAJPfjc6NG?=
- =?us-ascii?Q?HueZCF3BU7p5484MZ6jKMFF6nsxVKta4UKGjcf25jaEjasX5khh98v91mu33?=
- =?us-ascii?Q?bYRrdZH6eobr57yHshCARYeB53xJtsnhF/MrN6uzhPzZSr9TOlGatCJT0dka?=
- =?us-ascii?Q?CWApH3ARo9rvdR5PMRDglHnCUqmlC/b1ZAx19qlwXxz4Vf18/Najhv6IoanL?=
- =?us-ascii?Q?LtylNYpRaB1SPL3KiPWL2tLX56aj5Si5Pyv05iJ4p0g5afKR8VE08pdJmzzP?=
- =?us-ascii?Q?TWQfnrfjqNwMn5d9INLr9QB/rLAzFoBKBbrJcfCFHQyWZTetaHztBQcs1pHY?=
- =?us-ascii?Q?oldmD4KfKbpLaN/ltzaOyniiieYuRJ7nq1m3+qTE5jRlDguph/8Kp6G44j61?=
- =?us-ascii?Q?r1jQSCeFwJT5BqiZ+ojnmMndZYX/i33etee6ngmegtFQH9YY?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="LYNtCinm"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed9865so7580515ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 20:40:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nexthop.ai; s=google; t=1789011607; x=1789616407; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=9tvnuGvnbgY2VToM5oSZ6NV1NviBjBV50tr9v/KS1Rw=;
+        b=LYNtCinmjV/y3jO0yR+m2Zw/9vlbc5uZK3jI4PqvC/VX1nKaNClzQnQugNmsmZGMZ1
+         hioVGULWRk3Aj8PY0r4jYpCaSKQ3oADmfM1k/aO4SJPtBELhl15JEXcWRwnYepMwo2cJ
+         tze0QetOtRYtokDFX3wPvlmoXwmkBDLbRrAHj2ysqCIu/yIL/S85YS4ounh+ufgI2qSF
+         egAJoL+mp7i0AcnGHv567KqlePRJrfHQOKMvXI7yPwGoF21tgAenrhwmY7keOK7GKi5h
+         W5XH6XvSrHUUqaasY/o+63lkf2jhXByZ+F/JIz1mRnffGvMvpd26TEtRYoPdHGjT5c9O
+         7Qeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789011607; x=1789616407;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=9tvnuGvnbgY2VToM5oSZ6NV1NviBjBV50tr9v/KS1Rw=;
+        b=rQDm8TRmWIra1M4YMcGiWcnrpti0v3c+hwVWjSwtjXU7ct0HiX4ZTlV9pSW0eDfJYu
+         oioUhIxekuaOOGitA7RUjtmIq4lWYiPRKnAfFUKkm5mniu3yxJfk+g8NyWHON3elz979
+         EPB46+mAnDFetKXDXHu0kEhWDjchXajiC7owMoTs9wcMvuD18kVZ3koIf47z6YyuNG5a
+         DP4Z5KSv3/LlBWM3SHhdUUfGHJLPon8xyFxuoCfUOhQIi6FcJ1temrsziivFrMUAos8Q
+         PtCeDLuQbUTFsSV5+Q15zpUAY6jPfG/mGSkmLlAs46xCIicRZyHKGaxNDTD0e97QZtog
+         sS1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzq+/bsGXw5Z/HO+L4VHTMhI0NAPbLvgaB8dIjFPiyTc0GtLKvlFiVNuSirnhR4p0l9GP7q+bVSPuwQ9rM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lqxjIWp4sq4x0qsFr/UXFc5PCDeRUXoVMrXit+7v8I4HJeLS0f
+	58LWwsxuJPXNmyfX0VpqFUQBewnM10P54K08IXmgnItvnHoRsAwiMrJLcLjbhd+P2pY4YU2/9an
+	2WrgSVsw=
+X-Gm-Gg: AYBFou16hnSbA0eNufPgFBLRfjrohIR/98ysmXw4hPpmN1zML4kw6HXUwjisIT6HEi4
+	d8Jm/7vdOxPrFmXKjoNe9q5yIfEe/0BigFi5jZy5xslx06iqmTbThMcqUwER9JIgrWC/Jg21pyP
+	qF6bEsKiS31S6kRsQ7w4nahGKJF+BMMMDAc5P2J16/FTLGSXP0e9D7RyGN/VYDVTQuQQP+myDuf
+	IowA3B2hVOYtNiHhPNFY7F78gVmPORrrPjhwEo1m9smt7ezcwHfim/6CM8oLKCZwHPy2vKptwHV
+	uvh2l6GDZvTZOjE+lBEph3H97iQ87zX+yTmQ6etWuGhOJ7N1Vl3uETUPY3z+4ye+f3NFSOC3G5/
+	ghQoDsSI0TJpLZIi3yFH4RR9WU4HS57D8/MVrOYZXWQiglv0NC7hUQpLj1RlN1FwhdiVLqhs7/U
+	XvwIDKGR9mauJXZUczR3aZIDZDH3DHMji7SFJaOq5RL0aSJsGoL7BXLJd0OtXHQj8exrhlWCsbv
+	g==
+X-Received: by 2002:a17:90b:4d82:b0:398:bacb:1137 with SMTP id 98e67ed59e1d1-39d70b1c7demr6759612a91.19.1789011606787;
+        Wed, 09 Sep 2026 20:40:06 -0700 (PDT)
+Received: from [127.0.0.2] ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432435648esm58294850c88.5.2026.09.09.20.40.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 20:40:06 -0700 (PDT)
+From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Subject: [PATCH v4 0/3] i2c: xiic: fix SMBus block read and PEC support
+Date: Wed, 09 Sep 2026 20:40:02 -0700
+Message-Id: <20260909-i2c-xiic-v4-0-218df31e9d3b@nexthop.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: JFuIz9BOVX+eaX8c4PpwmwFO3DhClB6QPTIm9eafWPT02k1TLx2nTHLv6P5IGB3iRm9nbnbNgpl3oFqnU19mj0qKb8PvJdoRyo211afPaXgvA6uk/ORpGE3z8mE1U76Tg4FDv6ETOrH0aDer2PEqqITXevAqJtXI3qWZ02XS6yUUPykzLHv9fCSa31qK4BPue0UYa3StmZtSIZpBT6o+3l20DCI+bU7aaA5yWC7ZO+Iw3jdnRC/ITATFEsVowjblnfr5e6C/IRGUpzLvspkjSmyZc5eJDe/bnJYkWs8a6Yn8IzJrzoWDbp+zxLW3BNw+hfgC1SyEXdGdthDpwm0mAw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB6241.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bf4d71b8-61a0-41a8-e327-08df0eed2539
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Sep 2026 03:39:40.4169
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Ug7ySbz0rqdoo9sRoLIF5WxexB5NUYej766aJJLo0A+p9V+YBJckn2lkSNtioNCLO9Bvx6hNIUe6uKkJUeeOpQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR11MB9538
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23NzQ6CMBAE4FcxPVuz3fKjnnwP46FdF1kPQCgSD
+ OHdpXgQo8dJ5psZVeBWOKjjZlQt9xKkruaQbDeKSlfdWMt1zgoBM0gw14KkBxHS6NinYJgAnZr
+ rTcuFDMvU+fLO4eHvTF30sVFK6Or2uXz1Jvb+zPZGg+YMIS8OzqXueqp46Mq62TlRcbfHj0yNW
+ UmcJZnM7oG8SQ/Jj7RraVfSRkneUpGDd2C/5DRNL/JdYaUnAQAA
+X-Change-ID: 20260427-i2c-xiic-2aeb501ec02a
+To: Michal Simek <michal.simek@amd.com>, Andi Shyti <andi.shyti@kernel.org>, 
+ Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>, 
+ linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Abdurrahman Hussain <abdurrahman@nexthop.ai>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789011605; l=4845;
+ i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
+ bh=fbHi+gXipZ3MdJzUzGm17xyICy+psgM5NB9TegAjnbE=;
+ b=eDbI2iJM9vlheW6MkxLftANxs15Q0mkunMHPY+vnwmNkGk9UhcI0COOQSQQkgyjLbZLAg15V4
+ WNvZR3kEIlbBURSHHd2H5X8EFDVCg+GZcFxab0YYLifnqs1W+ib0/an
+X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
+ pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
 
-> -----Original Message-----
-> From: Intel-wired-lan <intel-wired-lan-bounces@osuosl.org> On Behalf Of P=
-etr Oros
-> Sent: 08 July 2026 18:28
-> To: netdev@vger.kernel.org
-> Cc: Vecera, Ivan <ivecera@redhat.com>; Alice Michael <alice.michael@intel=
-.com>; Kitszel, Przemyslaw <przemyslaw.kitszel@intel.com>; Eric Dumazet <ed=
-umazet@google.com>; linux-kernel@vger.kernel.org; Martyna Szapar-Mudlaw <ma=
-rtyna.szapar-mudlaw@linux.intel.com>; Andrew Lunn <andrew+netdev@lunn.ch>; =
-Marcin Szycik <marcin.szycik@linux.intel.com>; Nguyen, Anthony L <anthony.l=
-.nguyen@intel.com>; Simon Horman <horms@kernel.org>; intel-wired-lan@lists.=
-osuosl.org; Keller, Jacob E <jacob.e.keller@intel.com>; Jakub Kicinski <kub=
-a@kernel.org>; Paolo Abeni <pabeni@redhat.com>; David S. Miller <davem@dave=
-mloft.net>
-> Subject: [Intel-wired-lan] [PATCH iwl-net v4 1/2] ice: skip per-VLAN prom=
-isc rules when default VSI Rx rule is set
->
-> When an ice port in a vlan-filtering bridge goes promiscuous (typical for=
- bond slaves), the driver installs a per-VLAN ICE_SW_LKUP_PROMISC_VLAN rule=
- for every VID on top of the broad ICE_SW_LKUP_DFLT VSI Rx rule. Each rule =
-consumes one of > the ~32K Flow Lookup Unit (FLU) entries the device shares=
- across PFs, so a wide trunk (vid 2-4094) over several PFs overruns the
-> pool: firmware rejects further Add Switch Rules with ENOSPC (AQ 0x10) and=
- the DFLT Rx rule itself fails to install:
->
->  ice 0000:5c:00.1: Failed to set VSI 14 as the default forwarding
->                    VSI, error -5
->  ice 0000:5c:00.1 ens1f1: Error -5 setting default VSI 14 Rx rule
->
-> Once a switch context is overrun the retries can also come back as ENOENT=
- (AQ 0x2), which has misled triage toward a perceived recipe binding defect=
- rather than a capacity issue.
->
-> The DFLT rule already catches every packet on the port regardless of VLAN=
- tag, so the per-VLAN promisc expansion is redundant while it is installed.
-> Skip it at the two sites that drive it, ice_set_promisc() and ice_vlan_rx=
-_add_vid(), keyed on ice_is_vsi_dflt_vsi() rather than the netdev IFF_PROMI=
-SC flag so a failed or LAG-suppressed DFLT install still falls back to the =
-per-VLAN rules.
->
-> IFF_ALLMULTI and IFF_PROMISC can reach ice_vsi_sync_fltr() in separate pa=
-sses (a bridge join sets them through separate calls), so the allmulti pass=
- may expand the per-VID rules before the DFLT rule exists. Drop those now-r=
-edundant rules right > after ice_set_dflt_vsi() installs the DFLT rule;
-> ice_vsi_exit_dflt_promisc() reinstates them when promisc is cleared.
->=20
-> ice_vsi_sync_fltr() subscribed multicast promiscuity only inside the "def=
-ault VSI not yet in use" branch, so a promiscuous VSI that finds the defaul=
-t VSI rule already present (owned by another VSI, or preserved across a swi=
-tchdev session) ended up > in unicast promisc with no multicast subscriptio=
-n. Issue ice_set_promisc(ICE_MCAST_PROMISC_BITS) whenever the netdev is pro=
-miscuous; it is idempotent and returns 0 if the rule is already present.
->
-> Fixes: 1273f89578f2 ("ice: Fix broken IFF_ALLMULTI handling")
-> Signed-off-by: Petr Oros <poros@redhat.com>
-> ---
-> v4 (review comments from Marcin Szycik):
-> - Reworded the ice_clear_promisc() and the per-VID cleanup comments.
-> - Flipped the ice_vsi_clear_vlan_mc_promisc() guard to an early return to
->   reduce indentation, and noted that the clear is best-effort.
-> No functional change.
->
-> v3: https://lore.kernel.org/all/20260701133601.2118382-2-poros@redhat.com=
-/
-> v2: https://lore.kernel.org/all/20260622113428.2565255-2-poros@redhat.com=
-/
-> v1: https://lore.kernel.org/all/89efbea9831175e6f57e9fe8557f7a0e48e050b7.=
-1781786935.git.poros@redhat.com/
-> ---
-> drivers/net/ethernet/intel/ice/ice_main.c | 109 +++++++++++++++++-----
-> 1 file changed, 88 insertions(+), 21 deletions(-)
->
+This series fixes three independent bugs in the Xilinx AXI IIC driver
+that together make SMBus block reads with PEC return -EBADMSG or -EIO
+on otherwise clean transfers. They only surface when the client has
+I2C_CLIENT_PEC set; non-PEC block reads happen to mask each issue in
+turn.
 
-Tested-by: Rinitha S <sx.rinitha@intel.com> (A Contingent worker at Intel)
+The problems were uncovered driving an adm1266 PMBus device behind a
+Xilinx AXI IIC FPGA block and reading its 64-byte blackbox record.
+
+Patch 1 stops xiic_smbus_block_read_setup() from truncating rx_msg->len.
+The i2c core appends a byte to msg->len when PEC is enabled, so
+overwriting the length to "block size + 1" silently drops the PEC byte
+and i2c_smbus_check_pec() then reads the last payload byte as the PEC.
+
+Patch 2 raises the RX_FULL threshold so the interrupt only fires once
+every remaining byte (payload plus optional PEC) is already buffered in
+the FIFO. The previous threshold of rxmsg_len - 2 caused the
+bytes_rem == 1 path in xiic_read_rx() to NACK a byte still on the wire.
+The chunk-vs-defer guard now also accounts for the PEC byte so a
+rxmsg_len == IIC_RX_FIFO_DEPTH PEC-enabled read does not push
+XIIC_RFD_REG_OFFSET past its 4-bit range.
+
+Patch 3 stops the BNB handler from forcing tx_msg->len = 1 to signal
+completion. tx_msg and rx_msg alias the same i2c_msg during a receive,
+so this also clobbered rx_msg->len; and because tx_pos is already at 2
+in the PEC case, the unsigned subtraction in xiic_tx_space() underflowed
+and the STATE_DONE check fell through to STATE_ERROR. Advancing tx_pos
+up to msg->len drives tx_space to zero without touching the length.
+
+All three patches are pure bug fixes; non-PEC behaviour is unchanged.
+Tested on real hardware -- a Xilinx AXI IIC controller talking to an
+adm1266, where 64-byte PEC-checked block reads now complete cleanly.
+
+Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+---
+Changes in v4:
+- No code changes; resend of v3 to collect Michal Simek's Acked-by
+  (given on the v3 cover letter) into each patch.
+- Shubhrajyoti Datta's Reviewed-by from v1 is not carried over since all
+  three patches have changed since then. Shubhrajyoti, if the current
+  code still looks good to you, a fresh tag would be appreciated.
+- Link to v3: https://patch.msgid.link/20260513-i2c-xiic-v3-0-ccb3cf70ba03@nexthop.ai
+
+Changes in v3 (addresses the sashiko automated review of v2):
+- Patch 1: handle short SMBus block reads where the controller pads
+  rx_msg->len up to SMBUS_BLOCK_READ_MIN_LEN for its end-of-message
+  workaround. In v2 this branch left the PEC byte at the padded
+  offset rather than the actual end-of-payload, so the i2c core's
+  PEC validator read past the chip data. Track the on-wire length
+  in a new smbus_actual_len field populated in the minlen branch
+  of xiic_smbus_block_read_setup(), and trim rx_msg->len back at
+  RX_FULL completion before passing the message up. Addresses
+  sashiko's v2 note about the pec_len adjustment missing the
+  rxmsg_len < 3 padding branch; that branch was indeed the cause
+  of pmbus_check_block_register() silently failing on zero-length
+  MFR_* fields and skipping debugfs auto-discovery on affected
+  hardware.
+- Patch 3: defensively reset smbus_actual_len in the BNB completion
+  handler so a subsequent non-SMBus transfer cannot see a stale
+  trim value from a completed short block read.
+- Patch 2 is unchanged from v2. sashiko's two other v2 notes were
+  investigated and judged not to require code changes: the concern
+  about removed padding in the chunked-vs-deferred drain misread
+  the patch (the padding survives via the else branch and the new
+  PEC-aware guard preserves the original semantics), and the
+  flagged unsigned underflow in xiic_tx_space() is unreachable
+  because tx_pos is bounded by tx_msg->len at the call site.
+- Link to v2: https://patch.msgid.link/20260511-i2c-xiic-v2-0-c16380cb1594@nexthop.ai
+
+Changes in v2:
+- Patch 2: widen the chunk-vs-defer guard in xiic_smbus_block_read_setup()
+  to include pec_len, so a 16-byte PEC-enabled block read routes through
+  the chunked drain rather than writing 16 into the 4-bit
+  XIIC_RFD_REG_OFFSET register. No tree-level change to patches 1 or 3.
+- Link to v1: https://patch.msgid.link/20260427-i2c-xiic-v1-0-e6207f9aa5ad@nexthop.ai
+
+---
+Abdurrahman Hussain (3):
+      i2c: xiic: preserve PEC byte length in SMBus block read setup
+      i2c: xiic: defer RX_FULL until all trailing bytes are in FIFO
+      i2c: xiic: don't clobber msg->len to signal block-read completion
+
+ drivers/i2c/busses/i2c-xiic.c | 67 ++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 50 insertions(+), 17 deletions(-)
+---
+base-commit: 70eda68668d1476b459b64e69b8f36659fa9dfa8
+change-id: 20260427-i2c-xiic-2aeb501ec02a
+
+Best regards,
+--  
+Abdurrahman Hussain <abdurrahman@nexthop.ai>
+
