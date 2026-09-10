@@ -1,62 +1,64 @@
 Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFFE2379C34
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:44:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 380813AA50B
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:44:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789015495; cv=none; b=E19k/0/pzWXpPYauhCM/hBQ7LDYx+2SIq+imhh9YDXbvhDoviwdWy8A4nu+a4eNLMU8sRFLavp8oR6TQv+RRfpSpEC/05TQU3aoA4fXDkHffxGGI8bWw410A2h54f3xAs8bCh3o5b4kSj6l3Mi1x2laZoOszgR9Ky0/CiAwuyD8=
+	t=1789015499; cv=none; b=dMZdVT5imOm/yzbdEAgOmWqbU+FPZ17hhRQ1tGQ9r7V7py0LlOJZcFf0YtABH4JKsO+TqXmzILR4+5UNzxDNqVS6Ph5AQx26IvSnUhycKmbENqNbXe8qH7qDKzozbuAeJkZ75HZp9yS7luPA4Hwmh2sL9gEuGDHv8aMxGOWX4zU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789015495; c=relaxed/simple;
-	bh=0QHsKllyPpQ6kHwNwzvVNlHG7UWlfT6db9KIxxhcNlw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Tq14zRdSsmFUrcS8ejepNpSj5ipRlOE2ty2gu9mvXQsA1QB2DiFz4SSnuH5SxtphjBaLz78PR+vmPaIxKfrYo5WOw2GfyfP9ikMWT+8P587BP/g76llJRmrnitOB2RnZTI1Qh8qpGYaMA70gF3avn0FHsmOdRGytW67/xPc6Vtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gBc8I2UN; arc=none smtp.client-ip=74.125.228.12
+	s=arc-20240116; t=1789015499; c=relaxed/simple;
+	bh=ned8Xd+jYD+au5qlWbCyATJxda5xlf7aMTyVCxHleog=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=I9a3xtOMMW2AUrkmXp/xjuJFGXZdkM161/U5NjVSpIgKZVBnoiKabPuFk6KEhsGQpQAH64xjeAN0JgJ/ucLuGL1W7RWXMbnxOMtZz5n0GY0BEvsu6FYl+mst4zJdzHtaiYPAaEwk9HskBPQcdkkNfycOZMbVh6ROAd2ASaT6noU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DenEnDku; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gBc8I2UN"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea4ae2dso622698a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 21:44:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DenEnDku"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469e25400so524419b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 21:44:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789015493; x=1789620293; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oo7aRKEGMoVwmi7U82zXGD94LiRc1lUG2POtWtnvFR8=;
-        b=gBc8I2UNHNy6TgpLDQdzcnrbnS2bj0uDuUtnL2Hr0h/veMo6AJzzkrRCyB4VspcK72
-         Ou4+YJcbzSCk+2XNCowo2LvdnqXIygyrLX85ZrqcUbBmiWt38S3/Dyq4C+BlXTgZXz1X
-         zOipevF8Q//OIHB9dgxovf+JvqciTeM5FAq6GPOI9rk3zDBJ6kX8BoBVcVkbfSFDcBxf
-         HgI1cZUoNPC4tfTygwz9dWjR9Hebd+qG5xoug0EpPZNfV89AAuksGL54yAcQtUm2P9o0
-         TT3hn6WQE5ftMN7fZXoFTqi24YQY9L9d2NJ0/SXYnX0Zh5btXC/VU6fHFVcBaQudOGMy
-         TN7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789015493; x=1789620293;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789015497; x=1789620297; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oo7aRKEGMoVwmi7U82zXGD94LiRc1lUG2POtWtnvFR8=;
-        b=El8mpJ5YymjEgocyVJcCKQOqt2GRgRDqQ0yWf/U04H6lo0IVnP0a+7DElBG0UdKr9k
-         VXNEfL+ZjxRr5FczFWTdCACFUgcU2ghuH9/sxU1Xvk7OyT2HVKzy5JeREUcu9wfyZZPG
-         f0ihJQcsl8PrFO2AxjTx8Qmm67vVabbnobtF3+piCMnnJoies6S36LBKFbLGbWVZAvTy
-         e93qpzkKVr0PT5XfXlRW6wrSWKWdEDpe5J8b5P1r/O7hOPK2Zb2+D8ACoyW4HZZr5Dlc
-         5TYHpt59y2dhYbWkbiyqoNKhWtnwRoRiNJnYoodJ/dPHXI2H8q2sU/kqxg7gd1ZlkqIg
-         B6og==
-X-Forwarded-Encrypted: i=1; AKwUvBykxe4+4tV2NpA6nEP6l6WbgEiv9RDhyszvYkflW2U1Pa1QczzFULKa1tF1AYyRHnKQgAjTkQOp6Pl7qbU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lyDnEHPpApGivhlb19U+81Y3+a159XNnsSlYtjty6ba/60RCbK
-	LAy2QlHcfQfHZIClzfujexqPIcaZRB71cdyM7dBsYujXODR8deLxN2I7IIhA+Cao
-X-Gm-Gg: AYBFou3iB37+joVVCYw1+O5dLzxpg7ljMhBJPfHQcy4/mYJkEJAGVCUdNmm81Xg6f5g
-	mMdZC2eJx/VQshwPs//B7KuvP1RLtq2FxYFke2OWfk9GYCPAeCPmhJ90ex3K4Qn5tVDz+d+k0zs
-	USlicgdOQ3JPkyAhIlPb2PoRzpMGpBGOHSmdPqHVRzOkrs9Jwp7d0D7KjwGlQTlqYTVf2W6MhDU
-	KglG/gSuknkto2pmbegVlxzhqRoRAyPdxhfifCpMAAWIbMkg+r0ygHosF87qgnNs2HvjRrEut3d
-	wN+NvFrsMXwanXbnjElTkMGG2BZy/Kj7l5s6KwhzY7HYEMChehOhv2CPY/Sj/+g+Um8uBmVzLaS
-	jIiLLzMVQiQHInNnoPhEsxJJ/MvLi90Ayq/IcZckEDivW2dLalULKyvooboBPt2dUJNiLyb3IdQ
-	4xIK/JiAdkKi2DyhKF9mP7nlgxEcKK9dJ4EosE1V3Qr1iYYvi8cljuP6aC9LpuvxavOp9F8ydGf
-	5wLQ17Q4wQuSjVIBnGcRWHVrA==
-X-Received: by 2002:a05:6a20:4303:b0:3c3:7179:a640 with SMTP id adf61e73a8af0-3dacbd6e061mr7726842637.3.1789015492981;
-        Wed, 09 Sep 2026 21:44:52 -0700 (PDT)
+        bh=/G/XQxY0D9MMJrqs9kzQqPGg+nQIyZT0ewQHseBA1dA=;
+        b=DenEnDkuXOrq2rTXjwSA7R4zMnHz1IP+Z+v3uH1HL7EtOIygJeNzpjNVy6lYuCK91H
+         x6ED6WZf7/LBw/JYZi6aI7GjBF2tybFwkFgtseH0WgeQBxkPKRbo3K0h8Bb2iOxQAnFp
+         5D01ozYlspBCQ2L4cGVy8SZewrkiPb4lhPP/qhqcYdcduBRNaXR+Os+K54lrF2MQnu1p
+         9Z09fc6mbF1puMYeqO+BlNqCLk9w/qU7cwltXY0vSoe1ZAVfdCPBSs74nG6FIZ8NTshd
+         hK3+k3R/rHsYZjOnbEorqFrBoreGjJYskzZkrgHSOz7Zu9ABAYFamdA2wWwSDle3GeoS
+         O2+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789015497; x=1789620297;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/G/XQxY0D9MMJrqs9kzQqPGg+nQIyZT0ewQHseBA1dA=;
+        b=Xv01tr9AHjEGk1bbQx6VD0hg4iJgPUO/lRPABNZruZWpsWKkf7AQCRud6LqJSj3GQw
+         5wShOJp+wtoKmGFI/eGgqNjnwoYVSWn2cfE8U9hkx/WOI/5oh9Hk+N3Fr+NuNXpy2so4
+         HtdycOle6urZTkXuH7pyjjJ842UxhB+31+cgAVcCamR17WfJOuId3B/KB56E+lRqpseU
+         y9AYCu+BM/VPGLyoul3/YVSLNK09iTChWmX/6O8Ck1jC8bpgq5oABYQQNx07Za7R8YCo
+         U+GhPlGXN9WFcNZyW+UlpHH1kwkUZ3oGf8HQlhkT5zbKQeQC2OUWw9YiIqPWajIDp7Od
+         xeUw==
+X-Forwarded-Encrypted: i=1; AKwUvBxn5gsSv7sv1E5dWcH7UT2BX4D1yZsxcbe0Biz8pvqs+I8Z8g/DToRdg0V3R80Cuzo7DwcMMSvxv0f2lOw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lWyknaLiaNsfjjLuw6uUQI6qQjP41dQzcY7d2B7XaZZwzRtK2l
+	ey6dYdrq20hpT4DbSLZ4U4eLxdNrqKjegVq4cf63CJczo7L15oGayj2l
+X-Gm-Gg: AYBFou0z80/r4Ww1knzs3SvUqdv7rcGJz8Ich7M7l7sL8ymCO8zP3rhr7XCaZsK8H3K
+	XWYFoxdKrpO3N++5k6rU9p/9GCRUj2ius9rKG0JnR0hzUWMhO1lgR30EIkqQfZEL9ewKyLr3WBf
+	vIPidJQAJXP5L9h8lC/skgyFT3eEpSWTkKx4kiLpxweZAL11qN/DiSdMcZvqRgJdsrcUgH62GKZ
+	WjRvCHegKlCczaz9eia4QeoR425r0JvAlbrwPGsswKuVs+00unKyOvh/mR2T6aqYLLD48V+AxwW
+	ZPD5PvUOTu/HyU3Si5xw7eETvnxuPrdLASB45jHVrIGWvbpu/vOItRBf2qTlOOjTiwmbRqbJWkl
+	hpUs3FqkxXQCcLJUfaSDdsakMPWJTxGGAVAlQrydFlJoA+4U9b7fyK7k/jgo+YsufKX1WmoTkma
+	rbdV4HbunzX7HKJ+cGY63j7pu5U2dQs62s5b9bU0yq2TMkTxUws0l+IZvR3+Iwwee9gcNkezyiw
+	Akoi8WOtTRHv5htUqO4yyIGHg==
+X-Received: by 2002:a05:6a20:e18b:b0:3cd:9f0b:f7a2 with SMTP id adf61e73a8af0-3dacbdaa8e5mr8493294637.11.1789015497445;
+        Wed, 09 Sep 2026 21:44:57 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432435648esm58731485c88.5.2026.09.09.21.44.48
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432435648esm58731485c88.5.2026.09.09.21.44.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 21:44:52 -0700 (PDT)
+        Wed, 09 Sep 2026 21:44:57 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: hansg@kernel.org,
 	ilpo.jarvinen@linux.intel.com
@@ -71,10 +73,12 @@ Cc: corentin.chary@gmail.com,
 	mpearson-lenovo@squebb.ca,
 	platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/8] platform/x86: Fix typos in comments
-Date: Thu, 10 Sep 2026 10:14:35 +0530
-Message-ID: <cover.1789015364.git.hemanth.selam@gmail.com>
+Subject: [PATCH v2 1/8] platform/x86: asus-laptop: Fix typo in infos_show() comment
+Date: Thu, 10 Sep 2026 10:14:36 +0530
+Message-ID: <6a9f827d1135258ac0e75ce2dd6d05e1cded6d44.1789015364.git.hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
+In-Reply-To: <cover.1789015364.git.hemanth.selam@gmail.com>
+References: <cover.1789015364.git.hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,54 +87,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-v1 was one patch touching eight drivers.  Denis Benato asked for it to be
-split one patch per file or driver, so here it is as eight patches, one
-per driver.  The corrections themselves are unchanged from v1.
+Correct "informations" to "information" in the comment describing the
+HWRS method.  Comment only, no functional change.
 
-The words all come from scripts/spelling.txt, which is the list
-checkpatch.pl uses.  codespell finds nothing further in these eight files
-except "ALS" in asus-laptop.c, which is the Ambient Light Sensor and must
-stay as it is.
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+Reviewed-by: Denis Benato <denis.benato@linux.dev>
+---
+ drivers/platform/x86/asus-laptop.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Two of these comments have a grammar problem in addition to the
-misspelling:
-
-  asus-laptop.c     "The HWRS method return information about the
-                    hardware" wants "returns"
-  samsung-laptop.c  "This allow to call arbitrary sabi commands" wants
-                    "allows calling"
-
-I have left both alone so that this series stays a spelling fix and so
-Mark's review still covers exactly the text he read.  I am happy to send
-those two as a separate patch if you would like them corrected.
-
-Mark Pearson reviewed v1 in full, so his tag is carried on every patch.
-Denis offered his tag on the condition that Ilpo agrees to the split, and
-it is included on that basis; please drop it if that is not right.
-
-v1: https://lore.kernel.org/all/20260907085426.3661-1-hemanth.selam@gmail.com/
-
-Hemanth Selam (8):
-  platform/x86: asus-laptop: Fix typo in infos_show() comment
-  platform/x86: asus-nb-wmi: Fix typo in asus_nb_wmi_quirks() comment
-  platform/x86: hp_accel: Fix typo in lis3lv02d_acpi_write() comment
-  platform/x86/intel/tpmi: Fix typo in TPMI_FEATURE_NAME_LEN comment
-  platform/x86: msi-laptop: Fix typo in struct quirk_entry comment
-  platform/x86: panasonic-laptop: Fix typo in the file history comment
-  platform/x86: samsung-laptop: Fix typo in sabi_configs comment
-  platform/x86: uniwill-laptop: Fix typo in the kbd LED brightness
-    comment
-
- drivers/platform/x86/asus-laptop.c          | 2 +-
- drivers/platform/x86/asus-nb-wmi.c          | 2 +-
- drivers/platform/x86/hp/hp_accel.c          | 2 +-
- drivers/platform/x86/intel/vsec_tpmi.c      | 2 +-
- drivers/platform/x86/msi-laptop.c           | 2 +-
- drivers/platform/x86/panasonic-laptop.c     | 2 +-
- drivers/platform/x86/samsung-laptop.c       | 2 +-
- drivers/platform/x86/uniwill/uniwill-acpi.c | 2 +-
- 8 files changed, 8 insertions(+), 8 deletions(-)
-
+diff --git a/drivers/platform/x86/asus-laptop.c b/drivers/platform/x86/asus-laptop.c
+index 449addd1ac7a..de607edb9490 100644
+--- a/drivers/platform/x86/asus-laptop.c
++++ b/drivers/platform/x86/asus-laptop.c
+@@ -865,7 +865,7 @@ static ssize_t infos_show(struct device *dev, struct device_attribute *attr,
+ 		len += sysfs_emit_at(page, len, "SFUN value         : %#x\n",
+ 			       (uint) temp);
+ 	/*
+-	 * The HWRS method return informations about the hardware.
++	 * The HWRS method return information about the hardware.
+ 	 * 0x80 bit is for WLAN, 0x100 for Bluetooth.
+ 	 * 0x40 for WWAN, 0x10 for WIMAX.
+ 	 * The significance of others is yet to be found.
 -- 
 2.48.1
 
