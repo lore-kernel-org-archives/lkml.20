@@ -1,93 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F152AD00;
-	Thu, 10 Sep 2026 01:21:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A06361952;
+	Thu, 10 Sep 2026 01:22:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789003269; cv=none; b=rh+8Idi4u1aP1lLLVzq4X38QtHcylUhF7EelI+o8XMMBJrkH7LtghDBCuZMGp6t+kQSmmttRKps2jcqNg/p1snZTIa14KZkxq7MzDP3a81xJMhLAcd6Dl1wjEtjh3xU8rSZebc5MKcOEWCxCFnlG6Nd8mtfWBQazyeiE9fGyeJ8=
+	t=1789003341; cv=none; b=uxFFQMf3Tz+hQ8Y7c932hscWJ3iU+dhaMllf5y33r0uFW4obZNdk3wAH57xW4m4kJonNj2Rz+biNOm3oCveLTpQ94JXbHXWpsdd50EiMBSrA7i4BCsRHkGXZ6cjdQbP7VvbUPVZh+cP/9thGMVSxN4aZmNHRwxl3z29krvdzL8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789003269; c=relaxed/simple;
-	bh=fTNFCJHJ005IVViAtFbt6/wjKMEGLqu7MimvVKqnDd8=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=JrcRcbk+5CLONEJNw5tJYtyGX2HLhqNcJ3+RuoVRanE+i5ES4ORGGTI0xeAgnMxrMcOBknjwNJ8y29kI2GvSSP+hMDttbqWOxd24cEjDx5FH2j2VmezUixPKHSmOjMDyUGEZ1aWkf/5nY9mtSPHXkQYdpxwWmzG+SrCDVkkM+HI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B2mWXrdG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789003341; c=relaxed/simple;
+	bh=CFkpGeqyFjmsOcWirk5bFijVMqefUny2UAQs4H8xGwg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=cssA9/i3UvLd+GLmZL1kPtBVIBlg1pOCK0kt5st/jl+s+gOO4ymm9Yg10tP6xDZEtTOLKdbFLoiWh14cN4ZQILTNozSPKmVvAyB611AUWDKI7VrP0KiK8gMaGmIPR3K4weacL/wf5MDRcLRKfoAj4mUvAXxJpoFx7VlpiMNDcoY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=mdoBkQsu; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B2mWXrdG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 528D71F000FF;
-	Thu, 10 Sep 2026 01:21:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789003268;
-	bh=gA//XVNxKMtUxSjuACKjsKnBUyfJNOVkYonAmw4lJ5A=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=B2mWXrdGNK7cxvO0sZdk94ypPgP+umENFbS03qUsucGxtbTwwX6p3HF9bz9P/e66Z
-	 jSni6NerkAXQk65W8YJxhQxoE/xo304wyxXEaWs77Mjwr56hfr2UZBjxnNHycPCkY0
-	 iBvmVFjBaYNhN9QRX+Y9SqWiT4iHt9piMKITrAh0Kxv8UiJiB9HzsMtbI+JGp6MbVM
-	 6rl+FhCEOgmrew7N/dInekR0HCd2ddYi9/zXtZU1ZkLKEBFEYjypms6qq466SYBYgH
-	 DKz+NW6/ubN6KAnXGabbvcaYPSaNN4iDW0ZlP1FoNMrSj5Ls5xCHbGB68hpmfkswM1
-	 RMgNcULbEsVxQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5696B380CEC7;
-	Thu, 10 Sep 2026 01:20:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="mdoBkQsu"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68A1MAbB41083606, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1789003330; bh=m0kuYPw8Dok3bWJeiysaxgTn6/j1RoD8D5nxA0Iex0I=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=mdoBkQsuqsNTHq2r7i6Plfu69lwFBd7KMGQ3UfQIEJq7COY62Kk3W8hpbITWPAXuZ
+	 avw/CZhLiwV9lcOZzWj3GqykvqOVXGByD8rglNxlO2SLD6f+fFUAAbXIr5Zlrxd324
+	 xBsu1g6kEPSmJ07GXh05LsEvXxIDticu3mUpPOd2TLAjseCzj8qsk08SwTLqChIH+g
+	 eTt01bXcSZm75Qtt4RzLfJhD646e2pLoYUbzcuYq1unwp1/hygLCt1oweHigxdwDjT
+	 e0lhpWBA/6w1ggOPG9OTXdmzfrOThUr5X849Bw8CcSlfXhRjnNBelfVItIDbrVx45O
+	 wLuXy43XCDP0A==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68A1MAbB41083606
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 10 Sep 2026 09:22:10 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 10 Sep 2026 09:22:10 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
+ 15.02.2562.043; Thu, 10 Sep 2026 09:22:10 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Mehmet Fide <mehmet.fide@gmail.com>
+CC: Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"mehmet.fide@screeningeagle.com" <mehmet.fide@screeningeagle.com>
+Subject: RE: [PATCH rtw-next v2 1/3] wifi: rtw88: usb: bound what the driver
+ feeds the after-DTIM queue
+Thread-Topic: [PATCH rtw-next v2 1/3] wifi: rtw88: usb: bound what the driver
+ feeds the after-DTIM queue
+Thread-Index: AQHdPvxc4zS16LdQpEqBDFx+NFuaa7bHBaQQ
+Date: Thu, 10 Sep 2026 01:22:09 +0000
+Message-ID: <5b449b3ec9884b12a96fff178cc6b338@realtek.com>
+References: <20260907190901.1056945-1-mehmet.fide@gmail.com>
+ <20260907190901.1056945-2-mehmet.fide@gmail.com>
+In-Reply-To: <20260907190901.1056945-2-mehmet.fide@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v4 0/7] netconsole: validate a target's IP
- address
- configuration
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178900320613.1138663.10012488255670628985.git-patchwork-notify@kernel.org>
-Date: Thu, 10 Sep 2026 01:20:06 +0000
-References: <20260903-netcons_ipv6-v4-0-bdd183c844d3@gmail.com>
-In-Reply-To: <20260903-netcons_ipv6-v4-0-bdd183c844d3@gmail.com>
-To: Gustavo Luiz Duarte <gustavold@gmail.com>
-Cc: leitao@debian.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- corbet@lwn.net, skhan@linuxfoundation.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
 
-Hello:
+Mehmet Fide <mehmet.fide@gmail.com> wrote:
+> From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+>=20
+> Frames routed to the high queue are transmitted right after DTIM beacons
+> only, inside the ATIM window, while they wait in the shared TX page pool.
+> The driver puts no limit on how many it hands over, so as long as one
+> station dozes, any sustained broadcast or multicast traffic outruns the
+> drain and empties the pool: measured on an RTL8822BU AP with a single
+> client in power save and ~40 frames/s of mDNS chatter, the free page
+> count at 0x240 goes from 1803 to 16 in about 100 seconds and stays there
+> for as long as the traffic lasts. From that point every other transmit
+> queues behind the backlog, authentication responses arrive too late for
+> anyone to join, and the reserved page download fails ("error beacon
+> valid"). The AP keeps beaconing and only a reboot recovers.
+>=20
+> Feed the high queue through a small budget that refills below the
+> measured drain rate (about 3 frames per DTIM, ~15/s at dtim_period 2 on
+> the default 2 TU ATIM window); whatever exceeds the budget leaves on its
+> access category queue right away. The high queue backlog is now bounded
+> by the burst size under any load, so the page pool cannot run dry, at
+> the price that a dozing station may miss part of a broadcast storm.
+>=20
+> Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Some minor/nit questions. If you don't change others, just take my
+acked-by to v3.
 
-On Thu, 03 Sep 2026 17:25:59 +0100 you wrote:
-> This series adds two validations to the target configuration when the
-> user tries to enable it: first whether remote_ip was set, and second
-> whether local_ip and remote_ip address families match. Refuse to enable
-> the target if any of those validations fail.
-> 
-> These validations are already done for the target passed on the
-> command-line, so this aligns dynamic targets with the command-line
-> behavior.
-> 
-> [...]
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
 
-Here is the summary with links:
-  - [net-next,v4,1/7] netconsole: add an address family to struct inet_addr
-    https://git.kernel.org/netdev/net-next/c/f6e96d72f64a
-  - [net-next,v4,2/7] netconsole: use the address family instead of the ipv6 flag
-    https://git.kernel.org/netdev/net-next/c/46b3f9e7e761
-  - [net-next,v4,3/7] netconsole: reject enabling a target with no remote IP address
-    https://git.kernel.org/netdev/net-next/c/2e949954908b
-  - [net-next,v4,4/7] netconsole: reject a target mixing IPv4 and IPv6 addresses
-    https://git.kernel.org/netdev/net-next/c/32535a1ea962
-  - [net-next,v4,5/7] netconsole: show empty string for an unset IP address
-    https://git.kernel.org/netdev/net-next/c/56ddc8d48e75
-  - [net-next,v4,6/7] netconsole: move struct inet_addr into netconsole.c
-    https://git.kernel.org/netdev/net-next/c/7be9bfb7689e
-  - [net-next,v4,7/7] docs: netconsole: document local_ip auto-selection
-    https://git.kernel.org/netdev/net-next/c/a4b9392ef046
+>=20
+>  drivers/net/wireless/realtek/rtw88/usb.c | 41 ++++++++++++++++++++++--
+>  drivers/net/wireless/realtek/rtw88/usb.h |  5 +++
+>  2 files changed, 43 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/net/wireless/realtek/rtw88/usb.c b/drivers/net/wirel=
+ess/realtek/rtw88/usb.c
+> index c90802919473..5482e44f4a88 100644
+> --- a/drivers/net/wireless/realtek/rtw88/usb.c
+> +++ b/drivers/net/wireless/realtek/rtw88/usb.c
+> @@ -562,7 +562,37 @@ static int rtw_usb_write_data_h2c(struct rtw_dev *rt=
+wdev, u8 *buf, u32 size)
+>         return rtw_usb_write_data(rtwdev, &pkt_info, buf);
+>  }
+>=20
+> -static u8 rtw_usb_tx_queue_mapping_to_qsel(struct sk_buff *skb)
+> +#define RTW_USB_HIQ_REFILL_INTERVAL    (HZ / 10)       /* jiffies per un=
+it of budget */
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Does it mean a budget per 100ms roughly?
+
+> +#define RTW_USB_HIQ_BUDGET_MAX         16
+> +
+> +static bool rtw_usb_hiq_take_budget(struct rtw_usb *rtwusb)
+> +{
+> +       unsigned long flags, elapsed, add;
+> +       bool ok;
+> +
+> +       spin_lock_irqsave(&rtwusb->hiq_lock, flags);
+> +
+> +       elapsed =3D jiffies - rtwusb->hiq_refill;
+> +       add =3D elapsed / RTW_USB_HIQ_REFILL_INTERVAL;
+> +       if (add) {
+> +               rtwusb->hiq_budget =3D min_t(unsigned long, rtwusb->hiq_b=
+udget + add,
+> +                                          RTW_USB_HIQ_BUDGET_MAX);
+> +               /* The part of the current interval that has not complete=
+d yet
+> +                * keeps counting toward the next unit
+> +                */
+
+First line of comment block should be empty.
+
+> +               rtwusb->hiq_refill =3D jiffies - elapsed % RTW_USB_HIQ_RE=
+FILL_INTERVAL;
+> +       }
+
+nit: an empty line
+
+> +       ok =3D rtwusb->hiq_budget > 0;
+> +       if (ok)
+> +               rtwusb->hiq_budget--;
+> +
+> +       spin_unlock_irqrestore(&rtwusb->hiq_lock, flags);
+> +
+> +       return ok;
+> +}
+> +
+> +static u8 rtw_usb_tx_queue_mapping_to_qsel(struct rtw_usb *rtwusb,
+> +                                          struct sk_buff *skb)
+>  {
+>         struct ieee80211_hdr *hdr =3D (struct ieee80211_hdr *)skb->data;
+>         struct ieee80211_tx_info *info =3D IEEE80211_SKB_CB(skb);
 
 
