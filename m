@@ -1,130 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.avm.de (mail.avm.de [212.42.244.94])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B3448664A;
-	Thu, 10 Sep 2026 15:41:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F9D47C0E6;
+	Thu, 10 Sep 2026 15:42:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.94
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789054873; cv=none; b=iLu/wE38PhhX2rTPoPPqAzghVjCjA8p+4M3TZeztIji3Nty47wjNo4JF9T6/IDGykql2Jm5fhco5itr7mnIvX3ELrlQKg2Y+cFHUDpzNIvbD5sP9EqgrrhWcGLLxNNolSurwoKgC9TSWVitXFgSb5avUSSYrWtjGxajhhnPo5BY=
+	t=1789054965; cv=none; b=uqZpHhWW4VhWb3IYUuUn0vlNNivFRNnFgYtKLdVf+qlml2jIDTPAS/tqp805UoR9gyXwDah9y62aBfUCPjFM1JTI6uTSgv32DbvidOvzz0QKq+qhkIck+okeqxtbyJV1lzQgTyCPCjC1MvWKQFV3hMy3q9QZIGq1tVKi2fZ5R9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789054873; c=relaxed/simple;
-	bh=38iNAKbKJDNm7y94oFhd+Hh2UDcpYGGHN+ODnfGKfzs=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=oDWiibF8WUXGN7L2hLeE4nNtdO7Qv0hJsNPRheqVN+MQFuBp5rG4PRfhiI9+WEtn53BAo3fFk5XbFRdBPw/WFEF+f4mGYtKnbj7qWCxH1jybIQGSfY2htwt199m0gY/oAIF+854Nwe+EGHcAmwBaiJudDof8uTs0lq1m8zXhw0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZPT1gMlQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789054965; c=relaxed/simple;
+	bh=LK8bkV1Vz0floem0tDs4fowSkN+VH/bI8JorqlPfxFI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=vEhI2adnYKEjFaB2+xveoEcnm1S+SPsbE1Uz9LCU86YqeHWXdnnTHw21RWTjXLKf1N5Y8vJuBOuJjYv6HhJjzDQLqleeHV6ioNF47LrlwLAPTvUIWxJ4UlRqZPeVL81F9unhRwSSjy4rQdcpyB9WRSVG3eRdwXDjVwb4Kh3i6S0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=m2t/gCBQ; arc=none smtp.client-ip=212.42.244.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZPT1gMlQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 675981F000FF;
-	Thu, 10 Sep 2026 15:41:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789054872;
-	bh=wPcCiBBITeASDRG4XzbQSWp2WzppaOy28h2ruAqwXi8=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=ZPT1gMlQYCE5N332MSVM0S9U6d4FLGUsbQCPoHUb5X9ttBkjazudHOj9UQKHqJd9D
-	 oCxLRURVb5tbXz224n1kpk9IHDZKYSVtYQLgyTtMMjylmSzWSojqj/lBSwJf/HCe10
-	 8eK+ueByj4l9PPmFbUW99Ru6kp/Esl/vw0Jow4TK/QeBk7pNtQko/5Rzw55iFnQRCy
-	 JpF435LHDVBZH2psN6u4pDeISC01VD3AFrU0Nt8kyUXTDMID7VVYLIU0mj9/Qyipnb
-	 S4Y4lP/lzFr9Zd89xKt5hBEQanbRxpuXnz3U+wIwdzHcUBWviuJXTGM3h4In4P2Nn0
-	 jqW8F+/u1JH4A==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19B95380CEF9;
-	Thu, 10 Sep 2026 15:40:11 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="m2t/gCBQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
+	t=1789054956; bh=LK8bkV1Vz0floem0tDs4fowSkN+VH/bI8JorqlPfxFI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=m2t/gCBQ5Ji+klRB77okzADkIBpOjucABpFdn1joI6CGFroNQ2dok89iTW7zlsgDJ
+	 OhupApf9LKIRvcGE2XGbdgRc1L/Cyu778E8qiCt5Mx3N/HSwPKfTDWrLuQBULuYETh
+	 DEpZTMKIWNIB95kcOEYyM+KTdXBA1kly0af9dVc2J1yCQpvugpbSIq04iHmdW/EGZ3
+	 Y4A/qaU5/ks6TeFtBhGFS/mS3OdzSq+oJRGgjHfaRsaS82LquTqTSeUDZk3Yd/dQog
+	 lg48YsTm0IrzSWtTPbK8Ble4vH9U4bTyk8isOlH6ribTe1cTR6+aKHV2VGyYR9cK7K
+	 zTVgF+ct8Jfhw==
+Received: from [212.42.244.78] (helo=mail.avm.de)
+	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
+	(envelope-from <n.schier@fritz.com>)
+	id 6aa2cfec-6dc7-7f0000032729-7f000001a7b2-1
+	for <multiple-recipients>; Thu, 10 Sep 2026 17:42:36 +0200
+Received: from mail-auth.fritz.com (unknown [212.42.244.78])
+	by mail.avm.de (Postfix) with ESMTPS;
+	Thu, 10 Sep 2026 17:42:36 +0200 (CEST)
+Date: Thu, 10 Sep 2026 17:42:35 +0200
+From: Nicolas Schier <n.schier@fritz.com>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Alexey Gladkov <legion@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
+	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org,
+	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
+	Jens Axboe <axboe@kernel.dk>
+Subject: Re: [PATCH 12/23] kbuild: avoid re-running compiler and linker probes
+Message-ID: <20260910-translucent-sweet-sidewinder-7acacb@l-nschier-aarch64>
+References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
+ <20260908-build-speedup-v1-12-5dc1ac01672d@kernel.org>
+ <178901395292.3971858.13236774094648272066.b4-review@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v3 00/10] net: fix typos and repeated words in
- comments
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178905480977.1504082.16408401600046600222.git-patchwork-notify@kernel.org>
-Date: Thu, 10 Sep 2026 15:40:09 +0000
-References: <20260908052602.27497-1-hemanth.selam@gmail.com>
-In-Reply-To: <20260908052602.27497-1-hemanth.selam@gmail.com>
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: davem@davemloft.net, andrew+netdev@lunn.ch, bbhushan2@marvell.com,
- bcm-kernel-feedback-list@broadcom.com, chris.snook@gmail.com,
- edumazet@google.com, florian.fainelli@broadcom.com,
- GR-Linux-NIC-Dev@marvell.com, gakula@marvell.com, kuba@kernel.org,
- shenjian15@huawei.com, shaojijie@huawei.com, manishc@marvell.com,
- marcin.s.wojtas@gmail.com, pabeni@redhat.com, rahulv@marvell.com,
- rkannoth@marvell.com, linux@armlinux.org.uk, shshaikh@marvell.com,
- shuah@kernel.org, horms@kernel.org, sbhatta@marvell.com,
- skalluru@marvell.com, sgoutham@marvell.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-parisc@vger.kernel.org,
- netdev@vger.kernel.org
-
-Hello:
-
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Tue,  8 Sep 2026 10:55:52 +0530 you wrote:
-> Fix misspellings and repeated words in comments across the networking
-> code, found with scripts/checkpatch.pl using the misspelling list in
-> scripts/spelling.txt.  Comments only, no code changes.
-> 
-> Changes since v2:
->  - v2 put 184 changes in a single patch.  Andrew Lunn asked for it to be
->    split by vendor, which comes to 54 patches, so this is the first
->    batch.  maintainer-netdev.rst asks for no more than 15 patches
->    outstanding against a tree at a time and I have five in flight
->    already, so this batch is 10.  The rest will follow as these are
->    applied.
->  - patches 1 and 2 are unchanged from v2 and carry Andrew's
->    Reviewed-by.  They are resent because the v2 series was marked
->    superseded, so they would otherwise be dropped on the floor.
->  - dropped the sfc mcdi_pcol.h patch (v2 4/6) even though Andrew had
->    reviewed it.  Edward Cree pointed out that header and the Siena copy
->    are generated from the firmware definitions, so an edit here would be
->    overwritten the next time they are regenerated; he has forwarded the
->    typos to the firmware team instead.  The sfc changes outside pcol are
->    unaffected and will come in a later batch.
->  - dropped the 8390 patch, the driver is Orphan / Obsolete in
->    MAINTAINERS.
->  - dropped one octeontx2 hunk, in otx2_pf.c, because the comment holding
->    the typo has since been rewritten upstream.  The remaining octeontx2
->    typos are still fixed in the marvell patch.
->  - dropped an "amount of times" to "number of times" change in qed_dev.c.
->    That is a wording fix rather than a misspelling, so it does not belong
->    in this series.
->  - v2 6/6 (net: usb, "Medium Mode mode") is not in this batch.  Andrew
->    asked me to check the data sheet for that one, and I will answer on
->    that thread before resending it.
->  - rebased onto net-next.
-> 
-> [...]
-
-Here is the summary with links:
-  - [net-next,v3,01/10] net: llc: fix repeated word 'all' in comment
-    https://git.kernel.org/netdev/net-next/c/2d2c2ea6650e
-  - [net-next,v3,02/10] selftests: net: fix repeated word 'use' in comment
-    https://git.kernel.org/netdev/net-next/c/a2c9decb21b2
-  - [net-next,v3,03/10] net: broadcom: fix typos in comments
-    https://git.kernel.org/netdev/net-next/c/a08b0a9e5e5f
-  - [net-next,v3,04/10] net: cavium: fix typos in comments
-    https://git.kernel.org/netdev/net-next/c/405829119fdc
-  - [net-next,v3,05/10] net: qlogic: fix typos in comments
-    https://git.kernel.org/netdev/net-next/c/12ae2a2b298a
-  - [net-next,v3,06/10] net: fddi: fix typos in comments
-    https://git.kernel.org/netdev/net-next/c/ef7ed063b48f
-  - [net-next,v3,07/10] net: marvell: fix typos in comments
-    https://git.kernel.org/netdev/net-next/c/36ca708b7cc7
-  - [net-next,v3,08/10] net: hisilicon: fix typos in comments
-    https://git.kernel.org/netdev/net-next/c/1b4109e4a024
-  - [net-next,v3,09/10] net: atheros: fix typos in comments
-    https://git.kernel.org/netdev/net-next/c/eeea715379b2
-  - [net-next,v3,10/10] net: dec: fix typos in comments
-    https://git.kernel.org/netdev/net-next/c/f36cb539fd97
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="6NJv2EjhorC/TYUZ"
+Content-Disposition: inline
+In-Reply-To: <178901395292.3971858.13236774094648272066.b4-review@b4>
+Organization: FRITZ! Technology GmbH
+x-ms-reactions: disallow
+X-purgate-ID: 149429::1789054956-F1CDF0BC-4895A414/0/0
+X-purgate-type: clean
+X-purgate-size: 2705
+X-Notice: Whitelisted
+X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
+X-purgate: clean
+X-pfmilter: host: postfix-mx-03  mail-id: 9AB3CA045E  external: no
 
 
+--6NJv2EjhorC/TYUZ
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Sep 09, 2026 at 09:19:12PM -0700, Nathan Chancellor wrote:
+> > diff --git a/init/Kconfig b/init/Kconfig
+> > index 8583d9f06c52..3c92c87254a3 100644
+> > --- a/init/Kconfig
+> > +++ b/init/Kconfig
+> > @@ -144,6 +144,44 @@ config CC_HAS_ASSUME
+> >  config CC_HAS_NO_PROFILE_FN_ATTR
+> >  	def_bool $(success,echo '__attribute__((no_profile_instrument_functio=
+n)) int x();' | $(CC) -x c - -c -o /dev/null -Werror)
+> > =20
+> > +config CC_HAS_ZERO_INIT_PADDING_BITS
+> > +	def_bool $(cc-option,-fzero-init-padding-bits=3Dall)
+> > +
+> > +config CC_HAS_NO_STACK_CLASH_PROTECTION
+> > +	def_bool $(cc-option,-fno-stack-clash-protection)
+> > +
+> > +config CC_HAS_NO_ADDRSIG
+> > +	def_bool $(cc-option,-fno-addrsig)
+>=20
+> I am generally in favor of this proposal since I think these checks
+> should be cached by Kconfig where possible to clear up running them
+> twice. That said, I wonder if we should pick a better dumping ground for
+> these checks other than init/Kconfig. Maybe init/Kconfig.tools or
+> scripts/Kconfig.tools or something?
+
+Yes, skimming through the patch, I thought about that, too.  Moving more=20
+cc option checks to Kconfig will make building out-of-tree kmods with a=20
+different compiler more dangerous.  Maybe we will have to make the=20
+warning in Makefile's prepare (external kmods) target a bit louder.
+
+> I also worry about backsliding and growing cc-option checks. Should we
+> update the documentation to state that it is preferrable for these
+> checks to live in Kconfig so that they can be properly cached?
+
+Sounds good, yes.
+
+--=20
+Nicolas
+
+--6NJv2EjhorC/TYUZ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEDv+Fiet06YHnC6RpiMa8nIiabbgFAmqiz+cACgkQiMa8nIia
+bbgNERAAgCLMWkWnCF5POqjQiZGkZbm/i9SwwH2BVVg0H8Bf+O6WGCZ4YiM0NOu7
+6d9EZV95NkDD36Y3vCEaq1/GclFeUn2ET6HEprS7tQsmYbcofxLYoQuMV/5Si/18
+jJBz3eksIZYRAnSFGG6K1+Hq3u63l3cV5TmRaquZg76LwJkTjCNsFmfT2wxHP40y
+LmkyOsw9NiHo2Bm75Bz8ds7EVqHU/wPxCAWBuiw6ervOrw4RR7PURz61DaBGIuOc
+9B/HnhACn44debha9z9dUTsDIsPsK2sftFLfgJvD8c1V8vj6D1uhX7Fx/hXRElRA
+srsyf2q67EuQ8hKIU8sch6rKkD9slQJd0/w2XNQsONffnO9RghF+Qu8dzo9mUusZ
+l1vYg30SglV5c7m1FlgCvvmvJSppryu6zZw4FgzOUTfcxt6l+VXTm9jaigCWPXbT
+KAYgvQqNVVgkIAg2WDqyiVTeWQxrxo9ctf3m/6srxI4/AkuGZV/XU2m1QiQJxQ5/
+rdm3WGYjD/gVrLPBr6oIoPWDSgP7C4U4kSuZGq1jWAhPeqaa691z+Z5WbRVoVDO/
+SEc1cIdDE88/z8QwIEsgmaXaVhnaCiW66Npfh9zP1J+/pQV3kvU4kf9CIEQ6QMDf
+MPfl1Si0rJA9thzauvNi6Mu6JsUi9FPz7+Oen1Y22eMfv2st6Sc=
+=TUj9
+-----END PGP SIGNATURE-----
+
+--6NJv2EjhorC/TYUZ--
