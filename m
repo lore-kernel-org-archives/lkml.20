@@ -1,243 +1,242 @@
-Received: from smtpout10.mo539.mail-out.ovh.net (smtpout10.mo539.mail-out.ovh.net [51.210.91.49])
+Received: from de-smtp-delivery-113.mimecast.com (de-smtp-delivery-113.mimecast.com [194.104.111.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E6D53FD3D
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:12:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.210.91.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF01A53FD4D
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:12:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.104.111.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789060335; cv=none; b=oGvESloTSs06ybZXr4KtO570mCtPWVrjdYo0Jc9ZZ1bBQ8o6IGqpO4E+nvvnTdvDTHaPsTwjxi/MG8EcLGN2Ca9f+raWPhCRnZ++5XDAJo3JRZwUFJVb2KM0MFQU+5mTRZRGhEf1oTAGTbEfztRv9q8fmy9js36T/7FPCT3MUSo=
+	t=1789060350; cv=none; b=jvndTvkvLzM1C8OckSdCcD2pFuuehoDHePqCi27gVYyyJkbTYHkvLjxSELkD7JwFm/0at9EAk8a5dENwOLFNNbJGEmIYNmVOA2DNo+efAOt/TTYuxRKjzhJbo8iQrosG+S5h06bBA0pI9y+LXCiWdLc0wn9d0mYGVQ5Rx/XJ6uE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789060335; c=relaxed/simple;
-	bh=aD4Um39WbledhYr7SdEqmJ3kSOvm6MJQ4tGFJWrMPSI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a7PaOfQ+hfQqiXG99vZbA3nJtZzrEUsYLU0B2EAAaKV/Tq8rWbh5ADgsDFYL96LsA4TVmlG2l4LEC83WcK36ebXsYX4CGDibW4MTMrHyyBucgbxTwhzyHKuyU6czodqL8fLULKPSc4k6mtxNkAJxfPk3nLWTP5FqO+vMG6JjcT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sicoop.com; spf=pass smtp.mailfrom=sicoop.com; dkim=pass (2048-bit key) header.d=sicoop.com header.i=@sicoop.com header.b=nVtWOBaH; arc=none smtp.client-ip=51.210.91.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sicoop.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sicoop.com
+	s=arc-20240116; t=1789060350; c=relaxed/simple;
+	bh=QhQDCwVyfD/PEgie3S0zLZuk84xghrlrmylx3+osVp8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:In-Reply-To:
+	 MIME-Version:Content-Type:Content-Disposition; b=ROZWh4Yu4M/H6Cj1nuntHLIDFIL+1lOm6NWs9detOuw5uiRwEjBAVly+cLTdWOqzuAmg2smJqTQYtqTN2rrj1/pIcmDiQt+nIQ1Pm6Om/syAsEJN2BB9TVSkVIHcmRUNEIl+wbCkVh9PKJoiqjawiiPyP5HtLSwBd/4xhB/cmc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=toradex.com; spf=pass smtp.mailfrom=toradex.com; dkim=pass (1024-bit key) header.d=toradex.com header.i=@toradex.com header.b=Cwuca6sk; arc=none smtp.client-ip=194.104.111.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=toradex.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toradex.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sicoop.com header.i=@sicoop.com header.b="nVtWOBaH"
-Received: from director5.derp.mail-out.ovh.net (director5.derp.mail-out.ovh.net [79.137.60.225])
-	by mo539.mail-out.ovh.net (Postfix) with ESMTPS id 4hgkHT4sWrz4FCb;
-	Thu, 10 Sep 2026 16:52:21 +0000 (UTC)
-Received: from director5.derp.mail-out.ovh.net (director5.derp.mail-out.ovh.net. [127.0.0.1])
-        by director5.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
-        for <bcm-kernel-feedback-list@broadcom.com>; Thu, 10 Sep 2026 16:52:21 +0000 (UTC)
-Received: from mta6.priv.ovhmail-u2.ea.mail.ovh.net (unknown [10.110.188.201])
-	by director5.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4hgkHT3lz0z6Ntd;
-	Thu, 10 Sep 2026 16:52:21 +0000 (UTC)
-Received: from sicoop.com (unknown [10.1.6.7])
-	(Authenticated sender: michaltoma@sicoop.com)
-	by mta6.priv.ovhmail-u2.ea.mail.ovh.net (Postfix) with ESMTPSA id 828AD1B4403C;
-	Thu, 10 Sep 2026 16:52:20 +0000 (UTC)
-Authentication-Results:garm.ovh; auth=pass (GARM-113S0075acc4155-acff-4418-ad16-683ae0a87b58,
-                    D184D1A0A1014A0D56F8A815F0DE21A15A548AA1) smtp.auth=michaltoma@sicoop.com
-X-OVh-ClientIp:89.91.4.113
-From: Michal TOMA <michaltoma@sicoop.com>
-To: sashiko-bot@kernel.org,
-	Zack Rusin <zack.rusin@broadcom.com>
-Cc: Michal TOMA <michaltoma@sicoop.com>,
-	bcm-kernel-feedback-list@broadcom.com,
-	ian.forbes@broadcom.com,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/vmwgfx: Release PRIME import in the BO destroy path
-Date: Thu, 10 Sep 2026 18:52:19 +0200
-Message-ID: <20260910165219.7542-1-michaltoma@sicoop.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910150035.788AF1F000FF@smtp.kernel.org>
-References: <20260910150035.788AF1F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=toradex.com header.i=@toradex.com header.b="Cwuca6sk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com; s=toradex-com;
+	t=1789060332;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2GOG89oMfhyGtc0zIxq7uFeyZkDDw1ADWld6NwnVEYY=;
+	b=Cwuca6skqPgu1GLAgmeka5O6SL4NAcJstbqnug8hIg862HUUtWEBMHbqggBkUxIg+ggBOY
+	IZeNXfshJlcX7hGS7Yvm5iPCWc0JgnnmbBlHpEuDbSMrv/5OXwbOiknrCk/wLjgiMxk/MI
+	3OjYrbfgclaIx39IOFjMTPcItLEtOxk=
+Received: from GVAP278CU002.outbound.protection.outlook.com
+ (mail-switzerlandwestazon11020111.outbound.protection.outlook.com
+ [52.101.188.111]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ de-mta-64-O_GlWKyGPcakNo-Atc1a1w-1; Thu, 10 Sep 2026 19:12:09 +0200
+X-MC-Unique: O_GlWKyGPcakNo-Atc1a1w-1
+X-Mimecast-MFC-AGG-ID: O_GlWKyGPcakNo-Atc1a1w_1789060329
+Received: from ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:2e::8) by
+ ZR1PPFC76DBE08A.CHEP278.PROD.OUTLOOK.COM (2603:10a6:918::2ab) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.9; Thu, 10 Sep 2026 17:12:07 +0000
+Received: from ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+ ([fe80::88:6821:13f5:a5b2]) by ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+ ([fe80::88:6821:13f5:a5b2%6]) with mapi id 15.21.0406.007; Thu, 10 Sep 2026
+ 17:12:06 +0000
+Date: Thu, 10 Sep 2026 19:12:05 +0200
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Ernest Van Hoecke <ernestvanhoecke@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Subject: Re: [PATCH 3/6] dt-bindings: connector: Add Toradex camera connector
+Message-ID: <aqLk5UAv-j39Jxd3@francesco-nb>
+References: <20260910-verdin-imx8mp-hmp-camera-ready-v1-0-3c9349ecdb9f@toradex.com>
+ <20260910-verdin-imx8mp-hmp-camera-ready-v1-3-3c9349ecdb9f@toradex.com>
+ <aqLaLmz7n31P6igy@SMW015318>
+ <prwghb3ftrz5xd3hapxtlv2o2gm5xmuapnpz2h7fqulf75phqz@lk4yiaepormb>
+ <aqLif2zrrsbYd5sM@SMW015318>
+In-Reply-To: <aqLif2zrrsbYd5sM@SMW015318>
+X-ClientProxiedBy: ZR0P278CA0106.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:23::21) To ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:910:2e::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 16160322842110546236
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTF6pX5vpcS80JPTmqNLuphRsGggG7qnKK0W447olTa8x18xHywiZHYwydWM01Edd3/niP30dpypJk6tKYscP/iVZhW5lCbcZYPL/wCEgEKOD1gltMXAM9TrNqpjqxvW1DMOF/22a1MsuLQGdr7sp0Mt33UVLr1ITPXP6K2OdH7uLpjzOitg93bjz2Rb7LBHnNbr3CtsPP2g+YZqf4GKSyCLkt+AZADNZi9Wa9W1cPItB0C2ynbvLozOHyMUch2H9RsfsyWbGkTRHomPIsz6OhkaUdZLiu4DPVZ6Y3ji2Bf1A5Gabwar3DpGf4/zDdSwIgn4zZBK4uC3k5XJm0wKqbg/NgnE7MySnY0afWpLJ7PT+pSrq9fwOC5eZmQZdJQT0HRGazJJCCn16If3Hq5zUacuJutsdhY8Ea0DDgaECNQFzZg4jNDuMnVO+icN0fl/lWUK28hjJ2DO8HSXL+b3OWO+MGHYdS4CwQ1oig3FuGVr505+UAZN109ajHXBQBtENPVIMsU0M+gTiagewmTSzzHLharV/A1ht9DHp1tg7TfIs/8d7P5/8fKJpQlm04BnDglN50JvfZO5vP+9gzEhioKqOs+/lHwu+QxhTXWFgq50AIVMTGqd2RsHQ+TYN26VYUa6lDsw/Ap1aJ3Lyzfl7FoCjK6mqbHjjUXaL+ICnWhThw
-DKIM-Signature: a=rsa-sha256; bh=zb+8StDB0wlJEo55QkYEs4giHU7INXOi+GpJyXdAHy4=;
- c=relaxed/relaxed; d=sicoop.com; h=From; s=ovhmo62391-selector1;
- t=1789059142; v=1;
- b=nVtWOBaHAAcOKF2ivFxsHYG5bvZ9P+F32khHW5wMlWw/IAh8wN18KJFVNtlt4Z61rtXCdInI
- 38fIzK9xXg314SflNg3zGMG0yY0n2sO6hHsEoY3QxESdm30oTRLdxYxvWUm2WrIgKsmJfTHK2LJ
- P3i8OdXlKnHfNAREdK0QctQjWjp4vf2+ZNCb4t3ijowL2mCiPulQxotksMEuqrjFHVJqv+1bnuj
- PFPAu4REzY/UwsPHsNCLpktnnxf+7h3N40DzqyXyP1dMPJ0DC+DUawdEaCL+0RaaKPy3xU4DONR
- 4UPZrzk8ZH9a2eX7GUkvtIB0KksBtov57zj9Z00tDSL2Q==
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZRAP278MB0495:EE_|ZR1PPFC76DBE08A:EE_
+X-MS-Office365-Filtering-Correlation-Id: 760c55b3-bc4c-4b48-bc0b-08df0f5ea444
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|6133799003|22082099003|3023799007|56012099006|4143699003|18002099003|10067099003
+X-Microsoft-Antispam-Message-Info: TcMypZiM1aBlq94BwTbMbS+/ttHVJXBvbdXcMUOrdOK6Z/oK2oDF47Q/NvaXvALvTKVz5WaJr0N1pHR7v4SH4R7H6Xp+7C1dzmzAhqf6gAktva1FWa5/DNH6bD3xatUxBaMiWmOMbz9BDqX6xGVSJ2sgM3STyWIDWVV8H9w/ToCxAmlsBq6E3UodSplnaEbblo1J/HnDIOwpafuYetj150tNC/aSIUgEHao2Rzg1+kP2umXsaa0AJ/x8InZ1dZUKYHTwOi2ZNFo85FFMTtUMb+m4Wu3X1eSJ8FtibK9PMx6JhQWnVEx2aZepn3k7gsFS1QWxEcPprUGjHROU8hAfVQMI8aXNhsBAMsHkOyCbiSoS4P+FdIwwQuZqoM45tf06A4esyPNs4I7gVRvYVFxlU54yqgdHyrKhwkfmkGIM9lugKVD+3JdPwsniEEncks47D8QRt4n3jYLP0YIET0k36dVkq3/1h/XhAEnK5zivtRfkTyDgGJ8e1PWNVX4ydHN2LV8b+vSXJjcL4LjkVwK/1kQWvjeiGh67KxM0wWKgDguDIWIOyTXFDdHfxvvWs9Ch4DAOkxN9szl4vylaRo2Hl5WSbEuP6d79KdP7GcKqAoKvNPPsx4ZJ4qN/xOmfA1Er
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(6133799003)(22082099003)(3023799007)(56012099006)(4143699003)(18002099003)(10067099003);DIR:OUT;SFP:1102
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?6zjcKDND9eYiguZScc/Wli29GrEJYCSqyKj+f3xiGGIf6vanlZI5cs5yqW0f?=
+ =?us-ascii?Q?UzxNlcLpzCTXSC64lbKD0lPRh2UOpEX7a2bKzRbG6DyZGMMh9S+37Ls763Yw?=
+ =?us-ascii?Q?sSi4ayVFzqeq4lOOcE6NQSg38L8Ks/ERNUSU85jZFU1yCeCDwWGnlbF+gXc/?=
+ =?us-ascii?Q?+x6x+dynbfM3jl8Axr/6IvTILBwC+Q6X075YeV6ATL8nYx7fJ2xGXiG9hLAx?=
+ =?us-ascii?Q?ZWSUoSCC1MPh3sFQ2AaUfJYcQqrZj/iq4GoJxMpxC14Q1SuQsd8zbZh4p/CY?=
+ =?us-ascii?Q?QN+BjiAcWRd4y6mX7WeEer+Jj8QU0rpfuSuFItmKJvFcl9gNDbwxDLnHRDV/?=
+ =?us-ascii?Q?gGrhEMhKDwlvGzVSBIPjGAIrX8y/WObkMU1W0VIYRT52M94m7IfgJBKutw43?=
+ =?us-ascii?Q?k54OMAANyyNHmmwuRd9zjiMHWqK4EmfMQxCB2+7/mm4a2DbJTntVJLeZNsw7?=
+ =?us-ascii?Q?W/IbMcHgg8tUB0qj2+ECIJDPacuqKzwbHSFXDam2ytz6S3zKIFvJXDptjW3b?=
+ =?us-ascii?Q?aQWTGdFuj36t0NN+rEoQk0YGvUtAPahaIcZleHgA5SBVf1Fo2ZbEZnwKenKg?=
+ =?us-ascii?Q?PszsUM5905sAj1E9I6uTp7oe6dGLsfMj9NxRczaEJA7AkCAGAb04KKTNjbjX?=
+ =?us-ascii?Q?tm7/fEyYrJ6Dlpi5ewDA+W/ds8tAajYrT+kxwZMzbOPmAFhtXPNmExd3EGDI?=
+ =?us-ascii?Q?INlmAtKSy/XWNYfCfWCdew2776inhxHlVhQn8yce03Mk/A6jvJPcqbFofk0U?=
+ =?us-ascii?Q?aniOueuW2BiAMjJN/LCX3FaoXVBVvFX94fsG/bWNWG9U4jB71D8y6zUGKOdk?=
+ =?us-ascii?Q?6xcO6OevBjNMNoVIMm+tdAmK9VD/KsEByVgwBT2LxAiioYxwd38ddxTHKvhY?=
+ =?us-ascii?Q?Ih7ghNcmpQqErSKXrnbNJQADfRZrF8fWEolljk46hPPM8JLTidQXEA/EeOuI?=
+ =?us-ascii?Q?j8fui+kxxxu3SgXPDoqi0l088UjfSFAZBCWDhpuA4Jxne53zeChMUKtQSfVI?=
+ =?us-ascii?Q?WQUY1br0hVJvJ7gE3ZQlxFIcrfZiA4vGMguKwLZzpUtvd+HvOF9ET/CiFYyC?=
+ =?us-ascii?Q?ZevYGtROTSycJRHQ1bKG34sSK8fsF48UO5ORw+xtOGCN00XTmblBLH0lN9OJ?=
+ =?us-ascii?Q?jjDzgmUnYMJvEEVmeIg1c+HlF2KIrGsFsQ2nHiwm9vYFdcxp+kDakkb/erC8?=
+ =?us-ascii?Q?YjUpgCpGvdQNzAXrUK5cUpuLDtVxpLJux+XGuWwgVLVvpWVpIsrzyyLZ3BZR?=
+ =?us-ascii?Q?WPxSZnhJqnt0d+1rm30P0ts64TqKupzRWDO8CYbX+ok7NxXTH9zQLywpvXqT?=
+ =?us-ascii?Q?/8M8DSemCwguOa9tZwcCT3TDPNbOFR9euYjf7/B7bk3Rr4g1LDWTdf2Hy8r+?=
+ =?us-ascii?Q?R8AfU9Ei5cVkxyZz4+paM9YD9RoAYn6u/+89x450sDhNJY6VZeswuf3ntdyc?=
+ =?us-ascii?Q?eFa3ggkcHfQaK1s13ZNfIrYrxZdmylQ5AwSf8Gjcg8pcsFDwSbvQJPEpjvqq?=
+ =?us-ascii?Q?SoERGnb9jIii1QH2e9HNrM7fmasTwJ1UW4Sds/VTn7/4+LIco1jOO1zsFmSw?=
+ =?us-ascii?Q?rO9l5f4lf06yPBOi4wEpiuX0HPf5GhXCyViODBTfUW8MgJv3b23lITekd+Fr?=
+ =?us-ascii?Q?01x9EppYkgqbMcZxnqxecQK8UdMuVEk5QpxrXzjHEPTT5W4UH/szU9FioGFS?=
+ =?us-ascii?Q?oVbtVLeYUClJEdGtdxSQI9p9mtKpUP92nsJpwtHIA+pz78iixCbUBv+yvnAt?=
+ =?us-ascii?Q?q8NBlXFObwfFHhGtRnwDMOkpAc8jeH8=3D?=
+X-Exchange-RoutingPolicyChecked: mkOEI3FiUXnHk46kUyQAw+xl1kU60xzt0uZPdo6t+6aDaBDgcajoDDzl6Pnj/DwvRCN/7RyTW7g9E+FpVzhSB/6JKuA2OKuT9VrCHSLPADvJKDHONwjhX7owIpzRafcggBJ656t7XfmoRii2XLDcngid0CMdY0WPSgETJV1mFn5BcfFNAygHi7kM4wr8ii/9j7KrLMYg5a51yaWkwYYNqtUkXkuiZwWvjqnFKcVHzb68EfBv+YgutPJQCPqxgUlAmojVEFgdIp2LSf5DSnvOl6sd8PTY5ELDQXYyFDLVGRumJVpx1kyKhlLzh/YVvwlvApRQk4g9JezdeegHx/1TsA==
+X-OriginatorOrg: toradex.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 760c55b3-bc4c-4b48-bc0b-08df0f5ea444
+X-MS-Exchange-CrossTenant-AuthSource: ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 17:12:06.8324
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: d9995866-0d9b-4251-8315-093f062abab4
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VOFsJJv82Fn0hj6QudbTps1JjJYk8FJiS2AXHqw+hFsmezKLUF1MrJ7htuEM+s9n2ZacIl0NcaETSFBpLdoBY090nYCW4a/5GKviXtcHlq8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR1PPFC76DBE08A
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: iDPPFjX7_KKkVt1RnAzEZiGNJB9m-HAAP1KkOGoSE_Y_1789060329
+X-Mimecast-Originator: toradex.com
+Content-Type: text/plain; charset=WINDOWS-1252
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 10, 2026 at 03:00:34PM +0000, sashiko-bot@kernel.org wrote:
-> - [High] Double free of the exporter's sg_table triggered by combining
-> the newly added drm_prime_gem_destroy() with a pre-existing incorrect
-> error path in vmw_ttm_map_dma().
+On Thu, Sep 10, 2026 at 12:01:51PM -0500, Frank Li wrote:
+> On Thu, Sep 10, 2026 at 06:39:30PM +0200, Ernest Van Hoecke wrote:
+> > Hi Frank,
+> >
+> > Thanks for reviewing this so quickly.
+> >
+> > On Thu, Sep 10, 2026 at 11:26:22AM -0500, Frank Li wrote:
+> > > On Thu, Sep 10, 2026 at 05:37:59PM +0200, Ernest Van Hoecke wrote:
+> > > > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > > >
+> > > > Toradex boards route the sideband signals of their 24-pin camera
+> > > > connectors to different GPIO controllers. Camera overlays which nam=
+e
+> > > > those controllers directly must therefore be duplicated for each ho=
+st
+> > > > board.
+> > > >
+> > > > Describe reset, power-down, detection and power-control as
+> > > > connector-local GPIO functions. This lets an accessory overlay rema=
+in
+> > > > independent of the host wiring. MIPI CSI-2, I2C, clocks and supplie=
+s
+> > > > remain described separately because the GPIO nexus does not abstrac=
+t
+> > > > them.
+> > > >
+> > > > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > > > ---
+> > > >  .../connector/toradex,camera-connector.yaml        | 86 ++++++++++=
+++++++++++++
+> > > >  1 file changed, 86 insertions(+)
+> > > >
+> > > > diff --git a/Documentation/devicetree/bindings/connector/toradex,ca=
+mera-connector.yaml b/Documentation/devicetree/bindings/connector/toradex,c=
+amera-connector.yaml
+> > > > new file mode 100644
+> > > > index 000000000000..06e6836e1aa6
+> > > > --- /dev/null
+> > > > +++ b/Documentation/devicetree/bindings/connector/toradex,camera-co=
+nnector.yaml
+> > > > @@ -0,0 +1,86 @@
+> > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > > +%YAML 1.2
+> > > > +---
+> > > > +$id: http://devicetree.org/schemas/connector/toradex,camera-connec=
+tor.yaml#
+> > > > +$schema: http://devicetree.org/meta-schemas/base.yaml#
+> > > > +
+> > > > +title: Toradex camera connector GPIO nexus
+> > > > +
+> > > > +maintainers:
+> > > > +  - Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > > > +  - Toradex Linux BSP Team <linux-bsp@toradex.com>
+> > > > +
+> > > > +description: |
+> > > > +  Toradex boards provide 24-pin camera connectors carrying MIPI CS=
+I-2, I2C,
+> > > > +  clock, power, and sideband GPIO signals. This binding describes =
+the sideband
+> > > > +  signals as a GPIO nexus. The other connector resources remain de=
+scribed by
+> > > > +  the surrounding board device tree.
+> > > > +
+> > > > +  The nexus exposes connector-local GPIO function numbers to camer=
+a overlays
+> > > > +  and maps the functions wired by a carrier board to their GPIO co=
+ntrollers.
+> > > > +  GPIO specifiers contain a function number followed by standard G=
+PIO flags.
+> > > > +  A board may omit functions which it does not wire.
+> > > > +
+> > > > +  The function numbers are:
+> > > > +    - 0: Camera reset, connector pin 11
+> > > > +    - 1: Camera power-down, connector pin 22
+> > > > +    - 2: Camera identification, connector pin 23
+> > > > +    - 3: Camera power control, connector pin 24
+> > > > +
+> > > > +properties:
+> > > > +  compatible:
+> > > > +    const: toradex,camera-connector
+> > >
+> > > Name is too generally, suggest use board name, we got similar comment=
+s at
+> > >
+> > > https://lore.kernel.org/imx/20260629074734.3643227-2-chancel.liu@oss.=
+nxp.com/
+> >
+> > I saw that and it made me reconsider this name.
+> >
+> > However, I believe that in our case it is specific enough. It is really
+> > the same on all our carrier boards, and Toradex specific. It's also onl=
+y
+> > for cameras, which is more defined than just "io". Curious to see if
+> > others agree or if we should come up with a name for this.
+>=20
+> If some days later, you update hardware connector to 30pin from 24pins.
 
-Thanks - this is real, and it means the patch as posted must not be
-applied on its own. I reproduced it on the affected guest. The
-mechanism differs a little from the one described, and the outcome is
-worse than a double free: it is a NULL pointer dereference in a TTM
-workqueue, which wedged the machine.
+That connector is there since years, not days.
 
-Corrected mechanism
--------------------
-sg_free_table() sets table->sgl = NULL but leaves table->orig_nents
-alone, so the second sg_free_table() from the exporter is in fact a
-no-op. The crash comes one step earlier, in the unmap:
+We have multiple cameras, designed to mate with it.
 
-  drm_prime_gem_destroy()
-    dma_buf_unmap_attachment_unlocked()
-      udmabuf unmap_udmabuf() -> put_sg_table()
-        dma_unmap_sgtable(dev, sg, ...)
-          dma_unmap_sg_attrs(dev, sgt->sgl = NULL, sgt->orig_nents = N)
-            dma_direct_unmap_sg() -> for_each_sg(NULL, sg, N, i)
+If tomorrow we will define a new camera connector (that is absolutely
+possible), the new connector will get its name, maybe
+toradex,camera-connector-v2, or toradex,camera-connector-22pin or
+whatever that connector would be named, not just in the DT, but also as
+a product and on the actual HW.
 
-which dereferences NULL on the first iteration.
 
-Why vmw_ttm_map_dma() fails for every imported buffer
------------------------------------------------------
-For TTM_TT_FLAG_EXTERNAL, vmw_ttm_map_dma() points vsgt->sgt at the
-exporter's table:
+Francesco
 
-	if (vmw_tt->dma_ttm.page_flags & TTM_TT_FLAG_EXTERNAL) {
-		vsgt->sgt = vmw_tt->dma_ttm.sg;
-	} else {
-		vsgt->sgt = &vmw_tt->sgt;
-		ret = sg_alloc_table_from_pages_segment(&vmw_tt->sgt, ...);
-
-but then calls vmw_ttm_map_for_dma(), which maps &vmw_tt->sgt - the
-inline table, not the one vsgt->sgt points to. For an imported buffer
-that inline table is never populated (vmw_ttm_tt_create() kzallocs the
-vmw_ttm_tt), so dma_map_sgtable() is called with orig_nents == 0,
-trips the WARN_ON_ONCE in __dma_map_sg_attrs() and returns -EIO. Then
-out_map_fail calls sg_free_table() on the *exporter's* table.
-
-That path is therefore taken on every attempt to bind an imported
-buffer object, not only in some rare error case. vmw_ttm_unmap_dma()
-would free the exporter's table too, if a map ever succeeded.
-
-Note also that the exporter has already DMA-mapped that table for our
-device in dma_buf_map_attachment(), so vmwgfx should not be mapping it
-a second time at all.
-
-Reachability
-------------
-An unprivileged process with access to the render node can get there
-with three ioctls, all DRM_RENDER_ALLOW: import a dma-buf
-(DRM_IOCTL_PRIME_FD_TO_HANDLE, e.g. a udmabuf), create a GB surface
-backed by that buffer (DRM_VMW_GB_SURFACE_CREATE_EXT with
-base.buffer_handle set), then submit SVGA_3D_CMD_UPDATE_GB_SURFACE for
-that surface with DRM_VMW_EXECBUF. Validation moves the backing buffer
-to VMW_BO_DOMAIN_MOB, which binds the TTM tt:
-
- WARNING: kernel/dma/mapping.c:266 at __dma_map_sg_attrs+0xdd/0x1d0
- Call Trace:
-  dma_map_sgtable+0x1d/0x30
-  vmw_ttm_map_dma+0xf6/0x140 [vmwgfx]
-  vmw_move+0x1cd/0x2c0 [vmwgfx]
-  ttm_bo_handle_move_mem+0xc0/0x180 [ttm]
-  ttm_bo_validate+0xd2/0x1d0 [ttm]
-  vmw_validation_bo_validate+0xb5/0x180 [vmwgfx]
-  vmw_execbuf_process+0x852/0x1330 [vmwgfx]
-  vmw_execbuf_ioctl+0x10d/0x1d0 [vmwgfx]
-  drm_ioctl_kernel+0xa6/0x100
-  drm_ioctl+0x2ad/0x590
-  __x64_sys_ioctl+0xb9/0x100
-  do_syscall_64+0xe1/0x610
-
- vmwgfx 0000:00:02.0: [drm] VSG table map failed!
-
-execbuf returns -EIO, but the exporter's sg_table has already been
-freed. Releasing the buffer afterwards, with my patch applied:
-
- BUG: kernel NULL pointer dereference, address: 000000000000001c
- Oops: 0000 [#1] SMP NOPTI
- Workqueue: ttm ttm_bo_delayed_delete [ttm]
- RIP: 0010:dma_direct_unmap_sg+0x62/0x200
- Call Trace:
-  unmap_udmabuf+0x24/0x40
-  dma_buf_unmap_attachment+0x43/0x80
-  dma_buf_unmap_attachment_unlocked+0x46/0x70
-  drm_prime_gem_destroy+0x28/0x50
-  vmw_bo_free+0x15b/0x1f0 [vmwgfx]
-  process_one_work+0x19f/0x370
-  worker_thread+0x1b1/0x310
-  kthread+0xe4/0x120
-
-Since this runs in the TTM delayed-delete worker rather than in the
-caller, the closing process exits normally and the worker dies holding
-TTM/dma-resv locks. The desktop wedged a few seconds later and the VM
-had to be reset.
-
-Without my patch the same sequence only corrupts and leaks the
-exporter's mapping, because nothing ever unmaps the attachment - which
-is exactly the leak I was fixing. So the patch does not create the bug,
-but it does turn it into a locally triggerable crash.
-
-What I intend to send
----------------------
-Please do not apply the posted patch as it stands. I will send a
-series instead:
-
-  1) fix vmw_ttm_map_dma()/vmw_ttm_unmap_dma() for external TTM tt:
-     use the exporter's already-mapped sg_table as-is, and never map,
-     unmap or free it. Fixes: b32233acceff ("drm/vmwgfx: Fix prime
-     import/export")
-  2) the drm_prime_gem_destroy() cleanup posted here, unchanged
-  3) a second leak that was ready but held back: the GEM handle
-     vmw_buffer_prime_to_surface_base() creates for the fd passed to
-     DRM_VMW_GB_SURFACE_REF_EXT is never returned to userspace and
-     never deleted. Fixes: d6667f0ddf46 ("drm/vmwgfx: Fix handling of
-     dumb buffers")
-
-The other point in the review, vmw_prime_import_sg_table() returning
-NULL rather than an ERR_PTR when vmw_bo_create() fails, is real as
-well. I am leaving it out of the series: it needs a buffer object
-allocation failure to reach, I have not managed to trigger it, and I
-would rather not post a patch I could not test. It is called out in the
-cover letter.
-
-The proposed 1) looks like this; I will post it with test results:
-
-@@ vmw_ttm_map_dma()
- 	case vmw_dma_map_bind:
- 	case vmw_dma_map_populate:
- 		if (vmw_tt->dma_ttm.page_flags & TTM_TT_FLAG_EXTERNAL) {
-+			/*
-+			 * The exporter has already mapped its sg_table for
-+			 * this device in dma_buf_map_attachment(). Use it
-+			 * as-is; it is not ours to map or to free.
-+			 */
- 			vsgt->sgt = vmw_tt->dma_ttm.sg;
--		} else {
--			vsgt->sgt = &vmw_tt->sgt;
--			ret = sg_alloc_table_from_pages_segment(...);
--			if (ret)
--				goto out_sg_alloc_fail;
-+			break;
- 		}
-+		vsgt->sgt = &vmw_tt->sgt;
-+		ret = sg_alloc_table_from_pages_segment(...);
-+		if (ret)
-+			goto out_sg_alloc_fail;
- 		ret = vmw_ttm_map_for_dma(vmw_tt);
-
-@@ vmw_ttm_unmap_dma()
-+	if (vmw_tt->dma_ttm.page_flags & TTM_TT_FLAG_EXTERNAL) {
-+		vmw_tt->vsgt.sgt = NULL;
-+		vmw_tt->mapped = false;
-+		return;
-+	}
-
-I have 1) built and tested here. With it, the reproducer above logs
-nothing at all: no WARN_ON_ONCE(), no "VSG table map failed!", and
-DRM_VMW_EXECBUF is accepted instead of returning -EIO, so an imported
-buffer object can now be bound at all. Releasing the buffer afterwards
-leaves no entry in /sys/kernel/debug/dma_buf/bufinfo and no oops, and
-the reproducers for the two leaks from the original posting still
-behave as they did.
-
-The reproducer for the crash above, and the ones for the two leaks, are
-small C and Python programs; each is included below the cut of the
-patch it belongs to in the series.
-
-The analysis and the reproducers here were produced the same way as
-described in the tool-use note of the original patch.
