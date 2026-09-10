@@ -1,56 +1,56 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D56566C79
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84F8C5632B6
 	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:37:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789061859; cv=none; b=XjxUmQywVlPipWpS95Abd+6qjEQRAIowBOjAYsNTiEusgcO+OgK4PMIXAtRQraufHDwm5oCOmnlhshp777Y76WwuH6bE/0b2uWZhfca7dxEtqK+rEFc8gPnOwebxofq5spGJkPM4SKXkg7I3X5X9b4xZFOxl1MGr2BXl/2Vl6HA=
+	t=1789061861; cv=none; b=NjaYnZIC/zF4dzYssh6mfXdmJT8JqlJZXQ+8cMMuaFlzMETpKadMTut00hOqzxCrfSufk0v5mnAnvEKK9yuS1facUM3KtNnSqYuwYqm45r3zpMp5AQGNt6R2JUo33pgrBCf75Wh3xo0gtu9dq6ReHij11rx1AcYlPGgnOPBHPv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789061859; c=relaxed/simple;
-	bh=vaBOM7gJFJP/iDNYbksPS4xPwihltpK6FFy2L5l2j5c=;
+	s=arc-20240116; t=1789061861; c=relaxed/simple;
+	bh=bsg/VePzOz1lxM8CfGsZ2ouP6WK2qYLF+kdJw+NDm1w=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Content-Type; b=lIgJWKqVkzxFA/y5/02/38Hzm7Z3Q8/NbukAA6BzUCV8Rh+XMP+PqHi5x/EDGFMGMWbuzeqkUZr2R8UmV7wqeEHf1VTCFRp+tmuEuVf8WRVvbYkt/wEaZMYQpzUzPnpp7daliBr8E5H1OixtA6khCommfdgKk8qApfydd2mL1mg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BTInslN0; arc=none smtp.client-ip=209.85.216.71
+	 To:Content-Type; b=Y7XJlSpWfDtP394G+bcq/4wILyvTo+Sr9cRd2d82F4F/mrnGnB2YQyCQRrwUYHkDSMIr8wZDEybZFcbOcI6vP5nyOBPc2bKRWxVzPaVWSi0HWuE7l9tOf2IftqUBH4bs9tgtDe+2/y//fhvDjjRwOOEw433k1whQeRpGkYSX0Fs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=THlZYpmz; arc=none smtp.client-ip=209.85.216.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BTInslN0"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-398d292eac1so14723393a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:37:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="THlZYpmz"
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39b77130a7fso7439528a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:37:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789061849; x=1789666649; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789061851; x=1789666651; darn=vger.kernel.org;
         h=content-type:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fnzBeOHTZJ3ZGeQaPHN7X7+9Lkvg1S3DJgXkiyBoNCg=;
-        b=BTInslN0zIKtVxAVEapKn9gb3ds+5ceDVUk7v09zZrgLO7yhtPs3YAShKB7ErI6NeR
-         tkqDZyqZmQ4AcTXARY+NLWKpVflYW0i6j0tnREo/p2LoeUREZQ+1wZooCt7E5taGU8fp
-         Bc3yrwa6LA9y5BRo1net7wPNeZvmjzXvStdTx33SMkYbFTZz9XUH9Be2AIGitjTNYPmU
-         Yr944aY+lYuv1XBx/WebXhTbC2whIf24RPtSaszvWs1huWflKJr0MGO5PK5xHj/PFDOQ
-         OiaDLthbE5AA0JZ3wG3U7zaJrd2ond2mBRMYjoRv2Tq6s2mD3/KIHdYKPQeuG89SZiDo
-         qM4Q==
+        bh=alJIg6NFHmOIfLpqOpn9VCme24M02xLRvisdX8Uz++w=;
+        b=THlZYpmzrsI3zg4fJHyHsc/tYIuSLGqVKRy8iDB0tU1fOzZ8DZxCZmxOGm2KpjOnPA
+         XR4ROhEt9dKvrim7HWwB6StnreDSXkwS6ygpf1SaMSfFxyQlZ+dGI6RvALvbm81rDfYO
+         UWr/O/cuOJN//oWlC0aMc0mWvkNfrRIT193X/P1BigocE2uQvCDaYibgtL5mNiqpwRLv
+         TzIOjWl+mEA2O69whxKc2v7bQvaJT+3HtDWCPtJxwYv6f+LH+lKWMLxceuv9hj1V8A2C
+         4jo97AFLZwiJc0c1yM6CODOjwBIJ6ro9roJVoi7s3VZvewU+j/5ytSCWqiybX1vQHzNX
+         FOSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789061849; x=1789666649;
+        d=1e100.net; s=20251104; t=1789061851; x=1789666651;
         h=content-type:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fnzBeOHTZJ3ZGeQaPHN7X7+9Lkvg1S3DJgXkiyBoNCg=;
-        b=WOAhqGunU7vSKaaq/Rra3Fgp4IiawzW4fmy+w9izLNctg+tnY5KDlden5lvVk1GiqL
-         JUa1zA6VySHw784PZhSbDNUgZcPvA5ywkykW3z3gmLG9tFou0V7CrGcnZORrr4rPmLQm
-         e6RukVaLM7jRtZQGSkFynXnX670wBMhSgNsLCwRX6m3tdP36sA2TJNvgbnGdT+NKd6Q5
-         xfiYFa6KqjfT4kZdoln+OonEdHnBShtnTBKGVccsZ3Rap7tLtFjEZH7E2SuDhGcK/TWj
-         hBltqM7dT1DWPVFTf6BEqUK3KHQpS9t3GIIK4dPhVtjORh6WxcXYnjRtQt7XoyJ/PfXP
-         9Vdw==
-X-Forwarded-Encrypted: i=1; AKwUvBz+jzkLzs+KMTVpFS2Po8ZiXvQKZlDfAuiA1S+GHbnwFMeTZ7ozWUtHuBZWRYzjDOo109vin0XffeCdyoU=@vger.kernel.org
-X-Gm-Message-State: AFuF++m2K6yk8mVv0/d8NirBNXFcv4PnUhg3FBXrCuOwi5ZVrlI93heW
-	eLXZrkZYdPxEUjJInd8jhsqNF1Ha41pqaL5IopUbx3PVW+kFY11mtdGU2Rzq03loG8MJG0aixQf
-	qn3Vx7Y9ubg==
-X-Received: from dlbeg10.prod.google.com ([2002:a05:7022:f8a:b0:143:5f6d:2f6b])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1d45:b0:38f:2168:b9cb
- with SMTP id 98e67ed59e1d1-39bac1d89b4mr20515211a91.9.1789061848826; Thu, 10
- Sep 2026 10:37:28 -0700 (PDT)
-Date: Thu, 10 Sep 2026 10:37:14 -0700
+        bh=alJIg6NFHmOIfLpqOpn9VCme24M02xLRvisdX8Uz++w=;
+        b=ral+9ZOLhXqrp1hEKilOHd+oHt2vibDfxf04IW9qasSjtlJ4c69PVlfTzgPZAXsnUb
+         aFeEQet0cunMU751fn7lNfuAracaiyINhUgh2qAsEPyRBu6LVhVtxlBtmS/7n7P7UqfB
+         C4WOLDY5Jq7eRuqzHdKYAQ/VyJO8CLIDCfE/FtA7/0QajPvc9LJE1XH1YDYhdwDlAKp4
+         MPCjnwpSg4SHu3gTpfN2SUuLoq1VU6qYxEoMup593A30dqD2z2C/fzYPqfo4+jvfWCDl
+         lFoaJCuBW6ARj2TBn/LsL4scJ6UNuxs0+TDWYUaT/KBmg+qPMFKdPB1GiFZVe2XfCY/O
+         JXzA==
+X-Forwarded-Encrypted: i=1; AKwUvBzBjfgkh1RHiH3foMAt4fCnx02wIYj3a0pmymEaPp11imRdIa4kh8upc267fmXFtUGjZLj1UMZq05ph/60=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTVHyITw0jAcT9WJ8dMER+dKMf7KMq1x/SXRUeDVBG9v5mEgJw
+	g3vc5UETxlhdp4cjlM5VXtrnbNHiQmh0O8gSerd9aef6lEzsdDUnG33KXtrv2YJfDNlj9uDVmkt
+	uOZc0znAbHA==
+X-Received: from dlee1.prod.google.com ([2002:a05:7022:6281:b0:141:5987:7f07])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:d44b:b0:398:bee5:61d6
+ with SMTP id 98e67ed59e1d1-39b26252edamr68840957a91.24.1789061850497; Thu, 10
+ Sep 2026 10:37:30 -0700 (PDT)
+Date: Thu, 10 Sep 2026 10:37:15 -0700
 In-Reply-To: <20260910173715.2996571-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260910173715.2996571-1-irogers@google.com>
 X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
-Message-ID: <20260910173715.2996571-2-irogers@google.com>
-Subject: [PATCH v1 2/3] perf header: Fix potential memory corruption in cpu_cache_level__read
+Message-ID: <20260910173715.2996571-3-irogers@google.com>
+Subject: [PATCH v1 3/3] perf header: Transition WARN macros to debug.h equivalents
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
@@ -70,61 +70,100 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
 	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-strim may advance the pointer assigned to cache->size which causes
-later frees to crash. Fix by performing the strim and then memmove-ing
-the potentially shifted string back over the original string. The bug
-was introduced by the transition from rtrim to strim, as rtrim
-wouldn't move on the left.
+Avoid a checkpatch.pl warning on the use of asm/bug.h by switching the
+use of WARN macros to explicit tests and then using pr_warning from
+debug.h.
 
-Fixes: 13c230ab6e56 ("perf tools: Ditch rtrim(), use strim() from tools/lib")
 Signed-off-by: Ian Rogers <irogers@google.com>
-Assisted-by: Antigravity:gemini-3.1-pro
 ---
- tools/perf/util/header.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ tools/perf/util/header.c | 27 ++++++++++++++++++---------
+ 1 file changed, 18 insertions(+), 9 deletions(-)
 
 diff --git a/tools/perf/util/header.c b/tools/perf/util/header.c
-index bdd79d7542ef..78b16a098148 100644
+index 78b16a098148..a3e6c334a289 100644
 --- a/tools/perf/util/header.c
 +++ b/tools/perf/util/header.c
-@@ -1267,7 +1267,11 @@ static int cpu_cache_level__read(struct cpu_cache_level *cache, u32 cpu, u16 lev
+@@ -8,7 +8,6 @@
+ #include <stdlib.h>
+ #include <string.h>
+ 
+-#include <asm/bug.h>
+ #include <byteswap.h>
+ #include <dirent.h>
+ #include <linux/bitops.h>
+@@ -384,8 +383,10 @@ static int do_read_bitmap(struct feat_fd *ff, unsigned long **pset, u64 *psize)
+ static int write_tracing_data(struct feat_fd *ff,
+ 			      struct evlist *evlist __maybe_unused)
+ {
+-	if (WARN(ff->buf, "Error: calling %s in pipe-mode.\n", __func__))
++	if (ff->buf) {
++		pr_warning("Error: calling %s in pipe-mode.\n", __func__);
+ 		return -1;
++	}
+ 
+ #ifdef HAVE_LIBTRACEEVENT
+ 	return read_tracing_data(ff->fd, &evlist__core(evlist)->entries);
+@@ -406,8 +407,10 @@ static int write_build_id(struct feat_fd *ff,
+ 	if (!perf_session__read_build_ids(session, true))
  		return -1;
  
- 	cache->type[len] = 0;
--	cache->type = strim(cache->type);
-+	{
-+		char *trimmed = strim(cache->type);
-+
-+		memmove(cache->type, trimmed, strlen(trimmed) + 1);
+-	if (WARN(ff->buf, "Error: calling %s in pipe-mode.\n", __func__))
++	if (ff->buf) {
++		pr_warning("Error: calling %s in pipe-mode.\n", __func__);
+ 		return -1;
 +	}
  
- 	scnprintf(file, PATH_MAX, "%s/size", path);
- 	if (sysfs__read_str(file, &cache->size, &len)) {
-@@ -1276,7 +1280,11 @@ static int cpu_cache_level__read(struct cpu_cache_level *cache, u32 cpu, u16 lev
- 	}
+ 	err = perf_session__write_buildid_table(session, ff);
+ 	if (err < 0) {
+@@ -1013,8 +1016,10 @@ static int write_auxtrace(struct feat_fd *ff,
+ 	struct perf_session *session;
+ 	int err;
  
- 	cache->size[len] = 0;
--	cache->size = strim(cache->size);
-+	{
-+		char *trimmed = strim(cache->size);
-+
-+		memmove(cache->size, trimmed, strlen(trimmed) + 1);
+-	if (WARN(ff->buf, "Error: calling %s in pipe-mode.\n", __func__))
++	if (ff->buf) {
++		pr_warning("Error: calling %s in pipe-mode.\n", __func__);
+ 		return -1;
 +	}
  
- 	scnprintf(file, PATH_MAX, "%s/shared_cpu_list", path);
- 	if (sysfs__read_str(file, &cache->map, &len)) {
-@@ -1286,7 +1294,11 @@ static int cpu_cache_level__read(struct cpu_cache_level *cache, u32 cpu, u16 lev
- 	}
+ 	session = container_of(ff->ph, struct perf_session, header);
  
- 	cache->map[len] = 0;
--	cache->map = strim(cache->map);
-+	{
-+		char *trimmed = strim(cache->map);
-+
-+		memmove(cache->map, trimmed, strlen(trimmed) + 1);
+@@ -1108,9 +1113,10 @@ static int write_dir_format(struct feat_fd *ff,
+ 	session = container_of(ff->ph, struct perf_session, header);
+ 	data = session->data;
+ 
+-	if (WARN_ON(!perf_data__is_dir(data)))
++	if (!perf_data__is_dir(data)) {
++		pr_warning("Expected data to be a directory");
+ 		return -1;
+-
 +	}
- 	return 0;
+ 	return do_write(ff, &data->dir.version, sizeof(data->dir.version));
  }
+ 
+@@ -3714,9 +3720,10 @@ static int process_dir_format(struct feat_fd *ff,
+ 	session = container_of(ff->ph, struct perf_session, header);
+ 	data = session->data;
+ 
+-	if (WARN_ON(!perf_data__is_dir(data)))
++	if (!perf_data__is_dir(data)) {
++		pr_warning("Expected data to be a directory");
+ 		return -1;
+-
++	}
+ 	return do_read_u64(ff, &data->dir.version);
+ }
+ 
+@@ -4394,8 +4401,10 @@ static int do_write_feat(struct feat_fd *ff, int type,
+ 		if (!feat_ops[type].write)
+ 			return -1;
+ 
+-		if (WARN(ff->buf, "Error: calling %s in pipe-mode.\n", __func__))
++		if (ff->buf) {
++			pr_warning("Error: calling %s in pipe-mode.\n", __func__);
+ 			return -1;
++		}
+ 
+ 		(*p)->offset = lseek(ff->fd, 0, SEEK_CUR);
  
 -- 
 2.55.0.1007.g17ff1f9808-goog
