@@ -1,291 +1,165 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7F10481AB5
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:32:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1884738F259
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:32:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789065128; cv=none; b=T9qHC34+hyU9OWyg0ih1TEMps8tvTapSztTPKb9/DjUE3wEZP5MlVkua2IcYzQphi81fdTGV42YpZMXRLTeXMBk9rRKhrZUZ5dQY/ANMil44d8TXna1oBnYIml6UynN8DWnSHmLw+TnywOeB7/uoncGHhg1cshnX1r3PqgeGlyw=
+	t=1789065161; cv=none; b=hSbJVI+Ps5B6RO+jUslgRozoA+MsOgc2PYAvQLKG268lxjdbvEE6y7c/xAWNjazkEcYVpoTnptrKr8m5zDyMeYw0HBY/dcnYEHIdMKgQPWfjkekzjQNt3eYyqoGqi7trpB8AALsv/eHS0kqUYD4R3TdpElpM7fTbAj+3QAgiGjY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789065128; c=relaxed/simple;
-	bh=mwyTAGdH+Ov8iD7EKCzH5yrB7NRBjRfqh4/zpwO5kZ0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=so+5e0wjWZ9htVGHJA2L4xx+L0fTQd7OMZtNb++FaKCFqBnCiKmjT0Tztp9ESNwU+rlsJDNKJCz8eiv8aSHX6K4mtGNvm8/6CtDcynNq2f9u0V+fK1UJRdLG4W/DYsWWIlJ0DZiVsrP0PiLaevux1SoBDgXtnv3SaZXD/+EHb4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hg95pJBU; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789065161; c=relaxed/simple;
+	bh=cMp1VsdsQz0vNzbyhkcNws9a4oOwysOG1eRkdE4uSO4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=GBpFmD5tNKcU2wKnNAH1+p2oN/RJ4F+CbiAyG9KOEd/KMDplcbaK3gU5e+t4N+Eonq2zrOFr41S7TH+kVITg/seycAT38CpvhuuQLuXjnZ3TyMY5jLsm94f//xAbOtQVScF3H/G16ZIEJSsTnja7JiFbr7XzuRfCZK4Fs5nJbPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Bme79ckq; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Z4w3edFb; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hg95pJBU"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747eb79f7so13243075ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:31:59 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Bme79ckq";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Z4w3edFb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789065152;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZqYNqU4lqML3fRZSRPStdgLh7sIE0K4n+xpeBZSASYI=;
+	b=Bme79ckqLn9+u0taxp/FNGmDMwPNCj1bE0c/eYucm04ssW7auqgjtRnmvh6Nze3yWhK+Du
+	jSy/hj8+xU69cY95+RJPBWbWaA+iut+2cm0gBuLs/nWj/6ILMMo068rXSMpBer9DGpAqE2
+	mpekns9xxez0W9LglSRV03DqCtWBtjw=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-554--0WMRg1xOy-rHVweiYQu3w-1; Thu, 10 Sep 2026 14:32:31 -0400
+X-MC-Unique: -0WMRg1xOy-rHVweiYQu3w-1
+X-Mimecast-MFC-AGG-ID: -0WMRg1xOy-rHVweiYQu3w_1789065150
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-4843d9ab895so52155f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:32:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789065117; x=1789669917; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kuzz1+vtL6q9IVKTuSaFdZbMIP54D/fr9Bx9hPkbwhk=;
-        b=hg95pJBUC+JEM9k4cWIyIRm5TrPQFBmnBhn3qfxFNPlC/OG0HB9EfmjZZ179kBPK+C
-         Ie/Oh79poADs9/TnCQw0gP0/nGFqJpVXmIKqBEhqsLnMwvYpzRw3cHbnw3RAF/myXfCR
-         pWkfM/vaFjKbb4S0ByqAaXHvMiQ1g9omXJ1Jv+j7yXnFCTQ7foCMNzcoQJw02H/K96WX
-         b2aZaBIX4KLsqj6NEj3/1HNmN7LbQM0ZCAutHngEIWvQZSIefxNZQp/czYxRFnqkb7+d
-         AizFl5iK4f2lP5zZrbsO1n5FQBwOelZ4f9wZmC8G6kelJg/KphPo5yxWpCeXoPP0zcO9
-         YYPg==
+        d=redhat.com; s=google; t=1789065150; x=1789669950; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZqYNqU4lqML3fRZSRPStdgLh7sIE0K4n+xpeBZSASYI=;
+        b=Z4w3edFbquyYygtYo/+H2UgPknhORVX4+7mRBYA1pFA4Aul0n7vxo358oR4jKndHJi
+         gbt8kzn8LI0w1YLcdc9Kxy9hjme9RCulxKSNAcnbJ19Zr2gzwbjSDnuy15Bgp6swHn/R
+         cN84/91NZ0f0vbPyknyVe09hi3JntFf4BhQN/T5ZQV/UF2LclfICuW95ZjK5IXrVrAd5
+         7A2c6QCD8nQR5zb+B1h5/fFQG2Aubk2mLEzzwOkcMM4+gVx7j0xrGAUmiLfDTjRjZ9qJ
+         0Uia0+U0wtynYC3xjTBZ0Bo9ZEIqP9nNta1+UebJS0YtOXyigxl+skwEZtBw0ge0tAKB
+         UBig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789065117; x=1789669917;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kuzz1+vtL6q9IVKTuSaFdZbMIP54D/fr9Bx9hPkbwhk=;
-        b=rNPOwLfk94RyKfx/T4ktjsBrwn34piI8wGdkqnW7e1oXQ5b7tpwrqV94RNQuWcoFaS
-         0kcGrCf7/Q++7RmZ2h5i0aWs2nkwJtShvqgoL9IJq9tnnMwBSCDw6BirxtkdRa55A2ig
-         eBjr+gEgJ1C+KSZA27Z5YVemREHIK7lpzuJ+LKP2zXCJ4ME9TtZPAdF2gxGYxJdcVg9V
-         k1AU5PRLM9FA3bm/Kl0VbxkVeRP0L7K1+OPCuGB0BQQ1XCbPyXhhn0+q61lnEY/XW/fs
-         KlaPaDuXxRJujHOwWPUKmSaSyGtw2U1CiHTRHCadxQ0zMm8zcRUd5KLTeNOE0FgNLAN8
-         xs+A==
-X-Forwarded-Encrypted: i=1; AKwUvBx3keeINEK14AmKc8Y5yVXrlx4Rny3GZ/k/NeeO9uyfHcmtDW1LSKqk7pEBVWnIK6OnQSDB6aqGDtxZIlo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mn6ph2taA03k8xjxoAQhs1tJboXmENIVgZIxumPxFgYz6Tck9x
-	3bQ9GBpK34yfXUtm78IciIC5fBCWk5NO467UVlf2GbBc/TxekXSLDMhd
-X-Gm-Gg: AYBFou23yyP4A19YPdbDolVk9fl9UmQzdtN6+D0DVtMO5gQv27hTeZCDshX6v32Z6W5
-	0Qbt6uBqfWPMqMZYBlLZbSAMH3F4pblK647MQK/EPUqBw7PAoJ9toQJiLGnE89IafFW2A7tL7DV
-	2rteh/j1H/LCHcRZUp/vfFEAt2R+9hlfV/OpAOOKG8cyZvTh+Ss+ZvPattqp49+j7pxFRrSzKsr
-	SLXvTLUBJJE7QiFix59s0ZY6HF2m7TJvLSeswsYndCkSu3Sxy5wXFsJ68oVwuv4uPCtp4Rssk14
-	BZ1Aks9gVWYp3Fv/P6vJV2uIKlONSTaDBAz2+FTLGIsUCav1p0qs5Mk1NXJ7TZonXyt65neJpXJ
-	R0hPuUCF04HoKcVQnmLTRvrnLxeLLOfhorvJ5Hy9z/GGXU91hga7NKv7S/gjrvPRlm2T5l0wc+P
-	lEYwANmKbduFBhm47HhdzV0nf1xAWjyO2IDPiWD5ddEcDiUUI2fOUAiGjU4iT3/eDDA3qt1VB1h
-	CWkn8weh2M28SzKoepP5csdNqv63BNYsmdH5+4vRmusMahJvJLjtg==
-X-Received: by 2002:a17:902:cccd:b0:2d8:d4d3:da50 with SMTP id d9443c01a7336-2dd2a471a7fmr16602305ad.20.1789065116855;
-        Thu, 10 Sep 2026 11:31:56 -0700 (PDT)
-Received: from ?IPV6:2406:7400:56:e503:432:91:952a:b76f? ([2406:7400:56:e503:432:91:952a:b76f])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33b95282a73sm5942038eec.31.2026.09.10.11.31.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 11:31:56 -0700 (PDT)
-Message-ID: <02b29827-3ca3-414b-9377-972f3d46eb03@gmail.com>
-Date: Fri, 11 Sep 2026 00:01:48 +0530
+        d=1e100.net; s=20251104; t=1789065150; x=1789669950;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZqYNqU4lqML3fRZSRPStdgLh7sIE0K4n+xpeBZSASYI=;
+        b=Xrbd4ggHDlBHWGHADh3mQnLZUPSR4208Gm8mkgOvqvABT+mGXplake4crfhouIqvfn
+         by0v8b5OoU969rY11+rcBil9B7N0ATuwEKFvTQN5rTcLnASCo1m8fgEFaDquW7gN4axO
+         4O6uW0VjyMFmenrWhlr5L1pP8o5b0itfAaXrzfDIMk8aklrjTHpBu6gt1vYKIexmrVTC
+         +3QHzPtRhEvwMMrbFu+NzmrvIi5wtMt/lY7YF8ecim7MSNbXL1XyzLJYHueqGbHr0E7w
+         RYTJLl7F6XilfNvo0/P2O3ddXHqMd+WjlUV8qhqSYbL9lneswBqOX0NQG3nd/49n0htO
+         STVQ==
+X-Gm-Message-State: AFuF++lyL0Aq2/CcyKCsZRrNK0w8VtNdLk2NKSKNsOkOl5KwVlQmonF0
+	TOtjdlqDeb052U0juzB/MDs+xSN4FAMFasqec7HSSceXpTiAfYDEg5CND4tVnyxd93fX7PP55Zd
+	++ZEqVu3/Uu2EgSQb+TH7VV4jPtCq3kJK2w8If54NOuQ9tZ3C01+rH76pgeYuCXKq1g==
+X-Gm-Gg: AYBFou1+jQCC19XMWq4el7i1Ru55NWwlEl+/xblT3UfU4+HKt/pDZ6GOWeYHPOjw941
+	P1EAxRPsmmY+7Ox4s5iDtV5AxRiztnXQ9pyv9oibc0imeNZau2sVA5LSWBL2zP0pPdMsJaVra5Y
+	Qh3NJZUcBHqG7JVKUTAIwbGf6tEjlyaOd2faIV8D0vah5w127NKXHX8L6xhT9sN4wxaRVvGYYMS
+	9iJ/Osh5lTvyJ+8ozvIaqEuPySs3GFgXoJ7+sY8ohx9wBXAGLkowZ/CnwpNS+kEQ4kl/9ldPW4e
+	RYnBQk/H73dNnPBIAU/eQ4oG3YuF7sUbr5V0CpSDjYAOcPQJdacDoeyV9390hljNC4KtoP4+YC7
+	yEDjEZKybhIfowkuADR5hFC0wOVM=
+X-Received: by 2002:a05:6000:118b:b0:485:8c16:5ef0 with SMTP id ffacd0b85a97d-486eb2fe6e9mr228480f8f.42.1789065150434;
+        Thu, 10 Sep 2026 11:32:30 -0700 (PDT)
+X-Received: by 2002:a05:6000:118b:b0:485:8c16:5ef0 with SMTP id ffacd0b85a97d-486eb2fe6e9mr228459f8f.42.1789065150104;
+        Thu, 10 Sep 2026 11:32:30 -0700 (PDT)
+Received: from alrua-x1.borgediget.toke.dk (alrua-x1.borgediget.toke.dk. [2a0c:4d80:42:443::2])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33ee8bsm270102f8f.15.2026.09.10.11.32.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 11:32:29 -0700 (PDT)
+Received: by alrua-x1.borgediget.toke.dk (Postfix, from userid 1000)
+	id 8A4759B97EC; Thu, 10 Sep 2026 20:32:28 +0200 (CEST)
+From: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Shuah Khan <shuah@kernel.org>,
+	bpf@vger.kernel.org
+Subject: [PATCH bpf-next v2 2/4] selftests/bpf: Add assertions for bpf_program__{add,clear}_flags()
+Date: Thu, 10 Sep 2026 20:32:15 +0200
+Message-ID: <20260910183222.307208-2-toke@redhat.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260910183222.307208-1-toke@redhat.com>
+References: <20260910183222.307208-1-toke@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/5] pmdomain: core: Allow a non-CPU device in a CPU PM
- domain to do power on
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
- Sudeep Holla <sudeep.holla@kernel.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, linux-pm@vger.kernel.org
-Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Christian Loehle <christian.loehle@arm.com>,
- Maulik Shah <maulik.shah@oss.qualcomm.com>,
- Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
- Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260907111659.263324-1-ulf.hansson@oss.qualcomm.com>
- <20260907111659.263324-3-ulf.hansson@oss.qualcomm.com>
-Content-Language: en-US
-From: Dhruva G <goledhruva@gmail.com>
-In-Reply-To: <20260907111659.263324-3-ulf.hansson@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 07-09-2026 16:46, Ulf Hansson wrote:
-> A driver for a non-CPU device that is attached to a CPU PM domain (the
-> genpd has the GENPD_FLAG_CPU_DOMAIN configuration set), is currently not
-> able to power on the PM domain. More precisely, to power on a CPU PM domain
-> one of its corresponding CPUs needs to be woken up if they are idle.
-> 
-> The current support for a non-CPU device is that its driver can only
-> prevent an already powered on CPU PM domain from being powered off. This
-> leads to problems for a driver while probing its device or when it needs to
-> call pm_runtime_get_sync() to turn on the power for it. From the driver
-> point of view it looks like it all works fine, but when accessing the
-> device it may end up with various errors as the device may not be fully
-> powered on.
-> 
-> To fix the behavior for these types of devices, let's adjust the behaviour
-> in genpd_power_on() to wake up an idle CPU that belongs to it, in cases
-> when it's needed.
-> 
-> Link: https://lore.kernel.org/all/CAPx+jO-sCierYj8jnoKQHckJG16dOBxnNrsZVYO=38R2cLV8nw@mail.gmail.com/
-> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> Tested-by: Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>
-> Signed-off-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-> ---
-> 
-> Changes in v3:
-> 	- Moved to atomic polling, pointed out by Dhruva.
+Add assertions that round-tripping through bpf_program__add_flags() and
+bpf_program__clear_flags() ends up with the original flags value.
+Arbitrarily add these to the kernel_flag test prog since that's where
+we're already checking for the bpf_program__flags() value (and the test
+name contains "flag").
 
-Thanks, but even in v3 we still have potential issues.
-It does not fully address the consequences of polling for five seconds in that context,
-nor the parent-lock nesting issue.
+Acked-by: Ihor Solodrai <ihor.solodrai@linux.dev>
+Signed-off-by: Toke Høiland-Jørgensen <toke@redhat.com>
+---
+ .../selftests/bpf/prog_tests/kernel_flag.c    | 20 +++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
-This seems to have been pointed out by this corresponding sashiko review as well [1]
-
-[1] https://sashiko.dev/#/patchset/20260907111659.263324-1-ulf.hansson%40oss.qualcomm.com
-
-> 
-> Changes in v2:
-> 	- Rename a function according to Abel's suggestion.
-> ---
->  drivers/pmdomain/core.c | 80 ++++++++++++++++++++++++++++++++++++++---
->  1 file changed, 75 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
-> index 6abe8b198949..b62d4e544bc5 100644
-> --- a/drivers/pmdomain/core.c
-> +++ b/drivers/pmdomain/core.c
-> @@ -10,6 +10,7 @@
->  #include <linux/idr.h>
->  #include <linux/kernel.h>
->  #include <linux/io.h>
-> +#include <linux/iopoll.h>
->  #include <linux/platform_device.h>
->  #include <linux/pm_opp.h>
->  #include <linux/pm_runtime.h>
-> @@ -19,11 +20,14 @@
->  #include <linux/slab.h>
->  #include <linux/err.h>
->  #include <linux/sched.h>
-> +#include <linux/smp.h>
->  #include <linux/suspend.h>
->  #include <linux/export.h>
->  #include <linux/cpu.h>
->  #include <linux/debugfs.h>
->  
-> +#include <trace/events/ipi.h>
-> +
->  /* Provides a unique ID for each genpd device */
->  static DEFINE_IDA(genpd_ida);
->  
-> @@ -32,7 +36,9 @@ static const struct bus_type genpd_provider_bus_type = {
->  	.name		= "genpd_provider",
->  };
->  
-> -#define GENPD_RETRY_MAX_MS	250		/* Approximate */
-> +#define GENPD_RETRY_MAX_MS		250		/* Approximate */
-> +#define GENPD_CPU_ON_POLL_PERIOD_US	100		/* 100us */
-> +#define GENPD_CPU_ON_TIMEOUT_US		5000000		/* 5s */
->  
->  #define GENPD_DEV_CALLBACK(genpd, type, callback, dev)		\
->  ({								\
-> @@ -1026,15 +1032,75 @@ static void genpd_power_off(struct generic_pm_domain *genpd, bool one_dev_on,
->  	}
->  }
->  
-> +static bool genpd_status_on(struct generic_pm_domain *genpd)
-> +{
-> +	bool is_on;
-> +
-> +	genpd_lock(genpd);
-> +	is_on = genpd_status_on_unlocked(genpd);
-> +	genpd_unlock(genpd);
-> +
-> +	return is_on;
-> +}
-> +
-> +static int genpd_wakeup_cpu(struct generic_pm_domain *genpd)
-> +{
-> +	unsigned int cpu;
-> +	bool is_on;
-> +	int ret;
-> +
-> +	/* Find the first online CPU in the genpd's cpumask. */
-> +	cpu = cpumask_first_and(genpd->cpus, cpu_online_mask);
-> +	if (cpu >= nr_cpu_ids)
-> +		return -EAGAIN;
-> +
-> +	genpd_unlock(genpd);
-> +
-> +	/* Send a IPI to wakeup the selected CPU. */
-> +	smp_send_reschedule(cpu);
-> +
-> +	/* Poll to wait for it to complete the power on sequence. */
-> +	ret = readx_poll_timeout_atomic(genpd_status_on, genpd, is_on, is_on,
-> +					GENPD_CPU_ON_POLL_PERIOD_US,
-> +					GENPD_CPU_ON_TIMEOUT_US);
-> +
-> +	genpd_lock(genpd);
-> +
-> +	/* Re-check the status as we have released the lock in between. */
-> +	if (ret || !genpd_status_on_unlocked(genpd))
-> +		return -EAGAIN;
-> +
-> +	return 0;
-> +}
-> +
-> +static bool genpd_need_alive_cpu(struct generic_pm_domain *genpd,
-> +				 struct device *dev)
-> +{
-> +	if (!genpd_is_cpu_domain(genpd))
-> +		return false;
-> +
-> +	/* This is not for CPU devices as those are managed differently. */
-> +	if (to_gpd_data(dev->power.subsys_data->domain_data)->cpu >= 0)
-> +		return false;
-> +
-> +	/*
-> +	 * If the current CPU doesn't belong to the genpd's cpumask, we need to
-> +	 * wake up one of those idle CPUs to power on the CPU domain correctly.
-> +	 */
-> +	return !cpumask_test_cpu(smp_processor_id(), genpd->cpus);
-> +}
-> +
->  /**
->   * genpd_power_on - Restore power to a given PM domain and its parents.
->   * @genpd: PM domain to power up.
-> + * @dev: The device that needs the PM domain to power on.
->   * @depth: nesting count for lockdep.
->   *
->   * Restore power to @genpd and all of its parents so that it is possible to
->   * resume a device belonging to it.
->   */
-> -static int genpd_power_on(struct generic_pm_domain *genpd, unsigned int depth)
-> +static int genpd_power_on(struct generic_pm_domain *genpd, struct device *dev,
-> +			  unsigned int depth)
->  {
->  	struct gpd_link *link;
->  	int ret = 0;
-> @@ -1042,6 +1108,10 @@ static int genpd_power_on(struct generic_pm_domain *genpd, unsigned int depth)
->  	if (genpd_status_on_unlocked(genpd))
->  		return 0;
->  
-> +	/* Special case for a device attached to a CPU domain. */
-> +	if (genpd_need_alive_cpu(genpd, dev))
-> +		return genpd_wakeup_cpu(genpd);
-> +
->  	/* Reflect over the entered idle-states residency for debugfs. */
->  	genpd_reflect_residency(genpd);
->  
-> @@ -1056,7 +1126,7 @@ static int genpd_power_on(struct generic_pm_domain *genpd, unsigned int depth)
->  		genpd_sd_counter_inc(parent);
->  
->  		genpd_lock_nested(parent, depth + 1);
-> -		ret = genpd_power_on(parent, depth + 1);
-> +		ret = genpd_power_on(parent, dev, depth + 1);
->  		genpd_unlock(parent);
->  
->  		if (ret) {
-> @@ -1306,7 +1376,7 @@ static int genpd_runtime_resume(struct device *dev)
->  
->  	genpd_lock(genpd);
->  	genpd_restore_performance_state(dev, gpd_data->rpm_pstate);
-> -	ret = genpd_power_on(genpd, 0);
-> +	ret = genpd_power_on(genpd, dev, 0);
->  	genpd_unlock(genpd);
->  
->  	if (ret)
-> @@ -3410,7 +3480,7 @@ static int __genpd_dev_pm_attach(struct device *dev, struct device *base_dev,
->  
->  	if (power_on) {
->  		genpd_lock(pd);
-> -		ret = genpd_power_on(pd, 0);
-> +		ret = genpd_power_on(pd, dev, 0);
->  		genpd_unlock(pd);
->  	}
->  
+diff --git a/tools/testing/selftests/bpf/prog_tests/kernel_flag.c b/tools/testing/selftests/bpf/prog_tests/kernel_flag.c
+index 25eb59f460ab..72c0ef8da409 100644
+--- a/tools/testing/selftests/bpf/prog_tests/kernel_flag.c
++++ b/tools/testing/selftests/bpf/prog_tests/kernel_flag.c
+@@ -10,15 +10,31 @@ void test_kernel_flag(void)
+ 	struct test_kernel_flag *lsm_skel;
+ 	struct kfunc_call_test *skel = NULL;
+ 	struct kfunc_call_test_lskel *lskel = NULL;
++	struct bpf_program *prog;
++	__u32 flags;
+ 	int ret;
+ 
+-	lsm_skel = test_kernel_flag__open_and_load();
++	lsm_skel = test_kernel_flag__open();
+ 	if (!ASSERT_OK_PTR(lsm_skel, "lsm_skel"))
+ 		return;
+ 
+-	ASSERT_EQ(bpf_program__flags(lsm_skel->progs.bpf) & BPF_F_SLEEPABLE,
++	prog = lsm_skel->progs.bpf;
++	flags = bpf_program__flags(prog);
++	ASSERT_EQ(flags & BPF_F_SLEEPABLE,
+ 		  BPF_F_SLEEPABLE, "sleepable in program flags");
+ 
++	ret = bpf_program__add_flags(prog, BPF_F_ANY_ALIGNMENT);
++	ASSERT_OK(ret, "bpf_program__add_flags ret");
++	ASSERT_EQ(bpf_program__flags(prog), flags | BPF_F_ANY_ALIGNMENT,
++		  "bpf_program__add_flags value");
++
++	ret = bpf_program__clear_flags(prog, BPF_F_ANY_ALIGNMENT);
++	ASSERT_OK(ret, "bpf_program__clear_flags ret");
++	ASSERT_EQ(bpf_program__flags(prog), flags, "bpf_program__clear_flags value");
++
++	ret = test_kernel_flag__load(lsm_skel);
++	ASSERT_OK(ret, "test_kernel_flag__load");
++
+ 	lsm_skel->bss->monitored_tid = sys_gettid();
+ 
+ 	ret = test_kernel_flag__attach(lsm_skel);
+-- 
+2.55.0
 
