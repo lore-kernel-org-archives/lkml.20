@@ -1,161 +1,78 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0ECF3914F8;
-	Thu, 10 Sep 2026 14:41:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B91486647;
+	Thu, 10 Sep 2026 14:41:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789051292; cv=none; b=pCHvFfU7G2G3VIlKWyFYRoJm3kwUb2CxlWYp65nFgCexGtwvrCC5XCtXO0ZxEGIIu43WtFWuFzXsm9EVtlN8MPnhR5hiMnrBwmflwLR4k1I1Ok2hcPXJjnNA9d5er+1JB6JJpL/fkx9DJSmS/Bc1PNMkJ2rnrVEidj2k8jVwPYI=
+	t=1789051299; cv=none; b=kOC3PrpPIGPprCGXakDxh1anzmjCXBSa5EC5ZC1oJf511aYr7J4wprVUYZN3rZRzC7xoImCir7T/CKGA7BlP+3HYe0KgbKoMRkP00KSSDAKAF2WI2ee95uc7z44h8qOtgPaEy/dlXQtBXl51txSkMAKXuKDTtE2dgG9puH42zxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789051292; c=relaxed/simple;
-	bh=XhCBkvqoMM39WPHjPYto/5lKDTBSRqUhy/eqexVLdXc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Nh3rh8IHgsSfzj5r+eMdi3xlpBzCCGHIuHkE7E/Zi1JaNn7V35IdbEUkQ/Pz2EKMIDAouR9uJgBUlCZIJpU+qsUeS0B8TBYqLvC1coK6sm/0rQgSpVqf5eHqni+XlKcpH8KnsABjWWnJoXSciSiVVMWLTbigXxduzzDCl55po3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YpoWFeAW; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789051299; c=relaxed/simple;
+	bh=NQhEknJQA8Ya6L5zdIqdUOsD85jIBAx1y0eYH103iRE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=SIVxpfTh34phbtmWujLCiu0o27jo+wdJ4dC2xJbi0CKrt37bmseqpwdVqdTFSZJ4S3pdfFEv0zWjXG6owY4I1axrQhxA2hbdmhoeFEDEwD3NAvHUXiqqbqbtycCTNp5rNyLWecmeeME9V7s2Uf5P3d2qBh5WVpr3cGYEISznv0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=l/3pZbar; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YpoWFeAW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789051290; x=1820587290;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=XhCBkvqoMM39WPHjPYto/5lKDTBSRqUhy/eqexVLdXc=;
-  b=YpoWFeAWs9/GtRTJicHXfhwev51nyXCCs53oAmPDIa9DrTb2ZcuTVCCS
-   iL964DaPj5YFaR85nLCsos+WqoaSCOpgIy6YkS2k/uLQ3BO0prFWVDY53
-   /Ym8wrm67e2khU+HmFz4VIBSYRo73mxzSBILPfy7q7NsgaZ8Kepsj6lya
-   /pDEexRGMv56VRh1rjzaeOZQWXoDJB2g90c6Ni+KzKopT5fJUEc9+ywXq
-   uwLOfc2DP/2MMKQZPgUV9yrnJUMMr2UEMV/RiFLc+KamYEGg27Liu9Gxx
-   CGWb0WDiwKkVIWD4sAhlW9ci8frUi1NeNVe2WfpRiBWMGmNWpVRLtSm+b
-   Q==;
-X-CSE-ConnectionGUID: KQgA8M+CToG2c9CiaTftYA==
-X-CSE-MsgGUID: m0hVlNUyQmeC5RYmWa6b8A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="101021532"
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="101021532"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 07:41:29 -0700
-X-CSE-ConnectionGUID: wPSlGokYQsuYOgEp9xRQwg==
-X-CSE-MsgGUID: pmxlIlzBTxCFVac71nW3RA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="267381710"
-Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
-  by fmviesa006.fm.intel.com with ESMTP; 10 Sep 2026 07:41:26 -0700
-Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x4fxf-0000000007Z-2G9Z;
-	Thu, 10 Sep 2026 14:41:15 +0000
-Date: Thu, 10 Sep 2026 22:34:21 +0800
-From: kernel test robot <lkp@intel.com>
-To: Kunwu Chan <kunwu.chan@gmail.com>, jiangshanlai@gmail.com,
-	paulmck@kernel.org, josh@joshtriplett.org, rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	rcu@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: Re: [PATCH] srcutree: Skip torture to-big transition for atomic SRCU
-Message-ID: <202609102247.8X7GUWSj-lkp@intel.com>
-References: <20260910041427.3579817-1-kunwu.chan@gmail.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="l/3pZbar"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789051295;
+	bh=NQhEknJQA8Ya6L5zdIqdUOsD85jIBAx1y0eYH103iRE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=l/3pZbarrLBIxC/Bgeh0sOVvNAHiwRlpACyCd/tvr6a1aDM1yE39N2cpwZK+VQkVE
+	 MgyWtOO0Dc/G1ZYcB3Qm2E1JLOY5QbBZm9ZMoR9VGyxl8WU4ADu2K1EFkl5j0Iad/6
+	 XiSMMocF2vJVEhsJ1ZOcck/zDrlzfTgL8Y4/YjcB/mFxDppjKilV/UtDKUyEpZP31Q
+	 mTKYy9+55otmsuxQ4ciXEEflpRBMZuFFQOBurS1VbeCxTqCCwf68d/vmE7JBrSXGzi
+	 NWXbHAsrvc2mgBb8+DDl0wZsc62pBjWjXdb1zlMM5WGG2NQrb7qk2p8HS+ZRws6USc
+	 ICkrBPI187SkA==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D79DB17E05D3;
+	Thu, 10 Sep 2026 16:41:34 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: Matthias Brugger <matthias.bgg@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sean Wang <sean.wang@mediatek.com>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Zakariya Hadrami <zkh@mailbox.org>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-watchdog@vger.kernel.org, zkh1@proton.me, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260910-mt8127-amazon-ford-basic-v5-0-3cb9eeaffd5c@mailbox.org>
+References: <20260910-mt8127-amazon-ford-basic-v5-0-3cb9eeaffd5c@mailbox.org>
+Subject: Re: (subset) [PATCH v5 0/4] ARM: Basic support for Amazon ford
+ tablet (MT8127)
+Message-Id: <178905129482.89344.17321319958555136692.b4-ty@b4>
+Date: Thu, 10 Sep 2026 16:41:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910041427.3579817-1-kunwu.chan@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-Hi Kunwu,
+On Thu, 10 Sep 2026 15:29:11 +0200, Zakariya Hadrami wrote:
+> This series of patches adds basic support for MT8127 SoC based Amazon ford
+> tablet.
 
-kernel test robot noticed the following build errors:
+Applied to v7.3-next/dts32, thanks!
 
-[auto build test ERROR on rcu/rcu/dev]
-[also build test ERROR on linus/master v7.3-rc2 next-20260909]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+[2/4] dt-bindings: arm: mediatek: Add MT8127 Amazon ford
+      commit: f97be0d722ebef4de65a39813778f6ba62c2ac1e
+[3/4] ARM: dts: mediatek: mt8127: Add watchdog support
+      commit: 5e23e7d730c6e984e4f03c3b25e2188de9f4ba99
+[4/4] ARM: dts: mediatek: Add basic support for Amazon ford board
+      commit: 2e195497fc9fc0dd89cf95dab80a2d0486dab65b
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Kunwu-Chan/srcutree-Skip-torture-to-big-transition-for-atomic-SRCU/20260910-121427
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/rcu/linux.git rcu/dev
-patch link:    https://lore.kernel.org/r/20260910041427.3579817-1-kunwu.chan%40gmail.com
-patch subject: [PATCH] srcutree: Skip torture to-big transition for atomic SRCU
-config: s390-allnoconfig (https://download.01.org/0day-ci/archive/20260910/202609102247.8X7GUWSj-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project d3db069999553568848400c84cbf815c03f5470f)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260910/202609102247.8X7GUWSj-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609102247.8X7GUWSj-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> kernel/rcu/srcutree.c:2080:61: error: use of undeclared identifier 'SRCU_READ_FLAVOR_ATOMIC'
-    2080 |         if (SRCU_SIZING_IS_TORTURE() && ssp->srcu_reader_flavor != SRCU_READ_FLAVOR_ATOMIC)
-         |                                                                    ^~~~~~~~~~~~~~~~~~~~~~~
-   1 error generated.
+Cheers,
+Angelo
 
 
-vim +/SRCU_READ_FLAVOR_ATOMIC +2080 kernel/rcu/srcutree.c
-
-  2031	
-  2032	void srcu_torture_stats_print(struct srcu_struct *ssp, char *tt, char *tf)
-  2033	{
-  2034		int cpu;
-  2035		int idx;
-  2036		unsigned long s0 = 0, s1 = 0;
-  2037		int ss_state = READ_ONCE(ssp->srcu_sup->srcu_size_state);
-  2038		int ss_state_idx = ss_state;
-  2039	
-  2040		idx = ssp->srcu_ctrp - &ssp->sda->srcu_ctrs[0];
-  2041		if (ss_state < 0 || ss_state >= ARRAY_SIZE(srcu_size_state_name))
-  2042			ss_state_idx = ARRAY_SIZE(srcu_size_state_name) - 1;
-  2043		pr_alert("%s%s Tree SRCU g%ld state %d (%s)",
-  2044			 tt, tf, rcu_seq_current(&ssp->srcu_sup->srcu_gp_seq), ss_state,
-  2045			 srcu_size_state_name[ss_state_idx]);
-  2046		if (!ssp->sda) {
-  2047			// Called after cleanup_srcu_struct(), perhaps.
-  2048			pr_cont(" No per-CPU srcu_data structures (->sda == NULL).\n");
-  2049		} else {
-  2050			pr_cont(" per-CPU(idx=%d):", idx);
-  2051			for_each_possible_cpu(cpu) {
-  2052				unsigned long l0, l1;
-  2053				unsigned long u0, u1;
-  2054				long c0, c1;
-  2055				struct srcu_data *sdp;
-  2056	
-  2057				sdp = per_cpu_ptr(ssp->sda, cpu);
-  2058				u0 = data_race(atomic_long_read(&sdp->srcu_ctrs[!idx].srcu_unlocks));
-  2059				u1 = data_race(atomic_long_read(&sdp->srcu_ctrs[idx].srcu_unlocks));
-  2060	
-  2061				/*
-  2062				 * Make sure that a lock is always counted if the corresponding
-  2063				 * unlock is counted.
-  2064				 */
-  2065				smp_rmb();
-  2066	
-  2067				l0 = data_race(atomic_long_read(&sdp->srcu_ctrs[!idx].srcu_locks));
-  2068				l1 = data_race(atomic_long_read(&sdp->srcu_ctrs[idx].srcu_locks));
-  2069	
-  2070				c0 = l0 - u0;
-  2071				c1 = l1 - u1;
-  2072				pr_cont(" %d(%ld,%ld %c)",
-  2073					cpu, c0, c1,
-  2074					"C."[rcu_segcblist_empty(&sdp->srcu_cblist)]);
-  2075				s0 += c0;
-  2076				s1 += c1;
-  2077			}
-  2078			pr_cont(" T(%ld,%ld)\n", s0, s1);
-  2079		}
-> 2080		if (SRCU_SIZING_IS_TORTURE() && ssp->srcu_reader_flavor != SRCU_READ_FLAVOR_ATOMIC)
-  2081			srcu_transition_to_big(ssp);
-  2082	}
-  2083	EXPORT_SYMBOL_GPL(srcu_torture_stats_print);
-  2084	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
