@@ -1,97 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0B9349481A;
-	Thu, 10 Sep 2026 14:14:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA1C44CF40
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:15:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789049699; cv=none; b=GbzLqfNXAIemeR1zPxrX1C3NZMqSqTjlf5+ovb9IovV5tWe7kBNBhA2W2kMdkwWJdo7BY/F8EksEhLU8p6MrmKtZhH4OO+817cK/mu18S/qon2Xw8T74aVgibCxn4shAYRGtYwfZAH16Z0zG1To99ygOVvZog+Upsa0uhov0bvQ=
+	t=1789049709; cv=none; b=IAPaObYFc9l/hlIVrOAwPCqdECj3XNF4F1cqGHfQZScwH/jviDR8el/OkydhYaClSRumPD8xA+8Hbd+F7pxyPt+7bsUsWY7Xu1L1IuirPaVGdknwk+/7P34aEiyLex/lGZI9Op4cNrzvwa6u//rAw1nR2H+dS3wz6L6Y10S37DI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789049699; c=relaxed/simple;
-	bh=vZb+To3dn7nxMqAF+xniM1hj6OZWHwB4F6mWcKx9Qw8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hreJcXSvc/iUepvLXXcmhwDBH+vJg5WWyKm50zivo0BVtA34p3ElEyvMqI/nfsy/QxcE63XkTgu4JBFKGbD+XALSSGD9zTXBqjTEC95rF7tSiFekiRAtgUwaCrMmaE3cxwVJRcpq+/LG+Blori7tQQTLc8lgRDFxoBHh14K/x1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=niPBdpix; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789049709; c=relaxed/simple;
+	bh=azTM3kSUr70AuudVIJzET1bdnS/wyOE2QbvpVvyced4=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=nGM2RC7L2iOL9DZuPZg7fTZ6tYpmtT7P6Hb5YfdxG6hP804L6drAH4nHRXhAXmlVCZ7HFnQ/4sR9mRdvYSehIMqlg77voijOz2EifK52FLJw4HWaPMXNjHVy1I9rMFn4mrRCgSkXQ/+knfG2JZckEimAC7r8aljY+QGmdFV2tRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OykTcqL4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="niPBdpix"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C0281F000FF;
-	Thu, 10 Sep 2026 14:14:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OykTcqL4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 988CA1F000FF;
+	Thu, 10 Sep 2026 14:15:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789049698;
-	bh=aaH94r2pnTGyhZ2s2DCtMt9jAIlcwDGgoPae43u3KbI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=niPBdpixKg9E9hqQj+GTyb42eVqDLarLNBGOOajS0BYsqMl6xxrV2LQ5OtyQkYEEY
-	 4Ta6rgMg8Ik1nw2cS2V9VsO7QgTwjlx1i4ayNDlfGFs/bNK3XrVMHw3tWLqgN5Z6CZ
-	 Ppw5qTar0i9NxUqC6AfaeVbUB3jrkFhpWKisjhC4wLIWyVIrh64Q45UnHydlWziIuF
-	 vtoq/d6Dc85jiyZCOPKYlntu0vzvT2gHx5+AdagFeOKbE7M1eGVJ8OaE+8h78vy/J6
-	 SPMM4iZHxysLD5C06I907FHrcU+orF4ce+WOOTLOEU2biAyop0fu6zOGBmYejd3o+C
-	 6U0FlgGyyTocw==
-Date: Thu, 10 Sep 2026 09:14:56 -0500
-From: Eric Biggers <ebiggers@kernel.org>
-To: Thomas Huth <thuth@redhat.com>
-Cc: Joachim Vandersmissen <joachim@jvdsn.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Herbert Xu <herbert@gondor.apana.org.au>
-Subject: Re: [PATCH] crypto: testmgr - block Crypto API xxhash64 in FIPS mode
-Message-ID: <20260910141456.GA1936@quark>
-References: <20260303060509.246038-1-git@jvdsn.com>
- <abTuFto8Tc3mhRRe@gondor.apana.org.au>
- <64592fee-1956-4a70-a751-9ac3335cfc27@jvdsn.com>
- <9926908a-5f08-43ba-99dd-b83c7067d52b@redhat.com>
- <83d09aa1-729a-47a2-a8e9-381c74e92f42@jvdsn.com>
- <48f12b65-428d-4809-9735-18876b09e759@redhat.com>
+	s=k20260515; t=1789049707;
+	bh=TiUw/s/a5THXpKNutlCo5ceA78d7FKvTZXpt6nB2WDM=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=OykTcqL4d2iurhxpPxK93+PH89vvmNx5+3i+Q3z2sh5S25z14NIvXJG9W0cxefFjA
+	 NmdwFLDikwh5MJCPIv9VI/ggKb1BrDTx4edHuAPTPyD8Pf9nhxSKUIcZEYnu2/bB9c
+	 tRwlUkkyUztPw4tcAs4jFtjpsovBvrl0O+CH67EU3UOHsYKl8HDzp9kkFxMV4Ilva4
+	 M9pnRXd4809xytxNbcxwjvvr1OWn2Hims1vx/XUqQeh9IPXkv0wBDLWvZjkY9KPcNC
+	 dM5x5RPEv2qsdMQjViayhqn7jHRNwFkeJJPq+llZWG/ws0Ud/sfUVstxoEBZ1S7bWe
+	 zVs62TqX/jFdw==
+Message-ID: <894da5cc-7bc4-4b0f-9d6d-ae80a169616d@kernel.org>
+Date: Thu, 10 Sep 2026 22:15:00 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <48f12b65-428d-4809-9735-18876b09e759@redhat.com>
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Jaegeuk Kim <jaegeuk@kernel.org>, linux-f2fs-devel@lists.sourceforge.net
+Subject: Re: [PATCH v3 06/14] f2fs: stop using PG_private
+To: "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>
+References: <20260907-remove-pg_private-v3-0-6ae22f9d9272@nvidia.com>
+ <20260907-remove-pg_private-v3-6-6ae22f9d9272@nvidia.com>
+ <e5792e81-e8a5-42e1-aafe-58dc603f4968@kernel.org>
+ <7e11c56d-05e6-48f0-b5b8-b4a0e18ddc1d@kernel.org>
+ <520b6aca-b515-4720-977f-1adb484f2e08@kernel.org>
+ <d700c4ea-b54e-4195-b124-3c89177ee49e@kernel.org>
+ <18ab9827-9e10-4360-a1d0-3b25d86a71a9@kernel.org>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <18ab9827-9e10-4360-a1d0-3b25d86a71a9@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 10, 2026 at 10:57:32AM +0200, Thomas Huth wrote:
-> On 10/09/2026 05.24, Joachim Vandersmissen wrote:
-> > Hi Thomas,
-> > 
-> > On 9/9/26 9:36 AM, Thomas Huth wrote:
-> > > On 15/03/2026 01.43, Joachim Vandersmissen wrote:
-> > > > Hi Herbert,
-> > > > 
-> > > > I don't think this one can be applied yet since dm-integrity
-> > > > still uses xxhash64 through the crypto API. This would break
-> > > > fips=1 systems that use it.
-> > > 
-> > > Out of curiosity: Wouldn't such a system be FIPS-incompliant anyway?
-> > > If xxhash64 isn't FIPS-compliant, nobody should use it for
-> > > dm-integrity there, right? So I doubt that there are any systems out
-> > > there that use fips=1 and use xxhash64 at the same time?
-> > 
-> > There is a risk that users may not know that xxhash64 is not FIPS
-> > compliant and would still use it. Especially considering it was marked
-> > as "fips_allowed = 1" for a while.
+On 9/10/26 17:15, David Hildenbrand (Arm) wrote:
+> On 9/10/26 10:43, Chao Yu wrote:
+>> On 9/10/26 15:34, David Hildenbrand (Arm) wrote:
+>>> On 9/10/26 04:41, Chao Yu wrote:
+>>>>
+>>>> David,
+>>>>
+>>>> Thanks for the patch, at a glance, it seems fine, can you please send
+>>>> a formal patch? then we can apply to dev-test for test.
+>>>
+>>> I'm hoping Zi will drag that along as part of this patch set. Is this fine or do
+>>
+>> Oh, I see.
+>>
+>>> you want it sent as a complete standalone patch (will make merging Zi's series
+>>> slightly more complicated :) ).
+>>
+>> I think sending as a separated patch based on Zi Yan's patch is fine, since the
+>> purpose of this patch is a little different from Zi's one.
 > 
-> So isn't that a very bad situation? They think they are FIPS compliant, but
-> actually they are not since they use an unapproved algorithm by accident.
-> Maybe it would be better to include this patch so that they are aware of the
-> mistake? If there is really somebody running into this issue, they could
-> boot once with fips=0, fix their system, reboot again with fips=1 and
-> finally be really compliant. Sounds like the better solution to me. WDYT?
+> I'd prefer this patch over of Zi's patch.
+> 
+>>
+>> Note that: ("f2fs: stop using PG_private") has been merged in
+>> https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs.git/log/?h=dev-test
+> That just a testing branch, right?
 
-As described in the dm-integrity documentation, dm-integrity supports
-non-cryptographic checksums for protection from accidental corruption.
-That use case is no different from any other use case of a checksum.
+Yes, if necessary we can append the new patch based on this branch. :)
 
-It's also no different from using crc32 or crc32c, which similarly have
-fips_allowed=1 and this patch completely ignores.
+Thanks,
 
-The solution is not banning checksums or making any other code change,
-but rather just doing what it seems everyone has already been doing:
-documenting in their FIPS security policy that checksums are only for
-use cases that are not "security functions".
-
-- Eric
