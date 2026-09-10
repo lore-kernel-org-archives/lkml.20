@@ -1,136 +1,149 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0CB73C13EE;
-	Thu, 10 Sep 2026 09:13:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B97E23DA5DA
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:13:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789031617; cv=none; b=DNuksMPWhLJORlW2OrHELVyMSDql1A6fsrjDhS2BW7rDKCgoPvpT6mSgmVuHDq+LPIkhXufvIwJIPXPl1xKMs1cBI5gO7NV7oKq8kVHYaiFUSUOdZRpSarvxIwIygPaYByyPjkNVFax3etKbb2/di51oMNi+/nxvQhxBYi6o5lA=
+	t=1789031637; cv=none; b=PUBvU4yQk1bbHVLhp5cgWklJpIWGTJ+tI6uWeS+DF6lp4OdbmzblbiqAL3STm4Gf7+puxGrdlQsu7s1+KBbA5F9RVca/CUmTilPq5gnzXORVRcJZAl4RWvkT5DFc7J2DtA7k3FUUtcQogVmGaIXD5Onrz1JBkY044BBCcptYp4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789031617; c=relaxed/simple;
-	bh=876bPQkmr+qSfmJnN/IbXQk6MFFq7aT9u81fC/kyu54=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WNLcbh6trwjdSFeeaBnT9nrkjeI6Tyvx9s5/TRzOm1Z/XyBElKnqPqh+Tq//+dAwWSK9MYJxiMJslc1r+jFroYjTk6phWla6ozDDcyJWFWZd0v6K+btGyaEu+g/XQlg4ykU/dCHI/4boba3wDfvVeyMrHhGYq36HBxJ4Yd+cnvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XyPvGHc4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789031637; c=relaxed/simple;
+	bh=nMZBoNXkQlQS/WPoABbPQUqiyJGDCgy6yHUOVaPwAbI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Drv3aA2VjsDFY+yBxCOVh8dmoOXNoyIgL4yHhAUAYDyOcMwCBBTrA6nZGg+4xoFeQ0FT75tzPp78QSzzstzDWuvFXQtCEcmq1ereCY6v0U3CVSMyVkwxBFxrWduQ9tepu+vr4N930LRRFgIZiXw5kiGrz+TEZhVMdFw9EujL4FE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CJIptjZR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XyPvGHc4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE2331F000FF;
-	Thu, 10 Sep 2026 09:13:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CJIptjZR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2872B1F000FF;
+	Thu, 10 Sep 2026 09:13:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789031608;
-	bh=zEeFtMUHn3s+PI/cg5N17MVY4nHEBTOfJ4ioYjja5j0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XyPvGHc4wMCN7XnUzQUlQv10dHqh7HO9TkjaWiDpqVTCqUZ4CKmIoiz+rzPcl393j
-	 rIr/J7DuGFP9ozSMcRGKBgArgVJ+vGtlpUubDEgaYE5Vzdq6UW9s1oKqS6erMBJjYF
-	 SPn4FVdbHQyZXkXx/ixOwaCHQW3+hbhiDYYkbisYcgnWLijvhtX8jhLnBH+PL4XmMl
-	 0X8GngpShNpiBLxjcnPi2mLIa/G/Kv5WyR4GlLBYjl4gpWQl0s7YVeY5awvfbIrCTf
-	 WbID137Cnw9Gz6smokOCSQR3sQF+L/7Wc84ygpecTcamLUtAKNJQ9w39t3KgLMKJle
-	 sFyI2xY8WPRwg==
-Message-ID: <c2239ef2-10f4-4c87-a23a-2753f1e18d27@kernel.org>
-Date: Thu, 10 Sep 2026 11:13:18 +0200
+	s=k20260515; t=1789031629;
+	bh=56FTR3CNCz14tunVZgA5Dwrb7IctTYvmcWBAPlPQ+CU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CJIptjZRuGOqBFRKmUXA4yyCOtMnBCId91HOnDqrpUv04nqO8lkxk9B8AJTz22VAc
+	 SpDh/DNy6Y86gzqcP+5WXOiHM4wZJjaZxkMsruEvXPX45o7KXXuBS7g+yMvjJypx6b
+	 1KdY/PZ6TIxtVseUMq6hy4Ng2QHgN7Iqq0N+KRQ/MMznqskpZ64kL1yHuSHZVmsWo8
+	 a4dzHpjIFThSin9Fg9Ua6WeQ3hgtVGjrJ53swlaBTlLzt5PXOO2mEOK6dy+sVlFnXZ
+	 r3T9L4QwKit372bhw+lGxS+LHXF6p4E2Kb6+8HErBMFA6BiB08jFXvt8TIY2YYsDWO
+	 bxdJoczzAGvUw==
+Date: Thu, 10 Sep 2026 14:43:44 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Andrew Davis <afd@ti.com>
+Cc: Jens Wiklander <jens.wiklander@linaro.org>,
+	Sumit Garg <sumit.garg@linaro.org>,
+	op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] tee: move tee_ioctl_shm_register_data to above IOCTL
+ definition
+Message-ID: <aqJ0yCHd03ZLsSMT@sumit-xelite>
+Mail-Followup-To: Andrew Davis <afd@ti.com>,
+	Jens Wiklander <jens.wiklander@linaro.org>,
+	Sumit Garg <sumit.garg@linaro.org>,
+	op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org
+References: <20260903175730.1909952-1-afd@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/12] mm/sparse: move __highest_used_section_nr handling
-To: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Brendan Jackman <brendan.jackman@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- Oscar Salvador <osalvador@suse.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-cxl@vger.kernel.org,
- driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org
-References: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
- <20260909-b4-sparsemem_cleanups-v1-8-008fc8d579fe@kernel.org>
- <aqJrblWch-lajp3k@localhost.localdomain>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <aqJrblWch-lajp3k@localhost.localdomain>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20260903175730.1909952-1-afd@ti.com>
 
-On 9/10/26 10:33, Oscar Salvador (SUSE) wrote:
-> On Wed, Sep 09, 2026 at 03:33:01PM +0200, David Hildenbrand (Arm) wrote:
->> Let's move it to sparse_init_one_section(). However, to keep early
->> boot processing working, we also have to initialize it in
->> sparse_sections_init().
->>
->> Should we use READ_ONCE/WRITE_ONCE with __highest_used_section_nr?
->> Probably, something for another day.
-> 
-> What is the worry there?
-> 
-> sparse_init_one_section() calls should run sequentally due to the memhotplug
-> lock, so there should not be parallel updates there?
+On Thu, 03 Sep 2026 at 12:57:30 -0500, Andrew Davis via OP-TEE wrote:
+>Most of the struct definitions for a given IOCTL definition immediately
+>preceded that definition. The struct tee_ioctl_shm_register_data is an
+>exception as it is placed above the TEE_IOC_SHM_REGISTER_FD definition,
+>not the TEE_IOC_SHM_REGISTER one it is to be used with. Move it down
+>to match the others.
+>
+>This is a non-functional change for consistency and to help prevent
+>someone from accidentally using the wrong struct with the wrong IOCTL
+>based on the struct's location.
+>
+>Fix a couple small spelling issues while here.
+>
+>Signed-off-by: Andrew Davis <afd@ti.com>
+>---
+> include/uapi/linux/tee.h | 40 ++++++++++++++++++++--------------------
+> 1 file changed, 20 insertions(+), 20 deletions(-)
+>
 
-If you have something consuming __highest_used_section_nr while concurrently
-updating it, you might get torn reads/writes that mess up the value on the
-reader side.
+Reviewed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
-For example, mm/compaction.c consuming __highest_used_section_nr.
+-Sumit
 
-I don't think this is critical, so I decided to spell it out instead of fixing
-it right away.
-
--- 
-Cheers,
-
-David
+>diff --git a/include/uapi/linux/tee.h b/include/uapi/linux/tee.h
+>index 5203977ed35d1..76815b0f4b665 100644
+>--- a/include/uapi/linux/tee.h
+>+++ b/include/uapi/linux/tee.h
+>@@ -384,24 +384,6 @@ struct tee_iocl_supp_send_arg {
+> #define TEE_IOC_SUPPL_SEND	_IOR(TEE_IOC_MAGIC, TEE_IOC_BASE + 7, \
+> 				     struct tee_ioctl_buf_data)
+>
+>-/**
+>- * struct tee_ioctl_shm_register_data - Shared memory register argument
+>- * @addr:      [in] Start address of shared memory to register
+>- * @length:    [in/out] Length of shared memory to register
+>- * @flags:     [in/out] Flags to/from registration.
+>- * @id:                [out] Identifier of the shared memory
+>- *
+>- * The flags field should currently be zero as input. Updated by the call
+>- * with actual flags as defined by TEE_IOCTL_SHM_* above.
+>- * This structure is used as argument for TEE_IOC_SHM_REGISTER below.
+>- */
+>-struct tee_ioctl_shm_register_data {
+>-	__u64 addr;
+>-	__u64 length;
+>-	__u32 flags;
+>-	__s32 id;
+>-};
+>-
+> /**
+>  * struct tee_ioctl_shm_register_fd_data - Shared memory registering argument
+>  * @fd:		[in] File descriptor identifying dmabuf reference
+>@@ -426,13 +408,31 @@ struct tee_ioctl_shm_register_fd_data {
+>  * Returns a file descriptor on success or < 0 on failure
+>  *
+>  * The returned file descriptor refers to the shared memory object in the
+>- * kernel. The supplied file deccriptor can be closed if it's not needed
+>+ * kernel. The supplied file descriptor can be closed if it's not needed
+>  * for other purposes. The shared memory is freed when the descriptor is
+>  * closed.
+>  */
+> #define TEE_IOC_SHM_REGISTER_FD	_IOWR(TEE_IOC_MAGIC, TEE_IOC_BASE + 8, \
+> 				     struct tee_ioctl_shm_register_fd_data)
+>
+>+/**
+>+ * struct tee_ioctl_shm_register_data - Shared memory register argument
+>+ * @addr:      [in] Start address of shared memory to register
+>+ * @length:    [in/out] Length of shared memory to register
+>+ * @flags:     [in/out] Flags to/from registration.
+>+ * @id:                [out] Identifier of the shared memory
+>+ *
+>+ * The flags field should currently be zero as input. Updated by the call
+>+ * with actual flags as defined by TEE_IOCTL_SHM_* above.
+>+ * This structure is used as argument for TEE_IOC_SHM_REGISTER below.
+>+ */
+>+struct tee_ioctl_shm_register_data {
+>+	__u64 addr;
+>+	__u64 length;
+>+	__u32 flags;
+>+	__s32 id;
+>+};
+>+
+> /**
+>  * TEE_IOC_SHM_REGISTER - Register shared memory argument
+>  *
+>@@ -440,7 +440,7 @@ struct tee_ioctl_shm_register_fd_data {
+>  *
+>  * Returns a file descriptor on success or < 0 on failure
+>  *
+>- * The shared memory is unregisterred when the descriptor is closed.
+>+ * The shared memory is unregistered when the descriptor is closed.
+>  */
+> #define TEE_IOC_SHM_REGISTER   _IOWR(TEE_IOC_MAGIC, TEE_IOC_BASE + 9, \
+> 				     struct tee_ioctl_shm_register_data)
+>-- 
+>2.39.2
+>
