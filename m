@@ -1,205 +1,330 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A0BF33AD85
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:16:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789071373; cv=fail; b=Lbnga3U0+gwoxcHvvL6WuIjXWyFm3ejmcjNDbosZAyDeMvOvJaKRqq4xoiVqdhN286UAc9I2EGKxKWusGZCjpe1T4Js37bnFsHzsbD7MVYMT1ADy0cUBVGumBiYFQwJldU1t5F4OVz1iEZAmaoAWX3O3quVaUH6n17HU9ADUFfY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789071373; c=relaxed/simple;
-	bh=Y8fJBxQ9qjGGbthKe3OyGqSNGddafTU7E6BFNaEzn00=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Mm88Z0qmwHLJUoT0Eyk41WlenkeQ52SH0rrla3lzHL9hN16qaTWSqQG9G9Aw2N7Xcdqm/ruiVMsRBCxnDW8ZGSq9QtB1r4AmcpmpL4CTBpySfbqoRCZTrPvVgcJJJ+08rWz4JhGujeYhNTpG0HznBMjIiRbYK63kmzs5m9lwDyk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GaMyS4/b; arc=fail smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E53372B26
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:16:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789071415; cv=none; b=q++BNc9hRPFVTAaLc8qf6RdNMbPd4DVFK+xHfzGm9+a1D2N22pkT/JI7qOXyI4D68UFNZLMg9YeiF8C9EcV16Ai3BPlumQQZJ1fVS/02WDoG7ofMqLwoG9mD+tQ7cxKPP3i7k+vchR/DlHchiePRDqvfb5dB2EOm4sqltgrLt/8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789071415; c=relaxed/simple;
+	bh=IyP7LT/mGVrQ6WYR81tOSt1zWfPflkzZqpUahjdvtgI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Vm37siaH0vxma30DaWag4/D2exfq8mYiWuN++i8vw4Z7FMybVhACuQM5G9YtWzTGFTnu1tq5gum6cOSoLqpvHbB/Q5O+IldarQ2DUJWr0W/T3jIGHuSmQA81VcImo7dtjSZEOBmJQ+Sa0vom2n6AU5DkqACUriQdIgmX/6rEfe0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PgLYTFdl; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GaMyS4/b"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789071370; x=1820607370;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=Y8fJBxQ9qjGGbthKe3OyGqSNGddafTU7E6BFNaEzn00=;
-  b=GaMyS4/b4g6e7vodGxIbhME72hz/mY+PqlbkYkVu5K0MCc++19H5Jo6a
-   b3+myHE4MTXCDsPrkZOQRwVgF7f6JlJJq0nNxE89PzTNCBS85ZilrFmmU
-   UKIDXWmYmmcdfjxQjTZAJLGiN7X8AUHbctRq6xbWLhQx4EECRprAy8KoF
-   oFGHGCmlmeoLKkrU+JkFzHi8TB5zlYNOLZqkVny+4zkMJ2ov5cZz+CEfH
-   r+eQ+nxaMOVi9fEmLp0QGwprcaInf0MSMSOU5laofSzIVviiz0/8BL4JX
-   xe7S4t4ANGqbXWAy/0jRNwCqL4X/tLXgMY2BG6Sbbp3j+Eug7Q2zD5kbe
-   w==;
-X-CSE-ConnectionGUID: V6+AuJdqS+i8+5SHAuJO2Q==
-X-CSE-MsgGUID: wy6EWLO+QCyLaFL68o1puA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="115075944"
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="115075944"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 13:16:09 -0700
-X-CSE-ConnectionGUID: Yt7r/FHwTOW34Nl4Hv1gSQ==
-X-CSE-MsgGUID: TWXKJDweT/Sd/68fdNURWg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="271260534"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 13:16:09 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 10 Sep 2026 13:16:08 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Thu, 10 Sep 2026 13:16:08 -0700
-Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.23) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Thu, 10 Sep 2026 13:16:08 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aPGa0w72VsV4SpLjUdrUrsYkscg0N9fqfzzi34lrAIOCna9UzvbtzdAtuEFEk7XL1/52MQLP76QZq8kS41ucOafeJxMWg1bkQxW+Ze3uwrnXPlUbr+HZKks4kgGjkDColOpaZ5lMJhizOZMHhaBsiwz0Uxp2+qJxy6DsmxYdaFMB/jkhNOvhI99KPsiqbkZ14ARtxg61mCB9mF/Uf1pg47So6dfjEZzpL784ebKQufeqzaZf5przNS72x1xMyHk7K1r21Y1uZJdThwZelxiQOZqsEAxDJcJBuQ98K9UxGgxXXVWurfqNFPTK8dM2CPCRLHSRv6Kpim9PEgP7gaxixQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y8fJBxQ9qjGGbthKe3OyGqSNGddafTU7E6BFNaEzn00=;
- b=GgBy980sgpcCsS1Ue99igl4rXJhy8MghDCvI+yz96oDu6w3tCCb8unb3l1AhO/xLrq00Ll6jDktCTqZpBmdoh5TLycKQgqes/eH8M8Mwo/2ywNcapcokgr5Wxpg1zdreB2H54x9z/yfFaDCYBSqYStt2+IhPzmigd1MG0pq+rGnv7yaWDS5l+/ehalCfjRt6tnpxX98n0DUnTuuhenfRcgTXeFrph6xSfbKPmBF5h8Ds+AVuQE95YgL875jqJbBQS0c9+JhMbj+1rnNTueUnHGUduQg45GTOupfNfk9lWLNI45lIoFDxlZbawuVfKzElkeEVqx/8ZJk81VFn8eELog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from PH7PR11MB6771.namprd11.prod.outlook.com (2603:10b6:510:1b5::20)
- by IA1PR11MB6217.namprd11.prod.outlook.com (2603:10b6:208:3eb::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 20:16:06 +0000
-Received: from PH7PR11MB6771.namprd11.prod.outlook.com
- ([fe80::effa:162e:c9c9:a1b4]) by PH7PR11MB6771.namprd11.prod.outlook.com
- ([fe80::effa:162e:c9c9:a1b4%4]) with mapi id 15.21.0406.007; Thu, 10 Sep 2026
- 20:16:06 +0000
-From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-To: "Hansen, Dave" <dave.hansen@intel.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "yilun.xu@linux.intel.com"
-	<yilun.xu@linux.intel.com>, "dave.hansen@linux.intel.com"
-	<dave.hansen@linux.intel.com>, "x86@kernel.org" <x86@kernel.org>
-CC: "Xu, Yilun" <yilun.xu@intel.com>, "linux-coco@lists.linux.dev"
-	<linux-coco@lists.linux.dev>, "kas@kernel.org" <kas@kernel.org>,
-	"nik.borisov@suse.com" <nik.borisov@suse.com>,
-	"tony.lindgren@linux.intel.com" <tony.lindgren@linux.intel.com>,
-	"binbin.wu@linux.intel.com" <binbin.wu@linux.intel.com>
-Subject: Re: [PATCH v6] x86/virt/tdx: Formalize SEAMCALL leaf version encoding
- support
-Thread-Topic: [PATCH v6] x86/virt/tdx: Formalize SEAMCALL leaf version
- encoding support
-Thread-Index: AQHdQRFLKGzwKs0xwUqL31eZDaoyGrbIQEeA
-Date: Thu, 10 Sep 2026 20:16:05 +0000
-Message-ID: <49a5893fd1d3748b4b8c5e1842f52ad29b060760.camel@intel.com>
-References: <20260910104347.625378-1-yilun.xu@linux.intel.com>
-In-Reply-To: <20260910104347.625378-1-yilun.xu@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.44.4-0ubuntu2.1 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR11MB6771:EE_|IA1PR11MB6217:EE_
-x-ms-office365-filtering-correlation-id: 87bb7555-b71f-4095-a505-08df0f785837
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|38070700021|6133799003|3023799007|10067099003|5023799004|11063799006|56012099006|22082099003|18002099003;
-x-microsoft-antispam-message-info: I01cYxnYxWV1nOVWTTkN6cTQ+FHmRZ92WJV/StgKzjAxSUKlDbZwOPA94I3uvdmiK2CbAM4NHm4x+aGd24A3VCpeAgxcC3D1b/JYf0u3bitwv1H87LCFfDgP0yJZOGJb5yBxP73V+PYEYkZmwefiJAfE+UosgyQTc+pycVbARFNaXFH18uvUHrJExFd1L2Ds9Zc1GyBG6toGlnigq/6jyI9DA9iio1w6Q1gxojHn1GR4m6U6T+PV8LUhsFKWUAmZU+c1DsarejyPzfJo0A/5FWpSFepZ6V7dMhJXuS59eE372CMumx93qmwgmTwdwcN8qRD7j2sj9ep8UoyjHiecBnsXKps5ZAvVgWR1+KRNGOSaurvQPJRzPKIkojWGCUqcmh4CBZg9ag8JoovJ/pnO3qbYZOYFuTWOtGodEgfWTL0EjWZ0WbZMN/JD+FtTZx+IqRn3/lgraAPcbL2sDCsV8+dndAxlcGwFPbES7OzLZTlFfHdaAIrUHpDrdu4n5ETWHzWyH71cI1ai6TZ2wBbzgyNX5ZXNEfx6ZvRSl7xLhgaoZ64LbVb4Omey8lGIMeC1ZyJokJ80R28Ph55/KzDlK/3cDAmGXbCDM6U5/oMyolsPOCz8pdgwdPnQgQs3KMALwXBcCMFcUib7htHpkezq2p8G97jTKwgMJMlZHql5gGHU6dTz6VhI6o9+6F6gvxSl0ku+53tf96SIMh8+hpSs0Gpfpr3FQlbLoYNGbK6JV5s=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6771.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(38070700021)(6133799003)(3023799007)(10067099003)(5023799004)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MXVGeFBhTXg3QjhyK1BXT3F5Zk8wUUhaL2p4UkVWWnlCa3RVT0FaMFhOR1NY?=
- =?utf-8?B?SjJlNUlESWdsb2hNSXFmNFE1cytPbmh2TjdDM1lrdUo2L1o2aXY4MkEwd3dB?=
- =?utf-8?B?UkRoS3BKaGdvU0lEZndkVXp2TVlLcWRYc1RRQUloWDNmY2xhUnZCYUVuZ0lS?=
- =?utf-8?B?aldUcGpLWXZnL1h0Q0hwMkMrWmtIUWlQYml4RlBrTFI0NVdMc2VoU0xsYkRL?=
- =?utf-8?B?MmIvZHFOaFRWOFpDOXZXcEMxcExBLzNuSXZJbVdobVhGYk1xMEV1Z0ZzblVV?=
- =?utf-8?B?bisydGNaS2prSmU4WWpjcVdNYWkyRFRMY3F0OHNiTWtBWmFPdlZuVytmWlhN?=
- =?utf-8?B?cHhMSm1PM1UwT29OM1VwaG1OZDhCbG90K3NaMGJSaFdmT2lja0t3eENRYmtP?=
- =?utf-8?B?SEVIYkRwbUJHa2U3ZjM4enRXdkZxendvd1RLK1V2ODcxd0NUYVpLSjFwRmk1?=
- =?utf-8?B?R3ovd2tvdTFIVDBVZlNJWkZTL2IzVjFSd1FFZnZsTkZ1ZlBZc0NhTmJuQ2NM?=
- =?utf-8?B?TG9DaElJL0o5WW9mNXpBYVRPN3NzQmVzOE4wZFAza28zZ3hBRW5nUjlTQVFK?=
- =?utf-8?B?NHRRczZuVFYwWlB4ZC8zZFBhS1o1YUJrWjV5WEpkUEtFTTFPRVNQRllJcDZz?=
- =?utf-8?B?THhDVmpWQUYyamI3UFU5Qk5EY3hDTUVsWFVBSThOWjhQYVdXTDRiUDk4Mmdu?=
- =?utf-8?B?MUR4eUdjNHZLcS90ZTVzREtoTGt5eFBmTDVPT0RUL21selBqTnpoT3ltUzZz?=
- =?utf-8?B?Wjgxb0ZJNDRKWStnMWF4MTg0WHp2UndheFBRMHMwN3B5VStBSGtoNVdNTkJx?=
- =?utf-8?B?QlRPeUJwbWYrNjRnYWJxL21HckYrYlNRSEtwZWlGWUJyR1ExeGQ3ZWNVcUpk?=
- =?utf-8?B?OGRPMUl1ZjYyT2FEZXE2MXZKVmM2WnlnV2JnKytvZEZicTlSMURyV1VjZkZk?=
- =?utf-8?B?bi8vckNuY3NQYW5XNzE0TFl4QXhrVjY3N3FSUmpKVVJYaVRVZllScWh1bFgr?=
- =?utf-8?B?UksrSUNuZkc4NWFiRGV6cnFzazhibzcyQWc5VGNvdmtwaWRHY1UzVURSNjZw?=
- =?utf-8?B?cVJkUGpiRVBSUmRpVndjQkE0K3I0VFhsS3FaV3p2WXExQ2hsNUxjamJMR2Fq?=
- =?utf-8?B?ZExlTTRFenpkdVpJVEZZS0g4T3FJQVNxNnhhM2NieVF5aGJGV0RiTmNqREpn?=
- =?utf-8?B?OGNSOGxEWmlUa25CcC9DQlNjYWJ1M0I3R1JIcHJ1anl1QkVVaFRZeDhWTFJZ?=
- =?utf-8?B?bVZpNklOLytUVTZoRVFwTUF1cVNhTGM4aVYrZ29zb1dXS3kyOStUdk1iZGtq?=
- =?utf-8?B?TEl1YXJMV1RpVkpweDlsM1JHMXNReW9mNXNMK0JxT1ZWOFgxNzRBSVBqZVhn?=
- =?utf-8?B?YkkyMDNMSThxVU9oek5aeW1EOW9YMGVYSE5iWHBvUk55Z3R1TVZWVmgvekhk?=
- =?utf-8?B?aGdwTjczTTAybTZxaXpLd2JWaFZ6VTRYNjVCbGRwNzUxZWpGMUhxSEpGeGxP?=
- =?utf-8?B?NkhPOVl1Z0tKejZrd2l2OXp3M29ma09hcHBKcEU3dENHUnFtMWpUL3dXNEJO?=
- =?utf-8?B?Tklrblc3akN2aXcxcnY4OTZQbUZBUVNobWw2SHZxWmgxRTVwb0JMZnR6YWpI?=
- =?utf-8?B?RWw4YUttbWlJSHg4dzN5dUk1OEU1aXV3M2xVM2c2b1BqYW95SE9TaVUwbFp1?=
- =?utf-8?B?MjZqRVBPNGFrT0RQMDVub2tsTWJIUk1QL1hONWZvam9iV05jVURVeXV0VWE2?=
- =?utf-8?B?aE9mc2ZRelFKcUxoTWtyVlhyMjNJVjdWSDBjU1hibWh4NlA1cmNLUlNLL0FT?=
- =?utf-8?B?R1IvdnB1QUV6TzllcU5obFluNDFGUUMzZ3ZFODU0Kyt1a2JJbnBzZm5LY1h2?=
- =?utf-8?B?VWtWUDdYK3FuWHdPdWw5amhUV2FzWU9QU0dTZ215TWFXbGVIdTJKVlEwdGRv?=
- =?utf-8?B?aWo4eUtuQlBDQ3VnVGw4eHpZQzR0ZE5SRzJkZkFSMmRjOUNwNnNWeXppM3JH?=
- =?utf-8?B?SUtUK0hhQSs1WWwrZElaeFlhbElEN29iK2pjZFpwMVB0OVB0bzFoQk0zZjRU?=
- =?utf-8?B?R08xbUtpb2lhVCtYd3I3ek5kWUdvQVJwVVdVNmo4SHd1ZlJHc04raUNmOXk5?=
- =?utf-8?B?WEQ3MXZSOHJFeThmMVhtUGU5QXNtK2pmbWhzTzJYdGRXVGhLVlNFc09tWm9C?=
- =?utf-8?B?cERyQ1pUV0FBTHREYnZnRGlFaWJOTUFUV2ZVM1M1MUVRaGQ5bE5sUG5wK1F3?=
- =?utf-8?B?cG5QVit5M2hIeXZZVFRUVEQwNndzOWROTTJHTExUajh4ZWhpbXRYb1lSd21J?=
- =?utf-8?B?QThNTHc2RTZVd09EVk9LTFlvRDdqYjJNTDMzWDlxZUhvcldMeU5XZHBrcEZQ?=
- =?utf-8?Q?Ah0McRCpDYFgqV90=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <4B1C0C3F051ABD4AB379185B5487E04B@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PgLYTFdl"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-39b2ad862bdso184617a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:16:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789071414; x=1789676214; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m8KQqxLyRIhER5q9An5jkJG2c5Mj68qpghEp6MeEZDA=;
+        b=PgLYTFdltBhejYo5iIwFGzf4RDYGRfF/sz+A84glWVzJpZdM4FkNoiplW4TZz9Y2af
+         TaTGNJRZfd8HS9fgUUeXKS8qz1rHoZbC+NQqMI0oDCKpXALCKaAX8eKDhu1ycgfdxvBI
+         rA/mCxKynsrwrIciokSAoJmAFWW3jgSsA8jAfE7DWrYDpWb6AEP2yIfT6yA3VzSPf6GZ
+         gguQR9d8s4pnD5sJe/uFoawLtC8By85l10r3q1c7BmSqcH9nLAwZBHIHfVjJIIOyRtWh
+         0UD7r9pUNp5tiDnYnOeRyhWP1aBn5IveSyHtQc3efvYEfChdIGsAbvjmEe4f9EU7D+aG
+         SiLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789071414; x=1789676214;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m8KQqxLyRIhER5q9An5jkJG2c5Mj68qpghEp6MeEZDA=;
+        b=Pc18fr9HgoA80LIVOf2pdpydrUv8rCP96cTSkX3mD6F9RLMHpKX1I8FQhF0uQocCbI
+         3PM+W8+MaKd0O/+YcQnc/QnCORNPkhG/2kBrnHSMgzZ8alIClTjAE36lyXq/vDLC3Vfa
+         NPHOctpHNto7hwW/RiYRFxeV1lLdNQOL2frad3gONAQYrtEnxNJZhrek2vFDhlcJtr8l
+         Ci7E+UHDsKeK3d4ST2rTQXTgUaVp5ncybXBO8TWvaOtdi7iBzQ/2J6DxTye/mPr6Dlbm
+         qXzP6bWlXhVdseuyyb0oIZPjHynysGpsSFIrJaqavH58VR9RTVhrrJsAwf6RZqaX+SuI
+         E1RQ==
+X-Forwarded-Encrypted: i=1; AKwUvByD71pXuz95qHuWvtpk47DngsuDKvujLMT+JNjUeNHp8VQNBLtmv3QvLSn/yieGvGJpzu2ZhpK5MCZBU5k=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMoCramvS4TyLB0ssSYb/r+ihChLZQcsImUJ8Hhpq/MYSMF1Z/
+	+1055OcH1NbYITQl1AG6h0qWoBEm9Y1RXDcZulZUDvLnymFRvcnZX9I3
+X-Gm-Gg: AYBFou2ouZ/EnbMta9PL+jbZbW3PviywmPG1U7qLbFSvoJlVvnRf5yh4gNAzBdp3dhH
+	xJjLujUd7lk+R1csnZgCJ/9o7agvnWWd4EswuCqH4cyZ5XRqdPDwzu+cFORyRxckTDucu/f3JOc
+	ML5WfvNS8iBL/2O+R6pvJt44WWTmbNzp2+1xX254aZjsIK7J3jvxfYzGDQNvj0haZ2npT8dOSo/
+	3Y8v8HbAuXFiKNAqd/vgD2PZO0DmnxWyYlK/mgxfLacFbXyuI8nZo3G8IShuaZpNyh51hn9JzMC
+	Ohj8WxxfMW4UiuFsUtrvUhOvHQ95U86L/qnznmLm/FcVdGlWF5Ev+V6PvSO4fDCbOlOwloxhd77
+	aCQ3nrsJKUUSRjajVB94I5dZ/xZwVtn0rMaWrg3IeKmPfirjhPuobgH67+6DV85n+Ue/87dRQkf
+	gosIXUFB9lfUf3Idze9K9d2cGw8LSLK+2rpMk+GyJGUmg9EOnyImvwDIpspDepgiaAZ2UgFCOJN
+	sznlaDMnU32zyHfDxMHco6lvnPTgVe6lOT3lDIrINMVjE1WQjs/w+0jJ9O0YtzL1AQMHLNTqqcy
+X-Received: by 2002:a17:90b:51c3:b0:398:9bd5:490c with SMTP id 98e67ed59e1d1-39d9c2276fdmr686220a91.19.1789071413551;
+        Thu, 10 Sep 2026 13:16:53 -0700 (PDT)
+Received: from [192.168.0.158] (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143659a9a06sm1091390c88.0.2026.09.10.13.16.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Sep 2026 13:16:53 -0700 (PDT)
+Message-ID: <9b629895-d489-46de-a8fc-4ecfc08ae96b@gmail.com>
+Date: Thu, 10 Sep 2026 13:16:52 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: q6jRgnKle27LFMIQbauIcBayN6iAnos+G2VouMozNz8/Do1tFWsC5Vk10ZlNRhXiN5yo9vEMwLTkej5iWMJhvNhNQ9dFNEJuykzV3vv3z+T30n6ji5+704AHtKp8bAp7DcTbR0snkoU4KJ60v2gpLczX4mrnXGI/fcRZzSEPk8eA3DELwdheDHdKGb9kpL6mL+xSfcO4qAW5rppRQAq/+GBpG1+YKMit24cem6sn5t342mChdR2nw5xnareun8ABSmHpJ/k2Qgdb8CS87AqUGSFW5zgmMxS1ru8hFa3gH52gMwUFakVlVXK/MTcH1nxMa/mE8Vhxa3VH9SAKpHDvSw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6771.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87bb7555-b71f-4095-a505-08df0f785837
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Sep 2026 20:16:05.9925
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0rugi5JOjcxZrJh0YWkZ1fSDo+3H8ouWENWfwK3FNYSxHLHJ9QoYV8Vj9vCUtaPfuMVHBjXRJf6g7ps3GmOY5zaIa0+xQ//3PkidNCzw4W4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6217
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 12/15] HID: hid-oxp: support three-page button maps on X2
+ controllers
+To: Andrei Aldea <andrei1998@gmail.com>, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260910032115.28669-1-andrei1998@gmail.com>
+ <20260910032115.28669-13-andrei1998@gmail.com>
+Content-Language: en-US
+From: "Derek J. Clark" <derekjohn.clark@gmail.com>
+In-Reply-To: <20260910032115.28669-13-andrei1998@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-T24gVGh1LCAyMDI2LTA5LTEwIGF0IDE4OjQzICswODAwLCBYdSBZaWx1biB3cm90ZToNCj4gVGhl
-IFREWCBhcmNoaXRlY3R1cmUgaW5jbHVkZXMgYSBzeXNjYWxsLWxpa2UgQUJJIGZvciBPU2VzIHRv
-IGNvbW11bmljYXRlDQo+IHdpdGggU0VBTSBtb2RlIHNvZnR3YXJlLiBUaGlzIEFCSSBoYXMgdGhl
-IGNvbmNlcHQgb2YgYSAibGVhZiIuIEVhY2ggbGVhZg0KPiBpcyByb3VnaGx5IGFuYWxvZ291cyB0
-byBhIExpbnV4IHN5c2NhbGw6IGl0IGhhcyBhIHNldCBvZiByZWdpc3Rlcg0KPiBhcmd1bWVudHMg
-YW5kIGRvZXMgb25lIGxvZ2ljYWwgdGhpbmcgbGlrZSBhZGRpbmcgYSBwYWdlIG9mIG1lbW9yeSB0
-byBhDQo+IFZNIG9yIHJ1bm5pbmcgYSBWTS4gVGhlIFREWCBhcmNoaXRlY3R1cmUgcmVmZXJzIHRv
-IHRoaXMgaW50ZXJmYWNlDQo+IGZ1bmN0aW9uIGFzIGEgIlNFQU1DQUxMIGxlYWYiLg0KPiANCj4g
-SnVzdCBsaWtlIHN5c2NhbGxzLCB0aGUgVERYIGFyY2hpdGVjdHVyZSB3YW50cyB0byBldm9sdmUg
-dGhlIEFCSSB0bw0KPiBleHRlbmQgZnVuY3Rpb25hbGl0eSB3aGlsZSBrZWVwaW5nIGNvbXBhdGli
-aWxpdHkuIEJ1dCB1bmxpa2Ugc3lzY2FsbHMsDQo+IHdoaWNoIGRvIHRoaXMgYnkgcGlja2luZyBh
-IHRvdGFsbHkgbmV3IHN5c2NhbGwgbnVtYmVyLCB0aGUgQUJJIGVuY29kZXMNCj4gdGhlICJ2ZXJz
-aW9uIiBudW1iZXIgZGlyZWN0bHkgaW50byB0aGUgYml0cyBvZiBhIHJlZ2lzdGVyIGFyZ3VtZW50
-LiBTbw0KPiBpbnN0ZWFkIG9mIG9wZW5hdE4gYmVpbmcgd2hhdGV2ZXIgdGhlIG5leHQgZnJlZSBu
-dW1iZXIgaXMsIHRoZSBTRUFNQ0FMTA0KPiBsZWFmIG51bWJlciBhbmQgdmVyc2lvbiBudW1iZXIg
-YXJlIGVuY29kZWQgaW50byBjZXJ0YWluIGJpdHMgaW4gaG93IHRoZQ0KPiBSQVggcmVnaXN0ZXIg
-aXMgZGVmaW5lZCBpbiB0aGUgQUJJLg0KPiANCj4gSW4gTGludXgsIHNldmVyYWwgc2VhbWNhbGwq
-KCkgd3JhcHBlcnMgaGF2ZSBiZWVuIGludHJvZHVjZWQgdG8gaW52b2tlDQo+IFNFQU1DQUxMIGxl
-YWZzLiBUaGV5IGFsbCB0YWtlIGEgdTY0ICJmbiIgYXJndW1lbnQgZm9yIHRoZSBsZWFmIG51bWJl
-cg0KPiB3aGljaCBldmVudHVhbGx5IGdldCBzZXQgaW4gdGhlIHJlZ2lzdGVyLiBBcyBhYm92ZSwg
-dGhlIHZlcnNpb24gbnVtYmVyDQo+IGxpdmVzIGluIHRoZSBzYW1lIHJlZ2lzdGVyIGFzIHRoZSBs
-ZWFmIG51bWJlci4gU28gY2FsbGVycyB0aGF0IHdhbnQgdG8NCj4gc2VsZWN0IGEgc3BlY2lmaWMg
-dmVyc2lvbiBvZiB0aGUgbGVhZiwgY2FuIGphbSBpdCBpbiB0aGUgcmlnaHQgcGxhY2UgaW4NCj4g
-dGhlIHJlZ2lzdGVyIGJ5IHBhc3NpbmcgaXQgaW4gdGhlICJmbiIgYXJndW1lbnQuIFRvZGF5IG9u
-bHkgdGhlIGNhbGxlcg0KPiBvZiBUREguVlAuSU5JVCBkb2VzIHRoaXMgaGFjaywgYnV0IGZ1dHVy
-ZSBrZXJuZWwgY2hhbmdlcyB3aWxsIG5lZWQgdG8NCj4gc2VsZWN0IHZlcnNpb25zIGZvciBtb3Jl
-IFNFQU1DQUxMIGxlYWZzLCBzbyBhIGxlc3MgaGFja3kgc29sdXRpb24gaXMNCj4gbmVlZGVkLg0K
-DQpPbmx5IG5pdCBpcyB0aGF0IHRoaXMgd291bGQgcHJvYmFibHkgcmVhZCBhIGxpdHRsZSBiaXQg
-c21vb3RoZXIgYXMgdHdvDQpzZW50ZW5jZXMuIEV2ZXJ5dGhpbmcgZWxzZSBsb29rcyBnb29kLg0K
-DQpSZXZpZXdlZC1ieTogUmljayBFZGdlY29tYmUgPHJpY2sucC5lZGdlY29tYmVAaW50ZWwuY29t
-Pg0KDQo=
+
+On 9/9/26 20:21, Andrei Aldea wrote:
+> The ONEXPLAYER 3 and X2 Mini Pro need mapping format 0x02 and a third
+> page preserving the extra buttons' factory mappings. Use exact DMI
+> matches and select configuration interface 2; the other HID interfaces
+> remain available without duplicate configuration or LED registration.
+>
+> Initialize each page with the selected format. Page three is fixed because
+> its factory encodings have no entries in the public mapping table.
+> Legacy devices keep their two-page format 0x20 transaction.
+>
+> Fixes: e4c850a6e750 ("HID: hid-oxp: Add Button Mapping Interface")
+> Assisted-by: LLM
+> Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
+> Signed-off-by: Andrei Aldea <andrei1998@gmail.com>
+> ---
+>   drivers/hid/hid-oxp.c | 94 ++++++++++++++++++++++++++++++++++++-------
+>   1 file changed, 79 insertions(+), 15 deletions(-)
+>
+> diff --git a/drivers/hid/hid-oxp.c b/drivers/hid/hid-oxp.c
+> index 8c44f57..48fa916 100644
+> --- a/drivers/hid/hid-oxp.c
+> +++ b/drivers/hid/hid-oxp.c
+> @@ -19,6 +19,7 @@
+>   #include <linux/spinlock.h>
+>   #include <linux/sysfs.h>
+>   #include <linux/types.h>
+> +#include <linux/usb.h>
+>   #include <linux/workqueue.h>
+>   
+>   #include "hid-ids.h"
+> @@ -35,6 +36,8 @@
+>   
+>   #define OXP_MAPPING_GAMEPAD	0x01
+>   #define OXP_MAPPING_KEYBOARD	0x02
+> +#define OXP_BMAP_FORMAT_DEFAULT	0x20
+> +#define OXP_BMAP_FORMAT_X2	0x02
+>   #define OXP_FILL_PAGE_SLOT(page, btn)            \
+>   	{ .button_idx = (page)->btn.button_idx,  \
+>   	  .mapping_idx = (page)->btn.mapping_idx }
+> @@ -159,9 +162,9 @@ enum oxp_joybutton_index {
+>   	BUTTON_DRIGHT,
+>   	BUTTON_M1 =	0x22,
+>   	BUTTON_M2,
+> -	/* These are unused currently, reserved for future devices */
+>   	BUTTON_M3,
+>   	BUTTON_M4,
+> +	/* These are unused currently, reserved for future devices */
+>   	BUTTON_M5,
+>   	BUTTON_M6,
+>   };
+> @@ -209,8 +212,10 @@ struct oxp_hid_cfg {
+>   	struct oxp_bmap_page_1 *bmap_1;
+>   	struct oxp_bmap_page_2 *bmap_2;
+>   	bool gen2_work_initialized;
+> +	bool bmap_page_3;
+>   	u8 rumble_intensity;
+>   	u8 gamepad_mode;
+> +	u8 bmap_format;
+>   
+>   	/* RGB state */
+>   	struct delayed_work oxp_rgb_queue;
+> @@ -337,6 +342,9 @@ struct oxp_attr {
+>   
+>   struct quirk_entry {
+>   	bool hybrid_mcu;
+> +	bool bmap_page_3;
+> +	u8 cfg_interface_num;
+> +	u8 bmap_format;
+>   };
+>   
+>   static u16 get_usage_page(struct hid_device *hdev)
+> @@ -735,8 +743,17 @@ static void oxp_page_fill_data(char *buf, const struct oxp_button_idx *buttons,
+>   
+>   static int oxp_set_buttons(struct oxp_hid_cfg *cfg)
+>   {
+> -	u8 page_1[59] = { 0x02, 0x38, 0x20, 0x01, 0x01 };
+> -	u8 page_2[59] = { 0x02, 0x38, 0x20, 0x02, 0x01 };
+> +	u8 page_1[59] = { 0x02, 0x38, cfg->bmap_format, 0x01, 0x01 };
+> +	u8 page_2[59] = { 0x02, 0x38, cfg->bmap_format, 0x02, 0x01 };
+> +	u8 page_3[59] = {
+> +		0x02, 0x38, cfg->bmap_format, 0x03, 0x01,
+> +		/*
+> +		 * M3/M4 have no mutable sysfs mapping slots. Keep their factory
+> +		 * encodings, which are not entries in oxp_button_table.
+> +		 */
+> +		BUTTON_M3, OXP_MAPPING_KEYBOARD, 0x02, 0x05, 0x00, 0x00,
+> +		BUTTON_M4, OXP_MAPPING_GAMEPAD, 0x21, 0x00, 0x00, 0x00,
+> +	};
+>   	u16 up = get_usage_page(cfg->hdev);
+>   	int ret;
+>   
+> @@ -774,7 +791,11 @@ static int oxp_set_buttons(struct oxp_hid_cfg *cfg)
+>   	if (ret)
+>   		return ret;
+>   
+> -	return oxp_gen_2_property_out(cfg, OXP_FID_GEN2_KEY_STATE, page_2, ARRAY_SIZE(page_2));
+> +	ret = oxp_gen_2_property_out(cfg, OXP_FID_GEN2_KEY_STATE, page_2, ARRAY_SIZE(page_2));
+> +	if (ret || !cfg->bmap_page_3)
+> +		return ret;
+> +
+> +	return oxp_gen_2_property_out(cfg, OXP_FID_GEN2_KEY_STATE, page_3, ARRAY_SIZE(page_3));
+>   }
+>   
+>   static void oxp_reset_buttons(struct oxp_hid_cfg *cfg)
+> @@ -1550,7 +1571,13 @@ static struct quirk_entry quirk_hybrid_mcu = {
+>   	.hybrid_mcu = true,
+>   };
+>   
+> -static const struct dmi_system_id oxp_hybrid_mcu_list[] = {
+> +static struct quirk_entry quirk_x2_bmap = {
+> +	.bmap_format = OXP_BMAP_FORMAT_X2,
+> +	.bmap_page_3 = true,
+> +	.cfg_interface_num = 2,
+> +};
+> +
+> +static const struct dmi_system_id oxp_quirk_list[] = {
+>   	{
+>   		.ident = "OneXPlayer Apex",
+>   		.matches = {
+> @@ -1575,21 +1602,34 @@ static const struct dmi_system_id oxp_hybrid_mcu_list[] = {
+>   		},
+>   		.driver_data = &quirk_hybrid_mcu,
+>   	},
+> +	{
+> +		.ident = "OneXPlayer 3",
+> +		.matches = {
+> +			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "ONE-NETBOOK"),
+> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "ONEXPLAYER 3"),
+> +		},
+> +		.driver_data = &quirk_x2_bmap,
+> +	},
+> +	{
+> +		.ident = "OneXPlayer X2 Mini Pro",
+> +		.matches = {
+> +			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "ONE-NETBOOK"),
+> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "ONEXPLAYER X2Mini PRO"),
+> +		},
+> +		.driver_data = &quirk_x2_bmap,
+> +	},
+>   	{},
+>   };
+>   
+> -static bool oxp_hybrid_mcu_device(void)
+> +static const struct quirk_entry *oxp_get_quirks(void)
+>   {
+>   	const struct dmi_system_id *dmi_id;
+> -	struct quirk_entry *quirks;
+>   
+> -	dmi_id = dmi_first_match(oxp_hybrid_mcu_list);
+> +	dmi_id = dmi_first_match(oxp_quirk_list);
+>   	if (!dmi_id)
+> -		return false;
+> +		return NULL;
+>   
+> -	quirks = dmi_id->driver_data;
+> -
+> -	return quirks->hybrid_mcu;
+> +	return dmi_id->driver_data;
+>   }
+>   
+>   static void oxp_drain_output(struct oxp_hid_cfg *cfg)
+> @@ -1613,6 +1653,21 @@ static void oxp_quiesce_work(struct oxp_hid_cfg *cfg)
+>   	oxp_drain_output(cfg);
+>   }
+>   
+> +static bool oxp_is_cfg_interface(struct hid_device *hdev,
+> +				 const struct quirk_entry *quirks)
+> +{
+> +	struct usb_interface *intf;
+> +
+> +	if (!quirks || !quirks->cfg_interface_num)
+> +		return true;
+> +	if (hdev->bus != BUS_USB)
+> +		return false;
+> +
+> +	intf = to_usb_interface(hdev->dev.parent);
+> +	return intf->cur_altsetting->desc.bInterfaceNumber ==
+> +	       quirks->cfg_interface_num;
+> +}
+> +
+>   static void oxp_cfg_release(void *data)
+>   {
+>   	struct oxp_hid_cfg *cfg = data;
+> @@ -1620,7 +1675,8 @@ static void oxp_cfg_release(void *data)
+>   	hid_set_drvdata(cfg->hdev, NULL);
+>   }
+>   
+> -static int oxp_cfg_probe(struct hid_device *hdev, u16 up)
+> +static int oxp_cfg_probe(struct hid_device *hdev, u16 up,
+> +			 const struct quirk_entry *quirks)
+>   {
+>   	struct oxp_bmap_page_1 *bmap_1;
+>   	struct oxp_bmap_page_2 *bmap_2;
+> @@ -1642,7 +1698,7 @@ static int oxp_cfg_probe(struct hid_device *hdev, u16 up)
+>   	if (ret)
+>   		return ret;
+>   
+> -	if (up == GEN2_USAGE_PAGE && oxp_hybrid_mcu_device())
+> +	if (up == GEN2_USAGE_PAGE && quirks && quirks->hybrid_mcu)
+>   		goto skip_rgb;
+>   
+>   	cfg->cdev = oxp_cdev_rgb;
+> @@ -1693,6 +1749,9 @@ skip_rgb:
+>   
+>   	cfg->bmap_1 = bmap_1;
+>   	cfg->bmap_2 = bmap_2;
+> +	cfg->bmap_format = quirks && quirks->bmap_format ?
+> +			   quirks->bmap_format : OXP_BMAP_FORMAT_DEFAULT;
+> +	cfg->bmap_page_3 = quirks && quirks->bmap_page_3;
+>   	oxp_reset_buttons(cfg);
+>   	INIT_DELAYED_WORK(&cfg->oxp_btn_queue, oxp_btn_queue_fn);
+>   
+> @@ -1720,6 +1779,7 @@ err_quiesce:
+>   static int oxp_hid_probe(struct hid_device *hdev,
+>   			 const struct hid_device_id *id)
+>   {
+> +	const struct quirk_entry *quirks;
+>   	int ret;
+>   	u16 up;
+>   
+> @@ -1738,12 +1798,16 @@ static int oxp_hid_probe(struct hid_device *hdev,
+>   	}
+>   
+>   	up = get_usage_page(hdev);
+> +	quirks = oxp_get_quirks();
+>   	dev_dbg(&hdev->dev, "Got usage page %04x\n", up);
+>   
+>   	switch (up) {
+>   	case GEN1_USAGE_PAGE:
+>   	case GEN2_USAGE_PAGE:
+> -		ret = oxp_cfg_probe(hdev, up);
+> +		if (!oxp_is_cfg_interface(hdev, quirks))
+> +			return 0;
+> +
+> +		ret = oxp_cfg_probe(hdev, up, quirks);
+>   		if (ret) {
+>   			hid_hw_close(hdev);
+>   			hid_hw_stop(hdev);
+
+I'm unable to test as these features are not present on my OneXPlayer F1 
+Pro.
+Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
+
+
