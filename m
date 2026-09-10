@@ -1,68 +1,83 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C05F4339375;
-	Thu, 10 Sep 2026 01:58:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31961361969;
+	Thu, 10 Sep 2026 01:59:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789005491; cv=none; b=M1X8mpzjn7BCPzfsxqusWHHBjfFewcJgEzdubBp5Aw2mpiHnIHHJqSwVJPdFbiDsrcPkAaEu3gP415ZOjA+MhZuKzSTeXYYVISLrLybHAlSHD2y5Jy0gTNRObivEXJ4KYsjoGurqyL/h0/3eZj9sJIyr1aRaAF2+BJipqpkzY7s=
+	t=1789005561; cv=none; b=U72rL29BJ4E8yUNpsYjj9bBNYEvbyKQs4+nN7dJoVIARrqoH2SwkmU/y68C+wc+vVJLtwtQbJUKRQ4adoRcvEjhmKJoS9t17aLDdxx8PludMWwvqtvkh1d/ffovBdTd++ANJ+DkOMco9bSi2GlVo52kb4Eh1BLvp17CVNRG7w2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789005491; c=relaxed/simple;
-	bh=ZCghtGIoIb7TluQkPGz4st3S6s/X1LuzKJRtW5CsIXw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QeDiR5lfjwOIQDa9tfcUefaERDQM/cR6hDDZPulQGStaNNjsB/dnpN5gzTeJlhVMuwsHQ0XFvIK00brE2EfqgU6XjOP1PcZreXeQifGFyXWqgzz0C94PVwsaUYWW1GvuQgmsFbaRlqth/Lz85jhPgpvFyIvHr+Dxkqd69Xxw69U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=S/GJokQn; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1789005561; c=relaxed/simple;
+	bh=vR3y27VB51LPpgTgeMzHZVisWdESfTLCBH+l3XPtf1M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=OX0guDYSnjaTqhVGiOJ003uq6He8Qx2/gwQOYCDYT9QhprzyFcm6qc2RR+R7rqIyjPGCcdiRtDEl7u8yO24kzuwkmZUWrzFOFDcHUjO23ps3YfLLM27It/lAQfJjwpSJvJ9xqICQLEv5GpEnG2DqbKZ7SXBsFkSnh2E48grhCTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SdqGPMT3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="S/GJokQn"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=9STbb1ZIxrlEg6JgZuQeaYBzFzmda1M11xD59R6th+k=; b=S/GJokQnwVko/NFdmVea+hQwI0
-	DF8auFSjoiJ0F68XWkZsWzqwW9sgjPlQTYVFsgI4Y5gIzmMUO+T5U8hkiHYLNpnd0ncyaOxywCJqY
-	yQFVIbIf3GzirUV4BctwtLf14fDvtfXlGBSjHsR9E8ARv1yG6US/diC/xHx1+ALLFMZE=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x4U2y-004Pu7-Fz; Thu, 10 Sep 2026 03:57:52 +0200
-Date: Thu, 10 Sep 2026 03:57:52 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Kyle Switch <kyle.switch@motor-comm.com>
-Cc: David Yang <mmyangfl@gmail.com>, olteanv@gmail.com, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, linux@armlinux.org.uk, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com,
-	wei.zhang@gl-inet.com, sijia.huang@gl-inet.com
-Subject: Re: [PATCH net-next v6 6/6] net: dsa: motorcomm: Add support for
- Motorcomm YT922x
-Message-ID: <0ad7cd3b-006f-41a0-9d58-5f6dad9c22e8@lunn.ch>
-References: <20260908083614.2210505-1-kyle.switch@motor-comm.com>
- <20260908083614.2210505-7-kyle.switch@motor-comm.com>
- <CAAXyoMMLpaD5B4QojC0OKHxOFfPfFGpsS2nxCMT9e=nJeo8beg@mail.gmail.com>
- <0aa20394-2042-4c52-b30b-cdd742d4da65@lunn.ch>
- <5e492c8b-1afa-4af8-8f66-9b50799911e4@motor-comm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SdqGPMT3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1D241F00898;
+	Thu, 10 Sep 2026 01:59:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789005559;
+	bh=2cQTTAJsN/+zaGDpiiWmbmrf3TKZ/hygBQ9jdSoPMLs=;
+	h=From:To:Cc:Subject:Date;
+	b=SdqGPMT362lllRJDOwW5B5FX8yfsPGgsluRvgLXLh80eO4qwNdRMD91zIpSArzpKX
+	 qFF3lKTwCJVVDKV73nnR+dpxigIUExFe2UOk5et3JyVDoLml4bYl0gsWory62BBkcb
+	 K0dfeqno1A3JCUCN9P/XPLLtkWuubfAOY43Yz/f7yMATBLhL5vYSTg0NkjlRBWfAoc
+	 OBbfBWIg1mIkDx+rFMGWpnpTwa1Rv/V3CrQDTshDXKLIKrIg+rUcXvJzXHBH+JJnWT
+	 YQfLyG1zCWh+7LWrofix1UTXQy5XVgqFKcLKZwt7LmU+3H/aq8pWThtOSFi2v9s63d
+	 xItklRICO2uUw==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Masami Hiramatsu <mhiramat@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Breno Leitao <leitao@debian.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+	Douglas Anderson <dianders@chromium.org>,
+	Huacai Chen <chenhuacai@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	Sang-Heon Jeon <ekffu200098@gmail.com>
+Subject: [PATCH v3 0/2] bootconfig: Fix integer overflow problems
+Date: Thu, 10 Sep 2026 10:59:14 +0900
+Message-ID: <178900555453.200943.4719889510443114485.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+User-Agent: StGit/0.19
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5e492c8b-1afa-4af8-8f66-9b50799911e4@motor-comm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-> > > No one else, except you, can maintain this stuff. Drop it for now and
-> > > discuss it later.
-> > There also appears to be similar magic in the PHY driver. Can this be
-> > consolidated?
-> 
-> Ans: This part of the initialization is for the switch SerDes, so from my
-> 
-> side it may be hard to consolidate.
+Hi,
 
-Is it the same IP? Same configuration? Or totally different?
+Here are patches to fix bootconfig size overflow issue. If there is a wrong
+bootconfig size is recorded, it can bypass the size check in the tool and the
+kernel.
 
-	Andrew
+The previous version only fixes tools, but Sashiko found the same issue in
+the kernel. So this version add that fix.
+
+Here is the previous version.
+
+ https://lore.kernel.org/all/178900114498.187028.9558747732041210116.stgit@devnote2/
+
+Thank you,
+
+---
+
+Masami Hiramatsu (Google) (2):
+      tools/bootconfig: Fix integer overflow and truncation in size checks
+      bootconfig: Fix integer overflow in initrd size check
+
+
+ init/main.c             |   14 ++++++++++----
+ tools/bootconfig/main.c |   13 ++++++++++++-
+ 2 files changed, 22 insertions(+), 5 deletions(-)
+
+--
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
