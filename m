@@ -1,92 +1,77 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DCE931A807
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:38:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD1312E0B5C;
+	Thu, 10 Sep 2026 03:39:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789011522; cv=none; b=aXTi0YLZzLD1sFoaGt5/qkhFZK6hYdh+PT61gXEAkvZWkPzzSC8bRyzEmj/5K5d2K3hxuWssuoqGiCSdgyW5g0yaaziqetA7ddSthiZv/hSO2VLw6h1bRBPnSGFGiM8QuTIMUfFLvBba7bd2HkKG1Ti3mEqASdEPG1dj6/J5ilI=
+	t=1789011571; cv=none; b=c0cmynAzwUxBd+Gc4iniBh86Fv+qIt5PS6YEtejSg5Zh0K4JYwHaLkGoUb5kJurY/GEhe2AQWAj5QYRAr0is+GcBp8yQWR6D9Lh/BRq/awntbGCq/wg7l87dscMjfHOrvGdjom+GoaBwAdFmxu/Mo3BkQ+FXM5b5JIbWqp36fS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789011522; c=relaxed/simple;
-	bh=PQRs3l34l3Krk5k53+4W6iJX+nixjCUCvwWuudhV4s4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K61paN7NWc7lwwQPy3j/LOoJOSul6/CiCihR3KLL9d7/ZthMhPcua3R1Q0ln0ccZ74quzS9n9bQuV+0G2RH5U4RFckDDkiU9xANCOsX7WrH7FmDnUdqnp9sCnhcKjL8sSkVw9czffZqA8HDeQG8Kd8yamkotau9nO1gyoDxeWu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=DRVn8+E1; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1789011571; c=relaxed/simple;
+	bh=9sS+RkuZwYwrv45uL15O3zgqX6YVjzII9MZXgo5icfQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kd2PUIyeqpHn5PlvIOgY2XOrVOZuThuE9z3UgM5BG7Tnk5C6ezmGNjBdOZi75Dnfx9undYnhNMKC+kTJBpekl0x5oYNZvy9B9GGcpSyRoUGWl3qwtKETNTAslPsKNnHS4rWULbAnFtBwvGduWi3wF5E4W/8zCq2R8ovaJ9DLGlA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EltruIxa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="DRVn8+E1"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 4973640E02DA;
-	Thu, 10 Sep 2026 03:38:38 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id DgxUcYTwl7IG; Thu, 10 Sep 2026 03:38:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1789011508; bh=56esme3wXZzA28wrdzVrMK053H2QTxOeMLqIu/NG3Z4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DRVn8+E1wzobwfUIvffLigaTfD/SQPfkWwOp01/4UpBFVPp41n6e4eLpNABn+J/Z7
-	 YSayQr1sO7A0Vbv1omE5ki9NMfGZ7qyUt7zWVv+lQXRiF+wDrTcmV0GbxRGGbRiG/I
-	 MYo4XuPDfuiL9oqA1+TRF3MovHk0ENv6ZGFWbWSpD8Oe7mZ/mxfqTJgqyI8YZ9ZbRk
-	 d+jIgHx7SfsXfrJ7wa+Lrw75EAU+7LSp+fCdsLIbmG1gU+8c/0Boh3xjoz/JKwcXqO
-	 nHeWvB6SK2u5JiapAUTymNccX9Iu6m8KFpjCdxbdU7QAQZOMrdi4EiG+tPItT11p8h
-	 eQ2HfwY29+dzimYjiMfTv85EsrSYwux/Rvf8Ac3R7tk5GOi22DCFnqfsTd+RRRE4d/
-	 Tv3NVi1bRA3WO7ZiTZupPOuDmfohylcdWSAfwzt65vGyeP9zRwO9GqQnYGqDTtS1yK
-	 E6iOfH564Pf4kZWeE1sozVDbOCNA0TGPx6/7scnQngsTCx/LHNYx2ETPp+F/VsJDpj
-	 RXp4/3YBRAFi4AIjhx2zCMV8jSfMAhFY3qM+/XdwQ23u+cPYGbzSMyVwvze8LR0cnM
-	 izR0TdiZ18N6qehBtfOc525L8UaYPw31ZEGgUMp/nbChY4enOCxAjfVc9sFRGde8Aw
-	 KNbgm0ZepzF5joHLu0mrIF9M=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id B712E40E00B9;
-	Thu, 10 Sep 2026 03:38:13 +0000 (UTC)
-Date: Wed, 9 Sep 2026 20:38:10 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Mauricio Faria de Oliveira <mfo@igalia.com>
-Cc: "H. Peter Anvin" <hpa@zytor.com>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	Juergen Gross <jgross@suse.com>,
-	Alexey Dobriyan <adobriyan@gmail.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Jan Beulich <jbeulich@suse.com>, Brian Gerst <brgerst@gmail.com>,
-	kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v9 2/5] x86/asm, x86/boot: expose inline memcmp()
-Message-ID: <20260910033810.GFaqImIu15e_pszuO2@fat_crate.local>
-References: <20260822-pvh-kasan-inline-v9-0-e70ef3b75b6a@igalia.com>
- <20260822-pvh-kasan-inline-v9-2-e70ef3b75b6a@igalia.com>
- <20260906170116.GRap2cXOY6ENSzAXUJ@fat_crate.local>
- <E4FDF95C-3FAB-41DB-8EA0-8A26B964B38D@zytor.com>
- <d1b9ff734b918889eaf8885d64141bc3@igalia.com>
- <20260908193229.GFaqBizWcssBoewNSo@fat_crate.local>
- <c955deded411defba0de3a1f6daa78b0@igalia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EltruIxa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6E6E1F000FF;
+	Thu, 10 Sep 2026 03:39:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789011570;
+	bh=OQXcNL2WuFOESavtcYnK6tzeI/Boy4mudQ7/iDdUyVc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=EltruIxaB2U22wpbXGpSN9RJtc0SzVxrCRFQiepqqj6euwNUjKzOgIxBC/AAdszsu
+	 WP3ojTBp1l0Ce4WrjoW/EFhBsm6K30KHZss/MorAp2gzOsiYqSPtaCzRT3eIoYuyDx
+	 7tHOFi8YyENW9VSFrWine+DuXZVyGCH0ISKPvmwV/bII1gu+f4i3je+79OjHbIJMn9
+	 rjaJwKyElV1RNIP8S8hwL6V46ciV1qxatmjBHFxwrFkexnXzamkPmuqA/QUSH/pXzW
+	 ODh8XQgq6cMZeZ5u2ZVaqU1eBc1HfDENN7FtjN2lSpWZL2gwgw+v7QkCrE5zYJRDcx
+	 IcZQY0/hVCRkg==
+Date: Thu, 10 Sep 2026 04:39:25 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Kim Seer Paller <kimseer.paller@analog.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
+ Zabel <p.zabel@pengutronix.de>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux@analog.com, devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 0/4] Add support for AD5710R/AD5711R DAC
+Message-ID: <20260910043925.543138d7@jic23-hlaptop>
+In-Reply-To: <ap497BPHehKLEJGT@ashevche-desk.local>
+References: <20260904-iio-ad5710r-upstream-v5-0-76f985b7d0ee@analog.com>
+	<20260906190559.7ca260f9@jic23-huawei>
+	<ap497BPHehKLEJGT@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <c955deded411defba0de3a1f6daa78b0@igalia.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 08, 2026 at 06:06:21PM -0300, Mauricio Faria de Oliveira wrote:
-> Ack, and to confirm: not rename the existing one, either?
+On Mon, 7 Sep 2026 07:30:36 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-Nah, concentrate only on what you're trying to achieve.
+> On Sun, Sep 06, 2026 at 07:05:59PM +0100, Jonathan Cameron wrote:
+> > On Fri, 4 Sep 2026 16:35:23 +0800
+> > Kim Seer Paller <kimseer.paller@analog.com> wrote:
+> >   
+> > > The AD5710R (16-bit) and AD5711R (12-bit) are 8-channel, low-power,
+> > > configurable current/voltage output DACs with an on-chip 2.5V reference.
+> > > Each channel can be independently configured as a voltage output
+> > > (0V to VREF or 0V to 2xVREF) or a current output (0mA to 50mA).  
+> > Series applied to the testing branch of iio.git.  If that all looks
+> > good I'll push out in a few days as togreg and linux-next will pick it
+> > up.  
+> 
+> So, still time to pick-up tags!
+Yup and done so.
 
-hpa can send a patch ontop since he cares so much.
+Thanks,
 
-:-)
+J
+> 
 
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
