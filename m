@@ -1,112 +1,197 @@
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010069.outbound.protection.outlook.com [52.101.69.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4AB5582B81;
-	Thu, 10 Sep 2026 18:39:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEDB3C09F9
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:41:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.69
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789065600; cv=pass; b=ROutAHiJxvlLl5kI+JoMZih95l5PU25p9uEebOqY8RFLss5Uz8rG5ECDdHY+ZASe5ZGxPu7toyoiZLQccT+6HLV6R3RMGtU+dJYvDSFuK6uZC/k1Puj1DSw9U3eDV6vjcdt1hJ0CjY0sPg4ONnhmzuXTGZVFkCt1/CcxFf4Zw5g=
+	t=1789065692; cv=fail; b=kTTuDJaxNrXWvpk93Uu4P91OJPugcNhNLOouSoWSb0iUZdqhznKq6m6ZiYA3+QXX6p6Plo+uD1cerqp9QGUq+zxDKCZ8PWFE/CMx2iiPPQuYaPmGbbabmOnY7Vmu7M+nuCQFbMXYjeKS82Akjz5tT94tWnNMEor7pUJV3uNUH+I=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789065600; c=relaxed/simple;
-	bh=pKmUBZjvCvWnTY4B3AY8+HbAzLyqcIXCSFnLdyFDDJ8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=mSzXXg4JkW043hG99CYR6vqNkgH2Q1YdUgGrsLMpsS0XYnBz7caekMZ4IrZTfcVUEEvGPL9dPaV++OnwNqXtu4GDhsgfDCvbY8qn+/IwVTbWoh3Hv+E9Q4aEZ+ofNmB5N8U440pw0UMz9dHWt6D8/yePZIMPTFf/mW/SF1Sts1s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=G23wTz52; arc=pass smtp.client-ip=136.143.188.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	s=arc-20240116; t=1789065692; c=relaxed/simple;
+	bh=sMSr0foikNAt6CdKCO0yPdIGjhXIbCnJC52+0yaPVHU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=mETClelsqdXuDsWq3tIwrRyv4fnbBArJ5U2k48nY0Wg71JaQGzfnHOP4UHrH0xga6AM6PFKsYX5irEvOhr5BGlkuD7Tnh5IK5gN5j/hahfGZXOeYW5Jq+T5Yr/Vv2jUSon0K2ym1SGBiz1OvNipBQfOb4BnErBIKy9lxOLmd2cE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=OQiGxL2Q; arc=fail smtp.client-ip=52.101.69.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="G23wTz52"
-ARC-Seal: i=1; a=rsa-sha256; t=1789065572; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=aEspYeIAVX5LRhYGpcatPFtUwCsskNcfs99heYNH1dcJg82LySUra9B3d4sMCJDeR1nQDmhxBW9sYSZVQSOFNqgfeGM8OaaEd2AwaTONIJ0M790E6x0fwY1/MjtQpF1WjNyW7GyMHTHuGTR4s4HPMjrhyk4JQjVoySu65gGCTpA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789065572; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=UzY9IqqH8d74c1+yMT1CaeM0qgoMHbI69qgXStGRByg=; 
-	b=WeqrVR3F0ASL4PtnIFvbsXD09dfBELwZSrq1AHnTyK+/vWNzVLBvzELwMicV5ZwifrRWFmXFFikt3KGkxZaE5Qt6O6yZfgtc/zk+CrMIqxPit3iV1twlo7j0yDbfmumv5RmipwlvxrJ3QB7fK8ar3GQJkV8eXb00pSji/wUXLck=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789065572;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
-	bh=UzY9IqqH8d74c1+yMT1CaeM0qgoMHbI69qgXStGRByg=;
-	b=G23wTz528vy+KmNHhxuuFVy9OcOWOx7PrEYqt1lU+5ebQ6ml4CSvAj6Sol1fs1zb
-	h5xCZgNLGpwPtUEYEbd3hIhMxy1ikZqk4m270ZMaALelBxQIr+Rqrt/JYNBNAfTCOQ+
-	FrpA/5DA3eRljiPViKNg6qQnqpHCcpNKSYY0QhCBx1SDkBaPojv4TKa1mwgA+urEefc
-	mfMVWF5yRA3BktJ9Ceolsf6hD5zCx3PMOhfQ64BlvSkPKVA8fh7XiiH6DLuF00Et2wQ
-	cfYrxE7Fjnpp1gx5XXBFBYK+wLvMHixQk2jd8NCTyRXFlZUYNRRQlxvjNtO47B9wvik
-	zqj8hcnx4Q==
-Received: by smtp.zohomail.com with SMTPS id 1789065571642823.674294366569;
-	Thu, 10 Sep 2026 11:39:31 -0700 (PDT)
-From: Rong Zhang <i@rong.moe>
-Date: Fri, 11 Sep 2026 02:39:25 +0800
-Subject: [PATCH] hwmon: (k10temp) Fix model id range of Zen5 Turin
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="OQiGxL2Q"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sQAmBBXSwdDaZH4rFRhnejVnwZ8pAWDsUit3L/CaEv9jX2hOoyl3HIaSiwoolyadj+flV6xVBbBh8EWikNK45rO/i6R0pkKZIXZpHwkqOTB8NYkYBWHzH1JBO+Qqm7ulLKg25dG5Q61nFOEWYcNq5+pP/lGsS0T9YuNIAh5xfqygyy07s39mVyhPFlCdOVfwTYowaDd+Q1lCdxirMVRxBN07bpnzPfvJ7f2Pw4cfM8uPxxdna1HJFZDMiVdWWWEbjfQNAWzK0y1y6yK2OMqTVL/T9M2hFlbE1CyrraBXldfwAiBhD3PljVIJke6BgNupUS4jyWXj9YtXbmKrrZltMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qJzl3CvZDqyCw/7KISjlnvCCBqKAWGowlCp3sy7nEk8=;
+ b=vahj3FJhZERW6g+Ii9C3sVOyRn8+GKlbntS4ZnsfjLM76+LNMEKRiyLLpPY+2TN3U+Sg8XxUV4Rcd315fV4z6emQlnTb/9FDHdjxg6rs4IUJEAStml2j0S8QR+JXmJQLHhqLgfvh17gp+QkETPKrcy8c6dx0/bxhKxi8bIVJSYKbOLdqx4NRzcvIynED8BBcu9KQGF9hH9MClirrb1dzkH0ZnruXH6bw134f+NHf9LsBpdRN6qoGMsyCVibBd+JYm3UpM0gh9A/4JNmANWMwBw9pzu7pPICr5+v76WZZ8ANttJaMpN2nD6bGV8EUNuuGMpS38zTyqg4mG6+RLyksDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qJzl3CvZDqyCw/7KISjlnvCCBqKAWGowlCp3sy7nEk8=;
+ b=OQiGxL2QF7kP3t1cOB6NGiw0zw/QyohR/zFiFB7ZvjMjwOL8yDpru2eCo1ZANH7kLn5l6TK+li4+S/Gz6FMo6hJT4RjA84P4gpLugr/TJ9OaQaGMfYyRWqbilAQshj34bFeolVtjEGuFctjQfbTWqywoDxaqrGK0XOee5MOWoabBykbbF8U0APiWUqu6PQoVhJRcOhAcbl6PEdr8OmQ9qQxfn83rXMNBC8Xre/SpgWPFPr6iRSUBmx1D/owE/meV4UGxOV0wqLMNPfDAIOdUkVT77bCAEIibeVTgcoLlT4U69ydyBrJS7wFZtXah9l1vIFcpJ/4lx/LEBB3+nY1LXw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AS8PR04MB8948.eurprd04.prod.outlook.com (2603:10a6:20b:42f::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
+ 2026 18:41:25 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
+ 18:41:24 +0000
+Date: Thu, 10 Sep 2026 13:41:13 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>,
+	Allen Hubbe <allenbh@gmail.com>, Frank Li <Frank.Li@kernel.org>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	fuyuanli <fuyuanli0722@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Nicholas Bellinger <nab@linux-iscsi.org>,
+	Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 01/14] NTB: ntb_transport: Remove the device debugfs
+ directory
+Message-ID: <aqL5yc6Wz3iMCS1P@SMW015318>
+References: <20260910040836.3792333-1-den@valinux.co.jp>
+ <20260910040836.3792333-2-den@valinux.co.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910040836.3792333-2-den@valinux.co.jp>
+X-ClientProxiedBy: CY8PR10CA0016.namprd10.prod.outlook.com
+ (2603:10b6:930:4f::27) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260911-k10temp-fix-zen5-epyc-v1-1-643f5a248ae1@rong.moe>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw7CIBSE4VdpztqTSIB4eRXTBeCoRyMSoMa26
- buLdfklM/9MBVlQ6NjNlPGWIq/YoDYdhZuLV7Ccm2nnrbLOeH6obcUz8UU+PCFaRhoDK6O1wd4
- 67Q/UvimjDdbuqf+7DP6OUH8xWpYvaUo0lXkAAAA=
-X-Change-ID: 7b515a4b-k10temp-fix-zen5-epyc-14334e85a3b9
-To: Clemens Ladisch <clemens@ladisch.de>, 
- Guenter Roeck <linux@roeck-us.net>, Gabriel Ford <gabriel@gford.dev>
-Cc: Mario Limonciello <mario.limonciello@amd.com>, 
- linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Rong Zhang <i@rong.moe>
-X-Mailer: b4 0.17-dev-1f2f7
-X-ZohoMailClient: External
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB8948:EE_
+X-MS-Office365-Filtering-Correlation-Id: fdbd1c2b-5e46-430d-c8f9-08df0f6b1dcd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|19092799006|366016|10067099003|4143699003|11063799006|56012099006|5023799004|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	E9FDBqZzZQPg2oelOsHDiWh6hpcYGE8+b89HhBYHPBkpy7Dt4WSc3pl6/iIpFgYQXm7q7nQDi4zGE+RC0mIA0XiidcuxH7sQGmUps8z6xjIwF8sk6IVzK92+XkZiNQLRTkq9bRCxal82yviaJj8kuFGOERt4ImjbPmPQAq2orrHn0ARpPtrEYJzEkD7x5NtSatURkQHvCo1lW4gtjV4OcanzxnCfWSfG4bsWcJmRLPuwU3T+PUSi1MKgseobSSeTjI3J6xZMB7mI2lf9VikssjJS+6q0jHgN74eFPFUHqZUQtUyGtycokNCNGP2Zxo6BE/dtnLGDjDzoVh2Qu7+Z9/oKLNqMZtDQurhu5SiQX9Fmu98rcIZruAcDF794FjzmV7HF7w/ISaOnF7uELcuywib9B8HgrKl/3FKLcTOFWq18mxg1SzPITadXxMiUW9eg2TCGlvaRm+0eXemgFSRBWC+O65IVQSAnU0gB79OnzDf9Ik/y/P8NcWugVUwUVOqhkvetNo+DuFtLh8sKdYfRfQJ09vT3Fxcgqsdpd7pvFouKj+SdYJbwzl9cFa9ueX7GyqTC/6Osl4siGTiAD9L3yVXM/9MfcmyYprxQN+FyWatQuRj4lupgCVnSzvE+qkNC4q+b41brhoyTydztmUwwZrCJD69nK68ukiQdmvZxCK8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(19092799006)(366016)(10067099003)(4143699003)(11063799006)(56012099006)(5023799004)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?eYrNXCQvqENXRkTsfbEyK4UzlVifeoRH5noMoG3Rwl1KfDH+GX44XhjHEI+Q?=
+ =?us-ascii?Q?lNCL/AYoQE7/JHD24yb0cT/4HOlheOrrbSlqE6GsbMnhCMG7wcaMrgtqyB+u?=
+ =?us-ascii?Q?XlXfGiteMKUoXTjM1GwvkHqwgTT8OoT6JNhLHKUPV+TB+FeQZtNkP8lNVEED?=
+ =?us-ascii?Q?fLBxu76fxebCUAWYlEUVa7xIc6r02I0HcSsgBryTomajKBq+3Nhgk5gkk3JW?=
+ =?us-ascii?Q?qIgMMTpOyQL36U78q0TxAd3Eof9BrIUJ9ZakflGBT6+2l2m2Ya9MUS5Hp/aW?=
+ =?us-ascii?Q?FitrF+GhfNmMQ+7po8kECjEHUYtrLDEZ7df3Fh7mdQ79US/Ymmnhfn0kI4NF?=
+ =?us-ascii?Q?oPaAp0hfhXFJJ8rRIb4De394x8VnqwuSeX8ciFwMYhNhaQiL7csYWa7zTlvx?=
+ =?us-ascii?Q?BbXK2LRHZrJjmw9Hx00QEhACXIvMymgyJuRI+RNBOA/ThDT8Z7GHqEfrJS2/?=
+ =?us-ascii?Q?adfeZiWpu2bkiGGeffpz6qty/iWIKX/5i8k6SYnmfvVBI4VqJ95JylY/3YHp?=
+ =?us-ascii?Q?9scp1ZUNmyRu2qXv0buLZL4dEBP4w5GwWnLygvcYk/dl8Q9uh1fjXrN5cxL9?=
+ =?us-ascii?Q?WZKqrqmDOc3mbi8D7RijXvZhMXRa8oamXVW5eXHbXXxymyPUBAWZlqDnlBhI?=
+ =?us-ascii?Q?B44JiuDfBRF8CP+uzTlN3m+2WS+QhlgAIVkPG9QqvRKHS8bze10wOZe+0oZu?=
+ =?us-ascii?Q?idhmH0jsO09uzt7tfh1xEXT7qFUBMZwHBNG9h6BCrZ73pfkL7JPJgoHfa8RJ?=
+ =?us-ascii?Q?r3sOJgg0qqY7yS/FzzDgAnGhx79b0zbOD3fk5qGIIKC7yfPMyIg5DkowOME0?=
+ =?us-ascii?Q?faopzXMSjOEZ6NsrdfkBA8yMZR85GVSYcZ/yqINjhYxll26lvhi5vJlooXeH?=
+ =?us-ascii?Q?MAfPTFyC1zhBGUfd3T1EiH/Z3gltQw51LkDTDJpe6nODRtnZFsM1Wl5oUP4L?=
+ =?us-ascii?Q?KKCPO4G/2cjXpa7qWIcq22ncsqRoEhfvk6R7jKZwd/LibXg6ohy81KO0Y45O?=
+ =?us-ascii?Q?jvaO0dLtoEGWDDg+AadNTvh4Z07iql4/0PZo6LntAhy25JFZ2TDXbGGA0NVD?=
+ =?us-ascii?Q?6quC1utmK5F6ztZY4FUpUwUkzJVpaLyZdy+Pij7QVkQCAaEuT37qjPGftLN2?=
+ =?us-ascii?Q?FZhROnSQYbxBXi3DmXPnpDg4Wx3eb+ToGRvVoqOk8KFZQx3wL19/ubiFZ1wU?=
+ =?us-ascii?Q?SdeEskW2fkpx3tjI5uKSqFcLlqUtMSUeKix5qBKEHeWUsunsZg9qTRA1JvAu?=
+ =?us-ascii?Q?G1ipMsYYwGlZ74TulAaCNWXKMXXDMpfT5xhypYMdSOqzavP19sHNGyew3cJb?=
+ =?us-ascii?Q?xYdyhL5EP/AIGDKdicDEnld1FrrgajIrMS3Hrt39Xb7uSrnQrapZ/16Zagjr?=
+ =?us-ascii?Q?HUE678xjnHhjiK+ODjNGrTDgKt+IygaGdHkHgAb/4K5G1CqVlNz13fKfVe4D?=
+ =?us-ascii?Q?96jlVO7aSgHK2h7ifN8wogaBrpv5UydWAUPadsEN8ucC3//XalSwag/WvGzc?=
+ =?us-ascii?Q?0PXp4VkFoDMDkbxCqzCMnLhS/J6rTNjQ7SJG3uiPn6ab5yq25UeCGZgdyLcf?=
+ =?us-ascii?Q?Pio6sfqGTKihm08T53hdBhv5Od52EYPpfR2qu2QsEvqPrPsDJyFbNivXhpbR?=
+ =?us-ascii?Q?cA03Qw0f4uJbcx36EBHtxhCxN3kt3oTX3nKoUCESKkRTbwcHzx88HCb8o8K9?=
+ =?us-ascii?Q?BByoJ9KOPWfmW15vSVTXgX361O/0NLQ0yxpeyJJzXCQvQ5a2xh39Mk5Sxl/R?=
+ =?us-ascii?Q?Ep39QmJYCGbkrNqAFM9xbQUfGf8jdfW/3e59hS7clI1fWIBmiF8I?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fdbd1c2b-5e46-430d-c8f9-08df0f6b1dcd
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 18:41:24.8787
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Le7ygBUIfeT9wbr0COyj/+L4H4myhdXUPNLE6o/Q/HH28mD8BzEP+j4EHdAky6og3mMFowhHFD8maRcrfqjrn1NQZfGmTXswxFU5CCHwXSpckZN10lgXqvj6aTHChyvx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8948
 
-Model 20h-2Fh are mobile processors with single CCD. For example, model
-24h is Strix Point, i.e., Ryzen AI 7 (PRO) (H/HX) 360/365/370.
+On Thu, Sep 10, 2026 at 01:08:23PM +0900, Koichiro Den wrote:
+> ntb_transport_free() removes QP debugfs directories but leaves the
+> device directory. On rebind, debugfs_create_dir() fails with -EEXIST
+> and QP statistics files are not recreated. Module unload masks this
+> by removing the entire debugfs tree.
+>
+> To reproduce:
+>
+>   # ls /sys/kernel/debug/ntb_transport/0001:10:00.0/
+>   qp0
+>   # echo 0001:10:00.0 > /sys/bus/ntb/drivers/ntb_transport/unbind
+>   # ls /sys/kernel/debug/ntb_transport/
+>   0001:10:00.0   <-- should not remain
+>   # echo 0001:10:00.0 > /sys/bus/ntb/drivers/ntb_transport/bind
+>
+>   .. and then dmesg shows:
+>   debugfs: '0001:10:00.0' already exists in 'ntb_transport'
+>
+>   # ls /sys/kernel/debug/ntb_transport/0001:10:00.0/
+>   (nothing)      <-- should be 'qp0'
+>
+> Remove the device debugfs tree on teardown and probe failure.
+>
+> Verified that unbind removes the directory and rebind recreates qp0.
+>
+> Fixes: c8650fd03d32 ("NTB: Fix transport stats for multiple devices")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> ---
 
-Including mobile processors in the model id range of Zen5 Turin
-processors leads to bogus reporting:
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-  k10temp-pci-00c3
-  Adapter: PCI adapter
-  Tctl:         +54.1°C
-  Tccd4:       +148.6°C
-  Tccd6:       +148.4°C
-  Tccd7:       +149.1°C
-  Tccd8:       +149.2°C
-  Tccd9:       +149.2°C
-  Tccd12:      +149.1°C
-  Tccd14:       +22.0°C
-  Tccd15:       +22.0°C
-  Tccd16:       +22.0°C
-
-Fix it by removing the said range.
-
-Fixes: 8440d5aca227 ("hwmon: (k10temp) Add per-CCD temperature monitoring for Zen5 Turin")
-Signed-off-by: Rong Zhang <i@rong.moe>
----
- drivers/hwmon/k10temp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/hwmon/k10temp.c b/drivers/hwmon/k10temp.c
-index 75a45010d687..3e7e63edc6a3 100644
---- a/drivers/hwmon/k10temp.c
-+++ b/drivers/hwmon/k10temp.c
-@@ -523,7 +523,7 @@ static int k10temp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		}
- 	} else if (boot_cpu_data.x86 == 0x1a) {
- 		switch (boot_cpu_data.x86_model) {
--		case 0x00 ... 0x2f:	/* Zen5 Turin */
-+		case 0x00 ... 0x1f:	/* Zen5 Turin */
- 			data->ccd_offset = 0x1F0;
- 			k10temp_get_ccd_support(data, 16);
- 			break;
-
----
-base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
-change-id: 7b515a4b-k10temp-fix-zen5-epyc-14334e85a3b9
-
-Thanks,
-Rong
-
+> Changes in v2:
+>   - No changes.
+>
+>  drivers/ntb/ntb_transport.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
+> index f9caa1a653c5..3389d6ca9ebd 100644
+> --- a/drivers/ntb/ntb_transport.c
+> +++ b/drivers/ntb/ntb_transport.c
+> @@ -1382,6 +1382,7 @@ static int ntb_transport_probe(struct ntb_client *self, struct ntb_dev *ndev)
+>  err3:
+>  	ntb_clear_ctx(ndev);
+>  err2:
+> +	debugfs_remove_recursive(nt->debugfs_node_dir);
+>  	kfree(nt->qp_vec);
+>  err1:
+>  	while (i--) {
+> @@ -1401,6 +1402,8 @@ static void ntb_transport_free(struct ntb_client *self, struct ntb_dev *ndev)
+>  	u64 qp_bitmap_alloc;
+>  	int i;
+>
+> +	debugfs_remove_recursive(nt->debugfs_node_dir);
+> +
+>  	ntb_transport_link_cleanup(nt);
+>  	cancel_work_sync(&nt->link_cleanup);
+>  	cancel_delayed_work_sync(&nt->link_work);
+> @@ -1412,7 +1415,6 @@ static void ntb_transport_free(struct ntb_client *self, struct ntb_dev *ndev)
+>  		qp = &nt->qp_vec[i];
+>  		if (qp_bitmap_alloc & BIT_ULL(i))
+>  			ntb_transport_free_queue(qp);
+> -		debugfs_remove_recursive(qp->debugfs_dir);
+>  	}
+>
+>  	ntb_link_disable(ndev);
+> --
+> 2.51.0
+>
