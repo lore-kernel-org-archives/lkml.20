@@ -1,129 +1,146 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [46.38.247.119])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2D9456E07
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:48:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 846DE353A65;
+	Thu, 10 Sep 2026 10:48:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.38.247.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037289; cv=none; b=WUKRZdp2Irmxlgey50rKK83Xj23zW/l2jU3BXts2zw0jfzGzqMlZ2B+UZUjYOb7Tad5vFjnaopn1lGmAqBLJw4L7OUpgYsmqf0iFM3q5VsaIrRJHmhvDZHxzeq+s+RFJfWoCg0Gg/etQaDmYgKslfKHVehhb6oW8kZxJOmBuMt4=
+	t=1789037306; cv=none; b=t9f8KzAy1aCfuZoLjdSt8DuTwa4plqqmxVcLoC4A/NOP7WSyioc5x1SFzUbd+V3vPINPJVDZG3qdqOyYesBiBVQLk5Ouk7AuTRQCDUyjOxT9YkJtkdr61x7cU44SkoKQutFnYRu4IiAtptiYF3V+jl4CZjQkVuemRGQl7I3sfi4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037289; c=relaxed/simple;
-	bh=CKJP3LWV0XbiTPX5pJ7NiWChkdlri8kaJ5mSH2lh3xY=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=Zj8FQ9CusqmiKglzGjsXZmAj3w9Nk0IXk3hnKoZMW6982vfUFFs/DbmpdYxkN79k9Veb1iICy5DW77Lm8xtuPIh9I8hCQoMFEpJ41wMEJcL8QH7wVNkJ6es9iFa6xUIqFBTTDt2/mC4ydSn2eReb4I/3w39ZcaD6Pb6fpbM0fpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JhCJR6Ye; arc=none smtp.client-ip=192.198.163.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789037306; c=relaxed/simple;
+	bh=enPl0P4IRL71cTLXLsRDVjv9kocJZzZNibDFU0sramE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=djKNZFlz9HwK5K/zKIN/dgY20YbumhwJ7RcPl/thmIh9/3VdFiWX50uCN8EIcp20/tA6y85S6BAKOsi91XhfhU2p70uNDlkk8NU7/ydM4QsyXzaCsAymy6Jo8rqHkZBL7mqG+CCe2VKczI61m7o4Bf0bStASwnyo9OhvgAlcJw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=DhVqPvs6; arc=none smtp.client-ip=46.38.247.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JhCJR6Ye"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789037284; x=1820573284;
-  h=date:from:to:cc:subject:message-id;
-  bh=CKJP3LWV0XbiTPX5pJ7NiWChkdlri8kaJ5mSH2lh3xY=;
-  b=JhCJR6YeEVwaEmaaU+mCDxZvv8YElTU8ONTtMp2VAb9Drp1iyJ6V1rtg
-   9ONLKvqlo2p21yKq7o95SQKJEP4dZ3cEXDZRQbH2asp6FdiKvulzyQXPI
-   s+8+UxXHwFZTy9vzOb/T9I4XJUX+n5bHlDG+OEtekPVdjgJcICnKK6j+O
-   Bhjzm+eBnrrlHoAAA2THrwMoTCA4tN5/kBN8a72A5taDWRY7rKD6iD7r3
-   gILnb0w5ixQk9R3VqiHeI0tg5BOuju/yWCHA4fXY9jOycgf+k1/HUz9jG
-   Js85p8CUkR83IRurG8J2gIasCcFuRI2pPnyYiz38/zmsMrlLPJqu9w8VI
-   w==;
-X-CSE-ConnectionGUID: gdxY01GgSr6XK53bw/x7OA==
-X-CSE-MsgGUID: gmFg5KUIRMaBfPHNO3JPug==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="5083"
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="5083"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 03:48:00 -0700
-X-CSE-ConnectionGUID: AVaUdzUaS9yIf3iUXs2YDA==
-X-CSE-MsgGUID: ym2N2vwNQP6JzLl8MfS//Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="301487735"
-Received: from lkp-server01.sh.intel.com (HELO a3e91e2cf319) ([10.239.97.150])
-  by orviesa002.jf.intel.com with ESMTP; 10 Sep 2026 03:47:58 -0700
-Received: from kbuild by a3e91e2cf319 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x4cJv-000000001i7-3UeU;
-	Thu, 10 Sep 2026 10:47:55 +0000
-Date: Thu, 10 Sep 2026 18:47:54 +0800
-From: kernel test robot <lkp@intel.com>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: arch/s390/include/asm/io.h:30:22: error: implicit
- declaration of function 'ioremap_prot'; did you mean 'ioremap_np'?
-Message-ID: <202609101854.0eBirOer-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="DhVqPvs6"
+Received: from mors-relay-8404.netcup.net (localhost [127.0.0.1])
+	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4hgZ1C1N4Yz8H1p;
+	Thu, 10 Sep 2026 12:39:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1789036767;
+	bh=enPl0P4IRL71cTLXLsRDVjv9kocJZzZNibDFU0sramE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=DhVqPvs6cyjS4lyj3w9Buz0NK5yjy5D+fBvXvg7neRpxvRan9A1HLiOqITg/Hxray
+	 /SFTxptgZLXfdLo/Txg1g90OtwhpM/GPkmfk+nuaHrJo8RV8X9sCwKhm/0IB9+V/6w
+	 KsRlcUYKtwTwAb/l0rRd7sdNUtoM6d+MTnQpX6WSJNa5+3UH0ZYRQH8BRGHq9LVz6+
+	 q/C8xrrgWHqZmZOBXxdw1U6mWU5q85kx7fYD7MJpEnf0a0FjtG0n7cjwxKiVI9PEbd
+	 n0t0fEFNnxOcXKOrHLaX4COuj45bkNygOd/fLRgt4irSBjP49JHeSA9vJSlcGizUk1
+	 EnYvfj3ECWUIA==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4hgZ1C0gHSz4xPV;
+	Thu, 10 Sep 2026 12:39:27 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hgZ1B41q5z8sZh;
+	Thu, 10 Sep 2026 12:39:26 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id D08EE5FB28;
+	Thu, 10 Sep 2026 12:39:25 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <4c5117f7-1ddd-4596-8917-da47379506fd@leemhuis.info>
+Date: Thu, 10 Sep 2026 12:39:25 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: commit 108cc873398932af589c295f78c348513b8d70d9 breaks
+ update-grub on btrfs root filesystem
+To: Qu Wenruo <quwenruo.btrfs@gmx.com>, dsterba@suse.cz
+Cc: linux-kernel@vger.kernel.org, linux-btrfs <linux-btrfs@vger.kernel.org>,
+ Alex Romosan <aromosan@gmail.com>,
+ Linux kernel regressions list <regressions@lists.linux.dev>
+References: 
+ <CAKLYgeL7nrA4nXcewdv9Fqg_s=3GS=vmoypnEiZBKQ7rySZFuQ@mail.gmail.com>
+ <20260909002506.GF9053@twin.jikos.cz>
+ <6a5c2d41-b10b-44cb-969e-b4a56d002ceb@gmx.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <6a5c2d41-b10b-44cb-969e-b4a56d002ceb@gmx.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <178903676617.1442824.794382640336511039@mxe9fb.netcup.net>
+X-NC-CID: rK69uwty1yMF2rMjLSwTqshdAbVjesipN/pDURYAfQxY8znkUgM=
 
-Hi Mukesh,
+On 9/9/26 03:13, Qu Wenruo wrote:
+> 在 2026/9/9 09:55, David Sterba 写道:
+>> On Tue, Sep 08, 2026 at 11:59:43PM +0200, Alex Romosan wrote:
+>>>
+>>> [...] Since version 7.3-rc1 i haven't been able to to a grub-update, 
+>>> instead i get this error:
+>>>
+>>> /usr/sbin/grub-probe: error: cannot find a device for / (is /dev
+>>> mounted?).
+>>>
+>>> 7.2 is fine. a git-bisect identified commit
+>>> 108cc873398932af589c295f78c348513b8d70d9 as being the culprit.
+>>> reverting this commit from 7.3-rc2 allowed me to run grub-update
+>>> again.
+>>>
+>>> this is not the first time i reported grub-update being broken on
+>>> btrfs. i reported exactly the same problem on jan 8, 2024
+>>> (https://lkml.iu.edu/hypermail/linux/kernel/2401.1/00596.html). maybe
+>>> the discussion that followed would help come up with a fix that will
+>>> make everybody happy.
+>>
+>> I remember debugging that one, https://bugzilla.kernel.org/
+>> show_bug.cgi?id=218353
+>> Reverting 108cc8733989 ("btrfs: fix a lockdep caused by path resolution
+>> during device scan") would bring back the lockdep warning and there is a
+>> locking problem.
+>>
+>> The commit says it's fixing 2e8b6bc0ab41 ("btrfs: avoid unnecessary
+>> device path update for the same device"), the difference is in lines
+>>
+>> (https://bugzilla.suse.com/show_bug.cgi?id=1230641)
+>>
+>> -       } else if (!device->name || strcmp(device->name->str, path)) {
+>> +    } else if (!device->name || !is_same_device(device, path)) {
+>>
+>> Which gets changed to (by 108cc8733989):
+>>
+>> -       } else if (!device->name || !is_same_device(device, path)) {
+>> +       } else if (!device->name || device->devt != path_devt) {
+>>
+>> Each change is reaction to a bug, I don't see a clear fix which will
+>> make it work in all cases.
+> 
+> And I want to add that, the previous path based comparison is also
+> problematic for namespaces/weird block device names.
+> 
+> Although not common, it's definitely possible to map weird block file
+> name into a namespace.
+> 
+> Thus the path based comparison is not reliable in the first place, no to
+> mention the later lockdep problems.
 
-FYI, the error/warning still remains.
+Well, but our #1 is "no regressions". And the recent change while fixing
+bugs clearly causes one, as Alex's report is afaics at least the third
+about it; the two earlier ones can be found here:
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   50d05c7c76c96b90462f24debacca971d2e86713
-commit: 0b0379fcf9ce395bb51cadb6552ec3b1380436bb remoteproc: qcom: pas: Map/unmap subsystem region before auth_and_reset
-date:   6 weeks ago
-config: s390-randconfig-r121-20260910 (https://download.01.org/0day-ci/archive/20260910/202609101854.0eBirOer-lkp@intel.com/config)
-compiler: s390-linux-gcc (GCC) 13.4.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260910/202609101854.0eBirOer-lkp@intel.com/reproduce)
+https://lore.kernel.org/linux-btrfs/dfbe1e27-dab8-4d55-8cf3-0b28eeac5df4@gmail.com/
+https://lore.kernel.org/linux-btrfs/018a9738-1d4a-43a0-9352-a56d1e541364@gmail.com/
+Plus a repost of the latter here:
+https://lore.kernel.org/linux-btrfs/dfbe1e27-dab8-4d55-8cf3-0b28eeac5df4@gmail.com/
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 0b0379fcf9ce ("remoteproc: qcom: pas: Map/unmap subsystem region before auth_and_reset")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609101854.0eBirOer-lkp@intel.com/
+Exceptions to our #1 rule are rare. They, for example, are made when we
+had to fix a vulnerability and tried hard to do so without breaking
+something but in the end had to bite the bullet. Is this such a case?
 
-All errors (new ones prefixed by >>):
+Because if not, it looks more like a situation where Linus would prefer
+to live with known problems, as earlier statements from him show:
+https://www.kernel.org/doc/html/latest/process/handling-regressions.html#on-back-and-forth
 
-   In file included from include/linux/scatterlist.h:9,
-                    from include/linux/dma-mapping.h:8,
-                    from drivers/firmware/qcom/qcom_scm.c:13:
-   include/linux/firmware/qcom/qcom_pas.h: In function 'qcom_pas_ctx_map':
->> arch/s390/include/asm/io.h:30:22: error: implicit declaration of function 'ioremap_prot'; did you mean 'ioremap_np'? [-Werror=implicit-function-declaration]
-      30 | #define ioremap_prot ioremap_prot
-         |                      ^~~~~~~~~~~~
-   arch/s390/include/asm/io.h:36:9: note: in expansion of macro 'ioremap_prot'
-      36 |         ioremap_prot((addr), (size), pgprot_writecombine(PAGE_KERNEL))
-         |         ^~~~~~~~~~~~
-   include/linux/firmware/qcom/qcom_pas.h:29:29: note: in expansion of macro 'ioremap_wc'
-      29 |         void __iomem *ptr = ioremap_wc(ctx->mem_phys, ctx->mem_size);
-         |                             ^~~~~~~~~~
-   arch/s390/include/asm/io.h:30:22: warning: initialization of 'void *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
-      30 | #define ioremap_prot ioremap_prot
-         |                      ^~~~~~~~~~~~
-   arch/s390/include/asm/io.h:36:9: note: in expansion of macro 'ioremap_prot'
-      36 |         ioremap_prot((addr), (size), pgprot_writecombine(PAGE_KERNEL))
-         |         ^~~~~~~~~~~~
-   include/linux/firmware/qcom/qcom_pas.h:29:29: note: in expansion of macro 'ioremap_wc'
-      29 |         void __iomem *ptr = ioremap_wc(ctx->mem_phys, ctx->mem_size);
-         |                             ^~~~~~~~~~
-   cc1: some warnings being treated as errors
+But it's easy to misunderstand things from my outside position, which is
+why I'm asking.
 
-
-vim +30 arch/s390/include/asm/io.h
-
-cd24834130ac655 Jan Glauber 2012-11-29  26  
-b43b3fff042d08a Baoquan He  2023-07-06  27  /*
-b43b3fff042d08a Baoquan He  2023-07-06  28   * I/O memory mapping functions.
-b43b3fff042d08a Baoquan He  2023-07-06  29   */
-b43b3fff042d08a Baoquan He  2023-07-06 @30  #define ioremap_prot ioremap_prot
-b43b3fff042d08a Baoquan He  2023-07-06  31  #define iounmap iounmap
-b43b3fff042d08a Baoquan He  2023-07-06  32  
-
-:::::: The code at line 30 was first introduced by commit
-:::::: b43b3fff042d08a0bcc0a6d87c3216b44860298e s390: mm: convert to GENERIC_IOREMAP
-
-:::::: TO: Baoquan He <bhe@redhat.com>
-:::::: CC: Andrew Morton <akpm@linux-foundation.org>
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Ciao, Thorsten
