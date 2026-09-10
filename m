@@ -1,108 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 400793E1D0D;
-	Thu, 10 Sep 2026 09:42:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53BD63F1045;
+	Thu, 10 Sep 2026 09:43:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789033333; cv=none; b=MHGZCQ9YhDgH8KnAhrnfWmHVUUxh5sQcFGKRVEaXiubnx23GtV8a0r+K06LZrIKp8cMBR7cx4s57geMOBQd3e3BhBM/6PZfSgeWkee+MdQFigW0BwoW0S2C4aIPQ0U9JOD2FYQCUEX5kf7NvshQiYgnAKwhGqbz/Gsqq6Gp8ZkQ=
+	t=1789033422; cv=none; b=KWv3HdR3k95r9te1OVntd/o0hzb4nKwtX0MYJYjYW7F4yUV5UH0tu/vXd/FrIaD/g9/nV+lbA4IzrlZT5aJDczuYgaexffTdTWvZ1XwNNhiHUAVICFJ9iYNhgEnfVqcIt51yVxeYJxeVSdNIDifCLof+/8PvdqNXqi3nLp7BjOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789033333; c=relaxed/simple;
-	bh=MmVsgNKKWN8IZ8Rp3Qyo39P5maWLE6qSTlV6nVRtucE=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=tmTgWckCILVNVldl6w6c5g/KEfP5P3NnBbLGh+gYdPcramvTrYn8wA1LoCzOGSyu8YfKiopLDgzDx77qkXJlf8ex4SHPOhOyrBFWbpbiixVVeiSl502CmL0o+NzSpUarqsUlCYWKYzA6azinJbFhiJTTaoV8BP/cRr4xIny6oAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gVHyNU/p; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789033422; c=relaxed/simple;
+	bh=YaoGfQ84ks+iaR2dKeqY8M15G+lBDfndgtqit6O3r5Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TDghwMMfcF3sRVwIZg/95rBjZQUUueOslPXpX/ce2kVw8mJLA3QhRsGsX65QfdPtBo2JLAzBHxzTd7ZhdSNqGt4dggIXXHtM4UNCKHDfWnjaChtFRpAF1S9Elldy/cgH2rvlhrQu/5jAtif87j+63/6158d+RSGrjxNRrdyZDk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JU0pPDhQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gVHyNU/p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC8441F000FF;
-	Thu, 10 Sep 2026 09:42:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JU0pPDhQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F03DD1F00893;
+	Thu, 10 Sep 2026 09:43:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789033331;
-	bh=V0eWo8PDEQustwYntT2khGLj11eLgAJ4M/mNCEY7eis=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=gVHyNU/pwFpC19gnb7ogTB5g6sJIBZcepfpGYy5fKZZ5fhQPkypZRbhStYQG6Lvk5
-	 ngIv4mlcIUVauG/aDGlAgRkkcU31XN8sNdGfhADAlkXqGc82JgIZMM0rOFIPO2vW8f
-	 3PZsgeBG8AxtEudwJ8UfanHBrYH464pBzb/2GcrrYipJdQ0lKMHWn1ehWmrUsPgTGx
-	 nlwhuHGNQWETYYOtUVTl1JHJ/OGgUzpFuQAPAT3tlPOm/6VYYnuUdps3LHsNRpbhOT
-	 gLvixtI0uI0IUIHh1H5El48T07GBDTijexyB6x0zCQMJSMUupAAFB6pLmQ33y3hfZM
-	 7p3+YixCte3/w==
-Subject:
- Re: [PATCH net-next] octeontx2-af: consolidate RVU AFVF device id definitions
-From: netdev-bot+sashiko@kernel.org
-To: yijiangshan@kylinos.cn
-Cc: sgoutham@marvell.com, rkannoth@marvell.com, gakula@marvell.com,
- sbhatta@marvell.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 13667453960@163.com
-Date: Thu, 10 Sep 2026 09:42:10 +0000
-Message-ID: <178903333043.219967.16020637944756528838@kernel.org>
-In-Reply-To: <20260908094051.666769-1-yijiangshan@kylinos.cn>
-References: <20260908094051.666769-1-yijiangshan@kylinos.cn>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1789033411;
+	bh=OYLEwdz7aP8UsgD+AaSdAYjyNHvX+ERbt9ZD4hVP2Vw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JU0pPDhQWLMlJankpgTKk/VMDFm6H3Hp5m4ZY6B607EaX3t95xdIL1zjBXlP/l0+z
+	 09OxRYv34EgaxUJQnF65T6sWTQVntJT14aRkKCwG81eTqzq8dUMeifQtfCBUil14s+
+	 wdk3UZB04f6H72qp/Mv+JCTpAKkvudu35GRS8IQNAC61WCVaqHqBm4VTF2wfdh1S/d
+	 u+u6uyhruGS409IYYNbiwvjn8CoIOBByb2/1ttq0FjPARDUKkaQD59SD+dI2vjPoVe
+	 +IBxM/eRfVLC3IcwpuYQNtus8GneyyYOrt/7oHkwvSHjpeowBgzUpFy+w8TbEhrbvX
+	 7xbhovkh12ZqQ==
+Date: Thu, 10 Sep 2026 10:43:26 +0100
+From: Lee Jones <lee@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Botsz HUANG <huang.botsz@gmail.com>,
+	Hemanth Selam <hemanth.selam@gmail.com>,
+	Support Opensource <support.opensource@diasemi.com>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
+	linux-samsung-soc@vger.kernel.org
+Subject: Re: [PATCH] mfd: fix typos in comments
+Message-ID: <20260910094326.GP2133376@google.com>
+References: <20260904122834.33723-1-hemanth.selam@gmail.com>
+ <apwFlV97bLVlvsOJ@botszhome>
+ <59747ea8-bd89-4dff-ba13-ff9c66318e8c@kernel.org>
+ <20260909161454.GF2133376@google.com>
+ <20260909161710.GG2133376@google.com>
+ <a05c4086-1681-44f4-88c6-de1073b0f5a6@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a05c4086-1681-44f4-88c6-de1073b0f5a6@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+On Thu, 10 Sep 2026, Krzysztof Kozlowski wrote:
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+> On 09/09/2026 18:17, Lee Jones wrote:
+> > On Wed, 09 Sep 2026, Lee Jones wrote:
+> > 
+> >> On Tue, 08 Sep 2026, Krzysztof Kozlowski wrote:
+> >>
+> >>> On 05/09/2026 14:05, Botsz HUANG wrote:
+> >>>> On Fri, Sep 04, 2026 at 05:58:28PM +0530, Hemanth Selam wrote:
+> >>>>> 2.48.1
+> >>>>>
+> >>>>
+> >>>> good job~
+> >>>> Acked-by: Botsz HUANG <huang.botsz@gmail.com>
+> >>>
+> >>> I don't think this is real identity. It always comes with other
+> >>> LLM-generated content - as in this case as well - from Nick Huang
+> >>> <sef1548@gmail.com>.
+> >>
+> >> sef1548@gmail.com is Googleable and appears to be legit.
+> >>
+> >> They also have commits dating back to May last year.
+> > 
+> > Botsz Huang is also a real name [0].
+> > 
+> > Now, whether they should be Acked-by:ing patches is another issue entirely!
+> 
+> But:
+> 1. The questionable account only acks when sef1548 acks
+> 2. Even the style is exactly the same repeating the same mistake of not
+> removing quoted text:
+>  - big wall of text
+> > LGTM
+> > Acked-by: Nick Huang <sef1548@gmail.com>
+> 
+>  - big wall of text
+> > good job~
+> > Acked-by: Botsz HUANG <huang.botsz@gmail.com>
 
-- [Medium] Incomplete consolidation: the patch's stated goal
-  ("octeontx2-af: consolidate RVU AFVF device id definitions") is only…
-
---
-
-octeontx2-af: consolidate RVU AFVF device id definitions
-
-This moves the local PCI_DEVID_OCTEONTX2_RVU_AFVF define from af/rvu.c into
-the "PCI device IDs" block in af/rvu.h, and renames RVU_LBK_VF_DEVID to the
-same name so both users share one definition.  The change is documented as
-having no functional impact.
-
-> diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu.h b/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
-> index 9afb7ac8969b5..fb4870cd18e9e 100644
-> --- a/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
-> +++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
-> @@ -22,6 +22,7 @@
->  
->  /* PCI device IDs */
->  #define	PCI_DEVID_OCTEONTX2_RVU_AF		0xA065
-> +#define	PCI_DEVID_OCTEONTX2_RVU_AFVF		0xA0F8
->  #define	PCI_DEVID_OCTEONTX2_LBK			0xA061
-
-[Severity: Medium]
-Is the consolidation complete here?  There is still a third definition of
-the same macro in nic/otx2_common.h:
-
-drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.h:
-    #include <rvu.h>
-    ...
-    #define PCI_DEVID_OCTEONTX2_RVU_AFVF		0xA0F8
-
-Since nic/Makefile adds:
-
-    ccflags-y += -I$(srctree)/drivers/net/ethernet/marvell/octeontx2/af
-
-the <rvu.h> included by nic/otx2_common.h is the header modified by this
-patch, so after this change every object built from nic/ (otx2_pf.o,
-otx2_common.o, otx2_vf.o, rep.o) sees PCI_DEVID_OCTEONTX2_RVU_AFVF defined
-twice within one translation unit.
-
-Both replacement lists are the identical token 0xA0F8, so this is a benign
-redefinition and no warning or build failure results.  Would it make sense
-to also drop the copy in nic/otx2_common.h, so that its users
-(is_..._vf() in nic/otx2_common.h and the PCI id table in nic/otx2_vf.c)
-pick up the definition through the included af/rvu.h?
-
-As it stands, does the commit message claim more than the diff does when it
-says the goal is to "consolidate RVU AFVF device id definitions" and
-"drop the local define", given that two live definitions remain?
+Suspect indeed.  Huangs anything to say?
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260908094051.666769-1-yijiangshan%40kylinos.cn
+Lee Jones
