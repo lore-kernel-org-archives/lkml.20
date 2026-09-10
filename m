@@ -1,39 +1,48 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BC323C09EF;
-	Thu, 10 Sep 2026 08:38:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F003AFD0E;
+	Thu, 10 Sep 2026 08:38:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789029497; cv=none; b=G2TTCsz4rqTxsoGv22CL6paoQbTCsb7sUmluTaJSRXBCOO4vSw++GmgBjl1UXh7Bjk+fzyXEWaRf3Gm9ltI41QJ7n72ijCCyOemgyIcIBAGS8912N/nbRU46WgI6/aCuyj8y6caP5qdoA8LGWKxkvO8fEInSBE62H4h+jXG7v4E=
+	t=1789029498; cv=none; b=sH7xiNrq7g9ud1zeYolQ/xJwtMBeggRFoGrcITumNHwdl+qfv9apdM7PnclCmHtCIo3nhCg4XcOFJiG6ViT3XF4LqcJY/NVSGAdNZ7l8UaC5bxLaTMdd/s1TPb58QewpUyEcVV4JjTNXIPtZsF2pKmhivjy4tEbJGlYp6xEUW5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789029497; c=relaxed/simple;
-	bh=gzQGhhbVeK7EkXy1JQsNg62SZ3XSyRCbgiGYtc89JFo=;
+	s=arc-20240116; t=1789029498; c=relaxed/simple;
+	bh=zK73mQCE7eL25giVjETkO1jHrD9oIHRwKKp1VRgnYrk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FZ9hga0Je16Q7LOkNtFE82+JNj5kSnuMT5t/hokcn1P8XXIX5IVPM8FGVS6oETZz/E36YrWviYmJWc5aDo16T/hWDYk9DKII8w6IPAp7jcLDK/oiJUErG6hdOmK8xFsryiINZPQUEYBniFDVA4ucNzaNOTf567aThCOsAqWzat0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Vuz6wuD9; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=sPZmyVxZ9I9uh7ZKOCRwk347kEkLXxik/JrqHVtGPz0BzUDwbZGAoaY6dAa3m0I1Gy7VAxhnqynOPkAZST/r5p8WbdlZwn7Ioj7oJARXBYJi1GUb55m57UxJ1Ifb/bR62p3v8yUFsv7V8x4P7BfRf7+If8VUj3f5Kyp/f78XuJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=eJEcYmwb; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Vuz6wuD9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3B161F000FF;
-	Thu, 10 Sep 2026 08:38:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789029493;
-	bh=xJE0w7P5Xr2Tj1b+BThpv49DkNX1CrBe7rg21sTMgjM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Vuz6wuD9Ky9rC7WKEH/vXyWDXvAvGysfbIvmgTJ5XP1mX6PHSvGr1clzzEtBNw1mi
-	 zm+U/nt8Z1pFUpa6x/5rhe2Ie9qc7QvwORg0lovmxAjvzKnQgPXQ9jrSyOfzZkrrpR
-	 ZYGP2oBMZOrwtVK8fktyT7oP6acKZ2UHnofgVYxY=
-Date: Thu, 10 Sep 2026 10:38:04 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
-Cc: David Brownell <dbrownell@users.sourceforge.net>,
-	"open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com
-Subject: Re: [PATCH] usb: gadget: u_serial: fix use-after-free between tty
- open/close and gserial_free_line
-Message-ID: <2026091034-slicing-same-692a@gregkh>
-References: <20260910082008.12397-1-syedtayyabfarooq08@gmail.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="eJEcYmwb"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=mG/4AGN6tjfd63G18lYs6f5vejXgChWS/qvpHpogEEE=; b=eJEcYmwbeaU9Von9rzUqN922Y8
+	/LYSnBHA1uZsh91UEF2DJYRHPrVy6B3UjC1uMfbSG/lv5mtiTb6822MmMms6UJOEgFw+3SQmSLxOQ
+	gTlmt4Ie9xzj3O60Eu+hEM0VlmsLaEyW+OBlBB33IkfTG85xxvnoYRCrrf2SfDWmmU48b1NkProQ+
+	3AUxJZ/JMOZre/1eZRS8kr96tLtZSXxE9WiXuoA5swejH8Qx8FpzP5awusmh0mlCYhHJExWjM5ih/
+	9pcwde1UfS8NSNe1H5bwiI7sac7PnJPz+UDBPcoiT/upywFCOkNt9tzc9T/xq9TpaU7/Fo5s5G44y
+	DPP6Sxnw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x4aIF-00000002CmU-1F4p;
+	Thu, 10 Sep 2026 08:38:03 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id B502E30056B; Thu, 10 Sep 2026 10:38:01 +0200 (CEST)
+Date: Thu, 10 Sep 2026 10:38:01 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: x86@kernel.org, linux-um@lists.infradead.org,
+	linux-raid@vger.kernel.org, linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH v5 6/8] x86/fpu: Remove cpu_has_xfeatures()
+Message-ID: <20260910083801.GU4121339@noisy.programming.kicks-ass.net>
+References: <20260901145740.42337-1-ebiggers@kernel.org>
+ <20260901145740.42337-7-ebiggers@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,66 +51,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260910082008.12397-1-syedtayyabfarooq08@gmail.com>
+In-Reply-To: <20260901145740.42337-7-ebiggers@kernel.org>
 
-On Thu, Sep 10, 2026 at 01:17:19PM +0500, Syed Tayyab Farooq wrote:
-> syzbot reports a slab-use-after-free in tty_init_dev()/gs_close()
-> involving struct gs_port. The port is allocated when a gadget serial
-> function instance is created via configfs mkdir (gserial_alloc_line())
-> and freed via a plain kfree() in gserial_free_port() when the instance
-> is removed via configfs rmdir(). Nothing prevented a concurrent
-> open("/dev/ttyGS*") from racing with rmdir: the tty core could still
-> reach gs_open()/gs_close() and dereference the gs_port after it had
-> already been freed, since the ports[] table entry these functions
-> looked up was a bare pointer with no refcounting tied to the tty core.
+On Tue, Sep 01, 2026 at 07:57:38AM -0700, Eric Biggers wrote:
+> The only remaining caller of cpu_has_xfeatures() is
+> print_xstate_features(), which uses it only to check and get the name of
+> a single feature.
 > 
-> Fix this by giving struct gs_port proper tty_port-managed lifetime:
+> Remove it and just inline the needed code into print_xstate_features().
 > 
->  - Add gs_install()/gs_cleanup() tty_operations. gs_install() looks up
->    the port once under ports[idx].lock, takes a tty_port_get()
->    reference, and stores the result in tty->driver_data. gs_cleanup()
->    drops that reference when the tty_struct is released. This ties the
->    gs_port's minimum lifetime to the tty_struct using it, so it can no
->    longer be freed out from under an open tty.
+> This also makes the "unknown xstate feature" entry at index XFEATURE_MAX
+> of xfeature_names[] unnecessary, so remove that too.
 > 
->  - Give tty_port a destructor (gs_port_destruct()) that does the
->    kfree() that gserial_free_port() used to do directly, and
->    switch gserial_free_port() to tty_port_put() instead of an
->    unconditional kfree(). Also, tty_port_destroy is automatically called
->    when the reference reaches 0. The struct is now only actually freed once
->    its last reference (held by either the ports[] table or a live tty)
->    is dropped.
-> 
->  - Stop gs_open() from independently re-deriving the port from
->    ports[port_num].port and reassigning tty->driver_data. gs_install()
->    is now the single place that looks up and pins the port; gs_open()
->    re-deriving it separately could, on an unlucky race with the port
->    index being freed and reallocated, leave tty->port and
->    tty->driver_data pointing at two different gs_port instances, with
->    the one gs_close() uses left unprotected. gs_open() now just uses
->    the already-validated tty->driver_data, while still holding
->    ports[port_num].lock across the first-open kfifo allocation to
->    serialize concurrent first opens against each other (kfifo_alloc()
->    needs GFP_KERNEL, so it can't run under port_lock).
-> 
->  - In gs_close(), a tty's .close() can legitimately run against a port
->    whose port.count is still 0, e.g. when gs_open() fails and the tty
->    core unwinds via tty_release(). The previous code treated this as
->    an impossible state (WARN_ON(1)), which trips panic_on_warn on
->    syzbot and isn't actually a bug -- it's an expected outcome of a
->    failed open. Treat count == 0 the same as any other "not the last
->    closer" case and return quietly instead of warning.
-> 
-> Reported-by: syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=fe63e4d633540f230624
-> Fixes: c1dca562be8a ("usb gadget: split out serial core")
-> Signed-off-by: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
+> Acked-by: Christoph Hellwig <hch@lst.de>
+> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 > ---
->  drivers/usb/gadget/function/u_serial.c | 64 +++++++++++++++++++++++---
->  1 file changed, 57 insertions(+), 7 deletions(-)
 
-Did you forget an Assisted-by: tag?  And did syzbot test this?
+Turns out there are a few new ones in tip/perf/core, so if you merge
+tip/x86/fpu and tip/perf/core things no longer build.
 
-thanks,
+I'm not entirely sure how to go about fixing this. Some seem trivial
+enough, but others, like XFEATURE_MASK_OPMASK I don't readily see a
+replacement for.
 
-greg k-h
+Boris, can you have a look? For now I'm reverting this patch locally.
