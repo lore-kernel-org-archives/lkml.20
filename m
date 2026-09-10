@@ -1,164 +1,137 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B74F3B3BF0
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:24:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20691399361
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:25:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789071856; cv=none; b=FWER/w13xE2cDr4JBaLB0dQDlYwBaD58LvIZ7EOMyDcneXntl2DE2Ww2W3n7GQNqKhvjRBPlcjlQ2oRGH7dYV9lH/TKQpMP82TpOOcOjJXzA2dyxP323kCL4kkxyjC6PumQFPGwrgW6uHePpdMB62Iuu1hRigTWwl/kJZ3Ne4i8=
+	t=1789071908; cv=none; b=Ejb9AH98fJH0uloykC9sFdZxG9NHKW0nHuyRwfiRmEcAVsNGli+UyGpjvc22UebpaO2gHD9hIu9ci5NMx/GoT6W7GcL1vv+bOjKySd4YBVD2peq+0F35p8bSPqnBDwMZQnfzrgV4FHMyqmYT7MtvciCUgzQxcLhflG5h9hmL+Z8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789071856; c=relaxed/simple;
-	bh=h4aCxdhy1tGoV6lGKVJX0x3mhzD+2ezFEQ/0eFlBe+4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qeKmeYcNtdxKROQCX1ocCtDWL3151RaUS/Dsy+z1l0vlJhxo4w2u6D3m915Fon9huHjbwp58a19kwOuU9Svw8bnZJ2L3q5H586IPKYcavQEaK78zWhsVb7hspTj/jfAgVD8TkDnDXjuhyhNGgnSokmSc26Jck3pBsLlP/vsBw5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W5hB4aET; arc=none smtp.client-ip=209.85.216.41
+	s=arc-20240116; t=1789071908; c=relaxed/simple;
+	bh=crUU4hqfzWmg1FxOzOMfiI90weFHQvv57LQbmKwL7Yw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hrDOcVwPdNbmRJ0VPBiFa0YP15vpZH1Uh8gFqVzLXHVwBW0cgFhYwBVzPpZhRT9+InndvZYG8I/zhgOwisLIIjpTabRSsLhEypLQYmfXiTstHV534dfRxqCs6A+lA0yyB3Vq+UizpbHG3hkP4q6ULHXEdSZtQlnSZaXhFiwMxJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bAGwIyJj; arc=none smtp.client-ip=209.85.160.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W5hB4aET"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-39b9a99469fso160593a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:24:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bAGwIyJj"
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-52de50e77ffso2271451cf.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:25:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789071851; x=1789676651; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=V0rAC78IGmF6UMoo1efDtTikBTEY+oo8toLUqaRvjb4=;
-        b=W5hB4aETjpYFPz7+aqlkKe68+7eovknFf0GKABeP1CN74iKs3ZCHOhHoTedBZtOm7u
-         u6JeD35sfPyspazqsqC8ZOXp0cPNgvnlttFJZY2/lFJ97zRsEBp1KMDKMBeYCk9PoTrc
-         rC2y+3/z3tz9yOr5oq3uoKpi9grbPdkTvrCBIcN+g0E0dp347l7QBHSEThJj4kzmgbuN
-         c1tYdySZpmrxZXbS/YG1TviQF++BQohiU0Z7v16bnYFc67a/g5qLu4gAyiJO2qRa8Upm
-         RoiqHg9gtmcHtggdL7tAyJyU8c6UdhbEfEIKD2hLy3KHK2wQNZdmsaSeQIhSvvaZw20/
-         9GhA==
+        d=gmail.com; s=20251104; t=1789071901; x=1789676701; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5fAMAx/mtgGUhEgU04FWSZ/Setac6qTqsovVdgc29/U=;
+        b=bAGwIyJjkgOB5FOga3HHp1f9N9HnhfFRWItViJJ9iNZRPj5Kbvva1lSdY9sMJFzucy
+         VBenCSKY7AT4TIqCFIlTTJ+1h1vRM54aEA75LheqOp46E0F+pB+HyXfc6CE57rqfRqor
+         SJHw1NgZRTbRYjslihFt2qwirGNErQmPbm6IWyzmFOEFydi/d4JwTLtZ3RE2uMKfOVqn
+         bGOaiGFZVMLT3xxWVDGKljNWuvC3gTAVaz9TF3Uu2dDFjRs2BafV4BnSOhmeCMFbHZVE
+         u8GCN6AvVdpChBxPKEUFLhl5zbs1EKvRGHtdxZ/HJVFbeBn0EnnMOHDj2OJC19xjvk4x
+         1D7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789071851; x=1789676651;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1789071901; x=1789676701;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=V0rAC78IGmF6UMoo1efDtTikBTEY+oo8toLUqaRvjb4=;
-        b=cJEVULg17plECjdDXJaqZDa5CNsCXdQ4PB0ywoR/sqCs1TsmwvL2dZUW9EhaASQvh9
-         fpX9sG9Oi4T8ypFn6XRH6acnzmUa67MG7AZlVDcBuGniGcHbuzA3NTPGP8i5HpMFE94J
-         s6hc5zJMBNtP046tjEa8T3MKYopyLjzT4RCUgLJHUISK6FiAru/UJx8kt2QGvjqBsSVD
-         ZEsc7bnLbNlCYIXQC50a8zFUt+PoH31JcPgzuDGiCnkKWw53tUcDkhQKQ01YMLpTGo6G
-         A6Ktbl8OKOtDuXfrVyhpTsDO0Me58wwWXHByfPa/yuzXuC7wsw8BJJoZNK3SxMslzSdv
-         vYLw==
-X-Forwarded-Encrypted: i=1; AKwUvByyK0zNFSxnj4cHW8r+nqPgE4ulfOf0z8SC8YBv6JjyfKx91G5cuJTDfCC3eLPMYXZNRGY75ipH5kvw6YU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nU92WGavt4JB8YfXufUwZXYxkUig0agcZEn7G1hK+gNup7M+sL
-	dXQVS3VuGcpjDxwNc0ommIwxus/TgqpIqH60/ShmtC5Ht2KjhIbU9pMI
-X-Gm-Gg: AYBFou36W74tRDEqL3dmTpb9WgACAKyGnGPjXmSzfeF0VAp552zDF0BLYkNB9/G2EWm
-	pQnScEyW5yy0cZk8qkIwPw4XVKfBp8eMTQZ8dYxiTiu1ZTLiO+kj6H1xABMmC36Ke8E6Z0QnCmf
-	47V6j806jA5vo5Uj86YULBuFCeLtJEAdl1do+Ca28iQgUa7lvMitFD6MFtAws7X0ot7GKr/Kd0d
-	w+Iv70yrHxl0L7Fh10nFmKuwTU+4F+qEWXG9A4tI7yl2RKDuvFfs7BdQenmFoY9cGwAakJ3ClkW
-	jieArovZH/HzaRlLzEUdaRRIsQPVfSRM3n/MCHD+5TNTy9kUonn6AE0emJcNio52aXLcM7sveI4
-	GOe41NLMMTQIDi8EDqWGtMXsHiux+vQcDMdSpYlarfBo4dyg51UYxMRBmTBFx9j0dxgeIFJ6E15
-	0ChmgeVmtias1Vtb08MW/nKSWIQG1ez/ranJDkJ31ASQlzyjk3p+EOCouJFSv+0ImYW9QGJ9klr
-	+2dz0AElfQyXMlRQ+wDizrhLdpBS9lwxbpkfwcyyM887xTLgSn1CWDA8xUjf7NaPA==
-X-Received: by 2002:a17:90b:5807:b0:398:e96a:8999 with SMTP id 98e67ed59e1d1-39d9c1befffmr644645a91.16.1789071851148;
-        Thu, 10 Sep 2026 13:24:11 -0700 (PDT)
-Received: from [192.168.0.158] (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365a598aasm973848c88.1.2026.09.10.13.24.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 13:24:10 -0700 (PDT)
-Message-ID: <36c6e08d-4856-47ca-a45a-018cc563846e@gmail.com>
-Date: Thu, 10 Sep 2026 13:24:09 -0700
+        bh=5fAMAx/mtgGUhEgU04FWSZ/Setac6qTqsovVdgc29/U=;
+        b=Z+tTRRH6UjQBXSqrcQm6AnSIOf3tdJSJHydi9EM25usEa0dwOy0M4v+Szg4K2JhUhG
+         EjZ9C6NpdWhUd74MjoUASQbWDGl9VszqZw9gfbOTS0NM+iHfFVLRvrslgV0XdeOTDBFp
+         e3P/X8EKfcsQvUWrn5FokVezKQIFLU7iLR1b4oy7st5+sJCSJKA6iwxxd92QCRsNL8XN
+         p/WwxEWL8K2dVkk35AF9z8YpODWLK3koS8e145IWfj1pv+R3hgprkh5Gaplwrf7gtC+L
+         rgXDSU8nmDUCoL5EBdUPRcQFqYJbUQ2TOdUdQxsE35eVD4Q3dvHfl7fIHgMjuBzhNB/N
+         aOwA==
+X-Forwarded-Encrypted: i=1; AKwUvBxcbqwRLJKNWyZbTj+XruMfygbNDWBsKH1M0zbaVK9C3u1dv0XRpcLVrzeHAidleBGHv+efsVD6S/8pcJU=@vger.kernel.org
+X-Gm-Message-State: AFuF++k9XX1ax+nPAEdQRtrN8fn10cxyZc56YTiG6OYh3ZvnCq+FfXOJ
+	GUbG7/5d9UaUxG2ocPuM5ayVIykotBlK7SHLlqGxWed5rk+1gjHy8vVg
+X-Gm-Gg: AYBFou00LnxemERvwkIlpILYD4dSRAZT1ENJU5/vz019NXKSCkN4TrWRRm+V/XKRS/4
+	pQweMAqZl1YFohpgU7psfqQKWXozppJCVPD6b4p3+z3RPYHVcWLT77eZ0wVfRV7SRpHoCMK2bvS
+	LUvY1hIbLEkOB0B0JqIX2hNljMYjfUyKwM+KF1pUocsrySapXsS2hTwoF8j7fAAidyg3Te1tPH0
+	pmk9q1OqdRM2vVF2mu+7btHjYTs98F5RHexWbj2cDix//+V10qM1KT0cDDU3YSYG8mn9vKYxfGI
+	9LRtQ3Z6eZ22fG3Uib4JqmRIT3IyPhSrUhdfQPOTNMATgyrcskshQZhnbSMS/rxsyZlqraq54Ea
+	giVZ9mE69UN7zN6u/Cl0TCp5M1rCiyn6iIQSLTEsuEkxzJBbiI3vX/BE8+To44QYvoFX5dejVu/
+	YGZDNbE4eMV8fgA6bhoXt5puIL4nzBUoPe/neUX3TfAAMu8n9shrN3jDO0nXwNo5mVeBuHNhGe7
+	RJOMf9tudzRl7ElmUC+ku3ZyvQ/NOvsM4znbYkwlJwLZhkezbF31Fc6vCjxJvohHSpGbOW7hzeh
+	4tlTkMh7SOacGrLc0qVJgsbS55nqlBAT7MAyje5voOuF8FEHnQ==
+X-Received: by 2002:ac8:5a0f:0:b0:527:809c:f9cf with SMTP id d75a77b69052e-530c85979bcmr17636911cf.21.1789071896008;
+        Thu, 10 Sep 2026 13:24:56 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca489107sm2035371cf.14.2026.09.10.13.24.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 13:24:55 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: dmaengine@vger.kernel.org
+Cc: Zhang Wei <zw@zh-kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	linuxppc-dev@lists.ozlabs.org (open list:FREESCALE DMA DRIVER),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCHv2] dmaengine: fsldma: fix kernel-doc param names to match function signatures
+Date: Thu, 10 Sep 2026 13:24:53 -0700
+Message-ID: <20260910202453.47887-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/15] HID: hid-oxp: fix and extend X2-family controller
- support
-To: Andrei Aldea <andrei1998@gmail.com>, Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
- linux-leds@vger.kernel.org, linux-api@vger.kernel.org
-References: <20260910032115.28669-1-andrei1998@gmail.com>
-Content-Language: en-US
-From: "Derek J. Clark" <derekjohn.clark@gmail.com>
-In-Reply-To: <20260910032115.28669-1-andrei1998@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Fix kernel-doc warnings where the documented parameter names
+(@chan) no longer match the actual function signatures (@dchan),
+and add the missing @cookie and @txstate parameters to
+fsl_tx_status.
 
-On 9/9/26 20:21, Andrei Aldea wrote:
-> This 15-patch series fixes existing hid-oxp configuration and RGB issues
-> and adds controller and lighting support for ONEXPLAYER X2-family devices,
-> including the ONEXPLAYER 3 and X2 Mini Pro.
->
-> The fixes correct the M1/M2 defaults, validate input reports and RGB state,
-> correct brightness and color scaling, serialize RGB updates, and make
-> configuration state and delayed-work lifetime local to each HID interface.
-> They also handle controller reinitialization across system suspend.
->
-> The X2 support selects configuration interface 2, supplies the required
-> three-page button map, and adds the Gen3 protocol for joystick-ring zones
-> 1, 2 and 7. The Guide button and rear logo receive independent multicolor
-> LED devices using zones 5 and 6, with monocolor and breathing effects.
-> The final patch documents the controller and lighting sysfs ABI.
->
-> Patches 1-10 contain behavioral fixes. Patch 11 groups existing declarations.
-> Patch 12 adds X2 button maps and interface selection; patch 13 provides the
-> shared LED representation; patches 14-15 add X2 lighting support.
->
-> This series is based on mainline commit
-> 50d05c7c76c96b90462f24debacca971d2e86713.
->
-> Testing:
->
-> I tested this series on an ONEXPLAYER 3 running Bazzite 44 with kernel
-> 7.2.0-ogc6.1.fc44.x86_64. Testing covered front controls, rear paddles,
-> Steam and Quick Access behavior, independent RGB effects, brightness/off
-> controls, and suspend/resume restoration. I also built the module with
-> W=1. X2 Mini Pro hardware testing remains outstanding.
->
-> All 15 patches apply cleanly to the stated base and pass git diff --check
-> and checkpatch.pl with zero errors and zero warnings.
->
-> Development and review:
-> https://github.com/OpenGamingCollective/linux-unstable/pull/13
->
-> I used LLM assistance for protocol analysis, implementation,
-> documentation, code review, and test orchestration.
+Assisted-by: opencode:big-pickle
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+---
+ v2: split up from series
+ drivers/dma/fsldma.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/dma/fsldma.c b/drivers/dma/fsldma.c
+index 22d62d958abd..6ce0e5668dc2 100644
+--- a/drivers/dma/fsldma.c
++++ b/drivers/dma/fsldma.c
+@@ -681,7 +681,7 @@ static void fsldma_cleanup_descriptors(struct fsldma_chan *chan)
+ 
+ /**
+  * fsl_dma_alloc_chan_resources - Allocate resources for DMA channel.
+- * @chan : Freescale DMA channel
++ * @dchan : Freescale DMA channel
+  *
+  * This function will create a dma pool for descriptor allocation.
+  *
+@@ -738,7 +738,7 @@ static void fsldma_free_desc_list_reverse(struct fsldma_chan *chan,
+ 
+ /**
+  * fsl_dma_free_chan_resources - Free all resources of the channel.
+- * @chan : Freescale DMA channel
++ * @dchan : Freescale DMA channel
+  */
+ static void fsl_dma_free_chan_resources(struct dma_chan *dchan)
+ {
+@@ -873,7 +873,7 @@ static int fsl_dma_device_config(struct dma_chan *dchan,
+ 
+ /**
+  * fsl_dma_memcpy_issue_pending - Issue the DMA start command
+- * @chan : Freescale DMA channel
++ * @dchan : Freescale DMA channel
+  */
+ static void fsl_dma_memcpy_issue_pending(struct dma_chan *dchan)
+ {
+@@ -886,7 +886,9 @@ static void fsl_dma_memcpy_issue_pending(struct dma_chan *dchan)
+ 
+ /**
+  * fsl_tx_status - Determine the DMA status
+- * @chan : Freescale DMA channel
++ * @dchan : Freescale DMA channel
++ * @cookie : DMA transaction identifier
++ * @txstate : DMA transaction state
+  */
+ static enum dma_status fsl_tx_status(struct dma_chan *dchan,
+ 					dma_cookie_t cookie,
+-- 
+2.55.0
 
-Hi Andrei,
-
-Thank you for this, a lot of really good and needed changes are present 
-here that will greatly improve the driver and it takes a load off my plate.
-For the patches with Fixes tags please add Cc: stable@vger.kernel.org in 
-v2. I'd also revisit which patch some of them fix and make sure the tags 
-are correct, RGB and buttons were added in separate patches.
-
-Thanks,
-Derek.
-
-> Andrei Aldea (15):
->    HID: hid-oxp: fix default M1 and M2 key mappings
->    HID: hid-oxp: validate input report lengths before decoding
->    HID: hid-oxp: retain fractional brightness when reading RGB status
->    HID: hid-oxp: reject invalid Gen2 RGB status values
->    HID: hid-oxp: fix multicolor LED intensity scaling
->    HID: hid-oxp: serialize complete RGB updates
->    HID: hid-oxp: select brightness policy for the new RGB effect
->    HID: hid-oxp: stop configuration work during teardown
->    HID: hid-oxp: keep configuration state per HID interface
->    HID: hid-oxp: handle controller reinitialization across suspend
->    HID: hid-oxp: group declarations and protocol definitions
->    HID: hid-oxp: support three-page button maps on X2 controllers
->    HID: hid-oxp: represent RGB LEDs with a common array
->    HID: hid-oxp: add Gen3 joystick ring RGB support
->    HID: hid-oxp: add X2 auxiliary RGB zones
->
->   .../ABI/testing/sysfs-driver-hid-oxp          |  196 ++
->   MAINTAINERS                                   |    1 +
->   drivers/hid/hid-oxp.c                         | 1743 ++++++++++++++---
->   3 files changed, 1623 insertions(+), 317 deletions(-)
->   create mode 100644 Documentation/ABI/testing/sysfs-driver-hid-oxp
->
->
-> base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
