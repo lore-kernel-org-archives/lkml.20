@@ -1,242 +1,72 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34916595751
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:15:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0886039AD2A;
+	Thu, 10 Sep 2026 19:16:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789067712; cv=none; b=rySJggFbDDZMylRhgVTg8q2RcJ+4aetlXsoclcM9DgKfZKVnAziinMuXOxbLsXmM11gF2OhMJMP8CneqHH1pdXQiJI6ryD18+UGbhcmMuFqbzgpDgLXx3WjxBAohLNTykgP3AR/TZrebQhL9BqXVfIlTHmcJRyvGtFl87mUlK8k=
+	t=1789067776; cv=none; b=oY1p9+SfySToGUs76lID0QCcHT0qbn44bXVl+9Nw9EnWTGnDI1kVo0Kskqa7CGu7nFecibQ0H4FI9gO5O+Mo/po+Og9anOh8eRPpDFoCC9i+bMubzkBIWA7lfQDv4vKJLQYYgzBjsT4iLCEfX3Yc6BjfQQFLj4F07RFGRB46n9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789067712; c=relaxed/simple;
-	bh=SIjCw6vu2Nolc5BGLxkzrlpiPylpl82CNVXXbYaAcVo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aOyy9e4EXbxChG0l9BdA8KCi/Hao/dFFJrxC9ZVQgAdLZ3q8t83080UwRaROD6PTc/hr+u22qJgdsP5Pq8zlJU28vJyy0405dOc1DQBjhMHcTMskT2JMQ35Kg0GZmAhIEwf/Vz8eJnfYb84KpQjzjYt/ZEDm1WxSjvXKPsz7K78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sVgfi3CC; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789067776; c=relaxed/simple;
+	bh=cczUuxqy4PgZFHgux79qhQCK0fGch5tivm6wnII7Eks=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=MLYvvA9fFKHO03EFFdlRE1XIQ2GlWk9GwN31CyG/QbAW+rjbjwdgfSUPui+sxonJwVEw3UDEphStTCED2MItwTCrS33vYB0wT7mFrEIlSS/QzWHCyEdsfyiNHQJbAW+gsteTSi5lOSJQufmt7IvEhLAUZxm/4LiOeWW4KKlbNgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jADyzzJE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sVgfi3CC"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so1846765e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:15:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789067708; x=1789672508; darn=vger.kernel.org;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4fbV+eT9jOuG2Qn7UfINqLkpoy41J2mIUSyeK6YfW10=;
-        b=sVgfi3CChuwLTM+233Ebm3W2XQR5ob8Xmj2hxYfYfBh6UdzmZAd1F8P50WlsFsU/AZ
-         psvIeuA7urpNdHC2OKN7WLUacvzOHSzyoK/yWr4EvMZhEwlAOrrd4qZ9wbIAMYT/wK8i
-         lSShDdJYiQFVx7of2GRr06kIfjHJpM4xRLWjwXxno3BVR7+ZVlFqyqNzU+yOOuCw2cF+
-         wN8myad8Eud2RRGywrPRDk/FoSdbXXUNLVzpgDWHMNVjK0204CXFQZbmQt4ZB6onKvg2
-         lMiY6Ew7FJo8UYojSKirkpmc+BC8Y3Le64BX8nt+4+wAjjUsAbpkmHFyr7PRoY9dOMBa
-         T3aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789067708; x=1789672508;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4fbV+eT9jOuG2Qn7UfINqLkpoy41J2mIUSyeK6YfW10=;
-        b=eQgOuZT0gZBs1ZNDMtpC+tfqzaj2u0Cy1LTh9zx9VnRM27TH/lmP6sd6A5C4Ll7zkp
-         xlDHVQpE9gbwf/gbop5fQUR6TBhMROlvLZnDW14YV6M89Tyr5r7TMC+jfJUY+/WAXABD
-         X1I09TDmI21Qq31H0zs6l9R7cGVrM/BJjfLFXHb/rEZqKclfGxBEUAtAveae2oO9KrjQ
-         xwEw6Ne0Y/1GiQkl0amMSTIUbsJmL70WAGJr1S4D37g2umHGTqmdGCoH4XTWL4gTpk6g
-         rJVFTbIcwY0EeOtF7XLnLhUxhKbGQS3LcVBrA+CqeG0P1DFeEgiGFhcGu4hUkU43ExJi
-         1O7g==
-X-Forwarded-Encrypted: i=1; AKwUvBxyO4zhwbqApzyHzH5KaWhOP7CZa2WnlHbOgY/cRCXni7n8Eg8jUFuGQhbUiCQh5pDbprhKqKVgpOFTx+Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++n3mozSjoBb0ta7FVm2VAUVA/Z32Kmd+CH5cRg/0P4sYlE8+M6Z
-	/AjlUeeZGTTYuiFNcXoKod+rE5gcF+0FrCwQVKrlNVt+n5RCGZuXK/OQ
-X-Gm-Gg: AYBFou3nUSwNttHGyVa8Ed2nDGBXKjt+g/KuP7dphHW4sUBrLBReKMGHRy1wmrJSZu5
-	b8ZBqLZ7folAGZeI0YLFZCWgIWqQXANAi+72+3Xhn2sUNBwSe2H7AQKx9XPvL2+Za5vqiPts9p4
-	gN89PraRxTqXkX4I/DgIP7NBvIEeruBZQwC1EIE2iDRfWhdRBihjS4JDA3vdezO3RLFFlWhN2KL
-	6xs3CxHbHJV3/cTqcMsT6v1ls65wjpE6MYvKfmoNhZcKYF+BCOy6unUFT1RJ6ybhpZL7la+i/UY
-	/akIXjoveDAN4ZvVxLd1jM6GdgYeiJxCc6GK8gMuJdc7LyZtJd1cTteMh3Ti0ffz92N7reJ/GaE
-	lBqax8JmB0obaZt8rNH+6gNr4WM72RpjI2N6mZfCN6TJNS2BY7LbxJHEftD7QTUtvahfgO77VAG
-	vLHqBlnHQwSOmxxO/LQdL9odk85rv/tslLS2x6Readit1oqohLM7cI3pV9zx5oZ3BrP3ARwG2yN
-	TFJuWL1JQ==
-X-Received: by 2002:a05:600c:a07:b0:49c:fc6c:be0d with SMTP id 5b1f17b1804b1-49e619bd19cmr5097405e9.19.1789067707645;
-        Thu, 10 Sep 2026 12:15:07 -0700 (PDT)
-Received: from strix.localnet ([197.250.227.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e61a33d72sm4385485e9.2.2026.09.10.12.15.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 12:15:06 -0700 (PDT)
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Brian Masney <bmasney@redhat.com>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Russell King <linux@armlinux.org.uk>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
- mfd@lists.linux.dev
-Subject:
- Re: [PATCH v11 05/12] mfd: zx297520v3: Add a clock and reset MFD driver
-Date: Thu, 10 Sep 2026 22:14:54 +0300
-Message-ID: <x9tzyTnKRAOyrdtSGnka0g@gmail.com>
-In-Reply-To: <20260910161711.GK1051768@google.com>
-References:
- <20260826-zx29clk-v11-0-f8ad59c6426c@gmail.com>
- <20260826-zx29clk-v11-5-f8ad59c6426c@gmail.com>
- <20260910161711.GK1051768@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jADyzzJE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3937B1F000FF;
+	Thu, 10 Sep 2026 19:16:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789067773;
+	bh=oIOJdraHkZ9UpW60PXVbDH8Os8XbWM1AkU45Ek3qD/o=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=jADyzzJE/2kfTrpB7F8D2oRoUekV+vbcvurkvLf5X0iaZWLNbRHBnjGYPVf16cWEB
+	 XTF35Vto6hX2MAsRLQuGIaY0BMue189Q6JbLk+xHwhHTuFJhEkVqIOTkMtWsmQsMKp
+	 qDH1KvlHJN+7GikRH/oXu8Xke4rg+ciqj6aom6FLFdamOOzws5YdpB0trx69E8HkPP
+	 nUaFJiB8wNDG3kGeOLYwryE93Ptq7lP5g8UFvoCl7bzdUa7tB5uljMa48RbZJqatjx
+	 vfjju7BPPH++EA31kEiKpdjT0xPTtUA3tgYPd/fbtq1pCfZ0Y7X3nvOS0guvAU/egU
+	 S1Cpy2eU8pX8w==
+Date: Thu, 10 Sep 2026 14:16:11 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Jiwon Kang <kkjiwon04@gmail.com>
+Cc: bhelgaas@google.com, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] PCI: Remove unnecessary static initialization to false
+Message-ID: <20260910191611.GA338709@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPartKW3nFVAkQr2M_09ZHSiKcQ";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260730053337.22427-1-kkjiwon04@gmail.com>
 
---nextPartKW3nFVAkQr2M_09ZHSiKcQ
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: Lee Jones <lee@kernel.org>
-Date: Thu, 10 Sep 2026 22:14:54 +0300
-Message-ID: <x9tzyTnKRAOyrdtSGnka0g@gmail.com>
-In-Reply-To: <20260910161711.GK1051768@google.com>
-MIME-Version: 1.0
+On Thu, Jul 30, 2026 at 02:33:37PM +0900, Jiwon Kang wrote:
+> Static variables are zero-initialized by default, so explicitly
+> initializing to false is redundant. Remove the initializer to
+> follow kernel coding style.
 
-Hi Lee,
+Thanks; can you repost this with a Signed-off-by?
 
-Thanks again for your review!
-
-Am Donnerstag, 10. September 2026, 19:17:11 Ostafrikanische Zeit schrieb Le=
-e=20
-Jones:
-> On Wed, 26 Aug 2026, Stefan D=C3=B6singer wrote:
-
-> If you use of_platform_populate() there is no issue with this living in
-> soc/.
->=20
-> You cannot use the MFD API outside of drivers/mfd though.
-
-I'll keep it in drivers/mfd. of_platform_populate would force me to expose =
-the=20
-inner split of the CRM devices in the DT, which Conor and Krzysztof advised=
-=20
-against.
-
-> > + * Copyright (C) 2026 Stefan D=C3=B6singer
->=20
-> Are you sure ZTE are okay with you Copywriting a driver for their IP?
-
-This is my free time work reverse engineering work, not something I did in=
-=20
-coordination with ZTE or payment from them. I only took information about t=
-he=20
-hardware from their GPL dumps and not code. In my understanding the copyrig=
-ht=20
-of this code should be mine, and putting (c) ZTE would even be misleading.
-
-ZTE provided U-Boot sources on request. Their kernel sources were already=20
-public before. Sadly they provided no material on their LTE components.
-
-I didn't explicitly ask them for permission to upstream self-written driver=
-s=20
-for their platform because I don't think I need it and I'd just expect a=20
-request like this to languish in their legal department.
-
-The kernel once had support for a related zx296702 and zx296718 support tha=
-t=20
-was removed in 89d4f98ae90d ("ARM: remove zte zx platform"). This code was=
-=20
-written by Linaro and I believe commissioned by ZTE, so I don't think they =
-are=20
-upset about me doing their work for free. At some point I'll resurrect some=
- of=20
-the drivers from back then, which will then of course carry the appropriate=
-=20
-Linaro and ZTE copyright notices.
-
-> > +enum zx_device_type {
-> > +	TYPE_INVALID =3D 0,
-> > +	TYPE_TOPCRM,
-> > +	TYPE_MATRIXCRM,
-> > +	TYPE_LSPCRM,
-> > +};
->=20
-> What do each of these mean?
->=20
-> Is the nomenclature taken from the datasheet?
->=20
-> If not, can we improve it to make them easier to read for humans?
->=20
-> Failing that, more comments would be helpful.
->=20
-> > +
-> > +static const struct mfd_cell zx297520v3_topcrm_cells[] =3D {
-> > +	MFD_CELL_NAME("zx297520v3-topclk"),
-> > +	MFD_CELL_NAME("zx297520v3-topreset"),
->=20
-> Why are these works concatenated together like this?
->=20
-> Same with zx_device_type above?
-
-I don't have datasheets. The names are from ZTE's mmio defines, which I exp=
-ect=20
-to match whatever is in the datasheet.
-
-zx297520v3 is the name ZTE gave that SoC (printed on the chip, in their ker=
-nel=20
-sources and boot messages). Yeah I wish it were less of a random string of=
-=20
-letters and numbers. I believe it should be in the MFD cell name as a kind =
-of=20
-namespacing. In the (unlikely) event hat support for a different ZX SoC is=
-=20
-added some day it will bring similarly named "top"/"matrix"/"lsp" controlle=
-rs
-
-topcrm / matrixcrm / lspcrm are the names ZTE gave the 3 clock/reset/misc=20
-controllers. The DT binding docs in patches 1-3 elaborate on the respective=
-=20
-roles of these controllers (although that understanding is based on reverse=
-=20
-engineering, so it might be wrong)
-
-=46inally, "clk", "reset" are the names I gave the child nodes.
-
-Rather than write zx297520v3-topcrm-clk, zx297520v3-matrixcrm-reset I cut o=
-ut=20
-the "crm-" part.
-
-Can you think of better names? Are you OK with the names if I add the above=
-=20
-explanation as a comment - a little bit shortened, and making sure I don't=
-=20
-repeat information that's in the bindings more than necessary?
-
-Cheers,
-Stefan
-
---nextPartKW3nFVAkQr2M_09ZHSiKcQ
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmqjAa4bFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJED0TvMhUTxoi1l4P/j2RW0zmocuD81Wb5sZv
-znns4ujhGapOszlboqNQmeHKggVJawfrXfzWDfrJjPPoh/CtxKqMnktV0jNxud+F
-2epOFBD7UpM75AM6FVhx++ol5zDBVsuGFUjJMTmJ8m9jji4bNEuZcD2mTtlAt9Hr
-E19NYXZLQ1QsWdUi05+JaAx40GfP3swda/sENz78aOm4KNkcbbnE9OGaG4JaTbb5
-xfNh3OZ5AlBeIKlfsZFdtJSKsb/iBpEIc24hMHVaWm+h+KjbFKpP4034lGwshYzT
-tB1BoP+jJ+ebVTKzKTpT3xiuW+cLQDegDAyKhzYZulk4ILuzIq7JomMVn4P8UzHR
-3YNTu8DdCEZbAqDDMNlWWTkpYRPTSvYtSbivB6DeCM6oO46o7WvlnFqcjWRqN4/z
-j0s062KBfAkiodcaVaeLCjmg6aPqYKf0/yjhDTsjZRiDSn6nIs58JPh8PNhfgNhw
-4XHOVKRhzTYxOrOJxP33xgwbQf9IeJQT6n3UFqw62ieLCpR5uFd31vIHHS+bH2kd
-dAv3ER5fhNZcladCb4H4Nbx4TwiQ+ry3+KIPEJWre3zFNW0F79AGo1yz21/Buy6h
-NBjFRtosY8KazSjZqVHFdCn9N6N0X+1x3R79gJgTRSXrCbk/icBx9pACGfOb0pET
-wvukjxM7IWssDtOA0cwG+zAr
-=PTj7
------END PGP SIGNATURE-----
-
---nextPartKW3nFVAkQr2M_09ZHSiKcQ--
-
-
-
+> ---
+>  drivers/pci/pci.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> index 77b17b13ee615..ee2beaacbc73f 100644
+> --- a/drivers/pci/pci.c
+> +++ b/drivers/pci/pci.c
+> @@ -6671,7 +6671,7 @@ static void of_pci_reserve_static_domain_nr(void)
+>  
+>  static int of_pci_bus_find_domain_nr(struct device *parent)
+>  {
+> -	static bool static_domains_reserved = false;
+> +	static bool static_domains_reserved;
+>  	int domain_nr;
+>  
+>  	/* On the first call scan device tree for static allocations. */
+> -- 
+> 2.34.1
+> 
