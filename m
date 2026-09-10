@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2176C3D3339;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 240323D3499;
 	Thu, 10 Sep 2026 06:38:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789022337; cv=none; b=JrIzsxQqnXbHoP5b45yvQsrWTGOWE4prO5aKKtmSjOAulzGQmVpV5Zl5LzU2cwrWVUbdkTFHPbVBV13cfUjJ370PqliEQL9bzU2/pspzfRkKKxE5u91AZ2ftg+iZim9vXr0yc5KUhUm6IS80fbuEsi8P6j+Q+FalJwj3PYZi0j4=
+	t=1789022337; cv=none; b=D+EiTC83jVANwemd2vZtc+31XVJy6DB7qIaBSHBA9UU1bli8pejnMiFdoilAIrss/wTArbxAwseMrYSDVGDUR9fefHF0dWl7MgNAA5dCTLQkmDCx5U1Qyj/sTehOW4TbPPMSMjaXir3hunUVG3o1Hj1wDxNF6IKmoFNQA5G9vbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789022337; c=relaxed/simple;
-	bh=2TU5UtSqlTK5Fx9D95GxY0TfdDPbOgZck8finK/MKtM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kHEetB6Xz7uYV7BVKZTCJ29hoinqQrpS+g9jBSxj+u2JeArTlVyox7FqGlVM/FjYvl/ZDZrzIzKx5TowKkeT4tODPZn8j11lzOBvYGWfzaU1dpPY/DrFkqzAGpC2hJZYv9zDMTuyTiSxl6gp9nM7eLmSOK5WuwqWY56FGXzJI9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BFsf7P2z; arc=none smtp.client-ip=10.30.226.201
+	bh=6rWt1xIppEggcuvcPQEJmOPBQ4LH6RI7xBI39Qw2D18=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=BEPmjPv/O7IXAvYtdEXBZIQypyTMsmzfYtJuAUdw5YrKFeQwEgPeSOpPBWWR0wr0TUYEy8UA6jjYCElHlUIgMYcB46LmrpfDiOKcon0S9G4bjXmnsSchV9HjnXroZILf0sjyXXhTlkWF3gIJtMgPq+D1T8Q2xEG4gUxs+BOIsQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=asQKg2js; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BFsf7P2z"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 91F01C2BCFC;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="asQKg2js"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 80AB1C2BCF5;
 	Thu, 10 Sep 2026 06:38:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789022336;
-	bh=2TU5UtSqlTK5Fx9D95GxY0TfdDPbOgZck8finK/MKtM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=BFsf7P2zElLdbO5Q0ymkbWVfDBWZDNXAgIrMIRK7VgkT45En02HXgiunXNP/8/liU
-	 K0ZsJw+yQ9hTTs6Rczdyo5vBDeUfi09GJubqI89hesR7U/9nAQld+IBDuBktxlhB6f
-	 UBy82UkmbU2S+CVhQFFUpnescSUFVqvTlLhWbwTqg1UGNY7elBr6ix2V+rjiiah6Vv
-	 /5D/zXdb0ag5JEbqzW6Tmvmj7YxkHNxfxNnISxtaYwyuPfpf1swlMLlbVHaUYSttMq
-	 J6L0kHq0n5E3BcJc6pL9WSwqec+ESpyl67np9ZkcpL6j+X98YCeI3Y5JMQe3bOW6pl
-	 In3Fm/sn88A+g==
+	bh=6rWt1xIppEggcuvcPQEJmOPBQ4LH6RI7xBI39Qw2D18=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=asQKg2jsOnk/gn+/y2WbW3SVRO/fQiIT04LV6QcFqSc3zmiYwvEhivMyjrzr6B1SJ
+	 3TZnVgdJDs567coBRI42tEG3iy+8zSqu2eCiA7roiGGFyN1/RuOWhsulwguA+mfLyw
+	 LbLz1sarc7oGRsWkv4dFDtJjaINUqtlxWzShMW+fiK2yNKvgsjOz7GiMbv3WqYh3N+
+	 YNjsRJFA3pT4fIQo3SDEQ2EmnU9z4RNYEeTcSB18Z3qrnKsRUv1qXZkaCexzKqzv2J
+	 784p9aRJMYySZ9tOhFRtNgRi1xTimzZkHcK5KyGLQNjVuj8rgz76tHKq8kmpGklf7B
+	 n5pheqd3MJMMQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6DFBAC79FB7;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B05FC79F9F;
 	Thu, 10 Sep 2026 06:38:56 +0000 (UTC)
 From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Date: Thu, 10 Sep 2026 06:38:52 +0000
-Subject: [PATCH v5 1/2] dt-bindings: thermal: amlogic: Add A9 thermal
- bindings
+Subject: [PATCH v5 0/2] thermal: Add support A9
+Date: Thu, 10 Sep 2026 06:38:51 +0000
+Message-Id: <20260910-a9-thermal-v5-0-892d798723e1@amlogic.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,9 +40,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-a9-thermal-v5-1-892d798723e1@amlogic.com>
-References: <20260910-a9-thermal-v5-0-892d798723e1@amlogic.com>
-In-Reply-To: <20260910-a9-thermal-v5-0-892d798723e1@amlogic.com>
+X-B4-Tracking: v=1; b=H4sIAHtQomoC/2XOTQqDMBCG4atI1k1JMmqSrnqP0kVMJhrwp8QiL
+ cW7N0qhistv4HmZDxkxBhzJJfuQiFMYw9CnUZwyYhvT10iDS5sIJkomGVCj6bPB2JmW+lJY9CU
+ azT1J4BHRh9cau93TbsL4HOJ7bU98uf4ywLaZiVNGnVSlA2krU6ir6dqhDvZsh44soUn8seJ8h
+ 0XC0jkLUHFeaXPEsMFijyFhhtJUHnTOEY443+Jih/PlbeWtVoW2Xog9nuf5CxtsCDJdAQAA
+X-Change-ID: 20260703-a9-thermal-f62cef6ea91f
 To: Guillaume La Roque <glaroque@baylibre.com>, 
  "Rafael J. Wysocki" <rafael@kernel.org>, 
  Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
@@ -55,11 +56,11 @@ Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org,
  Xianwei Zhao <xianwei.zhao@amlogic.com>, 
  Conor Dooley <conor.dooley@microchip.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789022333; l=1701;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789022333; l=1789;
  i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=z03XxmpaVvRhkUiS0uq3ppP3WR/hzF6qXYwRuBxcXJE=;
- b=e5xlU76hScLnEWkvmwjg2BCWQHDq5iPnOnS9y+eaQqxdcGEpopL6reLgsKb3f/49yx6JkQyuI
- XwTcKScieLXC6weiHMdMNl4dIEW4HOEIJMy6NPXF7rCPMdzsP7AYx+V
+ bh=6rWt1xIppEggcuvcPQEJmOPBQ4LH6RI7xBI39Qw2D18=;
+ b=cPYPTk9cHc7HxrfdgYtSEMBIWA3bvYx2u8Gqm2NebjiOtJSvooIwvr3BHhQvQynVf4p9soQ1L
+ QG9+0pEnqncD0Vi9pzyPkh982X6XnFK7ujY1u23mRAlKoMOTqhklOnI
 X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
  pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
 X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
@@ -67,73 +68,45 @@ X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
 X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 Reply-To: xianwei.zhao@amlogic.com
 
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Document the thermal controller compatibles for the Amlogic A9 SoC
+And add driver support for the Amlogic A9 thermal controller.
 
-Document the thermal controller compatibles for the Amlogic A9 SoC.
-
-Describe the required "core" and "pclk" clocks, and update the schema
-constraints for A9-specific thermal controllers.
-
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
 ---
- .../bindings/thermal/amlogic,thermal.yaml          | 27 +++++++++++++++++++++-
- 1 file changed, 26 insertions(+), 1 deletion(-)
+Changes in v5:
+- Check enable clock func returns and set the restart time of register separately.
+- Link to v4: https://lore.kernel.org/r/20260825-a9-thermal-v4-0-d8fc9859cf22@amlogic.com
 
-diff --git a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
-index 8cfa44dcda58..1b02404d67d5 100644
---- a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
-+++ b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
-@@ -23,6 +23,7 @@ properties:
-           - const: amlogic,g12a-thermal
-       - enum:
-           - amlogic,a1-cpu-thermal
-+          - amlogic,a9-thermal
-           - amlogic,t7-thermal
- 
-   reg:
-@@ -32,7 +33,13 @@ properties:
-     maxItems: 1
- 
-   clocks:
--    maxItems: 1
-+    minItems: 1
-+    maxItems: 2
-+
-+  clock-names:
-+    items:
-+      - const: core
-+      - const: pclk
- 
-   power-domains:
-     maxItems: 1
-@@ -73,6 +80,24 @@ allOf:
-       required:
-         - amlogic,secure-monitor
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - amlogic,a9-thermal
-+    then:
-+      properties:
-+        clocks:
-+          minItems: 2
-+      required:
-+        - clock-names
-+    else:
-+      properties:
-+        clocks:
-+          maxItems: 1
-+        clock-names: false
-+
- unevaluatedProperties: false
- 
- examples:
+Changes in v4:
+- Fix type error in comit mesage, and set factor valid value. 
+- Link to v3: https://lore.kernel.org/r/20260821-a9-thermal-v3-0-0e7abf3941e3@amlogic.com
 
+Changes in v3:
+- Binding: add restrictive conditions for clock, and remove remove "amlogic,hw-reset-temp" property.
+- Driver: add private data reset_temp instead of get value from DTS.
+- Link to v2: https://lore.kernel.org/r/20260811-a9-thermal-v2-0-7ddc33b11b9a@amlogic.com
+
+Changes in v2:
+- Fix the spelling mistakes (clock-names) and reset-temp properties is visible to old chips.
+- Adjust the clock enable sequence in resume func and remove the clock disable in remove func.
+- Add the judgment on the divisor zero.
+- Add description of support for over-temperature reset for old chips in commit message.
+- Link to v1: https://lore.kernel.org/r/20260730-a9-thermal-v1-0-d786d37cba58@amlogic.com
+
+---
+Xianwei Zhao (2):
+      dt-bindings: thermal: amlogic: Add A9 thermal bindings
+      thermal: amlogic: Add support for A9 thermal controller
+
+ .../bindings/thermal/amlogic,thermal.yaml          |  27 ++++-
+ drivers/thermal/amlogic_thermal.c                  | 121 ++++++++++++++++++++-
+ 2 files changed, 144 insertions(+), 4 deletions(-)
+---
+base-commit: 78bc8af4affb9a732504eb22eeac7d1e50883853
+change-id: 20260703-a9-thermal-f62cef6ea91f
+
+Best regards,
 -- 
-2.52.0
+Xianwei Zhao <xianwei.zhao@amlogic.com>
 
 
