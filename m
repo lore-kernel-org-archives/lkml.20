@@ -1,145 +1,133 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012067.outbound.protection.outlook.com [40.93.195.67])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9473546C6;
-	Thu, 10 Sep 2026 23:19:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789082360; cv=fail; b=GG6Lk6nSSs7AZa+r1O8PJy5PI5+aoGbIHSzX5eLC18f8p1sMBt37fGS2Rj5bHZO9RaQqktib4+T0YVGRPh1tzyQVfhaNqhzAokyzwcvWjfhk5VzXhHC9tphrOnPVzSsMqR3OxWZMys0B0Mo3AzSvS4b79txeKCIzxXNzfNR+PjA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789082360; c=relaxed/simple;
-	bh=ZIDuWfBSXDPtGuneoj/aJWPE7SgsraoI6rFPb4UB468=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oa2nAQVKQ7idMo4zGUc9Ck7RA+ZNah67TjfhmZLIrtNexxzBpRJTMICP5zAlW6oGNfjcEo3fm0Y8F9EdOYHskumMUjjjPuB8dRZ3nULyk80jUfikb8ptlxir5zdyY3w68PIJeszE9J66wc47C6eoWouXNhwcYOGVH+iF6s3oXBM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=RN2LLzaa; arc=fail smtp.client-ip=40.93.195.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0DD384CE9;
+	Thu, 10 Sep 2026 23:19:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789082371; cv=none; b=VMlQeQBp6xnzzBYLFDTo7KV+IWzcndF61xsDfYmCE8QDPxugnUHv8Vbs8/XObGON+RUpW8LVyn9nTxWVUoxtT9jUEja3u69rLrZyDvPdq2qA9pK5Qxz7JGyndQSRXmbvShzj63QXtM7ApDE+KBDU6yT2Q66F9VXgAIMdt/OIv+M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789082371; c=relaxed/simple;
+	bh=Cse8ZL1AoW6sYsTn9PqZK63CGMvQYnjlgcNIOCCxXFI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FGUmmeyQpUzbVsJXfPsuR3RuUiKG6l0nGHJ+T/cDMbWooSYUQvUlpQNQV6pU3rTL+ww0ZBoC8cMtuidZP93MW4UHOSMaW8Gpoq71jTxqPUWXmNOwD2GJ1XSAjM5yIMr5ewYNnfM4n4/vsS4s2qvbJN+sasSqmf5hVkriT2O3alw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=bloJPTcV; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="RN2LLzaa"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IdItOeHREdQuPTYp8X/3QHeQ3cW8I9ms/oDDHIaUBagwOcgfqrn8QEZGFG0zIAo0Vhczo2lbcUZ7emMsdnSCRMJvRGk6TOhsJFDO93OSSffTmzSIn9Gf+sCaP9T9OjCmXtwU8k2R9VVV4UCyXh8bAbjsus/k3yTy0zrqBAgSIQzEV24p94eZ16ocCdVT3/F812tvdK0RgWY45/fNZvEDp/2Z9SKbgsKmV7TznZqg4zaWyXOFExPgSK9lIwm+kdafe6RoUpjvjGTdAGIfOhi0H/wG4l7kTB8Gef1z9h997O2C7iAtQkBPvyd/qn3nOHiP5mGjZ60OnuYQjBstspMqBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Bjjp9peiZW18i4SNLIhRvRf5o+Ruk8hpXu7uZ8Bn5UM=;
- b=PANzbXC2szdYtCoo1UEEm+JbCM6r42SPFLgmRcpA521ZfkYdTOH7n6oD+8UkafRJqIOkR2RO4pnAIyQU8h5MP1nB0yBX1fQEakjZFqNxgyOhYN7i8+A0VscLy5fMU+rdG5R8R1Yqh8NEThp6wiQI2iSxE2RNYY/G5WV1EVBu7JT6FY1BBfwcDB2dFSp0U3HCVRJ02/pzCqd/ObltqzEa9ed19tdQvUBEpYwI5ZUjKc3ka+0DJCWRfNhrP7oFyCGtBQvgSR/F11ZPaOevvO9CUsJtWS64zVd4OtAhCEefd5HdY4YeIf/pDhpU6nebDRe0p+wM8gXJO3KjKrMtvs66JA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bjjp9peiZW18i4SNLIhRvRf5o+Ruk8hpXu7uZ8Bn5UM=;
- b=RN2LLzaaMpi7Y3bZdgEgsBjCPgg5fOkdwxjDM1uA27bqnvYiVy0RqdyfZ4+7n/MyZfqTaDX2MJOQXpL2o02HXXwPIq8LnQhurVeJM22zEYy/8bUHlvansZsFVBzCoe75qlxjCtqWdq6C+MdX60Qa0BGETX6BZalK/T7Bi6FS1+xpeqKl8PC+xUxbhRpbUckZ8UyojGGXlQOiAXHTUZ5eEnnv8pc8xlBX5BRpZK+YLXC/kvZDGePBfK5OOvPPm4q+6uVSrHutE1t7uvsaKvourZ45IGDuAP0WaoUR6jhuRsH6RtuUH3bdJEonmSFVqxDLVNSndf8VGvJWJXtomr1ziQ==
-Received: from BN0PR07CA0030.namprd07.prod.outlook.com (2603:10b6:408:141::13)
- by SA1PR12MB8141.namprd12.prod.outlook.com (2603:10b6:806:339::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 23:17:58 +0000
-Received: from BN2PEPF0000A893.namprd04.prod.outlook.com
- (2603:10b6:408:141:cafe::56) by BN0PR07CA0030.outlook.office365.com
- (2603:10b6:408:141::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Thu, 10
- Sep 2026 23:17:58 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BN2PEPF0000A893.mail.protection.outlook.com (10.167.248.185) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 23:17:58 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
- 2026 16:17:36 -0700
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
- 2026 16:17:36 -0700
-Received: from Asurada-Nvidia.nvidia.com (10.127.8.11) by mail.nvidia.com
- (10.129.68.7) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Thu, 10 Sep 2026 16:17:35 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: <will@kernel.org>, <robin.murphy@arm.com>, <jgg@nvidia.com>, "Jonathan
- Cameron" <jonathan.cameron@oss.qualcomm.com>
-CC: <joro@8bytes.org>, <bhelgaas@google.com>, <praan@google.com>,
-	<kevin.tian@intel.com>, <kees@kernel.org>, <smostafa@google.com>,
-	<baolu.lu@linux.intel.com>, Jean-Philippe Brucker <jpb@kernel.org>, "Eric
- Auger" <eric.auger@redhat.com>, <linux-arm-kernel@lists.infradead.org>,
-	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-	<linux-pci@vger.kernel.org>, <skaestle@nvidia.com>, <mmarrid@nvidia.com>,
-	<skolothumtho@nvidia.com>, <bbiber@nvidia.com>, <harsha.v@oss.qualcomm.com>
-Subject: [PATCH v4 12/15] iommu/arm-smmu-v3: Allocate IOPF queue for ARM_SMMU_FEAT_PRI
-Date: Thu, 10 Sep 2026 16:17:04 -0700
-Message-ID: <c277db2589bf38ef5f251a58dcc87a22c751336e.1789081084.git.nicolinc@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1789081084.git.nicolinc@nvidia.com>
-References: <cover.1789081084.git.nicolinc@nvidia.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="bloJPTcV"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ALVhbE4092168;
+	Thu, 10 Sep 2026 23:19:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=U99p6J
+	Npo0/YgiXhGsoaxr93fp5GlQc6/HMs+HzSII0=; b=bloJPTcVbKa8GMust48rIL
+	7pd+UlpAl0XUgwsxfFB/So93Bw44s0gqWVx72lCUp1iteXdWX40lqJoXwT5R6D/0
+	w7+HnxNrJ1rkdp6W7lCkjO1RymO1J0UYLBonLVIiWoC8TpeeiCRcPg9LpXNfoynr
+	ejmevrlP+wudEpQf7RPjerLQDg/J2tRA9hr5VSDB5vmoe4/llWtyu0AYOXpNQz4B
+	HRzdTVavEWkQfL94rO2RgDnl1Dkjmg/bWc0Wbagx1WnHZKsFwTfjSpBuPTQDq2bZ
+	A9SwuhZgIfh0brj3iKwwt+xp1bGaguNI9nK6W4TQeqdqz0YBAtX768xtCP8jiJkQ
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gkd8qr3tn-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 10 Sep 2026 23:19:19 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68ALYwO7654793;
+	Thu, 10 Sep 2026 23:19:18 GMT
+Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gkvq2u628-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 10 Sep 2026 23:19:18 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
+	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68ANJG7d29491732
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 10 Sep 2026 23:19:16 GMT
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8341858060;
+	Thu, 10 Sep 2026 23:19:16 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 941C858056;
+	Thu, 10 Sep 2026 23:19:15 +0000 (GMT)
+Received: from [9.61.103.123] (unknown [9.61.103.123])
+	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 10 Sep 2026 23:19:15 +0000 (GMT)
+Message-ID: <0d2e6821-9ebe-4155-b667-e98acf1bb2ae@linux.ibm.com>
+Date: Thu, 10 Sep 2026 16:19:15 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A893:EE_|SA1PR12MB8141:EE_
-X-MS-Office365-Filtering-Correlation-Id: aee1ada6-fdfe-486b-9637-08df0f91c0a6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|7416014|1800799024|82310400026|23010399003|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	7eAhxhgjelzQ7K21A26iMus48vlJedwjFAC7CTEn+iGi5O4L9HbHCH5lzTahZcqCZpr8WGTj0vpBAUVpkR7Tb5hkyRZnX+O9rScaFf2OQdfexvPDCANZ8p6akNE6mQPckmpq/O+2ue5qthOaDJ8ZUEwGuCyO9z1imhGet/9o1sti1EGJM464wxqMIpclxG8lxytzSE7V/kjdx3MLX56NvxWuWWzS2YLguo+iPytcTAqpty8EPBKw5fMtNqd3KPAUmZwkCee8jzTX1kQlfEkFajfBV6zB2nnCZTZHomL2Hnjc67QEB3GrouFXAZ0iaR7q7OMj59CjB/Wq4mUIgJ3g5SYTvtUd8sdB80rgMNHU8mX4gpZ6/79pImX8iWKLdU2lPRqlCk27+oW98iU5TA5fJdjXqjmxX2wkjUQaHpMcjrF1jtO309VatqY6M8e0g64MCc8dtqRYRooD3QyM9p3NPHOVcDV0wTvScPVXDbv1YEmlpD2XB5jX5fg6KQwifwbpG/sSjYsTbrjIcFNLw1NxDPn3kGTk4kJ2Jxk7MOqo2yEWWsPMqN59dVhQX+xt0Ws9bVn8vuzDJpcRy6ZP1aKNhFHT0YlaEe3IgbG/MWVlLRq8KxR7gpnuSo0mj3fo7HKkgDmKs9ZB/XLhRi1L6s7LjVO+uEjk6FQrKqErmgoPQ0vbbo/vraUKmAh6tkcccVbvLV2iqNkSRmavLXqNV6MNsw==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(36860700016)(7416014)(1800799024)(82310400026)(23010399003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	fXVCNPC0Zc9s05UhiasYVt+hptVniqBdXN7o2G3ICT9k/oB3oKFHGw/tP20IZX1wNK3CxzXhH/2qjMmUmwQPjUFqWD2NcIR30J5Gbf9keGSBa6KSdCWdOhQfUgnm1g7O0DpUo6Cng0CBK5Bp+fhpoHUEFjKRsqtbhoEA0b9SMjj3LKmqdHQcqqs8c/IJk/ZUBYTE952FTVnHmeuu/E7GXk7YHeAoOxd+dZuoVS+jqARCtLpKNMAZgl9SUq7RDKMPxIJLXZgMzJivLkIHd7npiVXAW+BONlbpq0dDqmmdg0BQ3UvcuMu/Xqwjb9vG1BWwKgYE+/t+tmv7ToN8+MAK6wq690vff8nVTr7Y+UvNMspo/4be9hrYpYOuq4PNNF8rZlJyqDOf8HycX55aoGZjrz4Ry2UNhvQhOFy3i/du28eX/hHa28/GfAI1xLOkgb8I
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 23:17:58.4893
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aee1ada6-fdfe-486b-9637-08df0f91c0a6
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A893.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8141
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 5/9] scsi: ibmvfc: add interrupt routine for
+ asynchronous sub CRQ
+To: davemarq@linux.ibm.com,
+        "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+        "Martin K. Petersen" <mkp@kernel.org>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org, Brian King <brking@linux.ibm.com>,
+        Greg Joyce <gjoyce@linux.ibm.com>,
+        Kyle Mahlkuch <kmahlkuc@linux.ibm.com>
+References: <20260909-ibmvfc-fpin-support-v8-0-b27183b055af@linux.ibm.com>
+ <20260909-ibmvfc-fpin-support-v8-5-b27183b055af@linux.ibm.com>
+Content-Language: en-US
+From: Tyrel Datwyler <tyreld@linux.ibm.com>
+In-Reply-To: <20260909-ibmvfc-fpin-support-v8-5-b27183b055af@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=SpUFe/O0 c=1 sm=1 tr=0 ts=6aa33af7 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
+ a=eExql_viPIbS7pE7dewA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: YRtb2prPVUSsa55k78RVvojR9Yq4kKqs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDI5MCBTYWx0ZWRfX4w9tc7J07Rie
+ q8DVr2XJFKqBEMloyPJ8LqmC+QwmuyWQuxFEJ07YC9xznps8VyrHtrOsSuBqsdKT3rBic9sFGqL
+ Q4jJiHavLqOBQzmGbnIDmxkCBW596uFWOFgXoqVs2yfRpY036G50lck/bRbw0cLzIJ0jKE56whE
+ tHgWCLyJC7vgCzVA6bjMx+IDw7ccV0Wq4hAVl/IhfrPfL3g6cGvSUwGMfnM9UIj1+zf1hhXfdMQ
+ H2Idk1Lj7xnh/a6Czfq9vtamgAXJq91aqqinB2Iy51NQDcZdZvEMWDzwJI8HfQev5v6t4P30up/
+ 9Bdz27vMkfgWMYrWrkk51YCI2qCV20CGlHXFBhrOZSRP/LGFMA6cSt0hPj5vjd+THTHshI7UwZT
+ ueXtzIkm0wW3HR88GZ1rucoqWPWJ1d0oz0rXWWO56zsSLNvL6pmM3MwF2+lX12cRHrbiSgk2OZH
+ Ebhj1TMON2nzvNVFtsA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDI5MCBTYWx0ZWRfX3ucwHxEA6Ihd
+ cQbWUuECt13yulkKv0dgb/us0YpVnqPJqCDKjhLHXuvgXvDbxy2aUl4r1g70P6JYlpFZATPRooL
+ H91LA0m1/lZSgw7Cb1Ptf++Deh/4mCk=
+X-Proofpoint-GUID: XCB2tZ2i_fu57V9gTWsqnRJbC1EXPwmv
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_07,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
+ clxscore=1015 phishscore=0 malwarescore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100290
 
-After the previous change drops the FEAT_SVA gate, arm_smmu_init_queues()
-allocates smmu->evtq.iopf when the SMMU advertises FEAT_STALLS. PRI support
-is being added on top of the IOPF infrastructure, so extend the allocation
-condition to cover SMMUs that advertise FEAT_PRI without FEAT_STALLS.
-
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
----
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-index 0a15556c9a558..3cc2d365d2d66 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-@@ -4740,7 +4740,7 @@ static int arm_smmu_init_queues(struct arm_smmu_device *smmu)
- 	if (ret)
- 		return ret;
- 
--	if (smmu->features & ARM_SMMU_FEAT_STALLS) {
-+	if (smmu->features & (ARM_SMMU_FEAT_STALLS | ARM_SMMU_FEAT_PRI)) {
- 		smmu->evtq.iopf = iopf_queue_alloc(dev_name(smmu->dev));
- 		if (!smmu->evtq.iopf)
- 			return -ENOMEM;
--- 
-2.43.0
-
+On 9/9/26 12:08 PM, Dave Marquardt via B4 Relay wrote:
+> From: Dave Marquardt <davemarq@linux.ibm.com>
+> 
+> Add ibmvfc_interrupt_async_subq(), an IRQ handler dedicated to
+> asynchronous sub-CRQ events from the adapter. The handler disables
+> the sub-CRQ IRQ and then calls ibmvfc_drain_async_subq() to consume
+> all pending entries before re-enabling interrupts. The handler is
+> marked as __maybe_unused until a later patch when it is used.
+> 
+> ibmvfc_drain_async_subq() holds the per-queue q_lock while
+> processing. It loops over available CRQ entries via ibmvfc_next_scrq(),
+> wrapping each in a typed struct ibmvfc_async_crq_event and dispatching
+> it to ibmvfc_handle_async(), then clears the valid bit and issues a
+> write barrier. After draining, it re-enables the sub-CRQ IRQ and performs
+> one final check for a newly arrived entry to close the IRQ-enable race;
+> if one is found it is processed before exiting the loop.
+> 
+> Signed-off-by: Dave Marquardt <davemarq@linux.ibm.com>
+> ---
+Acked-by: Tyrel Datwyler <tyreld@linux.ibm.com>
