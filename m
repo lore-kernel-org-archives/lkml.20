@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4117C453A5E;
-	Thu, 10 Sep 2026 13:05:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD68048A2CC;
+	Thu, 10 Sep 2026 13:05:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789045546; cv=none; b=Hr+erIjizeLlzb6SzJ2CwBb36C3OzwYJR0BcufEPvGlcgsuEIG/sWXze1seFvEw5W9KPjMSShJzG1K7Qu8/50vMbsTJijRkKd7Scl5KNPPGesTBloQlvWoIrIZDjJUbVahg2vRDDeooAAbhijQSmvx64Fv9KSRpoQiISZn/6u7Q=
+	t=1789045549; cv=none; b=b7VihMcyGBbG5+HmCr53qU4M/A/HT1mNzjnjBmVeCMPmT2H2jRVgCvCXrWJB6toXsgUqNKOcMjhJLKGgNN5U1BWPFew1Eoe5m7IAkMlbIa1r5YV9BhOhK+7iIY51/Pig6qYvQwUwS5LjGbETccR7lYgGY94bkwBAhUsinOheMu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789045546; c=relaxed/simple;
-	bh=5V/Jns0EMlECF3bGHLTtrpzRi/W4q6tiaRqwHusreZo=;
+	s=arc-20240116; t=1789045549; c=relaxed/simple;
+	bh=YX0fFHn8Ax3KoG5GSKYtiggl6t+1yF9zX/O7TrgqzYU=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=OZAMYJNAUyidwbLpWpAu1le/mCNy5KkwdJsTth88NPsQr7C1sikVIb3MBfQRBJk/XX4JiG27uexZ/ARe3q9iNBj06oQZTl62EXPo/qgdVuH+faSEXveRuKWlg2kT2tes1oxsQ4NGIbS/n2KLRTi2Sz6tDACpeN3AisbwH2qPZh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jqTaSuYu; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=oMM1Fax8l6WfNUwqmuuO6hEuG4MyFM8t9vgkZnhyh3w/u7LX1DtUyOXWHK5vxxm4FwkLdGclQlq5Ra9wFHW8Hqi0qh+tsjvBMHtcrqKwkk1lIb/8p7UglFiL7ExPWbB8vS/7t7a+YVVs7CJt1rLY9vCQgZo6UY+UGrzilsVmuog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LPWdEwTm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jqTaSuYu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 817611F000FF;
-	Thu, 10 Sep 2026 13:05:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LPWdEwTm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B7D41F000FF;
+	Thu, 10 Sep 2026 13:05:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789045543;
-	bh=V1k0GACQ0OKSb6iJDVN21c/lGPaRaSqHfOPixWAJRFA=;
+	s=k20260515; t=1789045547;
+	bh=rE3GHc+0H+51fX4lp3Mtbohqk/k/dkObaohynPKicmQ=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jqTaSuYuNjm0U1RdMLqzMlbN91351mgXxD2RIS+gHv7NjeSsGEThqzciWlLoWi2+O
-	 rVfa7rKQHz8NOcGhMjG37YN1T07Kj1pUJZQpygfpsh/sfI59EDpxri4rarDAv4l2je
-	 yWYRsrRfYfhxH3gV0k1pvKlOV5b+HXSlMNtjFOI1xd1p3prtDyHYMBDRh2Ip0fq2nk
-	 5f7rcYkDDoE8O7LZBGKeOeMRBzDF9uIWxJisXdx8i0zn8tfO8ApQ5xQsoYJgoP0Yej
-	 pZWmJ+xzt57UlK3mZCJDomrq7GTSY/haJTqW6ZuQ/tQHSnVtfDj3F7H08qXmIl7RmQ
-	 6NKpgxY5L92hg==
-Subject:
- Re: [PATCH net-next v6 03/14] net: microchip: fdma: add PCIe ATU support
+	b=LPWdEwTmkRKzf5gaZygpXVTKeFoY4Odzi9hUAFg/irGi+2AXB6oBnzTTYVDn4xdZg
+	 3WRFBdYuiR+4B41IxacLYi1ruTMGBhMMm6tu6Qel1HP3TwgZSJbKtW8f/fQUjyAe/Z
+	 +TD8085WnEk9bKnI0ahsV4qVAqdg1MZDAzVgakbBjiwhppC+S/WMMW+AuMm0lGrHsE
+	 26vWi3lvYFTSEroMEfi8bYX7/UGKKpBuX9FqX3fqrmYZoOFI8y+WNNqxE9RQ+vlx31
+	 F14ZxIyvSLQJsgO0bAiScMa4AAzO+a67OMjPL95GD18gjlx00UC6ukbFc1w/VHm3o8
+	 eUJYjvafMnuwg==
+Subject: Re: [PATCH net-next v6 09/14] net: lan966x: add shutdown callback to
+ stop FDMA on reboot
 From: netdev-bot+sashiko@kernel.org
 To: daniel.machon@microchip.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
@@ -38,10 +38,10 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  gregkh@linuxfoundation.org, mohsin.bashr@gmail.com, richardcochran@gmail.com,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Date: Thu, 10 Sep 2026 13:05:42 +0000
-Message-ID: <178904554204.219967.17805291259175904857@kernel.org>
-In-Reply-To: <20260909-lan966x-pci-fdma-v6-3-6f48dab9d671@microchip.com>
-References: <20260909-lan966x-pci-fdma-v6-3-6f48dab9d671@microchip.com>
+Date: Thu, 10 Sep 2026 13:05:45 +0000
+Message-ID: <178904554582.219967.5262957308315602780@kernel.org>
+In-Reply-To: <20260909-lan966x-pci-fdma-v6-9-6f48dab9d671@microchip.com>
+References: <20260909-lan966x-pci-fdma-v6-9-6f48dab9d671@microchip.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -52,393 +52,217 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 6 potential
+Thank you for your contribution! Sashiko AI review found 5 potential
 issue(s) to consider:
 
-Critical: 0 · High: 0 · Medium: 3 · Low: 3
+Critical: 0 · High: 0 · Medium: 4 · Low: 1
 
-- [Medium] fdma_pci_atu_region_map() (EXPORT_SYMBOL_GPL) is the primitive
-  that programs the ATU limit register (region->limit_addr =…
-- [Medium] fdma_pci_atu_region_enable() writes the region enable bit
-  (BIT(31) at offset 0x4) and returns immediately, and…
-- [Medium] fdma_pci_atu_configure_translation() programs lower/upper base
-  (0x8/0xc), limit (0x10), lower/upper target (0x14/0x18) and the enable…
-- [Low] The commit message says the patch "effectively add[s] support for
-  PCIe FDMA", but at this commit nothing in the tree calls…
-- [Low] fdma_pci_atu_init() is the designated initializer of struct
-  fdma_pci_atu (it even programs hardware, disabling all six outbound…
-- [Low] fdma_pci_atu_translate_addr() reads region->base_addr and
-  region->target_addr with no lock, no READ_ONCE() and no in_use…
+- [Medium] lan966x_shutdown() leaves the shared NAPI permanently disabled
+  (napi_disable() with no napi_enable() and no state marker) while the…
+- [Medium] lan966x_shutdown() quiesces TX only with napi_disable() +
+  netif_tx_disable() and then manipulates FDMA TX state…
+- [Medium] lan966x_shutdown() masks the analyzer source with a plain
+  lan_wr(0, ANA_ANAINTR) while the ANA interrupt is still requested and…
+- [Medium] The new shutdown path relies on
+  lan966x_fdma_rx_disable()/lan966x_fdma_tx_disable() to prove the…
+- [Low] Claim: the `if (!lan966x->fdma) return;` guard in
+  lan966x_shutdown() skips the ANA_ANAINTR mask, which lan966x_init()…
 
 --
 
-net: microchip: fdma: add PCIe ATU support
+net: lan966x: add shutdown callback to stop FDMA on reboot
 
-This adds a new fdma_pci.c/fdma_pci.h library that carves the PCIe endpoint
-outbound address space (0x10000000-0x1fffffff) into six equally sized ATU
-regions, and adds fdma_alloc_coherent_and_map()/fdma_free_coherent_and_unmap()
-helpers that pair a coherent DMA allocation with an ATU region mapping.
+Adds a platform shutdown() callback that disables NAPI, stops the netdev
+TX queues, disables the RX and TX FDMA channels and masks FDMA_INTR_ENA,
+FDMA_INTR_DB_ENA and ANA_ANAINTR so a card that survives a host reboot
+does not assert the shared PCIe INTx before re-probe.  FDMA_INTR_ENA is
+also re-armed in lan966x_fdma_rx_start().
 
-A few questions below.
+A few questions about the new shutdown path below.
 
->     Add the required functions and helpers that combine the DMA allocation
->     with the ATU region mapping, effectively adding support for PCIe FDMA.
+> diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
+> index 2695bc41e52a..5793a83268fc 100644
+> --- a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
+> +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
 
-[Severity: Low]
-Is "effectively adding support for PCIe FDMA" the right wording for this
-patch on its own?
+[ ... ]
 
-At this commit nothing in the tree calls fdma_pci_atu_init(),
-fdma_pci_atu_region_map(), fdma_pci_atu_translate_addr(),
-fdma_alloc_coherent_and_map() or fdma_free_coherent_and_unmap(), and
-FDMA_PCI_DB_ALIGN/FDMA_PCI_DB_SIZE() have no user either.
-
-The wiring appears later in the series, in "net: lan966x: add PCIe FDMA
-support" and its follow-ups (lan966x_fdma_pci.c calls fdma_pci_atu_init(),
-fdma_alloc_coherent_and_map(), fdma_free_coherent_and_unmap(),
-fdma_pci_atu_translate_addr() and FDMA_PCI_DB_SIZE()).
-
-Would "add the infrastructure for PCIe FDMA" describe this patch more
-accurately?
-
-> diff --git a/drivers/net/ethernet/microchip/fdma/fdma_api.c b/drivers/net/ethernet/microchip/fdma/fdma_api.c
-> index e78c3590da9e..a3c9e3097c5c 100644
-> --- a/drivers/net/ethernet/microchip/fdma/fdma_api.c
-> +++ b/drivers/net/ethernet/microchip/fdma/fdma_api.c
-> @@ -127,6 +127,50 @@ void fdma_free_phys(struct fdma *fdma)
+> @@ -325,6 +329,21 @@ static void lan966x_fdma_stop_netdev(struct lan966x *lan966x)
+>  	}
 >  }
->  EXPORT_SYMBOL_GPL(fdma_free_phys);
 >  
-> +#if IS_ENABLED(CONFIG_MCHP_LAN966X_PCI)
-> +/* Allocate coherent DMA memory and map it in the ATU. */
-> +int fdma_alloc_coherent_and_map(struct device *dev, struct fdma *fdma,
-> +				struct fdma_pci_atu *atu)
+> +/* Drain in-flight xmit callers and stop all TX queues on every port. */
+> +void lan966x_fdma_tx_disable_netdev(struct lan966x *lan966x)
 > +{
-> +	struct fdma_pci_atu_region *region;
-> +	int err;
+> +	struct lan966x_port *port;
+> +	int i;
 > +
-> +	if (WARN_ON(fdma->atu_region))
-> +		return -EBUSY;
-> +
-> +	/* The ATU cannot express a limit finer than the region granularity, so
-> +	 * the hardware widens the programmed limit to that boundary. Pad the
-> +	 * allocation to match, or the outbound window would extend past the
-> +	 * memory we own.
-> +	 */
-> +	fdma->size = ALIGN(fdma->size, FDMA_PCI_ATU_REGION_ALIGN);
-> +
-> +	err = fdma_alloc_coherent(dev, fdma);
-> +	if (err)
-> +		return err;
-> +
-> +	region = fdma_pci_atu_region_map(atu, fdma->dma, fdma->size);
-> +	if (IS_ERR(region)) {
-> +		fdma_free_coherent(dev, fdma);
-> +		return PTR_ERR(region);
-> +	}
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/microchip/fdma/fdma_pci.c b/drivers/net/ethernet/microchip/fdma/fdma_pci.c
-> new file mode 100644
-> index 000000000000..bbfd3c67e03b
-> --- /dev/null
-> +++ b/drivers/net/ethernet/microchip/fdma/fdma_pci.c
-> @@ -0,0 +1,203 @@
-
-[ ... ]
-
-> +#define FDMA_PCI_ATU_ADDR            0x300000
-> +#define FDMA_PCI_ATU_IDX_SIZE        0x200
-> +#define FDMA_PCI_ATU_ENA_REG         0x4
-> +#define FDMA_PCI_ATU_ENA_BIT         BIT(31)
-> +#define FDMA_PCI_ATU_LWR_BASE_ADDR   0x8
-> +#define FDMA_PCI_ATU_UPP_BASE_ADDR   0xc
-> +#define FDMA_PCI_ATU_LIMIT_ADDR      0x10
-> +#define FDMA_PCI_ATU_LWR_TARGET_ADDR 0x14
-> +#define FDMA_PCI_ATU_UPP_TARGET_ADDR 0x18
-
-[ ... ]
-
-> +static void fdma_pci_atu_region_enable(struct fdma_pci_atu_region *region)
-> +{
-> +	writel(FDMA_PCI_ATU_ENA_BIT,
-> +	       fdma_pci_atu_addr_get(region->atu->addr, FDMA_PCI_ATU_ENA_REG,
-> +				     region->idx));
-> +}
-
-[Severity: Medium]
-Does the enable bit take effect by the time this writel() retires?
-
-The register block looks like the DesignWare unrolled iATU: the 0x300000
-base matches DEFAULT_DBI_ATU_OFFSET, the 0x200 stride matches
-PCIE_ATU_UNROLL_BASE(dir, index) = index << 9, and 0x0/0x4/0x8/0xc/0x10/
-0x14/0x18 match PCIE_ATU_UNR_REGION_CTRL1/CTRL2/LOWER_BASE/UPPER_BASE/
-LOWER_LIMIT/LOWER_TARGET/UPPER_TARGET with PCIE_ATU_ENABLE = BIT(31) in
-CTRL2.
-
-For that IP, dw_pcie_prog_outbound_atu() in
-drivers/pci/controller/dwc/pcie-designware.c polls until the enable bit
-reads back:
-
-	for (retries = 0; retries < LINK_WAIT_MAX_IATU_RETRIES; retries++) {
-		val = dw_pcie_readl_atu(pci, dir, index, PCIE_ATU_REGION_CTRL2);
-		if (val & PCIE_ATU_ENABLE)
-			return 0;
-
-		mdelay(LINK_WAIT_IATU);
-	}
-
-	dev_err(pci->dev, "Outbound iATU is not being enabled\n");
-
-	return -ETIMEDOUT;
-
-with the comment "Make sure ATU enable takes effect before any subsequent
-config and I/O accesses".
-
-Here fdma_pci_atu_region_map() returns the region as usable right after
-this write, and the caller programs FDMA descriptors with
-region->base_addr. Should the enable be read back (and a failure to arm
-reported to the caller) instead of being fire-and-forget?
-
-> +/* Configure the address translation in the ATU. */
-> +static void
-> +fdma_pci_atu_configure_translation(struct fdma_pci_atu_region *region)
-> +{
-> +	struct fdma_pci_atu *atu = region->atu;
-> +	int idx = region->idx;
-> +
-> +	writel(lower_32_bits(region->base_addr),
-> +	       fdma_pci_atu_addr_get(atu->addr,
-> +				     FDMA_PCI_ATU_LWR_BASE_ADDR, idx));
-> +
-> +	writel(upper_32_bits(region->base_addr),
-> +	       fdma_pci_atu_addr_get(atu->addr,
-> +				     FDMA_PCI_ATU_UPP_BASE_ADDR, idx));
-> +
-> +	/* Upper limit register only needed with REGION_SIZE > 4GB. */
-> +	writel(region->limit_addr,
-> +	       fdma_pci_atu_addr_get(atu->addr, FDMA_PCI_ATU_LIMIT_ADDR, idx));
-
-[Severity: Medium]
-Should region control 1 (offset 0x0) be programmed here too?
-
-Everything except CTRL1 is written: base, limit, target and the enable bit
-in CTRL2. On the DWC unrolled iATU, CTRL1 holds the outbound TLP TYPE (MEM
-= 0), TD, PCIE_ATU_FUNC_NUM(pf) and PCIE_ATU_INCREASE_REGION_SIZE
-(BIT(13)). dw_pcie_prog_outbound_atu() always writes CTRL1 before enabling
-CTRL2:
-
-	val = type | PCIE_ATU_FUNC_NUM(func_no);
-	...
-	dw_pcie_writel_atu(pci, dir, index, PCIE_ATU_REGION_CTRL1, val);
-	dw_pcie_writel_atu(pci, dir, index, PCIE_ATU_REGION_CTRL2,
-			   PCIE_ATU_ENABLE);
-
-There is no define for offset 0x0 in this file, and fdma_pci_atu_init()
-only clears the enable bit, so each window is armed with whatever CTRL1
-value reset, the endpoint bootloader, or a previous OS instance left in
-place. With a residual TYPE the FDMA writes go out as the wrong TLP type,
-with a stale FUNC_NUM they carry the wrong requester, and with a stale
-INCREASE_REGION_SIZE the window end is taken from a register this code
-never writes.
-
-Related, is the comment "Upper limit register only needed with REGION_SIZE
-> 4GB" accurate here? That mode is selected by CTRL1 BIT(13), which is
-neither set nor cleared, and the upper limit register is never written.
-
-[ ... ]
-
-> +/* Find an unused ATU region. */
-> +static struct fdma_pci_atu_region *
-> +fdma_pci_atu_region_get_free(struct fdma_pci_atu *atu)
-> +{
-> +	struct fdma_pci_atu_region *regions = atu->regions;
-> +
-> +	for (int i = 0; i < FDMA_PCI_ATU_REGION_MAX; i++) {
-> +		if (regions[i].in_use)
+> +	for (i = 0; i < lan966x->num_phys_ports; ++i) {
+> +		port = lan966x->ports[i];
+> +		if (!port)
 > +			continue;
 > +
-> +		return &regions[i];
+> +		netif_tx_disable(port->dev);
 > +	}
-> +
-> +	return ERR_PTR(-ENOSPC);
 > +}
-
-[ ... ]
-
-> +/* Map a host DMA address into a free outbound region. */
-> +struct fdma_pci_atu_region *
-> +fdma_pci_atu_region_map(struct fdma_pci_atu *atu, u64 target_addr, int size)
-> +{
-> +	struct fdma_pci_atu_region *region;
-> +
-> +	if (!atu)
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	if (size <= 0)
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	if (size > fdma_pci_atu_region_size())
-> +		return ERR_PTR(-ERANGE);
-> +
-> +	/* The ATU region base is only ever aligned to FDMA_PCI_ATU_REGION_ALIGN;
-> +	 * require the same alignment of the host target address, since the ATU
-> +	 * translates addr - target_addr + base_addr and any misalignment here
-> +	 * would shift every translated address by the same amount.
-> +	 */
-> +	if (!IS_ALIGNED(target_addr, FDMA_PCI_ATU_REGION_ALIGN))
-> +		return ERR_PTR(-EINVAL);
 
 [Severity: Medium]
-Should this validation block also reject a size that is not a multiple of
-FDMA_PCI_ATU_REGION_ALIGN?
 
-fdma_pci.h states the rule for both halves:
+Does netif_tx_disable() really drain every in-flight xmit caller here?
+lan966x also registers .ndo_xdp_xmit = lan966x_xdp_xmit in
+lan966x_port_netdev_ops, and that entry point is dispatched from a foreign
+device's NAPI/softirq (bq_xmit_all()) without the netdev txq locks and
+without regard for the txq stopped state or lan966x's NAPI state:
 
-	/* Outbound regions are 64KB granular (datasheet section 3.24.7.4.1), so both
-	 * the region base and the mapped size must be aligned to this.
-	 */
-	#define FDMA_PCI_ATU_REGION_ALIGN BIT(16)
+  lan966x_xdp_xmit()
+    lan966x_fdma_xmit_xdpf()
+      spin_lock(&lan966x->tx_lock);
+      ...
+      /* Start the transmission */
+      lan966x_fdma_tx_start(tx);
 
-and the commit message names the consequence of not honouring it: "the
-outbound window would extend past the memory the host allocated for DMA".
+lan966x_fdma_tx_start() calls lan966x_fdma_tx_activate() when
+tx->activated is false, and that re-sets BIT(channel_id) in
+FDMA_INTR_DB_ENA and writes FDMA_CH_ACTIVATE.  lan966x_fdma_tx_disable()
+in the new shutdown path sets tx->activated = false, and lan966x_shutdown()
+touches FDMA_CH_DISABLE, tx->activated and FDMA_INTR_DB_ENA without taking
+lan966x->tx_lock.
 
-The size given here becomes the programmed limit:
+If an XDP program on another interface redirects into a lan966x port in the
+reboot window, can the TX channel end up re-activated (and the DB enable
+bit re-set) after shutdown() returns?  The shutdown path deliberately keeps
+the DCB rings mapped, so a re-activated channel would keep fetching DCBs
+from and writing DCB status into host memory that the next kernel reuses,
+which is the state the commit message says it eliminates.
 
-	region->limit_addr = region->base_addr + size - 1;
-
-so with, say, a PAGE_SIZE-aligned 0x21000 from fdma_get_size() the hardware
-widens the limit to the next 64KB boundary and the enabled outbound window
-covers up to 64KB-1 of host memory beyond the buffer, which the FDMA engine
-can then write into.
-
-The 64KB padding is only done in the convenience wrapper
-fdma_alloc_coherent_and_map(), not in this exported primitive that
-programs the register, and the commit message advertises the primitive for
-reuse by lan969x. Would an IS_ALIGNED(size, FDMA_PCI_ATU_REGION_ALIGN)
-check (or rounding here) be better placed alongside the target_addr check?
-
-Also, the header comment for fdma_pci_atu_region_map() is just "Map a host
-DMA address into a free ATU region", with no mention that a target_addr
-that is not 64KB aligned is rejected with -EINVAL. Could that requirement
-be documented at the prototype?
-
-> +
-> +	mutex_lock(&atu->lock);
-> +
-> +	region = fdma_pci_atu_region_get_free(atu);
-> +	if (IS_ERR(region)) {
-> +		mutex_unlock(&atu->lock);
-> +		return region;
-> +	}
-> +
-> +	region->target_addr = target_addr;
-> +	region->limit_addr = region->base_addr + size - 1;
-> +	region->in_use = true;
-> +
-> +	fdma_pci_atu_configure_translation(region);
-> +	fdma_pci_atu_region_enable(region);
-> +
-> +	mutex_unlock(&atu->lock);
-> +
-> +	return region;
-> +}
-> +EXPORT_SYMBOL_GPL(fdma_pci_atu_region_map);
-> +
-> +/* Translate a host DMA address to the corresponding OB address. */
-> +u64 fdma_pci_atu_translate_addr(struct fdma_pci_atu_region *region, u64 addr)
+> diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_main.c b/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
+> index 11094a381ec2..d6ce1e3e373f 100644
+> --- a/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
+> +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_main.c
+> @@ -1324,9 +1324,35 @@ static void lan966x_remove(struct platform_device *pdev)
+>  	debugfs_remove_recursive(lan966x->debugfs_root);
+>  }
+>  
+> +static void lan966x_shutdown(struct platform_device *pdev)
 > +{
-> +	return region->base_addr + (addr - region->target_addr);
+> +	struct lan966x *lan966x = platform_get_drvdata(pdev);
+> +
+> +	if (!lan966x->fdma)
+> +		return;
+> +
+> +	/* The reload paths disable this NAPI under rtnl; serialize with them. */
+> +	rtnl_lock();
+> +
+> +	if (lan966x->fdma_ndev)
+> +		napi_disable(&lan966x->napi);
+
+[Severity: Medium]
+
+The NAPI is disabled here and never re-enabled, and no state is recorded to
+say the device has been shut down.  After rtnl_unlock() the netdevs are
+still registered and their ndo callbacks are still live.
+
+Can a later MTU change on any port hang?
+
+  lan966x_port_change_mtu()          /* .ndo_change_mtu */
+    lan966x->ops->fdma_resize()
+      lan966x_fdma_change_mtu()
+        __lan966x_fdma_reload()
+          lan966x_fdma_reload()
+            napi_synchronize(&lan966x->napi);
+            napi_disable(&lan966x->napi);
+
+The second napi_disable() lands in napi_disable_locked(), which spins:
+
+	while (val & (NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC)) {
+		usleep_range(20, 200);
+		val = READ_ONCE(n->state);
+	}
+
+NAPIF_STATE_SCHED was set by the napi_disable() in lan966x_shutdown() and
+is only cleared by napi_enable(), which shutdown() never calls.
+
+Wouldn't the netlink task then loop with no timeout and no alternative wake
+condition, while holding rtnl_mutex, blocking any later rtnl user in the
+reboot sequence (including a second instance's lan966x_shutdown(), which
+also takes rtnl_lock())?  device_shutdown() runs from
+kernel_restart_prepare() with userspace still runnable, and an XDP attach
+reaches the same napi_disable() through lan966x_xdp_setup() ->
+lan966x_fdma_reload_page_pool() -> __lan966x_fdma_reload().
+
+> +
+> +	lan966x_fdma_tx_disable_netdev(lan966x);
+> +
+> +	lan966x_fdma_rx_disable(&lan966x->rx);
+> +	lan966x_fdma_tx_disable(&lan966x->tx);
+
+[Severity: Medium]
+
+The commit message says "fdma_deinit() disables both channels and waits for
+them to go idle", and shutdown() relies on the same two helpers for that
+guarantee.  Both of them drop the poll result though:
+
+lan966x_fdma_rx_disable() and lan966x_fdma_tx_disable() {
+	readx_poll_timeout_atomic(lan966x_fdma_channel_active, lan966x,
+				  val, !(val & BIT(fdma->channel_id)),
+				  READL_SLEEP_US, READL_TIMEOUT_US);
+}
+
+Is a timeout on FDMA_CH_ACTIVE distinguishable from a channel that really
+went idle here?  lan966x_fdma_tx_disable() sets tx->activated = false
+regardless, and shutdown() then masks FDMA_INTR_ENA/FDMA_INTR_DB_ENA, which
+hides the error sources that would report the still-active channel, and
+returns.
+
+Unlike the unbind path, shutdown() keeps the RX pages, the coherent DCB
+rings and (on the PCIe backend) the outbound ATU window mapped, so a
+channel that never reached the idle state keeps write access to memory the
+next kernel will reuse.  Would it make sense to check the poll return and
+at least report it?
+
+> +
+> +	lan_wr(0, lan966x, FDMA_INTR_ENA);
+> +	lan_wr(0, lan966x, FDMA_INTR_DB_ENA);
+> +	lan_wr(0, lan966x, ANA_ANAINTR);
+
+[Severity: Medium]
+
+Can the ANA_ANAINTR mask be undone right after it is written?  The ANA irq
+is still requested and enabled at this point, and it is a threaded handler
+(devm_request_threaded_irq() with lan966x_ana_irq_handler and IRQF_ONESHOT
+in lan966x_probe()), whose tail does an unlocked read-modify-write of the
+same register:
+
+lan966x_mac_irq_handler() {
+	...
+	lan_rmw(ANA_ANAINTR_INTR_SET(0),
+		ANA_ANAINTR_INTR,
+		lan966x, ANA_ANAINTR);
+}
+
+lan_rmw() is readl() -> modify -> writel() and preserves ANA_ANAINTR_INTR_ENA
+from the value it read.  If the handler thread has already done its readl()
+(with INTR_ENA still 1) when shutdown() writes 0, wouldn't its write-back
+restore ANA_ANAINTR_INTR_ENA = 1?
+
+shutdown() holds only rtnl, which the threaded handler never takes, and it
+neither disable_irq()s nor frees the ANA irq, so the source stays mapped
+and unmasked.  The switch keeps learning and forwarding after the host
+reboots, so MAC-table sync events keep arriving.  Would a
+disable_irq()/synchronize_irq() on lan966x->ana_irq before the mask, or a
+shared lock with the handler, close that window?
+
+> +
+> +	rtnl_unlock();
 > +}
-> +EXPORT_SYMBOL_GPL(fdma_pci_atu_translate_addr);
-
-[Severity: Low]
-What serializes these reads against the writers?
-
-fdma_pci_atu_region_map() and fdma_pci_atu_region_unmap() mutate
-target_addr/in_use and the hardware window under the sleeping atu->lock,
-while this helper reads base_addr/target_addr with no lock, no READ_ONCE()
-and no in_use check. Its intended callers are descriptor callbacks
-(lan966x_fdma_pci_dataptr_cb()/nextptr_cb(), reached from NAPI poll and
-from lan966x_fdma_pci_xmit()), which cannot take a mutex.
-
-Looking at the end of the series, the writers are
-lan966x_fdma_pci_reload() and lan966x_fdma_pci_deinit(), both of which
-first do napi_disable() and lan966x_fdma_tx_disable_netdev() (netif_tx_disable()
-drains in-flight ndo_start_xmit callers), and both are under rtnl, so there
-does not seem to be a reachable race today.
-
-Given that, would it help to document at the prototype that the caller must
-quiesce DMA and the descriptor paths before unmapping a region, since this
-is an exported helper?
-
 > +
-> +/* Initialize ATU, dividing the OB space into equally sized regions. */
-> +void fdma_pci_atu_init(struct fdma_pci_atu *atu, void __iomem *addr)
-> +{
-> +	struct fdma_pci_atu_region *regions = atu->regions;
-> +	u32 region_size = fdma_pci_atu_region_size();
-> +
-> +	atu->addr = addr;
-> +	mutex_init(&atu->lock);
-> +
-> +	for (int i = 0; i < FDMA_PCI_ATU_REGION_MAX; i++) {
-> +		regions[i].base_addr =
-> +			FDMA_PCI_ATU_OB_START + (i * region_size);
-> +		regions[i].idx = i;
-> +		regions[i].atu = atu;
-> +
-> +		fdma_pci_atu_region_disable(&regions[i]);
-> +	}
-> +}
-> +EXPORT_SYMBOL_GPL(fdma_pci_atu_init);
-
-[Severity: Low]
-Should this also initialize in_use, target_addr and limit_addr?
-
-This is the designated initializer for struct fdma_pci_atu and it even
-touches hardware (disabling all six windows), but it only sets base_addr,
-idx and atu. The allocation state that fdma_pci_atu_region_get_free()
-consumes is in_use, which is never assigned here, so the helper silently
-depends on the embedding structure having been zeroed. If in_use held
-garbage, every region would look busy and mapping would fail with -ENOSPC.
-
-The only in-tree caller later in the series passes &lan966x->atu, and
-lan966x comes from devm_kzalloc() in lan966x_probe(), so it works today.
-Would it be worth clearing the per-region software state here (or noting
-the "caller must zero the struct" precondition at the prototype)?
-
-There is also no counterpart to this function: nothing resets the software
-state, unmaps still-mapped regions, or calls mutex_destroy(). Is a
-fdma_pci_atu_deinit() wanted for symmetry?
-
-> diff --git a/drivers/net/ethernet/microchip/fdma/fdma_pci.h b/drivers/net/ethernet/microchip/fdma/fdma_pci.h
-> new file mode 100644
-> index 000000000000..60aa2d2a9af3
-> --- /dev/null
-> +++ b/drivers/net/ethernet/microchip/fdma/fdma_pci.h
-> @@ -0,0 +1,52 @@
-
-[ ... ]
-
-> +/* Outbound regions are 64KB granular (datasheet section 3.24.7.4.1), so both
-> + * the region base and the mapped size must be aligned to this.
-> + */
-> +#define FDMA_PCI_ATU_REGION_ALIGN BIT(16)
-
-[ ... ]
-
-> +/* Initialize ATU, dividing OB space into regions. */
-> +void fdma_pci_atu_init(struct fdma_pci_atu *atu, void __iomem *addr);
-> +
-> +/* Unmap an ATU region, clearing its translation and disabling it. */
-> +void fdma_pci_atu_region_unmap(struct fdma_pci_atu_region *region);
-> +
-> +/* Map a host DMA address into a free ATU region. */
-> +struct fdma_pci_atu_region *fdma_pci_atu_region_map(struct fdma_pci_atu *atu,
-> +						    u64 target_addr,
-> +						    int size);
+>  static struct platform_driver lan966x_driver = {
+>  	.probe = lan966x_probe,
+>  	.remove = lan966x_remove,
+> +	.shutdown = lan966x_shutdown,
+>  	.driver = {
+>  		.name = "lan966x-switch",
+>  		.of_match_table = lan966x_match,
 
 [ ... ]
 
