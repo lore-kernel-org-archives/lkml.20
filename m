@@ -1,83 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39157384256;
-	Thu, 10 Sep 2026 15:01:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA86C475342
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:03:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789052482; cv=none; b=d5hGOMbaZJNyhBheRWNIVwapXk8pgSbVo43wNRVtZ5YEgVxhsMb/HtBRGqszVvurPoeQWWnj9G/FUJTcHFXG33TZl5JraWoEdY6hUYZ/VBHoZhT0Q2ZrrQf7aJ3itj1VQGo29/ZWp+6aoJYWQs6qzsuOizYAi36szUMWPDWBzZk=
+	t=1789052585; cv=none; b=gf5Xh1RSpQD7me/rrqur1ik84K4dcaRSEWPFyWhx4N6AwaJtfPOSEZGA26F4SSR8vzRhGrxLKCkUoCRzY6XGLaJydadfe72vHTbRlpRguE5fMyJIkKSMrCLQVAJZIhP4yu3yaFY18WiVpMFsbBdsZ3x/xFxq3yoi8EpIw+AY1QE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789052482; c=relaxed/simple;
-	bh=L8DM0rJVl8lI0AE8AqZeZSU4hIs6eem028Jbow6Fsxk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RUobJRdiUxlCqL4abE6QQLfdQCmGDl6m0oMWyDHCok0WD/k9l6RKpxxxW+G1b4blY64cCVLMjV67VzSIsC7Fu2FvkvfJ23qMYpSU6yYOEBh3fPepUc2gx4h5jYGI9WtDa4VKYg4b3nY7E+gtqY58vtFGTP8ad+zUOGRlBIGSVfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HPB2dbOc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789052585; c=relaxed/simple;
+	bh=WEKZGkYMhuG/QcBWeOHNGGmyyaOuLvtBMV1p25iWac0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gJ1kfV2ulCQmAA1pNtcwuclbH9fS7Hu1/C327osmvCQdPm3rAowGFx3FI7v/Ybv4gJJ35rJnJ2CfSuMGUESAltlvMiiRBpdTH+kRhveakBF8ENJHWy5FgwErU9wMa7DUo5SSJ2PhzInybSSXDh0XsBB3XBn5tgSnzRKeJXQntfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZlPadE8Z; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HPB2dbOc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3722D1F000FF;
-	Thu, 10 Sep 2026 15:01:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789052480;
-	bh=JOXfFD2pYQZzyzXEGGXBKQ9880w58jVJaec/hDfB60g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HPB2dbOcLtPdehPej5NTutXykBpbS/VVRRWrdLCwFK5eSCgS5uoDrSR/QpfKLuymh
-	 jwroneGXNmJpi0orSe3AnvLIu4ObY9gd25gYBV/8IBV1SzaP4YHYJu6K8e3hFxE/7M
-	 y3RP7MiEi1QjV+COgtucSsnI8j7p8uOaVzpREwrU=
-Date: Thu, 10 Sep 2026 17:01:12 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Jiazi Liu <jiazi.liu1984@gmail.com>
-Cc: Thinh.Nguyen@synopsys.com, frode@meta.com, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v4] usb: dwc3: gadget: fix IRQ storm on invalid event
- buffer count
-Message-ID: <2026091053-unstylish-punctured-9ad6@gregkh>
-References: <20260727092258.1121-1-liujiazi@amazon.com>
- <20260907073756.22329-1-jiazi.liu1984@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZlPadE8Z"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso4762485e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:03:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789052582; x=1789657382; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hVkpNvpROCLLMNLfxrQVSfYLWvaKflKzjcbar59UihU=;
+        b=ZlPadE8ZbPrHqU+UpuKfaKeQMl18fpsjbiiT5NLdW6yERa0nDRr7vKqETDkcHvMWDK
+         gIhLZaiRGQVXVr5wHYYvb8cEQqa0rly2MH+OfqXYxxIu5LzpGp2pBdIAh+FA5mLTG2Ui
+         l5+F2wdlr7ZIvHiLj5+wJcnTOFqIXnhD//QWk4bL6b+8ERnn4Fuf08/krI5hwEL1vyrH
+         WVW+D8CPxlIxICf6SpmiLfOCVIgX20w2aIfUAId12PoUx/cz6Ku/rrpAvU06i14bOcBC
+         U/2w6rCTk67krFes3A0Lir7o+9WQYCdhq3lkmXRZFQpGi5cu6Y1eQg03Aq1bD9xJQSJz
+         HA6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789052582; x=1789657382;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hVkpNvpROCLLMNLfxrQVSfYLWvaKflKzjcbar59UihU=;
+        b=hvx6RLM41kyYflwmsaEg9InPHwdjIQ6dW/BeixO0nHYGsj8n/gyghn7Z7nrbiYe9F/
+         kI3JcKkqQPARICVC1TNlyxbgtrN7nLd7AzRSml80vGM50l07E32r6rL79IxW6vHBoNsP
+         9yLvnGZDVUNxn/H53VRdlJzsLay8k2klYl1zONFhmPK+ilL1pA56RKlrGwUFPj+bGUvT
+         arzqd6QJjdz6R7/ly0kti1rFVhSx92C0IbEBYFw2LjsorRO3jLGJuEzKnXnBI77c0UxM
+         38ODjYGnb/k2MyKxvDTN+8RaGlabGz1hQdj1lL4NlAjcl+0HE9r6z515ogjeZY8KoGxM
+         vLTA==
+X-Forwarded-Encrypted: i=1; AKwUvBw6+l+F3q9J3Lk1RzzIebAuyL4BM3/3TSHOKo0706tbfIDl3rYfr4+0pZaBNWgkBwmO0voUviaUEMA0I/o=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9XkmdO0F821PeNUGWRYBB7v9mAgAViXRk2nXxsQaaHkUwvwIP
+	PxYjaMVOjY4+AC++JpKdyW5GhrAr5akBzEf/tVe4FVEfAD9zKc11Xwx9
+X-Gm-Gg: AYBFou3XzSmR8ngPcPamzLVTaNfYM6gP3L8ta3Rp2pZTerkHnohjEl825H1uIE33lHA
+	9uPc3NBrlsqS0AU21tc9C5oWPDyE3aLMMpyTzebqRp6O9oMZd5BtlHrAbKoyNqfwvJ8U7gehd4n
+	Pi5WArisKaMNJFcVPyhfEENx3d2jgllDOHQE57+O5d+OwxguMpgl0o7Zny51vhdCDuCa7QqRUPw
+	AVY28Qq7KFBTLbxrsq2Z7IpXAJ2WxdtuRKWhpGL0LGbxzzwuZC4vjilfz1I3zPIOyJTm/hGwZV1
+	QGrCL2Z9lirdMKjOKOFRV19kE39HCiY3q6injvZYrtfIk3nuI9n3Tf1tilNE0oUDhUZAD3Xy1aO
+	dsGGoxeb+K7zpEFVinS18d366bsCQHsLiBQFHkbIT+Gqzihj59BcgFMnE/5YGY/u9LyLaI01KOf
+	UIyr9VQVg7wf4vm+pGzw3fYm44hepUVtnUTUkdLk2wwUvw0eKigDCogY4msvwb/XMJ6Sdibh701
+	AP+PRopTxKso2U8gR43W62FjEbtPKKTFfacpA==
+X-Received: by 2002:a05:600c:3584:b0:49c:ff66:7d88 with SMTP id 5b1f17b1804b1-49d26d7f8a2mr74899235e9.7.1789052581389;
+        Thu, 10 Sep 2026 08:03:01 -0700 (PDT)
+Received: from localhost.localdomain (mob-31-26-70-91.net.vodafone.it. [31.26.70.91])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49d26d4e3f3sm85162185e9.15.2026.09.10.08.02.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 08:03:00 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Mark Pearson <mpearson-lenovo@squebb.ca>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] HID: Lenovo Yoga Slim 7x Gen 11 keyboard fixes
+Date: Thu, 10 Sep 2026 17:02:49 +0200
+Message-ID: <178905256920.12856.4223144289618356245@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260908111812.43837-1-okerixx@gmail.com>
+References: <20260908111812.43837-1-okerixx@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907073756.22329-1-jiazi.liu1984@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 07, 2026 at 03:37:56PM +0800, Jiazi Liu wrote:
-> When dwc3_check_event_buf() reads a GEVNTCOUNT value exceeding the
-> event buffer length, commit 63ccd26cd1f6 ("usb: dwc3: gadget: check
-> that event count does not exceed event buffer length") returns IRQ_NONE
-> without writing back GEVNTCOUNT. Since the DWC3 interrupt is
-> level-triggered, the uncleared IRQ source keeps the line asserted,
-> causing a tight IRQ storm that accumulates 99,900 unhandled interrupts
-> and triggers spurious.c:184 BUG -> kernel panic.
-> 
-> The resulting call stack:
->   __report_bad_irq+0xac/0xc8
->   note_interrupt+0x340/0x468
->   handle_irq_event+0xac/0xc0
->   handle_fasteoi_irq+0x120/0x228
->   gic_handle_irq+0x68/0x108
->   ...
->   kernel BUG at kernel/irq/spurious.c:184
-> 
-> To reproduce, write a bogus value exceeding the event buffer length
-> directly to the GEVNTCOUNT register:
-> 
->   devmem <DWC3_BASE + 0xc40c> 4 0x1004
-> 
-> Write the bogus count back to GEVNTCOUNT to clear the IRQ source,
-> consistent with the stale event clearing pattern in
-> dwc3_event_buffers_setup(), and schedule error recovery to
-> reinitialize the controller.
-> 
-> Fixes: 63ccd26cd1f6 ("usb: dwc3: gadget: check that event count does not exceed event buffer length")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-> Signed-off-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+This is superseded by an identical resend I posted this morning after
+losing track of this one:
 
-I missed where Thinh signed off on this, where did that happen?
+  https://lore.kernel.org/all/20260910063051.4556-1-okerixx@gmail.com/
 
-confused,
+Same code; sorry for the noise.
 
-greg k-h
+pw-bot: superseded
