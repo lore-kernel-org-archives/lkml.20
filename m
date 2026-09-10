@@ -1,152 +1,161 @@
-Received: from flow-a4-smtp.messagingengine.com (flow-a4-smtp.messagingengine.com [103.168.172.139])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0498A3ACEF3;
-	Thu, 10 Sep 2026 10:59:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 756D945FFAD
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:59:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037973; cv=none; b=gbNpOEe8aylLU7T9LvB8Q+JXF/6W6RFvQfnx5MldDYHAcG+w5GemyFnl1DXMdEmY5xM1RGgVEX7xwxTWMZhfCS0p6YTvKOWTgAEvo0z+v5c/NeFk3rNvV5fvH7Rm3mSCutSAK0ebi7QljZmv1xnl1gqlbz0QEWSmJlnrE8764Bw=
+	t=1789037993; cv=none; b=sziQvSaIVMi7ARyfHW2RX2MMYfMC6szi+HFF/kJ+k2olj8M/dnaq19O1r1TDeA0YcSHzSqzJg2A9kqzVc3MJmGCzc57AfPJV250eaprnDkLUQV1TcEQiEdlgHc1s0rZCRb9HDiVWJvOrfYx/xltZPDnWjFdJTddfdE+1Smzelcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037973; c=relaxed/simple;
-	bh=BgniumLDwEiQr6fO1Okm3qxcarVPyKMttr7PdcA+W/g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Rdzy1GzJXmaYrN3Xgl1nQIxxT4vW48zNxru8H0PICT/bGuSkFCKCTUZ/h0ckr14ld7g7onxGMAC64OAMEVDlo7+RkJVGMeZEAqEFKWt6mAr7JE2p61cckpkLFRzsf4DnObilBUdOhwy6KrE21mX4vg/DIMALL7KWWfIhmja7Y94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=EoHYaXG2; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Ja0/aFLs; arc=none smtp.client-ip=103.168.172.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1789037993; c=relaxed/simple;
+	bh=K6vTRC6I31fQK6gVtUTNl3XwnQl2ZtJnVVWEd3Z7WFc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nPZ94BhHWdCz6WJ3fQxBpQDCFjOFf1fMuvei64yrF9o4KYpoaIM3YLGN8/3HP+nu7sU7Y3SuLUK1eqPjHRcEJ/r53GhbG2h3paoc2r9ZdKX5UH40bYrPea0onf0QYZnjJSTa4RRltBygCZ7hUMe+0HQrUbhqGE3vHyetRPqP6+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=MyKQSv9q; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="EoHYaXG2";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ja0/aFLs"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailflow.phl.internal (Postfix) with ESMTP id 0707A1380361;
-	Thu, 10 Sep 2026 06:59:31 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Thu, 10 Sep 2026 06:59:31 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1789037971; x=
-	1789045171; bh=3BwfusbEF09le3lRy6VYoc5vvb8/UgBwJTc77fiy39Y=; b=E
-	oHYaXG2d6dnhrhlZPaw+buBZDZ/ZOK2YnKEt4PcmBcdz5tJ9IbfSf4UPrvUhgbqw
-	/XMx0QP8N2fiMU1TW13nPJtYe0p5+Si6eaiMiz2Iko7W+2LkAlvXpwPrscMrT7om
-	wlQC7EgKzUFPcVZ0GihfXZMpdxcUtxyQWrRLOsWSASvu63ddI7zLjGjkGH30yi+f
-	JcnpRoVTp9Aewwmgb7PaYgdIPXPTtk+eDbzgeQ6ZmU4Am+7Ribf8HMHcUn1qXNmE
-	ZwVKL+CCx8kzvJm0Ix3vqwLozSpFcymTJQ9LaI5NIUYM0f70nkbNKt7xiPZ8+0/S
-	JdUpgREE6BnuJ/R3K63DA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1789037971; x=1789045171; bh=3BwfusbEF09le3lRy6VYoc5vvb8/UgBwJTc
-	77fiy39Y=; b=Ja0/aFLsK7Q3t9RqL1iZ8DdLkI58V/wC//AmOKKX/7gsudbj4+G
-	xtJ56ZTUa7nIixXwpt4BQ43rQQ7Zzo3fsLVebFzLMEBUAkdcPF2Q6/6HDKzOjrmY
-	T37i1UKa37PRYZ7dsb/AaAm6KUSSbYexjaRKNM1DAOeEwoLvOyFwaVY1jtF3uyii
-	OxjO2HnpTwPBcyWBcj7RkaO/BuYFUM7Tn1sUtokaQrRHlYgIdbff5ual2iOqQzPL
-	ZyhTWt7uAMb3AQfzw7dA3W5L73sD5KUj8PQQ8rhl/qjMt4/f5+2fGDWX7jmC9gRV
-	iTwdPlILGZNByZ8Ev1FYHkvLW5cz4lD1uiQ==
-X-ME-Sender: <xms:ko2iattjalcwPWIL5UNscg0MIXiF6WmOWJlVElV_0LdpRy9806dh9Q>
-    <xme:ko2ianKt3vTu5gQv9t0di3ONtO1WeMGB6drgjQDGZnfDqQSfdUCAX7Cc5y9tAq8uk
-    xh0KAxNz6_ltNAjZPpXG6QnYiPI_vurirpQuFY7K6QsvUoG1yn9hzfgTw>
-X-ME-Received: <xmr:ko2ialQXjXZW9N5NZHRNckiuQE2KO-6QzYckf8mWVty2FfzfGlKuSb3bFR8>
-X-ME-Proxy-Cause: dmFkZTExGDeRAc2ZQvQEVOZg05RC7pzdHKVkkxCU4OVzC6eJ1yiq+dkvuNpph491rCSg99
-    ItVtML130B8ODTdy76InRXCLDNaNNaTXWNKl71VlGzapLT/PKpaq/yp6tPxANkNdjNuqob
-    hUhC5q+z3VJokLVhtdnNzOHq8HB3Gu5Ki3O9wHHpqx6QnVCJ6Mwr6zY1sfs6ioIkhduQB2
-    cjK46H5gyRhde+ukXeSmJg7XmiDbNE8++i8Ylsv0wnJwn5W1L9sKPmXxdBB0BYsnvUNs5B
-    4qHkIOL9/2e667KRTruDA/HZANASE9ZIxHm48xWT6Jg9ai0h943Ghn3IVLvfn13XDvCjZZ
-    AHaR9sdNGERstfSRz8Jbu+sZ0LYCoL5Z7DkxQFQZ/wGLvdwBejDf+fYHnCiL6KFc4W7Y2k
-    Wf1EzYf+EDqW7tkNXyVs9IA1vdj2qTdXRleRBRBEa6wRZbtuY43Jb3Wgju5yQKbjkcI8L8
-    /eLkf1wSSQhYaKwlRb0xXOyLFwjVAvsReMSx31i6VJK9APRimVscJHj+lHFyl5ceIBR7bT
-    kZI3XOFLpsbaz6OYOiFQVizlu1JPaBWhWAOqydoiofLiU4ESgyl+gkR4NZ/egwkgFhifOX
-    EaY1uhrPJpP4xyvdbP87nRnG9NJ7W0SNoN7NVd/aS+Q+4Fx98G3M8gWuB0Dw
-X-ME-Proxy: <xmx:ko2iakvwyqhKy250k9J0RtVdTTIkYbA7vSC2kKlL5CuuPna6nzIlwQ>
-    <xmx:ko2iaki9tMjClm9xKnmkPgfeHjMINXbSZkRvznOScD7766ssSXAePA>
-    <xmx:ko2iat1rf7gWeDZlzLuBwlvHFUZhXHlJVQL1P5agEF4-rt5pd3s3vg>
-    <xmx:ko2iaqq7LcXmxRJXqP4FeoI8N7Xuylh_b_QY5fTXBgeURRc0T667fQ>
-    <xmx:k42iauO60ajg5omKOYksNnMDp6gk1alTZ_S78VJASSjv3m28xQmlRTT8>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 10 Sep 2026 06:59:30 -0400 (EDT)
-Date: Thu, 10 Sep 2026 11:59:29 +0100
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
-	rppt@kernel.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, usama.anjum@arm.com, usama.arif@linux.dev, nico.pache@linux.dev, 
-	ziy@nvidia.com, baohua@kernel.org, dev.jain@arm.com, hughd@google.com, 
-	lance.yang@linux.dev, liam@infradead.org, mhocko@suse.com, ryan.roberts@arm.com, 
-	shuah@kernel.org, surenb@google.com, vbabka@kernel.org, agordeev@linux.ibm.com, 
-	jgg@ziepe.ca, leon@kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH v5 06/19] selftests/mm: stop khugepaged during the
- MADV_COLLAPSE cases
-Message-ID: <aqKNcw8-2H035xyc@thinkstation>
-References: <20260908125105.1510704-1-kirill@shutemov.name>
- <20260908125105.1510704-7-kirill@shutemov.name>
- <4e064b9d-aea9-485a-8547-3830999cff01@linux.alibaba.com>
- <aqE3Vq8Go01c1icS@thinkstation>
- <ba2d7885-f017-4d4c-bb59-e45f8b9f1b63@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="MyKQSv9q"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id C00B11A1A97;
+	Thu, 10 Sep 2026 10:59:48 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 8764F602B8;
+	Thu, 10 Sep 2026 10:59:48 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C298211C78279;
+	Thu, 10 Sep 2026 12:59:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789037987; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=PiVPoZqxXQzLSRnTyxJY0LUsG2EsVds3etvNlaImVXs=;
+	b=MyKQSv9qy+ede1HK7HqbuXAUK7XqNhdafo5puwBvBNW5aeh0/tXviCEzLnnfor378UQg5p
+	m4mN7KciSm6fhsKKUzhpiUcwf3efVd8QrepBSI+Kjyc6gj7yyzge1Yq5ghMACgVZ49GVjQ
+	3QIjLBajCgtFqs4oHzyZkcx1X5HNhQdUho0sRSXTfFYWlARolRHSYAy6Hwh4qxgQAOyxLG
+	A/Nh1wXO4WaXuIqnYXIoK+EBu4aAWRsLBYQ9HP+stBv970OTB/N2/jE2MZHuY/7LVEKZOM
+	vzekn7UQdE/lQi/BQ2Pk2LLO4Ms1RCTsjouURhrT5P0dFgc/ta+2ICbS/giMHQ==
+Message-ID: <44d7840d-0cde-4022-937c-4c630398c45d@bootlin.com>
+Date: Thu, 10 Sep 2026 12:59:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ba2d7885-f017-4d4c-bb59-e45f8b9f1b63@linux.alibaba.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2 2/2] net: stmmac: Add support for Allwinner
+ A733 GMAC210
+To: Jerome Brunet <jbrunet@baylibre.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andre Przywara <andre.przywara@arm.com>
+References: <20260910-allwinner-a733-gmac-support-v2-0-4f4a1e520c23@baylibre.com>
+ <20260910-allwinner-a733-gmac-support-v2-2-4f4a1e520c23@baylibre.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260910-allwinner-a733-gmac-support-v2-2-4f4a1e520c23@baylibre.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Sep 10, 2026 at 02:27:28PM +0800, Baolin Wang wrote:
-> 
-> 
-> On 9/9/26 6:41 PM, Kiryl Shutsemau wrote:
-> > On Wed, Sep 09, 2026 at 05:55:01PM +0800, Baolin Wang wrote:
-> > > 
-> > > 
-> > > On 9/8/26 8:50 PM, Kiryl Shutsemau wrote:
-> > > > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> > > > 
-> > > > __madvise_collapse() turns THP off before each MADV_COLLAPSE, both to keep
-> > > > khugepaged out of the range and to prove MADV_COLLAPSE ignores the setting.
-> > > > It clears the global controls only, which is no longer enough.  A per-order
-> > > > control overrides them, and -s, which makes the cases fault in folios of
-> > > > one order, leaves that order's control at "always".  khugepaged then
-> > > > collapses the very range the case is working on, and the case fails on a
-> > > > collapse that was interfered with rather than refused.
-> > > 
-> > > Right. So I think the correct fix tag is b7f16963efe7 ("mm/khugepaged: run
-> > > khugepaged for all orders"), because before this commit, khugepaged would
-> > > not try to collapse this range since it only checked whether the PMD order
-> > > was suitable for collapse.
-> > 
-> > Agreed.  The series is in mm-new already; if a respin is needed I will use
-> > that tag.
-> > 
-> > > > @@ -547,9 +547,16 @@ static void __madvise_collapse(const char *msg, char *p, int nr_hpages,
-> > > >    	/*
-> > > >    	 * Prevent khugepaged interference and tests that MADV_COLLAPSE
-> > > >    	 * ignores /sys/kernel/mm/transparent_hugepage/enabled
-> > > > +	 *
-> > > > +	 * "inherit" rather than "never" so that MADV_COLLAPSE on shmem still
-> > > > +	 * finds an order to build.
-> > > >    	 */
-> > > >    	settings.thp_enabled = THP_NEVER;
-> > > >    	settings.shmem_enabled = SHMEM_NEVER;
-> > > > +	for (i = 0; i < NR_ORDERS; i++) {
-> > > > +		settings.hugepages[i].enabled = THP_INHERIT;
-> > > > +		settings.shmem_hugepages[i].enabled = SHMEM_INHERIT;
-> > > > +	}
-> > > 
-> > > This looks like a workaround to me. Shouldn't we fix this in shmem instead?
-> > 
-> > Good point.
-> > 
-> > It can be a follow-up patch.  Do you want to make a proper shmem.c fix
-> > and update the selftest along with it?
-> 
-> Either way works for me.
+Hi Jerome,
 
-Please, do it as a standlone shmem fix, plus selftest update to reflect
-the change.
+On 9/10/26 12:25, Jerome Brunet wrote:
+> The A733 GMAC210 is a DesignWare MAC 5.20 using an Allwinner glue close to
+> the A523 GMAC200 already supported by this driver, with the following
+> differences to handle:
+> 
+> * The glue configuration registers are a dedicated MMIO region of the
+>   controller instead of a syscon register. This new register region
+>   appears to be in the reset domain of stmmac's main reset. This requires
+>   the glue driver to handle the reset rather than letting stmmac deal with
+>   it.
+> * The TX clock delay value is 5 bits wide, split over 2 register fields,
+>   allowing delays up to 3100ps.
+> * The DMA channels have their own interrupt lines, so the per-DMA-channel
+>   interrupt mode is enabled, as the vendor SDK does.
+> * TX LPI clock gating is supported, as the vendor SDK indicates. Follow
+>   the PHY capability with STMMAC_FLAG_EN_TX_LPI_CLK_PHY_CAP rather than
+>   forcing it on with the deprecated 'snps,en-tx-lpi-clockgating' DT
+>   property.
+> 
+> Unlike the A523, both GMAC instances are supported by the same driver.
+> 
+> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+[...]
+
+> +
+> +static struct regmap *sun60i_gmac210_get_regmap(struct platform_device *pdev,
+> +						struct plat_stmmacenet_data *plat)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	void __iomem *base;
+> +	int ret;
+> +
+> +	base = devm_platform_ioremap_resource(pdev, 1);
+> +	if (IS_ERR(base)) {
+> +		dev_err_probe(dev, PTR_ERR(base), "unable to get glue memory region\n");
+> +		return ERR_CAST(base);
+> +	}
+> +
+> +	if (!plat->stmmac_rst || !plat->stmmac_ahb_rst) {
+
+Why check stmmac_ahb_rst, but not do anything with it ?
+
+> +		dev_err(dev, "missing required reset controls\n");
+> +		return ERR_PTR(-EINVAL);
+> +	}
+> +
+> +	/*
+> +	 * The configuration registers are inside the controller
+> +	 * reset domain, so the reset must happen before any write to them
+> +	 * and should not be done again by stmmac or the configuration will
+> +	 * be lost.
+> +	 */
+> +	ret = reset_control_assert(plat->stmmac_rst);
+> +	if (!ret)
+> +		ret = reset_control_deassert(plat->stmmac_rst);
+> +
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "device reset failed\n");
+> +		return ERR_PTR(ret);
+> +	}
+> +
+> +	ret = devm_add_action_or_reset(dev, sun60i_gmac210_reset_assert,
+> +				       plat->stmmac_rst);
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> +
+> +	plat->stmmac_rst = NULL;
+> +
+> +	return devm_regmap_init_mmio(&pdev->dev, base, &sun60i_a733_regmap_cfg);
+
+I wonder if this is the first glue to face this...
+
+If you need further setup to be done after reset has been deasserted, I suggest
+adding a dedicated callback in plat_stmmacenet_data, instead of doing this behind
+the generic code's back.
+
+maybe something like "post_reset_init()", something like that ?
+
+the ->mac_setup already runs after reset, but isn't really for this type of usecase.
+
+For readability of the patch, maybe you should split this patch to first do the
+a523 rework, then add a733 support.
+
+Thanks !
+
+Maxime
