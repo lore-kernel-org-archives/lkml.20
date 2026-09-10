@@ -1,197 +1,137 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010069.outbound.protection.outlook.com [52.101.69.69])
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEDB3C09F9
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:41:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.69
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789065692; cv=fail; b=kTTuDJaxNrXWvpk93Uu4P91OJPugcNhNLOouSoWSb0iUZdqhznKq6m6ZiYA3+QXX6p6Plo+uD1cerqp9QGUq+zxDKCZ8PWFE/CMx2iiPPQuYaPmGbbabmOnY7Vmu7M+nuCQFbMXYjeKS82Akjz5tT94tWnNMEor7pUJV3uNUH+I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789065692; c=relaxed/simple;
-	bh=sMSr0foikNAt6CdKCO0yPdIGjhXIbCnJC52+0yaPVHU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=mETClelsqdXuDsWq3tIwrRyv4fnbBArJ5U2k48nY0Wg71JaQGzfnHOP4UHrH0xga6AM6PFKsYX5irEvOhr5BGlkuD7Tnh5IK5gN5j/hahfGZXOeYW5Jq+T5Yr/Vv2jUSon0K2ym1SGBiz1OvNipBQfOb4BnErBIKy9lxOLmd2cE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=OQiGxL2Q; arc=fail smtp.client-ip=52.101.69.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E7858B6A8;
+	Thu, 10 Sep 2026 18:41:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789065712; cv=none; b=TKggy+noglKWw5NapX7rF15mwCvVZqpIJWETn1rCccmhc3c453V9fo5tTIzT2PhRv9VwpPoispNe+SyeAr1KI7rE6jggV6KQ/l3B0mVAcHeFLR64fcas9HqZxJWdTiTF2I2HVQT/y1S6f1CXOq1W6p/webOxcVHAK88XwolrV2Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789065712; c=relaxed/simple;
+	bh=PZdK3L16QgUBQ0xLmf1s4QdiHWJ4Vf+7u/ZFogFYMGs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=S0+j62B6onuJveAl7ABYUtP8Kcy/fjKWbRnabYOcQc0vyc6CBeBRRcSRtz/xTm6Sdz0DXFc3+by+2Pu6jI2TpW0A9ssa05vqXqWSNDa08MJ9/PnUzwzCHPJx8RGmtguSpPCfHmG2ygZeZE18V6Fw3518FLylodwxW2qozIOihzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=KgvnrfHY; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="OQiGxL2Q"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sQAmBBXSwdDaZH4rFRhnejVnwZ8pAWDsUit3L/CaEv9jX2hOoyl3HIaSiwoolyadj+flV6xVBbBh8EWikNK45rO/i6R0pkKZIXZpHwkqOTB8NYkYBWHzH1JBO+Qqm7ulLKg25dG5Q61nFOEWYcNq5+pP/lGsS0T9YuNIAh5xfqygyy07s39mVyhPFlCdOVfwTYowaDd+Q1lCdxirMVRxBN07bpnzPfvJ7f2Pw4cfM8uPxxdna1HJFZDMiVdWWWEbjfQNAWzK0y1y6yK2OMqTVL/T9M2hFlbE1CyrraBXldfwAiBhD3PljVIJke6BgNupUS4jyWXj9YtXbmKrrZltMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qJzl3CvZDqyCw/7KISjlnvCCBqKAWGowlCp3sy7nEk8=;
- b=vahj3FJhZERW6g+Ii9C3sVOyRn8+GKlbntS4ZnsfjLM76+LNMEKRiyLLpPY+2TN3U+Sg8XxUV4Rcd315fV4z6emQlnTb/9FDHdjxg6rs4IUJEAStml2j0S8QR+JXmJQLHhqLgfvh17gp+QkETPKrcy8c6dx0/bxhKxi8bIVJSYKbOLdqx4NRzcvIynED8BBcu9KQGF9hH9MClirrb1dzkH0ZnruXH6bw134f+NHf9LsBpdRN6qoGMsyCVibBd+JYm3UpM0gh9A/4JNmANWMwBw9pzu7pPICr5+v76WZZ8ANttJaMpN2nD6bGV8EUNuuGMpS38zTyqg4mG6+RLyksDw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qJzl3CvZDqyCw/7KISjlnvCCBqKAWGowlCp3sy7nEk8=;
- b=OQiGxL2QF7kP3t1cOB6NGiw0zw/QyohR/zFiFB7ZvjMjwOL8yDpru2eCo1ZANH7kLn5l6TK+li4+S/Gz6FMo6hJT4RjA84P4gpLugr/TJ9OaQaGMfYyRWqbilAQshj34bFeolVtjEGuFctjQfbTWqywoDxaqrGK0XOee5MOWoabBykbbF8U0APiWUqu6PQoVhJRcOhAcbl6PEdr8OmQ9qQxfn83rXMNBC8Xre/SpgWPFPr6iRSUBmx1D/owE/meV4UGxOV0wqLMNPfDAIOdUkVT77bCAEIibeVTgcoLlT4U69ydyBrJS7wFZtXah9l1vIFcpJ/4lx/LEBB3+nY1LXw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS8PR04MB8948.eurprd04.prod.outlook.com (2603:10a6:20b:42f::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 18:41:25 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
- 18:41:24 +0000
-Date: Thu, 10 Sep 2026 13:41:13 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>,
-	Allen Hubbe <allenbh@gmail.com>, Frank Li <Frank.Li@kernel.org>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	fuyuanli <fuyuanli0722@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Nicholas Bellinger <nab@linux-iscsi.org>,
-	Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 01/14] NTB: ntb_transport: Remove the device debugfs
- directory
-Message-ID: <aqL5yc6Wz3iMCS1P@SMW015318>
-References: <20260910040836.3792333-1-den@valinux.co.jp>
- <20260910040836.3792333-2-den@valinux.co.jp>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910040836.3792333-2-den@valinux.co.jp>
-X-ClientProxiedBy: CY8PR10CA0016.namprd10.prod.outlook.com
- (2603:10b6:930:4f::27) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="KgvnrfHY"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=0nOuKVnTAcBRd9oosJmEm2gPVlmW/NvmFy1eYa3dlkQ=; b=KgvnrfHYEJwhAYvKhbiHdzbF33
+	OarfsrFRPzlDJ0LU9q84daMHKCT3zZs8iquSnmOLtYfiSy2QrUuQslC0V5cg0mkgKLJw2Esgkvnms
+	oYguj1/o7Wba/NlWvL+Kt0HJl2H8gvuvuFnIYqiCzY1nR07haTOKU/HE7tIV766FnVC/WeRHvSX2t
+	orX1xICkat+Vksb11fLDdbQBMT5pcy5Kc0EpxGCy5UuN/19SMgm5QD/dpJ4VtVL82MWKDz710xB9K
+	qc6h12fRZJvdArOMI7mzS+gwO54BhrEJcfNTEmXZqsqcak6+Hj3GdR88bLdH5q+54LNIH7JuOnLN4
+	EYvQPfWA==;
+Received: from [151.115.150.205] (port=34186 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1x4jiU-0000000FTPh-0MZA;
+	Thu, 10 Sep 2026 20:41:43 +0200
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	linux-cifs@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: [PATCH] smb: client: validate absolute native symlink targets before NT fixups
+Date: Thu, 10 Sep 2026 18:37:43 +0000
+Message-ID: <20260910183742.4029092-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB8948:EE_
-X-MS-Office365-Filtering-Correlation-Id: fdbd1c2b-5e46-430d-c8f9-08df0f6b1dcd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|19092799006|366016|10067099003|4143699003|11063799006|56012099006|5023799004|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	E9FDBqZzZQPg2oelOsHDiWh6hpcYGE8+b89HhBYHPBkpy7Dt4WSc3pl6/iIpFgYQXm7q7nQDi4zGE+RC0mIA0XiidcuxH7sQGmUps8z6xjIwF8sk6IVzK92+XkZiNQLRTkq9bRCxal82yviaJj8kuFGOERt4ImjbPmPQAq2orrHn0ARpPtrEYJzEkD7x5NtSatURkQHvCo1lW4gtjV4OcanzxnCfWSfG4bsWcJmRLPuwU3T+PUSi1MKgseobSSeTjI3J6xZMB7mI2lf9VikssjJS+6q0jHgN74eFPFUHqZUQtUyGtycokNCNGP2Zxo6BE/dtnLGDjDzoVh2Qu7+Z9/oKLNqMZtDQurhu5SiQX9Fmu98rcIZruAcDF794FjzmV7HF7w/ISaOnF7uELcuywib9B8HgrKl/3FKLcTOFWq18mxg1SzPITadXxMiUW9eg2TCGlvaRm+0eXemgFSRBWC+O65IVQSAnU0gB79OnzDf9Ik/y/P8NcWugVUwUVOqhkvetNo+DuFtLh8sKdYfRfQJ09vT3Fxcgqsdpd7pvFouKj+SdYJbwzl9cFa9ueX7GyqTC/6Osl4siGTiAD9L3yVXM/9MfcmyYprxQN+FyWatQuRj4lupgCVnSzvE+qkNC4q+b41brhoyTydztmUwwZrCJD69nK68ukiQdmvZxCK8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(19092799006)(366016)(10067099003)(4143699003)(11063799006)(56012099006)(5023799004)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?eYrNXCQvqENXRkTsfbEyK4UzlVifeoRH5noMoG3Rwl1KfDH+GX44XhjHEI+Q?=
- =?us-ascii?Q?lNCL/AYoQE7/JHD24yb0cT/4HOlheOrrbSlqE6GsbMnhCMG7wcaMrgtqyB+u?=
- =?us-ascii?Q?XlXfGiteMKUoXTjM1GwvkHqwgTT8OoT6JNhLHKUPV+TB+FeQZtNkP8lNVEED?=
- =?us-ascii?Q?fLBxu76fxebCUAWYlEUVa7xIc6r02I0HcSsgBryTomajKBq+3Nhgk5gkk3JW?=
- =?us-ascii?Q?qIgMMTpOyQL36U78q0TxAd3Eof9BrIUJ9ZakflGBT6+2l2m2Ya9MUS5Hp/aW?=
- =?us-ascii?Q?FitrF+GhfNmMQ+7po8kECjEHUYtrLDEZ7df3Fh7mdQ79US/Ymmnhfn0kI4NF?=
- =?us-ascii?Q?oPaAp0hfhXFJJ8rRIb4De394x8VnqwuSeX8ciFwMYhNhaQiL7csYWa7zTlvx?=
- =?us-ascii?Q?BbXK2LRHZrJjmw9Hx00QEhACXIvMymgyJuRI+RNBOA/ThDT8Z7GHqEfrJS2/?=
- =?us-ascii?Q?adfeZiWpu2bkiGGeffpz6qty/iWIKX/5i8k6SYnmfvVBI4VqJ95JylY/3YHp?=
- =?us-ascii?Q?9scp1ZUNmyRu2qXv0buLZL4dEBP4w5GwWnLygvcYk/dl8Q9uh1fjXrN5cxL9?=
- =?us-ascii?Q?WZKqrqmDOc3mbi8D7RijXvZhMXRa8oamXVW5eXHbXXxymyPUBAWZlqDnlBhI?=
- =?us-ascii?Q?B44JiuDfBRF8CP+uzTlN3m+2WS+QhlgAIVkPG9QqvRKHS8bze10wOZe+0oZu?=
- =?us-ascii?Q?idhmH0jsO09uzt7tfh1xEXT7qFUBMZwHBNG9h6BCrZ73pfkL7JPJgoHfa8RJ?=
- =?us-ascii?Q?r3sOJgg0qqY7yS/FzzDgAnGhx79b0zbOD3fk5qGIIKC7yfPMyIg5DkowOME0?=
- =?us-ascii?Q?faopzXMSjOEZ6NsrdfkBA8yMZR85GVSYcZ/yqINjhYxll26lvhi5vJlooXeH?=
- =?us-ascii?Q?MAfPTFyC1zhBGUfd3T1EiH/Z3gltQw51LkDTDJpe6nODRtnZFsM1Wl5oUP4L?=
- =?us-ascii?Q?KKCPO4G/2cjXpa7qWIcq22ncsqRoEhfvk6R7jKZwd/LibXg6ohy81KO0Y45O?=
- =?us-ascii?Q?jvaO0dLtoEGWDDg+AadNTvh4Z07iql4/0PZo6LntAhy25JFZ2TDXbGGA0NVD?=
- =?us-ascii?Q?6quC1utmK5F6ztZY4FUpUwUkzJVpaLyZdy+Pij7QVkQCAaEuT37qjPGftLN2?=
- =?us-ascii?Q?FZhROnSQYbxBXi3DmXPnpDg4Wx3eb+ToGRvVoqOk8KFZQx3wL19/ubiFZ1wU?=
- =?us-ascii?Q?SdeEskW2fkpx3tjI5uKSqFcLlqUtMSUeKix5qBKEHeWUsunsZg9qTRA1JvAu?=
- =?us-ascii?Q?G1ipMsYYwGlZ74TulAaCNWXKMXXDMpfT5xhypYMdSOqzavP19sHNGyew3cJb?=
- =?us-ascii?Q?xYdyhL5EP/AIGDKdicDEnld1FrrgajIrMS3Hrt39Xb7uSrnQrapZ/16Zagjr?=
- =?us-ascii?Q?HUE678xjnHhjiK+ODjNGrTDgKt+IygaGdHkHgAb/4K5G1CqVlNz13fKfVe4D?=
- =?us-ascii?Q?96jlVO7aSgHK2h7ifN8wogaBrpv5UydWAUPadsEN8ucC3//XalSwag/WvGzc?=
- =?us-ascii?Q?0PXp4VkFoDMDkbxCqzCMnLhS/J6rTNjQ7SJG3uiPn6ab5yq25UeCGZgdyLcf?=
- =?us-ascii?Q?Pio6sfqGTKihm08T53hdBhv5Od52EYPpfR2qu2QsEvqPrPsDJyFbNivXhpbR?=
- =?us-ascii?Q?cA03Qw0f4uJbcx36EBHtxhCxN3kt3oTX3nKoUCESKkRTbwcHzx88HCb8o8K9?=
- =?us-ascii?Q?BByoJ9KOPWfmW15vSVTXgX361O/0NLQ0yxpeyJJzXCQvQ5a2xh39Mk5Sxl/R?=
- =?us-ascii?Q?Ep39QmJYCGbkrNqAFM9xbQUfGf8jdfW/3e59hS7clI1fWIBmiF8I?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fdbd1c2b-5e46-430d-c8f9-08df0f6b1dcd
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 18:41:24.8787
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Le7ygBUIfeT9wbr0COyj/+L4H4myhdXUPNLE6o/Q/HH28mD8BzEP+j4EHdAky6og3mMFowhHFD8maRcrfqjrn1NQZfGmTXswxFU5CCHwXSpckZN10lgXqvj6aTHChyvx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8948
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Thu, Sep 10, 2026 at 01:08:23PM +0900, Koichiro Den wrote:
-> ntb_transport_free() removes QP debugfs directories but leaves the
-> device directory. On rebind, debugfs_create_dir() fails with -EEXIST
-> and QP statistics files are not recreated. Module unload masks this
-> by removing the entire debugfs tree.
->
-> To reproduce:
->
->   # ls /sys/kernel/debug/ntb_transport/0001:10:00.0/
->   qp0
->   # echo 0001:10:00.0 > /sys/bus/ntb/drivers/ntb_transport/unbind
->   # ls /sys/kernel/debug/ntb_transport/
->   0001:10:00.0   <-- should not remain
->   # echo 0001:10:00.0 > /sys/bus/ntb/drivers/ntb_transport/bind
->
->   .. and then dmesg shows:
->   debugfs: '0001:10:00.0' already exists in 'ntb_transport'
->
->   # ls /sys/kernel/debug/ntb_transport/0001:10:00.0/
->   (nothing)      <-- should be 'qp0'
->
-> Remove the device debugfs tree on teardown and probe failure.
->
-> Verified that unbind removes the directory and rebind recreates qp0.
->
-> Fixes: c8650fd03d32 ("NTB: Fix transport stats for multiple devices")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> ---
+With symlinkroot unset, an absolute target is copied without conversion
+to an NT drive path. Later code still assumes an NT prefix is present
+when modifying the target and calculating the print name length.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+For "/ab", this causes two failures: sym[5] and path[5] are written
+past their allocations, and plen -= 2 * poff subtracts an assumed
+8-byte prefix from a 6-byte UTF-16 target, wrapping u16 plen to 65534.
+That underflow causes another overflow: memcpy() copies 65534 bytes
+into a 24-byte buffer. A user with write access to a mounted share
+can trigger these bugs with default settings.
 
-> Changes in v2:
->   - No changes.
->
->  drivers/ntb/ntb_transport.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
-> index f9caa1a653c5..3389d6ca9ebd 100644
-> --- a/drivers/ntb/ntb_transport.c
-> +++ b/drivers/ntb/ntb_transport.c
-> @@ -1382,6 +1382,7 @@ static int ntb_transport_probe(struct ntb_client *self, struct ntb_dev *ndev)
->  err3:
->  	ntb_clear_ctx(ndev);
->  err2:
-> +	debugfs_remove_recursive(nt->debugfs_node_dir);
->  	kfree(nt->qp_vec);
->  err1:
->  	while (i--) {
-> @@ -1401,6 +1402,8 @@ static void ntb_transport_free(struct ntb_client *self, struct ntb_dev *ndev)
->  	u64 qp_bitmap_alloc;
->  	int i;
->
-> +	debugfs_remove_recursive(nt->debugfs_node_dir);
-> +
->  	ntb_transport_link_cleanup(nt);
->  	cancel_work_sync(&nt->link_cleanup);
->  	cancel_delayed_work_sync(&nt->link_work);
-> @@ -1412,7 +1415,6 @@ static void ntb_transport_free(struct ntb_client *self, struct ntb_dev *ndev)
->  		qp = &nt->qp_vec[i];
->  		if (qp_bitmap_alloc & BIT_ULL(i))
->  			ntb_transport_free_queue(qp);
-> -		debugfs_remove_recursive(qp->debugfs_dir);
->  	}
->
->  	ntb_link_disable(ndev);
-> --
-> 2.51.0
->
+Validate the NT drive prefix, including an ASCII drive letter, before
+accessing fixed offsets or subtracting the prefix length.
+
+Fixes: 3363da82e02f ("smb: client: fix native SMB symlink traversal")
+Assisted-by: Codex:gpt-5
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+ fs/smb/client/reparse.c | 24 +++++++++++++++++-------
+ 1 file changed, 17 insertions(+), 7 deletions(-)
+
+diff --git a/fs/smb/client/reparse.c b/fs/smb/client/reparse.c
+index 5cc5b04..acd5f51 100644
+--- a/fs/smb/client/reparse.c
++++ b/fs/smb/client/reparse.c
+@@ -3,6 +3,7 @@
+  * Copyright (c) 2024 Paulo Alcantara <pc@manguebit.com>
+  */
+ 
++#include <linux/ctype.h>
+ #include <linux/fs.h>
+ #include <linux/stat.h>
+ #include <linux/slab.h>
+@@ -159,15 +160,24 @@ static int create_native_symlink(const unsigned int xid, struct inode *inode,
+ 		convert_delimiter(sym, sep);
+ 
+ 	/*
+-	 * For absolute NT symlinks it is required to pass also leading
+-	 * backslash and to not mangle NT object prefix "\\??\\" and not to
+-	 * mangle colon in drive letter. But cifs_convert_path_to_utf16()
+-	 * removes leading backslash and replaces '?' and ':'. So temporary
+-	 * mask these characters in NT object prefix by '_' and then change
+-	 * them back.
++	 * Absolute NT symlinks must retain the leading backslash, "\\??\\"
++	 * prefix and drive-letter colon. cifs_convert_path_to_utf16() strips
++	 * the leading backslash and maps '?' and ':', so temporarily mask
++	 * these characters with '_' and restore them after conversion.
++	 *
++	 * When symlinkroot is unset, sym comes directly from the caller.
++	 * Validate the complete "\\??\\X:" prefix before using fixed offsets
++	 * or subtracting the NT prefix length below. Require an ASCII drive
++	 * letter so the prefix occupies six characters in UTF-16 too.
+ 	 */
+-	if (!(sbflags & CIFS_MOUNT_POSIX_PATHS) && symname[0] == '/')
++	if (!(sbflags & CIFS_MOUNT_POSIX_PATHS) && symname[0] == '/') {
++		if (!strstarts(sym, "\\??\\") || !isascii(sym[4]) ||
++		    !isalpha(sym[4]) || sym[5] != ':') {
++			rc = -EINVAL;
++			goto out;
++		}
+ 		sym[0] = sym[1] = sym[2] = sym[5] = '_';
++	}
+ 
+ 	/*
+ 	 * On a POSIX paths mount the symlink target is stored verbatim, so
+-- 
+2.47.3
+
