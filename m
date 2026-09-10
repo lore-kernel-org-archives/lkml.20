@@ -1,698 +1,148 @@
-Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFBFF30C164
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:04:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96EEC320A04
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:05:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789002268; cv=none; b=MSXzWTxzDqMRXjJTWNs+nQ6fvSpR+pzAkkNtQJAqsOAtGNSPynjxWNpVMUZbPI7jffkWdHJ/2TU5kZQq/+r+2NmHRo9MrvBKmLo3MW6ir0hJvQ0Lh9AVt/7HzPpfITiQDT7K/qfOso+4yOMjTqSrJ0EP+ImaGvNbIjlU3uGjJ6M=
+	t=1789002361; cv=none; b=jDS4HWDVAsfVuelqDRLtDb0duUa7NU676ErlH6OmI4NdzNnfXr0/vk5klva9OC/IwsDOBQF3+gkwiNzJgRgGF8DP1qRifE3PAXpQXYtJgYPFXt2Sw4hmrgNPtW0EOWRQre5fSlCa/nRtpbp81gVJM+xrwK8SjZT+ZqWrUIFSGWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789002268; c=relaxed/simple;
-	bh=mWn/tOYN/oYbXIavSes/REld/1aayyzzPz/1/Bfa4gA=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=hZgsSgLcoDVCsjtt3KjVNk0pDNspjImWGmahp7wPI5O3MivNRDBV9MShAxwRbl+rVMItrjqfrT55VcXPOC9C54Gw+a1xbqM+AlNC9hk60NoYVUKJ78W5EZioC3ZZPX14jBBuDK67OxnCfFUjOp0UYhzga6WtZVk/393tZGIyMrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f11.google.com with SMTP id 46e09a7af769-7e9f9a3167aso2022987a34.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 18:04:25 -0700 (PDT)
+	s=arc-20240116; t=1789002361; c=relaxed/simple;
+	bh=nlsjJx7rR4JBmgesXy3F5yqfVQCsDw9hw5rlOkqOObI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qGxUBwI5du+ugOptQU9Z1TJSqAbvQpg6J4KLgv601pVIWsXrYfp6nMbvvSjg3sQ///5Ujm9UotDmF6QsDbUkozTg2GiOz/LE3+SXB7m9R3008IavKoSvyvZKhR6gS9uwLrcAGhLwAgUyKDhsABzhs/oYGsMLbWjVqC6m1KQg2mM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O15mu4I6; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O15mu4I6"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-398b3d66515so6649191a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 18:05:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789002359; x=1789607159; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=i3KZVybWmfPUW8DJx5y+rAR9UZPpXnS8RWCoLGg5ZjQ=;
+        b=O15mu4I616K1i5r0fP6q8I/IGdRvcNQyZAp2DUP3XuAN61rGfH3vQAgkBOVQtVNKzP
+         Bz+2QXN7WOCPCONVmw+IaehB4yvLLADwxZQpB+NjAiObRQkH9pIBogUXK7UAFCtkjAW8
+         WQIKh3HLpF5jg2kXMJl/CYjafOw+DRoxvbmod2jehCSpZdtOhdNNRuXigVL0z0FXcu13
+         O85o/BD49Bgt8AmKuPkXpi6W11nQGcu4d8W3qgFhl1JdjokB00zsHcGjbaYcTogh38ZD
+         DBS/k9w1qrav8fXQHHSEucMF3vrXlFJOm2Xb5uN9bWOfWJQlGNGmh5cYvIwqTYqHKq5u
+         Zt7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789002264; x=1789607064;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iLb09Mp1DQLChGTZFYW0/uDIbPhs1mn+Bc6CziDe9cQ=;
-        b=MI1T4e0yNAicqfgqvHTPviJImaqG00rPWZSFIbHdqIligyUgQqnOF2o+KP45cU21sO
-         f3jhrdWHV2LxIlcjIwc/CTANrzxzf/9ZhOexZeHTreOO1Yy49BU7pf35QZ7k+0XvQacp
-         +CAiJwFKDtncU9S4m11B6uESBxuOhrhyqNVaRDNEcy/azTNyqlY0UVXdPYvuaEwJHJbo
-         GBslIjjdw/T/LyurZYGRZe+sb5eZRilwsxsGWYZd066L2MzlqETQ8AQq7Rr+TC28oc9Z
-         TM/CQqR4NxxyMjy5i8giUKLU3w8mM0XnkQZjFTPChgtPjpbShDycfQG0LyyUHcJlT2NB
-         Cy1Q==
-X-Forwarded-Encrypted: i=1; AKwUvByb5hpavbCtY4Tt8DUIq8kVyttHxkLYi10+l7xFuiuwNgQMP4IEtGdGUTEou+axE5BHWvLG9keBv0ow+cw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nNdu7nlCzMCaScAnTHXFoSibO9JgfsPt662X0Qv89Sbsq0RxUQ
-	QC4NieBh4XPStetMiNAxQzvo45QcHdIJdyyw93IMrCtkN18g+JINouesZi7lIvJ/lLP28T04ho/
-	YpnFwveICIJcGG8xyzBPUI6YuXHozWOBnX8Wttxg5fldgIyJ6amZPKwmKAFo=
+        d=1e100.net; s=20251104; t=1789002359; x=1789607159;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=i3KZVybWmfPUW8DJx5y+rAR9UZPpXnS8RWCoLGg5ZjQ=;
+        b=LsJjKlBVlAxxi2Y0uZNXWlQiV0e3ewxyfW3AQQAKtHcMjLsMIT4rDdF53eiYZVDPGT
+         SCL8gF/9Hrult+R7YnS0d6P6jevlI9x76TqpSkGukw2RuaTnd/+qa22eS0KgWULPgK72
+         SdaWXQ0bqNWYAKEUhwgtxD9zuaEPJXUvO8zckDItoe0iMKXewhEcfA7REsx9kHTxfsN/
+         jp+ANfO2L+OtWq2CaPhneMsWptrEadf0HES82qn+G+Id14hwu9s7nHOAy0JNEWI29XtK
+         3EkDpWik/uUZIzOXnzvAzJ7K69exmF6Mb0G27VqghZgObewQBOhh0CDcXREE7VuD/+Ww
+         LdHA==
+X-Forwarded-Encrypted: i=1; AKwUvByH7C8lXoWZtbeSogXSvgemu0hN7K5GNgAdmDwGJ1wlVewY9QDmNiQ4f8Lig8kkYh/2zV3cJn1tUYPsxXo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGw9t3SBokCayXTzQD8RAo8T3Rf7obwhSRDoOw2k21uaq04jxo
+	KQF4SLMsDf/x/bY8lyHea/HadB3qLuTqF0JXx661V6roUHsUFBwn2Yo=
+X-Gm-Gg: AYBFou0JQixLuO0+rKrC0TVonzA+kqIw+pf4q3KL+vuniOd0N6WXdlF56JSCf6d58t9
+	Hn+S5HLXNLV5/iR6Lz6Ln+CREbWdHL7ras2W3jwYF8yP74sYufSGYlzoAzyetav6MCehfratZ7n
+	Po2UgsXJRsa8BORi4UMOUU6r8pF+bWwzq1sU40eSVwtWPWiPy+hSe3Ersw1hBWQmEElooixhMfu
+	SVAdQKwvMAmqpTVtH+FTGfxgy1fImuiz13Ey7bj/Ua2dfjvHLG8cK94At2efvcm0BbqGRMj7PCG
+	1cB/gSZ7zlrF+nY90rM7V/5YM+ya9/nt2ir8BVTNeXmM+h0syD7ov3Jdugl8o4xJ7tXdSEglbFv
+	LBM/NimFS07FoJ4qCPTcbPxtWj1pAjda255kWUB8UZHhalHlxVoruXmZ5SBuCqhj1kcfXrhyJPL
+	Ab3bivlpv2NbQb41OgZHOf1zN9Ox+xRxwwHsWSeqWZ3hR8eAHSSJZKGksHrxQqes7uA2xOWmKUP
+	p2ZbjkTXjYxq2Ly3RpmsSTHDw==
+X-Received: by 2002:a17:90b:35d2:b0:396:d28e:bd8 with SMTP id 98e67ed59e1d1-39b260fe242mr59283556a91.3.1789002358576;
+        Wed, 09 Sep 2026 18:05:58 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f04:fd2a:f01d:1dc7:1e5:47d8])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d77608fb4sm2231505a91.15.2026.09.09.18.05.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 18:05:58 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: Matthew Brost <matthew.brost@intel.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Philipp Stanner <phasta@kernel.org>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	donggeunyoo.kernel@gmail.com
+Subject: [PATCH v2] drm/sched: Drop the unused entity argument from drm_sched_fence_alloc()
+Date: Thu, 10 Sep 2026 10:05:53 +0900
+Message-ID: <20260910010553.531847-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4c09:b0:6b3:5537:8dbe with SMTP id
- 006d021491bc7-6b6fade3f17mr21596619eaf.11.1789002264645; Wed, 09 Sep 2026
- 18:04:24 -0700 (PDT)
-Date: Wed, 09 Sep 2026 18:04:24 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa20218.6e6c5f9e.28f11f.002a.GAE@google.com>
-Subject: [syzbot] [gfs2?] KASAN: slab-use-after-free Read in gfs2_remove_from_ail
-From: syzbot <syzbot+ab91b239b20ae188b9cb@syzkaller.appspotmail.com>
-To: agruenba@redhat.com, gfs2@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+In commit dbe48d030b28 ("drm/sched: Split drm_sched_job_init") the only
+use of the entity argument of drm_sched_fence_alloc(), fence->sched =
+entity->rq->sched, moved into drm_sched_fence_init(), and the now unused
+argument was left behind.
 
-syzbot found the following issue on:
+Drop the argument. The sole caller still passes the entity to
+drm_sched_fence_init() at arm time, so behavior is unchanged. This also
+removes the parameter-name mismatch between the declaration (s_entity)
+and the definition (entity).
 
-HEAD commit:    c297ed90fbba Merge tag 'configfs-7.3-rc3' of git://git.ker..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=13eeb125580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=19560cab9a915237
-dashboard link: https://syzkaller.appspot.com/bug?extid=ab91b239b20ae188b9cb
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/a5ff72f9f684/disk-c297ed90.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/d0681a6a0fbd/vmlinux-c297ed90.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/9182b2171db9/bzImage-c297ed90.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+ab91b239b20ae188b9cb@syzkaller.appspotmail.com
-
-==================================================================
-BUG: KASAN: slab-use-after-free in __list_del_entry_valid_or_report+0x1b1/0x1d0 lib/list_debug.c:62
-Read of size 8 at addr ffff88807c647920 by task kworker/0:6/5768
-
-CPU: 0 UID: 0 PID: 5768 Comm: kworker/0:6 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
-Workqueue: events gfs2_withdraw_func
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- __list_del_entry_valid_or_report+0x1b1/0x1d0 lib/list_debug.c:62
- __list_del_entry_valid include/linux/list.h:140 [inline]
- __list_del_entry include/linux/list.h:261 [inline]
- list_del_init include/linux/list.h:333 [inline]
- gfs2_remove_from_ail+0x138/0x340 fs/gfs2/log.c:79
- gfs2_ail_empty_tr fs/gfs2/log.c:287 [inline]
- gfs2_ail_drain+0x39c/0x6b0 fs/gfs2/log.c:954
- do_withdraw+0xeb/0x300 fs/gfs2/util.c:126
- gfs2_withdraw_func+0x349/0x3d0 fs/gfs2/util.c:236
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-Allocated by task 7723:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- unpoison_slab_object mm/kasan/common.c:340 [inline]
- __kasan_slab_alloc+0x89/0x90 mm/kasan/common.c:366
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- kmem_cache_alloc_noprof+0x269/0x6a0 mm/slub.c:5010
- gfs2_glock_get+0x1e5/0x1260 fs/gfs2/glock.c:1074
- gfs2_inode_lookup+0x2e0/0x920 fs/gfs2/inode.c:149
- gfs2_lookup_root+0x57/0xe0 fs/gfs2/ops_fstype.c:428
- init_sb+0xa17/0xfd0 fs/gfs2/ops_fstype.c:497
- gfs2_fill_super+0x1acb/0x2d00 fs/gfs2/ops_fstype.c:1219
- get_tree_bdev_flags+0x38c/0x620 fs/super.c:1887
- gfs2_get_tree+0x4e/0x280 fs/gfs2/ops_fstype.c:1333
- vfs_get_tree+0x92/0x320 fs/super.c:1947
- fc_mount fs/namespace.c:1198 [inline]
- do_new_mount_fc fs/namespace.c:3772 [inline]
- do_new_mount fs/namespace.c:3848 [inline]
- path_mount+0x7d0/0x24c0 fs/namespace.c:4168
- do_mount fs/namespace.c:4181 [inline]
- __do_sys_mount fs/namespace.c:4397 [inline]
- __se_sys_mount fs/namespace.c:4374 [inline]
- __x64_sys_mount+0x293/0x310 fs/namespace.c:4374
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Freed by task 7773:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6499 [inline]
- kmem_cache_free+0x127/0x6c0 mm/slub.c:6626
- gfs2_glock_dealloc+0xd0/0x160 fs/gfs2/glock.c:134
- rcu_do_batch kernel/rcu/tree.c:2650 [inline]
- rcu_core+0x5f0/0x1260 kernel/rcu/tree.c:2919
- handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
- __do_softirq kernel/softirq.c:679 [inline]
- invoke_softirq kernel/softirq.c:519 [inline]
- __irq_exit_rcu+0x16a/0x210 kernel/softirq.c:758
- irq_exit_rcu+0x9/0x30 kernel/softirq.c:775
- instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
- sysvec_apic_timer_interrupt+0x56/0xc0 arch/x86/kernel/apic/apic.c:1062
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-
-Last potentially related work creation:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_record_aux_stack+0xa7/0xc0 mm/kasan/generic.c:556
- __call_rcu_common.constprop.0+0xa5/0x9b0 kernel/rcu/tree.c:3181
- gfs2_glock_free+0x35/0xa0 fs/gfs2/glock.c:150
- glock_work_func+0x437/0x4d0 fs/gfs2/glock.c:1003
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Second to last potentially related work creation:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_record_aux_stack+0xa7/0xc0 mm/kasan/generic.c:556
- insert_work+0x36/0x230 kernel/workqueue.c:2272
- __queue_work+0xa60/0x1370 kernel/workqueue.c:2448
- __queue_delayed_work+0x357/0x450 kernel/workqueue.c:2617
- queue_delayed_work_on+0x180/0x1e0 kernel/workqueue.c:2669
- queue_delayed_work include/linux/workqueue.h:715 [inline]
- gfs2_glock_queue_work+0x75/0x120 fs/gfs2/glock.c:198
- do_xmote+0x453/0x680 fs/gfs2/glock.c:718
- run_queue+0x555/0x6a0 fs/gfs2/glock.c:757
- glock_work_func+0x35b/0x4d0 fs/gfs2/glock.c:987
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-The buggy address belongs to the object at ffff88807c647808
- which belongs to the cache gfs2_glock(aspace) of size 1176
-The buggy address is located 280 bytes inside of
- freed 1176-byte region [ffff88807c647808, ffff88807c647ca0)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x7c644
-head: order:2 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000040 ffff8881404313c0 dead000000000122 0000000000000000
-raw: 0000000000000000 00000002000c000c 00000000f5000000 0000000000000000
-head: 00fff00000000040 ffff8881404313c0 dead000000000122 0000000000000000
-head: 0000000000000000 00000002000c000c 00000000f5000000 0000000000000000
-head: 00fff00000000002 ffffffffffffff01 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000004
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 2, migratetype Unmovable, gfp_mask 0xd2040(__GFP_IO|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 7723, tgid 7722 (syz.3.658), ts 220778208215
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab mm/slub.c:3462 [inline]
- new_slab+0xa9/0x6e0 mm/slub.c:3513
- refill_objects+0xe3/0x410 mm/slub.c:7410
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- kmem_cache_alloc_noprof+0x4c4/0x6a0 mm/slub.c:5010
- gfs2_glock_get+0x1e5/0x1260 fs/gfs2/glock.c:1074
- gfs2_inode_lookup+0x2e0/0x920 fs/gfs2/inode.c:149
- gfs2_lookup_root+0x57/0xe0 fs/gfs2/ops_fstype.c:428
- init_sb+0xa17/0xfd0 fs/gfs2/ops_fstype.c:497
- gfs2_fill_super+0x1acb/0x2d00 fs/gfs2/ops_fstype.c:1219
- get_tree_bdev_flags+0x38c/0x620 fs/super.c:1887
- gfs2_get_tree+0x4e/0x280 fs/gfs2/ops_fstype.c:1333
- vfs_get_tree+0x92/0x320 fs/super.c:1947
- fc_mount fs/namespace.c:1198 [inline]
- do_new_mount_fc fs/namespace.c:3772 [inline]
- do_new_mount fs/namespace.c:3848 [inline]
- path_mount+0x7d0/0x24c0 fs/namespace.c:4168
-page last free pid 7723 tgid 7722 ts 220636014324 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
- stack_depot_save_flags+0x456/0x9f0 lib/stackdepot.c:735
- kasan_save_stack+0x3f/0x50 mm/kasan/common.c:58
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_node_noprof+0x30c/0x720 mm/slub.c:5582
- _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
- alloc_worker kernel/workqueue.c:2755 [inline]
- init_rescuer+0x19f/0x550 kernel/workqueue.c:5795
- __alloc_workqueue+0xe82/0x1950 kernel/workqueue.c:5993
- alloc_workqueue_va kernel/workqueue.c:6033 [inline]
- alloc_workqueue_noprof+0xc7/0x130 kernel/workqueue.c:6049
- gfs2_fill_super+0x140f/0x2d00 fs/gfs2/ops_fstype.c:1197
- get_tree_bdev_flags+0x38c/0x620 fs/super.c:1887
- gfs2_get_tree+0x4e/0x280 fs/gfs2/ops_fstype.c:1333
- vfs_get_tree+0x92/0x320 fs/super.c:1947
- fc_mount fs/namespace.c:1198 [inline]
- do_new_mount_fc fs/namespace.c:3772 [inline]
- do_new_mount fs/namespace.c:3848 [inline]
- path_mount+0x7d0/0x24c0 fs/namespace.c:4168
- do_mount fs/namespace.c:4181 [inline]
- __do_sys_mount fs/namespace.c:4397 [inline]
- __se_sys_mount fs/namespace.c:4374 [inline]
- __x64_sys_mount+0x293/0x310 fs/namespace.c:4374
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-
-Memory state around the buggy address:
- ffff88807c647800: fc fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88807c647880: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->ffff88807c647900: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                               ^
- ffff88807c647980: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88807c647a00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
-==================================================================
-BUG: KASAN: slab-use-after-free in __list_del_entry_valid_or_report+0x1a4/0x1d0 lib/list_debug.c:65
-Read of size 8 at addr ffff88807c647928 by task kworker/0:6/5768
-
-CPU: 0 UID: 0 PID: 5768 Comm: kworker/0:6 Tainted: G    B               syzkaller #0 PREEMPT(full) 
-Tainted: [B]=BAD_PAGE
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
-Workqueue: events gfs2_withdraw_func
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- __list_del_entry_valid_or_report+0x1a4/0x1d0 lib/list_debug.c:65
- __list_del_entry_valid include/linux/list.h:140 [inline]
- __list_del_entry include/linux/list.h:261 [inline]
- list_del_init include/linux/list.h:333 [inline]
- gfs2_remove_from_ail+0x138/0x340 fs/gfs2/log.c:79
- gfs2_ail_empty_tr fs/gfs2/log.c:287 [inline]
- gfs2_ail_drain+0x39c/0x6b0 fs/gfs2/log.c:954
- do_withdraw+0xeb/0x300 fs/gfs2/util.c:126
- gfs2_withdraw_func+0x349/0x3d0 fs/gfs2/util.c:236
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-Allocated by task 7723:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- unpoison_slab_object mm/kasan/common.c:340 [inline]
- __kasan_slab_alloc+0x89/0x90 mm/kasan/common.c:366
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- kmem_cache_alloc_noprof+0x269/0x6a0 mm/slub.c:5010
- gfs2_glock_get+0x1e5/0x1260 fs/gfs2/glock.c:1074
- gfs2_inode_lookup+0x2e0/0x920 fs/gfs2/inode.c:149
- gfs2_lookup_root+0x57/0xe0 fs/gfs2/ops_fstype.c:428
- init_sb+0xa17/0xfd0 fs/gfs2/ops_fstype.c:497
- gfs2_fill_super+0x1acb/0x2d00 fs/gfs2/ops_fstype.c:1219
- get_tree_bdev_flags+0x38c/0x620 fs/super.c:1887
- gfs2_get_tree+0x4e/0x280 fs/gfs2/ops_fstype.c:1333
- vfs_get_tree+0x92/0x320 fs/super.c:1947
- fc_mount fs/namespace.c:1198 [inline]
- do_new_mount_fc fs/namespace.c:3772 [inline]
- do_new_mount fs/namespace.c:3848 [inline]
- path_mount+0x7d0/0x24c0 fs/namespace.c:4168
- do_mount fs/namespace.c:4181 [inline]
- __do_sys_mount fs/namespace.c:4397 [inline]
- __se_sys_mount fs/namespace.c:4374 [inline]
- __x64_sys_mount+0x293/0x310 fs/namespace.c:4374
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Freed by task 7773:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6499 [inline]
- kmem_cache_free+0x127/0x6c0 mm/slub.c:6626
- gfs2_glock_dealloc+0xd0/0x160 fs/gfs2/glock.c:134
- rcu_do_batch kernel/rcu/tree.c:2650 [inline]
- rcu_core+0x5f0/0x1260 kernel/rcu/tree.c:2919
- handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
- __do_softirq kernel/softirq.c:679 [inline]
- invoke_softirq kernel/softirq.c:519 [inline]
- __irq_exit_rcu+0x16a/0x210 kernel/softirq.c:758
- irq_exit_rcu+0x9/0x30 kernel/softirq.c:775
- instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
- sysvec_apic_timer_interrupt+0x56/0xc0 arch/x86/kernel/apic/apic.c:1062
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-
-Last potentially related work creation:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_record_aux_stack+0xa7/0xc0 mm/kasan/generic.c:556
- __call_rcu_common.constprop.0+0xa5/0x9b0 kernel/rcu/tree.c:3181
- gfs2_glock_free+0x35/0xa0 fs/gfs2/glock.c:150
- glock_work_func+0x437/0x4d0 fs/gfs2/glock.c:1003
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Second to last potentially related work creation:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_record_aux_stack+0xa7/0xc0 mm/kasan/generic.c:556
- insert_work+0x36/0x230 kernel/workqueue.c:2272
- __queue_work+0xa60/0x1370 kernel/workqueue.c:2448
- __queue_delayed_work+0x357/0x450 kernel/workqueue.c:2617
- queue_delayed_work_on+0x180/0x1e0 kernel/workqueue.c:2669
- queue_delayed_work include/linux/workqueue.h:715 [inline]
- gfs2_glock_queue_work+0x75/0x120 fs/gfs2/glock.c:198
- do_xmote+0x453/0x680 fs/gfs2/glock.c:718
- run_queue+0x555/0x6a0 fs/gfs2/glock.c:757
- glock_work_func+0x35b/0x4d0 fs/gfs2/glock.c:987
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-The buggy address belongs to the object at ffff88807c647808
- which belongs to the cache gfs2_glock(aspace) of size 1176
-The buggy address is located 288 bytes inside of
- freed 1176-byte region [ffff88807c647808, ffff88807c647ca0)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x7c644
-head: order:2 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000040 ffff8881404313c0 dead000000000122 0000000000000000
-raw: 0000000000000000 00000002000c000c 00000000f5000000 0000000000000000
-head: 00fff00000000040 ffff8881404313c0 dead000000000122 0000000000000000
-head: 0000000000000000 00000002000c000c 00000000f5000000 0000000000000000
-head: 00fff00000000002 ffffffffffffff01 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000004
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 2, migratetype Unmovable, gfp_mask 0xd2040(__GFP_IO|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 7723, tgid 7722 (syz.3.658), ts 220778208215
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab mm/slub.c:3462 [inline]
- new_slab+0xa9/0x6e0 mm/slub.c:3513
- refill_objects+0xe3/0x410 mm/slub.c:7410
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- kmem_cache_alloc_noprof+0x4c4/0x6a0 mm/slub.c:5010
- gfs2_glock_get+0x1e5/0x1260 fs/gfs2/glock.c:1074
- gfs2_inode_lookup+0x2e0/0x920 fs/gfs2/inode.c:149
- gfs2_lookup_root+0x57/0xe0 fs/gfs2/ops_fstype.c:428
- init_sb+0xa17/0xfd0 fs/gfs2/ops_fstype.c:497
- gfs2_fill_super+0x1acb/0x2d00 fs/gfs2/ops_fstype.c:1219
- get_tree_bdev_flags+0x38c/0x620 fs/super.c:1887
- gfs2_get_tree+0x4e/0x280 fs/gfs2/ops_fstype.c:1333
- vfs_get_tree+0x92/0x320 fs/super.c:1947
- fc_mount fs/namespace.c:1198 [inline]
- do_new_mount_fc fs/namespace.c:3772 [inline]
- do_new_mount fs/namespace.c:3848 [inline]
- path_mount+0x7d0/0x24c0 fs/namespace.c:4168
-page last free pid 7723 tgid 7722 ts 220636014324 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
- stack_depot_save_flags+0x456/0x9f0 lib/stackdepot.c:735
- kasan_save_stack+0x3f/0x50 mm/kasan/common.c:58
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_node_noprof+0x30c/0x720 mm/slub.c:5582
- _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
- alloc_worker kernel/workqueue.c:2755 [inline]
- init_rescuer+0x19f/0x550 kernel/workqueue.c:5795
- __alloc_workqueue+0xe82/0x1950 kernel/workqueue.c:5993
- alloc_workqueue_va kernel/workqueue.c:6033 [inline]
- alloc_workqueue_noprof+0xc7/0x130 kernel/workqueue.c:6049
- gfs2_fill_super+0x140f/0x2d00 fs/gfs2/ops_fstype.c:1197
- get_tree_bdev_flags+0x38c/0x620 fs/super.c:1887
- gfs2_get_tree+0x4e/0x280 fs/gfs2/ops_fstype.c:1333
- vfs_get_tree+0x92/0x320 fs/super.c:1947
- fc_mount fs/namespace.c:1198 [inline]
- do_new_mount_fc fs/namespace.c:3772 [inline]
- do_new_mount fs/namespace.c:3848 [inline]
- path_mount+0x7d0/0x24c0 fs/namespace.c:4168
- do_mount fs/namespace.c:4181 [inline]
- __do_sys_mount fs/namespace.c:4397 [inline]
- __se_sys_mount fs/namespace.c:4374 [inline]
- __x64_sys_mount+0x293/0x310 fs/namespace.c:4374
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-
-Memory state around the buggy address:
- ffff88807c647800: fc fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88807c647880: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->ffff88807c647900: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                  ^
- ffff88807c647980: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88807c647a00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
-==================================================================
-BUG: KASAN: slab-use-after-free in __list_del include/linux/list.h:241 [inline]
-BUG: KASAN: slab-use-after-free in __list_del_entry include/linux/list.h:264 [inline]
-BUG: KASAN: slab-use-after-free in __list_del_entry include/linux/list.h:259 [inline]
-BUG: KASAN: slab-use-after-free in list_del_init include/linux/list.h:333 [inline]
-BUG: KASAN: slab-use-after-free in gfs2_remove_from_ail+0x323/0x340 fs/gfs2/log.c:79
-Write of size 8 at addr ffff88807c647928 by task kworker/0:6/5768
-
-CPU: 0 UID: 0 PID: 5768 Comm: kworker/0:6 Tainted: G    B               syzkaller #0 PREEMPT(full) 
-Tainted: [B]=BAD_PAGE
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
-Workqueue: events gfs2_withdraw_func
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- __list_del include/linux/list.h:241 [inline]
- __list_del_entry include/linux/list.h:264 [inline]
- __list_del_entry include/linux/list.h:259 [inline]
- list_del_init include/linux/list.h:333 [inline]
- gfs2_remove_from_ail+0x323/0x340 fs/gfs2/log.c:79
- gfs2_ail_empty_tr fs/gfs2/log.c:287 [inline]
- gfs2_ail_drain+0x39c/0x6b0 fs/gfs2/log.c:954
- do_withdraw+0xeb/0x300 fs/gfs2/util.c:126
- gfs2_withdraw_func+0x349/0x3d0 fs/gfs2/util.c:236
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-Allocated by task 7723:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- unpoison_slab_object mm/kasan/common.c:340 [inline]
- __kasan_slab_alloc+0x89/0x90 mm/kasan/common.c:366
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- kmem_cache_alloc_noprof+0x269/0x6a0 mm/slub.c:5010
- gfs2_glock_get+0x1e5/0x1260 fs/gfs2/glock.c:1074
- gfs2_inode_lookup+0x2e0/0x920 fs/gfs2/inode.c:149
- gfs2_lookup_root+0x57/0xe0 fs/gfs2/ops_fstype.c:428
- init_sb+0xa17/0xfd0 fs/gfs2/ops_fstype.c:497
- gfs2_fill_super+0x1acb/0x2d00 fs/gfs2/ops_fstype.c:1219
- get_tree_bdev_flags+0x38c/0x620 fs/super.c:1887
- gfs2_get_tree+0x4e/0x280 fs/gfs2/ops_fstype.c:1333
- vfs_get_tree+0x92/0x320 fs/super.c:1947
- fc_mount fs/namespace.c:1198 [inline]
- do_new_mount_fc fs/namespace.c:3772 [inline]
- do_new_mount fs/namespace.c:3848 [inline]
- path_mount+0x7d0/0x24c0 fs/namespace.c:4168
- do_mount fs/namespace.c:4181 [inline]
- __do_sys_mount fs/namespace.c:4397 [inline]
- __se_sys_mount fs/namespace.c:4374 [inline]
- __x64_sys_mount+0x293/0x310 fs/namespace.c:4374
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Freed by task 7773:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6499 [inline]
- kmem_cache_free+0x127/0x6c0 mm/slub.c:6626
- gfs2_glock_dealloc+0xd0/0x160 fs/gfs2/glock.c:134
- rcu_do_batch kernel/rcu/tree.c:2650 [inline]
- rcu_core+0x5f0/0x1260 kernel/rcu/tree.c:2919
- handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
- __do_softirq kernel/softirq.c:679 [inline]
- invoke_softirq kernel/softirq.c:519 [inline]
- __irq_exit_rcu+0x16a/0x210 kernel/softirq.c:758
- irq_exit_rcu+0x9/0x30 kernel/softirq.c:775
- instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
- sysvec_apic_timer_interrupt+0x56/0xc0 arch/x86/kernel/apic/apic.c:1062
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-
-Last potentially related work creation:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_record_aux_stack+0xa7/0xc0 mm/kasan/generic.c:556
- __call_rcu_common.constprop.0+0xa5/0x9b0 kernel/rcu/tree.c:3181
- gfs2_glock_free+0x35/0xa0 fs/gfs2/glock.c:150
- glock_work_func+0x437/0x4d0 fs/gfs2/glock.c:1003
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Second to last potentially related work creation:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_record_aux_stack+0xa7/0xc0 mm/kasan/generic.c:556
- insert_work+0x36/0x230 kernel/workqueue.c:2272
- __queue_work+0xa60/0x1370 kernel/workqueue.c:2448
- __queue_delayed_work+0x357/0x450 kernel/workqueue.c:2617
- queue_delayed_work_on+0x180/0x1e0 kernel/workqueue.c:2669
- queue_delayed_work include/linux/workqueue.h:715 [inline]
- gfs2_glock_queue_work+0x75/0x120 fs/gfs2/glock.c:198
- do_xmote+0x453/0x680 fs/gfs2/glock.c:718
- run_queue+0x555/0x6a0 fs/gfs2/glock.c:757
- glock_work_func+0x35b/0x4d0 fs/gfs2/glock.c:987
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-The buggy address belongs to the object at ffff88807c647808
- which belongs to the cache gfs2_glock(aspace) of size 1176
-The buggy address is located 288 bytes inside of
- freed 1176-byte region [ffff88807c647808, ffff88807c647ca0)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x7c644
-head: order:2 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000040 ffff8881404313c0 dead000000000122 0000000000000000
-raw: 0000000000000000 00000002000c000c 00000000f5000000 0000000000000000
-head: 00fff00000000040 ffff8881404313c0 dead000000000122 0000000000000000
-head: 0000000000000000 00000002000c000c 00000000f5000000 0000000000000000
-head: 00fff00000000002 ffffffffffffff01 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000004
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 2, migratetype Unmovable, gfp_mask 0xd2040(__GFP_IO|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 7723, tgid 7722 (syz.3.658), ts 220778208215
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab mm/slub.c:3462 [inline]
- new_slab+0xa9/0x6e0 mm/slub.c:3513
- refill_objects+0xe3/0x410 mm/slub.c:7410
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- kmem_cache_alloc_noprof+0x4c4/0x6a0 mm/slub.c:5010
- gfs2_glock_get+0x1e5/0x1260 fs/gfs2/glock.c:1074
- gfs2_inode_lookup+0x2e0/0x920 fs/gfs2/inode.c:149
- gfs2_lookup_root+0x57/0xe0 fs/gfs2/ops_fstype.c:428
- init_sb+0xa17/0xfd0 fs/gfs2/ops_fstype.c:497
- gfs2_fill_super+0x1acb/0x2d00 fs/gfs2/ops_fstype.c:1219
- get_tree_bdev_flags+0x38c/0x620 fs/super.c:1887
- gfs2_get_tree+0x4e/0x280 fs/gfs2/ops_fstype.c:1333
- vfs_get_tree+0x92/0x320 fs/super.c:1947
- fc_mount fs/namespace.c:1198 [inline]
- do_new_mount_fc fs/namespace.c:3772 [inline]
- do_new_mount fs/namespace.c:3848 [inline]
- path_mount+0x7d0/0x24c0 fs/namespace.c:4168
-page last free pid 7723 tgid 7722 ts 220636014324 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
- stack_depot_save_flags+0x456/0x9f0 lib/stackdepot.c:735
- kasan_save_stack+0x3f/0x50 mm/kasan/common.c:58
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_node_noprof+0x30c/0x720 mm/slub.c:5582
- _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
- alloc_worker kernel/workqueue.c:2755 [inline]
- init_rescuer+0x19f/0x550 kernel/workqueue.c:5795
- __alloc_workqueue+0xe82/0x1950 kernel/workqueue.c:5993
- alloc_workqueue_va kernel/workqueue.c:6033 [inline]
- alloc_workqueue_noprof+0xc7/0x130 kernel/workqueue.c:6049
- gfs2_fill_super+0x140f/0x2d00 fs/gfs2/ops_fstype.c:1197
- get_tree_bdev_flags+0x38c/0x620 fs/super.c:1887
- gfs2_get_tree+0x4e/0x280 fs/gfs2/ops_fstype.c:1333
- vfs_get_tree+0x92/0x320 fs/super.c:1947
- fc_mount fs/namespace.c:1198 [inline]
- do_new_mount_fc fs/namespace.c:3772 [inline]
- do_new_mount fs/namespace.c:3848 [inline]
- path_mount+0x7d0/0x24c0 fs/namespace.c:4168
- do_mount fs/namespace.c:4181 [inline]
- __do_sys_mount fs/namespace.c:4397 [inline]
- __se_sys_mount fs/namespace.c:4374 [inline]
- __x64_sys_mount+0x293/0x310 fs/namespace.c:4374
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-
-Memory state around the buggy address:
- ffff88807c647800: fc fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88807c647880: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->ffff88807c647900: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                  ^
- ffff88807c647980: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88807c647a00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
-
-
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Assisted-by: Claude:claude-fable-5
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+Targets drm-misc-next. No functional change; compile-tested with W=1.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+v2: trim the first paragraph, which read as if the patch addressed a bug
+    when it only removes an unused argument (Philipp Stanner). Capitalize
+    the subject to match the subtree.
+Link to v1: https://lore.kernel.org/dri-devel/20260909005112.278538-1-donggeunyoo.kernel@gmail.com/
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+ drivers/gpu/drm/scheduler/sched_fence.c    | 3 +--
+ drivers/gpu/drm/scheduler/sched_internal.h | 3 +--
+ drivers/gpu/drm/scheduler/sched_main.c     | 2 +-
+ 3 files changed, 3 insertions(+), 5 deletions(-)
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/drm/scheduler/sched_fence.c
+index 096fe28aa9c9..b7a4cb921234 100644
+--- a/drivers/gpu/drm/scheduler/sched_fence.c
++++ b/drivers/gpu/drm/scheduler/sched_fence.c
+@@ -205,8 +205,7 @@ struct drm_sched_fence *to_drm_sched_fence(struct dma_fence *f)
+ }
+ EXPORT_SYMBOL(to_drm_sched_fence);
+ 
+-struct drm_sched_fence *drm_sched_fence_alloc(struct drm_sched_entity *entity,
+-					      void *owner,
++struct drm_sched_fence *drm_sched_fence_alloc(void *owner,
+ 					      u64 drm_client_id)
+ {
+ 	struct drm_sched_fence *fence = NULL;
+diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
+index a901801fce85..32d3ddb820be 100644
+--- a/drivers/gpu/drm/scheduler/sched_internal.h
++++ b/drivers/gpu/drm/scheduler/sched_internal.h
+@@ -58,8 +58,7 @@ drm_sched_rq_select_entity(struct drm_gpu_scheduler *sched,
+ void drm_sched_entity_select_rq(struct drm_sched_entity *entity);
+ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity);
+ 
+-struct drm_sched_fence *drm_sched_fence_alloc(struct drm_sched_entity *s_entity,
+-					      void *owner, u64 drm_client_id);
++struct drm_sched_fence *drm_sched_fence_alloc(void *owner, u64 drm_client_id);
+ void drm_sched_fence_init(struct drm_sched_fence *fence,
+ 			  struct drm_sched_entity *entity);
+ void drm_sched_fence_free(struct drm_sched_fence *fence);
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 6cb6f9546493..e4835b99ca60 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -612,7 +612,7 @@ int drm_sched_job_init(struct drm_sched_job *job,
+ 
+ 	job->entity = entity;
+ 	job->credits = credits;
+-	job->s_fence = drm_sched_fence_alloc(entity, owner, drm_client_id);
++	job->s_fence = drm_sched_fence_alloc(owner, drm_client_id);
+ 	if (!job->s_fence)
+ 		return -ENOMEM;
+ 
+-- 
+2.53.0
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
