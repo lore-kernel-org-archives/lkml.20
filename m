@@ -1,110 +1,116 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B5C37BE9C;
-	Thu, 10 Sep 2026 20:52:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E13A137BE9C
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:53:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789073577; cv=none; b=eeMGENVxtLaab8MuPaoxw8lPqScAXdKA4zEMB2SzPQLOoACTWzBDRubDAtaCLdDVT4sXysDItKMvx5CHugiTjsLX+j5YkEwGhP/pHJfnla2S+kcBn2iuer6fjsB9iRVJef0aK7rIu4RYp8NrdPGnxDbjQu3V1P/eA7/UPT4uxbc=
+	t=1789073586; cv=none; b=rXNRCqJxKmitBYkB28sNUXblOn0fLnk6jjCOBZtOI2h1l/4ymSr5molWi51NiHoDQL/7y0OqSTpXMz9YYgSVVrzJP35xOuGq0GgXYjOm6HS88C5lt09El7z0sWC1kAgDSEGXMzlT8Gbw4crfIxTFoGRs9mBfqczf4KMP5zE4bgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789073577; c=relaxed/simple;
-	bh=T+RLxEAh4h/uBxHwW1aDtU4HjzZWwORy7CE6XPL1anc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ctzn6YL53JNhx+zmcS0OTM0DQT5SAoIHXGKUggYoLFJzsMcUhhpgIxjXeqHBq7S/kVOP80R4YjvZMAYOLu5Vmn2NhPyJnN61UgCpysBf6RAqCXKSO0Nh0ctqyuzqlKXnbVS2dJtVdbcpV+/jcKdimoYTZG1JsJjEJ0pkY7KNlcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=YWJQ4XhA; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789073586; c=relaxed/simple;
+	bh=4myePDbGOuuvFHg/eT5rjXj67qALj6mkkV+jO0qZ1ho=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=h7LvWKMseDq3D0cuzeLrxbJSKsDQQsW8Gj/q+iev3Tfu09SHlVlARS5JlDVv9wFR2JpE6UHTQzcMXPo+t3rjr1HQhdQUYjnfwPAF9ica1FjRPBQf/B/792lXBEk3usxei4zc3vnvJOAwTjbXffoVuAgdcBLxK8T6N3+56k9RCmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VMDGbFsy; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="YWJQ4XhA"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id B10E91A0125;
-	Thu, 10 Sep 2026 20:52:51 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3E0685FC38;
-	Thu, 10 Sep 2026 20:52:51 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B70E811C78B21;
-	Thu, 10 Sep 2026 22:52:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789073565; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=xmpBs3Sc2Rd3g3al60wsjbWjXR4zflzMIihvsD8kR+8=;
-	b=YWJQ4XhALSRdp3ZCacqDTDWT1MXlCqIWaNVKZtMf8wNwnsvCs0w64wzfl+Fd1GM/5jLMCo
-	zqf4YS6yVu7f44qgkulGPy0ZarkECYFmGeh5o4U7Ob7PCYgC9rheSM6TnSB/ws+u8B7iRG
-	RB7TBdoaHjWyMDI5wulzm3wbfkU7NYM1LNZlPMuljsBBNNnT9L6RfPQt+CkZV/mwHbZKaI
-	8iGy22dKG0r5b0cs711QIyEQ0JSKP59BkQkvuabwI5bseQtlzW0FTPWmYsXnL1/C/eifUO
-	ZxEf/S9VyBPIUZ+OE+CkPsTJqOC0LX9RWA3H+6baBRmJwwPPiQw8RzYP1S+xvg==
-Message-ID: <d62d2894-cec1-4538-b57a-cb228d89495d@bootlin.com>
-Date: Thu, 10 Sep 2026 22:52:31 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VMDGbFsy"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49cca4ffdcfso2390615e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:53:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789073583; x=1789678383; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BCq0kuHs1j0acWRuibtXq3pLZmgmsIKMo87HdJz9dU8=;
+        b=VMDGbFsy6VMjqvGLqOaUxZGHQrYUg1H344c6DejVFMBJXEOFz/QKXHkB+dyqwTjZsN
+         nbWBolb8oFeMoQDB6AahiL/6jjYzWYPKNDxP0XZpOVFNLZaFm+Ft3eCHUbZPbTL9DCSR
+         fyQlqujw+CHCHtol2vCocfzGTbgFfiMSXaBMdCKI5p0f2XZrGR07GzqAb5eF495qpGcg
+         TuofGOFe2NSrZKOOEnV7EE1dIEI9Sga6FEUKPuFiV1Ip6XDlcJ7jvNLpJsLFQxvcQNoP
+         uhD7CqeUGXZNL/lNq8Dx2hYxnDdn93EAnRomu4pS+Q+eOzw4u1gfZUbJTykLWnn34NU9
+         nEQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789073583; x=1789678383;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BCq0kuHs1j0acWRuibtXq3pLZmgmsIKMo87HdJz9dU8=;
+        b=IUgpGezOSHkV6MOZmQmWxgPgycAlN5EYRxhOeWIvoIl5WS0g1DwrWt0n9O/7dFz3rV
+         hW8uNLjHkCko2vVTA7snn6xU0WJoHFe+ZtNv8rucFb9aF6Tknfm2jiNyJRr7xXiEPyjb
+         rEBo0iJLsJyvk1NBJrHKwARJg5OMzhZEnI/RMxRUudPHMSmsNn+4xeIwOiXazOSlgeaZ
+         7NgHMdiJL3wN+Vd8oSXYUFvLT296RqjnoISKIu6ui+sm+ZbHiqnBdURwO4J4ye0jfCel
+         ZtOFLyUmL2TpjN8LR7p/GrAiwHeAn1OBaTvw9bvQax0TvmxYId6Mu4XjIsJkXmV8U0Sj
+         taZw==
+X-Forwarded-Encrypted: i=1; AKwUvBz3Xrfhp1hkui+I93ogOGqHXNRE7QPXoN3+2qZts7CiyPpUIZ7YDNRMeMuOgr/Ofqi109b6RMTSz9w9gXU=@vger.kernel.org
+X-Gm-Message-State: AFuF++ldDyZXzw0QaDCA6/ee4jKDsBm6+zOs5wb5o6IK6yyugdmJmWI2
+	0cU66zD47drP2HMi/jI5MKVTyxVhCSFF8BokSN+Z6FzlIhpQl/TgIkRA
+X-Gm-Gg: AYBFou0HHD92vLhv4V0GfTxETQ6Jm+2Y2kWeNLjfIUhFs+Dcz4csdT7MwBZOnfN2Ao+
+	KiLYsUH0470D30SrUHdLaDE3Wx5o+7LCvQyK+9qCiiqpqwkO9tS6KebwqWwL/t1/S+PP2klPZoG
+	COxYsKcnK84KJd/asMr1wWNgxcHmr9MX4WqvRMyNniBksqKTomtX6RsxxppPme5Lrd6FctiIV8+
+	/oFJ9Mbz72HHsU8BpVBfqM5c2g9dfTgjkuODUEMWN6Jw9IGhlVA+WZMwiOfrWjGNDqROkIbpL8H
+	kdtOIud4P/iDGUD+oSxPMVBPKZ9dWpaz3lFVkYHipMr6u6mjm/a2xldjAC2+OTkynmdmDwjxCkS
+	2kUNdLnYZI6qroipZW8bzAkAXvCqtqZDHRyJPyzSXCalrapQbMR1Z9/9u8vsK1R8Hv6zudnIi+N
+	3B2WAl7Un8F5j4Pq6KZTtnBCfDeRiAUTLEVdwXuexlZf3eYii4Q8pLJ09WnnKpEJFeOZJOHxhMg
+	fMzf1xC
+X-Received: by 2002:a05:600c:1385:b0:49c:fc6e:a3d5 with SMTP id 5b1f17b1804b1-49e619bfebcmr7617295e9.20.1789073583150;
+        Thu, 10 Sep 2026 13:53:03 -0700 (PDT)
+Received: from foxbook (bfg95.neoplus.adsl.tpnet.pl. [83.28.44.95])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c38e3asm106663825e9.9.2026.09.10.13.53.02
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Thu, 10 Sep 2026 13:53:02 -0700 (PDT)
+Date: Thu, 10 Sep 2026 22:52:59 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Curtis Vogt <curtis.vogt@gmail.com>, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Pierre-Loup Griffais
+ <pgriffais@valvesoftware.com>, open list <linux-kernel@vger.kernel.org>,
+ "open list:HID CORE LAYER" <linux-input@vger.kernel.org>, "open list:USB
+ SUBSYSTEM" <linux-usb@vger.kernel.org>
+Subject: Re: [PATCH 2/3] HID: valve-index: Reboot headset on system power
+ transitions
+Message-ID: <20260910225259.66b480c6.michal.pecio@gmail.com>
+In-Reply-To: <55918a70-72c9-4f55-934b-81a692d4619b@amd.com>
+References: <20260910170254.833871-1-mario.limonciello@amd.com>
+	<20260910170254.833871-3-mario.limonciello@amd.com>
+	<20260910220421.40356e51.michal.pecio@gmail.com>
+	<55918a70-72c9-4f55-934b-81a692d4619b@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2 2/6] net: stmmac: selftests: Validate EEE based on
- the actual LPI timer value
-To: Nicolai Buchwitz <nb@tipi-net.de>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>,
- Heiner Kallweit <hkallweit1@gmail.com>,
- =?UTF-8?Q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Emil Renner Berthing <kernel@esmil.dk>,
- Minda Chen <minda.chen@starfivetech.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Jan Petrous <jan.petrous@oss.nxp.com>,
- Ovidiu Panait <ovidiu.panait.rb@renesas.com>, Jose.Abreu@synopsys.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- thomas.petazzoni@bootlin.com, linux-arm-kernel@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, PKneuper@dspace.de,
- David Laight <david.laight.linux@gmail.com>
-References: <20260910151404.976753-1-maxime.chevallier@bootlin.com>
- <20260910151404.976753-3-maxime.chevallier@bootlin.com>
- <6af83ee5b9ddeeebcc6e4cc29989b856@tipi-net.de>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <6af83ee5b9ddeeebcc6e4cc29989b856@tipi-net.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Nicolai,
-
-On 9/10/26 20:50, Nicolai Buchwitz wrote:
-
->> +    max_duration = usecs_to_jiffies(2 * priv->tx_lpi_timer);
+On Thu, 10 Sep 2026 15:43:18 -0500, Mario Limonciello wrote:
+> >> +/*
+> >> + * The headset's EDID service is lost when the host disables the DisplayPort
+> >> + * PHY during system suspend, so it needs the reboot on the way out of
+> >> + * suspend.  Doing it on the way in does not work: the headset dropping off
+> >> + * USB is a remote-wakeup event from its hub and aborts the suspend.
+> >> + */  
+> > 
+> > The internal hub which will be quirked by the next patch, or its parent?  
 > 
-> tx_lpi_timer comes direct from ethtool as an unvalidated u32. So if a (arguable privileged
-> user) does 'ethtool --set-eee eth0 tx-lpi-timer 1000000000', the code will sleep ~2000 seconds
-> under rtnl_lock. Tge old code capped it at 900 ms regardless of the timer.
-> 
-> Thus I think we should clamp it at some sane value. Feel free to keep my R-b with the clamp.
+> It has to be the internal hub if quirking it works, no?
 
-I was wondering if 802.3 said anything about the LPI timer value, but
-Clause 78 says :
+I believe there are two separate problems here:
 
-  78.1.2.1.3 When generated
+1. resetting the device at suspend causes instant wakeup
+2. a few seconds later the system wakes up anyway
 
-  Specification of the time when this primitive is generated by the LPI
-  client is out of the scope of this standard.
+1. is solved by resetting on resume rather than suspend
+2. is solved by the quirk
 
-I'll clamp that as a safety precaution.
+Questions:
 
-As a side-note, there are other limitations, that apply to both eee
-and flow control. Even though we're in MAC loopback mode, the link
-MUST be up for the selftests to run, and both EEE and Pause are
-affected by the autoneg results, and this will affect the selftest
-outcome.
+Any chance that 2 also solves 1?
+Would resetting on suspend be preferable, as the comment suggests?
+Maybe it would, if the reset can race with DP seeing empty EDID? 
 
-I'll address that in another series though, but I'll send a V3 for the
-clamping still :)
-
-Thanks for taking a look,
-
-Maxime
-
+Regards,
+Michal
