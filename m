@@ -1,134 +1,265 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57FC43C2774
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:15:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F7D339656D;
+	Thu, 10 Sep 2026 08:15:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789028119; cv=none; b=lShcJ37wHVOUf+EotuarHA2mkjfEsFVRKW+9G1blnvbb5aNiQJYr4PTsfiqld4kjYTWsVU2SdESvq+wj+z0ajSWJLhQfbLRrRnrJHAw7G1bulzSlqxFYD71sb/48swL0p2u75+AhQlJBmcSOXvuiLuQNOl3vr1UsnCHRsJROIQo=
+	t=1789028120; cv=none; b=D5w1LG3LfC8sKHF/hIynmeHHd3U9vBZgcrWP3Y+QCps/1HaXe5TrxQCUo5h3Ih2OMSH/w8EtlhUPH7OD9ACsko3fX0b9eA6Z5rhlT0bhhgya5/tr+XorSd8k/mtD6FFKVTJv1a4ILJGwtKmGrs/cBslAHtT9XESVpbtKzqbqbrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789028119; c=relaxed/simple;
-	bh=PXHYwOwItDQlFMrJ/xI/Xbh8uJZqw2NeahZLyCOU46I=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=kQkfAmJ1AkZbPcRrVawiJYUmA/Z1X1LPaHu0nmX4KiiJODUcdQUh7P1poOmuDqq0jiXk8KT2odyr2YVKfnrYzhw6F6sGaBxveZdAnrNQ/DLMjNkAddY6TRg80472lkwlohd2rb8K4a1O1WFriYOB/mGpqQbXD9YjK/7BaqFl05Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DXX/VS3u; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789028120; c=relaxed/simple;
+	bh=Ruw0SOBmANT0vxffjrMQywQ3ulDk7wSCRg+DW4rBQyc=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=qBOpT6ISSgADnMDwhtinnxuMvBA6ySQ9s56b1+fv93uF1OUGfh/iRFmX7FqKhNG/3ocH/2mxQ9x5IYnH6v0oURVMe9/oYBIPTTNsMDTZDzOEZk/YsTfgXoJyzdIVs64pZq0PkEE5TujygJJlc2oy6+j/45ftVztJWMZrWOzbSWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l2iia2h4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DXX/VS3u"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789028115; x=1820564115;
-  h=date:from:to:cc:subject:message-id;
-  bh=PXHYwOwItDQlFMrJ/xI/Xbh8uJZqw2NeahZLyCOU46I=;
-  b=DXX/VS3uRGXBwXjde05/td0BnXjwLfadwkK6Cbs1NJkHkWEQMmBZLkEr
-   X9ctcjoebSa44XkEKnRWSvPeqVTpeFYl5/3yFsJGIeaWdktN2Oo1mdVop
-   VwxZ4UiXE23/5aQXAspQpyZVReWMoTXyQyTGzzF2pi9/t8toYRGSylhxb
-   EMGbEZha6rBU9PMTZ81T2y//0sIHD63PyOextxj2kQt21WWn6v3Cjzaeo
-   +KhIcR17Xc0vDvryHfxo3zC8fCJCKya2ahtfcG8KPvg4LR5ieQCQOzKOU
-   aPck6mzcTfYTLE3tgSIg2GIjt9dtwYnUxg3JE5MNpHAsW+n79BtVVMxBR
-   A==;
-X-CSE-ConnectionGUID: 9LbT3HfOTBy+KbABiPZluw==
-X-CSE-MsgGUID: 5U7CKv+KQbmonOCGHlpHEw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="115016896"
-X-IronPort-AV: E=Sophos;i="6.27,271,1787036400"; 
-   d="scan'208";a="115016896"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 01:15:14 -0700
-X-CSE-ConnectionGUID: wodMyq5rTVSgH2kMduquiA==
-X-CSE-MsgGUID: 0JgJJNLTQCWAPG4IJTF5sA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,271,1787036400"; 
-   d="scan'208";a="273527779"
-Received: from lkp-server01.sh.intel.com (HELO a3e91e2cf319) ([10.239.97.150])
-  by fmviesa004.fm.intel.com with ESMTP; 10 Sep 2026 01:15:12 -0700
-Received: from kbuild by a3e91e2cf319 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x4Zw5-000000001ZS-3TQm;
-	Thu, 10 Sep 2026 08:15:09 +0000
-Date: Thu, 10 Sep 2026 16:14:13 +0800
-From: kernel test robot <lkp@intel.com>
-To: YiPeng Chai <YiPeng.Chai@amd.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
-Subject: drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom_fw.c:115:68:
- sparse: sparse: Using plain integer as NULL pointer
-Message-ID: <202609101657.kczNjTnY-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l2iia2h4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A41201F000FF;
+	Thu, 10 Sep 2026 08:15:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789028116;
+	bh=cBvIB5TYupW+Z6yAgdUlBTiX/pY+svsenb2J97lcoMw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=l2iia2h4vw4uEGPRMUQnffAOao/BB6P2eHZr25ID+KE5nyct48UA3xsYb3aEQxvle
+	 xhEkX9imlJc3l7yMEJ18hqkbyL+IeipodnY5whEyMlgKt0LZn4lFS1M8Y0io3ZedF0
+	 IEiwNt6EmD/jdXqyMrIeraGP+qSELXoJpCqIQ4AZkCO4g2KfS6+K2th4fVvPa/vDZ+
+	 xIsmM3DImYg1yoZCt6THD7FSD3+yy4uNG/4S2gMqYh2xO28W+9AjS4/aFN9jvRxjos
+	 qF9cDBAG1gb62lPt+PbxRYOG978mzMs5oHDF4ulNJbggDGzKscJziiixF7UGdzr3Uu
+	 vQKIBoRsLntDA==
+Subject:
+ Re: [PATCH net-next v15] net: phy: Add driver for Motorcomm Quad 2.5GbE phy
+From: netdev-bot+sashiko@kernel.org
+To: kyle.switch@motor-comm.com
+Cc: Frank.Sae@motor-comm.com, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
+ xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com,
+ jie.han@motor-comm.com, wei.zhang@gl-inet.com, sijia.huang@gl-inet.com
+Date: Thu, 10 Sep 2026 08:15:15 +0000
+Message-ID: <178902811520.219967.15378845257301961249@kernel.org>
+In-Reply-To: <20260909074911.2378402-1-kyle.switch@motor-comm.com>
+References: <20260909074911.2378402-1-kyle.switch@motor-comm.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-Hi YiPeng,
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider:
 
-FYI, the error/warning was bisected to this commit, please ignore it if it's irrelevant.
+Critical: 0 · High: 0 · Medium: 2 · Low: 1
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   50d05c7c76c96b90462f24debacca971d2e86713
-commit: d95700604fbc6fd7534303796d005e6efbd1d591 drm/amd/ras: rename core ras_* files and update include guards
-date:   5 weeks ago
-config: csky-randconfig-r133-20260910 (https://download.01.org/0day-ci/archive/20260910/202609101657.kczNjTnY-lkp@intel.com/config)
-compiler: csky-linux-gcc (GCC) 15.2.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260910/202609101657.kczNjTnY-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: d95700604fbc ("drm/amd/ras: rename core ras_* files and update include guards")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609101657.kczNjTnY-lkp@intel.com/
-
-sparse warnings: (new ones prefixed by >>)
->> drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom_fw.c:115:68: sparse: sparse: Using plain integer as NULL pointer
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom_fw.c:367:56: sparse: sparse: Using plain integer as NULL pointer
---
->> drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:274:15: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:274:15: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:274:15: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:275:15: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:275:15: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:275:15: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:276:15: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:276:15: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:276:15: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:277:15: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:277:15: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:277:15: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:278:15: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:278:15: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:278:15: sparse:     got restricted __le32 [usertype]
->> drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:287:33: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:288:33: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:289:33: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:290:33: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:291:33: sparse: sparse: cast to restricted __le32
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:333:15: sparse: sparse: incorrect type in assignment (different base types) @@     expected unsigned int [usertype] @@     got restricted __le32 [usertype] @@
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:333:15: sparse:     expected unsigned int [usertype]
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:333:15: sparse:     got restricted __le32 [usertype]
-   drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom.c:343:15: sparse: sparse: cast to restricted __le32
-
-vim +115 drivers/gpu/drm/amd/amdgpu/../ras/core/eeprom_fw.c
-
-0d21084c02864f drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c Gangliang Xie 2025-12-12  107  
-0d21084c02864f drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c Gangliang Xie 2025-12-12  108  int ras_fw_set_timestamp(struct ras_core_context *ras_core,
-0d21084c02864f drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c Gangliang Xie 2025-12-12  109  				 uint64_t timestamp)
-0d21084c02864f drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c Gangliang Xie 2025-12-12  110  {
-0d21084c02864f drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c Gangliang Xie 2025-12-12  111  	struct ras_mp1 *mp1 = &ras_core->ras_mp1;
-0d21084c02864f drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c Gangliang Xie 2025-12-12  112  	const struct ras_mp1_sys_func *sys_func = mp1->sys_func;
-0d21084c02864f drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c Gangliang Xie 2025-12-12  113  
-0d21084c02864f drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c Gangliang Xie 2025-12-12  114  	return sys_func->mp1_send_eeprom_msg(ras_core,
-0d21084c02864f drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c Gangliang Xie 2025-12-12 @115  			RAS_SMU_SetTimestamp, (uint32_t)timestamp, 0);
-0d21084c02864f drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c Gangliang Xie 2025-12-12  116  }
-0d21084c02864f drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c Gangliang Xie 2025-12-12  117  
-
-:::::: The code at line 115 was first introduced by commit
-:::::: 0d21084c02864fc95df18c5cdd3bab6efafdd406 drm/amd/ras: add wrapper funcs for pmfw eeprom
-
-:::::: TO: Gangliang Xie <ganglxie@amd.com>
-:::::: CC: Alex Deucher <alexander.deucher@amd.com>
+- [Medium] New, undocumented device-tree ABI for YT8824.
+- [Medium] Lock-initialization race: priv->shared_lock is mutex_init()'d
+  (motorcomm.c:4624) and priv->interface_mode published (4625) *after*…
+- [Low] yt8824_restore_working_status()'s kernel-doc summary says "called
+  to do store working status" while the function stores nothing: it…
 
 --
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+
+net: phy: Add driver for Motorcomm Quad 2.5GbE phy
+
+This adds support for the Motorcomm YT8824 quad-port 2.5G PHY to the
+existing motorcomm driver, sharing the top extended register space through
+the phy_package helpers. It also exports a new phylib helper,
+genphy_c45_template_testmode(), and adds the 10GBASE-T test mode register
+definitions to the uapi mdio header.
+
+> diff --git a/drivers/net/phy/motorcomm.c b/drivers/net/phy/motorcomm.c
+> index 90a4f86f2758..86f1e93aa82d 100644
+> --- a/drivers/net/phy/motorcomm.c
+> +++ b/drivers/net/phy/motorcomm.c
+
+[ ... ]
+
+> @@ -626,11 +722,1056 @@ static int ytphy_set_wol(struct phy_device *phydev, struct ethtool_wolinfo *wol)
+
+[ ... ]
+
+> +/**
+> + * yt8824_restore_working_status() - called to do store working status
+> + * @phydev: a pointer to a &struct phy_device
+> + * @ret: operation's return code
+> + *
+> + * Returns: 0 or negative errno code
+> + */
+> +static int yt8824_restore_working_status(struct phy_device *phydev, int ret)
+> +{
+> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
+> +	int r;
+> +
+> +	/* configure normal test mode */
+> +	r = yt8824_utp_normal_test_mode_paged(phydev);
+> +	if (ret >= 0 && r < 0)
+> +		ret = r;
+
+[Severity: Low]
+This isn't a bug, but the kernel-doc summary says "called to do store
+working status" while the body stores nothing.  It calls
+yt8824_utp_normal_test_mode_paged() and, for the non-internal interface
+mode, yt8824_sds_isolate_and_softreset_paged(), so it restores the PHY to
+its working configuration.  Should the summary say something like
+"restore the PHY working configuration"?
+
+[ ... ]
+
+> +/**
+> + * yt8824_phy_package_probe_once()  - init phy packet for phy8824.
+> + * @phydev: a pointer to a &struct phy_device
+> + *
+> + * Returns: 0 or negative errno code
+> + */
+> +static int yt8824_phy_package_probe_once(struct phy_device *phydev)
+> +{
+> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
+> +	struct device_node *np = phy_package_get_node(phydev);
+> +	const char *interface_mode_name;
+> +
+> +	/* Initialise shared lock for YT8824 */
+> +	mutex_init(&priv->shared_lock);
+> +	priv->interface_mode = PHY_INTERFACE_MODE_INTERNAL;
+> +	if (!of_property_read_string(np, "motorcomm,interface-mode",
+> +				     &interface_mode_name)) {
+> +		if (!strcasecmp(interface_mode_name,
+> +				phy_modes(PHY_INTERFACE_MODE_USXGMII))) {
+> +			priv->interface_mode = PHY_INTERFACE_MODE_USXGMII;
+> +		} else if (!strcasecmp
+> +				(interface_mode_name,
+> +				 phy_modes(PHY_INTERFACE_MODE_INTERNAL))) {
+> +			priv->interface_mode = PHY_INTERFACE_MODE_INTERNAL;
+> +		} else {
+> +			return -EINVAL;
+> +		}
+> +	} else {
+> +		phydev_warn(phydev, "%s, motorcomm,interface-mode missing in DTS.\n",
+> +			    __func__);
+> +	}
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Is there a device tree binding update planned for this?  This introduces a
+new vendor property, motorcomm,interface-mode, read from the PHY package
+node, with the legal values fixed by
+phy_modes(PHY_INTERFACE_MODE_USXGMII) and
+phy_modes(PHY_INTERFACE_MODE_INTERNAL).
+
+The only Motorcomm PHY schema,
+Documentation/devicetree/bindings/net/motorcomm,yt8xxx.yaml, is not touched
+by this patch and lists only:
+
+    enum:
+      - ethernet-phy-id4f51.e91a
+      - ethernet-phy-id4f51.e91b
+
+so there is no YT8824 compatible (ethernet-phy-id4f51.e8b8), no
+description of the package node layout, and no description of the new
+property.  Without that, can dt_binding_check or dtbs_check validate boards
+using this part, and how do device tree authors know which node carries
+the property?
+
+An in-tree example of a documented vendor property on a PHY package node is
+Documentation/devicetree/bindings/net/qcom,qca807x.yaml.
+
+> +
+> +/**
+> + * yt8824_probe() - phy8824 probe.
+> + * @phydev: a pointer to a &struct phy_device
+> + *
+> + * Returns: 0 or negative errno code
+> + */
+> +static int yt8824_probe(struct phy_device *phydev)
+> +{
+> +	struct device *dev = &phydev->mdio.dev;
+> +	struct yt8824_shared_priv *shared_priv;
+> +	int ret;
+> +
+> +	ret = devm_of_phy_package_join(dev, phydev, sizeof(*shared_priv));
+> +	if (ret)
+> +		return ret;
+
+[Severity: Medium]
+Related to the binding question above: this call is unconditional, and
+of_phy_package_join() in drivers/net/phy/phy_package.c requires a specific,
+currently undocumented device tree topology:
+
+    if (!of_node_name_eq(package_node, "ethernet-phy-package")) {
+        ret = -EINVAL;
+
+It also requires the PHY to have an OF node and the package node to carry a
+reg property.  Does a board that describes this part as four ordinary PHY
+nodes, or a non-OF system, then fail probe with -EINVAL and leave the ports
+unusable?
+
+> +
+> +	if (phy_package_probe_once(phydev)) {
+> +		ret = yt8824_phy_package_probe_once(phydev);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Can a sibling PHY of the same package use priv->shared_lock before it has
+been initialised?
+
+phy_package_probe_once() is only an election:
+
+drivers/net/phy/phy_package.c:__phy_package_set_once() {
+    ...
+	return !test_and_set_bit(b, &shared->flags);
+    ...
+}
+
+It does not wait for the winner to finish, so:
+
+CPU0                                CPU1
+yt8824_probe()
+  phy_package_probe_once() -> true
+                                    yt8824_probe()
+                                      phy_package_probe_once() -> false
+                                      return 0
+                                    phy_probe()
+                                      yt8824_get_features()
+                                        mutex_lock(&priv->shared_lock);
+  yt8824_phy_package_probe_once()
+    mutex_init(&priv->shared_lock);
+    priv->interface_mode = ...;
+
+The shared priv is allocated zeroed by phy_package_join(), so CPU1 would
+lock a mutex that has not been through mutex_init() and would read
+priv->interface_mode as 0 (PHY_INTERFACE_MODE_NA), which selects the
+external SerDes paths in yt8824_config_init() and
+yt8824_restore_working_status().
+
+dp83640_probe() wraps the same pattern in the package lock for this reason:
+
+drivers/net/phy/dp83640.c:dp83640_probe() {
+    ...
+	/* Ensure other PHY probes wait for shared clock initialization. */
+	phy_package_lock(phydev);
+	if (phy_package_probe_once(phydev))
+		dp83640_clock_init(clock);
+	phy_package_unlock(phydev);
+    ...
+}
+
+Would phy_package_lock()/phy_package_unlock() around the once-block here be
+appropriate too?
+
+Note also that when the property parse returns -EINVAL, the once bit stays
+set, so no other port in the package will retry the shared initialisation.
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260909074911.2378402-1-kyle.switch%40motor-comm.com
