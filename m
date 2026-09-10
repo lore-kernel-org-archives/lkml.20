@@ -1,87 +1,33 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D52EE3F54CB
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:09:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E9D5D3CF21D
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:11:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789034979; cv=none; b=Tjwq4EGtQCbxxl9VbvQPMhjxo6bgpT/4O7zph4TOmq3Z2D1qqlLp6q2R3J9BFZG545KHP/rMHoCY0abLz07AZaMbU6vxqnCUEG1Li78jmUYgLltiFJIIFIV14FawaJoVRb3Q7Uoz1/DMIL8k38iEd7wMYe+BiSdz55o2ZgWGeNM=
+	t=1789035079; cv=none; b=FJhWpkq9VsV9qpYZMwidNEkvy8yO3h4a77B8lQqVhbzGVlc6eAdYkmZ0dww8I1CwSxpCoaeNADC4Mp1mR0BBUvFXr5eb87p6LpVwvHU3G4KMbMywaI2UUIUnq9Ep/HSYpH/8Pxfrte4OKCRSKJyG4pI8ztLkjv4hazK4rwMbugM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789034979; c=relaxed/simple;
-	bh=NILZcbeiI8YplRLBwAkLPP7xTpQaJQh437a1V4BTT+E=;
+	s=arc-20240116; t=1789035079; c=relaxed/simple;
+	bh=ze2X4Lma6eVK0EPslJ52ApNw2jBlVa9FG4aUhZ3Oysw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YYY3UdyzhFI70raqH9XlCe0g7Rdg0CTE1rjajy53qwUKQWqwHa1KjUt35rxXvpu0dCFR3Jj2khvmesvLdh71m89fS6yV9q7AfIXmY25LmXj5Wr+g6SyFma+WZYB+27elKoRS4+C12vIMBwiwQV/AfKuxoYhS4JyTb3Jn2eUdbYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ng1A/Ndi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RhOzRvWv; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=a+A3qhx4+zW07b3IrmfmvFFNrMfJavqGPmrl94OXoHkag9U45hrYZE1/sPxtA1xfgZO5lk6gzffaiwUl8oacwh/uMgue+vZtdA0ZMjm3Fhx1COkrGni86ijEXupfEj+V8iHx0dAr0ImPmdJmMN87UtVnb8ECbphHj5+7wro84cE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=QffLbUZI; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ng1A/Ndi";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RhOzRvWv"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A8pon5340752
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:09:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	w6WSWBIfnFD8I/8EtmPPWYCRyqS1N/zQOy0eFdrQAKM=; b=ng1A/NdiUZi42qVL
-	hp/exJJfv5EP/tK/9FuJ+MTaFNb5sttvu0jJhOOsAoGdG6PaRnkDyB2JuvqIiGaS
-	QVpa+IAExfjNyAZjNLOax/rQ1gckgcS1XA5/8Ep5FoesevG3cmek/gqXZ8KTUCYi
-	kdLeTGP7Y2sXcKaJSed9YuWwRKoUqHE64/+jvfH0YADgE6/etsIOsZMfhJPE/8XY
-	L2lz34pJ9jv0YqDiUJPt5TK3u0VQSOCuHyenHNYmoL/ATZ2l70QJiREf1324NV2v
-	vKxNh0JMLnX3VLmVuJEEfRy2qvYROqh7ZnQT4o0q55J/QLfpTz967/B84q1aX7/d
-	/cj7IQ==
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkrak8kb0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:09:30 +0000 (GMT)
-Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-455ad408573so10918802fac.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:09:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789034970; x=1789639770; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w6WSWBIfnFD8I/8EtmPPWYCRyqS1N/zQOy0eFdrQAKM=;
-        b=RhOzRvWv96fHCl/2FArwHJYWfkww8dUbQ9ZFPYozj/5ceCD+SLAXhq+Bazj9bnJCVp
-         rboLzmDuHKgu4+TasX0qxs9ksrWX866VXkNl1npSj9MPMoR4D4/rk69R1uBonW41IEkq
-         5Ucsiodj+uwonjd0VfdVEiJOYKG4l1s7lwxTbVT1M4IPiA4SvNgEgvGpqFE3ACPDBAXx
-         5mgeyoZ5tmSN7/RVuBk/G1efFGvrbCDsDVoGgSFs/r2HDYui0NJ67u69JVePSEJh2as1
-         8xHUJbvwSQccS87hdXptI/iDhlzLto2WHdafuYwasdj7NOC/er8NuFVa8efPMfHEYnvZ
-         Sg2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789034970; x=1789639770;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w6WSWBIfnFD8I/8EtmPPWYCRyqS1N/zQOy0eFdrQAKM=;
-        b=Pj2LGVwk/SrLC88PMiVaDcjIZrshwADlHx1Jg1QwDVdQ4JVYF7B3TYpkgYjOWZ7Gpa
-         qFiU0ShtC0bMW0g8CaeQWqNs1GtRE55/VYt90TzRr6Wnsb7UfCXZdzEFsdknjca5/pZd
-         yPhJ7bXQSEdhknXOpV7T4y1lYbf2LKOIRwV92bTFZSCjT72AK3NnA29uS9uzwpJ6tCx0
-         FH1nlZOdA+ydE17DMXf5dVA+JxNwk4ApWnj6tQmJBkHMo3rDbBMot3vz4AX6b2FhAlt2
-         vNKR2oOfIrvhE7rckQyaz19j5nBYdzKX+OISmzMXLGLEdmFHj5V94tiBu5p4Q29/ANv9
-         UNWA==
-X-Forwarded-Encrypted: i=1; AKwUvBzDH7cvPYKSJLAT/+qpeSKZuwQMLrr5o9vbo7DQBEoC9M5VsWqsCykEGuu83c3+Dbzx7R4iqe20WAXG4Cs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lZiVF57EQXYFogx9sAi0+mNRjQEuMTlSnIlzwRLYXVOk6BMvNE
-	J7JoHWIm5VwCBHJfIhepMyAN0HYO+qB9MYUOLatj6J4JLaebIHOPIW5Cp1HnbOnIDW71YiQJZOV
-	fL8gEBYwLgYK+taj7SEYDwKHzkfe9fHCPNQqauZpEtlgVSAqL9CM3/JRg2Erd6bOA2IE=
-X-Gm-Gg: AYBFou1TybpFhsqPXZFLvIp572Vo2oQduP+L7Um2UjFKd94aOi/4bggYUjCpq4J+7CB
-	2vDzUb1drMbjGavoP6S1TncyHJSlWkEL4ENjApAtm0P7rFZ8hpZyflVL++l7bnqVVN/N6lPCWYw
-	9doSCZ4yVm0KbM8KCOzkHaXtrOmfkHVWTfiU/SgXkfmVoklKgh+qykWLQDre+U8p8S2n5w51uHb
-	QuJspZuufvOLwcyBJgtIJmw54KD1beNbFRE6EHHSezfaOMzbwpkhIGtGEp9OxCXZnhYMSvGw3Eu
-	hoGfRXBCsvP7lV9uYuaDKf/SJBD3NnUMlm582DNNbv/5vVHn0ukF9zoW43TGWGxeQf9kqMqwMAO
-	3Xu0XRU8eePZy2MecK318pkc=
-X-Received: by 2002:a05:6820:1c9d:b0:6bd:fbe8:fb95 with SMTP id 006d021491bc7-6bdfbe90757mr6187917eaf.60.1789034970021;
-        Thu, 10 Sep 2026 03:09:30 -0700 (PDT)
-X-Received: by 2002:a05:6820:1c9d:b0:6bd:fbe8:fb95 with SMTP id 006d021491bc7-6bdfbe90757mr6187900eaf.60.1789034969642;
-        Thu, 10 Sep 2026 03:09:29 -0700 (PDT)
-Received: from [10.151.40.248] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14324356931sm81334745c88.4.2026.09.10.03.09.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 03:09:29 -0700 (PDT)
-Message-ID: <4f9af85e-0906-459d-a34a-37a0f13038fc@oss.qualcomm.com>
-Date: Thu, 10 Sep 2026 15:39:25 +0530
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="QffLbUZI"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D345E143D;
+	Thu, 10 Sep 2026 03:11:07 -0700 (PDT)
+Received: from [10.57.72.177] (unknown [10.57.72.177])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B53B73F7B4;
+	Thu, 10 Sep 2026 03:11:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789035071; bh=ze2X4Lma6eVK0EPslJ52ApNw2jBlVa9FG4aUhZ3Oysw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=QffLbUZIi0x47zAKcQ/fhaBHbAZmRZ2td2tLzmYC9x864r7U8LFVP70Npo+9+3OQu
+	 ieLkWcU0zlFJ4C9oHdGO1eB9Cm30gdZU+DW32guMGOTRWLJKtwI2KR2nrjZWv4QYCU
+	 QCY02mM9LFsznD0dXYbs1pCHO3Lu2ZGkRrVWkR48=
+Message-ID: <1528999e-eb59-416f-b18f-2a7667e61a90@arm.com>
+Date: Thu, 10 Sep 2026 12:11:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,95 +35,81 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] spi: spi-qpic-snand: avoid writing QPIC_EBI2_ECC_BUF_CFG
- register
-To: Gabor Juhos <j4g8y7@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Sricharan Ramabadhran <quic_srichara@quicinc.com>,
-        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260909-qpic-snand-avoid-ebi2-reg-write-v1-1-9b1b1466cc75@gmail.com>
-Content-Language: en-US
-From: Md Sadre Alam <md.alam@oss.qualcomm.com>
-In-Reply-To: <20260909-qpic-snand-avoid-ebi2-reg-write-v1-1-9b1b1466cc75@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH 1/2] arm64: topology: Prefer PE0 on NVIDIA Olympus SMT
+ cores
+To: Andrea Righi <arighi@nvidia.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>, Mark Rutland
+ <mark.rutland@arm.com>, Christian Loehle <christian.loehle@arm.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld <pauld@redhat.com>,
+ Breno Leitao <leitao@debian.org>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260909062649.469633-1-arighi@nvidia.com>
+ <20260909062649.469633-2-arighi@nvidia.com>
+ <89694e14-4be8-4c9e-9d7b-2808f87dd95f@arm.com> <aqGGlNce4TRLS1cW@gpd4>
+Content-Language: en-GB
+From: Dietmar Eggemann <dietmar.eggemann@arm.com>
+In-Reply-To: <aqGGlNce4TRLS1cW@gpd4>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDExNiBTYWx0ZWRfX+rcumRiL1P8+
- lvr26IZpFF7IDC6VWMWrIhfWr74x0vnb57dxgupmX75+YUnAbdLkewIhgiAmfvtJ9HFBbSNroT6
- AUs2F2/8JYrMSEVRl43qrfAME9T8fNU=
-X-Proofpoint-GUID: IiZJ3pNoAj1gCl4AfOWqxVlszXITSpeq
-X-Proofpoint-ORIG-GUID: IiZJ3pNoAj1gCl4AfOWqxVlszXITSpeq
-X-Authority-Analysis: v=2.4 cv=EspHPicA c=1 sm=1 tr=0 ts=6aa281da cx=c_pps
- a=zPxD6eHSjdtQ/OcAcrOFGw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=ZGD61ap6ms5yJgAN6_cA:9 a=QEXdDO2ut3YA:10
- a=y8BKWJGFn5sdPF1Y92-H:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDExNiBTYWx0ZWRfX4xkKu3G8d1tw
- rwzPfAN5qDqSCfitd7zdW9x7D6zb34AezyecS4m3aeTWoVQfjgXCKvhaplS5zp/WcNCIRmD/ZJ4
- vJHkzuTJOJInzgx67hsYHuvromxAsz/JKVOfzo0tk4ft/fJgVroFnomkPLH4TU2EE6Hdwc0cV0l
- WzGhEhlN1BV5rHNpgjIjZ662Ua7letCVOMm6ICMzvzZuFhixmj6xcm4GQvoddFS3nsshfPhXkKa
- gQtx45aL88bOG4TX/ZmBNxqoD94kEyQAPlLt82eqA2Y9/t1qiwM7Q2C1YOZCQLv4a4EnEqehDYX
- hE1/T01iNkn7Q/QgMx7h5gDIS2M4zJF2MVfY29BHPlKL+mdjONpQtL7YYfHyvJQjuPXz/aLuGl+
- Io+yrtrmR8cABPn/Bg0b1xB8ZQ+i28n5UCQvPfaU4am2yb4tnW2rFgzLI/nlNcvp/eVezlCJhqh
- BL2krUAU8OHGHrXlWBw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_03,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 spamscore=0 clxscore=1015
- priorityscore=1501 impostorscore=0 malwarescore=0 adultscore=0 phishscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609100116
 
+On 09.09.26 18:17, Andrea Righi wrote:
+> On Wed, Sep 09, 2026 at 05:19:08PM +0200, Dietmar Eggemann wrote:
+>> On 09.09.26 08:26, Andrea Righi wrote:
+>>
+>> [...]
+>>
+>>> +void __init arm64_init_sched_topology(void)
+>>> +{
+>>> +	if (!IS_ENABLED(CONFIG_SCHED_SMT))
+>>> +		return;
+>>> +
+>>> +	if ((read_cpuid_id() & MIDR_CPU_MODEL_MASK) != MIDR_NVIDIA_OLYMPUS)
+>>> +		return;
+>>> +
+>>> +	if (!topology_core_has_smt(smp_processor_id()))
+>>> +		return;
+>>> +
+>>> +	set_sched_topology(arm64_asym_smt_topology);
+>>> +	pr_info("Enabling PE0 SMT preference for NVIDIA Olympus\n");
+>>
+>> I'm not really a big fan of using this arm64 setup for NVIDIA Olympus
+>> alone here.
+>>
+>>> +}
+>>> +
+>>> +int arch_asym_cpu_priority(int cpu)
+>>> +{
+>>> +	return MPIDR_AFFINITY_LEVEL(cpu_logical_map(cpu), 0) == 0;
+>>> +}
+>>> +
+>>
+>> This is done since it will only be called for NVIDIA Olympus since it's
+>> the only CPU model enabling this. I think it will work but it's still
+>> ugly :-)
+>>
+>> [...]
+>>
+> 
+> Agreed on both points. As mentioned in the other email, I'll coordinate with the
+> firmware team on a proper ABI for describing the PE0 preference. For the systems
+> with the current firmware, I don't have many ideas on how to enable this... a
+> special scheduler facility enabled via kernel boot option? Other ideas?
+With the explicit kernel boot time option discussed in the other thread,
+how do you want to code arch_asym_cpu_priority()?
 
+AFAIK, Arm architecture does not require the first/primary HW thread of
+an SMT core to have MPIDR_EL1.Aff0 == 0.
 
-On 9/9/2026 7:38 PM, Gabor Juhos wrote:
-> The description of commit bfb34eced559 ("mtd: rawnand: qcom: avoid writing
-> to obsolete register") says this:
-> 
->    "QPIC_EBI2_ECC_BUF_CFG register got obsolete from QPIC V2.0 onwards.
->    Avoid writing this register if QPIC version is V2.0 or newer."
-> 
-> Although the referenced commit is related to the 'qcom-nandc' driver,
-> however the hardware supported by the current driver is also based on
-> QPIC v2.0 so we should avoid writing that register here as well.
-> 
-> Remove the register writing code to avoid undefined behaviour.
-> 
-> Fixes: 7304d1909080 ("spi: spi-qpic: add driver for QCOM SPI NAND flash Interface")
-> Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
-> ---
->   drivers/spi/spi-qpic-snand.c | 4 ----
->   1 file changed, 4 deletions(-)
-> 
-> diff --git a/drivers/spi/spi-qpic-snand.c b/drivers/spi/spi-qpic-snand.c
-> index 61b1f2eb19ce..05efe6313b7f 100644
-> --- a/drivers/spi/spi-qpic-snand.c
-> +++ b/drivers/spi/spi-qpic-snand.c
-> @@ -765,8 +765,6 @@ static int qcom_spi_read_cw_raw(struct qcom_nand_controller *snandc, u8 *data_bu
->   
->   	qcom_write_reg_dma(snandc, &snandc->regs->addr0, NAND_ADDR0, 2, 0);
->   	qcom_write_reg_dma(snandc, &snandc->regs->cfg0, NAND_DEV0_CFG0, 3, 0);
-> -	qcom_write_reg_dma(snandc, &snandc->regs->ecc_buf_cfg, NAND_EBI2_ECC_BUF_CFG, 1, 0);
-> -
->   	qcom_write_reg_dma(snandc, &snandc->regs->erased_cw_detect_cfg_clr,
->   			   NAND_ERASED_CW_DETECT_CFG, 1, 0);
->   	qcom_write_reg_dma(snandc, &snandc->regs->erased_cw_detect_cfg_set,
-> @@ -1104,8 +1102,6 @@ static void qcom_spi_config_page_write(struct qcom_nand_controller *snandc)
->   {
->   	qcom_write_reg_dma(snandc, &snandc->regs->addr0, NAND_ADDR0, 2, 0);
->   	qcom_write_reg_dma(snandc, &snandc->regs->cfg0, NAND_DEV0_CFG0, 3, 0);
-> -	qcom_write_reg_dma(snandc, &snandc->regs->ecc_buf_cfg, NAND_EBI2_ECC_BUF_CFG,
-> -			   1, NAND_BAM_NEXT_SGL);
->   }
->   
->   static void qcom_spi_config_cw_write(struct qcom_nand_controller *snandc)
-> 
-> ---
-> base-commit: cb2ad3c020579bf51fb0d702db9cf64af9698377
-> change-id: 20260909-qpic-snand-avoid-ebi2-reg-write-0920452b4b3b
-> 
-> Best regards,
+The closest I came to you setup in Arm64 is a ThunderX2 SMT-4 machine on
+which I can run 'OpenBLAS benchmark/sgemm.goto'. This machine has
+symmetric CPU capacity though like Power7.
+It has MPIDR_EL1.Aff0 == {0,1,2,3} for HW threads but '== 0' wouldn't
+work here.
 
-Reviewed-by: Md Sadre Alam <md.alam@oss.qualcomm.com>
+[...]
