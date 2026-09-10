@@ -1,60 +1,74 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5993837C10C;
-	Thu, 10 Sep 2026 13:39:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 909C52EBDE9
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:39:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789047556; cv=none; b=Jsvu118hzhH0jC5MWWkiyEdXeoHSQopHBsErdwmBLxvNJgo4gCDNry/jhxMXqqkSY+wHnw1khRhrHwJLL1uIUMIjQGzC18rM9u/t14zQQ1DvuaiQvraJEpgvcCQp3mxoEUMBPaFgumLfvd4DrXdiwiuPCHBvQpol27CrR2jV41c=
+	t=1789047566; cv=none; b=ASwVA7qprwwNIArSRImB4ykZSllS4BSzVWiSGRjtGxNHSPnaRN3J8QapmQajE94v9kblsN6KzWIFgf5q6dBm1PS9pEjjU3nHajnLfkB/gDumx2cwjDe3Td1b8QBvPK2hq9MROkBT4O1t9yfMPCKUWyY3+XtgHrBBVrT/Ihr9Td4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789047556; c=relaxed/simple;
-	bh=mcMJDM8a1eJCC094E8iHtLaECQdPmcra7LuwvzVQ7M8=;
+	s=arc-20240116; t=1789047566; c=relaxed/simple;
+	bh=TDBy2qbTXNR0qPysOgT50JSGgqr/6R1MMiTiR1Y1yEo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UPBYh6oilFB80P8pG3iNqs5peLOahEOqZO1nRAscZMTY6rNhlwvKojPqcfeQ0EtmfCfHD1/38TrAuEulf3/Z6T1OgbPL3bClJ0cePQX4M5l6C3iuPRkZJ7OPIDzpsA3a2XjXhfq0VV44RmsH46vwmGZZ1IwZhOR98eEh8z1VZHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=blKeRR+/; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=oxgjo5z/3pwAbQKRNMVBrOz/Ll5xqP41iQ+ypr6SqxuSqGAdZpWluFqrM0P7SwnWhUonE+A2Y+SwzNAXR51PNB6fWGZZJkRouMLabfpaNsgNBqjsf9iqLS5G6p7/DOT8KHcWygoyofmZZ6kAxYUEU/zeSuoCEcjv7R59u3nLCs4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nKAkPtfV; arc=none smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="blKeRR+/"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=GiWQPrjaz8+nxLgM6sOizDmSUd/SxTm1oiFePM6L7So=; b=blKeRR+/SpQgaMamNKPkdB8jiw
-	aA0uG479JNcDvP66mpFIZT3fqOtWGMehUHIJ8Jvt4Qdy3Hv+qTP3Le5GS5omjVHIXROURV6jX/HhU
-	qc0/yCYesJz44esdwx0dEGN7XSWKfcLxOK1zfohBW1TN26fdgcRypqp0qtG1nLAojzYh11f2bnY7T
-	orlwK8j/VNjq+fwc4ip7YtA8toPbdt+jfNniHiAjcBbgBPlEfyrxTJStB8yvLa3vn1fEVA0VaG9LX
-	iloCtlMZQI/5+WMF0kNW1wmG9mE8NZwRLJlRiLQRd/NEf3tHgx5vvHNVXcJR/V0/QoBvUViH3NRrl
-	cswtJ/PQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x4ezV-00000000THO-3SnK;
-	Thu, 10 Sep 2026 13:39:02 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id C127130056B; Thu, 10 Sep 2026 15:39:00 +0200 (CEST)
-Date: Thu, 10 Sep 2026 15:39:00 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>,
-	Lee Trager <ltrager@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
-	Koba Ko <kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
-	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 15/18] sched_ext: Delegate proxy donor admission to BPF
- schedulers
-Message-ID: <20260910133900.GT776954@noisy.programming.kicks-ass.net>
-References: <20260831134338.1531664-1-arighi@nvidia.com>
- <20260831134338.1531664-16-arighi@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nKAkPtfV"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c28fde3bbd2so729225566b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:39:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789047562; x=1789652362; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JMmMNbrgJ0PThlrgbADYUy5LHKnoS0oQw5HvEhMlYHY=;
+        b=nKAkPtfVPKYlnHEQnbArYK1PAMLDHDOEYSZglUm52qzqQ5QKCNxuvgymmBtqYxoECr
+         q3TAWdP1aMdpWWOY03c800G+lggPtdv8FEam16nTLfB46ipKauui/yWcSC9nMB7Uw33+
+         kvfFhtnMRsu83TtOmkYfZeTBPD4m7ENhjVjZmAQbgpV05ME7dSOoR6ECEQiCdTs9O4cq
+         6v/FuRIoRZrN8wfzIrtBUcgV0eUz9GqsK4ew+Bn9teJjWaXT/f5VYFuv5ptHzReIBHUS
+         3v/KP4alCynArvjnmegbfNEawoqvtqBizXg+IOktWv+fknScqOO4GAnMw1PXjq+qKLFh
+         dotg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789047562; x=1789652362;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JMmMNbrgJ0PThlrgbADYUy5LHKnoS0oQw5HvEhMlYHY=;
+        b=HnyIP4FUz7vwLdVsrGXeT1Baa9/p7N2cZhfI2XcFNzH2OQTwXoWdjZS8Np8aphk5BD
+         +pxzvQzXJNWzPCGv7jEekhANiqNhp5lev4HwdLIjqC0QkUDM/TBJb0rqwjaUq5MuvYBX
+         F+L2+bRjo54yzU+MZueolNqlfLT59aTdXP6AoTC4tqKQkdIEJTF6ab2rreF36VBlI4mx
+         i60S1AkVsEzPjuRkj6LIc/Wm7+jymMv1BjUeM3xbeq6Nucce6JVuaRTAPPii7CBYlZ1f
+         m2LDhYoo/qBF5frXZuZzSfoHIbPqbErSwsHz5W/y0bJ899420cicTAM0FSED1ZU6BDW+
+         4b2A==
+X-Forwarded-Encrypted: i=1; AKwUvBzlM9ojdvuEQDU9Z5H+1sC9G800ZAcZtSgRgR5BzR14CQHmLPyXsHQTdp8C2JccH6UGolyh6eng7apCurw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kz6coEqKSJOJfX9N48IABxvi4shRrbFoyKY2C1E6GZM0PmrSoT
+	WileVw6C8JH/W7t+DZmhyoxzNZhpTzl9dG2dirub2zuVapJoO8y6yWos
+X-Gm-Gg: AYBFou0x2lO3wws8JgT6EUrb/aEMnHC8iqFeEMlBLNo4gB0Fiab+tfwGQOdDX+7KcRx
+	Mv3LRnMZNlBzRAaDKZH1MKoGrobaxEXOO2wUBWKNBnI3LRUnwC1Jt4gREdIbz8lS9kqRXTyzhK0
+	cwdjvx4HfU4eMfzkrV3/BA6K/5Oo0U9P5LS8GO8le2tbze8+iyK0PZ4Bj3JQIainBkb8PQr4Mj7
+	uvuk+5gVjZpwnNRxf0kuET0+yEZsPtP1Kc1yxUx3KZihkw8wzIYGT2qWKI1VP2tK3ATt+aVAiwe
+	/7gO28tEtmVtIDJkjPh+WVlB1lOf5cD/3W3EPVjKzrsx6ai1o9dSHv/lbtOorVJE0oeaYNgUB4n
+	LGlBJMl7agsMsV+BT5AIbV4mLhMK15Lo2NLmS+9fOfShM6F5Fbg3HoXFLuUgiI/d76EKjelbHT8
+	/Nsi8CdO4n2AxVk7byPECXBJpVwhM6t8dShwoRa8xbHV4iQ7/bT4DZzXcLFUG5dFCbAENe
+X-Received: by 2002:a17:907:72d5:b0:c26:1691:b361 with SMTP id a640c23a62f3a-c261691b94dmr1535678866b.26.1789047561903;
+        Thu, 10 Sep 2026 06:39:21 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d036902sm910218566b.3.2026.09.10.06.39.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 06:39:21 -0700 (PDT)
+Date: Thu, 10 Sep 2026 16:39:17 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Muhammad Israr <7israr.work@gmail.com>
+Cc: parthiban.veerasooran@microchip.com, christian.gromm@microchip.com,
+	gregkh@linuxfoundation.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: most: video: add comments to mutex and spinlock
+ definitions
+Message-ID: <aqKzBTM-CdBqQzXi@stanley.mountain>
+References: <20260910124403.95741-1-7israr.work@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,28 +77,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260831134338.1531664-16-arighi@nvidia.com>
+In-Reply-To: <20260910124403.95741-1-7israr.work@gmail.com>
 
-On Mon, Aug 31, 2026 at 03:42:25PM +0200, Andrea Righi wrote:
-
-> diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-> index 5f4956cf7e369..aa6ba9e8d7cb0 100644
-> --- a/kernel/sched/ext/ext.c
-> +++ b/kernel/sched/ext/ext.c
-> @@ -26,7 +26,28 @@ DEFINE_RAW_SPINLOCK(scx_sched_lock);
+On Thu, Sep 10, 2026 at 05:44:03PM +0500, Muhammad Israr wrote:
+> Add comments describing what the list_lock spinlock and lock mutex
+> in struct most_video_dev protect, per checkpatch.pl's
+> "definition without comment" check.
+> 
+> list_lock protects the pending_mbos list. The mutex is registered
+> as vdev->lock and is used by the V4L2 core to serialize
+> video_device ioctl calls; it is not locked directly in this file.
+> 
+> Signed-off-by: Muhammad Israr <7israr.work@gmail.com>
+> ---
+>  drivers/staging/most/video/video.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/staging/most/video/video.c b/drivers/staging/most/video/video.c
+> index 3a0445ff62f4..41b617b553aa 100644
+> --- a/drivers/staging/most/video/video.c
+> +++ b/drivers/staging/most/video/video.c
+> @@ -33,6 +33,7 @@ struct most_video_dev {
+>  	bool mute;
 >  
->  bool scx_allow_proxy_exec(const struct task_struct *p)
->  {
-> -	return p->sched_class != &ext_sched_class;
-> +	struct scx_sched *sch;
-> +
-> +	if (p->sched_class != &ext_sched_class)
-> +		return true;
-> +
-> +	sch = scx_task_sched(p);
-> +	return !sch || (sch->ops.flags & SCX_OPS_ENQ_BLOCKED);
-> +}
+>  	struct list_head pending_mbos;
+> +	/* protects pending_mbos */
+>  	spinlock_t list_lock;
 
-Can we have this thing either be inline or wrapped in an inline function
-that has scx_enabled() on?
+It's supposed to but it is buggy...  What prevents multiple
+threads from reading comp_vdev_read() at the same time?
+I prefer to keep the warning around until someone fixes the
+code.
+
+I didn't read the other change.
+
+regards,
+dan carpenter
+
 
