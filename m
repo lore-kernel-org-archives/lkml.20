@@ -1,202 +1,485 @@
-Received: from mx0a-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 343972AE78;
-	Thu, 10 Sep 2026 09:04:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD99F3BADB2;
+	Thu, 10 Sep 2026 09:04:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789031045; cv=none; b=GAKd1PBXdeIUB+nPrkVlN0uqBBePCS+VV1rJIfu6VGtkEkqvYkG42HWjJluQe5WDDBZpUQ41NhoJGMidoK+lZduu3/hFeS7MGxzwV2c3q2p4j8uJMLCMERhK13vwTz+i/PePZz6fB9fh8fqR/dFqq6JKtoJWpxmZi8cC9hxcCfI=
+	t=1789031088; cv=none; b=uSNuD/jfEZXMj7330Pl4XE8/eX/1Mga6VP0rW0mhU8KyHkIL5SgG9x0z8QPDdu7is35ct7bl2PdORcw1O6UURfeVGLTkBsd61VeRko2z6K0dvtghHK3h5RalAhBkrw33qv2B3JXbXPSI6yNxoitycohKF/wKA9tr2nnaVMZV22U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789031045; c=relaxed/simple;
-	bh=dTFDxdfNVHzX5ll4ow+62nY5L2LVtLUyxLqlUqDgwH4=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kH0IXWWJZC4g9kTLtnO1+ONHUDQaP1gAL9Cje/4t7IjPaKt0r1uxsmyNyUppaoxOcjjfUfZx+xVjigm5vBggArIILNfyJxuHi/WAe4DP1/XixrbWQcvWseJpWPqaek2Q6L3RJV97pKnFuVCoTncDnL7fV+Namq+KvQ9iEIpIC4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=YTJ14IFp; arc=none smtp.client-ip=67.231.148.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1789031088; c=relaxed/simple;
+	bh=k0suo/TtB67EEH6np0sjRyDNLi7c6gvhMrFggub9PZ8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KDicUrRJ4PiO1SPyTi0odzKBr7eHrwZTUiN2PwzI4iK+ajlh3mZ+5VqJWz8HhtuMFQDJC0uikw9LZlIhpfM9GDnQlGfrn3uxVrEhmYURxDjT9Ava+/V9LACdw4g6Tv4eYPNwgt8ahuACuG5aapgRh0YUBWSZN7dOwMjTTae5F/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CykK8PpZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="YTJ14IFp"
-Received: from pps.filterd (m0431384.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A8pW87654210;
-	Thu, 10 Sep 2026 02:03:55 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pfpt0220; bh=x
-	edCww0cRyP5pC6TEBEHK15XlMCRRo5Jq3Sh+1cAtSI=; b=YTJ14IFpx4/M7zbNg
-	xqA6rbUPZ7GpnF0PHCcLcaQNbh+DtlcH7xDwZtL6TSILSQiWugC3+PfwrFLSP1a9
-	xxbco3PK0zPeor6XlQhZY3TwdgQtsv2YP00Do2JTvq4uC18hbRKJKGAYSekGNKZ+
-	utL/cr54yE9TepDQNT9LzxWP7ID2M7T1UMDpRKnP+Vz256sKiGowg8PZdhDrBYOJ
-	2Ol/7VSz3ByZo9pi5fg3zIw8LnVwxthsANTmPxb9GYlYNyY2Ng7uWhxdn+xGby9k
-	t2xwAmGWNKPqQVLrfeULhy6HHjvnjtuOiG+nETB045VNbszU3tI5it2lyItn4glJ
-	N9hfw==
-Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4gkcxntrcu-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 02:03:54 -0700 (PDT)
-Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
- DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Thu, 10 Sep 2026 02:03:53 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
- (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Thu, 10 Sep 2026 02:03:53 -0700
-Received: from rkannoth-OptiPlex-7090 (unknown [10.28.36.165])
-	by maili.marvell.com (Postfix) with ESMTP id DF4653F704E;
-	Thu, 10 Sep 2026 02:03:49 -0700 (PDT)
-Date: Thu, 10 Sep 2026 14:33:44 +0530
-From: Ratheesh Kannoth <rkannoth@marvell.com>
-To: <netdev-bot+sashiko@kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
-        <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-        <kuba@kernel.org>, <pabeni@redhat.com>, <sgoutham@marvell.com>,
-        <hkelam@marvell.com>
-Subject: Re: [PATCH v3 net-next] octeontx2-pf: report port connector type in
- ethtool link ksettings
-Message-ID: <aqJycF8VS6268u7o@rkannoth-OptiPlex-7090>
-References: <20260909040621.397255-1-rkannoth@marvell.com>
- <178901476356.219967.4043623609208931989@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CykK8PpZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60E481F000FF;
+	Thu, 10 Sep 2026 09:04:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789031086;
+	bh=12PQgsgrSBMhJiTZn1CaiDRAflZPBEAmfiFO1v4vyYc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CykK8PpZIyASLenIBcPVyiRuH8NfM3g33NY2WSo5tU7IhFgBcKsMmnMczB+/mWhk2
+	 8Fhi9/QKvgJmQfKjYaksoJFWXOt+FB/KdUApexq4o5cHoKcpr53FS74k8BrlJ804Bp
+	 nK47PM4opm94q1FrK7+yV6k2x/t47HsCh+6oRY11KZJ/5R5vmLo8XtcpLRjI/dCy0s
+	 urYK+dItPtvWl/hK5v9ACT1cXOY3WRu4KOuKGFp5GHfBTS6t2d1Ke5aJQE6p1weh61
+	 kwdV1QE4+80K7J927Cmi8F1S0lfz1ZzLgQFnt2zhsgf/0CRS8U/HotsXC7JgbD1q08
+	 U9+83MIOUH5Jg==
+Date: Thu, 10 Sep 2026 10:04:37 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Oliver Upton <oupton@kernel.org>, Fuad Tabba <tabba@google.com>, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, 
+	kvm@vger.kernel.org, linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	Jack Thomson <jackabt@amazon.com>, Jack Thomson <jackabt.amazon@gmail.com>, 
+	Alexandru Elisei <alexandru.elisei@arm.com>, Vincent Donnefort <vdonnefort@google.com>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Sean Christopherson <seanjc@google.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, Leo Soares Passos <Leo.Bras@arm.com>
+Subject: Re: [PATCH 1/8] KVM: arm64: Propagate and use esr in s2fd when
+ handling guest aborts
+Message-ID: <aqJx0NOJxq_7H_dF@gremlin>
+References: <20260825-kvm-arm-prefault-v1-0-befe8947702e@kernel.org>
+ <20260825-kvm-arm-prefault-v1-1-befe8947702e@kernel.org>
+ <86wlst7b4x.wl-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <178901476356.219967.4043623609208931989@kernel.org>
-X-Authority-Analysis: v=2.4 cv=K923jCWI c=1 sm=1 tr=0 ts=6aa2727b cx=c_pps
- a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=l0iWHRpgs5sLHlkKQ1IR:22 a=TtqV-g6YmW1Jfm2GSLaY:22 a=9R54UkLUAAAA:8
- a=M5GUcnROAAAA:8 a=VwQbUJbxAAAA:8 a=xn5eHuDypWZXWY9MClUA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=YTcpBFlVQWkNscrzJ_Dz:22 a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-ORIG-GUID: OqRg_7O-GWcSOwKiSf5iTq_iHVjxI-vx
-X-Proofpoint-GUID: OqRg_7O-GWcSOwKiSf5iTq_iHVjxI-vx
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDEwMSBTYWx0ZWRfX/bW+pMWbw3AG
- eW1NUwl7w9bppAMKlSV37BaY2eN3a0lcr4Jsy223d5S227C7zq4OwBEubjV5vtks7uezr4KYctG
- YwrzfBqiGamxp49X4JFYBlRhHdkT5GE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDEwMSBTYWx0ZWRfX6WFFeSTMb3rd
- GhZ8Bm4PZLaUpNYOjSrHrui2i8t8zs6rh4885LsrPQa2GGgayUVF8I8tyWuKp6DkQksW311/lBB
- AMJt5gKdoZjMR52OquDWK14QYKAIHkwgQQujv4gvBNHSB/Jno5xAAz7jeqGb1W8D84hUqq8cIQi
- a1rPUsdzpv8SPxs2X5fawHoa0EvsKXPQOV4p3JhS5x2PDUsVRq6AUIyE4jNnue043J8CDU6GeV7
- fhFk0W+6zKUQes7HAFutr/L8brjaQcFGxrSQfBKj6usqI6GaTFxXqX+ZSESSzvHNEljzwFXbKFR
- 2P2o0GQkOo9UgFkCuLgN7+oeaGSRrfjh+i2zX6qpL04Q4GL8o0HrmiZivaORmsHcTgne6BhE1MP
- YxRg6CIkAbJQqGFXVrmNd2cYstTFckL5FyfSPaXsDjoVqb9QY8HzHppSnJWZ85TzaRQkCwhIcqB
- qc8lF687Dz+gS4YJFVA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_03,2026-09-09_02,2025-10-01_01
+In-Reply-To: <86wlst7b4x.wl-maz@kernel.org>
 
-On 2026-09-10 at 10:02:43, netdev-bot+sashiko@kernel.org (netdev-bot+sashiko@kernel.org) wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider:
+On Thu, Sep 10, 2026 at 09:39:58AM +0100, Marc Zyngier wrote:
+> On Tue, 25 Aug 2026 17:00:35 +0100,
+> "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+> >
+> > kvm_handle_guest_abort() establishes a kvm_s2_fault_desc data structure,
+> > s2fd, to store and propagate state to either pkvm_mem_abort(), gmem_abort()
+> > or user_mem_abort() handlers.
+> >
+> > Each of these, however, examines the Exception Syndrome Register (ESR) via
+> > s2fd->vcpu.
+> >
+> > Introduce an s2fd->esr field to abstract this and propagate it to callers.
+> >
+> > The value of this (beyond refactoring) is to be able to later generate
+> > faults with a synthetic esr, specifically to implement stage 2 page table
+> > pre-faulting.
+> >
+> > Abstract esr-specific predicates and helpers to the esr.h header and either
+> > have vcpu wrappers call these, or eliminate them if they are not used
+> > elsewhere.
+> >
+> > Provide kvm_s2_fault_is_[write,exec,perm]() helpers for convenience.
+> >
+> > Since kvm_s2_fault_map() either sets perm_fault_granule to the permission
+> > fault granule or 0 if not a permission fault, implement
+> > kvm_s2_perm_fault_granule() to do this directly.
+> >
+> > Abort handlers which use kvm_s2_fault_desc - gmem_abort() and
+> > user_mem_abort() - now only reference s2fd->esr and do not look it up in
+> > any other way, which makes it safe to pass a synthetic s2fd->esr value to
+> > these functions.
 >
-> Critical: 0 · High: 0 · Medium: 1 · Low: 0
->
-> - [Medium] otx2_get_link_ksettings()
->   (drivers/net/ethernet/marvell/octeontx2/nic/otx2_ethtool.c:1236)…
-FW is setting it properly.
+> Please split this. ESR helpers in one patch, hacking the MMU code to
+> use it in another, s2fd->esr stuff last.
+
+Ack will do!
 
 >
-> --
+> >
+> > No functional change intended.
+> >
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> >  arch/arm64/include/asm/esr.h         | 129 +++++++++++++++++++++++++----------
+> >  arch/arm64/include/asm/kvm_emulate.h |  52 ++++----------
+> >  arch/arm64/kvm/mmu.c                 |  80 +++++++++++++---------
+> >  3 files changed, 156 insertions(+), 105 deletions(-)
+> >
+> > diff --git a/arch/arm64/include/asm/esr.h b/arch/arm64/include/asm/esr.h
+> > index f816f5d77f1a..162e90c832e9 100644
+> > --- a/arch/arm64/include/asm/esr.h
+> > +++ b/arch/arm64/include/asm/esr.h
+> > @@ -437,6 +437,32 @@
+> >  #ifndef __ASSEMBLER__
+> >  #include <asm/types.h>
+> >
+> > +static inline u8 esr_trap_get_class(unsigned long esr)
 >
-> octeontx2-pf: report port connector type in ethtool link ksettings
+> nit: there is no notion of trap here. This is simply extracting the EC
+> from the ESR. My personal (and wholly unreliable) taste would be to go
+> for something like esr_get_ec().
+
+Ack will change!
+
 >
-> otx2_get_link_ksettings() now reads the connector type out of the CGX
-> firmware shared data (struct cgx_lmac_fwdata_s.port), masks the low eight
-> bits, checks the result against a list of ethtool PORT_* values and stores
-> it into cmd->base.port.  Unrecognized values become PORT_OTHER.
+> I appreciate that you are simply propagating the names used in KVM,
+> but they were pretty poor the first place, and have only been kept to
+> avoid churn.
+
+Yeah, when in Rome etc. :)
+
 >
-> > diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ethtool.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ethtool.c
-> > index 9bee1b91eeaa..a05dee0085a3 100644
-> > --- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ethtool.c
-> > +++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ethtool.c
+> Also, 'inline' is a bit of a problem given that the callers are
+> __always_inline for good reasons (see 5c37f1ae1c3358).
+
+Ack will fix up.
+
 >
-> [ ... ]
->
-> > @@ -1231,6 +1232,23 @@ static int otx2_get_link_ksettings(struct net_device *netdev,
-> >  				OTX2_MODE_SUPPORTED, cmd);
-> >  	otx2_get_fec_info(rsp->fwdata.supported_fec,
-> >  			  OTX2_MODE_SUPPORTED, cmd);
+> > +{
+> > +	return ESR_ELx_EC(esr);
+> > +}
 > > +
-> > +	port = FIELD_GET(GENMASK(7, 0), rsp->fwdata.port);
-> > +	switch (port) {
-> > +	case PORT_TP:
-> > +	case PORT_AUI:
-> > +	case PORT_MII:
-> > +	case PORT_FIBRE:
-> > +	case PORT_BNC:
-> > +	case PORT_DA:
-> > +	case PORT_NONE:
-> > +		cmd->base.port = port;
-> > +		break;
+> > +static inline bool esr_trap_is_iabt(unsigned long esr)
+> > +{
+> > +	return esr_trap_get_class(esr) == ESR_ELx_EC_IABT_LOW;
+> > +}
+> > +
+> > +static inline bool esr_abt_is_s1ptw(unsigned long esr)
+> > +{
+> > +	return esr & ESR_ELx_S1PTW;
+> > +}
+> > +
+> > +/* Always check for S1PTW *before* using this. */
+> > +static inline bool esr_dabt_is_write(unsigned long esr)
+> > +{
+> > +	return esr & ESR_ELx_WNR;
+> > +}
+> > +
+> > +static inline bool esr_dabt_is_cm(unsigned long esr)
+> > +{
+> > +	return esr & ESR_ELx_CM;
+> > +}
+> > +
+> >  static inline unsigned long esr_brk_comment(unsigned long esr)
+> >  {
+> >  	return esr & ESR_ELx_BRK64_ISS_COMMENT_MASK;
+> > @@ -460,75 +486,104 @@ static inline bool esr_is_ubsan_brk(unsigned long esr)
+> >  	return (esr_brk_comment(esr) & ~UBSAN_BRK_MASK) == UBSAN_BRK_IMM;
+> >  }
+> >
+> > +static inline u8 esr_fsc_get_fault(unsigned long esr)
+> > +{
+> > +	return esr & ESR_ELx_FSC;
+> > +}
+> > +
+> >  static inline bool esr_fsc_is_translation_fault(unsigned long esr)
+> >  {
+> > -	esr = esr & ESR_ELx_FSC;
+> > +	const u8 fault = esr_fsc_get_fault(esr);
+> >
+> > -	return (esr == ESR_ELx_FSC_FAULT_L(3)) ||
+> > -	       (esr == ESR_ELx_FSC_FAULT_L(2)) ||
+> > -	       (esr == ESR_ELx_FSC_FAULT_L(1)) ||
+> > -	       (esr == ESR_ELx_FSC_FAULT_L(0)) ||
+> > -	       (esr == ESR_ELx_FSC_FAULT_L(-1));
+> > +	return (fault == ESR_ELx_FSC_FAULT_L(3)) ||
+> > +	       (fault == ESR_ELx_FSC_FAULT_L(2)) ||
+> > +	       (fault == ESR_ELx_FSC_FAULT_L(1)) ||
+> > +	       (fault == ESR_ELx_FSC_FAULT_L(0)) ||
+> > +	       (fault == ESR_ELx_FSC_FAULT_L(-1));
+>
+> I really think we could do without this sort of churn.
+
+Sure, will avoid the var name changes etc. on respin.
+
+>
+> >  }
+> >
+> >  static inline bool esr_fsc_is_permission_fault(unsigned long esr)
+> >  {
+> > -	esr = esr & ESR_ELx_FSC;
+> > +	const u8 fault = esr_fsc_get_fault(esr);
+> >
+> > -	return (esr == ESR_ELx_FSC_PERM_L(3)) ||
+> > -	       (esr == ESR_ELx_FSC_PERM_L(2)) ||
+> > -	       (esr == ESR_ELx_FSC_PERM_L(1)) ||
+> > -	       (esr == ESR_ELx_FSC_PERM_L(0));
+> > +	return (fault == ESR_ELx_FSC_PERM_L(3)) ||
+> > +	       (fault == ESR_ELx_FSC_PERM_L(2)) ||
+> > +	       (fault == ESR_ELx_FSC_PERM_L(1)) ||
+> > +	       (fault == ESR_ELx_FSC_PERM_L(0));
+> >  }
+> >
+> >  static inline bool esr_fsc_is_access_flag_fault(unsigned long esr)
+> >  {
+> > -	esr = esr & ESR_ELx_FSC;
+> > +	const u8 fault = esr_fsc_get_fault(esr);
+> >
+> > -	return (esr == ESR_ELx_FSC_ACCESS_L(3)) ||
+> > -	       (esr == ESR_ELx_FSC_ACCESS_L(2)) ||
+> > -	       (esr == ESR_ELx_FSC_ACCESS_L(1)) ||
+> > -	       (esr == ESR_ELx_FSC_ACCESS_L(0));
+> > +	return (fault == ESR_ELx_FSC_ACCESS_L(3)) ||
+> > +	       (fault == ESR_ELx_FSC_ACCESS_L(2)) ||
+> > +	       (fault == ESR_ELx_FSC_ACCESS_L(1)) ||
+> > +	       (fault == ESR_ELx_FSC_ACCESS_L(0));
+> >  }
+> >
+> >  static inline bool esr_fsc_is_excl_atomic_fault(unsigned long esr)
+> >  {
+> > -	esr = esr & ESR_ELx_FSC;
+> > -
+> > -	return esr == ESR_ELx_FSC_EXCL_ATOMIC;
+> > +	return esr_fsc_get_fault(esr) == ESR_ELx_FSC_EXCL_ATOMIC;
+> >  }
+> >
+> >  static inline bool esr_fsc_is_addr_sz_fault(unsigned long esr)
+> >  {
+> > -	esr &= ESR_ELx_FSC;
+> > +	const u8 fault = esr_fsc_get_fault(esr);
+> > +
+> > +	return (fault == ESR_ELx_FSC_ADDRSZ_L(3)) ||
+> > +	       (fault == ESR_ELx_FSC_ADDRSZ_L(2)) ||
+> > +	       (fault == ESR_ELx_FSC_ADDRSZ_L(1)) ||
+> > +	       (fault == ESR_ELx_FSC_ADDRSZ_L(0)) ||
+> > +	       (fault == ESR_ELx_FSC_ADDRSZ_L(-1));
+> > +}
+> > +
+> > +static inline bool esr_abt_is_exec_fault(unsigned long esr)
+> > +{
+> > +	return esr_trap_is_iabt(esr) && !esr_abt_is_s1ptw(esr);
+> > +}
+> >
+> > -	return (esr == ESR_ELx_FSC_ADDRSZ_L(3))	||
+> > -	       (esr == ESR_ELx_FSC_ADDRSZ_L(2))	||
+> > -	       (esr == ESR_ELx_FSC_ADDRSZ_L(1)) ||
+> > -	       (esr == ESR_ELx_FSC_ADDRSZ_L(0))	||
+> > -	       (esr == ESR_ELx_FSC_ADDRSZ_L(-1));
+> > +static inline bool esr_abt_is_sea(unsigned long esr)
+> > +{
+> > +	const u8 fault = esr_fsc_get_fault(esr);
+> > +
+> > +	switch (fault) {
+> > +	case ESR_ELx_FSC_EXTABT:
+> > +	case ESR_ELx_FSC_SEA_TTW(-1) ... ESR_ELx_FSC_SEA_TTW(3):
+> > +	case ESR_ELx_FSC_SECC:
+> > +	case ESR_ELx_FSC_SECC_TTW(-1) ... ESR_ELx_FSC_SECC_TTW(3):
+> > +		return true;
 > > +	default:
-> > +		cmd->base.port = PORT_OTHER;
-> > +		break;
+> > +		return false;
 > > +	}
+> > +}
+> > +
+> > +/* Not valid for negative levels. */
+> > +static inline u64 esr_fsc_get_level(unsigned long esr)
+> > +{
+> > +	return esr & ESR_ELx_FSC_LEVEL;
+> >  }
 >
-> [Severity: Medium]
-> Can this report a wrong connector type when firmware never populated the
-> field?
+> If that's such an unreliable helper, why is it exposed to everyone
+> instead of being kept local to the single caller?
+
+That's a fair point :) will open code instead.
+
 >
-> PORT_TP is 0x00 in include/uapi/linux/ethtool.h, and the ethtool core
-> zero-fills the settings before calling into the driver:
+> >
+> >  static inline bool esr_fsc_is_sea_ttw(unsigned long esr)
+> >  {
+> > -	esr = esr & ESR_ELx_FSC;
+> > +	const u8 fault = esr_fsc_get_fault(esr);
+> >
+> > -	return (esr == ESR_ELx_FSC_SEA_TTW(3)) ||
+> > -	       (esr == ESR_ELx_FSC_SEA_TTW(2)) ||
+> > -	       (esr == ESR_ELx_FSC_SEA_TTW(1)) ||
+> > -	       (esr == ESR_ELx_FSC_SEA_TTW(0)) ||
+> > -	       (esr == ESR_ELx_FSC_SEA_TTW(-1));
+> > +	return (fault == ESR_ELx_FSC_SEA_TTW(3)) ||
+> > +	       (fault == ESR_ELx_FSC_SEA_TTW(2)) ||
+> > +	       (fault == ESR_ELx_FSC_SEA_TTW(1)) ||
+> > +	       (fault == ESR_ELx_FSC_SEA_TTW(0)) ||
+> > +	       (fault == ESR_ELx_FSC_SEA_TTW(-1));
+> >  }
+> >
+> >  static inline bool esr_fsc_is_secc_ttw(unsigned long esr)
+> >  {
+> > -	esr = esr & ESR_ELx_FSC;
+> > +	const u8 fault = esr_fsc_get_fault(esr);
+> >
+> > -	return (esr == ESR_ELx_FSC_SECC_TTW(3)) ||
+> > -	       (esr == ESR_ELx_FSC_SECC_TTW(2)) ||
+> > -	       (esr == ESR_ELx_FSC_SECC_TTW(1)) ||
+> > -	       (esr == ESR_ELx_FSC_SECC_TTW(0)) ||
+> > -	       (esr == ESR_ELx_FSC_SECC_TTW(-1));
+> > +	return (fault == ESR_ELx_FSC_SECC_TTW(3)) ||
+> > +	       (fault == ESR_ELx_FSC_SECC_TTW(2)) ||
+> > +	       (fault == ESR_ELx_FSC_SECC_TTW(1)) ||
+> > +	       (fault == ESR_ELx_FSC_SECC_TTW(0)) ||
+> > +	       (fault == ESR_ELx_FSC_SECC_TTW(-1));
+> >  }
+> >
+> >  /* Indicate whether ESR.EC==0x1A is for an ERETAx instruction */
+> > diff --git a/arch/arm64/include/asm/kvm_emulate.h b/arch/arm64/include/asm/kvm_emulate.h
+> > index a3c1928bdf74..811d7a68a9f9 100644
+> > --- a/arch/arm64/include/asm/kvm_emulate.h
+> > +++ b/arch/arm64/include/asm/kvm_emulate.h
+> > @@ -411,18 +411,13 @@ static __always_inline int kvm_vcpu_dabt_get_rd(const struct kvm_vcpu *vcpu)
+> >
+> >  static __always_inline bool kvm_vcpu_abt_iss1tw(const struct kvm_vcpu *vcpu)
+> >  {
+> > -	return !!(kvm_vcpu_get_esr(vcpu) & ESR_ELx_S1PTW);
+> > +	return esr_abt_is_s1ptw(kvm_vcpu_get_esr(vcpu));
+> >  }
+> >
+> >  /* Always check for S1PTW *before* using this. */
+> >  static __always_inline bool kvm_vcpu_dabt_iswrite(const struct kvm_vcpu *vcpu)
+> >  {
+> > -	return kvm_vcpu_get_esr(vcpu) & ESR_ELx_WNR;
+> > -}
+> > -
+> > -static inline bool kvm_vcpu_dabt_is_cm(const struct kvm_vcpu *vcpu)
+> > -{
+> > -	return !!(kvm_vcpu_get_esr(vcpu) & ESR_ELx_CM);
+> > +	return esr_dabt_is_write(kvm_vcpu_get_esr(vcpu));
+> >  }
+> >
+> >  static __always_inline unsigned int kvm_vcpu_dabt_get_as(const struct kvm_vcpu *vcpu)
+> > @@ -438,17 +433,12 @@ static __always_inline bool kvm_vcpu_trap_il_is32bit(const struct kvm_vcpu *vcpu
+> >
+> >  static __always_inline u8 kvm_vcpu_trap_get_class(const struct kvm_vcpu *vcpu)
+> >  {
+> > -	return ESR_ELx_EC(kvm_vcpu_get_esr(vcpu));
+> > +	return esr_trap_get_class(kvm_vcpu_get_esr(vcpu));
+> >  }
+> >
+> >  static inline bool kvm_vcpu_trap_is_iabt(const struct kvm_vcpu *vcpu)
+> >  {
+> > -	return kvm_vcpu_trap_get_class(vcpu) == ESR_ELx_EC_IABT_LOW;
+> > -}
+> > -
+> > -static inline bool kvm_vcpu_trap_is_exec_fault(const struct kvm_vcpu *vcpu)
+> > -{
+> > -	return kvm_vcpu_trap_is_iabt(vcpu) && !kvm_vcpu_abt_iss1tw(vcpu);
+> > +	return esr_trap_is_iabt(kvm_vcpu_get_esr(vcpu));
+> >  }
+> >
+> >  static __always_inline u8 kvm_vcpu_trap_get_fault(const struct kvm_vcpu *vcpu)
+> > @@ -468,26 +458,9 @@ bool kvm_vcpu_trap_is_translation_fault(const struct kvm_vcpu *vcpu)
+> >  	return esr_fsc_is_translation_fault(kvm_vcpu_get_esr(vcpu));
+> >  }
+> >
+> > -static inline
+> > -u64 kvm_vcpu_trap_get_perm_fault_granule(const struct kvm_vcpu *vcpu)
+> > -{
+> > -	unsigned long esr = kvm_vcpu_get_esr(vcpu);
+> > -
+> > -	BUG_ON(!esr_fsc_is_permission_fault(esr));
+> > -	return BIT(ARM64_HW_PGTABLE_LEVEL_SHIFT(esr & ESR_ELx_FSC_LEVEL));
+> > -}
+> > -
+> >  static __always_inline bool kvm_vcpu_abt_issea(const struct kvm_vcpu *vcpu)
+> >  {
+> > -	switch (kvm_vcpu_trap_get_fault(vcpu)) {
+> > -	case ESR_ELx_FSC_EXTABT:
+> > -	case ESR_ELx_FSC_SEA_TTW(-1) ... ESR_ELx_FSC_SEA_TTW(3):
+> > -	case ESR_ELx_FSC_SECC:
+> > -	case ESR_ELx_FSC_SECC_TTW(-1) ... ESR_ELx_FSC_SECC_TTW(3):
+> > -		return true;
+> > -	default:
+> > -		return false;
+> > -	}
+> > +	return esr_abt_is_sea(kvm_vcpu_get_esr(vcpu));
+> >  }
+> >
+> >  static __always_inline int kvm_vcpu_sys_get_rt(struct kvm_vcpu *vcpu)
+> > @@ -496,9 +469,9 @@ static __always_inline int kvm_vcpu_sys_get_rt(struct kvm_vcpu *vcpu)
+> >  	return ESR_ELx_SYS64_ISS_RT(esr);
+> >  }
+> >
+> > -static inline bool kvm_is_write_fault(struct kvm_vcpu *vcpu)
+> > +static inline bool esr_abt_is_write_fault(unsigned long esr)
+> >  {
+> > -	if (kvm_vcpu_abt_iss1tw(vcpu)) {
+> > +	if (esr_abt_is_s1ptw(esr)) {
+> >  		/*
+> >  		 * Only a permission fault on a S1PTW should be
+> >  		 * considered as a write. Otherwise, page tables baked
+> > @@ -511,13 +484,18 @@ static inline bool kvm_is_write_fault(struct kvm_vcpu *vcpu)
+> >  		 * first), then a permission fault to allow the flags
+> >  		 * to be set.
+> >  		 */
+> > -		return kvm_vcpu_trap_is_permission_fault(vcpu);
+> > +		return esr_fsc_is_permission_fault(esr);
+> >  	}
+> >
+> > -	if (kvm_vcpu_trap_is_iabt(vcpu))
+> > +	if (esr_trap_is_iabt(esr))
+> >  		return false;
+> >
+> > -	return kvm_vcpu_dabt_iswrite(vcpu);
+> > +	return esr_dabt_is_write(esr);
+> > +}
+> > +
+> > +static inline bool kvm_is_write_fault(struct kvm_vcpu *vcpu)
+> > +{
+> > +	return esr_abt_is_write_fault(kvm_vcpu_get_esr(vcpu));
+> >  }
+> >
+> >  static inline unsigned long kvm_vcpu_get_mpidr_aff(struct kvm_vcpu *vcpu)
+> > diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+> > index 74e7e7f7564c..30d605e87b01 100644
+> > --- a/arch/arm64/kvm/mmu.c
+> > +++ b/arch/arm64/kvm/mmu.c
+> > @@ -1603,12 +1603,38 @@ struct kvm_s2_fault_desc {
+> >  	struct kvm_s2_trans	*nested;
+> >  	struct kvm_memory_slot	*memslot;
+> >  	unsigned long		hva;
+> > +	unsigned long		esr;
+> >  };
+> >
+> > +static bool kvm_s2_fault_is_perm(const struct kvm_s2_fault_desc *s2fd)
+> > +{
+> > +	return esr_fsc_is_permission_fault(s2fd->esr);
+> > +}
+> > +
+> > +static bool kvm_s2_fault_is_exec(const struct kvm_s2_fault_desc *s2fd)
+> > +{
+> > +	return esr_abt_is_exec_fault(s2fd->esr);
+> > +}
+> > +
+> > +static bool kvm_s2_fault_is_write(const struct kvm_s2_fault_desc *s2fd)
+> > +{
+> > +	return esr_abt_is_write_fault(s2fd->esr);
+> > +}
+> > +
+> > +static u64 kvm_s2_perm_fault_granule(const struct kvm_s2_fault_desc *s2fd)
+> > +{
+> > +	u64 level;
+> > +
+> > +	if (!kvm_s2_fault_is_perm(s2fd))
+> > +		return 0;
+> > +	level = esr_fsc_get_level(s2fd->esr);
+> > +	return BIT(ARM64_HW_PGTABLE_LEVEL_SHIFT(level));
+> > +}
+> > +
+> >  static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
+> >  {
+> >  	bool write_fault, exec_fault;
+> > -	bool perm_fault = kvm_vcpu_trap_is_permission_fault(s2fd->vcpu);
+> > +	const bool perm_fault = kvm_s2_fault_is_perm(s2fd);
 >
-> net/ethtool/ioctl.c:netif_get_link_ksettings() {
-> 	memset(link_ksettings, 0, sizeof(*link_ksettings));
-> 	return dev->ethtool_ops->get_link_ksettings(dev, link_ksettings);
-> }
+> Please don't randomly introduce const local variables. I understand
+> the benefit, but *if* we want to go down that road, then we do it for
+> all the predicates, as a separate series, because this obviously
+> applies to {exec,write}_fault as well.
+
+Ack, force of habit :) will avoid on respin.
+
 >
-> So a zero firmware word takes the "case PORT_TP:" arm rather than the
-> default PORT_OTHER arm, and ethtool prints "Port: Twisted Pair" on a
-> fibre, DAC or backplane board.
+> Thanks,
 >
-> Is a zero word possible here?  The member was carved out of the previously
-> reserved (zero-filled) tail of struct cgx_lmac_fwdata_s by commit
-> 49f02e6877d1b, which shrank LMAC_FWDATA_RESERVED_MEM from 1021 to 1018:
->
-> drivers/net/ethernet/marvell/octeontx2/af/mbox.h:
-> 	u64 mgmt_port:1;
-> 	u64 advertised_an:1;
-> 	u64 port;
-> #define LMAC_FWDATA_RESERVED_MEM 1018
-> 	u64 reserved[LMAC_FWDATA_RESERVED_MEM];
->
-> RVU_FWDATA_VERSION was not bumped at the same time, and
-> is_rvu_fwdata_valid() in af/rvu.h only compares header_magic and version,
-> so firmware images that predate the field still pass the ABI gate and hand
-> back zeros for this word.
->
-> Would it make sense to also consult rw_valid from the same struct?  It is
-> the per-LMAC validity flag, and grep shows it is currently only referenced
-> in mbox.h and rvu_debugfs.c, never by this new consumer.  Note also that
-> the debugfs dumper added alongside the field prints rw_valid, lmac_type,
-> portm_idx and mgmt_port, but not port.
->
-> Separately, does the masking defeat part of the validation?  FIELD_GET()
-> with GENMASK(7, 0) drops bits 63:8 before the switch runs, so firmware
-> values such as 0x100 or 0x103 are published as PORT_TP and PORT_FIBRE
-> respectively.  mbox.h documents no bitfield layout, mask or reserved-bit
-> contract for this bare u64, so it isn't clear the upper bits can be
-> discarded rather than treated as "not a valid connector code".
->
-> Related to that, the commit message says:
->
->   "Extract only the low 8 bits of the firmware field and validate the
->    value against the standard ethtool PORT_* definitions before
->    publishing it to userspace."
->
-> Given that neither the unpopulated (zero) case nor invalid values living in
-> bits 63:8 can be rejected by this check, could the description be made
-> more precise about what is actually validated?
->
-> One more question on the encoding itself: is there an in-tree statement
-> that fwdata.port uses ethtool PORT_* numbering?  The only other firmware
-> description of a "port" value is struct cgx_lnk_sts.port:8 with
-> RESP_LINKSTAT_PORT in af/cgx_fw_if.h, and that macro is defined but never
-> decoded by cgx.c, so the mapping to PORT_TP/PORT_FIBRE/... appears
-> undocumented here.
+> 	M.
 >
 > --
-> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260909040621.397255-1-rkannoth%40marvell.com
+> Without deviation from the norm, progress is not possible.
+
+--
+Cheers, Lorenzo
