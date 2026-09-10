@@ -1,200 +1,138 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+Received: from mta0.migadu.com (out-91.mta0.migadu.com [91.218.175.91])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4233C33F589
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:11:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B42F93AEF35
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:11:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.91
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789035089; cv=none; b=a36NHbr/vhevqOFsOXXieG/XVdtu7sbqkZJ4RCETt2NKrYU4Kt+R+xCYh4zZEMha8uDu07YXhojqeG+D92GgS9VxG6/5qibuL9iO+rfMfLTOKJxbuhRgQu3YogUDPpPJTae2i4KsPhuzCV7HafySdd/nHKURQKAn4PrmSmY3/QI=
+	t=1789035117; cv=none; b=oBoJvM9RPrjzvpWHuuUHk3YExzN18TtPuuxDKoB5RvfpDivRdDz254P6v6MMHHdOOqIsUJ4LQl3eaAkhpBH2H1xEF36I+R1L6Swf/kBS0iBiXP9vWNqkah4C8cYTvo/uAa7srO4MapicHQLqZvWUbRwZigdppNMaYVP8MxP0qQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789035089; c=relaxed/simple;
-	bh=bjn74m6lYgU75QWBxuODhlVr+jNtBBAQVRaQTBObXWc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G86dmSbl2/sl7/l32dJVJVNgXLF9BrWD0cYLusGcNa8h4VIOyjqDZvJYSO7sexvGlUMxUWgBn8oeeUu0AZUxlFmMcNZVZzgWJIyLZCaYQDTmj2Lhm6WN16E4TfWg8X1+yQmeTOZFtWte1Q+y0sbDJmaqb6ObVABiOOluW3Dw81I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O3ALvMjQ; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789035117; c=relaxed/simple;
+	bh=+YiOtMV9LtHLD/hVdNynO6GNFamQnmcFiMsxau6m56I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dDWWU6xWogrJttwgqOty18/Ml9f1DLcFf8e1qQ+c7YS/M7ZbTxJS3e16BNfr1TBIVQBwvJpktvwUlSnD1g6dJLhA9hqJvDwl0WHl/6lWRk7LM9tNztySjEu5SKk8QIvExhZEbHSnEexzoPlq+XzzTKHCQxzU0Zd8w2VE7b60G+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bvG1tSfP; arc=none smtp.client-ip=91.218.175.91
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O3ALvMjQ"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-39b24d114d4so7511153a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:11:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789035084; x=1789639884; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jTa40VU/RgTGoI1uIvnZ9hj9zWpr2foPY3dyCyBq5dY=;
-        b=O3ALvMjQ+60I03GtcbfHN6sKobYBFLTq0iMEh+MTNpsp6BoqJNqslBpbxf+vLn5sf5
-         GtwUVedVTQyNXBa4gZUV9DX1P7MNbObveFzCFVSYKkWMeLt05WYHTb70R9FAiQe0oZvA
-         /cQfs4+ddB5NFw0n4xKYfkB11WZ/UhvoFnAtkncVyeib5z9bjQznJEQyMcazpmKiCgx/
-         AirNDdVtGnhgRNSd82xzAB1Y6jnmjP0Oz6aUbs8LvViqhYPJ/SYNDZKQhBSL6f9VPiEz
-         ExIQDEFLgepCGGKIGUAl3A0BX5NUqNm3Gcwr4zkeWUufq5KgGObCVyzUKwuH4c9zct9U
-         L47Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789035084; x=1789639884;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jTa40VU/RgTGoI1uIvnZ9hj9zWpr2foPY3dyCyBq5dY=;
-        b=T2Bw93OtbW6e76or1MzDPvB60k5seEsylYxCht+niUYFm3yfCuMmhpu+imIcvFrbsB
-         Ct2i9npQvVWBExGqlRazs6QqFAq4TMkNpjCJaoNIt47m3SgG9QDXwAFI9maO0rfYgE6/
-         vWj66m8rQwQNKOX+t+1FfETFpggvh/SUhRVB+7zXVTxtLoqkqVegiQDUz0QbV3/RINDc
-         RGg4hsFC0yjNIx9XeMUbQHiBfZelBjcXFBAatWWC9a4AgbGhQvo0Mz7BhvJ96pt3fn1D
-         iOX68uVttTNMjoxPsYpE8HSglke2Q3yx0la+M3ab32J6M5gFgkQGwEwFSrDDCJMpBq3W
-         qU8g==
-X-Forwarded-Encrypted: i=1; AKwUvByTfjhi/cmQYguolG6pEYQhB4+QQ4TfnDFeRmfhmCEcTOBKAihYutI27iZXKkrPuOhkUaB/P3I6gllU6ts=@vger.kernel.org
-X-Gm-Message-State: AFuF++nZwtRYOzmHmGoZjPw6n9EPnM4/prlMOU2exddbFHX5PzoQc5JK
-	mpqVKwJNPkdBw0vsaCYAUcOG5yIf0G/cL8M2QirAVH5jxI1DnBfT7TtN
-X-Gm-Gg: AYBFou0THTIkATnt4XxNnJlVpa2uZurRpkdqdZa2nBINDrNWBhWo4n04RRvZ6Bplw/j
-	s8CrXsEyGO4Hhp3bZcUMdWh41898k9os05YxHljt/djqA4e58YRylWXK9xTZtetnp/M6pJ9HzmO
-	NXUn2Y+/JtATCy2s/UMSYOTMMBmhMZIDnOeoAU8/A7vyIG8nDXGIvmp3WpKoojQ0pstEZ6d2bHh
-	p1/HYPffr6fzjR9wsycDJVVPUbmi+6ibGLI+5PVb9MZx0c4gOnw1ARbQUNT5srKRU667jkuTMqn
-	PqrdNJzzoD08nBUkizItxcmpPuetExi5oWXCwFbUrd6tLU7WzzWVk2avobaq42v/N4ooARODvAh
-	TJc0v0GoDzcWceeE7w3bWcCNADJ324w9rDeOrVTM2v8LbZVU+JR5zAVHPwfHNBO/NneluRCx1b/
-	sLnd+CkvoN5WleZlT6Twu6+KNH3fo6QKqi6FBhxAIDahVPCDogcnVo8PSxg0nWKJC2/aeCpjSkV
-	WefKBo6eRoJilD1XGyrOXb3LL7OHK4crKC57b8cAn6ddrrBfa+pq+WvvzfdzllCku/r07qfQ7jP
-	2NJDLNYb5Ph2O5Dlbg/1nj4z5UBHskKI7AMIGaad8LYHA7ejKu4tigUnYtnCMsD2
-X-Received: by 2002:a17:90b:50cc:b0:396:65dd:4093 with SMTP id 98e67ed59e1d1-39b26202ebamr63227635a91.14.1789035084186;
-        Thu, 10 Sep 2026 03:11:24 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.252.203.158])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d7e8acf98sm4232116a91.15.2026.09.10.03.11.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 03:11:23 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: paulmck@kernel.org,
-	frederic@kernel.org,
-	neeraj.upadhyay@kernel.org,
-	joelagnelf@nvidia.com,
-	josh@joshtriplett.org,
-	boqun@kernel.org,
-	urezki@gmail.com
-Cc: rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	harry@kernel.org,
-	surenb@google.com,
-	vbabka@kernel.org,
-	rcu@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/1] rcu: drain kfree_rcu sheaves from the userspace barrier hook
-Date: Thu, 10 Sep 2026 18:11:12 +0800
-Message-ID: <20260910101112.1648978-2-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910101112.1648978-1-matthias.goergens@gmail.com>
-References: <20260910101112.1648978-1-matthias.goergens@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bvG1tSfP"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=+YiOtMV9LtHLD/hVdNynO6GNFamQnmcFiMsxau6m56I=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789035112; v=1; x=1789639912;
+ b=bvG1tSfPqXZ/HsMTLiJbbg+qVuiO+f6K+Z6kWsto6B1gKoiLFjB0LxF2pOb2Bym3KHGQk0Pl
+ d8sl+ZW0d8T0x5P7G9EmAiQVdKE+aJtQYIRfiOccOvbkPQkdQC9NBBzrXrtwbLO3uK9xZRtM6P6
+ b55gx6oZJmYcpbrhlcLyXHxg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 20c1762f2feea230;
+	Thu, 10 Sep 2026 10:11:52 +0000
+X-Mizu-Trace-ID: 20c1762f2feea230
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <7975ef1f-8d2d-4be3-b206-7c6326bed2db@linux.dev>
+Date: Thu, 10 Sep 2026 11:11:50 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm: zswap: don't fail a large-folio swapin whose range is
+ not in zswap
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: yosry@kernel.org, chengming.zhou@linux.dev, hannes@cmpxchg.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, nphamcs@gmail.com,
+ kernel-team@meta.com, stable@vger.kernel.org, Alexandre Ghiti <alex@ghiti.fr>
+References: <20260907161938.1932355-1-usama.arif@linux.dev>
+ <20260909194712.706fb2e87a6e59097424c31d@linux-foundation.org>
+Content-Language: en-US
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <20260909194712.706fb2e87a6e59097424c31d@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The rcutree.do_rcu_barrier test hook is intended to prevent deferred RCU
-callbacks from one stress test spilling into the next. Since kfree_rcu()
-sheaves were added, an object can remain deferred without appearing on an
-ordinary RCU callback list. rcu_barrier() therefore no longer fulfils the
-hook's stated purpose by itself.
 
-Drain kfree_rcu sheaves and kvfree_rcu batches before completing the
-ordinary RCU barrier. Keep the explicit rcu_barrier() because the hook's
-original ordinary-callback contract should not depend on the current,
-undocumented fact that kvfree_rcu_barrier() includes one internally.
 
-Keep the existing throttling because this remains a deliberately expensive
-test-only action. Do not coalesce requests based on the ordinary
-rcu_barrier() sequence: an unrelated ordinary barrier does not prove that
-sheaves were drained.
+On 10/09/2026 03:47, Andrew Morton wrote:
+> On Mon,  7 Sep 2026 09:19:38 -0700 Usama Arif <usama.arif@linux.dev> wrote:
+> 
+>> thp_swapin_suitable_orders() and shmem_swap_alloc_folio() sample
+>> zswap_never_enabled() to decide whether a swapin may use a large folio.
+>> zswap_load() samples the same one-way static key again once the read
+>> reaches it.  Nothing serialises the two reads, and in between the task
+>> allocates and pins a high-order folio, which can sleep.
+>>
+>> If zswap is enabled for the first time in that window, a large folio that
+>> was correctly permitted reaches zswap_load(), which rejects every large
+>> folio with -EINVAL.  swap_read_folio() treats anything other than -ENOENT
+>> as "zswap handled it" and skips the backing-device read, so the folio
+>> comes back unlocked and not uptodate: SIGBUS for an anonymous fault, -EIO
+>> for shmem.  The data is intact on the swap device - it was written there
+>> before zswap was ever enabled - and the not-uptodate folio stays in the
+>> swap cache, so every retry of the fault fails the same way.  With
+>> panic_on_warn the WARN takes the machine down rather than the task.
+>>
+>> Scan the range instead of rejecting the folio.  The caller has pinned
+>> every slot before issuing the read, so zswap cannot start a store or a
+>> writeback into the range and the scan is stable.  If nothing in the range
+>> is in zswap it is all on the backing device: return -ENOENT and let
+>> swap_read_folio() read it.
+>>
+>> A range that does have a slot in zswap is still refused, because zswap
+>> stores large folios as order-0 entries and cannot reconstruct one.  That
+>> stays reachable - a slot shared with another task can be stored inside
+>> the same window - and refusing is correct, since the alternative is
+>> returning the stale device copy.  Report it as -EIO rather than -EINVAL:
+>> the request is valid, zswap just cannot serve it.  The only caller
+>> distinguishes -ENOENT from everything else, so that part is a
+>> documentation fix.
+> 
+> So to hit this bug the user needs to enable zswap system-wide during a
+> teeny race window in the swapin code?
+> 
+> I suspect nobody has ever hit this and couldn't do so if they tried?
 
-A reproducer creates a private SLAB_NO_MERGE cache whose first allocation
-populates a 60-object slab. It queues that object with kfree_rcu(), invokes
-the hook, and reads the active-object count from /proc/slabinfo. In four
-fresh VM pairs, the parent retained the object (60 to 60). The patched hook
-drained it (60 to 59).
 
-Fixes: ec66e0d59952 ("slab: add sheaf support for batching kfree_rcu() operations")
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
----
- .../admin-guide/kernel-parameters.txt         |  7 ++---
- kernel/rcu/tree.c                             | 27 ++++++++++++-------
- 2 files changed, 21 insertions(+), 13 deletions(-)
+Yes, I think it would be very very difficult to hit this.
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 68647ff4bdd2..244a53166249 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -5699,9 +5699,10 @@ Kernel parameters
- 			there is an ongoing too-long CSD-lock wait.
- 
- 	rcutree.do_rcu_barrier=	[KNL]
--			Request a call to rcu_barrier().  This is
--			throttled so that userspace tests can safely
--			hammer on the sysfs variable if they so choose.
-+			Request that deferred kfree_rcu() objects and
-+			ordinary call_rcu() callbacks be drained.  This is
-+			throttled so that userspace tests can safely hammer
-+			on the sysfs variable if they so choose.
- 			If triggered before the RCU grace-period machinery
- 			is fully active, this will error out with EAGAIN.
- 
-diff --git a/kernel/rcu/tree.c b/kernel/rcu/tree.c
-index 96848fc1f02b..014e28ec3bd3 100644
---- a/kernel/rcu/tree.c
-+++ b/kernel/rcu/tree.c
-@@ -3989,12 +3989,12 @@ EXPORT_SYMBOL_GPL(rcu_barrier);
- static unsigned long rcu_barrier_last_throttle;
- 
- /**
-- * rcu_barrier_throttled - Do rcu_barrier(), but limit to one per second
-+ * rcu_barrier_throttled - Drain deferred RCU frees, but rate-limit starts
-  *
-- * This can be thought of as guard rails around rcu_barrier() that
-- * permits unrestricted userspace use, at least assuming the hardware's
-- * try_cmpxchg() is robust.  There will be at most one call per second to
-- * rcu_barrier() system-wide from use of this function, which means that
-+ * This can be thought of as guard rails around the deferred-free barriers
-+ * that permit unrestricted userspace use, at least assuming the hardware's
-+ * try_cmpxchg() is robust.  There will be at most one drain operation started
-+ * per sixteenth of a second from use of this function, which means that
-  * callers might needlessly wait a second or three.
-  *
-  * This is intended for use by test suites to avoid OOM by flushing RCU
-@@ -4011,18 +4011,25 @@ static void rcu_barrier_throttled(void)
- {
- 	unsigned long j = jiffies;
- 	unsigned long old = READ_ONCE(rcu_barrier_last_throttle);
--	unsigned long s = rcu_seq_snap(&rcu_state.barrier_sequence);
- 
- 	while (time_in_range(j, old, old + HZ / 16) ||
- 	       !try_cmpxchg(&rcu_barrier_last_throttle, &old, j)) {
- 		schedule_timeout_idle(HZ / 16);
--		if (rcu_seq_done(&rcu_state.barrier_sequence, s)) {
--			smp_mb(); /* caller's subsequent code after above check. */
--			return;
--		}
- 		j = jiffies;
- 		old = READ_ONCE(rcu_barrier_last_throttle);
- 	}
-+	/*
-+	 * kfree_rcu() can retain objects outside the ordinary callback lists in
-+	 * per-CPU SLUB sheaves and kvfree_rcu batches.  Test suites use this hook
-+	 * to prevent deferred frees from spilling into the following test, so
-+	 * drain those queues as well as ordinary call_rcu() callbacks.
-+	 *
-+	 * kvfree_rcu_barrier() currently includes an ordinary barrier, but that
-+	 * is not part of its documented API.  Keep the explicit rcu_barrier() so
-+	 * this hook's original contract does not depend on slab implementation
-+	 * details.
-+	 */
-+	kvfree_rcu_barrier();
- 	rcu_barrier();
- }
- 
--- 
-2.55.0
+It was part of my PMD swap series, where its actually needed for the feature.
+
+I think we can drop cc:stable, unless you think its needed Yosry?
+> 
+>> Fixes: 242d12c98174 ("mm: support large folios swap-in for sync io devices")
+>> Cc: stable@vger.kernel.org
+> 
+> 
+> Documentation/process/stable-kernel-rules.rst, with which I agree:
+> 
+> Rules on what kind of patches are accepted, and which ones are not, into the
+> "-stable" tree:
+> 
+> - It or an equivalent fix must already exist in Linux mainline (upstream).
+> - It must be obviously correct and tested.
+> - It cannot be bigger than 100 lines, with context.
+> - It must follow the
+>   :ref:`Documentation/process/submitting-patches.rst <submittingpatches>`
+>   rules.
+> - It must either fix a real bug that bothers people or just add a device ID.
+>   To elaborate on the former:
+> 
+>   - It fixes a problem like an oops, a hang, data corruption, a real security
+>     issue, a hardware quirk, a build error (but not for things marked
+>     CONFIG_BROKEN), or some "oh, that's not good" issue.
+>   - Serious issues as reported by a user of a distribution kernel may also
+>     be considered if they fix a notable performance or interactivity issue.
+>     As these fixes are not as obvious and have a higher risk of a subtle
+>     regression they should only be submitted by a distribution kernel
+>     maintainer and include an addendum linking to a bugzilla entry if it
+>     exists and additional information on the user-visible impact.
+>   - No "This could be a problem..." type of things like a "theoretical race
+>     condition", unless an explanation of how the bug can be exploited is also
+>     provided.
+>   - No "trivial" fixes without benefit for users (spelling changes, whitespace
+>     cleanups, etc).
+> 
+> 
+> If this patch meets the above then its changelog needs an update!
 
