@@ -1,145 +1,234 @@
-Received: from flow-b7-smtp.messagingengine.com (flow-b7-smtp.messagingengine.com [202.12.124.142])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E88C3AFB06;
-	Thu, 10 Sep 2026 19:16:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384445947FE;
+	Thu, 10 Sep 2026 19:19:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789067795; cv=none; b=oEgK6j4H3u95P4X6Qi5Q2p6ypy4eRQu9d1vtM9Ej8Sn28VB4o5oG9w1eDLSg1tF4P1XvL8JU12BcC3u0yK78StljOXDz9Lb/xX08GxVHQBIIaLq308Vy/HAnsygSwqoyWPW71xk1UkBQ2HpNtJMJg6AQAQXh8ilYRnBzAAwkW3A=
+	t=1789067978; cv=none; b=PjNkRpIi2kDfVHNRKtZCI70bDGoI9wUDk0j3JeccfvEKQN1JoEuPQrwSPagRwkgWact+V4FJ6euTHyeHMOKCrs9SfLjeEQP4qhVeVph+S01pnMXiiADFVK9ziZcaQdZUPivJr6oVDgkm9vakfEH8gCNL83rwnhnkAm3R6PggJJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789067795; c=relaxed/simple;
-	bh=kt7E3CEq9Qxo9u0xNZHxn2ztTKUj1sKCjMnDPPYFsZw=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=SY/pw8nN2nylr/xcDcdKDvDYGwb2+tjFsh3r0lg/KK4Xz1kkLE9NEeVo5whOQBijci6rjqzu9MQv7moNhdBz7KJ6DW80Skpcdv7EnG02S++tL8089Xuc6TqCFjUKmHwZPKJ3qIguKssP00sCDlCPG1AClhftGxg59pTBcL4bZqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=T6NE9aE2; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=QYxMmbGp; arc=none smtp.client-ip=202.12.124.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1789067978; c=relaxed/simple;
+	bh=mMSamL8Xto4hyhBrhUMnOSbYDmMBmzWWTor8bGkbNRA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W6+k3RCwxd4EeJh/4RUo7HJMXlMyWGLY+2apoE0IrdQUGL8zsBlzKgRmLHeXfJIRWC3eVTCSd4kk8iN7O3DGCJ051r0RmHT3qUI6vvXKjDimZ9q+XgwGUjLx8w7BvGQprLOrROI3qNjpe3s7ZuEmST2665tp+7DOu9P3BQsapUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=X7SvXni/; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="T6NE9aE2";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="QYxMmbGp"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailflow.stl.internal (Postfix) with ESMTP id B56C11300123;
-	Thu, 10 Sep 2026 15:16:27 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 10 Sep 2026 15:16:32 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789067786;
-	 x=1789074986; bh=LL5BvvZb4Il/L3smCK764roi3UOjYRXO6PPqF7iA60o=; b=
-	T6NE9aE2vD0JgubP1YTXJkCmky0gcVC6ihsBHZm0RBXVJxnFvHKfpn/jgGp268bN
-	Ocg7RiFvSCyv3dN0vfJMl4FlzZpgO4zM90q5HHZOCpsPTZkmzluvzrr1KvRaqgj3
-	ghFpPAXXhsj+/FIdWBFlcGd47PnXaH44ztoCwJPu7Hg3QUrTpwuAJfdQpSLRG6ok
-	RIcMos4hom4IpDKnTxOGAMJvUM1/Xrm3A2vjwRfr/20H7gjk9LaiALMDUDnq1EcZ
-	kRxAGd0BLSQUoZ5+Db6ZW7jDP7fVF6NvOTVSgvHLp6p1x3Ta5gIVWBi1SBbBNcVc
-	4jz2EzypFMJlbI/B3mORLQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789067786; x=
-	1789074986; bh=LL5BvvZb4Il/L3smCK764roi3UOjYRXO6PPqF7iA60o=; b=Q
-	YxMmbGpUXUe6JWSt6wFgaWgV6kKFrifNL4zpMR8IZ6k9l09yGNmBC/tmkJ7jOHzc
-	zgOhoTRRLmpNbujQkziwK4c6gb22BvDU0Ezlg80E7EUvAlLWaNZ9kh0CkTSmW0IV
-	wlXQOi66Y4gisAqp/Jo89stwVrt44ixZH6W7RlPst3nm/SObEWktzzkILVr4+1+A
-	JE1uf0+5KDx1W/HUbTProIiovUiesG6cjCSnok4CUfzYwk4/OcgXFVGlzwgYW5G3
-	3PWz+DLGnB1EasndokoY6K9TbysUIa/qseWOHKmQORQWYzJ2VSVMZ7TypVR5NNJW
-	u3NpvgNq1yYX6zbJMfO+w==
-X-ME-Sender: <xms:AgKjapCXAUsGR9NzhQT6Weld296MjYYYYWG6pyncwTxdq3DdSnFYRQ>
-    <xme:AgKjaiW8J9J6KMFNr1b_IJMuS-WWoZgFoDLpHRzD5u8XTq9EHOqwM1fQ-1zxZfuPJ
-    In6bkVMOp1J3kJT1pw8149ZOGl03L3WdAPrCq5CqXNRr0V5Z7vvKUYT>
-X-ME-Proxy-Cause: dmFkZTFPUI2hhqqgtUZ+uRBKQ2lOV87vEROkCNR5CaZ6fIgInu/qZ6Et872VXivU4qi3Yb
-    S7K9y0Kh6x/9ahHXeHe+3Rw24dgRP6bfmbpqm1xjXzxznz/CitUohgCt3oeLEdNtCBDFWV
-    wAwlx1y89/OGcLz7Hvg+1884PmXT1R/UZ4htyLe4evizdmRp0asTHgMS4ZwBPFc/D9Y+lL
-    pjbKNCUOIiDW/kC+I7mCHtxy2/HBnsjdGqvOki3WVysUtRiD8CYdPw9xvpyYEClSdNLQWB
-    gQ8Pl57Lb15IwzJNXNzaZUMYe+EMgk0WEb6jBD1eg4FQ4UgkdzcTpXiZHzLwatuZyMzQPR
-    AbajmqzYJ9/lDdDepvVHPNjLIhqYfbx1gMTQq9/fz8LJQzh6PG/f4ScG9y5N/KfjK9+HQY
-    DGntSRz8ZYM8imBuJaefnFLhlOX8sAaBt6BKM1LqdyrSIVsNJYoKWCY4KVxwAcF/mnAt4n
-    oVJPPpYM7s8UyCTE+DjXlJDUBxdqJNXlz0qh7fZswAd6UVlEkQsnkgn0xpHT10dG8DBkoV
-    TRwjPmyzBaUEWsnC/QuC7FM+G10r94P0DlNrsDk/6nOSOSFLMILS/ohAK2o9wIayJCiVAI
-    qwuaG984U3MuKxrFrmRw4NSis4b6zo13+Wx2/aeQ0+fTJLlvOUkIf98DG+RQ
-X-ME-Proxy: <xmx:BwKjajfvbFGu2OjAxcHE_tmdpPRGIP2DBf59mH27GAi-_s4MwoZukA>
-    <xmx:BwKjaudX3nkcDf8KN60flmiSbgkg5YhfeXwsQEWoHH8zn5PLuCzkFw>
-    <xmx:BwKjavJG5SWvaJdpynS7e-HjY8WA-99WOLGxUokNhNz5dK_9LWHD9g>
-    <xmx:BwKjakq9OyXMmSADtkpqIobWGpuhowDn3l_sB6IoiO_PuGO9ClRUlw>
-    <xmx:CgKjag7MJuyBvo36joTkPcVfhRPBUUVFBpIxBKCTUGfQOGfmb5qzZdd3>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id E068A32A007B; Thu, 10 Sep 2026 15:16:17 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="X7SvXni/"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=bmUNJy9Nu15CoZ6GTfg+GAxUmN7j/4iTaUecL7MID4k=; b=X7SvXni/u0xxFB0IacibI2DHCs
+	oXnWz3V7P/2pYqWQxeub+dUiL1tINFXXo60Dv+yxGulYp5Tw+nLeXXimaPsWXycIwogYL34d+tMGG
+	UeyKKr70Q+8bMaQj5hdYpEv4sFreUlZ9ZaAaMYed8U94AhHgrPF6nuauwtC5bKZkI2A/ikm107+tc
+	ieDZqOP1uxoL+NLV1uawS+Dh7iP8zL+5Jke1e3PKF9x6Nr7co7ceFIHCoXc+i/MO6bS5AdNL8Ul3G
+	8Ciu+poVr9WZ2gUrtrrDe5dqZNXs2VvXm10eIfZVCmAs5bn+Pa3vQcIuqOfOtaGJEN9qsLiRUTOoO
+	gGu/kxXw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x4kId-00000003AJn-0nh1;
+	Thu, 10 Sep 2026 19:19:07 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id D8A06300400; Thu, 10 Sep 2026 21:19:01 +0200 (CEST)
+Date: Thu, 10 Sep 2026 21:19:01 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Tim Chen <tim.c.chen@linux.intel.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Kees Cook <kees@kernel.org>, Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Qais Yousef <qyousef@layalina.io>,
+	Aaron Lu <ziqianlu@bytedance.com>,
+	Srikar Dronamraju <srikar@linux.ibm.com>,
+	Vineeth Remanan Pillai <vineethr@linux.ibm.com>,
+	Ricardo Neri-Calderon <ricardo.neri-calderon@linux.intel.com>,
+	Chen Yu <yu.c.chen@intel.com>, Lu Wang <wanglu.priv@gmail.com>,
+	Hyunwoo Kim <imv4bel@gmail.com>,
+	Zhan Xusheng <zhanxusheng@xiaomi.com>,
+	Zhan Xusheng <zhanxusheng1024@gmail.com>,
+	Yi Lai <yi1.lai@intel.com>, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH 4/4] sched/cache: Introduce task_struct->sched_cache_grp
+Message-ID: <20260910191901.GW776954@noisy.programming.kicks-ass.net>
+References: <cover.1789061845.git.tim.c.chen@linux.intel.com>
+ <4532ec4fd5beb829bccb85822a19360fa4191fe6.1789061845.git.tim.c.chen@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AK-jVwBtQCQR
-Date: Thu, 10 Sep 2026 21:15:57 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Guenter Roeck" <linux@roeck-us.net>,
- "Svyatoslav Ryhel" <clamor95@gmail.com>, "Arnd Bergmann" <arnd@kernel.org>
-Cc: "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
- "Bartosz Golaszewski" <brgl@kernel.org>,
- "Mark Brown" <broonie@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Daniel Thompson" <danielt@kernel.org>, "Helge Deller" <deller@gmx.de>,
- devicetree@vger.kernel.org,
- "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
- dri-devel@lists.freedesktop.org, "Jonathan Cameron" <jic23@kernel.org>,
- "Jingoo Han" <jingoohan1@gmail.com>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Lee Jones" <lee@kernel.org>,
- "Liam Girdwood" <lgirdwood@gmail.com>,
- "Linus Walleij" <linusw@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
- linux-fbdev@vger.kernel.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-watchdog@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, llvm@lists.linux.dev,
- "Mauro Carvalho Chehab" <mchehab@kernel.org>, mfd@lists.linux.dev,
- "Michael Hennerich" <michael.hennerich@analog.com>,
- patches@opensource.cirrus.com, "Pavel Machek" <pavel@kernel.org>,
- "Rob Herring" <robh@kernel.org>, "Sebastian Reichel" <sre@kernel.org>,
- "Support Opensource" <support.opensource@diasemi.com>
-Message-Id: <e33b42dc-1561-4819-b028-b13af9e7115b@app.fastmail.com>
-In-Reply-To: <7a92a79e-e22a-4e34-9f11-4086b88f62cc@roeck-us.net>
-References: 
- <CAPVz0n0ryOns2sCJE_jFana9MVzwEj1QZuPEa8FNhGbHXnMB+A@mail.gmail.com>
- <11652e5e-053e-45b0-98a0-0c1cb2aeedc4@app.fastmail.com>
- <7a92a79e-e22a-4e34-9f11-4086b88f62cc@roeck-us.net>
-Subject: Re: [PATCH 08/14] mfd: remove unused aat2870 driver
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4532ec4fd5beb829bccb85822a19360fa4191fe6.1789061845.git.tim.c.chen@linux.intel.com>
 
-On Thu, Sep 10, 2026, at 20:38, Guenter Roeck wrote:
->> 
-> ...
->> drivers/hwmon/ds620.c
->> drivers/hwmon/f75375s.c
->> drivers/hwmon/max1111.c
->> drivers/hwmon/max197.c
->
-> I missed the rationale for removing those, but then I don't really
-> mind either. I guess we'll hear if someone still uses any of those
-> drivers/chips.
+On Thu, Sep 10, 2026 at 10:46:12AM -0700, Tim Chen wrote:
 
-None of these have devicetree support, and they are not usable
-with any of the remaining board files.
+> Co-developed-by: Chen Yu <yu.c.chen@intel.com>
+> Signed-off-by: Chen Yu <yu.c.chen@intel.com>
+> Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
 
-From what I found:
+:-(
 
-- da620 apparently never had any users upstream, though it does
-  not require platform data and is theoretically usable with
-  an external dtb
-- f75375s was only used on iop32x (long gone)
-- max197 was used on x86/elan/ts5500, which is still in the
-  tree but cannot be enabled anymore because it is a 486 class SoC.
-  I have sent a separate patch to remove that platform
-- max1111 was used on spitz, which is on its way out for 7.4.
+> ---
+>  fs/exec.c                  |  14 ++++
+>  include/linux/sched.h      |   3 +
+>  kernel/exit.c              |  26 +++++--
+>  kernel/fork.c              |  23 ++++++
+>  kernel/sched/cache_sched.c |  19 +++++
+>  kernel/sched/fair.c        | 142 +++++++++++++++++++++----------------
+>  kernel/sched/sched.h       |   3 +
+>  7 files changed, 164 insertions(+), 66 deletions(-)
+> 
+> diff --git a/fs/exec.c b/fs/exec.c
+> index 745f6eb5279e..7a8a9954343e 100644
+> --- a/fs/exec.c
+> +++ b/fs/exec.c
+> @@ -882,6 +882,20 @@ static int exec_mmap(struct linux_binprm *bprm)
+>  	active_mm = tsk->active_mm;
+>  	tsk->active_mm = mm;
+>  	tsk->mm = mm;
+> +#ifdef CONFIG_SCHED_CACHE
+> +	{
+> +		struct sched_cache_group *old_grp, *new_grp;
+> +
+> +		old_grp = rcu_dereference_protected(tsk->sched_cache_grp, true);
+> +
+> +		/* Acquire the reference before publishing the pointer. */
+> +		new_grp = sched_cache_group_get(mm->sched_cache_grp);
+> +
+> +		rcu_assign_pointer(tsk->sched_cache_grp, new_grp);
+> +		if (old_grp)
+> +			sched_cache_group_put(old_grp);
+> +	}
+> +#endif
 
-I'm not sure when I'll get around to send the patches.
+Guys no! This is horrific crap. This is not how we do things and I would
+have expected you all to know this.
 
-      Arnd
+Have you heard of this new fangled thing called a function?
+
+Imagine all of those being just:
+
+	sched_cache_exec_mmap(tsk, mm);
+
+
+Also: rcu_dereference_protected(.c = true) is another offence, that's
+just wrong.
+
+
+> diff --git a/kernel/exit.c b/kernel/exit.c
+> index 006edcc0c2c5..442535778ce1 100644
+> --- a/kernel/exit.c
+> +++ b/kernel/exit.c
+> @@ -552,23 +552,25 @@ void mm_update_next_owner(struct mm_struct *mm)
+>   * Subtract the memory footprint of the current task from
+>   * mm.
+>   */
+> -static void exit_mm_sched_cache(struct mm_struct *mm)
+> +static void exit_mm_sched_cache(void)
+>  {
+> +	struct sched_cache_group *grp =
+> +		rcu_dereference_protected(current->sched_cache_grp, true);
+>  	unsigned long fp, sub;
+>  
+> -	if (!current->total_numa_faults)
+> +	if (!grp || !current->total_numa_faults)
+>  		return;
+>  	/*
+>  	 * No lock protection due to performance considerations.
+>  	 * Make sure the group footprint does not become
+>  	 * negative.
+>  	 */
+> -	fp = READ_ONCE(mm->sched_cache_grp->footprint);
+> +	fp = READ_ONCE(grp->footprint);
+>  	sub = min(fp, current->total_numa_faults);
+> -	WRITE_ONCE(mm->sched_cache_grp->footprint, fp - sub);
+> +	WRITE_ONCE(grp->footprint, fp - sub);
+>  }
+>  #else
+> -static inline void exit_mm_sched_cache(struct mm_struct *mm)
+> +static inline void exit_mm_sched_cache(void)
+>  {
+>  }
+>  #endif /* CONFIG_SCHED_CACHE CONFIG_NUMA_BALANCING */
+> @@ -585,7 +587,19 @@ static void exit_mm(void)
+>  	if (!mm)
+>  		return;
+>  
+> -	exit_mm_sched_cache(mm);
+> +	exit_mm_sched_cache();
+> +
+> +#ifdef CONFIG_SCHED_CACHE
+> +	{
+> +		struct sched_cache_group *grp =
+> +			rcu_dereference_protected(current->sched_cache_grp, true);
+> +
+> +		rcu_assign_pointer(current->sched_cache_grp, NULL);
+> +
+> +		if (grp)
+> +			sched_cache_group_put(grp);
+> +	}
+> +#endif
+
+Seriously, WTF ?!
+
+>  
+>  	mmap_read_lock(mm);
+>  	mmgrab_lazy_tlb(mm);
+> diff --git a/kernel/fork.c b/kernel/fork.c
+> index 416758c8a3d4..2e79548cb7c1 100644
+> --- a/kernel/fork.c
+> +++ b/kernel/fork.c
+> @@ -1599,6 +1599,19 @@ static int copy_mm(u64 clone_flags, struct task_struct *tsk)
+>  
+>  	tsk->mm = mm;
+>  	tsk->active_mm = mm;
+> +#ifdef CONFIG_SCHED_CACHE
+> +	{
+> +		/*
+> +		 * A task holds its own reference on the group, separate from
+> +		 * the reference held by its mm_struct. Acquire it before
+> +		 * publishing the pointer.
+> +		 */
+> +		struct sched_cache_group *grp =
+> +			sched_cache_group_get(mm->sched_cache_grp);
+> +
+> +		rcu_assign_pointer(tsk->sched_cache_grp, grp);
+> +	}
+> +#endif
+
+And again.
+
+>  	return 0;
+>  }
+>  
+> @@ -2599,6 +2612,16 @@ __latent_entropy struct task_struct *copy_process(
+>  bad_fork_cleanup_namespaces:
+>  	exit_nsproxy_namespaces(p);
+>  bad_fork_cleanup_mm:
+> +#ifdef CONFIG_SCHED_CACHE
+> +	/*
+> +	 * copy_mm() took a task reference on the cache group; a failed fork
+> +	 * never reaches exit_mm(), so release it here to avoid leaking the
+> +	 * group and its per-CPU buffer.
+> +	 */
+> +	sched_cache_group_put(rcu_dereference_protected(p->sched_cache_grp, true));
+> +	RCU_INIT_POINTER(p->sched_cache_grp, NULL);
+> +#endif
+> +
+>  	if (p->mm) {
+>  		mm_clear_owner(p->mm, p);
+>  		mmput(p->mm);
+
+Drugs, it must be drugs and lots of it :-(
+
+Please, try again.
