@@ -1,113 +1,149 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC70456E19
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:32:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2D6F472F95;
+	Thu, 10 Sep 2026 11:32:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789039932; cv=none; b=Ww6OuyoWqy2h7UgwYomIYbJSoiouzQUZY1YnUGTgpPIQuaqs1SocRBd0KZTE16zTe2Uaw/znOZyehCqtD8PMayUhB2FKT6EhZaMhV+8PeK1MacgVQTYweoJwhC5C9tcpF1iM1Wvi8XcjiF/UAGZMVYlDZ/tfsBfvBr4h3H8L5YI=
+	t=1789039937; cv=none; b=s0aPGqTonIWHkvqtdlgIvLEUMcPfO1RZyVZul32Y3lJJ3TccvzE6SRVUD3tcocWcCKOzWdOEg2ZjvM0NSAxD4Cfkg2NZABZO/Y7dhpZg56+Vwjwbf2vYJbMYx1UTcYv9UWhq8pgiWYPmrByd+6ManBAH8ilQyborWPaIn9vQYXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789039932; c=relaxed/simple;
-	bh=QaDfakLF/C+8UOQw6kmdYGXyr5sYrDYyu8B/cfnvfoc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pU8/Fs+WqxqV/pucnl4+hNBwm3KlMydhxTxBASzhQC6z9Nmdwr/KmR1L1dTG2Grn+XnI7WPRk6pdEOv0aZbXoeM/0kUhA6YdeWsf6hBK2gZFqMvhNDYhQh1Qvi21nYCYTqGXzLb/ZVFYvslukvwulxf//JyYmiwb3U3IKtkYRGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rOyfV49h; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789039937; c=relaxed/simple;
+	bh=EuV5QIX2mAp12NIU28Nd25M4uUJSmYTi7bD3oeSAC3A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qGZYV8+Ynfo6zIWGIb09KWqs6ZW1Gb5DqbDD5F0WwIjS9/ebUM26Hf6BSWrx0wFHls9msdnW5NS6TS5bG6XB29HRyiwVJ040NuCqdaTYZCqm92vu4K0PvBST1OBxPWsdRTja1zpjc6ORlAGgHqc+7g+56DNI2etH1qvjvUiP/xM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nq7aTfP6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rOyfV49h"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so54577365e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:32:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789039928; x=1789644728; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DbwbCIITaSA2wB9eFhGr0hV01imq+eR/GVX5321KvSU=;
-        b=rOyfV49hxWDlSiVzqrEDGWPewXdF4+44hsbDbS1PcniLqCGm05lunU7N982V6OkNFr
-         3D2NBzwOQdf9S2bWJDXy3SJwFXS3ifSGUJevdK3PM8RmGvbn17jZCf/JoAafkk2LSTQw
-         G47a33h5Vua7CfTC6kTa11KL24F5nRn5GFvD1YBJ1USe2dOrSIEBtDWsIyDFBxcO2iiR
-         IXgImxAtaDAM/dP6RMUmOy0pyqxmS5OMz5rbnJmlWCxnkenEM9E/bmfYYiapeZEI26yd
-         v+OgFHNN58TF4ZuLtBUKS9XCmz1D50fLAMSDAQzR33FQXZiQBdeJu1ON89bPBumiEE/x
-         F1Ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789039928; x=1789644728;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DbwbCIITaSA2wB9eFhGr0hV01imq+eR/GVX5321KvSU=;
-        b=UAADer6B6n1iVXIbN2sN9OYl0m+P0+Yym5uTpCCOEiWQm+BirGcIr4Ug/meEOZejBd
-         af/acKeC0n18CAX0hXKNDkZUCJW0XewlpfI2VPtOPxo7ppEb5wP8pNTfopAa5YeH3LEV
-         W0lNSJKmSRP+6q068tNSiBPHTKxKCEBvE+A+5NZ4pLEh1vpeRrE9wUyDAQWzH1RLgyAP
-         vSY8E2xRn9QdZXbW85mKTCNAjF4ezopTITto7mwh86REGUT57WkP6KjkvJTHB6JH3sRg
-         HeaTrWv6c4r1ulg7ENatr44QTbgJGRWs9EqKSDsrQYmCUmjpAQaOrKADY9VUqcCXiSXh
-         QdnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxOwaiRed7AAAMY28oPliDzQMsc4zG2XIircw93wQjjJ2XwVZzD4IK8Z5KMVVlFX4plFKChfC8Q6yMCigw=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndFhlvwOhelsO+Frsz1wRhOZ6LXS2c5onWsCLq51yW0DBclTfM
-	APGRD+oE/kdjOGp2LlLm9c/KDNzT04oqLzYJqYp/fD7gRUAo7VUgNQtg
-X-Gm-Gg: AYBFou1vm2cyx9l8O8poTBJUecy7UZtbLFED05TrM7li8KxjOARbeY5+Erl/48/n/RC
-	5ijxUK42lpyRgIb3S/GlmeYLUhme95uWPTSujacgOYQ7V4haUwvKSMxCTFIAp01qqJNSuvY9/sr
-	tz/AXqJdTbN4LXvmbN7TzPEIEc3SRiecAe8RvVlmIJdpVbC87KI7zmCGBOIqBZQIEpG0DswcoTU
-	mnKSXF/413C0Uj8UMT2OtjThqljpC7rTybMSkJw8RYzGpeFnfg8MY221LZmn+JgoOuXAm8mfYZl
-	JK1s7fYTdWwjtduTyaWzSqUOakI1PPlE6YCuMfpm/m3VQ3UZKCfe1/dmxvRVOc08EC+Qh97EVlE
-	Pk+WHMsKzlMkyooO528EiTNhhQ5IWOZu0CSLtJ3y0fAtKCX3257S2XNhrHoAangvMe3IdH+H1Hk
-	mE6g4ETGNWDq94o4J9+n6bWF2iRGa7h3gOQsYG2Sp+UaBoqK+gYtlEURA4CF++pbGaUICTCqVeR
-	udZ46Ok
-X-Received: by 2002:a05:600c:8b88:b0:49c:fc6e:a3d8 with SMTP id 5b1f17b1804b1-49cffde8d95mr374721535e9.23.1789039927399;
-        Thu, 10 Sep 2026 04:32:07 -0700 (PDT)
-Received: from foxbook (bfg95.neoplus.adsl.tpnet.pl. [83.28.44.95])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e2212193esm29745215e9.1.2026.09.10.04.32.06
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Thu, 10 Sep 2026 04:32:07 -0700 (PDT)
-Date: Thu, 10 Sep 2026 13:32:04 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: wakasio <scarabeeta@gmail.com>
-Cc: Mathias Nyman <mathias.nyman@intel.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: xhci_hcd / ASMedia ASM4242: Bulk-OUT -EPROTO with Logitec
- 0789:0308 during DVD+RW recording
-Message-ID: <20260910133204.3157f83b.michal.pecio@gmail.com>
-In-Reply-To: <20260910110453.1528072-1-scarabeeta@gmail.com>
-References: <20260908131046.1fa7034f.michal.pecio@gmail.com>
-	<20260910110453.1528072-1-scarabeeta@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nq7aTfP6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E33991F000FF;
+	Thu, 10 Sep 2026 11:32:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789039935;
+	bh=MUiE/SGANYmf8vtQog79LZ93gRF429+dekDwpOi8Koc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Nq7aTfP6tBPV9eSggpwSR/rrMKqYSL6MC2Z55EKE55t+xwqBzKxM+9gvpQOk9S6Rn
+	 PsEJX1wndnKviOpfAS40eS5HlNnlT6iJ/JAbhrIhI+AD84w56r+H/lYTbkA3Fl7XKw
+	 8RGFi0sFpZRaS7kZmDvkHwUaUWVv6HWG3sJk818BFz7rS4FaxfYxxrRw8MfR3Yeblh
+	 fpG6G3GmBWTCdsMFoyZOEwxDie2RarDYhFh4UoAMuNYNXM8uBVRCe37/oMsd9nt7Mm
+	 5f8e8jnPCKVe48CxyKMQAKZ1NxijCLSf2n5zKgf2BWeX+PDo7Nnt/D1VMAVjWG082V
+	 vOOStZGsLB16g==
+Message-ID: <0386eb30-0e0c-4d8c-abfe-86161b9e3d1f@kernel.org>
+Date: Thu, 10 Sep 2026 13:32:08 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/5] KVM: guest_memfd: bind backing memory to a NUMA node
+To: Gregory Price <gourry@gourry.net>, Ackerley Tng <ackerleytng@google.com>
+Cc: linux-mm@kvack.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com, pbonzini@redhat.com,
+ seanjc@google.com, akpm@linux-foundation.org, ziy@nvidia.com,
+ matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
+ byungchul@sk.com, ying.huang@linux.alibaba.com, apopple@nvidia.com,
+ shuah@kernel.org
+References: <20260902194657.79075-1-gourry@gourry.net>
+ <CAEvNRgHWyBaBpZ4Bem1Eu86b-cuEA7NkyjxTJ4D3FnpGe1B2Yg@mail.gmail.com>
+ <aqHkVKvons1tBs1O@gourry-fedora-PF4VCD3F>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <aqHkVKvons1tBs1O@gourry-fedora-PF4VCD3F>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Thu, 10 Sep 2026 20:04:53 +0900, wakasio wrote:
-> I looked for the offending TRB in the dump, attached is the full log
-> (dyndbg_capture4_trb_dump.log, 1061 lines).
-
-The attachment seems to be missing.
- 
-> The 11 xhci_dbg lines all say "Transfer error for slot 1 ep 3", same
-> address ffffd140425178e0, resid 23552, each followed by "Soft-reset ep
-> 3". After the 11th one the driver printed "event ring:" and dumped it,
-> then "endpoint ring:" and dumped that too.
+On 9/10/26 01:10, Gregory Price wrote:
+> On Wed, Sep 09, 2026 at 03:41:35PM -0700, Ackerley Tng wrote:
+>> Gregory Price <gourry@gourry.net> writes:
+>>
+>>> guest_memfd allocates its folios through a per-inode shared mempolicy.
+>>>
+>>> Today that policy can only be set after the fact, with mbind() on a host
+>>> mmap of the fd. That requires the fd to be mappable, and it cannot reach
+>>> folios that are only ever guest-faulted. Neither holds for a
+>>> non-mappable (confidential) guest_memfd.
+>>>
+>>> Add GUEST_MEMFD_FLAG_BIND_NODE and a node field to struct
+>>> kvm_create_guest_memfd. When set, KVM builds an MPOL_BIND policy for the
+>>> requested node and installs it over the whole inode, so every folio is
+>>> allocated there with no userspace mbind().
+>>>
+>>
+>> Instead of a custom API to ensure all guest_memfd allocations come from
+>> a single node, how about these options?
+>>
+>> 1. Using cgroups/cpuset to constrain allocations (could be troublesome
+>>    if the guest memory is not preallocated, unless the vCPU threads are
+>>    running with the cpuset config)
+>>
+>> 2. Process-level NUMA policy
+>>
 > 
-> I searched the endpoint ring dump for the DMA address that the event
-> ring entries point to. I could not find it. The endpoint ring dump
-> covers two segments, 0xfffc00000 to 0xfffc00ff0 and 0xfffbf0000 to
-> 0xfffbf0ff0, linked back to each other with a Link TRB. The address in
-> question, 0xfffbf8e0, falls between these two ranges, not inside
-> either one.
+> for 1 and 2:
+> 
+> the intent is to put the guest memory on the target node, not all system
+> memory for a given process.  so the scope here is not the same.
+> 
+> in fact at that granularity, the desired node may not even have eligible
+> memory to host the task's memory.
+> 
+>> 3. Why not request the guest_memfd to be mmap-able just to be able to
+>>    set a memory policy?
+>>
+> 
+> the eventual intent is to enable this for fully confidential,
+> host-unmapped guest, isolated to a particular memory device.
+> 
+> Requiring a mapping to get node-placement is quite defeating the point.
 
-Not sure what happened, I'd like to see the full dump. It's possible
-that my patch is wrong and logged some addresses incorrectly, but
-I think it should have logged the correct ring and the events must
-have matched the ring, or otherwise other errors would be logged.
+You only need a VMA, not actually mapped/faulted pages. So I don't immediately
+see the problem?
 
-> I also noticed the event ring entries pointing to that address are all
-> labeled "ep 4", not "ep 3".
+-- 
+Cheers,
 
-Yes, 4 is the number used by xHCI, 3 is a driver-internal equivalent.
-
-Regards,
-Michal
+David
