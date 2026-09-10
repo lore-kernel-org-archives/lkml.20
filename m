@@ -1,301 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98DE0362120;
-	Thu, 10 Sep 2026 22:13:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A9DC49B5D0;
+	Thu, 10 Sep 2026 22:17:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789078440; cv=none; b=DVtvHaxfSlXFCEfWsW5HYvaOkCA/DoCs+51C+qnoWroKlmNV3v3gE4jVcSIsov+cL09EQsTBZlEH5oyHeeM2E9c9Xqi4xvNOwVhkWuTOylpR8E6mAZz+64JZvec4qEGILm3LlBlVQo6aKhHdg8b2lpiDBoKale+agckj2BvYDpE=
+	t=1789078630; cv=none; b=TKdrJYFyEklZ4Prr7ee8JDkF8fypYNF2oDTjFAohMkMCI2oRkh//8E8ZkTpAGZhH0im/CqYU6ClMxt2Ess/gvzqc0v2AKwP+znZTWTIVgxcRRweWG/72Snh722W+APGEWiJMjYrzDnqQS1rWIBwytuAi2wqkCm3tv6OhVOlzTPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789078440; c=relaxed/simple;
-	bh=7yK/TIHpVsbMAw0teH1HgTXxMjWKHZckgDgaInlB+Vg=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Hqj6ig8l6S7pG7tIJaxL3JTqysyaI7PA3J65NPmIOGpgQEl173gW/2PicFNNx0bf8gwKPFbSddw1tsgPImYs7Emj/s8GeX+1zPKEwiBfegxiIbNJJMVi6S99lLmajqMcR31Dfev7wyo+i9foSsBr5HhskheNo1hnnI9dtKJVTv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ailoK8+n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789078630; c=relaxed/simple;
+	bh=beq27RQOuBz3rmFCqPNVU5aWnBcD61l1tdD2FKrwUYs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BsuE3lDB0V8KKIvicxG+yyQAXKiouVDyYWrbiOoD7FUifR0iaE+dUSSrtA/BjyTUPOwN7zgpSerOTuJuAG6iKTWTq2/yzfaUndpU7o4+qWVixArd0Zlm8p9pY2JiLLtUxUw4I43MlP3ZrdCJ6xywzEP8hFYDj4lpnFmCVfEA54I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QhZ6GkK5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ailoK8+n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10B3D1F000FF;
-	Thu, 10 Sep 2026 22:13:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QhZ6GkK5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07D0C1F000FF;
+	Thu, 10 Sep 2026 22:17:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789078438;
-	bh=mquJLk7fjjw8PG25skZ6fbBCwq7kkJfpMvnsF0zOoTI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ailoK8+nNEJTT0S03S7zS0kv7BiCSXCkEJawL0rsf4Vl3csyLQeuBcpdfsQ4cCSKI
-	 Dsaer9a2chJioaN6igHMj+2WFJt1kGoQ/uBu6WOZPp5p0WDXdktdZnpS8i/HGu8DtA
-	 2suozf7sxlte08lqdKqy1i0Uv4ptbbR32Vm8oCzzXkPvhjcoDkOXp9JoyCejcPMNkS
-	 QNFmWsI1O0QKiqFJdancIh3sklRmZyrcRYCsLgoxFkQUK7qUI8vLJBVtbMNOqilnw2
-	 DLle3c0jTALz8817HUBlyTcTXp5v1fG1MoPHEXyFHCbUeoZ9CDuOPb+dDrHmQ6xZtj
-	 Ft2jmZQzAaZzw==
-Subject: Re: [PATCH net-next v6 09/12] gve: introduce new methods to handle
- IRQ doorbells
-From: netdev-bot+sashiko@kernel.org
-To: hramamurthy@google.com
-Cc: netdev@vger.kernel.org, joshwash@google.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
- john.fastabend@gmail.com, sdf@fomichev.me, jordanrhee@google.com,
- willemb@google.com, nktgrg@google.com, maolson@google.com, thostet@google.com,
- jacob.e.keller@intel.com, debarghyak@google.com, kees@kernel.org,
- bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
- przemyslaw.kitszel@intel.com
-Date: Thu, 10 Sep 2026 22:13:56 +0000
-Message-ID: <178907843664.219967.14210316170815119158@kernel.org>
-In-Reply-To: <20260909191136.3811892-10-hramamurthy@google.com>
-References: <20260909191136.3811892-10-hramamurthy@google.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1789078628;
+	bh=URxl+o12EE5hMsUw7PASgNl0kBa2m8/VC3cuEfTrfVU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QhZ6GkK5Fi+B92sXeqP2okF2KVRInAO6KAai3sgu99GWqIo4awuMhRcjdEwv2a7TR
+	 sSXFZHcpv2jryjIhMjqjS5CgU35POEjp9ptdzXZrr8Upd6T0xxPYarfmzP/5XGOnjg
+	 ArY8U37vevokDBDgXk+iKq4zokwlJZgLAAdU9TOLCSnig63pc3vf2qpdvwMQg8h54K
+	 GtiRXyt4KHR1bDemNlCRNc7wgrZCHgHmioJoTSgv6syeI9/UZ9/rLq+t6tzbD4x51A
+	 UaW0yW8iER2m/TKd4kfpMuwVWq64avcSJ4ah3LLBmVb6bCHoAwZk0IWah0Czu1k8KZ
+	 grDQAJ2/yeZog==
+Date: Thu, 10 Sep 2026 23:17:05 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 5/5] spi: dw: use threaded interrupt and optimize the
+ threaded ISR
+Message-ID: <8303de6e-20a6-482c-82bf-ec87034042f0@sirena.org.uk>
+References: <20260909143652.9234-1-jszhang@kernel.org>
+ <20260909143652.9234-6-jszhang@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="e6MNrUW3BJ/Ft3nO"
+Content-Disposition: inline
+In-Reply-To: <20260909143652.9234-6-jszhang@kernel.org>
+X-Cookie: Gravity brings me down.
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider:
 
-Critical: 0 · High: 0 · Medium: 0 · Low: 3
+--e6MNrUW3BJ/Ft3nO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-- [Low] Undisclosed changes in the commit message: besides the two new
-  `gve_ctrl_ops` callbacks, this patch (a) adds a brand-new no-op inline…
-- [Low] The new error log in `gve_setup_control_plane_resources()` —
-  `dev_err(&priv->pdev->dev, "Failed to get db info");` at…
-- [Low] The kernel-doc added for `struct gve_ctrl_ops` understates the
-  contract of the two new callbacks.
+On Wed, Sep 09, 2026 at 10:36:52PM +0800, Jisheng Zhang wrote:
+> To avoid blocking for an excessive amount of time, eventually impacting
+> on system responsiveness, hard interrupt handlers should finish
+> executing in as little time as possible.
 
---
-
-gve: introduce new methods to handle IRQ doorbells
-
-This patch adds request_db_info and release_db_resources callbacks to
-struct gve_ctrl_ops so that the device-resource configuration can differ
-between Admin Queue and Mailbox modes. It also moves the association of
-IRQ doorbell indices with notify blocks into the new callbacks.
-
-A few questions on the changes below.
-
-> diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
-> index f624a3e385e4c..6c46c842070b7 100644
-> --- a/drivers/net/ethernet/google/gve/gve.h
-> +++ b/drivers/net/ethernet/google/gve/gve.h
-> @@ -834,6 +834,9 @@ struct gve_device_info {
->   *                  structures stored in @priv to be used during initialization.
->   * @set_num_ntfy_blks: Sets no. of vectors into @priv to be used during
->   *                     initialization.
-> + * @request_db_info: Request and store doorbell information into @priv
-> + * @release_db_resources: Release device hold on DMA memory holding doorbell
-> + *			  info (AdminQ only)
-
-[Severity: Low]
-Does this kernel-doc describe the full contract of the two callbacks?
-
-The only implementation also registers and revokes the event counter
-array, not just the doorbell index array:
-
-  gve_adminq_request_db_info()
-    gve_adminq_configure_device_resources(priv,
-                                         priv->counter_array_bus,
-                                         priv->num_event_counters,
-                                         priv->irq_db_indices_bus,
-                                         priv->num_ntfy_blks);
-
-  gve_adminq_release_db_resources()
-    gve_adminq_deconfigure_device_resources(priv);
-
-The commit message itself says the ops "encapsulate the configuration of
-device resources (counter arrays and IRQ doorbell indices)", which
-matches the code but not the doc.
-
-This matters because the same patch moves gve_free_counter_array() into
-gve_free_control_plane_resources(), so the counter-array coherent buffer
-is now freed on the strength of release_db_resources() having told the
-device to stop using it. Should the doc mention the counter array so a
-future mailbox implementation does not skip that part and leave the
-device DMAing into freed memory?
-
->   * @get_ptype_map: Learn packet type map from device and store it in @priv
->   * @configure_rss: Set up default RSS configuration
->   * @setup_stats_report: Set up DMA region for stats report (AdminQ only)
-
-[ ... ]
-
-> @@ -1164,6 +1169,11 @@ static inline u32 gve_rx_idx_to_ntfy(struct gve_priv *priv, u32 queue_idx)
->  	return (priv->num_ntfy_blks / 2) + queue_idx;
->  }
->  
-> +static inline u32 gve_ntfy_to_msix_idx(struct gve_priv *priv, u32 ntfy_blk_idx)
+> +static irqreturn_t dw_spi_irq_thread_fn(int irq, void *dev_id)
 > +{
-> +	return ntfy_blk_idx;
-> +}
+> +	struct spi_controller *ctlr =3D dev_id;
+> +	struct dw_spi *dws =3D spi_controller_get_devdata(ctlr);
+> +	u32 rx, tx, imask, mask =3D 0;
+> +	bool finalize =3D false;
 > +
+> +	do {
 
-[Severity: Low]
-Could the commit message say something about this helper? It is a new
-identity function whose priv argument is unused, and it is wired into
-both gve_setup_notify_blocks() and gve_teardown_notify_blocks() in this
-patch, but the changelog only mentions the two new gve_ctrl_ops members.
+=2E..
 
-As written it encodes the AdminQ assumption that the management vector
-is the last one (priv->mgmt_msix_idx == priv->num_ntfy_blks), which is
-not stated anywhere. Would a short comment help?
+> +	} while (rx !=3D 0 || tx !=3D 0);
 
-The same applies to the resource movement further down: the
-irq_db_indices DMA buffer is moved out of gve_alloc_notify_blocks() /
-gve_free_notify_blocks() into new helpers, and the alloc/free order in
-gve_alloc_control_plane_resources() / gve_free_control_plane_resources()
-changes. The only note about that is in the v3 changelog below the ---
-line, which does not end up in git history.
+This will sit and drive the FIFOs for as long as we manage to push data
+through them.  Usually we should have DMA so any long transfers wouldn't
+be here but if there's systems with this controller wired up without DMA
+we could potentially end up doing very large transfers, that can trigger
+the hung task detector.  The simplistic solution is to use cond_resched()
+to give other things a chance to run.
 
->  static inline bool gve_is_qpl(struct gve_priv *priv)
->  {
->  	return priv->queue_format == GVE_GQI_QPL_FORMAT ||
-> diff --git a/drivers/net/ethernet/google/gve/gve_adminq.c b/drivers/net/ethernet/google/gve/gve_adminq.c
-> index 1176e13fafc0c..b89825a85db82 100644
-> --- a/drivers/net/ethernet/google/gve/gve_adminq.c
-> +++ b/drivers/net/ethernet/google/gve/gve_adminq.c
-> @@ -1718,3 +1718,40 @@ void gve_adminq_unmap_db_bar(struct gve_priv *priv)
->  
->  	pci_iounmap(pdev, priv->db_bar2);
->  }
-> +
-> +int gve_adminq_request_db_info(struct gve_priv *priv)
+The hardirq handler would just do one round of FIFO operations and
+return, allowing other things to happen until the device interrupts
+again.
+
+> +static irqreturn_t dw_spi_host_handler(struct dw_spi *dws)
 > +{
-> +	int err;
-> +	int i;
-> +
-> +	err = gve_adminq_configure_device_resources(priv,
-> +						    priv->counter_array_bus,
-> +						    priv->num_event_counters,
-> +						    priv->irq_db_indices_bus,
-> +						    priv->num_ntfy_blks);
-> +	if (unlikely(err)) {
-> +		dev_err(&priv->pdev->dev,
-> +			"could not setup device_resources: err=%d\n", err);
-> +		return -ENXIO;
+> +	if (dw_spi_check_status(dws, false)) {
+> +		spi_finalize_current_transfer(dws->ctlr);
+> +		return IRQ_HANDLED;
 > +	}
 > +
-> +	for (i = 0; i < priv->num_ntfy_blks; i++)
-> +		priv->ntfy_blocks[i].irq_db_index =
-> +			&priv->irq_db_indices[i].index;
-> +	return 0;
+> +	dw_spi_mask_intr(dws, 0xff);
+> +
+> +	return IRQ_WAKE_THREAD;
 > +}
 
-[ ... ]
+It feels like it might be good to do one round of FIFO in the hardirq
+handler before deferring for a longer transfer, that would avoid needing
+to schedule for very short transfers.  Essentially a copybreak like we'd
+use for choosing between PIO and DMA.  This is entirely based on vibes
+rather than having benchmarked anything, but all your numbers seem to be
+for larger transfers rather than a continual stream of short transfers.
+The people doing stuff like running CAN buses often run into trying to
+saturate the bus which means they are very concerned with the latency
+=66rom transaction initiation to completion, and from completion to
+initiating the next transfer.
 
-> diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
-> index d2f974a0cc877..84efcdea6be96 100644
-> --- a/drivers/net/ethernet/google/gve/gve_main.c
-> +++ b/drivers/net/ethernet/google/gve/gve_main.c
-> @@ -203,6 +203,30 @@ static void gve_free_counter_array(struct gve_priv *priv)
->  	priv->counter_array = NULL;
->  }
->  
-> +static int gve_alloc_irq_db_indices(struct gve_priv *priv)
-> +{
-> +	priv->irq_db_indices =
-> +		dma_alloc_coherent(&priv->pdev->dev,
-> +				   priv->num_ntfy_blks *
-> +				   sizeof(*priv->irq_db_indices),
-> +				   &priv->irq_db_indices_bus, GFP_KERNEL);
-> +	if (!priv->irq_db_indices)
-> +		return -ENOMEM;
-> +
-> +	return 0;
-> +}
-> +
-> +static void gve_free_irq_db_indices(struct gve_priv *priv)
-> +{
-> +	if (!priv->irq_db_indices)
-> +		return;
-> +
-> +	dma_free_coherent(&priv->pdev->dev, priv->num_ntfy_blks *
-> +			  sizeof(*priv->irq_db_indices),
-> +			  priv->irq_db_indices, priv->irq_db_indices_bus);
-> +	priv->irq_db_indices = NULL;
-> +}
-> +
+TBH along those lines with really short transfers (eg, read/write 16 bit
+registers) we might not want to bother with the interrupt at all and
+poll but that's a separate thing.
 
-[ ... ]
+--e6MNrUW3BJ/Ft3nO
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> @@ -611,9 +614,10 @@ static void gve_free_control_plane_resources(struct gve_priv *priv)
->  	kvfree(priv->ptype_lut_dqo);
->  	priv->ptype_lut_dqo = NULL;
->  
-> -	gve_free_stats_report(priv);
-> -	gve_free_notify_blocks(priv);
-> +	gve_free_irq_db_indices(priv);
->  	gve_free_counter_array(priv);
-> +	gve_free_notify_blocks(priv);
-> +	gve_free_stats_report(priv);
->  	gve_free_rss_config_cache(priv);
->  	gve_free_flow_rule_caches(priv);
->  }
-> @@ -626,15 +630,18 @@ static int gve_alloc_control_plane_resources(struct gve_priv *priv)
->  	if (err)
->  		return err;
->  	err = gve_alloc_rss_config_cache(priv);
-> -	if (err)
-> -		goto abort;
-> -	err = gve_alloc_counter_array(priv);
->  	if (err)
->  		goto abort;
->  	err = gve_alloc_notify_blocks(priv);
->  	if (err)
->  		goto abort;
->  	err = gve_alloc_stats_report(priv);
-> +	if (err)
-> +		goto abort;
-> +	err = gve_alloc_counter_array(priv);
-> +	if (err)
-> +		goto abort;
-> +	err = gve_alloc_irq_db_indices(priv);
->  	if (err)
->  		goto abort;
->  
-> @@ -664,15 +671,9 @@ static int gve_setup_control_plane_resources(struct gve_priv *priv)
->  	const struct gve_ctrl_ops *ops = priv->ctrl_ops;
->  	int err;
->  
-> -	err = gve_adminq_configure_device_resources(priv,
-> -						    priv->counter_array_bus,
-> -						    priv->num_event_counters,
-> -						    priv->irq_db_indices_bus,
-> -						    priv->num_ntfy_blks);
-> -	if (unlikely(err)) {
-> -		dev_err(&priv->pdev->dev,
-> -			"could not setup device_resources: err=%d\n", err);
-> -		err = -ENXIO;
-> +	err = ops->request_db_info(priv);
-> +	if (err) {
-> +		dev_err(&priv->pdev->dev, "Failed to get db info");
->  		return err;
->  	}
+-----BEGIN PGP SIGNATURE-----
 
-[Severity: Low]
-Is the missing "\n" here intentional? Without a terminating newline the
-printk record stays open for continuation, so unrelated output can be
-appended to this line. The message it replaces, and the next dev_err()
-in this same function, both terminate and include the error code:
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqjLGAACgkQJNaLcl1U
+h9AHIQf+J74EtVYvLl9CcdiDt0gfsgKDRFSet8CgLa/bpWROMLnJe/AahN3aYTsL
+6uSISfkYeWk6zhnRyElAZLXRVoEJA5GwM9iau2Uw06ffAQAjpjR3DsWraFnsOKr6
+ln42pQc86nfnonzdWS+xH5oW+6SR4n/hhK6VQT8qSV+NLj7LOJDu5YDo8ZmCU222
+eU9mRVyX4JXs9TSGj9/AnGV2CQ12wT1QmNNKuovGISMEeP+dIU0Wobw2ZFqrmZ9s
+7mTAnVdiDtdWQvKsyQNnNbHwyU3TcPnzlMyxRNSRQNODVESUgar8AlfGgIdvHXjV
+IZ15Y23C1EfLsIaPwdkNobURLX65pg==
+=cT1g
+-----END PGP SIGNATURE-----
 
-	dev_err(&priv->pdev->dev,
-		"Failed to get ptype map: err=%d\n", err);
-
-The message also looks redundant, since the only implementation,
-gve_adminq_request_db_info(), already logs the same failure with the
-error code before returning -ENXIO.
-
->  
-> @@ -681,7 +682,7 @@ static int gve_setup_control_plane_resources(struct gve_priv *priv)
->  		if (err) {
->  			dev_err(&priv->pdev->dev,
->  				"Failed to get ptype map: err=%d\n", err);
-> -			goto deconfigure_device;
-> +			goto release_db_resources;
->  		}
->  	}
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260909191136.3811892-1-hramamurthy%40google.com
+--e6MNrUW3BJ/Ft3nO--
