@@ -1,144 +1,197 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C6F2514775
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:49:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE6404BE425;
+	Thu, 10 Sep 2026 16:49:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789058966; cv=none; b=geZWfNTx7Jou75QskxVQHCyzS1EDZf2rRTlO4kk5AvJVgy8fot6HXQB/cUjrXguohRSzFv92r6OtPvxCa5b9oLHD3eSJOwf9P8va5RHujm1FhCjKByUUaqAw7OTiTLAsrJ5Em5QYmo/57G7y7vmtXwy1KlBd5T28qAeULcMnqKU=
+	t=1789058991; cv=none; b=d83TBLv8Y/Yq+EZCYZh7YtzcgSTF5ggykLR8jwK6p0XHhVuXIFdf9ihxrNDJH1BIXPurVvgGRDF0GvuhqtxcyX7eOD0fQWY6qdeDVwoFNsxE0nsl0Cp8ryZLkQyNHzth19Q0BYXq6ehHlBM+w/hFAa3+YNZpde5vGw4sSonk4iM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789058966; c=relaxed/simple;
-	bh=et0IgSAi65WntaNByaMxMnNVQe6qfEdQwD5tqMZuHTo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=p9G4hQzIJPo7zN8uEMqKdS7DSMAOAFXgEBN7GfeGKd8Ch9DhAPKWbHbNP+RKzlB6FYsJODbV6MGmEKP5xVXJNxlJjpJTEvIfcXpohnFuUMg0lIXa/HWa65w7lXiht8dt8lycm2xOfxvCQ1j0vU5fv+JZ5GVfhXAvzsuXMRdtWOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pardini.net; spf=pass smtp.mailfrom=pardini.net; dkim=pass (2048-bit key) header.d=pardini.net header.i=@pardini.net header.b=SRnYUbHo; arc=none smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pardini.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pardini.net
+	s=arc-20240116; t=1789058991; c=relaxed/simple;
+	bh=lcCPtVPDxPZTkz3cRLoT/7HILurJ3librXjhuAgs8VM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=P3dZupXZM5RX9BMr6SBJorOoUk7m5PFUYVo4FBg+Q6gNcg8rJQ/DHkPv+6ksxgsGgC7lvl7K0ZG34g4A3EeXlwCYx8r4Sr9213x1ce5dL5ZbJOjGOvRFUJvd+ppo+pnkEgi6DNCN4kpzxTl4fNJiKzN0uERvZtRV/LgD0XsP2gs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=YUfuO00n; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pardini.net header.i=@pardini.net header.b="SRnYUbHo"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a601ba6870so19858a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:49:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=pardini.net; s=google; t=1789058962; x=1789663762; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=trXMroz5mGRhnvsqxF0GR3hfGr2ispYPFG7I9RaBuY8=;
-        b=SRnYUbHo7aDB9qNwRUFjDbMAwui3H40oD1onMYwI1gpayJaSnAfFuRDBzlF4gPvlFy
-         jj2fbeha677dIuoVZcn3XP0oiO40vfM/V4YU1MuViYuGljApvrz602lvh/FbPyGl+zcD
-         fUWe7ivp73W1vein78q8BJPCNDianX2pd4qUnxVKK7etnaxLKVeK78e5K3KZU8THhS/8
-         ld8wyGx3PP3G8HTbBIhqKidnIk6IhCAqrG8ZrKtQhSVQmbmlfjW45F5PhXo/zrJ6QxzI
-         UMSAnzEwimnT5ECaRZvTFeMuisW9rVDWFsHOjhvLFKBfNmO/rReYFJCBuwLmbyocJNNI
-         Pdrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789058962; x=1789663762;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=trXMroz5mGRhnvsqxF0GR3hfGr2ispYPFG7I9RaBuY8=;
-        b=NWGxCU7iCZRPoYZylPlvqDjhRLt4wwj134MxGEeTiirfMsd2rFJPS+Opfu+8uh/6dx
-         FCsPAbH3vTzEkwn/1z7/XjWPodm1LnYCN5xuoFn7c66TdG0sCOVquRfuyGMCcAdOE10H
-         N/1d5Nz6Gzs1oH+pug6CfJtTfVFhfTH4tk7H2A2QiJ8F3BKXp2GStg3MATtmdkRy/UZQ
-         3S4Ks3Y6Z5u3bE0IZ1cvPRMzzNbn1feLIK9gGyKzp7A7+Ca3mlK5uzCng4gmdEhuhV7v
-         qKCrpvz/eMW4wtLFtL38f+TcsR92ETckg8kD39HBBvnh8v5EdJ+AIwlX1Zu7RWULg/uX
-         nLOg==
-X-Forwarded-Encrypted: i=1; AKwUvByibso7Crj+mlSfwqr9SpiIw8Z24zdxK87fuqyy4IX0V4yyn5nF/zXVVoXE8EA8ejyDY9jgti6u4v/PPkk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nr7RoDOgv5uQ0cDcEqUq8OXcetK/uJavWWlzBpgwOinKbHWvnj
-	3duVBCMpvF/baqov1eMAXCEYxhpGQdC9YiVrb4QkY9+EuLOducLrh9s4+zmPgJtRPQ==
-X-Gm-Gg: AYBFou0TZfIAT6OO8lANiGO4XVDF+9Z7rthiWp2uyip5JjclLBIWX3KIQ/r9yth2Op5
-	uBU6HR0XTH68nSTfpIjQZsdcERdKEpSBoza9iTtCCcBryZKj2uyGQoYP/3eoKBwQZf0MuGU7eW7
-	IZXgHWkXZ+qnaltDsvRVNpeX5kBf3M10Xhe06xvwxk35Le7jzalQk0fHripOkYsJ/RyjfqBthIl
-	7zJ+8qRsI7vBbLuGH4qt06tJa5SW3RRzhANwaQlalGwY3qqyFa8qaSLB62cK/KEG9NmODOqA3NX
-	6jINJ0Luo5HAKb5N54zLGCmor/S549GsUk1Xmk08HhwfuvF/re+fsYrvAsLD30tkFZ2uUp3FxyU
-	RnNrH77tySiyMCDniL0wUQBFR40EYodtloWDQMigwcDKjvhkqxDbTQ6Hkw4jA3DI1TAxWxu0ch6
-	EXfyX6AsKRKmHJrne/ib/ltAX0hkH2//WUsco0MtcaDh/k/voQx5lz2vvW8oRTq/rQNoemYGLQT
-	Ed66eKsXf6WAk+WlMpEaOVEmnimu2gJPVb72fLNEpJQDhbraIMiVfeZktDrq8oVzydKst9wZJKw
-	K5EJOVTyoC1EE0nROGc7203VjFcFPt5Bc3vvMc/yPDMzZfpmMGDVP5cd/w==
-X-Received: by 2002:a05:6402:2b9b:b0:6a9:a3a4:797d with SMTP id 4fb4d7f45d1cf-6a9a3a47b3fmr2194091a12.10.1789058961506;
-        Thu, 10 Sep 2026 09:49:21 -0700 (PDT)
-Received: from ?IPV6:2a02:a466:4d7a:0:8888:6b72:e1ae:406a? (2a02-a466-4d7a-0-8888-6b72-e1ae-406a.fixed6.kpn.net. [2a02:a466:4d7a:0:8888:6b72:e1ae:406a])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c294682fcfbsm143774066b.16.2026.09.10.09.49.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 09:49:20 -0700 (PDT)
-Message-ID: <08011075-364c-4520-857e-cd1acf955b53@pardini.net>
-Date: Thu, 10 Sep 2026 18:49:20 +0200
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="YUfuO00n"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+	Message-Id:Date:Subject:From:From:Reply-To;
+	bh=wi6CY0IDclqxk/0dSLImYT2+x8arQgwxuPzYw0ZWXLk=; b=YUfuO00n4mieQR7r1eIf3YWG5n
+	LX3ldO/crxP/kKRkZzd1D6txD78TynbQdGAjVLyrXhzE+1tKYHBFIOxYOWcJtdsnIOe/OK/aMRnVf
+	heBvNNwl1rJD8/zvwcIFCOPq0HC1MF7fZnH27Nk51faxNjLuNfEJQJtdu/w0rZlbsOrWxaJ9DKpj2
+	DO68746VVq6cL2PtiC4gcXou4dywqKDBlxrYj2DR4nyYoS6HN4Sa0sN99k8GJvBc2sFZz2zsM7Y4S
+	w6czDCnaID5U7kGmJq0gTepOCKPSVsbEBz+eF0S0RiC8mZvPgjrhYlnJylGQ7Dwpru39WcwHHYYKJ
+	B4OG3vuQ==;
+Received: from [177.172.123.122] (helo=[192.168.15.100])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1x4hxr-000GV1-BE; Thu, 10 Sep 2026 18:49:31 +0200
+From: =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+Subject: [PATCH v6 0/6] sched: Add support for long task name
+Date: Thu, 10 Sep 2026 13:49:22 -0300
+Message-Id: <20260910-tonyk-long_name-v6-0-d70afbf194c5@igalia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/4] nvmem: Derive Rockchip MAC addresses from the OTP
- CPU ID
-To: Alexey Charkov <alchark@flipper.net>,
- Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Michael Walle <michael@walle.cc>, Miquel Raynal <miquel.raynal@bootlin.com>,
- Finley Xiao <finley.xiao@rock-chips.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Ricardo Pardini <ricardo@pardini.net>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- stable@vger.kernel.org
-References: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net>
-Content-Language: en-US
-From: Ricardo Pardini <ricardo@pardini.net>
-In-Reply-To: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23PTW7DIBAF4KtErEsFA+Ynq94jiirAg0Ob2JVxr
+ UaR716cqnIrsnzSm29mbiTjmDCT/e5GRpxTTkNfgnrakXByfYc0tSUTYKBYwxWdhv76Ts9D373
+ 27oLU2yhk49AzyUmZ+hgxpq+7eDj+5Pzp3zBMK7M2TilPw3i9r5z52vvVdaXPnDIqAhhA5yxHe
+ EmdOyf3HIYLWfkZ/gAgawBWQEBUvi0XBlkBYgMUhxoQBdDWWK8UGmdtBcgN0I9ekAXgEdsYjGY
+ t8ApoNsDAA6ApQBOdkUIbcIz9A5Zl+QZJpA9lxQEAAA==
+X-Change-ID: 20260516-tonyk-long_name-b9f345aeb041
+To: Peter Zijlstra <peterz@infradead.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Christian Brauner <brauner@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Shuah Khan <shuah@kernel.org>, willy@infradead.org, 
+ mathieu.desnoyers@efficios.com, David Laight <david.laight.linux@gmail.com>, 
+ Linus Torvalds <torvalds@linux-foundation.org>, akpm@linux-foundation.org, 
+ Yafang Shao <laoar.shao@gmail.com>, andrii.nakryiko@gmail.com, 
+ arnaldo.melo@gmail.com, Petr Mladek <pmladek@suse.com>
+Cc: linux-kernel@vger.kernel.org, kernel-dev@igalia.com, linux-mm@kvack.org, 
+ linux-api@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+ =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+X-Mailer: b4 0.15.2
 
-On 02/09/2026 15:07, Alexey Charkov wrote:
-> Rockchip SoCs are shipped with a unique CPU ID in their internal OTP
-> memory, and Rockchip bootloaders use it to give boards which have no
-> dedicated storage for a MAC address a stable one anyway: they hash the CPU
-> ID and patch the resulting addresses into the device tree they hand over.
-> 
-> Kernels started without that fixup, e.g. straight from the SPL in Falcon
-> mode or by any other loader which does not implement Rockchip's derivation,
-> fall back to random MAC addresses which change on every boot.
-> 
-> Formalize the derivation in the DT binding and add a Linux kernel driver
-> implementing it, so that a Linux image can use the same stable addresses
-> regardless of the boot flow.
-> 
-> Only RK3576 is wired up here, that being the SoC I can test on. Other
-> Rockchip SoCs keep the same CPU ID at a different OTP offset - 0x7 rather
-> than 0xa on RK3588, for instance - which makes supporting them a two-line
-> addition to the driver's match table plus the layout node.
-Hi Alexey,
+* Use case
 
-I went off trying this on RK3588 and - exactly like you said - it 
-translates perfectly there, just with a different offset. Thanks!
+When debugging and tracing complex programs with hundreds of threads, 16 bytes
+long thread names are not enough anymore. cmd_line can show a lot of
+characters, but it's not affected by pthread_setname_np() or
+prctl(PR_SET_NAME), so let's give the same love kthreads got with commit
+6b59808bfe48 ("workqueue: Show the latest workqueue name in 
+/proc/PID/{comm,stat,status}"). This patchset creates a new
+PR_{SET,GET}_EXT_NAME that supports 64 bytes long names.
 
-Not content, I went for RK356x as well - and that revealed what I think 
-is a snag.
+It also introduces a new function copy_task_comm() that ensures that the string
+is always NUL-terminated despite of mismatching sizes of buffers. We can't just
+use strscpy() because it proved to give some overhead [0] in tracing.
 
-Both RK3576 and RK3588 currently describe their fixed cells as direct 
-children of the OTP node -- turns out that is the "legacy" way, which 
-works due to 'add_legacy_fixed_of_cells'.
+* Patchset
 
-But RK356x/3528/3562, done more recently [1], use a single 
-'fixed-layout' with child cells; and there can only ever be one layout, 
-so we wouldn't be able to use the new layout for those.
+Patch 1 and 2 do some prep work in order to avoid buffer overflows around
+the kernel, now that current->comm is bigger. It also make sure that if
+the destination buffer is smaller than TASK_COMM_EXT_LEN, it will
+be NUL-terminated.
 
-I imagine one way around it would be to allow such fixed cells also 
-under the new layout, by delegating to 'nvmem_add_cells_from_dt()' and 
-adding patternProperties with '$ref: fixed-cell.yaml' in the binding, 
-similar to what fixed-layout.yaml does, but I'm unsure that would be a 
-good idea?
+Patch 3 adds a KUnit for the new function copy_task_comm()
 
-Either way, thanks for this, it really helps with Falcon mode and edk2; 
-I can also use it for the fixed-function RTL8125 PCIe NICs I started 
-describing [2] (and will eventually send a v5).
+Patch 4 sets current->comm length to TASK_COMM_EXT_LEN and take care of
+making sure that current userspace APIs gets only TASK_COMM_LEN.
 
-[1] https://lore.kernel.org/all/20260312213019.13965-3-heiko@sntech.de/
-[2] 
-https://lore.kernel.org/linux-rockchip/20260617-rk3588-dts-rtl-eth-describe-dt-alias-v4-0-2bd38922d129@pardini.net/
+Patch 5 creates new prctl() to set and get all the TASK_COMM_EXT_LEN bytes.
 
-mvg,
-Ricardo
+Patch 6 adapts the existing selftest for this new interface.
+
+* Testing
+
+selftests/prctl/set-process-name.c survives this patchset, and it was extended
+to the new interface. KUnit test was modified to support copy_task_comm().
+
+I ran the same benchmark as at [0], and no significant change was found.
+
+* Changes
+
+Since v6:
+- Fix build error in security/
+- Fix size of comm buffer for i915 and blktrace
+- Fix KUnit test logic
+- Link to v5: https://patch.msgid.link/20260827-tonyk-long_name-v5-0-5fa843782a00@igalia.com
+
+Since v4:
+- Remove copy_task_comm() calls for structs other than struct task_struct
+- copy_task_comm(): Add checks for len > TASK_COMM_LEN and len < 0
+- Link to v4: https://patch.msgid.link/20260717-tonyk-long_name-v4-0-1fedfc870d21@igalia.com
+
+Since v3:
+ - Simplify Get rid of get_task_comm() commit
+ - Simplify copy_task_comm(): just do a memcpy + NUL char at the end
+ - Link to v3: https://patch.msgid.link/20260612-tonyk-long_name-v3-0-7989b66e8a99@igalia.com
+
+Since v2:
+ - Add a custom function copy_task_comm() that uses memcpy when possible and
+ fallback to strscpy(). It always ensures that the string in NUL-terminated
+ - Add KUnit test for the new function
+ - Link to v2: https://patch.msgid.link/20260524-tonyk-long_name-v2-0-332f6bd041c4@igalia.com
+
+Since v1:
+ - Replace new strtostr() with strscpy()
+ - Don't replace memcpy in tools/
+ - Link to v1: https://patch.msgid.link/20260517-tonyk-long_name-v1-0-3c282eaa91e2@igalia.com
+
+[0] https://lore.kernel.org/lkml/20260526190625.3f4aca0a@gandalf.local.home/
+
+---
+André Almeida (6):
+      treewide: Get rid of get_task_comm()
+      treewide: Replace memcpy(..., current->comm) with copy_task_comm()
+      lib/string_kunit: Add test for copy_task_comm()
+      sched: Extend task command name with TASK_COMM_EXT_LEN
+      prctl: Add support for long user thread names
+      selftests: prctl: Add test for long thread names
+
+ drivers/connector/cn_proc.c                        |  2 +-
+ drivers/dma-buf/sw_sync.c                          |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c    |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c       |  2 +-
+ .../gpu/drm/i915/display/intel_display_driver.c    |  4 +-
+ drivers/gpu/drm/i915/gem/i915_gem_context.c        |  4 +-
+ drivers/gpu/drm/lima/lima_ctx.c                    |  2 +-
+ drivers/gpu/drm/panfrost/panfrost_gem.c            |  2 +-
+ drivers/gpu/drm/panthor/panthor_gem.c              |  2 +-
+ drivers/gpu/drm/panthor/panthor_sched.c            |  2 +-
+ drivers/gpu/drm/virtio/virtgpu_ioctl.c             |  2 +-
+ drivers/hwtracing/stm/core.c                       |  2 +-
+ drivers/tty/tty_audit.c                            |  2 +-
+ fs/binfmt_elf.c                                    |  2 +-
+ fs/binfmt_elf_fdpic.c                              |  2 +-
+ fs/proc/array.c                                    |  2 +-
+ include/linux/coredump.h                           |  2 +-
+ include/linux/sched.h                              | 33 ++++++--------
+ include/linux/tracepoint.h                         |  4 +-
+ include/trace/events/block.h                       | 10 ++--
+ include/trace/events/coredump.h                    |  2 +-
+ include/trace/events/f2fs.h                        |  4 +-
+ include/trace/events/oom.h                         |  2 +-
+ include/trace/events/osnoise.h                     |  2 +-
+ include/trace/events/sched.h                       | 10 ++--
+ include/trace/events/signal.h                      |  2 +-
+ include/trace/events/task.h                        |  4 +-
+ include/uapi/linux/prctl.h                         |  3 ++
+ kernel/audit.c                                     |  6 ++-
+ kernel/auditsc.c                                   |  6 ++-
+ kernel/printk/printk.c                             |  2 +-
+ kernel/sys.c                                       | 23 ++++++++--
+ kernel/trace/blktrace.c                            |  6 ++-
+ lib/tests/string_kunit.c                           | 38 ++++++++++++++++
+ net/bluetooth/hci_sock.c                           |  2 +-
+ net/netfilter/nf_tables_api.c                      |  4 +-
+ security/integrity/integrity_audit.c               |  3 +-
+ security/ipe/audit.c                               |  3 +-
+ security/landlock/domain.c                         |  2 +-
+ security/lsm_audit.c                               |  7 +--
+ security/smack/smack_access.c                      |  4 +-
+ security/smack/smack_lsm.c                         |  4 +-
+ .../selftests/bpf/test_kmods/bpf_testmod-events.h  |  2 +-
+ tools/testing/selftests/prctl/set-process-name.c   | 53 ++++++++++++++++++++--
+ 48 files changed, 198 insertions(+), 91 deletions(-)
+---
+base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+change-id: 20260516-tonyk-long_name-b9f345aeb041
+
+Best regards,
+--  
+André Almeida <andrealmeid@igalia.com>
 
