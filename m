@@ -1,195 +1,236 @@
-Received: from smtpout4.mo536.mail-out.ovh.net (smtpout4.mo536.mail-out.ovh.net [51.210.91.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA7FA55C1D7
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:31:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.210.91.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE566379C38;
+	Thu, 10 Sep 2026 17:32:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789061518; cv=none; b=FHSRw3A0hqeotKUUzi8Muf5cMPFdYdngd0ubvRIoUYbXV3iDlc4wi8KUi9VU1ReREc0h5lGeEbrSWxy82XhliV/4dIvOUGgyHYrpmq43lhfn67/bApkgUl7/ChenTtG5uIZxCb96MfPAOiNqZncKY8ZI1B5qgXS3i07VnffCtuU=
+	t=1789061527; cv=none; b=rTqV/9dgfhjURtLTA1kX+cduo8mreIzzn1Cd/hdIFREiOI2hNfGFQHlSQDZuI/w2uluFdr+JvlakFy2+w6d1X5AYlTV61e2qsVIg2gejRl2Or24MTK1MXf4gJjh3/ECBjT92EFh5Dmfd2plwWQdbEjjUs7U1dcR0Kr4ZYPIY3Qc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789061518; c=relaxed/simple;
-	bh=gIKX6TDOBdFxDOz14E2FVc2SqTSSOWSA0OIAhBYHJTs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lGy08sfgvYUHQGsa8dwyT/F0gSLCfSMABZrbu/c1rgnGR+5R7zZHWfEJTDAdd+I3l3Vih/+6u/f4eywza8jyOnxIoXri1q02yAXE+WDFDOU+yD0OWwErp+U87KDp3vqTk1zQsTLYDiiBNMEXIkQ0JK6OOdBnVWETqkDNY+skFfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sicoop.com; spf=pass smtp.mailfrom=sicoop.com; dkim=pass (2048-bit key) header.d=sicoop.com header.i=@sicoop.com header.b=DtS/Hwto; arc=none smtp.client-ip=51.210.91.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sicoop.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sicoop.com
+	s=arc-20240116; t=1789061527; c=relaxed/simple;
+	bh=wn98Rf+xIKl7CgU1Pd6n6Du5LiKaOFE79M+/INol3o0=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=ARxqjoZIm/zPEfPcSxzkJV6jzvcqVg0abJIhXpvs8OuqpYlGZUPAGbPreS9O+5sw48FapvkzwrZAPIkTf4FjpQlYtt8viDk4EXk5f/5KU2/OQjERiJtZDhnj6xjAlGXCpnuq7824h6uC1gfZur2ViNkC9ttFuIxQnikCLgfhRA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HNuq3zJ0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sicoop.com header.i=@sicoop.com header.b="DtS/Hwto"
-Received: from director5.derp.mail-out.ovh.net (director5.derp.mail-out.ovh.net [79.137.60.225])
-	by mo536.mail-out.ovh.net (Postfix) with ESMTPS id 4hgkHZ3t9Lz81p8;
-	Thu, 10 Sep 2026 16:52:26 +0000 (UTC)
-Received: from director5.derp.mail-out.ovh.net (director5.derp.mail-out.ovh.net. [127.0.0.1])
-        by director5.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
-        for <christian.koenig@amd.com>; Thu, 10 Sep 2026 16:52:26 +0000 (UTC)
-Received: from mta2.priv.ovhmail-u2.ea.mail.ovh.net (unknown [10.110.118.86])
-	by director5.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4hgkHZ2Z6bz6GrV;
-	Thu, 10 Sep 2026 16:52:26 +0000 (UTC)
-Received: from sicoop.com (unknown [10.1.6.2])
-	(Authenticated sender: michaltoma@sicoop.com)
-	by mta2.priv.ovhmail-u2.ea.mail.ovh.net (Postfix) with ESMTPSA id D2220941C3D;
-	Thu, 10 Sep 2026 16:52:24 +0000 (UTC)
-Authentication-Results:garm.ovh; auth=pass (GARM-100R0035100abae-58a1-4818-86d9-510bfad2885a,
-                    D184D1A0A1014A0D56F8A815F0DE21A15A548AA1) smtp.auth=michaltoma@sicoop.com
-X-OVh-ClientIp:89.91.4.113
-From: Michal TOMA <michaltoma@sicoop.com>
-To: Zack Rusin <zack.rusin@broadcom.com>
-Cc: Michal TOMA <michaltoma@sicoop.com>,
-	bcm-kernel-feedback-list@broadcom.com,
-	ian.forbes@broadcom.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	sumit.semwal@linaro.org,
-	christian.koenig@amd.com,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/3] drm/vmwgfx: Release PRIME import in the BO destroy path
-Date: Thu, 10 Sep 2026 18:52:20 +0200
-Message-ID: <20260910165221.7558-3-michaltoma@sicoop.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910165221.7558-1-michaltoma@sicoop.com>
-References: <20260910165221.7558-1-michaltoma@sicoop.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HNuq3zJ0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD41B1F000FF;
+	Thu, 10 Sep 2026 17:31:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789061518;
+	bh=XBWd5a1baKVVGjc60vmyk8euEKGz7sNc7E8iI0dCnJI=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=HNuq3zJ0Xkvl5/cbrAXQQk/hP1lfgvRbzIelo6gaggo/mkcI8ib52p2TkY2i7WYze
+	 eRwPmiLpxtfWCGuJ1lSiJ/RWwr29E/J+uu6PwBPCEOgwPn4kXLBApojX9gyGtvIlUx
+	 zOzcpYkibtYIM+3+riJDtU3E8Z1V0wmnL003BuofERhZCixY0bbdWgFAOlhjDDCsJq
+	 2uxACXsrN4jd20IOW4Ec8hLVYD7a7tIvkFyZcixGUVbfILSszHHiAE1jiy2Plc6+Pa
+	 aTZTAGTyp7RQrenYmv5vO9fV7vVKxriQ/Qo96GXdrV73VdeA7zWJ50IZVnDKyhQPZi
+	 VRdSUF1UzJ7qg==
+Content-Type: multipart/mixed; boundary="===============0318246652260204799=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 16161730214470242587
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTGg6wAZ5z5m4YdOZGlRvPlWvQ83qxrX0rycDpYlbiCAYEpx32LeXRz6zw+UeX55tidPV15i9F5JJX63eEc1JCT6wHVaKV/OhSN6LgwM58uI8yevCLazs8kKF9On9E4ThlTFZNkPOQ6mpgxNIBwb7hWHF/0E4+YW+s+/GZBnJCHjjNhGt9qzJ9+Dc66SkgCk2DdRRZ//ZY2nlpCJ5DSRYat8+/GO5Lgvp//nPcYh81iq7GWZiK315nkZFDCOgv20EiLuiJcuIH6EBIl+FPFLIr1p1SjOXj8KYsEa9ySW43cYk0cUc1nhxRsLzhm7RgCzFiB1KJ/GM4G0cGyhLeeNE9/aKmehTmst5mpd6wa3AMMntN/pO+wvCw2son0GCMudqp5Ra4cXUpQtcElszFg/9ehvvt+7rEA1Z9lPK5POcjs9mV8gxjYKMJCBfyj9mlYbId/iN3gvqqcqjfLnt/Kqkcar21QFcaq+dQQcLLdU1Pm2WPzBIYeISj5qNIe9acCCY7WF6gMMfAtke8mUpLXQyAb+MrLSCaZt7uXHxM8ngYd0pk6YK4ubo4DckID00v6UBCE7A5a7Iv4BJyfMrMneLMh6mVBgqTRybeXYqlWCh9yeBzZbh5BiAEReyeXOZzlV1G483EoUdsWQpGLFjyvqgLW/267n85Wk9eU7Z5wj25y/SQ
-DKIM-Signature: a=rsa-sha256; bh=oNgvdIjXenpFeV/paVDrELbuNab+1ePKbm0+q9vDIwE=;
- c=relaxed/relaxed; d=sicoop.com; h=From; s=ovhmo62391-selector1;
- t=1789059147; v=1;
- b=DtS/Hwto0Pp7We+ky/snyzOrUBa4NOC1LbeatC5KkVvc6BLdabN7mfLw/h5E9DreheFGMhx1
- d/s4wCgekHFO0M6i0C+rmsGQYxjuKa33M5II29LqgopkoOEGcj0Y7W9bMO9a93kb3eqrKBIEMPA
- qDu472coQQcffoiTs3OZt/zvQXA2Uju8nCds+81n8zpCK4pHuLN17/pGzY/Uz4/Sth5HhJ3JLfl
- FB41NPUcTnpYOdvEoong6ydhJ8c3l2vcxx4nF57y9ynT0DIJMDBeJp/rWwskruKyn5FuipyQA87
- ABV5+3BKARBnL30qg4DW5wKwqUOZgpd4U2b+lrhp/rJQw==
+Message-Id: <f5c0c236ba1f062cb0ab363bf6672e7aef2c278ba7193bef5891ab18d86c9b38@mail.kernel.org>
+In-Reply-To: <20260910164635.459558-11-vineet.gupta@linux.dev>
+References: <20260910164635.459558-11-vineet.gupta@linux.dev>
+Subject: Re: [PATCH bpf-next v2 10/13] selftests/bpf: cover the low-32 link for narrowing stack fills
+From: bot+bpf-ci@kernel.org
+To: vineet.gupta@linux.dev,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
+Cc: martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,john.fastabend@gmail.com,shuah@kernel.org,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,vineet.gupta@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Thu, 10 Sep 2026 17:31:57 +0000 (UTC)
 
-drm_gem_prime_import_dev() attaches to a foreign dma-buf, takes a
-reference with get_dma_buf(), maps the attachment and, once
-vmw_prime_import_sg_table() has created the TTM buffer object, stores
-the attachment in obj->import_attach. Drivers that import this way have
-to undo it by calling drm_prime_gem_destroy() when the object is freed.
+--===============0318246652260204799==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-vmwgfx never does. The TTM destroy callback, vmw_bo_free(), only calls
-drm_gem_object_release() and kfree(). For every imported dma-buf, the
-sg mapping, the attachment and the dma-buf reference are leaked when
-the last GEM reference goes away, and the exporter's backing pages stay
-pinned until reboot.
+> diff --git a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
+> index 9d060d8b0c1f..e8a44e7579c8 100644
+> --- a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
+> +++ b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
 
-Any process that can open the vmwgfx render node can hit this by
-importing a dma-buf from another exporter, for example with
-DRM_IOCTL_PRIME_FD_TO_HANDLE. It showed up as a memory drain on a
-VirtualBox VMSVGA guest running a Plasma 6.7 Wayland session with the
-host's 3D acceleration off. KWin 6.7 wraps wl_shm client buffers in
-udmabufs and imports them through EGL on llvmpipe, and it keeps many of
-those imports referenced while it runs, which is a separate userspace
-problem. Restarting the compositor did not give the memory back,
-though: with about 1.5 GiB of client buffers imported, killing KWin
-left 211 udmabufs in /sys/kernel/debug/dma_buf/bufinfo with a refcount
-of 1, still attached to the vmwgfx device, after every userspace
-reference was gone. Their pages are no longer mapped or in any page
-cache, so reclaim and swap cannot free them.
+[ ... ]
 
-Call drm_prime_gem_destroy() for imported objects before
-drm_gem_object_release(), as amdgpu, radeon and nouveau do in their TTM
-destroy callbacks, and include <drm/drm_prime.h> for it. The check is
-safe on the import error path: drm_gem_prime_import_dev() only sets
-obj->import_attach after gem_prime_import_sg_table() succeeded, so a
-buffer object destroyed before that point is not unmapped, detached or
-put a second time. ttm_bo_release() tears down the TTM backing and
-drops the reservation lock before calling the destroy callback, which
-fits the _unlocked unmap done by drm_prime_gem_destroy().
+> @@ -966,6 +966,88 @@ __naked void zext_mov_breaks_add_const_src(void)
+>  	: __clobber_all);
+>  }
+>
+> +/*
+> + * A narrowing fill keeps only the slot's low 32 bits, so a later narrowing of
+> + * the spilled value must still reach the filled register. Same relation as a
+> + * 32-bit mov from a wide source, with the stack slot as the base.
+> + */
+> +SEC("socket")
+> +__success
+> +__naked void zext_fill_narrow_from_wide_spill(void)
+> +{
+> +	asm volatile ("						\
+> +	call %[bpf_get_prandom_u32];				\
+> +	r6 = r0;						\
+> +	call %[bpf_get_prandom_u32];				\
+> +	r0 <<= 32;						\
+> +	r6 |= r0;		/* r6 = full 64-bit unknown */	\
+> +	*(u64 *)(r10 - 8) = r6;	/* slot linked to r6 */		\
+> +	r2 = *(u32 *)(r10 - 8);	/* narrowing fill, forms the link */ \
+> +	if w6 != 0 goto 1f;	/* narrows r6, propagates to r2 */ \
+> +	if r2 == 0 goto 1f;					\
+> +	r0 /= 0;						\
+> +1:								\
+> +	r0 = 0;							\
+> +	exit;							\
+> +"	:
+> +	: __imm(bpf_get_prandom_u32)
+> +	: __clobber_all);
+> +}
+> +
+> +/*
+> + * A full-width fill of a wide slot is a plain 64-bit equality, not a low-32
+> + * link, so it must keep propagating exactly as before.
+> + */
+> +SEC("socket")
+> +__success
+> +__naked void zext_fill_full_width_keeps_full_link(void)
+> +{
+> +	asm volatile ("						\
+> +	call %[bpf_get_prandom_u32];				\
+> +	r6 = r0;						\
+> +	call %[bpf_get_prandom_u32];				\
+> +	r0 <<= 32;						\
+> +	r6 |= r0;						\
+> +	*(u64 *)(r10 - 8) = r6;					\
+> +	r2 = *(u64 *)(r10 - 8);	/* no narrowing */		\
+> +	if r6 != 0 goto 1f;					\
+> +	if r2 == 0 goto 1f;					\
+> +	r0 /= 0;						\
+> +1:								\
+> +	r0 = 0;							\
+> +	exit;							\
+> +"	:
+> +	: __imm(bpf_get_prandom_u32)
+> +	: __clobber_all);
+> +}
+> +
+> +/*
+> + * A sub-word fill is below the low-32 model, so no link is formed and the
+> + * relation is dropped as before.
+> + */
+> +SEC("socket")
+> +__failure __msg("div by zero")
+> +__naked void zext_fill_byte_forms_no_link(void)
+> +{
+> +	asm volatile ("						\
+> +	call %[bpf_get_prandom_u32];				\
+> +	r6 = r0;						\
+> +	call %[bpf_get_prandom_u32];				\
+> +	r0 <<= 32;						\
+> +	r6 |= r0;						\
+> +	*(u64 *)(r10 - 8) = r6;					\
+> +	r2 = *(u8 *)(r10 - 8);	/* 1-byte fill: no link */	\
+> +	if w6 != 0 goto 1f;					\
+> +	if r2 == 0 goto 1f;	/* not deduced */		\
+> +	r0 /= 0;						\
+> +1:								\
+> +	r0 = 0;							\
+> +	exit;							\
+> +"	:
+> +	: __imm(bpf_get_prandom_u32)
+> +	: __clobber_all);
+> +}
+> +
+>  #ifdef CAN_USE_MOVSX
 
-The leak was found by walking /proc/kpageflags, which attributed the
-missing memory to orphaned shmem pages. Those matched the udmabuf
-objects in dma_buf/bufinfo, and the remaining reference was traced to
-the missing PRIME teardown. It was confirmed without a compositor using
-a small reproducer: create a memfd, wrap it with UDMABUF_CREATE, import
-it with DRM_IOCTL_PRIME_FD_TO_HANDLE on the vmwgfx render node, close
-the GEM handle and every file descriptor, then check bufinfo.
+Should the guard here be checking for LDSX support instead? The two
+programs added below (sext_fill_narrow_from_wide_spill and
+fill_kinds_reach_different_values) both use BPF_LDX | BPF_MEMSX
+instructions (`r2 = *(s32 *)(r10 - 8)`), not MOVSX.
 
-Build tested on drm-misc-fixes (4600b4d1a9ee) with the openSUSE 7.2.3
-config and W=1: drivers/gpu/drm/vmwgfx/ builds without warnings before
-and after the change, and checkpatch.pl --strict is clean. Runtime
-tested on a VirtualBox 7.2 VMSVGA guest with kernel 7.2.3, whose vmwgfx
-sources for the files involved are identical to drm-misc-fixes, using a
-vmwgfx.ko built from them with this change. With the reproducer, all 8
-imported udmabufs stayed pinned without the change and none with it,
-with 3D acceleration both on and off. With KWin on llvmpipe, killing
-the compositor now released 84 of 92 udmabufs (610 MiB) within 10
-seconds, where the same test on the unpatched driver released none.
+Other LDSX users in the suite gate on the LDSX feature - for instance,
+verifier_ldsx.c checks:
 
-Fixes: b32233acceff ("drm/vmwgfx: Fix prime import/export")
-Cc: stable@vger.kernel.org # v6.6+
-Assisted-by: LLM
-Signed-off-by: Michal TOMA <michaltoma@sicoop.com>
+    (__clang_major__ >= 18 || defined(__BPF_FEATURE_LDSX))
+
+The two macros happen to align for clang >= 18 and gcc-bpf -mcpu=v4, but
+a compiler advertising MOVSX without LDSX would fail to build these
+programs rather than skipping them.
+
+[ ... ]
+
+> @@ -1129,6 +1211,68 @@ __naked void sext_kinds_reach_different_values(void)
+>  	: __clobber_all);
+>  }
+>
+> +/*
+> + * The sign-extending counterpart: the filled register is the sign extension of
+> + * the slot's low 32 bits, so a narrowing of those bits arrives sign-extended.
+> + */
+> +SEC("socket")
+> +__success
+> +__naked void sext_fill_narrow_from_wide_spill(void)
+> +{
+> +	asm volatile ("						\
+> +	call %[bpf_get_prandom_u32];				\
+> +	r6 = r0;						\
+> +	call %[bpf_get_prandom_u32];				\
+> +	r0 <<= 32;						\
+> +	r6 |= r0;		/* r6 = full 64-bit unknown */	\
+> +	*(u64 *)(r10 - 8) = r6;	/* slot linked to r6 */		\
+> +	r2 = *(s32 *)(r10 - 8);	/* narrowing sx fill */		\
+> +	if w6 != -1 goto 1f;	/* narrows r6, propagates to r2 */ \
+> +	if r2 == -1 goto 1f;	/* sign-extended, not 0xffffffff */ \
+> +	r0 /= 0;						\
+> +1:								\
+> +	r0 = 0;							\
+> +	exit;							\
+> +"	:
+> +	: __imm(bpf_get_prandom_u32)
+> +	: __clobber_all);
+> +}
+> +
+> +/*
+> + * The same, for the two fill kinds off one slot.
+> + */
+> +SEC("socket")
+> +__failure __msg("div by zero")
+> +__flag(BPF_F_TEST_STATE_FREQ)
+> +__naked void fill_kinds_reach_different_values(void)
+> +{
+> +	asm volatile ("						\
+> +	call %[bpf_get_prandom_u32];				\
+> +	r6 = r0;						\
+> +	r6 &= 1;						\
+> +	call %[bpf_get_prandom_u32];				\
+> +	r8 = r0;						\
+> +	call %[bpf_get_prandom_u32];				\
+> +	r0 <<= 32;						\
+> +	r8 |= r0;						\
+> +	*(u64 *)(r10 - 8) = r8;					\
+> +	if r6 >= 1 goto 2f;					\
+> +	r2 = *(s32 *)(r10 - 8);	/* sign-extending fill */	\
+> +	goto 1f;						\
+> +2:								\
+> +	r2 = *(u32 *)(r10 - 8);	/* zero-extending fill */	\
+> +1:								\
+> +	if w8 != -1 goto 3f;					\
+> +	if r2 == -1 goto 3f;	/* only the sign-extending path */ \
+> +	r0 /= 0;						\
+> +3:								\
+> +	r0 = 0;							\
+> +	exit;							\
+> +"	:
+> +	: __imm(bpf_get_prandom_u32)
+> +	: __clobber_all);
+> +}
+> +
+>  #endif /* CAN_USE_MOVSX */
+>
+>  char _license[] SEC("license") = "GPL";
+
 ---
-Reproducer (results and environment are in the cover letter). Compare
-the 4 MiB udmabuf entries in /sys/kernel/debug/dma_buf/bufinfo before
-and after: without this patch all 8 remain, with count 1 and still
-attached to the vmwgfx device.
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-#!/usr/bin/env python3
-import fcntl, os, struct
-N, SIZE = 8, 4 * 1024 * 1024
-UDMABUF_CREATE     = 0x40187542  # _IOW('u', 0x42, struct udmabuf_create)
-PRIME_FD_TO_HANDLE = 0xC00C642E  # DRM_IOWR(0x2e, struct drm_prime_handle)
-GEM_CLOSE          = 0x40086409  # DRM_IOW(0x09, struct drm_gem_close)
-render = os.open('/dev/dri/renderD128', os.O_RDWR | os.O_CLOEXEC)
-udm = os.open('/dev/udmabuf', os.O_RDWR | os.O_CLOEXEC)
-for i in range(N):
-    mfd = os.memfd_create(f'prime-leak-{i}', os.MFD_ALLOW_SEALING)
-    os.ftruncate(mfd, SIZE)
-    fcntl.fcntl(mfd, fcntl.F_ADD_SEALS, fcntl.F_SEAL_SHRINK)
-    create = bytearray(struct.pack('IIQQ', mfd, 1, 0, SIZE))
-    dfd = fcntl.ioctl(udm, UDMABUF_CREATE, create)
-    ph = bytearray(struct.pack('IIi', 0, 0, dfd))
-    fcntl.ioctl(render, PRIME_FD_TO_HANDLE, ph)
-    handle = struct.unpack('IIi', ph)[0]
-    fcntl.ioctl(render, GEM_CLOSE, bytearray(struct.pack('II', handle, 0)))
-    os.close(dfd)
-    os.close(mfd)
-os.close(udm)
-os.close(render)
-
-The same loop without the PRIME_FD_TO_HANDLE/GEM_CLOSE step frees
-every udmabuf, so the leak is specific to the vmwgfx import.
-
- drivers/gpu/drm/vmwgfx/vmwgfx_bo.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-index 9c7a73c0b..56bc94edc 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-@@ -30,6 +30,7 @@
- #include "vmwgfx_drv.h"
- #include "vmwgfx_resource_priv.h"
- 
-+#include <drm/drm_prime.h>
- #include <drm/ttm/ttm_placement.h>
- 
- /**
-@@ -69,6 +70,8 @@ static void vmw_bo_free(struct ttm_buffer_object *bo)
- 		vmw_surface_unreference(&vbo->dumb_surface);
- 	}
- 	WARN_ON(!RB_EMPTY_ROOT(&vbo->res_tree));
-+	if (drm_gem_is_imported(&vbo->tbo.base))
-+		drm_prime_gem_destroy(&vbo->tbo.base, vbo->tbo.sg);
- 	drm_gem_object_release(&vbo->tbo.base);
- 	WARN_ON(vbo->dirty);
- 	kfree(vbo);
--- 
-2.55.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34506184282
+--===============0318246652260204799==--
