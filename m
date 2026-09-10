@@ -1,182 +1,257 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D33639CD0E
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:52:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D880330D3E8;
+	Thu, 10 Sep 2026 06:54:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789023184; cv=none; b=OTi3tUflV73BLOaiiIwmQVN+vHqUqzkAjnWRtRJtvQcYcr/wDlGikE0mm7qWCxbYP6RdQAP2BTW1v0tAgExtCeS3v/be0uFfdIOv5jtw16iHGJRBKPb2s37OY4d1E0os4dIM/xxw5QMvm7wNcPXMU3akC6HOQ81a26eMOJ+K2LM=
+	t=1789023288; cv=none; b=sVHj9N8sVXjKzUoJlUsL/NKrxJ2aLX+41vK+nw0a2dpZgCXDnxp1FMLVjpx+t8L9lmltFB3UDwu/GsXFuYc7tUl2xs56c6McjnwGrOVcAQk8q5YC/r4vIDVTwn19WPzrT8I32tcHgKyz6Q/tMEgNiWLcNuOvpSa5Sc3YYyMIqAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789023184; c=relaxed/simple;
-	bh=OG8nqpVIiVaUDqsBzlwBd7F+WF7t4IRbr3zHcFb5WRo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MgaaNlYLKRg0IfogFcE7ntbjtj345NjYyDrUlslZOZxBptay62ymqenkTsU6A0aZ8dgC8lyXFctvvspvMIV4+CKBBARVyHqE6itSD4aq75M+diPZF1Myvw7S+avzeYniVcw9zhjupzvg+ilCio21iFxVjF/hjKd4/k1tyb+DhGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ERQBxovg; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789023288; c=relaxed/simple;
+	bh=n9odGZdEAfMv1EitzufznCQRLwi8wplX0Uov18O85ls=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=tsNkBlnVKIh1FS2s2PHarlLAKf46/uCfKnGhalc+zwyY7eUu0Wi1elHsNaPB+9aJJvjalQ9T1lTZuhqexFaUphMmreo+9ojanAWfdViitqMqTbrIbadT7NCGEgzUtxb/pPLHJPMRY5rxmylPLqKZr53TNjGpsmBLWUfE+nArwEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ncr1GlNb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ERQBxovg"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso5218796a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 23:52:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789023178; x=1789627978; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UNeh3lUekONIP+bceTcz/qzQUFIH9IGvapVm9Sqamho=;
-        b=ERQBxovgElPNzqrI4q5qwQ/NQeCCz0ZveLXjgzOJsg4d7n0jiouChI82la5qAJ7T0z
-         U6E0Lq6tRszoQ5JZCTVw2q1DQKImfMwCYXJd0JGWC4SXbUU+SyS30bDesqNWu51dlzG0
-         sUob9Upp1Qz/OvRqbouf+YSd+bn+Ha/oAsvEm+puakpJ9hjP/zr7Myw9FWJbm2Mnpy+q
-         0B5eWS+pNtdrtyjzEU5mElqOZHn+7GDL0XhNimnkoPnMP8zSaoDYqqxatB/JuC+dI3RL
-         SpbutMHh1eVhl14Rj1Bkjnk9Uclydn72Z6iDTwRIuCZvgporHTPtt2JXg83SJpi71mgB
-         Wnig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789023178; x=1789627978;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=UNeh3lUekONIP+bceTcz/qzQUFIH9IGvapVm9Sqamho=;
-        b=KX5d06eBVV32LgTXZZyovjSM/tirA8V1kJ9N2F49/2ImGMwzPm8tStxf4j7sLyqOQ6
-         mLP8fnjVx82asxAc7nf7EwDXhtNmjMJi6TW8LJjLNt6KwMcl2nERu0vnK5XiWe7mODq5
-         5EqtE7k3fEXzBNBolsqBmMu+iUBSFXjcvnGYedU7QDrTk06q8nPMjwRdFrMBvuPJVYFr
-         3MWr9I7bPZqd0/34PqHzDuGxxikJ1V8qrjF84TmMcwkabD6RrTOpYCtGv00oDQwQK/TR
-         PsojrNKyxOV0+Yk2lywEAOBHaR+5skhuzShw9Nk12wNfRVCfHpgD+DzyrpfUrvQ5pX/x
-         vRyA==
-X-Forwarded-Encrypted: i=1; AKwUvBwcKzTU53Lhb0O7e9SgylsLxjKTOnT0FXdTHqsMuNBtXQqnNyq150nVH3soU++zBAThKiQvSduTi8/47zo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nOvyhfrr057uhWHKUAVM4Peyt/iwZoD+1jKMADdfUjgjoJtlr4
-	sEsp19tqKZ3oC5+Z4leX3k1tHxKiuHtHLmsnXYjG5S4iYJrStrPQUckH
-X-Gm-Gg: AYBFou22h5Hnji0I9ZoIi0Q4MJo65i0KIxSx2o5cTNqTx80QRO2PBgzCwWhw15KjxNW
-	veTrySNDnlst5Sw1xe6PO2Hjbpc0mZAJYW9ahoxtyoT6N2hXmMQaC5Nh8zAoZ5PVeGZqLZjivvt
-	Qa8VQYiBTImly5QFTkgp+WmfUAH8na9dbjUE3UnRXj+IQM1w4p3Oj1SBmwplvUAf02OlgNO5D0W
-	WGdDo3o5cJKFql9lseRdN19HrOK39zXQbBLFebOgWJ4sCRvuqvRmWlWPpZLuyzfFncReOpqEjDD
-	qp2FfjDnze8vIsM9aUIcP3p14VgBsP4f2JzPyUC/sHkxqNBQz0eIGMR+ze0TlOjSMWmx7/UQzyJ
-	f65pJW0XbMOGWAwHghvuQtrfAbWihCzBB0VkoNUYro+aNou99LwIKOfG/oNq2/iHJCw7KpMw+H8
-	vGVdelb1yAEQYmQ5qzjXw3AcX9XcEiiqViRRTxen74ISDn7D/TwdWcjYCqaDftR8VkRyjEEVQ10
-	8txcYz/E0QBWs5rM3nV49mV+tBs6wmukkf6DES8TaU=
-X-Received: by 2002:a17:90b:3d92:b0:398:bf7e:b267 with SMTP id 98e67ed59e1d1-39b2614df9dmr61606265a91.2.1789023178292;
-        Wed, 09 Sep 2026 23:52:58 -0700 (PDT)
-Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([129.41.58.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d7e77498csm2694423a91.3.2026.09.09.23.52.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 23:52:57 -0700 (PDT)
-Date: Thu, 10 Sep 2026 12:22:33 +0530
-From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-To: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-Cc: Paul Walmsley <paul.walmsley@sifive.com>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Andy Lutomirski <luto@kernel.org>, 
-	Vincenzo Frascino <vincenzo.frascino@arm.com>, Kees Cook <kees@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Richard Weinberger <richard@nod.at>, 
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>, Johannes Berg <johannes@sipsolutions.net>, 
-	Russell King <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
-	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-	Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>, Gary Guo <gary@garyguo.net>, 
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Christophe Leroy <chleroy@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Nicolas Schier <nsc@kernel.org>, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, linux-mm@kvack.org, 
-	linux-um@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linuxppc-dev@lists.ozlabs.org, loongarch@lists.linux.dev, linux-s390@vger.kernel.org, 
-	linux-mips@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kbuild@vger.kernel.org, 
-	Jan Stancek <jstancek@redhat.com>, Arnaldo Carvalho de Melo <acme@redhat.com>, 
-	Alexandre Ghiti <alexghiti@rivosinc.com>
-Subject: Re: [PATCH v5 12/24] vdso: Add the vdsocheck tool
-Message-ID: <aqJS61DbuUI3xoY3@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
-References: <20260908-vdso-absolute-reloc-v5-0-3a93791af1cf@linutronix.de>
- <20260908-vdso-absolute-reloc-v5-12-3a93791af1cf@linutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ncr1GlNb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E63581F000FF;
+	Thu, 10 Sep 2026 06:54:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789023286;
+	bh=wi5rBy9HhdLl2dwL3tu5ohZQ+FFI73SL/VWlC+ZFZ3E=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ncr1GlNbddpXLnfe78bkT/V5vz9kYB0MyFUCtUyBidyDHnqDQtX2+jpl5lC4mjaBn
+	 Y/4QIpAIjQumHo9uOH30Uls0uJBRjnVkOV1JZQQyoXR936Ff1HvZWzC5N5W/ocP0Ut
+	 xOlMnY4mbcFFIwbeO7cAzcDiRw960Lo6stiHJ8qoE6E2zRn2F8bJcIeKFsVNgAsHfY
+	 v/MkyhNLclCYyiyeBemg3w+bTAPXGAcVm9SBbmgkZPmfhYxZcberB64cLuMsmczm9y
+	 ipI2VyGUCL6pPxfgvJiRKdfzKtZvZd+0G+Mz08eknO2XdJGGab73UWKpXdiolR42Hm
+	 wWl6a8lHwGg7w==
+Subject: Re: [PATCH v2] net: tulip: use mod_timer() in t21142_lnk_change()
+From: netdev-bot+sashiko@kernel.org
+To: linmag7@gmail.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+ linux-parisc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-alpha@vger.kernel.org, stable@vger.kernel.org
+Date: Thu, 10 Sep 2026 06:54:45 +0000
+Message-ID: <178902328547.219967.7621030268252739442@kernel.org>
+In-Reply-To: <20260905225454.439466-1-linmag7@gmail.com>
+References: <20260905225454.439466-1-linmag7@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260908-vdso-absolute-reloc-v5-12-3a93791af1cf@linutronix.de>
 
-On Tue, Sep 08, 2026 at 08:33:46AM +0200, Thomas Wei�schuh wrote:
-> All vDSO code needs to be completely position independent. Symbol
-> references are marked as hidden so the compiler emits PC-relative
-> relocations. However there are cases where the compiler may still
-> emit absolute relocations, as they are valid in regular PIC DSO code.
-> These would be resolved by the linker and will break at runtime.
-> This has been observed on arm64, see commit 0c314cda9325 ("arm64: vdso:
-> Work around invalid absolute relocations from GCC")
-> 
-> Introduce a tool to check for absolute relocations during the build,
-> as the current inline-shell logic is not expressive enough.
-> The check is done on the object files as the relocations will not exist
-> anymore in the final DSO. As there is no extension point for the
-> compilation of each object file, perform the validation in vdso_check.
-> 
-> Signed-off-by: Thomas Wei�schuh <thomas.weissschuh@linutronix.de>
-> ---
->  Makefile                    |  19 ++
->  lib/vdso/Kconfig            |   5 +
->  lib/vdso/Makefile           |   2 +
->  lib/vdso/Makefile.include   |  14 ++
->  lib/vdso/check/.gitignore   |   3 +
->  lib/vdso/check/Makefile     |  34 +++
->  lib/vdso/check/elf.rs       | 498 ++++++++++++++++++++++++++++++++++++++++++++
->  lib/vdso/check/vdsocheck.rs | 154 ++++++++++++++
->  8 files changed, 729 insertions(+)
-> 
-> diff --git a/Makefile b/Makefile
-> index 4ad67b737af7..e6e0dd7818ef 100644
-> --- a/Makefile
-> +++ b/Makefile
-> @@ -1559,6 +1559,25 @@ vdso_install: export INSTALL_FILES = $(vdso-install-y)
->  vdso_install:
->  	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.vdsoinst
->  
-> +# ---------------------------------------------------------------------------
-> +# vDSO check
-> +
-> +ifdef CONFIG_RUST_IS_AVAILABLE
-> +ifdef CONFIG_VDSO_CHECK
-> +
-> +# Build the checker early.
-> +prepare: vdsocheck
-> +
-> +# If the architecture builds the vDSO early, make sure to be earlier.
-> +PHONY += vdso_prepare
-> +vdso_prepare: vdsocheck
-> +
-> +PHONY += vdsocheck
-> +vdsocheck:
-> +	$(Q)$(MAKE) $(build)=lib/vdso/check $@
-> +endif
-> +endif
-> +
->  # ---------------------------------------------------------------------------
->  # Tools
->  
-> diff --git a/lib/vdso/Kconfig b/lib/vdso/Kconfig
-> index 597f5f0f9681..112b42a5aeb1 100644
-> --- a/lib/vdso/Kconfig
-> +++ b/lib/vdso/Kconfig
-> @@ -23,3 +23,8 @@ config VDSO_GETRANDOM
->  	select VDSO_DATASTORE
->  	help
->  	  Selected by architectures that support vDSO getrandom().
-> +
-> +config VDSO_CHECK
-> +	bool
-> +	help
-> +	  Selected for architectures that are supported by the 'vdsocheck' progam.
-	s/progam/program
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-Regards,
-Mukesh
+Critical: 0 · High: 1 (1) · Medium: 0 · Low: 1
+
+- [High] Incomplete fix: the illegal hardirq timer_delete_sync() on the
+  non-TIMER_IRQSAFE media timer is still reachable from the exact call…
+- [Low] Stale synchronization comment left behind by the conversion.
+
+Pre-existing issues:
+- [High] t21142_lnk_change() re-arms tp->timer from hardirq
+  (drivers/net/ethernet/dec/tulip/21142.c:219 and :227) with no…
+
+--
+
+net: tulip: use mod_timer() in t21142_lnk_change()
+
+This replaces the timer_delete_sync() + expires + add_timer() sequences in
+t21142_lnk_change() with a single mod_timer() call, since the function runs
+in hardirq context and tp->timer is not TIMER_IRQSAFE.  The mod_timer() is
+placed before t21142_start_nway() so a pending timer cannot fire while the
+NWay state is being reprogrammed.  The comment in tulip_interrupt() is
+updated to point at pnic2_lnk_change() instead.
+
+> diff --git a/drivers/net/ethernet/dec/tulip/21142.c b/drivers/net/ethernet/dec/tulip/21142.c
+> index 76767dec216da..950abf4a8c14a 100644
+> --- a/drivers/net/ethernet/dec/tulip/21142.c
+> +++ b/drivers/net/ethernet/dec/tulip/21142.c
+> @@ -216,20 +216,16 @@ void t21142_lnk_change(struct net_device *dev, int csr5)
+>  		    (csr12 & 2) == 2) ||
+>  		   (tp->nway && (csr5 & (TPLnkFail)))) {
+>  		/* Link blew? Maybe restart NWay. */
+> -		timer_delete_sync(&tp->timer);
+> +		mod_timer(&tp->timer, RUN_AT(3 * HZ));
+>  		t21142_start_nway(dev);
+> -		tp->timer.expires = RUN_AT(3*HZ);
+> -		add_timer(&tp->timer);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but can this hardirq re-arm make
+the media timer pending again after teardown already cancelled it?
+
+tulip_down() in tulip_core.c does the sync-cancel while chip interrupts and
+the registered IRQ are still live:
+
+	cancel_work_sync(&tp->media_work);
+	napi_disable(&tp->napi);
+	timer_delete_sync(&tp->timer);
+	spin_lock_irqsave(&tp->lock, flags);
+	/* Disable interrupts by clearing the interrupt mask. */
+	iowrite32(0x00000000, ioaddr + CSR7);
+	...
+	timer_setup(&tp->timer, tulip_tbl[tp->chip_id].media_timer, 0);
+
+free_irq() only happens later, in tulip_close().  A TPLnkFail/TPLnkPass
+interrupt taken in that window reaches:
+
+	tulip_interrupt() -> tp->link_change() -> t21142_lnk_change()
+	   -> mod_timer(&tp->timer, RUN_AT(3 * HZ));
+
+and the hook is deliberately called outside tp->lock, so this can run on
+another CPU while tulip_down() holds the lock.  tulip_down() then calls
+timer_setup() on a timer that is pending again, which re-initialises
+timer->entry while the node is still linked into base->vectors[idx].  Can
+that corrupt the timer base's hlist, so a later detach_timer() ->
+__hlist_del() writes through a NULL pprev from the timer softirq?
+
+If the entry instead stays armed, tulip_remove_one() only calls
+unregister_netdev() with no final timer_delete_sync()/timer_shutdown_sync(),
+so tulip_timer() would dereference tp->dev after the netdev and the embedded
+tulip_private are gone.
+
+The old code had the same shape (sync-delete then add_timer() from hardirq),
+so this is not new, but the conversion makes the post-teardown re-arm silent
+where add_timer() would at least have tripped WARN_ON_ONCE(timer_pending()).
+Would it make sense to mask CSR7 and free the IRQ before the timer sync (or
+switch tulip_down() to timer_shutdown_sync()), or to guard the hardirq
+re-arm?
+
+There is a symmetric case on the way up: tulip_up() enables CSR7 interrupts
+before the unlocked pair
+
+	tp->timer.expires = RUN_AT(next_tick);
+	add_timer(&tp->timer);
+
+so a concurrent hardirq mod_timer() races that plain store, and add_timer()
+can then hit its pending warning and leave the wrong deadline.
+
+[Severity: Low]
+With both add_timer() calls here converted, does the comment in
+t21142_media_task() still describe an existing call site?
+
+drivers/net/ethernet/dec/tulip/21142.c:t21142_media_task() {
+	...
+	/* mod_timer synchronizes us with potential add_timer calls
+	 * from interrupts.
+	 */
+	mod_timer(&tp->timer, RUN_AT(next_tick));
+}
+
+tulip_media_task() in timer.c carries the identical wording.  tulip_tbl[]
+gives t21142_media_task to DC21142/43 and tulip_media_task to DC21140,
+AX88140, I21145, DM910X and RS7112; of those only DC21142/43 and I21145 have
+HAS_NWAY, so tp->link_change is t21142_lnk_change, whose two add_timer()
+calls this patch removed.  The remaining add_timer(&tp->timer) is in
+tulip_up(), which is process context, and the interrupt-path re-arms in
+interrupt.c already use mod_timer().
+
+The analogous comment in tulip_interrupt() was updated in this patch, so
+should these two say mod_timer calls from interrupts as well?
+
+>  	} else if (dev->if_port == 3  ||  dev->if_port == 5) {
+>  		if (tulip_debug > 1)
+>  			dev_info(&dev->dev, "21143 %s link beat %s\n",
+>  				 medianame[dev->if_port],
+>  				 (csr12 & 2) ? "failed" : "good");
+>  		if ((csr12 & 2)  &&  ! tp->medialock) {
+> -			timer_delete_sync(&tp->timer);
+> +			mod_timer(&tp->timer, RUN_AT(3 * HZ));
+>  			t21142_start_nway(dev);
+> -			tp->timer.expires = RUN_AT(3*HZ);
+> -			add_timer(&tp->timer);
+>  		} else if (dev->if_port == 5)
+>  			iowrite32(csr14 & ~0x080, ioaddr + CSR14);
+>  	} else if (dev->if_port == 0  ||  dev->if_port == 4) {
+
+> diff --git a/drivers/net/ethernet/dec/tulip/interrupt.c b/drivers/net/ethernet/dec/tulip/interrupt.c
+> index 0a12cb9b3ba78..6ed4b68ad86c2 100644
+> --- a/drivers/net/ethernet/dec/tulip/interrupt.c
+> +++ b/drivers/net/ethernet/dec/tulip/interrupt.c
+> @@ -698,9 +698,8 @@ irqreturn_t tulip_interrupt(int irq, void *dev_instance)
+>  				dev->stats.rx_errors++;
+>  				tulip_start_rxtx(tp);
+>  			}
+> -			/*
+> -			 * NB: t21142_lnk_change() does a timer_delete_sync(), so be careful
+> -			 * if this call is ever done under the spinlock
+> +			/* NB: pnic2_lnk_change() does a timer_delete_sync(), so be careful
+> +			 * if this call is ever done under the spinlock.
+>  			 */
+>  			if (csr5 & (TPLnkPass | TPLnkFail | 0x08000000)) {
+>  				if (tp->link_change)
+
+[Severity: High]
+Since the same hazard is still reachable through this exact hook, would it
+be better to convert pnic2_lnk_change() in the same patch rather than
+document it in the comment?
+
+tulip_init_one() installs both handlers into the one hook:
+
+drivers/net/ethernet/dec/tulip/tulip_core.c:tulip_init_one() {
+	...
+	if (tp->chip_id == PNIC2)
+		tp->link_change = pnic2_lnk_change;
+	else if (tp->flags & HAS_NWAY)
+		tp->link_change = t21142_lnk_change;
+	...
+	timer_setup(&tp->timer, tulip_tbl[tp->chip_id].media_timer, 0);
+}
+
+The timer is set up with flags 0, i.e. not TIMER_IRQSAFE, and
+pnic2_lnk_change() still has three copies of the old sequence:
+
+drivers/net/ethernet/dec/tulip/pnic2.c:pnic2_lnk_change() {
+	...
+		timer_delete_sync(&tp->timer);
+		pnic2_start_nway(dev);
+		tp->timer.expires = RUN_AT(3*HZ);
+		add_timer(&tp->timer);
+	...
+}
+
+On a PNIC-II board a link-state interrupt therefore produces the same
+WARN_ON(in_hardirq() && !(timer->flags & TIMER_IRQSAFE)) splat this patch
+fixes for the 21142.
+
+Beyond the warning, __timer_delete_sync() then spins:
+
+kernel/time/timer.c:__timer_delete_sync() {
+	do {
+		ret = __try_to_del_timer_sync(timer, shutdown);
+
+		if (unlikely(ret < 0)) {
+			del_timer_wait_running(timer);
+			cpu_relax();
+		}
+	} while (ret < 0);
+}
+
+del_timer_wait_running() is a no-op without CONFIG_PREEMPT_RT, so if the
+tulip hardirq lands on the CPU whose timer softirq is currently in
+pnic2_timer(), can that callback ever complete, or does the CPU spin
+indefinitely?
+
+The commit message says:
+
+  "pnic2_lnk_change() still calls timer_delete_sync() from the same hardirq
+  path, but its timer callback re-arms the timer directly with mod_timer(),
+  so fixing that path requires separate consideration of the
+  callback/reschedule race."
+
+pnic2_timer() re-arming with mod_timer() looks like the same situation as
+t21142_media_task()/tulip_media_task(), whose overwrite race the commit
+message already accepts for the converted sites.  What makes the PNIC2 case
+different?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260905225454.439466-1-linmag7%40gmail.com
