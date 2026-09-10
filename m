@@ -1,95 +1,98 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4893E3CB8F5;
-	Thu, 10 Sep 2026 09:24:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79DE3C277B;
+	Thu, 10 Sep 2026 09:25:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789032272; cv=none; b=FWIlnNQvgF9hosxS/89MiYa+gkWG3HaVu70NHd3qdJoSif+xfOhrfbCsRwOpdHlwxUdvpDShLoDR+peXSvx4FtvcxxMAK5VghfVqLXRf0nuG26Ul7BQjaIyLcgyV6/5L3Yq4XBMVtJPwSAAvo2AR2QghjPMw3VUkhiXZljZkmLU=
+	t=1789032323; cv=none; b=jZUjgTApAcblAA01lJGaIG6yjdGI++qGBbf1/ATysrphO6aTca0n9ssMwH88EVrAYIl34jlZsSd3CFeUgbIK6FgGcIXSCNkGrRI6VAGQ0ssj1SsGJRFg1/XHA4rxEQkDJLl9ybFxc+htN2SxHXkuSFzrSMTRGUr7deEoKIul2Rc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789032272; c=relaxed/simple;
-	bh=RJydT2Dk8RQ1sONS+iE0RGlzWiAtuS02wqiSMmED05k=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PCgXcdGpIZ0U9xz2zPdGvAkBuPcgQOD/jT7o/uePcluZmCeQ6aXMjT1u6avDd6F5zDt1hoHMWAnAyIBvgc81ttxNZ8f0v029rxOlLbAnFCRMD8uICFVJyuGZeNE/dfZPrXd/PKflAfA4oQG1GHJ8g2d8ghj1yGjt1cQQtGnENTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=YyUyP2Sj; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1789032323; c=relaxed/simple;
+	bh=8t4lKEKxTZHSEzt8frEyi4f93NxP9d5Ri4mE6FFt/xo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L9Gt8mXaMFa7p9B4bMGOwSBUU1gVndi6Qs4TJzrX1BVsUYP1qjBD5KeAut20Klo+8/wrflrvIfQqTLHlPUyk9uYkD3Xh0SSedM0pyo8SyXPJxlWt2vs9PVxcYUsRyPAl6Hr6OWBqtG01kVoYB1HU5tKeCe2SfsGY1EtqnCFixY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dTgfRpPq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="YyUyP2Sj"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4d445a41d;
-	Thu, 10 Sep 2026 17:24:13 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Nilesh Javali <njavali@marvell.com>,
-	Manish Rangankar <mrangankar@marvell.com>,
-	GR-QLogic-Storage-Upstream@marvell.com,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>
-Cc: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: qedi: Initialize callback state before registration
-Date: Thu, 10 Sep 2026 17:24:05 +0800
-Message-Id: <20260910092405.1300129-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dTgfRpPq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22CE11F000FF;
+	Thu, 10 Sep 2026 09:25:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789032317;
+	bh=zzNaTHn+2bmu1Tx1GyGTGTveKhyOI1exEBvNDmdJDq0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dTgfRpPqQHHzf3bcBm0QPiXc2X4dnW4S+j6tQc70YGAcOw8WYP9xgixgHNb2LjH4C
+	 P/gQgP+pf94wh31+vF8T9l24GxbEjonDNeBY8K++4zM2ekSennagIiGNZwZ+lwcjoX
+	 1g4HnpcLp3sXM+Z4Dmbihj4JOIB23ieJSYip6xH1OM4SLM3Otz3VN/Mj+OfZRIllCm
+	 bpdNzXaFV1bdH7hbyjH6c9PUBrn5Q4RwGHrINnZv/me9Pr6U1iX58441xlhDbfDFrR
+	 N5ApMHjroNgbwfhJmPFpc7Hi4sdgta3FyIBxVge3sLuUkK5VM3rHguikfbcWC6EaG5
+	 3m72zJL/hYb1g==
+Date: Thu, 10 Sep 2026 10:25:13 +0100
+From: Lee Jones <lee@kernel.org>
+To: "hpp.iscas" <hppiscas@163.com>
+Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Aaron Kling <webgeek1234@gmail.com>
+Subject: Re: [PATCH] mfd: max77620: publish I2C and OF module aliases
+Message-ID: <20260910092513.GM2133376@google.com>
+References: <20260905134051.66545-1-hppiscas@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa08aa1c9ac03a1kunm63a873ca18fb04
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQ0NMVkJPSUwaTx1DGB9OTFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=YyUyP2Sjuj55u+kZWrbQOQNVoVEk/1XVBn2fLlOH0xia178XJLGclmQpIc52Rb5RQ+9CW1RduRWYUHF6fjsxBQ77Rit7XwDSrvHVV160gRIGN/14TpEL9uj5UQI4JJPzGTv3d6Ctx3v49OO7wZhxLXyu7p77mTKQm31lfQGHar4=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=2QLnkcGLYs1KfcKJLaEcqelOoy7bY8ls7NzfuQq15P8=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260905134051.66545-1-hppiscas@163.com>
 
-qedi_get_protocol_tlv_data() can be called asynchronously by QED after
-qedi_ops->register_ops(). It takes stats_lock and reads ll2_mtu, but
-__qedi_probe() currently registers the callback before initializing the
-mutex and assigning the default MTU on the normal probe path.
+On Sat, 05 Sep 2026, hpp.iscas wrote:
 
-Initialize the callback-visible state before registering qedi_cb_ops. Keep
-the recovery path from reinitializing state because it reuses the existing
-qedi context.
+> MFD_MAX77620 became tristate without publishing any module alias for the
+> I2C driver. Device Tree I2C clients emit OF modaliases, while legacy
+> board-info clients use the existing I2C IDs, so both supported
+> enumeration paths need module metadata.
+> 
+> Publish the I2C table and add an OF table for the three documented
+> compatibles. Keep i2c_client_get_device_id() as the source of chip data
+> and leave MFD child registration unchanged.
+> 
+> Fixes: 0d084ee9ba87 ("mfd: max77620: Allow building as a module")
+> Signed-off-by: hpp.iscas <hppiscas@163.com>
 
-Fixes: 3cc5746e5ad7 ("scsi: qedi: Initialize the stats mutex lock")
-Cc: stable@vger.kernel.org
+Real name please.
 
-Assisted-by: LLM Codex
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/scsi/qedi/qedi_main.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+> ---
+>  drivers/mfd/max77620.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/drivers/mfd/max77620.c b/drivers/mfd/max77620.c
+> index c4f89a9..6a624e6 100644
+> --- a/drivers/mfd/max77620.c
+> +++ b/drivers/mfd/max77620.c
+> @@ -699,6 +699,15 @@ static const struct i2c_device_id max77620_id[] = {
+>  	{"max77663", MAX77663},
+>  	{},
+>  };
+> +MODULE_DEVICE_TABLE(i2c, max77620_id);
+> +
+> +static const struct of_device_id max77620_of_match[] = {
+> +	{ .compatible = "maxim,max77620" },
+> +	{ .compatible = "maxim,max20024" },
+> +	{ .compatible = "maxim,max77663" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, max77620_of_match);
+>  
+>  static DEFINE_SIMPLE_DEV_PM_OPS(max77620_pm_ops,
+>  				max77620_i2c_suspend, max77620_i2c_resume);
+> @@ -706,6 +715,7 @@ static DEFINE_SIMPLE_DEV_PM_OPS(max77620_pm_ops,
+>  static struct i2c_driver max77620_driver = {
+>  	.driver = {
+>  		.name = "max77620",
+> +		.of_match_table = max77620_of_match,
+>  		.pm = pm_sleep_ptr(&max77620_pm_ops),
+>  	},
+>  	.probe = max77620_probe,
+> 
 
-diff --git a/drivers/scsi/qedi/qedi_main.c b/drivers/scsi/qedi/qedi_main.c
-index 227ff7bd1..f394fcbb9 100644
---- a/drivers/scsi/qedi/qedi_main.c
-+++ b/drivers/scsi/qedi/qedi_main.c
-@@ -2652,8 +2652,6 @@ static int __qedi_probe(struct pci_dev *pdev, int mode)
- 	snprintf(host_buf, sizeof(host_buf), "host_%d", qedi->shost->host_no);
- 	qedi_ops->common->set_name(qedi->cdev, host_buf);
- 
--	qedi_ops->register_ops(qedi->cdev, &qedi_cb_ops, qedi);
--
- 	memset(&params, 0, sizeof(params));
- 	params.mtu = DEF_PATH_MTU + IPV6_HDR_LEN + TCP_HDR_LEN;
- 	qedi->ll2_mtu = DEF_PATH_MTU;
-@@ -2670,6 +2668,7 @@ static int __qedi_probe(struct pci_dev *pdev, int mode)
- 		spin_lock_init(&qedi->task_idx_lock);
- 		mutex_init(&qedi->stats_lock);
- 	}
-+	qedi_ops->register_ops(qedi->cdev, &qedi_cb_ops, qedi);
- 	qedi_ops->ll2->register_cb_ops(qedi->cdev, &qedi_ll2_cb_ops, qedi);
- 	qedi_ops->ll2->start(qedi->cdev, &params);
- 
 -- 
-2.34.1
-
+Lee Jones
