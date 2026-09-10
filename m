@@ -1,264 +1,230 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33CAC3D6663
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:35:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32B5A3D5668;
+	Thu, 10 Sep 2026 06:35:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789022106; cv=none; b=ApsJZ1p6sxlojvJU0GxPdciKryTXqPXu+inK8fy75IKXVXHvIqzXu3JLzBTbX5qMRUvjp8KqPVt+upPJdG8E3mXT6cyahN5xVNazZTEo3JyI33Ceaxp06SNkDam8uNOgGErgfqPbo8hS5R3I/JFe0cwkUJMIlj5eVBx0pad/smo=
+	t=1789022113; cv=none; b=ofpGMZVO5V9FuUPk6bgHMTFYqe3OiJdnsLiRBFFRbTEipPbeRabLWuDZxEGKF53s1wh6UHXGXABUkCGF+SckOIRSAi1CvWsqvDQQHRD/2YPwLDX/RPrAQg/5mDPUXIKlkK0DGCy9hbZ2Ru4aILuCZhaLQLwSlOW3I+tVbdnf1b4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789022106; c=relaxed/simple;
-	bh=nEewE9vNn2GKeus40xjVARF+cnc+CRqiCdYnkkQKlwc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oo0hmkJl4qCp4L0Mkfy7J5Zf0nbV0VgbYwv7zd642ECdvQ2frihTV+PXhMaaW5cyb+XpZbXNvlpQ7iaBPRe26aU60nd70IYcaco7wPd1BGilpMp4MSEjWMwWyukesBpronyYqA1nLLEnZcC46ZjUxk9wScnzcQiZUtwGEVaZpQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MCYAiiWE; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789022113; c=relaxed/simple;
+	bh=6dO5xsTdCHe+Rlre4CNhPM4AceKxp6LoUHgY4xoauWg=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=e5UjK6HaGtQUagH7pxcUQmKBY7mup+yiV82lID+y/Udpof0NAvYxexDGYZl3MHxijDx5framiqOUcLKD07Ug1BxITb4+uLgcmFHz3oCqiHQGqaSkyB7f/uQxx+zwKD7lZWJhjpLsAdCRzYbuIEYU4+l41dD/Khb19Dl++Siy4I0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TwsrRT5c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MCYAiiWE"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso96688605e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 23:35:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789022102; x=1789626902; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xU/TVU9R6QqVQBU8DMj4Dr025QCTEz1Y5w5z0voxEUA=;
-        b=MCYAiiWELRscgsudVA4df+1wbbJaS9lpxoqjYTEc0xmzbaDHn1Q4raWAfuo2QTcba+
-         Tq/emfS1eitUgTTcybOiPfT69Lvq86b63UNRKED3TUtlGNgsaYyDeynEYh/3zZkL5PjH
-         1Vk9FQuApyhD8XCqjTxfhvfmhKzbl3Fq0ZzJpxgsvuR1CRrwzFUkUZShm3Oz0xJQzDdO
-         XwWEuqkxM3oHRieIrfwE/FSnfVmB75e/tOQI4THrhibjdZB5iXa53pT+vJlUz3NElQNd
-         60tCtXNZBV4tolx2XpKZVQm6lXXARnE1ijTb1Y0uTdWWNCPQ3CUVDnR5Gc0bA3WEh88n
-         Bu2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789022102; x=1789626902;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xU/TVU9R6QqVQBU8DMj4Dr025QCTEz1Y5w5z0voxEUA=;
-        b=Jvx8Cf47ggEMCrtdiAvFszFv2yIpdMb9bC7Rav5xnDUmX5ZeN6j87BWmyOMrC+Q5eb
-         6lyXGuoYXFZuj3f4xYRM1f+yoW4tdMcMPpI3TysUU5j9NzmsNFz1MzAqdoxxNakh4IRw
-         rzvddQhfWMF+EN0Rj6ggtTZArPYmVvJrBBQH8y6+MXgUHUUsodT7sjTbJCrvjwGZ+hFC
-         rwlzG5rRY/s1BppkcpGm00utArmZToVonrTJiaIW6s+1uJDZU9U1QOjh/h5LgRByUhQM
-         4nuHeJ4ICaBERU2apaBClB51w7c3YroO69KnEb/FuG7W32GTrsDF5gjdWAg7ZE3PCO1L
-         LUmw==
-X-Forwarded-Encrypted: i=1; AKwUvByhPqQ/N5oyN6Csj9Fa6znAJlRQ4HsiaRdrsgrUhCt8QPLpJg+6tRdfKKr+/rveBIi65KoHvnCS3Dh1cnM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmYrcsdqAsXDvb6a1a2JqY+xN2AFHV/vSYfI/kUiLEjWiZH85a
-	FRPM0tNd9DnjeRPKkctKsIQY15FI7tOsmAN/A3Vg99ilHTxRsfDLCqG7
-X-Gm-Gg: AYBFou1nKdbn0BUaK9XFO+5UOyyCXcBBxUNpMKUuYy9XhEx29vP7Fx+I94shixR04Xh
-	GppCQub6sXEpouVfg6CcVS5ZV/BqZJOefHVTM65WfS3AryibtZqPOaiAh6a/KjbgVgoYdZ8rhhx
-	jq4zP7G2ZYd9e0Y81XiVNSKCoLxpgcEsSAfN0BEWvTh0iyUeLL0PfNJmM7rVsYI6xEr9AQp/7WY
-	yh11Hi5ME4goKVtPh3Jhkac7QgtmeYFvzElsNeh2ZACegYjPJV06PQsyAsottxQ983KAzmh0P2L
-	CLiZWSKZUK/pZXAuDEMERo47CA4pbc97X8UhC7CEe+dMOgVlqJtV0mvcrWOd+YOMLxfVY2JY1dI
-	hq5lJz5UBzn3CPGfCkkhcd1dkVLC2NxIMk2PEGrxEQl0VtoUg4YsAwRcIhZKtcYuRD08b9jG3xH
-	UcRU5jkyx92hOpMptuGVNAZXh7QDO9y8t2NdHcYYTg0XA7zC7P9Eg8w7inoVeNbLgdvZUQ4P6J/
-	VSkYybMcNPrPkr4/R/b8vLw6+2NVPOMngI09EZJQMs=
-X-Received: by 2002:a05:600c:8b05:b0:49c:edd2:855 with SMTP id 5b1f17b1804b1-49cf823c411mr418633405e9.6.1789022102030;
-        Wed, 09 Sep 2026 23:35:02 -0700 (PDT)
-Received: from localhost.localdomain (mob-31-26-103-238.net.vodafone.it. [31.26.103.238])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49e2212193esm2595255e9.1.2026.09.09.23.34.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 23:35:01 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Sumit Gupta <sumitg@nvidia.com>,
-	Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
-	Beata Michalska <beata.michalska@arm.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	driver-core@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	jonathan.cameron@oss.qualcomm.com,
-	sibi.sankar@oss.qualcomm.com
-Subject: [PATCH v3 2/2] cpufreq: update capacity_freq_ref when the boost state changes
-Date: Thu, 10 Sep 2026 08:34:40 +0200
-Message-ID: <20260910063440.4677-3-okerixx@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910063440.4677-1-okerixx@gmail.com>
-References: <20260910063440.4677-1-okerixx@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TwsrRT5c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25BA31F000FF;
+	Thu, 10 Sep 2026 06:35:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789022111;
+	bh=GUjaWT/4AjkCL1zxMcOsSiItM4siXuY2MNJ3WGRtXCc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=TwsrRT5clN7yiQvGw0VX9PoKOJCnnYqn+SxBoPk2Zn3ftcXTOYUPC3j5h3RhldvnK
+	 G7qoWR5k8IoEaBd5zvRfq26vNWeG6X27Zx55QaR4XQ2iJI9BiXdbwxmVovImXsVLOP
+	 QMG2hF2trXWmQApWxGw1Mh+60agA3jwVmUG+r9MxDtCUfYG3ShsXpZA5Qg2FMBb7aM
+	 M3b1QeereacBZZpDibA9CmwyQSa2CskskEMzBC7AEg8Ztdui6/gds/0TZwTn3v877W
+	 0TJUXTV7PD6hcu0UaXCTGjdVoPAJVV2zvYAL3xVtMlTi23YNLHl36nP9L6fveO5qv+
+	 szdq043E1CcnA==
+Subject: Re: [PATCH] tcp: validate old ACKs before fast path data processing
+From: netdev-bot+sashiko@kernel.org
+To: inbal.lipshtat@mail.huji.ac.il
+Cc: edumazet@google.com, ncardwell@google.com, kuniyu@google.com,
+ netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, linux-kernel@vger.kernel.org,
+ amit.klein@mail.huji.ac.il, tamir.shahar1@mail.huji.ac.il
+Date: Thu, 10 Sep 2026 06:35:10 +0000
+Message-ID: <178902211070.219967.15947434635255374738@kernel.org>
+In-Reply-To: <20260906123151.1391349-1-inbal.lipshtat@mail.huji.ac.il>
+References: <20260906123151.1391349-1-inbal.lipshtat@mail.huji.ac.il>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-capacity_freq_ref is latched from policy->cpuinfo.max_freq by
-init_cpu_capacity_callback() on CPUFREQ_CREATE_POLICY, and never
-updated afterwards.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider:
 
-cpufreq_frequency_table_cpuinfo() excludes CPUFREQ_BOOST_FREQ entries
-while boost is disabled, so on a system that boots with boost off the
-latched value is the non-boost maximum.  Enabling boost later raises
-policy->cpuinfo.max_freq but leaves capacity_freq_ref behind.
+Critical: 0 · High: 0 · Medium: 1 · Low: 3
 
-Two things then go wrong on arm64, where the AMU drives frequency
-invariance.  amu_scale_freq_tick() caps the computed scale at
-SCHED_CAPACITY_SCALE, so a CPU running above capacity_freq_ref
-saturates at 1024: the scheduler cannot tell a boosted CPU from one at
-the sustained maximum, and utilisation is underestimated.  And
-arch_freq_get_on_cpu(), which reverses that computation, cannot report
-more than capacity_freq_ref, so cpuinfo_avg_freq is pinned to the
-non-boost maximum.
+- [Medium] Incomplete RFC5961 enforcement: the new ACK-acceptability
+  check is only added to the data-carrying fast-path branch of…
+- [Low] The patch fixes a remotely triggerable, security-relevant defect
+  (the ESTABLISHED fast path accepting payload from a segment whose…
+- [Low] No in-tree test covers the newly added enforcement.
+- [Low] The rationale comment for the tp->bytes_acked term is lost.
 
-On a Snapdragon X2 Elite (Glymur) laptop with a 4032000 kHz sustained
-and a 4723200 kHz boost OPP, cpuinfo_avg_freq reads exactly 4032000
-while the CPU runs at 4723200; a fixed workload completes in 1.72 s
-rather than the 2.01 s that frequency would imply.
+--
 
-Factor the update out of init_cpu_capacity_callback() into
-topology_update_freq_ref() and call it from policy_set_boost(), which
-is the common path for the global boost knob, the per-policy one, and
-the CPU online path.
+tcp: validate old ACKs before fast path data processing
 
-Signed-off-by: Oleg Keri <okerixx@gmail.com>
----
- arch/arm/include/asm/topology.h   |  1 +
- arch/arm64/include/asm/topology.h |  1 +
- arch/riscv/include/asm/topology.h |  1 +
- drivers/base/arch_topology.c      | 19 +++++++++++++------
- drivers/cpufreq/cpufreq.c         |  2 ++
- include/linux/arch_topology.h     |  1 +
- include/linux/cpufreq.h           |  7 +++++++
- 7 files changed, 26 insertions(+), 6 deletions(-)
+This adds an RFC5961 5.2 SEG.ACK acceptability test to the ESTABLISHED
+fast path in tcp_rcv_established(), before the segment payload is queued,
+sending a challenge ACK and dropping the segment when the ACK is too old.
+The existing test in tcp_ack() is factored into a new tcp_ack_too_old()
+helper shared by both call sites.
 
-diff --git a/arch/arm/include/asm/topology.h b/arch/arm/include/asm/topology.h
-index ad36b6570067..a776a79885ee 100644
---- a/arch/arm/include/asm/topology.h
-+++ b/arch/arm/include/asm/topology.h
-@@ -11,6 +11,7 @@
- #ifndef CONFIG_BL_SWITCHER
- /* Replace task scheduler's default frequency-invariant accounting */
- #define arch_set_freq_scale topology_set_freq_scale
-+#define arch_update_freq_ref topology_update_freq_ref
- #define arch_scale_freq_capacity topology_get_freq_scale
- #define arch_scale_freq_invariant topology_scale_freq_invariant
- #define arch_scale_freq_ref topology_get_freq_ref
-diff --git a/arch/arm64/include/asm/topology.h b/arch/arm64/include/asm/topology.h
-index b9eaf4ad7085..a4b96a7ee4a5 100644
---- a/arch/arm64/include/asm/topology.h
-+++ b/arch/arm64/include/asm/topology.h
-@@ -22,6 +22,7 @@ void update_freq_counters_refs(void);
- /* Replace task scheduler's default frequency-invariant accounting */
- #define arch_scale_freq_tick topology_scale_freq_tick
- #define arch_set_freq_scale topology_set_freq_scale
-+#define arch_update_freq_ref topology_update_freq_ref
- #define arch_scale_freq_capacity topology_get_freq_scale
- #define arch_scale_freq_invariant topology_scale_freq_invariant
- #define arch_scale_freq_ref topology_get_freq_ref
-diff --git a/arch/riscv/include/asm/topology.h b/arch/riscv/include/asm/topology.h
-index fe1a8bf6902d..a363d72c174f 100644
---- a/arch/riscv/include/asm/topology.h
-+++ b/arch/riscv/include/asm/topology.h
-@@ -11,6 +11,7 @@
- /* Replace task scheduler's default frequency-invariant accounting */
- #define arch_scale_freq_tick		topology_scale_freq_tick
- #define arch_set_freq_scale		topology_set_freq_scale
-+#define arch_update_freq_ref		topology_update_freq_ref
- #define arch_scale_freq_capacity	topology_get_freq_scale
- #define arch_scale_freq_invariant	topology_scale_freq_invariant
- #define arch_scale_freq_ref		topology_get_freq_ref
-diff --git a/drivers/base/arch_topology.c b/drivers/base/arch_topology.c
-index 8c5e47c28d9a..79eb1681065d 100644
---- a/drivers/base/arch_topology.c
-+++ b/drivers/base/arch_topology.c
-@@ -317,6 +317,18 @@ bool __init topology_parse_cpu_capacity(struct device_node *cpu_node, int cpu)
- 	return !ret;
- }
- 
-+void topology_update_freq_ref(const struct cpumask *cpus, unsigned int max_freq)
-+{
-+	int cpu;
-+
-+	for_each_cpu(cpu, cpus) {
-+		per_cpu(capacity_freq_ref, cpu) = max_freq;
-+		freq_inv_set_max_ratio(cpu,
-+				       per_cpu(capacity_freq_ref, cpu) * HZ_PER_KHZ);
-+	}
-+}
-+EXPORT_SYMBOL_GPL(topology_update_freq_ref);
-+
- void __weak freq_inv_set_max_ratio(int cpu, u64 max_rate)
- {
- }
-@@ -392,7 +404,6 @@ init_cpu_capacity_callback(struct notifier_block *nb,
- 			   void *data)
- {
- 	struct cpufreq_policy *policy = data;
--	int cpu;
- 
- 	if (val != CPUFREQ_CREATE_POLICY)
- 		return 0;
-@@ -403,11 +414,7 @@ init_cpu_capacity_callback(struct notifier_block *nb,
- 
- 	cpumask_andnot(cpus_to_visit, cpus_to_visit, policy->related_cpus);
- 
--	for_each_cpu(cpu, policy->related_cpus) {
--		per_cpu(capacity_freq_ref, cpu) = policy->cpuinfo.max_freq;
--		freq_inv_set_max_ratio(cpu,
--				       per_cpu(capacity_freq_ref, cpu) * HZ_PER_KHZ);
--	}
-+	topology_update_freq_ref(policy->related_cpus, policy->cpuinfo.max_freq);
- 
- 	if (cpumask_empty(cpus_to_visit)) {
- 		if (raw_capacity) {
-diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index 96515880b4ac..a70805a1d9d3 100644
---- a/drivers/cpufreq/cpufreq.c
-+++ b/drivers/cpufreq/cpufreq.c
-@@ -594,6 +594,8 @@ static int policy_set_boost(struct cpufreq_policy *policy, bool enable)
- 		return ret;
- 	}
- 
-+	arch_update_freq_ref(policy->related_cpus, policy->cpuinfo.max_freq);
-+
- 	return 0;
- }
- 
-diff --git a/include/linux/arch_topology.h b/include/linux/arch_topology.h
-index ebd7f8935f96..4974f5e1a7fe 100644
---- a/include/linux/arch_topology.h
-+++ b/include/linux/arch_topology.h
-@@ -31,6 +31,7 @@ static inline unsigned long topology_get_freq_scale(int cpu)
- 
- void topology_set_freq_scale(const struct cpumask *cpus, unsigned long cur_freq,
- 			     unsigned long max_freq);
-+void topology_update_freq_ref(const struct cpumask *cpus, unsigned int max_freq);
- bool topology_scale_freq_invariant(void);
- 
- enum scale_freq_source {
-diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
-index 35ce665edfd8..5b904e13eb21 100644
---- a/include/linux/cpufreq.h
-+++ b/include/linux/cpufreq.h
-@@ -1235,6 +1235,13 @@ void arch_set_freq_scale(const struct cpumask *cpus,
- }
- #endif
- 
-+#ifndef arch_update_freq_ref
-+static __always_inline
-+void arch_update_freq_ref(const struct cpumask *cpus, unsigned int max_freq)
-+{
-+}
-+#endif
-+
- /* the following are really really optional */
- extern struct freq_attr cpufreq_freq_attr_scaling_available_freqs;
- extern struct freq_attr cpufreq_freq_attr_scaling_boost_freqs;
+Link: https://www.cve.org/CVERecord?id=CVE-2023-52881
+
+A few questions below.
+
+[Severity: Low]
+The changelog names both CVE-2023-52881 and commit 3d501dd326fb1c7 ("tcp:
+do not accept ACK of bytes we never sent"), but the tag block has no
+Fixes: line and no stable routing indication.
+
+Should this carry a Fixes: tag so stable selection and CVE correlation
+have something to key on?  The candidates implied by the changelog are the
+original RFC5961 5.2 mitigation (which only touched tcp_ack()) and/or
+3d501dd326fb1c7.
+
+[Severity: Low]
+The changelog carries a working reproducer, but nothing in-tree exercises
+the new hunk.  The existing script
+tools/testing/selftests/net/packetdrill/tcp_rfc5961_ack-out-of-window.pkt
+injects only zero-length probes for both edges:
+
+  +0 < . 1:1(0) ack 2 win 1000
+  ...
+  +0 < . 1:1(0) ack 1000 win 1000
+
+Those take the len == tcp_header_len pure-ACK branch (or the slow path),
+so that test passes identically with and without this patch.
+
+Could the packetdrill script from the changelog (500-byte priming segment
+followed by the 1000-byte segment with ack 2794967397) be added next to
+the existing rfc5961 case, so a later refactor of the fast path cannot
+silently drop the check?
+
+> diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
+> index 0f60a1dbf9274..6ebf72cd9a755 100644
+> --- a/net/ipv4/tcp_input.c
+> +++ b/net/ipv4/tcp_input.c
+> @@ -4272,6 +4272,17 @@ static void tcp_rack_update_reo_wnd(struct sock *sk, struct rate_sample *rs)
+>  	}
+>  }
+>  
+> +/* Validates that the ACK is older than the acceptable historical ACK window*/
+> +static inline bool tcp_ack_too_old(const struct tcp_sock *tp, u32 ack,
+> +				   u32 snd_una)
+> +{
+> +	u32 max_window;
+> +
+> +	max_window = min_t(u64, tp->max_window, tp->bytes_acked);
+> +
+> +	return before(ack, snd_una - max_window);
+> +}
+> +
+
+[Severity: Low]
+The helper comment describes a plain MAX.SND.WND window, but the code also
+bounds by tp->bytes_acked, which is strictly tighter than RFC5961.  The
+comment explaining that term is deleted in the hunk below and not
+reproduced here:
+
+-		/* do not accept ACK for bytes we never sent. */
+-		max_window = min_t(u64, tp->max_window, tp->bytes_acked);
+
+Since the helper now has two call sites, could the "do not accept ACK for
+bytes we never sent" rationale be moved into tcp_ack_too_old() alongside
+the RFC5961 note?
+
+>  /* This routine deals with incoming acks, but not outgoing ones. */
+>  static int tcp_ack(struct sock *sk, const struct sk_buff *skb, int flag)
+>  {
+> @@ -4303,12 +4314,8 @@ static int tcp_ack(struct sock *sk, const struct sk_buff *skb, int flag)
+>  	 * then we can probably ignore it.
+>  	 */
+>  	if (before(ack, prior_snd_una)) {
+> -		u32 max_window;
+> -
+> -		/* do not accept ACK for bytes we never sent. */
+> -		max_window = min_t(u64, tp->max_window, tp->bytes_acked);
+>  		/* RFC 5961 5.2 [Blind Data Injection Attack].[Mitigation] */
+> -		if (before(ack, prior_snd_una - max_window)) {
+> +		if (tcp_ack_too_old(tp, ack, prior_snd_una)) {
+>  			if (!(flag & FLAG_NO_CHALLENGE_ACK))
+>  				tcp_send_challenge_ack(sk, false);
+>  			return -SKB_DROP_REASON_TCP_TOO_OLD_ACK;
+
+[ ... ]
+
+> @@ -6614,6 +6621,15 @@ void tcp_rcv_established(struct sock *sk, struct sk_buff *skb)
+>  			if ((int)skb->truesize > sk->sk_forward_alloc)
+>  				goto step5;
+>  
+> +			if (unlikely(before(TCP_SKB_CB(skb)->ack_seq, tp->snd_una))) {
+> +				if (tcp_ack_too_old(tp, TCP_SKB_CB(skb)->ack_seq,
+> +						    tp->snd_una)) {
+> +					tcp_send_challenge_ack(sk, false);
+> +					reason = SKB_DROP_REASON_TCP_TOO_OLD_ACK;
+> +					goto discard;
+> +				}
+> +			}
+> +
+
+[Severity: Medium]
+The new check sits inside the else branch of if (len <= tcp_header_len),
+so it only covers data-bearing segments.  Was the sibling pure-ACK branch
+intentionally left out?
+
+That branch still does this, in this order, in tcp_rcv_established():
+
+	if (len <= tcp_header_len) {
+		if (len == tcp_header_len) {
+			if (tcp_header_len ==
+			    (sizeof(struct tcphdr) + TCPOLEN_TSTAMP_ALIGNED) &&
+			    tp->rcv_nxt == tp->rcv_wup)
+				flag |= __tcp_replace_ts_recent(tp, delta);
+
+			tcp_ecn_received_counters(sk, skb, 0);
+			...
+			tcp_ack(sk, skb, flag);
+			__kfree_skb(skb);
+			tcp_data_snd_check(sk);
+			tp->rcv_rtt_last_tsecr = tp->rx_opt.rcv_tsecr;
+			return;
+
+__tcp_replace_ts_recent() stores unconditionally:
+
+net/ipv4/tcp_input.c:__tcp_replace_ts_recent() {
+	tcp_store_ts_recent(tp);
+	return tstamp_delta > 0 ? FLAG_TS_PROGRESS : 0;
+}
+
+So for a bare ACK matching tp->pred_flags with seq == tp->rcv_nxt,
+!after(ack_seq, tp->snd_nxt), and before(ack_seq, tp->snd_una -
+min(max_window, bytes_acked)), tp->rx_opt.ts_recent is advanced to the
+segment's TSval, the ECN receive counters are bumped, and
+tp->rcv_rtt_last_tsecr is taken from that segment.
+
+tcp_ack() then reaches the same tcp_ack_too_old() test, sends the
+challenge ACK and returns -SKB_DROP_REASON_TCP_TOO_OLD_ACK, but the
+return value is still discarded here and nothing is rolled back or
+accounted as a drop.
+
+This is the same condition the changelog describes:
+
+    "In the fast path, tcp_ack() is also called,
+    but only after the data from the segment is processed.
+    Furthermore, the return value from tcp_ack() is not checked."
+
+The slow path does not have this ordering problem, since tcp_ack() runs
+the too-old test before the FLAG_UPDATE_TS_RECENT handling, and step5
+checks (int)reason < 0.
+
+Would hoisting the new check up to just after the header prediction test,
+before if (len <= tcp_header_len), cover both branches with a single call
+site instead of leaving the pure-ACK branch as is?
+
+>  			/* Predicted packet is in window by definition.
+>  			 * seq == rcv_nxt and rcv_wup <= rcv_nxt.
+>  			 * Hence, check seq<=rcv_wup reduces to:
+
 -- 
-2.55.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260906123151.1391349-1-inbal.lipshtat%40mail.huji.ac.il
