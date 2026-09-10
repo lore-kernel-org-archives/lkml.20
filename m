@@ -1,169 +1,274 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010055.outbound.protection.outlook.com [52.101.193.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67C3B39AD2A;
-	Thu, 10 Sep 2026 21:05:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789074341; cv=none; b=KFA44qc96gk+kkWDPAtcKxxZG7RBHBHlC0AihPla1iCgcFgPwlZ8ROKjvqflD24PDQNdskUynLupJKOTMpKx4o6mOCsKlAINS1t/ZBmeNWigiFa8RbcpLrMar+hsXggWS8znSk6PQLljDgFrY3E63QKd9gR0WaXowHGaZk8yvu0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789074341; c=relaxed/simple;
-	bh=eC1FWUYfMlG80WKxBlCNmNfp7ZQ52lIhs/luxQagGNk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LYMgN4wc4BZywVrKO26sfDJfv9owZmIhWgc/8lG15NNggj6JyfMZnX+KTN8NbNH6KUnXaS6DPs4cIjtxRk56h/QEZEoHyO3sfsrmsC6dVP4/u4GZcLd8bYAvaSxj6gbfef6nVma5eNYQIPskscMgHZQb4SzwonCRtfSguyl7Kg8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eMVAdsjn; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36BBF3BED18;
+	Thu, 10 Sep 2026 21:05:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.55
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789074353; cv=fail; b=rIbAXchACk4J9hlHbk2viXx4Gh3mekOGx1P1qjmkgIWqLuB8+CL+QS9saUZpoAbrpJO8S7KT3neKepBKyYsVkLaDI24ohbdM6Xr1f9kU5Tyhv49aXSphqvJlqNKCrQm36x3djuXHr+LU98OCEIwb1j+X+n25a9xeBURBSUG10IQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789074353; c=relaxed/simple;
+	bh=xLc4isSOfOfKBEA4fxgJzozNGuUvEFnErhlKuosp1Ww=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=daFTTbGrfpC0LkTDzVLAxXQZcNbYYD39jOMkUqw5EtfBdoNPLvMqxrpLBf9f45EqzdQf6+iiQdsMwKWgneehNoxamoJNNotP549/SdAQeg+sKNitdOIExddxrr8wxQI/TLKx1gehUIPuRTh6ZL5zlNocnhj8fBfVE3nYRMy4wU4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=o3HRdJfK; arc=fail smtp.client-ip=52.101.193.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eMVAdsjn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA7871F000FF;
-	Thu, 10 Sep 2026 21:05:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789074340;
-	bh=oLToX4EccLVtnhGx2Vc8M3u3T1qH7yOvY6cF4At7RK8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=eMVAdsjnlliyWhH3OpkdXujTtNiigDS8c7DRnRcnAIebH2lnzAUn7CGlqjl3uXz0y
-	 s2ALMDFWBA/vymMAewgJcnnCue0nseOnWxIoiAGhV8fE786DdvJmyBvb+zHWePs8XR
-	 lF/fYrIuN9UJhL60bT5x2Fq9bJDI+mVu/yT4u1aXPqPqPf5DzIjhHhHx9SZoh9LVLO
-	 S79uttERoeDeu/vjm/SUOuF4gL0pYXMFFDStZZWSzMhfzYBwpaUD2hX0SAa/cZ2G43
-	 X2y+psFM3rUo/eSavsDm38Ea70SOZJE5rt1/C6Z/69h1i0oG2cTvy1Dclr70hq/j/E
-	 qu/datkRNcZ7w==
-Message-ID: <ce1e07aa-5600-46c1-b35a-d7df09a84521@kernel.org>
-Date: Thu, 10 Sep 2026 23:05:29 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="o3HRdJfK"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=H9fC4mSLSqgDlYse2Y1EvWx2kFQzwRCbV/kNrRivKzvyCc231s8RjTEtwHQl32tamHLw0eijCwBSNATBRNaPkUuB2rykS3iyw1SJSwfnFXldExMa6+ykbaofgxjju17fs6bmGXaHdD2uonbaRLtdhNlWoaFOxfLS99MaYUlVJ9YWjGjxOSs9Luvr87tmSHEfJHTKk2TAmgL3OweJp4iEu7s122Ok6ArI68uBqdH4r2pB+KiovkuQd5/rP17Z2Cf/EWbJaEmoQ7QxaoRVBxRDXkCGaZIUpf+7JU9yB1tDLDDTAhrFSRxP8mrQkvhKJDCnR7APjAGUV8EKX4vm9gohcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tF2w4q2WLGo671HDKWYir4oRn5XS2cGAKa9wsh/eLVg=;
+ b=YFk9/8at0lNfXHCtd6GuBIvIhAElgSzE9/48bSk9gmI9eLUNZrMu7UGGj9usK3KewQZ4ny8+arHEDMlRkVOSbih3tVBWj4/GMuSC5xkxv4f23QGAcVf0lAn+SjG7l57f41Zjse05TNiL77FumGHJwM7clnMqGavwNztaQ1KaWdGvZvSfnvCSYXx1Vq53lChnRkf08WDyYQAHa7yohGC4KjbVLlZm7QAPe8ps0AMHvA60XEOhoYrYCkQRTLAcGjQaRBaRMwlvBhM7uN5aWA+nSZPue/tvDZjf0iwmkgDbEfcG/aXAyHZT8f8ORWnBtPMn40NggW4i4sDBtDbzYDOlnw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tF2w4q2WLGo671HDKWYir4oRn5XS2cGAKa9wsh/eLVg=;
+ b=o3HRdJfK6GM1DT87vLzwGuRCVHukQA98R6Xgl52nEk51ZQ9Gl6BRR/4PaR9o6IuJ3B7qrYKEOc6Y2QGEzf6vltcbadcHC5MSbSTVoxFCmXwKEAxCqGaDEcMt9GgbZUyxdDr2VQkg58DoJBeG8yQ9cuV/2RltGUL2jg/8CNu0OqY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CH3PR12MB8660.namprd12.prod.outlook.com (2603:10b6:610:177::5)
+ by CH9PR12MB388294.namprd12.prod.outlook.com (2603:10b6:610:313::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
+ 2026 21:05:48 +0000
+Received: from CH3PR12MB8660.namprd12.prod.outlook.com
+ ([fe80::87aa:52e5:4b72:d5f3]) by CH3PR12MB8660.namprd12.prod.outlook.com
+ ([fe80::87aa:52e5:4b72:d5f3%5]) with mapi id 15.21.0406.007; Thu, 10 Sep 2026
+ 21:05:48 +0000
+Message-ID: <ca2dcdd2-1c4c-498d-beb5-13efefcb67f2@amd.com>
+Date: Thu, 10 Sep 2026 17:05:45 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/7] crypto: ccp - Allow SNP platform data to be queried
+ after SNP INIT
+To: Tom Lendacky <thomas.lendacky@amd.com>, mcgrof@kernel.org,
+ russ.weight@linux.dev, dakr@kernel.org, ashish.kalra@amd.com,
+ herbert@gondor.apana.org.au, davem@davemloft.net
+Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+ gregkh@linuxfoundation.org, rafael@kernel.org, chao.gao@intel.com,
+ aik@amd.com, tycho@kernel.org, nikunj@amd.com, michael.roth@amd.com,
+ shansinha@google.com
+References: <cover.1789059391.git.prsampat@amd.com>
+ <acb69b69796f5324c41dfd7a1f207044f1f18069.1789059392.git.prsampat@amd.com>
+ <e3040c1e-1928-4552-a775-aa9d9925fa9e@amd.com>
+Content-Language: en-US
+From: "Pratik R. Sampat" <prsampat@amd.com>
+In-Reply-To: <e3040c1e-1928-4552-a775-aa9d9925fa9e@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH0PR03CA0060.namprd03.prod.outlook.com
+ (2603:10b6:610:b3::35) To CH3PR12MB8660.namprd12.prod.outlook.com
+ (2603:10b6:610:177::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/26] mm/fbatch: restore mlock+munlock batching,
- without extra ref
-Content-Language: en-US
-To: Hugh Dickins <hughd@google.com>, Andrew Morton <akpm@linux-foundation.org>
-Cc: Ackerley Tng <ackerleytng@google.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <baohua@kernel.org>,
- Binbin Wu <binbin.wu@linux.intel.com>, Christian Brauner
- <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>,
- Christoph Lameter <cl@gentwo.org>, Claudio Imbrenda
- <imbrenda@linux.ibm.com>, David Hildenbrand <david@kernel.org>,
- JP Kobryn <jp.kobryn@linux.dev>, Jan Kara <jack@suse.cz>,
- Jens Axboe <axboe@kernel.dk>, Johannes Weiner <hannes@cmpxchg.org>,
- Kairui Song <ryncsn@gmail.com>, Kiryl Shutsemau <kas@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Leonardo Bras <leobras.c@gmail.com>,
- Lorenzo Stoakes <ljs@kernel.org>, Marcelo Tosatti <mtosatti@redhat.com>,
- Matthew Wilcox <willy@infradead.org>,
- Mel Gorman <mgorman@techsingularity.net>, Miaohe Lin <linmiaohe@huawei.com>,
- Michal Hocko <mhocko@suse.com>, Minchan Kim <minchan@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Peter Zijlstra <peterz@infradead.org>, Qi Zheng <qi.zheng@linux.dev>,
- Rik van Riel <riel@surriel.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Shakeel Butt <shakeel.butt@linux.dev>, Suren Baghdasaryan
- <surenb@google.com>, Yang Shi <yang@os.amperecomputing.com>,
- Yu Zhao <yuzhao@google.com>, Zach O'Keefe <zokeefe@google.com>,
- Zi Yan <ziy@nvidia.com>, linux-block@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org
-References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
- <69ba633c-8fd5-1f4b-2e1e-b9b15b8946be@google.com>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <69ba633c-8fd5-1f4b-2e1e-b9b15b8946be@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR12MB8660:EE_|CH9PR12MB388294:EE_
+X-MS-Office365-Filtering-Correlation-Id: c8208b1d-e569-4d12-91e6-08df0f7f49a5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|5023799004|11063799006|4143699003|56012099006|3023799007|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	KQSF+x7xQKMBkuM9JqTVapTqbpmv5OJ7uEnpqjrWu91nQ1zo9NGhXcfgapUmm7az4A+jokDqOXhI5L//XEWseCuueu6g/naaVldLEunqVZg3HPPS94wJ426OiXFWzgbSVeLuxHGGP4oof4dYWbt07FrkJjTO8Uu8LCAk1HnOh13oG+6QoiCOYw4MXDiQeZ6cmgzV/H2PA3/UKcrklYQTHQjnWcmesPPCVKvCICDoq1qPhI5H78ovpLQ7vfghmaYCt0nIwlvASQos7TC7OHhCD5euF7w0VTuvM/ZFfuV7iZAuHTb2wheHiG2ly/v5jlhkqyDczucMkvF8GoR4jD1zbMK1m0I/sc5hzXwwR3WzwqNnEBEudIepzp2Jt7syf51Ww5jE1LddiXsofJf6jaRbCjQhuzL2WuujVLg6wQldXpH3CUczMyOluint0F0yvab2vsmfD9PkBzIPH7SwcxEZISrizvULutVdpr2lzBb8YtmA1oDMGdZCCJKvRelSNf/UnNte+mzbOAlv+EWYqh8y6Fn5es68i3mI7TmD3t9GveUcD2Ny6Lv4WdZl+0UaEZ6rugR6Y18ot8fU0cWeF/Wfedm3P1g/4bc/YckP2evgXUmxroNjWy8rWDhf8TVHbsJkVBWmHDi5V1tRw9AJi2G3JRtPPygIfYzwep4saxcMUIM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR12MB8660.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(5023799004)(11063799006)(4143699003)(56012099006)(3023799007)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ckZwOEtuOVVpWnN1d2xiVjdrbXg4MTZPT2Nhdi9iVW5zK09SWUVqTGtsUHBn?=
+ =?utf-8?B?bFFkNlM3MHpFcWgvVU9hS0p1UmJkVkFEK3JobzZCWVBqbjd6amRrbkNRSUlW?=
+ =?utf-8?B?eUdnRGZKSDVhNWNHMWw2VkR6a3F5bytlK1BSRzR0b0JoTE1uRTVaU2I3OC9L?=
+ =?utf-8?B?UG9NYjNuRlQydFhhbGsva3dkZ3ZLdVNqaDhtcWtCSEtXNDRxQnRFblJ5VmQ0?=
+ =?utf-8?B?YnNpRWxSbXdvbTJ6WDhuR004YVlMSml1d2tMM0dnT3Q2OEEwZEpNYlZGa3VN?=
+ =?utf-8?B?eHZXU2ZGeUFOcWFBQWZKZnYyMXpGVU5CaXg2SUVRdVRzV2hFY3lBOWd2NjNP?=
+ =?utf-8?B?OHo1YjNacnl1dUdsdDJEQ3I0VFFwc3lPRi9GSUpmcmFIMTJ0OTMwb25KbUtX?=
+ =?utf-8?B?VnorUzVWSjlSL0pRcnFTN0ZPT3dERWJnWlVkMEN2Wjluc211bEZQdlJDbWtL?=
+ =?utf-8?B?ak9JbFVjOWtNbVVmUnJ3cHhVVndQclVXaHF4UFlRaE9UaVVWY0gxNUlvaXNF?=
+ =?utf-8?B?OWJSdXA4dUNpbzJobDc4dzZjcno5ZXJ5aUNxNU05dTYwWDRDN05aR2NFWjBC?=
+ =?utf-8?B?alJrZEZCbnlvSlU2N082WmtkRDhoQThtN0xSa2g5eDFQVHkxUjNHUTA1VVpR?=
+ =?utf-8?B?aTdtMGozVHJuK1R5cXVDYTV1WHR6RUJYK3doSW9tNjRrQmlFaW9qM0JaWVJU?=
+ =?utf-8?B?MFF4ZHFaS245NlAvWWQ0Sjg4M3dSZ1lSbk03SHJzeDNwbXVRWEl4V29PdDZL?=
+ =?utf-8?B?TlVNVXVQSkdJazYyQk5FdlZxWnlzdDIxcnB2OXd6TCtlVi91c1hlSmJQendn?=
+ =?utf-8?B?d1hoZkhjV0ZoOEE1cFltYUZrc2R3S1lVaXlyQWcxVmVjSW8yOWNyTzlhdkRp?=
+ =?utf-8?B?dFIyTzA4bXArbGE4OWd0UmtjSU51TytEWVZ1SWViNkpYdFE2eGw3TThJR3BP?=
+ =?utf-8?B?QXNVYjJWeXppN29lSjFhbXQxUWhWNFErMFc5T1FtQjE1WTVaN216YUx1NCtm?=
+ =?utf-8?B?R3hpQk51aXlVWnBacjVhLzZRek0vWEVxb1o0cEVwUzlaYWlxdWlKVk5WYThz?=
+ =?utf-8?B?blpvZlB4MzZ2OXRCWGpKSVdGMWNxSEVwNVhmRytHNEpia3ROK2dFTFRzTDNq?=
+ =?utf-8?B?bDhrbUozR1daNEEvb04wTVQvMnhSVmxFUG5qOGM1OExlRk4rZCtBVUxLMEVV?=
+ =?utf-8?B?VlR5dG5DN3ZiNXVVdnViMjIwaDg0SFNzYi9sQ0E0Q094NktvRFNDcE1mZzF0?=
+ =?utf-8?B?Wm9Jb2p1ZGtIbU5IUldNYWhmZG1BSkdmYUZZYnlHTURvS2FJT2ZuVUNvcGcz?=
+ =?utf-8?B?OS9qdmFjZ0JPOTBiTGJIY3VrOFJKNm9Ma090eFJpYklMdjdVdVZOdlVqdStu?=
+ =?utf-8?B?c3o4cEtKNU9YMWdTdmlveVZKTUxDZjUrMzBobzBCTldwdjVrbzdPZUU2SHFQ?=
+ =?utf-8?B?empTWXFHV0lqMHZSM1FaZ2pteHVKMEwvMk1HaUhVK0NMdVdiWmpJdmJzNDVH?=
+ =?utf-8?B?M2pUMEMvcXg0K1JCbkJmTTQvRmFjQkRwZk1lQ1MyZC9EUHhyaDNXdmJFaC9t?=
+ =?utf-8?B?WGhoR2c3SUFrQmREWXpjUWtaa0o0YXkxeldnbm9MRHZIOHVlb1BiWTV6aGRD?=
+ =?utf-8?B?V0orYU1JY1JzcnppMzdnbHVrZTlLT2J3VWFGK0NpTmd1dnJsaXVRUUpDVU9P?=
+ =?utf-8?B?eGkydkVIckxNUWtNeS9HUHg1czB4RWtCMDVKYzRaeUh1bFE4dDl2cWhYekhI?=
+ =?utf-8?B?TW9FdzBuT21XeFd0d2RMY3F2TjVrR2Jhd0JWYWVyelVNOXRXQUJUU3pxYXdu?=
+ =?utf-8?B?azkvejNtNGNzYlg4ZDVuR01PL0dXNDBPVGFSUDRyVmtqNG40c3NqSXhhWG9R?=
+ =?utf-8?B?ZXpyeTdvY2F0cEduQTZxYUtKSGVqOUoyMVhkR2N2NlVlUThyUnRwdkRuL1dD?=
+ =?utf-8?B?ejhiSFF3cEdpS3lUL1NIVThNNUVvZzFGVmpUWFZMTHNGL1pNVzVUd05WTjRs?=
+ =?utf-8?B?aGhnVlo0RzVXN0FWWE1GcGl4eTVFYUpEMVpRYWI3cDJzdlFBQ00wcElibVVZ?=
+ =?utf-8?B?cDBEQktydmNmZ21YWTdHUVpoWHVFZkN3aUd0UU9kTlF6Q1F4aHRiTnpoYm9O?=
+ =?utf-8?B?Nms3ZXV2ZW53YTFCcnh4OE1zcHFFWTNFTGduZVV1eThpMmxZdUlLNWcrRVhR?=
+ =?utf-8?B?YzlhdDFVZGMveGFGcFJ6MDRvWDE2Uis0U2d4NE93bjlIYVBDRVlBZ05wR0lh?=
+ =?utf-8?B?TWM3K2xuMWdxY0dDK1dTVXBIYUptSXlPbk1KTGEyYVZURVk0alZzMk4zWEVu?=
+ =?utf-8?Q?TGJZlVFyHXoa4+hb9W?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c8208b1d-e569-4d12-91e6-08df0f7f49a5
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB8660.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 21:05:48.3716
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LFtFNN8mH0Y+WolYGhoM51izlLZNwtCPUQ1rvb8pZ77CubFnNwekU8ZGox64aTTknjFLNYUpjj5HhW/fxSgeyQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH9PR12MB388294
 
-On 9/9/26 11:59, Hugh Dickins wrote:
-> Update mlock_folio(), munlock_folio() and their fbatch callouts and
-> helpers, to do folio_try_get()s at batch processing time, instead of
-> holding a folio reference all the while in mlock_fbatch: as in folio.c.
-> 
-> But more interesting is the use of mod_mlock_count(), using try_cmpxchg()
-> to update folio->mlock_count safely when possible (now when on lru_add
-> fbatch as well as when unevictable). While __mlock_folio() is as hard to
-> think about as before, __munlock_folio() simpler because munlock_folio()
-> can adjust mlock_count itself without clear_lru() or lruvec lock, and so
-> do the folio_test_clear_mlocked() immediately for itself (without which
-> unevictable_pgs_cleared was likely to appear high, when it should be 0
-> or low to indicate good mlock health).
-> 
-> __munlock_folio() is safe for use even when the unreferenced folio has
-> been freed and reused. It appears that __mlock_folio() could affect a
-> folio which has been freed and reused, but only if it is reused as an
-> mlocked folio, in which case its mlock_count is spuriously incremented
-> (but usually a spurious munlock decrement will follow).  How grave is
-> this? If unevictable_pgs_cleared remains low, not so bad.
-> 
-> I've gone back and forth on whether to move mlock_fbatch and these
-> functions into mm/folio.c: for now they stay here in mm/mlock.c.
-> 
-> Signed-off-by: Hugh Dickins <hughd@google.com>
-> ---
->  mm/mlock.c | 147 +++++++++++++++++++++++++++++++----------------------
->  1 file changed, 86 insertions(+), 61 deletions(-)
-> 
-> diff --git a/mm/mlock.c b/mm/mlock.c
-> index 2c690f18031e..1050010bbe0b 100644
-> --- a/mm/mlock.c
-> +++ b/mm/mlock.c
-> @@ -58,6 +58,20 @@ EXPORT_SYMBOL(can_do_mlock);
->   * indicate the unevictable state.
->   */
->  
-> +static long mod_mlock_count(struct folio *folio, long incdec)
-> +{
-> +	long mlock_count = READ_ONCE(folio->mlock_count);
-> +
-> +	while (mlock_count & MLOCK_COUNT_0) {
-> +		if (mlock_count + incdec < MLOCK_COUNT_0)
-> +			return MLOCK_COUNT_0;
-> +		if (try_cmpxchg(&folio->mlock_count, &mlock_count,
-> +				mlock_count + incdec))
-> +			return mlock_count + incdec;
-> +	}
+Hi Tom,
 
-This never rereads folio->mlock_count to mlock_count inside the loop, so it
-can spin forever?
+Thanks for the review.
 
-(too late here for me to understand the rest today)
+On 9/10/26 4:09 PM, Tom Lendacky wrote:
+> On 9/10/26 12:02, Pratik R. Sampat wrote:
+>> In preparation for refreshing the cached SNP platform status and feature
+>> information after a successful firmware live update from
+>> DOWNLOAD_FIRMWARE_EX, allow snp_get_platform_data() to be called while
+>> the SNP firmware is in the INIT state.
+>>
+>> Once SNP is initialized the firmware requires the output page of both
+>> commands to be firmware-owned. sev->snp_plat_status cannot satisfy that
+>> as it is embedded in struct sev_device, so use
+>> __sev_do_snp_platform_status(), which stages the output through a
+>> dedicated page, and mark/reclaim the SNP_FEATURE_INFO page around the
+>> command.
+>>
+>> Co-developed-by: Tycho Andersen (AMD) <tycho@kernel.org>
+>> Signed-off-by: Tycho Andersen (AMD) <tycho@kernel.org>
+>> Signed-off-by: Pratik R. Sampat <prsampat@amd.com>
+>> ---
+>>  drivers/crypto/ccp/sev-dev.c | 44 ++++++++++++++++++++++++++++--------
+>>  1 file changed, 34 insertions(+), 10 deletions(-)
+>>
+>> diff --git a/drivers/crypto/ccp/sev-dev.c b/drivers/crypto/ccp/sev-dev.c
+>> index 1ed9e61a95cc..e891d6d1c6f0 100644
+>> --- a/drivers/crypto/ccp/sev-dev.c
+>> +++ b/drivers/crypto/ccp/sev-dev.c
+>> @@ -131,6 +131,8 @@ static void __sev_firmware_shutdown(struct sev_device *sev, bool panic);
+>>  
+>>  static int snp_shutdown_on_panic(struct notifier_block *nb,
+>>  				 unsigned long reason, void *arg);
+>> +static int __sev_do_snp_platform_status(struct sev_user_data_snp_status *status,
+>> +					int *error);
+>>  
+>>  static struct notifier_block snp_panic_notifier = {
+>>  	.notifier_call = snp_shutdown_on_panic,
+>> @@ -1261,19 +1263,12 @@ static int snp_get_platform_data(struct sev_device *sev, int *error)
+>>  {
+>>  	struct sev_data_snp_feature_info snp_feat_info;
+>>  	struct snp_feature_info *feat_info;
+>> -	struct sev_data_snp_addr buf;
+>>  	struct page *page;
+>>  	int rc;
+>>  
+>> -	/*
+>> -	 * This function is expected to be called before SNP is
+>> -	 * initialized.
+>> -	 */
+>> -	if (sev->snp_initialized)
+>> -		return -EINVAL;
+>> -
+>> -	buf.address = __psp_pa(&sev->snp_plat_status);
+>> -	rc = sev_do_cmd(SEV_CMD_SNP_PLATFORM_STATUS, &buf, error);
+>> +	mutex_lock(&sev_cmd_mutex);
+>> +	rc = __sev_do_snp_platform_status(&sev->snp_plat_status, error);
+>> +	mutex_unlock(&sev_cmd_mutex);
+>>  	if (rc) {
+>>  		dev_err(sev->dev, "SNP PLATFORM_STATUS command failed, ret = %d, error = %#x\n",
+>>  			rc, *error);
+>> @@ -1302,17 +1297,46 @@ static int snp_get_platform_data(struct sev_device *sev, int *error)
+>>  		return -ENOMEM;
+>>  
+>>  	feat_info = page_address(page);
+>> +
+>> +	/* If SNP is initialized, transition to use a firmware-owned page */
+>> +	if (sev->snp_initialized) {
+>> +		if (rmp_mark_pages_firmware(__pa(feat_info), 1, false)) {
+>> +			*error = SEV_RET_NO_FW_CALL;
+>> +			rc = -EFAULT;
+>> +			goto free_page;
+>> +		}
+>> +	}
+>> +
+> 
+> You could change to use snp_alloc_firmware_page() which will allocate
+> the page and place it in the proper state for you.
+> 
+>>  	snp_feat_info.length = sizeof(snp_feat_info);
+>>  	snp_feat_info.ecx_in = 0;
+>>  	snp_feat_info.feature_info_paddr = __psp_pa(feat_info);
+>>  
+>>  	rc = sev_do_cmd(SEV_CMD_SNP_FEATURE_INFO, &snp_feat_info, error);
+>> +
+>> +	/*
+>> +	 * The feature_info page will be in reclaim state on success, or left
+>> +	 * in firmware state on failure. Transition the pages back to
+>> +	 * Hypervisor-owned state.
+>> +	 *
+>> +	 * snp_reclaim_pages() has already pinned the page via snp_leak_pages()
+>> +	 * if it could not do so, which keeps it away from the allocator. The
+>> +	 * reference taken here is dropped either way.
+>> +	 */
+>> +	if (sev->snp_initialized) {
+>> +		if (snp_reclaim_pages(__pa(feat_info), 1, false)) {
+>> +			*error = SEV_RET_NO_FW_CALL;
+>> +			rc = -EFAULT;
+>> +			goto free_page;
+>> +		}
+>> +	}
+> 
+> And then snp_free_firmware_page() here (after you copy the data -
+> similar to what you did in snp_verify_mitigation()).
+> 
 
-> +	return 0;
-> +}
-> +
+Sure, I'll use snp_alloc_firmware_page + snp_free_firmware_page() and make
+things cleaner.
+
+> (I think the same changes apply to __sev_do_snp_platform_status(), but
+> don't worry about it for this series)
+> 
+
+Right. The only difference I believe would be to use
+__snp_alloc_firmware_pages() and __snp_free_firmware_pages() with locked=true
+since that is always called with the sev_cmd_mutex held.
+
+I could send that as a separate clean up patch.
+
+Thanks!
+--Pratik
+
+> Thanks,
+> Tom
+> 
+>> +
+>>  	if (!rc)
+>>  		sev->snp_feat_info_0 = *feat_info;
+>>  	else
+>>  		dev_err(sev->dev, "SNP FEATURE_INFO command failed, ret = %d, error = %#x\n",
+>>  			rc, *error);
+>>  
+>> +free_page:
+>>  	__free_page(page);
+>>  
+>>  	return rc;
+> 
+
