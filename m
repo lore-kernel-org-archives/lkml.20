@@ -1,158 +1,203 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142E33ADBAC;
-	Thu, 10 Sep 2026 17:37:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80485563FAA
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:37:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789061849; cv=none; b=V8H4zFzvic8LIm6dvnU0fsP0YkXWz28SFnx/Yey+TTI8Jf6znDyL63TN71X+t/vg81veSyRxLEZmj1Mdzyp8RlMNumTb7w2Gfgum+V2DRjTb9WgZWVLhsy/Ga4EbPjw07nonC2mgKIfGQjaH/R751mKt1EqDZqV1zZ8DBFAFNa0=
+	t=1789061859; cv=none; b=LH+l9+jGMPcGazhm1MdXB1uNb5SYeLUnqGnTUaLtldHWFKbGdeTZUlru14DUdUIqf+uycsmaKGxGKGLRPkqi3L/bgmbezA3B2XnX96QEXpyPZvcK8izGdEEM6uHB+WL2iKvsfsYU7IagjAnoFD8a2PqKDLJOR17EESnLQ+fHrYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789061849; c=relaxed/simple;
-	bh=FGQG3DmM+7X/giTmbo/iKtzgJp69jhePuib7JGtlpCY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=uhrAhgHk208SikNbx0VJzeoAxpoofYbchqn9Lukr1BAYCHsO0tgDti31rwmq5Uozces0V18SLVDUlGwAZtqkkJ4eIB8q53cty+HIMwPwPi8T7BLCAAWlCaHnEszQUgNv5AxNAlAzURHJGaHMdlc8TFedcFvCL9R6CdOa0F2FyMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=krKuU1jQ; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1789061859; c=relaxed/simple;
+	bh=EaXpGARBBS5UY6+5xSkisv2AXW0aUbBwnhgcfujXjbA=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Content-Type; b=SeiuvF+sfism32Jped9MRDKsmGjMcO1nznosvquns9fpcpzh9HHNUr/3NyMkdjTuWZ5e23enV+rfT3pwwEoNB+NtA4L6M9mhLzCViXSi2+yGiv/mfUrjuecxPrj0/Tqv4bq3vnj3Q2G78mi/Z0EV0Qhu5lpxy3Hf6VYtMCgEIZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ONCqDkLb; arc=none smtp.client-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="krKuU1jQ"
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68AF7Qqc343094;
-	Thu, 10 Sep 2026 13:37:00 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=rxmPy
-	wnjcLCbFsxSJFUDwnHHA1K7/8xkNzN+tJwpQgI=; b=krKuU1jQuTQHwIxyyTp8o
-	/iQvMUZSKMoMjXuADw17L9ZJAu+iCqXLRgCuANx3++3+PQ0bJN8DgY8hdWobK+Lg
-	kOvA2t/fYjctaveO3SIchsZfbaVcfuIRYcfVK6TKKekUsBdCbAcppzp62QSeKdJP
-	EFPNXR2WW1RGC9CoGyfCAYHtDCH9l8xNxHALifxGfwwWbf8Ey/QTBKT3/YDAEm9T
-	iK1vkqoL5OiVzMSx8icXzszRIK0pKplE/3jwMsvwnAKQ2YVW5AY1i9OEixcLX6Ut
-	BA+8zgo2jztm63aQ6bbCY6Rf7K2LgBDUOg/2pFyyVS4rvHqkQjdoLGxmtxbWMkh4
-	Q==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4gkcx95208-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 13:37:00 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 68AHaxee038715
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 10 Sep 2026 13:36:59 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Thu, 10 Sep
- 2026 13:36:58 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Thu, 10 Sep 2026 13:36:58 -0400
-Received: from HYB-e1y2fvUQ3cx.ad.analog.com ([10.32.225.204])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 68AHaSSX018832;
-	Thu, 10 Sep 2026 13:36:52 -0400
-From: Janani Sunil <janani.sunil@analog.com>
-Date: Thu, 10 Sep 2026 19:36:19 +0200
-Subject: [PATCH v7 01/17] iio: adc: adi-axi-adc: Initialize state mutex
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ONCqDkLb"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb835525b10so78873a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:37:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789061847; x=1789666647; darn=vger.kernel.org;
+        h=content-type:to:from:subject:message-id:mime-version:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=DhOY7FUWuuOuty23dXeNbRVWoUfkVepaF5Bi7tmSR+0=;
+        b=ONCqDkLbsB4DggW+eEq+7ozuA+AyyC0WfjqgAZMxr98kLOmV98D8jmTzY2KEUeyS4r
+         XvKjmB/K14YlnmU/TEX6bGcsGlvb5WK+YdE4j0H8JpewhY7qwJ21JFB9kYJsF8bOxjFx
+         i81dda30QUhsfyFLypwMp62dUooF9hDUEbz/ExRd5HJTl2i1QDjSZeHN28vsOAtGVB5U
+         2Zjex10n0oO2xErQ0nX0Vz0HMnLGvT6q3s2qezGDpjYoylpGosOfHVgwdWGI/7KD6ZxF
+         xV/uBvFZlm9nTjLsnT3XtCe+1SWlOwQpvhP2jevp37QYuqG2oAYQ8x+J2U0303C7D6/g
+         lxNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789061847; x=1789666647;
+        h=content-type:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DhOY7FUWuuOuty23dXeNbRVWoUfkVepaF5Bi7tmSR+0=;
+        b=qrBx/LVTm+XcupvGBEZcDBstT0pywGyHKMekQJUJMaZLo4ExeeaYWLnrZseYCOpSrO
+         mt/vJMnNu427hONtMfpoApF8IqjGzcUTLoi8U/kpz2ZY/lEiMdogwl19LaY9QAgtZDrd
+         xf6YgVMjRNzyooPnLH9asdwi7s+XZ7wbqMmBFVGxmxmWG6q6y4kBE+xNvYq8Vtff4eZ5
+         PlkgEvlYxbjTP0FudKk5+UHjHhGhgU2ypVlA8RL1w9zP/u+stUBA4PBABrtJztBtK5yh
+         cV5qx41Y7KRosh2PskdjCny0ljnl0I5oiBambP+vOSrcLNV4CxJlqXeh+shxEWzKYUlk
+         BjJg==
+X-Forwarded-Encrypted: i=1; AKwUvBy8b3524t7r5JZB/sGX92MCsCPyuBk6JwGI8Xbu4sA8dg/Z1d9PSVxrzfvvK2QODEIQ3p2cfwWYCRLLqOk=@vger.kernel.org
+X-Gm-Message-State: AFuF++naJ6zgFb/AfIgOXyi0/+gWY4eNTASCFx4vsxSPnSgNIk0eO74C
+	mve08Qonqm3Ptuug3XaoeUDsp8/0v0XiQfoBBuXSfOEKpgoGU6A7wm3F3OZ56tB9KORobCUy3oG
+	Ql5YTAgD5XA==
+X-Received: from dybrc18.prod.google.com ([2002:a05:7300:d812:b0:336:ceb8:a920])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e881:b0:2db:39dc:48af
+ with SMTP id d9443c01a7336-2dd2a352722mr7855885ad.17.1789061846962; Thu, 10
+ Sep 2026 10:37:26 -0700 (PDT)
+Date: Thu, 10 Sep 2026 10:37:13 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260910-ad7768-driver-v7-1-7f70b07627e1@analog.com>
-References: <20260910-ad7768-driver-v7-0-7f70b07627e1@analog.com>
-In-Reply-To: <20260910-ad7768-driver-v7-0-7f70b07627e1@analog.com>
-To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
-        Michael Hennerich
-	<Michael.Hennerich@analog.com>,
-        Jonathan Cameron <jic23@kernel.org>,
-        David
- Lechner <dlechner@baylibre.com>,
-        Andy Shevchenko <andy@kernel.org>, Rob
- Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor
- Dooley <conor+dt@kernel.org>,
-        Olivier Moysan <olivier.moysan@foss.st.com>,
-        Philipp Zabel <p.zabel@pengutronix.de>,
-        Linus Walleij <linusw@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Michael Walle <mwalle@kernel.org>,
-        Randy Dunlap <rdunlap@infradead.org>
-CC: <linux@analog.com>, <linux-iio@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-gpio@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-        <jananisunil.dev@gmail.com>,
-        =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
-	<u.kleine-koenig@baylibre.com>,
-        Janani Sunil <janani.sunil@analog.com>,
-        Jonathan Cameron <jic23@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789061788; l=1021;
- i=janani.sunil@analog.com; s=20260507; h=from:subject:message-id;
- bh=FGQG3DmM+7X/giTmbo/iKtzgJp69jhePuib7JGtlpCY=;
- b=ikdrHkLi7LigpgtvEANLNAzH3UjvZSeMxDQadwXUSUmoSoN2srISV75UUdPaJrv/gHAKIXFFd
- Z6YHPrBLRhtBHvbBnFcILjE301mNcLJ9/SznKBhb6RwnZLkMeTYW/Ft
-X-Developer-Key: i=janani.sunil@analog.com; a=ed25519;
- pk=e25MyjRLPY3RWrYm/LrJ+/+t1MZJUbkgIW5CZg+g+hA=
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDIxNSBTYWx0ZWRfX7AZbYrIMQ0Y5
- dC8/8p8oXKpQ/cQctWdPpG2FZd1a+m37AASC4b/I8JY2LxQxdU2br+LXt9tKhE/MNRnVKYIcaWJ
- AGeFhmWwJuMp1xnrgUNkopy1joY6titkUfO4LHic/Tt1gEH2ye16
-X-Proofpoint-GUID: aAFZ89kUa_HfB6yo4fCbFgJkjEPtb-VX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDIxNSBTYWx0ZWRfX+vL5uyYpWjOx
- 8a3riQyAZ+Zt7HuzGWypzpqu3acjXKiSbw1OCApm+VK7b/mltnIfzI0VI9BR2/S0m9ndNblCwqa
- v8nrPABMRqT9tPROBvbkLH7vWDQUDdvp/nA+5VA8yJKQR4ujowLZe0x6o+SlxTUGb286rHNLTgm
- of2izkRiE2UUU9unJmkalG1C42Dia6mI1EGSiYHEN1CohOkhYkgxRRskLcUWKWeGWJoHtHzb8k6
- Oxf5eY+rTOqXIf8kZ8aB40P85UmwDQX6rvQISHV6o0h41AbjUubT04biwFeUCMyFN9TNLBzwHRA
- L/Xka0nC1sllcc4PcnzGadYy/KKt3E27HvhfqoJupYLZGl4M4IXFNcaIbmi2EoJTtocqBA3ohOd
- lnJsiqBfNmCl4j8YPwmaOQeR3wciJzGclYIVHJMQaynJTUwL9pUYgZ29hE3yoH5bMjkkR8b4h1K
- a0S9Nu2h09hWwsKUlgQ==
-X-Authority-Analysis: v=2.4 cv=G8CJgNk5 c=1 sm=1 tr=0 ts=6aa2eabc cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=uXIjobp8t2wMuQ0fPvqm:22 a=gAnH3GRIAAAA:8
- a=_ljTvifiVFBlT2kRk7cA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
-X-Proofpoint-ORIG-GUID: aAFZ89kUa_HfB6yo4fCbFgJkjEPtb-VX
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_05,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 adultscore=0 malwarescore=0 priorityscore=1501
- bulkscore=0 lowpriorityscore=0 impostorscore=0 phishscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100215
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
+Message-ID: <20260910173715.2996571-1-irogers@google.com>
+Subject: [PATCH v1 1/3] perf header: Fix HEADER_COMPRESSED validation for comp_mmap_len
+From: Ian Rogers <irogers@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, Swapnil Sapkal <swapnil.sapkal@amd.com>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The AXI ADC register access paths serialize transactions with st->lock,
-but probe does not initialize it. Initialize the mutex before registering
-the backend.
+This commit updates process_compressed() to ignore comp_mmap_len == 0
+when validating the compressed header. A zero size is valid and may
+occur during testing.
 
-Fixes: 7ecb8ee5c93b ("iio: adc: adi-axi-adc: support digital interface calibration")
-Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+Sashiko review flagged string.h was missing (preexisting problem) and
+so I opportunistically fixed this and sorted the header files.
+
+Signed-off-by: Ian Rogers <irogers@google.com>
+Assisted-by: Antigravity:gemini-3.1-pro
 ---
-This patch is already queued in the IIO fixes-togreg branch as commit
-040c2514b25b ("iio: adc: adi-axi-adc: Initialize state mutex").
----
- drivers/iio/adc/adi-axi-adc.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ tools/perf/util/header.c | 78 +++++++++++++++++++++-------------------
+ 1 file changed, 41 insertions(+), 37 deletions(-)
 
-diff --git a/drivers/iio/adc/adi-axi-adc.c b/drivers/iio/adc/adi-axi-adc.c
-index 589f03618ecf..fc7cc92b35f0 100644
---- a/drivers/iio/adc/adi-axi-adc.c
-+++ b/drivers/iio/adc/adi-axi-adc.c
-@@ -714,6 +714,10 @@ static int adi_axi_adc_probe(struct platform_device *pdev)
- 	if (!st)
- 		return -ENOMEM;
- 
-+	ret = devm_mutex_init(dev, &st->lock);
-+	if (ret)
-+		return ret;
+diff --git a/tools/perf/util/header.c b/tools/perf/util/header.c
+index 7db7da090a1e..bdd79d7542ef 100644
+--- a/tools/perf/util/header.c
++++ b/tools/perf/util/header.c
+@@ -1,65 +1,68 @@
+ // SPDX-License-Identifier: GPL-2.0
++#include "header.h"
 +
- 	base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(base))
- 		return PTR_ERR(base);
-
+ #include <errno.h>
+ #include <inttypes.h>
+ #include <limits.h>
+-#include "string2.h"
+-#include <sys/param.h>
+-#include <sys/types.h>
+-#include <byteswap.h>
+-#include <unistd.h>
+-#include <regex.h>
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <string.h>
++
++#include <asm/bug.h>
++#include <byteswap.h>
++#include <dirent.h>
++#include <linux/bitops.h>
+ #include <linux/compiler.h>
+-#include <linux/list.h>
++#include <linux/ctype.h>
+ #include <linux/kernel.h>
+-#include <linux/bitops.h>
++#include <linux/list.h>
+ #include <linux/string.h>
+ #include <linux/stringify.h>
++#include <linux/time64.h>
+ #include <linux/zalloc.h>
++#include <regex.h>
++#include <sys/param.h>
+ #include <sys/stat.h>
++#include <sys/types.h>
+ #include <sys/utsname.h>
+-#include <linux/time64.h>
+-#include <dirent.h>
+-#ifdef HAVE_LIBBPF_SUPPORT
+-#include <bpf/libbpf.h>
+-#endif
++#include <unistd.h>
++
++#include <api/fs/fs.h>
++#include <api/io_dir.h>
++#include <internal/lib.h>
+ #include <perf/cpumap.h>
+ #include <tools/libc_compat.h> // reallocarray
+ 
++#include "bpf-event.h"
++#include "bpf-utils.h"
++#include "build-id.h"
++#include "cacheline.h"
++#include "clockid.h"
++#include "cpumap.h"
++#include "cputopo.h"
++#include "data.h"
++#include "debug.h"
+ #include "dso.h"
+ #include "evlist.h"
+ #include "evsel.h"
+-#include "util/evsel_fprintf.h"
+-#include "header.h"
++#include "evsel_fprintf.h"
+ #include "memswap.h"
+-#include "trace-event.h"
+-#include "session.h"
+-#include "symbol.h"
+-#include "debug.h"
+-#include "cpumap.h"
+ #include "pmu.h"
+ #include "pmus.h"
+-#include "vdso.h"
++#include "session.h"
+ #include "strbuf.h"
+-#include "build-id.h"
+-#include "data.h"
+-#include <api/fs/fs.h>
+-#include <api/io_dir.h>
+-#include "asm/bug.h"
+-#include "tool.h"
+-#include "../perf.h"
++#include "string2.h"
++#include "symbol.h"
+ #include "time-utils.h"
++#include "tool.h"
++#include "trace-event.h"
+ #include "units.h"
+-#include "util/util.h" // perf_exe()
+-#include "cputopo.h"
+-#include "bpf-event.h"
+-#include "bpf-utils.h"
+-#include "clockid.h"
+-#include "cacheline.h"
++#include "util.h" // perf_exe()
++#include "vdso.h"
+ 
+-#include <linux/ctype.h>
+-#include <internal/lib.h>
++#ifdef HAVE_LIBBPF_SUPPORT
++#include <bpf/libbpf.h>
++#endif
+ 
+ #ifdef HAVE_LIBTRACEEVENT
+ #include <event-parse.h>
+@@ -3903,7 +3906,8 @@ static int process_compressed(struct feat_fd *ff,
+ 	 * checks decomp_len + sizeof(struct decomp) against SIZE_MAX
+ 	 * before allocating, which handles 32-bit safety.
+ 	 */
+-	if (env->comp_mmap_len < 4096 || env->comp_mmap_len % 4096) {
++	if (env->comp_mmap_len &&
++	    (env->comp_mmap_len < 4096 || env->comp_mmap_len % 4096)) {
+ 		pr_err("Invalid HEADER_COMPRESSED: comp_mmap_len (%u) must be a 4K-aligned value >= 4096\n",
+ 		       env->comp_mmap_len);
+ 		return -1;
 -- 
-2.43.0
+2.55.0.1007.g17ff1f9808-goog
 
