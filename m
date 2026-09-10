@@ -1,106 +1,120 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03DB34B5123;
-	Thu, 10 Sep 2026 13:35:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8DBD4A3D3B;
+	Thu, 10 Sep 2026 13:36:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789047348; cv=none; b=cyJAWk5Txedkbm57EagZT9YlNejNUdnDWti3FkjBa3WgAzCrB8foeI6P5ma4o8yzBaDfwcXBjnsQe5LEWPDRiiorVB8xx4jzAOkfi5dMTXJfeWoV9KDo2O5eBLtuzoCEP3BRsl/hp7nbjJxlCk2QChO/3SXJG5dFfZhlkE9VyUw=
+	t=1789047362; cv=none; b=a98XPbAkEjEXrE+ZaQxghEVnAKjsKdliJWyZK/gUGgHCNh7khViffEQIw4KQlV+I2uAVJfRx5oHno9UucJjGkhEHDHrYUowbhQDQ6AAHnJ2MIxLChbAQz8ArGSHxJ7JJ9ipNbR9hJVE2VcHdUFrXF+z1nIm2YsLty5dU/SfLWUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789047348; c=relaxed/simple;
-	bh=WW3bgWtvchm/ZVcwcd6Is+/46qWg55ayuKIPjH66+G4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=c5AgCKdSOajPpARccn3bvlTK7ykVjDHs5zB01EAmn/KqwZlqQuhVcKro6KzBwLYdlV0QwI5hzqm7a4n0A6bWeVAmFoQPRQcgTcmqzYll2+vc2WLwVXDcb6vfaaOyqmwkfN5H2U3F+ZFvcS3X/14voV3PP8nV/AwyB9pc3wqmjOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=WaLMUQSl; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789047362; c=relaxed/simple;
+	bh=1h0TzmWhWdjCSxWri2fXQes5Q55yMqXFM6zfRX64d0U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=F4a0FE8xEZKld2epwW92BbfmEYZfdEsQcl3wcI1kTuxRrQIIdCbiuHl7JF3/te1pQxUGfzzhpVwXdth/otCKRjWQDVLthqljvwLCACqyHgr/UGITritPBB0JyknSXNCKmioPmmHLIfBCnaDeRhgsSGTYAw9YGxDXZB9tF/Pryd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Hzxz8TM2; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="WaLMUQSl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789047345;
-	bh=WW3bgWtvchm/ZVcwcd6Is+/46qWg55ayuKIPjH66+G4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=WaLMUQSlhh3h07Nbscy1WypZiWeRgCtdUty5bDukiVtUWe+slwf2F+5mwo72TIszm
-	 6T6Q9GhSwTMpD21k4q6ue77OEJJfShmRKASXhWyGIHHquFBLPY/iDfVRqQk4OXHc5J
-	 pVYgJ8iLZbH4QE9D5TOqI0qtxsKUJBgF+TWOG4xR76WFh4n0Gbl25hw+KKg6WErh1G
-	 6DVeIKVnsb5hhNcsdjPAKN9gpUAfjTCorZdxvufBadjCL9MIeJ2fTcG8PrJG5byocv
-	 XAHTnomjWRar1KzjhajgPr2iG/PREbZllrHeEFekek6serh1cSVAc+rcCnZ++JXJFG
-	 R9osiRz2gQf2w==
-Received: from [192.168.0.15] (unknown [100.64.0.170])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: detlev)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2FC8917E03E1;
-	Thu, 10 Sep 2026 15:35:43 +0200 (CEST)
-From: Detlev Casanova <detlev.casanova@collabora.com>
-Date: Thu, 10 Sep 2026 09:34:50 -0400
-Subject: [PATCH v2 8/8] arm64: dts: rockchip: Rename rk3588 HDMI audio
- cards
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Hzxz8TM2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789047361; x=1820583361;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=1h0TzmWhWdjCSxWri2fXQes5Q55yMqXFM6zfRX64d0U=;
+  b=Hzxz8TM21mNfPB6s5UBgR3aDCvC7j8sg0HiEIMGoWCQPk3fkqFkXfOzq
+   g05ul0BSu4s7YGg4iwAfBjbcDmbr0L18a4EjSJEAEES8lguUqLtIXUz7H
+   h6cGAo6HyT1d245o65LEBaoOsnl4dytZxontO+m14ntRDQ5LJdYFzYq1F
+   darPtrzg2Cri26mg9dRYHg0MQphKAMm6XHBilUgjlnnYefFExjPXsBo4R
+   8GqYPKzgpQ40hdAidk8lmzpNBCLY3xCqySyNNFL2SvlpvUww88C2uO2xk
+   i2ya3JaLtS9kwQcnHHcnTNRyFKTfPwbXnBByjV/0l4XQEXhknfnCAYVTr
+   A==;
+X-CSE-ConnectionGUID: 6b9iZUNmRJONm4Q6I2Zftg==
+X-CSE-MsgGUID: zAk5iyC2T5G0V8vbU4lcjA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="99828320"
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="99828320"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 06:36:00 -0700
+X-CSE-ConnectionGUID: UGJ+kIffTb+ah9vSOaGBSw==
+X-CSE-MsgGUID: ZzS7AwbzTCOBU8cTxvqn3Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="295132299"
+Received: from carterle-desk.ger.corp.intel.com (HELO [10.245.245.216]) ([10.245.245.216])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 06:35:58 -0700
+Message-ID: <cb0ffb2a-a102-4653-8362-f846b514bce0@linux.intel.com>
+Date: Thu, 10 Sep 2026 16:35:55 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] usb: pci-quirks: abort xHCI handoff if MMIO is
+ inaccessible
+To: Haowen Bai <calvin.bai@ugreen.com>, mathias.nyman@intel.com
+Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <A8558181A93455E3+20260906162614.26940-1-calvin.bai@ugreen.com>
+Content-Language: en-US
+From: Mathias Nyman <mathias.nyman@linux.intel.com>
+In-Reply-To: <A8558181A93455E3+20260906162614.26940-1-calvin.bai@ugreen.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-fix-rockchip-hdmi-audio-names-v2-8-1396a6168e20@collabora.com>
-References: <20260910-fix-rockchip-hdmi-audio-names-v2-0-1396a6168e20@collabora.com>
-In-Reply-To: <20260910-fix-rockchip-hdmi-audio-names-v2-0-1396a6168e20@collabora.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Johan Jonker <jbx6244@gmail.com>, Alex Bee <knaerzche@gmail.com>, 
- Christian Hewitt <christianshewitt@gmail.com>, 
- Robin Murphy <robin.murphy@arm.com>, 
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
- David Summers <beagleboard@davidjohnsummers.uk>
-Cc: kernel@collabora.com, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, 
- Detlev Casanova <detlev.casanova@collabora.com>
-X-Mailer: b4 0.15.2
 
-Rename the two cards from "hdmi0"/"hdmi1" to "RK3588 HDMI0"/"RK3588
-HDMI1" so they identify the SoC in user-visible ALSA fields and match
-the naming scheme used across the rest of the Rockchip family.
-
-Fixes: b8c6c136971c0 ("arm64: dts: rockchip: Add HDMI audio outputs for rk3588")
-Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
----
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi  | 2 +-
- arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index 376ad04e0786..7892e18a7835 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -376,7 +376,7 @@ hdmi0_sound: hdmi0-sound {
- 		compatible = "simple-audio-card";
- 		simple-audio-card,format = "i2s";
- 		simple-audio-card,mclk-fs = <128>;
--		simple-audio-card,name = "hdmi0";
-+		simple-audio-card,name = "RK3588 HDMI0";
- 		status = "disabled";
- 
- 		simple-audio-card,codec {
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
-index b251bb129cdb..2bcf30d8a338 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
-@@ -11,7 +11,7 @@ hdmi1_sound: hdmi1-sound {
- 		compatible = "simple-audio-card";
- 		simple-audio-card,format = "i2s";
- 		simple-audio-card,mclk-fs = <128>;
--		simple-audio-card,name = "hdmi1";
-+		simple-audio-card,name = "RK3588 HDMI1";
- 		status = "disabled";
- 
- 		simple-audio-card,codec {
-
--- 
-2.55.0
-
+On 9/6/26 19:26, Haowen Bai wrote:
+> The xHCI early handoff quirk polls the BIOS ownership, CNR, and HALT bits
+> with readl_poll_timeout_atomic(). Unlike xhci_handshake(), handshake()
+> does not treat an all-ones read as an inaccessible controller.
+> 
+> If the controller becomes inaccessible, readl() can return U32_MAX. The CNR
+> bit then never clears, and the atomic poll keeps retrying. The atomic poll
+> budget is decremented using the requested delay and loop iterations, but
+> not the time spent in readl(). Slow failed MMIO reads can therefore keep
+> the PCI hotplug thread spinning far beyond the nominal timeout and trigger
+> a soft lockup. The 26-second value in the first warning is the watchdog
+> threshold, not the handshake timeout; repeated warnings showed the thread
+> still stuck up to 260 seconds before a controlled reboot, leaving the
+> system unavailable to normal management. Comparing the watchdog timestamps
+> with the RBP loop counter in the dumps (about 1,372 iterations in 26 s and
+> 15,638 in 260 s) implies roughly 16-19 ms per polling iteration, despite
+> configured 10 us delay; these values are inferred, not direct measurements
+> of an individual readl().
+> 
+> Return -ENODEV when the polled register reads U32_MAX and stop the handoff
+> before issuing further accesses. This prevents an inaccessible xHCI from
+> keeping the PCI hotplug thread busy and making the system unavailable. An
+> eGPU may still fail to enumerate, but that failure must remain controlled
+> rather than causing a kernel Soft Lockup and taking down SSH or desktop
+> management. The existing timeout behavior for non-all-ones reads is
+> preserved, matching xhci_handshake().
+> 
+> A Thunderbolt-attached AMD Radeon Pro W5700 in a Razer Core X enclosure
+> reproduced this on an x86_64 UGREEN DXP8800 Plus with an Intel Core
+> i5-1235U. The GPU's xHCI function 0000:06:00.2 (1002:7316) triggered
+> the soft lockup in irq/123-pciehp; the register dump contained
+> RAX=U32_MAX:
+> 
+>    watchdog: BUG: soft lockup - CPU#6 stuck for 26s! [irq/123-pciehp:139]
+>    RIP: 0010:quirk_usb_early_handoff+0x552/0x7e0
+>    register state: RAX=00000000ffffffff
+> 
+> The call trace was:
+> 
+>    pci_do_fixups
+>    pci_bus_add_device
+>    pci_bus_add_devices
+>    pciehp_configure_device
+>    pciehp_handle_presence_or_link_change
+>    pciehp_ist
+>    irq_thread_fn
+> 
+> The failure reproduced on two hot-plug attempts and did not occur when the
+> enclosure was connected before boot.
+> 
+> Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Haowen Bai <calvin.bai@ugreen.com>
+Acked-by: Mathias Nyman <mathias.nyman@linux.intel.com>
