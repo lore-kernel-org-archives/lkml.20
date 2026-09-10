@@ -1,358 +1,299 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013005.outbound.protection.outlook.com [40.93.196.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9110139B97B
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:13:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.5
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789074845; cv=fail; b=oRLn/mREnAWJeNWLuRv5ADm6TvJ2xUFz0HSUYy1O5yQ5zXL99CfJ+hIY5VDKF8UbrL7vvEHdu22rFqdSDRPQweGpkq5KaDuz/uezlYV3E5/n04DuZ1ql2Wt/HBRLPE3hnFY9cqWCIHk09mdGjh0M6povt6LfaM+IfN0n7v6Rcdo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789074845; c=relaxed/simple;
-	bh=eWR42fHYwfZRODO9sU2bUyxGUYy3U9T46yIWFTkBlkg=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=l9E4ApByI+rMonwODNiQH0cLsvs77udjXJVauz06N0adtXr8Rv+FHkqmtUPGT+yLT179j74WPjg+/JQ8WeMZnSbDPBLRxGcX6N5druqwBvoIE2A+vZz5Hs1RttR8KbjVMmR2f7V+U0JrIiDpZom45eALKBFYH4Ur8J1nb+zikhA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=LY8F8Ln6; arc=fail smtp.client-ip=40.93.196.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0031936E46C
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:14:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789074882; cv=none; b=RnTpyCSTQf7Rhm3nghYf1QN6zJfmbsDtU09/SI+ultbL+2KytQp4Q/P16hq4QT9SUp3nHGnssV3bx6JMXHlMEyOr6pYk8wsqCBQ3DxEBtViTldeAUMa2hI28A2HKroiLJ3C3r+LsGzlK5P3vSbek1w7CkVPIiCbZTsICCL5DQ5Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789074882; c=relaxed/simple;
+	bh=2MRf0iEATe9QMwEIa9W63i8mjSRtVs8e8r/JWhbc2Nk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=uR9ysgCOzRUZQ5QOgt6XjOs8/g6NTSp03LFCIc4FnDPBdq0i+Ar1CnKwTsfGUI1Ak8XBY9hrgLzjNVMtYfFVA+QRTn5DfIDimdAgUFnPrBK45rsXt1GtHvHD9jgJLAzY5c49HuvjnSAPCUhSLsIkIJi4IZhabhv9buTbWXcgm20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=RhtFNV5s; arc=none smtp.client-ip=209.85.167.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="LY8F8Ln6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HUu9PoULfCy8y6R+8Gc1qV52J38fnFPBIpwd+k7LKGVcaKgCb77sYr2H9kLNB2WzmVLBY/LvlkreuwbHIC/Ai+HZ9bdlnNkQA+tsw1IuTVs5PPsiAWeMVkvOlhx14VlZQi3Nbh2ZVMk08ZPKYoU/uWR/Jz2td+wFJkR7ByJhXFahcpn390FdkemiQn09I1EmCMxQegdPSaBienVx7JO/Lrnq7K4eb7hcKG8N4lZAD2MzjVhHchVpXXUhvslrGB+KaG+8Hhlu7h3XfIcfvvW/Z/omMbaySkxZdd5fSDv9j073wCkuRsb3D00V1kSivMteHJ6qG71MMuDcqTvYK+LPqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Bx5uTYPPi3ETY8X6AOxi1RfVSQe35uXpB89RvlY+dTw=;
- b=VcjexioFeY0bh84ZDcV1Uxt90zADoxt7RI754kf5sTUuBzXq9Ypfmjtpm0P7XlvL8kIGpDpxlLPCmWWQqVDeTPT9SKTluJTS1gYicFIry4LXtv1jNFGz+tAKAxNNC7HDVJDojTv6Yp2priO6d1poOfQHxU7gq394jeAaZzhPHiAX4Y27JgfJ5K4Rjt8GyJg/DjUUEtE2T1J4okDduYw6Q9XVIDYygPvBDXWs6jw2jupDQMLb5ezFP4zS/lMNeCpvl1VJDxQCtIGyJKSHUxw4rXA8FMH/yXSEB3fu9tTJfZez7IHAPBkatBjsstQsEpiVznHXAOzhYORIEEELqhCQDw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bx5uTYPPi3ETY8X6AOxi1RfVSQe35uXpB89RvlY+dTw=;
- b=LY8F8Ln6TFTa3e0q9uOrCoWHcws091+gygR7kF27FjzJoRF6ThyMsei1vPv41TrLIT1D/POoHn6Nx9XoOSJdCkbsC6FlxJP77fMUN3Tzc3xcHjdlYQ/6tn9Qw1Q95qNO4oDyvRjJBjT3ah1Bst5P4F50w4/xiH2ngqpX5ElYsE0=
-Received: from CH0PR04CA0076.namprd04.prod.outlook.com (2603:10b6:610:74::21)
- by BL4PR12MB9533.namprd12.prod.outlook.com (2603:10b6:208:58f::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 21:13:51 +0000
-Received: from CH3PEPF0000000E.namprd04.prod.outlook.com
- (2603:10b6:610:74:cafe::86) by CH0PR04CA0076.outlook.office365.com
- (2603:10b6:610:74::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Thu, 10
- Sep 2026 21:13:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF0000000E.mail.protection.outlook.com (10.167.244.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 21:13:51 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
- 2026 16:13:51 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
- 2026 16:13:50 -0500
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Thu, 10 Sep 2026 16:13:50 -0500
-From: Lizhi Hou <lizhi.hou@amd.com>
-To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
-	<mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>,
-	<dri-devel@lists.freedesktop.org>, <max.zhen@amd.com>
-CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
-	<sonal.santan@amd.com>
-Subject: [PATCH V3] accel/amdxdna: Fix unsafe use of handle_mm_fault()
-Date: Thu, 10 Sep 2026 14:13:38 -0700
-Message-ID: <20260910211338.1102315-1-lizhi.hou@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="RhtFNV5s"
+Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-4ab89cff9c7so143419b6e.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:14:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1789074871; x=1789679671; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/2o2KBBoY3eBbW7X60cO8yzKvW06Wsw8NjBHTGQ5Xxw=;
+        b=RhtFNV5sKqjGosuimOP3yjUKMlWVtoPUL9E8dcfzD/ZyAzr0XB0YXPXD+eyWzuQdSz
+         gIq/MMAmS43IDxi6QIUX3YIc33sijZBN3t4Kc1E13IQGh4iRD6Lx0NtJ9G6jySa6ZxYu
+         TA7GtvaxzAlrGi0B2dgSWTeLDL08ksqIxEpmqZb1/pOC3EKql52a265kIx1S5MhOE+BF
+         w5fzJtWGexsD7BccZ+YJAb7Yoj1yknY7PMS3aum0skzooa7OtG4m/A/f4SBspM4WiSo7
+         NfHtGywwoX4nvMl+qH/lzjfYiekdTH4g7CyS/7ufhE3YCa8dvRMavNsM/UX/a44awgiq
+         jjjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789074871; x=1789679671;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/2o2KBBoY3eBbW7X60cO8yzKvW06Wsw8NjBHTGQ5Xxw=;
+        b=R6eVm48PvhPvfSqmzZ1573EG1XbVffnby5Wlva+v1F/OANXC7wMilk1JZnO/T4bpMB
+         RrYKg3WCnu1Em1EqwZHq0jclWfETrH/Pp8ztfiasfCdaFLIidlIqmvQ4hDtBhJLSfZ5U
+         JvksdDDOkzlQ6QuirPGDjJVZriyuotNOb63+7uI/DxzRxAJiOfeLOQpBkGcpqtE38UKO
+         S+oJKByLJAnWfp9bkwZl9SuLaAf/tBDdC2SELGMhc8fgs1vJQXaiaDy6R2a3jQMcRIAk
+         kGbCqnovgDsIGCCVNQQaAdS074py08Gy5QGy/foqoUjQ/GbUEc/OizLPOAxusSAntPk7
+         KXKg==
+X-Forwarded-Encrypted: i=1; AKwUvBzGZITbrfRI201BTyqm6AaNX4/ow1LVIilnrLjvdaoUgffAg76Q+689ECs8UfsgDPtIZ+GT0bvWp3GwzvI=@vger.kernel.org
+X-Gm-Message-State: AFuF++ltg+vwJidw22Mpkj9mjOr7DnnE7XlWjAO0EfnP0iaYaPjxiSDW
+	N9I0cJbZAbd59EqBbrlNG1gQzEOkqhOzdc/6VVrBLcucGnc9q8cG/vpyoYNWBuv7UaPmOi3U7r3
+	kFA//
+X-Gm-Gg: AYBFou1paBTXNzUYhfF0IYJoxxzlLAIWikdgPgkg3TPQj7B/JDsyhn2RtyCeS7Pt+Dm
+	jx4tI9RZbb8oXqtv+Ff0+rnSdnYefZsAV7z7qV7WXxNWZ3fDlpWVf0OCqrcAzD+vKPJ6sEjtOl7
+	qz0Tir8V/8ALkzUz+puKAAg1uTZBW89uqnLgVJ3MkS1PwFkFkNU7KaJoJNw+9O0cBDPAEN9hXvm
+	ZKWhIO8B5213GVtNPS2EAuOPG+j/ypsLCl1ePxBK1A0QK1krmpMAoD68GLkByC4Fwpib4L+5R8G
+	honPkkD3Q1hLvhE0UT9s1ahX24639LMLB4yCPZunWk5sTUNzvJA8R6gh2HQdcESo+KwUndbouay
+	PPcJ8Gxd6fDI11ZA9VOtc602n8kJZ/nqUqm2B4G6nbVhSIIBYWZioBVEsHATMXIdiGaa8yaayl0
+	+WHRIjQ7zTlyV8tarPv1C+c9M9N2FUton+SdsoggJQFnkiafgVwyBj9T6OHdsRX17LejA0T33ZD
+	NZC
+X-Received: by 2002:a05:6808:3518:b0:4c3:b3e:4e72 with SMTP id 5614622812f47-4c319d4934bmr678410b6e.12.1789074871227;
+        Thu, 10 Sep 2026 14:14:31 -0700 (PDT)
+Received: from [127.0.1.1] ([2600:8803:e7e4:500:fbf1:d0da:69e0:11a0])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4c330daa42esm347315b6e.4.2026.09.10.14.14.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 14:14:30 -0700 (PDT)
+From: "David Lechner (TI)" <dlechner@baylibre.com>
+Subject: [PATCH v3 00/10] iio: adc: ti-ads112c14: add filter support
+Date: Thu, 10 Sep 2026 16:12:59 -0500
+Message-Id: <20260910-iio-adc-ti-ads112c14-filter-support-v3-0-e5a9b27ddb1a@baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000E:EE_|BL4PR12MB9533:EE_
-X-MS-Office365-Filtering-Correlation-Id: d280a8e1-357c-465a-e3ff-08df0f8069b3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|23010399003|36860700016|376014|10067099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	CPKRIwx8/VF4ulrDzQS7v9Ojh1fMlQv5JzCSS4Dtfkg1Hv26KCnlJZMPOOK8RXfXwK9RV64WYiqoV959qWEJ7JQdr3DjQobrIs8GVmJv3cBWPI9tqvs+SdFe8deOUPpZYXa7fjmet/GSS3HRLswBvfu3t3xaWq/q7H0ff+wueI6xkN/CogzuUfV4jFWg84b1HbposnNzaG4pFkI2tgdFtiMnEt0EhsZtOJhkERzhp7anXwUm4qgdzKYCBopbXm3mM/DkvuOFaRfiXtiLsg0KYnNlnYmeyxbI0vbahRLeVUXKrL9NI1nmBsnEhlblEVFaRyOoMsv07pFGygyW96kqhGiADFGkfOs+6rqq8Ha9LAsmpHDXfHUiyKeXsvMQDo7Mp2udxLQjbLC8yBL6yVF7mKT6GdB8tSdQcF7GwDs/oZCRWf7oeUzaYp1LwWEszU8DWTY2R9+Tmu23/9pcZQ/usftRLWBgMfcNL2rkKlbkP6YqdcJKOJPQHpaRlV0uOSAMB+rCDCadh7ZZ8OuVfNdExBwjeE9R3FJpTj3YzZ/Sg8SsRTMCm4yZf9Kwc1+G69ZzYCmGG+N0BraXddJ35ZNDo2GVSWwRHTvjpb1g1X4YEwMLahMVO5jXhXXJ9SVHL3JGDJjf+6sJbtwaWftJ3OTJJ4fSaMHKLiQkdl+luUm0UsF/iENNbRQikEhtEiWIp4WqZ/pEuWKQ1JZdwLI6/+p3Mw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(23010399003)(36860700016)(376014)(10067099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	JEyrE/y4QC9W6UiE0x71TTULRwtpgAFNgVvVqnGUcbmHxw4McAgf2AxQ6TM6yiqruw2eUk4Ogm3eBjszSHPZGK85jfLibQyEkdoCe8ae6wuiRt8VG7q7BD5bZhtCVIG2k6GW9bxCp0ldTXHKdwsv+q8qg52lACYDHPe/4/S4MZ9Ixn+mJHJVBsLvQFNbDnBs4V53BsIcLjuh0Cy5qVpc3hpiHFIbHL+K0QK6q4U9313vbtnoFSpuP5fYyo+/gb0QaZTTu0Ige+iwpTkLz76GJ7IYAh6NoyTxWhscXThTN1w2ahDCvb0eB8fADw1CJCEGl0Z919VhNaJ6h7XaDJxroT8U5qoeOyTeOO+KqnI5oSOG2G8Am9iQMgO/kuUTIRSbO9DijgRXxi81BWzCck1RCjc/T+z201TqojflN4A0OK36+yN7svUHTQErCAvO+PhT
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 21:13:51.2976
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d280a8e1-357c-465a-e3ff-08df0f8069b3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH3PEPF0000000E.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9533
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WPwW7DIBBEf8XiXGrAhto59T+qHgAvyVaxcQBbj
+ SL/ezdOpUo9tafRaHffzN5YhoSQ2aG6sQQrZowTmeapYv5kpyNwHMgzJZQRnXjhiJHbwfOCJFl
+ K5WXLA54LJJ6XeY6p8M5q02kRdC8CI9KcIODnnvL2/vB5cR/gyx39vZHgslB8eawxZzNwH8cRy
+ 6Gi+1wnGCNNa2pQkxacjuxOO2EuMV33F1a5H/+r7Sq54O3QOCuEt0F2r85ez+gSPFP+HrGqH2w
+ v2r9hFWFDZ3SvGiOM/o3dtu0LprrAwH4BAAA=
+X-Change-ID: 20260807-iio-adc-ti-ads112c14-filter-support-8a56850f590f
+To: Jonathan Cameron <jic23@kernel.org>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>, 
+ Kurt Borja <kuurtb@gmail.com>, linux-iio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, "David Lechner (TI)" <dlechner@baylibre.com>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10621;
+ i=dlechner@baylibre.com; h=from:subject:message-id;
+ bh=2MRf0iEATe9QMwEIa9W63i8mjSRtVs8e8r/JWhbc2Nk=;
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqox1rdCEj0fb/c334yeA2X+gwOJEeueRugZtTa
+ CgobF/iS5yJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaqMdawAKCRDCzCAB/wGP
+ wJwYB/4yyHEn+pFa43yQ1oahbrFtqByHigJvdpa5QYZ+H3Q4PBQagUqh8wdem9Ogm/KP+6mvXS5
+ A904rJJhtAk6BeybHHT84fqd3DftZV5bURsth34MnQcvwtRw4eKMxhVkwKKiODLxtAuKHI7NKkC
+ b1fAoCycqYjIwaqAVNqAurzOSIZBVFGDeua4gyqk8XRiPYGumiJWLJ/FRxrp+qNC5GAUPmL3bks
+ xwtap8HpMIJv9OLyg9e7pwOwZyxtdMyKHxoGJy2hgYUn8vTtZMH/sCDiG0U2j7if7cQjkb11xrP
+ FYRsYvLr7moh9D/6K/OLxBj5NiVNOnAXYyT+Trlg3H7d20kL
+X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
+ fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 
-handle_mm_fault() must not be called from the mmap callback because
-the VMA has not yet been linked. The handle_mm_fault() API contract
-assumes that the VMA is already linked.
+I was hoping to avoid this, but until [0] lands, sashiko doesn't know
+how to handle patch series with dependencies. So I have combined my
+three outstanding ti-ads112c14 series into a single one. It's really
+too much all at once, but this seems the best way to speed up the review
+process at the moment.
 
-Remove the handle_mm_fault() call from the mmap callback. For imported
-BOs, mark the mapping as invalid and rely on the first command submission
-to fault in the pages.
+[0]: https://github.com/sashiko-dev/sashiko/pull/389
 
-For shmem BOs, set the VM_MIXEDMAP flag and use vm_insert_pages().
-Implement amdxdna_gem_mixed_vm_ops to handle the page faults.
+So we now have:
 
-Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+* patches 1-3: "iio: adc: ti-ads112c14: continuous mode support", last
+  reviewed as v5 [1] (identical to what was sent with [2] but review
+  was done on the standalone series)
+* patches 4-5: "iio: adc: ti-ads112c14: add burnout current support",
+  last posted/reviewed as part of this bigger series [2].
+* patches 6-10: "iio: adc: ti-ads112c14: add filter support", last
+  posted as v2 [2]
+
+Apart from the changes listed below, the patches are the same as in
+those postings.
+
+[1]: https://patch.msgid.link/20260831-iio-adc-ti-ads112c14-continuous-mode-v5-0-76f80a04b94f@baylibre.com
+[2]: https://patch.msgid.link/20260904-iio-adc-ti-ads112c14-filter-support-v2-0-f86592360658@baylibre.com
+
+The rest of this cover letter describes the filter support portion.
+
+TI ADS112C14 has several features related to filtering that are all
+interconnected. And to make things more interesting, not of the register
+fields map directly to IIO attributes. So this is one of those cases
+where we need to bend the rules a bit and just document it (we've
+already discussed this a bit in the previous series for this driver and
+came to this conclusion).
+
+Here is the high-level overview:
+
+We are adding sampling_frequency, oversampling_ratio, filter_type, and
+a (new to IIO) settlingtime attribute.
+
+Since register fields have different meanings depending on filter type
+we have a quirky rule that if the filter type is sinc4 or sinc4+sinc1,
+then you need to set the oversampling ratio first in order to see the
+expected available values for the sampling frequency. For sinc4+sinc1+pf1
+it is the other way around, you have to set sampling frequency first
+in order to see the expected available oversampling ratios.
+
+In other drivers, we've opted to store the requested values for dependant
+attributes like this and pick the closest available one when actually
+starting sampling. I opted not to do that here as there is not much
+overlap between settings. And as we will see below, there are other
+reasons for being picky about sampling frequency.
+
+We also discussed in another series about a proposed settlingtime
+attribute. The conclusion was that it should be the total settling time
+delay (in seconds) before a chip takes the first sample (after any
+settings have changed). In this chip there is a DELAY field in a
+register that programs some extra delay in addition to an always present
+fixed delay. So the way the attribute will work for this chip is that
+the settlingtime_available attribute will list the range including a
+minimum value. This happens to be the always present fixed delay. So the
+difference between that and the current value of the settlingtime
+attribute will be programed as the DELAY value. It also seems that the
+fixed latency period includes the conversion time. We've just glossed
+over that for now and not subtracted that from the settlingtime
+ attribute.
+
+Now, here is where things really get interesting/complicated. There are
+even more settings that affect the settling time. We defined the
+settling time as just a delay before the first sample. However, there
+are a couple of things that trigger the "first" sample. On this chip,
+the first sample only counts in continuous sampling mode. So only works
+as described when using the DRDY trigger in this driver. When using
+a generic trigger, e.g. a hrtimer trigger, single-shot sampling mode
+is used, so every sample is a "first" sample and has the settling delay
+added. This is mostly a non-issue other than it could throw people off
+that they cannot set the hrtimer frequency close to the sampling
+frequency attribute and actually get that sampling rate.
+
+And there a few other idiosyncrasies we haven't accounted for. To keep
+things simple, we've implemented settlingtime as tDELAY + tLATENCY
+(datasheet values). But this actually include the conversion time as
+well. Also, tLATENCY is longer if you are coming out of standby mode
+(this doesn't matter at this point since we didn't implement power
+management, but we wouldn't want to change it and break userspace
+later).
+
+Then there is also input chopping where the positive and negative input
+channels are swapped in the mux in the ADC on each sample. In these
+cases, every conversion requires the settling time because the mux is
+switched after every conversion. And the actual first sample has
+additional delay (presumably does two conversions). So the first sample
+takes tGC_LATENCY = 2 × (tDELAY + tLATENCY) – 12 tMOD and every sample
+after that takes tGC_DATA = tDELAY + tLATENCY – 12 tMOD. For this one,
+I have valued simplicity over accuracy in the implementation, so it is
+the same where settlingtime = tDELAY + tLATENCY and not worried about
+the 12 tMOD difference. I think it makes sense to keep settlingtime
+as a single tDELAY + tLATENCY in this case since the when the mux
+changes after each sample, the next sample is now the first sample after
+settings have changed.
+
+This sort of breaks the definition of sampling frequency though since
+in IIO, the 1 / sampling frequency is the time between each sample
+being sent over the bus. I don't really want to change how sampling
+frequency is implemented here though because the current values match
+the datasheet which can be used to infer information like where the
+notches in the filter are. The actual observed sampling rate will be
+1 / tGC_DATA.
+
+Having written all of this out now though, I'm tempted to go back and
+change the settlingtime attribute implementation to be more accurate.
+In any case, tDELAY will always be easy to infer because it is the
+current value minus the minimum value (from the _available attribute).
+Then when using input chopping one could get a reasonably accurate
+sample period by taking 1 / sampling_frequency + settlingtime.
+
+We will follow this up later with a documentation patch that explains
+all of this too.
+
+Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
 ---
-v2 & v3:
-  Fix sashiko comment.
+Changes in v3:
+- Patch 1 (DRDY interrupt): only require the "drdy" interrupt when it is
+  actually listed in interrupt-names, falling back to polling mode
+  otherwise instead of failing probe (the binding allows interrupt-names
+  to list only "fault").
+- Patch 3 (continuous mode): allocate and register the DRDY trigger
+  before requesting the IRQ, so devres teardown disables the interrupt
+  before freeing the trigger (avoids a possible use-after-free that
+  sashiko flagged).
+- Patch 6 (external clock): use FIELD_PREP() with named values for the
+  CLK_SEL bit instead of regmap_set_bits(). Validate that the external
+  clock's rate is non-zero.
+- Patch 7 (filter support): fix div_u64_rem() pointer-sign warnings in
+  the new ODR table code by using local u32 variables for the
+  remainder. Use unsigned int instead of u32 for the new loop indices,
+  declared locally in each loop.
+- Patch 9 (settlingtime attribute): widen the intermediate delay
+  calculation to u64 so a large requested settling time saturates
+  instead of wrapping around. Rewrap the poll-timeout call.
+- Patch 10 (settlingtime ABI): expand the commit message to explain why
+  the total settling time isn't simply the difference between the first
+  and subsequent sample times.
+- Link to v2: https://patch.msgid.link/20260904-iio-adc-ti-ads112c14-filter-support-v2-0-f86592360658@baylibre.com
 
- drivers/accel/amdxdna/amdxdna_gem.c | 151 ++++++++++++++++++++++------
- 1 file changed, 118 insertions(+), 33 deletions(-)
+Changes in v2:
+- Combined the continuous mode support and burnout current support
+  series into this series (see above).
+- Rebased on the current iio/testing.
+- Bumped KernelVersion to 7.4 in the settlingtime ABI documentation so
+  that it matches the rest of the new ABI in this series.
+- Patches 1-3 (continuous mode): no changes since v5 [1].
+   - FWIW, I didn't think sashiko's comments on the IRQ were realistic.
+     This could never be used with a level interrupt. And we haven't
+     typically tried to handle spurious interrupts in the past either.
+     Everything it suggested could only happen with broken hardware or
+     excessive noise (which I suppose counts as broken hardware).
+- Patches 4-5 (burnout), changes since v2 [2]:
+  - Pass an integer rather than a boolean to FIELD_PREP() for the global
+    chop enable bit.
+  - Drop the blank line after looking up the measurement.
+  - Return the conversion error in preference to the error from turning
+    the burnout current back off.
+  - Use a local variable for the "burn-out-current-nanoamp" property
+    name.
+  - Compare against ADS112C14_DEVICE_CFG_BOCS_DISABLED explicitly
+    instead of testing for non-zero.
+  - Fix KernelVersion in the ABI docs.
+- Patches 6-10 (filter support), changes since v1 [3]:
+  - Move the driver code that was accidentally squashed into the
+    "iio: ABI: add sinc4+sinc1+pf1 filter_type" patch back to the
+    "iio: adc: ti-ads112c14: add filter support" patch where it belongs.
+  - Fixed typos in the external clock patch commit message.
+  - Added a note to the settlingtime ABI documentation that the settling
+    time can apply to more than just the first conversion.
+- Link to v1: https://patch.msgid.link/20260807-iio-adc-ti-ads112c14-filter-support-v1-0-4d3ba00caf18@baylibre.com
 
-diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-index 0d165b66c1fc..a12a762b3a6b 100644
---- a/drivers/accel/amdxdna/amdxdna_gem.c
-+++ b/drivers/accel/amdxdna/amdxdna_gem.c
-@@ -14,6 +14,7 @@
- #include <linux/dma-direct.h>
- #include <linux/iosys-map.h>
- #include <linux/pagemap.h>
-+#include <linux/swap.h>
- #include <linux/vmalloc.h>
- 
- #include "amdxdna_cbuf.h"
-@@ -490,16 +491,16 @@ static int amdxdna_insert_pages(struct amdxdna_gem_obj *abo,
- {
- 	struct amdxdna_dev *xdna = to_xdna_dev(to_gobj(abo)->dev);
- 	unsigned long num_pages = vma_pages(vma);
--	unsigned long offset = 0;
- 	int ret;
- 
--	if (!is_import_bo(abo)) {
--		ret = drm_gem_shmem_mmap(&abo->base, vma);
--		if (ret) {
--			XDNA_ERR(xdna, "Failed shmem mmap %d", ret);
--			return ret;
--		}
--	} else {
-+	/*
-+	 * Until today there is not any use case to mmap with non-zero
-+	 * offset. Put an explicit check here.
-+	 */
-+	if (vma->vm_pgoff - drm_vma_node_start(&to_gobj(abo)->vma_node))
-+		return -EINVAL;
-+
-+	if (is_import_bo(abo)) {
- 		vma->vm_private_data = NULL;
- 		vma->vm_ops = NULL;
- 		ret = dma_buf_mmap(abo->dma_buf, vma, 0);
-@@ -508,23 +509,28 @@ static int amdxdna_insert_pages(struct amdxdna_gem_obj *abo,
- 			return ret;
- 		}
- 
-+		amdxdna_mark_mapp_invalid(abo, vma);
-+
- 		/* Drop the reference drm_gem_mmap_obj() acquired.*/
- 		drm_gem_object_put(to_gobj(abo));
-+		return 0;
- 	}
- 
--	do {
--		vm_fault_t fault_ret;
--
--		fault_ret = handle_mm_fault(vma, vma->vm_start + offset,
--					    FAULT_FLAG_WRITE, NULL);
--		if (fault_ret & VM_FAULT_ERROR) {
--			XDNA_ERR(xdna, "Fault in page failed");
--			amdxdna_mark_mapp_invalid(abo, vma);
--			break;
--		}
-+	ret = drm_gem_shmem_mmap(&abo->base, vma);
-+	if (ret) {
-+		XDNA_ERR(xdna, "Failed shmem mmap %d", ret);
-+		return ret;
-+	}
- 
--		offset += PAGE_SIZE;
--	} while (--num_pages);
-+	vm_flags_mod(vma, VM_MIXEDMAP, VM_PFNMAP);
-+	ret = vm_insert_pages(vma, vma->vm_start, abo->base.pages, &num_pages);
-+	if (ret) {
-+		XDNA_ERR(xdna, "Failed to insert pages %d", ret);
-+		dma_resv_lock(to_gobj(abo)->resv, NULL);
-+		drm_gem_shmem_put_pages_locked(&abo->base);
-+		dma_resv_unlock(to_gobj(abo)->resv);
-+		return ret;
-+	}
- 
- 	return 0;
- }
-@@ -536,6 +542,10 @@ static int amdxdna_gem_obj_mmap(struct drm_gem_object *gobj,
- 	struct amdxdna_gem_obj *abo = to_xdna_obj(gobj);
- 	int ret;
- 
-+	XDNA_DBG(xdna, "BO map_offset 0x%llx type %d userptr 0x%lx size 0x%lx",
-+		 drm_vma_node_offset_addr(&gobj->vma_node), abo->type,
-+		 vma->vm_start, gobj->size);
-+
- 	ret = amdxdna_hmm_register(abo, vma);
- 	if (ret)
- 		return ret;
-@@ -546,9 +556,6 @@ static int amdxdna_gem_obj_mmap(struct drm_gem_object *gobj,
- 		goto hmm_unreg;
- 	}
- 
--	XDNA_DBG(xdna, "BO map_offset 0x%llx type %d userptr 0x%lx size 0x%lx",
--		 drm_vma_node_offset_addr(&gobj->vma_node), abo->type,
--		 vma->vm_start, gobj->size);
- 	return 0;
- 
- hmm_unreg:
-@@ -556,14 +563,99 @@ static int amdxdna_gem_obj_mmap(struct drm_gem_object *gobj,
- 	return ret;
- }
- 
-+/*
-+ * VM operations for amdxdna shmem VMAs that use VM_MIXEDMAP.
-+ *
-+ * drm_gem_shmem_vm_ops cannot be used on VM_MIXEDMAP VMAs because its fault
-+ * handler calls vmf_insert_pfn() → vmf_insert_pfn_prot() which contains:
-+ *   BUG_ON((vma->vm_flags & VM_MIXEDMAP) && pfn_valid(pfn))
-+ * All amdxdna shmem pages are ordinary struct pages so pfn_valid() is always
-+ * true, making the combination fatal.
-+ *
-+ * These ops use vmf_insert_page() (struct-page based) instead, which is the
-+ * correct API for VM_MIXEDMAP VMAs backed by real struct pages.  The open and
-+ * close handlers replicate drm_gem_shmem_vm_open/close using only exported
-+ * symbols.
-+ */
-+static vm_fault_t amdxdna_gem_mixedmap_fault(struct vm_fault *vmf)
-+{
-+	struct vm_area_struct *vma = vmf->vma;
-+	struct drm_gem_object *gobj = vma->vm_private_data;
-+	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(gobj);
-+	loff_t num_pages = gobj->size >> PAGE_SHIFT;
-+	vm_fault_t ret = VM_FAULT_SIGBUS;
-+	pgoff_t page_offset;
-+	struct page *page;
-+
-+	/*
-+	 * Partial free of vma is unexpected. Otherwise, the wrong page
-+	 * will be faulted in and the user application may crash itself.
-+	 */
-+	page_offset = vmf->pgoff - vma->vm_pgoff;
-+
-+	dma_resv_lock(gobj->resv, NULL);
-+
-+	if (!shmem->pages || shmem->madv < 0 || page_offset >= num_pages)
-+		goto out;
-+
-+	page = shmem->pages[page_offset];
-+	if (WARN_ON_ONCE(!page))
-+		goto out;
-+
-+	/*
-+	 * Use vmf_insert_page() (struct-page path) not vmf_insert_pfn()
-+	 * (PFN path) because this VMA carries VM_MIXEDMAP.
-+	 */
-+	ret = vmf_insert_page(vma, vmf->address, page);
-+	if (ret == VM_FAULT_NOPAGE)
-+		folio_mark_accessed(page_folio(page));
-+
-+out:
-+	dma_resv_unlock(gobj->resv);
-+	return ret;
-+}
-+
-+static void amdxdna_gem_mixedmap_vm_open(struct vm_area_struct *vma)
-+{
-+	struct drm_gem_object *gobj = vma->vm_private_data;
-+	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(gobj);
-+
-+	/*
-+	 * Bump pages_use_count so the page array stays alive for the new
-+	 * mapping copy created by fork().  Mirrors drm_gem_shmem_vm_open().
-+	 */
-+	dma_resv_lock(gobj->resv, NULL);
-+	drm_WARN_ON_ONCE(gobj->dev, !refcount_inc_not_zero(&shmem->pages_use_count));
-+	dma_resv_unlock(gobj->resv);
-+
-+	drm_gem_vm_open(vma);
-+}
-+
-+static void amdxdna_gem_mixedmap_vm_close(struct vm_area_struct *vma)
-+{
-+	struct drm_gem_object *gobj = vma->vm_private_data;
-+	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(gobj);
-+
-+	dma_resv_lock(gobj->resv, NULL);
-+	drm_gem_shmem_put_pages_locked(shmem);
-+	dma_resv_unlock(gobj->resv);
-+
-+	drm_gem_vm_close(vma);
-+}
-+
-+static const struct vm_operations_struct amdxdna_gem_mixedmap_vm_ops = {
-+	.fault  = amdxdna_gem_mixedmap_fault,
-+	.open   = amdxdna_gem_mixedmap_vm_open,
-+	.close  = amdxdna_gem_mixedmap_vm_close,
-+};
-+
- static int amdxdna_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struct *vma)
- {
- 	struct drm_gem_object *gobj = dma_buf->priv;
- 	struct amdxdna_gem_obj *abo = to_xdna_obj(gobj);
--	unsigned long num_pages = vma_pages(vma);
- 	int ret;
- 
--	vma->vm_ops = &drm_gem_shmem_vm_ops;
-+	vma->vm_ops = &amdxdna_gem_mixedmap_vm_ops;
- 	vma->vm_private_data = gobj;
- 
- 	drm_gem_object_get(gobj);
-@@ -573,16 +665,9 @@ static int amdxdna_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struc
- 
- 	/* The buffer is based on memory pages. Fix the flag. */
- 	vm_flags_mod(vma, VM_MIXEDMAP, VM_PFNMAP);
--	ret = vm_insert_pages(vma, vma->vm_start, abo->base.pages,
--			      &num_pages);
--	if (ret)
--		goto close_vma;
- 
- 	return 0;
- 
--close_vma:
--	vma->vm_ops->close(vma);
--	return ret;
- put_obj:
- 	drm_gem_object_put(gobj);
- 	return ret;
-@@ -878,7 +963,7 @@ static const struct drm_gem_object_funcs amdxdna_gem_shmem_funcs = {
- 	.vmap = amdxdna_gem_obj_vmap,
- 	.vunmap = amdxdna_gem_obj_vunmap,
- 	.mmap = amdxdna_gem_obj_mmap,
--	.vm_ops = &drm_gem_shmem_vm_ops,
-+	.vm_ops = &amdxdna_gem_mixedmap_vm_ops,
- 	.export = amdxdna_gem_prime_export,
- };
- 
--- 
-2.34.1
+---
+David Lechner (TI) (10):
+      iio: adc: ti-ads112c14: add DRDY interrupt support
+      iio: adc: ti-ads112c14: create data read helper functions
+      iio: adc: ti-ads112c14: add continuous mode support
+      iio: adc: ti-ads112c14: add burnout current support
+      iio: ABI: add sysfs attribute for _burnoutraw
+      iio: adc: ti-ads112c14: support external clock
+      iio: adc: ti-ads112c14: add filter support
+      iio: ABI: add sinc4+sinc1+pf1 filter_type
+      iio: adc: ti-ads112c14: add settlingtime attribute
+      iio: ABI: add settlingtime attributes
+
+ Documentation/ABI/testing/sysfs-bus-iio     |   27 +
+ Documentation/ABI/testing/sysfs-bus-iio-adc |    9 +
+ drivers/iio/adc/ti-ads112c14.c              | 1298 +++++++++++++++++++++++++--
+ 3 files changed, 1275 insertions(+), 59 deletions(-)
+---
+base-commit: e7c1d459e542bc4a9c57f558e8ca1b14df7a7eef
+change-id: 20260807-iio-adc-ti-ads112c14-filter-support-8a56850f590f
+
+Best regards,
+--  
+David Lechner (TI) <dlechner@baylibre.com>
 
