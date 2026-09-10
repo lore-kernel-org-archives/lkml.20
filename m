@@ -1,157 +1,100 @@
-Received: from SHSQR01.spreadtrum.com (unknown [222.66.158.135])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A6C36196C;
-	Thu, 10 Sep 2026 07:11:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=222.66.158.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 708363A5422;
+	Thu, 10 Sep 2026 07:11:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789024294; cv=none; b=ed0R51u5iV3yGoGMavkAr4Wo4IVKTaKhAcQ6pdTkdZcacMmYNtUo3cjbVykt7zF/8bJMJn7eizBPnnCrk4XvpdhqBnXv5ijm4QGp45mBxOngiloRMps7Vd+EraFXwhQ04KH6hb11fvlaReGCFjFfa8gk1tkEzwdAK6lcXelwDbQ=
+	t=1789024297; cv=none; b=bBMc7AXqUidQS4Q7hdd1cpQbDItmoGsXmfvAPlOd9TX43llZUu0w2/AALfe/FvhhxN2ivdHYtN2mUETZmTPnGR9DrIhEWmdbe7t8w52TIQtp55CcWVMlttAdwg/IabIWM6AT/AQDH9kgeo/YGgKqmmn3xyG+ffThUrfIx5SAmuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789024294; c=relaxed/simple;
-	bh=OOred7fU+56RxD82Zb46MrrNEw+p+8Xn2R/7L276OXE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=dAgdkv0k6Z3disjK0Ao1z2BCwaWWrDmy3e1L9rT4SaJXRKXdNXVI2poGJNp+nWexPd1+AWHsuylVsGAG1rfaky5I1+/VzRJ0I7RbVPDGnu44oOonOFApf2wh8UkiAzG7wK4Q32fXWMU9Twx0oQIwtafFup1fphAGnPERs0OJuO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=unisoc.com; spf=pass smtp.mailfrom=unisoc.com; dkim=pass (2048-bit key) header.d=unisoc.com header.i=@unisoc.com header.b=zcqi/bby; arc=none smtp.client-ip=222.66.158.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=unisoc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=unisoc.com
+	s=arc-20240116; t=1789024297; c=relaxed/simple;
+	bh=veNmLyS77khJqxy+yf9wT4pFcgSAoLEhQ271L5jMhx0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=n7yW7c9YZJ+Y9+H73k2nohGxWN2CrxA1odK7cpljlY4CIT+DSbEJOzTysSESV0xLdxMuJdXq1aLdO0YvT2GQFDw3yZGnW1dTYQwNFfZWFXUe2vhp0eVnR10S3lLnGT+dQbOAUWhBQXw2hzOzcyxQqkAnRTZdjN2Xce3sp8bYXrc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=17UCVnuy; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=iiJf0YBO; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=unisoc.com header.i=@unisoc.com header.b="zcqi/bby"
-Received: from dlp.unisoc.com ([10.29.3.86])
-	by SHSQR01.spreadtrum.com with ESMTPS id 68A7Afq1050902
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
-	Thu, 10 Sep 2026 15:10:41 +0800 (+08)
-	(envelope-from xiaojie.li2@unisoc.com)
-Received: from SHDLP.spreadtrum.com (unknown [10.29.3.67])
-	by dlp.unisoc.com (SkyGuard) with ESMTPS id 4hgTKj2jjLz2MBNdN;
-	Thu, 10 Sep 2026 15:08:25 +0800 (CST)
-Received: from zeshmbx09.spreadtrum.com (10.29.3.107) by
- zeshmbx14.spreadtrum.com (10.29.3.67) with Microsoft SMTP Server (TLS) id
- 15.0.1497.48; Thu, 10 Sep 2026 15:10:40 +0800
-Received: from zeshmbx09.spreadtrum.com ([fe80::7981:d4bc:3eee:c0be]) by
- zeshmbx09.spreadtrum.com ([fe80::7981:d4bc:3eee:c0be%17]) with mapi id
- 15.00.1497.048; Thu, 10 Sep 2026 15:10:40 +0800
-From: =?gb2312?B?wO7P/r3gIChYaWFvamllIExpLzEzMjMzKQ==?=
-	<xiaojie.li2@unisoc.com>
-To: Ulf Hansson <ulfh@kernel.org>
-CC: "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        =?gb2312?B?s8LOxLOsIChXZW5jaGFvIENoZW4p?= <Wenchao.Chen@unisoc.com>,
-        =?gb2312?B?1cXI58iqIChSYWluIFpoYW5nKQ==?= <Rain.Zhang@unisoc.com>,
-        =?gb2312?B?zMbUwsHWIChZdWVsaW4gVGFuZyk=?= <yuelin.tang@unisoc.com>,
-        "cixi.geng@linux.dev" <cixi.geng@linux.dev>
-Subject: [PATCH] mmc: core: Modify the CMD1 transmission interval
-Thread-Topic: [PATCH] mmc: core: Modify the CMD1 transmission interval
-Thread-Index: AQHdNgR8DmoNOL7mLUCpmwUb62wN6bbHdPag
-Date: Thu, 10 Sep 2026 07:10:39 +0000
-Message-ID: <e2dba61ded204b86bc516cfe411e3ae9@zeshmbx09.spreadtrum.com>
-References: <20260827091436.1339716-1-xiaojie.li2@unisoc.com>
-In-Reply-To: <20260827091436.1339716-1-xiaojie.li2@unisoc.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="17UCVnuy";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="iiJf0YBO"
+From: Nam Cao <namcao@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789024293;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=veNmLyS77khJqxy+yf9wT4pFcgSAoLEhQ271L5jMhx0=;
+	b=17UCVnuy9tSpkKuE60hhVX8DDBolKcEpU7UA/+b0pvuIGSSUKPVx5UqiP/XKWCvtLAhxlV
+	P17/d0YyZ5qGmm6bCbdUAbLplDuWUAe/if1k2Kd9wwI8e1ofie1SIlT/q1OcLcgAfRVoTT
+	krHoHcUmv6+aHg5WwaHMjQpe7eBCVESe7+u2hDKuL+divLaGqzzOSj0xl16PZ2LvO2nEZX
+	gL+W/VwxULOn/igb+s/qVz5z5UEYMVGs9nkw0ibUI13Ttu5FR9vALEq7XUmPIx1XSA43zs
+	ZmaSVUgs/N45PXszUECsYRb7+CR7WpAigW1bk/67TGSjhvPtOY7pcETk//siig==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789024293;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=veNmLyS77khJqxy+yf9wT4pFcgSAoLEhQ271L5jMhx0=;
+	b=iiJf0YBO9FjPc269ArHeTW+A0VN1iK0mNeqJATzM8ZpZu44/cSyA65uKGerLhQyaJZNoUT
+	5+otwtNr61hxaTCQ==
+To: Naman Jain <namjain@linux.microsoft.com>, Thomas Gleixner
+ <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+ <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H . Peter Anvin" <hpa@zytor.com>, Wei Liu <wei.liu@kernel.org>, "K . Y .
+ Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
+ Dexuan Cui <decui@microsoft.com>
+Cc: Michael Kelley <mhklinux@outlook.com>, Long Li <longli@microsoft.com>,
+ Joerg Roedel <joro@8bytes.org>, Suravee Suthikulpanit
+ <suravee.suthikulpanit@amd.com>, Vasant Hegde <vasant.hegde@amd.com>, Will
+ Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Lorenzo
+ Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, Rob
+ Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Kees Cook
+ <kees@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, Radu Rendec
+ <radu@rendec.net>, Sean Christopherson <seanjc@google.com>, Kai Huang
+ <kai.huang@intel.com>, Dmitry Ilvokhin <d@ilvokhin.com>, Shradha Gupta
+ <shradhagupta@linux.microsoft.com>, Christophe JAILLET
+ <christophe.jaillet@wanadoo.fr>, Thierry Reding <treding@nvidia.com>, Jiri
+ Wiesner <jwiesner@suse.de>, Daniel J Blueman <daniel@quora.org>,
+ linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ iommu@lists.linux.dev, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v4 1/4] x86/hyperv: Set irq_retrigger for root partition
+ PCI/MSI irqchip
+In-Reply-To: <20260909064448.1004-2-namjain@linux.microsoft.com>
+References: <20260909064448.1004-1-namjain@linux.microsoft.com>
+ <20260909064448.1004-2-namjain@linux.microsoft.com>
+Date: Thu, 10 Sep 2026 09:11:27 +0200
+Message-ID: <87tsnxfun4.fsf@yellow.woof>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MAIL:SHSQR01.spreadtrum.com 68A7Afq1050902
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=unisoc.com;
-	s=default; t=1789024263;
-	bh=OOred7fU+56RxD82Zb46MrrNEw+p+8Xn2R/7L276OXE=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To;
-	b=zcqi/bbyEgSrJ97bh1sojvJe3GAVaJfcJo06P7pydpR3d9AJg2InnWVXgZMCbfE6b
-	 pHb3ZPyZPD9jjkoUAA4TC6Bm/BsLRsMr8WQlgIQcQlk0e2Fz6D8XIUfGzv6xt9TA3K
-	 9s/yWVtV/AS+2vV6YkdhixFVbjkwXHcIRYOBrScD2ENgl5K9j29KA/jqR7CnuDcGC2
-	 +6WtEtcxROL+VoXmT561jH0/WGLMpG5CVV+tMBlxxdsIbSh2h1Namo9D724KFc//O4
-	 mWy5ssehgR1kg6adxt2CnhlZ5k0RB8hWyuo4falzAphoswgE+OA4fhNwYmbEuCMA0U
-	 DkK5YxdobLrJA==
+Content-Type: text/plain
 
-SGkgVWxmLA0KDQoJSnVzdCBmb2xsb3dpbmcgdXAgb24gdGhlIHBhdGNoIGJlbG93Lg0KDQoJQ291
-bGQgeW91IHBsZWFzZSBsZXQgbWUga25vdyBpZiB0aGVyZSBhcmUgYW55IGNvbmNlcm5zIG9yIGlm
-IGZ1cnRoZXIgY2hhbmdlcyBhcmUgbmVlZGVkPw0KDQpCZXN0IHJlZ2FyZHMsDQpYaWFvamllLkxp
-DQoNCi0tLS0t08q8/tStvP4tLS0tLQ0Kt6K8/sjLOiDA7s/+veAgKFhpYW9qaWUgTGkvMTMyMzMp
-IDx4aWFvamllLmxpMkB1bmlzb2MuY29tPiANCreiy83KsbzkOiAyMDI2xOo41MIyN8jVIDE3OjE1
-DQrK1bz+yMs6IFVsZiBIYW5zc29uIDx1bGZoQGtlcm5lbC5vcmc+DQqzrcvNOiBsaW51eC1tbWNA
-dmdlci5rZXJuZWwub3JnOyBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnOyDA7s/+veAgKFhp
-YW9qaWUgTGkvMTMyMzMpIDx4aWFvamllLmxpMkB1bmlzb2MuY29tPjsgs8LOxLOsIChXZW5jaGFv
-IENoZW4pIDxXZW5jaGFvLkNoZW5AdW5pc29jLmNvbT47INXFyOfIqiAoUmFpbiBaaGFuZykgPFJh
-aW4uWmhhbmdAdW5pc29jLmNvbT47IMzG1MLB1iAoWXVlbGluIFRhbmcpIDx5dWVsaW4udGFuZ0B1
-bmlzb2MuY29tPjsgY2l4aS5nZW5nQGxpbnV4LmRldg0K1vfM4jogW1BBVENIXSBtbWM6IGNvcmU6
-IE1vZGlmeSB0aGUgQ01EMSB0cmFuc21pc3Npb24gaW50ZXJ2YWwNCg0KVGhlIGN1cnJlbnQgY29k
-ZSdzIG1heGltdW0gdWRlbGF5IHZhbHVlIGlzIHNldCB0byA2NG1zLiBTaW5jZSBpdCB1c2VzIHVz
-bGVlcF9yYW5nZSh1ZGVsYXksIHVkZWxheSoyKSwgdGhpcyByZXN1bHRzIGluIGEgbWF4aW11bSB3
-YWl0IHRpbWUgb2YgMTI4bXMgYmV0d2VlbiB0d28gY29uc2VjdXRpdmUgQ01EMSBjb21tYW5kcy4g
-Rm9yIGxvd2VyLXBlcmZvcm1hbmNlIGVNTUMgY2hpcHMsIGxvY2FsIHRlc3Rpbmcgc2hvd3MgdGhh
-dCBjb21wYXJlZCB0byB0aGUgb2xkIGNvZGUgd2hpY2ggdXNlZCBtbWNfZGVsYXkoMTApLCB0aGUg
-dG90YWwgdGltZSByZXF1aXJlZCB0byB3YWl0IGZvciB0aGUgYnVzeSBiaXQgaW4gdGhlIENNRDEg
-cmVzcG9uc2UgdG8gY2hhbmdlIGhhcyBpbmNyZWFzZWQgYnkgYXBwcm94aW1hdGVseSAzMDBtcywg
-bmVnYXRpdmVseSBpbXBhY3RpbmcgdGhlIG92ZXJhbGwgZU1NQyBpbml0aWFsaXphdGlvbiB0aW1l
-Lg0KDQpBbHRob3VnaCB0aGUgY3VycmVudCBjb2RlIHNlbmRzIHRoZSBDTUQxIGNvbW1hbmQgZmV3
-ZXIgdGltZXMgdGhhbiB0aGUgb2xkIHZlcnNpb24sIHRoZSB0b3RhbCB3YWl0aW5nIHRpbWUgaXMg
-c2lnbmlmaWNhbnRseSBsb25nZXIuDQpUbyBhZGRyZXNzIHRoaXMsIGl0J3MgcHJvcG9zZWQgdG8g
-bW9kaWZ5IHRoZSBDTUQxIHNlbmRpbmcgaW50ZXJ2YWwgdG8gZm9sbG93IGEgcGF0dGVybiBsaWtl
-IDRtcywgNm1zLCA4bXMsIDEwbXMsIDEwbXMsIGV0Yy4sIGVmZmVjdGl2ZWx5IGNhcHBpbmcgdGhl
-IGxvbmdlc3Qgc2luZ2xlIHdhaXQgYXQgMTBtcy4gTG9jYWwgdGVzdGluZyBjb25maXJtcyB0aGF0
-IHRoaXMgYXBwcm9hY2ggY2FuIGJyaW5nIHRoZSB0b3RhbCB0aW1lIHdhaXRpbmcgZm9yIHRoZSBi
-dXN5IHN0YXRlIGNoYW5nZSB2ZXJ5IGNsb3NlIHRvIHRoZSBwZXJmb3JtYW5jZSBsZXZlbCBvZiB0
-aGUgb2xkIGNvZGUuDQoNClRoZSBlTU1DIGNoaXAgdXNlZCBmb3IgdGVzdGluZzogbWFuZmlkPSAw
-eDAwMDA5YiwgbmFtZT0gWTBTMTI4LCBtZHQ9IDIwMjItMTAgVGhlIGVNTUMgcGFydCBudW1iZXIg
-aXM6IFlNRUM4QjBURTJBMkMzDQoNClNpZ25lZC1vZmYtYnk6IFhpYW9qaWUgTGkgPHhpYW9qaWUu
-bGkyQHVuaXNvYy5jb20+DQotLS0NCiBkcml2ZXJzL21tYy9jb3JlL21tY19vcHMuYyB8IDg1ICsr
-KysrKysrKysrKysrKystLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQogMSBmaWxlIGNoYW5nZWQsIDM2
-IGluc2VydGlvbnMoKyksIDQ5IGRlbGV0aW9ucygtKQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9t
-bWMvY29yZS9tbWNfb3BzLmMgYi9kcml2ZXJzL21tYy9jb3JlL21tY19vcHMuYyBpbmRleCBhOTUy
-Y2M4MjY1YWYuLjMwNzY2NjZjZjJjYSAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvbW1jL2NvcmUvbW1j
-X29wcy5jDQorKysgYi9kcml2ZXJzL21tYy9jb3JlL21tY19vcHMuYw0KQEAgLTE4OSw2NCArMTg5
-LDUxIEBAIGludCBtbWNfZ29faWRsZShzdHJ1Y3QgbW1jX2hvc3QgKmhvc3QpDQogCXJldHVybiBl
-cnI7DQogfQ0KIA0KLXN0YXRpYyBpbnQgX19tbWNfc2VuZF9vcF9jb25kX2NiKHZvaWQgKmNiX2Rh
-dGEsIGJvb2wgKmJ1c3kpIC17DQotCXN0cnVjdCBtbWNfb3BfY29uZF9idXN5X2RhdGEgKmRhdGEg
-PSBjYl9kYXRhOw0KLQlzdHJ1Y3QgbW1jX2hvc3QgKmhvc3QgPSBkYXRhLT5ob3N0Ow0KLQlzdHJ1
-Y3QgbW1jX2NvbW1hbmQgKmNtZCA9IGRhdGEtPmNtZDsNCi0JdTMyIG9jciA9IGRhdGEtPm9jcjsN
-Ci0JaW50IGVyciA9IDA7DQotDQotCWVyciA9IG1tY193YWl0X2Zvcl9jbWQoaG9zdCwgY21kLCAw
-KTsNCi0JaWYgKGVycikNCi0JCXJldHVybiBlcnI7DQotDQotCWlmIChtbWNfaG9zdF9pc19zcGko
-aG9zdCkpIHsNCi0JCWlmICghKGNtZC0+cmVzcFswXSAmIFIxX1NQSV9JRExFKSkgew0KLQkJCSpi
-dXN5ID0gZmFsc2U7DQotCQkJcmV0dXJuIDA7DQotCQl9DQotCX0gZWxzZSB7DQotCQlpZiAoY21k
-LT5yZXNwWzBdICYgTU1DX0NBUkRfQlVTWSkgew0KLQkJCSpidXN5ID0gZmFsc2U7DQotCQkJcmV0
-dXJuIDA7DQotCQl9DQotCX0NCi0NCi0JKmJ1c3kgPSB0cnVlOw0KLQ0KLQkvKg0KLQkgKiBBY2Nv
-cmRpbmcgdG8gZU1NQyBzcGVjaWZpY2F0aW9uIHY1LjEgc2VjdGlvbiA2LjQuMywgd2UNCi0JICog
-c2hvdWxkIGlzc3VlIENNRDEgcmVwZWF0ZWRseSBpbiB0aGUgaWRsZSBzdGF0ZSB1bnRpbA0KLQkg
-KiB0aGUgZU1NQyBpcyByZWFkeS4gT3RoZXJ3aXNlIHNvbWUgZU1NQyBkZXZpY2VzIHNlZW0gdG8g
-ZW50ZXINCi0JICogdGhlIGluYWN0aXZlIG1vZGUgYWZ0ZXIgbW1jX2luaXRfY2FyZCgpIGlzc3Vl
-ZCBDTUQwIHdoZW4NCi0JICogdGhlIGVNTUMgZGV2aWNlIGlzIGJ1c3kuDQotCSAqLw0KLQlpZiAo
-IW9jciAmJiAhbW1jX2hvc3RfaXNfc3BpKGhvc3QpKQ0KLQkJY21kLT5hcmcgPSBjbWQtPnJlc3Bb
-MF0gfCBCSVQoMzApOw0KLQ0KLQlyZXR1cm4gMDsNCi19DQotDQogaW50IG1tY19zZW5kX29wX2Nv
-bmQoc3RydWN0IG1tY19ob3N0ICpob3N0LCB1MzIgb2NyLCB1MzIgKnJvY3IpICB7DQogCXN0cnVj
-dCBtbWNfY29tbWFuZCBjbWQgPSB7fTsNCisJdW5zaWduZWQgaW50IHVkZWxheSA9IE1NQ19PUF9D
-T05EX1BFUklPRF9VUzsNCisJdW5zaWduZWQgaW50IHVkZWxheV9tYXggPSAxMDAwMDsNCisJdW5z
-aWduZWQgbG9uZyB0aW1lb3V0ID0gamlmZmllcyArIA0KK21zZWNzX3RvX2ppZmZpZXMoTU1DX09Q
-X0NPTkRfVElNRU9VVF9NUykgKyAxOw0KIAlpbnQgZXJyID0gMDsNCi0Jc3RydWN0IG1tY19vcF9j
-b25kX2J1c3lfZGF0YSBjYl9kYXRhID0gew0KLQkJLmhvc3QgPSBob3N0LA0KLQkJLm9jciA9IG9j
-ciwNCi0JCS5jbWQgPSAmY21kDQotCX07DQogDQogCWNtZC5vcGNvZGUgPSBNTUNfU0VORF9PUF9D
-T05EOw0KIAljbWQuYXJnID0gbW1jX2hvc3RfaXNfc3BpKGhvc3QpID8gMCA6IG9jcjsNCiAJY21k
-LmZsYWdzID0gTU1DX1JTUF9TUElfUjEgfCBNTUNfUlNQX1IzIHwgTU1DX0NNRF9CQ1I7DQogDQot
-CWVyciA9IF9fbW1jX3BvbGxfZm9yX2J1c3koaG9zdCwgTU1DX09QX0NPTkRfUEVSSU9EX1VTLA0K
-LQkJCQkgIE1NQ19PUF9DT05EX1RJTUVPVVRfTVMsDQotCQkJCSAgJl9fbW1jX3NlbmRfb3BfY29u
-ZF9jYiwgJmNiX2RhdGEpOw0KLQlpZiAoZXJyKQ0KLQkJcmV0dXJuIGVycjsNCisJd2hpbGUgKCF0
-aW1lX2FmdGVyKGppZmZpZXMsIHRpbWVvdXQpKSB7DQorCQllcnIgPSBtbWNfd2FpdF9mb3JfY21k
-KGhvc3QsICZjbWQsIDApOw0KKwkJaWYgKGVycikNCisJCQlicmVhazsNCisNCisJCWlmIChtbWNf
-aG9zdF9pc19zcGkoaG9zdCkpIHsNCisJCQlpZiAoIShjbWQucmVzcFswXSAmIFIxX1NQSV9JRExF
-KSkNCisJCQkJYnJlYWs7DQorCQl9IGVsc2Ugew0KKwkJCWlmIChjbWQucmVzcFswXSAmIE1NQ19D
-QVJEX0JVU1kpDQorCQkJCWJyZWFrOw0KKwkJfQ0KKw0KKwkJLyoNCisJCSAqIEFjY29yZGluZyB0
-byBlTU1DIHNwZWNpZmljYXRpb24gdjUuMSBzZWN0aW9uIDYuNC4zLCB3ZQ0KKwkJICogc2hvdWxk
-IGlzc3VlIENNRDEgcmVwZWF0ZWRseSBpbiB0aGUgaWRsZSBzdGF0ZSB1bnRpbA0KKwkJICogdGhl
-IGVNTUMgaXMgcmVhZHkuIE90aGVyd2lzZSBzb21lIGVNTUMgZGV2aWNlcyBzZWVtIHRvIGVudGVy
-DQorCQkgKiB0aGUgaW5hY3RpdmUgbW9kZSBhZnRlciBtbWNfaW5pdF9jYXJkKCkgaXNzdWVkIENN
-RDAgd2hlbg0KKwkJICogdGhlIGVNTUMgZGV2aWNlIGlzIGJ1c3kuDQorCQkgKi8NCisJCWlmICgh
-b2NyICYmICFtbWNfaG9zdF9pc19zcGkoaG9zdCkpDQorCQkJY21kLmFyZyA9IGNtZC5yZXNwWzBd
-IHwgQklUKDMwKTsNCisNCisJCXVzbGVlcF9yYW5nZSh1ZGVsYXksIHVkZWxheSArIDEwMDApOw0K
-Kw0KKwkJaWYgKHVkZWxheSA8IHVkZWxheV9tYXgpDQorCQkJdWRlbGF5ICs9IDIwMDA7DQorCQll
-bHNlDQorCQkJdWRlbGF5ID0gdWRlbGF5X21heDsNCisJfQ0KKw0KKwlpZiAodGltZV9hZnRlcihq
-aWZmaWVzLCB0aW1lb3V0KSkNCisJCWVyciA9IC1FVElNRURPVVQ7DQogDQogCWlmIChyb2NyICYm
-ICFtbWNfaG9zdF9pc19zcGkoaG9zdCkpDQogCQkqcm9jciA9IGNtZC5yZXNwWzBdOw0KLS0NCjIu
-MzQuMQ0KDQo=
+Naman Jain <namjain@linux.microsoft.com> writes:
+
+> The Hyper-V root partition vPCI MSI irqchip lost its irq_retrigger()
+> callback when it was converted to msi_create_parent_irq_domain(). The
+> callback was present on the original irqchip and was dropped during that
+> conversion.
+>
+> On CPU hot-unplug fixup_irqs() migrates the interrupts which are affine to
+> the outgoing CPU to a new target. If an interrupt still has its pending bit
+> set in the outgoing CPU's IRR at that point, fixup_irqs() resends it on the
+> new target through the irqchip's irq_retrigger() callback. As the root
+> partition PCI/MSI chip no longer provides that callback, the pending
+> interrupt is silently dropped, which can result in lost interrupts, stalls
+> and "No irq handler for vector" messages during CPU hotplug.
+>
+> Restore irq_chip_retrigger_hierarchy() as the irq_retrigger() callback for
+> the root partition PCI/MSI irqchip, so that a pending interrupt is resent
+> on its new target CPU via the parent x86 vector domain.
+>
+> Fixes: 4691db0704ac ("x86/hyperv: Switch to msi_create_parent_irq_domain()")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Michael Kelley <mhklinux@outlook.com>
+> Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
+
+Reviewed-by: Nam Cao <namcao@linutronix.de>
