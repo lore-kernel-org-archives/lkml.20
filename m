@@ -1,318 +1,280 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB670576EB3;
-	Thu, 10 Sep 2026 18:09:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789063791; cv=none; b=TkObBrEqLGem/Q8IGBMRBB/IG0or0WnQ3mv8dxl2x4GLTULnxtJiwoLlYGmyKQUR2qFh3zAqsPsAfVcBekII1YMxwW9RQpSYpdUEKWhP1RORMSfd7zUIyvyMij+lyhV/uXKcgCaJAe8ubEtkHOQvnJ0rG0JLcjb6/Yjjke8IPf0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789063791; c=relaxed/simple;
-	bh=sZa9nUo7GWRdbbbuX7Xm0T+s+CXjr+TdOMHiDkK0v1I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WP8icwjJIxWZtW34ujAvK/X8efuaK41hcd/LNQEQv+fYUS4iwzBOqgZzdcQKzOIqcZRhJSVrPe8tsABGZa+4Hi2EPWjrRwyklpjE4rPnHzS8k/4cVfi/cxzYiVtCIOC7p2fOOZmTsutK68QoEI/c4uMPCFlC82obfKx4T9MTyiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BDWZrxWm; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 048825650E5
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:10:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789063841; cv=fail; b=jEY4A9YxuAokQH5OxSeMmCXclcrTaTLebqiLAorB8LwZT8gLUKmAt+6KvmZuo90Dem0AKBtzInvJ0GmZTkFk7OgwE9FL8VRyQcR6HSvZTDqJBjmvmi9wEsS4LHzsGNNqWIbFXYhxls7PVvES6PYALT9BFihpKUHYAVtq4k66V80=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789063841; c=relaxed/simple;
+	bh=OlL3xTieIQzXL/96vKyoY+tGMm7IW1dNEYeBudMffkY=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=fZgupkVS4T9jcRp750DWO95HA1syXziTIW4ml4G2Yk9r38t0thX02no0PesOe6GufGKPnozyo2E3WONloqnl0Yu0fpzKR4Sr/UfrvrRxSgAfFoeLjR2erVru/Ln5j+k28xYI35IozKOn67uGDM+Qht42+N7/snEF0eRcAHUO0WI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=haMRcCBX; arc=fail smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BDWZrxWm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 875481F00893;
-	Thu, 10 Sep 2026 18:09:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789063782;
-	bh=EEf/YWzFHZGKhM2Jy30+UZPxNnpabVz+Ru9kLig3LpA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BDWZrxWmaGPU2Ss2z8cNmu1Ymbj0DLHxuFbSH3PNuw5A7T3aAVgq2nBP6XIqHT4vg
-	 hbWGYXmwsfTUmdv4e9eFxzGPDeXadN0sP/d3K9JWPDY/v6edfwEigQxFllBlf2SRau
-	 MvkHRsXUGUdcpn9YXdK5Q1FM6GXfLU09sA4fB+ExgN7HpfMRuULqQLqe4cEH5Weu/F
-	 R2Wc+N6AWrQgZ6T1YQXG2AMvl8+OpRxnyMo0GEYamVPQSq6T+w1wF4dNsbn4xhKf3E
-	 Y2csL0jJX4EDbELVzNcvKmd3VyiDS9qf+oPoogMxtg0ywZzUCpWnOxD9/ZIKKN9d5T
-	 q1UcjmIx4/Zgg==
-From: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>
-To: Alexander Duyck <alexanderduyck@fb.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	kernel-team@meta.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Daniel Borkmann <daniel@iogearbox.net>
-Cc: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
-	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
-	Mohsin Bashir <mohsin.bashr@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Bobby Eshleman <bobbyeshleman@meta.com>,
-	Dimitri Daskalakis <daskald@meta.com>,
-	Weiming Shi <bestswngs@gmail.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Jacob Keller <jacob.e.keller@intel.com>,
-	Breno Leitao <leitao@debian.org>,
-	Tao Cui <cuitao@kylinos.cn>,
-	Pavel Begunkov <asml.silence@gmail.com>,
-	David Wei <dw@davidwei.uk>
-Subject: [PATCH net-next v2 4/5] fbnic: Support larger memory-provider RX pages
-Date: Thu, 10 Sep 2026 20:09:04 +0200
-Message-ID: <20260910180908.1506533-5-bjorn@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910180908.1506533-1-bjorn@kernel.org>
-References: <20260910180908.1506533-1-bjorn@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="haMRcCBX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789063839; x=1820599839;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=OlL3xTieIQzXL/96vKyoY+tGMm7IW1dNEYeBudMffkY=;
+  b=haMRcCBXuzQ7GelWsWQRDWWBvRF8d3kgOlf8KQ06fz+bPj62I/5WUA8T
+   vWknx2e3EPEu+Wc50eNI6HZS0Nuy6FkyNwtj5+egyY5IY6+BAwsnvMCVM
+   IHpilgAeiM+TTHXeQ5vLWwACDdzzHojrtwKxnqwFgaoeQ7Lymp22qOlcd
+   BuKC0RV8fq7c2mFqQnVmEWjxKMcWe7ezGAgvyamwNaR6CQ888ZSs5OMGj
+   7ErM+IZe3x2162cjJf+BeyWA5IEHHe0RQM673/RREAJvMwAjGND00XY5T
+   hu9QoBE5H37uJZUFTlkiTONuIJUkm0GQPUiGKyJl9wcWpgjx91cr3M6y8
+   g==;
+X-CSE-ConnectionGUID: 3m5KkdZfSBih1w2Ig29GkA==
+X-CSE-MsgGUID: A0O0lDtgSZ2GG1BzoR7gZQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="77082981"
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="77082981"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 11:10:38 -0700
+X-CSE-ConnectionGUID: t4qBXELgTRKCi1paiGhSPw==
+X-CSE-MsgGUID: JxLP9imKTFCYLh97vDjQ0Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="275479372"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 11:10:38 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 10 Sep 2026 11:10:37 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 10 Sep 2026 11:10:37 -0700
+Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.9) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 10 Sep 2026 11:10:37 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=V27Wr3BDG2bPe6nM/L+88i9knGPY5tmpwEQNjxewvCE70dLPJPAEuhBWt9ZYTsrhMGjaP6RBoDSXv06Q95MP+99AKtlVAjlfLZaucz57Apu5zgqPYSyXCOjbQrjWB5DeINGp+0JeCDmTFx1YG3j4/5GD/BW2OoaB9Zzn7LQ3rmKrKmtEOags7WE0Ahz7MFfmXM2BO0hb2mjkadsJ9MSusl8yqXRMbThHaEd4kfyRK1lntHR9Qe9UYMg/qHX3GhLgjnSgfDyq7yU7e4UyRg3BvcOCFkFPKgZDfsKHiPck5uBuMmCUuJyxTjfoaWF7wm1kr7JDA76hU81JfZHDHbTXsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rTBkQ3Rsf6oXu02YkyDcKAdBpzteQ7LpCbWPhMpnnq4=;
+ b=FJxE5j0sLJfQVbh19zdG0Ye+rXdnqUOlpxxyh1F8CMFhul7xCye57S85CW1B1CUGfboFxh9g3dTwWIuyeg72owHTQkCwgRZps/pxjDJlSEZZy31RQHymSRvF2S+3UeinX4rDjTGFpMUPnquLLack/zWthkVTx2+Fz8PCbK0ONT+9THzwWzkc0kma7z7kwNge0rjEVjv1GsI2iNb68069lfsgV8sCuLDRD9G4FDMUOoDKUA2zNbN7EoUMYq2krENUZJWW8F0FMR6MvcgxjN7ezza9gW2IjB0CHr4PIWV+yUNhI2o8eTI3sgT+YpAS2UHh5uZJXcUUFsbleS8O4Y/kQw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA0PR11MB8379.namprd11.prod.outlook.com (2603:10b6:208:488::20)
+ by SA2PR11MB4939.namprd11.prod.outlook.com (2603:10b6:806:115::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Thu, 10 Sep
+ 2026 18:10:35 +0000
+Received: from IA0PR11MB8379.namprd11.prod.outlook.com
+ ([fe80::549f:e4b3:e10d:aaa6]) by IA0PR11MB8379.namprd11.prod.outlook.com
+ ([fe80::549f:e4b3:e10d:aaa6%6]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
+ 18:10:35 +0000
+Message-ID: <071d3dc6-6c18-4287-af26-719b89304058@intel.com>
+Date: Thu, 10 Sep 2026 11:10:32 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] arm_mpam: resctrl: Separate MPAM domains
+To: Ben Horgan <ben.horgan@arm.com>, <james.morse@arm.com>,
+	<Dave.Martin@arm.com>, <fenghuay@nvidia.com>
+CC: <tony.luck@intel.com>, <babu.moger@amd.com>, <yu.c.chen@intel.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<patches@lists.linux.dev>
+References: <85ca29e89eacf12cfa7071249419e7cadb8f0691.1788220029.git.reinette.chatre@intel.com>
+ <0b0eef2d-ce3b-48c8-af08-5889e7396e4f@arm.com>
+ <a492ffb3-c12e-4986-8f36-c907382c67e5@intel.com>
+ <96eda554-64a1-4f1e-9608-98cd106b00da@arm.com>
+ <a3cf9362-007d-4c6c-8f6f-1c9b8b41b1b9@intel.com>
+ <ad1f8ed5-266a-4d79-91ef-ad8ab3febfb8@arm.com>
+ <26e294a0-76a6-4ec0-9df8-021a76bf8ed9@intel.com>
+ <86603611-b20d-4a0a-a247-8cebb11b3432@arm.com>
+From: Reinette Chatre <reinette.chatre@intel.com>
+Content-Language: en-US
+In-Reply-To: <86603611-b20d-4a0a-a247-8cebb11b3432@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR03CA0316.namprd03.prod.outlook.com
+ (2603:10b6:303:dd::21) To IA0PR11MB8379.namprd11.prod.outlook.com
+ (2603:10b6:208:488::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR11MB8379:EE_|SA2PR11MB4939:EE_
+X-MS-Office365-Filtering-Correlation-Id: beb58f83-07ee-4601-ef01-08df0f66cf5c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|3023799007|10067099003|4143699003|6133799003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: hnY+6+/FtzQGUZIdZ94d7AskUhqnpKKz+sAfR1FJGiYHFHwmjB0Bn6eo47Rmp/cpOPcbb9R4nb31GikPbW3Y8wXkDu1DwAt4hYjFQVFfinDMt8CwWTh6saAiU+YAZ1Hfz9gjJ34gh0uqV8fR4OcN8swGy57eNaBGkrFKZ3TiEc1Qq0zneby5GGv0BupRO3QRUCy1fXmEvetXfBcOqISUqNdEXfu3jbE/t0j15cxPIcnXXkWG9aR+abawe649uZiWsXlgY9R0vmWb02+Nk9o6/1sO4aUdhc6oboaa/1Q8HGW54SuO7wMr45eUHcZkv+89D5Kc4SGO7QovJVzSjSKsRyKTow/ZIh1jo32bkHTOWH4CS7FRPMNxDAAUbrsJFZJXWjeDARIlzCKw5ZaSrxQzMGyg7w+OqpW5FPtMeE7zEHU99B7Da6QcHZ6r3r6Sh0gdfNyQvfXdkTZJgaqI+vLoAXy1ZJgci2J31MtVc7ksAy1fxf+0zbzzBjsNE1kwNXTA1OT7q/HTMMxq2yT1ZqVK2S7nwXkpqO7vSXFTkBTxoiBhodFkIlrPekf6EEAkw0DlwPFsXWVN3pVTfKhKVUuIfVy5UDJ4e+iiXFENMULRIdHFflDYT7htGHq88pL08InnwQV/nzSrhyij7F8+j9Vg0YP8KDzaRJUaEYJXdAwN0CY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB8379.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(3023799007)(10067099003)(4143699003)(6133799003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aUxaOTNYelNOQXpXTlNGc0dIZzBzZXpGQ0ZsY1FES0Q2M29zVWdUaisvZHoz?=
+ =?utf-8?B?MjlVVHFmTWV1T0wzZDhQMU9kcGJoL3NrYzJHa1IwZzVkZzFZWmtmTVpQUE95?=
+ =?utf-8?B?RjZCWFY4VWxieHlZZTc5RnNidlNzdXh2WWRFM3UrYS9xTTdUQ3g1YkxOT0tm?=
+ =?utf-8?B?b1VFRTR3WCtwMkNVL2k5U3hBaG5GSFJpelRHN25qTHcrK2IxVG8zaXBQZCtF?=
+ =?utf-8?B?VncwbSt6YWVuZ1VEQjNGcWxiZ1B4SHVwZ1FIejBjMWdEVExQQjlzK2VWdXhp?=
+ =?utf-8?B?VnJSUGwrcnBrTCt5UFIwTmlQVWNaVDlncDg3WE9yejRaaEZNNmI1RUNIWW1y?=
+ =?utf-8?B?VTJOQXRZVG1kK2o1SVlnVExkbElnbjVCYnV3TUJscGQzalhEdlRYUnh2alpF?=
+ =?utf-8?B?bkJ5bFN5YW9Ha3QxdjF4WjltTDJId1dXRjFZb3VWcmlrQzRYNy9GQ0FwU01S?=
+ =?utf-8?B?VXZPUWc2TlF6VSt2akdrRVkrcTBkWlVYZ2EwRGNUTENIekVHREhqLzhDWm5v?=
+ =?utf-8?B?N3N5Ni9hdkNiaEN2Y3QrOVBpYVFHZVUxcVJhbzBEV0lzSkpnL052Y3pDTDNo?=
+ =?utf-8?B?RytybUI4TXJVeGRZeEQwNXhaZ21GUVdZMldOTkNSZ2NGSW05M1I2V3A2elRW?=
+ =?utf-8?B?cURybzNwQkQ2cFBkbXBTalJSNythL1Nxa0hPN0Z1bkVaQ1ltRWZMajRMclJ5?=
+ =?utf-8?B?OFl0TXBTb29peExuYmUzQWUrUEsrdHRCWnBXM1duZkRuRWVSVm9LRGRuckRw?=
+ =?utf-8?B?Q202ejhRQjIrZitnam9HNGt2TnZEeUh5ZDFjYU5zaTZjenRuK2UxZTVTRHpK?=
+ =?utf-8?B?ZGVPa05CQVdVYzZzbW4yaEZQNTNCSmJFcEtBTDZWU0R1aW9xUm1yVld0aXds?=
+ =?utf-8?B?SjR2NitzaEZiKzU1ZnpHd0VCWkpSWUQyTTFyTXFsYmQ0NlgvVURyVXlWaVc2?=
+ =?utf-8?B?UFBjNG96ZmRPWVpjLzFVd0pJU25ibC9wT01ZOEtXSzU0QUdCWVo2a1MxWlFH?=
+ =?utf-8?B?a2ppZ1NIdG9weTJ4WCsrMjUyM2VvYThiNGQ1UTdVNG1vMHIyUUF4M0NXUnN0?=
+ =?utf-8?B?d3VnZkdORTd6aGRxZTVXRStPQ0l2akdncWFBZHovOTVobVZ1ZE5KUVJ3aXVI?=
+ =?utf-8?B?akhKSWU1bVZFSHBTNFA2YXJSRFdCS05iUmNmY0R1MHpFRXFxUFJKTmNVUUJP?=
+ =?utf-8?B?SW1JbUozTnFSYmRPcnRLRUh1R24wc0dNZVAwZ1lGZUxsQUlFWGRaQ2owS2d3?=
+ =?utf-8?B?UzFvTEZZd1c5dHUwQ1E1d3hMWmVMcjZOQ0VtaXBMdFMyTEVTeHg3S3hMYlF1?=
+ =?utf-8?B?Z2NSbHpFeUNXaVFHeXBoRlNWTk01QkhGZFMwY2xVb0ExV2pmUXpvcktyUklv?=
+ =?utf-8?B?cXViQXhkQkJoWFgzUlR6cXBOanIzVjFOaHgrNENiRlJ3VUE2VXlkaDZ3QkNO?=
+ =?utf-8?B?Z01Wd2VWdU04Q1Nna2M3eXlHZTd5S2pxKzRNRWJOb3Vsa0FuYWttSDFjbnVn?=
+ =?utf-8?B?OElrdE1kT2lKelU0L0NzR0kwQnF1eVRhc3hKMEVjM2g3dzhGNHNPVWFnTFVQ?=
+ =?utf-8?B?cDVRV1RRZFpWalVWaUhvaWwwbnJ0UjVvZjExODhBSmp4eGo2QTIwQS9laDRt?=
+ =?utf-8?B?Ukp0dGgxdE9KVW83N09NK2c2dFgrMGtXVDAzZFdCcXBPQ2l6cFREbjV5SDRY?=
+ =?utf-8?B?QnJvbWdFeTRjanBPSWlaeS9lLzZ1UG5ySXNDbEVqNUdKdW9reTNkVlNxc24z?=
+ =?utf-8?B?RHlFaExxdUhpT3BzdmgrNWp0Y1UxQkNRb1NTK2dFbWExbGo0NDhSY21tMlN4?=
+ =?utf-8?B?VXBFZktzQ0hSc2NoTGpDRkRTN1FsazYwMHFIblVBL1JaeFFzTXcydUN6NHhN?=
+ =?utf-8?B?cVl5NmRPdFZnQVhlcDBwRC8xTENMalNuQTJuRHRVWTVpWk96ejZrWkY2WFV1?=
+ =?utf-8?B?dTZ5eU5jWmNYQkJCNWsyYjJRcFNjbGs5VkZDVU9ZTG9LVnc5ZC9FMDFBMFJ6?=
+ =?utf-8?B?ODlGTkpNUEZrcWRZZU5UUll0NHRreUlseWhZdG1YN3JtREpXOFJEQUpkVW0v?=
+ =?utf-8?B?dXJkS0k4M09NakpleUpkaE8wSnh3SUhtaXZDeTI4Yjh5djBFUk5XeWY1K05s?=
+ =?utf-8?B?YlRiYk51QVhXc25TVXNyeEV2VnFxQzI3T2cxbWhORFJpU0RLejJhL1ZMbnBM?=
+ =?utf-8?B?clg3WDQzWVdSRjIySGxKN1NydW1TTE5LK0twWTJTbW9Ka0lqOEZhcFRtZ2Ju?=
+ =?utf-8?B?eGQrMUNiZnFFT0d4aTVXMGZSSWI2bFBKQ3dZL2hWajB5NmJKRjdRa2pka1p5?=
+ =?utf-8?B?UnVscGk0TzBRUXJLdFQ3Y3MvM0NlZ2lnWmYySFFWODA4MmhPcWNnUGR5Z1lo?=
+ =?utf-8?Q?FSCZYiu/WCMG7SbU=3D?=
+X-Exchange-RoutingPolicyChecked: s0AqEdrMAjoBI969A6iKAJ+Q+wvHnJt1GlwuYJJ3YfsCpi9Og+ykS57Q+YFpWGOrihb+PN0nTyaSY5ulqbGC52zDqbZF1nIyM9oLjAuCMnu7XAeKGkbbPduQzrGVWdjAJqVpLIk24Gs3ls3R6Y2S6yL7Kfy4P3VgTZjg/pE9RH/SfGbN/sDXjseicBM2PT+yhebEX8UVhHqEa8oLUeuiMPerttRo3IYq8humgKF3e57B3bS/bdXM0psAL4Ff00pN0omg63KH2+C4oq72BRevJZWNUCEIxyXlKFRGG4f9c4rEwPUfvU/EEccVdyfWpKLnx7EPjVkg3ML/iWJ90Ffd7A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: beb58f83-07ee-4601-ef01-08df0f66cf5c
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB8379.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 18:10:35.2192
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9i9NTmqkxhV8ID+Lusdeq2chXq1fuRwuJCoxgw5kkD+CA1iqGIBkq4Hli2bMvXJ1edYFEZpTpVWWYAIjTfpdpq/laupgkJ/LafMdp4dEg2k=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB4939
+X-OriginatorOrg: intel.com
 
-Memory providers can set the receive page size for a queue through
-QCFG_RX_PAGE_SIZE. fbnic creates PAGE_SIZE PPQ page-pool allocations,
-so larger rx_buf_len values are not reflected in the PPQ BDQ geometry.
+Hi Ben,
 
-Use the rendered rx_page_size for PPQ allocations and completion
-decoding. The NIC still consumes 4 KiB device pages; a larger PPQ page
-is represented by consecutive device-page descriptors, and completion
-IDs decode to offsets within the same netmem allocation.
+On 9/10/26 9:28 AM, Ben Horgan wrote:
+> Hi Reinette,
+> 
+> On 10/09/2026 16:37, Reinette Chatre wrote:
+>> Hi Ben,
+>>
+>> On 9/10/26 4:11 AM, Ben Horgan wrote:
+>>> On 08/09/2026 22:12, Reinette Chatre wrote:
+>>>> On 9/7/26 10:01 AM, Ben Horgan wrote:
+>>>>> On 03/09/2026 16:29, Reinette Chatre wrote:
+>>>>>> On 9/2/26 9:10 AM, Ben Horgan wrote:
+>>>>>>> On 01/09/2026 00:54, Reinette Chatre wrote:
+>>
+>> ...
+>>
+>>>>>> It is not clear to me if a mon_comp of NULL is able to handle all scenarios since it looks
+>>>>>> like mpam_resctrl_get_mon_domain_from_cpu() and mpam_resctrl_online_domain_hdr() does not
+>>>>>> consider the component at all. Would that not cause monitoring features to depend on which
+>>>>>> CPU of a domain comes online first?
+>>>>>>
+>>>>>> Could mon_comp perhaps be required to be !NULL here as a replacement for the earlier
+>>>>>> "ctrl_comp" check to ensure there is a component with the CPU in its affinity mask?
+>>>>>
+>>>>> Doesn't the !any_mon_comp check provide this?
+>>>>
+>>>> This is the part that I do not understand since any_mon_comp seems to support the scenario
+>>>> where a mon_comp may be NULL which is a scenario that I do not think resctrl can support.
+>>>
+>>> Ah, I see what you are getting at. As the monitor components are only considered when there topology
+>>> matches the l3 cache (same cpu affinity for each instance) then the find_component() call will never
+>>> fail and so mon_comp can't be NULL at this point.
+>>>
+>>>>
+>>>> At a high level there seems to be three affinity masks used by the monitoring code:
+>>>> the CPU affinity of the component belonging to the control resource class, the CPU affinity
+>>>> of each component supporting each monitoring event, while these are three separate masks with
+>>>> code sometimes treating them as though they can be different they are actually required to be the same?
+>>>
+>>> Monitor component CPU affinity is enforced by topology_matches_l3() to be the same as the L3.
+>>> Additionally, traffic_matches_l3() adds extra conditions that mean that there can be considered an
+>>> uninterrupted link between l3 and memory and so an MSC at either end is effectively the same. Namely
+>>> the same restrictions I've mentioned before, only a single l3 cache, a single NUMA node and no
+>>> intermediate caches.
+>>>
+>>> You list two rather than three here? Possibly you are also thinking the MSC cpu affinity which can
+>>
+>> I did mention three masks. Thank you for clarifying how the one mask (the "ctrl_comp" one) is associated with
+>> either that of the control class or the same as the class associated with the first event. 
+> 
+> Ah yes, I misunderstood.
+> 
+>>
+>> Regarding the other two masks: it seems to me as though the CPU masks associated with the two supported events
+>> are managed separately. This means that theoretically the class associated with QOS_L3_OCCUP_EVENT_ID could have
+>> components with different affinity from the components of the class associated with QOS_L3_MBM_TOTAL_EVENT_ID. A CPU
+>> being onlined could thus be associated with QOS_L3_OCCUP_EVENT_ID (resulting in mon_comp being
+>> initialized for this CPU) but not with QOS_L3_MBM_TOTAL_EVENT_ID (mon_comp is NULL for the same CPU). In
+>> this scenario, "any_mon_comp" will be true and the domain created and onlined while it does not
+>> actually support both events?
+> 
+> Hmm, it depends what you mean by "theoretically". In mpam_resctrl_pick_counters() the class to back
+> each event is chosen. For QOS_L3_OCCUP_EVENT_ID it will always be the class at the L3. For
+> QOS_L3_MBM_TOTAL_EVENT_ID the topology_matches_l3() call will check the cpu mask matches the L3.
+> Does that answer query or am I missing something else?
+I mean "theoretically" because it seems that the CPU online code (specifically domain creation) supports
+the scenario where these CPU masks of the two events are different (mon_comp can be set for one event but
+not the other) while the rest of the driver seems to make an effort to keep these CPU masks identical (as
+you highlight) and there is not actually support for them being different.
 
-Validate rx_page_size against fbnic's fragment-reference budget,
-device-page geometry, and rendered PPQ depth. The page size must be a
-power-of-two of at least one device page, its worst-case payload
-fragment count must fit the page-pool reference bias, and the PPQ must
-retain usable software depth after expansion.
+The planned changes discussed here are for the domain creation and will touch the code handling this
+scenario. I was hoping to just change the data structures while maintaining the current flows as closely
+as possible. I currently struggle with maintaining this flow that can never, and more importantly should
+never, be encountered.
 
-Signed-off-by: Björn Töpel <bjorn@kernel.org>
----
- .../net/ethernet/meta/fbnic/fbnic_ethtool.c   |  8 +-
- .../net/ethernet/meta/fbnic/fbnic_netdev.c    |  5 ++
- drivers/net/ethernet/meta/fbnic/fbnic_txrx.c  | 88 +++++++++++++++++--
- drivers/net/ethernet/meta/fbnic/fbnic_txrx.h  |  6 ++
- 4 files changed, 94 insertions(+), 13 deletions(-)
+Do (admittedly crude) guardrails like below capture the existing driver requirements?
 
-diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_ethtool.c b/drivers/net/ethernet/meta/fbnic/fbnic_ethtool.c
-index 0e47088ec44b..2def4c26207d 100644
---- a/drivers/net/ethernet/meta/fbnic/fbnic_ethtool.c
-+++ b/drivers/net/ethernet/meta/fbnic/fbnic_ethtool.c
-@@ -334,10 +334,10 @@ fbnic_set_ringparam(struct net_device *netdev, struct ethtool_ringparam *ring,
- 	struct fbnic_net *clone;
- 	int err;
+diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+index 9d223057953a..dbd06371890c 100644
+--- a/drivers/resctrl/mpam_resctrl.c
++++ b/drivers/resctrl/mpam_resctrl.c
+@@ -1681,11 +1681,18 @@ mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
+ 				continue;       // dummy resource
  
--	ring->rx_pending	= roundup_pow_of_two(ring->rx_pending);
--	ring->rx_mini_pending	= roundup_pow_of_two(ring->rx_mini_pending);
--	ring->rx_jumbo_pending	= roundup_pow_of_two(ring->rx_jumbo_pending);
--	ring->tx_pending	= roundup_pow_of_two(ring->tx_pending);
-+	ring->rx_pending	= fbnic_ring_size_pow2(ring->rx_pending);
-+	ring->rx_mini_pending	= fbnic_ring_size_pow2(ring->rx_mini_pending);
-+	ring->rx_jumbo_pending	= fbnic_ring_size_pow2(ring->rx_jumbo_pending);
-+	ring->tx_pending	= fbnic_ring_size_pow2(ring->tx_pending);
- 
- 	/* These are absolute minimums allowing the device and driver to operate
- 	 * but not necessarily guarantee reasonable performance. Settings below
-diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_netdev.c b/drivers/net/ethernet/meta/fbnic/fbnic_netdev.c
-index 10bf99be3f24..8bc5e6e5c59e 100644
---- a/drivers/net/ethernet/meta/fbnic/fbnic_netdev.c
-+++ b/drivers/net/ethernet/meta/fbnic/fbnic_netdev.c
-@@ -773,6 +773,11 @@ struct net_device *fbnic_netdev_alloc(struct fbnic_dev *fbd)
- 	fbn->ppq_size = FBNIC_PPQ_SIZE_DEFAULT;
- 	fbn->rcq_size = FBNIC_RCQ_SIZE_DEFAULT;
- 
-+	netdev->cfg->rings.rx_pending = fbn->rcq_size;
-+	netdev->cfg->rings.rx_mini_pending = fbn->hpq_size;
-+	netdev->cfg->rings.rx_jumbo_pending = fbn->ppq_size;
-+	netdev->cfg->rings.tx_pending = fbn->txq_size;
+ 			mon_comp = find_component(mon->class, cpu);
++			if (!mon_comp) {
++				WARN_ON_ONCE(0);
++				err = -EFAULT;
++				goto offline_ctrl_domain;
++			}
+ 			dom->mon_comp[eventid] = mon_comp;
+-			if (mon_comp)
+-				any_mon_comp = mon_comp;
++			any_mon_comp = mon_comp;
+ 		}
+-		if (!any_mon_comp) {
 +
- 	fbn->tx_usecs = FBNIC_TX_USECS_DEFAULT;
- 	fbn->rx_usecs = FBNIC_RX_USECS_DEFAULT;
- 	fbn->rx_max_frames = FBNIC_RX_FRAMES_DEFAULT;
-diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-index 28b962307c08..5e22905a6373 100644
---- a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-+++ b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-@@ -1022,7 +1022,8 @@ static void fbnic_add_rx_frag(struct fbnic_napi_vector *nv, u64 rcd,
- 	netmem = fbnic_page_pool_get_data(qt, pg_idx);
- 
- 	truesize = FIELD_GET(FBNIC_RCD_AL_PAGE_FIN, rcd) ?
--		   FBNIC_BD_PAGE_SIZE - pg_off : ALIGN(len, 128);
-+		   FBNIC_BD_PAGE_SIZE - pg_off :
-+		   ALIGN(len, FBNIC_RX_PAYLD_ALIGN);
- 
- 	pg_off += fbnic_rcd_bd_page_offset(&qt->sub1, rcd);
- 
-@@ -1030,6 +1031,9 @@ static void fbnic_add_rx_frag(struct fbnic_napi_vector *nv, u64 rcd,
- 	page_pool_dma_sync_netmem_for_cpu(qt->sub1.page_pool, netmem,
- 					  pg_off, truesize);
- 
-+	/* Consecutive device-page completions from one PPQ page are adjacent
-+	 * ranges in the same netmem.
-+	 */
- 	added = xdp_buff_add_frag(&pkt->buff, netmem, pg_off, len, truesize);
- 	if (unlikely(!added)) {
- 		pkt->add_frag_failed = true;
-@@ -1564,7 +1568,7 @@ void fbnic_free_napi_vectors(struct fbnic_net *fbn)
- 
- static int
- fbnic_alloc_qt_page_pools(struct fbnic_net *fbn, struct fbnic_q_triad *qt,
--			  unsigned int rxq_idx)
-+			  unsigned int rxq_idx, u32 rx_page_size)
- {
- 	struct page_pool_params pp_params = {
- 		.order = 0,
-@@ -1599,6 +1603,8 @@ fbnic_alloc_qt_page_pools(struct fbnic_net *fbn, struct fbnic_q_triad *qt,
- 
- 	qt->sub0.page_pool = pp;
- 	if (netif_rxq_has_unreadable_mp(fbn->netdev, rxq_idx)) {
-+		pp_params.order = get_order(rx_page_size);
-+		pp_params.max_len = rx_page_size;
- 		pp_params.flags |= PP_FLAG_ALLOW_UNREADABLE_NETMEM;
- 		pp_params.dma_dir = DMA_FROM_DEVICE;
- 
-@@ -2028,15 +2034,18 @@ static int fbnic_alloc_tx_qt_resources(struct fbnic_net *fbn,
- 
- static int fbnic_alloc_rx_qt_resources(struct fbnic_net *fbn,
- 				       struct fbnic_napi_vector *nv,
--				       struct fbnic_q_triad *qt)
-+				       struct fbnic_q_triad *qt,
-+				       u32 rx_page_size)
- {
- 	struct device *dev = fbn->netdev->dev.parent;
- 	int err;
- 
--	err = fbnic_alloc_qt_page_pools(fbn, qt, qt->cmpl.q_idx);
-+	err = fbnic_alloc_qt_page_pools(fbn, qt, qt->cmpl.q_idx, rx_page_size);
- 	if (err)
- 		return err;
- 
-+	fbnic_bdq_set_page_size(&qt->sub1, rx_page_size);
-+
- 	err = xdp_rxq_info_reg(&qt->xdp_rxq, fbn->netdev, qt->sub0.q_idx,
- 			       nv->napi.napi_id);
- 	if (err)
-@@ -2097,7 +2106,11 @@ static int fbnic_alloc_nv_resources(struct fbnic_net *fbn,
- 
- 	/* Allocate Rx Resources */
- 	for (j = 0; j < nv->rxt_count; j++, i++) {
--		err = fbnic_alloc_rx_qt_resources(fbn, nv, &nv->qt[i]);
-+		struct netdev_queue_config qcfg;
-+
-+		netdev_queue_config(fbn->netdev, nv->qt[i].cmpl.q_idx, &qcfg);
-+		err = fbnic_alloc_rx_qt_resources(fbn, nv, &nv->qt[i],
-+						  qcfg.rx_page_size);
- 		if (err)
- 			goto free_qt_resources;
- 	}
-@@ -2864,21 +2877,75 @@ static int fbnic_queue_mem_alloc(struct net_device *dev,
- 	struct fbnic_napi_vector *nv;
- 
- 	if (!netif_running(dev))
--		return fbnic_alloc_qt_page_pools(fbn, qt, idx);
-+		return fbnic_alloc_qt_page_pools(fbn, qt, idx,
-+						 qcfg->rx_page_size);
- 
- 	real = container_of(fbn->rx[idx], struct fbnic_q_triad, cmpl);
- 	nv = fbn->napi[idx % fbn->num_napi];
- 
- 	fbnic_ring_init(&qt->sub0, real->sub0.doorbell, real->sub0.q_idx,
- 			real->sub0.flags);
--	qt->sub0.bd_page_shift = real->sub0.bd_page_shift;
- 	fbnic_ring_init(&qt->sub1, real->sub1.doorbell, real->sub1.q_idx,
- 			real->sub1.flags);
--	qt->sub1.bd_page_shift = real->sub1.bd_page_shift;
- 	fbnic_ring_init(&qt->cmpl, real->cmpl.doorbell, real->cmpl.q_idx,
- 			real->cmpl.flags);
- 
--	return fbnic_alloc_rx_qt_resources(fbn, nv, qt);
-+	return fbnic_alloc_rx_qt_resources(fbn, nv, qt, qcfg->rx_page_size);
-+}
-+
-+static void fbnic_default_qcfg(struct net_device *dev,
-+			       struct netdev_queue_config *qcfg)
-+{
-+	qcfg->rx_page_size = PAGE_SIZE;
-+}
-+
-+static int fbnic_validate_qcfg(struct net_device *dev,
-+			       struct netdev_queue_config *qcfg,
-+			       struct netlink_ext_ack *extack)
-+{
-+	u32 ppq_size = fbnic_ring_size_pow2(qcfg->rx_jumbo_ring_size);
-+	u32 bd_page_count, ppq_entries, frag_count;
-+	u32 rx_page_size = qcfg->rx_page_size;
-+
-+	if (!is_power_of_2(rx_page_size)) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "rx_page_size must be a power of 2");
-+		return -EINVAL;
-+	}
-+
-+	if (rx_page_size < FBNIC_BD_PAGE_SIZE) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "rx_page_size must be at least 4K");
-+		return -EINVAL;
-+	}
-+
-+	/* Payload fragments occupy multiples of FBNIC_RX_PAYLD_ALIGN bytes.
-+	 * Keep at least one reference in the bias until fbnic_clean_bdq()
-+	 * observes a completion from a subsequent allocation.
-+	 */
-+	frag_count = rx_page_size / FBNIC_RX_PAYLD_ALIGN;
-+	if (frag_count >= FBNIC_PAGECNT_BIAS_MAX) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "rx_page_size can produce too many fragments");
-+		return -EINVAL;
-+	}
-+
-+	bd_page_count = rx_page_size / FBNIC_BD_PAGE_SIZE;
-+	ppq_entries = ppq_size / bd_page_count;
-+	/* The PPQ is sized in 4 KiB device pages. One software entry tracks
-+	 * each page-pool allocation. In addition to the unused entry for
-+	 * empty/full accounting, cleanup retains the current allocation
-+	 * until a completion identifies a subsequent allocation. A two-entry
-+	 * ring can only post one allocation and cannot make progress.
-+	 * Require at least four entries, since ring sizes are powers of two.
-+	 */
-+	if (ppq_entries < 4) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "rx-jumbo ring size too small for rx_page_size");
-+		return -EINVAL;
-+	}
-+
-+	return 0;
- }
- 
- static void fbnic_queue_mem_free(struct net_device *dev, void *qmem)
-@@ -2980,4 +3047,7 @@ const struct netdev_queue_mgmt_ops fbnic_queue_mgmt_ops = {
- 	.ndo_queue_mem_free	= fbnic_queue_mem_free,
- 	.ndo_queue_start	= fbnic_queue_start,
- 	.ndo_queue_stop		= fbnic_queue_stop,
-+	.ndo_default_qcfg	= fbnic_default_qcfg,
-+	.ndo_validate_qcfg	= fbnic_validate_qcfg,
-+	.supported_params	= QCFG_RX_PAGE_SIZE,
- };
-diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.h b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.h
-index 626729b1a8b6..12b3a684f461 100644
---- a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.h
-+++ b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.h
-@@ -49,12 +49,18 @@ struct fbnic_net;
- #define FBNIC_RX_USECS_DEFAULT		30
- #define FBNIC_RX_FRAMES_DEFAULT		0
- 
-+static inline u32 fbnic_ring_size_pow2(u32 size)
-+{
-+	return size ? roundup_pow_of_two(size) : 0;
-+}
-+
- #define FBNIC_RX_TROOM \
- 	SKB_DATA_ALIGN(sizeof(struct skb_shared_info))
- #define FBNIC_RX_HROOM_PAD		128
- #define FBNIC_RX_HROOM \
- 	(ALIGN(FBNIC_RX_TROOM + FBNIC_RX_HROOM_PAD, 128) - FBNIC_RX_TROOM)
- #define FBNIC_RX_PAD			0
-+#define FBNIC_RX_PAYLD_ALIGN		128
- #define FBNIC_RX_PAYLD_OFFSET		0
- #define FBNIC_RX_PAYLD_PG_CL		0
- 
--- 
-2.55.0
++		/* hack */
++		if (!cpumask_equal(&dom->mon_comp[QOS_L3_OCCUP_EVENT_ID]->affinity,
++				   &dom->mon_comp[QOS_L3_MBM_TOTAL_EVENT_ID]->affinity)) {
+ 			WARN_ON_ONCE(0);
+ 			err = -EFAULT;
+ 			goto offline_ctrl_domain;
+
+
+Reinette
+
 
