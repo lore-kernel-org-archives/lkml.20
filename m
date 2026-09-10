@@ -1,118 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 560423D647F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A09953DCD83;
 	Thu, 10 Sep 2026 09:20:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789032055; cv=none; b=a1XSeaq1hm/kGVAXpljuAiABQk+l32RWM4ImKjHr0i3zVqh5aXFBUEYS5j4WZBgXUZmszZG2PD0EibThPPaB1rL8BMLbf6IjI1pTxVXRHOmHSrKOxU3qdlQjuwaZEM5dlkfNHFzmzKTtdAE6Dqg5wNXqDul61Dyh7T/b+9LD74M=
+	t=1789032055; cv=none; b=gfJdK6P9KWzzNwfMdGIkpYuU4ebtcGPVDoN0gn1e5eemfcD/o60ncBhWpfjL6nVcEAQ0ML/73GMAJgzxuzOX4Nwh37pttSv9dYhRNnlONwvKjCexuHmdGMB/CwOqPFwVZ1vJuk5hC+dG5vUPhZmM1iWliwST2aUcG0cBGAvq1Co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789032055; c=relaxed/simple;
-	bh=sxGSHFaMLv5929K2Bj8xxgL+zdaOHrO/8pFXWlpJNjk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ChVxG4oiWxSLM1uvSpdQAn0z3ZFV0WC1s4KuE1UoL59/WMWrcNghEFys9Uy5/pEUNy2Mt7dQDTAq72091a8BDJgpdnDja3/M1qb2bPOgtW1iiQkQgrT7NKoYuq4C6c9tN1Ext6k7Gcix9C+JqTx9l2kA5JAn7OZjwoEHdGUANdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KQrpunMh; arc=none smtp.client-ip=100.103.45.18
+	bh=wCt+fRXRNJGhOrrdM1gKT+BP+rAjTu+ESd2chmIHmIo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SPjHSj6VSa+Es2C50AmvTCvDDFTOvRWrbvf/1HYFjrq2oF0/LMfHoX3aZmnphWf+Furwet8aeES3lmp64Z7zpz1huJaHSVoeFJqfbi59H9EO5H6GrseSptPsQxlPD26Y71sktUrQ3172yZ+mGsFSzbTDr1wmV5Va2wM5VEnxwuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ZF7w/GZG; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KQrpunMh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74C0C1F00893;
-	Thu, 10 Sep 2026 09:20:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789032051;
-	bh=cIGoZZbLsvzwNoMcLdGV92/uLFTkdg0Og9xuN7gX7Y4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=KQrpunMhg71zv91/iq8EhwRVmd4Wn/mXcWTkKWMXVJ3a8uBWkN+6y7UTW3ueWL0go
-	 W9KFt2yTgfok9A1utYOK2fcgq+d99Qx9OCbUCDw/+Qna/zSC3R15DYJBnuku+O0kcG
-	 HYmg3DM2T2T86H77KAIrKOc4wKyGkEebuJpzY4bWRPB3ejNPcD/9K+U6F+99Gv4i4V
-	 0Eu1aZwz4LUuJ7EqS+2zzeJ+OdMpBbpGT2GniGs7VkHM6VboDdRrXVT0FBMO9aOylg
-	 Wd5J+QGk2jdBVa4E/KCCk+ijg+3XHmAHxCkrsqGN7mFvcowjE6bJpvLEEUc8mngRl4
-	 EXMzBZjCkQZqw==
-Message-ID: <36a64b34-bb69-4352-9e84-c31d0793b6a4@kernel.org>
-Date: Thu, 10 Sep 2026 10:20:46 +0100
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ZF7w/GZG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789032050;
+	bh=wCt+fRXRNJGhOrrdM1gKT+BP+rAjTu+ESd2chmIHmIo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=ZF7w/GZGvALTAvwK3Bl4shzpTFDT6TqvPLOE8IHfJqt00JDTTyqaQmWphCJKT4jyE
+	 G1UJ1yMRHcFU3AXJ8mhyi4BudDKjTyxP1MMk4N5/A+CPvj4nNNRiW8aU81Xi7hcBbv
+	 jmCAGKt0MEdG+WRoLP+jHgBEnFb0VnfL3dO1gOcFhbGN7uCKKz4LJ2FNFFLY/lxhhu
+	 COMrkHNdQHFGpuuo4r+ktd6HwAztG3VWh/ErtWRw0YRG96e32f4bXarLhyjC/m5glz
+	 2784+oJA55EN6neNWvdRabMPDtiBMoXEW83E2TScztfFxL+i/ZdZvshXq4UyZcTJki
+	 RFXU4+4jj99sA==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id CA0C217E0945;
+	Thu, 10 Sep 2026 11:20:49 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: mani@kernel.org
+Cc: chunfeng.yun@mediatek.com,
+	vkoul@kernel.org,
+	neil.armstrong@linaro.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	chunkuang.hu@kernel.org,
+	p.zabel@pengutronix.de,
+	justin.yeh@mediatek.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	kernel@collabora.com,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Subject: [PATCH v4 09/12] phy: phy-mtk-dp: Rewrite and document default driving param macros
+Date: Thu, 10 Sep 2026 11:20:35 +0200
+Message-ID: <20260910092038.48291-10-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260910092038.48291-1-angelogioacchino.delregno@collabora.com>
+References: <20260910092038.48291-1-angelogioacchino.delregno@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] bpftool: Add explicitly sequenced -lzstd to libbfd
- feature fallback
-To: Ian Rogers <irogers@google.com>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, Josh Poimboeuf
- <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
- James Clark <james.clark@linaro.org>, Nick Terrell <terrelln@fb.com>,
- David Sterba <dsterba@suse.com>, Tomas Glozar <tglozar@redhat.com>,
- Costa Shulyupin <costa.shul@redhat.com>,
- Michael Jeanson <mjeanson@efficios.com>,
- Dmitrii Dolgov <9erthalion6@gmail.com>, Leo Yan <leo.yan@arm.com>,
- linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
-Cc: bpf@vger.kernel.org
-References: <20260909204122.1993010-1-irogers@google.com>
- <20260909204122.1993010-4-irogers@google.com>
-From: Quentin Monnet <qmo@kernel.org>
-Content-Language: en-GB
-In-Reply-To: <20260909204122.1993010-4-irogers@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 09/09/2026 21:41, Ian Rogers wrote:
-> Distributions like Fedora currently ship a statically compiled binutils
-> libbfd that natively depends on zstd to decompress sections (e.g.
-> undefined reference to 'ZSTD_decompress').
-> 
-> Extend the newly supplemented libbfd-liberty-z-zstd feature probe into
-> bpftool's Makefile so it can natively build against static binutils
-> distributions.
-> 
-> Signed-off-by: Ian Rogers <irogers@google.com>
-> Assisted-by: Antigravity:gemini-3.1-pro
-> ---
->  tools/bpf/bpftool/Makefile | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/tools/bpf/bpftool/Makefile b/tools/bpf/bpftool/Makefile
-> index b0f7168e7943..1cac4508eb0c 100644
-> --- a/tools/bpf/bpftool/Makefile
-> +++ b/tools/bpf/bpftool/Makefile
-> @@ -125,6 +125,7 @@ FEATURE_TESTS += libcap
->  FEATURE_TESTS += libbfd
->  FEATURE_TESTS += libbfd-liberty
->  FEATURE_TESTS += libbfd-liberty-z
-> +FEATURE_TESTS += libbfd-liberty-z-zstd
->  FEATURE_TESTS += disassembler-four-args
->  FEATURE_TESTS += disassembler-init-styled
->  FEATURE_TESTS += libelf-zstd
-> @@ -135,6 +136,7 @@ FEATURE_DISPLAY += libcap
->  FEATURE_DISPLAY += libbfd
->  FEATURE_DISPLAY += libbfd-liberty
->  FEATURE_DISPLAY += libbfd-liberty-z
-> +FEATURE_DISPLAY += libbfd-liberty-z-zstd
->  endif
->  
->  check_feat := 1
-> @@ -201,6 +203,8 @@ else
->      LIBS += -lbfd -ldl -lopcodes -liberty
->    else ifeq ($(feature-libbfd-liberty-z),1)
->      LIBS += -lbfd -ldl -lopcodes -liberty -lz
-> +  else ifeq ($(feature-libbfd-liberty-z-zstd),1)
-> +    LIBS += -lbfd -ldl -lopcodes -liberty -lz -lzstd
->    endif
->  
->    # If one of the above feature combinations is set, we support libbfd
+Use FIELD_PREP_CONST and add nicer definitions/macros to build the
+default driving parameters for the PHY and, while at it, also add
+comments explaining what they are supposed to set in the PHY.
 
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+ drivers/phy/mediatek/phy-mtk-dp.c | 86 +++++++++++++++----------------
+ 1 file changed, 41 insertions(+), 45 deletions(-)
 
-Hi Ian, thanks for this!
+diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy-mtk-dp.c
+index 2f4cf52d922c..8e1fc4e16ba6 100644
+--- a/drivers/phy/mediatek/phy-mtk-dp.c
++++ b/drivers/phy/mediatek/phy-mtk-dp.c
+@@ -91,51 +91,47 @@
+  * [2,5,8]: Swing 2 Pre1 and Swing 3 Pre0
+  */
+ #define PHYD_DIG_NUM_DRV_PARA_REGS	9
+-#define XTP_LN_TX_LCTXC0_SW0_PRE0_DEFAULT	BIT(4)
+-#define XTP_LN_TX_LCTXC0_SW0_PRE1_DEFAULT	(BIT(10) | BIT(12))
+-#define XTP_LN_TX_LCTXC0_SW0_PRE2_DEFAULT	GENMASK(20, 19)
+-#define XTP_LN_TX_LCTXC0_SW0_PRE3_DEFAULT	GENMASK(29, 29)
+-#define MT8195_DRIVING_PARAM_3_DEFAULT	(XTP_LN_TX_LCTXC0_SW0_PRE0_DEFAULT | \
+-				 XTP_LN_TX_LCTXC0_SW0_PRE1_DEFAULT | \
+-				 XTP_LN_TX_LCTXC0_SW0_PRE2_DEFAULT | \
+-				 XTP_LN_TX_LCTXC0_SW0_PRE3_DEFAULT)
+-
+-#define XTP_LN_TX_LCTXC0_SW1_PRE0_DEFAULT	GENMASK(4, 3)
+-#define XTP_LN_TX_LCTXC0_SW1_PRE1_DEFAULT	GENMASK(12, 9)
+-#define XTP_LN_TX_LCTXC0_SW1_PRE2_DEFAULT	(BIT(18) | BIT(21))
+-#define XTP_LN_TX_LCTXC0_SW2_PRE0_DEFAULT	GENMASK(29, 29)
+-#define MT8195_DRIVING_PARAM_4_DEFAULT	(XTP_LN_TX_LCTXC0_SW1_PRE0_DEFAULT | \
+-				 XTP_LN_TX_LCTXC0_SW1_PRE1_DEFAULT | \
+-				 XTP_LN_TX_LCTXC0_SW1_PRE2_DEFAULT | \
+-				 XTP_LN_TX_LCTXC0_SW2_PRE0_DEFAULT)
+-
+-#define XTP_LN_TX_LCTXC0_SW2_PRE1_DEFAULT	(BIT(3) | BIT(5))
+-#define XTP_LN_TX_LCTXC0_SW3_PRE0_DEFAULT	GENMASK(13, 12)
+-#define MT8195_DRIVING_PARAM_5_DEFAULT	(XTP_LN_TX_LCTXC0_SW2_PRE1_DEFAULT | \
+-				 XTP_LN_TX_LCTXC0_SW3_PRE0_DEFAULT)
+-
+-#define XTP_LN_TX_LCTXCP1_SW0_PRE0_DEFAULT	0
+-#define XTP_LN_TX_LCTXCP1_SW0_PRE1_DEFAULT	GENMASK(10, 10)
+-#define XTP_LN_TX_LCTXCP1_SW0_PRE2_DEFAULT	GENMASK(19, 19)
+-#define XTP_LN_TX_LCTXCP1_SW0_PRE3_DEFAULT	GENMASK(28, 28)
+-#define MT8195_DRIVING_PARAM_6_DEFAULT	(XTP_LN_TX_LCTXCP1_SW0_PRE0_DEFAULT | \
+-				 XTP_LN_TX_LCTXCP1_SW0_PRE1_DEFAULT | \
+-				 XTP_LN_TX_LCTXCP1_SW0_PRE2_DEFAULT | \
+-				 XTP_LN_TX_LCTXCP1_SW0_PRE3_DEFAULT)
+-
+-#define XTP_LN_TX_LCTXCP1_SW1_PRE0_DEFAULT	0
+-#define XTP_LN_TX_LCTXCP1_SW1_PRE1_DEFAULT	GENMASK(10, 9)
+-#define XTP_LN_TX_LCTXCP1_SW1_PRE2_DEFAULT	GENMASK(19, 18)
+-#define XTP_LN_TX_LCTXCP1_SW2_PRE0_DEFAULT	0
+-#define MT8195_DRIVING_PARAM_7_DEFAULT	(XTP_LN_TX_LCTXCP1_SW1_PRE0_DEFAULT | \
+-				 XTP_LN_TX_LCTXCP1_SW1_PRE1_DEFAULT | \
+-				 XTP_LN_TX_LCTXCP1_SW1_PRE2_DEFAULT | \
+-				 XTP_LN_TX_LCTXCP1_SW2_PRE0_DEFAULT)
+-
+-#define XTP_LN_TX_LCTXCP1_SW2_PRE1_DEFAULT	GENMASK(3, 3)
+-#define XTP_LN_TX_LCTXCP1_SW3_PRE0_DEFAULT	0
+-#define MT8195_DRIVING_PARAM_8_DEFAULT	(XTP_LN_TX_LCTXCP1_SW2_PRE1_DEFAULT | \
+-				 XTP_LN_TX_LCTXCP1_SW3_PRE0_DEFAULT)
++#define XTP_LN_TX_LCTXC_SW0_PRE0	GENMASK(5, 0)
++#define XTP_LN_TX_LCTXC_SW0_PRE1	GENMASK(13, 8)
++#define XTP_LN_TX_LCTXC_SW0_PRE2	GENMASK(21, 16)
++#define XTP_LN_TX_LCTXC_SW0_PRE3	GENMASK(29, 24)
++
++#define XTP_LN_TX_LCTXC_SW1_PRE0	GENMASK(5, 0)
++#define XTP_LN_TX_LCTXC_SW1_PRE1	GENMASK(13, 8)
++#define XTP_LN_TX_LCTXC_SW1_PRE2	GENMASK(21, 16)
++#define XTP_LN_TX_LCTXC_SW2_PRE0	GENMASK(29, 24)
++
++#define XTP_LN_TX_LCTXC_SW2_PRE1	GENMASK(5, 0)
++#define XTP_LN_TX_LCTXC_SW3_PRE0	GENMASK(13, 8)
++
++#define BUILD_DRIVING_PARAM_0(sw0_pre0, sw0_pre1, sw0_pre2, sw0_pre3) (	\
++	FIELD_PREP_CONST(XTP_LN_TX_LCTXC_SW0_PRE0, sw0_pre0) |		\
++	FIELD_PREP_CONST(XTP_LN_TX_LCTXC_SW0_PRE1, sw0_pre1) |		\
++	FIELD_PREP_CONST(XTP_LN_TX_LCTXC_SW0_PRE2, sw0_pre2) |		\
++	FIELD_PREP_CONST(XTP_LN_TX_LCTXC_SW0_PRE3, sw0_pre3)		\
++)
++
++#define BUILD_DRIVING_PARAM_12(sw1_pre0, sw1_pre1, sw1_pre2, sw2_pre0) (\
++	FIELD_PREP_CONST(XTP_LN_TX_LCTXC_SW1_PRE0, sw1_pre0) |		\
++	FIELD_PREP_CONST(XTP_LN_TX_LCTXC_SW1_PRE1, sw1_pre1) |		\
++	FIELD_PREP_CONST(XTP_LN_TX_LCTXC_SW1_PRE2, sw1_pre2) |		\
++	FIELD_PREP_CONST(XTP_LN_TX_LCTXC_SW2_PRE0, sw2_pre0)		\
++)
++
++#define BUILD_DRIVING_PARAM_23(sw2_pre1, sw3_pre0) (			\
++	FIELD_PREP_CONST(XTP_LN_TX_LCTXC_SW2_PRE1, sw2_pre1) |		\
++	FIELD_PREP_CONST(XTP_LN_TX_LCTXC_SW3_PRE0, sw3_pre0)		\
++)
++
++/* MT8195: Logic State Change Point (LC TX C) */
++#define MT8195_DRIVING_PARAM_3_DEFAULT	BUILD_DRIVING_PARAM_0( 16, 20, 24, 32)
++#define MT8195_DRIVING_PARAM_4_DEFAULT	BUILD_DRIVING_PARAM_12(24, 30, 36, 32)
++#define MT8195_DRIVING_PARAM_5_DEFAULT	BUILD_DRIVING_PARAM_23(40, 48)
++
++/* MT8195: Positive Edge (LC TX CP) */
++#define MT8195_DRIVING_PARAM_6_DEFAULT	BUILD_DRIVING_PARAM_0( 0, 4, 8, 16)
++#define MT8195_DRIVING_PARAM_7_DEFAULT	BUILD_DRIVING_PARAM_12(0, 6, 12, 0)
++#define MT8195_DRIVING_PARAM_8_DEFAULT	BUILD_DRIVING_PARAM_23(8, 0)
+ 
+ enum mtk_dp_phya_ana_glb_regidx {
+ 	DP_PHYA_GLB_BIAS_GEN_0,
+-- 
+2.55.0
 
-Just checking: my understanding is that if libbfd depends on libzstd,
-then it always also depends on zlib, so we never need to check some
-variant such as "feature-libbfd-liberty-zstd" (without the "-z"), is
-this correct?
-
-Quentin
