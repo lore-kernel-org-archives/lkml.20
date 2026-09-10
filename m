@@ -1,221 +1,265 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769033D300F
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:20:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789028452; cv=pass; b=qYDXksx0HxKcW451y+k05pIgwXC4I5+YTz2K+3HioWYZrg/qMYb2L840E8O04cMp2BclDLG4ifSOShc+1OWFygvrVFRTvMOlkE85HO17Qa8G50VZ9kxKIHyGKoHqPLni9Od3xdblmJjp75ynQvkTn90TAYbhzV3qDU97qj5PIog=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789028452; c=relaxed/simple;
-	bh=WvmQjKnGuI0dGsnyCGxoMDIHpfNF476NUnQtUUHZ7Xs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kgfN8hvy/jOKVEyYlpaj3p4Bd3MLAxgTYzxmvdRVU/1Gx33f0DDOSd87jt8l8AXrMmH1V9LCDSvo7Ey8hpiCvUNUrO/4vI/rnGPdN4KWDVAVPggiYD1Yw0Kxa9lXxQfGlLabQUpyEHl1xOoL1hJXvNqY2yHFLGnVgqPFVy6J+Mw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WMVmnSIU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LJHe6JlB; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D9A03CD8C9
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:21:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789028464; cv=none; b=IRUazv6k0zNd3uf60+Y9+R/MH+L2mvssfrlKlkFmrdb6K11pbxdpSMwqc1CcCx4A5O8IujPPfde9gYwFXYeRC+vKY9LhQ0+D+jUFAp/S3nGYq7zx5BSvhAfQOUOER0S2BFKeBx4vAOWsihj+05muyMP7pIwi6lkJtygM28M/cVA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789028464; c=relaxed/simple;
+	bh=xTPgzq0JWJUkAsfOWDQuzY/ns3lnWJuoUvRjglcxr6A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tz23BAVRLDhR2mYCWLpKz2Uo376vPP+BfSIGarWPkhhB/qPKajl9CUIUopxlODpPZObtypSGamEiBkpoUY8rdCPqUridHFmvdzBZ4gyS1hd4FszqjrYB940dqekOtWA1HAsjbjN0kaq72XwSc9LN7PLeCSba+ikJX99cegwAdEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZQ2Rz6Na; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WMVmnSIU";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LJHe6JlB"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A71Cl9754346
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:20:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	cvo+gJKJcdSTFsytJP4C9fn/vpgKCrfkkU2F3RLp2rM=; b=WMVmnSIUNnQMnz+G
-	E9htb2pX1Xxykkf68zC7TAYJgyqUHA1f3o5ozjQ8z7p2MSpQxex3q5ed/RPjsYEi
-	1V1FpicOGtHk6bxkUR84+7y6ixvBxPCo29gDlr8JW+i5SRxPuCBok446iWdXJvRB
-	mde5/iWYIa4j0QfcqhxfGSJFDptmxM9KeydmOXGnVjixZvS0bVsy/SAB0adwsoyN
-	eIWPN+tjQ7fvKnHcoFy8yBM826WJfVogBgQzKfXHoLpcMazXnPgq/8xATJowU7Up
-	v81UceUP+o2B3qNBVWkIVvSBh94v0Tg59/bLIQat7ZOvwyAjSAgMN/XgaXZU7w4C
-	/777LA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkqsvr9u0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:20:49 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9399b66e0e7so917423685a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:20:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789028448; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OuMUou2aqlI0PT8gNPnMs1zQcUz6n5VtcmXy01Xzdmaw8/5SoBvdyynwI8WUj4cXwk
-         dB/WMehmSUYjWmheN0ES06+uxXQOxmoD5Fty+qGAsNOvgicSGgg+18LbJTHDZRlCsAGr
-         td6/dAmP/Al2w4yhEoFLyxKNxScb6XgCqCB2Ftv0I4ev5IFYEUn+DNS+7Dbst4RaE0OS
-         bMmsvmCMgTVVbhqov5k5w3uAiNxouf4+lDaElwVce7JYhc2law7Duzy4vix1dLTuHyz6
-         QQiMjvmdYfMO5F13C3FVeoU2SL0zY6mmALvSMWofsLWEENG/W30t2GfRRmhy+bQ70g/u
-         Whzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=cvo+gJKJcdSTFsytJP4C9fn/vpgKCrfkkU2F3RLp2rM=;
-        fh=QZpEuLN7m1roxlYl01Y9qytDW60SfRv6JmcpY5VXgnI=;
-        b=n3LlA1r6JENA9HU9dbbqo57KGCSl9ZCbCD6QSWXMbRn4U7GHYbuGbN43bouNGVhDM8
-         N1A5Fu9LKrOtP8JSkyxP7KeiaBwrMr+93wrL6a+161DhMDDi8I7Qe1ZwDmxvWnhF8GcW
-         LLe+Yyp0KqWkg3zGJrrbbji88fBDFJTyMcJWfAmvrI3H12DtsJlAcS5DMonyqqwu5YfT
-         vpz6pRMeAX5HibgJ9CFgJc+HTUo+bx3F0jiZLXRygkodquWB/rnzsqbwg8zDBW7XNa04
-         Y2dMmWDVjMWW+bzCas/us4MQQx2KBWTufiMpfgyjRFLryqbG7atJckn4RiktlCvrbmzN
-         Vrdg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZQ2Rz6Na"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-499ac87c92bso71885125e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:21:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789028448; x=1789633248; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cvo+gJKJcdSTFsytJP4C9fn/vpgKCrfkkU2F3RLp2rM=;
-        b=LJHe6JlBbhJWlHS4rr8d0hZj5P2uLSN9vsuXmqs/fJNLym7ctREas4rFzVxGdsd6Uv
-         vR1C4UFr4AFGeOukLItrRaOZEjSpeJ9baYMl6WAgROh5ZL/CmmAb22TMsYthRRDLL1On
-         LpPF34rm9jcMKeiftMSO9Y+4wBPFGGYxzMF8gXNSlnWo9sQ8eSI9i4b6zgkZPTB4bS5P
-         jcvlvSv7zkxWXgY6K3JAQF9m5n/dewrKZ2/iIrvjcsVCqvzN1rdNp+Iy2vw05DxrOxBE
-         sb6nvkC/wDyrsCD2yNiLBL09FLchX5w5iNOchCHdBHRJX2oLKnO0vwIptVOKuaK1i2fE
-         +1Gw==
+        d=gmail.com; s=20251104; t=1789028461; x=1789633261; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xgClJtEr8d0GwZI2HCdCNWAFW5HteuKdFM5N4ZIWRLk=;
+        b=ZQ2Rz6Na6xV73SX2MNW/Ta61aGUCllVrCU+58f/vohy6SGVWTYigqJ/n5Tr+z56vlZ
+         ZITxyj7y+qSgh6ksivdkHV6AI/E946IzFQLKyznOK83NoMLqgFTRKCDmOqgpzB6IeKP7
+         alm6Tsk0SnPIOIScEE+MaHAKXMZUvKNge0glnrRlwFIFIIT2OkO9asXambWYYRZvPsJl
+         RdgRIVEDYAWFdI+XpSWXGMkYq6XZHEbG24DQDmQCTKx6zFn/haDTjR7aa/GSI8ka0Vwr
+         erbR9fFJ74QF2wKAZfQnc1BLBBHmXmTSh7R4PeppU5Oju2HJ5fkwpzxhTPwA5V1JJjGO
+         jFRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789028448; x=1789633248;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cvo+gJKJcdSTFsytJP4C9fn/vpgKCrfkkU2F3RLp2rM=;
-        b=O+6oVWG9U7cdruR4sPc2xtEWf0tRhXeyTVH+RtrSoWk84O6DBdJizB+aVmxQmKbr56
-         SiV6enWWAiJ/t42V83w1QwGubuwvLN4oNs1JgKFiMNuyfq5dSoLmCs7MQPk2SfktETCM
-         4RZvoE60sOmv/7d7I+aO52X69zo7Mt5ifuJ5wGcpvYq6KLSixzZF/nG5JmJ93yhUgvPk
-         801uSXmofoxsqSUveEjbQVlGHyLqAxzT3p1ZqJG+q6GRGAF7QSvrWBUn+NvatNL/OdbH
-         UW+vaRRZHOEFm7S4WDgXHrI01PDecPnV9AW65j0EBr/9AwQuj5OtjfEiYvecSiE2mkCI
-         153g==
-X-Forwarded-Encrypted: i=1; AKwUvBzJkX/85v+YriRS8L9PiPzr1lWCq1q94aPaeAbuEJrFfkDeobgkXGIH+smAAL/NuDgICQ9e2inHZP7zWZY=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8Fw3XKDqsE9of9sWgP0ePSii74cIRheXCTPW7sUZBRyp9U3z7
-	r+Zp0/AJetdteep9J50xyQ/emSTEn/3r1r0MDI/VX+ZbhT5DWIxRCNAHg/dskTfrvgETOqf8AD5
-	zKTF/8nNsYcT4h46J88zl3M0LZgoSbGGJg1OAPJuuBkQTVH161OvQx+AZ+r1vbpuFEJMJW3Nc6F
-	CAwjIDNSmARIFDvyAPiaIkOmgvw/M6ax8OwW6/68YdJA==
-X-Gm-Gg: AYBFou1hoVHVB7rRym4PycpL5NPuWKq21lakjB79I3r0Dq/7+XoJtjMc3/gagn+/+HZ
-	zYUivcL9w8+m9SS7cMV0EO87U8s5VLbEkP6Ehqd+2XmgrILWL9V6c4r86lke9npCEjimD4FjSjM
-	nuWZrRrdKKjBohGEaj0/bhKBWXF3Qjty65Nt8B+lWNeIXLwuhFmRqI2wfblCF/PoDAlZoHLrE3C
-	O2t2s5uwAV3me+iSX3qwMG6JaIz5d1MU3I6Ps6HPGRrN/zIRVJfOZ0ujdBX5Z5IksmO4ApcPorx
-X-Received: by 2002:a05:620a:4389:b0:939:6de8:43db with SMTP id af79cd13be357-939804d76e4mr4288511385a.47.1789028448412;
-        Thu, 10 Sep 2026 01:20:48 -0700 (PDT)
-X-Received: by 2002:a05:620a:4389:b0:939:6de8:43db with SMTP id
- af79cd13be357-939804d76e4mr4288463985a.47.1789028443258; Thu, 10 Sep 2026
- 01:20:43 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789028461; x=1789633261;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xgClJtEr8d0GwZI2HCdCNWAFW5HteuKdFM5N4ZIWRLk=;
+        b=gR7hQSsoTOq+kKRqZOyGmWKxtfEheNeon4QpTE9iu+lLIH1bwFZdn1A5e+f20a4Z0F
+         pg9QAOxcpkw7X9C03GefpVfcoWVl6YdWxjD3r3XsLowiGYUhLbbgH0YK5SO6eV72JZa+
+         R9Sl1lx/JAeDp0NbtPZ/r8AaBGEsWLyI19Wm9lXPjb889qCumgVPRiV+vpLyDpDPmfMF
+         LC+OJuo7PQAcCd+KxKwh2+yrBbZK/RK/5JlRKnu4qNjx+6t8T6V6AcZNUM9yAgcq4EA0
+         JCjZ0Q022cKCSE8DP+A5Nc5JM5JeVoZTME10z8P+5KKJ8MUq72GmBimiao8g3Je6f5la
+         Ryqw==
+X-Forwarded-Encrypted: i=1; AKwUvByz5rgU5N5WyzfEAcAyhyux2ntEalGIXkZ8Govr8OBuh/MXaa8g/ZPJRwBZLbINpleRoAaeXP61gVBEri4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nObmd8hdFIxEFAGFJ8/UbDL/LLlpubkYh2m5A6er2wIIUx17cU
+	slJyct4zUQPFHgv9qAsxjeZS+UaTsDpGXU/kSw3covXRbrgn3LGNeb1N
+X-Gm-Gg: AYBFou38K2Osf9efyGGiNs7h8ukvd7WzD7zd/jxHKrSoDU6zvJCK/7nuF7rhOMVqk4M
+	9IEHQ9T+xvGfiZSlu3ANxDqGq/v4hUaOHSo8yjpQ36jppmC3CAaljoheVsxyrtaXp0fj26Nzfop
+	DfBwpQta3gsDI0FGHWCeHMEl4GLh9t+3j+Z81J6RJI3eziyXnYPtyw1vRJao/Xw37O1TzuXlpwk
+	X2BLPK2bJEe/4DJRKjRq9skrc6qfwgcNA57fVkBgya6P/hCsiBFOHW/x4l4e9AhVbEvO7HNqejX
+	/tfdOvbRJq81DCVdVRs5aplcS7VnqgqRlnYjV/fuQ75mSzkadUfZ9cYl5XgzP3+IePum1zQVGHH
+	XG8EWC+4dv7viJ5u1TC1WhNnVYjcszrljKsscUtX/CCV+O3wvZzXGcZU8fB06HZT5gTnJ7iJdbz
+	GP++Ppib87rLsKRNvxBCdvZyMRrax/B6A0td01oFqXJ+AJS/yV65sQu2oP98Fiij4O/UovJWgrh
+	uK/IoCJJxyksBYStl76+X9k4dGLKbtS/qhR+ey7woaviZbHtqZvQ80=
+X-Received: by 2002:a05:600c:34c2:b0:49d:10d6:fd55 with SMTP id 5b1f17b1804b1-49d10d6fdeemr236778155e9.1.1789028460698;
+        Thu, 10 Sep 2026 01:21:00 -0700 (PDT)
+Received: from LS-Tayyab-Farooq.dreambig.corp ([125.209.88.14])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c0f8d9sm57415865e9.15.2026.09.10.01.20.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 01:21:00 -0700 (PDT)
+From: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	David Brownell <dbrownell@users.sourceforge.net>,
+	linux-usb@vger.kernel.org (open list:USB SUBSYSTEM),
+	linux-kernel@vger.kernel.org (open list)
+Cc: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>,
+	syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com
+Subject: [PATCH] usb: gadget: u_serial: fix use-after-free between tty open/close and gserial_free_line
+Date: Thu, 10 Sep 2026 13:17:19 +0500
+Message-ID: <20260910082008.12397-1-syedtayyabfarooq08@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910033356.1052661-1-zhugl3@xiaopeng.com>
-In-Reply-To: <20260910033356.1052661-1-zhugl3@xiaopeng.com>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Thu, 10 Sep 2026 10:20:31 +0200
-X-Gm-Features: AcwNN1UxpGXbZOkTtYTEFpfk69pJe6c5Zo9ztfNY-JIQ24mBlchhctEeZIV-neA
-Message-ID: <CAFEp6-3QOiY27ViJKtSbXZs4fBDQ7pVr3T0V4Q7ERnmUw0jjOA@mail.gmail.com>
-Subject: Re: [PATCH 1/3] net: wwan: mhi_wwan_mbim: guard against a cyclic NDP chain
-To: Guanglei Zhu <zhugl3@xiaopeng.com>
-Cc: Sergey Ryazanov <ryazanov.s.a@gmail.com>,
-        Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
-        Liu Haijun <haijun.liu@mediatek.com>,
-        Ricardo Martinez <ricardo.martinez@linux.intel.com>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=DdOCOftW c=1 sm=1 tr=0 ts=6aa26861 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=3WHJM1ZQz_JShphwDgj5:22 a=EgahoUkMAAAA:8 a=VwQbUJbxAAAA:8
- a=bSoUDPcfU04rEmEJkLgA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
- a=D2SkTF70-_n5gOfERQdM:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA5MiBTYWx0ZWRfX23SXaOJkHyVb
- 1V/wj/tu0HNNDLDQd856RHEPEwuWHgw9llMu1vqdeY1IUv/hlVSDtCXZvhQFppBJ0dynOOUT5NM
- VpNJpIzuZsPUOu1xY1AWJXN+7rMYSNl0TQVvhFqLDkrCByOknsRT/HtIBbw67/jGOkp0CI0I+St
- 0jL1IyOqF/T3o2NKN0pq7KCiZy4WKOuUvA8rPmD7fzOeWlHnxemt4gDLSIH2xMIFehcVhILjSsS
- oe9n5fQiFGlmo7pYdfWXwwa0d1bzYJoVyXNOeqTEpLuMCLJTcy/l7/jCnY85ycFgwkZP6xY471q
- +HTZF9LJSjBGz71GY7j2Wxm6Y/QrD2QKPKGqaVcBqKMg56C09bCdEt4xdPd6C6KdpC8HA0qM451
- kH3EA/z5ZtaJuvTfB0JEjnF1GdKl6SN/Fh6JeyX6qvi7Yd9EVHeyId8Gei7USurYzcmecuB8Ngr
- NkI0dVo0llwLmflbCtg==
-X-Proofpoint-ORIG-GUID: 40iVde6sIbBAOUztN4j0gi5mQGSv0bwf
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA5MiBTYWx0ZWRfXw6w1jmcwMfPl
- Oga0q16f+TurYMfBvqrAT1lDlhY3oSdEwAbwsI4q1mIcWJ55+FzasVF9sMpz4++JQf/Uq1e034O
- Cj8fmOmDDtfUoWaXB32fSaMdeqY4O2Q=
-X-Proofpoint-GUID: 40iVde6sIbBAOUztN4j0gi5mQGSv0bwf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_02,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 phishscore=0 malwarescore=0 adultscore=0
- spamscore=0 bulkscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100092
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 10, 2026 at 5:34=E2=80=AFAM Guanglei Zhu <zhugl3@xiaopeng.com> =
-wrote:
->
-> The NDP traversal in mhi_mbim_rx() only stops when wNextNdpIndex is
-> zero.  Nothing requires the offsets to advance, so a modem that
-> points an NDP at itself, or at an earlier NDP, keeps the loop
-> spinning forever on one CPU.
->
-> Break out when the next NDP offset is not larger than the current
-> one.
->
-> Fixes: aa730a9905b7 ("net: wwan: Add MHI MBIM network driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-> ---
->
-> Verified in a QEMU guest with a fault injector feeding the driver's
-> receive callback an NTB whose single NDP points at itself: the
-> unpatched driver spins in mhi_mbim_rx() with one CPU pinned at 100%
-> and the thread never returns.  With this check the loop terminates
-> within one iteration.
->  drivers/net/wwan/mhi_wwan_mbim.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
->
-> diff --git a/drivers/net/wwan/mhi_wwan_mbim.c b/drivers/net/wwan/mhi_wwan=
-_mbim.c
-> index a94998712..ef158edeb 100644
-> --- a/drivers/net/wwan/mhi_wwan_mbim.c
-> +++ b/drivers/net/wwan/mhi_wwan_mbim.c
-> @@ -254,6 +254,7 @@ static int mbim_rx_verify_ndp16(struct sk_buff *skb, =
-struct usb_cdc_ncm_ndp16 *n
->  static void mhi_mbim_rx(struct mhi_mbim_context *mbim, struct sk_buff *s=
-kb)
->  {
->         int ndpoffset;
-> +       int last_ndpoffset =3D 0;
->
->         /* Check NTB header and retrieve first NDP offset */
->         ndpoffset =3D mbim_rx_verify_nth16(mbim, skb);
-> @@ -265,6 +266,13 @@ static void mhi_mbim_rx(struct mhi_mbim_context *mbi=
-m, struct sk_buff *skb)
->         /* Process each NDP */
->         while (1) {
->                 struct usb_cdc_ncm_ndp16 ndp16;
-> +
-> +               if (ndpoffset <=3D last_ndpoffset) {
-> +                       net_err_ratelimited("mbim: non-increasing NDP off=
-set (%u)\n",
-> +                                           ndpoffset);
-> +                       break;
-> +               }
-> +               last_ndpoffset =3D ndpoffset;
+syzbot reports a slab-use-after-free in tty_init_dev()/gs_close()
+involving struct gs_port. The port is allocated when a gadget serial
+function instance is created via configfs mkdir (gserial_alloc_line())
+and freed via a plain kfree() in gserial_free_port() when the instance
+is removed via configfs rmdir(). Nothing prevented a concurrent
+open("/dev/ttyGS*") from racing with rmdir: the tty core could still
+reach gs_open()/gs_close() and dereference the gs_port after it had
+already been freed, since the ports[] table entry these functions
+looked up was a bare pointer with no refcounting tied to the tty core.
 
-It would be better to address this under the next_ndp retrieval, something =
-like:
-```
-n =3D (int)le16_to_cpu(ndp16.wNextNdpIndex);
-if (n > ndpoffset)
-   ndpoffset =3D n;
-else
-  break;
-```
+Fix this by giving struct gs_port proper tty_port-managed lifetime:
 
->                 struct usb_cdc_ncm_dpe16 dpe16;
->                 struct mhi_mbim_link *link;
->                 int nframes, n, dpeoffset;
-> --
-> 2.43.0
->
+ - Add gs_install()/gs_cleanup() tty_operations. gs_install() looks up
+   the port once under ports[idx].lock, takes a tty_port_get()
+   reference, and stores the result in tty->driver_data. gs_cleanup()
+   drops that reference when the tty_struct is released. This ties the
+   gs_port's minimum lifetime to the tty_struct using it, so it can no
+   longer be freed out from under an open tty.
+
+ - Give tty_port a destructor (gs_port_destruct()) that does the
+   kfree() that gserial_free_port() used to do directly, and
+   switch gserial_free_port() to tty_port_put() instead of an
+   unconditional kfree(). Also, tty_port_destroy is automatically called
+   when the reference reaches 0. The struct is now only actually freed once
+   its last reference (held by either the ports[] table or a live tty)
+   is dropped.
+
+ - Stop gs_open() from independently re-deriving the port from
+   ports[port_num].port and reassigning tty->driver_data. gs_install()
+   is now the single place that looks up and pins the port; gs_open()
+   re-deriving it separately could, on an unlucky race with the port
+   index being freed and reallocated, leave tty->port and
+   tty->driver_data pointing at two different gs_port instances, with
+   the one gs_close() uses left unprotected. gs_open() now just uses
+   the already-validated tty->driver_data, while still holding
+   ports[port_num].lock across the first-open kfifo allocation to
+   serialize concurrent first opens against each other (kfifo_alloc()
+   needs GFP_KERNEL, so it can't run under port_lock).
+
+ - In gs_close(), a tty's .close() can legitimately run against a port
+   whose port.count is still 0, e.g. when gs_open() fails and the tty
+   core unwinds via tty_release(). The previous code treated this as
+   an impossible state (WARN_ON(1)), which trips panic_on_warn on
+   syzbot and isn't actually a bug -- it's an expected outcome of a
+   failed open. Treat count == 0 the same as any other "not the last
+   closer" case and return quietly instead of warning.
+
+Reported-by: syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=fe63e4d633540f230624
+Fixes: c1dca562be8a ("usb gadget: split out serial core")
+Signed-off-by: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
+---
+ drivers/usb/gadget/function/u_serial.c | 64 +++++++++++++++++++++++---
+ 1 file changed, 57 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
+index cdd1dfc666c4..9da860589861 100644
+--- a/drivers/usb/gadget/function/u_serial.c
++++ b/drivers/usb/gadget/function/u_serial.c
+@@ -603,6 +603,41 @@ static int gserial_wakeup_host(struct gserial *gser)
+ 
+ /* TTY Driver */
+ 
++static int gs_install(struct tty_driver *driver, struct tty_struct *tty)
++{
++	struct gs_port *port;
++	struct tty_port *tport;
++	int ret;
++
++	mutex_lock(&ports[tty->index].lock);
++	port = ports[tty->index].port;
++	if (!port) {
++		mutex_unlock(&ports[tty->index].lock);
++		return -ENODEV;
++	}
++
++	tport = tty_port_get(&port->port);
++	mutex_unlock(&ports[tty->index].lock);
++
++	if (!tport)
++		return -ENODEV;
++
++	ret = tty_port_install(tport, driver, tty);
++	if (ret) {
++		tty_port_put(tport);
++		return ret;
++	}
++
++	tty->driver_data = port;
++
++	return 0;
++}
++
++static void gs_cleanup(struct tty_struct *tty)
++{
++	tty_port_put(tty->port);
++}
++
+ /*
+  * gs_open sets up the link between a gs_port and its associated TTY.
+  * That link is broken *only* by TTY close(), and all driver methods
+@@ -615,7 +650,7 @@ static int gs_open(struct tty_struct *tty, struct file *file)
+ 	int		status = 0;
+ 
+ 	mutex_lock(&ports[port_num].lock);
+-	port = ports[port_num].port;
++	port = tty->driver_data;
+ 	if (!port) {
+ 		status = -ENODEV;
+ 		goto out;
+@@ -648,7 +683,6 @@ static int gs_open(struct tty_struct *tty, struct file *file)
+ 	if (port->port.count++)
+ 		goto exit_unlock_port;
+ 
+-	tty->driver_data = port;
+ 	port->port.tty = tty;
+ 
+ 	/* if connected, start the I/O stream */
+@@ -695,14 +729,16 @@ static void gs_close(struct tty_struct *tty, struct file *file)
+ 	struct gs_port *port = tty->driver_data;
+ 	struct gserial	*gser;
+ 
++	if (!port)
++		return;
++
+ 	spin_lock_irq(&port->port_lock);
+ 
+ 	if (port->port.count != 1) {
+ raced_with_open:
+-		if (port->port.count == 0)
+-			WARN_ON(1);
+-		else
++		if (port->port.count > 0)
+ 			--port->port.count;
++
+ 		goto exit;
+ 	}
+ 
+@@ -911,6 +947,8 @@ static int gs_get_icount(struct tty_struct *tty,
+ static const struct tty_operations gs_tty_ops = {
+ 	.open =			gs_open,
+ 	.close =		gs_close,
++	.install =		gs_install,
++	.cleanup =		gs_cleanup,
+ 	.write =		gs_write,
+ 	.put_char =		gs_put_char,
+ 	.flush_chars =		gs_flush_chars,
+@@ -1203,6 +1241,18 @@ static void gs_console_exit(struct gs_port *port)
+ 
+ #endif
+ 
++static void gs_port_destruct(struct tty_port *tport)
++{
++	struct gs_port *port = container_of(tport, struct gs_port, port);
++
++	kfree(port);
++}
++
++static const struct tty_port_operations gs_port_ops = {
++	.destruct = gs_port_destruct,
++};
++
++
+ static int
+ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
+ {
+@@ -1222,6 +1272,7 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
+ 	}
+ 
+ 	tty_port_init(&port->port);
++	port->port.ops = &gs_port_ops;
+ 	spin_lock_init(&port->port_lock);
+ 	init_waitqueue_head(&port->drain_wait);
+ 	init_waitqueue_head(&port->close_wait);
+@@ -1258,8 +1309,7 @@ static void gserial_free_port(struct gs_port *port)
+ 	/* wait for old opens to finish */
+ 	wait_event(port->close_wait, gs_closed(port));
+ 	WARN_ON(port->port_usb != NULL);
+-	tty_port_destroy(&port->port);
+-	kfree(port);
++	tty_port_put(&port->port);
+ }
+ 
+ void gserial_free_line(unsigned char port_num)
+-- 
+2.43.0
+
