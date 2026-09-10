@@ -1,69 +1,69 @@
-Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com [209.85.167.169])
+Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A212A42A144
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:14:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22F1C42AFAC
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:14:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789074902; cv=none; b=jETZLI5HwjBwAnx8h9YdW/lQNloujtaIROoKiTm4FLyfAaLCH0cwqko6P1yyzNJpVrKQ/7blnA+wWZAZn5VHJcg+DqCToo7NHH++mszta9zQhwfe+Qsi7u4C4shbUHup5KaSY8mVZcLYsny4FIEeaGVuM5P9X3Xoud1/emQJ84M=
+	t=1789074899; cv=none; b=QC8OVP7yJfHe5jymQTkotLSZZy5kFqOn5eZSDvlfbSY55fOCW1Q8pCl7NcXlRnrFc/8kHCm4gCfo3felohUbq9nBJcuSu623I0PrGAtlZLqbMNLuk7CoTq1EZi2k2SH9Eq9G/jVB/NgEODc5U939G6bxg2TYu/mJTyLJH5W3VM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789074902; c=relaxed/simple;
-	bh=oco3EQSldSQddBQlm8Qmhp6JJwlywX+YHfTrmsrsHkU=;
+	s=arc-20240116; t=1789074899; c=relaxed/simple;
+	bh=kzUgSvXLi/JZDSr/vK2K0UNxNU3aymUYqEPICh6L/8A=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Lx9TGZuntSyspsUtgof4VFTlr0ft06WPr1H+tS8uxjkNRtrk9LHuyVL2ywsPEGFohODH//1X7AMnRfF/NdM3WMaT3bNC4fZufOvYpzOIzMHTgfgCTVaPO7mu/EHHpDKgzl1vhpF4z/96521hCddq9hIius3s7eVN5G0q0peC3pY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=bjEhUQXY; arc=none smtp.client-ip=209.85.167.169
+	 In-Reply-To:To:Cc; b=Y4g/8eIVNQ4IRWE1HHZ/uGeF/K36WfGanRiezWAL0znCiD/VOJPHuNev/lbyzQe43ndmzj2JPIsGB2bk5OtDVS3yG66rXrL2XcIJe/E9fuu4CSjeSlDycEBtXne6FqmaY++hM7U+uvlGdkJKLkVvH9n2fGJeeZtyxn9s6CxpnEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=ZTlyE/tw; arc=none smtp.client-ip=209.85.167.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="bjEhUQXY"
-Received: by mail-oi1-f169.google.com with SMTP id 5614622812f47-4c18e5e9745so236975b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:14:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="ZTlyE/tw"
+Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-4b333de9451so291699b6e.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:14:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789074885; x=1789679685; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1789074882; x=1789679682; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HcroCnoY8IYvdQg62Y2Lq302IyLGTvPMvxJQS19q0o0=;
-        b=bjEhUQXYFJhxC0wuBGuak6QkGAWrC/KZTvdoNPQC/K2vXOACyamcp6ZeGzqMgQGy7i
-         yzMcqjzhdbtB8OP6b1efUZ+D1/MYRTxXrEA9laC9Maw+H0v3qks2N0bYmnfVLS9P7J3o
-         WNZ3M2VF+EF+P/yt0EaIPdpPQUHREJKMxxOcEcm1YZ7WHgeSFJ7+CC+RbB6DCBLBLPgW
-         ayYGOIwaMjpdVDiBScbfrTZUpWPqOKiTkVQ/9RIrWUlZjkdjoY9me1I8O5tefBSAKRXA
-         lh+ZVpSlXxsAq7EjKdpiV6tRSxAkmb809ILyykY4QxMFz+7z03XdphL8ny9MKv1YCIay
-         918w==
+        bh=y9MeiO0bVEuDB8kWxbVFOe6+2iOBgBAXWqHDeoInBkU=;
+        b=ZTlyE/twMbdFct47+M2nFaGDRrpFV+FoRfrctctO4OTdFxYw5U6Pkquen6DAQ1VABc
+         Kc/uAeWwodec+W7QoCqiPUpfwgQsya6GWRbJscVtJmVu231ktxx0+ZNIOlLfQRa8WXuE
+         xf7VfHOhxdbOJpTMZMNOSXfqYKF2k4ViZ3auHoQ0rf+tUvJ5uirTscZsI7MBHep6b4l0
+         8dulKqrlkE5ol0oD6ORFfHSzxaG5y3oYXHyLcda7OIixYrLF+Kq0Lmp/vs6ibCPhIVur
+         zK+23ZwraRcCfcsMn+07Wk6aQOr6cc+ksfJADq0N1j7JaW89S5ML/pn417MjmuNFbL1k
+         hgGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789074885; x=1789679685;
+        d=1e100.net; s=20251104; t=1789074882; x=1789679682;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=HcroCnoY8IYvdQg62Y2Lq302IyLGTvPMvxJQS19q0o0=;
-        b=MIAyrY2MFJlIDisEdPeQIEe8gExD9nhBbbECpC2Xm1Z1D6Tyym8Aki8aESwWE73qHM
-         r611ZzaDT7e1exhucRmCrt1tgRj5sgWgFw5oWWfsswhiH7STi7Aw7V4poNdqcXF791bH
-         cqy6LsYmlbV0IUpIep2ITXe9uxnzrF64+oXFWWiB8fz1cMfxOyaiOJwUluqVxfc0kxS3
-         9AkGw1kfFN2A0bjZ3ARC62UzIxL6NzOFLh32TEqRt6OznX5pxFOhN5K5B6pZRd2w4xYF
-         qdkmV2RcFUyrM1qYuIh7SXx0MtK4mu9fA3K7qMMYxEwpnLslLA6xhC/BJoLNEukOdNkY
-         GpUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzz/++MMScUnacOa8SK6EbYodCK4Su2qYUGc5uWm/8rMqztaa4lYR6cF1KFupVL8hxwSvrT9YEofjayt2s=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGBRmZVlx4jUztiziRZqt3HEALfH5GshQC85cAdxB53OIGy8Ks
-	aZG3kCE3ugOmo24h9IRtlKWal0j1Jtzx5SV6T2n3x8/ipFSdJ3u8HhblvxQL9d13TLYuE9x6600
-	+sf1d
-X-Gm-Gg: AYBFou0AGq536YtHNGFZPIIS8NXXvdN0DxNPLzU1nWYPSFpKzvlR3BRfzcNf71HBfAR
-	vGvjVeKxEiNmVI1BDZxSS2z0/PtZBDzkjAc1cOp1/i7A+SbhAsbH2x0SAzFCBRLFI8dj0Vshh4W
-	0isn97X9F8+07Y0Iy5rjdp/f8Kr53nY5ipDzHvNSO1Svu+DXJaKAP72aFN8/WT2g2NeOjvgneE8
-	UoFiMwTr2TZCJVg9GD1veC+9ITGXUvvxR6eow7tvNz9DJrI1J6z/Ldl7VGEa/hPSN4QM6vV3fWe
-	mrpeniUDbAq19IjfT2Ddxnabus7246B3Edycsb3LTQCBhop8953BmzZa4oPnsLSB140yHJzdyoG
-	SmVBwl8ZzSgabjBhcPHNc73E6fI9J92J3A8ewl6L/8mGXhNUmCkTQZKkzjEAsjju4SepX6XsJyK
-	ERT3eFJYoFS8bxFFXPpdr7ry6lclS2DGeaE/qUmleSLVo9jzxfkWw2H1P33N0b0kHIwHCyJOkpg
-	SIm
-X-Received: by 2002:a05:6808:1784:b0:4b9:e5fa:8a24 with SMTP id 5614622812f47-4c31c61d3f9mr849699b6e.41.1789074885486;
-        Thu, 10 Sep 2026 14:14:45 -0700 (PDT)
+        bh=y9MeiO0bVEuDB8kWxbVFOe6+2iOBgBAXWqHDeoInBkU=;
+        b=SeOe+JPLvi2Pu+h0n0yjyrnML2GJsRCDiSUN6zJ/1Mvp83cd2uTy1LkYTYju6HCTiz
+         BUMrYhJJqvUIEStn1/MasjPZ8O3BmU/vHs8WWll91SLO6dOUMrYavxlgVdMp7ivuvVxM
+         smS+3ghA7jytHvaN3KleZcTpFkNovfY8edm/PV7i85UOEYMZvkgYt4GFPFTVn43xZ/37
+         s6BPSqUWMWZqlQyPhnQOcbtaTFspjr7uxzx38E7DWWmlmvKlocTqQhQ5fbLcqCiWLdCn
+         FugtdfCjZJsr+x6P5OSdTYKkd1/7j4ogtZpcahG+M9vksoQS6GoHaeYmQ2W/i6JOPySO
+         tvtg==
+X-Forwarded-Encrypted: i=1; AKwUvBzpqXQN4xwTzT2qks1s/a6dy9tr1NiBgNtPG9RKH2wjUq/DeSUPZK+8S21kR1nx3wb3rxJEhCmdRgdTP7Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++nEoUPUoZuflFSdzdnZhSaqeYQpcZVpwqYy9VKL70TA5Tn1RCzG
+	p18zOia3Kkfg/7OSufI0zuQu+fk+Det2vUfPBytr9E5KnMU20t/Xkw/HS0+59OGWWZxa+vOMit+
+	2mUIC
+X-Gm-Gg: AYBFou3IAmnkIuA66VHb9hLzw+2GEdEMu+yXnKGqJ+5xHa3/QCcjLufCRiKLVmzn3yw
+	OMOohcjKdpeW2Q7BevfK4YjStNCktOW+fmTgrFZ5mGTczDFeg3cHryOQwwZvtwPnfZ7+bwnuokx
+	oR7m1wHzjoNew8oOCsuFRX/qmRrG24AgVOP5my2Z+KvFK5RZx4WVhQqOrYaCTNnDhjJO/OdKlKx
+	mzW3aVzsCR8z0Z677Q8Btob0t5ps4XSwZhdw/wz7dbOasoWaZ9EVRpBb6PoPm6fcaTryyEdQTVP
+	YI+GFHWJhc5IgWb1KM8XxcgkO8W/LNMD3KNydwyZfXcXF2/j5qZXMYa+4Exs+FxYmftUD1YA5f6
+	l1TutMpamCLJSZth9hKWHOhRnjILKAg+2ca4EK4vr34n+9lfRScJUnMRXxH7rPqszLDDVb4/YGa
+	IEvLGdzH8LEMOVSlcuLKtisC28DbaftIRt4VBa0hgA6Ab4bhVafFFXEn3/N1TuNdqtIXPhmiVR6
+	J+O
+X-Received: by 2002:a05:6808:1b21:b0:4b9:e6ab:d083 with SMTP id 5614622812f47-4c31fdda3admr617829b6e.35.1789074881757;
+        Thu, 10 Sep 2026 14:14:41 -0700 (PDT)
 Received: from [127.0.1.1] ([2600:8803:e7e4:500:fbf1:d0da:69e0:11a0])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4c330daa42esm347315b6e.4.2026.09.10.14.14.44
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4c330daa42esm347315b6e.4.2026.09.10.14.14.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 14:14:45 -0700 (PDT)
+        Thu, 10 Sep 2026 14:14:40 -0700 (PDT)
 From: "David Lechner (TI)" <dlechner@baylibre.com>
-Date: Thu, 10 Sep 2026 16:13:09 -0500
-Subject: [PATCH v3 10/10] iio: ABI: add settlingtime attributes
+Date: Thu, 10 Sep 2026 16:13:06 -0500
+Subject: [PATCH v3 07/10] iio: adc: ti-ads112c14: add filter support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-iio-adc-ti-ads112c14-filter-support-v3-10-e5a9b27ddb1a@baylibre.com>
+Message-Id: <20260910-iio-adc-ti-ads112c14-filter-support-v3-7-e5a9b27ddb1a@baylibre.com>
 References: <20260910-iio-adc-ti-ads112c14-filter-support-v3-0-e5a9b27ddb1a@baylibre.com>
 In-Reply-To: <20260910-iio-adc-ti-ads112c14-filter-support-v3-0-e5a9b27ddb1a@baylibre.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -82,85 +82,743 @@ Cc: Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>,
  Kurt Borja <kuurtb@gmail.com>, linux-iio@vger.kernel.org, 
  linux-kernel@vger.kernel.org, "David Lechner (TI)" <dlechner@baylibre.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3263; i=dlechner@baylibre.com;
- h=from:subject:message-id; bh=oco3EQSldSQddBQlm8Qmhp6JJwlywX+YHfTrmsrsHkU=;
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqox2u9xy7hKQq4y/ZNMUSyRLQFZyDbjhu/7DMF
- ntmFQ2pqf2JATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCaqMdrgAKCRDCzCAB/wGP
- wGqXB/4poy/o1/G42PpjjK9/keZcPcGPomxyMJlvUWnGUPtqaSxpA01IOf3Z1Dro4FPelFR8KEw
- dNyzByo8st3amG4/8de2OdQ/WIB037nbnWbsJXko6RrJcDuyidZ4x5uR+PsfW444agkckR3Zda2
- 2PdrTh4Lsr1uG20X3OPIQkaUV50V+lwF/+pRV1cFdWwIqUQxttZiqjclafvA+t+gFt+DVP3dzo6
- RYRQsi5CKjTg8US9rr7l9LdKb462XLCeks6rVcwQLGphcGMUykHdBeHRRTcog547dzJp1Rr7HuK
- fUdc74rWQndt7RsRuXJ8ptatZOdz1e9oMC1ZnfgZhlYn7t/o
+X-Developer-Signature: v=1; a=openpgp-sha256; l=26453;
+ i=dlechner@baylibre.com; h=from:subject:message-id;
+ bh=kzUgSvXLi/JZDSr/vK2K0UNxNU3aymUYqEPICh6L/8A=;
+ b=kA0DAAoBwswgAf8Bj8AByyZiAGqjHZqidk7BswbXJcKGkXbD6N+wPO+j3gQin6XNWurkTJbcS
+ 4kBMwQAAQoAHRYhBOwY2Z5iDoPWnNhomMLMIAH/AY/ABQJqox2aAAoJEMLMIAH/AY/AQmgH/Aqd
+ 2zP6O+aXGGHNs7bjl0sgCQ2FCQU7z1fy8WziG3xc3IH5clXzpSfB06ru1zKSlBOi5Y6paX8F6Xk
+ EgLUmXbBvdp7Y8tVJfmNuB86Ft/fbrDMYH6SYaXSgaxe0JnS0x3MbmJer/Yfz/JXiBEpszG1+Ym
+ TbVoZUBTYKxlw3xne/jrCZ6RWVMYTWiHDvdYilpZC1rBdqfp8hKk7YScnLt3EdWgGnp3a85xaAc
+ W3AGwv8/G1ZHUONhdlRDUIFQPjaglY/htXU8knW8e1lZLLm86zAnm/tCv/HfxHp8+9N6i+AmHzP
+ iR3CxehO8go+znX3vMKKVw9TvVHIy1mAYqcFg24=
 X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
  fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 
-Add new generic attributes for input settling time introduced in the
-ti-ads122c14 driver.
+Add support for filter_type, oversampling_ratio and sampling_frequency
+attributes to the ti-ads112c14 driver.
 
-Usually, in IIO the output data rate is 1 / sampling_frequency. There
-are known devices (generally ones with filtering and oversampling) where
-the first conversion takes longer than 1 / sampling_frequency to allow
-the input to settle in order to have a valid conversion result. Then,
-any subsequent conversions in a continuous sampling mode would be done
-at the regular interval defined by 1 / sampling_frequency.
-
-This attribute is intended to allow controlling that settling time
-duration.
-
-The total settling time is used rather than the difference between the
-time needed for the first sample and subsequent samples so that it can
-be read back directly via settlingtime_available without also reading
-sampling_frequency to compute a delta. The available range's minimum
-value represents the fixed, always-present portion of the delay (which
-typically already includes the time for a normal conversion), so
-requesting that minimum is equivalent to no additional settling delay.
-
-A device that has input chopping enabled would see this settling time on
-every conversion since the device setting (i.e. the input mux) changes
-on every conversion.
+On these chips, these three controls are interdependent and the
+SPEED_MODE register value has a different meaning depending on the
+filter type, which makes the interactions a bit complex. As such, the
+expectation is that the user will set the filter type first, then
+depending on the filter type, either set the oversampling ratio or the
+sampling frequency and finally the other of these two.
 
 Signed-off-by: David Lechner (TI) <dlechner@baylibre.com>
 ---
- Documentation/ABI/testing/sysfs-bus-iio | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
 
-diff --git a/Documentation/ABI/testing/sysfs-bus-iio b/Documentation/ABI/testing/sysfs-bus-iio
-index a8e1cb8e7490..045589058655 100644
---- a/Documentation/ABI/testing/sysfs-bus-iio
-+++ b/Documentation/ABI/testing/sysfs-bus-iio
-@@ -2402,6 +2402,32 @@ Description:
- 		Specifies which filter type apply to the channel. The possible
- 		values are given by the filter_type_available attribute.
+Note: I intend to sumbit a documentation patch later that explains the
+"right way" to set these three attributes since it is a bit odd due to
+the conditional interdependencies.
+---
+ drivers/iio/adc/ti-ads112c14.c | 496 +++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 483 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/iio/adc/ti-ads112c14.c b/drivers/iio/adc/ti-ads112c14.c
+index 0e4584b4675e..ee4992b9e029 100644
+--- a/drivers/iio/adc/ti-ads112c14.c
++++ b/drivers/iio/adc/ti-ads112c14.c
+@@ -94,6 +94,14 @@
+ #define   ADS112C14_DATA_RATE_CFG_DELAY			GENMASK(7, 4)
+ #define   ADS112C14_DATA_RATE_CFG_GC_EN			BIT(3)
+ #define   ADS112C14_DATA_RATE_CFG_FLTR_OSR		GENMASK(2, 0)
++#define     ADS112C14_DATA_RATE_CFG_FLTR_OSR_16		  0
++#define     ADS112C14_DATA_RATE_CFG_FLTR_OSR_32		  1
++#define     ADS112C14_DATA_RATE_CFG_FLTR_OSR_128	  2
++#define     ADS112C14_DATA_RATE_CFG_FLTR_OSR_256	  3
++#define     ADS112C14_DATA_RATE_CFG_FLTR_OSR_512	  4
++#define     ADS112C14_DATA_RATE_CFG_FLTR_OSR_1024	  5
++#define     ADS112C14_DATA_RATE_CFG_FLTR_OSR_25SPS	  6
++#define     ADS112C14_DATA_RATE_CFG_FLTR_OSR_20SPS	  7
  
-+What:		/sys/bus/iio/devices/iio:deviceX/in_resistanceY_settlingtime
-+What:		/sys/bus/iio/devices/iio:deviceX/in_tempY_settlingtime
-+What:		/sys/bus/iio/devices/iio:deviceX/in_voltageY_settlingtime
-+What:		/sys/bus/iio/devices/iio:deviceX/in_voltageY-voltageZ_settlingtime
-+KernelVersion:	7.4
-+Contact:	linux-iio@vger.kernel.org
-+Description:
-+		Set/read total settling time in seconds for a device to settle
-+		after starting the first conversion after any settings have
-+		changed. The data for the conversion is outputted at the end of
-+		this time.
+ #define ADS112C14_REG_MUX_CFG				0x07
+ #define   ADS112C14_MUX_CFG_AINP			GENMASK(7, 4)
+@@ -183,6 +191,43 @@ static const u32 ads112c14_pga_gains_x10[] = {
+ 
+ #define ADS112C14_INTERNAL_CLK_Hz 4096000
+ 
++/* Index corresponds to first 2 ADS112C14_DATA_RATE_CFG_FLTR_OSR values. */
++static const int ads112c14_sinc4_osr_available[] = {
++	16, 32
++};
 +
-+		Depending on the device and how it is used, this settling time
-+		may apply to more than just the first conversion, e.g. to every
-+		conversion in a single-shot conversion mode or when a device
-+		setting changes after each conversion (input chopping).
++/* Index corresponds to next 4 ADS112C14_DATA_RATE_CFG_FLTR_OSR values. */
++static const int ads112c14_sinc4_sinc1_osr_available[] = {
++	128, 256, 512, 1024
++};
 +
-+What:		/sys/bus/iio/devices/iio:deviceX/in_resistanceY_settlingtime_available
-+What:		/sys/bus/iio/devices/iio:deviceX/in_tempY_settlingtime_available
-+What:		/sys/bus/iio/devices/iio:deviceX/in_voltageY_settlingtime_available
-+What:		/sys/bus/iio/devices/iio:deviceX/in_voltageY-voltageZ_settlingtime_available
-+KernelVersion:	7.4
-+Contact:	linux-iio@vger.kernel.org
-+Description:
-+		Available settlingtime values in IIO range or list format.
++/* Index corresponds to ADS112C14_DEVICE_CFG_SPEED_MODE value. */
++static const int ads112c14_sinc4_sinc1_pf1_20sps_osr_available[] = {
++	1600, 12800, 25600, 51200
++};
 +
- What:		/sys/.../events/in_proximity_thresh_either_runningperiod
- KernelVersion:	6.6
- Contact:	linux-iio@vger.kernel.org
++/* Index corresponds to ADS112C14_DEVICE_CFG_SPEED_MODE value. */
++static const int ads112c14_sinc4_sinc1_pf1_25sps_osr_available[] = {
++	1280, 10240, 20480, 40960
++};
++
++/* Index corresponds to ADS112C14_DEVICE_CFG_SPEED_MODE value. */
++static const int ads112c14_fmod_div[] = {
++	128, 16, 8, 4
++};
++
++enum ads112c14_filter_type {
++	ADS112C14_FILTER_TYPE_SINC4,
++	ADS112C14_FILTER_TYPE_SINC4_SINC1,
++	ADS112C14_FILTER_TYPE_SINC4_SINC1_PF1,
++};
++
++static const char * const ads112c14_filter_type_names[] = {
++	[ADS112C14_FILTER_TYPE_SINC4] = "sinc4",
++	[ADS112C14_FILTER_TYPE_SINC4_SINC1] = "sinc4+sinc1",
++	[ADS112C14_FILTER_TYPE_SINC4_SINC1_PF1] = "sinc4+sinc1+pf1",
++};
++
+ #define ADS112C14_I2C_CRC8_POLYNOMIAL 0x07
+ DECLARE_CRC8_TABLE(ads112c14_crc8_table);
+ 
+@@ -204,6 +249,8 @@ enum {
+ 	ADS112C14_SYS_MON_CHANNEL_SHORT,
+ };
+ 
++static const struct iio_chan_spec_ext_info ads112c14_ext_info[];
++
+ static const struct iio_chan_spec ads112c14_sys_mon_channels[] = {
+ 	{
+ 		.type = IIO_TEMP,
+@@ -212,7 +259,12 @@ static const struct iio_chan_spec ads112c14_sys_mon_channels[] = {
+ 		.address = 2,
+ 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW)
+ 				    | BIT(IIO_CHAN_INFO_SCALE)
+-				    | BIT(IIO_CHAN_INFO_OFFSET),
++				    | BIT(IIO_CHAN_INFO_OFFSET)
++				    | BIT(IIO_CHAN_INFO_SAMP_FREQ)
++				    | BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
++		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SAMP_FREQ)
++				    | BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
++		.ext_info = ads112c14_ext_info,
+ 	},
+ 	{
+ 		.type = IIO_VOLTAGE,
+@@ -220,7 +272,12 @@ static const struct iio_chan_spec ads112c14_sys_mon_channels[] = {
+ 		.channel = ADS112C14_SYS_MON_CHANNEL_EXT_REF,
+ 		.address = 3,
+ 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW)
+-				    | BIT(IIO_CHAN_INFO_SCALE),
++				    | BIT(IIO_CHAN_INFO_SCALE)
++				    | BIT(IIO_CHAN_INFO_SAMP_FREQ)
++				    | BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
++		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SAMP_FREQ)
++				    | BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
++		.ext_info = ads112c14_ext_info,
+ 	},
+ 	{
+ 		.type = IIO_VOLTAGE,
+@@ -228,7 +285,12 @@ static const struct iio_chan_spec ads112c14_sys_mon_channels[] = {
+ 		.channel = ADS112C14_SYS_MON_CHANNEL_AVDD,
+ 		.address = 4,
+ 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW)
+-				    | BIT(IIO_CHAN_INFO_SCALE),
++				    | BIT(IIO_CHAN_INFO_SCALE)
++				    | BIT(IIO_CHAN_INFO_SAMP_FREQ)
++				    | BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
++		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SAMP_FREQ)
++				    | BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
++		.ext_info = ads112c14_ext_info,
+ 	},
+ 	{
+ 		.type = IIO_VOLTAGE,
+@@ -236,7 +298,12 @@ static const struct iio_chan_spec ads112c14_sys_mon_channels[] = {
+ 		.channel = ADS112C14_SYS_MON_CHANNEL_DVDD,
+ 		.address = 5,
+ 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW)
+-				    | BIT(IIO_CHAN_INFO_SCALE),
++				    | BIT(IIO_CHAN_INFO_SCALE)
++				    | BIT(IIO_CHAN_INFO_SAMP_FREQ)
++				    | BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
++		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SAMP_FREQ)
++				    | BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
++		.ext_info = ads112c14_ext_info,
+ 	},
+ 	{
+ 		.type = IIO_VOLTAGE,
+@@ -246,8 +313,13 @@ static const struct iio_chan_spec ads112c14_sys_mon_channels[] = {
+ 		.differential = 1,
+ 		.address = 1,
+ 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW)
+-				    | BIT(IIO_CHAN_INFO_SCALE),
+-		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE),
++				    | BIT(IIO_CHAN_INFO_SCALE)
++				    | BIT(IIO_CHAN_INFO_SAMP_FREQ)
++				    | BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
++		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE)
++				    | BIT(IIO_CHAN_INFO_SAMP_FREQ)
++				    | BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
++		.ext_info = ads112c14_ext_info,
+ 	},
+ };
+ 
+@@ -267,6 +339,11 @@ struct ads112c14_measurement {
+ 	int scale_available[ARRAY_SIZE(ads112c14_pga_gains_x10)][2];
+ };
+ 
++struct ads112c14_channel_state {
++	u8 speed_mode;
++	u8 filter_osr;
++};
++
+ struct ads112c14_data {
+ 	const struct ads112c14_chip_info *chip_info;
+ 	struct regmap *regmap;
+@@ -284,9 +361,13 @@ struct ads112c14_data {
+ 	bool refn_is_gnd;
+ 	u32 ext_ref_ohms;
+ 	struct ads112c14_measurement *measurements;
++	struct ads112c14_channel_state *channel_states;
+ 	u32 num_measurements;
+ 	u8 sys_mon_chan_short_gain_val;
+ 	int sys_mon_chan_short_scale_available[ARRAY_SIZE(ads112c14_pga_gains_x10)][2];
++	int sinc4_sample_rate_available[ARRAY_SIZE(ads112c14_sinc4_osr_available)][ARRAY_SIZE(ads112c14_fmod_div)][2];
++	int sinc4_sinc1_sample_rate_available[ARRAY_SIZE(ads112c14_sinc4_sinc1_osr_available)][ARRAY_SIZE(ads112c14_fmod_div)][2];
++	int sinc4_sinc1_pf1_sample_rate_available[2][2];
+ 	IIO_DECLARE_BUFFER_WITH_TS(__be32, scan, ADS112C14_MAX_MEASUREMENT_CHANNELS +
+ 						 ARRAY_SIZE(ads112c14_sys_mon_channels));
+ };
+@@ -472,14 +553,46 @@ static const struct regmap_config ads112c14_regmap_config = {
+ 	.cache_type = REGCACHE_MAPLE,
+ };
+ 
++static int ads112c14_get_osr(struct ads112c14_channel_state *channel_state)
++{
++	u8 i;
++
++	switch (channel_state->filter_osr) {
++	case ADS112C14_DATA_RATE_CFG_FLTR_OSR_16...ADS112C14_DATA_RATE_CFG_FLTR_OSR_32:
++		i = channel_state->filter_osr;
++		return ads112c14_sinc4_osr_available[i];
++	case ADS112C14_DATA_RATE_CFG_FLTR_OSR_128...ADS112C14_DATA_RATE_CFG_FLTR_OSR_1024:
++		i = channel_state->filter_osr - ADS112C14_DATA_RATE_CFG_FLTR_OSR_128;
++		return ads112c14_sinc4_sinc1_osr_available[i];
++	case ADS112C14_DATA_RATE_CFG_FLTR_OSR_25SPS:
++		i = channel_state->speed_mode;
++		return ads112c14_sinc4_sinc1_pf1_25sps_osr_available[i];
++	case ADS112C14_DATA_RATE_CFG_FLTR_OSR_20SPS:
++		i = channel_state->speed_mode;
++		return ads112c14_sinc4_sinc1_pf1_20sps_osr_available[i];
++	default:
++		return -EINVAL;
++	}
++}
++
+ static int ads112c14_prepare_measurement_channel(struct ads112c14_data *data,
+ 						 const struct iio_chan_spec *chan,
+ 						 bool en_burnout)
+ {
+ 	struct ads112c14_measurement *measurement = &data->measurements[chan->scan_index];
++	struct ads112c14_channel_state *channel_state;
+ 	u32 refp_buf_en, refn_buf_en, ref_val, ref_sel;
+ 	int ret;
+ 
++	channel_state = &data->channel_states[chan->scan_index];
++
++	ret = regmap_update_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
++				 ADS112C14_DEVICE_CFG_SPEED_MODE,
++				 FIELD_PREP(ADS112C14_DEVICE_CFG_SPEED_MODE,
++					    channel_state->speed_mode));
++	if (ret)
++		return ret;
++
+ 	ret = regmap_update_bits(data->regmap, ADS112C14_REG_MUX_CFG,
+ 				 ADS112C14_MUX_CFG_AINP | ADS112C14_MUX_CFG_AINN,
+ 				 FIELD_PREP(ADS112C14_MUX_CFG_AINP, chan->channel) |
+@@ -526,10 +639,13 @@ static int ads112c14_prepare_measurement_channel(struct ads112c14_data *data,
+ 		return ret;
+ 
+ 	ret = regmap_update_bits(data->regmap, ADS112C14_REG_DATA_RATE_CFG,
+-				 ADS112C14_DATA_RATE_CFG_GC_EN,
++				 ADS112C14_DATA_RATE_CFG_GC_EN |
++				 ADS112C14_DATA_RATE_CFG_FLTR_OSR,
+ 				 FIELD_PREP(ADS112C14_DATA_RATE_CFG_GC_EN,
+ 					    (measurement->global_chop &&
+-					     !en_burnout) ? 1 : 0));
++					     !en_burnout) ? 1 : 0) |
++				 FIELD_PREP(ADS112C14_DATA_RATE_CFG_FLTR_OSR,
++					    channel_state->filter_osr));
+ 	if (ret)
+ 		return ret;
+ 
+@@ -572,9 +688,12 @@ static int ads112c14_prepare_measurement_channel(struct ads112c14_data *data,
+ static int ads112c14_prepare_sys_mon_channel(struct ads112c14_data *data,
+ 					     const struct iio_chan_spec *chan)
+ {
++	struct ads112c14_channel_state *channel_state;
+ 	u32 gain_val;
+ 	int ret;
+ 
++	channel_state = &data->channel_states[chan->scan_index];
++
+ 	/*
+ 	 * NB: IDAC registers are left as-is in case they are generating current
+ 	 * needed for the external reference measurement.
+@@ -601,6 +720,22 @@ static int ads112c14_prepare_sys_mon_channel(struct ads112c14_data *data,
+ 	if (ret)
+ 		return ret;
+ 
++	ret = regmap_update_bits(data->regmap, ADS112C14_REG_DEVICE_CFG,
++				 ADS112C14_DEVICE_CFG_SPEED_MODE,
++				 FIELD_PREP(ADS112C14_DEVICE_CFG_SPEED_MODE,
++					    channel_state->speed_mode));
++	if (ret)
++		return ret;
++
++	ret = regmap_update_bits(data->regmap, ADS112C14_REG_DATA_RATE_CFG,
++				 ADS112C14_DATA_RATE_CFG_GC_EN |
++				 ADS112C14_DATA_RATE_CFG_FLTR_OSR,
++				 FIELD_PREP(ADS112C14_DATA_RATE_CFG_GC_EN, 0) |
++				 FIELD_PREP(ADS112C14_DATA_RATE_CFG_FLTR_OSR,
++					    channel_state->filter_osr));
++	if (ret)
++		return ret;
++
+ 	/*
+ 	 * REVISIT: if we implement regulator support for the REFOUT pin, we
+ 	 * might need to make this voltage match what is required by that. In
+@@ -835,6 +970,45 @@ static int ads112c14_read_raw(struct iio_dev *indio_dev,
+ 		 */
+ 		*val = div_s64((s64)(25 * 405 - 119500) * BIT(fsr_bits), vref_uV);
+ 		return IIO_VAL_INT;
++	case IIO_CHAN_INFO_SAMP_FREQ: {
++		struct ads112c14_channel_state *channel_state;
++		const int (*available)[2];
++		u8 i, j;
++
++		guard(mutex)(&data->lock);
++
++		channel_state = &data->channel_states[chan->scan_index];
++
++		switch (channel_state->filter_osr) {
++		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_16...ADS112C14_DATA_RATE_CFG_FLTR_OSR_32:
++			j = channel_state->filter_osr;
++			available = data->sinc4_sample_rate_available[j];
++			i = channel_state->speed_mode;
++			break;
++		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_128...ADS112C14_DATA_RATE_CFG_FLTR_OSR_1024:
++			j = channel_state->filter_osr - ADS112C14_DATA_RATE_CFG_FLTR_OSR_128;
++			available = data->sinc4_sinc1_sample_rate_available[j];
++			i = channel_state->speed_mode;
++			break;
++		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_25SPS:
++		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_20SPS:
++			available = data->sinc4_sinc1_pf1_sample_rate_available;
++			i = channel_state->filter_osr - ADS112C14_DATA_RATE_CFG_FLTR_OSR_25SPS;
++			break;
++		default:
++			return -EINVAL;
++		}
++
++		*val = available[i][0];
++		*val2 = available[i][1];
++		return IIO_VAL_INT_PLUS_MICRO;
++	}
++	case IIO_CHAN_INFO_OVERSAMPLING_RATIO: {
++		guard(mutex)(&data->lock);
++
++		*val = ads112c14_get_osr(&data->channel_states[chan->scan_index]);
++		return IIO_VAL_INT;
++	}
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -845,6 +1019,9 @@ static int ads112c14_read_avail(struct iio_dev *indio_dev,
+ 				int *type, int *length, long mask)
+ {
+ 	struct ads112c14_data *data = iio_priv(indio_dev);
++	struct ads112c14_channel_state *channel_state;
++
++	channel_state = &data->channel_states[chan->scan_index];
+ 
+ 	switch (mask) {
+ 	case IIO_CHAN_INFO_SCALE:
+@@ -870,6 +1047,58 @@ static int ads112c14_read_avail(struct iio_dev *indio_dev,
+ 		}
+ 
+ 		return -EINVAL;
++
++	case IIO_CHAN_INFO_SAMP_FREQ: {
++		guard(mutex)(&data->lock);
++
++		switch (channel_state->filter_osr) {
++		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_16...ADS112C14_DATA_RATE_CFG_FLTR_OSR_32:
++			*vals = (const int *)data->sinc4_sample_rate_available[channel_state->filter_osr];
++			*length = 2 * ARRAY_SIZE(data->sinc4_sample_rate_available[0]);
++			*type = IIO_VAL_INT_PLUS_MICRO;
++			return IIO_AVAIL_LIST;
++		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_128...ADS112C14_DATA_RATE_CFG_FLTR_OSR_1024:
++			*vals = (const int *)data->sinc4_sinc1_sample_rate_available[channel_state->filter_osr - ADS112C14_DATA_RATE_CFG_FLTR_OSR_128];
++			*length = 2 * ARRAY_SIZE(data->sinc4_sinc1_sample_rate_available[0]);
++			*type = IIO_VAL_INT_PLUS_MICRO;
++			return IIO_AVAIL_LIST;
++		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_25SPS...ADS112C14_DATA_RATE_CFG_FLTR_OSR_20SPS:
++			*vals = (const int *)data->sinc4_sinc1_pf1_sample_rate_available;
++			*length = 2 * ARRAY_SIZE(data->sinc4_sinc1_pf1_sample_rate_available);
++			*type = IIO_VAL_INT_PLUS_MICRO;
++			return IIO_AVAIL_LIST;
++		default:
++			return -EINVAL;
++		}
++	}
++	case IIO_CHAN_INFO_OVERSAMPLING_RATIO: {
++		guard(mutex)(&data->lock);
++
++		switch (channel_state->filter_osr) {
++		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_16...ADS112C14_DATA_RATE_CFG_FLTR_OSR_32:
++			*vals = ads112c14_sinc4_osr_available;
++			*length = ARRAY_SIZE(ads112c14_sinc4_osr_available);
++			*type = IIO_VAL_INT;
++			return IIO_AVAIL_LIST;
++		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_128...ADS112C14_DATA_RATE_CFG_FLTR_OSR_1024:
++			*vals = ads112c14_sinc4_sinc1_osr_available;
++			*length = ARRAY_SIZE(ads112c14_sinc4_sinc1_osr_available);
++			*type = IIO_VAL_INT;
++			return IIO_AVAIL_LIST;
++		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_25SPS:
++			*vals = ads112c14_sinc4_sinc1_pf1_25sps_osr_available;
++			*length = ARRAY_SIZE(ads112c14_sinc4_sinc1_pf1_25sps_osr_available);
++			*type = IIO_VAL_INT;
++			return IIO_AVAIL_LIST;
++		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_20SPS:
++			*vals = ads112c14_sinc4_sinc1_pf1_20sps_osr_available;
++			*length = ARRAY_SIZE(ads112c14_sinc4_sinc1_pf1_20sps_osr_available);
++			*type = IIO_VAL_INT;
++			return IIO_AVAIL_LIST;
++		default:
++			return -EINVAL;
++		}
++	}
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -914,6 +1143,99 @@ static int ads112c14_write_raw(struct iio_dev *indio_dev,
+ 
+ 		return -EINVAL;
+ 	}
++	case IIO_CHAN_INFO_SAMP_FREQ: {
++		struct ads112c14_channel_state *channel_state;
++		const int (*available)[2];
++
++		guard(mutex)(&data->lock);
++
++		channel_state = &data->channel_states[chan->scan_index];
++
++		switch (channel_state->filter_osr) {
++		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_16...ADS112C14_DATA_RATE_CFG_FLTR_OSR_1024:
++			if (channel_state->filter_osr < ADS112C14_DATA_RATE_CFG_FLTR_OSR_128) {
++				u8 idx = channel_state->filter_osr;
++
++				available = data->sinc4_sample_rate_available[idx];
++			} else {
++				u8 idx = channel_state->filter_osr - ADS112C14_DATA_RATE_CFG_FLTR_OSR_128;
++
++				available = data->sinc4_sinc1_sample_rate_available[idx];
++			}
++
++			for (unsigned int i = 0; i < ARRAY_SIZE(ads112c14_fmod_div); i++) {
++				if (val == available[i][0] && val2 == available[i][1]) {
++					channel_state->speed_mode = i;
++					return 0;
++				}
++			}
++
++			return -EINVAL;
++		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_25SPS:
++		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_20SPS: {
++			available = data->sinc4_sinc1_pf1_sample_rate_available;
++
++			for (unsigned int i = 0; i < ARRAY_SIZE(data->sinc4_sinc1_pf1_sample_rate_available); i++) {
++				if (val == available[i][0] && val2 == available[i][1]) {
++					channel_state->filter_osr = i + ADS112C14_DATA_RATE_CFG_FLTR_OSR_25SPS;
++					return 0;
++				}
++			}
++
++			return -EINVAL;
++		}
++		default:
++			return -EINVAL;
++		}
++	}
++	case IIO_CHAN_INFO_OVERSAMPLING_RATIO: {
++		struct ads112c14_channel_state *channel_state;
++
++		guard(mutex)(&data->lock);
++
++		channel_state = &data->channel_states[chan->scan_index];
++
++		switch (channel_state->filter_osr) {
++		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_16...ADS112C14_DATA_RATE_CFG_FLTR_OSR_32:
++			for (unsigned int i = 0; i < ARRAY_SIZE(ads112c14_sinc4_osr_available); i++) {
++				if (val == ads112c14_sinc4_osr_available[i]) {
++					channel_state->filter_osr = i;
++					return 0;
++				}
++			}
++
++			return -EINVAL;
++		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_128...ADS112C14_DATA_RATE_CFG_FLTR_OSR_1024:
++			for (unsigned int i = 0; i < ARRAY_SIZE(ads112c14_sinc4_sinc1_osr_available); i++) {
++				if (val == ads112c14_sinc4_sinc1_osr_available[i]) {
++					channel_state->filter_osr = i + ADS112C14_DATA_RATE_CFG_FLTR_OSR_128;
++					return 0;
++				}
++			}
++
++			return -EINVAL;
++		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_25SPS:
++			for (unsigned int i = 0; i < ARRAY_SIZE(ads112c14_sinc4_sinc1_pf1_25sps_osr_available); i++) {
++				if (val == ads112c14_sinc4_sinc1_pf1_25sps_osr_available[i]) {
++					channel_state->speed_mode = i;
++					return 0;
++				}
++			}
++
++			return -EINVAL;
++		case ADS112C14_DATA_RATE_CFG_FLTR_OSR_20SPS:
++			for (unsigned int i = 0; i < ARRAY_SIZE(ads112c14_sinc4_sinc1_pf1_20sps_osr_available); i++) {
++				if (val == ads112c14_sinc4_sinc1_pf1_20sps_osr_available[i]) {
++					channel_state->speed_mode = i;
++					return 0;
++				}
++			}
++
++			return -EINVAL;
++		default:
++			return -EINVAL;
++		}
++	}
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -1202,11 +1524,98 @@ static ssize_t ads112c14_read_burnout_raw(struct iio_dev *indio_dev,
+ 	return sysfs_emit(buf, "%d\n", val);
+ }
+ 
++static int ads112c14_get_filter_type_from_state(struct ads112c14_channel_state *channel_state)
++{
++	switch (channel_state->filter_osr) {
++	case ADS112C14_DATA_RATE_CFG_FLTR_OSR_16...ADS112C14_DATA_RATE_CFG_FLTR_OSR_32:
++		return ADS112C14_FILTER_TYPE_SINC4;
++	case ADS112C14_DATA_RATE_CFG_FLTR_OSR_128...ADS112C14_DATA_RATE_CFG_FLTR_OSR_1024:
++		return ADS112C14_FILTER_TYPE_SINC4_SINC1;
++	case ADS112C14_DATA_RATE_CFG_FLTR_OSR_25SPS...ADS112C14_DATA_RATE_CFG_FLTR_OSR_20SPS:
++		return ADS112C14_FILTER_TYPE_SINC4_SINC1_PF1;
++	default:
++		return -EINVAL;
++	}
++}
++
++static int ads112c14_set_filter_type(struct iio_dev *indio_dev,
++				     struct iio_chan_spec const *chan,
++				     unsigned int val)
++{
++	struct ads112c14_data *data = iio_priv(indio_dev);
++	struct ads112c14_channel_state *channel_state;
++	int ret;
++
++	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
++	if (IIO_DEV_ACQUIRE_FAILED(claim))
++		return -EBUSY;
++
++	guard(mutex)(&data->lock);
++
++	channel_state = &data->channel_states[chan->scan_index];
++
++	ret = ads112c14_get_filter_type_from_state(channel_state);
++	if (ret < 0)
++		return ret;
++
++	/*
++	 * channel_state->filter_osr affects multiple attributes, so don't modify
++	 * it if the filter type is already set to the requested value.
++	 */
++	if (ret == val)
++		return 0;
++
++	/* Otherwise, pick an arbitrary default for each type. */
++	switch (val) {
++	case ADS112C14_FILTER_TYPE_SINC4:
++		channel_state->filter_osr = ADS112C14_DATA_RATE_CFG_FLTR_OSR_16;
++		break;
++	case ADS112C14_FILTER_TYPE_SINC4_SINC1:
++		channel_state->filter_osr = ADS112C14_DATA_RATE_CFG_FLTR_OSR_128;
++		break;
++	case ADS112C14_FILTER_TYPE_SINC4_SINC1_PF1:
++		channel_state->filter_osr = ADS112C14_DATA_RATE_CFG_FLTR_OSR_25SPS;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int ads112c14_get_filter_type(struct iio_dev *indio_dev,
++				     struct iio_chan_spec const *chan)
++{
++	struct ads112c14_data *data = iio_priv(indio_dev);
++	struct ads112c14_channel_state *channel_state;
++
++	guard(mutex)(&data->lock);
++
++	channel_state = &data->channel_states[chan->scan_index];
++
++	return ads112c14_get_filter_type_from_state(channel_state);
++}
++
++static const struct iio_enum ads112c14_filter_type_enum = {
++	.items = ads112c14_filter_type_names,
++	.num_items = ARRAY_SIZE(ads112c14_filter_type_names),
++	.set = ads112c14_set_filter_type,
++	.get = ads112c14_get_filter_type,
++};
++
++static const struct iio_chan_spec_ext_info ads112c14_ext_info[] = {
++	IIO_ENUM("filter_type", IIO_SEPARATE, &ads112c14_filter_type_enum),
++	IIO_ENUM_AVAILABLE("filter_type", IIO_SEPARATE, &ads112c14_filter_type_enum),
++	{ }
++};
++
+ static const struct iio_chan_spec_ext_info ads112c14_ext_info_burnout[] = {
+ 	{
+ 		.name = "burnoutraw",
+ 		.read = ads112c14_read_burnout_raw,
+ 	},
++	IIO_ENUM("filter_type", IIO_SEPARATE, &ads112c14_filter_type_enum),
++	IIO_ENUM_AVAILABLE("filter_type", IIO_SEPARATE, &ads112c14_filter_type_enum),
+ 	{ }
+ };
+ 
+@@ -1232,7 +1641,7 @@ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
+ 	struct ads112c14_data *data = iio_priv(indio_dev);
+ 	struct device *dev = indio_dev->dev.parent;
+ 	struct iio_chan_spec *channels;
+-	u32 num_child_nodes, i, pair[2];
++	u32 num_child_nodes, num_data_chans, i, pair[2];
+ 	int ret;
+ 
+ 	*need_avdd_ref = false;
+@@ -1245,8 +1654,15 @@ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
+ 	if (!data->measurements)
+ 		return -ENOMEM;
+ 
+-	channels = devm_kcalloc(dev, num_child_nodes +
+-				ARRAY_SIZE(ads112c14_sys_mon_channels) + 1,
++	num_data_chans = num_child_nodes + ARRAY_SIZE(ads112c14_sys_mon_channels);
++
++	data->channel_states = devm_kcalloc(dev, num_data_chans,
++					    sizeof(*data->channel_states),
++					    GFP_KERNEL);
++	if (!data->channel_states)
++		return -ENOMEM;
++
++	channels = devm_kcalloc(dev, num_data_chans + 1,
+ 				sizeof(*channels), GFP_KERNEL);
+ 	if (!channels)
+ 		return -ENOMEM;
+@@ -1259,7 +1675,9 @@ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
+ 
+ 		spec->indexed = 1;
+ 		spec->scan_index = i;
++		spec->ext_info = ads112c14_ext_info;
+ 		measurement->gain_val = 1;
++		data->channel_states[i].filter_osr = ADS112C14_DATA_RATE_CFG_FLTR_OSR_16;
+ 
+ 		if (fwnode_property_present(child, "label")) {
+ 			ret = fwnode_property_read_string(child, "label", &measurement->label);
+@@ -1424,8 +1842,13 @@ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
+ 		if (measurement->vref_source == ADS112C14_VREF_SOURCE_EXTERNAL)
+ 			*need_ext_ref = true;
+ 
+-		spec->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCALE);
+-		spec->info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE);
++		spec->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
++					   BIT(IIO_CHAN_INFO_SCALE) |
++					   BIT(IIO_CHAN_INFO_SAMP_FREQ) |
++					   BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO);
++		spec->info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE) |
++						     BIT(IIO_CHAN_INFO_SAMP_FREQ) |
++						     BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO);
+ 
+ 		/*
+ 		 * If reference source is resistor rather than voltage supply,
+@@ -1459,6 +1882,10 @@ static int ads112c14_parse_channels(struct iio_dev *indio_dev,
+ 
+ 	for (u32 j = 0; j < ARRAY_SIZE(ads112c14_sys_mon_channels); j++) {
+ 		struct iio_chan_spec *spec = &channels[i];
++		struct ads112c14_channel_state *channel_state;
++
++		channel_state = &data->channel_states[i];
++		channel_state->filter_osr = ADS112C14_DATA_RATE_CFG_FLTR_OSR_16;
+ 
+ 		/* Update the template that was already copied with dynamic values. */
+ 		spec->scan_index = i;
+@@ -1497,6 +1924,48 @@ static void ads112c14_populate_scale_available(int (*scale_avail)[2],
+ 	}
+ }
+ 
++static void ads112c14_populate_odr_tables(struct ads112c14_data *data)
++{
++	int *available;
++	u32 osr, fmod_Hz;
++	u64 odr_uHz;
++	u32 rem;
++
++	for (unsigned int i = 0; i < ARRAY_SIZE(ads112c14_sinc4_osr_available); i++) {
++		osr = ads112c14_sinc4_osr_available[i];
++
++		for (unsigned int j = 0; j < ARRAY_SIZE(ads112c14_fmod_div); j++) {
++			fmod_Hz = data->fclk_Hz / ads112c14_fmod_div[j];
++			odr_uHz = div_u64((u64)fmod_Hz * MICRO, osr);
++			available = data->sinc4_sample_rate_available[i][j];
++			available[0] = div_u64_rem(odr_uHz, MICRO, &rem);
++			available[1] = rem;
++		}
++	}
++
++	for (unsigned int i = 0; i < ARRAY_SIZE(ads112c14_sinc4_sinc1_osr_available); i++) {
++		osr = ads112c14_sinc4_sinc1_osr_available[i];
++
++		for (unsigned int j = 0; j < ARRAY_SIZE(ads112c14_fmod_div); j++) {
++			fmod_Hz = data->fclk_Hz / ads112c14_fmod_div[j];
++			odr_uHz = div_u64((u64)fmod_Hz * MICRO, osr);
++			available = data->sinc4_sinc1_sample_rate_available[i][j];
++			available[0] = div_u64_rem(odr_uHz, MICRO, &rem);
++			available[1] = rem;
++		}
++	}
++
++	odr_uHz = div_u64((u64)25 * data->fclk_Hz * MICRO, ADS112C14_INTERNAL_CLK_Hz);
++	available = data->sinc4_sinc1_pf1_sample_rate_available[0];
++	available[0] = div_u64_rem(odr_uHz, MICRO, &rem);
++	available[1] = rem;
++
++	odr_uHz = div_u64((u64)20 * data->fclk_Hz * MICRO, ADS112C14_INTERNAL_CLK_Hz);
++	available = data->sinc4_sinc1_pf1_sample_rate_available[1];
++	available[0] = div_u64_rem(odr_uHz, MICRO, &rem);
++	available[1] = rem;
++}
++
+ static void ads112c14_populate_tables(struct ads112c14_data *data)
+ {
+ 	u32 full_scale, fsr_bits;
+@@ -1534,6 +2003,7 @@ static void ads112c14_populate_tables(struct ads112c14_data *data)
+ 
+ 	ads112c14_populate_scale_available(data->sys_mon_chan_short_scale_available,
+ 					   full_scale, fsr_bits);
++	ads112c14_populate_odr_tables(data);
+ }
+ 
+ static int ads112c14_probe(struct i2c_client *client)
 
 -- 
 2.43.0
