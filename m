@@ -1,128 +1,189 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D96472080
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:22:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB2DC472531
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:22:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789039351; cv=none; b=l5QPPMzUpMJoC93FMLgVGaeB1EXqV/87gzU6DY+6X+SMc0EX64ETPRUEBEZAgNWkqOhNBlKzHUxvbapWADHvobxjHZe+wwxP1djmkt9EJlP5v3sEk/LqcGLHkI1aru/jU0uvGkPntp2ntGhzMgsuLnEcf6O5XbXV8ql2rkgFUcU=
+	t=1789039358; cv=none; b=jpPkcaNNzGYy2mmnnZhsyyrDo6a6IqBcsLF5Ufg1pionJfU0RxDKRXuenOL9jjTWi4XYAg1YcnifwQokGjQRuuaFEC7IgSBgKbj4Ze3evfYZESxy/Q+Q0Z3K3S1rojpwMK69mdUSHRDEhAuHwrkCcdHRXDmepDvyY/Odlhq0ZKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789039351; c=relaxed/simple;
-	bh=AUBJWJWJkve3e0pYxDXtyEsmvYME9Ru4V70ME25n62o=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=jXy7qqerngs51+GiIPCxWCw/Q+fCpSzNsuregXIxy6LSlclVCNMHQhTDIS9Avrhk8DFStzcGiS+b2ON+4jvVOsTm4cAcu/PEcKBshItwfGx2TYlb/AcN/K1pPzauaR4a1dz+6r3J1ShkYFakuI6456vBNrMdpwUxNCIf8/jRqaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OCNMzlHb; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Fjcbd85h; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789039358; c=relaxed/simple;
+	bh=/fo+Wd06qlM0ZRL7ejhTQPHu760TTFRfH9wAUDB7IA4=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jBRSIjJbeA7whTWoglJ8c8W++uS229ppVVMnSSk0Vf07pPKp6Sc6oEJxEgBGCow4sAwQUyxNR2rw4oRuEGCNICHg6UbveNDZVZgnZ82LkOoA9MQa0BIw52BN4nl6Cm3NszOZkjaSZveS4WxIN+hQdFWpTl4BPMBU9jb3bst+kPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=oKr1ObZp; arc=none smtp.client-ip=109.224.244.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OCNMzlHb";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Fjcbd85h"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789039348;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VW7WG5gI3vGojP7Xj/wxG4Oo1lstFTv7nlO/pfTslGk=;
-	b=OCNMzlHb7CLIbNldHDIx+qQeP0fCgpfAz0AW0BCEu4PlMNUh04R8KS/Bq13L6PsivVEkni
-	lB6SCZXySXVdpyKc/CqOIhoTnJhi/gIddaqEvQZk4oWzdaOCGzppvcekYr2GP5aHggo35S
-	qwWGmJfygh48ibVrVp396I7Lmt4zykw=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-652-n_nsEZrdNG27NwgJ2PM2PA-1; Thu, 10 Sep 2026 07:22:27 -0400
-X-MC-Unique: n_nsEZrdNG27NwgJ2PM2PA-1
-X-Mimecast-MFC-AGG-ID: n_nsEZrdNG27NwgJ2PM2PA_1789039346
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49cdc4080ddso4705635e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:22:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789039346; x=1789644146; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VW7WG5gI3vGojP7Xj/wxG4Oo1lstFTv7nlO/pfTslGk=;
-        b=Fjcbd85h46KdsVRF35vSD+EN65X+OSVJXakJyiei+K778e/v0qh7lv8fuM5feNNxOD
-         npQV4LJOpqZ+ocjuW3NRIrES6qGN6q671BHnHFp+sLjeTngwijW4IX37qs3w1ThIiuXp
-         I2BMxICzcYWuBsRrjIaZyYNN3lnfZg2ojAEWnMDuu7slM+FO9OtIYJ8TelzzUmCvsnYC
-         4I65oNnGw6XmxHmMIl3+mCBid7+8A4a1wQYYhc58RUR89CC56FVfXJJCsdJg9tmE/J8r
-         n0MKcwdecflMyW6SJHyKwyvYPrTT6pcEdPGhtzqZiRP+Vt8gISoGmxXoUgsttoS78zKo
-         ZTWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789039346; x=1789644146;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VW7WG5gI3vGojP7Xj/wxG4Oo1lstFTv7nlO/pfTslGk=;
-        b=Br/5Y/gs55r59DaOwl2COZtNWOav8BxiXy0C1jPmywuf+gSvJCDVH35ip7YTN515hd
-         LsqN9LGOg/xk39vT6zOoukKAIPv0z8AH/5HOim9Y2HHTU9RhrJMrqcxoaXE1CgqXS37I
-         pxxX5kftIZH5hz7UQ2KDbER4q3f9dLh5Cb19+qnXZLc9VASKEUHoQ26j1GFTp5HkjbSU
-         QE49yzrWypQ1zNjDwK3UadgmoTLs0oCZD6X1r3KTmOf8B7EYV0Zbb2iN51xzTWcmZLaq
-         p9ufkyuhskfJ9tNp+36J7s33T9Zc/ztJZOdzwftY/DcAdaUZQg4X2+HzdXxM+syxjRWW
-         b1jA==
-X-Forwarded-Encrypted: i=1; AKwUvBz4mA6BQJOmFJYq5FWH3ea3w7DvqEEjCUU2CAF6ZBNJbaZQSlDOFvxxm+9xu8Aiem/E64D8+874Qke71O8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mXw0r2j6Wik1zR8C/8CTwsKBMMLOwMTY2ycLCXQzntNZvpv2S7
-	q8SObbP0zFd8+kX2MmDvAA0YD3x6luYtYC59xgHm46SeaKOLO0G4C1ULwXFob8nq3MLTurD8UcP
-	e9YcdKlHiiCHZ6v9QyU1dWqJOpbRruU8A7xX0qfZWSiNGl9fHxykMRn663woxZgAtog==
-X-Gm-Gg: AYBFou0SvMueusL8LjVW9m6oXt75CJjAylsFQ5Ph5bnFgSwCjcBNvHZkZocEFbV//vc
-	V8ZBt3gasq+O0OVSRkJkNy68Fm1Mnw9EOJAhsHTjnQZToU8FVSbBWQ0vPpd9wv3yU3tZiGeWs7S
-	9oYcZO5nGCRZUuaSRR07RK8zuyIC0Pl8QIZO3sEbCBQ/hu9zUhJ68dGMrjrI4DmyxrC3ClA6dYH
-	hY7ALWdbkSdZXyZ3CMiS/jKz35AtpG+a806cEB/f7UvTPtwjlVSezoQINbKxxtUFti+ttnyRlgs
-	Eg2HeIsoXJg/tGxn4PHoycPcfymNsJfVx+svWSwt0ufOAwf2PdY7a+OT2FI0tbz3cZNcNtDkdYK
-	2KC4SU20txfKUY0UjPOWtYxL2okpQUJGoCBKM/2uG2jyJqc+JA2uTBPEJdg==
-X-Received: by 2002:a05:600c:164a:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-49d26d863e3mr29452495e9.3.1789039346119;
-        Thu, 10 Sep 2026 04:22:26 -0700 (PDT)
-X-Received: by 2002:a05:600c:164a:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-49d26d863e3mr29452165e9.3.1789039345750;
-        Thu, 10 Sep 2026 04:22:25 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26be3e35sm65309185e9.2.2026.09.10.04.22.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 04:22:25 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Amit Barzilai <amit.barzilai22@gmail.com>, airlied@gmail.com,
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: andriy.shevchenko@intel.com, holofermes@gmail.com,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Amit Barzilai <amit.barzilai22@gmail.com>
-Subject: Re: [PATCH v5 5/6] drm/ssd130x: Implement ssd130x_write_cmd() on
- top of ssd130x_write_cmds()
-In-Reply-To: <20260823111959.17029-6-amit.barzilai22@gmail.com>
-References: <20260823111959.17029-1-amit.barzilai22@gmail.com>
- <20260823111959.17029-6-amit.barzilai22@gmail.com>
-Date: Thu, 10 Sep 2026 13:22:24 +0200
-Message-ID: <87wlstl5an.fsf@ocarina.mail-host-address-is-not-set>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="oKr1ObZp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1789039346; x=1789298546;
+	bh=elyyujR8NU4dubtSqN09N9ikRtSIoMKtmYEF8nT4AyY=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=oKr1ObZpuxpsjpxmryPu/oNxn1EUpn/NQLwuyJP2xJOseJ9sxuLNu5AyEiDrFO55Z
+	 QM02S14ac8hDwIzpRc1ga4wMWjdJ67oqTxhI+yp1O0hhkqpOYtIkO9lbbsr3D3T6Fp
+	 xqQLxrnQ+kPY/UYjXPIsIn5TDvS1NTDwEQBeIc2w272bXv2PQwwSe4875E8BvQmW3O
+	 w5DATN4lOrpJtAhbjBHPNlnu1IhXGg9RaDnep1+p/81PhN2yGlRc0xgZH7jo3hjjq9
+	 5CUAquaRRWGfQLXZMYgdSFIsYA8xKPnG2oi4+f2gVoqdVwakrKpA26l7++AjBzgrp2
+	 CXD9954++G+/w==
+Date: Thu, 10 Sep 2026 11:22:21 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German <germanpapulindez@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/3] media: Add support for the Sony IMX681
+Message-ID: <20260910112210.44432-1-lsa.uz@pm.me>
+In-Reply-To: <20260910103602.19228-1-germanpapulindez@gmail.com>
+References: <20260909203717.90605-1-lsa.uz@pm.me> <20260910103602.19228-1-germanpapulindez@gmail.com>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 7f384f455bd00032599f61360a1dcaaf3abdb9ac
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Amit Barzilai <amit.barzilai22@gmail.com> writes:
+German,
 
-> ssd130x_write_cmd() and ssd130x_write_cmds() each carried their own
-> regmap_write() loop over SSD13XX_COMMAND, differing only in how the caller
-> supplies the bytes.
->
-> Turn ssd130x_write_cmd() into a thin variadic wrapper that collects its
-> arguments into a small stack buffer and defers to ssd130x_write_cmds(), and
-> move the protocol comment onto the latter, which is where the loop now
-> lives.
->
-> No functional change: the bytes sent and the bus transactions used to send
-> them are identical for every chip on both the I2C and SPI transports.
->
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Amit Barzilai <amit.barzilai22@gmail.com>
-> ---
+Thank you - a second machine, which the v3 cover letter named as the
+limitation it most wanted lifted. Your report also found something real.
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Your inverted image is the driver
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D
 
--- 
-Best regards,
+Prompted by it I held a sheet of printed text in front of the camera and
+captured one raw frame: /dev/video16, SGRBG10, a crude 2x2 debayer, nothing
+clever. The text came out reversed, and flipping the frame horizontally mak=
+es
+it read correctly. So the sensor output is horizontally mirrored, always -
+not rotated, not flipped vertically.
 
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+The other half of that result is worth saying: apart from the mirror the fr=
+ame
+is an ordinary photograph. No tearing, no skew, no diagonals, no wrong
+geometry.
+
+The cause is in the init sequence, with the author's comment:
+
+    /* Image orientation: H-flip to match Windows AIQB (RGGB native -> GRBG=
+) */
+    { CCI_REG8(0x0101),  0x01 },
+
+The flip makes the Bayer order GRBG, which is what the driver advertises an=
+d
+what Intel's tuning expects, so the format declaration is honest. The geome=
+try
+is not declared at all: there is no V4L2_CID_HFLIP, and camera_orientation
+says only that the camera faces front, not that frames arrive mirrored.
+
+Which is why one of your applications is right and the other is not. A fron=
+t
+camera is conventionally mirrored by the application. An app that does that
+applies a second flip and gets the true scene - qcam, Firefox. An app that
+does not shows our output backwards - Snapshot. Both are behaving sensibly;
+the driver put them in that position by transforming the image invisibly.
+
+It is fixable above the driver, so nobody is stuck - but only if userspace
+knows, and today it cannot find out.
+
+Bug, or acceptable? I would like the list's view
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+There is a case for acceptable: the flip is part of the mode, the advertise=
+d
+Bayer code matches what is really on the bus, and a front camera ends up
+mirrored anyway. I lean the other way: your two applications are what it lo=
+oks
+like when a consumer cannot learn about the transform. But that is one mach=
+ine
+and one opinion, and the code is Andre's, who is back on 28 September.
+
+If it is a bug, two shapes:
+
+  1. RECOMMENDED. Keep the flip, expose V4L2_CID_HFLIP defaulting to 1, and
+     swap the advertised code with it - SGRBG when set, SRGGB when clear.
+     Nothing changes for anyone who does nothing, and the transform becomes
+     visible and controllable. imx415 exposes both flips but does not vary =
+its
+     code, so the tree is not a clean precedent.
+
+  2. Drop the flip and advertise SRGGB10, leaving mirroring to userspace.
+     Cleaner as a driver, but it changes the advertised format - the very
+     thing the flip exists to control - and would likely break the setup yo=
+u
+     have working.
+
+1 costs no existing user anything, which is why I recommend it; 2 is the
+better driver if the AIQB turns out not to require GRBG, and that is Andre'=
+s
+to say. Sakari, Dan, Hans - a view either way settles it and I will do the
+work.
+
+Two notes alongside that. Nothing here blocks anyone - the camera is usable=
+ as
+it stands, as your own report shows. This is about making the driver honest=
+,
+not about making it work.
+
+And I have an open thread on libcamera-devel about this sensor's delays, st=
+ill
+waiting on a reply:
+
+  https://lists.libcamera.org/pipermail/libcamera-devel/2026-September/0619=
+28.html
+
+libcamera consumes precisely what is in question here - sensor orientation =
+and
+the flip controls - so a view from that side bears directly on which option=
+ is
+right. I have not cross-posted this, because it is a kernel-side decision
+first, but I will carry the answer across once there is one.
+
+Your other notes
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+The colour cast with light level, the brightness drift and the snow all loo=
+k
+like AE, AWB and tuning, none of which this driver has: it exposes exposure=
+,
+blanking, two gains, link frequency, pixel rate and a test pattern, and tha=
+t
+is all.
+
+Two guesses of mine were wrong, so skip them: the capture node's padded lin=
+e
+(7744 bytes for a 3844-pixel row) would draw about nineteen diagonals, not
+your one; and imx681_MSHW0520, MSHW0580 and MSHW0580Second are byte-identic=
+al
+.aiqb files here, so the variant cannot change colour.
+
+One question that is ours
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+v3 changed the gain ABI and you tested v3. Up to v2, V4L2_CID_ANALOGUE_GAIN
+advertised 0..1020 and quietly drove the digital gain register above code 9=
+60,
+so one control could reach 256x; in v3 it stops at 960, the 16x the analogu=
+e
+stage actually does. If your HAL drives only ANALOGUE_GAIN it now has sixte=
+en
+times less range - so did brightness behave differently on v1 or v2? If you
+only ran v3, saying so is just as useful.
+
+If you are comfortable with it, a
+
+  Tested-by: German <germanpapulindez@gmail.com>
+
+would carry weight: a second machine and a second userspace stack. It would
+not be claiming Snapshot works or that the tuning is right.
+
+Thanks again.
+
+Sergey
 
