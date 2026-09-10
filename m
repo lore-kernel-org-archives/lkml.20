@@ -1,91 +1,191 @@
-Received: from forward400a.mail.yandex.net (forward400a.mail.yandex.net [178.154.239.95])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 702FF56E070;
-	Thu, 10 Sep 2026 17:43:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F2C5448BF;
+	Thu, 10 Sep 2026 17:43:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789062200; cv=none; b=b8DRa8uoG71UgPubDO4EfslshVCrAi8BI0c9PGMDMhUVbKMPlt5LsFzInkrDilpdnEIaRF9U2R0fbpVhqCkjY5AH5hV9qYxBSb+QBYGnG7ZYD6gR38PV/sqT2TJ9/VW562QETD36W9JYzVMU4oDi8EfDlnZEbv0ULOEEK6uM3v4=
+	t=1789062208; cv=none; b=clEiBcRFPeohO+yHZxuzrEXoOKz2bkPNM4jXX68G9omKWManZ918GctqCLCxyLNwjlSPVoP0R+D78Awz3rO+NhUjxU6+F0UGn8qTimaKJaLNE995R8HZEL72HQ/pWm35PTtnH8TiHjPpFBpySjohYZFJhyBjLsX/UOhgG+oS8NE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789062200; c=relaxed/simple;
-	bh=u70VVk9lickgfND4F/WJPlfvi4AFn7ySCn2KEJJA7pw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f/Pi3ksUopVvvLY+ge1BSgYYXSCmz9zRQ5yUE4w6OBsJmt8V0Fly1zWd2vc+Z8xrP1/MzqMvSGm45hUVg/SVjN0pIxbgFv73u2w2mu60m1nrkxdZK9jrwybV7ES1RgBhFQLREilAGmKOLQiHyhLPPLGqSn55+zBpfl2fazI+dfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=qQ94PLib; arc=none smtp.client-ip=178.154.239.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
+	s=arc-20240116; t=1789062208; c=relaxed/simple;
+	bh=2NkyM88ysK2/1+nEtSxMcx6Ajcda02sPASrIrjZLHEw=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=Sy1FWDdTyKamLbRS2fTYXzBQBRCG8FQE5m1rK0nzCjeyuNMEmgoVdfhmjM+a4nrnVgQEZ0pc/DvKKeOcVye2jczNYp5qleo7SZQgbfddG1HEv4ut2b9FUrtbUp2mSmM6ctmGI+RztWDO1BOepWuYR97cHTX9lj9YORIVipK9cR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=s4kzlA9z; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="qQ94PLib"
-Received: from mail-nwsmtp-smtp-production-main-54.vla.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-54.vla.yp-c.yandex.net [IPv6:2a02:6b8:c17:2010:0:640:2180:0])
-	by forward400a.mail.yandex.net (postfix) with ESMTPS id 4FC4AC1802;
-	Thu, 10 Sep 2026 20:34:53 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-54.vla.yp-c.yandex.net (smtp) with ESMTPSA id pYTK6qleDeA0-umyu9rMG;
-	Thu, 10 Sep 2026 20:34:52 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
-	t=1789061692; bh=/w6I0bR9juTZK9iJyXX1KbrXF3UOCLi/woVjIOkqNUE=;
-	h=Message-ID:Date:Cc:Subject:To:From;
-	b=qQ94PLibwbkO9kYGE9uoT4AwE/lXDJ4Nzfp+EpV8ByfqtRkjJm8DYR8n3ARXfECdI
-	 9hNZkVPgCDC4RJZ0k4aS4v9eNqj7oUN0iWS1KMo94PscaiRanJz/34he0JVyRzosAV
-	 pU5nKDlkQSYPBzg6mgiS68Q3EJRUxROkTL8F6wPw=
-Authentication-Results: mail-nwsmtp-smtp-production-main-54.vla.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
-From: nathan2049@yandex.ru
-To: "Rafael J . Wysocki" <rafael@kernel.org>
-Cc: Len Brown <lenb@kernel.org>,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH] ACPI: APD: fix off-by-one when copying clk-name property
-Date: Thu, 10 Sep 2026 22:34:51 +0500
-Message-ID: <20260910173451.61469-1-nathan2049@yandex.ru>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="s4kzlA9z"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 94DEFA02B3;
+	Thu, 10 Sep 2026 19:43:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1789062197; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=N2jLRbdlPtNCfQqn4UIVQslnB8/tvN3bZyU9rPBE/A4=;
+	b=s4kzlA9zD145la6gKnyU5JFxS6rad2qVPoa9Fh/Oo7+cQ/i6qxJ1SltCe2xkD2kmMQWWfP
+	TIKm3wgIM5u8YjCQHLRX8k62rlp3XgU84l+dA/pE7JO637XjDqJhheeBu/zhQospkhhVW1
+	FwRW6PqkR6dVynGvxUVrGUfLLX+NBgi39ovhxDp/3EbdGuiqu2UWRox9JCJjPo9WcnCDhQ
+	uz6OAJlPdkwGK0n0GI7bgkV549BmOwdVhJAbwRzb90kSLM9U2ydFQCIXc3N4knmFTyBWU7
+	YfygUV7IiQa58pjdKQEZuolRFXf+adQSaETUo6X4FSekpBSL3q0oL4FeauBYEw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Thu, 10 Sep 2026 19:43:08 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>, Heiner Kallweit
+ <hkallweit1@gmail.com>, =?UTF-8?Q?Alexis_Lothor=C3=A9?=
+ <alexis.lothore@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Emil Renner Berthing
+ <kernel@esmil.dk>, Minda Chen <minda.chen@starfivetech.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, Jerome
+ Brunet <jbrunet@baylibre.com>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>, Jan Petrous <jan.petrous@oss.nxp.com>,
+ Ovidiu Panait <ovidiu.panait.rb@renesas.com>, Jose.Abreu@synopsys.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ thomas.petazzoni@bootlin.com, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, PKneuper@dspace.de, David Laight
+ <david.laight.linux@gmail.com>
+Subject: Re: [PATCH net v2 2/6] net: stmmac: selftests: Validate EEE based on
+ the actual LPI timer value
+In-Reply-To: <20260910151404.976753-3-maxime.chevallier@bootlin.com>
+References: <20260910151404.976753-1-maxime.chevallier@bootlin.com>
+ <20260910151404.976753-3-maxime.chevallier@bootlin.com>
+Message-ID: <89e242e8ddc78db7531d17a8a8adb904@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Peter Zmanovsky <zzz4android@gmail.com>
+Hi Maxime,
 
-The ACPI string object's .length field holds the byte count of the
-string excluding the NULL terminator.  fch_misc_setup() allocates
-obj->string.length bytes for the clock name buffer and then passes
-that same value as the size argument to strscpy().  Since strscpy()
-writes at most (size - 1) non-null characters before appending NULL,
-the last byte of the clock name is silently dropped.
+On 10.9.2026 17:13, Maxime Chevallier wrote:
+> The EEE selftest is a 2-step test :
+>  - It validates that we enter in LPI mode with the
+>    irq_tx_path_in_lpi_mode_n counter
+>  - It then validates that we exit LPI when sending a frame, with the
+>    irq_tx_path_exit_lpi_mode_n counter.
+> 
+> The current state of the test lacks 2 main things :
+> 
+>  - We don't know exactly when was the previous frame sent (it's from 
+> the
+>    previous selftest)
+> 
+>  - The timeout is hardcoded, while the LPI is entered after a
+>    user-configurable delay. On top of that, the timeout loop uses a
+>    pre-decrement iterator (--retries) that actually only iterate nine
+>    times, so 900ms while the default LPI value is 1 second.
+> 
+> Let's therefore make it more deterministic :
+> 
+>  - Send a frame at the beginning of the test
+>  - Wait for more than the lpi timer value, we timeout after about twice
+>    the value,
+>  - Then send another frame, and verify that we do go out of LPI, also
+>    with a timeout.
+> 
+> Note that the test's goal isn't to validate the LPI timer value itself,
+> only that we enter/leave LPI mode.
+> 
+> Fixes: 091810dbded9 ("net: stmmac: Introduce selftests support")
+> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> ---
+>  .../stmicro/stmmac/stmmac_selftests.c         | 39 +++++++++++++++----
+>  1 file changed, 32 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c 
+> b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
+> index 6503678b646e..a8280834185c 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
+> @@ -462,7 +462,7 @@ static int stmmac_test_mmc(struct stmmac_priv 
+> *priv)
+>  static int stmmac_test_eee(struct stmmac_priv *priv)
+>  {
+>  	struct stmmac_extra_stats *initial, *final;
+> -	int retries = 10;
+> +	unsigned long timeout, max_duration;
+>  	int ret;
+> 
+>  	if (!priv->dma_cap.eee || !priv->eee_active)
+> @@ -478,14 +478,21 @@ static int stmmac_test_eee(struct stmmac_priv 
+> *priv)
+>  		goto out_free_initial;
+>  	}
+> 
+> +	/* Snapshot stats, we want to count the in_lpi events. We may enter
+> +	 * LPI just after the packet was sent.
+> +	 */
+>  	memcpy(initial, &priv->xstats, sizeof(*initial));
+> 
+> +	/* Send a frame, then wait to enter LPI */
+>  	ret = stmmac_test_mac_loopback(priv);
+>  	if (ret)
+>  		goto out_free_final;
+> 
+> +	max_duration = usecs_to_jiffies(2 * priv->tx_lpi_timer);
+> +
+>  	/* We have no traffic in the line so, sooner or later it will go LPI 
+> */
+> -	while (--retries) {
+> +	timeout = jiffies + max_duration;
+> +	while (!time_after(jiffies, timeout)) {
+>  		memcpy(final, &priv->xstats, sizeof(*final));
+> 
+>  		if (final->irq_tx_path_in_lpi_mode_n >
+> @@ -494,20 +501,38 @@ static int stmmac_test_eee(struct stmmac_priv 
+> *priv)
+>  		msleep(100);
+>  	}
+> 
+> -	if (!retries) {
+> +	memcpy(final, &priv->xstats, sizeof(*final));
+> +	if (final->irq_tx_path_in_lpi_mode_n <=
+> +	    initial->irq_tx_path_in_lpi_mode_n) {
+>  		ret = -ETIMEDOUT;
+>  		goto out_free_final;
+>  	}
+> 
+> -	if (final->irq_tx_path_in_lpi_mode_n <=
+> -	    initial->irq_tx_path_in_lpi_mode_n) {
+> -		ret = -EINVAL;
+> +	/* Re-snapshot, as we want to measure exit_lpi events. We should be
+> +	 * in LPI right now.
+> +	 */
+> +	memcpy(initial, &priv->xstats, sizeof(*initial));
+> +
+> +	/* TX something so we go out of LPI */
+> +	ret = stmmac_test_mac_loopback(priv);
+> +	if (ret)
+>  		goto out_free_final;
+> +
+> +	/* Wait for the exit LPI interrupt */
+> +	timeout = jiffies + max_duration;
+> +	while (!time_after(jiffies, timeout)) {
+> +		memcpy(final, &priv->xstats, sizeof(*final));
+> +
+> +		if (final->irq_tx_path_exit_lpi_mode_n >
+> +		    initial->irq_tx_path_exit_lpi_mode_n)
+> +			break;
+> +		msleep(100);
+>  	}
+> 
+> +	memcpy(final, &priv->xstats, sizeof(*final));
+>  	if (final->irq_tx_path_exit_lpi_mode_n <=
+>  	    initial->irq_tx_path_exit_lpi_mode_n) {
+> -		ret = -EINVAL;
+> +		ret = -ETIMEDOUT;
+>  		goto out_free_final;
+>  	}
 
-Allocate obj->string.length + 1 bytes and pass that same count to
-strscpy() so the complete string is preserved.
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
-
-Fixes: 7fdb98e8a768b ("ACPI: APD: Add a fmw property clk-name")
-Signed-off-by: Peter Zmanovsky <zzz4android@gmail.com>
----
- drivers/acpi/acpi_apd.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/acpi/acpi_apd.c b/drivers/acpi/acpi_apd.c
-index e7366fcb76ee..f2012dfdc511 100644
---- a/drivers/acpi/acpi_apd.c
-+++ b/drivers/acpi/acpi_apd.c
-@@ -82,12 +82,12 @@ static int fch_misc_setup(struct apd_private_data *pdata)
- 		return -ENOENT;
- 
- 	if (!acpi_dev_get_property(adev, "clk-name", ACPI_TYPE_STRING, &obj)) {
--		clk_data->name = devm_kzalloc(&adev->dev, obj->string.length,
-+		clk_data->name = devm_kzalloc(&adev->dev, obj->string.length + 1,
- 					      GFP_KERNEL);
- 		if (!clk_data->name)
- 			return -ENOMEM;
- 
--		strscpy(clk_data->name, obj->string.pointer, obj->string.length);
-+		strscpy(clk_data->name, obj->string.pointer, obj->string.length + 1);
- 	} else {
- 		/* Set default name to mclk if entry missing in firmware */
- 		clk_data->name = "mclk";
--- 
-2.43.0
-
+Thanks,
+Nicolai
