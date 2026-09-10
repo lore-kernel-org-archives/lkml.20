@@ -1,111 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E1B238F92F
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:42:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B01356766;
+	Thu, 10 Sep 2026 18:42:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789065754; cv=none; b=ueCnnV7JAZuO5k2OZdi8LIyhWGGT6uAn4idso0S3YdHJTSIidwT1aLAn4qaolIXinY2emm9rAhO5APo4l9uDVrlsHPNg6Gotrfd4T1+7up/S+kULHBB2EYQrFdwT8upTGVLgrFdvGpQawrymtnQ0bS8U1U9BPaIXJT3+8K2MJTo=
+	t=1789065758; cv=none; b=svndf2Bj8IoW6zQ+VZK5QfVroGxQS53R4NYUHWo9sgdMtVr9XAnEU3H8JwKXBiNsXrz5q36Z6OOTFK8cEmObQGtirgJssk11gVzK3ZpMbtEqSauorf96l4jY5ibUI6S/UOaHwiXV7mceJtJzSN5upNyMu01DN7XS6ZpjvkZPv4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789065754; c=relaxed/simple;
-	bh=xoHLfLtCU8cfG34PqstwBdoLWKC9uaAGc0ToltQONdw=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=N9L61bVXBLfeJw4Nwk7ifjbuWdHtUQ8AAI/z5IdOEmRyKrmkgjVbllwcLetOAW9Im9FXV/jurCoX2JxgoMiEzkJjQ98I4VmWtwxBStBO60KMHFgefYVQaK7Sgeh0EdgtZMCrW2EaUFbPT8IQMrM9jwuV9AmqxXE6YKMTlwOrtZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fqJ3u0Tg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789065758; c=relaxed/simple;
+	bh=Rm395aCw/iOb4Bv+HzeK6TTDZkzeH/Tj/YSzAXyj0iw=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=JZtZqzY6wsTVFf/J8WnDJj4HKoKfLRes5LFjgdarqyJEBhiPPabuM02yUtDJPMmFSsuBbn9JKTiPDVWBV9Grdvw0ewE1HLDYh/2BqcNQn1Io0XYE+ChlagdjbpF0eLu+ty/m3Mrxu6pHeaN91VBd2VWy5PGv8N7PCHuHGu/Lh2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=ZeGzmp4e; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fqJ3u0Tg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 994171F00893
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:42:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789065749;
-	bh=RQou6JyZBnOfwD812nmhze1SFAlyxVhDq1QrDIIJaR8=;
-	h=From:Date:Subject:To:Cc;
-	b=fqJ3u0TgrDZG0A7UGe55A/TDolmrzLaf/Yxfng3bC3XeSYNcLMMA536SNvhmPnP+T
-	 qQBQGQagn7NFfGRCbLBacvvRLY33Iz3fmBmG5/e7Ac2iEmDJ6gJVvujMPWRBDt3H3Q
-	 4MioDrRFBD0/wVCm9UTkuvY/B8KHuwfI5EGmVhUBtdMTL+8MOp//wouoGAeOk6GZ3S
-	 byNG8sFmXlTVSlxcd5Op1ILeWXxQeExHCSxCDvMTplzKfwG35Pwg4VgF91UnofQkj9
-	 ojAwGErkdX4VSP/USUyGt3/xxyV+3G88q/r41eba5b+TukVksqRGTGO2y1ThaZ+O05
-	 IAEVFrnhfhdIg==
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b6031cbc6bso119162e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:42:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByXNVX5t62k3MuOQZ2utXY0uu6mXTGLpWGL2oaLneCwVb0nyEOU51ZVhN+ztCPEFNDWPWpS/ncmNMAkGV8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nvEWhbMh7B7jA74dUrKLpnx8UDkjI6ZSXGuuNOeec3AaHxn7dZ
-	ff6PvDYKi9dIAr6VornYH14Z9AvaxGZcCjtXbiMhgk1CYObY3zzlu36jA/T5aVgEF6MUXnWJfA6
-	TP6BHu6jK01MoDtgXhVr437cgNW8PwlE=
-X-Received: by 2002:a05:6512:31c2:b0:5b8:997b:c5e9 with SMTP id
- 2adb3069b0e04-5b8a030ee44mr160877e87.48.1789065747955; Thu, 10 Sep 2026
- 11:42:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="ZeGzmp4e"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E2234A8F56;
+	Thu, 10 Sep 2026 20:42:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1789065751; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=J6vYeDOQvc6HcH8O/wl4zA/DD/Gh7wd3PXwiCbaa1Cs=;
+	b=ZeGzmp4ez3/4rNyR8wD9FEb8lILhghscZ1gI9NPMmVEP1bdrF2F0dqngv0faFZqKJ52Yvt
+	IMmt4Riltkkl5SQy1LcxtkBBNJy/4Xrg0xQ+Jzpa7GgUYWpN9nHUC/maFZgClgkDoRkaTA
+	D5L38LJiqpRlVsSOIJ88TltfjUM81oOiljodf8dCKEtJgqNqy3825ddtu36Up/Kt/1hFot
+	i2zlaqbpeziQvFaIIQDHHZ/Uk6yccHnIKTX9iGk2n2I6d056qqpetV2vFWa7NlQdrW+h/N
+	LVw8ZmyVAuM6TeR8/HjhLCmtM3iWtxwapU05x2mqSTijheydsCmBvuJrLuzdgg==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Thu, 10 Sep 2026 20:41:17 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0idsbo5VDkhmZrNJVz9=XnpYSwCntiD_YoZ6NzGwTZubg@mail.gmail.com>
-X-Gm-Features: AcwNN1X4l6YwG4eiUlvaTbfluMAcV1ER0ueLDphA-DLhbv441TA9j7UgfQrWlrQ
-Message-ID: <CAJZ5v0idsbo5VDkhmZrNJVz9=XnpYSwCntiD_YoZ6NzGwTZubg@mail.gmail.com>
-Subject: [GIT PULL] Power management fixes for 7.3-rc3
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Linux PM <linux-pm@vger.kernel.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
+Date: Thu, 10 Sep 2026 20:42:22 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>, Heiner Kallweit
+ <hkallweit1@gmail.com>, =?UTF-8?Q?Alexis_Lothor=C3=A9?=
+ <alexis.lothore@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Emil Renner Berthing
+ <kernel@esmil.dk>, Minda Chen <minda.chen@starfivetech.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, Jerome
+ Brunet <jbrunet@baylibre.com>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>, Jan Petrous <jan.petrous@oss.nxp.com>,
+ Ovidiu Panait <ovidiu.panait.rb@renesas.com>, Jose.Abreu@synopsys.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ thomas.petazzoni@bootlin.com, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, PKneuper@dspace.de, David Laight
+ <david.laight.linux@gmail.com>
+Subject: Re: [PATCH net v2 5/6] net: stmmac: size the RX buffers from the
+ frame length, not the MTU
+In-Reply-To: <20260910151404.976753-6-maxime.chevallier@bootlin.com>
+References: <20260910151404.976753-1-maxime.chevallier@bootlin.com>
+ <20260910151404.976753-6-maxime.chevallier@bootlin.com>
+Message-ID: <2489a0482751f06eb4da702987c717e5@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Linus,
+On 10.9.2026 17:14, Maxime Chevallier wrote:
+> When picking the buffsize to use based on the MTU, we shouldn't check
+> only the MTU value, but also :
+>  - ETH_HLEN for the L2 header,
+>  - up to 2 VLAN tags,
+>  - the FCS,
+>  - the NET_IP_ALIGN
+> 
+> The default bufsize is 1536 bytes, which is enough to contain all the
+> above so this hasn't surfaced before, but the addition of NET_IP_ALIGN
+> to the start of buffer address tripped the Jumbo selftest, leading to
+> this discovery.
+> 
+> With that, we don't need the '>=' checks on the buffer len, we can use
+> more consistent comparison operators in stmmac_set_bfsize.
+> 
+> Fixes: 286a83721720 ("stmmac: add CHAINED descriptor mode support 
+> (V4)")
+> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> ---
+>  .../net/ethernet/stmicro/stmmac/stmmac_main.c | 20 ++++++++++---------
+>  1 file changed, 11 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c 
+> b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 5fe7e95fdd34..3664a298574a 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -1536,17 +1536,17 @@ static unsigned int stmmac_rx_offset(struct 
+> stmmac_priv *priv)
+>  	return NET_SKB_PAD + NET_IP_ALIGN;
+>  }
+> 
+> -static int stmmac_set_bfsize(int mtu)
+> +static int stmmac_set_bfsize(int len)
+>  {
+>  	int ret;
+> 
+> -	if (mtu >= BUF_SIZE_8KiB)
+> +	if (len > BUF_SIZE_8KiB)
+>  		ret = BUF_SIZE_16KiB;
 
-Please pull from the tag
-
- git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git \
- pm-7.3-rc3
-
-with top-most commit 13b3dcbcfed1d0c8c1d3b5dcfe306f9992452ae9
-
- Merge branch 'pm-cpufreq'
-
-on top of commit df2908090cda368b01ff43709f51890076c56157
-
- Linux 7.3-rc2
-
-to receive power management fixes for 7.3-rc3.
-
-These harden the cpufreq core against races with sysfs during policy
-creation, fix two issues in the OPP (Operating Performance Points)
-library, and make OPP print symbolic error names:
-
- - Zero-initialize the policy cpumask and initialize the policy rwsem
-   before exposing the policy sysfs interface (Runyu Xiao and Zhongqiu
-   Han)
-
- - Fix potential multiplication overflow when calculating freq in OPP
-   core (Colin Ian King)
-
- - Fix use after free in _update_opp_table_clk() (Peter Griffin)
-
- - Use %pe to print symbolic error name in OPP (Sumeet Pawnikar)
-
-Thanks!
 
 
----------------
+> -	else if (mtu >= BUF_SIZE_4KiB)
+> +	else if (len > BUF_SIZE_4KiB)
+>  		ret = BUF_SIZE_8KiB;
+> -	else if (mtu >= BUF_SIZE_2KiB)
+> +	else if (len > BUF_SIZE_2KiB)
+>  		ret = BUF_SIZE_4KiB;
+> -	else if (mtu > DEFAULT_BUFSIZE)
+> +	else if (len > DEFAULT_BUFSIZE)
+>  		ret = BUF_SIZE_2KiB;
+>  	else
+>  		ret = DEFAULT_BUFSIZE;
+> @@ -4063,7 +4063,7 @@ static struct stmmac_dma_conf *
+>  stmmac_setup_dma_desc(struct stmmac_priv *priv, unsigned int mtu)
+>  {
+>  	struct stmmac_dma_conf *dma_conf;
+> -	int bfsize, ret;
+> +	int bfsize, len, ret;
+>  	u8 chan;
+> 
+>  	dma_conf = kzalloc_obj(*dma_conf);
+> @@ -4073,13 +4073,15 @@ stmmac_setup_dma_desc(struct stmmac_priv *priv, 
+> unsigned int mtu)
+>  		return ERR_PTR(-ENOMEM);
+>  	}
+> 
+> -	/* Returns 0 or BUF_SIZE_16KiB if mtu > 8KiB and dwmac4 or ring mode 
+> */
+> -	bfsize = stmmac_set_16kib_bfsize(priv, mtu);
+> +	len = mtu + ETH_HLEN + 2 * VLAN_HLEN + ETH_FCS_LEN + NET_IP_ALIGN;
+> +
+> +	/* Returns 0 or BUF_SIZE_16KiB if len > 8KiB and dwmac4 or ring mode 
+> */
+> +	bfsize = stmmac_set_16kib_bfsize(priv, len);
+>  	if (bfsize < 0)
+>  		bfsize = 0;
+> 
+>  	if (bfsize < BUF_SIZE_16KiB)
+> -		bfsize = stmmac_set_bfsize(mtu);
+> +		bfsize = stmmac_set_bfsize(len);
+> 
+>  	dma_conf->dma_buf_sz = bfsize;
+>  	/* Chose the tx/rx size from the already defined one in the
 
-Colin Ian King (1):
-      OPP: of: Fix potential multiplication overflow when calculating freq
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
 
-Peter Griffin (1):
-      opp: fix use after free in _update_opp_table_clk()
-
-Runyu Xiao (1):
-      cpufreq: initialize policy rwsem before sysfs publication
-
-Sumeet Pawnikar (1):
-      opp: Use %pe to print symbolic error name
-
-Zhongqiu Han (1):
-      cpufreq: zero-initialize policy cpumask before sysfs publication
-
----------------
-
- drivers/cpufreq/cpufreq.c |  6 +++---
- drivers/opp/core.c        | 30 ++++++++++++++++--------------
- drivers/opp/of.c          |  6 +++---
- 3 files changed, 22 insertions(+), 20 deletions(-)
+Thanks,
+Nicolai
