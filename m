@@ -1,127 +1,114 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B2B834EEEE
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:54:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 676BD33C198;
+	Thu, 10 Sep 2026 13:54:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789048451; cv=none; b=dGwqzup/1Pxi1L94D3z3X+Ldj6ZJJBtQrJrE8plISus61li8xb6Fz7B3pZrNcnqhFmd7FSlfexUbYM84LVYcyDTRyALY763CvSXefuyZrV2Ig4cmuL/i2vGB2cBzgeYh8d9tD2NQYTnhNTnKwdBk8GPHZj/trFY9C/lQp22VGKQ=
+	t=1789048481; cv=none; b=DPj149mSKXFvX9jh2SkiXAy281j5Me6eFhO/KjI6jzfoukM6T3MTIgl4o+lDTd3n78IOvx1adKRmxdd1Pp4ZMduC5U/HZCasTgLoQLfWycVhTB+ddgxZZXJQG504mbdwJBH+C5Pmrxn9/DpOGnlfv0TpgI7Nj++JCUSipCwyoPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789048451; c=relaxed/simple;
-	bh=Pc7559Ay0oPivlYgMSEO05noCpMOYyrNO5XdB54ryyQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hcmRDeARpp3kB8h6zOatlmTwYj2i3Vd2qXfzCjwZZmEKmI9Ld9ee5IdS1sH4xTlIXvIGav4bjqQtAPNZCiZjbyXLkCs5j+dOwCNeb1+uIdQ0ijnS5dWmUuDiPI7el37ZM0/tHkm+n4uE/DTUllsujF86yoTUmibp5D7pPT/Gysg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=aoWVN1ds; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1789048481; c=relaxed/simple;
+	bh=mTrdQfr7DOq6u+bICsUuHKijxfpQHZmd25ZL8e/2nwk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=b+dtbcgg99MehN21wIAL4jJNCtUQPKuidA4Kcj/Ldq0FLffOey4/j9ObA6GI+faqHdx2IXKylz4CvPqM6+SVeHxgZaurl+6Rps3wAXtZD4VcDa6Dii4ST69bs93pflPPmey3OUtDJa+EGm8E3OqnfDVM2qjHepl0qKsoK8ilepE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XHG5p0zj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="aoWVN1ds"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=FS/FALPUjabMB7pEZn3N2o0m3+yBNogJAw0/WPnz1HE=; b=aoWVN1dsMBN1eM9ZuHzrKvA8px
-	BHA4v6j6ntywHm8B+gFZ4SkNTGaq4iaBjmX9OfA0R6NbbP32NQEfX+zxcY/P2GeCRI92lIH8REJal
-	RY6fSBZKtFog5CTy9PpVlw15htkzpDmwKhztqYBlmoGkwmuwbVTJHfnnotJ4UzBowuyyk68WQrlRr
-	Bpvft/dCFhCSQB38sYS2hSx4+t0uUSceE+r1HhSzNNMBrw8zZtZ0PeSsS9I2uq3RcsH6cf4qItVVC
-	gIf4AlLLGRX7irpEps9s2f3ouA3AqgeejqMJuZnrhXSQ3yEoG2Z89+NWvqTzR7t7Fa5kWHCe/UNOd
-	kWUxCbXg==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1x4fDy-000YaT-2o;
-	Thu, 10 Sep 2026 13:53:59 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Thu, 10 Sep 2026 06:53:27 -0700
-Subject: [PATCH] arm64: hibernate: clone only the linear map that exists at
- runtime
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XHG5p0zj"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BE3C41F000FF;
+	Thu, 10 Sep 2026 13:54:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789048480;
+	bh=HqCghc0dDgDGFGeCMu0QA4P94gGXXWs5rdtW9NG33l0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XHG5p0zj8EehcWzdCkhUnpcuB0KxM6+ZK0p0PpE04Jg8gnz6LDlMRzAOv1zmJCF0v
+	 Ni+4f3REh5hq5ZCgMhEOsQPUT7yfTMvfkxGwKs+i22C0gy6ISqARRQ/wkddOP+2oJJ
+	 G9AQLgcdii+WbMhzaWqIi5mGVpGm2XKBOHqoc23hsfPVWTQ8CG4mKZC6huQl27DkvA
+	 hMmmwjr6vE5MSl8RRfUoNf+S/ZqiXTjf5HyYXU1BvNhFs36btWKxDwSYBFiRgQmLC5
+	 MQ/Uc4SS4eX0VpaHauNlqMAoluj+s7STogW+y1DG5q7PCx9QWoHOWichArYPJA4n/6
+	 /U0blE7LrxT7Q==
+Date: Thu, 10 Sep 2026 15:54:37 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Keguang Zhang <keguang.zhang@gmail.com>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>, linux-pwm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] pwm: loongson: Reload PWM configuration through
+ counter reset
+Message-ID: <aqK2R9HodI399ehb@monoceros>
+References: <20260715-pwm-loongson-fix-v3-0-0aab2847eaa7@gmail.com>
+ <20260715-pwm-loongson-fix-v3-2-0aab2847eaa7@gmail.com>
+ <ap6Ciw_sMALvlROd@monoceros>
+ <CAJhJPsULo0S5c6GKQvRqLtVx3nixZLuqRrh7hi5yJ7C5BuwLUQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-arm64-hibernate-va52-v1-1-a584d9a7d65e@debian.org>
-X-B4-Tracking: v=1; b=H4sIAFa2omoC/x3MQQ6CMBAF0KtM/ppJ2loRexXCospUZmExU0JMC
- Hc38R3gHWhiKg2JDpjs2nStSOQ7wnPJ9SWsMxIhuNC7u3ec7d1HXvQhVvMmvOdr4HK7DDJL8DE
- WdISPSdHvvx2n8/wBXMtu7GYAAAA=
-X-Change-ID: 20260910-arm64-hibernate-va52-f738ede2144f
-To: Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Ard Biesheuvel <ardb@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- kernel-team@meta.com, Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.16-dev-f8e9d
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1951; i=leitao@debian.org;
- h=from:subject:message-id; bh=Pc7559Ay0oPivlYgMSEO05noCpMOYyrNO5XdB54ryyQ=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqorZzIH+ECtYHS/zmVZm8rjGbjNEHlz7+gpTLf
- fmWcGEH5JSJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaqK2cwAKCRA1o5Of/Hh3
- bUzDD/4ginBBzwJ5sRDi8kVuONdKL6KTOEF8XDDWEGRok3npdYvd7Yk7BJmitEKfrGQ74OF9V8J
- lJDD5VVC3ROcaEO4EjBAWDw6C9e021qVtayxbAQ0uPRz+ir5kEDF0stnNMGXk18xrdi+F4x2OYU
- bvUlCNyJ5AupBwNVXHuUT6+nLYLWy8Q3xyG9zDR8E6Sx2JjKAEBlEHuSZSfxRJSl7TejdpAixG2
- opDvyAGf7sn8aj5z86o4slJGXAjmCUZnK5lLioNI54GvnPe46KIqkUg1/51VqeFWn4g2A+R8f57
- Jg4hhkQDc+Kb8ElQjmXWDm/zKR5DsHLOSy6jnyyF/c9QVmVxmmofEXMxUYvjnypKKplqebv/5xN
- SP1q2v4aSHjkzPtVBfdE/rCgNNQoK4nzxbT28lhdqa1JZE22/ys2j961+NErEDx9kvUVz+M7t+8
- E2VtI+Q/Z39VokD57SF117IrKiXweWqIvI7FuNvqRbzcGrMOjM340G3fEPBaTea0IAaykwcI8XF
- l3H434B/oSrGiKVpapn650cW7qbvcEqlpuAIszJfxqMp1UK2lUSXGY5lV2hYdDfnTgOj8qTnz5m
- shJxcvmiIz//FYcMgh2c6wQ/jwXTnlJa90zIfWrnxWqARM4f2exQhcPbssdh6jRchZiB/GyICV8
- SMk8BQE4LSevfbg==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6qgygejms54hbaw3"
+Content-Disposition: inline
+In-Reply-To: <CAJhJPsULo0S5c6GKQvRqLtVx3nixZLuqRrh7hi5yJ7C5BuwLUQ@mail.gmail.com>
 
-This is similar to commit 1537e55728ec2 ("arm64: trans_pgd: clone only
-the linear map that exists at runtime"), but in a different place.
 
-swsusp_arch_resume() clones the kernel linear map with
-trans_pgd_create_copy(..., PAGE_OFFSET, PAGE_END). PAGE_OFFSET comes
-from the compile-time VA_BITS, so a CONFIG_ARM64_VA_BITS_52 kernel
-booting on hardware without LPA2 -- vabits_actual is 48 and the fifth
-level is folded -- hands the walk a 3.9PB window while its linear map
-only spans the top 128TB.
+--6qgygejms54hbaw3
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 2/2] pwm: loongson: Reload PWM configuration through
+ counter reset
+MIME-Version: 1.0
 
-On a VA_BITS_52 4k kernel with CONFIG_KASAN_GENERIC in a 4GB VM, I see:
+Hello,
 
-  swapper/0: page allocation failure: order:0, mode:0x920(GFP_ATOMIC|__GFP_ZERO)
-   hibernate_page_alloc+0x10/0x1c
-   swsusp_arch_resume+0x70/0x320
-   hibernation_restore+0xa4/0x138
-   software_resume+0x15c/0x270
-  PM: hibernation: Failed to load image, recovering.
-  PM: hibernation: resume failed (-12)
+On Thu, Sep 10, 2026 at 07:58:12PM +0800, Keguang Zhang wrote:
+> On Mon, Sep 7, 2026 at 5:33=E2=80=AFPM Uwe Kleine-K=C3=B6nig <ukleinek@ke=
+rnel.org> wrote:
+> > [...] I wonder if the fix is incomplete. If at driver bind time
+> > LOONGSON_PWM_CTRL_REG_RST isn't set and there are still wrong values in
+> > the shadowed LOW and PERIOD registers the first period will be wrong.
+> >
+> > This would need:
+> >
+> >         val =3D pwm_loongson_readl(ddata, LOONGSON_PWM_REG_CTRL);
+> > +
+> > +       /*
+> > +        * Ensure that the values of LOW and PERIOD are sampled into
+> > +        * the shadow register when the hardware starts running.
+> > +        */
+> > +       if (!(val & LOONGSON_PWM_CTRL_REG_RST))
+> > +               pwm_loongson_writel(ddata, val | LOONGSON_PWM_CTRL_REG_=
+RST, LOONGSON_PWM_REG_CTRL);
+> > +
+> >         val &=3D ~LOONGSON_PWM_CTRL_REG_RST;
+> >         val |=3D LOONGSON_PWM_CTRL_REG_EN;
+> >         pwm_loongson_writel(ddata, val, LOONGSON_PWM_REG_CTRL);
+> >
+> > I think.
+>=20
+> You are right that this patch doesn't handle the initial hardware
+> state when the driver binds.
+> Would you prefer that I submit a follow-up patch to address this, or
+> are you planning to fix it yourself?
 
-Fix it by copying the linear map that is the actual one, not the
-compiled one.
+I don't have the hardware, so if you do that and test it, that's very
+appreciated.
 
-Fixes: a6bbf5d4d9d1 ("arm64: mm: Add definitions to support 5 levels of paging")
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
- arch/arm64/kernel/hibernate.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Best regards
+Uwe
 
-diff --git a/arch/arm64/kernel/hibernate.c b/arch/arm64/kernel/hibernate.c
-index 7bf1174277772e..424291c547f02a 100644
---- a/arch/arm64/kernel/hibernate.c
-+++ b/arch/arm64/kernel/hibernate.c
-@@ -423,8 +423,8 @@ int __nocfi swsusp_arch_resume(void)
- 	 * Create a second copy of just the linear map, and use this when
- 	 * restoring.
- 	 */
--	rc = trans_pgd_create_copy(&trans_info, &tmp_pg_dir, PAGE_OFFSET,
--				   PAGE_END);
-+	rc = trans_pgd_create_copy(&trans_info, &tmp_pg_dir,
-+				   _PAGE_OFFSET(vabits_actual), PAGE_END);
- 	if (rc)
- 		return rc;
- 
+--6qgygejms54hbaw3
+Content-Type: application/pgp-signature; name="signature.asc"
 
----
-base-commit: c68a982815dcce5464e3bf2a31ac94f5146c04ca
-change-id: 20260910-arm64-hibernate-va52-f738ede2144f
+-----BEGIN PGP SIGNATURE-----
 
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqitpsACgkQj4D7WH0S
+/k6V0Qf8D+LtoF2zkOqrIdgM9dzTiGKevyWqyWJWrOousQ/Nn41ocg8ngKcDQ7Rp
+cNkWyC5sqHr7VBGkrr9g/zLQz0+2z5z/FVXpsHVnOHSm3i63SgLNECqhbDCE0CNX
+YKEV5a1wsmkO5xS9o/9aP9TX/rJo/pnENHaY5W1gpqIY+DoOzpP1cKeK/NtJ49ry
+ddImwtl2Npb1T7i3UW7Mj7N8lO15mFGSs9g5waXARlJKpHcCjtS4XbCrzWJgx5ms
+xJhkSK9R4J38vzjTsMZ9OT0y6uCTopCns84ICw/rhyuVX03JtCJLAZsaAKJ4Hbxp
+0tvf+Z35h2exq0ohhVyKUt8Rjf/wfw==
+=rXmE
+-----END PGP SIGNATURE-----
 
+--6qgygejms54hbaw3--
