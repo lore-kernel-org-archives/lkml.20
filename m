@@ -1,82 +1,41 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8818380FC7
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:19:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FA3E36B91D
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:20:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789006769; cv=none; b=MEcb6IOXPDtgRL56Fmcceofeto2Ix35opOh6h07VbIsm2mAtqxemFQf/81w7BM41rMYVTwRor3nR3MSJ1zb8btcM603m7kWpiJT0onpwp8P9e9q0zJ4G90wWLfWoHlo7wIUcZpJgwD9zVtHdNBV1kB/G0obYbCY1oLYHZdcAcvA=
+	t=1789006836; cv=none; b=Z88+jJwkXctMOpMdzoRg31+RSrURF0guR9meZ9pXPuXgUPkLvvRfLGsxA23iCGi/ov4mHNQELVFJVLA9IPM7G4Cub7/vSBn3MPNh3iEwQ4jO7NMpCViwPbkQ8mfcSKtffUdN99JRPtd7V0O9kzVntpWed/drc9gvr87fipdWUg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789006769; c=relaxed/simple;
-	bh=5MOq8eSAsAE1DEdUWJh2bKxyRUZPAevKcw96z8w2iCc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GpOWtT/P3lydA4YUHunM1pxRAyFVGuRbf/zMu8Oxu/PkYi1CpzLM+8okZ9WieUunRuDd4mlUB9ArmqkeR5m0yHDSEE5/k0kt9Q5/2RE2k0q82dUcKYS21MH7VWDxO4Fr42OwJbf9TcrQMcKFAU4h6A7F+MkZ9r4zgNWzFOYCsOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=VADHFCCJ; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1789006836; c=relaxed/simple;
+	bh=mgQ6tnNL5z8kNgUYWsxuxEzQQtno8wluBmr8NacBwik=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZUDsxrHm89zZ8cgRM5YT5Bl+V0LM2OLTCyeAT5jhgGnnvOSi1OKR0r/YGlqzUsT+iwj/NKMTiLAYNQaT4n5vwvCQN9kIC3LNgBWJ10ajPwC9pb0Bv44cjNwd60Riyz7o7VwOIvVqjqXkxQSlrduB2GuRjfVH7ZMY5jPp7/Te0FQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P9WVVEkX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="VADHFCCJ"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910cadeb0so177408585a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 19:19:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1789006766; x=1789611566; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1h1SxGwHKtv/DLXLoTD1RLT1c1zDSUlNRXfN66S2tYs=;
-        b=VADHFCCJ0oMrwyAuV+gq3S3T1vEDl2068lC9d2rFTjxV00vafkCriJ0gYPqJdvDM6E
-         QmmnW5muT5H9dfORXzw0D1tFA6EpTp733t9c4d2pmigtX2S9ixfRK7cvQSTAUdKrmEP8
-         SbVmWLhJ328ydZ7CkTcBv7xk4+K2xH8V9KkgLahojgkmC3r/TCle0zVlmvfYU+erW25g
-         yzBxgarKDad2iMh992oYoZ+Y9tzLHlzamAqtcut/2CYJjZsZBJ5MeOYl+hF2igkA9bPS
-         8cUAG5jtJI++8k9yQPSA8ZdnqU6x8SxMskzPqtIDQpeF66m6Q56wnGKocP5R9m+dODGL
-         w4XA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789006766; x=1789611566;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1h1SxGwHKtv/DLXLoTD1RLT1c1zDSUlNRXfN66S2tYs=;
-        b=f0+JPFGr1I65Ha6yYE5AOkxDqt9/O7W4G7d2F03J25z87ncMx0O/y5JdUAmjL3GL8d
-         0xXscGQIJ8r5STMppY0/SjTOa9JTcQQmTp6ExExXmvaGhyOpvlK5M/SxoKj5OqzJTwU2
-         ZSeh5ARpXneIGkZHMafU7UmLw+jFGx/zJorrPVHhajzp1XoNtkM+dltEdDlXCXw1iaBU
-         RrVoCwoNpt1PKKFNdqRhh2Cc29DJAGXQ8P9m75gnrKEoab/MwnQkCm4rYFPvY6CSPDbD
-         BlnL6ixHLBt9YpAMmBTJcFzAbFiY6x9F3+DYUcPEF7aKmE33jxTp/n0GVhHsK9uy4uxk
-         V6Fg==
-X-Forwarded-Encrypted: i=1; AKwUvByWvJ83QZ8aY7OswtkEJrDGPaR0C2AYAzhAw1XIDV5WQcEZyG+C2tnHgJei3fr7paKOq1kz9ppQgHQ3GBk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQUszBDpRlktY1NIVZpdBdGW+/AbxsBHwyYG7bR9rG9LvxDuF4
-	l9W1eIg+naWaycYWr7faAsxK0kHohLn1Jbtvxhg1PFtXzSRaSchLWYgBHh2McEQdvFA=
-X-Gm-Gg: AYBFou1YU3V79N4sO4LYJTwQbjRQyiUrisTVCq+ZgdSPERi76BOPMzP3eSqiJ0b7xxm
-	HPvBJWwmWtmJQtKnQFiTAgqrRX0IUCMO9pwVADG4+watBzrdINXsT2/05+MrKAdGmoXQWXTHh6c
-	5SmHinphqiV6PGyMjQVFnpOx1D2o2921xbMZUSW4RdUT2EnmH+jCxrX6jbBDSiIwREgbFEbWGW+
-	IF/O82ZwoHwdUQ3+GKzOKkOQZtHZkrLWrwV/2UVc+xejDnqhSAZhPS6xzfn5/CGLc4q4uUgFrkm
-	gDYbTsMEkGhCMu367JJefesIrTF1CGReHUyqZYOlcyoTW5NqhmnClwd56Mmw5e6PivbT+OD+mJD
-	40E5k3PHbmOZ3FzL61shmp1oSCWIg5sVmhEuHXKgxEfGI7F676qDw8BJNKdVHNUTIa1y2Hru8yr
-	ZwcbOl7Fk1ZUcLYjNoA6sy+yzFAjVVAtV+d90J9vXgeyDIPrU+7E0nuqd9tf9aVO2XnUoG/1oQZ
-	hQ=
-X-Received: by 2002:a05:620a:4089:b0:937:2e9f:70a8 with SMTP id af79cd13be357-939c94ef495mr1377322485a.39.1789006766432;
-        Wed, 09 Sep 2026 19:19:26 -0700 (PDT)
-Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fb70fbdsm1561375585a.32.2026.09.09.19.19.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 19:19:26 -0700 (PDT)
-From: Alex Elder <elder@riscstar.com>
-To: bhelgaas@google.com
-Cc: lizhi.hou@amd.com,
-	herve.codina@bootlin.com,
-	andrea.porta@suse.com,
-	daniel@riscstar.com,
-	mohdayaa@qti.qualcomm.com,
-	lbiancon@qti.qualcomm.com,
-	mani@kernel.org,
-	robh@kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] PCI: of: introduce of_pci_update_endpoint_node_ranges()
-Date: Wed,  9 Sep 2026 21:19:18 -0500
-Message-ID: <20260910021919.3421449-4-elder@riscstar.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910021919.3421449-1-elder@riscstar.com>
-References: <20260910021919.3421449-1-elder@riscstar.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P9WVVEkX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB0881F000FF;
+	Thu, 10 Sep 2026 02:20:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789006835;
+	bh=V8GXsSYTyWAtgr1wiQcgVRZK6oARMhydaZHAC1b1Ebw=;
+	h=From:To:Cc:Subject:Date;
+	b=P9WVVEkXkInKMtIIv3FRPraAECYvqmFS8+J3uXvBmz7SnH5U6MsicP4uORL1xe7ep
+	 LG7vqSryciy7G+lZgwZnDPDLY3L8q8F6Gtv0+vnzaRP5CI166IpFTEe2Ti0aFcDKuE
+	 Yfw11IAzd0JyW+1bw8YkmjJd+2Q7jhe1YZXHoOVKOaW+NW7v12eX/2Kdh1HwQI8o7o
+	 XuI0YxUi21p2Bkh3zoPe6AFgMRIteyyxmmsXGq+qXE+P+mUcrqWs2KZqtPOZiSZRCb
+	 fF+gZBR8eINuWZpSnTkxuXq9+fQR1eJLT/uqRAqSKW6h/oJV76GGjXa37VsMQ3RoNc
+	 HgWiY0XIbnO+w==
+From: Chao Yu <chao@kernel.org>
+To: jaegeuk@kernel.org
+Cc: linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Chao Yu <chao@kernel.org>,
+	stable@kernel.org,
+	Zhiguo Niu <zhiguo.niu@unisoc.com>
+Subject: [PATCH] f2fs: fix to avoid folio->mapping dereference in is_{meta,node}_folio()
+Date: Thu, 10 Sep 2026 02:20:26 +0000
+Message-ID: <20260910022026.3301257-1-chao@kernel.org>
+X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,188 +44,237 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 407d1a51921e9 ("PCI: Create device tree node for bridge")
-introduced the PCI_DYNAMIC_OF_NODES Kconfig option, which creates
-a devicetree node for a PCI bridge as part of pci_bus_add_device().
-Its successor commit ae9813db1dc5a ("PCI: Add quirks to generate
-device tree node for Xilinx Alveo U50") shows how to use a PCI final
-fixup quirk to also create a devicetree node for a non-bridge PCI
-device.  In both cases, of_pci_make_dev_node() uses an OF changeset
-to dynamically create a node populated with appropriate properties
-and apply it to the live devicetree.
+From: Chao Yu <chao@kernel.org>
 
-The dynamic devicetree node for a PCI device will include a "ranges"
-property, and a new type of 3-cell address is introduced for use
-within an endpoint.  The endpoint's ranges property will contain a
-range entry for each of the endpoint's BARs.  The "child address"
-portion of each range will use the BAR number in the "flags" (first)
-cell in the address.  This allows addresses within the endpoint to
-be expressed relative to whatever address gets assigned to each BAR.
+Otherwise, it may cause NULL pointer dereference in race condition:
 
-Unfortunately, if a PCI endpoint device had a devicetree node set
-up statically, its "ranges" property (if present) will be static,
-and it cannot contain the addresses assigned to the endpoint's BARs
-during enumeration.
+Thread A			Thread B
+				- f2fs_setattr
+				 - f2fs_truncate
+				  - f2fs_truncate_blocks
+			    	   - f2fs_do_truncate_blocks
+				    - f2fs_truncate_inode_blocks
+				     - truncate_dnode
+				      - truncate_node
+				       - invalidate_mapping_pages
+				        - folio->mapping = NULL
+- folio_lock
+- is_node_folio
+ - F2FS_F_SB(folio): dereference on folio->mapping
 
-This means that the "BAR number" based addressing scheme doesn't
-work for PCI endpoints whose devicetree nodes are created statically.
-
-To remedy this, modify of_pci_make_dev_node() to dynamically create
-a "ranges" property just as is done when the endpoint has a null
-devicetree node pointer.  The device node will be updated to add
-the new "ranges" property (or replace it if one exists).
-
-This allows "BAR number" addresses to work correctly even when the
-endpoint's devicetree node is created statically.
-
-Signed-off-by: Alex Elder <elder@riscstar.com>
+Cc: stable@kernel.org
+Fixes: 019a8912425e ("f2fs: introduce is_{meta,node}_folio")
+Reported-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
+Closes: https://lore.kernel.org/linux-f2fs-devel/c5d29b31-e764-4782-9639-be84b1b2bfc2@kernel.org
+Signed-off-by: Chao Yu <chao@kernel.org>
 ---
-v2: - Only update ranges property if there is a pci-ep-bus node
+ fs/f2fs/checkpoint.c |  4 ++--
+ fs/f2fs/data.c       |  7 ++++---
+ fs/f2fs/f2fs.h       | 10 +++++-----
+ fs/f2fs/gc.c         |  2 +-
+ fs/f2fs/node.c       | 22 +++++++++++-----------
+ fs/f2fs/segment.c    |  2 +-
+ 6 files changed, 24 insertions(+), 23 deletions(-)
 
- drivers/pci/of.c          | 89 +++++++++++++++++++++++++++++++++++----
- drivers/pci/of_property.c |  2 +-
- drivers/pci/pci.h         |  1 +
- 3 files changed, 83 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/pci/of.c b/drivers/pci/of.c
-index 5a040ed836744..d9c215a3bfae5 100644
---- a/drivers/pci/of.c
-+++ b/drivers/pci/of.c
-@@ -742,20 +742,93 @@ void of_pci_remove_node(struct pci_dev *pdev)
- 	of_node_put(np);
+diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
+index 712c4508f38c..dfbfe42086f2 100644
+--- a/fs/f2fs/checkpoint.c
++++ b/fs/f2fs/checkpoint.c
+@@ -291,7 +291,7 @@ static struct folio *__get_meta_folio(struct f2fs_sb_info *sbi, pgoff_t index,
+ 	f2fs_update_iostat(sbi, NULL, FS_META_READ_IO, F2FS_BLKSIZE(sbi));
+ 
+ 	folio_lock(folio);
+-	if (unlikely(!is_meta_folio(folio))) {
++	if (unlikely(!is_meta_folio(sbi, folio))) {
+ 		f2fs_folio_put(folio, true);
+ 		goto repeat;
+ 	}
+@@ -638,7 +638,7 @@ long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, long nr_to_write,
+ 
+ 			folio_lock(folio);
+ 
+-			if (unlikely(!is_meta_folio(folio))) {
++			if (unlikely(!is_meta_folio(sbi, folio))) {
+ continue_unlock:
+ 				folio_unlock(folio);
+ 				continue;
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 93ed8416a289..0da78bf05ac0 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -172,7 +172,8 @@ static void f2fs_finish_read_bio(struct bio *bio, bool in_task)
+ 			dec_page_count(F2FS_F_SB(folio), __read_io_type(folio));
+ 
+ 		if (bio->bi_status == BLK_STS_OK &&
+-			F2FS_F_SB(folio)->node_inode && is_node_folio(folio) &&
++			F2FS_F_SB(folio)->node_inode &&
++			is_node_folio(F2FS_F_SB(folio), folio) &&
+ 			f2fs_sanity_check_node_footer(F2FS_F_SB(folio),
+ 				folio, folio->index, NODE_TYPE_REGULAR, true))
+ 			bio->bi_status = BLK_STS_IOERR;
+@@ -359,12 +360,12 @@ static void f2fs_write_end_bio(struct bio *bio)
+ 			}
+ 		}
+ 
+-		if (is_node_folio(folio)) {
++		if (is_node_folio(sbi, folio)) {
+ 			f2fs_sanity_check_node_footer(sbi, folio,
+ 				folio->index, NODE_TYPE_REGULAR, true);
+ 			f2fs_bug_on(sbi, folio->index != nid_of_node(sbi, folio));
+ 		}
+-		if (f2fs_in_warm_node_list(folio))
++		if (f2fs_in_warm_node_list(sbi, folio))
+ 			f2fs_del_fsync_node_entry(sbi, folio);
+ 
+ 		dec_page_count(sbi, type);
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 693153cbd8a0..ebc621f302e1 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -2371,14 +2371,14 @@ static inline struct address_space *NODE_MAPPING(struct f2fs_sb_info *sbi)
+ 	return sbi->node_inode->i_mapping;
  }
  
-+/* Returns true if the ranges property was added or updated successfully */
-+static bool of_pci_update_endpoint_node_ranges(struct pci_dev *pdev)
-+{
-+	struct device_node *np = pci_device_to_OF_node(pdev);
-+	struct property *prop;
-+	u32 *value;
-+	u32 size;
-+
-+	prop = kzalloc_obj(*prop);
-+	if (!prop)
-+		return false;
-+
-+	value = of_pci_build_prop_ranges(pdev, &size);
-+	if (!value) {
-+		kfree(prop);
-+		return false;
-+	}
-+
-+	prop->name = "ranges";
-+	prop->length = size * sizeof(u32);
-+	prop->value = value;
-+
-+	/* The property value needs to be in big-endian byte order */
-+	while (size--)
-+		cpu_to_be32s(value++);
-+
-+	/* of_update_property() consumes the allocated property */
-+	of_update_property(np, prop);
-+
-+	return true;
-+}
-+
-+/*
-+ * Create a devicetree node for a PCI device.  If the device is a bridge
-+ * and it already has a devicetree node, there's nothing further to do.
-+ * If it is a bridge without an existing devicetree node, one is created
-+ * dynamically.
-+ *
-+ * This function can also be called (via PCI quirk) for a PCI endpoint
-+ * (function) that implements a PCI endpoint bus.  As with a PCI bridge,
-+ * if the endpoint has no existing devicetree node, one is created
-+ * dynamically.  The node will include a ranges property that maps
-+ * BAR-relative addresses in the child to the PCI address ranges
-+ * assigned to the PCI endpoint BARs.
-+ *
-+ * If an endpoint already has a devicetree node, and it includes a
-+ * "pci-ep-bus" sub-node, its ranges property must still be dynamically
-+ * populated so that it can take into account the BAR ranges assigned
-+ * during PCI enumeration.
-+ */
- void of_pci_make_dev_node(struct pci_dev *pdev)
+-static inline bool is_meta_folio(struct folio *folio)
++static inline bool is_meta_folio(struct f2fs_sb_info *sbi, struct folio *folio)
  {
--	struct device_node *ppnode, *np = NULL;
-+	struct device_node *np = pci_device_to_OF_node(pdev);
-+	struct device *dev = &pdev->dev;
-+	struct device_node *ppnode;
-+	struct of_changeset *cset;
- 	const char *pci_type;
--	struct of_changeset *cset;
- 	const char *name;
- 	int ret;
+-	return folio->mapping == META_MAPPING(F2FS_F_SB(folio));
++	return folio->mapping == META_MAPPING(sbi);
+ }
  
--	/*
--	 * If there is already a device tree node linked to this device,
--	 * return immediately.
--	 */
--	if (pci_device_to_OF_node(pdev))
-+	/* See if the PCI device already has a devicetree node */
-+	if (np) {
-+		struct device_node *child;
-+
-+		/* Nothing further needed for a bridge */
-+		if (pci_is_bridge(pdev))
-+			return;
-+
-+		/*
-+		 * We only update the ranges property if the endpoint's
-+		 * devicetree node includes a "pci-ep-bus" sub-node.
-+		 */
-+		child = of_get_child_by_name(np, "pci-ep-bus");
-+		if (!child)
-+			return;
-+		of_node_put(child);
-+
-+		/*
-+		 * Update the ranges property, defining an entry for each
-+		 * BAR, mapping BAR offsets to the PCI bus address based
-+		 * on the BAR's assigned range.
-+		 */
-+		if (!of_pci_update_endpoint_node_ranges(pdev))
-+			dev_err(dev, "failed to update ranges property\n");
-+
- 		return;
-+	}
- 
- 	/* Check if there is device tree node for parent device */
- 	if (!pdev->bus->self)
-@@ -794,7 +867,7 @@ void of_pci_make_dev_node(struct pci_dev *pdev)
- 
- 	np->data = cset;
- 
--	ret = device_add_of_node(&pdev->dev, np);
-+	ret = device_add_of_node(dev, np);
- 	if (ret)
- 		goto out_revert_cset;
- 
-diff --git a/drivers/pci/of_property.c b/drivers/pci/of_property.c
-index 9f30b3c09a730..8e1548c4aac3c 100644
---- a/drivers/pci/of_property.c
-+++ b/drivers/pci/of_property.c
-@@ -116,7 +116,7 @@ static int of_pci_prop_bus_range(struct pci_dev *pdev,
-  *
-  * Caller is responsible for ensuring the returned pointer gets freed.
-  */
--static u32 *of_pci_build_prop_ranges(struct pci_dev *pdev, u32 *count)
-+u32 *of_pci_build_prop_ranges(struct pci_dev *pdev, u32 *count)
+-static inline bool is_node_folio(struct folio *folio)
++static inline bool is_node_folio(struct f2fs_sb_info *sbi, struct folio *folio)
  {
- 	bool bridge_device = pci_is_bridge(pdev);
- 	struct of_pci_range_entry *entries;
-diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index 2e33d3bd4b0ba..1461e52777532 100644
---- a/drivers/pci/pci.h
-+++ b/drivers/pci/pci.h
-@@ -1318,6 +1318,7 @@ struct of_changeset;
- #ifdef CONFIG_PCI_DYNAMIC_OF_NODES
- void of_pci_make_dev_node(struct pci_dev *pdev);
- void of_pci_remove_node(struct pci_dev *pdev);
-+u32 *of_pci_build_prop_ranges(struct pci_dev *pdev, u32 *count);
- int of_pci_add_properties(struct pci_dev *pdev, struct of_changeset *ocs,
- 			  struct device_node *np);
- void of_pci_make_host_bridge_node(struct pci_host_bridge *bridge);
+-	return folio->mapping == NODE_MAPPING(F2FS_F_SB(folio));
++	return folio->mapping == NODE_MAPPING(sbi);
+ }
+ 
+ static inline bool is_sbi_flag_set(struct f2fs_sb_info *sbi, unsigned int type)
+@@ -4063,7 +4063,7 @@ enum node_type;
+ 
+ int f2fs_check_nid_range(struct f2fs_sb_info *sbi, nid_t nid);
+ bool f2fs_available_free_memory(struct f2fs_sb_info *sbi, int type);
+-bool f2fs_in_warm_node_list(struct folio *folio);
++bool f2fs_in_warm_node_list(struct f2fs_sb_info *sbi, struct folio *folio);
+ void f2fs_init_fsync_node_info(struct f2fs_sb_info *sbi);
+ void f2fs_del_fsync_node_entry(struct f2fs_sb_info *sbi, struct folio *folio);
+ void f2fs_reset_fsync_node_info(struct f2fs_sb_info *sbi);
+diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+index aedb45c8ee4a..c70deac9f1a3 100644
+--- a/fs/f2fs/gc.c
++++ b/fs/f2fs/gc.c
+@@ -1431,7 +1431,7 @@ static int move_data_block(struct inode *inode, block_t bidx,
+ 						F2FS_BLKSIZE(fio.sbi));
+ 
+ 		folio_lock(mfolio);
+-		if (unlikely(!is_meta_folio(mfolio) ||
++		if (unlikely(!is_meta_folio(fio.sbi, mfolio) ||
+ 			     !folio_test_uptodate(mfolio))) {
+ 			err = -EIO;
+ 			f2fs_folio_put(mfolio, true);
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index 8c150d4966e5..f16144b75d11 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -332,10 +332,10 @@ static unsigned int __gang_lookup_nat_set(struct f2fs_nm_info *nm_i,
+ 							start, nr);
+ }
+ 
+-bool f2fs_in_warm_node_list(struct folio *folio)
++bool f2fs_in_warm_node_list(struct f2fs_sb_info *sbi, struct folio *folio)
+ {
+-	return is_node_folio(folio) && IS_DNODE(F2FS_F_SB(folio), folio) &&
+-					is_cold_node(F2FS_F_SB(folio), folio);
++	return is_node_folio(sbi, folio) && IS_DNODE(sbi, folio) &&
++					is_cold_node(sbi, folio);
+ }
+ 
+ void f2fs_init_fsync_node_info(struct f2fs_sb_info *sbi)
+@@ -1296,7 +1296,7 @@ int f2fs_truncate_inode_blocks(struct inode *inode, pgoff_t from)
+ 			goto fail;
+ 		if (offset[1] == 0 && get_nid(sbi, folio, offset[0], true)) {
+ 			folio_lock(folio);
+-			BUG_ON(!is_node_folio(folio));
++			BUG_ON(!is_node_folio(sbi, folio));
+ 			set_nid(sbi, folio, offset[0], 0, true);
+ 			folio_unlock(folio);
+ 		}
+@@ -1612,7 +1612,7 @@ static struct folio *__get_node_folio(struct f2fs_sb_info *sbi, pgoff_t nid,
+ 
+ 	folio_lock(folio);
+ 
+-	if (unlikely(!is_node_folio(folio))) {
++	if (unlikely(!is_node_folio(sbi, folio))) {
+ 		f2fs_folio_put(folio, true);
+ 		goto repeat;
+ 	}
+@@ -1731,7 +1731,7 @@ static struct folio *last_fsync_dnode(struct f2fs_sb_info *sbi, nid_t ino)
+ 
+ 			folio_lock(folio);
+ 
+-			if (unlikely(!is_node_folio(folio))) {
++			if (unlikely(!is_node_folio(sbi, folio))) {
+ continue_unlock:
+ 				folio_unlock(folio);
+ 				continue;
+@@ -1841,7 +1841,7 @@ static bool __write_node_folio(struct folio *folio, bool atomic, bool do_fsync,
+ 				f2fs_need_dentry_mark(sbi, ino_of_node(sbi, folio)));
+ 
+ 	/* should add to global list before clearing PAGECACHE status */
+-	if (f2fs_in_warm_node_list(folio)) {
++	if (f2fs_in_warm_node_list(sbi, folio)) {
+ 		seq = f2fs_add_fsync_node_entry(sbi, folio);
+ 		if (seq_id)
+ 			*seq_id = seq;
+@@ -1965,7 +1965,7 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
+ 
+ 			folio_lock(folio);
+ 
+-			if (unlikely(!is_node_folio(folio))) {
++			if (unlikely(!is_node_folio(sbi, folio))) {
+ continue_unlock:
+ 				folio_unlock(folio);
+ 				continue;
+@@ -2023,7 +2023,7 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
+ 		f2fs_debug(sbi, "Retry to write fsync mark: ino=%u, idx=%lx",
+ 			   ino, last_folio->index);
+ 		folio_lock(last_folio);
+-		if (unlikely(!is_node_folio(last_folio))) {
++		if (unlikely(!is_node_folio(sbi, last_folio))) {
+ 			f2fs_folio_put(last_folio, true);
+ 			ret = -EAGAIN;
+ 			goto out;
+@@ -2101,7 +2101,7 @@ void f2fs_flush_inline_data(struct f2fs_sb_info *sbi)
+ 
+ 			folio_lock(folio);
+ 
+-			if (unlikely(!is_node_folio(folio)))
++			if (unlikely(!is_node_folio(sbi, folio)))
+ 				goto unlock;
+ 			if (!folio_test_dirty(folio))
+ 				goto unlock;
+@@ -2173,7 +2173,7 @@ int f2fs_sync_node_pages(struct f2fs_sb_info *sbi,
+ 			else if (!folio_trylock(folio))
+ 				continue;
+ 
+-			if (unlikely(!is_node_folio(folio))) {
++			if (unlikely(!is_node_folio(sbi, folio))) {
+ continue_unlock:
+ 				folio_unlock(folio);
+ 				continue;
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index 0b6267d0354e..ffdd2c510b3c 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -4161,7 +4161,7 @@ static void do_write_page(struct f2fs_summary *sum, struct f2fs_io_info *fio)
+ 			__func__, fio->ino, folio->index, type,
+ 			fio->old_blkaddr, fio->new_blkaddr, err);
+ 		folio_end_writeback(folio);
+-		if (f2fs_in_warm_node_list(folio))
++		if (f2fs_in_warm_node_list(fio->sbi, folio))
+ 			f2fs_del_fsync_node_entry(fio->sbi, folio);
+ 		f2fs_bug_on(fio->sbi, !is_set_ckpt_flags(fio->sbi,
+ 							CP_ERROR_FLAG));
 -- 
-2.53.0
+2.49.0
 
