@@ -1,264 +1,151 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB27B46D56E;
-	Thu, 10 Sep 2026 11:25:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 27C1C47255C;
+	Thu, 10 Sep 2026 11:25:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789039509; cv=none; b=K7cFWpd1B9GoHFJC3fmYuD06RnLT3+quh00JicwzIKBBOuM9tCpypmS0kDIB+y0CWnes3ZfI2crATi+CKcg+HXnI/VN6odCkMLgR5y51OvpG2ylxEOpDkxceKdKfLc23EN8M/K7gEpPhH7G+giMVxI+E4FR8q+gBRhYqki/1/fM=
+	t=1789039513; cv=none; b=X9XbNaXV/UsmLEFNsNRjQ2AzbdEReschOGTaajV8kTOfC3L3J2KaZ0Uwp9yBj3VpKBm5s2dQsT9vHebspkGQuFymxJHJ2z178b/anbIEsYWNqsW/9Vebm7+Wki3H+0LyWlPPBQuUykwI7G/ys7vuKu9BflSMc1SC1RjJn4KYnGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789039509; c=relaxed/simple;
-	bh=Ok2rWjqDwyoQUWviMsDqNihKaJmVy/EFBU5yzCIP6KA=;
+	s=arc-20240116; t=1789039513; c=relaxed/simple;
+	bh=bUjVsfpDZcgmzBY7GROwv4WXzBSIWvoSj7+OppCPLvo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hQv/2uyMDBEa9oEq7ewGLhDqRkAt2qRzGUdeFcXPPlB7hawkJO9F1la7aGvI+KPz3qol2pSzRbdI471yO+Yb+GzV8wdvqCysUQUbiK8kNDH9guTOOpgA0L/rSX1f+vbQvFJVwpS2ulQD8qOpkuvd6TKQ7KxVIhDt+RYPgWZBPHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=t5j8XbhQ; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=KQ0rH2MX; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=sWm6MCGI; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=uims9Jbt; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	 Content-Type:Content-Disposition:In-Reply-To; b=YSRLkR7L/TtcUXjAnwqYM3nbJ/g+PFL3M2fhYWdxMprfhdmwklFPhDJNkPFRx+YPet59XtRoFT/0NIxJUPBTgl2nRwEiflqrNfDZw65qqXdxlEJ3SHW2GzZ5wuQWiKlyjvNu2/j7KYJ2n4qWDqEPhoQ1LcGfDUqaPAubxVe9mww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=LWpqWq0C; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="t5j8XbhQ";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="KQ0rH2MX";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="sWm6MCGI";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="uims9Jbt"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 808E621C15;
-	Thu, 10 Sep 2026 11:24:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789039501; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PPN1BA8/VlwYKG9BYv9LeApz8G2/avpXWiTxQBOb5FI=;
-	b=t5j8XbhQgEKCpoUU5ZC4JxMiQMklEuM+OHnH/ZXiSchomhMCJklPwxNLoCbM6TEdSH8Ybp
-	BpXaXr+awQh9XpdyL9Xlk9T8SIffKTFuX1z54KVR6CVvIEGRylMMsyOW4xm8neF9+efrbU
-	g3Y7XwhHosFlKEpAjg1LEq6aniNyUFM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789039501;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PPN1BA8/VlwYKG9BYv9LeApz8G2/avpXWiTxQBOb5FI=;
-	b=KQ0rH2MXraL/UOZwVElkZQDdJByn0AnBw6HJ5PHG8OV1MPyFWjZdiMLa3sN7QVktpCZE3W
-	gQ43Lp1bDBR7+TBw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789039497; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PPN1BA8/VlwYKG9BYv9LeApz8G2/avpXWiTxQBOb5FI=;
-	b=sWm6MCGIfrlDqlHXV8pzBeLbiAeYCwYicqxvkTgCAIavcFniTHvVsEK32JDjmv0t03/5NQ
-	ji1RuiAV5pgKjaSA3WWd9gmmqfLnfB45gx8ZBboJ09US1RcPjsdxLJDXtgiH/0KPuhpsLX
-	6rDtiJ8hrq27McEf3INF6jU9VWbDo/c=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789039497;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PPN1BA8/VlwYKG9BYv9LeApz8G2/avpXWiTxQBOb5FI=;
-	b=uims9JbtpdBbtS6EqJAA5f+UCkkMipwfIKyUFZmnvnaJ6lL5zd9IwvdulumwNBKz+DItQM
-	BbK3UOb/947YFHCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4B1581321C;
-	Thu, 10 Sep 2026 11:24:57 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id sNlKEomTomq3CQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 10 Sep 2026 11:24:57 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id D1F32A12EA; Thu, 10 Sep 2026 13:24:52 +0200 (CEST)
-Date: Thu, 10 Sep 2026 13:24:52 +0200
-From: Jan Kara <jack@suse.cz>
-To: "Patrick Lu (Anthropic)" <perf.patrick.lu@gmail.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Tejun Heo <tj@kernel.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Dennis Zhou <dennis@kernel.org>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] writeback: bound cleanup_offline_cgwb() rescans by
- rotating b_attached
-Message-ID: <vciagp74qvys2zdbsfcr2brhbv4uyabvm67czm255ascytesjz@n6q775zxxwvb>
-References: <20260909-wb-cgwb-rotate-v1-1-f2eb994d2a46@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="LWpqWq0C"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C3179153B;
+	Thu, 10 Sep 2026 04:25:07 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7A06E3F528;
+	Thu, 10 Sep 2026 04:25:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789039511; bh=bUjVsfpDZcgmzBY7GROwv4WXzBSIWvoSj7+OppCPLvo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=LWpqWq0CrMWof9QLnwbGJYPVmUIlhn1D0Yzrc/G5UkATJmpaYm3u0RxDex0YwMmjx
+	 Y1KrMDqWG4txvyHTU0XP4Yh22k5k3dLc0VRguF/0dfVMjCKk1y3nFfahfoL8kaPRZt
+	 FL6NAADXiEt0r7gFE2bpjJbM+WnaA0Jw+Xv7xQxg=
+Date: Thu, 10 Sep 2026 12:25:06 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/3] kselftest: mm: replace usage of /proc/self/smaps
+ for check_huge_xxx() helper
+Message-ID: <aqKTkkK0wnm6cqpX@e129823.arm.com>
+References: <20260907-fix_split-v5-0-822b810458bc@arm.com>
+ <20260907-fix_split-v5-2-822b810458bc@arm.com>
+ <956df69d-8c0a-420f-889e-7df2842605dc@kernel.org>
+ <aqKMVUDvN8bBpwVS@e129823.arm.com>
+ <1968ed37-3836-44df-a266-9a37219c2f6f@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260909-wb-cgwb-rotate-v1-1-f2eb994d2a46@gmail.com>
-X-Spam-Score: -2.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
-X-Spam-Flag: NO
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1968ed37-3836-44df-a266-9a37219c2f6f@kernel.org>
 
-On Wed 09-09-26 18:50:27, Patrick Lu (Anthropic) wrote:
-> cleanup_offline_cgwb() prepares at most WB_MAX_INODES_PER_ISW inodes
-> per call and is called again until the dying wb is drained, but every
-> call walks wb->b_attached from the head. Inodes already prepared (they
-> stay on the list with I_WB_SWITCH set until the switch worker runs) and
-> inodes that cannot be switched (I_FREEING, I_WILL_FREE, !SB_ACTIVE,
-> DAX, already on the target wb) stay at the head, so each pass rescans a
-> growing prefix under wb->list_lock and a full drain is quadratic in the
-> number of attached inodes. With ~17M inodes attached to one dying cgwb
-> we have seen this end in soft lockups, with CPUs reported stuck for
-> 21-48s.
+> On 9/10/26 12:54, Yeoreum Yun wrote:
+> >> On 9/7/26 10:19, Yeoreum Yun wrote:
+> >>> Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
+> >>> glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
+> >>> made by memalign().
+> >>>
+> >>> The underlying VMA may start at a different address from the aligned
+> >>> address returned by memalign(). Furthermore, a subsequent
+> >>> madvise(MADV_HUGEPAGE) call does not split the VMA because the flag is
+> >>> already set.
+> >>>
+> >>> This causes split_huge_page_test to fail because the check_huge_xxx()
+> >>> helpers incorrectly require the address returned by memalign() to
+> >>> match the VMA start address reported in /proc/self/smaps.
+> >>>
+> >>> Instead of relying on /proc/self/smaps, use /proc/self/pagemap and
+> >>> /proc/kpageflags to detect huge-page mappings and large folios:
+> >>>
+> >>>   1. If hpage_size == pmd_pagesize, check PAGE_IS_HUGE instead of
+> >>>      using check_large_folios(), since only the mapping type matters.
+> >>>      This identifies PMD-mapped huge pages.
+> >>>   2. Otherwise, use check_large_folios() to detect large folios. This
+> >>>      covers mTHP cases.
+> >>>   3. Check the folio flags according to the type of huge page.
+> >>>
+> >>> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> >>> Suggested-by: Zi Yan <ziy@nvidia.com>
+> >>> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> >>> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> >>> Tested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> >>> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> >>> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> >>> ---
+> >>>  tools/testing/selftests/mm/vm_util.c | 145 ++++++++++++++++++++++-------------
+> >>>  tools/testing/selftests/mm/vm_util.h |   1 +
+> >>>  2 files changed, 92 insertions(+), 54 deletions(-)
+> >>>
+> >>> diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
+> >>> index 4821a3563036..dc62ce84e143 100644
+> >>
+> >> [...]
+> >>
+> >>>  
+> >>> -	if (hpage_size == pmd_pagesize)
+> >>> -		return __check_pmd_huge(addr, "AnonHugePages: ", nr_hpages, hpage_size);
+> >>> +static bool check_huge_type(uint64_t categories, uint64_t kpageflags,
+> >>> +			    enum check_huge_type type)
+> >>> +{
+> >>> +	const bool file = categories & PAGE_IS_FILE;
+> >>> +	const bool swapbacked = kpageflags & KPF_SWAPBACKED;
+> >>> +
+> >>> +	switch (type) {
+> >>> +	case CHECK_HUGE_ANON:
+> >>> +		return !file;
+> >>> +	case CHECK_HUGE_FILE:
+> >>> +		return file && !swapbacked;
+> >>> +	case CHECK_HUGE_SHMEM:
+> >>> +		return file & swapbacked;
+> >>> +	}
+> >>
+> >> Why do we even need CHECK_HUGE_SHMEM?
+> >>
+> >> That's really just a legacy thing for using smaps to identify huge pages.
+> >>
+> >> It's sufficient to identify CHECK_HUGE_FILE if you know that you have shmem mapping.
+> >>
+> >> You will not arbitrarily have non-shmem folios in a shmem mapping :)
+> > 
+> > Agree. but there seems the case where discern whethr the mapping is
+> > with regular file or shmem like tmpfs -- khugepaged test where using
+> > __shmem_ops. So I think it would be better to keep this as-is.
+> 
+> Let's not add or maintain unnecessary complexity.
+> 
+> hmem_check_huge can really just become check_huge_file.
+> 
+> Even file_check_huge can just be simplified.
+> 
+> There must be a pretty good reason why we'd want to keep this.
 
-Hum, somehow I've missed this case when fixing slow inode switching couple
-months ago. Likely because I was more focused on the b_dirty_time case back
-then :) since that was what the user was hitting.
+Okay. then I'll change the check_huge_shmem() to check_huge_file()
+with the separate patch.
 
-> Move every scanned inode to the tail of b_attached, so the next pass
-> starts where the previous one stopped and the drain becomes linear.
-> b_attached is unordered and isw_prepare_wbs_switch() is its only
-> walker, so nobody else sees the reorder. b_dirty_time is ordered by
-> expiry for move_expired_inodes() and keeps its current scan.
-
-OK, but isn't there the very same quadratic behavior problem with
-b_dirty_time scan which you don't touch (and where your trick cannot work)?
-
-								Honza
-
-> 
-> Fixes: c22d70a162d3 ("writeback, cgroup: release dying cgwbs by switching attached inodes")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Patrick Lu (Anthropic) <perf.patrick.lu@gmail.com>
-> ---
-> Seen in production on a 6.18-based kernel: with ~17M inodes attached
-> to one dying cgwb, a node spent 36 minutes in back-to-back
-> wb->list_lock holds by the cleanup scanner (~6ms each, ~46% of wall
-> time, starving writeback on that wb); with this patch the same workload
-> drains in ~30 seconds. Also seen on stock Amazon Linux 2023 6.12.68 as
-> isw workers spinning on the list_lock in inode_switch_wbs_work_fn()
-> while cleanup_offline_cgwbs_workfn() runs.
-> 
-> Tested with a QEMU A/B setup at 100k attached inodes and patched vs
-> unpatched on production-class hardware at ~17M attached inodes.
-> 
-> Josef Bacik's patch making the drain loop report a Tasks-RCU quiescent
-> state [1] fixes BPF/ftrace detach stalls behind the same drain; this
-> patch bounds the walk itself. The two are independent.
-> 
-> [1] https://lore.kernel.org/linux-mm/20260909-cgwb-tasks-rcu-qs-v1-1-967a7754771f@toxicpanda.com/
-> ---
->  fs/fs-writeback.c | 39 ++++++++++++++++++++++++++++-----------
->  1 file changed, 28 insertions(+), 11 deletions(-)
-> 
-> diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
-> index e744f9f9d43f..69a452b12b12 100644
-> --- a/fs/fs-writeback.c
-> +++ b/fs/fs-writeback.c
-> @@ -725,21 +725,37 @@ static void inode_switch_wbs(struct inode *inode, int new_wb_id)
->  
->  static bool isw_prepare_wbs_switch(struct bdi_writeback *new_wb,
->  				   struct inode_switch_wbs_context *isw,
-> -				   struct list_head *list, int *nr)
-> +				   struct list_head *list, bool rotate, int *nr)
->  {
-> -	struct inode *inode;
-> +	struct inode *inode, *tmp;
-> +	LIST_HEAD(scanned);
-> +	bool full = false;
-> +
-> +	list_for_each_entry_safe(inode, tmp, list, i_io_list) {
-> +		/*
-> +		 * Rotate scanned inodes to the tail so the next scan resumes
-> +		 * at unscanned ones instead of re-walking an ever-growing
-> +		 * prefix of prepared and skipped inodes.  b_dirty_time is
-> +		 * expiry-ordered and so must not be rotated.
-> +		 */
-> +		if (rotate)
-> +			list_move_tail(&inode->i_io_list, &scanned);
->  
-> -	list_for_each_entry(inode, list, i_io_list) {
->  		if (!inode_prepare_wbs_switch(inode, new_wb))
->  			continue;
->  
->  		isw->inodes[*nr] = inode;
->  		(*nr)++;
->  
-> -		if (*nr >= WB_MAX_INODES_PER_ISW - 1)
-> -			return true;
-> +		if (*nr >= WB_MAX_INODES_PER_ISW - 1) {
-> +			full = true;
-> +			break;
-> +		}
->  	}
-> -	return false;
-> +	if (rotate)
-> +		list_splice_tail(&scanned, list);
-> +
-> +	return full;
->  }
->  
->  /**
-> @@ -747,8 +763,9 @@ static bool isw_prepare_wbs_switch(struct bdi_writeback *new_wb,
->   * @wb: target wb
->   *
->   * Switch all inodes attached to @wb to a nearest living ancestor's wb in order
-> - * to eventually release the dying @wb.  Returns %true if not all inodes were
-> - * switched and the function has to be restarted.
-> + * to eventually release the dying @wb.  Returns %true if the scan stopped
-> + * early after making progress; the caller should call again to continue
-> + * draining.
->   */
->  bool cleanup_offline_cgwb(struct bdi_writeback *wb)
->  {
-> @@ -783,13 +800,13 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
->  	 * bandwidth restrictions, as writeback of inode metadata is not
->  	 * accounted for.
->  	 */
-> -	restart = isw_prepare_wbs_switch(new_wb, isw, &wb->b_attached, &nr);
-> +	restart = isw_prepare_wbs_switch(new_wb, isw, &wb->b_attached, true, &nr);
->  	if (!restart)
->  		restart = isw_prepare_wbs_switch(new_wb, isw, &wb->b_dirty_time,
-> -						 &nr);
-> +						 false, &nr);
->  	spin_unlock(&wb->list_lock);
->  
-> -	/* no attached inodes? bail out */
-> +	/* nothing to switch? bail out */
->  	if (nr == 0) {
->  		atomic_dec(&isw_nr_in_flight);
->  		wb_put(new_wb);
-> 
-> ---
-> base-commit: e14d4302cbd0de773960bec33c2281508c8d8855
-> change-id: 20260909-wb-cgwb-rotate-f17a75facfdc
-> 
-> Best regards,
-> --  
-> Patrick Lu (Anthropic) <perf.patrick.lu@gmail.com>
-> 
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Sincerely,
+Yeoreum Yun
