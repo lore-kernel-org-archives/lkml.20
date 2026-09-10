@@ -1,169 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A722C234E;
-	Thu, 10 Sep 2026 08:08:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C36382DB7B8
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:09:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789027722; cv=none; b=P9b7qwkAZa/oBazezp+gEBOvMSy088S/S3QwsUVrbQP4PS5SNDAuJShp6t5ki9LuAzLP28neaIMMkakUhovpxB5qZekxp0t+ZLs00wpf3qF2//pMAopd6E5WlM91kAIihz9hEkTkgRyK2w5RsYcQmKVTSV+EuAgKlZCYYjOW7GU=
+	t=1789027743; cv=none; b=lZD7VBSXqK/4CPREqOntHCOmOjp+pWZbrA6WBUOiJfYv4/DCauOz1LeoOin0ESLDJoipPvaauA4O0wFkjUREtj0NKw4YV0gDcrkbiKSdRSrW35tgP3r9kIiU5C6wAhUskFNEdF6foqMSBV0SehiSCdueHQftaYVFHq7tUkiatSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789027722; c=relaxed/simple;
-	bh=0Dx6Tiafs1bI5WjYxecNRkN9oWTS0ku7QZGgrAHKvtw=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MKXrEYqxl6MBz5AY8HnqsqERsWaQ1UIozyTFewNgGuU5FtqbvLiVxodIzSv+Ip3gEeIMUa/+gz0Edp4RF+80w/kaV8FLhO5PVLpe3eoMaZb0pRvLfSZZ47L7HxN9FDP2B2UEJrVM2qF4EWpbswuBEeuqDzSFo7nxYEMTKbNBKlM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L17xMoND; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789027743; c=relaxed/simple;
+	bh=sZG2eexUBDvxgaq6ysoGTc36spnht+MNulg2i1alcXU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rKkiumgttTPWyluZ24Wz2RbQYWIxym872L1apNugroSr7R2Fa9m1hg6fvEEz1yzV25TFFcgpi3U/jHoUMEEV6VPPVR/47QJf7ZTyV28M3UV1OrMXb0JoYjC+0iql3csXXqyDSFcFjaXMz2qwyFbnogcxBcOWBUl6F+LiyYDso0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pPiRgpa+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UFjQ5zIi; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L17xMoND"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54F071F000FF;
-	Thu, 10 Sep 2026 08:08:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789027721;
-	bh=N/dfTFSYIJI0KlIowkfqgMTTkhWReiFAfFddaWbLYdc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=L17xMoNDAy3MvI6ioQL67gAuAn4CgrGWq61d77/tFvaK0WueetEZOSgspX123gluw
-	 hmDJYmL4zTm2JyjdCHuzTPylhEyQV7U8u38OUoX3b16tBdm4q9Z9kGta8mnvSMYCnM
-	 QEKdYn8aloOUMtGbyDqcm5Xonk9dSZ2//5BOoKjJJA9yBn25u7Tp3uI47zDLvkBov2
-	 ymcquXCCenh4k2WYaesvInTDvJPZmnO2Ps+LIl1QjZLnXLvktJeUBh5GuOwm3uU5NR
-	 whhfeZj2fNZBPIiIA+cj03ofybaMh4dbpVlrADYOZwd4sTk1siM/cB9VFID5Vq7cdH
-	 c6jolalH6VClw==
-Subject:
- Re: [PATCH] dt-bindings: net: snps,dwmac: allow stmmaceth-ocp reset name
-From: netdev-bot+sashiko@kernel.org
-To: muhammad.nazim.amirul.nazle.asmade@altera.com
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, dinguyen@kernel.org, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, peppe.cavallaro@st.com, joabreu@synopsys.com,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Thu, 10 Sep 2026 08:08:39 +0000
-Message-ID: <178902771990.219967.12244559692120688678@kernel.org>
-In-Reply-To:
- <20260909080559.2028-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
-References:
- <20260909080559.2028-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pPiRgpa+";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UFjQ5zIi"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A5GrBG3520301
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:09:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	P7BTTddhf4N5PrxHybbjlwH7viQ1O+pT1zz2AMFb7tw=; b=pPiRgpa+i0kXlw4m
+	fqepclc9pletqlBQvxnlcD3vbXxI7ffdS3JSAZ6LpjwntoyNwWtXmEKxEQjxoxKU
+	i20i/xkYq+Qbakow9oTJDl44ledqUtNTXWv5ptACP/Owae0VzEI/2LWcDzrlQ+z8
+	Qi2lygGNGUGeHjBcEtx4ceEaPzvtRmWlqiB3fYBhcbirDV2hBWcVjvFdnGlWkFyx
+	06jgq3AIN2EOUIvox3B40s0qrSTx5K+RUgg0OmNad4cAqA5D97+upvOD5bxaPJTH
+	wftptOlTkGJJIl1i9KCxulqNDdbgsnWcdfzGH3aFk8upu0uiTXqwd0SEFfCw45yA
+	fJjunQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyfjv4c-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:09:00 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-934a8cd3a8bso129004985a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:09:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789027740; x=1789632540; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P7BTTddhf4N5PrxHybbjlwH7viQ1O+pT1zz2AMFb7tw=;
+        b=UFjQ5zIiTxL2Hhr3U9xhbMULcTapKWRVYybuHlT2X0v0jCvZxI0vwM1uorHFX/gOwj
+         xmx8gmErQc2DCycx8KyWcKWC24eH+14A4SWzYAY9m2zcIJCRtzxlC1UCSSaf+vUkR5fT
+         n898IhLQ54zAPXhiOq2RSU0aYZKlwmBJiOcUUz3ccJWIC4z4+s+eZQfediDuZEOhmiLw
+         F4QCHU565iSXfMOUSdfs3kkWsycmZQj/JLto8X8iPp2Y2F+Fj45+1OY+4yjLMWY649ii
+         7EzigQE7uqODhSzTOdmJe9B03/HKgwsn4YPoS0qp+ZosWyA3tDv1P7UiuQASGe05tJYy
+         wFfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789027740; x=1789632540;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P7BTTddhf4N5PrxHybbjlwH7viQ1O+pT1zz2AMFb7tw=;
+        b=DzSfb7KiiWRljU55HAtIa/QlkXW1J4m/hxKFXXkk7zYes3w3G3Fuojv98iAxboMl93
+         WcP6TiC4lqtpALUiVfs9Bi271SrhFG7A1CxMewWSqlGLwWQn2UlAjg0UZtObuLC3HO0I
+         YeH4StGKE3C6c3dOAMoo10Tgi8aFvc7FNvDElvjV/JqLM5l2TaaRxyMY/3s7liBVpwY8
+         IZpCy+f2zwZp0kSHDkAWCJiLHU8XhzlhYCheR5thkXqTGpy2rElB7Yz0QsmECA7QMfyJ
+         GW9ug1jmUerjcrU/tm+xjNwm7HUgN2Jdx1V5jdE3gA0pwP/OiN4lczlAdn3MKC2PvAXf
+         Fmyw==
+X-Forwarded-Encrypted: i=1; AKwUvBxRuo7zZaHJJuYZfTSTUpgli08BlkPQxXignxx+uHqOcNPQHhlZpN9l+p6cZEfNa6fVmCvvUywVqT6vrRU=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9liy7+cCcVb9jSNakhZWQPntE2sFqDb8trUluBTohBMQWr3mB
+	Y45FeSpcARmRs3FbbczVT4gGxauF7XHS4Tx6llZj01YWBrQKzFKCVNct2H3kGYFsWa7ANVjY3Y2
+	RgxXcCUeZKbfWSPBwFOAp4bwWSKOv5trK1hQJC9hDjgazLPQPU6Rd/ekvWvcUo5VmWa4=
+X-Gm-Gg: AYBFou32cOjIIsKh/lGZUjU3Bu0yPnG+RSEP6FO6BZvG2KolUUsowCLVZ5CL1iO2d0W
+	hU6ng0RAB5lnWZw6Lc2EAYiZwNaIatdYCxJoi4DDmfY4li2m1JGN7cPeMr+PeRNuAO3/YLlVnCO
+	qWlD255hZKL5/yjg18CXa3w3ZILCerNXHxFKcIGyrGdn1dYsuJFz7RiWrw7j5nC21glD9M1RT5i
+	U545C056uE7R74rReg9RZl2JzqT+354fgQLPA8aR2a9GJCOX8ZgNbbE2K9OuTBeMGOd9VWqHWu0
+	O4x9mHni9ha/muxtZjI3QZqY7hTq56bXw0w+z3SN79f9imh/9cpNZf6+VLn6UBjNq4aHLv7C4WY
+	zmTc1mt8/+XTmX2JWw2xr9g==
+X-Received: by 2002:a05:620a:4409:b0:939:8bc:8826 with SMTP id af79cd13be357-93991702d25mr3092767185a.2.1789027739723;
+        Thu, 10 Sep 2026 01:08:59 -0700 (PDT)
+X-Received: by 2002:a05:620a:4409:b0:939:8bc:8826 with SMTP id af79cd13be357-93991702d25mr3092763385a.2.1789027739269;
+        Thu, 10 Sep 2026 01:08:59 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a993d6611asm1966906a12.25.2026.09.10.01.08.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Sep 2026 01:08:58 -0700 (PDT)
+Message-ID: <e77d4410-e7fa-4885-9d9f-6dd09fb7cebb@oss.qualcomm.com>
+Date: Thu, 10 Sep 2026 10:08:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] buffer: fix NULL dereference of bh->b_folio in
+ __bh_submit()
+To: Joseph Qi <joseph.qi@linux.alibaba.com>,
+        Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
+        ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+        Srikanth Aithal <Srikanth.Aithal@amd.com>,
+        Luca Weiss <luca.weiss@fairphone.com>, Jan Kara <jack@suse.cz>
+References: <20260902013357.2815214-1-joseph.qi@linux.alibaba.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260902013357.2815214-1-joseph.qi@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA4OCBTYWx0ZWRfX696FaDYW7z2f
+ Iq4epZGdWIcguMIQor8fyuO5vIJAcogCIG1xi7FRjJ2kSDKyOspuKiIyV1Xj7bukjcYL3jIHrfg
+ ecieuau/j9OTO4hETsIpEc86Vo/eH68=
+X-Proofpoint-ORIG-GUID: gXUTVv-xCdHbJf3F3wVTgBN07U-W15EG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA4OCBTYWx0ZWRfX1gjB8dtwWTWH
+ zpRXXUIeuHma85nRWQ7djfxynTa5By6TZWfRXH8F1Z5p5xvYKESY9B6YkM7H4wTk0G+cNLWFQoB
+ xhgRZAn7xP5i/SFib0YkFKwz8Kq+Arc1RsUPUAHD9Cs3P3QyT7P2MzPLEXnV83YwCjyd9IXADZB
+ sOEnX5wJ0c6U7qNnjn+JOmejXICUHCmykkYzqK8kcFDTRz8WODSHTwtk+9kgnspsosJ2N9NmFf3
+ GC1hXpG2BeF/gxkAh0ys4PpE+DLZKo65sWyUCluF0kwHHWc64eSHMxz5A+i5oFrwZPbKTqwDXUr
+ 6ErlC2NDisBhGiG2urXYZlAyU2abzoJb3vhfjnhKXgg94ih1j/B3mYlLUhro0G/jt31UU/PRKDk
+ xjilCOrpAceXHmPL8XIeuN8kj3q87sGkdhZlgZEELvamxkUmJpaFkpoaFNoEvcXwSTGpM7bUnIk
+ s5876PQu83NhcMSQN6w==
+X-Authority-Analysis: v=2.4 cv=H5pOUOYi c=1 sm=1 tr=0 ts=6aa2659c cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=zd2uoN0lAAAA:8 a=6H0WHjuAAAAA:8 a=SRrdq9N9AAAA:8 a=EUspDBNiAAAA:8
+ a=xELAsZIkk1thdxp-Qi8A:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+ a=Soq9LBFxuPC4vsCAQt-j:22
+X-Proofpoint-GUID: gXUTVv-xCdHbJf3F3wVTgBN07U-W15EG
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_02,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 spamscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 bulkscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100088
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
-
-Critical: 0 · High: 0 · Medium: 1 · Low: 0 (1)
-
-- [Medium] The SoCFPGA-only reset name "stmmaceth-ocp" is added
-  unconditionally to the *generic* snps,dwmac.yaml second-reset slot…
-
-Pre-existing issues:
-- [Low] After this patch,
-  Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml…
-
---
-
-dt-bindings: net: snps,dwmac: allow stmmaceth-ocp reset name
-
-The patch relaxes the second entry of reset-names in the generic
-snps,dwmac.yaml schema so that "stmmaceth-ocp" is accepted alongside
-"ahb", and removes the Arria10 TODO note from the Altera SoCFPGA DWMAC
-binding description.
-
-> diff --git a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-> index db93436c96fa..d8f90d36d246 100644
-> --- a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-> @@ -13,8 +13,6 @@ description:
->    This binding describes the Altera SOCFPGA SoC implementation of the
->    Synopsys DWMAC for the Cyclone5, Arria5, Stratix10, Agilex5 and Agilex7
->    families of chips.
-> -  # TODO: Determine how to handle the Arria10 reset-name, stmmaceth-ocp, that
-> -  # does not validate against net/snps,dwmac.yaml.
-
-[Severity: Low]
-This isn't a bug introduced by this patch, but after the TODO is removed
-this file no longer mentions Arria10 anywhere, while the family list in
-the same description block still reads:
-
-  Synopsys DWMAC for the Cyclone5, Arria5, Stratix10, Agilex5 and Agilex7
-  families of chips.
-
-The compatible documented in this same file, altr,socfpga-stmmac-a10-s10,
-is the string used by the Arria10 gmac nodes in
-arch/arm/boot/dts/intel/socfpga/socfpga_arria10.dtsi.  Could Arria10 be
-added to that family list along with dropping the TODO?
-
+On 9/2/26 3:33 AM, Joseph Qi wrote:
+> Commit a2c924c240e7 ("buffer: set BIO_COMPLETE_IN_TASK for dropbehind
+> writeback") added an unconditional folio_test_dropbehind(bh->b_folio) in
+> __bh_submit().  But jbd2 shadow buffers have a NULL b_folio since commit
+> 5febcba29792 ("jbd2: point the shadow buffer at the frozen data
+> directly") made them point b_data at the kmalloced frozen data rather
+> than a folio.  Submitting such a buffer during journal commit oopses:
 > 
->  select:
->    properties:
-> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> index 2449311c6d28..c7f1a7c11c8d 100644
-> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> @@ -174,7 +174,7 @@ properties:
->      minItems: 1
->      items:
->        - description: GMAC stmmaceth reset
-> -      - description: AHB reset
-> +      - description: AHB or OCP reset
+>   BUG: kernel NULL pointer dereference, address: 0000000000000000
+>   RIP: 0010:__bh_submit.constprop.0+0x87/0x120
+>   Call Trace:
+>    jbd2_journal_commit_transaction+0x932/0x1b10
+>    kjournald2+0xb2/0x250
+> 
+> Hit by the ocfs2-testsuite fill_verify_holes test running with
+> data=writeback.
+> 
+> Dropbehind only applies to buffers backed by a folio, so skip the check
+> when b_folio is NULL.
+> 
+> Fixes: 5febcba29792 ("jbd2: point the shadow buffer at the frozen data directly")
+> Tested-by: Srikanth Aithal <Srikanth.Aithal@amd.com>
+> Tested-by: Luca Weiss <luca.weiss@fairphone.com> # sm7225-fairphone-fp4
+> Reviewed-by: Jan Kara <jack@suse.cz>
+> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+> ---
+>  fs/buffer.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/buffer.c b/fs/buffer.c
+> index 427d8a817cd5..f46fa6413032 100644
+> --- a/fs/buffer.c
+> +++ b/fs/buffer.c
+> @@ -1106,7 +1106,8 @@ static void __bh_submit(struct buffer_head *bh, blk_opf_t opf,
 >  
->    reset-names:
->      oneOf:
-> @@ -182,7 +182,7 @@ properties:
->            - enum: [stmmaceth, ahb]
->        - items:
->            - const: stmmaceth
-> -          - const: ahb
-> +          - enum: [ahb, stmmaceth-ocp]
+>  	bio = bio_alloc(bh->b_bdev, 1, opf, GFP_NOIO);
+>  
+> -	if (folio_test_dropbehind(bh->b_folio) && op_is_write(opf))
+> +	if (bh->b_folio && folio_test_dropbehind(bh->b_folio) &&
+> +	    op_is_write(opf))
+>  		bio_set_flag(bio, BIO_COMPLETE_IN_TASK);
 
-[Severity: Medium]
-Should this new name be gated on the Altera compatible instead of being
-allowed for every DWMAC binding?
 
-"stmmaceth-ocp" only has one in-tree consumer,
-drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c:socfpga_dwmac_probe():
+-next has been broken for a week+ already, please pick this up..
 
-	dwmac->stmmac_ocp_rst = devm_reset_control_get_optional(dev, "stmmaceth-ocp");
+Tested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com> # multiple QC boards
 
-The generic parser, stmmac_probe_config_dt() in stmmac_platform.c, only
-ever asks for the second reset by the name "ahb":
-
-	plat->stmmac_ahb_rst = devm_reset_control_get_optional_shared(
-							&pdev->dev, "ahb");
-
-Since every other DWMAC binding (mediatek, rockchip, starfive, st, qcom,
-...) $refs snps,dwmac.yaml, a device tree for one of those platforms can
-now write reset-names = "stmmaceth", "stmmaceth-ocp" and still pass
-dt_binding_check, while no driver on those platforms looks that name up,
-so that reset is never deasserted and validation reports nothing.  Would
-an if/then on the compatible be preferable?  snps,dwmac.yaml already
-carries such blocks (for example the compatible-gated snps,tso: false
-block), and altr,socfpga-stmmac.yaml already has an allOf with an
-if: on altr,socfpga-stmmac-agilex5, which looks like the natural place to
-constrain the Arria10 (altr,socfpga-stmmac-a10-s10) reset naming.
-
-> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> @@ -174,7 +174,7 @@ properties:
->      minItems: 1
->      items:
->        - description: GMAC stmmaceth reset
-> -      - description: AHB reset
-> +      - description: AHB or OCP reset
-
-[Severity: Medium]
-Related to the above: this description now covers two different resets
-with different acquisition semantics in one slot.  The AHB reset is taken
-as a shared control via devm_reset_control_get_optional_shared() in
-stmmac_platform.c, while the OCP reset is taken as an exclusive control
-via devm_reset_control_get_optional() in dwmac-socfpga.c.  Would separate
-per-compatible descriptions make the contract clearer?
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260909080559.2028-1-muhammad.nazim.amirul.nazle.asmade%40altera.com
+Konrad
