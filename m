@@ -1,114 +1,112 @@
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BC1D3C37AF
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:16:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789024607; cv=pass; b=HESokSaD1MZ+PXYLStZr8pRow1ItiVWfA6phfZFRFMdN/AX5YpCKh+JFPoosAsDhIoir6xG2sSI0JVNord+98KBFsaikW9QQ+oS0NO5Nnu1oi7NDL7zb81GwihHpIIZViQs5abtidyRk+q2WoezHfZQMljICFhXAoLEmPfVv8Ho=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789024607; c=relaxed/simple;
-	bh=UjsdrbcYuEZ9m34+mJNQ1HuOS/tJ6PG0a94ysyN0lFM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=H4hCvspbLPsW+tnfFLjpAwplTrvz45ZZLBVkuKLftoaKq0PxGajqhrkvl1FgfC6C10PAJrw2pZtJ3rTfs/QKQmTT0T8Wn84BY/aX+tpCfrAjHYh+AcRYBtMO6QObWszKoBPHLnHKaWPV/vc3ohIXQCh2bwopWHdGA7zt9SWDS8A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E/cn6Iwl; arc=pass smtp.client-ip=209.85.208.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB303BBFD8
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:16:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789024608; cv=none; b=KVpl3H1Lm8lOqxF4nGovJZWuGQqAtapZpX+ejfkrsBAVZsjWc4dKe/zJVhul48HjAsDS9olHbkFtCQmXeFqkUhyjhVXpCeKwBBanOUqskbcVpjK/O7OR5+62W2wo0bwbipEAwgxdYsVyIn9GbLtj+SkfUk4Klg4ok4CREdtoQB0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789024608; c=relaxed/simple;
+	bh=Nr8soLk7HjSX69yt6n4Yu7jzL2a6NtPIuZF2j1MLzYw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YgTfQ1EtUE4q1MRI7buscsfxuo/uK1cO7tEIUiRLrt1D8QflUrV0AfylqiIm67HITtKSmX02DZk4Ok+em6y2KBOLPSK00kPRdmKD5/SE3hxa/UkBw70R8z2Vnt/nomxCrH3fDCpP62aXqrdgj8MBxPeie+5Lis0BadCe4fwzB9o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EXr549fy; arc=none smtp.client-ip=209.85.216.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E/cn6Iwl"
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3a20367cf82so54627161fa.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 00:16:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789024604; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FosjT1mqeYi0w63/6G6CjxV4BL8VQEyM4BysEWdxTNcjsWBFNkP8a3pOyezIerIVzD
-         roSdsRHk0IqDvIkCeX2lJU49kp3gbCC5KfuIIjGHbwgnWbQKtmLsbwsn327VQr4snS4d
-         EdZWJ00aMokaEp+r7QehUP/B1Mx6q5cJBfO6hR3vEfXBP5xMBThCPh62MA6Wi+htBVWQ
-         rLSbGcK7pV9K12XY5bfCj/Qsf3xTV3lG79XaQadL0YQlIT1EliRwWxj0GztNEkiD+ZsG
-         1n5zpZw7zACdhhXQ88eq0YlPCM+BGLgyTpFnbHeonR2fyLS2oaDXmCQWStz9HgrNhsCs
-         4vzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=UjsdrbcYuEZ9m34+mJNQ1HuOS/tJ6PG0a94ysyN0lFM=;
-        fh=M2yAoWr87i/cSPaWw74pD+etK+T9o9LDY23PIzd/zZA=;
-        b=kftJd1voCWQjsVElUP/PNWEWc7NbL2W/2kB9qB/CPzZdHYTeOcUO4khgsK4s4HrcvY
-         TqNJSxQAoYozeSjNFXkEfDq/rvmOS3kCQIZh3Sq+weDy9Prld84Ti58hOxa2nvaH90lN
-         DotwmPsMh5vkTCde6KO05WKFOY1W3PzP7P9efxxNn3xy5nboAPCcgZyAUOwGyPD4TAio
-         1DoyoSdtru0v6cxJrR2bXSlVtf4JvfhdOG/SbdtMkY0wCnsgeTzGXv/A8g3t/nWzHLoj
-         myLS5pzt08DLvNatp4qJz5nGb/LuEWZcm9bK4iysu5fiONQuSw2+z6xZ6svtWZXNihLC
-         wOdQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EXr549fy"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3969e82ff8fso7114371a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 00:16:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789024604; x=1789629404; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UjsdrbcYuEZ9m34+mJNQ1HuOS/tJ6PG0a94ysyN0lFM=;
-        b=E/cn6Iwl8/GWCIxXZ8G1tRxpm0XYE5xhRkNn+WU99GZqPHISawocCzTDDgtXCYPgwJ
-         kcJQUDjpq54CfifQ6b3J6lv+tRiqtr/G030ZwEbwQJvaKnpAJuVCtuTS7zoL3j4OQODH
-         Qjxa9YHcUmYIb1972AirjTRn668ntemP2xxj5hJz0768SGa/UGvwhdimpdn4cdl1LmSl
-         YT6DfrpCI9ftwzTNlgPUEi6QBHmjh+MJsHJxkIzVbMMODhYi9kpKaHOMEh1UGoQs5u2k
-         1DzHtCTLGkWkEvNov9n2ZyNSGDzpJE9lBTvWshK23QJIvPXY+tMWUGOWnGPyZjm+8EJQ
-         Cu0w==
+        d=gmail.com; s=20251104; t=1789024607; x=1789629407; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SySIigzjl9v6ifCPrWGqAFgrXQJf6WaDMYUEkKC20gM=;
+        b=EXr549fyAxAcW28D81QSomtZ8i+W5YeQ/NWMu9uDoNXAqgSmtEn+8AE3GvHxyf7Po5
+         pb7nWl0uVXEQzAlw41VwVm5w1eBbD8BXnWpI18PgjIJBDuc/4lBEI3eTkX/xQ/lku/II
+         tc06YZxxHbIkucCiuAAYp30mQIqIWhterc98t5+VK9RvtMqMyxwYQkhGQtFKmasckdaJ
+         a1Q6ZmF3hn6FcpHOfxF79mwHoBglf6pfJr7vGVmR2geXOXyIR8XxxIFtZG1ioba6tSFh
+         TP1bSWdgUHMMnNs35yr+6+SiY92XijeAxQpurnQuaAi6FX23k7ffI8h3j5TnU4/8mHLF
+         rBFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789024604; x=1789629404;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=UjsdrbcYuEZ9m34+mJNQ1HuOS/tJ6PG0a94ysyN0lFM=;
-        b=G56nYOqbCEIGZ8RFUwN1ez+C9CXG36qOPK1UHwgUcpperKJkEdyWxWxs45Pg9HCzp4
-         YxVbpcYHZGogdaiBdjyOWdqNmYKY4+MHEARrK7CH0y5e89OnYbBfBlI9vn7RrhRMeme0
-         vUeutEnY0s40WiU1c7tFUahIx/SZyYHtyBYF3cQq2KDeZ4z4nCfTr9H6C3BALBXqm/yy
-         ybOBjwT8U9NcdJ7kbKPEY/zHYIU9C4Weu1TlLcaNkx0Jdn0ihJPTqsxivH14zJHo9ikN
-         0A4zKF5OJ1h1Mh34E7dJbFnHnAABzSO2VeiBikH91jhSW2O5/iV4mZXNGM2xGB8gBNvF
-         Y12w==
-X-Forwarded-Encrypted: i=1; AKwUvByHz+SnFaOGyhp8bvMHMLbBzjIzUu4VL4E9LNdFbF8lnjUW3qRw7VYAJILmPdQ/jVv84TpLSsemsJN5WgM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nupNT7TE4Lch1C6o8yqZRlgnCwzxU4dTPGeLxhXzzoWAvvR1b0
-	cx+PT7y46UHUC050mB0MPgyR2KOdtpXsl85WCiAEoi+norBHKM9UipnpeDx7LNq/zNCuQbQv2sz
-	zHwtnIsOUfg0TPmc+5wnMZ4mj12h4Vfc=
-X-Gm-Gg: AYBFou3kffvuT9Kuh0NvBtaueCS0Wouf0W0jOSA53LYihAYPUyqmZ4Bncwdc1sYU16Z
-	i4oDY4vhWaJdh5F5ha4IyBE2V4vtqvzu8bmDdJWiUUEy94dhDpUTZR6d/x5+hILrQUVRV/xz5kY
-	52+3S6FfgjyoiLh98sSgLo1oxdmew6pUZf4pdyh7MrR6WvRdl85bSdqWgc3SGJ9yo5tQQFctVSX
-	S0IY2x7W30cE9bnafAVkMB2zvCJrkFAhm7VX5lXdbCwOXoVuldeHhH5bkJzcz1BjhnkL71aYRQq
-	q4GPYRzfrRobifhHzPVfNv0QhYvYdC5wBZ+36va4AyR70a5Fn6YNNTK33ImvHb/eF6aKv5/Wtxn
-	PWu8fuaTbKz8=
-X-Received: by 2002:a2e:be1d:0:b0:3a4:9b64:9811 with SMTP id
- 38308e7fff4ca-3a49b649b3fmr11090001fa.15.1789024603607; Thu, 10 Sep 2026
- 00:16:43 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789024607; x=1789629407;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SySIigzjl9v6ifCPrWGqAFgrXQJf6WaDMYUEkKC20gM=;
+        b=YwnszQ4v7O/n8WAuv7+UE+3jrB1mj2aW0hF38YMr+7uYw/un7VBFt/7jLWIc2thiN/
+         Rt0FAb/BgeuMzDKK2SBjKildBcVZj7uzjd7lD76JM56nXGRSjoCV9Gaanag8Wj+1EnBY
+         5Q8s2tSvrmqgY0f0/iix3Asb7/+5NLy29Fwej30cePAXCWuxopal2Gb+TI+3wP4/P70D
+         TBeoy+rgZq0JL4NL3++2BEtra34rUmkmcdePYCaMlfq0GI3OEXMezgdjt0YR7+47eXgR
+         TCL5tmqD/h5M43L8hcid501bSbzJelt4rpi4qvOxHWjUthY8jGP8Zo0rGciVIVcjRR/p
+         GFkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxPnyZEOyikuil+DkZlbk4By+ojKumOV62ODSziUncfK2Hu2orJGar50pm5b9DdLEuPAF/eGF0ZUHdHN2U=@vger.kernel.org
+X-Gm-Message-State: AFuF++mZ08CPnTHeJlIgAK7X+XgVHAkwIF45DvrQSfcxFXmx33O9TeGO
+	7EcynsOLjoSQ9PzEg95gBxTcpJIBaI0/9D23eKGHsuCJLra/K4IDZPGq/cxxJp8t
+X-Gm-Gg: AYBFou2jksTR+z41wkvxb4K99lRM+6IDpLSW8kvVZrHRS+h2MJuKkisLSsZqLJAYs5k
+	2nfecfeA6chPBJVu25U7WhMlc64PmXR6+8bwt9YNdvv/cZpjq1WlMGPeA0jnyOcHgdZAfv4ZASM
+	j2yu+TN7dkZN+BFfY7TeWlweoaxEjtLwzTf76EIeibhBi+cALF8Bvghukz5xm01p5h7SOQ66cVd
+	wiMFOFuPB3lVuUOdKLyo3s5YZtBADy/DewrN5+L2fv011K3/Cgkz6QMv3u0WIXcD0qLWk23Pt01
+	766cDuuSDxFRIWbWRg60sk3Mj3FYd/mRlWFaGuovRIJexmK+rEmragtb9u34Zs1S7hpB0YDLQMu
+	GDld8UtoN1q1+8zxEZyxTbwPuP9LibK6Ru7mz2rUsTCS6iBIcgkm6eBV0bjzCjoY2tp7hva3QrR
+	BhsNuuEYeJYz9/3TfSzo2ahh8eNiPjV3zYVwf3vePkl59mjVZ/2n23d4oBEovEznC45hP0qbWBD
+	c9MuAUPJU2FwIokyDyRAnmjDogunbP+YAGMzhWnSwO0C8fD7lEMojCSvjnQd76mYCADzKAOARxA
+	YcwEfyXItLrHaICmYhu+YfYpk7PCWXawBvRAWs7OSIo=
+X-Received: by 2002:a17:90b:52c4:b0:36a:5d1f:7b6 with SMTP id 98e67ed59e1d1-39b260d3375mr58693114a91.2.1789024606785;
+        Thu, 10 Sep 2026 00:16:46 -0700 (PDT)
+Received: from Charlie ([67.169.216.112])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39bae865d2csm3118230a91.1.2026.09.10.00.16.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 00:16:45 -0700 (PDT)
+From: Jeremy Nyberg <slickstretch3.0@gmail.com>
+X-Google-Original-From: Jeremy Nyberg <SlickStretch3.0@gmail.com>
+To: linux-input@vger.kernel.org
+Cc: dmitry.torokhov@gmail.com,
+	linux-kernel@vger.kernel.org,
+	Jeremy Nyberg <SlickStretch3.0@gmail.com>
+Subject: [PATCH] Input: xpad - fix PDP Marvel Xbox 360 controller
+Date: Thu, 10 Sep 2026 00:16:27 -0700
+Message-ID: <20260910071627.236014-1-SlickStretch3.0@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907080831.11281-1-syhuang3@nuvoton.com> <c1f812d6-9938-494f-ae37-e250434a25f7@roeck-us.net>
- <CACW=pY4mpuC1+Z21egn3jJY6jtMhMx1PFFbM+Rcy6giuzXpJ1Q@mail.gmail.com> <3a941922-8728-456a-8e2a-7fa008dd5155@roeck-us.net>
-In-Reply-To: <3a941922-8728-456a-8e2a-7fa008dd5155@roeck-us.net>
-From: Sheng-Yuan Huang <hsyemail2@gmail.com>
-Date: Thu, 10 Sep 2026 15:16:31 +0800
-X-Gm-Features: AcwNN1X4FjemE5ofed7LBWR6jnl8AHuWB-oy0Ch_I1mQhfiWyKKr_gD5QY--0ns
-Message-ID: <CACW=pY4e84hBiJxvLz09r=LD=OfssBFF_tXduUO0YJxqS3xf3A@mail.gmail.com>
-Subject: Re: [PATCH v1] hwmon: (lm75) Add support for Nuvoton NCT7715
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org, Sheng-Yuan Huang <syhuang3@nuvoton.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Jean Delvare <jdelvare@suse.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 09, 2026 at 10:02 PM, Guenter Roeck <linux@roeck-us.net> wrote:
+The PDP Marvel Xbox 360 controller with USB ID 0e6f:0147 is
+incorrectly classified as an Xbox One controller.
 
->
-> Sure, it works, because your code converts the bytes twice, as I said.
-> That doesn't make those conversions necessary.
->
-> Other chips also use 16-bit config registers. Just use the same approach.
->
+With the current XTYPE_XBOXONE classification, the controller is
+detected but produces no input, while its four player LEDs continue
+blinking indefinitely.
 
-Thank you for the detailed guidance and clarification.
-I think I understand it now, and I will send a v2 patch soon.
+Classify USB ID 0e6f:0147 as an Xbox 360 controller instead.
 
-Thanks,
-Sheng-Yuan
+Tested on a PDP Marvel Xbox 360 controller with USB ID 0e6f:0147.
+All inputs register correctly and the player LED indicates the
+current player.
+
+Signed-off-by: Jeremy Nyberg <SlickStretch3.0@gmail.com>
+---
+ drivers/input/joystick/xpad.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/input/joystick/xpad.c b/drivers/input/joystick/xpad.c
+index 2da0b7f17..b7a9a940d 100644
+--- a/drivers/input/joystick/xpad.c
++++ b/drivers/input/joystick/xpad.c
+@@ -215,7 +215,7 @@ static const struct xpad_device {
+ 	{ 0x0e6f, 0x0139, "Afterglow Prismatic Wired Controller", 0, XTYPE_XBOXONE },
+ 	{ 0x0e6f, 0x013a, "PDP Xbox One Controller", 0, XTYPE_XBOXONE },
+ 	{ 0x0e6f, 0x0146, "Rock Candy Wired Controller for Xbox One", 0, XTYPE_XBOXONE },
+-	{ 0x0e6f, 0x0147, "PDP Marvel Xbox One Controller", 0, XTYPE_XBOXONE },
++	{ 0x0e6f, 0x0147, "PDP Marvel Xbox 360 Controller", 0, XTYPE_XBOX360 },
+ 	{ 0x0e6f, 0x015c, "PDP Xbox One Arcade Stick", MAP_TRIGGERS_TO_BUTTONS, XTYPE_XBOXONE },
+ 	{ 0x0e6f, 0x015d, "PDP Mirror's Edge Official Wired Controller for Xbox One", 0, XTYPE_XBOXONE },
+ 	{ 0x0e6f, 0x0161, "PDP Xbox One Controller", 0, XTYPE_XBOXONE },
+-- 
+2.55.0
+
