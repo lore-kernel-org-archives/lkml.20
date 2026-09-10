@@ -1,271 +1,181 @@
-Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com [209.85.217.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1864915B8
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:39:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F62548F015
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:40:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789051186; cv=none; b=dI7TO9ocLJIadXl8a1thCzmBtxh18VIBa+XKkJU/Q/kgPPajUIWUJ+aFl3czrOm6GTkelPIJj8gRv9SRvMrqOtB1mOWIKbX+hVQbPvmkWfs8EDJLWVaEWg85pQun16ra2T/gRsqfkDrlTE0C7E6cWgCDEAarFYmpw5fh+K+8xyI=
+	t=1789051206; cv=none; b=HMGQFaNguPH69DBVkEebNxYp3opT9YqQxX9Bl/LOuuC/iD6i0lOws8R/nKbdqYIcgF8qBJwkWMO2puja/gDJxx4/pbMO62Bs7urPk08H1/GURtvD6yL7bfiIEAOQ8v2TYfPUGyt/KXiGJ5tKR2XEhHT2vpT38xIVCUY6WZwgjRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789051186; c=relaxed/simple;
-	bh=JI4iQGLwydwRjXYc5J1zV7jakad8rFEkuA4tqflhpiU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=R4KFLw+O2/uf3BmmY6Rio1YnfRFGam7CMnpoHNDzRNYSkp9b4F1AFW06oQZUFd1pRwiHdE30pnc3oSHgN2J8TrOo8nWTphEpPnhx5M+oT2eZ/5SJFLe7k0iUNM75dRwGWS3jbbkoXTHfcvkWsb+qPTN4nlb4199w2uS9O+VKmes=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JAQxBpJs; arc=none smtp.client-ip=209.85.217.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789051206; c=relaxed/simple;
+	bh=HOW+Bl2YssPvWFg0IiDPdGdNd9bLdInvIYPJhVjigT4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=rOOlTLCUmQ5B0HXcs4bD0XKhS0NrG5QrK7wvWxdUgpqgf1LzZsgNoxbjpvNxfg3k3IfTLiI++L4JxZp2gjwYjyUhNqYFq+SFHTC4cmGPkz3PCLM19cYRDANlknBjitBQZ0HDfyyluiSq5d3SmTDnKsLlGJ12ndIjspnL4tzqaBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Q3nwvo5l; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=If2k5WjX; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JAQxBpJs"
-Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-779d18ef706so5151812137.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:39:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q3nwvo5l";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="If2k5WjX"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68AC7iit1440817
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:40:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=xWObxD1jMeHBJAyepuPZiT
+	v+MCRov09Ka0F1aUtTOEo=; b=Q3nwvo5lQB+I3mBbM70Z7vohkPNqJZa/2ahlU/
+	reaU2/855o8bhCkQW++bz/Nh6um/i0OAc9XPKGZue1nWoJ/7BMf0Jx0+0gvr0rsJ
+	BmySw45Gm5LVLiWCcEphxxsLv0FkyYV3Wei27vW8aif0Vga/2gnmuEfr9nmceEBR
+	wFV1A4GUHpsxsm1aLgAPzD6oejW3Z0K4uCiFvSim4cVCUvl/OBxgTLrdAMBFAoP6
+	gYNNsIpMiB65sjkNI6pn6ZomLa2D8eUE4KqXOP//BPaZ+4e7PEH2ePAra3J3exII
+	JzSkrtSfTbhOrnBNevfOyCABF24uZ5F6tyvBJXlDiPKuN4rw==
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkqsvswj6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:40:03 +0000 (GMT)
+Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-800d0edbdfeso453560a34.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:40:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789051184; x=1789655984; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y+nHzA7DgJpjRsVKOfOdWebTfWI81vQ4lVsJ7aDwxXU=;
-        b=JAQxBpJswvGnybfSZL23L3VX2vgzXyFgWwMvZw88LCFMVzICIHQnS0YzP0qvK2Vjl1
-         SqFvOUyiwgclPKpgkolNulziwPgj1Z1rgbhMQoQyCenuZs2dyh9S1VsjKDXe9qWa+EsB
-         RVs8tE/LW7UL8vlO5P+ukzNt+QkWbUVk1Gvn4MOoFJ6M/BDPrsRYGXBT2on+5bvOJNTT
-         TdSPU/l/I23/GcgGMfgyQA38/JAI4MvFB2ez5thhJcmXViPSOccncU3q0W+03a7ZGNt+
-         O8Ei8DU0OtIE50ELOQ4qWOthknKz5qoQEt8f9bBE7IGTlBISZpgREiU6RNUY5BOtETdJ
-         MdUw==
+        d=oss.qualcomm.com; s=google; t=1789051203; x=1789656003; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=xWObxD1jMeHBJAyepuPZiTv+MCRov09Ka0F1aUtTOEo=;
+        b=If2k5WjXmzDzjg4UBHIQll7EzJy4KAIQBW9GZiayGgTCfL4dc3flIs3q5nr7cPFIND
+         9VQkkOFPocqzxfgiav8rpYUCy6WCHWS9QX7QGoRRrUgQjq05Y6N1p+mZiZzuAxJjKZuw
+         e07cYvqRRg2NGnUauBB4cxWsRAlL3WkELUNkVYEfdU0hxT6xmHELkHy/NqT5UrOD19c8
+         1izLWsMZ91Cb216pu1Jl0PuJm7leWAg69kXYn0rZFk9jERnIoVZlQddUV96eugm9KgAl
+         GfWz2No7/WSgf7rMwRto4Maq5FhBKSpQqjtuikjJIUoK4Zrzt6yKYhpaTbPBGj5HdR/M
+         yltg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789051184; x=1789655984;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y+nHzA7DgJpjRsVKOfOdWebTfWI81vQ4lVsJ7aDwxXU=;
-        b=J0Gsu2xpuBLSm08U/IqqyDje8FK7hW4dAeNCIBEh0OU4cvGiQwUj5bAroaHNfIHt0l
-         jijhwGmjDBcvUMzzT7BnH//6wiag2G1Pa7R/2mTJy4OkcYgpUcN/txcZZoNS0cWc/iGD
-         VgbRbBTjoJcExYFPDSS48ESNpqRRF42/p9h6YmCTQF67H6f9mcNZ19z0gtl0Hq5j/vfU
-         AUo2MGsTPiKOX2vlRnxy+1zaPZS8o8vOyff53WiQFUw+snRZEaDe4vM97PmZSBDGk+kT
-         IYU1QWuS5NfFBtJ4kVHMIShQH8BEqg+n2Fqp1/lG+qxjDjolZYByzO30bPKOq9kmZKyv
-         /cNw==
-X-Forwarded-Encrypted: i=1; AKwUvBwEmv88YSyTZKiFqrowYxyNsw1sIQofw1q4K5AVTHUYL0aoVMfk/1VeR/NwnkdjR7lUjuecc97aER/taSo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nuv7EEjq5rdpMhGLKfKQyExnfhYaW0Cpud+bR9DaPigif8QlDq
-	N3FtN0+Y7ILGBclkWZaC8nKtupi7GmCR5vLZUP59otRFz/CMOLVC/iJK
-X-Gm-Gg: AYBFou30PDDp2eL7DVaFcAgwYTIKYwugUCUcxG3DLo362fhcAcoatoefOF9HoJ4PmD3
-	bo7cclXM/UX49jWqqaXLrX45QdPaQkThP2JX8N823XYbUiQ1rVtod8plMZ1H1I49p07EZ3yQfzI
-	Sr8+lmVrUIYuI3gl6cbhV42nBvIoFYfM/OBu3dAtC6emndGb7QNP2D58DwP6Gjo9trqo09+epd0
-	IJx1ctwFep/2E43zmpkOcMwSmKrmIsTWmqIp0MB7axzTS8CTsEpJtwR2aTmOY2TmAaw40N+/y6O
-	Nksd1+nQ4d4a0RzptPl7TmCFrd2yAa2AzH9Ayv4SyKd+/+cE5WB2EhlU2WTEfkukuvqDCkpcROC
-	cyYgwP0pp5CF9j4fK7Yp7jXns53vRM8rcNM1FpDnN73DdU2iPuccpJl+GF2QzyIBDVnL1UKNqf7
-	s6fTUGHgHP3CpiKjg9GKI77Y7T0qid4KrOydFLAIIBfCLnmeMZxgQqk02+pHuFlTGd
-X-Received: by 2002:a05:6102:560c:b0:786:aae:aefc with SMTP id ada2fe7eead31-78a4aa9d9dcmr22415887137.13.1789051183372;
-        Thu, 10 Sep 2026 07:39:43 -0700 (PDT)
-Received: from frese.. ([200.20.225.238])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a47ae301fsm13568251137.7.2026.09.10.07.39.39
+        d=1e100.net; s=20251104; t=1789051203; x=1789656003;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xWObxD1jMeHBJAyepuPZiTv+MCRov09Ka0F1aUtTOEo=;
+        b=LMxE8ImU8yrkf/jSTuaEHsfVo+ErJo9Y//GHn1l+X6lFCPrU6RNV8wCV61wiv2d9d4
+         KcTPHTXopRX2oNB6WJXbWxiFzWQwajg1W9Nc7uaTLOuMBaZQQ2Ss8AHVMY2xVFSy8q13
+         7XhwS6klbONae+kXnfyRQUCA61JSu6ZN83RrLp4aaa/gTUWFIJ2nPwbjE/EIcFcbKXKs
+         ZjY6svrG/EKd2QW7T+gAeikQWbFZkG5Zp7js8PWiUAOwHA7Eoo9jJIIOJmqvIDhsIo9d
+         tXmq8Sl32lt9dkGuKgCt3KUk2J/WAktH5YUQlHaV/KpHS8umpqva7K+HpeylUvLjalfL
+         yG0w==
+X-Forwarded-Encrypted: i=1; AKwUvBwgXZBJNse7O/Y7XVKiFTEtQ4sHBzCnqx7ED7+Bg/p6HGM5PxhUDl6KGMY4GEmi0nRpm8CT8JrUgsTsnpA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lmawqDtFq0OB+/RJpLiXwMxZi6jkLlAYJzv7QcLTCHX6dRwmqG
+	vmfMoTcrad4nwb+tkkf4PBpXwjeGy0FjJnAEPfopjYB2KEgstrudjihVZP1RpD3bcuFtakU3orZ
+	MxRPYBsA4Gdqg+rWU5uOy6UX7zufdNPaToI0khJwcPdd5BW4reQuoAGKeWVuvAqlxjFU=
+X-Gm-Gg: AYBFou1nB/tza1mBcR0GGPm1314EKupfdbip9MySv3jgDCVT/X/uawckKoXG2Ejm3Cn
+	/IwbGBzQ1WNAPcLVOQUyjPLiH9LZymG1JsWwHbBZ1lDCXb5JspF+/JUIiL7rZ7spJ4+reQzqxu5
+	c+og4/NS2ShgTkcH9WGzoWa/hD/oh8C8lBuS78YLn3k9OncTxKJ/yULk29YE1a+C2kdwzgF4koo
+	ZjIxuxwB5gW/SWgBiuGxcuvH6IEy2dFsVjrFnWwt8LbwkrnqRiUNHZS/bkBrq1dzgJm/V9sg8zV
+	OsJ7nxbYNuduwha/DYG+LkLLoMpO0sTNMkr+X4gtnPW+fK07oIUQQYLJwpK8H+1KuzJfOZ/hgAP
+	k4NH/N2aSilo3HfY23gLzoQGxfjtceHrheFvE4FTmU/IulPQ=
+X-Received: by 2002:a05:6830:a149:10b0:800:716a:dcbf with SMTP id 46e09a7af769-800716add73mr6074984a34.3.1789051203186;
+        Thu, 10 Sep 2026 07:40:03 -0700 (PDT)
+X-Received: by 2002:a05:6830:a149:10b0:800:716a:dcbf with SMTP id 46e09a7af769-800716add73mr6074962a34.3.1789051202733;
+        Thu, 10 Sep 2026 07:40:02 -0700 (PDT)
+Received: from hu-zijuhu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7fa02cddc41sm20740155a34.22.2026.09.10.07.40.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 07:39:42 -0700 (PDT)
-From: Enzo Frese <freseenzo@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: Enzo Frese <freseenzo@gmail.com>,
-	Jennifer Guo <guojy.bj@gmail.com>,
-	Andrei Khomenkov <khomenkov@mailbox.org>,
-	Dan Carpenter <error27@gmail.com>,
-	Dalvin-Ehinoma Noah Aiguobas <fliegbert2@gmail.com>,
-	Michael Straube <straube.linux@gmail.com>,
-	=?UTF-8?q?Michael=20Steinm=C3=B6tzger?= <m.steinmoetzger@gmail.com>,
-	Navaneeth K <knavaneeth786@gmail.com>,
-	Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>,
-	linux-staging@lists.linux.dev (open list:STAGING SUBSYSTEM),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] staging: rtl8723bs: avoid CamelCase in odm_DynamicBBPowerSaving.c
-Date: Thu, 10 Sep 2026 11:38:47 -0300
-Message-ID: <20260910143857.154320-1-freseenzo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Thu, 10 Sep 2026 07:40:02 -0700 (PDT)
+From: Zijun Hu <zijun.hu@oss.qualcomm.com>
+Subject: [PATCH BlueZ v4 0/3] BlueZ: Support vendor packets
+Date: Thu, 10 Sep 2026 07:39:54 -0700
+Message-Id: <20260910-vendor_hci-v4-0-b953ce117d12@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADrBomoC/3XN3wrCIBQG8FcZXufwT87ZVfQYRYSpa8Y2Szcpx
+ t49WxcRrJsD3+E7vzOCYLw1AWyyEXgTbbCuS2G9yoCqZXcx0OqUAUGkQBwLGE2nnT/VykJclpV
+ iVGguS5AObt5U9jFjB7BrBrMHx886DOerUf0behdrG3rnn/PTiOf6kh8xRFBXRComGcKYb10I+
+ X2QjXJtm6cx+5F8hZKiH4EkQQhEeYEE4/L8R6BfIZV/BJoEhJkuiGRcCbwgTNP0AgAz0/BIAQA
+ A
+X-Change-ID: 20260719-vendor_hci-188fc539d7a8
+To: Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: Zijun Hu <zijun_hu@icloud.com>, linux-bluetooth@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Authority-Analysis: v=2.4 cv=DdOCOftW c=1 sm=1 tr=0 ts=6aa2c143 cx=c_pps
+ a=z9lCQkyTxNhZyzAvolXo/A==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=qgPclA31fA7-HnSu8dwA:9
+ a=QEXdDO2ut3YA:10 a=EyFUmsFV_t8cxB2kMr4A:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDE3NyBTYWx0ZWRfXwCmMiaA1TGOZ
+ rSRoir8L5JO0RpoLRBptZGWwe5x6tTKp8bvbezupYS6SKT0Q6f4EhzjJ3zM0zzUAMxjcL4Ci2DA
+ eaWWj3IQbKR5POR8B//EbW2WPU0mnf7xgbW5UnFHm7dBHig0RlEswygolnfCHaZufivoNVXtGej
+ 8Hz0XftgXk1A9JyFY0jDpbnEN/EPi6i0mI4poTrechkUiMSQQW2G63aAWsR5PuOJc3hE3NUoylk
+ R1eWkBJZ+eKo4OYgSfn7ks1IcBPLomgudtzIA79v3xskei8I8aTXj5bn8b7HdoPjTp8KEAvAtFs
+ zMDeZhWO/JbtnnfeqMMeIaDpt4hYmzj5Co9q2JHnsnZhiJR6qkwbiSfrHzgF+uNgENrRrZr4TKI
+ jUgIhpqBR9BeZcyNlcCfvIDe2yY29agCSU/iq/5rp+zkRM0Id6saPtmYTAeCiY4Hyi6stKIJZLN
+ oPFPj01yrbaPEwuh9zg==
+X-Proofpoint-ORIG-GUID: nkjYv-CHZfW6kM-p-U7SBk2nvaCJsE5s
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDE3NyBTYWx0ZWRfX3UUiNggUMW2G
+ sqVj3ZD26cyNxP0+97MQNBaPlaqaxoigjElaVJS5px7vDQoXZPZEFzLbEtfJAjqxwBnx6JnpwZg
+ ahElKqJdwvSCaugYv1iTfvB0324fGNU=
+X-Proofpoint-GUID: nkjYv-CHZfW6kM-p-U7SBk2nvaCJsE5s
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_04,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 phishscore=0 malwarescore=0 adultscore=0
+ spamscore=0 bulkscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100177
 
-Rename odm_DynamicBBPowerSavingInit to odm_dynamic_bb_power_saving_init,
-and rename local variables and struct ps_t fields (PreCCAState,
-CurCCAState, PreRFState, CurRFState, Rssi_val_min, Reg874, RegC70,
-Reg85C, RegA74, bForceInNormal, Rssi_Up_bound, Rssi_Low_bound) to
-avoid CamelCase, which is not accepted by checkpatch.pl.
+This series adds userspace support for vendor packets, which use
+0xff as their packet type, complementing the kernel change here:
 
-Signed-off-by: Enzo Frese <freseenzo@gmail.com>
+https://lore.kernel.org/all/20260830-btusb_qcc2072-v2-2-5c0e0c9dd98b@oss.qualcomm.com
+
+All commits are straightforward.
+
 ---
- drivers/staging/rtl8723bs/hal/odm.c           |  2 +-
- .../rtl8723bs/hal/odm_DynamicBBPowerSaving.c  | 72 +++++++++----------
- .../rtl8723bs/hal/odm_DynamicBBPowerSaving.h  | 16 ++---
- 3 files changed, 45 insertions(+), 45 deletions(-)
+Changes in v4:
+- Drop doc/hci-protocol: Add BT_RECV_VENDOR_PKT socket option for HCI_CHANNEL_USER
+- Link to v3: https://patch.msgid.link/20260903-vendor_hci-v3-0-015d62a57c91@oss.qualcomm.com
 
-diff --git a/drivers/staging/rtl8723bs/hal/odm.c b/drivers/staging/rtl8723bs/hal/odm.c
-index d18df407e365..e61200a5d6d0 100644
---- a/drivers/staging/rtl8723bs/hal/odm.c
-+++ b/drivers/staging/rtl8723bs/hal/odm.c
-@@ -580,7 +580,7 @@ void ODM_DMInit(struct dm_odm_t *pDM_Odm)
- 
- 	ODM_ClearTxPowerTrackingState(pDM_Odm);
- 
--	odm_DynamicBBPowerSavingInit(pDM_Odm);
-+	odm_dynamic_bb_power_saving_init(pDM_Odm);
- 	odm_DynamicTxPowerInit(pDM_Odm);
- 
- 	odm_SwAntDetectInit(pDM_Odm);
-diff --git a/drivers/staging/rtl8723bs/hal/odm_DynamicBBPowerSaving.c b/drivers/staging/rtl8723bs/hal/odm_DynamicBBPowerSaving.c
-index ed743f6678dc..e5011d1043ee 100644
---- a/drivers/staging/rtl8723bs/hal/odm_DynamicBBPowerSaving.c
-+++ b/drivers/staging/rtl8723bs/hal/odm_DynamicBBPowerSaving.c
-@@ -7,69 +7,69 @@
- 
- #include "odm_precomp.h"
- 
--void odm_DynamicBBPowerSavingInit(void *pDM_VOID)
-+void odm_dynamic_bb_power_saving_init(void *pDM_VOID)
- {
- 	struct dm_odm_t *pDM_Odm = (struct dm_odm_t *)pDM_VOID;
- 	struct ps_t *pDM_PSTable = &pDM_Odm->DM_PSTable;
- 
--	pDM_PSTable->PreCCAState = CCA_MAX;
--	pDM_PSTable->CurCCAState = CCA_MAX;
--	pDM_PSTable->PreRFState = RF_MAX;
--	pDM_PSTable->CurRFState = RF_MAX;
--	pDM_PSTable->Rssi_val_min = 0;
-+	pDM_PSTable->pre_cca_state = CCA_MAX;
-+	pDM_PSTable->cur_cca_state = CCA_MAX;
-+	pDM_PSTable->pre_rf_state = RF_MAX;
-+	pDM_PSTable->cur_rf_state = RF_MAX;
-+	pDM_PSTable->rssi_val_min = 0;
- 	pDM_PSTable->initialize = 0;
- }
- 
--void ODM_RF_Saving(void *pDM_VOID, u8 bForceInNormal)
-+void ODM_RF_Saving(void *pDM_VOID, u8 force_in_normal)
- {
- 	struct dm_odm_t *pDM_Odm = (struct dm_odm_t *)pDM_VOID;
- 	struct ps_t *pDM_PSTable = &pDM_Odm->DM_PSTable;
--	u8 Rssi_Up_bound = 30;
--	u8 Rssi_Low_bound = 25;
-+	u8 rssi_up_bound = 30;
-+	u8 rssi_low_bound = 25;
- 
- 	if (pDM_Odm->PatchID == 40) { /* RT_CID_819x_FUNAI_TV */
--		Rssi_Up_bound = 50;
--		Rssi_Low_bound = 45;
-+		rssi_up_bound = 50;
-+		rssi_low_bound = 45;
- 	}
- 
- 	if (pDM_PSTable->initialize == 0) {
--		pDM_PSTable->Reg874 = (PHY_QueryBBReg(pDM_Odm->Adapter, 0x874, bMaskDWord) & 0x1CC000) >> 14;
--		pDM_PSTable->RegC70 = (PHY_QueryBBReg(pDM_Odm->Adapter, 0xc70, bMaskDWord) & BIT(3)) >> 3;
--		pDM_PSTable->Reg85C = (PHY_QueryBBReg(pDM_Odm->Adapter, 0x85c, bMaskDWord) & 0xFF000000) >> 24;
--		pDM_PSTable->RegA74 = (PHY_QueryBBReg(pDM_Odm->Adapter, 0xa74, bMaskDWord) & 0xF000) >> 12;
-+		pDM_PSTable->reg874 = (PHY_QueryBBReg(pDM_Odm->Adapter, 0x874, bMaskDWord) & 0x1CC000) >> 14;
-+		pDM_PSTable->regc70 = (PHY_QueryBBReg(pDM_Odm->Adapter, 0xc70, bMaskDWord) & BIT(3)) >> 3;
-+		pDM_PSTable->reg85c = (PHY_QueryBBReg(pDM_Odm->Adapter, 0x85c, bMaskDWord) & 0xFF000000) >> 24;
-+		pDM_PSTable->rega74 = (PHY_QueryBBReg(pDM_Odm->Adapter, 0xa74, bMaskDWord) & 0xF000) >> 12;
- 		/* Reg818 = PHY_QueryBBReg(padapter, 0x818, bMaskDWord); */
- 		pDM_PSTable->initialize = 1;
- 	}
- 
--	if (!bForceInNormal) {
-+	if (!force_in_normal) {
- 		if (pDM_Odm->RSSI_Min != 0xFF) {
--			if (pDM_PSTable->PreRFState == RF_Normal) {
--				if (pDM_Odm->RSSI_Min >= Rssi_Up_bound)
--					pDM_PSTable->CurRFState = RF_Save;
-+			if (pDM_PSTable->pre_rf_state == RF_Normal) {
-+				if (pDM_Odm->RSSI_Min >= rssi_up_bound)
-+					pDM_PSTable->cur_rf_state = RF_Save;
- 				else
--					pDM_PSTable->CurRFState = RF_Normal;
-+					pDM_PSTable->cur_rf_state = RF_Normal;
- 			} else {
--				if (pDM_Odm->RSSI_Min <= Rssi_Low_bound)
--					pDM_PSTable->CurRFState = RF_Normal;
-+				if (pDM_Odm->RSSI_Min <= rssi_low_bound)
-+					pDM_PSTable->cur_rf_state = RF_Normal;
- 				else
--					pDM_PSTable->CurRFState = RF_Save;
-+					pDM_PSTable->cur_rf_state = RF_Save;
- 			}
- 		} else {
--			pDM_PSTable->CurRFState = RF_MAX;
-+			pDM_PSTable->cur_rf_state = RF_MAX;
- 		}
- 	} else {
--		pDM_PSTable->CurRFState = RF_Normal;
-+		pDM_PSTable->cur_rf_state = RF_Normal;
- 	}
- 
--	if (pDM_PSTable->PreRFState != pDM_PSTable->CurRFState) {
--		if (pDM_PSTable->CurRFState == RF_Save) {
--			/* Reg874[20:18]=3'b010 */
-+	if (pDM_PSTable->pre_rf_state != pDM_PSTable->cur_rf_state) {
-+		if (pDM_PSTable->cur_rf_state == RF_Save) {
-+			/* reg874[20:18]=3'b010 */
- 			PHY_SetBBReg(pDM_Odm->Adapter, 0x874, 0x1C0000, 0x2);
--			/* RegC70[3]= 1'b0 */
-+			/* regc70[3]= 1'b0 */
- 			PHY_SetBBReg(pDM_Odm->Adapter, 0xc70, BIT(3), 0);
--			/* Reg85C[31:24]= 0x63 */
-+			/* reg85c[31:24]= 0x63 */
- 			PHY_SetBBReg(pDM_Odm->Adapter, 0x85c, 0xFF000000, 0x63);
--			/* Reg874[15:14]=2'b10 */
-+			/* reg874[15:14]=2'b10 */
- 			PHY_SetBBReg(pDM_Odm->Adapter, 0x874, 0xC000, 0x2);
- 			/* RegA75[7:4]= 0x3 */
- 			PHY_SetBBReg(pDM_Odm->Adapter, 0xa74, 0xF000, 0x3);
-@@ -78,12 +78,12 @@ void ODM_RF_Saving(void *pDM_VOID, u8 bForceInNormal)
- 			/* Reg818[28]= 1'b1 */
- 			PHY_SetBBReg(pDM_Odm->Adapter, 0x818, BIT(28), 0x1);
- 		} else {
--			PHY_SetBBReg(pDM_Odm->Adapter, 0x874, 0x1CC000, pDM_PSTable->Reg874);
--			PHY_SetBBReg(pDM_Odm->Adapter, 0xc70, BIT(3), pDM_PSTable->RegC70);
--			PHY_SetBBReg(pDM_Odm->Adapter, 0x85c, 0xFF000000, pDM_PSTable->Reg85C);
--			PHY_SetBBReg(pDM_Odm->Adapter, 0xa74, 0xF000, pDM_PSTable->RegA74);
-+			PHY_SetBBReg(pDM_Odm->Adapter, 0x874, 0x1CC000, pDM_PSTable->reg874);
-+			PHY_SetBBReg(pDM_Odm->Adapter, 0xc70, BIT(3), pDM_PSTable->regc70);
-+			PHY_SetBBReg(pDM_Odm->Adapter, 0x85c, 0xFF000000, pDM_PSTable->reg85c);
-+			PHY_SetBBReg(pDM_Odm->Adapter, 0xa74, 0xF000, pDM_PSTable->rega74);
- 			PHY_SetBBReg(pDM_Odm->Adapter, 0x818, BIT(28), 0x0);
- 		}
--		pDM_PSTable->PreRFState = pDM_PSTable->CurRFState;
-+		pDM_PSTable->pre_rf_state = pDM_PSTable->cur_rf_state;
- 	}
- }
-diff --git a/drivers/staging/rtl8723bs/hal/odm_DynamicBBPowerSaving.h b/drivers/staging/rtl8723bs/hal/odm_DynamicBBPowerSaving.h
-index 3ebbbfd1dd1f..0b0765ff8e15 100644
---- a/drivers/staging/rtl8723bs/hal/odm_DynamicBBPowerSaving.h
-+++ b/drivers/staging/rtl8723bs/hal/odm_DynamicBBPowerSaving.h
-@@ -9,23 +9,23 @@
- #define    __ODMDYNAMICBBPOWERSAVING_H__
- 
- struct ps_t { /* _Dynamic_Power_Saving_ */
--	u8 PreCCAState;
--	u8 CurCCAState;
-+	u8 pre_cca_state;
-+	u8 cur_cca_state;
- 
--	u8 PreRFState;
--	u8 CurRFState;
-+	u8 pre_rf_state;
-+	u8 cur_rf_state;
- 
--	int Rssi_val_min;
-+	int rssi_val_min;
- 
- 	u8 initialize;
--	u32 Reg874, RegC70, Reg85C, RegA74;
-+	u32 reg874, regc70, reg85c, rega74;
- 
- };
- 
- #define dm_RF_Saving ODM_RF_Saving
- 
--void ODM_RF_Saving(void *pDM_VOID, u8 bForceInNormal);
-+void ODM_RF_Saving(void *pDM_VOID, u8 force_in_normal);
- 
--void odm_DynamicBBPowerSavingInit(void *pDM_VOID);
-+void odm_dynamic_bb_power_saving_init(void *pDM_VOID);
- 
- #endif
--- 
-2.43.0
+Changes in v3:
+- New patch: s/vendor_(evt|event)/\1_vendor/ for monitor
+- Improve naming for consistency (no functional change)
+- Improve the commit title and message
+- Link to v2: https://patch.msgid.link/20260830-vendor_hci-v2-0-9903760957ab@oss.qualcomm.com
+
+Changes in v2:
+- Rename BT_RCV_VENDOR_PKT to BT_RECV_VENDOR_PKT
+- Improve the commit title and message 
+- Link to v1: https://patch.msgid.link/20260719-vendor_hci-v1-0-df2ac5a50117@oss.qualcomm.com
+
+---
+Zijun Hu (3):
+      doc/hci-protocol: Fix missing & on mtu argument in BT_RCVMTU example
+      monitor: s/vendor_(evt|event)/\1_vendor/
+      monitor: Support vendor packets
+
+ doc/btsnoop-protocol.rst |  8 ++++++++
+ doc/hci-protocol.rst     |  2 +-
+ monitor/analyze.c        | 23 +++++++++++++++++++++++
+ monitor/broadcom.c       | 10 +++++-----
+ monitor/broadcom.h       |  4 ++--
+ monitor/intel.c          | 16 ++++++++--------
+ monitor/intel.h          |  4 ++--
+ monitor/msft.c           |  6 +++---
+ monitor/msft.h           |  4 ++--
+ monitor/packet.c         | 46 ++++++++++++++++++++++++++++++++++++----------
+ monitor/packet.h         |  2 ++
+ monitor/vendor.c         |  2 +-
+ monitor/vendor.h         |  4 ++--
+ src/shared/btsnoop.h     |  2 ++
+ 14 files changed, 97 insertions(+), 36 deletions(-)
+---
+base-commit: 19ebd6a2124de54fff5906d84e26cd5370937c54
+change-id: 20260719-vendor_hci-188fc539d7a8
+
+Best regards,
+--  
+Zijun Hu <zijun.hu@oss.qualcomm.com>
 
