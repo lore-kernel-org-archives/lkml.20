@@ -1,68 +1,38 @@
-Received: from mta0.migadu.com (out-188.mta0.migadu.com [91.218.175.188])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C090C471D02
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:28:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2228A472076;
+	Thu, 10 Sep 2026 11:29:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789039716; cv=none; b=Q5SEaD3t5oeA7SFauVo/7cMUtJ2a34zyMviP9p0kxJzJxc0NdD7LJtSEt45nQNN1gC7B6xkq96w6uv5QgTjH0BmOUUFIjpx2HFPYRVhabzAt1ruEPPe26W3nsERfm8oJaGQv0t+enthgnisJVn5TdIa+Q1pPCpEQcsN61nFjQ4s=
+	t=1789039803; cv=none; b=e197G+MLwynwZYRV9Hbj/jA3odx5o0TxZjcK/tnzMAxPiceJwdgJuxddp1Zey6U2RAlZMKn9cHI/Yz1KRq6PW4fcOqqvLnyM8Q+N9ZtwR74zIXKPafylh4RNl+r+Sb/aygFhoR4I2AjfyWgS8ch3RAU1LLlv7MfIFimC3x7gi/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789039716; c=relaxed/simple;
-	bh=hqlLi6bTP/oiCg2WQijATvjJsdlPO5fSQ16lKd07OH4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CtBz2ttUt35dcEbvT3WHNhgoN+K03et2aGvqwYpuxwMGMUcfR4Uyu033FK278X2/XFdZl+2BXrR3QrrTErX0rMJ+oyDrRn3H5znjtsQEs7YYiaF6B0pOYkrnp2zO2sDTDU21OTs/tDxyhr7uMnFp1kQNqsH2aGwTehCmaxI8n3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iBldzKJv; arc=none smtp.client-ip=91.218.175.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789039803; c=relaxed/simple;
+	bh=RJydT2Dk8RQ1sONS+iE0RGlzWiAtuS02wqiSMmED05k=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=LgJqxht+EXPVLzDLwnXetY2TjY+NtVPrrF8KVYZDGOHG4x+sYMvpkiLnjIZ+hZ8UXP5R980n1gEZFm2L+Q3pGVDkbhZ4Vin9ZvgZvptUeqg475rOsdL8UcTD67+xxkQzgtfolI2yps3jkaPQLZnobcK5Bd0T8TBICJECPWwjy5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=MJX8IkEl; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iBldzKJv"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=hqlLi6bTP/oiCg2WQijATvjJsdlPO5fSQ16lKd07OH4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789039709; v=1; x=1789644509;
- b=iBldzKJv63L9xfzjR+b1R1usEB/qUW4nd9FRnzevBGFBrXFKg1AByFmhr0mvvRFZTL5vGksu
- jehtENo8lDeSR7vwQTTzYZY32MWaZy2dp9xppMgEXQVIwT27qgfG1K3TAlIgVbaZ4pVu6ox28e2
- ICt9KTOJlWd0gNqzymN0dURo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e46b3dd9f2c8c11f;
-	Thu, 10 Sep 2026 11:28:28 +0000
-X-Mizu-Trace-ID: e46b3dd9f2c8c11f
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Neal Cardwell <ncardwell@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Aditi Ghag <aditi.ghag@isovalent.com>,
-	netdev@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="MJX8IkEl"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4d48b9218;
+	Thu, 10 Sep 2026 19:29:54 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Nilesh Javali <njavali@marvell.com>,
+	Manish Rangankar <mrangankar@marvell.com>,
+	GR-QLogic-Storage-Upstream@marvell.com,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>
+Cc: linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf v3 3/3] selftests/bpf: Test bpf_sock_destroy() on TIME_WAIT and listener socks
-Date: Thu, 10 Sep 2026 19:28:02 +0800
-Message-ID: <20260910112810.153801-1-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260910112107.148770-1-jiayuan.chen@linux.dev>
-References: <20260910112107.148770-1-jiayuan.chen@linux.dev>
+	Jianhao Xu <jianhao.xu@seu.edu.cn>,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: qedi: Initialize callback state before registration
+Date: Thu, 10 Sep 2026 19:29:47 +0800
+Message-Id: <20260910112947.1350877-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,231 +40,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa08b14d79e03a1kunm4cd477181957dc
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTkhDVkIZHkJOS09LGk8aQ1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=MJX8IkElxBmJQSMYRpR1YU5I07TTijyk3IYW1AD8H1I17+g5IGHA3UuTvxxaOlLSVgct36WaAwJQLfXPGdLU2ZbolvoGMnvD9C9SI8/yuvyAGbhsIDNgT2lvTS/SRGAbAE0WhlCoglZWHgznda5fPyPW6cpGKnOXdUT0HQer8ZE=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=2QLnkcGLYs1KfcKJLaEcqelOoy7bY8ls7NzfuQq15P8=;
+	h=date:mime-version:subject:message-id:from;
 
-Add two subtests.
+qedi_get_protocol_tlv_data() can be called asynchronously by QED after
+qedi_ops->register_ops(). It takes stats_lock and reads ll2_mtu, but
+__qedi_probe() currently registers the callback before initializing the
+mutex and assigning the default MTU on the normal probe path.
 
-tcp_timewait: the client shuts down first and the server closes after
-it, so the client sock ends up in TIME_WAIT. A tcp iterator then finds
-the timewait sock by the cookie it inherited from the client sock and
-destroys it. Iterate once more to make sure it is gone. Without the
-first fix bpf_sock_destroy() reads past the timewait sock and KASAN
-complains.
+Initialize the callback-visible state before registering qedi_cb_ops. Keep
+the recovery path from reinitializing state because it reuses the existing
+qedi context.
 
-tcp_listen_pending: connect to a listener but never accept, so the child
-sits in the accept queue, then destroy the listener. Without the second
-fix the cond_resched() in inet_csk_listen_stop() trips the might_sleep
-check under rcu_read_lock().
+Fixes: 3cc5746e5ad7 ("scsi: qedi: Initialize the stats mutex lock")
+Cc: stable@vger.kernel.org
 
-  ./test_progs -a sock_destroy
-
-  #444/1   sock_destroy/tcp_client:OK
-  #444/2   sock_destroy/tcp_server:OK
-  #444/3   sock_destroy/tcp_listen_pending:OK
-  #444/4   sock_destroy/tcp_timewait:OK
-  #444/5   sock_destroy/udp_client:OK
-  #444/6   sock_destroy/udp_server:OK
-  #444/7   sock_destroy/trace_tcp_destroy_sock:OK
-  #444     sock_destroy:OK
-  Summary: 1/7 PASSED, 0 SKIPPED, 0/0 FAILED
-
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Assisted-by: LLM Codex
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
- .../selftests/bpf/prog_tests/sock_destroy.c   | 121 ++++++++++++++++++
- .../selftests/bpf/progs/sock_destroy_prog.c   |  30 +++++
- 2 files changed, 151 insertions(+)
+ drivers/scsi/qedi/qedi_main.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/sock_destroy.c b/tools/testing/selftests/bpf/prog_tests/sock_destroy.c
-index 9c11938fe597d..78d642a02bdb6 100644
---- a/tools/testing/selftests/bpf/prog_tests/sock_destroy.c
-+++ b/tools/testing/selftests/bpf/prog_tests/sock_destroy.c
-@@ -1,4 +1,5 @@
- // SPDX-License-Identifier: GPL-2.0
-+#include <poll.h>
- #include <test_progs.h>
- #include <bpf/bpf_endian.h>
+diff --git a/drivers/scsi/qedi/qedi_main.c b/drivers/scsi/qedi/qedi_main.c
+index 227ff7bd1..f394fcbb9 100644
+--- a/drivers/scsi/qedi/qedi_main.c
++++ b/drivers/scsi/qedi/qedi_main.c
+@@ -2652,8 +2652,6 @@ static int __qedi_probe(struct pci_dev *pdev, int mode)
+ 	snprintf(host_buf, sizeof(host_buf), "host_%d", qedi->shost->host_no);
+ 	qedi_ops->common->set_name(qedi->cdev, host_buf);
  
-@@ -110,6 +111,122 @@ static void test_tcp_server(struct sock_destroy_prog *skel)
- 		close(serv);
- }
+-	qedi_ops->register_ops(qedi->cdev, &qedi_cb_ops, qedi);
+-
+ 	memset(&params, 0, sizeof(params));
+ 	params.mtu = DEF_PATH_MTU + IPV6_HDR_LEN + TCP_HDR_LEN;
+ 	qedi->ll2_mtu = DEF_PATH_MTU;
+@@ -2670,6 +2668,7 @@ static int __qedi_probe(struct pci_dev *pdev, int mode)
+ 		spin_lock_init(&qedi->task_idx_lock);
+ 		mutex_init(&qedi->stats_lock);
+ 	}
++	qedi_ops->register_ops(qedi->cdev, &qedi_cb_ops, qedi);
+ 	qedi_ops->ll2->register_cb_ops(qedi->cdev, &qedi_ll2_cb_ops, qedi);
+ 	qedi_ops->ll2->start(qedi->cdev, &params);
  
-+static void test_tcp_listen_pending(struct sock_destroy_prog *skel)
-+{
-+	int serv = -1, clien = -1, accept_serv = -1, n, serv_port;
-+	struct pollfd pfd = { .events = POLLIN };
-+	char buf[1];
-+
-+	serv = start_server(AF_INET6, SOCK_STREAM, NULL, 0, 0);
-+	if (!ASSERT_GE(serv, 0, "start_server"))
-+		goto cleanup;
-+	serv_port = get_socket_local_port(serv);
-+	if (!ASSERT_GE(serv_port, 0, "get_sock_local_port"))
-+		goto cleanup;
-+	skel->bss->serv_port = (__be16)serv_port;
-+
-+	/*
-+	 * Connect but never accept, so the child sits in the accept queue
-+	 * of the listener. Wait until it's actually there.
-+	 */
-+	clien = connect_to_fd(serv, 0);
-+	if (!ASSERT_GE(clien, 0, "connect_to_fd"))
-+		goto cleanup;
-+	pfd.fd = serv;
-+	if (!ASSERT_EQ(poll(&pfd, 1, -1), 1, "poll listener"))
-+		goto cleanup;
-+
-+	/* Run iterator program that destroys server sockets. */
-+	start_iter_sockets(skel->progs.iter_tcp6_server);
-+
-+	accept_serv = accept(serv, NULL, NULL);
-+	if (!ASSERT_LT(accept_serv, 0, "accept on destroyed listener"))
-+		goto cleanup;
-+	ASSERT_EQ(errno, EINVAL, "error code on destroyed listener");
-+
-+	/* The unaccepted child was reset along with the listener. */
-+	n = recv(clien, buf, sizeof(buf), 0);
-+	if (!ASSERT_LT(n, 0, "client recv on reset child"))
-+		goto cleanup;
-+	ASSERT_EQ(errno, ECONNRESET, "error code on reset child");
-+
-+cleanup:
-+	if (clien != -1)
-+		close(clien);
-+	if (accept_serv != -1)
-+		close(accept_serv);
-+	if (serv != -1)
-+		close(serv);
-+}
-+
-+static void test_tcp_timewait(struct sock_destroy_prog *skel)
-+{
-+	int serv = -1, clien = -1, accept_serv = -1, n;
-+	struct timeval tv = {};
-+	char buf[1];
-+
-+	serv = start_server(AF_INET6, SOCK_STREAM, NULL, 0, 0);
-+	if (!ASSERT_GE(serv, 0, "start_server"))
-+		goto cleanup;
-+
-+	clien = connect_to_fd(serv, 0);
-+	if (!ASSERT_GE(clien, 0, "connect_to_fd"))
-+		goto cleanup;
-+
-+	accept_serv = accept(serv, NULL, NULL);
-+	if (!ASSERT_GE(accept_serv, 0, "serv accept"))
-+		goto cleanup;
-+
-+	/*
-+	 * Active close from the client, then close the server side. Once
-+	 * recv() sees EOF the server FIN has been processed and the client
-+	 * sock is in TIME_WAIT. Block without timeout so a loaded CI box
-+	 * can't race us.
-+	 */
-+	if (!ASSERT_OK(setsockopt(clien, SOL_SOCKET, SO_RCVTIMEO, &tv,
-+				  sizeof(tv)), "clear rcvtimeo"))
-+		goto cleanup;
-+	if (!ASSERT_OK(shutdown(clien, SHUT_WR), "client shutdown"))
-+		goto cleanup;
-+
-+	/*
-+	 * Make sure the server has seen the client FIN before it closes,
-+	 * so the two FINs never cross.
-+	 */
-+	n = recv(accept_serv, buf, sizeof(buf), 0);
-+	if (!ASSERT_EQ(n, 0, "server recv EOF"))
-+		goto cleanup;
-+
-+	close(accept_serv);
-+	accept_serv = -1;
-+
-+	/* block until return EOF */
-+	n = recv(clien, buf, sizeof(buf), 0);
-+	if (!ASSERT_EQ(n, 0, "client recv EOF"))
-+		goto cleanup;
-+
-+	/* Run iterator program that destroys the timewait client sock. */
-+	skel->bss->tw_found = 0;
-+	start_iter_sockets(skel->progs.iter_tcp6_timewait);
-+	if (!ASSERT_EQ(skel->bss->tw_found, 1, "timewait sock found"))
-+		goto cleanup;
-+
-+	ASSERT_OK(skel->bss->tw_destroy_err, "destroy timewait sock");
-+
-+	/* The destroyed timewait sock must be gone. */
-+	skel->bss->tw_found = 0;
-+	start_iter_sockets(skel->progs.iter_tcp6_timewait);
-+	ASSERT_EQ(skel->bss->tw_found, 0, "timewait sock destroyed");
-+
-+cleanup:
-+	if (clien != -1)
-+		close(clien);
-+	if (accept_serv != -1)
-+		close(accept_serv);
-+	if (serv != -1)
-+		close(serv);
-+}
-+
- static void test_udp_client(struct sock_destroy_prog *skel)
- {
- 	int serv = -1, clien = -1, n = 0;
-@@ -204,6 +321,10 @@ void test_sock_destroy(void)
- 		test_tcp_client(skel);
- 	if (test__start_subtest("tcp_server"))
- 		test_tcp_server(skel);
-+	if (test__start_subtest("tcp_listen_pending"))
-+		test_tcp_listen_pending(skel);
-+	if (test__start_subtest("tcp_timewait"))
-+		test_tcp_timewait(skel);
- 	if (test__start_subtest("udp_client"))
- 		test_udp_client(skel);
- 	if (test__start_subtest("udp_server"))
-diff --git a/tools/testing/selftests/bpf/progs/sock_destroy_prog.c b/tools/testing/selftests/bpf/progs/sock_destroy_prog.c
-index 9e0bf7a54cec9..0a8887543218a 100644
---- a/tools/testing/selftests/bpf/progs/sock_destroy_prog.c
-+++ b/tools/testing/selftests/bpf/progs/sock_destroy_prog.c
-@@ -7,6 +7,8 @@
- #include "bpf_tracing_net.h"
- 
- __be16 serv_port = 0;
-+int tw_found = 0;
-+int tw_destroy_err = 0;
- 
- int bpf_sock_destroy(struct sock_common *sk) __ksym;
- 
-@@ -100,6 +102,34 @@ int iter_tcp6_server(struct bpf_iter__tcp *ctx)
- 	return 0;
- }
- 
-+SEC("iter/tcp")
-+int iter_tcp6_timewait(struct bpf_iter__tcp *ctx)
-+{
-+	struct sock_common *sk_common = ctx->sk_common;
-+	__u64 *val;
-+	int key = 0;
-+
-+	if (!sk_common)
-+		return 0;
-+
-+	if (sk_common->skc_family != AF_INET6)
-+		return 0;
-+
-+	if (!bpf_skc_to_tcp_timewait_sock(sk_common))
-+		return 0;
-+
-+	val = bpf_map_lookup_elem(&tcp_conn_sockets, &key);
-+	if (!val)
-+		return 0;
-+	/* The timewait sock inherits the cookie of the closed client sock. */
-+	if (bpf_get_socket_cookie(sk_common) != *val)
-+		return 0;
-+
-+	tw_found++;
-+	tw_destroy_err = bpf_sock_destroy(sk_common);
-+
-+	return 0;
-+}
- 
- SEC("iter/udp")
- int iter_udp6_client(struct bpf_iter__udp *ctx)
 -- 
-2.43.0
+2.34.1
 
