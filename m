@@ -1,106 +1,196 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F28F3ACEE2
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:32:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8D3396D13;
+	Thu, 10 Sep 2026 09:33:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789032746; cv=none; b=EhbUJxjG9y4/QZC6yuQtyRNMy/O3SI14ml6f6eOItl5zeNXy87NwJMLF8dctDh/emtiJRCmQMJVjpjXfD1gwSR33GA3tjQtV/uZiatuHZo8toVsxWQMApRa4+aseIDiXU54uuqZKI/fsLH9Ex/RIxxdium3ZHnnILUyxsI2wCOw=
+	t=1789032808; cv=none; b=skFr4e5TU0nHogjP1E3xi8X5hJcZwQbBZPzva442ilsKYdqACiVa7RgwqcxOEeDJr2fSIS8e84VzzO5psVMXlL4K9A/64B7n2gH0qKgofRvHVN1xw8CuC24HwKYcE4g/W7GKoETsogqOE0tQTHsIOaX5YT1CGWD5Ovtm9jL7ACk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789032746; c=relaxed/simple;
-	bh=mNViGZ7yxzB8+8ItmsiT3QQGyqYZhT8Te5fHGZVLVhQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Tipy+g/nzwHh3onpDDeNMJtM1NWbAo72dyguNpfp5vJhHILeOmaQD/7aKvqVmO1WounQFTfseGH+7SdpzSz2oWpI6QhlL4dypLPxy2XLmHx0uEFHkVkN4iKDDtit9f8ZMfwwVVrLqGUv3e4Tre/k43ADcfG5NLjsysb6lnoXxDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l+2PUUHD; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789032808; c=relaxed/simple;
+	bh=auJX64Vuj3F6K8NKvVyMRdBuYGzLoEUJnukiPfnLGk0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RXjfhRylpt6tMPBuxB5Ig1Q/77FI0/DzQFGcE3/3NtDiNTFtGTc8g4PwXc3eK3uVxLaVtz6ILShP4BjbugjIethYDcZmw8alMRa75bBuMkGKnKl/kbon7erhawWPyUdSGveSzXiN+9qcFGNoB+u/0IACXPCkfIDRDzl5mZNXzj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CK3hAOAF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l+2PUUHD"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747eb79f7so8384295ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:32:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789032745; x=1789637545; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Xb297vAYZsYBQ8+FvK+mZugedKKuZrnvDZwoe982/E8=;
-        b=l+2PUUHDRABh+h+TUqMPVVlnMMlZg9zICgaAN4mzsYNoejKD0Q4WzMtuMSy6W/lrpX
-         cyzFze/PzDoG/9lKX+KrqO29qO3TZMjMEHFOMZI7BWBQkr0LxreOh9ZJRK+rGLYCd54r
-         YrOegc26HpGbvrbYSTKreeCGj2IaQgT8JP7AqHPgIYlElvo7/9xYOHNoxIk8lVU0MA8H
-         k0X1RNu2gR5CP9fsOo4eriL7cpJH41t06JC+p8f2gPQYljDBj543n3V10Mkvs0afjkCI
-         5+0PmNI4bHra1mYrF+jpDOJ5nKoX98+aCu50EDSCUx3DMJZhn7+5XXsx69MCzp5YNMQF
-         sNRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789032745; x=1789637545;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Xb297vAYZsYBQ8+FvK+mZugedKKuZrnvDZwoe982/E8=;
-        b=P0Q1QAWAKe9KndqgBcv/cweb8UcSTTJiSwjy4A/bDzHFb4PnMqj4u8iulUq1LKy7lF
-         GJ5WxhmzW/ixqQKXc5ZMWVFORo0Qsc39lIOoRWopmNJ8pZebuI9Ac25ziXeRN6GxOLin
-         VowULJCtoF364stcdiuBhbXLVkbz6NgPYiPTTWm5UGjHdfp4PVxKPaUFzhWWGk88R7+q
-         tVzxFpFGZ56M08XEEj76g8AezKfX3p8JmboWgSW6Sq31Zir+hI+TlsXl4U9jqcVre2tn
-         6+JrUgmSJVgOacmCJGvOS77XNVPd9Cs1m/aWEsRIVQzU51BxN3IJM+CHy+6aqDfFMAUu
-         MlWQ==
-X-Forwarded-Encrypted: i=1; AKwUvByap/i6w1ws3o22BlTK28tOODWYuwP+Puq7ftG4L+LgmYs1H4E9rRT2kwLxNpNOyLwi8pHJs6EDpZek1p8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mR8oySgdENjKWwG2c6DYxocAbB570D4N43RUtEiueOwdAHOphZ
-	ho8YHaulY6eKkEfdf3sHVfUiM3VCl5iStxJrttCOhJ5hD8PP3+KpMPKM
-X-Gm-Gg: AYBFou1xnstNLRyVh9gFKmzpZgh2pSM6PHM8rFgtS0qDI4EGcXaDO8d2RuzmnYbcND4
-	bRDSBNNO4RLoFCVVZhs62Lo7SymYYw46ASvEU+8qchy0aZcZZLduMO0DlQhzAkeBzoQz/yT73IA
-	kDKSrfGgFAJSm1KC0PF5l1/vxCRKpmj69G/i2TD683yjeQjUxexhJggkfFjehjRULTkfhnDhXdb
-	wCSW3NFNSztT/C90gEbPPLiIDZg0LWRzy+hEjps7ecUDh+Ygl0kt9f/cZ3hq/tp4EgAQ5jnorwL
-	2Tzwkn/MWBG4pnH6L4lQROiQ0BxnTFyRW1VYp7IuKL8mF9oHL5zvDG5uv3Q4KP51TDnGl1TRMdr
-	wazn87XN/8iibnnXkNhE5nFb7lXtlFqQK29SFwmwg94dYZMmEVxx4Bu4NP2xkCTIn0U5vOD22/B
-	9MaGsq+LmfWc1D6oA7vlbIpfh30zy0axQBkFdwpnkNRaNSSSl2GehQlgN4/cr17GDnv490AiIeK
-	G/Vn6bzFt/K/IDXoNM/35Ul3FH2r84eULoN15VU
-X-Received: by 2002:a17:902:f64f:b0:2d8:d4d3:da4e with SMTP id d9443c01a7336-2dd07dc3d74mr101752395ad.18.1789032744570;
-        Thu, 10 Sep 2026 02:32:24 -0700 (PDT)
-Received: from ANATASLUO-MC0.tencent.com ([43.132.141.20])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1982c63fsm82958125ad.42.2026.09.10.02.32.21
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 10 Sep 2026 02:32:24 -0700 (PDT)
-From: Longjun Luo <luolongjuna@gmail.com>
-To: sashiko-bot@kernel.org,
-	jpoimboe@kernel.org,
-	peterz@infradead.org
-Cc: song@kernel.org,
-	jikos@kernel.org,
-	pmladek@suse.com,
-	mbenes@suse.cz,
-	joe.lawrence@redhat.com,
-	live-patching@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	sashiko-reviews@lists.linux.dev
-Subject: Re: [PATCH] objtool/klp: Fix missed changes to same-named symbol references
-Date: Thu, 10 Sep 2026 17:32:17 +0800
-Message-ID: <20260910093217.85336-1-luolongjuna@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910090204.B58EF1F000FF@smtp.kernel.org>
-References: <20260910090204.B58EF1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CK3hAOAF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 466CE1F00893;
+	Thu, 10 Sep 2026 09:33:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789032806;
+	bh=ovS2OC7CT0g9iSmGDUZDcU3Pa0btm93OF4BuD+LLeGI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=CK3hAOAFGCnKDY07NnHjc4hA81S61p4PC12UjoWKuLDscChJiFe+2XgkA8fzqu1/F
+	 QqnCpsWbwK30+VDahF06e1KkEbIeVplGSD+YBiryYVmdKyJL9C9R0VWfcyzETQqFcC
+	 fgCQY95ZeYD9KO7hVG4HeV/39P39F7ljUoTHVkiQi91iLkCys88rU0leA3YS4DaRRg
+	 sQOfXEp34rgw8K0ct1jeUhGahWlg95sSKW+orP/lYZyxZ072PU0M0TAfi9XhysvH3B
+	 fplxrRDpd+mn3DmoAhmSTG/FGmBV09Ufwh5Z5DcF3Aem5B8/aiW9E7AzaRzmvGpzjs
+	 TBfXr2Xu2Mk7A==
+Message-ID: <316d740f-a942-4acb-a8a4-fb646effff91@kernel.org>
+Date: Thu, 10 Sep 2026 11:33:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/3] selftests/mm: emit TAP header and use TAP skip in
+ mremap_test
+To: Song Hu <husong@kylinos.cn>, akpm@linux-foundation.org,
+ usama.anjum@arm.com
+Cc: linux-mm@kvack.org, shuah@kernel.org, ljs@kernel.org, liam@infradead.org,
+ vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
+ peterx@redhat.com, sarthak.sharma@arm.com, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260825085756.63030-1-husong@kylinos.cn>
+ <20260825085756.63030-3-husong@kylinos.cn>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260825085756.63030-3-husong@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-> Before this change, __checksum_update_object() received sym_offset but only
-> used it for debugging output without hashing it.
+On 8/25/26 10:57, Song Hu wrote:
+> mremap_test calls ksft_set_plan() without ksft_print_header(), and its
+> get_mmap_min_addr() skip path uses a bare exit(KSFT_SKIP) that prints no
+> TAP line, so its output is not valid KTAP.  Add the header and switch
+> the skip to ksft_exit_skip().
+> 
+> Also fix two more KTAP compliance issues spotted in review:
+> 
+> - get_mmap_min_addr() calls strerror(errno) after fclose(), which may
+>   clobber errno; save errno before fclose() instead.
+> 
+> - Some ksft_*() messages embed "\n\t", so the text after each embedded
+>   newline is printed without the "# " prefix.  Split those into separate
+>   messages.
+> 
+> And cache mmap_min_addr in main() before ksft_set_plan(), so that the
+> skip paths in get_mmap_min_addr() are taken before the plan is set; a
+> skip after the plan leaves the run with fewer tests than planned.
+> 
+> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> Reviewed-by: Sarthak Sharma <sarthak.sharma@arm.com>
+> Reviewed-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Signed-off-by: Song Hu <husong@kylinos.cn>
+> ---
+>  tools/testing/selftests/mm/mremap_test.c | 43 ++++++++++++++----------
+>  1 file changed, 25 insertions(+), 18 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/mm/mremap_test.c b/tools/testing/selftests/mm/mremap_test.c
+> index 131d9d6db867..ab5420f2e875 100644
+> --- a/tools/testing/selftests/mm/mremap_test.c
+> +++ b/tools/testing/selftests/mm/mremap_test.c
+> @@ -111,18 +111,17 @@ static unsigned long long get_mmap_min_addr(void)
+>  		return addr;
+>  
+>  	fp = fopen("/proc/sys/vm/mmap_min_addr", "r");
+> -	if (fp == NULL) {
+> -		ksft_print_msg("Failed to open /proc/sys/vm/mmap_min_addr: %s\n",
+> -			strerror(errno));
+> -		exit(KSFT_SKIP);
+> -	}
+> +	if (!fp)
+> +		ksft_exit_skip("Failed to open /proc/sys/vm/mmap_min_addr: %s\n",
+> +			       strerror(errno));
+>  
+>  	n_matched = fscanf(fp, "%llu", &addr);
+>  	if (n_matched != 1) {
+> -		ksft_print_msg("Failed to read /proc/sys/vm/mmap_min_addr: %s\n",
+> -			strerror(errno));
+> +		int err = errno;
+> +
+>  		fclose(fp);
 
-At this patch's base commit (50d05c7c76c9), __checksum_update_object()
-begins with:
+Why the local variable? And why the fclose() ?
 
-        __checksum_update(sym, &offset, sizeof(offset));
-        __checksum_update(sym, data, size);
+ksft_exit_skip() will just exit the process and clean up, why clean up manually?
 
-__checksum_update_object_symbol() preserves the same offset handling,
-including the unsigned long type and sizeof(offset). The difference is
-how the referenced symbol's identity is encoded.
+In other words, why not just drop the fclose?
 
-The same &offset/sizeof(offset) pattern is also used in
-checksum_update_insn(). Any host-width dependence here therefore
-predates this patch.
+> -		exit(KSFT_SKIP);
+> +		ksft_exit_skip("Failed to read /proc/sys/vm/mmap_min_addr: %s\n",
+> +			       strerror(err));
+>  	}
+>  
+>  	fclose(fp);
+> @@ -1164,10 +1163,11 @@ static void run_mremap_test_case(struct test test_case, int *failures,
+>  					    rand_addr);
+>  
+>  	if (remap_time < 0) {
+> -		if (test_case.expect_failure)
+> -			ksft_test_result_xfail("%s\n\tExpected mremap failure\n",
+> -					      test_case.name);
 
-Thanks,
-Longjun
+Why can't we just drop the \n\t  ?
+
+> -		else {
+> +		if (test_case.expect_failure) {
+> +			ksft_print_msg("%s: expected mremap failure\n",
+> +				       test_case.name);
+> +			ksft_test_result_xfail("%s\n", test_case.name);
+> +		} else {
+>  			ksft_test_result_fail("%s\n", test_case.name);
+>  			*failures += 1;
+>  		}
+> @@ -1177,11 +1177,13 @@ static void run_mremap_test_case(struct test test_case, int *failures,
+>  		 * was faulted in.
+>  		 */
+>  		if (threshold_mb == VALIDATION_NO_THRESHOLD ||
+> -		    test_case.config.region_size <= threshold_mb * _1MB)
+> -			ksft_test_result_pass("%s\n\tmremap time: %12lldns\n",
+> -					      test_case.name, remap_time);
+
+Same question, why not drop the \n\t ?
+
+-- 
+Cheers,
+
+David
