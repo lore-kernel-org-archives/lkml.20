@@ -1,111 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AD9D3EEAE7;
-	Thu, 10 Sep 2026 10:51:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E8D466B44
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:51:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037502; cv=none; b=bf30+2Hx1blao3AcXeqS7rIF1Nr/dGE21Ur/vq9vvXIdCCyfCQkcw+U5huzeCEnc/d8Wop4vXRIRsqKAAblk8yLDUiVjfmYE3x0owXqtUAFPEJk4fUoNhSI44Wb6w3Fu3t4bWvRE/z5SprwHqE/90FYLK6XxHoPzI5OshfPpA5k=
+	t=1789037502; cv=none; b=GM/X/D55M20rIeJdqIC1mG9DPB8/njL1lAeymXJ8N++dp8mgkcJJSnsWg+ebA+ARozjw8hyKKrdZpvA4EecD1QvNyy2LzLG+io0KCpWRV2PgBocBkjxXApZsLOFT6vOCJCRgUeyElgzgWTRRva7kToXlK6eDk6UQrbmmuzveHwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789037502; c=relaxed/simple;
-	bh=yZVzWlbPbvL+iV7XAErOntQR2Usf4H4OfkpRz1D7fxE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=WbJulYa4KZ4UpKmq4/n9sXP7cxNmLhb9iX/njIg3Hglxbzhmujod+wtqapAryy4scD60UR5I4JPn15xz3Lek3PnVkhnC68/Feu21/juFaBYWawwwd/G5hX4OEMXT/WvfyzFNjW127+RCPUacLeZOcmvno4XEXTab0m7TWSbZ9H0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YuXfKMKq; arc=none smtp.client-ip=100.103.45.18
+	bh=5hQWqlOjQvOgrULRNQNvsDrFTg3ZUp9uEWavniukEpg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qt7IsTuKlZ0Cpxgn9nsK+DXPlrt23842YeuUnzT8oKsA7v9d7dkJVzWXLkcSP3N8QPxKsPSUM/+cGByo0//ZBMJm0szqcA/+3AGo5xA2iIBchIW8Y75sta8PnOEbJj3HDCZpeN77bcvUrux+cu96fK+ZICkOkhT2c8Zl8KKAZ18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=lmJDR4Z+; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YuXfKMKq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 749491F000FF;
-	Thu, 10 Sep 2026 10:51:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789037500;
-	bh=rdDp2f06GJ5OU0nCbdn2ECcNb6jSQB9pduJdp18sVpg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=YuXfKMKqcJiAMnGvdWu3bkJYO34jWOsYOpiyFTT5LqVMlPdADbLOZhg8WeUqkWXsZ
-	 Zjd+OGtj4QxLcozAuJjpE+20aA7coW/7ZhQkd2qE7p01BaAFPQazVsX5LhgjGhWGCD
-	 EV8TzYPdsAArAAmW3ZeRYel/34LCLK7+MdiR8fAl9vmw+Lfiwnr1jFZv2km4psPkXg
-	 wGb3bfca8XwqRWV0/gaCxePWXOk3KZ30rLfc0vD7XHqqdf5DpsabHKGnNB7tVWQbOw
-	 PqrCCZgO3hf9BJQPCSBat1DBD7f5nKW8ily4NSahVyvR31AkKT6auRk/JEFbWf6x+l
-	 0n9t508ZGKzWw==
-From: Mark Brown <broonie@kernel.org>
-To: Vishwaroop A <va@nvidia.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>, 
- Jon Hunter <jonathanh@nvidia.com>, Laxman Dewangan <ldewangan@nvidia.com>, 
- Sowjanya Komatineni <skomatineni@nvidia.com>, 
- Breno Leitao <leitao@debian.org>, Suresh Mangipudi <smangipudi@nvidia.com>, 
- Krishna Yarlagadda <kyarlagadda@nvidia.com>, linux-tegra@vger.kernel.org, 
- linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260813200027.2711863-1-va@nvidia.com>
-References: <20260813200027.2711863-1-va@nvidia.com>
-Subject: Re: [PATCH v6 0/3] spi: tegra210-quad: Improve interrupt handling
- for loaded systems
-Message-Id: <178895460101.87467.6194571652412534959.b4-ty@b4>
-Date: Wed, 09 Sep 2026 12:50:01 +0100
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="lmJDR4Z+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=GR
+	7/FIwN5jSXQMlAo82lPv7zwqHGRXa2o1ep2UsTpec=; b=lmJDR4Z+NFUUaAKfX6
+	hiFukwvl3FfHXFL/i603dsrsvUb26dkCHPMccCLbKRMawMyGrCcmZ6v8Ds4nwzOa
+	Ux7jO4qeJv5Y42nadPr2Qx6PQ0QYckxCJWBEwICCZAv0YYyTXxfyYZDXi+L/a61u
+	8Y5preSfJ8GSqwUY8p9XazDIs=
+Received: from localhost (unknown [])
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgCX1Bw4i6JqOwuKQw--.33571S2;
+	Thu, 10 Sep 2026 18:49:29 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: Andrea Righi <arighi@nvidia.com>
+Cc: peterz@infradead.org,
+	mingo@redhat.com,
+	tim.c.chen@linux.intel.com,
+	yu.c.chen@intel.com,
+	kprateek.nayak@amd.com,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	connoro@google.com,
+	jstultz@google.com,
+	tj@kernel.org,
+	void@manifault.com,
+	changwoo@igalia.com,
+	linux-kernel@vger.kernel.org,
+	sched-ext@lists.linux.dev
+Subject: Re: [PATCH v4 1/5] sched: Dispatch task ticks for donor and execution classes
+Date: Thu, 10 Sep 2026 19:49:28 +0900
+Message-ID: <20260910104928.2771533-1-sh_def@163.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <aqGa0J1_LM99oDkP@gpd4>
+References: <20260909092901.2989564-2-sh_def@163.com> <20260909104251.3131056-1-sh_def@163.com> <aqGa0J1_LM99oDkP@gpd4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2090; i=broonie@kernel.org;
- h=from:subject:message-id; bh=yZVzWlbPbvL+iV7XAErOntQR2Usf4H4OfkpRz1D7fxE=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqoou3x0e3hp8EM/fkuvocIF4Ee5aHRBmNIKwjh
- La0yeOl2KqJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqKLtwAKCRAk1otyXVSH
- 0A5OB/wNGku+Uj7ZXnNa3SQ3JmjQJmBFup+PCJpLm36EHvsm1g6PqqGq2IpdalhmZi30eCXxMr9
- S++qdq+EVx0xmrEU+DjKYUVT+cEkq7KM/b9eylFj46o75m22huWzwrzzTVzAuqwu/Kf47DKx47j
- ecmCsnNUZ5tJUw/rFvGDWt83jM8NsnSPso98KI7wtdXGbJGiODC2cDypXzy/Fu2ji1jD5FNK1FE
- yop5hJK+lnMjgXJdMLS9sv27YAX2WsmrtesbocV4RzoRI3dEUjneD5/LR+vRGBG2dGN7O22VoRH
- 2kcqLbey6HiLpm87AGqfYKsbITKDyrSmBLOjUYqhxGVkkBNr
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:QCgvCgCX1Bw4i6JqOwuKQw--.33571S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWr4xGw4rXF4Utry3Gw4rKrg_yoW5Xr4rpF
+	Z5Kay5Kw1DtF1rAr47Zw48X3WrX397Gr1UWrWkArykurWYqry0gFyftF1jva1UWryfuFy2
+	vrs0vws7GFWjvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UNBMNUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6ho0k2qiizrGXwAA33
 
-On Thu, 13 Aug 2026 20:00:24 +0000, Vishwaroop A wrote:
-> spi: tegra210-quad: Improve interrupt handling for loaded systems
-> 
-> The current threaded IRQ implementation in spi-tegra210-quad suffers
-> from scheduler-induced latency on heavily loaded systems. The old
-> irq_thread() runs SCHED_FIFO but is pinned by the kernel to the IRQ
-> affinity mask (typically one CPU); when that CPU is saturated by RT
-> workloads (e.g. NCCL multicast) or by an SPI transaction coming from
-> a higher-priority context, the sleeping DMA/PIO wait inside the IRQ
-> thread cannot progress and wait_for_completion_timeout() in
-> transfer_one_message expires - even though the QSPI hardware
-> finished on time. This results in false timeout errors and WARN_ON
-> splats during normal operation.
-> 
-> [...]
+On Wed, Sep 09, 2026 at 07:43:44PM +0200, Andrea Righi wrote:
+> They should be compatible soon:
+> https://lore.kernel.org/r/20260831134338.1531664-1-arighi@nvidia.com/
+>
+> It'd be good to handle SCX donor/execution context ownership in this serie as
+> well, or we can coordinate to figure out the required changes.
+>
+> I haven't looked at the whole patch series yet (will do soon), this is JFYI. :)
 
-Applied to
+Thanks for the heads-up.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
+I kept task_tick_scx() explicitly donor-gated in the current local draft and
+did not duplicate the donor-accounting changes from your v13 series. The common
+task_tick() dispatcher invokes the donor class first and, when the execution
+class differs, invokes the execution class second. If sched_ext is reached
+only as the execution class for a non-EXT donor, task_tick_scx() returns
+without SCX policy or slice work.
 
-Thanks!
+I previously applied your v13 series and an integration tree containing an
+earlier revision of this five-patch series on the same base. In that
+integration, the task_tick_scx() hunk was the only textual conflict I
+encountered.
 
-[1/3] spi: tegra210-quad: Convert to hard IRQ with high-priority workqueue
-      https://git.kernel.org/broonie/sound/c/e329b94b1e47
-[2/3] spi: tegra210-quad: Cache TRANS_STATUS in ISR for timeout handler
-      https://git.kernel.org/broonie/sound/c/1ff82c13ea94
-[3/3] spi: tegra210-quad: Process small PIO transfers in hard IRQ context
-      https://git.kernel.org/broonie/sound/c/252ee24aff97
+The current revision additionally handles retained-donor scheduling-class
+transitions around sched_change_begin() and sched_change_end(). Your v13
+series also changes that transition path, so I have not revalidated the
+combined tree after this latest P4 change. The expected resolution still
+uses task_tick(rq, queued), derives the donor from rq->donor, keeps the
+explicit donor-class guard, and preserves your donor-based update_curr_scx()
+and SCX proxy accounting.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+That earlier combined integration tree built and booted with
+CONFIG_SCHED_CLASS_EXT=y and CONFIG_SCHED_PROXY_EXEC=y. It did not provide a
+stable full mixed EXT->FAIR, FAIR->EXT, EXT->EXT, and RT/DL->EXT runtime
+matrix, and it predates the current P4 transition changes. I am therefore
+not claiming complete runtime compatibility for the current revision.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+The resolved task-tick path in the integration tree is:
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+  struct task_struct *donor = rq->donor;
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+  if (donor->sched_class != &ext_sched_class)
+          return;
+
+  update_curr_scx(rq);          /* donor-based in your series */
+  SCX_CALL_OP_TASK(sch, tick, rq, donor);
+  if (!donor->scx.slice)
+          resched_curr(rq);
+
+The complete conflict resolution is carried by the integration tree; this
+excerpt records the donor guard retained from this series and the donor
+accounting retained from yours.
+
+Could you take a look at whether this donor-gated integration is the right
+direction? If so, I will revalidate the current combined tree, carry the
+result into the series, and post it as v5 after the pending runtime checks.
 
 Thanks,
-Mark
+Hui
 
