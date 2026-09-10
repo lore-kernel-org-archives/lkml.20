@@ -1,840 +1,142 @@
-Received: from ms2.novatek.com.tw (ms2.novatek.com.tw [210.202.87.108])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433D4386455;
-	Thu, 10 Sep 2026 03:01:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A5383839AC
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:02:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789009300; cv=none; b=RgvwlmccOyzJOTyuoV5gLq02A33VmpJN4gPt3jKosQvQgViJGEppo7WFU8p10xZQzs+1UFsAMrJO5AGNNveyUNLHvdZ4NMUF+wt3dloou/DcBR5ZjKYTWWaAJIS6qXK2GSE2MuOeijW7sTAmX44bSgNmMxxFwJnzVzJ6zWMobuU=
+	t=1789009340; cv=none; b=r6Pxbxf06ECC/8d2163y9EMdTvIdHNJiuz57jpBiFU4Vu3k7MIcvxzvE5hD1q76DgomhDeW8lT8UgwSPjQT1V38UQDiH+lflj1pVqx+jiIQY+awYZzSeLnPukxXxLuIw4h/XDqWvHt+JG8x/MVEpbRLM16ISs3HogrKRr7Iogao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789009300; c=relaxed/simple;
-	bh=MzxKCpFZXCeneHPDxZ9pMv3Ln78urQNuCjNT4TVUbJM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=l51dRgdRsifRc5aJs5QP+iHaQiSZicvAFdGeVWcDrfN3RGDQdeLsOpEIxf0fwdd7g1oXwxXq9mA7S7erAcJohGOO1SXkjiY/E/ibhWlVDbPVjQ29BBmS8wrGbYErJBSlKp2ohK+IGKWiXU0c4UUMJTMKfptYtdK1DOnIG7mNN8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw; spf=pass smtp.mailfrom=novatek.com.tw; dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b=gkg2islp; arc=none smtp.client-ip=210.202.87.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=novatek.com.tw
+	s=arc-20240116; t=1789009340; c=relaxed/simple;
+	bh=0+kSteEVVTUk3GrBvBsGvBbliaRDTtC1yv7a2Coohds=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=Zk5kD1I1QZYI2zRGTFEVg1J5SXy9fgV19tBI34I7NRNm0jHNpDLo4x7FWeEAVHCU4uEps9XYY/dBVDFp609fmknsZwJMufpZBbMkKdDmhsdHrO3z1YG8otKkqdf6w0JDkRZMM2s6qZqkF5mB82dypc1fscQlUGaNTmfe5SjZMB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EzGYqeaX; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b="gkg2islp"
-X-UUID: e87a9404acc311f191248d90cf864ef8-20260910
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=novatek.com.tw; s=dk;
-	h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From; bh=9QGtG+EvhWZchLH6qo6LuCxWM6Wb03f1PdeD7i8VNLg=;
-	b=gkg2islppklugWBZUztohAXWiGOxsqlD7hB8YFqk9Oy5OurfYE1Ex0xYdfOgDu2lbpRuwfHmVfJVigqb91phagRBKSuj4RQ1E1RSiAd4zcEY3Owc1ivTyDLDF9k4RvP9Ul71K7XtH7SEzxBGo/o7tkUcIThP0b4IwC6j0j2kBbQ=;
-X-UUID: e87a9404acc311f191248d90cf864ef8-20260910
-Received: from spmgt1 [(172.20.13.10)] by ms2.novatek.com.tw
-	(envelope-from <sp_isw1_at@novatek.com.tw>)
-	(Generic MTA)
-	with ESMTP id 587303770; Thu, 10 Sep 2026 11:01:24 +0800
-Received: from oabuild50.novatek.com.tw (oabuild50.novatek.com.tw [172.20.20.160])
-	by spmgt1 (Postfix) with ESMTP id 6DC571A22CC;
-	Thu, 10 Sep 2026 11:01:24 +0800 (CST)
-Received: by oabuild50.novatek.com.tw (Postfix, from userid 1005)
-	id 130F8C600DD; Thu, 10 Sep 2026 11:01:23 +0800 (CST)
-From: nina_kuo@novatek.com.tw
-To: andi.shyti@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: ben_huang@novatek.com.tw,
-	toby_chui@novatek.com.tw,
-	shihpei_hsu@novatek.com.tw
-Subject: [PATCH v9 2/3] i2c: nt72676: Add Novatek NT72676 I2C controller driver
-Date: Thu, 10 Sep 2026 11:01:21 +0800
-Message-Id: <20260910030123.215609-3-nina_kuo@novatek.com.tw>
-X-Mailer: git-send-email 2.26.1
-In-Reply-To: <20260910030123.215609-1-nina_kuo@novatek.com.tw>
-References: <20260910030123.215609-1-nina_kuo@novatek.com.tw>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EzGYqeaX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789009339; x=1820545339;
+  h=date:from:to:cc:subject:message-id;
+  bh=0+kSteEVVTUk3GrBvBsGvBbliaRDTtC1yv7a2Coohds=;
+  b=EzGYqeaXoZMVTcg7qq0Ssh6JUvGQOEFPSPVSUpdjNcDjuF10iU1cRdI/
+   +U8gpkkEl4nCHy54KVwF1DnYLamcZdi6eNZRjl39kVkJIY2gf2hChtMJ1
+   45sUvy1rmwlgqZZ5eUbvJB77DOD1jfGW+H6S6QmYuzeF2tjeIZ1mqTnLk
+   XjKDZju+d13fMpRdlbhMnLA9DEC717kbU6A3/hfYicaNMNdDLWj7ZiZJx
+   eyNgtLrhN+M5hGgwJXzlAUTeJVxiV+HhMgX+k/BJAAaMA6VbeDkMlDWdT
+   JAckrQWrcNRoD5IM3l4xbHDKHChlqiryW1ffoRel8gAptjlrUzUlzrPEx
+   Q==;
+X-CSE-ConnectionGUID: q0wVqSNbTba+4DS+Zd8pjQ==
+X-CSE-MsgGUID: /NZP8nFxRDSRIVq8jjV57w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="99780247"
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="99780247"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 20:02:19 -0700
+X-CSE-ConnectionGUID: PdCvwd1AQp2+S/myfXHIug==
+X-CSE-MsgGUID: I6mrUVg2SkixcAYxPlpOiQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="269738390"
+Received: from lkp-server01.sh.intel.com (HELO a3e91e2cf319) ([10.239.97.150])
+  by orviesa006.jf.intel.com with ESMTP; 09 Sep 2026 20:02:18 -0700
+Received: from kbuild by a3e91e2cf319 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x4V3H-000000001Ie-2Hnf;
+	Thu, 10 Sep 2026 03:02:15 +0000
+Date: Thu, 10 Sep 2026 11:01:23 +0800
+From: kernel test robot <lkp@intel.com>
+To: "x86-ml" <x86@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [tip:master] BUILD SUCCESS
+ 123f122bf1c8ee24cc967e53bfbc1c612551829c
+Message-ID: <202609101120.Epb9BICV-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Ben Huang <Ben_Huang@novatek.com.tw>
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git master
+branch HEAD: 123f122bf1c8ee24cc967e53bfbc1c612551829c  Merge branch into tip/master: 'x86/tdx'
 
-This driver performs the fundamental read/write functions as an I2C
-controller and supports Standard-mode and Fast-mode.
-Default operation is Standard-mode.
+elapsed time: 1038m
 
-Signed-off-by: Ben Huang <Ben_Huang@novatek.com.tw>
-Signed-off-by: Nina Kuo <Nina_Kuo@novatek.com.tw>
----
- drivers/i2c/busses/Kconfig       |  11 +
- drivers/i2c/busses/Makefile      |   1 +
- drivers/i2c/busses/i2c-nt72676.c | 725 +++++++++++++++++++++++++++++++
- 3 files changed, 737 insertions(+)
- create mode 100644 drivers/i2c/busses/i2c-nt72676.c
+configs tested: 65
+configs skipped: 0
 
-diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
-index d7b89508311f..07ec6046fa51 100644
---- a/drivers/i2c/busses/Kconfig
-+++ b/drivers/i2c/busses/Kconfig
-@@ -962,6 +962,17 @@ config I2C_NPCM
- 	  controllers.
- 	  Driver can also support slave mode (select I2C_SLAVE).
- 
-+config I2C_NT72676
-+	tristate "Novatek NT72676 I2C controller"
-+	depends on OF
-+	depends on COMMON_CLK || COMPILE_TEST
-+	help
-+	  Say Y here if you want to enable I2C bus controller on
-+	  Novatek NT72676 SoC.
-+	  This driver performs fundamental read/write functions
-+	  as an I2C bus controller and supports Standard-mode and
-+	  Fast-mode. Default operation is Standard-mode.
-+
- config I2C_OCORES
- 	tristate "OpenCores I2C Controller"
- 	help
-diff --git a/drivers/i2c/busses/Makefile b/drivers/i2c/busses/Makefile
-index 3755c54b3d82..e5440de0fe14 100644
---- a/drivers/i2c/busses/Makefile
-+++ b/drivers/i2c/busses/Makefile
-@@ -90,6 +90,7 @@ obj-$(CONFIG_I2C_MV64XXX)	+= i2c-mv64xxx.o
- obj-$(CONFIG_I2C_MXS)		+= i2c-mxs.o
- obj-$(CONFIG_I2C_NOMADIK)	+= i2c-nomadik.o
- obj-$(CONFIG_I2C_NPCM)		+= i2c-npcm7xx.o
-+obj-$(CONFIG_I2C_NT72676)	+= i2c-nt72676.o
- obj-$(CONFIG_I2C_OCORES)	+= i2c-ocores.o
- obj-$(CONFIG_I2C_OMAP)		+= i2c-omap.o
- obj-$(CONFIG_I2C_OWL)		+= i2c-owl.o
-diff --git a/drivers/i2c/busses/i2c-nt72676.c b/drivers/i2c/busses/i2c-nt72676.c
-new file mode 100644
-index 000000000000..1308d692fc40
---- /dev/null
-+++ b/drivers/i2c/busses/i2c-nt72676.c
-@@ -0,0 +1,725 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2026 Novatek Microelectronics Corp.
-+ * Author: Ben Huang <ben_huang@novatek.com.tw>
-+ */
-+
-+#include <linux/clk.h>
-+#include <linux/completion.h>
-+#include <linux/i2c.h>
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/kernel.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+
-+#define I2C_REG_CTRL			0x00
-+#define I2C_REG_CLK			0x04
-+#define I2C_REG_ACK			0x08
-+#define I2C_REG_SIZE			0x0C
-+#define I2C_REG_FIFO1			0x10
-+#define I2C_REG_SUBADDR			0x20
-+#define I2C_REG_PINGPONG		0x24
-+#define I2C_REG_INTR			0x28
-+#define I2C_REG_FIFO2			0x2C
-+#define I2C_REG_DUTY			0x3C
-+#define I2C_CLR_FIFO1			BIT(7)
-+#define I2C_CLR_FIFO2			BIT(23)
-+#define I2C_BUF_LITTLE_ENDIAN		BIT(13)
-+#define I2C_BUSY			BIT(1)
-+#define I2C_ENABLE			BIT(2)
-+#define I2C_REPEAT_ENABLE		BIT(7)
-+#define I2C_READ_OPERATION		BIT(8)
-+#define I2C_NACK			BIT(24)
-+#define I2C_CLOCK_DUTY_ENABLE		BIT(21)
-+#define I2C_CLOCK_STRETCH_ENABLE	BIT(27)
-+#define I2C_MASTER_CLK_STRETCH_ENABLE	BIT(28)
-+#define I2C_TRIGGER			BIT(0)
-+#define I2C_IRQ_CLK_STR_TIMEOUT		BIT(12)
-+#define I2C_IRQ_NACK			BIT(11)
-+#define I2C_IRQ_RX_FULL			BIT(10)
-+#define I2C_IRQ_TX_EMPTY		BIT(9)
-+#define I2C_IRQ_FINISH			BIT(8)
-+#define I2C_IRQ_FLAG			(I2C_IRQ_CLK_STR_TIMEOUT |\
-+					 I2C_IRQ_NACK | \
-+					 I2C_IRQ_RX_FULL | \
-+					 I2C_IRQ_TX_EMPTY | \
-+					 I2C_IRQ_FINISH)
-+#define I2C_IRQ_CLEAR_ALL		GENMASK(20, 16)
-+#define I2C_IRQ_ENABLE_SETTING		GENMASK(4, 0)
-+#define I2C_SUBADDR_ENABLE		BIT(6)
-+#define I2C_16BITSUBADDR_ENABLE		BIT(16)
-+#define I2C_24BITSUBADDR_ENABLE		BIT(17)
-+#define I2C_32BITSUBADDR_ENABLE		BIT(18)
-+#define I2C_ACK_CTRL_COUNTER		0x000001E0
-+#define I2C_TX_EMPTY_FIFO1		BIT(6)
-+#define I2C_TX_EMPTY_FIFO2		BIT(22)
-+#define I2C_RX_FULL_FIFO1		BIT(5)
-+#define I2C_RX_FULL_FIFO2		BIT(21)
-+
-+#define STBC_REG_PSWD			0x0204
-+#define STBC_REG_KEYPASS		0x0208
-+#define STBC_REG_I2C_SWITCH		0x0220
-+#define STBC_PSWD_DATA1			0x72682
-+#define STBC_PSWD_DATA2			0x28627
-+#define STBC_KEYPASS_ENABLE		BIT(0)
-+#define STBC_AGPIO_SWITCH_TO_CPU	BIT(14)
-+
-+#define FIFO_CHUNK_SIZE			16
-+#define FIFO_WORD_BYTES			4
-+
-+enum {
-+	SUBADDR_DISABLE = 0,
-+	SUBADDR_8BITS,
-+	SUBADDR_16BITS,
-+	SUBADDR_24BITS,
-+	SUBADDR_32BITS,
-+};
-+
-+#define SUBADDR_MAX_LEN			SUBADDR_32BITS
-+
-+enum {
-+	FIFO_1 = 0,
-+	FIFO_2,
-+	FIFO_ALL
-+};
-+
-+struct nvt_i2c_bus {
-+	void __iomem *base;
-+	struct i2c_adapter adapter;
-+	struct device *dev;
-+	struct completion msg_complete;
-+	struct clk *clk;
-+	unsigned long input_clk_rate;
-+	unsigned int bus_clk_rate;
-+	bool stbc_i2c;
-+	struct regmap *stbc_regmap;
-+	int irq;
-+	/* lock for msg and reg protection */
-+	spinlock_t lock;
-+	/* used for xfer, protected by lock */
-+	struct i2c_msg *current_msg;
-+	int subaddr_mode;
-+	int remaining;
-+	int write_ptr;
-+	int read_ptr;
-+	int fifo_idx;
-+	int error_code;
-+};
-+
-+static void nt72676_i2c_writel(u32 val, struct nvt_i2c_bus *i2c, unsigned int reg)
-+{
-+	writel(val, i2c->base + reg);
-+}
-+
-+static u32 nt72676_i2c_readl(struct nvt_i2c_bus *i2c, unsigned int reg)
-+{
-+	return readl(i2c->base + reg);
-+}
-+
-+static int nvt_i2c_stbc_auth(struct nvt_i2c_bus *i2c)
-+{
-+	int ret;
-+
-+	if (!i2c->stbc_i2c)
-+		return 0;
-+
-+	ret = regmap_write(i2c->stbc_regmap, STBC_REG_PSWD, STBC_PSWD_DATA1);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(i2c->stbc_regmap, STBC_REG_PSWD, STBC_PSWD_DATA2);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(i2c->stbc_regmap, STBC_REG_KEYPASS, STBC_KEYPASS_ENABLE);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_update_bits(i2c->stbc_regmap, STBC_REG_I2C_SWITCH,
-+				  STBC_AGPIO_SWITCH_TO_CPU, STBC_AGPIO_SWITCH_TO_CPU);
-+}
-+
-+static void nvt_i2c_set_clk(struct nvt_i2c_bus *i2c)
-+{
-+	unsigned int clk_div = 0;
-+	unsigned int duty = 0;
-+
-+	clk_div = i2c->input_clk_rate / i2c->bus_clk_rate;
-+	nt72676_i2c_writel(clk_div << 1, i2c, I2C_REG_CLK);
-+
-+	duty = (clk_div * 9 + 10) / 20;
-+	nt72676_i2c_writel(duty << 16, i2c, I2C_REG_DUTY);
-+
-+	nt72676_i2c_writel(I2C_ACK_CTRL_COUNTER, i2c, I2C_REG_ACK);
-+}
-+
-+static int nvt_i2c_set_subaddr(struct nvt_i2c_bus *i2c,
-+			       const struct i2c_msg *msgs,
-+			       int num)
-+{
-+	unsigned int i, subaddr = 0;
-+
-+	/* Sub-address can only be a write with maximum size of 4 bytes. */
-+	if (WARN_ON(num != 2))
-+		return -EINVAL;
-+	if (!msgs || !msgs[0].buf ||
-+	    msgs[0].len > i2c->adapter.quirks->max_comb_1st_msg_len ||
-+	    (msgs[0].flags & I2C_M_RD) || !(msgs[1].flags & I2C_M_RD) ||
-+	    msgs[0].addr != msgs[1].addr) {
-+		dev_dbg(i2c->dev, "Invalid sub-address format\n");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	i2c->subaddr_mode = msgs[0].len;
-+	for (i = 0; i < msgs[0].len; i++)
-+		subaddr |= (unsigned int)msgs[0].buf[i] << (8 * (msgs[0].len - 1 - i));
-+	nt72676_i2c_writel(subaddr, i2c, I2C_REG_SUBADDR);
-+
-+	return 0;
-+}
-+
-+static int nvt_i2c_init(struct nvt_i2c_bus *i2c)
-+{
-+	if (i2c->stbc_i2c) {
-+		int ret = nvt_i2c_stbc_auth(i2c);
-+
-+		if (ret)
-+			return ret;
-+	}
-+	nt72676_i2c_writel(I2C_IRQ_CLEAR_ALL, i2c, I2C_REG_INTR);
-+	nvt_i2c_set_clk(i2c);
-+	nt72676_i2c_writel(I2C_BUF_LITTLE_ENDIAN, i2c, I2C_REG_PINGPONG);
-+
-+	return 0;
-+}
-+
-+static void nvt_i2c_reset(struct nvt_i2c_bus *i2c)
-+{
-+	nt72676_i2c_writel(I2C_IRQ_CLEAR_ALL, i2c, I2C_REG_INTR);
-+	if (i2c->error_code) {
-+		nt72676_i2c_writel(nt72676_i2c_readl(i2c, I2C_REG_CTRL) & ~I2C_ENABLE,
-+				   i2c, I2C_REG_CTRL);
-+		nt72676_i2c_writel(nt72676_i2c_readl(i2c, I2C_REG_CTRL) | I2C_ENABLE,
-+				   i2c, I2C_REG_CTRL);
-+	}
-+}
-+
-+static void nvt_i2c_release(struct nvt_i2c_bus *i2c)
-+{
-+	nt72676_i2c_writel(nt72676_i2c_readl(i2c, I2C_REG_CTRL) & ~I2C_ENABLE,
-+			   i2c, I2C_REG_CTRL);
-+	nt72676_i2c_writel(I2C_IRQ_CLEAR_ALL, i2c, I2C_REG_INTR);
-+}
-+
-+static int nvt_i2c_suspend(struct device *dev)
-+{
-+	struct nvt_i2c_bus *i2c = dev_get_drvdata(dev);
-+	unsigned long flags;
-+
-+	i2c_mark_adapter_suspended(&i2c->adapter);
-+
-+	spin_lock_irqsave(&i2c->lock, flags);
-+	i2c->current_msg = NULL;
-+	nvt_i2c_release(i2c);
-+	spin_unlock_irqrestore(&i2c->lock, flags);
-+
-+	return 0;
-+}
-+
-+static int nvt_i2c_resume(struct device *dev)
-+{
-+	struct nvt_i2c_bus *i2c = dev_get_drvdata(dev);
-+	int ret = nvt_i2c_init(i2c);
-+
-+	if (ret) {
-+		dev_err(i2c->dev, "Failed to resume\n");
-+		return ret;
-+	}
-+
-+	i2c_mark_adapter_resumed(&i2c->adapter);
-+
-+	return 0;
-+}
-+
-+static void nvt_i2c_clear_fifo(struct nvt_i2c_bus *i2c, unsigned int which)
-+{
-+	unsigned int regval = nt72676_i2c_readl(i2c, I2C_REG_PINGPONG);
-+
-+	switch (which) {
-+	case FIFO_1:
-+		regval |= I2C_CLR_FIFO1;
-+		break;
-+	case FIFO_2:
-+		regval |= I2C_CLR_FIFO2;
-+		break;
-+	case FIFO_ALL:
-+		regval |= I2C_CLR_FIFO1 | I2C_CLR_FIFO2;
-+		break;
-+	default:
-+		break;
-+	}
-+	nt72676_i2c_writel(regval, i2c, I2C_REG_PINGPONG);
-+}
-+
-+static void nvt_i2c_write_fifo(struct nvt_i2c_bus *i2c,
-+			       unsigned int fifo_reg,
-+			       const unsigned char *buf,
-+			       unsigned int buf_offset,
-+			       unsigned int length)
-+{
-+	unsigned int reg_idx = 0, copy_bytes = 0, j = 0, value = 0;
-+
-+	while (length > 0) {
-+		value = 0;
-+		copy_bytes = min(FIFO_WORD_BYTES, length);
-+		for (j = 0; j < copy_bytes; j++)
-+			value |= ((unsigned int)buf[buf_offset + j]) << (j * 8);
-+
-+		nt72676_i2c_writel(value, i2c, fifo_reg + reg_idx * 4);
-+		buf_offset += copy_bytes;
-+		length -= copy_bytes;
-+		reg_idx++;
-+	}
-+}
-+
-+static void nvt_i2c_read_fifo(struct nvt_i2c_bus *i2c,
-+			      unsigned int fifo_reg,
-+			      unsigned char *buf,
-+			      unsigned int buf_offset,
-+			      unsigned int length)
-+{
-+	unsigned int reg_idx = 0, copy_bytes = 0, j = 0, value = 0;
-+
-+	while (length > 0) {
-+		value = nt72676_i2c_readl(i2c, fifo_reg + reg_idx * 4);
-+		copy_bytes = min(FIFO_WORD_BYTES, length);
-+		for (j = 0; j < copy_bytes; j++)
-+			buf[buf_offset + j] = (unsigned char)(value >> (j * 8));
-+
-+		buf_offset += copy_bytes;
-+		length -= copy_bytes;
-+		reg_idx++;
-+	}
-+}
-+
-+static void nvt_i2c_handle(struct nvt_i2c_bus *i2c, struct i2c_msg *msg, bool is_read)
-+{
-+	unsigned int bytes, fiforeg;
-+
-+	if (WARN_ON(!msg->buf))
-+		return;
-+
-+	bytes = min(FIFO_CHUNK_SIZE, i2c->remaining);
-+	fiforeg = i2c->fifo_idx == FIFO_1 ? I2C_REG_FIFO1 : I2C_REG_FIFO2;
-+
-+	if (is_read) {
-+		nvt_i2c_read_fifo(i2c, fiforeg, msg->buf, i2c->read_ptr, bytes);
-+		i2c->read_ptr += bytes;
-+	} else {
-+		nvt_i2c_write_fifo(i2c, fiforeg, msg->buf, i2c->write_ptr, bytes);
-+		i2c->write_ptr += bytes;
-+	}
-+	nvt_i2c_clear_fifo(i2c, i2c->fifo_idx);
-+	i2c->remaining -= bytes;
-+	i2c->fifo_idx ^= 1;
-+}
-+
-+static irqreturn_t nvt_i2c_isr(int irq, void *dev_id)
-+{
-+	struct nvt_i2c_bus *i2c = dev_id;
-+	unsigned int status, clr = 0;
-+	struct i2c_msg *msg;
-+	int do_complete = 0;
-+
-+	spin_lock(&i2c->lock);
-+	status = nt72676_i2c_readl(i2c, I2C_REG_INTR);
-+	/* IRQ from other I2C, ignored */
-+	if (!(status & I2C_IRQ_FLAG)) {
-+		spin_unlock(&i2c->lock);
-+		return IRQ_NONE;
-+	}
-+
-+	msg = i2c->current_msg;
-+	if (!msg) {
-+		nt72676_i2c_writel(I2C_IRQ_CLEAR_ALL, i2c, I2C_REG_INTR);
-+		spin_unlock(&i2c->lock);
-+		return IRQ_HANDLED;
-+	}
-+
-+	if (status & I2C_IRQ_CLK_STR_TIMEOUT) {
-+		i2c->error_code = -ETIMEDOUT;
-+		clr |= I2C_IRQ_CLK_STR_TIMEOUT << 8;
-+	} else if (status & I2C_IRQ_NACK) {
-+		i2c->error_code = -ENXIO;
-+		clr |= I2C_IRQ_NACK << 8;
-+	} else if (status & I2C_IRQ_RX_FULL) {
-+		if (i2c->remaining > 0)
-+			nvt_i2c_handle(i2c, msg, true);
-+		clr |= I2C_IRQ_RX_FULL << 8;
-+	} else if (status & I2C_IRQ_TX_EMPTY) {
-+		if (i2c->remaining > 0)
-+			nvt_i2c_handle(i2c, msg, false);
-+		clr |= I2C_IRQ_TX_EMPTY << 8;
-+	} else if (status & I2C_IRQ_FINISH) {
-+		if (i2c->remaining > 0 && (msg->flags & I2C_M_RD))
-+			nvt_i2c_handle(i2c, msg, true);
-+		clr |= I2C_IRQ_FINISH << 8;
-+		do_complete = 1;
-+	}
-+	if (i2c->error_code)
-+		do_complete = 1;
-+
-+	nt72676_i2c_writel(status | clr, i2c, I2C_REG_INTR);
-+	if (do_complete)
-+		complete(&i2c->msg_complete);
-+	spin_unlock(&i2c->lock);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static void nvt_i2c_ctrl_init(struct nvt_i2c_bus *i2c)
-+{
-+	int i = 0;
-+
-+	nt72676_i2c_writel(0, i2c, I2C_REG_CTRL);
-+	for (i = 0; i < 4; i++) {
-+		nt72676_i2c_writel(0, i2c, I2C_REG_FIFO1 + i * 4);
-+		nt72676_i2c_writel(0, i2c, I2C_REG_FIFO2 + i * 4);
-+	}
-+	nvt_i2c_clear_fifo(i2c, FIFO_ALL);
-+	nt72676_i2c_writel(0, i2c, I2C_REG_SUBADDR);
-+	i2c->subaddr_mode = SUBADDR_DISABLE;
-+}
-+
-+static int nvt_i2c_check_msg(const struct i2c_msg *msg)
-+{
-+	if (!msg || !msg->buf || !msg->len)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+static void nvt_i2c_prepare_xfer(struct nvt_i2c_bus *i2c, struct i2c_msg *msg)
-+{
-+	reinit_completion(&i2c->msg_complete);
-+	i2c->remaining   = msg->len;
-+	i2c->current_msg = msg;
-+	i2c->write_ptr   = 0;
-+	i2c->read_ptr    = 0;
-+	i2c->error_code  = 0;
-+	i2c->fifo_idx    = FIFO_1;
-+}
-+
-+static int nvt_i2c_write(struct nvt_i2c_bus *i2c, struct i2c_msg *msg)
-+{
-+	int ret, offset = 0, write_bytes, fifo_num;
-+	unsigned int ctrl_mask = 0;
-+	unsigned long flags;
-+
-+	ret = nvt_i2c_check_msg(msg);
-+	if (ret)
-+		return ret;
-+
-+	spin_lock_irqsave(&i2c->lock, flags);
-+	nvt_i2c_prepare_xfer(i2c, msg);
-+
-+	nt72676_i2c_writel((msg->len * 8) << 8, i2c, I2C_REG_SIZE);
-+
-+	/*  Write FIFO data first */
-+	for (fifo_num = FIFO_1; fifo_num < FIFO_ALL && offset < msg->len; fifo_num++) {
-+		write_bytes = min(FIFO_CHUNK_SIZE, msg->len - offset);
-+		nvt_i2c_write_fifo(i2c, fifo_num == FIFO_1 ? I2C_REG_FIFO1 : I2C_REG_FIFO2,
-+				   msg->buf, offset, write_bytes);
-+		offset += write_bytes;
-+	}
-+	i2c->write_ptr = offset;
-+	i2c->remaining = msg->len - offset;
-+	i2c->fifo_idx = FIFO_1;
-+
-+	/* Enable interrupt */
-+	nt72676_i2c_writel(I2C_IRQ_ENABLE_SETTING | I2C_IRQ_CLEAR_ALL,
-+			   i2c, I2C_REG_INTR);
-+
-+	/* Trigger */
-+	switch (i2c->subaddr_mode) {
-+	case SUBADDR_8BITS:
-+		ctrl_mask |= I2C_SUBADDR_ENABLE;
-+		break;
-+	case SUBADDR_16BITS:
-+		ctrl_mask |= I2C_SUBADDR_ENABLE | I2C_16BITSUBADDR_ENABLE;
-+		break;
-+	case SUBADDR_24BITS:
-+		ctrl_mask |= I2C_SUBADDR_ENABLE | I2C_24BITSUBADDR_ENABLE;
-+		break;
-+	case SUBADDR_32BITS:
-+		ctrl_mask |= I2C_SUBADDR_ENABLE | I2C_32BITSUBADDR_ENABLE;
-+		break;
-+	default:
-+		break;
-+	}
-+	ctrl_mask |= (((msg->addr << 1) << 8) | I2C_ENABLE |
-+			I2C_CLOCK_DUTY_ENABLE | I2C_CLOCK_STRETCH_ENABLE |
-+			I2C_MASTER_CLK_STRETCH_ENABLE | I2C_TRIGGER);
-+	nt72676_i2c_writel(ctrl_mask, i2c, I2C_REG_CTRL);
-+	spin_unlock_irqrestore(&i2c->lock, flags);
-+
-+	ret = wait_for_completion_timeout(&i2c->msg_complete, i2c->adapter.timeout);
-+
-+	spin_lock_irqsave(&i2c->lock, flags);
-+	if (!ret)
-+		i2c->error_code = -ETIMEDOUT;
-+	nvt_i2c_reset(i2c);
-+	ret = i2c->error_code;
-+	i2c->current_msg = NULL;
-+	spin_unlock_irqrestore(&i2c->lock, flags);
-+
-+	if (ret)
-+		dev_dbg(i2c->dev, "Write failed (err:%d); SA[0x%X]\n",
-+			i2c->error_code, msg->addr);
-+
-+	return ret;
-+}
-+
-+static int nvt_i2c_read(struct nvt_i2c_bus *i2c, struct i2c_msg *msg)
-+{
-+	unsigned int ctrl_mask = 0;
-+	unsigned long flags;
-+	int ret;
-+
-+	ret = nvt_i2c_check_msg(msg);
-+	if (ret)
-+		return ret;
-+
-+	spin_lock_irqsave(&i2c->lock, flags);
-+	nvt_i2c_prepare_xfer(i2c, msg);
-+
-+	nt72676_i2c_writel((msg->len * 8) << 8, i2c, I2C_REG_SIZE);
-+
-+	/* Enable interrupt */
-+	nt72676_i2c_writel(I2C_IRQ_ENABLE_SETTING | I2C_IRQ_CLEAR_ALL,
-+			   i2c, I2C_REG_INTR);
-+
-+	/* Trigger */
-+	switch (i2c->subaddr_mode) {
-+	case SUBADDR_8BITS:
-+		ctrl_mask |= I2C_SUBADDR_ENABLE;
-+		break;
-+	case SUBADDR_16BITS:
-+		ctrl_mask |= I2C_SUBADDR_ENABLE | I2C_16BITSUBADDR_ENABLE;
-+		break;
-+	case SUBADDR_24BITS:
-+		ctrl_mask |= I2C_SUBADDR_ENABLE | I2C_24BITSUBADDR_ENABLE;
-+		break;
-+	case SUBADDR_32BITS:
-+		ctrl_mask |= I2C_SUBADDR_ENABLE | I2C_32BITSUBADDR_ENABLE;
-+		break;
-+	default:
-+		break;
-+	}
-+	ctrl_mask |= (((msg->addr << 1) << 8) | I2C_ENABLE |
-+			I2C_REPEAT_ENABLE | I2C_READ_OPERATION |
-+			I2C_CLOCK_DUTY_ENABLE | I2C_CLOCK_STRETCH_ENABLE |
-+			I2C_MASTER_CLK_STRETCH_ENABLE | I2C_TRIGGER);
-+	nt72676_i2c_writel(ctrl_mask, i2c, I2C_REG_CTRL);
-+	spin_unlock_irqrestore(&i2c->lock, flags);
-+
-+	ret = wait_for_completion_timeout(&i2c->msg_complete, i2c->adapter.timeout);
-+
-+	spin_lock_irqsave(&i2c->lock, flags);
-+	if (!ret)
-+		i2c->error_code = -ETIMEDOUT;
-+	nvt_i2c_reset(i2c);
-+	ret = i2c->error_code;
-+	i2c->current_msg = NULL;
-+	spin_unlock_irqrestore(&i2c->lock, flags);
-+
-+	if (ret)
-+		dev_dbg(i2c->dev, "Read failed (err:%d); SA[0x%X]\n",
-+			i2c->error_code, msg->addr);
-+
-+	return ret;
-+}
-+
-+static int nvt_i2c_xfer(struct i2c_adapter *adap,
-+			struct i2c_msg msgs[],
-+			int num)
-+{
-+	struct nvt_i2c_bus *i2c = i2c_get_adapdata(adap);
-+	struct i2c_msg *msg = &msgs[0];
-+	int ret = 0;
-+
-+	nvt_i2c_ctrl_init(i2c);
-+
-+	if (num == 2) {
-+		ret = nvt_i2c_set_subaddr(i2c, msgs, num);
-+		if (ret)
-+			return ret;
-+		msg = &msgs[1];
-+	}
-+
-+	if (msg->flags & I2C_M_RD)
-+		ret = nvt_i2c_read(i2c, msg);
-+	else
-+		ret = nvt_i2c_write(i2c, msg);
-+
-+	if (ret < 0)
-+		return ret;
-+	return num;
-+}
-+
-+static u32 nvt_i2c_func(struct i2c_adapter *adap)
-+{
-+	return (I2C_FUNC_I2C | I2C_FUNC_SMBUS_EMUL) & ~I2C_FUNC_SMBUS_QUICK;
-+}
-+
-+static const struct i2c_algorithm nvt_i2c_algo = {
-+	.master_xfer = nvt_i2c_xfer,
-+	.functionality = nvt_i2c_func,
-+};
-+
-+static int nvt_i2c_parse_dts(struct nvt_i2c_bus *i2c)
-+{
-+	struct device *dev = i2c->dev;
-+	struct device_node *np = dev->of_node;
-+	int ret;
-+
-+	/* read DTS(novatek,stbc-syscon) for STBC I2C */
-+	i2c->stbc_i2c = of_property_present(dev->of_node, "novatek,stbc-syscon");
-+	if (i2c->stbc_i2c) {
-+		i2c->stbc_regmap = syscon_regmap_lookup_by_phandle(dev->of_node,
-+								   "novatek,stbc-syscon");
-+		if (IS_ERR(i2c->stbc_regmap))
-+			return dev_err_probe(dev, PTR_ERR(i2c->stbc_regmap),
-+					     "Failed to get STBC syscon\n");
-+	}
-+
-+	/* read DTS(clock-frequency) */
-+	ret = of_property_read_u32(np, "clock-frequency", &i2c->bus_clk_rate);
-+	if (ret || !i2c->bus_clk_rate) {
-+		dev_info(dev, "Not set dtb clock-frequency, set default 100kHz\n");
-+		i2c->bus_clk_rate = I2C_MAX_STANDARD_MODE_FREQ;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id nvt_i2c_of_match[] = {
-+	{ .compatible = "novatek,nt72676-i2c" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, nvt_i2c_of_match);
-+
-+static const struct i2c_adapter_quirks nvt_i2c_quirks = {
-+	.flags = I2C_AQ_COMB_WRITE_THEN_READ | I2C_AQ_NO_ZERO_LEN,
-+	.max_num_msgs = 2,
-+	.max_write_len = 4096,
-+	.max_read_len = 4096,
-+	.max_comb_1st_msg_len = SUBADDR_MAX_LEN,
-+	.max_comb_2nd_msg_len = 4096,
-+};
-+
-+static int nvt_i2c_probe(struct platform_device *pdev)
-+{
-+	struct nvt_i2c_bus *i2c;
-+	int ret;
-+
-+	i2c = devm_kzalloc(&pdev->dev, sizeof(*i2c), GFP_KERNEL);
-+	if (!i2c)
-+		return -ENOMEM;
-+
-+	i2c->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(i2c->base))
-+		return PTR_ERR(i2c->base);
-+
-+	spin_lock_init(&i2c->lock);
-+	init_completion(&i2c->msg_complete);
-+	i2c->dev = &pdev->dev;
-+
-+	ret = nvt_i2c_parse_dts(i2c);
-+	if (ret)
-+		return ret;
-+
-+	i2c->clk = devm_clk_get_enabled(&pdev->dev, NULL);
-+	if (IS_ERR(i2c->clk))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(i2c->clk),
-+				     "devm_clk_get_enabled fail\n");
-+
-+	i2c->input_clk_rate = clk_get_rate(i2c->clk);
-+	if (!i2c->input_clk_rate)
-+		return dev_err_probe(&pdev->dev, -EINVAL, "Invalid input clock rate\n");
-+
-+	if (i2c->input_clk_rate < i2c->bus_clk_rate)
-+		return dev_err_probe(&pdev->dev, -EINVAL,
-+				     "Input clock rate %lu is lower than bus frequency %u\n",
-+				     i2c->input_clk_rate, i2c->bus_clk_rate);
-+
-+	i2c->irq = platform_get_irq(pdev, 0);
-+	if (i2c->irq < 0)
-+		return i2c->irq;
-+
-+	ret = nvt_i2c_init(i2c);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "nvt_i2c_init fail\n");
-+
-+	ret = devm_request_irq(&pdev->dev, i2c->irq, nvt_i2c_isr,
-+			       IRQF_SHARED, dev_name(&pdev->dev), i2c);
-+	if (ret) {
-+		nvt_i2c_release(i2c);
-+		return dev_err_probe(&pdev->dev, ret, "devm_request_irq fail\n");
-+	}
-+
-+	/* Setup I2C adapter */
-+	i2c->adapter.owner = THIS_MODULE;
-+	i2c->adapter.algo = &nvt_i2c_algo;
-+	i2c->adapter.dev.of_node = pdev->dev.of_node;
-+	i2c->adapter.dev.parent = &pdev->dev;
-+	i2c->adapter.quirks = &nvt_i2c_quirks;
-+	i2c->adapter.timeout = 3 * HZ;
-+	strscpy(i2c->adapter.name, dev_name(&pdev->dev), sizeof(i2c->adapter.name));
-+	i2c_set_adapdata(&i2c->adapter, i2c);
-+
-+	ret = i2c_add_adapter(&i2c->adapter);
-+	if (ret) {
-+		nvt_i2c_release(i2c);
-+		return dev_err_probe(&pdev->dev, ret, "Failed to add adapter\n");
-+	}
-+
-+	platform_set_drvdata(pdev, i2c);
-+
-+	return 0;
-+}
-+
-+static void nvt_i2c_remove(struct platform_device *pdev)
-+{
-+	struct nvt_i2c_bus *i2c = platform_get_drvdata(pdev);
-+	unsigned long flags;
-+
-+	i2c_del_adapter(&i2c->adapter);
-+	spin_lock_irqsave(&i2c->lock, flags);
-+	nvt_i2c_release(i2c);
-+	spin_unlock_irqrestore(&i2c->lock, flags);
-+}
-+
-+static const struct dev_pm_ops nvt_i2c_pm_ops = {
-+	.resume_early = nvt_i2c_resume,
-+	.suspend_late = nvt_i2c_suspend,
-+};
-+
-+static struct platform_driver nvt_i2c_driver = {
-+	.probe = nvt_i2c_probe,
-+	.remove = nvt_i2c_remove,
-+	.driver = {
-+		.name = "nt72676_i2c",
-+		.pm = &nvt_i2c_pm_ops,
-+		.of_match_table = of_match_ptr(nvt_i2c_of_match),
-+	},
-+};
-+module_platform_driver(nvt_i2c_driver);
-+
-+MODULE_DESCRIPTION("Novatek NT72676 SoC I2C Bus Driver");
-+MODULE_AUTHOR("Ben Huang <ben_huang@novatek.com.tw>");
-+MODULE_LICENSE("GPL");
--- 
-2.40.1
+The following configs have been built successfully.
+More configs may be tested in the coming days.
 
+tested configs:
+alpha         allnoconfig    gcc-16.1.0
+alpha        allyesconfig    gcc-16.1.0
+arc          allmodconfig    clang-24
+arc           allnoconfig    gcc-16.1.0
+arc          allyesconfig    clang-24
+arm           allnoconfig    gcc-16.1.0
+arm          allyesconfig    clang-24
+arm64        allmodconfig    clang-24
+arm64         allnoconfig    gcc-16.1.0
+csky         allmodconfig    gcc-16.1.0
+csky          allnoconfig    gcc-16.1.0
+hexagon      allmodconfig    gcc-16.1.0
+hexagon       allnoconfig    gcc-16.1.0
+i386         allmodconfig    clang-22
+i386          allnoconfig    gcc-16.1.0
+i386         allyesconfig    clang-22
+loongarch    allmodconfig    clang-24
+loongarch     allnoconfig    gcc-16.1.0
+m68k         allmodconfig    gcc-16.1.0
+m68k          allnoconfig    gcc-16.1.0
+m68k         allyesconfig    clang-24
+microblaze    allnoconfig    gcc-16.1.0
+microblaze   allyesconfig    gcc-16.1.0
+mips         allmodconfig    gcc-16.1.0
+mips          allnoconfig    gcc-16.1.0
+mips         allyesconfig    gcc-16.1.0
+nios2        allmodconfig    clang-20
+nios2         allnoconfig    clang-24
+nios2         allnoconfig    gcc-11.5.0
+openrisc     allmodconfig    clang-20
+openrisc      allnoconfig    clang-24
+openrisc      allnoconfig    gcc-16.1.0
+parisc       allmodconfig    gcc-16.1.0
+parisc        allnoconfig    clang-24
+parisc        allnoconfig    gcc-16.1.0
+parisc       allyesconfig    clang-17
+powerpc      allmodconfig    gcc-16.1.0
+powerpc       allnoconfig    clang-24
+powerpc       allnoconfig    gcc-16.1.0
+riscv        allmodconfig    clang-24
+riscv         allnoconfig    clang-24
+riscv         allnoconfig    gcc-16.1.0
+riscv        allyesconfig    clang-24
+s390         allmodconfig    clang-17
+s390          allnoconfig    clang-24
+s390         allyesconfig    gcc-16.1.0
+sh           allmodconfig    gcc-16.1.0
+sh            allnoconfig    clang-24
+sh            allnoconfig    gcc-16.1.0
+sh           allyesconfig    clang-17
+sparc         allnoconfig    clang-24
+sparc         allnoconfig    gcc-16.1.0
+sparc64      allmodconfig    clang-20
+um           allmodconfig    clang-17
+um            allnoconfig    clang-17
+um            allnoconfig    clang-24
+um           allyesconfig    gcc-16.1.0
+x86_64       allmodconfig    clang-22
+x86_64        allnoconfig    clang-22
+x86_64        allnoconfig    clang-24
+x86_64       allyesconfig    clang-22
+x86_64      rhel-9.4-rust    clang-22
+xtensa        allnoconfig    clang-24
+xtensa        allnoconfig    gcc-16.1.0
+xtensa       allyesconfig    clang-20
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
