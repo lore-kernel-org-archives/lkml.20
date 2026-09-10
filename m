@@ -1,147 +1,116 @@
-Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7552388371
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:21:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789010492; cv=none; b=Qj2Tl33VAdphBMs/nw/vdyFbnV5rFM8N+VnV4vYOB99iyb9EgOUIeVB9YFFunXLy4zfaTbcX4cA/sLiRmzrnmKW7r2PeJ4hDSlMIeBqyALxuzfU7OpztT9AJVX0WepBK703KIkeq0mVF/TcHXfXw6tRpBoxDpKVr6Cd6drwOWSQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7D138A701
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:21:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789010492; cv=pass; b=o2DpqAyaoa2dxoHNQ6euZLAvhJiBR4cVUSZOeUTky1RaXV28eNMbv0uqZzx81yUN7nRmo8dJLsX7k3U0UsO+w09H+6sRQ8pDVGRJmVLYVNm+7UdZc2kENrhlgPr2+auemXd9QD6tDYBtTbHr1RkAAZiFpI9+3hmua2fzYCXTHMg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789010492; c=relaxed/simple;
-	bh=RAnQLpzPku7/sBiN9IYfkstPCRnhG64DyTCe5z9u7y8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u4t9FgphmsUSkC0UmSkwnMVRzgWGMQpmxGWaxoqRJKt7xa+xatiB5nz6J4ipahYODu/8YSbgTgLQ7apRgTnbz3HyH/tIiu6SrCP49v6TAnFgUvht2YoJvAeNst9ZPReaVPwv8KwCU/2XHZfUmPYRqVO5Ag4PUFJ6Jy8087pa8tA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GeZITH3U; arc=none smtp.client-ip=74.125.231.171
+	bh=d9sO9YfjOMtfhkKI218+Hml8pdw2xki6+3ssCBL+UVU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OB3rQLlMHH9HjL6MKuv4lqLd7R6xpQOMYpYXZLaEPSbuXDH6Kb/vbSzcPUhNdArAy7IBmH31bCUm3HIQ0Ug9cZOIK3TiaLCtd9lPwoY/jLTFTYtob/4xW6lz0BlC0XOnuS5EdSmGOY3PrXs/NJEFZSBYcftaXndBIGksArKaA+8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SWQ7MXUq; arc=pass smtp.client-ip=209.85.167.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GeZITH3U"
-Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-7f4bdf26365so367304a34.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SWQ7MXUq"
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5b76515c0d7so408856e87.0
         for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 20:21:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789010489; cv=none;
+        d=google.com; s=arc-20260327;
+        b=g16vr9oOGJpPUBbAnquioKhPz/tzYg+aYMfQEfLln/Xtm6XaUhuPGM9oVqEn9/8/K2
+         Djo7basWv1EcUOdRjxtYMFgqnIHnekfXm2F6J0A8yk3RbXIddSQntHZ2mG+S67lVwGOv
+         Jqy8iUHb7nRuJ2s8wBFvKrp1dyvOfSnyLLvbEG/uNYkzDFF7mOlriOpyqRI2YwAH120I
+         smsR9h2gN85erDb+hSB2kBlSwTSKmYP4rU79vy+teH80iRRyNT0vbK22JPR0R35cm7eS
+         +JBNlosMbk1SW2i6U1L90EKfniD8k4c1LLxdqnMIneVScmThB8k5WpSGBDUDuUY2PAMs
+         gWAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=d9sO9YfjOMtfhkKI218+Hml8pdw2xki6+3ssCBL+UVU=;
+        fh=ih8J7TBUCTfgO/dJK5zLC9W6r8wz2rqywlEkgso3RFU=;
+        b=BGA06qHWSW2GLiqFQbNHJzo2Hu0XZ4H648aC6xsyztE0LWkYCLVijxZb8F5khDKkor
+         Hid/oYU3mQagcXDznmStkg2CpofOgXB3cnpxxwaPPOMLyFyKgrOOXdOkul/wOta2VFCj
+         qr4FddR5FXki7ukin5luvZEFuBl400Rvt60SMnO6ZONbLFO9qX5ms0QFTPWLNPEgxt2z
+         jCFNiENt5dG83aIpoSwU6o7mK7XbwprKXXF8Nst6VuMO1jI0/8w78Ito76dVrGrjCf+F
+         2TBfmomahxt01Rp35o87MQMzd35bGp3+igDx2ESHvJ10NxxMGBLOW2UjXzQUfilIpds1
+         6P2A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789010490; x=1789615290; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uB3vWkzSWUGhUPGiwsOLzELGJs5tqcYbrEX4UJLtth4=;
-        b=GeZITH3UzsOViFtkF6z9QYo26zh0ijQHzdUlyFucjrG/2B4z4X41RZyFl+LQNDvvc3
-         wSb9v3TnoR5kfE/Itgu8KtyMjrtESObaGlsvjRnOYQX3yWFQBv3SjEJK33EFDgEIwFUk
-         yIV2aG3ttc6+zqlgkm4XSviEL/zpGZEY724u2v6yzagXIA//L9hPlqKJ8eDPly1vJvVy
-         0c5jXQCzxq7K4vQKkmKcNz5B5FZsja64eMwI8UReOPj+fa+fWGNDJOau8FrCTLA3zJ73
-         ebPau1cHtliud5gAay/TQ+TOah4E3JkspJ1qwb7/TQKwquFdInzwb3QMxt///VesmHxv
-         rJVw==
+        d=gmail.com; s=20251104; t=1789010489; x=1789615289; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d9sO9YfjOMtfhkKI218+Hml8pdw2xki6+3ssCBL+UVU=;
+        b=SWQ7MXUq8hWauQt3woccc8fdoH1ixQ2nrXNn/BjQWP80zEtOoB9H2o/2oAUCncxq6z
+         +LYl5JKPujjfKOuRZ76JqFLukjKgbmksJ4vp5iXC2OUDcfmVXMl34PjJjnRXYewANJ1y
+         PI5zLMp7k/PYQQMUluPqoy0KRqVRVxysSr5PUDc67xGZ9FPPAn3hU1B4KXC2G2rP+DVe
+         jyzdov7KQg7afQKPXinC06msaYTylYaeiTuKa0i19qf0lKpD/sctOmNCz2brzq+u9bLy
+         kFhBAROKwzpc3v5aogPct0eS8UDOyWnomU4AhnHctSIwZq7y6+0THzTK15vwZzN1lisP
+         UnzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789010490; x=1789615290;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uB3vWkzSWUGhUPGiwsOLzELGJs5tqcYbrEX4UJLtth4=;
-        b=jivPZKAvPs3Poz/1zTDnMMabpjiB+6W4ST0STAnBdQxUpbf3EY6P3RT6EsCOc3gzBE
-         1E0U+RbuDG6b0XVNsjHe6Z7jKdAv3FpRCQuKYXv4nGrQsWfc8J0nZZ4DacHkcJSMSqhl
-         FQIDYKfSzWBs7QRub+7iPS5+e+LySN6Xp3oDqkNdmkXoDxSuy+WksdR5C/oImsKAHH9B
-         nz2CNajcN8vjopeuzq5DKk6cuvFlLe4KHkM6Hu2czi05NTIp7FT+p536Ts+i3XiZOvl0
-         eYnwy8mFmQ8qQXH+LOye5fCt2ECUCT0k/XQ6CtaAWlJDKbQkU1pYCQWJGQZaQmu8Dtyd
-         WeYg==
-X-Forwarded-Encrypted: i=1; AKwUvBxpJacbIi/ox16cgbGmjxSrmWC75Oei1HngxGkiOl0uqK/avALWOukeF8kKKFolXRwjQqUMORKcGc8jGGQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++naYkqJfnYvLXSwuXxSzucuxaHOz7ZPbyuhNM6Ar2XmW5VZ+ejJ
-	fd1B5WrQ6cM+TsaLkuU4SqPtAxzgoQn6FwXjey4lpz/yiQFRax4Wex2D
-X-Gm-Gg: AYBFou0hZOwsCom+UeX1o5GPYIo8GJjiUxFWgnGBh32c+4VeKd95sjwtEPTpW2HexDY
-	QdqbdUKNcEBRpxWZoKgD7ufsGJ7aKmAgNSwqvycc/AWk+tev0CqRIDsapUjrFRwbOv/hqoLdVAe
-	cNc+A6NUI7yTo9nhJPgd2FoYYwOdNrAbjlbtiqpmnNfUj1qlAHeajFdH5HBANJNhejh7uttiUlq
-	cVXLy4xPvgPZn4eoKFRfBXSfHRYh24wGkoNSgiHyf49XXk4De1+JqVGnyjrnlSMb/oKe9GcbFCA
-	nmF5anBwSo4zTTSV3A8U4LYzhV7a8V38I/Jfr3Sn+m+84JWLYfMribu0sdxomee/9ok/eKvgPzo
-	Z/I2xsUCqSIow+rw27M8YjT6H3zn7uonB/gQ6mNqGwUUuOG9nEsaksDxrRwH2CEO/WRmeku4nZU
-	u7kG6+9Hrex/rBcjWj/JUseS7Oln09lVRtOjyl/tGguKCezTj6BGClsCc13MO3coFxhWxFIV3EO
-	dAa2MtcAaU97jp74GPbHhX1+zsvOkSQN3k1UuhHZczl09n3wcmvYkwufQfWKGp8OQzE
-X-Received: by 2002:a05:6830:83aa:b0:7e3:f809:7984 with SMTP id 46e09a7af769-8027109f9aamr2270980a34.1.1789010489743;
-        Wed, 09 Sep 2026 20:21:29 -0700 (PDT)
-Received: from localhost ([76.187.192.44])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f9f6da9a49sm19758315a34.13.2026.09.09.20.21.28
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 09 Sep 2026 20:21:29 -0700 (PDT)
-From: Andrei Aldea <andrei1998@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	linux-leds@vger.kernel.org
-Subject: [PATCH 02/15] HID: hid-oxp: validate input report lengths before decoding
-Date: Wed,  9 Sep 2026 22:21:02 -0500
-Message-ID: <20260910032115.28669-3-andrei1998@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910032115.28669-1-andrei1998@gmail.com>
-References: <20260910032115.28669-1-andrei1998@gmail.com>
+        d=1e100.net; s=20251104; t=1789010489; x=1789615289;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=d9sO9YfjOMtfhkKI218+Hml8pdw2xki6+3ssCBL+UVU=;
+        b=W+VHSUeIpiWsxnNOxhhGA/ncrlgNA7R9NBSAv90feREQtirWJyQ4GXfeiYyo5OP9ZL
+         Ib1/fIE3Oxd5I6eGbQXVmbYDpoII+RANyx4541RGYle6ZQOid5BYTyayeX4BYEu/ByVQ
+         Ak5ofsCMkueP5hOqKGEFwAAJWmhvzGBG2nahbt5EOfmq9+upk42b3NEnRX8SZfXmsekL
+         AivG3Sm3ghFAvBYVD0wE8vxXRNBi/Y9JBc9Vzfa1I1V4iQlIiQjvAIbu0QqRVy0hFfj1
+         DJyDXdxJ9uFrdW63uDmq0gqcrnLmHdT6uPwx7LRt2B29SuOtOICCM+x+1CJmrWLxToQ6
+         5bsw==
+X-Forwarded-Encrypted: i=1; AKwUvBwKx0adKI8HeFjve7VYSeFkWEejOe7n6GGmVkTIU+MQsfo/CCdu7BVi6kGhoPLpsdp+1bt4AbJHQZ9Ad2w=@vger.kernel.org
+X-Gm-Message-State: AFuF++kgrKNyxSIqCkPRr33Yc4NIbs0r5M8L+vfYxg+s1qaLb4LS+/O0
+	s781nDWuQrllpn0YG8G0rIcXJQedSOrkLgHd01BjfqffN7nx+8DKD8OTkjknbrmjrdBDD+86JYM
+	9HlOvuGfRvfqLELcwTIOkHikaSD51dwQ=
+X-Gm-Gg: AYBFou2AQMPIWL793o2kjng2J/uwDHvVOncC69K0v0WxQTZ5SkZHsg22pVQmMFuHKQm
+	ZkrwFzxihiGgV6vWiwEs6+Tv47IRAQ/h5KgYtx9xvxXXHTZGtPmYswcCk/4Z8z/sBi8kFiin5vq
+	Yp69SGkhL9QnBu6ftIT/nZqJF2SS0CwGZR2FZmlURhMVbQuYP3NgVDFe1oIpyQhi1sfmHH//X0V
+	Ez74iepZKVYmGKODSU3w1eKNa5izdCMbLcQo4eOMLe02XnCmVUrAdpefkYO/0J3vO1cier5IrW7
+	bMh1ZAZFSqFvBOsJdt7iqY9xOScTxTKj9sMNthwMLspS/JEQkupKB7A0gpw0vBLcpXoY3KLBrfB
+	XTspuNy4YxZ3Hv+2BafOq0/zWRqsgCYARHpNx2sMBHA==
+X-Received: by 2002:a05:6512:1307:b0:5b5:e3b0:231 with SMTP id
+ 2adb3069b0e04-5b89a2fad8dmr399549e87.13.1789010488773; Wed, 09 Sep 2026
+ 20:21:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260909013401.14408-2-sigefriedhyy@gmail.com> <178900489222.219967.5701707176821161509@kernel.org>
+In-Reply-To: <178900489222.219967.5701707176821161509@kernel.org>
+From: Yuyang Huang <sigefriedhyy@gmail.com>
+Date: Thu, 10 Sep 2026 12:21:16 +0900
+X-Gm-Features: AcwNN1V7GyyXN-MLzIxbdYaXEdpcN2buyxt9nexIpKd7w-_caM0SlF_aUp8xaeU
+Message-ID: <CA+7S2v+kkzOxwp_o7eJ6e8gCGhqvN7ua52jsBNsCM1hMW79VNA@mail.gmail.com>
+Subject: Re: [PATCH net-next v2 1/3] rtnetlink: add AF_PACKET multicast dumps
+To: netdev-bot+sashiko@kernel.org
+Cc: davem@davemloft.net, dsahern@kernel.org, donald.hunter@gmail.com, 
+	edumazet@google.com, idosch@nvidia.com, kuba@kernel.org, kuniyu@google.com, 
+	nicolas.dichtel@6wind.com, nickgarlis@gmail.com, pabeni@redhat.com, 
+	sd@queasysnail.net, shuah@kernel.org, horms@kernel.org, sdf.kernel@gmail.com, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Check the short Gen2 status header before reading its command, and require
-a complete RGB status report before reading either generation's fields.
-Use the supplied input length for the debug dump as well, so a short
-report cannot cause an out-of-bounds read while logging.
+> Could the changelog drop or reword that claim?
 
-Fixes: 84910c459d65 ("HID: hid-oxp: Add OneXPlayer configuration driver")
-Assisted-by: LLM
-Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
-Signed-off-by: Andrei Aldea <andrei1998@gmail.com>
----
- drivers/hid/hid-oxp.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+Okay, I'll drop the claim in v4.
 
-diff --git a/drivers/hid/hid-oxp.c b/drivers/hid/hid-oxp.c
-index 3f2be80..0c895bd 100644
---- a/drivers/hid/hid-oxp.c
-+++ b/drivers/hid/hid-oxp.c
-@@ -23,6 +23,7 @@
- #include "hid-ids.h"
- 
- #define OXP_PACKET_SIZE 64
-+#define OXP_STATUS_HEADER_SIZE 6
- 
- #define GEN1_MESSAGE_ID	0xff
- #define GEN2_MESSAGE_ID	0x3f
-@@ -318,6 +319,9 @@ static int oxp_hid_raw_event_gen_1(struct hid_device *hdev,
- 	struct led_classdev_mc *led_mc = drvdata.led_mc;
- 	struct oxp_gen_1_rgb_report *rgb_rep;
- 
-+	if (size < sizeof(*rgb_rep))
-+		return 0;
-+
- 	if (data[1] != OXP_FID_GEN1_RGB_REPLY)
- 		return 0;
- 
-@@ -391,6 +395,9 @@ static int oxp_hid_raw_event_gen_2(struct hid_device *hdev,
- 	struct led_classdev_mc *led_mc = drvdata.led_mc;
- 	struct oxp_gen_2_rgb_report *rgb_rep;
- 
-+	if (size < OXP_STATUS_HEADER_SIZE)
-+		return 0;
-+
- 	if (data[0] != OXP_FID_GEN2_STATUS_EVENT)
- 		return 0;
- 
-@@ -404,6 +411,8 @@ static int oxp_hid_raw_event_gen_2(struct hid_device *hdev,
- 
- 	if (data[3] != OXP_GET_PROPERTY)
- 		return 0;
-+	if (size < sizeof(*rgb_rep))
-+		return 0;
- 
- 	rgb_rep = (struct oxp_gen_2_rgb_report *)data;
- 	/* Ensure we save monocolor as the list value */
-@@ -435,7 +444,7 @@ static int oxp_hid_raw_event(struct hid_device *hdev, struct hid_report *report,
- {
- 	u16 up = get_usage_page(hdev);
- 
--	dev_dbg(&hdev->dev, "raw event data: [%*ph]\n", OXP_PACKET_SIZE, data);
-+	dev_dbg(&hdev->dev, "raw event data: [%*ph]\n", size, data);
- 
- 	switch (up) {
- 	case GEN1_USAGE_PAGE:
+> This isn't a bug introduced by this patch, but can this copy expose
+uninitialized bytes from ha->addr?
+
+Not related to this patch, will send a follow up.
+
+> Can this positional resume cursor silently skip dev->mc entries?
+
+In theory yes, but this follows the existing dumps: there is no
+generation counter for dev->mc, and in_dev_dump_ifmcaddr() has the
+same window. I'd rather keep it consistent than add a counter just
+for this one. If the issue is really worth fixing, I will send a
+follow up to fix both places.
