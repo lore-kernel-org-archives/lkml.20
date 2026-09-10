@@ -1,101 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63BAB4A33F2;
-	Thu, 10 Sep 2026 14:33:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3837490C0E;
+	Thu, 10 Sep 2026 14:33:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789050801; cv=none; b=QTsxTGQnUq7sxWAKr3L/AeInNAybG/XWdeUFmHv2MhIfINrZP60P+sEX8jV7Luvv/FqP+WfwFRMP0/OPvJG2KgpsR1TLGxcZOZv/jDHVWbbPuTLF1OveT/7KImvYTW/ENjIpnNGjSNjX2bvGoPiqK/4PPyQvDzmQUrnIpORj6oM=
+	t=1789050811; cv=none; b=lBSWRg5UQtLOR8xPS2T9RFn3j0NEO9mPVYY30sT6OgB4ErQ7slvo85ZB2R+itb5hbqjVlwMmmfditw6F3KKDBqS+edeHQUEWaIkr5QfR0ZZqP8cnPCmWiTyuA9kHinXJKtjWzKMsGeGnxQOKt+u0vXvLMT2LKv6eI9aB1eIYAIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789050801; c=relaxed/simple;
-	bh=8XWRRLV2HR24ylLN3H1VmWSQ6C0zZbfBPSjYabPYmLQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XwxXGcHRvO9A+tLnjiahLFZgRMh+oRPkuenRuXAxjUAXGYxboT7JWQ99N6zBbqvRRAOEFqz7TCq8yYJCsZEvM+9xeR/mqa1kSdghZOkZ9956OZI1cluUSuwSfkYc7XP+Y3sHg7zEddiQVt8il/kN8FLnx8NuzExJBAjPXtdqnXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uashi8xG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789050811; c=relaxed/simple;
+	bh=+Md/nIdjOBGgpXDoBQEhx0pPkzwPf3XZnL5eaE6nldA=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=d/xOq20VeG4iDotFjtun46b2Ra4FNDmXgSwfRJM/H21z1ATq+IgF9Cpgg2HlYeStmu1yq5NMqE8JrgzueorhScL5vieamAG4ddyXEDnZ9TJhaTjoI9y2EJp+QTyXrd9yGjdD/UC0aQFyWgA/RDmOGfF3+G+ro+ajD2irgqiPTe4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JlecpdlL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uashi8xG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B7B71F000FF;
-	Thu, 10 Sep 2026 14:33:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JlecpdlL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 736B91F000FF;
+	Thu, 10 Sep 2026 14:33:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789050799;
-	bh=TADwm44F09CllzbRucnWI3RtVVnc0ea3GpRzJrnWysk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Uashi8xGWW99JfKicBIoQML8tSEy+b/ywABs9KtJndfRXi9IXbUpOMaoqS+2rdYym
-	 iPt3g+x5dGchLsfdgrbss5+NF5XFKmexlECZ+i9lJJnB0cRI9ktHOmlgYlIHopAj8U
-	 4beLNezgUIr8slnCI3cqR1ep0NZdUXpTfx02ae9eHaOaSIgHHP6S9uigVHH9k9/kDR
-	 jOdjI1aEtTA1k5ClrfpyS0Gojx2PeNzQr1L9dH+24+8Dx/p3XBwW6GM1807EedRGAp
-	 c0vnjxyP1Pgvc9gJM3wuR8IiU2SlY/HC8WOwz1YZ52Kw/m9B8OirzvbryNH+tX02I6
-	 hN76CqhPfagdA==
-Date: Thu, 10 Sep 2026 16:33:14 +0200
-From: Carlos Maiolino <cem@kernel.org>
-To: Shigeru Yoshida <syoshida@redhat.com>
-Cc: Christoph Hellwig <hch@infradead.org>, 
-	"Darrick J. Wong" <djwong@kernel.org>, Deepanshu Kartikey <kartikey406@gmail.com>, 
-	linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+ccdf3469f5f653bff7ac@syzkaller.appspotmail.com
-Subject: Re: [PATCH] xfs: take hm->lock in xfs_ioc_health_monitor() before
- insert
-Message-ID: <aqK-SLzgrgzGMrwP@andromeda.toxiclabs.cc>
-References: <20260906144629.17009-1-kartikey406@gmail.com>
- <20260907045150.GI1933798@frogsfrogsfrogs>
- <aqI7LFBkAhMSaDnx@infradead.org>
- <aqJ6yulX3XBEoj4u@andromeda.toxiclabs.cc>
- <87y0d99q8y.fsf@redhat.com>
+	s=k20260515; t=1789050810;
+	bh=Tq0iKdS9Ls9zgqaUG52Odq6tQg7OuXykkEE8do2w5Vs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=JlecpdlLiDsY4nFqTS9SHgLq/vr07DplOk/HrlpxFQAX1neIeaLEJpbK0fzQdeHdF
+	 wIaBxXX9XFw12CZ8hYILmQeasBj5GAP0auHYdsQC0RIZ7DVU/vyM6incrAfRE1VCp7
+	 ESs7wJ/OqmUo3mXL5tcLRj6HI4syh4eQHO0wUAO18nHFsu6W2MwBiLXALsuAG1bbA8
+	 qldJiSPDJvV7SI+lUfToZwvP+b5YLWydUyYl8tT1MAI3iWkJ0fY9sEDSe3jQohHajA
+	 1oz/NYZMFoEbnI95KcBmMtIrKz7RvrePYZzJyfIhhZkWHWnI8tzLxHoYEzgBGsHpsP
+	 nORP4MA9XTQ3Q==
+Date: Thu, 10 Sep 2026 23:33:25 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Christian Brauner
+ <brauner@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ryan Roberts
+ <ryan.roberts@arm.com>, Thomas =?UTF-8?B?V2Vpw59zY2h1aA==?=
+ <thomas.weissschuh@linutronix.de>, Douglas Anderson
+ <dianders@chromium.org>, Huacai Chen <chenhuacai@kernel.org>, Mark Rutland
+ <mark.rutland@arm.com>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, Sang-Heon Jeon <ekffu200098@gmail.com>
+Subject: Re: [PATCH v3 2/2] bootconfig: Fix integer overflow in initrd size
+ check
+Message-Id: <20260910233325.e59a0b26f504885206a59335@kernel.org>
+In-Reply-To: <aqKAzTzpqYmuj8Rm@gmail.com>
+References: <178900555453.200943.4719889510443114485.stgit@devnote2>
+	<178900557529.200943.11099215789605267709.stgit@devnote2>
+	<aqKAzTzpqYmuj8Rm@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87y0d99q8y.fsf@redhat.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 10, 2026 at 10:42:53PM +0900, Shigeru Yoshida wrote:
-> Carlos Maiolino <cem@kernel.org> writes:
+On Thu, 10 Sep 2026 03:05:12 -0700
+Breno Leitao <leitao@debian.org> wrote:
+
+> On Thu, Sep 10, 2026 at 10:59:35AM +0900, Masami Hiramatsu (Google) wrote:
+> > From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> > 
+> > Sashiko reported that in get_boot_config_from_initrd(), a crafted initrd
+> > with a huge bootconfig size (such as 0xFFFFFFFF) can cause the pointer
+> > arithmetic:
+> > 
+> >     data = ((void *)hdr) - size;
+> > 
+> > to wrap around on 32-bit systems (or when pointer subtraction overflows).
+> > Because data wraps around, the subsequent bounds check:
+> > 
+> >     if ((unsigned long)data < initrd_start)
+> > 
+> > evaluates to false, bypassing the check. The kernel then calls
+> > xbc_calc_checksum(data, size), which attempts to read 4GB of memory,
+> > hitting unmapped pages and triggering a fatal kernel page fault during
+> > early boot. Furthermore, on 64-bit systems with an initrd > 4.29 GB, an
+> > unbounded 32-bit size can similarly bypass the initrd_start check.
+> > 
+> > Fix this by:
+> > 1. Ensuring the initrd is at least large enough to contain the bootconfig
+> >    footer and verifying hdr is within the initrd bounds.
+> > 2. Checking that size does not exceed XBC_DATA_MAX and does not exceed
+> >    the available space between initrd_start and hdr before performing
+> >    pointer subtraction.
+> > 
+> > Fixes: de462e5f1071 ("bootconfig: Fix to remove bootconfig data from initrd while boot")
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > Closes: https://lore.kernel.org/all/20260910010137.EE0431F000FF@smtp.kernel.org/
+> > Assisted-by: Antigravity:gemini-3.8-flash
+> > Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 > 
-> > On Wed, Sep 09, 2026 at 10:07:56PM -0700, Christoph Hellwig wrote:
-> >> On Sun, Sep 06, 2026 at 09:51:50PM -0700, Darrick J. Wong wrote:
-> >> > On Sun, Sep 06, 2026 at 08:16:29PM +0530, Deepanshu Kartikey wrote:
-> >> > > __xfs_healthmon_insert() asserts that hm->lock is held
-> >> > > (lockdep_assert_held), but xfs_ioc_health_monitor() called it right
-> >> > > after allocating hm, before ever taking the lock, triggering a
-> >> > > lockdep warning.
-> >> > > 
-> >> > > Take hm->lock around the call.
-> >> > > 
-> >> > > Fixes: b3a289a2a9397 ("xfs: create event queuing, formatting, and discovery infrastructure")
-> >> > > Reported-by: syzbot+ccdf3469f5f653bff7ac@syzkaller.appspotmail.com
-> >> > > Closes: https://syzkaller.appspot.com/bug?extid=ccdf3469f5f653bff7ac
-> >> > > Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-> >> > 
-> >> > Heh, I added a patch just like this one to my own tree.
-> >> > Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
-> >> 
-> >> Can we get this queued up ASAP?  It's also causing a lot of failures in
-> >> our zoned XFS CI.
-> >> 
-> >> 
-> >
-> > Done. It's in for-next already. Not sure if I'll manage to push the
-> > attrs fsblock fix yet this -rc, but this one will go to Linus on
-> > Saturday
-> 
-> I noticed that the second mutex operation in this commit was
-> accidentally left as mutex_lock() instead of mutex_unlock(). I've
-> sent a fix as a separate patch ("xfs: fix double mutex_lock() call
-> in xfs_ioc_health_monitor()"). Feel free to use it if it helps.
-
-Thanks for the info, something went pretty wrong with b4. I didn't touch
-the patch manually and somehow it got twisted when I pulled it.
-I'll figure it out what went wrong but first let me fix this...
-
-This shouldn't be in the tree at all, so I'll remove the patch for now
-as this has not been pulled into the linux-next.
+> Reviewed-by: Breno Leitao <leitao@debian.org>
 
 
-> 
-> Thanks,
-> Shigeru
-> 
-> 
+Thanks! I'll make a small fix and send v4 with your reviewed-by.
+
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
