@@ -1,75 +1,77 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A0B135BDDB
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:19:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9EF237DEB6
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:19:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789010348; cv=none; b=Kn6maXogxKo17AnP+TDyIYLaep1XEZUADup4M2LfmgN0NiGYyxvuXjvh+KSZhenOQAO85JKyWN/CREdt3T4NaKIrAKrRw2eHcCAj3mO99VMX+d3prBbh9wXxDhZlqgnhEblbKP8FoH4KhGNXHwwsbPpOCAFL726wcEf76wdM4qY=
+	t=1789010384; cv=none; b=KGDZ3jrIOg3kN9PHonLmJyz9i0261zfs1OHEVNMqGpQhO7KrMiEkwPsPUb1W3AYLyPfU4OZIvlZzKsYAGYfIS/FXKt+N+mJ/HphkQsN9l3KxmEDhqW5Y9PheQHc/nWku5YAB1vLNnWm4XeHSUVFfrKZmaSIdDQoDLUB4Wu1vddM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789010348; c=relaxed/simple;
-	bh=CZCZphFtwnyR9V4pnluF5ZaUb2LNgvX6iqLOQ9kTly4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=clVYADaosDmLnRSpni4irEtkAetPTzoB6ilBY3dC9cFrKMrcfbCXpnJ83GlKPq4NItBoeaYZqfPWSHISa2p4g7auYqeJV9Ukp3xZhLli6vToGWGfTFHgTgSi5hCmR1Z+FVAJXAuxGPGygmTazA07c1oJgzU4MN/lDcUHcrp/loM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tJC7HJN5; arc=none smtp.client-ip=209.85.128.42
+	s=arc-20240116; t=1789010384; c=relaxed/simple;
+	bh=BUv5prhmLyOf3SgaXv5kmiquPqQcN8saN/zRB8xHGiQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nyGHJMz5t5jdHvuMzKuAv0rSO9Ag9K/RVt/DLs+cqqM2Jc/pXxDArOhsAHUwjCFKd3Cv1eBbm/QYbuSftnTaIIoxEIkGN/HkmXfztHir1V3TJPhz3kEtCZmVmVTyPJ9qLwL/GHh7WN57evRylo57WQlNBxhiD9/5YEZVFDc7c9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ocTqXp8P; arc=none smtp.client-ip=209.85.216.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tJC7HJN5"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49b8e527d63so82159335e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 20:19:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ocTqXp8P"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3964e480f76so7737537a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 20:19:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789010344; x=1789615144; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7h5a++gvjff2+ABbxAEfyPjYnS85ALwwS0YaPZ1LMBg=;
-        b=tJC7HJN5+6oiu1emA7TkYcrvA+9lATR1TwaEGFVxZVZCkyf47Ua8ryD8xu2pK6RH5E
-         U3jIS/X3iGhEKcXs3bNtq+JRhh7idZ2lQF0690/hvCoIfIeLsY9ni2w9o6iPgHoet+TP
-         dgrYa4olGaYn5UsBOb1nZayAYikfqWb0cXbt3LuwkIWWQwUJCNFJ45mwAXdTBTXgIA2E
-         y8JQLzqy6CHl4mWfexIVuOxZidXJYWAbiqgxF27NmmGsRz2/XV78GA2x1PcQtzGCLQrx
-         r66FLIA+Sx8eFI4UU+2MrouK3v/cgLCtvENa/iD7zct8j19mzQrS083rSjU3xNNtwJsy
-         7uRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789010344; x=1789615144;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789010383; x=1789615183; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7h5a++gvjff2+ABbxAEfyPjYnS85ALwwS0YaPZ1LMBg=;
-        b=r4yRgEyNprMTbDVDWraN39WGRjqmdBbNZyhsD5pMU7uGc+Lvp6bNMK2xNkrB4mErLs
-         zlNuce6xVEihv641ctOCFWYhXWBriwTc2a0gewSsVySLbdheWz8D/cU7UDcGc54vaRVs
-         SLuAwuSePQKVaIT+dlKxG5oF+DIInWIsNctE1SmlDQlNYTi+s/33XKfm2WJSR0y8i00v
-         eHPWqkdGPry3sZTfvihln0LKcbbngHFjjFSz1KnK/DVBuz90KvlyZszzeF3vuFzUa4In
-         Z1VLQmy9g8mCEeTstehVcbcMFUHwuQlZXZOxHVcE1NuF6oYzYzv7yfJFbau6RzYzsXCk
-         QGXg==
-X-Forwarded-Encrypted: i=1; AKwUvBxO09gBniON6s2A6m3S0I6E3ljmuWqPDgYycTTqXrh6bX5azWL0Z0tIQo0BCGpsHBLIT3CLklQJRphYbwU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lbYMZdHjoTnvZPUi5AjTK2Tj1Qm8tLhYyUh6dBDQ9HoM9CSU3i
-	uDTj66uHzl8iIolxX23Et90wQwCWidLuvkFXx1oU4NwC8QmX+DPn+7WK
-X-Gm-Gg: AYBFou0yhb/epeq+vsodFzBWYybUV/U6tvEaQNeXgMhgKiBiTqaEb9QB3wMzcN3X199
-	aUoP4r9M1Ee0ON32CPtOTplPQt8VMY2Oci/YN8Df/dkm1NdZaruGxzX+MlEGL3utiQrFD7b26RK
-	jZNY/b1HeIVVnAE+Q4d57LmNHlEKduRB7r/XCoc6V7HLCLVzwkLu0p0ba5t7+68NfBKDM9i0byP
-	kl1gtlix4noq62qkX1ntKetbUv+XkmdY+JdOf8vbFcX8rftlyIQC/yCx7r0lTHR7MfV8ggI5KwH
-	yIFoncltdIUf8p/2FzVJXOVU3hxNDoBiISwSmUbah9qLIYcgsgwPUWuR55nKEWAtzp9T/lWYI0N
-	V51YaX5Oq30bYtSqYiKi/jYUJc6yWmFymVtm3wVhQFs/dOd+1qE1Hdt/T9QJe+SNwe+lymvKHDA
-	Q39yKUd9YQlkp/QGltmvviwjWE+YpMMVuUWt1IWV2Q5M4sQH5sS4wM+4YvvIeowSCUbx7JLpIuM
-	Y9qDHp4cXCBhwO26/e0JNp8XHbQ3z2wsmTrOpBCq9u1gpbZv74p6xTsv2MDUmdheXBFwk9DT+Um
-	Xc27r6iC8o8LUfe4R7OYjevn5HGaWRXkzxaX5SXaBtt3eYQ29jFEvJrQYKl/IkdWM/xutzDMyvI
-	=
-X-Received: by 2002:a05:600c:154f:b0:49c:fc6e:8cb5 with SMTP id 5b1f17b1804b1-49cfc6e8ee3mr393723595e9.25.1789010344521;
-        Wed, 09 Sep 2026 20:19:04 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-b3d9-b901-0402-5aad-0ef4-88ac.310.pool.telefonica.de. [2a02:3100:b3d9:b901:402:5aad:ef4:88ac])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d1fb1e60bsm90976765e9.0.2026.09.09.20.19.03
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 09 Sep 2026 20:19:04 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Heinrich Schuchardt <xypron.glpk@gmx.de>,
-	linux-efi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] efi/libstub: Fix efi_set_event_at() parameter documentation
-Date: Thu, 10 Sep 2026 05:18:53 +0200
-Message-Id: <20260910031853.15236-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        bh=q+3C5HAHgfZOcx9oT2fotA+oPFwWYseet/fp5oyt5ew=;
+        b=ocTqXp8PkwLIj23WPFHYyRkpYNFoNVI9Dfad2cCJsO0Sas/WMstQDznxLEqtO8jsIr
+         sT6HbePE37LjP2znzoVlb39/Rmgyevi2f0Ps0iNl14MtEnextrbuZM1lj8laPQp7aoOm
+         WWMgmBBjGoxSUayNM531qWzASRMKHNOs+4UWwUkY6O3Z0T4S2huZmg3oJoKpfELDyTUu
+         sJTCoR/duDeblHbhRP13F2KZr/q4gEEOnHXO8nZWTmQF/SXoSlGKck+4nPDEGocniDoj
+         60ZnqGGqYl7mBc9PfmOmZEqfmSd9ojbaJM9fI2ZgR39lZnu0aMoB9w29p+lx4MtOyOxf
+         TxTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789010383; x=1789615183;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=q+3C5HAHgfZOcx9oT2fotA+oPFwWYseet/fp5oyt5ew=;
+        b=cJwEr2jpIjQj9ocXlvmst1Ep914138cJHwxopy/G1lZVbrVUIK2D4IrHqDo7CO8DCv
+         d1E1sZjsc7nxttnVaoGGwJXu918Dz/9pyUnGKxyCIR4mYbdC66Ai933Oy9GUqtfkSJIj
+         asryAYmYJ9dICBVm5BfF7pcOLMVVgqotvgola3neK7pcgVTEfhcFvIpsLJ05cbjpmV8l
+         kxpSl2jpQTY1zkd7hGVaUqm1Rv5KF6xFs49CjCjJscdZO0M96TVdNlqfFvM5YO5p2Ap7
+         /PIdnIpEyfRebc4JdKVJKAVm1CY5wiFCXvMNSmaH9xoZQwZfO8kwtPgFjZW6Ibdcxvdy
+         L9QQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzW8UQ/ztClB3yCqcwV3k8uCabLPiv6ZazYaxZwPOmryrWlhTI6QGcUTysTBFDVsaya1ZJ/PNqjuJ9BU0M=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0uXiRVzRzoU+/yhDmjv+MRcy87658EG4QJJnIM/I+kaGGFrDn
+	4NbaHJcoSQb+wavgc7jc90a2GNBUp9if8ogL8y3Bgd/BZmlgWlP9Ovma
+X-Gm-Gg: AYBFou2zk+e29//cVhBVbgvlE0VQ9aQguv+nPYKoxRu/joICRzDf207c2iU80ME188u
+	M0vnI8EvUKIqWQGkRD4re0f0HnrUQ+3nmu7cPvfHudDPNbMo83/mvYbjVoHJlwtgu0ZmJtvQwvC
+	Tw2ty1xf0CMfmjZS0cjvmaEDI2kPzL1Q5fNLjQR59kfrUdEgUMnP94Ip6ejmosbZFg5+P9Cq6rD
+	IerTALm+KeSF92z8hU7/HKXuJemCK644Yh6gIQu6tcR3NFSRPhtmtR0kbZ5dFi74V+VPGmzZsDm
+	hpTYGT5W1Mzo2mTs4sYgmZdvYalfJDGBp2nBeR3ZbiDfgHMZS1FQe5LADGqxSatK79qEoV81tXJ
+	iIuP/kbA0MwIGSrOy5aFNhdChCymvz9U60EVxGcSGdt4jJ5oyfDGc1eE0FQLoblUZ6lg21icTul
+	w6/oDzN5QB0f1/tUJYAReNxpFOHVi6/0agOeMR8y4hULwZ9eOVd0KAlBNIuyZuwjMXKYDk0ckVe
+	BW7niMdZz/VvP8=
+X-Received: by 2002:a17:90a:c106:b0:398:e1f4:bda1 with SMTP id 98e67ed59e1d1-39b2624cf3fmr60325042a91.21.1789010382848;
+        Wed, 09 Sep 2026 20:19:42 -0700 (PDT)
+Received: from lucas-inspiron153525.. ([181.81.132.12])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3397d6d1becsm10555546eec.22.2026.09.09.20.19.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 20:19:42 -0700 (PDT)
+From: Lucas Jeffrey <luquijeffrey@gmail.com>
+To: dwmw2@infradead.org
+Cc: richard@nod.at,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+3a8099322b09d8d073d1@syzkaller.appspotmail.com,
+	Lucas Jeffrey <luquijeffrey@gmail.com>
+Subject: [PATCH v2] jffs2: initialize inocache and target to NULL when allocating and initializing an jffs2_inode_info
+Date: Thu, 10 Sep 2026 00:19:12 -0300
+Message-ID: <20260910031912.2283174-1-luquijeffrey@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260909023955.1642244-1-luquijeffrey@gmail.com>
+References: <20260909023955.1642244-1-luquijeffrey@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,35 +80,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-efi_set_event_at() documents ids although its array index argument is
-named idx. This produces missing and excess parameter warnings.
+When a jffs2_inode_info is allocated via new_inode(), due to memory reuse it
+can retain stale values from its previous use.
 
-Match the argument name and fix the adjacent spelling of array.
+If the new jffs2_inode_info object allocated retains an old reference to a
+freed inocache, the function jffs2_new_inode may crash if either
+jffs2_init_acl_pre or jffs2_do_new_inode returns an error value because
+when calling iput() with the inode it will eventually attempt to free again
+the inocache.
 
-Fixes: 8c0a839c2bcc ("efi/libstub: Descriptions for stub helper functions")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+There is another failure path which is, if target is not null when allocating
+the object in jffs2_alloc_inode, and immediately after returning the newly allocated object,
+and if the 'inode_init_always' returns an error value (allocation failure for example)
+then the vfs will attempt to free the inode and jffs2_free_inode will attempt to free f->target,
+which can be a stale value from a previous allocation, generating a double free/use after free.
+
+Reported-by: syzbot+3a8099322b09d8d073d1@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3a8099322b09d8d073d1
+Signed-off-by: Lucas Jeffrey <luquijeffrey@gmail.com>
+
 ---
- drivers/firmware/efi/libstub/efistub.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/firmware/efi/libstub/efistub.h b/drivers/firmware/efi/libstub/efistub.h
-index fd91fc15ec81..049263a541ae 100644
---- a/drivers/firmware/efi/libstub/efistub.h
-+++ b/drivers/firmware/efi/libstub/efistub.h
-@@ -224,8 +224,8 @@ typedef void (__efiapi *efi_event_notify_t)(efi_event_t, void *);
-  * efi_set_event_at() - add event to events array
-  *
-  * @events:	array of UEFI events
-- * @ids:	index where to put the event in the array
-- * @event:	event to add to the aray
-+ * @idx:	index where to put the event in the array
-+ * @event:	event to add to the array
-  *
-  * boottime->wait_for_event() takes an array of events as input.
-  * Provide a helper to set it up correctly for mixed mode.
+Changes in V2: initializing target field to NULL in jffs2_alloc_inode
+---
+ fs/jffs2/os-linux.h | 1 +
+ fs/jffs2/super.c    | 2 ++
+ 2 files changed, 3 insertions(+)
 
-base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+diff --git a/fs/jffs2/os-linux.h b/fs/jffs2/os-linux.h
+index 86ab014a349c..40f17218a276 100644
+--- a/fs/jffs2/os-linux.h
++++ b/fs/jffs2/os-linux.h
+@@ -52,6 +52,7 @@ static inline void jffs2_init_inode_info(struct jffs2_inode_info *f)
+ {
+ 	f->highest_version = 0;
+ 	f->fragtree = RB_ROOT;
++	f->inocache = NULL;
+ 	f->metadata = NULL;
+ 	f->dents = NULL;
+ 	f->target = NULL;
+diff --git a/fs/jffs2/super.c b/fs/jffs2/super.c
+index 81396a092ba8..2343c21b49e6 100644
+--- a/fs/jffs2/super.c
++++ b/fs/jffs2/super.c
+@@ -42,6 +42,8 @@ static struct inode *jffs2_alloc_inode(struct super_block *sb)
+ 	f = alloc_inode_sb(sb, jffs2_inode_cachep, GFP_KERNEL);
+ 	if (!f)
+ 		return NULL;
++
++	f->target = NULL;
+ 	return &f->vfs_inode;
+ }
+ 
 -- 
-2.39.5 (Apple Git-154)
+2.43.0
 
