@@ -1,87 +1,33 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14B1F3D413C
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:57:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF52E3AFD08;
+	Thu, 10 Sep 2026 08:58:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789030660; cv=none; b=NOoAGeWsbOrZ2/u2bbA3NBZ78NsVj8gl/pZillwtYwSNBcHuOtqw3nX1YohWC4wM+5q/gIrZd/3J/o6maxp+0fCdUhkOrCn8no/icPR1iKRJFkHScrd4ap8Sn0vtRmychDarnboTKdO0QghPQ4JL9NCr37X/oXNJRBhhOit1+Lc=
+	t=1789030707; cv=none; b=oi7ysXHcpwvT3GbqH+Idw7sIAnpwZoyqGn906wXJyPlz7mnU75RRjqmFRxPPjPfvo+eConxa2WesDWXR0kDmBg2EBtuDkX0JReGIHYPMv6gBVRAPMCrlrCxJlpngKGDNMFJgOJlWE6rh3EKnRT9Yhn2ZfZ2xZJ9t/zqaXzrrwNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789030660; c=relaxed/simple;
-	bh=b7K6pIWMoglwO1Ja+bQ2JtN346C4MXe5NqlN3W0b7Q4=;
+	s=arc-20240116; t=1789030707; c=relaxed/simple;
+	bh=he5KiB6VLqYXxJgUJv16m3SCnnY9BNTeNN1ibGIWJqM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XNVpYvWPviRmvFR7YBJc+ew6CtwDs9sdzkIeJUrzjaL+2yc4/edIFgHbx9NniiEtyp6KIlFKi5IW8L3AEygcymor2PqzAB/yvzpJEtECVktOcXQV5utT7NoHw3YBdL9hwKAhXoZs7XWKe89eigH2J9XqG9O2bVPt9ffE6+J2a8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SoiU1CmV; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=p6HKrO/7; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 In-Reply-To:Content-Type; b=XqerZ7GShUykS21BTRJUw3NFS3kyB4EONMCjwDtCMMyM4/3Mc+GdZ4z1mpQc8fDj6CEAm/w/xhqEORCJKLZARWHRKwOAtnjsAFl4lL7ONplk52/iWek2YZUBMP73xGpEh460s4w4n/jN0x554KhG1Yecwyy9qwXket6zjxfjRyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MpUzMoWR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SoiU1CmV";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="p6HKrO/7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789030658;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=y08MuvRHSicjXeoYJ3CdQ0GrnmqIMwlAmbYm+7kzbhY=;
-	b=SoiU1CmVnHR6UGmxGdNQ+zMpfawOShB+KyT/SfRSdT0rbLXjs0RvelRdOdTDISSH0aA/le
-	MwAwf3oT9qqVj7JLtngJiPdidm4rCbjoYNlb4OyJl/AB+R+iIGyzFsXTf1iC0CXRSBhx4T
-	lZ8SoNw1oVOlk410slzrJuTH6OGheZQ=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-197-cqIeTkCzPe-NHL_-_XRl1w-1; Thu, 10 Sep 2026 04:57:36 -0400
-X-MC-Unique: cqIeTkCzPe-NHL_-_XRl1w-1
-X-Mimecast-MFC-AGG-ID: cqIeTkCzPe-NHL_-_XRl1w_1789030655
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49cf5bd2f12so88306285e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:57:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789030655; x=1789635455; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y08MuvRHSicjXeoYJ3CdQ0GrnmqIMwlAmbYm+7kzbhY=;
-        b=p6HKrO/7Sx0XGr5o2hbpsC0j/4IOnIjJZjF819j6Xg2v/B+xV6SDUep756ptndGJBF
-         PnTNdV8hIgDsWwo0njzB7pufTg1nRIEQfIhW9ACP71kpaiK/Ep0zKVE5pSPF8xSnmuta
-         K2YI0obnetn0aSwI2NXaVx3yhT8su6SKsWtkc2uMgGp9DI2bvvD724TqhesTaAnkoY0M
-         rygo833uBYB3p+tr5BOOYXl63Vf74ye0rmxM2X1jqAxDfo5YMbQ9AKpEW7eckvlzxtcy
-         jGFfU8TF7vKxNnJovfglsfhIaXxVFrLn8PBMOorVZp/F6wmstKXQe3NElPOatXKysq2M
-         BlFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789030655; x=1789635455;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=y08MuvRHSicjXeoYJ3CdQ0GrnmqIMwlAmbYm+7kzbhY=;
-        b=SeeP2Vdphvq2iQHEIdhhQI9giqesrQIcsTt3VntfkiMZ8tgJ+n06Hgq3yYZPqY1DZc
-         BPAAMP2WrlogirfTT2YcYJoz3IX+pCpWId/vCaQQMRcn1fvr9saro+sUejcbKoNBqt7a
-         lIxd3qiTWeW8XNkDMBwVceHF5Aww6bMZ9TnJOg2ElgBA9KkpTl5RdLtBrhvWvtAcB1jH
-         zexzFhLbyjyt6oc4U7LvfoMs3VwAm7p0irD7LLM1AEkF4+NGExp8PBF1wDAk732iPm0v
-         AKIhD5EfrxHxQVNfvVPDJjMCd8dseOOjaCVLcrXe0IwgBboqePVcpBoq+Sffkrumibr+
-         BxhA==
-X-Forwarded-Encrypted: i=1; AKwUvBzkmSTgWZ5rHaVyg8NqECTqt/TCj1RmLB9DO5zLejUtuGQ9hAJnQyo8IuhmlQETPhdxN5DyepxBzsqIqTk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lh3DYoOfzUUoHy9yMbS7OfIxNN6KDTaWDC29APyrCw10QyNCrk
-	LnVJDBuQSeB9VzJVlEdaKMe4cTvSUmsVYcg+5iKFXHdtqT5m7QBkiVGjumDfyGBgb7V3PwfPK4Y
-	I8sxHiINtD7YwAv+w8qGeJJ2m26CMK+S/fQv5esu1VivgbDrTZ8zVw3L5T+TC68FeNbRmTYvYDA
-	==
-X-Gm-Gg: AYBFou3k4oeSn5aIgg7DjB8CfgYZKWkX0RF8UaIoKMHFfApMjuYGI5UknnNslTbofnI
-	R91Cc/2qhlHLAivD8y8Me5i/c4nHHf6zmC8zDc8OJxVuDEs/mDrnqNYbJqnhvNa7AuZ+vWnCSvT
-	KOXzdXxnVoNJcOaczaRNId5zwRy9ZSfCsH9mxi1McfAx8maMop8jlUdUNOm7PzyecmOqG7dFm7s
-	VpLJQE3GZgw7nBmH2CqUFuWKFNO+A42v8mmVgaGWzmhBk5H7wfoPsVqZQcmyQ8r5FTH7Hr4mupm
-	oEINY0awoRUcOIvZulwejploMZIN+qMshdrG4jafIbED2KfUyPFoZ6mv7b6sPg5LEfNrZPeA2A=
-	=
-X-Received: by 2002:a05:600c:3550:b0:49c:d019:70c5 with SMTP id 5b1f17b1804b1-49cf7f4a6cfmr363669265e9.0.1789030655332;
-        Thu, 10 Sep 2026 01:57:35 -0700 (PDT)
-X-Received: by 2002:a05:600c:3550:b0:49c:d019:70c5 with SMTP id 5b1f17b1804b1-49cf7f4a6cfmr363668975e9.0.1789030654851;
-        Thu, 10 Sep 2026 01:57:34 -0700 (PDT)
-Received: from [192.168.0.9] ([47.64.114.243])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49db038401fsm26614995e9.13.2026.09.10.01.57.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 01:57:33 -0700 (PDT)
-Message-ID: <48f12b65-428d-4809-9735-18876b09e759@redhat.com>
-Date: Thu, 10 Sep 2026 10:57:32 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MpUzMoWR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77F9A1F000FF;
+	Thu, 10 Sep 2026 08:58:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789030705;
+	bh=MG/9KXk2jvCpvz70MN0ACXgz/x6FHQZmZN1K2kd/4gQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MpUzMoWRzc3w1dvHb0CKLDIJvfk81hBvJ+Ry3Z+tKkJ33lHiA4C3lJqJduoDoCZg9
+	 goTs7zPI+AZIcnyDN+JDE8LQnV+mGfKRV4T7DqsNyTS9GLLTKG3YL8q4VaukX5vyNr
+	 2Bdt5xG4J/Yp4QB3ushFrsyBjyEuFRxjMrzXErhETCfeTUi0Wst2Jtmc5CirLr/bar
+	 FVhUeA0camPh5dX7vV9lPfJ79mNvls4s+q0bUM8P+Q7GyqdIpCADxOmPdHsPoBgMKd
+	 0PPSkqz+JiLYrDRjsj0HyjbPQQE1nOrSub/adIftRor4yJB57BG447JjC0MsMN/ncm
+	 LvpeJNdugcQEA==
+Message-ID: <e2d2b01e-e6eb-4009-a07e-e615d576c0c3@kernel.org>
+Date: Thu, 10 Sep 2026 10:58:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,92 +35,111 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] crypto: testmgr - block Crypto API xxhash64 in FIPS mode
-To: Joachim Vandersmissen <joachim@jvdsn.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Herbert Xu <herbert@gondor.apana.org.au>
-References: <20260303060509.246038-1-git@jvdsn.com>
- <abTuFto8Tc3mhRRe@gondor.apana.org.au>
- <64592fee-1956-4a70-a751-9ac3335cfc27@jvdsn.com>
- <9926908a-5f08-43ba-99dd-b83c7067d52b@redhat.com>
- <83d09aa1-729a-47a2-a8e9-381c74e92f42@jvdsn.com>
+Subject: Re: [PATCH v5 14/36] mm/damon: skip private node memory in DAMON
+ migration and pageout
+To: Gregory Price <gourry@gourry.net>, SJ Park <sj@kernel.org>
+Cc: arun.george@samsung.com, balbirs@nvidia.com, brendan.jackman@linux.dev,
+ yuzenghui@huawei.com, apopple@nvidia.com, alucerop@amd.com,
+ matthew.brost@intel.com, akpm@linux-foundation.org, ljs@kernel.org,
+ liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
+ mhocko@suse.com, corbet@lwn.net, skhan@linuxfoundation.org,
+ gregkh@linuxfoundation.org, rafael@kernel.org, dakr@kernel.org,
+ djbw@kernel.org, vishal.l.verma@intel.com, dave.jiang@intel.com,
+ alison.schofield@intel.com, osandov@osandov.com, jannh@google.com,
+ pfalcato@suse.de, jackmanb@google.com, hannes@cmpxchg.org, ziy@nvidia.com,
+ pbonzini@redhat.com, osalvador@suse.de, joshua.hahnjy@gmail.com,
+ rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com,
+ kasong@tencent.com, qi.zheng@linux.dev, shakeel.butt@linux.dev,
+ baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com,
+ weixugc@google.com, yury.norov@gmail.com, linux@rasmusvillemoes.dk,
+ longman@redhat.com, ridong.chen@linux.dev, tj@kernel.org, mkoutny@suse.com,
+ jgg@ziepe.ca, jhubbard@nvidia.com, peterx@redhat.com,
+ baolin.wang@linux.alibaba.com, npache@redhat.com, ryan.roberts@arm.com,
+ dev.jain@arm.com, lance.yang@linux.dev, usama.arif@linux.dev,
+ xu.xin16@zte.com.cn, chengming.zhou@linux.dev, roman.gushchin@linux.dev,
+ muchun.song@linux.dev, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, driver-core@lists.linux.dev,
+ nvdimm@lists.linux.dev, linux-cxl@vger.kernel.org,
+ linux-debuggers@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ kvm@vger.kernel.org, cgroups@vger.kernel.org, damon@lists.linux.dev,
+ linux-kselftest@vger.kernel.org, kernel-team@meta.com
+References: <amCzmkdOr6AFv_kQ@gourry-fedora-PF4VCD3F>
+ <20260723001943.95854-1-sj@kernel.org>
+ <amGHuputMNCFZ9CV@gourry-fedora-PF4VCD3F>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Thomas Huth <thuth@redhat.com>
-Autocrypt: addr=thuth@redhat.com; keydata=
- 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
-In-Reply-To: <83d09aa1-729a-47a2-a8e9-381c74e92f42@jvdsn.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <amGHuputMNCFZ9CV@gourry-fedora-PF4VCD3F>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/09/2026 05.24, Joachim Vandersmissen wrote:
-> Hi Thomas,
-> 
-> On 9/9/26 9:36 AM, Thomas Huth wrote:
->> On 15/03/2026 01.43, Joachim Vandersmissen wrote:
->>> Hi Herbert,
->>>
->>> I don't think this one can be applied yet since dm-integrity still uses 
->>> xxhash64 through the crypto API. This would break fips=1 systems that use 
->>> it.
+On 7/23/26 05:25, Gregory Price wrote:
+> On Wed, Jul 22, 2026 at 05:19:42PM -0700, SJ Park wrote:
+>> On Wed, 22 Jul 2026 08:16:56 -0400 Gregory Price <gourry@gourry.net> wrote:
 >>
->> Out of curiosity: Wouldn't such a system be FIPS-incompliant anyway? If 
->> xxhash64 isn't FIPS-compliant, nobody should use it for dm-integrity 
->> there, right? So I doubt that there are any systems out there that use 
->> fips=1 and use xxhash64 at the same time?
+>>>
+>>> See the damon changes in:
+>>>
+>>> https://lore.kernel.org/linux-mm/al-pkvmgIxGu3LzM@gourry-fedora-PF4VCD3F/T/#mfb99303c85dd9d4c3f58832dc28fc55583a7217a
+>>
+>> Summarizing what you want to say, quoting something from the patch, or at least
+>> calling it "26th patch of this series" would have made reviewing much easier.
+>> Cc-ing damon@ for only patches that toucing DAMON source files and the cover
+>> letter of the series could also be helpful.  Please consider doing some of
+>> these for future replies.
+>>
 > 
-> There is a risk that users may not know that xxhash64 is not FIPS compliant 
-> and would still use it. Especially considering it was marked as 
-> "fips_allowed = 1" for a while.
+> I have been very much discouraged from this kind of trimming because it
+> removes the context of the series from the individual patches - making it
+> even more confusing.
 
-So isn't that a very bad situation? They think they are FIPS compliant, but 
-actually they are not since they use an unapproved algorithm by accident. 
-Maybe it would be better to include this patch so that they are aware of the 
-mistake? If there is really somebody running into this issue, they could 
-boot once with fips=0, fix their system, reboot again with fips=1 and 
-finally be really compliant. Sounds like the better solution to me. WDYT?
+Yes, 99% of upstream maintainers will scream at you if you CC them only on
+individual patches :)
 
-  Thomas
+-- 
+Cheers,
 
+David
