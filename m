@@ -1,40 +1,64 @@
-Received: from mail-m3284.qiye.163.com (mail-m3284.qiye.163.com [220.197.32.84])
+Received: from pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.245.243.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09D34BFE60;
-	Thu, 10 Sep 2026 11:51:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13CFB47CC62
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:52:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.245.243.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789041101; cv=none; b=ibk0UsNQLHpxrCk7laPP9EQpzam6mOil0Q4S7sL4j+6oC9dI+26GDKDgYMJ1CWMmD/LnjPBkyO0KA/gIiAZcrZZ8LKl9BNg/QqA+/orGcUcIN2O7WDD3Gn0pHAR8yYJEZxtX+5M8qbT9uDkn+9s8OPt9QvA/nFuRs1vpOM71dDA=
+	t=1789041131; cv=none; b=LIuUqvin1AKP2cp962bi9U0RSoqFnFrvatIGU0++FKjxCgTGDEla2mDoVcVftiJWa07zqeDQ9Eu1GFkMy+PS7yKxtMUy0uqMdqC4RG0EFUM7tOFfDRP8Q5/y/66B/J5GGyE8fnNBAERI87JJ3ktLj7OWk+7pcN8UttDqYvp//QM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789041101; c=relaxed/simple;
-	bh=IcbK5OnRmor1GXU0aRmXmQZqa3x0nOC2ovckJmKEYz4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uTqvaiw6gdA3UBduZiLhYkkbqT1hD0tBolW3xGuEFdTLNrrJBrLyY0qMBeruCy7rHnNvudm1BN/upbGnjZ7Yv4Tr91Bn1ql9pbliDQWdF573+Yry1iQ4p6QAbnSujA/iJc3O2lhNf7tXkfVrq9fz0Kjpboqy/C6ep4c7uazUWRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hj-micro.com; spf=pass smtp.mailfrom=hj-micro.com; dkim=pass (1024-bit key) header.d=hj-micro.com header.i=@hj-micro.com header.b=eCDGr7su; arc=none smtp.client-ip=220.197.32.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hj-micro.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hj-micro.com
+	s=arc-20240116; t=1789041131; c=relaxed/simple;
+	bh=Q9julwOQzBR1EJnwQ28WKTDz9PwswwjgvrS3eTynrs4=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UX6O+hkzwdr6pVT0UNCbBQgoEmS8Fb15Fj2fCAqZCtaAl+MJohpfKVgTP4ejRFDgQKq4zubNEITJWQmHVau0rcUIM7Nnb48RyZCixs8dcaAOu+Ya2fsexHgm3nviVOzRWZVSwSVkmODKJSuXOi3I5kFhHw3K/hXwDj26GfC5ZKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=hwKUhWwF; arc=none smtp.client-ip=44.245.243.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=hj-micro.com header.i=@hj-micro.com header.b="eCDGr7su"
-Received: from localhost.localdomain (unknown [122.224.147.158])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4d496048e;
-	Thu, 10 Sep 2026 19:46:13 +0800 (GMT+08:00)
-From: Shouping Wang <allen.wang@hj-micro.com>
-To: robin.murphy@arm.com,
-	will@kernel.org
-Cc: mark.rutland@arm.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	peter.du@hj-micro.com,
-	andy.xu@hj-micro.com,
-	allen.wang@hj-micro.com
-Subject: [PATCH v2] perf/arm-cmn: Fix wp_dev_sel2 setting for multi-DTM configurations
-Date: Thu, 10 Sep 2026 19:46:01 +0800
-Message-ID: <20260910114601.165237-1-allen.wang@hj-micro.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2fb3bda7-cd64-4dc0-99f8-c0fda8d42cf9@arm.com>
-References: <2fb3bda7-cd64-4dc0-99f8-c0fda8d42cf9@arm.com>
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="hwKUhWwF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1789041129; x=1820577129;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=vv0W15mpHMHqH9IS+b3qKstevX72H67WWMVy9YA0mMU=;
+  b=hwKUhWwF7DJmLFNmwCqwb0ulS41UPHbGJbAiKeBkKf3fj0lQNuw8Jsmk
+   YOl4rSFELkxb8QkMNYQLGnRzYFKDR0r1Pg8NDL1doRh/1UHwNZl4iJeRt
+   KcWKWQ26KrCVJ6buVeKqk87gDtw/YZHijJNax92bPAGScbcMg/uMlffpV
+   PGT9bUVrosFt2mlAJv30e3f5RdpJxD9/7vp5xh/1Jk9aQmKadcWpHxY6n
+   Lx/FX2qMIiyshNIcLNnrsB3WC1Hyt20XPBNuqR4qqMVC99Ias2qSV9S+W
+   IQYh7RctMtY6hFHi0y0qmfH87H40mqd5vE9wn3JSbuBvKFUewHbwR6wwb
+   A==;
+X-CSE-ConnectionGUID: s0n4v6FARaeDkyw+fEh6Qg==
+X-CSE-MsgGUID: tnNjOA1WRJG+2AeJAoqU0Q==
+X-IronPort-AV: E=Sophos;i="6.27,95,1787011200"; 
+   d="scan'208";a="27819800"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 11:52:06 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:13550]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.19.159:2525] with esmtp (Farcaster)
+ id 2bbfd2cc-48d2-422d-a687-563dd3edbeb0; Thu, 10 Sep 2026 11:52:06 +0000 (UTC)
+X-Farcaster-Flow-ID: 2bbfd2cc-48d2-422d-a687-563dd3edbeb0
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
+ Thu, 10 Sep 2026 11:52:05 +0000
+Received: from dev-dsk-fparola-1b-85ea2014.eu-west-1.amazon.com
+ (10.13.236.104) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Thu, 10 Sep 2026
+ 11:52:04 +0000
+From: Federico Parola <fparola@amazon.de>
+To: <robin.murphy@arm.com>
+CC: <fparola@amazon.de>, <iommu@lists.linux.dev>, <joro@8bytes.org>,
+	<linux-kernel@vger.kernel.org>, <nh-open-source@amazon.com>,
+	<will@kernel.org>
+Subject: Re: [PATCH] iommu/dma: Finalize deferred attachments when mapping MSI pages
+Date: Thu, 10 Sep 2026 11:51:43 +0000
+Message-ID: <20260910115152.54108-1-fparola@amazon.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <52fc7110-2079-4090-8b32-2c913db0f298@arm.com>
+References: <52fc7110-2079-4090-8b32-2c913db0f298@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,77 +66,158 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa08b23c9a409d8kunm705001594eab80
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZH0kZVkoaTU5CSB1OSRpLSlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKSUlVSUlPVUpPTFVKTkNZV1kWGg8SFR0UWUFZT0tIVU
-	JCSU5LVUpLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=eCDGr7sur2hFENqnVzpUbneaLM6v6XGlzZ9IlGCCuAhQXla7vsuVMdg1br0rpq6NvxqmyunxGvyKK5dpNP9F60rDT6u2UaTXABD4G8IZpYdKNGKvtWQHC/ePus3uc1fPABj6AQJLYjY21+8b1zNw4YLmHJfvaFPPka2k16PqRVw=; c=relaxed/relaxed; s=default; d=hj-micro.com; v=1;
-	bh=JtP12fD9RNAVyfG5BtMp8f1T+aWMSPi7iFymj737lEo=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D039UWB004.ant.amazon.com (10.13.138.57) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-When MXP_MULTIPLE_DTM_EN is TRUE, each DTM will monitor at most
-two device ports. In this case, {wp_dev_sel2, wp_dev_sel} will
-only use values 2'b00 and 2'b01 per DTM.
+On Tue, 8 Sep 2026 18:15:10 +0100 Robin Murphy <robin.murphy@arm.com> wrote:
+> On 08/09/2026 5:01 pm, Federico Parola wrote:
+> > When a device's attachment to its default domain is deferred, the IOMMU
+> > is still translating the device with the tables inherited from the
+> > previous kernel. Any mapping installed in that domain does not take
+> > effect until the deferred attachment is finalized.
+> > iommu_deferred_attach() covers the DMA mapping paths, but nothing covers
+> > iommu_dma_sw_msi(): programming an MSI installs the MSI page in
+> > group->domain and hands the resulting IOVA to the irqchip, so an MSI
+> > programmed before the first DMA map is written using an IOVA that the
+> > hardware does not yet translate.
+> > 
+> > This issue is currently not triggerable as the two IOMMU implementations
+> > supporting deferred attachments, Intel and AMD, do not rely on DMA
+> > translations for MSI transactions. However, the Arm implementation being
+> > introduced in [1] will be subject to it.
+> > 
+> > Finalize the deferred attachment from iommu_dma_sw_msi() too, right
+> > before the MSI page is mapped. iommu_dma_prepare_msi() already holds
+> > group->mutex across the call, so factor the locked part of
+> > iommu_deferred_attach() out into __iommu_deferred_attach() and call that
+> > instead of taking the mutex recursively. The static branch on
+> > iommu_deferred_attach_enabled can be omitted as MSI page allocation is
+> > not on a fast path.
+> 
+> So why not just invoke iommu_deferred_attach() from 
+> iommu_dma_prepare_msi() itself, before taking the mutex at all, and save 
+> all the other churn? The two operations might happen to serialise on the 
+> same lock for their own different reasons, but they still have no need 
+> to be atomic relative to each other. If it's not a fast path in general 
+> then there should equally be little reason to worry about also checking 
+> in the cases which might not dispatch to iommu_dma_sw_msi().
+> 
+> Thanks,
+> Robin.
 
-Previously the setting allowed values beyond the supported range
-per DTM, which could cause each DTM to select invalid ports when
-MXP_MULTIPLE_DTM_EN is TRUE.
+Absolutely. In my first iteration I was retaining the static branch which better
+fitted dma-iommu. Without it there's no reason not to move the check.
+I'll submit a new revision.
 
-Fix this by only setting CMN_DTM_WPn_CONFIG_WP_DEV_SEL2 when
-!multi_dtm.
+Thanks,
+Federico
 
-Fixes: 60d1504070c2 ("perf/arm-cmn: Support new IP features")
-Signed-off-by: Shouping Wang <allen.wang@hj-micro.com>
----
-
-Changes in v2:
-- Made the setting of CMN_DTM_WPn_CONFIG_WP_DEV_SEL2 conditional on
-  !multi_dtm, instead of clamping with dev %= 2.
-- Refactored is_cmn600 to use cmn->part directly.
-- Updated the commit message.
-
-Link to v1: https://lore.kernel.org/lkml/20260819105443.668784-1-allen.wang@hj-micro.com/
-
- drivers/perf/arm-cmn.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/perf/arm-cmn.c b/drivers/perf/arm-cmn.c
-index 6e5cc4086a9e..7e7590381171 100644
---- a/drivers/perf/arm-cmn.c
-+++ b/drivers/perf/arm-cmn.c
-@@ -1393,13 +1393,14 @@ static void arm_cmn_claim_wp_idx(struct arm_cmn_dtm *dtm,
- 
- static u32 arm_cmn_wp_config(struct perf_event *event, int wp_idx)
- {
-+	struct arm_cmn *cmn = to_cmn(event->pmu);
- 	u32 config;
- 	u32 dev = CMN_EVENT_WP_DEV_SEL(event);
- 	u32 chn = CMN_EVENT_WP_CHN_SEL(event);
- 	u32 grp = CMN_EVENT_WP_GRP(event);
- 	u32 exc = CMN_EVENT_WP_EXCLUSIVE(event);
- 	u32 combine = CMN_EVENT_WP_COMBINE(event);
--	bool is_cmn600 = to_cmn(event->pmu)->part == PART_CMN600;
-+	bool is_cmn600 = cmn->part == PART_CMN600;
- 
- 	/* CMN-600 supports only primary and secondary matching groups */
- 	if (is_cmn600)
-@@ -1407,8 +1408,11 @@ static u32 arm_cmn_wp_config(struct perf_event *event, int wp_idx)
- 
- 	config = FIELD_PREP(CMN_DTM_WPn_CONFIG_WP_DEV_SEL, dev) |
- 		 FIELD_PREP(CMN_DTM_WPn_CONFIG_WP_CHN_SEL, chn) |
--		 FIELD_PREP(CMN_DTM_WPn_CONFIG_WP_GRP, grp) |
--		 FIELD_PREP(CMN_DTM_WPn_CONFIG_WP_DEV_SEL2, dev >> 1);
-+		 FIELD_PREP(CMN_DTM_WPn_CONFIG_WP_GRP, grp);
-+
-+	if (!cmn->multi_dtm)
-+		config |= FIELD_PREP(CMN_DTM_WPn_CONFIG_WP_DEV_SEL2, dev >> 1);
-+
- 	if (exc)
- 		config |= is_cmn600 ? CMN600_WPn_CONFIG_WP_EXCLUSIVE :
- 				      CMN_DTM_WPn_CONFIG_WP_EXCLUSIVE;
--- 
-2.43.0
-
+> > The behaviour of a rejected attach changes slightly: an attach refused
+> > because the device is being reset (-EBUSY) now fails MSI setup rather
+> > than only the first DMA map.
+> > 
+> > Link: https://lore.kernel.org/linux-iommu/cover.1788130528.git.nicolinc@nvidia.com/ [1]
+> > Signed-off-by: Federico Parola <fparola@amazon.de>
+> > ---
+> >   drivers/iommu/dma-iommu.c  |  7 +++++++
+> >   drivers/iommu/iommu-priv.h |  2 ++
+> >   drivers/iommu/iommu.c      | 25 ++++++++++++++++++-------
+> >   3 files changed, 27 insertions(+), 7 deletions(-)
+> > 
+> > diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+> > index 58c624513cd4..fa7de1b3d538 100644
+> > --- a/drivers/iommu/dma-iommu.c
+> > +++ b/drivers/iommu/dma-iommu.c
+> > @@ -37,6 +37,7 @@
+> >   
+> >   #include "dma-iommu.h"
+> >   #include "iommu-pages.h"
+> > +#include "iommu-priv.h"
+> >   
+> >   struct iommu_dma_msi_page {
+> >   	struct list_head	list;
+> > @@ -2247,6 +2248,7 @@ int iommu_dma_sw_msi(struct iommu_domain *domain, struct msi_desc *desc,
+> >   {
+> >   	struct device *dev = msi_desc_to_dev(desc);
+> >   	const struct iommu_dma_msi_page *msi_page;
+> > +	int ret;
+> >   
+> >   	if (!has_msi_cookie(domain)) {
+> >   		msi_desc_set_iommu_msi_iova(desc, 0, 0);
+> > @@ -2254,6 +2256,11 @@ int iommu_dma_sw_msi(struct iommu_domain *domain, struct msi_desc *desc,
+> >   	}
+> >   
+> >   	iommu_group_mutex_assert(dev);
+> > +
+> > +	ret = __iommu_deferred_attach(dev, domain);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> >   	msi_page = iommu_dma_get_msi_page(dev, msi_addr, domain);
+> >   	if (!msi_page)
+> >   		return -ENOMEM;
+> > diff --git a/drivers/iommu/iommu-priv.h b/drivers/iommu/iommu-priv.h
+> > index aaffad5854fc..ba72f9a03b0b 100644
+> > --- a/drivers/iommu/iommu-priv.h
+> > +++ b/drivers/iommu/iommu-priv.h
+> > @@ -21,6 +21,8 @@ static inline const struct iommu_ops *dev_iommu_ops(struct device *dev)
+> >   
+> >   void dev_iommu_free(struct device *dev);
+> >   
+> > +int __iommu_deferred_attach(struct device *dev, struct iommu_domain *domain);
+> > +
+> >   const struct iommu_ops *iommu_ops_from_fwnode(const struct fwnode_handle *fwnode);
+> >   
+> >   static inline const struct iommu_ops *iommu_fwspec_ops(struct iommu_fwspec *fwspec)
+> > diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+> > index cd1bca7ede9a..d7d70689c784 100644
+> > --- a/drivers/iommu/iommu.c
+> > +++ b/drivers/iommu/iommu.c
+> > @@ -2214,19 +2214,15 @@ int iommu_attach_device(struct iommu_domain *domain, struct device *dev)
+> >   }
+> >   EXPORT_SYMBOL_GPL(iommu_attach_device);
+> >   
+> > -int iommu_deferred_attach(struct device *dev, struct iommu_domain *domain)
+> > +/* Caller must hold dev->iommu_group->mutex */
+> > +int __iommu_deferred_attach(struct device *dev, struct iommu_domain *domain)
+> >   {
+> >   	struct group_device *gdev;
+> >   
+> > -	/*
+> > -	 * This is called on the dma mapping fast path so avoid locking. This is
+> > -	 * racy, but we have an expectation that the driver will setup its DMAs
+> > -	 * inside probe while being single threaded to avoid racing.
+> > -	 */
+> >   	if (!dev->iommu || !dev->iommu->attach_deferred)
+> >   		return 0;
+> >   
+> > -	guard(mutex)(&dev->iommu_group->mutex);
+> > +	lockdep_assert_held(&dev->iommu_group->mutex);
+> >   
+> >   	gdev = __dev_to_gdev(dev);
+> >   	if (WARN_ON(!gdev))
+> > @@ -2244,6 +2240,21 @@ int iommu_deferred_attach(struct device *dev, struct iommu_domain *domain)
+> >   	return __iommu_attach_device(domain, dev, NULL);
+> >   }
+> >   
+> > +int iommu_deferred_attach(struct device *dev, struct iommu_domain *domain)
+> > +{
+> > +	/*
+> > +	 * This is called on the dma mapping fast path so avoid locking. This is
+> > +	 * racy, but we have an expectation that the driver will setup its DMAs
+> > +	 * inside probe while being single threaded to avoid racing.
+> > +	 */
+> > +	if (!dev->iommu || !dev->iommu->attach_deferred)
+> > +		return 0;
+> > +
+> > +	guard(mutex)(&dev->iommu_group->mutex);
+> > +
+> > +	return __iommu_deferred_attach(dev, domain);
+> > +}
+> > +
+> >   void iommu_detach_device(struct iommu_domain *domain, struct device *dev)
+> >   {
+> >   	/* Caller must be a probed driver on dev */
+> 
+> 
