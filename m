@@ -1,231 +1,123 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from esa8.hc1455-7.c3s2.iphmx.com (esa8.hc1455-7.c3s2.iphmx.com [139.138.61.253])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EDAF33F5A5;
-	Thu, 10 Sep 2026 04:51:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E051739B955;
+	Thu, 10 Sep 2026 04:52:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.138.61.253
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789015885; cv=none; b=XeEqrP8QSByC+MotoO6HsGxLgUsVSvGDEebzNiU5XMO9V3BHB/HNEIAx2xrdNwNJS0IPKhqDG5lUtNQezuTL2nAaiaQuo+PgNaXvj0I3Bm2FmVT2hrDK6tAMkPBYiqaOpHqJygDEz0BnuvRbQYI0Ghw/RlBNWgM/F7kKCYcwVSQ=
+	t=1789015939; cv=none; b=MQVBeeYJeJpJk5TARjHR9GlH4DPLDIUhQH+q019fp8wOfafMp9mg8hlA50uS8imSLLdpzYvr0+cyFSmQcAZJozhYOeeanbAkVRoO7J/2naPmcqRwGkIknR9WWPHdLiiBhGKeVjqAPMuBh7i1h+kvFlyxX+6EQS+LAIcBY6zf+6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789015885; c=relaxed/simple;
-	bh=6EGr0pndE9v3Gm2AgJL+8/w6MjwUCuDONw4iUYy4k48=;
+	s=arc-20240116; t=1789015939; c=relaxed/simple;
+	bh=nBF6tOIyB/K1smAps/PmomhzUk3BKaarthp+S5mLB4w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ROc0C9lpdf5wZSfO/cFxpW0hakYoXX52UP/W+aOGUl8BZ3CEKhmJhL73DjFlpINoP9ol/NRlE+XXQk2X5bOEPb84T5FLIyf10blStsyzhPA4WPvZFxOFqpKrsrTKMmrTmGOOjFRBsAPfeADzfma1TtJk7KTq7vGtn/F9T96VORo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=tCexOwsk; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=gMz1S7+g0gZW/P9I5jqoDC9MJOpEZDrzp8mlOCzTw/k7sHEKBDKZRbwYepEXj6jm5Y7KHgUaExVL0aKJxJSgool7hifHz2wlTioINszvm8b/uaoYJIy1XHg7t51zY2YkdiAT4wZHLoC8GAKiwP2XAOIo9sXfDXA54qYYn7dbJoY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=KyfpSydD; arc=none smtp.client-ip=139.138.61.253
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="tCexOwsk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202608; t=1789015863;
-	bh=1U+Szheeb8hBdKfW81mvEE/dQvw3hrkyapGDFYxY+r4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=tCexOwskmN98peAWQoE5s9p8KrJJgtA170oZOEWYw42ZNpZ2AvBFtQ0XNV3K1cJnq
-	 /cQ9ZBOombhCU17ZXB2SbRKUX+/nlM8WKhPCdOsFbmU1hhPe71bkoiHNyMYBskA//V
-	 jUsmogEowVOG5WZ0NTNUy9YLyuYBtkRxNOuMr9PvmxZP016O7SbVE/dh932DV3HbmR
-	 Pk7rhK8rQ92hYJMRtpE/5RqiiVSZU5XXm+Em0DdY5EoGVINXwl3bdfRISzkDz8h7DL
-	 iMeOi2G7cI+D8u+G8baSXKPzewH6JAHXkWM8BPxaxgZLc6WGkh3zMhyzP7LT8N6w/D
-	 VAgyAfPEH/9bA==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4hgQHC2SMFz4wL4; Thu, 10 Sep 2026 14:51:03 +1000 (AEST)
-Date: Thu, 10 Sep 2026 14:51:08 +1000
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 06/15] Introduce structured tag value definition
-Message-ID: <aqI3KnnQnUytqkEc@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
- <20260826083146.304291-7-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="KyfpSydD"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+  t=1789015938; x=1820551938;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=nBF6tOIyB/K1smAps/PmomhzUk3BKaarthp+S5mLB4w=;
+  b=KyfpSydDnhZZBa8E2jvgPGAQbLnnEB5gE0Grm+KCGRV0fOSTLxp1zmKT
+   LyzRETyrJuKz+XNwxgIsI1WvM6Ik00jIMUxI8dmCORccLO7yoIygNa8O9
+   ET5TetFpHVc8+NySKV0ROnFGfojPI5pOWT8lsebd63ZS6gx9o2xM8g4JC
+   CLi4pCQVXlgo1Sv1U3Jt76FCyDIyNNBr1tbBeqjPXsi0DkhU4XP6tuovc
+   VUqr7nBfgQdAUr/9+Z+7DocqhGH73XQcAyWzyXvhoiTjbvfb/bQ5OpeJ5
+   b9d8fSXHY0q5HImGqBDET2EBKyXrhwPZ1IjPGXXX9EUKWU20FSmHWGtkd
+   A==;
+X-CSE-ConnectionGUID: Wwa20AORSJymJa3yaQMbsA==
+X-CSE-MsgGUID: LEa5AQ2AQgylLx6VRXUPQg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="242525105"
+X-IronPort-AV: E=Sophos;i="6.25,271,1779116400"; 
+   d="scan'208";a="242525105"
+Received: from gmgwuk01.global.fujitsu.com ([172.187.114.235])
+  by esa8.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 13:52:09 +0900
+Received: from az2uksmgm2.o.css.fujitsu.com (unknown [10.151.22.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by gmgwuk01.global.fujitsu.com (Postfix) with ESMTPS id C1D231C1C737;
+	Thu, 10 Sep 2026 04:52:09 +0000 (UTC)
+Received: from az2nlsmom1.o.css.fujitsu.com (unknown [10.150.26.198])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by az2uksmgm2.o.css.fujitsu.com (Postfix) with ESMTPS id 776FD18000CB;
+	Thu, 10 Sep 2026 04:52:09 +0000 (UTC)
+Received: from FCCLS0092175.localdomain (unknown [10.9.22.105])
+	by az2nlsmom1.o.css.fujitsu.com (Postfix) with SMTP id DEF3B821217;
+	Thu, 10 Sep 2026 04:52:01 +0000 (UTC)
+Date: Thu, 10 Sep 2026 13:51:58 +0900
+From: Kohei Enju <enju.kohei@fujitsu.com>
+To: Gavin Shan <gshan@redhat.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org, 
+	kvmarm@lists.linux.dev, maz@kernel.org, will@kernel.org, catalin.marinas@arm.com, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, steven.price@arm.com, 
+	aneesh.kumar@kernel.org, oupton@kernel.org, joey.gouly@arm.com, tabba@google.com, 
+	yuzenghui@huawei.com, linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, 
+	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
+	lpieralisi@kernel.org
+Subject: Re: [PATCH v17 0/7] firmware: arm_rmm: Add RMM v2.0 base RMI support
+Message-ID: <aqI3Cewih7oobhdG@FCCLS0092175.localdomain>
+References: <20260907095942.1140734-1-suzuki.poulose@arm.com>
+ <ap-C6NLnxuWWTMzi@FCCLS0092175.localdomain>
+ <9086ca6a-5dce-493f-ac76-487dedc60758@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4ajGarnbizewj7ke"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260826083146.304291-7-herve.codina@bootlin.com>
+In-Reply-To: <9086ca6a-5dce-493f-ac76-487dedc60758@redhat.com>
 
---4ajGarnbizewj7ke
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Gavin,
 
-On Wed, Aug 26, 2026 at 10:31:37AM +0200, Herve Codina wrote:
-> The goal of structured tag values is to ease the introduction of new
-> tags in future releases with the capability for an already existing
-> release to ignore those structured tags. In order to do that data length
-> related to the unknown tag needs to be identified.
->=20
-> Also add a flag to tell an old release if this tag can be simply skipped
-> or must lead to an error.
+On 09/09 20:52, Gavin Shan wrote:
+> Hi Kohei,
+> 
+> On 9/8/26 2:09 PM, Kohei Enju wrote:
+> 
+> [...]
+> 
+> > > 
+> > > [1] RMM spec : https://support.arm.com/documentation/den0137/2-0bet3/
+> > > [2] This series: https://gitlab.arm.com/linux-arm/linux-cca.git cca/cca-host/fw_rmm/v17
+> > > [3] KVM CCA v17 integration branch: https://gitlab.arm.com/linux-arm/linux-cca.git cca/cca-host/kvm-integration/v17
+> > > [4] Gmem inplace conversion https://github.com/googleprodkernel/linux-cc/tree/guest_memfd-inplace-conversion-v12
+> > > [5] TF-RMM https://git.trustedfirmware.org/TF-RMM/tf-rmm.git main (commit: 134266ae)
+> > 
+> > I understand that QEMU-virt is not intended to model a realistic
+> > production platform and that QEMU-SBSA is generally preferred. However,
+> > I sometimes use QEMU-virt to test functionality quickly because it runs
+> > slightly faster than QEMU-SBSA.
+> > 
+> > I tested this series with QEMU-virt and found that RMM initialization
+> > failed during boot:
+> > 
+> >    [...]
+> >    INFO:    BL31: Initializing RMM
+> >    INFO:    RMM init start.
+> >    ERROR:   RMM init failed: -8
+> >    WARNING: BL31: RMM initialization failed
+> > 
+> I also ran into same issue and attached TF-A patch leads to a successful
+> RMM initialization, please have a try to see if it can resolve your issue.
 
-I suggested/insisted on this in the past, but I've since realised this
-isn't actually useful.  The "structured tag" format is only useful
-because it allows you to skip over unknown tags, which means there's
-no point using it for ags that can't be skipped.  If we need new tags
-that can't be safely skipped, they can be added as old-style tags
-instead.
+Thanks for the patch! It works perfectly for me on QEMU-virt.
+Much appreciated.
 
-In which case "old style" versus "new style" is no longer a good
-characterization: they would exist side by side, so the distinction is
-more "skippable" versus "non skippable" tags.  Which suggests that
-"skippable tags" or "metadata tags" might be a better term than
-"structured tags" - that would focus more on the why than the how.
+Thanks,
+Kohei
+
+> 
+> 
+> Thanks,
+> Gavin
 
 
-> Structured tag value is defined on 32bit and is defined as follow:
->=20
->   Bits  | 31 | 30        | 29             28 | 27    0|
->   ------+----+-----------+-------------------+--------+
->   Fields| 1  | SKIP_SAFE | DATA_LEN_ENCODING | TAG_ID |
->   ------+----+-----------+-------------------+--------+
->=20
-> Bit 31 is always set to 1 to identify a structured tag value.
->=20
-> Bit 30 (SKIP_SAFE) is set to 1 if the tag can be safely ignored when its
-> TAG_ID value is not a known value (unknown tag). If the SKIP_SAFE bit is
-> set to 0 this tag must not be ignored and an error should be reported
-> when its TAG_ID value is not a known value (unknown tag).
->=20
-> Bits 29..28 (DATA_LEN_ENCODING) indicates the length of the data related
-> to the tag. Following values are possible:
->   - 0b00: No data.
->           The tag is followed by the next tag value.
-
-I think "next tag." would be clearer than "next tag value." - "next
-tag value" could be confused as meaning the data that comes after the
-tag.
-
->   - 0b01: 1 cell data
->           The tag is followed by a 1 cell (u32) data. The next tag is
->           available after this cell.
-
-Remove "available", it doesn't add any information.
-
->   - 0b10: 2 cells data
->           The tag is followed by a 2 cells (2 * u32) data. The next tag
->           is available after those two cells.
-
-Ditto.
-
->   - 0b11: Data length encoding
->           The tag is followed by a cell (u32) indicating the size of the
->           data. This size is given in bytes. Data are available right
->           after this cell.
->=20
->           The next tag is available after the data. Padding is present
->           after the data in order to have the next tag aligned on 32bits.
->           This padding is not included in the size of the data.
-
-I'm guessing the 1 & 2 cell cases are pretty common so it saves a
-moderate amount of dtb size to have this encoding.  However, it does
-come at the cost of greater code complexity.  Is it worth it?  I'm
-willing to believe it is, but I think the case needs to be made.
-
-I'd also avoid the term "cell" here.  To me a "cell" is specifically a
-term applying to a 32-bit value _within a device tree property_.
-These are 32-bits, but not part of a property.  Plus if Segher
-reappears, he'll complain that in the old days of OF, a cell wasn't
-necessarily 32-bits :).
-
-> Bits 27..0 (TAG_ID) is the tag identifier defining a specific tag.
->=20
-> Introduce the structured tag values definition and some specific tags
-> reserved for tests based on this structure definition.
->=20
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> ---
->  libfdt/fdt.h | 23 +++++++++++++++++++++++
->  1 file changed, 23 insertions(+)
->=20
-> diff --git a/libfdt/fdt.h b/libfdt/fdt.h
-> index a07abfcc..f41a355f 100644
-> --- a/libfdt/fdt.h
-> +++ b/libfdt/fdt.h
-> @@ -49,6 +49,7 @@ struct fdt_property {
-> =20
->  #define FDT_MAGIC	0xd00dfeed	/* 4: version, 4: total size */
->  #define FDT_TAGSIZE	sizeof(fdt32_t)
-> +#define FDT_CELLSIZE	sizeof(fdt32_t)
-
-I'd avoid creating this constant for similar reasons to avoid the term
-"cell" above.
-
->  #define FDT_BEGIN_NODE	0x1		/* Start node: full name */
->  #define FDT_END_NODE	0x2		/* End node */
-> @@ -57,6 +58,28 @@ struct fdt_property {
->  #define FDT_NOP		0x4		/* nop */
->  #define FDT_END		0x9
-> =20
-> +/* Tag values flags */
-> +#define FDT_TAG_STRUCTURED	(1U<<31)
-> +#define FDT_TAG_SKIP_SAFE	(1U<<30)
-> +#define FDT_TAG_DATA_MASK	(3U<<28)
-> +#define FDT_TAG_DATA_NONE	(0U<<28)
-> +#define FDT_TAG_DATA_1CELL	(1U<<28)
-> +#define FDT_TAG_DATA_2CELLS	(2U<<28)
-> +#define FDT_TAG_DATA_VARLEN	(3U<<28)
-> +
-> +#define FDT_TAG_NO_SKIP(tag_data, tag_id) \
-> +		(FDT_TAG_STRUCTURED | tag_data | tag_id)
-> +
-> +#define FDT_TAG_CAN_SKIP(tag_data, tag_id) \
-> +		(FDT_TAG_STRUCTURED | FDT_TAG_SKIP_SAFE | tag_data | tag_id)
-> +
-> +/* Tests reserved tags */
-> +#define FDT_TEST_NONE_CAN_SKIP		FDT_TAG_CAN_SKIP(FDT_TAG_DATA_NONE, 0)
-> +#define FDT_TEST_1CELL_CAN_SKIP		FDT_TAG_CAN_SKIP(FDT_TAG_DATA_1CELL, 0)
-> +#define FDT_TEST_2CELLS_CAN_SKIP	FDT_TAG_CAN_SKIP(FDT_TAG_DATA_2CELLS, 0)
-> +#define FDT_TEST_VARLEN_CAN_SKIP	FDT_TAG_CAN_SKIP(FDT_TAG_DATA_VARLEN, 0)
-> +#define FDT_TEST_NONE_NO_SKIP		FDT_TAG_NO_SKIP(FDT_TAG_DATA_NONE, 0)
-> +
->  #define FDT_V1_SIZE	(7*sizeof(fdt32_t))
->  #define FDT_V2_SIZE	(FDT_V1_SIZE + sizeof(fdt32_t))
->  #define FDT_V3_SIZE	(FDT_V2_SIZE + sizeof(fdt32_t))
-> --=20
-> 2.55.0
->=20
->=20
-
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---4ajGarnbizewj7ke
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqiNyoACgkQzQJF27ox
-2GerKBAAkWui4yxqUCx1Fe6C/hzsFQ9MyJhSEAKgBScq7lyuSMOYZQEwkfqRb1WQ
-JgL09DAvbeQxNVrGCQ6I7ZRcKCLFq7IfTTB43v7TFKlmWqLg8/JgUbJ4GiFT8yqv
-1JbZZvSgaEzakiR5kXT9wr/sOilefN3qULPWMQizqgjUMVFWMWRduV5gECn42XHe
-6GhmmOKHAPdFfLxsQ5GOcMNsQknJjGNJimMLKIBtb5kkL1iU2jEItngsupL5fpcS
-4k6ZnpSBqHbGFTYLfIzxl+SABmVckECdtVpYFWerFTvtbEW9c8HidWBMF0slM4O2
-5U4Q9N/npn17Z5OcMf6s1Plx2hj12ECJM+PxjLrDRLI9cfi79givxuzMUAzzs5ai
-F9+16BSMgqignTGZIXnXP+COKjryUYWfR5v+lbdYLuR2XsnK2Z0MQS4vO+xSOMTY
-72wD02AgWDEmZnnQJa3yEaYDwzTpllQdDl0j8UpakF+RmyADNyAN8BSayRrw7xxj
-rkY+gDh9g9nHEVPSqLPrKwy8wd0iT45juDYujsFBvb+D+tJsdVSmFUXytgI6QXga
-OpcynKowL0NF2u+5Yykek8I1jLIUZGo950n6VmtIOZBz8hobg7NkrtOvPnZT46My
-FfwxIUQxkSeyGucLES2VfL6bpRP1ub1mWUYJYnXyzrOyXir+Tfw=
-=qd/b
------END PGP SIGNATURE-----
-
---4ajGarnbizewj7ke--
