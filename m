@@ -1,52 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 176854AB1A6;
-	Thu, 10 Sep 2026 15:15:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 264DB4CCDDD;
+	Thu, 10 Sep 2026 15:15:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789053348; cv=none; b=UTm/9r0a5e0ozAJQXMU7P+15gihtSXBDoUPuQVhhxWqnn4GxjQudMG//PRowjz2byWNeSkHuU2vElWFssEKshZfs+kymSBHQes5SeKdznWKBolTaGj5834qXdgOkLrynFn8Icv56X0Rl6lo/iZDknaaJAwQ4xtrgxhzwcOJvzz4=
+	t=1789053361; cv=none; b=DfIjD41Gn69yndVEa2266BYobyFX5Zc129rrzU4NhUgEXI1MLXcqqNVz2a6WUkl7wP58Ommo9g1oKXqkDT8JB8Ov/FLZlNabcah2PdL3KPtOjlFT6ID+P/oo6z8C/1m/GvtX04cNPp6NSZ2KWNN48eiPlaN9xf0JqBOBmnTOQMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789053348; c=relaxed/simple;
-	bh=AGGTo8x6LltFZhyG3DBF2Ux8tH6OAROqJsckgOxCd+A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UySgINxhkU6R/v/3e/m7Yxm0xEfDVwRppUup9Sj+0sFmptg8JQQknXyNXHNqeBh8E/QLvnRrFXwv/I5W6o5rWT5pXJQJZWH1t3cGLP24+kPlwIXtEXupqxsbAjs6hzYhoZuVmRj9fUK2SdeTKiLyVLTCweJUD7ne7lWO0Wo9yEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FDBCL2tH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789053361; c=relaxed/simple;
+	bh=Llx7OXwXz9E6PzJsHJa4BIKtenImRD9pReN2hvcAF4M=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=bS8fbm7t875oKNzmrRKtUOlMh84XQ7nJMWOyg3eezlAW68d5+xkAB700FQIBrc6mQBdbkQ0hqesF1Fdf/fffUUFFtK9QdVOTHO2T+/AfmNqLT6ftsKeVkyc1t+xzVeOxKctVDbYpntRgM6rWLxgbpG/1jrTQiNqflLpgK55BgSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FvFlHbjY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FDBCL2tH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 052FA1F000FF;
-	Thu, 10 Sep 2026 15:15:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FvFlHbjY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 790DF1F000FF;
+	Thu, 10 Sep 2026 15:15:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789053339;
-	bh=tA/ppFhQxULDYYeN7C/s9VujISrGiMIKSwQKZxHHjbM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FDBCL2tHqsW9oRjEpTEy+uXVu3ZDkIJp0lI5+6ory7rtBb1FElTVIodOtuQ3qxSNN
-	 MqCHnhR0HwabviMf7YDef7IXy5mIyRRG9ZAuwjyTm86J+89Y/H2/oMwe1DwTbe71I2
-	 tzDLFM+VLY11vL9NerNXciDimCbLRzc1kfSsSG4MqNQ8b/P9As/IZr5vRgWtGiDrZv
-	 SUjN2pqb3VrlYdJfH7r5ub2Dtj8borepDm/yZ6pEwGbvVkOhQAp7GiApesiEuVtMrZ
-	 XuueTVgLjpT2pET+b1EJ04KUx1hQL92G0cXTiePoah+C+0zoSrGpDTpGd1NJlnaJhU
-	 COUc4TeB1Jriw==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Masami Hiramatsu <mhiramat@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Breno Leitao <leitao@debian.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
-	Douglas Anderson <dianders@chromium.org>,
-	Huacai Chen <chenhuacai@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	Sang-Heon Jeon <ekffu200098@gmail.com>
-Subject: [PATCH v4 2/2] bootconfig: Fix integer overflow in initrd size check
-Date: Fri, 11 Sep 2026 00:15:34 +0900
-Message-ID: <178905333479.213925.1358412668943562406.stgit@devnote2>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <178905331374.213925.295025394754459843.stgit@devnote2>
-References: <178905331374.213925.295025394754459843.stgit@devnote2>
-User-Agent: StGit/0.19
+	s=k20260515; t=1789053355;
+	bh=+cooRaiJn8SBRvN7gCCaIPOlBpE7d5a6lvwi2Hd5tUM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=FvFlHbjY4CHCIHAcF0hOq5AhjZrqZglX1mQKPoKAh1eoKBkygp12O7ke3vLGD29RR
+	 X7n1nAHRZNqnrN0BITqPE/4tiayu+utuv4eXmc6pxh7okhnuelrevxt5nyB523zEtY
+	 OSlStN8h3iFvglEfselX5qqtVJfv1k04RfM8aRbGmZYXOGUpNHbfItQyA/GFW51iGk
+	 8ctOtJMhNh9c+VJeA163HpemObGLUOfaPDLgu5y6XDU0MVWmYEGeAllf2+XkTWq7tA
+	 0dC6drui24ots8tjLQyASIyYbBi6CAksxP9HaMjFAeGaOdPIaaeDX/+dgV13erwwoo
+	 kDdb06fWJkQxg==
+From: Leon Romanovsky <leon@kernel.org>
+To: bernard.metzler@linux.dev, 
+ =?utf-8?q?J=C3=A9r=C3=A9my_Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>
+In-Reply-To: <20260908085520.1746329-1-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20260908085520.1746329-1-Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: Re: [PATCH] RDMA/siw: Bound fragmented header copies by the
+ remaining length
+Message-Id: <178905335219.346872.13841177617054824107.b4-ty@kernel.org>
+Date: Thu, 10 Sep 2026 11:15:52 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,104 +45,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.15-dev-18f8f
 
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-Sashiko reported that in get_boot_config_from_initrd(), a crafted initrd
-with a huge bootconfig size (such as 0xFFFFFFFF) can cause the pointer
-arithmetic:
+On Tue, 08 Sep 2026 08:55:20 +0000, Jérémy Jean wrote:
+> siw_get_hdr() can receive an extended DDP/RDMAP header across more than
+> one TCP callback. The first callback may receive most of the header,
+> while the next one still limits the copy to hdrlen - MIN_DDP_HDR instead
+> of the number of missing bytes. This makes the destination move past the
+> end of the header and overwrite the receive state, including
+> fpdu_part_rcvd. A later callback can then use a negative fpdu_part_rcvd
+> value as a copy offset, which creates an OOB write.
+> 
+> [...]
 
-    data = ((void *)hdr) - size;
+Applied, thanks!
 
-to wrap around on 32-bit systems (or when pointer subtraction overflows).
-Because data wraps around, the subsequent bounds check:
+[1/1] RDMA/siw: Bound fragmented header copies by the remaining length
+      https://git.kernel.org/rdma/rdma/c/9ff797e516dbc1
 
-    if ((unsigned long)data < initrd_start)
-
-evaluates to false, bypassing the check. The kernel then calls
-xbc_calc_checksum(data, size), which attempts to read 4GB of memory,
-hitting unmapped pages and triggering a fatal kernel page fault during
-early boot. Furthermore, on 64-bit systems with an initrd > 4.29 GB, an
-unbounded 32-bit size can similarly bypass the initrd_start check.
-
-Fix this by:
-1. Ensuring the initrd is at least large enough to contain the bootconfig
-   footer and verifying hdr is within the initrd bounds.
-2. Checking that size does not exceed XBC_DATA_MAX and does not exceed
-   the available space between initrd_start and hdr before performing
-   pointer subtraction.
-
-Fixes: de462e5f1071 ("bootconfig: Fix to remove bootconfig data from initrd while boot")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260910010137.EE0431F000FF@smtp.kernel.org/
-Assisted-by: Antigravity:gemini-3.8-flash
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
----
- Changes in v4:
-  - Accurate the error message for size > XBC_DATA_MAX in
-    get_boot_config_from_initrd().
-  - Remove redundant (and wrong) size >= XBC_DATA_MAX check from
-    setup_boot_config().
----
- init/main.c |   25 +++++++++++++++----------
- 1 file changed, 15 insertions(+), 10 deletions(-)
-
-diff --git a/init/main.c b/init/main.c
-index 2613d3f9b3ce..16749bb7a219 100644
---- a/init/main.c
-+++ b/init/main.c
-@@ -277,7 +277,8 @@ static void * __init get_boot_config_from_initrd(size_t *_size)
- 	u8 *hdr;
- 	int i;
- 
--	if (!initrd_end)
-+	if (!initrd_end || initrd_end < initrd_start ||
-+	    initrd_end - initrd_start < BOOTCONFIG_MAGIC_LEN + 8)
- 		return NULL;
- 
- 	data = (char *)initrd_end - BOOTCONFIG_MAGIC_LEN;
-@@ -294,16 +295,26 @@ static void * __init get_boot_config_from_initrd(size_t *_size)
- 
- found:
- 	hdr = (u8 *)(data - 8);
-+	if ((unsigned long)hdr < initrd_start)
-+		return NULL;
-+
- 	size = get_unaligned_le32(hdr);
- 	csum = get_unaligned_le32(hdr + 4);
- 
--	data = ((void *)hdr) - size;
--	if ((unsigned long)data < initrd_start) {
--		pr_err("bootconfig size %d is greater than initrd size %ld\n",
-+	if (size > XBC_DATA_MAX) {
-+		pr_err("bootconfig size %u is greater than max size %d\n",
-+			size, XBC_DATA_MAX);
-+		return NULL;
-+	}
-+
-+	if (size > ((unsigned long)hdr - initrd_start)) {
-+		pr_err("bootconfig size %u is greater than initrd size %lu\n",
- 			size, initrd_end - initrd_start);
- 		return NULL;
- 	}
- 
-+	data = ((void *)hdr) - size;
-+
- 	if (xbc_calc_checksum(data, size) != csum) {
- 		pr_err("bootconfig checksum failed\n");
- 		return NULL;
-@@ -394,12 +405,6 @@ static void __init setup_boot_config(void)
- 		return;
- 	}
- 
--	if (size >= XBC_DATA_MAX) {
--		pr_err("bootconfig size %ld greater than max size %d\n",
--			(long)size, XBC_DATA_MAX);
--		return;
--	}
--
- 	ret = xbc_init(data, size, &msg, &pos);
- 	if (ret < 0) {
- 		if (pos < 0)
+Best regards,
+-- 
+Leon Romanovsky <leon@kernel.org>
 
