@@ -1,85 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D71E408614;
-	Thu, 10 Sep 2026 15:21:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F792384CF6;
+	Thu, 10 Sep 2026 15:23:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789053680; cv=none; b=tzAuIYUBsfcTtAaPBa8DSV9/CRvymwyl22GDUuAB+97BT9N83ENYl5BQhn1rioLPPjI+isnkr/cItxImUmmjETGtXizSSSb7u7+qnbbDi+zjR5gAN8SZW+zGQO1/qfviS3t+RZ8/rdW+a5Ji1vVQygtRkv/my97WkE1MM93de/k=
+	t=1789053791; cv=none; b=ns0E9eTg4be6oJSAtbQTiPqyQNLW9FpM7g3mt6ZvbHvSfNkjwu4vrk8n2fW9UhkLHgVx3kErHB1bXvOHDIhw6yKyR7CAfowi1qCnHyRTcUBVsklc+bORCRA9PpCdO7cALZw6Q65w6wr2E4Q2k0OFpx40F/wYsyHQMRKRnQEWik4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789053680; c=relaxed/simple;
-	bh=7cfZkiKJwmCEA3BDbBejz2Td9xjhbgbOaRYLlnKaWl4=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=sca8Pd1C9lixksBNfxiYzKCYueCIPry41y+0vpO4yCR5ornlX2cAy1S3UyfNbTALl0N+07lqSFwvp4o1zBwk3k7EfCbwUsbjT8wCetb4I+wDMDg67+hk3HmbR3qZ9epG6m/OG9BjQoY6lFeZ3hwCstNsnjGL2t5zSpPEeSK2mJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IGEU4Hs5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789053791; c=relaxed/simple;
+	bh=hnWZhXwHUJSQ7slQueqP5zSAQK4IKFTOz4dsjZZNSAs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EMsXu3nn0OEgvC4VUopTSsgcqY68bngaoe6l+a9SSyd1Sgi7yMw8H4zLmxZ8WoN0EwTFu0o28hn9Dc81s0m9z8UatmNjbqumrK3BRmgxzr0o8VirXYGVoeieJAI1G/ZybUTPkuhIyvv9rQuXx0pOzwIArp6uMl4GokWQqwRYLiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TPw/xgsC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IGEU4Hs5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28DE91F00899;
-	Thu, 10 Sep 2026 15:21:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TPw/xgsC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71C871F000FF;
+	Thu, 10 Sep 2026 15:23:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789053672;
-	bh=QBTCkpTfJ/RsxTsPfeDu6QW4Q9j7khudyRmxhb82B7I=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=IGEU4Hs5zCeOAx8VPt8MBvmSFUQgWjoIUn1m6B/zpyZ55cQjEQw3q86VyxfD+paLf
-	 wYGKf+jjUl8noWdt0ZbAs6Ryk/lksSF3xeECzBdNbeGNEF0OZ5lC/EG6MhBDVpYVdO
-	 7S56A1JVAmP5paQX6w/RZI9ztussmYuvUXI4QLxIR08jzjjGx/jdIsDHqf2tErNBa+
-	 TATN96NkNT95YSW4/1SfYNC1dImUhZ2g/Ot10bh0tMZInInu6WXYSgLi+lETCMujkY
-	 AumnoTJ+yX9Q2bGIOUh02ESMHO7IwxSl+J/e/q3tIJe0tCoWsrT8we1NNscDr8+qji
-	 qBWYsos0iCLlA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0A19380CEF8;
-	Thu, 10 Sep 2026 15:20:10 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1789053782;
+	bh=m0wROt3YxDKuV+RbvHS9GTMSx7Pe6Lf6m5J3ePOAiZs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TPw/xgsCJICDARGk+6yxTduN28e2JMgVK6MCLcRovk+pJD6VRY1kofIHc5SbZDmN9
+	 qLzFf+xqMaMORje+HfMSwqzS/XfpDGx04phz81hds/jPGMef30xz7oghaZnAGByuQk
+	 3mXraZqvPnVPZi+AJaH46nAlwSaAGoqnQggM8F5+hUSmQ9I3oqvwZ/7/mOKBGO/JsP
+	 bgx7wT6Mev+S2JDDfZ5BH7ae1VMQvO127U50pPKI4dUh15PKtAq6O6YwbmQhvfZtPD
+	 mbClS3JcBAAzog2RPfrWOR3rfr+yQ7BHn3kj6KRpDHJgK+Mwgb3XbT1L6U5B3CGxYf
+	 DYT0Ms/qvlkbg==
+Date: Thu, 10 Sep 2026 18:22:58 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: "Nimal Prabudoss [C]" <nprabudoss@marvell.com>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"jmeneghi@redhat.com" <jmeneghi@redhat.com>,
+	"mschmidt@redhat.com" <mschmidt@redhat.com>,
+	"Sharad Padol [C]" <spadol@marvell.com>,
+	"Yogesh Sawant [C]" <ysawant@marvell.com>,
+	Nilesh Javali <njavali@marvell.com>,
+	Manish Rangankar <mrangankar@marvell.com>,
+	GR-ETH-Storage-Upstream <GR-ETH-Storage-Upstream@marvell.com>
+Subject: Re: [PATCH v3] MAINTAINERS: Update maintainers and group list for
+ QLogic and Broadcom drivers
+Message-ID: <20260910152258.GS13683@unreal>
+References: <PH0PR18MB4799279C272F238CDF36698DC9B22@PH0PR18MB4799.namprd18.prod.outlook.com>
+ <PH0PR18MB4799B6A39977C80374EA4FA6C9B22@PH0PR18MB4799.namprd18.prod.outlook.com>
+ <20260908174718.18b46925@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v3 0/3] net: phy: handle the active-high LED polarity
- mode
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178905360938.1492964.9209925630234806744.git-patchwork-notify@kernel.org>
-Date: Thu, 10 Sep 2026 15:20:09 +0000
-References: <20260908105959.70453-1-donggeunyoo.kernel@gmail.com>
-In-Reply-To: <20260908105959.70453-1-donggeunyoo.kernel@gmail.com>
-To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Cc: andrew@lunn.ch, hkallweit1@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- linux@armlinux.org.uk, daniel@makrotopia.org, o.rempel@pengutronix.de,
- netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908174718.18b46925@kernel.org>
 
-Hello:
-
-This series was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Tue,  8 Sep 2026 19:59:56 +0900 you wrote:
-> Commit a274465cc3be ("net: phy: support 'active-high' property for PHY
-> LEDs") let a device tree LED node request PHY_LED_ACTIVE_HIGH, but a
-> ->led_polarity_set() that only handles PHY_LED_ACTIVE_LOW returns -EINVAL
-> for it. of_phy_leds() propagates that, phy_probe() fails, the mdio device
-> is left unbound, and phy_attach_direct() falls back to the genphy driver,
-> so the PHY loses its driver-specific configuration. Three in-tree drivers
-> still have that gap; each already programs active high as its default, so
-> the fix is one case label per driver.
+On Tue, Sep 08, 2026 at 05:47:18PM -0700, Jakub Kicinski wrote:
+> On Mon, 7 Sep 2026 12:26:25 +0000 Nimal Prabudoss [C] wrote:
+> > Signed-off-by: Nimal Prabudoss mailto:nprabudoss@marvell.com
 > 
-> [...]
+> This is your v3? Look, if you can't send a valid patch you should
+> probably not be a maintainer :/
 
-Here is the summary with links:
-  - [net,v3,1/3] net: phy: dp83867: handle the active-high LED polarity mode
-    https://git.kernel.org/netdev/net/c/36a45facedd5
-  - [net,v3,2/3] net: phy: dp83td510: handle the active-high LED polarity mode
-    (no matching commit)
-  - [net,v3,3/3] net: phy: qca808x: handle the active-high LED polarity mode
-    (no matching commit)
++1, it is hard to find anything correct in that patch.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Thanks
