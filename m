@@ -1,95 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D74739CCE2;
-	Thu, 10 Sep 2026 16:56:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1BE63AB287;
+	Thu, 10 Sep 2026 16:56:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789059373; cv=none; b=LpwZV+YsBAMjf9dCC2+MuVmfaGnpdUxPpPQW2Lgv0b4oXiI8VsNy35vVdfVVNT1djSlS7Ha9mQ56A0QcG4gtTlTCvb+1dmKC8pT5R4GcrjUTDN9WM2rmESP1DuAQaVdx3aXfaj5/OM/wWpAuiOfjNZaSFSqJaNrZzxpu8p45kHg=
+	t=1789059398; cv=none; b=HJKzcnIDFkhoe2QBCp4RxSTXdLSZklQ9lA/9o3r4EJbU4/6sH5UwhYUuVXrQEoO7fSrNWea+cHCIxc/Qfqf4pPUi/8oDOJm80RXR1yFLHOzpz4m8v/isCThWEb1l8zYTYfsxrA6srBeImTyMR3QOedjgMUC9SYR2HoN4BBpWtKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789059373; c=relaxed/simple;
-	bh=QcFhRK88+b/E5jRc/+kYj47x/P2Hg+ARykNSBWh+CMg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PN9M72lQSi//CXJyM4rb5QD9lLIj4tu9jQSoAptOHZqUcOlxyWqoepo4dRufqgm/g+b0TN+2Uwp7L6WXK+gRcysjwouZLLKoiYBBvL7yABYO7UNWZqjT+zmIkiP5uMCMivKUNRDs2Bj++a24uSc5gRFrPjkR1wECr8JOV/9PE3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RYT1XR/O; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789059398; c=relaxed/simple;
+	bh=ScSG9WBXfS4Wo/8HDgWfWshTRFigOP1Fj1R22XjxUT0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UWG/PNPJ3BOcvwcfagXSU5JivU87sfjf2cx6FcYoTCFWl0wNuwEZSLwW9sLabzu0qLR28NYvsJY6cGHLkvWU1j69BJreRSEeS0xdeIr2+UJX2LF43AjAHYCjZ9j+XGhTmUCUJ5k9HqQ7O96L32Mp19IDj55B/oD4tCFgd68PayU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=nwEXBdcA; arc=none smtp.client-ip=213.160.73.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RYT1XR/O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1840B1F000FF;
-	Thu, 10 Sep 2026 16:56:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789059371;
-	bh=H5qv7SU0WDIL3754Sz2KIRetoEuCaKQJTb8/kp1+BN4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RYT1XR/OfF0mS9K7RNsSt0/bIB4tPLioqS6oICC8IIBQHYVfhoUtGXezZnR7dAl+c
-	 rFWzFgqOUX4ca86r7skR+88tgY+1ogkZggJmqPnETO8L7QgfniDy2g/o7Y18pUXxsb
-	 bFM6/G27KvDldgE/IwzDlrYaZ1ti/gQoZmyuuGAU9OyXJJfhZeM7dLTPnJgKsYWFmi
-	 wKWAGiMui/lzpZDf76fBJTyUFLu/Rq18kYGGmUr0p2SOBUpNmY9gHnQMAuwr0ROqn/
-	 6RRmm9D08XnbYF8D3KE8lgsE0DMnNnhHE1v3HoHRYQ2+1033JG9Ecp7oP7YCvG8lGz
-	 q0jT9Y7FpqKlw==
-Date: Thu, 10 Sep 2026 17:56:07 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Itai Handler <itai.handler@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-spi@vger.kernel.org, michal.simek@amd.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] spi: spi-zynqmp-gqspi: stop the controller on shutdown
-Message-ID: <8fcad389-8340-4ccb-8ef4-008d826115fa@sirena.org.uk>
-References: <20260910113325.717882-1-itai.handler@gmail.com>
+	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="nwEXBdcA"
+Received: by dvalin.narfation.org (Postfix) id 2356320394;
+	Thu, 10 Sep 2026 16:56:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
+	s=20121; t=1789059391;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jpfKdfRhIDieddP8CnPCmiOpHujz9qF8RTfexgVbXU8=;
+	b=nwEXBdcAy3Bpov4VOY4e9xQIUo1PQ2X9HlwxbfnLeQfMjABTkXF73qIcnksvyZ+lcbcS0g
+	2rPkDRnl7UQZFmPrLPM9uczBVt0vyDhtL/31BVXskbZBb26AOMkMrYm6WaedfzaSpjh5hq
+	RYBqqwgy91rok1+/oD3mlpj7KKJQqzg=
+From: Sven Eckelmann <sven@narfation.org>
+To: netdev@vger.kernel.org, Fernando Fernandez Mancera <fmancera@suse.de>
+Cc: horms@kernel.org, kuba@kernel.org, pabeni@redhat.com, edumazet@google.com,
+ davem@davemloft.net, Fernando Fernandez Mancera <fmancera@suse.de>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Elad Nachman <enachman@marvell.com>, Saeed Mahameed <saeedm@nvidia.com>,
+ Tariq Toukan <tariqt@nvidia.com>, Mark Bloch <mbloch@nvidia.com>,
+ Ido Schimmel <idosch@nvidia.com>, Petr Machata <petrm@nvidia.com>,
+ Edward Cree <ecree.xilinx@gmail.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Arend van Spriel <arend.vanspriel@broadcom.com>,
+ Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+ Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ Chaitanya Kulkarni <kch@nvidia.com>, Saurav Kashyap <skashyap@marvell.com>,
+ Javed Hasan <jhasan@marvell.com>, GR-QLogic-Storage-Upstream@marvell.com,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, Nilesh Javali <njavali@marvell.com>,
+ Manish Rangankar <mrangankar@marvell.com>, Varun Prakash <varun@chelsio.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ David Howells <dhowells@redhat.com>, Marc Dionne <marc.dionne@auristor.com>,
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
+ Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>,
+ Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
+ Marek Lindner <marek.lindner@mailbox.org>,
+ Simon Wunderlich <sw@simonwunderlich.de>,
+ Antonio Quartulli <antonio@mandelbit.com>,
+ Nikolay Aleksandrov <razor@blackwall.org>,
+ Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
+ Phil Sutter <phil@nwl.cc>, Johannes Berg <johannes@sipsolutions.net>,
+ Matthieu Baerts <matttbe@kernel.org>, Mat Martineau <martineau@kernel.org>,
+ Geliang Tang <geliang@kernel.org>, Julian Anastasov <ja@ssi.bg>,
+ Aaron Conole <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>,
+ Ilya Maximets <i.maximets@ovn.org>, Allison Henderson <achender@kernel.org>,
+ Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>,
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+ Xin Long <lucien.xin@gmail.com>, "D. Wythe" <alibuda@linux.alibaba.com>,
+ Dust Li <dust.li@linux.alibaba.com>,
+ Sidraya Jayagond <sidraya@linux.ibm.com>,
+ Mahanta Jambigi <mjambigi@linux.ibm.com>, Tony Lu <tonylu@linux.alibaba.com>,
+ Wen Gu <guwen@linux.alibaba.com>, Jon Maloy <jmaloy@redhat.com>,
+ Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
+ Steffen Klassert <steffen.klassert@secunet.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Casey Schaufler <casey@schaufler-ca.com>, Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+ Vikas Gupta <vikas.gupta@broadcom.com>,
+ Bhargava Marreddy <bhargava.marreddy@broadcom.com>,
+ Rajashekar Hudumula <rajashekar.hudumula@broadcom.com>,
+ Nicolai Buchwitz <nb@tipi-net.de>,
+ Markus =?UTF-8?B?QmzDtmNobA==?= <markus@blochl.de>,
+ Arnd Bergmann <arnd@arndb.de>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Qingfang Deng <qingfang.deng@linux.dev>,
+ Julian Braha <julianbraha@gmail.com>,
+ Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Eric Biggers <ebiggers@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
+ Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>,
+ Willem de Bruijn <willemb@google.com>, Alyssa Ross <hi@alyssa.is>,
+ Joel Granados <joel.granados@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
+ linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+ intel-wired-lan@lists.osuosl.org, oss-drivers@corigine.com,
+ linux-net-drivers@amd.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-wireless@vger.kernel.org,
+ brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com,
+ linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org,
+ target-devel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-afs@lists.infradead.org, linux-nfs@vger.kernel.org,
+ b.a.t.m.a.n@lists.open-mesh.org, bridge@lists.linux.dev,
+ netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+ mptcp@lists.linux.dev, lvs-devel@vger.kernel.org, dev@openvswitch.org,
+ rds-devel@oss.oracle.com, linux-sctp@vger.kernel.org,
+ linux-s390@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
+ linux-security-module@vger.kernel.org
+Subject:
+ Re: [PATCH 01/13 net-next] net: ipv4: introduce CONFIG_IPV4 to decouple the
+ IPv4 stack
+Date: Thu, 10 Sep 2026 18:56:26 +0200
+Message-ID: <2927239.BEx9A2HvPv@ripper>
+In-Reply-To: <20260910144914.8025-2-fmancera@suse.de>
+References:
+ <20260910144914.8025-1-fmancera@suse.de>
+ <20260910144914.8025-2-fmancera@suse.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3mhjrI60cxQYt2un"
-Content-Disposition: inline
-In-Reply-To: <20260910113325.717882-1-itai.handler@gmail.com>
-X-Cookie: Gravity brings me down.
+Content-Type: multipart/signed; boundary="nextPart15836323.tv2OnDr8pf";
+ micalg="pgp-sha512"; protocol="application/pgp-signature"
+
+--nextPart15836323.tv2OnDr8pf
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Sven Eckelmann <sven@narfation.org>
+Date: Thu, 10 Sep 2026 18:56:26 +0200
+Message-ID: <2927239.BEx9A2HvPv@ripper>
+In-Reply-To: <20260910144914.8025-2-fmancera@suse.de>
+MIME-Version: 1.0
+
+On Thursday, 10 September 2026 16:48:26 CEST Fernando Fernandez Mancera wrote:
+> diff --git a/net/batman-adv/Kconfig b/net/batman-adv/Kconfig
+> index 58c408b7a7d9..60ad4b09be6e 100644
+> --- a/net/batman-adv/Kconfig
+> +++ b/net/batman-adv/Kconfig
+> @@ -9,6 +9,7 @@
+>  
+>  config BATMAN_ADV
+>         tristate "B.A.T.M.A.N. Advanced Meshing Protocol"
+> +       depends on IPV4
+>         select CRC32
+>         help
+>           B.A.T.M.A.N. (better approach to mobile ad-hoc networking) is
+
+This doesn't make a lot of sense to me IPV4 is not a requirement for 
+batman-adv. Only very specific features will require symbols from IPv4:
+
+* CONFIG_BATMAN_ADV_BLA
+
+  - arp_create
+
+* CONFIG_BATMAN_ADV_DAT
+
+  - arp_create
+
+* CONFIG_BATMAN_ADV_MCAST
+
+  - ip_mc_check_igmp
 
 
---3mhjrI60cxQYt2un
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Basically things which currently depend on INET in net/batman-adv/Kconfig
 
-On Thu, Sep 10, 2026 at 02:33:25PM +0300, Itai Handler wrote:
+Or am I missing something here?
 
-> +static void zynqmp_qspi_shutdown(struct platform_device *pdev)
-> +{
-> +	struct zynqmp_qspi *xqspi = platform_get_drvdata(pdev);
-> +	int ret;
-> +
-> +	/*
-> +	 * Only a runtime suspended controller can be left alone: its clocks
-> +	 * are gated, so it cannot be mastering the bus, and its registers
-> +	 * must not be accessed either.  Any other answer means it may be
-> +	 * running and has to be stopped.  In particular, on a kernel built
-> +	 * without runtime PM this returns -EINVAL, and there the clocks
-> +	 * enabled in probe() are never gated at all.
-> +	 */
-> +	ret = pm_runtime_get_if_in_use(&pdev->dev);
-> +	if (!ret)
-> +		return;
-> +
-> +	zynqmp_gqspi_write(xqspi, GQSPI_EN_OFST, 0x0);
-
-What ensures that nothing can start new transactions after this has run,
-and if there's any operations in flight will the controller be OK with
-just being stopped like this?
-
---3mhjrI60cxQYt2un
+Regards,
+	Sven
+--nextPart15836323.tv2OnDr8pf
 Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqi4SYACgkQJNaLcl1U
-h9DtGwf9Hvtmmb3vMcKh7JgRiQb0kCFv9qEx+cbBU1WvojtOeTyWRno1HPM+1Dm4
-1a+alpDAO3fkRljzrLYyxHcx61SNwypP85xG7nYIRoLjj85Q0H7rl74tmH4W2KNW
-XCdswt1F115sVLVg5Z7a5rv5gyunIjmgqze32jlZQKFkU15oEUsbk3NB1/CbQOQT
-Z2QYer07Z/TCA0enUEK6NKJYRDJQJnSgGJBoAvoF5vbn72TLcrHx8vf7i9GZktzl
-j8ZPbKqiygHJwpUT0+Qser2009MxBTS79sbGbN5/ESD4eKi59lGRghuhmza22ZFP
-nKQ1163hkIr+j+n+ECibjh0si5+eDA==
-=ImZb
+iHUEABYKAB0WIQS81G/PswftH/OW8cVND3cr0xT1ywUCaqLhOgAKCRBND3cr0xT1
+y0QVAQCluQcX0gr2MIQxC1VBX8WP3ecVDFqIOBKX04RTLEdoGQD+LCZ3LWDtGBbG
+zKG3h3F96XOApdHINtJ4L0x6nSSviww=
+=kxMI
 -----END PGP SIGNATURE-----
 
---3mhjrI60cxQYt2un--
+--nextPart15836323.tv2OnDr8pf--
+
+
+
