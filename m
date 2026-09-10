@@ -1,201 +1,166 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79B2748CD54;
-	Thu, 10 Sep 2026 14:23:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CF0848EC84
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:24:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789050239; cv=none; b=jaeQVgOMHeh9Z+U/cugLR3LxxyrR29S7R3aFLwnPb2t9doRQjy8SZfTjjVMqbizV22HIQXE78PLwq3Q9EM+9+k+a8LyHZAVbs6cqDtwXCXNoipGWi4/NJvswztBv8GXfMFBMNWYQM6hwQGEYb+/jFY2cqMnxA8gVFql8qsxTkUY=
+	t=1789050286; cv=none; b=l3Y8gAKVoFHHQq5i9/Axpmjuki8fKle6TYwgx5LDDgeBb82IRwf+N997/rdgFZ/sJXIVNdha8PNRmKTiIP+4PQTbXaQGqZWiLsuvEIGLajysAUd1qJxP5cV2EAdSxA3Tcbt7wX3gaPUJeE14rY7V6PtxtE+P1rW6JXC+GSV+YEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789050239; c=relaxed/simple;
-	bh=M/qvUC17dZYh3NA7ctB7iGR4URUPLBoli4cyAFwHf/U=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=baLZXzEB9dlCMKCkj+0i/igZ0P9jonqQYK0TziXL7eXE4kwOBDOq5ClIy9v5hX1T1C8NgI3VO7N8sWicdrHEGRFiQ6nSPK5ixe86kJUbn7JxwxgOGsWBGh2NlFyw6UxX0n9FkgknZpU+/s5PRWll1+1qFizliRuD3OZutavXWd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=r+8TxNQ2; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789050286; c=relaxed/simple;
+	bh=Nay3LPpHkzmUOR2yFLIxbZK/j+WBUazFJ93AhqK7x8s=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ucPnBfCd8VOoZ8U2sUw3y0bOltlW6BwPlporV+6OKswZWJSCxAcvJgXMKGQDgF/T6KLryjSMjlsLDNJe+mj9bdOZ+qLTKq2X6k2EkPQsgsIB7nfQaKRHnjbZHydR8J1euTatjm5esCiz8By/By8LrKnK8L8m9BkSFNyAShcxbYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pvpEsTDi; arc=none smtp.client-ip=74.125.230.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="r+8TxNQ2"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ACVbVu2925749;
-	Thu, 10 Sep 2026 14:23:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=OHNPGY
-	GWxh+3J5U8VFWodv4712DQuRsZ8pLXZk91/oI=; b=r+8TxNQ2BcAomOfs452OYZ
-	/V7WFS81TldNEIjZE4z73q/Ot2bhwpARpnDt53owV2Ba4fd9fJ7SYfKwnrf0+Q/S
-	FvJiZ2fBm7vI0/DZqM8Lq+azM+WrPgk+lxaEHbz/uBb5OH/Dtb6HaesjKhC7cTa2
-	/4DRo5W/TFiuGah6DlghQAUhk3MZcNmJMuFWAtGyA0MG8bm6M9LBnOT4QvnE3VPy
-	6xvAYUR9VFn7XPHvQnaptrA95i4FaRyQVrg71wNZ8fRrtPE46VTU7pKGN8Cj8XTk
-	XI8hfD8cnn5cus9xqymVd6PF43Bm0WOgL8TRfy7aWL8o/b5XXaZZSX8al6gzJ8SQ
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gkd8sw3jp-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 14:23:46 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68ADAQHq072089;
-	Thu, 10 Sep 2026 14:23:46 GMT
-Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gkvnrgfub-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 10 Sep 2026 14:23:46 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
-	by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68AENjiT34276008
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 10 Sep 2026 14:23:45 GMT
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 56B515805F;
-	Thu, 10 Sep 2026 14:23:45 +0000 (GMT)
-Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A8D205805A;
-	Thu, 10 Sep 2026 14:23:44 +0000 (GMT)
-Received: from li-4c4c4544-004d-3310-8032-b2c04f503334.ibm.com (unknown [9.61.100.247])
-	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 10 Sep 2026 14:23:44 +0000 (GMT)
-Message-ID: <9d0cb973a47adc14ff7b248ea8fe58a735b8cd11.camel@linux.ibm.com>
-Subject: Re: [PATCH 1/1] bonding: crypto offload enabled, non-offload slave
- failover, rekey failed
-From: David Dai <zdai@linux.ibm.com>
-To: Hangbin Liu <hangbin.liu@linux.dev>
-Cc: jv@jvosburgh.net, andrew+netdev@lunn.ch, davem@davemloft.net,
-        edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        pradeeps@linux.ibm.com
-Date: Thu, 10 Sep 2026 09:23:44 -0500
-In-Reply-To: <aqJkO4-49YtW4NxF@fedora>
-References: <20260903220123.475685-1-zdai@linux.ibm.com>
-	 <apphLbjfmRYknVNh@fedora> <aqJkO4-49YtW4NxF@fedora>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pvpEsTDi"
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a59bc470d6so5045231fa.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:24:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789050283; x=1789655083; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=yU5rOk6h8bj4CbQ83n6GeZ2/DFqLMn/rBfdmHQNe++Y=;
+        b=pvpEsTDi23njYkF5J3Ai9oGFjEK8aaaKMy7TTJcK+tRTV028X1Xln2c8Eqf4TFnib8
+         Otg9RsGk9zT++xJTxwDc9c9NhWTDf/6giZatUfrx6R1rlxR2+DWd2rRLlNRGy8hBZ+dX
+         3i1YNsgD4XzjGhblR6B8fDVsUbyKcvOicRVX8TdrS2/AHBQ5HsyclP3lr9Kvz9ffuW2T
+         E4ShoXZ16U110Xulvrahp2QCrC87GTzfO4vB+LXevTotCeZgrRUeDfS6iNmHY6hzi8g7
+         1hrwQpDMcrYw2phhsk0LpOAPs9IV8JyQufXtGfFeEylCojItALF4iAvIa2fNiOZfhNzS
+         4Y5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789050283; x=1789655083;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yU5rOk6h8bj4CbQ83n6GeZ2/DFqLMn/rBfdmHQNe++Y=;
+        b=d9N/Zt2Kes5czm15NrJD09axpcbkdbemNUrniHgI1YzVNXlN8ClCeusJMepal8X3Ub
+         1HAtwCgpev7IszawVWkgI712QWq/KYDrytDszVkBU3GjL59nqiIkUOaphiIJ3DWWP03M
+         iS1UVuTaLNwgIsQuuO99I3cDDVW/Y1JExBJvY9szPC02iNoIExWCJ/nj4vm3nVgAjMF4
+         PO9Ye/oU2s3y+U43QjneXX4mYa9WcSt+oi5DZTNq13s/MROtSeczEsdZlRePARwcytZK
+         kHZOF914AD9g8cItXfsUL1ghiHgtqpRH6TJnQYFyP8Ffg1lYPv08sOxiKi3LRirxneUq
+         ZZdw==
+X-Forwarded-Encrypted: i=1; AKwUvBwEs4kwqsSq9zgNdRpR9KiWtuCplTUnGIeUeoZM7SeBdCKPoyHgFFmZW1/2bRs/9XWvxklYpSM8LzIcnK4=@vger.kernel.org
+X-Gm-Message-State: AFuF++ntcQ3wm7rD2waw+ZfV1Szpo3v3T/o8wg6pV0n6hr68/lRZJAGs
+	5029IseQy3d6+R9ndErRuQpOT/tsnPgVHGkDejZCK8HGpZa7beJ8YXRjAR9LhOVa
+X-Gm-Gg: AYBFou1AOdY+vv48Y+DMnC1xMNv3Di0fEIf9wd9qmQJbANCHRDPVfDF6ozEP2DYJ60k
+	dZNM35ENif97Y0uJ5Z314lNNaVE/46rUi4sK2O9DzycIbCT6pxSDRS/3GS+T1C45LFL2M3sQLzB
+	45yGRnw7uCfNPIZqshxFR9OpY+nhcoZ9E626ybiTgvoKkzxq8WG4Xlol22+KgANIe5tcTgNqXTj
+	gfyd1XzMzsybZ17OXu2D8FRyGoMBE7L4CEIrTn0TTkn9dDEJZRGIt4i9VzVUj5i0lTKaJUrrhMB
+	KUH/jzKLGZEKD0AWFk8gU5J4lzcXSMFHLMMtJKWs5lv0er4T8VLtFZWOqaLWQeS9v8yqKz/OeIm
+	Xj+i1JQrW413+dY2eXrlqbvQfSGUFYhOAtOQ8K8AG7MRRUw8kJ7qEVx9ofEzOANG9mAiss7f1lC
+	k/Yzba4qwftmZa2AuH48eaJYJ3ibm/gEVZOyQIRg3Inv8baHaGyKuavVmwH+nD2FGbuyTUocqAO
+	rNbzAs4g2T6Qlvh8x/2WpCWI8LS6wFeF6D+6mp8yc0WWnxjqLjANJW9E00dLtcfMPlymXs37UY=
+X-Received: by 2002:a05:600c:5307:b0:49c:f617:7cf with SMTP id 5b1f17b1804b1-49d25871d73mr162962375e9.0.1789049807967;
+        Thu, 10 Sep 2026 07:16:47 -0700 (PDT)
+Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d20fce7a7sm293895575e9.4.2026.09.10.07.16.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 07:16:47 -0700 (PDT)
+From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Subject: [PATCH v2 0/7] of: property: Make fw_devlink follow GPIO, PWM and
+ clock nexus maps
+Date: Thu, 10 Sep 2026 16:16:41 +0200
+Message-Id: <20260910-fw-devlink-nexus-ready-v2-0-17ac82dbe226@toradex.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDE2OSBTYWx0ZWRfXx2DZMemcb9iI
- o0C7VTvogwjexgvaHO8WkcYylQVn0od1KG2KvoxZVaaoHjMfI5mqQtz2JfTrZMbro29sGs50pZh
- b0Q+YQBPM9mVlJdUpZLK+3ayqZ8AIog=
-X-Proofpoint-ORIG-GUID: Kw6Q0KM8dwkd40g2RR2qopdclGJKrxep
-X-Proofpoint-GUID: -lG-uQA9_Nz0jY5a33JJ9yBCB9o1H-TF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDE2OSBTYWx0ZWRfX5n6xGycp/4E/
- c0k469REYE9P0asNKMUgESPa+tt7PQb8U0jAF5TheK53jfMj1PAm3lFmmD18xEz4TciJsmoy+dt
- nHvtpC55sBlfirXDZCGBsI0e+sNfbJXyjTPbojx1y9wOKdZqiE2mHVqwqZYelOWC7cakcHIX3hu
- mk/9WeD/MkRcl5hIBXAWy3s9UmAFWy8iLllXryXbvrKfIRB3CuU7cbLKHw0yVu0KNB7AELxCWhI
- RYw6CHiQfO4po9derlDMVn2nuah2N751A44nzj4GaXDKG+KsyDFyXKkHrYl+wfrYuhlhzalGkHC
- b34MbZy2s5ouMUVC+xGV5zTJjC7rOiVSlSxpkrQHgNtxexC+ljFjG+dwDBzI0zhhH0fSk1FC0mA
- F8JZ5PWyJoulCfAu2t+nbNiZBd1tz4PyB381YKZpNblBYGc0+21HZMYe7sWhUX29Fu9N/JYfhRO
- ZWF9viNtArBKsXiQEeA==
-X-Authority-Analysis: v=2.4 cv=PIGaavqC c=1 sm=1 tr=0 ts=6aa2bd73 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
- a=QA8Y5dmSeMjSImS8ZE0A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_04,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 bulkscore=0 adultscore=0 suspectscore=0
- lowpriorityscore=0 impostorscore=0 clxscore=1011 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100169
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMm7omoC/3XNQQ7CIBCF4as0s3YMkEiLK+9hukCY2olKG1Bs0
+ /TuYhOXLv+XzDcLJIpMCY7VApEyJx5CCbWrwPU2XAnZlwYllBZGSOze6CnfOdww0PRKGMn6GV1
+ zMLXQFyGNh3I8Rup42uBzW7rn9BzivP3J8rv+SPWPzBIF6qYjaYymurGnIlhP094ND2jXdf0AE
+ E5L/L4AAAA=
+To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
+Cc: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, 
+ Frank Li <Frank.li@oss.nxp.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Herve Codina <herve.codina@bootlin.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Leonardo Costa <leonardo.costa@toradex.com>, devicetree@vger.kernel.org, 
+ linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, stable@vger.kernel.org
+X-Mailer: b4 0.13.0
 
-On Thu, 2026-09-10 at 16:03 +0800, Hangbin Liu wrote:
-> On Fri, Sep 04, 2026 at 02:11:57PM +0800, Hangbin Liu wrote:
-> > On Thu, Sep 03, 2026 at 05:01:23PM -0500, David Dai wrote:
-> > > Create a bonding device (i.e. bond0) in active-backup mode, 2
-> > > slaves.
-> > > Active slave: offload capable interface (i.e. eth1), primary
-> > > interface.
-> > > Backup slave: non-offload capable interface(i.e. eth2).
-> > > Configure strongswan service swantl.conf child SA "hw_offload =3D
-> > > crypto"
-> > > Start strongswan service
-> > > IPSec Crytpo Offload is enabled on top of bond0. i.e.=20
-> > > ip xfrm state |grep offload
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 crypto offload parameters:=
- dev bond0 dir out mode crypto
-> > > 	crypto offload parameters: dev bond0 dir in mode crypto
-> > >=20
-> > > Active slave eth1 takes adavantage of IPSec Crypto Offload
-> > > capability.=20
-> > >=20
-> > > If active slave eth1 is down for any reason (i.e. eth1 link
-> > > down):
-> > > ip link set down dev eth1
-> > > non-offload capable interface eth2 failover to becomes active
-> > > slave.=20
-> > > The existing SAs can continue use software IPsec after failover.
-> > > Traffic still keeps going properly.
-> > >=20
-> > > However if eth1 link had not recovered yet, strongswan service
-> > > does
-> > > new child SA rekey, or uses swanctl command to do new child SA
-> > > rekey,=20
-> > > it will fail because active slave eth2 doesn't support crypto
-> > > offload.
-> > > In bond_ipsec_add_sa routine, it returns -EINVAL now, which is=20
-> > > treated as fatal error by xfrm_dev_state_add routine in kernel
-> > > xfrm.
-> > >=20
-> > > To make the non-offload active slave survive the child SA rekey,
-> > > need=20
-> > > to make bond_ipsec_add_sa routine returns -EOPNOTSUPP instead
-> > > when=20
-> > > active slave doesn't support IPsec Crypto offload, the xfrm will=20
-> > > gracefully fallback to create new SA using Software IPsec.=20
-> > > Network traffic can keep going.
-> > >=20
-> > > After offload capable interface eth1 link is up, becomes active
-> > > slave,
-> > > next time strongswan child SA rekey will create a new SA which
-> > > enables
-> > > crypto offload again.
-> > >=20
-> > > This way, network traffic is never interrupted, always keeps
-> > > going.
-> > >=20
-> > > Signed-off-by: David Dai <zdai@linux.ibm.com>
-> > > Tested-by: David Dai <zdai@linux.ibm.com>
-> > > ---
-> > > =C2=A0drivers/net/bonding/bond_main.c | 2 +-
-> > > =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/drivers/net/bonding/bond_main.c
-> > > b/drivers/net/bonding/bond_main.c
-> > > index ef9eb0c53c66..79fc892dab07 100644
-> > > --- a/drivers/net/bonding/bond_main.c
-> > > +++ b/drivers/net/bonding/bond_main.c
-> > > @@ -490,7 +490,7 @@ static int bond_ipsec_add_sa(struct
-> > > net_device *bond_dev,
-> > > =C2=A0	=C2=A0=C2=A0=C2=A0 !real_dev->xfrmdev_ops->xdo_dev_state_add |=
-|
-> > > =C2=A0	=C2=A0=C2=A0=C2=A0 netif_is_bond_master(real_dev)) {
-> > > =C2=A0		NL_SET_ERR_MSG_MOD(extack, "Slave does not
-> > > support ipsec offload");
-> > > -		err =3D -EINVAL;
-> > > +		err =3D -EOPNOTSUPP;
-> > > =C2=A0		goto out;
-> > > =C2=A0	}
-> > > =C2=A0
-> > > --=20
-> > > 2.55.0
-> > >=20
-> >=20
-> > The patch looks good to me. I am just not sure whether we should
-> > shorten
-> > the description. Let's wait for others' opinions.
-> >=20
->=20
-> BTW, please add
->=20
-> Fixes: 18cb261afd7b ("bonding: support hardware encryption offload to
-> slaves")
->=20
-> if there is a next version.
-Thanks for your comment!
-I'll add the Fixes line in my next v2 patch submission.
+This series fixes an fw_devlink supplier-resolution problem reported by
+Leonardo Costa while using a Devicetree nexus to describe GPIO and PWM
+resources routed through an LVDS connector. Consumers referencing the
+nexus could remain deferred because fw_devlink linked them to the nexus
+rather than to the providers selected by gpio-map and pwm-map. [1]
+
+GPIO, PWM and clock consumer APIs use of_parse_phandle_with_args_map()
+to resolve specifiers through gpio-map, pwm-map and clock-map
+properties. The corresponding fw_devlink parsers use direct phandle
+parsing instead. Given a consumer which references a nexus, the consumer
+API and fw_devlink therefore resolve the reference to different nodes:
+
+  consumer API:  consumer -> nexus -> mapped provider
+  fw_devlink:    consumer -> nexus
+
+A nexus is a translation node rather than the resource provider and need
+not have a driver. The link to it can consequently remain unresolved and
+defer the consumer even though the mapped provider is available.
+
+Make the fw_devlink GPIO, PWM and clock parsers use the same map-aware
+resolver as their consumer APIs. The resolver also handles valid direct
+references by returning the original provider when no map is present.
+Use dedicated exact-name and suffix declaration macros to opt these
+bindings into map-aware parsing without changing unrelated property
+parsers. Retain GPIO's existing exclusions and compatibility handling.
+
+The regression tests call the OF add_links operation and verify that a
+mapped reference creates exactly one link to the final provider, not to
+the nexus. They also cover valid direct references. The GPIO tests
+exercise all property spellings recognized by fw_devlink, including the
+deprecated singular and unprefixed forms.
+
+Tested with:
+  - The new CONFIG_OF_UNITTEST fw_devlink cases under QEMU/x86_64 all
+    passed
+  - W=1 builds on x86_64 and arm64, including the OF unittest data
+  - Toradex Verdin iMX8M Plus hardware using a connector nexus for the
+    display GPIO and PWM resources: the display probes successfully
+
+[1] https://lore.kernel.org/all/juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4jbauradujrre@gc5nbdhhixaf/
+
+Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+
+---
+Changes in v2:
+- Split the unit tests into per-resource follow-up commits
+- Added clock nexus as well because the clock nexus series was merged:
+  https://lore.kernel.org/all/20260807-schneider-v7-2-rc1-eip201-upstream-v5-0-8785f9531cf0@bootlin.com/
+- Link to v1: https://lore.kernel.org/r/20260902-fw-devlink-nexus-ready-v1-0-68fe1996e78a@toradex.com
+
+---
+Ernest Van Hoecke (7):
+      of: property: fw_devlink: Follow GPIO nexus maps
+      of: property: fw_devlink: Report unsupported supplier linking
+      of: unittest: Test fw_devlink with GPIO nexus maps
+      of: property: fw_devlink: Follow PWM nexus maps
+      of: unittest: Test fw_devlink with PWM nexus maps
+      of: property: fw_devlink: Follow clock nexus maps
+      of: unittest: Test fw_devlink with clock nexus maps
+
+ drivers/of/property.c                       | 53 ++++++++++++++-----
+ drivers/of/unittest-data/tests-phandle.dtsi | 63 +++++++++++++++++++++++
+ drivers/of/unittest.c                       | 79 +++++++++++++++++++++++++++++
+ 3 files changed, 182 insertions(+), 13 deletions(-)
+---
+base-commit: 91b1b8d437abe0cd83210d8f257b785a63047aa9
+change-id: 20260901-fw-devlink-nexus-ready-c859706b019d
+
+Best regards,
+-- 
+Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+
