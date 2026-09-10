@@ -1,1203 +1,316 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012015.outbound.protection.outlook.com [52.101.53.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C2713B05BF
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:07:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789024076; cv=none; b=BmiaefxA4HBMrnybzk/gGBu22oa2bjQMYDMRjFXiXTWq2Y/FhX4HBMFrv+O/jgVYd7Sj35ZCXMl381FilbV5ETwfAVffQggAzWDnEKux+il6Xu89ephXJS2fqd2Pq8lJnqvRyUP+7CpML2BEWM6nklFSNrNCQEGMGK3hsYmm6uM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789024076; c=relaxed/simple;
-	bh=g30GxTxRTeYhPCuhArek43Km8phjr9JeT/EUOgfn3qE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lPmfl6jntzr50tJrrvrqRD4jEugErlOlzE3JyPYNWLwwYbc/lrAxt/SRZH6l2rDGcShno3NJoib45fA7YX/3GlcpH1nQu/n0vQXxyV7AgX7G/7UkUnImvfa8W3wcdJz3/VTcRLKr1cENEOvdfW8BmoIjDjXhxqagMugJc+IXdNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O5m/zz3k; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC48D392C48;
+	Thu, 10 Sep 2026 07:08:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789024106; cv=fail; b=qa5jzI2kJSoEZbvYdEQ++gj11kJuBcEh6FmmG10KQNWj/JxSx13nygfLr1MtkJakRKyztcIPDixaqqk5437Ll21HVjZcLf+GqEiJrPCcKXny0ZQ24I5gIMZYpf7ERXaelKaqu2yyreShp9JQnuNdNi8cUuB5uRVKC4P5D7hOkjg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789024106; c=relaxed/simple;
+	bh=kb7pz2r/nF3S7sLDNWVt3hq6f5GTrRLJnTU9P+wcmvo=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=md7YzDIvZIfHk2lM/gNqqkFBwmZQS9wN3FkYa0FMAmrvdf5mniAvf8lWCLoZlRijtTsGOFohucMWCXCQK84TqQBxO///p+H4Y2VQW14XZU6XNJIELVCrwAxvqbYfWuIGw9eMolp4Msfc58924FqQgml28jPh6Ju1ogEgp0eWDmE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=kB25nwgc; arc=fail smtp.client-ip=52.101.53.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O5m/zz3k"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so10214825e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 00:07:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789024068; x=1789628868; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NFxyNPFRY/OF265DXDt5lJagpiOTcC5Yc4VHeaRnB2Y=;
-        b=O5m/zz3krUWPsU+tqH+7VKywsI5AMneFKYj/ZfV3qAKe4RqANHI2/XNOOrpAYjGGXj
-         AHVCb4yNVfCizpuKWZhRBmmustMDK5hjvBfFrAF3/0uIjPpEh3gD8fS6BPa+UwhWCaRC
-         96azRL9yZHbDuDHacXDPZSz79Zp8XlsejqA1/P7BNRw9UZkZBggyLHJQ9JQrG3wtIia4
-         l0hWh1BR21gwauHAaP4kmifSKrHE4rdAEQvBDLomCdPb8evLH4A5MoaMsl2Tlsy2x02q
-         Snpn4iJHvqLHefZM3+nQwR5H5o0Z4UqZaKBRW4FJWAx58xQ5cbWzAJzkDYT2JQoajR9s
-         /OyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789024068; x=1789628868;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NFxyNPFRY/OF265DXDt5lJagpiOTcC5Yc4VHeaRnB2Y=;
-        b=VpEKkgx54TJyoO26gf1e7N3x7vzVkPg62zZdztnlkkGRNAw3finCUJRiWWmASZxyMi
-         dBQlB1XZMnOXYlrJBgAVv2x+JhQG21BT/XYsM63Yp2Fdm/S0+yCs7SRpp1evFtejEFHV
-         wevtHiQK229ijM73mFJa4oRO/Em2yJJPHzekyq5q157UpbJMBcCA9s7kMPCfm14d5RyC
-         YspRjnTX1PdZrrZgW1lsCoMMNZ8otw+CNmeeNF9B5diVsvX8Ul6gcpSaCM0MkKO+CuSh
-         fgQd8nXyxLxcTgokWhhJZlL7IazTbykFtok217tmdJ2a7ftunJoEDnDmWyiDQGKpBHUp
-         09Lw==
-X-Forwarded-Encrypted: i=1; AKwUvBx3M/JcXeUy0hmw7FicIeu0IKLIgTQE5biu49WBlqWjqwcGiojh3TP+dotjXCMlc8zX939g+AyPT1VaTeo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nlHm+ITOyVUtE+daINyB8Wm6pnLY5sUB8ne1T3SEp/z5k7cAS9
-	UL7v+1nD+Ww7xsuyKtd/aDko8eadf3XS4Gf+7VzPi0elkItBRhh/MMjWvsu81Wo+
-X-Gm-Gg: AYBFou034m/D9/QMVshdz/Hio4wJabLyKnyjTWalRjhTEnf21cEq7qFc5pH7+7d7eDa
-	bdu19FY7QEEa96XHlRx4w6BFz+Gp2Is8SmUN+Z5MdEsW/NQaxyTyYOCBZ1jnbtc2RHyc1cpToVr
-	Y1gC3tG7349PRYVkiwDQxURQLyaTnCz87BjF+kUSXq/qvQwsRfViKp7Azhz2TWP9PV1RCHC04iu
-	r17Ql1gjsRS0nOsFUph0t1ZhhxCmKY25QFhY8HI43FOiBh+DAFyCel7leSsViYAB69JT5RPMTRh
-	yl+K3xapD4ulNQZxSzxz6IMVylpaFZ589jeJblkmVjUgoTPPTtfxF+8ka2AEcWZBF7gYaXJTuBO
-	mEqpjMbkSEBj0SMUOSPh+yZIKrr+AxM43JhuQBN2+YMA6tCWN6zf/Q5/6TtLhEPs5jlNNpY0TyO
-	401vPbrNzm8sStGzLCWLqNZwVR8Lv7JhhCimRL7I/gzWox6MYQ6YUfGtUehfEV0n2Ih8q/63Y2b
-	6KzQ2TXyd8fvQ==
-X-Received: by 2002:a05:600c:698c:b0:49c:edfe:d525 with SMTP id 5b1f17b1804b1-49d1f35366fmr219751575e9.10.1789024067422;
-        Thu, 10 Sep 2026 00:07:47 -0700 (PDT)
-Received: from Empers0n ([193.23.219.104])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883959f0sm52244311f8f.10.2026.09.10.00.07.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 00:07:46 -0700 (PDT)
-From: Vsevolod Nevorotov <sevanevorotov29@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Henrik Rydberg <rydberg@bitmath.org>,
-	linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Vsevolod Nevorotov <sevanevorotov29@gmail.com>
-Subject: [PATCH 2/2] Input: synaptics_tcm_i2c - add Synaptics TouchComm I2C touchscreen driver
-Date: Thu, 10 Sep 2026 14:07:23 +0700
-Message-ID: <20260910070723.347768-3-sevanevorotov29@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910070723.347768-1-sevanevorotov29@gmail.com>
-References: <20260910070723.347768-1-sevanevorotov29@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="kB25nwgc"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OpfyeSuw2565qouCROYATcQ7F62w9mNC9kZXappNRo9Pa8NCXDQB5iI6MCv5s6qwpdEp4MMvROIyIaozuUYVkQ1QOaQFuDKZJ8myR+2vA3oKDF17aH/JcLiKK0MGFMue8WFcnuHgiX0lbNBYyM83r0d4wHC/zpW+IAN71CoZqOTSEnn6ghRomuewmY2WQIx2Jlh2S7cKxhxjAf92rO2/dHJBfZFlQP376MMFsjaJBT1FeIi4sC5mDlJE+m3S4sCICv6Qc89JCzbmCwoCpUkhwQJd1yXr4t83Uf6C+q7uk9b+1VvWyU5y63hC2KudnelH/igM7VnMzntwpAIJWEs/jw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ze2gRTDgMYdqMBtYwCnn3BfxN/iQsZoCRUhYeE/fyKw=;
+ b=AZfy7QQ1WovhOp+pP03fqtKnUCF1Th62k2aoinLdwn0Zv+R+AYR3eQ4i0Jx8m8JhDt879Y/kaJTjAD7ftkRJIeHkcuA7RQrQLZEumM/RYUbqo9ue12UpA3om7TR4IqGOgQOOTW3KQz5K/6aR09QClrvkmHPrENwE/N7+qoi9UsPZ2ZLZbDMuybmTrbsp0wEDKcRBiMc/dVpV4IuUtJNKPtlnDGlHY/TNs4LmraVH79peh4lVT67/ysaVQf4S8tO3dherITh/y9bKxJlTNdqGHLd1ZhTXnZKy5RIs8Fmo3+FwFtw87p6TcdoDTW9DHmaccRFoayKCegcGPCJfVVsIDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ze2gRTDgMYdqMBtYwCnn3BfxN/iQsZoCRUhYeE/fyKw=;
+ b=kB25nwgc2hTAQfwmjWOw96HGwQXeppXz1CoOf/7J7aAfjo1cikwfOqEfTZz2+hEbdq8aTIP8x10axdz0OyqXKFS9JCnZ5J9LyyEClwbQXsOVMfCqUG7pqhmML+rzdek37Oex9tIuyWykLtW/owkiwr+sByDlYw2Sy6WH3g43PpSpf8kV4CBcyEJNbywuRtwFNwFqzwt7MuppWHzC/ad6rRA/9ZlAuVIL5C+RN0ZGtujB1/w6AhLFKN0oN/ovzcJ6DDQPA0wzvDb73/SChRN7VZGYg13ZNu+3VP1eztk9FIPSK0mAzTwqMZumIUgPz8/sYR7OEiAVGLEKHecShbYf/Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS7PR12MB9474.namprd12.prod.outlook.com (2603:10b6:8:252::17)
+ by IA1PR12MB6210.namprd12.prod.outlook.com (2603:10b6:208:3e6::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
+ 2026 07:08:14 +0000
+Received: from DS7PR12MB9474.namprd12.prod.outlook.com
+ ([fe80::31ad:931:ef07:8ad7]) by DS7PR12MB9474.namprd12.prod.outlook.com
+ ([fe80::31ad:931:ef07:8ad7%4]) with mapi id 15.21.0406.007; Thu, 10 Sep 2026
+ 07:08:14 +0000
+From: Srirangan Madhavan <smadhavan@nvidia.com>
+To: Alison Schofield <alison.schofield@intel.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Ira Weiny <ira.weiny@intel.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	linux-cxl@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Alex Williamson <alex.williamson@redhat.com>,
+	vsethi@nvidia.com,
+	alwilliamson@nvidia.com,
+	Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
+	Vishal Aslot <vaslot@nvidia.com>,
+	Manish Honap <mhonap@nvidia.com>,
+	Jiandi An <jan@nvidia.com>,
+	Richard Cheng <icheng@nvidia.com>,
+	linux-tegra@vger.kernel.org,
+	Srirangan Madhavan <smadhavan@nvidia.com>
+Subject: [PATCH v12 00/12] PCI/CXL: Add CXL reset support for Type 2 devices
+Date: Thu, 10 Sep 2026 07:07:56 +0000
+Message-ID: <20260910070808.1444264-1-smadhavan@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR13CA0120.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c5::35) To DS7PR12MB9474.namprd12.prod.outlook.com
+ (2603:10b6:8:252::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS7PR12MB9474:EE_|IA1PR12MB6210:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4faa77e4-744b-4ee2-96d5-08df0f0a4833
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|10067099003|56012099006|11063799006|6133799003|3023799007|18002099003|921020;
+X-Microsoft-Antispam-Message-Info:
+	Srvxo+WC+RqIRGhZCmVCKQ832wPOwfW+pwh6JhZpWyoqCYUxwg2RQYXnHH7Bb6oXGMNhNpc8xBpySNI4LUP2b6ErUY82lHaOqVnVStxKhQn8MmeSsxhyqLHAaktyhxhW7zFspjTv65Wg5R0nV2BMsJqGN0cYcoTJtPyappFQq69ZVsVzCSbUcYsnHJmEsXQbUYrwgQAGQ17uW8GkCGoAYokSAglsFHs2DjgaDbV0KeHsNV0wxK4k1foIUHyMV8VLKD2NmT9y8d5RiD3N0ZKhdT4hiFVact0FgzwPCmjv0oHFjQe+unFyCUH08TElvxJK5i6aMlI/fm0wSjthPdPWAYn1zWlpO6lbmPZn3setUpUYjsLgXUvSiAqGP2tIi5AZ1QZQtPkqHSzXKavnq6IOQqLrqluCYTWbLkAQy9Z/6SZyDCpYLT5POHgKvbEOcPSTl+jd1Gp9ROr3zkKzPQLFF+H3q/QV3zniucPu/mgp7LVy8MVTh5/sbjBJasb6bzZ5VZagPidEzBtAB7aoPy5YqocL5JzQGgca9US8eyEjMxddGFvQZfb6eb0HfshkfNZCHZ/W0Ui9C17xYI0VASGgguEdMdVQV58MMUwdeoz7F1f/z9REf7srkbALE97Xcn1ef2KwknKtAlMFBnc9xfaqxOQF9Eg0D2OjxLI14CJLy6YYEdGtdzm4IAdMYqtfoAxtSX7VVnpVaw0Ni3S4DDr8+w==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR12MB9474.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(6133799003)(3023799007)(18002099003)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?mTNZxHQ/57Z/Cf73oFC9tbOCO8NxCCCi7ClUBSbSUDgJvkhBShJFSstzvrBQ?=
+ =?us-ascii?Q?YSdjT8zEH13uoMmcAS+hTIQbetakfR3oaQQYcZSQxMzBG+h1M+GZs1i/z9rA?=
+ =?us-ascii?Q?gQC0VHPrlLbc7mbz09O8iwXlv63stO00JI/r2IzjwJRlyicbY5AEPTWjMZnk?=
+ =?us-ascii?Q?rMC3Lt8gT2+gXfK7KCDk0LX8i1rrilDCcweaEB99F7zuncjA9Ayut8sjVdd9?=
+ =?us-ascii?Q?lB51OaXuBImir6X0PezXLQb9DYa5nF/XjQD315QZvWJKZtyGdi12UZmXDwRp?=
+ =?us-ascii?Q?RFdnBcc/nmH7iSn0/eqmuhv7VdEDIRj/D8lJ0+10LACKn+2ZdDeLOb45AgbR?=
+ =?us-ascii?Q?JX5if0eRcBCi5qULxu3Rg2Hvx3DUjbhafCv2z3BUHjqNaIWOQe4y3bLbJcRK?=
+ =?us-ascii?Q?OUIoiyTKmBVXXqzpBZu5d4rxHr6eLfrivwCOPYOVsNMByRG7tTa/lu4OEZ/g?=
+ =?us-ascii?Q?GSA58f/j49Kqynesj49MU6ruUCHZMFFooUDQ77WHydeYlxGh0ezuape6xeH6?=
+ =?us-ascii?Q?y8DBs8sfYs5p4LTX4QdOKmcuhpJbWy+8AhwTnl3O2vKNZNtJBohMUiP+bm46?=
+ =?us-ascii?Q?Zn+mDOT6sCh3HjWfcg63nqAPeStyymgg7cbFsgm5p2jkvQia9gfp8MdBC8vC?=
+ =?us-ascii?Q?lkd69z2VmpXgmdDkiZZ+VkY4j0nj0pexfnBI8+VEGM/nOK3KrTRT9NVhOGuk?=
+ =?us-ascii?Q?zzxeowAwc3H9oWGp0j6wcbtUGLSqdWxQ2QzKpZxlO9Ps7bUodc0kUSL60wz+?=
+ =?us-ascii?Q?EqdSEbvf8q3uxs04M++bZkHGzogKthVWxBkVd4Y4c7eyqYLDKmA9Z9HdDWQm?=
+ =?us-ascii?Q?QWE1rcPi+bUhRlCleQpRTR2YZ1CNzKq25RpJKa3OzX9ncsYuVIrXWHck/rTL?=
+ =?us-ascii?Q?bD5cVU+e/3W7Cx/071zr7Ue6S+ko+2h5aWGNqA5p8HAg5hXCmczvPLpuPAeg?=
+ =?us-ascii?Q?kpWwUzI3Dh0Aklo6a3SNWKrm8mjDx7I+10D36OvFdVdkRAgvamOd54zWON5i?=
+ =?us-ascii?Q?JlFC/b7nfLTVqsJtiORe3CiVmfdax9sbcavUveCS6XUMFn8uOiV1eev1Sf3p?=
+ =?us-ascii?Q?+iUV43DE1LnQFazzo2PnW2PsrikhqlmTqPkp+ZbRsgY3yK3nV9AdObqGwFJ5?=
+ =?us-ascii?Q?PadulC24wabuEdww0xYBZKe37eJws9V6in+rJJb1VB8EnQ8MHiUvHo5Q2Rep?=
+ =?us-ascii?Q?T3a+oK720RY/rJ4ubABxpyvRLZHZ9f2kd55BYMPSRqYxRoADuoZielzdkCiX?=
+ =?us-ascii?Q?EtG1EPbLrQQBW6c964pP470PsTBhdczY/WO+Bb9zr+XfN13yz0gbmN7jpPF+?=
+ =?us-ascii?Q?rDbdl7QCD8QIZ66f/9ifZzxZyTCFH5WoicBrAoP4Ko3ePg/MYeHTDJ682jE1?=
+ =?us-ascii?Q?mrGkcpGjKlggUEVLRu4oJUW7g/EuUeC2h5XdgAQ5g9v8EZPWrpjTeiPCzKsG?=
+ =?us-ascii?Q?4NT6mEDLvhtmvYb8lKzo9lz5BmN2oIOYpjmg47NgvOYJPW3H3AHj09CUEIan?=
+ =?us-ascii?Q?orFzU2uaCLnVbSd6Hb7dNm6+C5gNnvkUXu1W/tpmk6SeY+QTTGa0H9HanxY8?=
+ =?us-ascii?Q?8c4gtdfUBHzZGH6rkgyvKJomPgk4JnUj5WXhbH2MA9gJmxtUC7l+dKIa1YWe?=
+ =?us-ascii?Q?N4EGPqgDIRo3EmNCLRLB5PLH4aV4ML/uTQ2Xp8UXlP/3wAJtq0suVCiamBEO?=
+ =?us-ascii?Q?ChvHS7tQWN24MOAvxtKokZCk2KyNneDyXaLGlLv1/DVdYRfdiUYPCymJNqLY?=
+ =?us-ascii?Q?SSw8acXBow=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4faa77e4-744b-4ee2-96d5-08df0f0a4833
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB9474.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 07:08:14.6725
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8bey0pQH/7JfjLNbin+gpLIcOgq/lSfSws/0WjQx3l9adXWmnU7CmeCQGOnkttRWvVqAwTAsCcgRO8iRTCi4Zw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6210
 
-Add input touchscreen driver for Synaptics TouchComm (TCM) generation-1
-controllers connected over I2C that boot into application mode out of
-their own flash (such as the Synaptics S3908 fitted to the OnePlus 9RT).
+Hi folks!
 
-The driver supports:
-- Multi-touch reporting via input_mt framework
-- Configurable touch report layouts
-- Standard touchscreen properties (axis swapping/inversion)
-- Low-power wakeup gestures (double-tap to wake)
-- Deep sleep mode during system suspend
+This series adds CXL Reset support for CXL Type 2 devices through the
+existing PCI reset_method ABI. The reset sequence follows the CXL 4.0
+specification [1], including CXL.cache disable, optional cache
+writeback, CXL Reset Memory Clear, ResetComplete polling, and ResetError
+reporting.
 
-Signed-off-by: Vsevolod Nevorotov <sevanevorotov29@gmail.com>
----
- MAINTAINERS                                   |    7 +
- drivers/input/touchscreen/Kconfig             |   15 +
- drivers/input/touchscreen/Makefile            |    1 +
- drivers/input/touchscreen/synaptics_tcm_i2c.c | 1033 +++++++++++++++++
- 4 files changed, 1056 insertions(+)
- create mode 100644 drivers/input/touchscreen/synaptics_tcm_i2c.c
+The userspace ABI is the existing PCI reset interface:
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 0d7987278c0..aa20d9153ac 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -26125,6 +26125,13 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/regulator/silergy,sy8106a.yaml
- F:	drivers/regulator/sy8106a-regulator.c
- 
-+SYNAPTICS TOUCHCOMM I2C TOUCHSCREEN DRIVER
-+M:	Vsevolod Nevorotov <sevanevorotov29@gmail.com>
-+L:	linux-input@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/input/touchscreen/syna,s3908.yaml
-+F:	drivers/input/touchscreen/synaptics_tcm_i2c.c
-+
- SYNC FILE FRAMEWORK
- M:	Sumit Semwal <sumit.semwal@linaro.org>
- L:	linux-media@vger.kernel.org
-diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
-index 9b9ae8ac3f7..c58e3e4cc1c 100644
---- a/drivers/input/touchscreen/Kconfig
-+++ b/drivers/input/touchscreen/Kconfig
-@@ -1310,6 +1310,21 @@ config TOUCHSCREEN_SX8654
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called sx8654.
- 
-+config TOUCHSCREEN_SYNAPTICS_TCM_I2C
-+	tristate "Synaptics TouchComm I2C touchscreen"
-+	depends on I2C
-+	help
-+	  Say Y here if you have a Synaptics TouchComm (TCM) touch controller
-+	  attached over I2C, such as the S3908 found in the OnePlus 9RT.
-+
-+	  Only controllers that boot into application mode out of their own
-+	  flash are supported; there is no host firmware download.
-+
-+	  If unsure, say N.
-+
-+	  To compile this driver as a module, choose M here: the module will be
-+	  called synaptics_tcm_i2c.
-+
- config TOUCHSCREEN_TPS6507X
- 	tristate "TPS6507x based touchscreens"
- 	depends on I2C
-diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
-index bfd9de83389..a1debe134a0 100644
---- a/drivers/input/touchscreen/Makefile
-+++ b/drivers/input/touchscreen/Makefile
-@@ -86,6 +86,7 @@ obj-$(CONFIG_TOUCHSCREEN_STMPE)		+= stmpe-ts.o
- obj-$(CONFIG_TOUCHSCREEN_SUN4I)		+= sun4i-ts.o
- obj-$(CONFIG_TOUCHSCREEN_SUR40)		+= sur40.o
- obj-$(CONFIG_TOUCHSCREEN_SURFACE3_SPI)	+= surface3_spi.o
-+obj-$(CONFIG_TOUCHSCREEN_SYNAPTICS_TCM_I2C)	+= synaptics_tcm_i2c.o
- obj-$(CONFIG_TOUCHSCREEN_TI_AM335X_TSC)	+= ti_am335x_tsc.o
- obj-$(CONFIG_TOUCHSCREEN_TOUCHIT213)	+= touchit213.o
- obj-$(CONFIG_TOUCHSCREEN_TOUCHRIGHT)	+= touchright.o
-diff --git a/drivers/input/touchscreen/synaptics_tcm_i2c.c b/drivers/input/touchscreen/synaptics_tcm_i2c.c
-new file mode 100644
-index 00000000000..2553dabd392
---- /dev/null
-+++ b/drivers/input/touchscreen/synaptics_tcm_i2c.c
-@@ -0,0 +1,1033 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Synaptics TouchComm (TCM) I2C touchscreen driver.
-+ *
-+ * Covers TouchComm generation-1 controllers that boot into application mode out
-+ * of their own flash, i.e. the ones that need no host firmware download at
-+ * probe time. The Synaptics S3908 fitted to the OnePlus 9RT (oneplus,martini)
-+ * is one of those.
-+ *
-+ * Protocol, as implemented by the vendor driver:
-+ *
-+ *   A command is one plain I2C write of
-+ *
-+ *      [ cmd | len_lo | len_hi | payload... ]
-+ *
-+ *   A message -- both command responses and asynchronous reports -- is one
-+ *   plain I2C read of
-+ *
-+ *      [ 0xa5 | code | len_lo | len_hi | payload... | 0x5a ]
-+ *
-+ *   code <= 0x0f (and 0xff) is a status, so the message is a command response;
-+ *   code >= 0x10 is a report id.
-+ *
-+ */
-+
-+#include <linux/bits.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/input.h>
-+#include <linux/input/mt.h>
-+#include <linux/input/touchscreen.h>
-+#include <linux/interrupt.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/pm.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/unaligned.h>
-+
-+#define SYNA_MESSAGE_MARKER		0xa5
-+#define SYNA_MESSAGE_PADDING		0x5a
-+#define SYNA_HEADER_SIZE		4
-+
-+/*
-+ * Read length limit of the controller (RD_CHUNK_SIZE in the vendor driver).
-+ * One read may not exceed this, including the header.
-+ */
-+#define SYNA_RD_CHUNK_SIZE		64
-+
-+/* Commands. */
-+#define SYNA_CMD_IDENTIFY		0x02
-+#define SYNA_CMD_ENABLE_REPORT		0x05
-+#define SYNA_CMD_DISABLE_REPORT		0x06
-+#define SYNA_CMD_GET_APP_INFO		0x20
-+#define SYNA_CMD_GET_DYNAMIC_CONFIG	0x23
-+#define SYNA_CMD_SET_DYNAMIC_CONFIG	0x24
-+#define SYNA_CMD_GET_TOUCH_REPORT_CONFIG 0x25
-+#define SYNA_CMD_SET_TOUCH_REPORT_CONFIG 0x26
-+#define SYNA_CMD_ENTER_DEEP_SLEEP	0x2c
-+#define SYNA_CMD_EXIT_DEEP_SLEEP	0x2d
-+
-+/* Dynamic config IDs. */
-+#define SYNA_DC_IN_WAKEUP_GESTURE_MODE	0x09
-+#define SYNA_DC_GESTURE_MASK		0xfe
-+
-+/* Status codes, i.e. header codes of a command response. */
-+#define SYNA_STATUS_IDLE		0x00
-+#define SYNA_STATUS_OK			0x01
-+#define SYNA_STATUS_BUSY		0x02
-+#define SYNA_STATUS_CONTINUED_READ	0x03
-+#define SYNA_STATUS_ERROR		0x0f
-+#define SYNA_STATUS_INVALID		0xff
-+
-+/* Report ids. Anything >= SYNA_REPORT_IDENTIFY is a report, not a status. */
-+#define SYNA_REPORT_IDENTIFY		0x10
-+#define SYNA_REPORT_TOUCH		0x11
-+#define SYNA_REPORT_LOG			0x1d
-+
-+#define SYNA_MODE_APPLICATION		0x01
-+
-+/* Gesture opcodes & IDs. */
-+#define SYNA_GESTURE_DTAP		0x01
-+
-+/* Opcodes of the touch report config. */
-+enum syna_touch_report_code {
-+	SYNA_TOUCH_END				= 0,
-+	SYNA_TOUCH_FOREACH_ACTIVE_OBJECT	= 1,
-+	SYNA_TOUCH_FOREACH_OBJECT		= 2,
-+	SYNA_TOUCH_FOREACH_END			= 3,
-+	SYNA_TOUCH_PAD_TO_NEXT_BYTE		= 4,
-+	SYNA_TOUCH_TIMESTAMP			= 5,
-+	SYNA_TOUCH_OBJECT_N_INDEX		= 6,
-+	SYNA_TOUCH_OBJECT_N_CLASSIFICATION	= 7,
-+	SYNA_TOUCH_OBJECT_N_X_POSITION		= 8,
-+	SYNA_TOUCH_OBJECT_N_Y_POSITION		= 9,
-+	SYNA_TOUCH_OBJECT_N_Z			= 10,
-+	SYNA_TOUCH_OBJECT_N_X_WIDTH		= 11,
-+	SYNA_TOUCH_OBJECT_N_Y_WIDTH		= 12,
-+	SYNA_TOUCH_GESTURE_DOUBLE_TAP		= 16,
-+	SYNA_TOUCH_NUM_OF_ACTIVE_OBJECTS	= 24,
-+	SYNA_TOUCH_REPORT_GESTURE_SWIPE		= 193,
-+	SYNA_TOUCH_REPORT_GESTURE_CIRCLE	= 194,
-+	SYNA_TOUCH_REPORT_GESTURE_UNICODE	= 195,
-+	SYNA_TOUCH_REPORT_GESTURE_VEE		= 196,
-+	SYNA_TOUCH_REPORT_GESTURE_TRIANGLE	= 197,
-+	SYNA_TOUCH_REPORT_GESTURE_INFO		= 198,
-+	SYNA_TOUCH_REPORT_GESTURE_COORDINATE	= 199,
-+};
-+
-+/* Object classification. Anything other than LIFT counts as a contact. */
-+#define SYNA_OBJECT_LIFT		0
-+
-+#define SYNA_MAX_OBJECTS		16
-+#define SYNA_MAX_CONFIG_SIZE		128
-+#define SYNA_MAX_MESSAGE_SIZE		1024
-+
-+/* Vendor driver: POWERUP_TO_RESET_TIME and RESET_TO_NORMAL_TIME. */
-+#define SYNA_POWERUP_TO_RESET_MS	10
-+#define SYNA_RESET_TO_NORMAL_MS		1000
-+
-+#define SYNA_RESPONSE_TIMEOUT_MS	500
-+
-+struct syna_tcm_app_info {
-+	__le16 version;
-+	__le16 status;
-+	__le16 static_config_size;
-+	__le16 dynamic_config_size;
-+	__le16 app_config_start_write_block;
-+	__le16 app_config_size;
-+	__le16 max_touch_report_config_size;
-+	__le16 max_touch_report_payload_size;
-+	u8 customer_config_id[16];
-+	__le16 max_x;
-+	__le16 max_y;
-+	__le16 max_objects;
-+	__le16 num_of_buttons;
-+	__le16 num_of_image_rows;
-+	__le16 num_of_image_cols;
-+	__le16 has_hybrid_data;
-+} __packed;
-+
-+struct syna_object {
-+	u32 status;
-+	u32 x;
-+	u32 y;
-+	u32 z;
-+	u32 wx;
-+	u32 wy;
-+};
-+
-+struct syna_tcm {
-+	struct i2c_client *client;
-+	struct input_dev *input;
-+	struct touchscreen_properties prop;
-+	struct gpio_desc *reset_gpio;
-+	struct regulator_bulk_data supplies[2];
-+
-+	/* Protects hardware I2C transfers and internal state */
-+	struct mutex lock;
-+	bool suspended;
-+	bool gesture_enabled;
-+	u32 gesture_type;
-+
-+	/* Scratch for one I2C read, and the message assembled out of them. */
-+	u8 rxbuf[SYNA_RD_CHUNK_SIZE];
-+	u8 payload[SYNA_MAX_MESSAGE_SIZE];
-+	unsigned int payload_len;
-+	u8 code;
-+
-+	u8 cmdbuf[SYNA_MAX_CONFIG_SIZE + 3];
-+
-+	u8 config[SYNA_MAX_CONFIG_SIZE];
-+	unsigned int config_len;
-+
-+	u8 normal_config[SYNA_MAX_CONFIG_SIZE];
-+	unsigned int normal_config_len;
-+
-+	unsigned int max_objects;
-+	struct syna_object objects[SYNA_MAX_OBJECTS];
-+};
-+
-+/*
-+ * Low-power gesture report config matching the stock vendor driver:
-+ * Double-tap ID, gesture info, coordinates, and active object loop.
-+ */
-+static const u8 syna_gesture_config[] = {
-+	SYNA_TOUCH_GESTURE_DOUBLE_TAP,		8,
-+	SYNA_TOUCH_REPORT_GESTURE_INFO,		48,
-+	SYNA_TOUCH_REPORT_GESTURE_COORDINATE,	192,
-+	SYNA_TOUCH_FOREACH_ACTIVE_OBJECT,
-+	SYNA_TOUCH_OBJECT_N_INDEX,		4,
-+	SYNA_TOUCH_OBJECT_N_CLASSIFICATION,	4,
-+	SYNA_TOUCH_OBJECT_N_X_POSITION,		16,
-+	SYNA_TOUCH_OBJECT_N_Y_POSITION,		16,
-+	SYNA_TOUCH_FOREACH_END,
-+	SYNA_TOUCH_END,
-+};
-+
-+/*
-+ * Receive one whole message. On success ts->code holds the header code and the
-+ * first ts->payload_len bytes of ts->payload hold its payload.
-+ *
-+ * Must be called with ts->lock held.
-+ */
-+static int syna_recv_message(struct syna_tcm *ts)
-+{
-+	struct device *dev = &ts->client->dev;
-+	unsigned int total, copied, remaining;
-+	int ret;
-+
-+	ret = i2c_master_recv(ts->client, ts->rxbuf, SYNA_RD_CHUNK_SIZE);
-+	if (ret < 0)
-+		return ret;
-+
-+	if (ret < SYNA_HEADER_SIZE) {
-+		dev_warn_ratelimited(dev, "i2c recv short read: %d\n", ret);
-+		return -EIO;
-+	}
-+
-+	if (ts->rxbuf[0] != SYNA_MESSAGE_MARKER) {
-+		dev_dbg(dev, "bad message marker 0x%02x\n", ts->rxbuf[0]);
-+		return -EPROTO;
-+	}
-+
-+	ts->code = ts->rxbuf[1];
-+	ts->payload_len = get_unaligned_le16(&ts->rxbuf[2]);
-+
-+	/*
-+	 * An idle or busy controller answers with a header and nothing behind
-+	 * it, whatever the length field happens to say.
-+	 */
-+	if (ts->code == SYNA_STATUS_IDLE || ts->code == SYNA_STATUS_BUSY ||
-+	    ts->code == SYNA_STATUS_CONTINUED_READ) {
-+		ts->payload_len = 0;
-+		return 0;
-+	}
-+
-+	if (ts->payload_len > sizeof(ts->payload)) {
-+		dev_err(dev, "message payload of %u bytes is too long\n",
-+			ts->payload_len);
-+		return -EMSGSIZE;
-+	}
-+
-+	/* Header, payload, and the trailing 0x5a padding byte. */
-+	total = SYNA_HEADER_SIZE + ts->payload_len + 1;
-+	copied = min(ts->payload_len, SYNA_RD_CHUNK_SIZE - SYNA_HEADER_SIZE);
-+	memcpy(ts->payload, &ts->rxbuf[SYNA_HEADER_SIZE], copied);
-+
-+	if (total <= SYNA_RD_CHUNK_SIZE) {
-+		if (ts->rxbuf[total - 1] != SYNA_MESSAGE_PADDING) {
-+			dev_dbg(dev, "bad message padding 0x%02x\n",
-+				ts->rxbuf[total - 1]);
-+			return -EPROTO;
-+		}
-+		return 0;
-+	}
-+
-+	/*
-+	 * Continued read: the rest arrives in chunks that repeat the marker and
-+	 * carry code 0x03, so only SYNA_RD_CHUNK_SIZE - 2 bytes of each one are
-+	 * payload. The trailing padding byte (0x5a) is read and verified in the
-+	 * final chunk.
-+	 */
-+	remaining = ts->payload_len - copied;
-+	while (remaining) {
-+		bool last = (remaining <= SYNA_RD_CHUNK_SIZE - 3);
-+		unsigned int chunk = last ? remaining :
-+					    min(remaining - 1,
-+						(unsigned int)(SYNA_RD_CHUNK_SIZE - 3));
-+		unsigned int read_len = chunk + 2 + (last ? 1 : 0);
-+
-+		ret = i2c_master_recv(ts->client, ts->rxbuf, read_len);
-+		if (ret < 0)
-+			return ret;
-+
-+		if (ret < read_len)
-+			return -EIO;
-+
-+		if (ts->rxbuf[0] != SYNA_MESSAGE_MARKER ||
-+		    ts->rxbuf[1] != SYNA_STATUS_CONTINUED_READ) {
-+			dev_err(dev, "bad continued-read header 0x%02x 0x%02x\n",
-+				ts->rxbuf[0], ts->rxbuf[1]);
-+			return -EPROTO;
-+		}
-+
-+		memcpy(&ts->payload[copied], &ts->rxbuf[2], chunk);
-+		copied += chunk;
-+		remaining -= chunk;
-+
-+		if (last && ts->rxbuf[2 + chunk] != SYNA_MESSAGE_PADDING) {
-+			dev_dbg(dev, "bad continued-read padding 0x%02x\n",
-+				ts->rxbuf[2 + chunk]);
-+			return -EPROTO;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * syna_exec_command() - Issue a command and collect its response
-+ * @ts: Synaptics TCM device context
-+ * @cmd: Command opcode (SYNA_CMD_*)
-+ * @payload: Command payload buffer, or NULL
-+ * @len: Length of @payload in bytes
-+ *
-+ * Issue a command and collect its response into ts->payload. Reports that
-+ * arrive while waiting are dropped.
-+ *
-+ * Context: Must be called with @ts->lock held (except during probe before
-+ *          the interrupt handler is registered).
-+ * Return: 0 on success, or a negative errno.
-+ */
-+static int syna_exec_command(struct syna_tcm *ts, u8 cmd,
-+			     const u8 *payload, unsigned int len)
-+{
-+	struct device *dev = &ts->client->dev;
-+	unsigned long deadline;
-+	u8 *buf = ts->cmdbuf;
-+	int ret;
-+
-+	if (len + 3 > sizeof(ts->cmdbuf))
-+		return -EINVAL;
-+
-+	buf[0] = cmd;
-+	put_unaligned_le16(len, &buf[1]);
-+	if (len)
-+		memcpy(&buf[3], payload, len);
-+
-+	ret = i2c_master_send(ts->client, buf, len + 3);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to write command 0x%02x: %d\n", cmd, ret);
-+		return ret;
-+	}
-+
-+	deadline = jiffies + msecs_to_jiffies(SYNA_RESPONSE_TIMEOUT_MS);
-+	do {
-+		usleep_range(15000, 20000);
-+
-+		ret = syna_recv_message(ts);
-+		if (ret == -EPROTO)
-+			continue;	/* controller not talking yet */
-+		if (ret < 0)
-+			return ret;
-+
-+		if (ts->code == SYNA_REPORT_IDENTIFY && cmd == SYNA_CMD_IDENTIFY)
-+			return 0;
-+
-+		if (ts->code >= SYNA_REPORT_IDENTIFY)
-+			continue;	/* a report, not our response */
-+
-+		switch (ts->code) {
-+		case SYNA_STATUS_OK:
-+			return 0;
-+		case SYNA_STATUS_IDLE:
-+		case SYNA_STATUS_BUSY:
-+			continue;
-+		default:
-+			dev_err(dev, "command 0x%02x failed with status 0x%02x\n",
-+				cmd, ts->code);
-+			return -EIO;
-+		}
-+	} while (time_before(jiffies, deadline));
-+
-+	dev_err(dev, "command 0x%02x timed out\n", cmd);
-+	return -ETIMEDOUT;
-+}
-+
-+static int syna_set_dynamic_config(struct syna_tcm *ts, u8 id, u16 value)
-+{
-+	u8 buf[3];
-+
-+	buf[0] = id;
-+	put_unaligned_le16(value, &buf[1]);
-+
-+	return syna_exec_command(ts, SYNA_CMD_SET_DYNAMIC_CONFIG, buf, sizeof(buf));
-+}
-+
-+/* Extract a big field of @bits from the report's bit stream at @offset. */
-+static u32 syna_get_bits(const u8 *buf, unsigned int buf_len,
-+			 unsigned int offset, unsigned int bits)
-+{
-+	unsigned int byte = offset / 8;
-+	unsigned int bit = offset % 8;
-+	unsigned int done = 0;
-+	u32 out = 0;
-+
-+	if (!bits || bits > 32 || offset + bits > buf_len * 8)
-+		return 0;
-+
-+	while (done < bits) {
-+		unsigned int avail = 8 - bit;
-+		unsigned int take = min(avail, bits - done);
-+		u8 val = (buf[byte] >> bit) & (0xff >> (8 - take));
-+
-+		out |= (u32)val << done;
-+		done += take;
-+		bit = 0;
-+		byte++;
-+	}
-+
-+	return out;
-+}
-+
-+/*
-+ * Walk the touch report config and unpack the report accordingly.
-+ */
-+static int syna_parse_touch_report(struct syna_tcm *ts)
-+{
-+	const u8 *cfg = ts->config;
-+	unsigned int idx = 0, loop_start = 0, loop_bits = 0;
-+	unsigned int offset = 0;	/* bit offset into the payload */
-+	unsigned int obj = 0;
-+	unsigned int seen = 0, active = 0;
-+	bool active_only = false, have_active_count = false;
-+	bool done = false;
-+	unsigned int i;
-+
-+	memset(ts->objects, 0, sizeof(ts->objects));
-+	ts->gesture_type = 0;
-+
-+	while (idx < ts->config_len && !done) {
-+		u8 code = cfg[idx++];
-+		unsigned int bits;
-+		u32 data;
-+
-+		switch (code) {
-+		case SYNA_TOUCH_END:
-+			done = true;
-+			continue;
-+
-+		case SYNA_TOUCH_FOREACH_ACTIVE_OBJECT:
-+		case SYNA_TOUCH_FOREACH_OBJECT:
-+			active_only = code == SYNA_TOUCH_FOREACH_ACTIVE_OBJECT;
-+			loop_start = idx;
-+			obj = 0;
-+			seen = 0;
-+			loop_bits = 0;
-+			for (i = idx; i < ts->config_len; i++) {
-+				if (cfg[i] == SYNA_TOUCH_FOREACH_END ||
-+				    cfg[i] == SYNA_TOUCH_END)
-+					break;
-+				if (cfg[i] == SYNA_TOUCH_PAD_TO_NEXT_BYTE)
-+					continue;
-+				if (++i < ts->config_len)
-+					loop_bits += cfg[i];
-+			}
-+			if (active_only && !have_active_count &&
-+			    offset + loop_bits > ts->payload_len * 8) {
-+				/* Not enough payload for even one object */
-+				if (i < ts->config_len && cfg[i] == SYNA_TOUCH_FOREACH_END)
-+					idx = i + 1;
-+				else
-+					idx = i;
-+			}
-+			continue;
-+
-+		case SYNA_TOUCH_FOREACH_END:
-+			if (!active_only) {
-+				if (++obj < ts->max_objects)
-+					idx = loop_start;
-+			} else if (have_active_count) {
-+				if (++seen < active)
-+					idx = loop_start;
-+			} else if (++seen < ts->max_objects &&
-+				   offset + loop_bits <= ts->payload_len * 8) {
-+				idx = loop_start;
-+			}
-+			continue;
-+
-+		case SYNA_TOUCH_PAD_TO_NEXT_BYTE:
-+			offset = ALIGN(offset, 8);
-+			continue;
-+		}
-+
-+		/* Everything else is (opcode, bit width). */
-+		if (idx >= ts->config_len)
-+			break;
-+
-+		bits = cfg[idx++];
-+		data = syna_get_bits(ts->payload, ts->payload_len, offset, bits);
-+		offset += bits;
-+
-+		switch (code) {
-+		case SYNA_TOUCH_OBJECT_N_INDEX:
-+			if (data >= ts->max_objects || data >= SYNA_MAX_OBJECTS) {
-+				dev_dbg(&ts->client->dev,
-+					"object index %u out of range\n", data);
-+				return -ERANGE;
-+			}
-+			obj = data;
-+			break;
-+		case SYNA_TOUCH_NUM_OF_ACTIVE_OBJECTS:
-+			active = data;
-+			have_active_count = true;
-+			if (!active)
-+				done = true;
-+			break;
-+		case SYNA_TOUCH_OBJECT_N_CLASSIFICATION:
-+			ts->objects[obj].status = data;
-+			break;
-+		case SYNA_TOUCH_OBJECT_N_X_POSITION:
-+			ts->objects[obj].x = data;
-+			break;
-+		case SYNA_TOUCH_OBJECT_N_Y_POSITION:
-+			ts->objects[obj].y = data;
-+			break;
-+		case SYNA_TOUCH_OBJECT_N_Z:
-+			ts->objects[obj].z = data;
-+			break;
-+		case SYNA_TOUCH_OBJECT_N_X_WIDTH:
-+			ts->objects[obj].wx = data;
-+			break;
-+		case SYNA_TOUCH_OBJECT_N_Y_WIDTH:
-+			ts->objects[obj].wy = data;
-+			break;
-+		case SYNA_TOUCH_GESTURE_DOUBLE_TAP:
-+		case SYNA_TOUCH_REPORT_GESTURE_SWIPE:
-+		case SYNA_TOUCH_REPORT_GESTURE_CIRCLE:
-+		case SYNA_TOUCH_REPORT_GESTURE_UNICODE:
-+		case SYNA_TOUCH_REPORT_GESTURE_VEE:
-+		case SYNA_TOUCH_REPORT_GESTURE_TRIANGLE:
-+			ts->gesture_type = data;
-+			break;
-+		default:
-+			/* Timestamp, grip info, coordinates: skipped. */
-+			break;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static void syna_report_touch(struct syna_tcm *ts)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < ts->max_objects; i++) {
-+		struct syna_object *obj = &ts->objects[i];
-+		bool down = obj->status != SYNA_OBJECT_LIFT;
-+
-+		if (down)
-+			dev_dbg(&ts->client->dev,
-+				"slot %u: %u,%u z=%u w=%ux%u class=%u\n",
-+				i, obj->x, obj->y, obj->z, obj->wx, obj->wy,
-+				obj->status);
-+
-+		input_mt_slot(ts->input, i);
-+		if (!input_mt_report_slot_state(ts->input, MT_TOOL_FINGER, down))
-+			continue;
-+
-+		touchscreen_report_pos(ts->input, &ts->prop, obj->x, obj->y, true);
-+		input_report_abs(ts->input, ABS_MT_PRESSURE, obj->z);
-+		input_report_abs(ts->input, ABS_MT_TOUCH_MAJOR,
-+				 max(obj->wx, obj->wy));
-+		input_report_abs(ts->input, ABS_MT_TOUCH_MINOR,
-+				 min(obj->wx, obj->wy));
-+	}
-+
-+	input_mt_sync_frame(ts->input);
-+	input_sync(ts->input);
-+}
-+
-+static irqreturn_t syna_irq(int irq, void *data)
-+{
-+	struct syna_tcm *ts = data;
-+
-+	mutex_lock(&ts->lock);
-+
-+	if (syna_recv_message(ts) < 0) {
-+		mutex_unlock(&ts->lock);
-+		return IRQ_HANDLED;
-+	}
-+
-+	if (ts->code != SYNA_REPORT_TOUCH) {
-+		mutex_unlock(&ts->lock);
-+		return IRQ_HANDLED;
-+	}
-+
-+	if (syna_parse_touch_report(ts) == 0) {
-+		if (ts->suspended) {
-+			if (ts->gesture_type == SYNA_GESTURE_DTAP) {
-+				dev_dbg(&ts->client->dev,
-+					"wakeup gesture detected (type=0x%02x)\n",
-+					ts->gesture_type);
-+
-+				input_report_key(ts->input, KEY_WAKEUP, 1);
-+				input_sync(ts->input);
-+				input_report_key(ts->input, KEY_WAKEUP, 0);
-+				input_sync(ts->input);
-+
-+				pm_wakeup_event(&ts->client->dev, 0);
-+			}
-+		} else {
-+			syna_report_touch(ts);
-+		}
-+	}
-+
-+	mutex_unlock(&ts->lock);
-+	return IRQ_HANDLED;
-+}
-+
-+static int syna_power_up(struct syna_tcm *ts)
-+{
-+	int ret;
-+
-+	/* Held in reset across power-up; the DT flag makes this drive low. */
-+	gpiod_set_value_cansleep(ts->reset_gpio, 1);
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(ts->supplies), ts->supplies);
-+	if (ret)
-+		return ret;
-+
-+	msleep(SYNA_POWERUP_TO_RESET_MS);
-+	gpiod_set_value_cansleep(ts->reset_gpio, 0);
-+	msleep(SYNA_RESET_TO_NORMAL_MS);
-+
-+	return 0;
-+}
-+
-+static void syna_power_down(void *data)
-+{
-+	struct syna_tcm *ts = data;
-+
-+	gpiod_set_value_cansleep(ts->reset_gpio, 1);
-+	regulator_bulk_disable(ARRAY_SIZE(ts->supplies), ts->supplies);
-+}
-+
-+/*
-+ * Fallback touch report config installed only if the firmware comes up
-+ * without coordinates.
-+ */
-+static const u8 syna_default_config[] = {
-+	SYNA_TOUCH_FOREACH_ACTIVE_OBJECT,
-+	SYNA_TOUCH_OBJECT_N_INDEX,		4,
-+	SYNA_TOUCH_OBJECT_N_CLASSIFICATION,	4,
-+	SYNA_TOUCH_OBJECT_N_X_POSITION,		16,
-+	SYNA_TOUCH_OBJECT_N_Y_POSITION,		16,
-+	SYNA_TOUCH_OBJECT_N_Z,			8,
-+	SYNA_TOUCH_OBJECT_N_X_WIDTH,		12,
-+	SYNA_TOUCH_OBJECT_N_Y_WIDTH,		12,
-+	SYNA_TOUCH_FOREACH_END,
-+	SYNA_TOUCH_END,
-+};
-+
-+static bool syna_config_has_coords(const u8 *cfg, unsigned int len)
-+{
-+	bool x = false, y = false;
-+	unsigned int i;
-+
-+	for (i = 0; i < len; i++) {
-+		switch (cfg[i]) {
-+		case SYNA_TOUCH_END:
-+			return x && y;
-+		case SYNA_TOUCH_FOREACH_ACTIVE_OBJECT:
-+		case SYNA_TOUCH_FOREACH_OBJECT:
-+		case SYNA_TOUCH_FOREACH_END:
-+		case SYNA_TOUCH_PAD_TO_NEXT_BYTE:
-+			break;
-+		default:
-+			if (cfg[i] == SYNA_TOUCH_OBJECT_N_X_POSITION)
-+				x = true;
-+			else if (cfg[i] == SYNA_TOUCH_OBJECT_N_Y_POSITION)
-+				y = true;
-+			i++;	/* skip the bit width */
-+			break;
-+		}
-+	}
-+
-+	return x && y;
-+}
-+
-+static int syna_read_touch_report_config(struct syna_tcm *ts)
-+{
-+	struct device *dev = &ts->client->dev;
-+	int ret;
-+
-+	ret = syna_exec_command(ts, SYNA_CMD_GET_TOUCH_REPORT_CONFIG, NULL, 0);
-+	if (ret)
-+		return ret;
-+
-+	if (!ts->payload_len || ts->payload_len > sizeof(ts->config)) {
-+		dev_err(dev, "implausible touch report config size %u\n",
-+			ts->payload_len);
-+		return -EPROTO;
-+	}
-+
-+	ts->config_len = ts->payload_len;
-+	memcpy(ts->config, ts->payload, ts->config_len);
-+
-+	dev_dbg(dev, "touch report config: %*ph\n", (int)ts->config_len, ts->config);
-+
-+	return 0;
-+}
-+
-+static int syna_setup(struct syna_tcm *ts)
-+{
-+	struct device *dev = &ts->client->dev;
-+	struct syna_tcm_app_info *app_info;
-+	unsigned int max_x = 0, max_y = 0;
-+	u8 report = SYNA_REPORT_TOUCH;
-+	int ret;
-+
-+	ret = syna_exec_command(ts, SYNA_CMD_IDENTIFY, NULL, 0);
-+	if (ret)
-+		return ret;
-+
-+	if (ts->payload_len < 18)
-+		return -EPROTO;
-+
-+	dev_info(dev, "TouchComm v%u, mode 0x%02x, part %.16s\n",
-+		 ts->payload[0], ts->payload[1], &ts->payload[2]);
-+
-+	if (ts->payload[1] != SYNA_MODE_APPLICATION) {
-+		dev_err(dev,
-+			"controller is in mode 0x%02x, not application mode; this driver cannot download firmware\n",
-+			ts->payload[1]);
-+		return -ENODEV;
-+	}
-+
-+	ret = syna_exec_command(ts, SYNA_CMD_GET_APP_INFO, NULL, 0);
-+	if (ret)
-+		return ret;
-+
-+	if (ts->payload_len < sizeof(*app_info))
-+		return -EPROTO;
-+
-+	app_info = (struct syna_tcm_app_info *)ts->payload;
-+	max_x = le16_to_cpu(app_info->max_x);
-+	max_y = le16_to_cpu(app_info->max_y);
-+	ts->max_objects = le16_to_cpu(app_info->max_objects);
-+
-+	if (!ts->max_objects)
-+		ts->max_objects = 10;
-+
-+	if (ts->max_objects > SYNA_MAX_OBJECTS) {
-+		dev_warn(dev, "clamping %u objects to %u\n",
-+			 ts->max_objects, SYNA_MAX_OBJECTS);
-+		ts->max_objects = SYNA_MAX_OBJECTS;
-+	}
-+
-+	if (!max_x || !max_y) {
-+		dev_err(dev, "touchscreen size not reported by firmware\n");
-+		return -EINVAL;
-+	}
-+
-+	dev_info(dev, "%ux%u, %u touch objects\n", max_x + 1, max_y + 1,
-+		 ts->max_objects);
-+
-+	ret = syna_read_touch_report_config(ts);
-+	if (ret)
-+		return ret;
-+
-+	if (!syna_config_has_coords(ts->config, ts->config_len)) {
-+		dev_warn(dev,
-+			 "firmware touch report config carries no coordinates, installing our own\n");
-+
-+		ret = syna_exec_command(ts, SYNA_CMD_SET_TOUCH_REPORT_CONFIG,
-+					syna_default_config,
-+					sizeof(syna_default_config));
-+		if (ret)
-+			return ret;
-+
-+		ret = syna_read_touch_report_config(ts);
-+		if (ret)
-+			return ret;
-+
-+		if (!syna_config_has_coords(ts->config, ts->config_len)) {
-+			dev_err(dev, "controller kept a config we cannot parse\n");
-+			return -ENODEV;
-+		}
-+	}
-+
-+	/* Cache the normal report config for restoring after gesture wakeup */
-+	ts->normal_config_len = ts->config_len;
-+	memcpy(ts->normal_config, ts->config, ts->normal_config_len);
-+
-+	ret = syna_exec_command(ts, SYNA_CMD_ENABLE_REPORT, &report, 1);
-+	if (ret)
-+		return ret;
-+
-+	ts->input->name = "Synaptics TouchComm Touchscreen";
-+	ts->input->id.bustype = BUS_I2C;
-+
-+	input_set_capability(ts->input, EV_KEY, KEY_WAKEUP);
-+
-+	input_set_abs_params(ts->input, ABS_MT_POSITION_X, 0, max_x, 0, 0);
-+	input_set_abs_params(ts->input, ABS_MT_POSITION_Y, 0, max_y, 0, 0);
-+	/*
-+	 * ABS_MT_PRESSURE (8-bit, 0-255) and ABS_MT_TOUCH_MAJOR/MINOR (12-bit,
-+	 * 0-4095) ranges are tailored for the S3908 / generation-1 family with
-+	 * the default touch report layout (syna_default_config).
-+	 */
-+	input_set_abs_params(ts->input, ABS_MT_PRESSURE, 0, 255, 0, 0);
-+	input_set_abs_params(ts->input, ABS_MT_TOUCH_MAJOR, 0, 4095, 0, 0);
-+	input_set_abs_params(ts->input, ABS_MT_TOUCH_MINOR, 0, 4095, 0, 0);
-+
-+	touchscreen_parse_properties(ts->input, true, &ts->prop);
-+
-+	return input_mt_init_slots(ts->input, ts->max_objects,
-+				   INPUT_MT_DIRECT | INPUT_MT_DROP_UNUSED);
-+}
-+
-+static int syna_reinit_hw(struct syna_tcm *ts)
-+{
-+	struct device *dev = &ts->client->dev;
-+	u8 report = SYNA_REPORT_TOUCH;
-+	int ret;
-+
-+	syna_power_down(ts);
-+	ret = syna_power_up(ts);
-+	if (ret)
-+		return ret;
-+
-+	ret = syna_exec_command(ts, SYNA_CMD_IDENTIFY, NULL, 0);
-+	if (ret)
-+		return ret;
-+
-+	if (ts->payload_len < 18 || ts->payload[1] != SYNA_MODE_APPLICATION) {
-+		dev_err(dev, "controller not in application mode after recovery\n");
-+		return -ENODEV;
-+	}
-+
-+	ret = syna_exec_command(ts, SYNA_CMD_SET_TOUCH_REPORT_CONFIG,
-+				ts->normal_config, ts->normal_config_len);
-+	if (ret)
-+		return ret;
-+
-+	ret = syna_read_touch_report_config(ts);
-+	if (ret)
-+		return ret;
-+
-+	return syna_exec_command(ts, SYNA_CMD_ENABLE_REPORT, &report, 1);
-+}
-+
-+static int syna_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct syna_tcm *ts;
-+	int ret;
-+
-+	ts = devm_kzalloc(dev, sizeof(*ts), GFP_KERNEL);
-+	if (!ts)
-+		return -ENOMEM;
-+
-+	ts->client = client;
-+	ret = devm_mutex_init(dev, &ts->lock);
-+	if (ret)
-+		return ret;
-+
-+	i2c_set_clientdata(client, ts);
-+
-+	ts->input = devm_input_allocate_device(dev);
-+	if (!ts->input)
-+		return -ENOMEM;
-+
-+	ts->supplies[0].supply = "vdd";
-+	ts->supplies[1].supply = "avdd";
-+	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ts->supplies),
-+				      ts->supplies);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to get supplies\n");
-+
-+	ts->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ts->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ts->reset_gpio),
-+				     "failed to get reset GPIO\n");
-+
-+	ret = syna_power_up(ts);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to power up\n");
-+
-+	ret = devm_add_action_or_reset(dev, syna_power_down, ts);
-+	if (ret)
-+		return ret;
-+
-+	ret = syna_setup(ts);
-+	if (ret)
-+		return ret;
-+
-+	ret = input_register_device(ts->input);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to register input device\n");
-+
-+	if (device_property_read_bool(dev, "wakeup-source")) {
-+		ret = devm_device_init_wakeup(dev);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	ret = devm_request_threaded_irq(dev, client->irq, NULL, syna_irq,
-+					IRQF_ONESHOT, "synaptics-tcm", ts);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to request IRQ %d\n",
-+				     client->irq);
-+
-+	return 0;
-+}
-+
-+static int syna_suspend(struct device *dev)
-+{
-+	struct i2c_client *client = to_i2c_client(dev);
-+	struct syna_tcm *ts = i2c_get_clientdata(client);
-+	int ret;
-+
-+	disable_irq(client->irq);
-+	mutex_lock(&ts->lock);
-+
-+	if (device_may_wakeup(dev)) {
-+		/* Exit deep sleep if the controller was in sleep mode */
-+		ret = syna_exec_command(ts, SYNA_CMD_EXIT_DEEP_SLEEP, NULL, 0);
-+		if (ret && ret != -ETIMEDOUT)
-+			dev_dbg(dev, "exit deep sleep status: %d\n", ret);
-+
-+		/* Switch to gesture touch report layout */
-+		ret = syna_exec_command(ts, SYNA_CMD_SET_TOUCH_REPORT_CONFIG,
-+					syna_gesture_config,
-+					sizeof(syna_gesture_config));
-+		if (ret)
-+			dev_warn(dev, "failed to set gesture report config: %d\n", ret);
-+
-+		ret = syna_read_touch_report_config(ts);
-+		if (ret)
-+			dev_warn(dev, "failed to read touch report config: %d\n", ret);
-+
-+		/* Enable Low Power Wakeup Gesture Mode */
-+		ret = syna_set_dynamic_config(ts, SYNA_DC_IN_WAKEUP_GESTURE_MODE, 1);
-+		if (ret)
-+			dev_warn(dev, "failed to enable wakeup gesture mode: %d\n", ret);
-+
-+		/* Set gesture mask: bit 0 = DTAP (double-tap to wake) */
-+		ret = syna_set_dynamic_config(ts, SYNA_DC_GESTURE_MASK, BIT(0));
-+		if (ret)
-+			dev_warn(dev, "failed to set gesture mask: %d\n", ret);
-+
-+		enable_irq_wake(client->irq);
-+		enable_irq(client->irq);
-+		ts->gesture_enabled = true;
-+	} else {
-+		/* Deep sleep mode when wakeup is disabled */
-+		ret = syna_exec_command(ts, SYNA_CMD_ENTER_DEEP_SLEEP, NULL, 0);
-+		if (ret)
-+			dev_warn(dev, "failed to enter deep sleep: %d\n", ret);
-+
-+		ts->gesture_enabled = false;
-+	}
-+
-+	ts->suspended = true;
-+	mutex_unlock(&ts->lock);
-+
-+	return 0;
-+}
-+
-+static int syna_resume(struct device *dev)
-+{
-+	struct i2c_client *client = to_i2c_client(dev);
-+	struct syna_tcm *ts = i2c_get_clientdata(client);
-+	int ret;
-+
-+	if (ts->gesture_enabled) {
-+		disable_irq(client->irq);
-+		mutex_lock(&ts->lock);
-+		disable_irq_wake(client->irq);
-+
-+		/* Exit Wakeup Gesture Mode */
-+		ret = syna_set_dynamic_config(ts, SYNA_DC_IN_WAKEUP_GESTURE_MODE, 0);
-+		if (ret)
-+			dev_warn(dev, "failed to disable wakeup gesture mode: %d\n", ret);
-+
-+		/* Restore normal touch report layout */
-+		ret = syna_exec_command(ts, SYNA_CMD_SET_TOUCH_REPORT_CONFIG,
-+					ts->normal_config,
-+					ts->normal_config_len);
-+		if (ret)
-+			dev_warn(dev, "failed to restore normal report config: %d\n", ret);
-+
-+		ret = syna_read_touch_report_config(ts);
-+		if (ret)
-+			dev_warn(dev, "failed to read touch report config: %d\n", ret);
-+
-+		ts->gesture_enabled = false;
-+		ts->suspended = false;
-+		enable_irq(client->irq);
-+	} else {
-+		mutex_lock(&ts->lock);
-+
-+		/* Wake up controller from deep sleep */
-+		ret = syna_exec_command(ts, SYNA_CMD_EXIT_DEEP_SLEEP, NULL, 0);
-+		if (ret) {
-+			dev_warn(dev, "failed to exit deep sleep (%d), recovering...\n", ret);
-+			ret = syna_reinit_hw(ts);
-+			if (ret)
-+				dev_err(dev, "failed to recover controller: %d\n", ret);
-+		}
-+
-+		ts->suspended = false;
-+		enable_irq(client->irq);
-+	}
-+
-+	mutex_unlock(&ts->lock);
-+
-+	return 0;
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(syna_tcm_pm_ops, syna_suspend, syna_resume);
-+
-+static const struct i2c_device_id syna_tcm_i2c_id[] = {
-+	{ "synaptics-tcm" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, syna_tcm_i2c_id);
-+
-+static const struct of_device_id syna_tcm_of_match[] = {
-+	{ .compatible = "syna,s3908" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, syna_tcm_of_match);
-+
-+static struct i2c_driver syna_tcm_i2c_driver = {
-+	.driver = {
-+		.name = "synaptics-tcm-i2c",
-+		.of_match_table = syna_tcm_of_match,
-+		.pm = pm_sleep_ptr(&syna_tcm_pm_ops),
-+	},
-+	.probe = syna_probe,
-+	.id_table = syna_tcm_i2c_id,
-+};
-+module_i2c_driver(syna_tcm_i2c_driver);
-+
-+MODULE_DESCRIPTION("Synaptics TouchComm I2C touchscreen driver");
-+MODULE_AUTHOR("Vsevolod Nevorotov <sevanevorotov29@gmail.com>");
-+MODULE_LICENSE("GPL");
+    /sys/bus/pci/devices/.../reset_method
+    /sys/bus/pci/devices/.../reset
+
+Userspace can select "cxl_reset" in reset_method and then trigger reset
+through the existing reset attribute.
+
+CXL Reset is exposed conservatively. The target must be a
+single-function CXL Type 2 device with no enabled VFs, CXL.cache and
+CXL.mem must be enabled, and CXL Reset Memory Clear must be supported.
+The kernel must also have cached HDM state sufficient to validate affected
+ranges and restore decoder programming.
+
+For reset through the sysfs reset attribute, the generic PCI path calls
+the driver's reset_prepare() callback when provided and disables PCI I/O,
+memory decoding, and bus mastering. The CXL reset path then temporarily
+reserves each affected HDM range exclusively for the duration of the
+reset, synchronizes CPU and device caches, and blocks IOMMU translations
+where applicable. It restores HDM decoder state and CXL Device DVSEC
+Cache and Mem Enable controls before PCI operation resumes. The path does
+not offline memory or revoke mappings; it relies on CXL.mem users retaining
+conflicting iomem resources while access remains active.
+
+Following Dan's v6 feedback, this uses the existing PCI reset_method
+interface instead of adding a memdev-specific sysfs ABI.
+
+v12 changes from v11 [2]:
+- Reject cxl_reset and cxl_bus reset when the PF has enabled VFs,
+  including VFs enabled after reset-method probing.
+- Require CXL Reset Memory Clear support and request memory clearing so
+  the generic PCI reset does not preserve tenant memory.
+- Cache the CXL Device DVSEC control register during early PCI discovery
+  and restore its CXL.cache and CXL.mem enable bits after CXL Reset and
+  CXL bus reset.
+- Initialize the early PCI HDM cache only from pci_bus_add_device(),
+  removing the later CXL core retry and its lifecycle locking.
+- Reapply and verify a cached HDM decoder lock after decoder restoration
+  and commit, while leaving surviving locked committed state unchanged.
+- Convert temporary early HDM-cache ownership to scoped cleanup.
+- Document the reset-safety contract, including the iomem ownership
+  requirement and the limits around memory offlining and mapping
+  revocation.
+
+Motivation:
+-----------
+- Type 2 devices need a CXL-specific reset mechanism beyond existing PCI
+  reset methods.
+
+- FLR does not reset CXL.cache or CXL.mem protocol state. CXL Reset is
+  the architectural reset mechanism for those protocols.
+
+- The PCI reset_method ABI lets userspace select CXL Reset before
+  falling back to broader bus reset methods.
+
+Change Description:
+-------------------
+
+Patch 1: cxl: Move HDM decoder programming helpers
+- Introduce a decoder settings snapshot collected under the DPA lock.
+- Move low-level settings-based HDM programming into resource.c.
+
+Patch 2: cxl: Make HDM commit helpers available to reset code
+- Build generic HDM resource helpers under CONFIG_CXL_RESET.
+- Export the lock and commit helpers needed when cxl_core is modular.
+
+Patch 3: cxl: Share HDM decoder decode logic
+- Share HDM decoder decode and validation between normal CXL core
+  enumeration and early PCI HDM cache setup.
+- Decode zero-size committed decoder state without imposing caller policy.
+
+Patch 4: cxl: Cache decoder settings on PCI devices
+- Cache CXL core HDM decoder settings in pci_dev->hdm.
+- Refresh the cache as decoders are enumerated, committed, or reset.
+
+Patch 5: cxl: Cache endpoint decoder settings during PCI enumeration
+- Snapshot endpoint HDM and CXL Device DVSEC control state during PCI
+  enumeration.
+- Cache the HDM register locator as BAR-relative metadata and preserve raw
+  decoder state for reset restore.
+- Keep early cache initialization in the PCI bus-add path only.
+
+Patch 6: cxl: Add CXL Device Reset helper
+- Add the internal DVSEC reset sequence.
+- Disable CXL.cache, perform cache writeback where supported, initiate
+  CXL Reset with Memory Clear, and wait for completion.
+
+Patch 7: cxl: Validate HDM ranges before CXL reset
+- Collect enabled cached HDM ranges, reject busy ranges, and perform CPU
+  cache invalidation when a runtime backend is available.
+
+Patch 8: PCI/CXL: Reject CXL Reset on multifunction devices
+- Conservatively reject CXL Reset for multifunction devices and PFs with
+  enabled VFs.
+
+Patch 9: cxl: Restore CXL state after PCI reset
+- Restore cached global and per-decoder HDM state, decoder locks, and CXL
+  Device DVSEC protocol enables while the target IOMMU block is active.
+
+Patch 10: PCI/CXL: Expose CXL Reset as a PCI reset method
+- Add "cxl_reset" to the PCI reset-method table ahead of FLR.
+
+Patch 11: Documentation/ABI: Document CXL Reset PCI reset method
+- Document the reset method and its safety contract.
+
+Patch 12: PCI/CXL: Restore CXL state after CXL bus reset
+- Restore cached CXL HDM and Device DVSEC state after cxl_bus reset.
+- Reject multifunction devices and PFs with enabled VFs.
+
+The CPU cache invalidation step depends on
+cpu_cache_invalidate_memregion() support for the affected address ranges.
+If no runtime provider is available, the kernel emits a warning and
+continues after the affected HDM ranges have been reserved.
+
+Example:
+
+    echo cxl_reset > /sys/bus/pci/devices/0000:bb:dd.f/reset_method
+    echo 1 > /sys/bus/pci/devices/0000:bb:dd.f/reset
+
+Testing:
+- Applied all 12 patches sequentially to a fresh v7.3-rc1 source tree
+  with CONFIG_CXL_BUS=m and CONFIG_CXL_RESET=y. Every intermediate patch
+  passed `make vmlinux modules` and `make M=tools/testing/cxl/`.
+- Built and booted the series on an arm64 NVIDIA NVL72 system and
+  successfully exercised CXL Reset through the PCI reset sysfs ABI.
+- Exercised cxl_bus reset with CXL state restoration on all four GPUs in
+  an NVL72 system; all four resets completed successfully.
+- Earlier revision testing ran 100 iterations of cxl_reset.
+
+References:
+[1] https://computeexpresslink.org/wp-content/uploads/2026/02/CXL-Specification_rev4p0_ver1p0_2026February26_clean_evalcopy_v2.pdf
+[2] https://lore.kernel.org/linux-cxl/20260902072804.665639-1-smadhavan@nvidia.com/
+[3] https://lore.kernel.org/linux-cxl/20260804192958.1823952-1-smadhavan@nvidia.com/
+[4] https://lore.kernel.org/linux-cxl/20260709010304.680422-1-smadhavan@nvidia.com/
+[5] https://lore.kernel.org/linux-cxl/20260703220508.546528-1-smadhavan@nvidia.com/
+
+Srirangan Madhavan (12):
+  cxl: Move HDM decoder programming helpers
+  cxl: Make HDM commit helpers available to reset code
+  cxl: Share HDM decoder decode logic
+  cxl: Cache decoder settings on PCI devices
+  cxl: Cache endpoint decoder settings during PCI enumeration
+  cxl: Add CXL Device Reset helper
+  cxl: Validate HDM ranges before CXL reset
+  PCI/CXL: Reject CXL Reset on multifunction devices
+  cxl: Restore CXL state after PCI reset
+  PCI/CXL: Expose CXL Reset as a PCI reset method
+  Documentation/ABI: Document CXL Reset PCI reset method
+  PCI/CXL: Restore CXL state after CXL bus reset
+
+ Documentation/ABI/testing/sysfs-bus-pci |   25 +
+ drivers/cxl/Kconfig                     |    4 +
+ drivers/cxl/core/Makefile               |    2 +-
+ drivers/cxl/core/core.h                 |    8 +
+ drivers/cxl/core/hdm.c                  |  301 +++----
+ drivers/cxl/core/pci.c                  |   22 +-
+ drivers/cxl/core/port.c                 |   19 +
+ drivers/cxl/core/regs.c                 |    4 +
+ drivers/cxl/core/resource.c             | 1400 +++++++++++++++++++++++++++++++
+ drivers/cxl/cxl.h                       |   41 -
+ drivers/pci/bus.c                       |    2 +
+ drivers/pci/pci.c                       |    8 +
+ drivers/pci/probe.c                     |    2 +
+ include/cxl/cxl.h                       |  120 +-
+ include/linux/pci.h                     |    8 +-
+ include/uapi/linux/pci_regs.h           |   14 +
+ tools/testing/cxl/Kbuild                |    1 -
+ 17 files changed, 1769 insertions(+), 212 deletions(-)
+ create mode 100644 drivers/cxl/core/resource.c
+
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
 -- 
-2.55.0
-
+2.43.0
