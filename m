@@ -1,168 +1,62 @@
-Received: from mta1.migadu.com (out-251.mta1.migadu.com [95.215.58.251])
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39F6C48592D
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:23:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A1F484254
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:24:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789043039; cv=none; b=IJ6LnC+eG/onM8RxbxVH/gbhbYbK0zt/eh7Fx0e6IMkZmORfC7NRKxNIJ5+V6s7j0ITX/LQRbSbMdFsrBVe5Bf5OSb6Njg6bqhTYd9ebo66OXuUZ7K6z0k7d3KbsX35v9CVDT+6BsQorx7JGY9PlMZdx2G0BdL9wNQ98mHunEgM=
+	t=1789043042; cv=none; b=a5T1ebZf7U99jNLwHrzFqGtheXoV4vkaZNyNKrI8QbhHkBmxyr+T5z4F5wE1iTqURJO+7VO3uBEiahk6S0TZd3yfemmuZI/dFT2m7e3okRBAKjpMh+VbYFCy1d6taIVZHL6wvIblbZn6Ki1WkfaMoIzs8CAIfPphAw2D+L32yIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789043039; c=relaxed/simple;
-	bh=DohzmBQXhTc3W9IsG0RnpMnqXNv9xW9Kj1PEpt+9ROI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Q8+8prVSgJvYq8koZUf/WTcO0nMII+HZWAEQZl77wauxWfdQrSvdz0nld8GX1UHX8AJsG3J2kQbRmKntMCLXhCieph6BwE3cAcI4Fdmdne9Yt8ffEWe4qMIuD2hdtNorTaspyDn3L39egGl9/0Grr1m4I7ZLxls/UXPO7lsqI4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dz/s32Yx; arc=none smtp.client-ip=95.215.58.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dz/s32Yx"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=DohzmBQXhTc3W9IsG0RnpMnqXNv9xW9Kj1PEpt+9ROI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789043035; v=1; x=1789647835;
- b=dz/s32YxXbXGjOc8dD/qjJS/mM8SgHCH5vDU6KHEeLRaVW80ZMoWsB9VVwtrAlVKC1QaGQEt
- NAKuQQHoBEQ0gSozMR+Dx9cxHQ8DJESK9F6kZaG9xPZDZskFkbVhCcYvy3kl/+JP38Y1HUPdTt3
- 37SDUKCqatmAz0yD+QFr24tU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f8d3cdd5053f8d02;
-	Thu, 10 Sep 2026 12:23:54 +0000
-X-Mizu-Trace-ID: f8d3cdd5053f8d02
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	Yazhou Tang <tangyazhou518@outlook.com>,
-	Amery Hung <ameryhung@gmail.com>,
-	Matt Bobrowski <mattbobrowski@google.com>,
-	Tejun Heo <tj@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf 2/2] selftests/bpf: Test BTF walk into a flexible array of zero-sized elements
-Date: Thu, 10 Sep 2026 20:22:56 +0800
-Message-ID: <20260910122316.186384-2-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260910122316.186384-1-jiayuan.chen@linux.dev>
-References: <20260910122316.186384-1-jiayuan.chen@linux.dev>
+	s=arc-20240116; t=1789043042; c=relaxed/simple;
+	bh=NNo83Ggf6DxezfmU0KBxwNGVKFTlk2a3mMPdpdPvzuQ=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=QDOkFsUw8/F9zYku5c1byHQ4dNkL2qylPdnVfCSzcZyaRj+SZdX2u+uK9qoFHgshBQXCl59a1jJHoHxYiK1/DWkfn2lR7dGWMIcOuunmXejz4D6fmlI382sddNYifXPZOgwWEi/Gnz8eqatCYyLbBMz2818kfyIydtLIKCO7ONw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4959c49e054so4935576b6e.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 05:24:00 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789043040; x=1789647840;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NNo83Ggf6DxezfmU0KBxwNGVKFTlk2a3mMPdpdPvzuQ=;
+        b=mZZksMeNx3MIOR7R1PGie64cEDEwBnasmqCnvESK1zoT7fNzrXaQ4w8oS+KCNz33IN
+         bg2jyZ+d4KhenN7UTlIZpXNNnOXVTRZ7lGyuas7nPWMEG8wV5OPnaVlpGdmEUmoNIbrS
+         nJUze1SihEHRDo9r4VXoVE2F4AXc8XnHoiOwnTxL5m5PJWR7g9rwa6kNzFFbwOQKCJmh
+         pQCsOjII+6fcKJlb2evulEWfNuimLmy6leHTJuAAwq4hTmuftqQYMINIM044IWbGiMb/
+         6c/6FsiwXFfn7EI+QnFJXjwtfPANd+RqO5nBVIDiNVuW/Cy2tnRTiWulH5ItjfbTXz+o
+         y9dg==
+X-Gm-Message-State: AFuF++lwRki+B7qP8X+Qm68FM1T0nnhgQd/mcivFGi5AM/Jqrhb66m3G
+	g5PF55bSurQpgu2P5w3y3s41j5K2uffvH8MJwMQOv/jWdOiPQDD0VKEblL7G/zwLTQuo9HmelbA
+	H+B7jImX4ATOdpqJOSnbnUHCQH6wuee0V7JmRqX6/pxz2l7BDZtGdBtzzbSk=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:4f48:b0:4c1:2512:ee84 with SMTP id
+ 5614622812f47-4c1251405d1mr5525757b6e.23.1789043040142; Thu, 10 Sep 2026
+ 05:24:00 -0700 (PDT)
+Date: Thu, 10 Sep 2026 05:24:00 -0700
+In-Reply-To: <6a6a9894.7eebbf3c.214d51.000c.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa2a160.f2639fcc.29487d.0017.GAE@google.com>
+Subject: Forwarded: [PATCH] configfs: unhash dentry before dropping the item
+From: syzbot <syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The program stashes a bpf_obj_new() object whose type ends with a flexible
-array of empty structs, then reads it back as an untrusted kptr. Without
-the previous patch this divides by zero in btf_struct_walk() instead of
-being rejected.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-  # ./test_progs -t verifier_btf_flex_array
-  ...
-  #602     verifier_btf_flex_array:OK
-  Summary: 1/1 PASSED, 0 SKIPPED, 0/0 FAILED
+***
 
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
- .../selftests/bpf/prog_tests/verifier.c       |  2 +
- .../bpf/progs/verifier_btf_flex_array.c       | 56 +++++++++++++++++++
- 2 files changed, 58 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/progs/verifier_btf_flex_array.c
+Subject: [PATCH] configfs: unhash dentry before dropping the item
+Author: alsowereme@outlook.com
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/verifier.c b/tools/testing/selftests/bpf/prog_tests/verifier.c
-index f7f94ccebce2..33a5da37e3ad 100644
---- a/tools/testing/selftests/bpf/prog_tests/verifier.c
-+++ b/tools/testing/selftests/bpf/prog_tests/verifier.c
-@@ -24,6 +24,7 @@
- #include "verifier_bpf_trap.skel.h"
- #include "verifier_bswap.skel.h"
- #include "verifier_btf_ctx_access.skel.h"
-+#include "verifier_btf_flex_array.skel.h"
- #include "verifier_btf_unreliable_prog.skel.h"
- #include "verifier_call_large_imm.skel.h"
- #include "verifier_cfg.skel.h"
-@@ -188,6 +189,7 @@ void test_verifier_bpf_get_stack(void)        { RUN(verifier_bpf_get_stack); }
- void test_verifier_bpf_trap(void)             { RUN(verifier_bpf_trap); }
- void test_verifier_bswap(void)                { RUN(verifier_bswap); }
- void test_verifier_btf_ctx_access(void)       { RUN(verifier_btf_ctx_access); }
-+void test_verifier_btf_flex_array(void)       { RUN(verifier_btf_flex_array); }
- void test_verifier_btf_unreliable_prog(void)  { RUN(verifier_btf_unreliable_prog); }
- void test_verifier_call_large_imm(void)       { RUN(verifier_call_large_imm); }
- void test_verifier_cfg(void)                  { RUN(verifier_cfg); }
-diff --git a/tools/testing/selftests/bpf/progs/verifier_btf_flex_array.c b/tools/testing/selftests/bpf/progs/verifier_btf_flex_array.c
-new file mode 100644
-index 000000000000..59b84261f622
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/verifier_btf_flex_array.c
-@@ -0,0 +1,56 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <vmlinux.h>
-+#include <bpf/bpf_helpers.h>
-+
-+#include "bpf_experimental.h"
-+#include "bpf_misc.h"
-+
-+struct test_empty_event {};
-+
-+struct test_flex_batch {
-+	int nr;
-+	struct test_empty_event events[];
-+};
-+
-+struct map_value {
-+	struct test_flex_batch __kptr *batch;
-+};
-+
-+struct {
-+	__uint(type, BPF_MAP_TYPE_ARRAY);
-+	__type(key, int);
-+	__type(value, struct map_value);
-+	__uint(max_entries, 1);
-+} batches SEC(".maps");
-+
-+SEC("syscall")
-+__description("btf walk into flexible array of zero-sized elements")
-+__failure __msg("access beyond struct test_flex_batch at off 4 size 1")
-+int stash_and_peek(void *ctx)
-+{
-+	struct test_flex_batch *b, *old;
-+	struct map_value *v;
-+	int key = 0;
-+
-+	v = bpf_map_lookup_elem(&batches, &key);
-+	if (!v)
-+		return 0;
-+
-+	b = bpf_obj_new(struct test_flex_batch);
-+	if (!b)
-+		return 0;
-+	b->nr = 1;
-+
-+	old = bpf_kptr_xchg(&v->batch, b);
-+	if (old)
-+		bpf_obj_drop(old);
-+
-+	b = v->batch;
-+	if (!b)
-+		return 0;
-+
-+	return b->nr + *(char *)&b->events[0];
-+}
-+
-+char _license[] SEC("license") = "GPL";
--- 
-2.43.0
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git a7c1290eef60711c10289c056ad32ed1f2b47b12
 
