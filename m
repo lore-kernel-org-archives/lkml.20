@@ -1,74 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1441B48425C;
-	Thu, 10 Sep 2026 12:49:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E80C3D16FD;
+	Thu, 10 Sep 2026 12:50:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789044581; cv=none; b=mos8u4oknI2jt0e3Zzk3DQgiO1dEcUPb5MzaB8h2LOE8lBoiO6tf65BSnrABcyCBz/QRifdLioBi0nyaUIuCW2GdCKhEHBKkDctLLtdye5lj/INoe0uR66QAhXSkepUAqjmgAZrpu99YjvRYV9r9S6qpXSMOthUR9p/QUXbl0Ww=
+	t=1789044638; cv=none; b=LY3Rl46uOq498s9IvqUtKhrBoMvimAyjvkQ5KY31sMptuKirVeWiOxfpgqU6K+2kkm50p30s9xKcLmGU6byjX/gMaX3yMzWpdal29lYIiLczfwUMMCOSvNq946xopQdoGoA50yeJ/x1Imf8Ab54ro7NP1+pgCCS65PZL9Mbo+aY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789044581; c=relaxed/simple;
-	bh=tf2IGoX3SZi08DOfXNPtbhAO3K0HpLyefQHKq64r6is=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r7WWSG3B9HulotIAfNcde5SORpXFwFsYRtUpaqeHbleCY3rQquC+y+AWAQaikNVScmneuUhMP1xAS+zPbbwTKvdF6Zl8KTwcF/KYamgFkIg5mwY5eQn0vA1Sm8khr/z+hKdiSZQn4oMv/NYzapJCDDsgqkaTUozbJq2DUGXPqKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UpEsYGxA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789044638; c=relaxed/simple;
+	bh=Q33+AgLJXzUWN5MXZvERDWEKpSvIZq//bTAFISCS+44=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sZMj1t/+WwWd59A0AbTfX96gsipLM/jrlrkY5QexYQmk5nPwZy/5tszmVvfY4Ct+kPTGqGlyC3n0i6DTe80f2Vm2cO/XUwdXP9auoU316iKWMPaM5vJ1ouRw1+0DT/UuMvrvMNddI6rUm8H0PY6EetWqO27UrwhqEvUv5o687sg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M7vHTB1g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UpEsYGxA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E45FE1F000FF;
-	Thu, 10 Sep 2026 12:49:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789044579;
-	bh=YsPKbnm14nAjsbC5ay+LAnMKluwaE6VtMw8viCHB23g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UpEsYGxAJp5bKwNUDDW+lWIR/spNjq/Ga15MhUAZHYc24ZEmfynV3Wmm+Yiylrwad
-	 KKC8SRzx7ebOowsIo3egkYbXVESZjvVwua+2Nmk/3D12Eh4hrgcMfvJySRzmQqxvqn
-	 8Ukg141Jqn3EtzKjjs04n1dPYpEM7Gwgc1oTiySw=
-Date: Thu, 10 Sep 2026 14:49:31 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Nguyen Quang Le Kien <khiemtranzo532001@gmail.com>
-Cc: 3chas3@gmail.com, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	accessrunner-general@lists.sourceforge.net,
-	syzbot+24eb38c789655fc43663@syzkaller.appspotmail.com
-Subject: Re: [PATCH] usb: atm: cxacru: fix use-after-free in
- cxacru_poll_status
-Message-ID: <2026091016-gracious-purity-9ca9@gregkh>
-References: <20260803101716.2592486-1-khiemtranzo532001@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M7vHTB1g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 172BE1F000FF;
+	Thu, 10 Sep 2026 12:50:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789044637;
+	bh=4QSctDRSj6GRip8jzNuQeWHWqzGiG2EhaH/zilXWj/4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=M7vHTB1gxjOuodiIQbKUrQQoipZtkwAy4MM+BXZnd4QqKuRc/szaDtmU/AqB8MlS1
+	 WeQL2VBHTVeCSgQBA3tTWs8F0fqm0VM2nTu9Kt41vuAEEn1fQxpQ1ONNpy8oJ9rdEu
+	 /ELbWjj1jtvD2xhQitN2zURh8dF1ef4hQAv/hd0k16Q4YYZf2DfMmTGHwTRsJIKVKj
+	 GfWukCCEYathD5liSn2Et4xD+ybd6Is6tFAJ8OLf+SG6xgM42WXB7z3qT+ru0sakWL
+	 QS4Qnmp/vvB9c9ORxFLoCic1YLk38vQFnX0LkAI509zjiGGYGQ2C3a1Ogs+0b8bCeG
+	 AWwXfKz835tdw==
+From: matthias.bgg@kernel.org
+To: zkh@mailbox.org
+Cc: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-watchdog@vger.kernel.org,
+	zkh1@proton.me,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [v4,2/4] dt-bindings: arm: mediatek: Add MT8127 Amazon ford
+Date: Thu, 10 Sep 2026 14:50:24 +0200
+Message-ID: <20260910125024.70078-1-matthias.bgg@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909-mt8127-amazon-ford-basic-v4-2-e9af5c420ab1@mailbox.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260803101716.2592486-1-khiemtranzo532001@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 03, 2026 at 06:17:16PM +0800, Nguyen Quang Le Kien wrote:
-> In cxacru_unbind(), cancel_delayed_work_sync() was conditionally skipped
-> when poll_state was CXPOLL_STOPPED. However, a work item previously
-> scheduled when poll_state was CXPOLL_POLLING may still be pending in the
-> workqueue at the time poll_state transitions to CXPOLL_STOPPED. Skipping
-> cancel_delayed_work_sync() in this case allows the work to fire after
-> cxacru_data is freed, causing a use-after-free when cxacru_poll_status()
-> attempts to acquire instance->poll_state_serialize.
+> From: Zakariya Hadrami <zkh@mailbox.org>
 > 
-> Fix this by always calling cancel_delayed_work_sync() regardless of
-> poll_state, ensuring no pending or in-flight work can access the freed
-> instance.
+> Add entry for the MT8127 based Amazon ford tablet.
 > 
-> Reported-by: syzbot+24eb38c789655fc43663@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=24eb38c789655fc43663
-> Signed-off-by: Nguyen Quang Le Kien <khiemtranzo532001@gmail.com>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Zakariya Hadrami <zkh@mailbox.org>
+
+Reviewed-by: Matthias Brugger <matthias.bgg@gmail.com>
+
 > ---
->  drivers/usb/atm/cxacru.c | 10 +---------
->  1 file changed, 1 insertion(+), 9 deletions(-)
-
-Did you forget the assisted-by: tag?
-
-And how did you test this?
-
-thanks.
-
-greg k-h
+>  Documentation/devicetree/bindings/arm/mediatek.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+> diff --git a/Documentation/devicetree/bindings/arm/mediatek.yaml b/Documentation/devicetree/bindings/arm/mediatek.yaml
+> index cd4040ad3437..180e6e4948e7 100644
+> --- a/Documentation/devicetree/bindings/arm/mediatek.yaml
+> +++ b/Documentation/devicetree/bindings/arm/mediatek.yaml
+> @@ -122,6 +122,7 @@ properties:
+>            - const: mediatek,mt7988a
+>        - items:
+>            - enum:
+> +              - amazon,ford
+>                - mediatek,mt8127-moose
+>            - const: mediatek,mt8127
+>        - items:
+> 
