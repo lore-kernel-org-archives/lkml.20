@@ -1,586 +1,616 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF8AB4AB1CB;
-	Thu, 10 Sep 2026 16:49:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEDB05335B6;
+	Thu, 10 Sep 2026 16:49:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789058992; cv=none; b=LPRgJfckJuoYSR3WoUBKnvdYktRuNqO0w1BGvrRIs6WioaJELWXW1+5HlHvVIrtdz/gwl0VZ5zB1UJDz+TbU000dAn2azU1LFXTMGu3atF9BGrPgwT4ZFMDuHh1Mi3ZqiFxTq8SE5lYvb72jDhcl539l5TvCXDK1UF152mLfQDI=
+	t=1789058993; cv=none; b=H15/Z/C/034eWicg5YWynHeqr3WGZCQRMnTT2cZ0BEKLyD0Y/JCYkFMhcM2gYS/T8FWgcAWzy1kmtRqYKpYEH8k2Q4FUW1Eu+kVcZg5284dgsF5id9U2+Lv3x5C8Et9rStx/oGDkghCoCx69Y7o9OivwLsroDNOEEVSd5RDDurU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789058992; c=relaxed/simple;
-	bh=xUz3Vps7MiWiAh/87LeCjZsAWobb6z4TEK3EDhENwp0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Y5bo8sxXKjKgAqFuKIaw/J6Z8jgfTH4UEUS6L1N6B9/HV2cYbbqMtAHBa0eFvv8ubAg0MXd8XY5rR9/4o5vYT0DjpR15i2gB+L34Zzrzsd0KdpibGGRkQDWMx+OMxjPa89QJ2TZzh6zRDHl3/cExpQEJ7bTpbYeFkHVuIq2unuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=dG8+nXoj; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1789058993; c=relaxed/simple;
+	bh=TWbRHTr8bnJ0vItmaZXiZF4h+NJvuh+2o4Ov6JnIEu4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=VV1yPsh57uxlG3pGuwqMo7I1CAPevKd6l81AuXdN0kE0dbWc3VayFIxVSuCuC8Rbg2dBcqF6Co0AIXWxTWFn/0PAYHi22Mc1XI3DCZjNk719U0Gf7Eu2Cc1bsF54aTwRdtqFvTCU07A/TkQ2Crwq/+shBvzTIMLMtR/AmiO2yP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eXCCleAc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="dG8+nXoj"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Subject:Date:From:From:Reply-To;
-	bh=54N1HLMogpGOh+fD9wT6RVMPM6GzrKR7V/ciKH8F8s0=; b=dG8+nXojxsResarmT8dzG4EQY3
-	GhrfAnhk2ZHxKU/Wc8x1NSHoXSqS2Ym/EuDzzMq1Hk5DB5Eg0s8GJySsQR1zvkTc7d9AFE4cNIQU0
-	oERaBgHYTjCbR9ZPt6rX7P67+q25s96FZPp4PZSuOfnZs4wdUgfmXijoZ1TkWGC5QDSwoTRuxs0H4
-	urYyAI5OAKpLUSiClLrteXu7xz2sGZdM15BnX0iEijEDdWitVC8xO5sqll3AuiT3NjRL/l8cTrjyR
-	qcHyY+jY2qhHYu1pbua22dL7hfBCjEA2dyiEjRdseXzeSXBx/ge0TSANZ8sg2tT0Jzx65SXc9dxLN
-	Gl9m2Atg==;
-Received: from [177.172.123.122] (helo=[192.168.15.100])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1x4hxw-000GV1-Mv; Thu, 10 Sep 2026 18:49:36 +0200
-From: =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-Date: Thu, 10 Sep 2026 13:49:23 -0300
-Subject: [PATCH v6 1/6] treewide: Get rid of get_task_comm()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eXCCleAc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBADF1F00893;
+	Thu, 10 Sep 2026 16:49:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789058989;
+	bh=R4DSYFENVX7lENkubv0a3SQEae19adBd9+egcTMS/Mg=;
+	h=From:To:Cc:Subject:Date;
+	b=eXCCleAcjY8IRRxVmjg33FIQmVRtLgcl26AMsvJ6Mh8rveBqPWdGr4N0Pfr04ktej
+	 NUpWUGnBhRi3kxcUz7dPJ38/6TSmshyik21PnV1Chbq2UXGHx6zJkRl+LndBEMXGq+
+	 QvinzW8HKg3b3MHARy4oiofdrMVAwEWwZTx1lvB3Ogty+diC+eH8sfYeLA9Zx0uNF4
+	 11QwxIheu85jw0g1goeg/jljIbe7g541+C17kbk13PeAX8J0ATbqRg4ppcGcSRY/7v
+	 Fwl+JNvsJO/h1W3GyaY80GK3PPrkh1mKCprGPPFbUrapSfF1of0UzmAT4jdbajwhwP
+	 k+e4AsTFADY9g==
+From: Jakub Kicinski <kuba@kernel.org>
+To: torvalds@linux-foundation.org
+Cc: kuba@kernel.org,
+	davem@davemloft.net,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	pabeni@redhat.com
+Subject: [GIT PULL] Networking for v7.3-rc3
+Date: Thu, 10 Sep 2026 09:49:48 -0700
+Message-ID: <20260910164948.2123565-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260910-tonyk-long_name-v6-1-d70afbf194c5@igalia.com>
-References: <20260910-tonyk-long_name-v6-0-d70afbf194c5@igalia.com>
-In-Reply-To: <20260910-tonyk-long_name-v6-0-d70afbf194c5@igalia.com>
-To: Peter Zijlstra <peterz@infradead.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Christian Brauner <brauner@kernel.org>, Kees Cook <kees@kernel.org>, 
- Shuah Khan <shuah@kernel.org>, willy@infradead.org, 
- mathieu.desnoyers@efficios.com, David Laight <david.laight.linux@gmail.com>, 
- Linus Torvalds <torvalds@linux-foundation.org>, akpm@linux-foundation.org, 
- Yafang Shao <laoar.shao@gmail.com>, andrii.nakryiko@gmail.com, 
- arnaldo.melo@gmail.com, Petr Mladek <pmladek@suse.com>
-Cc: linux-kernel@vger.kernel.org, kernel-dev@igalia.com, linux-mm@kvack.org, 
- linux-api@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
- =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
-X-Mailer: b4 0.15.2
 
-Since commit 4cc0473d7754 ("get rid of __get_task_comm()"),
-get_task_comm() does just a redundant check for the buffer size and call
-strscpy_pad(). Replace get_task_comm() calls with strscpy_pad(), that will
-do the right thing if the buffers sizes doesn't match: zero-pad if it's
-bigger, and truncate if it's smaller.
+Hi Linus!
 
-Link: https://lore.kernel.org/lkml/CAHk-=wi5c=_-FBGo_88CowJd_F-Gi6Ud9d=TALm65ReN7YjrMw@mail.gmail.com/
-Signed-off-by: André Almeida <andrealmeid@igalia.com>
----
-Changes from v1:
- - Fix for security/ipe/audit.c and net/netfilter/nf_tables_api.c
----
- drivers/connector/cn_proc.c                        |  2 +-
- drivers/dma-buf/sw_sync.c                          |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c   |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c    |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c       |  2 +-
- drivers/gpu/drm/lima/lima_ctx.c                    |  2 +-
- drivers/gpu/drm/panfrost/panfrost_gem.c            |  2 +-
- drivers/gpu/drm/panthor/panthor_gem.c              |  2 +-
- drivers/gpu/drm/panthor/panthor_sched.c            |  2 +-
- drivers/gpu/drm/virtio/virtgpu_ioctl.c             |  2 +-
- drivers/hwtracing/stm/core.c                       |  2 +-
- drivers/tty/tty_audit.c                            |  2 +-
- fs/binfmt_elf.c                                    |  2 +-
- fs/binfmt_elf_fdpic.c                              |  2 +-
- fs/proc/array.c                                    |  2 +-
- include/linux/sched.h                              | 19 -------------------
- kernel/audit.c                                     |  6 ++++--
- kernel/auditsc.c                                   |  6 ++++--
- kernel/printk/printk.c                             |  2 +-
- kernel/sys.c                                       |  2 +-
- net/bluetooth/hci_sock.c                           |  2 +-
- net/netfilter/nf_tables_api.c                      |  4 +++-
- security/integrity/integrity_audit.c               |  3 ++-
- security/ipe/audit.c                               |  3 ++-
- security/landlock/domain.c                         |  2 +-
- security/lsm_audit.c                               |  7 ++++---
- security/smack/smack_access.c                      |  4 ++--
- security/smack/smack_lsm.c                         |  4 +++-
- 31 files changed, 47 insertions(+), 55 deletions(-)
+The following changes since commit adf50c47a47f0f0f0b79dd58ffade9919cddebea:
 
-diff --git a/drivers/connector/cn_proc.c b/drivers/connector/cn_proc.c
-index 0056ab81fbc3..c78243ed3c2a 100644
---- a/drivers/connector/cn_proc.c
-+++ b/drivers/connector/cn_proc.c
-@@ -278,7 +278,7 @@ void proc_comm_connector(struct task_struct *task)
- 	ev->what = PROC_EVENT_COMM;
- 	ev->event_data.comm.process_pid  = task->pid;
- 	ev->event_data.comm.process_tgid = task->tgid;
--	get_task_comm(ev->event_data.comm.comm, task);
-+	strscpy_pad(ev->event_data.comm.comm, task->comm);
- 
- 	memcpy(&msg->id, &cn_proc_event_id, sizeof(msg->id));
- 	msg->ack = 0; /* not used */
-diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
-index 8df20b0218a9..d501657ad801 100644
---- a/drivers/dma-buf/sw_sync.c
-+++ b/drivers/dma-buf/sw_sync.c
-@@ -312,7 +312,7 @@ static int sw_sync_debugfs_open(struct inode *inode, struct file *file)
- 	struct sync_timeline *obj;
- 	char task_comm[TASK_COMM_LEN];
- 
--	get_task_comm(task_comm, current);
-+	strscpy_pad(task_comm, current->comm);
- 
- 	obj = sync_timeline_create(task_comm);
- 	if (!obj)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-index 9b10d015671c..2c92bb12c269 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-@@ -73,7 +73,7 @@ struct amdgpu_amdkfd_fence *amdgpu_amdkfd_fence_create(u64 context,
- 	/* This reference gets released in amdkfd_fence_release */
- 	mmgrab(mm);
- 	fence->mm = mm;
--	get_task_comm(fence->timeline_name, current);
-+	strscpy_pad(fence->timeline_name, current->comm);
- 	spin_lock_init(&fence->lock);
- 	fence->context_id = context_id;
- 	dma_fence_init(&fence->base, &amdkfd_fence_ops, &fence->lock,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-index f6b7522c3c82..046243e3a3cd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-@@ -128,7 +128,7 @@ int amdgpu_evf_mgr_rearm(struct amdgpu_eviction_fence_mgr *evf_mgr,
- 		return -ENOMEM;
- 
- 	ev_fence->evf_mgr = evf_mgr;
--	get_task_comm(ev_fence->timeline_name, current);
-+	strscpy_pad(ev_fence->timeline_name, current->comm);
- 	spin_lock_init(&ev_fence->lock);
- 	dma_fence_init64(&ev_fence->base, &amdgpu_eviction_fence_ops,
- 			 &ev_fence->lock, evf_mgr->ev_fence_ctx,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 35eb87591740..6f140025a5f3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -3687,7 +3687,7 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
- 	}
- 
- 	con->init_task_pid = task_pid_nr(current);
--	get_task_comm(con->init_task_comm, current);
-+	strscpy_pad(con->init_task_comm, current->comm);
- 
- 	mutex_init(&con->critical_region_lock);
- 	INIT_LIST_HEAD(&con->critical_region_head);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-index 743b41db5b7c..12cae9bb6eed 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-@@ -85,7 +85,7 @@ int amdgpu_userq_fence_driver_alloc(struct amdgpu_device *adev,
- 
- 	fence_drv->adev = adev;
- 	fence_drv->context = dma_fence_context_alloc(1);
--	get_task_comm(fence_drv->timeline_name, current);
-+	strscpy_pad(fence_drv->timeline_name, current->comm);
- 
- 	*fence_drv_req = fence_drv;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index bb04101b0fb5..bedb5fdf285d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2573,10 +2573,10 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)
- 		return;
- 
- 	vm->task_info->task.pid = current->pid;
--	get_task_comm(vm->task_info->task.comm, current);
-+	strscpy_pad(vm->task_info->task.comm, current->comm);
- 
- 	vm->task_info->tgid = current->tgid;
--	get_task_comm(vm->task_info->process_name, current->group_leader);
-+	strscpy_pad(vm->task_info->process_name, current->group_leader->comm);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-index 249f07f30951..d6f32bc44aef 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-@@ -565,7 +565,7 @@ static int amdgpu_vram_mgr_new(struct ttm_resource_manager *man,
- 	}
- 
- 	vres->task.pid = task_pid_nr(current);
--	get_task_comm(vres->task.comm, current);
-+	strscpy_pad(vres->task.comm, current->comm);
- 	list_add_tail(&vres->vres_node, &mgr->allocated_vres_list);
- 
- 	if (bo->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS && adjust_dcc_size) {
-diff --git a/drivers/gpu/drm/lima/lima_ctx.c b/drivers/gpu/drm/lima/lima_ctx.c
-index 68ede7a725e2..e8c5c3601bf1 100644
---- a/drivers/gpu/drm/lima/lima_ctx.c
-+++ b/drivers/gpu/drm/lima/lima_ctx.c
-@@ -29,7 +29,7 @@ int lima_ctx_create(struct lima_device *dev, struct lima_ctx_mgr *mgr, u32 *id)
- 		goto err_out0;
- 
- 	ctx->pid = task_pid_nr(current);
--	get_task_comm(ctx->pname, current);
-+	strscpy_pad(ctx->pname, current->comm);
- 
- 	return 0;
- 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
-index 3a7fce428898..11936c4d3573 100644
---- a/drivers/gpu/drm/panfrost/panfrost_gem.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
-@@ -36,7 +36,7 @@ static void panfrost_gem_debugfs_bo_add(struct panfrost_device *pfdev,
- 					struct panfrost_gem_object *bo)
- {
- 	bo->debugfs.creator.tgid = current->tgid;
--	get_task_comm(bo->debugfs.creator.process_name, current->group_leader);
-+	strscpy_pad(bo->debugfs.creator.process_name, current->group_leader->comm);
- 
- 	mutex_lock(&pfdev->debugfs.gems_lock);
- 	list_add_tail(&bo->debugfs.node, &pfdev->debugfs.gems_list);
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-index 72908be5e144..3dfcd4b77f81 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.c
-+++ b/drivers/gpu/drm/panthor/panthor_gem.c
-@@ -54,7 +54,7 @@ static void panthor_gem_debugfs_bo_add(struct panthor_gem_object *bo)
- 						    struct panthor_device, base);
- 
- 	bo->debugfs.creator.tgid = current->tgid;
--	get_task_comm(bo->debugfs.creator.process_name, current->group_leader);
-+	strscpy_pad(bo->debugfs.creator.process_name, current->group_leader->comm);
- 
- 	mutex_lock(&ptdev->gems.lock);
- 	list_add_tail(&bo->debugfs.node, &ptdev->gems.node);
-diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-index 5778e23e20a0..1702b12ee395 100644
---- a/drivers/gpu/drm/panthor/panthor_sched.c
-+++ b/drivers/gpu/drm/panthor/panthor_sched.c
-@@ -3617,7 +3617,7 @@ static void group_init_task_info(struct panthor_group *group)
- 	struct task_struct *task = current->group_leader;
- 
- 	group->task_info.pid = task->pid;
--	get_task_comm(group->task_info.comm, task);
-+	strscpy_pad(group->task_info.comm, task->comm);
- }
- 
- static void add_group_kbo_sizes(struct panthor_device *ptdev,
-diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-index 3d8e4ccdb7c1..b10a0e1cb1ed 100644
---- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-@@ -50,7 +50,7 @@ static void virtio_gpu_create_context_locked(struct virtio_gpu_device *vgdev,
- 	} else {
- 		char dbgname[TASK_COMM_LEN];
- 
--		get_task_comm(dbgname, current);
-+		strscpy_pad(dbgname, current->comm);
- 		virtio_gpu_cmd_context_create(vgdev, vfpriv->ctx_id,
- 					      vfpriv->context_init, strlen(dbgname),
- 					      dbgname);
-diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
-index f48c6a8a0654..c7715439964e 100644
---- a/drivers/hwtracing/stm/core.c
-+++ b/drivers/hwtracing/stm/core.c
-@@ -634,7 +634,7 @@ static ssize_t stm_char_write(struct file *file, const char __user *buf,
- 		char comm[sizeof(current->comm)];
- 		char *ids[] = { comm, "default", NULL };
- 
--		get_task_comm(comm, current);
-+		strscpy_pad(comm, current->comm);
- 
- 		err = stm_assign_first_policy(stmf->stm, &stmf->output, ids, 1);
- 		/*
-diff --git a/drivers/tty/tty_audit.c b/drivers/tty/tty_audit.c
-index d014af6ab060..d514a81d0a5c 100644
---- a/drivers/tty/tty_audit.c
-+++ b/drivers/tty/tty_audit.c
-@@ -77,7 +77,7 @@ static void tty_audit_log(const char *description, dev_t dev,
- 	audit_log_format(ab, "%s pid=%u uid=%u auid=%u ses=%u major=%d minor=%d comm=",
- 			 description, pid, uid, loginuid, sessionid,
- 			 MAJOR(dev), MINOR(dev));
--	get_task_comm(name, current);
-+	strscpy_pad(name, current->comm);
- 	audit_log_untrustedstring(ab, name);
- 	audit_log_format(ab, " data=");
- 	audit_log_n_hex(ab, data, size);
-diff --git a/fs/binfmt_elf.c b/fs/binfmt_elf.c
-index 06d0df105382..a47d393a10b5 100644
---- a/fs/binfmt_elf.c
-+++ b/fs/binfmt_elf.c
-@@ -1554,7 +1554,7 @@ static int fill_psinfo(struct elf_prpsinfo *psinfo, struct task_struct *p,
- 	SET_UID(psinfo->pr_uid, from_kuid_munged(cred->user_ns, cred->uid));
- 	SET_GID(psinfo->pr_gid, from_kgid_munged(cred->user_ns, cred->gid));
- 	rcu_read_unlock();
--	get_task_comm(psinfo->pr_fname, p);
-+	strscpy_pad(psinfo->pr_fname, p->comm);
- 
- 	return 0;
- }
-diff --git a/fs/binfmt_elf_fdpic.c b/fs/binfmt_elf_fdpic.c
-index 068c46875c74..76333fa2f949 100644
---- a/fs/binfmt_elf_fdpic.c
-+++ b/fs/binfmt_elf_fdpic.c
-@@ -1376,7 +1376,7 @@ static int fill_psinfo(struct elf_prpsinfo *psinfo, struct task_struct *p,
- 	SET_UID(psinfo->pr_uid, from_kuid_munged(cred->user_ns, cred->uid));
- 	SET_GID(psinfo->pr_gid, from_kgid_munged(cred->user_ns, cred->gid));
- 	rcu_read_unlock();
--	get_task_comm(psinfo->pr_fname, p);
-+	strscpy_pad(psinfo->pr_fname, p->comm);
- 
- 	return 0;
- }
-diff --git a/fs/proc/array.c b/fs/proc/array.c
-index f6f75d206762..8ebb7cf1a7b0 100644
---- a/fs/proc/array.c
-+++ b/fs/proc/array.c
-@@ -110,7 +110,7 @@ void proc_task_name(struct seq_file *m, struct task_struct *p, bool escape)
- 	else if (p->flags & PF_KTHREAD)
- 		get_kthread_comm(tcomm, sizeof(tcomm), p);
- 	else
--		get_task_comm(tcomm, p);
-+		strscpy_pad(tcomm, p->comm);
- 
- 	if (escape)
- 		seq_escape_str(m, tcomm, ESCAPE_SPACE | ESCAPE_SPECIAL, "\n\\");
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 705970d07614..d7d3bbb205c9 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -2036,25 +2036,6 @@ extern void __set_task_comm(struct task_struct *tsk, const char *from, bool exec
- 	__set_task_comm(tsk, from, false);		\
- })
- 
--/*
-- * - Why not use task_lock()?
-- *   User space can randomly change their names anyway, so locking for readers
-- *   doesn't make sense. For writers, locking is probably necessary, as a race
-- *   condition could lead to long-term mixed results.
-- *   The strscpy_pad() in __set_task_comm() can ensure that the task comm is
-- *   always NUL-terminated and zero-padded. Therefore the race condition between
-- *   reader and writer is not an issue.
-- *
-- * - BUILD_BUG_ON() can help prevent the buf from being truncated.
-- *   Since the callers don't perform any return value checks, this safeguard is
-- *   necessary.
-- */
--#define get_task_comm(buf, tsk) ({			\
--	BUILD_BUG_ON(sizeof(buf) < TASK_COMM_LEN);	\
--	strscpy_pad(buf, (tsk)->comm);			\
--	buf;						\
--})
--
- static __always_inline void scheduler_ipi(void)
- {
- 	/*
-diff --git a/kernel/audit.c b/kernel/audit.c
-index 9412af9144bc..75bcc0d43c55 100644
---- a/kernel/audit.c
-+++ b/kernel/audit.c
-@@ -1667,7 +1667,8 @@ static void audit_log_multicast(int group, const char *op, int err)
- 	audit_put_tty(tty);
- 	audit_log_task_context(ab); /* subj= */
- 	audit_log_format(ab, " comm=");
--	audit_log_untrustedstring(ab, get_task_comm(comm, current));
-+	strscpy_pad(comm, current->comm);
-+	audit_log_untrustedstring(ab, comm);
- 	audit_log_d_path_exe(ab, current->mm); /* exe= */
- 	audit_log_format(ab, " nl-mcgrp=%d op=%s res=%d", group, op, !err);
- 	audit_log_end(ab);
-@@ -2483,7 +2484,8 @@ void audit_log_task_info(struct audit_buffer *ab)
- 			 audit_get_sessionid(current));
- 	audit_put_tty(tty);
- 	audit_log_format(ab, " comm=");
--	audit_log_untrustedstring(ab, get_task_comm(comm, current));
-+	strscpy_pad(comm, current->comm);
-+	audit_log_untrustedstring(ab, comm);
- 	audit_log_d_path_exe(ab, current->mm);
- 	audit_log_task_context(ab);
- }
-diff --git a/kernel/auditsc.c b/kernel/auditsc.c
-index 2b9ce0b52511..79e2aae80685 100644
---- a/kernel/auditsc.c
-+++ b/kernel/auditsc.c
-@@ -2878,7 +2878,8 @@ void __audit_log_nfcfg(const char *name, u8 af, unsigned int nentries,
- 	audit_log_format(ab, " pid=%u", task_tgid_nr(current));
- 	audit_log_task_context(ab); /* subj= */
- 	audit_log_format(ab, " comm=");
--	audit_log_untrustedstring(ab, get_task_comm(comm, current));
-+	strscpy_pad(comm, current->comm);
-+	audit_log_untrustedstring(ab, comm);
- 	audit_log_end(ab);
- }
- EXPORT_SYMBOL_GPL(__audit_log_nfcfg);
-@@ -2901,7 +2902,8 @@ static void audit_log_task(struct audit_buffer *ab)
- 			 sessionid);
- 	audit_log_task_context(ab);
- 	audit_log_format(ab, " pid=%d comm=", task_tgid_nr(current));
--	audit_log_untrustedstring(ab, get_task_comm(comm, current));
-+	strscpy_pad(comm, current->comm);
-+	audit_log_untrustedstring(ab, comm);
- 	audit_log_d_path_exe(ab, current->mm);
- }
- 
-diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
-index 6d3d18a50da7..7e94704d9a2b 100644
---- a/kernel/printk/printk.c
-+++ b/kernel/printk/printk.c
-@@ -2247,7 +2247,7 @@ static u16 printk_sprint(char *text, u16 size, int facility,
- static void printk_store_execution_ctx(struct printk_info *info)
- {
- 	info->caller_id2 = printk_caller_id2();
--	get_task_comm(info->comm, current);
-+	strscpy_pad(info->comm, current->comm);
- }
- 
- static void pmsg_load_execution_ctx(struct printk_message *pmsg,
-diff --git a/kernel/sys.c b/kernel/sys.c
-index 35b538ba843c..97df708c11a0 100644
---- a/kernel/sys.c
-+++ b/kernel/sys.c
-@@ -2609,7 +2609,7 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
- 		proc_comm_connector(me);
- 		break;
- 	case PR_GET_NAME:
--		get_task_comm(comm, me);
-+		strscpy_pad(comm, me->comm);
- 		if (copy_to_user((char __user *)arg2, comm, sizeof(comm)))
- 			return -EFAULT;
- 		break;
-diff --git a/net/bluetooth/hci_sock.c b/net/bluetooth/hci_sock.c
-index 070ca388f9ac..4e66cb2d9549 100644
---- a/net/bluetooth/hci_sock.c
-+++ b/net/bluetooth/hci_sock.c
-@@ -104,7 +104,7 @@ static bool hci_sock_gen_cookie(struct sock *sk)
- 			id = 0xffffffff;
- 
- 		hci_pi(sk)->cookie = id;
--		get_task_comm(hci_pi(sk)->comm, current);
-+		strscpy_pad(hci_pi(sk)->comm, current->comm);
- 		return true;
- 	}
- 
-diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
-index 31fbd5a28937..97e79fda9eaf 100644
---- a/net/netfilter/nf_tables_api.c
-+++ b/net/netfilter/nf_tables_api.c
-@@ -9735,9 +9735,11 @@ static int nf_tables_fill_gen_info(struct sk_buff *skb, struct net *net,
- 	if (!nlh)
- 		goto nla_put_failure;
- 
-+	strscpy_pad(buf, current->comm);
-+
- 	if (nla_put_be32(skb, NFTA_GEN_ID, htonl(nft_base_seq(net))) ||
- 	    nla_put_be32(skb, NFTA_GEN_PROC_PID, htonl(task_pid_nr(current))) ||
--	    nla_put_string(skb, NFTA_GEN_PROC_NAME, get_task_comm(buf, current)))
-+	    nla_put_string(skb, NFTA_GEN_PROC_NAME, buf))
- 		goto nla_put_failure;
- 
- 	nlmsg_end(skb, nlh);
-diff --git a/security/integrity/integrity_audit.c b/security/integrity/integrity_audit.c
-index d8d9e5ff1cd2..98060060929d 100644
---- a/security/integrity/integrity_audit.c
-+++ b/security/integrity/integrity_audit.c
-@@ -54,7 +54,8 @@ void integrity_audit_message(int audit_msgno, struct inode *inode,
- 			 audit_get_sessionid(current));
- 	audit_log_task_context(ab);
- 	audit_log_format(ab, " op=%s cause=%s comm=", op, cause);
--	audit_log_untrustedstring(ab, get_task_comm(name, current));
-+	strscpy_pad(name, current->comm);
-+	audit_log_untrustedstring(ab, name);
- 	if (fname) {
- 		audit_log_format(ab, " name=");
- 		audit_log_untrustedstring(ab, fname);
-diff --git a/security/ipe/audit.c b/security/ipe/audit.c
-index 93fb59fbddd6..90a6acfb7cdf 100644
---- a/security/ipe/audit.c
-+++ b/security/ipe/audit.c
-@@ -145,7 +145,8 @@ void ipe_audit_match(const struct ipe_eval_ctx *const ctx,
- 	audit_log_format(ab, "ipe_op=%s ipe_hook=%s enforcing=%d pid=%d comm=",
- 			 op, audit_hook_names[ctx->hook], READ_ONCE(enforce),
- 			 task_tgid_nr(current));
--	audit_log_untrustedstring(ab, get_task_comm(comm, current));
-+	strscpy_pad(comm, current->comm);
-+	audit_log_untrustedstring(ab, comm);
- 
- 	if (ctx->file) {
- 		audit_log_d_path(ab, " path=", &ctx->file->f_path);
-diff --git a/security/landlock/domain.c b/security/landlock/domain.c
-index 4031b581be07..e259a5d6a9c6 100644
---- a/security/landlock/domain.c
-+++ b/security/landlock/domain.c
-@@ -563,7 +563,7 @@ static struct landlock_details *get_current_details(void)
- 	memcpy(details->exe_path, path_str, path_size);
- 	details->pid = get_pid(task_tgid(current));
- 	details->uid = from_kuid(&init_user_ns, current_uid());
--	get_task_comm(details->comm, current);
-+	strscpy_pad(details->comm, current->comm);
- 	return details;
- }
- 
-diff --git a/security/lsm_audit.c b/security/lsm_audit.c
-index 737f5a263a8f..a587ffecd985 100644
---- a/security/lsm_audit.c
-+++ b/security/lsm_audit.c
-@@ -276,8 +276,8 @@ void audit_log_lsm_data(struct audit_buffer *ab,
- 			if (pid) {
- 				char tskcomm[sizeof(tsk->comm)];
- 				audit_log_format(ab, " opid=%d ocomm=", pid);
--				audit_log_untrustedstring(ab,
--				    get_task_comm(tskcomm, tsk));
-+				strscpy_pad(tskcomm, tsk->comm);
-+				audit_log_untrustedstring(ab, tskcomm);
- 			}
- 		}
- 		break;
-@@ -417,7 +417,8 @@ static void dump_common_audit_data(struct audit_buffer *ab,
- 	char comm[sizeof(current->comm)];
- 
- 	audit_log_format(ab, " pid=%d comm=", task_tgid_nr(current));
--	audit_log_untrustedstring(ab, get_task_comm(comm, current));
-+	strscpy_pad(comm, current->comm);
-+	audit_log_untrustedstring(ab, comm);
- 	audit_log_lsm_data(ab, a);
- }
- 
-diff --git a/security/smack/smack_access.c b/security/smack/smack_access.c
-index fb85356266e5..0e7b2edcc3d6 100644
---- a/security/smack/smack_access.c
-+++ b/security/smack/smack_access.c
-@@ -335,10 +335,10 @@ static void smack_log_callback(struct audit_buffer *ab, void *a)
- 	if (sad->subj_tsk) {
- 		char comm[TASK_COMM_LEN];
- 
-+		strscpy_pad(comm, sad->subj_tsk->comm);
- 		audit_log_format(ab, " subj_pid=%d subj_comm=",
- 			task_tgid_nr(sad->subj_tsk));
--		audit_log_untrustedstring(ab,
--			get_task_comm(comm, sad->subj_tsk));
-+		audit_log_untrustedstring(ab, comm);
- 	}
- }
- 
-diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
-index 8e88ac65fd7f..0e1aa2bb4a7c 100644
---- a/security/smack/smack_lsm.c
-+++ b/security/smack/smack_lsm.c
-@@ -138,6 +138,8 @@ smk_bu_tsk_to_obj(struct task_struct *tsk, const struct task_smack *tsp,
- 	char acc[SMK_NUM_ACCESS_TYPE + 1];
- 	char comm[TASK_COMM_LEN];
- 
-+	strscpy_pad(comm, tsk);
-+
- 	if (rc <= 0)
- 		return rc;
- 	if (rc > SMACK_UNCONFINED_OBJECT)
-@@ -147,7 +149,7 @@ smk_bu_tsk_to_obj(struct task_struct *tsk, const struct task_smack *tsp,
- 
- 	pr_info("Smack %s: (%s %s %s) %s %s\n", smk_bu_mess[rc],
- 		smk_of_task(tsp)->smk_known, oskp->smk_known,
--		acc, get_task_comm(comm, tsk), note);
-+		acc, comm, note);
- 	return 0;
- #else
- 	return rc;
+  Merge tag 'net-7.3-rc2' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net (2026-09-03 10:18:12 -0700)
 
--- 
-2.55.0
+are available in the Git repository at:
 
+  git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git tags/net-7.3-rc3
+
+for you to fetch changes up to 5096947508b750bd4a65a8e61bd2083a44d61bfd:
+
+  Merge branch 'net-sched-fix-action-batch-failure-cleanup' (2026-09-10 09:06:08 -0700)
+
+----------------------------------------------------------------
+Nothing too exciting, usual stream of fixes.
+Including fixes from Netfilter, Bluetooth and WPAN.
+
+Current release - new code bugs:
+
+ - Bluetooth: hci_sync: fix not setting CE length properly
+
+ - eth: enic: match mailbox replies to request numbers
+
+Previous releases - regressions:
+
+ - tunnels: drop stale dst when building an ICMP error for PMTUD
+
+ - ipv6: null-check fib6_node before accessing in __ip6_del_rt_siblings()
+   (bug in the rtnl_lock -> RCU conversion)
+
+ - eth: bnxt_en: fix crashes on Thor2 due to OOB coalescing buffer accesses
+
+ - eth: bnxt_en: prevent queue stop with deferred completions
+
+Previous releases - always broken:
+
+ - eth: ice: don't dereference pointers from TP_printk()
+
+ - eth: fix OOB writes on ethtool flow rule dump in 3 drivers
+
+ - eth: mlx5: fix FEC configuration with RS_544_514_INTERLEAVED_QUAD
+
+ - dsa: tag_brcm: legacy FCS: request needed tailroom
+
+Misc:
+
+ - net: cap tx_queue_len at S16_MAX to prevent oversized ring alloc
+
+ - ipv6: flowlabel: cap duplicate leases per socket
+
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+
+----------------------------------------------------------------
+Aamir Ahmed (1):
+      net: hinic: fix mailbox segment buffer overflow
+
+Akiva Goldberger (1):
+      net/mlx5: LAG, use local tracker to update active ports
+
+Aleksei Sviridkin (5):
+      net: macb: zero the link settings taprio reads back
+      net: macb: reject an unknown link speed in the taprio setup
+      net: phylink: initialise link_state before a forced major config
+      net: dsa: mt7530: populate lpi_interfaces to fix EEE support
+      net: ethernet: mtk_eth_soc: populate lpi_interfaces to fix EEE support
+
+Alexandra Winter (2):
+      dibs: Unregister dibs_class after error
+      s390/ism: folio_put() after error
+
+Alice Mikityanska (4):
+      net: ipv4: Fix UDP length overflow with PMTU discover and big MTU
+      net: ipv6: Fix UDP length overflow with PMTU discover and big MTU
+      selftests: net: Test UDP length overflow with PMTU discover and big MTU
+      net: ipv6: Clamp to IP6_MAX_MTU in ip6_dst_mtu_maybe_forward
+
+Carolina Jubran (4):
+      net/mlx5e: Fix ETS zero BW reporting when one TC holds 100%
+      net/mlx5e: Fix use-after-free race in sample_restore_put()
+      net/mlx5e: Keep HW timestamp stats monotonic across reconfiguration
+      net/mlx5e: Move representor vnic reporter to eswitch devlink port
+
+Chengfeng Ye (2):
+      netfilter: cttimeout: prevent UAF during module unload
+      netfilter: nf_log: unregister loggers before per-net teardown
+
+Chenguang Zhao (1):
+      net: 6lowpan: fix mismatched comments
+
+David Carlier (1):
+      ieee802154: hwsim: serialize pib updates to fix double-free
+
+Donggeun Yoo (2):
+      net: phy: dp83867: handle the active-high LED polarity mode
+      net: phy: dp83td510: handle the active-high LED polarity mode
+
+Eelco Chaudron (1):
+      openvswitch: fix wrong flag value in get_ipv6_ext_hdrs()
+
+Eric Dumazet (2):
+      bonding: use skb_cow_head() in bond_do_alb_xmit() and rlb_arp_xmit()
+      vxlan: initialize _md in vxlan_xmit_one()
+
+Faicker Mo (1):
+      net: net_failover: Fix the deadlock in net_failover_slave_name_change()
+
+Fan Wu (1):
+      ieee802154: cc2520: fix FIFOP work use-after-free
+
+Florian Westphal (3):
+      netfilter: nfnetlink_log: cope with concurrent instance destruction
+      netfilter: arp_tables: remove the 32bit compat interface
+      netfilter: ip6_tables: set F_PROTO when proto value is nonzero
+
+Fourie Zhang (1):
+      net: mpls: clear inner_protocol when the last label is popped
+
+Gang Yan (1):
+      selftests: mptcp: fix an UAF in mptcp_connect.c
+
+Greg Marsden (1):
+      net/rds: fix tcp stream corruption with large pages
+
+Ibrahim Hashimov (1):
+      mac802154: fix use-after-free of sdata via queued RX frames
+
+Ido Schimmel (2):
+      tunnels: Drop stale dst when building an ICMP error for PMTUD
+      nexthop: Initialize extack in remove_nh_grp_entry()
+
+Ilya Maximets (1):
+      netfilter: report NLM_F_DUMP_FILTERED when all is filtered out
+
+Ivan Hu (1):
+      Bluetooth: btmtk: Declare MT7920 (MT7961 1a) Bluetooth firmware
+
+Jacob Keller (1):
+      ice: add missing xa_destroy for sched_node_ids
+
+Jakub Kicinski (22):
+      Merge branch 'net-bcmasp-fix-tx-ring-accounting-bugs'
+      Merge branch 'enic-fix-v2-vf-mailbox-reply-matching-and-carrier-reopen'
+      Merge tag 'ieee802154-for-net-2026-09-03' of git://git.kernel.org/pub/scm/linux/kernel/git/wpan/wpan
+      net: dsa: bcm_sf2: bound the CFP rule dump by the caller's buffer size
+      eth: nfp: bound the ntuple rule dump by the caller's buffer size
+      eth: nfp: drop the replaced rule from the list when reprogramming fails
+      net: dsa: mv88e6xxx: bound the policy rule dump by the caller's buffer size
+      ethtool: document that GRXCLSRLALL rule_cnt is a caller-provided limit
+      Merge branch 'eth-fix-bugs-in-ntuple-filter-reporting'
+      Merge branch 'net-cap-tx_queue_len-at-s16_max-to-prevent-oversized-ring-allocations'
+      Merge branch 'pds_core-fixes-for-the-pci-reset-path'
+      Merge branch 'net-mlx5e-rs-fec-variant-fixes'
+      Merge branch 'net-sched-clamp-quantum-psched_mtu-in-change-paths'
+      Merge branch 'af_unix-minor-fixes-for-msg_oob-and-msg_peek'
+      Merge branch 'fix-udp-length-overflow-in-edge-cases'
+      eth: ice: don't dereference pointers from TP_printk()
+      Merge tag 'nf-26-09-07' of git://git.kernel.org/pub/scm/linux/kernel/git/netfilter/nf
+      Merge branch 'net-macb-fix-two-probe-path-leaks'
+      Merge tag 'for-net-2026-09-08' of git://git.kernel.org/pub/scm/linux/kernel/git/bluetooth/bluetooth
+      Merge branch 'mptcp-misc-fixes-for-v7-3-rc1'
+      Merge branch '200GbE' of git://git.kernel.org/pub/scm/linux/kernel/git/tnguy/net-queue
+      Merge branch 'net-sched-fix-action-batch-failure-cleanup'
+
+Jamal Hadi Salim (12):
+      net: cap tx_queue_len at S16_MAX to prevent oversized ring allocations
+      net: reject oversized tx_queue_len at netlink parse time
+      selftests: tc-testing: add tx_queue_len cap regression tests
+      net/sched: fq: clamp quantum and initial_quantum in change path
+      net/sched: fq_pie: clamp quantum in change path
+      net/sched: sfq: clamp quantum in change path
+      net/sched: hhf: clamp quantum in change and init paths
+      net/sched: dualpi2: clamp psched_mtu at all call sites
+      net/sched: pie: clamp psched_mtu in pie_drop_early
+      net/sched: drr: clamp quantum in change class
+      net/sched: ets: clamp quantum in parse and fallback paths
+      selftests: tc-testing: update ETS test 41f5 for clamped quanta
+
+Jan Havran (Advantech Czech) (1):
+      net: dsa: lantiq_gswip: fix GSWIP_MDIO_PHY_FCONTX_EN value
+
+Jason Winter (1):
+      net: usb: cx82310_eth: drop URB after 0xffff reboot sentinel to prevent partial_data heap overflow
+
+Jiajia Liu (2):
+      Bluetooth: btusb: mediatek: Fix leaked runtime PM reference in reset
+      Bluetooth: btusb: Fix leaked runtime PM reference in btusb_reset
+
+Joas Antonio dos Santos (1):
+      netfilter: nf_conntrack_sip: fix OOB read in sip_skip_whitespace()
+
+Joe Damato (7):
+      bnxt_en: Prevent queue stop with deferred completions
+      bnxt_en: Only restore LRO if the device supports TPA
+      bnxt_en: Don't free the live ring's TPA state on queue restart failure
+      bnxt_en: Propagate TPA buffer allocation failures in bnxt_queue_mem_alloc()
+      bnxt_en: Handle buffer allocation failure in bnxt_rx_ring_reset()
+      bnxt_en: Propagate RX ring init failures in bnxt_init_nic()
+      bnxt_en: Bound SW TPA IDs to prevent crashes
+
+Johan Hovold (1):
+      net: hso: fix TIOCMIWAIT race
+
+Joshua Hay (1):
+      idpf: account for VLAN header when parsing RSC packet header
+
+Justin Chen (2):
+      net: bcmasp: clear txcb->last before writing each descriptor
+      net: bcmasp: fix tx_spb_ring_full() checking same slot cnt times
+
+Kalpan Jani (1):
+      mptcp: pm: kernel: drop pending ADD_ADDR when removing ID0
+
+Karl Mehltretter (1):
+      MAINTAINERS: Update the so_txtime selftest path in SOCKET TIMESTAMPING
+
+Kiran K (2):
+      Bluetooth: btintel_pcie: validate packet_len before skb_put_data
+      Bluetooth: btintel_pcie: fix tx_handle bounds off-by-one
+
+Krystian Kaniewski (1):
+      Bluetooth: hci_sysfs: Fix NULL pointer dereference in device_del()
+
+Kuniyuki Iwashima (4):
+      af_unix: Update last skb marker in manage_oob().
+      af_unix: Return immediately when manage_oob() returns NULL for 0-length buffer.
+      selftest: af_unix: Add zero-buffer test for msg_oob.c
+      net/sched: cls_api: Don't replay RTM_GETCHAIN in tc_ctl_chain().
+
+Kyle Zeng (2):
+      ipvs: reject invalid states in connection template sync records
+      ipvs: fix reversed sequence option serialization
+
+Lama Kayal (1):
+      net/mlx5: E-Switch, prevent mc_list repopulation during vport disable
+
+Li Youhong (1):
+      net: sun4i-emac: fix missing of_node_put() for phy_node
+
+Linus Walleij (5):
+      net: ethernet: cortina: Fix budget accounting
+      net: ethernet: cortina: Finish RX updates before NAPI completion
+      net: ethernet: cortina: Count dropped frames as NAPI work
+      net: ethernet: cortina: Count RX drops once per frame
+      net: ethernet: cortina: Count RX descriptors for freeq refill
+
+Long Li (2):
+      net: mana: Clear RDMA teardown and suspend state in mana_rdma_probe()
+      net: mana: restore the XDP program pointer when pre-allocation fails
+
+Lorenzo Bianconi (3):
+      mailmap: add entries for Lorenzo Bianconi
+      net: stmmac: initialize ptp_lock at probe time
+      net: stmmac: fix TX descriptor availability check for TSO traffic
+
+Luiz Augusto von Dentz (2):
+      Bluetooth: btusb: Fix UAF of btusb_data by rx_work
+      Bluetooth: hci_sync: Fix not setting CE length properly
+
+MD Danish Anwar (1):
+      net: hsr: enable promiscuous mode on interlink port with fwd offload
+
+Marek Vasut (1):
+      net: ks8851: Fix receiver error in 100BASE-TX mode following software power-down
+
+Matthieu Baerts (NGI0) (7):
+      mptcp: subflow: no need to copy thmac during ulp_clone
+      mptcp: syncookies: remember the request backup flag
+      mptcp: options: handle MPC data + csum reqd + no csum
+      mptcp: pm: reset retrans_time when ADD_ADDR entry is reused
+      selftests: mptcp: lib: dump nstat for the right test
+      selftests: mptcp: lib: get counters for the right test
+      mptcp: options: fix uninit-value in mptcp_write_data_fin
+
+Myeonghun Pak (2):
+      idpf: disable DIM work before freeing q_vectors
+      idpf: disable PTM on probe failure and on remove
+
+Nagamani PV (1):
+      s390/qeth: allow bridgeport queries despite OS_MISMATCH
+
+Naman Gulati (1):
+      ipv6: null-check fib6_node before accessing in __ip6_del_rt_siblings()
+
+Nicolai Buchwitz (2):
+      net: macb: destroy the phylink instance on the probe error path
+      net: macb: put the "mdio" child node reference on success
+
+Nikhil P. Rao (3):
+      ionic: use netif_txq_maybe_stop() in ionic_tx()
+      pds_core: fix cmd_regs access racing BAR unmap on reset
+      pds_core: don't release PCI regions for VFs on reset
+
+Nikolay Aleksandrov (1):
+      net: bridge: mcast: properly convert mglist to rcu
+
+Norbert Szetei (1):
+      net: openvswitch: fix use-after-free of the flow table mask array
+
+Paolo Abeni (10):
+      Merge branch 'fix-a-variety-of-tpa-bugs'
+      Merge branch 'net-macb-fix-the-link-speed-the-taprio-setup-reads'
+      Merge branch 'net-ethernet-cortina-fix-rx-budget-accounting'
+      mptcp: do not reschedule the RTX timer for fallback sockets
+      mptcp: prevent race between disconnect() and rtx
+      mptcp: remove unneeded READ_ONCE() annotation
+      mptcp: being below memory limit is a likely() condition
+      mptcp: avoid pruning for OoW data
+      Merge branch 'net-sched-cls_route-fix-bucket-retention-and-handle-recomputation'
+      Merge branch 'net-restore-eee-on-mediatek-switches-and-soc-macs'
+
+Pavel Begunkov (1):
+      tcp: reject non zerocopy devmem tx
+
+Qing Luo (1):
+      mptcp: pm: userspace: fix address ID overflow
+
+Qingfang Deng (1):
+      ppp_synctty: ensure a writeable skb header
+
+Ratheesh Kannoth (2):
+      octeontx2-pf: reset HTB scheduler topology before freeing queues
+      octeontx2-af: fix PF/CGX debugfs PCI bus lookup
+
+Rong Zhang (2):
+      Bluetooth: Properly disable remote wakeup for MT7922/MT7925 on Ryzen platform
+      Bluetooth: btrtl: Don't leak return code when parsing firmware format v2
+
+Runyu Xiao (1):
+      net: macb: initialize PTP state before registering clock
+
+Sahil Chandna (1):
+      net: mana: Reserve extra CQ slot for the fence completion CQE
+
+Satish Kharat (2):
+      enic: preserve V2 VF carrier across netdev reopen
+      enic: match mailbox replies to request numbers
+
+Sebastian Sjoholm (1):
+      net: usb: qmi_wwan: add Quectel RG660QB
+
+Seungwon Bae (1):
+      vxlan: reject dynamic fdb entries that reference a nexthop id
+
+Shahar Shitrit (3):
+      net/mlx5e: Fix missing FEC mode mapping for RS_544_514_INTERLEAVED_QUAD
+      net/mlx5e: Fix setting RS FEC after remapping
+      net/mlx5e: Fix reporting support for all RS FEC variants
+
+Taylor Bates (1):
+      mlxsw: spectrum_ptp: Fix napi_gro_receive() call from GC workqueue context
+
+Victor Nogueira (4):
+      net/sched: cls_route: free emptied bucket on filter move
+      net/sched: cls_route: Reject handle aliasing
+      net/sched: cls_route: Fix in-place replace
+      selftests/tc-testing: Add cls_route bucket move and change tests
+
+Vineeth Karumanchi (1):
+      net: macb: fix NULL pointer dereference on unbind with fixed-link
+
+Viswajith Murali (1):
+      octeontx2-af: mcs: Clear stale X2P calibration state before calibration
+
+Vladislav Karmanov (1):
+      net: phy: mediatek-ge: disable EEE on the MT7530 PHY
+
+Vlatko Kosturjak (1):
+      ppp_async: drop the errored frame instead of resetting its headroom
+
+Weiming Shi (2):
+      net/sched: defer qdisc freeing after failed creation
+      net: dsa: tag_brcm: legacy FCS: request needed tailroom
+
+XingWang Xiang (2):
+      genetlink: pin family module during policy dump
+      net: mctp: i3c: serialize probe with bus removal
+
+Xu Rao (1):
+      Bluetooth: btqcomsmd: destroy RPMsg endpoints before freeing hci_dev
+
+Xuanqiang Luo (2):
+      net/sched: act_api: release all action references on NEWACTION failure
+      selftests: tc-testing: test action batch failure cleanup
+
+Yael Chemla (1):
+      net/mlx5: E-Switch: fix use-after-free in mlx5_eswitch_termtbl_put
+
+Yilin Zhang (1):
+      inet: frags: invalidate queues before flushing them
+
+Zhiling Zou (3):
+      ieee802154: 6lowpan: fix NULL dereference in lowpan_newlink
+      ipv6: flowlabel: cap duplicate leases per socket
+      net: bridge: use option bits for CFM/MRP frame handlers
+
+Zihan Xi (3):
+      ipv4: fib: bound automatic table ID allocation
+      ipv6: fix fib6 walker UAF on seq stop
+      ipmr: account multicast table and route memory
+
+ .mailmap                                           |   3 +
+ Documentation/netlink/specs/rt-link.yaml           |   2 +
+ MAINTAINERS                                        |   2 +-
+ drivers/bluetooth/btintel_pcie.c                   |   6 +-
+ drivers/bluetooth/btmtk.c                          |  11 +-
+ drivers/bluetooth/btmtk.h                          |   1 +
+ drivers/bluetooth/btqcomsmd.c                      |   6 +-
+ drivers/bluetooth/btrtl.c                          |   5 +-
+ drivers/bluetooth/btusb.c                          | 105 ++++-
+ drivers/dibs/dibs_main.c                           |  10 +-
+ drivers/net/bonding/bond_alb.c                     |  19 +-
+ drivers/net/dsa/bcm_sf2_cfp.c                      |   2 +
+ drivers/net/dsa/lantiq/lantiq_gswip.h              |   2 +-
+ drivers/net/dsa/mt7530.c                           |  16 +-
+ drivers/net/dsa/mv88e6xxx/chip.c                   |  16 +-
+ drivers/net/ethernet/allwinner/sun4i-emac.c        |   2 +
+ drivers/net/ethernet/amd/pds_core/fw.c             |  10 +-
+ drivers/net/ethernet/amd/pds_core/main.c           |  10 +-
+ drivers/net/ethernet/broadcom/asp2/bcmasp_intf.c   |   4 +-
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c          |  99 +++--
+ drivers/net/ethernet/broadcom/bnxt/bnxt.h          |   3 +-
+ drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c      |  21 +-
+ drivers/net/ethernet/broadcom/bnxt/bnxt_gso.h      |   6 +-
+ drivers/net/ethernet/cadence/macb_main.c           |  24 +-
+ drivers/net/ethernet/cadence/macb_ptp.c            |   5 +-
+ drivers/net/ethernet/cisco/enic/enic.h             |  26 +-
+ drivers/net/ethernet/cisco/enic/enic_main.c        |  25 +-
+ drivers/net/ethernet/cisco/enic/enic_mbox.c        | 321 ++++++++------
+ drivers/net/ethernet/cisco/enic/enic_mbox.h        |   2 +
+ drivers/net/ethernet/cortina/gemini.c              |  77 ++--
+ drivers/net/ethernet/huawei/hinic/hinic_hw_mbox.c  |   4 +-
+ drivers/net/ethernet/intel/ice/ice_common.c        |   9 +-
+ drivers/net/ethernet/intel/ice/ice_sched.c         |   4 +-
+ drivers/net/ethernet/intel/ice/ice_trace.h         |  64 ++-
+ drivers/net/ethernet/intel/ice/ice_type.h          |   2 +-
+ drivers/net/ethernet/intel/idpf/idpf_main.c        |   5 +
+ drivers/net/ethernet/intel/idpf/idpf_txrx.c        |  34 +-
+ drivers/net/ethernet/marvell/octeontx2/af/mcs.c    |  10 +
+ .../ethernet/marvell/octeontx2/af/rvu_debugfs.c    |  10 +-
+ drivers/net/ethernet/marvell/octeontx2/nic/qos.c   |  60 ++-
+ drivers/net/ethernet/mediatek/mtk_eth_soc.c        |  18 +-
+ drivers/net/ethernet/mediatek/mtk_eth_soc.h        |   4 +-
+ drivers/net/ethernet/mellanox/mlx5/core/en/port.c  |  15 +-
+ drivers/net/ethernet/mellanox/mlx5/core/en/port.h  |   4 +
+ .../net/ethernet/mellanox/mlx5/core/en/tc/sample.c |   7 +-
+ drivers/net/ethernet/mellanox/mlx5/core/en_dcbnl.c |   2 +-
+ .../net/ethernet/mellanox/mlx5/core/en_ethtool.c   |  13 +-
+ drivers/net/ethernet/mellanox/mlx5/core/en_rep.c   |  52 +--
+ drivers/net/ethernet/mellanox/mlx5/core/en_rep.h   |   1 -
+ drivers/net/ethernet/mellanox/mlx5/core/en_stats.c |  51 +--
+ .../ethernet/mellanox/mlx5/core/esw/devlink_port.c |  37 ++
+ drivers/net/ethernet/mellanox/mlx5/core/eswitch.c  |   8 +-
+ drivers/net/ethernet/mellanox/mlx5/core/eswitch.h  |   1 +
+ .../mellanox/mlx5/core/eswitch_offloads_termtbl.c  |   7 +-
+ drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c  |  19 +-
+ drivers/net/ethernet/mellanox/mlxsw/spectrum_ptp.c |  34 +-
+ drivers/net/ethernet/micrel/ks8851_common.c        |   8 +-
+ drivers/net/ethernet/microsoft/mana/mana_bpf.c     |   1 +
+ drivers/net/ethernet/microsoft/mana/mana_en.c      |  24 +-
+ .../net/ethernet/netronome/nfp/nfp_net_ethtool.c   |  19 +-
+ drivers/net/ethernet/pensando/ionic/ionic_txrx.c   |  13 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |  32 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_ptp.c   |   1 -
+ drivers/net/ieee802154/cc2520.c                    |   5 +-
+ drivers/net/ieee802154/mac802154_hwsim.c           |  10 +-
+ drivers/net/mctp/mctp-i3c.c                        |   9 +-
+ drivers/net/net_failover.c                         |   2 +-
+ drivers/net/phy/dp83867.c                          |   3 +
+ drivers/net/phy/dp83td510.c                        |   3 +
+ drivers/net/phy/mediatek/mtk-ge.c                  |  29 ++
+ drivers/net/phy/phylink.c                          |   2 +
+ drivers/net/ppp/ppp_async.c                        |   7 +-
+ drivers/net/ppp/ppp_synctty.c                      |  14 +-
+ drivers/net/usb/cx82310_eth.c                      |   1 +
+ drivers/net/usb/hso.c                              |   2 +-
+ drivers/net/usb/qmi_wwan.c                         |   1 +
+ drivers/net/vxlan/vxlan_core.c                     |  13 +-
+ drivers/s390/net/ism_drv.c                         |   4 +-
+ drivers/s390/net/qeth_l2.h                         |   3 +-
+ drivers/s390/net/qeth_l2_main.c                    |  26 +-
+ drivers/s390/net/qeth_l2_sys.c                     |   7 +-
+ include/linux/ethtool.h                            |   6 +
+ include/linux/netfilter_arp/arp_tables.h           |  19 -
+ include/net/cfg802154.h                            |   1 +
+ include/net/ip6_route.h                            |   2 +
+ include/net/sch_generic.h                          |   2 +-
+ net/6lowpan/nhc.h                                  |   3 +-
+ net/bluetooth/hci_sync.c                           |  38 +-
+ net/bluetooth/hci_sysfs.c                          |  17 +-
+ net/bridge/br_cfm.c                                |  11 +-
+ net/bridge/br_device.c                             |   1 -
+ net/bridge/br_input.c                              |  35 +-
+ net/bridge/br_mrp.c                                |  13 +-
+ net/bridge/br_multicast.c                          |   9 +-
+ net/bridge/br_private.h                            |  26 +-
+ net/core/dev.c                                     |   2 +-
+ net/core/rtnetlink.c                               |   7 +-
+ net/core/skbuff.c                                  |   7 +
+ net/dsa/tag_brcm.c                                 |   1 +
+ net/hsr/hsr_slave.c                                |  11 +-
+ net/ieee802154/6lowpan/core.c                      |   2 +-
+ net/ipv4/fib_rules.c                               |   4 +-
+ net/ipv4/inet_fragment.c                           |   6 +
+ net/ipv4/ip_output.c                               |   1 +
+ net/ipv4/ip_tunnel_core.c                          |   6 +
+ net/ipv4/ipmr.c                                    |   3 +-
+ net/ipv4/ipmr_base.c                               |   2 +-
+ net/ipv4/netfilter/arp_tables.c                    | 472 +--------------------
+ net/ipv4/nexthop.c                                 |   2 +-
+ net/ipv4/tcp.c                                     |   3 +-
+ net/ipv6/ip6_fib.c                                 |   4 +-
+ net/ipv6/ip6_flowlabel.c                           |  19 +
+ net/ipv6/ip6_output.c                              |   2 +
+ net/ipv6/ip6mr.c                                   |   2 +-
+ net/ipv6/netfilter/ip6_tables.c                    |   5 +
+ net/ipv6/route.c                                   |   9 +-
+ net/mac802154/ieee802154_i.h                       |   8 +
+ net/mac802154/iface.c                              |   6 +
+ net/mac802154/main.c                               |   1 +
+ net/mac802154/rx.c                                 | 120 +++++-
+ net/mac802154/scan.c                               |  10 +-
+ net/mptcp/options.c                                |   8 +-
+ net/mptcp/pm.c                                     |   2 +-
+ net/mptcp/pm_kernel.c                              |   8 +
+ net/mptcp/pm_userspace.c                           |  18 +-
+ net/mptcp/protocol.c                               |  41 +-
+ net/mptcp/protocol.h                               |   1 +
+ net/mptcp/subflow.c                                |   1 -
+ net/mptcp/syncookies.c                             |   5 +-
+ net/netfilter/Kconfig                              |   2 +-
+ net/netfilter/ipvs/ip_vs_sync.c                    |  20 +-
+ net/netfilter/nf_conntrack_netlink.c               |   2 +
+ net/netfilter/nf_conntrack_sip.c                   |   2 +-
+ net/netfilter/nf_log_syslog.c                      |   2 +-
+ net/netfilter/nfnetlink_cttimeout.c                |   2 +-
+ net/netfilter/nfnetlink_log.c                      |  15 +-
+ net/netlink/genetlink.c                            |  21 +-
+ net/openvswitch/flow.c                             |   4 +-
+ net/openvswitch/flow_table.c                       |   4 +-
+ net/rds/message.c                                  |   4 +-
+ net/sched/act_api.c                                |   9 +-
+ net/sched/cls_api.c                                |   2 +-
+ net/sched/cls_route.c                              |  76 ++--
+ net/sched/sch_api.c                                |   2 +-
+ net/sched/sch_drr.c                                |   3 +-
+ net/sched/sch_dualpi2.c                            |  10 +-
+ net/sched/sch_ets.c                                |  12 +-
+ net/sched/sch_fq.c                                 |  14 +-
+ net/sched/sch_fq_pie.c                             |   3 +-
+ net/sched/sch_generic.c                            |  24 +-
+ net/sched/sch_hhf.c                                |   8 +-
+ net/sched/sch_pie.c                                |   2 +-
+ net/sched/sch_sfq.c                                |   7 +-
+ net/unix/af_unix.c                                 |  12 +-
+ tools/testing/selftests/net/Makefile               |   1 +
+ tools/testing/selftests/net/af_unix/msg_oob.c      |  67 +++
+ tools/testing/selftests/net/cork_fragsize.py       | 187 ++++++++
+ tools/testing/selftests/net/fib_nexthops.sh        |  28 ++
+ tools/testing/selftests/net/mptcp/mptcp_connect.c  |   4 +-
+ tools/testing/selftests/net/mptcp/mptcp_lib.sh     |  26 +-
+ tools/testing/selftests/net/pmtu.sh                |   2 +-
+ .../tc-testing/tc-tests/actions/gact-rollback.json |  78 ++++
+ .../tc-testing/tc-tests/filters/route.json         | 210 +++++++++
+ .../selftests/tc-testing/tc-tests/qdiscs/ets.json  |   4 +-
+ .../tc-testing/tc-tests/qdiscs/pfifo_fast.json     | 204 +++++++++
+ 165 files changed, 2378 insertions(+), 1232 deletions(-)
+ create mode 100755 tools/testing/selftests/net/cork_fragsize.py
+ create mode 100644 tools/testing/selftests/tc-testing/tc-tests/actions/gact-rollback.json
