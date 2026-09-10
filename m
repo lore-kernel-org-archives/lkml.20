@@ -1,153 +1,101 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE533CF022
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:31:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC18D383305
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:33:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789021916; cv=none; b=FVNwtskl/oJm0wNNi90fK/ocYJjI0Rd/7blEY3V9Hhmf4VNHFmaVV1WKUiJN9Sy7BqQ1D2Ymdp+HDwji/iqozb/siDm5VUpjsFjFPKAfbErbrWJ0kxn58vgfVJLKOiPnan8rSfK9IwOJpWPzlCSOeu+eVtGHMIeGgGkQXjNl2o0=
+	t=1789021997; cv=none; b=eP5eQpWG5jp4Axuastk5SQukQh6aBOrwxpjyQUa60zqdmtMQS4MiYPBXrVYEmHFmpFWeZ+zDEF/81xGDqwl2CPl7D/XEe/xW1X5ol4cZ+I8ivImd6+r+nEtZHn9TdsxGmF3n4ztQ0mJ+ZzLB61XR0FgJRxSsM17K4uloFXzAIAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789021916; c=relaxed/simple;
-	bh=4Tvd6TLKSh4VlsuaCKI+5gByiR6tEcXdxBcXIv/rcnc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iEw8UxGF3A2azXWqoK2Toxg3YLTF2BUk8XgfHYgWOcWN1ZWMVHQX1xtMZxxeQyLeonPyzn38c3TilfcoUTEv9/Sw7hS6Of8+Cd9wY1KjeFyN1aumXWkyMtMtMPsEQDzZloIut6bqWNnqSejU/M4acgtrb25BIKUafL7qu+BdiXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CBX7tlpy; arc=none smtp.client-ip=209.85.216.41
+	s=arc-20240116; t=1789021997; c=relaxed/simple;
+	bh=2U6dsNXbwUcpneCJm07af3HnxI6Pr5ui3nXbOFVFIFk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qWdLUJS1aRRU6WALnC5jJOTUv8FNjcMhJcHGt/z41k8jTlRPP9cnqjLyHOi1sc3iYle4rRvKqwFShXYeifaVW8dfWmQDCt39QaqWPZ3Q6B/uFXarcKupPXAbMWRZSJFrHj5RC6++GP7BnWUhoZ+0O+G+EBGkCCA72C1v08Pc4e0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rEr08HZT; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CBX7tlpy"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-398b3c37877so6294218a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 23:31:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rEr08HZT"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so10204865e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 23:33:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789021910; x=1789626710; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1toCXFJJyIGT7Bi3z+gvDkztm6+uDMf7He5yX/dqQdk=;
-        b=CBX7tlpyDsi7FLF4pLFU8mliwhYbKYqB1r17Idyeu+COShfdlQNupygFGPsGjW/G+L
-         sND2RYQ1Pl/71pLr15OEMCu4zjV1oWi+qqUZu9rlRh042olh9VDnkdTxloN7iHWVHDiF
-         +NMPBmOGCcconcefnZaDTVSAmrZLhrPBr/A7JF3+4I2ZAfcLnTBoTGHwBPlJgwi0fS6z
-         bE6klUyQHAUAIAl5yJYE5/+3fYLLilCyfbopU/n27ZDR9DNS5LIUJzFqz/MHKGdLBNZG
-         I5hDaK5FZOv1IFE6YSwmE3LC/QH/lSIuZT2TwItoximyU7JOEFiz5lLqbTKob8uMNdEq
-         nPPA==
+        d=gmail.com; s=20251104; t=1789021994; x=1789626794; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eDFW7V2b4G6mFPAVAKgZGZP/Dvd2Tg0+0VQwRHhDTAY=;
+        b=rEr08HZTGAs6jr6Yo8PdviNvR86fNPY7Ir+6MEAO3YpZs7YLUFSh6TXUuslzYZ9eDU
+         lkzkQ4Y4A+V0puDtyyA9y3qO5oRJB3x//77dq+1yUeoEaEYn4LCv4wsfffS/KX0mTLRV
+         OmHnamKYsKD60+CFcgEYtDYxoHvJmsFpiImugZmqeI7T8kmISaIZkUzqF5ExeWscnHuA
+         U4WCoV/5XF218phxmmdj8XIs7TWWzPqE/3YgxLF71TfBfrSi/Ea35xdawCDf1OsMRrZa
+         b9rEDCf8Xq/+CWmHHJwfQCQaTXHl6O+M5wUIR+dP0Jyfkcr2ms0vJ1LWHJwkT3IQP7hs
+         OzYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789021910; x=1789626710;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=1toCXFJJyIGT7Bi3z+gvDkztm6+uDMf7He5yX/dqQdk=;
-        b=n0lVEf7ZCn2r8/jAt7mVYlEmsvmfJoqkbwyKQbzDfKl37R4kKR8ltOyWDtTi1FvoDc
-         d264/5s2XEceyUMTVD7hVYdSN8m4CUOtf6NLgha28Noqxrinnyg3/1KJyLz1/Kijump0
-         Fn9XxBP1hMMLq12tnx9dGWzJiGFcMcqWJVHuhIKD/SE9XtYjt9k6iSGu0i8Wej/Yye1T
-         zOR63KrO0jZdz85+9u5+zePOWDFejshFZYDFO9dFjxHoEHby02Y06NMsCZQBbJxSoThO
-         AlaOEbCG1qjbKwQrLqDtf4jm7eJhRxtAmYJC/Bg6tQsRHv6yqF8B4IBbpiHnkhG/T7hh
-         cOgA==
-X-Forwarded-Encrypted: i=1; AKwUvBxH5qRUM8hlZqOFa2m+TiNwvheAxf+8okz3QJwAWpClzgw60+dax5S2TLZYWxiN6qOOiFw8XXpYbXYrcMc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBOcmRjtim4zeRAWjQs5sWhaZ5IT1rVFubMmlEoaXHfDhxsD2/
-	Q5jvQZuRWQzqTirFELSnlbTpJwgLmn5Gg4oqm6E9nMcCoDne7F+GxOye
-X-Gm-Gg: AYBFou3G985lZ6aRKP8DgBS2hXOGMkxY2KD+Xw7PetU9/S+bZe8oAEqkY0rOmcJ5s61
-	ajWoX9PpA+u2i3iQZTb/fvqWTwWvc9y1M96a/Q65cifewXZaI9ZIGUF4yBUCFNEIFEc2BQfS/Ec
-	+UhiLKgZxr2DIhP99jLkgTSZ5UCcWmlRGSdiva7437oBWODz+8Z74bx8KezBWAmG/msd4HNEvge
-	aS4QyxifVguT4Rg7oXgZRRHXjyqeOQy71e2FAtfJGxzUMMJRo+w65Zkz3Lbu7yEh/heQVCp/8e3
-	Y0hK2xxlK3GMTqlYLTr5AZ0SyhG3bRTNQQDo9KCsubh2uXpfvpC21i02YaniJoyGcT8hfhLo0T0
-	9niQL1Qq8F46eNlXqxDwYBHkJtBn5iFmCP00xkOlTnZ5Cu0U6XCuPimuXNVB3YxKiWy/Ck1WHBi
-	uhjHjiHbp0uAc+JaL+a1Gy5iMigjCMMcB9wypgVszcD/8wLUsqBPQpdMM7oQfbSlbV7u5jT2f4E
-	uI5CbsET2NvmxggLSawz43ASQjObCl6wsaUhppKdEQ=
-X-Received: by 2002:a17:90b:258d:b0:396:4c63:7193 with SMTP id 98e67ed59e1d1-39b261323e0mr64061526a91.11.1789021909725;
-        Wed, 09 Sep 2026 23:31:49 -0700 (PDT)
-Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([129.41.58.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d7e834319sm2507639a91.10.2026.09.09.23.31.29
+        d=1e100.net; s=20251104; t=1789021994; x=1789626794;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eDFW7V2b4G6mFPAVAKgZGZP/Dvd2Tg0+0VQwRHhDTAY=;
+        b=skR5Tr1zjCqfAdjT2SXmr8PDmK7GUsCycPGEgrWSt6Mw2YeGV2psCI/GEHasNVKFlZ
+         YOrXJ5M3zY3+QCp1NpvAT3xSP/W/aFMeuGyw8/05e2t9eGT18FBF2HLjVKNJR9MVs0+g
+         0Jf8sJheTz44odf3aVSjH0IC/vFJyzLQvNxEGf5UlSbsHcJ5+mhJax67WMbGR9Yy+2Pc
+         bUxsBT+EFO1gU1O0t9jgWA9JLDUC0CrU4tUhva0V4dOhZLTyDgG+gnxAiKLMoCfB+600
+         lVZOzxGBJW7/42Fvd4QNlN93QhXeE+l21wmksX+qOIKzK9yy+UMffSzivGRkJ7JLwyhG
+         oRYw==
+X-Forwarded-Encrypted: i=1; AKwUvBwg+gES0BdZmXpJ4h8IqYOWyWOvnsToqRUjqHOpFDk/jQ6J1kWhBRGS/4gFgcLPefgFXvSoTfYxwucVSC4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmZ6jLfx5U4aLxf9C4IoiP9UBRmKMwpwneYIhmiPpU3vSYIlDU
+	totqWwEMPEiHryptCBSu1D6U6VmFh4dADbcbNdEwEgzK8xqnZ5bHiZod
+X-Gm-Gg: AYBFou20OFjZB4KN8WfQ4cJd6YB8vXlNQAJoTmtxVyjfZoQ5aTTjR2MeudNgRuQrCK6
+	Eid417iZt+5ITjrYTspRoM98zsgEx1EvwHPypFNAFaXnkCe1ehp9Bm6o7fKFEy4s2TVY8vwHBvM
+	Yci5OxlUy5c5DqJEJ6a2QbqYmFP5b+uXjQDpimwzuI6RKR2tpZk8isLRVXdVLBqZdX8A5tdQfTn
+	AjOwQWn63SpXp3HK5/K6viw7c/eNa/wuutnsqvkx+0QJo/KxDscM0yfkKqe0Z3hOnwRpFQ4fj1O
+	tS3cPVH585Vb3lh09v1HNuFAAxQMwdj2jZaEN8wjJ3pXARuOp/lC0vGbmkptACZH5l0VbsayFUM
+	EQk84cWfLGU7hCvtdR7ICGvMQ7ogChIsAzdeuJWc7SNL//kPlj/45mr7PtOJ/+sczCmVpsfdwtP
+	hnHWf2mFgmeijj0YLW0g4LwCpJ2VTOWcqrfP820WGpOSk/zM2yl8a3HecgE+yeZlceYGK/vOrkq
+	xpmkkiEnTzKel7iQDngosy4t+wRfv+k8/mVi2dDWlIk
+X-Received: by 2002:a05:600c:c491:b0:49c:dca4:94c with SMTP id 5b1f17b1804b1-49d1f368530mr141585555e9.13.1789021993977;
+        Wed, 09 Sep 2026 23:33:13 -0700 (PDT)
+Received: from localhost.localdomain (mob-31-26-103-238.net.vodafone.it. [31.26.103.238])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49d26be3e35sm48238165e9.2.2026.09.09.23.33.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 23:31:49 -0700 (PDT)
-Date: Thu, 10 Sep 2026 12:01:26 +0530
-From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-To: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-Cc: Paul Walmsley <paul.walmsley@sifive.com>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Andy Lutomirski <luto@kernel.org>, 
-	Vincenzo Frascino <vincenzo.frascino@arm.com>, Kees Cook <kees@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Richard Weinberger <richard@nod.at>, 
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>, Johannes Berg <johannes@sipsolutions.net>, 
-	Russell King <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
-	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-	Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>, Gary Guo <gary@garyguo.net>, 
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Christophe Leroy <chleroy@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Nicolas Schier <nsc@kernel.org>, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, linux-mm@kvack.org, 
-	linux-um@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linuxppc-dev@lists.ozlabs.org, loongarch@lists.linux.dev, linux-s390@vger.kernel.org, 
-	linux-mips@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kbuild@vger.kernel.org, 
-	Jan Stancek <jstancek@redhat.com>, Arnaldo Carvalho de Melo <acme@redhat.com>, 
-	Alexandre Ghiti <alexghiti@rivosinc.com>
-Subject: Re: [PATCH v5 01/24] elf, uapi: Add a header for relocation constants
-Message-ID: <aqJOscgnnevybiKO@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
-References: <20260908-vdso-absolute-reloc-v5-0-3a93791af1cf@linutronix.de>
- <20260908-vdso-absolute-reloc-v5-1-3a93791af1cf@linutronix.de>
+        Wed, 09 Sep 2026 23:33:13 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: lkp@intel.com
+Cc: oe-kbuild-all@lists.linux.dev,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	jikos@kernel.org,
+	bentiss@kernel.org
+Subject: Re: [PATCH] HID: lenovo: suppress phantom radio control input on Yoga Slim 7x Gen 11
+Date: Thu, 10 Sep 2026 08:33:03 +0200
+Message-ID: <178902198348.4611.5427384880711199776@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <202609100719.bu2saXPQ-lkp@intel.com>
+References: <202609100719.bu2saXPQ-lkp@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260908-vdso-absolute-reloc-v5-1-3a93791af1cf@linutronix.de>
 
-On Tue, Sep 08, 2026 at 08:33:35AM +0200, Thomas Weiﬂschuh wrote:
-> While the numeric constants for relocations are architecture specific,
-> it is still useful to get access to them from other architectures.
-> Also the definitions are useful for userspace in general.
-> For example tools processing elf files during a kernel cross-compilation
-> can make use of them.
-> 
-> Introduce a dedicated header for them, similar to the elf-em.h header.
-> For now the header is empty but it will be filled step by step in
-> upcomming commits.
-> 
-> Signed-off-by: Thomas Weiﬂschuh <thomas.weissschuh@linutronix.de>
-> ---
->  include/uapi/linux/elf-r.h | 5 +++++
->  include/uapi/linux/elf.h   | 1 +
->  2 files changed, 6 insertions(+)
-> 
-> diff --git a/include/uapi/linux/elf-r.h b/include/uapi/linux/elf-r.h
-> new file mode 100644
-> index 000000000000..2c382c8a4807
-> --- /dev/null
-> +++ b/include/uapi/linux/elf-r.h
-> @@ -0,0 +1,5 @@
-> +/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
-> +#ifndef _UAPI_LINUX_ELF_R_H
-> +#define _UAPI_LINUX_ELF_R_H
-> +
-> +#endif /* _UAPI_LINUX_ELF_R_H */
-> diff --git a/include/uapi/linux/elf.h b/include/uapi/linux/elf.h
-> index ee30dcd80901..b3e312255552 100644
-> --- a/include/uapi/linux/elf.h
-> +++ b/include/uapi/linux/elf.h
-> @@ -4,6 +4,7 @@
->  
->  #include <linux/types.h>
->  #include <linux/elf-em.h>
-> +#include <linux/elf-r.h>
->  
->  /* 32-bit ELF base types. */
->  typedef __u32	Elf32_Addr;
-> 
-> -- 
-> 2.55.0
-> 
-Reviewed-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+On Thu, 10 Sep 2026 07:48:31 +0800
+kernel test robot <lkp@intel.com> wrote:
+
+> >> drivers/hid/hid-lenovo.c:523:7: error: use of undeclared identifier 'I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD'  
+
+Correct, and my mistake: this patch was one half of a two-patch change
+and I posted only the half that uses the identifier.  The #define is
+added by the i2c-hid quirk patch, which never made it to the list.
+
+Both are now posted together, in the right order, as v2:
+
+  https://lore.kernel.org/all/20260910063051.4556-1-okerixx@gmail.com/
+
+pw-bot: superseded
+
+Thanks,
+Oleg
