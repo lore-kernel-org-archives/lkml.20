@@ -1,212 +1,109 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF1649BD98
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:15:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50487481FA5;
+	Thu, 10 Sep 2026 14:15:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789049718; cv=none; b=AKmxKtBm0wYiRNLruP7YhgyzUO4N9hloOLhu1s0HdNse9qPY/WOzV5umKOS/EYua4AIpziNL1xHzB3QgOwWvgZE96eb3x6mx00TxyCprKs/uWajQh1mA7tSQpZ6eTHjcTtibF0RT0PlMRjy6EFoI3BAAXeAv2vKCief+J1l5Lj0=
+	t=1789049752; cv=none; b=pdWbusMeDB/sUr4TaLa+akGl64Qk0UmwCcXx4gYQXLYdztt3gbeq/3Df7iRn2bvFVYSNiIuNEJMUa24HQ0T+SXpKu1vVpyFH73i/9NaVlB/LaBjUEIdMHx0sLmB+0wCjANkE39IyQLPutqdQ06dMMdJTAh6SeqGFNUE3He1VUCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789049718; c=relaxed/simple;
-	bh=mDVnyyipZwiMq6Elf6ansEdymEt5Z0wVe/0clwdH0gg=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=NmqAr75sDIQlQxgovNQVR873tm+AWGGR9WTfTE/oWfmVIOzXp++Uy8URsCAS9vrT493+4G3ZjmnAVOdIoFiqG2q2KSb6fcG1L4hO0TIKZGebc6p8gBzvlj5NknZAUnJw3UZyDblP+iMPTKT34/sgWOYdNWkYXQfvIIG6Z8Cehqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PeLekPf1; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789049752; c=relaxed/simple;
+	bh=8YWRGn0R+oDy2NyfaTQdvAmDHKskRsQFv8+R9XWFe0k=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=nyHb3yJPSfhnN9aRnxT2UF9vD2TBgs1Uj/ilHVgNUjtXuSDNmxeNSzHw2Ytkk4IVNUdzZWpYGTpEleaslgO6gxia04QAj2p1sW8mCNivz83a0ANoAoA2+wKNWYvQBJbVMqJlNwcHClDHh8MC9lSo5byplmgKUwWiUm5qxsv2iTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z7iZzbC/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PeLekPf1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789049716; x=1820585716;
-  h=date:from:to:cc:subject:message-id;
-  bh=mDVnyyipZwiMq6Elf6ansEdymEt5Z0wVe/0clwdH0gg=;
-  b=PeLekPf1WAa05VXp9m+H3sE/vIlopb0PWKadGlT7KegSSF4pDSWPGdQs
-   F+deOmqC4Rc+zcAlMfxhEaAVWYwjRULr+JPSbI0A3hbA65vQrdrcc6G8r
-   v/qcCmzstFD6P2QquGM992yWvLejeV9PXlyRcxIqVJU+YywScQt0OpevJ
-   UKZymk+oFrB22vlAXd0R5Y2LaCQ5AWqV+/Oqrrcq2g2pRJOJs1oVUkvxh
-   Jk1Mv6fZoEXoOF2VP9cQ0iWMGaLvo+0DFoLZejw+3sNq1dABjqloNRdCm
-   E5MxBRN8hFSlM+Q2qQSoJmO7OWRJuRxgf84NmEB3iqTM46q13QSDxbUjK
-   g==;
-X-CSE-ConnectionGUID: hkHsGPf+RGm9FlRErHBvHg==
-X-CSE-MsgGUID: cz6ESGdBTr6natO5razFKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="93325333"
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="93325333"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 07:15:15 -0700
-X-CSE-ConnectionGUID: Z0i0xx0oQI6Mo+h5LnHqRw==
-X-CSE-MsgGUID: H6DA+yGmQo6Pzez7K+Wexg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="301549453"
-Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
-  by orviesa002.jf.intel.com with ESMTP; 10 Sep 2026 07:15:13 -0700
-Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x4fWw-00000000061-0SPW;
-	Thu, 10 Sep 2026 14:14:02 +0000
-Date: Thu, 10 Sep 2026 22:03:48 +0800
-From: kernel test robot <lkp@intel.com>
-To: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: [paulmck-rcu:dev.2026.09.03a 43/55]
- drivers/usb/mtu3/./mtu3_trace.h:239:27: error: cannot take the address of an
- rvalue of type 'dma_addr_t' (aka 'unsigned long long')
-Message-ID: <202609101926.cc5w6bhk-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z7iZzbC/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB2E21F00893;
+	Thu, 10 Sep 2026 14:15:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789049750;
+	bh=/yH4MZFvNssLe7LhcRcjOZvWNt3Rjr+95H50hRGEwbs=;
+	h=Date:From:To:Cc:Subject;
+	b=Z7iZzbC/DFBl0hy86EuHmWLxJ3PHD416OzdYOH/8gB4kyhtMC7i4mMJJfTH4tWU5m
+	 Y8LJVwfLgHKBI/NGSqJYmg20VytzmtF+sTJNwiDFfoUHexkb+l/Hi0S+wM3vGpzxaR
+	 K/n9pjCbgHjz6Lhx1hNCW+TCcWQNpdUQWoyVA8hzuR59DobVrKvptxp7fwxj3OJ+yT
+	 V40bTxfeK/hm39XbHmZUFJRvko5lnbzR8PXWpHwx2m6RxYP5w9RA1kpw+8dz7pL8BR
+	 o3zIRmudkDGOPG0hDP085E74SRTuRbhOb/WvZAR+i+Y/PkcTLjw2RgPggPeuZhkvwW
+	 LU8Qcoe185PoQ==
+Date: Thu, 10 Sep 2026 15:15:47 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Johan Hedberg <johan.hedberg@gmail.com>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: duplicate patch in the bluetooth tree
+Message-ID: <aqK7k5Sw4pP9nKW0@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/paulmck/linux-rcu.git dev.2026.09.03a
-head:   6c5c244f4b239bc4d284e58a2f79a143648557cb
-commit: afda2321e6e93a5bcc28bfb4717fbc3a1768446c [43/55] EXP drivers/usb/mtu3: Work around mtu3_log_ep double-indirection issue
-config: riscv-allyesconfig (https://download.01.org/0day-ci/archive/20260910/202609101926.cc5w6bhk-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project c1872e7fd3307679a2da53f9d83de0ccf234b4ad)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260910/202609101926.cc5w6bhk-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609101926.cc5w6bhk-lkp@intel.com/
-
-Note: the paulmck-rcu/dev.2026.09.03a HEAD 6c5c244f4b239bc4d284e58a2f79a143648557cb builds fine.
-      It only hurts bisectability.
-
-All errors (new ones prefixed by >>):
-
-   In file included from drivers/usb/mtu3/mtu3_trace.c:12:
-   In file included from drivers/usb/mtu3/mtu3_trace.h:279:
-   In file included from include/trace/define_trace.h:132:
-   In file included from include/trace/trace_events.h:489:
-   drivers/usb/mtu3/./mtu3_trace.h:239:41: error: member reference type 'struct mtu3_gpd_ring' is not a pointer; did you mean to use '.'?
-     239 |                 __entry->gpd_ring_dma = &mep->gpd_ring->dma;
-         |                                          ~~~~~~~~~~~~~^~
-         |                                                       .
-   include/trace/stages/stage6_event_callback.h:133:33: note: expanded from macro 'TP_fast_assign'
-     133 | #define TP_fast_assign(args...) args
-         |                                 ^~~~
-   include/trace/trace_events.h:456:16: note: expanded from macro 'DECLARE_EVENT_CLASS'
-     456 |                       PARAMS(assign), PARAMS(print))                    \
-         |                              ^~~~~~
-   include/linux/tracepoint.h:161:25: note: expanded from macro 'PARAMS'
-     161 | #define PARAMS(args...) args
-         |                         ^~~~
-   include/trace/trace_events.h:448:4: note: expanded from macro '\
-   __DECLARE_EVENT_CLASS'
-     448 |         { assign; }                                                     \
-         |           ^~~~~~
-   In file included from drivers/usb/mtu3/mtu3_trace.c:12:
-   In file included from drivers/usb/mtu3/mtu3_trace.h:279:
-   In file included from include/trace/define_trace.h:132:
-   In file included from include/trace/trace_events.h:489:
->> drivers/usb/mtu3/./mtu3_trace.h:239:27: error: cannot take the address of an rvalue of type 'dma_addr_t' (aka 'unsigned long long')
-     239 |                 __entry->gpd_ring_dma = &mep->gpd_ring->dma;
-         |                                         ^~~~~~~~~~~~~~~~~~~
-   include/trace/stages/stage6_event_callback.h:133:33: note: expanded from macro 'TP_fast_assign'
-     133 | #define TP_fast_assign(args...) args
-         |                                 ^~~~
-   include/trace/trace_events.h:456:16: note: expanded from macro 'DECLARE_EVENT_CLASS'
-     456 |                       PARAMS(assign), PARAMS(print))                    \
-         |                              ^~~~~~
-   include/linux/tracepoint.h:161:25: note: expanded from macro 'PARAMS'
-     161 | #define PARAMS(args...) args
-         |                         ^~~~
-   include/trace/trace_events.h:448:4: note: expanded from macro '\
-   __DECLARE_EVENT_CLASS'
-     448 |         { assign; }                                                     \
-         |           ^~~~~~
-   In file included from drivers/usb/mtu3/mtu3_trace.c:12:
-   In file included from drivers/usb/mtu3/mtu3_trace.h:279:
-   In file included from include/trace/define_trace.h:133:
-   In file included from include/trace/perf.h:110:
-   drivers/usb/mtu3/./mtu3_trace.h:239:41: error: member reference type 'struct mtu3_gpd_ring' is not a pointer; did you mean to use '.'?
-     239 |                 __entry->gpd_ring_dma = &mep->gpd_ring->dma;
-         |                                          ~~~~~~~~~~~~~^~
-         |                                                       .
-   include/trace/stages/stage6_event_callback.h:133:33: note: expanded from macro 'TP_fast_assign'
-     133 | #define TP_fast_assign(args...) args
-         |                                 ^~~~
-   include/trace/perf.h:67:16: note: expanded from macro 'DECLARE_EVENT_CLASS'
-      67 |                       PARAMS(assign), PARAMS(print))                    \
-         |                              ^~~~~~
-   include/linux/tracepoint.h:161:25: note: expanded from macro 'PARAMS'
-     161 | #define PARAMS(args...) args
-         |                         ^~~~
-   include/trace/perf.h:51:4: note: expanded from macro '\
-   __DECLARE_EVENT_CLASS'
-      51 |         { assign; }                                                     \
-         |           ^~~~~~
-   In file included from drivers/usb/mtu3/mtu3_trace.c:12:
-   In file included from drivers/usb/mtu3/mtu3_trace.h:279:
-   In file included from include/trace/define_trace.h:133:
-   In file included from include/trace/perf.h:110:
->> drivers/usb/mtu3/./mtu3_trace.h:239:27: error: cannot take the address of an rvalue of type 'dma_addr_t' (aka 'unsigned long long')
-     239 |                 __entry->gpd_ring_dma = &mep->gpd_ring->dma;
-         |                                         ^~~~~~~~~~~~~~~~~~~
-   include/trace/stages/stage6_event_callback.h:133:33: note: expanded from macro 'TP_fast_assign'
-     133 | #define TP_fast_assign(args...) args
-         |                                 ^~~~
-   include/trace/perf.h:67:16: note: expanded from macro 'DECLARE_EVENT_CLASS'
-      67 |                       PARAMS(assign), PARAMS(print))                    \
-         |                              ^~~~~~
-   include/linux/tracepoint.h:161:25: note: expanded from macro 'PARAMS'
-     161 | #define PARAMS(args...) args
-         |                         ^~~~
-   include/trace/perf.h:51:4: note: expanded from macro '\
-   __DECLARE_EVENT_CLASS'
-      51 |         { assign; }                                                     \
-         |           ^~~~~~
-   4 errors generated.
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="EGKBu8cFwYredfMg"
+Content-Disposition: inline
 
 
-vim +239 drivers/usb/mtu3/./mtu3_trace.h
+--EGKBu8cFwYredfMg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-   213	
-   214	DECLARE_EVENT_CLASS(mtu3_log_ep,
-   215		TP_PROTO(struct mtu3_ep *mep),
-   216		TP_ARGS(mep),
-   217		TP_STRUCT__entry(
-   218			__string(name, mep->name)
-   219			__field(unsigned int, type)
-   220			__field(unsigned int, slot)
-   221			__field(unsigned int, maxp)
-   222			__field(unsigned int, mult)
-   223			__field(unsigned int, maxburst)
-   224			__field(unsigned int, flags)
-   225			__field(unsigned int, direction)
-   226			__field(struct mtu3_gpd_ring *, gpd_ring)
-   227			__field(dma_addr_t *, gpd_ring_dma)
-   228		),
-   229		TP_fast_assign(
-   230			__assign_str(name);
-   231			__entry->type = mep->type;
-   232			__entry->slot = mep->slot;
-   233			__entry->maxp = mep->ep.maxpacket;
-   234			__entry->mult = mep->ep.mult;
-   235			__entry->maxburst = mep->ep.maxburst;
-   236			__entry->flags = mep->flags;
-   237			__entry->direction = mep->is_in;
-   238			__entry->gpd_ring = &mep->gpd_ring;
- > 239			__entry->gpd_ring_dma = &mep->gpd_ring->dma;
-   240		),
-   241		TP_printk("%s: type %s maxp %d slot %d mult %d burst %d ring %p/%pad flags %c:%c%c%c:%c",
-   242			__get_str(name), usb_ep_type_string(__entry->type),
-   243			__entry->maxp, __entry->slot,
-   244			__entry->mult, __entry->maxburst,
-   245			__entry->gpd_ring, __entry->gpd_ring_dma,
-   246			__entry->flags & MTU3_EP_ENABLED ? 'E' : 'e',
-   247			__entry->flags & MTU3_EP_STALL ? 'S' : 's',
-   248			__entry->flags & MTU3_EP_WEDGE ? 'W' : 'w',
-   249			__entry->flags & MTU3_EP_BUSY ? 'B' : 'b',
-   250			__entry->direction ? '<' : '>'
-   251		)
-   252	);
-   253	
+Hi all,
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+The following commit is also in Linus Torvalds' tree as a different commit
+(but the same patch):
+
+  0c9d2588a514f ("Bluetooth: btusb: limit RTL8761B BROKEN_EXT_SCAN quirk to 0bda:a728")
+  14a97a38ba8f2 ("Bluetooth: eir: Fix OOB read in eir_get_service_data()")
+  1c08039e3887f ("Bluetooth: RFCOMM: Validate MTU in rfcomm_apply_pn() to prevent infinite loop")
+  1fcf216462ec3 ("Bluetooth: btnxpuart: Validate the FW dump header length")
+  262cb784c96cb ("Bluetooth: btmtksdio: Fix out-of-bounds DMA read in the TX path")
+  26cf20d065b31 ("Bluetooth: hci_sync: add conditional locking annotations")
+  32b42c0704fdd ("Bluetooth: hci_bcm: fix usage_count leak when autosuspend_delay is negative")
+  40c621391de93 ("Bluetooth: RFCOMM: serialize security confirmation handling")
+  486f8908aa587 ("Bluetooth: ISO: fix use-after-free of listener socket in iso_conn_ready")
+  54c03e6bc7188 ("Bluetooth: btmtk: Do not discard the subsystem reset timeout")
+  58c6f5ec1d22b ("Bluetooth: btintel: bound firmware ID by TLV length")
+  762385e862009 ("Bluetooth: hci_bcm4377: Ignore reserved PHY in ext adv reports on BCM4378")
+  771e812f94b32 ("Bluetooth: btmtk: Do not report success when subsys reset fails")
+  78f08df9649c1 ("Bluetooth: hci_core: Fix race condition during device registration")
+  870187be23621 ("Bluetooth: hci_mrvl: Fix wrong return value check of wait_on_bit_timeout()")
+  951d9f743029b ("Bluetooth: btmtksdio: Take exclusive ownership of the SKB before TX")
+  99672791e9c9f ("Bluetooth: mgmt: fix 'hdev->discovery.uuids' NULL dereference")
+  9db7e5fffbaec ("Bluetooth: L2CAP: reject accept queue add unless BT_LISTEN")
+  9e257e3586428 ("Bluetooth: hci_h5: fix usage_count leak when autosuspend_delay is negative")
+  aadb3cd4bbb47 ("Bluetooth: do not leak an hci_conn when a second LE connect is rejected")
+  af04b0e3176e5 ("Bluetooth: L2CAP: clear FLAG_DEFER_SETUP only for same PID/PSM")
+  b1f1766ef7691 ("Bluetooth: L2CAP: fix chan mode for LE_CONN_REQ + EXT_FLOWCTL pchan")
+  b8d936018ce2b ("Bluetooth: hci_uart: Fix false success return in hci_uart_setup()")
+  bc2791e60e082 ("Bluetooth: hci_intel: fix usage_count leak when autosuspend_delay is negative")
+  bcb621272aa04 ("Bluetooth: btintel_pcie: Clear automask on spurious interrupts")
+  be766d775060e ("Bluetooth: hci_core: use skb_get() instead of skb_clone() for req_skb")
+  d1b752f552896 ("Bluetooth: L2CAP: access chan->conn safely in get/setsockopt")
+  d2d1c215ce117 ("Bluetooth: hci_conn: re-enable advertising only for peripheral role")
+  d67f4a43e7ef8 ("Bluetooth: L2CAP: fix race l2cap_sock_cleanup_listen() vs. put_chan")
+  ddaccd985bb01 ("Bluetooth: L2CAP: fix out-of-bounds write in l2cap_ecred_connect")
+  e4d6d16f1be19 ("Bluetooth: hci_event: clear HCI_LE_ADV only on a created connection")
+  eb656c5bb7543 ("Bluetooth: btintel: validate version TLV value lengths")
+  ed516e3f1aa61 ("Bluetooth: hci_sync: Clear HCI_CMD_PENDING when dropping the last request")
+  f716a05f49671 ("Bluetooth: btnxpuart: Check remote M.2 connector availability before pwrseq")
+  f8c8fa407aa0f ("Bluetooth: btintel: propagate version TLV parsing errors")
+  fe3897b4ab57b ("Bluetooth: RFCOMM: serialize session teardown")
+
+--EGKBu8cFwYredfMg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqiu5IACgkQJNaLcl1U
+h9CGGwf9F2BvGIHjgOc0KfzqMkM5ZwxxiN92G7g+IgTgGVzGCyx7IjuNUKXHulpC
+vPi7w8JmMR5N/FOBvJbLQFMSxs2/kawf5fkthTI0HfRGcnQ0C1tMSaV9oILi2l9S
+mjuGgaN4ElD/vfPOe9OMae/FZ/Fos7nyWOViqrOQir9Txq0IMkywbkhO05CsLuMy
+LJ3IUtSnZDCp/0Cvl5bKkSAqlV7WFu18heWD0u+I2v+uP/pHSRa7vyirri6ZlGss
+DaunvxigBCfdp5cRjTHsy0m80XZmca69ODbIe+P8zjDdH/K5kXg0un4888wtZD12
+Xzs6GTJIHCChz/7AKN5uYEDG506/Ig==
+=+H4f
+-----END PGP SIGNATURE-----
+
+--EGKBu8cFwYredfMg--
