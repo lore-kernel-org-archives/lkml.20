@@ -1,72 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B964A92C7;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74AD24A8A17;
 	Thu, 10 Sep 2026 14:07:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789049223; cv=none; b=SZ60YFa6Y+5kNoHRf2j5iaypV8u3t9f/4JchwcoSC2sfW9fEuwZn+UIpUJ/q/envP2kNNnFrxR8v7/2KhD3/56RSGUcP5T7C+YybMakCz1lDIAVrockEEhpITom4NZtR8sRi09DEVhn3AacxgsHZGqXiuCjHS0/oG7mimQruyVo=
+	t=1789049223; cv=none; b=lpqrjm/hdyRIgtAO+ZhaYWKYQwbkUNQZhA6nfC6fljMztemhrLJuQzeQV8ziHGE0ZPLPJZ6iq6AORK7HxCkLntJDTpIH6i6u9elwcWdZR1qjnc1nSPhsFTSmeiRZqrsG4KKB1Yn5pObuqpxYWcxwdXpdyYtQzSxxCgAeugDoFac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789049223; c=relaxed/simple;
-	bh=5DHdKcRKwAfFGni7QRiH+4tP8t072mH5hmmI//qR5rE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=aGEizX9w6gTNtHV+mXRRs5fsH44zIU8m8nSAaykaMtv9kFEBoOMheXUU+GOrihnDuIRAI7mh9Ud62ql8p8APyS1pZ7a+AspA780kwbq2tgpGorK3RX8eKwLkY6+d/3Er/SlncKGjcVd45FZ0tFLHOrMzTg0sdahb4/Em+aF2xlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BlCzojX3; arc=none smtp.client-ip=100.103.45.18
+	bh=kko8o+2yLViA7AjY6vne36W8QZaUMTzZtOffEn/gjKw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HZHuiOvTOtTbyCP9bsVweuiE1ja+TTljT9kMTvZaTNBfjPXdFVOkriJmSQGcw3mUlWG9elUyQRfhPUR6bMQV1fWdxBTCwocXC4Y61roMYU48qbI0eyBeFBqXd7s7q8xYGc0otpooc5572LViOiNkn6/v8Ghd1+Q63JtI90RCchw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SyQiX9GX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BlCzojX3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC6871F000FF;
-	Thu, 10 Sep 2026 14:06:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SyQiX9GX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3A321F0089B;
+	Thu, 10 Sep 2026 14:06:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789049222;
-	bh=76FpYM6Ge1vqPMazt7qg6DlSjkLRIZk420Qx/acPMmw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=BlCzojX3Q0bsYwxm2sTiXEjuFBoLHnV+YcU812sF5drsbQCRV5Ibt2uztD1+ZxxOn
-	 9RizU3GtxvtH6g3YEvf0NPdzI3dssg1CWFYF5gjaAetdBhQhYl53FElaEClrlegJSZ
-	 /s9lUxID1mLHAGuhTQSoA8cz/cptKmWfn5lNJQvqsZFA4bRaAXspTh1Id6xch4GoxD
-	 nDDRMaGuphtnMa7pk5c0IHEvzObUsKOGmFpg2SoykVpSqN4RWMmAl3aeYWLrR8W9yG
-	 moR+luPjvreVWPqvTDrCnWj5ipZzYPSdvDukwDFhXIKMEpFcR/dmI2N1N7cPCCNhj+
-	 4DdngHBzbZGSA==
-From: Vinod Koul <vkoul@kernel.org>
-To: Frank Li <Frank.Li@kernel.org>, Michal Simek <michal.simek@amd.com>, 
- Kedareswara rao Appana <appana.durga.rao@xilinx.com>, 
- Alex Bereza <alex@bereza.email>
-Cc: dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260818-fix-hw-buf-desc-after-cyclic-mode-v2-1-530ff44c6a81@bereza.email>
-References: <20260818-fix-hw-buf-desc-after-cyclic-mode-v2-1-530ff44c6a81@bereza.email>
-Subject: Re: [PATCH v2] dmaengine: xilinx_dma: Fix hardware buffer
- descriptor chain after cyclic DMA
-Message-Id: <178904921939.109109.4260321202940337828.b4-ty@kernel.org>
-Date: Thu, 10 Sep 2026 19:36:59 +0530
+	bh=7scpEVVr4UU62YzdzYFb4j0SlzJSeqGX0ORVVeED+nw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SyQiX9GXEjjt2r/KKPAuTr18MSFEFjkQhuO1GnsboRPFfeyD6Vfrcj5zGP342Hpcn
+	 Vb9DMA+iGTmteG3jFNDRH2l/EJlnb7w9Hy/yttWSz9uzW2rwPVtknfqtBuvjfzjJKP
+	 TNOQA8tqDfddmWhmP4g/rp93U+cZpQ5I6LckzJmB++30zG2B4KZ6GqF0CUvwzPkSR3
+	 r4vyeDVLTiiq+iRX9RlWZoX2dn2GsyXC8q0dYKBf0I5fGH31YVxakjb3JI+J0BYMqm
+	 VdRhoA7nstQFRxjZ+/ttRSpn38JZw6zYnRzRL0yy7yvADDdiXxnXdSCcZ0ffScjXnz
+	 u95B0wYR8BwYw==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: linux-coco@lists.linux.dev,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Xu Yilun <yilun.xu@linux.intel.com>
+Subject: [PATCH v5 15/15] coco: host: arm64: Enable PCI TSM connect callbacks
+Date: Thu, 10 Sep 2026 19:35:08 +0530
+Message-ID: <20260910140509.868402-16-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260910140509.868402-1-aneesh.kumar@kernel.org>
+References: <20260910140509.868402-1-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
 
+The previous patches build up the Arm CCA host device-assignment flow: RMM
+pdev creation and teardown, device communication, public-key setup, peer
+stream coordination, RMM stream connect/disconnect, and support for both
+endpoint and RC endpoint stream types.
 
-On Tue, 18 Aug 2026 09:36:29 +0200, Alex Bereza wrote:
-> Using the DMA in cyclic mode modifies the hardware buffer descriptor
-> chain in xilinx_dma_prep_dma_cyclic so that the last descriptor used by
-> the cyclic transfer points back to the first descriptor, but it never
-> restores the original descriptor ring. This breaks using non-cyclic mode
-> after cyclic mode with an error like:
-> 
->   xilinx-vdma 86000000.dma: Channel 00000000354d5c8d has errors 100, cdr 6de40000 tdr 6de40400
-> 
-> [...]
+Now that the connect and disconnect paths contain the complete setup and
+teardown sequence, register them in pci_tsm_ops and drop the __maybe_unused
+annotations.
 
-Applied, thanks!
+Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+---
+ drivers/virt/coco/arm-cca-host/main.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-[1/1] dmaengine: xilinx_dma: Fix hardware buffer descriptor chain after cyclic DMA
-      commit: 7ed1e3070c9b4bbd67d5519e14711038dd53ab13
-
-Best regards,
+diff --git a/drivers/virt/coco/arm-cca-host/main.c b/drivers/virt/coco/arm-cca-host/main.c
+index b7b0cc0a016c..e8afd54c23f6 100644
+--- a/drivers/virt/coco/arm-cca-host/main.c
++++ b/drivers/virt/coco/arm-cca-host/main.c
+@@ -295,7 +295,7 @@ static inline bool cca_pdev_need_sel_ide_streams(struct pci_dev *pdev)
+ 	return pci_pcie_type(pdev) == PCI_EXP_TYPE_ENDPOINT;
+ }
+ 
+-static int __maybe_unused cca_tsm_connect(struct pci_dev *pdev)
++static int cca_tsm_connect(struct pci_dev *pdev)
+ {
+ 	struct pci_dev *rp = pcie_find_root_port(pdev);
+ 	struct cca_host_pf0_ep_dsc *pf0_ep_dsc;
+@@ -385,7 +385,7 @@ static int __maybe_unused cca_tsm_connect(struct pci_dev *pdev)
+ 	return ret;
+ }
+ 
+-static void __maybe_unused cca_tsm_disconnect(struct pci_dev *pdev)
++static void cca_tsm_disconnect(struct pci_dev *pdev)
+ {
+ 	struct pci_ide *ide;
+ 	struct cca_host_pf0_ep_dsc *pf0_ep_dsc;
+@@ -414,6 +414,8 @@ static void __maybe_unused cca_tsm_disconnect(struct pci_dev *pdev)
+ static struct pci_tsm_ops cca_link_pci_ops = {
+ 	.probe = cca_tsm_pci_probe,
+ 	.remove = cca_tsm_pci_remove,
++	.connect = cca_tsm_connect,
++	.disconnect = cca_tsm_disconnect,
+ };
+ 
+ static void cca_link_tsm_remove(void *tsm_dev)
 -- 
-~Vinod
-
+2.43.0
 
