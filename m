@@ -1,109 +1,145 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34C536606A;
-	Thu, 10 Sep 2026 02:24:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B49C736680E
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:25:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789007067; cv=none; b=R9qCVEQnBNWV628Suk1AzoHVclTmtjyl+C4Hj1FS9hTYnNKN8/ulST18F5LkPXYnU9pC6NR2JlhJAIYtzGwJWciqMiDNSqLMNuVFywrSLvWE5JdRIIW0Z2x+SDLScWweJC5TenDw5NXH/fO+GSWLY/I91iALKUxV2Ipc0M25Lic=
+	t=1789007117; cv=none; b=iHEQJ7lyRjgsGWb/kQlMSY4NOnhXb78/yrAI6mBcLqoJdruUIPidScE3QaUSSm6uSYLPsNP5XJeWECbjecT1m3sKbZVcIoEXC/0xYZ90Au6qqhoje63+bm8/izjnhrHnxwcXEcbJbXmOCf90QXpJ3uWB8qzW8Q+5Apo4v71DIcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789007067; c=relaxed/simple;
-	bh=Wn1CYZMGIFXmgzYiBLBqu1Ir/1xUW6nAt2FTwwjwMfs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=gdasPKBR0GBvxpfXJXFi8MydhZa+WFlIZEl4BgRM8G7icWP0ePs8eATJ14dh4DRTEwgizjq8UJWArU8VkWr5iasCNq8SG5PmBVaXqKG0d4yxPzAiY319vULXUbjGyh52HER19g3K9z9tzycvxbGgTp7Bu2Mlh3w0k6kgYraM/qY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=OwFfPE0V; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1789007117; c=relaxed/simple;
+	bh=U+Me3C9+CP6ZrOYDdK5ENtjrkf4pAKYkEsgkRLmN7Bo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Gs0oaNrZDxbcPx5rbeLR0M3GwhQt+gXBcE18tepRFDMiIZzHH4lNiFurFsr3uCgAey0CyIyX1qnpAyZl7Teyv3wHy4rfUjkNGiV5ox4QoISggTH67ZqBpjT7B3hfUeH483tAlxNPzhh7iI6vdV29jaDojhzcf8tswsvd7mMM00E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=MVoLSvgK; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="OwFfPE0V"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68A2OCqyC1112934, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1789007052; bh=Wn1CYZMGIFXmgzYiBLBqu1Ir/1xUW6nAt2FTwwjwMfs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=OwFfPE0V60ilyrCMBe/mSXjyF3BdP0H7hRSSvw2O5aRGXmpcvhWPM7d839meEBxnT
-	 R7ld/c5kNd+6hm5lGfIiGPM5iYKINO9dJJUKyk3/hYOuNM1tJY4KzBXxCGDYSnUcr6
-	 bV8FHfjnNbgvzhcH6OgeqUNg9nwop+OJH5WGrc5ik6ICsbu5YA/y6Q3Oswiictw60m
-	 heMULWjEgRjERkyCbgB44mx+zKvhPCqLQ2ReQiNTfctspS81EwBGI3DF1LHoOuI07I
-	 SUIBSL7wUBE8AXvkezNNKyqdjT8mlJyUXy0o+VHf2c4RFaPYW0kwPbArGlw/U9p5oD
-	 oiJArJTUEaZcA==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68A2OCqyC1112934
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 10 Sep 2026 10:24:12 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 10 Sep 2026 10:24:11 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 10 Sep 2026 10:24:11 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
- 15.02.2562.043; Thu, 10 Sep 2026 10:24:11 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: "luka.gejak@linux.dev" <luka.gejak@linux.dev>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
- Straube" <straube.linux@gmail.com>, Peter Robinson <pbrobinson@gmail.com>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>
-Subject: RE: [PATCH v11 4/7] wifi: rtw88: sdio: zero the padding added to a TX
- transfer
-Thread-Topic: [PATCH v11 4/7] wifi: rtw88: sdio: zero the padding added to a
- TX transfer
-Thread-Index: AQHdQC9VHG8DgIV+fU6Rc/HoW7uZv7bHFi4g
-Date: Thu, 10 Sep 2026 02:24:10 +0000
-Message-ID: <d6507fd0447c4c09a9c80bb57dfef35c@realtek.com>
-References: <20260909074556.55709-1-luka.gejak@linux.dev>
- <20260909074556.55709-5-luka.gejak@linux.dev>
-In-Reply-To: <20260909074556.55709-5-luka.gejak@linux.dev>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="MVoLSvgK"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4b29fa803so134690a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 19:25:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=asu.edu; s=google; t=1789007114; x=1789611914; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kwJ0wHKRMeWCO4z6Il8uP1M5MtMWeVs9uywjTGYzTi8=;
+        b=MVoLSvgKhI8CgfNVHYOMs0ZJyBH3njU7qKCbNeMBbo86JoglALDc+slYum9P/gVOsx
+         xQtStEiOcqMO6uqlNZleHVPW2P74glA1y6CSHok/v+x2Uvg4GpkG/mBsxh3ja1RtWnuu
+         u+HuRS9mQALnDGjZF1b+aC+bbCPzFZrioSsuhM+5FTPrJl9LSoNmffRB841GO9si4rQA
+         VayWzCcVTbJlfUcBPwj8L+flaonHAIJTQKFVPCTWUmSdqv2H/VdsSqMatqMgORJbwyoq
+         Rj1EZEgUy+c3+hQSmMBCsQr/VHF5Acwh/AQ2N499ANv2/IypmRFGceA0Q/kcZml8vGMx
+         HgYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789007114; x=1789611914;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kwJ0wHKRMeWCO4z6Il8uP1M5MtMWeVs9uywjTGYzTi8=;
+        b=e5CnVhJMkesczfzAv+gBU4rVjj8TffAWJaTUYAK5Jf2bRiN7Bd56SAPs8D5H5udAdD
+         XPlo3PJZF/drpscwILLkef5PeNnx37Bhvsk5JsxGvMgdGQyPP6GM8cep2zTmdTwKHzgP
+         huQsyyvJkng9xGF4A0uZN/Y3iA8Ml0bFAOseyEeQLlODHtz1y7K9gnHyWpDAVCblmZYv
+         STf1ts/FgPTCF6Oyt8cEfY1gXbbjBNOrJPp2kUGGJm9EYJwi34oMHuF4AcwLyoKk6RDv
+         6poq/UTtwoIxQRsZOp/7dwWzbU9JdM024N68FKj7ySsi4uMcafz8naH5eUQMqqkKBdFR
+         q76w==
+X-Forwarded-Encrypted: i=1; AKwUvBy+iEYWtBAGW1TYl619HNutsBr8LRiwy5XSzxfltG+RcWbCUslJRB0eszbzzq81PRdYfiDU8Xn3yTfbf3o=@vger.kernel.org
+X-Gm-Message-State: AFuF++nH4ZNIubrn2Xfym5kQLIPX/j0n9Gzu95Tsk0BzpRtf0V2Demxe
+	/6wVl/1qS/ovRn4zAd2z4sC2C/LKfKKQkHPJz/k28ibxXksLAApo/69ecYFZyCQoEA==
+X-Gm-Gg: AYBFou1FHcI2kTkLSc5QXfikfceY9ndKgms7peDEogFgV3HwralUJmg3YH5chG0513j
+	aTyaT1P6TIFWQPVwMHBzk7+0cZGtLGD93AVrsKPrzALKjEOUV8trv4vG6NMKRN8VQkkC9BZXfUj
+	C94SM6VjwFwnKTGK5MWzh/EHPAAHy+etpmqsebkkD2ANI/qXsLUKMSo60cyA4AqtzIX4iVhNII7
+	cqPGFGi3rxcfCBZ7fZflHo1xX6dOhkRVV+aMfO3ctJPBOwXlP1GddpSTw3km13J0MsY/FMPpahJ
+	dgDlwHp61+IY80ItMIsRZU8uRqZzMnE8648HdXKR6F9HWGEk3nFKQdiYjkMWot0QpKzCFy46dKy
+	oFZvFmem1dHnm11pbT6JgtGqz7BQRzm+f3S3l72ZuGuTGzSFdoGX5HbCboDHIgCCQvEaATVPKmZ
+	gadSTAcFAE9RbfA+OuHEQTVaDhnfWgy2dS/M0fXYJOcWS+Bntw5FD8Sy3eJtQ9Ye+mLf6c95Gl+
+	YjFVta2IkmKnY0/Be5NpFxdOzss69f/f7Y=
+X-Received: by 2002:a05:6a21:4ccc:b0:3d7:b90:acba with SMTP id adf61e73a8af0-3dacbd6d1a2mr7999128637.6.1789007113811;
+        Wed, 09 Sep 2026 19:25:13 -0700 (PDT)
+Received: from p1.. (129-219-8-31.nat.asu.edu. [129.219.8.31])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1435c2ae6b5sm2688847c88.1.2026.09.09.19.25.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 19:25:13 -0700 (PDT)
+From: Xiang Mei <xmei5@asu.edu>
+To: Joanne Koong <joannelkoong@gmail.com>,
+	Bernd Schubert <bernd@bsbernd.com>,
+	Baokun Li <libaokun@linux.alibaba.com>,
+	Miklos Szeredi <miklos@szeredi.hu>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>
+Cc: fuse-devel@lists.linux.dev,
+	linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Luis Henriques <luis@igalia.com>,
+	Pavel Begunkov <asml.silence@gmail.com>,
+	bestswngs@gmail.com,
+	Xiang Mei <xmei5@asu.edu>
+Subject: [PATCH v7 1/2] fuse: don't BUG when the copy buffer is exhausted
+Date: Wed,  9 Sep 2026 19:24:41 -0700
+Message-ID: <20260910022442.3594649-1-xmei5@asu.edu>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-luka.gejak@linux.dev <luka.gejak@linux.dev> wrote:
-> From: Luka Gejak <luka.gejak@linux.dev>
->=20
-> rtw_sdio_write_port() rounds the transfer up with sdio_align_size() and
-> then hands that length to sdio_memcpy_toio() while the skb still only
-> holds skb->len bytes. The difference, between one and 511 bytes, is read
-> from beyond the end of the frame and transmitted. Whether it stays
-> inside the skb's allocation depends on how much tailroom the skb happens
-> to have, so this is at best sending uninitialised memory over the air.
->=20
-> Pad the skb up to the transfer size first. __skb_pad() zeroes the added
-> bytes, reallocates a cloned skb rather than writing into a buffer a
-> clone still shares, and leaves skb->len alone, so nothing else in the
-> transmit path has to change.
+fuse_copy_fill() hits BUG_ON(!err) once the iterator backing the copy
+runs out of pages.  Over io-uring the amount copied is not bounded by the
+payload buffer the server registered, so an unprivileged user can drain
+the iterator and panic the host - mount a FUSE filesystem with small
+payload buffers, then setxattr() a larger value:
 
-With __skb_pad(), it might increase CPU usage.
-Could you roughly measure that?
+  kernel BUG at fs/fuse/dev.c:1064!
+  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+  CPU: 1 UID: 0 PID: 148 Comm: exploit Not tainted 7.3.0-rc1 #2
+  RIP: 0010:fuse_copy_fill (fs/fuse/dev.c:1033)
+  Call Trace:
+   <TASK>
+   fuse_copy_args (fs/fuse/dev.c:1354 fs/fuse/dev.c:1380)
+   fuse_uring_args_to_ring (fs/fuse/dev_uring.c:891)
+   fuse_uring_prepare_send (fs/fuse/dev_uring.c:940 fs/fuse/dev_uring.c:1057)
+   fuse_uring_send_in_task (fs/fuse/dev_uring.c:1745)
+   tctx_task_work_run (io_uring/tw.c:96)
+   tctx_task_work (io_uring/tw.c:133)
+   task_work_run (kernel/task_work.c:233)
+   io_run_task_work (io_uring/tw.h:84)
+   io_cqring_wait (io_uring/wait.c:278)
+   __do_sys_io_uring_enter (io_uring/io_uring.c:2676)
+   do_syscall_64 (arch/x86/entry/syscall_64.c:61)
+   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+   </TASK>
 
->=20
-> It must not free the skb on failure: rtw_sdio_write_data() frees the skb
-> itself and rtw_sdio_process_tx_queue() requeues it, so both callers
-> still own it and would double free.
->=20
-> Found while reworking this path for the RTL8723BS. Measured on RTL8723BS
-> hardware, padding the transfer costs nothing observable: uplink is
-> 19.5 to 19.8 Mbit/s padded against 20.9 to 21.1 Mbit/s unpadded in an
-> interleaved A/B, with scans, reconnection and a UDP flood clean in both.
-> The other SDIO parts sharing this path are untested; I have only the
-> RTL8723BS.
->=20
-> Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO =
-based chipsets")
-> Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
+The reply path can drain it the same way, via the server-supplied
+payload_sz in fuse_uring_copy_from_ring().
 
-Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+An exhausted iterator is recoverable, so return -EIO.  All three
+fuse_copy_fill() callers already propagate the error.
 
+Fixes: c090c8abae4b ("fuse: Add io-uring sqe commit and fetch support")
+Cc: stable@vger.kernel.org
+Reported-by: Weiming Shi <bestswngs@gmail.com>
+Suggested-by: Joanne Koong <joannelkoong@gmail.com>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
+---
+ fs/fuse/dev.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
+diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+index 4fec31fc0b84..4148e4488d77 100644
+--- a/fs/fuse/dev.c
++++ b/fs/fuse/dev.c
+@@ -1061,7 +1061,8 @@ static int fuse_copy_fill(struct fuse_copy_state *cs)
+ 		err = iov_iter_get_pages2(cs->iter, &page, PAGE_SIZE, 1, &off);
+ 		if (err < 0)
+ 			return err;
+-		BUG_ON(!err);
++		if (!err)
++			return -EIO;
+ 		cs->len = err;
+ 		cs->offset = off;
+ 		cs->pg = page;
+-- 
+2.43.0
 
