@@ -1,60 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC70E4BFE9D;
-	Thu, 10 Sep 2026 10:53:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE99545FFB5;
+	Thu, 10 Sep 2026 10:53:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037616; cv=none; b=jdcktTC+BIveBZKKKD5kszr8geseUpIZWygpCtRqzjVpdZlZzkRAbgl/ud+CU3kAjL70QlF5qkRkJjuXiOfQ9pRMrnlhmp0G9LRn1YQrVKhsEFpZ30eqL5V+tOd0B38njdOx6sLi1XtXbyqPScV/8uTX8XSZmHl3ZTjfxWYXZKc=
+	t=1789037628; cv=none; b=aRZn5DU65USuoYxtWKafXTWltW28+r2a1W5ghG1I7TjcIzB1P4+JWWJBm5V3Eflf0+iabc06KWEO3Lid2r705cBOzbfS0fF728pqxqu5RGhmUySWrhyWtvTXdqHo+sh+FEq212srOI7mQc+tIbGf3lssdJ7L9REHTKmLPqLPuGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037616; c=relaxed/simple;
-	bh=1RVl23lmdHHQr8Jb0PysgwfN8XsmX+/uV8AZNwAQOA0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=agbpUxzmBCi9Rn5HFyZKU5kVM6rbHAgGBPDwNlF0Wl9dT06sqscS2R/HI1PIa5ZdqvsYzJUS0H9coi7iZ4As+70tyxrQ6J16EcR9SznrL/vpSALiyxClSqSwtFWKc22lyv0M8P3VR60pqzgdQ/uhKbZ/u2JCRT19QYdP6R3V6TI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DC271F000FF;
-	Thu, 10 Sep 2026 10:53:28 +0000 (UTC)
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-To: Ryder Lee <ryder.lee@mediatek.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- linux-pci@vger.kernel.org, linux-mediatek@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- aquapinn@qq.com
-Cc: zhengping.zhang@airoha.com, lei.dong@airoha.com, hui.ma@airoha.com, 
- upstream@airoha.com
-In-Reply-To: <tencent_5E7D6E7FB25B4CD732F08547C11F5DA24808@qq.com>
-References: <tencent_5E7D6E7FB25B4CD732F08547C11F5DA24808@qq.com>
-Subject: Re: [PATCH] PCI: mediatek: Find INTx controller by property
-Message-Id: <178903760879.9481.17080662701221363046.b4-ty@b4>
-Date: Thu, 10 Sep 2026 12:53:28 +0200
+	s=arc-20240116; t=1789037628; c=relaxed/simple;
+	bh=AE87lusMPfPjdrB3o6pXNzFg0voaAAjsIOr74KNCMOE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pY0TZgjlCwAZjdt7+VIHeVo61fl7YvEtsD7Ibe7LWgv/EbswIJuP7E9CsTQlLGkgspnKHHLFFlJbtPe3YRExrk/URwY4nP+0vLlz4appLFnkkbPMSWzCmXoAHMPWkkPNqyt7hK9rgjNj8byWlh/JMYakeE/0JUg+arK+6HIuPwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=qk/Ho36h; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="qk/Ho36h"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=VVwOnaOLvHrmUaRFj0thYlhFFoEcWPkUZVoSbzPkH9U=; b=qk/Ho36hMAqkPKl6+7NAXjyIvF
+	7u76wg+bo0qO7NcQb347SO6o7qkadwSDLlS9yNtLN9gDnhhk8JOlsplDkZufyrHborZlFP7h0Rs2j
+	7LZmZ0fO56Ovvi0JPZtLivtd3IoJkCQTKU6daNeygOLOH2IIf5SKOxZGp47OzvIs+tl9fVJgfl8gO
+	lq9sZXxb1cQNogApEJn8VprKrCvDC/Aatl5/1Sj40I/WuPdJCqFxG4+lM29OyFD7Wajm8CwC4gHM4
+	6K85oTOH/gcfJOn8+dJOzHUeCV+RYvAJbbp3vJwUTGJmGX5u3R42jo8GuaGjzu17kXgNDzG18+sU2
+	0METmk/w==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x4cPQ-0000000FrM0-19G2;
+	Thu, 10 Sep 2026 10:53:36 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id CF87C30056B; Thu, 10 Sep 2026 12:53:35 +0200 (CEST)
+Date: Thu, 10 Sep 2026 12:53:35 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Andrea Righi <arighi@nvidia.com>
+Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>,
+	Lee Trager <ltrager@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+	Koba Ko <kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
+	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 09/18] sched_ext: Block proxy donors across scheduler
+ transitions
+Message-ID: <20260910105335.GJ4120091@noisy.programming.kicks-ass.net>
+References: <20260831134338.1531664-1-arighi@nvidia.com>
+ <20260831134338.1531664-10-arighi@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831134338.1531664-10-arighi@nvidia.com>
+
+On Mon, Aug 31, 2026 at 03:42:19PM +0200, Andrea Righi wrote:
+> Proxy execution retains mutex-blocked donors on the runqueue so their
+> scheduling context can execute a lock owner. sched_ext cannot safely retain
+> such donors unless the BPF scheduler explicitly participates in their
+> admission and ordering.
+> 
+> Make sched_ext reject retained donors by default. Implement
+> scx_allow_proxy_exec() to force blocked EXT tasks through the regular block
+> path in schedule().
+> 
+> Also fully deactivate any retained proxy donor in sched_change_begin()
+> before changing its scheduling class. This prevents sched_setscheduler(),
+> PI transitions and sched_ext activation from carrying an existing proxy
+> session into the new class.
+> 
+> Some RT/DL PI transitions could usefully preserve the proxy session. For
+> example, an RT waiter can boost a FAIR donor which is itself blocked on a
+> non-PI mutex; retaining the donor would allow the boosted context to keep
+> proxy-executing that mutex owner. Doing so safely requires defining which
+> scheduling classes can carry retained proxy state across a transition. Keep
+> the conservative reset for now and leave compatible RT/DL PI chains for
+> future work.
+> 
+> This is a preparatory change to support proxy execution with sched_ext.
+> 
+> Signed-off-by: Andrea Righi <arighi@nvidia.com>
+> ---
+>  kernel/sched/core.c    | 9 +++++++++
+>  kernel/sched/ext/ext.c | 2 +-
+>  2 files changed, 10 insertions(+), 1 deletion(-)
+> 
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index f142ab455b797..4bd956182af8d 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -11302,6 +11302,15 @@ sched_change_begin(struct task_struct *p, const struct sched_class *next_class,
+>  		flags |= DEQUEUE_NOCLOCK;
+>  	}
+>  
+> +	/*
+> +	 * Don't carry retained proxy state across scheduling class changes.
+> +	 * Compatible RT/DL PI transitions could preserve the session so that a
+> +	 * boosted donor continues proxy-executing its lock owner. Defining which
+> +	 * class transitions can safely retain that state is left for future work.
+> +	 */
+> +	if ((flags & DEQUEUE_CLASS) && next_class != p->sched_class)
+
+That's a tautology, having DEQUEUE_CLASS means next_class !=
+->sched_class.
+
+> +		sched_proxy_block_task(rq, p);
+> +
+>  	if ((flags & DEQUEUE_CLASS) && p->sched_class->switching_from)
+>  		p->sched_class->switching_from(rq, p);
+>  
+> diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+> index f3e59f4fad4ac..d5ed996ebfb4c 100644
+> --- a/kernel/sched/ext/ext.c
+> +++ b/kernel/sched/ext/ext.c
+> @@ -26,7 +26,7 @@ DEFINE_RAW_SPINLOCK(scx_sched_lock);
+>  
+>  bool scx_allow_proxy_exec(const struct task_struct *p)
+>  {
+> -	return true;
+> +	return p->sched_class != &ext_sched_class;
+>  }
 
 
-On Wed, 05 Aug 2026 14:05:07 +0800, aquapinn@qq.com wrote:
-> All existing DTS users already name the INTx child node
-> "interrupt-controller". Use of_get_child_by_name() to find it instead
-> of assuming it is the first child node.
+Hmmmm... I don't like this. I was expecting this
+sched_proxy_block_task() thing to be called in the big switcheroo
+function when loading one of these ext thing. (scx_root_enable_ or
+somesuch).
 
-Applied, thanks!
-
-[1/1] PCI: mediatek: Find INTx controller by property
-      commit: 52cbf88730b743745404b3fa5a3fc8b480768276
-
-Best regards,
--- 
-மணிவண்ணன் சதாசிவம்
-
-
+We most certainly don't want to do this on every sched class change. It
+isn't even gated by scx_allow_proxy_exec().
