@@ -1,94 +1,129 @@
-Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83365346A04;
-	Thu, 10 Sep 2026 06:08:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15630346A04;
+	Thu, 10 Sep 2026 06:08:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789020490; cv=none; b=SHvtJJJSHOIaR0u6A8jGDl3OEAIR8hwXDhbZovll8OVahh5fhucuaGgsFQozp8KtdH4Byn4b69ZW+lSbwqj8R//BzB0utWpRGxjN+A2JIVwHsr4rMuFe3zMQYWmd384UB2H4jDVMSO84LxatMW/5UXMAuzQ7pKZj70RyQiyL8f0=
+	t=1789020502; cv=none; b=bjs/25K4c5Q5qBiKUzbg16SDpMSEP/wfIt6snPN+fOL9zz1VCLXiF2hp2RblkzZ4wPLw3l0ZAJBgNL94YKyGwXWbA5Gd4oFuPWzSvPtHxryRv0U5pppGiGyMKtf1z2cK/t/Mq1hnerlUuF26P9mlq7byWwk/7djF1qKlE6zoUMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789020490; c=relaxed/simple;
-	bh=yDkiHVuqmetPgWslkQi/TK6nQokzqI1UhF4na163Eho=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OSGULGPPnq4pX0dV0O3TtrkEOGzv6a37AE+jtdIsnzK90B+UUDxrMDInTTiydhMbnhc+/zx7a+umNU+3IHodwM5R/hWR+shyplH1jOBx0xisnH+ojFTl6trAnR4CACggoRQ/OJyV/T33wlBqml3YWRgmBwcdmBBtCIaOHwGEhP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=eLuWTS4g; arc=none smtp.client-ip=115.124.30.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1789020502; c=relaxed/simple;
+	bh=K2E8HJKKwmixZBGMikxuRE6av/5UwFtViroEDqpWL7k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IhHLTeTpb5OTjdd4wQNHy3xnTD65R7m/ov79+7XLwXCesLRQUeMKep9XKVgzl7tdbW2I7+A6oNfR66dMQLAM5Tcs0NKcC/cVI3TpbBXuQQVM83PIsFW8QQoLa2q+k2hzGD5QxCI4bTJiIoWkLC1mSb/lwrGhk1Bg8LVjvYCbSgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X9gWFHds; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="eLuWTS4g"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1789020483; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=jePTnUgwFYrx1QtqJ0i+l+Bh+bnpi4s/zBah6ITg4fg=;
-	b=eLuWTS4gPvXQH2O8d63Z+phJwbXPzy5HQtnKUfPyjkIjEHuK0rDcx6ZMOPSI99i9o3MRHh4kn/TMl1JELFwzTYQa/UpqrbI7e6BLojQ/3WZyB7pHLfRzxEkiLg8YGcaG23sV+UlAnMlQT6ukJvN4K9+d4T1iTj3gGDpTWOhMDI8=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R711e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=27;SR=0;TI=SMTPD_---0XAgdFcD_1789020480;
-Received: from 30.74.144.116(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAgdFcD_1789020480 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 10 Sep 2026 14:08:01 +0800
-Message-ID: <e611ca08-1952-457d-ba45-8c8854020a74@linux.alibaba.com>
-Date: Thu, 10 Sep 2026 14:07:59 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X9gWFHds"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B64A1F00893;
+	Thu, 10 Sep 2026 06:08:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789020500;
+	bh=yFkpzRTGUxAa/gcYZ+xpuv+1HVYwbL6IIJ/xeFkQyRE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=X9gWFHdsNieV0H8nFH56LOOdari/6PCxjiNUid9zuK64ipvL7/msC0CE6j6Xe5FsH
+	 mcU064QBh7Bf0a0wKmuePmXOvVMPHOLPZkzOnjrKXfYGZHP8O1k97hJM5ONvGa/1XW
+	 5YyWd8JW1oBoH7LDzyX2REN17DaNMqmKWczf/P1yXzOrFz3FnTH66c9CIWZRG1gZj1
+	 y2bkFdJqdWoVYWweb6Unl+Suz1cj1Ncql5F6FRL6DUgcrgmS2gU0hwnNqoS4btrfQq
+	 unVw3JANRQWQmhuu9YJYgMZ5WxiPa94g4yYj8CIVIPyPxSUsEijbY7ZaL487cGyOSY
+	 aqsCx8Lek1tiw==
+Date: Thu, 10 Sep 2026 08:08:10 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Bjorn Helgaas <helgaas@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Niklas Cassel <cassel@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Kishon Vijay Abraham I <kishon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>, 
+	Allen Hubbe <allenbh@gmail.com>, linux-pci@vger.kernel.org, ntb@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] PCI: endpoint: pci-epf-vntb: Pass PF/VF number when
+ BAR programming
+Message-ID: <b4mtzimdzlk6r3yihye7f3gkdqbk7gi64ymdrhf5twmn35zej7@s3n7bqe4g6vq>
+References: <rmso2szdpfjy4qoqalhhpf3zxzn2te25m573qmwmpmoilk5jz2@arvvr4hdzbbj>
+ <20260909160949.GA216221@bhelgaas>
+ <sbmyv6wgmdtow7rg4m7vkfpn42ts2xobqwvzjdh7japgyremyb@p5zmzskzcdvc>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 14/19] selftests/mm: run every supported collapse order
- by default
-To: Kiryl Shutsemau <kirill@shutemov.name>, akpm@linux-foundation.org,
- david@kernel.org, ljs@kernel.org, rppt@kernel.org
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, usama.anjum@arm.com, usama.arif@linux.dev,
- nico.pache@linux.dev, ziy@nvidia.com, baohua@kernel.org, dev.jain@arm.com,
- hughd@google.com, lance.yang@linux.dev, liam@infradead.org, mhocko@suse.com,
- ryan.roberts@arm.com, shuah@kernel.org, surenb@google.com,
- vbabka@kernel.org, agordeev@linux.ibm.com, jgg@ziepe.ca, leon@kernel.org,
- kernel-team@meta.com, "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-References: <20260908125105.1510704-1-kirill@shutemov.name>
- <20260908125105.1510704-15-kirill@shutemov.name>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20260908125105.1510704-15-kirill@shutemov.name>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <sbmyv6wgmdtow7rg4m7vkfpn42ts2xobqwvzjdh7japgyremyb@p5zmzskzcdvc>
 
+On Thu, Sep 10, 2026 at 01:56:53PM +0900, Koichiro Den wrote:
+> On Wed, Sep 09, 2026 at 11:09:49AM -0500, Bjorn Helgaas wrote:
+> > On Wed, Sep 09, 2026 at 01:53:53PM +0900, Koichiro Den wrote:
+> > > On Tue, Sep 08, 2026 at 09:23:11PM -0500, Bjorn Helgaas wrote:
+> > > > On Wed, Sep 09, 2026 at 11:01:48AM +0900, Koichiro Den wrote:
+> > > > > On Tue, Sep 08, 2026 at 11:53:15AM -0500, Bjorn Helgaas wrote:
+> > > > > > On Wed, Jul 29, 2026 at 02:23:04AM +0900, Koichiro Den wrote:
+> > > > > > > vntb_epf_mw_set_trans() programs the memory-window BAR through
+> > > > > > > pci_epc_set_bar() with hardcoded function numbers (0, 0), so the BAR
+> > > > > > > lands on the wrong function whenever the vNTB EPF is bound to anything
+> > > > > > > but PF0. The other BAR programming sites in the vNTB driver already pass
+> > > > > > > the EPF's own numbers.
+> > > > > > > 
+> > > > > > > Pass the EPF's own func_no/vfunc_no here as well.
+> > > > > > 
+> > > > > > We're referring to these as "PF" and "VF" in the subject and "physical
+> > > > > > endpoint function" and "virtual endpoint function" in the
+> > > > > > pci_epc_set_bar() kernel-doc, but I don't think these have anything to
+> > > > > > do with the SR-IOV PF and VF concepts, do they?
+> > > > > 
+> > > > > Not in the specific case that motivated this series. But AFAICT, the EPC API
+> > > > > uses the same (func_no, vfunc_no) pair to cover both ordinary functions and
+> > > > > SR-IOV PFs/VFs scenarios. With vfunc_no == 0, func_no can identify either an
+> > > > > ordinary function or an SR-IOV PF. A non-zero vfunc_no identifies a VF
+> > > > > associated with the PF selected by func_no.
+> > > > 
+> > > > Now I'm even more confused :)
+> > > > 
+> > > > Are you saying that a non-zero vfunc_no always identifies an SR-IOV
+> > > > VF?  And there's some dependency on that?  I don't any mention of
+> > > > "iov" in drivers/pci/endpoint/.
+> > > 
+> > > Yes, that is my understanding of the current in-tree implementation. You're
+> > > right that drivers/pci/endpoint/ itself contains no explicit reference to
+> > > SR-IOV. E.g. pci_epf_add_vepf() just calls it a "virtual EP function".
+> > > So my saying was kind of assumptive, but I still think the same because:
+> > > 
+> > > - The support was introduced for SR-IOV:
+> > >   https://lore.kernel.org/r/20210819123343.1951-1-kishon@ti.com/
+> > > 
+> > > - The core rejects a non-zero vfunc_no unless the EPC provides max_vfs, and
+> > >   Cadence is the only in-tree EPC driver I found that does so. For example,
+> > >   cdns_pcie_ep_set_bar() calls cdns_pcie_get_fn_from_vfn(), which uses the
+> > >   SR-IOV First VF Offset and VF Stride for a non-zero vfn.
+> > 
 
+Your understanding is correct.
 
-On 9/8/26 8:51 PM, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> > Thanks, that's helpful.  I still have to work hard to change my point
+> > of view from host-side drivers to endpoint drivers operating on the
+> > other end of the link.  The fact that there are several interfaces
+> > that need (func_no, vfunc_no) suggests that callers really do need to
+> > understand what's going on, and maybe we should try to connect the
+> > kernel-doc and abbreviations more closely with PCIe spec terms.
+> > 
+> > E.g., if "physical EP function" and "virtual EP function" refer to
+> > SR-IOV PF and VF, maybe we should word them as "endpoint PF" or
+> > "endpoint VF" (or "EP PF", "EP VF" for short).  If
 > 
-> The mTHP collapse cases only run when the caller names both the context
-> and an order, so a plain ./khugepaged covers the PMD contexts on anon and
-> nothing else.  run_vmtests.sh pinned order 4 and covered no other.
+> I personally agree. That sounds reasonable and would help clarify things.
 > 
-> Run the mTHP cases once per supported anon THP order below the PMD when
-> -c is absent, and pull that context into both the no-argument invocation
-> and "all".  Also:
+> > "pci_epf_add_vepf()" adds an SR-IOV VF, maybe "pci_epf_add_vf()" would
+> > be descriptive enough.  We already know we're on the endpoint because
+> > of "epf", so we probably don't need another hint in "vepf", which
+> > includes a "pf" that doesn't mean SR-IOV PF.
 > 
->    - -c still pins one order, and now says what is wrong instead of
->      printing the usage text.  An order at or below the -s source order is
->      skipped: the sources would already be the size being asked for.
+> True. But I'd also like to hear what the PCI EP maintainers think about this.
 > 
->    - Both orders end up as array indices and shift counts, so -s and -c
->      are range-checked before they get there.
-> 
->    - The mTHP context has only anon cases, so a run that names a different
->      mem_type -- "all:shmem", say -- drops it again rather than refusing
->      to start.  Naming both explicitly still refuses.
-> 
->    - A case carries the order it was registered at, so a result names it:
-> 
->        # Run test: collapse_single_mthp (mthp_khugepaged:anon, order 6)
-> 
-> On x86-64 with 4K pages that is orders 2 through 8, and ./khugepaged goes
-> from 29 results in 17 seconds to 77 in 29, so run_vmtests.sh can drop its
-> pinned order-4 line.
-> 
-> Assisted-by: LLM
-> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> ---
 
-LGTM.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Tested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Fine with me.
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
