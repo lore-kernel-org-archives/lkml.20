@@ -1,140 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1DD4396D13
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:15:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E0538DC78;
+	Thu, 10 Sep 2026 09:16:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789031713; cv=none; b=H5NbLFQbziLQXpoLxqxVqLWCp8PkvjgVKDlY0TjlS/EbicQi2C+468RUuDfr7ChatXkWgG68mcIusb5Bz2oc6EHynukgYtknTIuuqVjxdMW+vba5YlrZGuqJiMHRi0KpJEU3jqB56QMWDstUJC02KaiFPjEOjX6TisOZ95Gioi8=
+	t=1789031798; cv=none; b=slZqwetRWxr4ilCk4I7ZqzmNmn++E2ZeLeMiHW6LvA4a44yI9Mtr3elWUAOgfb3pTdv1lg/GzEWyZ33S6Efbrzv1DBWFshqXAjI0XIeY2BpoleXheG0+WFhwZSYmOy++jQAzUqGcP6vUNh80zK8Gv95cgHW2ZN2+sjHU3mCicFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789031713; c=relaxed/simple;
-	bh=BpygvBlK1cqZp3m+OVtMCHN2lLaWv6UZNcXnPIFlB8s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m4YdgyNAr/72MZ3zDW2h5T+ZBF65F3kmazDh8AjS0zM7sJXz4syGHGKjC6KNrdd/XP8LHqFO8F3i4WWxgjmCrz8GgHB2ACuCA9EFRp7JEZ3EDW8leBtB7UQ5v0K+ioWRiwu61poYOiwP/n5QtrK1o3DlXLHfOh5nbe9EwXhYPIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DKBE+jV5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789031798; c=relaxed/simple;
+	bh=GxEiQwXDBcebBVRE/dGiwDfd5iv2YE3skoV4kH1Bb+4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=nCe68lf/6gvwIKU9k2xSmJA0vezfzZ+7Xeb5j0UsRE+lH/8ZaqY8SW6Vo/kc2XOeJWXWALRnz8xjdpNq9i2QDGKUtpauvFkIwZl5KB8yQ6BSEIdCdzzoYbaDGs1UZEu5GsOo2QOiV1tHA2Q5qVfzAwq0rqBoB9F+KXcHavu1o9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=MUlcWjfo; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DKBE+jV5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 691F11F000FF;
-	Thu, 10 Sep 2026 09:15:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789031711;
-	bh=Xvdr6aBrr3NW0+VKdXVqJoJPkTnZau8BUc7nDTK8Om8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DKBE+jV58Feen3qb+8pVGNdW4Mh2Jbn9vbS/1rTFybOAtOcLn9OHKaspPdWYX2+aq
-	 0ENYp04ugOo1z+ccGmKYHYmsKhD8vQNrRg1oNXuPdtVoCbYsYr06vb5WgjoiST3OVc
-	 AylqoSykdy/LrYaLVX9QpuDWSPwOLZocjAV/F2bGB9VmYsyxyNeh6oqkUqO+Sa14Zh
-	 y5ror0yvSrPaJNbmbdscJVuSJ0NGhWo4sFAlnknnfEvLS7EAHUJHRG5XLD58dcmqAL
-	 oVIWRxpfGjOyZ/dBzugZZJwPN+TP70JryTiP4XF+AZCj2zkQHLn8lDd1mofK+Dh0iA
-	 s1Hju/RFgOnoQ==
-Message-ID: <18ab9827-9e10-4360-a1d0-3b25d86a71a9@kernel.org>
-Date: Thu, 10 Sep 2026 11:15:01 +0200
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="MUlcWjfo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=GxEiQwXDBcebBVRE/dGiwDfd5iv2YE3skoV4kH1Bb+4=; b=M
+	UlcWjfoQcsM6uozP2ZA+dhntJUpdxgTyCHJ4fHJkD2baaQI7sBKjOIxDj9Kz02PQ
+	cEosw9HrwtrGXEpLFVdECD1lMwuh2el5VjCveopyzgu17zVa7yclch3NEpEJ56I3
+	9L2wXCusqEIXl7kCHTwlTA9uueNLIAeQaGkVGejjZA=
+Date: Thu, 10 Sep 2026 17:15:30 +0800 (CST)
+From: zl020895  <zl020895@163.com>
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: "Long Zhao" <longzhao@ambarella.com>, "Arnd Bergmann" <arnd@arndb.de>,
+	"Krzysztof Kozlowski" <krzk@kernel.org>,
+	"Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	"Rob Herring" <robh@kernel.org>,
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+	"Conor Dooley" <conor+dt@kernel.org>,
+	"Michael Turquette" <mturquette@baylibre.com>,
+	"Stephen Boyd" <sboyd@kernel.org>,
+	"Linus Walleij" <linusw@kernel.org>,
+	"Bartosz Golaszewski" <brgl@kernel.org>,
+	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+	"Jiri Slaby" <jirislaby@kernel.org>,
+	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+	"Catalin Marinas" <catalin.marinas@arm.com>,
+	"Will Deacon" <will@kernel.org>, "Lee Jones" <lee@kernel.org>,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-serial <linux-serial@vger.kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: Re:Re: [PATCH v6 11/13] serial: 8250_dw: add Ambarella CV75 quirks
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <07cdbec9-49af-d500-d93d-56bfcef9f490@linux.intel.com>
+References: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com>
+ <20260904-cv75-v5-v6-11-e918514cb3b1@ambarella.com>
+ <07cdbec9-49af-d500-d93d-56bfcef9f490@linux.intel.com>
+X-NTES-SC: AL_Qu2TC/yYvk8o5iOZY+kcn0wRhug/UMa4u/sm3YNXc/0EqiX9+T4sR2RaDHjs89yCBiKngRWUTRFQw9phRId0Gm3e9H0k5+Fqn0tYhpt88g==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 06/14] f2fs: stop using PG_private
-To: Chao Yu <chao@kernel.org>, Zi Yan <ziy@nvidia.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Jaegeuk Kim <jaegeuk@kernel.org>, linux-f2fs-devel@lists.sourceforge.net
-References: <20260907-remove-pg_private-v3-0-6ae22f9d9272@nvidia.com>
- <20260907-remove-pg_private-v3-6-6ae22f9d9272@nvidia.com>
- <e5792e81-e8a5-42e1-aafe-58dc603f4968@kernel.org>
- <7e11c56d-05e6-48f0-b5b8-b4a0e18ddc1d@kernel.org>
- <520b6aca-b515-4720-977f-1adb484f2e08@kernel.org>
- <d700c4ea-b54e-4195-b124-3c89177ee49e@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <d700c4ea-b54e-4195-b124-3c89177ee49e@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Message-ID: <5fdd9772.82f3.1a08a99cc94.Coremail.zl020895@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:cygvCgD3P5MydaJqQM5DAA--.42441W
+X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbCxRKsHmqidTJgdAAA3+
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On 9/10/26 10:43, Chao Yu wrote:
-> On 9/10/26 15:34, David Hildenbrand (Arm) wrote:
->> On 9/10/26 04:41, Chao Yu wrote:
->>>
->>> David,
->>>
->>> Thanks for the patch, at a glance, it seems fine, can you please send
->>> a formal patch? then we can apply to dev-test for test.
->>
->> I'm hoping Zi will drag that along as part of this patch set. Is this fine or do
-> 
-> Oh, I see.
-> 
->> you want it sent as a complete standalone patch (will make merging Zi's series
->> slightly more complicated :) ).
-> 
-> I think sending as a separated patch based on Zi Yan's patch is fine, since the
-> purpose of this patch is a little different from Zi's one.
+SGkgSWxwbywKClRoYW5rcyBmb3IgdGhlIHJldmlldy4KCkknbGwgZHJvcCB0aGUgc2VyaWFsX3Bv
+cnRfb3V0KCkgaGVyZSBhbmQgb25seSBrZWVwOgoJdXAtPmllciB8PSBkLT5wZGF0YS0+aWVyX21h
+c2s7CnNvIEVUT0kgc3RheXMgaW4gdGhlIHNoYWRvdyBhbmQgc2VyaWFsODI1MF9zZXRfaWVyKCkg
+cHJvZ3JhbXMgdGhlCmhhcmR3YXJlIGxhdGVyLgoKQmVzdCByZWdhcmRzLApMb25nIFpoYW8KCkF0
+IDIwMjYtMDktMTAgMTY6NDQ6MzUsICJJbHBvIErDpHJ2aW5lbiIgPGlscG8uamFydmluZW5AbGlu
+dXguaW50ZWwuY29tPiB3cm90ZToKPk9uIEZyaSwgNCBTZXAgMjAyNiwgTG9uZyBaaGFvIHZpYSBC
+NCBSZWxheSB3cm90ZToKPgo+PiBGcm9tOiBMb25nIFpoYW8gPGxvbmd6aGFvQGFtYmFyZWxsYS5j
+b20+Cj4+IAo+PiBUaGUgQW1iYXJlbGxhIENWNzUgVUFSVCBpcyBBbWJhcmVsbGEgSVAsIG5vdCBh
+IFN5bm9wc3lzIERlc2lnbldhcmUKPj4gbGljZW5zZWQgYmxvY2suIEF0IHRoZSByZWdpc3RlciBs
+ZXZlbCBpdCBpcyBjbG9zZSBlbm91Z2ggdG8gRFcgQVBCIFVBUlQKPj4gdGhhdCBhIGZ1bGwgY3Vz
+dG9tIFVBUlQgZHJpdmVyIGlzIHVubmVjZXNzYXJ5OiByZXVzZSA4MjUwX2R3IHdpdGggYQo+PiBz
+bWFsbCBwbGF0Zm9ybSBxdWlyay4KPj4gCj4+IFF1aXJrczoKPj4gLSBrZWVwIElFUiBFVE9JIChi
+aXQgNSkgc2V0IGZvciBSWCB0aW1lb3V0IGJlaGF2aW91cgo+PiAtIHNraXAgc2V0X3JhdGU7IGJh
+dWQgY2xvY2sgaXMgbWFuYWdlZCBvdXRzaWRlIHRoZSBVQVJUIGJsb2NrCj4+IAo+PiBTaWduZWQt
+b2ZmLWJ5OiBMb25nIFpoYW8gPGxvbmd6aGFvQGFtYmFyZWxsYS5jb20+Cj4+IC0tLQo+PiAgZHJp
+dmVycy90dHkvc2VyaWFsLzgyNTAvODI1MF9kdy5jIHwgMzQgKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKwo+PiAgMSBmaWxlIGNoYW5nZWQsIDM0IGluc2VydGlvbnMoKykKPj4gCj4+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3R0eS9zZXJpYWwvODI1MC84MjUwX2R3LmMgYi9kcml2ZXJz
+L3R0eS9zZXJpYWwvODI1MC84MjUwX2R3LmMKPj4gaW5kZXggNWZiYTkxM2YzMzAxLi5iMTVkZTQw
+ZDFlMmEgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvdHR5L3NlcmlhbC84MjUwLzgyNTBfZHcuYwo+
+PiArKysgYi9kcml2ZXJzL3R0eS9zZXJpYWwvODI1MC84MjUwX2R3LmMKPj4gQEAgLTQzLDYgKzQz
+LDkgQEAKPj4gICNkZWZpbmUgUlpOMV9VQVJUX3hETUFDUl84X1dPUkRfQlVSU1QJKDIgPDwgMSkK
+Pj4gICNkZWZpbmUgUlpOMV9VQVJUX3hETUFDUl9CTEtfU1ooeCkJKCh4KSA8PCAzKQo+PiAgCj4+
+ICsvKiBBbWJhcmVsbGEgSUVSOiByZWNlaXZlIHRpbWVvdXQgaW50ZXJydXB0IGVuYWJsZSAqLwo+
+PiArI2RlZmluZSBBTUJBUkVMTEFfVUFSVF9JRVJfRVRPSQkJQklUKDUpCj4+ICsKPj4gIC8qIFF1
+aXJrcyAqLwo+PiAgI2RlZmluZSBEV19VQVJUX1FVSVJLX09DVEVPTgkJQklUKDApCj4+ICAjZGVm
+aW5lIERXX1VBUlRfUVVJUktfQVJNQURBXzM4WAlCSVQoMSkKPj4gQEAgLTYwLDYgKzYzLDcgQEAK
+Pj4gIAo+PiAgc3RydWN0IGR3ODI1MF9wbGF0Zm9ybV9kYXRhIHsKPj4gIAl1OCB1c3JfcmVnOwo+
+PiArCXU4IGllcl9tYXNrOwo+PiAgCXUzMiBjcHJfdmFsdWU7Cj4+ICAJdW5zaWduZWQgaW50IHF1
+aXJrczsKPj4gIH07Cj4+IEBAIC01NzIsNiArNTc2LDI3IEBAIHN0YXRpYyB2b2lkIGR3ODI1MF9w
+cmVwYXJlX3J4X2RtYShzdHJ1Y3QgdWFydF84MjUwX3BvcnQgKnApCj4+ICAJZHc4MjUwX3dyaXRl
+bF9leHQodXAsIFJaTjFfVUFSVF9SRE1BQ1IsIHZhbCk7Cj4+ICB9Cj4+ICAKPj4gK3N0YXRpYyBp
+bnQgZHc4MjUwX2llcl9tYXNrX3N0YXJ0dXAoc3RydWN0IHVhcnRfcG9ydCAqcCkKPj4gK3sKPj4g
+KwlzdHJ1Y3QgZHc4MjUwX2RhdGEgKmQgPSB0b19kdzgyNTBfZGF0YShwLT5wcml2YXRlX2RhdGEp
+Owo+PiArCXN0cnVjdCB1YXJ0XzgyNTBfcG9ydCAqdXAgPSB1cF90b191ODI1MHAocCk7Cj4+ICsJ
+aW50IHJldDsKPj4gKwo+PiArCXJldCA9IHNlcmlhbDgyNTBfZG9fc3RhcnR1cChwKTsKPj4gKwlp
+ZiAocmV0KQo+PiArCQlyZXR1cm4gcmV0Owo+PiArCj4+ICsJLyoKPj4gKwkgKiBBbWJhcmVsbGEg
+a2VlcHMgdmFyaWFudCBJRVIgYml0cyAoZS5nLiBFVE9JKSBzZXQgZm9yIGNvcnJlY3QgUlgKPj4g
+KwkgKiB0aW1lb3V0IGJlaGF2aW91ci4gRm9yY2UgdGhlbSBpbnRvIHRoZSA4MjUwIElFUiBzaGFk
+b3cgc28gbGF0ZXIKPj4gKwkgKiBnZW5lcmljIElFUiB1cGRhdGVzIGRvIG5vdCBjbGVhciB0aGVt
+Lgo+PiArCSAqLwo+PiArCXVwLT5pZXIgfD0gZC0+cGRhdGEtPmllcl9tYXNrOwo+PiArCXNlcmlh
+bF9wb3J0X291dChwLCBVQVJUX0lFUiwgdXAtPmllcik7Cj4KPnNlcmlhbDgyNTBfZG9fc3RhcnR1
+cCgpIHNlZW1zIHRvIGRlZmVyIElFUiB1cGRhdGUgb24gcHVycG9zZS4gSXMgaXQgZmluZSAKPnRv
+IG92ZXJyaWRlIHRoYXQgYmVoYXZpb3IgaGVyZT8KPgo+LS0gCj4gaS4KPgo+PiArCXJldHVybiAw
+Owo+PiArfQo+PiArCj4+ICBzdGF0aWMgdm9pZCBkdzgyNTBfcXVpcmtzKHN0cnVjdCB1YXJ0X3Bv
+cnQgKnAsIHN0cnVjdCBkdzgyNTBfZGF0YSAqZGF0YSkKPj4gIHsKPj4gIAl1bnNpZ25lZCBpbnQg
+cXVpcmtzID0gZGF0YS0+cGRhdGEtPnF1aXJrczsKPj4gQEAgLTYwNiw2ICs2MzEsOCBAQCBzdGF0
+aWMgdm9pZCBkdzgyNTBfcXVpcmtzKHN0cnVjdCB1YXJ0X3BvcnQgKnAsIHN0cnVjdCBkdzgyNTBf
+ZGF0YSAqZGF0YSkKPj4gIAkJcC0+c2VyaWFsX2luID0gZHc4MjUwX3NlcmlhbF9pbjMyOwo+PiAg
+CQlkYXRhLT51YXJ0XzE2NTUwX2NvbXBhdGlibGUgPSB0cnVlOwo+PiAgCX0KPj4gKwlpZiAoZGF0
+YS0+cGRhdGEtPmllcl9tYXNrKQo+PiArCQlwLT5zdGFydHVwID0gZHc4MjUwX2llcl9tYXNrX3N0
+YXJ0dXA7Cj4+ICB9Cj4+ICAKPj4gIHN0YXRpYyB2b2lkIGR3ODI1MF9yZXNldF9jb250cm9sX2Fz
+c2VydCh2b2lkICpkYXRhKQo+PiBAQCAtODc5LDYgKzkwNiwxMiBAQCBzdGF0aWMgY29uc3Qgc3Ry
+dWN0IGR3ODI1MF9wbGF0Zm9ybV9kYXRhIGR3ODI1MF9pbnRjMTBlZSA9IHsKPj4gIAkucXVpcmtz
+ID0gRFdfVUFSVF9RVUlSS19JRVJfS0lDSywKPj4gIH07Cj4+ICAKPj4gK3N0YXRpYyBjb25zdCBz
+dHJ1Y3QgZHc4MjUwX3BsYXRmb3JtX2RhdGEgZHc4MjUwX2FtYmFyZWxsYV9jdjc1X2RhdGEgPSB7
+Cj4+ICsJLnVzcl9yZWcgPSBEV19VQVJUX1VTUiwKPj4gKwkuaWVyX21hc2sgPSBBTUJBUkVMTEFf
+VUFSVF9JRVJfRVRPSSwKPj4gKwkucXVpcmtzID0gRFdfVUFSVF9RVUlSS19TS0lQX1NFVF9SQVRF
+LAo+PiArfTsKPj4gKwo+PiAgc3RhdGljIGNvbnN0IHN0cnVjdCBkdzgyNTBfcGxhdGZvcm1fZGF0
+YSBkdzgyNTBfdWx0cmFyaXNjX2RwMTAwMF9kYXRhID0gewo+PiAgCS51c3JfcmVnID0gRFdfVUFS
+VF9VU1IsCj4+ICAJLmNwcl92YWx1ZSA9IEZJRUxEX1BSRVBfQ09OU1QoRFdfVUFSVF9DUFJfQUJQ
+X0RBVEFfV0lEVEgsIDIpIHwKPj4gQEAgLTg4OSw2ICs5MjIsNyBAQCBzdGF0aWMgY29uc3Qgc3Ry
+dWN0IGR3ODI1MF9wbGF0Zm9ybV9kYXRhIGR3ODI1MF91bHRyYXJpc2NfZHAxMDAwX2RhdGEgPSB7
+Cj4+ICB9Owo+PiAgCj4+ICBzdGF0aWMgY29uc3Qgc3RydWN0IG9mX2RldmljZV9pZCBkdzgyNTBf
+b2ZfbWF0Y2hbXSA9IHsKPj4gKwl7IC5jb21wYXRpYmxlID0gImFtYmFyZWxsYSxjdjc1LXVhcnQi
+LCAuZGF0YSA9ICZkdzgyNTBfYW1iYXJlbGxhX2N2NzVfZGF0YSB9LAo+PiAgCXsgLmNvbXBhdGli
+bGUgPSAic25wcyxkdy1hcGItdWFydCIsIC5kYXRhID0gJmR3ODI1MF9kd19hcGIgfSwKPj4gIAl7
+IC5jb21wYXRpYmxlID0gImNhdml1bSxvY3Rlb24tMzg2MC11YXJ0IiwgLmRhdGEgPSAmZHc4MjUw
+X29jdGVvbl8zODYwX2RhdGEgfSwKPj4gIAl7IC5jb21wYXRpYmxlID0gIm1hcnZlbGwsYXJtYWRh
+LTM4eC11YXJ0IiwgLmRhdGEgPSAmZHc4MjUwX2FybWFkYV8zOHhfZGF0YSB9LAo+PiAKPj4gCg==
 
-I'd prefer this patch over of Zi's patch.
-
-> 
-> Note that: ("f2fs: stop using PG_private") has been merged in
-> https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs.git/log/?h=dev-test
-That just a testing branch, right?
-
--- 
-Cheers,
-
-David
