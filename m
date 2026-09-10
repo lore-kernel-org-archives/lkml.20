@@ -1,204 +1,252 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4BD49B5DE
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 22:12:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F2C949B5A3;
+	Thu, 10 Sep 2026 22:13:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789078364; cv=none; b=C4YqulzcogEZ7tpD4Zgqe9jG6mjYjVSNAfu0NCQJmKtoPAGZUzTuVze9fNgC/v7fTEL6KAe18UJ8nQN5Hnfax0DcoAKE3Sq07tTNHXEE2SSJbLdFLTVhKDcPEOT82uGuML00I3DSl1KXOr7irBlogX3VFXxQ8Nqj8EIQawka+Eo=
+	t=1789078432; cv=none; b=ffN6E3JFYg9PZdDBaTLdHrL9PuMb4rkoOXJYwLQGa5J2LB23vJtQAZx8TZ7P2v+JCfL1vKiLHceDdyUhRmfFB2Kd8UoXhRFdbSA2X9GEijMAakzJxt/cxm+crLt8FiAyi4gMxbSE7ezQGULHFNUK32pvBeGR2rLawANBRz9oE88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789078364; c=relaxed/simple;
-	bh=nNF9sBELwbR1ayruD0KyBbwDZBbIP7B3gFKpePKCzJQ=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=GELrQvwhcYm2uOBB2iVjUJm4pkicfnginVvULDN2m2uJNo/yJYSgLCVW+oj/HY9VX/WVTMn4agOFxasHe+yxJ/4yKSqHYymTEXSKAmdUH75IAKCY5UQvMsLGXaHWeuDnaLN0YzeJRKNJTIYde8TMZzffQFD5c3NWwXNJky59q/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KxGMJUwl; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789078432; c=relaxed/simple;
+	bh=aVaPhzFJe0kiVgrN+krqPQXtueIVryKDfM0tDSAmv+M=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=rwagjaQszuu3mW15KRyWee9h+NdKyObrk3wynq53PvbOzL+S5nWmGRDm/SED3GIZokq9kT3nrAKuWXazQf9R1D6ocscWDJhGWS3jg8ymvRFqys0Dz0HYU9QRezo8oiyNPNuv5VcBN7lNC9EsFa0XE4EILnojD27gtLUliv3EOY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BU65/p1F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KxGMJUwl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789078357; x=1820614357;
-  h=date:from:to:cc:subject:message-id;
-  bh=nNF9sBELwbR1ayruD0KyBbwDZBbIP7B3gFKpePKCzJQ=;
-  b=KxGMJUwle2cmeeGNz1NsipXM/gkkS7XRfNeKsNeZ60C0vEt+0rAnBHKf
-   rWu9n4ZxhJHb+DI3Okdl6qLf6IVaWk4ZpL7vah4wgqTKuyXmtj2v16w/u
-   /0UdH5bz/Te9NDpuTxFdTKzGK5MaIRo+S0mesk8bqeIHf1ulKzkH1U8vG
-   +Jj+6+lrt4ulfTtcZRWipli1C++aWNsN/fW9sa23Z5Gg6SLRKd0tROwuG
-   WxM601wgNGwKLSOvDgB7kpuJIywgJALAgwAXX6VMIIfvawrSZ2X2fqbvb
-   e2hjH9R2RiHjM7GNWoDyXDv4Ru0L5971RLXmPiMbfkKW241skaX12q+cW
-   Q==;
-X-CSE-ConnectionGUID: TSJ95JJPSFCyo/TP1+UU8A==
-X-CSE-MsgGUID: eUAPLyVJTAiZ1zKZh2jBGA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="89666449"
-X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
-   d="scan'208";a="89666449"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 15:12:36 -0700
-X-CSE-ConnectionGUID: gkfCVZwpTsKOBF6vIto9Xg==
-X-CSE-MsgGUID: UD4uJhQpSGaHeLZFvlRBRQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
-   d="scan'208";a="310002104"
-Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
-  by orviesa001.jf.intel.com with ESMTP; 10 Sep 2026 15:12:34 -0700
-Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x4mzG-000000000aT-2tI0;
-	Thu, 10 Sep 2026 22:11:38 +0000
-Date: Fri, 11 Sep 2026 06:07:30 +0800
-From: kernel test robot <lkp@intel.com>
-To: "Kuan-Wei Chiu" <visitorckw@gmail.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- Linux Memory Management List <linux-mm@kvack.org>,
- "Guan-Chun Wu" <409411716@gms.tku.edu.tw>,
- David Laight <david.laight.linux@gmail.com>
-Subject: lib/base64.c:58:18: warning: implicit conversion from 'int'
- to 's8' (aka 'signed char') changes value from 131 to -125
-Message-ID: <202609110514.S0a0FD6a-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BU65/p1F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A5FD1F000FF;
+	Thu, 10 Sep 2026 22:13:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789078431;
+	bh=uhBenbHPmIXUhZifIELN6Fcx9o0WllfIGn7Pt9L8k0U=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=BU65/p1FDRdeUJYG/JyEjNRqeF4taGqUlSUQnm9SDc5Pmwt5Ck2hSC6NWCGO655Rg
+	 6BvkBFBiwk2s49S2KfsFbE5oUReMMWYvJS739hNXb2jAYnulbAyw1229lDvPekLIbe
+	 YyRNJKfLSnGQgY4GTsc3awrWPe1Ql7WNm/F8pm44rSsUkdtq5Fv/JxI4eXAkb7QnJO
+	 lDQ5C8/TeRCLz10He4/g4TfzUsBNQIp+/JQvibirzcfTvH0sGuvo/VggH5YKxh0Ua2
+	 WAezkB6S9+a4n6l2uQ7KQAGOv3QtwDkqcZiZ9R+8ksL6qKVZ/et8zz8NdWF2XJOB/K
+	 K4yn8m8zBD8IA==
+Subject: Re: [PATCH net-next v6 01/12] gve: add struct gve_device_info to hold
+ device properties
+From: netdev-bot+sashiko@kernel.org
+To: hramamurthy@google.com
+Cc: netdev@vger.kernel.org, joshwash@google.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
+ john.fastabend@gmail.com, sdf@fomichev.me, jordanrhee@google.com,
+ willemb@google.com, nktgrg@google.com, maolson@google.com, thostet@google.com,
+ jacob.e.keller@intel.com, debarghyak@google.com, kees@kernel.org,
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
+ przemyslaw.kitszel@intel.com
+Date: Thu, 10 Sep 2026 22:13:49 +0000
+Message-ID: <178907842956.219967.4077695444710153181@kernel.org>
+In-Reply-To: <20260909191136.3811892-2-hramamurthy@google.com>
+References: <20260909191136.3811892-2-hramamurthy@google.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   50d05c7c76c96b90462f24debacca971d2e86713
-commit: c4eb7ad32eab13ba64cc452c6f43d518b63f5e03 lib/base64: optimize base64_decode() with reverse lookup tables
-date:   10 months ago
-config: hexagon-allnoconfig (https://download.01.org/0day-ci/archive/20260911/202609110514.S0a0FD6a-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project d3db069999553568848400c84cbf815c03f5470f)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260911/202609110514.S0a0FD6a-lkp@intel.com/reproduce)
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: c4eb7ad32eab ("lib/base64: optimize base64_decode() with reverse lookup tables")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609110514.S0a0FD6a-lkp@intel.com/
+Critical: 0 · High: 0 · Medium: 0 · Low: 2
 
-All warnings (new ones prefixed by >>):
-
->> lib/base64.c:58:18: warning: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 131 to -125 [-Wconstant-conversion]
-      58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
-         |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
-   lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
-      48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
-         |                                       ~
-      49 |         [0 ... 0x1f] = -1, \
-      50 |         INIT_32(0x20, ch_62, ch_63), \
-      51 |         INIT_32(0x40, ch_62, ch_63), \
-      52 |         INIT_32(0x60, ch_62, ch_63), \
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-   lib/base64.c:46:50: note: expanded from macro 'INIT_32'
-      46 | #define INIT_32(v, ...) INIT_16(v, __VA_ARGS__), INIT_16((v) + 16, __VA_ARGS__)
-         |                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   lib/base64.c:45:49: note: expanded from macro 'INIT_16'
-      45 | #define INIT_16(v, ...) INIT_8(v, __VA_ARGS__), INIT_8((v) + 8, __VA_ARGS__)
-         |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   lib/base64.c:43:48: note: expanded from macro 'INIT_4'
-      43 | #define INIT_4(v, ...) INIT_2(v, __VA_ARGS__), INIT_2((v) + 2, __VA_ARGS__)
-         |                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   lib/base64.c:42:48: note: expanded from macro 'INIT_2'
-      42 | #define INIT_2(v, ...) INIT_1(v, __VA_ARGS__), INIT_1((v) + 1, __VA_ARGS__)
-         |                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   lib/base64.c:34:42: note: expanded from macro 'INIT_1'
-      34 |                 : (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
-         |                                              ~~~~~~~~~~^~~~
-   lib/base64.c:58:18: warning: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 130 to -126 [-Wconstant-conversion]
-      58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
-         |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
-   lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
-      48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
-         |                                       ~
-      49 |         [0 ... 0x1f] = -1, \
-      50 |         INIT_32(0x20, ch_62, ch_63), \
-      51 |         INIT_32(0x40, ch_62, ch_63), \
-      52 |         INIT_32(0x60, ch_62, ch_63), \
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-   lib/base64.c:46:50: note: expanded from macro 'INIT_32'
-      46 | #define INIT_32(v, ...) INIT_16(v, __VA_ARGS__), INIT_16((v) + 16, __VA_ARGS__)
-         |                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   lib/base64.c:45:49: note: expanded from macro 'INIT_16'
-      45 | #define INIT_16(v, ...) INIT_8(v, __VA_ARGS__), INIT_8((v) + 8, __VA_ARGS__)
-         |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   lib/base64.c:43:48: note: expanded from macro 'INIT_4'
-      43 | #define INIT_4(v, ...) INIT_2(v, __VA_ARGS__), INIT_2((v) + 2, __VA_ARGS__)
-         |                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   lib/base64.c:42:24: note: expanded from macro 'INIT_2'
-      42 | #define INIT_2(v, ...) INIT_1(v, __VA_ARGS__), INIT_1((v) + 1, __VA_ARGS__)
-         |                        ^~~~~~~~~~~~~~~~~~~~~~
-   lib/base64.c:34:42: note: expanded from macro 'INIT_1'
-      34 |                 : (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
-         |                                              ~~~~~~~~~~^~~~
-   lib/base64.c:58:18: warning: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 129 to -127 [-Wconstant-conversion]
-      58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
-         |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
-   lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
-      48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
-         |                                       ~
-      49 |         [0 ... 0x1f] = -1, \
-      50 |         INIT_32(0x20, ch_62, ch_63), \
-      51 |         INIT_32(0x40, ch_62, ch_63), \
-      52 |         INIT_32(0x60, ch_62, ch_63), \
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-   lib/base64.c:46:50: note: expanded from macro 'INIT_32'
-      46 | #define INIT_32(v, ...) INIT_16(v, __VA_ARGS__), INIT_16((v) + 16, __VA_ARGS__)
-         |                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   lib/base64.c:45:49: note: expanded from macro 'INIT_16'
-      45 | #define INIT_16(v, ...) INIT_8(v, __VA_ARGS__), INIT_8((v) + 8, __VA_ARGS__)
-         |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   lib/base64.c:43:24: note: expanded from macro 'INIT_4'
-      43 | #define INIT_4(v, ...) INIT_2(v, __VA_ARGS__), INIT_2((v) + 2, __VA_ARGS__)
-         |                        ^~~~~~~~~~~~~~~~~~~~~~
-   lib/base64.c:42:48: note: expanded from macro 'INIT_2'
-      42 | #define INIT_2(v, ...) INIT_1(v, __VA_ARGS__), INIT_1((v) + 1, __VA_ARGS__)
-         |                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   lib/base64.c:34:42: note: expanded from macro 'INIT_1'
-      34 |                 : (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
-         |                                              ~~~~~~~~~~^~~~
-   lib/base64.c:58:18: warning: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 128 to -128 [-Wconstant-conversion]
-      58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
-         |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
-   lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
-      48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
-         |                                       ~
-      49 |         [0 ... 0x1f] = -1, \
-      50 |         INIT_32(0x20, ch_62, ch_63), \
-      51 |         INIT_32(0x40, ch_62, ch_63), \
-      52 |         INIT_32(0x60, ch_62, ch_63), \
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-   lib/base64.c:46:50: note: expanded from macro 'INIT_32'
-      46 | #define INIT_32(v, ...) INIT_16(v, __VA_ARGS__), INIT_16((v) + 16, __VA_ARGS__)
-         |                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   lib/base64.c:45:49: note: expanded from macro 'INIT_16'
-      45 | #define INIT_16(v, ...) INIT_8(v, __VA_ARGS__), INIT_8((v) + 8, __VA_ARGS__)
-         |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-   lib/base64.c:43:24: note: expanded from macro 'INIT_4'
-      43 | #define INIT_4(v, ...) INIT_2(v, __VA_ARGS__), INIT_2((v) + 2, __VA_ARGS__)
-
-
-vim +58 lib/base64.c
-
-    47	
-    48	#define BASE64_REV_INIT(ch_62, ch_63) { \
-    49		[0 ... 0x1f] = -1, \
-    50		INIT_32(0x20, ch_62, ch_63), \
-    51		INIT_32(0x40, ch_62, ch_63), \
-    52		INIT_32(0x60, ch_62, ch_63), \
-    53		[0x80 ... 0xff] = -1 }
-    54	
-    55	static const s8 base64_rev_maps[][256] = {
-    56		[BASE64_STD] = BASE64_REV_INIT('+', '/'),
-    57		[BASE64_URLSAFE] = BASE64_REV_INIT('-', '_'),
-  > 58		[BASE64_IMAP] = BASE64_REV_INIT('+', ',')
-    59	};
-    60	
+- [Low] After this patch, struct gve_priv still declares `u16
+  default_num_queues; /* default num queues to set up */` (gve.h:856)…
+- [Low] Stale comment: gve_probe() still states "Features might be set in
+  other locations as well (such as `gve_adminq_describe_device`)."…
 
 --
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+
+gve: add struct gve_device_info to hold device properties
+
+This adds struct gve_device_info as a single place to hold the properties
+negotiated with the device, converts gve_adminq_describe_device() and its
+helpers to fill that structure, and moves the code that applies those
+properties to priv/netdev into gve_init_priv().
+
+A couple of questions on leftovers from the conversion.
+
+> diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
+> index c280ff35ee771..021adb9108dff 100644
+> --- a/drivers/net/ethernet/google/gve/gve.h
+> +++ b/drivers/net/ethernet/google/gve/gve.h
+> @@ -797,6 +797,34 @@ struct gve_ptp {
+>  	struct gve_priv *priv;
+>  };
+>  
+> +struct gve_device_info {
+> +	enum gve_queue_format queue_format;
+> +	u16 default_tx_queues;
+> +	u16 default_rx_queues;
+> +	u16 max_tx_queues;
+> +	u16 max_rx_queues;
+> +	u16 default_tx_ring_size;
+> +	u16 default_rx_ring_size;
+> +	u16 max_tx_ring_size;
+> +	u16 max_rx_ring_size;
+> +	u16 min_tx_ring_size;
+> +	u16 min_rx_ring_size;
+> +	u16 max_mtu;
+> +	u8 mac[ETH_ALEN];
+> +	u16 max_rx_buffer_size;
+> +	u16 header_buf_size;
+> +	u32 max_flow_rules;
+> +	u16 rss_key_size;
+> +	u16 rss_lut_size;
+> +	u16 tx_pages_per_qpl;
+> +	u16 num_event_counters;
+> +	u64 max_registered_pages;
+> +	bool default_min_ring_size;
+> +	bool nic_timestamp_supported;
+> +	bool modify_ring_size_enabled;
+> +	bool cache_rss_config;
+> +};
+> +
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/google/gve/gve_adminq.c b/drivers/net/ethernet/google/gve/gve_adminq.c
+> index f05f4895f4c74..512349c5517f4 100644
+> --- a/drivers/net/ethernet/google/gve/gve_adminq.c
+> +++ b/drivers/net/ethernet/google/gve/gve_adminq.c
+
+[ ... ]
+
+> @@ -190,7 +190,7 @@ void gve_parse_device_option(struct gve_priv *priv,
+>  
+>  		/* device has not provided min ring size */
+>  		if (option_length == GVE_DEVICE_OPTION_NO_MIN_RING_SIZE)
+> -			priv->default_min_ring_size = true;
+> +			priv->device_info.default_min_ring_size = true;
+>  		break;
+
+[ ... ]
+
+> @@ -946,77 +949,105 @@ static void gve_enable_supported_features(struct gve_priv *priv,
+
+[ ... ]
+
+>  	if (dev_op_flow_steering &&
+>  	    (supported_features_mask & GVE_SUP_FLOW_STEERING_MASK)) {
+>  		if (dev_op_flow_steering->max_flow_rules) {
+> -			priv->max_flow_rules =
+> +			info->max_flow_rules =
+>  				be32_to_cpu(dev_op_flow_steering->max_flow_rules);
+> -			priv->dev->hw_features |= NETIF_F_NTUPLE;
+>  			dev_info(&priv->pdev->dev,
+>  				 "FLOW STEERING device option enabled with max rule limit of %u.\n",
+> -				 priv->max_flow_rules);
+> +				 info->max_flow_rules);
+>  		}
+>  	}
+
+[Severity: Low]
+With this hunk, the NETIF_F_NTUPLE assignment leaves the describe-device
+path entirely, so is the comment in gve_probe() now stale?
+
+drivers/net/ethernet/google/gve/gve_main.c:gve_probe() {
+	/* Set default and supported features.
+	 *
+	 * Features might be set in other locations as well (such as
+	 * `gve_adminq_describe_device`).
+	 */
+	dev->hw_features = NETIF_F_HIGHDMA;
+	...
+}
+
+A grep of gve_adminq.c at this commit shows no remaining write to
+priv->dev->hw_features (only dev_err() logging and a read of
+priv->dev->features in gve_adminq_create_rx_queue()), since the only such
+write moved to gve_init_priv():
+
+	priv->max_flow_rules = device_info->max_flow_rules;
+	if (priv->max_flow_rules)
+		priv->dev->hw_features |= NETIF_F_NTUPLE;
+
+Should the comment point at gve_init_priv() instead, given a second
+describe-device implementation (MailboxQ) is being added on top of this?
+
+[ ... ]
+
+> @@ -1595,6 +1618,8 @@ int gve_set_num_ntfy_blks(struct gve_priv *priv)
+>  
+>  void gve_set_num_queues(struct gve_priv *priv)
+>  {
+> +	struct gve_device_info *device_info = &priv->device_info;
+> +
+>  	priv->tx_cfg.max_queues =
+>  		min_t(int, priv->tx_cfg.max_queues, priv->num_ntfy_blks / 2);
+>  	priv->rx_cfg.max_queues =
+> @@ -1602,10 +1627,13 @@ void gve_set_num_queues(struct gve_priv *priv)
+>  
+>  	priv->tx_cfg.num_queues = priv->tx_cfg.max_queues;
+>  	priv->rx_cfg.num_queues = priv->rx_cfg.max_queues;
+> -	if (priv->default_num_queues > 0) {
+> -		priv->tx_cfg.num_queues = min_t(int, priv->default_num_queues,
+> +	if (device_info->default_tx_queues > 0)
+> +		priv->tx_cfg.num_queues = min_t(int,
+> +						device_info->default_tx_queues,
+>  						priv->tx_cfg.num_queues);
+> -		priv->rx_cfg.num_queues = min_t(int, priv->default_num_queues,
+> +
+> +	if (device_info->default_rx_queues > 0)
+> +		priv->rx_cfg.num_queues = min_t(int,
+> +						device_info->default_rx_queues,
+>  						priv->rx_cfg.num_queues);
+> -	}
+>  }
+
+[Severity: Low]
+Should the now-unused copies of these fields be dropped from struct
+gve_priv in the same patch?
+
+After this conversion, struct gve_priv still declares:
+
+	bool default_min_ring_size;
+	...
+	u16 default_num_queues; /* default num queues to set up */
+
+but nothing in drivers/net/ethernet/google/gve/ writes or reads either one
+any more.  The last writer of priv->default_num_queues was
+gve_set_queue_properties(), which became gve_fill_device_info() setting
+device_info->default_tx_queues/default_rx_queues, and the last reader is
+this gve_set_num_queues() hunk.  Similarly gve_parse_device_option() now
+sets priv->device_info.default_min_ring_size and
+gve_enable_supported_features() reads info->default_min_ring_size.
+
+A grep at this commit only finds the declarations:
+
+	drivers/net/ethernet/google/gve/gve.h
+	  822:	bool default_min_ring_size;    /* gve_device_info */
+	  849:	bool default_min_ring_size;    /* gve_priv, no users */
+	  856:	u16 default_num_queues;        /* gve_priv, no users */
+
+Since the leftover gve_priv fields share names with live gve_device_info
+members, could later code (for instance the MailboxQ path) read
+priv->default_num_queues or priv->default_min_ring_size and silently get
+0/false?
+
+> diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
+> index 9cc343a162712..d3882de584e36 100644
+> --- a/drivers/net/ethernet/google/gve/gve_main.c
+> +++ b/drivers/net/ethernet/google/gve/gve_main.c
+
+[ ... ]
+
+> @@ -2507,12 +2523,34 @@ static int gve_init_priv(struct gve_priv *priv, bool skip_describe_device)
+> +	priv->max_flow_rules = device_info->max_flow_rules;
+> +	if (priv->max_flow_rules)
+> +		priv->dev->hw_features |= NETIF_F_NTUPLE;
+> +
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260909191136.3811892-1-hramamurthy%40google.com
