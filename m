@@ -1,144 +1,191 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE9533F594
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:46:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B78FD29CE9
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:47:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789073189; cv=none; b=mIZdpG4xWkwUGlIFQHgpx0PMI7IpPbktpBLYwqVGc8tvrrg3u9+5WPwffO4yZQtO5tDuf2yqfRAvBNqIHvJZJi5v0+RH42saFy60s/PMN5girV0kKiv4MSvBsbX14UWg3IB6kID1kK+FEqB1410mr9b3JSIzJNRaK3pBlJlFZ/A=
+	t=1789073223; cv=none; b=vBdpjUIRUoH+IYyIH5LSi9PzqEYacumGmkiwa/kaLpRHGx6u6yj4Bw6Qbz81aB4hOFI4Wkw1ztSeNXdPNuswEftP0pNLnNhPbi6k1k3Ng1Tq9pcQFnGcgDugYQ8Levn0EjUYTSx756kIyKNFerRMtFedCHJ63ZOfleW9lPLOaqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789073189; c=relaxed/simple;
-	bh=lzV2GCpFj14QmF4NRzZkeUqmBn932QHppgumDndrz2c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NFO+HD4flTXG7kqAkd8D6X/Fq+64O2T+dBMCbG9lnJ284MLe0XRTJg3CP9O2Mv0zswrXw56zd211SuBoez5cTVESsgAsou6Uce/pR4/ZoA1vbX9JqiPmUTJenjhj5KETUVrliCNHTQubfjGe6hGIaMXa0hyB3D39VI6hBWIj8IQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ipMIb5l0; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1789073223; c=relaxed/simple;
+	bh=GguL0Tpxu1x0tEllLbcXtpPMT4mgSFdqn0xEev8r47c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HWcxyFmAdtq/Zv6BPYKd/rItN2h7/QIJZq9V4gIo0sB3PtG6QAeqlFEdsQQmoE67EmmssFbJSs7mF2jHf6eHAuwJ0AZBBC9ew6ielE9U3EfZOg2gttXl7N+Afge91jKbiTWKT3UZbmb2vIwL78/oTGvrRbIeymZWNXwDzl6h2TM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZHza4++x; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ipMIb5l0"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d8f265cbe6so1555955ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:46:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZHza4++x"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-381b831d535so317049a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 13:47:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789073187; x=1789677987; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D5NzLm00d+6PWFDYExUVxG0yq7opmcUTWEJmvWiRjsQ=;
-        b=ipMIb5l0LpDsQuqpIWaa0fSGg4advAEpuKKdE1y+kM3+XK8t9NZEWxxDlMLIuXjr8Q
-         0dEOJIIPlB2oYpbUgVxfIKiNEQyb0VoHlXFDZfTp8M7AgJy5l2OcS7yPU/e98XgUxQUl
-         lusMFWIJDvnaGRIaY8v/twEDUZYDXj4WS0SwltSIflbO+D3P6gPNC1EM3L/3z1qZkcZx
-         eogRNyUN6zYOU4Hgs2X1Mpc7twuMHWlKIQSmv/+mHZ9aeSBOEj1CB9vvQZ7opYp0HlII
-         7Xgzzkai+lqPmT0JwTZq5C/O0Bbbr/M+Ws7o0gLBZ9GiTY+wgka+GB+4CwHe/oOxgu3r
-         Xckw==
+        d=gmail.com; s=20251104; t=1789073221; x=1789678021; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C4zWLiyM+gghJvQmir/ivYF0h32hKDaEB3alaCEee6M=;
+        b=ZHza4++xOzNqbgnhwoRGfjPKhTHTMwZ9Z+BP8ZNwFCo9A7lJtQoJTEiGfOWfuwmymD
+         LsVZegL5ZkdvJmg6zXgiasI7vClSW7D6XOJen2hVkOW4v6n/IjlwY6RuHptQF/lbdi03
+         hBE/zhTxsy+RNI2X2jUDEMc/QWJinppY6N/3h6LDO/ngtMyDir0tOW8ohRNYsnkHsA0r
+         JBcD52/mCtWRfWJ2/p5ZNxpa4L9RDpqh5W1nMGsVr/g9nA7M7SWPr8fhbcLL+TCMqMCa
+         zENM7Mm/ycX2gCvRt2f5khctpMGHs+Rkia3yaOpVieXlI8BKzKsw/6zRB8UdMhPaV4Qk
+         6Mzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789073187; x=1789677987;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D5NzLm00d+6PWFDYExUVxG0yq7opmcUTWEJmvWiRjsQ=;
-        b=rUgmE3ksceYO+TRpXjn05YQX57T9k3lcRG22W0NqDwgCr3q46eGO1T4pq34JcAQuOg
-         VDdcw4GKQ3NRPkzI0Hj8IVxY2IssCtlCTVVL8p5WrPSbwlg+5+DCW6jNQM/gWrHXAvHc
-         3Fz2qKbpkgomT5KrU47LcU69VwU6sCmLIqao5z0wCGHMqpbM2ewf0T0xw3PZ3ochhpuP
-         7y8PuIuDZEuijMfSkGXiS7g2rl7bKBgALKhQsMq6H+vIeeX5J0qCBw9LzTFPkaWzMY6n
-         t6z8q+vWDEEfalm5lxMlnu314RPyhRETPhwl+Hb4KWHpMKlDNL4Ndoi08Y1OnQ9rcpI7
-         0GYg==
-X-Forwarded-Encrypted: i=1; AKwUvBxFkLJH2vHjjZv789gFB+pi4iBEm0r40RlW0LdJN9keuKXBdLV1Gd3gBzzCIzG3T/MpxsdyCNi2dyLDScs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMa0A//MMigvVr7Dsb7yJ88iSwflduMgnHVTgMpKoR8JtZiiPO
-	J0w13ZgG1d6Oj5y9BWvIN8HF9yNcbu/XkU9ua8SWqJc0ztmqzEeUn8Cy
-X-Gm-Gg: AYBFou2CPgPpLZW3HjfS7znav0/WBYP1+yESHb2ZeH6Apss1xioGwRmPVgW/eXcnAFv
-	HsZa1n3+XoC0UXG4ZDdKs81oebqv9ET4jLkaIcP6BuP7KD6Z5xFvAOAZpn2QwGeZiGIh0TvuWvF
-	GCn/KkAwAbpZgKy17Suhn+V2uhu0HMu4W6WCoJWBG3rupkmWnBtxB9W/9jNJxTB/O65GFRH8stG
-	ru0d2VY2Xe3YdoroqtPUPU8yt1voacZGkw5oj8rnXxLdftNR7vN4nwzPRD31Tbzux0X6d1XHfeG
-	f2fklR1ndCQj9v1jFoPjKJsC4mp7Y4Fn/57eaDhON92JZkv3y8NXGd3RW4h2nGuIALsNqv8vqnh
-	zl3R7GG1kztBYv/WerknPaCRzVgtnBaHvXnMKOFTr7gF2yCMevEiuP10Y91GRVoVO1dSG8uzQJi
-	tZdqH6+DIL9JpIgFvy0j6px7ucXbypjz/ck5PFUqCz95CEnl3fY3B+2lUjVePWaZwyjvRcQJ/ME
-	RN8LFe/MqRQ+FjD++wUWRbmSIHmgfEAhNwLE82MePWmhtzqS7r9Og/H00eY6ui9Mcx48AeTjhEt
-	1SEAmC1RfEWWpyozpysoJsmjJ7zE7fq+qw6vJXkhmO7kUx9CZg==
-X-Received: by 2002:a17:90b:3c89:b0:398:ba9e:75ff with SMTP id 98e67ed59e1d1-39d9c35047emr828915a91.21.1789073187174;
-        Thu, 10 Sep 2026 13:46:27 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d950913a6sm1261016a91.6.2026.09.10.13.46.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 13:46:26 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: dmaengine@vger.kernel.org
-Cc: Zhang Wei <zw@zh-kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	linuxppc-dev@lists.ozlabs.org (open list:FREESCALE DMA DRIVER),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv2] dmaengine: fsldma: convert to platform_get_irq_optional()
-Date: Thu, 10 Sep 2026 13:46:25 -0700
-Message-ID: <20260910204625.55367-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1789073221; x=1789678021;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=C4zWLiyM+gghJvQmir/ivYF0h32hKDaEB3alaCEee6M=;
+        b=iZBko1iTKvayrPxUWcN0Kuva4gXBesYcZzrZjhGl8Zuuye80PjLrbXt+cBkll6tS/L
+         2OIyrNxNy9c4pKcYk8Kwr1fbftWTn/wND2vBKZadx8HrGRYIwpiJtS/X2eMAPw8dY78y
+         lE+PFwebhorz8WQ8N6Cii3Ix6Qg5l8wp1uqlsoZBJvu0Wmem4HBXolZeeH+LXoHazVxB
+         NSrqrOCuuvldAKL6deMvbqHCcjQI1kfBbiELght2UpT1RGizzJELWE3SYmq0yFj60vLN
+         hABeQSXWVByMIfC0iQn4fzgKaJv8QyXJ5H1sWYi4XrnTpRvMBW55s15gQ77LPSzHxe/e
+         tXpQ==
+X-Forwarded-Encrypted: i=1; AKwUvByw6C3escIs0Ciq7lJI4c4A32NXmOrYmxY/YwBw7KXRPDw8EEoR/MbJ1guUvS7clO5DHhYScK1umzp5o2w=@vger.kernel.org
+X-Gm-Message-State: AFuF++kFvhmkdhI19PF9EWzsc8Y5JnS3/1zXvjgO560ayzVVXuIkmYaO
+	PDgYI1KhJ6j6vHg/G7uAjK75qK7yuikXczCY7GK04Zwp1SqQQHpptoiv7LlQJQ==
+X-Gm-Gg: AYBFou3jKT+sLBVyBks5mel3PAHaF7tbZeSpR/iTa7mjFk5k0tvvceIkSAKyPvJ/WeD
+	7flt5kJX9Zul+1kmMSDmvVdiEJkr+7nPGIUthhJrJbu+7BKBADtN7ZygXr5WrwapQ61geEuLxbe
+	T9vtvZxXrqSVSxnVxF8tmLI++hL0Z3aUOs9HVRr5JxNgv9Uj+b8VGI+ZVTFS9NdOYfclS3Zocha
+	UjFJf6rRZvoS7HJwOv3q4nQx9otpgQOWR8sZWSblR1XbVN/2PtMtPHjbfAfKw+deKpTbeKovAR6
+	yVaYXzzB+RIj+KPtw+BqplkPS784BAO5ZtViWqXv8MkexGtgBW52bryvIjc2s0f5V+CQ8gsvfWU
+	F9PHpbm+ltH1/bXfIx4lYqzgXucrkrLqJlQcavBbEi/ilAJf6yBJ1C4YC6bH6PguOfJzTtCjmGZ
+	KAXEKdi3+/0CgU7k6pG6/MUJXNVfQksvCq9qHyKwOC9ddv4Ix5NYwv4ziOGD3aXSbvUEyprTOH3
+	mCsX6BUQJPP+akwPBFVHQrDPUP72GALJV2JJ3B/HHMYeofM
+X-Received: by 2002:a17:90b:5823:b0:398:bdb0:adb7 with SMTP id 98e67ed59e1d1-39d9c0aad8dmr959717a91.16.1789073221074;
+        Thu, 10 Sep 2026 13:47:01 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95994375sm1214256a91.17.2026.09.10.13.47.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Sep 2026 13:47:00 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <0d8d281d-3de0-4f9a-b489-8a2106a68577@roeck-us.net>
+Date: Thu, 10 Sep 2026 13:46:59 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] hwmon: (k10temp) Fix model id range of Zen5 Turin
+To: Rong Zhang <i@rong.moe>, Clemens Ladisch <clemens@ladisch.de>,
+ Gabriel Ford <gabriel@gford.dev>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260911-k10temp-fix-zen5-epyc-v1-1-643f5a248ae1@rong.moe>
+ <54a5620c-36cb-4dc1-bbd8-9647ff7cb708@roeck-us.net>
+ <9334E4DA-5389-49BE-A9FF-48A7FF5C1C35@rong.moe>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <9334E4DA-5389-49BE-A9FF-48A7FF5C1C35@rong.moe>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Replace the per-controller irq_of_parse_and_map() call with
-platform_get_irq_optional(). The controller IRQ is optional when absent
-and the driver falls back to per-channel IRQs. The corresponding
-irq_dispose_mapping() calls in the probe error path and remove function
-are removed.
+On 9/10/26 13:07, Rong Zhang wrote:
+> Hi Guenter,
+> 
+> Thanks for your review.
+> 
+> 
+> 于 2026年9月11日 GMT+08:00 03:00:13，Guenter Roeck <linux@roeck-us.net> 写道：
+>> On 9/10/26 11:39, Rong Zhang wrote:
+>>> Model 20h-2Fh are mobile processors with single CCD. For example, model
+>>> 24h is Strix Point, i.e., Ryzen AI 7 (PRO) (H/HX) 360/365/370.
+>>>
+>>> Including mobile processors in the model id range of Zen5 Turin
+>>> processors leads to bogus reporting:
+>>>
+>>>     k10temp-pci-00c3
+>>>     Adapter: PCI adapter
+>>>     Tctl:         +54.1°C
+>>>     Tccd4:       +148.6°C
+>>>     Tccd6:       +148.4°C
+>>>     Tccd7:       +149.1°C
+>>>     Tccd8:       +149.2°C
+>>>     Tccd9:       +149.2°C
+>>>     Tccd12:      +149.1°C
+>>>     Tccd14:       +22.0°C
+>>>     Tccd15:       +22.0°C
+>>>     Tccd16:       +22.0°C
+>>>
+>>> Fix it by removing the said range.
+>>>
+>>> Fixes: 8440d5aca227 ("hwmon: (k10temp) Add per-CCD temperature monitoring for Zen5 Turin")
+>>> Signed-off-by: Rong Zhang <i@rong.moe>
+>>> ---
+>>>    drivers/hwmon/k10temp.c | 2 +-
+>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/hwmon/k10temp.c b/drivers/hwmon/k10temp.c
+>>> index 75a45010d687..3e7e63edc6a3 100644
+>>> --- a/drivers/hwmon/k10temp.c
+>>> +++ b/drivers/hwmon/k10temp.c
+>>> @@ -523,7 +523,7 @@ static int k10temp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+>>>    		}
+>>>    	} else if (boot_cpu_data.x86 == 0x1a) {
+>>>    		switch (boot_cpu_data.x86_model) {
+>>> -		case 0x00 ... 0x2f:	/* Zen5 Turin */
+>>> +		case 0x00 ... 0x1f:	/* Zen5 Turin */
+>>
+>> Doesn't that drop _all_ CCD temperature reporting for those chips ?
+> 
+> Yes, it's intentional. Mobile processors don't support Tccd at all, and
+> Tctl is the only available temperature metric on such processors.
 
-Moved before anything else in order to handle -EPROBE_DEFER and to avoid
-doing extra work. Simplifies the if statements as well.
+Is that documented somewhere ?
 
-Assisted-by: opencode:big-pickle
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v2: move to the front of probe.
- drivers/dma/fsldma.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+> In the commit message there is an example of bogus Tccd reporting.
+> 
+That does not necessarily mean that CCD reporting is not supported.
+It might just mean that those processors use a different CCD offset.
 
-diff --git a/drivers/dma/fsldma.c b/drivers/dma/fsldma.c
-index fb19c60540be..9ee8ae1aaf40 100644
---- a/drivers/dma/fsldma.c
-+++ b/drivers/dma/fsldma.c
-@@ -1224,8 +1224,13 @@ static int fsldma_of_probe(struct platform_device *op)
- 	struct fsldma_device *fdev;
- 	struct device_node *child;
- 	unsigned int i;
-+	int irq;
- 	int err;
- 
-+	irq = platform_get_irq_optional(op, 0);
-+	if (irq == -EPROBE_DEFER)
-+		return irq;
-+
- 	fdev = kzalloc_obj(*fdev);
- 	if (!fdev) {
- 		err = -ENOMEM;
-@@ -1246,7 +1251,9 @@ static int fsldma_of_probe(struct platform_device *op)
- 	}
- 
- 	/* map the channel IRQ if it exists, but don't hookup the handler yet */
--	fdev->irq = irq_of_parse_and_map(op->dev.of_node, 0);
-+	fdev->irq = irq;
-+	if (fdev->irq < 0)
-+		fdev->irq = 0;
- 
- 	dma_cap_set(DMA_MEMCPY, fdev->common.cap_mask);
- 	dma_cap_set(DMA_SLAVE, fdev->common.cap_mask);
-@@ -1308,7 +1315,7 @@ static int fsldma_of_probe(struct platform_device *op)
- 		if (fdev->chan[i])
- 			fsl_dma_chan_remove(fdev->chan[i]);
- 	}
--	irq_dispose_mapping(fdev->irq);
-+out_iounmap:
- 	iounmap(fdev->regs);
- out_free:
- 	kfree(fdev);
-@@ -1330,7 +1337,6 @@ static void fsldma_of_remove(struct platform_device *op)
- 		if (fdev->chan[i])
- 			fsl_dma_chan_remove(fdev->chan[i]);
- 	}
--	irq_dispose_mapping(fdev->irq);
- 
- 	iounmap(fdev->regs);
- 	kfree(fdev);
--- 
-2.55.0
+Thanks,
+Guenter
 
