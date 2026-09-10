@@ -1,112 +1,158 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF3B545DB8
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:37:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142E33ADBAC;
+	Thu, 10 Sep 2026 17:37:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789061835; cv=none; b=eTfL88mwoLk0C1VHN8sX2RfKIlAC5E5mVqj/hEwjClRqSTv9WH02zjyeoDVnPZx2tKczXzJctfdhAqSf7TOWyc17Ey3EGUwrqjR5KoD9Yc9ihepGCoVU6GYDKsvJQqlXviC8I5eZxPvvGJIEzyFD3krLav1XffMw9JvccTvl81Q=
+	t=1789061849; cv=none; b=V8H4zFzvic8LIm6dvnU0fsP0YkXWz28SFnx/Yey+TTI8Jf6znDyL63TN71X+t/vg81veSyRxLEZmj1Mdzyp8RlMNumTb7w2Gfgum+V2DRjTb9WgZWVLhsy/Ga4EbPjw07nonC2mgKIfGQjaH/R751mKt1EqDZqV1zZ8DBFAFNa0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789061835; c=relaxed/simple;
-	bh=XKT7/uV0796SBITZ9Wb5fG9LHerOuiSLsoHjmDG2J5M=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=X88JBV5wvzLk5OnElnbcNiqmvdI8tj/Lwn06Bt95Oh3EOF6Jod58KSQ8dwb+6I6Vwfogp6hE4TvEM3RN28jW3scR6tMpDZKa4oclcWVaVhj96HdR4hQMXmWLP0R91rcxduUzjVcyVySiojTKS3/dy2EI0CCrAsr6Nhl2peh/o4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XB8LJ+Og; arc=none smtp.client-ip=209.85.214.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com
+	s=arc-20240116; t=1789061849; c=relaxed/simple;
+	bh=FGQG3DmM+7X/giTmbo/iKtzgJp69jhePuib7JGtlpCY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=uhrAhgHk208SikNbx0VJzeoAxpoofYbchqn9Lukr1BAYCHsO0tgDti31rwmq5Uozces0V18SLVDUlGwAZtqkkJ4eIB8q53cty+HIMwPwPi8T7BLCAAWlCaHnEszQUgNv5AxNAlAzURHJGaHMdlc8TFedcFvCL9R6CdOa0F2FyMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=krKuU1jQ; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XB8LJ+Og"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d94a158dc8so121369735ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:37:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789061824; x=1789666624; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ucrMBG1dtLZNncX3iBo9nVwxchXvhveT00DBodHEBe0=;
-        b=XB8LJ+Ogh+Gtgib0kuaFlJ7KMrS5ZdE6txsUM2BZY588IHbS9tib/dbTI0rT+EBM+S
-         BmCD8MiB7aXo0zA9Auhq+BM+Sc/XdUDPzjFJP2D76qgUls5c1geawzp4c8aIqYLAcAV/
-         WrzkseLm4r+xwxXG3fZ+lZ9EYGxppNpQ4FPv2PnrfcmSVch1iU9Q1UZfGaEXie3laai9
-         uGH+z6qNafL7qYx6LZWQz2RZhf8lU4pcoz7aAU03vXPjVUgsXHVL/887j3N5ZNS8cgdJ
-         Ld2T4us412mfyhS/BLoU7vGjlLtX0ZhnU431BUyqeY2fgEUMWms17A0ISmm0XglzG7BD
-         qeDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789061824; x=1789666624;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ucrMBG1dtLZNncX3iBo9nVwxchXvhveT00DBodHEBe0=;
-        b=ee+BPrAflfRe+8XPoPUzqU1bNOxfAa0+D0PJwatjo6S2SuAzIIRZTNNMVoQ5LFmBUS
-         enQ5GIBXvNEIOn4VZV03kYNER4t1Oly0CMLrM3jTWjG0jMOy1IbUXDiXcxg5U3o0nmH2
-         aSa6tWkw4f2tUYbEfwwENvvG1A+KZUvi1LO2Wrg2Zv/uFM92UHx3Eb5BDGEHvQ6F0YI9
-         RrgpLXj+QSPj6EUZEfS4laiNK3YiqGZ4IOojIeH1mKk/ZVx5z2OevnfvQj4ccyHufNny
-         q9ReaNofa4aqSNYX4L4sTDoYjCoWRH5z8+wsjj6Sm0ed6OhDqCnjnclPRgNlsg4CyiFL
-         Ging==
-X-Forwarded-Encrypted: i=1; AKwUvBwcGgtn5orus5dhdovUmYISzD9R2fN+L3GgNnSp7Yk8aXY78DPjrwNH0cyuo22hSbHO6kyT0+tabydYuBQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++l/VHVQbAKuFxjMej9PpoNkqAzGdwH4NPjDKjG3jSBOLYUKYzP4
-	pJWXfrcOv4D7uB/MeYf0+6DMQ4DoFcv8UO94O31Xmp6IvILYeqp5Pwb4SpC+YJcxtBvEGLeGgM+
-	qWp/QS0SyqEO9dQ==
-X-Received: from plmk20.prod.google.com ([2002:a17:903:1814:b0:2d9:227b:5717])
- (user=skhawaja job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:1508:b0:2dc:fdde:30c5 with SMTP id d9443c01a7336-2dd2a35779dmr7586505ad.17.1789061823421;
- Thu, 10 Sep 2026 10:37:03 -0700 (PDT)
-Date: Thu, 10 Sep 2026 17:36:59 +0000
-In-Reply-To: <20260910173659.1945246-1-skhawaja@google.com>
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="krKuU1jQ"
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68AF7Qqc343094;
+	Thu, 10 Sep 2026 13:37:00 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=rxmPy
+	wnjcLCbFsxSJFUDwnHHA1K7/8xkNzN+tJwpQgI=; b=krKuU1jQuTQHwIxyyTp8o
+	/iQvMUZSKMoMjXuADw17L9ZJAu+iCqXLRgCuANx3++3+PQ0bJN8DgY8hdWobK+Lg
+	kOvA2t/fYjctaveO3SIchsZfbaVcfuIRYcfVK6TKKekUsBdCbAcppzp62QSeKdJP
+	EFPNXR2WW1RGC9CoGyfCAYHtDCH9l8xNxHALifxGfwwWbf8Ey/QTBKT3/YDAEm9T
+	iK1vkqoL5OiVzMSx8icXzszRIK0pKplE/3jwMsvwnAKQ2YVW5AY1i9OEixcLX6Ut
+	BA+8zgo2jztm63aQ6bbCY6Rf7K2LgBDUOg/2pFyyVS4rvHqkQjdoLGxmtxbWMkh4
+	Q==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4gkcx95208-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 10 Sep 2026 13:37:00 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 68AHaxee038715
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 10 Sep 2026 13:36:59 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Thu, 10 Sep
+ 2026 13:36:58 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Thu, 10 Sep 2026 13:36:58 -0400
+Received: from HYB-e1y2fvUQ3cx.ad.analog.com ([10.32.225.204])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 68AHaSSX018832;
+	Thu, 10 Sep 2026 13:36:52 -0400
+From: Janani Sunil <janani.sunil@analog.com>
+Date: Thu, 10 Sep 2026 19:36:19 +0200
+Subject: [PATCH v7 01/17] iio: adc: adi-axi-adc: Initialize state mutex
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260910173659.1945246-1-skhawaja@google.com>
-X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260910173659.1945246-2-skhawaja@google.com>
-Subject: [PATCH v2 1/1] liveupdate: luo_file: Add documentation for dependencies
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>, Mike Rapoport <rppt@kernel.org>, 
-	Pratyush Yadav <pratyush@kernel.org>, Alexander Graf <graf@amazon.com>
-Cc: Samiullah Khawaja <skhawaja@google.com>, David Matlack <dmatlack@google.com>, tarunsahu@google.com, 
-	open list <linux-kernel@vger.kernel.org>, 
-	"open list:KEXEC HANDOVER (KHO)" <kexec@lists.infradead.org>, 
-	"open list:KEXEC HANDOVER (KHO)" <linux-mm@kvack.org>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260910-ad7768-driver-v7-1-7f70b07627e1@analog.com>
+References: <20260910-ad7768-driver-v7-0-7f70b07627e1@analog.com>
+In-Reply-To: <20260910-ad7768-driver-v7-0-7f70b07627e1@analog.com>
+To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+        Michael Hennerich
+	<Michael.Hennerich@analog.com>,
+        Jonathan Cameron <jic23@kernel.org>,
+        David
+ Lechner <dlechner@baylibre.com>,
+        Andy Shevchenko <andy@kernel.org>, Rob
+ Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor
+ Dooley <conor+dt@kernel.org>,
+        Olivier Moysan <olivier.moysan@foss.st.com>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        Linus Walleij <linusw@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Michael Walle <mwalle@kernel.org>,
+        Randy Dunlap <rdunlap@infradead.org>
+CC: <linux@analog.com>, <linux-iio@vger.kernel.org>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux-gpio@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+        <jananisunil.dev@gmail.com>,
+        =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
+	<u.kleine-koenig@baylibre.com>,
+        Janani Sunil <janani.sunil@analog.com>,
+        Jonathan Cameron <jic23@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789061788; l=1021;
+ i=janani.sunil@analog.com; s=20260507; h=from:subject:message-id;
+ bh=FGQG3DmM+7X/giTmbo/iKtzgJp69jhePuib7JGtlpCY=;
+ b=ikdrHkLi7LigpgtvEANLNAzH3UjvZSeMxDQadwXUSUmoSoN2srISV75UUdPaJrv/gHAKIXFFd
+ Z6YHPrBLRhtBHvbBnFcILjE301mNcLJ9/SznKBhb6RwnZLkMeTYW/Ft
+X-Developer-Key: i=janani.sunil@analog.com; a=ed25519;
+ pk=e25MyjRLPY3RWrYm/LrJ+/+t1MZJUbkgIW5CZg+g+hA=
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDIxNSBTYWx0ZWRfX7AZbYrIMQ0Y5
+ dC8/8p8oXKpQ/cQctWdPpG2FZd1a+m37AASC4b/I8JY2LxQxdU2br+LXt9tKhE/MNRnVKYIcaWJ
+ AGeFhmWwJuMp1xnrgUNkopy1joY6titkUfO4LHic/Tt1gEH2ye16
+X-Proofpoint-GUID: aAFZ89kUa_HfB6yo4fCbFgJkjEPtb-VX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDIxNSBTYWx0ZWRfX+vL5uyYpWjOx
+ 8a3riQyAZ+Zt7HuzGWypzpqu3acjXKiSbw1OCApm+VK7b/mltnIfzI0VI9BR2/S0m9ndNblCwqa
+ v8nrPABMRqT9tPROBvbkLH7vWDQUDdvp/nA+5VA8yJKQR4ujowLZe0x6o+SlxTUGb286rHNLTgm
+ of2izkRiE2UUU9unJmkalG1C42Dia6mI1EGSiYHEN1CohOkhYkgxRRskLcUWKWeGWJoHtHzb8k6
+ Oxf5eY+rTOqXIf8kZ8aB40P85UmwDQX6rvQISHV6o0h41AbjUubT04biwFeUCMyFN9TNLBzwHRA
+ L/Xka0nC1sllcc4PcnzGadYy/KKt3E27HvhfqoJupYLZGl4M4IXFNcaIbmi2EoJTtocqBA3ohOd
+ lnJsiqBfNmCl4j8YPwmaOQeR3wciJzGclYIVHJMQaynJTUwL9pUYgZ29hE3yoH5bMjkkR8b4h1K
+ a0S9Nu2h09hWwsKUlgQ==
+X-Authority-Analysis: v=2.4 cv=G8CJgNk5 c=1 sm=1 tr=0 ts=6aa2eabc cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=uXIjobp8t2wMuQ0fPvqm:22 a=gAnH3GRIAAAA:8
+ a=_ljTvifiVFBlT2kRk7cA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
+X-Proofpoint-ORIG-GUID: aAFZ89kUa_HfB6yo4fCbFgJkjEPtb-VX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_05,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 adultscore=0 malwarescore=0 priorityscore=1501
+ bulkscore=0 lowpriorityscore=0 impostorscore=0 phishscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100215
 
-Add documentation for dependencies between FDs preserved by file
-handlers. This supplements the previously added
-liveupdate_get_token_outgoing() and liveupdate_get_file_incoming()
-internal APIs to allow file handlers to resolve dependencies.
+The AXI ADC register access paths serialize transactions with st->lock,
+but probe does not initialize it. Initialize the mutex before registering
+the backend.
 
-Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+Fixes: 7ecb8ee5c93b ("iio: adc: adi-axi-adc: support digital interface calibration")
+Signed-off-by: Janani Sunil <janani.sunil@analog.com>
 ---
- kernel/liveupdate/luo_file.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+This patch is already queued in the IIO fixes-togreg branch as commit
+040c2514b25b ("iio: adc: adi-axi-adc: Initialize state mutex").
+---
+ drivers/iio/adc/adi-axi-adc.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/kernel/liveupdate/luo_file.c b/kernel/liveupdate/luo_file.c
-index dbae0715220b..a39992da504f 100644
---- a/kernel/liveupdate/luo_file.c
-+++ b/kernel/liveupdate/luo_file.c
-@@ -91,6 +91,21 @@
-  *    again later. If the issue cannot be resolved, these resources will be held
-  *    by LUO until the next live update cycle, at which point they will be
-  *    discarded.
-+ *
-+ * Dependencies:
-+ *
-+ * Preserved files may have dependencies on other files that also need to be
-+ * preserved during a live update. A file handler can resolve these dependencies
-+ * by querying the token of the dependency. That token can then be serialized
-+ * and used to fetch the dependency during the .retrieve() callback in the next
-+ * kernel.
-+ *
-+ * Some of these dependencies can be resolved late during file handler's
-+ * .freeze() callback, but some of these might need resolution during file
-+ * handler's .preserve() callback based on constraints such as immutability and
-+ * performance. This introduces an order of preservation. Note that the order of
-+ * preservation of dependencies can be safely relaxed later, but it cannot be
-+ * enforced later.
-  */
+diff --git a/drivers/iio/adc/adi-axi-adc.c b/drivers/iio/adc/adi-axi-adc.c
+index 589f03618ecf..fc7cc92b35f0 100644
+--- a/drivers/iio/adc/adi-axi-adc.c
++++ b/drivers/iio/adc/adi-axi-adc.c
+@@ -714,6 +714,10 @@ static int adi_axi_adc_probe(struct platform_device *pdev)
+ 	if (!st)
+ 		return -ENOMEM;
  
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
++	ret = devm_mutex_init(dev, &st->lock);
++	if (ret)
++		return ret;
++
+ 	base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(base))
+ 		return PTR_ERR(base);
+
 -- 
-2.55.0.1032.g73a4cd73de-goog
+2.43.0
 
