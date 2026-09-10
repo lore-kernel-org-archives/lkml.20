@@ -1,93 +1,122 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B23A145A2AB;
-	Thu, 10 Sep 2026 11:31:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55DFD471424
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 11:32:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789039912; cv=none; b=Oec6B9V8w4UUQXBgVvJd4sVN8zOzZQwT4TfqM24ajUK4qtD6Eutw5Gq3z7ywLYrV9tgfv50JQDr5i78gE8obZAkacYrWKw51u+lyf91sFRh60hVTQQewiNYNGJ773VazftDy/l9b7Ma3gm/PZXDnQY633UXcmbpAssJyDStnE4c=
+	t=1789039927; cv=none; b=pKv7aMGrWUeWjARpE0oM7fNUnPpnwlCz2UwABvU2Ac+gBmbDXVuGygtLsnhL16mRan88z1uKUubSiHcvTzHLVLeP8jwrAgSfUTh3uVcRybvVMt5plrVolpQO1E6wT1RSSg/BkOEgxtkQHAbeYw8RrLzWC03L9tfoh0rEN6vUiu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789039912; c=relaxed/simple;
-	bh=azp3o1mihi2R6duYwj7abG8AVTbmAow/Fym5VmGLMS0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dugp0ddSioS0lpBiZO+y1eD03L/QA+BpsG9xuNK/JzOG7onNupJMaROaIC+dj+TFMI+sY50xYm6Ds9CqdvlkNl5Bo5YTlTR52/Y0MoGxqDmNLEaFZEo3O8OlMLEdDX7zjid3cWNlamG/s+NOATkfQlVHkw2+Vtdcak/rl9+hMuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=QPChFh2S; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789039927; c=relaxed/simple;
+	bh=lJZi95WZB7yzdlKPvBofx8mF9bEAbVe5sXoFviCtnMo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 Content-Type:MIME-Version; b=ow4M+HoiOxdNfFcaT7A0OCXOlnFGrOEHit1jio/3qm992v8sw68sYSfSh17u3s7AIau29tpy5g4VKR1ptDEzuf4aSmhCcCNWoyU84nGagc7a6f1digEX+4WAxEZaK4SAhYE90T5VC5y5t7MEsmUsJdabsZvEiEpYQOixScyhFmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WSCSCPQ9; arc=none smtp.client-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="QPChFh2S"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5B24C153B;
-	Thu, 10 Sep 2026 04:31:45 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8898B3F528;
-	Thu, 10 Sep 2026 04:31:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789039909; bh=azp3o1mihi2R6duYwj7abG8AVTbmAow/Fym5VmGLMS0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QPChFh2S69dAT24VWmc3VdsBcSdyT2LdSXVbaueArXhiONAA6WvjbudrfRdqY28D5
-	 CKk9ZfK/E7iqJuQVFSckwsp3gHioXyIB5H0VSwpiivd3aTci+06eugrRJwJos1BqI9
-	 WCJD4yXv2/SQgQEcKMKBuSLaKy0dtEIl713gKddw=
-Date: Thu, 10 Sep 2026 12:31:42 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
-	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/3] kselftest: mm: replace usage of /proc/self/smaps
- for check_huge_xxx() helper
-Message-ID: <aqKVHnkhjZm-54LZ@e129823.arm.com>
-References: <20260907-fix_split-v5-0-822b810458bc@arm.com>
- <20260907-fix_split-v5-2-822b810458bc@arm.com>
- <956df69d-8c0a-420f-889e-7df2842605dc@kernel.org>
- <aqKMVUDvN8bBpwVS@e129823.arm.com>
- <1968ed37-3836-44df-a266-9a37219c2f6f@kernel.org>
- <aqKTkkK0wnm6cqpX@e129823.arm.com>
- <3aad90e1-5081-4f8d-803e-e9f593ce581d@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WSCSCPQ9"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-853f8c34ba4so7748278b3a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:32:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789039923; x=1789644723; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IPKZJQlP21ww4LrqqKoCC3eq7Co68DwS+hHs4a+8eYc=;
+        b=WSCSCPQ99WEhgSMG29hwUfvzAE3NRCZmk95Rkda+PLeIQkZanHPraZ0QjEZkVPgXPS
+         vOnKwJ4Q/B8B9BSmuLSqIS+ASAkKLS4gTOH8hPU9RJkJEZ0SDhIU5fJnADChtiECHTSK
+         +liJjWjepGcOfeYCe/BRUGnpGKCrPSuX2RYafwjSd3ZM7cAoS0psbumsut1OMxAveEvQ
+         wzt0lUAfB51nUDw2UblJGPTHScLleSZIkQOux2U+XpR73R2FrFrZZuS2Z3tyE7YJ8QtY
+         bPxNoWRGuKmYyxhzD44rBb39oWacp2TKBpbQow2nDSiIxfggRcsZh0MJFutUCXsSlL+4
+         h0Kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789039923; x=1789644723;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IPKZJQlP21ww4LrqqKoCC3eq7Co68DwS+hHs4a+8eYc=;
+        b=riY9VKkQiKjRoIR0W3tR2jUOIE69pk4LmXYbWkOK5EE+c2gPVOiFP2L/h2MHr8KKfz
+         /ocZlbVJ8NqjQhS6qhaBXtQsRVI4Z17VgOZlkVzB8xoOTqFL3pZxEnpQ5yUEJNzOjbIY
+         fXUhAjpSx9uTnk5b1uY+jRVUlhMGtAf6T7Z0c68V1xF0uj6eOdbsbO63oI553KBVmn4X
+         qGwJT0+xVqC9T+dA9LQ0yyZa9obMG9hL04QBnun3gfsFSPGjw8nIlYM7hNlvxIbUSGG8
+         Qy0RRJv3AFVJhZgWZ7B1XfrhLVnjjUUIZEiRvtC/3dd9GK1xRk+2CUltTLp95ldyhNAf
+         I8CA==
+X-Forwarded-Encrypted: i=1; AKwUvBxhy0ltYaOvr+9uJChX/KqvaPwkU2wlCK1NNTJzEKPdGlDIhIORyKdFzUcevsfHsFoPT5jF32SDAHL0YZE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mjrFBzwPLIxrrVd5HRgfoCGvaV6p7eJ/6w5eThLYTo2rau8dGd
+	F5w+WVsYssTFy3SstJHbU5XZK0B75eEAHaFyQKm6M9U9AlrkKF4yLxEa
+X-Gm-Gg: AYBFou1+Q/db2Smbb6ew2dqVYhFQMuU/PrNgXBHOK+akWIEgfLQGp4QCJKkxkaYPq3k
+	ihpYp14r1PqgzsPGIIyD1vRzJ+oTgU8efJAy9c0t+d/5gQlC/M+Fvz1t01pnI6uocmFdZ6WN2JN
+	gmCEh6TYtaTwzMW+49nXRmWCO6sDwdO4eHixlPqL2XAjDd07Y2KxalDd0Fp6vggLPeRdW7+ohI/
+	3WCqOJRgs6YPRW7vBlwD71g8zpvhVQERfG29XxsTjZBEOxjCVtRvnHLR3iXVaiMuRWE4BRYk/4K
+	Gu76UY9p544zwFHWBud/KunJ/gKwWb8KZ6HDdjWZ6GD2lKYPCSSiXDrQ8vYB+LOusiIwJA5Kwgh
+	mPiGhWBkxE6TxMdRQISBJDuNqfFEETCfuxc6+WwJDbPHi6zbIkv8oRj6wACTIhAah+OTg1TfH6D
+	cQjtHigQUXhMQggG709n7muxUiofRRIVJ5mAb+prkTI9cxRv3mqKY5uJ9BZLqZd2QZqOU5rV1T5
+	SrGpMbYeJSA2Mi0ZCGkQcHinG6RrrCgKWK8tKHR1kgeqKwPiaAmeBX/G3yrvEy5fqIc1MrWkRFh
+	AeD2kH5YEBOXKLner2eAy3gSmeSMVwFMPUTz0oRFwu5+ujBbP2Ae/tdm3C1CbT/uuEESuToTXFH
+	lxVHGml1E1hfodPrecJOS
+X-Received: by 2002:a05:6a00:13a0:b0:86a:59ca:6cb6 with SMTP id d2e1a72fcca58-86a59ca7130mr2870537b3a.20.1789039922659;
+        Thu, 10 Sep 2026 04:32:02 -0700 (PDT)
+Received: from [127.0.1.1] ([43.227.225.58])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-869a5b727f6sm818032b3a.28.2026.09.10.04.31.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 04:32:02 -0700 (PDT)
+From: Nikhil Ludder <nikhilljatt@gmail.com>
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: Emil Tsalapatis <linux-lists@etsalapatis.com>, ast@kernel.org,
+ daniel@iogearbox.net, andrii@kernel.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, eddyz87@gmail.com,
+ memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
+ yonghong.song@linux.dev, jolsa@kernel.org, john.fastabend@gmail.com,
+ sdf@fomichev.me, horms@kernel.org, dsahern@gmail.com, hawk@kernel.org,
+ razor@blackwall.org, bpf@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH bpf] bpf: fix reading neigh ha in bpf_fib_lookup()
+In-Reply-To: <7f3e237e-ac5c-46af-ae21-8b437a099fe3@linux.dev>
+References: <20260909024011.1252694-1-nikhilljatt@gmail.com>
+ <CABFh=a7Z=heZODVsXwisY3VwULDy-Rq1hwO09exgX2d0-KzgUQ@mail.gmail.com>
+ <178898653497.1776876.10402414041023036972@gmail.com>
+ <7f3e237e-ac5c-46af-ae21-8b437a099fe3@linux.dev>
+Date: Thu, 10 Sep 2026 17:01:52 +0530
+Message-ID: <178903991209.1916825.3991149870565892141@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3aad90e1-5081-4f8d-803e-e9f593ce581d@kernel.org>
 
-On Thu, Sep 10, 2026 at 01:27:41PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/10/26 13:25, Yeoreum Yun wrote:
-> >> On 9/10/26 12:54, Yeoreum Yun wrote:
-> >>>
-> >>> Agree. but there seems the case where discern whethr the mapping is
-> >>> with regular file or shmem like tmpfs -- khugepaged test where using
-> >>> __shmem_ops. So I think it would be better to keep this as-is.
-> >>
-> >> Let's not add or maintain unnecessary complexity.
-> >>
-> >> hmem_check_huge can really just become check_huge_file.
-> >>
-> >> Even file_check_huge can just be simplified.
-> >>
-> >> There must be a pretty good reason why we'd want to keep this.
-> > 
-> > Okay. then I'll change the check_huge_shmem() to check_huge_file()
-> > with the separate patch.
-> 
-> You'll likely have to make both behave the same under the hood first to then
-> remove check_huge_shmem().
+On 9/10/26 12:59 PM, Jiayuan Chen wrote:
+> Yes, no deadlock.
 
-Acked.
+Thanks for confirming.
 
--- 
-Sincerely,
-Yeoreum Yun
+> BTW, if an IPoIB device can show up here, dmac is already truncated
+> today and the packet can't be forwarded anyway.
+> Shouldn't we just reject addr_len != ETH_ALEN instead of open-coding
+> the copy? Then you can use the native function instead.
+
+You are right, and it is worse than just dmac: the line immediately
+below copies dev->dev_addr into params->smac with a fixed ETH_ALEN and
+no addr_len check either, so both addresses are already truncated for
+such a device.  struct bpf_fib_lookup declares smac[6] and dmac[6], so
+the helper is ethernet-only by contract and a non-ethernet nexthop is
+already outside it.
+
+I would rather not fold that into this patch though.  This one is a
+race fix with Cc: stable and no behaviour change, whereas rejecting a
+device that today returns a (garbage) success is uapi visible and does
+not belong in a stable backport.  Would you be happy with the seqlock
+fix as it stands, and a follow-up for bpf-next that rejects
+addr_len != ETH_ALEN and covers smac as well?  I am happy to write it.
+
+If so, which return code would you want for that?  None of the existing
+BPF_FIB_LKUP_RET_* really fits: NO_NEIGH is untrue since the neighbour
+is there, NOT_FWDED is vague, and adding a new BPF_FIB_LKUP_RET_* is
+uapi, which is another reason to keep it out of this patch.
+
+Thanks,
+Nikhil
