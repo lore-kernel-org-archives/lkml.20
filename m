@@ -1,102 +1,147 @@
-Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io [149.72.141.136])
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBAD34F054B
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:23:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.72.141.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEBCA4D8DB5
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 16:23:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789057425; cv=none; b=i7S0OycfSBRSIsuIaMkJTEltWTp5ItKGojgcw4wjcfFgOoxtUqYFMplOTegFkH/02YJgciDbSb5QW6cVspYoxNp9KasCkqI0E8B2mUVR3uWzW/aGTiDuEpXbQT4NkMQzqu4Gu2kMq2zGL7fPgPbC5XPTdb/NfOY8eSW4QvHwVIY=
+	t=1789057438; cv=none; b=TVrBA7zY6UG1qQnBivWOHYjOWwdwNy5IhIDtzLOtIBl5/3xyJzPIPd6ZRBjuQxNfM3T6HDRAJbTJPYIFYbMibYnku1EdFjdb81wQUoDnePelzsGdO8XMuLEmnoJU37eA2R8Qz3JP12zcllNKCQ3zDSsVuFNBFF5Gd24TslApELY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789057425; c=relaxed/simple;
-	bh=YSghPuclO7gQiXTLDzfE4bkBtKUF1sJO1s/E7HVHRx8=;
-	h=From:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
-	 To:Cc:Content-Type; b=DGZF1sX2EkaOxghuvE+CUc5zzaaBw8mVA1L5HbpFwT+XQSlThxfXIHHgZ5PhLbprBK/KXY47K1ihBo+tF91HtqHCCoJj06AGpaqs2tcHpM1HQA+dZ8Ayf/H+GiQxk2CuoGKvs2fogTDYXiEtKE+8rmqaFvbNc9qqXF9DCQ0ZPNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io; spf=pass smtp.mailfrom=em.honeycomb.io; dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b=joFBqsob; arc=none smtp.client-ip=149.72.141.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em.honeycomb.io
+	s=arc-20240116; t=1789057438; c=relaxed/simple;
+	bh=ax0I/rbLOr2yb8u0FdwqcUixbFuL4avlzV+xZRV0HlU=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=OyT6faWiRnuBA/zYNR9ixFSeqQVn0GqIaNMLqXVBYB4u2DPHEhAuXi/MbnM6WIidZOuS3ZLwiG9d81cEtparO43JHfZoU+0aNzcVEgrBXxy3OB6I5p7v5OKhzTmTShNZLg7GPxSbGGW7+SdCxiiFodzx+pbNkmBmfVyN9UKyrwo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--elver.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BCGHvPDE; arc=none smtp.client-ip=209.85.128.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--elver.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b="joFBqsob"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
-	h=from:subject:date:in-reply-to:references:mime-version:to:cc:
-	content-type:content-transfer-encoding:cc:content-type:date:from:subject:to;
-	s=s1; t=1789057422;
-	bh=Ojl/NWsC9MSjDYgGDCuYdo4PQAJl7yOv7aALgpvhTkU=;
-	b=joFBqsobjVeknQApV/Zp/YWNRPYKeJyITrtaVmOPPnBHMK/r5iHxCrtThnTLRkznWUkO
-	LHi4Dh30pu/ehGKRnsAIhefhCSBPdhFTNJURg/1xsxK6h44HGBbFT1sENIpOi2DyPqHDCQ
-	34coOuYITQ7fttFI4AnxkNyGSf9MiUtBr1GW+TiOMQWxbX/DWDB3LVIInFTcYLYznZkjnz
-	vunFoDjYdxouE8EdK8br4vmKP/X6nYTMZ41AJbLztnfxB8j9c/yrVflyYwPZZPPvtsbs4n
-	IrYGkQMhbGjKGBrkcYUzzQkgyb6pj3qF03hnMkTG2IDXxvZu0KJ+0D9P/HAu5Q0Q==
-Received: by recvd-69664d99dd-bcjr2 with SMTP id recvd-69664d99dd-bcjr2-1-6AA2D98E-78
-	2026-09-10 16:23:42.801218343 +0000 UTC m=+836507.408174706
-Received: from daisy.dens.ffj.family (unknown)
-	by geopod-ismtpd-6 (SG)
-	with ESMTP
-	id uocpkYPWStS876SvS2QkZQ
-	Thu, 10 Sep 2026 16:23:42.691 +0000 (UTC)
-From: Liz Fong-Jones <lizf@honeycomb.io>
-Subject: Re: [PATCH v5] PCI: Fix BAR resize for devices on a root bus
-Date: Thu, 10 Sep 2026 16:23:42 +0000 (UTC)
-Message-ID: <20260910162342.9854-1-lizf@honeycomb.io>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <29c5916f-da42-58f0-d4c7-815bbaed711b@linux.intel.com>
-References: <20260908-pci-rebar-root-bus-v5-1-a210f405ea81@honeycomb.io> <29c5916f-da42-58f0-d4c7-815bbaed711b@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BCGHvPDE"
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-490a767c7dcso62595e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:23:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789057435; x=1789662235; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=N1aGCX9z0NgEJybPJEfd53e/DnJWPfQPBFps7LJSrpA=;
+        b=BCGHvPDEwxThSXnTsJFlkyizcTHoajUUQNr9Z85rNAbm3rOMEHoUm8WNkf2AhNemLS
+         4S2a7shnZhpGp00NDaWenLD5CwtZDu1fn3DR+w4U6oJku1NSAXhDVWOyPl2gkIRgWEeU
+         sGDOzcJxb9GVpcM2hO/qW9/jx/zRgqvLAPQXkthKRUVbaHUBTLjYeAJswuKGgRSBcU98
+         R8JljWApYYSfd6qaggN0zkphhxzHXI3MFzp0bh/eieegNlE+SA7kQtmYWX/cPchYqAW8
+         q01QXkR2xuI5xqYkgis189/7SELXEamHpfAC1CMUQNTWcThO6kFIJ7/p6Sukww9qwmME
+         gEZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789057435; x=1789662235;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=N1aGCX9z0NgEJybPJEfd53e/DnJWPfQPBFps7LJSrpA=;
+        b=hviT95ZgSdiialxAa0jaX25Qsw2glly9kW9PS/h5mTLN+ZbFOzGZgsreZx0cVyVW+/
+         hIHY56v++mS45LgHnZEs7fieT/K2UNUZII/RdyhtHuXZznW/DCYQFJpPJu3cYXtX7FPK
+         IaQYf37ve+gbowoywcO86B0WlyG28lR03O4eKENSE2OeN32SSw4JN1w03IWQFsV0TqWt
+         jQUJ1okxANvAdqmgkF19QSTR07gp5OX6mWYlC8o+EtWNkbkC9ZEzhWDfFjED1hMMA8AY
+         UDrt+NcyGK/baxLhCGriFCOIy1WAESYDB1O8M3kOm8GtITbQFiFKDClSuTVb6adgKGJ5
+         FdXw==
+X-Forwarded-Encrypted: i=1; AKwUvBx6P359bKDPocK3/o/f/LHq1KTLLm9eY7b5v+1MBlkHldmiGIQmp6KhmkbtMVfKhGe4scJZtkdr9f5Mkzg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lE/eW18uRpyxhFN9Xffoj3PFeEJ2+JHcnvG7v8Lij96e5LQAf/
+	SESFpuh/uOhhfLZEuwOzjL+MpFhx3o8HG77iM4BeHl4V8MQZrvXT4zNr5DNdC6Nm79Z/NR5OxUn
+	BLQ==
+X-Received: from wmpj6.prod.google.com ([2002:a05:600c:4886:b0:49c:fc36:da7])
+ (user=elver job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600c:4e16:b0:49c:fc6c:bdfc
+ with SMTP id 5b1f17b1804b1-49cfc6cc01bmr380585375e9.19.1789057434188; Thu, 10
+ Sep 2026 09:23:54 -0700 (PDT)
+Date: Thu, 10 Sep 2026 16:21:33 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-SG-EID: 
- =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
- =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmednNviVbiXOC?=
- =?us-ascii?Q?oREWn0PvvJP53Uz8gPPC5zPjaNtjMPM+hLjOqwU?=
- =?us-ascii?Q?QawE=2F3B72uKOWIppfuG513fXq618S6PDhcLtZ04?=
- =?us-ascii?Q?lpt2Vn2JYRfbcTmp1omSCIjz+mC0Gm8iDhRQtNy?=
- =?us-ascii?Q?aYR99UbyQmS7EEoDWod4qjfE45cYELBKQ1qyfdk?= =?us-ascii?Q?EAfF?=
-To: Ilpo =?iso-8859-1?q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Liz Fong-Jones <lizf@honeycomb.io>, Bjorn Helgaas <bhelgaas@google.com>,
-	linux-pci@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
-	regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org, Jon Nettleton
-	<jon@solid-run.com>, Jon Nettleton <jon.nettleton@gmail.com>, Jacob Martin
-	<jacob.martin@canonical.com>, Thorsten Leemhuis <regressions@leemhuis.info>,
-	stable@vger.kernel.org
-X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
+Message-ID: <20260910162343.4092060-1-elver@google.com>
+Subject: [PATCH RFC 00/10] KVM: Enable Clang Context Analysis
+From: Marco Elver <elver@google.com>
+To: elver@google.com
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, 
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Ilpo Järvinen wrote:
-> Great, it worked (I was somewhat afraid there might have been some
-> landmine for the case where there's no bridge).
->
-> And yes, it's very important in general case to assign the resource in
-> correct order because the assignment algorithm is greedy.
+Enable compiler-based static context analysis [1] for x86 KVM, along with
+prerequisite lock annotations in virt/kvm.
 
-Thanks, Ilpo, for both reviews.
+During the initial annotation pass, context analysis uncovered a missing
+SRCU read-side critical section in x86 PMU filter lookups; patch 1 fixes
+this bug.
 
-Yes, it works fine even without the bridge. This is what it looks
-like when triggering the resize through sysfs, and through amdgpu's
-probe-on-insmod, on the actual root-bus hardware (HoneyComb LX2K,
-LX2160A, dGPU directly on the root bus, no upstream bridge).
+The remainder of the series is strictly non-functional: it establishes
+basic function annotations, guarded_by annotations on core structs, and
+straightforward refactorings in hva/gfn range walks and guest_memfd to
+eliminate conditional locking patterns that cannot be tracked statically.
 
-Manual trigger via sysfs (shrink then grow back, forcing the release
-+ reassign path both directions):
+Annotating the MMU (mmu/mmu.c, mmu/tdp_mmu.c), i8259, and Xen requires
+more invasive changes and is deferred to follow-ups.
 
-  pci 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa4ffffffff 64bit pref]: releasing
-  pci 0004:01:00.0: BAR 2 [mem 0xa500000000-0xa5001fffff 64bit pref]: releasing
-  pci 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: assigned
-  pci 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: assigned
-  ...
-  pci 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: releasing
-  pci 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: releasing
-  pci 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa4ffffffff 64bit pref]: assigned
-  pci 0004:01:00.0: BAR 2 [mem 0xa500000000-0xa5001fffff 64bit pref]: assigned
+[1] https://docs.kernel.org/next/dev-tools/context-analysis.html
 
-And the real-world path, amdgpu's own probe with the amdgpu.rebar=0
-workaround removed:
+Marco Elver (10):
+  KVM: x86/pmu: Acquire SRCU in pmc_is_event_allowed() to protect filter
+    lookup
+  KVM: Allow reading memslots while holding slots_arch_lock
+  KVM: guest_memfd: Avoid conditional mmu_lock acquisition
+  KVM: Refactor kvm_handle_hva_range() to avoid conditional mmu_lock
+  KVM: Refactor kvm_handle_gfn_range() to avoid conditional mmu_lock
+  KVM: Add basic lock context annotations
+  KVM: x86: Add basic lock context annotations
+  KVM: Add guarded_by to members in struct kvm
+  KVM: x86: Add guarded_by annotations for kvm_arch, kvm_hv, and ioapic
+  KVM: x86: Enable CONTEXT_ANALYSIS with opt-outs
 
-  amdgpu 0004:01:00.0: VRAM: 4096M 0x000000F400000000 - 0x000000F4FFFFFFFF (4096M used)
-  amdgpu 0004:01:00.0: [drm] Detected VRAM RAM=4096M, BAR=4096M
-  amdgpu 0004:01:00.0:  4096M of VRAM memory ready
+ arch/x86/include/asm/kvm_host.h          |  32 ++--
+ arch/x86/kvm/Makefile                    |   8 +
+ arch/x86/kvm/debugfs.c                   |   1 +
+ arch/x86/kvm/hyperv.c                    |  21 +++
+ arch/x86/kvm/hyperv.h                    |  16 +-
+ arch/x86/kvm/ioapic.c                    |  28 ++-
+ arch/x86/kvm/ioapic.h                    |  16 +-
+ arch/x86/kvm/irq.c                       |   2 +
+ arch/x86/kvm/lapic.c                     |   8 +-
+ arch/x86/kvm/lapic.h                     |  15 +-
+ arch/x86/kvm/mmu/page_track.c            |   1 +
+ arch/x86/kvm/mmu/page_track.h            |   3 +-
+ arch/x86/kvm/mmu/spte.h                  |   3 +-
+ arch/x86/kvm/msrs.c                      |   5 +
+ arch/x86/kvm/msrs.h                      |   3 +-
+ arch/x86/kvm/pmu.c                       |   9 +-
+ arch/x86/kvm/regs.h                      |  15 +-
+ arch/x86/kvm/smm.c                       |   6 +
+ arch/x86/kvm/smm.h                       |   2 +-
+ arch/x86/kvm/svm/hyperv.c                |   2 +
+ arch/x86/kvm/svm/hyperv.h                |   6 +-
+ arch/x86/kvm/svm/nested.c                |  30 +++-
+ arch/x86/kvm/svm/sev.c                   |  18 ++
+ arch/x86/kvm/svm/svm.c                   |  32 ++++
+ arch/x86/kvm/svm/svm.h                   |  28 ++-
+ arch/x86/kvm/vmx/hyperv.h                |   6 +-
+ arch/x86/kvm/vmx/main.c                  |   5 +
+ arch/x86/kvm/vmx/nested.c                |  54 +++++-
+ arch/x86/kvm/vmx/nested.h                |  19 +-
+ arch/x86/kvm/vmx/sgx.c                   |   3 +
+ arch/x86/kvm/vmx/sgx.h                   |   3 +-
+ arch/x86/kvm/vmx/tdx.c                   |   9 +
+ arch/x86/kvm/vmx/vmx.c                   |  11 ++
+ arch/x86/kvm/vmx/x86_ops.h               |  24 ++-
+ arch/x86/kvm/x86.c                       |  66 ++++++-
+ arch/x86/kvm/x86.h                       |  37 ++--
+ include/linux/kvm_host.h                 | 215 ++++++++++++++++-------
+ scripts/context-analysis-suppression.txt |   1 +
+ virt/kvm/dirty_ring.c                    |   2 +
+ virt/kvm/eventfd.c                       |   9 +-
+ virt/kvm/guest_memfd.c                   |  21 ++-
+ virt/kvm/kvm_main.c                      | 183 +++++++++++++------
+ virt/kvm/pfncache.c                      |   3 +
+ 43 files changed, 745 insertions(+), 236 deletions(-)
 
-No "Fatal error during GPU init" (the original regression's failure
-signature), full IP block init, driver comes up clean.
+-- 
+2.55.0.1003.g10538fe699-goog
