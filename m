@@ -1,563 +1,156 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010006.outbound.protection.outlook.com [52.101.201.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D945E49F134
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:40:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789051213; cv=none; b=GjpFQGu0cn0ray60l2oyBnbV5WrG4CswPm4LEUNd8o70UPgpWeMOYAFHL30S9cqrvYKFyr0x8o0NO+fyhTxEJZU2u/v51pbBZ7+fKs/5und6Ebtnpocxees7O1FTiuzHRV3o5xu2DRsuWK1wsPv1uZPoEwKgxbV21znxuvQW4ac=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789051213; c=relaxed/simple;
-	bh=Y7CgLZjt83mCJzO+IYKo7Xz8T3dQW4naqAN6c67Kxn8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZkbdHJ1KjXsyZjj1plB8jek2aj0xl4SuBuU+VSRlH6+ZUGD6oF6l1h2i7L4mZ7Ud5VDxFE1vzSCRQI5JatkU4bF3BnWgkvMawc9TyRhYm4L1NsRHSsCgPIUOC9BozNNhzjW0IA8aJNmfbGM8SrqS6+FJjmVQzUcqTc3iCdOIXhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BZEhaRTZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A4S0YmQT; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3BE04A49A0;
+	Thu, 10 Sep 2026 14:40:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.6
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789051221; cv=fail; b=PAAoUiy0NcT9s6sADy5zIqEm1oMUu4Kdq7LSO15Tf0wM7vk+SLGKL8ACKLRjM7KHFIVGCbVwbzYYJCb0vBV39VDTqQDQvj2DiDifTii3j2PDnnKd7u2PnyhNX8G1f63dtJw/rInLxmGhYReulcCx2c2ljaWFeFG1+ANtxgUbwvc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789051221; c=relaxed/simple;
+	bh=mFERtMBjiBhcIwI1Ho1C8NZpAy8Jy+GseBJbg9z8gl8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=kk/k8RBGzJorge8XZNQUU8iUC4m/2v+lbyJdoZ9aMMkg2KMG7geHfy9J4h8RJzSa3rAmTRfoAg76cmTq+UnbFwUdp+PIY0NvwJZK9g7Me3efVu7fby0pXkJc1mJDfdIHgY7yhvx9y58Tv4usRM/iCiTQrreNEDnq8b6KzHPdRQM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=MSEco+uv; arc=fail smtp.client-ip=52.101.201.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BZEhaRTZ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A4S0YmQT"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68AC7ilM780804
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:40:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	umzImKTKFCuagCNnRrR7rhAXOSarpb4xlG6ZP6A1hxU=; b=BZEhaRTZ1vLhwCLv
-	8pn8sa+Pg+mfr7l7yBzb+QU+hZFV1GLa10CA7m4ap2rUO33u3Xe96iqXiTpn0KVg
-	nDpAtipV4XdjdZuPdwE+igDYHwfkmV1DpT6bQr9hCunRDxoUvHLwGBAoDXvZHkC3
-	IYVLWkaPKT+N34O1nQzt9ySXIgGJAtUtEQHcg9hGq2EZVUr54jO+p/FekTvgj/cs
-	P0kY7/bUU0fYGeVpB9WO/YP7pGVjmyxD7xU4DRwIVIC+GLyEm7U9J9wm9/fP+Dgi
-	iW66Mk+4sS8Q82yR/t7XMUKDyxebpxSodQfpNvyLy/A3SbcpMa+NDaq/Sl+vjvCL
-	8M9WkA==
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkrak9sqa-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:40:09 +0000 (GMT)
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7e9e4a02796so855786a34.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 07:40:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789051209; x=1789656009; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=umzImKTKFCuagCNnRrR7rhAXOSarpb4xlG6ZP6A1hxU=;
-        b=A4S0YmQTUpso6FNybX66SEWXhNrFGn9khpr77LoTcyczy5xjcapOfFAf/2gIjnIvm2
-         entUec0Tq6lMLtPhwHsH49CfqqTrJg+aWZSNqVRqbxK7ztO6TDGhNm38RyNHQQqpXQcb
-         67RLBQdJp8PhcwOuu82+wrTJBMYiEBtN3YlfbHShUZhu8BjWFl1yRLSCN9k2nj59e7p/
-         QBGExHnarVlqXvROA8xaOEM7YdSMWajbNT3ptN+iC42pnmIUOjfOZf2KYr3pZP5jYOKz
-         o2CQmO3a1UcledD7OKv1a1KYmGMVpSgR0tSangZlXGoJL39V9HH1yzAIoO1y1kue/gcs
-         asDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789051209; x=1789656009;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=umzImKTKFCuagCNnRrR7rhAXOSarpb4xlG6ZP6A1hxU=;
-        b=an/H+OcUuqpq8b4Uyn3ieLW+YNBYLVlje0KUplJXPROXBdN50RWjmHhUBusFv689G6
-         EAPcgQjVapvjmhtH7kdp4cKbHLBwrnySmTcGx1LWUKuvjB3xpWAHPO6+nS0VxoWCRelV
-         UoBvm3w8h1MMwXoUFI2VLbEK4HXOxMZYh9227b+neqYbLyu4bCzmz3QRSOxDNHd887ru
-         7o3KfZX1zqq+z7g1EBn9iWczAp3TyhewZVDy7cgu9xJqQXyuPuFN+JUsrepI1A+IPtMT
-         BhnEbswnMWu09w2Qkfr4Yul1pME0BvzdieBJ0Fl8KNYuH/HvNG9Gng5RPdkGKfMU7sM4
-         Ly4w==
-X-Forwarded-Encrypted: i=1; AKwUvBwX6xxcbbYmZ5hcvknKLNgx3xkYYxQyUY1jUHsCNhLSUPxeVRhmnCpl3ChdtqaN8/FtZZAU8+iTZY/cRLQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++m0S4mEnQxOuR165/5a/t1FcUeGUNm1Ido8LQwgr2X85fOP53VB
-	7hTg+vQtxuNDUqysCLPPZtBrOBVdyUFGmWM/+7o024svZqrBZThry67HuLqYMch/X6TX+/WQSjf
-	kl9+oLSo5g03x/Eh13mfuB8JaqdBnqJpPjAa6V2LSwK01yxcw+1gjj095sbmwkgNJos4=
-X-Gm-Gg: AYBFou1WCOPQKWPE0wXjkN2MM1NteOMlj8ROVvVNaFDZE8LJeD6k6Ohg1spOBfq1ud8
-	RUU6n0ID0Mv8fadrTOxf/X7CV0b4wdMcUzBJKGvej8XxFa20F+09Ghqn5DKzcWdB1qahAoyvnRC
-	50PGx0m9a+4n4ULumxXs93+RpSAjXGiZg5aIlXGL51bD0QOUUKuLztXdpPUFKih7izvEUf/cbfI
-	ly+QgpFZ3yHNJfWgQmz1EJLhJY9VEui2pzyRuAvQXl/RdjoQ1HBirva/ZFp/tq3VRaADdSatjnD
-	Z/4NS758BQldAJJtYxyL3gBgf2/O+0FAsCXu6I1yFEcH2IEQU5yqzhyu/mk4D9IkyEUHhXeuh0Z
-	WKVhZl0Mf5QlRllw1CsukEVPwBXyk9aGryZXsTzC8hYzWcm0=
-X-Received: by 2002:a05:6830:7316:b0:7e9:bbf5:1079 with SMTP id 46e09a7af769-7fb7d276778mr18800133a34.2.1789051208619;
-        Thu, 10 Sep 2026 07:40:08 -0700 (PDT)
-X-Received: by 2002:a05:6830:7316:b0:7e9:bbf5:1079 with SMTP id 46e09a7af769-7fb7d276778mr18799970a34.2.1789051205057;
-        Thu, 10 Sep 2026 07:40:05 -0700 (PDT)
-Received: from hu-zijuhu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7fa02cddc41sm20740155a34.22.2026.09.10.07.40.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 07:40:04 -0700 (PDT)
-From: Zijun Hu <zijun.hu@oss.qualcomm.com>
-Date: Thu, 10 Sep 2026 07:39:56 -0700
-Subject: [PATCH BlueZ v4 2/3] monitor: s/vendor_(evt|event)/\1_vendor/
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="MSEco+uv"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hJpPFJTyAGNzOoTQfPj101P5bjzI2/wixjV6ghAG8gUm8ZgM3NVWvn3fMtCjxjfg7ixxAhNI7raCF5Dv+OZL6VLjJhHt1fAGjbYMLfA69R3iiRN/RJEcY/eDyPUF9fiFmWqHYRL6ozIWP23mBNngHhZzRa+0tqs3N3M1qUqCKmwSUMu4cUz9GgXv9DksQT1NQtU3ID6P6b8gRE2pJrUTmseFd72Llxq+QCnLa42EAslyaolZO4kK4QZMuHcauxBr67CGwNCaL6jx0mIjlqFtHDN/k7EesNB0kNtsqCkzANa57W8jrBjZJQAv9UiBFgbOqmdMkvFnKRdL/2qKGYfQSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RK2lHbDOkytFhmipdF8NzE/wHVKv91Oz/GNOOVaQ69o=;
+ b=f879yQe1PcoKZwgzM9spJKcsiN5awX16wawYOxV3ZpekKliBrIsJNFHvgf2OHjfNkCDN1hOSZBqLcKz49d8j4QZHin1xYNnc6xyAP2Tken4XHXy/WeKl6PW4zZ7qGdOS1dWMd9awyYAwN9+7I1qqledjPa99DVX55lHVpP4NVaEy0SQL6PDv7t1PkqjNjJxVxELQaSFvzdLkjjKylZssITJgcVIURAdVJmPyOnObErCvVwuWXW6hWwWrXx3MOHhSDSonlTjz3Yuh2CiSVVLCM/lRSLVm1TvFMupjk53liO2g+AyDVOSB/zPcfn9q/k28aT8Xy+ECAS7c9YWuk7CqGQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RK2lHbDOkytFhmipdF8NzE/wHVKv91Oz/GNOOVaQ69o=;
+ b=MSEco+uv0oyDX/ivoDIDj1mT3UICFmY8xQtPyVH5cYH5D81QgTUVdeaDIQ8YbxrJ27hwq9xYNY6/l54qjhVPzHA45x0BEgYmJXStOZIxCfi9IhqLhRjAOLdOCRFQN+ZaczbIpHw6wza15CYHLygb/HWoDvAymsFcIGWvvpON23pFlG0skOOzEGM1ZlyPJYet4Fqc0zHGxrhWc3ITROac9PqlVx6XN5oeSSV/oYkgVH03fKyuGWUPkQXb8yGjDMHikQrDnWEB2j9a4UyIS7SNF0Yqv/Nok/CY7dMrNZrMTmNmdsXk0QNmKkqCz3vPmKGK/zukagu5UyO+4g7Eidu/Ag==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by SN7PR12MB8132.namprd12.prod.outlook.com (2603:10b6:806:321::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Thu, 10 Sep
+ 2026 14:40:12 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0406.007; Thu, 10 Sep 2026
+ 14:40:11 +0000
+Date: Thu, 10 Sep 2026 11:40:10 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Pranjal Shrivastava <praan@google.com>
+Cc: iommu@lists.linux.dev, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>,
+	Ankit Soni <ankit.soni@amd.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Samiullah Khawaja <skhawaja@google.com>, sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/4] iommu/amd: Remove iommu_ignore_device()
+Message-ID: <20260910144010.GE3968357@nvidia.com>
+References: <20260910142655.3281464-1-praan@google.com>
+ <20260910142655.3281464-3-praan@google.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910142655.3281464-3-praan@google.com>
+X-ClientProxiedBy: YT4PR01CA0391.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:108::9) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-vendor_hci-v4-2-b953ce117d12@oss.qualcomm.com>
-References: <20260910-vendor_hci-v4-0-b953ce117d12@oss.qualcomm.com>
-In-Reply-To: <20260910-vendor_hci-v4-0-b953ce117d12@oss.qualcomm.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Zijun Hu <zijun_hu@icloud.com>, linux-bluetooth@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDE3NyBTYWx0ZWRfX+MgoPPCGoyi0
- A2ickel1KW6JFQdxbpDWg1fopZkQXdNYmgO31PqwzNJaPywkbzpOBCEI/RPFLe0m5zpBKiyl6re
- jGtCaDrXTtUb1qDyRUmq3y51JAxvbok=
-X-Proofpoint-GUID: 7ZuqGub4HcmKf2dhjl9lfBYW1zUsBeJD
-X-Proofpoint-ORIG-GUID: 7ZuqGub4HcmKf2dhjl9lfBYW1zUsBeJD
-X-Authority-Analysis: v=2.4 cv=EspHPicA c=1 sm=1 tr=0 ts=6aa2c149 cx=c_pps
- a=OI0sxtj7PyCX9F1bxD/puw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=Dei6p5SHAAAA:8 a=7rLAfYvYRfl3bdLfV3sA:9 a=QEXdDO2ut3YA:10
- a=Z1Yy7GAxqfX1iEi80vsk:22 a=M-Yerj1wOn-OpK7r_3ei:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDE3NyBTYWx0ZWRfX8dQ1Z3xpslIh
- QN0/f/Iwdq2N+gjJjI1014hBrOeDR1UeD+4sUh+3KB8zHps+nVN1UeFBayJ4SSd4SU4G9WxB7ya
- f/GkMmOc1Fvk19MKXqx9tFC3RTOGDzoAZEk0zrhpT41IeBLWbBBjhqF3I+L08eHOLyKwjhOlNeJ
- 7I5T7GpsnP0AONz8/9Ap8vdEBBxEhZef/orWB9wNrF7M9Um81wHWOVl/STyneNoarDvgPAkqTWb
- CCGPLgKidr5zEI6ayCq+1CIyTi11T0c0H9Mp3GXVshAJTtdO1IXpV4hJXbNxHEWl20hCMZM+WIn
- f9fzPpy3kL3lLB5LhOz0H/b+uZuwcV+t5YLcPz8nfNUCPjPnbom39RMFZq5jycCBH/OYG7Xs9oj
- VejvefTCUBPUmUOkVtujp9DTkxpAzHLQ/pQf9BNECR7ExgbuKItaBLBNxMlpQdlBFXZ9yd3K6KG
- JLdwmb1PruOPYg1o25A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_04,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 spamscore=0 clxscore=1015
- priorityscore=1501 impostorscore=0 malwarescore=0 adultscore=0 phishscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609100177
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|SN7PR12MB8132:EE_
+X-MS-Office365-Filtering-Correlation-Id: da36919a-1ad7-484a-fddf-08df0f496af6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|23010399003|7416014|1800799024|4143699003|11063799006|10067099003|18002099003|22082099003|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	9cSUJa74s4eWW93j4SedsEsw6KJgLlAaB2mW3NySMoBhBwgp5JNctY1QJDr0eyLpsbEu1aWP9EZujfTJp2lkl9ZpB3kK2+ilIDicLIQfpPm7KHB+ImZcIxB7LM+IH3afRNHWBTucXxjdAOwLv5kwdbBZvzTxi7o3yORmTUW98sQtkwXAV0lO30IaRJWdnYykrokhZFm4DOM7MkatAjZm/zBxlnZ8IG1tgVRVAeLIFdMw0FHiUf4ZPSclZV6Hvoxkv/aB3EUA6x3s5UQKEtI10+E8wk/jph2tauRpkuHjkk1NVvv7uoJJ+EwyaHcoQHQN+5ftJP18bwQvZOBpVWIbqNG7TI0Uz3mJa80i5z/IgvOjARQGP8grUd5PLaKa59cJ0qsLlaCt/pvpS4w/zkRZnHztEgRBtWsEswEdCwStPNtBa+en7yCYxAOzR7H9OyP4ojZ9tQhc8rwY1j/7JzEfCUVWYR8+txQQO+IDyg2omsEC7+5AelesXXdOnYxiW/p+1gaMPoWsIYvwv5lIomT8xpcF8y+JXisHUWkdN9s6L7sOKHTPH/TlUUORpuqjA9o5L6EdhYM4RGfILpAEUijKuLcCeX/DSBxa74hORiuwoU9xMqgRI5QM2hhykKyvQtnovhpasazyReJavKeVwMUa6TsQCJ91Kb8Tph7V7EclA2E=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(7416014)(1800799024)(4143699003)(11063799006)(10067099003)(18002099003)(22082099003)(56012099006)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?GXT9Eek0q5VLB3yl5GfYTUUiEy8BGGCJbH3FiB3eCF28f8SZFSz8aORVdgDH?=
+ =?us-ascii?Q?hkIq7OKSkY/rCoLaE0ef35zq0KQQxfGKWrVbNlP5CH1p2HPPA8h6kxrWS6gu?=
+ =?us-ascii?Q?x7CspU2dZzVVpH/sJAvsedF9+gAkAWViQlf091ucAySYJb/oVXZXYljjbZFz?=
+ =?us-ascii?Q?amdzOTHFtIx2Yak2AilbASjLFs1hg8XCLweVqjzHEnZQ0u008f9A8Qdh1Vnk?=
+ =?us-ascii?Q?Kt/Qo0v9TB2J5jN5c/bzgPttmWl771741WZqDJXrLRvvq3n8wDov52QimGxE?=
+ =?us-ascii?Q?upOJqz70ua8rmmszROoiHIAb54+gbj/AA4ls8nCyAPaS5yUR6M2vxrEaQBWH?=
+ =?us-ascii?Q?3kIUoJAPT4ITw9xIK/tTL9k6ID3sLOuooVyFomTNE+SuFkuj/XGGf/5E25oK?=
+ =?us-ascii?Q?Qnc1w3skMRUfzlaL+l2RJBnRlaK6iNvoNTATvRkXI41MOFZKDpwWAcgYSBiU?=
+ =?us-ascii?Q?tc4ow1B5Hqlv+8pijXmL+k2faPhcl3841L0ucdodjGu1Y4/Ir18kd/3b8ZK4?=
+ =?us-ascii?Q?q50V0u1uoJInZBzRDvGAZ63GDqrBUcpwkhxYCQMTuhIFlksw4WVOZlQkaB21?=
+ =?us-ascii?Q?skU2gRExqkZOPx3EFMonpXDtqcbwWe5enxbXZ9Ql6zk7GCr9wPlsnOWoWgH5?=
+ =?us-ascii?Q?X3J+I0dYWIB9Gc+rtRr7WL8d2tGus/YeJJwp5yYcO74gnLX1Qd7r5mTYfY85?=
+ =?us-ascii?Q?V/WwwVvfUNb8bCMzTXAR30rsq/g7xVD2hlZZ3c6ipnDZfPeamju/2brYrnoc?=
+ =?us-ascii?Q?t53y3n8Bs7GvOR1AMA600IQy3qtNbsoaiEScE+9447aKfZUQHNMo7m4FfyRG?=
+ =?us-ascii?Q?vSIT1i/VI0r5K+k1Qh/HnlXokE+z2UNVMb88Li6JIb5iTWWhZ+DDL8TRxsZ0?=
+ =?us-ascii?Q?PlLK2Ed5YFcphA5QS7IB07nt7rO/HUjoiU2t98ZqRDelr80oncW/q8D3BfIW?=
+ =?us-ascii?Q?BTPRaomtPSmBOMPyMzQWtCYHUmRyHCrU5XTk5LmB/LwqyFYc4JwDPaFpvOQn?=
+ =?us-ascii?Q?6Tp2y+vhOUpxl/j32ZEtRh0fLD20zUMqWe88R8/z1Lyor9coxwdFvvZ/DMDi?=
+ =?us-ascii?Q?12QKWb4xhresM8aHdSmijfO3VswpzSj5/qGDSXI56fT5IjdHjoybRfvpsZPK?=
+ =?us-ascii?Q?RoOwMpfphwVyvr6nfovbd4d5MqV8uzWnkyXzhNRv69EsXbtLiRMdMI2OwucP?=
+ =?us-ascii?Q?v1Fmo5YCTmWC34T7WlNN0y4vVo73q01dht9d2W/rlRWL4sis4FFPtZR4Tbc4?=
+ =?us-ascii?Q?GJ/JcWoizDIC1sIa1FVSLtuaTxXDHSloaFhvjoGgs6CNoIsyZAyA2SU/WtHc?=
+ =?us-ascii?Q?oI1VpxGerrKOcQ1zBPTjfiu8tShZVNhx3qzpRcf6hSW5XLkz0in1DNNx1f8W?=
+ =?us-ascii?Q?aLgeeu2vi5gffslvBMQFulCYTWnkMkzL05OBXm9mL1T0uxh/ptSz3NWBfIXB?=
+ =?us-ascii?Q?1JYMExPkER+LSKcnEHjRoyuUAAvolTIjVWJ9pBr61ZV4K6dhJDSfDoAKOvVL?=
+ =?us-ascii?Q?jfNobcDnBmp8+xBAXtdK5QUyL0qK7G++5GTwS+v8OJFesRoRY/d2LSRc1sfw?=
+ =?us-ascii?Q?NtjFSfwGq17x53XYLvuMO6Cbo51saEgBIdL1BYGiDx3y5ypbl43AZxB9I1i9?=
+ =?us-ascii?Q?5CMQpmrvHGmrvxarWB8SEZAxFqJPYYBf/iSoKsOhU0fFWRUlsj1RMSucmt8D?=
+ =?us-ascii?Q?EB7CkA+/IdTi5oSEvRCktAIUelBj0tEx8mQeMthoJzqLB4km?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: da36919a-1ad7-484a-fddf-08df0f496af6
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 14:40:11.2387
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mFl5hUXxp186U3YqxpXG/oS34wwgE8NJKIV43E2V/KSKdXI2gVKOJWSEfkQES6y0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8132
 
-Kernel include/net/bluetooth/hci.h defines:
+On Thu, Sep 10, 2026 at 02:26:53PM +0000, Pranjal Shrivastava wrote:
+> The iommu_ignore_device() helper was historically called on device
+> initialization failure to clear the primary Device Table Entry (DTE) via
+> memset() and nullify the rlookup_table entry.
+> 
+> However, clearing the DTE on probe failure is problematic:
+> 1. During normal boot, DTEs start out unconfigured (blocking DMA), making
+>    clearing redundant.
+> 2. During kdump boot, pre-existing translations should be kept running
+>    until deferred attach rather than abruptly clearing them, which risks
+>    breaking in-flight transfers.
+> 3. Writing to the DTE table via memset without flushing the hardware DTE
+>    cache risks aliasing & torn writes.
+> 4. Clearing the rlookup_table entry breaks interrupt remapping for
+>    devices that fail probe or operate in translation-less modes.
+> 
+> Remove iommu_ignore_device() entirely and simplify the error return
+> paths in amd_iommu_probe_device().
+> 
+> Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
+> Suggested-by: Vasant Hegde <vasant.hegde@amd.com>
+> Reported-by: sashiko-bot@kernel.org
+> Closes: https://lore.kernel.org/all/20260529153216.2AD1E1F00899@smtp.kernel.org/
+> Signed-off-by: Pranjal Shrivastava <praan@google.com>
+> ---
+>  drivers/iommu/amd/iommu.c | 24 ++----------------------
+>  1 file changed, 2 insertions(+), 22 deletions(-)
 
-  #define HCI_EVENT_PKT   0x04
-  #define HCI_VENDOR_PKT  0xff
-  #define HCI_EV_VENDOR   0xff
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 
-HCI_VENDOR_PKT and HCI_EV_VENDOR share the same value, but are very
-different, as the table below shows:
-
-+------------+-----------------------+---------------------------+
-|            | HCI_VENDOR_PKT        | HCI_EV_VENDOR             |
-+------------+-----------------------+---------------------------+
-| Defined by | Vendor                | BT SIG                    |
-+------------+-----------------------+---------------------------+
-| Hierarchy  | Parallel to           | Nested inside             |
-|            | HCI_EVENT_PKT         | HCI_EVENT_PKT             |
-+------------+-----------------------+---------------------------+
-| Direction  | RX and TX             | RX only                   |
-+------------+-----------------------+---------------------------+
-| kernel <-> | HCI_VENDOR_PKT, ...   | 0x04, HCI_EV_VENDOR, ...  |
-| userspace  |                       |                           |
-+------------+-----------------------+---------------------------+
-| kernel <-> | RX: 23, vendor packet | RX: 3, HCI_EV_VENDOR, ... |
-| monitor    | TX: 22, vendor packet |                           |
-+------------+-----------------------+---------------------------+
-
-monitor is about to gain HCI_VENDOR_PKT support. To avoid confusing the
-two, rename what deals with HCI_EV_VENDOR to follow its pattern:
-
-s/vendor_(evt|event)/\1_vendor/
----
- monitor/broadcom.c | 10 +++++-----
- monitor/broadcom.h |  4 ++--
- monitor/intel.c    | 16 ++++++++--------
- monitor/intel.h    |  4 ++--
- monitor/msft.c     |  6 +++---
- monitor/msft.h     |  4 ++--
- monitor/packet.c   | 20 ++++++++++----------
- monitor/vendor.c   |  2 +-
- monitor/vendor.h   |  4 ++--
- 9 files changed, 35 insertions(+), 35 deletions(-)
-
-diff --git a/monitor/broadcom.c b/monitor/broadcom.c
-index 80c95e91db0a..0dbc5eb39bb8 100644
---- a/monitor/broadcom.c
-+++ b/monitor/broadcom.c
-@@ -707,24 +707,24 @@ void broadcom_lm_diag(const void *data, uint8_t size)
- }
- 
- static void lm_diag_evt(struct timeval *tv, uint16_t index,
- 				const void *data, uint8_t size)
- {
- 	broadcom_lm_diag(data, 63);
- }
- 
--static const struct vendor_evt vendor_evt_table[] = {
-+static const struct evt_vendor evt_vendor_table[] = {
- 	{ 0xb4, "LM Diag", lm_diag_evt, 64, true },
- 	{ }
- };
- 
--const struct vendor_evt *broadcom_vendor_evt(uint8_t evt)
-+const struct evt_vendor *broadcom_evt_vendor(uint8_t evt)
- {
- 	int i;
- 
--	for (i = 0; vendor_evt_table[i].str; i++) {
--		if (vendor_evt_table[i].evt == evt)
--			return &vendor_evt_table[i];
-+	for (i = 0; evt_vendor_table[i].str; i++) {
-+		if (evt_vendor_table[i].evt == evt)
-+			return &evt_vendor_table[i];
- 	}
- 
- 	return NULL;
- }
-diff --git a/monitor/broadcom.h b/monitor/broadcom.h
-index 5cb51d81dbb8..36492a4071a7 100644
---- a/monitor/broadcom.h
-+++ b/monitor/broadcom.h
-@@ -7,13 +7,13 @@
-  *  Copyright (C) 2002-2010  Marcel Holtmann <marcel@holtmann.org>
-  *
-  *
-  */
- 
- #include <stdint.h>
- 
- struct vendor_ocf;
--struct vendor_evt;
-+struct evt_vendor;
- 
- const struct vendor_ocf *broadcom_vendor_ocf(uint16_t ocf);
--const struct vendor_evt *broadcom_vendor_evt(uint8_t evt);
-+const struct evt_vendor *broadcom_evt_vendor(uint8_t evt);
- void broadcom_lm_diag(const void *data, uint8_t size);
-diff --git a/monitor/intel.c b/monitor/intel.c
-index 782fda675422..d52b2dc80e4c 100644
---- a/monitor/intel.c
-+++ b/monitor/intel.c
-@@ -1286,17 +1286,17 @@ static void system_exception_evt(struct timeval *tv, uint16_t index,
- 		break;
- 	}
- 
- 	print_field("Type: %s (0x%2.2x)", str, type);
- 
- 	packet_hexdump(data + 1, size - 1);
- }
- 
--static const struct vendor_evt vendor_evt_table[] = {
-+static const struct evt_vendor evt_vendor_table[] = {
- 	{ 0x00, "Startup",
- 			startup_evt, 0, true },
- 	{ 0x01, "Fatal Exception",
- 			fatal_exception_evt, 4, true },
- 	{ 0x02, "Bootup",
- 			bootup_evt, 6, true },
- 	{ 0x05, "Default BD Data",
- 			default_bd_data_evt, 1, true },
-@@ -1861,17 +1861,17 @@ static void intel_vendor_ext_evt(struct timeval *tv, uint16_t index,
- 		tlv = process_ext_subevent(tlv, last_tlv);
- 
- 	/* If an error occurs in decoding the subevents, hexdump the packet. */
- 	if (!tlv)
- 		packet_hexdump(data, size);
- }
- 
- /* Vendor extended events with a vendor prefix. */
--static const struct vendor_evt vendor_prefix_evt_table[] = {
-+static const struct evt_vendor vendor_prefix_evt_table[] = {
- 	{ 0x03, "Extended Telemetry", intel_vendor_ext_evt },
- 	{ }
- };
- 
- static const uint8_t intel_vendor_prefix[] = {0x87, 0x80};
- #define INTEL_VENDOR_PREFIX_SIZE sizeof(intel_vendor_prefix)
- 
- /*
-@@ -1883,17 +1883,17 @@ static const uint8_t intel_vendor_prefix[] = {0x87, 0x80};
-  *   When <subopcode> == 0x03, it is a telemetry event; and
-  *   <data> is a number of tlv data.
-  */
- struct vendor_prefix_evt {
- 	uint8_t prefix_data[INTEL_VENDOR_PREFIX_SIZE];
- 	uint8_t subopcode;
- };
- 
--static const struct vendor_evt *intel_vendor_prefix_evt(const void *data,
-+static const struct evt_vendor *intel_vendor_prefix_evt(const void *data,
- 							int *consumed_size)
- {
- 	unsigned int i;
- 	const struct vendor_prefix_evt *vnd = data;
- 	char prefix_string[INTEL_VENDOR_PREFIX_SIZE * 2 + 1] = { 0 };
- 
- 	/* Check if the vendor prefix matches. */
- 	for (i = 0; i < INTEL_VENDOR_PREFIX_SIZE; i++) {
-@@ -1914,29 +1914,29 @@ static const struct vendor_evt *intel_vendor_prefix_evt(const void *data,
- 			*consumed_size = sizeof(struct vendor_prefix_evt);
- 			return &vendor_prefix_evt_table[i];
- 		}
- 	}
- 
- 	return NULL;
- }
- 
--const struct vendor_evt *intel_vendor_evt(const void *data, int *consumed_size)
-+const struct evt_vendor *intel_evt_vendor(const void *data, int *consumed_size)
- {
- 	uint8_t evt = *((const uint8_t *) data);
- 	int i;
- 
- 	/*
- 	 * Handle the vendor event without a vendor prefix.
- 	 *   0xff <length> <evt> <data>
--	 * This loop checks whether the <evt> exists in the vendor_evt_table.
-+	 * This loop checks whether the <evt> exists in the evt_vendor_table.
- 	 */
--	for (i = 0; vendor_evt_table[i].str; i++) {
--		if (vendor_evt_table[i].evt == evt)
--			return &vendor_evt_table[i];
-+	for (i = 0; evt_vendor_table[i].str; i++) {
-+		if (evt_vendor_table[i].evt == evt)
-+			return &evt_vendor_table[i];
- 	}
- 
- 	/*
- 	 * It is not a regular event. Check whether it is a vendor extended
- 	 * event that comes with a vendor prefix followed by a subopcode.
- 	 */
- 	return intel_vendor_prefix_evt(data, consumed_size);
- }
-diff --git a/monitor/intel.h b/monitor/intel.h
-index bfb04540c058..e218745a8712 100644
---- a/monitor/intel.h
-+++ b/monitor/intel.h
-@@ -7,12 +7,12 @@
-  *  Copyright (C) 2002-2010  Marcel Holtmann <marcel@holtmann.org>
-  *
-  *
-  */
- 
- #include <stdint.h>
- 
- struct vendor_ocf;
--struct vendor_evt;
-+struct evt_vendor;
- 
- const struct vendor_ocf *intel_vendor_ocf(uint16_t ocf);
--const struct vendor_evt *intel_vendor_evt(const void *data, int *consumed_size);
-+const struct evt_vendor *intel_evt_vendor(const void *data, int *consumed_size);
-diff --git a/monitor/msft.c b/monitor/msft.c
-index d41f10d68a96..1fd13cf88ea0 100644
---- a/monitor/msft.c
-+++ b/monitor/msft.c
-@@ -364,23 +364,23 @@ static void msft_evt(struct timeval *tv, uint16_t index,
- 						" (0x%2.2x)", code);
- 
- 	if (code_func)
- 		code_func(data, size);
- 	else
- 		packet_hexdump(data + 1, size - 1);
- }
- 
--static const struct vendor_evt vendor_evt_entry = {
-+static const struct evt_vendor evt_vendor_entry = {
- 	0x00, "Extension", msft_evt, 1, false
- };
- 
--const struct vendor_evt *msft_vendor_evt(void)
-+const struct evt_vendor *msft_evt_vendor(void)
- {
--	return &vendor_evt_entry;
-+	return &evt_vendor_entry;
- }
- 
- bool msft_event_code_valid(uint8_t code)
- {
- 	int i;
- 
- 	for (i = 0; evt_table[i].str; i++) {
- 		if (evt_table[i].code == code)
-diff --git a/monitor/msft.h b/monitor/msft.h
-index ff6c28011018..8ecc925add80 100644
---- a/monitor/msft.h
-+++ b/monitor/msft.h
-@@ -178,13 +178,13 @@ struct msft_evt_monitor_device {
- 	uint8_t  subevt;
- 	uint8_t  addr_type;
- 	uint8_t  addr[6];
- 	uint8_t  handle;
- 	uint8_t  state;
- } __attribute__((packed));
- 
- struct vendor_ocf;
--struct vendor_evt;
-+struct evt_vendor;
- 
- const struct vendor_ocf *msft_vendor_ocf(void);
--const struct vendor_evt *msft_vendor_evt(void);
-+const struct evt_vendor *msft_evt_vendor(void);
- bool msft_event_code_valid(uint8_t code);
-diff --git a/monitor/packet.c b/monitor/packet.c
-index 00b37e0b0514..058d12dd465e 100644
---- a/monitor/packet.c
-+++ b/monitor/packet.c
-@@ -11164,46 +11164,46 @@ static const struct vendor_ocf *current_vendor_ocf(uint16_t ocf)
- 		return intel_vendor_ocf(ocf);
- 	case COMPANY_ID_BROADCOM:
- 		return broadcom_vendor_ocf(ocf);
- 	}
- 
- 	return NULL;
- }
- 
--static const struct vendor_evt *current_vendor_evt(const void *data,
-+static const struct evt_vendor *current_evt_vendor(const void *data,
- 					uint8_t size, int *consumed_size)
- {
- 	uint16_t manufacturer;
- 	uint8_t evt = *((const uint8_t *) data);
- 
- 	if (msft_event_prefix_match(data, size)) {
- 		*consumed_size = index_list[index_current].msft_evt_len;
--		return msft_vendor_evt();
-+		return msft_evt_vendor();
- 	}
- 
- 	/* A regular vendor event consumes 1 byte. */
- 	*consumed_size = 1;
- 
- 	if (index_current < MAX_INDEX)
- 		manufacturer = index_list[index_current].manufacturer;
- 	else
- 		manufacturer = fallback_manufacturer;
- 
- 	switch (manufacturer) {
- 	case COMPANY_ID_INTEL:
--		return intel_vendor_evt(data, consumed_size);
-+		return intel_evt_vendor(data, consumed_size);
- 	case COMPANY_ID_BROADCOM:
--		return broadcom_vendor_evt(evt);
-+		return broadcom_evt_vendor(evt);
- 	}
- 
- 	return NULL;
- }
- 
--static const char *current_vendor_evt_str(const void *data, uint8_t size)
-+static const char *current_evt_vendor_str(const void *data, uint8_t size)
- {
- 	uint16_t manufacturer;
- 
- 	if (msft_event_prefix_match(data, size))
- 		return "Microsoft";
- 
- 	if (index_current < MAX_INDEX)
- 		manufacturer = index_list[index_current].manufacturer;
-@@ -13891,27 +13891,27 @@ static void le_meta_event_evt(struct timeval *tv, uint16_t index,
- 			subevent_data = &le_meta_event_table[i];
- 			break;
- 		}
- 	}
- 
- 	print_subevent(tv, index, subevent_data, data + 1, size - 1);
- }
- 
--static void vendor_evt(struct timeval *tv, uint16_t index,
-+static void evt_vendor(struct timeval *tv, uint16_t index,
- 				const void *data, uint8_t size)
- {
- 	struct subevent_data vendor_data;
- 	char vendor_str[150];
- 	int consumed_size;
--	const struct vendor_evt *vnd = current_vendor_evt(data, size,
-+	const struct evt_vendor *vnd = current_evt_vendor(data, size,
- 								&consumed_size);
- 
- 	if (vnd) {
--		const char *str = current_vendor_evt_str(data, size);
-+		const char *str = current_evt_vendor_str(data, size);
- 
- 		if (str) {
- 			snprintf(vendor_str, sizeof(vendor_str),
- 						"%s %s", str, vnd->str);
- 			vendor_data.str = vendor_str;
- 		} else {
- 			vendor_data.str = vnd->str;
- 		}
-@@ -13926,17 +13926,17 @@ static void vendor_evt(struct timeval *tv, uint16_t index,
- 	} else {
- 		uint16_t manufacturer;
- 
- 		if (index_current < MAX_INDEX)
- 			manufacturer = index_list[index_current].manufacturer;
- 		else
- 			manufacturer = fallback_manufacturer;
- 
--		vendor_event(manufacturer, data, size);
-+		event_vendor(manufacturer, data, size);
- 	}
- }
- 
- struct event_data {
- 	uint8_t event;
- 	const char *str;
- 	void (*func) (struct timeval *tv, uint16_t index, const void *data,
- 							uint8_t size);
-@@ -14093,17 +14093,17 @@ static const struct event_data event_table[] = {
- 	{ 0x56, "Inquiry Response Notification",
- 				inquiry_response_notify_evt, 4, true },
- 	{ 0x57, "Authenticated Payload Timeout Expired",
- 				auth_payload_timeout_expired_evt, 2, true },
- 	{ 0x58, "SAM Status Change" },
- 	{ 0x59, "Encryption Change v2",
- 				encrypt_change_evt_v2, 5, true },
- 	{ 0xfe, "Testing" },
--	{ 0xff, "Vendor", vendor_evt, 0, false },
-+	{ 0xff, "Vendor", evt_vendor, 0, false },
- 	{ }
- };
- 
- void packet_new_index(struct timeval *tv, uint16_t index, const char *label,
- 				uint8_t type, uint8_t bus, const char *name)
- {
- 	char details[48];
- 
-diff --git a/monitor/vendor.c b/monitor/vendor.c
-index ecbfcf2eb817..9942e3d735d8 100644
---- a/monitor/vendor.c
-+++ b/monitor/vendor.c
-@@ -12,12 +12,12 @@
- #ifdef HAVE_CONFIG_H
- #include <config.h>
- #endif
- 
- #define _GNU_SOURCE
- #include "packet.h"
- #include "vendor.h"
- 
--void vendor_event(uint16_t manufacturer, const void *data, uint8_t size)
-+void event_vendor(uint16_t manufacturer, const void *data, uint8_t size)
- {
- 	packet_hexdump(data, size);
- }
-diff --git a/monitor/vendor.h b/monitor/vendor.h
-index 996ed44cb18e..1ce42a645096 100644
---- a/monitor/vendor.h
-+++ b/monitor/vendor.h
-@@ -17,18 +17,18 @@ struct vendor_ocf {
- 	void (*cmd_func) (uint16_t index, const void *data, uint8_t size);
- 	uint8_t cmd_size;
- 	bool cmd_fixed;
- 	void (*rsp_func) (uint16_t index, const void *data, uint8_t size);
- 	uint8_t rsp_size;
- 	bool rsp_fixed;
- };
- 
--struct vendor_evt {
-+struct evt_vendor {
- 	uint8_t evt;
- 	const char *str;
- 	void (*evt_func) (struct timeval *tv, uint16_t index,
- 				const void *data, uint8_t size);
- 	uint8_t evt_size;
- 	bool evt_fixed;
- };
- 
--void vendor_event(uint16_t manufacturer, const void *data, uint8_t size);
-+void event_vendor(uint16_t manufacturer, const void *data, uint8_t size);
-
--- 
-2.34.1
-
+Jason
