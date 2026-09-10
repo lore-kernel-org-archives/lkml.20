@@ -1,110 +1,136 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C1B2355F5F
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 09:13:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0CB73C13EE;
+	Thu, 10 Sep 2026 09:13:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789031612; cv=none; b=bsspbD86trXwc7OkmIHScELjrp7lfYYkb3Uv4xY5+QBe8IGv27N7qgBFEyAOdwBILAPsm82zsC5u6mC8aqpF/XUDOBdZDDJE6BPWrHf4rfH+n9/4ByZ1FpYzEiofylHc2yLpNVVge7Ub+Fkwx/E81rHIvfqyxVm26kvvQjMWbgc=
+	t=1789031617; cv=none; b=DNuksMPWhLJORlW2OrHELVyMSDql1A6fsrjDhS2BW7rDKCgoPvpT6mSgmVuHDq+LPIkhXufvIwJIPXPl1xKMs1cBI5gO7NV7oKq8kVHYaiFUSUOdZRpSarvxIwIygPaYByyPjkNVFax3etKbb2/di51oMNi+/nxvQhxBYi6o5lA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789031612; c=relaxed/simple;
-	bh=v7N4avloEV/i/FflLURJ0xPpIvTNdN0tBiLjvOagGJg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Fx1tfu0DydwM8M+PqVRsOnQMSs5HBMUnCDsqbCjOqPU3LNl1GIiKoq/DDXHIXoNNrU+62Av6fjiBz3/MlkVslItBtSriCZitBih9zEA2S1WT8EK15AEyNuKBg+2SbwSkncbWQfKgtHZiZxE+XkPKDKZCPMjeujcCwQNB2P7i5do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BduoaHX/; arc=none smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789031617; c=relaxed/simple;
+	bh=876bPQkmr+qSfmJnN/IbXQk6MFFq7aT9u81fC/kyu54=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WNLcbh6trwjdSFeeaBnT9nrkjeI6Tyvx9s5/TRzOm1Z/XyBElKnqPqh+Tq//+dAwWSK9MYJxiMJslc1r+jFroYjTk6phWla6ozDDcyJWFWZd0v6K+btGyaEu+g/XQlg4ykU/dCHI/4boba3wDfvVeyMrHhGYq36HBxJ4Yd+cnvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XyPvGHc4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BduoaHX/"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f15b7aso1129192e87.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 02:13:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789031605; x=1789636405; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=v7N4avloEV/i/FflLURJ0xPpIvTNdN0tBiLjvOagGJg=;
-        b=BduoaHX/PusC1HRDOaQrhddVJE8+ccMGCIQHdeB2eEiGTY8m22TillXLgt6/e+Gqn6
-         CNrOd10e6zd2lUJY4knpDyGypLCRjWWTDurunMVcJ28qXF17wnQfAD4L5md6LxxkeZ+W
-         Ua8uPZW/UMbWmQBrgtrITifDZJ7hWT8rapray9lfvN6i3he/WXQ33ResCTlPtpdoTmtW
-         /D8h/eJTHm41oCfp3Ba4nMjkgSA9N5Q184MDfBDcBG5saDFP/Tx1Mu+eaQayqvW51sJP
-         rGL/BO0pL1yPS1GPjCiT6rDSO/cIQU9VbgEnLBPCmsSKJ+WugSgNxbW4ZCdnNoYU5nHr
-         ZS8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789031605; x=1789636405;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=v7N4avloEV/i/FflLURJ0xPpIvTNdN0tBiLjvOagGJg=;
-        b=UrBLjPF+lBiYLc4OWalkq65vVbPwXABXHveZQCIMDFfGTq7uV9Vp8SHcz2i3IoZmy6
-         RsWBkiMZ6uhPGmNI3dO+Kiw+dlxCzhhD2yhcE2EOO694N6pzvtHyJJZIQbhix2eqCfiU
-         A8M6tOEVSdhpw7L0GvVOlFpkBB0W3uCGFaL56F78vm5qMlqRKqxmhDf3udBX2L1EpX83
-         hwJtaTO6vBOPo6FFSBN2H1J3ZE+1ELUtQCzPlHaNl1VF+NqbcFZb+E+VFEJ2IlpHNED+
-         r4tQzhvcvIZ+41HOPrlBaAa876RidGwQ3z2zggPUMEXuaNO/Bq3u7gP9D3BSQQYfxeHP
-         d+3A==
-X-Forwarded-Encrypted: i=1; AKwUvByn4SThMb6/PQQij1NFGA4VyVRL6KuxT8E4d9Dhr4eCpwNfpM27AcWiVwyQwuiPXblwQmhWeC0ymD0Of4I=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5b573F2Sy8BVk9d6jNRnjQXtgvH4VlhjwwnYEW4KLMnhJWLU2
-	XqPZKKm4G0uSDxOUYLsPcBJGzoh+L/7aRHSyQBsvRLKzP9w8tvDrpAwda27pAnTc6t1c
-X-Gm-Gg: AYBFou2LaMJvTpBaDXG8WPNNYBPPOzmoKYbMKaa3o3aRXkqRMLxaytsBovBZZSXSdQQ
-	wDkTZmgMulV8S+b6dfAoxh4us6rI9gsXiq+WoScG1svV0sAvQwXOb7+N5Rx7gHmmXypq2FACLt7
-	nuVhmLdeXC82O8/TtDMjfm5qmwQ/FcyM5hbtGHQTD1XNiJjU6c400WBi0yaBiixMK7ZoC1dF2gR
-	7YOy9nMKu/kU6yfrbUVXY0KpxoB+4uDoeRQcwReIfvzK2n6OOfpBGGme+TKM/+efwzcfGMDtvy/
-	U7C7B9QuNPzxK8S386lSyKB7xjUzhXUTlKkIVkLBAU+qV7jirQzOe5QRkXFcboJcbkYSEWMWawB
-	ZsmpjwY9MhoWak8A6oTh2mufTleyn3TC4mOoBRUPjZI00rZxiEidgofvAGPRTPYw8w67LMeCENw
-	h2CPVppDgCc4Yxm7skKfgWtf1vo6bkRjq7bdCD0/71KK3pdoI7x8wkhvp/PK53ZNUeg8HLxWs84
-	opJGesRtAFjywAAjo6wpeAg0w093p2gjcZLAftV4jmkcjbwqxy3KQHBGseoYQHo3ZYPBnX8Ni5m
-	mZIVqY5YoIiOE/Sd
-X-Received: by 2002:a05:6512:b9c:b0:5b4:3ddd:8996 with SMTP id 2adb3069b0e04-5b8986d1bbemr1928844e87.15.1789031604614;
-        Thu, 10 Sep 2026 02:13:24 -0700 (PDT)
-Received: from insciwin.localdomain (224.105.88.34.bc.googleusercontent.com. [34.88.105.224])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b6166ed2b7sm4336333e87.14.2026.09.10.02.13.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 02:13:23 -0700 (PDT)
-From: Dmitrii Tulnov <tulnov.dl@gmail.com>
-To: julianbraha@gmail.com
-Cc: nathan@kernel.org,
-	nsc@kernel.org,
-	jacmet@uclibc.org,
-	yann.morin.1998@free.fr,
-	linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] kconfig: warn about malformed KCONFIG_PROBABILITY values
-Date: Thu, 10 Sep 2026 12:13:22 +0300
-Message-ID: <20260910091322.4-1-tulnov.dl@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <a6171a9b-de34-45c2-90a3-4e5bc185e700@gmail.com>
-References: <a6171a9b-de34-45c2-90a3-4e5bc185e700@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XyPvGHc4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE2331F000FF;
+	Thu, 10 Sep 2026 09:13:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789031608;
+	bh=zEeFtMUHn3s+PI/cg5N17MVY4nHEBTOfJ4ioYjja5j0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=XyPvGHc4wMCN7XnUzQUlQv10dHqh7HO9TkjaWiDpqVTCqUZ4CKmIoiz+rzPcl393j
+	 rIr/J7DuGFP9ozSMcRGKBgArgVJ+vGtlpUubDEgaYE5Vzdq6UW9s1oKqS6erMBJjYF
+	 SPn4FVdbHQyZXkXx/ixOwaCHQW3+hbhiDYYkbisYcgnWLijvhtX8jhLnBH+PL4XmMl
+	 0X8GngpShNpiBLxjcnPi2mLIa/G/Kv5WyR4GlLBYjl4gpWQl0s7YVeY5awvfbIrCTf
+	 WbID137Cnw9Gz6smokOCSQR3sQF+L/7Wc84ygpecTcamLUtAKNJQ9w39t3KgLMKJle
+	 sFyI2xY8WPRwg==
+Message-ID: <c2239ef2-10f4-4c87-a23a-2753f1e18d27@kernel.org>
+Date: Thu, 10 Sep 2026 11:13:18 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 08/12] mm/sparse: move __highest_used_section_nr handling
+To: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ Oscar Salvador <osalvador@suse.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-cxl@vger.kernel.org,
+ driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org
+References: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
+ <20260909-b4-sparsemem_cleanups-v1-8-008fc8d579fe@kernel.org>
+ <aqJrblWch-lajp3k@localhost.localdomain>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <aqJrblWch-lajp3k@localhost.localdomain>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Julian,
+On 9/10/26 10:33, Oscar Salvador (SUSE) wrote:
+> On Wed, Sep 09, 2026 at 03:33:01PM +0200, David Hildenbrand (Arm) wrote:
+>> Let's move it to sparse_init_one_section(). However, to keep early
+>> boot processing working, we also have to initialize it in
+>> sparse_sections_init().
+>>
+>> Should we use READ_ONCE/WRITE_ONCE with __highest_used_section_nr?
+>> Probably, something for another day.
+> 
+> What is the worry there?
+> 
+> sparse_init_one_section() calls should run sequentally due to the memhotplug
+> lock, so there should not be parallel updates there?
 
-Thanks for the review. I've addressed your comments locally for v3.
-Before sending it, I'd like to clarify how the new warning should
-interact with KCONFIG_WERROR.
+If you have something consuming __highest_used_section_nr while concurrently
+updating it, you might get torn reads/writes that mess up the value on the
+reader side.
 
-With KCONFIG_PROBABILITY=50% and KCONFIG_WERROR=1, v2 and my current
-v3 still exit successfully and write .config. The warning is printed
-directly and does not go through the existing warning/error handling.
+For example, mm/compaction.c consuming __highest_used_section_nr.
 
-Would you prefer it to become an error when KCONFIG_WERROR is set,
-while remaining a warning otherwise, or to stay non-fatal even in
-that mode during the compatibility period? I'd lean toward honoring
-the explicit strict mode.
+I don't think this is critical, so I decided to spell it out instead of fixing
+it right away.
 
-For the compatibility tests, I propose comparing the generated
-configurations for 50% versus 50:0:0 and -0 versus 0 with the same
-seed, and checking that the malformed input produces exactly one
-warning. That would put checks for the preserved interpretation in
-the submitted tests, in addition to the local comparisons I've run.
-Does that sound appropriate for this patch?
+-- 
+Cheers,
 
-Best regards,
-Dmitrii
+David
