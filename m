@@ -1,234 +1,148 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384445947FE;
-	Thu, 10 Sep 2026 19:19:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789067978; cv=none; b=PjNkRpIi2kDfVHNRKtZCI70bDGoI9wUDk0j3JeccfvEKQN1JoEuPQrwSPagRwkgWact+V4FJ6euTHyeHMOKCrs9SfLjeEQP4qhVeVph+S01pnMXiiADFVK9ziZcaQdZUPivJr6oVDgkm9vakfEH8gCNL83rwnhnkAm3R6PggJJc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789067978; c=relaxed/simple;
-	bh=mMSamL8Xto4hyhBrhUMnOSbYDmMBmzWWTor8bGkbNRA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W6+k3RCwxd4EeJh/4RUo7HJMXlMyWGLY+2apoE0IrdQUGL8zsBlzKgRmLHeXfJIRWC3eVTCSd4kk8iN7O3DGCJ051r0RmHT3qUI6vvXKjDimZ9q+XgwGUjLx8w7BvGQprLOrROI3qNjpe3s7ZuEmST2665tp+7DOu9P3BQsapUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=X7SvXni/; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52F3346EF9F
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:20:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789068026; cv=pass; b=uluAsQzjFWvwavzBRuVpoeeOYOwumEujK9nhCOSLJa4nlh0fqnQym6q1hVzO5dPHfeh3bHikyHZ96lDMuptvCjOi1b19jcQflP0Aqu8LalxRLROAIY1Qo0ePSsG20g7Up2GjU5y4EOIHLDgAFP/1BY+3CKBuph5kMEqbpTtCkd0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789068026; c=relaxed/simple;
+	bh=fiGuXF8pnYZgt9VLhaHvZD8ERe5p+iX/cvkRE6nZgx0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HtZ12fWQCNiaRUCKwfkMdFmOG3cEANrqVTbRC4GayMFr9wzXNH4UrIPlbeOqKEGK1xuaarSsABmq5QhZJWaDaUjmzVECP8ub+UFdyf0oGtdDbVySfLhVSExZAahBqaiLrDbEwW3PjwZMBRIJw7T4STpJ+0RRoTn2OsFmXYyqtF8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=J2cliDoy; arc=pass smtp.client-ip=74.125.224.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="X7SvXni/"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=bmUNJy9Nu15CoZ6GTfg+GAxUmN7j/4iTaUecL7MID4k=; b=X7SvXni/u0xxFB0IacibI2DHCs
-	oXnWz3V7P/2pYqWQxeub+dUiL1tINFXXo60Dv+yxGulYp5Tw+nLeXXimaPsWXycIwogYL34d+tMGG
-	UeyKKr70Q+8bMaQj5hdYpEv4sFreUlZ9ZaAaMYed8U94AhHgrPF6nuauwtC5bKZkI2A/ikm107+tc
-	ieDZqOP1uxoL+NLV1uawS+Dh7iP8zL+5Jke1e3PKF9x6Nr7co7ceFIHCoXc+i/MO6bS5AdNL8Ul3G
-	8Ciu+poVr9WZ2gUrtrrDe5dqZNXs2VvXm10eIfZVCmAs5bn+Pa3vQcIuqOfOtaGJEN9qsLiRUTOoO
-	gGu/kxXw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x4kId-00000003AJn-0nh1;
-	Thu, 10 Sep 2026 19:19:07 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id D8A06300400; Thu, 10 Sep 2026 21:19:01 +0200 (CEST)
-Date: Thu, 10 Sep 2026 21:19:01 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Tim Chen <tim.c.chen@linux.intel.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Kees Cook <kees@kernel.org>, Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Qais Yousef <qyousef@layalina.io>,
-	Aaron Lu <ziqianlu@bytedance.com>,
-	Srikar Dronamraju <srikar@linux.ibm.com>,
-	Vineeth Remanan Pillai <vineethr@linux.ibm.com>,
-	Ricardo Neri-Calderon <ricardo.neri-calderon@linux.intel.com>,
-	Chen Yu <yu.c.chen@intel.com>, Lu Wang <wanglu.priv@gmail.com>,
-	Hyunwoo Kim <imv4bel@gmail.com>,
-	Zhan Xusheng <zhanxusheng@xiaomi.com>,
-	Zhan Xusheng <zhanxusheng1024@gmail.com>,
-	Yi Lai <yi1.lai@intel.com>, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH 4/4] sched/cache: Introduce task_struct->sched_cache_grp
-Message-ID: <20260910191901.GW776954@noisy.programming.kicks-ass.net>
-References: <cover.1789061845.git.tim.c.chen@linux.intel.com>
- <4532ec4fd5beb829bccb85822a19360fa4191fe6.1789061845.git.tim.c.chen@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="J2cliDoy"
+Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-66c7e3a2332so38641d50.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:20:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789068024; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jT9k6w0m/lFbMJnoPlX4xbwuzBJj77yyeDHVwDfj7agGevepNOiMHGtRDSiT0DSK5J
+         5yTUf/MmJXIOgjoZ0hrhduwog6hzisbQi9wFBqKjL13EQ8KWElQmWL+3t12aPP9biWAe
+         Iw469Xw2dkZbMQT371qcetB4Jd0iakDNuKGYpMySUDUFyaW1sR2ik2RH/cYRMSFd18n0
+         Ftm8LW+yUz2YLJae8NLdWjAMTF3GSPr1nZhrMpreKYs6Ec/4T9DnjicsAZHb899ZtT+D
+         SskYuGWMXggCXOw5yRFxTjA0bsM+5Y+S4PqtMu97ssu6FMAmvXW+jwxv2SDhNNwwmJhU
+         i4QA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=b6AZ6dwl+nPhR9lRn8ryaNJ3HAjOQF7wNnV4eGAN9b4=;
+        fh=7rIyWtNJ640m0aSuy0WewSsq54rZuLuJUme1KXdspMo=;
+        b=GaGaSyOVwQ7U/VYkia09K95fI8vw1yrwwGdX93TmLZhVxMTbtyXkpCwEtfEc/FLBkE
+         nVChmewCM7XULH4usTOkWd5Xl1MpBUXOCJA87DfKjoraxCmF7bfeqWpIN3JELJIxOXke
+         J7vkOVYWqdaiIB09jvliufYMKHjDml5hCtbeK3q9XMcRP9iMDqUfqi25TNGVvi2LgGTP
+         dgESRjWvBkMfXiLWXqUg0dPWtUoimUTPBdoF+zQ6kq+vRHCwQNh71v6Dvz58C7ap2BL5
+         K3vDzcLv8wWObV9GS36PDxB1iw4ntiYomYJPUrDMvrb+RpxOUXPi3iQJDWtNPds1Pioj
+         YuYg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789068024; x=1789672824; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b6AZ6dwl+nPhR9lRn8ryaNJ3HAjOQF7wNnV4eGAN9b4=;
+        b=J2cliDoyTkgg80jsWjGdwBZTk4xzKHYzUEYJLMIlEYq+eRQIxv1EcfV0W5LrGb0G8L
+         daKbDeKtNSZl8Blo5/yHpNVU2PBal3O75AYKJXJ6yZ5eZOX3fRA49IEs3JiJinAMT9Fo
+         IV6tZG9kFA1vmGu7lEUAtT0da/ScwQTAO2+Gq9tgBY7gVZ18DaGhPZ3CGRCqiiTLqM1l
+         Tkbhw7IgRd6Hw4l153FTB9cYnxRMZlmU4egZW3Sjj0d3UiTfsg0quCBBys7OiFis6M3M
+         PB0tmJR1luJyn2GsilfVLpYbuGgWsFwvuEqIHIjfQobC125FqW+hPl3inxfIsx+kC9td
+         5EBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789068024; x=1789672824;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=b6AZ6dwl+nPhR9lRn8ryaNJ3HAjOQF7wNnV4eGAN9b4=;
+        b=YEw/uk6vIyT2OiRl1ww1wxeB+JOSKoL0d2yrr0C1B6evGmnAjVt1tdJbaev2r0MI1t
+         Xkxsv6PiK+nV6Bx+UUE+Wrkf1jLvC/xGiVVnuKFQfPoNBR7si9PJSQtJ094AQj0ALpKQ
+         55BolU1Uyeu01HZaeeCEB5EvOHNqL/jqOjTKoP3aJbil0MFR+lB7DfKK0Gp2EMqVRvZ7
+         A0hITlUbB5ImgMghk73x+h7jjbNxN0cDZx2fDGbltk5o9sGEFgdNqxXc70281Xc2yOks
+         BMyriBrKvjdYt7oj4uFTk46/+sdmnf3NVi6xmhzW4P936Crjdh6v/k6W3F2vKafIV4jT
+         iaPQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwns9hU6hyaWlAo+FDRiofdMW0uREq+BSwYWYkyH0NcTApCOif+DuwoRoZX+6MLGGwVCBJf9xBe+MivvTE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mnXCV6wgCkh0YGsnuWKS3Y9xkxqovo3Oi741IvESyBmupXvotX
+	Gq995drnWMBJwb3QG8Y+Q5kZkPepetu7Cme6X9MgX1vdBmBgUF5JN8/mbLYHQ/UVrv73lG16bMS
+	Hc1VtJuAZObTDRwuwMHUmXKBsfLHoKm73W5dmOuoM
+X-Gm-Gg: AYBFou2FUH8QQnIe2VaDsfDaFCv43C6WDq5Il323R70pecyNvHmwdKCqTJ3v5w3QgSW
+	MeADoDsEv8syNN2d2pUJgSqJB4dJIwpetb0V4dV0AXb8IRn7P87/TpUhFTzqaKl6/RF9d6Z8gbc
+	2wfwM8Tzj9AWq3wTApweFrY2ksDo3Vh8/Ou5I6ihRPU6EF19Vq1PAeYINM9jpCtSrR1z/HXtpLw
+	Gyk+yFdqBDIFBFK8Of2z5qlyJJCYSK6KKQRYBjJOSQBPvKPhpvrsRhwY0u8dOSqZL4QZdOL7sXA
+	gad13VXVUNtFo/u/g0CqaM/5sM7lR29HBH+F9nVwgngE/ydVtbZ6WAGHrlcCEd1kwcjdU2nrzRZ
+	sxiD+d48xHcI=
+X-Received: by 2002:a05:690e:80b:10b0:66f:c1bc:c097 with SMTP id
+ 956f58d0204a3-6712476c288mr382065d50.95.1789068023584; Thu, 10 Sep 2026
+ 12:20:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4532ec4fd5beb829bccb85822a19360fa4191fe6.1789061845.git.tim.c.chen@linux.intel.com>
+References: <20260910162343.4092060-1-elver@google.com> <aqLhHOrXsa30PBVU@google.com>
+In-Reply-To: <aqLhHOrXsa30PBVU@google.com>
+From: Marco Elver <elver@google.com>
+Date: Thu, 10 Sep 2026 21:19:46 +0200
+X-Gm-Features: AcwNN1XEJG4HFWxM40HlnJmqF0_xrl9dxVW2S0hyaOIau8OztfJYTNDdG5jUhc0
+Message-ID: <CANpmjNNF44Y_k-Jbx6TikXgTnhE3G_aRDFXAABosZexOkn0jeg@mail.gmail.com>
+Subject: Re: [PATCH RFC 00/10] KVM: Enable Clang Context Analysis
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, David Hildenbrand <david@kernel.org>, kvm@vger.kernel.org, 
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 10, 2026 at 10:46:12AM -0700, Tim Chen wrote:
+On Thu, 10 Sept 2026 at 18:55, Sean Christopherson <seanjc@google.com> wrote:
+> On Thu, Sep 10, 2026, Marco Elver wrote:
+> > Enable compiler-based static context analysis [1] for x86 KVM, along with
+> > prerequisite lock annotations in virt/kvm.
+> >
+> > During the initial annotation pass, context analysis uncovered a missing
+> > SRCU read-side critical section in x86 PMU filter lookups; patch 1 fixes
+> > this bug.
+> >
+> > The remainder of the series is strictly non-functional: it establishes
+> > basic function annotations, guarded_by annotations on core structs, and
+> > straightforward refactorings in hva/gfn range walks and guest_memfd to
+> > eliminate conditional locking patterns that cannot be tracked statically.
+> >
+> > Annotating the MMU (mmu/mmu.c, mmu/tdp_mmu.c), i8259, and Xen requires
+> > more invasive changes and is deferred to follow-ups.
+> >
+> > [1] https://docs.kernel.org/next/dev-tools/context-analysis.html
+>
+> ...
+>
+> >  43 files changed, 745 insertions(+), 236 deletions(-)
+>
+> For me, there needs to be a _lot_ more explanation of what this buys us to justify
+> the extra annotations and ongoing maintenance burden.  And to a lesser extent, why
+> we should rework code to play nice with context analysis
 
-> Co-developed-by: Chen Yu <yu.c.chen@intel.com>
-> Signed-off-by: Chen Yu <yu.c.chen@intel.com>
-> Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
+Patch 1 is an example of what this buys: static checking shifts left
+and prevents bugs from actually being committed. Context analysis can
+be seen as an extension of kernel C, improving its safety, and the
+nice thing is it can be enabled incrementally (no rewrites in other
+languages needed, though yielding modest safety gains at a fraction of
+the cost). A side-effect is compiler-checked documentation
+(annotations), which helps humans and robots reading & writing kernel
+code.
 
-:-(
+The question is simple: is the cost of ongoing maintenance with
+context analysis greater than the cost of the bugs it prevents?
 
-> ---
->  fs/exec.c                  |  14 ++++
->  include/linux/sched.h      |   3 +
->  kernel/exit.c              |  26 +++++--
->  kernel/fork.c              |  23 ++++++
->  kernel/sched/cache_sched.c |  19 +++++
->  kernel/sched/fair.c        | 142 +++++++++++++++++++++----------------
->  kernel/sched/sched.h       |   3 +
->  7 files changed, 164 insertions(+), 66 deletions(-)
-> 
-> diff --git a/fs/exec.c b/fs/exec.c
-> index 745f6eb5279e..7a8a9954343e 100644
-> --- a/fs/exec.c
-> +++ b/fs/exec.c
-> @@ -882,6 +882,20 @@ static int exec_mmap(struct linux_binprm *bprm)
->  	active_mm = tsk->active_mm;
->  	tsk->active_mm = mm;
->  	tsk->mm = mm;
-> +#ifdef CONFIG_SCHED_CACHE
-> +	{
-> +		struct sched_cache_group *old_grp, *new_grp;
-> +
-> +		old_grp = rcu_dereference_protected(tsk->sched_cache_grp, true);
-> +
-> +		/* Acquire the reference before publishing the pointer. */
-> +		new_grp = sched_cache_group_get(mm->sched_cache_grp);
-> +
-> +		rcu_assign_pointer(tsk->sched_cache_grp, new_grp);
-> +		if (old_grp)
-> +			sched_cache_group_put(old_grp);
-> +	}
-> +#endif
+> (I assume we can simply
+> opt-out on a per-function basis if we don't want to play nice?).
 
-Guys no! This is horrific crap. This is not how we do things and I would
-have expected you all to know this.
+Yes with __context_unsafe(/* explanation */) attribute, or
+context_unsafe(...) expressions.
 
-Have you heard of this new fangled thing called a function?
+> I'd also like to see what the MMU changes look like before committing to supporting
+> this.
 
-Imagine all of those being just:
-
-	sched_cache_exec_mmap(tsk, mm);
-
-
-Also: rcu_dereference_protected(.c = true) is another offence, that's
-just wrong.
-
-
-> diff --git a/kernel/exit.c b/kernel/exit.c
-> index 006edcc0c2c5..442535778ce1 100644
-> --- a/kernel/exit.c
-> +++ b/kernel/exit.c
-> @@ -552,23 +552,25 @@ void mm_update_next_owner(struct mm_struct *mm)
->   * Subtract the memory footprint of the current task from
->   * mm.
->   */
-> -static void exit_mm_sched_cache(struct mm_struct *mm)
-> +static void exit_mm_sched_cache(void)
->  {
-> +	struct sched_cache_group *grp =
-> +		rcu_dereference_protected(current->sched_cache_grp, true);
->  	unsigned long fp, sub;
->  
-> -	if (!current->total_numa_faults)
-> +	if (!grp || !current->total_numa_faults)
->  		return;
->  	/*
->  	 * No lock protection due to performance considerations.
->  	 * Make sure the group footprint does not become
->  	 * negative.
->  	 */
-> -	fp = READ_ONCE(mm->sched_cache_grp->footprint);
-> +	fp = READ_ONCE(grp->footprint);
->  	sub = min(fp, current->total_numa_faults);
-> -	WRITE_ONCE(mm->sched_cache_grp->footprint, fp - sub);
-> +	WRITE_ONCE(grp->footprint, fp - sub);
->  }
->  #else
-> -static inline void exit_mm_sched_cache(struct mm_struct *mm)
-> +static inline void exit_mm_sched_cache(void)
->  {
->  }
->  #endif /* CONFIG_SCHED_CACHE CONFIG_NUMA_BALANCING */
-> @@ -585,7 +587,19 @@ static void exit_mm(void)
->  	if (!mm)
->  		return;
->  
-> -	exit_mm_sched_cache(mm);
-> +	exit_mm_sched_cache();
-> +
-> +#ifdef CONFIG_SCHED_CACHE
-> +	{
-> +		struct sched_cache_group *grp =
-> +			rcu_dereference_protected(current->sched_cache_grp, true);
-> +
-> +		rcu_assign_pointer(current->sched_cache_grp, NULL);
-> +
-> +		if (grp)
-> +			sched_cache_group_put(grp);
-> +	}
-> +#endif
-
-Seriously, WTF ?!
-
->  
->  	mmap_read_lock(mm);
->  	mmgrab_lazy_tlb(mm);
-> diff --git a/kernel/fork.c b/kernel/fork.c
-> index 416758c8a3d4..2e79548cb7c1 100644
-> --- a/kernel/fork.c
-> +++ b/kernel/fork.c
-> @@ -1599,6 +1599,19 @@ static int copy_mm(u64 clone_flags, struct task_struct *tsk)
->  
->  	tsk->mm = mm;
->  	tsk->active_mm = mm;
-> +#ifdef CONFIG_SCHED_CACHE
-> +	{
-> +		/*
-> +		 * A task holds its own reference on the group, separate from
-> +		 * the reference held by its mm_struct. Acquire it before
-> +		 * publishing the pointer.
-> +		 */
-> +		struct sched_cache_group *grp =
-> +			sched_cache_group_get(mm->sched_cache_grp);
-> +
-> +		rcu_assign_pointer(tsk->sched_cache_grp, grp);
-> +	}
-> +#endif
-
-And again.
-
->  	return 0;
->  }
->  
-> @@ -2599,6 +2612,16 @@ __latent_entropy struct task_struct *copy_process(
->  bad_fork_cleanup_namespaces:
->  	exit_nsproxy_namespaces(p);
->  bad_fork_cleanup_mm:
-> +#ifdef CONFIG_SCHED_CACHE
-> +	/*
-> +	 * copy_mm() took a task reference on the cache group; a failed fork
-> +	 * never reaches exit_mm(), so release it here to avoid leaking the
-> +	 * group and its per-CPU buffer.
-> +	 */
-> +	sched_cache_group_put(rcu_dereference_protected(p->sched_cache_grp, true));
-> +	RCU_INIT_POINTER(p->sched_cache_grp, NULL);
-> +#endif
-> +
->  	if (p->mm) {
->  		mm_clear_owner(p->mm, p);
->  		mmput(p->mm);
-
-Drugs, it must be drugs and lots of it :-(
-
-Please, try again.
+If you're not entirely opposed, a v2 can include that.
