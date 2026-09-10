@@ -1,187 +1,254 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-12.mta0.migadu.com [91.218.175.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD07333986F
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:06:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F6C3400DF9
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:06:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789034809; cv=none; b=Ho4S0dXyLV9cVV1iNdIrPZM8IEXFQV7bvGiFe5rwdysPCoWeY5ov+NjBtzGHo9gV4hJG4LuobSmEHDYoxiD2CmsLawJEHO75tuA6GB2Vr5xm2qGzFIYxoRrDtyOnhNTT2S/76GLwOgFV4bKQHe0rJn2ZuOZtztsBoobuiXwiBuU=
+	t=1789034812; cv=none; b=aBOpTiYAtTDYlAe5LeYxiVRANb96mdSHzUpd9OqyJ47+xc1T2OGzmG2DwfNF6F3bguqGt4aXfXmIgo4XEXorZR2fP10TQMSKBxrBUv/OGWsvAabjRgyGqnCMpu1NfW6OEhQ4clBFiY9hwLx1811W/eO+Cf2kQ6tl2z2HdN+Hs+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789034809; c=relaxed/simple;
-	bh=Lu+4YHeK869dlBqFjL2cKsywYYlR2fLA8uGutCF0fo8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=icwrf6MVD3qI7KwkteLs0IG1Jf/hLgvTvmaz22hqyZr/+JW9zxgPgBV9yU8AoRTvo4lwNpVbeL7r1Y17+i7vLEqAfbAY0tN+bYbvYrHrB0+ghW5VlZVMBm2vFhZu5qOaQzuKESSBn1712ydf+nXdsejpflJaNvLW1HefEi7z/to=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MduJzZBu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UwDKeeGE; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789034812; c=relaxed/simple;
+	bh=hWyyIPpkRyZSi+QGoc95ooHUu2TShOPQbYuZu1dbcAk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=f3ciTCtU57bGO6/Cz14YeQ0gxi/G/x16LVKnl36xTbEyI+EIcLW/jAXo38aDNHpBOVwQbK5JflOqfZpZU1ql0ExD8fGZwnNrpmaLeohBihyyr0XUo/NXtQNZADd2O0vB31jJym/C8vD+o8ozpMwWfLzykCTrbXkRgJz4De7cpds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=aI6a9yT/; arc=none smtp.client-ip=91.218.175.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MduJzZBu";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UwDKeeGE"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A8q8Al4137093
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:06:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	m07hojNF+PinLLd/x/EaU/8bPalFdykfrNtvmsSaQew=; b=MduJzZBuR4WoYLZe
-	K3ACfyBachN01Nz//KQjBXdap9pw4dZ1/TiDtWBr9sD8g9C9GUJEXehopdN5Ulzf
-	OjTawYnYSR0RpIcweJSAtqibfUCyYStMG3RWT8ZQRYnoq+Cqyy89fR3UrjlLgxBj
-	v87Vpc4J1m6HsJ0pVVi5Hiddzl5LMF5T5JKNPz/I5NPfPavHqYMbYWI6tDjnHE04
-	CqWGalcCXywY+w36mu5LMtzBTHc3aKEXoRWmzpaleddSilKbXuxSHSRcJiNCmFgG
-	fFJyv9VqfrEez2hsVgy2BmhAPHTPEfueEtYnuO7R34jsdDR2j8861AFRa7gzjEvV
-	iON1EQ==
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcydu8t4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:06:40 +0000 (GMT)
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7ec3b429610so10754925a34.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:06:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789034800; x=1789639600; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m07hojNF+PinLLd/x/EaU/8bPalFdykfrNtvmsSaQew=;
-        b=UwDKeeGE3DT4gBhts0Z+t0T1OpZZ1yHsFFtEawEwBMclDbpGS5n1E5hpvLBq8rhOPB
-         ITv8HoQzi+TyF2OGy2hK+81vcMdDmvt+X7xzvt7RH7W1K7JqVLSiPTeqQwcwML4wgXQe
-         taQV+addTWi32B8Gq+8PfSf16xBMXiQxmndH0HnSRRXp6LnrsrDrpUShfrORepmBzp8f
-         2Sueqz1s0QNKu5pcZgKGlk5R0OdYcNGkv0Y4S5mtF4W167xFktGK/4XiO0az9RiJ3MVf
-         3qwiT1GIEJtDzpg0Gxn0avtk4ccs3EWlSaO3t8KEZTZtLAMOf0nGLzsONKbkpaUGj4Oo
-         RakA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789034800; x=1789639600;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m07hojNF+PinLLd/x/EaU/8bPalFdykfrNtvmsSaQew=;
-        b=jeE6DLAYFsWowwrMyU5PWMwNKbPxkIRyzC8zEh01/TSxIQYcNKM1i0PiO7/EmSAepJ
-         oPt6smHFvp5Wjm2pZNXqmjReHOl2WxNuBrJWp+2Sl27y8ywTHlaTNwSJ3xepZ2R8dh/A
-         /CRJEV9avqMdOC9rrI1gVB2TRXqQlD4SoumxlfHz+zSvou4nWMS2eFFWgpSxkDMvM0vY
-         jDMVmwno92trxvt4axLncvhiFl0xGSKTHKJ86cIWBzPxta+ToGT2PbFhZSj+kJUIFe2V
-         Rg2q7Jq7VJmibO8ygvflSZraMUsVabgvYDZ1so/rqHcLsvNbFPYXiMw4qH9EDTJm0zcT
-         x6Fw==
-X-Forwarded-Encrypted: i=1; AKwUvByBQfuRnDBiSKPWmAmpC0JR33C+D1VP0RqDi2SSZiEH43AOXhCgRaXgBjXdEmvSTuvH0B6e34HVixJReus=@vger.kernel.org
-X-Gm-Message-State: AFuF++nSfXHDLxrr4xaV7KEtYCHlhmgUHAVss6KFLO9F1+3vetaJU0Ot
-	bRZEMdory4eymMKBUft4rFg5YYT4TIXUea+9YclxFeFmEJsebHfs95NudR+j5uN6WK/2el0aCBx
-	wGZWM5Inpa4SAVPIdMOcuqY9pwri70LZYUPvbcXoCGo/lbN6eu4AYqnm3bWeicKbQ2Ck=
-X-Gm-Gg: AYBFou2IpsaIGnqd5jMoIEWNI/rxV4sYT1iz8rTJko7lCk7L+kR+Sbptxf83dLabMLp
-	CHbl9XIi0sxL+Nvb+ARf/kSR2aiHGQ9H+qDMHxA2fKpjxZtX9wNtQb9nYStdVSdaaqdwOWunsSM
-	S7NknmEKb2nylkByrd2FNTfNWjohmrL1ryDJoC/fKRUpSACrpo56RW9WWdCMdQPUx8A1VJkbQRc
-	3CuUX3ghx18xr+XB4qvlW6aPeD+tbuLYhVfvvt3sYMAW+IhYJqfbE8Du43v6AdjPWzhU11GvmE3
-	n3KPbLEot9OtqfednFu3mcub6maFcBeb1AFbMWZ9MgokdV3PTuNMeLVIQ5uizxQ/VIx+WfBzRsN
-	nRJoCEQoRCQoJPBNytIBkUZADktE=
-X-Received: by 2002:a05:6820:178a:b0:6bd:5506:aae0 with SMTP id 006d021491bc7-6bee57a3e81mr3549598eaf.22.1789034800185;
-        Thu, 10 Sep 2026 03:06:40 -0700 (PDT)
-X-Received: by 2002:a05:6820:178a:b0:6bd:5506:aae0 with SMTP id 006d021491bc7-6bee57a3e81mr3549585eaf.22.1789034799830;
-        Thu, 10 Sep 2026 03:06:39 -0700 (PDT)
-Received: from [10.217.217.79] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm79725666eec.16.2026.09.10.03.06.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 03:06:39 -0700 (PDT)
-Message-ID: <21cc9c5a-aabf-4ab7-8f2a-e8f90d5fb2f3@oss.qualcomm.com>
-Date: Thu, 10 Sep 2026 15:36:35 +0530
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="aI6a9yT/"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=hWyyIPpkRyZSi+QGoc95ooHUu2TShOPQbYuZu1dbcAk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789034797; v=1; x=1789639597;
+ b=aI6a9yT/mwM8pHxwhOg397vX0+7IokM9Q//veo1jcGh0dGKMV91H/xgCEPZ7b/AQgjQZBWwb
+ vtJYhXOcvIsv9Fn8avnQRFaod9HiE0seyHLmtP5k/LD5cMPb3mX5JMpaqpMhf24FC6WHCZN2Yy3
+ pnm2rEOi2otpDknSiYXjPTm8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 548940a8c44e91f6;
+	Thu, 10 Sep 2026 10:06:37 +0000
+X-Mizu-Trace-ID: 548940a8c44e91f6
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b384b7so4637e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 03:06:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByeJnOdANQw30nR66HqvFF3002IjApopo+wLOEuOTDfDSPT3GOOT5NRkt/L8Xb+r7ld9JoqaG0TNz2ta8A=@vger.kernel.org
+X-Gm-Message-State: AFuF++lcNkTjvw1KAZ8raOw6FQoRli/EZ7VIzOUlSsxdTyMGEf37zZ1L
+	GEuRr6+b0zwc3N9X9aKkLiwW6to8SLNN4lvG8pq3OmgazO5KOMB7vsEZ7m9i9Mz7Iy+SYcLzPVM
+	k945xyCm5IAFJnqLIatLYBKRCyT5dN94I9T5HwTke
+X-Received: by 2002:a05:6512:3b8a:b0:5b4:9dba:7401 with SMTP id
+ 2adb3069b0e04-5b89af4742bmr71415e87.11.1789034792251; Thu, 10 Sep 2026
+ 03:06:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] clk: qcom: ipq8074: set BRANCH_HALT_VOTED flag for
- usb master clocks
-To: Chukun Pan <amadeus@jmu.edu.cn>, Bjorn Andersson <andersson@kernel.org>
-Cc: Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Brian Masney <bmasney+clk@redhat.com>, Stephen Boyd <sboyd@kernel.org>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-clk@vger.kernel.org
-References: <20260910100000.2627799-1-amadeus@jmu.edu.cn>
-Content-Language: en-US
-From: Taniya Das <taniya.das@oss.qualcomm.com>
-In-Reply-To: <20260910100000.2627799-1-amadeus@jmu.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=IfsSymqa c=1 sm=1 tr=0 ts=6aa28130 cx=c_pps
- a=7uPEO8VhqeOX8vTJ3z8K6Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EvhtOw30TdCrwUAivPwA:9 a=QEXdDO2ut3YA:10 a=EXS-LbY8YePsIyqnH6vw:22
-X-Proofpoint-GUID: YPooI6FyiP96T1VWnHYLOUm-KGNbXcr_
-X-Proofpoint-ORIG-GUID: YPooI6FyiP96T1VWnHYLOUm-KGNbXcr_
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDExNiBTYWx0ZWRfX4h3N/+qk6+kj
- wPAKPl+p4SC9edlB8WQ5y8eqG9qSA5njcLoOKgW8reO0xPecs84I8yzYC+1cEWP3NUK+3S55YnU
- HTO0B9MmTciuBFXod/LNlbz3pnEpUyw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDExNiBTYWx0ZWRfXwMZpwvIkD6La
- PMQ8/Ek/DOBqS3Gk53LK2+Ed642qgpMlHM3z5nCC7pGKoxBcWYJnt1cwPwb2HV0ccLmIEuLi0KV
- HMy+jysFCKUhruZ24PjuU+PUwbJDUc5cgIw+59jWF50QOMb75mcV7rlZE+L5X99mUswHGHTzvLe
- ePT3eozDSgui3KNorbzAVcdDxFYueEDKiT8fcY58ZcRDKYz5pIGAclSSDItnItwx260+3SChEHd
- x7drHMM3A6MslEYPaPBHYzaeOELK9j6uuMGYkdi/Neyh83v45jxa3Sj85or5I0TYaBDDIlV0ZNY
- 4U0QYq10HZXTt13lObp9q6aqATS32mgS4Dz51MYeYx5soehh1Qsacj8QqqSEXv8hs+9ViXfjZvp
- ejL3UwVlRNyUIBnk9aFrUTOtw87V6TgnMbfKO/1WA4VHvbbGbJroVwWxIP5wrtl+Wf8ux/JU+G+
- wH4xRRBsDHTwID47gEQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_03,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 priorityscore=1501 lowpriorityscore=0
- impostorscore=0 spamscore=0 adultscore=0 suspectscore=0 bulkscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609100116
+References: <20260907070002.3333525-1-fuad.tabba@linux.dev>
+ <20260907070002.3333525-7-fuad.tabba@linux.dev> <aqFkFF1ebFSHZLEN@e143914.arm.com>
+In-Reply-To: <aqFkFF1ebFSHZLEN@e143914.arm.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Thu, 10 Sep 2026 11:05:56 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTxm8BHL0gcERu7kKZo6CWgp0xrENUmvNCdX58dEMjTfoA@mail.gmail.com>
+X-Gm-Features: AcwNN1WwBnHkFkL_PATYeQPzioeKMpAU6X46R6QBkykiNFCQ6kdeLHVErrpdvBM
+Message-ID: <CA+EHjTxm8BHL0gcERu7kKZo6CWgp0xrENUmvNCdX58dEMjTfoA@mail.gmail.com>
+Subject: Re: [PATCH v2 06/17] KVM: arm64: Add system register reset framework
+ for protected VMs
+To: Joey Gouly <joey.gouly@arm.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Vincent Donnefort <vdonnefort@google.com>, 
+	Quentin Perret <qperret@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Joey,
 
+On Wed, 9 Sept 2026 at 14:51, Joey Gouly <joey.gouly@arm.com> wrote:
+>
+> Hi Fuad,
+>
+> On Mon, Sep 07, 2026 at 07:59:51AM +0100, Fuad Tabba wrote:
+> > Add kvm_reset_pvm_sys_regs() and the pvm_sys_reg_reset_vals[] table
+> > that drives it, and call it from init_pkvm_hyp_vcpu() for protected
+> > vCPUs. The table holds the registers sys_regs.c resets that
+> > __sysreg_restore_state_nvhe() loads for a protected vCPU. The rest of
+> > the context keeps the zero the donated hyp vCPU page is cleared to. A
+>
+> If the context is zero'd, why is there RESET_ZERO()? If it's just for
+> 'completeness', worth noting here.
 
-On 9/10/2026 3:30 PM, Chukun Pan wrote:
-> Currently, on some boards with older versions of U-Boot, attempting
-> to disable usb master clocks results in a "stuck at on" warning:
-> 
-> [    3.005088] gcc_usb1_master_clk status stuck at 'on'
-> [    3.187119] gcc_usb0_master_clk status stuck at 'on'
-> 
-> The USB master clocks of IPQ5332 and IPQ5424 have the BRANCH_HALT_VOTED
-> flag set, so let's do the same to fix the issue.
-> 
+I'll answer your question with part of the updated commit message for V3:
 
-Fixes tag?
+    A register that resets to 0 still needs an entry: a later patch calls
+    kvm_reset_pvm_sys_regs() again for PSCI CPU_ON at EL2, on a context
+    that has run.
 
-> Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
-> ---
-> These boards run a vendor-specific version of U-Boot, and upgrading to
-> a newer version could brick the device. Therefore, I think this should
-> be fixed within the Linux kernel.
-> ---
->  drivers/clk/qcom/gcc-ipq8074.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/clk/qcom/gcc-ipq8074.c b/drivers/clk/qcom/gcc-ipq8074.c
-> index 1329ea28d703..10bd2f80010c 100644
-> --- a/drivers/clk/qcom/gcc-ipq8074.c
-> +++ b/drivers/clk/qcom/gcc-ipq8074.c
-> @@ -2612,6 +2612,7 @@ static struct clk_branch gcc_sys_noc_usb0_axi_clk = {
->  
->  static struct clk_branch gcc_usb0_master_clk = {
->  	.halt_reg = 0x3e000,
-> +	.halt_check = BRANCH_HALT_VOTED,
+>
+> > poison value stands in where sys_regs.c resets to UNKNOWN, and for
+> > VBAR_EL1 and CONTEXTIDR_EL1 in place of the 0 it uses. MPIDR_EL1 is
+> > derived from vcpu_id, as for any KVM guest. AMAIR_EL1 resets to 0
+> > where sys_regs.c reads the hardware: the host writes it freely before
+> > the hypercall, and it's loaded on every guest entry.
+>
+> Also if you can just put a new line for each 'category' here would make
+> it simpler to read.
 
-BRANCH_HALT didn't work?
+Done for V3.
 
->  	.clkr = {
->  		.enable_reg = 0x3e000,
->  		.enable_mask = BIT(0),
-> @@ -2725,6 +2726,7 @@ static struct clk_branch gcc_sys_noc_usb1_axi_clk = {
->  
->  static struct clk_branch gcc_usb1_master_clk = {
->  	.halt_reg = 0x3f000,
-> +	.halt_check = BRANCH_HALT_VOTED,
+>
+> >
+> > Until the per-EC marshalling patch removes the host's full-context
+> > copy from flush_hyp_vcpu(), that copy overwrites these values on every
+> > entry, so this patch has no observable effect on its own.
+>
+> Thanks for adding this!
 
-BRANCH_HALT didn't work?
+Thank you for your reviews. They've been very helpful!
 
->  	.clkr = {
->  		.enable_reg = 0x3f000,
->  		.enable_mask = BIT(0),
+Cheers,
+/fuad
 
--- 
-Thanks,
-Taniya Das
-
+>
+> >
+> > Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> > ---
+> >  arch/arm64/kvm/hyp/include/nvhe/pkvm.h |  1 +
+> >  arch/arm64/kvm/hyp/nvhe/pkvm.c         |  5 ++
+> >  arch/arm64/kvm/hyp/nvhe/sys_regs.c     | 73 ++++++++++++++++++++++++--
+> >  3 files changed, 75 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+> > index 49a0a992047ba..a04b7c04d5135 100644
+> > --- a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+> > +++ b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
+> > @@ -95,6 +95,7 @@ bool kvm_handle_pvm_hvc64(struct kvm_vcpu *vcpu, u64 *exit_code);
+> >  bool kvm_handle_pvm_sysreg(struct kvm_vcpu *vcpu, u64 *exit_code);
+> >  bool kvm_handle_pvm_restricted(struct kvm_vcpu *vcpu, u64 *exit_code);
+> >  void kvm_init_pvm_id_regs(struct kvm_vcpu *vcpu);
+> > +void kvm_reset_pvm_sys_regs(struct kvm_vcpu *vcpu);
+> >  int kvm_check_pvm_sysreg_table(void);
+> >
+> >  #endif /* __ARM64_KVM_NVHE_PKVM_H__ */
+> > diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> > index e85f13233da08..af334318d0a03 100644
+> > --- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> > +++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
+> > @@ -551,6 +551,11 @@ static int init_pkvm_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu,
+> >               goto done;
+> >
+> >       ret = pkvm_vcpu_init_sve(hyp_vcpu, host_vcpu);
+> > +     if (ret)
+> > +             goto done;
+> > +
+> > +     if (pkvm_hyp_vcpu_is_protected(hyp_vcpu))
+> > +             kvm_reset_pvm_sys_regs(&hyp_vcpu->vcpu);
+> >  done:
+> >       if (ret)
+> >               unpin_host_vcpu(host_vcpu);
+> > diff --git a/arch/arm64/kvm/hyp/nvhe/sys_regs.c b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
+> > index 8758c68017765..03d2c2447e0fd 100644
+> > --- a/arch/arm64/kvm/hyp/nvhe/sys_regs.c
+> > +++ b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
+> > @@ -525,6 +525,66 @@ static const struct sys_reg_desc pvm_sys_reg_descs[] = {
+> >       /* Performance Monitoring Registers are restricted. */
+> >  };
+> >
+> > +struct sys_reg_desc_reset {
+> > +     int reg;
+> > +     void (*reset)(struct kvm_vcpu *vcpu, const struct sys_reg_desc_reset *rd);
+> > +     u64 value;
+> > +};
+> > +
+> > +static void reset_mpidr(struct kvm_vcpu *vcpu, const struct sys_reg_desc_reset *r)
+> > +{
+> > +     __vcpu_assign_sys_reg(vcpu, r->reg, kvm_calculate_mpidr(vcpu));
+> > +}
+> > +
+> > +static void reset_value(struct kvm_vcpu *vcpu, const struct sys_reg_desc_reset *r)
+> > +{
+> > +     __vcpu_assign_sys_reg(vcpu, r->reg, r->value);
+> > +}
+> > +
+> > +#define RESET_VAL(REG, RESET_VAL) {  REG, reset_value, RESET_VAL }
+> > +
+> > +#define RESET_ZERO(REG) RESET_VAL(REG, 0)
+> > +
+> > +#define RESET_UNKNOWN(REG) RESET_VAL(REG, 0x1de7ec7edbadc0deULL)
+> > +
+> > +#define RESET_FUNC(REG, RESET_FUNC) {  REG, RESET_FUNC, 0 }
+> > +
+> > +/* Sorted ascending by reg; kvm_check_pvm_sysreg_table() enforces it. */
+> > +static const struct sys_reg_desc_reset pvm_sys_reg_reset_vals[] = {
+> > +     RESET_FUNC(MPIDR_EL1, reset_mpidr),
+> > +     RESET_UNKNOWN(TPIDR_EL0),
+> > +     RESET_UNKNOWN(TPIDRRO_EL0),
+> > +     RESET_UNKNOWN(TPIDR_EL1),
+> > +     RESET_ZERO(CNTKCTL_EL1),
+> > +     RESET_UNKNOWN(PAR_EL1),
+> > +     RESET_ZERO(DISR_EL1),
+> > +     RESET_ZERO(CPACR_EL1),
+> > +     RESET_VAL(CONTEXTIDR_EL1, 0x00000000dbadc0deULL),
+> > +     RESET_VAL(SCTLR_EL1, 0x00C50078ULL),
+> > +     RESET_ZERO(TCR_EL1),
+> > +     RESET_UNKNOWN(AFSR0_EL1),
+> > +     RESET_UNKNOWN(AFSR1_EL1),
+> > +     RESET_UNKNOWN(ESR_EL1),
+> > +     RESET_UNKNOWN(MAIR_EL1),
+> > +     RESET_ZERO(AMAIR_EL1),
+> > +     RESET_ZERO(MDSCR_EL1),
+> > +     RESET_UNKNOWN(TTBR0_EL1),
+> > +     RESET_UNKNOWN(TTBR1_EL1),
+> > +     RESET_UNKNOWN(FAR_EL1),
+> > +     RESET_VAL(VBAR_EL1, 0x1de7ec7edbadc000ULL),
+> > +};
+> > +
+> > +void kvm_reset_pvm_sys_regs(struct kvm_vcpu *vcpu)
+> > +{
+> > +     unsigned long i;
+> > +
+> > +     for (i = 0; i < ARRAY_SIZE(pvm_sys_reg_reset_vals); i++) {
+> > +             const struct sys_reg_desc_reset *r = &pvm_sys_reg_reset_vals[i];
+> > +
+> > +             r->reset(vcpu, r);
+> > +     }
+> > +}
+> > +
+> >  /*
+> >   * Initializes feature registers for protected vms.
+> >   */
+> > @@ -550,16 +610,21 @@ void kvm_init_pvm_id_regs(struct kvm_vcpu *vcpu)
+> >  }
+> >
+> >  /*
+> > - * Checks that the sysreg table is unique and in-order.
+> > - *
+> > - * Returns 0 if the table is consistent, or 1 otherwise.
+> > + * Both tables must be unique and sorted ascending. pvm_sys_reg_descs.reg is the
+> > + * sys_reg() encoding, pvm_sys_reg_reset_vals.reg the vcpu_sysreg index, so they
+> > + * compare differently. BUG_ON() at __pkvm_init: fatal at boot.
+> >   */
+> >  int kvm_check_pvm_sysreg_table(void)
+> >  {
+> >       unsigned int i;
+> >
+> >       for (i = 1; i < ARRAY_SIZE(pvm_sys_reg_descs); i++) {
+> > -             if (cmp_sys_reg(&pvm_sys_reg_descs[i-1], &pvm_sys_reg_descs[i]) >= 0)
+> > +             if (cmp_sys_reg(&pvm_sys_reg_descs[i - 1], &pvm_sys_reg_descs[i]) >= 0)
+> > +                     return 1;
+> > +     }
+> > +
+> > +     for (i = 1; i < ARRAY_SIZE(pvm_sys_reg_reset_vals); i++) {
+> > +             if (pvm_sys_reg_reset_vals[i - 1].reg >= pvm_sys_reg_reset_vals[i].reg)
+> >                       return 1;
+> >       }
+> >
+>
+> Some minor commit message nits, and I see you're going to remove this
+> sorting check.
+>
+> Reviewed-by: Joey Gouly <joey.gouly@arm.com>
+>
+> Thanks,
+> Joey
