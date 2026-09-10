@@ -1,207 +1,166 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF06B3C3F6B
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:56:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789023392; cv=pass; b=tMzLEsvEiRtQqwRQzS9W00hPLY0atxVLKi+j2pQQA41sOhRjpGa6vfhJm0fjdS/nfD6vyF28AbTHIJiLXZUeo4go9VmtMohI/U7NhAmPVmoQfvp9NDIHiZmpRPuW09nAHWi8stsI+VXd+4npH40RHvTqejXesEFXNqH+K7iRiRM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789023392; c=relaxed/simple;
-	bh=QCIBypbvSEDwPB79oGI8b7TPpbZZpQV2xU4HGmoWamY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fiILTSzhRinWRj4chzD//T1o9cdibDYPYcLKjImYxGmkal/GVtB7gZ2z2aVZhGpzO3eelI8sWC7ZloozMjTgo8Ovr1Y1waaxjJ60XeBbp/MSGn9OOeiVmsxiiZ2A5JmO1/R5t6AgapuIxezz6/+0PStGY4wE76JY3P+crQS1Cug=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JVIO0I+Z; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=N3/UmuA/; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06835339705
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:57:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789023464; cv=none; b=e0jDHTzhnHyS08Z20nP+sMQjM73orhxP7HtY1nPcx/ZcNnPVNZRHQAKPS3GRAG4JOsIEZQG4LdGVfNijMJWLNqSLQruGzE9BgRicn5gZtqbarFAqflsUCk3HXZOSADDgcX26kd0z+3JmQVaIdI05wdkmMQrkNPfz6TSmDjMQzA4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789023464; c=relaxed/simple;
+	bh=8zCB3XDTQqRRJheXMBCRqlhKHCGn633+lnizqGt9veo=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=u5sx0m0XwsCxG1xywJaS+ytTGhrYfp5UJw69OFQyxR7T+5xXr4GKNQxSh/lbPkDOjZUMpNr7xblqZw1jWN6CmLkzTCbisTMN0C30b22j7Z2oUDtHaVtqBb80DyYXsT2bGWG2Mk0hfzKTcNpBjz4NBs76RZ5eenyywcuh7DljRgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=MvJ3XwVc; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JVIO0I+Z";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="N3/UmuA/"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A5Ghr4162449
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:56:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	4aKPvfZM58gWA2EaVlumqwxLg4OnLhGg//o4cfo9NEw=; b=JVIO0I+ZwDlKHM9j
-	D/TeQvqZBmIEW9WUiTGLQ5qeeqjgQPsQkJumGssyryITlk9QBUx10hJVFql8vNL3
-	9l4GCWGxhCUbFNApr89KsneusjCZJVGag/jknTuEBdaA9CmXAIaTKAEeAAKHulrg
-	pIbON/BCRy4/HsG9DdgxhSyCbFYWZ6oy9cZg5m20efgKhngdoWIwrEK+G5tiJzG+
-	iFH37RSVkFj20VeObSwGIaNmg8KtiRBRWsGgar7g6hfuP/xgWRCttJlFWtbIewnF
-	rhWHGck2OZHYcGU0afhUagZ9M0Dl0lXYakAl2bmBlnwhuyej2dKKZlTbwAiADboy
-	ofslXA==
-Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyg2ju7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:56:27 +0000 (GMT)
-Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-66ce3040ea9so9385242d50.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 23:56:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789023387; cv=none;
-        d=google.com; s=arc-20260327;
-        b=E89bzHf1Q1CfwHcxmlKoca3tZw6gs/vKZmQBwL7ntNf5M7Bm9BrgFKCdwRJqE4IUN3
-         dk9omGZWUdULHe+uj2Eo3ZwfkEUliUxJw5WEhnf5EsuLYoS4SxvhTcKTqdsTe0CYCc7h
-         bzKZscErykmzRqGOOcHBWxW8We/fU/fTuF2J8PIXR+LOFOUEIK9QDzw1zgp+Qk+7ZPwu
-         qElvSSlUc2fr23NAdqoG700dnYUaqEiVWW4StKkK+iAjZl0g3mKAjzuCbX+J7+5qhuy2
-         jlJdyguKCRym/qOON5CGtmXQsJAwKqvYQhtmPn6fE7TbWhoyw70DAoeWNexyr82xavnx
-         FacA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4aKPvfZM58gWA2EaVlumqwxLg4OnLhGg//o4cfo9NEw=;
-        fh=XJDbPNljxNNoa6HmYLs5jmc+eaZj+JakmWjpsbd5xLM=;
-        b=W7KoqbqbtnAgbF/N+s3UMcLDBJGhB/n2DQOFKf0dELmZPOgwKv3GVLEONCsRvIL/jE
-         XE6U0PJtMh50k52FwVsAd6eLduoWRoptjUe34kbQ+wao+SgbEVFW4/ZRCrvUP4bHCL31
-         FeDh06U1DHX3FNRDpA3wUG+hnRjN+iKS1EpCTFb2XhVTy7KP6xhVHp2iuXHPKSx+1p6f
-         TwG8h5yEpyeCcpLuhtYv5o90gp3PzLiN3FWLw9iG9ca9Ko4GfAzbgkRDS85GQr7tYNhE
-         jVEcN2vu4cICKZ/DJYj26pnSTmTeYk7d2ta7BYsS/8TDye0LB+YP9XZxgzURd9jb4Ivr
-         Y76g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="MvJ3XwVc"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48441fa5c37so4755571f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 23:57:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789023387; x=1789628187; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4aKPvfZM58gWA2EaVlumqwxLg4OnLhGg//o4cfo9NEw=;
-        b=N3/UmuA/GDFjpiN06pqhcdILFaomp/l3yTDM/Jlh9XKbabS/uar9MWww7KMxqEziZ7
-         q4PH05gvA5o0AuCX8T5zmkesOSDQp0LTd3kALLtcrMem1xGHyrnV822QQ8z17MhPsQGI
-         i+jE9yeed/7P0cqiP/gQ7ZzP/XdmGgC0iyonQh9MYz638nbvMocUg3FY1R3s7Dq5HF5r
-         IgfPWEE7ZP+7w0F8EzIO65rq37ThlgBztFShI6mz9blXBeuBRijhCZMvMYdO7eGMFEyD
-         VFhuSpNxXlUld1kapafcH+iUIjTIGWRDCAPAtBT3vw2h4eH6JOlYHZ9//JtJYJ8Zdwuk
-         4uQw==
+        d=linaro.org; s=google; t=1789023461; x=1789628261; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AcmCJbwx/4qEbhmcq6QO09FkYuh+y7eiZNBz/riiUA0=;
+        b=MvJ3XwVcFJ8dAZ7CJCsVn2whpzhPZol4wO0tRCELnKgOUjWVja9GcIXwV2mu4aN0Jt
+         7v+NkYKv3RLwTZh3ZwdnTftegL3HcLsPFa/1S+2t+5lAf4U6VftfdaiOxUDc+Iy2XwiM
+         4+jUQchqm5JKqmUn5Vn2P1JVXdxTf9+XLmxUQoY4+rBnHKtw+jqjqBHimOKWdguLgkFI
+         C9bAZR5hVmZH5wxRmcd5hErvC4MdASKPCjQstYye3Qz/LYBdswu3ykKMHybmMdaruw6J
+         7CI+RisnOLX9m77mEFHNEPqCjnQm6jNrI0q1lDdRBS1ATJ1oZlog6v30ttXeR9KZIxuM
+         GRvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789023387; x=1789628187;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4aKPvfZM58gWA2EaVlumqwxLg4OnLhGg//o4cfo9NEw=;
-        b=j203wbUptUNXl649eBGRQN+L7x0jBeaSY5S0iQ3+kfR7yC4Cw4eiWJQyW9kRMYgXQE
-         9mihB3xYtndu6vRu5aoM8y44xY+BgS6AEMe46bQxYA0yWuRtL3OFikRRwOiHs/VDElNn
-         56STV59lPSKT6lWW1G+WW2a7106g3owipNwje2et4idrAlHwsauPRSqSkn5I7kmdzOtH
-         5OO/0lozs5u6jUySaW8UjF5Q0LkNMWEhRvV0K+uqefTlp1DTM/zmsaJQQpxYQvvnWY6r
-         sn0R2HtC2vkmJKzQLTjF8LXXGxPSnwNPydnWpuQDbcUxRIjA3aey1Bnlml4KVHI8LyZv
-         x2XQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxWslzMSKkUI/fOIs1WVjUx8WR124FwVdBj1MSz8QlgpgQifyiQ4s9k0Imz//5JX9gGkW/Ju0WACgoPre4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lZmWRahlV/Ji5fUOPQBDzW1MZ0iY73FeOGGRw9i0/nQE9iVIGY
-	acMtg9Si6qSLXOnDgcj4I+oqIFMA2vRYTX3r0SMblxb7fNcAHkR+gV6L81M7K9YDwYJdKpOTRXG
-	Wu1TqdKCrCNIBCfVBjJer1MVBUUS82dme1oIP2XxvQRhwVm8jGbcJLoK+VtxJPZ+ZnWydZrdA+s
-	eW1Evih3CrBmS5BbcQNqSqtsbr2pct+Jl5hhlqI3GE+Q==
-X-Gm-Gg: AYBFou3Op5+5uM0m8nd1Fm2919fwoB179EYEadOVE3EOGMkpYL7hnQOwEIEOAkFho4B
-	lpzoBbJaaravw3anbeYtnXBUvWZk09k0MkNShRjk4zkjApLwW5KLAgH75kcDYk4zg/sMBLyCKbn
-	PlVEwES/63bpitF13doLFxjALZysjI9dTOD5pNHFq7y4zAFkLGqEx7f04WaA==
-X-Received: by 2002:a05:690e:1381:b0:66f:d093:c206 with SMTP id 956f58d0204a3-66fd093c2bdmr9267278d50.17.1789023387553;
-        Wed, 09 Sep 2026 23:56:27 -0700 (PDT)
-X-Received: by 2002:a05:690e:1381:b0:66f:d093:c206 with SMTP id
- 956f58d0204a3-66fd093c2bdmr9267270d50.17.1789023387057; Wed, 09 Sep 2026
- 23:56:27 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789023461; x=1789628261;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AcmCJbwx/4qEbhmcq6QO09FkYuh+y7eiZNBz/riiUA0=;
+        b=DbhbtiVAso7pTiLpTy8NH6cMX0KDHc4wFWqDVHN6z8qdAkY0aoSrX8YzMre8WDGzqt
+         LqK+abO/ckwUCMdSZtkOqmj3W2o8slhToIRUiz6E2HEuZZEloo29Ak++na1xkg013R/+
+         F22HhkuVmzIXj0b1ih5j5OnSq/r0bDCwAHXTpJ+dsPo21/ieVqEPYHLWTSstwdVEtMYc
+         UYLsCrY5oszg9EO0F5PDsxWr8ma5MElW7N2fp6tL7CtLfbaUTE96yO85vH5+BP1uf8Ny
+         1gFxFIDuwYk2pYfrljLOaxI1hYz9l3kN3hjcVt1VBk4ZLmPx9/+gXW7MAK3b4x5nxvdP
+         7Cog==
+X-Forwarded-Encrypted: i=1; AKwUvBypXRgg2hsf7wYrxEWrwvP3dti/fHKUMp4Zhv9pwdifnn1FAGGQy7M0F/JYc0Mq0QPpAI/BqPFtK5QscOM=@vger.kernel.org
+X-Gm-Message-State: AFuF++m1I8/Oc4qnwbodsTT6RQCQyUqg9ufEHHP9aDvcqx3hxIRvQRmt
+	VhfViv/Agk1JtwcnrjnVkXtuzfb2uN/qW3s+YckWAUvGryeaEMTXPogiK2lbsy7DeFM=
+X-Gm-Gg: AYBFou0SzRZj0lGCLRfgBB1ouclE0EwND+RfbT+LPHea7QWwWRP+fHnAc6Y9VCyf+zE
+	SNTqK+yBI+eKuaw4etRyZIWwIDQ0APvFkPty2wlKHR/w+dfj7Yb/WIKKvKOKKmcKTO+If3Bjwk0
+	5JjBhLF0Q2xSxwQicocMoHBTKSyqbiF5uMB2LIAEVEl9Ks7T8adpFiCmY00azzQFloiSgoZiA5j
+	a60Te5E0E9hi22WEOp/UFUF8MoQbF1AZopQzVrv1G8fuVgVWewyIdwuOOAppfXT+24uVnYnkAE0
+	7MafgKwvaNbsxISALnIvMyorX5v6UVUEPur1mBR92c+wBl058HQc9uokyXdN5zq/dM5EkFbP1iw
+	S5ZcbhJtTBOucIraiQfdy0ljEfrpSGyt1irm/OYfgcNHYXhuX2pSPr9BGHuN+s1tFjRkZr4lH5q
+	+yYNZzfHNfKZVS4U7/UVueqGYaNLsNESZQbI5FZhi1ypnmha4sTctMEJNRNwiZ5sFY8zsUs+prx
+	cXInpWBPmn6y4ZuHHRJqY4tMvn7yeJeyc8MenWnmNgxO4JiOM8CNA==
+X-Received: by 2002:a05:6000:2307:b0:485:ac96:724b with SMTP id ffacd0b85a97d-485ac967324mr11008750f8f.7.1789023461206;
+        Wed, 09 Sep 2026 23:57:41 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:3caf:d840:c911:29a9? ([2a01:e0a:106d:1080:3caf:d840:c911:29a9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883acd33sm49605447f8f.18.2026.09.09.23.57.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 23:57:38 -0700 (PDT)
+Message-ID: <67ba8a92-beb2-4b72-a7fd-4ad88723dd4e@linaro.org>
+Date: Thu, 10 Sep 2026 08:57:35 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <888efe8e63b6a18fae4acd5a90a1e0e69dcdf2ca.1786012495.git.geert+renesas@glider.be>
-In-Reply-To: <888efe8e63b6a18fae4acd5a90a1e0e69dcdf2ca.1786012495.git.geert+renesas@glider.be>
-From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-Date: Thu, 10 Sep 2026 12:26:16 +0530
-X-Gm-Features: AcwNN1XL2UjMnNz9rSDQ09SUEB1jM8vYqGgIh718AFVmKu_cGWQR2wlTCqQPHEc
-Message-ID: <CAGptzHPbPKE7sQXfePGLH7_qVL8m7ihQYrB+L7kXR0EE3FMzsw@mail.gmail.com>
-Subject: Re: [PATCH] firmware: QCOM interfaces should depend on ARCH_QCOM
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
-        Alexandre Belloni <alexandre.belloni@bootlin.com>,
-        Linus Walleij <linusw@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-wireless@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=Vu62kO2n c=1 sm=1 tr=0 ts=6aa2549b cx=c_pps
- a=J+5FMm3BkXb42VdG8aMU9w==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=rMNxEFciD2boAfdi9R4A:9
- a=QEXdDO2ut3YA:10 a=Epx66wHExT0cjJnnR-oj:22
-X-Proofpoint-GUID: y7tBnR5RkdK-1cKXPN146lnjG80hzGex
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA3MyBTYWx0ZWRfX7d4tX/EM/X81
- Tr/mLCWcxmSJ0foipQbx5hJmt8HB+nYtpZqZGlJJjPljRSxJkB3DeZPl/MNOVMkg1S/QeiwQjAQ
- 1dvVqx/EG69xTXPOSIeowYy4d/DJKFNeDZAFOOA+R9rGfOhUjCN3AkJNPyjHD00ANy9pHkRDTK3
- 0hVsDM4+3Saz3NoLqhP0vC02Yer9j49+wJfI+IUyvbw2MWWH/odjfHFsMUAClz8E8IPnqvfWePe
- UOoEu4FKZk1H02Dt+QvYSfGE2KctT87Sb3aIYbUGJ7QRp3qou+0beRgOpbVerW81xd7tp5Hp0dE
- 5o3UEa7Homtz5a5wPB3lk6rNbJ2hdJVHtT7nD4jg5Qv4uKakcDB2LmUKmu07qWuU030qTCmpg5m
- dU3a8gNwkFq6cJ+PkEuym5TfzK4nks0EGAONCcz8Ex4/dLSxr4JkVtuP/9ymxl8ZkrCkHHKolQ4
- x8u1T36EDLaDM+bg2sA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA3MyBTYWx0ZWRfX7Dqj6eRpP/b/
- N0c35REGbp5EDQTQtqRqflgyeYxJnCC7txmA7JF668v3iwJUKgB5GcxLjC/L2sxcB6rDdxKjkud
- Nd2EdI0aUkC/6GhvV3CZi+bcD+hRqAc=
-X-Proofpoint-ORIG-GUID: y7tBnR5RkdK-1cKXPN146lnjG80hzGex
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_02,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 adultscore=0 lowpriorityscore=0
- clxscore=1015 bulkscore=0 suspectscore=0 malwarescore=0 phishscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609100073
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 2/2] drm/msm/a6xx: Use CX AO Counter register for
+ timestamp on a750 GPUs
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+References: <20260908-topic-sm8650-gmu-a750-timestamp-reg-v1-0-284880d6e68b@linaro.org>
+ <20260908-topic-sm8650-gmu-a750-timestamp-reg-v1-2-284880d6e68b@linaro.org>
+ <33be46a9-207d-4f0d-b3e8-18adb8197a57@oss.qualcomm.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <33be46a9-207d-4f0d-b3e8-18adb8197a57@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 6, 2026 at 4:05=E2=80=AFPM Geert Uytterhoeven
-<geert+renesas@glider.be> wrote:
->
-> The various Qualcomm firmware interfaces are only present on Qualcomm
-> systems.  Hence add dependencies on ARCH_QCOM, to prevent asking the
-> user about them when configuring a kernel without Qualcomm SoC support.
-> Make QCOM_PAS invisible instead, as it is already selected by its users
-> when needed.
->
-> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> ---
-> I wondered whether QCOM_SCM should be made invisible, too, as it seems
-> to be selected by its users? But apparently commit 5c1a2975d23c51c0
-> ("firmware: qcom_scm: Migrate to generic PAS service") in net-next/main
-> and soc/for-next made it visible on purpose?
-> ---
->  drivers/firmware/qcom/Kconfig | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->
+On 9/9/26 20:31, Akhil P Oommen wrote:
+> 
+> 
+> On 9/8/2026 6:54 PM, Neil Armstrong wrote:
+>> The a750 uses the CX AO Counters instead of the GMU_ALWAYS_ON_COUNTER
+>> register on A6xx and other A7xx GPUs, use it when running a A750 GPU.
+> 
+> Do you see any difference in behavior? Both counters are synchronized.
 
-Reviewed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+GMU_ALWAYS_ON_COUNTER_H/L returns 0 on SM8650
 
--Sumit
+Neil
 
-> diff --git a/drivers/firmware/qcom/Kconfig b/drivers/firmware/qcom/Kconfi=
-g
-> index c7f8413ab996cf12..691db0ded8e8cf63 100644
-> --- a/drivers/firmware/qcom/Kconfig
-> +++ b/drivers/firmware/qcom/Kconfig
-> @@ -7,7 +7,7 @@
->  menu "Qualcomm firmware drivers"
->
->  config QCOM_PAS
-> -       tristate "Qualcomm generic PAS interface driver"
-> +       tristate "Qualcomm generic PAS interface driver" if COMPILE_TEST
->         help
->           Enable the generic Peripheral Authentication Service (PAS) prov=
-ided
->           by the firmware. It acts as the common layer with different TZ
-> @@ -16,6 +16,7 @@ config QCOM_PAS
->
->  config QCOM_PAS_TEE
->         tristate "Qualcomm PAS TEE interface driver"
-> +       depends on ARCH_QCOM || COMPILE_TEST
->         select QCOM_PAS
->         depends on TEE
->         depends on !CPU_BIG_ENDIAN
-> @@ -26,6 +27,7 @@ config QCOM_PAS_TEE
->
->  config QCOM_SCM
->         tristate "Qualcomm PAS SCM interface driver"
-> +       depends on ARCH_QCOM || COMPILE_TEST
->         select QCOM_PAS
->         select QCOM_TZMEM
->         default y if ARCH_QCOM
-> --
-> 2.43.0
->
+> 
+> -Akhil.
+> 
+>>
+>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> ---
+>>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 12 +++++++++---
+>>   1 file changed, 9 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> index f9de9329dee3..081e79ea4652 100644
+>> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+>> @@ -23,9 +23,15 @@ static u64 a6xx_gmu_get_timestamp(struct msm_gpu *gpu)
+>>   	u64 count_hi, count_lo, temp;
+>>   
+>>   	do {
+>> -		count_hi = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
+>> -		count_lo = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_L);
+>> -		temp = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
+>> +		if (adreno_is_a750_family(adreno_gpu)) {
+>> +			count_hi = gmu_read(&a6xx_gpu->gmu, REG_A7XX_GMU_CX_AO_COUNTER_H);
+>> +			count_lo = gmu_read(&a6xx_gpu->gmu, REG_A7XX_GMU_CX_AO_COUNTER_L);
+>> +			temp = gmu_read(&a6xx_gpu->gmu, REG_A7XX_GMU_CX_AO_COUNTER_H);
+>> +		} else {
+>> +			count_hi = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
+>> +			count_lo = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_L);
+>> +			temp = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
+>> +		}
+>>   	} while (unlikely(count_hi != temp));
+>>   
+>>   	return (count_hi << 32) | count_lo;
+>>
+> 
+
