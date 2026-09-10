@@ -1,71 +1,34 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpo75.interia.pl (smtpo75.interia.pl [217.74.67.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2301416858
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:04:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F41135C1A0
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:05:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.74.67.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789027497; cv=none; b=gBqNAy39P+9g3DPhn3tAgRFJrOb5E4xoq7zxglJjOshoFZKqtkc0FzmnMxwvA7h4SgfyR6S3ixGnrk7lobliE+YinH5wT+LMMPm7DChBHhQ0x6ptHX4ujVhxt9f3bn5BIA7c50G4Bbnww2sSk6SXQ7HYoqMpEQ8FpVu2vkoN4XE=
+	t=1789027508; cv=none; b=Cb8vWtNFu+JsthtjINzCAHMRHSjLZrbiwEiRft6opFjik2MLlaA8JejHH2nd55bIRUBGzK74u0mOQvFF3G97HA7WX4Veh8R+/3UHY4uAFeGXVJPJ3Du9Vxpo6wc6EzWTPzxt8qnsYP2Tj7si6eE8REYEO+yELPmA4SJv5lMNxcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789027497; c=relaxed/simple;
-	bh=gRm8k0lA6+IZmwfDi7QHofPJ1tCqLQVpoNOipJBhfV8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gGlDeZkF8BvsVRIJ8AptSC0FLbVawk5V/sZiZCTgVasbei9KXRrTEVweQ3fyUhvfhx+6UgyyWSfxwFcjXbMIgOwAL/F81QYuyJhIoeDpudLUFqNBNpULV/WAJv+lbDtQYhDuZmaEgqlmR7oUSShY28TLdo760tcPtnmy3qOf5G8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hk2/+M/6; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789027508; c=relaxed/simple;
+	bh=/cD67VZV8ad2RDRKzKyMw3tSFbMp21H3/a6sNuZHWTU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XwCL6fL1DTG/56HZxVc5neTqRcpstzc+ydinujuCvhe6c2sfT8gDX8etsSv24qe2xWpKO6wmvstxe1dLC1m9+xVptueClm+tbJtRsSVxTSV+G1jNuMMIaBQrntsTyJvFYbOHlpKXmDkXEumsOSC/lMefd13KGgsIwjGnfrk35Lg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=poczta.fm; spf=pass smtp.mailfrom=poczta.fm; dkim=pass (1024-bit key) header.d=poczta.fm header.i=@poczta.fm header.b=obSjUq51; arc=none smtp.client-ip=217.74.67.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=poczta.fm
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=poczta.fm
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hk2/+M/6"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-398b3c37877so6362289a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:04:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789027493; x=1789632293; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4T51EgZly4ibicIo5lw/2SC/Zwq/woe+QZug39a3X1M=;
-        b=Hk2/+M/6OqWHRRLGIFPQBmCMYQtQD465y/yLQe0m5li2xUsqYKK0ZjWkcEPjv+CTKA
-         jTOZMmUcXpAiIzPpwXdKmCswKt8adCAhRAoOybV6H/QhUcf35Y1UgumhkqvGYeqdU6to
-         j9B/aIUKkNKniJMmn8KzmEuJdmsFVn4HmoJ6kUuQsXEUj+wR4nFz87N6ZJcJpcfWj6lt
-         jju0gBTI/JMg9JIk1wDFa8Hxr69ynbXQqurnotSfn4/AsX1lrlS5lJ79ua/baZDdskQ9
-         NSLUe8lQYW3tTcaztncGZawsAEsM1ANITj5Hmpq3Q0ebqKzw/a/phhK903AETnAJxO0a
-         wjeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789027493; x=1789632293;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4T51EgZly4ibicIo5lw/2SC/Zwq/woe+QZug39a3X1M=;
-        b=kTeAilL7YleOsz/r5P1x2ykcXZxP1QprBxh92Qa3S1Uagt68jUpldApfMFS7U+ZOqJ
-         ESD1lGOT82TiiO+wnaHXCpD5DEurqn/jBnLTih91o6adjlxeFcodEdHQebem/kQJX08o
-         2ANIZpWTAFCSr5Ze0QWyh0geQuTz1SbwX06Dg9ydZfg5s8iiM9emrO3g49pH4LdYoy9p
-         5xI4eDWXncHyZHRsxg3BSUSdgiNKZ/FDFrW6EULpaA5MDmCSGSX37+AlzXfFtA5vtf6z
-         78bkPVxA3tlB9Uu/Bl/fZp3o51rE+XXVYugu/5BeHTCV09BPNDyqnyMHhIbwX7oVREy9
-         8qGw==
-X-Forwarded-Encrypted: i=1; AKwUvBymU5QCATrC0MHnVx1PVf6wCxhuulmX6frmU96FBhK2TIbAWxO5IPmPwLnG4tCHyGucKzquh4k5G8Lm34g=@vger.kernel.org
-X-Gm-Message-State: AFuF++lF0T7Dtu7MfH/2wCyVFjmrVmR3WjC2Jk2ueAyo9t2aV4taKoNh
-	12gYDz+YLkCldLYp2uyhe+GGwegmcIbz+8ehptM4JQ4fQcQslZNotdH0
-X-Gm-Gg: AYBFou2zrRgU3ENk9IJ6SqXdlpAY3NgLgFXlwzIfU/WZG5fd+tt8N0sKq+2nSplhi2U
-	/qAaT43zYU5mlQ06DEvzwteZAGD3uFu7OUatuPNmooHCrhmYuFEctiqylVF8XZiPy32OwXxFRTy
-	0F4VfCvDi9XmpL9NO9oYKVteVu8NbKb8dkSjPANUa+sTq7grKaTqBo5M0u6eGI4XEvbLiWtjBnS
-	w01uUDLz0CnBsHuaEAqLlDHpacMyKTI3001BzBz9fxM+4DbLOc65tVLbEyxJV8n5SCIJDNNXZax
-	+tzyYijeXD4DcZw3jmvONFvLDfxuvtyZcy3SVmGaTW+aQFZ+7eGmHyaZf5qr0Jed8aa2g8SyTLY
-	CvIxCH+bvW4EzYote+sNNLnY+fLWt5m6D9rTM4YSUplV9SsvgK2Tt97BBSTm+F+dcaYJencZNQG
-	uuvfs2oB4CKt7EE6N//PKJruFMY5Kmm+25dvd0+ZjyS7OOa2oPg1cRrDLzYdy3HSKh40PLNFRG
-X-Received: by 2002:a17:90b:4fd1:b0:398:bd37:6a49 with SMTP id 98e67ed59e1d1-39b261cfd8cmr59864613a91.12.1789027492801;
-        Thu, 10 Sep 2026 01:04:52 -0700 (PDT)
-Received: from ali-laptop ([218.212.161.2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39cd20b187asm2710589a91.4.2026.09.10.01.04.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 01:04:52 -0700 (PDT)
-From: Syed Ali <syedalia1000@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: mchehab@kernel.org,
-	hverkuil+cisco@kernel.org,
-	vebohr@gmail.com,
-	linux-kernel@vger.kernel.org,
-	Syed Ali <syedalia1000@gmail.com>
-Subject: [PATCH v2] media: airspy: replace deprecated V4L2_TUNER_ADC
-Date: Thu, 10 Sep 2026 16:04:43 +0800
-Message-ID: <20260910080443.28080-1-syedalia1000@gmail.com>
+	dkim=pass (1024-bit key) header.d=poczta.fm header.i=@poczta.fm header.b="obSjUq51"
+Received: from localhost (unknown [80.68.231.31])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by poczta.interia.pl (INTERIA.PL) with ESMTPSA;
+	Thu, 10 Sep 2026 10:04:57 +0200 (CEST)
+From: Slawomir Stepien <sst@poczta.fm>
+To: johannes@sipsolutions.net,
+	linux-wireless@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	sst@poczta.fm
+Subject: [PATCH] wifi: mac80211: verify if AP_VLAN belongs to the correct AP
+Date: Thu, 10 Sep 2026 10:04:54 +0200
+Message-ID: <20260910080454.725913-1-sst@poczta.fm>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -74,46 +37,78 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poczta.fm; s=dk;
+	t=1789027498; bh=XCXrRKtVN91beg33bhT3sQJeVgP/yegQK7JfqOq6CC0=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=obSjUq51kmlx1RFAozlfttRTkk8czBAzO6iP5Dhz2VCC/OlV4uqhGB9wqDECQ9iNf
+	 6et+T8inXiwhxc3cZBp39U8y1pwuG01gUQKCD/qrhmcDCDVVzh2f/twN4w4H52dW0g
+	 1Urb3Xiwcuw29Am2ukxRalt6qq2KeB9SiSc2ndQw=
 
-V4L2_TUNER_ADC is the deprecated alias of V4L2_TUNER_SDR.
-Use V4L2_TUNER_SDR directly throughout the driver.
-no change of function.
-Signed-off-by: Syed Ali <syedalia1000@gmail.com>
+The get_vlan() only checks if NL80211_ATTR_STA_VLAN target is an
+AP/AP_VLAN/P2P_GO interface on the same wiphy. It has no notion of which
+specific AP a given AP_VLAN belongs to. Without a check in mac80211
+itself, NL80211_CMD_NEW_STATION and NL80211_CMD_SET_STATION could
+add/move a station onto an AP_VLAN interface that actually belongs to a
+different AP on the same wiphy.
+
+Reject the userspace request unless the VLAN interface's bss pointer
+matches the bss of the interface the station is being added to/belongs
+to.
+
+Signed-off-by: Slawomir Stepien <sst@poczta.fm>
+Reported-by: Johannes Berg <johannes@sipsolutions.net>
+Link: https://lore.kernel.org/all/22e7ddfc50d7a6a16c437b876dab5fe223799610.camel@sipsolutions.net/
 ---
- drivers/media/usb/airspy/airspy.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ net/mac80211/cfg.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/media/usb/airspy/airspy.c b/drivers/media/usb/airspy/airspy.c
-index 358a66ab8e48..85587c0fbadf 100644
---- a/drivers/media/usb/airspy/airspy.c
-+++ b/drivers/media/usb/airspy/airspy.c
-@@ -50,7 +50,7 @@ enum {
- static const struct v4l2_frequency_band bands[] = {
- 	{
- 		.tuner = 0,
--		.type = V4L2_TUNER_ADC,
-+		.type = V4L2_TUNER_SDR,
- 		.index = 0,
- 		.capability = V4L2_TUNER_CAP_1HZ | V4L2_TUNER_CAP_FREQ_BANDS,
- 		.rangelow   = 20000000,
-@@ -713,7 +713,7 @@ static int airspy_g_tuner(struct file *file, void *priv, struct v4l2_tuner *v)
+diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
+index 23f4f9ec86d0..920681eb2e87 100644
+--- a/net/mac80211/cfg.c
++++ b/net/mac80211/cfg.c
+@@ -2637,19 +2637,25 @@ static int ieee80211_add_station(struct wiphy *wiphy, struct wireless_dev *wdev,
+ {
+ 	struct ieee80211_local *local = wiphy_priv(wiphy);
+ 	struct sta_info *sta;
+-	struct ieee80211_sub_if_data *sdata;
++	struct ieee80211_sub_if_data *sdata = IEEE80211_WDEV_TO_SUB_IF(wdev);
+ 	int err;
  
- 	if (v->index == 0) {
- 		strscpy(v->name, "AirSpy ADC", sizeof(v->name));
--		v->type = V4L2_TUNER_ADC;
-+		v->type = V4L2_TUNER_SDR;
- 		v->capability = V4L2_TUNER_CAP_1HZ | V4L2_TUNER_CAP_FREQ_BANDS;
- 		v->rangelow  = bands[0].rangelow;
- 		v->rangehigh = bands[0].rangehigh;
-@@ -739,7 +739,7 @@ static int airspy_g_frequency(struct file *file, void *priv,
- 	int ret;
+ 	lockdep_assert_wiphy(local->hw.wiphy);
  
- 	if (f->tuner == 0) {
--		f->type = V4L2_TUNER_ADC;
-+		f->type = V4L2_TUNER_SDR;
- 		f->frequency = s->f_adc;
- 		dev_dbg(s->dev, "ADC frequency=%u Hz\n", s->f_adc);
- 		ret = 0;
+ 	if (params->vlan) {
+-		sdata = IEEE80211_DEV_TO_SUB_IF(params->vlan);
++		struct ieee80211_sub_if_data *vlansdata =
++			IEEE80211_DEV_TO_SUB_IF(params->vlan);
+ 
+-		if (sdata->vif.type != NL80211_IFTYPE_AP_VLAN &&
+-		    sdata->vif.type != NL80211_IFTYPE_AP)
++		if (vlansdata->vif.type != NL80211_IFTYPE_AP_VLAN &&
++		    vlansdata->vif.type != NL80211_IFTYPE_AP)
++			return -EINVAL;
++
++		/* the VLAN must belong to the AP we're adding the station to */
++		if (vlansdata->bss != sdata->bss)
+ 			return -EINVAL;
+-	} else
+-		sdata = IEEE80211_WDEV_TO_SUB_IF(wdev);
++
++		sdata = vlansdata;
++	}
+ 
+ 	if (ether_addr_equal(mac, sdata->vif.addr))
+ 		return -EINVAL;
+@@ -2845,6 +2851,10 @@ static int ieee80211_change_station(struct wiphy *wiphy,
+ 	if (params->vlan && params->vlan != sta->sdata->dev) {
+ 		vlansdata = IEEE80211_DEV_TO_SUB_IF(params->vlan);
+ 
++		/* the VLAN must belong to the AP the station is on */
++		if (vlansdata->bss != sdata->bss)
++			return -EINVAL;
++
+ 		if (params->vlan->ieee80211_ptr->use_4addr) {
+ 			err = ieee80211_set_sta_4addr(local, vlansdata, sta);
+ 			if (err)
 -- 
 2.55.0
 
