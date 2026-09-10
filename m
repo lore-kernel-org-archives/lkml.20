@@ -1,191 +1,348 @@
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 260FB390600
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:09:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFB833C37A3;
+	Thu, 10 Sep 2026 06:09:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789020583; cv=none; b=rMH4Bi6xCh4QIBMH4fBjYejM0t8uJRiUCYcPKuoVRzrNWBXzPdu6ZTuelx69/ViP+zIBCgLKqrOUhuaC+7bdzgSUVaQYiBPW77jw3v4g9bH8vHbfBc4VMvvzHkTr+wfeZEnbWqkLdk7zH+WRlwAmrS2iJ6xlk/SAalXLivz5cbs=
+	t=1789020597; cv=none; b=nlclO+GKDE5+4JkoQAaR5CjPngYkVEDrG8lGf0v7GgF7PJriTe7RoeAiw6wgCSVx4PjowL5hCuZ8NOb7DLAKLq2KIqI63RYS157hfdBxdOlAQE1iHGw/YFya6fHCnpuI7mjR6x0RlQtR+0g/fFGWv082fkrRcGqt6gYY3bkVyg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789020583; c=relaxed/simple;
-	bh=eQIbG+yCPegHREkcd/ntTZ+kps6/IdxJww/XUbyiq4o=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=Iw/hVU/Q8MhpNXnR8gmuIkA9Wr+TxcjWHrbGlvSNe96I4tR3+k0ajDzVjuyNzvHYB5+vZG5Sz0so97KUTwxQByKNjsMMzS+CVGKTHd9Zh2lnfuoTsqPxFPib6BQn/JCfLIYH3jYv/XjXiDOYUiSGBdLJsvnSkedvRIqIsy52JM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7f8931a803cso5255992a34.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 23:09:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789020576; x=1789625376;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=t7dQyj3GgTr4FdGaHcJcoAJSzkE2qC117nWJsdVwNmI=;
-        b=mCxcnnjF2xyFRTAy6IYNbPh+pfQoRwQp2bz9yAF9eL8ZJ5p/QYfBGG+4jzvZ3NJRYN
-         CoWqeGwq8hvoikFT7YSXXJxF/Ule3JBPzaoZX7VMlWIK1TDG/cMKr7ijy+frbaNO8+v/
-         A7Hmx8ckI6eRjfIUts1NBjjhXbQMAxGyrsQPqgqSQDbpWc2Q9zLGg7JuA5RzDOJe3bYC
-         gzGFLsGPJAMiOhM9vW9q+SEIq2Ust9E/oJ6lBsz9CiM7sRARzK34GAiaOCLp+OVaXcY3
-         65GL+gcJf3Xvg1BsPhevhgQPvE09JKGRkqPwZYOjjRegIJ7asEMj/U3vxg/v11ubKkDF
-         SxeA==
-X-Gm-Message-State: AFuF++kfE/r6vwbzZg2G0aowpD1Yiv/ZsC0QbKMIHdQYmqZP1Ma4Y5qJ
-	wEfrqM1q56aKWXkS0sgI0It4StGEJRZ1BEr3wVqnPwlkJzAJOnQXI8t3lkL+k6PwRD/zvByZ9PB
-	WkHVZSz6ipZsG5TpTe0JHl9E3VTWibLNNwAox9ogvhzEMbqGDn9TL2dMSuqg=
+	s=arc-20240116; t=1789020597; c=relaxed/simple;
+	bh=X0ylNUfyY2EdluJvR7UhHDvA6CCL61dTk8TBqJlBf5Y=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=fjBsa5jj9MKBgOuFQ59QINo+rcdLTvIYdP5i1fj+ZV7NfHq8rqHYl49ikPrZIPd1CVE+UhkqA81eC0DTNn7ofNmEVBhIreRrbKO5fLdtDUJ88jFY/x7Bqvq0Cxa9GLVsvgTcMfQ3J4oxCf//vKFwgAi3KnNjyE4a6g/ERlyr4Ow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id E06BE1A00B1;
+	Thu, 10 Sep 2026 08:09:39 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id A8CAE1A00C1;
+	Thu, 10 Sep 2026 08:09:39 +0200 (CEST)
+Received: from lsv031125.swis.in-blr01.nxp.com (lsv031125.swis.in-blr01.nxp.com [10.12.177.172])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 773F418000B6;
+	Thu, 10 Sep 2026 14:09:36 +0800 (+08)
+From: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+To: linux-kernel@vger.kernel.org,
+	linux-rtc@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-watchdog@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	alexandre.belloni@bootlin.com,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	linux@roeck-us.net,
+	wim@linux-watchdog.org
+Cc: vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com,
+	lakshay.piplani@nxp.com,
+	Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+Subject: [PATCH v3 4/4] rtc: pcf8525: Add temperature sensor support via hwmon
+Date: Thu, 10 Sep 2026 11:39:12 +0530
+Message-Id: <20260910060912.2443551-5-shivprakash.gupta@nxp.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260910060912.2443551-1-shivprakash.gupta@nxp.com>
+References: <20260910060912.2443551-1-shivprakash.gupta@nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a4a:e909:0:b0:6b6:87cf:d1dc with SMTP id
- 006d021491bc7-6b6fcfd90e3mr23044132eaf.24.1789020576112; Wed, 09 Sep 2026
- 23:09:36 -0700 (PDT)
-Date: Wed, 09 Sep 2026 23:09:36 -0700
-In-Reply-To: <6a6c3d48.5cf34cee.28a846.0008.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa249a0.f2639fcc.29487d.0012.GAE@google.com>
-Subject: Forwarded: Re: test patch
-From: syzbot <syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+Register the PCF8525 internal temperature sensor through the hwmon
+interface when CONFIG_RTC_DRV_PCF8525_HWMON is enabled.
 
-***
+Exposes temp1_input (millidegrees Celsius, read-only) and
+update_interval (milliseconds, read/write).
 
-Subject: Re: test patch
-Author: syedtayyabfarooq08@gmail.com
+Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
+Signed-off-by: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+---
+ drivers/rtc/Kconfig       |  15 +++
+ drivers/rtc/rtc-pcf8525.c | 218 ++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 233 insertions(+)
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-
-diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
-index cdd1dfc666c4..9da860589861 100644
---- a/drivers/usb/gadget/function/u_serial.c
-+++ b/drivers/usb/gadget/function/u_serial.c
-@@ -603,6 +603,41 @@ static int gserial_wakeup_host(struct gserial *gser)
+diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
+index 356c2d91e387..7b4195e712b0 100644
+--- a/drivers/rtc/Kconfig
++++ b/drivers/rtc/Kconfig
+@@ -524,6 +524,21 @@ config RTC_DRV_PCF8525
+ 	  This driver can also be built as a module. If so, the module
+ 	  will be called rtc-pcf8525.
  
- /* TTY Driver */
++config RTC_DRV_PCF8525_HWMON
++	bool "HWMON support for NXP PCF8525"
++	depends on RTC_DRV_PCF8525 && HWMON && \
++		   !(RTC_DRV_PCF8525=y && HWMON=m)
++	default y
++	help
++	  Say Y here to expose the PCF8525 internal temperature
++	  sensor through the HWMON interface.
++
++	  This option provides temperature input reporting and allows
++	  the temperature measurement update interval to be configured
++	  from userspace.
++
++	  The interface is registered only when HWMON support is enabled
++
+ config RTC_DRV_PCF85363
+ 	tristate "NXP PCF85363"
+ 	select REGMAP_I2C
+diff --git a/drivers/rtc/rtc-pcf8525.c b/drivers/rtc/rtc-pcf8525.c
+index c2eab983f1ff..a2958eb3a502 100644
+--- a/drivers/rtc/rtc-pcf8525.c
++++ b/drivers/rtc/rtc-pcf8525.c
+@@ -34,6 +34,7 @@
+  */
  
-+static int gs_install(struct tty_driver *driver, struct tty_struct *tty)
+ #include <linux/bcd.h>
++#include <linux/hwmon.h>
+ #include <linux/i2c.h>
+ #include <linux/interrupt.h>
+ #include <linux/device.h>
+@@ -179,6 +180,7 @@
+ #define PCF8525_WD_MIN_HW_HEARTBEAT_MS	4000
+ #define PCF8525_WD_VAL_STOP		0
+ #define PCF8525_WD_DEFAULT_TIMEOUT_S	60
++#define PCF8525_CLKOUT_TCR_MASK		GENMASK(7, 5)
+ 
+ #define PCF8525_REG_AGING_OFFSET_HI	0x26
+ #define PCF8525_REG_AGING_OFFSET_LO	0x27
+@@ -374,6 +376,220 @@ static int pcf8525_rtc_set_offset(struct device *dev, long offset)
+ 	return pcf8525_write_aging_offset(pcf8525, (s16)raw);
+ }
+ 
++static int pcf8525_hwmon_read_temp(struct device *dev, long *temp)
 +{
-+	struct gs_port *port;
-+	struct tty_port *tport;
++	struct pcf8525 *pcf8525 = dev_get_drvdata(dev);
++	unsigned int regval;
 +	int ret;
 +
-+	mutex_lock(&ports[tty->index].lock);
-+	port = ports[tty->index].port;
-+	if (!port) {
-+		mutex_unlock(&ports[tty->index].lock);
-+		return -ENODEV;
-+	}
-+
-+	tport = tty_port_get(&port->port);
-+	mutex_unlock(&ports[tty->index].lock);
-+
-+	if (!tport)
-+		return -ENODEV;
-+
-+	ret = tty_port_install(tport, driver, tty);
-+	if (ret) {
-+		tty_port_put(tport);
++	ret = regmap_read(pcf8525->regmap, PCF8525_REG_TEMP, &regval);
++	if (ret)
 +		return ret;
-+	}
 +
-+	tty->driver_data = port;
++	/*
++	 * PCF8525: signed 8-bit, 1 degree C per LSB.
++	 * HWMON requires millidegree Celsius.
++	 */
++	*temp = (long)(s8)(u8)regval * 1000L;
 +
 +	return 0;
 +}
 +
-+static void gs_cleanup(struct tty_struct *tty)
++static int pcf8525_hwmon_read_update_interval(struct device *dev, long *val)
 +{
-+	tty_port_put(tty->port);
++	struct pcf8525 *pcf8525 = dev_get_drvdata(dev);
++	unsigned int regval;
++	unsigned int tcr;
++	int ret;
++
++	ret = regmap_read(pcf8525->regmap, PCF8525_REG_CLKOUT, &regval);
++	if (ret)
++		return ret;
++
++	tcr = FIELD_GET(PCF8525_CLKOUT_TCR_MASK, regval);
++
++	switch (tcr) {
++	case 0:
++		*val = 32 * 60 * 1000L;
++		break;
++	case 1:
++		*val = 16 * 60 * 1000L;
++		break;
++	case 2:
++		*val = 8 * 60 * 1000L;
++		break;
++	case 3:
++		*val = 4 * 60 * 1000L;
++		break;
++	case 4:
++		*val = 2 * 60 * 1000L;
++		break;
++	default:
++		*val = 60 * 1000L;
++		break;
++	}
++
++	return 0;
 +}
 +
- /*
-  * gs_open sets up the link between a gs_port and its associated TTY.
-  * That link is broken *only* by TTY close(), and all driver methods
-@@ -615,7 +650,7 @@ static int gs_open(struct tty_struct *tty, struct file *file)
- 	int		status = 0;
- 
- 	mutex_lock(&ports[port_num].lock);
--	port = ports[port_num].port;
-+	port = tty->driver_data;
- 	if (!port) {
- 		status = -ENODEV;
- 		goto out;
-@@ -648,7 +683,6 @@ static int gs_open(struct tty_struct *tty, struct file *file)
- 	if (port->port.count++)
- 		goto exit_unlock_port;
- 
--	tty->driver_data = port;
- 	port->port.tty = tty;
- 
- 	/* if connected, start the I/O stream */
-@@ -695,14 +729,16 @@ static void gs_close(struct tty_struct *tty, struct file *file)
- 	struct gs_port *port = tty->driver_data;
- 	struct gserial	*gser;
- 
-+	if (!port)
-+		return;
-+
- 	spin_lock_irq(&port->port_lock);
- 
- 	if (port->port.count != 1) {
- raced_with_open:
--		if (port->port.count == 0)
--			WARN_ON(1);
--		else
-+		if (port->port.count > 0)
- 			--port->port.count;
-+
- 		goto exit;
- 	}
- 
-@@ -911,6 +947,8 @@ static int gs_get_icount(struct tty_struct *tty,
- static const struct tty_operations gs_tty_ops = {
- 	.open =			gs_open,
- 	.close =		gs_close,
-+	.install =		gs_install,
-+	.cleanup =		gs_cleanup,
- 	.write =		gs_write,
- 	.put_char =		gs_put_char,
- 	.flush_chars =		gs_flush_chars,
-@@ -1203,6 +1241,18 @@ static void gs_console_exit(struct gs_port *port)
- 
- #endif
- 
-+static void gs_port_destruct(struct tty_port *tport)
++static int pcf8525_hwmon_write_update_interval(struct device *dev, long val)
 +{
-+	struct gs_port *port = container_of(tport, struct gs_port, port);
++	struct pcf8525 *pcf8525 = dev_get_drvdata(dev);
++	unsigned int tcr;
 +
-+	kfree(port);
++	switch (val) {
++	case 32 * 60 * 1000L:
++		tcr = 0;
++		break;
++	case 16 * 60 * 1000L:
++		tcr = 1;
++		break;
++	case 8 * 60 * 1000L:
++		tcr = 2;
++		break;
++	case 4 * 60 * 1000L:
++		tcr = 3;
++		break;
++	case 2 * 60 * 1000L:
++		tcr = 4;
++		break;
++	case 60 * 1000L:
++		tcr = 5;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	/* Update only TCR[2:0]; preserve OTPR, CLKOE and COF[2:0]. */
++	return regmap_update_bits(pcf8525->regmap, PCF8525_REG_CLKOUT,
++				  PCF8525_CLKOUT_TCR_MASK,
++				  FIELD_PREP(PCF8525_CLKOUT_TCR_MASK, tcr));
 +}
 +
-+static const struct tty_port_operations gs_port_ops = {
-+	.destruct = gs_port_destruct,
++static umode_t pcf8525_hwmon_is_visible(const void *data,
++					enum hwmon_sensor_types type,
++					u32 attr, int channel)
++{
++	switch (type) {
++	case hwmon_chip:
++		if (attr == hwmon_chip_update_interval)
++			return 0644;
++		break;
++	case hwmon_temp:
++		if (attr == hwmon_temp_input && channel == 0)
++			return 0444;
++		break;
++	default:
++		break;
++	}
++
++	return 0;
++}
++
++static int pcf8525_hwmon_read(struct device *dev,
++			      enum hwmon_sensor_types type,
++			      u32 attr, int channel, long *val)
++{
++	switch (type) {
++	case hwmon_chip:
++		if (attr == hwmon_chip_update_interval)
++			return pcf8525_hwmon_read_update_interval(dev, val);
++		break;
++	case hwmon_temp:
++		if (attr == hwmon_temp_input && channel == 0)
++			return pcf8525_hwmon_read_temp(dev, val);
++		break;
++	default:
++		break;
++	}
++
++	return -EOPNOTSUPP;
++}
++
++static int pcf8525_hwmon_write(struct device *dev,
++			       enum hwmon_sensor_types type,
++			       u32 attr, int channel, long val)
++{
++	if (type == hwmon_chip && attr == hwmon_chip_update_interval)
++		return pcf8525_hwmon_write_update_interval(dev, val);
++
++	return -EOPNOTSUPP;
++}
++
++static const struct hwmon_channel_info * const pcf8525_hwmon_info[] = {
++	HWMON_CHANNEL_INFO(chip, HWMON_C_UPDATE_INTERVAL),
++	HWMON_CHANNEL_INFO(temp, HWMON_T_INPUT),
++	NULL
 +};
 +
++static const struct hwmon_ops pcf8525_hwmon_ops = {
++	.is_visible = pcf8525_hwmon_is_visible,
++	.read = pcf8525_hwmon_read,
++	.write = pcf8525_hwmon_write,
++};
 +
- static int
- gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
++static const struct hwmon_chip_info pcf8525_hwmon_chip_info = {
++	.ops = &pcf8525_hwmon_ops,
++	.info = pcf8525_hwmon_info,
++};
++
++static void pcf8525_hwmon_disable_temp(void *data)
++{
++	struct pcf8525 *pcf8525 = data;
++
++	/* Disable temperature sensor to avoid draining the backup battery. */
++	regmap_update_bits(pcf8525->regmap, PCF8525_REG_CTRL5,
++			   PCF8525_CTRL5_TEMP_RD_EN, 0);
++}
++
++/*
++ * Keep HWMON optional and non-fatal so RTC and watchdog registration remain
++ * usable even if the temperature interface cannot be registered.
++ */
++static void pcf8525_hwmon_register(struct device *dev,
++				   struct pcf8525 *pcf8525)
++{
++	struct device *hwmon_dev;
++	int ret;
++
++	if (!IS_ENABLED(CONFIG_RTC_DRV_PCF8525_HWMON))
++		return;
++
++	/*
++	 * Enable digital temperature readout first so that the hardware is
++	 * ready before the sysfs attributes are exposed to userspace.  The
++	 * previous order (register hwmon device first) left a window where
++	 * a concurrent sysfs read would return invalid data, and left the
++	 * device permanently broken if this step subsequently failed.
++	 */
++	ret = regmap_update_bits(pcf8525->regmap, PCF8525_REG_CTRL5,
++				 PCF8525_CTRL5_TEMP_RD_EN,
++				 PCF8525_CTRL5_TEMP_RD_EN);
++	if (ret) {
++		dev_warn(dev, "failed to enable temperature readout: %d\n", ret);
++		return;
++	}
++
++	/*
++	 * Register a devm cleanup action to disable TEMP_RD_EN when the
++	 * driver is unbound, preventing the analog sensor from draining
++	 * the backup battery after driver removal.
++	 */
++	if (devm_add_action_or_reset(dev, pcf8525_hwmon_disable_temp, pcf8525)) {
++		dev_warn(dev, "failed to register HWMON cleanup action\n");
++		return;
++	}
++
++	/* Only expose sysfs attributes once the hardware is fully ready. */
++	hwmon_dev = devm_hwmon_device_register_with_info(dev, "pcf8525",
++							 pcf8525,
++							 &pcf8525_hwmon_chip_info,
++							 NULL);
++	if (IS_ERR(hwmon_dev))
++		dev_warn(dev, "failed to register HWMON device: %ld\n",
++			 PTR_ERR(hwmon_dev));
++}
++
+ static int pcf8525_read_time(struct device *dev, struct rtc_time *tm)
  {
-@@ -1222,6 +1272,7 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- 	}
+ 	struct pcf8525 *pcf8525 = dev_get_drvdata(dev);
+@@ -1349,6 +1565,8 @@ static int pcf8525_probe(struct i2c_client *client)
+ 	if (ret)
+ 		return ret;
  
- 	tty_port_init(&port->port);
-+	port->port.ops = &gs_port_ops;
- 	spin_lock_init(&port->port_lock);
- 	init_waitqueue_head(&port->drain_wait);
- 	init_waitqueue_head(&port->close_wait);
-@@ -1258,8 +1309,7 @@ static void gserial_free_port(struct gs_port *port)
- 	/* wait for old opens to finish */
- 	wait_event(port->close_wait, gs_closed(port));
- 	WARN_ON(port->port_usb != NULL);
--	tty_port_destroy(&port->port);
--	kfree(port);
-+	tty_port_put(&port->port);
++	pcf8525_hwmon_register(dev, pcf8525);
++
+ 	return 0;
  }
  
- void gserial_free_line(unsigned char port_num)
+-- 
+2.34.1
+
