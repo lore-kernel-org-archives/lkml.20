@@ -1,83 +1,99 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6203943B3F9
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:15:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9569043E06E;
+	Thu, 10 Sep 2026 08:16:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789028152; cv=none; b=JJ2NvsPKCq3XU6yr7Rt77Tn/fPXrL67iQ/dzautQ+HR/W5jpkijU0haielvJdNwLDr9cthTk0t88DBKFOPZmQnnyp3R2rwAtJJnkIOjwpp++EXMM5I78IuqTzNQu7J+PY4OZo3kxlCBIxzq8AJoL6XHL6rxavhqQOo9aMouADzM=
+	t=1789028191; cv=none; b=FDeSRz1kG8BsRSALzO6vewWghPfLgLqhQdbJb0uPev8r9XgYns/maO/gWcz1qwl90G1vkl/nbxUkoR1oDKVSxZMx8+uRR/gi+WTbgxQVy4R5dcDqeHypu2bg72YSUbKASY5loNKcmZoC/OFYBDc6oo0/POvJKMJaoTPl5xVi0AE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789028152; c=relaxed/simple;
-	bh=NMJcZVUYBAIAJjUbFOtjhLKA0JZJQS/EwwJD+FlJj1c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b84/7j7l0MK+9V0hBr+xuMpa9LaJyEuv0x8zJaYwcVSmXmc6uagjAKbRGqx3AlcJqrmNIe2Yx7SIbIoonsE4xPflGKGKR6gFPA6A+KiwP5oBjss3r1dYKrNJyc251lFTRm+MDS9QLgjEY2OnxZuCfaAQ/LCYF43e18LWE0uFrkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=WlqygN3o; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1789028191; c=relaxed/simple;
+	bh=UukVNUlYRSADEuitvWiu7FZr654YDkY/O55oeljGjBg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fHYpmofE30lp/fDWRxhIUASCQQwaNCn4A1IzMTZ6W+AjYnpl/uD9yM0P9NcY7AVrGX9yS4dCDznKUzt9uN0L77gVegfJ8sn3g8oK9F8UxpDFCEOertGLiMn79y8dKhm4zZmg6ftLvDF5klYat4cLzZ4i93Al2Sjn+ja7OGe3fuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=iFzTX/7M; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="WlqygN3o"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=JqPbgfm2s+1OMKIjxGnNiaxLWwBSEVGST3nJQuEhokk=; b=WlqygN3ou0UYH3cRdGscLUsKsS
-	gr8s5ZAdC+rfzeKwFKs5gdL/rb337jTxoTkZmFSZ6FJdG6j4VvEyae5lkYTKLvKrWjfXFgU3sGrkZ
-	PDidZEr8hYwGcLWR1WW1+US+6BrIUTto8i1raDrkQhz/5BEOZfbsDKZ0tFml2n1HUAu8Bu9kqUVWO
-	l28LPeDK5Qy2PufLVXlXnwrhlvACm4YCfBRUwGJeFxs2pkDKM1Y3urj7jMd7sxIdusRPdOI9hP46p
-	GJiHJoOYkMc8SaoZI9YUa9Nac8565TLrY6YjUapSBwT1rFLtupPNBp9HVRLGfKEDHDSE5HhYLcHwy
-	hu/vfxXA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x4ZwO-0000000EASD-0hao;
-	Thu, 10 Sep 2026 08:15:28 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 0308C3005AF; Thu, 10 Sep 2026 10:15:27 +0200 (CEST)
-Date: Thu, 10 Sep 2026 10:15:26 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Tejun Heo <tj@kernel.org>
-Cc: Hui Su <sh_def@163.com>, linux-kernel@vger.kernel.org, mingo@redhat.com,
-	juri.lelli@redhat.com, vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
-	jstultz@google.com
-Subject: Re: [PATCH] sched/core: Call wq_worker_tick() for the execution
- context
-Message-ID: <20260910081526.GD4120091@noisy.programming.kicks-ass.net>
-References: <20260902150208.1209922-2-sh_def@163.com>
- <aphpMkGmuOrUByf3@slm.duckdns.org>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="iFzTX/7M"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4d421c52d;
+	Thu, 10 Sep 2026 16:16:15 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Steve Longerbeam <slongerbeam@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>
+Subject: [PATCH] media: ov5640: Initialize mutex before probe cleanup
+Date: Thu, 10 Sep 2026 16:16:08 +0800
+Message-Id: <20260910081608.1264077-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aphpMkGmuOrUByf3@slm.duckdns.org>
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa08a638f4003a1kunm0a5a666218c294
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGh9LVk8eHx9KHR4dGkMeQ1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=iFzTX/7MVvSgklVd6Rb6wmD/XPQjrfXt0SYPw4iTmddvtxNTLJw9HhtEpCf9aj4dro6dM4jxmNyaQhwfXlww5OjW6gSpYHvsb9PoB5hgWw2uy0y3CbCx+tjQYSJEexDjZZMZdWBvkz3/Yh1Fs83nRpSL//gGCSHhHo8bV1FdRaI=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=+Pm/31Jpbf+4i/zgHSeTmquj68bZ4VqT8ii7dXRKmv0=;
+	h=date:mime-version:subject:message-id:from;
 
-On Wed, Sep 02, 2026 at 08:21:38AM -1000, Tejun Heo wrote:
-> On Wed, Sep 02, 2026 at 11:02:09PM +0800, Hui Su wrote:
-> > wq_worker_tick() accounts CPU time and detects CPU-intensive work for
-> > the kworker that is actually running. With proxy execution, rq->donor
-> > is the scheduling context while rq->curr is the execution context.
-> > 
-> > Calling the hook with rq->donor can skip workqueue accounting when a
-> > kworker is executing on behalf of a donor task. It can also account a
-> > blocked kworker when the donor is a worker but rq->curr is the task
-> > actually executing. The former can delay WORKER_CPU_INTENSIVE handling
-> > and pool concurrency management, which can delay pending kernel work
-> > and userspace operations depending on it.
-> > 
-> > Use rq->curr for the workqueue tick hook while retaining rq->donor for
-> > scheduler accounting.
-> > 
-> > Fixes: af0c8b2bf67b ("sched: Split scheduler and execution contexts")
-> > Signed-off-by: Hui Su <sh_def@163.com>
-> 
-> Acked-by: Tejun Heo <tj@kernel.org>
-> 
-> Peter, how do you want to route this patch? It can go through either sched
-> or wq.
+ov5640_probe() can jump to entity_cleanup when regulator setup fails,
+before sensor->lock is initialized. The cleanup path unconditionally
+destroys the mutex, so this error path passes an uninitialized mutex to
+mutex_destroy().
 
-Sorry, seems this got lost in the email deluge :/ I can take it through
-sched/urgent.
+Initialize the mutex after media_entity_pads_init() succeeds and before
+ov5640_get_regulators(). This keeps earlier direct-return paths outside the
+mutex lifetime while ensuring that every path reaching mutex_destroy() has
+initialized the mutex.
+
+Fixes: 19a81c1426c1 ("[media] add Omnivision OV5640 sensor driver")
+Cc: stable@vger.kernel.org
+
+Found by PatchProof Module 4 candidates
+PILOT-4c6b03072e508260 and PILOT-4f9a36d855eb7c54.
+
+No runtime reproducer was available; the failure path was verified by
+inspection and the affected object was built successfully.
+
+Tested-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Assisted-by: LLM Codex
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/media/i2c/ov5640.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
+index 8deb5f550..36c8bb345 100644
+--- a/drivers/media/i2c/ov5640.c
++++ b/drivers/media/i2c/ov5640.c
+@@ -3930,12 +3930,12 @@ static int ov5640_probe(struct i2c_client *client)
+ 	if (ret)
+ 		return ret;
+ 
++	mutex_init(&sensor->lock);
++
+ 	ret = ov5640_get_regulators(sensor);
+ 	if (ret)
+ 		goto entity_cleanup;
+ 
+-	mutex_init(&sensor->lock);
+-
+ 	ret = ov5640_init_controls(sensor);
+ 	if (ret)
+ 		goto entity_cleanup;
+-- 
+2.34.1
+
