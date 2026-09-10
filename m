@@ -1,86 +1,82 @@
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0635B47D468;
-	Thu, 10 Sep 2026 13:09:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2F003D170E;
+	Thu, 10 Sep 2026 13:11:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789045792; cv=none; b=GjvaqRQAJasAXnajOys1G1wQO3ozjrBMiTp7s0CdW6WfV16YsppQESG3+u2g6Z18Xa2OGUQGZ7ouxJzY/rMP9Ba6M/XsKVggG3xgltUxdfq2YJBOY235OpuvLZEirbJynH39Vy8yDcsyOlxKtGpdvT8rdr2jLDS6oyWURd6ijtg=
+	t=1789045868; cv=none; b=b/D2NePv8zusRR8mNJZK+mjQuOrE5oEAeVy2yc/LvaiMRBtyQwt0M7PhrhAGjFqfp8nzmws52MQXLkjd588nfmqweHBM5wACgqfzQuV9Rs6oO+y0xuITwh51edwK2AbUTi6RZ4sGIbTowzkdULTHiLnKoAvhneNIziQy093MGMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789045792; c=relaxed/simple;
-	bh=uYEll0xRGJQKEXkXknOttnZJWYJjiAm9OIEVvnRtTQI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YYEURAR9SUlu43Lh418ztCK/pnhz4g06QA25gyXPFOFiMvRSLkTYMlnKQAHdqyxL+1ahb3vIsOX4raQKciKE7bW9nNE46PqJMrYgIOylwfKFXOKID1u1zzlqMUBF0yJZQh0InKCceOIxwNeYlDopn0W6xYydifCd9xlu+OAR5tw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=sFFX+OCa; arc=none smtp.client-ip=199.89.1.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1789045868; c=relaxed/simple;
+	bh=ptSGf0EUtsfrMZTPGWMfTo6lCx4wCQ/8IAvvrStwIMw=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=oXSSiAQmp7bs0SDzk8aeKkpKp4H9vF7nsFa4IKOL6KSXalT2wi1/hq4T6MeoRDcrtELBtYbLVnP91SaDSBvL9+VgmOSbIZPTm7bqejYzrHkW1cWS/ZH7vJagf0jls3mF+F3MV4Vsda0YD/hgpvkI1KhSa0XYCqgTsiN7++xOuyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DGU1uwJG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="sFFX+OCa"
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4hgdLc4Y5Yz1XM6JP;
-	Thu, 10 Sep 2026 13:09:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1789045777; x=1791637778; bh=uYEll0xRGJQKEXkXknOttnZJ
-	WYJjiAm9OIEVvnRtTQI=; b=sFFX+OCa1UnWOA0pAOXqKCBomup2w1N5Imnnq6i4
-	Aav+XQ1NVrE7XRYnUtT+Gz2H0WdyNlY4+O5nBRMIMgEdT89yrSwDjhbtoXDfK2QT
-	ZIegW4QU3HavifFZhQazC4Uxa/KmxGRYqIt84T3ZZUG6yg5YYyoT9/OIyplHEvH/
-	RnJ9sGIRVuIVH3tLiXU61Sa6nQ5CZCpymNO7uyzeD2US0s1YE9FdJXInIweTkyO+
-	rtEtEHxXtwD+mJlrBeRmQjBV3hr0mIkOJ1MdB8/hX0nWHn3EkI+f7QaNDJHrO4o1
-	ZDpFMI5FfE9uYPsF29Ce1UXJLHYFDnG3KdfvCtyb47IbfQ==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id 2rNR6jfMuhwf; Thu, 10 Sep 2026 13:09:37 +0000 (UTC)
-Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4hgdLM5xC2z1XM4Sx;
-	Thu, 10 Sep 2026 13:09:31 +0000 (UTC)
-Message-ID: <63f41284-a9ca-4d0e-ba34-096712f27b59@acm.org>
-Date: Thu, 10 Sep 2026 06:09:30 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DGU1uwJG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D41641F000FF;
+	Thu, 10 Sep 2026 13:11:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789045866;
+	bh=HaGfmYDszDSLRdVM6Y2Wg5A2EzV5xTQOnEP5vweaA6w=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=DGU1uwJG4cQcOk3wRgbnME93seAi2Qa5pAXiEypYhSC/PZkwYl6ydB0tGDBSX754d
+	 FYQurFVo1UyjJglxTk7zl+BaXVaqNWdbYA0QK2UOlgqQfaDx5tAy+4V+CCJV94BVSq
+	 KVyJ5vzHCk1waqnVFOUyVUR/SvYZRj3UKNdFvtpehnemqQ9rACdRObztE4IdoSsgUF
+	 8uZpohbreGMHWHMGg4xZ+3l/HENCaG2BvCgKs+TVQ/8VuX2Jdlu+cc8JVdA1b/siHJ
+	 HZ2T2ymuxKCjJdHgx/HYRiPeUTkHVpwCT+tdPcXLnH6tAwj9lnHyboltbJQsa/qwZD
+	 JtDrgFG9LVzVQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93B15380CFEE;
+	Thu, 10 Sep 2026 13:10:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] scsi: ufs: tegra: Add Tegra264 UFS host controller
- driver
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Kartik Rajput <kkartik@nvidia.com>, Alim Akhtar
- <alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, Thierry Reding <treding@nvidia.com>,
- linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260909-tegra264-ufs-v1-0-e4a9831702a0@nvidia.com>
- <20260909-tegra264-ufs-v1-4-e4a9831702a0@nvidia.com>
- <aqFqhNA50674GtPo@monoceros> <45a04396-c6c1-41f4-ace8-0ee0ccbc50ad@acm.org>
- <aqKOipmg5V4oqZlB@monoceros>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <aqKOipmg5V4oqZlB@monoceros>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next] Octeontx2-af: Add WQ_PERCPU to alloc_workqueue
+ users
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178904580439.1422676.5412022463759175920.git-patchwork-notify@kernel.org>
+Date: Thu, 10 Sep 2026 13:10:04 +0000
+References: <20260907094822.121457-1-marco.crivellari@suse.com>
+In-Reply-To: <20260907094822.121457-1-marco.crivellari@suse.com>
+To: Marco Crivellari <marco.crivellari@suse.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, tj@kernel.org,
+ jiangshanlai@gmail.com, frederic@kernel.org, bigeasy@linutronix.de,
+ mhocko@suse.com, sgoutham@marvell.com, lcherian@marvell.com,
+ gakula@marvell.com, jerinj@marvell.com, hkelam@marvell.com,
+ sbhatta@marvell.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com
 
-On 9/10/26 4:21 AM, Uwe Kleine-K=C3=B6nig wrote:
-> What makes you claim that {} is preferred?
+Hello:
 
-There are many more occurrences of " =3D {};" (about 7000) in the Linux
-kernel than of " =3D { };" (about 1500). Additionally, clang-format
-changes any occurrence of " =3D { };" into " =3D {};".
+This patch was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-Thanks,
+On Mon,  7 Sep 2026 11:48:22 +0200 you wrote:
+> This continues the effort to refactor workqueue APIs, which began with
+> the introduction of new workqueues and a new alloc_workqueue flag in:
+> 
+>     commit 128ea9f6ccfb ("workqueue: Add system_percpu_wq and system_dfl_wq")
+>     commit 930c2ea566af ("workqueue: Add new WQ_PERCPU flag")
+> 
+> The refactoring is going to alter the default behavior of
+> alloc_workqueue() to be unbound by default.
+> 
+> [...]
 
-Bart.
+Here is the summary with links:
+  - [net-next] Octeontx2-af: Add WQ_PERCPU to alloc_workqueue users
+    https://git.kernel.org/netdev/net-next/c/ae768e41c03e
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
