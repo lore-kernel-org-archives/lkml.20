@@ -1,239 +1,225 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012029.outbound.protection.outlook.com [52.101.43.29])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80B8A3B14D7;
-	Thu, 10 Sep 2026 06:33:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.29
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789022000; cv=fail; b=utO4+e54vLDdKicv1mPf63QYBqy3nhXC8i63axW1eEhaEm9ew7lxN/d+G1xZIJIkHLD5yTkDmxt56niEEx0QbTp1Od4+sexwgqupWwNOn7DddCkLs0hT+EScqEXV2WxICLUsRORnDaOw9tYQBLu0U7OpuY5tUFb2AbcaZCVNepQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789022000; c=relaxed/simple;
-	bh=IycqQkQrXhhKaFt0paFnfWqqHAh/V8ilbhvKBDvzFwU=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Fpx0XRA4pZyaErAC8/YsFYDuDvS9sB4z+SM+QZMm8trxSR0tkZxtEfgAqoyErm+6udeulJ2scaf/RxK+oEJPZqX62iC22x2VrW3KMqNiYsGY2tFOpzR12+sx74eUta/Y6jwFfQaQfZNdV9rjdXn4YgAV0aDbLFUVV8gxiUfwlvM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=wGrhArVC; arc=fail smtp.client-ip=52.101.43.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE2F3C9456
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 06:33:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789022003; cv=none; b=UHCoVzRu10nbiOAblvTKr9LMC8nqNHHJS+MatlKKD1lGcGT49NxDKKBa/hk6S1/Aw0Q0PIiFOvPuwUiXdZrPRe/6wr5T6FE5Qzgy2xSJvagj/8cLC7LYiyxh3GXgEGJ5LLoksU+Rx8karRLS7HRdtr/d9sAfCtG/r3BgAg0RIUI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789022003; c=relaxed/simple;
+	bh=51sfdZPQFUBdnHJXmz99ay36E45oB8w7ha63rRaSm8s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aofHjqQmqgnLaLjeHMmTA072aKygHV9Te/K18Hn993YDG2DpE+l84up2mvhsusenVosbZ1a9T2EknZ8I/1vDdBYRksBNsxwEw4kxG3TPgC+yIDNORigD5r5SQdfUb8LZHHMZNAo8iQhJc4VnOT1i7aMylOhtg2cYTjsFdH8AtJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=epT/gZxK; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="wGrhArVC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AkzVuVM7En4GuViMGr3Z15UFR3fDFnfvHWI2UaMDArj/AJ/j6m0yFuBPmYdg7CzEuxaMVS/ksErF0itw+b/wZMx5Cm+D6c072e7jtWrMYC7rSbk4Dg0sezSJ/bjNfwIq5WRtft1K9zEUrFJm0jGf482pzKUlgXuO1J4JL/TBvDyDD78BzRrFY6525Etw/6iq8klZudOnwYX0oJvGKEu/5y1FZ+nK7cmfmUqZvqHWDGniRg0OQhwx/OqWIlgDI6v/aF0+wV+1kTE/o60WFEiWLC7unH+k91b7/Z4xj4pGS4Db3IoOdwwOdbEAjAUJ46aE1Wx7sy82qZ8E5M1Ru5+ofw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IycqQkQrXhhKaFt0paFnfWqqHAh/V8ilbhvKBDvzFwU=;
- b=LVkWiuwqjHvj3Hf8UAfp/vu7MW8xbEkvmEVRYOPq8D2EIpAnAn4TJJN7SpR30PoxGmxA6RPJGv8aXYgpBW+EJG6nDZRPSek62Fp6JhOyirrY8bwH2DGpLsPTl6VzBJaCwM/ZGYRXiS5PXyeoqAkV906pGEML71L83HZYgUV11fdrKWzIvOvQvtqhN5oxoRKbH2m1uixOsyAiJB+MhoCMeLqiIDptQt90WS7h6FadB5DdWHRd1nrqErJqN04Y2P9cimP4B+2MUDfzfFXlymEhGO80duuA0D7nqR8Sn+fa0PGT6jH06ZRTQVbiNfpwVKAoqwe/mUSRdm6kMVlrkDoeWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IycqQkQrXhhKaFt0paFnfWqqHAh/V8ilbhvKBDvzFwU=;
- b=wGrhArVCHuIF/6AEox63roBhmruZpHiGjkesJQIfFYe9wXCjXRM34kSIj1XZeHumdSvQFwZEK3QOKXlXg/rpUkJkESwzYK4KjScfO5PgmVeQSaAaUydpxIV8DWfCmAlbs2lZr9oE6W+mPqzUBX31JTp93VZICSuOM5VFwUidxFb8q04XtjoJO5mK01SFKYf0CNH/QhWH81J9q0NiBjEFlZISgREiXvmoZfEHyCO15ZYlPoBjx8nx5LQu2CR0TusSoZsOIP/Bf7C2aGk0JjQbQZhHcZoDvti3MhQQWIWf+8cVbfDcvCi8BIIFaW5AWrrJUS2ivzLArANwVx6DAJ5ZZw==
-Received: from SJ0PR03MB6964.namprd03.prod.outlook.com (2603:10b6:a03:432::18)
- by DM4PR03MB6128.namprd03.prod.outlook.com (2603:10b6:5:397::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Thu, 10 Sep
- 2026 06:33:16 +0000
-Received: from SJ0PR03MB6964.namprd03.prod.outlook.com
- ([fe80::b965:bfa8:58fb:e775]) by SJ0PR03MB6964.namprd03.prod.outlook.com
- ([fe80::b965:bfa8:58fb:e775%4]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
- 06:33:16 +0000
-From: "Nazle Asmade, Muhammad Nazim Amirul"
-	<muhammad.nazim.amirul.nazle.asmade@altera.com>
-To: Xu Yilun <yilun.xu@linux.intel.com>
-CC: "mdf@kernel.org" <mdf@kernel.org>, "yilun.xu@intel.com"
-	<yilun.xu@intel.com>, "trix@redhat.com" <trix@redhat.com>,
-	"linux-fpga@vger.kernel.org" <linux-fpga@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] fpga: altera-cvp: Retry teardown and reset CVP state on
- failure
-Thread-Topic: [PATCH] fpga: altera-cvp: Retry teardown and reset CVP state on
- failure
-Thread-Index: AQHc/xT8Y8Kjjdi9ZEyufi/puUF63rZQ9wMAgHbnVgA=
-Date: Thu, 10 Sep 2026 06:33:15 +0000
-Message-ID: <3c7f3727-7ebe-4493-9749-2ae077aee588@altera.com>
-References:
- <20260618112410.303-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
- <aj6QzEdhvYm7JIYv@yilunxu-OptiPlex-7050>
-In-Reply-To: <aj6QzEdhvYm7JIYv@yilunxu-OptiPlex-7050>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR03MB6964:EE_|DM4PR03MB6128:EE_
-x-ms-office365-filtering-correlation-id: 6292ac80-4a94-4c5e-8375-08df0f056560
-x-ms-exchange-atpmessageproperties: SA
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|5023799004|56012099006|4143699003|3023799007|11063799006|38070700021|10067099003|22082099003|18002099003|55112099003;
-x-microsoft-antispam-message-info:
- st79T5fx0nMOSJh1uvQOhaU5KZTF/ETlHIL/Ez9zgFOFbPsZVy9MwxRKMngAT/16BMLK8LnT7+mztXx2pY6IC+Ck2zu9Lxqyn0ZTGzLdHo+iCaAA20XSzyCHlq/2CcY24/LnhabcTFR19EHecePxfnXpMiyXdSUSbUh6oK/yiTlH2/TZmAaNEQorZB2DHzB+EUxescilvrhZy03KrjcIqIufRzasKTBKRXRjICYk1XedU77iM5kWCEDHyi3v4/Vkv3+mv4Z7ZqgIju4z2vO0cdVdEmxeTn8LpXVJ8EWK/DfSjwstxWmQWkMi9NdNUa4tToP+aEDEA0jMlLaXF6jPeqcb4fqhW9nb+Bp6LZ1NdGXFjtgSpsxCAV3rkDEkCJQytMuDF0C2wru0U9gAaMxYH771W9ZeHi4H8MtLqX0TFxfKybrA8POM3X9v9J3bXYMby5tt82JIca30RwnUmJaypaxvxrLps5HkNk6ENhRU755HpR8L21eXsf5q8qTbOnwyCq6sYdCXcWmCBBZlaGoc/dIbZhkwbDuFC8oFA3lDj5j60eG8QLj0gJ5VH3DJsfkTYI+9VehAfCQb2WZ+KC3eeGR3mphuEJmZmujny7at6Prl+f1GxSAz3PNeoA4Vpe3BD3VzPWVU+zckECpx2dn/lOKvi3xXHE5eCloYx76CKBcYg7ctLMjxCS5n27ed/OQ78n7YBAgUz2eeIgq8B1a6OcF4/lnw+P8Y9Hc/LzNdMOU=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6964.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(5023799004)(56012099006)(4143699003)(3023799007)(11063799006)(38070700021)(10067099003)(22082099003)(18002099003)(55112099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 2
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?OHk1VUVvZTdXOXFEeENZZHFadEsxdWNNQ0dDT1NHaEhEOWZzU08vWFpkUnJj?=
- =?utf-8?B?WjVDcmVDaVhiemFhMWRMSFVkV0JjZTJ6QU9XSmpDdHN0N1dkSmFSUnFYK2pS?=
- =?utf-8?B?azI5WU1KWDhvUC8yVHR5alYrbHFZS2ZzalJjTFUzVkJ1cW9kY1ZKZlpJSmw1?=
- =?utf-8?B?ZnpqTEFaY2tJdDJBcDFETW1qZjIySUNGWFMxZkRqS1hCTzZNangzb1hNUVVG?=
- =?utf-8?B?cnVxZTFKdUxmT0QwMUwweWI1L21QS21BN1dhMVVhWEpiNzJ3ZzZwR25ZeTd0?=
- =?utf-8?B?Mi9JRkpWeUR6emxUT0g2clR0aEU0L2g1THNSNm1kQnFldTNUekU3bmxpUTI5?=
- =?utf-8?B?ZnpvWVY2UGx6WW95b1NSWkwzZFZlOFc4WnQ5OFVXTmEwMXUybi9FMXhoQUp4?=
- =?utf-8?B?eFNYaFA4RTZpSzFTVnF0RUdGL3lESmRzMkwyb1Uvd3dabDUwck5mTGl2S3ov?=
- =?utf-8?B?NmFCTFNxMWhkbE5KR1hybFNRdXpkUkswSC9VbzNyY2FCNFJkeG0wTzVwNUEv?=
- =?utf-8?B?VTZDczBTaEZ3dVVRaWFCR2RxS1ZoRDErQ0h2YWtud1ozaGxOTlpURmZBdy9k?=
- =?utf-8?B?bFZwaENMNk5WWnUzQkozblNxdTdqSk51V0FlK0RLQ0d1TjNHeFRXU3JTQTZm?=
- =?utf-8?B?QVZRbHZ6UzJYV3ExdGIxU21OWWlRZzQ4L3VoSmlQc0N6dVhhK1FRQXBsWjRW?=
- =?utf-8?B?b0pPUnFLN0wyRDFNY01Jek5HZG1Qblp5M2lyRFR2Zks1MkFPd2dHS3VQaW1O?=
- =?utf-8?B?b1FZVGhpc05vOUh4RElyd0NVblQ0NFRGK2ZGS0tTOHdCbUxHbXRYZ2VMeHlP?=
- =?utf-8?B?eHE1RG5xdmM2YVVQMllMenNrMDFsb2hRUmlMc0hqd204U1crVVhHdWxHV3c1?=
- =?utf-8?B?cGZKOWlpbkh3YzZYYm5ldjVQeGxScWp1MEprWXpxcHVOQlNTVnR2T3NXUTBy?=
- =?utf-8?B?MWlqbm5TRUwxRk11SkJ5R2ViNFl0OUZHL1RqVVlYcFRWNTIwem85ZlRyaitN?=
- =?utf-8?B?blQyR1BQK3JUM29LWkdoRkc1aVowcDlJTzIvWWM0RHpuL2pPb0ttYk9GWlM5?=
- =?utf-8?B?M2lmbnQvVEpKT0dncmhjeXJwZ09jMW5CVkVsT0xtMG9ETlp5a0YyY0UxRmhF?=
- =?utf-8?B?bjlseSs2Vk5rVjNlWm5vbVJCYXdEY3RIbThBelJNR3lhWi9pbldYM1IrL0lz?=
- =?utf-8?B?ejBReWJsamJpNGtqbjY1dzc3eHJEYlVTZDdiZTZPQUFwWkh4Qm1hcEcyZStm?=
- =?utf-8?B?MllkdzZidHV5OEw5T0owMzZsU2NOVmJpNlZmamZ2ME1OVGxKTGt6dnprSG5x?=
- =?utf-8?B?aGhNOGZESGZnMWtEVWR4dmFuZWsyS1FFQWQwYXBxelg0d3ZaeDlOd0RYTVZZ?=
- =?utf-8?B?dUNaWGw5anBrcEs5endJb0hYbE94UHdQTFBzSmgrWlZHYVpvbVVNZVBNQkt6?=
- =?utf-8?B?UlVEanJUNFhDUmtqYkFGaE1YaGxZWUFkQ2Nrays4dHViMWlEcnJtVUd3ZFlB?=
- =?utf-8?B?UEU4Zmp3U05ReElsVFcrd0ROSXU4QnNRTUlJTEFFSy9aSnJXbTlCek9oRGxh?=
- =?utf-8?B?WlJpV1BkYnJTd3h0Rk9qUnZTTHNZSWRFdmx5Skg2eWc5WUdSWG5UM3dyZndB?=
- =?utf-8?B?NHR1cVY2eURtRUpHT2dVNS9YcTNZRzJZTDEzNHhHRk1vY0lwMW9USzZuQUFr?=
- =?utf-8?B?elVwV012aXVOdkw0bVNZNzc1d1NLWWZXcVRVK2d0NVFFcDBHcDZUN09hT1NO?=
- =?utf-8?B?NGtmWGNQYld2WkxkUGdiL1lQci9taWhXbm9jdFg4SXZBa2Fxc2NtTlVNR0lO?=
- =?utf-8?B?cXJYOXZKMUtpa0ZPSnJTVDZWclJwY0xpTjQ4Umllb0o0cDFaZkVrMDA2U3VV?=
- =?utf-8?B?UVMzZjVieHNTQXpJZmhhOHcyOVlrVHdwajRtaDI3VjE3VGVmajVIRjZ5VHBV?=
- =?utf-8?B?ME82ZGMzaDBXYzBKVFdIZ0NSd29PSkJoVzRkZGlUM25lOGF3N0Q0ZDNGRnJW?=
- =?utf-8?B?ZWxKWXlQWHBPNHc2dmtBZ0p3STNsMnZtcWZzZnRUR3k1ay9XaEVsbTNXZkRD?=
- =?utf-8?B?NjV0WlBZdTBGbURpZnE4MG5lVCtVUkFUcnd0bzE1R28yTEs0UDFjd3ZqOFFm?=
- =?utf-8?B?VzV2RkpYaGh5bm5hdnArUm1UcHlDZFlCY3FhYUU5VzlNSUowR3V5ZzlseDBr?=
- =?utf-8?B?M3pKL3Mra2JJcTF4Tkt2ZkFlZ01KemFDWm93K2xiYmlndzFGeHduT2ZGRGF5?=
- =?utf-8?B?bVh1SHUweFZadkd2WG9YQUdCdGR1ZVRFNWExRFNwQTkvVk1kaWxtdmIrSFF2?=
- =?utf-8?B?dHFZd0sxMmxidXZVc3JMRHMvVGg2bFlnNGd6Nkt1Zkt6L2VJTzJEbjVkZk5u?=
- =?utf-8?Q?CZpJVby4G3M+2EgU3f9mmE3altAtsYxJCfcuqMk6qOmLH?=
-x-ms-exchange-antispam-messagedata-1: 2gBmAnQx2zSddA==
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <DB0484007CAA07409FE7C8C3E2F1C0BA@namprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="epT/gZxK"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2cace91f112so58042355ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 23:33:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1789022001; x=1789626801; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rAd33FXhTKmE+GxkEc0xfvfKe/VbGJPr1z8AjG4R4y8=;
+        b=epT/gZxKbGsj21TtfOrh+Ftkq0JG7u+zI41QjarQh7nJwYg67UHaOZHkiqz6oGo5AE
+         x/8DQAlCqP48HaDeLmh3llNKE2/iOmWPyHAfQVj0/mz8xfAz9VDMdM1Ew+zUeogoQUBy
+         6utPoNyGWcZud0UXSBe7HIlPzmDRcjonr5T1u547ad/esnHi3IcFu5JtmvvyiHrMQ6b3
+         5r5K5qSn7MIynkitUCKc2RBqOOsWvurDuO4VTXHOF5QUFnlOEL9+ujAq9n0sseDQuKtC
+         6yZVcPykUQOyuDk2RhlcQxA3F40eEERaP2uTDfSF0ZZTqZkh5G4t2d/HlOhXJYKL3ZcB
+         KK5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789022001; x=1789626801;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rAd33FXhTKmE+GxkEc0xfvfKe/VbGJPr1z8AjG4R4y8=;
+        b=onmoaSPgjxhvDclhorWu0nb6cYcRFbhhAQWho16X/te8BaB5GvejcjPUDsChTb7rHg
+         73WX2c2YhSk3HFAA6XiA+b/5DlWUIzNCr6MZ2pIw2nRSC3sKkYPkhsFo+nmykJPpTQ+K
+         5qg28OIClPURUKhGU1b5lgzZuBn3X8W9tL9NvGt63yu4HKOZ8LsOUKTOs/cMtdWjniv7
+         ZgAoykMZoC1/ORMNs8hSE13yC2GQ2/XSysOUSZ/KPAI4PLqQmkSlCUc6Bd/ZtHfjbrid
+         RgpVj9tipsm0PWb9kK+WuW3BDvIiE+0+AD/bUlzujVtjIYjHo7MxeHaZ3LjnOB6mTLYF
+         X4CQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxNpZv4FCkBodIvu6Ygm5MwRny+GhXPY/qpHZkxG8uWKNVDwVY9b3nVU+rDVntz1ysEebnhsNK10UnYfwA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwiISmmTAMR8lmomwpW6i+no6NVgtHc8VL8D+DhfLGGx7S/0Lm
+	lCGk13fd9feIQiNtlG5Z6xjTazcrayjOWCk4PabxNwbcwDK/4ouEGEcx4k78R1qodwE=
+X-Gm-Gg: AYBFou0ut+gFaukWoV7Rk5NRV8vo/FVoc755HkrIdKpSlYGgOKXOMcOebj1eId7wvno
+	4a5X2rPlz76htRRzAiM1qTZwEG7CCpVGXjN3lnY7hQpgzzAVPbZZxe7cEJRR8zW2SgAMxbrJLle
+	MoTIQ80ZkVp/83Ba6GXHD0HyVBLj6IFcnRZDRdFkRTlroxfIxrRgTNdaSuzClHJytjuTwt0ugEy
+	U1GfIm6XyIDvzO7wikDVab/X3RbBYI9w1LGsKLwVAA+trtdlH2YKgIGY+IKitfaciLVxlBJ4sHa
+	etWy+SFqpthYwEaPqE6zajq4UWGe3WMFfIfEegVvtUjhM30CyQDEBuyFn8E/TvAlAGH9pyaDooc
+	rjAVtpBcsMR8e/G331zLJB/SHVWXE5qB7dtJmmG77dENK3yFPEmRbU9ef3HxEi3a9Z/1/7s8WBU
+	YGtfKsPDiMEUBwZrO8ZfMX5GeqkL6wb8Q98XDnGyN/szGvurhYe3PFG1LyBN/HnxMS5df+BTBYm
+	5hkpPr0IZbMK4RMoMGD79Sx8K0n729oDMDpFuHcr3tdrg==
+X-Received: by 2002:a17:90b:3c45:b0:398:9beb:5c19 with SMTP id 98e67ed59e1d1-39b26232bb1mr58417921a91.20.1789022000528;
+        Wed, 09 Sep 2026 23:33:20 -0700 (PDT)
+Received: from G6L4RL2QG9.bytedance.net ([61.213.176.7])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d84fdbae4sm1213094a91.14.2026.09.09.23.33.16
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 09 Sep 2026 23:33:19 -0700 (PDT)
+From: Muchun Song <songmuchun@bytedance.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Oscar Salvador <osalvador@suse.de>,
+	David Hildenbrand <david@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	David Laight <david.laight.linux@gmail.com>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Muchun Song <songmuchun@bytedance.com>,
+	Muchun Song <muchun.song@linux.dev>
+Subject: [PATCH v6 00/17] mm: Introduce section-based vmemmap optimization for HugeTLB
+Date: Thu, 10 Sep 2026 14:32:39 +0800
+Message-ID: <20260910063256.64386-1-songmuchun@bytedance.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6964.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6292ac80-4a94-4c5e-8375-08df0f056560
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Sep 2026 06:33:15.9045
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ZxWQ9VOAhKAY4eF/L0dM6SfgYSjCLP46GKO5+Bz3fSNVoVAJEDh43TzxHVrKjj1Q/LsFHR0YAH22SCtYfikDJ5A62uorQ0OjBSC1Coeu6Gwc9/ecHE+3c30653JScdMxCmjxBugPRdYawMk+s3DJnw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR03MB6128
+Content-Transfer-Encoding: 8bit
 
-T24gMjYvNi8yMDI2IDEwOjQ2IHBtLCBYdSBZaWx1biB3cm90ZToNCj4gW1lvdSBkb24ndCBvZnRl
-biBnZXQgZW1haWwgZnJvbSB5aWx1bi54dUBsaW51eC5pbnRlbC5jb20uIExlYXJuIHdoeSB0aGlz
-IGlzIGltcG9ydGFudCBhdCBodHRwczovL2FrYS5tcy9MZWFybkFib3V0U2VuZGVySWRlbnRpZmlj
-YXRpb24gXQ0KPiANCj4gT24gVGh1LCBKdW4gMTgsIDIwMjYgYXQgMDQ6MjQ6MTBBTSAtMDcwMCwg
-bXVoYW1tYWQubmF6aW0uYW1pcnVsLm5hemxlLmFzbWFkZUBhbHRlcmEuY29tIHdyb3RlOg0KPj4g
-RnJvbTogTmF6aW0gQW1pcnVsIDxtdWhhbW1hZC5uYXppbS5hbWlydWwubmF6bGUuYXNtYWRlQGFs
-dGVyYS5jb20+DQo+Pg0KPj4gSWYgYW4gaW5jb3JyZWN0IGJpdHN0cmVhbSBpcyBzZW50LCB0aGUg
-dGVhcmRvd24gbWF5IGZhaWwgZHVlIHRvIGENCj4+IENGR19SRFkgdGltZW91dC4gV2hlbiB0aGlz
-IGhhcHBlbnMsIHJlc2V0IENWUF9NT0RFIGFuZCBISVBfQ0xLX1NFTA0KPiANCj4gUGxlYXNlIGRv
-bid0IGp1c3QgdGVsbCB0aGUgcmVnaXN0ZXIgbmFtZSwgdGVsbCB1cyB3aGF0IGlzIHRoZSBoYXJk
-d2FyZQ0KPiBtZWNoYW5pc20gaW4gbmF0dXJlIEVuZ2xpc2guDQpUaGUgZHJpdmVyIGJ5IGRlZmF1
-bHQgd2lsbCBwb2xsIGZvciBDRkdfUkRZPTAgYXMgYSBub3RpZmljYXRpb24gZnJvbSB0aGUgDQpl
-bmRwb2ludCBkZXZpY2UgdGhhdCBpdCBoYXMgY29tcGxldGVkIGl0cyB0ZWFyZG93biBzZXF1ZW5j
-ZSBvbiBpdHMgZW5kLCANCnNvIHRoZSBkcml2ZXIgY2FuIHNhZmVseSByZXN0YXJ0IGEgbmV3IHNl
-c3Npb24uIEluIHRoZSBldmVudCB3aGVyZSB0aGUgDQpkcml2ZXIgdGltZWQgb3V0IG9uIHBvbGxp
-bmcgZm9yIHRoZSB0ZWFyZG93biBjb21wbGV0ZSBub3RpZmljYXRpb24sIHRoZSANCmRyaXZlciB3
-aWxsIHByb2NlZWQgdG8gYSByZWNvdmVyeSBmbG93IGJ5IGZpcnN0IHN3aXRjaGluZyB0aGUgY2xv
-Y2sgDQooSElQX0NMS19TRUwpIG9uIHRoZSBlbmQgcG9pbnQgdGhhdCBmZWVkIHRoZSBDRkdfUkRZ
-IHJlZ2lzdGVyLCBhbmQgdGhlbiANCnJlYXR0ZW1wdCB0byByZWFkIHRoZSBDRkdfUkRZIHJlZ2lz
-dGVyIGFnYWluLiBUaGUgQ0ZHX1JEWSByZWdpc3RlciBtYXkgDQpnZXQgc3R1Y2sgb24gSElQX0NM
-S19TRUw9MCBpZiB0aGUgZGV2aWNlIGhhcyBleGl0ZWQgdXNlcm1vZGUgcHJpb3IgdG8gDQp0aGUg
-cG9sbCwgYW5kIGhlbmNlIHRoZSBkcml2ZXIgd2lsbCBoYXZlIHRvIHN3aXRjaCB0aGUgY2xvY2sg
-YW5kIHRoZW4gDQpyZWF0dGVtcHQgdGhlIHJlYWQgYWdhaW4uIEFuZCB0aGlzIGV4cGxhaW5zIHdo
-eSB3ZSBuZWVkIHRvIGF0IGxlYXN0IA0KcmVhdHRlbXB0IHRlYXJkb3duIG9uZSBtb3JlIHRpbWUs
-IGFzIHRoZSAybmQgdGVhcmRvd24gaW5jbHVkZXMgdGhlIGNsb2NrIA0Kc3dpdGNoPg0KPj4gYml0
-cyB0byBjbGVhbiB1cCB0aGUgaGFyZHdhcmUgc3RhdGUgYW5kIHJldHVybiAtRUFHQUlOLCBhbGxv
-d2luZyB0aGUNCj4gDQo+IFBsZWFzZSBoZWxwIG1lIHVuZGVyc3RhbmQgd2h5IHRoZSB0ZWFyZG93
-biBmYWlscyBhbmQgd2h5IGEgY2xlYW4gdXAgc2F2ZQ0KPiB0aGUgd29ybGQuDQpUZWFyZG93biB3
-YWl0cyBmb3IgQ0ZHX1JEWSB0byBjbGVhci4gQSBiYWQgYml0c3RyZWFtIGNhbiBsZWF2ZSB0aGF0
-IA0Kc3R1Y2ssIHNvIHRlYXJkb3duIHRpbWVzIG91dCB3aGlsZSB0aGUgZGV2aWNlIGlzIHN0aWxs
-IGluIEN2UCBtb2RlLg0KDQpSZXRyeWluZyB0ZWFyZG93biBhbG9uZSBpcyBub3QgZW5vdWdoLiBF
-eGl0aW5nIEN2UCBtb2RlIGZpcnN0IHJldHVybnMgDQp0aGUgaGFyZHdhcmUgdG8gaWRsZSwgc28g
-dGhlIG5leHQgdGVhcmRvd24gY2FuIGZpbmlzaCBjbGVhbmx5LiBUaGUgMm5kIA0KdGVhcmRvd24g
-ZG9lcyBtb3JlIHRoYW4ganVzdCByZXRyeSwgYnV0IGFsc28gaW5jbHVkZSBDVlBfTU9ERSBjbGVh
-ciBhbmQgDQpjbG9jayBzd2l0Y2guPg0KPj4gY2FsbGVyIHRvIHJldHJ5LiBJbnRyb2R1Y2UgYWx0
-ZXJhX2N2cF9yZWNvdmVyeSgpIHRvIHdyYXAgdGhpcyByZXRyeQ0KPj4gbG9naWMgd2l0aCBhIG1h
-eGltdW0gb2YgQ1ZQX1RFQVJET1dOX01BWF9SRVRSWSBhdHRlbXB0cy4NCj4gDQo+IFdoeSBzaG91
-bGQgd2UgcmV0cnkgbXVsdGlwbGUgdGltZXM/DQpCYXNpY2FsbHkgYnkgZG9pbmcgYW5vdGhlciBy
-ZXRyeSBhbHdheXMgd29ya3MgYW5kIHN1ZmZpY2llbnQgYmVjYXVzZSANCndoZW4gZmlyc3QgdGVh
-cmRvd24gZmFpbHMsIHN3aXRjaGluZyBISVBfQ0xLX1NFTCB3aWxsIG1ha2UgdGhlIA0KQ1ZQX1NU
-QVRVUyByZWdpc3RlciBiZWNvbWVzIHJlc3BvbnNpdmUgYWdhaW4+DQo+Pg0KPj4gU2lnbmVkLW9m
-Zi1ieTogTmF6aW0gQW1pcnVsIDxtdWhhbW1hZC5uYXppbS5hbWlydWwubmF6bGUuYXNtYWRlQGFs
-dGVyYS5jb20+DQo+PiAtLS0NCj4+ICAgZHJpdmVycy9mcGdhL2FsdGVyYS1jdnAuYyB8IDM2ICsr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLQ0KPj4gICAxIGZpbGUgY2hhbmdlZCwg
-MzMgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkNCj4+DQo+PiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9mcGdhL2FsdGVyYS1jdnAuYyBiL2RyaXZlcnMvZnBnYS9hbHRlcmEtY3ZwLmMNCj4+IGlu
-ZGV4IDQ0YmFkZmQxMWUxYi4uMjlmYWY2ZjViZGUxIDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVycy9m
-cGdhL2FsdGVyYS1jdnAuYw0KPj4gKysrIGIvZHJpdmVycy9mcGdhL2FsdGVyYS1jdnAuYw0KPj4g
-QEAgLTYzLDYgKzYzLDggQEANCj4+ICAgI2RlZmluZSBBTFRFUkFfQ1ZQX1YxX1NJWkUgICA0DQo+
-PiAgICNkZWZpbmUgQUxURVJBX0NWUF9WMl9TSVpFICAgNDA5Ng0KPj4NCj4+ICsvKiBUZWFyLWRv
-d24gcmV0cnkgKi8NCj4+ICsjZGVmaW5lIENWUF9URUFSRE9XTl9NQVhfUkVUUlkgMTANCj4+ICAg
-LyogT3B0aW9uYWwgQ3ZQIGNvbmZpZyBlcnJvciBzdGF0dXMgY2hlY2sgZm9yIGRlYnVnZ2luZyAq
-Lw0KPj4gICBzdGF0aWMgYm9vbCBhbHRlcmFfY3ZwX2Noa2NmZzsNCj4+DQo+PiBAQCAtMzA1LDEy
-ICszMDcsNDAgQEAgc3RhdGljIGludCBhbHRlcmFfY3ZwX3RlYXJkb3duKHN0cnVjdCBmcGdhX21h
-bmFnZXIgKm1nciwNCj4+ICAgICAgICAvKiBTVEVQIDE1IC0gcG9sbCBDVlBfQ09ORklHX1JFQURZ
-IGJpdCBmb3IgMCB3aXRoIDEwdXMgdGltZW91dCAqLw0KPj4gICAgICAgIHJldCA9IGFsdGVyYV9j
-dnBfd2FpdF9zdGF0dXMoY29uZiwgVlNFX0NWUF9TVEFUVVNfQ0ZHX1JEWSwgMCwNCj4+ICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbmYtPnByaXYtPnBvbGxfdGltZV91cyk7
-DQo+PiAtICAgICBpZiAocmV0KQ0KPj4gKyAgICAgaWYgKHJldCkgew0KPj4gICAgICAgICAgICAg
-ICAgZGV2X2VycigmbWdyLT5kZXYsICJDRkdfUkRZID09IDAgdGltZW91dFxuIik7DQo+PiArICAg
-ICAgICAgICAgIGdvdG8gZXJyb3JfcGF0aDsNCj4+ICsgICAgIH0NCj4+DQo+PiAgICAgICAgcmV0
-dXJuIHJldDsNCj4+ICsNCj4+ICtlcnJvcl9wYXRoOg0KPj4gKyAgICAgLyogcmVzZXQgQ1ZQX01P
-REUgYW5kIEhJUF9DTEtfU0VMIGJpdCAqLw0KPj4gKyAgICAgYWx0ZXJhX3JlYWRfY29uZmlnX2R3
-b3JkKGNvbmYsIFZTRV9DVlBfTU9ERV9DVFJMLCAmdmFsKTsNCj4+ICsgICAgIHZhbCAmPSB+VlNF
-X0NWUF9NT0RFX0NUUkxfSElQX0NMS19TRUw7DQo+PiArICAgICB2YWwgJj0gflZTRV9DVlBfTU9E
-RV9DVFJMX0NWUF9NT0RFOw0KPj4gKyAgICAgYWx0ZXJhX3dyaXRlX2NvbmZpZ19kd29yZChjb25m
-LCBWU0VfQ1ZQX01PREVfQ1RSTCwgdmFsKTsNCj4gDQo+IFB1dCB0aGUgcmVzZXQgaW4geW91ciBy
-ZWNvdmVyeSBsb29wLg0KPiANCj4gQW5kIGlmIHRoZSBjb2RlIGJsb2NrIGRvZXMgYSBtZWFuaW5n
-ZnVsIGpvYiwgZG9uJ3QgY29weSBhbmQgcGFzdGUgaXQNCj4gZXZlcnl3aGVyZSwgbWFrZSBhIGhl
-bHBlci4NCkFncmVlZCwgd2lsbCBjcmVhdGUgYSBoZWxwZXIgPg0KPj4gKw0KPj4gKyAgICAgcmV0
-dXJuIC1FQUdBSU47DQo+PiArDQo+PiAgIH0NCj4+DQo+PiArc3RhdGljIGludCBhbHRlcmFfY3Zw
-X3JlY292ZXJ5KHN0cnVjdCBmcGdhX21hbmFnZXIgKm1nciwNCj4+ICsgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBzdHJ1Y3QgZnBnYV9pbWFnZV9pbmZvICppbmZvKQ0KPj4gK3sNCj4+ICsgICAg
-IGludCByZXQgPSAwLCByZXRyeSA9IDA7DQo+IA0KPiBUcnkgbm90IHRvIGluaXRpYWxpemUgbG9j
-YWwgdmFyaWFibGVzIHRoYXQgd2lsbCBhbHdheXMgYmUgb3ZlcndyaXR0ZW4NCj4gbGF0ZXIuDQpB
-Z3JlZWQuIFdpbGwgdXNlIGludCByZXQsIHJldHJ5OyB3aXRob3V0IGluaXRpYWxpemluZyB0aGVt
-Lg0KPiANCj4+ICsNCj4+ICsgICAgIGZvciAocmV0cnkgPSAwOyByZXRyeSA8IENWUF9URUFSRE9X
-Tl9NQVhfUkVUUlk7IHJldHJ5KyspIHsNCj4+ICsgICAgICAgICAgICAgcmV0ID0gYWx0ZXJhX2N2
-cF90ZWFyZG93bihtZ3IsIGluZm8pOw0KPj4gKyAgICAgICAgICAgICBpZiAoIXJldCkNCj4+ICsg
-ICAgICAgICAgICAgICAgICAgICBicmVhazsNCj4gDQo+IE5vdGhpbmcgdG8gZG8gb24gc3VjY2Vz
-cywganVzdCByZXR1cm4gMDsNCldpbGwgZml4IGluIHYyPg0KPj4gKyAgICAgICAgICAgICBkZXZf
-d2FybigmbWdyLT5kZXYsDQo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIiVzOiBb
-JWRdIFRlYXItZG93biBmYWlsZWQuIFJldHJ5aW5nXG4iLA0KPj4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIF9fZnVuY19fLA0KPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHJldHJ5KTsNCj4gDQo+IFlvdSBkbyBkZXZfZXJyKCkgaW4gYWx0ZXJhX2N2cF90ZWFyZG93bigp
-LCBkb2VzIHRoZSB3YXJuIHByb3BlciBwcmludA0KPiBsZXZlbD8NCkFncmVlZC4gYWx0ZXJhX2N2
-cF90ZWFyZG93bigpIGFscmVhZHkgZG9lcyBkZXZfZXJyKCkgb24gdGhlIENGR19SRFkgDQp0aW1l
-b3V0LiBJbiB2MiBJIHdpbGwgZHJvcCB0aGUgcGVyLXJldHJ5IGRldl93YXJuKCksIGFuZCBvbmx5
-IHByaW50IG9uZSANCmZpbmFsIGRldl9lcnIoKSBhZnRlciBhdHRlbXB0cyBmYWlsLg0KPiANCj4g
-QW5kIG5vdCBzdXJlIGlmIHRoZSAxMC10aW1lcyByZXRyeSBpcyBleHBlY3RlZCBvciBub3QsIGlm
-IHllcywgeW91DQo+IHJlYWxseSBkb24ndCBoYXZlIHRvIHllbGwgb3V0IGFnYWluIGFuZCBhZ2Fp
-bi4gSWYgbm90LCBwbGVhc2UgZmluZA0KPiBkZWNlbnQgc29sdXRpb24uDQpBZ3JlZWQgb24gcmVt
-b3ZpbmcgdGhlIHBlci1pdGVyYXRpb24gInJldHJ5aW5nIiBwcmludCwga2VlcCBpdCBhcyBvbmUg
-DQp0aW1lIG9ubHkuDQoNCkhpIFlpbHVuLA0KUmVwbGllZCBhcyBhYm92ZSwgIHNvcnJ5IGZvciB0
-aGUgZGVsYXkgYXMgSSB3YXMgZGlzdHJhY3RlZCBieSBzb21lIA0KaXNzdWVzLiBXaWxsIHJlcG9z
-dCBmaXhlcyBhYm92ZSBpbiBWMiBpZiB5b3UgYXJlIG9rIHdpdGggcmVwbGllZCBhYm92ZS4NCg0K
-QlIsDQpOYXppbQ0KDQo=
+This series is split out from the earlier, larger series "mm: Generalize
+HVO for HugeTLB and device DAX" [1]. While the parent series generalizes
+vmemmap optimization across HugeTLB and device DAX, this subset addresses
+a single, self-contained step: making the generic sparse-vmemmap code
+section-based optimization aware and switching HugeTLB bootmem pages to
+this path.
+
+HugeTLB vmemmap optimization currently has its own early boot setup
+path. It pre-populates optimized vmemmap mappings before the normal
+sparse-vmemmap population code runs, and sparsemem carries
+SPARSEMEM_VMEMMAP_PREINIT only to support that special case.
+
+That makes the HugeTLB vmemmap optimization path harder to share with
+other users of sparse-vmemmap optimization and leaves a fair amount of
+HugeTLB-specific boot-time state in the generic memory initialization
+flow.
+
+This series introduces section-based vmemmap optimization support in
+the sparse-vmemmap code and switches HugeTLB bootmem pages over to it.
+Instead of having HugeTLB pre-populate optimized vmemmap mappings
+itself, HugeTLB now records the compound page order in the corresponding
+memory sections. The generic sparse-vmemmap population path can then
+allocate or reuse shared tail vmemmap pages based on section metadata.
+
+The patches are organized as follows:
+
+  - patches 1-2 prepare sparsemem and vmemmap optimization metadata
+  - patches 3-8 teach the common sparse-vmemmap paths to use that state
+  - patches 9-10 switch HugeTLB bootmem optimization to the
+    section-based path
+  - patches 11-17 clean up sparsemem and HugeTLB bootmem code that is no
+    longer needed after the conversion
+
+This is intended to be the second smaller step toward the broader HVO
+generalization. The device DAX conversion and the wider HVO
+consolidation are left for follow-up series.
+
+v6:
+- Rename the section order field and helpers to use compound page order
+  terminology (suggested by David Hildenbrand).
+- Clarify when shared tail vmemmap pages are initialized and drop an
+  inaccurate sparse_sections_init() comment (suggested by David
+  Hildenbrand).
+- Make the local vmemmap allocation size const (suggested by David
+  Hildenbrand).
+- Collect Reviewed-by/Acked-by tags from Mike Rapoport, Qi Zheng and
+  David Hildenbrand.
+
+v5:
+- Add comments for pageblock migratetype helper callers and shared tail
+  vmemmap skipping (suggested by Mike Rapoport).
+- Move section_nr_vmemmap_pages() earlier under its own
+  CONFIG_MEMORY_HOTPLUG block to avoid code movement in the later
+  visibility change (suggested by Mike Rapoport).
+- Add vmemmap_alloc_pte() to keep PTE allocation handling clearer
+  (suggested by Mike Rapoport).
+- Collect Reviewed-by/Acked-by from Mike Rapoport.
+
+v4:
+- Rename pfn_vmemmap_optimizable() to vmemmap_optimizable_pfn() for
+  consistency with vmemmap_optimizable_order().
+- Move section_nr_vmemmap_pages() outside CONFIG_MEMORY_HOTPLUG to fix
+  CONFIG_MEMORY_HOTPLUG=n builds (reported by kernel test robot).
+
+v3:
+- Replaced the !SPARSEMEM __pfn_to_section() stub with
+  pfn_to_section_order() so callers can keep mem_section access inside
+  sparse helpers (suggested by Mike Rapoport).
+- Added vmemmap_optimizable_order() for order-based vmemmap
+  optimization checks and used it for HugeTLB bootmem decisions.
+- Fixed the pfn_to_zone() commit message to name mm/mm_init.h instead
+  of mm/internal.h.
+- Collected Acked-by tags from Mike Rapoport.
+
+v2:
+- Kept struct mem_section aligned after relaxing lookup constraints
+  (suggested by David Laight).
+- Folded section order tracking into the first user instead of keeping
+  a standalone API-only patch (suggested by Mike Rapoport).
+- Renamed the HVO order macros with a VMEMMAP_OPTIMIZATION prefix
+  (suggested by Mike Rapoport).
+- Moved pfn_to_zone() before the sparse-vmemmap optimization changes
+  (suggested by Mike Rapoport).
+- Kept vmemmap accounting and population logic in sparse-vmemmap.c
+  (suggested by Mike Rapoport).
+- Renamed the early sparsemem helper to sparse_sections_init()
+  (suggested by Mike Rapoport).
+- Fixed the !SPARSEMEM stub name so SPARSEMEM=n builds compile
+  (reported by Sashiko).
+- Guarded section_order() with CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP so
+  it returns 0 when HVO is disabled and lets the compiler optimize the
+  code as much as possible (suggested by Mike Rapoport).
+- Collected Acked-by tags from Mike Rapoport.
+
+[1] https://lore.kernel.org/all/20260513130542.35604-1-songmuchun@bytedance.com/
+
+Muchun Song (17):
+  mm/sparse: relax struct mem_section size constraints
+  mm/sparse-vmemmap: rename HVO order macros
+  mm/mm_init: skip initializing shared vmemmap tail pages
+  mm/sparse-vmemmap: initialize shared tail vmemmap pages on allocation
+  mm/sparse-vmemmap: support section-based vmemmap accounting
+  mm/mm_init: factor out pfn_to_zone()
+  mm/sparse-vmemmap: move helpers ahead of future callers
+  mm/sparse-vmemmap: support section-based vmemmap optimization
+  mm/sparse: initialize memory sections earlier
+  mm/hugetlb: switch HugeTLB to section-based vmemmap optimization
+  mm/sparse-vmemmap: remove SPARSEMEM_VMEMMAP_PREINIT support
+  mm/sparse: inline usemap allocation into sparse_init_nid()
+  mm/sparse: remove section_map_size()
+  mm/hugetlb: remove HUGE_BOOTMEM_HVO
+  mm/hugetlb: remove HUGE_BOOTMEM_CMA
+  mm/hugetlb: localize struct huge_bootmem_page
+  mm/hugetlb: localize HUGE_BOOTMEM_ZONES_VALID
+
+ arch/x86/Kconfig        |   1 -
+ fs/Kconfig              |   1 -
+ include/linux/hugetlb.h |   5 -
+ include/linux/mm.h      |   4 -
+ include/linux/mmzone.h  |  66 ++++--------
+ mm/Kconfig              |   5 -
+ mm/hugetlb.c            |  65 ++++--------
+ mm/hugetlb_vmemmap.c    | 103 +-----------------
+ mm/hugetlb_vmemmap.h    |  13 +--
+ mm/internal.h           |   7 --
+ mm/mm_init.c            |  69 ++++++++-----
+ mm/mm_init.h            |   1 +
+ mm/sparse-vmemmap.c     | 224 +++++++++++++++++++---------------------
+ mm/sparse.c             |  93 +++--------------
+ mm/sparse.h             |  88 ++++++++++++++++
+ scripts/gdb/linux/mm.py |   6 +-
+ 16 files changed, 302 insertions(+), 449 deletions(-)
+
+
+base-commit: 219467624544a1dd72e2022a442741e66766e39a
+-- 
+2.54.0
+
