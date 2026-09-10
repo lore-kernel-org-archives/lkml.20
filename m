@@ -1,227 +1,296 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0B524FC8C3
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:00:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D91A95328D7
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:01:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789059666; cv=none; b=QZvY+/pyoY+TZuPzYssx/JkFZSTh0cF/0pni7Qc90HOo+t35Ago00+7eMKeYWMSGkI9uiwHUXWnSt4jVCyhncovA/oo5UArH2XIQZkZP2+c1xhN/XEtb8HCbcvOgi4U8FBglbYUdpbPY55FjPsj6rlv5OBN03B2cFZVEz3+rROg=
+	t=1789059694; cv=none; b=dDRDfxxbOnQ8Tcabi1BW91FNWIKZ3b6171KQ7XEG7t0I83383y4U0l1SKb7BvqRqzy651fIpuyYVu5bsCD46sxd0e+XKBkeWTjR1ALzO8g/Z2/emwQ4iL1p70AoV/p9Ba1p37n+kUJeSeyT1jmG2WZFMkQo5usMmaq3g8jS/z0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789059666; c=relaxed/simple;
-	bh=Llh5B20qiT9l+CISLN3EMkjfjjA3OY1FAbjV2PjhrNc=;
+	s=arc-20240116; t=1789059694; c=relaxed/simple;
+	bh=Ei4isc6EL6nQpo/6xwk45M5AkvdYoGTpZe0ZnGkjvMo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cTNaPEXt8m1UCKMV5EwgLY20TPJHAGVPpz4+DNrZexkhGt2HMNtLTWOWmBW/KyLxgyAIAMByx5r27YIDn+cpF8KahZ+RbetJZNnnvZqYWYb14XXBeENhmu+NYhvTlxJY1IpPMK+Z9kdHMRauTtB2dLYKOaorh0vewHGXNPZ6JaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H2MQqVNz; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=HspMAhgiQcmcVk8IoU7FatndxLzZFJ4zzxcvAli2kIZ1IzDcBNltCCI7eKdwUdm/2DVc8El+WEqUZfWNo5LgmoAb0idXuKrsjKNdmK2BjSh9AtTgdWEmOiULtQo2n6NwhB2OYl4Mx6fkdNWLNw9LrqzPUVsPRaqb2SUMOM52XW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=vdnSiROo; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H2MQqVNz"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b2ad83dc6so1510187a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 10:00:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789059652; x=1789664452; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0/NIUjuuCPvMzukokndyP3uQpFaIojJ8VScY7Mca6Ns=;
-        b=H2MQqVNzOtPdbQPbWmo1HS/090XyrsJvAn7/RMXXnI4H1yGLD82flKuziiQNtAosGV
-         775f+gJGPC8FbEIPVJ/R/XbgrtdfE+Nr5mgU5KPAUpEfCNnzQTNmxSNAv2jd2hwUogQE
-         erhRg123odsPewAsSlQI1NG80KWlD9d70UoUCArgNuZahqrNSTObNl0EeT2+HZcZPAJK
-         bXeCwbsB1/djxUsrzcFtG4ekZsGJKHf9l+2+YQCHVZQmP+/yI7YckjPi/LbQ8YgHZ80B
-         4NbAoIilIjqOBCzOvS30dR3D3tTb6VlKG+iIrEobpMkV1Rv38ZbILfA+Wqe/Y49xQlOP
-         bFLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789059652; x=1789664452;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0/NIUjuuCPvMzukokndyP3uQpFaIojJ8VScY7Mca6Ns=;
-        b=l1FiyJsNpAzR5i9trHJLksoyON6RvRK/9JeJzCnuo/4B0tlemlxwIH/C4yAot2wqpO
-         UtfrFn+h3ULjy7F9e7DfXVvK3WBz8lujeJWDGxFXOEVwLlUwnJHdMD3o+3pKQ/J4IBQW
-         e6Hm45IAnrcnW9rw70zdSAGx15JS515idztNW29QO6j8c11peFg+avS0XIiZPwrcvC2W
-         bY9cfJHvDWW486OhV642oKiIVuZXEth+X9HqJsbSl38NLdWjJQVpA8lfh72Em2dpgt2I
-         sQcVt+QfrgT0T67IwO/w6G+EfNdz1djFz7JmT3SAuwhK0UgoxvOrFIlGdKRmPDFdbFPU
-         nWLA==
-X-Forwarded-Encrypted: i=1; AKwUvByKTfbBDzStvzWL6Bskx+4qjn+D6QfsFMLZytGDmaKolufe8aoqgJWhlqs4jRsKXeZwAMotDws51swZtjk=@vger.kernel.org
-X-Gm-Message-State: AFuF++n0hFPl2ISl0LgG5XxIcAiAbnrUz1Eo67PejI+joquOEwnTUDFU
-	8FIprBXcxk826rm2FIzANsi4YkX5Ftc4XK/dJbeo1IQQ2DzsLij8zlfl
-X-Gm-Gg: AYBFou3FfTpikhnZwFQ3bjg43wsCXuMoCEvhd0J9o9ZMv2pMqrcnxPrVRK/KmaqnD3P
-	7H0OUzCwqwZ4fpW4ds+uYMy9Jvl+1VVRrIssaGGmhLQIxFCXxZx/08NM+9OdGKRkZCRBeoPkKVN
-	VveX8HGQ9HtGE42E2SIGeGMC0haHesME9CJDNtgoeIdclT8MwykrMkPQf9BTG7Y22oUxzN0DkIR
-	FMsvv1kAZJ3Jxjvir6iQDzGEe0cnmv3jNReTPr/zNYFcjrNyWieS4L8ZjEki7rLLYH5H5gsRbYj
-	D3yXujs4yDGWk6cP1RrMjSvpZLcHJMqSHtznj1KcFOfqwHceoM+HkcZDuGsptMOyKjrI/sGqVQX
-	iDrOCfISFny7ULExFF3r1oRLjFQB6tbmY9cq/aDGZNEaW8/nOK2p9rDBtFKmXklx6fam/ZQJ9M0
-	eZFn6kERP/ADh67rrwsvoDy8mM/5VBePPpOBZWLfSDzPcn3HJgDt+JT3a7CewglyIRXrEO1j54+
-	Gn8QE9cTYOYmVWPj76m/8hatcOHZYkxTfNxe3/V6kgStQ89T26Wh46cTG8MrYwlJ9+Grlxhg5F4
-	x4Jkc7DrJIfJwpHkZozLz7KnPd83disMxxE/f99/fhmy1TFCHbfLnck3U4kVHQo=
-X-Received: by 2002:a17:90b:39c4:b0:398:9bd4:d18 with SMTP id 98e67ed59e1d1-39d70b7cdfcmr13420866a91.23.1789059649749;
-        Thu, 10 Sep 2026 10:00:49 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.252.203.158])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d94744dfdsm568538a91.0.2026.09.10.10.00.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 10:00:47 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: paulmck@kernel.org,
-	urezki@gmail.com,
-	harry@kernel.org
-Cc: frederic@kernel.org,
-	neeraj.upadhyay@kernel.org,
-	joelagnelf@nvidia.com,
-	josh@joshtriplett.org,
-	boqun@kernel.org,
-	rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	surenb@google.com,
-	vbabka@kernel.org,
-	rcu@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/1] rcu: make userspace barrier hook drain kvfree_rcu work
-Date: Fri, 11 Sep 2026 01:00:39 +0800
-Message-ID: <20260910170040.344864-1-matthias.goergens@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="vdnSiROo"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id D0DC2C653ED;
+	Thu, 10 Sep 2026 17:02:06 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6CAED5FC38;
+	Thu, 10 Sep 2026 17:01:25 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C58FA11C7A1A1;
+	Thu, 10 Sep 2026 19:01:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789059679; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=PNrvXwnklvE/BmelGHQ8TZEg8rDBspAApZL7jFezx/0=;
+	b=vdnSiROoFH9HqqkQvRVEdfb4pB7tNlQLIV/0+vJ1uO5VcXAd4iCX0Zb7N/wW2rqahxxVHX
+	XEJ4rbtpKGFWT4UH6iivrIIPyq+cbxXPV3xjYU382UG79nuKSVlimqtN+uiHlRgXVwtgMs
+	x7WzSVP4TGMz1CYrC5EJOj5gwATXXHFqsEb+MVw1A0vq0DBoYEgQVa2n9qmNHraBL8dQge
+	IoLiD1IC2iLsXJtUH3QmCzRw8rELQvKVM8K67Vz3yMPh9Rl5lLq01MuYmmzvutRFv7jKFF
+	QHQ0pOxDyiId6VEmYq6KTXvmk2TGyzAlP18b/75IBBuJOuT8EE1S7TivnK6chw==
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: davem@davemloft.net,
+	Andrew Lunn <andrew@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Heiner Kallweit <hkallweit1@gmail.com>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	thomas.petazzoni@bootlin.com,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	=?UTF-8?q?K=C3=B6ry=20Maincent?= <kory.maincent@bootlin.com>,
+	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	=?UTF-8?q?Nicol=C3=B2=20Veronese?= <nicveronese@gmail.com>,
+	Simon Horman <horms@kernel.org>,
+	mwojtas@chromium.org,
+	Romain Gantois <romain.gantois@bootlin.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Dimitri Fedrau <dimitri.fedrau@liebherr.com>,
+	Frank Wunderlich <frank.wunderlich@linux.dev>,
+	Pietro Ameruoso <p.ameruoso@live.it>
+Subject: [PATCH RESEND net-next v17 02/10] net: phy: phy_link_topology: Track ports in phy_link_topology
+Date: Thu, 10 Sep 2026 19:00:54 +0200
+Message-ID: <20260910170103.1029108-3-maxime.chevallier@bootlin.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910101112.1648978-1-matthias.goergens@gmail.com>
-References: <20260910101112.1648978-1-matthias.goergens@gmail.com>
+In-Reply-To: <20260910170103.1029108-1-maxime.chevallier@bootlin.com>
+References: <20260910170103.1029108-1-maxime.chevallier@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-The rcutree.do_rcu_barrier hook currently waits for ordinary RCU
-callbacks, but objects may still be retained in kfree_rcu() batching or a
-partial per-CPU SLUB sheaf. This is consistent with the hook's documented
-rcu_barrier() operation, but incomplete for its intended use as a boundary
-between userspace tests.
+phy_port is aimed at representing the various physical interfaces of a
+net_device. They can be controlled by various components in the link,
+such as the Ethernet PHY, the Ethernet MAC, and SFP module, etc.
 
-The immediate trigger was a false allocation-leak failure in the bcachefs
-ktest suite while testing performance changes. Its end check writes the
-hook before reading /proc/allocinfo, assuming a complete deferred-free
-drain. Small objects remained visible after repeated hook writes and
-20 seconds of waiting, so otherwise clean tests failed their leak check.
+Let's therefore make so we keep track of all the ports connected to a
+netdev in phy_link_topology. The only ports added for now are phy-driven
+ports.
 
-Changing the hook to drain kvfree_rcu() work let the same unmodified
-bcachefs workload pass its allocation check. All eight checkpoints in
-one VM, after 50 through 400 option changes, reported zero retained
-reconcile_scan objects. The retained population on the original kernel
-eventually fell as a sheaf filled; there is no evidence here of unbounded
-growth or OOM.
-
-Calling kvfree_rcu_barrier() from rcu_barrier_throttled() was proposed and
-agreed during review of the former API in 2024, specifically to restore a
-clean baseline between userspace benchmark runs:
-
-  https://lore.kernel.org/all/20240820155935.1167988-1-urezki@gmail.com/
-
-This patch implements that follow-up and documents the expanded hook. It
-also removes the old ordinary-barrier completion shortcut: an unrelated
-rcu_barrier() does not establish that kvfree_rcu() work was drained.
-
-Four counterbalanced fresh-VM pairs with the full private-cache fixture
-reported 60 to 60 active objects on the unpatched kernel and 60 to 59 on
-the patched kernel. A separate ordinary-callback regression test passed
-on both kernels.
-
-The simplified reproducer below removes that separate regression
-machinery. One additional fresh control/treatment pair with this exact
-41-line source confirmed the same 60 to 60 versus 60 to 59 split. These
-counts reflect the slab layout in the tested configuration.
-
-Save the source as rcu_barrier_sheaf_repro.c and create a Makefile
-containing:
-
-  obj-m := rcu_barrier_sheaf_repro.o
-
-Build it with:
-
-  make -C /lib/modules/$(uname -r)/build M="$PWD" modules
-
-Then, as root on a disposable test kernel:
-
-  insmod rcu_barrier_sheaf_repro.ko
-  awk '$1 == "rcu_barrier_sheaf_repro" { print $2 }' /proc/slabinfo
-  cat /sys/kernel/slab/rcu_barrier_sheaf_repro/sheaf_capacity
-  echo 1 > /sys/module/rcutree/parameters/do_rcu_barrier
-  awk '$1 == "rcu_barrier_sheaf_repro" { print $2 }' /proc/slabinfo
-  rmmod rcu_barrier_sheaf_repro
-
-The first and second slabinfo readings are 60 and 60 without the patch,
-and 60 and 59 with it.  kmem_cache_destroy() performs per-cache
-deferred-free cleanup when the module is removed, after the measurement.
-
-// SPDX-License-Identifier: GPL-2.0
-#include <linux/init.h>
-#include <linux/module.h>
-#include <linux/rcupdate.h>
-#include <linux/slab.h>
-
-struct repro_object {
-	struct rcu_head rcu;
-	unsigned long payload;
-};
-
-static struct kmem_cache *repro_cache;
-
-static int __init rcu_barrier_sheaf_repro_init(void)
-{
-	struct repro_object *object;
-
-	repro_cache = kmem_cache_create("rcu_barrier_sheaf_repro",
-					sizeof(*object), 0, SLAB_NO_MERGE, NULL);
-	if (!repro_cache)
-		return -ENOMEM;
-
-	object = kmem_cache_alloc(repro_cache, GFP_KERNEL);
-	if (!object) {
-		kmem_cache_destroy(repro_cache);
-		return -ENOMEM;
-	}
-
-	kfree_rcu(object, rcu);
-	return 0;
-}
-
-static void __exit rcu_barrier_sheaf_repro_exit(void)
-{
-	kmem_cache_destroy(repro_cache);
-}
-
-module_init(rcu_barrier_sheaf_repro_init);
-module_exit(rcu_barrier_sheaf_repro_exit);
-MODULE_LICENSE("GPL");
-MODULE_DESCRIPTION("Reproduce incomplete rcutree.do_rcu_barrier drains");
-
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 ---
-Changes since v1:
-- Add the motivating bcachefs failure and the successful unmodified
-  workload result to both the cover letter and commit message.
-- Drop the incorrect sheaf Fixes: tag and regression framing; describe
-  this as a strengthening of the existing test interface.
-- Credit the agreed 2024 proposal for this extension.
-- Broaden the subject and changelog from sheaves to kvfree_rcu work.
-- Hard-wrap the prose for text-based mail readers.
+ drivers/net/phy/phy_device.c        |  3 ++
+ drivers/net/phy/phy_link_topology.c | 53 +++++++++++++++++++++++++++++
+ include/linux/phy_link_topology.h   | 18 ++++++++++
+ include/linux/phy_port.h            |  2 ++
+ net/core/dev.c                      |  1 +
+ 5 files changed, 77 insertions(+)
 
-The code diff is unchanged from v1. The results above are the existing
-validation results; no new kernel tests were run for this prose revision.
-
-v1:
-https://lore.kernel.org/all/20260910101112.1648978-1-matthias.goergens@gmail.com/
-
-Matthias Goergens (1):
-  rcu: make userspace barrier hook drain kvfree_rcu work
-
- .../admin-guide/kernel-parameters.txt         |  7 ++---
- kernel/rcu/tree.c                             | 27 ++++++++++++-------
- 2 files changed, 21 insertions(+), 13 deletions(-)
-
-
-base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+index 41d1b20cde2c..2d0fa3c7f18e 100644
+--- a/drivers/net/phy/phy_device.c
++++ b/drivers/net/phy/phy_device.c
+@@ -1670,6 +1670,9 @@ static void phy_del_port(struct phy_device *phydev, struct phy_port *port)
+ 
+ 	list_del(&port->head);
+ 
++	if (phydev->attached_dev)
++		phy_link_topo_del_port(phydev->attached_dev, port);
++
+ 	phydev->n_ports--;
+ }
+ 
+diff --git a/drivers/net/phy/phy_link_topology.c b/drivers/net/phy/phy_link_topology.c
+index 0462283c8020..28c5bf3a8849 100644
+--- a/drivers/net/phy/phy_link_topology.c
++++ b/drivers/net/phy/phy_link_topology.c
+@@ -7,6 +7,7 @@
+  */
+ 
+ #include <linux/phy_link_topology.h>
++#include <linux/phy_port.h>
+ #include <linux/phy.h>
+ #include <linux/rtnetlink.h>
+ #include <linux/xarray.h>
+@@ -23,6 +24,9 @@ static int netdev_alloc_phy_link_topology(struct net_device *dev)
+ 	xa_init_flags(&topo->phys, XA_FLAGS_ALLOC1);
+ 	topo->next_phy_index = 1;
+ 
++	xa_init_flags(&topo->ports, XA_FLAGS_ALLOC1);
++	topo->next_port_index = 1;
++
+ 	dev->link_topo = topo;
+ 
+ 	return 0;
+@@ -56,12 +60,45 @@ static struct phy_link_topology *phy_link_topo_get_or_alloc(struct net_device *d
+ 	return dev->link_topo;
+ }
+ 
++int phy_link_topo_add_port(struct net_device *dev, struct phy_port *port)
++{
++	struct phy_link_topology *topo;
++	int ret;
++
++	topo = phy_link_topo_get_or_alloc(dev);
++	if (IS_ERR(topo))
++		return PTR_ERR(topo);
++
++	/* Attempt to re-use a previously allocated port_id */
++	if (port->id)
++		ret = xa_insert(&topo->ports, port->id, port, GFP_KERNEL);
++	else
++		ret = xa_alloc_cyclic(&topo->ports, &port->id, port,
++				      xa_limit_32b, &topo->next_port_index,
++				      GFP_KERNEL);
++
++	return ret < 0 ? ret : 0;
++}
++EXPORT_SYMBOL_GPL(phy_link_topo_add_port);
++
++void phy_link_topo_del_port(struct net_device *dev, struct phy_port *port)
++{
++	struct phy_link_topology *topo = dev->link_topo;
++
++	if (!topo)
++		return;
++
++	xa_erase(&topo->ports, port->id);
++}
++EXPORT_SYMBOL_GPL(phy_link_topo_del_port);
++
+ int phy_link_topo_add_phy(struct net_device *dev,
+ 			  struct phy_device *phy,
+ 			  enum phy_upstream upt, void *upstream)
+ {
+ 	struct phy_link_topology *topo;
+ 	struct phy_device_node *pdn;
++	struct phy_port *port;
+ 	int ret;
+ 
+ 	/* ethtool ops may run without rtnl_lock, and rtnl_lock is what
+@@ -110,8 +147,20 @@ int phy_link_topo_add_phy(struct net_device *dev,
+ 	if (ret < 0)
+ 		goto err;
+ 
++	/* Add all the PHY's ports to the topology */
++	list_for_each_entry(port, &phy->ports, head) {
++		ret = phy_link_topo_add_port(dev, port);
++		if (ret)
++			goto del_ports;
++	}
++
+ 	return 0;
+ 
++del_ports:
++	list_for_each_entry_continue_reverse(port, &phy->ports, head)
++		phy_link_topo_del_port(dev, port);
++
++	xa_erase(&topo->phys, phy->phyindex);
+ err:
+ 	kfree(pdn);
+ 	return ret;
+@@ -123,10 +172,14 @@ void phy_link_topo_del_phy(struct net_device *dev,
+ {
+ 	struct phy_link_topology *topo = dev->link_topo;
+ 	struct phy_device_node *pdn;
++	struct phy_port *port;
+ 
+ 	if (!topo)
+ 		return;
+ 
++	list_for_each_entry(port, &phy->ports, head)
++		phy_link_topo_del_port(dev, port);
++
+ 	pdn = xa_erase(&topo->phys, phy->phyindex);
+ 
+ 	/* We delete the PHY from the topology, however we don't re-set the
+diff --git a/include/linux/phy_link_topology.h b/include/linux/phy_link_topology.h
+index 95575f68d5bc..296ee514ba46 100644
+--- a/include/linux/phy_link_topology.h
++++ b/include/linux/phy_link_topology.h
+@@ -16,11 +16,15 @@
+ 
+ struct xarray;
+ struct phy_device;
++struct phy_port;
+ struct sfp_bus;
+ 
+ struct phy_link_topology {
+ 	struct xarray phys;
+ 	u32 next_phy_index;
++
++	struct xarray ports;
++	u32 next_port_index;
+ };
+ 
+ struct phy_device_node {
+@@ -48,6 +52,9 @@ int phy_link_topo_add_phy(struct net_device *dev,
+ 
+ void phy_link_topo_del_phy(struct net_device *dev, struct phy_device *phy);
+ 
++int phy_link_topo_add_port(struct net_device *dev, struct phy_port *port);
++void phy_link_topo_del_port(struct net_device *dev, struct phy_port *port);
++
+ static inline struct phy_device *
+ phy_link_topo_get_phy(struct net_device *dev, u32 phyindex)
+ {
+@@ -77,6 +84,17 @@ static inline void phy_link_topo_del_phy(struct net_device *dev,
+ {
+ }
+ 
++static inline int phy_link_topo_add_port(struct net_device *dev,
++					 struct phy_port *port)
++{
++	return 0;
++}
++
++static inline void phy_link_topo_del_port(struct net_device *dev,
++					  struct phy_port *port)
++{
++}
++
+ static inline struct phy_device *
+ phy_link_topo_get_phy(struct net_device *dev, u32 phyindex)
+ {
+diff --git a/include/linux/phy_port.h b/include/linux/phy_port.h
+index 0ef0f5ce4709..4e2a3fdd2f2e 100644
+--- a/include/linux/phy_port.h
++++ b/include/linux/phy_port.h
+@@ -36,6 +36,7 @@ struct phy_port_ops {
+ /**
+  * struct phy_port - A representation of a network device physical interface
+  *
++ * @id: Unique identifier for the port within the topology
+  * @head: Used by the port's parent to list ports
+  * @parent_type: The type of device this port is directly connected to
+  * @phy: If the parent is PHY_PORT_PHYDEV, the PHY controlling that port
+@@ -52,6 +53,7 @@ struct phy_port_ops {
+  * @is_sfp: Indicates if this port drives an SFP cage.
+  */
+ struct phy_port {
++	u32 id;
+ 	struct list_head head;
+ 	enum phy_port_parent parent_type;
+ 	union {
+diff --git a/net/core/dev.c b/net/core/dev.c
+index 290e0f099e6b..8c061df5b6a8 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -11367,6 +11367,7 @@ static void netdev_free_phy_link_topology(struct net_device *dev)
+ 
+ 	if (IS_ENABLED(CONFIG_PHYLIB) && topo) {
+ 		xa_destroy(&topo->phys);
++		xa_destroy(&topo->ports);
+ 		kfree(topo);
+ 		dev->link_topo = NULL;
+ 	}
 -- 
 2.55.0
+
