@@ -1,93 +1,196 @@
-Received: from mta1.migadu.com (out-102.mta1.migadu.com [95.215.58.102])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4397.protonmail.ch (mail-4397.protonmail.ch [185.70.43.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 522483C09F7
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:24:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6FB13D47B5
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:24:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789028649; cv=none; b=fRSpxjyTMphJvsGGjkqczVUJ/qfI8w7iBK4QNjFr4fTSBBeAT7Iy2rAl0O4t2IDIy5NusD+6dGVlBKmeQyC7O8dZoyEfTOZpJfL2HqHOCxpchz9BujecOHqgw0DM40JGI+fwhoGPUW0xVqONUlNyHyaR4ZG86DOO37N/L6JI7UE=
+	t=1789028667; cv=none; b=dJtJEvha+YjGrdJm/3Ak3jUvIc4k/p0HuZw2mWhFm6ZEX8Nbx/e0Iio3TdQ275Pt6aUWVYBNS1kqMRY9IqC6THaFZR1vwU1Ss9JSg0JBDO3dyELbKpNb8lxDwRNY+WlGOB6v8mR9jYe3RegEyMQoqM7DNjxtHq6cNmn1mHkl44g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789028649; c=relaxed/simple;
-	bh=HPYr1lTjIcCMB7NT5Hpi9tecnmvU0n2HOtOh4FXso9Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=r8WNZixGTlYqe0Tt5kQodm+ULcoeSaLjPy5dMCjR9n7lpB2MD8NhXFED7shY7Wa9veaiS9ugeQDLwLPCboOC1U8IdguHigCf9QpwzQvCsLR294eOR5d4a7UDtpv9ZYNzB6GU3OOIrSrIQR06/GXTOaWycOOoawc8jbK37HAW8Jk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wHSWDRjl; arc=none smtp.client-ip=95.215.58.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789028667; c=relaxed/simple;
+	bh=ZW3duJfxQSY6n/4tTFfE4O2f7VKyGu1T0Jx2uVEQotg=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=s2eydzL7Yu/0vz0xAsc+vJdx1sk+Q/JzFpjNt6/r9Oss3JSX8d8qTKicPthJbRb89aJcHJ8GDY2obeDK9KcTSmKxMfi55A3+A7DZmmzJDclFLNf1cCUleRg7Z/9GPDt8Om9nRXaYCp4Yk7BRdSACT73BEK7fUOvjYVxxymfAPCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tompkel.net; spf=pass smtp.mailfrom=tompkel.net; dkim=pass (2048-bit key) header.d=tompkel.net header.i=@tompkel.net header.b=kwX4fiod; arc=none smtp.client-ip=185.70.43.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tompkel.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tompkel.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wHSWDRjl"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HPYr1lTjIcCMB7NT5Hpi9tecnmvU0n2HOtOh4FXso9Y=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789028639; v=1; x=1789633439;
- b=wHSWDRjlpjRI81yZdb/RGHlDPP+qTGSXuRWMoLypTh31qli56OCy8kb+jSaQfk/Xt6Wa7TWE
- 8bHEhPxZyE5sSaAkVYA2ZNP++PBCyhCWTL9Og81RvGzaL7u0So47AddEq8aYZZy3gM8i/isCqXT
- T0OByouyEo0br3ZChc1jpRKQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d02be0715170649b;
-	Thu, 10 Sep 2026 08:23:59 +0000
-X-Mizu-Trace-ID: d02be0715170649b
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <50286ce9-00cc-484f-9584-9bbe4bf79ef6@linux.dev>
-Date: Thu, 10 Sep 2026 13:53:52 +0530
+	dkim=pass (2048-bit key) header.d=tompkel.net header.i=@tompkel.net header.b="kwX4fiod"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tompkel.net;
+	s=protonmail3; t=1789028648; x=1789287848;
+	bh=yMkuOGGKo3nEpCFUwiaI2mJXa7BffzLtA4FCAPqFA+g=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=kwX4fiodu+L9hoekC1g+Sm+LCR2xVCEidkrk5WFx7DTZkHRHtnllEAmMqnbGNBYTd
+	 qsYkIUHql29XFed9IEbRqXxb5vbUxHsxzxi715na59bIPiMg5OPiCJvS4U3UrhRSTX
+	 3y11JBKjXCtNB9Z+by5rw+JMRbx0ejO3oDvM0+n1T09DoJk3KHvSitAYnpxvdlgcU0
+	 woIoItS4AFoqms6K2GnNPzPZYIU+angAW/VC28w+DyepbtJlsRvzpffZ5XDxhl6+B5
+	 4iiGQzNFM0OUU9B5CrMdSL3Gsmh6D03cUeQP3SmnhE8WSqpIpnJpSUdpOEeCoByHBV
+	 GcbHCm4enh26g==
+Date: Thu, 10 Sep 2026 08:24:03 +0000
+To: dpenkler@gmail.com
+From: Tom Keller <tom@tompkel.net>
+Cc: gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, Tom Keller <tom@tompkel.net>
+Subject: [PATCH v3] gpib: agilent_82357a: Support some 82357B clones
+Message-ID: <20260910082341.631958-1-tom@tompkel.net>
+In-Reply-To: <apmJY5LLAh-CKDzt@egonzo>
+References: <20260902224109.2130225-1-tom@tompkel.net> <apmJY5LLAh-CKDzt@egonzo>
+Feedback-ID: 45376537:user:proton
+X-Pm-Message-ID: 28116d337d5220efb9c98aa058d39faf11a539cf
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC bpf-next 0/6] bpf: track scalar equality across the low 32
- bits
-To: Eduard Zingerman <eddyz87@gmail.com>, ast@kernel.org,
- daniel@iogearbox.net, andrii@kernel.org, memxor@gmail.com
-Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-References: <20260814231945.3884596-1-vineet.gupta@linux.dev>
- <5f1b726cd88f2261f70a5aa99f94ea1434c078c1.camel@gmail.com>
-From: Vineet Gupta <vineet.gupta@linux.dev>
-Content-Language: en-US
-In-Reply-To: <5f1b726cd88f2261f70a5aa99f94ea1434c078c1.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 8/19/26 10:05 AM, Eduard Zingerman wrote:
-> On Fri, 2026-08-14 at 16:19 -0700, Vineet Gupta wrote:
->> The verifier's linked-scalar machinery tracks register equality only for the
->> full 64 bits (optionally with a constant delta). There is no way to record
->> "these two registers share just their low 32 bits", so a 32-bit mov from a
->> source with unknown high bits has to drop the relationship entirely, and a
->> later narrowing of the source never reaches the destination:
->>
->>>   r6 = ...                    /* full 64-bit unknown */
->>>   w7 = w6                     /* 32-bit zero-extending mov          */
->>>   if w6 != 0 goto .Lxx        /* not taken: r6's low 32 bits are 0  */
->>>   if w7 == 0 goto .Lok   <-- not deduced today
->> The same gap exists for the 32-bit sign extension and was the
->> motivation for this patchset.
->>
->>>   0: (61) r2 = *(u32 *)(r1 +24)
->>>   1: (bf) r0 = (s32)r2
->>>   2: (56) if w2 != 0x0 goto pc+10       ; R2=0 (branch taken)
->>>      ...
->>> 12: (95) exit
-> Note that ldx instructions have similar structure: one can either zero
-> or sign extend on 32-bit load. I think this series should be expanded
-> to cover these cases.
-To scope this, there are two items related to ldx
-  - Narrowing fill off a wide spilled scalar
-  - sign extending loads
+Some adapters marked as Agilent/Keysight 82357B are clones that contain
+their own firmware. They do not support XFER_STATUS and need slightly
+relaxed timing. Detect clone adapters that fail a firmware load and work
+around their quirks.
 
-There's also a case of narrowing spills to handle.
+Signed-off-by: Tom Keller <tom@tompkel.net>
+---
+Changes since v2:
+- Use 819 ns as the default FAST_TALKER_T1 for all adapters and drop
+  the clone-specific initialization.
+- Reword the clone detection message.
+Changes since v1:
+- Keep the existing init sequence, add a small increase to FAST_TALKER_T1
+  on clones.
+- Clear AWF_NO_FAST_TALKER_FIRST_BYTE on command writes for all
+  adapters.
+v2: https://lore.kernel.org/all/20260902224109.2130225-1-tom@tompkel.net/
+v1: https://lore.kernel.org/all/20260901233621.1823280-1-tom@tompkel.net/
+ drivers/gpib/agilent_82357a/agilent_82357a.c | 41 +++++++++++++++++++-
+ drivers/gpib/agilent_82357a/agilent_82357a.h |  2 +
+ 2 files changed, 41 insertions(+), 2 deletions(-)
 
-> Also, please drop RFC tag when submitting v2.
+diff --git a/drivers/gpib/agilent_82357a/agilent_82357a.c b/drivers/gpib/ag=
+ilent_82357a/agilent_82357a.c
+index 2468a471d1755..5b34fe7e13662 100644
+--- a/drivers/gpib/agilent_82357a/agilent_82357a.c
++++ b/drivers/gpib/agilent_82357a/agilent_82357a.c
+@@ -567,7 +567,7 @@ static ssize_t agilent_82357a_generic_write(struct gpib=
+_board *board,
+ =09out_data[i++] =3D 0; // secondary address when AWF_NO_ADDRESS is not se=
+t
+ =09out_data[i] =3D AWF_NO_ADDRESS | AWF_NO_FAST_TALKER_FIRST_BYTE;
+ =09if (send_commands)
+-=09=09out_data[i] |=3D AWF_ATN | AWF_NO_FAST_TALKER;
++=09=09out_data[i] =3D AWF_ATN | AWF_NO_ADDRESS | AWF_NO_FAST_TALKER;
+ =09if (send_eoi)
+ =09=09out_data[i] |=3D AWF_SEND_EOI;
+ =09++i;
+@@ -652,6 +652,16 @@ static ssize_t agilent_82357a_generic_write(struct gpi=
+b_board *board,
+ =09=09return -ETIMEDOUT;
+ =09}
+=20
++=09/*
++=09 * Clone adapters do not answer to XFER_STATUS, so use the
++=09 * bytes_written from the write complete interrupt.
++=09 */
++=09if (a_priv->is_clone_82357b) {
++=09=09mutex_unlock(&a_priv->bulk_transfer_lock);
++=09=09*bytes_written =3D a_priv->write_complete_count;
++=09=09return 0;
++=09}
++
+ =09status_data =3D kmalloc(STATUS_DATA_LEN, GFP_KERNEL);
+ =09if (!status_data) {
+ =09=09mutex_unlock(&a_priv->bulk_transfer_lock);
+@@ -1114,6 +1124,12 @@ static void agilent_82357a_interrupt_complete(struct=
+ urb *urb)
+ =09}
+=20
+ =09interrupt_flags =3D transfer_buffer[0];
++=09if (urb->actual_length >=3D 6 && test_bit(AIF_WRITE_COMPLETE_BN, &inter=
+rupt_flags)) {
++=09=09a_priv->write_complete_count  =3D (u32)transfer_buffer[2];
++=09=09a_priv->write_complete_count |=3D (u32)transfer_buffer[3] << 8;
++=09=09a_priv->write_complete_count |=3D (u32)transfer_buffer[4] << 16;
++=09=09a_priv->write_complete_count |=3D (u32)transfer_buffer[5] << 24;
++=09}
+ =09if (test_bit(AIF_READ_COMPLETE_BN, &interrupt_flags))
+ =09=09set_bit(AIF_READ_COMPLETE_BN, &a_priv->interrupt_flags);
+ =09if (test_bit(AIF_WRITE_COMPLETE_BN, &interrupt_flags))
+@@ -1213,6 +1229,26 @@ static void agilent_82357a_free_private(struct gpib_=
+board *board)
+ =09board->private_data =3D NULL;
+ }
+=20
++static void agilent_82357a_detect_clone(struct agilent_82357a_priv *a_priv=
+)
++{
++=09struct usb_device *usb_dev =3D interface_to_usbdev(a_priv->bus_interfac=
+e);
++=09u8 *ret_data;
++=09int retval;
++
++=09ret_data =3D kmalloc(1, GFP_KERNEL);
++=09if (!ret_data)
++=09=09return;
++=09retval =3D usb_control_msg(usb_dev, usb_rcvctrlpipe(usb_dev, 0), 0xA0,
++=09=09=09=09 USB_DIR_IN | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
++=09=09=09=09 0xE600, 0, ret_data, 1, 100);
++=09kfree(ret_data);
++=09if (retval < 0) {
++=09=09a_priv->is_clone_82357b =3D 1;
++=09=09dev_info(&usb_dev->dev, "82357B clone with firmware detected (CPUCS =
+read returned %i)\n",
++=09=09=09 retval);
++=09}
++}
++
+ #define INIT_NUM_REG_WRITES 18
+ static int agilent_82357a_init(struct gpib_board *board)
+ {
+@@ -1346,6 +1382,7 @@ static int agilent_82357a_attach(struct gpib_board *b=
+oard, const struct gpib_boa
+ =09case USB_DEVICE_ID_AGILENT_82357B:
+ =09=09a_priv->bulk_out_endpoint =3D AGILENT_82357B_BULK_OUT_ENDPOINT;
+ =09=09a_priv->interrupt_in_endpoint =3D AGILENT_82357B_INTERRUPT_IN_ENDPOI=
+NT;
++=09=09agilent_82357a_detect_clone(a_priv);
+ =09=09break;
+ =09default:
+ =09=09dev_err(&usb_dev->dev, "bug, unhandled product_id in switch?\n");
+@@ -1359,7 +1396,7 @@ static int agilent_82357a_attach(struct gpib_board *b=
+oard, const struct gpib_boa
+=20
+ =09timer_setup(&a_priv->bulk_timer, agilent_82357a_timeout_handler, 0);
+=20
+-=09board->t1_nano_sec =3D 800;
++=09board->t1_nano_sec =3D 819;
+=20
+ =09retval =3D agilent_82357a_init(board);
+=20
+diff --git a/drivers/gpib/agilent_82357a/agilent_82357a.h b/drivers/gpib/ag=
+ilent_82357a/agilent_82357a.h
+index 33ac558e55528..2013163446965 100644
+--- a/drivers/gpib/agilent_82357a/agilent_82357a.h
++++ b/drivers/gpib/agilent_82357a/agilent_82357a.h
+@@ -133,12 +133,14 @@ struct agilent_82357a_priv {
+ =09struct mutex bulk_alloc_lock;=09=09// bulk transfer allocation lock
+ =09struct mutex interrupt_alloc_lock;=09// interrupt allocation lock
+ =09struct mutex control_alloc_lock;=09// control message allocation lock
++=09u32 write_complete_count;               // bytes transferred in last wr=
+ite
+ =09struct timer_list bulk_timer;
+ =09struct agilent_82357a_urb_ctx context;
+ =09unsigned int bulk_out_endpoint;
+ =09unsigned int interrupt_in_endpoint;
+ =09unsigned is_cic : 1;
+ =09unsigned ren_state : 1;
++=09unsigned is_clone_82357b : 1;
+ };
+=20
+ struct agilent_82357a_register_pairlet {
+--=20
+2.55.0
 
-Will do, thx.
-v2 modulo ldx is ready (and the selftest runs are at par with RFC) but 
-I'd still like yay/nay on some of the queries before submitting.
 
-Thx,
--Vineet
