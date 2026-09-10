@@ -1,41 +1,46 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-63.mta1.migadu.com [95.215.58.63])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CCCB3B52EF;
-	Thu, 10 Sep 2026 04:54:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4DD394496
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 04:54:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.63
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789016065; cv=none; b=c91hI0WOGtDO2qAiGoIH7HttZNGctpSBa0G3eynLu+L2KLYv26TwFMiRmoT2B3iM/vAso9RGgPhXw6Kv4zV7nJX8INhMmc2nP+iv8HzIc0Z1Q2SmpLD0/eVIopV4HNm39nbIa1+KBG2Z+dXGR7ywfri6bikqfQT5up/2V7Hf1J4=
+	t=1789016089; cv=none; b=a5ScJ4XgKQRwxLHCWi8GjCQB4p7pccptSc1IyHR0MwC29nHV0SYPgF/BoC+8T5HEq1ifcVcM7PtlvGruGfAvBntNJHq2dex8wysgTSRoPjUpcetEJsk7j8q9Wml9wcCcyG7Nt7a8mknMwoZrBKdpSiDekZ1sxDFvvmaSJXlTxng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789016065; c=relaxed/simple;
-	bh=agw5GRV8zJ0ivu0/kYq8UcseI+WEQ+kU4Nt10keaXUQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=WDVXQbiGW4MYKP+CixUluDQKdj1lzUsuq7ah2LSf247Wy0D51kvTWs/I9ZuRufl+WxmMvLeRk1O/82AQwMwpac+qpjLm8btaM3GUfSxlf88K3WRiRz2wqt7/TUGerMtkRD+z+jeejVR0PIY67DhgbxCCCD+Zno1ZZrC5C4CAw2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=VHpAZOtP; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1789016089; c=relaxed/simple;
+	bh=7V15OWJcmmXZk9s3hgjd0010D1RdxNLIGIQBgGBHgMk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qVAkWp57kqT/2iNO8AFZpz1s8PmlRRzypT0jE5nVC8nmhHcEZEOuZUS5NjRMdrbkwaOPyklI57+ACF2PnPeqAL3TgDSJj3ziBCutvJ5viJnH5NMD2so9XOQitvFT24r8sxD1Ne2swX4KiWUjsrH3XKZ6XdhrcVYfWE1yZy0Zt4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wZgRpdKy; arc=none smtp.client-ip=95.215.58.63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="VHpAZOtP"
-Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4d3a5a3ce;
-	Thu, 10 Sep 2026 12:54:12 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Breno Leitao <leitao@debian.org>,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH v3 3/3] nvmet: avoid recursive configfs open for passthru
-Date: Thu, 10 Sep 2026 12:54:00 +0800
-Message-Id: <20260910045400.1201582-4-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260910045400.1201582-1-runyu.xiao@seu.edu.cn>
-References: <20260902103202.GB8095@lst.de>
- <20260910045400.1201582-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wZgRpdKy"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7V15OWJcmmXZk9s3hgjd0010D1RdxNLIGIQBgGBHgMk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789016084; v=1; x=1789620884;
+ b=wZgRpdKygjfN41hhVcF21wYotEb6t2QKkDeHp4e2GKmGm27Kbh7jUk6lfPLNAkUr0XXnFzbh
+ yJnnTTgua5y8QJe8v4SXabke4eH051cVjg81Z3SQiB7fKMQvF4k2/xv0+RfsTNa3n2XCF7yYu1/
+ pWinON5b1iGfvoSV9LnX+IWM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a36025855c7c4800;
+	Thu, 10 Sep 2026 04:54:43 +0000
+X-Mizu-Trace-ID: a36025855c7c4800
+X-Migadu-Flow: FLOW_OUT
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tejun Heo <tj@kernel.org>,
+	Christian Brauner <christian@brauner.io>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Meta kernel team <kernel-team@meta.com>,
+	linux-fsdevel@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] kernfs: allocate the open node outside the open file mutex
+Date: Wed,  9 Sep 2026 21:54:33 -0700
+Message-ID: <20260910045433.489413-1-shakeel.butt@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -43,79 +48,91 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa089aa943003a1kunm413fe85d181362
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHhlKVhkdSRpPS0hDTU9MTVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	hOQ0NVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=VHpAZOtPlL/oqxx6NnJst7DEVqW4wFH1X3/fNiAwrbUptRyGG7E9+Cq/fuSkrkeeOWwLhNKrSQvNd+Vm2kRO8BgzKQ5FYK2ID95DZQXEKNbF4WVhkuVIa448msJyYUQXmA4sNIZWU/jIZPNm3I81lWOFaBQdG+7PVhBMjr+6kO0=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=wPPMTFM/RlLKVmOG8oGw1kTaF1eOnMkGUDWNx0SoHbM=;
-	h=date:mime-version:subject:message-id:from;
 
-nvmet_passthru_enable_store() runs as a configfs store callback while
-configfs holds the item's frag_sem. Enabling passthru then opens the
-configured passthru_ctrl_path with filp_open(). If that path resolves
-into configfs, the open path re-enters __configfs_open_file() and attempts
-to acquire the same frag_sem again.
+kernfs_get_open_node() allocates the kernfs_open_node while holding one
+of the hashed kernfs_open_file mutexes, so opening a file nobody has open
+yet can enter reclaim with that mutex held.  The mutex is shared by every
+node that hashes to it, so unrelated opens, closes and xattr updates in
+the same bucket wait.
 
-Resolve the configured path first, reject paths resolved on configfs, and
-open the resolved path with file_open_root(). This preserves the standard
-open-time permission checks without performing a second pathname walk. Use
-the configfs helper for the filesystem type check so this caller shares the
-classification with other configfs users.
+It is the most contended lock in kernfs on our fleet: 2.19M waiters over
+29 days, more than two hundred times the waiters on kernfs_rwsem, and the
+highest median hold of any kernfs lock at 77ms.  Most of it is monitoring
+daemons opening cgroup control files, and the open node is freed once the
+last descriptor closes, so an open-read-close loop allocates every time.
 
-Fixes: cae5b01a2afc ("nvmet: introduce the passthru configfs interface")
-Cc: stable@vger.kernel.org
-Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
-Assisted-by: LLM Codex
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Look at kn->attr.open before taking the mutex, and allocate then if
+nothing has the file open.  Should the peek be wrong, which needs the
+last descriptor to close inside the window, fall back to allocating under
+the mutex as before.
+
+Eight tasks opening and closing four cgroup files 20000 times each, with
+lock_stat on the hashed mutex:
+
+                     contentions    hold total    hold avg
+   before                    198        4.19 s     8.67 us
+   after                     119        2.31 s     4.78 us
+
+and the same number of acquisitions either way.
+
+This does not empty the bucket.  kernfs_fop_release() and
+kernfs_xattr_set() still sleep under the same mutex.  It stops opens
+doing it.
+
+Assisted-by: LLM
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
 ---
- drivers/nvme/target/passthru.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+ fs/kernfs/file.c | 22 ++++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/nvme/target/passthru.c b/drivers/nvme/target/passthru.c
-index fa6527c53..aa1778c9e 100644
---- a/drivers/nvme/target/passthru.c
-+++ b/drivers/nvme/target/passthru.c
-@@ -9,6 +9,8 @@
-  */
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- #include <linux/module.h>
-+#include <linux/configfs.h>
-+#include <linux/namei.h>
- 
- #include "../host/nvme.h"
- #include "nvmet.h"
-@@ -588,6 +590,7 @@ int nvmet_passthru_ctrl_enable(struct nvmet_subsys *subsys)
+diff --git a/fs/kernfs/file.c b/fs/kernfs/file.c
+index 7e3800526b1e..cca9f83fc9b5 100644
+--- a/fs/kernfs/file.c
++++ b/fs/kernfs/file.c
+@@ -525,18 +525,31 @@ static int kernfs_fop_mmap(struct file *file, struct vm_area_struct *vma)
+ static int kernfs_get_open_node(struct kernfs_node *kn,
+ 				struct kernfs_open_file *of)
  {
- 	struct nvme_ctrl *ctrl;
- 	struct file *file;
-+	struct path path;
- 	int ret = -EINVAL;
- 	void *old;
+-	struct kernfs_open_node *on;
++	struct kernfs_open_node *on, *new_on = NULL;
+ 	struct mutex *mutex;
  
-@@ -602,7 +605,19 @@ int nvmet_passthru_ctrl_enable(struct nvmet_subsys *subsys)
- 		goto out_unlock;
- 	}
++	/*
++	 * Peek without the mutex: if nothing has this open, we will need a
++	 * node and can allocate before taking a mutex shared by every node
++	 * hashing to it.
++	 */
++	if (!rcu_access_pointer(kn->attr.open))
++		new_on = kzalloc_obj(*new_on);
++
+ 	mutex = kernfs_open_file_mutex_lock(kn);
+ 	on = kernfs_deref_open_node_locked(kn);
  
--	file = filp_open(subsys->passthru_ctrl_path, O_RDWR, 0);
-+	ret = kern_path(subsys->passthru_ctrl_path, LOOKUP_FOLLOW, &path);
-+	if (ret)
-+		goto out_unlock;
-+
-+	if (configfs_path_is_configfs(&path)) {
-+		pr_err("configfs paths cannot back passthru controller %s\n",
-+		       subsys->passthru_ctrl_path);
-+		path_put(&path);
-+		goto out_unlock;
-+	}
-+
-+	file = file_open_root(&path, "", O_RDWR, 0);
-+	path_put(&path);
- 	if (IS_ERR(file)) {
- 		ret = PTR_ERR(file);
- 		goto out_unlock;
+ 	if (!on) {
+ 		/* not there, initialize a new one */
+-		on = kzalloc_obj(*on);
++		on = new_on;
++		new_on = NULL;
+ 		if (!on) {
+-			mutex_unlock(mutex);
+-			return -ENOMEM;
++			/* the peek raced; rare, so allocate here */
++			on = kzalloc_obj(*on);
++			if (!on) {
++				mutex_unlock(mutex);
++				return -ENOMEM;
++			}
+ 		}
+ 		atomic_set(&on->event, 1);
+ 		init_waitqueue_head(&on->poll);
+@@ -549,6 +562,7 @@ static int kernfs_get_open_node(struct kernfs_node *kn,
+ 		on->nr_to_release++;
+ 
+ 	mutex_unlock(mutex);
++	kfree(new_on);
+ 	return 0;
+ }
+ 
 -- 
-2.34.1
+2.53.0-Meta
+
