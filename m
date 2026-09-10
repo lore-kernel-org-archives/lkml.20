@@ -1,112 +1,159 @@
-Received: from mail.lysator.liu.se (mail.lysator.liu.se [130.236.254.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 010CC49F12E;
-	Thu, 10 Sep 2026 14:12:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.236.254.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A723249BD80
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:12:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789049544; cv=none; b=CbDPXO4kqR0vgPz9MDq0gmTW+/9vRHPwPc3qkpBgvNurILbLCM46BSyFqxW9DYfEp1QG7y37quTeS/XiVx/hiaVbJl0tEEkUubABR9etsU9FxTzmCv//TJh5XdJ7wVNOHqWZzsz0e0m65OWnb1+zyGuzYiuUv9Oj1dDegiqZTRg=
+	t=1789049546; cv=none; b=ZVQu6wrMYK46vmrA15pydDo82ETCztYjRM7sQuuQfLdNE3uuRzJ/MHQf1dYfZ9VxXJKB1ZlBUTnVng0kpexCKOeHY+02l/s5VAkPRUer1OAbPDGT6UPA/3tjC3jJ6Y/Wkl+VRio+vxYHGQBIp6P7FCpGFZaPcwmUidVOR2KQrd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789049544; c=relaxed/simple;
-	bh=VP0jnsYM53A/hkThoLaTmUkvWo8biCczugoQTC3714g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WErbfo0pAmJeeWmVPXRAQWnrY+vF8xgQLPC8drVvPdhyHVUjSc8ZA8xmMRpsDGExOY4D3Ltpp7jwsoC1F8Z2u6FvnFb+A7ZUqaDa2ioKtMUwxE6Nxq7KqBLLJOLc0SlHQhfxi+3CySj2VjcxSofVvqI1UgCZj0pAkwxzlj9MvcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se; spf=pass smtp.mailfrom=lysator.liu.se; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=hFPF0DuG; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=hFPF0DuG; arc=none smtp.client-ip=130.236.254.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lysator.liu.se
+	s=arc-20240116; t=1789049546; c=relaxed/simple;
+	bh=0Mhh4OUnCgSLgw0dCoDJwchdD8Dvz9j909zdSSyHCeg=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=ZVVMsz747gYuekLTsWwaM8GSQWOddB6Zd9zTmWRuLsOr4d9CgE/0vJr9kTLg1FP9uEgfcOujPpJnqLbl/MII5z4/VymGPE4HpO3G9fxxO0EHgZZYAvm4vmYyW9Bps1q/aay34aciyVY8q2thAnqaCXn16LnM1AIKYIzfj7aLUQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DR6cm8ko; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="hFPF0DuG";
-	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="hFPF0DuG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
-	s=2026; t=1789049539;
-	bh=VP0jnsYM53A/hkThoLaTmUkvWo8biCczugoQTC3714g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hFPF0DuGj7X9gmfTAsIrQS4IJcOzvMLRPEs/LgCqff4+YvX2oXsvgtBe6uzjBTB4p
-	 5aOHDdVALAESCW263b1qI6Wipxw34Na9VlYLNFQaZuXzonqYvSOoil26qpuuLEexfB
-	 DZfomcVNwtAXfRDun2XZEgSPMqh1ZlwnW6zYjduZO9QRWYbASX+hLwCM6gP6U1ra2X
-	 XiSPMKw8S7nimO3MkXGlrFA2jnfKyQd8QEotWkxhPIjZISHljf1n4j7gLMwTryvN2Q
-	 GGJwklrK7Pnjoj1z2qY2q5+KLBWwhPUYmDTXZcWYqwVSGIKix18R/OtIBCIikcPjXE
-	 RsObJiFy4o0Pg==
-Received: from mail.lysator.liu.se (localhost [127.0.0.1])
-	by mail.lysator.liu.se (Postfix) with ESMTP id 54E021947B;
-	Thu, 10 Sep 2026 16:12:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
-	s=2026; t=1789049539;
-	bh=VP0jnsYM53A/hkThoLaTmUkvWo8biCczugoQTC3714g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hFPF0DuGj7X9gmfTAsIrQS4IJcOzvMLRPEs/LgCqff4+YvX2oXsvgtBe6uzjBTB4p
-	 5aOHDdVALAESCW263b1qI6Wipxw34Na9VlYLNFQaZuXzonqYvSOoil26qpuuLEexfB
-	 DZfomcVNwtAXfRDun2XZEgSPMqh1ZlwnW6zYjduZO9QRWYbASX+hLwCM6gP6U1ra2X
-	 XiSPMKw8S7nimO3MkXGlrFA2jnfKyQd8QEotWkxhPIjZISHljf1n4j7gLMwTryvN2Q
-	 GGJwklrK7Pnjoj1z2qY2q5+KLBWwhPUYmDTXZcWYqwVSGIKix18R/OtIBCIikcPjXE
-	 RsObJiFy4o0Pg==
-Received: from gryt (81-225-28-11-no2391.tbcn.telia.com [81.225.28.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by mail.lysator.liu.se (Postfix) with ESMTPSA id 625451947A;
-	Thu, 10 Sep 2026 16:12:18 +0200 (CEST)
-Date: Thu, 10 Sep 2026 16:12:17 +0200
-From: Peter Rosin <peda@lysator.liu.se>
-To: Rob Herring <robh@kernel.org>
-Cc: Bhargav Joshi <j.bhargav.u@gmail.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Andrei Simion <andrei.simion@microchip.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com,
-	simona.toaca@nxp.com
-Subject: Re: [PATCH] ASoC: dt-bindings: tse850: Convert to DT schema
-Message-ID: <aqK6wSAgx6p1uO1w@gryt>
-References: <20260813-ti-axtensia-v1-1-768a1089fd5f@gmail.com>
- <d473d13e-bb5d-4d9b-b647-25a0b1b35364@lysator.liu.se>
- <20260814201806.GA2839748-robh@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DR6cm8ko"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDE4A1F000FF;
+	Thu, 10 Sep 2026 14:12:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789049545;
+	bh=yktsf0ORBBGvD3SUCnSD4sWyXidehM6lXLw0baTYOAM=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=DR6cm8ko/3qgt7iRmoOIc+GkqzbQjdop9yWq5Qik1mdngrStdgw91yb2SUbPXRgbW
+	 +BwGaOl0FycosQqQyaUBgDbkqExHUPG+pOv2sSls+AsxWJg54mEnXl52PjWuCrreGi
+	 hwCwDtwMH8OgDzuEjzEznCDdswRjeUj5abQ7ggKoPngUWt3BtZBfFdRcsxW0QRDuz7
+	 n2TOMEkhjmrSdH8t1oY+Y4w6VHgCKAwBLDvc/SfIxmb3hLjbdI3UPxIzNjk6rWWrSW
+	 u7T00RS1twz/70OYQ+4j4WksFSYOKY/C9f7gbGrGpx6iSrBeiVtAzffqbAPx7Ny/Q2
+	 acKYLC0X1B4nQ==
+Message-ID: <8b3df80c-2cf6-4331-89ac-4ae75edf5b40@kernel.org>
+Date: Thu, 10 Sep 2026 22:12:22 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260814201806.GA2839748-robh@kernel.org>
-X-Virus-Scanned: ClamAV using ClamSMTP
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, jaegeuk@kernel.org, stable@kernel.org,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net
+Subject: Re: [f2fs-dev] [PATCH] f2fs: compress: fix to handle race between
+ truncate and writeback
+To: Zhiguo Niu <niuzhiguo84@gmail.com>
+References: <20260910022258.3308187-1-chao@kernel.org>
+ <CAHJ8P3Kah8NTiSMsXdb1PF9yA59UE+MZTg8MkcYcH4OrVQVjQw@mail.gmail.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <CAHJ8P3Kah8NTiSMsXdb1PF9yA59UE+MZTg8MkcYcH4OrVQVjQw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 14, 2026 at 03:18:06PM -0500, Rob Herring wrote:
-> On Thu, Aug 13, 2026 at 12:51:31PM +0200, Peter Rosin wrote:
-> > On 2026-08-13 01:33, Bhargav Joshi wrote:
-> > > Convert Axentia TSE-850 audio complex from text to DT schema. No
-> > > funcational changes.
-> > > 
-> > > Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
-> > > ---
-> > >  .../bindings/sound/axentia,tse850-pcm5142.txt      |  92 ------------------
-> > >  .../bindings/sound/axentia,tse850-pcm5142.yaml     | 104 +++++++++++++++++++++
-> > >  2 files changed, 104 insertions(+), 92 deletions(-)
-> 
-> 
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/sound/axentia,tse850-pcm5142.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: Axentia TSE-850 audio complex
-> > > +
-> > > +maintainers:
-> > > +  - Peter Rosin <peda@axentia.se>
-> > 
-> > Bzzzt, this is no longer the case. This binding is orphaned (as is its
-> > corresponding driver).
-> 
-> So we can remove them?
+On 9/10/26 15:22, Zhiguo Niu wrote:
+> Chao Yu via Linux-f2fs-devel <linux-f2fs-devel@lists.sourceforge.net>
+> 于2026年9月10日周四 10:24写道：
+>>
+>> From: Chao Yu <chao@kernel.org>
+>>
+>> fsstress reports a kernel BUG in f2fs_truncate_partial_cluster():
+>>
+>> kernel BUG at fs/f2fs/compress.c:1238!
+>> RIP: 0010:f2fs_truncate_partial_cluster+0x292/0x2a0
+>> Call Trace:
+>>   <TASK>
+>>   f2fs_truncate+0xf6/0x210
+>>   f2fs_setattr+0x6b7/0x770
+>>   notify_change+0x33b/0x520
+>>   do_truncate+0xc2/0xf0
+>>   vfs_truncate+0x153/0x1d0
+>>   ksys_truncate+0x78/0xd0
+>>   __x64_sys_truncate+0x16/0x20
+>>   do_syscall_64+0xbe/0x540
+>>
+>> The root cause is that Thread A (truncate) and Thread B (background
+>> writeback or fsync) can race as follows:
+>>
+>> Thread A                             Thread B
+>> - f2fs_setattr
+>>   - f2fs_truncate
+>>    - f2fs_truncate_blocks
+>>     - f2fs_truncate_partial_cluster
+>>      - f2fs_is_compressed_cluster
+>>        return 1
+>>                                       - f2fs_write_cache_pages
+>>                                        - f2fs_write_multi_pages
+>>                                         - f2fs_write_raw_pages
+>>                                          - f2fs_write_single_data_page
+>>                                            dn.data_blkaddr != COMPRESS_ADDR
+>>                                            (cluster converted to normal)
+>>      - f2fs_prepare_compress_overwrite
+>>       - f2fs_is_compressed_cluster
+>>         return 0
+>>       - return 0
+>>      - f2fs_bug_on(sbi, err == 0): BUG!
+>>
+>> Writeback path does not acquire i_gc_rwsem or filemap_invalidate_lock.
+>> When a compressed cluster fails compression during writeback, it is
+>> overwritten with raw data blocks. If Thread A checked
+>> f2fs_is_compressed_cluster() before the conversion, but calls
+>> f2fs_prepare_compress_overwrite() after the conversion,
+>> f2fs_prepare_compress_overwrite() returns 0 because the cluster is no
+>> longer a compressed cluster.
+>>
+>> To fix this, remove the f2fs_bug_on() and retry checking the cluster status
+>> when f2fs_prepare_compress_overwrite() returns 0, so that it can fall back
+>> to f2fs_do_truncate_blocks() to handle it as a normal cluster.
+>>
+>> Cc: stable@kernel.org
+>> Fixes: 3265d3db1f16 ("f2fs: support partial truncation on compressed inode")
+>> Signed-off-by: Chao Yu <chao@kernel.org>
+>> ---
+>>   fs/f2fs/compress.c | 8 ++++----
+>>   1 file changed, 4 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/fs/f2fs/compress.c b/fs/f2fs/compress.c
+>> index ce88092d9ce2..e1cc7185428e 100644
+>> --- a/fs/f2fs/compress.c
+>> +++ b/fs/f2fs/compress.c
+>> @@ -1222,6 +1222,7 @@ int f2fs_truncate_partial_cluster(struct inode *inode, u64 from, bool lock)
+>>          int i;
+>>          int err;
+>>
+>> +repeat:
+>>          err = f2fs_is_compressed_cluster(inode, start_idx);
+>>          if (err < 0)
+>>                  return err;
+>> @@ -1233,11 +1234,10 @@ int f2fs_truncate_partial_cluster(struct inode *inode, u64 from, bool lock)
+>>          /* truncate compressed cluster */
+>>          err = f2fs_prepare_compress_overwrite(inode, &pagep,
+>>                                                  start_idx, &fsdata);
+>> +       if (err == 0)
+>> +               goto repeat;
+> Hi Chao,
+>   some comments here will be easier to understand？
 
-Not really my place to say, but if nothing has changed these devices will
-continue to run for many more years indeed. I predict that the poor soul
-doing the next update will suffer even more if the driver and bindings
-are removed.
+Zhiguo, add comments in v2, thanks for the review.
 
-Cheers,
-Peter
+Thanks,
+
+> other LGTM
+> Reviewed-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
+> thanks!
+>>
+>> -       /* should not be a normal cluster */
+>> -       f2fs_bug_on(F2FS_I_SB(inode), err == 0);
+>> -
+>> -       if (err <= 0)
+>> +       if (err < 0)
+>>                  return err;
+>>
+>>          rpages = fsdata;
+>> --
+>> 2.49.0
+>>
+>>
+>>
+>> _______________________________________________
+>> Linux-f2fs-devel mailing list
+>> Linux-f2fs-devel@lists.sourceforge.net
+>> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
+
