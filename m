@@ -1,94 +1,59 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49246476065
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 12:33:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD51347206D;
+	Thu, 10 Sep 2026 12:33:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789043585; cv=none; b=fw2pEdoNzflhRoZHmpsA87VlxWnB7OXSwzJrDFStJ58dn3ohgMPQGkWEwQ60BVXOIS/SL0kJjffGzP9UfBUnuZlnHWeQ4ykT6xTYQvaQMT5U4l+KCfObBiEzSheH+Inh6jgLkAXFjjaeJefT/c5pBYBYPLkvF+yHXgk5tDfS++U=
+	t=1789043606; cv=none; b=djRMVa/f+5Ol/Z3TRY5liDpBCa0OhAxOeAeJBcC/Hx+uGXilRJlGNX7EdChHJFqVACGK/X4TLwnnqMbLumVtiB3PcGNSikg9s1rTQY6hZKQEqJxaXjVzfrA3d6D+x5KImEtgrfyk9u69VA5UGN2OcIO89v2reH/U1ShO5yZ2UWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789043585; c=relaxed/simple;
-	bh=cFTNBNxZCQsFs6cQj6bgY3ayOVb/Bro31F+NzxgXqGc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bOLBgwnN32bMA9Ay6rb7cPVbD32wjrJ3uj8xmW80dNL4F2F78dbhdkxFgAdl1ZHqibjVpg89eNipW11y+c8Nfxh5lIfup3nEYijy6G7bWXsZcEBFEu+ng6WeAP9p7sjTC7ixIaFjnk0Lic9WHuWbQIU4rwwqbCJvOu3t3Mrk8aM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OIc4WOF0; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789043606; c=relaxed/simple;
+	bh=16K8jyNUkTTINxKrRbCOYqnznpV+h4uR93+q7VSOt+c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MdhT+mVfampIITc4MpexxytIxz+5zDitubQro89WDfez5iKzfZNtJxx8qGKPsWmM53vmCGa8tyhz/+LMNLnGjxi+G4ZZf9Y/M/LFAqOIzbSW3orSjCimVuEcT/L6H+pXr57uZrcn+r3m/zHzbHKfxo9tNtqjTPr8sqqyKcA+T0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R5WpQpQt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OIc4WOF0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789043582;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=qi0iMJdk6ujIdjzYq5AskcwA+qNgTXiPT5rTXwXCVjY=;
-	b=OIc4WOF0zlyvDrc0q/UL2vOIwEWAX1rYW3QlbZuy/XAsPvJ4VtI57OOIO+N9SbOwtZfbQ5
-	9j9z/DMqMwrCxrNfang8YxAl2eXS1v3YSc62M9Z173Iz0bI1yYXb/bFjeUPrrX5jccQByF
-	gywVoBDRn1EnCNwE5mBfImeaTn6qGNE=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-219-oJmSpFahMGOZOXBCcZamWg-1; Thu,
- 10 Sep 2026 08:32:58 -0400
-X-MC-Unique: oJmSpFahMGOZOXBCcZamWg-1
-X-Mimecast-MFC-AGG-ID: oJmSpFahMGOZOXBCcZamWg_1789043577
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8C5EB195420D;
-	Thu, 10 Sep 2026 12:32:57 +0000 (UTC)
-Received: from thuth-p1g4.redhat.corp (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1A0D21800446;
-	Thu, 10 Sep 2026 12:32:55 +0000 (UTC)
-From: Thomas Huth <thuth@redhat.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] Bluetooth: SMP: Zeroize raw key data on the stack in smp_e()
-Date: Thu, 10 Sep 2026 14:32:54 +0200
-Message-ID: <20260910123254.408963-1-thuth@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R5WpQpQt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 869E41F00898;
+	Thu, 10 Sep 2026 12:33:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789043604;
+	bh=2qboF0MMLQ7pG+FUSE/SOMqnEnYE6R4THqMqaAyU8FI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=R5WpQpQtpmRoAkio18/HpfoE4l/tEFJ0jF8n4L/ogf7Kluuaud2s46bTUYOYLr76y
+	 7g6/QXTgDIdMGFlYzXV6rPAincNvN9euSEpTPVQixd5Y3aUfiYQthaNQhNscYFzvU3
+	 qwDoV/LK5FtE+uLVMzohoDVcQ6499Gwh2imRqwE0qdTsCgrl5sGR/kdSEvxYClHHpj
+	 9uTdDXTY/uUxdg4+sA1GvEP/9pcqwCaHC2GKUqU1uHHp3cz3cww5E2BYZRiCjPlG2n
+	 LKYp1wUBD2d84sh2MzOLIcG0dSnQN51rGSqx8PM8h4rXMNVeSd8sbMyEdFFFiZm2mj
+	 +PzD3vW0xdvlw==
+Date: Thu, 10 Sep 2026 15:33:18 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: lirongqing <lirongqing@baidu.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Yishai Hadas <yishaih@mellanox.com>,
+	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] RDMA/uverbs: Reject WQ creation without a completion
+ queue
+Message-ID: <20260910123318.GQ13683@unreal>
+References: <20260907113918.2315-1-lirongqing@baidu.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907113918.2315-1-lirongqing@baidu.com>
 
-smp_e() already clears the AES key in its "struct aes_enckey aes"
-on the stack before leaving the function - but the very same
-information is also available as raw key data in the tmp[] array,
-so this should get cleared, too.
+On Mon, Sep 07, 2026 at 07:39:18PM +0800, lirongqing wrote:
+> From: Li RongQing <lirongqing@baidu.com>
+> 
+> UVERBS_ATTR_CREATE_WQ_CQ_HANDLE is declared UA_OPTIONAL in the ioctl
+> method definition, so the mandatory attribute bitmap does not enforce
+> its presence.  When userspace omits it, uverbs_attr_get_obj() returns
+> ERR_PTR(-ENOENT) and the handler stores that error pointer into
+> wq_init_attr.cq without validation.
 
-Signed-off-by: Thomas Huth <thuth@redhat.com>
----
- net/bluetooth/smp.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+That handle should be mandatory, declare it as UA_MANDATORY.
 
-diff --git a/net/bluetooth/smp.c b/net/bluetooth/smp.c
-index 6091c47cb0028..637bf134dfbd9 100644
---- a/net/bluetooth/smp.c
-+++ b/net/bluetooth/smp.c
-@@ -366,7 +366,7 @@ static int smp_e(const u8 *k, u8 *r)
- 	err = aes_prepareenckey(&aes, tmp, 16);
- 	if (err) {
- 		BT_ERR("cipher setkey failed: %d", err);
--		return err;
-+		goto out_clear;
- 	}
- 
- 	/* Most significant octet of plaintextData corresponds to data[0] */
-@@ -379,6 +379,8 @@ static int smp_e(const u8 *k, u8 *r)
- 
- 	SMP_DBG("r %16phN", r);
- 
-+out_clear:
-+	memzero_explicit(tmp, sizeof(tmp));
- 	memzero_explicit(&aes, sizeof(aes));
- 	return err;
- }
--- 
-2.55.0
-
+Thanks
