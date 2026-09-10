@@ -1,251 +1,130 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C62E92BE02C
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:53:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28280280318
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 01:55:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789005187; cv=none; b=I0gedUlLEmXpbtP9rC/k4ptoHSbmPOoMTlAuETADt4UiHAr3eLCXhZWFp7wm3UOGE0o6hvBRKFWwCbdhFM+qjpCO8VVgBPczBFBnOMsuvbMY7jLFjRfePH4mCBMzstmxg0LrhPL1BcBJoumZMlQkHkFtCnthCMMtxX4GMza4B9U=
+	t=1789005304; cv=none; b=EwjzzxknJ6VfSFHUVFH7CeM4l2DvV9/YocRo9vnCv3aaYeyfJNttT074B8nZm57sf1BecK4zPuAK48BAZBdETJeaIv5PGnaPxrSeXFjc0t7pH7K1KKmr1t+U3HtA4vqq2C6XY7sNQv5dJ2gI0imhL3m/2YBwZe3oR+/g68MVPjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789005187; c=relaxed/simple;
-	bh=SmcfkWeuLc3CpgSLYnogq8F5mXa3Fw44pJ9p5pnhX2U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jZHXOgvglLmqvGQuuyC4x8gX/qR0z8d4a332K7e9p4ahWMsC21ZOZ2strEUM8UwDRVC9tWFoF+qFGQ3ay09tqBH4Ia2ZG+FhURkzImEBFdQ/zw8PiModUkS1JY16yivfNmMVVlCppd+pIsXvAcgCVb77HVCZ3/jwyL/yblZOpI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XK3OiMOQ; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789005304; c=relaxed/simple;
+	bh=U50mXAKZslWPGncMaFFrnOpXADVR0A7auDu2s/EoAcE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FwHMjV6nMhhSU82ofC61hinZyNAk/J648Y0KVJzdArcMAvk1NUda8Sc6RMKFpquJAyKSxGUfn2PdoZ3W0WH+jopZRCoRcPo/8VaaRogs8DhizK+o9O3iVenHXP5CJZvLP+UfyeARY/G26oO9o+hSH2YrRoS+ySrVH672nsgUwa0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai; spf=pass smtp.mailfrom=crusoe.ai; dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b=LbB8j5mX; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XK3OiMOQ"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed9865so7157865ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 18:53:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b="LbB8j5mX"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-382ef647e20so7109943a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 18:55:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789005184; x=1789609984; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B3AxC7gchtFJwmTqUc6Eo/wyWrQDc1+3uptrgZICrdw=;
-        b=XK3OiMOQdpZYn6XiVZlnqJhl8XauhXCdvCSa9xSQN9wes0DpCqJ0/l3aDF57dPBnmn
-         dmLdCUB3DTMmI+WipvfVtgTttsLcLxYRzzMoHKxrkSfAFQxioEDpNO2M5EZLENKYaFTu
-         vBBXd04K5plFMIec7/zZX8Lj3C65Leo5GIg92h7L2n9OEdqWEigJbsJIpG/uffydRq8j
-         poAsh8xck1TRYyVe0z7A7/pL/Bm3uxtvx+XmIjHA+Tz8aTbkdgcjqLpZtvEWNEcv0SmF
-         d3eYswEqDxf5P7LM/BfXWP+f/Sor+XMHQna8nQvYEeGN/aqeDNvWbspdB/y/EbwNmYym
-         iSBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789005184; x=1789609984;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=crusoe.ai; s=google; t=1789005299; x=1789610099; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=B3AxC7gchtFJwmTqUc6Eo/wyWrQDc1+3uptrgZICrdw=;
-        b=g0EM/j8rbgCcM9vB7qTBdxGGdl29McUlg5v+yYnj8QRE943FEplXL6a/hb5GjWEeEg
-         /mnZlaEs04zcuIoFGEWgjKsOVHAbbvo7k5H4S0stxztjN0MmHuN6l5dAgkiWHTCN+DAJ
-         9k0jkbeKQ7qJLuIEZEWG+qOEBcqfgV+IBaKNshsYs4bHfHik9Lq9n5piZ3r4+BAWKz1I
-         4nkTJ2/7q7LgGwG9gaAoq0dEyEG7LMYR3+oWpydmddA2cfSTzQjUbcv6CSGcdy06ryQ6
-         NQMEkxl2g9Yl+ZxWY8oACtYcZ82D+I6CU5jYDMgnVcyzXRWFVcCwH/6+fC7DwO9b0ED8
-         hDOA==
-X-Forwarded-Encrypted: i=1; AKwUvBxOkWY82q5axLh95CPGj84NRKS+cMRGrW8Qnq76WnkyZGS70PG2lIliLnrRW0hff8B/2GKSF4Cg/AG+Fuo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kEXgRS5cdO/McVEdMJJ0NbG/6ZfeCqWEDV+vLlQcreTzxmrfcn
-	LrRFFHEGntTU6K4NA5+t4wjnmWH3V4bR0MpNcQbxxs26kVa/pck1yBKv
-X-Gm-Gg: AYBFou3jnQIr7fTAAOlN5Rl204T/ZeDGji+LkVbWlgBMZPmmEwDJAfbP8DSSaUD5SFm
-	Y/MWC3xVQC1KBDbBg2syKRN2TiD/WuPHQ0VN2qU5PvOgifHt0nkGgvLB//m1uzpTxC5fPG+F4NB
-	LOys9giXQRwqT6F/QZicz8c51T7XvEUit3Lw3QU4V++VMmL1gFMlYYhoPlPz11tUNADM29B35sM
-	BevS72XDONu7OxQ+xn+Ahk263Ym3w7B9hF9RIGLSpln1bNXGybYqldA93cilq6sOD9FHdgLXp3J
-	Ftcwp8cVmM1zwPMDP1A1SFA8mzalRyO25E8F4cPng7S0ln76RdDhJ6FGOgDIZ6V3EeejaqA/yea
-	YnxdM+xGetPZiXyF/aSiJiif84uygypBWU+8QdEXXn1XYbobmks6UvJ7BabHh+b767O6lwLJilH
-	vNQg2kLS+YO4mr8VJL9ftgEOkvCQDVKWKxCUd9fxWedVkYzHHY3WVUMOKoc6HK9oRd/qn5d8Ar7
-	2LF0AUZiMY9Y8K27HqjJHT5F5+aFzbbemZ14u4jWJ5cayAnh3eqLVA=
-X-Received: by 2002:a17:902:d58a:b0:2d9:4358:73ab with SMTP id d9443c01a7336-2dd07b9c78cmr64548885ad.19.1789005184028;
-        Wed, 09 Sep 2026 18:53:04 -0700 (PDT)
-Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1499d92dsm79698945ad.52.2026.09.09.18.53.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 18:53:03 -0700 (PDT)
-Message-ID: <9d697240-3632-401f-aeba-c1fa5c2a29d4@gmail.com>
-Date: Thu, 10 Sep 2026 09:52:58 +0800
+        bh=U50mXAKZslWPGncMaFFrnOpXADVR0A7auDu2s/EoAcE=;
+        b=LbB8j5mXCzPCQca2q216DoVlAlaBHT10ww5034cqd5ba9/PAWA84XJLLUrhr2J2EJd
+         aoEkg8+1xIZow8S/mEzcD37QRWKWcLeNGr7xPjHm1UxSsarRlHSIV5K9S0MplZhxBemZ
+         b5U/PpmonZYnsKI68K2AUcoHEll8iA4YibWysJrdX6HBsWyLZma5k0JoBypL6I4XK2Uv
+         fnl0+0g17ci7b2gxRXVxgbN7fgjs9BxLLORv9kuzL+PYy7CXFvLG1vCOQJfrZ3yDtciO
+         bOwjjbRGQ719kQC+rwuvABXAbUXGDCrK+ozyPQTQ3uE+bncPwIz0MbF2EPnF49k9rpNa
+         ldrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789005299; x=1789610099;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=U50mXAKZslWPGncMaFFrnOpXADVR0A7auDu2s/EoAcE=;
+        b=fekfUl7m2nw7kZ7hBQjQwGKlFMfIGnLOlBL9w7lPJpbYIe48Y6X74KXe03yPs2mw5r
+         NJs/PBByIpcg9P+08r9IYOFWbmd8BJniJP/atIBCJ8jhWcd2FDS/m0jrJiPhBZhJjEFJ
+         uUrdwDEGiTiFpMRZau7/MDfKXawBMr1xxkOpLG3jadiq1q0lgihe0u0aEB3lZaRJqzdA
+         tvnbeEJ1q/03zCrHAbt1elFDPG3Mmruq2xFFUhHfIWVNhL4pPYRIdRhu6kqiQYOF7w7O
+         ZfHj2/oZnvjfl4/kx8Rn7sXUnEKhywB43az3k/KT5MGsVNLxTKvZoTSdwBy+GbAHWuDA
+         dhjw==
+X-Forwarded-Encrypted: i=1; AKwUvBxI06Se9dZNWfXEzpq7l4Ljow+T3CFh7K9N6G9C6TxKrMaIVeLnvkaF0n8yiG1uNrCK5xvXsdhSfmmTA1w=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4dttIfY2rq5ipdZR0dDKYHqzBuqBBioDSneHTrsECr5gwEZfW
+	J1g/8Ax2N+JdRumCVK457/H2lqKrvMhmGjsv2L3rg/1As2tZVCTtd0EBlL25cBSmiMM=
+X-Gm-Gg: AYBFou2TQYDrBGqE7SG7sjR0xPy1E+UDjjIIZgWb2zsU143XRbt97xO8uG27WmFOsLk
+	ebFhce23fUOmpg+R6u64FjChUk8f7EhfehhH608wD9brqsR+8SMPEplBzIN3yiOKsx9UAoD7CSs
+	X5GQ6C9Gkb2vWMDJiuz4vLtuTN9m+qLkwrCPRYYf9/wQTBrRy6sYeyYr07m4YCfNgPY/KU/hV59
+	mCGtTRYpwQnXIScKgyPrwBhIjOdyfA7Qg8cl680YBPlLUjsDXn+pDqfZQG68EaTNli3qUuXgQ2g
+	2wgx64pT3E4RbcZEVYePWJUg3XK04j1OslOO+OdgpmQB2ShwDK9aLrTXTl6DT0z6BPGYpVh/kvS
+	e0fm5P8JV2udsorVGxV7OQFOwenxmAPV/2WiQ/7VpCZUGAtHLQnntWMjC5FspGVRDNJvFnklK6z
+	N0OZSD1OO031sxbOQApt4EITDyuaCONye987KH3154/V3MdbQ/Ahd+oqR0HCunOC/Ax2BcRxbrW
+	FkuMPehs5Aa0n48kLOZEoNha5Z7CD6ivMD3oKVeRNRGXPym
+X-Received: by 2002:a17:90b:3c42:b0:38e:fea2:df53 with SMTP id 98e67ed59e1d1-39b260d2977mr56616781a91.4.1789005299313;
+        Wed, 09 Sep 2026 18:54:59 -0700 (PDT)
+Received: from MBP-Krishna-Iyer.civet-hops.ts.net ([2601:645:c68a:b830:4ca7:3a29:2409:820c])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1434bb7d71fsm16129763c88.15.2026.09.09.18.54.58
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 09 Sep 2026 18:54:58 -0700 (PDT)
+From: Krishna Iyer <kiyer@crusoe.ai>
+To: Nilay Shroff <nilay@linux.ibm.com>
+Cc: kbusch@kernel.org,
+	axboe@kernel.dk,
+	hch@lst.de,
+	sagi@grimberg.me,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	sj@kernel.org,
+	saravanand@crusoe.ai
+Subject: Re: [PATCH] nvme-multipath: add fail_io_now sysfs attribute to fail queued I/O
+Date: Wed,  9 Sep 2026 18:54:57 -0700
+Message-ID: <20260910015457.77845-1-kiyer@crusoe.ai>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <84112f53-5c05-46ca-97d0-550565fb941c@linux.ibm.com>
+References: <20260904032605.65758-1-kiyer@crusoe.ai> <84112f53-5c05-46ca-97d0-550565fb941c@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/6] dt-bindings: display: verisilicon,dc: add support
- for nuvoton,ma35d1-dcu
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260908092840.225220-1-a0987203069@gmail.com>
- <20260908092840.225220-2-a0987203069@gmail.com>
- <f74168b54fe8f070b7cfe79dc2fc83a63c2e8842.camel@iscas.ac.cn>
-Content-Language: en-US
-From: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <f74168b54fe8f070b7cfe79dc2fc83a63c2e8842.camel@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+On 9/7/26 6:15 AM, Nilay Shroff wrote:
 
-Icenowy Zheng 於 2026/9/9 下午 01:44 寫道:
-> 在 2026-09-08二的 17:28 +0800，Joey Lu写道：
->> Add the Nuvoton MA35D1 DCUltraLite (nuvoton,ma35d1-dcu) to the
->> binding.
->> The DCUltraLite uses only four clocks (core, axi, ahb, pix0) and one
->> reset (core), with a single output port.
->>
->> The MA35D1 clock controller gates the core, AXI and AHB clocks with a
->> single bit, but each remains a distinct clock line feeding the IP
->> with
->> its own rate constraints, so all four must still be listed
->> individually
->> in the devicetree; core, axi and ahb happen to share the same clock
->> phandle.
-> This is weird, but I must admit that we're limited by the Common Clock
-> Framework here, so I cannot give a better solution either.
->
-> Anyway let's settle with the current result.
->
->> Move the clocks/clock-names minItems to 4 and resets/reset-names
->> minItems to 1 at the top level, since that is the lowest count any
->> supported variant needs.  Add an allOf/if block that tightens the
->> constraint back up to the fixed 5-clock/3-reset topology required by
->> the existing thead,th1520-dc8200 compatible, and another one that
->> caps
->> the new nuvoton,ma35d1-dcu compatible at the 4-clock/1-reset count it
->> actually wires up.
->>
->> Signed-off-by: Joey Lu <a0987203069@gmail.com>
->> ---
->>   .../bindings/display/verisilicon,dc.yaml      | 44
->> +++++++++++++++++++
->>   1 file changed, 44 insertions(+)
->>
->> diff --git
->> a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> index 919a900122012..773966677d0f4 100644
->> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
->> @@ -17,6 +17,7 @@ properties:
->>       items:
->>         - enum:
->>             - thead,th1520-dc8200
->> +          - nuvoton,ma35d1-dcu
->>         - const: verisilicon,dc # DC IPs have discoverable ID/revision
->> registers
->>   
->>     reg:
->> @@ -26,6 +27,7 @@ properties:
->>       maxItems: 1
->>   
->>     clocks:
->> +    minItems: 4
->>       items:
->>         - description: DC Core clock
->>         - description: DMA AXI bus clock
->> @@ -34,6 +36,7 @@ properties:
->>         - description: Pixel clock of output 1
->>   
->>     clock-names:
->> +    minItems: 4
->>       items:
->>         - const: core
->>         - const: axi
->> @@ -42,12 +45,14 @@ properties:
->>         - const: pix1
->>   
->>     resets:
->> +    minItems: 1
->>       items:
->>         - description: DC Core reset
->>         - description: DMA AXI bus reset
->>         - description: Configuration AHB bus reset
->>   
->>     reset-names:
->> +    minItems: 1
->>       items:
->>         - const: core
->>         - const: axi
->> @@ -79,6 +84,45 @@ required:
->>     - reset-names
->>     - ports
->>   
->> +allOf:
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: thead,th1520-dc8200
->> +    then:
->> +      properties:
->> +        clocks:
->> +          minItems: 5
->> +
->> +        clock-names:
->> +          minItems: 5
->> +
->> +        resets:
->> +          minItems: 3
->> +
->> +        reset-names:
->> +          minItems: 3
->> +
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: nuvoton,ma35d1-dcu
->> +    then:
->> +      properties:
->> +        clocks:
->> +          maxItems: 4
->> +
->> +        clock-names:
->> +          maxItems: 4
->> +
->> +        resets:
->> +          maxItems: 1
->> +
->> +        reset-names:
->> +          maxItems: 1
-> Maybe it's reasonable to restrict max port count to 1 for MA35D1?
-> Although I am not sure about how to do this...
->
-> Thanks,
-> Icenowy
-  I found the same kind of per-compatible port restriction already used 
-upstream in renesas,du.yaml, e.g.:
+> Does the intention here is to force I/O to fail irrespective of the
+> controller state, or the intention here's to fail I/O only when no
+> usable path exist? If it's latter then I believe this is not the right
+> place to enforce this policy as since this check makes nvme_available_path()
+> return false unconditionally when NVME_NSHEAD_FAIL_IO_NOW is set, without
+> considering whether a usable path exists.
 
-         ports:
-           properties:
-             port@2: false
-             port@3: false
-           required:
-             - port@0
-             - port@1
+The latter. nvme_available_path() is only called once nvme_find_path()
+has come up empty, so the flag only decides whether pathless I/O is
+queued (default) or failed.
 
-Applied to our binding, that would look like:
+Agreed on the rename. For v2 I'll make fail_if_no_path a plain
+per-namespace policy: admin-set, no self-clearing, toggleable at any
+time including mid-outage.
 
-         ports:
-           properties:
-             port@1: false
-           required:
-             - port@0
+> This attribute should be only exposed for fabric controller.
+> It looks this is being exported for non-fabric controller
+> as well. Moreover, I like attribute fail_if_no_path better
+> than fail_io_now, since it describes the actual policy being
+> enabled: when no usable path exists, fail I/O instead of
+> queueing it.
 
-in the existing nuvoton,ma35d1-dcu allOf/if/then block, so schema checks 
-would reject a port@1 node on this compatible instead of silently 
-accepting it.
+Right, v1 exposes it everywhere. Since v2 makes this a plain
+fail_if_no_path policy though, is fabric-only still what you'd want?
+The queue-vs-fail choice isn't fabric-specific: a PCIe head kept
+alive by delayed_removal_secs parks pathless I/O the same way, and
+dm's fail_if_no_path is transport-agnostic. If you'd still prefer
+fabric-only, I'll have the visibility callback check a sibling for
+NVME_F_FABRICS under head->srcu.
 
-Happy to add it if you'd like the schema to enforce this, but wanted to 
-check whether you consider it worth the extra lines given it doesn't 
-reflect an actual bug in any DT today. Let me know which way you'd 
-prefer and I'll fold it into the next version.
+> This patch appears to be based off older kernel branch. Please
+> rebase it against the nvme-7.3 branch.
 
-Thanks.
->> +
->>   additionalProperties: false
->>   
->>   examples:
+Will do; v2 will be based on nvme-7.3.
+
+Thanks for the review. Unless there are further comments, v2 will
+have the fail_if_no_path rename with the persistent semantics above,
+visibility per your call on the PCIe question, the nvme-7.3 rebase,
+and the fast_io_fail_tmo rationale from Sagi's branch of the thread
+folded into the commit message.
+
+Thanks,
+Krishna
