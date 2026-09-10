@@ -1,160 +1,71 @@
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1933DA7EC
-	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:06:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 987B641443F;
+	Thu, 10 Sep 2026 21:08:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789074412; cv=none; b=ApQirL4XLUX+LoTk8xeG2vD0irDEti4GgcEVFLlXwQOh4FyQ+XZUGHPH5Im0j/DD9prbbXslbJBVON+28e5M58pgi8IQOf0Prjb7wfAAJGYq97bHopv3QuLWBGUCpxxyAAbZKRrkgT5+OSHUVJ3Y3xB0Kzq6cnucRMqKZ1C9iIk=
+	t=1789074500; cv=none; b=Za7AEA8JnOZSdhrLGaB+ljQe/FX5bJhrE0AC8PHJ0U7dhmvIFM9qqwgGJ68S34HVwciBWolu7eIRxKC8X+B8ac1Tgnf8vzTvxTp7Swgx3tueg1fLoatyFol2Bmfx/L/2pvzyJ9D6cBAVrQCTE+aip4Gd/U5XXs9kOxebqI/Zjlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789074412; c=relaxed/simple;
-	bh=+QJuiFNNU2WuMiOfbuoDhSNfC8EPo0OvHi6oF2IXUBk=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=soM4hd0Ej9DA0+wF19xuDusI1ostpUmtKXvpuidzTpKgMj6KE8w8HpmD65eSHtkcEyOM+EdPplmOmjQdsa34b20QyECvSfIMwRqK76zGQiw+TKqC5G+MXWci0fdDtFqHKl+q6NnK8s0I7Toi9c5fqR2CugeCFE0lktJXYHMHERk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jackyli.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lDfDQ60A; arc=none smtp.client-ip=209.85.214.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jackyli.bounces.google.com
+	s=arc-20240116; t=1789074500; c=relaxed/simple;
+	bh=sbVTlb38J1O5Bk4QlUeLcjkWEWVtQTnkJZHOFKn9/Gw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EL82dDZaNhPhA0ktEkPigxZ86B35gBXHCxaVoQpy4YSr2oPA7tVaRy+RY+68yEt7Ju5/14aB8vROP7jc/i5LLQlL0VUpyEw/xWGETFKDkQyZVDtHendfnINNwWJhqqvSCBn1yZVRN8sgc9F3fSV93iUrsmAoL3NXnH3eehGPlYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=joXq15Eo; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lDfDQ60A"
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d54187d8b0so3187675ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 14:06:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789074403; x=1789679203; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gNFeNcyltUj1f0y6EIQIHeGiYuc25QrluAzkIS54884=;
-        b=lDfDQ60A/xRzIoOlqH9MAGMnIsM9B8IGS2CfdNOxxigbqzgsDTFtrf5OH+ZoOUeG0A
-         ddvM4MTBojzhq0mwKOaA6w7LtBAY4aGrwktu/0j/PFZrG2/fY5m8Ws5BpxJLjY9PdLKJ
-         /Y3384bV2v9+LkmF68Kjk7/chXhXNjTq+1Qo1jdfj6Z2AyYmt1zeLUX1iKm63FIgIU7N
-         txlCD5H8XFYH+q8BTcvfZLm+WvsVCqGlyDnTY7MwTzLwhx/ThBupEAW7qTHHOEFxW3kb
-         in90wpgqOX4HqT7KgceJ4cp537vBnwQzkMQ+Rg1P2q/s+gv4F9B+qVMLXChZ1n1BHMS6
-         xFsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789074403; x=1789679203;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gNFeNcyltUj1f0y6EIQIHeGiYuc25QrluAzkIS54884=;
-        b=E/ltSA1vj8ErHi4AEW4OhV7z0Q6VtqA/vMNk4uqNaWMEQMB1P1jg8kqOXVj/2aLPa6
-         9FDd4R6DlA9wSBol07Lag3NgZhDWgTJlgI0gFCVlNwar+Sk2PD/15fRxO/GS+YzO75Tc
-         Amh/q9NYh3rxoF2RC+PaTTqDYGpThZFZYHA09o883TFq+/xJwAZ8h0wfZ0Y0tej7+R5N
-         cZKjf7jceATG0L8zmQVX5nJ1QiZ4imGp6XoXWzPLhm413Hsfx6GhgeTFIBUjHzOP1fVu
-         7K2Vzsi2el2iGNeQkucZ6hiMQxvWP2o89oD3mZGu64T99ydn2junA+4/Y6x4+vWO2orl
-         fdPA==
-X-Forwarded-Encrypted: i=1; AKwUvBzlfohU+JJoYop0k0cBrgMLzu2SN9oS5JGSJ8oo/6W3oTTwEj2BIVmOzh2csU6itdSZmkVXcbZbYfhzBDc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nd3OmP3kLQ6S44n7YsLw34rgq/SsS734nw8ktrPiCvHaLMKMMC
-	+K4QVb0lb1+b3NpbUr9Gfj/TEcZxEIikdiT2qsvQf+S6e7U3CbErACYO2jW+OmdLOdbNM6MboHy
-	ethQzBd8Q
-X-Received: from pleg20.prod.google.com ([2002:a17:902:e394:b0:2db:814a:e864])
- (user=jackyli job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ea03:b0:2d9:1dee:43db
- with SMTP id d9443c01a7336-2dd2a34fd9cmr23427655ad.15.1789074402904; Thu, 10
- Sep 2026 14:06:42 -0700 (PDT)
-Date: Thu, 10 Sep 2026 21:06:21 +0000
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="joXq15Eo"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hgqyd3cKSz8v1p;
+	Thu, 10 Sep 2026 23:08:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789074489;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VZ2uv/XZd6dkl9VRfWfT3lp6ZKhNUYXM3plJ72H6MDA=;
+	b=joXq15EoNn3AU3RK4FKO9RWUK01Ra2mMA+5g3IXXFQjejVxFjPmU/sCblplgA3dafdE5O1
+	s+Xq0LO9a3pVDATpvwM/ZMLhN1uWonTwJa4MNGigDoiXHNXA92SiMSuxz87zi7X5cSEBX3
+	kRD1mVkFin1yPSpBiNXmg4zP1lNm9/WrZrMbQYvmIYNDQCVxa/LdT+ptSsDZxrp4yP9ujI
+	b2CFfwcLUnxfCXvUAydlM/JCFJo3lWp3hFgU6tsWX9K8jFTt7iHj+9KD9F/gKo9kykVFWe
+	i2vv8ns0qNVNelnQnoKHz5SeTD+2vS9MgmbABmWhzLMGGXfICiNVzxSAx/sYtQ==
+Date: Thu, 10 Sep 2026 23:08:02 +0200
+From: Benjamin Boortz <bennib@mailbox.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, akpm@linux-foundation.org, 
+	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org, 
+	lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com, 
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, 
+	broonie@kernel.org, achill@achill.org, sr@sladewatkins.com
+Subject: Re: [PATCH 7.2 000/556] 7.2.5-rc1 review
+Message-ID: <aqMbwVNlNLC2Jdnh@bb-82jq>
+References: <20260909134230.441546314@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAMwbo2oC/x2MSwqAIBQArxJvnaBR9rlKtNB81oMw0ZJAunvSa
- pjFTIaIgTDCVGUImCjS6YqIuoJ1V25DRqY4NLyRfBScRecZuaQOMoX+vlhntJaq5QP2FkrnA1p 6/ue8vO8HL8zzAGMAAAA=
-X-Change-Id: 20260910-snp-invalid-input-5dbb6a408e7f
-X-Mailer: b4 0.14.3
-Message-ID: <20260910-snp-invalid-input-v1-1-fb2e03da614b@google.com>
-Subject: [PATCH] KVM: SEV: Return INVALID_INPUT on SNP req/resp buffer access failure
-From: Jacky Li <jackyli@google.com>
-To: kvm@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, Michael Roth <michael.roth@amd.com>, 
-	Ashish Kalra <ashish.kalra@amd.com>, Jacob Xu <jacobhxu@google.com>, 
-	Supraja Sridhara <suprajasri@google.com>, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Jacky Li <jackyli@google.com>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20260909134230.441546314@linuxfoundation.org>
+X-MBO-RS-META: 6rxe9q8sqqdcnwb8zausftb65ba3iki1
+X-MBO-RS-ID: c4eb3d609c4d3c6f85a
 
-Currently, snp_handle_(ext_)guest_req() returns -EIO when
-kvm_{read/write/clear}_guest() fails while accessing guest-provided
-buffers. Returning -EIO causes KVM_RUN to exit to userspace, likely
-killing the VM.
+On Wed, Sep 09, 2026 at 03:34:40PM +0200, Greg Kroah-Hartman wrote:
 
-Fix this by returning GHCB_HV_RESP_MALFORMED_INPUT with sub-error code
-GHCB_ERR_INVALID_INPUT to the guest and resuming the vCPU.
+>This is the start of the stable review cycle for the 7.2.5 release.
+>There are 556 patches in this series, all will be posted as a response
+>to this one.  If anyone has any issues with these being applied, please
+>let me know.
 
-Per the GHCB specification, guest-provided GPA buffers that cannot
-be accessed by the hypervisor (e.g. private pages) should be treated
-as guest input errors. Because kvm_{read/write/clear}_guest() only
-returns -EFAULT on failure, treating this failure as an invalid input
-aligns with the definition of -EFAULT ("Bad address").
+Build and boot tested with QEMU for x86_64, i386, arm64, and riscv
+across multiple configurations, and boots on AMD Ryzen 7 5800H.
+No regressions observed.
 
-Returning GHCB_ERR_INVALID_INPUT also matches existing SNP handling
-in KVM, which already returns this error code for unaligned or
-overlapping buffers. It also aligns with other hypercall implementations
-in KVM (e.g. Hyper-V returning INVALID_HYPERCALL_INPUT on
-kvm_read_guest() failures in kvm_hv_flush_tlb()).
-
-Performing upfront validation (e.g. via kvm_mem_is_private()) is
-avoided because it is prone to TOCTOU races with concurrent Page State
-Changes.
-
-Fixes: 88caf544c930 ("KVM: SEV: Provide support for SNP_GUEST_REQUEST NAE event")
-Fixes: 74458e4859d8 ("KVM: SEV: Provide support for SNP_EXTENDED_GUEST_REQUEST NAE event")
-Signed-off-by: Jacky Li <jackyli@google.com>
----
- arch/x86/kvm/svm/sev.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
-
-diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index 5705723f1f41..d07562310519 100644
---- a/arch/x86/kvm/svm/sev.c
-+++ b/arch/x86/kvm/svm/sev.c
-@@ -4228,8 +4228,10 @@ static int snp_handle_guest_req(struct vcpu_svm *svm, gpa_t req_gpa, gpa_t resp_
- 
- 	guard(mutex)(&sev->guest_req_mutex);
- 
--	if (kvm_read_guest(kvm, req_gpa, sev->guest_req_buf, PAGE_SIZE))
--		return -EIO;
-+	if (kvm_read_guest(kvm, req_gpa, sev->guest_req_buf, PAGE_SIZE)) {
-+		svm_vmgexit_bad_input(svm, GHCB_ERR_INVALID_INPUT);
-+		return 1;
-+	}
- 
- 	data.gctx_paddr = __psp_pa(sev->snp_context);
- 	data.req_paddr = __psp_pa(sev->guest_req_buf);
-@@ -4244,8 +4246,10 @@ static int snp_handle_guest_req(struct vcpu_svm *svm, gpa_t req_gpa, gpa_t resp_
- 	if (ret && !fw_err)
- 		return ret;
- 
--	if (kvm_write_guest(kvm, resp_gpa, sev->guest_resp_buf, PAGE_SIZE))
--		return -EIO;
-+	if (kvm_write_guest(kvm, resp_gpa, sev->guest_resp_buf, PAGE_SIZE)) {
-+		svm_vmgexit_bad_input(svm, GHCB_ERR_INVALID_INPUT);
-+		return 1;
-+	}
- 
- 	/* No action is requested *from KVM* if there was a firmware error. */
- 	svm_vmgexit_no_action(svm, SNP_GUEST_ERR(0, fw_err));
-@@ -4296,7 +4300,7 @@ static int snp_handle_ext_guest_req(struct vcpu_svm *svm, gpa_t req_gpa, gpa_t r
- 
- 	if (kvm_read_guest(kvm, req_gpa + offsetof(struct snp_guest_msg_hdr, msg_type),
- 			   &msg_type, 1))
--		return -EIO;
-+		goto request_invalid;
- 
- 	/*
- 	 * As per GHCB spec, requests of type MSG_REPORT_REQ also allow for
-@@ -4336,7 +4340,7 @@ static int snp_handle_ext_guest_req(struct vcpu_svm *svm, gpa_t req_gpa, gpa_t r
- 		 * certificate table is terminated by 24-bytes of zeroes.
- 		 */
- 		if (data_npages && kvm_clear_guest(kvm, data_gpa, 24))
--			return -EIO;
-+			goto request_invalid;
- 	}
- 
- 	return snp_handle_guest_req(svm, req_gpa, resp_gpa);
-
----
-base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
-change-id: 20260910-snp-invalid-input-5dbb6a408e7f
-
-Best regards,
--- 
-Jacky Li <jackyli@google.com>
-
+Tested-by: Benjamin Boortz <bennib@mailbox.org>
