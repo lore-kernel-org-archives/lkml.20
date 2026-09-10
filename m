@@ -1,1052 +1,850 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010019.outbound.protection.outlook.com [52.101.84.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 561AB4A014B;
-	Thu, 10 Sep 2026 15:12:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789053144; cv=fail; b=rTs+4oOQjtzhj30GzDOvcpXe0JDn5w8qFM6ZTdEuSfpBN7NdjN1nVmQ8Tq000OagCwBPW12tQCpKCL5lFzBri6l2Pei7s9Q05qBZTMY9kLd61SbpIxk/mIvGj/FhYRDFwSYduoH87+MoqzJbafDPLvj9cgVRfW188rBk1v04gBk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789053144; c=relaxed/simple;
-	bh=6JqOsxzUQ8y/6s5xVseY/S4LLB3v2fNGtzXHNT6qCY4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Mcww63R1q+ChcDXyG6o5yvLXiMhMomj1KkMBL7a9zRyUY5tNiAJ4eJFLa252+piCcsaf5SxEFnTI3XpFdcHDMVTsKVFw5vffnF2FcmnoYlH7ZTiqh7qluoMpvW7WTx0TKGcIHgFo8WVYNKSxFfIzkI9gMIaL1IXaOwpxx026SOc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=I4HGYA/O; arc=fail smtp.client-ip=52.101.84.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD5F4BFE81
+	for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 15:13:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789053214; cv=none; b=jdwUHGFD68vn7JUbHPqaYIswLAD4rlZeg8deHCNhCYWaYkkiJ2ZqoRFBWd77hdlOE0GlygpxU3e7ROCi3p2MIi0ZHAcr3M3HQLl5xya3Idi6IyhTmpGTJMgY6pLnvqtcNMnc3llrcykxbR3kTlnydKTKQdhsSWMavL1+Y3Atyvg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789053214; c=relaxed/simple;
+	bh=iMMbrs6rxMp7hDuDviRtuYHXLDp6Lca3axS1eTBKCl8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fZNN4Wg/U4H8Qa2iDVi5Yr50iLBMr62sjIUaEUKDAJFHqQSrgmTUqKJuDMYTtgIaEckJIsdnWkphkFwTeddRnpg8Tam2P218/VNHrN3sNkr2CUkxDIDhSrBJK2IBMu6X9JoThCebzQjpd2y1X6tSXUNX9EFaDJhkhDSPlrdALU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jiBQLH/3; arc=none smtp.client-ip=74.125.227.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="I4HGYA/O"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v2MbLQwfnlP3zQCcj50E5+cLC4Jxs3OhIxl8vRl4j3eBYVWn0gplg/E5tLbcQed8hNBCB6DLUzZ6gYp6YCLdKkE/Ba3/caceouiKJIk8/TFtkDUoF08o5rIGYnOMtsrRAysjG8KZURbgutiLVOXEAkZziyQZEf0V7WfT9R0TRF2O326vTN0dMAJRpecSaDN9g8ci2k9YgK0wM0tBViSaU34Xvv/TPsOLpXf/wQS+XSdwlsWTZr8aPQOWpf2830OvWWZSoA2oSjmZkJB4acYpQuLU06miyuFw9ZK0eNrU0Qwk+7H6RIiNM9w/VTeiXZ36pIZRJ3v5lkJvyHRMPqfuHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V3KGXCnwyFU7uVDILK0w67eWYaEtipbcu6Enii2y9kw=;
- b=ROR11Z3Lic+gDb5PTAYHIaM61t3jFKnw9xarRO3ZZ8dfTH5JTHeAYAyo8w6N9dKNVm0wSWivympF9dBMJlbZQT7G5bxvYC6KcNe47kEAQvLFbHJ4QCXYD8IgWubDXMHmy2CQgRdSf/kJM8TAgWdZ+dF1ESipMdo4X7ViGYXMIf3mdrH4CC4WJWehq3nQ9qYSsf6HXPzZ5f/Gpgw6hEp5h0tV+KDwMVLXKegg4VB99nEaqZyz0P6O5k3h1tIja1Q/WsVI83rqSK9fXJbgEscr6147jNedNjRS915GvpvnQsMeApSiAO2xRNiLhNttXu7HcjnZAdWAXYkKGJSiWokEtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V3KGXCnwyFU7uVDILK0w67eWYaEtipbcu6Enii2y9kw=;
- b=I4HGYA/OOHEZ6674aqj9KbQHzLFWMwS8nbZy0lHIYqMRDisIk6uQRuPtXjIsRLhZWse6EoDzGNqTSeHz/q2TuYE1l4r/a/Kl3n14dE7kur7xKNX3Aw5fpI2sx6n4jl022PsjOdqrTaRmWWsaJAM+8A/riKSEs80k0fWA/7FsJG8N/xqIiKk/C2wjWi3tuSDUKmpb56ytGpveJZOqBXLvf4/QiiDxaZY13OXb/Oe28oRwUExucFRD+UUln63vNPk9rkNCK3INutu7kALnD0SjUrWbdsOlZDoYMhYd/8axnJ1pd4zGAP7HfqcYrtPSz2zifE+IweZvGPYxcE8MkkBQYg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DU2PR04MB9000.eurprd04.prod.outlook.com (2603:10a6:10:2e3::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 15:12:09 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
- 15:12:08 +0000
-Date: Thu, 10 Sep 2026 10:11:52 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>,
-	Kristoffer Ericson <kristoffer.ericson@gmail.com>,
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-omap@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>
-Subject: Re: [PATCH 07/13] ARM: imx: remove i.MX31 SoC support
-Message-ID: <aqLIuIwpToxyehkv@SMW015318>
-References: <20260908152808.3928630-1-arnd@kernel.org>
- <20260908152808.3928630-8-arnd@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908152808.3928630-8-arnd@kernel.org>
-X-ClientProxiedBy: CYZPR14CA0003.namprd14.prod.outlook.com
- (2603:10b6:930:8f::16) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jiBQLH/3"
+Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-398a384b5f7so3588518a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 08:13:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789053204; x=1789658004; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uQAahbH13ggRJAV2eacUe6Kwdfk9744NsIiOq3/S/Uw=;
+        b=jiBQLH/3ABAIvn1U4llGCJiQltJUtpWcG5oKyculG6FlBc5UxictBazIgEWqy0Gb3I
+         n96KSxS7arUEIZepoahUv7rtyNXqe39V5klgj7ACxLkvXoHHZd6oFSigfnXS7/hYQ/z1
+         IRbrsrZcUeAvd3ePIC5N7Oh7G/ikjQJFupG1K0BmNDFAwCnIrUGCBQVSy3jxdSxCcnz0
+         ftvznkpKJieR29FJUTdcGQHMzPrOm5iGmU3CgdCrNr2q7l6n0Y9FKGw2ibaxgnombUGo
+         KUaBZvoJtfZtZKMvXCN/uOR5UD7gF2sMdlyNU7GW9gr9gCzWT8txc5ESgb6T/+wshuHd
+         cj6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789053204; x=1789658004;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uQAahbH13ggRJAV2eacUe6Kwdfk9744NsIiOq3/S/Uw=;
+        b=RmsLe9iq6ZhYMexaUbesaSu+PNeTw+hs3kFikx2ugviV9wiHOYcUuiRp2RqzJkEAw6
+         93/B8HTN0B1mYjrDC7FMa0fV4H64uR3oo6PY83X9iMu8x6+dTn7bwaLBTkqNVCrJpTsR
+         zTKRRweuUkBxirIw6f3l5z63XMaascUbuR3hXX+uYLLoCaCBuuInc2MB8HMtGx8Rymsl
+         02stsOgdOuLD5sJa0BJQtPruQjraeOu/xe1jOZ5RWy9nHnSqLAqY5wp6hl1ArwHK718H
+         cXh+BO0pO2EylsNGDE6m+/DXeZ9WnuEJ4E0kw979w6++QB7eT4Qn/XgajysK78LpjOP7
+         E65w==
+X-Forwarded-Encrypted: i=1; AKwUvBx1rdAlpzrFUy0eFUINrjWkJ/8quR+R2qnJX5Ok7KWKfuEaZHVFfJ75BLesTn3mNiifZYkD5nwwxw5bWJY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mme3alf7ait9nB0Sf/A9CgbPPbNa2KfVqANpl+rNwD4COfG2Uc
+	Mx1DfxzMH1Guha0NGxyRyd+v0+h9yNNUMrHtWmYir1a/LB90PnDMm/Ov
+X-Gm-Gg: AYBFou2QIehhrUN3F6PEPePXAhud64E0tDc9drLF+C3wZV8X+e55csY4F1iJsm0d16P
+	HsNVEPhBLEAXgFhnhj9RFMQp6RKNofGjxdHYKAqMm5/yQ1NhkSwahnFnhIGULX+tnQYXETgvU1f
+	ZllsIAr2ZI8/tZB4PgV1sqdiEkyMQDZkj2voaW0/spdwvzjZtSYl5UbPNyT8G8UhVsJ6gJg9Iw7
+	8k8g/XfeORF/wFvOxLjkioaPef4chZa5b0artACgLUtTANm7LyPnktgUigUoh7tPRAs4uIgmoBA
+	XoZ3u15HnPc1EGQOXXc1keBOCaoouZ48JiMuaxxYTdviJ2V/Ll7CwbQHlg8xDaxleVn9wmgKZYI
+	usAFPCcyGTkBhgPta4q2xYPhZQRGzk1Ao3NGpyzImi7+x+tre70kFetrqhV3f/GOay/fZwR/p2E
+	iUvG3ddzsrIBAMyu4Ft7mwJht4eUUaD+paRfx2PSICxZ4NjQtvm0gOO/ulCDsaAYa8FuUe9SZRn
+	TJNfLv+pvNL
+X-Received: by 2002:a17:90a:c110:b0:398:b88c:2b7b with SMTP id 98e67ed59e1d1-39bac19a97bmr21523430a91.8.1789053203365;
+        Thu, 10 Sep 2026 08:13:23 -0700 (PDT)
+Received: from wenlongli.debian ([179.253.249.103])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14324356931sm84417200c88.4.2026.09.10.08.13.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 08:13:22 -0700 (PDT)
+From: Wenlong Li <wenlongli486@gmail.com>
+To: Anup Patel <anup@brainfault.org>,
+	Atish Patra <atish.patra@linux.dev>,
+	kvm@vger.kernel.org,
+	kvm-riscv@lists.infradead.org
+Cc: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Quan Zhou <zhouquan@iscas.ac.cn>,
+	Wenlong Li <wenlongli486@gmail.com>
+Subject: [PATCH v2] RISC-V: KVM: Avoid synchronous IPIs on VMID rollover
+Date: Thu, 10 Sep 2026 23:12:27 +0800
+Message-ID: <20260910151227.986678-1-wenlongli486@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU2PR04MB9000:EE_
-X-MS-Office365-Filtering-Correlation-Id: fc009761-23b3-4d75-4566-08df0f4de18e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|19092799006|366016|4143699003|10067099003|11063799006|56012099006|22082099003|18002099003|41080700001;
-X-Microsoft-Antispam-Message-Info:
-	+nmpR7ulSd7bSvLgRdzz+zBHI+q720n5dv8ZqHsszhN3vLQ96VeH52isC/1MwGV/At7h/9/V0hXlLW35v0P7gNKmb7KMA23HG8zNfKtQe4TN6AZnRaJhbxM9oOJ8OGsmbAA0xeNsvp2A6Xv84imFY/+xg4e3xfYCBjxjY6DO9n0CSwZ7Sx1Bi5VH8878VA9HvQwbMKkfdEiPkGToKFy/RJq6z0rGkKByn/ny3MneVXhLu51XBJe+Jm5RLPhdonuqWyV9Ts0fMuA0bm9y6WfGotT9s7s1DveWtOtQDNL91YDsHWdCuiACDonEr7+hYAkcqHH0G/sROBp5qrkBkNAnQTtZP6frJ2Yg529kHfhKU7mSrllH+BlcWp2CzM2a2yRti6pNkNIGqAGY+AZ5HLkfhvgOKYvY8c3P9JcgcOoQENZiEdlugmesAiCAaSIeD2O94TtUeEcyw0+3YsCRaNrk5zga0ju+xdK10fkOClJliWfPYD1PpOYjzIyqD5uKplzIMKCEMysuE+ne/zbgJNy8gFrcDjJFgCfKed9rnQJbEtmTlpZbxXACYmRZ739NQF+al+E13UI/kGimyK0v+UgFooS0vvVCDFfXi7rAo8aq6s1urQBIaz2eVOtCTXgite7n+eRIRgQyN4LqR04qVLhKB7j/8EW/QGr3F2hhZI9oZyvnM8wKaGJnrdNBMCSDrftYinPGSVAlzHLdq4vba0pT0V3SmYttY5RW9C2lqoglwcA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(19092799006)(366016)(4143699003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003)(41080700001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?OZs0ZkcZJFsFHKeE7XBu6mSTSjpQ6uNj2b1i/vrJ3STqRdhKPtTevrl6BT4h?=
- =?us-ascii?Q?NkYtCcHJeJhMECB/JrjK+hPWPhbvoNDU9znDgYbTNAvqY4ZgMX3ZtcBfY2z+?=
- =?us-ascii?Q?ASKjknidDVK8rPogWQzvLxrOErse2cxKki3cyxYu2P2vmHxdaJa7h8P33CX5?=
- =?us-ascii?Q?Z9Y14DXKlp7taDt0+rtSrCbaREyug49jPOUH07ekjfaPDfPlJrsjxUuHWr1P?=
- =?us-ascii?Q?1+pRHdnIQUT1GKUfh0wVw1vbl8AL5cE/16gzFOkRW6Icuzybkw5dJp7RUb7G?=
- =?us-ascii?Q?TElUXkX2DEzSwgoWv4ydUa4Zk6E/Ue3qayqhHGY6+41cpSIZVeGuMc1B/Hcq?=
- =?us-ascii?Q?hhyDAx/UdalRc5l/jBHEdiMgpVxNBONPPQY6qeBBkvRTnfaZ8ICOpmmUbB+4?=
- =?us-ascii?Q?sWh4pQTlaZaST8t7GKdaknDGBw6G9rIyafLy+JW/gehP5XbOdYjpTC3dWfq9?=
- =?us-ascii?Q?nn/MGPoGPmlLIixsHRxAvdC3gsDudcZvjjrtYocrZn5I+TqV8mACoc1XZn/7?=
- =?us-ascii?Q?z1W+cgZT07dF4idgZJ5E6xCfAGULzPXHLdicpuWcwqlV0CgpjlWRrnsINZBe?=
- =?us-ascii?Q?Yd/Q/bxnDjK3OUa74rWhvq1MW9dLQbTkWYjiutEmzutF8IX7jHp5phLQqHol?=
- =?us-ascii?Q?V1Jiq89cw53/SPQC/REIQkGgU8B9mAY8kru+jtX9lfNHwZ4afmrmEmEgLguA?=
- =?us-ascii?Q?UWAnmjsgvXE1OQVE+CpNUNJOclJqbfqjMmTlzNTOu2dDQ89lBqzuEgNIWLf6?=
- =?us-ascii?Q?BmVUgCFJxMbQv6uTbRa1HFUBty461xwPoYf/PmEGhitNiFx1/Eq3b7NYVaxC?=
- =?us-ascii?Q?c4FzMGAdBCOUfljtytyXFYvZphIWvpZVJZsajZmudLk0av4rhfD3MG02c7KJ?=
- =?us-ascii?Q?TWlB3uT1wMlAYjVYoTwzL4V7zkV/9t9sKPQ9drIIsuw7uPr5Z7PaF9hGPGqx?=
- =?us-ascii?Q?/0zPjQ4dnTl3NoLG8SfvxUHgVDaajUp581WN+mrfckl/pcDlYy4cQ6o2U1GC?=
- =?us-ascii?Q?Da2figekRD4DLcWNWJTSCKQfJlC5xJ4zG7uboqgC9E3Q1VqocYg7Pq3d0c2Y?=
- =?us-ascii?Q?nA/c53RT6dmOcZMcco5MVEmTqzfgNYWmLaC+tpxZcN3OAb2xmoOHCKYo5OZ6?=
- =?us-ascii?Q?dp4ZJQtm5q4rN7UtpMEZcETWF0ai0xXjiN/31/gVp1VSQ5sdl6NeijJ+YOD8?=
- =?us-ascii?Q?jh2ekJXAKkgKdly38RjtqZWMtflBBWbSV0Tw8cKHOIujoLuR2UvyS4ObD/1Y?=
- =?us-ascii?Q?AccagiaUcUlSgNPsvPDRkZe2hqp0KuEqswx4F/QrbANEpQ0BeYKneWeeodkv?=
- =?us-ascii?Q?cOosEtDWd8QIWVNs2aMxWv7zx7C7O4+x6CVnAos8tGGYmjoQMPgODm0i6Y1O?=
- =?us-ascii?Q?yexkahG5XSg3HNrPqYpbNBEG6rOuvapKRVIB9yFMM0qtV8UTka4Fgq1vReue?=
- =?us-ascii?Q?NauSzEu/RUIYcv/o4EBzUy0mCxsW8iqLzTpJJac6MUB/Opi/KoZf5C/tcWUS?=
- =?us-ascii?Q?zgiug/u5WwAvlxIJJDZGuoNW1/0JrQvFFlyMDkao6ENRC4Ps8XEZszo7qqFx?=
- =?us-ascii?Q?m+wNObeLnGnxici3xwFBtydc8LPrbNLrKMZM2PwoFe1zbqC7zGoLTDCWQyu7?=
- =?us-ascii?Q?U4mGV8t3oCn0x/pOYzi+tK719LOelnGzCmXMmnNtijhyq4tlWQzO7ezQ3hUd?=
- =?us-ascii?Q?JOFPCtCNTzwLBiR+D0QCogWsFNLiIwD9oFwDSabfjbUr/mE26ovOZ4iRqnAo?=
- =?us-ascii?Q?PiWzOHutt7aja9u0zQyXl4slujb6Kbzxy9bPC+AQfllrrK8wvMc6?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc009761-23b3-4d75-4566-08df0f4de18e
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 15:12:08.5984
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HQT7mpww3iMmaz/oGkaxxljv+oOMpjMJVthqWjUP7ZSP7EQMnuDo6nTiERH4PYhabCPCaEK+4L/TyFHhpwvliH0WJkJA4XOeIIgf8Ta58wn0N+0+JrMq08ziQZEy72KP
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB9000
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08, 2026 at 05:27:57PM +0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> The Freescale i.MX31 was an early SoC based on the ARM1136r0 CPU core. It
-> was used in the Bug Labs modular computer but ultimately much less
-> popular than most other i.MX SoCs.
->
-> As the ARM1136r0 support is causing a lot of extra maintenance effort
-> to keep alive and there are no known users, remove i.MX31 in order to
-> allow removing support for that CPU core altogether.
->
-> The related i.MX35 is based on a slightly newer ARM1136r1 CPU core that
-> does not have this problem, so there is no reason to remove that.
->
-> Cc: Russell King <linux@armlinux.org.uk>
-> Cc: Frank Li <Frank.Li@nxp.com>
-> Cc: Sascha Hauer <s.hauer@pengutronix.de>
-> Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
-> Cc: Fabio Estevam <festevam@gmail.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: imx@lists.linux.dev
-> Cc: devicetree@vger.kernel.org
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
+The current VMID rollover path synchronously invokes HFENCE.GVMA on
+all online CPUs using on_each_cpu_mask(). This sends IPIs to remote
+CPUs and causes a vCPU running in guest mode on a targeted CPU to exit.
+The rollover path then waits for all CPUs to complete their local TLB
+flushes before VMID allocation can continue.
 
-Acked-by: Frank Li <Frank.Li@nxp.com>
+Make VMID rollover lazy to remove this cross-CPU synchronization.
 
+Track active and reserved software VMIDs for each possible CPU. On
+rollover, preserve hardware VMIDs that may still have stale
+translations, clear the active VMID, and mark a local TLB flush
+pending for each CPU.
 
->  arch/arm/Kconfig.debug                   |   9 -
->  arch/arm/boot/dts/nxp/imx/Makefile       |   3 -
->  arch/arm/boot/dts/nxp/imx/imx31-bug.dts  |  22 --
->  arch/arm/boot/dts/nxp/imx/imx31-lite.dts | 178 -----------
->  arch/arm/boot/dts/nxp/imx/imx31.dtsi     | 371 -----------------------
->  arch/arm/configs/imx_v6_v7_defconfig     |   1 -
->  arch/arm/mach-imx/Kconfig                |  11 -
->  arch/arm/mach-imx/Makefile               |   1 -
->  arch/arm/mach-imx/cpu-imx31.c            |  72 -----
->  arch/arm/mach-imx/mach-imx31.c           |  18 --
->  arch/arm/mach-imx/mm-imx3.c              |  44 ---
->  11 files changed, 730 deletions(-)
->  delete mode 100644 arch/arm/boot/dts/nxp/imx/imx31-bug.dts
->  delete mode 100644 arch/arm/boot/dts/nxp/imx/imx31-lite.dts
->  delete mode 100644 arch/arm/boot/dts/nxp/imx/imx31.dtsi
->  delete mode 100644 arch/arm/mach-imx/cpu-imx31.c
->  delete mode 100644 arch/arm/mach-imx/mach-imx31.c
->
-> diff --git a/arch/arm/Kconfig.debug b/arch/arm/Kconfig.debug
-> index e2fc89055463..52387fe2a057 100644
-> --- a/arch/arm/Kconfig.debug
-> +++ b/arch/arm/Kconfig.debug
-> @@ -424,13 +424,6 @@ choice
->  		  Say Y here if you want kernel low-level debugging support
->  		  on i.MX28.
->
-> -	config DEBUG_IMX31_UART
-> -		bool "i.MX31 Debug UART"
-> -		depends on SOC_IMX31
-> -		help
-> -		  Say Y here if you want kernel low-level debugging support
-> -		  on i.MX31.
-> -
->  	config DEBUG_IMX35_UART
->  		bool "i.MX35 Debug UART"
->  		depends on SOC_IMX35
-> @@ -1411,7 +1404,6 @@ config DEBUG_IMX_UART_PORT
->  	depends on DEBUG_IMX1_UART || \
->  		   DEBUG_IMX25_UART || \
->  		   DEBUG_IMX27_UART || \
-> -		   DEBUG_IMX31_UART || \
->  		   DEBUG_IMX35_UART || \
->  		   DEBUG_IMX50_UART || \
->  		   DEBUG_IMX51_UART || \
-> @@ -1468,7 +1460,6 @@ config DEBUG_LL_INCLUDE
->  	default "debug/imx.S" if DEBUG_IMX1_UART || \
->  				 DEBUG_IMX25_UART || \
->  				 DEBUG_IMX27_UART || \
-> -				 DEBUG_IMX31_UART || \
->  				 DEBUG_IMX35_UART || \
->  				 DEBUG_IMX50_UART || \
->  				 DEBUG_IMX51_UART || \
-> diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
-> index 1a2539fa19b4..e0747cb6e772 100644
-> --- a/arch/arm/boot/dts/nxp/imx/Makefile
-> +++ b/arch/arm/boot/dts/nxp/imx/Makefile
-> @@ -16,9 +16,6 @@ dtb-$(CONFIG_SOC_IMX27) += \
->  	imx27-pdk.dtb \
->  	imx27-phytec-phycore-rdk.dtb \
->  	imx27-phytec-phycard-s-rdk.dtb
-> -dtb-$(CONFIG_SOC_IMX31) += \
-> -	imx31-bug.dtb \
-> -	imx31-lite.dtb
->  dtb-$(CONFIG_SOC_IMX35) += \
->  	imx35-eukrea-mbimxsd35-baseboard.dtb \
->  	imx35-pdk.dtb
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx31-bug.dts b/arch/arm/boot/dts/nxp/imx/imx31-bug.dts
-> deleted file mode 100644
-> index d87eee3f9b3c..000000000000
-> --- a/arch/arm/boot/dts/nxp/imx/imx31-bug.dts
-> +++ /dev/null
-> @@ -1,22 +0,0 @@
-> -// SPDX-License-Identifier: GPL-2.0-or-later
-> -/*
-> - * Copyright 2012 Denis 'GNUtoo' Carikli <GNUtoo@no-log.org>
-> - */
-> -
-> -/dts-v1/;
-> -#include "imx31.dtsi"
-> -
-> -/ {
-> -	model = "Buglabs i.MX31 Bug 1.x";
-> -	compatible = "buglabs,imx31-bug", "fsl,imx31";
-> -
-> -	memory@80000000 {
-> -		device_type = "memory";
-> -		reg = <0x80000000 0x8000000>; /* 128M */
-> -	};
-> -};
-> -
-> -&uart5 {
-> -	uart-has-rtscts;
-> -	status = "okay";
-> -};
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx31-lite.dts b/arch/arm/boot/dts/nxp/imx/imx31-lite.dts
-> deleted file mode 100644
-> index 630f8fa69ba8..000000000000
-> --- a/arch/arm/boot/dts/nxp/imx/imx31-lite.dts
-> +++ /dev/null
-> @@ -1,178 +0,0 @@
-> -// SPDX-License-Identifier: GPL-2.0+
-> -//
-> -// Copyright (C) 2016-2018 Vladimir Zapolskiy <vz@mleia.com>
-> -
-> -/dts-v1/;
-> -
-> -#include "imx31.dtsi"
-> -
-> -#include <dt-bindings/gpio/gpio.h>
-> -#include <dt-bindings/interrupt-controller/irq.h>
-> -
-> -/ {
-> -	model = "LogicPD i.MX31 Lite";
-> -	compatible = "logicpd,imx31-lite", "fsl,imx31";
-> -
-> -	chosen {
-> -		stdout-path = &uart1;
-> -	};
-> -
-> -	memory@80000000 {
-> -		device_type = "memory";
-> -		reg = <0x80000000 0x8000000>;
-> -	};
-> -
-> -	leds {
-> -		compatible = "gpio-leds";
-> -
-> -		led0 {
-> -			gpios = <&gpio1 8 GPIO_ACTIVE_LOW>;
-> -		};
-> -
-> -		led1 {
-> -			gpios = <&gpio1 7 GPIO_ACTIVE_LOW>;
-> -		};
-> -	};
-> -};
-> -
-> -&ata {
-> -	status = "okay";
-> -};
-> -
-> -&nfc {
-> -	nand-bus-width = <8>;
-> -	nand-ecc-mode = "hw";
-> -	nand-on-flash-bbt;
-> -	status = "okay";
-> -};
-> -
-> -&sdhci1 {
-> -	bus-width = <4>;
-> -	cd-gpios = <&gpio2 11 GPIO_ACTIVE_HIGH>;
-> -	wp-gpios = <&gpio1 6 GPIO_ACTIVE_HIGH>;
-> -	status = "okay";
-> -};
-> -
-> -&spi2 {
-> -	status = "okay";
-> -
-> -	pmic@0 {
-> -		compatible = "fsl,mc13783";
-> -		reg = <0>;
-> -		spi-cs-high;
-> -		spi-max-frequency = <1000000>;
-> -		interrupt-parent = <&gpio1>;
-> -		interrupts = <3 IRQ_TYPE_EDGE_RISING>;
-> -
-> -		fsl,mc13xxx-uses-adc;
-> -		fsl,mc13xxx-uses-rtc;
-> -
-> -		regulators {
-> -			sw1a {		/* QVCC */
-> -				regulator-min-microvolt = <1200000>;
-> -				regulator-max-microvolt = <1500000>;
-> -				regulator-always-on;
-> -				regulator-boot-on;
-> -			};
-> -
-> -			sw1b {		/* QVCC */
-> -				regulator-min-microvolt = <1200000>;
-> -				regulator-max-microvolt = <1500000>;
-> -				regulator-always-on;
-> -				regulator-boot-on;
-> -			};
-> -
-> -			sw2a {		/* 1.8V_DDR, NVCC2, NVCC21 and NVCC22 */
-> -				regulator-min-microvolt = <1800000>;
-> -				regulator-max-microvolt = <1800000>;
-> -				regulator-always-on;
-> -				regulator-boot-on;
-> -			};
-> -
-> -			sw2b {		/* NVCC10 */
-> -				regulator-min-microvolt = <1800000>;
-> -				regulator-max-microvolt = <1800000>;
-> -				regulator-always-on;
-> -				regulator-boot-on;
-> -			};
-> -
-> -			violo {		/* NVCC1 and NVCC7 */
-> -				regulator-min-microvolt = <1800000>;
-> -				regulator-max-microvolt = <1800000>;
-> -				regulator-always-on;
-> -				regulator-boot-on;
-> -			};
-> -
-> -			viohi {		/* VIOHI */
-> -				regulator-min-microvolt = <2775000>;
-> -				regulator-max-microvolt = <2775000>;
-> -				regulator-always-on;
-> -				regulator-boot-on;
-> -			};
-> -
-> -			vaudio {	/* VAUDIO */
-> -				regulator-min-microvolt = <2775000>;
-> -				regulator-max-microvolt = <2775000>;
-> -			};
-> -
-> -			vcam {		/* NVCC4 */
-> -				regulator-min-microvolt = <2800000>;
-> -				regulator-max-microvolt = <2800000>;
-> -			};
-> -
-> -			vgen {		/* NVCC5 / NVCC8 and NVCC6 / NVCC9 */
-> -				regulator-min-microvolt = <2775000>;
-> -				regulator-max-microvolt = <2775000>;
-> -				regulator-always-on;
-> -				regulator-boot-on;
-> -			};
-> -
-> -			vmmc2 {		/* NVCC3 */
-> -				regulator-min-microvolt = <1600000>;
-> -				regulator-max-microvolt = <3000000>;
-> -				regulator-always-on;
-> -				regulator-boot-on;
-> -			};
-> -		};
-> -	};
-> -};
-> -
-> -&uart1 {
-> -	uart-has-rtscts;
-> -	status = "okay";
-> -};
-> -
-> -/* Routed to the extension board */
-> -&uart2 {
-> -	uart-has-rtscts;
-> -	status = "okay";
-> -};
-> -
-> -/* Routed to the extension board */
-> -&uart3 {
-> -	uart-has-rtscts;
-> -	status = "okay";
-> -};
-> -
-> -&weim {
-> -	status = "okay";
-> -
-> -	flash@0,0 {
-> -		compatible = "cfi-flash";
-> -		reg = <0 0x0 0x200000>;
-> -		bank-width = <2>;
-> -		linux,mtd-name = "physmap-flash.0";
-> -		fsl,weim-cs-timing = <0x0000cf03 0xa0330d01 0x00220800>;
-> -	};
-> -
-> -	ethernet@4,0 {
-> -		compatible = "smsc,lan9117", "smsc,lan9115";
-> -		reg = <4 0x0 0x100>;
-> -		interrupt-parent = <&gpio1>;
-> -		interrupts = <26 IRQ_TYPE_EDGE_FALLING>;
-> -		phy-mode = "mii";
-> -		reg-io-width = <2>;
-> -		smsc,irq-push-pull;
-> -		fsl,weim-cs-timing = <0x00008701 0x04000541 0x00010000>;
-> -	};
-> -};
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx31.dtsi b/arch/arm/boot/dts/nxp/imx/imx31.dtsi
-> deleted file mode 100644
-> index c58f855ea851..000000000000
-> --- a/arch/arm/boot/dts/nxp/imx/imx31.dtsi
-> +++ /dev/null
-> @@ -1,371 +0,0 @@
-> -// SPDX-License-Identifier: GPL-2.0+
-> -//
-> -// Copyright 2016-2018 Vladimir Zapolskiy <vz@mleia.com>
-> -// Copyright 2012 Denis 'GNUtoo' Carikli <GNUtoo@no-log.org>
-> -
-> -/ {
-> -	#address-cells = <1>;
-> -	#size-cells = <1>;
-> -	/*
-> -	 * The decompressor and also some bootloaders rely on a
-> -	 * pre-existing /chosen node to be available to insert the
-> -	 * command line and merge other ATAGS info.
-> -	 */
-> -	chosen {};
-> -
-> -	aliases {
-> -		gpio0 = &gpio1;
-> -		gpio1 = &gpio2;
-> -		gpio2 = &gpio3;
-> -		i2c0 = &i2c1;
-> -		i2c1 = &i2c2;
-> -		i2c2 = &i2c3;
-> -		serial0 = &uart1;
-> -		serial1 = &uart2;
-> -		serial2 = &uart3;
-> -		serial3 = &uart4;
-> -		serial4 = &uart5;
-> -		spi0 = &spi1;
-> -		spi1 = &spi2;
-> -		spi2 = &spi3;
-> -	};
-> -
-> -	cpus {
-> -		#address-cells = <1>;
-> -		#size-cells = <0>;
-> -
-> -		cpu@0 {
-> -			compatible = "arm,arm1136jf-s";
-> -			device_type = "cpu";
-> -			reg = <0>;
-> -		};
-> -	};
-> -
-> -	avic: interrupt-controller@68000000 {
-> -		compatible = "fsl,imx31-avic", "fsl,avic";
-> -		interrupt-controller;
-> -		#interrupt-cells = <1>;
-> -		reg = <0x68000000 0x100000>;
-> -	};
-> -
-> -	soc: soc {
-> -		#address-cells = <1>;
-> -		#size-cells = <1>;
-> -		compatible = "simple-bus";
-> -		interrupt-parent = <&avic>;
-> -		ranges;
-> -
-> -		iram: sram@1fffc000 {
-> -			compatible = "mmio-sram";
-> -			reg = <0x1fffc000 0x4000>;
-> -			#address-cells = <1>;
-> -			#size-cells = <1>;
-> -			ranges = <0 0x1fffc000 0x4000>;
-> -		};
-> -
-> -		aips1: bus@43f00000 { /* AIPS1 */
-> -			compatible = "fsl,aips-bus", "simple-bus";
-> -			#address-cells = <1>;
-> -			#size-cells = <1>;
-> -			reg = <0x43f00000 0x100000>;
-> -			ranges;
-> -
-> -			i2c1: i2c@43f80000 {
-> -				compatible = "fsl,imx31-i2c", "fsl,imx21-i2c";
-> -				reg = <0x43f80000 0x4000>;
-> -				interrupts = <10>;
-> -				clocks = <&clks 33>;
-> -				#address-cells = <1>;
-> -				#size-cells = <0>;
-> -				status = "disabled";
-> -			};
-> -
-> -			i2c3: i2c@43f84000 {
-> -				compatible = "fsl,imx31-i2c", "fsl,imx21-i2c";
-> -				reg = <0x43f84000 0x4000>;
-> -				interrupts = <3>;
-> -				clocks = <&clks 35>;
-> -				#address-cells = <1>;
-> -				#size-cells = <0>;
-> -				status = "disabled";
-> -			};
-> -
-> -			ata: ata@43f8c000 {
-> -				compatible = "fsl,imx31-pata", "fsl,imx27-pata";
-> -				reg = <0x43f8c000 0x4000>;
-> -				interrupts = <15>;
-> -				clocks = <&clks 26>;
-> -				status = "disabled";
-> -			};
-> -
-> -			uart1: serial@43f90000 {
-> -				compatible = "fsl,imx31-uart", "fsl,imx21-uart";
-> -				reg = <0x43f90000 0x4000>;
-> -				interrupts = <45>;
-> -				clocks = <&clks 10>, <&clks 30>;
-> -				clock-names = "ipg", "per";
-> -				status = "disabled";
-> -			};
-> -
-> -			uart2: serial@43f94000 {
-> -				compatible = "fsl,imx31-uart", "fsl,imx21-uart";
-> -				reg = <0x43f94000 0x4000>;
-> -				interrupts = <32>;
-> -				clocks = <&clks 10>, <&clks 31>;
-> -				clock-names = "ipg", "per";
-> -				status = "disabled";
-> -			};
-> -
-> -			i2c2: i2c@43f98000 {
-> -				compatible = "fsl,imx31-i2c", "fsl,imx21-i2c";
-> -				reg = <0x43f98000 0x4000>;
-> -				interrupts = <4>;
-> -				clocks = <&clks 34>;
-> -				#address-cells = <1>;
-> -				#size-cells = <0>;
-> -				status = "disabled";
-> -			};
-> -
-> -			spi1: spi@43fa4000 {
-> -				compatible = "fsl,imx31-cspi";
-> -				reg = <0x43fa4000 0x4000>;
-> -				interrupts = <14>;
-> -				clocks = <&clks 10>, <&clks 53>;
-> -				clock-names = "ipg", "per";
-> -				dmas = <&sdma 8 8 0>, <&sdma 9 8 0>;
-> -				dma-names = "rx", "tx";
-> -				#address-cells = <1>;
-> -				#size-cells = <0>;
-> -				status = "disabled";
-> -			};
-> -
-> -			kpp: kpp@43fa8000 {
-> -				compatible = "fsl,imx31-kpp", "fsl,imx21-kpp";
-> -				reg = <0x43fa8000 0x4000>;
-> -				interrupts = <24>;
-> -				clocks = <&clks 46>;
-> -				status = "disabled";
-> -			};
-> -
-> -			uart4: serial@43fb0000 {
-> -				compatible = "fsl,imx31-uart", "fsl,imx21-uart";
-> -				reg = <0x43fb0000 0x4000>;
-> -				clocks = <&clks 10>, <&clks 49>;
-> -				clock-names = "ipg", "per";
-> -				interrupts = <46>;
-> -				status = "disabled";
-> -			};
-> -
-> -			uart5: serial@43fb4000 {
-> -				compatible = "fsl,imx31-uart", "fsl,imx21-uart";
-> -				reg = <0x43fb4000 0x4000>;
-> -				interrupts = <47>;
-> -				clocks = <&clks 10>, <&clks 50>;
-> -				clock-names = "ipg", "per";
-> -				status = "disabled";
-> -			};
-> -		};
-> -
-> -		spba-bus@50000000 {
-> -			compatible = "fsl,spba-bus", "simple-bus";
-> -			#address-cells = <1>;
-> -			#size-cells = <1>;
-> -			reg = <0x50000000 0x100000>;
-> -			ranges;
-> -
-> -			sdhci1: mmc@50004000 {
-> -				compatible = "fsl,imx31-mmc";
-> -				reg = <0x50004000 0x4000>;
-> -				interrupts = <9>;
-> -				clocks = <&clks 10>, <&clks 20>;
-> -				clock-names = "ipg", "per";
-> -				dmas = <&sdma 20 3 0>;
-> -				dma-names = "rx-tx";
-> -				status = "disabled";
-> -			};
-> -
-> -			sdhci2: mmc@50008000 {
-> -				compatible = "fsl,imx31-mmc";
-> -				reg = <0x50008000 0x4000>;
-> -				interrupts = <8>;
-> -				clocks = <&clks 10>, <&clks 21>;
-> -				clock-names = "ipg", "per";
-> -				dmas = <&sdma 21 3 0>;
-> -				dma-names = "rx-tx";
-> -				status = "disabled";
-> -			};
-> -
-> -			uart3: serial@5000c000 {
-> -				compatible = "fsl,imx31-uart", "fsl,imx21-uart";
-> -				reg = <0x5000c000 0x4000>;
-> -				interrupts = <18>;
-> -				clocks = <&clks 10>, <&clks 48>;
-> -				clock-names = "ipg", "per";
-> -				status = "disabled";
-> -			};
-> -
-> -			spi2: spi@50010000 {
-> -				compatible = "fsl,imx31-cspi";
-> -				reg = <0x50010000 0x4000>;
-> -				interrupts = <13>;
-> -				clocks = <&clks 10>, <&clks 54>;
-> -				clock-names = "ipg", "per";
-> -				dmas = <&sdma 6 8 0>, <&sdma 7 8 0>;
-> -				dma-names = "rx", "tx";
-> -				#address-cells = <1>;
-> -				#size-cells = <0>;
-> -				status = "disabled";
-> -			};
-> -
-> -			iim: efuse@5001c000 {
-> -				compatible = "fsl,imx31-iim";
-> -				reg = <0x5001c000 0x1000>;
-> -				interrupts = <19>;
-> -				clocks = <&clks 25>;
-> -			};
-> -		};
-> -
-> -		bus@53f00000 { /* AIPS2 */
-> -			compatible = "fsl,aips-bus", "simple-bus";
-> -			#address-cells = <1>;
-> -			#size-cells = <1>;
-> -			reg = <0x53f00000 0x100000>;
-> -			ranges;
-> -
-> -			clks: ccm@53f80000 {
-> -				compatible = "fsl,imx31-ccm";
-> -				reg = <0x53f80000 0x4000>;
-> -				interrupts = <31>, <53>;
-> -				#clock-cells = <1>;
-> -			};
-> -
-> -			spi3: spi@53f84000 {
-> -				compatible = "fsl,imx31-cspi";
-> -				reg = <0x53f84000 0x4000>;
-> -				interrupts = <17>;
-> -				clocks = <&clks 10>, <&clks 28>;
-> -				clock-names = "ipg", "per";
-> -				dmas = <&sdma 10 8 0>, <&sdma 11 8 0>;
-> -				dma-names = "rx", "tx";
-> -				#address-cells = <1>;
-> -				#size-cells = <0>;
-> -				status = "disabled";
-> -			};
-> -
-> -			gpt: timer@53f90000 {
-> -				compatible = "fsl,imx31-gpt";
-> -				reg = <0x53f90000 0x4000>;
-> -				interrupts = <29>;
-> -				clocks = <&clks 10>, <&clks 22>;
-> -				clock-names = "ipg", "per";
-> -			};
-> -
-> -			gpio3: gpio@53fa4000 {
-> -				compatible = "fsl,imx31-gpio";
-> -				reg = <0x53fa4000 0x4000>;
-> -				interrupts = <56>;
-> -				gpio-controller;
-> -				#gpio-cells = <2>;
-> -				interrupt-controller;
-> -				#interrupt-cells = <2>;
-> -			};
-> -
-> -			rng@53fb0000 {
-> -				compatible = "fsl,imx31-rnga";
-> -				reg = <0x53fb0000 0x4000>;
-> -				interrupts = <22>;
-> -				clocks = <&clks 29>;
-> -			};
-> -
-> -			gpio1: gpio@53fcc000 {
-> -				compatible = "fsl,imx31-gpio";
-> -				reg = <0x53fcc000 0x4000>;
-> -				interrupts = <52>;
-> -				gpio-controller;
-> -				#gpio-cells = <2>;
-> -				interrupt-controller;
-> -				#interrupt-cells = <2>;
-> -			};
-> -
-> -			gpio2: gpio@53fd0000 {
-> -				compatible = "fsl,imx31-gpio";
-> -				reg = <0x53fd0000 0x4000>;
-> -				interrupts = <51>;
-> -				gpio-controller;
-> -				#gpio-cells = <2>;
-> -				interrupt-controller;
-> -				#interrupt-cells = <2>;
-> -			};
-> -
-> -			sdma: dma-controller@53fd4000 {
-> -				compatible = "fsl,imx31-sdma";
-> -				reg = <0x53fd4000 0x4000>;
-> -				interrupts = <34>;
-> -				clocks = <&clks 10>, <&clks 27>;
-> -				clock-names = "ipg", "ahb";
-> -				#dma-cells = <3>;
-> -				fsl,sdma-ram-script-name = "imx/sdma/sdma-imx31.bin";
-> -			};
-> -
-> -			rtc: rtc@53fd8000 {
-> -				compatible = "fsl,imx31-rtc", "fsl,imx21-rtc";
-> -				reg = <0x53fd8000 0x4000>;
-> -				interrupts = <25>;
-> -				clocks = <&clks 2>, <&clks 40>;
-> -				clock-names = "ref", "ipg";
-> -			};
-> -
-> -			wdog: watchdog@53fdc000 {
-> -				compatible = "fsl,imx31-wdt", "fsl,imx21-wdt";
-> -				reg = <0x53fdc000 0x4000>;
-> -				clocks = <&clks 41>;
-> -				interrupts = <55>;
-> -			};
-> -
-> -			pwm: pwm@53fe0000 {
-> -				compatible = "fsl,imx31-pwm", "fsl,imx27-pwm";
-> -				reg = <0x53fe0000 0x4000>;
-> -				interrupts = <26>;
-> -				clocks = <&clks 10>, <&clks 42>;
-> -				clock-names = "ipg", "per";
-> -				#pwm-cells = <3>;
-> -				status = "disabled";
-> -			};
-> -		};
-> -
-> -		emi-bus@b8000000 { /* External Memory Interface */
-> -			compatible = "simple-bus";
-> -			reg = <0xb8000000 0x5000>;
-> -			ranges;
-> -			#address-cells = <1>;
-> -			#size-cells = <1>;
-> -
-> -			nfc: nand-controller@b8000000 {
-> -				compatible = "fsl,imx31-nand", "fsl,imx27-nand";
-> -				reg = <0xb8000000 0x1000>;
-> -				interrupts = <33>;
-> -				clocks = <&clks 9>;
-> -				dmas = <&sdma 30 17 0>;
-> -				dma-names = "rx-tx";
-> -				#address-cells = <1>;
-> -				#size-cells = <1>;
-> -				status = "disabled";
-> -			};
-> -
-> -			weim: memory-controller@b8002000 {
-> -				compatible = "fsl,imx31-weim", "fsl,imx27-weim";
-> -				reg = <0xb8002000 0x1000>;
-> -				clocks = <&clks 56>;
-> -				#address-cells = <2>;
-> -				#size-cells = <1>;
-> -				ranges = <0 0 0xa0000000 0x08000000
-> -					  1 0 0xa8000000 0x08000000
-> -					  2 0 0xb0000000 0x02000000
-> -					  3 0 0xb2000000 0x02000000
-> -					  4 0 0xb4000000 0x02000000
-> -					  5 0 0xb6000000 0x02000000>;
-> -				status = "disabled";
-> -			};
-> -		};
-> -	};
-> -};
-> diff --git a/arch/arm/configs/imx_v6_v7_defconfig b/arch/arm/configs/imx_v6_v7_defconfig
-> index ed588add8d31..6ac42c06c1e9 100644
-> --- a/arch/arm/configs/imx_v6_v7_defconfig
-> +++ b/arch/arm/configs/imx_v6_v7_defconfig
-> @@ -15,7 +15,6 @@ CONFIG_PERF_EVENTS=y
->  CONFIG_KEXEC=y
->  CONFIG_ARCH_MULTI_V6=y
->  CONFIG_ARCH_MXC=y
-> -CONFIG_SOC_IMX31=y
->  CONFIG_SOC_IMX35=y
->  CONFIG_SOC_IMX50=y
->  CONFIG_SOC_IMX51=y
-> diff --git a/arch/arm/mach-imx/Kconfig b/arch/arm/mach-imx/Kconfig
-> index 3f0521c652cb..77704c6a70ba 100644
-> --- a/arch/arm/mach-imx/Kconfig
-> +++ b/arch/arm/mach-imx/Kconfig
-> @@ -39,17 +39,6 @@ if ARCH_MULTI_V6
->
->  comment "ARM1136 platforms"
->
-> -config SOC_IMX31
-> -	bool "i.MX31 support (DEPRECATED)"
-> -	depends on !SMP
-> -	select CPU_ARM1136R0
-> -	select MXC_AVIC
-> -	help
-> -	  This enables support for Freescale i.MX31 processor
-> -
-> -	  This SoC is scheduled for removal in early 2027,
-> -	  since it uses the ARM1136r0 CPU revision.
-> -
->  config SOC_IMX35
->  	bool "i.MX35 support"
->  	select CPU_ARM1136R1
-> diff --git a/arch/arm/mach-imx/Makefile b/arch/arm/mach-imx/Makefile
-> index 5c650bf40e02..fa0144f0882d 100644
-> --- a/arch/arm/mach-imx/Makefile
-> +++ b/arch/arm/mach-imx/Makefile
-> @@ -5,7 +5,6 @@ obj-$(CONFIG_SOC_IMX25) += cpu-imx25.o mach-imx25.o pm-imx25.o
->
->  obj-$(CONFIG_SOC_IMX27) += cpu-imx27.o pm-imx27.o mach-imx27.o
->
-> -obj-$(CONFIG_SOC_IMX31) += mm-imx3.o cpu-imx31.o mach-imx31.o
->  obj-$(CONFIG_SOC_IMX35) += mm-imx3.o cpu-imx35.o mach-imx35.o
->
->  imx5-pm-$(CONFIG_PM) += pm-imx5.o
-> diff --git a/arch/arm/mach-imx/cpu-imx31.c b/arch/arm/mach-imx/cpu-imx31.c
-> deleted file mode 100644
-> index e81ef9e36a1f..000000000000
-> --- a/arch/arm/mach-imx/cpu-imx31.c
-> +++ /dev/null
-> @@ -1,72 +0,0 @@
-> -// SPDX-License-Identifier: GPL-2.0-or-later
-> -/*
-> - * MX31 CPU type detection
-> - *
-> - * Copyright (c) 2009 Daniel Mack <daniel@caiaq.de>
-> - */
-> -
-> -#include <linux/module.h>
-> -#include <linux/of_address.h>
-> -#include <linux/io.h>
-> -
-> -#include "common.h"
-> -#include "hardware.h"
-> -#include "iim.h"
-> -
-> -static int mx31_cpu_rev = -1;
-> -
-> -static struct {
-> -	u8 srev;
-> -	const char *name;
-> -	unsigned int rev;
-> -} mx31_cpu_type[] = {
-> -	{ .srev = 0x00, .name = "i.MX31(L)", .rev = IMX_CHIP_REVISION_1_0 },
-> -	{ .srev = 0x10, .name = "i.MX31",    .rev = IMX_CHIP_REVISION_1_1 },
-> -	{ .srev = 0x11, .name = "i.MX31L",   .rev = IMX_CHIP_REVISION_1_1 },
-> -	{ .srev = 0x12, .name = "i.MX31",    .rev = IMX_CHIP_REVISION_1_1 },
-> -	{ .srev = 0x13, .name = "i.MX31L",   .rev = IMX_CHIP_REVISION_1_1 },
-> -	{ .srev = 0x14, .name = "i.MX31",    .rev = IMX_CHIP_REVISION_1_2 },
-> -	{ .srev = 0x15, .name = "i.MX31L",   .rev = IMX_CHIP_REVISION_1_2 },
-> -	{ .srev = 0x28, .name = "i.MX31",    .rev = IMX_CHIP_REVISION_2_0 },
-> -	{ .srev = 0x29, .name = "i.MX31L",   .rev = IMX_CHIP_REVISION_2_0 },
-> -};
-> -
-> -static int mx31_read_cpu_rev(void)
-> -{
-> -	void __iomem *iim_base;
-> -	struct device_node *np;
-> -	u32 i, srev;
-> -	int rev = IMX_CHIP_REVISION_UNKNOWN;
-> -
-> -	np = of_find_compatible_node(NULL, NULL, "fsl,imx31-iim");
-> -	iim_base = of_iomap(np, 0);
-> -	of_node_put(np);
-> -	BUG_ON(!iim_base);
-> -
-> -	/* read SREV register from IIM module */
-> -	srev = imx_readl(iim_base + MXC_IIMSREV);
-> -	srev &= 0xff;
-> -
-> -	for (i = 0; i < ARRAY_SIZE(mx31_cpu_type); i++)
-> -		if (srev == mx31_cpu_type[i].srev) {
-> -			rev = mx31_cpu_type[i].rev;
-> -			imx_print_silicon_rev(mx31_cpu_type[i].name,
-> -						mx31_cpu_type[i].rev);
-> -			goto out;
-> -		}
-> -
-> -	imx_print_silicon_rev("i.MX31", IMX_CHIP_REVISION_UNKNOWN);
-> -
-> -out:
-> -	iounmap(iim_base);
-> -	return rev;
-> -}
-> -
-> -int mx31_revision(void)
-> -{
-> -	if (mx31_cpu_rev == -1)
-> -		mx31_cpu_rev = mx31_read_cpu_rev();
-> -
-> -	return mx31_cpu_rev;
-> -}
-> -EXPORT_SYMBOL(mx31_revision);
-> diff --git a/arch/arm/mach-imx/mach-imx31.c b/arch/arm/mach-imx/mach-imx31.c
-> deleted file mode 100644
-> index e9a1092b6093..000000000000
-> --- a/arch/arm/mach-imx/mach-imx31.c
-> +++ /dev/null
-> @@ -1,18 +0,0 @@
-> -// SPDX-License-Identifier: GPL-2.0-or-later
-> -/*
-> - * Copyright 2012 Sascha Hauer, Pengutronix
-> - */
-> -
-> -#include <asm/mach/arch.h>
-> -#include "common.h"
-> -
-> -static const char * const imx31_dt_board_compat[] __initconst = {
-> -	"fsl,imx31",
-> -	NULL
-> -};
-> -
-> -DT_MACHINE_START(IMX31_DT, "Freescale i.MX31 (Device Tree Support)")
-> -	.map_io		= mx31_map_io,
-> -	.init_early	= imx31_init_early,
-> -	.dt_compat	= imx31_dt_board_compat,
-> -MACHINE_END
-> diff --git a/arch/arm/mach-imx/mm-imx3.c b/arch/arm/mach-imx/mm-imx3.c
-> index 9b0b014d7fe2..42e73518004a 100644
-> --- a/arch/arm/mach-imx/mm-imx3.c
-> +++ b/arch/arm/mach-imx/mm-imx3.c
-> @@ -69,49 +69,6 @@ static void __iomem *imx3_ioremap_caller(phys_addr_t phys_addr, size_t size,
->  	return __arm_ioremap_caller(phys_addr, size, mtype, caller);
->  }
->
-> -#ifdef CONFIG_SOC_IMX31
-> -static struct map_desc mx31_io_desc[] __initdata = {
-> -	imx_map_entry(MX31, X_MEMC, MT_DEVICE),
-> -	imx_map_entry(MX31, AVIC, MT_DEVICE_NONSHARED),
-> -	imx_map_entry(MX31, AIPS1, MT_DEVICE_NONSHARED),
-> -	imx_map_entry(MX31, AIPS2, MT_DEVICE_NONSHARED),
-> -	imx_map_entry(MX31, SPBA0, MT_DEVICE_NONSHARED),
-> -};
-> -
-> -/*
-> - * This function initializes the memory map. It is called during the
-> - * system startup to create static physical to virtual memory mappings
-> - * for the IO modules.
-> - */
-> -void __init mx31_map_io(void)
-> -{
-> -	iotable_init(mx31_io_desc, ARRAY_SIZE(mx31_io_desc));
-> -}
-> -
-> -static void imx31_idle(void)
-> -{
-> -	int reg = imx_readl(mx3_ccm_base + MXC_CCM_CCMR);
-> -	reg &= ~MXC_CCM_CCMR_LPM_MASK;
-> -	imx_writel(reg, mx3_ccm_base + MXC_CCM_CCMR);
-> -
-> -	imx3_idle();
-> -}
-> -
-> -void __init imx31_init_early(void)
-> -{
-> -	struct device_node *np;
-> -
-> -	mxc_set_cpu_type(MXC_CPU_MX31);
-> -	arch_ioremap_caller = imx3_ioremap_caller;
-> -	arm_pm_idle = imx31_idle;
-> -	np = of_find_compatible_node(NULL, NULL, "fsl,imx31-ccm");
-> -	mx3_ccm_base = of_iomap(np, 0);
-> -	of_node_put(np);
-> -	BUG_ON(!mx3_ccm_base);
-> -}
-> -#endif /* ifdef CONFIG_SOC_IMX31 */
-> -
-> -#ifdef CONFIG_SOC_IMX35
->  static struct map_desc mx35_io_desc[] __initdata = {
->  	imx_map_entry(MX35, X_MEMC, MT_DEVICE),
->  	imx_map_entry(MX35, AVIC, MT_DEVICE_NONSHARED),
-> @@ -147,4 +104,3 @@ void __init imx35_init_early(void)
->  	of_node_put(np);
->  	BUG_ON(!mx3_ccm_base);
->  }
-> -#endif /* ifdef CONFIG_SOC_IMX35 */
-> --
-> 2.53.0
->
->
+Do not send IPIs or otherwise force remote vCPUs to exit during
+rollover. Instead, when a CPU next activates a VMID before guest
+entry, perform the pending local HFENCE.GVMA and only then publish
+the new active VMID.
+
+Perform VMID activation after preemption is disabled in the guest
+entry path. This keeps the per-CPU active VMID and pending flush state
+associated with the same CPU that subsequently enters guest mode.
+
+Keep reserved hardware VMIDs unavailable to the bitmap allocator
+while stale translations associated with them may still exist. This
+prevents a hardware VMID from being reused prematurely after a
+generation rollover.
+
+Represent a software VMID as a 64-bit value combining a generation
+with a hardware VMID, independent of XLEN. This keeps the generation
+space large on RV32 while hardware VMIDs and bitmap indices remain
+native unsigned long values. Extract only the hardware VMID when
+programming HGATP or issuing VMID-specific fences.
+
+Reserve software VMID 0 as the unallocated identifier. When the
+generation counter wraps to 0, compute the next nonzero generation
+locally and publish it atomically, so generation 0 is never visible to
+lockless readers.
+
+Reserve hardware VMID 0. Disable VMID allocation when the hardware
+VMID space is too small to retain one reserved VMID per possible CPU
+while still leaving a VMID available for a new allocation.
+
+Invalidate the per-CPU VMID bookkeeping when virtualization is
+disabled, so stale G-stage translations are flushed before the CPU
+next enters a guest.
+
+This removes IPIs and remote CPU synchronization from the VMID
+rollover path, avoiding VM exits caused solely by VMID exhaustion on
+another CPU.
+
+Tested on QEMU with two host CPUs and the VMID width temporarily
+forced to 2 bits. Repeated rollover, protection against premature VMID
+reuse, activation-versus-rollover stress, and vCPU migration were
+exercised with multiple concurrent guests without guest failures or
+host warnings.
+
+Assisted-by: LLM
+Co-developed-by: Quan Zhou <zhouquan@iscas.ac.cn>
+Signed-off-by: Quan Zhou <zhouquan@iscas.ac.cn>
+Signed-off-by: Wenlong Li <wenlongli486@gmail.com>
+---
+Changes in v2:
+- Use a 64-bit software VMID namespace independent of XLEN.
+- Keep hardware VMIDs and bitmap indices as unsigned long.
+- Reserve software VMID 0 as the invalid identifier.
+- Avoid exposing generation 0 to lockless readers during rollover.
+
+ arch/riscv/include/asm/kvm_gstage.h |   5 +-
+ arch/riscv/include/asm/kvm_vmid.h   |  29 ++-
+ arch/riscv/kvm/main.c               |  12 +-
+ arch/riscv/kvm/mmu.c                |   5 +-
+ arch/riscv/kvm/tlb.c                |  11 +-
+ arch/riscv/kvm/vcpu.c               |   4 +-
+ arch/riscv/kvm/vcpu_sbi_replace.c   |   4 +-
+ arch/riscv/kvm/vcpu_sbi_v01.c       |   4 +-
+ arch/riscv/kvm/vmid.c               | 352 ++++++++++++++++++++++++----
+ 9 files changed, 356 insertions(+), 70 deletions(-)
+
+diff --git a/arch/riscv/include/asm/kvm_gstage.h b/arch/riscv/include/asm/kvm_gstage.h
+index aaf080ba1b77..c61a1bbb272f 100644
+--- a/arch/riscv/include/asm/kvm_gstage.h
++++ b/arch/riscv/include/asm/kvm_gstage.h
+@@ -8,7 +8,7 @@
+ #define __RISCV_KVM_GSTAGE_H_
+ 
+ #include <linux/kvm_types.h>
+-
++#include <asm/kvm_vmid.h>
+ struct kvm_gstage {
+ 	struct kvm *kvm;
+ 	unsigned long flags;
+@@ -108,7 +108,8 @@ static inline void kvm_riscv_gstage_init(struct kvm_gstage *gstage, struct kvm *
+ {
+ 	gstage->kvm = kvm;
+ 	gstage->flags = 0;
+-	gstage->vmid = READ_ONCE(kvm->arch.vmid.vmid);
++	gstage->vmid =
++		kvm_riscv_gstage_vmid_hwid(atomic64_read(&kvm->arch.vmid.id));
+ 	gstage->pgd = kvm->arch.pgd;
+ 	gstage->pgd_levels = kvm->arch.pgd_levels;
+ }
+diff --git a/arch/riscv/include/asm/kvm_vmid.h b/arch/riscv/include/asm/kvm_vmid.h
+index db61b0525a8d..ddd7cc125c3f 100644
+--- a/arch/riscv/include/asm/kvm_vmid.h
++++ b/arch/riscv/include/asm/kvm_vmid.h
+@@ -6,21 +6,42 @@
+ #ifndef __RISCV_KVM_VMID_H_
+ #define __RISCV_KVM_VMID_H_
+ 
++#include <linux/atomic.h>
+ #include <linux/kvm_types.h>
+ 
+ struct kvm_vmid {
+ 	/*
+-	 * Writes to vmid_version and vmid happen with vmid_lock held
+-	 * whereas reads happen without any lock held.
++	 * Software VMID:
++	 *
++	 *   [ generation | hardware VMID ]
++	 *
++	 * Keep the identity 64-bit on RV32 so that the generation does not
++	 * wrap at the native word size.  Zero denotes an unallocated VMID.
++	 *
++	 * Only the low hardware VMID bits may be written to HGATP
++	 * or used as a hardware fence VMID.
+ 	 */
+-	unsigned long vmid_version;
+-	unsigned long vmid;
++	atomic64_t id;
+ };
+ 
+ void __init kvm_riscv_gstage_vmid_detect(void);
+ unsigned long kvm_riscv_gstage_vmid_bits(void);
++
++int __init kvm_riscv_gstage_vmid_alloc_init(void);
++void kvm_riscv_gstage_vmid_alloc_free(void);
++
+ int kvm_riscv_gstage_vmid_init(struct kvm *kvm);
++
++unsigned long kvm_riscv_gstage_vmid_hwid(u64 vmid);
++
+ bool kvm_riscv_gstage_vmid_ver_changed(struct kvm_vmid *vmid);
++
+ void kvm_riscv_gstage_vmid_update(struct kvm_vcpu *vcpu);
+ 
++/*
++ * Invalidate the current CPU's fast-path VMID state while preserving
++ * the old identity conservatively in reserved_vmids.
++ */
++void kvm_riscv_gstage_vmid_cpu_invalidate(void);
++
+ #endif
+diff --git a/arch/riscv/kvm/main.c b/arch/riscv/kvm/main.c
+index 89568ccce01d..d6c6be4df61b 100644
+--- a/arch/riscv/kvm/main.c
++++ b/arch/riscv/kvm/main.c
+@@ -16,7 +16,7 @@
+ #include <asm/kvm_nacl.h>
+ #include <asm/sbi.h>
+ #include <asm/kvm_vcpu_vector.h>
+-
++#include <asm/kvm_vmid.h>
+ static DEFINE_PER_CPU(bool, kvm_riscv_virtualization_enabled);
+ 
+ DEFINE_STATIC_KEY_FALSE(kvm_riscv_vsstage_tlb_no_gpa);
+@@ -84,6 +84,7 @@ int kvm_arch_enable_virtualization_cpu(void)
+ 
+ void kvm_arch_disable_virtualization_cpu(void)
+ {
++	kvm_riscv_gstage_vmid_cpu_invalidate();
+ 	kvm_riscv_aia_disable();
+ 	kvm_riscv_csr_cleanup();
+ 	kvm_riscv_nacl_disable();
+@@ -112,6 +113,7 @@ static int kvm_riscv_cpu_pm_notifier(struct notifier_block *self, unsigned long
+ 		 * is enabled on this CPU.
+ 		 */
+ 		if (__this_cpu_read(kvm_riscv_virtualization_enabled)) {
++			kvm_riscv_gstage_vmid_cpu_invalidate();
+ 			kvm_riscv_aia_pm_enter();
+ 			kvm_riscv_csr_cleanup();
+ 		}
+@@ -130,6 +132,7 @@ static struct notifier_block kvm_riscv_cpu_pm_nb = {
+ static void kvm_riscv_teardown(void)
+ {
+ 	kvm_riscv_aia_exit();
++	kvm_riscv_gstage_vmid_alloc_free();
+ 	kvm_riscv_nacl_exit();
+ 	kvm_riscv_v_exit();
+ 	kvm_unregister_perf_callbacks();
+@@ -181,8 +184,15 @@ static int __init riscv_kvm_init(void)
+ 
+ 	kvm_riscv_gstage_vmid_detect();
+ 
++	rc = kvm_riscv_gstage_vmid_alloc_init();
++	if (rc) {
++		kvm_riscv_nacl_exit();
++		return rc;
++	}
++
+ 	rc = kvm_riscv_aia_init();
+ 	if (rc && rc != -ENODEV) {
++		kvm_riscv_gstage_vmid_alloc_free();
+ 		kvm_riscv_nacl_exit();
+ 		return rc;
+ 	}
+diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
+index 6035b5ec9503..3c8fb6009c0a 100644
+--- a/arch/riscv/kvm/mmu.c
++++ b/arch/riscv/kvm/mmu.c
+@@ -15,7 +15,7 @@
+ #include <linux/sched/signal.h>
+ #include <asm/kvm_mmu.h>
+ #include <asm/kvm_nacl.h>
+-
++#include <asm/kvm_vmid.h>
+ static bool __read_mostly eager_page_split = true;
+ module_param(eager_page_split, bool, 0644);
+ 
+@@ -799,10 +799,11 @@ void kvm_riscv_mmu_free_pgd(struct kvm *kvm)
+ void kvm_riscv_mmu_update_hgatp(struct kvm_vcpu *vcpu)
+ {
+ 	struct kvm_arch *ka = &vcpu->kvm->arch;
++	u64 vmid = atomic64_read(&ka->vmid.id);
+ 	unsigned long hgatp = kvm_riscv_gstage_mode(ka->pgd_levels)
+ 			      << HGATP_MODE_SHIFT;
+ 
+-	hgatp |= (READ_ONCE(ka->vmid.vmid) << HGATP_VMID_SHIFT) & HGATP_VMID;
++	hgatp |= (kvm_riscv_gstage_vmid_hwid(vmid) << HGATP_VMID_SHIFT) & HGATP_VMID;
+ 	hgatp |= (ka->pgd_phys >> PAGE_SHIFT) & HGATP_PPN;
+ 
+ 	ncsr_write(CSR_HGATP, hgatp);
+diff --git a/arch/riscv/kvm/tlb.c b/arch/riscv/kvm/tlb.c
+index 2ae34632cdcb..b85e5ba2198a 100644
+--- a/arch/riscv/kvm/tlb.c
++++ b/arch/riscv/kvm/tlb.c
+@@ -224,7 +224,7 @@ void kvm_riscv_local_tlb_sanitize(struct kvm_vcpu *vcpu)
+ 	 * entries by VMID whenever underlying Host CPU changes for a VCPU.
+ 	 */
+ 
+-	vmid = READ_ONCE(vcpu->kvm->arch.vmid.vmid);
++	vmid = kvm_riscv_gstage_vmid_hwid(atomic64_read(&vcpu->kvm->arch.vmid.id));
+ 	kvm_riscv_local_hfence_gvma_vmid_all(vmid);
+ 
+ 	/*
+@@ -244,7 +244,7 @@ void kvm_riscv_fence_i_process(struct kvm_vcpu *vcpu)
+ void kvm_riscv_tlb_flush_process(struct kvm_vcpu *vcpu)
+ {
+ 	struct kvm_vmid *v = &vcpu->kvm->arch.vmid;
+-	unsigned long vmid = READ_ONCE(v->vmid);
++	unsigned long vmid = kvm_riscv_gstage_vmid_hwid(atomic64_read(&v->id));
+ 
+ 	if (kvm_riscv_nacl_available())
+ 		nacl_hfence_gvma_vmid_all(nacl_shmem(), vmid);
+@@ -255,7 +255,7 @@ void kvm_riscv_tlb_flush_process(struct kvm_vcpu *vcpu)
+ void kvm_riscv_hfence_vvma_all_process(struct kvm_vcpu *vcpu)
+ {
+ 	struct kvm_vmid *v = &vcpu->kvm->arch.vmid;
+-	unsigned long vmid = READ_ONCE(v->vmid);
++	unsigned long vmid = kvm_riscv_gstage_vmid_hwid(atomic64_read(&v->id));
+ 
+ 	if (kvm_riscv_nacl_available())
+ 		nacl_hfence_vvma_all(nacl_shmem(), vmid);
+@@ -531,8 +531,11 @@ void kvm_riscv_hfence_vvma_all(struct kvm *kvm,
+ 
+ int kvm_arch_flush_remote_tlbs_range(struct kvm *kvm, gfn_t gfn, u64 nr_pages)
+ {
++	unsigned long vmid =
++		kvm_riscv_gstage_vmid_hwid(atomic64_read(&kvm->arch.vmid.id));
++
+ 	kvm_riscv_hfence_gvma_vmid_gpa(kvm, -1UL, 0,
+ 				       gfn << PAGE_SHIFT, nr_pages << PAGE_SHIFT,
+-				       PAGE_SHIFT, READ_ONCE(kvm->arch.vmid.vmid));
++				       PAGE_SHIFT, vmid);
+ 	return 0;
+ }
+diff --git a/arch/riscv/kvm/vcpu.c b/arch/riscv/kvm/vcpu.c
+index e062ca19f9d8..85542c1a5ec3 100644
+--- a/arch/riscv/kvm/vcpu.c
++++ b/arch/riscv/kvm/vcpu.c
+@@ -943,14 +943,14 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+ 			continue;
+ 		ret = 1;
+ 
+-		kvm_riscv_gstage_vmid_update(vcpu);
+-
+ 		ret = kvm_riscv_check_vcpu_requests(vcpu);
+ 		if (ret <= 0)
+ 			continue;
+ 
+ 		preempt_disable();
+ 
++		kvm_riscv_gstage_vmid_update(vcpu);
++
+ 		/* Update AIA HW state before entering guest */
+ 		ret = kvm_riscv_vcpu_aia_update(vcpu);
+ 		if (ret <= 0) {
+diff --git a/arch/riscv/kvm/vcpu_sbi_replace.c b/arch/riscv/kvm/vcpu_sbi_replace.c
+index 506a510b6bff..1be386a78e27 100644
+--- a/arch/riscv/kvm/vcpu_sbi_replace.c
++++ b/arch/riscv/kvm/vcpu_sbi_replace.c
+@@ -104,7 +104,7 @@ static int kvm_sbi_ext_rfence_handler(struct kvm_vcpu *vcpu, struct kvm_run *run
+ 		kvm_riscv_vcpu_pmu_incr_fw(vcpu, SBI_PMU_FW_FENCE_I_SENT);
+ 		break;
+ 	case SBI_EXT_RFENCE_REMOTE_SFENCE_VMA:
+-		vmid = READ_ONCE(vcpu->kvm->arch.vmid.vmid);
++		vmid = kvm_riscv_gstage_vmid_hwid(atomic64_read(&vcpu->kvm->arch.vmid.id));
+ 		if ((cp->a2 == 0 && cp->a3 == 0) || cp->a3 == -1UL)
+ 			kvm_riscv_hfence_vvma_all(vcpu->kvm, hbase, hmask, vmid);
+ 		else
+@@ -113,7 +113,7 @@ static int kvm_sbi_ext_rfence_handler(struct kvm_vcpu *vcpu, struct kvm_run *run
+ 		kvm_riscv_vcpu_pmu_incr_fw(vcpu, SBI_PMU_FW_HFENCE_VVMA_SENT);
+ 		break;
+ 	case SBI_EXT_RFENCE_REMOTE_SFENCE_VMA_ASID:
+-		vmid = READ_ONCE(vcpu->kvm->arch.vmid.vmid);
++		vmid = kvm_riscv_gstage_vmid_hwid(atomic64_read(&vcpu->kvm->arch.vmid.id));
+ 		if ((cp->a2 == 0 && cp->a3 == 0) || cp->a3 == -1UL)
+ 			kvm_riscv_hfence_vvma_asid_all(vcpu->kvm, hbase, hmask,
+ 						       cp->a4, vmid);
+diff --git a/arch/riscv/kvm/vcpu_sbi_v01.c b/arch/riscv/kvm/vcpu_sbi_v01.c
+index de544ea3f28d..ca3efe63c1cf 100644
+--- a/arch/riscv/kvm/vcpu_sbi_v01.c
++++ b/arch/riscv/kvm/vcpu_sbi_v01.c
+@@ -88,14 +88,14 @@ static int kvm_sbi_ext_v01_handler(struct kvm_vcpu *vcpu, struct kvm_run *run,
+ 		if (cp->a7 == SBI_EXT_0_1_REMOTE_FENCE_I)
+ 			kvm_riscv_fence_i(vcpu->kvm, hbase, hmask);
+ 		else if (cp->a7 == SBI_EXT_0_1_REMOTE_SFENCE_VMA) {
+-			vmid = READ_ONCE(vcpu->kvm->arch.vmid.vmid);
++			vmid = kvm_riscv_gstage_vmid_hwid(atomic64_read(&vcpu->kvm->arch.vmid.id));
+ 			if (cp->a1 == 0 && cp->a2 == 0)
+ 				kvm_riscv_hfence_vvma_all(vcpu->kvm, hbase, hmask, vmid);
+ 			else
+ 				kvm_riscv_hfence_vvma_gva(vcpu->kvm, hbase, hmask, cp->a1,
+ 							  cp->a2, PAGE_SHIFT, vmid);
+ 		} else {
+-			vmid = READ_ONCE(vcpu->kvm->arch.vmid.vmid);
++			vmid = kvm_riscv_gstage_vmid_hwid(atomic64_read(&vcpu->kvm->arch.vmid.id));
+ 			if (cp->a1 == 0 && cp->a2 == 0)
+ 				kvm_riscv_hfence_vvma_asid_all(vcpu->kvm, hbase, hmask,
+ 							       cp->a3, vmid);
+diff --git a/arch/riscv/kvm/vmid.c b/arch/riscv/kvm/vmid.c
+index c15bdb1dd8be..7b86a6fbe4a6 100644
+--- a/arch/riscv/kvm/vmid.c
++++ b/arch/riscv/kvm/vmid.c
+@@ -6,11 +6,15 @@
+  *     Anup Patel <anup.patel@wdc.com>
+  */
+ 
++#include <linux/bitmap.h>
+ #include <linux/bitops.h>
+ #include <linux/cpumask.h>
+ #include <linux/errno.h>
+ #include <linux/err.h>
+ #include <linux/module.h>
++#include <linux/percpu.h>
++#include <linux/preempt.h>
++#include <linux/slab.h>
+ #include <linux/smp.h>
+ #include <linux/kvm_host.h>
+ #include <asm/csr.h>
+@@ -18,26 +22,54 @@
+ #include <asm/kvm_tlb.h>
+ #include <asm/kvm_vmid.h>
+ 
+-static unsigned long vmid_version = 1;
+-static unsigned long vmid_next;
++static atomic64_t vmid_generation;
++static unsigned long *vmid_map;
+ static unsigned long vmid_bits __ro_after_init;
+-static DEFINE_SPINLOCK(vmid_lock);
++static unsigned long vmid_cur_idx = 1;
++
++static DEFINE_RAW_SPINLOCK(vmid_lock);
++
++static DEFINE_PER_CPU(atomic64_t, active_vmids);
++static DEFINE_PER_CPU(u64, reserved_vmids);
++
++static cpumask_t tlb_flush_pending;
++
++#define VMID_FIRST_VERSION	BIT_ULL(vmid_bits)
++#define NUM_VMIDS		BIT(vmid_bits)
++#define VMID_HW_MASK		(VMID_FIRST_VERSION - 1)
++
++static bool vmid_gen_match(u64 vmid)
++{
++	return !((vmid ^ atomic64_read(&vmid_generation)) >> vmid_bits);
++}
++
++unsigned long kvm_riscv_gstage_vmid_hwid(u64 vmid)
++{
++	if (!vmid_bits)
++		return 0;
++
++	return (unsigned long)(vmid & VMID_HW_MASK);
++}
+ 
+ void __init kvm_riscv_gstage_vmid_detect(void)
+ {
+-	/* Figure-out number of VMID bits in HW */
++	/* Figure out the number of VMID bits supported by hardware. */
+ 	csr_write(CSR_HGATP, (kvm_riscv_gstage_mode(kvm_riscv_gstage_max_pgd_levels) <<
+-			      HGATP_MODE_SHIFT) | HGATP_VMID);
++		   HGATP_MODE_SHIFT) | HGATP_VMID);
+ 	vmid_bits = csr_read(CSR_HGATP);
+ 	vmid_bits = (vmid_bits & HGATP_VMID) >> HGATP_VMID_SHIFT;
+ 	vmid_bits = fls_long(vmid_bits);
+ 	csr_write(CSR_HGATP, 0);
+ 
+-	/* We polluted local TLB so flush all guest TLB */
++	/* Flush the local guest TLB after probing HGATP. */
+ 	kvm_riscv_local_hfence_gvma_all();
+ 
+-	/* We don't use VMID bits if they are not sufficient */
+-	if ((1UL << vmid_bits) < num_possible_cpus())
++	/*
++	 * VMID 0 is reserved.  During rollover every possible CPU may
++	 * reserve one hardware VMID, and we still need at least one VMID
++	 * available for a new allocation.
++	 */
++	if (vmid_bits && NUM_VMIDS - 1 <= num_possible_cpus())
+ 		vmid_bits = 0;
+ }
+ 
+@@ -46,80 +78,298 @@ unsigned long kvm_riscv_gstage_vmid_bits(void)
+ 	return vmid_bits;
+ }
+ 
++int __init kvm_riscv_gstage_vmid_alloc_init(void)
++{
++	int cpu;
++
++	if (!vmid_bits)
++		return 0;
++
++	vmid_map = bitmap_zalloc(NUM_VMIDS, GFP_KERNEL);
++	if (!vmid_map)
++		return -ENOMEM;
++
++	vmid_cur_idx = 1;
++
++	/* Hardware VMID 0 is reserved. */
++	__set_bit(0, vmid_map);
++
++	atomic64_set(&vmid_generation, VMID_FIRST_VERSION);
++
++	for_each_possible_cpu(cpu) {
++		atomic64_set(&per_cpu(active_vmids, cpu), 0);
++		per_cpu(reserved_vmids, cpu) = 0;
++	}
++
++	/*
++	 * Every CPU performs an initial local invalidation before its
++	 * first VMID activation.
++	 */
++	cpumask_copy(&tlb_flush_pending, cpu_possible_mask);
++
++	return 0;
++}
++
++void kvm_riscv_gstage_vmid_alloc_free(void)
++{
++	bitmap_free(vmid_map);
++	vmid_map = NULL;
++}
++
+ int kvm_riscv_gstage_vmid_init(struct kvm *kvm)
+ {
+-	/* Mark the initial VMID and VMID version invalid */
+-	kvm->arch.vmid.vmid_version = 0;
+-	kvm->arch.vmid.vmid = 0;
++	atomic64_set(&kvm->arch.vmid.id, 0);
+ 
+ 	return 0;
+ }
+ 
+ bool kvm_riscv_gstage_vmid_ver_changed(struct kvm_vmid *vmid)
+ {
++	u64 id;
++
+ 	if (!vmid_bits)
+ 		return false;
+ 
+-	return unlikely(READ_ONCE(vmid->vmid_version) !=
+-			READ_ONCE(vmid_version));
++	id = atomic64_read(&vmid->id);
++
++	return unlikely(!vmid_gen_match(id));
+ }
+ 
+-static void __local_hfence_gvma_all(void *info)
++/*
++ * Called with vmid_lock held after vmid_generation has already been
++ * advanced.
++ *
++ * No remote CPU is interrupted here.  Instead, preserve every VMID
++ * which may still be used by a CPU and queue a local invalidation for
++ * that CPU's next VMID activation.
++ */
++static void flush_context(void)
+ {
+-	kvm_riscv_local_hfence_gvma_all();
++	u64 vmid;
++	int cpu;
++
++	bitmap_zero(vmid_map, NUM_VMIDS);
++	__set_bit(0, vmid_map);
++
++	for_each_possible_cpu(cpu) {
++		vmid = atomic64_xchg(&per_cpu(active_vmids, cpu), 0);
++
++		/*
++		 * The CPU may already have been caught by an earlier rollover
++		 * without performing another activation since then.  In that
++		 * case reserved_vmids is the only record of the old context.
++		 */
++		if (!vmid)
++			vmid = per_cpu(reserved_vmids, cpu);
++
++		if (vmid)
++			__set_bit(kvm_riscv_gstage_vmid_hwid(vmid),
++				  vmid_map);
++
++		per_cpu(reserved_vmids, cpu) = vmid;
++	}
++
++	cpumask_copy(&tlb_flush_pending, cpu_possible_mask);
++}
++
++/*
++ * Update every reserved copy of an old software VMID.
++ *
++ * Do not stop after the first match: the same VM may have been active
++ * on more than one CPU when rollover occurred.
++ */
++static bool check_update_reserved_vmid(u64 old_vmid, u64 new_vmid)
++{
++	bool hit = false;
++	int cpu;
++
++	for_each_possible_cpu(cpu) {
++		if (per_cpu(reserved_vmids, cpu) == old_vmid) {
++			per_cpu(reserved_vmids, cpu) = new_vmid;
++			hit = true;
++		}
++	}
++
++	return hit;
++}
++
++/*
++ * Allocate/promote a software VMID.
++ *
++ * vmid_lock must be held by the caller.
++ */
++static u64 new_vmid_locked(struct kvm_vmid *kvm_vmid)
++{
++	u64 vmid = atomic64_read(&kvm_vmid->id);
++	u64 generation = atomic64_read(&vmid_generation);
++	u64 new_vmid;
++	unsigned long idx;
++
++	if (vmid) {
++		new_vmid = generation |
++			   kvm_riscv_gstage_vmid_hwid(vmid);
++
++		/*
++		 * The old VMID is still protected by one or more CPUs.
++		 * Keep the same hardware VMID and only promote generation.
++		 */
++		if (check_update_reserved_vmid(vmid, new_vmid))
++			return new_vmid;
++
++		/*
++		 * The VM had a VMID in an older generation.  Reuse the same
++		 * hardware number if it has not already been claimed.
++		 */
++		idx = kvm_riscv_gstage_vmid_hwid(vmid);
++		if (!__test_and_set_bit(idx, vmid_map))
++			return new_vmid;
++	}
++
++	/*
++	 * Find a free VMID in the current generation.
++	 */
++	idx = find_next_zero_bit(vmid_map, NUM_VMIDS, vmid_cur_idx);
++	if (idx != NUM_VMIDS)
++		goto set_vmid;
++
++	/*
++	 * No free VMID.  Start a new generation, preserve all CPU-local
++	 * users, and defer each CPU's flush until its next activation.
++	 */
++	generation += VMID_FIRST_VERSION;
++
++	/* Software VMID 0 is reserved as the invalid identifier. */
++	if (unlikely(!generation))
++		generation = VMID_FIRST_VERSION;
++
++	atomic64_xchg(&vmid_generation, generation);
++	flush_context();
++
++	/*
++	 * NUM_VMIDS - 1 > num_possible_cpus(), therefore rollover must
++	 * leave at least one allocatable hardware VMID.
++	 */
++	idx = find_next_zero_bit(vmid_map, NUM_VMIDS, 1);
++
++set_vmid:
++	__set_bit(idx, vmid_map);
++	vmid_cur_idx = idx;
++
++	return generation | idx;
+ }
+ 
+ void kvm_riscv_gstage_vmid_update(struct kvm_vcpu *vcpu)
+ {
+-	unsigned long i;
++	struct kvm_vmid *kvm_vmid = &vcpu->kvm->arch.vmid;
++	atomic64_t *active;
+ 	struct kvm_vcpu *v;
+-	struct kvm_vmid *vmid = &vcpu->kvm->arch.vmid;
++	unsigned long flags;
++	u64 vmid;
++	u64 old_active_vmid;
++	unsigned long i;
++	unsigned int cpu;
++	bool vmid_changed = false;
+ 
+-	if (!kvm_riscv_gstage_vmid_ver_changed(vmid))
++	if (!vmid_bits)
+ 		return;
+ 
+-	spin_lock(&vmid_lock);
++	/*
++	 * active_vmids and tlb_flush_pending are per-CPU admission state.
++	 * They must refer to the same CPU for the complete activation.
++	 */
++	preempt_disable();
++
++	cpu = smp_processor_id();
++	active = this_cpu_ptr(&active_vmids);
++
++	vmid = atomic64_read(&kvm_vmid->id);
++	old_active_vmid = atomic64_read(active);
+ 
+ 	/*
+-	 * We need to re-check the vmid_version here to ensure that if
+-	 * another vcpu already allocated a valid vmid for this vm.
++	 * Fast path.
++	 *
++	 * The cmpxchg races with flush_context()'s xchg on the same
++	 * per-CPU atomic.  Either this activation is captured by rollover,
++	 * or rollover clears active first and the cmpxchg fails.
+ 	 */
+-	if (!kvm_riscv_gstage_vmid_ver_changed(vmid)) {
+-		spin_unlock(&vmid_lock);
+-		return;
++	if (old_active_vmid &&
++	    vmid_gen_match(vmid) &&
++	    atomic64_cmpxchg(active, old_active_vmid, vmid) ==
++	    old_active_vmid)
++		goto out;
++
++	raw_spin_lock_irqsave(&vmid_lock, flags);
++
++	/*
++	 * Re-read under the allocator lock because another vCPU of this VM
++	 * may already have promoted or allocated the shared VMID.
++	 */
++	vmid = atomic64_read(&kvm_vmid->id);
++
++	if (!vmid_gen_match(vmid)) {
++		vmid = new_vmid_locked(kvm_vmid);
++		atomic64_set(&kvm_vmid->id, vmid);
++		vmid_changed = true;
+ 	}
+ 
+-	/* First user of a new VMID version? */
+-	if (unlikely(vmid_next == 0)) {
+-		WRITE_ONCE(vmid_version, READ_ONCE(vmid_version) + 1);
+-		vmid_next = 1;
++	/*
++	 * Even if another vCPU already updated the shared VMID, this CPU
++	 * must still discharge its own rollover flush obligation.
++	 */
++	if (cpumask_test_and_clear_cpu(cpu, &tlb_flush_pending))
++		kvm_riscv_local_hfence_gvma_all();
+ 
+-		/*
+-		 * We ran out of VMIDs so we increment vmid_version and
+-		 * start assigning VMIDs from 1.
+-		 *
+-		 * This also means existing VMIDs assignment to all Guest
+-		 * instances is invalid and we have force VMID re-assignement
+-		 * for all Guest instances. The Guest instances that were not
+-		 * running will automatically pick-up new VMIDs because will
+-		 * call kvm_riscv_gstage_vmid_update() whenever they enter
+-		 * in-kernel run loop. For Guest instances that are already
+-		 * running, we force VM exits on all host CPUs using IPI and
+-		 * flush all Guest TLBs.
+-		 */
+-		on_each_cpu_mask(cpu_online_mask, __local_hfence_gvma_all,
+-				 NULL, 1);
++	/*
++	 * Publish the CPU-local active identity only after the required
++	 * local invalidation is complete.
++	 */
++	atomic64_set(active, vmid);
++
++	raw_spin_unlock_irqrestore(&vmid_lock, flags);
++
++	/*
++	 * A new software VMID may contain a different hardware VMID, so
++	 * request an HGATP update for every vCPU in the VM.
++	 */
++	if (vmid_changed) {
++		kvm_for_each_vcpu(i, v, vcpu->kvm)
++			kvm_make_request(KVM_REQ_UPDATE_HGATP, v);
+ 	}
+ 
+-	vmid->vmid = vmid_next;
+-	vmid_next++;
+-	vmid_next &= (1 << vmid_bits) - 1;
++out:
++	preempt_enable();
++}
++
++/*
++ * CPU virtualization/CSR state is being discarded.
++ *
++ * Withdraw fast-path eligibility, but conservatively preserve the last
++ * identity instead of making its hardware VMID immediately reusable.
++ */
++void kvm_riscv_gstage_vmid_cpu_invalidate(void)
++{
++	unsigned long flags;
++	u64 vmid;
++	unsigned int cpu;
+ 
+-	WRITE_ONCE(vmid->vmid_version, READ_ONCE(vmid_version));
++	if (!vmid_bits)
++		return;
+ 
+-	spin_unlock(&vmid_lock);
++	lockdep_assert_preemption_disabled();
++
++	cpu = smp_processor_id();
++
++	raw_spin_lock_irqsave(&vmid_lock, flags);
++
++	vmid = atomic64_xchg(this_cpu_ptr(&active_vmids), 0);
++
++	if (vmid)
++		per_cpu(reserved_vmids, cpu) = vmid;
++
++	/*
++	 * If active was already zero, retain the old reserved entry.
++	 */
++	cpumask_set_cpu(cpu, &tlb_flush_pending);
+ 
+-	/* Request G-stage page table update for all VCPUs */
+-	kvm_for_each_vcpu(i, v, vcpu->kvm)
+-		kvm_make_request(KVM_REQ_UPDATE_HGATP, v);
++	raw_spin_unlock_irqrestore(&vmid_lock, flags);
+ }
+-- 
+2.47.3
