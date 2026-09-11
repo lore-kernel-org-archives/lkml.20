@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B854C45D919;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 949152E92BA;
 	Fri, 11 Sep 2026 11:45:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789127110; cv=none; b=Z/mvntU7c+AoGFYkLVqFVuO8EULDZEZOtL9aH9bL0KXK2zpIjrtme/xDpkoTXaP4VSETwtebu6T/2S6LFeO4JmwQm2fKXfZRvQ5GDvmE3QKTRicDP7qvagw348+snlI/UOF37LNs4O2lyTiA5xoa6q4rnfXPQP4PKzgG2Vfku5E=
+	t=1789127110; cv=none; b=o2GYIwnqWzVOXnpCg3l6/aLpXRUd3830xtkfvX+R19vH15I++KeZlQo5h9SUbf+gseStgiStPmPzgqIFQl6ZUexuy9JrkQAtVcXP2iYLdrMA89Rm/SMHLIb/1veTkC22lQXCz7iHd8Z66u+RYd0gkF+xc+qop5lOLDgsMkj06PA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789127110; c=relaxed/simple;
-	bh=tiOocqisQJyVtmOF/Ljy6WtfbcgSVLkxHwITetyJBZ0=;
+	bh=812lZgP0nZKQzPW/829pcJ1XpzeFnqWVerOb/wTWmZM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ohgrHJ7NPo1yHUJvAyFldHBoIjTF4+9q79+sax/VpYguRmpQFoedy4RTDTOPG2n+rTdC0M/kQrQwCo0lrI8IRm74z/NBQ7/HXlW2rKT7ww9pZXVpFb7aSQYE895U0I6NEAYdyyFYLB2ZSO5GISITtjFdXWZ41eqlWA0FBo2x5UQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DtXDy/kR; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=URoH5QHHhAALtIXLSnemrQdYRQfr0jk98V9+RkIA7cWBuVGYa30PV17QO6mFHm93iK6CspRpCFqMTL4Mu/sltsz34f8Jeo7hqAGSfxeGtIj55NI7W9wxwVw9jNprpQiOxmD38LJMetMwHs5Pj+uTP1BbiYiYhOVAsWvnQI3cDRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=deeqH56z; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DtXDy/kR"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8B2E4C2BCB8;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="deeqH56z"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3D918C4AF19;
 	Fri, 11 Sep 2026 11:45:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789127110;
-	bh=tiOocqisQJyVtmOF/Ljy6WtfbcgSVLkxHwITetyJBZ0=;
+	bh=812lZgP0nZKQzPW/829pcJ1XpzeFnqWVerOb/wTWmZM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=DtXDy/kR8BbNlqyiZWybP5tlaOds8dkA9RX+Q5leY8Q14fv3hSREETWxPreNruaPg
-	 Tg/5mkqr0ZG2v8ZmkwWQsmoc1xTNuPkKOXxooh7PY8O2OKqH1WzIiOa6l8M/bgTxpb
-	 a1rDOTw2INo2zkGUXOC0BSqtwq2NgCvlzwCaE6wr6gB3z95jOO/qpd4bLbGENclVkM
-	 EnZfLF74CN1Lwbj7lEHiJP956YUuANJdFlCOoWEcU9RKVG6KzPRHPH1+CptKKp+3cj
-	 2RhbGiXEFzSAuVlc+pVxiZQYRGru7JExIeT+DZ60os/o/gqXRcUJB5mNtv27bepv7K
-	 qWN4ybYT5yd1A==
+	b=deeqH56zH18qjNrMcC7DOd2Ovphz86ITvjiBudQUXCv3I1uXWHHOS9NBdX2GCGgyQ
+	 DaKkXaM5R8k8upQZlU/yQm73skqXo4i+Uq38Byy4y57J2BaiNFwuY16MnbL5n6GQuc
+	 MfehUZqBjuPWUA8Si4M1tcens4lsndcYgn3jKtuzWFopF1pz/j8XboGKpCtewqDUaq
+	 CU7iY9gegzUz+fnmAhH0uwSNOJR4SwG2gYegYVRs1M7S3D32az5GErhAiKfJ7KbJMF
+	 klh85B6puEL17VK/88s85zAkFS5tlMb/hGOlG79CvG20DrL8m0lXG36duMA13Aa9RJ
+	 JQxkS5cL7Nh/w==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 77C2FC88E50;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A051C88E54;
 	Fri, 11 Sep 2026 11:45:10 +0000 (UTC)
 From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Date: Fri, 11 Sep 2026 19:45:12 +0800
-Subject: [PATCH RFC v2 09/15] mm/madvise: adapt for LRU refs based
- operations in MGLRU
+Date: Fri, 11 Sep 2026 19:45:08 +0800
+Subject: [PATCH RFC v2 05/15] mm/mglru: make folio lru referenced times
+ count a generic API
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-mglru-fg-v2-9-f26e5cb26da7@tencent.com>
+Message-Id: <20260911-mglru-fg-v2-5-f26e5cb26da7@tencent.com>
 References: <20260911-mglru-fg-v2-0-f26e5cb26da7@tencent.com>
 In-Reply-To: <20260911-mglru-fg-v2-0-f26e5cb26da7@tencent.com>
 To: linux-mm@kvack.org
@@ -71,11 +71,11 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  cgroups@vger.kernel.org, Kairui Song <kasong@tencent.com>, 
  Nico Pache <nico.pache@linux.dev>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789127106; l=3579;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789127106; l=6566;
  i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=pmj3P/HChz1ZRyXZspIgJRWwIbXzfxFrfJsIOvXtfWs=;
- b=OqQF+CHj07t5BGpiOKt6owYBMczI7DdeygcSZALiFcAbH7fMx79vuC0X8jtXv74o3Fg4K2wwv
- Hxmig2GiAyIBMdICKTsfcw6NAhJCqCpBrTMNaTy0Dg7bbRGZy/kUj4Z
+ bh=sl9oGI385dpNBKTnFrEsaoQodEeUL5C6uVYMyQKT218=;
+ b=WnnrsfQJcZ207GAQreMw8xwJIEDcbjputonZZn9uY0Xj4u54Z2w1nZD7H+WibPnYVffHJ8JUV
+ O/jQuRtOoevAWuq0845ed2pYiVoEs2AX+SEsXwsKaVDZxc0kOZ71PXx
 X-Developer-Key: i=kasong@tencent.com; a=ed25519;
  pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
 X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
@@ -85,103 +85,225 @@ Reply-To: kasong@tencent.com
 
 From: Kairui Song <kasong@tencent.com>
 
-For the active/inactive LRU, madvise clears PG_referenced so that one more
-access is not enough to reactivate a folio, and keeps PG_workingset on a
-folio demoted out of the active list so its refault is still accounted as
-a workingset refault (PSI).
+Pure code shuffle, no behavior change.  Make the folio LRU refs helpers
+available regardless of CONFIG_LRU_GEN; without MGLRU the refs bits are
+never set, so they are inert.  Move the lru_gen_* helpers into the
+CONFIG_LRU_GEN section unchanged.  This prepares for unifying the API
+for checking folio referenced and workingset status.
 
-MGLRU keeps that history in the folio's refs count instead, which now
-lives in PG_referenced, PG_workingset and LRU_REFS_MASK, so writing to
-those bits directly corrupts the count. The two hints want different
-things:
+folio_migrate_lru_refs() now migrates the complete refs count,
+including PG_workingset (bit 1 of the encoding), bitwise identical to
+the direct copy dropped from folio_migrate_flags().  It also gains
+off-LRU VM_WARN_ON_ONCE checks, compiled out unless CONFIG_DEBUG_VM.
 
-- MADV_COLD resets the count in folio_deactivate(), which also moves the
-  folio to the oldest generation.
-- MADV_PAGEOUT isolates the folio and hands it to reclaim_pages(), which
-  ignores the count, so keep it and let the eviction shadow record the
-  folio's real hotness.
-
-PG_young is idle-page-tracking state, not a reclaim input, so it is still
-cleared for both LRUs.
+lru_set_refs_flags() skips the nonexistent mask bits when
+LRU_REFS_WIDTH collapses to 0, keeping the generic helpers inert for
+!CONFIG_LRU_GEN builds.
 
 Signed-off-by: Kairui Song <kasong@tencent.com>
 ---
- mm/madvise.c | 48 ++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 34 insertions(+), 14 deletions(-)
+ include/linux/mm_inline.h | 145 +++++++++++++++++++++++-----------------------
+ mm/migrate.c              |   2 -
+ 2 files changed, 72 insertions(+), 75 deletions(-)
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index f75a9d139980..cdd1bebf2485 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -361,6 +361,38 @@ static inline int madvise_folio_pte_batch(unsigned long addr, unsigned long end,
- 				     FPB_MERGE_YOUNG_DIRTY);
+diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+index 7c8288661edd..5a62b83b4168 100644
+--- a/include/linux/mm_inline.h
++++ b/include/linux/mm_inline.h
+@@ -105,54 +105,6 @@ static __always_inline enum lru_list folio_lru_list(const struct folio *folio)
+ 	return lru;
  }
  
-+/*
-+ * Drop the recency information madvise() is expected to drop before
-+ * deactivating or reclaiming a folio.
-+ */
-+static void madvise_cold_or_pageout_prep_folio(struct folio *folio)
+-#ifdef CONFIG_LRU_GEN
+-
+-static inline bool lru_gen_switching(void)
+-{
+-	DECLARE_STATIC_KEY_FALSE(lru_switch);
+-
+-	return static_branch_unlikely(&lru_switch);
+-}
+-#ifdef CONFIG_LRU_GEN_ENABLED
+-static inline bool lru_gen_enabled(void)
+-{
+-	DECLARE_STATIC_KEY_TRUE(lru_gen_caps[NR_LRU_GEN_CAPS]);
+-
+-	return static_branch_likely(&lru_gen_caps[LRU_GEN_CORE]);
+-}
+-#else
+-static inline bool lru_gen_enabled(void)
+-{
+-	DECLARE_STATIC_KEY_FALSE(lru_gen_caps[NR_LRU_GEN_CAPS]);
+-
+-	return static_branch_unlikely(&lru_gen_caps[LRU_GEN_CORE]);
+-}
+-#endif
+-
+-static inline bool lru_gen_in_fault(void)
+-{
+-	return current->in_lru_fault;
+-}
+-
+-static inline int lru_gen_from_seq(unsigned long seq)
+-{
+-	return seq % MAX_NR_GENS;
+-}
+-
+-static inline int lru_hist_from_seq(unsigned long seq)
+-{
+-	return seq % NR_HIST_GENS;
+-}
+-
+-static inline int lru_tier_from_refs(unsigned int refs)
+-{
+-	BUILD_BUG_ON(fls(LRU_REFS_MAX - 1) > MAX_NR_TIERS - 1);
+-	VM_WARN_ON_ONCE(refs > LRU_REFS_MAX);
+-	if (refs < LRU_REFS_WORKINGSET)
+-		return 0;
+-	return fls(refs - 1);
+-}
+-
+ /**
+  * lru_set_gen_flags - Set the LRU generation number to specified folio flags.
+  * @flags: pointer to the folio flags
+@@ -205,7 +157,8 @@ static inline void lru_set_refs_flags(unsigned long *flags, unsigned int refs)
+ 		*flags |= BIT(PG_referenced);
+ 	if (refs & BIT(1))
+ 		*flags |= BIT(PG_workingset);
+-	*flags |= ((unsigned long)refs >> 2) << LRU_REFS_PGOFF;
++	if (LRU_REFS_WIDTH)
++		*flags |= ((unsigned long)refs >> 2) << LRU_REFS_PGOFF;
+ }
+ 
+ /**
+@@ -240,7 +193,77 @@ static inline void folio_set_lru_refs(struct folio *folio, unsigned int refs)
+ 	} while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flags));
+ }
+ 
++#ifdef CONFIG_LRU_GEN
+ void folio_inc_lru_refs(struct folio *folio, unsigned int flags);
++#else
++static inline void folio_inc_lru_refs(struct folio *folio, unsigned int flags)
 +{
-+	/*
-+	 * VM couldn't reclaim the folio unless we clear PG_young.
-+	 * As a side effect, it makes confuse idle-page tracking
-+	 * because they will miss recent referenced history.
-+	 */
-+	folio_test_clear_young(folio);
++	/* Should not be called with !CONFIG_LRU_GEN */
++	WARN_ON_ONCE(1);
++}
++#endif
 +
-+	/*
-+	 * MGLRU keeps this history in the refs count. MADV_COLD resets
-+	 * it in folio_deactivate(), MADV_PAGEOUT hands the folio to
-+	 * reclaim_pages(), which ignores the count, so keep it, and let
-+	 * the eviction shadow record the folio's real hotness.
-+	 */
-+	if (lru_gen_enabled())
-+		return;
-+
-+	/*
-+	 * For the active/inactive LRU, a folio demoted out of the active
-+	 * list should have PG_workingset so its refault is still accounted
-+	 * as a workingset refault.
-+	 */
-+	folio_clear_referenced(folio);
-+	if (folio_test_active(folio))
-+		folio_set_workingset(folio);
++/**
++ * folio_migrate_lru_refs - copy the reference state to a new folio
++ * @new: the destination folio
++ * @old: the source folio
++ *
++ * Transfer the reference state to @new during migration: the MGLRU
++ * refs count, or PG_referenced and PG_workingset (bits 0-1 of the
++ * encoding) for the active/inactive LRU.
++ */
++static inline void folio_migrate_lru_refs(struct folio *new, const struct folio *old)
++{
++	folio_set_lru_refs(new, folio_lru_refs(old));
 +}
 +
- static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
- 				unsigned long addr, unsigned long end,
- 				struct mm_walk *walk)
-@@ -438,10 +470,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
- 			tlb_remove_pmd_tlb_entry(tlb, pmd, addr);
- 		}
++#ifdef CONFIG_LRU_GEN
++
++static inline bool lru_gen_switching(void)
++{
++	DECLARE_STATIC_KEY_FALSE(lru_switch);
++
++	return static_branch_unlikely(&lru_switch);
++}
++#ifdef CONFIG_LRU_GEN_ENABLED
++static inline bool lru_gen_enabled(void)
++{
++	DECLARE_STATIC_KEY_TRUE(lru_gen_caps[NR_LRU_GEN_CAPS]);
++
++	return static_branch_likely(&lru_gen_caps[LRU_GEN_CORE]);
++}
++#else
++static inline bool lru_gen_enabled(void)
++{
++	DECLARE_STATIC_KEY_FALSE(lru_gen_caps[NR_LRU_GEN_CAPS]);
++
++	return static_branch_unlikely(&lru_gen_caps[LRU_GEN_CORE]);
++}
++#endif
++
++static inline bool lru_gen_in_fault(void)
++{
++	return current->in_lru_fault;
++}
++
++static inline int lru_gen_from_seq(unsigned long seq)
++{
++	return seq % MAX_NR_GENS;
++}
++
++static inline int lru_hist_from_seq(unsigned long seq)
++{
++	return seq % NR_HIST_GENS;
++}
++
++static inline int lru_tier_from_refs(unsigned int refs)
++{
++	BUILD_BUG_ON(fls(LRU_REFS_MAX - 1) > MAX_NR_TIERS - 1);
++	VM_WARN_ON_ONCE(refs > LRU_REFS_MAX);
++	if (refs < LRU_REFS_WORKINGSET)
++		return 0;
++	return fls(refs - 1);
++}
  
--		folio_clear_referenced(folio);
--		folio_test_clear_young(folio);
--		if (folio_test_active(folio))
--			folio_set_workingset(folio);
-+		madvise_cold_or_pageout_prep_folio(folio);
- 		if (pageout) {
- 			if (folio_isolate_lru(folio)) {
- 				if (folio_test_unevictable(folio))
-@@ -547,16 +576,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
- 			tlb_remove_tlb_entries(tlb, pte, nr, addr);
- 		}
+ static inline int folio_lru_gen(const struct folio *folio)
+ {
+@@ -388,20 +411,6 @@ static inline bool lru_gen_del_folio(struct lruvec *lruvec, struct folio *folio,
  
--		/*
--		 * We are deactivating a folio for accelerating reclaiming.
--		 * VM couldn't reclaim the folio unless we clear PG_young.
--		 * As a side effect, it makes confuse idle-page tracking
--		 * because they will miss recent referenced history.
--		 */
--		folio_clear_referenced(folio);
--		folio_test_clear_young(folio);
--		if (folio_test_active(folio))
--			folio_set_workingset(folio);
-+		madvise_cold_or_pageout_prep_folio(folio);
- 		if (pageout) {
- 			if (folio_isolate_lru(folio)) {
- 				if (folio_test_unevictable(folio))
+ 	return true;
+ }
+-
+-/**
+- * folio_migrate_lru_refs - copy the reference state to a new folio
+- * @new: the destination folio
+- * @old: the source folio
+- *
+- * Transfer the reference state to @new during migration: the MGLRU
+- * refs count, including PG_referenced, or just PG_referenced for the
+- * active/inactive LRU.
+- */
+-static inline void folio_migrate_lru_refs(struct folio *new, const struct folio *old)
+-{
+-	folio_set_lru_refs(new, folio_lru_refs(old));
+-}
+ #else /* !CONFIG_LRU_GEN */
+ 
+ static inline bool lru_gen_enabled(void)
+@@ -428,16 +437,6 @@ static inline bool lru_gen_del_folio(struct lruvec *lruvec, struct folio *folio,
+ {
+ 	return false;
+ }
+-
+-static inline void folio_inc_lru_refs(struct folio *folio, unsigned int flags)
+-{
+-}
+-
+-static inline void folio_migrate_lru_refs(struct folio *new, const struct folio *old)
+-{
+-	if (folio_test_referenced(old))
+-		folio_set_referenced(new);
+-}
+ #endif /* CONFIG_LRU_GEN */
+ 
+ static __always_inline
+diff --git a/mm/migrate.c b/mm/migrate.c
+index a369d0c95c38..b1ccffc4e7cd 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -786,8 +786,6 @@ void folio_migrate_flags(struct folio *newfolio, struct folio *folio)
+ 		folio_set_active(newfolio);
+ 	} else if (folio_test_clear_unevictable(folio))
+ 		folio_set_unevictable(newfolio);
+-	if (folio_test_workingset(folio))
+-		folio_set_workingset(newfolio);
+ 	if (folio_test_checked(folio))
+ 		folio_set_checked(newfolio);
+ 	/*
 
 -- 
 2.55.0
