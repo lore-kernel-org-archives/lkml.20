@@ -1,85 +1,50 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45358246BCD
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 04:03:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB323D6673
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 04:04:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789099396; cv=none; b=uOsMJnu5KJ/eICxsrCyTDxSUd07Yswt+NIJegWOkfgHSfee+Wfl2NFshFcWlqhbWE7DKDvudgX7+ziRm6NuzIL2Jhv9bPU+E7CBQYTGGxgEnOS/YBwAqsH8tRI+nd/51BkcHKqFG8OD4CEVW8bY0r9+BCqnGJNaYJYIhDVAvo9Y=
+	t=1789099490; cv=none; b=X946v2YR5FahQ884eNqRfBzCETDtCih1VDiLenA4nSzG1HiddSeknfPApWG1KSqF+wkDn0cqphC5OAJS6MDW36GR5xkD1Ek/LNrWTH9lt0O0cvfyO0UWP3vkYKAGI/hpwh45abH5rUvnVnhiXh8DYhZl2ZKPu2BsQmlrqgLu4GM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789099396; c=relaxed/simple;
-	bh=OIgLDadHm6v3Hhfp+LeVPKY+DdMyNj+RWmDObrAfsfo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ids23Vx67+8n8opo12W3Pgiu0ZWA/xtBl10Bw2d/aXj8Am8j23LN+/Q+GXBGEijClhdlMCeWL/bwvEP3wkvwg48OW7K4PWf1YBA2IKFXVY0l0tEEW4mOBu175yL3FF0xWFXsIUUTzewxqRTf95UCRSWq3jh+JMjd1VcmPQUqPoY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ql3etVol; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789099490; c=relaxed/simple;
+	bh=DtMYe9mZ+/SlmprZCY/J2tmg4c0JTQ1OxKUEGVgtSJc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kixMZHTZPiI7AvPXn7/c1VwGaNV82Mr0JgxY5UFTJQhoZpqfucgg17cUEAbttic24jZ5bNKJ4fzeRjjF4hGkJa5Pv+KdpcqNjbciQgyv0l0OVeZQmgKWh64GNPbcZd0AGlHKrj3aDV3GdTPP5G7c4srLUEjKerG5nnLe3nqIRcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=rqPv8Y6P; arc=none smtp.client-ip=115.124.30.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ql3etVol"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747eefae4so1018645ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:03:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789099395; x=1789704195; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NMNMLyka/PxRqW+FEjSX/JhUiPb37rME7mEkb0i98KI=;
-        b=ql3etVolrH49pB+DaUji8O5wrQ7ZYcxX0M4OAsmr8ZpYvHTVSalzkNFA+hV30eUClo
-         YBaZcY9fiTnZxmgaWq1uJSrHLtQ5RGj4sw12dZ6H9RZ0h2WPJ0BMFwTIq2dvZ0WOKRIs
-         mpUbsgDw/McnJk4h/t4LoBqo2rBpNrVpGY5kT2kldPhDjEw7AlzFBISNp0UcOdzO2tQX
-         /7nmYrd6puNRtnEHZ1N8gVbXJbinswg8Nmjv+XMFi2DxTX8sdbI6gJcuUw7z4D4es3OJ
-         H1saLAKVyz70m9h9oCi0wHlg0KC+utF68FRoyBLfyCoxFbAmiy7WlT5jSEhZnzyGsQOB
-         4xqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789099395; x=1789704195;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NMNMLyka/PxRqW+FEjSX/JhUiPb37rME7mEkb0i98KI=;
-        b=D9WuEkdB8rDjZ/5jcamRuTigCbGEzdx/ctecdDY/YA016YRdZHIouOrShcdMqgOvK1
-         rqV1l9Gct8bWIY9wfuL5h0XVhaffsEqWapBatb/QzOFy6HiZnMgrtoHIuAB3ikNDXoyB
-         9F+xOS9YAHtMJQXWxvZOfjN3p8GXh8qo33sgOn6LbeMoIvPM3slp3z/UJJiPudKV1Lq7
-         hjOLjPo9FpC6jxryJeVedxoqY2T3t4VMkISNeUOYAyPbJ76G18hNwNpNEGZCJZszIog7
-         dEcrYuy69gPXfakzBRNXmAeaLJdCuviWictdRwn903EvhsPHwqvBbYB5wO5tOhOVGJQs
-         t6hg==
-X-Forwarded-Encrypted: i=1; AKwUvBwveD03ooESq0ELMT6FkMiLQc4tvhSe+79nZqPg+rkuKUrPUjjfqfwSfQUGexN45nxLxtecTYrYiUlwuQc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZoKvitrLmOGDaIDaqOHL6oH+zFKGkWs4pNzUBsTi4GsiUkmfg
-	0pntZAk4qM57TpQL1mA0YaP5tednYyau/0hkHwmd5jJWWFDF+MlrtClNaX7vTg==
-X-Gm-Gg: AYBFou20O3Bl1f7E0OrVeJqgHbHyf379WEBrTWdHcRzMVDS8Ay/LmccSJk+sA3Y1r+e
-	29xsmi5+yvkMLtua7zS8wOxM71ho+yK2srK7qj3UxKzPjSd4owsLPVG5VIr5PP2iXYubIEUWAcZ
-	0x/TRZ28YVidl6AUymaPEvy+dmL2OH0w+ObvNuPzAP8duiB3H0ns4AESxrDWEGpgiU8iq9PWzMJ
-	vvDCcgnLgcX3jOXes5d8s1fSzLCl0i+alT/3ieHsOHwqDeAvzOKnwhI7hOLCizdYTvdYCruxE3/
-	AHOFLr28rTOnSqbwE9/AnoWeAHtKN7zK5BVQSq6ZGURM7KCn1+OxCj+6aCgxUuzq5WHpV70UjMp
-	ISF9pR8sTQLgN/wNItinjn+UNbH/A3UOlwHujb+cxhY973YMYQbSXCksWWyOJgYPObacofht2dk
-	eIQbUyuoAUbgjqRqksUn6mGq2y7aHq5fzJDBNO/T2yiTWLhg8n4tG0zSIU+XhxG/N+NX025n/uC
-	0P8bT0Vj1BrcnoDK5ASgjxWareFgC6YvMuGMufeQ3FCRQRTQ6IDPPY7wy18YkeyWSATpgIPmzCx
-	wgvneoCgpKqEMiih+b93JaiPK0k=
-X-Received: by 2002:a17:902:ecca:b0:2d8:d4cf:fe49 with SMTP id d9443c01a7336-2dd2a4550bcmr29793865ad.15.1789099394759;
-        Thu, 10 Sep 2026 21:03:14 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfc2d3bsm4670925ad.48.2026.09.10.21.03.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 21:03:14 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Wei Fang <wei.fang@nxp.com>,
-	Frank Li <frank.li@nxp.com>,
-	Shenwei Wang <shenwei.wang@nxp.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH net-next v6 2/2] net: fec: Handle optional IRQ lookup errors correctly
-Date: Fri, 11 Sep 2026 11:00:21 +0700
-Message-ID: <20260911040021.12289-2-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260911040021.12289-1-phucduc.bui@gmail.com>
-References: <20260911040021.12289-1-phucduc.bui@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="rqPv8Y6P"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1789099484; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=WxGjPVKwOym3MlqJVMtkM10psiQ4ZkXMSmP8hxUXTp4=;
+	b=rqPv8Y6PwevoDufsdcDqgD2Jsi2rNtjjfXR00iAJJRgJ6IAiKACxVvdtNiw4j+wWo41YRtmepq9pBvzw50fbr6Ho9FKNf7ky2Ij9TAcpnzFM1I3nd4JIzlq8RDAo5Rz2LLL/P037WfdRSEeNP/EzwQnZTwHJFl0daU/7dLLDYTs=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R571e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XAj7wOz_1789099483;
+Received: from localhost(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAj7wOz_1789099483 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 11 Sep 2026 12:04:43 +0800
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+To: akpm@linux-foundation.org,
+	hughd@google.com,
+	david@kernel.org
+Cc: ziy@nvidia.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	ljs@kernel.org,
+	baolin.wang@linux.alibaba.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] mm: shmem: ignore sysfs configs for shmem forced collapse
+Date: Fri, 11 Sep 2026 12:04:33 +0800
+Message-ID: <b1829ac0d3f38217f031854ff0f40abef614ac0d.1789098446.git.baolin.wang@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,49 +53,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+According to Documentation/mm/transhuge.rst, MADV_COLLAPSE is expected to
+ignore any THP or mTHP interface settings.
 
-Handle errors from platform_get_irq_byname_optional() explicitly while
-preserving the existing fallback to platform_get_irq() when the named IRQ
-is not available.
+However, after commit 6beeab870e70 ("mm: shmem: move shmem_huge_global_enabled()
+into shmem_allowable_huge_orders()"), performing MADV_COLLAPSE on shmem
+will depend on /sys/.../hugepages-2048kB/shmem_enabled being set to "inherit"
+(although that is the default), which can cause MADV_COLLAPSE to fail
+unexpectedly.
 
-Propagate errors other than -ENXIO from the optional IRQ lookup instead
-of silently falling back to the indexed IRQ lookup.
+Fix this by returning the result of shmem_huge_global_enabled() directly
+when MADV_COLLAPSE is requested, allowing PMD-order collapse while ignoring
+shmem THP/mTHP settings.
 
-In particular, silently ignoring -EPROBE_DEFER can cause the driver to
-continue probing instead of deferring as required.
-
-Reviewed-by: Wei Fang <wei.fang@nxp.com>
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+Fixes: 6beeab870e70 ("mm: shmem: move shmem_huge_global_enabled() into shmem_allowable_huge_orders()")
+Reported-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Closes: https://lore.kernel.org/all/20260908125105.1510704-7-kirill@shutemov.name/
+Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 ---
- drivers/net/ethernet/freescale/fec_main.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+Hi Kiryl,
 
-diff --git a/drivers/net/ethernet/freescale/fec_main.c b/drivers/net/ethernet/freescale/fec_main.c
-index c6e29b5c2abb..f7636f23d1eb 100644
---- a/drivers/net/ethernet/freescale/fec_main.c
-+++ b/drivers/net/ethernet/freescale/fec_main.c
-@@ -5397,12 +5397,17 @@ fec_probe(struct platform_device *pdev)
- 	for (i = 0; i < irq_cnt; i++) {
- 		snprintf(irq_name, sizeof(irq_name), "int%d", i);
- 		irq = platform_get_irq_byname_optional(pdev, irq_name);
--		if (irq < 0)
--			irq = platform_get_irq(pdev, i);
--		if (irq < 0) {
-+		if (irq < 0 && irq != -ENXIO) {
- 			ret = irq;
- 			goto failed_irq;
- 		}
-+		if (irq == -ENXIO) {
-+			irq = platform_get_irq(pdev, i);
-+			if (irq < 0) {
-+				ret = irq;
-+				goto failed_irq;
-+			}
-+		}
- 		ret = devm_request_irq(&pdev->dev, irq, fec_enet_interrupt,
- 				       0, pdev->name, ndev);
- 		if (ret)
+I did not update the selftests, as I hope this fix will be merged first.
+After this fix has landed, I can send a patch to update the selftests.
+---
+ mm/shmem.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/mm/shmem.c b/mm/shmem.c
+index c92ed17dbc4a..b572c60f2af8 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -2049,8 +2049,11 @@ unsigned long shmem_allowable_huge_orders(struct inode *inode,
+ 
+ 	global_orders = shmem_huge_global_enabled(inode, index, write_end,
+ 						  shmem_huge_force, vma, vm_flags);
+-	/* Tmpfs huge pages allocation */
+-	if (!vma || !vma_is_anon_shmem(vma))
++	/*
++	 * Tmpfs huge pages allocation or forced collapse ignores
++	 * sysfs configs.
++	 */
++	if (!vma || !vma_is_anon_shmem(vma) || shmem_huge_force)
+ 		return global_orders;
+ 
+ 	/*
 -- 
-2.43.0
+2.47.3
 
