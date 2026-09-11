@@ -1,54 +1,75 @@
-Received: from pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.13.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769C64AD7D8
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:32:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.13.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA16733A9E1
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:32:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789151549; cv=none; b=Kx9LJBnk4n0Bv9D2SOF+NTfDcVKpRKy8iO/I4xKbRZzgvPtKA/9bYGKoyyeBq7oTT0OJTi9U2vs5X9MCGXLRML2Earnjv/t0R7rmj0WPPHaQZv/y7fV+NJAF2fSS++jJvPxuoLzKPcVGSRqirfZ9pE0XsYrJcmASJy962QysVMc=
+	t=1789151578; cv=none; b=ll6BvdaxNqtQgnp+hYq6a715y42bj/IMbVLnew+wIJoZViD1nVyD5BcBQZRo4aI6JFjHeh6jTIFM4yODL0EjHs21kpf5oZ/5CF61YXK+lErs1VakxrBqTEKcV/El18XMP7DnxpwscK/33PyfXAI0/p9V3Ph4+HLfN5RWg4eZOxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789151549; c=relaxed/simple;
-	bh=n2azhLZXdzWegaDSQnj/+gX70MqPNOQVOwwbAauONdw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=qKD/2lqqmAENjn+zzI4Ce5XI5zsjP9s159Wh/Jvm6G1IhG6BMHgcE86NaHHm6MEnoNVV3iMr+69nVRJHb6p6vIwRQYnKqnvi9GPPq5echqEkNFz1bzawPRRffxz3/pa0rZQ/pN+IrTysEOqIsuVlM38g0zM4p7EYbebVXe5ASDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=EEJLXfHt; arc=none smtp.client-ip=52.13.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1789151578; c=relaxed/simple;
+	bh=KwDZq6pIauSI/3H7u4BpMrdcFbfwVe2Yv5F5yFbCZXQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=BWOPUtVOiMGW7YxLdKsuS74iGZeAH+EOl0c+zhTqHbA/G4j5EOuES62u4zjsq+zc7ZSY+dkDK8GxJliPkV5OwKPUssmBOJX0kpkFJhfLZnrZrjXmAwfJar1XoSiAQdEL0T2GPIZfCFKktFABagVFKMZGj2sRveasMMuJqziFaP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=lh+SZlnV; arc=none smtp.client-ip=209.85.167.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="EEJLXfHt"
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="lh+SZlnV"
+Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-4b1ba286f6bso1418855b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:32:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1789151548; x=1820687548;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=D/t1U/OFeOnJtEcDtay4ZAYvDHA8RDm7HswhIFlhJR4=;
-  b=EEJLXfHtiZx0c8Vt8Nb7JopAKrER7HOBjXahpZkdS9aNPuoCClWA1Smr
-   eZLxsbOEWo7BP5fNcsWIA9ftUWAvCQJf43mxxTx8b4aKfWIqCoM3VABds
-   RG6qupAX0zL+oMkq08nTYNv3H1hlXtAmwFvbUMjDNjuDQ+htCvpN4jaNe
-   NkA3rSWoLrXFf/4K10W5+Ry2rLnHm/se0qB82bIUfP1qX4EmF1VaZcXGe
-   0xG/OQE3iiLcw7Gk1pUFH8zSPzj7MoSCqX47OCvkhMbF1v9WylfQt9zEx
-   Wn89kkka8oVyxqFhbBfGUR2x0a+98xmJHLyCvY5bOHqBHzrzAsWdmZfRt
-   w==;
-X-CSE-ConnectionGUID: CqTmCPo/TPCTtCmBatobnQ==
-X-CSE-MsgGUID: H51f8A4ZS26yCpWRqNb13Q==
-X-IronPort-AV: E=Sophos;i="6.27,97,1787011200"; 
-   d="scan'208";a="28425294"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 18:32:28 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:10016]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.10.49:2525] with esmtp (Farcaster)
- id 0a00a40f-e377-4d30-b5f7-4f224b500de8; Fri, 11 Sep 2026 18:32:27 +0000 (UTC)
-X-Farcaster-Flow-ID: 0a00a40f-e377-4d30-b5f7-4f224b500de8
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Fri, 11 Sep 2026 18:32:27 +0000
-Received: from u34cccd802f2d52.ant.amazon.com (10.106.179.27) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
- Fri, 11 Sep 2026 18:32:26 +0000
-From: Haris Okanovic <harisokn@amazon.com>
-Date: Fri, 11 Sep 2026 13:31:59 -0500
-Subject: [PATCH] genirq/proc: Fix missing CPU header in /proc/interrupts
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1789151575; x=1789756375; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pnPMjQ+gFGAW1M9N+pmmkamJvg9aNQ4EZprY09We9J8=;
+        b=lh+SZlnVkOmuwljZKX0GBx7/qb/Mur/MP1XPB15dCk1FXb+mEV0whGT3XPWZln91ug
+         5ttJ01ncvccaTJtM2h8BoqHsuVsgmKLYxAHUyUg+nHNmFgXOdibMOBiKy8T0RXtnT4B4
+         rW4gVNUqwlBr9O7eWXPSVsPfBXEKLuJOTnnxnJBEs5QkPBy1MmrxcZNyBJyFjSPyGiey
+         8geU9UbcS3O0/DuLY/ArA0uPhgEQ4lu+o3KPPNwsmZVXtsOETjC6gTreszOYX1vYp8x1
+         cjBcSKgXe6JrZN3Q5qSMPeQ1i2c4QeXlnTkUrq68ZJ5LbGYZZgmfaH/dIPK7QzvURiKW
+         CdZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789151575; x=1789756375;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pnPMjQ+gFGAW1M9N+pmmkamJvg9aNQ4EZprY09We9J8=;
+        b=EVZ0NkWW74/iwMgDWdStuPcqP3GtfB0moRPMJHow6JGqX6qPrGoEbFMrLGCHCgTJ6n
+         7iURwweGG3jhXYYrXWoRI6nFHCACjC/u4brLPpV554MId5XRAXYxg/YoofajWLNA1wty
+         xQ3ZwbQSnMAebsXI5+FPG/IPN059cIyWiJ6s2hzfETBgKif3H5FAJbHl3E6SKbYb0MHp
+         37RLytkSTPDr8RHCu6VNhghhfC7tRF0JwWzFeOg+u7hiIIi40e5Vc9Vdp/wiXtWIrsir
+         djFY/TBNM5LbL5fw5zIB+PQSF72k+9bhZJ0UwXCOEck3A84N8wU+XlxHo/zkKsY7NV+5
+         MaSg==
+X-Forwarded-Encrypted: i=1; AKwUvBwQOo/Jsdl5fO6XjcLHYeElJSEtS86lihLOF4eaJXdAAvHLBPltK1sZnqyKzV8jWD0cmFvJ+NKcOc8k5wk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lWbn5nV6k/67gwuRbg3yV9p3Ee+zymwPv8kUNKIdh3qbuy+pVH
+	mzchQ6RKX0bisdhLx1EMMPB5uMotzhK+jiCSrBemQtVrzhy0O9hjxddsfMQ+bq0TtW4=
+X-Gm-Gg: AYBFou1Tlj3jBYmw0fUaPFMTY7W7HSNGuqINXQBoxt3aiMe2laPSMaJrHv5L4aV3Ry1
+	zB+LcqRWYUcJ+OyaNh2cF4COF4wB966l1RYZfgM+F78NYc5fLHX04KApGsI9sjvZMksCRjyIPz3
+	+8bxfUjWVNa2QEJdus7jeGle1xvoQW2E0jMoh5jsyY8Ac4vzxp3NXmiPyz6RxG+do4kWOD+2cXr
+	7n37qxQjXzW7oMzWXfpQsiIk1nYUJ2F4TdjDzQY0wKwKRD4YLFTHRSkPDFCyJNyYJWmY1uMyArD
+	ne93KDAUNX5Ax63ovYhSpUV0Y+ffSny7V1aXFomRtNTZOns8JTNLz50mfW1gChD6iHI+Mn045is
+	XMEv8hhoTzgV8YX5QWibMLYwTfWjPfz9xryqgtpvPa1T2yMmCTXOBkJU+Uu4HkgBFYIvDQP6QAO
+	tI+xR1qaDpPcPSyiKus8mRKtAwRJEaiDQZS31FSL0egHDtIhkwPavlfmAwZsrx5r1p+ZbkQ6Sqw
+	RtppZ5RahfudAgz3dGMkW6TTptP8D2LDI91tc0tHc4QMtD7Tu0H3nVV2dfOQw==
+X-Received: by 2002:a05:6808:3a15:b0:4b8:4703:db8b with SMTP id 5614622812f47-4c1a7cd8760mr5660726b6e.20.1789151574674;
+        Fri, 11 Sep 2026 11:32:54 -0700 (PDT)
+Received: from [127.0.0.1] ([96.43.243.2])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47df86a1db4sm2475709fac.4.2026.09.11.11.32.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 11:32:53 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: linux-block@vger.kernel.org, Hao Zhang <hao_zhang_kdev@163.com>
+Cc: tj@kernel.org, josef@toxicpanda.com, yukuai@fygo.io, 
+ ming.lei@redhat.com, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dm-devel@lists.linux.dev
+In-Reply-To: <aqQmqb1k57PXj8Ef@192.168.1.215>
+References: <aqQmqb1k57PXj8Ef@192.168.1.215>
+Subject: Re: [PATCH] blk-cgroup: save IRQ state in blkg_tryget_closest()
+Message-Id: <178915157351.667488.15493767508949300974.b4-ty@b4>
+Date: Fri, 11 Sep 2026 12:32:53 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,105 +78,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260911-dev-harisokn-proc-interrupts-fix-b4-v1-1-f9ff208efcfa@amazon.com>
-X-B4-Tracking: v=1; b=H4sIAB5JpGoC/yXNQQqDMBCF4avIrDtgRKv2KqULk4x1WkjCTJSCe
- HfTdvnx4H87KAmTwq3aQWhj5RgKzKUCt0zhSci+GJq6udajMehpw2US1vgOmCQ65JBJZE1ZceY
- P2hb7dhzmnszgbQellITK8nu5P/7W1b7I5W8ajuMEnvqgPIcAAAA=
-X-Change-ID: 20260911-dev-harisokn-proc-interrupts-fix-b4-7498f7e18db5
-To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, "Dmitry
- Ilvokhin" <d@ilvokhin.com>
-CC: Michael Kelley <mhklinux@outlook.com>, <linux-kernel@vger.kernel.org>,
-	Haris Okanovic <harisokn@amazon.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: EX19D033UWC002.ant.amazon.com (10.13.139.196) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-irq_seq_show() must be idempotent since it may be called multiple times
-to render the same record, e.g. when seq_file's buffer is exceeded. It
-emits the CPU header behind the one-shot print_header flag, which the
-first pass clears, so the header is lost with the discarded buffer.
 
-This can be seen on large systems, such as 8g.48xl (192 CPUs) and
-8i.96xl (384 CPUs) AWS instance types:
+On Sat, 12 Sep 2026 00:04:57 +0800, Hao Zhang wrote:
+> bio_set_dev() associates the bio with a blkg through bio_associate_blkg().
+> If the blkg lookup misses, blkg_tryget_closest() takes q->queue_lock with
+> spin_lock_irq() and releases it with spin_unlock_irq(), which
+> unconditionally enables local interrupts.
+> 
+> Callers may call bio_set_dev() with interrupts already disabled, e.g.
+> dm-thin's pool_map() does so while holding pool->lock taken with
+> spin_lock_irq().  The nested spin_unlock_irq() then enables interrupts
+> while pool->lock is still held, so an I/O completion softirq can run on
+> the same CPU, re-acquire pool->lock (thin_endio(), or overwrite_endio()
+> -> complete_mapping_preparation()) and deadlock.  lockdep reports this
+> as inconsistent SOFTIRQ-ON-W to IN-SOFTIRQ-W usage.
+> 
+> [...]
 
-  $ head -1 /proc/interrupts
-     9:          0          0 ...  0  GICv3  25 Level  vgic
+Applied, thanks!
 
-Replace print_header with the position of the first record and include
-the header whenever that record is emitted.
-
-Fixes: 171cc0d9eed1 ("genirq/proc: Speed up /proc/interrupts iteration")
-Signed-off-by: Haris Okanovic <harisokn@amazon.com>
----
- kernel/irq/proc.c | 24 +++++++++++++++++-------
- 1 file changed, 17 insertions(+), 7 deletions(-)
-
-diff --git a/kernel/irq/proc.c b/kernel/irq/proc.c
-index 1b835725f7b1c..0c0df16de5816 100644
---- a/kernel/irq/proc.c
-+++ b/kernel/irq/proc.c
-@@ -462,7 +462,7 @@ int __weak arch_show_interrupts(struct seq_file *p, int prec)
- static DEFINE_RAW_SPINLOCK(irq_proc_constraints_lock);
- 
- static struct irq_proc_constraints {
--	bool		print_header;
-+	loff_t		first_pos;
- 	unsigned int	num_prec;
- 	unsigned int	chip_width;
- } irq_proc_constraints __read_mostly = {
-@@ -543,14 +543,13 @@ static int irq_seq_show(struct seq_file *p, void *v)
- 	struct irqaction *action;
- 
- 	/* Print header for the first interrupt? */
--	if (constr->print_header) {
-+	if (p->index == constr->first_pos) {
- 		unsigned int cpu;
- 
- 		seq_printf(p, "%*s", constr->num_prec + 8, "");
- 		for_each_online_cpu(cpu)
- 			seq_printf(p, "CPU%-8d", cpu);
- 		seq_putc(p, '\n');
--		constr->print_header = false;
- 	}
- 
- 	if (desc == ARCH_PROC_IRQDESC)
-@@ -635,14 +634,25 @@ static void *irq_seq_next_desc(loff_t *pos)
- 
- static void *irq_seq_start(struct seq_file *f, loff_t *pos)
- {
--	if (!*pos) {
--		struct irq_proc_constraints *constr = f->private;
-+	struct irq_proc_constraints *constr = f->private;
-+	bool first = !*pos;
-+	void *ret;
- 
-+	if (first) {
- 		constr->num_prec = READ_ONCE(irq_proc_constraints.num_prec);
- 		constr->chip_width = READ_ONCE(irq_proc_constraints.chip_width);
--		constr->print_header = true;
- 	}
--	return irq_seq_next_desc(pos);
-+
-+	ret = irq_seq_next_desc(pos);
-+
-+	/*
-+	 * Record position of the first output record so that irq_seq_show()
-+	 * knows where to write the header.
-+	 */
-+	if (first)
-+		constr->first_pos = *pos;
-+
-+	return ret;
- }
- 
- static void *irq_seq_next(struct seq_file *f, void *v, loff_t *pos)
-
----
-base-commit: 08df884136f1c1197bab2a27814404fd329d9aac
-change-id: 20260911-dev-harisokn-proc-interrupts-fix-b4-7498f7e18db5
+[1/1] blk-cgroup: save IRQ state in blkg_tryget_closest()
+      commit: 327c428ba79b13e4cc5253333a9d5c0aa5579bdf
 
 Best regards,
---  
-Haris Okanovic
-AWS Graviton
+-- 
+Jens Axboe
+
+
 
