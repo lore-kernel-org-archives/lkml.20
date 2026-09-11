@@ -1,77 +1,66 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F3248663E;
-	Fri, 11 Sep 2026 13:46:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA0A0472068;
+	Fri, 11 Sep 2026 13:47:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789134380; cv=none; b=bDiKGzxhO9UMjlMkRS9tBPK3vvM1743a192Rpmn1u/Nbvy5zysKA0WtNB553OUF91HDzLokG6MZ1icDg0U37wcb9srlC494L7Q7nSBqtmp9GzTpKTh6v3HzatONq5APG4ieM9KcUSklzL+qvz7phM0ZJXIzj2p6AHrfriDhhcfw=
+	t=1789134471; cv=none; b=BtgTuZ24aFwFftXrLa4SSQyfikDA68fHR7ZN96HdtL7cJriqMEVbEffaiPom/0JzAmKfYm8/J2M9ez0olpsuahcDkFMtxi/OYdY+nkbkw8i+kbbDrRGAgaiS+jRKw0TP4sl+q7pLDd6VZzIEUBwMshLJr5JxMeebo9PW8Cq4mj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789134380; c=relaxed/simple;
-	bh=sruj4QkA2YGedN1gd+nascjI5b+2/fyRVZquTSuDuSs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J4ZVEQLmBZDW9SfAfJBQ8Pc/sAQ2w2CFUDpPtBhTuzwDn7/NnBrozt+Lzd1Hfct7VCu98vItYzs3j+jOHT0jjf2CU4j0+p6CvihqHdynfdVMoVh7cGuj4BI6JoGEjBJFBvxyi+rxJTcjeOOEWN+vgmBCAikPS88hPqJP7+iEobU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ejHacoR7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789134471; c=relaxed/simple;
+	bh=q02BnkdO2sJh/ZuZC/YhgRkZFmAF8Ri3Yezw+KMdQis=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=nuVl51RdqgzycMgCsy70ukGWSSZ4lmV/4u8iElNnxa+TCqGII3Znz4/0QkhOTBZQADr1LMi3PGrByqFf+pyprIrs8MgnsEPgejH5BO6ocYjQPTUUoU5rlsAtMWu6VfGZyKoP6jS358VIAhklORBmm3FuqMH/x7DxLE6J27PDln8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B+kyxSUp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ejHacoR7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD1F91F000FF;
-	Fri, 11 Sep 2026 13:46:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B+kyxSUp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BA601F000FF;
+	Fri, 11 Sep 2026 13:47:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789134377;
-	bh=sruj4QkA2YGedN1gd+nascjI5b+2/fyRVZquTSuDuSs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ejHacoR7vMwp/nduIltNss2cl/5BDCPwXUbYHjJ87vNi5McdYiOmkRgc90OKXDmqD
-	 TezNeF70vw8PexNJcFoKH7H+NwEK2n/heByhJ+5htbQD3YRJmsYRUlZYRi07WIKIco
-	 ZitujEl3Oc9lBFEf2XnAcaBIgDvmf4Amf0DhKnqmnqhNUz/4UEEe1ShDfHFND+6EQX
-	 dhnfcvwUG9hzpkhcTFu5j6lMTZBGsJ2jqYqFWh+6bnIEnnJ5VNrcB28TYnbix+9m8v
-	 Uu3onHnoqZAHaOTwEG/bWLREJcCW+YwhkI18I33lYv6YLO2Pet2OTwjC2dqRluVHsF
-	 i9RWG5//kgGjA==
-Date: Fri, 11 Sep 2026 14:46:13 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Farhad Alemi <farhad.alemi@berkeley.edu>
-Cc: falemi@asu.edu, Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] spi: dln2: validate chip select count reported by the
- device
-Message-ID: <2519c7fe-f13e-468b-b106-3609e6165ff4@sirena.org.uk>
-References: <CA+0ovCivEREvoy=Z-D5TSddgTfFknhFrCBPON3a7QD2Kne=MTA@mail.gmail.com>
+	s=k20260515; t=1789134460;
+	bh=LcihR+7fa3+RNgDoK8hekhRM6EZ1Upp/g6TmCKw6W6w=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=B+kyxSUpWbrcE0/fFYdwzG529n+VqZH3wbD1Kl9X//iMG/uNnMmceQ7A7s4ifN1rC
+	 b7JAJC31CcJ1uFtc7JfS0HHdQvEtAgjxwtn2sWCspAeaJ7XntR5iI9QKjVckEB3Wse
+	 hPNfsBzY29ILxSi9b/0zJ9IZ6XRbrWvzjTtO/PLfmmAQS1WMoNmGb4XqUF2Ta1+ccN
+	 xLyRGQcDxHI//wkoXBpd/0K7MHS1TWs7KM3DfGKeBEfjs21Iqzi0SX1heKTrsMDEzj
+	 wY7UhNUWGaMGi41pJ2kAOX+xvv8jFxUCkqB2kcXdpE0+rj0q7kagi2x+cLePCUMM5E
+	 v8RzGXlPp6tGg==
+Date: Fri, 11 Sep 2026 15:47:37 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: Lee Jones <lee@kernel.org>
+cc: Ping Cheng <ping.cheng@wacom.com>, Jason Gerecke <jason.gerecke@wacom.com>, 
+    Benjamin Tissoires <bentiss@kernel.org>, 
+    Aaron Skomra <aaron.skomra@wacom.com>, 
+    Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+    Peter Hutterer <peter.hutterer@who-t.net>, linux-input@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v10 1/5] HID: wacom: Use hdev->product in
+ wacom_setup_touch_input_capabilities
+In-Reply-To: <fa3cb42f7b58c1b3022d8208969a81882783a5ec.1788868602.git.lee@kernel.org>
+Message-ID: <07snqo29-s1qs-1867-2705-pp6s81qp249p@xreary.bet>
+References: <fa3cb42f7b58c1b3022d8208969a81882783a5ec.1788868602.git.lee@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="r3IUcwNdSqEbY3tt"
-Content-Disposition: inline
-In-Reply-To: <CA+0ovCivEREvoy=Z-D5TSddgTfFknhFrCBPON3a7QD2Kne=MTA@mail.gmail.com>
-X-Cookie: Piece of cake!
+Content-Type: text/plain; charset=US-ASCII
 
+On Wed, 9 Sep 2026, Lee Jones wrote:
 
---r3IUcwNdSqEbY3tt
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> Replace the lookup-dependent 'wacom_wac->shared->touch->product' references
+> with 'hdev->product' inside wacom_setup_touch_input_capabilities() since
+> 'hdev' is already available (via container_of) and represents the touch
+> device itself.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
 
-On Thu, Sep 10, 2026 at 09:43:38PM +0000, Farhad Alemi wrote:
-> dln2_spi_get_cs_num() stores the chip select count reported by the device
-> straight into host->num_chipselect, and dln2_spi_cs_enable_all() then
-> evaluates GENMASK(num_chipselect - 1, 0), whose shift exponent is out of
+Applied, thanks.
 
-This doesn't apply against current code, please check and resend.
+-- 
+Jiri Kosina
+SUSE Labs
 
---r3IUcwNdSqEbY3tt
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqkBiQACgkQJNaLcl1U
-h9DdGQf7BGHvVw8ukxiTxSxkntN/+0cV8Q+hemRgCIF6sHiSxKxvf6ZZrXlk0usT
-pROOO56T0bbfoLHpmT8hSIqxRaUWECYXpPAu5vSdDULL+oD79BNOvJ5ngt27+PDL
-Qn0bkIAQ2ystnqig486YaDr3shGu4/5AC75Q1C31DJxiNN3vsmP63FIRz4sqt45K
-mgpc5XZytIGas1s1qqD36YtYgLWlaolLDX/aWHgx1/SmyGR4wcnHHHJZdPFIINNL
-a67xmku02Y8g2V39cCZC26Nd5VBDYx85Gami36Fk0q3M7TjkeVpFoMfR/JJhHQ6w
-eN6vL9Ozrc6/jcBnNmTDzr5/TJxqVw==
-=z1qs
------END PGP SIGNATURE-----
-
---r3IUcwNdSqEbY3tt--
