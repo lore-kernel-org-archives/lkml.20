@@ -1,109 +1,177 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B33746AA91
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:09:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 910AF46D570
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:09:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789117748; cv=none; b=UyLPIgmDTqMlZkVoAYaFEufbtqnu35WwBFOxMM6q3HNUq8Br4SgUOyiXqRjXqy6OnohLujzrvvk4T+WNsZiHs9o6kS7J+lVNWlJu2rtrw/5wAk3kjaJ9YRnnExKt0Aq3AXcql6KMKUbeqOaYg3F/I/DF42jKME134xRICu5uahs=
+	t=1789117752; cv=none; b=Hs4lvf4PXHbxfasMyKLixc9a8UGTOjyW5IURu1Fvd3hHsQZUb7/W7X5dSKaLDwXN82HzQ+6lstkwOVM3jy1Ayy7KxEoBRLnCM7tq0mc4+EUHqI388NFEi2OqAWqtvy7GNPg9Au13uy46B6FfTPZH4CI97911yckJZqiWj6/rLUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789117748; c=relaxed/simple;
-	bh=GlBA5EYIQ6CD+fxLgdiVFVnrJanT42tvil+T0KoJmHI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SILLMfx7oNGsHtrNraw505+ykWp9EEbK9SM35jloKO0RqnfpK7enarAIHbzUoXcBGok8AoII92KdQQGmwiDex89IfTyRhTQK8voAyxAvJ10vHtggJC2xO5juaIpDvTpg97Sn5KZCJ9nMDlp6gql77QEPNPBn3A7WuJd7bYYoLU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BL9LSe2B; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789117752; c=relaxed/simple;
+	bh=oQQ0wd/khSFeXakHBqvVt5xNvLncNbN9tGdiy85Pxsk=;
+	h=Date:Message-ID:From:To:Cc:Subject; b=CU1w2UJp33YQ3dfhEmbABXDrNJ+JC6cm6n7cHiQfAEJyId6HRRBnPSv65BFXxSJdDUmuceCHMIxJodTWgT8f+rGhNGbmwTl5vUcRhLCWmSjp+ytz+X1NSGWM6hTlyflACJb0batZaCGMXvX2sswBY0eIHC2ugvbnEdUBWULAeWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U/Hku76S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BL9LSe2B"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6356256so187362f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:09:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789117744; x=1789722544; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nYa44DvrJZUlDmo9hZUhETJNxOcn28Cv0gCdecKcd2Y=;
-        b=BL9LSe2Bpzhk4hv3BGWBQ8I7uj9xjXnVpPeiSqc3HV/nZXnrDIaJRGn67v9P8tCKrd
-         /e2e09Cfajq32Bnwz4/kcCQdjwkUqZJ1lE7l8KjBOAy26kYGMrPS/LTcFmizS4QOf34h
-         YCW8BeshkXIm5SIY64YIiOMIoZrpYp1ll1rYS/6LWYctLKdhGyjW1W6T3D215cDq0in/
-         dMD0SUk3dsuQcivbP0h/sJg27MwBbCIIw3LnCkl9w53B497p4ncSholZ1GRoyyYY+0DL
-         Zlwfnwr9sC+5TGypVsZGaFhgZywXHrxowQzPdNbiB4F1/KsxIkLhVFggv9gR5KEdMfVs
-         g1WQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789117744; x=1789722544;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nYa44DvrJZUlDmo9hZUhETJNxOcn28Cv0gCdecKcd2Y=;
-        b=mxC8iHcPvFTH/3xw/URAooK29eAqa8oj5TRcj//qivFlDVeWR88ajXs+p+Zl3DM/pK
-         OEthlmqrtALSHlJFXBfWmtNEjGg49HwvoU7KUhlwjlnk0ymlXCwCxJVGdkEtn4CP1/HC
-         xcDWO+F1u/K+chq2ssjlw3Xt1KEdlIQ3iswJvqwsmr7HR4raZOQXmPzpfXk+PSH1JD8a
-         8F7kyznKgdnZMiwPoMM8XpARdlvsplpOxQ6qG/6sa7Q816bEtjkPyq6h7U2pI/pQzPkg
-         kW+pspbLauEdj0Y1yfEm0NUIgWPBHYlB5oeyTNIvqv8ScoJ1rKzRr5qO56y5I0iLCg5f
-         0+tQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzaT6OiyBh3FmyG1nOh6MO4unP7EC1PqgFtJge5rf+RShOQWvD1FRsslL92fsEfzYK9OcNMqKQPpTBrV60=@vger.kernel.org
-X-Gm-Message-State: AFuF++kT1I8XLhzte94caG3GEp2VvCkRgnZCme3zqS4Gh7kCyarox8cq
-	DTZyzoecYBGAZZ0SgxrTDgplsB2IzeG2JRnkLaTIIGbS/BJlG3L3FovWWV6VIw==
-X-Gm-Gg: AYBFou10Pci4dKd0uejOIjuCDqI0KI6WfkeG7ihyK0LIt+NBa+LI9MEeOtb8BAsyvmi
-	Q2T/tqzdr2NtH6lhOoNIjxVngREp8hrripyUV09s+ZtTZirYs78ayw3896h18LqXl0SWrFjzTIB
-	XsiNyd+IC7UvP2tNoCGtJ3z0dEKUdd22DpPybzvplrT6B5syhsy7r4z/80F5EH6vjpczz4ZjTL+
-	Z3qWr+EJeHb76jjQa22xrT6oU2bU9c5syTINNiHcyxrG2OSEinXTns9oNwK+BSYXIbjtzJNbnAQ
-	PVBoK4wJZizgyosuRrVOjPk64IoomitaQQJebS9/FKwlD1sqTljEWDrVrYdDd9pYxwyNXgLwt+4
-	qV94QxN3R1bYcCJWrVI3iLCuDNFRyVIxHtz0a9R3oaVP48Lg1CcXV7H+O0OuMujwQ1K+J+Y1HZF
-	tpVBHnKMxka7OVrzfknjKQbPSaJ/rcJPFfWewgduhoYMKqho4MPJ4yrIWfRwYnbQR8yceSrwjvX
-	jwUYlpA2A==
-X-Received: by 2002:a05:600c:3115:b0:49d:1e79:35d6 with SMTP id 5b1f17b1804b1-49e61094b9bmr41732955e9.14.1789117744202;
-        Fri, 11 Sep 2026 02:09:04 -0700 (PDT)
-Received: from foxbook (bfg95.neoplus.adsl.tpnet.pl. [83.28.44.95])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6499d57bsm45431495e9.3.2026.09.11.02.09.03
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Fri, 11 Sep 2026 02:09:03 -0700 (PDT)
-Date: Fri, 11 Sep 2026 11:08:59 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Curtis Vogt <curtis.vogt@gmail.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>, Jiri Kosina
- <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Pierre-Loup Griffais
- <pgriffais@valvesoftware.com>, open list <linux-kernel@vger.kernel.org>,
- "open list:HID CORE LAYER" <linux-input@vger.kernel.org>, "open list:USB
- SUBSYSTEM" <linux-usb@vger.kernel.org>
-Subject: Re: [PATCH 2/3] HID: valve-index: Reboot headset on system power
- transitions
-Message-ID: <20260911110859.3feac97d.michal.pecio@gmail.com>
-In-Reply-To: <aqOJfj79_NVkU6Db@dhoja>
-References: <20260910170254.833871-1-mario.limonciello@amd.com>
-	<20260910170254.833871-3-mario.limonciello@amd.com>
-	<20260910220421.40356e51.michal.pecio@gmail.com>
-	<55918a70-72c9-4f55-934b-81a692d4619b@amd.com>
-	<aqOJfj79_NVkU6Db@dhoja>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U/Hku76S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CAA71F000FF;
+	Fri, 11 Sep 2026 09:09:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789117751;
+	bh=8Rjv9I7Z/aDDn5nImhQg2uoxZPF6VfsqdELl88y5KEw=;
+	h=Date:From:To:Cc:Subject;
+	b=U/Hku76S4AeEJBmF6U3NOcb6cW4ZqqWx9PKVxpaL1fAwJjX16LD5V1AEJbZ2maaLW
+	 a4XVddXs0x3n0rv/bROTo6/xr/sn1fS97g7xxTSCPVtugxYgONC8lULgykS4TLrdUM
+	 rTd8IKwbcftKKveAXVG9cyrv3nLG7X8rTi1EjbmcuaMmBJZUbO4Uqloa+f1s9bahsL
+	 Fsn5NOdx/9ZOVXGbajz0yKqCOppqyqCyD9D5XLHXpqFfTXLkkwkJAlixXnvZdkyG0h
+	 pSP5j4TPJx30viNdFOsuaxWiooKAPRgYZM9S0swjPTpZLP3FqD6tSZRMrWPtyTi8Ck
+	 nfzjrYLp6GehA==
+Date: Fri, 11 Sep 2026 11:09:07 +0200
+Message-ID: <20260911090341.949101445@kernel.org>
+User-Agent: quilt/0.69
+From: Thomas Gleixner <tglx@kernel.org>
+To: LKML <linux-kernel@vger.kernel.org>
+Cc: Hyunwoo Kim <imv4bel@gmail.com>,
+ Oleg Nesterov <oleg@redhat.com>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Christian Brauner <brauner@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ John Stultz <jstultz@google.com>,
+ Ingo Molnar <mingo@kernel.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ "Eric W. Biederman" <ebiederm@xmission.com>,
+ Alan Stern <stern@rowland.harvard.edu>
+Subject: [patch V3 0/8] exec/exit: POSIX timer related bugfixes and related
+ cleanups
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Thu, 10 Sep 2026 23:54:22 -0500, Curtis Vogt wrote:
-> When I was using Windows I believe I observed a similiar behavior of
-> the system booting into a black screen and hanging. I remember this
-> occurring as far back as 2020 when I was using a 5700XT (RDNA1).
-> 
-> I'm willing to test on Windows again but I'll need to setup a Windows
-> system since I don't currently have one available.
+This is a follow up to V2 which can be found here:
 
-It's not extremely important, I frankly asked this question because
-I didn't expect problems on Windows. I assumed it would be either:
+  https://lore.kernel.org/20260905181551.738186850@kernel.org
 
-1. Obviously, Windows resets this device every time when XYZ, therefore
-   Linux can just reset it the same, problem solved.
-2. Windows doesn't reset anything and doesn't have any issues, clearly
-   Linux is broken, maybe somebody will finally bother to bisect it.
+Recent findings from Hyunwoo unearthed two bugs in handling POSIX timers on
+exec().
 
-IDK if anything useful can be learned from seeing that Windows fails.
+The relevant patches, reports and discussions can be found here:
 
-Regards,
-Michal
+   https://patch.msgid.link/aok1rdkBgZsynHZB@v4bel
+   https://patch.msgid.link/ao7Q8miiuLAPVnWv@v4bel
+
+TLDR:
+
+Both problems are related to non-leader exec(). POSIX CPU timers which are
+targeted at tasks hold a pid reference of the target task, which is used to
+look up the task in the related POSIX timer operations.
+
+The non-leader exec() switches the TID of the old and the new leader, which
+obviously invalidates these references for pid_task(PIDTYPE_PID) lookups.
+
+This causes UAFs due to the resulting list corruptions or premature freeing
+without removing the underlying POSIX CPU timers from the involved tasks.
+
+The first issue which corrupts the signal pending list is solved by:
+
+    - Preventing the queueing of per task signals on a task which has
+      PF_EXITING set.
+
+    - Protecting the unlocked setting of PF_EXITING in exit_signals() with
+      sighand lock.
+
+    - Flushing all per task signals right in exit_signals()
+
+The second issue which keeps the POSIX CPU timers queued on the new leader
+is solved by:
+
+    - Moving the exec related POSIX timer cleanup right after de_thread()
+      which ensures that the timers queued in new_leader::posix_cputimers
+      are removed before the underlying POSIX timers are deleted.
+
+After looking deeper at the exit() handling it turned out that the POSIX
+timer cleanups can be done early in do_exit() instead of delaying them
+until release_task().
+
+The reason for this late cleanup is that POSIX CPU timers can be created,
+rearmed and deleted as long as a task is visible, i.e. the pid is hashed
+and sighand is not NULL. This allows to retrieve information from the timer
+up to the point where the task is gone for real and that can't be changed
+easily as that'd be a user visible change.
+
+But once PF_EXITING is set on a task the task does not longer expire POSIX
+CPU timers. So it makes no sense that the timers stay queued in
+task::posix_cputimers after that point.
+
+The only thing which needs to be prevented is that timers are requeued on
+task::posix_cputimers once PF_EXITING is set or requeued on
+signal::posix_cputimers when PF_EXITING is set and signal::live is zero,
+which indicates that the thread group is dead.
+
+With that solved the timers can be dequeued from task::posix_cputimer
+pending when a task exits and from signal::posix_cputimer pending once the
+threadgroup reaches the dead state, i.e. signal::live goes to zero in
+do_exit().
+
+The changes vs. V2:
+
+    - Document in the change log that the non-leader exec() case is
+      properly ordered against the lockless pending list flush. - Frederic,
+      Peter, Alan
+    
+    - Add a comment to document when a lockless flush is safe
+
+    - Cancel pending POSIX CPU timer work only for exit(), not for exec() -
+      Oleg
+
+    - Pick up Reviewed-by tags where appropriate
+
+The delta patch against V2 is below.
+
+The series applies on 7.3-rc1 and is avalaible from git:
+
+    git://git.kernel.org/pub/scm/linux/kernel/git/tglx/devel.git posix-timers
+
+Thanks,
+
+	tglx
+---
+diff --git a/kernel/signal.c b/kernel/signal.c
+index f93d8f77ec1a..7081819eddd1 100644
+--- a/kernel/signal.c
++++ b/kernel/signal.c
+@@ -457,6 +457,20 @@ static void __sigqueue_free(struct sigqueue *q)
+        kmem_cache_free(sigqueue_cachep, q);
+ }
+ 
++/*
++ * flush_sigqueue_list() can only be invoked without holding sighand::siglock in
++ * the following cases:
++ *
++ *  1) When flushing task::pending _after_ setting task::flags PF_EXITING
++ *
++ *     All functions which try to send a signal to @task will observe PF_EXITING
++ *     and drop the signal.
++ *
++ *  2) When flushing task::signal::shared_pending _after_ the last task in a
++ *     thread group was unhashed and task::sighand is NULL.
++ *
++ *     Nothing can queue a signal anymore because sighand is NULL.
++ */
+ static void flush_sigqueue_list(struct list_head *head)
+ {
+        struct sigqueue *q, *tmp;
+diff --git a/kernel/time/posix-cpu-timers.c b/kernel/time/posix-cpu-timers.c
+index 53e47c1b56c2..9f90500894dc 100644
+--- a/kernel/time/posix-cpu-timers.c
++++ b/kernel/time/posix-cpu-timers.c
+@@ -1270,6 +1270,9 @@ static void posix_cpu_timers_work(struct callback_head *work)
+ 
+ static inline void posix_cpu_timers_exit_work(void)
+ {
++       /* Canceling the work is only valid for exit() but not for exec() */
++       if (!(current->flags & PF_EXITING))
++               return;
+        /*
+         * current->flags has PF_EXITING set so this can be done lockless and
+         * with interrupts enabled as PF_EXITING prevents the interrupt from
