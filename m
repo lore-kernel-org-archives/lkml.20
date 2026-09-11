@@ -1,128 +1,105 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1CB636EAB8;
-	Fri, 11 Sep 2026 15:05:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139132; cv=none; b=RKpKwpxdiOdF494JkINPIly5Opyp2G63R/y8477I2/XlfVn6FVR+jsSy5taf1+JjnuX562lSShGb7BEZCBXJosvERJ9dFGhRSm3V5q9TBulPczcCLQkgDu7H9Iw0iuIWO+9mPsY+bxTTxebj6he2ymZHArmc2PlDJWId3Y/DIXg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139132; c=relaxed/simple;
-	bh=oLctePOGxPPRUbtQZuT0MEC1E4uXDtj8aF9aZKCHexc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p9yTh+3M4q43Y+D9q6YmRWV8TA2aE/EJdEdo+IPuWy62/DFZ6U8vAYlz/RCOHelTe8yKsmv4VLPl8jCRZPeMWHDaKuV+qpm+EWJFegC+blwDBhUSFzKFml63xIojHwjdK4ytd3y4z3asDFd1kDR7fLdQUgDuNcLsNTDEm3ZYS4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=DKg00gnT; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D31473769EF;
+	Fri, 11 Sep 2026 15:05:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789139137; cv=pass; b=LLpWtY8c+ty45hyLAb5+ko8oGEvj6T3R/DX2o3dcQOI/1vztkJls72ZSzTLd475c01EWCn52D7naTn5UxNi6HrvxW3psX3ZZiNG7tBZdv0qSJsdRDRSzIwZDM9zwAOJ1Fmd3WJCS63xWgpeV0s6Kl9injgnOmF5aJHq7NY1oY+o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789139137; c=relaxed/simple;
+	bh=UhPkzIwpcyRo7Ohgbz2mRN/hsyMqyZdNpG0dP+/Xjs8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=h8ZJZIEuxfnUW5T7TTz+7ZuUlSQ7nGtInsGbpB+AITpsES8O9CUfXCX7YryYgAhxxEyOkG6l8eWlZkMaf/L1RRFqn0C97hhAPMFNOBvNCXoaq5nwT+Lxcin+UFaV00iTLlPDsVXMM7O4IMFsysfG9fikaykrI+iugc6fehxdmkM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=YmNfACgE; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=MwFCa9ZI; arc=pass smtp.client-ip=85.215.255.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="DKg00gnT"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 02464C63A0C;
-	Fri, 11 Sep 2026 15:06:11 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3145E601DE;
-	Fri, 11 Sep 2026 15:05:29 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9842411C7AFB1;
-	Fri, 11 Sep 2026 17:05:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789139124; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=FWib/BdWYa2opT7pMAJQyUzwO/Irx5Iu+DpIpo9cepI=;
-	b=DKg00gnT4ftdGyrO/Qj+MoESq+8l0xb7qkW7xSKiRGtvGmbOK/oowhox8fz79zg3PGFTYR
-	DcFh9r3HJr14chg9eT89VmcQMEh9+9gtr9vRB7u9U3rqmiu5mTIaF3xjaIzckmKgK3X4Sn
-	vf2WFGb1PCweLchnrdFlJCfOvzV6V/NsE+aXoHIjwoL10tlp4ZI3k1UcLBLuTBuSJAi1rI
-	1k2CHzTRxwvTonc/jFhRvRyA3DRpDqKj++zIWjTCurEyjh1fxf2R19aob1VN6/83Bk5bci
-	CORCg4i1joJlSd0ltz9do8FD5g+MybvMvwpFdgyu2rjg05724h7O+9LCIjLtUA==
-From: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Pascal Eberhard <pascal.eberhard@se.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: [PATCH v5 3/4] ARM: dts: r9a06g032: Add support for timers
-Date: Fri, 11 Sep 2026 17:04:54 +0200
-Message-ID: <20260911150456.893761-4-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260911150456.893761-1-herve.codina@bootlin.com>
-References: <20260911150456.893761-1-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="YmNfACgE";
+	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="MwFCa9ZI"
+ARC-Seal: i=1; a=rsa-sha256; t=1789139119; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=R7lcf5afbXLOaiJSse/4TpvIY41wwWb6uc/jGaAI8x4YP1389UY+u+5GL9rnSgTXzJ
+    NV5FluByMTQkAhBW1t2yvE8bPMMQvn6Stl0eMkqVln40OLgRm7MuA1upBc6iJrH0WnhK
+    7IiQkUdLSgkyeI3SAU/v2VoOAU/SJ7ccdP/nLHZbVVgEiv6q7+tngGfHGpybjI7kR6az
+    ORKaZHkXsIWoXB35aJCHtuUOnU0xj6tGSeptGAlwXOksUNvoJZ2YEDS/BtQsFlHWPaD5
+    HytlQboPxP5UHhSkS88U1PY16TudsOJurbWAY4f1JvFXDNBJha5ecRnuAFTPcw4y9W0T
+    3jCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1789139119;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=UhPkzIwpcyRo7Ohgbz2mRN/hsyMqyZdNpG0dP+/Xjs8=;
+    b=PyDrl4AKmyF2PnWdL5BD5I4zNl4O0Gsj2SFUo4EkSgRImhskRSUEMb5YN6VLCgj2ae
+    EJyLEk2xxW08FBbcv2ySKnvOSk98o4V9AJcXEtgdb674XM6a5MrbqtYNKWG9TlNEIBK3
+    OtiD+yUSw9CX/VWQW2GlhAWeIhn/X+7HZ+68qTciIzNzS6lqTL/TlvtL9+iCxrkkwGRi
+    pfXP5YsnR9TiifzN0PNs7WqZLjgGE5+OGLbtSoNIoVv3RcWaAINtXoEGFlVZdGFPpGx/
+    sO2UwCojwrgbx6Gs0rb9qzY0YvR6ZIFC1YH8mD1MGET8x155nvqXyfbVoV9QXO0RrcJE
+    Bjuw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1789139119;
+    s=strato-dkim-0002; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=UhPkzIwpcyRo7Ohgbz2mRN/hsyMqyZdNpG0dP+/Xjs8=;
+    b=YmNfACgE2w4HN80jUoBcVhWXlZ4ji2OxyeyV6sdy8cRmUJUSEOD3MInthxQjcQSkfQ
+    MxE5NTs/6NcTHjrfXvbX++eYpSuVaY5jODbGu527/aAURW/gBqqDFOlm0UB0SdbRZjnz
+    U3GJWb8l9e+pry1+Rd/xPA2i37SrZ7Nlb14z4Fr4FEtTJ979i6SgY5CUHFNnwYGm3md4
+    LSrCPsKlHHgJ2pT+yNWljXQ6OEbdeZYsJHbJoQUKhnxOoy/gmWGAFskhVxa1Ul5CI7UA
+    ReExzlNNQpkGqKfQDXhhBmq3pSzH98oBimfDB1CdlptURmfHxqXDv5X9DFdxakoXZfCz
+    EjmA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1789139119;
+    s=strato-dkim-0003; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=UhPkzIwpcyRo7Ohgbz2mRN/hsyMqyZdNpG0dP+/Xjs8=;
+    b=MwFCa9ZIKYTfh4A59EINXjLEP3O9OUU613PU4VnHUfCHG+CJ8U4EFcgEpAnHat+2P9
+    buUKG/NrmD0TkX5K/+CQ==
+X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0zNriHg+YfT0rGaZpI+/63exJG3nKe+1cCDsnKpsYY+u4Ll0RlE="
+Received: from p200300c58729681c3f3e4b76edf8c1cb.dip0.t-ipconnect.de
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id ze37e128BF5JUAD
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Fri, 11 Sep 2026 17:05:19 +0200 (CEST)
+Message-ID: <fbbc0c280c004dbc2c4029f1c216143a0a5d6b04.camel@iokpp.de>
+Subject: Re: [PATCH] nvme-pci: add NVME_QUIRK_DMAPOOL_ALIGN_512 for Micron
+ 4100AT
+From: Bean Huo <beanhuo@iokpp.de>
+To: Keith Busch <kbusch@kernel.org>
+Cc: linux-nvme@lists.infradead.org, hch@lst.de, axboe@kernel.dk,
+ sagi@grimberg.me,  linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ bob.beckett@collabora.com,  Bean Huo <beanhuo@micron.com>, Gaurav Sinha
+ <gsinha@micron.com>
+Date: Fri, 11 Sep 2026 17:05:18 +0200
+In-Reply-To: <aqQYMR2uaKcHosYD@kbusch-mbp>
+References: <20260904105155.1402065-1-beanhuo@iokpp.de>
+	 <aqQYMR2uaKcHosYD@kbusch-mbp>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-In the Renesas RZ/N1 SoCs family, two timers block are available. Each
-block contains 8 timers composed of 6 16-bits timers and 2 32-bits
-timers. Each timer has its own interrupt line.
+On Fri, 2026-09-11 at 09:03 -0600, Keith Busch wrote:
+> On Fri, Sep 04, 2026 at 12:51:55PM +0200, Bean Huo wrote:
+> > From: Bean Huo <beanhuo@micron.com>
+>=20
+> ...
+>=20
+> > Signed-off-by: Gaurav Sinha <gsinha@micron.com>
+> > Signed-off-by: Bean Huo <beanhuo@micron.com>
+>=20
+> I've applied the patch as-is, however usually the first "Signed-off-by"
+> is who the patch is attributed to as being "from".
+>=20
+> Thanks, applied to nvme-7.3.
 
-Describe those timers blocks.
-
-Signed-off-by: Herve Codina (Schneider Electric) <herve.codina@bootlin.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
----
- arch/arm/boot/dts/renesas/r9a06g032.dtsi | 34 ++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
-
-diff --git a/arch/arm/boot/dts/renesas/r9a06g032.dtsi b/arch/arm/boot/dts/renesas/r9a06g032.dtsi
-index 19c9bce0a26d..6fae6db2850e 100644
---- a/arch/arm/boot/dts/renesas/r9a06g032.dtsi
-+++ b/arch/arm/boot/dts/renesas/r9a06g032.dtsi
-@@ -806,6 +806,40 @@ gpioirqmux: interrupt-controller@51000480 {
- 			status = "disabled";
- 		};
- 
-+		timer0: timer@51001000 {
-+			compatible = "renesas,r9a06g032-timer", "renesas,rzn1-timer";
-+			reg = <0x51001000 0x200>;
-+			clocks = <&sysctrl R9A06G032_HCLK_TIMER0>;
-+			clock-names = "pclk";
-+			power-domains = <&sysctrl>;
-+			interrupts = <GIC_SPI 112 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 113 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 116 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 117 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 118 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 119 IRQ_TYPE_LEVEL_HIGH>;
-+			status = "disabled";
-+		};
-+
-+		timer1: timer@51002000 {
-+			compatible = "renesas,r9a06g032-timer", "renesas,rzn1-timer";
-+			reg = <0x51002000 0x200>;
-+			clocks = <&sysctrl R9A06G032_HCLK_TIMER1>;
-+			clock-names = "pclk";
-+			power-domains = <&sysctrl>;
-+			interrupts = <GIC_SPI 120 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 121 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 122 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 124 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 125 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 126 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 127 IRQ_TYPE_LEVEL_HIGH>;
-+			status = "disabled";
-+		};
-+
- 		can0: can@52104000 {
- 			compatible = "renesas,r9a06g032-sja1000", "renesas,rzn1-sja1000";
- 			reg = <0x52104000 0x800>;
--- 
-2.55.0
-
+thanks!
