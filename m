@@ -1,153 +1,174 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011067.outbound.protection.outlook.com [40.107.130.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35C4C360ECF;
-	Fri, 11 Sep 2026 15:05:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139105; cv=fail; b=doe8oONQcLxSYakaIeN0lOuKsWJOe3dpiEMSAIHHrCUld96bSbI9Ica/OO8SsI5R8esbaZ16g5l9/Q/3Jl/nUuIxgyPlx8Y3r7UIuuj+8DLMBfHLZNlbY9GU5N2yc2TZjQtIsmWVRdMVGYsLhLo0SN8pHPyn1rD6mSOYlYZg/Wk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139105; c=relaxed/simple;
-	bh=LBbeEuXDJZy3gQRsJSpiFCcQmMlJme3XOEJx73Fog2s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=sTQEeCTFVgpTPShWzSlDST3nkH19e2znzZ8ZTsH7CxZfpiQWtqDiKGZTNOJvfTDL1Dy/DkzgXr8bGWzCTLyf5McM7l/q9tv+y2mEj23XHK2ZhopTaOyPyCnJcrtvebRQw/My9PCMMCrsOLQJuHJPTP3ex2f/iVW+0U7lqnBI3y0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=EhV5D7OH; arc=fail smtp.client-ip=40.107.130.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C130B368263
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:05:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789139112; cv=none; b=B+YGlCsOTc0u5IOBKo8jqhbL0cFi7QdgDgHaG/nr7nZR0Y+bvXV+y6Fzyq2RVrtP3FPdjDqeLllxcSSMnmD/zW8zyRihyICIG58B05xJb/gICTZH0wD4nf4FNgmGKlyz/EGmE/DzRhydIUIoNtoA/l5a/CTYmmmX5Zu7XWuVxVc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789139112; c=relaxed/simple;
+	bh=X2genqnDXLZF9jJMjeCeymPoDXvSYysWx04NPl080aE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=CmZVitqPMplS/cxJ7b4M/PkOFbnmd4qEEJo3f2oijdWs6nwrZIBMVbDAdvkh+6cyTAdajdPqW0G5317pcCDoSx5YwqoXnZs+efTpr2CmJVPZPGOXCP3fiwxbZKv5eeF0ErwauUA76V59DuMMUXPGvy67pQL155NvdcxRcmJa/cQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=J0BN70gJ; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="EhV5D7OH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kG3mOOMOemr841fUbUtsN2BKmpPIa000O+anu4gNX9KHIpquGLGN6HUKKhz+xrve/SU4MBnxkI2b37lWREuTNwccsCb6waAzDIgwzdP9ZoqhACmFu8V9TKlp3regHR4LhhA1FvX9fwHZuIc56vqEpKVNVpJOakofFB58UGOxzKnshvhnPxK5RXLvQI4+oFdLMoXvRRAjHg1pnyPkIPH15JuL7ne+T3GWuQ6ch5+GFW5lef3xwAR4aOG0X3QFunqOnS8eAgmpCkynwKKeTLAkxCtbxO3p2tD1+JO+YxV1Uhn+rp+lPC00B+cNr5X4h/REKG7Qs73pBHLHdkU6zt0pEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=grCIpBbq5mKkqRf9T375vtZav3WGF9SZ1wbaEzdmD1c=;
- b=lOVYMlCKzFlkpfefNQkczy27RLxM1Miw/IR8nvy+cMTfpdVxBx//FbJFjZnCw0MYHXBpSNLKXUIGhOwoa7hrYv3Y8T9L3xxJuTrR9Zr9vRf3Zw4om2D5jTk8kssOsqWRnAvaQTGV8PtbSFTUtFBa8vJ39qQWt1RS4+X2RKV/xuxtIAF0MA37+0YPJNkwK+qe3xQBK2SkEZermywlywA2eGv1U86XKaUYZk28J8nALwaZfSKCuC0c+eeXJ8Uxulo4JaCRgobh+uffi0xCl6L5xVxWey9qOMSIAOAd1MRy6try9sx3k+yTpTbhqQM2c0vTDuxrqHhu2DMrvR5ob8D0bg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=grCIpBbq5mKkqRf9T375vtZav3WGF9SZ1wbaEzdmD1c=;
- b=EhV5D7OHSGzYNOpeDF6OETzAooszeHFW6DKjFN4KXOh3nMmJHiwknrRyb5X28VNhuU069U/542kkTCdvmhuNORdSzKNqXhK86pcDTaupW1Bcm/WY0fldfrIPhvcm13PRCBJj13/W2Nt9HNXsSwCX/p0v8rp1SgnmuQ4qj8ZLoHxc50WcYUA8LCX4ClcebRyjkZkUOfK3E4eK3CqTMX0qfK/QOCOr87swH+aqpzF/PWd734055bbf1vcJAI6LSKldw8BHvFpTeXn4Je2mbeImcpe9LbnugFDljWgXY5nNy9dZqyQ7x+xd09RGHrjzwfT5Rs/kH8G9vEs13T2Y5M2b2g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AMBPR04MB800954.eurprd04.prod.outlook.com (2603:10a6:20b:7b5::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Fri, 11 Sep
- 2026 15:04:59 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 15:04:59 +0000
-Date: Fri, 11 Sep 2026 10:04:51 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: dmaengine@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>, Yuri Tikhonov <yur@emcraft.com>,
-	Dan Williams <djbw@kernel.org>, Anatolij Gustschin <agust@denx.de>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] dmaengine: ppc4xx: use assigned variable for
- dma_free_coherent()
-Message-ID: <aqQYk44DLfkT8w4l@SMW015318>
-References: <20260911035941.200551-1-rosenp@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911035941.200551-1-rosenp@gmail.com>
-X-ClientProxiedBy: PH7PR17CA0009.namprd17.prod.outlook.com
- (2603:10b6:510:324::17) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="J0BN70gJ"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-485850cf499so831706f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:05:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1789139108; x=1789743908; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mniijplyGZlkQZmDrYFnOPglJBLK+WFjfb4odBVk/dg=;
+        b=J0BN70gJBpALZ5NAb8HVZ41mSP9/J/DQNVlrJkhBvSTR1N8A7x8ddzZfKZh0SJlz0n
+         EG59W4FW4OfOLCLDJQ3QW5jOwWevhD5ne941ddcKG6gTU6L6czm4z9xKMrwviUmBV6sV
+         d7PEVY/QYi1rssM3VbzKy77hEZqLlViCkV7RuVqrHHmNQTT3y4gJNjbhAd0KHPQmppbF
+         GZZ789lfYYlhPD5y7WO/JpDdbqFUbaUF7u3mAlSDATgFCYd+Yjcd2il+A3SX7CfVEgYV
+         klEHMqJ59eev7SBZVHUcfH4ZBOyC7J+bgmEqW+MQHONP1dRwGuUwzuRTdJe7ARTxrZt8
+         B4kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789139108; x=1789743908;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mniijplyGZlkQZmDrYFnOPglJBLK+WFjfb4odBVk/dg=;
+        b=G0oKfK7wKh5tz8WfChTkvzL/eKayu6sxUVftG2AjbsChgTrBN2NOK5qH7DGJKK3Em6
+         0nL1XtnnXXnT7aNgBKBrIVmFzSx3wLnl5pIqDyDLvnVDvipKso/WyJh4O/YDAM6CwgC+
+         aVJmFY/9d79qaACEmUfTl+wzuHBQ9L6JY8nD3kVf/i/W6hNY1BJPYKr+10ekfbu8boS+
+         QrecYcaN6kcEsjvL8yqkF70ZZYIHNvb8zVZW2NqRAsgpoB/LM4SZVFPORsge+o927rId
+         vwYiWMO+8LSORc+nf7ECVoI7XP/aWEeSqZYNaUrsXWBUtuNM5jaZ9mKk6J1spbX14dqO
+         pDIw==
+X-Forwarded-Encrypted: i=1; AKwUvBxwpja75BZahrbCj2/RexoibPVp5ctcoaSqpDYoX4CIoakfOk1QKz662WSMbumqEdnGZGE4VS6weIs9X9w=@vger.kernel.org
+X-Gm-Message-State: AFuF++lnxkWfkWQ2ehcm9o6RGYxbDsTvztVHVTiHveIgjlwzIbrHKrca
+	nPKLlIuGSFvhXZA4G+OUo6brMAtbQ6m9JBuK2CK6obFlIyMOMfKIew6jCGJ/cHqisn4=
+X-Gm-Gg: AYBFou1E6laUbsqSduayKDJQ1YHbK1qRzX0kgOBXjKlMkTCO0VzI0/3Q4osEMgK+CzJ
+	wzedQ0hkF9XE57pjAeEo0yWhWcaGHsuc5f/ATLueIMJlmnINKABHewxOc2auMXsfTeTjVHvvVA+
+	VPSwDHwDSwPpC9CC6mQ3S1IC/UUJn4SF1ZBO/KyQpITj32ZRvyCoVCYH4U2QxVg68+/WUg6bkwh
+	QX+mk1Zz+wZuRDGfBP+8xRNCxkXCby/vMJQ8SISzrXYcmirRlZGxLj2dkdLp29I+i0FXNSV2BN4
+	XPCNn4Kibxs3XsUNbVQfWFElc3eDdOWalgIJyQggZUt/wmB3e64pSjyT7e6MomIXFkn1rUQMXG+
+	th4ecBPywZYROO6iLQ5tNWatncxlG0NoMAbz9ujqoPGPUA1c5+65aqYdHaV2IEdC9JeUE5accfw
+	38dJcUx2hd0sVGFEDr1plEPJvPEpDaMuqMW4czVoBMsNeW5E2pqBZEKSPnz3CwasV6GTa4JwWhg
+	Ld6Vbmh2ZOLQArj
+X-Received: by 2002:adf:ee86:0:b0:485:8c17:975f with SMTP id ffacd0b85a97d-486eb2ffac7mr4035568f8f.33.1789139107698;
+        Fri, 11 Sep 2026 08:05:07 -0700 (PDT)
+Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb350686sm6853579f8f.27.2026.09.11.08.05.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 08:05:07 -0700 (PDT)
+From: Petr Pavlu <petr.pavlu@suse.com>
+To: Jens Axboe <axboe@kernel.dk>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	Matthew Brost <matthew.brost@intel.com>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Simon Horman <horms@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Francois Dugast <francois.dugast@intel.com>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	linux-block@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-api@vger.kernel.org,
+	intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/6] Remove the error-injection.h include from linux/module.h
+Date: Fri, 11 Sep 2026 17:04:00 +0200
+Message-ID: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AMBPR04MB800954:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0ef3038a-99be-443a-7c04-08df10160c77
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|19092799006|23010399003|1800799024|10067099003|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	xZp8DJ7Zgtbg28jAS1e6GhqP3s832c4eqkeGbYlTU7oDHoip/kzDtcUP/3DiWRNtq/mOaLlJwEp4CYFfieFj1atd+mgLS59fOCFIQpDJ4hP323LcHkVKEDzkPl6hGwWkcoFOAmvzE4hwBFd4e+EHcnlCMsGplibX/E+W2M1tAtWKjvKTYyurJfOUNU9WcLisGDW/l/xWu2Vwp4JjEeo8llXuPF/POnqNQDkgJ+sLcT/PKGEw1GrrRkfpnEW7qDaMQNIZ5Slyz7is9QJmZj2j+oA3zbeXEKjky99Xs00eTQATrGGkfRWxDSm/imcIoQOytlqL+7pu4hE3XDrY4Ibrw9xw4aaAFZhTcNVgjnZ+GGLj3CfqH4HcmwSu1O3wOR6YK7AfQGTGh7Va2tsjStCIGNz+aG0D8qP2S4wPMLtRTAp04KxXSU5IQZgPnVhwFpQ89tvB6FCBOxE/izSBofFKWfv2UZUHbag24H1Wp6Bs5FgQh9EWYhyVu6A+dLZte13bG72ud0tqEHsJRVOuddm6vS82alBwWfTRhQim5kZrdm7WN7GxacOW4L9tWMtwv/xt4EoTFX+TCoWvPGWRy8ZVZHixF3Sf+/fktoC6EaM4cGfwCCg4fqJpHasXk+gK8IlRwst6rP1mlGJZ7r4bnCowSRn1/9zOOCHTT8VUqr8tHt0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(19092799006)(23010399003)(1800799024)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?PQsxuLk72QrxXFj083GtzAh4A86ifjhwdmKmAW5L3DYlkMzUwi37aY0OjRwd?=
- =?us-ascii?Q?azv+HQ3KR1AO4U/S0Rh3M3jl1OpHWQK5g/5DH1ZXoojdY9gncMYKI1y54gTB?=
- =?us-ascii?Q?4g1VBxmx2kaSav1bBwP8eZ8K6eVhKUrHF+NEtO6+fwxz0+h7uxus4yCsE8eL?=
- =?us-ascii?Q?IyappIB2h45lAdzyLkQ/TYEqjFAxfjIiGZCBd0S9+7RGKAXCT4XzepZNMTD2?=
- =?us-ascii?Q?+RV89f/QJ39ZW59igd0bUxgM291Ajs9vg8qORUsfepZOTEhmnUIfBRPbgKjV?=
- =?us-ascii?Q?+daDy7vt04EX28fa9R3CEYmV6uk76jwvqctfXc2OhCC9u6EyWP+vqpOPequz?=
- =?us-ascii?Q?/3P0E4GiVD0mkwKwg5XVud0x0diaB1nMB/yIk3lu91yA9koovlygi6BYcC05?=
- =?us-ascii?Q?Hfi68KyE1ND+HLZD/m7Q+9F8iBMdaIEkSrUbNYvvtoXWjqNQekIdEfonM4a/?=
- =?us-ascii?Q?o8CwCYgK/sckabG93v0jD59266wWpoknZbUHyYp07y42D+eiZDTYFxUsagWk?=
- =?us-ascii?Q?R3i/yjmfKn81XI6/AhRZNU7uNnSFjJ1gj2BnTeEpYPJWgY0DvAkkhfL171kO?=
- =?us-ascii?Q?WVi3FL9MIFgJ3fhLEG3LaWjoJGTNy/+vVd59kLXVv0QWdC0WIUDExi0XlPWG?=
- =?us-ascii?Q?IJ4X3edX/q5diBPyAx3vkKjGM78eHDm7eyd+57sVSxBlHgGmd/3jeQXGk0U3?=
- =?us-ascii?Q?43ZR/CwDD60Gf57OVOUwIs4t9ryWDoms5pgHJn8oHmJFwlMwEP0wcZGpPO85?=
- =?us-ascii?Q?OQ4o/E+Rv5JMDjCVN5nXPez0mIRkn8dixBuVMhLBYUTfFEbB/4NdNJxla8QB?=
- =?us-ascii?Q?/N7Np21gvH4sjyECfRhhseJ4h09PpB0IVqfmvpWnndxrFUnuuiUJvRZRiFUB?=
- =?us-ascii?Q?9rETtUienM+TnrtNKlazbjvsWiVHZXXfrvzja7k+zlj08h9Hv+vCajMhGzWE?=
- =?us-ascii?Q?jcLI/H1bERDBAYvic+9Mg5dCX1J7gGUIihWvDXrtDLm2ELLcyxjKVXLiliZy?=
- =?us-ascii?Q?mK6ru4JYjEYGmiX/f3g+0vAUVweD+Km6aWcG4CwA2nxiAv10tpN8i8z6r5SA?=
- =?us-ascii?Q?KTZ0LjmQhzsWaTQ4LAhoNiH2OppcS/O7Q5Dxw6sOKJgiQNcxHI29NYYy/y/W?=
- =?us-ascii?Q?WYkjqKH9vhV/ajMk3ptl4BF/2wcOEiYDSbQ6klOZ0ehYd+zcvl6LhqQJSMjf?=
- =?us-ascii?Q?N0fvehfRKTb77KKqBZRa83sJrD/44AcaB1DmCW8nM8twSw4bbAHfFt9bB8bF?=
- =?us-ascii?Q?2XJgoEGD+NlbwCxOmLdWQ/+W9Tm/tNNH6hy9k3VNrGhgmiw5lavOH6EVxZKb?=
- =?us-ascii?Q?Uqx7j2apP7heB311N8lw+jm2qA1RZJlF8mix9DKEJlCFzdMAt+8YJrTcP5Fl?=
- =?us-ascii?Q?TRwaUP3s81sOGbJ4rw+3e2D5yrR8lY22pcKdoNLCyYW7m44WZ2HgZFkC9xdv?=
- =?us-ascii?Q?IcZenl+cY4FjLF3FFYHsh1PgNAqgPLKfWxkb2OVBUlkcGdGhtqE1cTftfsVU?=
- =?us-ascii?Q?/VLpSnaPmGK0v3Ew6Pv9phumD7on3uKt17rMMYK/7EBSv/uq0O4QE0jCX4zK?=
- =?us-ascii?Q?vBZsgIfsDYZ4zMVddELEmZXXJ5ZkyVdOhpo1IYDZkXPV7aWhaSnbskx6Is9h?=
- =?us-ascii?Q?qYNgwI0s38J9faPjawk9wY/HRcCTJ8rCtUJqbiHVLMvn8+t+JFSfQ1+cT9UQ?=
- =?us-ascii?Q?jjrI3ZvOcSPmHEwgpiE/mWlbr6g4XKlRIqH54kW3UKNVegC4nwDDO6hpQ3f8?=
- =?us-ascii?Q?6dTjNCJSh1LpHPOMU9wlL1EVheKiiM75brYfo3d71C8lzSv0sMr5?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0ef3038a-99be-443a-7c04-08df10160c77
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 15:04:59.7671
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZO3W/xSnlHm6oI7ohd3zz31QrPX3gN5bFphydRUsUtXWrz1/9vHarOX41Uyu/5ib5aVhTq0EyggJur1o5i6w4KfX4qsrYfMxgMXY+V3FfZ8thkg4ZHsqVI/HDWR1y51d
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR04MB800954
+Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20260816-module-include-error_injection-4f80e37a8ea6
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 10, 2026 at 08:59:41PM -0700, Rosen Penev wrote:
-> In some goto paths, adev->dev is unassigned. Use &ofdev->dev to cover
-> those cases.
->
-> Fixes: 12458ea06efd7b44281e68fe59c950ec7d59c649 ("ppc440spe-adma: adds updated ppc440spe adma driver")
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
+linux/module.h appears in roughly 15k #include directives across the
+kernel. This makes it a "hot" header, so it should avoid pulling in
+unnecessary definitions.
 
-Please use dmam_alloc_coherent() to fix this problem.
+The header currently includes linux/error-injection.h to obtain the
+definition of `struct error_injection_entry`. However, this is unnecessary
+because the type is only referenced in the file as a pointer, for which an
+incomplete type is sufficient.
 
-Frank
+Add explicit includes of linux/error-injection.h to files that use the
+ALLOW_ERROR_INJECTION() macro and currently rely on it being provided
+indirectly via linux/module.h. Then remove the linux/error-injection.h
+include from linux/module.h.
 
->  drivers/dma/ppc4xx/adma.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/dma/ppc4xx/adma.c b/drivers/dma/ppc4xx/adma.c
-> index 279a431ccae3..d0863394c723 100644
-> --- a/drivers/dma/ppc4xx/adma.c
-> +++ b/drivers/dma/ppc4xx/adma.c
-> @@ -4212,7 +4212,7 @@ static int ppc440spe_adma_probe(struct platform_device *ofdev)
->  	else
->  		iounmap(adev->dma_reg);
->  err_regs_alloc:
-> -	dma_free_coherent(adev->dev, adev->pool_size,
-> +	dma_free_coherent(&ofdev->dev, adev->pool_size,
->  			  adev->dma_desc_pool_virt,
->  			  adev->dma_desc_pool);
->  err_dma_alloc:
-> --
-> 2.55.0
->
+The first five patches can go through their respective trees if preferred.
+The final patch depends on the preceding cleanups.
+
+---
+Petr Pavlu (6):
+      block: Include error-injection.h for ALLOW_ERROR_INJECTION()
+      net: Include error-injection.h for ALLOW_ERROR_INJECTION()
+      syscalls: Include error-injection.h for ALLOW_ERROR_INJECTION()
+      drm/i915: Include error-injection.h for ALLOW_ERROR_INJECTION()
+      drm/xe: Include error-injection.h for ALLOW_ERROR_INJECTION()
+      module: Remove the error-injection.h include from linux/module.h
+
+ block/blk-core.c                                    | 1 +
+ drivers/gpu/drm/i915/display/intel_connector.c      | 1 +
+ drivers/gpu/drm/i915/display/intel_display_driver.c | 1 +
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c           | 1 +
+ drivers/gpu/drm/i915/gt/intel_gt.c                  | 2 ++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c           | 1 +
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c               | 1 +
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c            | 1 +
+ drivers/gpu/drm/i915/i915_driver.c                  | 1 +
+ drivers/gpu/drm/i915/i915_pci.c                     | 2 ++
+ drivers/gpu/drm/i915/intel_uncore.c                 | 1 +
+ drivers/gpu/drm/xe/xe_device.c                      | 2 +-
+ drivers/gpu/drm/xe/xe_exec_queue.c                  | 1 +
+ drivers/gpu/drm/xe/xe_ggtt.c                        | 2 +-
+ drivers/gpu/drm/xe/xe_guc.c                         | 1 +
+ drivers/gpu/drm/xe/xe_guc_ads.c                     | 2 +-
+ drivers/gpu/drm/xe/xe_guc_ct.c                      | 2 +-
+ drivers/gpu/drm/xe/xe_guc_log.c                     | 2 +-
+ drivers/gpu/drm/xe/xe_guc_relay.c                   | 2 +-
+ drivers/gpu/drm/xe/xe_hw_engine_class_sysfs.c       | 1 +
+ drivers/gpu/drm/xe/xe_hw_engine_group.c             | 2 ++
+ drivers/gpu/drm/xe/xe_mmio.c                        | 1 +
+ drivers/gpu/drm/xe/xe_oa.c                          | 1 +
+ drivers/gpu/drm/xe/xe_pm.c                          | 2 +-
+ drivers/gpu/drm/xe/xe_pt.c                          | 2 ++
+ drivers/gpu/drm/xe/xe_pxp.c                         | 2 ++
+ drivers/gpu/drm/xe/xe_sriov.c                       | 2 +-
+ drivers/gpu/drm/xe/xe_sync.c                        | 1 +
+ drivers/gpu/drm/xe/xe_tile.c                        | 2 +-
+ drivers/gpu/drm/xe/xe_tuning.c                      | 2 ++
+ drivers/gpu/drm/xe/xe_uc_fw.c                       | 2 +-
+ drivers/gpu/drm/xe/xe_vm.c                          | 1 +
+ drivers/gpu/drm/xe/xe_wa.c                          | 2 +-
+ drivers/gpu/drm/xe/xe_wopcm.c                       | 2 +-
+ drivers/net/netdevsim/tc.c                          | 1 +
+ include/linux/compat.h                              | 1 +
+ include/linux/module.h                              | 1 -
+ include/linux/syscalls.h                            | 1 +
+ kernel/module/main.c                                | 1 +
+ net/core/skb_fault_injection.c                      | 1 +
+ 40 files changed, 45 insertions(+), 13 deletions(-)
+---
+base-commit: df2908090cda368b01ff43709f51890076c56157
+change-id: 20260816-module-include-error_injection-4f80e37a8ea6
