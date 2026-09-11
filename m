@@ -1,280 +1,202 @@
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD55549B201
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:15:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39F344A0F1C
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:16:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789143329; cv=none; b=E+ROGUxaNBIxfqkngRPxaCH1gbCdC9vM9YD+GUKG8ZRkkkr06ifTrd0nX3cUytKFkLwPQTvtnR0c6RlEoKzPuO5vOAcUyyd8JqvTTHPoSWIiWrU2iamFehYtP0vOXwptmS1psPu1Bb5zoMsIrPjqsccZeFPiKfWK0Tb9t4KBquE=
+	t=1789143419; cv=none; b=thl2y3ja06k47V+Y9gONRQ+HtJLJFk8mytZfHKOpBQ7La0HPMkJQ1sZ6M0bBfcO0F4n14CGbpShGXSTQaGVQaj0CQa5v7TXf6oaMYt/fUvJmvURczgc48MtLR8CPBuXI1nmVvSmau1MvmzY4Vo00gcqLakyTakrPcVDde2L53lw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789143329; c=relaxed/simple;
-	bh=4KYyzLal7sepM0yX0pg+b3ir53+QvyhpLlOlXzdkj0Y=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=nnlOR/JFyOCY+D2PSAlDO5/ZjMYZrBv/YieA0eFrOBgKFcsXOCiOhLwVoVyWrXXMB0cabHmjdKAa8ChOW8Z2UPISV4uUOJbdAqocPBAzJd9BFR9qhsL5AAx81EmEKzijaZB072vqG7lG1IsoY8PgFkRKQcp6PX5qy02aj/vcK3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-46dade0d7cdso967369fac.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:15:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789143326; x=1789748126;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+	s=arc-20240116; t=1789143419; c=relaxed/simple;
+	bh=mxpi19EOjxdBUAzei54rrsJVGo4hFRd2kd655zqmusY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JA+7z7Uz5RJklfUS3W2ogPDd1A3DZjfBnim7q/QgklXpKarP3eVguRnvJvbW3aM+lqq4N2ki0KYRSj9uJuF5BFtlPyV/A077dYcmt1UYnJBkmaoMxtYkqgc+RwieWZqS9coObySrKAxmlQnSAcBI8zVe4zYsppxT5QjFJwqTb4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev; spf=pass smtp.mailfrom=tuxon.dev; dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b=iRsWDExf; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tuxon.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxon.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=tuxon.dev header.i=@tuxon.dev header.b="iRsWDExf"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e65b1cc29so1111535e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:16:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tuxon.dev; s=google; t=1789143415; x=1789748215; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=96GhTWlr7hycpFXFmxGq257fXg+gNbQD3LvS7nih380=;
-        b=mAueEJuTapOMrlZFGbfjiPmGDqWBSUHBlurC18b++rIveDg5J28DVmhT7HF8LMbyGw
-         D/D2B19qcb5sCYgul1pH5+djA1Tkpa/kBxbdTvoGdWxvcuhJcQZSxkwXSI8R4RYC0g4V
-         4tmYPReiKaImziZeyKZiTJjk7CvyHewN4sxbYEKlifCxuXiG3D+tepb9vkGUqK0lUWhs
-         Ocp82xP1y3q6VoQGLLShsyB5X5xG/IndVMztLj9FFPs+GDOQIpPzCML1nOV+P8e5KcZY
-         aDJ8XdGgOmqKiOZYts5RvcLstiouNo/2rXZEKnpFvjbbBSQTMCcR6c4d8LFt5ROXcl2d
-         jS7Q==
-X-Gm-Message-State: AFuF++nVCk6QyU/MBQEhnd66BBIuZ1DjcWz19YBTTmVkPCk8yfiXDhoz
-	FBc1/5fk9E6o25z5tCqXveKM7VMObZeSrhY4XOYHP8T+a9iIXwf56grld/4IiMMLB6YsqGNC3BK
-	52i+y0BNCdIyC4Y6BrlQqV/FFfWIjxkw41irR11CS6pyKcDw2HswB0uOmphQ=
+        bh=AEScTZKIB90XpkBNEHwOjr8hKNAnt7HkPQnGxzbxNrY=;
+        b=iRsWDExf9BVHkfv7FnqI+lVabQZBW5Z7CtI4AkM8jihPCI+ewbrjNwZgm6Lc2LHj+Q
+         ONVjlpIAj9LJfXHhbQUPNequS0AJq6VzRcIMyreuf8NVPkJiPrKPFC2riVZX3oV4znvb
+         yhENWniP1TvcVfb5pN/2EKk3AmRlr0wVvBVmzDfW7GP+9WoD+DxoViEujb11Oj9FhRqj
+         7c+XRkxNmGdlvl3whYltT6+wCDjnB84suiVDvaQifiuVUzC+VAOw7HPDT/hfBquTWiJ+
+         Xm6EbKCNyyb8KD55DNL6BwP61wCuKKulFhaXHaD5gmhaOy2xBZcKqifnc6CUwPhhZa4q
+         CNNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789143415; x=1789748215;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AEScTZKIB90XpkBNEHwOjr8hKNAnt7HkPQnGxzbxNrY=;
+        b=OdUFF2OaRrZDaxDGV2oeXdCaCOQD6FcLaJnaVOZuMFEPOOQbLdKslBYTMdOPs5YLFu
+         nYyJwFYqmzjlSG/Sycc7MGsN5DUyOwlobHOl46bWP60qVPkhw0SoUWvJ3s225HLtCd8F
+         cA/oaaULNHObq+NMNGlNiLNeleULR5zNDUXyLrHG1e5ZhoRRaiDnKdEZMPyw1v+Hk4UQ
+         vIp0MJ4OU9RxoWXMuJq9kbRdW0+/eMeyGtZQG9cQlWWR/P2lSYYytBzKgy+dWeksXeLK
+         43NCPg0uMdaexpCVpQtjgJqU/wWcXnaUcX5B38iwZTrMZd5pL64Z2uAQZYTU9WTmxPRI
+         T0AQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzArsJGcbWktKjjb/v+OwMyXvpZABt5jgug7wDgw/vIFoxxDucLwVJdk2NXj04vILjP2Z08qQDZRGFKJro=@vger.kernel.org
+X-Gm-Message-State: AFuF++mvj7fpy1P3+g1l6ot9pAZpANMP8lcXTgdEp9iFlbAgX4Bs8GGn
+	0ZHi2WJC2p7hAx4XC3grymT5L7+e9xyUSkidlkKeYl13fx8NG6vQrlEs/vcUrNKmZYQ=
+X-Gm-Gg: AYBFou0x5nPm0Vp1BuMg2YXZYkQ7wTqOpydedlpqhj8FCbxEEK48sJJtzpTknzMt1DU
+	0h/KbLp0cTdHRkn5ivAoalSRXUvc3R5evMf4UAsez6LgF6q9Q9XOSD9D294CgdW8UuFor14L1xo
+	rcqjaWi6RuxuTw7Sf80Zk8TA2Iab+wavLxLL0z80Cv0dXF5vm9rZQth7+a9BayJ3tewTCw9BZ6/
+	k7Rsg9lr/vMCismzBhEQ2WnIpYqSpHBcRN9+F2lqmyCuok9ugBD/nDR/n6r87VbqIfn0SLkLFSq
+	WGWpOg9vgpjYaI5DwxSO2RD0YpYgKzdYCLoISH2Xgdz/FZXR5Th0ZsqTGEi51aMCKMzstpD3lBx
+	IFmrKQWQtorqjZwC6WLuVCfiXxnC9zsNr68xPcYdLHu+T3sdal6MhewW/XMLs8jXRc1mHFCcqia
+	SVeqqEV6QUNdBnyiGMZwEgPZqm+bK5uuWsQgpUF4jQpWRycWALexxd3OFdvESaqoKfkNnXoEBXK
+	UOK
+X-Received: by 2002:a05:600c:c178:b0:49c:f512:2361 with SMTP id 5b1f17b1804b1-49e61a15c31mr119640575e9.14.1789143415254;
+        Fri, 11 Sep 2026 09:16:55 -0700 (PDT)
+Received: from [192.168.50.4] ([82.78.167.97])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e62231360sm50771265e9.4.2026.09.11.09.16.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 09:16:53 -0700 (PDT)
+Message-ID: <42c0a43e-df20-48c2-882a-bd8e81fffd85@tuxon.dev>
+Date: Fri, 11 Sep 2026 19:16:51 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:c2d2:20b0:6b3:5537:8dbe with SMTP id
- 006d021491bc7-6c0b9952b56mr2773715eaf.11.1789143326660; Fri, 11 Sep 2026
- 09:15:26 -0700 (PDT)
-Date: Fri, 11 Sep 2026 09:15:26 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa4291e.f81106d8.2ab401.001e.GAE@google.com>
-Subject: [syzbot] [media?] KASAN: slab-use-after-free Read in v4l2_release (3)
-From: syzbot <syzbot+34957180b0ed2581edaf@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] phy: renesas: rcar-gen3-usb2: Avoid long delay in
+ atomic context
+To: Pavel Machek <pavel@nabladev.com>,
+ Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
+Cc: yoshihiro.shimoda.uh@renesas.com, vkoul@kernel.org,
+ neil.armstrong@linaro.org, geert+renesas@glider.be, magnus.damm@gmail.com,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, linux-renesas-soc@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, stable@vger.kernel.org,
+ Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
+References: <20260716183246.3183877-1-claudiu.beznea+renesas@tuxon.dev>
+ <ap_o-T5GGMFGYZ4v@duo.ucw.cz>
+Content-Language: en-US
+From: claudiu beznea <claudiu.beznea@tuxon.dev>
+In-Reply-To: <ap_o-T5GGMFGYZ4v@duo.ucw.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello,
+Hi, Pavel,
 
-syzbot found the following issue on:
+On 9/8/26 13:52, Pavel Machek wrote:
+> Hi!
+> 
+>> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>>
+>> To address this, release the spin lock before sleeping for 20 ms as
+>> required by the HW manual and reacquire it afterwards. To avoid other
+>> threads entering the critical section and configuring the HW while the
+>> software is waiting for the OTG initialization to complete, introduce the
+>> otg_initializing variable alongside the otg_init_done wait
+>> queue. Any
+> 
+> This is quite complex.
 
-HEAD commit:    08df884136f1 Merge tag 'thermal-7.3-rc3' of git://git.kern..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=12d7d615580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=34957180b0ed2581edaf
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1082c925580000
+I agree. I tried to keep the current driver capabilities and adjust it for the 
+long delay.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+34957180b0ed2581edaf@syzkaller.appspotmail.com
+> How is this solved in mainline?
 
-==================================================================
-BUG: KASAN: slab-use-after-free in v4l2_release+0x30d/0x390 drivers/media/v4l2-core/v4l2-dev.c:466
-Read of size 8 at addr ffff88803547c658 by task syz-executor112/6038
+What do you mean by "How is this solved in mainline?" ? This patch is intended 
+for mainline.
 
-CPU: 1 UID: 0 PID: 6038 Comm: syz-executor112 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- v4l2_release+0x30d/0x390 drivers/media/v4l2-core/v4l2-dev.c:466
- __fput+0x3ff/0xb50 fs/file_table.c:512
- fput_close_sync+0x118/0x250 fs/file_table.c:617
- __do_sys_close fs/open.c:1560 [inline]
- __se_sys_close fs/open.c:1545 [inline]
- __x64_sys_close+0x8b/0x120 fs/open.c:1545
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fbd276a535e
-Code: 08 0f 85 f5 e2 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 90 41 57 41 56 4d 89 c6 41 55 4d 89 cd 41 54 55 53 48 83 ec 08
-RSP: 002b:00007ffce11b8c78 EFLAGS: 00000246 ORIG_RAX: 0000000000000003
-RAX: ffffffffffffffda RBX: 00005555754b9400 RCX: 00007fbd276a535e
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000004
-RBP: 0000000000000031 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000004
-R13: 00007fbd276f005b R14: 0000000000000025 R15: 0000000000000003
- </TASK>
+> 
+>> To avoid failures when multiple PHYs call struct
+>> phy_ops::rcar_gen3_phy_usb2_init() simultaneously, and the PHY responsible
+>> for initializing the OTG either fails or deinit quiqly and another PHY
+>> takes over the PHY init role), the code waiting for the
+>> channel->otg_init_done wait queue retries up to NUM_OF_PHYS times.
+> 
+> And more complexity.
+> 
+> Example of the code is quoted below, and we are returning EBUSY to
+> userspace if it tries to change role at the wrong time. Not great.
+> 
+> As far as I understand, the initialization on needs to be done
+> once.
 
-Allocated by task 5082:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x2f8/0x6d0 mm/slub.c:5563
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- sur40_probe+0x1a8/0x1580 drivers/input/touchscreen/sur40.c:675
- usb_probe_interface+0x386/0x9b0 drivers/usb/core/driver.c:399
- call_driver_probe drivers/base/dd.c:628 [inline]
- really_probe+0x241/0xa60 drivers/base/dd.c:706
- __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
- driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
- __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
- bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
- __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
- device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x64/0x160 drivers/base/bus.c:620
- device_add+0x121d/0x1970 drivers/base/core.c:3776
- usb_set_configuration+0xd97/0x1c60 drivers/usb/core/message.c:2268
- usb_generic_driver_probe+0xa1/0xe0 drivers/usb/core/generic.c:250
- usb_probe_device+0xef/0x400 drivers/usb/core/driver.c:293
- call_driver_probe drivers/base/dd.c:628 [inline]
- really_probe+0x241/0xa60 drivers/base/dd.c:706
- __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
- driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
- __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
- bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
- __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
- device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x64/0x160 drivers/base/bus.c:620
- device_add+0x121d/0x1970 drivers/base/core.c:3776
- usb_new_device.part.0+0xcc2/0x1686 drivers/usb/core/hub.c:2708
- usb_new_device include/linux/workqueue.h:715 [inline]
- hub_port_connect drivers/usb/core/hub.c:5580 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
- port_event drivers/usb/core/hub.c:5884 [inline]
- hub_event.cold+0x1e3/0xe90 drivers/usb/core/hub.c:5966
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+Yes.
 
-Freed by task 5082:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6499 [inline]
- kfree+0x22b/0x6d0 mm/slub.c:6792
- sur40_disconnect+0xb8/0x170 drivers/input/touchscreen/sur40.c:835
- usb_unbind_interface+0x1dd/0x9e0 drivers/usb/core/driver.c:461
- device_remove drivers/base/dd.c:618 [inline]
- device_remove+0x12a/0x180 drivers/base/dd.c:610
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
- bus_remove_device+0x2bc/0x560 drivers/base/bus.c:664
- device_del+0x376/0x9b0 drivers/base/core.c:3965
- usb_disable_device+0x367/0x810 drivers/usb/core/message.c:1478
- usb_disconnect+0x2e2/0x9a0 drivers/usb/core/hub.c:2350
- hub_port_connect drivers/usb/core/hub.c:5420 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
- port_event drivers/usb/core/hub.c:5884 [inline]
- hub_event+0x1bb1/0x4420 drivers/usb/core/hub.c:5966
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+> Instead of exposing /sys interfaces before hardware is ready,
+> and then doing complex dance when /sys is accessed, could we
+> initialize hardware in rcar_gen3_phy_usb2_probe or something?
 
-The buggy address belongs to the object at ffff88803547c000
- which belongs to the cache kmalloc-4k of size 4096
-The buggy address is located 1624 bytes inside of
- freed 4096-byte region [ffff88803547c000, ffff88803547d000)
+It may be achievable, I haven't tried, but that would involve, at least, 
+enabling PHY related stuff that consumes power at times this may not be needed.
 
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x35478
-head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000040 ffff88801c043040 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000000040004 00000000f5000000 0000000000000000
-head: 00fff00000000040 ffff88801c043040 dead000000000100 dead000000000122
-head: 0000000000000000 0000000000040004 00000000f5000000 0000000000000000
-head: 00fff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd2040(__GFP_IO|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5149, tgid 5149 (udevd), ts 15027584225
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab mm/slub.c:3462 [inline]
- new_slab+0xa9/0x6e0 mm/slub.c:3513
- refill_objects+0xe3/0x410 mm/slub.c:7410
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- __do_kmalloc_node mm/slub.c:5413 [inline]
- __kmalloc_noprof+0x67c/0x840 mm/slub.c:5439
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- tomoyo_realpath_from_path+0xb6/0x690 security/tomoyo/realpath.c:251
- tomoyo_get_realpath security/tomoyo/file.c:151 [inline]
- tomoyo_check_open_permission+0x2af/0x3c0 security/tomoyo/file.c:776
- tomoyo_file_open+0x6b/0x90 security/tomoyo/tomoyo.c:334
- security_file_open+0xb5/0x1e0 security/security.c:2739
- do_dentry_open+0x588/0x14d0 fs/open.c:973
- vfs_open+0x82/0x3f0 fs/open.c:1101
- do_open fs/namei.c:4837 [inline]
- path_openat+0x19fa/0x2440 fs/namei.c:5000
- do_file_open+0x20e/0x430 fs/namei.c:5029
- do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
-page last free pid 5142 tgid 5142 ts 14824943792 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x47/0xf0 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x1a0/0x1f0 mm/kasan/quarantine.c:286
- __kasan_slab_alloc+0x69/0x90 mm/kasan/common.c:350
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- kmem_cache_alloc_noprof+0x269/0x6a0 mm/slub.c:5010
- alloc_empty_file+0x5b/0x1c0 fs/file_table.c:262
- path_openat+0xdb/0x2440 fs/namei.c:4986
- do_file_open+0x20e/0x430 fs/namei.c:5029
- do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
- do_sys_open fs/open.c:1423 [inline]
- __do_sys_openat fs/open.c:1439 [inline]
- __se_sys_openat fs/open.c:1434 [inline]
- __x64_sys_openat+0x12d/0x210 fs/open.c:1434
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+> Looking at the code:
+> 
+>          /* If current and new mode is the same, this returns the error */
+>          if (cur_mode == new_mode)
+>                  return -EINVAL;
+> 
+> this should probably just return success? (EINVAL is certainly wrong
+> error code here.)
 
-Memory state around the buggy address:
- ffff88803547c500: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88803547c580: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->ffff88803547c600: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                                    ^
- ffff88803547c680: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88803547c700: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
+Things could be improved, indeed. This is however code that was present in this 
+driver before this patch.
 
+Thank you,
+Claudiu
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+> 
+> Best regards,
+> 								Pavel
+> 
+>> +++ b/drivers/phy/renesas/phy-rcar-gen3-usb2.c
+>> @@ -392,26 +408,58 @@ static ssize_t role_store(struct device *dev, struct device_attribute *attr,
+>>   	struct rcar_gen3_chan *ch = dev_get_drvdata(dev);
+>>   	bool is_b_device;
+>>   	enum phy_mode cur_mode, new_mode;
+>> +	int retries = NUM_OF_PHYS;
+>> +	unsigned long flags;
+>> +	int ret = -EIO;
+>>   
+>> -	guard(spinlock_irqsave)(&ch->lock);
+>> +	spin_lock_irqsave(&ch->lock, flags);
+>>   
+>> -	if (!ch->is_otg_channel || !rcar_gen3_is_any_otg_rphy_initialized(ch))
+>> -		return -EIO;
+>> +	if (!ch->is_otg_channel)
+>> +		goto unlock;
+>> +
+>> +	while (retries-- && ch->otg_initializing) {
+>> +		spin_unlock_irqrestore(&ch->lock, flags);
+>> +
+>> +		ret = wait_event_timeout(ch->otg_init_done, !ch->otg_initializing,
+>> +					 USB2_OTG_INIT_TIMEOUT);
+>> +		ret = ret ? 0 : -ETIMEDOUT;
+>> +		if (ret && !retries)
+>> +			goto exit;
+>> +
+>> +		spin_lock_irqsave(&ch->lock, flags);
+>> +	}
+>> +
+>> +	/* If another thread started a new initialization just return -EBUSY. */
+>> +	if (ch->otg_initializing) {
+>> +		ret = -EBUSY;
+>> +		goto unlock;
+> ...
+>> @@ -1007,6 +1226,7 @@ static int rcar_gen3_phy_usb2_probe(struct platform_device *pdev)
+>>   		return ret;
+>>   
+>>   	spin_lock_init(&channel->lock);
+>> +	init_waitqueue_head(&channel->otg_init_done);
+>>   	for (i = 0; i < NUM_OF_PHYS; i++) {
+>>   		channel->rphys[i].phy = devm_phy_create(dev, NULL,
+>>   							channel->phy_data->phy_usb2_ops);
+> 
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
