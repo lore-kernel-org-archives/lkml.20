@@ -1,148 +1,184 @@
-Received: from mail-oo2-f2.google.com (mail-oo2-f2.google.com [74.125.231.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020120.outbound.protection.outlook.com [52.101.196.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D6E3598BF5
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 20:12:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789157567; cv=none; b=in3REBQUllEJuU7rAoO5UZOszTtWA7Pzzo25La7Q0S4W6TwZ+3Zd4uRqYPoI8iv4kDmr1PK4y0pg1izwtECdvUNx6KKxR0CHXesKLT7HsSAUeLWIBZvoI0Tv4kkpe67QY6wuhv311n1EgdopEV26uA6rSn7q/98EiCxwZkhSG48=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789157567; c=relaxed/simple;
-	bh=wAvKU8SjsFsHYB2ozXwljdG5NjRIWOViEiptb6tCW1Q=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=MVoVTDI3U01em5DUAXlirR5PdfW78J8uLWU0QePQCjne0bfIuLKTM9mmZaWIIn0eeISEY7bTUl0rlmOl8BP33GJUnGsyWtEjmPMeLcbWPOnZqfSBpcJzRfVo5C8M8g/sd1YvNKDp1SaMYk49XrqtmLkcUgUjbxRyUosDMBdnkNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f2.google.com with SMTP id 006d021491bc7-6bd3ee01a0dso512048eaf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:12:40 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789157554; x=1789762354;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2tA+SngjrmQk+wdihqTLbubXs7aLmdXGgsvtzF18URA=;
-        b=MWM1c3jNJBSh7qsOali0EX5yWF1h0oAqBE5tovqxwnVKLQNl6R8ZENiheTi4XZFh+e
-         nmSxnm3PumuJMAnRSmp/SoiyrxO+R17x0COWC0pD8W3f02BQT72fFZJf4bH1BBBk4i9v
-         rK4/cX3Tf+bcUrSZ7GJYY14YLGmcCHMiHZM3Y0xssGf41apdOVANf5hFNFmMd7pCUrUj
-         FJhkZExnB0LP3zQvKvtrJuEf9Xy0wZRaoXzHDV9GF7SgiK364iD103nlnUAsaz50uDbv
-         1acvonXh9T7rxIzxWJ9NCQt2ASJgdRLit1vriwNqKXabeTjYz0NUAyzBStWQ4eWr3G7V
-         W2mQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz/cRyhXU0xjy7MT9BKvV5oK85S5eiA09oEZuoQiU68rUa9xB61NanMutq/qHbojWejPGtBgW/UcshGeL4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kIHwgPiai3Wv7a8ReafFQf9WD9l/jdvKwMcN4dgQJsVn4Wsxxp
-	AeFlw9f9dSWccI1bE8fpIZSuTAYe9fA8RbTx1ca+O1mf3JsKVWElOYpYt1pmsxZ1ucAA3o8TJDk
-	f4nnPPrV75NXpzia0PeLyMwrYRcAwuUoF9fmy7cLYFYraJhJhpm5D5y4jEIQ=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC5859C97E;
+	Fri, 11 Sep 2026 20:12:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.120
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789157563; cv=fail; b=iwZYYLPbSjJ7Ojl4XKcHQu38o4AtMbd0FlhnvarCg+a2GQLqawESknuUGWXQskv2WluWjCOcQnCm5iugKUm6mb1RF5n6Gz+qhj7IQrNezibxJ2d2e/fAEQI+B/6ltuhsgQuNvJuDmIFEgQzvzkcbNhMY8qvHx3pgblgwKCZ3v1E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789157563; c=relaxed/simple;
+	bh=iWCP7KZc9SPZ1Yyp38nsgG056IgNWJN4NGPlklVEg5w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VlX0ImlGarxfq+JCIUrEkRWp0mAxzcUKQGpLJqcoFf56OheA6ZyT+cdBDloVqXScOH1DIjtchcLfRk3piz+v+4XVBVkN58/9zUB8w33Ebl35vpwGRDg7X2BL/BgCTpOyeS8TdbK/yISeitReFdIpNTE49BlqC+PYQh7U5kygjPE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.196.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vJ18xZJSSa/Cj+2g0QgnsSE4EqB3C3izKBaf914rj8Vsuso+gTED9sbHAptDvz1BPsIz3Gr24qgfKOku/9QnDmCvg3lZJ9O/EcGhJJ4pVp8gKGX+faXe1GsFkGoxLEHC00otee5vPHnMQZGtkR8XmGz3LJ8BQCm6IiK1K0UZUyxaMgE00KFGTJpvpWMTpHk8sdDM/eLnSJ7oHNh+qNpKC5Mz4xJbbLWJe5PIRbNF928FwK52oimKfSRUAg4FodbnrNBA5ogvelnfC0s8fKoeauPUhFTYDJp4+Ha2Uss4TW9TSET7dg1hnNPQRJEdK6UnzA0Xy1fNIEKpvld5EUEjbg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=/YFJhaaH7Ry9L7GFNz6RAO6isQkfNGeM2mxhZFDYWRE=;
+ b=F5Kd6zuTIzBaInUYhQki7n94OjwaGZ19D02UCJa94atHhJZTYjajwlcQXY2cBHl4HdwjuNZ5lyx0utQnkNUc1kuIxE5Q9kPbtZmvqUSwin489ZJCTSgIOZ1igRg7iGwhL8LMjTNEZU59jLbfxvZVHRoWXosFS6TN2bsJYuXRmu8TXFXI0DuduNj64RmPt+LsLfsbIpkseuzdsgTKWSy1lBPEQTAJubj4NGwaHAaXjs6Vi8lwORJiYQwOnQQ28e/44G+/E6LniaJsxSTIgV8Gk8cPpSE3iKoBO1ntgS5OOr+H6PD4Mx6BES3sBVWY1O98kUDYmAo1Zn/LOpUfQ7BE7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by CWXP123MB3207.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:3b::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 20:12:22 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 20:12:21 +0000
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: tony.luck@intel.com,
+	bp@alien8.de,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	dave.hansen@linux.intel.com
+Cc: x86@kernel.org,
+	hpa@zytor.com,
+	frederic@kernel.org,
+	marco.crivellari@suse.com,
+	neelx@suse.com,
+	sean@ashe.io,
+	chjohnst@gmail.com,
+	mproche@gmail.com,
+	nick.lange@gmail.com,
+	linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6 3/4] x86/mce/intel: Clear mce_poll_banks for firmware-first banks on hotplugged CPUs
+Date: Fri, 11 Sep 2026 16:12:05 -0400
+Message-ID: <20260911201206.532113-4-atomlin@atomlin.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260911201206.532113-1-atomlin@atomlin.com>
+References: <20260911201206.532113-1-atomlin@atomlin.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BN9PR03CA0590.namprd03.prod.outlook.com
+ (2603:10b6:408:10d::25) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:2083:b0:6ae:5250:dd1c with SMTP id
- 006d021491bc7-6c0ba248037mr4778054eaf.29.1789157554406; Fri, 11 Sep 2026
- 13:12:34 -0700 (PDT)
-Date: Fri, 11 Sep 2026 13:12:34 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa460b2.6e6c5f9e.28f11f.0049.GAE@google.com>
-Subject: [syzbot] [usb?] WARNING in service_outstanding_interrupt/usb_submit_urb
- (2)
-From: syzbot <syzbot+eb8f169da355a394fe04@syzkaller.appspotmail.com>
-To: gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, 
-	linux-usb@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CWXP123MB3207:EE_
+X-MS-Office365-Filtering-Correlation-Id: be2dba92-ac7a-4829-24d7-08df1040fcea
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|6133799003|10067099003|5023799004|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	TaiEDoTeylcKPEM+3xnPknBEhDW8ull7ql00cuXnQY9Zc5kru7+OLnVtgu9U/UG7SqXOUHWLtZ4HCJUugiR341Q3rUg/vhv1ZTXCTbRU0pFAVru06dYXyPbCvG+sr+Nm5clj4Hm1n/hIC89PvYTQlnZbQjwmHd1wHIkky1hAGzfThhn6w9C/1cmLerVyqNbkHIAGLW0crpsyp6zfjacMJj9NdDGoWjKwGzK8/Qtgn2UVS7H2aZ+c4lUgzVm2FN0NcRXjK75VkW66DjPFlTN4UfXm+Bgw81pncR1qS/D0ykG38ljbxb/JkXdiVUmtvZYKPOJcKuKp/Fdf+3Yt/hZvJSeZdscaXZyaC9oFqxMz58BrWHSGOF4wSc2Z/VL9dapvnPbbti7q2rgk+kOOLnXNOHKZ9NKDEyeP6ZVpDjrjxeSMfWIYpAV6N8CICHfG3eQCQOTm/fDBrpEel+HtCNxRBYFCryu121RR2bHZ7ObIWTjbuRUyUYRcSMcF+GOi5r0SNABjh9iOxIImSuvNSngAdL5Ce7S/fxRZ3OmWqgnV/T/t/qt/SE23s/MfnGvgCq+3oqx8iKdUZ2bZFuN55ZSIx+YWGWlSDgq7ZrzjI9o/Z9K4AGSRa5+8Y6GIKNkmTfAWm6gC/PuXXwvH80th/7umXChZ6zIz6+3AWck1Iwq+Kk8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(6133799003)(10067099003)(5023799004)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?DLFW0XCax0paf5Ox/lyoJyLpGVBDcz+4HTd5IP3h0N4O4iO+MAIDaYc18RTd?=
+ =?us-ascii?Q?uyd0L3InOiXuJd0qVJ0L3cb3KNUFFjWlwmRmbyCsN8N1pJCLqb51A4nnsSOX?=
+ =?us-ascii?Q?GA7bAFDM6AVZmt8vawJfNSIkf/+gfg3tUAwUdZf+0ERoTn2xUvJ3oRhUslz3?=
+ =?us-ascii?Q?lp/mCa8Cypv5N1zub3GRvxgTPK4q9iXvBen1ZZKpYs3Kr5qBlbpweVN5zl8+?=
+ =?us-ascii?Q?dBaPQRRMCzHrvsh4ObRRIWeilMXENMKFMS28E4hZDpiCtLJ0kM6rPBL+awMr?=
+ =?us-ascii?Q?yshpwhpbBSJWcoi5Vs9CJCOV/ptEUaMepZNbzk6P6EakmwMGxNQ4zCav6Pdg?=
+ =?us-ascii?Q?Jyf3suW/TGygB2oxWW8IQLUuFig7pa+V07yX1uU0OweZJjMwBe1Tfdbj0qNX?=
+ =?us-ascii?Q?TvxLr4+yt4eGu7PKtZXFpf5eWkfcpNW2Z2bCpSHrQcBtpYBzeX1oGySeJ2zg?=
+ =?us-ascii?Q?2ALlxLaMpfdVVnLsALU6r+rx9EbCHnxNQBjyeq3ZrSlmlkhxrZkgO04z5WvA?=
+ =?us-ascii?Q?BL518b3V66oiljhIrps4lwv0gbWNUhzb/dT5lEy9Kyh4IuSv4Rdn0FJirYhg?=
+ =?us-ascii?Q?sw+H2lm0WreMm0FusaAt2grnUop5hun6fQLbHzMbw/CzWWnNgkaGf0TYG5Kc?=
+ =?us-ascii?Q?PeUTxDnAxVAC/iXzF6loJYYPq7UnSmov+UfewUc9WH8Ae2zdjfbN7Tvrrl1h?=
+ =?us-ascii?Q?yjmPZ1zfQxmJhvHl5t/URPdAmj1r5Ym602j0EnQcrvUmJFPQOzCH1Igvjctb?=
+ =?us-ascii?Q?6GHcHDCCdmDjHMKcmfXU1KAI/H7ACRz0RZIiu8tONk05RAku5+wyuL1lcyry?=
+ =?us-ascii?Q?PqOmeg51uwgUbYK6/ohI13O+/cXqsOg/L933yGyjtF41nRJq1QE5v5sqLSSR?=
+ =?us-ascii?Q?kjukPL1R7OwB6oLIJ5NS7NSTw7xoDFhLblbL4vfSMAqRMs0ZXdC3HiNAgjWZ?=
+ =?us-ascii?Q?iGe/S35zVFcb3snysvl4QjbR/UkdnUNPNwjiesJpQwhC/dQ5s2k1DQ1RI9aA?=
+ =?us-ascii?Q?scjxto3TKkDBhrLYEbjDmMwsKeHcQtMX3t5GYH88vw337ZUonQv8MUakSNHd?=
+ =?us-ascii?Q?3BU81bjbULDWseNUBsusncckluorvXTCfDdb3Gr/uonnH88BTIHDlGQm7+T6?=
+ =?us-ascii?Q?XbEmvF8gtUVmRLqqRTivGq4n11JGdzAnacXs7cU2qEaVVIiFHyIlojYL3jCs?=
+ =?us-ascii?Q?bq1cFm/3SlbLbeVvz31HCEPY/NfMyVJ+Q9Zjs3HUdEaURz4WkkMiua7J9U+y?=
+ =?us-ascii?Q?QpYZNduRaSDDzc1iUW2wdSehfGd0n/dEygH3CYIk5uyB+0myARFk7jj5nTmw?=
+ =?us-ascii?Q?snDfPse4CpQFgwu4YxSX/7RXIGnZ4pGD/l0+LVuh+h0EhhXDIN2VxlolPJWL?=
+ =?us-ascii?Q?OkLdd3Zl3wP8pfS9BxnULzIDCo8mFcl/PZcuFr41o7ceVq5pxesbAVq1ZTl0?=
+ =?us-ascii?Q?oeTxjIqJ64d0vij+uSBUTITEoH0npIZxJbyE3hpHjfRGPNXjdIUNtsprOCAW?=
+ =?us-ascii?Q?17IkqDd54zZbMm8rDivKsDRJQLsgLptUwCXMuQpcmReZ5aixmpQU7lyjVeLM?=
+ =?us-ascii?Q?hfpfFHwBgRVVmGpKlKoxFs96XwwM5NIbK8r8QeYMLEWgt4oji7VjE+BScgSM?=
+ =?us-ascii?Q?ZvMC/N4Zg8ydhRcesG1CBrbRuT4pEQbj9Fww1lJk4M7WglPjwPzx49r1GOCa?=
+ =?us-ascii?Q?FB5oC5dgogkL6z7nA2hyXv6NofOf6yw91s4M2DoI/Kyh57aUaVz9GOgA+K6W?=
+ =?us-ascii?Q?6ld+THIjKA=3D=3D?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: be2dba92-ac7a-4829-24d7-08df1040fcea
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 20:12:21.8739
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IOGd+bqznPrUJmSpLgk7YEymX8qjSTfqqlx++XzCjqYetKYnm3nAx+J+9QpF+AYPuOd7nQQlOgFuIm/mG1R6gw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP123MB3207
 
-Hello,
+During early boot, acpi_hest_init() parses APEI HEST CMC structures and
+calls mce_disable_bank() for banks designated as Firmware First.
+mce_disable_bank() broadcasts via on_each_cpu() to clear the bank from
+the per-CPU mce_poll_banks bitmap on all currently online CPUs.
 
-syzbot found the following issue on:
+However, CPUs that are brought online late or physically hotplugged
+after boot miss this broadcast. Because per-CPU mce_poll_banks is
+statically initialised to ~0UL, hotplugged CPUs retain the set bit for
+the Firmware First bank.
 
-HEAD commit:    34c9c5517033 Merge 7.3-rc2 into usb-next
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
-console output: https://syzkaller.appspot.com/x/log.txt?x=101ceaf9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=c451f9f64434b622
-dashboard link: https://syzkaller.appspot.com/bug?extid=eb8f169da355a394fe04
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+When such a CPU comes online, cmci_discover() invokes cmci_skip_bank(),
+which checks mce_banks_ce_disabled and skips CMCI setup for the bank.
+However, cmci_skip_bank() returns early without clearing the bank's bit
+from mce_poll_banks.
 
-Unfortunately, I don't have any reproducer for this issue yet.
+Consequently, machine_check_poll() on hotplugged CPUs periodically polls
+the Firmware First bank, reading and clearing IA32_MCi_STATUS. This
+steals hardware error telemetry from the firmware, breaking Firmware
+First error handling. In addition, leaving the bit set defeats software
+optimisations that check whether mce_poll_banks is empty.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/8a384e63cde6/disk-34c9c551.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/e5a73decdc30/vmlinux-34c9c551.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/13abc163bbdc/bzImage-34c9c551.xz
+Fix this by clearing the bank's bit from mce_poll_banks in
+cmci_skip_bank() when the bank is configured for Firmware First mode.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+eb8f169da355a394fe04@syzkaller.appspotmail.com
-
-------------[ cut here ]------------
-URB ffff888112540000 submitted while active
-WARNING: drivers/usb/core/urb.c:379 at usb_submit_urb+0x1689/0x19b0 drivers/usb/core/urb.c:379, CPU#0: syz.0.163/5871
-Modules linked in:
-CPU: 0 UID: 0 PID: 5871 Comm: syz.0.163 Not tainted syzkaller #0 PREEMPT(lazy) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:usb_submit_urb+0x168c/0x19b0 drivers/usb/core/urb.c:379
-Code: 00 48 8b 04 24 48 8b 90 b0 00 00 00 e9 70 ff ff ff bb ed ff ff ff e9 ac f1 ff ff e8 be 79 b2 fc 48 8d 3d d7 b6 19 06 48 89 de <67> 48 0f b9 3a bb f0 ff ff ff e9 8e f1 ff ff c7 44 24 30 00 00 00
-RSP: 0018:ffffc90013e2fb50 EFLAGS: 00010293
-RAX: 0000000000000000 RBX: ffff888112540000 RCX: 0000000000000000
-RDX: ffff888112d28000 RSI: ffff888112540000 RDI: ffffffff8b1c35d0
-RBP: ffff88810ffb5090 R08: 0000000000000001 R09: 0000000000000000
-R10: 0000000000000001 R11: 0000000000000000 R12: 0000000000000000
-R13: ffff88810ffb52b8 R14: ffff88810ffb5050 R15: ffff88810ffb5050
-FS:  00007f59984c56c0(0000) GS:ffff8882683e4000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000000110c2d13ca CR3: 00000001149e4000 CR4: 00000000003506f0
-Call Trace:
- <TASK>
- service_outstanding_interrupt.isra.0+0x166/0x270 drivers/usb/class/cdc-wdm.c:509
- wdm_read+0x8a8/0xaf0 drivers/usb/class/cdc-wdm.c:615
- vfs_read+0x1e4/0xb40 fs/read_write.c:572
- ksys_read+0x12a/0x250 fs/read_write.c:716
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x119/0x710 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f5999aae159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f59984c5028 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
-RAX: ffffffffffffffda RBX: 00007f5999d36180 RCX: 00007f5999aae159
-RDX: 00000000000000b3 RSI: 0000200000000340 RDI: 000000000000001e
-RBP: 00007f5999b45024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f5999d36218 R14: 00007f5999d36180 R15: 00007ffc3efb3688
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	00 48 8b             	add    %cl,-0x75(%rax)
-   3:	04 24                	add    $0x24,%al
-   5:	48 8b 90 b0 00 00 00 	mov    0xb0(%rax),%rdx
-   c:	e9 70 ff ff ff       	jmp    0xffffff81
-  11:	bb ed ff ff ff       	mov    $0xffffffed,%ebx
-  16:	e9 ac f1 ff ff       	jmp    0xfffff1c7
-  1b:	e8 be 79 b2 fc       	call   0xfcb279de
-  20:	48 8d 3d d7 b6 19 06 	lea    0x619b6d7(%rip),%rdi        # 0x619b6fe
-  27:	48 89 de             	mov    %rbx,%rsi
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	bb f0 ff ff ff       	mov    $0xfffffff0,%ebx
-  34:	e9 8e f1 ff ff       	jmp    0xfffff1c7
-  39:	c7                   	.byte 0xc7
-  3a:	44 24 30             	rex.R and $0x30,%al
-  3d:	00 00                	add    %al,(%rax)
-
-
+Fixes: c3d1fb567a63 ("mce: acpi/apei: Honour Firmware First for MCA banks listed in APEI HEST CMC")
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ arch/x86/kernel/cpu/mce/intel.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/arch/x86/kernel/cpu/mce/intel.c b/arch/x86/kernel/cpu/mce/intel.c
+index 4655223ba560..7be5713aa190 100644
+--- a/arch/x86/kernel/cpu/mce/intel.c
++++ b/arch/x86/kernel/cpu/mce/intel.c
+@@ -181,15 +181,17 @@ static bool cmci_skip_bank(int bank, u64 *val)
+ 		return true;
+ 
+ 	/* Skip banks in firmware first mode */
+-	if (test_bit(bank, mce_banks_ce_disabled))
++	if (test_bit(bank, mce_banks_ce_disabled)) {
++		clear_bit(bank, this_cpu_ptr(mce_poll_banks));
+ 		return true;
++	}
+ 
+ 	rdmsrq(MSR_IA32_MCx_CTL2(bank), *val);
+ 
+ 	/* Already owned by someone else? */
+ 	if (*val & MCI_CTL2_CMCI_EN) {
+ 		clear_bit(bank, owned);
+-		__clear_bit(bank, this_cpu_ptr(mce_poll_banks));
++		clear_bit(bank, this_cpu_ptr(mce_poll_banks));
+ 		return true;
+ 	}
+ 
+-- 
+2.55.0
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
