@@ -1,69 +1,74 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C663C0A02
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:15:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB02443A86
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:15:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789114545; cv=none; b=L+9QD4x8aEr7AAarp0hMtueO8BTpmGVnqERFm2oJS9G+wCJhceUJGWw8B1QWVG1SiTC2YVjDGGV/fjJOvIEIrZoACW/hTYbNg/oTfaPGlBUPFm6vhJV2MkPacB2vH3q7oX7OAFzJIXP5U7o1imAnhCzYPV7ljKySPCc1sU0wRdQ=
+	t=1789114549; cv=none; b=BNzqyt8vGelLSUa3q07OoxMeBgzF98cBys53wc/xS1ER9d2U2T4YGReKspfuG0elFWLjB+wa0lurGFX6Z8OrrddB9q+yYmDeksh9DwhaD3Zus+RZIJab0XQZxs/1sfmSPs3BaNwUc70IsgsW8G+T4xkF0+BASCibWLhb9PmWmf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789114545; c=relaxed/simple;
-	bh=xq9CU9S3gz/8VXDA+D3+mMVbKXxFr9C+j9syTBN4L1c=;
-	h=From:To:Cc:Date:Subject:Message-ID:Content-Type:MIME-Version; b=SqrG7mOKyiMKaa8YPTQRulNCguHJ9yFCj7BGD/YnnboH//OH7CFPeQCqvejaS+3t4WPcFryFJyCixHEFt7aMvVvNYIrHCRQ1aOsGBglygwwz0MRB/ue4HIk0qFxSFvryDEbmxkwjW1QCzYjUvYOEqG4ghvq8cRO5YK+4rU45iRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr; spf=pass smtp.mailfrom=khu.ac.kr; dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b=ODIFvXgp; arc=none smtp.client-ip=209.85.216.46
+	s=arc-20240116; t=1789114549; c=relaxed/simple;
+	bh=FJVnMpFahWnvr/TrIq6oKej9mRKZ7QHxinDF+MV22So=;
+	h=From:To:Cc:Date:Subject:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=U+JwmvfUb1SWqQ3Tjcj/uZMOeboiT9DNWbj11g0r6ueYdmymlj6ZgJC0BZwynP68HErGlihESvr/vsSvLy3tVCGktAFPPXPPG76xD25xJbYVEE+xK+OHzzWWJr8jOYAnKs3ezMBgWzxxypYJsS2D+hyvSLG7uh6Bh/sx7YH47Qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr; spf=pass smtp.mailfrom=khu.ac.kr; dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b=kqz8NXL7; arc=none smtp.client-ip=209.85.216.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=khu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b="ODIFvXgp"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-39675172593so656134a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:15:42 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b="kqz8NXL7"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-39b24d114d4so783704a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:15:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=khu.ac.kr; s=google; t=1789114542; x=1789719342; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id
-         :subject:date:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K9BVPTP3iHBUFLufPu9HosFWecXPJJE8jbdqDi4BrrM=;
-        b=ODIFvXgpJUyHvFWcQJziwlofqZkxgMYPiNhBvJORA+2nl1y/NcLUMQtCxYdBllzwZA
-         bxdbgxNtcHn8Y9qBJLrp+nNNjkvMDaUvOoGR9CDEXhqv47oIX5JVXRDnfiIXvMw1bfEm
-         uzRUe63pvxaNLeneCvLIJX6TA73bp9D76/izE=
+        d=khu.ac.kr; s=google; t=1789114546; x=1789719346; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:subject:date:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=t0iUfkOuA3ojMqhIpEsjDXiaM0I81VSZfab8pVnkc+o=;
+        b=kqz8NXL7KRUG0IKbWVpcSZZkxkN0FsTBVwCdkobWr3OabzXw4/Ejh8SPM4ewCKgvjI
+         rkXJOM3+uNDbQxF5KES07W5bp90r56dR5Z3JclhL+uszV1shInRfZr++54nACODB7BmF
+         PY9axNeanphAKlPbFpOWo5jmuKzdEi5NHoMjo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789114542; x=1789719342;
-        h=mime-version:content-transfer-encoding:content-type:message-id
-         :subject:date:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=K9BVPTP3iHBUFLufPu9HosFWecXPJJE8jbdqDi4BrrM=;
-        b=W4cGqS2I48n6amzYO0irX4f+K8XncMOIu1i71irLDQ6bMBm4vFWZHSmvaXQcLXcBvH
-         CFyjxvjGM6LIc4K/R/gcX1SzZKuH8AISu8Z1NZXOCCuhWz2vP+HGzOtxM5lcAfI+hVyh
-         gewPwLJp7AJCWD68ltvm3MUtX+kceoEFQatqMwSa90v8DWwFgVjXiFUEYy0jqqXPfCv6
-         ivgMMQOZ1utujy9XHB8N1khBTThDdmG5ZW3f2NmFUDnnu3qCjYeISMhNUKiWUh8WldlJ
-         aIF/rkEbFG33mbQ3XDqsC29gNngJ7vOJXNkTyttRlA0lbdX9I1ioGFlO1WSK8SQFdIoE
-         hUdQ==
-X-Forwarded-Encrypted: i=1; AKwUvByAu1i1km3yM8npoxy9X8a+Fi7+e867W1T+eODLLEtjcPtbQSRik2ZKhrEkTJVS5HtZxFV6jTQuvE7arBo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lAUbAFPnB9Nc6V2q4+4alz5+diLSHKOvMbk9qL4OOHtCYgB9z5
-	Bw+Grl5blmS72kPc4IisIBpgxsiYSl6JFs4EHCaN24lCNaEVIQwU4qziWiZ8YtuMdcc=
-X-Gm-Gg: AYBFou1L5o68Nb8ilFhtKPxIM867+IgA2EeJ1GM+BMq2jrJkgGai3C0kyswdFt+imHN
-	5C4xd+V3L/uycQIq4a1mrgSUfE0hKciWwArI3nIq0hzEwQrqpyt3gnjuhZGgTTV/a0Igqb/xMId
-	edgKpIQyFrr4uuQbnDDppl6+es3ROj2DawTIFi4Tbge3Pw+OEjlrOqgFSIzMD4P2s/KV69aTbxu
-	R7ymf+qRTnChrpnI3jdFvuqNlkCI2SkkLEEmXoYSJrJv+XpDRn2XIWs1NePh6ts8V980e7Edg5r
-	Okl0JHEUKvz+CwbFPTm8Tklt7q0hxVTn0i471gteQVvVIt6GrtMi7gQcylZfDNdRBljKkYONNJo
-	/2TZp7r3Sc4ErU7BGPwxpYyTkpDzfhiqX1bc0+9VQI5uTmN602Uyqz071o/CdTG4ekOGYErj+QP
-	ah7U8KC4UGutHcNmy3AXB/rznLEXFRfVzYZJRyTBw5gCmBkC4zv/OLtTinJege4+IpiUfXV8FCm
-	PcgDdXtidZIfKNn3vg=
-X-Received: by 2002:a17:90b:582b:b0:37f:c22a:c188 with SMTP id 98e67ed59e1d1-39d9bc15493mr5443100a91.4.1789114542051;
-        Fri, 11 Sep 2026 01:15:42 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789114546; x=1789719346;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:subject:date:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t0iUfkOuA3ojMqhIpEsjDXiaM0I81VSZfab8pVnkc+o=;
+        b=FXQd3+lYXZH+SzxjKgKzBP9LpFuAzmyi/uZSFzS3aJ5CAq5ottS43YJq0OxYRgoQXL
+         JRo8bxZRoSHo2GrQcWp4T4vpijbYu+7sWI4Gpp8g55GdGgQQHHcKx/6P9uCs8o/ebO84
+         cCoSPiJLV/qX/r9bxvIQN6j6r9FJo+xQ1EbOq4YwglQihDRYVkGxer1CW1g1yIr0xcB2
+         CNrBXDg93DZKMIRfqNeeBlRsIMtbW3tKFulKfMaPTMsvyWMGZD/dUnxKf/wuSQb4mjzY
+         YUv5yIgbmvBEUcnRF9Os69sjF/hvvq4KBitk9o3cViNhiByc6H5RrXBOpzL2GVPwjrQ0
+         gzIA==
+X-Forwarded-Encrypted: i=1; AKwUvBzdikJQXZPQttjEeWq7wA82w3ZB3P4vEL0Q2ZoRzfBj9wpamsbi7hVTyOqXB7C6XYZ2ysLKRFtGBgF38OE=@vger.kernel.org
+X-Gm-Message-State: AFuF++n1W/exyBOLtpiR6rXiCCjeOHFPP+m5RyKPEvw+Lhigs2HpUt9n
+	NCdoBVLVP3y2aLQK/YnHfyyGRjaMM6HlNlPaYHZA+4vDpkXEISz5SZ2mwWLUXKzzlB8=
+X-Gm-Gg: AYBFou2mv9hg6ZufYVh5Usp6iZSVm/FirdX6pSb/FQ9hKLPoTYoaOvSiK66UDZeaIXh
+	b50v8sffehWsIwxpVwt77ah7X8Kqx0SDcxOQgGpb1N548CLPxOTU1fA2hxkVof7Dc1Tm0734yOA
+	pyts5w01jXpJJFceYVBv8ogUmQz/w+IxewA+UEORMJbNrkajBd3EU0fDU5rQYjjkE/jT2nFscuI
+	MZ/Zc7HzHoZXfkSb8+wg7VqkENNkP7fcFrTYJ+okIv7x3QVLZFbu+22ljtrYlo9p/cxVGWBgQUm
+	66/4DYwCkCkpz8wvrYaev3mtLCMMRN7n8dcwe5KwdCATf9rwSdzZUMMRZUqFFVDtVNH6gCAz9Ch
+	i0mKnb/GduDbXsMm4Y6pmbSqOwQckdWaaq9hcBmzcmO/MusC3g34tq+r3H9EWzFenR9QIx5OLSf
+	7ZFujIMFCgD08Ljls9+AJfQO5L9aIxBER1hu24HoQxBcen04QvQsEn9Q4gnNgLlquuvAKSCwKuB
+	9tNOzDklpNnuFlFPls=
+X-Received: by 2002:a17:90b:560e:b0:398:9c00:29ed with SMTP id 98e67ed59e1d1-39d9c34a6femr4850840a91.21.1789114546224;
+        Fri, 11 Sep 2026 01:15:46 -0700 (PDT)
 Received: from localhost ([106.101.10.72])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d994872e0sm3534834a91.8.2026.09.11.01.15.37
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d994872e0sm3534834a91.8.2026.09.11.01.15.42
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 01:15:41 -0700 (PDT)
+        Fri, 11 Sep 2026 01:15:45 -0700 (PDT)
 From: kimwooseok <5mghybrid@khu.ac.kr>
 To: netdev@vger.kernel.org, theo.lebrun@bootlin.com
 Cc: conor.dooley@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
  edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
  richardcochran@gmail.com, linux-kernel@vger.kernel.org
 Date: Fri, 11 Sep 2026 17:04:46 +0900
-Subject:
- [PATCH net RESEND 0/2] net: macb: Fix PTP timestamp configuration handling
-Message-ID:
+Subject: [PATCH net RESEND 1/2] net: macb: Preserve one-step mode on rejected
+ timestamp requests
+Message-ID: <178911388614.25348.8892025153904636456.macb-resend-1@khu.ac.kr>
+In-Reply-To:
+ <178911388592.25348.177462085059763031.macb-plaintext-resend-cover@khu.ac.kr>
+References:
  <178911388592.25348.177462085059763031.macb-plaintext-resend-cover@khu.ac.kr>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -74,51 +79,60 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Resending the series as plain text to correct the previous multipart
-webmail submission and the quoted and rewrapped patch bodies. There are
-no code changes; the Assisted-by trailers now name the tool.
+gem_set_hwtst() programs NCR.OSSMODE while processing tx_type, before
+validating rx_filter. An unsupported receive filter can therefore cause
+the operation to return -ERANGE after changing the active transmit mode.
+The cached configuration is not updated, so a subsequent SIOCGHWTSTAMP
+reports the previous transmit mode even though the hardware has changed.
 
-This series fixes two timestamp configuration problems in gem_set_hwtst().
-A rejected RX-filter request can change the active TX one-step mode
-while leaving the cached configuration unchanged. Patch 1 defers the
-one-step mode update until both TX type and RX filter are validated.
+For example, configure HWTSTAMP_TX_ON with HWTSTAMP_FILTER_ALL, then
+request HWTSTAMP_TX_ONESTEP_SYNC with HWTSTAMP_FILTER_NTP_ALL. The latter
+request fails but enables one-step synchronization. The reverse
+transition can clear one-step mode despite returning the same error.
 
-The two specific PTPv1 RX filters currently succeed with RX timestamping
-disabled. Patch 2 routes HWTSTAMP_FILTER_PTP_V1_L4_SYNC and
-HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ through the existing all-frame
-fallback and reports HWTSTAMP_FILTER_ALL to userspace. Both defects
-originate in ab91f0a9b5f4 ("net: macb: Add hardware PTP support").
+Defer programming the one-step mode until both the transmit type and
+receive filter have been validated. Rejected receive filters then leave
+the active transmit mode unchanged.
 
-Both defects were reproduced on a Raspberry Pi 5 Model B Rev 1.1 with
-macb eth0. Before the fixes, rejected requests changed OSSMODE in both
-directions; each specific PTPv1 filter produced zero hardware timestamps
-for 61 packets of its requested type. On 6.18.46-macb-ptp-functional-rt+,
-both rejected requests preserved cached settings and the full NCR, and
-each PTPv1 filter returned ALL and timestamped 60/60 Sync and 60/60
-Delay_Req fixtures. ALL/NONE controls and all nine configuration cases
-passed. The board was subsequently returned to its original kernel.
-
-Additional validation:
-- net 7f26a5e8040b: ARM64 allmodconfig and allyesconfig full targets
-  passed with GCC 14.2.0, W=1 and CONFIG_WERROR=n. After applying the
-  series, incremental builds of the same full targets passed with
-  identical configurations and no new warnings. Both rebuilt macb_ptp.o.
-- Pi board configuration: Image.gz, modules and dtbs built with W=1;
-  the resulting kernel booted and passed the hardware tests above.
-- Both final patches passed strict checkpatch including sign-off checks,
-  and standalone/series application checks on the net base.
-
-The RX tests check raw hardware timestamp presence, not absolute
-timestamp accuracy or PHC synchronization.
-
-An LLM assisted with source analysis, preparation of the fixes and test
-helpers, and drafting the descriptions. Results are from the recorded
-board tests and build logs.
-
+Fixes: ab91f0a9b5f4 ("net: macb: Add hardware PTP support")
 Assisted-by: GPT-6 Astra
+Signed-off-by: kimwooseok <5mghybrid@khu.ac.kr>
+---
+Resending as plain text because the previous webmail submission included
+HTML and quoted and rewrapped the patch. No code changes; the Assisted-by
+trailer now names the tool.
 
-kimwooseok (2):
-  net: macb: Preserve one-step mode on rejected timestamp requests
-  net: macb: Use all-frame timestamping for PTPv1 RX filters
+ drivers/net/ethernet/cadence/macb_ptp.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-base-commit: 7f26a5e8040b4957ef4dbdfcde6cc7ba2db53937
+diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
+index e5195d7..51659bb 100644
+--- a/drivers/net/ethernet/cadence/macb_ptp.c
++++ b/drivers/net/ethernet/cadence/macb_ptp.c
+@@ -418,11 +418,9 @@ int gem_set_hwtst(struct net_device *netdev,
+ 	case HWTSTAMP_TX_OFF:
+ 		break;
+ 	case HWTSTAMP_TX_ONESTEP_SYNC:
+-		gem_ptp_set_one_step_sync(bp, 1);
+ 		tx_bd_control = TSTAMP_ALL_FRAMES;
+ 		break;
+ 	case HWTSTAMP_TX_ON:
+-		gem_ptp_set_one_step_sync(bp, 0);
+ 		tx_bd_control = TSTAMP_ALL_FRAMES;
+ 		break;
+ 	default:
+@@ -460,6 +458,11 @@ int gem_set_hwtst(struct net_device *netdev,
+ 		return -ERANGE;
+ 	}
+ 
++	if (tstamp_config->tx_type == HWTSTAMP_TX_ONESTEP_SYNC)
++		gem_ptp_set_one_step_sync(bp, 1);
++	else if (tstamp_config->tx_type == HWTSTAMP_TX_ON)
++		gem_ptp_set_one_step_sync(bp, 0);
++
+ 	bp->tstamp_config = *tstamp_config;
+ 
+ 	if (gem_ptp_set_ts_mode(bp, tx_bd_control, rx_bd_control) != 0)
+-- 
+2.53.0.windows.3
+
