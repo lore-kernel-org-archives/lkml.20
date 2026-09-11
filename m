@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FB4339376;
-	Fri, 11 Sep 2026 08:47:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DF813F5BC5;
+	Fri, 11 Sep 2026 08:49:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789116474; cv=none; b=mVcvaYkyQebVCs3webLBqXVR5gsntddf/1vBXDa2rakYoYrqJXD8WYJ+LrNsxcDv+NY3eXhCY1vuo0hfxplUEHTzqMSf2orTsiM0tufCEmwrEnApVBAHBrq2pOHSP5oAiKCUzB9sFLRzuRf179qCIAvBT/O6kt71gWWOUU8jYFA=
+	t=1789116600; cv=none; b=fJ4mhgVEnZwAGq9kYX6rIPqOXkxBqRO0Y8C1Dbxte4nxRBm4AyMMLojugS3LC8I4sSH88WowN0wGftxnArJGa4h7LjqWRVvbx2e8zCymh71BGpPjmDHfpbVmZfW0OJwfhdDwDecMUrUjvLYA2d2OWxj0ArLiyWSMVRy9qACzNK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789116474; c=relaxed/simple;
-	bh=/k0HmIVfwRp1r98JlbpsdF0cuIG//jVS79UzPfXdCfY=;
+	s=arc-20240116; t=1789116600; c=relaxed/simple;
+	bh=3NhHLWVmt+gs/rZOfVUr+KaH4csZME4/acqF82d4dAs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a6L0xmUsf1u90P1JwZijK0LWfdkWUxLXJnGs3gp6Og3s89yWkSNmsSUb2o4tp8CXBS2WDKJvI5rWnP+2JCNvtem6na27yKJ+eJxx/0MxLnudCx0Iu07yfEezeIywja/H7+BerHBlFQG/cIeIR+lLO6FMTUJcl2J1R2mVX5YbQaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lKBkS4kL; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=a4WcvLhVOHLkYtMYf7P2u1AjPmeVfhHzoVkc8YqcENX+FJiV45LwILCREWJEUyVPJ7nii57V0+VMStU4IT6prMGB/KXNnC8NDXUr9Gm3XO2c1YgRk/KBnNkap1Xvf0LpTxIMr0pZkcq98mgh3rcOiC8YiTqhVxz16eXFzIQQpy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MwQcgq3+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lKBkS4kL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82B5E1F000FF;
-	Fri, 11 Sep 2026 08:47:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MwQcgq3+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14B9A1F000FF;
+	Fri, 11 Sep 2026 08:49:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789116472;
-	bh=VKWEfBt7WvFReq3E3/cEOsq0CGvWl4f2Ylunt+Kk9gw=;
+	s=k20260515; t=1789116599;
+	bh=c5wojoNR/9MT1OzH90KMZIuqpJeR8FtHDdJSM7U0YaY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lKBkS4kLtja6upngeOs2y9+xmcYZK5zy/MgcV+b5TVCV9EQRs3zn6rcZuwWw1vWYc
-	 i2wr+UT2wwveO1rCo0uTsc4XjuuhsipEDa/mjzUIr+hMa0U7X5Eh+PwLjloOgeLVX7
-	 H2TZmNOa2CUXv2MQE72mWauX/PkurQ9Y9SBNf1TDQP9j2NKppKlwdOLT3usL+BXLeD
-	 4nRwyungZwSN+jpRDx1zXwgKnLJlFs2QRSnC7fyWjcK9DR1lPrw0d7OoYeDUbqs2p9
-	 EgujoIS0xJXAPhRbApQToPDSCHtqkEZMjYOyfPnL9/FFXNRIK2A8OwrfBj80/1EQnN
-	 plPmNfGyb+zyg==
-Date: Fri, 11 Sep 2026 10:47:49 +0200
+	b=MwQcgq3+m4OrOCr8xlerHt0z8cvtCfjiHsLlUTdsBLwuJ35w9T8NI+hL7ayt/rCr6
+	 7O7eahn605Pq4tFYHAjPOU5cjyfoXufzc5dHDDXQspYefaSOedXZDScYJGc7oxnY5x
+	 8Wf+E0gGXydz9s7avCnrhHzFRfUf3u470KoSO3MZtUcQhDS2qQz5MtgVwdMM1v7MrG
+	 PDS1Q9NE6apivNOG2OPTo/Vbt8+mJINKTrizvYsOFM97aUIliTSrUjab5EH8wXo2Ie
+	 +dgBv2wtixIh15eEi6x3lil4keXZhkld2xdXLRm6l/boxl9yRsMaeM4WfVWqLnE//W
+	 xDJU0b0pUzmVg==
+Date: Fri, 11 Sep 2026 10:49:55 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>, 
-	Francesco Dolcini <francesco.dolcini@toradex.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v1 2/7] dt-bindings: arm: fsl: Add Toradex OSM iMX91/iMX93
-Message-ID: <20260911-dexterous-elastic-alligator-6517b8@quoll>
-References: <20260910101616.139270-1-francesco@dolcini.it>
- <20260910101616.139270-3-francesco@dolcini.it>
+To: Colin Huang <colin.huang2@amd.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, Colin Huang <u8813345@gmail.com>
+Subject: Re: [PATCH v4 1/2] dt-bindings: hwmon: pmbus: Add Infineon tda38740
+ and tda38725
+Message-ID: <20260911-placid-clever-lizard-de1258@quoll>
+References: <20260910-add-tda38740-and-tda38725-v4-0-dbae7fabce09@gmail.com>
+ <20260910-add-tda38740-and-tda38725-v4-1-dbae7fabce09@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,26 +47,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260910101616.139270-3-francesco@dolcini.it>
+In-Reply-To: <20260910-add-tda38740-and-tda38725-v4-1-dbae7fabce09@gmail.com>
 
-On Thu, Sep 10, 2026 at 12:16:08PM +0200, Francesco Dolcini wrote:
-> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+On Thu, Sep 10, 2026 at 08:35:50PM +0800, Colin Huang wrote:
+> From: Colin Huang <u8813345@gmail.com>
 > 
-> Add bindings for the Toradex OSM iMX91 and OSM iMX93 SoMs and the
-> OSM Development Board they can be mated with.
+> Add devicetree bindings for the Infineon TDA38740 and TDA38725
+> single-voltage synchronous buck regulators with PMBus interface.
 > 
-> The Toradex OSM iMX91 and OSM iMX93 are OSM 1.2-compliant SoMs based
-> on the NXP i.MX91 and i.MX93 SoCs, respectively.
-> 
-> Link: https://www.toradex.com/computer-on-modules/osm-arm-family/nxp-imx91
-> Link: https://www.toradex.com/computer-on-modules/osm-arm-family/nxp-imx93
-> Link: https://www.toradex.com/products/carrier-board/osm-development-board
-> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> Signed-off-by: Colin Huang <u8813345@gmail.com>
 > ---
->  Documentation/devicetree/bindings/arm/fsl.yaml | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
+>  .../bindings/hwmon/pmbus/infineon,tda38740.yaml    | 46 ++++++++++++++++++++++
+>  1 file changed, 46 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.yaml
+> new file mode 100644
+> index 000000000000..28eeb85f13df
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.yaml
+> @@ -0,0 +1,46 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+There is no blank line here. Do not come with own style (like your
+version 1).
+
+> +$id: http://devicetree.org/schemas/hwmon/pmbus/infineon,tda38740.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Infineon TDA38740 and TDA38725 PMBus Synchronous Buck Regulator
+> +
+> +maintainers:
+> +  - Colin Huang <u8813345@gmail.com>
+> +
+> +description: |
+> +  The Infineon TDA38740/TDA38725 is a 40A/25A single-voltage synchronous
+> +  buck regulator with a PMBus interface designed for industrial use.
+> +
+> +  Datasheet:
+> +  https://www.infineon.com/row/public/documents/24/49/infineon-tda38740-tda38725-datasheet-en.pdf
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - infineon,tda38725
+> +      - infineon,tda38740
+
+I don't see how you responded to Conor's feedback.
 
 Best regards,
 Krzysztof
