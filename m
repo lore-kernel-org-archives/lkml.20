@@ -1,220 +1,157 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+Received: from mail-qv2-f2.google.com (mail-qv2-f2.google.com [74.125.230.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A683EC82B
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:44:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789098283; cv=none; b=rHt7D7hwaQoSQ1nwiWQaJKn6HBUNGVF9dLQq1dYL25wL9BQOekHQtLNcjYNeaXDlnzfc6nQRcBPyPK2aQbKpNzdUP+7PdXHWitQOfkGmRgc9sdl2hn4b4osFg2mSTU9ojofkipD453NNRvyuaQ62gPQsfLXl8M7rK39/Qo7xLzk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789098283; c=relaxed/simple;
-	bh=OrlO9OhHLUo2PNU95ClVWuENwIpXA2V4LVlC2KUcF+Y=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=X0I08AdA/KVH8F+3ogYKdPDj6VLb4Uj1wvarmtPXOviqdXXD5ln+NyHwmLDL5Di7IN9cv7FBdL8Olm6QKFfWNELy28E/38/q7++c3LZuHnJzW9wZ8tdk/Ixb+4qD9XlWs3gcRfBQQBum0V46GQv5SjP5VqAbQIjoLZpzTYsMOPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--samagazaryan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UTsrvdWT; arc=none smtp.client-ip=209.85.216.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--samagazaryan.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D049D3EC82B
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:44:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.130
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789098288; cv=pass; b=hgNY09atYuaIuTthxIWduBeu2pLYgLIrIRvtLuNQJONX8ucgIPyo1iGvp0lozlXPF5Lg2+IfWV0x0qlNTcIf+pTqz/zGxnA1l2C5I+IIG4QNCRZk6mlkiirRtpyyjHCBP5/eYBoskqjt9Ra3MlLAOhvc53tSaAC4aR8kHLeTjoc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789098288; c=relaxed/simple;
+	bh=9MUCzlT67j02Tdxv5MkPUdx0rDyVjNu0IwYTyNrltgs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pbFX36SfTi/z7uQmLWT9Av3Xb2O/hEhJpum8yGQIRtPLRmuoVXoDHoWHOB0gEJXleUobAl/NOb8OGVHzMHWWF61++5nSjKsS1BPOD0HgwCz9BuSTBLtcXvaXQaMjVqtyhg26yc3ZaASlYlu5XdpR+j51gHLCoinCVl6Kp2k8vdc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G2V24x4G; arc=pass smtp.client-ip=74.125.230.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UTsrvdWT"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39b77130a7fso803743a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:44:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G2V24x4G"
+Received: by mail-qv2-f2.google.com with SMTP id 6a1803df08f44-90cbfa89a42so2802666d6.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:44:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789098286; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ry03lGNp1jKtSMI2qd+0AwSDJdi8F09zI1C3oKzozBrSRWeOjdrGxSXWXTbdo1+SCv
+         c4QMNxPlRDjTe+PmeLDrB38ov+nd/EE09QpzFn1GyM02mXMkKsSU7ghHMeVJJB4hE4Ai
+         l4TpzXoIX/5Y+vJHZudFrtSqjgmbbZ7Y+4WDv+xWZV8C/4zDZ3jYRGYwWeK/P4DtfG0C
+         mAC/pdeILvnZ/+/5ISu900nsr3vv1yzFDoI5pDF+5gQSEmVzVTMIZtZ7cQ88s22ctpCI
+         iZRUDUbUMep/oGZjtCNRuSWp6rW9syN1vracGnSVulYJhezBozXYbNNgk41tALZA4oNQ
+         GwKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9MUCzlT67j02Tdxv5MkPUdx0rDyVjNu0IwYTyNrltgs=;
+        fh=777mSY1swngRJkHKGI3/azHVx04BW8Edmn83lYAps2E=;
+        b=nBG6z0xv3w04gmuHo9pajTEOzJ/JAIgWEsA4iPmRjx9QUcN6PzvneQGFsciApwFQfQ
+         662N716LGIxHn7UscDdHkoxOFAoaGnHsFmJHg9cyK65kfVno5kohlVLRtyESMzlOUb1I
+         gUCeHQ2rFjqdvsM5czF+zXtlsmzORet1MY1eQWs13V87nCuBUqccfomxQpFprVZHLkyr
+         IQct/XUtr0rcjsYJBDy5BYl4DwLIqjf8XuCmbXKzytz4fyP+A9WUARr5worl5XlQgjho
+         BRzfQk9f0l35UZsUqj7DjU6vsD23CGjMOhHkx9PQV1A/B1i/J8w+rHNTPO3iCSZrRCe4
+         HDDg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789098281; x=1789703081; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZZQJJOdxTgn2EMmC/iTnd7198iii4HFKKy4Hu1QI1UA=;
-        b=UTsrvdWTy8XulGS4J7gc8xVmM9GaiuWK1Qt2u5Id/Knqd4UXg/yNTJtoUzUhXmFUMY
-         VHGw5evd29iOFHP+zDAUYgVxDJ6KmNmu0nFNSW94ThADSj5PiFfMBfk1/nVXpcFNfPbS
-         t+bRnKNYjZoWA3Sn7uPNIG2agLuJFCYxHD1s5qDTZD97wFEVFZEnRqFP3Cv4P8C6XjKm
-         Ty229FGhRq8dPeThG3fIoWB0y4k9TIYY+mIfYc1ff2tAqGU4kXuoCkBSOGAryzHUYS+/
-         WdT6azSwky5NJe/FV9Fxyqxn7hssAucvsW3hyjymAw1+MSm2J7r5U+eoeik9iunQzOer
-         7n5w==
+        d=gmail.com; s=20251104; t=1789098286; x=1789703086; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9MUCzlT67j02Tdxv5MkPUdx0rDyVjNu0IwYTyNrltgs=;
+        b=G2V24x4GGyCwAd8LaJ2X8PGNbql6wdGj7itobGHv+DWtilwCENd20LNJWE0FPLHB3/
+         0AjlkwMCGqs9CTmfIsOad/o7305l5dxeD1ZFHVPrHnNcoEDHmmOEkUoLBmMXN0uGF9mA
+         NFt62u0bdoESjLGcIpLtJ0v7+FmJRxrD/o1lT5g+LldSZZhD3Og4hV+mUCCZhqbjd2JS
+         rECTuLTUzPCSAjku7N+dnRXlt7UYkl6EGUg9xcf0TT9TiheCSHMZR1kposahxXE8JxLQ
+         5XMF89T6zDhqWdtlqtNhZhEm9Fss7ApuSwbHeeM2sCdkBm+3v8htMXW4iBX0va4HMp+v
+         aDTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789098281; x=1789703081;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZZQJJOdxTgn2EMmC/iTnd7198iii4HFKKy4Hu1QI1UA=;
-        b=pNwPecZN5WlX0tBVwcmBrqwv5ROq88rvhbdBj+lpL1AY6IXk/287naHxhwZL5RUwgs
-         K+yIGtbGSWHSzr3gnctvVepsD9g8PLgRz+ctZRvnFywWhVu05tnmrULgwgcJ5Gq/w95A
-         B+IeU5DvZrRVjNt7zgb40tCZwrL4nRCRxKYHP8gdNyQ3/kA1CipWQiZSMVLMK+sI4nEl
-         uHYhOypDc0DeyrcTJRWgznIx2N2VMErL2RRIQH+UWcn8+GBmPLksbvxuC/5ZS50NLYk5
-         SwP4CW0IvR3GMd0PAOu6KDHDyWH1ZKtt4jq2w1C1yqQDTtifoY9pxL4X0XF4rRFAUcpI
-         vPlQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx0RHCMU2Fs3nLnvJhxRusGJka6gWVIlzT9qEU+OuA1cY8cLHvfVQwffK0rl3o/axvY+aoE3OlmGuur+cs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mBnbLo8jej/R5rXeunYGKVQW1FGLOMJ2SNVnAjr8FM9C0Uz59/
-	he3vyYrP7yWOmY2wLjR6f4YjuvGbfp1HoIB6ToV15kNzOxvnc5x286VPzSw3lKsyOvMCHhwxI5w
-	gOTTipbD4TRDgZgCj66apliG0qeojdg==
-X-Received: from dlbbq6.prod.google.com ([2002:a05:7022:6706:b0:143:6c23:2cab])
- (user=samagazaryan job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:3ccc:b0:38f:5801:dc0e with SMTP id 98e67ed59e1d1-39d9c1dc2a1mr3823577a91.15.1789098281252;
- Thu, 10 Sep 2026 20:44:41 -0700 (PDT)
-Date: Fri, 11 Sep 2026 03:44:40 +0000
-In-Reply-To: <aqHU-6RV_AapSu3M@lizhi-Precision-Tower-5810>
+        d=1e100.net; s=20251104; t=1789098286; x=1789703086;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9MUCzlT67j02Tdxv5MkPUdx0rDyVjNu0IwYTyNrltgs=;
+        b=aTp3YVvbf2Y0J8lJbz6SLZlpYPovCVrRbEl3+w8ru/bc2OOv/BEQRHq1CWdluYYKj4
+         TUV5Uasn+w6cFC5PPddvMVbbZN8i3pbfTqf/a/qSNZ0835H/Nra+vKKMtV9qw1+GXykc
+         0/6rNk+Nqx6g/beljm9cmm/TdyiTpeH/FhsfUZlpH/vB5fpjDXP9gU0pdc+zNWHem9Dj
+         4gf8lQojIN/u5hAjprgq1W4cCvadheD6yVqljMRN2xatAKRbcFkeOzUbQbhXMedFu4uw
+         jovsDSmuaUAVgDPLeciE5OkjRXfsjU/9wxAIzSvt9tb7xpFEUh5EOLiFUAOKLL3HVGe4
+         p3nw==
+X-Forwarded-Encrypted: i=1; AKwUvBxRdeMhCxPvCbMSBUXOTgjH4+PbhnPBJfUYyVHL7LNyB75Io33+MStRIN7QX8rIVzv1xBmibgQPiNg2XuA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nGfSw25Ceb/qO9m20atO3zca2jrg2b+XiDPd5+oBoaJVMZd8Qy
+	w6vPggjhtq420o5O2MygP/GugF84HDT7UIQ6KTNVpNswlabhFnnz2JoJSQl0lWMaaWNTbqIzYdR
+	mWQCIxxRpMsY3C8zoWp5kpwD5wd6m7dE=
+X-Gm-Gg: AYBFou3uAcrywiFa//NP2cMEHn1blXfT/sss29wVJUelUSQSX817P6rQOklnO7PtipF
+	Vp/5sm3t+k4ijA7oQfX3O0s5g3K1FFLxGSt84B50RuscecdXeKGtnq2hgyTIQkKPUw4iK8YhHqy
+	+PicFO6Kc5t3Dkvxk6BgwrdaGIA2hNBjBlA9AKTJfgzFqI4/Qseg6juxrLbkGs4r9RwXfGAFinI
+	Z56PE0Vl2lLqfJdbnlU/MNULqahGLXa+FM/ARzDY1xLIhv1eEQzzhm8h9gmOh8Udr6CN+V2pLPC
+	jDWz4+VkvKxIRgGuB33bMoo8n5JtU44tWZjdnWFEMzEgOpDrWctANnCeK4ZUIkO2/tOozvtqDGQ
+	Y+N3ijEdUxUDMv2EVF1dFHX3GP6UEUogpRKq36Tvv
+X-Received: by 2002:a05:622a:5987:b0:52d:918b:92e1 with SMTP id
+ d75a77b69052e-530c84f326bmr40390581cf.5.1789098285727; Thu, 10 Sep 2026
+ 20:44:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260906202747.4041389-1-samagazaryan@google.com>
- <20260906202747.4041389-4-samagazaryan@google.com> <aqHU-6RV_AapSu3M@lizhi-Precision-Tower-5810>
-X-Mailer: aerc 0.21.0
-Message-ID: <DLC6ERLST1B6.6K3HLH38DQLK@google.com>
-Subject: Re: [PATCH v4 3/3] i3c: add i3cdev module to expose i3c dev in /dev
-From: Sam Agazaryan <samagazaryan@google.com>
-To: Frank Li <Frank.li@oss.nxp.com>, Sam Agazaryan <samagazaryan@google.com>
-Cc: <linux-i3c@lists.infradead.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Vitor Soares <vitor.soares@toradex.com>, 
-	Oleksandr Shulzhenko <oleksandr.shulzhenko.viktorovych@intel.com>, <linux-kernel@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260908152808.3928630-1-arnd@kernel.org> <20260908152808.3928630-4-arnd@kernel.org>
+In-Reply-To: <20260908152808.3928630-4-arnd@kernel.org>
+From: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+Date: Thu, 10 Sep 2026 20:44:34 -0700
+X-Gm-Features: AcwNN1V1fOC0jmd_i5r-nVHD_ZWN_P0KCiZNA7MUoO0nuGcjQ9okMtkGALkOIWk
+Message-ID: <CADkSEUjYhRk-ezaXZkHzFTFQnySFSisKtZfEP-_NtLnQF+6-1Q@mail.gmail.com>
+Subject: Re: [PATCH 03/13] ARM: remove riscpc
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Linus Walleij <linusw@kernel.org>, Russell King <linux@armlinux.org.uk>, 
+	Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>, 
+	Sudeep Holla <sudeep.holla@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
+	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
+	Tony Lindgren <tony@atomide.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>, 
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+	Gregory Clement <gregory.clement@bootlin.com>, Robert Jarzmik <robert.jarzmik@free.fr>, 
+	Kristoffer Ericson <kristoffer.ericson@gmail.com>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Alexander Sverdlin <alexander.sverdlin@siemens.com>, Shawn Guo <shawnguo@kernel.org>, 
+	Karl Mehltretter <kmehltretter@gmail.com>, "David Hildenbrand (Arm)" <david@kernel.org>, 
+	Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org, 
+	Ian Molton <spyro@f2s.com>, Jens Axboe <axboe@kernel.dk>, Helge Deller <deller@gmx.de>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, "Paul E. McKenney" <paulmck@kernel.org>, linux-block@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-fbdev@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed Sep 9, 2026 at 9:51 PM UTC, Frank Li wrote:
-> On Sun, Sep 06, 2026 at 08:27:47PM +0000, Sam Agazaryan wrote:
->> From: Vitor Soares <vitor.soares@toradex.com>
->>
->> This patch adds userspace character device support for I3C SDR private
->> transfers via /dev.
+Hi, everyone,
+
+On Tue, Sep 8, 2026 at 8:29=E2=80=AFAM Arnd Bergmann <arnd@kernel.org> wrot=
+e:
+> The main limitation here is the CPU bus that does not allow 16-bit
+> wide data transfers and hence requires the kernel to be built with the
+> -march=3Darmv3 compiler option that was discontinued in gcc-9.
 >
-> Add userspace character device ...
+> As gcc-8 is barely supported for compiling the kernel, this one
+> will not see another LTS kernel release, so remove it now.
 
-Updated in v5.
+Because I think it's cool that the kernel still supports actual Acorn
+hardware, I patched gcc 16.2 to restore ARMv3m support:
+https://github.com/EthanNelson-Moore/gcc-arm-retro
 
+This ended up being surprisingly straightforward - only a couple
+hundred lines changed - and it would be even fewer lines had I not
+reverted a commit that adds a use of ldrh instead of fixing it.
 
->>
->>   - Dynamically exposes /dev/bus/i3c/<device> character devices for I3C
->>     devices when unbound from kernel drivers.
->>   - Dynamically allocates character device minor numbers using the IDA
->>     allocator.
->>   - Implements private SDR read/write transfers via I3C_IOC_PRIV_XFER ioctl
->>     with 64-bit aligned UAPI data structures.
->
-> Consider PRIV for SDR, need unified HDR also,
->
-> I3C_IOC_XFER
->
+It is able to compile a kernel successfully (once you update the GCC
+version check to check for -march=3Darmv3m support instead - I can send
+my patch). I haven't tested it, but I am fairly confident that it
+would run, because the assembler will reject code the compiler
+generates with unsupported instructions - this is how I found the
+commit I needed to revert.
 
-At this very moment the production use case we have (OCP Recovery) supports SDR mode. That being said
-supporting HDR mode also makes sense.
+I am working on a clocksource driver, which uses both timers (to
+hopefully fix the awful time drift), and removes the dependency on
+LEGACY_TIMER_TICK.
 
->> + * Copyright (c) 2020 Synopsys, Inc. and/or its affiliates.
->
-> new post, should be 2026
+I also have patches for several cleanups to Risc PC-related code.
 
-Updated in v5.
+I am aware that this has no actual use case, but it was fun. No LLM
+was used for any part of the work.
 
->> +
->> +	i3cdev = kzalloc(sizeof(*i3cdev), GFP_KERNEL);
->
-> kzalloc_obj()
->
-
-Updated in v5.
-
->> +	dev_dbg(&i3c->dev, "Reading %zu bytes.\n", count);
->> +
->> +	ret = i3c_device_do_xfers(i3c, &xfers, 1, I3C_SDR);
->
-> why force to SDR here.
->
-
-For reads and writes we don't really have an option of passing down a struct denoting cmd mode.
-Is there a different default behavior you had in mind for read/write besides SDR mode?
-
->> +err_out:
->> +	mutex_unlock(&i3cdev->xfer_lock);
->
-> use cleanup guard()
->
-
-Updated in v5.
-
->> +	for (i = 0; i < nxfers; i++) {
->> +		if (xfers[i].rnw) {
->> +			if (copy_to_user(u64_to_user_ptr(xfers[i].data),
->> +					 data_ptrs[i], xfers[i].len))
->
-> Use actual_len,
->
-
-Updated in v5.
-
->> +				ret = -EFAULT;
->> +		}
->> +	}
->> +
->> +err_free_mem:
->> +	for (j = 0; j < i; j++)
->> +		kfree(data_ptrs[j]);
->> +	kfree(k_xfers);
->
->
-> use clean up __free(kfree) when alloc.
->
-
-Updated in v5.
-
->> +	case BUS_NOTIFY_ADD_DEVICE:
->> +	case BUS_NOTIFY_UNBOUND_DRIVER:
->> +		return i3cdev_attach(dev, NULL);
->
-> Does all i3c devices attach this driver?
->
-
-Just i3c target devices without a bound driver, the controller should not attach.
-The controller itself is explicitly skipped:
-        if (dev->type == &i3c_masterdev_type || dev->driver)
-            return 0;
-
->> +struct i3c_ioc_priv_xfer {
->> +	__u64 data;
->> +	__u16 len;
->> +	__u8 rnw;
->
-> In HDR mode,  rnw is command.
->
-
-Addressing this in the final comment in this message alongside the rest of
-the HDR suggestions.
-
->> +	__u8 pad[5];
->> +};
->> +
->> +#define I3C_PRIV_XFER_SIZE(N)	\
->> +	((((sizeof(struct i3c_ioc_priv_xfer)) * (N)) < (1 << _IOC_SIZEBITS)) \
->> +	? ((sizeof(struct i3c_ioc_priv_xfer)) * (N)) : 0)
->> +
->> +#define I3C_IOC_PRIV_XFER(N)	\
->> +	_IOC(_IOC_READ|_IOC_WRITE, I3C_DEV_IOC_MAGIC, 30, I3C_PRIV_XFER_SIZE(N))
->
-> I3C_IOC_SDR_XFER, support DDR, TSP, TSL future.
->
-> Frank
-
-
-On HDR modes - I think it makes sense to ensure the UAPI supports HDR modes now that
-they're integrated into the i3c core. Would you prefer a scheme where we pass
-in a more unified struct to specify either: SDR mode r/w or an HDR mode r/w
-with ioctl?
-
-Drawing inspiration from i3c_xfer:
-
-    struct i3c_ioc_xfer {
-        __u64 data;
-        __u16 len;
-        __u16 actual_len;
-        union {
-            __u8 rnw;
-            __u8 cmd;
-        };
-        __u8 mode;
-        __u8 pad[2];
-    };
-
-
-
-Thanks,
-Sam
+Ethan
