@@ -1,130 +1,160 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 016084BEE3A;
-	Fri, 11 Sep 2026 21:58:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4306B4BEE3A
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:59:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789163913; cv=none; b=Z1UOI4D4nZBVJt+ujb7F/uiFfCqapRbCqDbriJrlrJxHdnOucyrlRW9KKiU935mgiLhbrnMAySQAB6oi1eJuXMffNRQMIdZWnk+WDYkP8SRu88n7LeitsAMmgs5jl1GYahm1eUkgY/+vBFgNXsYBB8/9RfPcUBrrPksBHqSo5CY=
+	t=1789163961; cv=none; b=AYLlu4Yu/vFtH5N1fQEC16G3eqqCv46ArN24QDaECjkDw1SZ/YgI0CQKE+Lr6WhhNMMS4knXoutpo1g9fXbk5Afde+vmqR+WCq2k/MdXzxy7HGsHdIxEi5Pei9N8JnRzjUQ/4xrYnWZZccIub2lH3tnLgQ3FBqaHL5Cq9204zEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789163913; c=relaxed/simple;
-	bh=yr9syAsnRLwuXmKkM3bg57Me/8ncv25601DggI1ps6k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EBswKAyL0ltzqxU7fYBWzsuah3R0nHv4JE2ncNkoG/IqmIxLwflNq2woyyS9BxikLRb4hPxV9FxLuSkzTVeN4Jf8lLDtLyJ22GvNcdOwXe2Lh6cdM9Oqu1YhJoB2Y7fhGwEVk+LW9KjtqFVAjHxoJcvWHv0aCHl73yE71D9Ejnk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iT/c45nc; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789163961; c=relaxed/simple;
+	bh=JMYRjmReUqjs0kaCd/zTtWskNw+74fFjHbV7Fsa8nRE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FkWZmEh0ZV+hu84aUWwvq/rPHwWmr5ZjP1zcnYAxZdZQ+pgZdeMSFn1Jg/SofuFPMJiZ0QbxIeW7CJbJ6Bm+AxYFrIwZ+RY6FcUxH9HZzEvrz3DgwJanNRoUssJuVF6fS3knt3RpkgnLbM1cUVjj1hjRvPw8G7YCzFO00sqC0m4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l+C3C9nN; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iT/c45nc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789163912; x=1820699912;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=yr9syAsnRLwuXmKkM3bg57Me/8ncv25601DggI1ps6k=;
-  b=iT/c45ncF1yePj5uZnbLP29mwtp3Wmy1pZE/YagysdYC6mE+JE8TQhak
-   G5bwQa0yZF/RXDiIwxSx+bMPsKdyAILzUyEPBRZaNr+8WzTqaCUGP/+JA
-   4i5oIgzaCGbMQ3mUHxjkwTqn22TMATiveHY+7kg60EPVpd2vsLhrjwDto
-   8BJUenCCRpgrJ2IYUW7bmsBtyKGHjVaV0yzrRKrCT3otH9hNrkE+HuWt8
-   C8RtPYX4GjO56qeYuL659IJ9Z6GB3aKooXLSOzLrbe7MRuXJJbmwhUn/m
-   KQaUtoWjnwytl4/6/9Ic9Jbjv1tLvy2DWEZiB2kpm44BuWgVVXOsq9HEJ
-   g==;
-X-CSE-ConnectionGUID: bJOZ3C10RxOHUsw6g8h16g==
-X-CSE-MsgGUID: iEXH3aYUTQaFGNEumU5XXg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="89563114"
-X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
-   d="scan'208";a="89563114"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 14:58:32 -0700
-X-CSE-ConnectionGUID: +cKrVmJMRCyQawGRRQa+Jg==
-X-CSE-MsgGUID: Fcu7HPzJRiWJfrQGt0DY/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
-   d="scan'208";a="269429277"
-Received: from schen9-mobl4.amr.corp.intel.com (HELO [10.125.108.42]) ([10.125.108.42])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 14:58:30 -0700
-Message-ID: <6a5c975c-764f-4af7-8aa3-9dea94ad603f@intel.com>
-Date: Fri, 11 Sep 2026 14:58:29 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l+C3C9nN"
+Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-530e2f50d01so491211cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:59:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789163959; x=1789768759; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2LPrONMbj0bwp/GdYN4yOukwx8bvXQe9ntAGUumY47s=;
+        b=l+C3C9nNxR3sxptQTNyYKzkQu4I6BNivJpM4JuA0aIIeo5FKmwvMmRXsOXOpSWd//I
+         sP6kIB97WPQ/nBqR0VXKLwTQEhVlfzv8kXKydLy9q5EI4j2AHKrheItAJpk6NIRI6Rje
+         KEf8p8fSsRo6BSqtsvnTtCcTuSM/4/uJGxAGv4PtiRWwP6j0NYED1sksZXzlYp6zGhHU
+         wMiA0o6p0559dTQcIksPjxNvodldNi7rUhfhmcReOkytxNvLCDDLMXyTH+CRpZc77bj1
+         5NH9GMZs6I+y1HOm+PZMvWD+F+wf+t9OUtmgP+5H2zLWuntMvUSUeEF0gFmr6MvMFC23
+         CZYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789163959; x=1789768759;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2LPrONMbj0bwp/GdYN4yOukwx8bvXQe9ntAGUumY47s=;
+        b=KnJrGvLzsZsSy4JAos8rwu0XuYi/uBeW/2N1ZVTDeevL2Z1Peapgy0PM/r1FKstSnl
+         MG1v7ipNglZd5pBHgTAH4/d2mxbgy8NIAcs18F1532MB7f0cDA2w0x96AcypLKogi1Lk
+         p+2Asei9zvqbX4GZdGklWEkDNIUmq03zHDtO1zMB2XnemJJFqoRCwrYWJgpL4kGR1Aqn
+         otbZkvibwhpTLgxh3g7Wk9nSOimEkeZaN0v60s2miKqj/oXN8878nAiPKbzJp3MBitPy
+         84r8DXvWDnAHEtPAQ5RthZU5ibeHik9haviGfGrpf2rHG3UNxG4DpX8Ag4vPbPHgtIWf
+         OkfA==
+X-Forwarded-Encrypted: i=1; AKwUvBwsIz7YHt8usP2epj24rnybN964+wJdYvUPAaWAvxWp3PA5g3aqzXtH1pBkCvAgChktcXR1+srdYY5Rj9E=@vger.kernel.org
+X-Gm-Message-State: AFuF++lV7hCb7gP1OBMHrTNcfCT1c4VyyZKOEnHrmc8bUHxfOqvsuiNy
+	s2vA8F9u4p/g+dD0y7CAcM98oxWKsnknPIiJ1NnD4kUfWNvH7VPXaohm
+X-Gm-Gg: AYBFou06tUVTwgkrOMhnpSxMInkegRFwnskWou6rv11f/iSy5udzoSzsodqMH/ZZ4RJ
+	NFwWJGNoC1PWHsgeR4qi8Y/Hm8oXzxM7xastbk3r1utNQPo9MMNnOv4cil0LuHeSZ6LRAsVfwhv
+	/A+KdG3refLv9vaYUTBEMvttq46XHiGBC3iw1CU11IX28efXMVh5kMszJp1n/gMlLjdV1DBRQYF
+	Y5gmcmTK1uNywiLUcQnztpfcSvFIsTyJRRPgwxO6JEa4RF3pBIVUoSKM9KyWBBFr4p7Xls+SBPe
+	Wm51i71Yvb6g2+jRMd4ked0F60fVGPHpm4K5zHaJhUrVkk/rdR6vz6yMs+kj/a61O4LU6z0G54w
+	m5WPOd6ANOcnLzrOAW6Eqkq4oZ9ns8MK4ogPGAQTUm8wXqk8LryiakorB5qnGoYOcDOwstDb39W
+	URbl2rIuBN7nzoWuyf3ZyOZsI+WmlU3y2XD3Hxoc3BJpVF38clfBoao/xSY8JBxXr5fAjUC504R
+	It9zvqRQQ94gmFmnPrdlRFbjBfQoeDAvsgXtBT8DQWJ5+UWWdYG1/AcUaY76aqGH2V6XbwH9fH5
+	47yav6z6A5kMBWIlAiPqIqaJ8fHMePjnXuxA+BtvjWJ/j5wz+ltv7KFFPYE=
+X-Received: by 2002:a05:622a:4814:b0:52c:dde9:5cd5 with SMTP id d75a77b69052e-530e7edb01emr1223561cf.21.1789163959026;
+        Fri, 11 Sep 2026 14:59:19 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530e64da059sm2568531cf.24.2026.09.11.14.59.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 14:59:17 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: dmaengine@vger.kernel.org
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	linux-kernel@vger.kernel.org (open list),
+	linuxppc-dev@lists.ozlabs.org (open list:FREESCALE SOC DRIVERS),
+	linux-arm-kernel@lists.infradead.org (moderated list:FREESCALE SOC DRIVERS)
+Subject: [PATCH] dmaengine: bestcomm: make gen_bd init helpers static
+Date: Fri, 11 Sep 2026 14:59:14 -0700
+Message-ID: <20260911215914.175851-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND PATCH] cxl/features: Ensure that count is set before
- access to end[] __counted_by()
-To: Ashok Raj <ashok.raj@oss.qualcomm.com>,
- Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>,
- Alison Schofield <alison.schofield@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>,
- Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>,
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
-References: <20260911215304.1816467-1-ashok.raj@oss.qualcomm.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260911215304.1816467-1-ashok.raj@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+bcom_gen_bd_rx_init() and bcom_gen_bd_tx_init() are only called from
+the PSC wrapper functions in gen_bd.c, so make them static, drop
+their now-unneeded exports, and remove the corresponding header
+declarations.  The reset and release variants stay exported because
+sound/soc/fsl/mpc5200_dma.c calls them from a separate module.
 
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/dma/bestcomm/gen_bd.c       | 6 ++----
+ include/linux/fsl/bestcomm/gen_bd.h | 8 --------
+ 2 files changed, 2 insertions(+), 12 deletions(-)
 
-On 9/11/26 2:53 PM, Ashok Raj wrote:
-> get_supported_features() assigns entries->num_features only after the
-> memcpy() loop that fills entries->ent[] has already run. Since ent[]
-> is __counted_by(num_features), the compiler's bounds instrumentation
-> sees a 0-length array during that loop and FORTIFY_SOURCE trips on
-> the memcpy. Set @num_features right after allocation, before any
-> write into ent[], so the bound is correct for the whole lifetime of
-> the array.
-> 
-> This was found via a fortify panic:
-> 
->  memcpy: detected buffer overflow: 384 byte write of buffer size 0
->  WARNING: lib/string_helpers.c:1035 at __fortify_report+0x54/0xa0
->  kernel BUG at lib/string_helpers.c:1043!
->  Call trace:
->   __fortify_panic+0x10/0x18
->   get_supported_features.isra.0+0x4a0/0x4d0 [cxl_core]
->   devm_cxl_setup_features+0x84/0x120 [cxl_core]
->   cxl_pci_probe+0x254/0x5e0 [cxl_pci]
-> 
-> Same class of bug, same fix shape as commit 6c9d2e87df40
-> ("cxl/fwctl: Fix __fortify_panic"), which fixed the analogous issue
-> in cxlctl_get_supported_features() but missed this one.
-> 
-> Fixes: f0e6a2329bf9 ("cxl: Add Get Supported Features command for kernel usage")
-> Signed-off-by: Ashok Raj <ashok.raj@oss.qualcomm.com>
-
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-
-> ---
-> RESEND: Dropped the mailing lists (linux-cxl, linux-kernel) from Cc
-> by mistake on the first send. Resending with proper Cc.
-> 
->  drivers/cxl/core/features.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/cxl/core/features.c b/drivers/cxl/core/features.c
-> index ba6d2a5acb74..754fe5eb4b76 100644
-> --- a/drivers/cxl/core/features.c
-> +++ b/drivers/cxl/core/features.c
-> @@ -97,6 +97,7 @@ get_supported_features(struct cxl_features_state *cxlfs)
->  		kvmalloc_flex(*entries, ent, count);
->  	if (!entries)
->  		return NULL;
-> +	entries->num_features = count;
->  
->  	struct cxl_mbox_get_sup_feats_out *mbox_out __free(kvfree) =
->  		kvmalloc(cxl_mbox->payload_size, GFP_KERNEL);
-> @@ -174,7 +175,6 @@ get_supported_features(struct cxl_features_state *cxlfs)
->  		start += num_entries;
->  	} while (remain_feats);
->  
-> -	entries->num_features = count;
->  	entries->num_user_features = user_feats;
->  
->  	return no_free_ptr(entries);
+diff --git a/drivers/dma/bestcomm/gen_bd.c b/drivers/dma/bestcomm/gen_bd.c
+index 61b5746e1a97..b5093f7445cb 100644
+--- a/drivers/dma/bestcomm/gen_bd.c
++++ b/drivers/dma/bestcomm/gen_bd.c
+@@ -81,7 +81,7 @@ struct bcom_gen_bd_priv {
+ /* Task support code                                                        */
+ /* ======================================================================== */
+ 
+-struct bcom_task *
++static struct bcom_task *
+ bcom_gen_bd_rx_init(int queue_len, phys_addr_t fifo,
+ 			int initiator, int ipr, int maxbufsize)
+ {
+@@ -108,7 +108,6 @@ bcom_gen_bd_rx_init(int queue_len, phys_addr_t fifo,
+ 
+ 	return tsk;
+ }
+-EXPORT_SYMBOL_GPL(bcom_gen_bd_rx_init);
+ 
+ int
+ bcom_gen_bd_rx_reset(struct bcom_task *tsk)
+@@ -166,7 +165,7 @@ bcom_gen_bd_rx_release(struct bcom_task *tsk)
+ EXPORT_SYMBOL_GPL(bcom_gen_bd_rx_release);
+ 
+ 
+-extern struct bcom_task *
++static struct bcom_task *
+ bcom_gen_bd_tx_init(int queue_len, phys_addr_t fifo,
+ 			int initiator, int ipr)
+ {
+@@ -192,7 +191,6 @@ bcom_gen_bd_tx_init(int queue_len, phys_addr_t fifo,
+ 
+ 	return tsk;
+ }
+-EXPORT_SYMBOL_GPL(bcom_gen_bd_tx_init);
+ 
+ int
+ bcom_gen_bd_tx_reset(struct bcom_task *tsk)
+diff --git a/include/linux/fsl/bestcomm/gen_bd.h b/include/linux/fsl/bestcomm/gen_bd.h
+index aeb312a1cd00..7253d308d77a 100644
+--- a/include/linux/fsl/bestcomm/gen_bd.h
++++ b/include/linux/fsl/bestcomm/gen_bd.h
+@@ -16,10 +16,6 @@ struct bcom_gen_bd {
+ };
+ 
+ 
+-extern struct bcom_task *
+-bcom_gen_bd_rx_init(int queue_len, phys_addr_t fifo,
+-			int initiator, int ipr, int maxbufsize);
+-
+ extern int
+ bcom_gen_bd_rx_reset(struct bcom_task *tsk);
+ 
+@@ -27,10 +23,6 @@ extern void
+ bcom_gen_bd_rx_release(struct bcom_task *tsk);
+ 
+ 
+-extern struct bcom_task *
+-bcom_gen_bd_tx_init(int queue_len, phys_addr_t fifo,
+-			int initiator, int ipr);
+-
+ extern int
+ bcom_gen_bd_tx_reset(struct bcom_task *tsk);
+ 
+-- 
+2.55.0
 
