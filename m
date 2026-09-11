@@ -1,62 +1,81 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A107429CE6;
-	Fri, 11 Sep 2026 19:28:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B704E511E8C;
+	Fri, 11 Sep 2026 19:28:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789154910; cv=none; b=LTITpFV/9ncfKkT6kBTnhoVw7qaEjQrJsfev9w1uKds2Aia/nmpXMy5XG3Jb4nc0clkrdTfzO9yqP3EJ70E3baxU2SBTbywJoyZIbbIp0r8R+137QYVlg51QjUs+4WvFRA/elSNIunzTZHyvFpYP2y4pKsMyzJos95YqJBuCnDg=
+	t=1789154909; cv=none; b=NvZ6UAQjAuG7wW3pqUSKISxp8FgKfdmGD5KOJyN8TO2JMXDqtHWHQWhy/XzU4aLx9fAbkgij6lGIgO0cmyvwN/TkUu+YzIQ2W9+MsGs18HadonPrStELnxPtswy8E+ivZ8qnVY78eWC4PU30ht+ojYj/WbPMUWeYr34JFBWDGn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789154910; c=relaxed/simple;
-	bh=5MIUT6Vhyy7KPRoS2r1tNcg/7CK6RivVtNvUuQ77BPw=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 MIME-Version:Content-Type; b=fCPpsjaZx/yvqbV3fzlSf8BG5h9eiXzwq2pH7zV6B446nWCa6uZih4QH57FPnySocBWTjy5oNR5FECEWUVUJbV7dCA3KZ3T06FFJYMHDA1y3q+TtxbDo4RsBj+ICb7xKECTD1Sv9RVN1kMLvRBxsN3N+9lOFGx1m1q4eAgt1Xh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=MHP9R2gV; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="MHP9R2gV"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
-	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=5MIUT6Vhyy7KPRoS2r1tNcg/7CK6RivVtNvUuQ77BPw=; b=MHP9R2gV6+jCk2RtAQ5avTaZMC
-	eivbifxVFQcbrDHGWk28j5PXn4QK0py5qFniKcpe15fvTxt6dG6hJZt9yJdAvoUYl0PFYknhGYFD3
-	zKfoyMnfE2HpXnFhy+nRFcvNwNWFyelK/b54+ky+9CNgIwwUqhN5UgKZsxofYRrw+5pMBHTjbCOeU
-	k8fz4OhkwzaK/vLyggEAmyHd7CQNtOq5yMUHIr8/mwINm4gWcERkulzhoAR0pXX3+sgaQDSltoXsV
-	d8chZcEWoTxaZ48FUjDAG6sxw9jj5zToCR7TxhNJYNvyXTngcJUahm+w5YznPVoaOYwxuLV3p/eTC
-	S7XXMfRg==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1x56v6-00000001EkJ-0wWV;
-	Fri, 11 Sep 2026 16:28:20 -0300
-Message-ID: <744056887c4419bda8e49bf64f112e95@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: April Cardenas <april.cardenas@canonical.com>, linux-cifs@vger.kernel.org
-Cc: linkinjeon@kernel.org, ronniesahlberg@gmail.com, sprasad@microsoft.com,
- tom@talpey.com, bharathsm@microsoft.com, samba-technical@lists.samba.org,
- linux-kernel@vger.kernel.org, April Cardenas
- <april.cardenas@canonical.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] smb/client: send lease break ACKs thru correct session
- for multiuser mounts
-In-Reply-To: <20260910051649.3806214-1-april.cardenas@canonical.com>
-References: <20260910051649.3806214-1-april.cardenas@canonical.com>
-Date: Fri, 11 Sep 2026 16:28:19 -0300
+	s=arc-20240116; t=1789154909; c=relaxed/simple;
+	bh=hFNZfjG7awykZCdqNUHs3x/U/7ivwWB0Evtzikm7ItA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ly6ZI2qNy2NkNU1B9pq64v656uyzia0yMYRr3BkPbZG8DoWslnkia23kksrFo394542kKyaV/tta3E86DeByeMl01P5lWmNLi5EmjmKuUGZW9IdkI0UTA6jN/BYL4bvpmWYRqELIOJl53boA2uANnQfb9tJDIvYyUyCuxWn5w3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.helo=mail.mainlining.org; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.helo=mail.mainlining.org
+From: Bradley Morgan <brads@mainlining.org>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	boqun@kernel.org,
+	joelagnelf@nvidia.com,
+	rcu@vger.kernel.org,
+	"Andrew Morton" <akpm@linux-foundation.org>,
+	"Arnd Bergmann" <arnd@arndb.de>,
+	linux-arch@vger.kernel.org,
+	"Vineet Gupta" <vgupta@kernel.org>,
+	linux-snps-arc@lists.infradead.org,
+	"Russell King" <linux@armlinux.org.uk>,
+	linux-arm-kernel@lists.infradead.org,
+	"Guo Ren" <guoren@kernel.org>,
+	linux-csky@vger.kernel.org,
+	"Yoshinori Sato" <ysato@users.sourceforge.jp>,
+	"Rich Felker" <dalias@libc.org>,
+	"John Paul Adrian Glaubitz" <glaubitz@physik.fu-berlin.de>,
+	linux-sh@vger.kernel.org,
+	"Chris Zankel" <chris@zankel.net>,
+	"Max Filippov" <jcmvbkbc@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	brads@mainlining.org
+Subject: [PATCH 5/6] sh: Emulate two-byte cmpxchg
+Date: Fri, 11 Sep 2026 19:25:38 +0000
+Message-ID: <20260911192540.20983-6-brads@mainlining.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260911192540.20983-1-brads@mainlining.org>
+References: <20260911192540.20983-1-brads@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-April Cardenas <april.cardenas@canonical.com> writes:
+SH has no byte or halfword atomic memory operations, so the
+__cmpxchg() switch routes case 1 through cmpxchg_emu_u8() and
+lets case 2 fall through to __cmpxchg_called_with_bad_pointer(),
+which is declared but never defined, so a two-byte cmpxchg()
+fails at link time. Route case 2 through the new cmpxchg_emu_u16().
 
-> Currently, when cifs_oplock_break handles a break request from the server
-> it searches for the appropriate tlink to handle the request
-> but incorrectly uses the current fsuid as the search key, eventually
-> causing read errors for users with multiuser mounts on NetApp.
-> Fix this by using the tlink from the cfile struct instead to respond
-> through the correct session.
-> ...
+Signed-off-by: Bradley Morgan <brads@mainlining.org>
+---
+ arch/sh/include/asm/cmpxchg.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Applied.
+diff --git a/arch/sh/include/asm/cmpxchg.h b/arch/sh/include/asm/cmpxchg.h
+index 1e5dc5ccf7bf..477d3025a441 100644
+--- a/arch/sh/include/asm/cmpxchg.h
++++ b/arch/sh/include/asm/cmpxchg.h
+@@ -59,6 +59,8 @@ static inline unsigned long __cmpxchg(volatile void * ptr, unsigned long old,
+ 	switch (size) {
+ 	case 1:
+ 		return cmpxchg_emu_u8(ptr, old, new);
++	case 2:
++		return cmpxchg_emu_u16(ptr, old, new);
+ 	case 4:
+ 		return __cmpxchg_u32(ptr, old, new);
+ 	}
+-- 
+2.47.3
+
