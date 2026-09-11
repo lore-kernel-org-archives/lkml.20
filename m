@@ -1,230 +1,375 @@
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96D3A46AA9A
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:14:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2769A449B2E
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:16:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789118064; cv=none; b=V6MR5+ozRJtm6Y7NV3cnpIieStt26/8CMgeG9oPWP4RpTnygFWUOsPkASa/ht/R0j/zu5f1jjMJ8eFtKj+D+5ptorghNRYN5Pz3xWQ4a1ioMpzjiw+L19s0IJK3Yt9HLR0gw5tWwc0UeE++KXqSu3V8NLPHBGd3hKXwIFo8cWn8=
+	t=1789118184; cv=none; b=AOjhUvKqeJTT39dpaYnrqWoOMWeoBbFgUMRM/klybOSqFh/e0sbOXgLo0Q1U3KpUChnSfZTblaGYQmDA39pNpKdXgzGM0GewFj+Z1iZCscwYAXNmvRjkrdKFEBfk/JozQWGbjp3WrDLI0rDWQyMppXbqI42aSdQUTChFRmUw3b4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789118064; c=relaxed/simple;
-	bh=QyDiNCYlYOZb31l7DmrQOOYMFu4Z0v07nGxYRyrtdtc=;
-	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type; b=twwmxFe6goufSgCheXewKldo5x+XC9VGwEhWYjTe4T99xB2xtT3+3X4ljq6Mw89xZZl1RuEan+h90KloSM8jISpdRx458q5XK3/gMwh6ITVVMRisGK/ETpnFwxVq1wQVlMDFyZAxc5hLiA13VjNt0fbffeUjHO7RNwcgL89ei3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hh84W5WYJz8Xrr9;
-	Fri, 11 Sep 2026 17:14:19 +0800 (CST)
-Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl1.zte.com.cn with SMTP id 68B9E6JT058032;
-	Fri, 11 Sep 2026 17:14:07 +0800 (+08)
-	(envelope-from xu.xin16@zte.com.cn)
-Received: from mapi (xaxapp01[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Fri, 11 Sep 2026 17:14:09 +0800 (CST)
-X-Zmail-TransId: 2af96aa3c661ec0-35e31
-X-Mailer: Zmail v1.0
-Message-ID: <20260911171409340O9nQbxkRZ18MVTGcrJgjV@zte.com.cn>
-In-Reply-To: <20260911160942109wy2iDTGJslK6rHl8E56si@zte.com.cn>
-References: 20260911160421076_KNXun8Mpp9Xj7fxHG0i7@zte.com.cn,20260911160942109wy2iDTGJslK6rHl8E56si@zte.com.cn
-Date: Fri, 11 Sep 2026 17:14:09 +0800 (CST)
+	s=arc-20240116; t=1789118184; c=relaxed/simple;
+	bh=D5jJ91nCudZf9o91kNGPaDDhW8pCjVlCB4DHCfkEQ+k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=a5p5U+oeHSwsL55DIVbhXpOQH8BlAnURgM0hiwP5IX/R9EcrlnkCeAeyDOSQ0STTUA6EGRRcUKbN8SYzGZ2gxN+poJc3E4jrTpkmH+GL9AnlSGu9jMeTfwn2cN5A5p3zmNOM5Y+7sP/cln4Xu4PiUi8hdQ4jK1AN3P2MxPlVTTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=euv2bv3j; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=T2/OByKN; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="euv2bv3j";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="T2/OByKN"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68B7kd3n3463807
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:16:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=8JoXukOi4j7ojhYQhmHbrb7d
+	w6iEBpFdOmOhwd9rLH4=; b=euv2bv3jHocywpLwbkKkZMXkqc46csQz9SMgW392
+	K9N1rhvWaPI/XMH3UlfyB1FxJPMrawCgZg3QyB/c5HJS/KGM6zRe2pcXZ+aPweE/
+	eHNaZkgO+mP6IPxN+pyuZCan+ro/XHlhGvm00suh7da/U/gCE702f7m3OJ4B8oUw
+	uqMBBe5bl0PuOCWb9FzgiEYouvmuocaoj/Zj+G/4Ugbe93xgpFljD3vblYSgpbZu
+	GCLJ+eAH2QaR4Y6jqZIDZZ3TW7sXZqQadSUi5wvRapIFEeWHj4hF++G8K1sqUwVw
+	rka64yNqIZbmB544WYj4v4qgwpGHpDC1TttEhPQjGi9+Vw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmbdr8vx5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:16:21 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-934963b2bc0so129955085a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:16:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789118181; x=1789722981; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8JoXukOi4j7ojhYQhmHbrb7dw6iEBpFdOmOhwd9rLH4=;
+        b=T2/OByKNy0vs9IkHV79ZrTGFpWnNwdzUOa07OXqCK5WPb+N29YH50/mixKIx9WK8Ub
+         544Q+g2Pv5LOQPAqJNWsJ+MgfggaKEXe+679bssFRoRySjSGrycVQ+ptTJMjiVIGWILA
+         dqHKd0Xji4mgf9zKh87MuxfggSGhabLz0BrANAZubLomAxGqUnUIb7b6siwCjpaCCUwt
+         A4oAOojyKjLZbYq771cFywc92NSiGHzZhfcSKBb2vjtR7OvKIfmYB1pQYjxrEIrIjVZK
+         LzMUJoI3E4VGiUX7+OxpjzigX4tvN6eRuKyqCv1DDOJEJh7FTwlmolWCgQ2X9aMZ1ikH
+         v/MA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789118181; x=1789722981;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8JoXukOi4j7ojhYQhmHbrb7dw6iEBpFdOmOhwd9rLH4=;
+        b=CZIX/ieEGDlbTQ/4NU0HTxZq4G5W9UJw1ePtfWlrqlOWoeW7jyXFtyRBJo+82NpVTm
+         Qkns4nT/OvlxaFFWtgDfHqFI2trOG0s+jnHGDcK29o/xHn1FZRN5fDetUspVwnH/1aQm
+         xe7+5CTB0d43e+RUQgTqgUfM2tejjA9lPO4+RKMzXOG2xjcAH8iP15IlZrLk402MI5AO
+         OfacYTiwe9BiFu1t9LiYEvIUBEhhrI4a/j7kgig5PUijhFdb5Hq1JU4s/p6IQ4br3gdv
+         aRXygGA/c7SQftEQjk1Tr5Bn1IyeC4xIduSIr3LhcsN/CJBfuaVUsrdXz/QanW8bW6b4
+         X/8Q==
+X-Forwarded-Encrypted: i=1; AKwUvByuWrBn2rmkJcsV+XFYX/RZ41deIyiJWPx9p0h+OOpMOvKLYd1cp8Gj7TFrFOJhtGhl//SuOTxEVGcyenA=@vger.kernel.org
+X-Gm-Message-State: AFuF++l2GGUAWmpyXt4+iLMguhG8eJQw8sB5FZ+vqT39RUHaflYpJy2o
+	aj0NuZ7tDWHaOIQI+6tRfr/jegRTH/aRLtNcn11rIZl3FLgYJ4bCOZej7d0nmVrcLVIwssWM3qt
+	5ZkFYluaDNsIajWFugefc0zRSeQZN6A8SJjjwRDFLxMGOWr9CmiBd4q64l6I2gi459a4=
+X-Gm-Gg: AYBFou1FRGQP0Em+6T+dgtP/Zjf9jm4B/A+hVPQTuduRymstSQu+UGHI5CZwdbYRKiU
+	y6+UZ9DVsLpSIyPPUJI0NqqcKcB16A2VsYeSfh0RZXWX2bchW+yGfiVd3jToYj+o62kVTnDV21T
+	M9YfpKmRPqfWTVA5GQ3fNvqqZkPZBtfPk1X/VbceAmo6vgnBD8q+6h2b4zl0RhbJutbvPJzxBSz
+	YcrNZnfSjOhIL0vQ1TwA5l7SwW1Sx8YnvDAu3g0pTzNFfRa+knOPrk0FZf3yTgwIb3XzZd0Cver
+	DQ4d+fHbzDh6kTgUkObeMtK+jqjrittjmeDusHxurYLKx1ktYSdLvyLrtAdgKieZu4qcadAZys4
+	d+JN0nmPgP5/7Ig==
+X-Received: by 2002:a05:620a:7117:b0:936:b923:4832 with SMTP id af79cd13be357-939ea16ba23mr400949685a.28.1789118181047;
+        Fri, 11 Sep 2026 02:16:21 -0700 (PDT)
+X-Received: by 2002:a05:620a:7117:b0:936:b923:4832 with SMTP id af79cd13be357-939ea16ba23mr400943385a.28.1789118180439;
+        Fri, 11 Sep 2026 02:16:20 -0700 (PDT)
+Received: from localhost ([188.216.77.92])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34f1f7sm4509590f8f.24.2026.09.11.02.16.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 02:16:19 -0700 (PDT)
+Date: Fri, 11 Sep 2026 11:16:18 +0200
+From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+To: ZhaoJinming <zhaojinming@uniontech.com>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+        Alexandre Torgue <alexandre.torgue@foss.st.com>,
+        Jose Abreu <Jose.Abreu@synopsys.com>, netdev@vger.kernel.org,
+        linux-stm32@st-md-mailman.stormreply.com,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2] net: stmmac: fix stale descriptors and DMA
+ mapping leak on Tx map failure
+Message-ID: <aqPG4rOjTo183F0u@lore-desk>
+References: <20260911-stmmac-fix-vlan-desc-leak-v2-1-817a8a4d4a76@uniontech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <xu.xin16@zte.com.cn>
-To: <xu.xin16@zte.com.cn>, <ljs@kernel.org>
-Cc: <akpm@linux-foundation.org>, <david@kernel.org>, <liam@infradead.org>,
-        <surenb@google.com>, <rppt@kernel.org>, <ziy@nvidia.com>,
-        <baolin.wang@linux.alibaba.com>, <nico.pache@linux.dev>,
-        <dev.jain@arm.com>, <baohua@kernel.org>, <lance.yang@linux.dev>,
-        <chengming.zhou@linux.dev>, <usama.arif@linux.dev>,
-        <gourry@gourry.net>, <harry@kernel.org>, <vbabka@kernel.org>,
-        <peterz@infradead.org>, <borntraeger@linux.ibm.com>,
-        <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>
-Subject: =?UTF-8?B?UmU6IFtQQVRDSCAyLzRdIG1tOiBtYWtlIGZvbGlvX3dhbGtfc3RhcnQoKSdzIGxvY2tpbmcgYXNzZXJ0cyBzY2FsYWJsZQ==?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 68B9E6JT058032
-X-TLS: YES
-X-ENVELOPE-SENDER: xu.xin16@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Fri, 11 Sep 2026 17:14:19 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AA3C66B.001/4hh84W5WYJz8Xrr9
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="URoTR0mdpRskH/Fi"
+Content-Disposition: inline
+In-Reply-To: <20260911-stmmac-fix-vlan-desc-leak-v2-1-817a8a4d4a76@uniontech.com>
+X-Proofpoint-GUID: NztefsF4J_6UABJRT7Y4ha3BDYRzzWI-
+X-Authority-Analysis: v=2.4 cv=PLmaavqC c=1 sm=1 tr=0 ts=6aa3c6e5 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
+ a=iHwBjlyiAAAA:8 a=8dicsuV96g38EK64CfoA:9 a=CjuIK1q_8ugA:10
+ a=rcQwPy2qHw7U_XsTIocA:9 a=PEH46H7Ffwr30OY-TuGO:22 a=uNSKXYNwxGiU6LD0JREI:22
+X-Proofpoint-ORIG-GUID: NztefsF4J_6UABJRT7Y4ha3BDYRzzWI-
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDEyOCBTYWx0ZWRfX4Stw019P84b6
+ iUWetYAft6tTpKPPrx/9Bu+2vR3fU50LsbRTt7BAOEttsdMk3xEpa6fqPmf50o2s8TfQPXiEDdQ
+ XANGz8v6YUy/H2ZUpE57pzcjIo7LfCg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDEyOCBTYWx0ZWRfX77VLUmj4HJDR
+ BH7L/K92TOtnLxa9CR2ab1FyUMjYyoRiq/AGwOV2l+pX2TcYrPy6lxo0F9cTYRbk1aNQp+N7U8P
+ qTMvcSZ3bbvKGqQD/9jpa2U07PlNRCbGTUirfJXlgCRAJjrk5UytkJo/tWnimdo9QdVCsBXwP+T
+ RI052T7H2HIZ2nzef5l/5MToXhgL0MrGUXcy1y5B9xnaOEWhql6jmd2i4s+a6uLla5tj/KnoR0C
+ xQq153sM2H3toq7u+I7djeMFn6btY1qHJq57n8k2W+tP0wdXYgW2oDN7mfU+8izkn0sJIxJyReT
+ iJWhxFD37wNxuczmQK57Br8dEH1EmuYYqPQgIYZzj3xy9ZQKNaShOx538OOGyg0aj/z86wDap4i
+ NSQ8DrHZoP5GkGsR+prkCEVY+m6+1EMWh4w4Zpd+5f1XuHG3lhkentGz7DWRPxKu8xCBZisbRcu
+ qbZqS619nMLnF6mePnw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-11_03,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0 spamscore=0 phishscore=0 adultscore=0
+ malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609110128
 
-CC: Lorenzo Stoakes <ljs@kernel.org>
-----
-From: Xu Xin (ZTE) <xu.xin@linux.dev>
+--URoTR0mdpRskH/Fi
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Add an additional member 'walk_lock' to folio_walk to indicate
-locking requirements for the walk. Similar to commit 49b0638502da0
-("mm: enable page walking API to lock vmas during the walk").
-But no change is made on any existing locking behavior,
-all existing folio_walk_start() callers are currently still
-under mmap_read_lock() protection.
+> In stmmac_xmit(), when the DMA mapping of the linear part or of a
+> fragment fails, the error path only frees the skb.  This leaves behind
+> the DMA mappings already created for the linear part and for the
+> fragments mapped before the failure, which are never unmapped.
+>=20
+> The VLAN context descriptor programmed by stmmac_vlan_insert() is also
+> left behind with its OWN bit set while tx_q->cur_tx has been advanced
+> past it, so the DMA engine later consumes the orphaned descriptor and
+> applies its stale VLAN tag to an unrelated frame.
+>=20
+> Release the descriptors and their DMA mappings in the dma_map_err path
+> with stmmac_release_tx_desc() and stmmac_free_tx_buffer(), walking from
+> first_entry to entry, then roll back tx_q->cur_tx and release the VLAN
+> context descriptor.
+>=20
+> jumbo_frm() has the same issue: when the DMA mapping of a subsequent
+> jumbo buffer fails, the buffers already mapped are never unmapped.
+> Unmap them before returning an error in both ring and chain modes.
+>=20
+> Fixes: 30d932279dc2 ("net: stmmac: Add support for VLAN Insertion Offload=
+")
+> Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
 
-This change is prepared for the latter patch to enable VMA locking
-asserts. folio_walk_start now operate under write-locked mmap_lock.
-With introduction of vma locks at the next patch, the vmas have to
-be locked as well during such walks to prevent concurrent page
-faults in these areas.
+Hi ZhaoJinming,
 
-No functional change intended.
+some comments inline.
 
-Signed-off-by: Xu Xin (ZTE) <xu.xin@linux.dev>
----
- arch/s390/mm/fault.c     |  4 +++-
- include/linux/pagewalk.h |  1 +
- kernel/events/uprobes.c  |  4 +++-
- mm/huge_memory.c         |  4 +++-
- mm/ksm.c                 |  4 +++-
- mm/migrate.c             |  8 ++++++--
- mm/pagewalk.c            | 10 +++++++++-
- mm/rmap.c                |  4 +++-
- 8 files changed, 31 insertions(+), 8 deletions(-)
+Regards,
+Lorenzo
 
-diff --git a/arch/s390/mm/fault.c b/arch/s390/mm/fault.c
-index 46d828926009..968f128a5232 100644
---- a/arch/s390/mm/fault.c
-+++ b/arch/s390/mm/fault.c
-@@ -412,7 +412,9 @@ __context_unsafe(/* folio_walk_end() not instrumented */)
- 	unsigned long addr = get_fault_address(regs);
- 	struct mm_struct *mm = current->mm;
- 	struct vm_area_struct *vma;
--	struct folio_walk fw;
-+	struct folio_walk fw = {
-+		.walk_lock  = PGWALK_RDLOCK,
-+	};
- 	struct folio *folio;
- 	int rc;
+> ---
+> Changes in v2:
+> - Reorder stmmac_xmit() variable declarations in reverse xmas tree
+>   order.
+> - Unmap partially-mapped buffers in jumbo_frm() when a subsequent
+>   buffer mapping fails (ring and chain modes).
+> - Link to v1: https://lore.kernel.org/r/20260910-stmmac-fix-vlan-desc-lea=
+k-v1-1-6b07dca5e5e8@uniontech.com
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/chain_mode.c  | 19 +++++++++++++--
+>  drivers/net/ethernet/stmicro/stmmac/ring_mode.c   | 10 +++++++-
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 29 +++++++++++++++++=
+++----
+>  3 files changed, 51 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/chain_mode.c b/drivers/n=
+et/ethernet/stmicro/stmmac/chain_mode.c
+> index 66025e2509e91f863571041f5b148d04e3708832..8415c740ee9eee32cd8b4c3e9=
+b61517690b58f9d 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/chain_mode.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/chain_mode.c
+> @@ -20,6 +20,7 @@ static int jumbo_frm(struct stmmac_tx_queue *tx_q, stru=
+ct sk_buff *skb,
+>  	unsigned int nopaged_len =3D skb_headlen(skb);
+>  	struct stmmac_priv *priv =3D tx_q->priv_data;
+>  	unsigned int entry =3D tx_q->cur_tx;
+> +	unsigned int first_entry =3D entry;
+>  	unsigned int bmax, buf_len;
+>  	unsigned int i =3D 1, len;
+>  	struct dma_desc *desc;
+> @@ -57,7 +58,7 @@ static int jumbo_frm(struct stmmac_tx_queue *tx_q, stru=
+ct sk_buff *skb,
+>  					      bmax, DMA_TO_DEVICE);
+>  			desc->des2 =3D cpu_to_le32(lower_32_bits(des2));
+>  			if (dma_mapping_error(priv->device, des2))
+> -				return -1;
+> +				goto err_unmap;
+>  			tx_q->tx_skbuff_dma[entry].buf =3D des2;
+>  			tx_q->tx_skbuff_dma[entry].len =3D bmax;
+>  			stmmac_prepare_tx_desc(priv, desc, 0, bmax, csum,
+> @@ -70,7 +71,7 @@ static int jumbo_frm(struct stmmac_tx_queue *tx_q, stru=
+ct sk_buff *skb,
+>  					      DMA_TO_DEVICE);
+>  			desc->des2 =3D cpu_to_le32(lower_32_bits(des2));
+>  			if (dma_mapping_error(priv->device, des2))
+> -				return -1;
+> +				goto err_unmap;
+>  			tx_q->tx_skbuff_dma[entry].buf =3D des2;
+>  			tx_q->tx_skbuff_dma[entry].len =3D len;
+>  			/* last descriptor can be set now */
+> @@ -83,6 +84,20 @@ static int jumbo_frm(struct stmmac_tx_queue *tx_q, str=
+uct sk_buff *skb,
+>  	tx_q->cur_tx =3D entry;
+> =20
+>  	return entry;
+> +
+> +err_unmap:
+> +	while (first_entry !=3D entry) {
+> +		dma_unmap_single(priv->device,
+> +				 tx_q->tx_skbuff_dma[first_entry].buf,
+> +				 tx_q->tx_skbuff_dma[first_entry].len,
+> +				 DMA_TO_DEVICE);
+> +		tx_q->tx_skbuff_dma[first_entry].buf =3D 0;
+> +		tx_q->tx_skbuff_dma[first_entry].len =3D 0;
 
-diff --git a/include/linux/pagewalk.h b/include/linux/pagewalk.h
-index 1c397be0d092..455428eaf1fc 100644
---- a/include/linux/pagewalk.h
-+++ b/include/linux/pagewalk.h
-@@ -184,6 +184,7 @@ struct folio_walk {
- 	};
- 	/* private */
- 	spinlock_t *ptl;
-+	enum page_walk_lock walk_lock;
- };
+are you missing stmmac_release_tx_desc() here?
 
- struct folio *folio_walk_start(struct folio_walk *fw,
-diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
-index 7709ea882477..054fdcb52136 100644
---- a/kernel/events/uprobes.c
-+++ b/kernel/events/uprobes.c
-@@ -507,7 +507,9 @@ int uprobe_write(struct arch_uprobe *auprobe, struct vm_area_struct *vma,
- 	int ret, ref_ctr_updated = 0;
- 	unsigned int gup_flags = FOLL_FORCE;
- 	struct mmu_notifier_range range;
--	struct folio_walk fw;
-+	struct folio_walk fw = {
-+		.walk_lock  = PGWALK_RDLOCK,
-+	};
- 	struct folio *folio;
- 	struct page *page;
+> +		first_entry =3D STMMAC_NEXT_ENTRY(first_entry,
+> +						priv->dma_conf.dma_tx_size);
+> +	}
+> +
+> +	return -1;
+>  }
+> =20
+>  static bool is_jumbo_frm(unsigned int len, bool enh_desc)
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/ring_mode.c b/drivers/ne=
+t/ethernet/stmicro/stmmac/ring_mode.c
+> index f7949419eb9fdca891a50ad0956f40e17f9b0967..4170c897bd1a8b5b757b57625=
+0e82e5407cfa325 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/ring_mode.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/ring_mode.c
+> @@ -37,6 +37,7 @@ static int jumbo_frm(struct stmmac_tx_queue *tx_q, stru=
+ct sk_buff *skb,
+>  	len =3D nopaged_len - bmax;
+> =20
+>  	if (nopaged_len > BUF_SIZE_8KiB) {
+> +		unsigned int first_entry =3D entry;
+> =20
+>  		des2 =3D dma_map_single(priv->device, skb->data, bmax,
+>  				      DMA_TO_DEVICE);
+> @@ -62,8 +63,15 @@ static int jumbo_frm(struct stmmac_tx_queue *tx_q, str=
+uct sk_buff *skb,
+>  		des2 =3D dma_map_single(priv->device, skb->data + bmax, len,
+>  				      DMA_TO_DEVICE);
+>  		desc->des2 =3D cpu_to_le32(lower_32_bits(des2));
+> -		if (dma_mapping_error(priv->device, des2))
+> +		if (dma_mapping_error(priv->device, des2)) {
+> +			dma_unmap_single(priv->device,
+> +					 tx_q->tx_skbuff_dma[first_entry].buf,
+> +					 bmax, DMA_TO_DEVICE);
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index dd66c6ad5af1..b714677e2f20 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -4795,7 +4795,9 @@ static int split_huge_pages_pid(int pid, unsigned long vaddr_start,
- 	 */
- 	for (addr = vaddr_start; addr < vaddr_end; addr += PAGE_SIZE) {
- 		struct vm_area_struct *vma = vma_lookup(mm, addr);
--		struct folio_walk fw;
-+		struct folio_walk fw = {
-+			.walk_lock  = PGWALK_RDLOCK,
-+		};
- 		struct folio *folio;
- 		struct address_space *mapping;
- 		unsigned int target_order = new_order;
-diff --git a/mm/ksm.c b/mm/ksm.c
-index 624f37975e12..8df66b4e5de0 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -817,8 +817,10 @@ static struct page *get_mergeable_page(struct ksm_rmap_item *rmap_item)
- 	unsigned long addr = rmap_item->address;
- 	struct vm_area_struct *vma;
- 	struct page *page = NULL;
--	struct folio_walk fw;
- 	struct folio *folio;
-+	struct folio_walk fw = {
-+		.walk_lock  = PGWALK_RDLOCK,
-+	};
+are you missing stmmac_release_tx_desc() here?
 
- 	mmap_read_lock(mm);
- 	vma = find_mergeable_vma(mm, addr);
-diff --git a/mm/migrate.c b/mm/migrate.c
-index 15b45832bcfa..fa638adfb0de 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -2302,7 +2302,9 @@ static int add_folio_for_migration(struct mm_struct *mm, const void __user *p,
- 		int node, struct list_head *pagelist, bool migrate_all)
- {
- 	struct vm_area_struct *vma;
--	struct folio_walk fw;
-+	struct folio_walk fw = {
-+		.walk_lock  = PGWALK_RDLOCK,
-+	};
- 	struct folio *folio;
- 	unsigned long addr;
- 	int err = -EFAULT;
-@@ -2464,7 +2466,9 @@ static void do_pages_stat_array(struct mm_struct *mm, unsigned long nr_pages,
- 	for (i = 0; i < nr_pages; i++) {
- 		unsigned long addr = (unsigned long)(*pages);
- 		struct vm_area_struct *vma;
--		struct folio_walk fw;
-+		struct folio_walk fw = {
-+			.walk_lock  = PGWALK_RDLOCK,
-+		};
- 		struct folio *folio;
- 		int err = -EFAULT;
+> +			tx_q->tx_skbuff_dma[first_entry].buf =3D 0;
+> +			tx_q->tx_skbuff_dma[first_entry].len =3D 0;
+> +			tx_q->tx_skbuff_dma[first_entry].is_jumbo =3D false;
+>  			return -1;
+> +		}
+>  		tx_q->tx_skbuff_dma[entry].buf =3D des2;
+>  		tx_q->tx_skbuff_dma[entry].len =3D len;
+>  		tx_q->tx_skbuff_dma[entry].is_jumbo =3D true;
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/=
+net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 24656b35350b14454fb10deced6516eb89e2c0c9..9050611862108065dfa19c1a8=
+0961bd78073df9a 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -4767,15 +4767,15 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *sk=
+b, struct net_device *dev)
+>  	bool enh_desc, has_vlan, set_ic, is_jumbo =3D false;
+>  	struct stmmac_priv *priv =3D netdev_priv(dev);
+>  	unsigned int nopaged_len =3D skb_headlen(skb);
+> +	unsigned int first_entry, entry, tx_packets;
+>  	u32 queue =3D skb_get_queue_mapping(skb);
+>  	int nfrags =3D skb_shinfo(skb)->nr_frags;
+> -	unsigned int first_entry, tx_packets;
+>  	struct stmmac_txq_stats *txq_stats;
+>  	struct dma_desc *desc, *first_desc;
+>  	struct stmmac_tx_queue *tx_q;
+>  	int i, csum_insertion =3D 0;
+> -	int entry, first_tx;
+>  	dma_addr_t dma_addr;
+> +	int first_tx, ret;
+>  	u32 sdu_len;
+> =20
+>  	if (priv->tx_path_in_lpi_mode && priv->eee_sw_timer_en)
+> @@ -4832,9 +4832,10 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb=
+, struct net_device *dev)
+>  	csum_insertion =3D skb->ip_summed =3D=3D CHECKSUM_PARTIAL;
+> =20
+>  	if (unlikely(is_jumbo)) {
+> -		entry =3D stmmac_jumbo_frm(priv, tx_q, skb, csum_insertion);
+> -		if (unlikely(entry < 0) && (entry !=3D -EINVAL))
+> +		ret =3D stmmac_jumbo_frm(priv, tx_q, skb, csum_insertion);
+> +		if (unlikely(ret < 0) && (ret !=3D -EINVAL))
 
-diff --git a/mm/pagewalk.c b/mm/pagewalk.c
-index 7411702a37f5..8eb29fba20ad 100644
---- a/mm/pagewalk.c
-+++ b/mm/pagewalk.c
-@@ -910,7 +910,15 @@ struct folio *folio_walk_start(struct folio_walk *fw,
- 	pgd_t *pgdp;
- 	p4d_t *p4dp;
+can ret be really -EINVAL ?
 
--	mmap_assert_locked(vma->vm_mm);
-+	/*
-+	 * Other locking modes except for mmap or vma read locking are not
-+	 * expected.
-+	 */
-+	if (fw->walk_lock != PGWALK_RDLOCK && fw->walk_lock != PGWALK_VMA_RDLOCK_VERIFY)
-+		WARN_ONCE(1, "walk_lock is not expected!\n");
-+	process_mm_walk_lock(vma->vm_mm, fw->walk_lock);
-+	process_vma_walk_lock(vma, fw->walk_lock);
-+
- 	vma_pgtable_walk_begin(vma);
+>  			goto dma_map_err;
+> +		entry =3D ret;
+>  	} else {
+>  		bool last_segment =3D (nfrags =3D=3D 0);
+> =20
+> @@ -4984,6 +4985,26 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb=
+, struct net_device *dev)
+> =20
+>  dma_map_err:
+>  	netdev_err(priv->dev, "Tx DMA map failed\n");
+> +
+> +	/* entry points one past the last descriptor written for this frame:
+> +	 * on failure it is the descriptor whose DMA mapping failed, so walk
+> +	 * from first_entry up to, but not including, entry.  Reset cur_tx
+> +	 * unconditionally as both stmmac_vlan_insert() and stmmac_jumbo_frm()
+> +	 * may have advanced it, and release the VLAN context descriptor.
+> +	 */
+> +	while (first_entry !=3D entry) {
+> +		desc =3D stmmac_get_tx_desc(priv, tx_q, first_entry);
+> +		stmmac_release_tx_desc(priv, desc, priv->descriptor_mode);
+> +		stmmac_free_tx_buffer(priv, &priv->dma_conf, queue, first_entry);
+> +		first_entry =3D STMMAC_NEXT_ENTRY(first_entry,
+> +						priv->dma_conf.dma_tx_size);
+> +	}
+> +
+> +	tx_q->cur_tx =3D first_tx;
+> +	if (has_vlan) {
+> +		desc =3D stmmac_get_tx_desc(priv, tx_q, first_tx);
+> +		stmmac_release_tx_desc(priv, desc, priv->descriptor_mode);
+> +	}
+>  max_sdu_err:
+>  	dev_kfree_skb(skb);
+>  	priv->xstats.tx_dropped++;
+>=20
+> ---
+> base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
+> change-id: 20260909-stmmac-fix-vlan-desc-leak-f057bb061daa
+>=20
+> Best regards,
+> --=20
+> ZhaoJinming <zhaojinming@uniontech.com>
+>=20
+>=20
 
- 	if (WARN_ON_ONCE(addr < vma->vm_start || addr >= vma->vm_end))
-diff --git a/mm/rmap.c b/mm/rmap.c
-index 5fefe5b060b1..fd8e1c9e4424 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -2871,7 +2871,9 @@ struct page *make_device_exclusive(struct mm_struct *mm, unsigned long addr,
- 	struct mmu_notifier_range range;
- 	struct folio *folio, *fw_folio;
- 	struct vm_area_struct *vma;
--	struct folio_walk fw;
-+	struct folio_walk fw = {
-+		.walk_lock  = PGWALK_RDLOCK,
-+	};
- 	struct page *page;
- 	swp_entry_t entry;
- 	pte_t swp_pte;
--- 
-2.25.1
+--URoTR0mdpRskH/Fi
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaqPG4gAKCRA6cBh0uS2t
+rFQXAQCWThJJOSLg7UreCWMV0kdUwSdHg5NOrs++BTwRP9j+CQEAmDjGDfqPav+X
+i2Z/pKV1EJ4AdSF/X91UiQNBsUFLFAU=
+=Pbd+
+-----END PGP SIGNATURE-----
+
+--URoTR0mdpRskH/Fi--
