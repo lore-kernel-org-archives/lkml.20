@@ -1,103 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD2142E421
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:42:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D34C1337B81;
+	Fri, 11 Sep 2026 16:44:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789144946; cv=none; b=aPfaGGEVWwWgX7aDX6w1WQrVd4+SC9osLKHKvCXAc2Jnr1ivJneC06NxOxLaf2Mf4/o3KIzXfybKFgHyPsCGrvCBPurBLCDKVVJyMOPI3/5Okl/pSiggbcJZQmjvKK5Q0bkpjAcyCXRGDHeAvG86K0xChgYA8DGPAQJ2Km5C3to=
+	t=1789145046; cv=none; b=JXltsk/+BezXxGLdJPKbhGsWjOCuCF2xhcjKY8PbI2n/B/X+l7cfrIof6zuAdfvdkGjK3JsmENnIUiWn9vzB0/G1oy4BWhMMUv/qNkycXKPtpkEo+vabGV+GVV89eEnU/5sGEbrBVKL9s8y2h678P9Y36bd5w9gYrzHEbZJvz88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789144946; c=relaxed/simple;
-	bh=k3Jxgs83Hig7QlE9LvZO3586kM0dwwLP9F7/r2P6Frs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nnm8rDDI42zjCl5JGCqNcJInL9VFyNt8BHzjy5uBmSAlotwYslnm/hsCCrVyOdt0MYIHT0Pia95etWw6MmbZzCwZvdJszFvZo7HQUyxgjCQHQ42XXzx7fCTmJVnQoQv9zvUAqQ2AbSAkAC8IpOcvdqaj/X908V4qO8Qs+V6LvLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GCATDe6h; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789145046; c=relaxed/simple;
+	bh=SgjYkhTSvrNQobs81bP+X0p5lyA+pnHIZkqQnoIThvc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JcQxeq1mDUccFI/EVckmhVRZDl6M7xXNP3XLJiaWyBSF1J74U3yYk4qjJDlpTrSibVo2F/KPBKPFl8RO5Im+QOwQo/Jd5cp0VKD+8OOuSDc8BFpkXhl8xbMdJMFrINAPvg1K4zIgNmhqA6X2gvlukz0dUl+G/Y5H1EZpA/wC1hw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hb8KUVi2; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GCATDe6h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 800AC1F0089D
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:42:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789144942;
-	bh=qCw+Wc6VaeePIHUiOF/W/RmHHZ1/xvW5DOzr9HdXJqw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=GCATDe6hhPwbg8OG6qb0sKFHmHhdz2YMc6txTEV9c1ufFFK2XtJ2YeW4s4v9b1yC9
-	 bUYzk/Jxer96YhzTb5mAhyx/EiLQiwdoiaj/FlGtKvIiy8m3p4T/LOy9E+d+Av1N0n
-	 ZxUAUIXuc9oytTgc6dWGu7jtfM+GGWubw12fMq2zqpze8r8lGtklprSrw65aQudRVk
-	 iM/esHEEWTX4eu8W/KGAfmB3EG4dkxFy6oJAtQwhguNV/bKWet3aKrv4sEmpGoboJv
-	 R42N2xRNCB+iSZ9/Gx9J423uPsUKJ+VzmjTtNgF2KNVWB2u95xYQT49CnZgpgQIQ2f
-	 vdBdx/YmWNjAg==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f16f15so197969e87.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:42:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwcoA7ddiG6yWzYLhXEe2hoO7UEhmeh+8+AjLdYsVYY6I1GkgS9Rcm/CGPEQj9I+aq5aohJIWaql6GWABI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZ5uSVmw0+WYDfzkOaZTMGg3pI/QE6v4Gd7KJVOVH4oZzb9aWk
-	Lp0UdEnHCnXVUTPnBUQhcjdi1pzlhCqINckmmV1jWpAe7SbpEXBJa9B9k0XfdAgsdO43YujMoai
-	zcjcskb6yFV98DocBLvF1penK7DNp3fs=
-X-Received: by 2002:a05:6512:3a84:b0:5b8:998c:ea9 with SMTP id
- 2adb3069b0e04-5b8a032edbemr2203604e87.24.1789144940839; Fri, 11 Sep 2026
- 09:42:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hb8KUVi2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789145045; x=1820681045;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=SgjYkhTSvrNQobs81bP+X0p5lyA+pnHIZkqQnoIThvc=;
+  b=hb8KUVi2K8eboY3FDPIC97c3/f7CE0F5xk5VayuS/sHX94QReL59vEbL
+   L2/OJDl3/2U9MHa2ZgwW/lkiQNRJ7WfsJYG4pUk+a7TuzvdbxcWr4nW3h
+   F1FlOPtDTp3xdUO/9WukhpjJUnkqLmm1cUDG4V4ZeYsSCuE1KUtvpJREE
+   0ml3YAThPxzTRdV7Tah70lUX30f6N3CvX4zQsCyZch9sRJFWMpQPskNNo
+   iB/rZ8E1D04/HpgN+Z2tDy7a4wCbpnkX3EZytOePH+x/Frhzch3SUvS+k
+   oxNQoLV81nxOCO7GM3FY0tFUYdeNnkAOWhd5AFVYbLT6UBQYxvEnFa0Vk
+   Q==;
+X-CSE-ConnectionGUID: v39/LWfwQRSOrqQBX7x90A==
+X-CSE-MsgGUID: 1sAC4a9gSjS6gH0WVfgBmA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="89485133"
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="89485133"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:44:04 -0700
+X-CSE-ConnectionGUID: UbMeKaogTO+sadtbQf+J6A==
+X-CSE-MsgGUID: 03lti0sPT/mKaqjMZmtm9g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="296950336"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.80])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:43:59 -0700
+Date: Fri, 11 Sep 2026 19:43:56 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v7 09/17] iio: adc: ad7768: Configure channel sampling
+ profiles
+Message-ID: <aqQvzEmvNEqYMGLV@ashevche-desk.local>
+References: <20260910-ad7768-driver-v7-0-7f70b07627e1@analog.com>
+ <20260910-ad7768-driver-v7-9-7f70b07627e1@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <1965933.tdWV9SEqCh@rafael.j.wysocki> <9672996.CDJkKcVGEf@rafael.j.wysocki>
- <aqQt8-MlG3fiFw2-@ashevche-desk.local>
-In-Reply-To: <aqQt8-MlG3fiFw2-@ashevche-desk.local>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 11 Sep 2026 18:41:07 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0jCLq7J2X8eR_bAVmnm+4zxDnwk511F9eajZ4oyaUs-tA@mail.gmail.com>
-X-Gm-Features: AcwNN1VLIHUe7MsCAMIdQGwp_Prmmrh-ZVz-tGh7o47y0E0NLP2EJoHQOAx5cUQ
-Message-ID: <CAJZ5v0jCLq7J2X8eR_bAVmnm+4zxDnwk511F9eajZ4oyaUs-tA@mail.gmail.com>
-Subject: Re: [PATCH v1 07/10] ACPI: thermal: Use cooling device parent for
- thermal zone binding
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Linux ACPI <linux-acpi@vger.kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Hans de Goede <hansg@kernel.org>, 
-	LKML <linux-kernel@vger.kernel.org>, Linux PM <linux-pm@vger.kernel.org>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Armin Wolf <w_armin@gmx.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910-ad7768-driver-v7-9-7f70b07627e1@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Sep 11, 2026 at 6:36=E2=80=AFPM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
->
-> On Fri, Sep 11, 2026 at 03:05:07PM +0200, Rafael J. Wysocki wrote:
->
-> > The ACPI thermal zone .should_bind() callback function,
-> > acpi_thermal_should_bind_cdev(), expects the given cooling device's
-> > devdata to point to an ACPI device object whose ACPI handle should be
-> > compared with ACPI handles in a list associated with the given trip
-> > point.  That is not particularly straightforward and it effectively
-> > requires the drivers of ACPI cooling devices to populate the devdata
-> > with addresses of the ACPI companions of the devices they bind to.
-> > Consequently, the devdata cannot be used by the driver for its own
-> > needs which is its intended purpose.
-> >
-> > That can be overcome with the help of the observation that the
-> > ACPI device objects to be matched against the lists of ACPI handles
-> > associated with trip points are in fact the ACPI companions of the
-> > parents of cooling devices.  Thus instead of using the given cooling
-> > device's devdata, it is sufficient to obtain the ACPI handle of its
-> > parent and compare that ACPI handle with the ones in the list
-> > associated with the given trip point.
->
-> ...
->
-> > +     parent_handle =3D ACPI_HANDLE(parent);
-> >
-> > -             if (acpi_fetch_acpi_dev(handle) =3D=3D cdev_adev)
-> > +     for (i =3D 0; i < acpi_trip->devices.count; i++) {
-> > +             if (acpi_trip->devices.handles[i] =3D=3D parent_handle)
->
-> device_match_acpi_handle() ?
+On Thu, Sep 10, 2026 at 07:36:27PM +0200, Janani Sunil wrote:
+> At buffered capture setup, select the fastest compatible power mode for
+> the enabled channel rates. Group channels into the two hardware mode
+> profiles and program their decimation, mode selection, and data clock.
 
-That would cause ACPI_HANDLE() to be evaluated
-acpi_trip->devices.count times for the parent whereas only one
-evaluation is necessary, so not really.
+...
 
->                 if (device_match_acpi_handle(parent, acpi_trip->devices.h=
-andles[i]))
->
-> >                       return true;
-> >       }
+> +	/*
+> +	 * The output data rate ranges overlap between the power modes. At a
+> +	 * common ODR, the faster mode has lower noise, so prefer the fastest
+> +	 * mode that supports every enabled channel.
+> +	 */
+> +	while (mode_idx--) {
+> +		bool supported = true;
+
+Unneeded.
+
+> +		unsigned int channel;
+
+> +		for_each_set_bit(channel, scan_mask,
+> +				 st->chip_info->num_channels) {
+
+Make it a single line (83 characters, yes).
+
+> +			if (!ad7768_find_freq_config(st, mode_idx,
+> +						     st->ch_freq[channel])) {
+> +				supported = false;
+> +				break;
+> +			}
+> +		}
+
+> +		if (supported)
+> +			return ad7768_set_power_mode(st, mode_idx);
+
+		/* No channel found with the requested frequency configuration */
+		if (channel == st->chip_info->num_channels)
+
+> +	}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
