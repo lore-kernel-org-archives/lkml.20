@@ -1,146 +1,226 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [217.70.183.193])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ACF53BE636
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:14:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 450343515C2;
+	Fri, 11 Sep 2026 12:15:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789128882; cv=none; b=dCdlL73INmTFKQowGplGVkxQ4IxapPZ2aWOwDWI+NlZiD8ZdD+KrP5FpaNPTSoznBB7MQucoEBZmNaH2Sw38C2R4zQc9PZy1sM8Rq0e7LkdwON/gFCPV2tArCCiVH7hZckX0zn2bIL96Z35qniMEZZzdDnB+BHVR1zaef+1j7gY=
+	t=1789128908; cv=none; b=LdbtP1rXHz8eEMP8vnOqkgigJ3U258pj2m1RQW3JIMywOckDHbTGSibGlIGxS3jQrp3Ux+7gvP9q7I40UweVTw5G7hIbo1EJScI3+frCRCbqawM6lBHl13DxUwavVgbz2Vg5+C65jDiYWbms8sY6s8I2gTaDl7+5LYkpTsbqoJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789128882; c=relaxed/simple;
-	bh=A0UudHQ9g83Wm57rKo2f+BNjYF2MbrMRmJA6qp13Uuk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GAsNvN1PzOocF9kStmhHUxSphz5y9ESSnH7M5GwRfrqFh6yll0yReG7na7jKogsufNUud3cm8sgY8V1RDLn9WnSoCOSJB8yhpfgPU6f0TtZhPT1n0rUiVkpCtGMrvChrLpwLaqdhZNPrUz9f2084Vud7pLkUqRH3AEnHw1kz1a4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kWW2Uu1u; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kWW2Uu1u"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b2522so638474f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:14:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789128877; x=1789733677; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JFEgQptOfK2+BAsw9MPq5NVIYztFKbDcTNgt/rynjfE=;
-        b=kWW2Uu1uW+clxJIM+/kvLbNG11zy1Tl4XwwXTuR1BFk3FL2blU6ZIJQ3XoRETM1E2z
-         Xri9rL1AZ7hmOJT2dQS1cnkAS9cqdbEQntHwePVLLjdaNFqHwj5oMUJOAhIG79qxLss/
-         7smNpuTQxykEPspa1aZiIwGnRWbBVKknFyusOIc/HUWk/b66iIIJosWjRJVhtpJ8AfPV
-         4tCADMPVgh5KMD2I7OJb8GUmpMWNG0PFBeKVS0QFSzf/y+4L2wBkjm+eNZLSqJLmndAm
-         qWstuNEA3Z3PfIA19XsZq3JXTN5pjlXVlxkrFje9ma1lDVrfZtD90oPLiG4pUUyQsM4s
-         0vXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789128877; x=1789733677;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JFEgQptOfK2+BAsw9MPq5NVIYztFKbDcTNgt/rynjfE=;
-        b=QfD/m+st+mm3BW1OJzR/FUXaglzHPxMbMNhGYczEOIBXqvHOomsEc2mjMQQA3h8jdR
-         rj3x2GW1QsFW7khn+A1MwNK8umklotoLsoL3v3abPLeqinvElfhMG60Dclw2xkmFRr3u
-         22u4HIPMtddXZ5yb1Mj8l2Uqd2pau3RByBuEeZnOXGNN0uhIUBGIUrniUvm0NvmDzCjX
-         PphlztF3HivyPKOF7CSXfQk5x9O/1i0WExW5Pp7PinzGvWqWIT+8haP7Gdle7H79TMWX
-         AuSfbTKWI09XmddHzoy895AaW84QQ08TEcZl7l2XlHJHJa29qTf3xAsrzTr3CG7BIB+c
-         JYDQ==
-X-Forwarded-Encrypted: i=1; AKwUvByJG0wwqyXjRzW8HI4H3t+coE9D3if7tT457MJrwOSbukCtk3Lh5f1ancGsm/QbXfVGipmuTmpGSSZeHs8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDqQGQvyg1GPRiWjCxoWfK5128Vz/AnEoY2pzSAdUpKW6f7O4q
-	3mLzgwGtpeVjKzUt0p5lWEcKGxiD+s26TMj9xN0L1Oi6CS64hiOShx3Y
-X-Gm-Gg: AYBFou0vPvsHL6NgwWjoClPrAr+NxSXZk3Cl+pFGOSjjEpo53fA2CLy7SPeZ/eBsCVH
-	f1X3CE+5W7DlGse27YpQsf2gthAoq4pb0XBcRio6pJWqAuM4ZLqxCnoLVGTZOOq4Twh9SYjI6Od
-	GBsn1x0/2AazHdTdOvc4xTbKcDVyOwuyA2lCxFYbu+pL/yFa+rZXAcVDdVyaJyQeYGD5ERhE7Wl
-	hG3l1qXyNS6KS1R71svK/4iKOewaXXoqu5I8s+TXyvGSkYnxe7BDkldT5+iYdBuLZlj33Fs9H/v
-	vJ2VJwx/bM8DvZqcfJBZWRwH/1LadQPhR99/ce/CTN5Qr/eJ/UxT4ZnJTquKU2HPp1fLZAXy3jD
-	S8sU+2g990EFyjYBB0mE5AI0B0YMjzhbHbizdmaV9IZr0Yhk3aXjMAIflCBrC5hKdMDPJXxejPP
-	4+rFk/hT1pDGAqyBzFpD7SkOZLwugTLbbvY+H7ljKnfyAEpkwgzh30IE0H3xdpi7MTzp+ZVYtgc
-	pQTig==
-X-Received: by 2002:adf:f9d2:0:b0:486:e6a2:2d7c with SMTP id ffacd0b85a97d-486eb31b1ccmr6917106f8f.15.1789128876620;
-        Fri, 11 Sep 2026 05:14:36 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb35f3d9sm4982620f8f.35.2026.09.11.05.14.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 05:14:35 -0700 (PDT)
-Date: Fri, 11 Sep 2026 15:14:32 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Farhad Alemi <farhad.alemi@berkeley.edu>, Alex Elder <elder@kernel.org>
-Cc: Viresh Kumar <vireshk@kernel.org>, Johan Hovold <johan@kernel.org>,
-	falemi@asu.edu, greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: greybus: hid: fix off-by-one in SET_REPORT
- allocation
-Message-ID: <aqPwqFu0eFY4CSZ0@stanley.mountain>
-References: <CA+0ovCirfyOhrXdxmM3ri9-cShD0mzPptO1qtsaboS1xscaM0Q@mail.gmail.com>
+	s=arc-20240116; t=1789128908; c=relaxed/simple;
+	bh=xe7RTnGJ07oHf8k2Dj/sAgJUe+EDTT6QFFlh85x6Crg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YS0rRQDC6bvi6LwCGzFOk4Za2W3iXqgfyioPVHIhgvncuFZ+h3VtRD6A1nPCSN3jUC30MYsCaGLK8i1y5qeUHo+7vPWKthr3co34HxqGmGiZyQBH+1bbMBo4jeGpT28acPBeeCgX9ugHdjTDG1MLXRBW5NNSyDcQWuP+qPfYEbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr; spf=pass smtp.mailfrom=ghiti.fr; arc=none smtp.client-ip=217.70.183.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghiti.fr
+Received: by mail.gandi.net (Postfix) with ESMTPSA id DBC853EE31;
+	Fri, 11 Sep 2026 12:14:51 +0000 (UTC)
+From: Alexandre Ghiti <alex@ghiti.fr>
+To: Johannes Weiner <hannes@cmpxchg.org>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>
+Cc: Kairui Song <ryncsn@gmail.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Wei Xu <weixugc@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Kunwu Chan <kunwu.chan@gmail.com>,
+	Tal Zussman <tz2294@columbia.edu>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Usama Arif <usama.arif@linux.dev>
+Subject: [PATCH v5 1/3] mm: swap: move LRU insertion out of the swap cache allocator
+Date: Fri, 11 Sep 2026 14:13:28 +0200
+Message-ID: <20260911121341.178028-2-alex@ghiti.fr>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260911121341.178028-1-alex@ghiti.fr>
+References: <20260911121341.178028-1-alex@ghiti.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+0ovCirfyOhrXdxmM3ri9-cShD0mzPptO1qtsaboS1xscaM0Q@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+X-GND-Sasl: alex@ghiti.fr
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: dmFkZTEHRPri608QdqX6Uj/BbR+hiAEqvAJNom1pMUaPCDF92wYu3ptg6D8gDZW2m7AvuQwIR2KkJm7RAJk3qeVC81VqEBriyq2Xdjp0AkofstRRVIHILe7cZr6l7t4f+ZKKWwj7745VQLOUqBJD9XxbkV5akW9m/vZnNgm4vNpb9ydmOxvLDanCIkyPQkljOkGS/d6zP/hgl5t79Smmd9JlhTybu2Diwh+eRj0dOJKXMe8t0uExHKdrFvDVypESTLCitwfT3LQsgEesG/8CTTaCUNDOth3Vv6FT5jDyJo9k/tttrmUE3LC7BxoOrohdZXA7bWgJIy8/L4PoQV6JuGOeZNVrAydr/M/Unk1WMzvuPcjb4Hd4uk4M8iOuPTUmHhjU58cXIEjZeyJQlaRrUBY4zkTuVoehOKQUGCsV/ONEYVrKv39Wks4nHPDUS0ZmY3jXR5P9iw2byjlaTIr8qSHXgVNi5xOmkBeXJIaZiWXzFL2loFPw3GIhhYeAfYEAmy33dbUQ6iFfIo2XbUY2HE3oNuYwAZAODPAkv5Bhv/RITaIy5Y+VlE1InwPCj2LkbRYK3uzszINY0nDeIfQcwUcEpxtypI2L+HqLeS5xdm/9y3UY7NELZObB8MtI7hIjPwJZaDK6DL2EH80xTRXH1V0rF+eyEV92wcx2Y57t8IV5lQJk5g
 
-Alex, Greg isn't accepting AI patches for emulated devices.  Is this
-something you could approve?
+This is a preparatory patch.
 
-On Thu, Sep 10, 2026 at 09:32:47PM +0000, Farhad Alemi wrote:
-> gb_hid_set_report() sizes its request payload as sizeof(*request) + len -
-> 1, but report[] in struct gb_hid_set_report_request is a flexible array
-> member that sizeof() already excludes.
+__swap_cache_alloc_folio() adds the new folio to the LRU itself, which
+leaves its callers no way to act on the folio before it becomes visible
+to reclaim.  Two users need exactly that:
 
-I can't really understand this sentence.  What is excluded?
+ - moving the refault evaluation out of the swap cache folio allocation
+   requires it to happen before folio_add_lru(): that consumes PG_active
+   to file the folio on the inactive or the active list, and under MGLRU
+   it also reads PG_workingset to pick the generation.  Setting either
+   flag afterwards does not move the folio;
 
-> The buffer is therefore one byte too
-> small, so memcpy(request->report, buf, len) writes one byte past its end,
-> which KASAN reports as a slab-out-of-bounds write. Drop the stray - 1 so
-> the allocation covers the whole report.
+ - zswap writeback dropbehind needs the buffer folio to stay off the LRU
+   entirely, as the per-CPU LRU batch would hold a reference on it and
+   keep remove_mapping() from freeing it once writeback completes.
 
-I think a better commit message is.
+Defer the LRU insertion to the callers of __swap_cache_alloc_folio():
+each of them adds the folio right after the allocation, so there is no
+functional change intended.
 
-  This "sizeof(*request) + len - 1" calculation is wrong.  It's unclear
-  where the "- 1" comes from.  Perhaps the request->report[] started as
-  a one element array before the driver was published?  That is something
-  that people used to do. Regardless, when we do the memcpy(),
+Suggested-by: Kairui Song <kasong@tencent.com>
+Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+Acked-by: Usama Arif <usama.arif@linux.dev>
+Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
+---
+ mm/swap.h       |  6 +++---
+ mm/swap_state.c | 20 ++++++++++++--------
+ mm/swapfile.c   |  2 +-
+ mm/zswap.c      |  5 +++--
+ 4 files changed, 19 insertions(+), 14 deletions(-)
 
-  memcpy(request->report, buf, len);
+diff --git a/mm/swap.h b/mm/swap.h
+index 90a551a88df6..8679cb61268e 100644
+--- a/mm/swap.h
++++ b/mm/swap.h
+@@ -312,9 +312,9 @@ bool swap_cache_has_folio(swp_entry_t entry);
+ struct folio *swap_cache_get_folio(swp_entry_t entry);
+ void *swap_cache_get_shadow(swp_entry_t entry);
+ void swap_cache_del_folio(struct folio *folio);
+-struct folio *swap_cache_alloc_folio(swp_entry_t target_entry, gfp_t gfp_mask,
+-				     unsigned long orders, struct vm_fault *vmf,
+-				     struct mempolicy *mpol, pgoff_t ilx);
++struct folio *__swap_cache_alloc_folio(swp_entry_t target_entry, gfp_t gfp_mask,
++				       unsigned long orders, struct vm_fault *vmf,
++				       struct mempolicy *mpol, pgoff_t ilx);
+ /* Below helpers require the caller to lock and pass in the swap cluster. */
+ void __swap_cache_add_folio(struct swap_cluster_info *ci,
+ 			    struct folio *folio, swp_entry_t entry);
+diff --git a/mm/swap_state.c b/mm/swap_state.c
+index f3961fdd857d..e5b7fa468ade 100644
+--- a/mm/swap_state.c
++++ b/mm/swap_state.c
+@@ -489,13 +489,11 @@ static struct folio *__swap_cache_alloc(struct swap_cluster_info *ci,
+ 	node_stat_mod_folio(folio, NR_FILE_PAGES, nr_pages);
+ 	lruvec_stat_mod_folio(folio, NR_SWAPCACHE, nr_pages);
+ 
+-	/* Caller will initiate read into locked new_folio */
+-	folio_add_lru(folio);
+ 	return folio;
+ }
+ 
+ /**
+- * swap_cache_alloc_folio - Allocate folio for swapped out slot in swap cache.
++ * __swap_cache_alloc_folio - Allocate folio for swapped out slot in swap cache.
+  * @targ_entry: swap entry indicating the target slot
+  * @gfp: memory allocation flags
+  * @orders: allocation orders, must be non zero
+@@ -507,13 +505,17 @@ static struct folio *__swap_cache_alloc(struct swap_cluster_info *ci,
+  * doing IO (e.g. swap in or zswap writeback). The swap slot indicated by
+  * @targ_entry must have a non-zero swap count (swapped out).
+  *
++ * The returned folio is locked and is NOT on the LRU. The caller must either
++ * add it to the LRU with folio_add_lru() so page reclaim can find it, or free
++ * it directly once done; a folio left off the LRU is unreclaimable and leaks.
++ *
+  * Context: Caller must protect the swap device with reference count or locks.
+  * Return: Returns the folio if allocation succeeded and folio is in the swap
+  * cache. Returns error code if failed due to race, OOM or invalid arguments.
+  */
+-struct folio *swap_cache_alloc_folio(swp_entry_t targ_entry, gfp_t gfp,
+-				     unsigned long orders, struct vm_fault *vmf,
+-				     struct mempolicy *mpol, pgoff_t ilx)
++struct folio *__swap_cache_alloc_folio(swp_entry_t targ_entry, gfp_t gfp,
++				       unsigned long orders, struct vm_fault *vmf,
++				       struct mempolicy *mpol, pgoff_t ilx)
+ {
+ 	int order, err;
+ 	struct folio *ret;
+@@ -649,12 +651,13 @@ static struct folio *swap_cache_read_folio(struct swap_io_ctx *ctx,
+ 		folio = swap_cache_get_folio(entry);
+ 		if (folio)
+ 			return folio;
+-		folio = swap_cache_alloc_folio(entry, gfp, BIT(0), NULL, mpol, ilx);
++		folio = __swap_cache_alloc_folio(entry, gfp, BIT(0), NULL, mpol, ilx);
+ 	} while (PTR_ERR(folio) == -EEXIST);
+ 
+ 	if (IS_ERR_OR_NULL(folio))
+ 		return NULL;
+ 
++	folio_add_lru(folio);
+ 	swap_read_folio(ctx, folio);
+ 	if (readahead) {
+ 		folio_set_readahead(folio);
+@@ -690,12 +693,13 @@ struct folio *swapin_sync(swp_entry_t entry, gfp_t gfp, unsigned long orders,
+ 		folio = swap_cache_get_folio(entry);
+ 		if (folio)
+ 			return folio;
+-		folio = swap_cache_alloc_folio(entry, gfp, orders, vmf, mpol, ilx);
++		folio = __swap_cache_alloc_folio(entry, gfp, orders, vmf, mpol, ilx);
+ 	} while (PTR_ERR(folio) == -EEXIST);
+ 
+ 	if (IS_ERR(folio))
+ 		return folio;
+ 
++	folio_add_lru(folio);
+ 	swap_read_folio(&ctx, folio);
+ 	swap_read_submit(&ctx);
+ 	return folio;
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 53bf01d5f7f1..d678a40fcaac 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -1870,7 +1870,7 @@ void folio_put_swap(struct folio *folio, struct page *page)
+  *   CPU1				CPU2
+  *   do_swap_page()
+  *     ...				swapoff+swapon
+- *     swap_cache_alloc_folio()
++ *     __swap_cache_alloc_folio()
+  *       // check swap_map
+  *     // verify PTE not changed
+  *
+diff --git a/mm/zswap.c b/mm/zswap.c
+index 37f34e406c8e..0d2efe21f18a 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -1001,8 +1001,8 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
+ 		return -EEXIST;
+ 
+ 	mpol = get_task_policy(current);
+-	folio = swap_cache_alloc_folio(swpentry, GFP_KERNEL, BIT(0), NULL, mpol,
+-				       NO_INTERLEAVE_INDEX);
++	folio = __swap_cache_alloc_folio(swpentry, GFP_KERNEL, BIT(0), NULL, mpol,
++					 NO_INTERLEAVE_INDEX);
+ 	put_swap_device(si);
+ 
+ 	/*
+@@ -1014,6 +1014,7 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
+ 	 */
+ 	if (IS_ERR(folio))
+ 		return PTR_ERR(folio);
++	folio_add_lru(folio);
+ 
+ 	/*
+ 	 * folio is locked, and the swapcache is now secured against
+-- 
+2.53.0-Meta
 
-  Then it will write one byte past the end of the buffer.
-
-> 
-> Closes: https://lore.kernel.org/all/CA+0ovCgLrz4WhPKP5LGW5HZa8VOodgeo6pWuyQGgHE7UY57Oog@mail.gmail.com/
-> Signed-off-by: Farhad Alemi <farhad.alemi@berkeley.edu>
-
-This needs a Fixes tag.
-
-Fixes: 96eab779e198 ("greybus: hid: add HID class driver")
-
-> ---
-> The device was emulated.
-> 
-> --- a/drivers/staging/greybus/hid.c
-> +++ b/drivers/staging/greybus/hid.c
-> @@ -97,7 +97,8 @@ static int gb_hid_set_report(struct gb_hid *ghid, u8
-> report_type, u8 report_id,
-
-The patch is corrupt and doesn't apply.  Read the first couple paragraphs
-of Documentation/process/email-clients.rst
-
->  {
->  	struct gb_hid_set_report_request *request;
->  	struct gb_operation *operation;
-> -	int ret, size = sizeof(*request) + len - 1;
-> +	/* report[] is a flexible array, so sizeof() already excludes it. */
-
-AI always adds these pointless comments.  Only interesting lines of
-code need comments.  Imagine if every line of the kernel had comments.
-It would eventually turn into something like the Terms and Conditions
-where it would take more than a human lifetime to read all the things
-we agree to.  We need to create an AGENTS.md which tells AI this stuff.
-
-regards,
-dan carpenter
-
-> +	int ret, size = sizeof(*request) + len;
-> 
->  	ret = gb_pm_runtime_get_sync(ghid->bundle);
->  	if (ret)
