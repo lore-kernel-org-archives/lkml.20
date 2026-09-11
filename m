@@ -1,236 +1,197 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2110.outbound.protection.partner.outlook.cn [139.219.146.110])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 274643CF1F0
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:16:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A84841F5C4;
+	Fri, 11 Sep 2026 10:16:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.110
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789121782; cv=pass; b=DawjY4z/1BDlDCBJyesQ/W2ESladLtb730qZIZdS9hrM9hfElOKKzYb5ySjopP3EwKjKH8iLTYz07tEZYdVD5PXI7Abhh3MrfPJbdlIRYxnifq6o0riXVVfg+ELiMiVPxt54Ch3vew0jxa1IM7n/BmV2dB0DZZmkdu+gGwSKvxc=
+	t=1789121798; cv=fail; b=XXf5R0lq28+3oMBSFvnziZBhttJKsVOgg5PyviONSc40V8jEF31HNoc/ZsV6hy3tusOpkHAN+Q7eknaghFrui/UmonHLG3gUzhGlxLHWscb++x9/VGhnEjZRfyLiQEiiqEJ8/P4eTwj3sgaoN/iLxvJat24tjB7CTwpmRUKK0ng=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789121782; c=relaxed/simple;
-	bh=sTM5l7/mcpTgFtlO+bTq27FtaZVY8D3bMeRpxINvEgE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=c5YOKHvdBDQvTwYTsV6fxbOlCUmMIkr4VyixI/pBc/iSvrpnbuDoN1fQf0+QT99Ua8Y4CB+HVFuKMGnubYMEnpPN8+CIUfK5HkXkGvm4zPdzGQzDoOArSt2Nrkg6br906t6wrw6Uk7054T/begiQW573QleW8A0oPw9D5GUOU70=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PrR4J3e8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QTysus5B; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PrR4J3e8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QTysus5B"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68B9maDw3292377
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:16:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	O+OJapG3xvg4UDzpEuXgFJ8O+WhYav0LSOmiv7Ij/KE=; b=PrR4J3e8x+OtDO1O
-	JurWKSGR7mZQMxGkxFWrpX+utMAc1QQmmECC+J99ANcXMVPnpxGQqXEVk78ieeLF
-	bxhyraqi/484Ui80ebM9twYlZamO5izrF5AYuLp8+KAX2jecaajL9u6H6H1eISCO
-	v932yIZLlL4JlVLgDLqgzvpPfw5EYDItlo0FNKWU5r2eqec0HiKlQpI3O2nnncM4
-	qUwBxfMZZSDWthrnGgMgYc7K7xaWcBsBZURlATzRDj2dBWIwJc4LWfERpaQg/V15
-	C/4QPszSa9Vrx6kK/UPefSCK/uJR5vDyst8JwV86MsQvZBGuljEO4GqtcEY9DMmf
-	GGck6w==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmfbbg3ed-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:16:13 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cfa4e4684bso17650635ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:16:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789121773; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aqIWDmaRJd4OTzoM0VsFimvRTjRGjckRly892FFs1UFaTO3Lwro40aIP7rU7vk8/by
-         gDNjuk7OaCsw5R6cMqK+gwnOSJz4JSJzNEv6YIGM3Pmqn8jiOz5ga07WdzmzaKCrXn32
-         zM70Bi08TLGqRH9GVA4RhTDNKYzGxSTCIk9AtjCNH1iFsYN4bdPiKbQpyXXt03mLHEsI
-         0IM1+OVhuNtr45MVR+BRfCqdIhH2xehXdgz6WfUuyRt8y3FyXlCHbFi+yCNOkgmBi9g3
-         6S6f74aT4Et2boVKcRSrv4HOAf+Czy9aTm7Vzb7WVIbW796Aksq0yNOoy3ve8rZrv03G
-         lwtg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=O+OJapG3xvg4UDzpEuXgFJ8O+WhYav0LSOmiv7Ij/KE=;
-        fh=JEWyyN0eouHQ4CnumkJRE9MYaqfNkMEY0XJcSiAxeEI=;
-        b=Wv8sMt9ZouIF/D83x72LAthDd6Cjydr3nGSbSwj4FHUfL14APn1uVCqGBYUgkFC021
-         UdiL8vhnMDv3BhJH5GOc59G+Xt/rX0fLhkkxmaGIbpCaysl7hoZbgDb32L7boXJwQosI
-         Sqkn1sEsiA14wBfNb+p3ZZtyLvEa9OzTkFQerqS9yp/CUB9JeNzanFpOjaJ6HHbcQHXl
-         XRBiYJyoYyxujTJRZqTa1Eqe6dwYA5fEmEjLeZ5pXyEDFeEGKrpabw4ixtQD08sgRRYH
-         RAktBmxiZOBaRmww3cKlirvP19RZ9LPtUfGA7BRaehJ5J/nxj1wD4uLRUKc903IOYzVj
-         rVtw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789121773; x=1789726573; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=O+OJapG3xvg4UDzpEuXgFJ8O+WhYav0LSOmiv7Ij/KE=;
-        b=QTysus5BIfdvN/xf+iZzwakSsQxEVCMTjFZ6uGr8a0oaV4Z6huFi3T+Qi3TOxqRuCf
-         nR9wtlZDKNe8jwU/1t61V53B8CUZzniUma1gewwdRJSTqGpKUinF1CWzp31BbTvkM7Mn
-         jFQZUnu82uds/rntrqwW4ks6uFbPnOVUfGCP76C2e56MLsX+tsQUTylIwDAI6D4U/dGD
-         tJF/D5LQ3RD/iaRNQLuklpvwjtKwc1+0iz//4R8j5X8E+PXMDe2t2HXbXk7BuM+r1krz
-         T69d+gvZLDFkVKEPrxhGPEg3/HMvOqFMNxK7pYTiQ8EkqnGdhQNGpmniDOVZ1EUWtNW7
-         8dzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789121773; x=1789726573;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=O+OJapG3xvg4UDzpEuXgFJ8O+WhYav0LSOmiv7Ij/KE=;
-        b=Pm4tNvRo4XnFYCKm8p4nYEXO+r/3L02+7/nP85uZbpIIhhMTP6D2iGVbgUinc1JN5R
-         dwPlVMig324Ge+6EatQP8WmgLYnjJ0gLLeJL59krlC8eQ3bDPm7QxM9654p8ZkuvBa32
-         vTRawEUnup+TZODWuBMj1L6GK1h22MQKC643cmstidtof0+cU63QzlX6kzd0yW2gIFsw
-         1Nu8RCtuZ73I7MA9a+uye53QxRzavIN6jDXXpM/KVs/Ii4pvxVAfSRLYqOdIfWvSrssl
-         mN+xEDgfTDpezfywabdL79cpGRIDUd/YYLiGFyjtn85sLVtWXtuw5ySKPcnx6FjneQ0R
-         FDIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzPti6kCDu/ydriSEavB7i4nekRv5ICpaOoSDyh9dq9iNpBxHEJ92zJxEtkHNjwJOXqtsboV7hWhw2stVY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kImihQzY5OrgFWT7oVagIzDQO7acBo8PSiuJlIKAXMGbzsGCcs
-	ahdX6FKhLFgRg0D6st6noD9qGVN8KU/pKxAXZFuM76ISb7DRCeGhQ7p0gHL2Zrk7UhUkjqIOfqE
-	3NkE+sJ/kPbIqN8TS8daVBzIXMBerftJuXpA84aH/RYuR5jICHM+tqLWrZ9DbGGZR+CCC27fTjz
-	AKTP3ABD4oB2K4+4nRM64sygumpO1/hNdGZVBoKWS49A==
-X-Gm-Gg: AYBFou1PnUr93ebdlmSbUZ5GHvCRm75iFWNkZtOTtj4GjYt9Ig212kn6TmVy4HA9W4I
-	+yaZR8VC3VIeK258LSt2e2zwpe0l2HnGDtqkBtDQueRg9oxAuVVWEzEFrgFOCHOCSAYxg+rV7NI
-	FLch4HttCRpEgwd4Wg/3WeX0BnaSwL60pLTUaOmDx0QS9bCAHMzbqabthINQ==
-X-Received: by 2002:a17:902:db03:b0:2db:55d6:349d with SMTP id d9443c01a7336-2dd2a45818amr67010665ad.21.1789121772782;
-        Fri, 11 Sep 2026 03:16:12 -0700 (PDT)
-X-Received: by 2002:a17:902:db03:b0:2db:55d6:349d with SMTP id
- d9443c01a7336-2dd2a45818amr67010175ad.21.1789121772237; Fri, 11 Sep 2026
- 03:16:12 -0700 (PDT)
+	s=arc-20240116; t=1789121798; c=relaxed/simple;
+	bh=31hv5Puaz+Ld656f6K4dpBfQFeJgZ3kjyU0TWlQso1M=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=aSV6CIc/H1RbbYeDm4BjzDHPcaSyICj21DIsAyisIyKSAwsRG/eDkwHHoImCfL7vhA2aBrij2VR15EP/jmJOsp76aK+ft7jpm0eDUrHjldLiCd74+DQt2XgtfFJP6cNw7IIkx7HI36aWoPZQMObluyzyFdYjel9393lzqZvkado=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=G1+Owny/rdGOR0wERoNNPucbToRSXab3XqAyT9CAD45t5rx/TbZY9/OPmR7Cl7xlAMvnrsngw2NUG8Pj/ZauLWcy7cpoVSr79s5UCeXu+nsdmtDufL295RDwQqIxtnfoDp85lveCFy2xNcCJ0RoAhAnRST/Q4QzUQ49/h9ZjkArnFZEzyBUV7CcO1+9DnZiCKjZWkWeEDyZND/cXKTFWnFNteZ2tjhwgoE3+eEHZ/K/URhjfmZwe+0kaw0EEx0m9moPhyDp9bwgkzESjyP/smVoNkLEt4Ud45SDy4fQ3q7AHJbY2RPbABHPh2RIAgpn48z/P6rcnHv0+gRb721yVXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gdpCjoELuJH6Snuka5/GIFNUp5Vgj/T7skGqEKMnGJk=;
+ b=mZUlVoNVifvXQFgxTYOnwkZ8RJpXrMjA5jWNaam+y0BVnToXR6JCJ56FoRJaVHoVI9rySOwFrr1ItPiqW1UlbAyAxPAk8bNEXo8XnDC/0KLRf9lNYkSjhseuDcvlzPJhzaunH8eABmRjIj2bAgAt715GeccRF16Crev5+xcmDVEMok0jg70Ra4W8igGjfmYw1bqiEohJNKTLi9GfSROMoYv3UDmTnbb1Ug7wHgo2cgXE99YjFwYEWwAdiAXRbGc09tGXwRxSe56hL1ksrd2TiU7+XGyVhL/fyvebq/E4TUZVIX4XdCpWlfxtq9DWy9sQCjOoYWszKS722emKKZOByg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1283.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:15::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.18; Fri, 11 Sep
+ 2026 10:16:13 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0382.016; Fri, 11 Sep 2026 10:16:13 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: hal.feng@starfivetech.com
+Cc: aou@eecs.berkeley.edu,
+	conor@kernel.org,
+	devicetree@vger.kernel.org,
+	emil.renner.berthing@canonical.com,
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pwm@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	p.zabel@pengutronix.de,
+	palmer@dabbelt.com,
+	pjw@kernel.org,
+	robh@kernel.org,
+	ukleinek@kernel.org,
+	changhuang.liang@starfivetech.com
+Subject: [RESEND v22 1/3] dt-bindings: pwm: opencores: Update compatibles, examples and maintainers
+Date: Fri, 11 Sep 2026 03:16:05 -0700
+Message-Id: <20260911101605.146710-1-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260810030714.48100-2-hal.feng@starfivetech.com>
+References: <20260810030714.48100-2-hal.feng@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: NT0PR01CA0008.CHNPR01.prod.partner.outlook.cn (10.2.10.13)
+ To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn (10.2.3.102)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907111659.263324-1-ulf.hansson@oss.qualcomm.com>
- <20260907111659.263324-3-ulf.hansson@oss.qualcomm.com> <02b29827-3ca3-414b-9377-972f3d46eb03@gmail.com>
- <CAPx+jO8Cf_NGJ6h30+cd-arAJGQL=V1HayRZqaTrM-xg9eUhpg@mail.gmail.com>
-In-Reply-To: <CAPx+jO8Cf_NGJ6h30+cd-arAJGQL=V1HayRZqaTrM-xg9eUhpg@mail.gmail.com>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Fri, 11 Sep 2026 12:16:00 +0200
-X-Gm-Features: AcwNN1VXOL5T2wS1gBfHMSChb8upujLEO_jTsEBDjEO09CtMln6UezixLgCoqhc
-Message-ID: <CAPx+jO-ZP_09poe0rHm+h4QQZBbHJisCdQGa6kA67sQAkU-BfA@mail.gmail.com>
-Subject: Re: [PATCH v3 2/5] pmdomain: core: Allow a non-CPU device in a CPU PM
- domain to do power on
-To: Dhruva G <goledhruva@gmail.com>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>,
-        "Rafael J . Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>, linux-pm@vger.kernel.org,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Christian Loehle <christian.loehle@arm.com>,
-        Maulik Shah <maulik.shah@oss.qualcomm.com>,
-        Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
-        Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: BC0ACU6OBq--lZ3tWVN0t-_ZvAOo4oWB
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDE0MiBTYWx0ZWRfX2vVoBJ+BwlcZ
- I4y05XSsGzmFOHz1/pEAtPbYAcchbDQBqW6VPzAc+COkoqZJKe8v9HttZ8099KppQiL6SnfUxhJ
- 66p7FH1hheRihq3Zyhj2ifx3ZyhAAVbqQvuptAeeQ1xOklUIsWY7KjClEHhuKVM6ykQwRaibxke
- wjcp19im8d5vhP1VqfHw35DIx8pjRTWjp8eKw+mhK+xHSYl9FFRhgKHqe/sFqHF8bmt47q1GAbS
- ZS4g9oAqAubkLzTOeJl2ckZ4lbcrULoHyJxvoyE+kbnF8XQg+hamWx5Abix5SpFMD1ReN/ONV1p
- 2mtzdFj16yy3D2jxmS/F6GH/F0NST4Iozzpfy3tP1wbc0ICGf8KECp8pFVxidCOB2DsyJlz4NGu
- I2G+5T82N3uHuzuqHJAq11YclAsrFEC/WYfh/fCr+NuzFWl5FV/chC1gCuFuEWe2g0nGU2SK6Wp
- YPKUTLl+IXTGGtuXKxw==
-X-Authority-Analysis: v=2.4 cv=X6jHu2Te c=1 sm=1 tr=0 ts=6aa3d4ed cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=u8BtVuMVLpZXKRMe:21 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=42KKylR2Cj7GAKIKN3YA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDE0MiBTYWx0ZWRfXwdouUEbmN8Rz
- hcuhVmrWdTYiUvF5cqFN2pr/Pyn88qR7OCwbzkj+B1ImzuEoCVGqrLIWklkYcxxa2ccQiv5Hvu7
- 4azi4VZ3XAsIMwtq/+y5Nk8WnCp10PY=
-X-Proofpoint-ORIG-GUID: BC0ACU6OBq--lZ3tWVN0t-_ZvAOo4oWB
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-11_03,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 adultscore=0 malwarescore=0 clxscore=1015
- suspectscore=0 priorityscore=1501 bulkscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110142
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1283:EE_
+X-MS-Office365-Filtering-Correlation-Id: 94badc74-8b1c-433a-0bb8-08df0fedb55d
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|52116014|366016|23010399003|1800799024|10067099003|3023799007|22082099003|18002099003|56012099006|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	1DZqilnFcoIYiMcrfAFGQvNMJSfcL3omuBbqVSYVLiMajl4i9f0/vyO7Gxth3fkY1ax5H9NI8YiFVYg8zB+JSaPcYwD/8TW3ML46boJYuWF3Au+xxowv/emw17SgnHkVznk6F4/L1+nyqMHvnwS3Mt+9v6oUK/wCeppsn7q74/9rjbNmRW5n6l99OmTDQh9+L6d6JVxTgGAWxbnJrF4LaoDnOD5g8z98oAtR60lJ1yH0/lFb3CxxtrpzQw2EssIZzoA8sZ480BNjI0KzGgZ0EIk7dv45HSn/DO0Rf2R0a19lhSC6g0ANU7o7LC1c96E9+1QGOmOSPdBk0y8L7qVtSKsY0p9NjuOQSOV+LwEZ0XnhUFIhxtisVfxI61loVljngCA8X/3yZ9mfLjXb19nTQmCefn3Gf9fA4XIeIq0+uBYd9aqCmoofedj9IabBC1RBRArHTBx6gIFpF8psW01LMyggOmwpgbe9sRPrU3FBmHF1zvc8XGm7+tHEI1puC64ltlmHQ6GcglFU1qRdkfSxOfN0Fy8lLPpNEATPR+aonP/wrkxAdO45ahAmJDiWftEv
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(52116014)(366016)(23010399003)(1800799024)(10067099003)(3023799007)(22082099003)(18002099003)(56012099006)(38350700014);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?5zsXFJmNUMq7SRK1GzdmoLYxilk5u/PiwMH56ZLDN3KXDkxJd3wOotvilD48?=
+ =?us-ascii?Q?QWX6hEemmMgKzjw2TXCgqj5KBbebc8skfN/srU1tZ5QI2R7DDGvjsuzbhZAp?=
+ =?us-ascii?Q?h1/zqIqTX14LMXEjVXJlQDquc11inGpbxPSkFl7lE667dxmdeeqAnmGaLMUL?=
+ =?us-ascii?Q?EkK562CwjfQRPTHTHz47mg7aRzwenVFYpzM6SG65TRhvRJA0CnZGszyvMWXs?=
+ =?us-ascii?Q?MyCWaF5531ILvcTMIuniHdoQQItRFQEzYkHd+NbHsm8FagGD0GdnqrKIIHTE?=
+ =?us-ascii?Q?iKVXotybw7gnJyou1jjLAlCNVevK5tZpQjoKu6/UNvD7TeynmxAEijJjvJSB?=
+ =?us-ascii?Q?dQzhuBfg76ttvZ53FPb9se/Z6EGG65Tn+c25t44Cm/NsHr5WoqXv0cMlBML/?=
+ =?us-ascii?Q?kN+fK/KHsGQ+nNQK/pnIkJufTBE4vJHny9lF2jF+3RZbP19yzw8trFlTswDY?=
+ =?us-ascii?Q?Xef5vkJHE2O/Sn8OEIaIvW0/7V2elUPN1bzYfMAkrp9tESO3rj791Qws/NmS?=
+ =?us-ascii?Q?BZCaI65o8jc2tyzFFLSlG7WBHYCKz2Q6pgDM+xMq/I9hlrFlqEVmtG77JpGj?=
+ =?us-ascii?Q?7KlnJeYaNGc/aMxYtNAnnyE3VemxMJI8F0CmlHsC+VzXhuDFDyuqXxVPGqYb?=
+ =?us-ascii?Q?kfPGuElK1rKQVuwwZKMZsVBRjoMmu9sMHi/vS7K2EKQbBL6trsW4CX3p4NGP?=
+ =?us-ascii?Q?KvngK5t+or8SUuYZycmytVvccVuweiyYxQ/CU5ASHpo57TDcREp5g6PMDhEK?=
+ =?us-ascii?Q?Hd89sofuURDUNmZG3hIJceLF6viDgDuKIuaI/qXs9GQujcT0ptT/9a7Ngu9k?=
+ =?us-ascii?Q?Uy1o9ilaGg5mQ6bGBmu9XsD523tUWv6NqwOaNdmiRUg/PMsJif/Lfl0cbpx+?=
+ =?us-ascii?Q?cqasrEYPn7n1oGOmG4s5aXmWt/aj0zT0WYJDFH6V7HcPm21T5HDtny84oVVI?=
+ =?us-ascii?Q?XJitGC7LV+gDzo+27891YvlSm8N66Y43WZYI6oYydnEL365iiOU2EuTYnst8?=
+ =?us-ascii?Q?ZtcX0c1trhrZEreFKiCZPlK3RklHMyqPMnOgQz2I+FeJPsctsjMCVuddN8hV?=
+ =?us-ascii?Q?XtZKHlfa3axQV2EGQbX0yNOHUKh80Rjw2w3cZoZ1gO5NlUP+dGv8UzSR/YyE?=
+ =?us-ascii?Q?r9z1vKIasdUpe+t9C3yZllKPQn2Wt5fDh7q2SofYuMts9ia/X7X8ShOLw6kh?=
+ =?us-ascii?Q?js0Idp2eNw0cMzj6AWykC1s9G2rzVM1f2D8kR3aonU29Xf8Bar45kZPJZ3zu?=
+ =?us-ascii?Q?fTCw+BFNzYCteoDqEccC/nSX99R1Fx46tZmsH3qV4QXGvnzro2kdn6yPIma1?=
+ =?us-ascii?Q?z5oj8yfp9/Z/+NEUAcex7X2l5vhYLAHr1FdDx7g9Qt0nLNiL3Z4VeD4QUH/h?=
+ =?us-ascii?Q?EGhb8WLpaA0A4+Lon3weVNyLJ1GZiJmJOLxETXtfhkNLV147KXeFK5g8yFCB?=
+ =?us-ascii?Q?+JVFdPJIKvQkDPXOOUXc84H/rwV7TSgv48Db6XLF/kmlvH1TfiiZ96EQT7fp?=
+ =?us-ascii?Q?h60QDF/ylZoukyygM62I5I8iZhZdeEe4fVCMHGB/0yniVp1Oo87eAP2mQuNL?=
+ =?us-ascii?Q?5F/l7h1fEK0yFNf+EXSMaN6SQZaz822ye99ObZkzkY0SpQVm+Rd/u00nkomQ?=
+ =?us-ascii?Q?4IlEbo+crCSdnF5Izw/owkSCEebNTLQMU8h+RAZynQ2rNFoccEQn+q8CnDhO?=
+ =?us-ascii?Q?h3pUucycIlb3OExesHhwm6iASzznx5MfCzokud+5SBi/uarY5vGsgSJtpez4?=
+ =?us-ascii?Q?b8XAAyEuRJJ4v+rMPKF/AaZ6DM2TC/RKn4uJc4aA1Ow82YXIxJvo?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94badc74-8b1c-433a-0bb8-08df0fedb55d
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 10:16:13.5922
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wRcDelnLYH85MKID+jlcWO7X/T8nebifobTA6+lFtMs+PefOvZlXVo4LeEjOTmdRdvDHDF7KyXNsoFJ2m8xPPDvwahZLgcWZjoSorPpmOLiIUdgQS6aXpFEAgAUpNGWP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1283
 
-On Fri, Sep 11, 2026 at 11:06=E2=80=AFAM Ulf Hansson
-<ulf.hansson@oss.qualcomm.com> wrote:
->
-> On Thu, Sep 10, 2026 at 8:31=E2=80=AFPM Dhruva G <goledhruva@gmail.com> w=
-rote:
-> >
-> > On 07-09-2026 16:46, Ulf Hansson wrote:
-> > > A driver for a non-CPU device that is attached to a CPU PM domain (th=
-e
-> > > genpd has the GENPD_FLAG_CPU_DOMAIN configuration set), is currently =
-not
-> > > able to power on the PM domain. More precisely, to power on a CPU PM =
-domain
-> > > one of its corresponding CPUs needs to be woken up if they are idle.
-> > >
-> > > The current support for a non-CPU device is that its driver can only
-> > > prevent an already powered on CPU PM domain from being powered off. T=
-his
-> > > leads to problems for a driver while probing its device or when it ne=
-eds to
-> > > call pm_runtime_get_sync() to turn on the power for it. From the driv=
-er
-> > > point of view it looks like it all works fine, but when accessing the
-> > > device it may end up with various errors as the device may not be ful=
-ly
-> > > powered on.
-> > >
-> > > To fix the behavior for these types of devices, let's adjust the beha=
-viour
-> > > in genpd_power_on() to wake up an idle CPU that belongs to it, in cas=
-es
-> > > when it's needed.
-> > >
-> > > Link: https://lore.kernel.org/all/CAPx+jO-sCierYj8jnoKQHckJG16dOBxnNr=
-sZVYO=3D38R2cLV8nw@mail.gmail.com/
-> > > Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> > > Tested-by: Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>
-> > > Signed-off-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-> > > ---
-> > >
-> > > Changes in v3:
-> > >       - Moved to atomic polling, pointed out by Dhruva.
-> >
-> > Thanks, but even in v3 we still have potential issues.
-> > It does not fully address the consequences of polling for five seconds =
-in that context,
-> > nor the parent-lock nesting issue.
->
-> Well, I assume we will not be polling for 5s, as it would be an error
-> and it means that we fail to wake up the CPU. But, I get your point,
-> 5s is really an unnecessary long timeout.
->
-> Ideally the timeout should map towards the deepest domain idle state's
-> entry+exit-latency-us, but rather than looking at what is actually
-> available for the PM domain(s) in question, I think it's easier (and
-> good enough) if we just pick a common value. Usually these values are
-> in the range of a couple milliseconds and in some cases up to
-> ~15-20ms. I suggest we decrease the timeout to 300ms and see how that
-> plays out.
->
-> Also note that, at this point I don't know of any use cases similar to
-> what you describe, where the device in question is in an irqsafe child
-> domain. Hence the polling would not be done in an atomic context at
-> all, so we should be safe. Anyway, if this doesn't work we would
-> simply have to limit the support to non irqsafe child domains.
->
-> In regards to the parent-lock nesting issue. I don't think it's a
-> problem as genpd_wakeup_cpu() is not being called recursively, but let
-> me double check this to be sure.
+Hello Conor,
 
-Confirmed, I could not trigger any lockdep problems with my tests.
+Sorry to bother you. I discussed it with Hal, and I will pick up this series
+later to add PWM support for JHB100.
 
-If you are fine with the above suggestion for the timeout, I am
-thinking of amending the patch when applying to avoid posting a new
-version of the series. Please let me know.
+> Remove the jh8100 compatible since the JH8100 SoC has been canceled and
+> will not be released. Add the jhb100 compatible to replace it.
+>
+> Change the register size in examples to 0x10, since an OpenCores PTC IP
+> has only 4 32-bit registers: CNTR, HRC, LRC and CTRL.
+>
+> I will maintain this pwm module in place of William.
+>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Fixes: 2529085831b0 ("dt-bindings: pwm: Add bindings for OpenCores PWM Controller")
+> Signed-off-by: Hal Feng <hal.feng@starfivetech.com>
+> ---
+>  Documentation/devicetree/bindings/pwm/opencores,pwm.yaml | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml b/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
+> index 52a59d245cdb..42c5d2b6326d 100644
+> --- a/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
+> +++ b/Documentation/devicetree/bindings/pwm/opencores,pwm.yaml
+> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+>  title: OpenCores PWM controller
+>
+>  maintainers:
+> -  - William Qiu <william.qiu@starfivetech.com>
+> +  - Hal Feng <hal.feng@starfivetech.com>
+>
+>  description:
+>    The OpenCores PTC ip core contains a PWM controller. When operating in PWM
+> @@ -23,7 +23,7 @@ properties:
+>        - enum:
+>            - starfive,jh7100-pwm
+>            - starfive,jh7110-pwm
+> -          - starfive,jh8100-pwm
+> +          - starfive,jhb100-pwm
+>        - const: opencores,pwm-v1
+>
 
-[...]
+Compared with the JH7110 PWM, the JHB100 PWM has been modified. The JH7110 PWM
+is inverted polarity by default, which is consistent with the design of
+opencores,pwm-v1, but the JHB100 PWM has been modified to normal polarity,
+so it no longer conforms to the design of opencores,pwm-v1. Therefore, I plan
+to revise the binding here again:
 
-Kind regards
-Uffe
+properties:
+  compatible:
+    oneOf:
+      - items:
+          - enum:
+              - starfive,jh7100-pwm
+              - starfive,jh7110-pwm
+          - const: opencores,pwm-v1
+      - const: starfive,jhb100-pwm
+
+Do you think this makes sense?
+
+>    reg:
+> @@ -49,7 +49,7 @@ examples:
+>    - |
+>      pwm@12490000 {
+>          compatible = "starfive,jh7110-pwm", "opencores,pwm-v1";
+> -        reg = <0x12490000 0x10000>;
+> +        reg = <0x12490000 0x10>;
+>          clocks = <&clkgen 181>;
+>          resets = <&rstgen 109>;
+>          #pwm-cells = <3>;
+> --
+
+Best Regards,
+Changhuang
