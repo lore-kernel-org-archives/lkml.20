@@ -1,70 +1,75 @@
-Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f10.google.com (mail-lr2-f10.google.com [74.125.230.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 168C24756A7;
-	Fri, 11 Sep 2026 12:31:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.83.148.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D044756D2
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:31:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789129919; cv=none; b=o5R4APF7v1u/j8UKb8VHqMNE834AAS6Fy2v/ewC3OlR60dR+RKEaXVxP9L1NzY/DA4vzlTV2ssoAm50+WUfhy2od0sJo7hY3ZCnqnKuUY7vbrQe1fAocTawHA+IvbcHqjEJIty2ncl/LuYUEsMdDQ8ySVI3iIRRkiUKdi37uHs4=
+	t=1789129932; cv=none; b=i7PK8gzWdv8GizloothucEkz1l0N1PvijjQGIFpILS6x+PYN4+Wthlq5/70bo/bSP1FaA+KOokVtksInyJd4x3bBUK4yvfCVUUlMBJdjRiCZZiVvKByiYnSfgG2CO9HakPkQiKGSQzL25bQbNS5ELqkV2U805djPKWep4qSqP1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789129919; c=relaxed/simple;
-	bh=xWx3SoAbj06B10n7IzmRPp8lX8OkmaAcAzNtEiyBYtE=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=psKIe7AkYNwVSvCdgCDGBBXk8tsJhzKaVcogF4Pxf+TIiWV2js8k4guh/OUl010kGC2Ro0RwChF4pc+LWPTYCQ7PNdqWl9nTxGbQBpG6zHo3CkYq/SWYgGYhhhpzRcj8C9N2k5SnBhLF5s/iZOHwo6Ptq7Ckam9+Oyye92kg1JI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=nym6RHOL; arc=none smtp.client-ip=35.83.148.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1789129932; c=relaxed/simple;
+	bh=A2CvdhG7/vIyoUeGkv5E4Ugr/imarWjFKS/kJBdETX0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GRhurqEopV4zcsFZ5NlXMMXyoCUGx2N2zoOhqZyS3g2oQteISKCWp2orL6d+KIC/VQ+bJU36cfkVPXRG1RCzb7Rn/Iw1wKe9gOdlXiyDf9gUfShYRrpoDuhRBmb8M/mWJFpcVdl1Gn5buf/5nDyriGzhD7f81vIWBiZdupE/xfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OTeLwa6L; arc=none smtp.client-ip=74.125.230.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="nym6RHOL"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OTeLwa6L"
+Received: by mail-lr2-f10.google.com with SMTP id 38308e7fff4ca-3a46d5c5bd7so5098131fa.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:31:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1789129915; x=1820665915;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=uaHpFCf9InS1VfMhfcAUazBouVXMvz/Y4XYVoqAOo5k=;
-  b=nym6RHOLkYNFt/AGSDBQDY6lPwNuvdtm+nO5+cbGQATdocb6qBfsSfxv
-   3vK+u4jpwmffirIsGUWsuxY/LQj4qlGUhFWQjV+7uuLBMm5AGMIVzSehP
-   4CWBUeveIZSJatvxQAC7zdn50WOMKuQ3VhPyivKyPUj8LFj6ixU37IYDM
-   RWi33OEhZ6AoY+w1doCq/sPo6XdRKLiUZYU1yLze8gmg//VPnNSsY3Q2q
-   21MDnyEYDLWw2ANPZBifLilkn3Rba2fwegRqm/YA4UGhXcJK8c8dAZcDk
-   CHgB5VuLRu8hICqYj32x0RMhhSfDG8C3TG0f4hpJHZ4q06xR0pyRoSvkd
-   A==;
-X-CSE-ConnectionGUID: 4qH0kDm0QqiBa/83nnHZYQ==
-X-CSE-MsgGUID: ERk3P2wWQmek5gdyP0r88w==
-X-IronPort-AV: E=Sophos;i="6.27,97,1787011200"; 
-   d="scan'208";a="28216167"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 12:31:52 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:21641]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.6.93:2525] with esmtp (Farcaster)
- id 5cb3e6e0-d9b0-4a56-aa7b-619d6898f09c; Fri, 11 Sep 2026 12:31:51 +0000 (UTC)
-X-Farcaster-Flow-ID: 5cb3e6e0-d9b0-4a56-aa7b-619d6898f09c
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.204) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Fri, 11 Sep 2026 12:31:51 +0000
-Received: from dev-dsk-sakacpav-1a-480d1124.eu-west-1.amazon.com
- (172.19.96.155) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Fri, 11 Sep 2026
- 12:31:48 +0000
-From: Pavol Sakac <sakacpav@amazon.de>
-To: Bjorn Helgaas <bhelgaas@google.com>
-CC: <linux-pci@vger.kernel.org>, <linux-kernel@vger.kernel.org>, David Matlack
-	<dmatlack@google.com>, =?UTF-8?q?Ilpo=20J=C3=A4rvinen?=
-	<ilpo.jarvinen@linux.intel.com>, =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?=
-	<kwilczynski@kernel.org>, Kees Cook <kees@kernel.org>, Madhavan Srinivasan
-	<maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin
-	<npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
-	<linuxppc-dev@lists.ozlabs.org>, Niklas Schnelle <schnelle@linux.ibm.com>,
-	Benjamin Block <bblock@linux.ibm.com>, Lukas Wunner <lukas@wunner.de>, "Ionut
- Nechita" <ionut.nechita@windriver.com>, <nh-open-source@amazon.com>
-Subject: [RFC PATCH 5/8] powerpc/pci: Serialize pcibios_bus_add_device()
-Date: Fri, 11 Sep 2026 14:31:47 +0200
-Message-ID: <20260911123147.97312-1-sakacpav@amazon.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260911-vfopt-s1-v1-0-693271dc0226@amazon.de>
-References: <20260911-vfopt-s1-v1-0-693271dc0226@amazon.de>
+        d=gmail.com; s=20251104; t=1789129917; x=1789734717; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QnJBFBfRn5myQJHTDGn3pEafZ8mzs7RtDdyu8ZdsQwo=;
+        b=OTeLwa6LRDrdvM0CXgSsIkzWuO2Yf5+q1U55b8O8Qqd/AbLK4k7enyrGV2/RqenOEj
+         V9X4RUQ7ELDWdYi02ArPQOXtf7XB1Swm1Tjjtl/T3a3/AJcHiy6BZUXTrcrmvlVFu84L
+         zhBpIqa6SvG4eOvh0F+gBATF25vOkt7PqBn4rEa3fNpybAEuuOTVD0iPnfMRlK0D2uvb
+         zaFiUABMEH8xSwsqxzg1ZQK/YdfX2ph38IynUMdFBGcO2VgRgJJgzBpBJ4pgpQjFu5QI
+         cKLspNb4tk0W2qlQDl8Vsx/8NRZZoRz+GGCdz7LzTWseo6QZrlLbmfUeq8Tpv9lgYSgv
+         vdeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789129917; x=1789734717;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QnJBFBfRn5myQJHTDGn3pEafZ8mzs7RtDdyu8ZdsQwo=;
+        b=cetx9JxqxmhlzwsEyOlR1HURv7+KVevlcZJhFoyX9YSY5VYU1TgNZ0S/CI0mpL0g/e
+         yoiW7iwBjevgHfjBUhOCGkG4Ej5EyOxI73K3ZqZ6686CyMOClOKlx1itQzORCrAZkHUY
+         MurOau/fbAKibUwIp3QhEfXsahkKgonrkBuygbPA/p25zy+3oeeGzaWowbSz9+bdBvEm
+         Fsjf8Z3bNcWj1RjthvBuSwtTp6NTqItIvaGA82a4c/BXjOrqHSxYuQE+A/WsgRheCgX7
+         jng5es9rdkkhNO2fY1Z3A3TxoyZFfVUt4XkQYrDQWdsGFIlqU1cnwZ8mOf0HMm3Ipt+n
+         YzCg==
+X-Forwarded-Encrypted: i=1; AKwUvBz8y7+ybzKjCjkOe+iyaR1Ae9+IeM5wuOIRRbDpkvzHoV/r+k/skFvQzhj0P0kx9OULIKFxlmxbKKSeQYE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwYiVczzknNDTfOydFYAdA4kHw4M5vDbkVOpT70jv3+FqU54cN
+	hVjPgbB3CarjIcd+qsdwV2hfJNx8cmOph/i62Sui+h2B0ctNkWB6OEaF
+X-Gm-Gg: AYBFou0D8xXuZtav43d7I/TnkhvQaylCUGLxU+FVS2xCJGcJgb2Fa9R6He0FPPFafvz
+	afug5i3BSSUBmDGYXrqee658TNhmRKuivXi+UjAmrosmvMnLd7OgF96sl+inVIba6uzwJIhUJoe
+	Br+f0FhvyEs2AvT3cjHwpWy5OoxD4/NdShn2foDKvhMHmhaqtpzKyEwsOAdrlqD9HSQ0Jov1jZG
+	sgCJ8YDAH0dqcqGaNWddBiH0TDh1CgFrpyGdvhwk0L+26ajN/Y1Qb2dYGJvmGHZLASkLdqDwWhi
+	oX5pWgeLnzxHdj9zVWIeGUdx+S9CWuMl+U/wCNIQtThsz3fu/aWXogaiHXz6L6VY9g5toWWqnl8
+	qqSa6tx0h2Noyb9Wq8zC8zHdOjW5I4+oJWlyvU4QL4Lx7plOX4gJhhB6L5UylGb57nsMI4U/Rul
+	kxHcisPN518ErUQZYBxwRXt+7wqao2adbWSRKE61fOwpYQZ1VhoNcQ1YTE61fqL24EPw1kTT71T
+	b9OSUq0muUNOY9kL6T3v7FDsEE=
+X-Received: by 2002:a05:6512:3f25:b0:5b6:1a7c:20 with SMTP id 2adb3069b0e04-5b8a032c8abmr874241e87.35.1789129916639;
+        Fri, 11 Sep 2026 05:31:56 -0700 (PDT)
+Received: from localhost.localdomain ([78.40.184.2])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a033149fsm576697e87.0.2026.09.11.05.31.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 05:31:56 -0700 (PDT)
+From: Roman Demidov <roman.demidov.nn@gmail.com>
+To: stable@vger.kernel.org
+Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Joachim Vandersmissen <git@jvdsn.com>
+Subject: [PATCH 5.10] crypto: ecdh - explicitly zeroize private_key
+Date: Fri, 11 Sep 2026 15:31:37 +0300
+Message-ID: <20260911123140.137198-1-roman.demidov.nn@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,64 +77,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D039UWB002.ant.amazon.com (10.13.138.79) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-The pseries and powernv pcibios_bus_add_device() hooks insert the device
-into the EEH PE tree with bare list manipulation that
-arch/powerpc/kernel/eeh.c itself flags as unlocked, and for SR-IOV the
-pseries hook attaches every VF's eeh_dev to the shared physfn PE. Every
-caller is serialized by enumeration context today; an upcoming change
-runs pci_bus_add_device() for sibling VFs concurrently and makes the race
-reachable.
+From: Joachim Vandersmissen <git@jvdsn.com>
 
-Serialize the platform hook dispatch with an arch-local mutex. Exclusion
-against the EEH recovery thread stays carried by pci_rescan_remove_lock,
-and on probe-path enables the residue folds into the pre-existing
-exposure described in a later patch in this series ("PCI/IOV: Initialize
-virtual functions in parallel"). A proper PE-tree lock is a larger EEH
-cleanup, so eeh_pe.c is left alone.
+commit 73e5984e540a76a2ee1868b91590c922da8c24c9 upstream.
 
-Assisted-by: LLM
-Signed-off-by: Pavol Sakac <sakacpav@amazon.de>
+private_key is overwritten with the key parameter passed in by the
+caller (if present), or alternatively a newly generated private key.
+However, it is possible that the caller provides a key (or the newly
+generated key) which is shorter than the previous key. In that
+scenario, some key material from the previous key would not be
+overwritten. The easiest solution is to explicitly zeroize the entire
+private_key array first.
+
+Note that this patch slightly changes the behavior of this function:
+previously, if the ecc_gen_privkey failed, the old private_key would
+remain. Now, the private_key is always zeroized. This behavior is
+consistent with the case where params.key is set and ecc_is_key_valid
+fails.
+
+Signed-off-by: Joachim Vandersmissen <git@jvdsn.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+[ Roman: The zeroing is performed before ecdh_supported_curve() which is
+not present in upstream but this does not change the fix's logic. ]
+Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
 ---
- arch/powerpc/kernel/pci-common.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+Backport fix for BDU:2025-00987
 
-diff --git a/arch/powerpc/kernel/pci-common.c b/arch/powerpc/kernel/pci-common.c
-index 4fc52c21fe5d..21cccd0e97f8 100644
---- a/arch/powerpc/kernel/pci-common.c
-+++ b/arch/powerpc/kernel/pci-common.c
-@@ -1046,6 +1046,15 @@ void pcibios_setup_bus_self(struct pci_bus *bus)
- 		phb->controller_ops.dma_bus_setup(bus);
- }
+ crypto/ecdh.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/crypto/ecdh.c b/crypto/ecdh.c
+index 96f80c8f8e30..2e7acfc42155 100644
+--- a/crypto/ecdh.c
++++ b/crypto/ecdh.c
+@@ -43,6 +43,8 @@ static int ecdh_set_secret(struct crypto_kpp *tfm, const void *buf,
+ 	    params.key_size > sizeof(ctx->private_key))
+ 		return -EINVAL;
  
-+/*
-+ * The pseries/powernv hooks update the shared EEH PE tree with no
-+ * internal locking; serialize concurrent sibling VF additions.
-+ * Removal-side updates do not take this lock: additions are
-+ * drained before any unwind, and the sysfs enable and EEH paths
-+ * hold pci_rescan_remove_lock.
-+ */
-+static DEFINE_MUTEX(pcibios_bus_add_device_lock);
++	memset(ctx->private_key, 0, sizeof(ctx->private_key));
 +
- void pcibios_bus_add_device(struct pci_dev *dev)
- {
- 	struct pci_controller *phb;
-@@ -1068,8 +1077,11 @@ void pcibios_bus_add_device(struct pci_dev *dev)
- 	if (ppc_md.pci_irq_fixup)
- 		ppc_md.pci_irq_fixup(dev);
- 
--	if (ppc_md.pcibios_bus_add_device)
-+	if (ppc_md.pcibios_bus_add_device) {
-+		mutex_lock(&pcibios_bus_add_device_lock);
- 		ppc_md.pcibios_bus_add_device(dev);
-+		mutex_unlock(&pcibios_bus_add_device_lock);
-+	}
- }
- 
- int pcibios_device_add(struct pci_dev *dev)
+ 	ndigits = ecdh_supported_curve(params.curve_id);
+ 	if (!ndigits)
+ 		return -EINVAL;
 -- 
-2.47.3
+2.53.0
 
