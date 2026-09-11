@@ -1,97 +1,202 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FA5536B924;
-	Fri, 11 Sep 2026 15:05:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139138; cv=none; b=ZWLK8290gxKOTbzlIVtf6sysy1qOOmski4riwJZe9sILji2EJh3gOrlQMqPoz9uSCcV//RBaxvFtqqYhCittCTbaIZwm96wPI+0/KfYUqDzSYi0f4nfqGumwF9NgWUNyPkdQ1itI3Lb9FtySCKITfAqoOp658HuAS5WJMCgdt/I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139138; c=relaxed/simple;
-	bh=uXeZbqHCfqk3Kawl7nHNeW4a/zKZ/FRcBsKCjIooIvs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Sp7huwP/S7QF7jYTj3dmFTb3v5WH8y+rANC/6k7m7tPryjwfF3di4eAPoLlen4xvwTR3jDTLn85sI/+xv60y9+APJJ+ZUxqGn+4ZrbvMFRLTQiDa/pUUbGfJvSqQ1a+9lMxhu+TpuN+lnyNs0B4beo8lBqn8s2F3a56/OtLvuAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=sOJ2/2H5; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED60036A340
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:06:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789139173; cv=pass; b=YTFQ8n+p+ufgeAoGjbqqI4g4/DG8Vilipiub55H1KUY5QMs0gOhK3W82jFP+fPMtcSHt9euUQcWCISno0AiYRRpRLzYfzNbE7K1G5D23V4RaVI9L32nYwkEHb6SX/vaAOy0xzM6LiaXEoDRYe5a7cUK4RQQJqyT9sLxRA/dlffI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789139173; c=relaxed/simple;
+	bh=31WGPI9CsS8AEb1QmZigfY8oBbhGb6+EPuGPGJKusUg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HCA2fGO8sod4Fy21P2qMmrbxvnpK04Gi2qS74OS0kukjcCYTaFxwB6TW8WGuM1a4j6Vfz8wn67SFXbxZ9tSzpLyic+vHcDupxVcXs6u9/0VXIIegOt0Crd6qcaauDVxM/gxXyqOHdqDKXH8KrooO8wpCt9v55MVhhO1cCtyUHaA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qUJmVijz; arc=pass smtp.client-ip=74.125.231.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="sOJ2/2H5"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 99593C63A0C;
-	Fri, 11 Sep 2026 15:06:17 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C8758601DE;
-	Fri, 11 Sep 2026 15:05:35 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F2A1811C7AFAD;
-	Fri, 11 Sep 2026 17:05:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789139130; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=j8Zm1Gw7X8shc78C8M+QfrsBCyZ47FvZQ+SAp7oibzk=;
-	b=sOJ2/2H5vc98Bqopjj70kIEWlVGmVOU4q4qZe5GEVeJQTGbacH2Q2Y5sa/UTo2hGoiRVhv
-	tuLAtTQDDkcZP/Sn7iP4jSZK0diJvrWYKE2yIj0LBLHTu1Tk8kS8/p2oW+DTBXZREZh79g
-	gGNONM5VrvbvMyz8mTgf9370Dvc+AP84M8K60es46S0QG4BXb9JmvYutn93Ax8QOuiIXpL
-	kARuc/i8O8d3shEYQnoj43jpprikbcDQCTQychEJO801golR/7OOnN+HkieDToLYvL+VY3
-	O3qBGpNF52CCCnTkSDqQKu4MBVaqo3DuqBqes0uxpfmQpwu3px1HDv1XfSj2+A==
-From: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Pascal Eberhard <pascal.eberhard@se.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: [PATCH v5 4/4] MAINTAINERS: Add the Renesas RZ/N1 timers driver entry
-Date: Fri, 11 Sep 2026 17:04:55 +0200
-Message-ID: <20260911150456.893761-5-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260911150456.893761-1-herve.codina@bootlin.com>
-References: <20260911150456.893761-1-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qUJmVijz"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-466ccde2ad8so651284fac.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:06:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789139169; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MWphs84KFmbXBz43Nf249oex47XojrnCOKqSD2McBTKb3D8T/7BX9IY8xuJ7Gh0yOD
+         FlA9bgg4tZUTOgiFRDsN4HSLb68hy1PV4K5Hw/AfUdGjd3eErBTMOmS5LkxpZkizCXfq
+         /jzEc+VW6YRZZvrSgYWWN6uNRDLNsRjir30F+W8Jx2FcqDOK7BFP3vKtTDnMhTbUDaRQ
+         4z9jzpK7xOUFXaYLBnPa3RXqyX4mp0ajekW9x7j+Gohijf+zqd+V9+UuHYShTZcClLxV
+         RCPUdI0kpSBYOyfjpOQHf6VlHqvqyNRuXgXVVFOxmR6JO16n0TvPb+YHvuP0l97RzIeV
+         yU5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=31WGPI9CsS8AEb1QmZigfY8oBbhGb6+EPuGPGJKusUg=;
+        fh=Tt9CUWv0MRxc7uLbtm5UfXM8oAykTlOw1GSpIj6sXKM=;
+        b=Eua8v1T1o/ARBjstQVZLyZx2gn/rS42ionQvrkNDrmm0fvuxaE2a4EMaIKpvXdwbKE
+         c7yX15TU7nYvZfG3msqtsGnz7odP90dq3OlmmaaJyD8FtgJ3W5o4zQC8ifQ/6qQnaQ6B
+         uVI6dxy1SnkSlbUQa0MHRkxzhQ36IvSksABKLozU1etVY+sb2lLlPswEdNMOKYgsl97D
+         n3aR2tZf1rO3ND2/xN5XuyD2Xo6bmEVbePjXS+ud3TQFMv7BaBdik28AMwJLlwtuV1fS
+         qoCLIRrWWFmy/F5Gql8fWYNSMyMTeboELLTk5/PRq09P6W2iZ6vO4AeURx11Quv2Dwi0
+         CaKw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789139169; x=1789743969; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=31WGPI9CsS8AEb1QmZigfY8oBbhGb6+EPuGPGJKusUg=;
+        b=qUJmVijzNEk2CFd/2JKrWKzj5OmgEMFOKvrh0RGm0n62p5d07lbv7bYFKZ4eoKjugP
+         QYSUcrsAA+c0AC27+gjFGpBkZ1a1c9ABcQ1Fl8BDYr6h86r5AUW0twP+0XWZRX7zfazr
+         WEe6kAFGuCoQJNfIOrlZ1Y4cXE0+DuMMuYG5O6jqgitmJVAWNdT6ULGieq+wSEvSt+GR
+         VLr9QgoNO08ZRPxx3H1SiOPsijt847d48Y5SbIVoEaG8wcJJK23s+hXBs0U+z63F9Nr0
+         c/S7CJ9EFmUrGuwhSykK1cuReZLfisdthyJt0xRBaUYoDFWgwq9cl6gQg/hPBAD3m+j/
+         rUvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789139169; x=1789743969;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=31WGPI9CsS8AEb1QmZigfY8oBbhGb6+EPuGPGJKusUg=;
+        b=pDwU/AImISOxzXNbvCNjMQjxwXQzyVIw3cvuVdZinhFBLElXEA6PxDpruJxVEHP7+W
+         2etO9tLvXyyu2qknjGCjSjT/e0iyiAg8P6c2mWDX43E+dsqi0BEvX7T9E2hPj1YyD8oe
+         3uPZ6tQv5jwLFBSMru4gCta2jmyB0VgBMEztpa/TsYH2sVoW/aNj8/zW61ZUHXMY4cMP
+         CzgXG+nwG2w2HIK9MT4xvrlz0DQmwxo0t/TJbod1EiTJZ7xbQMpdUUZTrjZLnhhN+/eE
+         7HjKneyf42MJtjMMSlMNnKnCL23NUk4Du1e/6jJ+jv1gGQtbyzdIhCsL5EfbWeK2+5z2
+         Y/Vw==
+X-Forwarded-Encrypted: i=1; AKwUvBw2e+vSY5wTLQ7S7p7hjHrb2DMEptK7xKLOj5y59OzcSaljTHgKz36qirh62WXmyYfTdTemcqdaZVwEh4A=@vger.kernel.org
+X-Gm-Message-State: AFuF++lP4tKFH05bF2bHLvFEV4IhpitnF91VuJEuV3moaSCABJiHvI7+
+	W90CLY/TrEW/ppwxqIcE/woicQS2HO639EMSmAFu928K0h28r4awnx6u5vKQWHTD3kpt/iJ2yY1
+	96MyweBe51dE6AEewrk+CH0GTb5kEhhA=
+X-Gm-Gg: AYBFou0MxSYBWRSsNOCODslJuxtSHzFerVvJuccZ2UHbA9ppCTD+1uMFLX7mZ7HXm6T
+	Hi6KoTpbiZS6u3OmDeqVf4gBhKLFc98O1wyya9RtzgM8Ifpt2yxdLqZCuVjV8aifh7yLvsREMHf
+	7vYb+ER3pjQDhU7QYoluKiI2rSVe+8ptXahf6OJcyEEQdG/t4zCA/rvwBmCnUoc7SK0BPVUcPzt
+	IHa9AZ9YrybqMlqCBWlcolCK/Wc1uzAGy6vtmddVKJYnxE4W3NkwYfRWQteFOKQiCtNrFopDl1u
+	F1kLTXZjai3pYzR39hLU5uHsqtnahumF951B8ks0k9NZ8WbXSYS1FFk=
+X-Received: by 2002:a05:6820:8585:20b0:6b1:be9f:ce6c with SMTP id
+ 006d021491bc7-6c0b9d4e35dmr4967721eaf.4.1789139168581; Fri, 11 Sep 2026
+ 08:06:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
+ <20260908-b4-mmap-prepare-vma-flag-sanify-v1-11-dacf19cce22b@kernel.org>
+ <CAEjxPJ7hXSi=oLtQPV+7GEvN+txfYwZ-u-v_EysNHM0gSGNrCw@mail.gmail.com> <aqPUqU3eZeFrykj3@gremlin>
+In-Reply-To: <aqPUqU3eZeFrykj3@gremlin>
+From: Stephen Smalley <stephen.smalley.work@gmail.com>
+Date: Fri, 11 Sep 2026 11:05:57 -0400
+X-Gm-Features: AcwNN1UL9TCHStClpz4OqpdpVCOHFGRlTtL1ELl-GfcxGBMtPjfBSuHNlaSY27Y
+Message-ID: <CAEjxPJ6P19eKF-c+mm2BSr5_WpmhMTZjjUfSamv3SfOPO4SGVw@mail.gmail.com>
+Subject: Re: [PATCH 11/39] selinux: reject writable opens of policy file, drop
+ mmap shared/write check
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, Jaroslav Kysela <perex@perex.cz>, 
+	Takashi Iwai <tiwai@suse.com>, Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, Simona Vetter <simona@ffwll.ch>, 
+	Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+	Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Arnd Bergmann <arnd@arndb.de>, Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+	Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+	Miklos Szeredi <miklos@szeredi.hu>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+	linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+	linux-sound@vger.kernel.org, bpf@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+	fuse-devel@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-After contributing the driver, add myself as the maintainer for the
-Renesas RZ/N1 timers driver.
+On Fri, Sep 11, 2026 at 6:16=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.o=
+rg> wrote:
+>
+> On Thu, Sep 10, 2026 at 02:11:18PM -0400, Stephen Smalley wrote:
+> > On Tue, Sep 8, 2026 at 4:07=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kerne=
+l.org> wrote:
+> > >
+> > > The policy file has no write method and is exposed read-only (S_IRUGO=
+ in
+> > > selinux_files[]), yet sel_open_policy() performs no open mode check, =
+so a
+> > > CAP_DAC_OVERRIDE caller can open it O_RDWR. Reject FMODE_WRITE at ope=
+n, as
+> > > kernfs does.
+> > >
+> > > The file can then never be mapped with FMODE_WRITE, so do_mmap() alwa=
+ys
+> > > clears VM_MAYWRITE and VM_SHARED for MAP_SHARED mappings and the VM_S=
+HARED
+> > > check in sel_mmap_policy() cannot be reached. Remove it.
+> > >
+> > > This also stops sel_mmap_policy() clearing VM_MAYWRITE on a mapping t=
+hat is
+> > > neither a PFN map nor a mixed map, ahead of the core enforcing that o=
+nly
+> > > such mappings may do so.
+> > >
+> > > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> >
+> > We should likely do something similar for the other sel_open_*() and
+> > sel_mmap_*() functions too.
+> > In particular, truncation of the status file can bring down systemd
+> > since it is mapped by libselinux.
+>
+> Yeah I think there's definitely more that can be done there.
+>
+> Though I think obviously that kind of stuff is better as a follow up as t=
+his
+> patch is focused on eliminating a case where VMA_MAYWRITE_BIT is cleared
+> incorrectly.
 
-Signed-off-by: Herve Codina (Schneider Electric) <herve.codina@bootlin.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
----
- MAINTAINERS | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3a19da74d00c..91b014d27577 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23296,6 +23296,13 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml
- F:	drivers/rtc/rtc-rzn1.c
- 
-+RENESAS RZ/N1 TIMERS DRIVER
-+M:	Herve Codina <herve.codina@bootlin.com>
-+L:	linux-renesas-soc@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/timer/renesas,rzn1-timer.yaml
-+F:	drivers/clocksource/timer-rzn1.c
-+
- RENESAS RZ/N1 USBF CONTROLLER DRIVER
- M:	Herve Codina <herve.codina@bootlin.com>
- L:	linux-renesas-soc@vger.kernel.org
--- 
-2.55.0
-
+Agreed, posted one for the status handlers at:
+https://lore.kernel.org/selinux/20260911145840.19039-2-stephen.smalley.work=
+@gmail.com/
