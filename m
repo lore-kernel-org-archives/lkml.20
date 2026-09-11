@@ -1,120 +1,124 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19DDF46D572
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:30:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 252E7434983;
+	Fri, 11 Sep 2026 10:32:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789122649; cv=none; b=VU6q2vVvdraDdVec/qidZJDIDeu/ANqQHYh0CvdXBRUKnFg/rMXosVQEsY/y7DIEWsPbBBJxiGjVDpizM7sV/bd5+6/G/W5MLAOVBs+boqlouUokO5Xwz1whDAlp7x8USFHPCi+Yl17fBQ8rOD/9krSjgeiCd8g/UqQToMjIlIc=
+	t=1789122754; cv=none; b=TwtZ3u8EVVATjzfNPX1eqEyFBANrdKS0F2rOpgsHdvJzyAldW9uqiIG3IatU83HULpgqzgrxzXkSUtnwoUBwIGhHCv3FRBqp5Wwi/ScxP755RPHbu6xXOeWMBqD/Dbjncs46fElyxGTw96QoEQGrLuUCNpkH5Bn2qLnjZG90H0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789122649; c=relaxed/simple;
-	bh=4rTcP8+UgLBMGKegWTDcIxrsqGEZaPZudzA6ouxcHXg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=eYd7stDzAfo+gO8FPAG6qwFcqQ9vu8jFBXzfoWdjchNeVknwLFIy465JXnVssv3pdcamG0J8knkwhlAF/oU1mtyCNf62xl6d6eQq0V5lHVTKcUs46Y2CagkZCrL30+KEqlkDB2+1IzhOhYGKKIWY/f8VmDXn2JpRGFKdtWsdXGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=JouC1oqI; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1789122754; c=relaxed/simple;
+	bh=fYi9FhVpfZvClDeGGuC5tm1+LiB694kKocQDUJili6w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u+bjMy6es6AeXTHGcjxiGKGMUE7SqazHJAD5mliwm7FVb4PjRA1BdHf1IUsev6Gzu9EskTAMDAytKBmmohfuTbi5nf2EqGaRouFEjbAcBf6TSeLv4zaHCuWyRsZ9CZlER8B+/5g+Y2ccau6/36iE/k5wEZuNuzUUkkMwwGaVB1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hUgfb/EW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="JouC1oqI"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=SXtNA177EaxUe1pCfpdcWJYpJ0qgTjwrK2zCDmLSJ/4=; b=JouC1oqIKqdhe82qomR2hEEDcR
-	Be1a7n9WWWjtd2Xu7+ujJPFrFnzhS+SNhVbGp6y9iwVX7jDVHygUtFNLi1nyoNBVPP4eVXAo+oaNO
-	MlcnKQFrn/ePBzU9lVF0jqCU6PrPsvH0MfKNJm1SkMsloov9Q4n+U6G96nHaNzMF5o5aMEMIwdg1i
-	5oDFJkaDGJOCwdGlJmtwulEU29pFZdF4MvnN5PvbfzffAKBH5AObXkOp3u5kasjgu1fE8PiZ/sP4/
-	3eBmhaOcLFcfJYi0VOYAHiDl65c2Hnhjpa8QS/4zwXkJ9KwItQ+YTss3u8JF4k9RMvQFfT7xJRKjK
-	IN3W/aVw==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1x4yWe-001E3M-0e;
-	Fri, 11 Sep 2026 10:30:32 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Fri, 11 Sep 2026 03:26:28 -0700
-Subject: [PATCH wq/for-7.4] workqueue: BUG_ON() a pwq release before
- workqueue_init()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hUgfb/EW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EB081F000FF;
+	Fri, 11 Sep 2026 10:32:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789122750;
+	bh=sHkwCx+X8PY/ghJUBF25VRnJNYbNjRdZUgWWM+k8AEk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hUgfb/EWBnGlb7RlYOENZ2pXvcXCXYgDvn+wJkmaK/w7Fk+XozbDh6rmt0/3R/mcZ
+	 wq9LYipdsr3zId6f7o+a4+BikpaBZapkEY+ODCHMUqhtx6yhZqwc00npYnspHdbf33
+	 XdX7CvZlvu1ULcJwhM/rI1324A3f7aZ3kSML0Ru2GTM948YClJ00a/X+TxjilZpkMA
+	 dlqEP70v3crNWXtxM6LohZR5yFchwd6Eh3Gke6qpUVB+IJ0lzdvwAt8BytzhJUrPN9
+	 tCE7PQ7Ri5UybjHK8OeE1/ixFG96hMhGGzftuXSS6fbSTSxvVg/wA/hamH7M20yBmd
+	 FDbeFkSleSH8A==
+Date: Fri, 11 Sep 2026 12:32:27 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Jon Hunter <jonathanh@nvidia.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Charan Pedumuru <charan.pedumuru@gmail.com>, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH 7/8] arm64: tegra: Clean up AHUB on Tegra264
+Message-ID: <aqPYjLrf8h8RVXKI@orome>
+References: <20260902-tegra-ahub-dt-cleanup-v1-0-028f3c5e72f6@nvidia.com>
+ <20260902-tegra-ahub-dt-cleanup-v1-7-028f3c5e72f6@nvidia.com>
+ <c9ad15c1-10c0-4111-a143-baf72fccf1f2@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-tejun_bug_on-v1-1-8ee9083f7a7e@debian.org>
-X-B4-Tracking: v=1; b=H4sIAFTXo2oC/x3MQQ6CMBAF0KtM/ppqZ6ISehVjiJUBx0UrragJ4
- e4mvgO8FVWLaUWgFUXfVi0nBOKGcLtf06TOBgSCeDn5jtm99LGkPi5Tn5M7xlaGzrNEFjSEZ9H
- Rvv/ujM+8H3Nx7e6Ay7b9ADEPcgtqAAAA
-X-Change-ID: 20260911-tejun_bug_on-5b72d9012b12
-To: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, 
- Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.16-dev-f8e9d
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1685; i=leitao@debian.org;
- h=from:subject:message-id; bh=4rTcP8+UgLBMGKegWTDcIxrsqGEZaPZudzA6ouxcHXg=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqo9hEGX3qe0ZMyMh/ri69ZSrE7dIhBu6fv2bE4
- 3/ooOJCepuJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaqPYRAAKCRA1o5Of/Hh3
- bX3oEACfK99Rojig75MIVUpVQICvkjQxkt3Ogy4JJP6P5w2i8gIFn4KngEo7AppY2aZhAI3rv7E
- i6jCXDFRumc6RqfE3z+HccZp+6cigqDwmMJAmzIoB+hQj8kLAfFSWg2UfYcejdrgDORdOqE7k+n
- kj0X0v34afkGz80ZZMfgUE1fBcYWdpGqTn2THk3IaSNRRE8tczgShMKxWNttM12gRYHhRDeSsrM
- BO6HGX5SSzlBqrmHSppGCBEDqMFmu+UmnkAugaCw09par55X+wD9VFl9BGQSEl/tdAe6reOg0dZ
- FhpuOsvPtErLFxctnQL8q/Rpf+PLZb8M/khhEmAUZUYc7esjh56wTf965dJGtpSaLBbepiqEfr6
- nEr9qew0VMvep4v1ch06Jq5tq0LqxMW2VrMDEs9IOSblih2KoY0HL6I8F1nNCVdf9HEMfLdjfB/
- jWOG/YbFO3ESt+sge0OOpzKxVqoNve7yc8S2JzKL8Ofu5cMUmDpgA/DodVf314tickP8i0CnIkx
- 7JTMp3bNdwMT4QeDMG3eBTI0Tw+k8WvKPgEImQEjvm2FjZDQmZmhu6hFMeyWV+eGMBFMh8Jhllr
- tybnXpSn7jTNVRf8sOn7q5gKIMN4lFjBTgksRxWC0X5vXiO4+ajf5fuFxmW2QAPhxT0HGX7LVi+
- UzfdZI6qCYMWunw==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="m5jca5lq2775jgcj"
+Content-Disposition: inline
+In-Reply-To: <c9ad15c1-10c0-4111-a143-baf72fccf1f2@nvidia.com>
 
-put_pwq() bounces the release to pwq_release_worker to get out from
-under pool->lock. workqueue_init() creates that kthread_worker well
-after workqueue_init_early() has built the system workqueues, so a pwq
-allocation failing partway through apply_wqattrs_prepare() unwinds
-through apply_wqattrs_cleanup() and dereferences a NULL worker.
 
-There is no way back from that. Running the release inline is not an
-option, that is what the bounce exists for, and workqueue_init_early()
-already BUG_ON()s a system workqueue it failed to allocate.
+--m5jca5lq2775jgcj
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 7/8] arm64: tegra: Clean up AHUB on Tegra264
+MIME-Version: 1.0
 
-BUG_ON() the missing worker instead of oopsing inside
-kthread_queue_work().
+On Thu, Sep 10, 2026 at 05:36:41PM +0100, Jon Hunter wrote:
+>=20
+>=20
+> On 02/09/2026 11:17, Thierry Reding wrote:
+> > From: Thierry Reding <treding@nvidia.com>
+> >=20
+> > Use #address-cells =3D <1> and #size-cells =3D <1> because we don't need
+> > 64-bit register addressing for this hardware. While at it, also adjust
+> > the ranges property to encompass the entire AHUB range as per the TRM.
+> >=20
+> > Signed-off-by: Thierry Reding <treding@nvidia.com>
+> > ---
+> >   arch/arm64/boot/dts/nvidia/tegra264.dtsi | 118 +++++++++++++++-------=
+---------
+> >   1 file changed, 59 insertions(+), 59 deletions(-)
+> >=20
+> > diff --git a/arch/arm64/boot/dts/nvidia/tegra264.dtsi b/arch/arm64/boot=
+/dts/nvidia/tegra264.dtsi
+> > index 6b2e3a6ab810..4ed7dabafee5 100644
+> > --- a/arch/arm64/boot/dts/nvidia/tegra264.dtsi
+> > +++ b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
+> > @@ -129,13 +129,13 @@ aconnect@9000000 {
+> >   			power-domains =3D <&bpmp TEGRA264_POWER_DOMAIN_AUD>;
+> >   			status =3D "disabled";
+>=20
+> ...
+>=20
+> >   					ports {
+> > @@ -1584,7 +1584,7 @@ sfc1_cif_out: endpoint {
+> >   				tegra_sfc2: sfc@9710000 {
+> >   					compatible =3D "nvidia,tegra264-sfc",
+> >   							"nvidia,tegra210-sfc";
+> > -					reg =3D <0x0 0x9710000 0x0 0x10000>;
+> > +					reg =3D <0x9710000 x0 0x10000>;
+>=20
+>=20
+> Looks like a typo crept in here 'x0' which is what kernelci is
+> complaining about [0].
 
-Suggested-by: Tejun Heo <tj@kernel.org>
-Link: https://lore.kernel.org/all/144b3dc986135ebe34f671cdd02bd8aa@kernel.org/
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
- kernel/workqueue.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Ugh... I had fixed this up in a local branch but then applied the
+patches from the list instead... fixed now.
 
-diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-index 39187f424c34e7..e618108c6127da 100644
---- a/kernel/workqueue.c
-+++ b/kernel/workqueue.c
-@@ -1771,6 +1771,14 @@ static void put_pwq(struct pool_workqueue *pwq)
- 	lockdep_assert_held(&pwq->pool->lock);
- 	if (likely(--pwq->refcnt))
- 		return;
-+
-+	/*
-+	 * pwq_release_worker is only created in workqueue_init(). Getting
-+	 * here before that means an early workqueue allocation failed, which
-+	 * is fatal anyway.
-+	 */
-+	BUG_ON(!pwq_release_worker);
-+
- 	/*
- 	 * @pwq can't be released under pool->lock, bounce to a dedicated
- 	 * kthread_worker to avoid A-A deadlocks.
+Thierry
 
----
-base-commit: d8c2ce77cd09077ec57c4bed5678f76425157ccd
-change-id: 20260911-tejun_bug_on-5b72d9012b12
+--m5jca5lq2775jgcj
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqj2LsACgkQ3SOs138+
+s6HPORAAkG+TuoUnEnlBWaqoulNF0A8E/zyH2p6PyuTzoJ7Kiu01zEJ1mDdUoY9S
+dYIk/qK0W6FLt/fH8Oh1DPx63ifnq6uFt920I2IWeTomWZOFZaHCMvje3o2yeZWn
+9adP4SLIwVS7XtkmKeEC9Fko0mWujCMZLj1qV87AkGAB+qA2BXxKDfxJyr7j+xgc
+r5jKFXWzLZJgSrtiGQZCp4eJhyOChSUlJSnq8R3YFwAlYXHWBg5SqSCohzDbUdpO
+W9bVwu1pVQdo9SMm9HcoQq8JJDVWNMVjWBhbTSqZPoTLeobAhuPx3tf3vH2h4V9x
+kuy62DaZZG3G/VbHO4+eG622YQPv3KaNZW18LHnPcFO6tju0RFsAIsph8bdQy0lU
+rpHXp1AoffyNl07LItGW9b5SmJI4dt2n9xBQSgJhPdnHhoekR1Up+hkMJUTiEfNb
+I6jLRh8Rnyhr5KFaELmWJwel1kLKy7ChP4Lghkri79vGy3TeR7gMjefQp39tWyco
+Mq6joShAr1yi1MjmX+LYSRvPxki3HgoiIAG0sRPGobsUZ3jUGI2UobabqpZ/Vyfj
+PUYN6k4z92FwejjjXj2xOJC40plLT1e4UfbGzDCQJn1p+aFbt968a2jNR/BuC9ZF
+enjT9Yd/N3/nHC0UvvGuMBlmKLM6K/syDpBef/jSplORr4SJNv0=
+=rA0U
+-----END PGP SIGNATURE-----
+
+--m5jca5lq2775jgcj--
