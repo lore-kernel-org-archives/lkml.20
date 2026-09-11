@@ -1,62 +1,64 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8FAB49EC7A
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:06:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F1AB49E5F2
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:07:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789142821; cv=none; b=KNGQFTjYJ4eTBuYjqzoxHvgmdMVI1HiAdgEiCPDwcT0uRUrBIyiwX3SEQSNHkJJ9WN0kFqUrdDPgimzICbTZknbY7fpawfspHT98kCqy8l/nws2WXVK6Ra6GM6eGjcGin61kW2rbj7CqrusOhyi9ASVZj9iQDg7yxlhHd8hrbEM=
+	t=1789142824; cv=none; b=rXZQLueIIqdmXTpc3fhMZgGVUTJ1Mz0FvzMBPMB3dpnouEilZn1NkS++eccYdxZOGQ2EJUhkBof7HXHY40vbSODfVEzv3y0L5bUFYovvEFO73QI9DvjMK+gielyXwVu4HegmFkIIxwuN34waPQoxfKOqRDrbAAsyP9myU2XE0Sg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789142821; c=relaxed/simple;
-	bh=gBbxLP629Gvcj9VfC9SPmRJKw+A05O9nG+Plld/3GVw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uv+BhmuHCVMThujFmwTttYnWHWezWmJxG+lp7aeidULiY+sce96cvgNOhklDXHTwd8EYMLx0GAydR3C7NrorEauGX7QpbqgoMb4w45frAX/rtuY5bluzjNq9CC8rk1SEL/Sd8CnT2uvQaekDe16dDymddlO9/76vQ1ZOSdHO1u8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gs.ncku.edu.tw; spf=pass smtp.mailfrom=gs.ncku.edu.tw; dkim=pass (2048-bit key) header.d=gs-ncku-edu-tw.20251104.gappssmtp.com header.i=@gs-ncku-edu-tw.20251104.gappssmtp.com header.b=k8qOVQ+Z; arc=none smtp.client-ip=209.85.214.173
+	s=arc-20240116; t=1789142824; c=relaxed/simple;
+	bh=a73nlWUpFLqK5BIq+RCvdpji6ixUwx/paZfTWdzUUB8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=ZfN1TfOg2CPr+qFZViVbzcI7gSkjMQV/WkoKh6V86aVq8LWL92BCxRjxcgL0HMPt47Ayr7X74H7zlTiVksHevb96tf3hoTn5sjOk/zByFCmZv8FgCx9mUqN2qsjsIBbFCtsEeRQ9Q5qwwJnnTYhYY7Xkgc9ekJocm/suX9Oh6P8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gs.ncku.edu.tw; spf=pass smtp.mailfrom=gs.ncku.edu.tw; dkim=pass (2048-bit key) header.d=gs-ncku-edu-tw.20251104.gappssmtp.com header.i=@gs-ncku-edu-tw.20251104.gappssmtp.com header.b=R3WD5xj+; arc=none smtp.client-ip=209.85.214.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gs.ncku.edu.tw
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gs.ncku.edu.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gs-ncku-edu-tw.20251104.gappssmtp.com header.i=@gs-ncku-edu-tw.20251104.gappssmtp.com header.b="k8qOVQ+Z"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2caced6038eso11727155ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:06:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gs-ncku-edu-tw.20251104.gappssmtp.com header.i=@gs-ncku-edu-tw.20251104.gappssmtp.com header.b="R3WD5xj+"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2db3305f94fso15074745ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:07:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gs-ncku-edu-tw.20251104.gappssmtp.com; s=20251104; t=1789142818; x=1789747618; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=w8yzgeJZFDZiVAiiCE2K00c+oQsu6HsCjjXTSMd7Ylo=;
-        b=k8qOVQ+ZB/TO1NN8QH0kgqXLzcJRAHtUR75nlZeZ0ncHfLiENxwXD0gZv+eDKU3nL2
-         wWE0eh4Ouc5Zm+uCeRw5S9Xw4OdEpk/zLzYfIHjT03PVEAJkQbGELUu3HpZKvk9J5IVe
-         rkLJMcYEMjIg0uQIMEnqk8gMvJnaIV4+0Yvsnx6Lcw9BP75BrwE4QCxWf0rKN5RRLTX9
-         VO0C89r+h/Poj4GBI8M9fJl5QgvqwQnHkhsr/qjoKbZYKVuPbACEz+HoHijn9ezvebgP
-         97rJem5hElhSA1bhR6A/0ZW227bfqNZLuTHQ9aO63UArSziPhbHolrq9FFb7ZygcMMXc
-         hG7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789142818; x=1789747618;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gs-ncku-edu-tw.20251104.gappssmtp.com; s=20251104; t=1789142822; x=1789747622; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=w8yzgeJZFDZiVAiiCE2K00c+oQsu6HsCjjXTSMd7Ylo=;
-        b=gK2w4MHmBVm9ey71rhpNKSbjzzlw8gfpw/ay30cEsjgRo4jG8LDkfM8moeK9DUTuoW
-         8DuJ5+kJ99DMufrhHqli5iN9Byd7oji3CIL3shzT1EA0G1QL1/umF38/y4bIYpti5f1w
-         XlCcGIydeJCikxTzTJNwHgGHHZc/p4aRAM/Hjo7I44gKUK2163sizSez/1/gFysEQ5tt
-         GsrbJeG70QuNTqoRz8bBabBL0rMhTJQESdrOoLdLknhQ/525DfOQh8XN0dTPfCjWYi5P
-         KO7F/9cI7FBiZxkPsZ73oQI4hRF0FWlLz3kwVWk4/nLs7dGxCrBWsVb3pC8cZJJnBOTr
-         dOfw==
-X-Forwarded-Encrypted: i=1; AKwUvBwXGCUJ++JQXJcSlInNpsmgPN1jUj8YQY+fSoqCzNABscD2BLAot5rIPbtuzF1PJTV4QKdsvXZY/8gHFIE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mAFfGOZbwSpK6q6gsnNeUfAvKkLo1XEiGZTGfg7bGpB9eufQ7P
-	SmVSIl+qj3BmTiXMW9qG2Ncvb9i2MNf4JJNszKst9NCLR96PY0XknI670P+WMXK5GNU=
-X-Gm-Gg: AYBFou0YcEr6ElUpC8oDOvD2pOkGXW2s93HRZ51mSWobScszsqCMJ8Ze+/fmsv6DH/V
-	0nc7XlUFTiUyX3vFetab7XUrxluqgoYiXhysm6pxinboz5c2wOuXDEIlwaKaJH4WqIbTZSBlz+d
-	VAYCRE6fsCwZkqCm1cnYW/9J022EeqdtRQA42pe3VDV0aYyHrW8j0Pacaz4hxRaFc6PG+h2cLhl
-	lR1t0aTwjPM+ft5kBXR3XijlKiMipmVz2U78hQsP8SGX0BQQohNi59hko4xuBUTdPsMrif+fkKO
-	Cj4E8CfjxKxjRn0zS8eyuTrut6yrjq055gEtRi8Kqsz8a4Wwnc47SK3fqfuJoa6CKn12a2Y7DDz
-	CQlij6lz8EiBFgtj/Do6E9N0n1Q7zALGFzLVaY4cFk9Q8d/jypJ1OBDdmt5u2DnXQbyfSGMWVeb
-	oJwpLyty2wi+O7n2W7/HP3/f2LU3iaZcOw5B8FpSdP1lOdMJyxjkyhCH2oVFmeKSO78aIiIn7W8
-	Xk+35ud9VsB7U350OrfLpgcwov+zXnPi12OFWq/NsC4BWhpRHABGk2UtI3tmW1sLVSo
-X-Received: by 2002:a17:903:1a88:b0:2d7:1858:1d96 with SMTP id d9443c01a7336-2dd0e9e565emr113903455ad.7.1789142817956;
-        Fri, 11 Sep 2026 09:06:57 -0700 (PDT)
+        bh=e2pCUaRthzuM/aWjTr8lb/B8fTUBfn+Ec5IEGb7Sxaw=;
+        b=R3WD5xj+NEJWhpkZHQuer4e4w9OO+aCtG4OkcHJ3mY8kawD+83vgD5XI3TzfTrye4N
+         Gvfmne8fHr9TurUYFVzHceEB/3tY5o6NDH39kPalvFzwd+q6x9LZzeOtrxP7fmPruQKK
+         t7yef9P16tXKv9MttNpOFmra9L2AYeorMnFnVkX/bc71/hozRMM+kG+9/n8eZsQt/QKO
+         4BCL9bciwRItZftUQMI3Sr+lAklT8gT4QoUwT2vgFnVRumuRRNeb5NVnOx2doApvm6A2
+         o7/NINpqpTuWki5MXhzgFaQl1adoR5UrLdNfPc/ZzveGQ49Evi3a9uKOCi3HzGp2s9nh
+         4D5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789142822; x=1789747622;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=e2pCUaRthzuM/aWjTr8lb/B8fTUBfn+Ec5IEGb7Sxaw=;
+        b=OPTpLN0VbztBbctA3Xyt4vUt5KO472tai05lXg3H14l2IqDnYj0nAwSwDThnCj5EJj
+         mtLU/KMuJHEhLoM4JMLw0QTmS3wreJ/clJzpwq4gC1sPWxqrGu9+RJUEhccTqn9dvbRd
+         J0xcrdGueqXaQw8sOzdrezf1dgvMkG8P6rrN3Z5CFy/8mbi9o9ipQVeI8pqfOBJ9pJiJ
+         MnalHsJTrIUTp45IX1098GQLaEjSERFKmy+FBv9jmTR6wkdUMuBk759Bp4dfLHvB8tJv
+         pv+3aHvbjYE6sQ0hsJzCnvYGoyreAXUOW6/TxQeqLWjAMXhVSsONfDyu1M8j5ZmE4FZE
+         Nxtw==
+X-Forwarded-Encrypted: i=1; AKwUvByex6OZh4LFPTcbN3VLG7CjT1Vad/MUkwhqt8DwtjaPm4Bt/caWhpPU93DxSVnw/kFIgDj2dBNdr7s6KR0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mCAd6pUUJwrGMFhU0J4tWFxsVrt6PxQU2NHT13y90DKzyvqKfR
+	EjA9a36AM3fmrZtNo3gmctm5Og55um+dLoorQUGejW4hSwM3Xd7088LcwUQ9zyWYdus=
+X-Gm-Gg: AYBFou2sHWgHhN3WE/wIWzLx2f/XfwBjNROunqUyNsXZsN0iOVjLDcC4HmgMiSx8+ii
+	1wIGcb9xcigZ0q9091V+pC2cpplXhypzivdsa/2p3e8D2SZ6OGiI3/V15M9FMR4s1RvNY5EXv1L
+	8Gv7bpvFCf1BmZ51orP9hSIdOv5FboiV456mTfpMcAcz9iwko693Q909+tPlckmLmrsZYFA+fzm
+	NU/S4zPOUJPSooQ3uSNZ91g/merMsUbTc5XAzHk0XXYgmCJpFhZmXQ4JEPzWYQWyfv9Ny6Pte8B
+	o4Fmj2m9lHmjOagy2oc93g1axKEx0d0PavtCVNnLE62prWHFxGI7r9Z8xwfjHVvyYbMiDcubiiA
+	ESrQTaeQTEK1bZRioIyrVMmH0FDvGbrLZiIgU7T6cbdlJCW/eNyYxn7iFsImw9JCu78cwegTELV
+	SFvALhkLngCTUZ0Gog/ZDO1QR4MSQnbJZmLcx75ro1MLI65IkUSFYNKVQEYeK715vEZIdZkrqhX
+	Ic9gpjZmMeTVBNBQ/F0HJGwGAnhIz5nAgN299C4xIdiR7FMCf2z1Bn9Eoo=
+X-Received: by 2002:a17:902:d484:b0:2d8:d4cc:5bb1 with SMTP id d9443c01a7336-2dd2a350491mr83902715ad.17.1789142822209;
+        Fri, 11 Sep 2026 09:07:02 -0700 (PDT)
 Received: from localhost.localdomain (111-240-145-155.dynamic-ip.hinet.net. [111.240.145.155])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfcefb6sm13883055ad.56.2026.09.11.09.06.55
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfcefb6sm13883055ad.56.2026.09.11.09.06.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 09:06:57 -0700 (PDT)
+        Fri, 11 Sep 2026 09:07:01 -0700 (PDT)
 From: shuo huang <f64116045@gs.ncku.edu.tw>
 To: netdev@vger.kernel.org
 Cc: linux-kselftest@vger.kernel.org,
@@ -69,10 +71,12 @@ Cc: linux-kselftest@vger.kernel.org,
 	shuah@kernel.org,
 	jiayuan.chen@linux.dev,
 	f64116045@gs.ncku.edu.tw
-Subject: [PATCH net-next v2 0/2] selftests: net: Exercise TCP payload verification
-Date: Sat, 12 Sep 2026 00:06:47 +0800
-Message-Id: <20260911160649.51863-1-f64116045@gs.ncku.edu.tw>
+Subject: [PATCH net-next v2 1/2] selftests: net: Add TCP payload verification to udpgso_bench_rx
+Date: Sat, 12 Sep 2026 00:06:48 +0800
+Message-Id: <20260911160649.51863-2-f64116045@gs.ncku.edu.tw>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260911160649.51863-1-f64116045@gs.ncku.edu.tw>
+References: <20260911160649.51863-1-f64116045@gs.ncku.edu.tw>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,33 +85,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-v1 added TCP payload verification to udpgso_bench_rx, but did not
-exercise it from an in-tree test.
+udpgso_bench_rx supports UDP payload verification but rejects the
+combination of TCP and verification mode. Its TCP receive path discards
+the payload, so it cannot check the data generated by udpgso_bench_tx.
 
-v2 adds a test case to udpgso_bench.sh for both IPv4 and IPv6. The
-test checks the receiver's exit status so that verification errors
-are reported as test failures.
+Read the TCP payload into a buffer when verification is requested
+and check it against the transmitter's repeating alphabetic
+pattern. Preserve the verification position across recv() calls
+because TCP does not preserve send boundaries. Restart the pattern
+at the payload length supplied with -l, matching the transmitter's
+pattern restart on each message.
 
-Changes since v1:
-- Add patch 2 to exercise the TCP verifier from udpgso_bench.sh,
-  addressing Jakub's feedback.
+Require a nonzero -l value for TCP verification and retain the existing
+discard path when verification is disabled.
 
-v1: https://lore.kernel.org/r/20260906145643.219609-1-f64116045@gs.ncku.edu.tw
-
-Testing:
-- udpgso_bench.sh: PASS=22 SKIP=0 FAIL=0.
-
-No full kernel build or boot of a patched net-next kernel was performed.
-
-shuo huang (2):
-  selftests: net: Add TCP payload verification to udpgso_bench_rx
-  selftests: net: Exercise TCP payload verification in udpgso_bench.sh
-
- tools/testing/selftests/net/udpgso_bench.sh   | 34 +++++++++++++
+Signed-off-by: shuo huang <f64116045@gs.ncku.edu.tw>
+Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
  tools/testing/selftests/net/udpgso_bench_rx.c | 51 +++++++++++++++----
- 2 files changed, 76 insertions(+), 9 deletions(-)
+ 1 file changed, 42 insertions(+), 9 deletions(-)
 
-
-base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+diff --git a/tools/testing/selftests/net/udpgso_bench_rx.c b/tools/testing/selftests/net/udpgso_bench_rx.c
+index 1cbadd267..5270a46d2 100644
+--- a/tools/testing/selftests/net/udpgso_bench_rx.c
++++ b/tools/testing/selftests/net/udpgso_bench_rx.c
+@@ -89,6 +89,11 @@ static unsigned long gettimeofday_ms(void)
+ 	return (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+ }
+ 
++static char expected_char(unsigned int off)
++{
++	return 'a' + (off % 26);
++}
++
+ static void do_poll(int fd, int timeout_ms)
+ {
+ 	struct pollfd pfd;
+@@ -161,14 +166,44 @@ static int do_socket(bool do_tcp)
+ 	return fd;
+ }
+ 
++static char sanitized_char(char val)
++{
++	return (val >= 'a' && val <= 'z') ? val : '.';
++}
++
++static void do_verify_tcp(const char *data, int len)
++{
++	static unsigned int stream_off;
++	int i;
++
++	for (i = 0; i < len; i++) {
++		char expected = expected_char(stream_off);
++
++		if (data[i] != expected)
++			error(1, 0,
++			      "data[%d]: stream offset %u, %c(%hhu) != %c(%hhu)\n",
++			      i, stream_off,
++			      sanitized_char(data[i]), data[i],
++			      expected, expected);
++
++		stream_off++;
++		if (stream_off == cfg_expected_pkt_len)
++			stream_off = 0;
++	}
++}
++
+ /* Flush all outstanding bytes for the tcp receive queue */
+ static void do_flush_tcp(int fd)
+ {
++	static char rbuf[ETH_MAX_MTU];
+ 	int ret;
+ 
+ 	while (true) {
+-		/* MSG_TRUNC flushes up to len bytes */
+-		ret = recv(fd, NULL, 1 << 21, MSG_TRUNC | MSG_DONTWAIT);
++		if (cfg_verify)
++			ret = recv(fd, rbuf, sizeof(rbuf), MSG_DONTWAIT);
++		else
++			/* MSG_TRUNC flushes up to len bytes */
++			ret = recv(fd, NULL, 1 << 21, MSG_TRUNC | MSG_DONTWAIT);
+ 		if (ret == -1 && errno == EAGAIN)
+ 			return;
+ 		if (ret == -1)
+@@ -178,17 +213,15 @@ static void do_flush_tcp(int fd)
+ 			exit(0);
+ 		}
+ 
++		if (cfg_verify)
++			do_verify_tcp(rbuf, ret);
++
+ 		packets++;
+ 		bytes += ret;
+ 	}
+ 
+ }
+ 
+-static char sanitized_char(char val)
+-{
+-	return (val >= 'a' && val <= 'z') ? val : '.';
+-}
+-
+ static void do_verify_udp(const char *data, int len)
+ {
+ 	char cur = data[0];
+@@ -347,8 +380,8 @@ static void parse_opts(int argc, char **argv)
+ 	if (optind != argc)
+ 		usage(argv[0]);
+ 
+-	if (cfg_tcp && cfg_verify)
+-		error(1, 0, "TODO: implement verify mode for tcp");
++	if (cfg_tcp && cfg_verify && !cfg_expected_pkt_len)
++		error(1, 0, "tcp verify mode requires -l");
+ }
+ 
+ static void do_recv(void)
 -- 
 2.34.1
