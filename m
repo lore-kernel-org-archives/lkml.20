@@ -1,160 +1,154 @@
-Received: from mta0.migadu.com (out-55.mta0.migadu.com [91.218.175.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9A304718C7
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:07:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22EEE45C6E0;
+	Fri, 11 Sep 2026 13:08:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789132039; cv=none; b=l99SMRSZ/EfLdndd5uXn1K5UNa/d3UkatzivoRes9aX+2siBVM9EDxMAoh1e/WwVUyJlD2gEoaET054a3WQPd+dt/wRwFlvU/h0x3DfRXm0JDo9I5yQ2MBQIreCQ6n0wpZBJdZEB6XE5dLOtXlLU0U8/gbT6Psg413sMykmP0e4=
+	t=1789132114; cv=none; b=hZfnK7RbRT13mKILvOGmyjwFNpp3MmP9dFyoBkomRriaM9TsmuWZR9gEkHYvIqjapMRqKp336fxNNQTCCZjR2eVtxTGdlYX0/qROaV6y/UOm97pzwVmOzXJhquHx2nH9LWKJH3rO+MSAxdY6kF7DFBGijT4rbBbuxnLcBe1FxuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789132039; c=relaxed/simple;
-	bh=8pvJVApeDyZ7aiv6BhbctxA5gKGIAQr+fiE6OB4oxLk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=snSvjboQW/d7+hvAw3PbyTElv2seWn4/7HREPE1rYdFgEk14k4xLOciglvRYFjAt3AizlCGXhDQI4uXziskucWPZaUcoV4M4AAa83mljF1JMjRQpObgjRrVr2iyKW8K37XhO+DWFlzA2mCzMJQgycbEgqGSCFp+GcD48VOOFZDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DhtNHdsn; arc=none smtp.client-ip=91.218.175.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789132114; c=relaxed/simple;
+	bh=arnalO1JsMUcaRJ1qcWXlV2mrN6mnoqbD1E8eqN67Lc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Q+7AuWhbCQqgQD4GQ21JVaq8yuRqYrcjy+LP+NZIXpukCBYZSpFrrOtEoicwnyJFVMYGU3UDUWrILHY6lfFmOr/NVkU7Lj0GXtS29knWHR9rJ3kMr6C7QhBdzxcWUXVRY4MelFpysTx6sWLCHn423zxDIS88ziECzEvudgr+T1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CEXdH78R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DhtNHdsn"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=8pvJVApeDyZ7aiv6BhbctxA5gKGIAQr+fiE6OB4oxLk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789132035; v=1; x=1789736835;
- b=DhtNHdsnFmBZLwhG6l2/LpNCkvgjzQNGKlfqvPO+3X6oU6aNunej1krTNMxyLgYP+lGryafI
- Ed/r1XWIipj9ZqGe7LS8epEXZ8/fktjBSHVFdCDMZ4syK6hbedfUa76dkUEiC5BzJvBqYjr4tDK
- uZFtz/AUxoZZDOO/HR5T1zQs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a77c345fe09bcadf;
-	Fri, 11 Sep 2026 13:07:15 +0000
-X-Mizu-Trace-ID: a77c345fe09bcadf
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b384c4so4678e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:07:14 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBziPBGUgnXtsz6kebH9+ioU+iR2jFFj61+rxboeE6ZR37rstHY5fbHzjv2B2D1nlS/Alw0U24xLm4eE7gc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mnIG2Svl2k9JUYOyUEDciuzZgIvOrdGkwobPzlrrw1K7kuLcxj
-	CRGuGz8cuNwQVPppyfEhwTDxU2pZpgUa9hZhX3wbUMxW3aTeGI/MSxecORJx5BqWp/AYru4ph49
-	r/tr4Juy16Cq8hJLrRLorf5e2yB9bmTDQ2a1V4+HJ
-X-Received: by 2002:a05:6512:2352:b0:5a4:ec:53d9 with SMTP id
- 2adb3069b0e04-5b8a0e9870dmr120141e87.1.1789132033997; Fri, 11 Sep 2026
- 06:07:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CEXdH78R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0A1B1F000FF;
+	Fri, 11 Sep 2026 13:08:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789132112;
+	bh=Lfm3vyAeQJjgi9jyKCyI89nedtCr+8z8FOD9jtOySGw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=CEXdH78R1o9cvqqvYhukKloisfM8U9UWEK/LhxHLjLKOPfHPWVT7VwjL34IIDJfXi
+	 fwv/Z3x3WXvAZtsXncCFIiwRw/hQByDLMw9IXvGYOyKwr2f5hCBQr+gKICl+aC9yji
+	 D4Wxto9iIgOmhjagO+mpwX5Nl9qIHGpL/L2nr44BRgGqXFHgtMp/ruKig6jk54Mde1
+	 cYudbEN/iyxq9kWIh0TDVUotwmntmw9Sym5A+2NMtsokoIw+3t5XgcqJD8A8m0YHVj
+	 pChpsnHC7OZYO33AE5wUTno99HQNwAEgAYyS41SE+d+Wma+UY6I2kAqfU6WPnNH18v
+	 amUeyn1Oju3BQ==
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+To: Linux ACPI <linux-acpi@vger.kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Hans de Goede <hansg@kernel.org>,
+ LKML <linux-kernel@vger.kernel.org>, Linux PM <linux-pm@vger.kernel.org>,
+ Lukasz Luba <lukasz.luba@arm.com>, Armin Wolf <w_armin@gmx.de>
+Subject: [PATCH v1 10/10] ACPI: fan: Use more suitable cooling device data
+Date: Fri, 11 Sep 2026 15:07:07 +0200
+Message-ID: <3631084.QJadu78ljV@rafael.j.wysocki>
+Organization: Linux Kernel Development - Intel
+In-Reply-To: <1965933.tdWV9SEqCh@rafael.j.wysocki>
+References: <1965933.tdWV9SEqCh@rafael.j.wysocki>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260807164322.2970811-2-sebastianene@google.com> <20260807164322.2970811-6-sebastianene@google.com>
-In-Reply-To: <20260807164322.2970811-6-sebastianene@google.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Fri, 11 Sep 2026 14:06:37 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTxjF3bFyGPdZTjG2eaSGDn8qgkMn6mnpvR4DpNdmTo2hA@mail.gmail.com>
-X-Gm-Features: AcwNN1VrR2kYv2q8ZGCNc3rU7zWSpDHiv9N7fjGK0s-HcxCvjzx3fnURhDkVi2o
-Message-ID: <CA+EHjTxjF3bFyGPdZTjG2eaSGDn8qgkMn6mnpvR4DpNdmTo2hA@mail.gmail.com>
-Subject: Re: [PATCH v2 04/13] KVM: Parse the device tree and register the ITS
- region with pKVM
-To: Sebastian Ene <sebastianene@google.com>
-Cc: catalin.marinas@arm.com, joey.gouly@arm.com, mark.rutland@arm.com, 
-	maz@kernel.org, oupton@kernel.org, rananta@google.com, 
-	Sascha.Bischoff@arm.com, suzuki.poulose@arm.com, will@kernel.org, 
-	kvmarm@lists.linux.dev, android-kvm@google.com, bgrzesik@google.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	nathan@kernel.org, perlarsen@google.com, seiden@linux.ibm.com, 
-	smostafa@google.com, tglx@kernel.org, vdonnefort@google.com, 
-	vladimir.murzin@arm.com, yuzenghui@huawei.com, zenghui.yu@linux.dev
+Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Seb,
+From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 
-On Fri, 7 Aug 2026 at 17:43, Sebastian Ene <sebastianene@google.com> wrote:
-...
-> +static int __init register_its_emulated_region(void)
-> +{
-> +       struct device_node *np;
-> +       struct resource res;
-> +       int i = 0;
-> +       int ret;
-> +
-> +       for_each_compatible_node(np, NULL, "arm,gic-v3-its") {
-> +               ret = of_address_to_resource(np, 0, &res);
-> +               if (ret)
-> +                       goto out_fail;
+Instead of passing an ACPI device object pointer as devdata to
+thermal_cooling_device_create(), make acpi_fan_probe() pass a pointer
+to struct acpi_fan to it, which allows the callback functions in
+fan_cooling_ops to be simplified.
 
-its_of_probe() also requires of_device_is_available() and
-msi-controller, and its_init() goes to its_acpi_probe() when the
-fwnode isn't an OF node.
+Also avoid using acpi_driver_data() in two functions invoked by the
+cooling device callbacks by passing struct acpi_fan pointers instead
+of struct acpi_device pointers to them.
 
-So a disabled node has its region taken from the host here, and on
-ACPI nothing matches at all: num_protected_reg stays 0, this returns
-0, and pKVM finalises with the ITS unmediated. The two DT checks are
-plain property queries, so they work this early. What's the intent for
-ACPI?
+No intentional functional impact.
 
-> +
-> +               if (i >= PKVM_PROTECTED_REGS_NUM) {
-> +                       kvm_err("Out of protected region slots\n");
-> +                       ret = -ENOSPC;
-> +                       goto out_fail;
-> +               }
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+---
+ drivers/acpi/fan_core.c | 27 ++++++++++++---------------
+ 1 file changed, 12 insertions(+), 15 deletions(-)
 
-Tested after of_address_to_resource(), so a bad resource on the ninth
-node comes back as that error rather than -ENOSPC. Could the bound
-come first?
+diff --git a/drivers/acpi/fan_core.c b/drivers/acpi/fan_core.c
+index 8b20b8a55c13..5ad65975fbb4 100644
+--- a/drivers/acpi/fan_core.c
++++ b/drivers/acpi/fan_core.c
+@@ -54,8 +54,7 @@ MODULE_DEVICE_TABLE(acpi, fan_device_ids);
+ static int fan_get_max_state(struct thermal_cooling_device *cdev, unsigned long
+ 			     *state)
+ {
+-	struct acpi_device *device = cdev->devdata;
+-	struct acpi_fan *fan = acpi_driver_data(device);
++	struct acpi_fan *fan = cdev->devdata;
+ 
+ 	if (fan->acpi4) {
+ 		if (fan->fif.fine_grain_ctrl)
+@@ -105,9 +104,9 @@ int acpi_fan_get_fst(acpi_handle handle, struct acpi_fan_fst *fst)
+ 	return ret;
+ }
+ 
+-static int fan_get_state_acpi4(struct acpi_device *device, unsigned long *state)
++static int fan_get_state_acpi4(struct acpi_fan *fan, unsigned long *state)
+ {
+-	struct acpi_fan *fan = acpi_driver_data(device);
++	struct acpi_device *device = fan->adev;
+ 	struct acpi_fan_fst fst;
+ 	int status, i;
+ 
+@@ -159,13 +158,12 @@ static int fan_get_state(struct acpi_device *device, unsigned long *state)
+ static int fan_get_cur_state(struct thermal_cooling_device *cdev, unsigned long
+ 			     *state)
+ {
+-	struct acpi_device *device = cdev->devdata;
+-	struct acpi_fan *fan = acpi_driver_data(device);
++	struct acpi_fan *fan = cdev->devdata;
+ 
+ 	if (fan->acpi4)
+-		return fan_get_state_acpi4(device, state);
++		return fan_get_state_acpi4(fan, state);
+ 	else
+-		return fan_get_state(device, state);
++		return fan_get_state(fan->adev, state);
+ }
+ 
+ static int fan_set_state(struct acpi_device *device, unsigned long state)
+@@ -177,9 +175,9 @@ static int fan_set_state(struct acpi_device *device, unsigned long state)
+ 				     state ? ACPI_STATE_D0 : ACPI_STATE_D3_COLD);
+ }
+ 
+-static int fan_set_state_acpi4(struct acpi_device *device, unsigned long state)
++static int fan_set_state_acpi4(struct acpi_fan *fan, unsigned long state)
+ {
+-	struct acpi_fan *fan = acpi_driver_data(device);
++	struct acpi_device *device = fan->adev;
+ 	acpi_status status;
+ 	u64 value = state;
+ 	int max_state;
+@@ -213,13 +211,12 @@ static int fan_set_state_acpi4(struct acpi_device *device, unsigned long state)
+ static int
+ fan_set_cur_state(struct thermal_cooling_device *cdev, unsigned long state)
+ {
+-	struct acpi_device *device = cdev->devdata;
+-	struct acpi_fan *fan = acpi_driver_data(device);
++	struct acpi_fan *fan = cdev->devdata;
+ 
+ 	if (fan->acpi4)
+-		return fan_set_state_acpi4(device, state);
++		return fan_set_state_acpi4(fan, state);
+ 	else
+-		return fan_set_state(device, state);
++		return fan_set_state(fan->adev, state);
+ }
+ 
+ static const struct thermal_cooling_device_ops fan_cooling_ops = {
+@@ -565,7 +562,7 @@ static int acpi_fan_probe(struct platform_device *pdev)
+ 	else
+ 		name = acpi_device_bid(device);
+ 
+-	cdev = thermal_cooling_device_create(&pdev->dev, name, device, &fan_cooling_ops);
++	cdev = thermal_cooling_device_create(&pdev->dev, name, fan, &fan_cooling_ops);
+ 	if (IS_ERR(cdev)) {
+ 		result = PTR_ERR(cdev);
+ 		goto err_end;
+-- 
+2.51.0
 
-> +               /*
-> +                * Note: don't unmap the entire animal from the host because devices need
-> +                * to be able to access GITS_TRANSLATER to raise MSIs. If the
-> +                * page where GITS_TRANSLATER is given to HYP, devices won't be
-> +                * able to map it in their IOMMU when the IOMMU is managed by
-> +                * pKVM.
-> +                */
-> +               kvm_nvhe_sym(pkvm_protected_regs)[i].pfn = PHYS_PFN(res.start);
-> +               kvm_nvhe_sym(pkvm_protected_regs)[i].cb =
-> +                       lm_alias(&kvm_nvhe_sym(its_emulate_forward_req));
-> +               kvm_nvhe_sym(pkvm_protected_regs)[i].nr_pages =
-> +                       PFN_DOWN(min_t(u64, resource_size(&res), PAGE_ALIGN_DOWN(GITS_TRANSLATER)));
 
-I don't think the ITS likes to be called an animal :P, and the next
-sentence is missing a word after "If the page where GITS_TRANSLATER
-is".
 
-nr_pages is 0 for a resource smaller than a page. Could that be rejected?
 
-> +
-> +               i++;
-> +       }
-> +
-> +       kvm_nvhe_sym(num_protected_reg) = i;
-> +       return 0;
-> +out_fail:
-
-num_protected_reg is set on the success path only, so out_fail leaves
-it disagreeing with the entries already written. Inert today, but
-could the failure path zero it?
-
-Cheers,
-/fuad
-
-> +       of_node_put(np);
-> +       return ret;
-> +}
-> +
->  void __init kvm_hyp_reserve(void)
->  {
->         u64 hyp_mem_pages = 0;
-> @@ -57,6 +103,12 @@ void __init kvm_hyp_reserve(void)
->                 return;
->         }
->
-> +       ret = register_its_emulated_region();
-> +       if (ret) {
-> +               kvm_err("Failed to register ITS region %d\n", ret);
-> +               return;
-> +       }
-> +
->         hyp_mem_pages += hyp_s1_pgtable_pages();
->         hyp_mem_pages += host_s2_pgtable_pages();
->         hyp_mem_pages += hyp_vm_table_pages();
-> --
-> 2.55.0.654.g21b8a5bc05-goog
->
