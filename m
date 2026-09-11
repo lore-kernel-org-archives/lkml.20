@@ -1,195 +1,253 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010028.outbound.protection.outlook.com [52.101.61.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CAE037C0F6;
-	Fri, 11 Sep 2026 18:26:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789151192; cv=fail; b=sJ+ZX4gcOuXslCQ45MIEM9ewmkEFCNGLxOp2rNC1YO1BPX6R+C3O5haV097TkKZNvOTqdVk8v+1KJdP6xnstDFqATGTiBmbNhcMeNXc2hSZjNgHMhvWx4PxOKHRS+Vo4InKDR6xajq/6R9CUscOYXaKPqEnwQD1tNKLwVe/dr2s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789151192; c=relaxed/simple;
-	bh=/SHhAsa7lIR8IYSX06C9u59VChPNTvf7/tK3OIetCNg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=mvb/y58geafDwlwao9urhZl7omp7bCJdYurnpEdMDOnWh0kxACUtkags4U0DxBqlJMhlkf9F1c3PAEXKQXE8TOOP8XP30jND3LGTee8aeBzF8WXR07EpTUeqPFJZP+TG6A7mZYV+byzMqrgKR2xckrbNM6h7/r1Ed3Cvs+FGAZ4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Dt95SPf4; arc=fail smtp.client-ip=52.101.61.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01F534AEBCB
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:26:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789151202; cv=none; b=cRIraSd/9pxo0vbcIBcjFFEX1PMfRZoiQxhmmT3c79LRL0WmCy62/La9Ll+8L5FdJXQC1d5QeapBKYjZUK+63b5hlr0fCId5idtHmoGE1pbnB5zQ1n+SWO63doglxJeSHeqQlbYZiaE3YQ0fkmso8qG/LCHoFEKFd7GcNUWjX98=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789151202; c=relaxed/simple;
+	bh=bE7wwMidmT9R8eqUkF6tr+g+BqGaONNxXcJJhQR4KKc=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Dymv3ay8a/jxWgAwG7UGx4u7mr24fvr2CXTcENKwgFlU8x9XvXjrWzKbW+3IL4MvcKbpAtA5m5DALP+UyY1sQ5kvJYjtyXDc8Kmix17aa/+86LEhZNaXmJMGDVJvk1dzs0JvGDR5MhvJsJ2rWvYCrF6rOSI+3LiM8uGVdd51l3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=aQ6+E3Ue; arc=none smtp.client-ip=74.125.224.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Dt95SPf4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EkfVsPBbQip6rpJChrreAmrkwdUe1fdtSI2CMcryfEPtthJ00toP1Zh30WctfmCEU5ZOK2XjJPo3XSi5+XqJoGY2l2Zr5hU55MQ29YeCpSFTN9gF8crpvy/eEYBNXVRym7RifAsU5EG8pgBoJ2tYPjlW/vEBv0WfVpVYIJivrP9uu9fU1wgiefGn/H0ZKCQK6x9Mv7HXjm9P3fArb6xbbomvSicOSKQZ2q5j/TFlyRRk+ZGmWKXtb+9TNdRmKxL7kyf1aiDvuJcNrdN1PdqWbGbOJeGTcwHq9m+y/07pnOF9vFBMKNbDkmw0DMpTR8Y4MOR8MB3UObFSi9dAetXIHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LMRtlUR7sTdG76/BNIXgqLjAi2QN6gfhfMxJdpzKhxA=;
- b=OT/ycauYXu4LUvWXgn0/tRpX9K8O2m+ofxXm0qqGEZVsionY2y4WlgbW+NH7uSKs9qJQoLHqx390WcmHs6xccPsDJlp7dexyDc8xvfJFZ1LSBElbpzpJa/0eV6Wr1KRocxYTHEQWijMwI6h9eDa/NHOyvMaVawM01OFQ1G0DdNp9XxBilhPx3SWVl1aj06qwroumGIN6OEfiM11ebBbmsBQxpXtz8JZMrYQ9L/ON6pjkO5mPwe9BuiOLkyyou/7Gz7aqwU7HuAt4GWw90Tn1XGODiEufs9dI0RYdCLGAYlvn6Ai+k+8ggB42TN8Q5Uns6oDkMe8/1i4VklGVq2larA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LMRtlUR7sTdG76/BNIXgqLjAi2QN6gfhfMxJdpzKhxA=;
- b=Dt95SPf4qj4IgwYKyKRnLtoEJU8HxZ9AidymuxIxWDhyORKD3oZbq4lnI2O9AJTCFwqLL+4qFLr4fLs17wA/f6u/I7LdOZJoHFzseaOLtygdqNP4ZNne6gIUjF1SD+BdaR9IWbKTJNUX3LfpmmL1jwAwtbJuxnWf4/NNIpSGUYVDXDWge/nDVELCwqcQJaAe1HyXcZvw7ucR3nduPIo6a1TP4d8eZ5z80w+NGx+yTCbNSUG0Sa3CrxEuM6Y2zqizm+Cu8kNvGynKBfi44AL2eibHy2kmc6UmlGH1Iin7CrTB49BGcdVtYP0T/yArfYP+2gXru4PAS2Qjt5YUZw5Zng==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by BL3PR12MB6401.namprd12.prod.outlook.com
- (2603:10b6:208:3b1::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Fri, 11 Sep
- 2026 18:26:13 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 18:26:13 +0000
-Date: Fri, 11 Sep 2026 15:26:12 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Sean Christopherson <seanjc@google.com>,
-	David Matlack <dmatlack@google.com>,
-	Logan Odell <loganodell@google.com>, arnd@arndb.de,
-	pasha.tatashin@soleen.com, rppt@kernel.org, pratyush@kernel.org,
-	graf@amazon.com, akpm@linux-foundation.org, maz@kernel.org,
-	oupton@kernel.org, bhelgaas@google.com, alex@shazbot.org,
-	kevin.tian@intel.com, dwmw2@infradead.org, baolu.lu@linux.intel.com,
-	joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
-	linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org, linux-mm@kvack.org, kvm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-pci@vger.kernel.org, iommu@lists.linux.dev
-Subject: Re: [RFC PATCH 0/3] liveupdate: Move to feature flags for LUO and
- memfd ABI compatibility
-Message-ID: <20260911182612.GK3968357@nvidia.com>
-References: <20260903023452.721732-1-loganodell@google.com>
- <20260904160009.GV4157646@nvidia.com>
- <aptFFYqcSiBdMLE8@google.com>
- <20260905012403.GX4157646@nvidia.com>
- <aqIAtOoew-_6jw29@google.com>
- <20260910143448.GD3968357@nvidia.com>
- <aqLOWkuVKccR-I7W@google.com>
- <20260910171210.GF3968357@nvidia.com>
- <a3c2d0f6-a7b5-4344-b837-434aeac5dbc0@redhat.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a3c2d0f6-a7b5-4344-b837-434aeac5dbc0@redhat.com>
-X-ClientProxiedBy: YT4PR01CA0122.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:d5::13) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="aQ6+E3Ue"
+Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-6711f05fb14so1703187d50.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:26:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789151193; x=1789755993; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NDvlXaMCJsh2QNJy7DQqmcJX8WeN5u/dgm3TW20tj1s=;
+        b=aQ6+E3UedJhXHReFfmePeolz7TtfkRGqondPIeem52vYJ+YDvVP5IaNCSuA5XODc8K
+         NUC+BxzjVRMEmwehM6607T8sH+PJzvIHSnyaPpd3bwoVJlmFD6+orchfdWWp5F6l53uX
+         p8knniYiW4wOMZWSw+1tnl99xaWGhD5Bys8NFVNYeRjjJYKn8zqloGlhF4UgTpVrl0el
+         Ne0ogfheQjXhOlp/jVN66uits5geYtRV3y1C471oyxQ/oKgrjKhBQR3SLZbwmWRdM167
+         3j8vpWEq7w+WJqglMn2isqd2Ae+kVYhSvNWnPTUmDn+M1J/A0ZkDMauPdkJQyHmp3w03
+         3LnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789151193; x=1789755993;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NDvlXaMCJsh2QNJy7DQqmcJX8WeN5u/dgm3TW20tj1s=;
+        b=saImAvEMOSQQ4qw8Xn59Wiv52LtZAq0UFv1Uei77Wc3nBx1Tfni+8kkBnNlqphUh8U
+         Oqp9wAlLPGGA0kM7xsoEtShwbrfIW/PSxnOe1zaFBwMoI8ipTv7xmvDyWY9q6+sQ+iLf
+         gvFKF39ht23xwgcUnk2+ZD+gsK5wpyhfkVByJbWwy1NXJbTLfpUhmVQWzf7q8zjB8FKr
+         QisoSiDrAotD0gXoLjfnUoWF/uhLuyQJBF7gSJCwiAewhr4cv+bixQ38FmoqxEW80+ek
+         viwiQcgeaLhZMnHX9V6FEUsN0sv/1KWemZ68p31MqdfR3kHUgcD3GlLIOb3jmvWU0LJD
+         Xbfw==
+X-Forwarded-Encrypted: i=1; AKwUvBwFW5FdoWd5uoqHzRV8ljZLUaweXJ/Il5JpWBrjL3qjL3Of2gLMjzjV6SIoFBl2ziHqaLcrFF/zgj7MwvY=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/Kn/GkxfmPaA8h0aB/xxkiSbSL1ocN5Lry5cnH21hfOZdVqhW
+	EShKD3kUGcdV89A+eebR8a/7mw3RLmioiUv/6VNeBEHV19DhxTUo/f71AxAm4rEAwws=
+X-Gm-Gg: AYBFou1FZT/0DOwCA4cVZwG7d3cuwaF1er/tY1gZQwXwCZcXmpziLNB831FR5yKXq4a
+	9UjPMr2Nkp+fDaF3EUlICp+lr0OKJuksNElvZBLUthPiB4YDkENR0ol4XtXqDNys63tA50nC6QU
+	M6pKzFDhsHGP6YBw95cYYX1hcZEnWtK85qU/4OomPyDqxT2x++YZuyRf+8nI52vZYUwYzyRUhbR
+	Wju+DfqgXklJ+qBqvRjSBqjV6XJNvFW+IkhaaGURcelvFukLM2hG/NDeRsJC1HIKSglp9V8FcN3
+	t8PQ0MO6B2Jcgb4cpud6uAluvS4jnZ5YiSD+fbzfhwxv6yHon3s4WBUE+QTfJzK0CHYja5pEDpH
+	sHkENEbToPIlVcjueTqEBBljASVbH0ZJPWC4xI4Zuo6uqDK1zE4wQkXnd784idYqjBpgOjM9VNo
+	YhfBOSOFhd+B7a4ytd47s4nPJg6SZIf6Ola7ZTM5PsxCVogM24JK1ncCb2XnAVJ4O1SpZ+A1uv9
+	f36tQK3bkddiEy1vMO+U1uL6zB31rsV/EttISkrkm5Sgc4dMpZZ2HgHXXjdvmTMdkstWQgWB/AT
+	S7DiMv7r4Ax8LSnUDUfhTH5tUwqh6SFMXHNkeS9DhoNurONE6ZvaMYJNWdGJ7g==
+X-Received: by 2002:a05:690e:d43:b0:66f:c1bc:4023 with SMTP id 956f58d0204a3-671246e4cc3mr2151137d50.80.1789151193385;
+        Fri, 11 Sep 2026 11:26:33 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:e98e:2339:978:31e0? ([2600:1700:6476:1430:e98e:2339:978:31e0])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67125df80e6sm1361413d50.10.2026.09.11.11.26.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 11:26:32 -0700 (PDT)
+Message-ID: <c6b841becc5b1709a9f54a1c0efd0a14f02ad97b.camel@dubeyko.com>
+Subject: Re: [PATCH] hfsplus: fix recursive tree_lock in
+ hfsplus_file_extend()
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Yangtao Li
+	 <frank.li@vivo.com>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com
+Date: Fri, 11 Sep 2026 11:26:28 -0700
+In-Reply-To: <20260911114628.10349-1-ngocthang2710.1999@gmail.com>
+References: <28f33649277ca654e66c36aea1bd4f2bfd6abbf6.camel@dubeyko.com>
+	 <20260911114628.10349-1-ngocthang2710.1999@gmail.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|BL3PR12MB6401:EE_
-X-MS-Office365-Filtering-Correlation-Id: b5d33c9a-8abf-494a-227c-08df103228f3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|18002099003|22082099003|3023799007|10067099003|5023799004|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	Fd58NVEkaYYab7sm/5nz/kjdl/HOVcpsGGNZyUJT/MIVL0RkQEmpmmQUVRdwRTPOR8cZkVGLQ5JAeyIpp1T/A6ZZY6qxYu9kdA6TdNAAJiko+sSQAhLi1xBBDL4VJc/uXudWvMVgwdIywyBCkp1VpASaH6oGNEBO93jJBOOY0abg/rczSr0k3b/3vY8OVEedQkKvr6J7KqHFxmWlGhzyMmhtuj6hDKJHun8H963iX/H2uzL4nLr1X0ZPgtxhJPKvCkYVCajl6dLtYrE6Ncws9sYk2MzeeqQcNH8IEQhAdz068OztosQjn0vl5jkjz5M8+TdVD5+aGOyudb0xk2YuYh+kJTt8gbAR8abAoJrDck5GRCPilNEmN3liNpJDIJ/XiknQ8reBWs6kxXgRDvvHMHeGO61pTOyWPx04LFD3P/bjGpBIlfxm6/OS45aAUN0o+9DVXZRJAj8O8m0iKmj5xqCxy2t7F/z4g5UiU4rHe3lDtVA6DrMq3AEwAklWlQbTb/kpg8pYdrcnLyQ0fAeRe8PPX8OIjUqQrGfLszu4DwDy8w799waUFaXmWsPFZMWu2kULnoBfNOKqUxA8XD58r95n4vodyQIQRHEsHCKskeqwr8YmatABgqvlWCHWWURUK258f4YJC9pTVt3Ugp1BmwDD5NveKeAHyFpyGji0Tpg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(18002099003)(22082099003)(3023799007)(10067099003)(5023799004)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?N7REO+16Fir73RvcGyKMFm7GqOJZe2m3rzU1/aocxo6KCaFYcpuhdlQaokrF?=
- =?us-ascii?Q?E/ozWD+yRlqxP0XMcP+CFy3a3X0Zle1AHtEuynfPMwOG/CeV5hT9i3TWkA3A?=
- =?us-ascii?Q?rC7igiGVMcCtH6gkVxi6hRPUgqy2qmo94PuvOfX91w2kgwBHa2x917WoxYpt?=
- =?us-ascii?Q?vREx6WZYkimEEClDWYXLWBnjwmBsBD+Grq3iipi2h640qal7S2TscBJX4g5m?=
- =?us-ascii?Q?Bq03bx2Htwt39K2MkUaNOSzsRpMFUWsg6lo3QCjnseywXmoJQVAj5ABWG289?=
- =?us-ascii?Q?VLk+4zCKhvU2zRItL+gcQSASdM5JK0nVUg9Cm3u9twkkCTveP1Rp1LgB7hJA?=
- =?us-ascii?Q?kLLYtYysy51Ktw2ZDlPbKbQpsCVHe63/3dbpaMLxKuUcSZwclEWUU7G0C7Fq?=
- =?us-ascii?Q?LrlrbjMgMEKA0RW3cQy1sHmjPfeTVm78zTiTCGoMidoEKupkAW2pVp/hsfJi?=
- =?us-ascii?Q?oLZ9rHgEc9LzI7Ef5+/6tZhInJK7y2JkN1NGw3LzO/7iiWD2+E5m5gDdqAgg?=
- =?us-ascii?Q?QAq70YnpaCikJ2EvPeS5Vv6qky/YIMUfz6G+cuoJ7G4FaJwAbqs3q/QnK8K3?=
- =?us-ascii?Q?ChOILjKTbW/r1OLCUnuuCHv1LGYPD/5fqkZwCR88AppYhts7iBWXsWVgm8R5?=
- =?us-ascii?Q?jwFVxXqOb8/ABY6NshfqsQML6aWMd2JIc07zRflUCEZme2/n9uCAFU0MGa/S?=
- =?us-ascii?Q?4Mc2yO5XQKqSFqWKdyQm/72NYvTLEq8O6VL3oHhjMVxy+fsGsrtdKBHxqEIx?=
- =?us-ascii?Q?88GzCHHxX2Xi9dXkz1bA32AR7ErQoq5S24gtnQe+xrTDSNODBqk9gQq/08V8?=
- =?us-ascii?Q?3kg4UpV4NebcFzesPzl+aZz8i4TAfTIwJKVNm1p1VNo/tfzxdda+Ccp3MkVT?=
- =?us-ascii?Q?dEcRpLViH4z2JS7gSDpVbEn031hMYAswM7SZYZ8PIJgIWsS8SM+Za8Mr2smr?=
- =?us-ascii?Q?EGvA4oXbXm5ZVsmWeixT1SBnStlmZm9rqn4WPxn5BAmt20S6ohJ3KRRooGsx?=
- =?us-ascii?Q?rJB1S/1OcYeyOhiq2y3HlJ1ARe3f+n3Ag0PQuRFDuUyq8wlcpbmbf668l0c2?=
- =?us-ascii?Q?Erk4lQQ10IXPwcBF7axY8Epw2fcw36hd2p8mtF8JC6x6TQU3cWNJE9pIVdg2?=
- =?us-ascii?Q?Ao0RP1Gvg+asyUldyEJODnzmPa+MGC9njJ/49g8uA68vWYHsVswymTfNypwR?=
- =?us-ascii?Q?KuiGrbtvspr9nbYGiMxfhiJRQ2q3e3J4Z2H9bXX6XiSfmAB10CS6r0/k0WQq?=
- =?us-ascii?Q?hHPHZiCCBWFv6aCsP9Jh2D4tQ9HAKfYOzfxqwby+0ou1ee4P8j8QULhpnItj?=
- =?us-ascii?Q?e+XAG5xXV+c1HEVBaqfbRF0qqGanG7VRuRevjhD7i21uuhYSJwFpct0WGS+i?=
- =?us-ascii?Q?5pViM7blszTrkdrwAC4sOTVM9QcvWLy8SMlkgp6li+eyXZG7FlAHdRtXeY/W?=
- =?us-ascii?Q?6Czyas/DgGY246FGFO9xXUOG4Lpfq7rfPMR6ixcnLVA+Ud4nulqPMfLbYlc9?=
- =?us-ascii?Q?qcBDF6TC8VJwLMYqkhqAiMpCxNJrifW/EQo9X/CdhGi9VbMzYemEqlivSKau?=
- =?us-ascii?Q?ktlo+UOmFmp62oKmTeD7+VCybCAOOl/2q6gckrmmyMkHQW3v+QPy4ImW0bph?=
- =?us-ascii?Q?orSlAmSInz9AjCv5X0jQHBoMnLwy9RGZFCinTac6K3HJ66sPxpIi5T+ihlg3?=
- =?us-ascii?Q?NqJfQOT5HuxrupoIUcJGJgkQrkhb8u85rE4DcuYcrqcr80m3?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5d33c9a-8abf-494a-227c-08df103228f3
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 18:26:13.2562
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /SU46+jkJoGaKXtrsG/TdpjfkeuedhcIZtSchcwh7yB7bCwKBycw51AAmYcf5CST
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6401
 
-On Fri, Sep 11, 2026 at 07:16:23PM +0200, Paolo Bonzini wrote:
+On Fri, 2026-09-11 at 18:46 +0700, Nguyen Ngoc Thang wrote:
+> Hi Slava,
+>=20
+> > I assume that if we are here, then we already allocated the blocks
+> > for the extent. And if we simply return the error here, then we've
+> > lost these allocated blocks from the free space. Am I right? I
+> > think we need to prevent the blocks allocation, then.
+>=20
+> You're right, that was a real bug -- hfsplus_block_allocate() already
+> ran by the time we reach insert_extent, so returning straight from
+> there leaked start..start+len from the free space permanently. Fixed
+> by freeing them back before returning:
+>=20
+> --- a/fs/hfsplus/extents.c
+> +++ b/fs/hfsplus/extents.c
+> @@ -537,6 +537,15 @@ int hfsplus_file_extend(struct inode *inode,
+> bool zeroout)
+> =C2=A0	return res;
+>=20
+> =C2=A0insert_extent:
+> +	/*
+> +	 * Getting here means the fork's eight extents are exhausted
+> (see
+> +	 * hfsplus_add_extent()). The extents overflow file can't
+> record
+> +	 * an overflow extent of its own, so it cannot grow any
+> further;
+> +	 * give back the blocks just allocated for it above.
+> +	 */
+> +	if (inode->i_ino =3D=3D HFSPLUS_EXT_CNID) {
+> +		if (hfsplus_block_free(sb, start, len))
+> +			pr_err("can't free extent: start %u, count
+> %u\n",
+> +				start, len);
+> +		res =3D -ENOSPC;
+> +		goto out;
+> +	}
+> +
+> =C2=A0	hfs_dbg("insert new extent\n");
+> =C2=A0	res =3D hfsplus_ext_write_extent_locked(inode);
 
-> Rather, forwards kexec *must* work (again, that's nothing but a variant of
-> "we don't break userspace") and for backwards kexec, well, you must know
-> what you're doing.
 
-Again, I strongly disagree with this MUST. This is not a variant of
-"we don't break userspace". It is internal kabi and the kernel gets to
-decide which versions it supports. There are no promises here. It is
-not a breaking change to say we won't support A->B.
+Frankly speaking, I would prefer not to try to allocate at all but to
+test the capability to allocate for the case of Extents Overflow file.
+If we have free extent slots in the fork, then we can allocate and add
+the extent. However, if we already used all extents in the fork, then
+probability to find the necessary space is very low. So, we can the
+method that tests the fork, something like hfsplus_add_extent() is
+doing by without adding anything. If we can see that fork is full of
+extents, then we need to be sure that we can extend the latest extent.
+And we can simply test that the next adjacent block is free. And only
+in this case it makes sense to try to allocate something. Does this
+logic makes sense for you?
 
-Community needs to agree on what these parameters are. I've been clear
-my stake in the ground is same stable version only as a starting point.
+>=20
+> > I think your logic here that if we try to read the extent from the
+> > Extents Overflow file's content for the file itself, then something
+> > is going wrong. In this case, we need to place this check into
+> > hfsplus_ext_read_extent().
+>=20
+> Agreed, moved it there -- it's the one place that actually calls
+> hfs_find_init() again, so this is now the single point enforcing the
+> invariant instead of duplicating it at each caller:
+>=20
+> --- a/fs/hfsplus/extents.c
+> +++ b/fs/hfsplus/extents.c
+> @@ -216,6 +216,14 @@ static int hfsplus_ext_read_extent(struct inode
+> *inode, u32 block)
+> =C2=A0	=C2=A0=C2=A0=C2=A0 block < hip->cached_start + hip->cached_blocks)
+> =C2=A0		return 0;
+>=20
+> +	/*
+> +	 * The extents overflow file is fully described by its own
+> fork
+> +	 * extents; looking up an overflow extent for it would re-
+> enter
+> +	 * hfs_find_init() on the extents tree, whose tree_lock may
+> already
+> +	 * be held by the caller.
+> +	 */
+> +	if (inode->i_ino =3D=3D HFSPLUS_EXT_CNID)
+> +		return -ENOSPC;
+> +
+> =C2=A0	res =3D hfs_find_init(HFSPLUS_SB(inode->i_sb)->ext_tree, &fd);
+>=20
+> This retires the guard I'd put in hfsplus_file_extend()'s else branch
+> (same check, called from the one place that mattered) -- v3 is net
+> smaller than v2. hfsplus_get_block()'s existing check at
+> extents.c:261
+> (-EIO, before extents_lock is even taken) stays as-is; different
+> errno, different purpose -- fast rejection of a read, not an
+> allocation failure -- not an oversight.
+>=20
+> > But I still don't see how we will check the fork itself because it
+> > could be corrupted even without be completely full? And how could
+> > we check the forks of other b-trees?
+>=20
+> Fair, you've asked this three times now and I keep pushing it to
+> "follow-up" without saying what's in it, so concretely: a
+> hfsplus_check_fork(sb, fork, cnid) called from hfsplus_fill_super()
+> for ext_file/cat_file/attr_file, rejecting a fork where, for any of
+> the eight extents, block_count =3D=3D 0 but start_block !=3D 0 (garbage
+> in a slot that should be blank -- exactly what's in the syzbot image,
+> slots 3 and 6), or start_block + block_count > sbi->total_blocks
+> (extent points outside the volume), or a non-zero extent follows a
+> zero one (a hole in the middle of the used range). Wired into your
+> severity split: first extent fails those checks -> hfs_btree_open()
+> returns an error, mount fails; only later extents fail -> open the
+> tree, mark it inconsistent, force read-only. I'll send that as a
+> separate patch once this one lands, since it touches mount-time
+> behavior for all three trees and deserves review on its own.
 
-This is typical in the industry, nobody does live update where you can
-jump ahead multiple years of versions. Sequential releases only is
-very normal.
+The bug can be treated as fixed only if the whole solution is in place.
+So, please, send the whole pathset at once.
 
-> QEMU has been doing backwards live migration forever, and QEMU is a
-> gnarly C program that has grown by accretion as we were learning all
-> this stuff, so it's not impossible at all.
+Thanks,
+Slava.
 
-I agree it is not impossible, you can always make things harder and
-more complicated to keep it working. I don't want the kernel to turn
-into a "gnarly C program" because we over engineered this.
-
-> It's not easy, but you aren't even trying to do it right in the kernel. You
-
-Right, I've been pretty clear about this, I want to start with
-same-stable-version only and if that works out then consider if we
-want to do more.
-
-I am not doing this for any sort of technical reason. Not because it
-is impossible, but because it is HARD. I do not want to force anyone
-to take on hard and difficult projects like this for a niche feature
-only a few CSPs are likely to use. If we take this approach LUO will
-fail because maintainers will be scared to take on this extra work and
-simply won't merge LUO patches.
-
-There needs to be some balance that we can try this out and see if a
-broader use case develops before we commit to doing the hardest
-possible version of it.
-
-A niche feature only for CSPs like live update must not become a boat
-anchor on kernel progress!
-
-> fact!  It's just that you're solving for the wrong complexity, and only
-> partially so because (if I'm not wrong) there's still the question of how to
-> bring the manifest of kernel B into kernel A.
-
-There is a proposal to encode information into ELF sections. Feature
-flags should flow through there just fine, I think.
-
-I have not seen a proposal to re-inject this information back into the
-A kernel as a 'restriction' so it fails luo instead of producing
-something unsupported.
-
-Jason
+>=20
+> Both hunks above build cleanly here.
+>=20
+> Thanks,
+> Thang
