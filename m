@@ -1,218 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C453AFAF1;
-	Fri, 11 Sep 2026 11:25:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0CC747126E;
+	Fri, 11 Sep 2026 11:25:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.132.163.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789125933; cv=none; b=ZouhemaEwA6+MDWZ1YkhY/Ci9Szf//eSN8saDzTHtgtl/52J9zrAdOauk90fkEbtfg/XDrspcMnlV+jkQClwEHsQo3hgVJZ9TZ/HyXV1Hthi5yuWSV8SvUtVrYa97PYRy0mX0A7R+h1zZnWHyNpHbUyg1+ZyBBxJ/8u6mlyGE0E=
+	t=1789125943; cv=none; b=FgOCkGbM/qZ+P/G6sK+6SRA+P0sd57kkzSAiIVnC3/gELEA5+HeCv48BtaXMX+UmK/+girPrNRzfTT1D/Nvzi5yHLCBQIu443Ex+nYRl0VxDfFeWu0fMCGgShtymdyATbVcc2wujfiJloPl5lXi4ZE6E99MhUlAj52WDYHf+npQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789125933; c=relaxed/simple;
-	bh=LZ8Lc0mh2leJir+6Pvh9e2uZbtKbxBNKGrTtBhlF5X4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=EksKjxJtJeXRC0si7pCEO9pgHYLr0RXxzYaekF8BTTeO0PV54l9K3Xy0z/+X4OA6Oo6teYZvrMzIYdnZoggOVGNWUS4xzoGWQfGHk6JtmxZcLrpAKeIdQ0Fjs9NkeuXVycfaGHqAIQVCWcXeqVdUOfbyWx5rjjm50Cp8HNeCULg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ove7lllu; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ove7lllu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C9751F0089E;
-	Fri, 11 Sep 2026 11:25:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789125924;
-	bh=V1UQQs4RgrcoOL7IoOSvZHUpHULa8UMlbZavMMWsIAI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ove7lllus3Mnvt02TUZBfOze1KGDqlxb6R9rnMNqnw6Kf1E4pznctBgX++hb19PQa
-	 uWhOJGsg4oCtC5SrOcR1sZTis0HJWhaSlIV6CX6cGY1DozSwXAtGPODo/zK7UiNYGK
-	 jAppYtz+UeKU2G2RDRJSjnH6SzZjj1qrYcNtIdYbQRB0qIlJ0cWKgKEHbVJxi3yVn9
-	 vnRdMOsO+5Kzxx29nikCI02OiXNXW7tHhUqnnI3DN9Gc9YoiLIVn9RgHFzxkCfmt7x
-	 7c/mu1yLry3EYV2K+UpNS9bc8IxSXjdup1uG3MSGsvga+lpilQEFP8GnWCq0pdej/B
-	 NR4uFPy9ZVczg==
-Subject:
- Re: [PATCH net-next v2 9/9] net: stmmac: qcom-ethqos: add Shikra EMAC support
-From: netdev-bot+sashiko@kernel.org
-To: mohd.anwar@oss.qualcomm.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, afd@ti.com, andrew@lunn.ch, hkallweit1@gmail.com,
- linux@armlinux.org.uk, richardcochran@gmail.com, andersson@kernel.org,
- konradybcio@kernel.org, alexandre.torgue@foss.st.com, peppe.cavallaro@st.com,
- joabreu@synopsys.com, maxime.chevallier@bootlin.com,
- mcoquelin.stm32@gmail.com, netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Date: Fri, 11 Sep 2026 11:25:23 +0000
-Message-ID: <178912592322.219967.17232145160989235559@kernel.org>
-In-Reply-To: <20260908-shikra_ethernet-v2-9-bbe3389d0652@oss.qualcomm.com>
-References: <20260908-shikra_ethernet-v2-9-bbe3389d0652@oss.qualcomm.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=arc-20240116; t=1789125943; c=relaxed/simple;
+	bh=Rwy0sas9de9i6ogM+sx251G06BSLrY+dpn9PAlD4xRI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=spJkK4vD7cs6w8MDQtoQSUnkqhx0Gl43UBscjK53jSIaIOrTR9mXeQ8Wg3ItcNx8VrGum8zISrJwwaIAsafQLfIn9F5VNChonNtYpIJSzys7XZzetWzlTA6n+b3EDcJpTGZkvVtaxerD7AOxdusAmpU5EsKueJe1QUc9YebACvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mucse.com; spf=pass smtp.mailfrom=mucse.com; arc=none smtp.client-ip=18.132.163.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mucse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mucse.com
+X-QQ-mid: esmtpsz16t1789125862tc5dd637e
+X-QQ-Originating-IP: Ous/dVGm7m+QzRdoJW/NjkwQcc3nPFuP+W4m7SCRITE=
+Received: from nic-Precision-5820-Tower ( [203.174.112.180])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 11 Sep 2026 19:24:19 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 13768595504651496234
+EX-QQ-RecipientCnt: 11
+From: Dong Yibo <dong100@mucse.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	vadim.fedorenko@linux.dev,
+	u.kleine-koenig@baylibre.com
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dong100@mucse.com,
+	yaojun@mucse.com
+Subject: [PATCH net-next v11 0/5] net: rnpgbe: Add TX/RX and link status support
+Date: Fri, 11 Sep 2026 19:24:16 +0800
+Message-ID: <745DADAC2A5786BD+20260911112416.2142101-1-dong100@mucse.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:mucse.com:qybglogicsvrgz:qybglogicsvrgz3a-1
+X-QQ-XMAILINFO: OQx6vEqF0rNegaJMvFZ38mWBNKi7cQa5f03cAzqA56C00A+sdxKa7RR7
+	zeoHPp+2AcSwqWKefaSSk6uCRYWeApo247Izq/8P8pEur4sHOK69uy5J7eP0O+4JnsiCVf/
+	O4Il11AWbOQvfvgEsNVFGjNPE4/6UPMwLtbf/wyZrK+RLBLNiMqF6kXmTjYjK4EK2u+x/XV
+	to40MM8uLohBDHrRHQgxqGYPYM2S99vW7/j170HMmE3IR6NGwf3dQVPnaMBUIeS9onJqeKQ
+	W/2qo0yKZBhwPS0cIqI+Ovfex2L7cmlB/6WhJsCQnRk6OaKhYcQp/7/lMmfGojZnm0UQWoT
+	B/QmC9w4p4Esc0NpXe42gTa7F5XxFmbzsAfAak5eSlpWd0YZUe8hF0SPRsf5OhlgcITK63B
+	tfjVHCrcGyafvJFaiqaShfr5tFTNCOskkUtbYa2Zy6Ar0FMHVozSf0rEBh8ZcJV/ext0RGy
+	k6ykNDcFm6tNXSaPjLZgEYf0CvLxOtE+Q93KZq6ID+HCFvBDCAVwZOEMrv24EUcQy/tlddY
+	71riIR7ELwV8kWHW4ABMy3CxCeyo5iPvr+5iPEkqjT96xmw2qQQnYQpvEMWr+D5pbfmjLn3
+	RF+4fZjtOaq8IrkyTnpUJeohlN7JKZ4PhooZ3zkzNAJb0/ZCg4X+FucZyLIDrhuEDj4jvtA
+	ZphrZCfGY0cXKgGAogb2no5rGwHERLLOSLDFP9YKzd2LV2EusX6s3q9ECXWUJSdFpOwg4d1
+	6A2ZnLUa3HyEtKM/BAo1I1CwgMHN3hCjkD6eBfJAahbgiclGkw3ggn//PoyxYrnNH7DEHAg
+	BOkbSSsykaNm7fVOZQyeX1PMDbLPa74rsuAgk4BUY7k5v+uOhFjJiy3KAFEKS31WwsmPs61
+	rFBho+8xTkAHDgPxZ2ncEujJC3ulMRY31pxygNrNz42DMYsFSjLR9s+cT7uTkiY1CqiyAMf
+	kxCIno8xYy933eeBw62VoFsdpovJx6EJvC0Lpws+kF00XJ4Dek52tdQatTrmcGjD3TPp7rj
+	bxq41maJwVbUY0jJmqp71s3Tp0O/TdT8AwXsYZAcgsd9SDoIf+osKIthbYZV9w4PBCQ5th1
+	nbX0fYEHJ5Fn3b0IOXTZAIis6tT8OrMGw==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider:
+Hi maintainers,
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
+This patch series adds the packet transmission, reception, and link status
+management features to the RNPGBE driver, building upon the previously
+introduced mailbox communication and basic driver infrastructure.
 
-- [High] shikra_data (drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-
-  ethqos.c:337) provides no .rgmii_por/.num_rgmii_por table, while the…
-- [Medium] Adding the core-owned "stmmaceth" clock to shikra_noc_clks[]
-  decouples that clock's programmed rate and enable state from the…
+The series introduces:
+- MSI-X interrupt handling with NAPI support
+- TX path with scatter-gather DMA and completion handling
+- RX path with page pool buffer management
+- unicast/multicast filter.
+- Firmware link-event processing and carrier management
 
---
+These changes enable the RNPGBE driver to support basic TX/RX
+network operations.
 
-net: stmmac: qcom-ethqos: add Shikra EMAC support
+---
+Changelog:
+v10 -> v11:
+[patch 1/5]:
+1. Drop MSI and single-vector MSI-X support. Require at least two MSI-X
+   vectors, reserving vector 0 for mailbox events and using the remaining
+   vectors for the data path. (Jakub Kicinski)
+2. Prevent NAPI from re-enabling queue interrupts after the device is down.
+3. Set the real Tx/Rx queue counts before registering the netdev.
+4. Preserve the configured Tx/Rx queue counts when tearing down q_vectors.
+[patch 2/5]:
+1. Treat a Tx DMA timeout as a terminal AXI fault for the current driver
+   instance, and document why Tx cleanup ignores the repeated idle-wait error
+   after the fault is recorded.
+2. Free q_vectors after an RCU grace period, matching the RCU-protected
+   statistics collection path.
+[patch 3/5]:
+1. Arm Rx allocation retry timers only after NAPI has been enabled.
+2. Mask queue interrupts again after disabling NAPI and calling
+   synchronize_net(), preventing a completed poll from re-enabling them
+   during device shutdown.
+3. Clarify the hardware guarantee for the first RX descriptor length.
+[patch 4/5]:
+1. Advertise unicast address filtering support to the networking core.
+2. Program receive filters under the netdev address lock before enabling Rx,
+   and clarify the hardware multicast hash calculation.
+3. Clear the RAR valid bit before changing an address, and set it only after
+   the complete new address has been written.
+[patch 5/5]:
+1. Quiesce Tx DMA before notifying firmware that the port is down.
+2. Remove the stale mailbox-event boolean return value and document why a
+   failed mailbox read is not retried as transient lock contention.
+3. Document the firmware link-event retry rate and mailbox ACK protocol.
 
-Adds a qcom,shikra-ethqos compatible with a new shikra_data descriptor that
-declares three NOC clocks (axi-noc, pcie-tile-axi-noc, stmmaceth) at
-120 MHz and a 36-bit DMA address width.  A couple of questions below about
-the new descriptor.
+Links:
+v1:  https://lore.kernel.org/netdev/20260325091204.94015-1-dong100@mucse.com/
+v2:  https://lore.kernel.org/netdev/20260403025713.527841-1-dong100@mucse.com/
+v3:  https://lore.kernel.org/netdev/20260507081539.171844-1-dong100@mucse.com/
+v4:  https://lore.kernel.org/netdev/20260526033539.164061-1-dong100@mucse.com/
+v5:  https://lore.kernel.org/netdev/20260528023150.239532-1-dong100@mucse.com/
+v6:  https://lore.kernel.org/netdev/20260604112750.769215-1-dong100@mucse.com/
+v7:  https://lore.kernel.org/netdev/20260611100036.36370-1-dong100@mucse.com/
+v8:  https://lore.kernel.org/netdev/20260731120322.895955-1-dong100@mucse.com/
+v9:  https://lore.kernel.org/netdev/20260814111317.1741087-1-dong100@mucse.com/
+v10: https://lore.kernel.org/netdev/F44E6669E6C9E7C4+20260831073608.401988-2-dong100@mucse.com/
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index 8871d28594116..c474f1e5a0437 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -328,6 +328,36 @@ static const struct ethqos_emac_driver_data emac_v4_0_0_data = {
->  	},
->  };
->  
-> +static const struct ethqos_noc_clk_cfg shikra_noc_clks[] = {
-> +	{ "axi-noc", 120000000 },
-> +	{ "pcie-tile-axi-noc", 120000000 },
-> +	{ "stmmaceth", 120000000 },
+---
 
-[Severity: Medium]
-Is it safe to put the core-owned "stmmaceth" clock into this table, given
-that the 120 MHz rate and the OPP/VDD_CX vote then come from different
-owners?
+Dong Yibo (5):
+  net: rnpgbe: Add interrupt handling
+  net: rnpgbe: Add basic TX packet transmission support
+  net: rnpgbe: Add RX packet reception support
+  net: rnpgbe: Add receive mode support
+  net: rnpgbe: Add link status handling support
 
-On the resume path the core enables the clock before this driver raises the
-vote:
-
-stmmac_platform.c:stmmac_bus_clks_config() {
-	...
-	ret = clk_prepare_enable(plat_dat->stmmac_clk);
-	...
-	if (plat_dat->clks_config) {
-		ret = plat_dat->clks_config(plat_dat->bsp_priv, enabled);
-	...
-}
-
-ethqos_clks_config(true) is the only place that calls
-dev_pm_opp_set_rate(dev, ethqos->noc_clk_rates[0]), so for that window
-stmmaceth is running at the previously programmed 120 MHz with the vote at
-zero.  The same inversion happens at probe, where
-devm_stmmac_probe_config_dt() enables stmmaceth before
-qcom_ethqos_init_noc_clks() installs the OPP.
-
-At detach the devm actions unwind in the opposite order to how they were
-registered, so ethqos_clks_disable() runs before
-devm_stmmac_remove_config_dt():
-
-	} else {
-		if (ethqos->num_noc_clks)
-			clk_bulk_disable_unprepare(ethqos->num_noc_clks,
-						   ethqos->noc_clks);
-		clk_disable_unprepare(ethqos->link_clk);
-		if (ethqos->num_noc_clks)
-			dev_pm_opp_set_rate(&ethqos->pdev->dev, 0);
-	}
-
-The bulk disable only drops the glue's extra reference, the core still holds
-one, so does this withdraw the performance-state vote while stmmaceth is
-still running at 120 MHz?
-
-The mid-sequence failure paths in ethqos_clks_config() look similar: if
-clk_set_rate() fails for a later index, or clk_bulk_prepare_enable() fails,
-only dev_pm_opp_set_rate(dev, 0) is issued and the rates already raised are
-not rolled back.  The original stmmaceth rate is never recorded or restored
-either.
-
-> +};
-> +
-> +static const struct ethqos_emac_driver_data shikra_data = {
-> +	.dma_addr_width = 36,
-> +	.has_emac_ge_3 = true,
-> +	.noc_clk_cfg = shikra_noc_clks,
-> +	.num_noc_clks = ARRAY_SIZE(shikra_noc_clks),
-> +	.rgmii_config_loopback_en = false,
-
-[Severity: High]
-Was a .rgmii_por / .num_rgmii_por table meant to be part of this patch?
-
-All the other descriptors (emac_v2_1_0_data, emac_v2_3_0_data,
-emac_v3_0_0_data, emac_v4_0_0_data) supply one, and shikra_data leaves
-.link_clk_name unset, so qcom_ethqos_probe() ends up doing
-devm_clk_get(dev, "rgmii"):
-
-	ethqos->link_clk = devm_clk_get(dev, data->link_clk_name ?: "rgmii");
-
-With num_rgmii_por == 0 the reset loop at the top of
-ethqos_fix_mac_speed_rgmii() does nothing:
-
-	/* Reset to POR values and enable clk */
-	for (i = 0; i < ethqos->num_rgmii_por; i++)
-		rgmii_writel(ethqos, ethqos->rgmii_por[i].value,
-			     ethqos->rgmii_por[i].offset);
-
-so RGMII_IO_MACRO_CONFIG, SDCC_HC_REG_DLL_CONFIG, SDCC_HC_REG_DDR_CONFIG and
-RGMII_IO_MACRO_CONFIG2 are never brought back to a baseline before the
-speed-specific programming, which is read-modify-write.
-
-Can that leave stale bits across a speed change?  For has_emac_ge_3 (true
-here) at 10/100M, ethqos_rgmii_macro_init() arms the extended RX-clock delay
-path:
-
-		rgmii_setmask(ethqos, SDCC_DDR_CONFIG_EXT_PRG_RCLK_DLY,
-			      SDCC_HC_REG_DDR_CONFIG);
-
-		rgmii_setmask(ethqos, SDCC_DDR_CONFIG_EXT_PRG_RCLK_DLY_EN,
-			      SDCC_HC_REG_DDR_CONFIG);
-	} else {
-
-and the 1000M branch only programs the other path:
-
-		rgmii_updatel(ethqos, SDCC_DDR_CONFIG_PRG_RCLK_DLY,
-			      FIELD_PREP(SDCC_DDR_CONFIG_PRG_RCLK_DLY,
-					 prg_rclk_dly), SDCC_HC_REG_DDR_CONFIG);
-
-		rgmii_setmask(ethqos, SDCC_DDR_CONFIG_PRG_DLY_EN,
-			      SDCC_HC_REG_DDR_CONFIG);
-
-EXT_PRG_RCLK_DLY_EN is never cleared, so after 100M -> 1000M both delay
-paths are enabled.  On the other platforms the POR write of 0x80040800 to
-SDCC_HC_REG_DDR_CONFIG clears the extended path first.
-
-Two related fields also look like they depend on the POR table:
-
-- SDCC_DDR_CONFIG_TCXO_CYCLES_CNT is written nowhere else in the driver, yet
-  the 1G delay values are derived from "TCXO period * TCXO_CYCLES_CNT /
-  (2 * RX delay ns)", which assumes the POR value of 4.
-- SDCC_HC_REG_DLL_CONFIG is never restored to its 0x2004642c baseline, and
-  CDR_EN / CDR_EXT_EN set by ethqos_dll_configure() at 1G are not cleared
-  when dropping to 10/100M, so residual values feed the DLL_RST/PDN toggle
-  and the SDC4_STATUS_DLL_LOCK poll.
-- RGMII_CONFIG_MAX_SPD_PRG_2 / MAX_SPD_PRG_9 are set for 100M/10M and not
-  cleared for 1000M.
-
-If Shikra is in fact not an RGMII part, then the descriptor and the binding
-added in the same series look inconsistent the other way: the binding pins
-the fourth clock to const "rgmii" and the descriptor sets the RGMII-only
-.rgmii_config_loopback_en field.  Which of the two is intended?
-
-> +	.dwmac4_addrs = {
-
-[ ... ]
-
-> +};
-> +
-
-[ ... ]
+ drivers/net/ethernet/mucse/Kconfig            |    1 +
+ drivers/net/ethernet/mucse/rnpgbe/Makefile    |    3 +-
+ drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h    |  201 +-
+ .../net/ethernet/mucse/rnpgbe/rnpgbe_chip.c   |  118 +-
+ drivers/net/ethernet/mucse/rnpgbe/rnpgbe_hw.h |   43 +
+ .../net/ethernet/mucse/rnpgbe/rnpgbe_lib.c    | 2248 +++++++++++++++++
+ .../net/ethernet/mucse/rnpgbe/rnpgbe_lib.h    |   84 +
+ .../net/ethernet/mucse/rnpgbe/rnpgbe_main.c   |  158 +-
+ .../net/ethernet/mucse/rnpgbe/rnpgbe_mbx.c    |   32 +-
+ .../net/ethernet/mucse/rnpgbe/rnpgbe_mbx.h    |    1 +
+ .../net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c |  235 ++
+ .../net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.h |   43 +
+ 12 files changed, 3138 insertions(+), 29 deletions(-)
+ create mode 100644 drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.c
+ create mode 100644 drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.h
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260908-shikra_ethernet-v2-0-bbe3389d0652%40oss.qualcomm.com
+2.50.1
+
