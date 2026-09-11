@@ -1,47 +1,41 @@
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 383B73246ED;
-	Fri, 11 Sep 2026 14:14:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A79A7275AEB;
+	Fri, 11 Sep 2026 14:14:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789136043; cv=none; b=JBhkjhjTmyJkTk0VOv0s7PYLe6xJJI92mwFNlADn/NZuUAg0MHP47hqfRbjRIq8wjNj2Z8H5WkBSLkN7AlUcR15To27+XODxlH3UBive/GEDX2SKtVew1mf5o9bJ98k/xcPb8kO9WLKjHH3Xz4ne0y1tkkAAdqpWlpwBA5UY0XI=
+	t=1789136075; cv=none; b=KChIxhAKPHBSgFkBYAM3r7AQjSOXCENr5pm5gjJ+qS6zIRGbXzXRohTZDvo/fxPcM/riaN89g6DNRV5oFAcIi2xY1BO9Sz33Lu7/k0FbFNY9BmPJ/DlwHmlNUyWt1BA8mqOEgu6yL5R97EiPeasol3pvaj6u2CWdIs4fE8+9wl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789136043; c=relaxed/simple;
-	bh=S6vlzaHOdAux3Ddwra4hz2bRHO+mzq2XjnWcy5LThPg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DL3v/UR0whFOGRlVpt9cQYoZTvZG0CuFHJYGLaFqvJliaw/ZK8MtTNW9ourdXpr7nmlrSoyoVGSNVmyK4SRh/YhXW38n1AXSwwc22mPnitIM6HNskbYAzjuMRDnsbzss60t8InW6HLF+xwTSm/EN7UfU3GY3g7tDVzdlUJnBsD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=gMEucxCm; arc=none smtp.client-ip=216.40.44.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1789136075; c=relaxed/simple;
+	bh=YcR96b0CPruCHzNuRntmU04kiz+ZDDKX3K4wZq/krw8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=ABgl3qmRRCpJ/YMDHzrmB5qdrBuEiYc3TbNdztfh97abe++bAHpzaVg5zMknf2YqSsEpUtQmsGnZXG9wXlM3TPTEy0s17avyFrISTIDuMq2/jIxLJJONR2mX5P0IxTdCv0oTCQn8M9kYTvlPJGr54LnFBmLxi9JkZIl9688hFr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nqzrvn2S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="gMEucxCm"
-Received: from omf10.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay02.hostedemail.com (Postfix) with ESMTP id A0465120233;
-	Fri, 11 Sep 2026 14:13:57 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf10.hostedemail.com (Postfix) with ESMTPA id 8732930;
-	Fri, 11 Sep 2026 14:13:53 +0000 (UTC)
-Date: Fri, 11 Sep 2026 10:15:14 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Ridong Chen <ridong.chen@linux.dev>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Andrew Morton
- <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, Mathieu
- Desnoyers <mathieu.desnoyers@efficios.com>, Kairui Song
- <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt
- <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, Axel Rasmussen
- <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu
- <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>,
- Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-mm@kvack.org (open list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)),
- Ridong Chen <chenridong@xiaomi.com>
-Subject: Re: [PATCH 3/3] mm/mglru: add tracepoint for inc_max_seq()
-Message-ID: <20260911101514.1fe0d543@gandalf.local.home>
-In-Reply-To: <20260911072848.2346073-4-ridong.chen@linux.dev>
-References: <20260911072848.2346073-1-ridong.chen@linux.dev>
-	<20260911072848.2346073-4-ridong.chen@linux.dev>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nqzrvn2S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC37B1F008A2;
+	Fri, 11 Sep 2026 14:14:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789136074;
+	bh=GM+2ljeyjKcDAZ8vz206TrC3EaMevn4lT70TYqXO1MQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=Nqzrvn2SmfFdpH00cGbajnv8cQ6w5lCNJE5+wEbMcYxTX0qSobs0Og6uqCIDM5rdu
+	 X/ddlOUchESOOFQVDAF+KkUyxgR6hL6XgfFSK0w1+xEVgC4Kmovo8tTKxF9EraZuMl
+	 X30LfmgHQeFIdXZNCmkxSV5u9n0n2kKTCSsbrEOkIt7YOTZkfR8R+ZTr39ewB62hwO
+	 sXHPzV1Ja34jDWlgUS/xZKFDnEap+v1keDd8pZbbvnHDSckqmDuF9PNgf8+pxnL/3o
+	 6iWZeAFR3DXrqXIaJDPXY/ExvIZsX7fzE4x6rTg7vYmf2YREj/FTGkvWabylEgS1fJ
+	 ExTPCVjp4JcJw==
+Date: Fri, 11 Sep 2026 16:14:31 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
+cc: bentiss@kernel.org, rydberg@bitmath.org, linux-input@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, mayhemandcoffee <mayhemandcoffee@gmail.com>
+Subject: Re: [PATCH] HID: multitouch: Add report ID mismatch quirk for ASUS
+ ROG Z13 Folio
+In-Reply-To: <20260804202031.75738-1-lovekeshsolanki00@gmail.com>
+Message-ID: <264920or-433p-8173-5osq-4897qr327r88@xreary.bet>
+References: <20260804202031.75738-1-lovekeshsolanki00@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,40 +43,45 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: qr4g4u3oti97w6r1wxsyfguoh8eifpso
-X-Rspamd-Server: rspamout04
-X-Rspamd-Queue-Id: 8732930
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/kRIOymlh/yRyLjmb/AHjuhpRO+qc1TOM=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=5pF7UOjJ0Hc92aoK/fGuwkSEqe18l+crBILfTSieFQI=; b=gMEucxCmj+6pFz+an9E4ANtASc6LfKKjFrswxZXbzlFzbRl3RMdZLezICim3m1D1g+EltbA0AAxcxjZFkzndutpjigSaREYcKBm39wpsCuSHyuYubGObgHzIORQtGzsUOg33YwZFKldCDQEv6aFsY6RAuM/Ir1V8sGRif+8R4bk=
-X-HE-Tag: 1789136033-909403
-X-HE-Meta: U2FsdGVkX18Qy0hiLDQcFnE98ah35wCu1vIZzyuKl27gM6+rsq3zuBhpsZz4DS2UvGVcZDbYIned2LtehysThjsjLGLHrdUWkQO224ES2ZkL301BaOUl6XrGBSbFka66RgDtbg6JYpyv9aO8iiY3TRMnOWzfyTrcUqfSAY3/ToMushNHQRVdRsO1VY0kvWMhsLznxmy3891Dh/u+rzgtmDUGFHgWmliyPOkVS5FgDqE72MLKWKK8Cnh3hg1lRCnBkS/HUCLJycBe3E4PEJywVWOxSdwPI6+AI8tfPz/4xya2HNCyXd89jbSacEhJYkeY
 
-On Fri, 11 Sep 2026 15:28:48 +0800
-Ridong Chen <ridong.chen@linux.dev> wrote:
+On Wed, 5 Aug 2026, Lovekesh Solanki wrote:
 
-> +static void trace_inc_max_seq(struct lruvec *lruvec)
-> +{
-> +	int type, gen;
-> +	unsigned long nr[ANON_AND_FILE][MAX_NR_GENS];
-> +	struct lru_gen_folio *lrugen = &lruvec->lrugen;
-> +
-> +	if (!trace_mm_mglru_inc_max_seq_enabled())
-> +		return;
-> +
-> +	for (type = 0; type < ANON_AND_FILE; type++)
-> +		for (gen = 0; gen < MAX_NR_GENS; gen++)
-> +			nr[type][gen] = lru_gen_seq_nr_pages(lrugen, gen, type);
-> +
-> +	trace_mm_mglru_inc_max_seq(mem_cgroup_id(lruvec_memcg(lruvec)),
-> +				   lrugen->max_seq,
-> +				   lrugen->min_seq[LRU_GEN_ANON],
-> +				   lrugen->min_seq[LRU_GEN_FILE],
-> +				   nr[LRU_GEN_ANON], nr[LRU_GEN_FILE]);
-> +}
+> Commit e716edafedad ("HID: multitouch: Check to ensure report
+> responses match the request") introduced validating GET_FEATURE
+> responses return the requested report ID.
+> 
+> ASUS ROG Z13 Flow (2025) GZ302EA touchpad (USB 0b05:1a30) returns
+> a different report ID for Win8 feature request. Before this check,
+> the response was still processed and allowed device to switch into
+> its full Touchpad Precision mode.
+> 
+> After the validation, the response is discarded before
+> hid_report_raw_event() processes it and device remains in fallback
+> mode and no longer exposes ABS_MT_SLOT, ABS_MT_TOOL_TYPE or the
+> multi-finger BTN_TOOL_* capabilities for palm rejection.
+> 
+> Add a device quirk to allow the known firmware behavior for
+> this device while preserving report ID validation for all other
+> devices.
+> 
+> The device previously matched the generic MT_CLS_WIN_8 entry, so
+> base the new class on MT_CLS_WIN_8 to keep it on the same quirk set
+> as before the regression.  MT_QUIRK_CONFIDENCE must be set
+> explicitly: it is normally enabled by the class name check in
+> mt_touch_input_mapping(), which only matches the MT_CLS_WIN_8*
+> names, and it is what makes ABS_MT_TOOL_TYPE available for
+> touchpads.
+> 
+> Fixes: e716edafedad ("HID: multitouch: Check to ensure report responses match the request")
+> 
+> Signed-off-by: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
+> Reported-by: mayhemandcoffee <mayhemandcoffee@gmail.com>
+> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221774
+> Tested-by: mayhemandcoffee <mayhemandcoffee@gmail.com>
 
-I would always look at trying to move as much logic into the
-TP_fast_assign() and not have it be where the tracepoint is called.
+Applied, thank you.
 
--- Steve
+-- 
+Jiri Kosina
+SUSE Labs
+
