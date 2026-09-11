@@ -1,112 +1,153 @@
-Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 084B7455199;
-	Fri, 11 Sep 2026 08:20:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 704A5442135;
+	Fri, 11 Sep 2026 08:20:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789114830; cv=none; b=TDQAHTzOKvzrmI+ofjaN1QgJe+osTAxV7bUAWn7A4PyGiZN4xJt5rddrE8oSLUuLip5j5T8UxIPE2TZ/YMyCObcdTr4w0qpEQ6sV+7TJO37wd3I64LGiSyFnnVEXnfTSvWaOjwH9+yWVRcWyPfG3fGCs+Doyp1KMyHKNy4nNaTs=
+	t=1789114837; cv=none; b=F17msCu0wurErLfmNTWi5zhGU6qk7G2NohaIOWcPD4bc0HXlbvire6HESpbuFQTSPnhTbe1zVeXa1w7RUcj9g8aBcMHkmVEC4ZPtRrwOQfenrDkqQmzRBff1ZeDLRnXmoeWvBSPHBj9aILfXS1vgwaorWyu8TT6uB0W/QWk5rnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789114830; c=relaxed/simple;
-	bh=00IoiYJMvc428TUnHqRDhNjDZIuoPykN8PPXnyrtpcU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=eBzaZryqiwkMXPfM7kUfzmWFDCKW/UeBEVODidLEXI0dsVbA6lIuT5astznnjnPGUb4WiXLgMeH6J5GMNTHejBxHBGXmA1ut3XhJShB1CaPeKnL1X8xFARdnP84OWi89pwbCManEJUbhhk65r9sn4OUZw0DQyOo6swlxqwPWCJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=VUXwpXLP; arc=none smtp.client-ip=113.46.200.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1789114837; c=relaxed/simple;
+	bh=qqLjM3cA03EA+uVLllYWVsib7wPeHs3eWoHtwm1WkF8=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=Q7hhMbzZ+cg6ACuwHZGlXAXB3nPAMM0M6CUwYozsJOfSdYoO379HWKTAhfUDrjZ7H7DRWOAUhr/pRMAcsp/NRCw5O1y60V2fl80ptrZXy0s2m6Gd5bc9cZYew2VwIBNGtSmnXftMQG5/cpAwUzOofNuJhX34w3AlgJmOYcIwCWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=u3Qc8FFS; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=RUYb8j0O; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="VUXwpXLP"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=UPlgI6itf/jQAT/aGqHZlGQ1rbaMbhD6LnTalkOaXRQ=;
-	b=VUXwpXLPX3wlAPyKd9HP3OrmXW/ey4+zvbJbIX499s4n/+IXiH0dkVEQr5TrMy2E3XAeziUBI
-	RR1vctPY0rEiuDKk8KSfefyOOHQNi1FOLtB6ohyZdvDu1rfdf/aZquVFDwQ4S7mK7uJu0FiGKWR
-	iGRHUTDuyAd1BdWFcR4o6Lo=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hh6dd0TMyzKm5t;
-	Fri, 11 Sep 2026 16:09:25 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 476474056C;
-	Fri, 11 Sep 2026 16:20:24 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 11 Sep 2026 16:20:22 +0800
-Message-ID: <66752c5a-8bdf-4895-b692-585ccfce3b01@huawei.com>
-Date: Fri, 11 Sep 2026 16:20:21 +0800
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="u3Qc8FFS";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="RUYb8j0O"
+Date: Fri, 11 Sep 2026 08:20:31 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789114833;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=q43YZeY+1hBCkYeXGRGhjq+NT6aa7HDTh9/Wsts6Z98=;
+	b=u3Qc8FFS6np7utOfyHBlLDNssS/oll8uJdpcGadSt3jJlEP17pd5L9TbvTxgvfJ+4PA6Cm
+	dArJgPI/RO40+1qKSrlZ38neN12gww25JQmfWSbs4vCfzQdsVaHnXGta3uRCXJgjCZNIqf
+	PgmXK7FBHalOid9Cw/JODfiRIs6kNPlZjNGFdnCPL7dgI9FkmemBjW1dngRMPm7jz64iCS
+	XheKetyVo6O2GT9locc9ItokNmfJcbbinPBCqajxQTM9E/Dv/VVNZNtUJeeO5H0EnXCepF
+	BQ+LhDCBuXvZEa3owfl5akox1OVvuDvI6WHwUGuAgtcsCa0mKzHJ3C/yHGegMQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789114833;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=q43YZeY+1hBCkYeXGRGhjq+NT6aa7HDTh9/Wsts6Z98=;
+	b=RUYb8j0OE5BMTyvfx5Cc1K/E3g+u1I+94Ulb1k8/6aE7UO5nSN/Jkqpv2sWYxci2Au3+TP
+	/FHkgC9ez1lYB5Cw==
+From: "tip-bot2 for Andrea Parri" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: timers/urgent] hrtimer: Use hard expiry when updating timers on
+ the same base
+Cc: Andrea Parri <parri.andrea@gmail.com>, Thomas Gleixner <tglx@kernel.org>,
+ stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260910143442.2018-1-parri.andrea@gmail.com>
+References: <20260910143442.2018-1-parri.andrea@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 05/40] KVM: arm64: Make MPAMSM_EL1 accesses UNDEF
-To: Ben Horgan <ben.horgan@arm.com>
-CC: <amitsinght@marvell.com>, <baisheng.gao@unisoc.com>,
-	<baolin.wang@linux.alibaba.com>, <carl@os.amperecomputing.com>,
-	<dave.martin@arm.com>, <david@kernel.org>, <dfustini@baylibre.com>,
-	<fenghuay@nvidia.com>, <gshan@redhat.com>, <james.morse@arm.com>,
-	<jonathan.cameron@huawei.com>, <kobak@nvidia.com>, <lcherian@marvell.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<peternewman@google.com>, <punit.agrawal@oss.qualcomm.com>,
-	<quic_jiles@quicinc.com>, <reinette.chatre@intel.com>,
-	<rohit.mathew@arm.com>, <scott@os.amperecomputing.com>,
-	<sdonthineni@nvidia.com>, <tan.shaopeng@fujitsu.com>,
-	<xhao@linux.alibaba.com>, <catalin.marinas@arm.com>, <will@kernel.org>,
-	<corbet@lwn.net>, <maz@kernel.org>, <oupton@kernel.org>,
-	<joey.gouly@arm.com>, <suzuki.poulose@arm.com>, <kvmarm@lists.linux.dev>,
-	<zengheng4@huawei.com>, <linux-doc@vger.kernel.org>, Shaopeng Tan
-	<tan.shaopeng@jp.fujitsu.com>
-References: <20260313144617.3420416-1-ben.horgan@arm.com>
- <20260313144617.3420416-6-ben.horgan@arm.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260313144617.3420416-6-ben.horgan@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Message-ID: <178911483132.623050.11273554283612054728.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
+The following commit has been merged into the timers/urgent branch of tip:
 
+Commit-ID:     c5dcb3aadc18d7b82ba64790721b005d18193d35
+Gitweb:        https://git.kernel.org/tip/c5dcb3aadc18d7b82ba64790721b005d181=
+93d35
+Author:        Andrea Parri <parri.andrea@gmail.com>
+AuthorDate:    Thu, 10 Sep 2026 16:34:42 +02:00
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Fri, 11 Sep 2026 10:15:42 +02:00
 
-在 2026/3/13 22:45, Ben Horgan 写道:
-> The MPAMSM_EL1 register controls the MPAM labeling for an SMCU, Streaming
-> Mode Compute Unit. As there is no MPAM support in KVM, make sure MPAMSM_EL1
-> accesses trigger an UNDEF.
-> 
-> Tested-by: Gavin Shan <gshan@redhat.com>
-> Tested-by: Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>
-> Tested-by: Peter Newman <peternewman@google.com>
-> Tested-by: Zeng Heng <zengheng4@huawei.com>
-> Tested-by: Punit Agrawal <punit.agrawal@oss.qualcomm.com>
-> Reviewed-by: Zeng Heng <zengheng4@huawei.com>
-> Reviewed-by: Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
-> Reviewed-by: Gavin Shan <gshan@redhat.com>
-> Acked-by: Marc Zyngier <maz@kernel.org>
-> Signed-off-by: Ben Horgan <ben.horgan@arm.com>
-> ---
-> Changes since v2:
-> Remove paragraph from commit on allowed range of values
-> ---
->  arch/arm64/kvm/sys_regs.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
-> index 1b4cacb6e918..0edd655934a9 100644
-> --- a/arch/arm64/kvm/sys_regs.c
-> +++ b/arch/arm64/kvm/sys_regs.c
-> @@ -3376,6 +3376,8 @@ static const struct sys_reg_desc sys_reg_descs[] = {
->  
->  	{ SYS_DESC(SYS_MPAM1_EL1), undef_access },
->  	{ SYS_DESC(SYS_MPAM0_EL1), undef_access },
-> +	{ SYS_DESC(SYS_MPAMSM_EL1), undef_access },
+hrtimer: Use hard expiry when updating timers on the same base
 
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Rearming a queued timer with nonzero slack can leave the timerqueue out
+of order. remove_and_enqueue_same_base() checks the new soft expiry
+against its neighbours' hard expiries, then stores the new hard expiry
+in the node without requeueing it.
 
-> +
->  	{ SYS_DESC(SYS_VBAR_EL1), access_rw, reset_val, VBAR_EL1, 0 },
->  	{ SYS_DESC(SYS_DISR_EL1), NULL, reset_val, DISR_EL1, 0 },
->  
+For example, with A at 10 and B at 20, rearming A at 11 with slack 30
+passes the neighbour check but leaves A's hard expiry of 41 before B's
+20. The same function also caches the soft expiry in base->expires_next
+when updating or inserting the first timer, giving next-event selection
+an earlier deadline than the queue head's hard expiry.
 
+Set the timer expiry before handling the queue. Use its stored hard
+expiry for the in-place ordering check and both updates to
+base->expires_next.
+
+The early update is safe because remove_and_enqueue_same_base() runs
+with base->cpu_base->lock held. The lock keeps the queue stable while
+hrtimer_can_update_in_place() checks the new expiry against both
+neighbours. If the check fails, timerqueue_linked_del() removes the node
+without comparing expiry values before it is reinserted.
+
+Fixes: eddffab8282e3 ("hrtimer: Keep track of first expiring timer per clock =
+base")
+Fixes: 343f2f4dc5425 ("hrtimer: Try to modify timers in place")
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Assisted-by: LLM
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260910143442.2018-1-parri.andrea@gmail.com
+---
+ kernel/time/hrtimer.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/kernel/time/hrtimer.c b/kernel/time/hrtimer.c
+index 530d612..cbf1693 100644
+--- a/kernel/time/hrtimer.c
++++ b/kernel/time/hrtimer.c
+@@ -1263,13 +1263,23 @@ remove_and_enqueue_same_base(struct hrtimer *timer, s=
+truct hrtimer_clock_base *b
+ {
+ 	bool was_first =3D false;
+=20
++	/*
++	 * Updating the sort key while @timer is queued can temporarily
++	 * make the tree inconsistent. This is safe under cpu_base->lock:
++	 * no other queue operation can observe that state.
++	 * hrtimer_can_update_in_place() either confirms that the new expiry
++	 * fits between the neighbours or timerqueue_linked_del() removes the
++	 * timer without consulting the expiry.
++	 */
++	hrtimer_set_expires_range_ns(timer, expires, delta_ns);
++	expires =3D hrtimer_get_expires(timer);
++
+ 	/* Remove it from the timer queue if active */
+ 	if (timer->is_queued) {
+ 		was_first =3D !timerqueue_linked_prev(&timer->node);
+=20
+ 		/* Try to update in place to avoid the de/enqueue dance */
+ 		if (hrtimer_can_update_in_place(timer, base, expires)) {
+-			hrtimer_set_expires_range_ns(timer, expires, delta_ns);
+ 			trace_hrtimer_start(timer, mode, true);
+ 			if (was_first)
+ 				base->expires_next =3D expires;
+@@ -1280,9 +1290,6 @@ remove_and_enqueue_same_base(struct hrtimer *timer, str=
+uct hrtimer_clock_base *b
+ 		timerqueue_linked_del(&base->active, &timer->node);
+ 	}
+=20
+-	/* Set the new expiry time */
+-	hrtimer_set_expires_range_ns(timer, expires, delta_ns);
+-
+ 	debug_activate(timer, mode, timer->is_queued);
+ 	base->cpu_base->active_bases |=3D 1 << base->index;
+=20
