@@ -1,131 +1,108 @@
-Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com [209.85.217.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A817D39281F
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:27:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB284A99B2;
+	Fri, 11 Sep 2026 17:27:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789147638; cv=none; b=TGBbiPKBiPi9m3phy77m8CPyC+R80o04PTQ5DXM+hNeYb7JMywz49O2VbMDalPO7yAh6P7RC9Y3nRAoP3HWO2RyvGdQhMP/1GSulpHGZfcPE9uAz/oSNpFtDMe4pzlwGXdfG8xEfbXD6ZpnN4svKQfDigLBetgGnAU0tnSUAbtc=
+	t=1789147661; cv=none; b=HrxXVsAsWa1U3wbAoOnagYAiBhFR2ScU8gdMgBCIE/RPCEQ4OqBs5jvbx4BH7q2wm6OjogCCvyZVHzbrv7AjQGSp/zmANPlNSx2S0+KyHEJkvGGHt9Of57QdOtCYsjXNuBj+p4S2RWu2Dp/IQU54mextisW+7HK1YM/O55dTl6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789147638; c=relaxed/simple;
-	bh=FRSDum/Oo394nb2f9OHKy+YZd8mrcHCFr1QQGlRFCXw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X8wL0/6ASWSXEz/i4BXGY9Qzw1QfWkQlOiVQfV1UcceEshnD3cC+GAkkY+OXP3ALYE9xhUhlWKQhjZ/j2vnUPSNTM/2VGG2iU84m/onA23idicnyyWK3df8duoJR0CqLON8vYgtiNfj3EBI2/K//j2p6Ta1mOu/SYpSZlTnVHvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZZ2bNYa9; arc=none smtp.client-ip=209.85.217.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789147661; c=relaxed/simple;
+	bh=B4aEx9TiL+yJCtdnf7L1fkdsEwBRjE1oa43sDYAmTPA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=cba14hWMFd7dtjbOPzst6ERdGPPwtfu2heZQcZdWxeXG6l/1BSNURXY5OPIv1uXJ6L/RpKwnpGdUFBOM9lggnBJY90VWAj1REux82+o02JdxMGAcyVCYtvNQQlWwxxiRoGOh/hAXrCHGZLFEr4ZLoKZLEI1v1OFGv764o8TtYPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=BS+G/orQ; arc=none smtp.client-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZZ2bNYa9"
-Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-783d429d0cfso783654137.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:27:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789147635; x=1789752435; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BChxo31Ip5SB1VJHGoub4TIPtDJvGI/MxbOnDeYS06A=;
-        b=ZZ2bNYa9Rw2tLJjD/Udz9I5B48eZgGKO2E2Wya22dP4UHq6nztA62g9Cn0svIXf0aS
-         TrgALGXPZvlHeQwi6o93+R4Ec9vy8fVQtt+EThY3yAvX9KYd9krWca9JnH3zcz1jxp/N
-         GAsdfK0nWmNBaAyUMaHpw6psyZfRykDHpzXWKINldRFbTAE9zp5Fiyxe6u8bEIKYWKwR
-         KUH/+L+KXitlc6wUIAyQ1fW8BQQX48rgLkE3a2jITg2Kql/nRNNxtXM08KeBD7BZGav2
-         yFzicBSsURUmLzktCWeL19Tx1dsgeoWBqZZP7Xx7vc2fkLVyksgdcEPfmN/3/kp4REld
-         zAfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789147635; x=1789752435;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BChxo31Ip5SB1VJHGoub4TIPtDJvGI/MxbOnDeYS06A=;
-        b=ZI5js3S0hezmW5vQhnUCSO3r8BBwTPPQKBH72ZfhehGI/1a4/siIy8Z3vgIOEXJ43g
-         i70nQROsdCXPPF/dBxNPwEueznXp5MoU4YkFF/xk1WcT6+5EKAI4yPwq2xwqWOLollX+
-         VTWAnDTLBIkbOQpvCSJLgEXwJEI6MsG+QI+s1cFBGtnw2LMM7WBiGmPKdtwGzgXCI+AH
-         sDPUfvASR3DnOCrwIN8bzfmuePJUyirf0/8wED3WoWiElmzvW8O4yp/QvayysNzP+yCy
-         DyAyAbiUiqIW752ObIo2tWm6PIrrzD8AeXlzF9j/NHec+dQ7Nrmy9UEWgW5pbDxIPvkL
-         iKqg==
-X-Forwarded-Encrypted: i=1; AKwUvBxeVpwdRT2l693AO5w71cswBp4blmViKkWwekmx3NYYh8UeuyHe5BlSjXW53ayJ4+lB74w/rlPVvIYAFsg=@vger.kernel.org
-X-Gm-Message-State: AFuF++ktNJMslVtV8+/d2Q9HyTbvRajhfI43lLEllo/BeIpUMO7adof7
-	2FWSbBjgcQcEF5t5mF77CShxC89CCk9qlI6ZSMkI9AeG2imNhbVgHqQ=
-X-Gm-Gg: AYBFou2yvkEE1UTUcjdv/xR0AoDv8qef3TOjrz1vFfKzqFFpcTDw2bhC9pLlmuNTqwA
-	Xd9R0o2iEYSwLexcdPRrsSMtYuQex+SY9H8oKShPfIsNAVz+CCbebDLn0gIuEZ4567pTjKOXjkt
-	q/svZYee1b91sqFhV7ThpFbRPENz+0dTIZCMF5lYGy2k97WaN62pUAAtTqC3be5unnosAprNDLJ
-	ofIMYs/tvX5aqQh9/v4IC5JjtP939snx+EyW6WQ2+JkmPcik7QlCz7k71T3CibCJOK0GT3KDW48
-	zGCwsyn1l0VwSsbcaOXxfFEFTZmjMqRfRS/jX4WTwWBM2b/2K1IPxhPyaiCpgje0Xf+sM+8SJVc
-	CUoVy1dpcigAUM5s3req7h/OQR8ckkKJj3rxt2x7bTbUfUPXkK1J9iJbWZvbdh75cisNCTnnXTw
-	2A9ZPjp+oJUhV/a2cTn9qyUIXQcFIoI+FFo2mm3gdiwbC9ddzhNTCe4E7FkeAuanmzO65RjMSv9
-	zxvYBy60ySod3xt+qFk9DC+ystO+jpDM+EvD1AhxxKUm7dQX/07X5aKJkIHFyTwk1TDNphbPAO4
-	f3Gl15/1LFxPKoFQ6J+cXEep4sizsmcjyA==
-X-Received: by 2002:a67:cd84:0:b0:791:8f69:b7f3 with SMTP id ada2fe7eead31-792a4fc8bd1mr5864944137.5.1789147635238;
-        Fri, 11 Sep 2026 10:27:15 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f478bf1sm25569566d6.25.2026.09.11.10.27.13
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 11 Sep 2026 10:27:14 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Mark Brown <broonie@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: linux-spi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] spi: rockchip-sfc: skip DMA cleanup in PIO mode
-Date: Fri, 11 Sep 2026 13:27:01 -0400
-Message-ID: <20260911172701.58177-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="BS+G/orQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=B4aEx9TiL+yJCtdnf7L1fkdsEwBRjE1oa43sDYAmTPA=; b=BS+G/o
+	rQOrwG7xj/97spFHkKba3uYLrwyroT3GsWfVqISVOObPzf01DlqXBGJuUUKNZQKbouNad8MfdYGty
+	dTOFK4zjGsbUXjCcXlOtfP1eD6Tm7W/PADXr3v/JoPJJIkJdZMpfECPwfLv+ljjFidW0DN7yAL34d
+	SVWteweLwuZEVlWZ8jjIQ7oEPichFhniJOl+LlaetaEPX7nARcyIZCbwHGrcnakpZBmOHGbwzeuww
+	Bgg0/GYoAld/rmq1YIBMl1Na3Qv+9Yjo2pfPb9VLz6zcCocjHC4MF0sofiQqJjvZeUT/WXz2Ly6zm
+	qJGYYP82Nb6USGoLpkGlIr3HQrtw==;
+Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1x552A-000000082Ib-0d0s;
+	Fri, 11 Sep 2026 17:27:30 +0000
+Message-ID: <d2f5889660e97f03fae2cd43ae32d8bf8edf3446.camel@surriel.com>
+Subject: Re: [PATCH v5 0/3] iommu/iova: convert from rbtree to maple tree
+From: Rik van Riel <riel@surriel.com>
+To: Ashok Raj <ashok.raj@oss.qualcomm.com>
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, joro@8bytes.org, 
+	will@kernel.org, robin.murphy@arm.com, iommu@lists.linux.dev,
+ liam@infradead.org, 	maple-tree@lists.infradead.org, linux-mm@kvack.org,
+ jgg@ziepe.ca, kyle@mcmartin.ca
+Date: Fri, 11 Sep 2026 13:27:29 -0400
+In-Reply-To: <aqQ2E68lmU3Fbjsk@hu-ashoraj-lv.qualcomm.com>
+References: <20260818152505.1057922-1-riel@surriel.com>
+	 <aqQ2E68lmU3Fbjsk@hu-ashoraj-lv.qualcomm.com>
+Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
+ keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
+ eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
+ Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
+ lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
+ dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
+ mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
+ gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
+ r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
+ WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
+ 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
+ Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
+ +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
+ g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
+ KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
+ fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
+ 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
+ G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
+ okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
+ TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
+ cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
+ omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
+ QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
+ c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-With rockchip,sfc-no-dma, probe skips allocating and mapping the transfer
-buffer. However, controller registration failure and driver removal still
-call dma_unmap_single() for that nonexistent mapping.
+On Fri, 2026-09-11 at 10:10 -0700, Ashok Raj wrote:
+> On Tue, Aug 18, 2026 at 11:25:00AM -0400, Rik van Riel wrote:
+> > Occasionally production workloads at Meta run into the linear
+> > search in
+> > alloc_iova() in ways that cause real issues. For example, when
+> > enough
+> > CPUs at a time fall into the linear search trap, systems have been
+> > known
+> > to get stuck for so long that it causes soft lockups.
+> >=20
+>=20
+> Something odd, except your cover letter rest of the patches are
+> missing
+> v5 prefix in your patch?=20
 
-Skip the DMA cleanup on registration failure when DMA is disabled, and
-guard the buffer cleanup in remove with use_dma. Keep the existing
-cleanup for allocation and mapping failures on the DMA path.
+Ugh, indeed.
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+The content of the patches matches what I wanted
+to send, though.
 
-Fixes: ee795e82e101 ("spi: rockchip-sfc: Fix DMA-API usage")
-Assisted-by: OpenAI:GPT-5.6
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/spi/spi-rockchip-sfc.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+Do you want an identical v6-marked series, or
+should I wait for feedback on the code?
 
-diff --git a/drivers/spi/spi-rockchip-sfc.c b/drivers/spi/spi-rockchip-sfc.c
-index 662a994da60beca33358dc6af09017e88771d017..21bd2e52d3989e3b371cf5c9ec8e4a22e22f17ed 100644
---- a/drivers/spi/spi-rockchip-sfc.c
-+++ b/drivers/spi/spi-rockchip-sfc.c
-@@ -719,6 +719,8 @@ static int rockchip_sfc_probe(struct platform_device *pdev)
- 
- 	return 0;
- err_register:
-+	if (!sfc->use_dma)
-+		goto err_dma;
- 	dma_unmap_single(dev, sfc->dma_buffer, sfc->max_iosize,
- 			 DMA_BIDIRECTIONAL);
- err_dma_map:
-@@ -743,9 +745,11 @@ static void rockchip_sfc_remove(struct platform_device *pdev)
- 	struct spi_controller *host = sfc->host;
- 
- 	spi_unregister_controller(host);
--	dma_unmap_single(&pdev->dev, sfc->dma_buffer, sfc->max_iosize,
--			 DMA_BIDIRECTIONAL);
--	free_pages((unsigned long)sfc->buffer, get_order(sfc->max_iosize));
-+	if (sfc->use_dma) {
-+		dma_unmap_single(&pdev->dev, sfc->dma_buffer, sfc->max_iosize,
-+				 DMA_BIDIRECTIONAL);
-+		free_pages((unsigned long)sfc->buffer, get_order(sfc->max_iosize));
-+	}
- 
- 	clk_disable_unprepare(sfc->clk);
- 	clk_disable_unprepare(sfc->hclk);
--- 
-2.53.0
+kind regards,
+
+Rik
+--=20
+All Rights Reversed.
