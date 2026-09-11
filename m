@@ -1,46 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA8953D16E4;
-	Fri, 11 Sep 2026 02:25:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5AA13DC4C9;
+	Fri, 11 Sep 2026 02:25:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789093552; cv=none; b=bQ+1GXs3YDY+5BsR0HljJviPpDvFfZB8eKRXrbQnTUmuKMHBxg6VzFvIbaDBHasbFusSgqzY2hoAdcAMN0V73eWwHC3mTamF1ifX+bYDQfB+0FtQ1SpoQ260sObcbg1nInw3iixuj6dTDSjtyuc4aXguc17owDUr1zXz/fvde64=
+	t=1789093552; cv=none; b=gDj51eGUW3I5AO6xfdNm/du8X2qzDeN2QHZjyATowOWhi1OjNH/Rmg+ffALerXm5VnV5BzEoVVtFCHzIuWeQ4Pyxum0Lbid4ZGEnjDlmqvDXxNUJBg64GARyvt5W6UuV75EHI5bieadyGVFdWIGPMENGlxd/7MRX1ZC7ekBL91Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789093552; c=relaxed/simple;
-	bh=13PtI+Rg8MRUth+b/ef5/wGv/kE8+GfeJB+CviyG90I=;
+	bh=fd7tGXG5eP2WB7nKkOWrXO3rXYzsPshKvD7SS5wc9Nc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZuiNE5ncC16SBtJXDSz7oTLltPajWduR7U1WPojh1zBVZh2ZGoB9rjQKV8W+8XXFA+WctuKebIWc4lmUD8+a4wGjCkuqG69EJH0dKO0yL32mNjf9P4No69r4iaUx1caACCoyZhB+YBotDgbn+RTGV96Fny39Z+K+uB2EjLHwMZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HM9Hzs/U; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=iVXWIuzDq9LCYQQDOy3GrhFA941VgKT4syPfSYtdgEidSEICicXokd4pX+atrPpZKptmDym5h9fIdG8YXR9a68JQo4CUG2bp6bG2luFIupQMQYjnpNPj2KvmwGeXH3JNmI7UCR1ZokJ4Ii4rwZMx+SwKF/7VVYsbp/WreV7+OIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j6O4XWDL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HM9Hzs/U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 284F61F000FF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j6O4XWDL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00EBC1F00893;
 	Fri, 11 Sep 2026 02:25:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789093550;
-	bh=W8KzYpobFfBZHjHarsEKRUFk0wtOx0Qf+eYC0M8z/L8=;
+	s=k20260515; t=1789093551;
+	bh=keC+4lCNgl4h+EQPTrZts10L19jjOc6Q/9p2LMM/nus=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HM9Hzs/UTAwONIiwFugb/545hRz1OYTLeiCtl8R4WbLoSLQo7o8vEPICcDJrUKk/o
-	 9uSnZL7+AAC5/WdjOya16LxhBLZ1lb4JwfqcOZeO2zxu41S+6iQZ6cnBPc8MUMkGkx
-	 Rt2sUY4m9nEsJ6IhPVO3gjgz3t+FFq3CX5F3er5ML9E8/2mZHsVtBqeDp8+3zBt1c4
-	 8PMRlcypVTC0EyXuNOvXQz4e7z24FatCNJxqz1NIcljc23UhaTL2hw5PbsDb28vSBY
-	 YHWd/KiJBaSDlbIopvor4ai7BaqmUDA/UYhV5E5RrNHph5JPp/nu1LHiEBNhtzYHFC
-	 9Vm/V5OVOcaPw==
+	b=j6O4XWDLPa5xjkXrJXJ5BY6+4ZlXXXd255ClQeSTHA3ZfFYdAzMTXFuZPWEn1h3oo
+	 iXqhdK/W0dvTioV9KwvmSN9qQWRcepSCdgtsMKkwYI4ijFvzkI5om+EaU/gWZjlUXm
+	 38cCRWQkbNmO6/ToUVyw/PZb1iRRDbtm0GAqlZ/k4vOHEEAuj3Spf3cN7x4EpB3Z8q
+	 IxCeoZNlyBv3GkQ2nWNcCPlZ+dqJoV90HDDLVjvJE12kvWHKuz84R1pIYsyl9CZEhk
+	 EB5JmzLNp55A8SeusV1Ojv/JAQ7hXK2pem1j37xD5jUq1iuv67pC6j2X8KlJaZFEoV
+	 p8P4StmyBsv8w==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
 	Abel Vesa <abel.vesa@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: eliza-mtp: Add support for SD card
-Date: Thu, 10 Sep 2026 21:25:27 -0500
-Message-ID: <178909353846.920241.8454936291356682122.b4-ty@kernel.org>
+Subject: Re: [PATCH] MAINTAINERS: add Abel as reviewer for linux-arm-msm
+Date: Thu, 10 Sep 2026 21:25:28 -0500
+Message-ID: <178909353855.920241.16844433526564838630.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260903-dts-qcom-eliza-mtp-add-sd-card-support-v1-1-25c906b12707@oss.qualcomm.com>
-References: <20260903-dts-qcom-eliza-mtp-add-sd-card-support-v1-1-25c906b12707@oss.qualcomm.com>
+In-Reply-To: <20260902-maintainers-qcom-add-reviewer-v1-1-82d6126df520@oss.qualcomm.com>
+References: <20260902-maintainers-qcom-add-reviewer-v1-1-82d6126df520@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,17 +47,16 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 03 Sep 2026 14:22:25 +0300, Abel Vesa wrote:
-> The MTP comes with an SD card slot. So enable the second SD host
-> controller, describe the card detect GPIO and the board-specific supplies,
-> in order to provide support for the SD card.
+On Wed, 02 Sep 2026 14:57:06 +0300, Abel Vesa wrote:
+> As agreed with Bjorn and Konrad off-list, I'm stepping up as reviewer
+> for Qualcomm SoCs support.
 > 
 > 
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: eliza-mtp: Add support for SD card
-      commit: 8c5264b3da23799798e26962496245164952c031
+[1/1] MAINTAINERS: add Abel as reviewer for linux-arm-msm
+      commit: 8c66e420c29a0fa8589e14ee357382742aba88e5
 
 Best regards,
 -- 
