@@ -1,162 +1,144 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EF9C38E8A3
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:56:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB5D4AD7F0;
+	Fri, 11 Sep 2026 17:56:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789149385; cv=none; b=UBg12Hbz/YeedF6k7EnOgYy+4YRXj/dbsCD+ROddv/t7e3ojSZAcbRi0auoNtUs4Wj7vord+OH6aaQJcw7PDDfDN+UiTOk11sgJfDDymsIPTLlo56xBm5k6K8hh5dxh63wdfjVwHyq9iNswnMQl8Xmo2DfhMtVl1sFinVuVMALg=
+	t=1789149390; cv=none; b=m8DJ33t8LMl3WJWXOlSja9TKIIHTnv4zv6oql8dPOoTgsKx3TA1laFmfh9xXkQT3VT+vCctTBmOJ4UI/fHGgAqJCc9asWmFV4+/iCP0PnMv07a8xKHveDT8NsKNoho2HeoyXRGiejJ4mJA2Syq4WjjGNy+WFFfc2tiZa51dg0e0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789149385; c=relaxed/simple;
-	bh=RLqYegAMuTyA67m7UvWtUXw/Q88dXF4ZoFIfoAjVFK4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=o8pZzR3hfzqeLJG1F9eSQs+jFm6twOTLngKMGyKDc3gVziJsPV1wzOJm6xAQTVtCQ7MMV7zR7HVMLKTA3CNbEC+A2nRNNMO3NrNV/CBHlA1Og3IcqE/nlxH7d6ra7jRsIH1/klfc8+v9QSfxCc+0eUKzciBzQu3wogKOLGSbDp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sK1Dr+ur; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1789149390; c=relaxed/simple;
+	bh=GeJlJMkDlln430lCA0QsPVEGSIjiF0LIlATFP6dym7k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nb5yjNA8AzKpfxMj/sg0eBEvYCkiT+pTXRHYHdkrnzVoU1oyFq0LLX0rL1RlQRI5hgjf2i9AAWN3ySCvF7VVtQHicqFAV4DfRihf3jDNtilNib5mIgMOMlERyIzIk4954Nk+nvTQNhLS8P5hne/W8/YMeFc0SjXve4qC4ovH0vM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I3Q9tEOV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sK1Dr+ur"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cda5e048fso16315e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:56:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789149382; x=1789754182; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=sxOgAckYA0sGT3jkWXNJ1T/ySQi8wSGVzAUZLkYG6k0=;
-        b=sK1Dr+ur73CYwjq5uX8nuVMAJJXHwggPAaNsq8x2+hXP45EsXCGSQVmpWDo/R9Gwfx
-         Tt/VgT28EMKiOVoL5EA90Dpadu2PuSIWg4HNfxcewohdUBgUoD5T+cIsIFRIKYOwfU42
-         C/fmI2VANhal8r5qiPlmRCUv5wyVa6xWl6xB76G7UJSLhF4lkgOW7B25fzJcTx76g3ER
-         FB0cqX8HUZa7ETdGzs9rXGBFjU26fbG8RyARZPNtRpbx3wr/+D1uO6epoMyzcapd5Qi0
-         5ywUowTAMkaphTG6oRmg9A2mB0lIaev2LXMeZsB0oCfqay4vlIg5aZ2qGKDO4pWbfAtL
-         n4aA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789149382; x=1789754182;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=sxOgAckYA0sGT3jkWXNJ1T/ySQi8wSGVzAUZLkYG6k0=;
-        b=jjcIu2xnX+MAjeQx8rfwyzZbiwNfK4Dj3r/f9osaC6A04Gm3BhiJdfD5lau6DK88or
-         h1VFFXnsNQXR2XFVpl9uI87mn6OZemmRV7W6UksEQ93BLre4TFM61/0Y5yNksU73K049
-         BL2aUgAjXQEGkQhqiTQqxQsyeqPHMcitS+YURTuDZ92EvwmpTBRZGzuIYYGqcDQwbBML
-         pIqY/BEP1pJ6NaeHbrdczrFbV5ZTMu4Ai/SACTbx5zVsGwjKRTy/5K8KC766rC+POwJ5
-         Y31JubwvwHu71p+wJ55GVxKcffB/0SjwPwM/zVXq4mcK/O3GrCzaMsaCm6HoxoOTEYwE
-         8S3w==
-X-Forwarded-Encrypted: i=1; AKwUvBxrzXs0zmCyN+uApM5K+RoVSz6BR8dEnfsXyUUZokXYuiRF9JzfimDOdBwezwZg1aD3/PvWhiQkD6Z2jMc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kCvSG89UR3pQhVA2kTYdQUtZtwFn5bSbs1atNTs3KDMqqGZxRJ
-	1qxLCZzVjJckqmtqOCXP9zGdgr/U1Pkvn/aI4x+y9FWhLs/DPJBG1HXYh7n2Vu4t6Q==
-X-Gm-Gg: AYBFou2ig/eMoEqziDgYhi2EASrPEsK0UKRvBIaNlEj0wRuZ7Ef1j+hrpBoaW1rsgpa
-	lefm/tYdrenK8D4Dwaqf2Urshd3qbFEl0s3j6kzJOCPgafD2vHuRVeb0wnxFBFMfQLhjP7R/pAP
-	+ovio/DTLKRVmKuTP8jMXqdgjk1AE50clwXLH1mb0MQONj8lCNB6UEXFJq7tnaFpe3VhaUu3/ka
-	uFxgjo5j5Kk1zSbh6qcNotXiPf5Ev/HLZtEI9rYQ7SF/mcjdG2q4Dfw/Z8YZpGm/3b6BeytYszQ
-	rJWBdnxnRjoNz5PP54lUg9bufJbG5FtbpTJtrth5gVd4Y/v82l3F/NNrvezODsGOB3snsEUYtin
-	f3IOnVcJeiAa+w4lrpFURWx5634m5ZkzgmCdd/N3rNswxg5Cz42KQWBEO9pMiVMFHv1WPjnnMfH
-	9t4uL2kwljp3fPpaYXRg8amO+gw4ul2JOzYoVC1QDUogZ4V1ODzd6eHFNMKjzLkN64lOIQ+xph5
-	6qKoxVwWa2RP64hiwJLWpcri2kslOT7F4uMrQN/jYc3k8XNE3T0IdixL2E=
-X-Received: by 2002:a05:600c:19d1:b0:499:a6a5:a687 with SMTP id 5b1f17b1804b1-49e6b79db37mr89115e9.0.1789149381389;
-        Fri, 11 Sep 2026 10:56:21 -0700 (PDT)
-Received: from localhost ([2a00:79e0:288a:8:d3e5:e8d0:cdd7:470f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34f1f7sm7580895f8f.24.2026.09.11.10.56.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 10:56:20 -0700 (PDT)
-From: Jann Horn <jannh@google.com>
-Date: Fri, 11 Sep 2026 19:56:13 +0200
-Subject: [PATCH v2] io_uring/fdinfo: ignore IORING_CQE_F_32 in last CQ
- array slot
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I3Q9tEOV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D965D1F00893;
+	Fri, 11 Sep 2026 17:56:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789149388;
+	bh=O7i4wFJzTZyCCl1oe/KqJK+22QuW1UsUuNg+sPszn9U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=I3Q9tEOVl8fd7MndOkpxilz+TNqofFh3zVFY79jYW0vSNXkJU5fDsKwzkl9AtnJcE
+	 gVB6USq/PgqGOhMRc+WrV089nIscoKhC211kROVObR2aWddqyjKCw3BT4TcQ4gUZGL
+	 Pg8XbQ/d4fJ8rYgFFYxcUPMhSzBYNW3lXNe9G97vo4PDhTIeMjmPV9YPeJWWd3wl5O
+	 tEpjvRJ111UUjcIpcZPEVn0sZAy0ySMpK5WED+KmpLafn414pimMuz+tHTSjj77LLF
+	 p4PqmW34CMPs7L33XVGSVTN1eboGXo/mYfrIXY79FIzi++GIp4BgWuxYOodIS2tCFz
+	 ZRU6yBO8coIog==
+Date: Fri, 11 Sep 2026 18:56:22 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, 
+	david@redhat.com, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
+	pfalcato@suse.de, xueyuan.chen21@gmail.com, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH v3 3/7] proc/task_mmu: clarify shmem mapping walk
+ conditions in smap_gather_stats()
+Message-ID: <aqQ_cPerswqY9ZPL@gremlin>
+References: <20260910234737.1340642-1-surenb@google.com>
+ <20260910234737.1340642-4-surenb@google.com>
+ <aqQoPTTUC9M5HkYb@gremlin>
+ <CAJuCfpEHeFSMamNhf=FLvFjh9D8DBwZtbKwL0zi=x-2g8B+ENw@mail.gmail.com>
+ <aqQzk2AT05r6rOyT@gremlin>
+ <CAJuCfpEMd=hVtwe_9Rp1kqigYJwqEUGCD+ViQmoacAZONCR6DA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-uring-fdinfo-tighten-v2-1-fa24d517035e@google.com>
-X-B4-Tracking: v=1; b=H4sIALxApGoC/22NQQ6CMBBFr0JmbU2nAoor72FYlDKUMdqathAN4
- e4Cxp3Ll/z/3gSRAlOEczZBoJEje7eA2mVgeu0sCW4XBiVVKSuUYgjsrOhadp0XiW2fyAls0OC
- pyouDLGC5PgN1/Nq01/rLcWhuZNLqWhc9x+TDe+uOuO5+CfyfGFGgyI+mVBqLXBt9sd7bO+2Nf
- 0A9z/MHzaozhssAAAA=
-X-Change-ID: 20260910-uring-fdinfo-tighten-1b1c18945305
-To: Jens Axboe <axboe@kernel.dk>
-Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Dominik Maier <dmnk+artist@google.com>, stable+noautosel@kernel.org, 
- Gabriel Krisman Bertazi <krisman@suse.de>, Jann Horn <jannh@google.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789149377; l=2933;
- i=jannh@google.com; s=20240730; h=from:subject:message-id;
- bh=RLqYegAMuTyA67m7UvWtUXw/Q88dXF4ZoFIfoAjVFK4=;
- b=4O+nmwWqM18Vkzflwa9omB3cJvkWyts6exEt1kWyKs5XcG4WDiUaYW8+/K2PmfSqWc5tXjXuk
- oY1pkoUiD5hDjNx7bK2MQiYM14D+g07PYIsA81MgL6ETLlGrb0QZ+cn
-X-Developer-Key: i=jannh@google.com; a=ed25519;
- pk=AljNtGOzXeF6khBXDJVVvwSEkVDGnnZZYqfWhP1V+C8=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJuCfpEMd=hVtwe_9Rp1kqigYJwqEUGCD+ViQmoacAZONCR6DA@mail.gmail.com>
 
-A cqe32 entry spans two CQ array slots, so the last CQ array slot can't
-contain a cqe32 entry. If the CQ tail points at the last CQ array slot and
-the kernel wants to write a cqe32 entry, it uses io_fill_nop_cqe() to pad
-the last CQ array slot with a dummy entry and make the tail wrap around.
+On Fri, Sep 11, 2026 at 10:39:01AM -0700, Suren Baghdasaryan wrote:
+> On Fri, Sep 11, 2026 at 10:10 AM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+> >
+> > On Fri, Sep 11, 2026 at 04:58:40PM +0000, Suren Baghdasaryan wrote:
+> > > On Fri, Sep 11, 2026 at 4:28 PM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+> > > >
+> > > > On Thu, Sep 10, 2026 at 04:47:33PM -0700, Suren Baghdasaryan wrote:
+> > > > > smap_gather_stats() optimizes stats gathering by skipping the walk for
+> > > > > shmem mappings in certain conditions. Update the comment to clarify
+> > > > > these conditions and use vma_is_cow_mapping() for COW identification
+> > > > > instead of open-coding it.
+> > > > > Instead of using (start != 0) condition to identify partial walks, use
+> > > > > more semantically correct (start > vma->vm_start) check.
+> > > >
+> > > > I don't agree what you're doing is semantically correct, it's a hack really.
+> > > >
+> > > > Callers are passing start=0 to indicate that the entire VMA should be
+> > > > processed and that happens to fulfil your criteria but in a surprising way.
+> > > >
+> > > > And the start in these cases is corrupted.
+> > >
+> > > Well, the "other" Lorenzo does not agree with you and suggested this
+> > > approach in [1]. Specifically, see the comment:
+> > > ```
+> > > I also don't love that 0 is taken to be 'start from vma->vm_start' and I
+> > > also don't love that the code in smap_gather_stats() actually special cases
+> > > this...
+> >
+> > I'm not sure what part of this is disagreement?
+> >
+> > It's saying passing 0 is a hack, which is one that is still in place and which
+> > this patch makes worse, because instead of explicitly calling out the invalid
+> > value, you're treating it as if it were valid.
+> >
+> > >
+> > > How about passing last_vma_end and making smap_gather_stats() more sane? In
+> > > the other invocation of smap_gather_stats() we could pass vma->vm_start
+> > > here.
+> >
+> > Yup, well me of 3 months ago should have suggested what I suggested re: wrapper
+> > (I think you cut that suggestion out of my reply).
+> >
+> > > ```
+> > >
+> > > [1] https://lore.kernel.org/all/aifO_rCurVhFRTcl@lucifer/
+> >
+> > >
+> > > >
+> > > > >
+> > > > > No functional change intended.
+> > > > >
+> > > > > Suggested by: David Hildenbrand (Arm) <david@kernel.org>
+> > > > > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> > > > > ---
+> > > > >  fs/proc/task_mmu.c | 24 ++++++++++--------------
+> > > > >  1 file changed, 10 insertions(+), 14 deletions(-)
+> > > > >
+> > > > > diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+> > > > > index cfc7af1b551d..3c40c9cbb9c9 100644
+> > > > > --- a/fs/proc/task_mmu.c
+> > > > > +++ b/fs/proc/task_mmu.c
+> > > > > @@ -1257,6 +1257,7 @@ static void smap_gather_stats(struct proc_maps_private *priv,
+> > > > >                             struct mem_size_stats *mss, unsigned long start)
+> > > > >  {
+> > > > >       const struct mm_walk_ops *ops = get_smaps_walk_ops(priv);
+> > > > > +     const bool is_partial = start > vma->vm_start;
+> > > >
+> > > > Yeah not in love with this, without changing how it's called.
+> > >
+> > > See [1]. This is exactly how you wrote it at the end of that reply.
+> >
+> > Assuming you passed vma->vm_start, not 0? Passing 0 makes it really strange.
+>
+> Ah! Now I see the problem you are pointing out. Ok, in v2 [2] this was
+> done correctly and that's the way you want it!
+> Okay, I agree this split was incorrect. I think I'll move is_partial
+> conversion completely into the next patch and this one will only
+> update the comment and use vma_is_cow_mapping() instead of open-coding
+> it.
 
-However, malicious userspace can directly set IORING_CQE_F_32 on the last
-CQ array slot, causing __io_uring_show_fdinfo() to read the second cqe32
-half from beyond the CQ array. Change __io_uring_show_fdinfo() to
-explicitly ignore the IORING_CQE_F_32 flag in this case.
+OK, it probably makes sense to have the CoW change separate.
 
-This is not a real bugfix, just tightening the code a bit, because:
+I replied on 4/7 about how I think that should look re: wrapper functions.
 
-1. the number of CQE slots is always a power of 2, see io_uring_fill_params
-2. the ring_region region consists of:
-    - a 64-byte header
-    - pow(2, N) CQE slots (each 0x10 bytes)
-    - optionally, the SQ array
-3. the ring_region size must be page-aligned because it is shared memory
+>
+> [2] https://lore.kernel.org/all/20260907063918.3432401-4-surenb@google.com/
 
-Together, these properties imply that the last CQE slot can't be close
-before the end of a page, so the "out-of-bounds" data is in memory
-that is anyway accessible to userspace.
-
-Reported-by: Dominik Maier <dmnk+artist@google.com>
-Fixes: 82ceb7fcc5ff ("io_uring/fdinfo: handle mixed sized CQEs")
-Cc: stable+noautosel@kernel.org # no impact due to memory layout
-Reviewed-by: Gabriel Krisman Bertazi <krisman@suse.de>
-Signed-off-by: Jann Horn <jannh@google.com>
----
-Changes in v2:
-- fix half-completed sentence in commit description
-- add Reviewed-by (Gabriel)
-- add comment (Gabriel)
-- Link to v1: https://patch.msgid.link/20260911-uring-fdinfo-tighten-v1-1-47c62a154aca@google.com
----
- io_uring/fdinfo.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/io_uring/fdinfo.c b/io_uring/fdinfo.c
-index 3ae4804765b9..882dd7f39902 100644
---- a/io_uring/fdinfo.c
-+++ b/io_uring/fdinfo.c
-@@ -155,9 +155,18 @@ static void __io_uring_show_fdinfo(struct io_ring_ctx *ctx, struct seq_file *m)
- 	for (i = 0; i < cq_entries; i++) {
- 		struct io_uring_cqe *cqe;
- 		bool cqe32 = false;
-+		bool is_last_cqarray_slot = (cq_head == cq_mask);
- 
- 		cqe = &r->cqes[(cq_head & cq_mask)];
--		if (cqe->flags & IORING_CQE_F_32 || ctx->flags & IORING_SETUP_CQE32)
-+		/*
-+		 * Userspace can manipulate the last cqarray slot to have
-+		 * IORING_CQE_F_32 set, which would cause the second half of
-+		 * that CQE to be read out of bounds.
-+		 * Ignore the flag for the last cqarray slot, which can't
-+		 * legitimately have the flag set.
-+		 */
-+		if ((cqe->flags & IORING_CQE_F_32 || ctx->flags & IORING_SETUP_CQE32) &&
-+		    !is_last_cqarray_slot)
- 			cqe32 = true;
- 		seq_printf(m, "%5u: user_data:%llu, res:%d, flags:%x",
- 			   cq_head & cq_mask, cqe->user_data, cqe->res,
-
----
-base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
-change-id: 20260910-uring-fdinfo-tighten-1b1c18945305
-
-Best regards,
---  
-Jann Horn <jannh@google.com>
-
+--
+Cheers, Lorenzo
