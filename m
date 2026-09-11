@@ -1,185 +1,85 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A099E49B5A0;
-	Fri, 11 Sep 2026 16:01:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D106237A85A
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:02:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789142515; cv=none; b=qith6GTZbXWunZxNVex5mIww4X8TwPOLLwqxmtpa6gOLr3kyArUlEdIQxaH/nyUYcXUpFF0Ub/XeGeltWe7/GSGlbfj6JC42R6U/s117Ic5ycYzBnUj/StygTqG1CUq8jreSIQoExqSmBA5aVYTtrsr2KKf9SN1GrlS1agKmJqc=
+	t=1789142541; cv=none; b=aLWLbomy4zqRldqMn7zEJX+jmPekwa8HpXOujIG5Hha27/vdjNPkylKEwNHUGSBxLr96LTFkLuOkAhBzJIRFr9FdPotlgvMjqHLC133VI4To3rnZPSXtAxT6NjNc/2wlCGUJyqJBORPrPaeKAWvBT+PdsSYWZ10+YTAkQGE/Gvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789142515; c=relaxed/simple;
-	bh=ujc4gahDkCicEOOqjPUihWYFOIFiCd+3SQ8TizbLmes=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O1dQrkb/LgbpqW+EI3d+3OxjaL1oEvrmgSlXvhQuadspKoXCqH3Z+WyQtYRgyoWz+0afwWJ2mo5IZciFIrtsRfLCqzisjg68uD+nQN6vyWqAellGxKr2F3mn9ePZFXVghwiF5kvbAGikjmGtt3rBpICXTNN0uTpSeWOaWi/TT04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MEmN1Xy7; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789142541; c=relaxed/simple;
+	bh=aDDdC+cvRiioQIXkG9rt+YGQ3de5uvCoZwkZvLzlzAw=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=TbGFKmHcP/FmT8b+6HphsDZnHKw12MVinBUZX+8DEAOlSH4bbhfTTLJnCvvPG24nU4rC58XQXFfKywA1KlZ9zG4SwxA8r8720+7xhcS3YUAaC0HU3fCHUHGWDXaqDTrVHUfPXIJ7LdncKQhiHDMfYN5L+Y/Cz6xBoWT+uZgGtk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=B3OnQmCa; arc=none smtp.client-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MEmN1Xy7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789142514; x=1820678514;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=ujc4gahDkCicEOOqjPUihWYFOIFiCd+3SQ8TizbLmes=;
-  b=MEmN1Xy7o4zLQd0KDhJf3XaF1iOy3VlLwQSc5fTJBqjvG3DFmSqVwhEK
-   0pTKGThJ9Ollxkc0KlUhRmDOOXrgiGAhHi6WQ8k7G2eqcqGEQPL7iN4uM
-   ZBiJVhPIKjk/I2mmfjyKuJR/RSO1mCiY9o72DCXAlP60Kg7SxP26gPoQA
-   VXNCN8yGkaweexMCjW66NaotMO+xUgQHE+xerd8+E+6ndisxGIICFArtA
-   eKCMqrIrl0x82X2lv8W2zlA/D66jVNSSj0h9zY7dmnyZIfjI0hv37pAzn
-   yboeRwx+Mc8fnIQx0ot3qQdS5bj0N9goEfmt3m1XuP7G7HiMg+RiqVVP0
-   Q==;
-X-CSE-ConnectionGUID: L0K8H5Z4TRSiK+vmhbTXog==
-X-CSE-MsgGUID: 4wNGNnkHRTazl1fTh9QnlQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="93302427"
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="93302427"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:01:53 -0700
-X-CSE-ConnectionGUID: AdFjuv8aQxO8uw/zlLU2MQ==
-X-CSE-MsgGUID: jNTTNQIRR6CgxOPbx5OxGg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="270190829"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.80])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:01:50 -0700
-Date: Fri, 11 Sep 2026 19:01:47 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Linux ACPI <linux-acpi@vger.kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v1 2/4] ACPI: glue: Rearrange acpi_bind_one() to avoid
- breakage
-Message-ID: <aqQl6wYLlMpHYgDy@ashevche-desk.local>
-References: <12995802.O9o76ZdvQC@rafael.j.wysocki>
- <3465482.44csPzL39Z@rafael.j.wysocki>
- <aqOwUynzp3APwfYS@ashevche-desk.local>
- <CAJZ5v0jD4KvoBgcR1gysK1g7y48aM+w0=eNt1oq2QkbbS1vv7Q@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="B3OnQmCa"
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc132709c76so1401935a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:02:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789142539; x=1789747339; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vFlXnLD2eQw4jhC6UVTuIxWvif6y/Uyvo4hyizq+aXw=;
+        b=B3OnQmCaTx0edTMD5jNV6idrVVB1dLOo/6231hCNwb8tDdGBmcb+TtPJL/ApGAi71K
+         lvihGFjHrtOXivnkfed9l3f8f2MWwVSsMboFVdB7IFzHQQHhIjmOOFyNDSOW55qothPI
+         D96GhJMZopcYsVn80JwFp3XVEJdZEjYByfSbPR+ehS98+SqiMOVJgRmIqLbv7cpzCJvx
+         87avZo2v2GvQS5/8z2XsIr+XrMimCzm1BoDrbkLVdvpmoVhF9SZFcIZD2xHcq3S8uWn2
+         VlLa4lmFk3YuLKYB4Oo0VTeii/IPYJjOhUfgRQXKHwLcW4KQ8rCm+CX3mFab89b3j2nv
+         NoPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789142539; x=1789747339;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vFlXnLD2eQw4jhC6UVTuIxWvif6y/Uyvo4hyizq+aXw=;
+        b=Tt/07r3Yz62XqC+h9RBQvJwq/gEtwLfr4gqs3uUk/9HVrsTumkcgfT0MU5PCRKkfSy
+         M4xk8vPR6FU2M+I4HV+wUiu0tNa4OetcrMhqL5whBiS4+iWl6aK53/KNeLnA3EI/kEnl
+         UgOM+hI0hwza+E/5C315QVSAYYDlLAeUHSq4SpFvJCwAqlZFhJzoylBpIxynw76ktcNW
+         BKUf2A3qLmqBIQ68yZ9o4lAKLUmdf0qnoKWLst/r9oMmxtDez5pFCJYtoGhxbGNbJFFC
+         IfnNkakyq67fSQJTovN14Majxq/gvqEA3LFSsFKSZ+bqKkgNQTTkdT817SrAZYIv5vOH
+         Ab0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxf4pXu0iJYeliC553RopJtPL6WefN0XxIam22JduTfjEZxpCqqyQarS+LWP3e8lcd5BxLrsI8I1E38XGw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nFgSCs1p7kQj4t6elx1ZO6UisxxKLYY+X5RvGO9vIRklGwIzeI
+	IVQ8Ynw38UGc6YAXGT0/sStXdsrSV01xE7dQRMwE5est1Eqk/nZcZwz2m2NnEAQC3FC/V73jx04
+	1QG5rNw==
+X-Received: from pfbdh4.prod.google.com ([2002:a05:6a00:4784:b0:848:5395:9a78])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:72a0:b0:3d0:88f5:f806
+ with SMTP id adf61e73a8af0-3daed31ad0cmr8472051637.15.1789142538925; Fri, 11
+ Sep 2026 09:02:18 -0700 (PDT)
+Date: Fri, 11 Sep 2026 09:02:18 -0700
+In-Reply-To: <20260904052033.3648259-1-nagachaithanya9911@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJZ5v0jD4KvoBgcR1gysK1g7y48aM+w0=eNt1oq2QkbbS1vv7Q@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Mime-Version: 1.0
+References: <20260904052033.3648259-1-nagachaithanya9911@gmail.com>
+Message-ID: <aqQmCtPf_5M-BjRW@google.com>
+Subject: Re: [PATCH] selftests: kvm: Fix transposed calloc() arguments in the
+ uffd helper
+From: Sean Christopherson <seanjc@google.com>
+To: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
+Cc: pbonzini@redhat.com, shuah@kernel.org, kvm@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On Fri, Sep 11, 2026 at 12:24:16PM +0200, Rafael J. Wysocki (Intel) wrote:
-> On Fri, Sep 11, 2026 at 9:40 AM Andy Shevchenko
-> <andriy.shevchenko@linux.intel.com> wrote:
-> > On Thu, Sep 10, 2026 at 07:56:10PM +0200, Rafael J. Wysocki wrote:
-
-...
-
-> > >  int acpi_bind_one(struct device *dev, struct acpi_device *acpi_dev)
-> > >  {
-> > >       struct acpi_device_physical_node *physical_node, *pn;
-> > > +     struct acpi_device *comp_dev = ACPI_COMPANION(dev);
-> > >       char physical_node_name[PHYSICAL_NODE_NAME_SIZE];
-> > >       struct list_head *physnode_list;
-> > >       unsigned int node_id;
-> > >       int retval = -EINVAL;
-> > >
-> > > -     if (has_acpi_companion(dev)) {
-> > > -             if (acpi_dev) {
-> > > -                     dev_warn(dev, "ACPI companion already set\n");
-> > > +     if (!acpi_dev) {
-> > > +             if (!comp_dev)
-> > >                       return -EINVAL;
-> > > -             } else {
-> > > -                     acpi_dev = ACPI_COMPANION(dev);
-> > > -             }
-> > > -     }
-> > > -     if (!acpi_dev)
-> > > -             return -EINVAL;
-> > >
-> > > -     acpi_dev_get(acpi_dev);
-> > > -     get_device(dev);
-> > > -     physical_node = kzalloc_obj(*physical_node);
-> > > -     if (!physical_node) {
-> > > -             retval = -ENOMEM;
-> > > -             goto err;
-> > > +             /* If the companion has been set upfront, pick it up. */
-> > > +             acpi_dev = comp_dev;
-> > > +     }
-> > > +     if (comp_dev && comp_dev != acpi_dev) {
-> > > +             dev_warn(dev, "ACPI companion already set to %s which is not %s\n",
-> > > +                      acpi_dev_name(comp_dev), acpi_dev_name(acpi_dev));
-> > > +             return -EEXIST;
-> > >       }
-> >
-> > I would rewrite the above to look as following (if I got the logic right)
-> >
-> > int acpi_bind_one(struct device *dev, struct acpi_device *acpi_dev)
-> > {
-> >         struct acpi_device_physical_node *physical_node, *pn;
-> >         char physical_node_name[PHYSICAL_NODE_NAME_SIZE];
-> >         struct list_head *physnode_list;
-> >         struct acpi_device *comp_dev;
-> >         unsigned int node_id;
-> >         int retval = -EINVAL;
-> >
-> >         comp_dev = ACPI_COMPANION(dev);
-> >         if (comp_dev) {
-> >                 if (acpi_dev) {
-> >                         if (comp_dev != acpi_dev) {
-> >                                 dev_warn(dev, "ACPI companion already set to %s which is not %s\n",
-> >                                          acpi_dev_name(comp_dev), acpi_dev_name(acpi_dev));
-> >                                 return -EEXIST;
-> >                 } else {
-> >                         /* If the companion has been set upfront, pick it up. */
-> >                         acpi_dev = comp_dev;
-> >                 }
-> >         } else if (!acpi_dev) {
-> >                 return -EINVAL;
-> >         }
-> >
-> > The rationale is to avoid assignment and known-to-be-false test later on. Also
-> > split assignment that is going to be validated and moved it closer to the user
-> > (this helps with maintenance in a long term). Unfortunately double test of comp_dev
-> > against NULL just replaced with a double check of acpi_dev against NULL, no gain
-> > here.
-> >
-> > TL;DR: original and proposed pieces have their pros and cons.
+On Fri, Sep 04, 2026, Chaithanya Lagisetty wrote:
+> uffd_setup_demand_paging() passes the element size as the first argument
+> to calloc() and the element count as the second:
 > 
-> There are reasons why I prefer the original changes.
-
-Thanks for clarification. Yes, your variant (as put below) sounds good enough
-to me.
-
-> There's fewer indentation levels and fewer lines of code there and
-> !acpi_dev is actually the most common case because acpi_bind_one() is
-> called with acpi_dev == NULL for every device, so it is better to deal
-> with it upfront.
+> 	uffd_desc->pipefds = calloc(sizeof(int), num_readers);
 > 
-> However, it can be observed that the condition in the second "if ()"
-> (in the original $subject patch) is obviously false if acpi_dev is
-> NULL, so it can be moved to an "else" branch in the first "if ()":
-> 
-> if (!acpi_dev) {
->     if (!comp_dev)
->         return -EINVAL;
-> 
->     /* If the companion has been set upfront, pick it up. */
->     acpi_dev = comp_dev;
-> } else if (acpi_dev != comp_dev && comp_dev) {
->     dev_warn(dev, "ACPI companion already set to %s which is not %s\n",
->              acpi_dev_name(comp_dev), acpi_dev_name(acpi_dev));
->     return -EEXIST;
-> }
-> 
-> and that avoids a redundant check when acpi_dev is NULL to start with
-> (and is one code line less even).
-> 
-> I'll make this change, but I'd rather not send a whole v2 of the
-> series for this, so I'll do it when applying the patch.
+> calloc() expects the number of elements first and the size of each element
+> second. The product, and therefore the allocation size, is the same either
+> way, so this is not a functional change, but the arguments are misleading
+> and GCC 14 diagnoses them with -Wcalloc-transposed-args, which is enabled
+> by -Wextra.
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Heh, the calloc() implementation provided by tools/include/nolibc/stdlib.h gets
+this wrong.  But KVM selftests don't use nolibc, i.e. that's someone else's problem
+to deal with.
