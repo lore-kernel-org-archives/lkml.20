@@ -1,122 +1,248 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E57B476CE1;
-	Fri, 11 Sep 2026 13:48:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FB6A48EC93
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:48:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789134519; cv=none; b=t2S1Lg676P1hx8g8RePCFi62dZKR2JD/qz18wWNuqr+UwOzCQbDjookB4RhzCBopNV2ClELtLFD+1UNhAvKIscjXMpDRtMNv2m/EJIxN2+CX0Jz74ud5JEZpb6SCitYy/cPAE+FRZHzA5HrokqGIe9yRpYSM1x0CJX+fJhlMQ34=
+	t=1789134535; cv=none; b=uxa2T554ibNUApgbhnesEbrtdggusrxkHty8k/Wtm56ULhgYM7CuN/JBaxCglMqHaWnWtuf1coIdfEOnA9JYlTFBwOTxi2a3TE4uAJVEz9/26ijnE8e59+ioTBGv1BIpBEXcTJMpF9XlBsYXQvRkQ0sDxTX1nXL0bIGeCFBgkOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789134519; c=relaxed/simple;
-	bh=lG4KDAp2pMa37LUQNtZbacnmooezoxlM4A7rINK4vpY=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=j2ZyLTQfNnxCeT6fMNEyhNGNuLOuYrrsUCNDB2LdWWiWRkzVbM32Uw9WO9cIfKxGorMMtUBSa1KNyRJ117rP8zlDWZt/PUk5fn6AjhligUVceshf7aMBwm1rW6J91s/u5qti1oKFvv3KzHKbcniWa+6sq5Q+36x+4/JcFxaeOkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y5oUdyEJ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789134535; c=relaxed/simple;
+	bh=mYUY1X0u4jMAiaxT3A2tqJfINJC7WO9ByblU8W1JI7M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GT0ru11/OEHLe6ITd4t51mTLyShcRl+pf2Vqzoeqc8hhwKwiQQSm6RyvRItmNeiI2H5cQb6mz4J4j4Sp3SLS4zf7QAwHniDJSXgcabSTeSf1a5mpfvRyctRgRmyAMx7ZmWzx+/XHOfu+z3FysAB5EAbNS02YrS8CfYJblg015Lw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cuh2iY11; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y5oUdyEJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B0B6FC2BCB8;
-	Fri, 11 Sep 2026 13:48:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789134517;
-	bh=lG4KDAp2pMa37LUQNtZbacnmooezoxlM4A7rINK4vpY=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=Y5oUdyEJMSwiGeUtOfczssRAPoFBaSXnVWs/4sMhbFj0li9Q3eGlnrqH7ArgsGrW/
-	 /ebCQhwEZUzESW8pDfyRxAkGjug4E80cSSQe1+2f8IGw3uZiXgA0dFEHf/FcbziOG5
-	 KvpAh1SoaF2v1uIb7VXrXfIFcB+lPk2DRiNCyDrUgF8NC+j9eMYvUCrJdlYYFVLURv
-	 qFgFBl+VlqXlTMy/xx12EyXEWXD/MA6CvBpUuNX3uBn6ccJx0irtLy5d2IfDvXzY3Z
-	 NUzosFRsN/aqvGeceIJP+Nv8AVJ3kFUUdRWnVrErUmpUmq4gVLRT1vuTjWckDKB3gB
-	 dp1tNa+7BtjXg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B5F1C88E50;
-	Fri, 11 Sep 2026 13:48:37 +0000 (UTC)
-From: =?utf-8?q?Juan_Carlos_Guti=C3=A9rrez_Lavado_via_B4_Relay?= <devnull+jcarlosgl96.proton.me@kernel.org>
-Subject: [PATCH v2 0/2] Add SPC Glee 10.1 A64 board support
-Date: Fri, 11 Sep 2026 15:48:36 +0200
-Message-Id: <20260911-b4-spc-glee-a64-v1-v2-0-ed0b7ff02e0b@proton.me>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cuh2iY11"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2dcff8f44f2so12490775ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:48:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789134529; x=1789739329; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P7hwUc1tIO7zM19os5B2JuOflqEWXi9bUCh3PtnCIVg=;
+        b=Cuh2iY11t7q21BGVBzXIiW+S3nDFEbUu2B4sEY3ukzdf8JoyAFZH70aQN5xsayHSEp
+         Du6LcyNXT45vuXdXpT5F5PNdL520wZKGLfZ2Y0z8KM3nBb8ls56vqeUB6CgGHFIRS2ed
+         Gl7ure2T3V+kuzi1IuQWeE+JqiiLNscF8dh2jRE9WbFmC3EeH3qA4SQQ5RwGy1naOTQp
+         e2ZpDm5b5NrQHK0MhPsylfOxV5uFuv7f/r6V0MKrF+isXZXUQe0f/dKhHq+3At/QSaXo
+         rdWXRgF2bfL+Per46UdI6AenVokt3Duu5pzLwvsc7v/fb+RzHFxRXWGVqIgq6w5OqWAs
+         x2xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789134529; x=1789739329;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P7hwUc1tIO7zM19os5B2JuOflqEWXi9bUCh3PtnCIVg=;
+        b=fDW3N8cnAVFHXoOrJC71EnrkibLL1mSpQZi9yFBW7BOplxP5pv9ExHz/q/CPyE6s5K
+         xGF5eSXncGi63wYY0VzJzflBhqgaOrwF96fAd8LtMP+/tXwhloIrtTpDIpvKWYdKWApU
+         ebxrmoII+o0YqbCVI0VYiXvchwAEGGrtx5YcZclUn0hTb3iQhq6WOuv5sZSOkel2BwTk
+         ULLtkWrdQTCwMGSrEkoNOJ538Jk5tT+ipNRsoDC0HirahkR5nypMKt5Emslzc7UxJdXX
+         Ul/XkOhrOsI/pG9wV1eQaHePZG29wErp1++4YUCIECopFQQAqplH2rottvenzfnyMgtq
+         TqdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz7iRtwmNix9uLJVoImk7qWDxLd2qB8O4P9xhGledf3kaZH8r1S60NAJIQ0aPmYCeiEoWPlQH874VP9tJw=@vger.kernel.org
+X-Gm-Message-State: AFuF++n22WnNTwQwMXuHIj/TwY0SQJj+Qb+M8vFLAyZ9YEsERHYCIvd4
+	liWGBfKH/ewfMBnD2weGmILzZzQAF2vgc7iSTH/FQLxd3J8nFW0r7hMj
+X-Gm-Gg: AYBFou2/RoS9Ix2Nqw1UkHjxBbM/t2o+4jmo5DDCgIWw/DQW8T8yGRl1x4uQkGLeFEX
+	WFFvDGCOB+S1l6ky8wE+D+3KeUfTH8rrJXfBFML9ZYzdyw8BbRBUPWhYIBwP83iPH2kiROBRcZ7
+	Da6NOKwp+AkUBAnl20e9BgaOTSgpzgZffp4oaF3rtDiTZOwY7FZSgRfktjNHcZy98OACHtxORHt
+	QewDhW+1wBhron14JH0dhyWguvrf0VVPvfCeANI17iLrb7t0izr8fXsjpbLDvIwANBbn5P0dg2f
+	BaqqAL28ZhlOLRzj0O1SHSq4JlBzqIFoDjW2MCHVWCSIfFd2J0S6Kqe/LQFb34qZVCk8c0BD6dQ
+	bEVXR7kSbJVTJ7rNJPRSPPDG/8FZohArBgWyD4tEFD0916aol0LztrXDttKr6Rn/1FX6AVzqkW0
+	UuXgJSJcKPNlOlQsbcxsVcxDUecB0s7g8o5ry/73eIC20pd0TYaTbTTJOoXRUQNVa25NXKGyg3F
+	vIMWLU+l3g/OjFlISrHiooGpu/c
+X-Received: by 2002:a17:903:19c8:b0:2d8:d4cc:5bb2 with SMTP id d9443c01a7336-2dd2a357792mr86930675ad.18.1789134528965;
+        Fri, 11 Sep 2026 06:48:48 -0700 (PDT)
+Received: from localhost ([200.151.1.221])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfc56b1sm11650265ad.54.2026.09.11.06.48.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 06:48:48 -0700 (PDT)
+From: Davi Chaves Azevedo <davichazbh@gmail.com>
+To: peterz@infradead.org,
+	mingo@redhat.com
+Cc: Chen Yu <yu.c.chen@intel.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] sched/cache: Refresh LLC capacity across CPU hotplug
+Date: Fri, 11 Sep 2026 10:48:05 -0300
+Message-ID: <20260911134825.420748-1-davichazbh@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ7CIBREr9L8td8AbYm68h6mC2h/W4wCAWw0D
- XeX1r3JbF4yM2+FSMFQhEu1QqDFRONsAXGooJ+VnQjNUBgEE5KdmUTdYPQ9Tg8iVLLBhaMkOWh
- Vn5RqCcrQBxrNez+9dT+OL32nPm1PW2M2Mbnw2a0L33p/BSUMpeDDKHjbUs2vPrjk7PFJ0OWcv
- 8IU1QfGAAAA
-X-Change-ID: 20260906-b4-spc-glee-a64-v1-6e6dba38aa5e
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Juan_Carlos_Guti=C3=A9rrez_Lavado?= <jcarlosgl96@proton.me>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789134516; l=2744;
- i=jcarlosgl96@proton.me; s=20260906; h=from:subject:message-id;
- bh=lG4KDAp2pMa37LUQNtZbacnmooezoxlM4A7rINK4vpY=;
- b=9cQ8HQazllEZ9I3uWCMPeNw1KeaNAYJ7K67hJqRBiRk3vDkZLO8y0O98Kuiym09Ba9Fr+zhVv
- ihA3uDDYJ0HBtZRMro+NaiR2KP+HnwLY8llpeA3HBQck4uWQtw7cFMw
-X-Developer-Key: i=jcarlosgl96@proton.me; a=ed25519;
- pk=2/GzZfrbHAiuUrsA5A4A9ixfHKnypfDfzyE+fToY4Io=
-X-Endpoint-Received: by B4 Relay for jcarlosgl96@proton.me/20260906 with
- auth_id=1008
-X-Original-From: =?utf-8?q?Juan_Carlos_Guti=C3=A9rrez_Lavado?= <jcarlosgl96@proton.me>
-Reply-To: jcarlosgl96@proton.me
 
-Add initial support for the SPC Glee 10.1 tablet with Allwinner A64
-and AXP803 PMIC. Describe essential supplies, 2 GiB DRAM, microSD,
-UART, battery monitoring and USB peripheral mode. Keep unverified
-peripherals disabled. The microSD slot uses broken-cd and a conservative
-25 MHz limit until its card-detect wiring and faster modes are validated.
+The scheduler scales LLC capacity by the fraction of cache-sharing CPUs
+covered by a domain:
 
-Validation against sunxi/for-next base 913f7eda9f3e:
-- DTB build, binding checks and full DTB schema validation pass with
-  dt-schema 2026.6. W=1 retains three inherited SoC warnings.
-- Cold boot from microSD and kexec into Linux 7.3.0-rc1 with the corrected
-  DTB reach accessible userspace without regulator_ignore_unused.
-- CPUfreq transitions to 648, 816 and 1152 MHz were observed.
-- CPU cooling state 7 limits the CPU to 648 MHz. Automatic thermal updates
-  were paused briefly to test this actuator, then restored.
-- USB supply online/present changed 1 -> 0 -> 1 during cable unplug/replug;
-  SSH reconnected after the cable was restored.
-- Automatic CPU thermal cooling reduced frequency under load. Two SHA-256
-  workers completed 10 minutes, peaking at 78.37 C, with USB/SSH connected.
-  Cooling state returned to 0 after removing the load. A four-worker test
-  was stopped at a conservative 80 C limit after 27 seconds.
+  llc_bytes = cache_size * span_weight / shared_weight
 
-Long-duration stability, sustained full four-core load and broader peripheral
-support remain unvalidated.
+During CPU teardown, sched_cpu_deactivate() rebuilds scheduler domains
+before cacheinfo_cpu_pre_down() removes the CPU from shared_cpu_map. The
+new domains therefore use the old sharing weight. The later call to
+sched_update_llc_bytes() looks up the departing CPU's sd_llc, which has
+already been detached, and returns without correcting the surviving CPUs.
 
-Signed-off-by: Juan Carlos Gutiérrez Lavado <jcarlosgl96@proton.me>
+On a Ryzen 5 7535U with twelve logical CPUs sharing a 16 MiB LLC,
+offlining one SMT sibling left the remaining CPUs with:
+
+  llc_bytes = floor(16777216 * 11 / 12) = 15379114 bytes
+
+The correct capacity is still 16777216 bytes. On systems with active
+cache-aware scheduling, an underestimated capacity can cause
+exceed_llc_capacity() to reject aggregation for a process whose footprint
+would fit. Unchanged cpuset partitions sharing the physical cache can
+also retain stale capacity when a CPU comes online in another partition.
+
+Pass the cache-sharing mask already retained by cacheinfo to the
+scheduler update. Refresh every surviving CPU using its own LLC domain
+so that each partition receives the correct share. This also preserves
+the correction needed as cache-sharing maps grow during boot.
+
+Keep the existing CPU-hotplug and scheduler-domain synchronization. The
+update remains on the hotplug path; no steady-state scheduling operation
+or persistent allocation is added.
+
+Fixes: 7030513a0877 ("sched/cache: Calculate the LLC size and store it in sched_domain")
+Signed-off-by: Davi Chaves Azevedo <davichazbh@gmail.com>
 ---
-Changes in v2:
-- Use the onspc vendor prefix and place its registry entry alphabetically.
-- Include CPU OPPs for CPUfreq and CPU thermal cooling.
-- Enable the AXP803 USB supply and link it to the USB PHY for VBUS detection.
-- Keep ALDO2 (VCC-PL, 1.8 V) and ALDO3 (VCC-PLL/AVCC, 3.0 V) always on.
-  These supplies are identified by the stock firmware and match the
-  measured baseline settings. Earlier test boots stopped progressing
-  without regulator_ignore_unused; the corrected DTB remains responsive.
-- Link to v1: https://lore.kernel.org/all/20260906-b4-spc-glee-a64-v1-v1-0-621df2155e31@proton.me/
+The issue was identified by tracing the scheduler/cacheinfo teardown
+ordering, then checking live llc_bytes values using the running kernel's
+BTF layout and /proc/kcore.
 
----
-Juan Carlos Gutiérrez Lavado (2):
-      dt-bindings: arm: sunxi: Add SPC Glee 10.1 A64
-      arm64: dts: allwinner: Add SPC Glee 10.1 A64
+Validation:
+  - Reproduced the stale value on 7.2.3-arch1-3 on the Ryzen system above.
+    The patched kernel retained 16777216 bytes on every surviving CPU.
+  - Ten SMT-thread and ten whole-core hotplug cycles passed on the patched
+    kernel, including capacity checks after each removal and restoration.
+    The existing limited CPU-hotplug selftest also passed.
+  - Source-level state fixtures: five failures in eight scenarios before
+    the fix, eight passes after it. These cover partition changes, unequal
+    spans, sparse CPU IDs and boot-time map growth, but not concurrency.
+  - Full x86-64 baseline and patched bzImage/modules builds passed with
+    matched configs apart from LOCALVERSION. Focused ARM64, x86 without
+    CONFIG_SCHED_CACHE, and x86 UP builds also passed.
 
- Documentation/devicetree/bindings/arm/sunxi.yaml   |   5 +
- .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
- arch/arm64/boot/dts/allwinner/Makefile             |   1 +
- .../boot/dts/allwinner/sun50i-a64-spc-glee.dts     | 143 +++++++++++++++++++++
- 4 files changed, 151 insertions(+)
----
-base-commit: 913f7eda9f3e3fb1c67285e144e202494d440049
-change-id: 20260906-b4-spc-glee-a64-v1-6e6dba38aa5e
+This host has only one LLC, so the live checks establish the accounting
+correction, not an aggregation speedup. No controlled same-version
+performance comparison or multi-LLC hardware result is claimed.
 
-Best regards,
---  
-Juan Carlos Gutiérrez Lavado <jcarlosgl96@proton.me>
+ drivers/base/cacheinfo.c       | 11 ++++++-----
+ include/linux/sched/topology.h |  4 ++--
+ kernel/sched/topology.c        | 27 ++++++++++++---------------
+ 3 files changed, 20 insertions(+), 22 deletions(-)
 
-
+diff --git a/drivers/base/cacheinfo.c b/drivers/base/cacheinfo.c
+index 9f9c72727a05..7a47a392568a 100644
+--- a/drivers/base/cacheinfo.c
++++ b/drivers/base/cacheinfo.c
+@@ -1040,9 +1040,10 @@ static int cacheinfo_cpu_online(unsigned int cpu)
+ 	rc = cache_add_dev(cpu);
+ 	if (rc)
+ 		goto err;
+-	if (cpu_map_shared_cache(true, cpu, &cpu_map))
++	if (cpu_map_shared_cache(true, cpu, &cpu_map)) {
+ 		update_per_cpu_data_slice_size(true, cpu, cpu_map);
+-	sched_update_llc_bytes(cpu);
++		sched_update_llc_bytes(cpu_map);
++	}
+ 	return 0;
+ err:
+ 	free_cache_attributes(cpu);
+@@ -1059,10 +1060,10 @@ static int cacheinfo_cpu_pre_down(unsigned int cpu)
+ 		cpu_cache_sysfs_exit(cpu);
+ 
+ 	free_cache_attributes(cpu);
+-	if (nr_shared > 1)
++	if (nr_shared > 1) {
+ 		update_per_cpu_data_slice_size(false, cpu, cpu_map);
+-
+-	sched_update_llc_bytes(cpu);
++		sched_update_llc_bytes(cpu_map);
++	}
+ 
+ 	return 0;
+ }
+diff --git a/include/linux/sched/topology.h b/include/linux/sched/topology.h
+index b5d9d7c2b8ad..f96812d71c51 100644
+--- a/include/linux/sched/topology.h
++++ b/include/linux/sched/topology.h
+@@ -281,9 +281,9 @@ static inline int task_node(const struct task_struct *p)
+ }
+ 
+ #ifdef CONFIG_SCHED_CACHE
+-extern void sched_update_llc_bytes(unsigned int cpu);
++extern void sched_update_llc_bytes(const struct cpumask *cpus);
+ #else
+-static inline void sched_update_llc_bytes(unsigned int cpu) { }
++static inline void sched_update_llc_bytes(const struct cpumask *cpus) { }
+ #endif
+ 
+ #endif /* _LINUX_SCHED_TOPOLOGY_H */
+diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
+index 0248227d983a..a10eecc49d51 100644
+--- a/kernel/sched/topology.c
++++ b/kernel/sched/topology.c
+@@ -985,8 +985,8 @@ void sched_cache_active_set(void)
+ }
+ 
+ /*
+- * Update the bottom sched_domain's llc_bytes for @cpu and all its
+- * LLC siblings. Called from cacheinfo_cpu_online() or
++ * Update the bottom sched_domain's llc_bytes for @cpus sharing a physical
++ * LLC. Called from cacheinfo_cpu_online() or
+  * cacheinfo_cpu_pre_down() with cpu hotplug lock held.
+  *
+  * Note: get_effective_llc_bytes() returns 0 on PowerPC.
+@@ -996,32 +996,29 @@ void sched_cache_active_set(void)
+  * and does not populates the per-CPU struct cpu_cacheinfo array
+  * that get_cpu_cacheinfo_llc() reads.
+  */
+-void sched_update_llc_bytes(unsigned int cpu)
++void sched_update_llc_bytes(const struct cpumask *cpus)
+ {
+ 	struct sched_domain *sd, *sdp;
+ 	unsigned int i;
+ 
+ 	sched_domains_mutex_lock();
+ 
+-	sdp = rcu_dereference_sched_domain(per_cpu(sd_llc, cpu));
+-	if (!sdp)
+-		goto unlock;
+-
+ 	/*
+-	 * ci->shared_cpu_map is built incrementally as CPUs come
+-	 * online, so the first CPU in an LLC initially sees
+-	 * hw_weight == 1 and computes an inflated llc_bytes in
+-	 * get_effective_llc_bytes().  Re-evaluating every LLC
+-	 * sibling on each online event corrects this once the full
+-	 * shared_cpu_map is known.
++	 * The departing CPU's domains have already been detached when
++	 * cacheinfo removes it. Use the surviving cache siblings instead.
++	 * They may belong to different cpuset partitions, so use each CPU's
++	 * own LLC domain to scale its share of the physical cache.
+ 	 */
+-	for_each_cpu(i, sched_domain_span(sdp)) {
++	for_each_cpu(i, cpus) {
++		sdp = rcu_dereference_sched_domain(per_cpu(sd_llc, i));
++		if (!sdp)
++			continue;
++
+ 		sd = rcu_dereference_sched_domain(cpu_rq(i)->sd);
+ 		if (sd)
+ 			sd->llc_bytes = get_effective_llc_bytes(i, sdp);
+ 	}
+ 
+-unlock:
+ 	sched_domains_mutex_unlock();
+ }
+ 
+base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
