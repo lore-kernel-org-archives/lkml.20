@@ -1,246 +1,340 @@
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B10CD43F4BB
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 20:59:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 966BE463B9C;
+	Fri, 11 Sep 2026 20:59:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.4
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789160354; cv=pass; b=fGMeuKKZQaOKEJx1x7CloVbvAixFZyZo/iYxC1E5ekVO5cAf7LUeo6zMNoMFoyeR9v0Hl8b4256tpOOk/654e6nbw2aLbUW0bvXpaRZ/0hus92J5JY/KX4UobuVII6siukfzp79N64xlBl7OaM/syjIc8dbZOMRR/jrYPMPpquY=
+	t=1789160367; cv=fail; b=bhzSJTgDzv05uBjFqbNXQmJ5+9w0Qg7JaPNx135Tc4Id1TwP9yAhfPrS0QBy3xRigRbtbC8vwWiHEmo9aK/6o81jTBUWuVlArY/ep8nBABFKpd+PEWOQ4lQjwknWrXzfNThaqAIYuqwRtfMEFoUv8v+RRL40jbvkA4whS+NmsZg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789160354; c=relaxed/simple;
-	bh=mKPHrWNmrKgczw222t5+R7j7QSjX3I+NtdJQy79SCIs=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=t6dBTwcRi+dgE+5RWHJsLf+A8mZdfmoY6BM2NXOUQ9FkcwWwplY9D7y5SV8AYR1mVfqIbjfoJglUDF6VQNKUq2x7qR/WZeGly9mMhr7TtTEqAm2kkOPGt+s8toW+QHSiVZV6J2+8DUkar6LfllEfnyp+HewAPcKWjWuLGaiCRpA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DSVE7VfQ; arc=pass smtp.client-ip=209.85.219.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1789160367; c=relaxed/simple;
+	bh=PzTTbzb+2Dsu8Azjr4QTNuiLYmr5Qo0Vgp/xMUSBG3s=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=lqspNaPN0jSd+VyyMMwjal6w/F45zhFuZJvsmKBOFwhk+bsEsNS0c/hXh3dlNFCAEaXsZMaS3AoOBAozaNstxkdF4asEHXKaa4HYz9P6L5XMVzJPd1DAeCcB/p4BxYIjVgfPeU0UEpJpPOvCQTi2bfCXJKxvLS3Whoj4jZzj3Ss=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FOlp3GiV; arc=fail smtp.client-ip=192.198.163.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DSVE7VfQ"
-Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-9106f4c3a4dso14884306d6.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:59:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789160352; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eWedzNYF9qNO0HMh2a6WBmA84jJhMpVKvLTZntgQ3Frf1Ttm7+alKekuD9p1exl0iv
-         ht7G6Pv5KCp3lu0xGLI4yVaxDTp2G2pk0JByk/7jGw5yK6TsZiT7pZC8N8dGMwF48T+U
-         0AG2ON8rxaZIT9r+0s0RzOGR3nAbnmb2AS6ZmCDVs42ZrymAhekASewUsaIzDctxe5k6
-         d3QXpSG8+UnixXfSEC8D/Lfpxn6hX9XO1M1aqlkNnzMYe7JklSlnQjXBdH4+wnx7w5MH
-         I2JHus6D3enWmvmAQlRabUfIa5QVtZ83kJd2BpRELb5vmJ2p8k7uYkkUOV1y5v+J0ec1
-         D0+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=9mIQ6jM8juF2PvO8eUkaKKIYpJrRvH5Gc2fB112shtA=;
-        fh=0fPGSLa8/YLFMVd8i/YjeNNiiwdCTqmIKQBiAdRSUyM=;
-        b=ANGi+bNolsPKYuOXN1HzJ67ETE50o2X0XoMurczxDp3Fm4I/kMllYX+lsH/jjHU5aO
-         tPAVJN0dzfNUsoeGlMUmZZb1qQzrKymVGRgknS7XiInCncLim9V6I8aBm7vlRIsiRzAs
-         /HKAI/zA2LHctMyaqwH7ZNna/1bXwbDMRAFV4t2qiChgbQSZgtzYA7I1RLv5DSK0ZOd9
-         58bkxpHhe2hUQbG5DItYbuWunVmN2BH1Xe/9W/2BXTlIiUFSSOs5p+rSF0e2z39aOfy1
-         BvxAbYbFiqTZwXHS7GxhU/4p+em1ILai0A+0R8IfISqRXAKP/O57rlnCuxCvB0PbGwQy
-         BNNw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789160352; x=1789765152; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9mIQ6jM8juF2PvO8eUkaKKIYpJrRvH5Gc2fB112shtA=;
-        b=DSVE7VfQ2Eng2yDVZY3OW0D/7ApjNQx5AFMsIrUtYoosIuk5GDWX/+7PrpTKvfoFvA
-         JGkZl80lmw79DsCv9lt2neWpHGmnaUmpkWfnvUXRzi4MiwRI85LyYJC/gTOWgLyGRJFx
-         5abHi+whgYFDVJGxB0kjBW09WaGFGOp+Dd3Kalj0nayVUNenUVmh0N/PEWhzBRRUL4uf
-         v17tXEmDjGLCESsUeTXBr+JwZcnWqR3hHXzphggPFDvDp5KImn+GM9ht+j0gvjaVZiAQ
-         KoA0X/Tw2Djio7poRMdqW9UUrQ0RPKptwLjTO2o6nevXObMubepr4MRqIusmSmR3DD7k
-         StDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789160352; x=1789765152;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9mIQ6jM8juF2PvO8eUkaKKIYpJrRvH5Gc2fB112shtA=;
-        b=NV5nHSeaA9kNGlgkGxKxAXo4nENwcT4kvf+ZST3sddo0pflTfQAP/jkwan/FV3vVpV
-         FhIsk32NDm9NONQSx3bDPwkGZEVFv9FcqEKQZPOti3RxkQ2Ab9BDqtNMInN/Y+i0lE87
-         bkL45onPeJ72kmTpwkEFTiyU1MPO8MQFtftSy96dOOYmHBXyJ6QW7m+8w4RknsnP8A2f
-         ZJHnoRWRuMyaRCEXsUMGibFSuzC5cUW72jWIrtjihMusDgGGKaUVSVR76rZYC5mvNrcZ
-         pgvc2f0JiDlH+kBO0Mbmu15lpf3HVHIL/8XqQX7hFFFIXlZ+/QvsQGrjleel0+6GrKw3
-         8JFg==
-X-Forwarded-Encrypted: i=1; AKwUvBxdF07dqsA+ghU164OiYbjCCBu6fVBnw9M7irdVS54USXCYYNCn9GCqnmgGIa0FBHXHTG2gqIYM/HDbxqM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLu2MjFa5OqzYZDh/nsWC7nV7Y6/IojPSoFPX5lWM8aB38vVgf
-	0JtQAeJZRqB2Lws+bXMenys41oMdiSvzmm9ORWS+fhecHjGT2trDRDcxy7hxMAsfVohFzWTx6TQ
-	uH419AAzUBofZD7xZucYnfnt1YpIytcelxeLEfoJv
-X-Gm-Gg: AYBFou21e7wTjCWyofbl2xDpaTXE+2emtVTTPPbF4cQNVQ1rAwrHSkJimIJ95qy+G4R
-	kcqRV1i6VKzHOYW3PL5hnSvJgNCsDBu6N3M1Cj/ROg3mLGs4b5DvgtNX3z4r09t3rYEOAIUnhMr
-	qCmVBmEZZ9NIuqFr4heZyIFiczk4+QVoRE6z2f4p94bmuqg6ZQb00bMHva0xthDT5NkKNiOLT5H
-	4JfOheaYp2bIUj9J+BPCIICFiuYXUI26HcFdeMwSEggq+WjtSNIqU7Ed8BvKW4CwEsenTMJjltm
-	3DLQDEykb8rGyYEjuOGPhOdKarthut2Tg0dB49NIKZ4PBpNpg2JN8A1GKJKeDexKWXfcnVOfyky
-	jSuLgLsxJM7rLakISMrG9qLwShPDqNbhzeLwvedCO0g==
-X-Received: by 2002:ad4:5f8f:0:b0:910:4c56:76d8 with SMTP id
- 6a1803df08f44-9121207d6d2mr79542346d6.1.1789160350811; Fri, 11 Sep 2026
- 13:59:10 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 11 Sep 2026 13:59:09 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 11 Sep 2026 13:59:09 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <aqRFSiicubfsw3N6@google.com>
-References: <20260901180713.4185641-1-dmatlack@google.com> <CAEvNRgEs82CVTL_CUn=Ovrwvt86U1dxzr8psWGu=nk98ZH6Esw@mail.gmail.com>
- <aqRFSiicubfsw3N6@google.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FOlp3GiV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789160364; x=1820696364;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=PzTTbzb+2Dsu8Azjr4QTNuiLYmr5Qo0Vgp/xMUSBG3s=;
+  b=FOlp3GiVVWuJIZ1NDLFlaVS8w79LmOlT7R5MIiXtW1JYAGmX0G5Kuz/f
+   TJvv9poH3Xx20Gs9rq1yn2Wd0J6gUAZ3Z9kdXQzy2uRT9NrcAtL0pdwai
+   Apnckk089O9iQwAsHV/WdDdW69KN73Cxmjot0AwQ61l2/KQ58ETAXlNMQ
+   DJ5pv81e8AuCOB8oP+8Bf/Vwx+pAmsWGSFlrAHMWghM61mDLIyKZeVB3a
+   JhfrNyJ2HWjKxVxGpZd7k6kfXFSlpvq/PkkcGOUjTUDxJMCKMzPq3kMcU
+   gsU9HKW6kCYiQJfTitADouAcZnjKmI0LLevxz0m6EvZRHWOVzmlxFo+h3
+   A==;
+X-CSE-ConnectionGUID: 4rzEaTfoTrSxIye/qoKJVg==
+X-CSE-MsgGUID: Z9PGeXvQSr6TgjhhuzN7Sw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="139131"
+X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
+   d="scan'208";a="139131"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 13:59:23 -0700
+X-CSE-ConnectionGUID: RSLolxC/QpiAr8wdPRX9Ig==
+X-CSE-MsgGUID: XWqiLyXWSMW7G38Ofbqq0g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
+   d="scan'208";a="275776372"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 13:59:23 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 11 Sep 2026 13:59:23 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Fri, 11 Sep 2026 13:59:23 -0700
+Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.18) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 11 Sep 2026 13:59:20 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=S17Q4gblpHgPgyIognkf9sX7bQ4IhkE+sSO5yPpn17EY1lDSfUtsYj5KfvWmzNrh3xKNfl98jJTyi7g6EmtFow+5rTJXsbzlkk5hGE3V1ukFHynEO3oWwObtRN4nplwX6oF7xeozImWTXmNoKu+yI/OCtAXco51In0/G2hVb0ZVCXUk7XDEKLL/5bC0oP2eOts0VvB2VyvgY1pX8/ORnQv1kNn+IcsmAIaukTeMhhOUigAIiENxY5sA4qqztOoJ8N+UtuOTvUFnYLp7Pmm+RjZAf61e9V0NbvcbLipvEIukxtYMiEhqOpOeVONrA+MCl4KnVni5f1uJwWGG32AEzGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NiujYm0KweIkRdEOga+RrGK3fP3lxdnOQEfzq1vrC84=;
+ b=tD1BUmBn2BMezF3Fvtf8n963Y+xcGE9+h5JDB8DYHlUR2mbdvFa+TsDzQXAmdlSapReO3lUcgPLqQS3Amdl+4aF79SbO+HjawF7MAyyj2TqkNC0FrRfZP5SgvOhDgAIEvTVPxjudh0at55yXkb+zXPDnSvcbThz5JUawnZLn6hhbcYsIiOqqu2wwYCCnHkI68V+3CsDvMf57lX5FgETE25ZyaqVf5dcR+RTOzW0NkZgee4GLY7PUr9J32MSZDNt/JfNl1jg6iHphobbTtq9GV3kOebUXV8iNthVkztK3wPS5569dMPsozEBNcOzgQAno0iPTRvJxXUzPT/aVLBhowA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA3PR11MB8986.namprd11.prod.outlook.com (2603:10b6:208:577::21)
+ by SA0PR11MB4655.namprd11.prod.outlook.com (2603:10b6:806:9d::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Fri, 11 Sep
+ 2026 20:59:17 +0000
+Received: from IA3PR11MB8986.namprd11.prod.outlook.com
+ ([fe80::e6f0:6afb:6ef9:ab5c]) by IA3PR11MB8986.namprd11.prod.outlook.com
+ ([fe80::e6f0:6afb:6ef9:ab5c%6]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 20:59:17 +0000
+From: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>
+To: "Oros, Petr" <poros@redhat.com>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>
+CC: "Oros, Petr" <poros@redhat.com>, "Nguyen, Anthony L"
+	<anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
+	<przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
+ S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "Kushwaha,
+ Priyalee" <priyalee.kushwaha@intel.com>, Kiran Patil <kiran.patil@intel.com>,
+	"Drewek, Wojciech" <wojciech.drewek@intel.com>, Michal Swiatkowski
+	<michal.swiatkowski@linux.intel.com>, "intel-wired-lan@lists.osuosl.org"
+	<intel-wired-lan@lists.osuosl.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH iwl-next 1/2] ice: fix TC flower filters matching more
+ than the ip_proto key
+Thread-Topic: [PATCH iwl-next 1/2] ice: fix TC flower filters matching more
+ than the ip_proto key
+Thread-Index: AQHdQTvzlGOPnpTJw0uNMOiI1xpi87bJ3kRg
+Date: Fri, 11 Sep 2026 20:59:17 +0000
+Message-ID: <IA3PR11MB8986D323823F1A6A0F205B20E5BE2@IA3PR11MB8986.namprd11.prod.outlook.com>
+References: <20260910154824.3603687-1-poros@redhat.com>
+ <20260910154824.3603687-2-poros@redhat.com>
+In-Reply-To: <20260910154824.3603687-2-poros@redhat.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA3PR11MB8986:EE_|SA0PR11MB4655:EE_
+x-ms-office365-filtering-correlation-id: 7357ff11-b50d-4c8e-8130-08df10478b50
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|18002099003|22082099003|38070700021|3023799007|10067099003|11063799006|4143699003|56012099006;
+x-microsoft-antispam-message-info: jeLhF+BsGhkr7fF4WqD2rfaH16vE4StQUHuW+jOK+Wow2qSj5hX/LfmWp5cBujUd3ecRpJjgp8nTMJ/O+ibqJs936SOaMmmOYgFJzDDxaoWIpR0OOWkJVOyu5wwCJzvPbtj30yj5KQ54YqOkIzq9VA/ZbrAk7RHWBcAsUv2t1EisFwZ9dUvDRZxkkqcRRmdKTxs41VrOLhVYcAOghnaFcSCDTew/uDi6IzkFjEN/yjM+4qsl3CcXzYOeg69TAppvSRk/pWy8Q1uhw5TZ1W37xDN8pY+zQc1hnZhyUu9g6F+s+8QDNRW+xKsFAkY23Q6m8eJ1kWz4pRBkGA4aSOu0baDP2ks90hpFWlabIsXMusX4JGKMBEic1PGQXuq6wLowET2j0ccdtU7yIkyWggT3h8Wl1qSW3e3L/1pOLhHeq+tRIWCT+qC1Fmryj6CdLo21R5oo/7EurZksBxAEIYEeXwI6oshPBoG/mYUSJVxI5pHwd322tOWBHI9zrx+k6jIlDCc5VTtZCHcjsjDVYNVGek2Pqj2+8vSEpdCZnbRG30Im0ZBd2tPHzteLhyOijXLmy2rYGDlA25Db0aGe6gLj1KnodpiShFZWGSaJMse6Dq/GeaQRnTPN7hO2D8O/Q/S93BS8FL2WRN+jccCkNraVFJYOntW/fmS9/LIP8J0g4Kj1bO0fs45nLtXS8kBsunzQVzg0+Qtlakoq514Adl2OONnO0UQrI6fOha9y/vDyYgY=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB8986.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(18002099003)(22082099003)(38070700021)(3023799007)(10067099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?UOtBEJz1cX03A8rNPQKcdezxkeH8+nLYPjuFrS7uTqaowMV5cFomNLgdNMx1?=
+ =?us-ascii?Q?emI1dUq0W93aUzhuW9PirNTbjmQRHlkgiZPOHe/lyl+bUM/7gcLWmS9L5kzN?=
+ =?us-ascii?Q?CnwAJcokYvUHt2VlFmFTRk8GysbKJr3YNuhyJEBFIlrGatasUSvNFL2TfkSS?=
+ =?us-ascii?Q?nXesS3vYEzSgk4rUxwbdLlHy1iLXRD7a4HHGDsptQrCNKFSGX0nTlvAIPYpb?=
+ =?us-ascii?Q?OSwWtDFj1n1S0XFIdK7DwA7H2rGkEVg7cAWlRizn6u6E8NtdNlmc3rLmeCda?=
+ =?us-ascii?Q?cyEXiC3AYP7JvK6XSxmhKp+vCf21JrLwryDLz9ALNHFIXMx123u0ZSEag3wm?=
+ =?us-ascii?Q?LdcjEJua3HhHtY5sWMsF/EKg6QXoVyt0C+wMfUAuMv+USAdjNcLPjoLsG0IS?=
+ =?us-ascii?Q?oZsSl3T1I+yrlju73cGU28iYZV4gdtSpDrv1+liFlURp0Pv3BiWlA94gv0l6?=
+ =?us-ascii?Q?d4RDIXRdkspUDjKcWDgBvq67xWBqjLpPKH4wcAF6ThlCTVREe5DPhJBBh6jm?=
+ =?us-ascii?Q?fYxQ3tFm/MSFLdRSWkOJv54ptXm98UuWXUl3XT3TPeJl0y0rbk5LI3lbIkA6?=
+ =?us-ascii?Q?ojoeDvvqwn9IBfgWM8dxByguaZg3/5fHxwwdgAliH65vSUmtcRDpo3k9a3UK?=
+ =?us-ascii?Q?0H4wgRJHo1cm0dVjp+LKUBun+d7rvcH1zcBc85/qO/PwAx5dpzdgQ5vcOqtZ?=
+ =?us-ascii?Q?RTEy4eeJ7WeCEtY469JRfrPdfrf2+zVD2DNkzfZQixEEJWhgZuVBtVQe35SO?=
+ =?us-ascii?Q?fCpS2bnwoGHExDY3BPjQyBZynV7czx13wLycbDCS1w0ub776mxbKbaaBZ6pi?=
+ =?us-ascii?Q?kftvjZb0LEE4qC/y/PBLYIg0Mmea6fN1UR1bdQ/07zXGqJjoraEnGNJFRWwk?=
+ =?us-ascii?Q?660lel5QyfvvZ+fZKVZwBkSsZT2Uo9csCSYWJBeIlb32MDwtB54ZLHsK8V4i?=
+ =?us-ascii?Q?TB5zHLt7coV/QVzW/BPltx4mO4iQRAG07Nh6kd0RBgj111tLmd8DA8Lddc3q?=
+ =?us-ascii?Q?Pvvz5yVg95iEuD2xNWLReFJIBcI0UcKI/GBv7K++E1TjyyuGhM6C2EL5Mt10?=
+ =?us-ascii?Q?QvJ9b8tWw9vEfltP5739ccQBGm+9A/3Q0BJfQKjLWW55ieZARnJFtPcwJjIW?=
+ =?us-ascii?Q?zSRs4BnmtCMrwfpkCmd+xQQBdUz01JeaY+LRBKgWgwxgbDkPyvkBE7yPx8Mb?=
+ =?us-ascii?Q?z/T5r4IIpAqFtvlyD7uHgT3WoQGGedAS79hWh9s3yOrl868MjavzO/Ub/utt?=
+ =?us-ascii?Q?k6iy16/R8Rj0TMvaSsTbXU7hhuTyMfBsRYATZosLtp6JzXN5V0F+9OrFI6mD?=
+ =?us-ascii?Q?U7M6F6Kb4rJq0oSjlBTjo39gzFZHOmf8c9TN+9XrQ0mxWEH8xUOdXyThfKzp?=
+ =?us-ascii?Q?IkuJ3ZdgyA0/+TbZf3jBmBfHT4rMllrT6RP5NLVAMFM5N0yk+UUVeRHGtCF6?=
+ =?us-ascii?Q?1E677mmKueiqawOddvFcZDi6Bq9O94fMl9deVWJMe41HN8NHg/9/d8CFSV1p?=
+ =?us-ascii?Q?VjE2BeyFsufyo4O9jcISyijPaVnMpQObNQHk4JPDZHq9zkdI/9eVh/mhpako?=
+ =?us-ascii?Q?YY4KcoQUtzV/5IThu+S3G8Tr199rcvRMrnCEovFm+cU3G9sf4ngfQgNvkIGj?=
+ =?us-ascii?Q?4XFnU/qOzkHXTUJvKmUwKO1saKaZ2IYxG7rYKZ3SReE1djd/11XrSHt4Ck0H?=
+ =?us-ascii?Q?o1CM86MG3ugukGciGTMD2zyKDUDVAqSB/j/u0bluwjgPLoj+rUc93vHRVNkq?=
+ =?us-ascii?Q?RR2dPsAjlA=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 11 Sep 2026 13:59:09 -0700
-X-Gm-Features: AcwNN1VXiGYQy4JW0rBuiz4KjYly49Wx8Xl5G5ezJF-9TY2IawBLiOKUcfGow4s
-Message-ID: <CAEvNRgFCrcyk6F0vJ11pgj2EDSUAXj6Zw-oEdZpfj2SrH1Cv9g@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/5] liveupdate: LIVEUPDATE_SESSION_RETRIEVE_INTO_FD
-To: David Matlack <dmatlack@google.com>
-Cc: kexec@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
-	Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
-	Samiullah Khawaja <skhawaja@google.com>, Shuah Khan <shuah@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+X-Exchange-RoutingPolicyChecked: EsCqIIM1pUO0q9G0j+AFzyiFJPxa+0OLxJ5+pXZ+U0VXjqKM23nZBJSDJf2cVKjmn9+4IzSaXzLYeVI9b55l//RPb3bLjtjKqE/JyJgaeO1G2vQKK+TDM51+/9gVI4Y6cByZtpEU8CVrk7Yf51SILgm4sq54JAovZ9I8BPsEEXvlGe/JeQeUovxIfQ6Vahc2O10lDzduJt1UThT2+8QK8fRMxcNm0Qti7IBc+d54s1CH6nU9SoEgnklALjbK7z4pugjW1+nwEbTDgYz5OeJ+n0IaZu8ypt9Ihtwg/poelCu3smmw5RWtcsQR25TESY/g5a9xarNBqjNQNO9RsbF95Q==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB8986.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7357ff11-b50d-4c8e-8130-08df10478b50
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Sep 2026 20:59:17.5511
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Uidg1+ZiJLP6mALrGScmhBl7l7j0XCCR/LugpZM41yVp03D/YsK3VuTDYWaQEMaI4/txHoyC9Zx/wxlPEik3yfYvCAD+ngNdnZDGjU7yAkU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR11MB4655
+X-OriginatorOrg: intel.com
 
-David Matlack <dmatlack@google.com> writes:
 
-> On 2026-09-11 11:04 AM, Ackerley Tng wrote:
->> David Matlack <dmatlack@google.com> writes:
->>
->> > This series adds support for LIVEUPDATE_SESSION_RETRIEVE_INTO_FD, a new
->> > UAPI to enable preserved files to be restored into a userspace-provided
->> > file instead of a kernel-allocated file, and uses this to support
->> > preserving tmpfs files in-place without any changes to the LUO ABI.
->> >
->>
->> I'm interested in the idea of retrieving folios into an fd for a
->> different reason, I'm exploring handling over ownership physical memory
->> to a guest_memfd.
->>
->> > The Live Update Orchestrator (LUO) API currently explicitly returns a
->> > new struct file for every preserved file during retrieve() (e.g. via
->> > memfd_alloc_file()). This then forces userspace to use anonymous memfds
->> > for all in-memory files it wants to preserve. This works reasonably well
->> > for VM guest memory but does not work well for other types of files that
->> > userspace may want to preserve (e.g. in-memory logs, binaries,
->> > configuration files, etc.).
->> >
->>
->> Does this assume that VM guest memory is usually provided using
->> anonymous memfds?
->>
->> More generally, is the problem that there isn't a simple way to
->> implement retrieval into anything other than anonymous memfds?
->
-> Roughly, yes.
->
->> > Preserving entire tmpfs mounts in-place would require a large amount of
->> > kernel support and would effectively make tmpfs an ABI, which is a
->> > non-starter (or so I hear). Instead, we can delegate the reconstruction
->> > of the tmpfs mounts (directory structure, permissions, etc.) post-kexec
->> > to userspace. The kernel just needs to preserve the contents of tmpfs
->> > files and provide userspace a mechanism to restore those contents back
->> > into a specific file on the filesystem after the kexec. Hence,
->> > LIVEUPDATE_SESSION_RETRIEVE_INTO_FD.
->> >
->>
->> Suppose pre-kexec, the data was in a tmpfs file (and fd), how would the
->> preservation work? Would the user have to
->>
->> 1. Transfer the data from tmpfs fd -> anonymous fd
->> 2. Preserve from anonymous fd
->> 3. kexec
->> 4. Set up the tmpfs fd
->> 5. Retrieve into the tmpfs fd
->
-> No, the proposal in this series is to support:
->
-> 1. ioctl(LIVEUPDATE_SESSION_PRESERVE_FD, {TOKEN, tmpfs_fd})
-> 2. kexec
-> 3. tmpfs_fd = open(..., O_CREAT)
-> 4. ioctl(LIVEUPDATE_SESSION_RETRIEVE_INTO_FD, {TOKEN, tmpfs_fd})
->
-> No transfering to or from an anonymous fd is required.
->
 
-Cool that preserving a tmpfs_fd is supported. How is that done without
-preserving the rest of the tmpfs stuff?
+> -----Original Message-----
+> From: Petr Oros <poros@redhat.com>
+> Sent: Thursday, September 10, 2026 5:48 PM
+> To: netdev@vger.kernel.org
+> Cc: Oros, Petr <poros@redhat.com>; Nguyen, Anthony L
+> <anthony.l.nguyen@intel.com>; Kitszel, Przemyslaw
+> <przemyslaw.kitszel@intel.com>; Andrew Lunn <andrew+netdev@lunn.ch>;
+> David S. Miller <davem@davemloft.net>; Eric Dumazet
+> <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
+> <pabeni@redhat.com>; Kushwaha, Priyalee <priyalee.kushwaha@intel.com>;
+> Kiran Patil <kiran.patil@intel.com>; Drewek, Wojciech
+> <wojciech.drewek@intel.com>; Michal Swiatkowski
+> <michal.swiatkowski@linux.intel.com>; intel-wired-
+> lan@lists.osuosl.org; linux-kernel@vger.kernel.org
+> Subject: [PATCH iwl-next 1/2] ice: fix TC flower filters matching more
+> than the ip_proto key
+>=20
+> ice_parse_cls_flower() stores the ip_proto key from the flow rule but
+> never programs a matching lookup unless the filter also matches on L4
+> ports or the L2TPv3 session ID. A filter like:
+>=20
+>   tc filter add dev $pf ingress protocol ip flower skip_sw \
+>       ip_proto udp action drop
+>=20
+> is silently programmed into the hardware as a match on eth_type ipv4
+> alone and drops every IPv4 packet, not just UDP.
+>=20
+> Program the IP protocol match through the protocol field of the IPv4
+> header lookup and the next header field of the IPv6 header lookup, the
+> same lookups that are already used for ToS and TTL. The OS default and
+> comms DDP packages provide no profile that extracts the IPv6 next
+> header word, so the IPv6 rule programming currently fails with
+> "Required profiles not found" and the filter falls back to software
+> evaluation instead of over-matching, and the offload starts working
+> with a DDP package that can extract it. Note that the lookup matches
+> the next header byte of the base IPv6 header, so packets carrying
+> extension headers are not matched in hardware and fall back to
+> software evaluation, which under-matches only for skip_sw filters.
+>=20
+> GTP tunnel and PPPoE filters rewrite the parsed ethertype, the IP
+> header lookups are not available there, so reject an unconsumed
+> ip_proto for them instead of silently widening the match. Filters
+> where ip_proto is implied by an L4 ports or L2TPv3 session ID lookup
+> are not affected. Based on an earlier unapplied patch from Michal
+> Swiatkowski that implemented the IPv4 part [1].
+>=20
+> Link: https://lore.kernel.org/intel-wired-lan/20240222123956.2393-3-
+> michal.swiatkowski@linux.intel.com/ [1]
+> Fixes: 0d08a441fb1a ("ice: ndo_setup_tc implementation for PF")
+> Signed-off-by: Petr Oros <poros@redhat.com>
+> ---
+>  drivers/net/ethernet/intel/ice/ice_tc_lib.c | 37 +++++++++++++++++++-
+> -  drivers/net/ethernet/intel/ice/ice_tc_lib.h |  1 +
+>  2 files changed, 35 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/net/ethernet/intel/ice/ice_tc_lib.c
+> b/drivers/net/ethernet/intel/ice/ice_tc_lib.c
+> index d20357c0412731..fbd8cbad150a98 100644
+> --- a/drivers/net/ethernet/intel/ice/ice_tc_lib.c
+> +++ b/drivers/net/ethernet/intel/ice/ice_tc_lib.c
+> @@ -78,7 +78,8 @@ static int ice_tc_count_lkups(u32 flags, struct
+> ice_tc_flower_fltr *fltr)
+>  		     ICE_TC_FLWR_FIELD_DEST_IPV6 |
+> ICE_TC_FLWR_FIELD_SRC_IPV6))
+>  		lkups_cnt++;
+>=20
+> -	if (flags & (ICE_TC_FLWR_FIELD_IP_TOS |
+> ICE_TC_FLWR_FIELD_IP_TTL))
+> +	if (flags & (ICE_TC_FLWR_FIELD_IP_TOS |
+> ICE_TC_FLWR_FIELD_IP_TTL |
+> +		     ICE_TC_FLWR_FIELD_IP_PROTO))
+>  		lkups_cnt++;
+>=20
+>  	/* are L2TPv3 options specified? */
+> @@ -552,7 +553,8 @@ ice_tc_fill_rules(struct ice_hw *hw, u32 flags,
+>  	}
+>=20
+>  	if (headers->l2_key.n_proto =3D=3D htons(ETH_P_IP) &&
+> -	    (flags & (ICE_TC_FLWR_FIELD_IP_TOS |
+> ICE_TC_FLWR_FIELD_IP_TTL))) {
+> +	    (flags & (ICE_TC_FLWR_FIELD_IP_TOS |
+> ICE_TC_FLWR_FIELD_IP_TTL |
+> +		      ICE_TC_FLWR_FIELD_IP_PROTO))) {
+>  		list[i].type =3D ice_proto_type_from_ipv4(inner);
+>=20
+>  		if (flags & ICE_TC_FLWR_FIELD_IP_TOS) { @@ -567,11
+> +569,19 @@ ice_tc_fill_rules(struct ice_hw *hw, u32 flags,
+>  				headers->l3_mask.ttl;
+>  		}
+>=20
+> +		if (flags & ICE_TC_FLWR_FIELD_IP_PROTO) {
+> +			list[i].h_u.ipv4_hdr.protocol =3D
+> +				headers->l3_key.ip_proto;
+> +			list[i].m_u.ipv4_hdr.protocol =3D
+> +				headers->l3_mask.ip_proto;
+> +		}
+> +
+>  		i++;
+>  	}
+>=20
+>  	if (headers->l2_key.n_proto =3D=3D htons(ETH_P_IPV6) &&
+> -	    (flags & (ICE_TC_FLWR_FIELD_IP_TOS |
+> ICE_TC_FLWR_FIELD_IP_TTL))) {
+> +	    (flags & (ICE_TC_FLWR_FIELD_IP_TOS |
+> ICE_TC_FLWR_FIELD_IP_TTL |
+> +		      ICE_TC_FLWR_FIELD_IP_PROTO))) {
+>  		struct ice_ipv6_hdr *hdr_h, *hdr_m;
+>=20
+>  		hdr_h =3D &list[i].h_u.ipv6_hdr;
+> @@ -592,6 +602,11 @@ ice_tc_fill_rules(struct ice_hw *hw, u32 flags,
+>  			hdr_m->hop_limit =3D headers->l3_mask.ttl;
+>  		}
+>=20
+> +		if (flags & ICE_TC_FLWR_FIELD_IP_PROTO) {
+> +			hdr_h->next_hdr =3D headers->l3_key.ip_proto;
+> +			hdr_m->next_hdr =3D headers->l3_mask.ip_proto;
+> +		}
+> +
+>  		i++;
+>  	}
+>=20
+> @@ -1737,6 +1752,9 @@ ice_parse_cls_flower(struct net_device
+> *filter_dev, struct ice_vsi *vsi,
+>  		headers->l2_key.n_proto =3D cpu_to_be16(n_proto_key);
+>  		headers->l2_mask.n_proto =3D cpu_to_be16(n_proto_mask);
+>  		headers->l3_key.ip_proto =3D match.key->ip_proto;
+> +		headers->l3_mask.ip_proto =3D match.mask->ip_proto;
+> +		if (match.mask->ip_proto)
+> +			fltr->flags |=3D ICE_TC_FLWR_FIELD_IP_PROTO;
+>  	}
+>=20
+>  	if (flow_rule_match_key(rule, FLOW_DISSECTOR_KEY_ETH_ADDRS)) {
+> @@ -1910,6 +1928,19 @@ ice_parse_cls_flower(struct net_device
+> *filter_dev, struct ice_vsi *vsi,
+>  		}
+>  	}
+>=20
+> +	if (fltr->flags & (ICE_TC_FLWR_FIELD_DEST_L4_PORT |
+> +			   ICE_TC_FLWR_FIELD_SRC_L4_PORT |
+> +			   ICE_TC_FLWR_FIELD_L2TPV3_SESSID))
+> +		fltr->flags &=3D ~ICE_TC_FLWR_FIELD_IP_PROTO;
+> +
+> +	if ((fltr->flags & ICE_TC_FLWR_FIELD_IP_PROTO) &&
+> +	    headers->l2_key.n_proto !=3D htons(ETH_P_IP) &&
+> +	    headers->l2_key.n_proto !=3D htons(ETH_P_IPV6)) {
+> +		NL_SET_ERR_MSG_MOD(fltr->extack,
+> +				   "IP protocol match is not supported with
+> GTP or PPPoE");
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+>  	/* Ingress filter on representor results in an egress filter in
+> HW
+>  	 * and vice versa
+>  	 */
+> diff --git a/drivers/net/ethernet/intel/ice/ice_tc_lib.h
+> b/drivers/net/ethernet/intel/ice/ice_tc_lib.h
+> index 8a3ab2f22af9ba..752af65e70b7bf 100644
+> --- a/drivers/net/ethernet/intel/ice/ice_tc_lib.h
+> +++ b/drivers/net/ethernet/intel/ice/ice_tc_lib.h
+> @@ -38,6 +38,7 @@
+>  #define ICE_TC_FLWR_FIELD_CVLAN_PRIO		BIT(28)
+>  #define ICE_TC_FLWR_FIELD_VLAN_TPID		BIT(29)
+>  #define ICE_TC_FLWR_FIELD_PFCP_OPTS		BIT(30)
+> +#define ICE_TC_FLWR_FIELD_IP_PROTO		BIT(31)
+>=20
+>  #define ICE_TC_FLOWER_MASK_32   0xFFFFFFFF
+>=20
+> --
+> 2.55.0
 
-Why is it possible to preserve the fd without the rest of the tmpfs
-stuff but not retrieve without the rest of the tmpfs stuff?
-
-Is retrieving into an fd a bit too much of a shortcut? Would preserving
-the rest of the tmpfs eventually be required, and hence retrieval of the
-rest of tmpfs should also be eventually supported symmetrically?
-
->> > An alternative approach to restoring data to a named file would be
->> > supporting a zero-copy sendfile() that can be used to convert named
->> > tmpfs files to/from memfds across the kexec. But this poses significant
->> > challenges on the *preserve* side since the preserved file might still
->> > be actively in use. The benefit of the retrieve-into approach introduced
->> > in this series is that it does not require dealing with two different
->> > files. There is only ever one file that owns the preserved memory.
->> >
->>
->> Would it be more symmetric if the process is
->>
->> 1. Transfer the data from tmpfs fd -> anonymous fd
->> 2. Preserve from anonymous fd
->> 3. kexec
->> 4. Retrieve into anonymous fd
->> 5. Transfer the data from anonymous fd -> tmpfs fd
->>
->> As to the exact details of "transfer", I think the best we could do
->> would be some kind of move from one fd's page cache to the other fd's
->> page cache?
->>
->> Is the goal of the transfer to avoid any memcpy and fully transfer
->> ownership (so, not just by increasing folio refcounts?)
->
-> Yes this is the alternative proposal that has been proposed and
-> discussed a little bit off list, with sendfile() and copy_file_range()
-> being the possible mechanisms to do the "transfer". I think there are a
-> few fundamental problems with that approach on the pre-kexec side.
->
->  1. iommufd requires that fds mapped into it are preserved. If the file
->     mapped into iommufd is tmpfs, but then we transfer that file to memfd
->     for preservation, iommufd will fail to preserve because the tmpfs file
->     is not preserved.
->
->  2. Even if you only use this feature for files not mapped into an
->     iommufd, transfering the contents in a zero-copy way seems
->     challenging. What do you do if the tmpfs file is still in use when
->     you want to transfer it?
->
-
-When you say in-use, I suppose you mean folio is in-use by some IO and
-is mapped in IO page tables, and that the IO must continue while the
-folio is transferred?
-
-Are you expecting guests (as in stage 2 mappings) to continue to be
-functional while the folio is transferred?
-
-I'll have to think a bit more, I was initially thinking of just
-transferring folios where I could unmap from everywhere (processes,
-stage 2, IO page tables) for the transfer.
-
->> > By leaving file and metadata allocation purely in the purview of
->> > userspace, programs can create the target files where they want, with
->> > the names and security permissions they desire, before directing the
->> > kernel to restore the preserved folios into them.
->> >
->> > Currently, only tmpfs shmem files are allowed as valid target receptors.
->> > Attempting to target populated files, or anything other than an empty
->> > shmem file, will trigger -EINVAL. HugeTLBfs files could be supported in
->> > the future.
->> >
->>
->> Is this basically that at some point, all in-memory filesystems' fds can
->> support transfers?
->
-> Yes, theoretically.
->
->>
->> >
->> > [...snip...]
->> >
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
