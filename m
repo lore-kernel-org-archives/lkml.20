@@ -1,76 +1,41 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1410E30B51E
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:56:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DBAB314A73
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:59:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789091809; cv=none; b=LNvksfuCo5jg97GBaFiu0f/guLM++ECUascN5It7wAeJx2LJwHeaoxXqWawqYP/5GZLwVXKWvAJqXV/YDwsH3xl+F6P2g8kRkv/MYMCNmdY6flQm7kauYp+vyy+759SpsV0chqV/9iwKwkgklhLh9jfkAVbEk0coAmiJQV6QxkA=
+	t=1789091966; cv=none; b=P0vjVaYaeDpRHce4KuEMiHhS9VSoY0KAn00Di1k7PGeFm2bhEUXk/ypSTt/3MI2QyZy6RTHs2N+udiglOM9IYIWvOioBKe4j1zVrVInXBZKR6KfnZ5Vxv4Hvy6h6fIWN+aD6nLj7WX4dN68GoIOTKAIAFk9tc6z3lUea1A3OeO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789091809; c=relaxed/simple;
-	bh=pTIKxt3rN8svwwlF+VkWkXOvUISb8VIjuqknOEyyVfE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L90esmwfT5hp3nIzqIBt+ni1le5qGsvoHe2gXuQhb7AiVvna+Bsxyjl6rfm16Y1mWzqPto00wp621QOEj1xcNfDKcyCpEdRNsHFTH0x1e4JGMIWtOt6Od8VG/obpyfk1SFaZ4CB/ojBn2E3tKTqjVqVC9v+QJvZEidDhkOtZMKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CteS1cUc; arc=none smtp.client-ip=209.85.215.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CteS1cUc"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc4aa02a269so451320a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:56:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789091807; x=1789696607; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nxq2TIe8bS3KM2vl9kkxjnCBMcSMNKULAJlsrLiD/GU=;
-        b=CteS1cUcvQfb+tGE5jbQ4TxVO794UcvJMa1pXysOXTvUQxmO5jArAQ9GpOEYcn9LHv
-         yy3YH+FOMxMD4PcWMNza8IprW8QQ0ZOyy4FiDwDxcG6jfatQxQ2kRPvCoRIVxie/NkuU
-         OgN8zCH3nAEtkrU589pPyWfRbdb86Bzt9rdrD7olfW2WGPD0IyMWZo9D0E+fqDl44AQ3
-         T5UhnbhnHEjH0jFGmVO7qzRL9SDPZMG0q2lMHeV6A0WwR3GTZKvIGuwtZNzq6Qr6bgpN
-         GvRvMOwHDmuQUgDEWnBmT1W6TxjIPPg434F3pXLds7IwkQME24xoYwptRZagDVkhOW3/
-         cPrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789091807; x=1789696607;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nxq2TIe8bS3KM2vl9kkxjnCBMcSMNKULAJlsrLiD/GU=;
-        b=YiV8jXveR2iJq2P1el2/7CjHqC7a7TlUxu+ex01ZUuZPVLong9hbxijCwhgqmyEurZ
-         yiIm0DOusckyQWaudU2S9OVfeop8F60HVsx3zv7GAgbXthqwf8eqOh9ZldDPFnYOCTaq
-         /tr4ntyMcUsPO5isaISJHcayYeCgNq3jfvP3ynF4u3r7B8p9Mpm4C3KvhIDlShV+4aaR
-         M4+eCGVYakAwoGny+K+jhn3Aa+ISbSGq3R9+u0g8Fe6Axhckmx+jWRedrVfuFVkBFqCq
-         WQqYY38AN1wEmhbHt7ioN6IokSx28V05VBr65tORjNf1vfxiElJi7lboliN/ClgTHM2o
-         3jFA==
-X-Forwarded-Encrypted: i=1; AKwUvByWWrvID7KW5Lz7keREfWS7IK1c4sjVaPQJlVPfQnnOJZsOr85DkgNG1CiFg+bhcbunBdL5KJ/D9YJNnSw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lNgLw/V6ffRg8fee0ihW9qG9eklOtV4Km63HDtmS/38CusEznN
-	qJlffiFDfZALuw1RkaxrmDOm3uPKWdeJemWILUfoGhb3Vk9lMHxHg/ju
-X-Gm-Gg: AYBFou2icpgQuKvKpQ+q+DPrMybDMCQXn6VqyqJ5WjVZopXb/GhMUhrlVpCHnRE91ro
-	wXEn996g1uI6O1oexpVCihaNERkZfVMyxrcWDVu0sjoqpPtZt8l1ye87wQbE5AQW9hWM5Hu4QMy
-	XLhOFGm8LU/zDZuEAH5t5TKjnCxvxL95xcF72kntLbjYjOsTTHQMDXW7zEz6QgsuRoCAygigdva
-	SB1QyuRGlZiJ2bOJk45Lauj3er+mPebTyLco/saiaUi5Tzs2BbMJy5CHFe19DKDHbAVispC2jr+
-	Wf3dp3A4xk/TsIak9j0hj+6SCpHcg16DqIan+7/IC9na8w9dHopQTxZ8NCglWoMLkTD/vtuz6Io
-	/YS5iXyopBo0iZyAA13Nb82mqidTyWR33DpbVs+cP6JxuEG0zVK2DC7qTkFzEbvzqr/oVVaH52f
-	fxcMt+qd+SCqBleabASpf7CeIpXxKvA3E/EIbHBl7dDDCgD2NNOReqar0ExeTP9hs02bxeZvijV
-	z8SCy6vyOnGVad3
-X-Received: by 2002:a17:90a:da8f:b0:381:25ce:bcc2 with SMTP id 98e67ed59e1d1-39d9bc10072mr2329431a91.6.1789091807236;
-        Thu, 10 Sep 2026 18:56:47 -0700 (PDT)
-Received: from haichao.tail057a43.ts.net ([2001:da8:e000:1206:fdee:b2:3ee8:60d7])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95095946sm2178864a91.5.2026.09.10.18.56.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 18:56:46 -0700 (PDT)
-From: Ruoyu Wang <ruoyuw560@gmail.com>
-To: Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Jacopo Mondi <jacopo+renesas@jmondi.org>,
-	=?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	linux-media@vger.kernel.org,
+	s=arc-20240116; t=1789091966; c=relaxed/simple;
+	bh=K75gMfT+898FX1oC0IMGhcwmgfGBO3ct+rQLPOzrP3E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Wic4nuES8HWaQSr1gKd6IYdDe1yGMvRPk2hJhUJuOTopBVjvY0c+6ah9IacqoQQADN6vwYODnHmQ2nghiiMzwCZm4nfJ9yI04bQDssFaq0mDXccenZXCror6hEbc4txolKCPQ/+1T11v5zxXtxfbULdF4YElOFsZDvoI/uh73Vk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hgyPT3mpvzYQtFC
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:58:21 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+	by mail.maildlp.com (Postfix) with ESMTP id 6776D40576
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:59:17 +0800 (CST)
+Received: from huaweicloud.com (unknown [10.50.87.109])
+	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgDHrwpnYKNqFM8VBg--.41007S4;
+	Fri, 11 Sep 2026 09:59:17 +0800 (CST)
+From: Zeng Heng <zengheng@huaweicloud.com>
+To: anshuman.khandual@arm.com,
+	gshan@redhat.com,
+	will@kernel.org,
+	catalin.marinas@arm.com,
+	suzuki.poulose@arm.com
+Cc: zengheng4@huawei.com,
 	linux-kernel@vger.kernel.org,
-	Ruoyu Wang <ruoyuw560@gmail.com>
-Subject: [PATCH v2] media: adv748x: Fix endpoint reference leaks on probe failure
-Date: Fri, 11 Sep 2026 09:56:40 +0800
-Message-ID: <20260911015640.1728828-1-ruoyuw560@gmail.com>
-X-Mailer: git-send-email 2.51.0
+	wangkefeng.wang@huawei.com,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v2] arm64: io: Reject non-user protection in ioremap_prot()
+Date: Fri, 11 Sep 2026 09:58:59 +0800
+Message-ID: <20260911015859.71164-1-zengheng@huaweicloud.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,82 +43,73 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:cCh0CgDHrwpnYKNqFM8VBg--.41007S4
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ww17Kry3ZFWkWr15Ar4xWFg_yoW8Zw15pF
+	n09w1rWrZ5WF10yrWkJr929F15ua1fG3yvqw18Xr1jv3WjqF48tFWxWFy5ury8CrZ2yw48
+	Wr4Ig3s8XFyjyFUanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkYb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6x
+	kF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAq
+	x4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6x
+	CaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r1q6r43MxAIw28I
+	cxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2
+	IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI
+	42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42
+	IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280
+	aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU17KsUUUUUU==
+X-CM-SenderInfo: p2hqwxhhqjqx5xdzvxpfor3voofrz/
 
-adv748x_parse_dt() takes an extra reference for every endpoint saved in
-state->endpoints. If parsing later fails, adv748x_probe() skips
-adv748x_dt_cleanup(), so the saved references remain held. A CSI-2 lane
-parsing error also returns from for_each_endpoint_of_node() without
-dropping the iterator's reference.
+From: Zeng Heng <zengheng4@huawei.com>
 
-Save the endpoint reference only after lane parsing succeeds. Drop the
-iterator reference before returning a lane parsing error and route all
-parse failures through the endpoint cleanup path to release any saved
-references. This retains the endpoints only for a successful probe.
+Mapping a stack-top page via /dev/mem with PROT_NONE and then
+reading that process's /proc/<pid>/cmdline triggers a spurious WARN
+in ioremap_prot() through generic_access_phys():
 
-This issue was found by a static analysis checker and confirmed by
-manual source review.
+  WARNING: ./arch/arm64/include/asm/io.h:275 at generic_access_phys
+  Call trace:
+    generic_access_phys+0x1c8/0x228 (P)
+    __access_remote_vm+0x2b4/0x398
+    access_remote_vm+0x14/0x30
+    get_mm_cmdline+0xf8/0x2a0
+    proc_pid_cmdline_read+0x68/0x120
 
-Fixes: 6a18865da8e3 ("media: i2c: adv748x: store number of CSI-2 lanes described in device tree")
-Fixes: eccf442ce156 ("media: i2c: adv748x: Support probing a single output")
-Suggested-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
+generic_access_phys() passes the protection derived from the user PTE
+to ioremap_prot(). On arm64, a PROT_NONE mapping is represented by a
+present-invalid PTE, so pte_present() still returns true and the
+protection reaches ioremap_prot().
+
+A PROT_NONE mapping does not have PTE_USER, causing the existing
+WARN_ON_ONCE() in ioremap_prot() to fire even though this is a valid
+user mapping. Execute-only mappings have the same issue and must not
+be readable through this path either.
+
+ioremap_prot() should therefore reject protection values without
+PTE_USER without warning. This makes the access fail cleanly for
+PROT_NONE and execute-only mappings while retaining the existing
+user-protection contract.
+
+Fixes: 8f098037139b ("arm64: io: Extract user memory type in ioremap_prot()")
+Signed-off-by: Zeng Heng <zengheng4@huawei.com>
 ---
-Changes in v2:
-- Move of_node_get() and the assignment to state->endpoints[ep.port]
-  after successful lane parsing, as suggested by Hans Verkuil.
+ arch/arm64/include/asm/io.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-v1: https://lore.kernel.org/r/20260814134106.1387486-1-ruoyuw560@gmail.com/
-
- drivers/media/i2c/adv748x/adv748x-core.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/media/i2c/adv748x/adv748x-core.c b/drivers/media/i2c/adv748x/adv748x-core.c
-index 3eb6d5e8f0826..70594d0018048 100644
---- a/drivers/media/i2c/adv748x/adv748x-core.c
-+++ b/drivers/media/i2c/adv748x/adv748x-core.c
-@@ -675,9 +675,6 @@ static int adv748x_parse_dt(struct adv748x_state *state)
- 			continue;
- 		}
+diff --git a/arch/arm64/include/asm/io.h b/arch/arm64/include/asm/io.h
+index 21c8e400107c..31e67f6bd4a7 100644
+--- a/arch/arm64/include/asm/io.h
++++ b/arch/arm64/include/asm/io.h
+@@ -272,7 +272,8 @@ static inline void __iomem *ioremap_prot(phys_addr_t phys, size_t size,
+ 	pgprot_t prot;
+ 	ptval_t user_prot_val = pgprot_val(user_prot);
  
--		of_node_get(ep_np);
--		state->endpoints[ep.port] = ep_np;
--
- 		/*
- 		 * At least one input endpoint and one output endpoint shall
- 		 * be defined.
-@@ -689,8 +686,13 @@ static int adv748x_parse_dt(struct adv748x_state *state)
+-	if (WARN_ON_ONCE(!(user_prot_val & PTE_USER)))
++	/* Reject PROT_NONE and exec-only */
++	if (!(user_prot_val & PTE_USER))
+ 		return NULL;
  
- 		/* Store number of CSI-2 lanes used for TXA and TXB. */
- 		ret = adv748x_parse_csi2_lanes(state, ep.port, ep_np);
--		if (ret)
-+		if (ret) {
-+			of_node_put(ep_np);
- 			return ret;
-+		}
-+
-+		of_node_get(ep_np);
-+		state->endpoints[ep.port] = ep_np;
- 	}
- 
- 	return in_found && out_found ? 0 : -ENODEV;
-@@ -739,7 +741,7 @@ static int adv748x_probe(struct i2c_client *client)
- 	ret = adv748x_parse_dt(state);
- 	if (ret) {
- 		adv_err(state, "Failed to parse device tree");
--		goto err_free_mutex;
-+		goto err_cleanup_dt;
- 	}
- 
- 	/* Configure IO Regmap region */
-@@ -809,7 +811,6 @@ static int adv748x_probe(struct i2c_client *client)
- 	adv748x_unregister_clients(state);
- err_cleanup_dt:
- 	adv748x_dt_cleanup(state);
--err_free_mutex:
- 	mutex_destroy(&state->mutex);
- 
- 	return ret;
-
+ 	prot = __pgprot_modify(PAGE_KERNEL, PTE_ATTRINDX_MASK,
 -- 
-2.34.1
+2.43.0
 
