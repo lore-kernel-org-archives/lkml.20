@@ -1,262 +1,108 @@
-Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
+Received: from mta0.migadu.com (out-122.mta0.migadu.com [91.218.175.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1AF418A58
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:56:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2EAB448CEC
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:56:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.122
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789109813; cv=none; b=Biluznp/jSWLZxPIdLnoLHX+Yx4vVJNWr/92mz0dOWw555O8M1a9xieHc0ppi8/vjSTijSJgxSPXTdblROUhn+zXNLHlRb3pGNQIXwjN8OYABZcwhHYnc36TOfD9KKijqUPbJsjXTzonX8rcXx92pX+OxK3l65vui0+ZpvZVlVY=
+	t=1789109814; cv=none; b=hZoY/HGk5oQxiFxL60kzbLki0uTr4jyTF+nlqBbZA5APPKRyaJqA2OmuFGAywgytFDzOIPPrLaRag/0gFkd3nbYVjvpiOzhZzkY5Hq5heH4ejoPX1dJ0SgQ0h31fhgFE3wrJvpR+sC4+mtV8pwDkebOkr+Ccq26f6/mgQeAWJbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789109813; c=relaxed/simple;
-	bh=ZWiWWoPoHpGWSF7duWUIa10+eDgIbOA4gXOP71DCixA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JCmySsdj+Jy14glu0nYho0qeAueR2CiTdf5ft99aXHyNEK8oerHZH7ndX4zdHfB1oaf6NEN21ET1Ljd3T/VVc/LW51IwKPHQ7J3yxHqTa8qp+IkICiwKoRYD2E5RAWAdNM1oim0c5Jly/4RD+6UaA6OdM53c0w7eBBGAa8IheF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X46eqP6z; arc=none smtp.client-ip=74.125.231.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789109814; c=relaxed/simple;
+	bh=n/zW6ua6iRxPfzI3xP333LOtc/IcOKkvTFV9pMi3dFM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Q6jEvK5o64NxcS6dm5Q17v0T4vEAr3Xds9r4HQhIzOn8mkIN9pNwGPHkp9xl0bPX2IWG4JW7SIb7/1CWaXxU963IKDU+PE/V91/t4BSkksC1Pw8kiHUCeuJbTJaOqRNVQlXtSH105RzqR6ZPannbPy93tVYE+TMkMWJAagpVL6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mcyNhqAd; arc=none smtp.client-ip=91.218.175.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X46eqP6z"
-Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c112aaaf04so477579b6e.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 23:56:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789109804; x=1789714604; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m7YKdCCnwvUX0LHciH03Yb1Ns90oMxtD4jexVpEltzQ=;
-        b=X46eqP6z+QiDsYsElA/ASSVuGyNaiM3Z2QeHxIR4s6ybOV9piyQ0qcV6YfE/3InoQh
-         FCW9b9dcfAE94AUHjemANFEprSqmRPEpm0Kn9sL1guECXttwlAFX3axukbcjGxTCb/Em
-         uuCQ9NNOQsIko5lC9Ac0pemi+ptClSh1NfSps5p1Tmyxj8J9FMjy8F5fRsEkcDNWbfyu
-         kjg4E2A48cxFXRbAqD/U3rI2vs+hkSuh8c1mT0AUMH0fPuPBue0D3+SoHGSxMDraOrci
-         N6JZMbgdWVeYbNvPNi/Jzak4Gvg+P3gmSUEb1ew+WCO1wsjArGDEn1EcBa/4hllIUcS4
-         Ffcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789109804; x=1789714604;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m7YKdCCnwvUX0LHciH03Yb1Ns90oMxtD4jexVpEltzQ=;
-        b=OYGPnpzMooOzTNOW2o/4lL0LCyQm9bAW6+cGEJ6WCXfxH1oRmN/FVlBTSjpK5ek70s
-         NqFtLpioPKGQMFJl9EKoLQSQKxjcQSalzkjry+pCjP99KwQ5GnyK8CRdJfnMTndyy6oG
-         1RA7eJ5OxEcW0NM5m6UdwcwOVXRy+P88t1NKob+693hZ4QFBpq/TpPFnLBXcx88vADSY
-         9oOAEd7jzMofiQA899GO+Tr6aw4I6Bln06H5hlb7lgK6MB0vl0WUhgRKxM1QxKKonL7P
-         VXbmTtPHF3lDJ9kHyed+92uvVUVAD4FTC0U0mQsARFlFOeViw46fnZPDqJJC9pVPYSZA
-         Vt5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxumdpAcZqb/XCf2fEenkRrCZThimrEXxxHfeXqosHg49HYCD29iVWP6dbidHgzg4mnwawrdaiFpNjaP84=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgNrfgNpa1Y/ADMGjGtNocJsvY4Eaq//nEUK2FRqqOdSFw6S9Q
-	HOO/iyGVI+BKYJ1gtfxevZqR+O2ThknijBumqkth2rq0NcPIAONJOgme0zyu8VbQ9xY=
-X-Gm-Gg: AYBFou2xc9cSp6ecJaP8H0pXMMhi6TDndDPXEg/O7XqOOspFl3RsJOA8go/f6RMtaxP
-	M9Ozo2PsAT0ra8yHqHnhB0Pe77B9boWRgM/vL25WiXCoQESduhhwXnOPs6I+wvH5O6KPD/f/AUQ
-	1EiVErsJoqujFl6MqAgPmT4PKfEQ4qjCG7c7C8SHFN8XPwoIJ0svGn8wJgN9tFLQdmup+nkbQTG
-	S21OVMH00BKPRtoZsrwEEAUoHGGqPMboz4566MsQScJ4cDtt56O03okVIZZJDSIIgjO4cuX8yGW
-	1f+WtvNA9a47pJap/Nh2dxn40nwMnZLRYPmbqTyzd7aQqyOCtUFKnTNINDKBvfF9j3w6U1rcS6N
-	DGJnQRe9NKmCiZjddTNzjuKgY97v3btoOsxT+RAnT6LQeQGuYwPfk0nH12P4UripbyKiBRkGUoC
-	8vCMj3L9GeWKxImgE/pzKfULfaCzQMOUCV/cHT3ZsK5zyjFF2puBlZ7e6AdjRUPrTaXL2MhMLF9
-	WrF0N1X
-X-Received: by 2002:a05:6809:154:20b0:4c3:9892:96fe with SMTP id 5614622812f47-4c398a1e3f9mr947694b6e.3.1789109803778;
-        Thu, 10 Sep 2026 23:56:43 -0700 (PDT)
-Received: from localhost.localdomain ([107.173.101.132])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4c3322e1baasm1406878b6e.16.2026.09.10.23.56.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 23:56:42 -0700 (PDT)
-From: "Ziyou Wang (Lenovo)" <ziyou.dev@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Vinicius Costa Gomes <vinicius.gomes@intel.com>
-Cc: Dave Jiang <dave.jiang@intel.com>,
-	Frank Li <Frank.Li@kernel.org>,
-	dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"Ziyou Wang (Lenovo)" <ziyou.dev@gmail.com>,
-	Adrian Huang <adrianhuang0701@gmail.com>
-Subject: [PATCH] dmaengine: idxd: Fix use-after-free in idxd_remove
-Date: Fri, 11 Sep 2026 14:55:47 +0800
-Message-ID: <20260911065547.161522-1-ziyou.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mcyNhqAd"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=n/zW6ua6iRxPfzI3xP333LOtc/IcOKkvTFV9pMi3dFM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789109801; v=1; x=1789714601;
+ b=mcyNhqAdVazt7z8m4t2fP8QzEcqw7qXDn2F7BsymW92if8T1BN1RCyVX1Kk1u1SCCcXTmnFC
+ h9SBtdaLqGFpSrG+87UvpcV+CJ7PJk/mI6Pnet/GhnhxVQ/jVeWmQq3q1P5b0HEeGauAxDV0bS3
+ 3iRdYu+RpMvYIANGX1CKJX5k=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b172ed87fb67e3c1;
+	Fri, 11 Sep 2026 06:56:41 +0000
+X-Mizu-Trace-ID: b172ed87fb67e3c1
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b384b7so2494e87.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 23:56:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzSnDAQzGdePT5AKUDjLF0lJg4QxmLkRIgBwcE6XZJodL2c5YPawtYkxOUILIIDwAtV1a8UtdEtisik4XQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++moIegLrTaOjAo6LyR8THmo2FJThDFkp+VIlXk9U6h6svAi1eSu
+	xWvVpcDtv9/cSEtBcphcC8kXVoy3CAR/LuWOX3FgNS1YB57jHoOHWNC+w2ZQOVk1p1cKgjYkKnz
+	fjED1e3w4HGoWke+9KcuzGW92SPLnavJqA+HiT5UQ
+X-Received: by 2002:a05:6512:2507:b0:5b8:9e63:dfb4 with SMTP id
+ 2adb3069b0e04-5b8a06787b3mr101329e87.14.1789109800794; Thu, 10 Sep 2026
+ 23:56:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260909063156.89636-1-kmehltretter@gmail.com>
+ <CA+EHjTx3fmj_fkD_ybPANyTrEApMUyBscfP4JtP-F_MRL-L=2w@mail.gmail.com> <20260910190528.4483-1-kmehltretter@gmail.com>
+In-Reply-To: <20260910190528.4483-1-kmehltretter@gmail.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Fri, 11 Sep 2026 07:56:04 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTw5-7688CEkUXNZ5rxQ=JPVdedTZwnx-ivdAoQefuc+fA@mail.gmail.com>
+X-Gm-Features: AcwNN1V9j7elh0f_x24Ka1uap6RiGRbBErx8XKNzFJ08kBvwcJMrIK8GbJ0IEdU
+Message-ID: <CA+EHjTw5-7688CEkUXNZ5rxQ=JPVdedTZwnx-ivdAoQefuc+fA@mail.gmail.com>
+Subject: Re: [PATCH v2] KVM: arm64: Fix kvm_get_vtcr() kernel-doc
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Quentin Perret <qperret@google.com>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-When unbinding the idxd driver, the following call trace is observed:
+On Thu, 10 Sept 2026 at 20:05, Karl Mehltretter <kmehltretter@gmail.com> wrote:
+>
+> kvm_get_vtcr() takes a parameter named phys_shift, but its kernel-doc
+> describes phys_shfit. This leaves the real parameter undescribed and
+> adds an excess parameter description to the generated documentation.
+>
+> Correct the spelling and describe phys_shift as the IPA size in bits.
+> The value written to VTCR_EL2.T0SZ is 64 - phys_shift, rather than
+> phys_shift itself.
+>
+> Fixes: bcb25a2b86b4 ("KVM: arm64: Refactor kvm_arm_setup_stage2()")
+> Suggested-by: Fuad Tabba <fuad.tabba@linux.dev>
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-  general protection fault, probably for non-canonical address 0x18fc1d6937256657
-  CPU: 117 UID: 0 PID: 3396 Comm: python3 Tainted: G E 7.2.0-rc5-latest+ #11 PREEMPT(lazy)
-  Hardware name: Lenovo WenTian WR5220 G5, BIOS speb50m-2.54
-  RIP: 0010:__refill_objects_node+0x2da/0x5e0
-  Call Trace:
-   <TASK>
-   refill_objects+0x1ee/0x2e0
-   __pcs_replace_empty_main+0x1e1/0x330
-   __kmalloc_noprof+0x503/0x550
-   ext4_htree_store_dirent+0x34/0x110 [ext4]
-   htree_dirblock_to_tree+0x1a9/0x2c0 [ext4]
-   ext4_htree_fill_tree+0x246/0x3d0 [ext4]
-   ext4_readdir+0x863/0x9d0 [ext4]
-   iterate_dir+0xa6/0x260
-   __x64_sys_getdents64+0x76/0x130
-   do_syscall_64+0x98/0x620
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
-   </TASK>
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-With the KASAN-enabled kernel, the kernel reports a use-after-free bug:
-
-idxd_unregister_devices() calls device_unregister(wq), which triggers
-the wq release callback and frees wq memory via kfree(). However,
-idxd->wqs[] array still holds the freed pointer. Later, when
-device_unregister(idxd) calls idxd_device_drv_remove(), it accesses
-wq->state through idxd->wqs[], resulting in use-after-free.
-
-The same issue exists for idxd->engines[] and idxd->groups[] arrays.
-
-KASAN report:
-
-  BUG: KASAN: slab-use-after-free in idxd_device_drv_remove+0xc1/0x100 [idxd]
-  Read of size 4 at addr ff1100038d296414 by task python3/3354
-  CPU: 20 UID: 0 PID: 3354 Comm: python3 Tainted: G E 7.2.0-rc5-debug+
-  Hardware name: Lenovo WenTian WR5220 G5, BIOS speb50m-2.54
-
-  Call Trace:
-    <TASK>
-    dump_stack_lvl+0x5b/0x80
-    print_report+0x153/0x4b5
-    kasan_report+0xbc/0xf0
-    idxd_device_drv_remove+0xc1/0x100 [idxd]
-    device_release_driver_internal+0x244/0x2e0
-    bus_remove_device+0x195/0x2b0
-    device_del+0x24b/0x540
-    device_unregister+0x17/0x80
-    idxd_remove+0x3f/0x120 [idxd]
-    pci_device_remove+0x6d/0xf0
-    device_release_driver_internal+0x244/0x2e0
-    unbind_store+0xae/0xb0
-    kernfs_fop_write_iter+0x205/0x2d0
-    vfs_write+0x3a9/0x6b0
-    ksys_write+0xc7/0x160
-    do_syscall_64+0x9c/0x620
-    entry_SYSCALL_64_after_hwframe+0x76/0x7e
-    </TASK>
-
-  Allocated by task 1219:
-    kasan_save_stack+0x20/0x40
-    kasan_save_track+0x14/0x30
-    __kasan_kmalloc+0x9a/0xb0
-    __kmalloc_cache_node_noprof+0x1c6/0x470
-    idxd_pci_probe_alloc+0x103f/0x2430 [idxd]
-    local_pci_probe+0x71/0xd0
-    local_pci_probe_callback+0x20/0x40
-    process_one_work+0x389/0x6a0
-    worker_thread+0x321+0x590
-    kthread+0x1b4/0x200
-    ret_from_fork+0x3bd/0x4d0
-    ret_from_fork_asm+0x1a/0x30
-
-  Freed by task 3354:
-    kasan_save_stack+0x20/0x40
-    kasan_save_track+0x14/0x30
-    kasan_save_free_info+0x3b/0x70
-    __kasan_slab_free+0x6b/0x90
-    kfree+0x1d4/0x520
-    device_release+0x77/0x120
-    kobject_put+0xdb/0x2a0
-    idxd_unregister_devices+0x5b/0x130 [idxd]
-    idxd_remove+0x2f/0x120 [idxd]
-    pci_device_remove+0x6d/0xf0
-    device_release_driver_internal+0x244/0x2e0
-    unbind_store+0xae/0xb0
-    kernfs_fop_write_iter+0x205/0x2d0
-    vfs_write+0x3a9/0x6b0
-    ksys_write+0xc7/0x160
-    do_syscall_64+0x9c/0x620
-    entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
-Fix by taking refs on wq/engine/group conf_dev in idxd_unregister_devices()
-before calling device_unregister(). This prevents their memory from being
-freed until after idxd_device_drv_remove() completes. Add idxd_put_devices()
-to release the refs after all cleanup activities are done.
-
-To reproduce:
-  cd dsa-perf-micros
-  ./scripts/setup_dsa.sh -d dsa0 -w 1 -m s -e 4
-  echo "0000:00:01.0" > /sys/bus/pci/drivers/idxd/unbind
-
-Fixes: 47c16ac27d4c ("dmaengine: idxd: fix idxd conf_dev 'struct device' lifetime")
-Suggested-by: Adrian Huang (Lenovo) <adrianhuang0701@gmail.com>
-Signed-off-by: Ziyou Wang (Lenovo) <ziyou.dev@gmail.com>
----
-Added a Suggested-by tag for Adrian, as he came up with the idea for this patch.
-
- drivers/dma/idxd/init.c  | 15 +++++++++++++++
- drivers/dma/idxd/sysfs.c |  8 ++++++++
- 2 files changed, 23 insertions(+)
-
-diff --git a/drivers/dma/idxd/init.c b/drivers/dma/idxd/init.c
-index 4b827a329756..212efbfebacc 100644
---- a/drivers/dma/idxd/init.c
-+++ b/drivers/dma/idxd/init.c
-@@ -1263,6 +1263,20 @@ static void idxd_shutdown(struct pci_dev *pdev)
- 	flush_workqueue(idxd->wq);
- }
- 
-+static void idxd_put_devices(struct idxd_device *idxd)
-+{
-+	int i;
-+
-+	for (i = 0; i < idxd->max_wqs; i++)
-+		put_device(wq_confdev(idxd->wqs[i]));
-+
-+	for (i = 0; i < idxd->max_engines; i++)
-+		put_device(engine_confdev(idxd->engines[i]));
-+
-+	for (i = 0; i < idxd->max_groups; i++)
-+		put_device(group_confdev(idxd->groups[i]));
-+}
-+
- static void idxd_remove(struct pci_dev *pdev)
- {
- 	struct idxd_device *idxd = pci_get_drvdata(pdev);
-@@ -1284,6 +1298,7 @@ static void idxd_remove(struct pci_dev *pdev)
- 	if (device_pasid_enabled(idxd))
- 		idxd_disable_system_pasid(idxd);
- 	pci_iounmap(pdev, idxd->reg_base);
-+	idxd_put_devices(idxd);
- 	put_device(idxd_confdev(idxd));
- 	pci_disable_device(pdev);
- }
-diff --git a/drivers/dma/idxd/sysfs.c b/drivers/dma/idxd/sysfs.c
-index 6d251095c350..eca96a4dcecd 100644
---- a/drivers/dma/idxd/sysfs.c
-+++ b/drivers/dma/idxd/sysfs.c
-@@ -1988,21 +1988,29 @@ void idxd_unregister_devices(struct idxd_device *idxd)
- {
- 	int i;
- 
-+	/*
-+	 * Take a reference count to the idxd device to prevent the
-+	 * corresponding idxd context from being freed, as the driver
-+	 * still needs it for the remaining cleanup operations.
-+	 */
- 	for (i = 0; i < idxd->max_wqs; i++) {
- 		struct idxd_wq *wq = idxd->wqs[i];
- 
-+		get_device(wq_confdev(wq));
- 		device_unregister(wq_confdev(wq));
- 	}
- 
- 	for (i = 0; i < idxd->max_engines; i++) {
- 		struct idxd_engine *engine = idxd->engines[i];
- 
-+		get_device(engine_confdev(engine));
- 		device_unregister(engine_confdev(engine));
- 	}
- 
- 	for (i = 0; i < idxd->max_groups; i++) {
- 		struct idxd_group *group = idxd->groups[i];
- 
-+		get_device(group_confdev(group));
- 		device_unregister(group_confdev(group));
- 	}
- }
--- 
-2.53.0
-
+Cheers,
+/fuad
+> ---
+> Changes in v2:
+> - Describe phys_shift as the IPA size in bits (Fuad).
+>
+>  arch/arm64/include/asm/kvm_pgtable.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
+> index 41a8687938eb..20d12da3d28e 100644
+> --- a/arch/arm64/include/asm/kvm_pgtable.h
+> +++ b/arch/arm64/include/asm/kvm_pgtable.h
+> @@ -532,7 +532,7 @@ u64 kvm_pgtable_hyp_unmap(struct kvm_pgtable *pgt, u64 addr, u64 size);
+>   * kvm_get_vtcr() - Helper to construct VTCR_EL2
+>   * @mmfr0:     Sanitized value of SYS_ID_AA64MMFR0_EL1 register.
+>   * @mmfr1:     Sanitized value of SYS_ID_AA64MMFR1_EL1 register.
+> - * @phys_shfit:        Value to set in VTCR_EL2.T0SZ.
+> + * @phys_shift:        IPA size, in bits.
+>   *
+>   * The VTCR value is common across all the physical CPUs on the system.
+>   * We use system wide sanitised values to fill in different fields,
+>
+> base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
+> --
+> 2.53.0
