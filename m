@@ -1,120 +1,116 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A1143D9DC0
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 22:29:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D70213D3339;
+	Fri, 11 Sep 2026 22:30:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789165771; cv=none; b=pSCWDxY7bebJq30GhrOJywvJKRdtjzdvx6MHLwpZ9SamlkOWOgOZSGakwkWHl137P++xR1pdcxFxKwfORJjWBmBVFCO6VP4jrDO2b32I6OnlQSkYFK6nnnjR9opNYlFOUVsGsc/h7+byrNYDYyjcjTZuznoTOZoO8tguZ2qyk/Q=
+	t=1789165819; cv=none; b=Bp/goz8PRRBI1tDoUK/AVyhUJNF0NE8+PXV21xy0zwo2s268D7b2X4BWJcubB8qBH0oRLLNbFNAkbijo0uGXUISCzoj0lT5D7cQqHs7gVIozPJylMERm6SY9Hj8Pl6F8YMkr/TlM38fW2zQ7BreDeQWJntnN+O6KCIlbIofra6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789165771; c=relaxed/simple;
-	bh=t+t6u6ngJonj9OBAxJrw59SOLZx4FTIPnexJCgVZzhg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TPFCeNmIE1tLKOhED/J5v6Nt1xSdhZ+eCZ85natzLRo1CEpbQ3wQr+spJPz5CfMpltCvTqCfugEGj88RlYlaokoz6L2VDMsr7WnqdXKtNc9HDwIt+zWCBR++yx5su1fb5wn3fKXjbykjR0pzx4dP37Plb+w5hUnMJLaiOddYNoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bcrShjDC; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789165819; c=relaxed/simple;
+	bh=e8yVe9qIqjoioS5C7h20iphB56OPQ6veH4x4Pj5/lAQ=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=f+aI6O2MbBWynSSZw9KFzakEIa5R2X5cZWbLX7ZXlUyjRB65xQ7qmsac4QYlsXPkJ9FnyA+CpZWAE15ruZPfUi+Fcebo9URI5iwy4xGp5UiTwRCBJG4Y/u0yuCfS32/aXg3rG0hEn0Vo2MIW4n/vYAGd6jHcKFaasZMbd8tv3Jk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sva3XPKR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bcrShjDC"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so1999105e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:29:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789165768; x=1789770568; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Cvg7rKHXCurAjAcT4pFGeE48nZRdVOEueuK7tlHO9AM=;
-        b=bcrShjDCOK8YWyBRjVYcXgeBjBybspB7wz9h/BQPnD02D/oDpSEjUcMDzBCzGB5qTp
-         tkJHzKO1ft8uQWOKmko08sGmYKA41YCD/3kEb4LLUp4NMY5h0aWtFat4aKuGnSQIFQbw
-         aO5zEfeDQnUgb+yeH5/pENT0DMTJIff9204v9wMYg5U3f7d3ufXrVyT6vTP7VcVei6fF
-         Wwpf6zeVzAawFiKtw43BtJ8jHk2QYgTO1pabIQfAKDWHPa2Ng0dpdHfoCXUzNFPao5oe
-         vx1DowqRwwBWXqRYG5puQW35zEvKkg6cbfsgyiWpGkJoavZHodhcuzMZcnrptXO7qQgK
-         TrDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789165768; x=1789770568;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Cvg7rKHXCurAjAcT4pFGeE48nZRdVOEueuK7tlHO9AM=;
-        b=WelwHOE49KVfkeZu4oiDUkQ0dtNPxaH/RELcMhrvGbNLU+/hz5vd5km07Z9dwiH2No
-         /2MiDevoHKy0UEDFfkTMHHdDV3HRzWVHHEu1DhnzvQJUqU5RdY8he7kZGPHAH3rLCPcQ
-         d9h4KriUdaT942AsxA1zF8tSc8ywlz0YH6CBWfCjPTPt60jJOsuZUSiWdxtPEqK3a2Z8
-         YR9XvqWrLWU2wQG6e25jnf+L8x8RujpbedNXUGkyGgPl9afLhMKykIWE6p0hvmnLGk8i
-         opq0wcsi6sDq56O6ZCv/5/zOClu/oh1n4gb2SBlO27Gy/y5Qxh3wwvBK9UFkGanccS7x
-         owiA==
-X-Forwarded-Encrypted: i=1; AKwUvBwEWXSXbORQtXKOo7432jvMASnKx8N61ARbQObb1mi0rSjmAxCZK+0ogFc26/UcgA6juvTIou5gwMs/HIA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lcGyn6K6TytsZErrGylwJ3dSFzxb+1KDBPjmaCZ/6LnGLpW7+Q
-	uuf7qkLtinnMdxqxEmk0Cxg+0pj1Fn5FpA3bLkzMErORYh6zcj6XHyf7
-X-Gm-Gg: AYBFou0UBnGepB+tebQgFqKlw+XF4xvHo7Oqv5exGeXfNxKCScHOy11LqlgKSCDy9GV
-	IsyCnWBXOOgW1QNFzjdT/jlrxWfnCoMl2AOwM0mLAVtnqCoNeyT4zOJRWflphyc5IvOxMq4yMHM
-	3VzV99OwgG3u471lMJg1NT8Pq5PwrsG1l5uP+OcH9AZO8rHLH3aSk/aOGMTosTitiXWdfiLiyCi
-	6nOk/pUN8n8tOQ4qriUV6wXFn9b7wXqGdzklHBVKLwZyuIsQwl82iobzg0ke/sSQXRpTZWL26kF
-	m/2YC7d1VXCM4gCbwpX3gozKLjufYU9ytsVYSgcMviojmJEo8LqCh8M45wgyxl72ymol7SqR0ap
-	BGwQcbRYRzoZlIjEvKcv90M7o4RFQznN+yFFrwQDQPKNkRiGb8USQ/MblQPO9Xhr+oYmLz3Heb+
-	xRO++KDWuwLCI2+c8NKlXlCvY+y806SBRQwwvqdXqAOY441ylRp3uuudaX2o7lrJBgvn9DFnQno
-	PPptfp8jLotiSfLbBf18aCvXkm+dFF2NzEJS1CS0R7/Eq+Z+9jyAN8DtuhvA2aNV1zJzfDtTEuF
-	5td+WSF4V2fGy0yrn2AbIjihidZjsPj1Mc/s
-X-Received: by 2002:a05:600c:1385:b0:499:a5c8:c6f3 with SMTP id 5b1f17b1804b1-49e61878ab9mr109894145e9.3.1789165768350;
-        Fri, 11 Sep 2026 15:29:28 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-095-114-033-154.95.114.pool.telefonica.de. [95.114.33.154])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60acff8bsm108970585e9.9.2026.09.11.15.29.26
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 11 Sep 2026 15:29:27 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	David Howells <dhowells@redhat.com>,
-	Dave Jones <davej@codemonkey.org.uk>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Michael Kerrisk <mtk@man7.org>,
-	linux1394-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] firewire: cdev: Fix FW_CDEV_IOC_CREATE_ISO_CONTEXT references in kernel-doc
-Date: Sat, 12 Sep 2026 00:28:07 +0200
-Message-Id: <20260911222807.7673-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sva3XPKR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CA351F000FF;
+	Fri, 11 Sep 2026 22:30:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789165817;
+	bh=jSlyNHdS9fii1fOyMnpNZJZSuNeAq37ngDR+QTaHy2Q=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=Sva3XPKRX9HlRA/K2voQSsV3oTveqMaHFcapkkCHCD9IJqVZNgpjaUkBoOAWk/Lud
+	 p6QWTv7ZttCaY62xBfTdfAEnJzvjknSdsSOfIYbp3pNl0j+7+/QVKlfADxRLlAfZp/
+	 AQvsOj6nXqmyX4+XNTL8F+ifeTXELjNlx1sy9M0XURuROHAa6kcOWIB16RgnU0a725
+	 FrCpanuXt2Q3PozVuKLJP33pBZiKNDigUnEQRwfQc2Nwdmq+08sHuCn4EkzBRpojha
+	 vGs9z834IDPHTL9uQ1HVGFv9F7pnUa2ZDOUEjA8sVuq4yU8w8r1R+htM8Pqu97hI4a
+	 51UtZr6FvslMQ==
+Content-Type: multipart/mixed; boundary="===============8230321728291267727=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <c440fa97680eae9966579d51586c2e6b9936bfc3157225269166e1c133515f8c@mail.kernel.org>
+In-Reply-To: <20260911213340.3767930-3-main.kalliope@gmail.com>
+References: <20260911213340.3767930-3-main.kalliope@gmail.com>
+Subject: Re: [PATCH bpf-next v4 2/3] MIPS: uasm: Add signed div/mod and sign-extension emitters
+From: bot+bpf-ci@kernel.org
+To: main.kalliope@gmail.com,tsbogend@alpha.franken.de,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,johan.almbladh@anyfinetworks.com,paulburton@kernel.org
+Cc: martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,linux-mips@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,philmd@oss.qualcomm.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Fri, 11 Sep 2026 22:30:16 +0000 (UTC)
 
-The fw_cdev_event_iso_interrupt and fw_cdev_event_iso_interrupt_mc
-comments refer to FW_CDEV_CREATE_ISO_CONTEXT, but the ioctl is named
-FW_CDEV_IOC_CREATE_ISO_CONTEXT.
+--===============8230321728291267727==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Correct both references. The misspellings were introduced separately
-with the userspace interface documentation and multichannel reception
-support.
+> diff --git a/arch/mips/include/asm/uasm.h b/arch/mips/include/asm/uasm.h
+> index b43bfd445252..adea35df0f8d 100644
+> --- a/arch/mips/include/asm/uasm.h
+> +++ b/arch/mips/include/asm/uasm.h
+> @@ -85,15 +85,20 @@ Ip_u1u2(_ctc1);
+>  Ip_u2u1(_ctcmsa);
+>  Ip_u2u1s3(_daddiu);
+>  Ip_u3u1u2(_daddu);
+> +Ip_u1u2(_ddiv);
+> +Ip_u3u1u2(_ddiv_r6);
+>  Ip_u1u2(_ddivu);
+>  Ip_u3u1u2(_ddivu_r6);
 
-Fixes: 7ada60e36764 ("firewire: Document userspace ioctl interface.")
-Fixes: 872e330e3880 ("firewire: add isochronous multichannel reception")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+[ ... ]
+
+> @@ -156,6 +162,8 @@ Ip_u2s3u1(_sb);
+>  Ip_u2s3u1(_sc);
+>  Ip_u2s3u1(_scd);
+>  Ip_u2s3u1(_sd);
+> +Ip_u2u1(_seb);
+> +Ip_u2u1(_seh);
+>  Ip_u3u1u2(_seleqz);
+>  Ip_u3u1u2(_selnez);
+>  Ip_u2s3u1(_sh);
+
+[ ... ]
+
+> diff --git a/arch/mips/mm/uasm.c b/arch/mips/mm/uasm.c
+> index 125140979d62..139afb0e14cd 100644
+> --- a/arch/mips/mm/uasm.c
+> +++ b/arch/mips/mm/uasm.c
+> @@ -49,19 +49,21 @@ enum opcode {
+
+[ ... ]
+
+>  	insn_sb, insn_sc, insn_scd, insn_seb, insn_seh,
+>  	insn_seleqz, insn_selnez, insn_sd, insn_sh, insn_sll,
+
+[ ... ]
+
+> @@ -353,6 +361,8 @@ I_u2s3u1(_sb)
+>  I_u2s3u1(_sc)
+>  I_u2s3u1(_scd)
+>  I_u2s3u1(_sd)
+> +I_u2u1(_seb)
+> +I_u2u1(_seh)
+>  I_u3u1u2(_seleqz)
+>  I_u3u1u2(_selnez)
+>  I_u2s3u1(_sh)
+
+This isn't a bug, but would it read better to add the SEB and SEH emitters
+together with their first caller in the BPF_MOVSX series?
+
+A tree-wide search at series end shows uasm_i_seb() and uasm_i_seh() have
+no callers yet. The six division emitters (div, div_r6, mod, ddiv, ddiv_r6,
+dmod) added alongside them do get used by the final patch in this series.
+The commit message notes SEB/SEH are for a different follow-on series,
+and CONFIG_CPU_MICROMIPS kernels would hit build_insn()'s panic for them
+since arch/mips/mm/uasm-micromips.c isn't updated with their encodings.
+
+
 ---
- include/uapi/linux/firewire-cdev.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/include/uapi/linux/firewire-cdev.h b/include/uapi/linux/firewire-cdev.h
-index 05e3aa8fa8bcbcd8e4981ef470d14fb9b941d51b..4f83d6babc92181ee969ef75b0b1b374616a3819 100644
---- a/include/uapi/linux/firewire-cdev.h
-+++ b/include/uapi/linux/firewire-cdev.h
-@@ -293,7 +293,7 @@ struct fw_cdev_event_request3 {
- /**
-  * struct fw_cdev_event_iso_interrupt - Sent when an iso packet was completed
-  * @closure:	See &fw_cdev_event_common;
-- *		set by %FW_CDEV_CREATE_ISO_CONTEXT ioctl
-+ *		set by %FW_CDEV_IOC_CREATE_ISO_CONTEXT ioctl
-  * @type:	See &fw_cdev_event_common; always %FW_CDEV_EVENT_ISO_INTERRUPT
-  * @cycle:	Cycle counter of the last completed packet
-  * @header_length: Total length of following headers, in bytes
-@@ -353,7 +353,7 @@ struct fw_cdev_event_iso_interrupt {
- /**
-  * struct fw_cdev_event_iso_interrupt_mc - An iso buffer chunk was completed
-  * @closure:	See &fw_cdev_event_common;
-- *		set by %FW_CDEV_CREATE_ISO_CONTEXT ioctl
-+ *		set by %FW_CDEV_IOC_CREATE_ISO_CONTEXT ioctl
-  * @type:	%FW_CDEV_EVENT_ISO_INTERRUPT_MULTICHANNEL
-  * @completed:	Offset into the receive buffer; data before this offset is valid
-  *
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34651585043
+--===============8230321728291267727==--
