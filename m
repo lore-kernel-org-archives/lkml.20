@@ -1,165 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D51A1E51E0;
-	Fri, 11 Sep 2026 19:03:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC85C3DDAFB;
+	Fri, 11 Sep 2026 19:03:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789153387; cv=none; b=CWNRUiayK8EPgEuvOwTfTFmEwtpTy1y2b+PDkZy6lUTyEzp3Kz6Unf4p98+MNROIrnZitr3gZfudicjyA3PvG2jI5IR/91tyUPCod1z9cmmy4AWrzVJgCom1/p+VzRb4JZ5+BpuNi9LsrlBz9XwXKzDkpCFBRKM7JqwGopTVwgQ=
+	t=1789153412; cv=none; b=InGkIDPEW7JaRf+riPrNn/INJ3t4WPYJ3i/TB/DcDFsOw+S2dJmrjexmRKTNt320OxliYn5SvVzzntSxNBOcbUBkymBTssWNSzUqQVP/zpJ8Kr6EMU/MfR361b/aWF8WEVD+5baPR9n0gwuh0pvVi7osLTEcHh/MpXugADf39Eo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789153387; c=relaxed/simple;
-	bh=p8UzTsfSG9LrqUKvl+lN3ElAgnXF5Fsi0Y/l5yVbTS8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HEtGSm7VY4+BtABlW2itAr+cazmKNM6HH8HTQcIwUixBOXbyVLoqrDMCw2NzrMAoywYwDywuprEqrXGKfgE39AX9hHOn9yVyVu/VhKcHnFAzLF4ob7BJba++mf6GiddI4UmmUwMiZ8d30sL9i4KK2Z20xi8PKqYONP2/jz0EcO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IhUCYUY3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789153412; c=relaxed/simple;
+	bh=AAJxS1ZeWVorNTNsOrxKWTuYDxU3bdBsDIZpKFEvAmw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CLCq1/Lk9XICTyWDyG+EoqjExhNzXTeIGY89uIvnae+A9v4GXxspxJdvHQIVoISY+lvcBGcs56797amlhKCeRyfv1XA+RhABmWmEWSljNbZjhBam/tkpxDtQRMDO9f58plQKPVojxMvDo8OT0Z96jcPpz2kuo9XBWfDoBmxOPBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=cvtq3BMS; arc=none smtp.client-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IhUCYUY3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCE641F000FF;
-	Fri, 11 Sep 2026 19:03:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789153386;
-	bh=li/6nS3gbGM5DIuxPpiXbPoHE4FH05B5UjM3kgULeK8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IhUCYUY30J8Exyx9w/d0UNOfjomlG50EDn07gvcqRDTwSvFJnY2gF+bowzT8FxMEF
-	 5cPILEaSujtn/AV3/SVhu98XX1YSQQVY7VlUku+xoBRFFnZwDrYrotgfuUpizi+KAQ
-	 I9mD4wTN3v3aiMrZOf6yhOSJhu0pE1ZtACsC1OaQX6YLrCiHMMqRyvc4sT6nnb1PDt
-	 fy65LGPzykioDTDOzSSrkjjnBOyaE56dXLR+RTwxxImiQrQ0VE+NenXqkHuBxx4NcQ
-	 AWRjI1I4zzW0mdkIz+XV5xeFptSAP35ASzhsBiVAIb7s/J1LQb6NhUwceAU5F2qq8L
-	 lKQ8fAukXOL+A==
-Date: Fri, 11 Sep 2026 20:03:00 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, 
-	david@redhat.com, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
-	pfalcato@suse.de, xueyuan.chen21@gmail.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH v3 5/7] proc/task_mmu: change proc_get_vma() to stop
- returning gate VMA at the end
-Message-ID: <aqRPeZH4yeYXfWgS@gremlin>
-References: <20260910234737.1340642-1-surenb@google.com>
- <20260910234737.1340642-6-surenb@google.com>
- <aqRF4YB7Ijk9PmRM@gremlin>
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="cvtq3BMS"
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4hhP8K6yzjz1XM6JN;
+	Fri, 11 Sep 2026 19:03:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1789153394; x=1791745395; bh=HKB85OlUopoTlP2cYiFJXnK6
+	cXsUfRhylsdCN0AeosE=; b=cvtq3BMSIvQZr2O49qdJ6rlypEbTYIyBHGdXHuqv
+	zIQoCJdk6hmmw5EQ8jzvupgBakf1+/wLZ89T7v3w0Df7xOz5KW7YPY0X3o9ydnSj
+	CPRUrlf7SLM8jqy5fWIrjAHa7BxSWD3RK6/ju+f2klBF8xBun202aSqXZxvtzg6o
+	zLmS+GHWyIXINcaqUmyBwOkN/JgqhPnUR9B5GRFwVnuGQOZyfIHu0Ik1d/UdKHSZ
+	FNOpXXNQLRcYFEBsfyf+gZ3dZxQQScj7pAmki8+tGVzPSC6abnP7OG9en+86g7Dc
+	rpEaaypiB1JNtoZDKWHSA8uhSTBfyT5838f2QYxB1GsQTg==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id qvovV8J3T_kX; Fri, 11 Sep 2026 19:03:14 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4hhP7t6bfRz1XM4Sx;
+	Fri, 11 Sep 2026 19:03:06 +0000 (UTC)
+Message-ID: <94ee6bd1-8126-4a99-9b9c-d58e16fd9d9e@acm.org>
+Date: Fri, 11 Sep 2026 12:03:05 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqRF4YB7Ijk9PmRM@gremlin>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC] drivers/rufs: add Rust UFS host controller driver
+To: jaemyung.lee@samsung.com, Andreas Hindborg <a.hindborg@kernel.org>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ James Bottomley <james.bottomley@hansenpartnership.com>,
+ Jens Axboe <axboe@kernel.dk>
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+References: <20260912-rufs-private-v1-1-716db733e655@samsung.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20260912-rufs-private-v1-1-716db733e655@samsung.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 11, 2026 at 07:26:49PM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Thu, Sep 10, 2026 at 04:47:35PM -0700, Suren Baghdasaryan wrote:
-> > proc_get_vma() returning gate VMA at the end is desirable for the its
-> > current m_start/m_next callers, as they need to report a gate VMA at the
-> > end of the address space. This behavior is very specific to these callers
-> > and makes proc_get_vma() hard to use for other purposes.
-> >
-> > Move this usage-specific behavior into the callers themselves so that
-> > proc_get_vma() returns either a valid VMA, an error or a NULL when no
-> > more VMAs are available. This makes it more generic, simpler and usable
-> > in the later patches.
-> >
-> > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
->
-> Yes, very good change, thanks!
->
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->
-> > ---
-> >  fs/proc/task_mmu.c | 23 ++++++++++++++++++-----
-> >  1 file changed, 18 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> > index ecce7ce116cb..9a3c996c1d61 100644
-> > --- a/fs/proc/task_mmu.c
-> > +++ b/fs/proc/task_mmu.c
-> > @@ -236,9 +236,6 @@ static struct vm_area_struct *proc_get_vma(struct seq_file *m, loff_t *ppos)
-> >  		 * found the extended vma with the same vm_start.
-> >  		 */
-> >  		*ppos = vma->vm_end;
-> > -	} else {
-> > -		*ppos = SENTINEL_VMA_GATE;
-> > -		vma = get_gate_vma(priv->lock_ctx.mm);
->
-> Yeah this is just so confusing as-was.
->
-> >  	}
-> >
-> >  	return vma;
-> > @@ -248,6 +245,7 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
-> >  {
-> >  	struct proc_maps_private *priv = m->private;
-> >  	struct proc_maps_locking_ctx *lock_ctx;
-> > +	struct vm_area_struct *vma;
-> >  	loff_t last_addr = *ppos;
-> >  	struct mm_struct *mm;
-> >
-> > @@ -280,16 +278,31 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
-> >  	if (last_addr == SENTINEL_VMA_GATE)
-> >  		return get_gate_vma(mm);
-> >
-> > -	return proc_get_vma(m, ppos);
-> > +	vma = proc_get_vma(m, ppos);
-> > +	if (vma)
-> > +		return vma;
-> > +
-> > +	/* Return gate VMA at the end */
-> > +	*ppos = SENTINEL_VMA_GATE;
-> > +	return get_gate_vma(mm);
-> >  }
-> >
-> >  static void *m_next(struct seq_file *m, void *v, loff_t *ppos)
-> >  {
-> > +	struct proc_maps_private *priv = m->private;
-> > +	struct vm_area_struct *vma;
-> > +
-> >  	if (*ppos == SENTINEL_VMA_GATE) {
-> >  		*ppos = SENTINEL_VMA_END;
-> >  		return NULL;
-> >  	}
-> > -	return proc_get_vma(m, ppos);
-> > +	vma = proc_get_vma(m, ppos);
-> > +	if (vma)
-> > +		return vma;
->
-> OK so I guess the logic is, iterate through every VMA, then once you run out,
-> report the gate VMA. Makes sense.
+On 9/11/26 8:52 AM, Jaemyung Lee via B4 Relay wrote:
+> Add a Rust UFS host controller driver that exposes UFS logical units as
+> native blk-mq block devices without depending on the SCSI midlayer.
 
-Hmm one thing on this though - m_start() still has:
+One of the goals in the Linux kernel is *not* to duplicate code.
+Decoupling the UFS driver from the SCSI mid-layer implies duplicating
+the functionality of the SCSI mid-layer. I do not agree with this.
 
-	if (last_addr == SENTINEL_VMA_GATE)
-		return get_gate_vma(mm);
+> The driver is written in Rust.
 
-As well as:
+Most UFS driver contributors are not familiar with Rust so I think the
+choice of Rust will make this driver unpopular.
 
-	vma = proc_get_vma(m, ppos);
-	if (vma)
-		return vma;
+> The existing UFS driver is built on the SCSI subsystem. That made sense
+> historically: UFS adopted the SCSI Architecture Model as its application
+> layer, so reusing the SCSI midlayer's command queuing, error handling,
+> power management, and logical-unit addressing let UFS reach Linux quickly
+> and reliably. ufshcd bridges the SCSI midlayer to UFS Protocol Information
+> Units.
+> 
+> That foundation has become a source of friction. The evolution of UFS is
+> governed by JEDEC and increasingly includes UFS-specific features outside
+> the SCSI command set standardized by T10.
 
-	/* Return gate VMA at the end */
-	*ppos = SENTINEL_VMA_GATE;
-	return get_gate_vma(mm);
+Huh? As long as I was attending JEDEC meetings I insisted on using
+commands already standardized by T10 and *not* introducing new commands.
 
-Now at the end.
+I do not want to give UFS vendors the freedom to introduce new commands
+without coordinating with a standards body that has more experience with
+the introduction of new commands, e.g. T10.
 
-Is this correct? Is it maybe duplicated now?
+Linux filesystems support the NVMe and SCSI command sets via the
+abstractions offered by the block layer. Introducing new types of
+storage commands would require that the block layer and all filesystems
+are modified. I have not yet seen an good example of a new command that
+warrants such changes.
 
->
-> > +
-> > +	/* Return gate VMA at the end */
-> > +	*ppos = SENTINEL_VMA_GATE;
-> > +	return get_gate_vma(priv->lock_ctx.mm);
-> >  }
-> >
-> >  static void m_stop(struct seq_file *m, void *v)
-> > --
-> > 2.55.0.1007.g17ff1f9808-goog
-> >
->
-> --
-> Cheers, Lorenzo
+> On Intel UFS 2.1 hardware, 4 KiB direct io_uring at QD32/job gave
+> these optimized-mode ranges over 1/2/4 jobs (three samples):
+> 
+>    Workload  Op     RUFS kIOPS   C kIOPS      Difference
+>    --------  -----  -----------  -----------  ---------------
+>    randread  read   48.91-61.26  41.56-41.60  +17.6% to +47.4%
+>    randwrite write  8.19-8.30    8.21-8.22    -0.4% to +1.1%
+>    randrw    read   5.26-5.34    5.28-5.38    -0.9% to -0.4%
+>    randrw    write  5.27-5.34    5.29-5.37    -0.8% to -0.5%
 
---
-Cheers, Lorenzo
+"Intel UFS 2.1" sounds weird to me since Intel never produced any UFS
+devices as far as I know. Did you perhaps want to write "Intel UFSHCI
+2.1"? If so, these measurements are not representative since UFSHCI
+2.1 does not support MCQ. Measurement results for legacy (SDB) mode
+are highly sensitive to whether or not the I/O submitter runs on the
+same CPU core as the completion interrupt.
+
+Bart.
