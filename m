@@ -1,230 +1,329 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.12.53.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103A24A99C6
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:44:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3AB6356754;
+	Fri, 11 Sep 2026 17:44:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.12.53.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789148650; cv=none; b=TRzoUcqz5d29ok6Z5Wq5K9XoQ95es2+E1ep/k89vcGD/IryWk+kfa6uF0EWlnegx+p52DLRUsYtQEN4teRW+dAzlRhKtkMG4RMvn6CM4r+aXkHigrIQFA9d8DTwnSbVrzFgO2WuvRjG+pZZ62avlHuWBxE1jGeDhJiDmj44QimI=
+	t=1789148672; cv=none; b=Al/WTmuLhMzdvRAtX47wKeZOPwChmP+RWDQICY/66akbsjK9TyXBfgsVn7jXH9zwJQlAyIzvHo38lSlOXOVAiF1I14Y7klN3UD5LfEtbs55olXrlRPCSl6twDmuY1t9tz8QeU4fbSp2bcOs9oJa2V8z34yEfwFx0YRe89P/sZAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789148650; c=relaxed/simple;
-	bh=iSPOqrPEqNzouRgsfdtXLZvJztzijYXXcFDpMwJ0MLA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oCrIRnDw/kq+np0jX2zS7FvTnbHWkBtG4A55zKhirgyWi3GLkZ4FuAgJZ9uleOiGP5Ge6hdr4pt0LG+jPLJ+fTutlX8JeG9XB6JzB/c21z7XFEJafiz3HZbGp0mOp5PEPyTZiOLZ1thPGIdXaUKuYW03Ox5tvFIXLhuyc6HU7gU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=n4IDtP6q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=M2UM6Q2R; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789148672; c=relaxed/simple;
+	bh=8r4gc3xKoWIXaeHEbv2OHiJwyaQA1NKjsYvm9JZrpKM=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PQ/QxDpGjh6DXTDfQH7JdGj8FMLKT6O/e7DC1F5pgz+UhgUJA96Zu0ln7hjcNqem67GVWUZUplUjV1LMvTALFwSCU+qjDuQ32ZfWGGNO6p9sV5UPY8WDgffgOPYWZJSTamm39Uwf9bulewniLezW2BiEgxgRMa7gAPAxlzBlvtE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=pqiqPXC7; arc=none smtp.client-ip=52.12.53.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="n4IDtP6q";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="M2UM6Q2R"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BHWWVb972063
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:44:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	DgHv3EdPhIoOXyHYgFVg1PHeH4W7/S2tlAAVOYQ4qy8=; b=n4IDtP6qSCRsrs5Q
-	Ci4u+5w6+EkIJ71oFw1Y1zQstpX89A/BA76Y5fXofq8whvtRYA60+EDh++ODP6je
-	093MTlj0PZIJ9QWlFP+CTD4uZZMyeiGMunBt7EcTEScrl+C01OLfh7GHre4s12y1
-	p1emmt65w4qtjfhKGdQ0ybxnk3ASvHxEWv4UMubu4tDmyIPnDgj9gYU53c/dwkf2
-	FvTwmMILkTRQLxInIObPo6sbKMLwJc3pzEHDkZlbI1ur/FbH7M7BQO++fEB6M6AC
-	1K4lQ4UInF8h8uKQJHH7mm5sHbSuXVZkUgL19Gd7LkJbRFxbUT0AZfrhu4yu0VMT
-	UWsiCQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmm22rkr9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:44:04 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38f283baf1fso1438365a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:44:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="pqiqPXC7"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789148644; x=1789753444; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DgHv3EdPhIoOXyHYgFVg1PHeH4W7/S2tlAAVOYQ4qy8=;
-        b=M2UM6Q2RpbLz9XEG32Hh7mBTLecw0PAyI7RHivV9LWBslUSTZK6lEyfA2AE+s4EdqX
-         47WEI8GgtTDy7s2Sryt3hkQhoVz6TGmWm7taa7QmlGKNaynwhHY+RkicKxq0PhJd+lk0
-         2qakA0Gpj6eJhDx8m4H53Y6TN7+va78k/1WOPtIsWeVoOc6ZSv3KMNpxR8GBUD7imCS/
-         Ierw0Pv+jRo58RfCVxCsdZNRn7LNdM+kjbjzqAMu+W97fYwQtxM8fBPjwtgpeG5eGjIK
-         5soquehSo7gDSIaHk2oyc9O4TvDo4HoiwCqISbXArfmISiovupHJsFg3APO9qiLHwUgA
-         +6gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789148644; x=1789753444;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DgHv3EdPhIoOXyHYgFVg1PHeH4W7/S2tlAAVOYQ4qy8=;
-        b=PWev7zN5BxPB3C7D3dGwCUdb4ZFmczd0vbpK5RL7uDEN8Mow+Hr7Wu9CYor+74Guim
-         NX1HGrHiLDBiVZBC6IUyLtjYL3BEBx6PE88scIjr7v8Eql5zDxONaUVQHnMbe98l4o5x
-         uZadBWlI/SYI/WGHxWnRwtlF89mWtjg8W2awlxedwPXN8GaVKp0BAoN5Y+7bB+jH3YP+
-         OU2VnSUpKs9sf8c1dCQctZlyeA7mwuFKDwLPzL9PT5VAQqGThaJ7ZiFKHGKJ+KHunMS2
-         TWfwwfeuAFfHAFw8DL8UV4EVpSSK6GRCrVC6q8TfuSPwFWuFDouJCOxeZs8INPkHDd0J
-         to+Q==
-X-Forwarded-Encrypted: i=1; AKwUvByIE8+V8RP1lnbMxwf5iktLGHv7rqdtH98G5AevGwuLL2Knvf9DhwrCPBEv+qWYhDs5vWTp6DFR2/uk5uI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFArShx7ALSAa/lVFf2KnvH66z+TdaDTINKPG/surHIPDsb+CX
-	dLQS99RitEvyU6WMP5KVO9dCtOiD9Jx7IxgMOURpxYPV2VqeNXJ5RZGzUjkzRYsPaHt0VyNB9DR
-	lpu5+lu1jtyI0V2AftGubWdD/B6Pd2G9+/n0Z4Zomayu9TbwbEtEb6jsAqBye4TiNhuc=
-X-Gm-Gg: AYBFou0JkdK/eQ1gKnti9I6hVnSfDYvM3i5AYC1ZL9BWXI4kFCTbb5NsEqen+HesV5D
-	WoHZL3P1tfmldZr3XaSgVVMBvyOS0Qt9nIBjyS6ewfi83ygiTmFzv6aJN3utayh9bkNrcQs/O2g
-	SJ3Tkg3u5T/8ERbHb+68m9pM35zRm93LLlatNkmOMz0NNnE/CQ762RavrGsX4KRQ44PUGScXU3c
-	UVmxjuAkrXsI16sMqAg7K8BVl+/m2PJ5eHhM0t9ayLPOq5CD/Qq9l7JS7cVesDIZlExY8xwuf5x
-	ffMPcF8Bof4dGUa3fPJ5LNhqHTYvYQrTXaH+ojDHJiKMF1rFjnYED2nnT5gLElq5ml5z84FIDxS
-	DwW3hYbfVMQovZ3FJu6lwTf/2uISFGmwJZHE=
-X-Received: by 2002:a17:90b:2689:b0:38d:ddc2:7ccb with SMTP id 98e67ed59e1d1-39d9bbc81damr9099612a91.1.1789148643588;
-        Fri, 11 Sep 2026 10:44:03 -0700 (PDT)
-X-Received: by 2002:a17:90b:2689:b0:38d:ddc2:7ccb with SMTP id 98e67ed59e1d1-39d9bbc81damr9099566a91.1.1789148643138;
-        Fri, 11 Sep 2026 10:44:03 -0700 (PDT)
-Received: from [192.168.0.172] ([183.83.137.104])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b78d59sm7652016c88.8.2026.09.11.10.43.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 10:44:02 -0700 (PDT)
-Message-ID: <ccd42f9e-935a-438e-b5c8-2643cd5cedf9@oss.qualcomm.com>
-Date: Fri, 11 Sep 2026 23:13:53 +0530
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1789148667; x=1820684667;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=6iOtJLCOMaVu1u7N9u6FCZ3yXZzuE0TLkNT/UH0NMLg=;
+  b=pqiqPXC7pojfsduBDyeGRYIfzCrnODduaNceQknsHQRdO5qLv11DnCdR
+   6F/mnGUaI0Pw4f05b19DAQaWRkmhyzqUbzPsBUWphWPAVYm6qT02LX7FY
+   qiy+wGB6Anu9lQJrsJFLGCoBa2JOQ+17NX5Kl4a1GHJiPLcLjGK3SSdbK
+   poPJMfDW4WhVvnXe/fVA7UKEZURXVQyQIPUxS4mm7siTozsGs4sFyo/Z9
+   sCIUeKmLneZWeoEs8CeDd3FbI4sIKqRUj4mn5sGHMAt7CJwjYZvHdrAUy
+   f6qZaAhBVvc/YCbYdle/tLBZ2QOV3+79NkZHD6L8wbWcbeUQsNxbjO6T+
+   Q==;
+X-CSE-ConnectionGUID: d9ta3Z/UTFish95eKkRVXA==
+X-CSE-MsgGUID: 38T1FJ6wQVmiXLKH9NcH2w==
+X-IronPort-AV: E=Sophos;i="6.27,97,1787011200"; 
+   d="scan'208";a="28317879"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 17:44:18 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.51:6341]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.6.93:2525] with esmtp (Farcaster)
+ id 9b6f30e1-fa4b-42b7-8f8b-344e3e7b0c22; Fri, 11 Sep 2026 17:44:18 +0000 (UTC)
+X-Farcaster-Flow-ID: 9b6f30e1-fa4b-42b7-8f8b-344e3e7b0c22
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
+ Fri, 11 Sep 2026 17:44:18 +0000
+Received: from dev-dsk-sakacpav-1a-480d1124.eu-west-1.amazon.com
+ (172.19.96.155) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Fri, 11 Sep 2026
+ 17:44:15 +0000
+From: Pavol Sakac <sakacpav@amazon.de>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Tejun Heo
+	<tj@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, Danilo Krummrich
+	<dakr@kernel.org>
+CC: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>, "Andy
+ Shevchenko" <andriy.shevchenko@linux.intel.com>, Xu Yang <xu.yang_2@nxp.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Bjorn Helgaas
+	<bhelgaas@google.com>, <linux-pci@vger.kernel.org>, Alex Williamson
+	<alex@shazbot.org>, <kvm@vger.kernel.org>, <nh-open-source@amazon.com>
+Subject: [RFC PATCH 1/8] kernfs: factor out reusable directory helpers
+Date: Fri, 11 Sep 2026 19:43:33 +0200
+Message-ID: <20260911174414.97060-1-sakacpav@amazon.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260911-vfopt-s5-v1-0-fa4cacdb6ca8@amazon.de>
+References: <20260911-vfopt-s5-v1-0-fa4cacdb6ca8@amazon.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/13] dt-bindings: media: qcom,venus: Add context bank
- subnodes to common schema
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Konrad Dybcio
- <konrad.dybcio@oss.qualcomm.com>, iommu@lists.linux.dev,
-        Daniel J Blueman <daniel@quora.org>
-References: <20260909-vpu_iommu_iova_handling-v3-0-2fe43ae45495@oss.qualcomm.com>
- <20260909-vpu_iommu_iova_handling-v3-1-2fe43ae45495@oss.qualcomm.com>
- <20260910-careful-finch-of-fame-eeeac7@quoll>
-Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <20260910-careful-finch-of-fame-eeeac7@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDI0OCBTYWx0ZWRfXxb+nALwpkett
- qac1gBy19pi3UWqkcjXTQnQtBr1T3b4htqQ+jiRGvQ4xy3Xf6jdMnJvlrgbXb8a5lxHIezeABxR
- /sEZ9M9VH6KxuIZntQQSQsLs12oX7YoTc/NAfPTfrfJeTkqeNULv0jd4cEFedF17vn5MOLnLi+0
- s1EqojNaYmzBYX0DPbhaABsg851OdWmEPr3GQqDb36G/HEPpFQl3AZYGKvBrOIBGs9JWH82G3td
- Gxq0eg0KuQ25Y5o9Emg//9b1kB9IVA5tTkepPwA9SZN7gSe39xfLa2VvfZn3s3gjSADNVrC9xLy
- J4Wt2bTJSK0X3HJVeA8yYrwgPgU49RXB6zZxORtbtZDkgYR4Wc11v8Bw30kSsvgVWzFxeXRhsyM
- gEJz7X3DozqbOC2+yAPtiMd2MqCK7bDWqet602j/61QLXunQ9qylTcwzY177IZ5veMiAqWto2wV
- F6zVxBfKPunSarpYiDQ==
-X-Authority-Analysis: v=2.4 cv=LPDz05W9 c=1 sm=1 tr=0 ts=6aa43de4 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=TwCXObd+TJU0JWB7kQOUgw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=NEAV23lmAAAA:8 a=t9ty7G3lAAAA:8
- a=EUspDBNiAAAA:8 a=gweAf5VaqOsLJRT3hzwA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22 a=Vxmtnl_E_bksehYqCbjh:22 a=CsAS6f0m0zARWR-uHzm3:22
-X-Proofpoint-ORIG-GUID: kAZMysQP6ZrvsDGU-8v7MvAFGZRRzgpT
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDI0OCBTYWx0ZWRfX5ZOBd4dDklxC
- +xKfJTDEjufDCQXAqk1hwRB+ivmiZmXhLT3PisrISGehtCjUYKSYxBFmNaYxLtFY46dVu0dJCD4
- x3ci4kiSaBGOZRIyk7TmmEr1xJQiqUs=
-X-Proofpoint-GUID: kAZMysQP6ZrvsDGU-8v7MvAFGZRRzgpT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-11_06,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 clxscore=1015 bulkscore=0 impostorscore=0
- malwarescore=0 spamscore=0 suspectscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110248
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D037UWB002.ant.amazon.com (10.13.138.121) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
+An upcoming change adds staged directories whose children collections are
+protected by a per-subtree mutex instead of kernfs_rwsem, so it needs the
+pure rbtree and directory-creation operations without the rwsem assertions
+and accounting wrapped around them.
 
+Split those out: __kernfs_link_sibling() and __kernfs_find_ns() for the
+children-rbtree work, __kernfs_create_dir() for the sequence both directory
+creators repeat, and kernfs_update_parent_times() for the parent timestamp
+bump open-coded at each link and unlink site. The existing names stay as
+locked wrappers carrying the lockdep assertions, the link-side wrapper
+gaining the write-side assertion it lacked. No functional change intended.
 
-On 9/10/2026 12:29 PM, Krzysztof Kozlowski wrote:
-> On Wed, Sep 09, 2026 at 08:27:08PM +0530, Vikash Garodia wrote:
->> The VPU issues DMA through several SMMU streams, and the hardware does
->> not give every stream the same addressable range. The non-pixel stream
->> cannot address the low 600MB of IOVA space, while the pixel stream can
->> address the full range:
->>      +-----------------------------------------------------------+
->>      | non-pixel stream addressable range (600 MB - 3.5 GB)      |
->>      | 0x25800000 - 0xe0000000                                   |
->>      +-----------------------------------------------------------+
->>      | pixel stream addressable range (0 - 3.5 GB)               |
->>      | 0x00000000 - 0xe0000000                                   |
->>      +-----------------------------------------------------------+
->> A single "iommus" property on the video-codec node puts every stream in
->> one IOMMU domain sharing one IOVA allocator, so nothing restricts a
->> non-pixel buffer to avoid 0 to 600MB. Once an allocation lands below
->> that boundary the hardware faults, which shows up as unhandled SMMU page
->> faults and spontaneous reboots:
->> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
->>
->> Given that the address range restriction is for specific VPU stream, it
->> should be ideally be moved to that stream. To achieve the same, a subset
->> of streams is now represented as subnodes, so that each can be
->> associated with its respective addressable range. The design was
->> discussed and agreed by mainatiners here
->> https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org
->>
->> In the past, this limitation was addressed with an iommu-map approach,
->> with the iris driver dynamically creating the devices. That approach was
->> later concluded to be a hack to avoid having subnodes, and was NAKed by
->> the iommu maintainers. It was discussed in detail here:
->> https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
->>
->> "iommu-ranges" on the subnode describes the *allowed* IOVA range that
->> stream is allowed to use, so the IOVA is allocated from the specified
->> range only. Define all the possible subnodes so as to describe all the
->> VPU hardware iommu interfaces, both secure as well as non secure.
->>
->> address-cells, size-cells and dma-ranges declares the 1:1 DMA
->> translation into the parent.
->>
->> The parent "iommus" is kept as an alternative via "oneOf", so platforms
->> that have not been converted to subnodes still validate. New platforms
->> should use the subnode form.
->>
->> This patch depends-on:
->> https://github.com/devicetree-org/dt-schema/pull/207
-> 
-> Please drop, not suitable for commit, keep it in the changelog
-> 
+Assisted-by: LLM
+Signed-off-by: Pavol Sakac <sakacpav@amazon.de>
+---
+ fs/kernfs/dir.c | 128 ++++++++++++++++++++++++++++++++----------------
+ 1 file changed, 87 insertions(+), 41 deletions(-)
 
-Sure, will add this to changelog.
-
->>
->>   Tested-by: Daniel J Blueman <daniel@quora.org>
-> 
-> Plese drop, not true here
-> 
-
-ok, got picked in b4 trailers, will drop.
-
-> 
->> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
->> ---
->>   .../bindings/media/qcom,sc7180-venus.yaml          | 15 ----
->>   .../bindings/media/qcom,venus-common.yaml          | 97 ++++++++++++++++++++++
->>   2 files changed, 97 insertions(+), 15 deletions(-)
->>
-> 
-> I see this causes DT checks failures but I don't see the report, so
-> probably it was because of schema dependency.
-> 
-> Best regards,
-> Krzysztof
+diff --git a/fs/kernfs/dir.c b/fs/kernfs/dir.c
+index 1938edd39eff..a6290f94139c 100644
+--- a/fs/kernfs/dir.c
++++ b/fs/kernfs/dir.c
+@@ -459,12 +459,24 @@ static int kernfs_sd_compare(const struct kernfs_node *left,
+ 	return kernfs_name_compare(left->hash, kernfs_rcu_name(left), left->ns, right);
+ }
+ 
++/* Bump @parent's ctime/mtime; caller holds whichever lock covers @parent. */
++static void kernfs_update_parent_times(struct kernfs_node *parent)
++{
++	struct kernfs_iattrs *ps_iattr = parent ? parent->iattr : NULL;
++
++	if (ps_iattr) {
++		ktime_get_real_ts64(&ps_iattr->ia_ctime);
++		ps_iattr->ia_mtime = ps_iattr->ia_ctime;
++	}
++}
++
+ /**
+- *	kernfs_link_sibling - link kernfs_node into sibling rbtree
++ *	__kernfs_link_sibling - link kernfs_node into sibling rbtree
+  *	@kn: kernfs_node of interest
+  *
+- *	Link @kn into its sibling rbtree which starts from
+- *	@kn->parent->dir.children.
++ *	Link @kn into its parent's children rbtree.  This is the pure rbtree
++ *	insertion, without the subdir/revision accounting; the caller performs
++ *	that under whichever lock protects the parent's children collection.
+  *
+  *	Locking:
+  *	kernfs_rwsem held exclusive
+@@ -472,7 +484,7 @@ static int kernfs_sd_compare(const struct kernfs_node *left,
+  *	Return:
+  *	%0 on success, -EEXIST on failure.
+  */
+-static int kernfs_link_sibling(struct kernfs_node *kn)
++static int __kernfs_link_sibling(struct kernfs_node *kn)
+ {
+ 	struct rb_node *parent = NULL;
+ 	struct kernfs_node *kn_parent;
+@@ -500,7 +512,26 @@ static int kernfs_link_sibling(struct kernfs_node *kn)
+ 	rb_link_node(&kn->rb, parent, node);
+ 	rb_insert_color(&kn->rb, &kn_parent->dir.children);
+ 
++	return 0;
++}
++
++/*
++ * Locked variant of __kernfs_link_sibling(): kernfs_rwsem held exclusive; also
++ * performs the subdir count and directory-revision accounting.
++ */
++static int kernfs_link_sibling(struct kernfs_node *kn)
++{
++	struct kernfs_node *kn_parent;
++	int ret;
++
++	lockdep_assert_held_write(&kernfs_root(kn)->kernfs_rwsem);
++
++	ret = __kernfs_link_sibling(kn);
++	if (ret)
++		return ret;
++
+ 	/* successfully added, account subdir number */
++	kn_parent = kernfs_parent(kn);
+ 	down_write(&kernfs_root(kn)->kernfs_iattr_rwsem);
+ 	if (kernfs_type(kn) == KERNFS_DIR)
+ 		kn_parent->dir.subdirs++;
+@@ -934,7 +965,6 @@ struct kernfs_node *kernfs_find_and_get_node_by_id(struct kernfs_root *root,
+ int kernfs_add_one(struct kernfs_node *kn)
+ {
+ 	struct kernfs_root *root = kernfs_root(kn);
+-	struct kernfs_iattrs *ps_iattr;
+ 	struct kernfs_node *parent;
+ 	bool has_ns;
+ 	int ret;
+@@ -964,13 +994,7 @@ int kernfs_add_one(struct kernfs_node *kn)
+ 
+ 	/* Update timestamps on the parent */
+ 	down_write(&root->kernfs_iattr_rwsem);
+-
+-	ps_iattr = parent->iattr;
+-	if (ps_iattr) {
+-		ktime_get_real_ts64(&ps_iattr->ia_ctime);
+-		ps_iattr->ia_mtime = ps_iattr->ia_ctime;
+-	}
+-
++	kernfs_update_parent_times(parent);
+ 	up_write(&root->kernfs_iattr_rwsem);
+ 
+ 	/*
+@@ -990,25 +1014,24 @@ int kernfs_add_one(struct kernfs_node *kn)
+ }
+ 
+ /**
+- * kernfs_find_ns - find kernfs_node with the given name
++ * __kernfs_find_ns - find kernfs_node with the given name
+  * @parent: kernfs_node to search under
+  * @name: name to look for
+  * @ns: the namespace tag to use
+  *
+- * Look for kernfs_node with name @name under @parent.
++ * Caller must hold a lock covering @parent's children collection:
++ * kernfs_rwsem.
+  *
+  * Return: pointer to the found kernfs_node on success, %NULL on failure.
+  */
+-static struct kernfs_node *kernfs_find_ns(struct kernfs_node *parent,
+-					  const unsigned char *name,
+-					  const struct ns_common *ns)
++static struct kernfs_node *__kernfs_find_ns(struct kernfs_node *parent,
++					    const unsigned char *name,
++					    const struct ns_common *ns)
+ {
+ 	struct rb_node *node = parent->dir.children.rb_node;
+ 	bool has_ns = kernfs_ns_enabled(parent);
+ 	unsigned int hash;
+ 
+-	lockdep_assert_held(&kernfs_root(parent)->kernfs_rwsem);
+-
+ 	if (has_ns != (bool)ns) {
+ 		WARN(1, KERN_WARNING "kernfs: ns %s in '%s' for '%s'\n",
+ 		     has_ns ? "required" : "invalid", kernfs_rcu_name(parent), name);
+@@ -1032,6 +1055,18 @@ static struct kernfs_node *kernfs_find_ns(struct kernfs_node *parent,
+ 	return NULL;
+ }
+ 
++/*
++ * The asserted kernfs_rwsem hold (write or read) also covers the RCU-managed
++ * name dereferences in __kernfs_find_ns()'s walk.
++ */
++static struct kernfs_node *kernfs_find_ns(struct kernfs_node *parent,
++					  const unsigned char *name,
++					  const struct ns_common *ns)
++{
++	lockdep_assert_held(&kernfs_root(parent)->kernfs_rwsem);
++	return __kernfs_find_ns(parent, name, ns);
++}
++
+ static struct kernfs_node *kernfs_walk_ns(struct kernfs_node *parent,
+ 					  const unsigned char *path,
+ 					  const struct ns_common *ns)
+@@ -1218,6 +1253,31 @@ struct kernfs_node *kernfs_root_to_node(struct kernfs_root *root)
+ 	return root->kn;
+ }
+ 
++/*
++ * Allocate and initialize a directory node with @extra_flags OR'd into its
++ * type flags, without linking it anywhere.
++ */
++static struct kernfs_node *__kernfs_create_dir(struct kernfs_node *parent,
++					       const char *name, umode_t mode,
++					       kuid_t uid, kgid_t gid,
++					       void *priv,
++					       const struct ns_common *ns,
++					       unsigned int extra_flags)
++{
++	struct kernfs_node *kn;
++
++	kn = kernfs_new_node(parent, name, mode | S_IFDIR, uid, gid,
++			     KERNFS_DIR | extra_flags);
++	if (!kn)
++		return ERR_PTR(-ENOMEM);
++
++	kn->dir.root = parent->dir.root;
++	kn->ns = ns;
++	kn->priv = priv;
++
++	return kn;
++}
++
+ /**
+  * kernfs_create_dir_ns - create a directory
+  * @parent: parent in which to create a new directory
+@@ -1240,14 +1300,9 @@ struct kernfs_node *kernfs_create_dir_ns(struct kernfs_node *parent,
+ 	int rc;
+ 
+ 	/* allocate */
+-	kn = kernfs_new_node(parent, name, mode | S_IFDIR,
+-			     uid, gid, KERNFS_DIR);
+-	if (!kn)
+-		return ERR_PTR(-ENOMEM);
+-
+-	kn->dir.root = parent->dir.root;
+-	kn->ns = ns;
+-	kn->priv = priv;
++	kn = __kernfs_create_dir(parent, name, mode, uid, gid, priv, ns, 0);
++	if (IS_ERR(kn))
++		return kn;
+ 
+ 	/* link in */
+ 	rc = kernfs_add_one(kn);
+@@ -1272,15 +1327,12 @@ struct kernfs_node *kernfs_create_empty_dir(struct kernfs_node *parent,
+ 	int rc;
+ 
+ 	/* allocate */
+-	kn = kernfs_new_node(parent, name, S_IRUGO|S_IXUGO|S_IFDIR,
+-			     GLOBAL_ROOT_UID, GLOBAL_ROOT_GID, KERNFS_DIR);
+-	if (!kn)
+-		return ERR_PTR(-ENOMEM);
++	kn = __kernfs_create_dir(parent, name, 0555,
++				 GLOBAL_ROOT_UID, GLOBAL_ROOT_GID, NULL, NULL, 0);
++	if (IS_ERR(kn))
++		return kn;
+ 
+ 	kn->flags |= KERNFS_EMPTY_DIR;
+-	kn->dir.root = parent->dir.root;
+-	kn->ns = NULL;
+-	kn->priv = NULL;
+ 
+ 	/* link in */
+ 	rc = kernfs_add_one(kn);
+@@ -1706,18 +1758,12 @@ static void __kernfs_remove(struct kernfs_node *kn)
+ 		 * to decide who's responsible for cleanups.
+ 		 */
+ 		if (!parent || kernfs_unlink_sibling(pos)) {
+-			struct kernfs_iattrs *ps_iattr =
+-				parent ? parent->iattr : NULL;
+-
+ 			down_write(&kernfs_root(kn)->kernfs_iattr_rwsem);
+ 
+ 			kernfs_clear_inode_nlink(pos);
+ 
+ 			/* update timestamps on the parent */
+-			if (ps_iattr) {
+-				ktime_get_real_ts64(&ps_iattr->ia_ctime);
+-				ps_iattr->ia_mtime = ps_iattr->ia_ctime;
+-			}
++			kernfs_update_parent_times(parent);
+ 
+ 			up_write(&kernfs_root(kn)->kernfs_iattr_rwsem);
+ 			kernfs_put(pos);
+-- 
+2.47.3
 
