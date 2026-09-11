@@ -1,118 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-7.mta0.migadu.com [91.218.175.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B9E11B3925;
-	Fri, 11 Sep 2026 10:58:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E818F49E132
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:58:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789124319; cv=none; b=N8itvsUlTGW4puO8ogOqv7uN8VDbLbLVT/3nt/lbHlguvhnbYsoTNEQF0OEM+G+HB00ZGe+Rmu+0XwByMOojfpLgFRureytbXsnLFt6z7CdfL4vhOvdN5SLmug2AnOedLHsB/hXNTePTNmUz/Kvr7ukz0JBdnuPIfyb60OYHhgk=
+	t=1789124340; cv=none; b=KFy7/bdchd9vz2ans7fpJ7KzAblQ8fgmJvJTakzvg93uKXIfldO1Supoi+/iiIlIDjxI4W1jtCam3feUhaIxyy0b8kQdYR9aHBPk8XmEJ9Ci2YVkcHh6hhnLBGtsrbxE+W0C5zY4QyBYVgPyFzMJdT/pfFNYhvyOCAKGZubHYts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789124319; c=relaxed/simple;
-	bh=qmQ2eiB/n/t5wXH4ogYT6BXMyQ9KnwjnPR50xLOf5Mo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gAz/hUaWlsSPWH9kmhZsCx5Ziv52hI1QODFhWJvLMpF/e+IdT1tWkQuuJaHw6uTNlO/T85MZLjS2z9ygxZPZ8UwIG8NINyTy8u9MGjmw/xH/OhHo4NDEs3s5HiNeZG/9QoY1HUNnTt0j16dHtuHUZCowMDsExHVabnpT9kLKA2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X/R8KW2j; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789124340; c=relaxed/simple;
+	bh=t54f66oISK5iLoC6zpVoCghpLtMAejdCBH7P2FWAB/4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UwUN0orWyjyxvtSUkGFu5YOt3DaPeLnxN4n3lhYjTwWm1qg9zWQBBNPGgQSQ5EZookUj7aVQw0DF0HFA+v45EcClXXUYNqgeuV74doVxSro6ILx3TcYYk7VNBTpLB3iQL2UJUDknkx3vJ/6KvKX1lcDUy2e9DYZZMMrKvEsTH70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hLTFi+T7; arc=none smtp.client-ip=91.218.175.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X/R8KW2j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D06C21F000FF;
-	Fri, 11 Sep 2026 10:58:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789124310;
-	bh=Y7NueDLdJEWoTmdUHCe9oX0vK+GNthQHVN1l+HZyAKg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=X/R8KW2jDDnOZiMd+Oq4Aj4M1dtjSBS1gN7n4WM46a91n2oEK4w2gpEUBn2Tua4jP
-	 UN1A3GfyFlPTWS9XuGlK3ZG8YD6FjufiAJl51hieIdg3GxKlJnSTzBBI9y42mDoIZs
-	 5kL/hUbGYBp+ccPkAREN9Flolka45tvB+j9Oyv5ioZZf3o8CMAD3x9P4nSeB35XzIK
-	 nn2QQ8v46zuz01eh+AhgeWeLwYScIbSMz+0aZqM5Is3IBP/pgv2TrldHHNAsCa53Yi
-	 uXL072MlaV8u+9BLZCKG+RPAGenHEP5XdoZVxjQoRHrixGtOXDwgiz6edGIkpwv/B1
-	 W4rzO7wQfT2cg==
-Message-ID: <c7af1b53-4684-4e47-a0d8-a84e0176a449@kernel.org>
-Date: Fri, 11 Sep 2026 12:58:21 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hLTFi+T7"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=t54f66oISK5iLoC6zpVoCghpLtMAejdCBH7P2FWAB/4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789124335; v=1; x=1789729135;
+ b=hLTFi+T7imAmAFDzilxVYmL1GgORoH4hGMVg5odIJ0FugZlzP8aD4amuXHCh5TdmXuDjBJzY
+ EZJAEovNkH6p0Lk+2uHqH1W6mJ49new87cB7fV8zaDn0ppfgjUqpq8sF7+CliHd22ng6zEQK2A3
+ 0+wH3CVs64xPN0AiQQ2BHj1M=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 26c3139e797f0e96;
+	Fri, 11 Sep 2026 10:58:55 +0000
+X-Mizu-Trace-ID: 26c3139e797f0e96
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b17359so4062e87.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:58:54 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxRLZAm3YkvNsUn+OHS7+HWPRuzIRC2H4rdU0ETzYp5Log26zSxHumKRLoRXNKwzdsKZe7jb5xvbkmW2Rg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lIopWuKovNT6WKWcj8ffzjACMWRM6Z97OACSk3vHdZpO/duwtD
+	r7O3jKNb4ctg+2FoAqK3srXua/Ma7dzGxM4A4lr4HzwwpFIZAUnI3i/E4bsQXGGPVyzMv+d7y14
+	hBZkwOjxl2YI9ET1Uz//V3aL7O7aJcpXU6UdMO1QA
+X-Received: by 2002:a05:6512:405a:b0:5b8:9e63:dfb9 with SMTP id
+ 2adb3069b0e04-5b8a053c7f3mr113768e87.0.1789124334038; Fri, 11 Sep 2026
+ 03:58:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/10] arm64: dts: exynos5433: Re-order nodes to match
- coding style
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Jesper Nilsson <jesper.nilsson@axis.com>,
- Lars Persson <lars.persson@axis.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Tudor Ambarus <tudor.ambarus@linaro.org>,
- Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- linux-arm-kernel@axis.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260911-b4-dts-samsung-cleanup-strict-continued-v1-0-9aa55051c42b@oss.qualcomm.com>
- <20260911-b4-dts-samsung-cleanup-strict-continued-v1-8-9aa55051c42b@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260911-b4-dts-samsung-cleanup-strict-continued-v1-8-9aa55051c42b@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260907070002.3333525-1-fuad.tabba@linux.dev>
+ <20260907070002.3333525-14-fuad.tabba@linux.dev> <86ld986pyr.wl-maz@kernel.org>
+In-Reply-To: <86ld986pyr.wl-maz@kernel.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Fri, 11 Sep 2026 11:58:17 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTy5LOs7Uan9iDBDnTFBPMaA39cy1eDHYgTu=kEDHSB85w@mail.gmail.com>
+X-Gm-Features: AcwNN1Vx-RhBgSQI6So9JMpD9_gKVmdeipliE4IOgkG_23MW8gI5glXbC9akMCU
+Message-ID: <CA+EHjTy5LOs7Uan9iDBDnTFBPMaA39cy1eDHYgTu=kEDHSB85w@mail.gmail.com>
+Subject: Re: [PATCH v2 13/17] KVM: arm64: Pend a protected guest's SError with
+ HCR_EL2.VSE only
+To: Marc Zyngier <maz@kernel.org>
+Cc: Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Vincent Donnefort <vdonnefort@google.com>, Quentin Perret <qperret@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/09/2026 12:19, Krzysztof Kozlowski wrote:
-> diff --git a/arch/arm64/boot/dts/exynos/exynos5433.dtsi b/arch/arm64/boot/dts/exynos/exynos5433.dtsi
-> index d318c87effaa..3e67d9091a19 100644
-> --- a/arch/arm64/boot/dts/exynos/exynos5433.dtsi
-> +++ b/arch/arm64/boot/dts/exynos/exynos5433.dtsi
-> @@ -90,72 +90,6 @@ core3 {
->  			};
->  		};
->  
-> -		cpu0: cpu@100 {
+Hi Marc,
 
-So as Sashiko points, I remember now why we did that way... This
-obviously won't work :/
+On Fri, 11 Sept 2026 at 11:29, Marc Zyngier <maz@kernel.org> wrote:
+...
+> > diff --git a/arch/arm64/kvm/inject_fault.c b/arch/arm64/kvm/inject_fault.c
+> > index d6c4fc16f8795..b88098a7e756c 100644
+> > --- a/arch/arm64/kvm/inject_fault.c
+> > +++ b/arch/arm64/kvm/inject_fault.c
+> > @@ -378,8 +378,11 @@ int kvm_inject_serror_esr(struct kvm_vcpu *vcpu, u64 esr)
+> >        *
+> >        * As we're emulating the SError injection we need to explicitly populate
+> >        * ESR_ELx.EC because hardware will not do it on our behalf.
+> > +      *
+> > +      * The host does not see a protected guest's PSTATE.A: leave the
+> > +      * vSError to HCR_EL2.VSE below, which the guest masks itself.
+> >        */
+> > -     if (!serror_is_masked(vcpu)) {
+> > +     if (!vcpu_is_protected(vcpu) && !serror_is_masked(vcpu)) {
+> >               pend_serror_exception(vcpu);
+> >               esr |= FIELD_PREP(ESR_ELx_EC_MASK, ESR_ELx_EC_SERROR) | ESR_ELx_IL;
+> >               vcpu_write_sys_reg(vcpu, esr, exception_esr_elx(vcpu));
+>
+> I can't say I like this very much.
+>
+> The fundamental premise is that as far as the host is concerned,
+> PSTATE.A is always set. So why can't we give the illusion of this at
+> all times?
+>
+> That'd be a much cleaner approach.
 
-Best regards,
-Krzysztof
+I'll have EL2 copy PSTATE out to the host with A set instead, and drop
+this patch in v3.
+
+Cheers,
+/fuad
+
+
+>
+> Thanks,
+>
+>         M.
+>
+> --
+> Without deviation from the norm, progress is not possible.
