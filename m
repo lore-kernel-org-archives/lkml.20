@@ -1,92 +1,92 @@
-Received: from nova.nubenode.com (nova.nubenode.com [46.4.179.175])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CF234A64CE;
-	Fri, 11 Sep 2026 17:00:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.4.179.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53824AA02C;
+	Fri, 11 Sep 2026 17:01:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789146051; cv=none; b=s3M5FMG7EHn4TFXDbX26wySzIKKT+yyCFhFALoKM5aF1lfLcOZ9m2z1KGITqPpfEQwNvm0S+Mmn+8H/zPbd/aA7W4/pNNPs+ik2kGCeOsBboglqSOdToVP/e23+fFfFtUcmDYICMxagp+U2yxoJDJZId0tnvjT+9lMbeNNe1Gfo=
+	t=1789146064; cv=none; b=r/ngaS/39Cs+84VVVaI6TVV2T5kBBP8BUIRUC40rTZid7iUwymRHY434IfIe0sDdr3k6BpbPL7WpUZ/Ok6Hs+cgx9KA/BJsFxRXiLruzbAboCoxGfhBzbET/zmAu9WCN8SzPx1fwEkQKRYZtdZoMvP4iGXJ4Q8DjsHcqFnsB9jQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789146051; c=relaxed/simple;
-	bh=nBLWWBP4HnJ5/4QWOz2ih+Lp5jFk0PRyzU9xK5ogK1o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=MKrgLXgF71TFrkg2oRItXgRS/vV2aYn2TWVUU9z5Hz2WFKLFUve/tcAwCQTCn3CkC6DPxEgHhE6GrCF1s/I8rjO1VWjCeQrRO0I8Ur7+qE3DTI4N3vKGH7s9E7ucSpBBsaM+JP0Kfi/dkV9v9Q5OEjARmAh5v6y3xqZKKgfhjZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cristiandeluxe.dev; spf=pass smtp.mailfrom=cristiandeluxe.dev; dkim=pass (2048-bit key) header.d=cristiandeluxe.dev header.i=@cristiandeluxe.dev header.b=JweRqEpF; arc=none smtp.client-ip=46.4.179.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cristiandeluxe.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cristiandeluxe.dev
+	s=arc-20240116; t=1789146064; c=relaxed/simple;
+	bh=41XYLy/Uw7qtZb8T14KmRylV0FfFdr+MpWrB1dhen8g=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XRwh5Cu9x1yyU5KZRlwTyZQfkT1HOsunqbacnD2Hi0sMbqr4WQbs6N8ITJVycSUCf54hVB6s6NcY6NO8SwjdTAJ9NK43oLYsVblhvqMUo47uxLnYBYE71n0tiWK7Cmy6wPlcqF/x9OzpXBfmcZk35xsTxk4U44kQ6LlBfpOzSSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GSmIEdc1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cristiandeluxe.dev header.i=@cristiandeluxe.dev header.b="JweRqEpF"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=cristiandeluxe.dev; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=E3vEeBimqjP1myNhIFvu5a7oTiE8fD/m5HcnS7mZ2BA=; b=JweRqEpFkIHt2pS8sHXQfsLPt8
-	xAWs22xJ+6Ac8dxvx6LGy0nJj2brggLLzPrjDoh2c5ifh9o55rPssyXDP6hKGZrt/eQWNavvXpCPc
-	LA8AWX6ZFUACnvAy7iMrARlkqDSnQvkCpPRnHxboJ2pLcDptpQjmgfLwPutyhr/7cXvD60iJX9V5r
-	W5RjS3sxHOIBKgewbdSo39GqL4K2jVy0ll3UBMoh2JBkBBbQ99iH0mDFgGZxDrGDXzZ7JYCxb2fJk
-	5d4PsmMB3SaZzfStVrpr4Ri1LrSgEsy5NE8nFvKJagWsnDYN2t6hMExMWY0/DmmQIzWcC50hvbsI2
-	Zu8jCiTA==;
-Received: from cristiandev by nova.nubenode.com with local (Exim 4.99.5)
-	(envelope-from <me@cristiandeluxe.dev>)
-	id 1x54cG-000000004J2-3vlm;
-	Fri, 11 Sep 2026 19:00:45 +0200
-From: Cristian Deluxe <me@cristiandeluxe.dev>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] wifi: rtw88: 8703b: repair the card-disable transition
-Date: Fri, 11 Sep 2026 17:38:10 +0200
-Message-ID: <178914109042.64584.1681714272474754544@cristiandeluxe.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GSmIEdc1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 069271F000FF;
+	Fri, 11 Sep 2026 17:01:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789146062;
+	bh=oDQZag0IjV9fYXD0o3OpJmps7IVf8wxhWyOn8F3mH7I=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=GSmIEdc1JrYwocqTdJA8fOiJHUh/lok2GuPgJwWgFjnSiA01XXsJeNO93Lhv5QB8u
+	 jtTgmvrtmFtYwSrI7C1q0s7FKm/48mS7JD+fKyVE6Ob7XmXg32VyIOip34ND67TjoM
+	 MqVqfYWZKcjJAVsn0e8IUfPjrxf9IWdyD6MOYQ+mzU6n7bl7IqdvTYjVw8qMERdDdC
+	 QlZQPirvYolm2or/e3/U3pTduT7gBuVJQeAiM6KCHTZvftsbe6ApGG2iPiCJdKqZol
+	 0Z4NzxrSs+bG218tH+2nAa525CvFiB4T4GWB+aIQZjjpJYx5pl5Hk/TDyyhOroN/sM
+	 S41UMkKRHhAqA==
+Date: Fri, 11 Sep 2026 10:01:01 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Narcisa Vasile <narcisav.kernel@gmail.com>
+Cc: netdev@vger.kernel.org, daniel.zahka@gmail.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ shuah@kernel.org, horms@kernel.org, willemb@google.com, petrm@nvidia.com,
+ anubhavsinggh@google.com, richardbgobert@gmail.com,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next] selftests: drv-net: add BIG TCP test cases
+Message-ID: <20260911100101.2c34bdc5@kernel.org>
+In-Reply-To: <20260911050659.13367-1-narcisav.kernel@gmail.com>
+References: <20260911050659.13367-1-narcisav.kernel@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailer: sendmail (hand-assembled, git-email unavailable on host)
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - nova.nubenode.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [1103 978] / [47 12]
-X-AntiAbuse: Sender Address Domain - cristiandeluxe.dev
-X-Get-Message-Sender-Via: nova.nubenode.com: authenticated_id: cristiandev/from_h
-X-Authenticated-Sender: nova.nubenode.com: me@cristiandeluxe.dev
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: /root
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Two fixes to rtw8703b's power sequence tables, both found by comparing
-them against trans_*_8723d and against Realtek's own 8703b sequence
-header, and both tested on an RTL8723CS over SDIO.
+On Thu, 10 Sep 2026 22:06:59 -0700 Narcisa Vasile wrote:
+> Add four new test cases that validate coalescing
+> under increased size limits (BIG TCP):
+> 
+> big_tcp_data_same
+>   - validates that equal-sized segments coalesce past
+>    the legacy IP_MAXPACKET limit.
+> big_tcp_data_lrg_sml
+>   - validates that a smaller final segment coalesces into the
+>     previous chain of large-sized segments while crossing the
+>     IP_MAXPACKET limit.
+> big_tcp_tcp_seq
+>   - validates that a packet with a wrong sequence number doesn't
+>     coalesce. The test uses a sequence number for which the low 16 bits
+>     correspond to the correct sequence number to validate against
+>     truncation bugs, since total aggregate length crosses over the
+>     legacy size limit for BIG TCP.
+> big_tcp_large_max
+>   - validates that coalescing stops at the configured BIG TCP limit.
 
-The first is the one that matters. trans_carddis_to_cardemu_8703b has a
-single entry where its sibling has seven, so the SDIO suspend request
-and the 12H LDO sleep that trans_cardemu_to_carddis_8703b sets are never
-undone. On a board where WL_REG_ON is the host's only reset and the
-chip's rail cannot be switched, the part then comes back from every warm
-reboot with its MAC unpowered while the SDIO function still enumerates,
-and the driver waits forever for power ready. Nothing short of
-disconnecting the battery cleared it; the vendor driver recovered it
-every time, which is what pointed at the tables.
+Looks like SW is struggling to aggregate enough. Do we need longer
+timeouts perhaps? Note that the debug kernel build includes 
+kernel/configs/debug.config
 
-The second is small: the first entry of trans_act_to_lps_8703b writes to
-the PCIe DMA control on every interface, where both 8723d and Realtek's
-header restrict it to PCI.
+AI says:
 
-Tested on a Denver TAQ-102 tablet (RK3126C, RTL8723CS on SDIO) against
-7.3.0-rc2: recovers a chip left wedged by a previous boot, survives
-repeated warm reboots and loader-mode flash cycles, and 35 hours of
-continuous association across the pair.
+Thanks for adding the BIG TCP coalescing coverage to gro_sw.py. CI is
+flagging the new subtests as failing on our debug-kernel executor
+(vmksft-net-drv-dbg, gro-sw-py):
 
-Cristian Deluxe (2):
-  wifi: rtw88: 8703b: complete the card-disable to card-emulation
-    transition
-  wifi: rtw88: 8703b: stop the PCIe DMA write reaching SDIO
+  not ok gro_sw.test.ipv4_big_tcp_data_same
+  not ok gro_sw.test.ipv4_big_tcp_data_lrg_sml
+  not ok gro_sw.test.ipv4_big_tcp_tcp_seq
+  not ok gro_sw.test.ipv4_big_tcp_large_max
+  (and the ipv6 equivalents)
 
- drivers/net/wireless/realtek/rtw88/rtw8703b.c | 34 ++++++++++++++++++-
- 1 file changed, 33 insertions(+), 1 deletion(-)
+The rx side never fully coalesces the injected segments before the
+background receiver gives up and the test's retry loop (6 attempts) is
+exhausted, e.g.:
 
--- 
-2.51.0
+  Expected {68952 }, Total 1 packets
+  Received {20280 [!=68952]40560 [!=0]8112 [!=0]}, Total 3 packets.
+
