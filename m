@@ -1,160 +1,289 @@
-Received: from mail-oo2-f7.google.com (mail-oo2-f7.google.com [74.125.231.135])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E18D2F60B2
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:36:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C103D377545;
+	Fri, 11 Sep 2026 01:40:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789090592; cv=none; b=CR2OtrJhi0LM8IAW7KqhPWhnE1/jRdNDYGS21jhTdzBIf699DVN/oNdhQbosBeBZERyEQwKkBzf0eCOsWFhpv0WgidHkr/U5jdiD/4/5rsAhfGHCk0Fz/rn5hA99DVBmDOCVBnkaenlvpLFZQL+Lw6pcz3P2ru3aaDfXoszYytw=
+	t=1789090823; cv=none; b=WB7m2UCXulPGwJnkSNkK63X2XGF6Xph6BO5wX2QzG6Yinu7i13wHvlf5pmIUuUyiRVStlnEWIVw8u5c9PTFMdtII9j6M+0vEWfZYH75mJJ5rK+m3+Z2zz05FIRyri9fmu29EvvUSPVBcMc951Ant6iPyHE6uuUP5HAZUssywy6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789090592; c=relaxed/simple;
-	bh=BB7Gl15MXHCcPsnX4WqgCaOztB/VT6j6MK2ZPrqYqVc=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=T/oBy1NCt8uTvMAtTLeq+Ge1sgajW/lmQqxvgFKwKXSSr+d1qYTWL9HBBg9O6X3M2FOEYJPEhQ4qlI1TEwf64Z7sUce34F2PKnHHPsSO9qH9FeKeSmPOVZZWwDQaKEF2S00viJDQPkJgkX50bU38/8Fe6krNGveqSnUAAliQ0Dc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f7.google.com with SMTP id 006d021491bc7-6b1bebb3ae8so118072eaf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:36:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789090589; x=1789695389;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=OmIJxuqhMc+KW+/bAmiatf3OfQ3XnThy/KVMRH75/F0=;
-        b=d8mAteHVTnjf36opmVhtMt/UQDqgK9wW9hDKMw+cI6Po7BnYk023esXecbJxUrZw3l
-         vn2CKMcPAr14BlR7lp57xcJXeRnjoGqrYn12rtJP9HW7l67ph4GFydwrl1uXe3Uy8Ug7
-         mq9cTWHOnbMN08gbfaOYnW8NouAR0lzI6QdeCM/E6No7Ez5d83FPNrsLl42PsU8isoGE
-         Yd/F4fLDvjN99WR5uRwqlHmhJqpyTjJilIWKdItGNgYLMEgQBDSDUH+OOIr+9Ihf7wzE
-         8D47vuLrVHHtr5oUm5toDyD+L1pGQLulg2Ur/OMiIlV/SHu153n48R/DQEjf6ucaRetK
-         d0RQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwy+DnhKmvfKnsBMN0FtRmRagzlKKk4zb6NhKbHeqC4aGO8d3+4+VBB1gtjKG2C8e0zrG5ug08fk7rhgSQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5oL89F3a8Vvly8oFi3pQCjTTJEGL9kjUywl/clfQQ1l4f3jWH
-	vQUpeT0KEIerah9l0hZ7n967z41hOIOGE6oM/3aqS2I/ICBQ0ZMXb4VbHnof3H2pD2/rUFqHycy
-	LYQ0cXCGDmh/wukSmwsLaLUybj7N+udUAHRpq4sjaLWWj83Kqy/TJQy2OdDw=
+	s=arc-20240116; t=1789090823; c=relaxed/simple;
+	bh=XK8o20HZnPScsYW5HFw5cL31L2wiAxcOiwQrzVg1O9k=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=UEZlH+w9/NWfbVBwpR7ndJ3VXFbuBeG7z3RCnaaKNLcwUq71xrCB41ywXQaA1UboKc2r3pRn1QXN4nVtnzJWpF8ZeagSfSzDdVmFx/iqEUI1OxKlNFS6caPd8aD7t/JLzcVMS/F2O7ZA73J0vLYiyPySOhVG9E5dbVB5S3ZLHEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=jbUELQaz; arc=none smtp.client-ip=216.40.44.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="jbUELQaz"
+Received: from omf09.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay05.hostedemail.com (Postfix) with ESMTP id F1884406A9;
+	Fri, 11 Sep 2026 01:40:11 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf09.hostedemail.com (Postfix) with ESMTPA id 523CC2002E;
+	Fri, 11 Sep 2026 01:40:10 +0000 (UTC)
+Date: Thu, 10 Sep 2026 21:40:08 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: LKML <linux-kernel@vger.kernel.org>, Linux trace kernel
+ <linux-trace-kernel@vger.kernel.org>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>
+Subject: PATCH] tracing: Revert commit 5ad289336148 ("tracing: Use a single
+ array to represent tracer options files")
+Message-ID: <20260910214008.4c63211f@robin>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:7084:20b0:6be:7782:5a51 with SMTP id
- 006d021491bc7-6c0ba8280afmr1637387eaf.10.1789090589215; Thu, 10 Sep 2026
- 18:36:29 -0700 (PDT)
-Date: Thu, 10 Sep 2026 18:36:29 -0700
-In-Reply-To: <6a8cf1e8.dbb3a75c.7844.001a.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa35b1d.6e6c5f9e.28f11f.003c.GAE@google.com>
-Subject: Re: [syzbot] [mmc?] WARNING: ODEBUG bug in vub300_disconnect
-From: syzbot <syzbot+f4a0159ce6802a0a4774@syzkaller.appspotmail.com>
-To: cjb@laptop.org, dakr@kernel.org, driver-core@lists.linux.dev, 
-	gregkh@linuxfoundation.org, johan@kernel.org, lgs201920130244@gmail.com, 
-	linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, rafael@kernel.org, 
-	runyu.xiao@seu.edu.cn, syzkaller-bugs@googlegroups.com, 
-	tony.olech@elandigitalsystems.com, ulf.hansson@linaro.org, ulfh@kernel.org, 
-	yogeshgaur.83@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: fnr7jh8751wzd6qw3d8b6p1dro8qqbam
+X-Rspamd-Server: rspamout06
+X-Rspamd-Queue-Id: 523CC2002E
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1/0hPn96pu2YsJPqGxr36epwrytgW5YBAc=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=flv0aR1DpAUroExzJg/rIJqCB31rRphOiine/n+epiM=; b=jbUELQaz6YWx/2dankIahrDI/gFkUX2+2QJGFo/EyLjHARD+gRc3ri0HimHHlFfE3ak2eg4FQSZhzPPghDsQ4uQIVYTjQmE7oX3a4moRJf8BNQqs9PEHUgCQQwin2UCiw860ai6xAJfqOydwpo6ICx1/3dejtatrMdQ+Cmgq0UU=
+X-HE-Tag: 1789090810-111999
+X-HE-Meta: U2FsdGVkX18WabXQiU8+sY3/mo8urGFDvQ1MuePrlNKv1HVEPF8zc/uNb+thkyPwGtloS+0Xfe7qGoWFFKgOjUSMNBw3uVot/9PtlurSZiD1OCsFjg5GvCdm0sKvzFCcyUnalFTCsInoN8RyD5PQvqdso58xyMsjx9LZsQJK9ACHWZt9JTPyCqJ1bON/XzgImmJKSlhda0cLf0K6j9Ecj6Ux4piAx4WHoqx2EJVOijD1LanSM6UlJQFzd/54d2HtIdNaBPOgP7/nq1IChHNNHFL3VE+mptY6Y+Se/lFl5mYce5vg5AYZx/a/moLPQthb7ouqvJKl8oKtAlZ8x25YTVfcbJjmSZRoFQ9nm1kSzHxX2w6Bm5FFDLPvp2gRou+Z8TMTD6eQzxilNFfl4NnSGkZCz2+Uv46a
 
-syzbot has found a reproducer for the following issue on:
+From: Steven Rostedt <rostedt@goodmis.org>
 
-HEAD commit:    50d05c7c76c9 Merge tag 'landlock-7.3-rc3' of git://git.ker..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=142f5615580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
-dashboard link: https://syzkaller.appspot.com/bug?extid=f4a0159ce6802a0a4774
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=122f5615580000
+The commit 5ad289336148 ("tracing: Use a single array to represent tracer
+options files") simplified the array that stores the individual tracer
+options within the trace_array from being a multi array where each tracer
+had its own array for its options to a single array where all the tracers
+options were in a single array of the trace_array.
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-50d05c7c.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/303a0ade8f9e/vmlinux-50d05c7c.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/70b8ca71442b/bzImage-50d05c7c.xz
+Testing has shown why it was done with multiple arrays in the first place.
+The single array use krealloc() to increase the size of the array when new
+tracers are added. A krealloc can change the location of the array if it
+needs more memory than the current location can provide. The files
+associated with the arrays passed in the address of these elements, and
+when the array changed, the elements became stale and no longer pointed to
+the element that represented the option.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+f4a0159ce6802a0a4774@syzkaller.appspotmail.com
+Luckily, the reason this was done was also to check on open if the element
+still existed or if it was removed when an instance directory was removed.
+On opening a file with a stale element due to the array moving from a
+krealloc(), it would not find a corresponding trace_array and the open
+would return -ENODEV.
 
-------------[ cut here ]------------
-ODEBUG: free active (active state 0) object: ffff888014529270 object type: timer_list hint: vub300_inactivity_timer_expired+0x0/0x550 drivers/mmc/host/vub300.c:1447
-WARNING: lib/debugobjects.c:629 at debug_print_object+0x198/0x2b0 lib/debugobjects.c:629, CPU#1: kworker/1:4/6022
-Modules linked in:
-CPU: 1 UID: 0 PID: 6022 Comm: kworker/1:4 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: usb_hub_wq hub_event
-RIP: 0010:debug_print_object+0x1a5/0x2b0 lib/debugobjects.c:629
-Code: b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 80 3c 02 00 75 4f 48 8d 3d 88 ce 1d 0c 41 56 48 8b 14 ed 40 3e 62 8c 4c 89 e6 <67> 48 0f b9 3a 58 83 05 e2 00 13 0c 01 48 83 c4 18 5b 5d 41 5c 41
-RSP: 0000:ffffc900039d73c8 EFLAGS: 00010246
-RAX: dffffc0000000000 RBX: ffffc900039d74b0 RCX: 0000000000000000
-RDX: ffffffff8c623d80 RSI: ffffffff8c623920 RDI: ffffffff91505580
-RBP: 0000000000000003 R08: ffff888014529270 R09: ffffffff8bf31160
-R10: 0000000000000001 R11: 0000000000000000 R12: ffffffff8c623920
-R13: ffffffff8bf311a0 R14: ffffffff88c79960 R15: ffffc900039d74c8
-FS:  0000000000000000(0000) GS:ffff888096a60000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000000000361bf60 CR3: 000000004fa35000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- __debug_check_no_obj_freed lib/debugobjects.c:1171 [inline]
- debug_check_no_obj_freed+0x4da/0x630 lib/debugobjects.c:1201
- slab_free_hook mm/slub.c:2679 [inline]
- slab_free mm/slub.c:6499 [inline]
- kfree+0x3d6/0x6d0 mm/slub.c:6792
- device_release+0xd2/0x270 drivers/base/core.c:2640
- kobject_cleanup lib/kobject.c:689 [inline]
- kobject_release lib/kobject.c:720 [inline]
- kref_put include/linux/kref.h:65 [inline]
- kobject_put+0x1f7/0x640 lib/kobject.c:737
- put_device+0x1f/0x30 drivers/base/core.c:3884
- vub300_delete drivers/mmc/host/vub300.c:379 [inline]
- kref_put.constprop.0.isra.0+0x159/0x1d0 include/linux/kref.h:65
- vub300_disconnect+0x136/0x170 drivers/mmc/host/vub300.c:2388
- usb_unbind_interface+0x1dd/0x9e0 drivers/usb/core/driver.c:461
- device_remove drivers/base/dd.c:618 [inline]
- device_remove+0x12a/0x180 drivers/base/dd.c:610
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
- bus_remove_device+0x2bc/0x560 drivers/base/bus.c:664
- device_del+0x376/0x9b0 drivers/base/core.c:3965
- usb_disable_device+0x367/0x810 drivers/usb/core/message.c:1478
- usb_disconnect+0x2e2/0x9a0 drivers/usb/core/hub.c:2350
- hub_port_connect drivers/usb/core/hub.c:5420 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
- port_event drivers/usb/core/hub.c:5884 [inline]
- hub_event+0x1bb1/0x4420 drivers/usb/core/hub.c:5966
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	b8 00 00 00 00       	mov    $0x0,%eax
-   5:	00 fc                	add    %bh,%ah
-   7:	ff                   	lcall  (bad)
-   8:	df 48 89             	fisttps -0x77(%rax)
-   b:	fa                   	cli
-   c:	48 c1 ea 03          	shr    $0x3,%rdx
-  10:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1)
-  14:	75 4f                	jne    0x65
-  16:	48 8d 3d 88 ce 1d 0c 	lea    0xc1dce88(%rip),%rdi        # 0xc1dcea5
-  1d:	41 56                	push   %r14
-  1f:	48 8b 14 ed 40 3e 62 	mov    -0x739dc1c0(,%rbp,8),%rdx
-  26:	8c
-  27:	4c 89 e6             	mov    %r12,%rsi
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	58                   	pop    %rax
-  30:	83 05 e2 00 13 0c 01 	addl   $0x1,0xc1300e2(%rip)        # 0xc130119
-  37:	48 83 c4 18          	add    $0x18,%rsp
-  3b:	5b                   	pop    %rbx
-  3c:	5d                   	pop    %rbp
-  3d:	41 5c                	pop    %r12
-  3f:	41                   	rex.B
+Revert the code back to multi-array where only the outer array gets
+resized and its elements point to the allocated arrays for each tracer.
 
+Update the trace_array_trace_options_get() function to search each tracer
+array of the main array of the trace_array using a new helper function
+tr_option_match(). This preserves the logic to find an existing
+trace_array corresponding to the trace options descriptor and doesn't
+suffer from krealloc() moving the elements around.
 
+Fixes: e8ea6a874574 ("tracing: Take trace_array reference when opening a tracer options file")
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+ kernel/trace/trace.c | 63 +++++++++++++++++++++++++++++---------------
+ kernel/trace/trace.h | 22 ++++++++++------
+ 2 files changed, 56 insertions(+), 29 deletions(-)
+
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index 7cc3fac70216..e4a490d3d08c 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -7678,7 +7678,7 @@ static ssize_t
+ trace_options_read(struct file *filp, char __user *ubuf, size_t cnt,
+ 			loff_t *ppos)
+ {
+-	struct trace_options *topt = filp->private_data;
++	struct trace_option_dentry *topt = filp->private_data;
+ 	char *buf;
+ 
+ 	if (topt->flags->val & topt->opt->bit)
+@@ -7693,7 +7693,7 @@ static ssize_t
+ trace_options_write(struct file *filp, const char __user *ubuf, size_t cnt,
+ 			 loff_t *ppos)
+ {
+-	struct trace_options *topt = filp->private_data;
++	struct trace_option_dentry *topt = filp->private_data;
+ 	unsigned long val;
+ 	int ret;
+ 
+@@ -7717,6 +7717,18 @@ trace_options_write(struct file *filp, const char __user *ubuf, size_t cnt,
+ 	return cnt;
+ }
+ 
++static bool tr_option_match(struct trace_array *tr, void *topt)
++{
++	for (int i = 0; i < tr->nr_topts; i++) {
++		struct trace_options *tr_topts = &tr->topts[i];
++
++		if (topt >= (void *)&tr_topts->topts[0] &&
++		    topt < (void *)&tr_topts->topts[tr_topts->nr_topts])
++			return true;
++	}
++	return false;
++}
++
+ /*
+  * The topt is the address of a trace_array->topts[] element that holds the
+  * the tracer options descriptor. But since the trace_array reference has not
+@@ -7742,8 +7754,7 @@ static int trace_array_tracer_options_get(void *topt)
+ 
+ 	guard(mutex)(&trace_types_lock);
+ 	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
+-		if (topt >= (void *)&tr->topts[0] &&
+-		    topt < (void *)&tr->topts[tr->nr_topts])
++		if (tr_option_match(tr, topt))
+ 			return __trace_array_get(tr);
+ 	}
+ 	return -ENODEV;
+@@ -7751,7 +7762,7 @@ static int trace_array_tracer_options_get(void *topt)
+ 
+ static int tracing_open_options(struct inode *inode, struct file *filp)
+ {
+-	struct trace_options *topt = inode->i_private;
++	struct trace_option_dentry *topt = inode->i_private;
+ 	int ret;
+ 
+ 	ret = trace_array_tracer_options_get(topt);
+@@ -7764,7 +7775,7 @@ static int tracing_open_options(struct inode *inode, struct file *filp)
+ 
+ static int tracing_release_options(struct inode *inode, struct file *file)
+ {
+-	struct trace_options *topt = file->private_data;
++	struct trace_option_dentry *topt = file->private_data;
+ 
+ 	trace_array_put(topt->tr);
+ 	return 0;
+@@ -7967,9 +7978,8 @@ static struct dentry *trace_options_init_dentry(struct trace_array *tr)
+ 
+ static void
+ create_trace_option_file(struct trace_array *tr,
+-			 struct trace_options *topt,
++			 struct trace_option_dentry *topt,
+ 			 struct tracer_flags *flags,
+-			 struct tracer *tracer,
+ 			 struct tracer_opt *opt)
+ {
+ 	struct dentry *t_options;
+@@ -7981,7 +7991,6 @@ create_trace_option_file(struct trace_array *tr,
+ 	topt->flags = flags;
+ 	topt->opt = opt;
+ 	topt->tr = tr;
+-	topt->tracer = tracer;
+ 
+ 	topt->entry = trace_create_file(opt->name, TRACE_MODE_WRITE,
+ 					t_options, topt, &trace_options_fops);
+@@ -7991,9 +8000,10 @@ static int
+ create_trace_option_files(struct trace_array *tr, struct tracer *tracer,
+ 			  struct tracer_flags *flags)
+ {
+-	struct trace_options *topts;
++	struct trace_option_dentry *topts;
++	struct trace_options *tr_topts;
+ 	struct tracer_opt *opts;
+-	int i, cnt;
++	int cnt;
+ 
+ 	if (!flags || !flags->opts)
+ 		return 0;
+@@ -8003,22 +8013,30 @@ create_trace_option_files(struct trace_array *tr, struct tracer *tracer,
+ 	for (cnt = 0; opts[cnt].name; cnt++)
+ 		;
+ 
+-	topts = krealloc_array(tr->topts, tr->nr_topts + cnt, sizeof(*tr->topts),
+-				  GFP_KERNEL);
++	topts = kzalloc_objs(*topts, cnt + 1);
+ 	if (!topts)
++		return 0;
++
++	tr_topts = krealloc_array(tr->topts, tr->nr_topts + 1, sizeof(*tr->topts),
++				  GFP_KERNEL);
++	if (!tr_topts) {
++		kfree(topts);
+ 		return -ENOMEM;
++	}
+ 
+-	tr->topts = topts;
++	tr->topts = tr_topts;
++	tr->topts[tr->nr_topts].tracer = tracer;
++	tr->topts[tr->nr_topts].topts = topts;
++	tr->topts[tr->nr_topts].nr_topts = cnt;
++	tr->nr_topts++;
+ 
+-	for (topts += tr->nr_topts, i = 0; i < cnt; topts++, i++) {
+-		create_trace_option_file(tr, topts, flags, tracer,
+-					 &opts[i]);
+-		MEM_FAIL(topts->entry == NULL,
++	for (cnt = 0; opts[cnt].name; cnt++) {
++		create_trace_option_file(tr, &topts[cnt], flags,
++					 &opts[cnt]);
++		MEM_FAIL(topts[cnt].entry == NULL,
+ 			  "Failed to create trace option: %s",
+-			  opts[i].name);
++			  opts[cnt].name);
+ 	}
+-
+-	tr->nr_topts += cnt;
+ 	return 0;
+ }
+ 
+@@ -8880,6 +8898,9 @@ static int __remove_instance(struct trace_array *tr)
+ 	if (tr->flags & TRACE_ARRAY_FL_VMALLOC)
+ 		vfree((void *)tr->range_addr_start);
+ 
++	for (i = 0; i < tr->nr_topts; i++) {
++		kfree(tr->topts[i].topts);
++	}
+ 	kfree(tr->topts);
+ 
+ 	free_cpumask_var(tr->pipe_cpumask);
+diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
+index fd0919a2c375..bd3c8f80300f 100644
+--- a/kernel/trace/trace.h
++++ b/kernel/trace/trace.h
+@@ -224,6 +224,12 @@ struct array_buffer {
+ 
+ #define TRACE_FLAGS_MAX_SIZE		64
+ 
++struct trace_options {
++	struct tracer			*tracer;
++	struct trace_option_dentry	*topts;
++	int				nr_topts;
++};
++
+ struct trace_pid_list *trace_pid_list_alloc(void);
+ void trace_pid_list_free(struct trace_pid_list *pid_list);
+ bool trace_pid_list_is_set(struct trace_pid_list *pid_list, unsigned int pid);
+@@ -320,14 +326,6 @@ struct trace_module_delta {
+ 	long		delta[];
+ };
+ 
+-struct trace_options {
+-	struct tracer_opt		*opt;
+-	struct tracer_flags		*flags;
+-	struct trace_array		*tr;
+-	struct tracer			*tracer;
+-	struct dentry			*entry;
+-};
+-
+ /*
+  * The trace array - an array of per-CPU trace arrays. This is the
+  * highest level data structure that individual tracers deal with.
+@@ -608,6 +606,14 @@ struct tracer_flags {
+ /* Makes more easy to define a tracer opt */
+ #define TRACER_OPT(s, b)	.name = #s, .bit = b
+ 
++
++struct trace_option_dentry {
++	struct tracer_opt		*opt;
++	struct tracer_flags		*flags;
++	struct trace_array		*tr;
++	struct dentry			*entry;
++};
++
+ /**
+  * struct tracer - a specific tracer and its callbacks to interact with tracefs
+  * @name: the name chosen to select it on the available_tracers file
+-- 
+2.53.0
+
