@@ -1,85 +1,145 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D106237A85A
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:02:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD002373C00
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:03:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789142541; cv=none; b=aLWLbomy4zqRldqMn7zEJX+jmPekwa8HpXOujIG5Hha27/vdjNPkylKEwNHUGSBxLr96LTFkLuOkAhBzJIRFr9FdPotlgvMjqHLC133VI4To3rnZPSXtAxT6NjNc/2wlCGUJyqJBORPrPaeKAWvBT+PdsSYWZ10+YTAkQGE/Gvo=
+	t=1789142586; cv=none; b=r2y3Z7p+FmsHS/jUYT82g0UXm5qpHo/guZxKwcufnp8Z6gUSjzpEw2tcigNImCmw9K5FUI0pITCILBWax8vA/HSBu0OkwWFYgLlBsxBbpBU0uhHAWQic5uD1Cg2HmbZ5cqJgi7qXsMbONqs/n/CWtynqjRl63E3UCB3b/0ejQaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789142541; c=relaxed/simple;
-	bh=aDDdC+cvRiioQIXkG9rt+YGQ3de5uvCoZwkZvLzlzAw=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=TbGFKmHcP/FmT8b+6HphsDZnHKw12MVinBUZX+8DEAOlSH4bbhfTTLJnCvvPG24nU4rC58XQXFfKywA1KlZ9zG4SwxA8r8720+7xhcS3YUAaC0HU3fCHUHGWDXaqDTrVHUfPXIJ7LdncKQhiHDMfYN5L+Y/Cz6xBoWT+uZgGtk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=B3OnQmCa; arc=none smtp.client-ip=209.85.215.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1789142586; c=relaxed/simple;
+	bh=gygY9DC5JBfwtE4QV/GX6r0b1p+ykvOCLmqIMFj6Kfc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Y+cGWgZaM4+g2QlwIe5gBvO7zr9ncWovuDL0ss8aSgQrYuU1vqHvJAlwGBEXU0KjOFQjSRfPJht0QVDU6l3O0xM5N/ZPf0SJh1OpxRtFg3H8XKPirpdi6WdklmU/0ZoQrUKhA7w0/zFlXJeXxDKDYTAI0bAxffe2zXJVzWmdisM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c8fecOp/; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="B3OnQmCa"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc132709c76so1401935a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:02:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c8fecOp/"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-499de29beb7so58855e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:03:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789142539; x=1789747339; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vFlXnLD2eQw4jhC6UVTuIxWvif6y/Uyvo4hyizq+aXw=;
-        b=B3OnQmCaTx0edTMD5jNV6idrVVB1dLOo/6231hCNwb8tDdGBmcb+TtPJL/ApGAi71K
-         lvihGFjHrtOXivnkfed9l3f8f2MWwVSsMboFVdB7IFzHQQHhIjmOOFyNDSOW55qothPI
-         D96GhJMZopcYsVn80JwFp3XVEJdZEjYByfSbPR+ehS98+SqiMOVJgRmIqLbv7cpzCJvx
-         87avZo2v2GvQS5/8z2XsIr+XrMimCzm1BoDrbkLVdvpmoVhF9SZFcIZD2xHcq3S8uWn2
-         VlLa4lmFk3YuLKYB4Oo0VTeii/IPYJjOhUfgRQXKHwLcW4KQ8rCm+CX3mFab89b3j2nv
-         NoPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789142539; x=1789747339;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789142583; x=1789747383; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vFlXnLD2eQw4jhC6UVTuIxWvif6y/Uyvo4hyizq+aXw=;
-        b=Tt/07r3Yz62XqC+h9RBQvJwq/gEtwLfr4gqs3uUk/9HVrsTumkcgfT0MU5PCRKkfSy
-         M4xk8vPR6FU2M+I4HV+wUiu0tNa4OetcrMhqL5whBiS4+iWl6aK53/KNeLnA3EI/kEnl
-         UgOM+hI0hwza+E/5C315QVSAYYDlLAeUHSq4SpFvJCwAqlZFhJzoylBpIxynw76ktcNW
-         BKUf2A3qLmqBIQ68yZ9o4lAKLUmdf0qnoKWLst/r9oMmxtDez5pFCJYtoGhxbGNbJFFC
-         IfnNkakyq67fSQJTovN14Majxq/gvqEA3LFSsFKSZ+bqKkgNQTTkdT817SrAZYIv5vOH
-         Ab0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxf4pXu0iJYeliC553RopJtPL6WefN0XxIam22JduTfjEZxpCqqyQarS+LWP3e8lcd5BxLrsI8I1E38XGw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nFgSCs1p7kQj4t6elx1ZO6UisxxKLYY+X5RvGO9vIRklGwIzeI
-	IVQ8Ynw38UGc6YAXGT0/sStXdsrSV01xE7dQRMwE5est1Eqk/nZcZwz2m2NnEAQC3FC/V73jx04
-	1QG5rNw==
-X-Received: from pfbdh4.prod.google.com ([2002:a05:6a00:4784:b0:848:5395:9a78])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:72a0:b0:3d0:88f5:f806
- with SMTP id adf61e73a8af0-3daed31ad0cmr8472051637.15.1789142538925; Fri, 11
- Sep 2026 09:02:18 -0700 (PDT)
-Date: Fri, 11 Sep 2026 09:02:18 -0700
-In-Reply-To: <20260904052033.3648259-1-nagachaithanya9911@gmail.com>
+        bh=4M+ZeF4U0zMvkqJbgzYCvvmJpt5vuj89qbR2+8SZdM8=;
+        b=c8fecOp/ORhsZWU7bjjPdFho4fyLlb4jyrKcwdN3pjxUIcB2gzI95CTkWaldlVEWr2
+         MRHGs2HQTchciWPDILizX8K/l1WP8iJNNMDAc0VPgTvUredEI/O8nEWuBGTLBhgyK2eg
+         4UnlMO2KW9ZjjyO+dWwyW43fc6nNfYZU9xhmMIqbCGEEAsy/6gpk/G3dY1Ympdt538og
+         dDKxpAW33XOmpS/aBYtR5zmJvcVkqLVLrWdibzrf48isakJN7ZzY9w5Cap2dDdSwInox
+         lljipfJgrLz8wa3YegaLwZ0ThzquH0gJIQlsmo9BWlkO4j/zC/ilyyTp2AgGblCox01h
+         GqDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789142583; x=1789747383;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4M+ZeF4U0zMvkqJbgzYCvvmJpt5vuj89qbR2+8SZdM8=;
+        b=HqVGXl/necOOfw1f4zBKInFY94ChIV0PcQsCf8gOTlMDpJbT/ejygd4aFBL8jM/nbz
+         2zC6r6kgmrCL5YtBSq70Oko60GG9A3UrxwscxWUSCLSTgK2TuqlH4BQXCeSeAXTsluAV
+         x/xNsaF3+KQBZZ7Ooiryqxmp0iZ3Sng6/R9yRq/gWBChyQVyspPdC4z5n5A3NFdQmoyp
+         MocF6atHItsmFeEaStRPctP6Y1PNRodH5Ct9PGLG9bJXUzg1WWlBvNcqlQbXHrOXBCWE
+         oyZSldEX77YJvpFidY70ez6Tdy0szOJmcC0CMFwSAvUCq9gik0PR4MXw8KLYnDmdnNxV
+         WbAg==
+X-Forwarded-Encrypted: i=1; AKwUvBw01fWKEUzrvfmXln2IgjorvsqYwVaSnWdHygpkn0Gs73gzmhtl4DIlfAdCT6s/TlSvED/d4ubYyn4hb6E=@vger.kernel.org
+X-Gm-Message-State: AFuF++kJGKSiOeuA1KoNuU+N+R/OELZbTJE5hhtQdRc0G6rYTTVaw1v4
+	8sJWi586F7Mvp6IXz+O+6yAyPVknsgGBcQ0IH4g5yr6E8vpYQUBj3Fl/X3fzSLov
+X-Gm-Gg: AYBFou0PfegPGVrzKS9SkOw4kAPmHwwZKfb2irdHL/crBm7rEqcSiAejK78DnL/0pJD
+	sluHd5KUMEZeHUAAsmhDAhxzYr5GC+iI9Bl4kM1yLDtLs+MkpXVGISBRVID6fL9YAqNzr/m8CRW
+	3hbxIDhCPmG/Y2VoYgN78fH8bXu2SbmATf2GTlZhYOAEM2SeM7DWH0P82nj0W5HnH0GKJqZtPmU
+	yQ8F3WYopS6zclEv+BHuJaaIUH3qWIPGhOpd/GVb1xHol8OLbsJgVXAoa/JVCj6dCI8EIIFEDS3
+	wmFsSbRJ9LqB2vHPo1r8ec3ZjvukfJujHKc2HcSvsO3etXnVFVHj5B7RqmPIJj1ywHuaO5pq886
+	8RhGrmB5CNAfsa7PxdpUfp6ZeLamylzB8jo8olSc4ce1Sucx6sqHQPljSvkiggxZzOxUlxqj5tq
+	Gui/O6wv3ydIeCfoj5Fc9wiGXCF5UOuw79Ke+JlqGmygAaSN4iI4QrIMA7foY/hpjkbT3rEvgu4
+	eKQDHq3x+mA3wCp21cA1A==
+X-Received: by 2002:a05:600c:64c6:b0:49e:479b:c13b with SMTP id 5b1f17b1804b1-49e619de4b7mr51620105e9.1.1789142582687;
+        Fri, 11 Sep 2026 09:03:02 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32e81asm7208066f8f.7.2026.09.11.09.03.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 09:03:02 -0700 (PDT)
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: peterz@infradead.org,
+	Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: kayracizmeci@gmail.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] sched/fair: remove dead code on enqueue_task_fair()
+Date: Fri, 11 Sep 2026 19:02:52 +0300
+Message-ID: <20260911160253.1249960-1-kayracizmeci@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260911124256.GZ776954@noisy.programming.kicks-ass.net>
+References: <20260911124256.GZ776954@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260904052033.3648259-1-nagachaithanya9911@gmail.com>
-Message-ID: <aqQmCtPf_5M-BjRW@google.com>
-Subject: Re: [PATCH] selftests: kvm: Fix transposed calloc() arguments in the
- uffd helper
-From: Sean Christopherson <seanjc@google.com>
-To: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
-Cc: pbonzini@redhat.com, shuah@kernel.org, kvm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 04, 2026, Chaithanya Lagisetty wrote:
-> uffd_setup_demand_paging() passes the element size as the first argument
-> to calloc() and the element count as the second:
-> 
-> 	uffd_desc->pipefds = calloc(sizeof(int), num_readers);
-> 
-> calloc() expects the number of elements first and the size of each element
-> second. The product, and therefore the allocation size, is the same either
-> way, so this is not a functional change, but the arguments are misleading
-> and GCC 14 diagnoses them with -Wcalloc-transposed-args, which is enabled
-> by -Wextra.
+cfs_rq->curr == se path on enqueue_task_fair() seems to be unachievable.
 
-Heh, the calloc() implementation provided by tools/include/nolibc/stdlib.h gets
-this wrong.  But KVM selftests don't use nolibc, i.e. that's someone else's problem
-to deal with.
+Remove the code that depends on this cfs_rq->curr == se case on
+enqueue_task_fair() and bool curr too since there are two possibilities
+and one has been removed, we can proceed directly with the other.
+
+Signed-off-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+---
+Ah.. 
+
+I forgot to add v3. Sorry of the other one.
+
+ kernel/sched/fair.c | 16 +++-------------
+ 1 file changed, 3 insertions(+), 13 deletions(-)
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index ade1eceb39b8..440e4fdebe2f 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -7985,7 +7985,6 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
+ 	struct sched_entity *se = &p->se;
+ 	struct cfs_rq *cfs_rq = &rq->cfs;
+ 	unsigned long weight;
+-	bool curr;
+ 
+ 	if (task_is_throttled(p) && enqueue_throttled_task(p))
+ 		return;
+@@ -8014,23 +8013,14 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
+ 	if (p->in_iowait)
+ 		cpufreq_update_util(rq, SCHED_CPUFREQ_IOWAIT);
+ 
+-	/*
+-	 * XXX comment on the curr thing
+-	 */
+-	curr = (cfs_rq->curr == se);
+-	if (curr)
+-		place_entity(cfs_rq, se, flags);
+ 
+ 	if (se->on_rq && se->sched_delayed)
+ 		requeue_delayed_entity(cfs_rq, se);
+ 
+ 	weight = enqueue_hierarchy(p, flags);
+-
+-	if (!curr) {
+-		reweight_eevdf(cfs_rq, se, weight, false);
+-		place_entity(cfs_rq, se, flags | ENQUEUE_QUEUED);
+-		__enqueue_entity(cfs_rq, se);
+-	}
++	reweight_eevdf(cfs_rq, se, weight, false);
++	place_entity(cfs_rq, se, flags | ENQUEUE_QUEUED);
++	__enqueue_entity(cfs_rq, se);
+ 
+ 	if (!rq_h_nr_queued && rq->cfs.h_nr_queued)
+ 		dl_server_start(&rq->fair_server);
+-- 
+2.53.0
+
