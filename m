@@ -1,53 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91FE048F84F;
-	Fri, 11 Sep 2026 15:44:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2F8542E421;
+	Fri, 11 Sep 2026 15:44:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789141471; cv=none; b=MwHGk/Lg1cNo+nuuH7UWZuAdHG+5L924cNWB8qr1GYnDx6CRHSr0HJEjn2wjiFMF+egRXZu7GWaFzx33UMwjN+N2qZRg7SNfEHlkR6uKMY53ipDZcnaAkNC0C4aTQpsiRVGFcYh4ohzCpxMhBAnbZwZzL4prxSXuIR9vyUE2X8Q=
+	t=1789141478; cv=none; b=m/wWoOYiXqVbJMi0X+yt9jjEZtz/1FFmlfxV6FsHJndEKeePRrq/2qB1WxhCefPSHgnwoLOoXULPndNltrssaT6P0FI24HPYJOVYcKv7OENn4yT4J++Wwj9mXoKot3dsIya7WJ+aX/3g1eGyjeGP0y07v2C3+w9gwF+x0tHj1HE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789141471; c=relaxed/simple;
-	bh=YBrLuGD7ByRGIeP3Inf6j+uxYxUO9BpxRTDxfwAjpX4=;
+	s=arc-20240116; t=1789141478; c=relaxed/simple;
+	bh=dIrbDnzgyXhHod8pRVMH4sZvy6JWr/7Wtzlgh1Obah8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=loP+7/1bSJUaNunO3UIVR8yNmocX+pL69KnJsT9EXriWZ5hXsqZWO4E4PWdUr+/FFoA/4C0hP/NQ7+mq5Lvr0CyKwVkQNZeYZsiApG2mQn/bsYFDHzPSdxj2SQ10QVPknso8KFJb3Eh+gBAMgSztrYSu7mMpV/NiKgY1zHpHagM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dxm0z51C; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=JvusU2PUaP4uVuK8gIz7VNP1z+l2KR96Os/qLcsMvAva8RrE2x+3G/Xlhod3m4nlqmNx6pWshjZLVavfu3SeGGsb2KOoZsiNttZ3ewTMLnMk6wxf87hZkFf2lFsIlHaNUTRqtADYdO/v+bUGDT4XTcFODCohVQdeUAyWNDdexW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lmee9QMr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dxm0z51C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12D6F1F000FF;
-	Fri, 11 Sep 2026 15:44:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lmee9QMr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7064F1F000FF;
+	Fri, 11 Sep 2026 15:44:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789141467;
-	bh=cL+TWIh8McU1el0I5QKVmS3YEVxoYM3L1I89qeoIYbQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dxm0z51CRwUX8kBrMIAg+NJKOu6WsCMVN2UF19UryrBXBBaqjofY81m1lG1Y0wu17
-	 w/T3p3/Wm5i3eHOL1frCXdHpeZvTcoB/qrTaz6ubhviGxKUt+6XuR24heedgWPukvP
-	 dSqs2GzV3Dgv1uCH0SjK7ebL7LngGIO24hRupNFrza5rQ05pxETL+Aj2Y3DXfl/XkX
-	 /k42ZhyMvtGGuQuMvadlyLHeZMYTqbmjrsdIsHbeU4J3oT638lIf4qyXOjdnWendq4
-	 T05sJioV6cR3GOzoOurkf0F0U3xUSL9v8+6TC4EKfOGuIyDmp+uefhMYpFuZmVt85n
-	 R8f/ybKIPLVrg==
-Date: Fri, 11 Sep 2026 16:44:19 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Wei-Lin Chang <weilin.chang@arm.com>
-Cc: Itaru Kitayama <itaru.kitayama@fujitsu.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, 
-	Oliver Upton <oupton@kernel.org>, Fuad Tabba <tabba@google.com>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Jonathan Corbet <corbet@lwn.net>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Jack Thomson <jackabt@amazon.com>, Jack Thomson <jackabt.amazon@gmail.com>, 
-	Alexandru Elisei <alexandru.elisei@arm.com>, Vincent Donnefort <vdonnefort@google.com>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Sean Christopherson <seanjc@google.com>, 
-	Claudio Imbrenda <imbrenda@linux.ibm.com>, Leo Soares Passos <Leo.Bras@arm.com>
-Subject: Re: [PATCH 8/8] KVM: selftests: Add nested pre-fault test for arm64
-Message-ID: <aqQY5iKMgh23Hi7p@gremlin>
-References: <20260825-kvm-arm-prefault-v1-0-befe8947702e@kernel.org>
- <20260825-kvm-arm-prefault-v1-8-befe8947702e@kernel.org>
- <aqOgEQKBGH-YqGr3@sm-arm-grace07>
- <aqPIUtNTJFwUvJME@gremlin>
- <g45xmukndzivuxowpjxlajrjzx2ljevliroenbx4h4wgrnpoi6@eozuucl3usi3>
+	s=k20260515; t=1789141476;
+	bh=1B/r3anMNhgtOBMW1KxIb2EhbjZvlBVjZ1VTOFwKWAk=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=Lmee9QMr5Ft/bSPcW2z86IcfA3NUku51rdmD53b9lmn32AkaJhEqeI+M9G4E6zwrG
+	 UUdSwmk35IVrniaEEiz5eob74j7ZBka+Ccj6oYkwyTGbPbixBdWoSodUgaDM927AN1
+	 iXYKtvnAhMTKFbx1I/SiM2PKx5zlFDdkIpUr11lIlZVuyqRsGZAYgmx6ahW2mU5Sup
+	 3m+ry/Ozu/2QpSHF/54DrLpe3KTnsvUZi+R4P08z/USqsCTVJLXFhfx0EU84BZnrAM
+	 qMqVd6AuHfRejiNAKjTaRrAFLDWWvuObwzjbYlEYjJLhOLWOs66MlPIWVS/RiJ0O/v
+	 bz8F4LEHI9Csg==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 3AD70CE1902; Fri, 11 Sep 2026 08:44:36 -0700 (PDT)
+Date: Fri, 11 Sep 2026 08:44:36 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Matthias Goergens <matthias.goergens@gmail.com>
+Cc: urezki@gmail.com, harry@kernel.org, frederic@kernel.org,
+	neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com,
+	josh@joshtriplett.org, boqun@kernel.org, rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev, corbet@lwn.net, skhan@linuxfoundation.org,
+	rdunlap@infradead.org, surenb@google.com, vbabka@kernel.org,
+	rcu@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/1] rcu: make userspace barrier hook drain kvfree_rcu
+ work
+Message-ID: <7050515d-eadf-4050-9c54-7a202d552b88@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <6092a9d0-0125-4da4-ac48-85ccaeb83beb@paulmck-laptop>
+ <20260911034059.3569914-1-matthias.goergens@gmail.com>
+ <20260911034059.3569914-2-matthias.goergens@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,214 +54,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <g45xmukndzivuxowpjxlajrjzx2ljevliroenbx4h4wgrnpoi6@eozuucl3usi3>
+In-Reply-To: <20260911034059.3569914-2-matthias.goergens@gmail.com>
 
-On Fri, Sep 11, 2026 at 01:42:57PM +0100, Wei-Lin Chang wrote:
-> On Fri, Sep 11, 2026 at 10:32:17AM +0100, Lorenzo Stoakes (ARM) wrote:
-> > +cc Wei-Lin
-> >
-> > On Fri, Sep 11, 2026 at 03:30:41PM +0900, Itaru Kitayama wrote:
-> > > Hi Lorenzo,
-> > >
-> > > On Tue, Aug 25, 2026 at 05:00:42PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > > > From: Jack Thomson <jackabt@amazon.com>
-> > > >
-> > > > Add an arm64 nested-virt selftest for KVM_PRE_FAULT_MEMORY. The guest
-> > > > enters vEL1 and exits to userspace with a nested/shadow stage-2 MMU as
-> > > > the vCPU's last-run context.
-> > > >
-> > > > Before prefaulting, userspace enables HCR_EL2.VM and points VTTBR_EL2 at
-> > > > an empty nested stage-2 root. A prefault implementation that incorrectly
-> > > > treats the userspace GPA as an L2 IPA will fail the ioctl; the correct
-> > > > path targets the canonical stage-2 and succeeds.
-> > > >
-> > > > Restore the original nested state before resuming the guest, then touch
-> > > > the prefaulted range to check that vEL1 still runs correctly.
-> > > >
-> > > > Signed-off-by: Jack Thomson <jackabt@amazon.com>
-> > > > [ljs: partial progress, >4 KiB pgsize, commit msg, comment fixups]
-> > > > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > > > ---
-> > > >  tools/testing/selftests/kvm/Makefile.kvm           |   1 +
-> > > >  .../selftests/kvm/arm64/nv_pre_fault_memory_test.c | 206 +++++++++++++++++++++
-> > > >  2 files changed, 207 insertions(+)
-> > >
-> > > I wonder whether this selftest can use functions Wei-Lin proposed
-> > > some time ago [1]: 20260325003620.2214766-1-weilin.chang@arm.com
-> > > or would you prefer this test as propose, since it is clear as
-> > > to what needs to be done to enter L2.
-> >
-> > I think if these aren't merged yet then that could be a follow up?
->
-> This selftest doesn't require setting up L1's stage-2 for L2, so to me
-> the current approach is okay.
+On Fri, Sep 11, 2026 at 11:40:59AM +0800, Matthias Goergens wrote:
+> The bcachefs ktest allocation-leak check writes rcutree.do_rcu_barrier
+> before reading /proc/allocinfo. While testing bcachefs performance
+> changes, small objects released with kfree_rcu() remained visible after
+> repeated writes to the hook and 20 seconds of waiting, causing otherwise
+> clean tests to fail their leak check.
+> 
+> The test assumes a stronger contract than the hook currently documents:
+> rcu_barrier() waits for ordinary callbacks, but does not flush objects
+> still held in kfree_rcu() batching or per-CPU SLUB sheaves. The retained
+> population eventually fell as a sheaf filled; there is no evidence here
+> of unbounded growth or OOM.
+> 
+> Changing the hook to drain kvfree_rcu() work let the same unmodified
+> bcachefs workload pass its allocation check. All eight checkpoints in
+> one VM, after 50 through 400 option changes, reported zero retained
+> reconcile_scan objects. This motivated the separate private-cache test
+> used to isolate the incomplete drain from bcachefs.
+> 
+> Calling kvfree_rcu_barrier() from rcu_barrier_throttled() was proposed
+> when kvfree_rcu_barrier() was added in 2024, to restore a clean baseline
+> between userspace benchmark runs. The discussion concluded that keeping
+> the existing hook name, adding the second operation and documenting both
+> was the safest compatibility choice, but the follow-up was not added.
+> 
+> Add that drain and document the stronger test interface. Always retain
+> the existing start-rate limit and perform the kvfree_rcu() drain: an
+> unrelated ordinary barrier does not establish that this work completed.
+> 
+> Retain the entry ordinary-barrier sequence snapshot. After draining,
+> skip the final ordinary barrier only if that snapshot is complete,
+> preserving the memory barrier on the completion path. Otherwise, invoke
+> rcu_barrier() explicitly. This keeps the ordinary-callback guarantee
+> independent of whether kvfree_rcu_barrier() embeds an ordinary barrier.
+> 
+> Clarify that the documented completion guarantee covers work queued
+> before the request, without preventing new work from being queued.
+> 
+> Earlier validation of the unconditional-drain version used four fresh
+> VM pairs with a private-cache fixture: controls retained the queued
+> object (60 to 60 active objects), and treatments drained it (60 to 59).
+> An ordinary-callback test passed on both kernels. Those runs predated
+> the guarded skip and do not validate that change. No elapsed-time
+> improvement is claimed.
+> 
+> Link: https://lore.kernel.org/all/20240820155935.1167988-1-urezki@gmail.com/
+> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
 
+Queued for further review and testing, thank you!
 
+							Thanx, Paul
 
->
-> [...]
->
-> > > > +static void guest_code(void)
-> > > > +{
-> > > > +	u64 sp;
-> > > > +
-> > > > +	GUEST_ASSERT_EQ(get_current_el(), 2);
-> > > > +
-> > > > +	/*
-> > > > +	 * Mirror the EL2 translation regime into the real EL1 registers so
-> > > > +	 * that vEL1 runs on the test's stage-1 page tables. With E2H=1, the
-> > > > +	 * _EL1 accessors read the EL2 registers, and the _EL12 accessors
-> > > > +	 * write the real EL1 registers.
-> > > > +	 */
-> > > > +	write_sysreg_s(read_sysreg(sctlr_el1), SYS_SCTLR_EL12);
-> > > > +	write_sysreg_s(read_sysreg(tcr_el1), SYS_TCR_EL12);
-> > > > +	write_sysreg_s(read_sysreg(ttbr0_el1), SYS_TTBR0_EL12);
-> > > > +	write_sysreg_s(read_sysreg(mair_el1), SYS_MAIR_EL12);
-> > > > +	write_sysreg_s(read_sysreg(cpacr_el1), SYS_CPACR_EL12);
->
-> Just FYI, the at.c selftest uses a macro for these.
-
-Ack will check and see if I can use same approach here.
-
->
-> > > > +
-> > > > +	/* Run vEL1 on the same stack. */
-> > > > +	asm volatile("mov %0, sp" : "=r"(sp));
-> > > > +	write_sysreg(sp, sp_el1);
-> > > > +
-> > > > +	/*
-> > > > +	 * Drop TGE so that vEL1 is a nested context rather than host EL0.
-> > > > +	 * KVM backs it with a shadow stage-2 MMU even though vstage-2 is
-> > > > +	 * disabled (HCR_EL2.VM=0).
-> > > > +	 */
-> > > > +	write_sysreg(read_sysreg(hcr_el2) & ~HCR_EL2_TGE, hcr_el2);
-> > > > +	isb();
-> > > > +
-> > > > +	write_sysreg(PSR_MODE_EL1h | PSR_F_BIT | PSR_I_BIT | PSR_A_BIT |
-> > > > +		     PSR_D_BIT, spsr_el2);
-> > > > +	write_sysreg((u64)guest_el1_code, elr_el2);
-> > > > +	asm volatile("eret");
-> > > > +
-> > > > +	GUEST_ASSERT(false);
-> > > > +}
-> > > > +
->
-> [...]
->
-> > > > +
-> > > > +static struct nested_s2_state enable_empty_nested_s2(struct kvm_vcpu *vcpu)
-> > > > +{
-> > > > +	struct nested_s2_state state = {
-> > > > +		.hcr_el2 = vcpu_get_reg(vcpu, KVM_ARM64_SYS_REG(SYS_HCR_EL2)),
-> > > > +		.vttbr_el2 = vcpu_get_reg(vcpu,
-> > > > +					   KVM_ARM64_SYS_REG(SYS_VTTBR_EL2)),
-> > > > +	};
-> > > > +
-> > > > +	TEST_ASSERT(!(state.hcr_el2 & HCR_EL2_TGE),
-> > > > +		    "vCPU should be in nested/vEL1 context");
-> > > > +
-> > > > +	vcpu_set_reg(vcpu, KVM_ARM64_SYS_REG(SYS_VTTBR_EL2),
-> > > > +		     NESTED_S2_ROOT_GPA);
-> > > > +	vcpu_set_reg(vcpu, KVM_ARM64_SYS_REG(SYS_HCR_EL2),
-> > > > +		     state.hcr_el2 | HCR_EL2_VM);
-> > > > +
-> > > > +	return state;
-> > > > +}
-> > > > +
-> > > > +static void restore_nested_s2(struct kvm_vcpu *vcpu,
-> > > > +			      struct nested_s2_state *state)
-> > > > +{
-> > > > +	vcpu_set_reg(vcpu, KVM_ARM64_SYS_REG(SYS_HCR_EL2), state->hcr_el2);
-> > > > +	vcpu_set_reg(vcpu, KVM_ARM64_SYS_REG(SYS_VTTBR_EL2),
-> > > > +		     state->vttbr_el2);
-> > > > +}
-> > > > +
-> > > > +int main(void)
-> > > > +{
-> > > > +	struct nested_s2_state s2;
-> > > > +	struct kvm_vcpu_init init;
-> > > > +	struct kvm_vcpu *vcpu;
-> > > > +	struct kvm_vm *vm;
-> > > > +	struct ucall uc;
-> > > > +	u64 npages;
-> > > > +
->
-> [...]
->
-> > > > +
-> > > > +	/*
-> > > > +	 * The vCPU's last-run context is vEL1, backed by a shadow stage-2
-> > > > +	 * MMU. Enable nested stage-2 with an empty root so that the ioctl
-> > > > +	 * fails if it tries to interpret the userspace GPA as an L2 IPA.
-> > > > +	 *
-> > > > +	 * Prefault in two halves so that the second ioctl exercises a
-> > > > +	 * repeated shadow-MMU attach and canonical stage-2 swap.
-> > > > +	 *
-> > > > +	 * (Note that an implementation that wrongly populates shadow
-> > > > +	 * stage-2 page tables would not be caught as userland can't
-> > > > +	 * inspect these.)
-> > > > +	 */
-> > > > +	s2 = enable_empty_nested_s2(vcpu);
-> > > > +	pre_fault(vcpu, TEST_MEM_GPA, TEST_MEM_SIZE / 2);
-> > > > +	pre_fault(vcpu, TEST_MEM_GPA + TEST_MEM_SIZE / 2, TEST_MEM_SIZE / 2);
-> > > > +	restore_nested_s2(vcpu, &s2);
->
-> Sorry I don't get what enable_empty_nested_s2(), restore_nested_s2()
-> brings to the test?
->
-> After quickly going through the prefault implementation there isn't
-> anything about it that is nested related, how would giving L2 an empty
-> stage-2 translation affect the outcome if it misinterprets the GPA as an
-> L2 IPA?
-
-Well the prefaulting intentionally does not interact with nested and only
-prefaults for the canonical s2 page tables.
-
-I guess the intention here was to make sure that's the case.
-
-But I think you're right in that it's a bit silly - the code doesn't try to
-interpret anything in terms of a nested guest, and nobody's going to change it
-to do so.
-
->
-> In other words would there be potential false positives if we don't call
-> these functions?
-
-I think really think this is actually asserting anything meaningful.
-
-I'll drop it and simplify - have it just assert that the last-run vCPU was a
-stage2 vCPU and prefault doesn't do anything weird with that.
-
-The only way it could be broken is if it set a non-canonical mmu in
-__pre_fault_s2() or set s2fd->nested, neither of which, of course, it does.
-
->
-> Thanks,
-> Wei-Lin Chang
->
-> > > > +
-> > > > +	/* Resume at vEL1 and touch the prefaulted range. */
-> > > > +	vcpu_run(vcpu);
-> > > > +	switch (get_ucall(vcpu, &uc)) {
-> > > > +	case UCALL_DONE:
-> > > > +		break;
-> > > > +	case UCALL_ABORT:
-> > > > +		REPORT_GUEST_ASSERT(uc);
-> > > > +		break;
-> > > > +	default:
-> > > > +		TEST_FAIL("Unhandled ucall: %ld", uc.cmd);
-> > > > +	}
-> > > > +
-> > > > +	kvm_vm_free(vm);
-> > > > +	return 0;
-> > > > +}
-> > > >
-> > > > --
-> > > > 2.55.0
-> > > >
-> >
-> > --
-> > Cheers, Lorenzo
-
---
-Cheers, Lorenzo
+> ---
+>  .../admin-guide/kernel-parameters.txt         |  9 ++++--
+>  kernel/rcu/tree.c                             | 30 ++++++++++++-------
+>  2 files changed, 26 insertions(+), 13 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> index 68647ff4bdd2..914b65ae9413 100644
+> --- a/Documentation/admin-guide/kernel-parameters.txt
+> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> @@ -5699,9 +5699,12 @@ Kernel parameters
+>  			there is an ongoing too-long CSD-lock wait.
+>  
+>  	rcutree.do_rcu_barrier=	[KNL]
+> -			Request a call to rcu_barrier().  This is
+> -			throttled so that userspace tests can safely
+> -			hammer on the sysfs variable if they so choose.
+> +			Wait for deferred kfree_rcu() frees and ordinary
+> +			call_rcu() callbacks queued before this request to
+> +			complete.  This does not prevent new work from being
+> +			queued concurrently.  Requests are throttled so that
+> +			userspace tests can safely hammer on the sysfs
+> +			variable if they so choose.
+>  			If triggered before the RCU grace-period machinery
+>  			is fully active, this will error out with EAGAIN.
+>  
+> diff --git a/kernel/rcu/tree.c b/kernel/rcu/tree.c
+> index 96848fc1f02b..93b71682306c 100644
+> --- a/kernel/rcu/tree.c
+> +++ b/kernel/rcu/tree.c
+> @@ -3989,12 +3989,12 @@ EXPORT_SYMBOL_GPL(rcu_barrier);
+>  static unsigned long rcu_barrier_last_throttle;
+>  
+>  /**
+> - * rcu_barrier_throttled - Do rcu_barrier(), but limit to one per second
+> + * rcu_barrier_throttled - Drain deferred RCU frees, but rate-limit starts
+>   *
+> - * This can be thought of as guard rails around rcu_barrier() that
+> - * permits unrestricted userspace use, at least assuming the hardware's
+> - * try_cmpxchg() is robust.  There will be at most one call per second to
+> - * rcu_barrier() system-wide from use of this function, which means that
+> + * This can be thought of as guard rails around the deferred-free barriers
+> + * that permit unrestricted userspace use, at least assuming the hardware's
+> + * try_cmpxchg() is robust.  There will be at most one drain operation started
+> + * per sixteenth of a second from use of this function, which means that
+>   * callers might needlessly wait a second or three.
+>   *
+>   * This is intended for use by test suites to avoid OOM by flushing RCU
+> @@ -4016,14 +4016,24 @@ static void rcu_barrier_throttled(void)
+>  	while (time_in_range(j, old, old + HZ / 16) ||
+>  	       !try_cmpxchg(&rcu_barrier_last_throttle, &old, j)) {
+>  		schedule_timeout_idle(HZ / 16);
+> -		if (rcu_seq_done(&rcu_state.barrier_sequence, s)) {
+> -			smp_mb(); /* caller's subsequent code after above check. */
+> -			return;
+> -		}
+>  		j = jiffies;
+>  		old = READ_ONCE(rcu_barrier_last_throttle);
+>  	}
+> -	rcu_barrier();
+> +	/*
+> +	 * kfree_rcu() can retain objects outside the ordinary callback lists in
+> +	 * per-CPU SLUB sheaves and kvfree_rcu batches.  Always drain those queues:
+> +	 * an ordinary barrier does not establish that this work was drained.
+> +	 */
+> +	kvfree_rcu_barrier();
+> +	/*
+> +	 * A completed barrier can still cover ordinary callbacks queued before
+> +	 * our entry snapshot.  Otherwise, retain an explicit ordinary barrier
+> +	 * without depending on the implementation of kvfree_rcu_barrier().
+> +	 */
+> +	if (rcu_seq_done(&rcu_state.barrier_sequence, s))
+> +		smp_mb(); /* caller's subsequent code after above check. */
+> +	else
+> +		rcu_barrier();
+>  }
+>  
+>  /*
+> -- 
+> 2.55.0
+> 
