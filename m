@@ -1,125 +1,108 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B14148642A
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:31:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789162310; cv=pass; b=Wsaw6JEPFECCPP1oneUgAygA2R77laS6ZKvNjVyd8UnHGylypyrWF/iX7sali2xP2Y7PV1oyHikaPsvz7cIgmb4tzcgoATaZ1WwL9ol/MCVxrc/NCKk1xCfTvL5b6d602O899IO/ejGRPEiBs5lQAl6vcjEfqhw86IIwg74hXKg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789162310; c=relaxed/simple;
-	bh=VGvIJQkp5IyRlQ+7Y8L/xW8OHuy5Tn+hF4zSv+pVlvM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mHcGoeYJfyQYQW46O7hraS3XpzcS+C3usZ7na97xwJKK01ItNovi8iLFfP8/kW2skzNjsMTUw2UUvH4tSKX+PhmeYWVmEWcg6LIumA01fLd7iq4v/1fenjpKEsy3GyboColP7WWozx4EZ3JwG28OgyCFJEu6ibSc+3ZGjbIOrno=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Z9u33UOf; arc=pass smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA39645D91E
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:31:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789162309; cv=none; b=JmI5mvoJljoAUFFiUisVSxGKVMeVKNwgWUtfCmtVBV6kvJCZmbvFcpkWlTKqDIRbcoSwUKusNqWu7qs/XWOZzn9Y3mGfzDhJ/0NlWwi3KthXzRUd2P/0xfHJ7v3xO7Rq1ghnakJ29826Y59FaQKFF16scli/WbBLhxBKMMy2c30=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789162309; c=relaxed/simple;
+	bh=FRLkAE1TRsicRIjs12TClJYKr9IHrbJZhraLwHHugyI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kjLmoaXY0NtiA2JVnHdnrnmSiaEjekASpbe3P6jgul0G/yuAnEd6sRvcTHCxPFjEOia3xZ9wsc9ifU/7ilPu7VNEr9rtf+QAGUzjKVTFr1NeLhz/od7IdJWL51tZWIPqzpvYlZs276I0xAC0NiPs+UXk2aqO7E1RWtiqYt8O1LY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nJ/8TFsT; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Z9u33UOf"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-530411c7ee1so159071cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:31:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789162307; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ke77rtWywPnka5v9ywZoviNuUaJMkNkUO/BIZtDfNT1mx/KmAHOtcTsz01pc9GfIWB
-         SxVo63w5STrh882iUa5vrYS6XXkXIDpfVuOZ+KNQqeWSPjzpaH/NcsoMTDGmHyjhCTx2
-         8B5ZfRUXdYrwWbrgNC/yfVkFbGE3lEoBz/SADPnpI4Cb7sYmeskv/O/zywvg7IZqGRu+
-         6LdtRBWFxes4HGS21VTNJRXIeIINH4B2vzSr3zej/3dvm0h+dpzlZyI7yDMpxWFfImCy
-         S0WSjOYamSNZKbj7uvM6fU9BDrMrcR0WjU3ERtmGxQG3tOTcSGpwgE36DjUzfDhPzln7
-         O7DA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VGvIJQkp5IyRlQ+7Y8L/xW8OHuy5Tn+hF4zSv+pVlvM=;
-        fh=VKB7q9vEjpTGqhNIURL+uSZqYxwI/htf1m6lhpx6K4A=;
-        b=BHdlUmmPIFPs6klgoOH0e/nanPCc/czFRtOyHfkvRMrkiS7Bw94KSrK0qWtXEkrIVp
-         GJhcbrz/WzItU+HTqzbu8o8dwefcrdzOtIiT8LiO3dorFPaVBn+xTIrewKublRLgO9DQ
-         9iM0Y/XAvnexrLUZxnucVJUUo1De9w8+Egv2UyqPFIXtk1i81mD2E39npLhtSj/6EHL1
-         Xo+1hYZeJ7SQP5sfmL4JqOz+GFvc3jX6MuJDAf2NazRyiqVSgj1daXDTWf7oz2VJDrrM
-         rXHMZ1UpUbTYGnPxZ++azmD0AyvbCQUZnyFOIC5g371R7/lRY9Fjc749fdeb5+oa3VOD
-         W9pA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nJ/8TFsT"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so1425009a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:31:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789162307; x=1789767107; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VGvIJQkp5IyRlQ+7Y8L/xW8OHuy5Tn+hF4zSv+pVlvM=;
-        b=Z9u33UOfoiTT/qg/fUgnmE+5V7bR/lua75IJMTY0NekWoODd3ccYqB5Dgxud/2T7JQ
-         6zc4ZRtE15PNMFjE+C1s+ugS37YU/EHlEFhzQ1XiC2LzxP6E+6PGqReYahW5X54VDIof
-         81YTq1XjFKrTpnDhzD8RlUQ/f33B8Scop5cLJwkhGnLG3XuTap8C+66J2tYFYaEWxxLu
-         /fCuRtJ0mbmTIJ8cOSBDpWmd/iI21/kgGFoenLg0gpsFpnJehD+TWr+ae03z5yfACYMH
-         GdS/LrSP2f/k6lnhjYbGeeSASljG+rwmdq2CGKCPqqgfkEjW+HDevzX++wGSVubVDHYq
-         BdNQ==
+        d=gmail.com; s=20251104; t=1789162306; x=1789767106; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EZHEbamxrCKNFud4RphEOhfi3p8kiH9hSf8teP/HbOI=;
+        b=nJ/8TFsTS7MxmufBz1DiI5YpEsH+JlaJ2FYLfc/PwjZ/HWXOhArWnKoICLKT6Evaes
+         ox1NrvppSW2QVCFEA+s0xhQdWR/4QznHHT0L1S+uLnmQmHtH3/0Z8cBYEJsltTakrDcF
+         M5uSv4Bebv5c9oFoluZbIvstDQy7hDb8UNT6ZHV/ZwEdpne9NIhMZvrw6mcUHgaOWqPC
+         1GGAz7//BwhckjUJgvr08o/r4Dez0zCzsS5GRcY/XbmNlC7QRkaFTrS9rrAm5MeUPYgg
+         83vvrZt0FMGy1NCn1nL1FCjTlmiigcJ1wQCOGLhWEufKsQXjclX6874hM2wnBDR7UY1l
+         4yjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789162307; x=1789767107;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VGvIJQkp5IyRlQ+7Y8L/xW8OHuy5Tn+hF4zSv+pVlvM=;
-        b=SJxHE/tTUCS66ztRUQxSBMhsCma/Exp/uFvJTVhc0ukuMR3vmZQ1SnteKeh9xRicwZ
-         8hByAD/uTYfMSxvFf0h4di1yJ/eI11ukXb5GZy9jeMAvzMd3Jr1ZsGqUT0gr8XY1eUWn
-         49P1GKPRyyeWzccyq0dxeJjmM09B/hgsJTp1EXJsxEa51n+9e2GzRTLBGlHtZIGtrtmc
-         4Lg1LI1dqAw7/wg2IRb2zOGBQghiXILwBuESLXp8Umn4nEy2Vm728+soM0ukuctvE96h
-         ZEdpF3H75OlwZSLaE46BSvy2v+La++ZczPotvDcGHex5/hfei1XeqF7cykjyqDrOv2H1
-         a/Nw==
-X-Forwarded-Encrypted: i=1; AKwUvBxOJVS/jNGljDHtSRtTe1FIpK4L6jO8oorPXQNyBTjnTJphZJLeZO3Wca8GlPwOXo1MhlXBCcnuyki1jIU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nHH05jI15kqRZ28hx2iwn5+5XxfjA2Ewms4XpoUxckh7xkTXe5
-	CGD535aYM86jfaSnDpz8KfF5mgqMIg7PoGTzGi7N4kEiUMj0nlV88cM4I6FlijgNYo0WkUcWkxj
-	0ZffZIgKdtjLw/pqZS45Nx3KaZEDxndEXEffchYWH
-X-Gm-Gg: AYBFou2s8SUFoUyOPY29w0rzCF6JPuPnCeBM3lascjY4rLpyX5I2WiKaXsSRJ8OHB71
-	HiI711iGWzRCCR+gDHHlfQqZdI7WvBWrm1UsTtcMb9M/k7i/8suV9rxN3yBE0pukmFv895yzBa6
-	1EDRoWl5Y/wGtReX5ml4hfqk4LVIkYJg6ZrzDeIKoGFlIYt1z2VaDHH8m9CAU3oJGVTyWjXUMVf
-	W8dOylPVOcc7G04jQXyBRC3aDZ/cvACOxVyg91Yyj3aqlSOuSVpaVqPAL7dQrB3Mx12aCAI0JVH
-	MEwnSM1125cklzhczscTjVokVCW8lPxQ0IHTWJ+hPYSismELSpE2UQ==
-X-Received: by 2002:a05:622a:11d0:b0:52e:1e8:21f4 with SMTP id
- d75a77b69052e-530e63d3194mr1543051cf.5.1789162306468; Fri, 11 Sep 2026
- 14:31:46 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789162306; x=1789767106;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EZHEbamxrCKNFud4RphEOhfi3p8kiH9hSf8teP/HbOI=;
+        b=GfPDpWIoU/QI4rnNNGCPha1wuSCSCFf/YGTMhlpLaU+PhHrrvyBbwZom4vRaVp+oP4
+         JBm0PDN2JWYjZhRMZga40BU737ESDVqlS5zVvu24K5IFyt9QalqHumCNMpIyG8c5YBij
+         ZfC/eyAWn6lf345srluzFtRIGSV7eVO6hoQi8cPMpM05rtCwoTgi+YJU5W7bzuTV1hp7
+         3um5qXie4pf96AX1+YBO5k1xX5IwD3FCV47P1/wz58Rt5jwJfbvsYrxQ9xp3L39WpT6C
+         38qvnvIawqhd1EwJV2MiPyAT6u0hhW2H4izSS0bbuiEEf09dULE4vJTrIEtP4UojFBrq
+         qMWw==
+X-Forwarded-Encrypted: i=1; AKwUvBygG3S1o5CzyAkngCd9uLh5AS5If7IygHbZLSBFFPZ5+alQZuBmjxIuBnTqi+NvNfp1TmRgHodebna4bdk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mewMMw7HdaJ+5VSb6xgeHAiTZLz5g6vYHHLvMxEUUuCJtFlJHb
+	2j8Zak/IjlXhNsXLOWf6yzYB32euV+DR+J8BaDr05SI5JMUl6ZJrN7vi
+X-Gm-Gg: AYBFou2yBAwr4FLuOzrDOIpNSZ4wXmlUdhpdw5qE2BmfLzaSCcO9Lpali1cpH+IRGD9
+	gxD6cVNb5ZAeXERvE0RqDjQx32QiIhx1H//4Fgk4laHhf9bwKIn9UxzscRp9JgQ+YWc7wPtwtQL
+	9/3Fg3wKh2vb74OjXtmaRPoxobBqQoDP1RyETh+3q06510u/ZP3JbkByIo7mBW49G1A6wu1auoH
+	z77eYiilbHM4Ol1SMwMay7rbYp6j2nnp8b2mVYYprkOWLFfDj9/LEBba/lgSGv5LJyOvJ5D5Uvo
+	cdKO/G9Sw/31ygpi/V2W6OFowQ9lt5lI6ROjEX2z0cq/MfZZIUnGXjP8aRIvhdQUln7z6vvlfvi
+	Ho945XBTGOX6M1GpKdwlhc0kylTx699L0Edoz1FGhbA0ypI2QZq1SZN1s6MTwS6JBZl1gxPvGzG
+	Ts/VVIWWPYYE2xgpKzpPx0gIEhAb4Ax+DnydkPRd6ujci9lGeze+Pq1duEphEXv+ioEpTvpUyI6
+	R9ybNqZBFH6UG8etD/vy0s0EXnqrnq7jeLQkKZKYmzckFUHfby6rH4aH7WDsqiLAqz9x2YFOmJl
+	J3MInIgnCSUUEakiEO2FmAXRa9hraZRHNQmb+8OFaR2YltNN
+X-Received: by 2002:a17:90a:da8f:b0:38e:c232:9d3f with SMTP id 98e67ed59e1d1-39d9bc1007dmr8846016a91.5.1789162306195;
+        Fri, 11 Sep 2026 14:31:46 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39da6016718sm4261752a91.15.2026.09.11.14.31.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 14:31:45 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-wireless@vger.kernel.org
+Cc: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCHv2 ath-next] wifi: ath9k: delete channel-context timers on deinit
+Date: Fri, 11 Sep 2026 14:31:44 -0700
+Message-ID: <20260911213144.130192-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911194145.1781926-1-surenb@google.com> <20260911194145.1781926-4-surenb@google.com>
- <8a5abc5a-bfd4-4fc3-aec2-a567ef5c409a@kernel.org>
-In-Reply-To: <8a5abc5a-bfd4-4fc3-aec2-a567ef5c409a@kernel.org>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Fri, 11 Sep 2026 14:31:33 -0700
-X-Gm-Features: AcwNN1UKizZchXvXxtFlTQJTapR2k2sJ1U1PVMre-GTpxn3kamF7rTTUDJ1EgCI
-Message-ID: <CAJuCfpEp8eBidJSr0NZ-sBuJh-d51BNuM0SJAOSGN7m7GjY=3g@mail.gmail.com>
-Subject: Re: [PATCH v4 3/7] proc/task_mmu: clarify shmem mapping walk
- conditions in smap_gather_stats()
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org, 
-	vbabka@kernel.org, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
-	pfalcato@suse.de, xueyuan.chen21@gmail.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 2:00=E2=80=AFPM David Hildenbrand (Arm)
-<david@kernel.org> wrote:
->
-> On 9/11/26 21:41, Suren Baghdasaryan wrote:
-> > smap_gather_stats() optimizes stats gathering by skipping the walk for
-> > shmem mappings in certain conditions. Update the comment to clarify
-> > these conditions and use vma_is_cow_mapping() for CoW identification
-> > instead of open-coding it.
-> >
-> > No functional change intended.
-> >
-> > Suggested by: David Hildenbrand (Arm) <david@kernel.org>
-> > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
-> > ---
->
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+ath9k_deinit_channel_context() cancels chanctx_work but does not delete
+the offchannel and sched timers set up by ath9k_init_channel_context().
+If either timer fires after deinit (e.g. during driver unload or
+suspend), it accesses sc->sc_ah which may already be freed by
+ath9k_hw_deinit(), causing a use-after-free.
 
-Thanks!
+Delete both timers with timer_shutdown_sync() before cancelling the work
+item.
 
->
-> --
-> Cheers,
->
-> David
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v2: use timer_shutdown_sync()
+ drivers/net/wireless/ath/ath9k/channel.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/net/wireless/ath/ath9k/channel.c b/drivers/net/wireless/ath/ath9k/channel.c
+index 8b27d8cc086a..cfb1c90eb4b6 100644
+--- a/drivers/net/wireless/ath/ath9k/channel.c
++++ b/drivers/net/wireless/ath/ath9k/channel.c
+@@ -1363,6 +1363,8 @@ void ath9k_init_channel_context(struct ath_softc *sc)
+ 
+ void ath9k_deinit_channel_context(struct ath_softc *sc)
+ {
++	timer_shutdown_sync(&sc->sched.timer);
++	timer_shutdown_sync(&sc->offchannel.timer);
+ 	cancel_work_sync(&sc->chanctx_work);
+ }
+ 
+-- 
+2.55.0
+
