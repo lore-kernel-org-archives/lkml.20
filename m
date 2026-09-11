@@ -1,63 +1,65 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D8B6364EB0
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:42:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72F40365A0F
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:42:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789137766; cv=none; b=eN0pqFwbtb8ILl6KvvKew2mPecKVc7Qr9q1rp6CI5nj0SKL2cUKrKtDB3ejQKFkHc21gkVXR1/hwawFFuA/iXr8rvXaVCZH6vqEIcf2K1PWBwgvx7vN5YjxOhy9mb1oN1HvSRDBAtA2r5ZgjiB7/uxGWBgjv+R+qrRAJZuIFbBo=
+	t=1789137768; cv=none; b=V3fmMkCkAdaWPwzJo9w9jzOIjtqUjaH4RSLH43HICS9XJusj99brmViiQQrkmANTEmwyLbo1OQPrVvhju13Jusr8mLvz9DftpuopX0DJ3zc0gomyR5A3QJz77BNkSDzIfFgFPaqCI/ZYx9Z1gnYGkesE8veCB8/AIhzmAdkz+qI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789137766; c=relaxed/simple;
-	bh=q72VP5n2ZqcEGQgXeUc2xgK/v4cYAsj+QPvCunTuwVY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Z7OdekhaliQvMc0OObTnITuIXJBd1KgdZHWADvjaL0rB+9V+ym84z9fHp4+W/xB53NJF0qP5iweKCndF6lUwzps8bfBnjOlw8TNwSIkwZBBGB/9qe0TGQ7R01BzsarWY8piANKA3qWGKMfVb+TbupTyAzQLkdqfd6GroaAZmToc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Oa3P+L8h; arc=none smtp.client-ip=209.85.128.48
+	s=arc-20240116; t=1789137768; c=relaxed/simple;
+	bh=Q6gYJk+pvivEut4Dg9S1KYlKEBevCBrSEwCT14tMvuE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=S1dJd00vkvML97+msgT49qp90Bql7E3hg2VMdwcLE5OYJvkG38exRujrciIp0ePoh8HX4sGWVLj5wyOD2JWxO4dK0M3jmF0p1qa6M5poKH51EWytRxExGvyrDEsCmRpsg6bbjaMrxUs1cBr8KkCRHu8a9TecX/JPMPvNUMZzaew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=b5syWAab; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Oa3P+L8h"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49b965570d7so12480145e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:42:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="b5syWAab"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd6185db7so6034385e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:42:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789137762; x=1789742562; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jtpnUSLeT4ed4dWoaotfN7ey6FZzLAllCqnmIx1g6CU=;
-        b=Oa3P+L8hS5uNkz4niILTnDU6g1KqJOSl07IepB97cothgdPCtzuCqnHr/Ris3t2ZR8
-         sGkTWTi39H/kGliiNFSxa0pUXav5NACiZBUbIZqFUI13DgVISvAq88kOck1kbYFi11tk
-         s4sImAXrp0+0BrBPFV/bgoXbfYPSQ2U9tgUBOoKcPrjPzdYEpkQ8wEGQ4piPm1CBnpGW
-         R2CENzSyKArysWyQJOek25TAS9jAHzB1dD5oxZNEiOsAc6HGliIqUVV7lpvk0PnnfgQR
-         HmYYuiyKuLCBKsQJkovTAhy31kk/CGgXmHzLt5NI98yDOS9OC9W6h6M8cThDQ67eYvP3
-         dvbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789137762; x=1789742562;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=suse.com; s=google; t=1789137764; x=1789742564; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=jtpnUSLeT4ed4dWoaotfN7ey6FZzLAllCqnmIx1g6CU=;
-        b=oygbyKHuMtFaRv6BGyN3OZG6+HmYudxDazTYZroFT0hJRwW0Oq8buss3WJ4a5cwT3X
-         5lUT8JCM23rSXna/B/q2TxgKgeMuwn8fSp2reYt17SUJXGxMvtr/m+CZbE0k5IPoXauO
-         Qysr+2CbVFzXSxmm3sCHnjn15mXZlWCZm3sdn13Hk3x2mPRPLV2fjxwlkEi3HWDLXvEz
-         KopIZf2HXUvbphIBxsoDBNPOUtTEtUY0TYfRUTlA+dlDiRRQyUYI7nya4izlCdzCFCd7
-         AanmsEaiR/OAd6hZJurADmRkIXlCq+T/aJUAVx3Gg1unydmsM9i17aY/UgrK9Q1qOF9D
-         LPzw==
-X-Forwarded-Encrypted: i=1; AKwUvBxxbp2/5/NAAAsN++/zOEt9VwWuPyAtE0QnNwWcW5hQwNS08U/97g7AVaCaOwi6fo5b/35k7BquK/XGFTk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTH9esk1QrTDhxY0L9KtERyka81j3U4AUAWFHD+d/BWlSbkYnn
-	0ARxaDxKm30Vc0tTqAZA8lZuBCebJt2cJccrfaKCONfPy6qvKJC+mkhkjPUaMNHPo5s=
-X-Gm-Gg: AYBFou1ls9uDnZl1nQFbkEYCaQV6Dh7rWkWRouSXvOzz2WPCfb6/zrUc1W5bBrVXSGE
-	iovb+UqqpQPju94HmoRuAzsfK4VLMJ6iqH+G5uK3IYbVS19EMCfpEH4uG4G2erKv+/Yv8GA0izZ
-	AqvIb10iYFOPi5JCh8fJMCHceOTrfw961bv4c4Qj2+UEUPUkpgS4Byn0OiyGCobyM5R7dTkt4TX
-	f68rgSHcKCB0eVBoOJuiDR0VQ2uYoQhnk7n8EzFjix4pBdQdYURbpxo+c9bFuaTQBUSTVHQO9+h
-	Dq9iJiaQMW6i2Gzq3izGHlskvhQSF7dtCxasHV5A8FSeH5pZTtrqALG4b6pb80PcOYDIVdS3fIT
-	HEdskkLbz/+E4TrJfXmHZQ45Q1FNfF/8BajyElNorKtM5GyKtPKqTmcairsfQscCIfEPQTg+tdn
-	jFjJDmoqxjYNjxBr7OnEBvNvtygoB1mt1hrwe3Wjr5bfjtpCbyID5iWLjcj5RNlk1E0NwbkEsu2
-	K6nNw==
-X-Received: by 2002:a05:600c:1f8d:b0:499:be2d:c290 with SMTP id 5b1f17b1804b1-49e6198933cmr55970145e9.9.1789137762240;
-        Fri, 11 Sep 2026 07:42:42 -0700 (PDT)
+        bh=o6xq0BxW8kPi2a+1MlzTOWetcM4nnwrAPZoyBYnvLVM=;
+        b=b5syWAabYfLW/JkamLeCwo12Ds0StLNJSUY639dt7/PEU/zeXEnHt1BG/56u3em7j/
+         QbBuSSvhKFQimwQL5tycIRYUKhpy079ocqnMl2oUiWmvHqaF3I/BZTYGalvm5opiRKRJ
+         fClUSQX4cnLSlHYJByehBH+NYN9Y4fNk4LFOyQaKajA3GlE69PnSOhDt3rKwiX1hp7zS
+         QbQ1PKkqX7CeVUzqRDKNuAbhztGsSN9maJ2hKkU6pPAnQdaGUUMf69EYIFNfPDQmk7LK
+         5duFJ96WYai4NazsmJ0Y2M1qoSbdFoZBMMxUuW20BI/PfHPKD5GE3XhGIOz60+FYUmaA
+         fJBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789137764; x=1789742564;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=o6xq0BxW8kPi2a+1MlzTOWetcM4nnwrAPZoyBYnvLVM=;
+        b=ei+SfVmQqPIoB02SZJrdxJ6/fxvMr6z4I+JbeZAp2ReP4wy9JAlhqVlf4D927yWe4+
+         H0BwzllTd0aSPxphLOPLF2p0fSe9qFwdJ97KENNDBVwgLKOPPPyJVZQbnj/ClTJkceQ0
+         v6isiXsSwUrvmPQFJ6cJFa1Vn2Caf4+5bB+VqwbEoKE/KQbbZUD72BLh27tAWZIKudZU
+         Znwkssd5b+cgKPaUdRDgs3IoDt3sJAAaAkrIpYj2NK1FETlhGwlcQ11NVY9mY3AiHOsm
+         ELUsXtnNnzIxkaMq0KO/XHABEgCNV3xfbSM10hV/vLZaCxDOpA9NL2/dXS7irNjexngQ
+         WvXw==
+X-Forwarded-Encrypted: i=1; AKwUvBxC8R2E0F+vkab/f/lp1GnubmBAHuiaV5B0/3BYSAFkfILY1RzWDWp4KvEQEuKkC1uUIjFqw5bX+UaS+ug=@vger.kernel.org
+X-Gm-Message-State: AFuF++mmwFwTEk4ptwET4gJYbHQTCNatmTHUuwMaj2H1Vq2sdZkPKY2v
+	5nz2VLaVqZrdy7kcoQW91abBhqo5vkPZYRZkNpd+jVsbm11OI2ij/jDLxDaZv/nW7LI=
+X-Gm-Gg: AYBFou38DPiQsTS3RIwuHI7oPgvFwm+1xUul656LE419iMhnwAPn7oOBxRhPEjrimZ+
+	jtpiisWeM/Y+pGoEzPVJB9q8QnX+/XD0RWrGEQijticgPGM8pm5ZUNyJoW1UlQvEBDCZGeMfz6v
+	Xzm6ZpTFdu/A/UfpRyDa8liN3wfL4hP4UDmhqQHu3MGpp9uUgtWZyNQ/AB0NMIdKLyb5rZOHBu4
+	aFUl5uGkNniYIiUU+5Byazullhtr6k6WtNyGTb3wljZutNIkuadNJjrIeBvaXw04OEbw5rrPuw3
+	5+yS5jUY4NBAaovXXcNj0ahYkgieWda67n+RkM4hCxUt94V9nIlUwEnhkuk/lR0C0NUXjIm9B37
+	DHf92h05ZWwmMV8eaKQQWJ786uG2NiXgISyBT60QsOKiowaV9vmLZWRshAMcibvGQdGu/X8KvQO
+	ErkrQVOF9UROlPSTzjKUH+Br1deR6KCDrjXZC9eUNWwRAb+D3KAhZjUj2rg+qzx91JAaZcVGcMm
+	00u9w==
+X-Received: by 2002:a05:600c:4ece:b0:49c:f13e:e4c with SMTP id 5b1f17b1804b1-49e610829b5mr56105305e9.9.1789137763706;
+        Fri, 11 Sep 2026 07:42:43 -0700 (PDT)
 Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60ababd5sm107038405e9.4.2026.09.11.07.42.40
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60ababd5sm107038405e9.4.2026.09.11.07.42.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 07:42:41 -0700 (PDT)
+        Fri, 11 Sep 2026 07:42:43 -0700 (PDT)
 From: Petr Pavlu <petr.pavlu@suse.com>
 To: Thomas Gleixner <tglx@kernel.org>,
 	Ingo Molnar <mingo@redhat.com>,
@@ -88,10 +90,12 @@ Cc: Xin Li <xin@zytor.com>,
 	linux-integrity@vger.kernel.org,
 	linux-modules@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/6] module: Limit ELF includes in linux/module.h to uapi/linux/elf.h
-Date: Fri, 11 Sep 2026 16:40:30 +0200
-Message-ID: <20260911-module-include-elf-v2-0-954c732975fb@suse.com>
+Subject: [PATCH v2 1/6] x86: Avoid indirect includes through linux/module.h -> linux/elf.h
+Date: Fri, 11 Sep 2026 16:40:31 +0200
+Message-ID: <20260911-module-include-elf-v2-1-954c732975fb@suse.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260911-module-include-elf-v2-0-954c732975fb@suse.com>
+References: <20260911-module-include-elf-v2-0-954c732975fb@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -99,67 +103,113 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-X-Change-ID: 20260816-module-include-elf-a9c10c041867
 Content-Transfer-Encoding: 8bit
 
-linux/module.h appears in roughly 15k #include directives across the
-kernel. This makes it a "hot" header, so it should avoid pulling in
-unnecessary definitions.
+Several x86 files use ELF-related declarations and currently rely on them
+being provided indirectly through linux/module.h -> linux/elf.h:
 
-The header currently includes linux/elf.h but this is largely unnecessary
-because it requires only the base ELF structures, such as Elf_Ehdr and
-Elf_Sym, which are declared in uapi/linux/elf.h.
+* arch/x86/entry/entry_fred.c: ia32_enabled() -> asm/ia32.h,
+* arch/x86/entry/syscall_32.c: vdso32_image -> asm/vdso.h,
+* arch/x86/kernel/cpu/intel.c: ELF_HWCAP2 -> asm/elf.h,
+* arch/x86/kernel/fpu/xstate.c: elf_coredump_extra_notes_write(),
+  elf_coredump_extra_notes_size(), NT_X86_XSAVE_LAYOUT, elf_note ->
+  linux/elf.h,
+* arch/x86/kernel/process.c: mmap_is_ia32() -> asm/elf.h,
+* arch/x86/kernel/signal.c: get_sigframe_size() -> asm/elf.h.
 
-Replace the linux/elf.h include with uapi/linux/elf.h. On x86_64_defconfig,
-including linux/module.h alone results in 2.2 MB of preprocessed data. This
-change reduces that to 1.5 MB.
+Add the missing includes to these files in preparation for removing the
+linux/elf.h include from linux/module.h.
 
-The first five patches are cleanups to avoid relying on declarations being
-indirectly provided through linux/module.h -> linux/elf.h. These patches
-are mostly independent and can go through their respective trees if
-preferred, except for the cpufeature patch, which depends on the preceding
-s390 cleanup. The final module patch depends on all of these changes.
-
-It is hard to identify all files that indirectly reference something only
-through linux/module.h -> linux/elf.h. The changes were build-tested with
-allmodconfig on arm, arm64, m68k, mips, powerpc64, riscv, s390, x86_64.
-
+Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
 ---
-Changes in v2:
-- Rebase on top of v7.3-rc2.
-- Add the missing include of linux/slab.h in
-  drivers/virt/coco/arm-cca-guest/arm-cca-guest.c.
-- Remove the asm/mmu_context.h include from asm/elf.h on s390.
-- Add the missing include of linux/elf.h in linux/cpufeature.h, reported by
-  the kernel test robot.
-- Clean up commit descriptions.
-- Link to v1: https://patch.msgid.link/20260707153819.4172541-1-petr.pavlu@suse.com
+ arch/x86/entry/entry_fred.c  | 1 +
+ arch/x86/entry/syscall_32.c  | 1 +
+ arch/x86/kernel/cpu/intel.c  | 1 +
+ arch/x86/kernel/fpu/xstate.c | 2 +-
+ arch/x86/kernel/process.c    | 1 +
+ arch/x86/kernel/signal.c     | 1 +
+ 6 files changed, 6 insertions(+), 1 deletion(-)
 
----
-Petr Pavlu (6):
-      x86: Avoid indirect includes through linux/module.h -> linux/elf.h
-      s390: Avoid indirect includes through linux/module.h -> linux/elf.h
-      drivers: Include linux/slab.h for kmalloc() functions
-      s390: Remove the asm/mmu_context.h include from asm/elf.h
-      cpufeature: Include asm/elf.h for ELF_PLATFORM
-      module: Limit ELF includes in linux/module.h to uapi/linux/elf.h
+diff --git a/arch/x86/entry/entry_fred.c b/arch/x86/entry/entry_fred.c
+index fb3594ddf731..ea3bb4298065 100644
+--- a/arch/x86/entry/entry_fred.c
++++ b/arch/x86/entry/entry_fred.c
+@@ -9,6 +9,7 @@
+ 
+ #include <asm/desc.h>
+ #include <asm/fred.h>
++#include <asm/ia32.h>
+ #include <asm/idtentry.h>
+ #include <asm/syscall.h>
+ #include <asm/trapnr.h>
+diff --git a/arch/x86/entry/syscall_32.c b/arch/x86/entry/syscall_32.c
+index 91123a90710c..4ace5b534f65 100644
+--- a/arch/x86/entry/syscall_32.c
++++ b/arch/x86/entry/syscall_32.c
+@@ -12,6 +12,7 @@
+ #include <asm/traps.h>
+ #include <asm/cpufeature.h>
+ #include <asm/syscall.h>
++#include <asm/vdso.h>
+ 
+ #ifdef CONFIG_IA32_EMULATION
+ #define __SYSCALL_WITH_COMPAT(nr, native, compat)	__SYSCALL(nr, compat)
+diff --git a/arch/x86/kernel/cpu/intel.c b/arch/x86/kernel/cpu/intel.c
+index 4297ceb2cb24..7dd5a039186e 100644
+--- a/arch/x86/kernel/cpu/intel.c
++++ b/arch/x86/kernel/cpu/intel.c
+@@ -17,6 +17,7 @@
+ #include <asm/cpufeature.h>
+ #include <asm/cpu.h>
+ #include <asm/cpuid/api.h>
++#include <asm/elf.h>
+ #include <asm/hwcap2.h>
+ #include <asm/intel-family.h>
+ #include <asm/microcode.h>
+diff --git a/arch/x86/kernel/fpu/xstate.c b/arch/x86/kernel/fpu/xstate.c
+index a7b6524a9dea..8b90bf86a742 100644
+--- a/arch/x86/kernel/fpu/xstate.c
++++ b/arch/x86/kernel/fpu/xstate.c
+@@ -7,6 +7,7 @@
+ #include <linux/bitops.h>
+ #include <linux/compat.h>
+ #include <linux/cpu.h>
++#include <linux/elf.h>
+ #include <linux/mman.h>
+ #include <linux/kvm_types.h>
+ #include <linux/nospec.h>
+@@ -26,7 +27,6 @@
+ #include <asm/msr.h>
+ #include <asm/tlbflush.h>
+ #include <asm/prctl.h>
+-#include <asm/elf.h>
+ 
+ #include <uapi/asm/elf.h>
+ 
+diff --git a/arch/x86/kernel/process.c b/arch/x86/kernel/process.c
+index 346c438ac880..e7f736b53f41 100644
+--- a/arch/x86/kernel/process.c
++++ b/arch/x86/kernel/process.c
+@@ -54,6 +54,7 @@
+ #include <asm/mmu_context.h>
+ #include <asm/msr.h>
+ #include <asm/shstk.h>
++#include <asm/elf.h>
+ 
+ #include "process.h"
+ 
+diff --git a/arch/x86/kernel/signal.c b/arch/x86/kernel/signal.c
+index 2404233336ab..0fe2d7a6b1af 100644
+--- a/arch/x86/kernel/signal.c
++++ b/arch/x86/kernel/signal.c
+@@ -29,6 +29,7 @@
+ #include <linux/syscalls.h>
+ #include <linux/rseq.h>
+ 
++#include <asm/elf.h>
+ #include <asm/processor.h>
+ #include <asm/ucontext.h>
+ #include <asm/fpu/signal.h>
 
- arch/s390/include/asm/elf.h                     | 1 -
- arch/s390/kernel/nospec-branch.c                | 1 +
- arch/s390/kernel/processor.c                    | 1 +
- arch/s390/mm/mmap.c                             | 1 +
- arch/x86/entry/entry_fred.c                     | 1 +
- arch/x86/entry/syscall_32.c                     | 1 +
- arch/x86/kernel/cpu/intel.c                     | 1 +
- arch/x86/kernel/fpu/xstate.c                    | 2 +-
- arch/x86/kernel/process.c                       | 1 +
- arch/x86/kernel/signal.c                        | 1 +
- drivers/char/tpm/tpm_crb_ffa.c                  | 1 +
- drivers/s390/char/uvdevice.c                    | 2 ++
- drivers/virt/coco/arm-cca-guest/arm-cca-guest.c | 1 +
- include/linux/cpufeature.h                      | 1 +
- include/linux/module.h                          | 4 ++--
- 15 files changed, 16 insertions(+), 4 deletions(-)
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260816-module-include-elf-a9c10c041867
+-- 
+2.55.0
