@@ -1,266 +1,196 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32CFE306B3D;
-	Fri, 11 Sep 2026 05:03:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F0CF38DC6A
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:03:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789103002; cv=none; b=iOmjyQmJ1R1vQ7XfStcQqvRujLuBn08PTsR8/XQT3NR3GOws7r9PDtBe02vIaY3PLF4GNuWfgp0ei9uKhsVJgKm+aJk6WI5etyOrJbjqfGPb7AOeW8lIKt0rIe6vMqE8UNIr7RiwuTRjW72sQQiYBVEwJVDRHqPNT7ovkDQ//I8=
+	t=1789103013; cv=none; b=Dv8Y8Zwu1g6KrTsMBoeCJq+S/iE0eY7gjp/u6Yn65J92VbihvjAo5Zr89et0PaqQ9f4qjooA82NYi/YoBDkY41uK1RS6YHWVesH6fztGcF4TWlhVtJ4kYXJMmjQ/qRnm65z5O5CddO7Q2nZGTuDWUjw3MLal0CPezJQeC6F4ohE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789103002; c=relaxed/simple;
-	bh=UQjDi7BPyi2x50qvkObQA2f3BzuWrh25X6hdDy7qi1A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pjtPmRrA29aEkhau6ioZtnJrpoIxgsJuq20CbhXCAYIQ/QTcAmWchQYCxo84R9Zdvrp8JzfhLfE4lYqDivt5Zt6vrK2U2uV0wK0/WWmKarWkJa2ObyOozzLrxUdCjYB0OboSn2Rz6Uoo9U5rI7wj8Ppe6iXS7eP+PZyM2OcZiOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dkgRYsg0; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789103013; c=relaxed/simple;
+	bh=61T4yHtrc+/68Njc8a6Em4ai4R7Ll91D9PGAmdrjjxo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hOULPEfLuLXfmccgqWMv0URaqYa7Qi0VVreXJmKNiZldaipV2WTFHCOFhM95tmNM7CvGJCC+RD/z0C+hAtIjTw6IJu7EB+YOgjvrRGAc2lg6DGnq9KeJ9LQlRnaHrUbAmAoeCazh0z0V7XSLc0AHQPNG+I8KCT4fbAJlJKt/TQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=OItLOlIO; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dkgRYsg0"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68B4vf3N2452243;
-	Fri, 11 Sep 2026 05:03:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	DLjIjaF7UiMEywMZq29q67MwBv05gEksepD2GVhB81w=; b=dkgRYsg0kSImBT3U
-	7XfRpH0/BgzQUon8rItwv34BAoaZVLNxJzBevgQuNwIIcwjr5TOPQiwWkYqoloy8
-	IJIjiIXxu1XL5et/f1zjaxgti6EMn7Z45nbhZo5/0xdRw9u941/TjbSx3xhbsYGc
-	Zb7hcKIGEIYrj6qkuFVbHS31j7MBmZ7C2yxCA5d6PkIRj0MHKhFaenXQSzgpnxRG
-	79oSM/Rz7IHTf2BD2YSgJR/0J6tqEwt7Evm3E00XT/0fUHgkOiyIsY8twBAeTuI+
-	8L4NwKldbYEE7thvJKpYtHKRyPscY4YYvQv9eN1ziBwoWBk39JguztEesp2jtAwT
-	HGnLSA==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkxv7b0fu-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 11 Sep 2026 05:03:17 +0000 (GMT)
-Received: from pps.filterd (apblrppmta02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 68B53E2S2535832;
-	Fri, 11 Sep 2026 05:03:14 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-dmantre-hyd.qualcomm.com [10.213.100.203])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 68B53EST2535808
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 11 Sep 2026 05:03:14 +0000 (GMT)
-Received: from hu-dmantre-hyd.qualcomm.com (localhost [127.0.0.1])
-	by hu-devc-hyd-u22-c.qualcomm.com (Postfix) with ESMTP id BB330675;
-	Fri, 11 Sep 2026 10:33:13 +0530 (+0530)
-From: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
-Date: Fri, 11 Sep 2026 10:33:04 +0530
-Subject: [PATCH 2/2] arm64: dts: qcom: shikra: Enable CDSP & Modem cooling
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="OItLOlIO"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so488707a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 22:03:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1789103007; x=1789707807; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qqQtNE5K5bGF4fAhBmQKuNzeCVlz+kHVYANXwAzhHeA=;
+        b=OItLOlIOXlUIS6A3VCFW7vJ3vP44BD2ixBXKW/3RTx6J3ruJyDaD8HqDZY912X2IdE
+         mUw9rp3mqapwNm4w+oltQm/33ibredE0PnPIp4XEIldx0iZP4GAja/Y1/X6J8JOMZG5m
+         iaFeSnologR2tP7PNCelvzULLYLWEVJZHkATdcce2qE3mZ7HYH0ifnZKI9jfqtH7X219
+         N2e8hkUoEtgYtoMMfRSIqGoJZQMtrv+5Y0g3D0PMspf6LokK1gO+XbQnL9KBQNy3hAyZ
+         fJnVmwNYgjZKB4D7MjAJhOh+eNqrMmpO8l8lqMykh0vOEKC8eac14IFucH0xXbEh1Job
+         XWOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789103007; x=1789707807;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qqQtNE5K5bGF4fAhBmQKuNzeCVlz+kHVYANXwAzhHeA=;
+        b=qvn3lXb0w0jRyFFQDmx7VdDsSfOThk9d2fqQLd0z/+kI76PbLYgHCCM5DVuhyD14JG
+         MvFtqgzLyR+J1zdRRnI5AOcVy2MLbgAUyt/mlnmecq8pQ6x07rg+9y8mCwbwI8lj2aJY
+         eWzV4yofmBStDPSV32hqLcoyFIxJnGXf3MZvEsOh4QobcbuWuF1Vc3nmbecqbViArNX4
+         8/egomK/8lqrn2pAoHOevVI+hKquBD8SsBZTJZuG98b1m0l1+jOvyRXD4YVsUCepO8GD
+         UmW9REWZ/YTWUbNWb97RYKFlaoniMbc+lbaUk/HPn1UhcS11v7l0QhskEHOSvsH7Nuzf
+         IaCQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw8g5AQrNo82WDtNhzpGRELj6DuiDzHYLjjEERl2yoVfo2tdnx21sHPs4rucNAE/YW/8ASUHIN/mEX1hlg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nyEqyNxpUKUcw1MyqDxNYloby9P1XVq+D9s1DDqzuBFMDYA90q
+	7gfGwuzwBTmo2mvdy1GZgmIDJTEEW+QvBEuGlorg8zdaqhQ/mCCAeDCVhHckzS+7UfY=
+X-Gm-Gg: AYBFou2P81/YAQH6J5tPywntYkNXbyGi+92ieHhIRx0QoM2ewU69cMKOgnu3pteXXyV
+	kcN8auqLuV5ucr4T6+Ek2ceZrn49FEFJt4ZTkvQj9O/HIq/3cldW1iIlDMsbXQQbeEsYS5x/iK2
+	T0tjec7Q+7xxAR1CWa7Qf9Ti8GNLJFPkoqpcnJ7e8TrRgei2DrdhjOFjL4hDH4vnF5fsum0F347
+	xwJfYlK7hpxDDpuTJHXyAfZD7CtPMaKXEqxozdFVVfcLaGWXE+b6PamITca2t9phUjUe1ynMXjl
+	W1vphhLZ8Q+p/K01FmlbP6TOCeXAtz4FuInOYGvm3zq65P0hwE6W2vkUaBv7H96TXlEGFZsVT1D
+	4R0CHN7Ka2B01+uLpbZetqf/ZTBPsY/yAboafz781JvJx+gbA6+EDdsnpJOIgS67iuK1zm8jara
+	si1R+5GywczlEzaFMBL5/2wAbi8/txY/WXovR6DGTNnkkjnsvy3meeACz/Etf441UaM+0pL67+N
+	MNi1rQ93+5vOZ83t9O/3n0csinbjSl/AfeA
+X-Received: by 2002:a17:90b:1d45:b0:398:9be9:ab8f with SMTP id 98e67ed59e1d1-39d9c21cf40mr3843551a91.20.1789103006582;
+        Thu, 10 Sep 2026 22:03:26 -0700 (PDT)
+Received: from G6L4RL2QG9.bytedance.net ([61.213.176.11])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d99531b16sm2651561a91.14.2026.09.10.22.03.21
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 10 Sep 2026 22:03:25 -0700 (PDT)
+From: Muchun Song <songmuchun@bytedance.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Oscar Salvador <osalvador@suse.de>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-doc@vger.kernel.org,
+	Muchun Song <muchun.song@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Muchun Song <songmuchun@bytedance.com>
+Subject: [PATCH v3 00/11] mm: Switch device DAX to section-based vmemmap optimization
+Date: Fri, 11 Sep 2026 13:02:17 +0800
+Message-ID: <20260911050228.58884-1-songmuchun@bytedance.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260911-shikra_qmi_tmd-v1-2-96c1cca82f30@oss.qualcomm.com>
-References: <20260911-shikra_qmi_tmd-v1-0-96c1cca82f30@oss.qualcomm.com>
-In-Reply-To: <20260911-shikra_qmi_tmd-v1-0-96c1cca82f30@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        gaurav.kohli@oss.qualcomm.com,
-        Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789102993; l=3848;
- i=dipa.mantre@oss.qualcomm.com; s=20260415; h=from:subject:message-id;
- bh=UQjDi7BPyi2x50qvkObQA2f3BzuWrh25X6hdDy7qi1A=;
- b=4mJD9RpgGmy+d6vTlGJ5wMW6UzE66+beEavh8CiA6VmdDqhtfIUf/mexCZGaIarqPtFw5pIap
- 9ClC4CtMYoGCB9dTyveaviA1MYC9ai3tmxZszzTCvTInqQJORxl3EHJ
-X-Developer-Key: i=dipa.mantre@oss.qualcomm.com; a=ed25519;
- pk=IcrgHu2jFHNILPVydQwFqCQq05WcA8wBixw5s+yRMVI=
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDA2NyBTYWx0ZWRfX+lDry/RnMlYe
- Wq/qAA8vRV8gYHB36qpKXJlSX7/Qia8I783ZhqImbkhr3SgEtXPsdDHXgR99Xp9GGVtS97NRimU
- DX/pF5/rYUMGR08j2ZqefBr0LCG0LZU=
-X-Proofpoint-GUID: M_B_IheaFkxWtH8IE1myyxIiVe-AAVPo
-X-Authority-Analysis: v=2.4 cv=FPSOVOos c=1 sm=1 tr=0 ts=6aa38b95 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=Y3pw_ksh26QGS_4PvY0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDA2NyBTYWx0ZWRfX4bc/2bqeY43C
- LW6X7HVWDvNL72ic6qiGfi8iR4n3gumkWBSgCj8sQgmCPnaZmKemN9WhhbVqHiOUGW/1KeMJzXU
- C9/Vv4tmsbGdk8uPqqlqot0Dddks3GU2eICsYAmZrEr2ipvK4iR0QIpSjBf6w0CbaNpRu+ymBCO
- TcS2HM6MS7ehyefxu+B1dl4QzS+Zg2Y4sA/MqywrH1MXEJRkukdyjlrcdctsZ1sbPIkDsLquR9Y
- XLnFNHNDqTPXMc5QJIzUR2Xlh9k/40AsdkoscYJ+acKn7epe9UPuRjkI759knm5eqSKLXXyoSqx
- oTbZRlLJybe5mIQERHhGWM4j5Ga5jZg2pq5iCGGj9vNlVgCZKxw/nhhscMFruG8frk8LXFu5AzM
- pyimYTvH4l9aJdKUlFA8wuaYC4omJM0S4IFkPFekJH/TnbIoSNxgM/EM7f3QJsCST+X9WJVRenY
- oRaMVEu1Xk6Kky9szZg==
-X-Proofpoint-ORIG-GUID: M_B_IheaFkxWtH8IE1myyxIiVe-AAVPo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-11_02,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 malwarescore=0 clxscore=1015 impostorscore=0
- adultscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110067
 
-Unlike the CPU, the CDSP/Modem does not throttle its speed automatically
-when it reaches high temperatures in shikra.
+This series is split out from the earlier, larger series "mm: Generalize
+HVO for HugeTLB and device DAX" [1]. While the parent series generalizes
+vmemmap optimization across HugeTLB and device DAX, this subset addresses
+a single, self-contained step: switching device DAX to the section-based
+sparse-vmemmap optimization infrastructure introduced for HugeTLB.
 
-Set up CDSP/Modem cooling by throttling the CDSP and modem when they
-reach 115°C using the QMI TMD cooling device framework.
+After the HugeTLB conversion, optimized vmemmap state is described by
+the memory section and the sparse-vmemmap population path can allocate or
+reuse shared tail vmemmap pages based on that metadata. Device DAX still
+uses the older DAX-specific population model, including a separate tail
+vmemmap page reservation and architecture-specific logic to locate or
+populate reusable tail pages.
 
-Signed-off-by: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/shikra.dtsi | 71 ++++++++++++++++++++++++++++++++++--
- 1 file changed, 68 insertions(+), 3 deletions(-)
+This series makes device DAX use the same section-based model. Device DAX
+records the compound page order from pgmap->vmemmap_shift in section
+metadata before vmemmap population, uses the common per-zone shared tail
+vmemmap page, and drops the extra reserved tail page. The powerpc radix
+path is updated to use the same shared tail-page helper, so the generic
+and powerpc DAX paths follow the same reservation model.
 
-diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
-index c1f06f692f66..55bac1b57cba 100644
---- a/arch/arm64/boot/dts/qcom/shikra.dtsi
-+++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
-@@ -10,6 +10,7 @@
- #include <dt-bindings/interconnect/qcom,icc.h>
- #include <dt-bindings/interconnect/qcom,osm-l3.h>
- #include <dt-bindings/dma/qcom-gpi.h>
-+#include <dt-bindings/thermal/qcom,pas.h>
- #include <dt-bindings/interconnect/qcom,rpm-icc.h>
- #include <dt-bindings/interconnect/qcom,shikra.h>
- #include <dt-bindings/interrupt-controller/arm-gic.h>
-@@ -2007,6 +2008,8 @@ remoteproc_mpss: remoteproc@6080000 {
- 			qcom,smem-states = <&modem_smp2p_out 0>;
- 			qcom,smem-state-names = "stop";
- 
-+			#cooling-cells = <3>;
-+
- 			status = "disabled";
- 
- 			glink-edge {
-@@ -2047,6 +2050,8 @@ remoteproc_cdsp: remoteproc@b300000 {
- 			qcom,smem-states = <&cdsp_smp2p_out 0>;
- 			qcom,smem-state-names = "stop";
- 
-+			#cooling-cells = <3>;
-+
- 			status = "disabled";
- 
- 			glink-edge {
-@@ -3868,6 +3873,8 @@ map0 {
- 		};
- 
- 		nsp-thermal {
-+			polling-delay-passive = <200>;
-+
- 			thermal-sensors = <&tsens0 7>;
- 
- 			trips {
-@@ -3877,15 +3884,31 @@ trip-point0 {
- 					type = "hot";
- 				};
- 
--				nsp-critical {
-+				nsp_alert1: nsp-alert1 {
- 					temperature = <115000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
-+
-+				nsp-critical {
-+					temperature = <118000>;
- 					hysteresis = <0>;
- 					type = "critical";
- 				};
- 			};
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&nsp_alert1>;
-+					cooling-device = <&remoteproc_cdsp QCOM_TMD_CDSP_SW
-+							 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
- 		};
- 
- 		mdmss0-thermal {
-+			polling-delay-passive = <200>;
-+
- 			thermal-sensors = <&tsens0 8>;
- 
- 			trips {
-@@ -3895,15 +3918,37 @@ trip-point0 {
- 					type = "hot";
- 				};
- 
--				mdmss0-critical {
-+				mdmss0_alert1: mdmss0-alert1 {
- 					temperature = <115000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
-+
-+				mdmss0-critical {
-+					temperature = <118000>;
- 					hysteresis = <0>;
- 					type = "critical";
- 				};
- 			};
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&mdmss0_alert1>;
-+					cooling-device = <&remoteproc_mpss QCOM_TMD_PA
-+							 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+
-+				map1 {
-+					trip = <&mdmss0_alert1>;
-+					cooling-device = <&remoteproc_mpss QCOM_TMD_MODEM
-+							 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
- 		};
- 
- 		mdmss1-thermal {
-+			polling-delay-passive = <200>;
-+
- 			thermal-sensors = <&tsens0 9>;
- 
- 			trips {
-@@ -3913,12 +3958,32 @@ trip-point0 {
- 					type = "hot";
- 				};
- 
--				mdmss1-critical {
-+				mdmss1_alert1: mdmss1-alert1 {
- 					temperature = <115000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
-+
-+				mdmss1-critical {
-+					temperature = <118000>;
- 					hysteresis = <0>;
- 					type = "critical";
- 				};
- 			};
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&mdmss1_alert1>;
-+					cooling-device = <&remoteproc_mpss QCOM_TMD_PA
-+							 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+
-+				map1 {
-+					trip = <&mdmss1_alert1>;
-+					cooling-device = <&remoteproc_mpss QCOM_TMD_MODEM
-+							 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
- 		};
- 
- 		camera-thermal {
+The first patches prepare the shared infrastructure by introducing a
+generic CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION symbol, factoring out
+shared tail-page allocation, and keeping the special shared-tail struct
+page initialization local to sparse-vmemmap.
 
+The middle patches move device DAX onto that infrastructure by recording
+the device DAX compound page order in memory-section metadata, using that
+metadata to back generic device DAX mappings with the common per-zone
+shared tail page, exposing the shared helpers so the powerpc radix path
+can use the same model, and dropping the extra DAX-only tail page
+reservation and the now-unused section accounting arguments.
+
+The final patch updates the documentation for the new DAX layout.
+
+This is intended to be the third smaller step toward the broader HVO
+generalization. The wider HVO consolidation between HugeTLB and device
+DAX is left for follow-up series.
+
+[1] https://lore.kernel.org/all/20260513130542.35604-1-songmuchun@bytedance.com/
+
+v3:
+- Use EOPNOTSUPP for partial additions to sections that already use
+  optimized vmemmap mappings
+- Move device_zone() after NODE_DATA() to fix non-NUMA builds
+- Collect Acked-by tags from David Hildenbrand and Qi Zheng
+- Rebase onto mm/mm-new
+
+v2: https://lore.kernel.org/all/20260908030335.96549-1-songmuchun@bytedance.com/
+- Add a missing SPARSEMEM_VMEMMAP dependency (suggested by Qi Zheng,
+  reported by Sashiko)
+- Add an explicit ZONE_DEVICE dependency for DEV_DAX
+- Add missing dependencies to the new public header
+- Explain why optimized and ordinary layouts cannot share a section
+  (suggested by Qi Zheng)
+- Explain why sharing tail vmemmap pages is safe for DEV-DAX (suggested
+  by Qi Zheng)
+- Clarify the removal of duplicated 4K PUD calculations from the docs
+  (reported by Sashiko)
+- Collect Acked-by tags from Qi Zheng
+
+v1: https://lore.kernel.org/all/20260831075342.57563-1-songmuchun@bytedance.com/
+
+Muchun Song (11):
+  mm/sparse-vmemmap: introduce CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION
+  mm/sparse-vmemmap: factor out shared vmemmap tail page allocation
+  mm/sparse-vmemmap: open-code init_compound_tail()
+  mm/sparse-vmemmap: prepare DAX vmemmap population for compound page
+    orders
+  mm/sparse-vmemmap: set compound page order for device DAX
+  mm/sparse-vmemmap: switch device DAX to shared tail vmemmap pages
+  mm/sparse-vmemmap: move vmemmap optimization helpers to a public
+    header
+  powerpc/mm: switch device DAX to shared tail vmemmap pages
+  mm/sparse-vmemmap: drop the extra tail page from device DAX
+    reservation
+  mm/sparse-vmemmap: drop unused section_nr_vmemmap_pages() arguments
+  Documentation/mm: update DAX vmemmap deduplication docs
+
+ Documentation/arch/powerpc/vmemmap_dedup.rst  |  90 ++-------
+ Documentation/mm/vmemmap_dedup.rst            |  32 +--
+ MAINTAINERS                                   |   1 +
+ arch/powerpc/mm/book3s64/radix_pgtable.c      | 124 +-----------
+ arch/x86/entry/vdso/vdso32/fake_32bit_build.h |   2 +-
+ drivers/dax/Kconfig                           |   2 +
+ fs/Kconfig                                    |   1 +
+ include/linux/mm.h                            |   6 +-
+ include/linux/mmzone.h                        |  23 ++-
+ include/linux/page-flags.h                    |   5 +-
+ include/linux/vmemmap-optimization.h          |  94 +++++++++
+ mm/Kconfig                                    |   4 +
+ mm/hugetlb.c                                  |   2 +-
+ mm/hugetlb_vmemmap.c                          |  30 +--
+ mm/internal.h                                 |   9 -
+ mm/memory_hotplug.c                           |   6 +-
+ mm/mm_init.c                                  |  17 +-
+ mm/sparse-vmemmap.c                           | 184 ++++++++----------
+ mm/sparse.c                                   |   3 +-
+ mm/sparse.h                                   |  81 +-------
+ 20 files changed, 253 insertions(+), 463 deletions(-)
+ create mode 100644 include/linux/vmemmap-optimization.h
+
+
+base-commit: c46036ca3ab7a7628fabe5790aefd917d0858db6
 -- 
-2.34.1
+2.54.0
 
