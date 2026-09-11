@@ -1,387 +1,264 @@
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F1F3246ED
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 20:44:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789159480; cv=pass; b=utjrK+VyXj1gZqx23PzbFTefcbWLlOKTMSCGZQ5dFk1qVE45diVeHoLi7uYGAFIZM/7y0+3lIxoGieO1sQWZsvnwy/OQJvUqJ56Zl/EanuJ8OGMYhQdxh706pq0iEV+cNYr3Ir0+EBysu1m+/WmfV9pUxxpLmut9OLA7pCiRFrY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789159480; c=relaxed/simple;
-	bh=eCBugO0xxaDQngtg9TePz2gVt8062bqi3imRZBcMLCg=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=D2wbyxAuPKcw9NVwgjR+/j5gO9idqxFMdes/Cuv1H7yqqKGFobBJqiNopJqeqdR78NeYlZDD/o7kPDgexf3jYZXnd+6Xfb9jJzjt4UCpjcJB+//3+Ih0Xt/yNQAt1NCfGAewVGmNHJL8RV/ripI82N9UwUn7VzDXNqdYTifCi3k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B4pgYSPo; arc=pass smtp.client-ip=209.85.219.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E1F64266AE;
+	Fri, 11 Sep 2026 20:45:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789159510; cv=none; b=SgcXxnWCNNDiqNndPSnItcB10Rd1T5vTQHStq4TxB6zlTJGlcjmVjai+W7OapDxmSQF9+EBqZ8/IIefsM4j/c769z2BWcb/vwGQGKucAFhsUgo2ddIRzH6++sd53vn8eqSrv+QndwW6+nlAJrDAdu9EXsfLYuigog8nFt7P1Fr0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789159510; c=relaxed/simple;
+	bh=xF+oq6oJxQHpoxxPvzaT47kloXMmUw+UiG3lA/tDFBw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qrDlbZ1OPx9b14m4/x61yluPRZ6S8He7aO4sVwyvrBCbDJ+BzTqz+IvAqXcZE+FOrAYkZWOcasK5stpF5zZpZHIu/tKMcRNB2dxRawhZJrUOxTipHpmh8ZUI6BNTNebHtsIFCjHtnBiAhSPWymVA/q58bUccjzOVb7UiNP1x+vk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b=hwdVCksI; arc=none smtp.client-ip=212.227.15.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B4pgYSPo"
-Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-90e8e70fa02so15579746d6.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:44:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789159478; cv=none;
-        d=google.com; s=arc-20260327;
-        b=MKp2VHTFZFbn5CM2w/IElYBtVQNmAmzkn56xPjSUZg9glcYX4OY+ltlHKEMwRQlCf8
-         PEgo8Wc/k7lpvl0rseeBZSvWXZHRMCxFVehoRF7RKXTdpeTtSlmNuc3z1BYQGArfPt6L
-         AmGaoD9f5EW0/Lx8m1TJIWN1/kGeM7MyxNzlE9h/AEXb2cKX0rU1EsjAhtfo7cdZLQ3p
-         lNaad4YAlbIy++v4hXD75vPQ5nM3TWUWXnlLbEKGjwN/4hPCgHiDzABuW6T8eMiJhIWg
-         xCu6LGxXAIm6CDcZQwRekDuHsRD48JK6lNPL0abR9o6WQLIvbPPslJ96Q50HNPQyxJmp
-         6QtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :mime-version:dkim-signature;
-        bh=SkISSLquT6XeODeqqMzRS36GrWecMNEutYooMtswli4=;
-        fh=L7WO808N9wwjqjIJsip0GRdIS1xecV7vO/1JTnVcsMQ=;
-        b=jsjxycEckTpiuqYTEJu29RcCZ87+aWcdAa1iOWetOTgfA0Egg7TCjK8dI7mucvFr4c
-         D9r4nhV5IB+xmAF6BGR1QnfeBeK2oAufCq+NplzpR/YpP3iWZZhETHEoQ69fJP0OM8f4
-         G0TXVnW2S9Nk/khWgPbVVjFpftCMeVdVsMQj0leoO59N+JVUR4uonxLhClMfFgihh//a
-         iVdzDz2Ey27QmDmSRAlT3AtAMmF4c19W8fbqP0YdmzL+36KKd/ZOcenqoAZUrV+OgdZ4
-         fiO97yqOmVo53l1FQ89pCYb/IG7OBDV9zK5La3TYJqDlH/k3Mmqwln8f+4eoJVLCjTj+
-         s0GQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789159478; x=1789764278; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SkISSLquT6XeODeqqMzRS36GrWecMNEutYooMtswli4=;
-        b=B4pgYSPoTgXd7hHEuNcqsJB9cgZ5kCvnxBt35nKhNGs+sRaEIUk/jX3vD/frdw4zfO
-         WlBNif9oD8JUmhhoQ+U+CuyK5iXC6dHgSMsEKbD5HKb6j3vQGDpUxhx6cIoyleIcmUBF
-         DWOZUOIk827HA26aEj3M6vr/jYO3zjjOxMfWPJcQttufZmKCUpx5wIpIZJhwv2TuL6Fv
-         96///9aXkVJA+hDcZOf9VHCAx1OBBF0FYdL7ZHN/IYdDKOe9zXax3eAxrtvNsgW/KLhf
-         IdmGGVEIF7Xv5nTIlfa6Ux7PqFHKnLRSXnysz7mgTVc4SbdKAI3FHDiwt7cYFggPiK2x
-         Q0Gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789159478; x=1789764278;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=SkISSLquT6XeODeqqMzRS36GrWecMNEutYooMtswli4=;
-        b=jnqFVTd9sskEoYwqxTdo239TDNvGqXh5IB0hjo2TKwpjhPwRTm63vhMJF6fg8OPzvf
-         RWbkICQwn8Fz4kd5vj4E5jNW8T2lRdMeAPzypj8xfgM2Zw8eLWtL3CMKzANy+ceMqVKI
-         YgWTQ0Iav8rapwPFsQsI8rGnJ95iHmRyeLlb+B9mR5L0DTPanicHeN9It12sa4+/IPTY
-         WD6wCHbuLth1+lUs2cTucb3+yKwln0DHy719LBaRzVwwLu6Qr9m9xJinO+JWrmrWOvy9
-         aUyWAlTHkT+vmH76C7FlDFlvorxKZaM0HxDSJCy9eEkrgyDCArxgvL+iqJkqAedWNb0d
-         rmZg==
-X-Forwarded-Encrypted: i=1; AKwUvBzzian0nsjiS7L4diwO0YB8iMEzppqCUpFRr5iOoyGfUQzFXXb+89nBw1GRNun3yVGLow/Ji+FF1kompyo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mX/tVu7u/zlV/Zsq4qfuBowtaGfVSrTaFXDN5xVgBNvHOd/k3+
-	Fn3O23ec0YAukhzeUuW6E8alQ6iAJupfcGO6rSCwtSp09kn+w2+VD2Vh7Cesqdbk17pi0bBcKPJ
-	EMkO578K0ddIAgvSpzZHgoZVhrp/Ka2ibh5hh
-X-Gm-Gg: AYBFou18jdzfNdjOc6SPU4UJ00UdSspmNfLDx5WUdZeidJHaBsXceLd/d4WgXkXO9sk
-	c+Uly4uoMCA4L/COTaAw1lwMJvqOXJ++APpy6IETXHcmYUmPvFKXS25VOXWb5AFZAUbIdufNFPS
-	4IC94VQB5v0l5Gvz4Vr4oQBazXNCX9iUT/jROqnzrpfTe755UvCGucRvLo9b7BLgVIzYf9me6uC
-	GzkY3GSVSTcE8691JiS7wrHe9aLkqJ+LK798BOGrFMOkWL3f9b5fJrjv2l9jlQXYzV8aidGI1C+
-	Tnbyah1Tj8aj2HZTTI7CzrTKbMZHI3raF2HZksTdiMY+AI3Qv7F7VjuvixrxhBNs/PrYjnzTfut
-	BhPEjS3FFcsitv6Kqv1js0c/NnenYj6P6OOC7LbYmuZQkvX39+Ac=
-X-Received: by 2002:a05:620a:4686:b0:939:922b:3de1 with SMTP id
- af79cd13be357-939ea2a3baemr846826085a.44.1789159477578; Fri, 11 Sep 2026
- 13:44:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b="hwdVCksI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1789159497; x=1789764297; i=w_armin@gmx.de;
+	bh=W3J1Afr710NH/lVRDi7/w9XoM73/On1sn95NXzQ2uD8=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=hwdVCksIIkMhZnTS+bkb1x4/Vr7C0/IlYcJ8DyGg/aus+pQrrCtnM8ABdlILh+C8
+	 rRiet9/UD++xpqVgrg6qpm77/h1vGMWRACQ0aRSJIAYEtMdJ0a7eIhyjY7naEJK9V
+	 ZIijLxRm7qszFM5hZH8VPH+xFRGQ/Ns1TJB+vU1DMF3W6hdQ0ISUXn/TewUX25pRN
+	 nuwASiRwnyYQw6qMC65CTxTbQdmMn64YWrjk/slPG3WmPBygmPdKpIP1XLPTh+xgY
+	 0hW7oEFgb6MgoNoW1JlUjMSTQlLweFlXI3EWUPOWRIdejrPyCEek9IknygvVZEYlA
+	 JLmqJnghIanjGJBpPQ==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MUXpK-1xDpHM2ia8-00Rtdo; Fri, 11
+ Sep 2026 22:44:57 +0200
+Message-ID: <de81ce50-a55d-4a02-85dc-419bb219cdf1@gmx.de>
+Date: Fri, 11 Sep 2026 22:44:51 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Dave Airlie <airlied@gmail.com>
-Date: Sat, 12 Sep 2026 06:44:25 +1000
-X-Gm-Features: AcwNN1XjHdzvwzLxGSBI74aDBaOJ28PfdU-i2VQPskwjh6gRDQm8IPruONYay-U
-Message-ID: <CAPM=9ty1x=g_7+obhbefCdWXQoEoW7-WdVuoN+P4+sfYJ34=_A@mail.gmail.com>
-Subject: [git pull] drm fixes for 7.3-rc3
-To: Linus Torvalds <torvalds@linux-foundation.org>, Sima Vetter <sima@ffwll.ch>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] platform/x86: bitland-mifs-wmi: Don't abort suspend when
+ platform profile access fails
+To: Chris Taraszka <chris@miget.com>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Mingyou Chen <qby140326@gmail.com>, stable@vger.kernel.org
+References: <20260911182131.461415-1-chris@miget.com>
+Content-Language: en-US
+From: Armin Wolf <W_Armin@gmx.de>
+In-Reply-To: <20260911182131.461415-1-chris@miget.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
-
-Hi Linus,
-
-Weekly fixes pull, this seems relatively quiet for the new world,
-scattered fixes, mostly amdgpu leading the way, but lots of minor
-fixes in other drivers.
-
-Regards,
-Dave.
-
-drm-fixes-2026-09-12:
-drm fixes for 7.3-rc3
-
-drm_exec:
-- fix 0 object handling
-
-sched:
-- null ptr deref fix in kunit tests
-
-amdgpu:
-- Freesync fix
-- GPUVM fix
-- Debugfs fixes
-- HDMI fixes
-- IPS fix
-- GPU reset fix
-- RGB quantization fixes
-- SMU 13.0.x fixes
-
-xe:
-- runtime PM guard fix
-- cache flushing fix
-
-i915:
-- Fix a memleak on perf config query error path
-- Fix UHBR SST SDP splitting when sink doesn't support it
-
-bridge:
-- fix ti-sn65dsi83 error handling
-- tc358768: Enforce input bus flags via atomic_check
-
-ast:
-- fix blend mode property on cursor plane
-
-qxl:
-- fix blend mode property on primary/cursor planes
-
-virtio:
-- fix blend mode property on cursor plane
-
-vboxvideo:
-- fix blend mode property on planes
-
-rockchip:
-- fix endpoint name length
-- fix Kconfig issues
-
-ivpu:
-- limit firmware log prints to field size
-- validate buffer range in ivpu address translation
-- validate fw log buffers
-
-ethosu:
-- ensure SRAM sizing
-- ensure cmd stream formatting
-- drop IRQF_SHARED
-- fix open return value
-
-adp:
-- fix Kconfig
-
-logicvc:
-- fix Kconfig
-The following changes since commit df2908090cda368b01ff43709f51890076c56157=
-:
-
-  Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-09-12
-
-for you to fetch changes up to b1edd3a3e00369080012b2e4c665fc662b96ecbd:
-
-  Merge tag 'amd-drm-fixes-7.3-2026-09-10' of
-https://gitlab.freedesktop.org/drm/amdgpu/kernel into drm-fixes
-(2026-09-11 18:42:13 +1000)
-
-----------------------------------------------------------------
-drm fixes for 7.3-rc3
-
-drm_exec:
-- fix 0 object handling
-
-sched:
-- null ptr deref fix in kunit tests
-
-amdgpu:
-- Freesync fix
-- GPUVM fix
-- Debugfs fixes
-- HDMI fixes
-- IPS fix
-- GPU reset fix
-- RGB quantization fixes
-- SMU 13.0.x fixes
-
-xe:
-- runtime PM guard fix
-- cache flushing fix
-
-i915:
-- Fix a memleak on perf config query error path
-- Fix UHBR SST SDP splitting when sink doesn't support it
-
-bridge:
-- fix ti-sn65dsi83 error handling
-- tc358768: Enforce input bus flags via atomic_check
-
-ast:
-- fix blend mode property on cursor plane
-
-qxl:
-- fix blend mode property on primary/cursor planes
-
-virtio:
-- fix blend mode property on cursor plane
-
-vboxvideo:
-- fix blend mode property on planes
-
-rockchip:
-- fix endpoint name length
-- fix Kconfig issues
-
-ivpu:
-- limit firmware log prints to field size
-- validate buffer range in ivpu address translation
-- validate fw log buffers
-
-ethosu:
-- ensure SRAM sizing
-- ensure cmd stream formatting
-- drop IRQF_SHARED
-- fix open return value
-
-adp:
-- fix Kconfig
-
-logicvc:
-- fix Kconfig
-
-----------------------------------------------------------------
-Arunpravin Paneer Selvam (1):
-      drm/amdgpu: skip the VMID 0 flush for VRAM
-
-Dave Airlie (4):
-      Merge tag 'drm-misc-fixes-2026-09-10' of
-https://gitlab.freedesktop.org/drm/misc/kernel into drm-fixes
-      Merge tag 'drm-xe-fixes-2026-09-10' of
-https://gitlab.freedesktop.org/drm/xe/kernel into drm-fixes
-      Merge tag 'drm-intel-fixes-2026-09-10' of
-https://gitlab.freedesktop.org/drm/i915/kernel into drm-fixes
-      Merge tag 'amd-drm-fixes-7.3-2026-09-10' of
-https://gitlab.freedesktop.org/drm/amdgpu/kernel into drm-fixes
-
-Dawid Osuchowski (1):
-      accel/ivpu: Limit firmware log name prints to field size
-
-Esben Haabendal (1):
-      drm/bridge: ti-sn65dsi83: Fix error handling in sn65dsi83_reset_work(=
-)
-
-Fangzhi Zuo (2):
-      drm/amd/display: Exit IPS before connector detection on resume
-      drm/amd/display: Fix HF-VSDB DSC bpc detection to be cumulative
-
-Harry Wentland (1):
-      dm/amdgpu: fix malformed link_settings debugfs output
-
-Igor Paunovic (2):
-      drm/rockchip: dw_dp: Select DRM_BRIDGE_CONNECTOR
-      drm/rockchip: rk3066_hdmi: Add missing Kconfig selects
-
-Karl Mehltretter (2):
-      drm/adp: Drop the select of the nonexistent CONFIG_DRM_KMS_DMA_HELPER
-      drm/logicvc: Drop the select of the nonexistent CONFIG_DRM_KMS_DMA_HE=
-LPER
-
-Kevin Wang (2):
-      drm/amd/pm: fix gpu metrics energy accumulator for smu 13.0.0/13.0.7
-      drm/amd/pm: report energy accumulator for smu 13.0.0
-
-Leonardo Costa (1):
-      drm/bridge: tc358768: Enforce input bus flags via atomic_check
-
-Magdalena Schulfer (2):
-      accel/ivpu: Validate full buffer range in ivpu_to_cpu_addr
-      accel/ivpu: Validate firmware log buffer metadata
-
-Michel D=C3=A4nzer (1):
-      drm/amd/display: Consult MCCS FreeSync cap only if requested & suppor=
-ted
-
-Mitul Golani (1):
-      drm/i915/dp: Gate UHBR SST SDP splitting on sink capability
-
-Nathan Chancellor (1):
-      drm/amd/display: Shorten hdmi_frl_status_polling_workqueue
-
-Prike Liang (1):
-      drm/amdgpu: skip gfx switch_power_profile during GPU reset
-
-Qinyun Tan (4):
-      drm/ast: create blend mode property on cursor plane
-      drm/qxl: create blend mode property on primary and cursor planes
-      drm/virtio: create blend mode property on cursor plane
-      drm/vboxvideo: create blend mode property on planes
-
-Rob Herring (Arm) (5):
-      accel: ethosu: Fix ethosu_job_open() return value
-      accel: ethosu: Drop IRQF_SHARED flag
-      accel: ethosu: Ensure cmd stream ends with a stop op
-      accel: ethosu: Ensure SRAM size is 0 on mapping failure
-      accel: ethosu: Ensure SRAM region size matches job
-
-Satyajit Roy (3):
-      drm/amd/display: Propagate HDMI RGB quantization selectability
-      drm/amd/display: Honor Broadcast RGB for BT.2020 RGB output
-      drm/amd/display: Rebuild InfoFrames on output color space changes
-
-Shixiong Ou (1):
-      drm/sched: Create a fake device for KUnit tests
-
-Sunil Khatri (1):
-      drm/drm_exec: fix up contended obj when num_objects is 0
-
-Thadeu Lima de Souza Cascardo (1):
-      Revert "drm/amdgpu: debugfs: avoid extra EOLs in amdgpu_gem_info"
-
-Thomas Hellstr=C3=B6m (1):
-      drm/xe: Flush LSC untyped L1 dataport cache after rcs/ccs batches
-
-Thomas Zimmermann (1):
-      Merge drm/drm-fixes into drm-misc-fixes
-
-Thorsten Blum (1):
-      drm/i915: Fix memory leak in query_perf_config_list()
-
-Varun Gupta (1):
-      drm/xe: Guard page-fault worker with runtime PM check
-
-Yudi Yang (1):
-      drm/rockchip: analogix_dp: fix unchecked bound endpoint name length
-
- drivers/accel/ethosu/ethosu_device.h               |  1 +
- drivers/accel/ethosu/ethosu_drv.c                  |  3 +-
- drivers/accel/ethosu/ethosu_gem.c                  |  9 +++
- drivers/accel/ethosu/ethosu_job.c                  | 16 ++--
- drivers/accel/ivpu/ivpu_fw_log.c                   | 87 +++++++++++++-----=
-----
- drivers/accel/ivpu/ivpu_gem.h                      | 14 +++-
- drivers/accel/ivpu/ivpu_ipc.c                      |  7 +-
- drivers/gpu/drm/adp/Kconfig                        |  1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         |  3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            | 20 +++--
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  8 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    | 24 +++---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c  | 20 ++---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  6 +-
- .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     | 37 +++++++++
- .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c       |  4 +-
- drivers/gpu/drm/amd/display/dc/core/dc.c           |  3 +
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c                |  6 +-
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   |  8 +-
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   |  4 +-
- drivers/gpu/drm/ast/ast_cursor.c                   |  3 +
- drivers/gpu/drm/bridge/tc358768.c                  | 15 ++--
- drivers/gpu/drm/bridge/ti-sn65dsi83.c              |  6 +-
- drivers/gpu/drm/drm_exec.c                         | 13 ++++
- drivers/gpu/drm/i915/display/intel_display_types.h |  2 +
- drivers/gpu/drm/i915/display/intel_dp.c            | 44 +++++++++--
- drivers/gpu/drm/i915/i915_query.c                  |  4 +-
- drivers/gpu/drm/logicvc/Kconfig                    |  1 -
- drivers/gpu/drm/qxl/qxl_display.c                  |  4 +
- drivers/gpu/drm/rockchip/Kconfig                   |  3 +
- drivers/gpu/drm/rockchip/analogix_dp-rockchip.c    |  7 +-
- drivers/gpu/drm/scheduler/tests/mock_scheduler.c   | 11 +++
- drivers/gpu/drm/vboxvideo/vbox_mode.c              |  4 +
- drivers/gpu/drm/virtio/virtgpu_plane.c             |  4 +
- drivers/gpu/drm/xe/instructions/xe_gpu_commands.h  |  1 +
- drivers/gpu/drm/xe/xe_pagefault.c                  | 10 +++
- drivers/gpu/drm/xe/xe_pagefault_types.h            |  3 +
- drivers/gpu/drm/xe/xe_ring_ops.c                   | 11 +++
- 38 files changed, 312 insertions(+), 115 deletions(-)
+X-Provags-ID: V03:K1:ht/OV5Z6jzFVtc2EKfqbFsYRMZMJH8Lv+XqGV6V91llXn2DS1We
+ NtWjUaEW1OxEVdpBtwDoFWeZMoOaLcpGE+T/iqzOXt1E1ZiMVhsiQKEp1e9h/3GNUASqoTn
+ sMg/OoqbQ2wh5kZsieZVz3lwqWfEb/TsVaMniZ3OnlmbJY/ylD4W0DfMOO5ut7uA6cWCov7
+ s0f2sve94bhgFNQATQRXw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:h0L6VAZjK48=;cuIypHuy8utZQ3dOw5hxzoKNvwK
+ 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
+ YNKU
+
+Am 11.09.26 um 20:21 schrieb Chris Taraszka:
+
+> On a Xiaomi Book Pro 14 (BIOS XMAPT4B0P0909), bitland_mifs_wmi_suspend()
+> intermittently fails to read the platform profile and returns -EINVAL to
+> the PM core, which aborts the entire system suspend:
+>
+>    bitland-mifs-wmi B60BFB48-...-4: PM: dpm_run_callback():
+>      bitland_mifs_wmi_suspend [bitland_mifs_wmi] returns -22
+>    bitland-mifs-wmi B60BFB48-...-4: PM: failed to suspend: error -22
+>    PM: Some devices failed to suspend, or early wake event detected
+>
+> The WMI method call itself succeeds. The WMI core reports its own
+> failures as -EIO, -ENOMSG, -ENODATA or -EPROTO, so the -EINVAL comes fro=
+m
+> laptop_profile_get() when the SystemPerMode value returned by the
+> firmware is not one of the four documented modes.
+>
+> How often this happens depends on firmware state. On a v7.2.2 boot the
+> query failed persistently on battery: /sys/power/suspend_stats reported
+> 4628 failures against 2 successes, both of those on AC. Because logind
+> re-issues the suspend while the lid stays closed, the machine looped
+> awake and drained half the battery over one 8h42m lid-closed period at
+> ~7-8 W. On v7.3-rc2, whose driver, WMI core and platform_profile code ar=
+e
+> unchanged from v7.2, the query has so far failed only right after boot,
+> when power-profiles-daemon first reads the profile.
+>
+> Commit d3666875c75e ("platform/x86: bitland-mifs-wmi: Fix NULL pointer
+> dereference during suspend/resume") added a !data->pp_dev guard, but
+> that only covers the event device. On the control device pp_dev is
+> valid, so the guard does not apply and the error is returned verbatim.
+>
+> Saving the platform profile is best-effort. Failing to read it should
+> not keep the system awake, so warn and continue instead, in line with
+> that commit skipping profile operations rather than failing the
+> transition. Do the same on resume: laptop_profile_set() returns
+> -EOPNOTSUPP for the performance and full-speed modes without DC power
+> (see Documentation/wmi/devices/bitland-mifs-wmi.rst), so a profile saved
+> on DC power cannot be restored after unplugging during suspend, which
+> would otherwise mark the resume as failed.
+
+Hi,
+
+i think the root cause for this is that your device uses a different set o=
+f platform profiles.
+Can you share the output of "acpidump"?
+
+Thanks,
+Armin Wolf
+
+> Fixes: dc1ec4fa86b2 ("platform/x86: bitland-mifs-wmi: Add new Bitland MI=
+FS WMI driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chris Taraszka <chris@miget.com>
+> ---
+> Tested on the same machine with v7.3-rc2 plus this patch: 11 s2idle
+> suspend cycles, including lid-closed suspends on battery of 7h42m, 4.9h
+> and 75.8h, and repeated pm_test=3Ddevices cycles on battery all complete=
+d
+> without errors. The failing firmware state could not be reproduced on
+> demand on v7.3-rc2, so the new warnings have not been observed firing
+> during a suspend; the failures described above were recorded on v7.2.2
+> without this patch.
+>
+>   drivers/platform/x86/bitland-mifs-wmi.c | 17 +++++++++++++----
+>   1 file changed, 13 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/=
+x86/bitland-mifs-wmi.c
+> index 3a37318..788ef14 100644
+> --- a/drivers/platform/x86/bitland-mifs-wmi.c
+> +++ b/drivers/platform/x86/bitland-mifs-wmi.c
+> @@ -305,22 +305,31 @@ static int bitland_mifs_wmi_suspend(struct device =
+*dev)
+>   		return 0;
+>  =20
+>   	ret =3D laptop_profile_get(data->pp_dev, &profile);
+> -	if (ret =3D=3D 0)
+> -		data->saved_profile =3D profile;
+> +	if (ret) {
+> +		dev_warn(dev, "Failed to save platform profile: %d\n", ret);
+> +		return 0;
+> +	}
+>  =20
+> -	return ret;
+> +	data->saved_profile =3D profile;
+> +
+> +	return 0;
+>   }
+>  =20
+>   static int bitland_mifs_wmi_resume(struct device *dev)
+>   {
+>   	struct bitland_mifs_wmi_data *data =3D dev_get_drvdata(dev);
+> +	int ret;
+>  =20
+>   	/* Skip event device */
+>   	if (!data->pp_dev)
+>   		return 0;
+>  =20
+>   	dev_dbg(dev, "Resuming, restoring profile %d\n", data->saved_profile)=
+;
+> -	return laptop_profile_set(dev, data->saved_profile);
+> +	ret =3D laptop_profile_set(dev, data->saved_profile);
+> +	if (ret)
+> +		dev_warn(dev, "Failed to restore platform profile: %d\n", ret);
+> +
+> +	return 0;
+>   }
+>  =20
+>   static DEFINE_SIMPLE_DEV_PM_OPS(bitland_mifs_wmi_pm_ops,
