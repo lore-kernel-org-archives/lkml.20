@@ -1,140 +1,191 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91F8546DFE7;
-	Fri, 11 Sep 2026 08:45:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A6F946EF70
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:45:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789116306; cv=none; b=lnfgziJ9nLKCDfC2DYWivnu/7iQftVXmxVdDE1THadByW3dvmcVbWjffLIFbByxM6TR7/VFAwGPPh9Tnd+bl1cAcW42tAmXGusx5QSFNBB1TuiWZVxiGi+251T+Xrr88eh/6h4+ea+WSf9RUTbO7lva+rO79IM9gZrG2JtfOG9Q=
+	t=1789116308; cv=none; b=pVl/rNF0MLtSjdwsAno0DtQjrGRPBJOf2LVWruSai7hpjcMTJ/sqBEOF3r490VjOvnS1ymG6ROmwfTrlyZzUi22sN3iCgQUoyIHISu/fi8Lvi6A5q7bBwU7WqDYUajL4kgo9Cgty7Ib6s3Pb//eYLFsi4csdSu0+Nu0pP04mtQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789116306; c=relaxed/simple;
-	bh=JteMke0Sr8hgyKy/a2txaR62oAa054IlDk0jPobWpo0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K4I4HXUBTAyQXXi3J0KWUThG6BD8Fh4mANoa5692Ce9rEMAL5BRm40YuJ9WgHgWIM4SDuAa2GUeQYUVU6NRsLJnggQV4O1BvLr+m94BrYIa9GYAh0hW+yybaztVwBT9k0FwU+u0IjWMvHXU4yAskWze7eS3WLJAm9rIA54nI1NM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N6rvZRwt; arc=none smtp.client-ip=192.198.163.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N6rvZRwt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789116301; x=1820652301;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=JteMke0Sr8hgyKy/a2txaR62oAa054IlDk0jPobWpo0=;
-  b=N6rvZRwtH426TvUBm6fCzevZaGmjdXW33zDRV6SqHYEmh/vx3A8nMWfa
-   ZjOOGmk9t1WxJkLFe3n99hwsKHKsoL4BV3TqyMbjqYK+Jd2RpQteR0SHe
-   Qf6PmOaafjXmRE/61NoY+i6W3Dq1c/JGQ3AQm9TI5HC5BSW2U1zj1fRkp
-   6LvTpYNg2qe63lq9wMqRQ5s59eQhWCE2L4mr3r44SGUKDrGWYdHhsMrQa
-   18uq8uyTq0LL8xFlgZTUZwjlyA/zkLHxnjS3gTJS/6h0cYEig/XajuAdT
-   y4O7h9r72pL4EA7CQ+oE+Xmv9dWqfcnUTVLRc8/cvFISI3G8/kb7WFZOf
-   w==;
-X-CSE-ConnectionGUID: eDDwpcYdQ8qRBbys661thA==
-X-CSE-MsgGUID: tMRU9TKbSk2LH7n1uscmHw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="87800"
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="87800"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 01:44:58 -0700
-X-CSE-ConnectionGUID: k9MFxhyNQLy3i2GG1UOXkQ==
-X-CSE-MsgGUID: E4PKgMprRjCjxs8dCAcSCA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="272369570"
-Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
-  by orviesa009.jf.intel.com with ESMTP; 11 Sep 2026 01:44:56 -0700
-Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x4wsC-000000001JG-3XP5;
-	Fri, 11 Sep 2026 08:44:44 +0000
-Date: Fri, 11 Sep 2026 16:44:06 +0800
-From: kernel test robot <lkp@intel.com>
-To: Julian Braha <julianbraha@gmail.com>, rafael@kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, lenb@kernel.org, pavel@kernel.org,
-	akpm@linux-foundation.org, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Julian Braha <julianbraha@gmail.com>
-Subject: Re: [PATCH] PM: sleep: only allow relevant powerpc platforms to
- enable PM_SLEEP_SMP
-Message-ID: <202609111618.fkJkvb2m-lkp@intel.com>
-References: <20260909170520.553867-1-julianbraha@gmail.com>
+	s=arc-20240116; t=1789116308; c=relaxed/simple;
+	bh=lyLGPIeBLaSJhVQs+7mhuHWsNiQr8T3LUidlmX16haI=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=uWN06ksDOWtAA9pGkHcyiq0tTgU1KZd4emwKTzLq0wneD2+qQkk9JOoekjEzqFoSnPEL7hkYVKhkLsAz0YF1liXNoT66kvuK3xtsAgipWooZ6iOk0NcbfaW4zSYVtNbRCbTUTIcq7aruxvCfyK0amhRpeguLWNZsxkWpDfv8n34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7f653940ba4so970374a34.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:45:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789116302; x=1789721102;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=pNZDJs4WrvpU/0VeM+HaPedq/Arxn/eGOa9ZM/mqOUg=;
+        b=gke+TVrXcWG78FVS0EWrLaQ7B1ZTYHImeA00HqaBJXAZyMnhFCt+xmhRXjOHQ10ks5
+         O9E/u9dRZAM2+GCcm4K6CSt7vwCfH43TkUtMEd2Y7xz3XKThlLy7HdEiYImNRkcFUG+H
+         oi2qNadVBbeYoZBKRfyc+teT4WShBs6QdZ7suPEhZCQxHwyNMvrnPqIjlx8uDoWZyog1
+         KCqfKQUBTTDVT/eKww4BaheF4Yeue8I9DnhLwbBFu5RFL3HhtBLd71SvU3LfDy9XGket
+         ysoKvHvFywzCzqdNuPAJfojYufWD9K3NqmtKe49x09sBtcbHv+El5zrTGUl+cB6JXkyF
+         3e4g==
+X-Forwarded-Encrypted: i=1; AKwUvByDnHzPpiJncMkWOG4oQG3X7a0FPx5vcfPdLWO+pO4zcQV07CdatoagxVUFncUSiPaU8pym2BmKoQwtauc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mcbRTIyVg+Gbyxcg5UaISsWUuXx+8BMijxujcMikQpdHRhZC3e
+	kHMMOhTtyKddaJuTNfP4M6ugXybtWI/DUHDu5jogR0pfKFlqyYc9yNqqZ+MWiMNS64Krt+lV0Eg
+	/AuhY6DbevYS6KBGDuEh+6vecd4a7ke+LrkLBxbCuka+ELD+Q6pSknrU36d8=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909170520.553867-1-julianbraha@gmail.com>
+X-Received: by 2002:a05:6820:813:b0:6ba:3635:800b with SMTP id
+ 006d021491bc7-6c0bd19ad9amr2034348eaf.68.1789116302063; Fri, 11 Sep 2026
+ 01:45:02 -0700 (PDT)
+Date: Fri, 11 Sep 2026 01:45:02 -0700
+In-Reply-To: <20260911082838.850442-1-eadavis@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa3bf8e.f2639fcc.29487d.0026.GAE@google.com>
+Subject: Re: [syzbot] [jffs2?] possible deadlock in jffs2_do_clear_inode (2)
+From: syzbot <syzbot+743079a09058321247d8@syzkaller.appspotmail.com>
+To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Julian,
+Hello,
 
-kernel test robot noticed the following build errors:
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+possible deadlock in jffs2_do_clear_inode
 
-[auto build test ERROR on akpm-mm/mm-everything]
-[also build test ERROR on linus/master v7.3-rc2 next-20260909]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+kswapd0/113 is trying to acquire lock:
+ffff8880142105e0 (&f->sem){+.+.}-{4:4}, at: jffs2_do_clear_inode+0x5a/0x470 fs/jffs2/readinode.c:1419
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Julian-Braha/PM-sleep-only-allow-relevant-powerpc-platforms-to-enable-PM_SLEEP_SMP/20260909-180520
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
-patch link:    https://lore.kernel.org/r/20260909170520.553867-1-julianbraha%40gmail.com
-patch subject: [PATCH] PM: sleep: only allow relevant powerpc platforms to enable PM_SLEEP_SMP
-config: i386-randconfig-062-20260910 (https://download.01.org/0day-ci/archive/20260911/202609111618.fkJkvb2m-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260911/202609111618.fkJkvb2m-lkp@intel.com/reproduce)
+but task is already holding lock:
+ffffffff8efc9a20 (fs_reclaim){+.+.}-{0:0}, at: balance_pgdat+0xbce/0x1f00 mm/vmscan.c:7292
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609111618.fkJkvb2m-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   arch/x86/power/cpu.c: In function 'hibernate_resume_nonboot_cpu_disable':
->> arch/x86/power/cpu.c:338:15: error: implicit declaration of function 'freeze_secondary_cpus'; did you mean 'thaw_secondary_cpus'? [-Wimplicit-function-declaration]
-     338 |         ret = freeze_secondary_cpus(0);
-         |               ^~~~~~~~~~~~~~~~~~~~~
-         |               thaw_secondary_cpus
+which lock already depends on the new lock.
 
 
-vim +338 arch/x86/power/cpu.c
+the existing dependency chain (in reverse order) is:
 
-406f992e4a372da Rafael J. Wysocki 2016-07-14  312  
-406f992e4a372da Rafael J. Wysocki 2016-07-14  313  int hibernate_resume_nonboot_cpu_disable(void)
-406f992e4a372da Rafael J. Wysocki 2016-07-14  314  {
-406f992e4a372da Rafael J. Wysocki 2016-07-14  315  	void (*play_dead)(void) = smp_ops.play_dead;
-406f992e4a372da Rafael J. Wysocki 2016-07-14  316  	int ret;
-406f992e4a372da Rafael J. Wysocki 2016-07-14  317  
-406f992e4a372da Rafael J. Wysocki 2016-07-14  318  	/*
-406f992e4a372da Rafael J. Wysocki 2016-07-14  319  	 * Ensure that MONITOR/MWAIT will not be used in the "play dead" loop
-406f992e4a372da Rafael J. Wysocki 2016-07-14  320  	 * during hibernate image restoration, because it is likely that the
-406f992e4a372da Rafael J. Wysocki 2016-07-14  321  	 * monitored address will be actually written to at that time and then
-406f992e4a372da Rafael J. Wysocki 2016-07-14  322  	 * the "dead" CPU will attempt to execute instructions again, but the
-406f992e4a372da Rafael J. Wysocki 2016-07-14  323  	 * address in its instruction pointer may not be possible to resolve
-406f992e4a372da Rafael J. Wysocki 2016-07-14  324  	 * any more at that point (the page tables used by it previously may
-406f992e4a372da Rafael J. Wysocki 2016-07-14  325  	 * have been overwritten by hibernate image data).
-ec527c318036a65 Jiri Kosina       2019-05-30  326  	 *
-ec527c318036a65 Jiri Kosina       2019-05-30  327  	 * First, make sure that we wake up all the potentially disabled SMT
-ec527c318036a65 Jiri Kosina       2019-05-30  328  	 * threads which have been initially brought up and then put into
-ec527c318036a65 Jiri Kosina       2019-05-30  329  	 * mwait/cpuidle sleep.
-ec527c318036a65 Jiri Kosina       2019-05-30  330  	 * Those will be put to proper (not interfering with hibernation
-ec527c318036a65 Jiri Kosina       2019-05-30  331  	 * resume) sleep afterwards, and the resumed kernel will decide itself
-ec527c318036a65 Jiri Kosina       2019-05-30  332  	 * what to do with them.
-406f992e4a372da Rafael J. Wysocki 2016-07-14  333  	 */
-ec527c318036a65 Jiri Kosina       2019-05-30  334  	ret = cpuhp_smt_enable();
-ec527c318036a65 Jiri Kosina       2019-05-30  335  	if (ret)
-ec527c318036a65 Jiri Kosina       2019-05-30  336  		return ret;
-406f992e4a372da Rafael J. Wysocki 2016-07-14  337  	smp_ops.play_dead = resume_play_dead;
-565558558985b1d Qais Yousef       2020-04-30 @338  	ret = freeze_secondary_cpus(0);
-406f992e4a372da Rafael J. Wysocki 2016-07-14  339  	smp_ops.play_dead = play_dead;
-406f992e4a372da Rafael J. Wysocki 2016-07-14  340  	return ret;
-406f992e4a372da Rafael J. Wysocki 2016-07-14  341  }
-406f992e4a372da Rafael J. Wysocki 2016-07-14  342  #endif
-406f992e4a372da Rafael J. Wysocki 2016-07-14  343  
+-> #1 (fs_reclaim){+.+.}-{0:0}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __fs_reclaim_acquire mm/page_alloc.c:4375 [inline]
+       fs_reclaim_acquire+0xc4/0x100 mm/page_alloc.c:4389
+       might_alloc include/linux/sched/mm.h:316 [inline]
+       slab_pre_alloc_hook mm/slub.c:4636 [inline]
+       slab_alloc_node mm/slub.c:4974 [inline]
+       kmem_cache_alloc_noprof+0x63/0x6a0 mm/slub.c:5010
+       jffs2_do_new_inode+0x24/0x520 fs/jffs2/write.c:28
+       jffs2_new_inode+0x581/0xcf0 fs/jffs2/fs.c:469
+       jffs2_create+0x94/0x390 fs/jffs2/dir.c:182
+       vfs_create+0x2fb/0x6c0 fs/namei.c:4197
+       filename_mknodat+0x2de/0x7f0 fs/namei.c:5319
+       __do_sys_mknodat fs/namei.c:5350 [inline]
+       __se_sys_mknodat fs/namei.c:5346 [inline]
+       __ia32_sys_mknodat+0xb4/0xf0 fs/namei.c:5346
+       do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+       __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
+       do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
+       entry_SYSENTER_compat_after_hwframe+0x84/0x8e
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+-> #0 (&f->sem){+.+.}-{4:4}:
+       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+       jffs2_do_clear_inode+0x5a/0x470 fs/jffs2/readinode.c:1419
+       evict+0x3c2/0xad0 fs/inode.c:822
+       dispose_list+0x117/0x1e0 fs/inode.c:864
+       prune_icache_sb+0xea/0x150 fs/inode.c:1011
+       super_cache_scan+0x3ac/0x5c0 fs/super.c:240
+       do_shrink_slab+0x416/0x1200 mm/shrinker.c:443
+       shrink_slab_memcg mm/shrinker.c:560 [inline]
+       shrink_slab+0xa82/0x12e0 mm/shrinker.c:638
+       shrink_one+0x398/0x850 mm/vmscan.c:5119
+       shrink_many mm/vmscan.c:5180 [inline]
+       lru_gen_shrink_node mm/vmscan.c:5258 [inline]
+       shrink_node+0x2b20/0x4320 mm/vmscan.c:6247
+       kswapd_shrink_node mm/vmscan.c:7101 [inline]
+       balance_pgdat+0xb20/0x1f00 mm/vmscan.c:7279
+       kswapd+0x556/0xb50 mm/vmscan.c:7555
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+other info that might help us debug this:
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(fs_reclaim);
+                               lock(&f->sem);
+                               lock(fs_reclaim);
+  lock(&f->sem);
+
+ *** DEADLOCK ***
+
+locks held by kswapd0/113: 2, last CPU#1:
+ #0: ffffffff8efc9a20 (fs_reclaim){+.+.}-{0:0}, at: balance_pgdat+0xbce/0x1f00 mm/vmscan.c:7292
+ #1: ffff88805c6760e8 (&type->s_umount_key#57){++++}-{4:4}, at: super_trylock_shared fs/super.c:688 [inline]
+ #1: ffff88805c6760e8 (&type->s_umount_key#57){++++}-{4:4}, at: super_cache_scan+0x9b/0x5c0 fs/super.c:213
+
+stack backtrace:
+CPU: 1 UID: 0 PID: 113 Comm: kswapd0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
+ check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
+ check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+ lock_acquire kernel/locking/lockdep.c:5942 [inline]
+ lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+ __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+ __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+ jffs2_do_clear_inode+0x5a/0x470 fs/jffs2/readinode.c:1419
+ evict+0x3c2/0xad0 fs/inode.c:822
+ dispose_list+0x117/0x1e0 fs/inode.c:864
+ prune_icache_sb+0xea/0x150 fs/inode.c:1011
+ super_cache_scan+0x3ac/0x5c0 fs/super.c:240
+ do_shrink_slab+0x416/0x1200 mm/shrinker.c:443
+ shrink_slab_memcg mm/shrinker.c:560 [inline]
+ shrink_slab+0xa82/0x12e0 mm/shrinker.c:638
+ shrink_one+0x398/0x850 mm/vmscan.c:5119
+ shrink_many mm/vmscan.c:5180 [inline]
+ lru_gen_shrink_node mm/vmscan.c:5258 [inline]
+ shrink_node+0x2b20/0x4320 mm/vmscan.c:6247
+ kswapd_shrink_node mm/vmscan.c:7101 [inline]
+ balance_pgdat+0xb20/0x1f00 mm/vmscan.c:7279
+ kswapd+0x556/0xb50 mm/vmscan.c:7555
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+
+Tested on:
+
+commit:         50d05c7c Merge tag 'landlock-7.3-rc3' of git://git.ker..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=16842601580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
+dashboard link: https://syzkaller.appspot.com/bug?extid=743079a09058321247d8
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=13a68905580000
+
