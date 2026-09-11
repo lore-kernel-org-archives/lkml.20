@@ -1,143 +1,152 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85FB243DEB9
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:09:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D7E45561F;
+	Fri, 11 Sep 2026 12:10:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789128553; cv=none; b=PwqyoYMJZFGgE6464FukDe/rhXjh+vQsG/+MyTOVm4YbOa5IWSuq0pcaPnMNn1Tk/Q1CeaKjEFgVSJn9wAoCFT0RUH0pWoh3oWSwY95vWIdO4tqqsdfwLfIA29ay5ALX4HOJrlW5QTt2XqwTaxwcDozIF/svaHwDlfllBpsFl8o=
+	t=1789128635; cv=none; b=fstEr5yGXDC1kPSoikCAUPCgAJAGKLa4kVm/jgp9CI4qwJYOSaAqzBKL1gZx8zOQ4ZEFEYjbM+J1dODo7g4JNVNKrf2grztVyEzJ2uXb17PqS8iMLyu8Luqo/3db/YfeSH3Ov1nJAggK+e6bIOAy3cRR35ZlAWgoTEoQDqoAYPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789128553; c=relaxed/simple;
-	bh=8xFWvWnbbxNtSScIWZyOyOwoPgT3OidLM+h8HVaJUFA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=R83Ly7mQUQYGK2dJ9gJaFvyPIty6MdC4ALsURNokckCmJVvEaqWGnrMByrsZGmutpc0LoHtJLoqPQCWxy2WH/sxhSXPTm2fSe4HUOBKJU7ITflY11ezlQ+cffYzQXocyDhgH0vMZygIJKBncZAATwpFExwyc8knzxhAY1cAMhr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hEYRq08u; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789128635; c=relaxed/simple;
+	bh=5W2posNnGBlLZmUaLH8hHgyDf+sWP+I78u0ehzeEhAo=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=ZXdCQJ7/QTAaAHhz/zrjaQd3Mll1prfdM/gDCIfLmgV0UW9/eB13utFjLhENw90Fx48JcQYYATRZvlLuli2tj7BtK59dg0Fd9MoNHyvvJPGVuohmryXCyLwaK2dT2c54Q+npC1XbzTJFCvGixfgprv69kOU6QVbNGudEYijvgHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=o7cork8S; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hEYRq08u"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789128552; x=1820664552;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=8xFWvWnbbxNtSScIWZyOyOwoPgT3OidLM+h8HVaJUFA=;
-  b=hEYRq08uwQT1er9BbDpUD9GUhHdgIZU9Dxsuo7CQQTtxaTNk+2s8M1X3
-   KGUKWR6+/UaeE1M25To+dsYsngl/Fuc+ZuGblXFyx7LMb3gdhwKIaQzsV
-   AM6u0pQHT7/Io1RDtR4BCqnzsoN63v/HeMl0kiZ4EioDJt03uhardMxNH
-   Z7JWIv8UoRg0yXT9A/JHUC4oITiB4pJXoEdyKga+vAHlVdiZbHdk8/sxA
-   TMfvdK3y6SwsVbPKB8kFIUuGYvIqb6YwJ3FIsOMRontXB2qeX30V4Uv/M
-   faV9JD/9FxqKczN9JS4Q1HglXPn8ucSLmmvS8CdPjWF/xv6x9wwVZlf1Y
-   g==;
-X-CSE-ConnectionGUID: YEhED2uxSua3xD/bE3vxtw==
-X-CSE-MsgGUID: rGSkqJMJTHmo5S/rnibZ0g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="92099596"
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="92099596"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 05:09:11 -0700
-X-CSE-ConnectionGUID: ciNHh1x4S2qZz+hvQtA+VQ==
-X-CSE-MsgGUID: 3mOiteiKSlqRl4rKs8o73A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="268226892"
-Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
-  by fmviesa010.fm.intel.com with ESMTP; 11 Sep 2026 05:09:08 -0700
-Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x503s-000000001VB-2MFa;
-	Fri, 11 Sep 2026 12:09:00 +0000
-Date: Fri, 11 Sep 2026 20:08:19 +0800
-From: kernel test robot <lkp@intel.com>
-To: Ho Jie Feng <hjf3108@gmail.com>, dri-devel@lists.freedesktop.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, cyrozap@gmail.com,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/trigger5: Add MCT Trigger 5 USB display driver
-Message-ID: <202609111951.Hco6MgXH-lkp@intel.com>
-References: <20260910171709.396071-1-hjf3108@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="o7cork8S"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 0078B1A01B0;
+	Fri, 11 Sep 2026 12:10:30 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C800B601DE;
+	Fri, 11 Sep 2026 12:10:29 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EAB6711C7AFA8;
+	Fri, 11 Sep 2026 14:10:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789128625; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=DIhn8f/72jmJWSW/HlYmRI0afu98yrdkvSOKUdC9cFk=;
+	b=o7cork8SNcBl95XwVojp7pcvk2ewbuVvTrBrUujxKCrvq8h4hryHI368+KXX7TUUtq2l1F
+	lKc2U0+Yr8WxqhkeH0kNz9LKXAQdm0/GzzO2snvv7tLghznWYjVN5oCEDEPqkqBjuSv3J5
+	niptgDLze+eDhhyV39vdvqrMcrXFuVedY7+mP9J8MC1MITYo0ppmT2VGQcWXcYjZNMMk5D
+	hnt7WglE3ave4PcZy3k/Uo0LjA4glf+zVVu2Vi1gze4FSgC7IDt/jRKnSZMYt5Njtd77if
+	Ee5bJgk8pBkrGQV22doXZ1vY1fkwfHeqzx4j/6hF2llRTKS96D4njmWKUYlMYQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910171709.396071-1-hjf3108@gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 11 Sep 2026 14:10:22 +0200
+Message-Id: <DLCH5YITTX2H.2ZSGAKJ5WFCR6@bootlin.com>
+Subject: Re: [PATCH] clk: eyeq: Use devm_platform_ioremap_resource()
+Cc: "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>, "Tawfik Bayouk"
+ <tawfik.bayouk@mobileye.com>, <linux-mips@vger.kernel.org>,
+ <linux-clk@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+To: =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, "Vladimir
+ Kondratiev" <vladimir.kondratiev@mobileye.com>, "Gregory CLEMENT"
+ <gregory.clement@bootlin.com>, "Stephen Boyd" <sboyd@kernel.org>, "Brian
+ Masney" <bmasney+clk@redhat.com>, "Jerome Brunet"
+ <jbrunet+clk@baylibre.com>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260911-clk-eyeq-res-v1-1-39b04542db38@bootlin.com>
+In-Reply-To: <20260911-clk-eyeq-res-v1-1-39b04542db38@bootlin.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Ho,
+Hello Beno=C3=AEt,
 
-kernel test robot noticed the following build warnings:
+On Fri Sep 11, 2026 at 1:48 PM CEST, Beno=C3=AEt Monin wrote:
+> Convert eqc_probe() from the open-coded platform_get_resource() +
+> ioremap() sequence to devm_platform_ioremap_resource(). Besides less
+> code, this requests the memory region so the OLB registers are properly
+> reserved in the iomem_resource tree.
+>
+> Move devm_platform_ioremap_resource() before checking for device match
+> data, so OLBs bound without match data also get their memory region
+> mapped and reserved.
+>
+> Add an entry for mobileye,eyeq6h-central-olb without match data: its
+> clocks are all registered by the early init and it has no auxiliary
+> devices, so probe() now reserves its region and stops there.
+>
+> Suggested-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+> Signed-off-by: Beno=C3=AEt Monin <benoit.monin@bootlin.com>
+> ---
+>  drivers/clk/clk-eyeq.c | 16 ++++++----------
+>  1 file changed, 6 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/clk/clk-eyeq.c b/drivers/clk/clk-eyeq.c
+> index cf37feccc734..bb680283b6f2 100644
+> --- a/drivers/clk/clk-eyeq.c
+> +++ b/drivers/clk/clk-eyeq.c
+> @@ -513,21 +513,16 @@ static int eqc_probe(struct platform_device *pdev)
+>  	const struct eqc_match_data *data;
+>  	struct clk_hw_onecell_data *cells;
+>  	unsigned int i, clk_count;
+> -	struct resource *res;
+>  	void __iomem *base;
+>  	int ret;
+> =20
+> +	base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(base))
+> +		return PTR_ERR(base);
+> +
+>  	data =3D device_get_match_data(dev);
+>  	if (!data)
+> -		return 0; /* No clocks nor auxdevs, we are done. */
+> -
+> -	res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> -	if (!res)
+> -		return -ENODEV;
+> -
+> -	base =3D ioremap(res->start, resource_size(res));
+> -	if (!base)
+> -		return -ENOMEM;
+> +		return 0; /* Early only clocks, stop here but keep resource reserved *=
+/
 
-[auto build test WARNING on 3ab04dcce43cd4fdaed94f08f4e6289be4921ea4]
+Technically it is "early only clocks OR auxdevs", as is seen in.
+Not that it matters much.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Ho-Jie-Feng/drm-trigger5-Add-MCT-Trigger-5-USB-display-driver/20260911-011705
-base:   3ab04dcce43cd4fdaed94f08f4e6289be4921ea4
-patch link:    https://lore.kernel.org/r/20260910171709.396071-1-hjf3108%40gmail.com
-patch subject: [PATCH] drm/trigger5: Add MCT Trigger 5 USB display driver
-config: sparc64-allmodconfig (https://download.01.org/0day-ci/archive/20260911/202609111951.Hco6MgXH-lkp@intel.com/config)
-compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260911/202609111951.Hco6MgXH-lkp@intel.com/reproduce)
+static const struct eqc_match_data eqc_eyeq6h_west_match_data =3D {
+   .reset_auxdev_name =3D "reset_west",
+};
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609111951.Hco6MgXH-lkp@intel.com/
+> =20
+>  	/* Init optional auxiliary devices. */
+>  	eqc_auxdev_create_optional(dev, base, data->reset_auxdev_name);
+> @@ -1175,6 +1170,7 @@ static const struct of_device_id eqc_match_table[] =
+=3D {
+>  	{ .compatible =3D "mobileye,eyeq5-olb", .data =3D &eqc_eyeq5_match_data=
+ },
+>  	{ .compatible =3D "mobileye,eyeq6l-olb", .data =3D &eqc_eyeq6l_match_da=
+ta },
+>  	{ .compatible =3D "mobileye,eyeq6lplus-olb", .data =3D &eqc_eyeq6lplus_=
+match_data },
+> +	{ .compatible =3D "mobileye,eyeq6h-central-olb" /* no data, early only =
+*/ },
+>  	{ .compatible =3D "mobileye,eyeq6h-west-olb", .data =3D &eqc_eyeq6h_wes=
+t_match_data },
+>  	{ .compatible =3D "mobileye,eyeq6h-east-olb", .data =3D &eqc_eyeq6h_eas=
+t_match_data },
+>  	{ .compatible =3D "mobileye,eyeq6h-south-olb", .data =3D &eqc_eyeq6h_so=
+uth_match_data },
 
-All warnings (new ones prefixed by >>):
+I can confirm this is the way to go! The open-coded
+platform_get_resource() + ioremap() sequence is heritage from how the
+series used to look during its first revisions.
 
->> drivers/gpu/drm/trigger5/trigger5_drv.c:435:19: warning: result of comparison of constant 65536 with expression of type 'const u16' (aka 'const unsigned short') is always false [-Wtautological-constant-out-of-range-compare]
-     435 |             mode->htotal > U16_MAX + 1)
-         |             ~~~~~~~~~~~~ ^ ~~~~~~~~~~~
-   drivers/gpu/drm/trigger5/trigger5_drv.c:440:19: warning: result of comparison of constant 65536 with expression of type 'const u16' (aka 'const unsigned short') is always false [-Wtautological-constant-out-of-range-compare]
-     440 |             mode->vtotal > U16_MAX + 1)
-         |             ~~~~~~~~~~~~ ^ ~~~~~~~~~~~
-   2 warnings generated.
+Reviewed-by: Th=C3=A9o Lebrun <theo.lebrun@bootlin.com>
 
-
-vim +435 drivers/gpu/drm/trigger5/trigger5_drv.c
-
-   420	
-   421	static enum drm_mode_status
-   422	trigger5_crtc_mode_valid(struct drm_crtc *crtc,
-   423				 const struct drm_display_mode *mode)
-   424	{
-   425		struct trigger5_pll pll;
-   426		size_t frame_len, payload_len;
-   427		u64 err, ppm;
-   428	
-   429		/*
-   430		 * The protocol stores totals, sync pulses, and back porches minus one
-   431		 * in 16-bit fields.
-   432		 */
-   433		if (mode->hsync_end <= mode->hsync_start ||
-   434		    mode->htotal <= mode->hsync_end ||
- > 435		    mode->htotal > U16_MAX + 1)
-   436			return MODE_H_ILLEGAL;
-   437	
-   438		if (mode->vsync_end <= mode->vsync_start ||
-   439		    mode->vtotal <= mode->vsync_end ||
-   440		    mode->vtotal > U16_MAX + 1)
-   441			return MODE_V_ILLEGAL;
-   442	
-   443		payload_len = array3_size(mode->hdisplay, mode->vdisplay, 3);
-   444		frame_len = size_add(payload_len, sizeof(struct trigger5_bulk_header));
-   445		if (frame_len > SZ_16M)
-   446			return MODE_MEM;
-   447	
-   448		err = trigger5_calculate_pll(&pll, mode->clock);
-   449		ppm = div64_u64(err * 1000, mode->clock);
-   450		if (ppm > 10000)
-   451			return MODE_CLOCK_RANGE;
-   452	
-   453		return MODE_OK;
-   454	}
-   455	
+Thanks,
 
 --
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
