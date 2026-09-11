@@ -1,374 +1,205 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012019.outbound.protection.outlook.com [52.101.43.19])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010008.outbound.protection.outlook.com [52.101.85.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 236C937B407
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:25:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E55F391E4B
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:26:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.8
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789140340; cv=fail; b=qaklu5SFMZsZrERM0LNEfDVDMDD4xnDa63GXUbjAZUwBtKE3FN2z3qQcigaVXgNwQ8DwXRVzkOvQIREkU9dsqz/j0Np7FmnkhcgFu9TPmmfzxFH8+AnHg7Br0+RHgUaJBC3IQrws6jtxcRfuCA7+veOFVQvbN8BwmJrPX9WlX5w=
+	t=1789140405; cv=fail; b=jVm7EHsKUsZX/h41RXf2h1pqhbyG5bSAi6W/p9m+V+R5YMbC4o3gC9EAAsZFH8NRShMLuoUFEodpFnI0oJ5u6LWM06Cx67l1L6pzT1Jk3NokgY78Qx4NDQn0vfkKW34Bd9CQI/ELF/CVmqQqAxR91LD0FB38jvT6eCQEE2CPz7M=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789140340; c=relaxed/simple;
-	bh=vfq+UEOaMa/GlWWCuThR8wq+R9slBZq3ATzF3q1nHhk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=fFpaxhBng36d/3BAvsd4ZHjYS5vPWwH9tDAUcJAFtAmbeJ3EG/KmJ1KNCIqEBeMvwJr1D2npA1wfiBMPOaR2Ol9VSkyLJuMkI0JX1aEJSDpdNG5G1LldV/t9HZHKHq84/oJaohf5lkVFYgIchI+3CTrBy2YgFc4gXq1fR2W3M+M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=sBFTPOjr; arc=fail smtp.client-ip=52.101.43.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1789140405; c=relaxed/simple;
+	bh=jZpbOAKhkdrn5twR7TbJJ9sgAKzwvemW2uHd08tMu74=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=NU48pa17s6OIRYJ7DiMsLRj5XPok5riOjXMz6bZdmzSWhPyse524wjDmFXaaRZ/1HpdOp31+UrlZa/T0bQeTQf5zLWAtRF9LHzvhODczC3a2arUafJfuR53bVVdI1lkLMgI+kPoOcSTrI9Cl6u+bfpYJ/AYa+d7a8edLgs8QTBA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=jmZ/beMa; arc=fail smtp.client-ip=52.101.85.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="sBFTPOjr"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="jmZ/beMa"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pdCydAkM9E2R+HQ5QF7ZcCUUBn2epd65FU5Ya/7/aLbr63j9R2FjEqHYX5qhbgluTYuv01ZyZ/eNgV99xmGD5gRPuo0sghV9Wf1iilYxWWMbJUeEOt2OAEB4PAVBxPVh5/P2o+W8mwVVUz+8RblOulGNeGzXC4PJLTBCm9/k5XyonjA/tf9C9WVG7PJKCSeXSNFevqn9jZE2OWf/bN5aoIXkQV0I8jtN56VFw43X5HGf9aLg1WIq7/pgwsED9y/3RLnfbRl/cExM2DoTdQ6mqudSXOMF6s6eKk8UcUazOXGMlOkDSc6x+x4F89MrO8JV05A41bpamTv69I0pa/TdiQ==
+ b=Ky23akb3zQyhT5DuT1qRbeoGh53BAcP9aikkzzTx56XbIkstyPT1yWsB5kBtghLw+T3s7ke+L5BS6/87efqSWtp1DJK0Ae1WlF1ErF5LbMK+4pt8Qt3DUD/UYSkuCehdBr9+p3fBS9Ba0Gw6kyuMBH/Ug1yFmnQ4GpiKAuEtclxqTKkeyUELJLAScv4aosJ/N7w/bFG3xJdbjMfWBzeq6MPbDXn6cu9yVNx3/585f7CjgHqazSd7DDN4e0p6B6G+RzE14hbnqD6JTJA2OiiFKi7NhBnhpCbDci27B4ETfxgbt3AnWnHRznAM+qtm8BEGrrIuCdf9nICVOtEDj5FjDg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Se9X24lmtshxH3AQnngAjp2vPnbJwOwH81mdWWU2jjs=;
- b=dRDEPSHDFpoWLOqewrb9ZO4QgxkizMe2lBgfyjhklY+zkblHZhitcmQf0R26jjWESgkU9A8DetzP7HXSsU/cGf+6vc/gTlrWMvYyE1n9utloVuQprQsmcaF2WmrR/Q8TfH3m8nzFjzadFwFzApeXroaEykFZyfC/X1wiTO257rhYom4VhIqorK0el/JO3gtZaG1X7UgGxzV/UACQjM443jMIzWl8Vz/BuOYFYptoZ0kvjJV7jsNnYO1IHz8RSoZSaIcQO0hUe0W7GEkfl8obETQYxORso9POVmY8Fe3ldOp3xcsr8JMHISK0cD4HCq2zXpDYhbCLgbKoZBXfkG2B1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=vZcebxwBwm/CpTEF66jE2VChDK3d8/p2s/e0oZguYYM=;
+ b=cxgMi8iFxkhtPuF7qdaf696mQ9DebjgCyUMU/bOA31T5jSmNieJ8XR5XSMpPvvNj9Q6d0NiK2tLHm/oYk3al3e7bOlq7aUNnrOuoMzjeluFgLeiDGIU2hSgT+ZaaDvfO6EzKcWQey1lrrg5BNhArfO7o1MnqAaHjAtZzQ+oM48wdC9Bg+DSGDO0XVpA3XJz0/Q8pFeUWclYt7edmv389vJfGvVXhQqfDI4M5CHpghMSwpCBut7hJ0+p45SWt1V4jrJfnHUAeWECwD8+KrE8W0pz2euLWI02fm4pdfj2ZwiLGth3V1+fepwMMPKZM5ef8FXxbv5v6/n/Oxmze0P3AcQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Se9X24lmtshxH3AQnngAjp2vPnbJwOwH81mdWWU2jjs=;
- b=sBFTPOjr1me71k5E5AdWcutYs4VFjBY9/FdQldIA/lnor8CAOAyztZCwgRrdDBOMU0/2Hjam2JMHOLFsKMmHjMwT1rNYWaDwkbY2XJshL0V0p2O2XEfY4x0cXRUrE0Ew1k7gILambVfmsI9TYqoL+EcKgJSsWDSDnKHzKxrrRpc=
-Received: from SA0PR11CA0052.namprd11.prod.outlook.com (2603:10b6:806:d0::27)
- by DM6PR12MB4467.namprd12.prod.outlook.com (2603:10b6:5:2a8::14) with
+ bh=vZcebxwBwm/CpTEF66jE2VChDK3d8/p2s/e0oZguYYM=;
+ b=jmZ/beMa1P8svcWrbciX/1HatM08tZjGC39VQuntxgvpuJ6KhATh0n5DozCv9rg5VS6rYqVkIFnHYaIy+t/Xfv3PJdEUsysF6AUBY4R3ic9Li5SZdQVA0VX5tZ2978oIaqYgCKdDZOO/brMYmaOMbybKvWw1sQoS/3M0N4JDilxVWypm2iJTme9QgWVtrRH2RzOdoX2wnYuhoxqhzXpHvA5xi7us0rPTxdnaXJAPytKTTZv9yPWLuc2I8Qg2SNK8hpOoP5L8YZ9fKzZBIbrZT78QmVVTmf0eOogvz0aEJCuM9mbF4x0u2HdJq0d2u2Fwqrc2cLY4Srj1scXxP90yLA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by SA0PR12MB4349.namprd12.prod.outlook.com (2603:10b6:806:98::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 15:25:31 +0000
-Received: from SA2PEPF00003AE5.namprd02.prod.outlook.com
- (2603:10b6:806:d0:cafe::3e) by SA0PR11CA0052.outlook.office365.com
- (2603:10b6:806:d0::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Fri, 11
- Sep 2026 15:25:31 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF00003AE5.mail.protection.outlook.com (10.167.248.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Fri, 11 Sep 2026 15:25:31 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 11 Sep
- 2026 10:25:31 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 11 Sep
- 2026 10:25:30 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 11 Sep 2026 10:25:30 -0500
-Message-ID: <eac6b351-5526-c47f-9797-6d5329c909cf@amd.com>
-Date: Fri, 11 Sep 2026 08:25:30 -0700
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Fri, 11 Sep
+ 2026 15:26:37 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 15:26:37 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: Kiryl Shutsemau <kirill@shutemov.name>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ "Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>
+Subject: Re: [PATCH v2 09/12] mm/collapse: open-code collapse_single_pmd() in
+ its two callers
+Date: Fri, 11 Sep 2026 11:26:39 -0400
+X-Mailer: MailMate (3.0r7032)
+Message-ID: <EAC13ADA-9B0D-4B16-A731-66062266854A@nvidia.com>
+In-Reply-To: <aqQaxyxQYD_1KHju@thinkstation>
+References: <20260910120238.2529819-1-kirill@shutemov.name>
+ <20260910120238.2529819-10-kirill@shutemov.name>
+ <DLCKQ4T6VJZA.3KVN87GD21IBI@nvidia.com> <aqQaxyxQYD_1KHju@thinkstation>
+Content-Type: text/plain
+X-MS-Reactions: disallow
+X-ClientProxiedBy: BN9PR03CA0699.namprd03.prod.outlook.com
+ (2603:10b6:408:ef::14) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V3] accel/amdxdna: Fix unsafe use of handle_mm_fault()
-Content-Language: en-US
-To: Max Zhen <max.zhen@amd.com>, <ogabbay@kernel.org>,
-	<quic_jhugo@quicinc.com>, <mario.limonciello@amd.com>,
-	<karol.wachowski@linux.intel.com>, <dri-devel@lists.freedesktop.org>
-CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
-References: <20260910211338.1102315-1-lizhi.hou@amd.com>
- <e263dca3-c61d-45ae-a7da-096d7f509f26@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <e263dca3-c61d-45ae-a7da-096d7f509f26@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE5:EE_|DM6PR12MB4467:EE_
-X-MS-Office365-Filtering-Correlation-Id: 85dba9da-2918-492f-745f-08df1018ead8
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SA0PR12MB4349:EE_
+X-MS-Office365-Filtering-Correlation-Id: 92cd523e-b971-4cdf-f198-08df101911d2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|1800799024|376014|23010399003|10067099003|4143699003|22082099003|18002099003|56012099006|11063799006;
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|4143699003|11063799006|10067099003|18002099003|22082099003|56012099006|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	TTXLPo5yDrITAkv0V3ROQq9E2AapsNMTKavPdhTxY0MYBsHvCDm/HNJ3u43tvNN+sf+vcGlXPwyAQr/VGlkHfC7aMOUIRunYwVeMQ29AcyOyG2eIbWPGdHSwAXci4i/GKRr2lxyOugKhLEsR5b5JUQwHrqXMbqhPAFaAhzTnfhABaxw9+x1ruxCNu1n0/TsFkSjTYFtXwG/7Qfs30NvGfcRw7hjPrb6uDqIJ/OMJA9hOyboGBdkwT2bN7VGiK1NS+EW2GY+698fugoF5TJPORWz2gtKjENMZJ0ZIk6KUvI4RznPjnVlnzkljvQubWJeSIW0pblbxhD2TIEt+yLU6FUdf896RATyBy21zbXvtFWNJfBC1fbCvSoyLG6QwBmNqX/AbbEMIacp8EqP+TMkbSWZ8nW9hE8EI9EeffcPc+xPAZqzOHbtOJ7IMRV1UjAC4Jcc6O61x2WvheAWAPFL+cw1R5LOkNeTaxZ6x6iefBO9+RzjK0IIMVSYU3/buOAgdcW/GYTUWjbPPhcXKwJ2mTtOEKIRqPLhzeAHqVVK4037YIJsuizKjIKVYtyi/X8lC+X8pOd+416Xa2Rg3CNDoJde/lcxOrqF4mVCIUrU9AMbZG2hwYSJh8cjAwqfh7Q5U6icKMtRfVxJUHUHtnEWtLu92XRxFQWzNQR+AywmYc9HZZT1OWXYSXfEfTTq33k2Yq+UsCAPMPCCQEdzr9fHVcQ==
+	0epPkXweWWy/aEL/gRN/8Lk7r33u0qdeLCJ4SnZ3v6dBzbqvlnCj211YtO6YNbEUtogTBZXFh84n8J5RhgWTiX2gRkNHYq65OZzneiuSsEuwgys9AcQn7wGpdl68zU+wukjl+YiRPshJN6EQ+p508NPZ4hN8ebmnu0Y6Yay2+qpBsLY94b1SxuRND3UvAj9CW3LaEAiwuZKi86RfiVNbjc0SK/HBC90B7uRnBrntxeYxfsRrEc2fMJCD6G1JDwmqHg4sBukAjUABLteytb/OsT/Fkvxd5YNzTEiMdmPyoo12il7HgneWfzF+3bH6YLATr9TgiZu63iewbjbbriHsYdlJUCdLZXWIZBj+iJlDxBQd+Q/hQqBhNbJdheDNXyap3y/cpPNMPflLcmQCtDcyAVF3QSwcT3hv/oWsQ8+LAT6Wfxumcur7yeR5PQWyOqyysiWbuJMOfP6ZEhQF1G9LvuC4iPnBe46jUUO9MarRdn6qSmiyfFcx6NKE69TYRXc5i0bG2ywCzbL9QZ6xvhAxavYVUy8AQ0Q2Lad54XytXrIz+/L7wwX61an03+lQ2PgN/9zW5eW1oPtGQrdDJ+Hwfa8NVd82b9G574g2/4ZOZeztU1+9JTTdLaoMpk3NlFz1+zMrAe+Q9FJyW4yhHyjVm1LOOQyWTBuDMZiC+auskO0=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(23010399003)(10067099003)(4143699003)(22082099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(4143699003)(11063799006)(10067099003)(18002099003)(22082099003)(56012099006)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	oo22B2zIu6i2NZ+53kWta1XTx6pzpvZJ9XBre0IvI4TPbCQKRCMbjKQircLHPsZNMUnydwlEwEIKxC1BAcH7u3DSCPEBzS6m71N0Wi7GzoRqlzlOX2vxDWs64+i2hHoqr7hflrZdO+PNa5DLS2QE6M0yr63B+N3sn5A4Io7iHCHDECuYac/JLhmWEnItcDSPMMad1m2vYSXX7bxVLvj7MJxcWc3FtYDtOBcnLCagjv48k+g8MqLmfNZ6u8EATzusPwXDiRoO0nUAQCeVBskTjt5XQzg/z4ZeGX1sw8BcUEde1aAkRXXxp8rw5wvYlWLFUmnFJwQTs/DVQ9FAAOAQzLAKJDa27iZyjhA3B8XSWYc4EgMqhjR+ulxIhoQv2yaMRzEPd+x190dJi49vxIXugqU4PYgUykUZpCFBPRFqVOMMt2iF4NFhn7facu0EdwmN
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 15:25:31.4826
+	=?us-ascii?Q?YZO9ocI3b9SFPdzzgMPhPgzZL0H+JbW0MWqHmaOhEBRu6PNjRTv9Zho5eTgT?=
+ =?us-ascii?Q?bYskcTSGKBaMkKsz0ym99h1VoKdu+gdfAGXEYNcl4mKfB53inY+1FcTijyrC?=
+ =?us-ascii?Q?zOreWsYssk43jAkMXYOE53+o511hREwqTy5BMmjU6sfAtI54YYwE5qby/OHA?=
+ =?us-ascii?Q?6EjxerUlog3+EYbXmEKctEXpLiCPR72+UcsWhAgvwYJVvHbvwfMRTZM0jFva?=
+ =?us-ascii?Q?EFJfh1TF3tiBlI8J/QE4J4e8BxiWYSpmeDFMbixg0LQdpluRB7ypVpXPpeiU?=
+ =?us-ascii?Q?0kkImufBcq8D50/KmX2ItZyKewT2ZX0Hwpc7YrWCNUAUVazskL82DN2Ke/AR?=
+ =?us-ascii?Q?kk0A9W2SUaAj6FWyp81rBt3BaWZyOkue/28qf9PpPFuUieHh2Bnel9EPH5Ig?=
+ =?us-ascii?Q?cbrotz9CVio7rG9snTgJpOWewm9eti1kFPpTT2HBJs0izp3OeQ3wfAcxQqAX?=
+ =?us-ascii?Q?qNZrxH71hux1XOINR25Ti3NlgkXKACVIWDpBtJ4rdAMaHy2BPy6qVaMrdRrJ?=
+ =?us-ascii?Q?/x89uAtNOVUx2Z+yFF5kuPNuuGiTFhX72xQsqWSLCCCLBpWmFQtzTeD4Sb8q?=
+ =?us-ascii?Q?93MK2KqBw0Kg3o0Ppiw02b/XppUBEGvQcGx+DnIXoPAvf3sK7KyOrc16fTm4?=
+ =?us-ascii?Q?dSXVwd89WtVYUVaRyYc9txl7ULN+PVkLakR/WpJjQUCWpPbFOEfSVYQ8Rbr7?=
+ =?us-ascii?Q?WqwETYSplRKnn/BNMYCmNd6w1EwA+YR4zSz3cBlixUK4ln2HzY5qM2+6mxdZ?=
+ =?us-ascii?Q?M1lV+e8vf+uSihjlYONpJXqaKeZogziPdAMYQED2dC7mSLrughSXuaEnE9u4?=
+ =?us-ascii?Q?0XeMk9T8KKV6FGFamSlhkYulGVD8U5Rk1mNUeYeTPwz8uk9uSJ3oCpZj00s2?=
+ =?us-ascii?Q?wRqcjIYBZKwJh/7lf3n6UoEzBm+3aa/8nGErZzL17aVH/bc5hvj39+MkaFdD?=
+ =?us-ascii?Q?MrRWKx1C+DuruIswZTGOztt5cI38GyYldFqVG0792XLHSYL2sqFNQPaDAA9X?=
+ =?us-ascii?Q?ZUnW8EEy9Pi3hO3gmMv6ku4vQnuZWofvc9M/HwnXVbNhSeVi4Y4X2YcEArr0?=
+ =?us-ascii?Q?mjR/X3/Gz4pchwWqQOrD3WQG+2Wj+HqntAXQntnkz0/cd+BioyS7sW0R/3wL?=
+ =?us-ascii?Q?9/H1nmtffU/j+u9bWWOoRI2tGgnFcXE8X0iTTeoxdd1v88h7mCAGTY+KUD2L?=
+ =?us-ascii?Q?/sdEAxpwOnE8A4yy1+oQqx1AQKF+ibpAvnwd7OFqRVsHyq3i2mv4PSPivSRg?=
+ =?us-ascii?Q?bYHiIYZ/0RFDi3z4u34u2pIjfGF0+N41OY9zxP7p7/ClzBL8um9EG7tiTs8p?=
+ =?us-ascii?Q?SR+2mCHZc69IzD/KobUd3kVskEZIfViCmn3LQ7p4tGVjWdV47WGUYidwNXbe?=
+ =?us-ascii?Q?dVieQB9UsFRop9M/VpiM/OXE21I+PWWqf+U2QjnvLmcbirE72j5x96qqzKoI?=
+ =?us-ascii?Q?uTVmd0Yr8j3ycWtmKxlkJX1ferNU67vW0yf/15u+88v5T+myryANAl7xFEXw?=
+ =?us-ascii?Q?/OH2hYNeYul63pJCYILHngmUlDzN7k7QMdo1MMM+LWahh0rNCgver426V03R?=
+ =?us-ascii?Q?iCuejshiQRE7BSNOWQhUdA5EyTt/d+sXOAy4tst40iJPXUBq+cfgAahK2ayb?=
+ =?us-ascii?Q?K4R/xf/W2nU5wIRSmvHS/stNS07amwKUXD1lsWeNOqXScsyG4ofJrLW0Ycs7?=
+ =?us-ascii?Q?VNAdx6sTIa9fcC6E3R0spm/YP2pTVTBcjKm4HaBrkQg9qtkW?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92cd523e-b971-4cdf-f198-08df101911d2
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 15:26:37.0689
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85dba9da-2918-492f-745f-08df1018ead8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003AE5.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4467
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: b6xrQ4xghSt9EtSSD8zq1Y6P1MQ4ILC0o+F/72NQbClv/Ttc2mM+HatvnyqnKb/i
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4349
 
-Applied to drm-misc-next
+On 11 Sep 2026, at 11:24, Kiryl Shutsemau wrote:
 
-On 9/10/26 15:39, Max Zhen wrote:
+> On Fri, Sep 11, 2026 at 10:57:46AM -0400, Zi Yan wrote:
+>> On Thu Sep 10, 2026 at 8:02 AM EDT, Kiryl Shutsemau wrote:
+>>> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+>>>
+>>> collapse_scan_pmd() and collapse_run_pmd() each have a clear locking
+>>> contract.  The scan is called with mmap_lock held for reading and returns
+>>> with it still held.  The collapse is called without it.
+>>>
+>>> collapse_single_pmd() kept that boundary inside itself.  It dropped the
+>>> lock on some paths and not others, and reported which by way of a bool its
+>>> callers had to carry along and then act on.
+>>>
+>>> Open-code it in the two callers.  Each scans under the lock it already
+>>> holds and, on SCAN_SUCCEED, gives the lock up before running the collapse.
+>>> khugepaged's lock_dropped and madvise_collapse()'s mmap_unlocked both go:
+>>> the code dropping the lock is now the code that wanted to know.
+>>>
+>>> khugepaged's walk carries on to the next table while the scan keeps
+>>> refusing, and ends once a collapse has taken the lock from under it.
+>>> madvise_collapse() re-finds its VMA after a collapse, which it did before,
+>>> and now uses a NULL vma to say that it has to.  It still reports the drop
+>>> to its own caller, from the line that does it.
+>>>
+>>> The lock is given up and taken again at the same points as before.  No
+>>> functional change.
+>>>
+>>> Assisted-by: LLM
+>>> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+>>> ---
+>>>  mm/khugepaged.c | 102 +++++++++++++++++++++++-------------------------
+>>>  1 file changed, 49 insertions(+), 53 deletions(-)
+>>>
+>>
+>> LGTM. Thanks.
+>>
+>> Reviewed-by: Zi Yan <ziy@nvidia.com>
+>>
+>> One question:
+>>
+>> What prevents us from doing:
+>> while () {
+>>     1. mmap_lock
+>>     2. scan_pmd
+>>     3. mmap_unlock, bail out if needed
+>>     4. run_pmd
+>> }
+>>
+>> for both cases? It improves readability. What is the downside of
+>> dropping the lock during multiple scans?
 >
+> The scan/run ratio.
 >
-> On 9/10/2026 Thu 14:13, Lizhi Hou wrote:
->> handle_mm_fault() must not be called from the mmap callback because
->> the VMA has not yet been linked. The handle_mm_fault() API contract
->> assumes that the VMA is already linked.
->>
->> Remove the handle_mm_fault() call from the mmap callback. For imported
->> BOs, mark the mapping as invalid and rely on the first command 
->> submission
->> to fault in the pages.
->>
->> For shmem BOs, set the VM_MIXEDMAP flag and use vm_insert_pages().
->> Implement amdxdna_gem_mixed_vm_ops to handle the page faults.
->>
->> Fixes: e486147c912f ("accel/amdxdna: Add BO import and export")
->> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-> Reviewed-by: Max Zhen <max.zhen@amd.com>
->> ---
->> v2 & v3:
->>    Fix sashiko comment.
->>
->>   drivers/accel/amdxdna/amdxdna_gem.c | 151 ++++++++++++++++++++++------
->>   1 file changed, 118 insertions(+), 33 deletions(-)
->>
->> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c 
->> b/drivers/accel/amdxdna/amdxdna_gem.c
->> index 0d165b66c1fc..a12a762b3a6b 100644
->> --- a/drivers/accel/amdxdna/amdxdna_gem.c
->> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
->> @@ -14,6 +14,7 @@
->>   #include <linux/dma-direct.h>
->>   #include <linux/iosys-map.h>
->>   #include <linux/pagemap.h>
->> +#include <linux/swap.h>
->>   #include <linux/vmalloc.h>
->>     #include "amdxdna_cbuf.h"
->> @@ -490,16 +491,16 @@ static int amdxdna_insert_pages(struct 
->> amdxdna_gem_obj *abo,
->>   {
->>       struct amdxdna_dev *xdna = to_xdna_dev(to_gobj(abo)->dev);
->>       unsigned long num_pages = vma_pages(vma);
->> -    unsigned long offset = 0;
->>       int ret;
->>   -    if (!is_import_bo(abo)) {
->> -        ret = drm_gem_shmem_mmap(&abo->base, vma);
->> -        if (ret) {
->> -            XDNA_ERR(xdna, "Failed shmem mmap %d", ret);
->> -            return ret;
->> -        }
->> -    } else {
->> +    /*
->> +     * Until today there is not any use case to mmap with non-zero
->> +     * offset. Put an explicit check here.
->> +     */
->> +    if (vma->vm_pgoff - drm_vma_node_start(&to_gobj(abo)->vma_node))
->> +        return -EINVAL;
->> +
->> +    if (is_import_bo(abo)) {
->>           vma->vm_private_data = NULL;
->>           vma->vm_ops = NULL;
->>           ret = dma_buf_mmap(abo->dma_buf, vma, 0);
->> @@ -508,23 +509,28 @@ static int amdxdna_insert_pages(struct 
->> amdxdna_gem_obj *abo,
->>               return ret;
->>           }
->>   +        amdxdna_mark_mapp_invalid(abo, vma);
->> +
->>           /* Drop the reference drm_gem_mmap_obj() acquired.*/
->>           drm_gem_object_put(to_gobj(abo));
->> +        return 0;
->>       }
->>   -    do {
->> -        vm_fault_t fault_ret;
->> -
->> -        fault_ret = handle_mm_fault(vma, vma->vm_start + offset,
->> -                        FAULT_FLAG_WRITE, NULL);
->> -        if (fault_ret & VM_FAULT_ERROR) {
->> -            XDNA_ERR(xdna, "Fault in page failed");
->> -            amdxdna_mark_mapp_invalid(abo, vma);
->> -            break;
->> -        }
->> +    ret = drm_gem_shmem_mmap(&abo->base, vma);
->> +    if (ret) {
->> +        XDNA_ERR(xdna, "Failed shmem mmap %d", ret);
->> +        return ret;
->> +    }
->>   -        offset += PAGE_SIZE;
->> -    } while (--num_pages);
->> +    vm_flags_mod(vma, VM_MIXEDMAP, VM_PFNMAP);
->> +    ret = vm_insert_pages(vma, vma->vm_start, abo->base.pages, 
->> &num_pages);
->> +    if (ret) {
->> +        XDNA_ERR(xdna, "Failed to insert pages %d", ret);
->> +        dma_resv_lock(to_gobj(abo)->resv, NULL);
->> +        drm_gem_shmem_put_pages_locked(&abo->base);
->> +        dma_resv_unlock(to_gobj(abo)->resv);
->> +        return ret;
->> +    }
->>         return 0;
->>   }
->> @@ -536,6 +542,10 @@ static int amdxdna_gem_obj_mmap(struct 
->> drm_gem_object *gobj,
->>       struct amdxdna_gem_obj *abo = to_xdna_obj(gobj);
->>       int ret;
->>   +    XDNA_DBG(xdna, "BO map_offset 0x%llx type %d userptr 0x%lx 
->> size 0x%lx",
->> +         drm_vma_node_offset_addr(&gobj->vma_node), abo->type,
->> +         vma->vm_start, gobj->size);
->> +
->>       ret = amdxdna_hmm_register(abo, vma);
->>       if (ret)
->>           return ret;
->> @@ -546,9 +556,6 @@ static int amdxdna_gem_obj_mmap(struct 
->> drm_gem_object *gobj,
->>           goto hmm_unreg;
->>       }
->>   -    XDNA_DBG(xdna, "BO map_offset 0x%llx type %d userptr 0x%lx 
->> size 0x%lx",
->> -         drm_vma_node_offset_addr(&gobj->vma_node), abo->type,
->> -         vma->vm_start, gobj->size);
->>       return 0;
->>     hmm_unreg:
->> @@ -556,14 +563,99 @@ static int amdxdna_gem_obj_mmap(struct 
->> drm_gem_object *gobj,
->>       return ret;
->>   }
->>   +/*
->> + * VM operations for amdxdna shmem VMAs that use VM_MIXEDMAP.
->> + *
->> + * drm_gem_shmem_vm_ops cannot be used on VM_MIXEDMAP VMAs because 
->> its fault
->> + * handler calls vmf_insert_pfn() → vmf_insert_pfn_prot() which 
->> contains:
->> + *   BUG_ON((vma->vm_flags & VM_MIXEDMAP) && pfn_valid(pfn))
->> + * All amdxdna shmem pages are ordinary struct pages so pfn_valid() 
->> is always
->> + * true, making the combination fatal.
->> + *
->> + * These ops use vmf_insert_page() (struct-page based) instead, 
->> which is the
->> + * correct API for VM_MIXEDMAP VMAs backed by real struct pages.  
->> The open and
->> + * close handlers replicate drm_gem_shmem_vm_open/close using only 
->> exported
->> + * symbols.
->> + */
->> +static vm_fault_t amdxdna_gem_mixedmap_fault(struct vm_fault *vmf)
->> +{
->> +    struct vm_area_struct *vma = vmf->vma;
->> +    struct drm_gem_object *gobj = vma->vm_private_data;
->> +    struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(gobj);
->> +    loff_t num_pages = gobj->size >> PAGE_SHIFT;
->> +    vm_fault_t ret = VM_FAULT_SIGBUS;
->> +    pgoff_t page_offset;
->> +    struct page *page;
->> +
->> +    /*
->> +     * Partial free of vma is unexpected. Otherwise, the wrong page
->> +     * will be faulted in and the user application may crash itself.
->> +     */
->> +    page_offset = vmf->pgoff - vma->vm_pgoff;
->> +
->> +    dma_resv_lock(gobj->resv, NULL);
->> +
->> +    if (!shmem->pages || shmem->madv < 0 || page_offset >= num_pages)
->> +        goto out;
->> +
->> +    page = shmem->pages[page_offset];
->> +    if (WARN_ON_ONCE(!page))
->> +        goto out;
->> +
->> +    /*
->> +     * Use vmf_insert_page() (struct-page path) not vmf_insert_pfn()
->> +     * (PFN path) because this VMA carries VM_MIXEDMAP.
->> +     */
->> +    ret = vmf_insert_page(vma, vmf->address, page);
->> +    if (ret == VM_FAULT_NOPAGE)
->> +        folio_mark_accessed(page_folio(page));
->> +
->> +out:
->> +    dma_resv_unlock(gobj->resv);
->> +    return ret;
->> +}
->> +
->> +static void amdxdna_gem_mixedmap_vm_open(struct vm_area_struct *vma)
->> +{
->> +    struct drm_gem_object *gobj = vma->vm_private_data;
->> +    struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(gobj);
->> +
->> +    /*
->> +     * Bump pages_use_count so the page array stays alive for the new
->> +     * mapping copy created by fork().  Mirrors 
->> drm_gem_shmem_vm_open().
->> +     */
->> +    dma_resv_lock(gobj->resv, NULL);
->> +    drm_WARN_ON_ONCE(gobj->dev, 
->> !refcount_inc_not_zero(&shmem->pages_use_count));
->> +    dma_resv_unlock(gobj->resv);
->> +
->> +    drm_gem_vm_open(vma);
->> +}
->> +
->> +static void amdxdna_gem_mixedmap_vm_close(struct vm_area_struct *vma)
->> +{
->> +    struct drm_gem_object *gobj = vma->vm_private_data;
->> +    struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(gobj);
->> +
->> +    dma_resv_lock(gobj->resv, NULL);
->> +    drm_gem_shmem_put_pages_locked(shmem);
->> +    dma_resv_unlock(gobj->resv);
->> +
->> +    drm_gem_vm_close(vma);
->> +}
->> +
->> +static const struct vm_operations_struct amdxdna_gem_mixedmap_vm_ops 
->> = {
->> +    .fault  = amdxdna_gem_mixedmap_fault,
->> +    .open   = amdxdna_gem_mixedmap_vm_open,
->> +    .close  = amdxdna_gem_mixedmap_vm_close,
->> +};
->> +
->>   static int amdxdna_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct 
->> vm_area_struct *vma)
->>   {
->>       struct drm_gem_object *gobj = dma_buf->priv;
->>       struct amdxdna_gem_obj *abo = to_xdna_obj(gobj);
->> -    unsigned long num_pages = vma_pages(vma);
->>       int ret;
->>   -    vma->vm_ops = &drm_gem_shmem_vm_ops;
->> +    vma->vm_ops = &amdxdna_gem_mixedmap_vm_ops;
->>       vma->vm_private_data = gobj;
->>         drm_gem_object_get(gobj);
->> @@ -573,16 +665,9 @@ static int amdxdna_gem_dmabuf_mmap(struct 
->> dma_buf *dma_buf, struct vm_area_struc
->>         /* The buffer is based on memory pages. Fix the flag. */
->>       vm_flags_mod(vma, VM_MIXEDMAP, VM_PFNMAP);
->> -    ret = vm_insert_pages(vma, vma->vm_start, abo->base.pages,
->> -                  &num_pages);
->> -    if (ret)
->> -        goto close_vma;
->>         return 0;
->>   -close_vma:
->> -    vma->vm_ops->close(vma);
->> -    return ret;
->>   put_obj:
->>       drm_gem_object_put(gobj);
->>       return ret;
->> @@ -878,7 +963,7 @@ static const struct drm_gem_object_funcs 
->> amdxdna_gem_shmem_funcs = {
->>       .vmap = amdxdna_gem_obj_vmap,
->>       .vunmap = amdxdna_gem_obj_vunmap,
->>       .mmap = amdxdna_gem_obj_mmap,
->> -    .vm_ops = &drm_gem_shmem_vm_ops,
->> +    .vm_ops = &amdxdna_gem_mixedmap_vm_ops,
->>       .export = amdxdna_gem_prime_export,
->>   };
+> Once memory is mostly huge nearly every scan refuses, and a refused
+> table is cheap: one pmd read for SCAN_PMD_MAPPED, one PTE walk under the
+> PTL otherwise.
 >
+> In your version of the collapse loop, mmap lock/unlock plus VMA
+> revalidation would dominate the cost. It is not productive.
+>
+> Note that scan in khugepaged is bounded by pages_to_scan so we would not
+> hog the lock.
+>
+>> for madvise_collapse(), I see mmap_read_lock is held when it is called,
+>> so it can be dropped at the entry and the code makes sure it is held at
+>> the exit.
+>
+> That makes every MADV_COLLAPSE report lock_dropped, including one on a
+> range that is already huge, which today never lets the lock go. The same
+> performance consideration as above.
+
+Got it. Thank you for the explanation.
+
+Best Regards,
+Yan, Zi
