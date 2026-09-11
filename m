@@ -1,58 +1,107 @@
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [217.70.183.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AFF046D548;
-	Fri, 11 Sep 2026 12:17:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C0E43DEC9
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:17:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789129036; cv=none; b=TrVD8DgRID5tUJ2aTz9XLaP/BzS1/SolUYF3R0e2xrauP7NMA65Ia/SHIMjWbVsdwPm7zsz77RymMvvv/n0hmvgih54KrDprskq/tHNp4uMwIOjQeujUuuhJvoaIcfZqVPpzDzpMOqv6dFjkZJUfgKLZw6OkLqOhl5/1OVR4IcU=
+	t=1789129041; cv=none; b=J1pLzEafxQNYkBAG4okbbHWqtSGgltoWt02DcFALo/daARp/BnI/4n2wqqsE6sVAfUfU19ssyG72JTGJGi824ZIvPlOqkw8680e8qOJvpty/p7NtzsBqPTebCevmMhNcIRi+KgKQ7z1S/z1YyJAB5FFwFOTCbLttfDa2HygDAZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789129036; c=relaxed/simple;
-	bh=hgG4ex11E74cUjRpihO9PAt9otkIlr4zzhbWOYoUoiY=;
+	s=arc-20240116; t=1789129041; c=relaxed/simple;
+	bh=hOV/NyTnPxdCBe6XO/1GKFUexB1rAl0f0lQQCm4ePvE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=idaZjo0ucuV2m9hOjO7Ezj8aI0/iapRYKV6EOk4v2cxrIIvShfUraP/IqetudE1E8kV7VRsV8Vcf6dH4jfXcQ72hsTczwcjONkC9k8iNYHQ7ZGizft1f61TogTQWrERb1wnwWJb9cYVzCu4XIXEwb9QLT5CnC8c8ufJYac3q8lM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr; spf=pass smtp.mailfrom=ghiti.fr; arc=none smtp.client-ip=217.70.183.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghiti.fr
-Received: by mail.gandi.net (Postfix) with ESMTPSA id F311F3EE2F;
-	Fri, 11 Sep 2026 12:17:02 +0000 (UTC)
-From: Alexandre Ghiti <alex@ghiti.fr>
-To: Johannes Weiner <hannes@cmpxchg.org>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>
-Cc: Kairui Song <ryncsn@gmail.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Wei Xu <weixugc@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	Tal Zussman <tz2294@columbia.edu>,
-	linux-mm@kvack.org,
+	 MIME-Version; b=scUf4GOohwEUyZjRkDbOR/Xc4axjjKw37jIT6M16d6xvqz2VnNbcqAi6LWoI+nsEXz7e07bh4qnqCD78eVGcuegaTVOiOKsR0sxZ9i/KsLX12K6Dj8lJ75dNtJEOJoAUsuGUt8mYym3YyXdt/BfML2yBXEZJrIiNRj0dDtnmjKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=ZCwO2x+Z; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="ZCwO2x+Z"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398c066106cso639072a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:17:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1789129033; x=1789733833; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=s0eHZBxWOds1UYdEnuOhccIJeDRWzv84kT8tp0myDIA=;
+        b=ZCwO2x+Zz0mF496XXksvyKkzsEgTm7H6IvtuQL7hBi0gQ2/3wKIfxjj8hUN1Bt9y/5
+         v+mD9bEW8OXQV4o4y5XTKRjt7/rEa8qrFDKG+NaVlBGMzjI9jCJVejCNvIFlP5H5htiO
+         ek05r9M5gu8PPuTGi8fgx1LbiQllQuFWDNwwHRySR3D7+QnlJr+PFr3GdgTrD0zJXwyD
+         3grHsP3DRS181Ff6NtPRJ+THc2/BkYwv41Ufnu8XdwLwxcxkzu/o6lMgyIsbjnzOsOFt
+         /6Jv7LdDzf3JYl9/TIlCOxMIJOBB6TEbC4nu8qJnAl2LKxp+/OnLBJAe8/Tgr8HcEXGs
+         6zjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789129033; x=1789733833;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=s0eHZBxWOds1UYdEnuOhccIJeDRWzv84kT8tp0myDIA=;
+        b=gisYeyM729swqYr2re+iQN7jAlX+9RvZSsfC69rNyTim4QfsbsNPp9puN/fDicHLC2
+         hng9qESVwa6IQA6OkrhkDM+kCblqWMH28vEFZYXshC87pZZP7Ea2uEO684YN9KRZAFCA
+         PJZVL6bpDyqNIYkReaXDkMndedDjmk/XeLeC1wEs3pcoZxTFD5YPrt4IADD6FzUUHPf7
+         JhQt13gk79rKToHE2oifgyz3O1BjJ9dA+R6Do8jkKV2tFKPZASU/shtdW9d179gHI8jE
+         zhHMlBUe8HF0HvEmZZeyfxF6eSrIubMJ+YIUDiHrrWPoKfXELn/tifLDfB3KyIXZCd0b
+         AZqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz/vYNsqP+J0kI79tlU/7Xw8t8AxcCIdfW8Zvu4UtOUJcEVFv1Y01SUqRzaVYKAe0HuFVzKqTojKbhBT+w=@vger.kernel.org
+X-Gm-Message-State: AFuF++mtCWwcgDUIcT/oq0NF/R9TLHYvwRu93rBAMaUX0nROKG6hkCar
+	SidDYxt1xHUiL6Pxrrt+aBLjyiHebC/w1wJ0z4tvkrwCkxx4fgLli3+zskoxZ3AmdiM=
+X-Gm-Gg: AYBFou0c/ubYRLnf1NfhyYhIwuSwHihh2eW7jJLYdh0FVvgnuGaihpkie+98I5HXGhr
+	DHGP6lOXgUPFT2lzf9/CDOVGjxSpRTwwpFZF7VCl2OZ9fiuT6CHq90kYn1J/N0pqzx+Ko/DWnUV
+	v/rjrOgDkXzeu69jZdPfNDvqkgTkHqKQaUXs/XP9SXdAnNq16auJWA/wY/zWvclm9qVuDOeQiRk
+	XOY9l0XCuxYATWrdUi4xXsMQCvYfLnhKJmo1VeKM/usIm1TgcTt7hcslTvng1uH+vVtEwF4NOJM
+	wTP6jqy7OuekrQwBuT7O0qeM/1Gz/vcSJAJe5+xid3jxpD9qJIU9Jv2cOnf2OpvIxcjBeZS/yD9
+	U6u/yvmauTY34a2r9IDo+ZPn2cQmFl8wZP1eTB8n5zWaupuXfRRbwZi6fnEyIOyHqWcf1cN3CPz
+	RXGVe+CrwDLeJjN1JuooG7vSiRUjsfBOvnstbbnCJQuxH8hYJYStUVAg+nH0HU2nn5g6MqLwYAD
+	0cw582gjZeQxilFNnM5YTUTLhDhOi3jaKLfHexi3HGWaNSsq/ax
+X-Received: by 2002:a17:90b:270e:b0:398:dcf6:d40e with SMTP id 98e67ed59e1d1-39d9c1fe880mr7597131a91.17.1789129032846;
+        Fri, 11 Sep 2026 05:17:12 -0700 (PDT)
+Received: from FJ7FR2JRQ3 ([2409:8a28:f48:3091:908c:b537:572a:4db0])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33baf0ea9a1sm3178278eec.8.2026.09.11.05.16.53
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 11 Sep 2026 05:17:12 -0700 (PDT)
+From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>,
+	Conor Dooley <conor@kernel.org>,
+	Anup Patel <anup@brainfault.org>
+Cc: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <cleger@rivosinc.com>,
+	Yunhui Cui <cuiyunhui@bytedance.com>,
+	Atish Patra <atish.patra@linux.dev>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Will Deacon <will@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Yuanzhu <yuanzhu@bytedance.com>,
+	Yicong Yang <yang.yicong@picoheart.com>,
+	Susheng Yang <yang.susheng@zte.com.cn>,
+	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	Alexandre Ghiti <alex@ghiti.fr>
-Subject: [PATCH v5 3/3] mm: zswap: drop cold writeback folios via swap dropbehind
-Date: Fri, 11 Sep 2026 14:13:30 +0200
-Message-ID: <20260911121341.178028-4-alex@ghiti.fr>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260911121341.178028-1-alex@ghiti.fr>
-References: <20260911121341.178028-1-alex@ghiti.fr>
+	linux-perf-users@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+Subject: [PATCH v10 5/9] riscv: mm: avoid enabling interrupts for nofault page faults
+Date: Fri, 11 Sep 2026 20:14:52 +0800
+Message-ID: <20260911121456.33223-6-zhangzhanpeng.jasper@bytedance.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260911121456.33223-1-zhangzhanpeng.jasper@bytedance.com>
+References: <20260911121456.33223-1-zhangzhanpeng.jasper@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,106 +109,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-GND-Sasl: alex@ghiti.fr
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: dmFkZTGjfH5CE7EP1PUuoeu/l2HFd6FdF++hpOgW9bG6M/BTM9F3kapSlk9U7ADtn6kKTISwel0dj9XMJHazyTDJbuCGf1+V6dtQFmMVDsz/j6U8zJS5UWFxlLhlncEBXEX9YRxi/C/PDeW/pyF/LEG1lC35hb8/T6rd2drmQXNcsrOJKh3DWo1SZ4dO8uSsp8GEYnEzEJX5QWflCLS80+j+zqwa+6xD+CuZg9bY1SF9yIU/qkfoyyWDW3JGDJ+aEoJjjp0rdWhKxA6l0J4myGoeFOAENCEQex0bOWMMxHXz5RPKc2sXHCvtKxjhZn7rZZwnhvVGcaI9kZTf2hXpEZopWDbcmhuI+lkgO1VZkGtngqreNfPmyf09XQyJBcekrXeysSX6w+3lqnF8NI/Sss5Y9CLV3j4zFIVtAvlLtHyzjI01JS4lDYoffcBQM7HP0VdS8IKursJsgKwnxu844P8/eGsX7PaeaSHiuGSsUeJrNPKAHUlC5OIcapVTLWGKEdCVdnt4Poaya2cUHRSJJfNVtdy8HPTF8ZTFiplDr9GK5+OWkhuRKiGPKtsY5bCnmQ65H5rYfs2ZF82vh/9baR+n6C7HASFm0sLmnUyyJsJbrU2U6AtoFd2H8ZiO43+6SsmE/N8qdn+EU909sSEeMIJHFlxk/nhu4blmsYlbO56LUzZtDw
 
-zswap writeback decompresses an entry into a fresh swap cache folio and
-writes it back. The folio is cold by construction, yet it is left on the
-LRU for reclaim to find and free later, wasting a reclaim scan and keeping
-cold memory resident longer than necessary.
+RISC-V enables interrupts in handle_page_fault() before checking whether
+the fault occurred with fault handling disabled. A nofault access from an
+atomic context can therefore run tracepoints and open an interrupt window
+before reaching the exception-table fixup.
 
-Allocate the folio off the LRU and mark it PG_dropbehind so the swap
-dropbehind path frees it from the swap cache once writeback completes.
+Handle an exception-table entry before entering the generic fault path when
+fault handling is disabled. Also keep interrupts disabled until such a
+fault has been resolved.
 
-__swap_cache_alloc_folio() evaluates a refault on the new folio, and
-workingset_refault() sets PG_active when it looks recent. Until now
-folio_add_lru() consumed that flag and __page_cache_release() cleared it
-once the folio left the LRU. This folio never reaches the LRU, so nothing
-would clear PG_active and the folio would be freed with a
-PAGE_FLAGS_CHECK_AT_FREE flag set, tripping bad_page() under
-CONFIG_DEBUG_VM. Clear it after allocation.
+This makes RISC-V consistent with the expectation that an in-atomic
+nofault access does not enter the normal fault-handling path. It also
+removes one source of re-entry when perf sampling is delivered through an
+SBI Supervisor Software Event (SSE).
 
-That is a workaround: the refault should not be evaluated on a writeback
-buffer at all. A fix for that is on the mailing list [1].
-
-Link: https://lore.kernel.org/linux-mm/20260911092012.92399-1-alex@ghiti.fr/ [1]
-Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
-Suggested-by: Nhat Pham <nphamcs@gmail.com>
-Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
-Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
+Signed-off-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
 ---
- mm/zswap.c | 33 +++++++++++++++++++++++----------
- 1 file changed, 23 insertions(+), 10 deletions(-)
+ arch/riscv/mm/fault.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/mm/zswap.c b/mm/zswap.c
-index 0d2efe21f18a..dc8425d6b21e 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -1014,7 +1014,8 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
- 	 */
- 	if (IS_ERR(folio))
- 		return PTR_ERR(folio);
--	folio_add_lru(folio);
+diff --git a/arch/riscv/mm/fault.c b/arch/riscv/mm/fault.c
+index 04ed6f8acae4..520495420462 100644
+--- a/arch/riscv/mm/fault.c
++++ b/arch/riscv/mm/fault.c
+@@ -294,6 +294,13 @@ void handle_page_fault(struct pt_regs *regs)
+ 	if (kprobe_page_fault(regs, cause))
+ 		return;
+ 
++	/*
++	 * Nofault accesses must be resolved through the exception table before
++	 * entering the generic fault path or enabling interrupts.
++	 */
++	if (unlikely(faulthandler_disabled()) && fixup_exception(regs))
++		return;
 +
-+	folio_clear_active(folio);
+ 	if (user_mode(regs))
+ 		trace_page_fault_user(addr, regs, cause);
+ 	else
+@@ -314,8 +321,8 @@ void handle_page_fault(struct pt_regs *regs)
+ 		return;
+ 	}
+ 
+-	/* Enable interrupts if they were enabled in the parent context. */
+-	if (!regs_irqs_disabled(regs))
++	/* Do not open an interrupt window before a nofault fixup completes. */
++	if (!regs_irqs_disabled(regs) && !faulthandler_disabled())
+ 		local_irq_enable();
  
  	/*
- 	 * folio is locked, and the swapcache is now secured against
-@@ -1028,12 +1029,12 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
- 	tree = swap_zswap_tree(swpentry);
- 	if (entry != xa_load(tree, offset)) {
- 		ret = -ENOMEM;
--		goto out;
-+		goto err;
- 	}
- 
- 	if (!zswap_decompress(entry, folio)) {
- 		ret = -EIO;
--		goto out;
-+		goto err;
- 	}
- 
- 	xa_erase(tree, offset);
-@@ -1047,18 +1048,30 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
- 	/* folio is up to date */
- 	folio_mark_uptodate(folio);
- 
--	/* move it to the tail of the inactive list after end_writeback */
--	folio_set_reclaim(folio);
-+	folio_set_dropbehind(folio);
-+
-+	/*
-+	 * Drop our reference before starting writeback so the swap cache holds
-+	 * the only one: the drop in folio_end_writeback() needs that for
-+	 * remove_mapping_set_shadow() to succeed, otherwise the folio is
-+	 * handed back to reclaim instead.
-+	 *
-+	 * Nothing can free the folio in the meantime: we hold the folio lock
-+	 * until writeback starts, PG_writeback then blocks swap cache removal,
-+	 * and folio_end_writeback() takes its own reference before clearing
-+	 * PG_writeback and donates it to the drop.
-+	 */
-+	folio_put(folio);
- 
- 	/* start writeback */
- 	__swap_writepage(&ctx, folio);
- 	swap_write_submit(&ctx);
- 
--out:
--	if (ret) {
--		swap_cache_del_folio(folio);
--		folio_unlock(folio);
--	}
-+	return 0;
-+
-+err:
-+	swap_cache_del_folio(folio);
-+	folio_unlock(folio);
- 	folio_put(folio);
- 	return ret;
- }
 -- 
-2.53.0-Meta
+2.50.1 (Apple Git-155)
 
