@@ -1,198 +1,125 @@
-Received: from pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.68.102])
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBED0348896;
-	Fri, 11 Sep 2026 14:21:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.68.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B224B351C34;
+	Fri, 11 Sep 2026 14:22:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789136499; cv=none; b=FwMPe3/YcTRTe1UZ1H/uL5rFlrqM6Lb6KmR51LdHQfSNNpXIOanRNQHhjuiT3SRXKCVZVdczzKHqyZbCwJHk9FS3IHsQjsoDz9cmJ7ozTA8Vw/Ds6TeGgTSeP8dUrz4UN++fDSjI4TBAsFfG7tRwuPcvnXEtp1B/NfGcZMumikw=
+	t=1789136534; cv=none; b=PFC7ZfzYYNb8pa/qOOtuD25CFHo6EONM2rR5ihz08MLOscuoxde6xBwaUXmB1OvpDr2c9Sdawgum/gVwJxAOGk9Acoy2y0yy65k7HjWsgCvop5L8IVzeyiZFHZ36SABwIeQgju1kDcDIZj5wqYEAFK2gb/BauBHopUXGqalvw/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789136499; c=relaxed/simple;
-	bh=VUEzRwZBbW36v01xG0o83cDpXLNyNmfI9HXo44wIdn4=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=QHM+ExN9vJVlqjbuhzy6P3tJmOnGrhKxj4ajVreKaoybMzRyINs2XukvN60LnHbPpWxnm0X7n9ofpo1cNEhFHVMhRIOz4eOe9nPnY5MeAu21hfTj+oHYHKexr3v3ogc5fynrJcY7jZGeH0Zjcs7aCYy1HXZZ25Q/MgBzuKhm0S4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it; spf=pass smtp.mailfrom=amazon.it; dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b=OYDx4bVs; arc=none smtp.client-ip=44.246.68.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.it
+	s=arc-20240116; t=1789136534; c=relaxed/simple;
+	bh=jmNvfqXjweVniseb8oBYU2SlAr/cTHg9c4d+ZJ85pK8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s1rllgNy80WjzN+qY91STWPJa9Jh9ScpQxxOHeoFm18IAI7yfEe9fpBTfW81yo0/Fztlu5rO2fzd3tsTM4HZAnKA7h6FTqKA5CTeppyoidISc9vFP42m/5xbY7viWY25RNDGBlOlNjpMDrzE2Cz0xlfxHJW6PPRRra4WFK2Z/ZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=dRmx73Q/; arc=none smtp.client-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b="OYDx4bVs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.it; i=@amazon.it; q=dns/txt; s=amazoncorp2;
-  t=1789136498; x=1820672498;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=gptPpxw0wFk91egaNInUnptSeER0SPdng9bGfnf/tP4=;
-  b=OYDx4bVs8WPzmf1ZCTC6WZ+uu1YRP/M2lVFUTIXC98/4zFEUwY87NTPz
-   0oHsa6QWY9tk0WxX3HAunbKkUdyvNCTnfEsbc68imQ5NiJHWTAlEo+TZH
-   RI+nMjmcSMjNsfrAyw/FFU3q+9FXBo1wZhZWIhbyDrB3+jWaMx2wu5oXi
-   HBcRAnZMAc8Ebu5BThQ5YRSUc2V4m9qPLajoF4z9czcgoeMiZqgJR73L7
-   KwDQDaWx2u3Gru/UmNIZuDunnAEcYkAF85WJ6qRUcSNyZLq0YwXrQcotx
-   Kiqq/IFyPGUdHkcu3dVYFuCvOCnORLHgYv4dEMIYAbZLC5u44OjUd/qDz
-   w==;
-X-CSE-ConnectionGUID: I7XG1V8IQNGYo35kGCunpg==
-X-CSE-MsgGUID: TOfcsjxZS1+qduGqGhMONw==
-X-IronPort-AV: E=Sophos;i="6.27,97,1787011200"; 
-   d="scan'208";a="28340119"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 14:21:35 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.51:24846]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.62.198:2525] with esmtp (Farcaster)
- id 15edf2e1-39ad-4826-a4a7-d73e88fdd306; Fri, 11 Sep 2026 14:21:35 +0000 (UTC)
-X-Farcaster-Flow-ID: 15edf2e1-39ad-4826-a4a7-d73e88fdd306
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Fri, 11 Sep 2026 14:21:34 +0000
-Received: from dev-dsk-dipiets-1b-77b833da.eu-west-1.amazon.com
- (10.253.66.177) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Fri, 11 Sep 2026
- 14:21:30 +0000
-From: Salvatore Dipietro <dipiets@amazon.it>
-To: <linux-kernel@vger.kernel.org>
-CC: <hch@infradead.org>, <abuehaze@amazon.com>, <akpm@linux-foundation.org>,
-	<alisaidi@amazon.com>, <blakgeof@amazon.com>, <brauner@kernel.org>,
-	<dgc@kernel.org>, <dipietro.salvatore@gmail.com>, <dipiets@amazon.it>,
-	<djwong@kernel.org>, <hannes@cmpxchg.org>, <jackmanb@google.com>,
-	<linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>,
-	<linux-xfs@vger.kernel.org>, <mhocko@suse.com>, <ritesh.list@gmail.com>,
-	<rvvandan@amazon.com>, <stable@vger.kernel.org>, <surenb@google.com>,
-	<vbabka@kernel.org>, <willy@infradead.org>, <ziy@nvidia.com>, Vlastimil Babka
-	<vbabka@suse.cz>, David Hildenbrand <david@redhat.com>, Christoph Hellwig
-	<hch@lst.de>, Brendan Jackman <brendan.jackman@linux.dev>
-Subject: [PATCH v5] mm/page_alloc: avoid direct compaction for costly  __GFP_NORETRY allocations
-Date: Fri, 11 Sep 2026 14:21:02 +0000
-Message-ID: <20260911142102.2294202-1-dipiets@amazon.it>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="dRmx73Q/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1789136530;
+	bh=Ox7YSacdV7h2InVZd1Iw3kxrYUsfnmdCyCbV+t17m9Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dRmx73Q/BqINvAznK12hHcya8HwHtUWWApvOp3949LNn7lbg00QuvV+XbJvOBjmqk
+	 qnEwahN+MXSnHfEuFfB1jR68KSJV6kbVjaVJ/xb+0CiEn0uE2i1XBtRydooWhtihAe
+	 ebUrtLoLjFoZWeD/L0U8JIzqTghuuQ/82VVra4VnwvUiGoKv/7Bzf/6sGEmuU0u2m7
+	 B9XRVOFTG34sHFOjTeXMsKvEYcAF8eNJasho/uhyMrptFRXMDjNDfnCUrPAURY3wGk
+	 ZT57vPYEODsmxnxI3PBQQnPCs+Bk0eIDIuYS8daqFCGitNr6DorRDxTwpAZhvEU6Pg
+	 +/tE0aGrVoVdQ==
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 06475603E1;
+	Fri, 11 Sep 2026 16:22:10 +0200 (CEST)
+Date: Fri, 11 Sep 2026 16:22:07 +0200
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: Farhad Alemi <farhad.alemi@berkeley.edu>
+Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	falemi@asu.edu, Simon Horman <horms@kernel.org>,
+	Florian Westphal <fw@strlen.de>, netfilter-devel@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: reject a forward path that loops back to the
+ tunnel
+Message-ID: <aqQOj8EHUb6ZzWjR@chamomile>
+References: <CA+0ovCj+Pd5owGH+51rA8-RDu9YFx5oYUv8bV0zOE72QgVfY0A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ClientProxiedBy: EX19D031UWC003.ant.amazon.com (10.13.139.252) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CA+0ovCj+Pd5owGH+51rA8-RDu9YFx5oYUv8bV0zOE72QgVfY0A@mail.gmail.com>
 
-Commit 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
-introduced high-order folio allocations in the iomap buffered write
-path.  When memory is fragmented, each failed costly-order allocation
-enters __alloc_pages_slowpath() which runs direct compaction and
-drain_all_pages(), causing a 0.38x throughput drop on PostgreSQL
-pgbench (simple-update) with 1024 clients on a 96-vCPU arm64 system.
+Hi,
 
-The root issue is that direct compaction is too expensive for hot
-allocation paths that have fallbacks to smaller allocations.
-__filemap_get_folio_mpol() already marks higher-order allocations with
-__GFP_NORETRY | __GFP_NOWARN, signalling that the caller can handle
-failure.  However, the page allocator still attempts full direct
-compaction for costly orders with __GFP_NORETRY, which is unnecessarily
-aggressive when the caller will simply retry at a lower order.
+On Fri, Sep 11, 2026 at 12:17:08AM +0000, Farhad Alemi wrote:
+> ipip_fill_forward_path() and ip6_tnl_fill_forward_path() assign the outer
+> route's device to ctx->dev without checking that it differs from the tunnel
+> device itself.  When a tunnel's outer route resolves back to that same
+> tunnel, the walk in dev_fill_forward_path() makes no progress and trips its
+> loop check WARN_ON_ONCE(last_dev == ctx->dev). Release the route and
+> return -EOPNOTSUPP when the resolved dst device equals ctx->dev, so the
+> path walk either advances to a different device or fails cleanly.
 
-For costly-order allocations with __GFP_NORETRY, suppress direct reclaim
-for the whole slowpath by computing can_direct_reclaim (and hence
-can_compact) as false.  The !can_direct_reclaim check near the top of
-the slowpath then short-circuits to nopage: no direct reclaim, no direct
-compaction and no drain_all_pages() IPI across every CPU.  kswapd (and
-in turn kcompactd) is still woken further down for background
-defragmentation, so compaction keeps working for long-term system health
-while being removed from the latency-critical direct allocation path.
+I think we can remove this WARN_ON_ONCE() from dev_fill_forward_path(), ie.
 
-Allocations that also request __GFP_THISNODE are exempted.  That flag
-pairing identifies the local-node-first THP attempt issued by
-alloc_pages_mpol() (mempolicy.c), which relies on direct compaction to
-form transparent huge pages.  __GFP_NOFAIL is exempted as well, so a
-must-not-fail allocation is never made to fail.
-
-Test environment:
-  Hardware:  AWS EC2 m8g.24xlarge (96 vCPU, arm64)
-             12x 1TB IO2 32000 IOPS RAID0 XFS
-  OS:        AL2023
-  Kernel:    v7.3-rc1
-  Database:  PostgreSQL 18.4
-  Workload:  pgbench simple-update, 1024 clients, 96 threads, 1200s
-
-Results (average of 3 runs, TPS):
-  Config                                       Avg TPS   % vs baseline
-  AL2023 stock 6.1 kernel (pre-5d8edfb900d5)   136,942           n/a
-  v7.3-rc1 baseline (no patch)                  59,408             -
-  v7.3-rc1 + this patch                        161,994       +172.7%
-
-The patch fully recovers the pre-5d8edfb900d5 performance, bringing
-throughput back above the pre-regression level and well clear of the
-~59k baseline.  The AL2023 6.1 row runs a kernel that predates commit
-5d8edfb900d5 ("iomap: Copy larger chunks from userspace"), so it is not
-directly comparable, but it shows the pre-regression level and confirms
-that the ~59k baseline is the anomaly and not the norm.
-
-
-Link: https://lore.kernel.org/all/20260403193535.9970-1-dipiets@amazon.it/T/#t [v1]
-Link: https://lore.kernel.org/linux-mm/20260420161404.642-1-dipiets@amazon.it/T/#u [v2]
-Link: https://lore.kernel.org/all/20260710143437.12379-1-dipiets@amazon.it/T/#u [v3]
-Link: https://lore.kernel.org/all/20260904115629.3993331-1-dipiets@amazon.it/T/#u [v4]
-Fixes: 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
-Cc: stable@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Vlastimil Babka <vbabka@suse.cz>
-Cc: David Hildenbrand <david@redhat.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Dave Chinner <dgc@kernel.org>
-Cc: Ritesh Harjani <ritesh.list@gmail.com>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: linux-mm@kvack.org
-Cc: linux-fsdevel@vger.kernel.org
-Cc: linux-xfs@vger.kernel.org
-Signed-off-by: Salvatore Dipietro <dipiets@amazon.it>
----
-v5: Derive the decision into a local flag instead of mutating gfp_mask
-v4: Clear __GFP_DIRECT_RECLAIM early in the slowpath and exempt
-    __GFP_THISNODE so THP attempt keeps using direct compaction
-v3: Move to mm/page_alloc.c, wake kcompactd instead of avoiding it
-v2: Move from fs/iomap/buffered-io.c to mm/filemap.c
-v1: Avoid compaction in iomap folio allocation
-
- mm/page_alloc.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
-
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 12fac9084c48..be8b0d72a2db 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -4784,10 +4784,22 @@ static inline struct page *
- __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
- 						struct alloc_context *ac)
- {
--	bool can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
-+	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
-+	/*
-+	 * Costly __GFP_NORETRY callers have a cheap fallback to a lower order,
-+	 * so don't stall them in direct reclaim or direct compaction.  Exempt
-+	 * __GFP_THISNODE (the THP attempt from alloc_pages_mpol() needs direct
-+	 * compaction) and __GFP_NOFAIL (must not be made to fail).  Don't
-+	 * clear __GFP_DIRECT_RECLAIM from gfp_mask instead: that would also
-+	 * change the alloc_flags derived by alloc_flags_slowpath().
-+	 */
-+	const bool costly_noretry = costly_order &&
-+		(gfp_mask & __GFP_NORETRY) &&
-+		!(gfp_mask & (__GFP_THISNODE | __GFP_NOFAIL));
-+	bool can_direct_reclaim = !costly_noretry &&
-+		(gfp_mask & __GFP_DIRECT_RECLAIM);
- 	bool can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
- 	bool nofail = gfp_mask & __GFP_NOFAIL;
--	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
- 	struct page *page = NULL;
- 	unsigned int alloc_flags;
- 	unsigned long did_some_progress;
--- 
-2.50.1
-
-
-
-
-AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
-
-
-
+diff --git a/net/core/dev.c b/net/core/dev.c
+index ecfbd72d5d1a..c67900354fa6 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -789,7 +789,7 @@ int dev_fill_forward_path(struct net_device_path_ctx *ctx,
+                        goto err_out;
+ 
+                stack->num_paths++;
+-               if (WARN_ON_ONCE(last_dev == ctx->dev))
++               if (last_dev == ctx->dev)
+                        goto err_out;
+        }
+ 
+> Closes: https://lore.kernel.org/all/CA+0ovCgaRvbd0Udj70b2xxG8Cx3CaCpNhnf1V4RWQuDveZYZhA@mail.gmail.com/
+> Signed-off-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+> ---
+> --- a/net/ipv4/ipip.c
+> +++ b/net/ipv4/ipip.c
+> @@ -375,6 +375,12 @@ static int ipip_fill_forward_path(struct
+> net_device_path_ctx *ctx,
+>  	if (IS_ERR(rt))
+>  		return PTR_ERR(rt);
+> 
+> +	/* The path walk must advance: a route back into the tunnel is a loop. */
+> +	if (rt->dst.dev == ctx->dev) {
+> +		ip_rt_put(rt);
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+>  	path->type = DEV_PATH_TUN;
+>  	path->tun.src_v4.s_addr = tiph->saddr;
+>  	path->tun.dst_v4.s_addr = tiph->daddr;
+> --- a/net/ipv6/ip6_tunnel.c
+> +++ b/net/ipv6/ip6_tunnel.c
+> @@ -1863,7 +1863,12 @@ static int ip6_tnl_fill_forward_path(struct
+> net_device_path_ctx *ctx,
+>  	fl6.flowi6_proto = 0;
+> 
+>  	dst = ip6_route_output(dev_net(ctx->dev), NULL, &fl6);
+> -	if (!dst->error) {
+> +	err = dst->error;
+> +	/* The path walk must advance: a route back into the tunnel is a loop. */
+> +	if (!err && dst->dev == ctx->dev)
+> +		err = -EOPNOTSUPP;
+> +
+> +	if (!err) {
+>  		path->type = DEV_PATH_TUN;
+>  		path->tun.src_v6 = fl6.saddr;
+>  		path->tun.dst_v6 = fl6.daddr;
+> @@ -1873,7 +1878,6 @@ static int ip6_tnl_fill_forward_path(struct
+> net_device_path_ctx *ctx,
+>  		ctx->dev = dst->dev;
+>  	}
+> 
+> -	err = dst->error;
+>  	if (err)
+>  		dst_release(dst);
