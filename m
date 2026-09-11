@@ -1,117 +1,133 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B17951A3160;
-	Fri, 11 Sep 2026 14:27:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789136877; cv=none; b=tVSKT6kYcYeVtEl9lu0H3hgHwp6cwTe7AYIwQifMYhafY6giR82kWs/f3xHjS3I15oE+MbyQdQ7n33hfTmKCviYiTXSwyKaIYulqoD6Yt/LvXW93xHiYpKUKmoDzn0qLGWN7KwDYHxYXZ/54C7Z2Dbh2TSfPtehbSalY0bzHZXs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789136877; c=relaxed/simple;
-	bh=WzVA3xuZ5JdDGBqQbjJVlTNBllbYsKRQWabRga5ERUE=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=b5GyU4q2mQskvc8L2SMzA9r4IuQUWUeve5kEFgdxqz/HuTO7B5iBvLSvGcQ+0bwKI3eFnBMDhCzMjWWypYa6pRYyDL6hFNzw2Lla1RY7HeyUbyP1aR7u/38DORDuO4GQp4ExG1e4qSUfC//XAp68cQzK6tYFNoP6s579iEAWBcY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=bx7OnAGr; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0681F3515D9
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:28:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789136908; cv=pass; b=Hb2VAcXunfXiCG/KE9fL1o2uYHyd5weORGyY4sL3X/ZgKaRzG6imy+hKEeXVsz/yGRQZiZ3/dB4qJ+N9srbjmwZfscPsEy1iLojVc3EsaaFhJUOwFdvj/FGFS70k27kCepLKbUykAodzE3VYRNmIvt1l+kwZb+xfnK5J4obGVoI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789136908; c=relaxed/simple;
+	bh=OkVCJuwmBQSImGq06egfb3qFzategRQekOyDcs9IwJg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Tpo2l4kut/Dx1pO4CJfCn0MBK4HnLfP2ffKqRWj1M8/iTPvnm/qgm7EhDz7DtKaf0XL54kjfk7ibXvLPaUu+FrMehdSRQQXvOkTgudjm+wicgtzozfdzNmYqiqbEtJDMttCy0Dcy3Gecw/ruUOlZplgOgNw2wIumFwHEedlBe9Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vr3A4TUu; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="bx7OnAGr"
-Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8510663C;
-	Fri, 11 Sep 2026 16:26:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789136775;
-	bh=WzVA3xuZ5JdDGBqQbjJVlTNBllbYsKRQWabRga5ERUE=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=bx7OnAGre7KGRBkMjaytz3CoYbubcRbmabeSbTGp8hvXheaK6MZeL8YAqHLSkp6A8
-	 bfKDFS6ZTNCkZKeVzsLJiCafbH+E+8Eu+c7SYGvIxU1EFElpCX3z/96SktdqYHUiMz
-	 hL3/Ca78PdXrtLWp+crCNB4HLF+GCv9oBxX9xnTk=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vr3A4TUu"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-530411c7ee1so2621cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:28:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789136905; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hH18b/AcOmQMR13v8RQNRNzip9MVXkWuhU1HqUuywzfKWHUehU0/1R+UYUr00W3PGo
+         JPaF0rmDF3M1wacS8wR5VWLtpkhYUPrpQ/gGf2cJi8tAD+idotCKmL5lXHDlCgiOczAa
+         LD+3FMgydCFnIEUMoMtQFCLzW/Wl/W9hQk0/AT5gQSkS1yq63BPAfxiO0I7E6LaNmjk2
+         J64s2wGjjdostb/0+WpdpTJDO0fxyJHqV7595cYINMBHCJGWjooy5GedQbUY+DbIbAvH
+         NCZYKi/J0/QWAJzLJHEhHSKFgP6IF+eBid9zS326rmeK1geHawZV2EKFd33zHp1iMXUY
+         4L6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=OkVCJuwmBQSImGq06egfb3qFzategRQekOyDcs9IwJg=;
+        fh=PfTgH/q8V29lqFBb6ACmzBvtGLPjAch7PRDw+P0lQpg=;
+        b=dCHUdgmNwHtxz6p2NngE1Gc2OpHCgpjHVwGMtgZR7BK2kvPp9LtQogMwz/VZSovSLf
+         2TEOhPCyoXd37XSZF/Y//DXQ80OSr8reGFAfnyBxeAH8anKS2+KXAGebJDhXhlvLDeML
+         4flooZV0nCLltaWON08LpFwiSTyk9lHgYRU9d/WqDk9FofLXMwXpwPoQmi0xALgTsLbS
+         j45f2kgwDqiceanaeOKCUaamW86+uAIymQRm1UyP/ojuiFY3AfrDDr+J++c/yWHdMD1B
+         InPuOYIu2GL5BnEYLZYA0WBAgyS2vvMdaDp+d4r8+GHg1dkLtR9dStvCiyc1To8yPJNw
+         miAg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789136905; x=1789741705; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OkVCJuwmBQSImGq06egfb3qFzategRQekOyDcs9IwJg=;
+        b=vr3A4TUuJW14v/BgHVZDlExVXYmMmxWUj2TtswxQDiMIhsbFSE3WBj82CQvJiQnSBD
+         exac/BK2DKiJ/Y90ysovwTjO6RU6HPU3SYqt+Chec3jTYOoeHnIPhtIelnvtf5Oenb17
+         COD7G847fFDX0qlXSd/s/XMYQ3Xul9B9Y2MBmB6u/0QDWueMdAX82tNcaSAxNojH17Yr
+         DzjDDcqPhwDy9Np7/YiGMl548bwzgasjizZzIDcLvZpKZUS3KB03JmTp4pPr/gRUATzl
+         SnNiq71MS2jFCPwLRpkRzEE0258IVTPXvvbiPDRBAu7Ul4IXUj7MBpzoaIrxwEsMX8Dv
+         7cRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789136905; x=1789741705;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OkVCJuwmBQSImGq06egfb3qFzategRQekOyDcs9IwJg=;
+        b=IK/ufyKI+J1V0yh5CrEPYf2vvc8hIQ1zKrP1+QAL3RNPUfA7gTjmoD8d4xFByhoKMC
+         eHeCSVyF+14OzvmcWpB8bdc9r3wlvZ7QXmbz80yzmNGov2TJ5ICpyGJbSjoGoLaUTNGT
+         h6HnMYIKmmQFAr4dU0nh7zNuSV9WMwmkm++RpUfB84zmxiL24Q2IBOJX0Gftx1e58Skq
+         6ae9WiP0IlbbKwxeKUKdE3PQJE+k0yYhd3A8ThAxPUYzpNQefSafthfiJWFNTpkTKC28
+         qbnPuzrP0qqB59JZhNFV4tfB6S+WC+hljbGr4RGDeOk6Gpgx8TGl44j+rubpRf0U1+Mw
+         Q31g==
+X-Forwarded-Encrypted: i=1; AKwUvBwPbb97Yr1iNmZLkDDvPKCx3GkPq58dmfhHTKq4BIlvSddK6yOk/xw2fB8uEkr0uJDbANjxa7ReSomvA1g=@vger.kernel.org
+X-Gm-Message-State: AFuF++lSWSl+2yZedeyj6ls+7LYvuJhPOytQ5/mXYL8dS+ib9jp/7h8C
+	ii4r3a62JpHDVWd6uk2/A/NHOVJY3DXCEC2SZ8AyqPfyWmphoEL/K2uZqxndnGiXHw4h0+e1r4M
+	y3wx16UtiProHMJf8MbL27K75mVkXUREaYPlJ5M8q
+X-Gm-Gg: AYBFou2/TpAKqPG4AFIxauxomjIa3Z/DxcgHHt10ME+ulAPBSZR9VJGt+lq5HLuSHLz
+	1jZE9etVxAuuldGazfLiOrDgOxRzrwyOZ+DRjQnkH4QBkXeETNQOd2KDREOHyt51nNTCm+MP+Pg
+	ay1ZGFYlrr36khM+ri6E7DizBohIYn46XtUBjwSiZPHaMSj6+53Ytx07/I1uglri5m18ukiX/Sp
+	xXTrLfQdDKhbk+s9CYjHVf3w6AN41Tsa2TrekRg0It3tQgyOublYJW7hJYbogrJUCIxJu2BjFiR
+	qgpvEtYF2ByYcarEpmjrzyX7Qe5vxT0TttR5comg62mQaOFo4ModK2w=
+X-Received: by 2002:a05:622a:999:b0:530:5120:19da with SMTP id
+ d75a77b69052e-530c93581c6mr18486911cf.2.1789136903951; Fri, 11 Sep 2026
+ 07:28:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260910234737.1340642-1-surenb@google.com> <20260910234737.1340642-2-surenb@google.com>
+ <008dcaa3-2068-46e5-9e58-afb590d90584@kernel.org>
+In-Reply-To: <008dcaa3-2068-46e5-9e58-afb590d90584@kernel.org>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Fri, 11 Sep 2026 07:28:13 -0700
+X-Gm-Features: AcwNN1XuMz6tXlbjt5zzQkbqGbZOBrpxgwA9ACDwXzvAZXoq6Qjcyr7XzcP7kj4
+Message-ID: <CAJuCfpF5CBrCxZWm+Luopf2gq_hHxsbw0QptNhfRT=+KjyWbJQ@mail.gmail.com>
+Subject: Re: [PATCH v3 1/7] proc/task_mmu: remove unnecessary helpers
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org, 
+	vbabka@kernel.org, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
+	pfalcato@suse.de, xueyuan.chen21@gmail.com, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	Usama Arif <usama.arif@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260911-imx8mp-demosaicing-bypass-v1-1-5568a7a560a6@ideasonboard.com>
-References: <20260911-imx8mp-demosaicing-bypass-v1-1-5568a7a560a6@ideasonboard.com>
-Subject: Re: [PATCH] media: rkisp1: Fix Bayer demosaicing bypass
-From: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-To: Dafna Hirschfeld <dafna@fastmail.com>, Heiko Stuebner <heiko@sntech.de>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Paul Elder <paul.elder@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>
-Date: Fri, 11 Sep 2026 15:27:50 +0100
-Message-ID: <178913687012.1723501.3167773155478207003@ping.linuxembedded.co.uk>
-User-Agent: alot/0.9.1
 
-Quoting Jacopo Mondi (2026-09-11 14:56:19)
-> The RKISP1_CIF_ISP_DEMOSAIC_BYPASS bit, when set, bypasses the
-> demosaicing block on the RkISP1 ISP.
->=20
-> The current implementation however clears the bit when demosaicing
-> have to be bypassed and sets it when demosaicing has to be enabled,
-> effectively inverting the bypass bit handling logic.
-
-Ouch.
-
-> Fix this by setting the bypass bit when disabling the demosaicing block,
-> and by clearing it instead when demosaicing has to be performed.
->=20
-> The issue never manifested itself as libcamera hasn't an algorithm
-> to control Bayer demosaicing bypass yet.
->=20
-> Fixes: 6c53a7b68c5d ("media: rkisp1: Implement extensible params support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> ---
-> media: rkisp1: Fix demosaicing bypass
-> ---
->  drivers/media/platform/rockchip/rkisp1/rkisp1-params.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c b/dri=
-vers/media/platform/rockchip/rkisp1/rkisp1-params.c
-> index 042b759eba62..496381962f1b 100644
-> --- a/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c
-> +++ b/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c
-> @@ -1854,8 +1854,8 @@ rkisp1_ext_params_bdm(struct rkisp1_params *params,
->         const struct rkisp1_ext_params_bdm_config *bdm =3D &block->bdm;
-> =20
->         if (bdm->header.flags & RKISP1_EXT_PARAMS_FL_BLOCK_DISABLE) {
-> -               rkisp1_param_clear_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
-> -                                       RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
-> +               rkisp1_param_set_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
-> +                                     RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
->                 return;
->         }
-> =20
-> @@ -1863,8 +1863,8 @@ rkisp1_ext_params_bdm(struct rkisp1_params *params,
-> =20
->         if ((bdm->header.flags & RKISP1_EXT_PARAMS_FL_BLOCK_ENABLE) &&
->             !(params->enabled_blocks & BIT(bdm->header.type)))
-> -               rkisp1_param_set_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
-> -                                     RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
-> +               rkisp1_param_clear_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
-> +                                       RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
-
-
-I think this also opens us up to add mono formats as explicitly
-supported by the ISP and potentially set the demosaic defaulting to off
-in that instance?
-
-Anyway, Looks sane to me in this order.
-
-Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
-
->  }
-> =20
->  static void
->=20
-> ---
-> base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
-> change-id: 20260911-imx8mp-demosaicing-bypass-bb284d9cca60
->=20
-> Best regards,
-> -- =20
-> Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+On Fri, Sep 11, 2026 at 3:52=E2=80=AFAM David Hildenbrand (Arm)
+<david@kernel.org> wrote:
 >
+> On 9/11/26 01:47, Suren Baghdasaryan wrote:
+> > When per-vma locks were behind a config option, a number of helper
+> > functions were needed to simplify the locking code. Now that these
+> > locks are universally available, we can do a little cleanup.
+> > Remove lock_vma_range(), unlock_vma_range(), query_vma_setup(),
+> > query_vma_teardown() helpers.
+> >
+> > No functional change intended.
+> >
+> > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> > Reviewed-by: Liam R. Howlett (Oracle) <liam@infradead.org>
+> > Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > Acked-by: Usama Arif <usama.arif@linux.dev>
+> > Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> > ---
+>
+> I think you CCed me only on this mail correctly (the other ones went to m=
+y old
+> RH address, I thought that one would bounce)
+
+Oh, man! I used an old list of recipients :/
+Should I resend to avoid bounces? So far I haven't seen any bounces
+even from the previous version which also used the RH address.
+
+>
+> --
+> Cheers,
+>
+> David
