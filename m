@@ -1,99 +1,108 @@
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net [217.70.183.194])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BEE8493D37;
-	Fri, 11 Sep 2026 15:57:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.194
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4045498927;
+	Fri, 11 Sep 2026 15:57:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789142228; cv=none; b=UBeR4WBUEhWU+ChaS1uFhZLv6d+sQKdUgJxt1RVK4rTFUceaFWOEU+KgHFBw1UmEPqASHQmo+cWw3ou/PsftDFtg7BsOXDpkXuEqP2Qj/K3GDSsLrD64oae+bClKcNV4cdTilC36DqyLBtwtxbNnFYkDGqzQa5esmMJjXA2j3DM=
+	t=1789142232; cv=none; b=Ylmew8arCcJ8TxuPPvRzx4XZJYgMGCnlMSfJDplZyQ6FMmkmf4RbpBz7BPFuSEp2d9em/DOt6Q+zY2Ej3a+vLIMz458xIUFZp67GE1HYOebiLFg1eZeu5UPfWY5vUHVbtuLsxRU/oR9wGGV5MgGcknPlBp+YI73SOWRoBU80UGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789142228; c=relaxed/simple;
-	bh=nEcTvLu+k18d1hRUpJWufqfN+bwvM+IxOHQj4EafRvs=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ePHxg5DsxdxV1NfsvU6OQMGTLCnSpWkVcaMmPp6vXKHwP0xuxqpaZ/sPi3RAEiYCpm3QRPJfis6aG1G25O0hhsGT57OHVar4WyWBkGkVK+JkS2nPHrYKL0ud5BcthmU36bXO5ySO9JfpmUJHbgHg2ACBI5pb5rJuSrsV0Ws5bQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=g+fuztgb; arc=none smtp.client-ip=217.70.183.194
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
+	s=arc-20240116; t=1789142232; c=relaxed/simple;
+	bh=YsIahrjsMCLx8Vmej19Tp6nrCVLGETYWzUEZiMxepNU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=n6Yt/OfNAohJhu7Ba9xQ4QQA0NmDZ4ndb5KVpYNbOSrt+6D71cyB6YQSlBf+ik3vNgVDG6z1PRbOYTu59BZGpQ9IGBjgUYqS8nmWgbArbamvgPBPTTIsVpoZLmQxtJODTzCbqdo1I/7BFuQV7YUADvSXwtEACGIFgO6AdOMY3f0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=N9G2QCoq; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="g+fuztgb"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id E18243EDB0;
-	Fri, 11 Sep 2026 15:57:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1789142223; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
-	bh=U6Uyil1BKKeEyc6ra/UxHlW3xO4ewl39s/DeYDLNNgE=;
-	b=g+fuztgbqQ6F7ZOhJDhBL20UUTVdhRFaFtBDk9DsdPPkFmnzOv7droXKOJU9g3hSHn1JkY
-	bS+oyWy9QdC0JWxNtkZx2f4A4NefX+54m2GuUya1BvKH4Xy3itXg4dzbtbzX/HAJttPlBf
-	DNZ6MxLBPUMwkaONuv81G6lNXct8+HvU2S7vS/eFBeRWPrD20wfOn3+kSB5GvPKc5BAws3
-	5p6dD+ZO837fSWbqpvnkF8AQJstEwiPxIKDI8G4iOzhKdgon6BAJ5pKbjJguCVzQx8jl5z
-	8weiEpd36KUSflko3PD24hdFN4WuBFNrVsYVV10HQh1XF2NVkwVWCsH7yM/4nA==
-Date: Fri, 11 Sep 2026 17:56:59 +0200
-From: Arthur Crepin Leblond <arthur@marmottus.net>
-To: netdev-bot+sashiko@kernel.org, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, arnd@arndb.de, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	krzysztof.kozlowski@oss.qualcomm.com
-Subject: Re: [PATCH net-next v7 2/3] dt-bindings: net: wiznet,w5100: add link
- status interrupt
-Message-ID: <20260911155659.GA32745@marmottus.net>
-Reply-To: arthur@marmottus.net
-References: <20260904-wiznet-link-gpio-v7-2-69f01b70c96f@marmottus.net>
- <178895754004.219967.902137420360139647@kernel.org>
- <20260911153325.GB9585@marmottus.net>
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="N9G2QCoq"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 8C29480F31;
+	Fri, 11 Sep 2026 17:57:02 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id 7CclxIKH0vMb; Fri, 11 Sep 2026 17:57:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1789142221; bh=YsIahrjsMCLx8Vmej19Tp6nrCVLGETYWzUEZiMxepNU=;
+	h=From:To:Cc:Subject:Date;
+	b=N9G2QCoq0+Pgl5QtPP9JYVHa0974oXqcLacRQ9116+3oEulyC/UOcMFEcWZTqiR2A
+	 z2Dyd1WuvoV6Y5/B+IlXczqljy//UEBq4jrbB9MSFiAagQOTp7s8FxD9lOOf83k4RC
+	 stN/UaLerY/FMTCkxrcfx48FQj0rPqGs3Zin51aBVgcrBxPfqBeywqFlldSsRDu5ew
+	 zpwmtQSAIAKVd4nvQ6LLVjqxHWdrNJ5NXt4KUpvXB00GrFGsMCRl/7+jkToN1RQiPt
+	 OQkdZFGu4H4mfzjNq9YqoozI4XqX7tCrNGZPTQBZvAPMJZ/6vRLuusfqVX14xHXhqj
+	 5fUpwlL0Acqvw==
+From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
+To: rostedt@goodmis.org
+Cc: mhiramat@kernel.org,
+	mathieu.desnoyers@efficios.com,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	agordeev@linux.ibm.com,
+	linux-s390@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] tracing: Don't dereference trace_event_file in deferred trigger free
+Date: Fri, 11 Sep 2026 18:56:47 +0300
+Message-ID: <20260911155650.354844-1-aliamemis@disroot.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260911153325.GB9585@marmottus.net>
-X-GND-Sasl: arthur@marmottus.net
-X-GND-Score: 0
-X-GND-Cause: dmFkZTGCKCepkROQ6Ut0n5AAcNt5583BVqXmeqbkCcKk0QQr6S3GR74ATnFnxdmhJExv3OEBUnq+OkEyFSIayRT1Ips1HzSle96eQeGfodcyefYdQcslT3JkhItA+z1cR8y9H+ZoJW3ew/AxSMR7tTMwkOo+FWBVjwhtk8RmMJ+lh652wBs8LIxZA0AymrGDCkcNZfsN95D7nVxZZdI8GtC3Vno8ySbCFHc5kDa26OtFQNWT3eqYK2VyJ/FiRYUw3HEmfKguPqmgqvRLsSCK/tkHr0x24V7wYrLDtDMkE8tgBYiJIVw0ytkrNSGmy4rksOBu9YfuzZB28niFurLT0cy+uWXCbnGp4955XlCWMfyQRWwNYkvTt0rBr0lD8oKWAit/C3Pf0G+w54yu/tCnbujOAjc/uHF1N0hEmNJvW8x2r3peqw8RvxQB+ctTMc8Go43fwuzJzPrArUJQHQXy5STyZTxz6ZRvCGLH/Qagp3ErFD5fWWQuVBJTPSsQHO6FCrpw5HRMqxYcS4WCDPpg8LIUHXx0Wp92fQHRFWSXCxxR32ZV6U8IDOc3Vb4DC9K0wn/DXhkjG/EYBOsF9+ZUE4NeZkzPYjJUFOhd7Lu0ypbyUqdxPbEkqFlUAlCi4XaD52dbQWwKeR++EpDd744WAFgK/GVA3RYVDpdEsCzejWUhuPpbcA
-X-GND-State: clean
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 05:33:35PM +0200, Arthur Crepin Leblond wrote:
->On Wed, Sep 09, 2026 at 12:39:00PM +0000, netdev-bot+sashiko@kernel.org wrote:
->>Should the item count be tied to the compatible string, for example:
->>
->> allOf:
->>   - if:
->>       properties:
->>         compatible:
->>           contains:
->>             enum:
->>               - wiznet,w5100
->>               - wiznet,w5200
->>     then:
->>       properties:
->>         interrupts:
->>           maxItems: 1
->>
->>The driver side of the series treats index 1 as w5500-only:
->>
->>drivers/net/ethernet/wiznet/w5100.c:w5100_probe() {
->>   ...
->>   priv->link_irq = ops->chip_id == W5500 ?
->>                    fwnode_irq_get(dev_fwnode(dev), 1) : -ENODEV;
->>   ...
->>}
->>
->>with w5100_get_link() returning a hardcoded 1 for the parts that have no
->>PHYCFGR link-status register.  So for w5100/w5200 a second interrupt in DT
->>would validate but then be silently ignored, since fwnode_irq_get() is
->>never called for index 1 on those chip ids.
->
->Let me update this and have it conditional and re-request a review
->from the devicetree people.
->
->Arthur
+The enable_event trigger defers trace_event_put_ref() to the
+trigger free kthread, but the trace_event_file can already be freed
+when the instance is removed.
 
-Or maybe updating the description of the top level interrupts is
-enough, the same way it is done in example-schema.yaml?
+Keep the trace_event_call directly in enable_trigger_data so the
+deferred free does not access the freed trace_event_file.
 
-Arthur
+Fixes: e091351b3881 ("tracing: Delay module ref count for "enable_event" trigger")
+Reported-by: Alexander Gordeev <agordeev@linux.ibm.com>
+Closes: https://lore.kernel.org/all/20260828134340.2501683A24-agordeev@linux.ibm.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
+---
+ kernel/trace/trace.h                | 1 +
+ kernel/trace/trace_events_trigger.c | 4 +++-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
+index 74a7a50d1e78..0de92b4575e5 100644
+--- a/kernel/trace/trace.h
++++ b/kernel/trace/trace.h
+@@ -1952,6 +1952,7 @@ struct event_trigger_data {
+ 
+ struct enable_trigger_data {
+ 	struct trace_event_file		*file;
++	struct trace_event_call		*call;
+ 	bool				enable;
+ 	bool				hist;
+ };
+diff --git a/kernel/trace/trace_events_trigger.c b/kernel/trace/trace_events_trigger.c
+index 149300cc5e8a..4d2fde996c0f 100644
+--- a/kernel/trace/trace_events_trigger.c
++++ b/kernel/trace/trace_events_trigger.c
+@@ -1728,7 +1728,8 @@ static void enable_trigger_private_data_free(struct event_trigger_data *data)
+ {
+ 	struct enable_trigger_data *enable_data = data->private_data;
+ 
+-	trace_event_put_ref(enable_data->file->event_call);
++	/* The file may already be freed here, only the call is kept alive */
++	trace_event_put_ref(enable_data->call);
+ 	kfree(enable_data);
+ }
+ 
+@@ -1801,6 +1802,7 @@ int event_enable_trigger_parse(struct event_command *cmd_ops,
+ 	enable_data->hist = hist;
+ 	enable_data->enable = enable;
+ 	enable_data->file = event_enable_file;
++	enable_data->call = event_enable_file->event_call;
+ 
+ 	trigger_data = trigger_data_alloc(cmd_ops, cmd, param, enable_data);
+ 	if (!trigger_data)
+-- 
+2.55.0
+
