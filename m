@@ -1,239 +1,129 @@
-Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022125.outbound.protection.outlook.com [52.101.96.125])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF1F29B76C;
-	Fri, 11 Sep 2026 03:10:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.125
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789096207; cv=fail; b=giz2Rr9npQ4+XxqK9HveQ/DZBcIgSqMGxnZSEYxipgoStqcplVbY/2/133p9dDSl4U+O/XI0/OQBl7CwYeNZMZOJYYTINHnNexkUk9/avm9jZCpDC0ieZXYr6aZAbUbRXW3hOpLC7I2kwvOEYKtPV1KY4bBpgADSU0O3dSE8c9Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789096207; c=relaxed/simple;
-	bh=v/W53ifBw8qm58YISPErR8r77Muac36lHgdf+sDpcFM=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=Lp/9JO1fGhxVGMPOOX6PD+1g0gz9/l30V1G8BJz6DRVCWKT9JYURhiRnS3vTZJEFX86HbsQT1lpZwfiFlEQCLev653tQ4xOdSxrV/2eiXjnRXsAok1PodZNz5v4cHBobMPaHcw1CyEMeY8oKaQhooIDwr5K0xx3BsQm2daDUuzE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=MK9wADO+; arc=fail smtp.client-ip=52.101.96.125
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B991030C60F
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:10:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.129
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789096225; cv=none; b=T+NrratvY8G3OmhokjL+JXMGyPgnwt3Gf9goVP5rwphyX+kbVjvs8x6k4ieX4UX3Zz9DxiZBq3umnAuItySiP5y+kvhN6GmJ9vrecKlTa2tcUFjsXRfJ2z9ZZ26j8lYQoXNAm4sW+hxVGU9sJlJXpd2xc4whZljPnnAqDiQ722Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789096225; c=relaxed/simple;
+	bh=Lhtai34JnNJX35WDokE40hIm/9HligBsTA8PHOKgR2c=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=odDiiugfy3gI0drrkgwUC31uo4Ts8XamffcZbaPYm4MdKv02G8wTpMYJRs/OphXtyXZt60CA8201WRlycZjPsd2kgG2waSy+LWhUk/1lv5O3pIeB3P31fzMpJi4G29InAtP5BNibIT8vtkBmmtw21VcFTz5MIkugn8b+CLvSIig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j6HOTPjk; arc=none smtp.client-ip=74.125.227.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="MK9wADO+"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fup0A+25q5sHiwihJ5zLUeDieSYOiIKAqTWAHWXn8PmisoGi6kE538jrdb/0F382V2BHl3wzRpih6GCzuf5JV39aARnw6yTUIX74dPPl17pZ8Cx0KPAR3BqcGkTWRoqOacxE8kyJWru0IaSUxi18SOlyJ9x/kvp/IDN5P/+u4OhBS6t7VHLOCN9/AhIyJhA3Ti7EN3f0vv3ZAqQ7YCbTzg7Qtbnb2RNN9GzCCp8KMXIk9g9Vy0i7llH3cEjR/KAxu7x7Pr0p78WdQ6M4Lv8Ba3ITF13eNQJy2VeJHfr60I5ZXbLaUYZP/O9jMwJxVVv2VZtU7pwTGpkXG2N7yHjEbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XVXUI3zawOoOtkOGoRUkNABK/ZoVc4ntJLtBykEYi8I=;
- b=uaGdgGBUqI56uNx08CSB4sSc5/b+/KUxVi/pj+EQsV1bOVlBtrEyNd0rv7w3mfKDYpNblnZGw5UFGbd1GiDkfn/vmrs07UXGVOJkpNzMxNzFa57xfwmbm5YdtH7k8ieKjmYMjhacojGGEmLtdPaFv6JHFmOavOTdUxETf4nCdXFawzhK/nbxFY7Oq6ra2dwWuk/KjfBr6YBeOATGXJvHU1bSzXqyGFIiUvi76kt74lZkrqGPRx78U3VqOXAC3QDt20Usgv+j+0//p7VafcwwrO1+NrLhQy6afe4a3Mdehxkk3xfUzqNYrwl8u2wzbsGrjCqiXUCdgbwD/skZshCtVA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XVXUI3zawOoOtkOGoRUkNABK/ZoVc4ntJLtBykEYi8I=;
- b=MK9wADO+Tjdq0SY7RRpzwzBEXrCu+2clSknN+Ffdx1Dq7NUeUJuUHauWJy89r2ZBvuIB2L74+CNI3o4fObq9tQ/pDDML3r1tK7PqBQ8TFXZh/JzLYRfHi2HgSFaPEMp6z0Q5IQMH1uqwnMJ63LB1XoS2CEgCHadBabhuJJ5Znxs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CWXP265MB2408.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:75::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 03:10:01 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 03:10:01 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 11 Sep 2026 04:10:00 +0100
-Message-Id: <DLC5O80MQGEI.2Y6VVE6C8WSKL@garyguo.net>
-Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <gary@garyguo.net>,
- <laura.nao@collabora.com>
-Subject: Re: [PATCH] drm/tyr: use bitfield! for non-MMIO fields
-From: "Gary Guo" <gary@garyguo.net>
-To: "Deborah Brouwer" <deborah.brouwer@collabora.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "David Airlie" <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>
-X-Mailer: aerc 0.22.0
-References: <20260910-b4-use-bitfield-v1-1-fdddfccff73b@collabora.com>
-In-Reply-To: <20260910-b4-use-bitfield-v1-1-fdddfccff73b@collabora.com>
-X-ClientProxiedBy: LO4P302CA0017.GBRP302.PROD.OUTLOOK.COM
- (2603:10a6:600:2c1::8) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j6HOTPjk"
+Received: by mail-pj2-f1.google.com with SMTP id 98e67ed59e1d1-398e10200a6so226076a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:10:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789096223; x=1789701023; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dtc34+Z5/QntunTf9WdL8o2+F8D64gPTWfEUx32hdlc=;
+        b=j6HOTPjkjnZ89MDIxUspp95jKxuIqR5GLuBVozFa+1SwbnXwDS/UsxUzmqse/jDMbY
+         rrk6mmH4POov4eQSRDxTKhDM4dkK1KfDb7POIocq50lizmWvmyIl5EKtJvsrKhE7ct/D
+         xjboEZOeOMSpPSM7N20dxqV1pUamkUF7JFUBHckJ2dYVHGwTnDOSA+LPvQ49s1tpWmQt
+         2IZtE1XMEowp4XM+wyDOp8MgOY9+W1+Hj5eT8uxekb6bUUqWAVvmFuBpsKI2JrBbRlvK
+         9SzVLn1FIU2OwqpgTMHLXYUQIdUgcaPmqpRbTaITLie7mZnuXxB8dNuRuuEMjzKrJ6YD
+         ZGFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789096223; x=1789701023;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dtc34+Z5/QntunTf9WdL8o2+F8D64gPTWfEUx32hdlc=;
+        b=UwetOQAsF2YGANUOOTOqZq3J2EPVqbhWdPgH01U2cx8MBZEA3qQUUA1z+EOYve6Ev2
+         wmbfpF+ar02yJhx979WSWEr8dJvNIIm7A8byZ9mXBZkHm75mlvzpv3VXLhk6Vt9gvwxZ
+         QgTeK0CssbObjoaVlRHG6/eUrRaQpr+jfiuYDwOdlr78S+BNMhFDJP9xWROspHMCkJS/
+         ZMmDxeQbF3VTN4j816P3S9EnCu/dV6XIVEhO+zBNZpJ/M9sN9HDYBcnhCh/V5YM3N/VF
+         0T3nSbiX8wHKBp4jw8nB9GTL8Sw4WJFEFFm6qtzJckrupkXsyPGY15kCYO6bIUoXBdXk
+         rPNg==
+X-Forwarded-Encrypted: i=1; AKwUvBy/7i4MA1wvmxHArIzBZSOkL/IHYEJApmwk2E4mISh11kax6Fj42coZdPp331jOPW3OP4t0g9zkAkpEuw4=@vger.kernel.org
+X-Gm-Message-State: AFuF++k2XstKJbTqE62GyF22KDSvohs/vvvwWsBWMGR2lkNOk+FwBZUK
+	5N5kuurl64Dm/Bd4ibHMZ+tdT8FpX0elw4UhlikfEDgi7ylrnV4C6fZ8
+X-Gm-Gg: AYBFou2KSS4FjtIPgoz51T9R+S1QDfUnIqbt0pk//OPm6q+7Olp+smqQrUMjH5M3A1l
+	povYLJnOYh6eV5W1LXpDwV73F5R53ahQhgjSnVNZBc6I7Pb9mZm9JUv+ornmmlCHgGfNqdoKY3k
+	O9r/HbuzSGEgUFgmahSNKfgbSIo2D3bWzD8x0BXXl3ftuGncj8ipg0AQoI+NWnV74r7rtDXeATi
+	KG86yPzLw6nXC5GGovSs1z4/HlGqsmTnvK6tXh/p+CldV5J7upVZwhW+eFT+ydNPw4/ycLTmhv3
+	QV0ceiS6oL2fcuQfXnwu/IBbt5y+FYYdt4UbSe8jZRWikj0WYIXXAPJRh2RkYBoKU8WjYWB1sgV
+	d/EIcoBefbxj6WPc7DSrU0yl0nZd76BRkdXty1/HoGxAKaklcxisLWt9z4LY7wjbm/kUFHwmOdC
+	u4OrH0izoeYEU4g9anylSvHfI1jOYswZVRIE0H92xBSmGM7yO2/JmANraXert0CZNAxAS5kqI7/
+	eyXbQ23Mzj3Jq4xN4YL
+X-Received: by 2002:a17:90b:5287:b0:398:9bd5:490d with SMTP id 98e67ed59e1d1-39d9c22e224mr3463607a91.20.1789096222067;
+        Thu, 10 Sep 2026 20:10:22 -0700 (PDT)
+Received: from embedsky001.tail6d6b2f.ts.net ([183.34.211.247])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9959ac65sm1981207a91.16.2026.09.10.20.10.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 20:10:21 -0700 (PDT)
+From: Yonghao Zhang <hyz3367@gmail.com>
+To: andersson@kernel.org,
+	mathieu.poirier@linaro.org
+Cc: rishabhb@codeaurora.org,
+	linux-remoteproc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yonghao Zhang <hyz3367@gmail.com>
+Subject: [PATCH] remoteproc: sysfs: Fix stale coredump attribute documentation
+Date: Fri, 11 Sep 2026 11:09:44 +0800
+Message-Id: <20260911030944.1645477-1-hyz3367@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWXP265MB2408:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ce67632-9bd2-4a18-947d-08df0fb22b03
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|10070799003|7416014|1800799024|376014|22082099003|18002099003|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	A7NPEelq+4vgGsXoDqJjjGUh8NOsMZPXYPupIlB4v3F+W/47Z+5iwsdbwTPdukIpPa1/pE+EAFt5nhNp5aDDrXvm2vfeFMSCaklnUQG9N1+2cQFyvjRYfOoyWZGupQGZmzH6T8PcVEavoETnaVz51zVpaJakAAwt3ZqKvzzh05sYgEs5zs4EvaOoli5fSod5ShME2WuZODqEKSwuIYIZRZTS41c6Ndhb6EaBUYMlpsrRTirf2HK35AmDc0SSprIE9hmALjGy5ff45MyxrNbMXEnfYz4tF6asbHnTr5UMycW5/V13hGv0muVzCTQIrm5pi+b8asDcFpphpHJ28Q6LuZBiMXQEuCUAc61RuDXjlt6DwkMClpzJGHE1JDMblcBoShzK/Z2TPdvIbGDyzl4DczyoPW1OqcgpzpAuKIUR30uYTPieaatgAudMuFQ/A6P3wvAkQ16mjOXPNHwCJmkOWQITu0BK2iu5bBWB6ccKDP8HiHWmBTEJBaXIbLFJGe0o8fhQEg91aL6kAV3OiJe9QtqvDSvJcXH74cnUEgjizrsXxl1kqRVzY3d3KR1UoztK34lyWbTn8PgkInHhFaN+i/hUavFVC77FDyzX7gAW0+Xl16RDB7Yljem9ud047/V8TvXH3MahGgazLMmScD7nXJeMvdYufzVnh24uFh0hrq8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(10070799003)(7416014)(1800799024)(376014)(22082099003)(18002099003)(56012099006)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RlRwU0tTRTlsMUFXWWIzeTJRUGRvVm5lbXNPS3dWNGlzeGxTdTlXZWoyQjZW?=
- =?utf-8?B?TzNLMzJlQWNOdmd2Mk12QzZYZldYd0d0TGJ0Ylk2QVVvdUkvV3NzUDBrOHNu?=
- =?utf-8?B?YUZRVWhWZGZkU251dzJDajRia1BzazU1NmFrZHdqaklhNnJYU3N6UVhiRVZ2?=
- =?utf-8?B?eUlXcC8xdmY1QlNmdHVpUzZ6d2dKeHhnRWlQTHZOU2UyUCtQL0tIbytPNUpW?=
- =?utf-8?B?RnZoeTNMdDJkWWVCTGVIT0owdXVkZSt3eE9nNVNQaVJvb0ZLU0lURTI5WmF4?=
- =?utf-8?B?YkUwRi9aZS9TWDN0cDBnZ2pscExiNkpnOGNIZTc2S0pidTVyQS82VG5acW8r?=
- =?utf-8?B?a0MvUkVtOUhTN1dzUHZIVXppaCtHVFFTYkJnOWJVMHN2cVVIOFRkbTRHZSt3?=
- =?utf-8?B?Yys3c1paV2EzQzhFMHlzTWVRTEs3TDgxaFpTZU90d0lySUhZa3dDUVFzenY5?=
- =?utf-8?B?dFFSTk1YMkNsT1FuWXZJWVY1TlBPNzF0UTBjQVE3WXQ2T1UwQ09HWmQyN0xk?=
- =?utf-8?B?a09tNnRkbnJycVRWWUtpa2MvZGxtenBYUkR0UmpJYmlMVzN6bGlibFhOSkFE?=
- =?utf-8?B?TXgvOFc0dkY2OWsyeTdaNFVGMS93VzZFTjhOY25OUXhhNG1FdDNCNXBvaDJV?=
- =?utf-8?B?SXo3MStKcTMzditmSTBJVGtwMzE5T3h4aVFXaXdmekdqajhOZWlmVjRxMjVq?=
- =?utf-8?B?Q1lLQUszUTRMVWpLZlRJVEhOL2plQk5zd05KUDN1S0pKZFBmZUx1ZmJtQWxM?=
- =?utf-8?B?OWQ0SkxWanEvd3V2b0lRaHdLaEZTY0djV3IwZUE5N1crVFpkajdiSWdMUlBv?=
- =?utf-8?B?Ui96U25tWXA4cnN5aVVsNE1mdVVGTjRjSkxIMTY4VXZqSCtQNVl6N1pXK3VN?=
- =?utf-8?B?ejJJazJuUlR1QlE1dHYrc1djb2JxRHB3YlJJejhZNUR5YWMzKzhkNzgwUENo?=
- =?utf-8?B?UzZJRVFlaXRmbnB2ZVBzblVaZkpCU1RtMzBvTy9hTHlnUFFibHcrM3JCRi9D?=
- =?utf-8?B?Y2dIQkFMek1NSDdIZ0dFS3FVcjdTNnc2bTVBVnRDOEQ0YXJ4NlVhemplalBm?=
- =?utf-8?B?R3dBREIxeGdLV1gvOHFvR3RibEtXbCtlRTQwYThmaXRjY2RsZnFTYk8zVVlh?=
- =?utf-8?B?Qzg4WWptSVE1d01iNSswbmZsWVRvckVSaEtFZXIvRkdyUEVHYlBjbEl6UWxG?=
- =?utf-8?B?Sms0TGxPS1pYWEE5a3M2RzFtV2hQb1dYc2xodzJhNmVtS2ZJOGlYWW05OXdy?=
- =?utf-8?B?QWVRMFprQi9WQ2FOaWQ2a0R3dVpJWTQ1V01vRkMzUlZLY3pQVkxxMjhadHZz?=
- =?utf-8?B?YU5HOTBWV3VqaHltQ0FTeUhwZGV5dWFwcHJjcW95ZGRHbTNqL0xydVVKV29l?=
- =?utf-8?B?RG5wTUlLZkEzZ1BVYTdRUDd3b2RpblRpYkN5c1cxSnkxKzhnRGhWTE5zLzND?=
- =?utf-8?B?eVFmcXlZZEFZTmVkUmZZd213M04rak9MSHBzVmhheFBBaFVYL2p1VzJyUEhq?=
- =?utf-8?B?VHJFWGVudG9uYlp3MTZuNjZvM1JsakxiaE5DNVdyZ0hFbmlJS1pTUnRxSFRp?=
- =?utf-8?B?dTIxQ1ZTTzN6RUVPWlN3ZERYZ2IvT2pRMXc3VXBuRUlVNy9xRzY1dzBjSnFk?=
- =?utf-8?B?a3EzSGo4Wk9zLy9hZkhBWC96RnlZcittdVRXN2pINGNhemdDRmFmbWwxNEYv?=
- =?utf-8?B?MHRWeEcvWnBWOC94NllvK1R1KzNsbFdpSnVmOTRPZ2ZMNkw4L0p5NWl1N2Rh?=
- =?utf-8?B?R0RVc0d5elpFcW9STW11SVM2aHc4WkUvT0xPc0FDY2FiWEEwdW8yUVE4RU9x?=
- =?utf-8?B?cXI2MFE1clltM1Z0WWpMVzdMbXRGU25ybHkxWk4xQ0prSENkRnkzcmE0NEJD?=
- =?utf-8?B?WDJoSHExRDN2NmdlTjJkL0k4TTB5KzdqbTFyNG9zMldMVGsxdDFUODF0b3pt?=
- =?utf-8?B?NjdGQ1ZxcmZ0U0MrTDBUWG9PaFBEbG1NVVBXWkZjYzYvTVlseURKWHA2ODhS?=
- =?utf-8?B?V2V3K0Zic3hMc0FvbVk3dmltNi9sTDR4bitBSkZGZ05sdTd4TW9FV1ZLN1Qw?=
- =?utf-8?B?YlI2eHNuYzVuazFqaC9mckp3SVRGSUZGUE81aUQzN2tFYTJmZmtyY1J3VXJT?=
- =?utf-8?B?RHVueUZOekRpbDU5cm1KQjhtWlBKdC9JQnd0RStHS1FSdnQ2ekMwY1dqN2pa?=
- =?utf-8?B?azNMdEJJSmRKUC9aRnpVeHh3Q3I0eVlsMlRqY0pSWDRFaEhHWHhoeTR0NUU3?=
- =?utf-8?B?b3ZDYkJyZ3BkUmFrMXhBWVJoamdQQXNaMjg0eWVWQUlNUW1xZDhzdisybFo0?=
- =?utf-8?B?b2p5RUZDaEhWSldtUDM5bkVLNlBoQmFyelJqRGJTTjI3c25wY0cwQT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ce67632-9bd2-4a18-947d-08df0fb22b03
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 03:10:01.1182
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zDLkHg7ZzCNk67DyCQ5vhKQksmgUL/Ob1O3dBuotnlrZM4DwGhLs76F6psO8VgYij/KJhGxJpOM4KmuwUsXnoA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB2408
+Content-Transfer-Encoding: 8bit
 
-On Fri Sep 11, 2026 at 1:06 AM BST, Deborah Brouwer wrote:
-> SectionFlags and MMU_MEMATTR_STAGE1 describe bitfields rather than
-> hardware registers. Use bitfield! instead of register! so they aren't
-> confused with actual registers.
->
+The documentation of the 'coredump' sysfs entry still advertises a
+"default" configuration option and describes it as the default value
+of the entry.  Both date back to before the option was renamed to
+"enabled" and the default configuration was changed to "disabled".
 
-I've sent
-https://lore.kernel.org/dri-devel/20260910165734.80378-1-gary@kernel.org/
-already.
+Update the comment to describe the three options the store callback
+actually accepts, "disabled", "enabled" and "inline", along with the
+real default value, and fix the coredump_show() comment which wrongly
+claims the configuration is exposed via debugfs.
 
-Best,
-Gary
+Fixes: bf41a0910cb2 ("remoteproc: Change default dump configuration to "disabled"")
+Assisted-by: Claude-Code:glm-5.3
+Signed-off-by: Yonghao Zhang <hyz3367@gmail.com>
+---
+ drivers/remoteproc/remoteproc_sysfs.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> ---
->  drivers/gpu/drm/tyr/fw.rs   | 11 ++++-------
->  drivers/gpu/drm/tyr/regs.rs | 11 +++++------
->  2 files changed, 9 insertions(+), 13 deletions(-)
->
-> diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
-> index 7edb5eff1707..8d11f888a9b9 100644
-> --- a/drivers/gpu/drm/tyr/fw.rs
-> +++ b/drivers/gpu/drm/tyr/fw.rs
-> @@ -14,6 +14,7 @@
->  //! [`Section`]: crate::fw::Section
-> =20
->  use kernel::{
-> +    bitfield,
->      device::{
->          Bound,
->          Device, //
-> @@ -27,7 +28,6 @@
->      },
->      num::Bounded,
->      prelude::*,
-> -    register,
->      str::CString,
->      sync::{
->          Arc,
-> @@ -39,8 +39,7 @@
->  use crate::{
->      driver::{
->          IoMem,
-> -        TyrDrmDevice,
-> -        TyrRegisters, //
-> +        TyrDrmDevice, //
->      },
->      fw::parser::{
->          FwParser,
-> @@ -101,11 +100,9 @@ fn from(value: CacheMode) -> Self {
->      }
->  }
-> =20
-> -register! {
-> -    base: TyrRegisters;
-> -
-> +bitfield! {
->       #[allow(non_upper_case_globals)]
-> -    pub(super) SectionFlags(u32) @ 0x0 {
-> +    pub(super) struct SectionFlags(u32) {
->          0:0 read =3D> bool;
->          1:1 write =3D> bool;
->          2:2 exec =3D> bool;
-> diff --git a/drivers/gpu/drm/tyr/regs.rs b/drivers/gpu/drm/tyr/regs.rs
-> index 0c419c4e1186..3377b8fc5029 100644
-> --- a/drivers/gpu/drm/tyr/regs.rs
-> +++ b/drivers/gpu/drm/tyr/regs.rs
-> @@ -986,6 +986,7 @@ pub(crate) mod mmu_control {
->      /// This array contains 16 instances of the MMU_AS_CONTROL register =
-page.
->      pub(crate) mod mmu_as_control {
->          use kernel::{
-> +            bitfield,
->              num::Bounded,
->              prelude::*,
->              register, //
-> @@ -1130,14 +1131,12 @@ fn from(val: MemoryType) -> Self {
->              }
->          }
-> =20
-> -        register! {
-> -            base: TyrRegisters;
-> -
-> +        bitfield! {
->              /// Stage 1 memory attributes (8-bit bitfield).
->              ///
-> -            /// This is not an actual register, but a bitfield definitio=
-n used by the MEMATTR
-> -            /// register. Each of the 8 bytes in MEMATTR follows this la=
-yout.
-> -            MMU_MEMATTR_STAGE1(u8) @ 0x0 {
-> +            /// This bitfield definition is used by the MEMATTR register=
-.
-> +            /// Each of the 8 bytes in MEMATTR follows this layout.
-> +            struct MMU_MEMATTR_STAGE1(u8) {
->                  /// Inner cache write allocation policy.
->                  0:0     alloc_w =3D> bool;
->                  /// Inner cache read allocation policy.
->
-> ---
-> base-commit: 73e5616f3d197c1af5a04a481fe0f13aa3913bd1
-> change-id: 20260910-b4-use-bitfield-512214360810
->
-> Best regards,
-
+diff --git a/drivers/remoteproc/remoteproc_sysfs.c b/drivers/remoteproc/remoteproc_sysfs.c
+index 925b0cdbe577..c37736ff4acc 100644
+--- a/drivers/remoteproc/remoteproc_sysfs.c
++++ b/drivers/remoteproc/remoteproc_sysfs.c
+@@ -76,7 +76,7 @@ static const char * const rproc_coredump_str[] = {
+ 	[RPROC_COREDUMP_INLINE]		= "inline",
+ };
+ 
+-/* Expose the current coredump configuration via debugfs */
++/* Expose the current coredump configuration via sysfs */
+ static ssize_t coredump_show(struct device *dev,
+ 			     struct device_attribute *attr, char *buf)
+ {
+@@ -87,14 +87,15 @@ static ssize_t coredump_show(struct device *dev,
+ 
+ /*
+  * By writing to the 'coredump' sysfs entry, we control the behavior of the
+- * coredump mechanism dynamically. The default value of this entry is "default".
++ * coredump mechanism dynamically. The default value of this entry is
++ * "disabled".
+  *
+  * The 'coredump' sysfs entry supports these commands:
+  *
+  * disabled:	This is the default coredump mechanism. Recovery will proceed
+  *		without collecting any dump.
+  *
+- * default:	When the remoteproc crashes the entire coredump will be
++ * enabled:	When the remoteproc crashes the entire coredump will be
+  *		copied to a separate buffer and exposed to userspace.
+  *
+  * inline:	The coredump will not be copied to a separate buffer and the
+-- 
+2.34.1
 
