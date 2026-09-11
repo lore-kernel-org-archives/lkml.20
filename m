@@ -1,110 +1,145 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A063C456291
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:24:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E07024334C9
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:25:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789115074; cv=none; b=rsGB3Lt6lD21nK27NpIdVbGhI0UQcO4odRgRCKezFjCBROE3V2uW/+4S9j4t3OAsQxK9RHWcgBdctHkCSbUr1r0oS7hA/Iyru5eiIDmddU3h2iDt67JURHdd8FOFs0mBqpgScZeFojGsxT94VfYdBALY6KIWFrFHAXkmRPlOWto=
+	t=1789115109; cv=none; b=AB0wPJfbmQLr/GyIj0vxBpaTiYZljJfOd1zFLt6vgD1mBSbxJ8+ZEZgcCjBwavd4fFcMV6IvRuzgmBBo1udkF7QsspcE8eP7YoHioQ/OcoXWx6vd/YdUXvTpk6dt2JKNkFwGrMzfFlm1r6t/hA3np3JLNRsYGYaMuhbWfGjcIEc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789115074; c=relaxed/simple;
-	bh=Iq+fpSyK4ILX+urSkwlTvDb34gQ3oxCb6Di9PgY+GDw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bDuZDKlGVm+44DxlCZQWR5nB/1ZxMuU0I7AEso6fsm/C2/wVGfyaXONw/lEu93EVTD+uUDd0TqPXGnVg/IBYfYb/BGkyNkn0+Q1NVl8zLIBgMkLFoVM2VZ2/i6AMYhQIT19ZwnZL6l5/NyvhqkWyClfal5JBVO8uqf0sGPBBNRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=EWe1pMFa; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	s=arc-20240116; t=1789115109; c=relaxed/simple;
+	bh=pg2xKrTSSwShkOsUdLdeGDqS93TawwwTnBwMiecesqU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ptyep3CEq5rPWnYY9t+kVALm8GSBYPxKU5h7+H364nte1DnXhIsq+SUEFBRpbFM87bwZJCzqIti9s58Iw5AKf6NrdVGvfKFkRq8MTG9HqJLYjhfAKRs4t2M260BmxlifGQUCX2BphjQ3EcqU5gXWFhydGB+hOJTdXXb4IDUuVBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=JtIjA6gn; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="EWe1pMFa"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49e63568bfbso3477125e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:24:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1789115071; x=1789719871; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2WWeljkn3dRICBmDHnyIQXWg+zBlpnH6+buSyxyqyJI=;
-        b=EWe1pMFaSKyW/8ATBOV5NHQWw3u0iT+K2cBTZgw6KRUmD2/eK+ZpJu09FrYfvHGecu
-         C+slkZKWbZGEjHBH04S79zZmYe2ew/ekpBAjw46gn0tqbyc7KhYKX4vyV24zgdUmaK/N
-         cR54sITVTPvw0z2AAknDL6y0+e+UpZ+Xr2hJrAARFj/s0Ks8y1pGwCCsn+G2OloxW2QW
-         1cN7rC1tHiHb5RZPXpW7w2zrEL8EfSrGy/umJoTiq/khRNvfMentO1+kaGTxvNzWH86K
-         9YIo3sfjvnWUZWcPc2tVbnyZVcAC62iEYKSLqNIFMj9laOgdHttXHqpDHJovIvbQCp2W
-         SEgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789115071; x=1789719871;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2WWeljkn3dRICBmDHnyIQXWg+zBlpnH6+buSyxyqyJI=;
-        b=YZ4F3LH94NksvgrKf1AO+Y48o44E9H+OMtuumEqDfPfW9Cy02uHpgjwcBBbmbuxm03
-         aIPTTyDUIid8p6C9kb5WWgQssgc7yeBCaCRNweQfkHUBCZC/rHoFpQrNdmiuNOrPqQ2e
-         fgacHxzIDMYoUdnrYH4rWF7JhqhVNlk/1DnQ4qkZ2Ma1DW+RJq3ITcVHHd812arb/DIr
-         +n17ZwU9nxMl+3KbWClpfQuaP76qcoY5qJHfb7c402PrKnfzPRePPwHE3kKxwJ7Eqtwt
-         eKrDI2PcVu7BJKF85Wd8f64hdcCHOrWRKqAe+Uuve6c/gcX8wolyj3mohryDu9E3iZhZ
-         QU5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwlo1vDqOBT/XnK8la7HdrMXdPHvU1MBTMn/CY4fkKVl1T7/IYm6Sm3+0I21fiY55lcetRlt7P8yjB3nis=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGFJitGOkX7zB0fidQpyh2cKaCiQOWyvGdNwpuaQwOI1J5OLQ2
-	RsmZlBVcjHuyp5MGrF52lg8GbgInMpiWFrw2IM7TgC1ivXYO/Vj+Dlg=
-X-Gm-Gg: AYBFou3kXqv5Lm8jGCPTVh3VksQrR1zhvUqiw01QKiT146k0AuLbwcfFa29VZr/0kHB
-	WSe3GGX/S5j0Ju/ptmany1oH6EyLyFmH7fVY6dp7un/hwny6m3PjYMuiHFxE2glM4mSdB5iJR83
-	9H/R+yDW//UD3UUSq8rvAan8gAWqfu/EB4bOGiBwjR+K2l+CdEV9QGTguKXtPmNo8J2Q5Jmnfdu
-	eecrhLU3Z5Z+cY9OcHAm7fKy5UUTrnNRc1EP7ZOFrIwBLLeVShn0ie55nsmwrspM8rUh9XiyBxW
-	WZTzkGKcTkOvtxx5WsAAPX7YQoZUYGtaQWyLs7xDFxaR14m4DPINfGbKg3Ig2F2ww9wK+nIRfWL
-	EZvCS5EJYWnsxo0l8R4cefEHknTnQSzBx/yx/GcWaLDwSIMY2Bf54DmnF+h7hs4xNy9AqVk+puu
-	2TpwyJtqzbOhoT9PJXWCzc0peJrqHTFJfR4AMsoe+Hd5MXjaiVhXfFGIiYUOI2nVAzKduXP6Cls
-	Q8WpVClYmOWKHPvelcI8N+IcpmBB61ISzEzfZPRbq2ttvDi1EQ=
-X-Received: by 2002:a05:600d:4453:20b0:49c:fed6:cd3f with SMTP id 5b1f17b1804b1-49e619c4d59mr22948105e9.23.1789115070582;
-        Fri, 11 Sep 2026 01:24:30 -0700 (PDT)
-Received: from [192.168.1.3] (p5b2ace69.dip0.t-ipconnect.de. [91.42.206.105])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e5765152asm88890415e9.11.2026.09.11.01.24.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 01:24:30 -0700 (PDT)
-Message-ID: <4a5a443d-28b3-4da5-8749-447ea5b009f2@googlemail.com>
-Date: Fri, 11 Sep 2026 10:24:29 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="JtIjA6gn"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 85CD016A3
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:25:03 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 134373F7B4
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:25:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789115107; bh=pg2xKrTSSwShkOsUdLdeGDqS93TawwwTnBwMiecesqU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=JtIjA6gnz9GR/lb28eSS+VCZPEkYkokh3LepqtOxtlkke1mIayIOHBhOpllP3TrS6
+	 pmec2LCl1EE1WRNNYc8ZNNDv3ahvTwPaMwtES2dufYp7NHurWredvA9IGC+Xh8RT/2
+	 z/5nkzBjIg8qujqj3tv7HRVUVDrNGTiivZLmpG50=
+Date: Fri, 11 Sep 2026 09:24:49 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Zhenhao Wan <whi4ed0g@gmail.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Grant Likely <grant.likely@linaro.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Alice Ryhl <aliceryhl@google.com>, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org, Lyude Paul <lyude@redhat.com>,
+	nouveau@lists.freedesktop.org, Dave Airlie <airlied@redhat.com>,
+	Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] drm/gpuvm: reject zero-length range in
+ drm_gpuvm_range_valid()
+Message-ID: <aqO60UtyI9WlN0fw@e142607>
+References: <20260902-drm-gpuvm-zerorange-v2-v2-0-da63269c6ec4@gmail.com>
+ <20260902-drm-gpuvm-zerorange-v2-v2-2-da63269c6ec4@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 7.2 000/556] 7.2.5-rc1 review
-Content-Language: de-DE
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260909134230.441546314@linuxfoundation.org>
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20260909134230.441546314@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260902-drm-gpuvm-zerorange-v2-v2-2-da63269c6ec4@gmail.com>
 
-Am 09.09.2026 um 15:34 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 7.2.5 release.
-> There are 556 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Wed, Sep 02, 2026 at 08:28:43PM +0800, Zhenhao Wan wrote:
+> drm_gpuvm_range_valid() is the common gate every GPUVM map/unmap path
+> funnels through: drm_gpuva_insert(), __drm_gpuvm_sm_map() and
+> __drm_gpuvm_sm_unmap() all reject a request unless it passes. It checks
+> for overflow, the managed-range bounds and kernel-node overlap, but it
+> never rejects a zero-length range. A range of 0 is page-aligned and
+> addr + 0 does not overflow, so a zero-length VM_BIND request from
+> userspace passes validation.
+> 
+> The GPUVA interval tree derives a node's last key as addr + range - 1
+> (GPUVA_LAST()). With range == 0 this underflows to addr - 1, producing
+> an interval whose end lies below its start (and, for addr == 0, wraps to
+> U64_MAX). __drm_gpuva_insert() then issues its overlap query with that
+> inverted interval, so the -EEXIST guard matches nothing and a malformed
+> zero-length node is inserted, corrupting the augmented interval tree's
+> subtree-last invariant and misleading the overlap checks of later
+> map/unmap operations on the same VM.
+> 
+> Because the shared helper's own kerneldoc promises to validate "the
+> range" yet silently accepts range == 0, drivers have papered over this
+> individually and inconsistently: imagination and xe reject a zero range
+> at/near the ioctl boundary, while nouveau and msm do not. Fix it once at
+> the common gate so every current and future caller is covered.
+> 
+> The only in-tree user that legitimately accepts a zero range,
+> xe's DRM_XE_VM_BIND_OP_UNMAP_ALL, interprets it at its ioctl layer and
+> never passes range == 0 into the GPUVM core, so it is unaffected. The
+> in-core lookups drm_gpuva_find_prev()/drm_gpuva_find_next() pass
+> range == 1 and are likewise unaffected.
+> 
+> Fixes: e6303f323b1a ("drm: manager to keep track of GPUs VA mappings")
+> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+> Assisted-by: Claude:claude-opus-5
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
 
-Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+Best regards,
+Liviu
 
-
-Beste Grüße,
-Peter Schneider
+> ---
+>  drivers/gpu/drm/drm_gpuvm.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
+> index c422c5af1f4b..b73ad6988171 100644
+> --- a/drivers/gpu/drm/drm_gpuvm.c
+> +++ b/drivers/gpu/drm/drm_gpuvm.c
+> @@ -1021,7 +1021,8 @@ drm_gpuvm_in_kernel_node(struct drm_gpuvm *gpuvm, u64 addr, u64 range)
+>   * @addr: the base address
+>   * @range: the range starting from the base address
+>   *
+> - * Checks whether the range is within the GPUVM's managed boundaries.
+> + * Checks whether the range is non-zero and within the GPUVM's managed
+> + * boundaries.
+>   *
+>   * Returns: true for a valid range, false otherwise
+>   */
+> @@ -1029,7 +1030,8 @@ bool
+>  drm_gpuvm_range_valid(struct drm_gpuvm *gpuvm,
+>  		      u64 addr, u64 range)
+>  {
+> -	return !drm_gpuvm_check_overflow(addr, range) &&
+> +	return range != 0 &&
+> +	       !drm_gpuvm_check_overflow(addr, range) &&
+>  	       drm_gpuvm_in_mm_range(gpuvm, addr, range) &&
+>  	       !drm_gpuvm_in_kernel_node(gpuvm, addr, range);
+>  }
+> 
+> -- 
+> 2.34.1
+> 
 
 -- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
-
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
