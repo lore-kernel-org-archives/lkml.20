@@ -1,68 +1,83 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D3CDC443C0A;
-	Fri, 11 Sep 2026 11:10:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51DD4443C0B
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:10:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789125029; cv=none; b=P/jG7ipGo+q/GPLbFDJI1Y0eCbbeQGFsV0j8ynQJ/dOBA6142MMlWD20pDJo/AYTaiYQemfuzOiuooeSMoiqRThcTtp1r/DSorMxXR36QVdDCde0d9Kl4VKsNz0foQyjbMs5mLJzSAPExmMKwdjyBDbWd6tzH+pLBHi5gn4f+6M=
+	t=1789125044; cv=none; b=CXLSEVLjvoSrY6z1a2MCeNF1WizQJpihtQYfOkg0Uu+Kn0CqjgafPg9LCyzX93VfiznAfOaeWkIPcr4Cv/0NDfWuO9jPzdDpB6rckqW51QpOKQtYLOeHQE4XaEL/XiedTOgokijM705DBwY75YAWA65PKqxqM1MpZqYfYpPWucY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789125029; c=relaxed/simple;
-	bh=xF0k60TEQ8akSLlQFC4CGPrBt98AU+OSQDd7D86kcZ8=;
+	s=arc-20240116; t=1789125044; c=relaxed/simple;
+	bh=nkt9eX0UhBpFnXXxyb40A2jA3fGy9p1WHRIW/5hqH4U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TH7TtdhKdQLP5d8I6wuhdkRVc76PZTFj3yC4UwuTPoIPrMaFmuaTaL25kN5dd7Ta2Pm20uTHpwivMY9c4HGa0i00ukfhJiDTKUmR/5MsrcufXp4qkWHZQHXOc+Z+HvLAZXEe7XlkcIUgbbrW60eKcTNrAFZXSBHZmwXkayZTd88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=TMFDkDYX; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 MIME-Version; b=mKZLRqkX2D4rJXc5+NbS0UXAmOHLuCnk4HxQPuGjLgvffGyjaeBEJY7PnLfCcOvPYMxQ2BXUyIpMIPoD+Y1WfXQARZ0plzlLckPYAr55N2dZFoagLVuI23U9x7nG/7v82xSgdA8X9eWtcP4IStluwG20hqvT7FHZA3vDv8xq11g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dm6M1h0Z; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="TMFDkDYX"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1CD72143D;
-	Fri, 11 Sep 2026 04:10:20 -0700 (PDT)
-Received: from a081061.blr.arm.com (a081061.arm.com [10.164.19.84])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 25A383F59E;
-	Fri, 11 Sep 2026 04:10:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789125023; bh=xF0k60TEQ8akSLlQFC4CGPrBt98AU+OSQDd7D86kcZ8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=TMFDkDYX+BNBgEfdATC448Ir4cZoeSnZ30u34WIpTqZ6lclNb0QAYrXKhbRfl7bqA
-	 8pvy+UKS0JRTVRfIpuEAyNFRcX8h7IdVpDW4QsRm4mHnVp6WTzEiHn+sLkJKZvJzcS
-	 JI8NoFSNT4vit7wtnwmGxXiBf1fkEdfmysSAZXa4=
-From: Sarthak Sharma <sarthak.sharma@arm.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Peter Xu <peterx@redhat.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <npache@redhat.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Mark Brown <broonie@kernel.org>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-doc@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dm6M1h0Z"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49e651e83dfso3653975e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 04:10:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789125034; x=1789729834; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=buEE5TDzC5FsioP8qx8e+5Y4xF8w0Ds3BqUa5qHn1HE=;
+        b=dm6M1h0ZIXunFxt01MMVbCItktIlWZ1Djun8hj2gMyjEFq9C0gI1e8bZoeo6p34DGe
+         XS1tqguS5wLIpOrl+vgmJ+UCboR6oIRzQq+re4k+tGsSonvh/A+C36ZZozV3wPlHfAVb
+         6UdhJ8/vopy7Dd+f/su51rCnGnDRMhKxtu/Ec1Vs3EiZSGFp3kJWS8Uy/lYJ8iRKG23e
+         3feHMZg2atTDsrNaUFmVDySEGXItfKbClY0A+vxFPLh5nDS5VaZQp72cea3D27KpoQne
+         18Y5NQhUdRpHiZ+7wZHcmJffv1PTxewkJ4M0Lf4Zt8iy+/bw9uOW+UjDlhvkmkorVZmt
+         OE0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789125034; x=1789729834;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=buEE5TDzC5FsioP8qx8e+5Y4xF8w0Ds3BqUa5qHn1HE=;
+        b=nFP0QICm9zuDuZvo/HHv0jnBZMFUfJyAKkNOHtCdYSszeGD5l5g/XHRC7dlzF0sYST
+         4qRZe1CpoxyjChyS3uZkEx7HVj2lYTovViLZZpxl7GnVVFoYSOD34t7OY1JxYgLZIV6M
+         tKqv5Zv+50wuIa2CDOgHUx0FHUypVFjS8ClNoaT9jN5AqER8eWIvHVcHiMIWIDNqfxHN
+         UjZL8CPo3hRNRd+S9GxS036F+1DG5gcKvSpRKIoU7EI7VXO+Zo2IathoSx3bJjEH63Jp
+         XDVkFs4YKbKcRWZ4ocfRucuOKCBy3aJV1JT/VhuCpDifhsGjfULV06Av11iJ9qQcw/5X
+         fGYg==
+X-Forwarded-Encrypted: i=1; AKwUvBzXtMEKSsboQxu82I+eVIbdMLWQc3iHNLPe94DB0CB52gpAzeJPgXEouP+037v+FQ3jDBIKGvETfSbafmE=@vger.kernel.org
+X-Gm-Message-State: AFuF++k0/2EPp6HTNp9EMbq86i/i/C5qijvdehQrtWXvC8cWZde1e/Uj
+	GXL0uZTLok3YeHhELO+LV49Bb2fewAZha2ftOD6/WB1X46myt5AHROC4
+X-Gm-Gg: AYBFou3YkwGqIc7F2pDzbRKikc3e9wR9IjkV3wb1basCaQm19GmZFyKSXRg+X1bRpcF
+	UWtA8iyWRTHDiLCVU0Vbd2zONJXwIYA+C0kBLsN8DOx3cNqYVBIHz+6vpbXHLMgsfGQwG27d7NN
+	5jsHpz4k45PykNmYiw03/JwA4aiPItBixL1xx9xwIcpS6WW0gU3e6aBf45tlX73DPhAVX16OnB+
+	sMMMfINZIZ9qldWPg92y6Dm/ALtZ6QIOY78RRD31nr2NkZVHcpYm0nHRiZpTHDlymChH6jIu4tv
+	i8/Qv3UZDl3F42OwVjAGAOJVErL7PyJy9BRF7iGv2fkxe3TdatVxBp/En6H6mLf5Bzt54cVVIa8
+	4JuLXe5HXRwMaEdxb8tJYg+3MgDE1Y/YuhRxTkjShaJjclsT2MARPEovnocjjoRK35C94Syg179
+	IJJBkcLLyNBk6EMfeU32tz2wdMS81EuaKk4mh6FbfumsJqE1V0cUTRou6s7/3kfoYgPtveHvBnn
+	Z/UGvXxf3991lV7G1U=
+X-Received: by 2002:a05:600c:354a:b0:49d:2536:402e with SMTP id 5b1f17b1804b1-49e61a005b6mr41951185e9.30.1789125034386;
+        Fri, 11 Sep 2026 04:10:34 -0700 (PDT)
+Received: from fedora ([154.182.82.204])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60ac411asm66109065e9.8.2026.09.11.04.10.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 04:10:33 -0700 (PDT)
+From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+To: jic23@kernel.org,
+	gregkh@linuxfoundation.org,
+	nuno.sa@analog.com,
+	Michael.Hennerich@analog.com
+Cc: dlechner@baylibre.com,
+	andy@kernel.org,
+	linux@analog.com,
+	linux-iio@vger.kernel.org,
+	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Sarthak Sharma <sarthak.sharma@arm.com>
-Subject: [PATCH v10 2/6] tools/lib/mm: add shared file helpers
-Date: Fri, 11 Sep 2026 16:39:46 +0530
-Message-ID: <20260911110950.200240-3-sarthak.sharma@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260911110950.200240-1-sarthak.sharma@arm.com>
-References: <20260911110950.200240-1-sarthak.sharma@arm.com>
+	joshua.crofts1@gmail.com,
+	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Subject: [PATCH v5 1/2] staging: iio: adc: ad7816: Serialize SPI read operations
+Date: Fri, 11 Sep 2026 14:04:55 +0300
+Message-ID: <20260911110456.24873-2-abdelnasserhussein11@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260911110456.24873-1-abdelnasserhussein11@gmail.com>
+References: <20260911110456.24873-1-abdelnasserhussein11@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,358 +86,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Move read_file(), write_file(), read_num(), write_num() and
-write_num_ignore_einval() out of tools/testing/selftests/mm/vm_util.c
-into a new shared helper under tools/lib/mm/.
+The ad7816_spi_read() function performs a sequence of GPIO state
+changes followed by an SPI transfer. If multiple read operations
+occur simultaneously, the GPIO state could be changed by one thread
+while another is in the middle of a read. This leads to a race
+condition where the sensor state is disrupted, resulting in corrupted
+data being read.
 
-These helpers are used by mm selftests today and will also be needed by
-shared hugepage helpers in subsequent patches. Move them to a generic
-location so they can be reused outside selftests as well.
+Introduce a mutex to serialize the read sequence, ensuring that the
+GPIO toggling and the SPI transfer are treated as a single atomic
+operation.
 
-Keep the helpers exposed to mm selftests through vm_util.h by including
-the new shared header there, and link the new helper into the
-selftests/mm build.
-
-Update the explicit x86 protection_keys 32-bit and 64-bit build rules
-to preserve prerequisite paths, now that file_utils.c is built from
-tools/lib/mm.
-
-Add tools/lib/mm/ to the MEMORY MANAGEMENT - MISC entry in MAINTAINERS.
-
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
+Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
 ---
- MAINTAINERS                          |   1 +
- tools/lib/mm/file_utils.c            | 106 +++++++++++++++++++++++++++
- tools/lib/mm/file_utils.h            |  13 ++++
- tools/testing/selftests/mm/Makefile  |  11 +--
- tools/testing/selftests/mm/vm_util.c |  97 ------------------------
- tools/testing/selftests/mm/vm_util.h |   7 +-
- 6 files changed, 127 insertions(+), 108 deletions(-)
- create mode 100644 tools/lib/mm/file_utils.c
- create mode 100644 tools/lib/mm/file_utils.h
+ drivers/staging/iio/adc/ad7816.c | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 35262aa3e67e..dd5374a1a3c2 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17295,6 +17295,7 @@ F:	mm/memory-tiers.c
- F:	mm/page_idle.c
- F:	mm/pgalloc-track.h
- F:	mm/process_vm_access.c
-+F:	tools/lib/mm/
- F:	tools/testing/selftests/mm/
+diff --git a/drivers/staging/iio/adc/ad7816.c b/drivers/staging/iio/adc/ad7816.c
+index 0e32a2295990..d0355763aa8f 100644
+--- a/drivers/staging/iio/adc/ad7816.c
++++ b/drivers/staging/iio/adc/ad7816.c
+@@ -5,15 +5,17 @@
+  * Copyright 2010 Analog Devices Inc.
+  */
  
- MEMORY MANAGEMENT - NUMA MEMBLOCKS AND NUMA EMULATION
-diff --git a/tools/lib/mm/file_utils.c b/tools/lib/mm/file_utils.c
-new file mode 100644
-index 000000000000..9b2237e9823e
---- /dev/null
-+++ b/tools/lib/mm/file_utils.c
-@@ -0,0 +1,106 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <unistd.h>
+-#include <linux/interrupt.h>
+-#include <linux/gpio/consumer.h>
++#include <linux/cleanup.h>
+ #include <linux/device.h>
++#include <linux/gpio/consumer.h>
++#include <linux/interrupt.h>
+ #include <linux/kernel.h>
+-#include <linux/slab.h>
+-#include <linux/sysfs.h>
+ #include <linux/list.h>
+-#include <linux/spi/spi.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/slab.h>
++#include <linux/spi/spi.h>
++#include <linux/sysfs.h>
+ 
+ #include <linux/iio/iio.h>
+ #include <linux/iio/sysfs.h>
+@@ -50,6 +52,7 @@ struct ad7816_chip_info {
+ 	u8  oti_data[AD7816_CS_MAX + 1];
+ 	u8  channel_id;	/* 0 always be temperature */
+ 	u8  mode;
++	struct mutex lock; /* protect device state during SPI transfers */
+ };
+ 
+ enum ad7816_type {
+@@ -67,6 +70,8 @@ static int ad7816_spi_read(struct ad7816_chip_info *chip, u16 *data)
+ 	int ret;
+ 	__be16 buf;
+ 
++	guard(mutex)(&chip->lock);
 +
-+#include "file_utils.h"
-+
-+int read_file(const char *path, char *buf, size_t buflen)
-+{
-+	int fd, err;
-+	ssize_t numread;
-+
-+	fd = open(path, O_RDONLY);
-+	if (fd == -1)
-+		return -errno;
-+
-+	numread = read(fd, buf, buflen - 1);
-+	if (numread < 1) {
-+		err = numread ? errno : ENODATA;
-+		close(fd);
-+		return -err;
-+	}
-+
-+	buf[numread] = '\0';
-+	close(fd);
-+
-+	return 0;
-+}
-+
-+int write_file(const char *path, const char *buf, size_t buflen)
-+{
-+	int fd, saved_errno;
-+	ssize_t numwritten;
-+
-+	if (buflen < 2)
-+		return -EINVAL;
-+
-+	fd = open(path, O_WRONLY);
-+	if (fd == -1)
-+		return -errno;
-+
-+	numwritten = write(fd, buf, buflen - 1);
-+	saved_errno = errno;
-+	close(fd);
-+
-+	if (numwritten < 0)
-+		return -saved_errno;
-+
-+	if (numwritten != (ssize_t)(buflen - 1))
-+		return -EIO;
-+
-+	return 0;
-+}
-+
-+int read_num(const char *path, unsigned long *num)
-+{
-+	unsigned long val;
-+	int ret;
-+	char buf[21];
-+	char *end;
-+
-+	if (!num)
-+		return -EINVAL;
-+
-+	ret = read_file(path, buf, sizeof(buf));
+ 	gpiod_set_value(chip->rdwr_pin, 1);
+ 	gpiod_set_value(chip->rdwr_pin, 0);
+ 	ret = spi_write(spi_dev, &chip->channel_id, sizeof(chip->channel_id));
+@@ -91,7 +96,7 @@ static int ad7816_spi_read(struct ad7816_chip_info *chip, u16 *data)
+ 
+ 	gpiod_set_value(chip->rdwr_pin, 0);
+ 	gpiod_set_value(chip->rdwr_pin, 1);
+-	ret = spi_read(spi_dev, &buf, sizeof(*data));
++	ret = spi_read(spi_dev, &buf, sizeof(buf));
+ 	if (ret < 0) {
+ 		dev_err(&spi_dev->dev, "SPI data read error\n");
+ 		return ret;
+@@ -360,6 +365,10 @@ static int ad7816_probe(struct spi_device *spi_dev)
+ 		return -ENOMEM;
+ 	chip = iio_priv(indio_dev);
+ 
++	ret = devm_mutex_init(&spi_dev->dev, &chip->lock);
 +	if (ret)
 +		return ret;
 +
-+	/* Reject signs and leading whitespace that are accepted by strtoul() */
-+	if (buf[0] < '0' || buf[0] > '9')
-+		return -EINVAL;
-+
-+	errno = 0;
-+	val = strtoul(buf, &end, 10);
-+	if (errno)
-+		return -errno;
-+
-+	/* Only allow a newline after the number */
-+	if (*end == '\n')
-+		end++;
-+
-+	if (*end != '\0')
-+		return -EINVAL;
-+
-+	*num = val;
-+	return 0;
-+}
-+
-+int write_num(const char *path, unsigned long num)
-+{
-+	char buf[21];
-+
-+	sprintf(buf, "%lu", num);
-+	return write_file(path, buf, strlen(buf) + 1);
-+}
-+
-+int write_num_ignore_einval(const char *path, unsigned long num)
-+{
-+	int ret;
-+
-+	ret = write_num(path, num);
-+	return ret == -EINVAL ? 0 : ret;
-+}
-diff --git a/tools/lib/mm/file_utils.h b/tools/lib/mm/file_utils.h
-new file mode 100644
-index 000000000000..50daa82c2b2b
---- /dev/null
-+++ b/tools/lib/mm/file_utils.h
-@@ -0,0 +1,13 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef __MM_FILE_UTILS_H__
-+#define __MM_FILE_UTILS_H__
-+
-+#include <stddef.h>
-+
-+int read_file(const char *path, char *buf, size_t buflen);
-+int write_file(const char *path, const char *buf, size_t buflen);
-+int read_num(const char *path, unsigned long *num);
-+int write_num(const char *path, unsigned long num);
-+int write_num_ignore_einval(const char *path, unsigned long num);
-+
-+#endif
-diff --git a/tools/testing/selftests/mm/Makefile b/tools/testing/selftests/mm/Makefile
-index 2d5366196e30..61d974d2cbae 100644
---- a/tools/testing/selftests/mm/Makefile
-+++ b/tools/testing/selftests/mm/Makefile
-@@ -37,7 +37,8 @@ endif
- # LDLIBS.
- MAKEFLAGS += --no-builtin-rules
- 
--CFLAGS = -Wall -O2 -I $(top_srcdir) $(EXTRA_CFLAGS) $(KHDR_INCLUDES) $(TOOLS_INCLUDES)
-+CFLAGS = -Wall -O2 -I $(top_srcdir) -I $(top_srcdir)/tools/lib
-+CFLAGS += $(EXTRA_CFLAGS) $(KHDR_INCLUDES) $(TOOLS_INCLUDES)
- CFLAGS += -Wunreachable-code
- LDLIBS = -lrt -lpthread -lm
- 
-@@ -187,8 +188,8 @@ TEST_FILES += write_hugetlb_memory.sh
- 
- include ../lib.mk
- 
--$(TEST_GEN_PROGS): vm_util.c hugepage_settings.c
--$(TEST_GEN_FILES): vm_util.c hugepage_settings.c
-+$(TEST_GEN_PROGS): vm_util.c hugepage_settings.c $(top_srcdir)/tools/lib/mm/file_utils.c
-+$(TEST_GEN_FILES): vm_util.c hugepage_settings.c $(top_srcdir)/tools/lib/mm/file_utils.c
- 
- $(OUTPUT)/uffd-stress: uffd-common.c
- $(OUTPUT)/uffd-unit-tests: uffd-common.c
-@@ -217,7 +218,7 @@ $(BINARIES_32): CFLAGS += -m32 -mxsave
- $(BINARIES_32): LDLIBS += -lrt -ldl -lm
- $(BINARIES_32): $(OUTPUT)/%_32: %.c
- 	$(call msg,CC,,$@)
--	$(Q)$(CC) $(CFLAGS) $(EXTRA_CFLAGS) $(notdir $^) $(LDLIBS) -o $@
-+	$(Q)$(CC) $(CFLAGS) $(EXTRA_CFLAGS) $^ $(LDLIBS) -o $@
- $(foreach t,$(VMTARGETS),$(eval $(call gen-target-rule-32,$(t))))
- endif
- 
-@@ -226,7 +227,7 @@ $(BINARIES_64): CFLAGS += -m64 -mxsave
- $(BINARIES_64): LDLIBS += -lrt -ldl
- $(BINARIES_64): $(OUTPUT)/%_64: %.c
- 	$(call msg,CC,,$@)
--	$(Q)$(CC) $(CFLAGS) $(EXTRA_CFLAGS) $(notdir $^) $(LDLIBS) -o $@
-+	$(Q)$(CC) $(CFLAGS) $(EXTRA_CFLAGS) $^ $(LDLIBS) -o $@
- $(foreach t,$(VMTARGETS),$(eval $(call gen-target-rule-64,$(t))))
- endif
- 
-diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
-index c1b8d60e519d..4751db798c3a 100644
---- a/tools/testing/selftests/mm/vm_util.c
-+++ b/tools/testing/selftests/mm/vm_util.c
-@@ -889,103 +889,6 @@ int unpoison_memory(unsigned long pfn)
- 	return ret > 0 ? 0 : -errno;
- }
- 
--int read_file(const char *path, char *buf, size_t buflen)
--{
--	int fd, err;
--	ssize_t numread;
--
--	fd = open(path, O_RDONLY);
--	if (fd == -1)
--		return -errno;
--
--	numread = read(fd, buf, buflen - 1);
--	if (numread < 1) {
--		err = numread ? errno : ENODATA;
--		close(fd);
--		return -err;
--	}
--
--	buf[numread] = '\0';
--	close(fd);
--
--	return 0;
--}
--
--int write_file(const char *path, const char *buf, size_t buflen)
--{
--	int fd, saved_errno;
--	ssize_t numwritten;
--
--	if (buflen < 2)
--		return -EINVAL;
--
--	fd = open(path, O_WRONLY);
--	if (fd == -1)
--		return -errno;
--
--	numwritten = write(fd, buf, buflen - 1);
--	saved_errno = errno;
--	close(fd);
--
--	if (numwritten < 0)
--		return -saved_errno;
--
--	if (numwritten != (ssize_t)(buflen - 1))
--		return -EIO;
--
--	return 0;
--}
--
--int read_num(const char *path, unsigned long *num)
--{
--	unsigned long val;
--	int ret;
--	char buf[21];
--	char *end;
--
--	if (!num)
--		return -EINVAL;
--
--	ret = read_file(path, buf, sizeof(buf));
--	if (ret)
--		return ret;
--
--	/* Reject signs and leading whitespace that are accepted by strtoul() */
--	if (buf[0] < '0' || buf[0] > '9')
--		return -EINVAL;
--
--	errno = 0;
--	val = strtoul(buf, &end, 10);
--	if (errno)
--		return -errno;
--
--	/* Only allow a newline after the number */
--	if (*end == '\n')
--		end++;
--
--	if (*end != '\0')
--		return -EINVAL;
--
--	*num = val;
--	return 0;
--}
--
--int write_num(const char *path, unsigned long num)
--{
--	char buf[21];
--
--	sprintf(buf, "%lu", num);
--	return write_file(path, buf, strlen(buf) + 1);
--}
--
--int write_num_ignore_einval(const char *path, unsigned long num)
--{
--	int ret;
--
--	ret = write_num(path, num);
--	return ret == -EINVAL ? 0 : ret;
--}
--
- static unsigned long shmall, shmmax;
- 
- void __shm_limits_restore(void)
-diff --git a/tools/testing/selftests/mm/vm_util.h b/tools/testing/selftests/mm/vm_util.h
-index 62f6f5b42649..fe0475f2bdf2 100644
---- a/tools/testing/selftests/mm/vm_util.h
-+++ b/tools/testing/selftests/mm/vm_util.h
-@@ -8,6 +8,7 @@
- #include <unistd.h> /* _SC_PAGESIZE */
- #include "kselftest.h"
- #include <linux/fs.h>
-+#include <mm/file_utils.h>
- 
- #define BIT_ULL(nr)                   (1ULL << (nr))
- #define PM_SOFT_DIRTY                 BIT_ULL(55)
-@@ -166,12 +167,6 @@ int unpoison_memory(unsigned long pfn);
- #define PAGEMAP_PRESENT(ent)	(((ent) & (1ull << 63)) != 0)
- #define PAGEMAP_PFN(ent)	((ent) & ((1ull << 55) - 1))
- 
--int write_file(const char *path, const char *buf, size_t buflen);
--int read_file(const char *path, char *buf, size_t buflen);
--int read_num(const char *path, unsigned long *num);
--int write_num(const char *path, unsigned long num);
--int write_num_ignore_einval(const char *path, unsigned long num);
--
- void shm_limits_prepare(unsigned long length);
- void __shm_limits_restore(void);
- 
+ 	chip->spi_dev = spi_dev;
+ 	for (i = 0; i <= AD7816_CS_MAX; i++)
+ 		chip->oti_data[i] = 203;
 -- 
-2.53.0
+2.54.0
 
