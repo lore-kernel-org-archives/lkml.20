@@ -1,144 +1,123 @@
-Received: from mail.avm.de (mail.avm.de [212.42.244.120])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2936E38DC71;
-	Fri, 11 Sep 2026 19:00:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.120
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789153247; cv=none; b=EpqNYhlgopS0qUGJzi6XnyyfSJTdt4NjIV9yo9iOBKwuDuqcFUb+KpCS16r77x3AeM8fo/DZNE3PLszv6QU7180iLSNBe6SttyIptKvBsi26+9on6yapBaNZVA9H5dI9yStWZhysTolfWK8SWDd2n24zRu05DsT5nc63Qg3NJgo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789153247; c=relaxed/simple;
-	bh=U7ek17ewJSjncfJmFJyagh0BYwbFrs14o0h4aRXgvWY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PMX5K8K1bNWf8gESeHs/v/acdCTWlFnWNWFahuzKeDZ/0RAWpeVEVyeMr/hVBBtyE3w3y+q0NDH6FeTqcey3gQTDdWU9CZa4c017f0lUogWn6ngBlGEHcLkSYC3GzjF1MHwExmeTNe8S1lNeKUjnT1DTjETex7TEY2bMs6qHVGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=NIykgXGt; arc=none smtp.client-ip=212.42.244.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14211413D69
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:01:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789153325; cv=pass; b=t6AY3dGhASm25XAhDcOxbQe1r3O4UPvCAzIbCP7Bj1DWnuJsDRH1Xpt6bIv85lFMnVRnfcYiV/h1GnLqb6/Tjiu4CkCn6YEajjop896PqPUQqFEGhAA/ETTkNA/bnRTRGP5VMhe1jp5xE+rXSyViRM3fj+X4GTJiB2RP5d8u3Ps=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789153325; c=relaxed/simple;
+	bh=zgXaZV//QYG4469dRhLaxLf4jDLcoZBNLlaluFRomK0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=N1uCVHjCn3dL2aDl1hRnxgbZwjJbi3F3nXAA/NaaurBzzVlHrR7FDn/Waq+3+wD8ezuX6s1gjJVow8OHJPC69pEUHZ7H7m9Xb/9tD8x7XIBMuLaBxSj0LdDib80EioUV8oCAIMEMJ11gBatzOxJzyIqd4QFT+sA0iDmTx8A+QIQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TbpjNv77; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="NIykgXGt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
-	t=1789153240; bh=U7ek17ewJSjncfJmFJyagh0BYwbFrs14o0h4aRXgvWY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=NIykgXGt8va9dimaVsp85Ph4Lf7pd6XWnrdykh6l34G3WP8CS3WhPvZy9/QghHsod
-	 2g7gSr0GnpwYuXqZt9HpfvLzoH6wfWYdEoJhWzvrKryQK9nkuM49hSw2x5mML0e1vj
-	 yxSr2/0pm6sa3w8cnIylI45IPB7gyLLFpK1/1d4Xrz0o6YrVqx9XIPo9r8C/h8c5qP
-	 k5hXuctundU1Eu0Yv7MceKlrhcxlTWrzdajqKWLZXxNbTHGheoFA15vqxKex35ywy/
-	 Wp5QToYM2jPUrmYPLc+USGo4VLJ6Xw2EC1ij0cyeF7FUsebSrKixKlaqrsUA6OVpu4
-	 015MX/cN7Hj3g==
-Received: from [2001:bf0:244:244::78] (helo=mail.avm.de)
-	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
-	(envelope-from <n.schier@fritz.com>)
-	id 6aa44fd8-0449-7f0000032729-7f0000018a32-1
-	for <multiple-recipients>; Fri, 11 Sep 2026 21:00:40 +0200
-Received: from mail-auth.fritz.com (unknown [IPv6:2001:bf0:244:244::78])
-	by mail.avm.de (Postfix) with ESMTPS;
-	Fri, 11 Sep 2026 21:00:40 +0200 (CEST)
-Date: Fri, 11 Sep 2026 21:00:40 +0200
-From: Nicolas Schier <n.schier@fritz.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Alexey Gladkov <legion@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
-	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org,
-	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
-	Jens Axboe <axboe@kernel.dk>
-Subject: Re: [PATCH 20/23] kbuild: rust: parallelise rustc front end
-Message-ID: <20260911-impressive-heavy-bobcat-6ceeb1@l-nschier-aarch64>
-References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
- <20260908-build-speedup-v1-20-5dc1ac01672d@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TbpjNv77"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591ae52so536424a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:01:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789153305; cv=none;
+        d=google.com; s=arc-20260327;
+        b=G85pbkUfJ5wOc6kmY/Kvnx/s6Qhj+izAi1fn6aV2DEIg3S/f1uEPm6ec1x35ZWJ7wr
+         ux5PlWOERiPDb2QQB6ngo3gn7xgSf75Eu9TIryy1RdsLPFOZDW5fZJZ9G19204EtqKZD
+         vxEVZwUUAmxbUkQYm7QksRv7bUl9tLOdCUfWzRPAlgEt5NdT4bRzZdI2v7SvLdS/b+q7
+         78V0FIn03CarQf4dRIWgvbzhrEUHwmpFEIqWKZ2GgGKq79NORlYze2IjTSXl37NAVgsE
+         IYqCsoeZsQW/TtpifKkFPEbsU/2JHzsRPuNtg5NmIcUmc3GlB7+KEckeX06BtYqssfIQ
+         ELeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zgXaZV//QYG4469dRhLaxLf4jDLcoZBNLlaluFRomK0=;
+        fh=cmBewG5Og9n1bXUSV21Ki5cKsKIcUcMGdxTa9KgLCVk=;
+        b=WsOODArixYnHdkwej0auKDEZ1NyyrR+m+N7YWiHTGmUHZB7NDwDxufN7z6Iq5VMipP
+         BagPY2+PdJDjGPR2TaQ4/5cwLF0V9oTKZdK2agly5qTam7PLLfXgKuqpc3/6ze4rshjJ
+         PSnrMYocWI/qhUXZn2ymyf3w/6VykiL5HFXwivQVYt50+EUFTwmK/so3uRAknQEXUFMg
+         yX+ZbU+bhx9ycE0aebLZpiRMaHutqMWlzYW0sBO9NQif/58scNtm4jLDaFKPtCFvK/TH
+         xbYqemQRhKbGTkbocEggNovFrc9Sp9m8ohIlZ9hSqR5gTvJ5f6I57/8AB2kWZxPr2oZh
+         qPxg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789153305; x=1789758105; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zgXaZV//QYG4469dRhLaxLf4jDLcoZBNLlaluFRomK0=;
+        b=TbpjNv77h7PMHP0ATTD/d+yPvKvPJEpFsagODaqPzYdgugBetFTxEwnO91BSj0v/5P
+         0RCx2ESJNklOYv8gu2d1nWXj1bElyJgLsIhMekiQL4NxFYlO43Gr3R46KZ9ZJ6+qBhfh
+         0sm/5Qntg26dPH4i2ICDnXrsEfv8pYNkX7wqLKWJ1S/eGxJOVG5cGhTMYmOZAq8QdZZ2
+         JlgVNMeE+Tx/IrXtHGAOBmptko+98ylN50MibwtGIGwI4zAn/HRenwQMRyE6+V9/R+lL
+         Z4b73w6/eKuWeczfnre0tQB6uZUR2u3g1rDrFUKwYVQljVjaAYEpGOmWjCo7yfiro/E8
+         j+zQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789153305; x=1789758105;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zgXaZV//QYG4469dRhLaxLf4jDLcoZBNLlaluFRomK0=;
+        b=Vw+uqrfp/grwfRKSqAGZpjEPw9YxJ0rDZUAqD0sbEZFiabtueYv22XLFgVQ4zT5hax
+         EyeAFTn7Zw9kpDj80v5MZuiaRlv8nstiFjInMobtFw91RJu9O4ZwUX/+Nf1KSlGosFUq
+         MjsoAAVaM4GbPjWt6781wXi5woBHn8vZKE0D2S4zhfok1HnUsGzmLkqf8M3Tc399593i
+         +FNH0iI6PYi9WvX19oTK6859xnp6Z02ix/E8oePtlPCW8CUf9xH1ISGjWGFpMWTS7nfo
+         8tDrgjOPE951tduXZ8l2wVn+I0GDmRWQxd8+bXiTwUTAAzmPvlWIHVPA/cwhe3QKx2Y/
+         erqA==
+X-Forwarded-Encrypted: i=1; AKwUvByDcZM7xyzmqq2rgVRc/7IvGbIFd09ak3w/31v91RKrfcT644EF06FsdHnVrKrSO5GAW1eKTHfEviGk97E=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+moCD79Ozv0DRGr/rPdCVmZh1iiZe0ANilBMoPTWs9EtjroTE
+	G3JQD70c7lwhCegtfg8d0HU3skPh427JA7tLmCjY+VXw2I54Dk+7Cd4+mnuJvZQuLYhMqhvt7b+
+	YOT+dOixpfV319pSBlYAdy0yfCP6gbvA=
+X-Gm-Gg: AYBFou3OCQdwycmipY02j0c9Ird1yCWrtomhXJWHqpwmbtlNR+pi3ZTtsoqnrHr30gw
+	4SXao03Zj+s7Xn1W88YhZkG15kumzhx0MoiWehp5q//ivh4oMFFbT3U/CqzZZ5hSgtdlYHMtWda
+	MkctBhVBFeKrQgfc9+eHoXo1++bTF8mbHB5TJgbgOWMwMhi4XZ82dMJgtMGLFqvQPtb+LCifs6h
+	AtKNSgyt46hCMoaJ86ez7jfy6AdVWeM1AQVhWsbahfdfzxEy6UE4VSSp84pldR8ss2h5myFWjbs
+	zfUFnq+Ly7mLWB7QL9GywF2F5mhcTVq3dsf4eIKw2asmvgHIHzRtJFjP
+X-Received: by 2002:a05:6402:5024:b0:6a6:32f5:90b3 with SMTP id
+ 4fb4d7f45d1cf-6a9b56cb90bmr5271034a12.21.1789153305023; Fri, 11 Sep 2026
+ 12:01:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260908-build-speedup-v1-20-5dc1ac01672d@kernel.org>
-Organization: FRITZ! Technology GmbH
-x-ms-reactions: disallow
-X-purgate-ID: 149429::1789153240-3E7E2965-9B10CB31/0/0
-X-purgate-type: clean
-X-purgate-size: 1792
-X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
-X-purgate: clean
-X-pfmilter: host: postfix-mx-01  mail-id: 9436CA0635  external: no
+References: <20260908-riscv-vector-asm-fix-v1-1-147f314efb2b@linux.dev>
+In-Reply-To: <20260908-riscv-vector-asm-fix-v1-1-147f314efb2b@linux.dev>
+From: Andy Chiu <andybnac@gmail.com>
+Date: Fri, 11 Sep 2026 14:01:32 -0500
+X-Gm-Features: AcwNN1Ue_pfyyzvxcWu7bUZijifaEJzBimk14NP6B3kzlMYEX1HbytKB-0x_sYs
+Message-ID: <CAFTtA3MNxUp8pnUzcM-EfAQkZ=ZG6k=7aXKZBVmjGPnjXhywTw@mail.gmail.com>
+Subject: Re: [PATCH] riscv: vector: Fix data pointer constraints in context save/restore
+To: Troy Mitchell <troy.mitchell@linux.dev>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Guo Ren <guoren@kernel.org>, 
+	Vincent Chen <vincent.chen@sifive.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@rivosinc.com>, 
+	Alexandre Ghiti <alex@ghiti.fr>, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Palmer Dabbelt <palmer@rivosinc.com>, 
+	Greentime Hu <greentime.hu@sifive.com>, Heiko Stuebner <heiko@sntech.de>, 
+	Conor Dooley <conor.dooley@microchip.com>, 
+	Kevin Zhang <zhangmeng.kevin@linux.spacemit.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 08, 2026 at 09:55:20PM +0100, Lorenzo Stoakes (ARM) wrote:
-> Rust crates are compiled in a serial chain on the critical path - core,
-> bindings, kernel crates and then the drivers - each a rustc invocation.
-> 
-> With CONFIG_RUST set and every rust driver enabled, the entire chain takes
-> around 25 seconds on a 128-thread machine, with the associated C code
-> taking 24 seconds.
-> 
-> Each time a change is made to any of the bindings, it triggers a rebuild.
-> 
-> Use the -Zthreads option to have rustc perform builds in parallel. This has
-> been available since rust 1.84 (rust-lang/rust#132282), and the kernel
-> requires rust 1.85 or above.
-> 
-> A future -j/--jobs option is planned for
-> rustc:(rust-lang/compiler-team#1005), so check to see if this available and
-> if so use it.
-> 
-> If the user's rustc supports neither, then it falls back gracefully and
-> neither are used.
-> 
-> The threads are taken from make's jobserver, so a parallel build is not
-> oversubscribed. It was found that benefits level off at 8 threads (16 was
-> found to be around the same, and 32 slower).
-[...]
+Hi Troy,
 
-> diff --git a/Makefile b/Makefile
-> index 997fc7ebe096..7d23d7b64be3 100644
-> --- a/Makefile
-> +++ b/Makefile
-> @@ -1204,6 +1204,10 @@ KBUILD_RUSTFLAGS += --remap-path-prefix=$(srcroot)/= --remap-path-scope=macro
->  endif
->  endif
->  
-> +ifdef CONFIG_RUST
-> +KBUILD_RUSTFLAGS += $(if $(CONFIG_RUSTC_HAS_JOBS),-j8,$(if $(CONFIG_RUSTC_HAS_ZTHREADS),-Zthreads=8))
-> +endif
+On Tue, Sep 8, 2026 at 8:03=E2=80=AFAM Troy Mitchell <troy.mitchell@linux.d=
+ev> wrote:
+>
+> The standard vector save/restore asm advances datap but declares it as
+> input-only. An inlined caller reusing the original pointer may therefore
+> use the advanced address instead.
+>
+> Declare datap as read-write so the compiler can preserve the original
+> pointer when needed.
+>
+> Fixes: 03c3fcd9941a ("riscv: Introduce struct/helpers to save/restore per=
+-task Vector state")
+> Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
 
-Is there a reason for the 'ifdef CONFIG_RUST'?
+Reviewed-by: Andy Chiu <tchiu@tenstorrent.com>
 
-Hard-coding '8' feels a bit odd.  If some kind of KBUILD_RUST_JOBS would 
-be used, it could allow users to disable or override the parallelism for 
-rust.  Does it make sense to have rust parallelism configurable?
-
--- 
-Nicolas
+Thank you,
+Andy Chiu
