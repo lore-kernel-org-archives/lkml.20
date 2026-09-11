@@ -1,106 +1,289 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468CA4078CA;
-	Fri, 11 Sep 2026 18:52:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9113F8EA2;
+	Fri, 11 Sep 2026 18:52:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789152729; cv=none; b=bQS4ae4cI+tztEYZH5iVW2Xmys8XW3RKwx4KMrw2anRZXs0ynG/+4SERwqgAhdSkyzjgGmkups+DiAL9J2qGrT4uyDJ7/wMzdaZftyKZ1i/CWFu6S9DJUEk3k9FwsEFP71dSD7qCHmr05lBNV46yms417WnVVEDi+qGYUmuv0lU=
+	t=1789152729; cv=none; b=RxU7ixKQdwxT8bCM9aahxsybAjNo1TIKznAGYWAM7ik87HU0AToNyeRlKcWEUXjv+ixcy3B04C4AFJWvdsYJq54LAI30f7nm/J+udfCd172hbUkMytUFCyPcvc/OYuZg/kQp7E+RwIU2ENOugyrlQ7xARpISQqC2Hxtc0C+SJqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789152729; c=relaxed/simple;
-	bh=ATqKkXAynA5QOvitO9FjFGvwl6ctXOXJbMRKDDJf2hI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m0HxwngPT4MlH1VcNEiowo/TGGDB6zKeSPLkM5dGHPu9Dw2HKQfm9TMPvpycQsR0RhHwBpFvfFWNr9B/7hBvrD2EUG68twaU1C78f4Pj/Kd/FFB9KsyavlG/7IhI8Jr1c6osOMA/XatnIuVHMbCpc3pFYJCaRLYam5bto9jrV4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ibrceeau; arc=none smtp.client-ip=100.103.45.18
+	bh=RCeSx3IrYG4rfAXHao35oWByJ4omMqIyh00vGCSQSfA=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=q2EqVi9HKsxjTIb2CvNevYmhytOPy/jKajW0ZmyExMIpwVwRp2qgII32RqJxUhfL0f9mjfssM2OJKYM8Vo0zMSzuIqjlweqitHhc+kM8BcYeDQq/FNwe4Ly6dRZ/r5M/LsmRCFoJu+TycHWWb8kW2OA7ysOnOzKhrLem1St5pJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U6SAHj6r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ibrceeau"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEE6B1F00898;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U6SAHj6r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 441701F00893;
 	Fri, 11 Sep 2026 18:52:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789152727;
-	bh=N+qEtiefGNYeRTxGzeBD3t/Z7q5fIfiPccH3vPmIgB0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ibrceeaukk5kc2bY3x1aA1Djv9txsrZBXBcoOVhJAhluX5OMBOIrDq3yMSs7Lgz77
-	 UQUh1udNEiZwb1vq+7fHYMznCC+YHQhrZp02m6AE8fsfPvv/Zy7F8Dlm3Qdh39snZw
-	 537WP1EcSe1968jTjquqsNTWRXKSLUj8eCeFwyJE2sm4Q/3HaA1c92qRyKOkQpFVRp
-	 +slXJkbfa0qTe9C68xz/9+7wp0dHzD1SmQUBcAJW3Mdrp5RBer/s67x/z9pmYyy7rL
-	 GkmgA2l1v8E7ZEAvhxs4yrjjzhjNMSPb+6CVDWIwUrTujnJJp+D4/DE2rQWRe3ELlX
-	 DeLJbtsrpWxUg==
-Message-ID: <db8af2fe-481d-454b-a205-4f22cd9b7a0d@kernel.org>
-Date: Fri, 11 Sep 2026 20:52:04 +0200
+	bh=8p7zYuyuGA3gQQYpgulfyn0ZpME2hZEJKSkR2ar+2PM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=U6SAHj6r+4GI1aqP+QTcUvmucbddmVNZKycLoE586l6CWMmflmf5+xp72fJ7NbOYY
+	 4DgAuoPmFwQ9fmDWDBHRN4w4E590ygMiXRpe+c/+ikgUsDffJXHASWg5fsBA4JAdtI
+	 SSExCABZBX1timPi3xR+sdUFGhzNq8RD4+LJqSEJTxW7+drsSrQsH0kH/EcSeY+7s5
+	 CJ3a1lZy6eTSYtDDkVHdi1PoUqVvIcXvkDh33ExXeWtc5Q+5fHmGV6nqoHtnHI/IYX
+	 TIUNVAQSry6iWrn1IhHYOb7cSUKCe7NDySynlcQTAr7vUjIfQh8hrKK1el5YssM4h8
+	 MKCBrPiFX29Dw==
+Subject: Re: [PATCH RESEND net-next v17 05/10] net: phy: Represent PHY-less
+ SFP modules with phy_port
+From: netdev-bot+sashiko@kernel.org
+To: maxime.chevallier@bootlin.com
+Cc: davem@davemloft.net, andrew@lunn.ch, kuba@kernel.org, edumazet@google.com,
+ pabeni@redhat.com, linux@armlinux.org.uk, hkallweit1@gmail.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ thomas.petazzoni@bootlin.com, christophe.leroy@csgroup.eu,
+ herve.codina@bootlin.com, f.fainelli@gmail.com, vladimir.oltean@nxp.com,
+ kory.maincent@bootlin.com, kabel@kernel.org, o.rempel@pengutronix.de,
+ nicveronese@gmail.com, horms@kernel.org, mwojtas@chromium.org,
+ romain.gantois@bootlin.com, daniel@makrotopia.org,
+ dimitri.fedrau@liebherr.com, frank.wunderlich@linux.dev, p.ameruoso@live.it
+Date: Fri, 11 Sep 2026 18:52:05 +0000
+Message-ID: <178915272580.219967.8750635719140746575@kernel.org>
+In-Reply-To: <20260910170103.1029108-6-maxime.chevallier@bootlin.com>
+References: <20260910170103.1029108-6-maxime.chevallier@bootlin.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Input: atkbd - skip deactivate for Lenovo IdeaPad Slim 3
- 14IWC11
-To: Iustin Ivan <iustinivan2002@gmail.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260911182328.9267-1-iustinivan2002@gmail.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20260911182328.9267-1-iustinivan2002@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 5 potential
+issue(s) to consider:
 
-On 11-Sep-26 8:23 PM, Iustin Ivan wrote:
-> The internal keyboard on the Lenovo IdeaPad Slim 3 14IWC11 (83RQ) does
-> not work after boot. The keyboard ACKs every command during probe,
-> including ATKBD_CMD_ENABLE, but never sends any scancodes afterwards.
-> Booting with 'i8042.dumbkbd=1' makes it work at the cost of the
-> CapsLock LED. Adding the atkbd_deactivate_fixup quirk fixes the
-> keyboard and the LED natively.
-> 
-> DMI: LENOVO 83RQ/LNVNB161216, BIOS U2CN19WW 03/30/2026
-> 
-> Fixes: 9cf6e24c9fbf ("Input: atkbd - do not skip atkbd_deactivate() when skipping ATKBD_CMD_GETID")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Iustin Ivan <iustinivan2002@gmail.com>
+Critical: 0 · High: 2 · Medium: 2 · Low: 1
 
-I'm starting to wonder if we should not just make this behavior the default.
+- [High] FALSE POSITIVE (resolved later in the same series).
+- [High] Bitfield data race on `has_sfp_mod_phy` can silently corrupt
+  hardware interrupt flags
+- [Medium] Failure to allocate/register the purely informational SFP-
+  module phy_port now makes the whole SFP module bring-up fail…
+- [Medium] Unbalanced registration teardown for `phydev->mod_port`:
+  `phy_detach_internal()` unconditionally calls…
+- [Low] FALSE POSITIVE.
 
-IIRC the whole deactivate thing was added as a workaround for multi-byte scancodes
-getting split-up during suspend/resume. I wonder if we can come-up with some
-better fix for that ?
+--
 
-Regards,
+net: phy: Represent PHY-less SFP modules with phy_port
 
-Hans
+This adds a phy_port to represent a PHY-less SFP module, created and
+destroyed from the new .module_start / .module_stop upstream ops in both
+phy_device.c and phylink.c, plus a phy_caps helper to filter the module
+link modes by the cage port's MII interfaces.
 
+A couple of questions on the new error paths below.
 
+> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+> index f15c0fc339b4d..26634ef274f33 100644
+> --- a/drivers/net/phy/phy_device.c
+> +++ b/drivers/net/phy/phy_device.c
 
+[ ... ]
 
+> @@ -1617,6 +1629,75 @@ static void phy_sfp_link_down(void *upstream)
+>  		port->ops->link_down(port);
+>  }
+>  
+> +static int phy_add_sfp_mod_port(struct phy_device *phydev)
+> +{
+> +	const struct sfp_module_caps *caps;
+> +	struct phy_port *port;
+> +	int ret = 0;
+> +
+> +	/* Create mod port */
+> +	port = phy_port_alloc();
+> +	if (!port)
+> +		return -ENOMEM;
+> +
 
+[ ... ]
 
+> +	if (phydev->attached_dev) {
+> +		ret = phy_link_topo_add_port(phydev->attached_dev, port);
+> +		if (ret) {
+> +			phy_port_destroy(port);
+> +			return ret;
+> +		}
+> +	}
 
-> ---
->  drivers/input/keyboard/atkbd.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/input/keyboard/atkbd.c b/drivers/input/keyboard/atkbd.c
-> index b9ad2381f885..923f77808381 100644
-> --- a/drivers/input/keyboard/atkbd.c
-> +++ b/drivers/input/keyboard/atkbd.c
-> @@ -1938,6 +1938,14 @@ static const struct dmi_system_id atkbd_dmi_quirk_table[] __initconst = {
->  		},
->  		.callback = atkbd_deactivate_fixup,
->  	},
-> +	{
-> +		/* Lenovo IdeaPad Slim 3 14IWC11 (83RQ) */
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "83RQ"),
-> +		},
-> +		.callback = atkbd_deactivate_fixup,
-> +	},
->  	{
->  		/* Xiaomi Book Pro 14 (TM2424) */
->  		.matches = {
+[ ... ]
 
+> +static int phy_sfp_module_start(void *upstream)
+> +{
+> +	struct phy_device *phydev = upstream;
+> +
+> +	/* If there's a downstream SFP module, and it doesn't contain a PHY
+> +	 * device, let's create a phy_port to represent that module.
+> +	 */
+> +	if (!phydev->has_sfp_mod_phy)
+> +		return phy_add_sfp_mod_port(phydev);
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Should a failure to create this port really abort the whole module
+bring-up?
+
+Both new .module_start implementations propagate the error: here
+phy_sfp_module_start() returns phy_add_sfp_mod_port()'s -ENOMEM from
+phy_port_alloc(), or whatever phy_link_topo_add_port() returns
+(xa_alloc_cyclic() -ENOMEM, or -EOPNOTSUPP after the WARN_ON_ONCE for
+netdev_need_ops_lock() devices), and phylink_sfp_module_start() does the
+same in its new else branch:
+
+	} else {
+		ret = phylink_add_sfp_mod_port(pl);
+		if (ret)
+			return ret;
+	}
+
+On the SFP core side, any non-zero return is fatal, in sfp_sm_main():
+
+	case SFP_S_INIT_PHY:
+		...
+		if (sfp_module_start(sfp->sfp_bus)) {
+			sfp_sm_next(sfp, SFP_S_FAIL, 0);
+			break;
+		}
+
+There is no case SFP_S_FAIL: in that switch, so the only way out is the
+global handling at the top of the function, i.e. losing SFP_MOD_PRESENT
+or clearing SFP_DEV_UP.
+
+So does a transient kzalloc() failure for this port leave the link down
+until the interface is taken down and up again, or the module is
+physically re-inserted? Given that the module port is a purely
+informational topology object with no data-path role, would it be
+preferable to warn and continue rather than to fail the state machine?
+
+The commit message describes only the representation of the module as a
+phy_port and doesn't mention this new failure mode.
+
+> @@ -1834,6 +1920,8 @@ static void phy_detach_internal(struct phy_device *phydev, bool notify_bus)
+>  		phydev->attached_dev->phydev = NULL;
+>  		phydev->attached_dev = NULL;
+>  		phy_link_topo_del_phy(dev, phydev);
+> +		if (phydev->mod_port)
+> +			phy_link_topo_del_port(dev, phydev->mod_port);
+>  	}
+>  
+>  	phydev->phy_link_change = NULL;
+> @@ -1963,6 +2051,12 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
+>  		err = phy_link_topo_add_phy(dev, phydev, PHY_UPSTREAM_MAC, dev);
+>  		if (err)
+>  			goto error;
+> +
+> +		if (phydev->mod_port) {
+> +			err = phy_link_topo_add_port(dev, phydev->mod_port);
+> +			if (err)
+> +				goto error;
+> +		}
+>  	}
+
+[Severity: Medium]
+Can this pair of add/del calls unregister a port that belongs to someone
+else?
+
+The del side in phy_detach_internal() runs whenever phydev->mod_port is
+non-NULL, with no record of whether the port was inserted into this
+netdev's topology during this attach. And the del is by id only, without
+checking the stored entry:
+
+drivers/net/phy/phy_link_topology.c:phy_link_topo_del_port() {
+	struct phy_link_topology *topo = dev->link_topo;
+
+	if (!topo)
+		return;
+
+	xa_erase(&topo->ports, port->id);
+}
+
+Since a phy_port keeps its id across detach so it can be re-used,
+phy_link_topo_add_port() re-inserts with xa_insert():
+
+	if (port->id)
+		ret = xa_insert(&topo->ports, port->id, port, GFP_KERNEL);
+	else
+		ret = xa_alloc_cyclic(&topo->ports, &port->id, port,
+				      xa_limit_32b, &topo->next_port_index,
+				      GFP_KERNEL);
+
+Two sequences look problematic:
+
+phy_link_topo_add_phy() fails (pdn allocation, -EBUSY on a colliding
+index, or -EOPNOTSUPP for an ops-locked netdev)
+
+	goto error;
+	  phy_detach_internal(phydev, false)
+	    phy_link_topo_del_port(dev, phydev->mod_port)
+	      xa_erase(&topo->ports, port->id)
+
+and the module port was never inserted into this topology, so whatever
+occupies that index is erased.
+
+The second one is the new call itself: xa_insert() returns -EBUSY when
+mod_port's retained id is already taken by another port of that netdev,
+and the cleanup then erases exactly that foreign entry.
+
+Would it make sense to only call phy_link_topo_del_port() for a port that
+was successfully added here (a flag, or clearing/zeroing the id), and to
+have phy_link_topo_del_port() verify the stored pointer before erasing?
+
+This needs mod_port to survive a previous detach, which looks possible
+since neither phy_detach() nor phy_detach_internal() stop the SFP state
+machine or clear mod_port - only .module_stop does.
+
+[ ... ]
+
+> diff --git a/include/linux/phy.h b/include/linux/phy.h
+> --- a/include/linux/phy.h
+> +++ b/include/linux/phy.h
+> @@ -724,6 +727,7 @@ struct phy_device {
+>  	unsigned irq_rerun:1;
+>  
+>  	unsigned default_timestamp:1;
+> +	unsigned has_sfp_mod_phy:1;
+>  
+>  	int rate_matching;
+>  
+
+[Severity: High]
+Which lock protects the word this new bit lives in?
+
+has_sfp_mod_phy is added right after default_timestamp, so it lands
+in the same machine word as the interrupt bookkeeping bits
+interrupts:1, irq_suspended:1 and irq_rerun:1. A C bitfield
+assignment is not atomic with respect to its neighbours: the compiler
+is free to emit a load of the enclosing word, an OR/AND of one bit,
+and a store back. Any concurrent update of a different bit in that
+same word is then lost.
+
+The writers of has_sfp_mod_phy are phy_sfp_connect_phy() and
+phy_sfp_disconnect_phy(), which run from the SFP state machine work
+under rtnl_lock() but without phydev->lock and with interrupts
+enabled. irq_rerun (and irq_suspended) are written from
+phy_interrupt() and from the mdio_bus_phy_suspend()/_resume() PM
+paths, neither of which take rtnl. So a store to has_sfp_mod_phy
+that races with phy_interrupt() setting irq_rerun = 1 can drop the
+irq_rerun update, and the pending wakeup interrupt is then never
+re-run after resume - a silently missed PHY interrupt / broken WoL
+wakeup rather than an obvious failure.
+
+The existing rtnl-protected SFP state in this struct is a plain bool
+(sfp_bus_attached, with the "This may be modified under the rtnl
+lock" comment above it), and the new sfp_cage_port / mod_port
+pointers you add sit in that same group. Would it be cleaner to make
+has_sfp_mod_phy a bool next to sfp_bus_attached, so it is covered by
+the same rule as the rest of the SFP fields and shares no word with
+the IRQ flags? If you would rather keep it a bitfield, which lock is
+intended to serialise the enclosing word, and how is that
+synchronised against phy_interrupt()?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260910170103.1029108-1-maxime.chevallier%40bootlin.com
