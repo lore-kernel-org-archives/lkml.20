@@ -1,90 +1,67 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A573BBFD3;
-	Fri, 11 Sep 2026 05:17:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D494D36728D;
+	Fri, 11 Sep 2026 05:17:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789103832; cv=none; b=edBmlrznXHARrO8qIBXmtulY71xvvgbZ0iZlaUJ6cIyh/98ranzl1BYraLn6PPaN3MHhWC4C2VxFn0H23VDBKnHcHD1EeePuln3uSBgXj3hmDQrWKwTONTAArJ8trhftp4ZCj70uc4kYWwemX3z4QLf+KehSlZouS4nvP/PmOvg=
+	t=1789103855; cv=none; b=rLcanABWvTsg7QX2FsPpjJ1TRd+sIMBhbofVite2pjIxmMbsaTV/KEAZA80d9isxiJ6os2CvA7H2r4dMVjn/qL2JX9jzSjoBR1uYl//vElV5c+dzxgpCjbGaF6wL3vLnhmr4vz7ukPhXAGfZ0eyHrq0mfB8WcSDVh4WuWx/rkpk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789103832; c=relaxed/simple;
-	bh=f8fIikIW10N69E8p5c+jkrXr6gtyImvzXshpKnZCeWk=;
+	s=arc-20240116; t=1789103855; c=relaxed/simple;
+	bh=VO6Go7nTSwCJIn8OdFG89Zy1T1f2i+xs5qzMLIbxGVA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m4O10vK3PKy5niC695kNyAXQJ3UEP2mMGzxJ8OSaW3bzPd2ggtCJ4BEzsJHtUplSW0Q6KDKW/Tnso2JQhoIp/RUrbATSe4383SAKcjOlzyPWkDknSU50U2iYItsubOdiKrnIUr3AbipeJdtfMEgL9dUXSHd2KJy6Vf7je2s+y1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=KXTKyW7v; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	 Content-Type:Content-Disposition:In-Reply-To; b=O+7EIDyJjBOxxRjpqUZsjHJi8BYtCq6QEZLd75sBG+B07kkIye3jjPfxuaQCaJu7WXoCwIBcBNO6LdvamYcNUeF8O1pZlAiNqjABB0gVHQV74M7/nZHpdOCyQWUSaPO60nkWRp0t3wqu+g3n98NE4pfCIJoPm8ePrIzYHbUgMe0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aMmIbpxI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="KXTKyW7v"
-Received: from francesco-nb (unknown [185.12.129.179])
-	by mail11.truemail.it (Postfix) with ESMTPA id C948022A64;
-	Fri, 11 Sep 2026 07:16:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1789103820;
-	bh=6cHk0+hnAX9Svvvs+mCcXDWD9wHRA7o3iDSgCfFA1pw=; h=From:To:Subject;
-	b=KXTKyW7vyrweoTFKVl3jbpQv2colBXTi8jZtGIQa6s8uV/fgX49ruW8jObGT6YbHn
-	 TcBSMohJtTp3biq8c400SoWs8ubmZRA1h3gaQjJ6sKlHefSWCZ1f31aJYVGvvsHC3q
-	 EhdcsSTRQx1uxqGMIls6GOyE/Ggwkge3R62zwFVwtbaanhMfVgLT4TfQKKlbSMmKmq
-	 4OQXmK4BsOO+E3sq/81k0Mj7aMWMzI37vsj/zFxi9dOsvNkDAw/ubgmdzdLtcY5QJN
-	 2B+PoMgWU7z+/aOxu0/Cs2XidbbDWzOhwS/nBbhVheqpYntdBjNpWVSAbKjppgfhIG
-	 UX5R8QNggIHQA==
-Date: Fri, 11 Sep 2026 07:16:08 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-Cc: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
-	Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, Judith Mendez <jm@ti.com>,
-	Daniel Schultz <d.schultz@phytec.de>, Andrew Davis <afd@ti.com>,
-	Siddharth Vadapalli <s-vadapalli@ti.com>,
-	Paresh Bhagat <p-bhagat@ti.com>, Bryan Brattlof <bb@ti.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Devarsh Thakkar <devarsht@ti.com>, Beleswar Padhi <b-padhi@ti.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Stefano Radaelli <stefano.radaelli21@gmail.com>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Vishal Mahaveer <vishalm@ti.com>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Sebin Francis <sebin.francis@ti.com>,
-	Kendall Willis <k-willis@ti.com>, Akashdeep Kaur <a-kaur@ti.com>,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
-	Hari Nagalla <hnagalla@ti.com>
-Subject: Re: [PATCH v8 4/9] arm64: dts: ti: k3-am62p-verdin: Fix wkup R5F
- memory region size
-Message-ID: <20260911051608.GA5377@francesco-nb>
-References: <20260903-topic-am62a-ioddr-dt-v6-19-v8-0-74c650dfdea6@baylibre.com>
- <20260903-topic-am62a-ioddr-dt-v6-19-v8-4-74c650dfdea6@baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aMmIbpxI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DD391F000FF;
+	Fri, 11 Sep 2026 05:17:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789103854;
+	bh=MyiTj6alOlQUBpvVanvP3WSeuGMqb9NQa3cYxb5z/kE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aMmIbpxIlWoNOpEzY53NE/GrzWX+ITjvAwiJ7k5RzH99owz9sqGHfCEeLVJPVvxvv
+	 fRWfuu4jGHGC1Ko9r6fwd+l4+bOy1buyVW6OEnHr8TWj4nk/LxxPj6Fex1qDUHAX5x
+	 +ZZE9k27z55QOAD/QshaCbFnnrRubk6JRkjIQJPK9Rw+Zkt8V+b2Gwb8YnJojhMgKQ
+	 8SvJUxn2oFJGW4K132CNUODpE//NcdEiY5I0E3xjInfVyGt8QTt2dbYRTVJ8781qmp
+	 hNdmRZLdRTQsMtt26u2Ld6uNShYjV0sR5e8h4smj/N0HGDGY5D7z7PCPBjUZYnAEZm
+	 TEX3nnBAlS2xg==
+Date: Fri, 11 Sep 2026 07:17:25 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: chunfeng.yun@mediatek.com, vkoul@kernel.org, neil.armstrong@linaro.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
+	chunkuang.hu@kernel.org, p.zabel@pengutronix.de, justin.yeh@mediatek.com, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, kernel@collabora.com
+Subject: Re: [PATCH v4 05/12] phy: phy-mtk-dp: Implement power_on and
+ power_off PHY callbacks
+Message-ID: <woh776xuf7vavnb55lrup6runersvwtw5hkauarjn3rzfuu5sx@n5b5tjt3firs>
+References: <20260910092038.48291-1-angelogioacchino.delregno@collabora.com>
+ <20260910092038.48291-6-angelogioacchino.delregno@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260903-topic-am62a-ioddr-dt-v6-19-v8-4-74c650dfdea6@baylibre.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260910092038.48291-6-angelogioacchino.delregno@collabora.com>
 
-On Thu, Sep 03, 2026 at 02:39:25PM +0200, Markus Schneider-Pargmann (TI) wrote:
-> The wkup_r5fss0_core0_memory_region was reserved with
-> 0x01e00000 but the MCU SDK linker for the wkup R5F firmware on
-> AM62P defines the DM code/data DDR footprint differently:
+On Thu, Sep 10, 2026 at 11:20:31AM +0200, AngeloGioacchino Del Regno wrote:
+> Add .power_on() and .power_off() callbacks to mtk_dp_phy_dev_ops
+> to be able to call those with phy_power_on() and phy_power_off()
+> API in the DisplayPort driver to be able to stop using all of
+> those hardcoded register writes in that external driver.
 > 
->     /* DDR for DM R5F code/data [ size 27 MiB + 396 KB ] */
->     DDR                         : ORIGIN = 0x9CAA5000 LENGTH = 0x1B63000
-> 
-> which results in an end at 0x9e608000. For this memory region which
-> starts at 0x9c900000 this means a length of:
-> 
->     0x9e608000 - 0x9c900000 = 0x1d08000
-> 
-> Link: https://github.com/TexasInstruments/mcupsdk-core-k3/blob/k3_main/examples/drivers/ipc/ipc_rpmsg_echo_linux/am62px-sk/wkup-r5fss0-0_freertos/ti-arm-clang/linker.cmd
-> Fixes: 87f95ea316ac ("arm64: dts: ti: Add Toradex Verdin AM62P")
-> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-Acked-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
