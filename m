@@ -1,220 +1,155 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F3535C6A3;
-	Fri, 11 Sep 2026 09:40:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A73513C1F41;
+	Fri, 11 Sep 2026 09:40:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789119624; cv=none; b=fBFkpzVGxoBvJmdkKVGmdMrem0Clm7+psJCRdAE9KbSU16E0tX3f3/UxbqEZsIHrTclZJN0vwniQMAduasJK1AgdZMtxuhVNNDpEHLnz9GeXCKY5I4+B2WYvkJT3wIjm005rrqyfioagCTe/zs6lg9KCUNG5OB2mupFQIoXBdOA=
+	t=1789119630; cv=none; b=pMmsJBLC25p8NehmjSD6ES2vY61wSdMvJzfI7vmbofbSZ4G/l663q9vZR6ZeiHJVHJVd+ufycpYdSm8TyNxEJT4KnK7DJVUad1NCW+o0hhGjbFN81reAbmcf/vgWrfmB15GJZ0wu1Ft4Y7d8uBwK4lBQGAQDaZduOlUC4UK2RKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789119624; c=relaxed/simple;
-	bh=UA0gQp/GDhXT7TsLFJlDEHN8EwypYEYEgtzKNIO2pao=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s0cwuR/n/QYfGw4gyUVr+s/w98wTbMa70g1wAzSVh6ku2eO3XGRPEkUMmkofquG1hJITiTprz4K+jn2sa001nTfzpCMMmKAcFLGmud2XzedXKusY7pOqSRsxTcbspdnrRT+XfTYcSXLpib2vJ2rCJWxdrwWtso+inPbpmdiVJ3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=iAGyIK/R; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=U0Y6sc9y; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ufEMPpKr; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=iY0ThGdk; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1789119630; c=relaxed/simple;
+	bh=/KC7R7LCZQTfEzVBjmlS82pJlzezG0lFxsDmrB7OLzI=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=jySGlDQLWZM430TMuZOUZWY23HpPzpgSIqJpRo9UncZMbClBj4+ssUeCpmPy3kktW7QuXl7upweNtsOvb+57tHTFPiz/DgdoWvFThEkJr5swdZ6RxcNYXHdoqrSJ5z7ZI75rEHAo3XwHYP88wIOjYDaQBn2nLYX2a60NZ1jskvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dkS/kfNm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="iAGyIK/R";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="U0Y6sc9y";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ufEMPpKr";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="iY0ThGdk"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id C95591FE77;
-	Fri, 11 Sep 2026 09:40:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789119615; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rdB+G3KHnjzKwF6D/DKATKW/4fI8TEax8oOFNgKVmlc=;
-	b=iAGyIK/RrwBdlqFDvHUe6hIDsiE2mHEmyhx1vBJbptA1883DqNLiB1PokdM4nr3eMVvi3f
-	q/08BLiPwTD5Cx35eQ07I8Y2mx+77DdvOnd6+4/lXIZWDcPrUMmYTVwVsTn8sL8KqDzsWi
-	j9UVCOdXDXPBM0JrzicmGhlPLJhJ4Qw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789119615;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rdB+G3KHnjzKwF6D/DKATKW/4fI8TEax8oOFNgKVmlc=;
-	b=U0Y6sc9ykI+Jo064g+zk6kCMujZSRwNhqkER2seWduXe+bgCGLeFlzgRRZJN7IioIgHIlm
-	F+6ufSOR5eNf0EDQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=ufEMPpKr;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=iY0ThGdk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789119611; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rdB+G3KHnjzKwF6D/DKATKW/4fI8TEax8oOFNgKVmlc=;
-	b=ufEMPpKrQIPVscF1M3lahPnKy3BjucVFEqL8w35hfYDQ3nReDWZTRK8r5NammTFTBkh3Ih
-	SN1YAMaEqZAYxZaCwjwQcOBZd4Af31kffHDaSpQF7jWky8Q/LxMlOsSpFuDimI/Qt8YwOF
-	deZ4ByKbLZIymeBdkhUZGcJGmTmEea4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789119611;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rdB+G3KHnjzKwF6D/DKATKW/4fI8TEax8oOFNgKVmlc=;
-	b=iY0ThGdkytpc4bkhqarbr6/Stx5mnRAYnTl+br7e6DIMavlRDAOISvlKEdSTn4NVQFGd7o
-	aLOUzVLJI8bnY8Dw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A07FD13715;
-	Fri, 11 Sep 2026 09:40:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id rmwkJ3vMo2pSUAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Fri, 11 Sep 2026 09:40:11 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 2E1E5A1342; Fri, 11 Sep 2026 11:40:07 +0200 (CEST)
-Date: Fri, 11 Sep 2026 11:40:07 +0200
-From: Jan Kara <jack@suse.cz>
-To: JonasZhou-oc <jonaszhou-oc@zhaoxin.com>
-Cc: linux-ext4@vger.kernel.org, Jonas Zhou <jonaszhou@zhaoxin.com>, 
-	tytso@mit.edu, adilger.kernel@dilger.ca, libaokun@linux.alibaba.com, 
-	jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
-	yi.zhang@huawei.com, linux-kernel@vger.kernel.org, louisqi@zhaoxin.com, 
-	jianhuizzzzz@gmail.com
-Subject: Re: [PATCH v3] ext4: move orphan tracking away from journal state
-Message-ID: <bs6ksf745stfoay2tb5g2cth4t2jwvgr5sudmgr5msznlwnt6n@xw7aro2dl7vy>
-References: <575wyoks3ldokhrg6v43rxwsegaecod4bgrpbii6jeczy7czbi@a3yq26u52orp>
- <67ae57ef2ee3ac27ab844c22594351c83142d86f.1789097450.git.jonaszhou@zhaoxin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dkS/kfNm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00C711F000FF;
+	Fri, 11 Sep 2026 09:40:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789119628;
+	bh=qtZkghSZqu20Hq3t2720b87ibjy+DNc4eCpTzFGg04U=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=dkS/kfNm4gwGB5AtHoQG/vzOfuusSJH9xRU4l5jjsdbr92KVaHQJ16JTFraxH3LqK
+	 Z3zuJ8eZfklJPXIVu5wpQSUas+pif0UCocWFlQu2yDbTH1dpesrvtqDB96ipv5H5de
+	 agqNqkNWH3bCCk5lYuDdvb9hmm2xS/T/iAzDg5xP8Plv4NZ3H+gn/KuB8RLiKqMXBq
+	 nUaEKyaujXKF2D//wecQNrxzboKSlQW4GhZMJg/G1oXEYD540NPohF2upF4F2H4c0C
+	 S4dQKu5IiUI13IEomONrZ6JLokMATUOxwkuSa+AxrAdKy5wKnSNKNPro4RVKR+bD+U
+	 sEYMM8A0vSBlg==
+Message-ID: <91922aca-20dc-4e17-b380-ac74c61bd3c7@kernel.org>
+Date: Fri, 11 Sep 2026 11:40:24 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <67ae57ef2ee3ac27ab844c22594351c83142d86f.1789097450.git.jonaszhou@zhaoxin.com>
-X-Spam-Score: -2.51
-X-Rspamd-Queue-Id: C95591FE77
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[vger.kernel.org,zhaoxin.com,mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[zhaoxin.com:email,suse.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:dkim,suse.cz:email]
-X-Spam-Flag: NO
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v2] media: hackrf: defer v4l2_ctrl_auto_cluster() until
+ after error check
+To: www.rokinthanp03@gmail.com, Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ cf896de36144391bcde1@syzkaller.appspotmail.com,
+ syzbot+9f7405999979761b6cfc@syzkaller.appspotmail.com
+References: <CAHzb5FF62brMQkynL3oCoxA_XtiF3n00h7kVzJ=EDWJOGVLojg@mail.gmail.com>
+Content-Language: en-US, nl
+In-Reply-To: <CAHzb5FF62brMQkynL3oCoxA_XtiF3n00h7kVzJ=EDWJOGVLojg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri 11-09-26 11:31:13, JonasZhou-oc wrote:
-> From: Jonas Zhou <jonaszhou@zhaoxin.com>
-> 
-> In the tested x86-64 layout, s_journal and s_ext4_flags share a cache
-> line with s_orphan_lock and s_orphan. Legacy orphan-list updates
-> invalidate the same line used by unrelated journal and inode paths.
-> 
-> Move s_orphan_lock, s_orphan and s_orphan_info together below
-> s_journal_triggers. This separates orphan-list writes from journal
-> and flag readers while keeping the related fields in logical groups.
-> Add a comment identifying the orphan tracking group and preserve the
-> existing member comments.
-> 
-> On a system with two Xeon Silver 4208 processors and a filesystem
-> without orphan_file enabled, repeated tests against v7.3-rc2 recorded
-> mean throughput increases of 11.06% for stress-ng dnotify and 35.93%
-> for unlink.
-> 
-> Tests with orphan_file enabled showed no clear throughput change
-> within the observed boot-to-boot variation.
-> 
-> perf c2c shows remote HITM samples on the original shared line, but
-> none on the separate journal line after the change. Local HITM samples
-> and orphan-lock contention remain.
-> 
-> Suggested-by: Jan Kara <jack@suse.cz>
-> Link: https://lore.kernel.org/all/575wyoks3ldokhrg6v43rxwsegaecod4bgrpbii6jeczy7czbi@a3yq26u52orp/
-> Signed-off-by: Jonas Zhou <jonaszhou@zhaoxin.com>
+Hi Rokinthan,
 
-Looks good. Feel free to add:
+On 10/09/2026 16:26, Rokinthan p wrote:
+> In hackrf_probe(), v4l2_ctrl_auto_cluster() is called immediately after
+>     allocating the auto and manual bandwidth controls for both the receiver
+>     and transmitter.
+> 
+>     If allocating the master control (dev->rx_bandwidth_auto or
+>     dev->tx_bandwidth_auto) fails, e.g. due to memory allocation failure,
+>     the pointer is NULL and the error is recorded in the control handler.
+>     Calling v4l2_ctrl_auto_cluster() with a NULL master control causes
+>     v4l2_ctrl_cluster() to trigger a WARNING:
+> 
+>       ncontrols == 0 || controls[0] == NULL
+>       WARNING: drivers/media/v4l2-core/v4l2-ctrls-core.c:2525 at
+>   v4l2_ctrl_cluster
+> 
+>     Fix this by moving the v4l2_ctrl_auto_cluster() invocations down after
+>     checking dev->rx_ctrl_handler.error and dev->tx_ctrl_handler.error.
+>     If control allocation fails, probe cleanly aborts with an error without
+>     attempting to cluster NULL controls.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Your analysis is correct, but the fix should actually be done in the v4l2-ctrls-core.c
+source.
 
-								Honza
+If controls[0] is NULL, then both v4l2_ctrl_cluster and v4l2_ctrl_auto_cluster
+should just return 0 since something clearly went wrong when the master control
+was created.
 
-> ---
-> Changes since v2:
-> - Follow Jan's suggestion to move the orphan tracking fields together
->   below s_journal_triggers, instead of exchanging journal state with
->   the error-reporting and lazy-init fields.
-> - Add an Orphan inode tracking comment.
-> - Rebase and retest against v7.3-rc2.
+This will be caught at the end in the driver code when hdl->error is checked.
+
+The code snippet for Control Clusters in Documentation/driver-api/media/v4l2-controls.rst
+clearly shows that that was how it was intended (i.e. state->audio_cluster[0]
+might be NULL, but it is still passed without checking to v4l2_ctrl_cluster).
+
+The design has always been that you can just create controls as you go and just
+check for hdl->error at the end. It saves a lot of unnecessary checks. And
+v4l2_ctrl_cluster/v4l2_ctrl_auto_cluster break that scheme.
+
+So can you make a patch that adds that NULL pointer check? And also update
+the function documentation in include/media/v4l2-ctrls.h to make it clear
+it just returns if controls[0] == NULL.
+
+Fixing this in hackrf just papers over the root cause, and there are almost
+certainly more drivers that do not check the master control before calling
+v4l2_ctrl_cluster/v4l2_ctrl_auto_cluster.
+
+And BTW, your patch is still mangled.
+
+Regards,
+
+	Hans
+
 > 
-> v2:
-> https://lore.kernel.org/all/a33183c1c24ea47a98afdd4756b49365593a2762.1788779199.git.jonaszhou@zhaoxin.com/
-> v1:
-> https://lore.kernel.org/all/20260903021836.962624-1-jonaszhou-oc@zhaoxin.com/
+>     Fixes: 969ec1f6bd92 ("[media] hackrf: HackRF SDR driver")
+>     Reported-by: syzbot+cf896de36144391bcde1@syzkaller.appspotmail.com
+>     Closes: https://syzkaller.appspot.com/bug?extid=cf896de36144391bcde1
+>     Signed-off-by: Rohinthan <rokinthanp03@gmail.com>
+>     ---
+>     v1 -> v2:
+>     - Correct the Fixes tag commit hash and title to match git history
+>     - Fix email formatting and whitespace
 > 
->  fs/ext4/ext4.h | 10 ++++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
+>      drivers/media/usb/hackrf/hackrf.c | 4 ++--
+>      1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-> index 724a27e8be61..166910914973 100644
-> --- a/fs/ext4/ext4.h
-> +++ b/fs/ext4/ext4.h
-> @@ -1644,10 +1644,6 @@ struct ext4_sb_info {
->  	/* Journaling */
->  	struct journal_s *s_journal;
->  	unsigned long s_ext4_flags;		/* Ext4 superblock flags */
-> -	struct mutex s_orphan_lock;	/* Protects on disk list changes */
-> -	struct list_head s_orphan;	/* List of orphaned inodes in on disk
-> -					   list */
-> -	struct ext4_orphan_info s_orphan_info;
->  	unsigned long s_commit_interval;
->  	u32 s_max_batch_time;
->  	u32 s_min_batch_time;
-> @@ -1786,6 +1782,12 @@ struct ext4_sb_info {
->  	/* Journal triggers for checksum computation */
->  	struct ext4_journal_trigger s_journal_triggers[EXT4_JOURNAL_TRIGGER_COUNT];
->  
-> +	/* Orphan inode tracking */
-> +	struct mutex s_orphan_lock;	/* Protects on disk list changes */
-> +	struct list_head s_orphan;	/* List of orphaned inodes in on disk
-> +					   list */
-> +	struct ext4_orphan_info s_orphan_info;
-> +
->  	/* Ratelimit ext4 messages. */
->  	struct ratelimit_state s_err_ratelimit_state;
->  	struct ratelimit_state s_warning_ratelimit_state;
+>     diff --git a/drivers/media/usb/hackrf/hackrf.c
+>   b/drivers/media/usb/hackrf/hackrf.c
+>     --- a/drivers/media/usb/hackrf/hackrf.c
+>     +++ b/drivers/media/usb/hackrf/hackrf.c
+>     @@ -1427,7 +1427,6 @@ static int hackrf_probe(struct usb_interface *intf,
+>          dev->rx_bandwidth = v4l2_ctrl_new_std(&dev->rx_ctrl_handler,
+>              &hackrf_ctrl_ops_rx, V4L2_CID_RF_TUNER_BANDWIDTH,
+>              1750000, 28000000, 50000, 1750000);
+>     -    v4l2_ctrl_auto_cluster(2, &dev->rx_bandwidth_auto, 0, false);
+>          dev->rx_rf_gain = v4l2_ctrl_new_std(&dev->rx_ctrl_handler,
+>              &hackrf_ctrl_ops_rx, V4L2_CID_RF_TUNER_RF_GAIN, 0, 12,
+> 12, 0);
+>          dev->rx_lna_gain = v4l2_ctrl_new_std(&dev->rx_ctrl_handler,
+>     @@ -1439,6 +1438,7 @@ static int hackrf_probe(struct usb_interface *intf,
+>              dev_err(dev->dev, "Could not initialize controls\n");
+>              goto err_v4l2_ctrl_handler_free_rx;
+>          }
+>     +    v4l2_ctrl_auto_cluster(2, &dev->rx_bandwidth_auto, 0, false);
+>          v4l2_ctrl_grab(dev->rx_rf_gain, !hackrf_enable_rf_gain_ctrl);
+>          v4l2_ctrl_handler_setup(&dev->rx_ctrl_handler);
 > 
-> base-commit: df2908090cda368b01ff43709f51890076c56157
-> -- 
-> 2.43.0
+>     @@ -1450,7 +1450,6 @@ static int hackrf_probe(struct usb_interface *intf,
+>          dev->tx_bandwidth = v4l2_ctrl_new_std(&dev->tx_ctrl_handler,
+>              &hackrf_ctrl_ops_tx, V4L2_CID_RF_TUNER_BANDWIDTH,
+>              1750000, 28000000, 50000, 1750000);
+>     -    v4l2_ctrl_auto_cluster(2, &dev->tx_bandwidth_auto, 0, false);
+>          dev->tx_lna_gain = v4l2_ctrl_new_std(&dev->tx_ctrl_handler,
+>              &hackrf_ctrl_ops_tx, V4L2_CID_RF_TUNER_LNA_GAIN, 0, 47,
+> 1, 0);
+>          dev->tx_rf_gain = v4l2_ctrl_new_std(&dev->tx_ctrl_handler,
+>     @@ -1460,6 +1459,7 @@ static int hackrf_probe(struct usb_interface *intf,
+>              dev_err(dev->dev, "Could not initialize controls\n");
+>              goto err_v4l2_ctrl_handler_free_tx;
+>          }
+>     +    v4l2_ctrl_auto_cluster(2, &dev->tx_bandwidth_auto, 0, false);
+>          v4l2_ctrl_grab(dev->tx_rf_gain, !hackrf_enable_rf_gain_ctrl);
+>          v4l2_ctrl_handler_setup(&dev->tx_ctrl_handler);
 > 
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+
