@@ -1,137 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CD872E3FE
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:29:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7103C3AE718
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:32:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789115382; cv=none; b=m2xQ5GxkY2IcrAimSsm8wTObfr+G+R4L4Gd3K//R3fFsq1uBn9Nej7RacBblsVlYQ4Ydu8Sy6fe64ESfpgLCjWnA7Iii+q3q3FEn8pNnVmMCDA6BTn2AJS0E4kT0KDzumr1anEwmBSQtDdpTKT3BzO9hCk9e+NIteWfo+jMyGsA=
+	t=1789115577; cv=none; b=l75Isjrx5k0YFUu3HgCjMBZudneKJjdacJqosdgdfYnOGnrHeVvPw45UJCJ9DS/rODPnK7xsiWdczUy4tT3nRbThgznBSlrllliWvVVT5oa9OZetrouecupr0+0KAuhg6sVFu39sSXmn2i+1XxdwRi7ul0iHyaMF5N71s/w1UN0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789115382; c=relaxed/simple;
-	bh=7Q31+moXWNjE3r5SkrykWXTbQw5mUihw7RMGbC0ATqQ=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:Content-Type; b=ojuhu+lGnSLa0XfH8IbsE91kVdka8s0FjEz8lbu238YW56fBtXrqWreIIZJ+5/R+OGKu88dwDaF/q6iltpTTybkeALxLsWL0Kyn+dyWTk1eJWNfLLPe8YS61z2VRI/WAdPZENd6+gFLZBli5RuD/8jd+ZN59jFfL4d660FF18yA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Veua+HoN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789115577; c=relaxed/simple;
+	bh=GVLKW0vKobSOXvpuvhQauC/VvSKIhC1Mz1xz3trkgdo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=LHKP/YxiqXWA/jJ0WtAPtaAuMCw+fRdu+Gr/Ni2CJ2z3ZRQvPxF1EO06MTlJgpqCTxc0VPIZrfuvOnv2nSrnXaHvwt/K0nqGpsC9wx3qWzdqyOGjttP/1ozpR+Smfn4tyA5XSKzLb4RPOYjMIECh47G/YKYydkdQZsWPX5StauM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=fi/jM3v8; arc=none smtp.client-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Veua+HoN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BD3D1F000FF;
-	Fri, 11 Sep 2026 08:29:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789115381;
-	bh=njtH3Y8aJsmF2L/mVvCVoWcGDIcAJ4Klj9jaiQi90MI=;
-	h=Date:From:Subject:To:Cc;
-	b=Veua+HoNohaKmx3l9Bk+TV9RsHWNB2+ZSrga9sg/gwzYk0e6IH4hFQEKrHOmYIOS4
-	 3gbsvn2+fxE9bBdFtD1WpB6TOyMZ4Gn1uWuu6UU88lIKU8mG1VNi9cGsWN8N6jXt6+
-	 MN0bk7L+fzyeyhZaoLfOzdw6ZlQkKGhppH8EFs6PmpsZeYwa1+6jRvguN1BoeOyELj
-	 Y+FTSzgkvlCSqIFPleCvbTiC0AmzS5rzz6VqcVV66PXgOMI8D3KyZbdaoK7U3N+gQW
-	 zFODNp/njZUw23aawUL/42+FM40G8jXenP33kOofY9N374ltnn4npPLkwnvNy0DpcA
-	 x4JSqzBDMcAsw==
-Message-ID: <880edb7b-a803-4847-99d9-a0b80b3088a8@kernel.org>
-Date: Fri, 11 Sep 2026 10:29:37 +0200
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="fi/jM3v8"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260911083253euoutp01eb7d45570e904df99d9d83a3b2c75a0e~UNyKHWDYz0704207042euoutp01r
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:32:53 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260911083253euoutp01eb7d45570e904df99d9d83a3b2c75a0e~UNyKHWDYz0704207042euoutp01r
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789115573;
+	bh=sNLKrty9gaK1VitGi35rk08EQYY+sWubFpVgHUlu1LQ=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=fi/jM3v89yqk6GwsG4euBYEk/cIOnahokg3DB+M5Iy5DStJrWRrtk3QTSq2ghKztF
+	 oEFKEVrtWrxgakkbZ9sOIl6LVb+TMvS4PXWlhWDgrVky0U1FcU3upmcWdK1IFmNZma
+	 Dv6sx6u1fQpozAP8LriR9v6vZaBp9RM37iHIh4so=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20260911083253eucas1p22fdb3209f93c33757fca07e398ce7484~UNyJ1LQDq0665006650eucas1p2M;
+	Fri, 11 Sep 2026 08:32:53 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260911083251eusmtip13723878e9b36c836de28df75315bdc3a~UNyID60TI0126101261eusmtip1b;
+	Fri, 11 Sep 2026 08:32:51 +0000 (GMT)
+Message-ID: <a23182fa-74ed-44f0-a613-ad8d3c19fb18@samsung.com>
+Date: Fri, 11 Sep 2026 10:32:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Subject: [GIT PULL] slab fixes for 7.3-rc2
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Harry Yoo <harry@kernel.org>, Hao Li <hao.li@linux.dev>,
- "David Hildenbrand (Arm)" <david@kernel.org>,
- David Rientjes <rientjes@google.com>, Christoph Lameter <cl@gentwo.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>,
- LKML <linux-kernel@vger.kernel.org>, Hyunwoo Kim <imv4bel@gmail.com>
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH] x86/mm: Don't force unencrypted DMA for IOMMU-backed
+ devices
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>, x86@kernel.org,
+	linux-kernel@vger.kernel.org, iommu@lists.linux.dev
+Cc: Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski
+	<luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner
+	<tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+	<bp@alien8.de>, "H . Peter Anvin" <hpa@zytor.com>, Mostafa Saleh
+	<smostafa@google.com>, Alexander.Deucher@amd.com, Thomas.Lendacky@amd.com,
+	Vasant.Hegde@amd.com, Timo Witte <timo.witte@gmail.com>
 Content-Language: en-US
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20260908113232.247457-1-aneesh.kumar@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20260911083253eucas1p22fdb3209f93c33757fca07e398ce7484
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260908113247eucas1p12e67fcdf50573da0c0fac36cee4b06e9
+X-EPHeader: CA
+X-CMS-RootMailID: 20260908113247eucas1p12e67fcdf50573da0c0fac36cee4b06e9
+References: <CGME20260908113247eucas1p12e67fcdf50573da0c0fac36cee4b06e9@eucas1p1.samsung.com>
+	<20260908113232.247457-1-aneesh.kumar@kernel.org>
 
-Hi Linus,
+On 08.09.2026 13:32, Aneesh Kumar K.V (Arm) wrote:
+> Commit 8277a12d0d60 ("dma-pool: track decrypted atomic pools and select
+> them via attrs") exposed an issue with force_dma_unencrypted() on
+> systems using host memory encryption.
+>
+> force_dma_unencrypted() checks whether the device DMA mask can address
+> the encryption bit and, if not, requires DMA allocations to use
+> unencrypted memory. However, this check is not applicable when the
+> device is using the IOMMU. In that case, the device DMA mask constrains
+> the IOVA seen by the device, not the backing physical address, so it
+> does not need to cover the C-bit.
+>
+> This currently causes dma_alloc_attrs() to set
+> __DMA_ATTR_ALLOC_CC_SHARED for such devices. iommu_dma_alloc() does not
+> support that attribute and rejects the allocation, causing DMA
+> allocations to fail.
+>
+> Do not force DMA allocations to be unencrypted when the device is using
+> the IOMMU. This allows the IOMMU to map the encrypted physical pages as
+> before and avoids incorrectly requesting CC_SHARED allocations.
+>
+> Fixes: 8277a12d0d60 ("dma-pool: track decrypted atomic pools and select them via attrs")
+> Reported-by: Timo Witte <timo.witte@gmail.com>
+> Link: https://lore.kernel.org/all/CANB4YXR7h8V5Xp=MXVZeSdvw9UiriSagp=E+ju5RRDNghoPHLQ@mail.gmail.com
+> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
 
-please pull the latest slab fixes from:
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/mm/slab.git tags/slab-for-7.3-rc2
+Applied to dma-mapping-fixes with adjusted url and changed 'link' tag to
+the 'closes' one, thanks!
 
-Note the slab tree has been moved since the last PR from vbabka/slab.git
-to the new mm/ namespace.
+> ---
+>  arch/x86/mm/mem_encrypt.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/x86/mm/mem_encrypt.c b/arch/x86/mm/mem_encrypt.c
+> index 912f22ca838f..a349d8d21569 100644
+> --- a/arch/x86/mm/mem_encrypt.c
+> +++ b/arch/x86/mm/mem_encrypt.c
+> @@ -13,6 +13,7 @@
+>  #include <linux/cc_platform.h>
+>  #include <linux/mem_encrypt.h>
+>  #include <linux/virtio_anchor.h>
+> +#include <linux/iommu-dma.h>
+>  
+>  #include <asm/sev.h>
+>  
+> @@ -30,7 +31,7 @@ bool force_dma_unencrypted(struct device *dev)
+>  	 * device does not support DMA to addresses that include the
+>  	 * encryption mask.
+>  	 */
+> -	if (cc_platform_has(CC_ATTR_HOST_MEM_ENCRYPT)) {
+> +	if (cc_platform_has(CC_ATTR_HOST_MEM_ENCRYPT) && !use_dma_iommu(dev)) {
+>  		u64 dma_enc_mask = DMA_BIT_MASK(__ffs64(sme_me_mask));
+>  		u64 dma_dev_mask = min_not_zero(dev->coherent_dma_mask,
+>  						dev->bus_dma_limit);
 
-Thanks,
-Vlastimil
-
-======================================
-
-- Stable fix for an ABA issue causing slab list corruption introduced in 7.2.
-  (Harry Yoo, with big thanks to Hyunwoo Kim for the thorough report and
-  initial version of the fix)
-
-- Fix for 7.3 regression of kvfree_rcu() on PREEMPT_RT which can cause a
-  deadlock from the set_cpus_allowed_force() caller. (Vlastimil Babka)
-
-----------------------------------------------------------------
-
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
-
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/mm/slab.git tags/slab-for-7.3-rc2
-
-for you to fetch changes up to 4a724bcf5d703e18957397914d79156fa2cf1174:
-
-  mm/slab: take n->list_lock in __slab_try_return_freelist() to avoid race (2026-09-04 12:15:41 +0200)
-
-----------------------------------------------------------------
-slab fixes for 7.3-rc2
-
-----------------------------------------------------------------
-Harry Yoo (Meta) (1):
-      mm/slab: take n->list_lock in __slab_try_return_freelist() to avoid race
-
-Vlastimil Babka (SUSE) (1):
-      mm/slab: disallow kfree_rcu_sheaf() on PREEMPT_RT again
-
- mm/slab_common.c | 18 ++++++++----------
- mm/slub.c        | 25 ++++++++++++++++---------
- 2 files changed, 24 insertions(+), 19 deletions(-)
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
