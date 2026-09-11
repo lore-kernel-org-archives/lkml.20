@@ -1,190 +1,260 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011028.outbound.protection.outlook.com [52.101.52.28])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1809B4457DB
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:51:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789109481; cv=fail; b=aekVxYjWbI7wfqM6XMNy062S8h+z0uyBemEeSENhdoTOOQrCqreQcrDb1jn4S/PywZyV6OguNGZoTT4ZeDg7w9D95mpNSzimSQFPMQC/Y9bMssEA/WMnMLPd81+iNgo0I9zUoXGgQRuSoW6KlSVtnl7TARVXyVQcmMHVNAshdjY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789109481; c=relaxed/simple;
-	bh=aN/wGbImOAKQbqMWmHRmOUQLbBk3oIcP9ZdqIUt7b5E=;
-	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
-	 In-Reply-To:MIME-Version; b=XvEkBrczXQ0DYm7YWsMw2TIP82c3NY57tnfEWQdVR6C0Wr2LPYGTzNAj+Q07uuNkC5cCurrZwCXFKGbXGSnFEQifccHRr7TwFZBshDLUguxQDlvLeql8epp3jxzT8iWS8fWdymEK3pLxeEr5KlRsn6Z/h6xGsHyHWS+46vqzlB0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=R3NIcWD9; arc=fail smtp.client-ip=52.101.52.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AF2842E407;
+	Fri, 11 Sep 2026 06:53:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789109613; cv=none; b=sJEATNOzLDf8Ba4PAtW+sH3fHVEegmAVJPoYybJKtihZLBCA2/vdm1vjvTcNVHGQerMjxTYTk9B2M6hcjJ3nVag2rwFvkim7JZxqbLVp7ll7MMS3AjfWkK6JoIUNiFwkW8AAAXjYTi9I+Myn6FxXcmv00+D0sIsptBJM4+voVSQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789109613; c=relaxed/simple;
+	bh=BTk1YZDI+uDisbn4s5VtAu26iTR4cqp7ysNeJFhaD70=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=uD0Zo27PDlOyix0yXX+rHCzo1QwphYghDQqihKtpv6u4Kt0ogmqHFArZd2/8hh8gFXuTfKXSercKc5Ac8A3NnUZgFtwlOjk+40IiW4mQb1WpeBLu2GTE8BtauW0kI+3sGe7r92d4kWThqTiU4w5V1xFTLgyRHCndmOfGOkaitEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oOvp20pp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="R3NIcWD9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OWO67h/JAoBlZhZIslitpbIIDkSxS1gTMKCIw/cS334Nxa97ngrUt+mPEyxR6phGePmehZ5gjAokg8MHZogAgO9hS0wMFrdzRlxjDWIPHma6q/fjmO2lfYiX6MJcskbtt+x5gPHkm8uLxgc4fLW+1yfd1QQkIqeOJe08wCihQtiNCTJiEA0PApIN13vhiJmg0AOq4qW0nZJd8KjlYR/IMTz9PHpylUSc9PH8c+4RswXro3CXa4HI4U/gT4ep42sOzPuqTE9hT5X4FFsAtvf70GpulkQ+G1TFfl7D8+dM774XeXvBgaWZlT1uVTfQYMlUGPbOhawXzIZofJ9hSg4IuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wqoHHL2OyXVRkLJ3p3++4YdzbJsH6Irijmy2wBmnl7g=;
- b=D6h5+wGb+zOoK7FgC3tfVply24nSos8jpWhOpMDka6Joc5ZyqZ+ywevpJ0LRBr8Gy0JAS+GNxo53crQWZr/8dyiulLggpOMbWPBmPn0eA+ATAtj4DCJHUcHdBgzg3mAd6pMBL3E0/9rVN+Myi0pNe3mNMRUftG0WVJJnjZqvf21v9TOUKuBw/KDC1NWhVFcCVwjMAdWUJrzmmG9lZzoZE5Xcrw2iazbNA5Ihr7W0x9LXdOpu4giP7OQeqnVIsbxQ2ZDjCB5G33nifrY2+lU1XuAkTBoefVicbyMbw0lKooumxGACWFQUTQZ65WqBfvJNYk2X5ltW4j0D2cefwAuH7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wqoHHL2OyXVRkLJ3p3++4YdzbJsH6Irijmy2wBmnl7g=;
- b=R3NIcWD9cdzKIDrN4cpvXcs8PX5g1+bOK9AWZXCd2T0wsQAj7VG7pnZ96EwPgYNqE5FYR1khWkJNf6oL+BfjR/D1SFyrpxsaFyrn3UAzkBZem0eO8+OQsUO986xAEwXTYMUAMPGVaxo2R8yzeakoNJQFrmeoy0TnjEyx0zmOhrWkbHT1jWl996yF0FSMqZ+w/TbTffjJq5dSyOxEi5NO1zX0J5o3qeaaOT5A9A43ka9yEPmrlWlf89zMDxcACDIgr6L5lRaf+T4ZAbBu+RTeywCSQpkJe6Dea5Q0Io+zFsLSZrBpdfjhfevLWVFSRrcwmQiHu1DAiwavnF3UM1I7ww==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by IA0PR12MB8085.namprd12.prod.outlook.com (2603:10b6:208:400::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Fri, 11 Sep
- 2026 06:51:05 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 06:51:04 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 11 Sep 2026 15:51:00 +0900
-Message-Id: <DLCADFTC0H2Q.36WG0J0WN9NKP@nvidia.com>
-Subject: Re: [PATCH 01/13] gpu: nova-core: vgpu: add post-GSP-boot vGPU
- initialization
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Zhi Wang" <zhiw@nvidia.com>
-Cc: <dakr@kernel.org>, <alex@shazbot.org>, <jgg@nvidia.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
- <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
- <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
- <aliceryhl@google.com>, <tmgross@umich.edu>, <jhubbard@nvidia.com>,
- <ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
- <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
- <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <zhiwang@kernel.org>
-References: <20260905081116.106613-1-zhiw@nvidia.com>
- <20260905081116.106613-2-zhiw@nvidia.com>
-In-Reply-To: <20260905081116.106613-2-zhiw@nvidia.com>
-X-ClientProxiedBy: OS3P301CA0026.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:604:21f::10) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oOvp20pp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93FE61F000FF;
+	Fri, 11 Sep 2026 06:53:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789109602;
+	bh=QErj2RuPUXOYAikXEmg5mKDTcSF6GR0WVee0QcGfDdI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=oOvp20ppAEoJnCsW/ZEut4/ns3yJOpSnAxMorUZN9eJk6HOqEA7a5r4+pFFrV6e/G
+	 LqMrICaDj6Fz+yKNJT9AdPbmJ1S2KTDeN0uo2wuwo7QcmjNzLl71wJLXksYdklXZ+N
+	 6Oaw1qPNhEdlumkh+ldQG4JJWDLuPNq9zTvkRKmpaxM4KI3nkFM0taKkD8FVmAX6f2
+	 6ju8Ma3gEqgtcweZyjRxeIOUjHa7jtjpMbfttWAAywSnRB3tHgfOHT9i1iZXk1HEQN
+	 aUXNh5aiArGyxEt1muwyATd+y43cOQZ4nVhuScwMCVDx0TldIeyTeCp5hioaRu+M/1
+	 Odk1P9QspH8Mw==
+Subject: Re: [PATCH net-next v5 1/4] net: mana: track when the HWC has been
+ handed to the PF
+From: netdev-bot+sashiko@kernel.org
+To: longli@microsoft.com
+Cc: longli@kernel.org, kotaranov@microsoft.com, kuba@kernel.org,
+ davem@davemloft.net, pabeni@redhat.com, edumazet@google.com,
+ andrew+netdev@lunn.ch, jgg@ziepe.ca, leon@kernel.org, haiyangz@microsoft.com,
+ kys@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
+ shradhagupta@linux.microsoft.com, horms@kernel.org, ernis@linux.microsoft.com,
+ stephen@networkplumber.org, shirazsaleem@microsoft.com,
+ netdev@vger.kernel.org, linux-rdma@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Fri, 11 Sep 2026 06:53:21 +0000
+Message-ID: <178910960115.219967.13830871915506436112@kernel.org>
+In-Reply-To: <20260908035201.402424-2-longli@microsoft.com>
+References: <20260908035201.402424-2-longli@microsoft.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA0PR12MB8085:EE_
-X-MS-Office365-Filtering-Correlation-Id: c339540f-85a5-4223-45b3-08df0fd10c9d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|23010399003|376014|7416014|1800799024|366016|5023799004|11063799006|56012099006|3023799007|10067099003|4143699003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	KsyFhWUA8eDQlFFb5TUM/jQ+iXq83qz/An1pFrPuonah4BAn2IsZfoZOvsYHjxh6MW4yy2II9QWYT+MOftPZHcoltkCzTsoCcVGh6OstWz0l3ErPbO4U9uh11LRVWZd60Zm37g0fZfw4oC+Dh9riiWTarlYKjaL36YDEji3AdPToExZnfUhY7fFTBXHQCLrkwsdVxbbhlm+3bjknaUVotNsh0HRUPIeB+zN8ujJH7JIbkufWEeRFoxwRgmEHTVyY3t9XPlrkK40/lL3lKKBjla8HGuhXMARRNDf9/qdA343QBgenhxBEjxqdpFAkF3BMu3MaqgiW8jJcq9H9KqGy3gkT2met3wvv1enBNLLI/dpNuQ1zTOgREZg/9A8cgg6AQ1FpVZVk4qi6bxukMPxZ4gGoMPOHd2O97C3m6XI88/o4a/V5mMisX+qdyxfZMLZ/V0kmyM2xOB4lJc8USx04goEYGcPi9aDPqGdm8H2uw8vFOpVKOHvRv/m9C94TOqYPBvS9e5SbyLSehLAgXhSmQlm/rgHxPZQ4lNXCZR+xsJ5ESdanl0t3mHQoYCgoS0dqIVF3Tav8oxLNZIcLZQVA2vgnT7/4AH7Vbvuiln2lZZCtADHrIKnfa/ujEsCuk/rmkiKRLcWxreYU8QXxr2t1JqEPp9c/arXYTGdAe6lGbjI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(376014)(7416014)(1800799024)(366016)(5023799004)(11063799006)(56012099006)(3023799007)(10067099003)(4143699003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YVVua2hjNE5lSWZlNmFtWTMzNFQ1QnBBb0x2QU9FU0tPbFRYcERPNnRaN0E3?=
- =?utf-8?B?QUFOZmNDZ1NvSkJZY0xlUlo3V2dTYm1pNURzSG9laExoaWF6NzA0OWJFQnFz?=
- =?utf-8?B?NW9pZXc4cUVTTFVDWHlqMVZLNGhvVzZTZ2NSYzdocm5zdng1ZGM3NTI2VlJY?=
- =?utf-8?B?ZjZOQlZ6YjZ6VnkrYlRvQzBtQU1VOExoUFZySmV2NzRqTmpuLzgyNllFall0?=
- =?utf-8?B?Q1FmRmhHSURITGZFQWlRS1pOeUNqaUM0MTV4OG1UMktjTlhvZkxBSHFiMWVX?=
- =?utf-8?B?QmFKQ0Y5NTNyODdRa3RKZUJTMG5abXBoTXMyTXBlT3kvcGhwaUJLeHBxaERy?=
- =?utf-8?B?TllKK20wUVJkMEwzZFlwcmJxUEo2anV0UXhMN0dwK1FiQlNlbUwxaGZIRW1N?=
- =?utf-8?B?QWZGSURxOTE1T2xNQ2ZqUHUrSzBjMmVUM0V3YUFYbWdpcThEcHpYL0diT1c2?=
- =?utf-8?B?bi8yOUdKbnhnbGNLaW5jM28xR20rM2h3d2dvUWoyVkpEa3R5SE9XKzlSQ0Vz?=
- =?utf-8?B?aUhYc29KUUEwU09vYk9oRDhDN1hTcEdhd0tCb2Y3RmZjb0h4UjhzM09Na2pV?=
- =?utf-8?B?a00vYkdsaWRZeVZTQmJsa3FHVEd1Z0IyNDZ3NWFkRzM1VUJTcElaOFM1SGxH?=
- =?utf-8?B?dHVUckMzU0VvM2twV29DSWN4bVdkYXNyaXU5SEc3ZmNZT2hqS0x1dXdLTlAw?=
- =?utf-8?B?WDFqQXdaT0xGU3FlRXlxek9GK01wcUt1UUJmc3RWTXVNZDlCR3NER2hrWkc3?=
- =?utf-8?B?WW5pdHJmTEZhU3lWcU1tdzNLRkgxQUdPVDZtQU9GcFlhVFJBbXFOVnA3UTlO?=
- =?utf-8?B?VWM0bkxTbEJnaDU2TzFINWdKUWdRYWNmNFBFWVZJaUNFdmFGQWpjekl0RnlV?=
- =?utf-8?B?dy84eXlIVmNRNE9yR09sNjJkbUJSQktZZzJIc1cybnlzNWhhYmw2SlNubTZI?=
- =?utf-8?B?ZjBqRVd3Rk9ERVg2V3d2K1dNajZRTXZLVFdaNlJBV21ZR29QYlVwUVFqVndx?=
- =?utf-8?B?WVR3THFQS1JPR3AzSlRLZzlkbE9rbnV6dFdiTDdQNlI5dEpXUDVKWGtGZFBh?=
- =?utf-8?B?ZTBBZ0E1QXN3OFlDTVNHL3ZSN2VBeHBXQUMzMUhlTHlUdWFCWHNoeG13ZzVy?=
- =?utf-8?B?S0NqLzlyVVg2V0VXQ1dZc0xHT1dmdzBlQWtoenJIejl0SzVSU2phdmhha3dq?=
- =?utf-8?B?VGRlK3oxLzgvRjRkYk9yVksrZUlUVERLT2ljb0Qvak9EMDVZOVhMU2xUYWxB?=
- =?utf-8?B?clJMM2p5V1Y4NWZqbU1CN2paalIvdTMwdWVwTDRkb3JzYjNpTjE1Um43SGEr?=
- =?utf-8?B?Y2sxc3hlRGxWMlU0aTNFQkg1eGxhZk0wdC9HSitlR1MzbUs4TGkvWjhpazlE?=
- =?utf-8?B?Q05laUs4L1B3VkhuYXBqbGtBUmNtMkJaUnpWdzY0b1laODRySlRqMXBzNit1?=
- =?utf-8?B?MFpqME5oSTlwQkdsZE1IR3lTQ0VqZGxCSzJsNmdRVGhrckpQVlN0dVY3QTRl?=
- =?utf-8?B?ZWt2bUYrWWNXQnRJRTlzL0JyZFptYk9LdFdwQ3dpWW81MUVvS2JWdGprMGNn?=
- =?utf-8?B?ZXJ0K2kwTzM3NWRiWnFiNDlhbkx1QURaUnVMVk1MWk9UbkdneC91VUNYbzE0?=
- =?utf-8?B?RXJSZ3FacHJNQkhGVkFWTVo5ckRPMlZSUHpqLy9jT3hvSmF5RG5Xbld1aVdW?=
- =?utf-8?B?QXNTa2FBcTdqUFBZS1lJU1FnYmd4eDZFei82S2gxR3RJWjI5Z0MrSmVsUnkx?=
- =?utf-8?B?SjRqcS9FblhrczB0M3dRSGdZQytxTWs3ZldQVkVCcDRza01NQ0xuNGpGRWxh?=
- =?utf-8?B?TG5CRlptYWgxWTZIZmZmd0djYTV6L2lVSDl2b29CVUQ3by9VVEFIM1o5a0p4?=
- =?utf-8?B?S2tMeC9Uay9DUFI5eXJGQkVlK0pUdkx3cXJEYktRUzF2YTVtY2FPOHFQSGdh?=
- =?utf-8?B?RisrMXBYdDZEUEdhWUs2ZVk0Q1ZhNXVhUjN6MitORk5QM0tuQkN5YUlzdVF4?=
- =?utf-8?B?N0xjU1JTZEtFQ3BoWVVSQjEzOUlxdGRlY3RJRnB3ZlRrWXlxeThRdDdtV3Jq?=
- =?utf-8?B?S0kwQmY5aGxiQThZa2VaT0ZkR1pQa3JQU1dnZ0d6bWZYNENyT0N0YmZFZXVE?=
- =?utf-8?B?UGJQVEM4a0pNL0ZmM1kvZ21YaXZGQnBPWVVoQ0MrTzBhNmVnR1kxTDE1VUhz?=
- =?utf-8?B?czdkLzg2aW11K1NyQW9JclNrV0NHOGFjRHJMNVlrYXlHNVFsQlNDaG9kRDY4?=
- =?utf-8?B?TVJhUEZCYlBCWWhRdjNpNnRoOWhMa3lsYW9tRTZocGhpZ0pLTWtyZHRTU3Bp?=
- =?utf-8?B?VnlWalduTU1DaVQvY3k2VTVCTFJvWnh4Qmg3LzJDYjk0anFzZDNsSGhZeWxJ?=
- =?utf-8?Q?g1/W+QAAQ8bfOVgit/Ijc3mfFZH7KOWH+GSrGrLGAa7/Y?=
-X-MS-Exchange-AntiSpam-MessageData-1: c0MX/PSlLG26mg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c339540f-85a5-4223-45b3-08df0fd10c9d
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 06:51:04.6925
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: q8McLHlp4/GKeG+QfQ4TzDgbKT60eTvTOwUmeaiwz+kcBpuyHWfij3Zhaw7kmDqNba1qnaFSDH2tzw3YB7RApg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8085
 
-Hi Zhi,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-On Sat Sep 5, 2026 at 5:11 PM JST, Zhi Wang wrote:
-> GSP-RM does not expose the parameters needed to divide resources among
-> vGPU instances until GSP_INIT completes. Before this point VgpuManager
-> only knows whether vGPU mode is enabled, so it cannot provide the engine
-> topology, VMMU alignment, or channel capacity required by instance
-> management.
->
-> Decode the VMMU segment size and ordered FIFO engine table from the typed
-> GSP_INIT NVKV response. Retain only host-driven engines while preserving
-> hardware FIFO order. After a successful GSP_INIT, initialize the manager
-> with these values and the 2048-channel capacity, but retain them only whe=
-n
-> vGPU mode is enabled.
->
-> Move VgpuManager into Gpu and let it borrow the pinned ChannelIdPool.
-> Create that pool with the same channel capacity, order the Gpu fields so
-> the manager is dropped before the memory manager, GSP resources, and its
-> channel pool, and pass it separately to GSP boot so unload resources do
-> not retain a manager reference. Keep a copy of the detected mode in the
-> GPU-owned GSP runtime data instead of passing it through the HAL calls.
+Critical: 0 · High: 0 (1) · Medium: 2 · Low: 0
 
-The commit log reads like this patch tries to group several things
-together. The diff below makes it even more clear:
+- [Medium] The patch silently converts a real correctness fix but is
+  presented as pure preparation and carries no Fixes: tag.
+- [Medium] `hwc->setup_active` is written in `mana_smc_setup_hwc()`
+  (shm_channel.c:149 and 237) and read/cleared in…
 
-<...>
->  drivers/gpu/nova-core/vgpu.rs            |  91 ---------------
->  drivers/gpu/nova-core/vgpu/mod.rs        | 139 +++++++++++++++++++++++
+Pre-existing issues:
+- [High] In `mana_hwc_destroy_channel()`
+  (drivers/net/ethernet/microsoft/mana/hw_channel.c:818-824), a failed…
 
-This moves code around while adding features to the moved block, making
-it very difficult to understand what happens looking at the diff.
-Typically when you need to do what you will want to split into two
-or more patches: one that is purely mechanical and moves the original code =
-to
-its destination, ideally without any change, and then the changes you
-want to apply, one per patch.
+--
 
-In this case though there is probably no need for the move at all: even
-if you plan on adding sub-modules to `vgpu`, the main module can stay in
-`vgpu.rs`. Sub-modules can then be named `vgpu/foo.rs`, `vgpu/bar.rs`,
-and it will work just fine. Actually I think that's the preferred way of
-organizing modules in R4L.
+net: mana: track when the HWC has been handed to the PF
 
-Generally speaking, let's keep mechanical changes, refactorings,
-plumbing and only then new features each as separate patches. Not only
-does this make it easier to review, it also will give you a better
-perspective of your own code and make possible optimizations/reorderings
-visible that are not obvious is everything is clumped together.
+This adds a setup_active flag to struct hw_channel_context, set inside
+mana_smc_setup_hwc() around the point where the ESTABLISH_HWC message is
+published to the PF, and uses that flag instead of gc->max_num_cqs as the
+gate for issuing DESTROY_HWC from mana_hwc_destroy_channel().
+
+A few questions on the behaviour changes that come with this.
+
+> diff --git a/drivers/net/ethernet/microsoft/mana/hw_channel.c b/drivers/net/ethernet/microsoft/mana/hw_channel.c
+> index 263e7c4e29341..88e92e94e2e90 100644
+> --- a/drivers/net/ethernet/microsoft/mana/hw_channel.c
+> +++ b/drivers/net/ethernet/microsoft/mana/hw_channel.c
+> @@ -683,7 +683,7 @@ static int mana_hwc_establish_channel(struct gdma_context *gc, u16 *q_depth,
+>  				 cq->mem_info.dma_handle,
+>  				 rq->mem_info.dma_handle,
+>  				 sq->mem_info.dma_handle,
+> -				 eq->eq.msix_index);
+> +				 eq->eq.msix_index, &hwc->setup_active);
+>  	if (err)
+>  		return err;
+>  
+> @@ -815,13 +815,13 @@ void mana_hwc_destroy_channel(struct gdma_context *gc)
+>  	if (!hwc)
+>  		return;
+>  
+> -	/* gc->max_num_cqs is set in mana_hwc_init_event_handler(). If it's
+> -	 * non-zero, the HWC worked and we should tear down the HWC here.
+> -	 */
+> -	if (gc->max_num_cqs > 0) {
+> -		mana_smc_teardown_hwc(&gc->shm_channel, false);
+> -		gc->max_num_cqs = 0;
+> +	if (hwc->setup_active) {
+> +		if (!mana_smc_teardown_hwc(&gc->shm_channel, false))
+> +			hwc->setup_active = false;
+
+[Severity: Medium]
+
+The changelog presents this as preparation work, but doesn't this hunk also
+change behaviour on an existing failure path?
+
+gc->max_num_cqs is only set once HWC_INIT_DATA_MAX_NUM_CQS arrives in
+mana_hwc_init_event_handler(). So with the old gate, when ESTABLISH_HWC had
+already been submitted but establish failed before that data arrived,
+DESTROY_HWC was skipped entirely.
+
+Two such cases in mana_hwc_establish_channel():
+
+	if (!wait_for_completion_timeout(&hwc->hwc_init_eqe_comp, 60 * HZ))
+		return -ETIMEDOUT;
+
+and a failing mana_smc_read_response() inside mana_smc_setup_hwc(). In both
+cases mana_hwc_create_channel() -> out: mana_hwc_destroy_channel() then went
+on to free the EQ/CQ/RQ/SQ DMA memory whose frame addresses had already been
+published to the PF.
+
+mana_smc_teardown_hwc() documents why that ordering matters:
+
+	/* Read shmem response (polling for VF possession) and validate.
+	 * For teardown, waiting for response is required to ensure hardware
+	 * invalidates MST entries before software frees memory.
+	 */
+
+Since the new gate closes that window, should this patch carry a Fixes: tag
+and state that it fixes the skipped teardown, instead of being described as
+tracking/preparation only?
+
+> +		else
+> +			dev_err(hwc->dev, "Failed to tear down HWC\n");
+>  	}
+> +	gc->max_num_cqs = 0;
+>  
+>  	if (hwc->txq)
+>  		mana_hwc_destroy_wq(hwc, hwc->txq);
+
+[Severity: High]
+
+This isn't a bug introduced by this patch, since the pre-patch code ignored
+the mana_smc_teardown_hwc() return value as well, but the new gate makes the
+failing-teardown case reachable for every submitted-but-unconfirmed
+establish, so it seems worth asking about here.
+
+On failure the return value is only logged, setup_active is left true, and
+execution falls straight through to:
+
+	if (hwc->txq)
+		mana_hwc_destroy_wq(hwc, hwc->txq);
+
+	if (hwc->rxq)
+		mana_hwc_destroy_wq(hwc, hwc->rxq);
+
+	if (hwc->cq)
+		mana_hwc_destroy_cq(hwc->gdma_dev->gdma_context, hwc->cq);
+	...
+	kfree(hwc);
+
+Those helpers reach mana_hwc_dealloc_dma_buf() and mana_gd_destroy_queue()
+-> mana_gd_free_memory() (dma_free_coherent), releasing exactly the four
+regions whose frame addresses were handed to the PF by the ESTABLISH_HWC
+writel loop.
+
+mana_smc_teardown_hwc() fails when mana_smc_poll_register() times out after
+roughly 20 seconds because the PF never returns aperture possession, or when
+mana_smc_read_response() reports an error or an invalid response. In that
+state its own comment says the MST entries may still be valid:
+
+	 * For teardown, waiting for response is required to ensure hardware
+	 * invalidates MST entries before software frees memory.
+
+Can the device then keep writing EQEs/CQEs into pages handed back to the
+allocator, or into unmapped pages once the IOMMU mapping is gone? The EQ
+MSI-X is also released while the PF may still raise it, and kfree(hwc) drops
+the state that would be needed to retry the teardown later.
+
+The commit message says "Resources are still freed if teardown fails" - what
+makes freeing safe here, given the comment above?
+
+> diff --git a/drivers/net/ethernet/microsoft/mana/shm_channel.c b/drivers/net/ethernet/microsoft/mana/shm_channel.c
+> index d21b5db06e509..3cf6a9f8e32c4 100644
+> --- a/drivers/net/ethernet/microsoft/mana/shm_channel.c
+> +++ b/drivers/net/ethernet/microsoft/mana/shm_channel.c
+> @@ -129,9 +129,12 @@ void mana_smc_init(struct shm_channel *sc, struct device *dev,
+>  	sc->base = base;
+>  }
+>  
+> +/* Requires no outstanding HWC handover. *submitted records possible PF
+> + * ownership, including when setup fails after submission.
+> + */
+>  int mana_smc_setup_hwc(struct shm_channel *sc, bool reset_vf, u64 eq_addr,
+>  		       u64 cq_addr, u64 rq_addr, u64 sq_addr,
+> -		       u32 eq_msix_index)
+> +		       u32 eq_msix_index, bool *submitted)
+>  {
+
+[ ... ]
+
+> @@ -229,6 +234,7 @@ int mana_smc_setup_hwc(struct shm_channel *sc, bool reset_vf, u64 eq_addr,
+>  	/* Write 256-message buffer to shared memory (final 32-bit write
+>  	 * triggers HW to set possession bit to PF).
+>  	 */
+> +	*submitted = true;
+>  	dword = (u32 *)shm_buf;
+>  	for (i = 0; i < SMC_APERTURE_DWORDS; i++)
+>  		writel(*dword++, sc->base + i * SMC_BASIC_UNIT);
+
+[Severity: Medium]
+
+setup_active is stored here (and cleared at function entry) and is
+read/cleared in mana_hwc_destroy_channel(), with no lock and no
+READ_ONCE()/WRITE_ONCE(). What serializes the two contexts?
+
+mana_schedule_serv_work() queues the worker on the system workqueue:
+
+	INIT_WORK(&mns_wk->serv_work, mana_serv_func);
+	schedule_work(&mns_wk->serv_work);
+
+Neither mana_gd_remove() nor mana_gd_cleanup_device() cancels or flushes it,
+and the worker path mana_serv_reset() -> mana_gd_suspend()/mana_gd_resume()
+-> mana_gd_setup() -> mana_hwc_create_channel() -> mana_smc_setup_hwc() runs
+without device_lock, so it can overlap remove/shutdown/PM.
+
+That gives this interleaving on the single shared-memory aperture:
+
+CPU0 mana_smc_setup_hwc()
+	*submitted = true;
+	writel() loop			/* ESTABLISH_HWC handed to PF */
+	mana_smc_read_response()	/* polling */
+
+CPU1 mana_hwc_destroy_channel()
+	if (hwc->setup_active) {			/* reads true */
+		if (!mana_smc_teardown_hwc(...))	/* writels DESTROY_HWC */
+
+Can CPU0 then consume the DESTROY_HWC request header written by CPU1 (a
+bogus -EPROTO), or CPU1 consume the ESTABLISH_HWC response, leaving the
+PF/VF handover state inconsistent while both also race on the plain
+read-modify-write of setup_active?
+
+With the old gc->max_num_cqs > 0 gate this window was closed by accident,
+because the counter is still zero during the setup handover, so the destroy
+path issued no shared-memory access at all.
+
+The underlying unserialized create-versus-destroy of the HWC context
+predates this patch, and later in the series mana_hwc_destroy_channel()
+gains the comment "The caller must serialize setup and teardown operations".
+Would it help to state that requirement in this patch, next to the new
+setup_active field, since this is where the flag starts gating aperture
+access?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260908035201.402424-1-longli%40microsoft.com
