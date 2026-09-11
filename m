@@ -1,80 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1D4371885;
-	Fri, 11 Sep 2026 16:56:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD3E74A5EDB
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:57:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789145806; cv=none; b=IV04RFl1OHIWRULrNgo085qWPn7qygHft0OwuhL2R3MGxVt5pq93V0ami2+P83n6VUK/d75LTVdNz12gzCtuWkFNrypY0Pq9jhfyDg+DN+TOFAWbBbHg0RhL0E1gRkOD6V1ZyBb92+tINwCYlB5hJyxheXnMWnFk7IQPWCjisaQ=
+	t=1789145825; cv=none; b=GaPpex74SA1Zq9fM0pLUHEMkV0W99DbQR+CizEQyuJLHy54A2T76Gg8AeG/uJvn3DQfmbuuei/NJ7a4zLcKnWkFdDSsjd8AJe3K7kru+mvmM9s5pH1nwDxREFragxE4qybsv7rSWTINDvnflXUSzsltBP2FviEVTLHWWtKzF8xw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789145806; c=relaxed/simple;
-	bh=k7z4er0JwzR+YuF/5rlsyLW8xGf7sQsjApta0sWIf/w=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=i4FAxLZmEiaOwAKlxi0yGVULzSkIRZ66UiZGeJbtPwJSyn3tyH99h3zWTmMD/DoHmEaP9je31pW9+DD6vp85N5m/gahkvm34bje7IdOpaoEEIB8y2CgNXAcoHik4O6oaquoT6vr0p59B2RKQp/2YYDUoLSH3gWTIiegVzYFrn0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GSfnvcZb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789145825; c=relaxed/simple;
+	bh=B5zsMF9jXLjD3nL08zpdAaYkM+jIqmHqIB3oqoo3X+s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FkI/wa53gaFmC2+3tp460CM6kdNSJQwbHGalZCoFF9FaOpDahZPcTNLBJqvA+uDEXcyKE6nCkSokQfY3dEAbJAoeUlJpcdo98F/pPcUPu8tlntlBTTYf3hqjb2Zno0/cqEs2CCtnONvPUJ0uRFm+7yJH8wJ/GT+Xv9zfxH5AFA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BdwA4Xf1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TabeQBJ8; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GSfnvcZb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 139191F00893;
-	Fri, 11 Sep 2026 16:56:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789145803;
-	bh=PeInbayzaYLsQW4IFz/XdJ1TU4uee9RiAssjmpuH2bg=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=GSfnvcZb4ShqmO9x1b6NNyP6aIruAw0NWNXLEnZkZKo8+PcLji/8N+X8Ur+/Z8eVY
-	 3VZIFjsL0J2hWkchxk7YKygekiffDyQmQJ0FDyJDSkJnI1sJ9srtYo1pyNnLz4eXkO
-	 IcyWgGkwBXdsBIT/7pM0Zk5f0DurqSJAG6ZrukVmT7muE3NFxQaJmDZ3s5aoCmY585
-	 HWDnTMGlpADXrxUG4Yl2xlQpHXX211jQsm2PHQtk7ySDRZQeCKb7CDk80DA+LbvRUh
-	 C5AnDPo77uh53DLNKmqG87w+gmrtjT8p1aZ+O4Zg2H/8xSCERMEQADIZqmYTjYrGqF
-	 tkh6595yeAAFQ==
-Date: Fri, 11 Sep 2026 18:56:40 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Panz Dev <panz.development@gmail.com>
-cc: Benjamin Tissoires <bentiss@kernel.org>, 
-    Denis Benato <denis.benato@linux.dev>, linux-input@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] HID: asus: do not send keyboard init reports to
- touchpads
-In-Reply-To: <20260818151431.939132-1-panz.development@gmail.com>
-Message-ID: <2965696n-2r93-q045-pn5n-4n72n9p66o89@xreary.bet>
-References: <20260818151431.939132-1-panz.development@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BdwA4Xf1";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TabeQBJ8"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BEm8Sg1090826
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:56:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	3UcQ8o/UhhKDWN6EeWPHvZdLAtvo7AwnIb5UulqyAYU=; b=BdwA4Xf1JvbJTH03
+	VUt1V3LjI+vITHShfAP/WJnsIIcguJ/e3zU6miive28wBO5VHP09RllI/WWM2Ekg
+	tqHru9T8OkchkxuBLH4UrVCD0qKc/Lml5oWzav2yGwkm+vuTApbMtny52K/9uhvj
+	x8LtMqr7P3tGsMiP2CT6+BW6xCNC3B1/huD3AzDYSnBmoPSXSfau4mCTLzMLUySE
+	CgV4c+Dd5oAfidboegmMCiMWucnTCQHRiBeoq4KsX1fEfnWrJdJ7TpC3MBtZAiHA
+	e3cPNWXCULM0ODtmVTQNwlBwz8Tv3xPactx7GMmVyH4jZGBnBD99NdJeCayv+GhW
+	+jeFGg==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmbd3aw3n-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:56:57 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d6fed0652bso12755665ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:56:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789145816; x=1789750616; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3UcQ8o/UhhKDWN6EeWPHvZdLAtvo7AwnIb5UulqyAYU=;
+        b=TabeQBJ8pF98j0qjHeJt/GxQkTNdIlNI0FeKNW3ih4eFlAncytmydOYAikgITNPVB1
+         naqlsofMs8XcSVK+bkTfvL8pbuvmfTkcAVJztJl7avpN2E5c4jlM8KI8iQeY73zpoRqs
+         2PQIy/blRmoWBDIbOWA5Y6tVEzkTJrLNaKJaJy5vHp6uis49gUDshR1RQz+aIAuo5DwR
+         7PAc6WM1A6y1GAPWAuvC76lOI5WW95JpONDEKABwb25Yp8sRGLceDw2tp1Lt6Yw852VJ
+         69b1ysmA+1kasgY537xaN+5UNUjlmMVvWAALgB7bcJx1VWL3I7Qm5/OLORBoCDnjadtH
+         EZRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789145816; x=1789750616;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3UcQ8o/UhhKDWN6EeWPHvZdLAtvo7AwnIb5UulqyAYU=;
+        b=j41vflBQy+SHmEPxdL6Mx8e8rb6bX9/mQetj2VhqVCBBlog2lwpS21gQVX3iE5M390
+         mD0QHGURPR6UySmnSQqudpka8JWsZmoaBWKDhJQrtT6oQUf5n67q61sC7p62jMFmWk/j
+         5gyJGjOEmnnqa8ozmXW4siYuSRW70NnSWsQ7Tn+6BYNzvck5MRXrfd7dh6CNbLK5nmE/
+         9ToVtovs+kZEmZJDMVxqFs7asrl7Zde9y6vW7p/95VA5O9KYZhWKugC3XzYpbOaAJxB1
+         dDFM1ppFW9AHDr5ymy68Ikgw+4tGnjB5eHmLx3hACIKEU6rWHb8t1Zl27K56PvGlFUIg
+         qlnA==
+X-Forwarded-Encrypted: i=1; AKwUvBwdsPbb7PZfVhssCSPyxi0tXoMPbEQmoYrUvC7lWqwqqeiDc3JOffOVvgmsFlURSThKA74Y+mS09xRsWoo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kS+r64JDO4lco410RK6ppcrVkhayxJwM/RvbdkfEual/jSOTlX
+	ktDkYBkNiFgq1H/K47wU+AsPttfIDzw/fpNkJ5cXkKDCQWrC5tJVyJDRm1yG4Srlh6Si9jN4s94
+	iZ3q7lihLgulpXFL56JMJq5x8f7/g4+xKIrmtV/Q2GTrL4RrvV0JKgr6jii8U0lAc+II=
+X-Gm-Gg: AYBFou0aiG4k7hqkNUbarXzvYdaH9lbfQT0p9EIt7m+6yI+HRih4WuB6to8AItSxg8x
+	4+uQYTGIZ0CFw5/7SFaSRUNNItIXeEz0LA8a9Xk9FMfP/6DtkxbSUlf9e22mbmcF9KCnPIaRfG/
+	A93Y1UwxRv5vsNFgtqhumdsxf0Po1hEme1zO8kIWv5V9ClMmc56SN3dJ2Lw9CnsgO9FNxzN2V1R
+	AJGMvgK+B1mWfrm4+11ysnzP1WLQfv+GDzxEAVrQM95SHeKndvEOyumG/FGMVt8QpPp6RBIqwdP
+	wK28vUciTkaIfIvee0q82CYy8+LaA8mYBpZOdb5LfThivx39w7xjpbpDGeNF9I96dQwqW0Hj19T
+	D4Fv+v25fPtNLEU2vKQK2XmitRpt2lv4UiJjIFnpTU5SyY89jQDfNkWirc9hO
+X-Received: by 2002:a17:903:298b:b0:2db:53a0:785b with SMTP id d9443c01a7336-2dd2a347502mr105016255ad.14.1789145816528;
+        Fri, 11 Sep 2026 09:56:56 -0700 (PDT)
+X-Received: by 2002:a17:903:298b:b0:2db:53a0:785b with SMTP id d9443c01a7336-2dd2a347502mr105015655ad.14.1789145815960;
+        Fri, 11 Sep 2026 09:56:55 -0700 (PDT)
+Received: from [10.227.105.111] (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cffb5c5sm14206325ad.80.2026.09.11.09.56.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 09:56:55 -0700 (PDT)
+Message-ID: <e8282da4-683a-4fee-a4be-f24d8b7414e8@oss.qualcomm.com>
+Date: Fri, 11 Sep 2026 09:56:54 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH ath-next] ath9k: delete channel-context timers on deinit
+To: Rosen Penev <rosenp@gmail.com>, linux-wireless@vger.kernel.org
+Cc: =?UTF-8?Q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
+        open list <linux-kernel@vger.kernel.org>
+References: <20260904212225.84813-1-rosenp@gmail.com>
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20260904212225.84813-1-rosenp@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=Bv8IUoX5 c=1 sm=1 tr=0 ts=6aa432d9 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=7eYl0IV7dGDCLOCTNgAA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: 8vqmhdMEaug_sx9bRWgEm5JfPJx6rA9j
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDIzNyBTYWx0ZWRfX57KFz179LFc4
+ qRG8GKFkjGRam/qR1Kb96YkufYG5jtUn1B/50VymI8LmouesQmWpFOsYGB0lgUHZQ9FRpIEUJS5
+ M89kiMY2V3jCp2hKz9kHUAj+YARxFbM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDIzNyBTYWx0ZWRfXxKdEBCCmhJCL
+ cqkqyv6SZls79G0WndPPRarHMs8xysR8bWdde8Rlaf2iPKjcOgH2oPIpIiaAq3eMMmf3LQX7SaU
+ ZgaNLersnIDUr4PI4EJCEADYQMoJyQSW46fmopygQzUVpySkIH3T0FR5Gx68/YKs95wy6Orw8WF
+ fqd4V3B7ibY2KnkThery4v5Icy9Ml7oqSefV5rmCzcY5DlLZY2myTZerD72yY50McgXajQHIQZv
+ 8ylB57U6DPsMogz+05FHMT75hQxz8F6nj30uQ+HCXsJncHR9bCHTW0GT4mJBffJXzT/Pb2xIu6X
+ TtXW1ii4lPSq4Ajn5LjD8JU23EqCg164d6CY3z46L4HlK1w6lJKOGr/AXB7kbPZ/UjYN+5hTivT
+ wLfJDb81oFTJp4f2lTCqonQmnvvdxrYKg4aZVakOhZInF7QaXvnUX4ENWgvox5lHa8CIOULE+sn
+ Eyo/BWBi0TiWcVfjSkQ==
+X-Proofpoint-ORIG-GUID: 8vqmhdMEaug_sx9bRWgEm5JfPJx6rA9j
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-11_05,2026-09-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 priorityscore=1501 phishscore=0 impostorscore=0
+ adultscore=0 clxscore=1015 spamscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110237
 
-On Tue, 18 Aug 2026, Panz Dev wrote:
+On 9/4/2026 2:22 PM, Rosen Penev wrote:
+> ath9k_deinit_channel_context() cancels chanctx_work but does not delete
+> the offchannel and sched timers set up by ath9k_init_channel_context().
+> If either timer fires after deinit (e.g. during driver unload or
+> suspend), it accesses sc->sc_ah which may already be freed by
+> ath9k_hw_deinit(), causing a use-after-free.
+> 
+> Delete both timers with timer_delete_sync() before cancelling the work
+> item.
+> 
+> Assisted-by: opencode:big-pickle
 
-> Commit 0919db9f3583 ("HID: asus: always fully initialize devices") added a
-> loop during asus_probe() to send keyboard feature report initializations
-> (asus_kbd_init) to all ASUS HID devices.
-> 
-> On ASUS laptops with I2C/HID touchpads (such as the ASUS E200HA), sending
-> keyboard feature reports (FEATURE_KBD_REPORT_ID) to touchpad endpoints
-> sends invalid feature requests to touchpad hardware, corrupting probe
-> state and causing the touchpad to become unresponsive.
-> 
-> Wrap the asus_report_id_init loop in an `if (!drvdata->tp)` check so
-> keyboard feature initialization only runs for actual keyboards.
-> 
-> Tested on ASUS E200HA (where touchpad functionality is fully restored)
-> and ASUS VivoBook Flip 14 TP401MA (confirming zero regressions).
-> 
-> Fixes: 0919db9f3583 ("HID: asus: always fully initialize devices")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Panz Dev <panz.development@gmail.com>
-> ---
-> v2:
->  - Keep asus_start_multitouch() inside the HID_CLAIMED_INPUT check to avoid
->    any UAF risk if input registration fails (as pointed out by Denis Benato
->    and automated review).
->  - Focus the fix on skipping keyboard report initialization for touchpads.
-
-Applied to hid.git#for-7.4/asus, thanks.
-
--- 
-Jiri Kosina
-SUSE Labs
+Current guidance is to just have Assisted-by: LLM
+https://docs.kernel.org/process/coding-assistants.html#attribution
 
