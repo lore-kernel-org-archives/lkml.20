@@ -1,175 +1,116 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 623AD3D9DD8
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:32:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789140753; cv=pass; b=I7m81aj9pS+IlBoJpN6b9YbndNZzuvRJQ551N6X7v+2a0cv+plgXTbBeemb8ZsO5PHbjRPl+y3Dkr+0L4B/lByD4Ob5726Y1b65rKHowFmebq27FmPRqzmGu/+12yfjlQqcrUsExnC6PUZHU7puECdFq8Gk4gEeXE2pjMB9ryjI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789140753; c=relaxed/simple;
-	bh=YJKEvxdzim7aG0+3oO1LTxbSduJEi7uM2fNJ7/lxwYg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QeCVw62UAitLzdwPNeL/fKj66Yv3oECsUf4coa4e/ptgkLmZs5v2LZ3O3osnmKsRBU4boF6AxNx8hR72j89doSzuCz8Mf5vo9Y3biClzV82JNWgLgRJ3mAfZShqS7ScOJioErAqMseSNiZ0HIuTz9uFiXqAm7C7CpQDHIvTFm0o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tz/It8iO; arc=pass smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 061F23E1D16;
+	Fri, 11 Sep 2026 15:33:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789140789; cv=none; b=dFS7EZVGzlGtV1nt8rbZ+ihCreTwAPyomsTQmsAv15/ppooGr8PkjZF7yNdE+nRwTzw1zhNCtZwohsxU/UEUQVQSU/701Vs7aUcQRlCB3/GtFip/YkK1aTrLxPRXM9AknzxbsYjCInu28jw2zV2xwZXML2gnJr1RLuW+6o3fsw8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789140789; c=relaxed/simple;
+	bh=asgZcdYNJhnhjZOihPPBLInlOYvJJo6kypyIhjLjAcY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hJOiYLmJLq7ls9VJnW2fpJvGQ36lMcyzf/PP1K4ukifmbslaB2ZBOTRMmiVxNouQ7iDyT+aYKTFR+MgbuH9Wj34/+c1ceLZFU+x9n7xa/V9YNQZDu9eQmCzlQD0Ef4VOWG8VgoP+EL/PdZ5h7UhCWmQ1/n5BLHkzJphZDBCtEE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c9HAbm/w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tz/It8iO"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so180185e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:32:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789140749; cv=none;
-        d=google.com; s=arc-20260327;
-        b=grSrygTd4li0RoUSNQxmqUeN4QjC5LlNYUOokvHBmqf4dgdKJwMXxQAWO2f5LzIx2D
-         FQmqrqjXbXqaCS6GBUEF91iXTGcJ6R8ULJ1m2f6CEWq2JM1zsLRYJShFSajYY8zFjgSt
-         peeWc5ecAAwGFtIjbt652KjUv7jGvoX1L4acZ8kwKQMnFaI7gCklWGi3yB2jFcMUrwi0
-         Cg42vS5IVy216aGDaa1mLEL4tMK131dPb5ivc1oJzcdPbVWxtjyYmyE+XLCuTmMzGj+Y
-         28pilRbHfnZh6RHWcIfK+tSnUjAAtH9XuNDqlaIM7FnySp9EOES5gyQyOpZM/36Emsgj
-         GtQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tx5AyXZ3GvBAYCgk4osxeglSu6XXu49YTcUaOVz/aoc=;
-        fh=QxBwGQk+7Wc53LG760aEize7vhFII9XiPDd2XEIH1cs=;
-        b=lIevvNLfm0whMDabknrZKnjxePNrNfXSqrGDYsEB6BwcTL9IwFJayoGJbThTHS4WzR
-         BTDsXJ3zany39CTKAv2W/scqLnxOJj06DDdowyKNWhxaujOnCNrOmu9MLemhrFHAD+kC
-         g7CzlrjTSUTR7tH9cb+Yuv2s9C6S7vkALCRciJA85Km/38lb+WyavLTB0wIGsNg0QDfj
-         JoQR/rjn2qJjnOTC379d/8vzQLI5rrky0jZoEg3j9qt/hBBLzOXMMndlO6Ws4yMt1+Fx
-         xLczIHYzQ+2tRsXEf2YfV6ul8+38rpeXwXvQDifro+Jki+fuIDQ6ONVpcgtam6Bm+lPw
-         Bpqg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789140749; x=1789745549; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tx5AyXZ3GvBAYCgk4osxeglSu6XXu49YTcUaOVz/aoc=;
-        b=Tz/It8iOeckbIYWBmZg6UMZT0WElZK6s9UI2rUrbO1hdq+bbDnRWAbUw6nieWMpq2K
-         OiLX2bnsingM8HQP2yDLUqSgnhX5l+vL7/3Eyby/bpjBp4IDZJt4sayM9w9DDzTz+28Y
-         ZqpR0UE5FQ2XO1Ge436qmcE4gkrrGK5r2GCEN6FvqFdu/WFpPUoiOExrsrB8IU4986qF
-         Dp3OPMGDpCcvNCSv1AGwSPE5oBdWlIKDJmTkGZZobOB9mVBQc3TkvzosRwbg3Alfm4NX
-         BNkCbo3623QrRJ0bQ093uI9Tl3ZYALLXQObTIJK80ZhkvMMYPAHQB65cM05jMh9YySmT
-         iukQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789140749; x=1789745549;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tx5AyXZ3GvBAYCgk4osxeglSu6XXu49YTcUaOVz/aoc=;
-        b=dqijrL3qnXfm/OIAA1Lo+YjtHcKzYJeyBqAbiyhkK6P/dv+8gnzZZYn6qAXMbAAEKl
-         C/RulWTwwxliclW9M8gu4/LIBD8fVsdQSFdBMosuApg51U+tsK6XaXmmTf5qp1FPU6yY
-         eISJoGCnwtNM0AREWjuTl+shw886hVODBVrqnesi1FzGfdg6a/BNouzajp7ih6LTY93H
-         twtijCVlOG789K3k0P3aY5jIVyq/xegpskzC8wDfzoKSbOHLZ4ArQ4KsNTXX+K9m5Sos
-         +EvmKBqSuLb5KgjVFPn8bJiD9yFpwxSxMw/1PIG7zUcUGzKfkMHufYy7wY62yMaOWkNj
-         LO9A==
-X-Forwarded-Encrypted: i=1; AKwUvBwE89HJ9QPLawQSUR8PhH501SY4Y49cslE9iaH6fWniBpaR01FfFtQAAh69ztDbG21zRsBUqvS1UuQ+QDc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kSOw99oiyavOTAYcpdOUOkyLyLtxWRBZgRKlRC+cwb/33vlmWN
-	3XPpRW3CwOb1sd/Nvmh1w5dP2vz3m/m58wryeyalL5aLIpeBXG8QNONBOP4hQj2iFI1fd2chGPU
-	VKmptW7qabHq8qHI/5IfG5vah+ECVstlLhNmAxmq9sQ==
-X-Gm-Gg: AYBFou2B+wjwIGQDeVlxME0jVC6sCXeOjREtXLlLTNN28VLhpC759HrChhxgn38wwA+
-	BjZeuWFnM8n7Tk1QXAuqInvkdUDMn1fsfnlrnOQKsV4O9fM9+cdeYE0e7FylWS6aiUHIwLKrkK/
-	Moi1qUyD5qPpqHfqDcgzcvSf33BMWPlcc4WuE3K4IypSC8lXtziWZbxHcdC0VPkZNKtstmtIn6r
-	F0AJPhtkJEciZZXY9aNmifh5UidVEK45CTBXeTu2y2aSyyUdu6hSHA5a1IkcQwP+G0MKiYaDclp
-	Jq2P3H5gSiRsHjV1i2p0mh2+/QHDizVFQnuDM9pJafc2zFsD6XS0Ln3P3+2pisX5BuobmXaB4he
-	nRi/CyoGkSvE0
-X-Received: by 2002:a05:600c:3f08:b0:49c:f13e:e50 with SMTP id
- 5b1f17b1804b1-49e6108c75dmr59294085e9.13.1789140748568; Fri, 11 Sep 2026
- 08:32:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c9HAbm/w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4729E1F000FF;
+	Fri, 11 Sep 2026 15:33:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789140787;
+	bh=bSKqnb/4RyBm0Huws1qR3jtmSUmdErdTlsTI43caL/A=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=c9HAbm/wDoDlK5wMtGMZWX9zEUl0Vw2jF7F4jO1ypvTr8HD3Iq12CmfQQWVW/2kKq
+	 AJKvYoLR4OonhRg7EsYC0Ce5pI57nRsGyI4/BhYc4AUwAzYPBmHiIQbyrnM47go2r1
+	 rzoT/N1EMeMUHOjobriVhorQOOiVRdpIm92KjOPboNICnPvT205qlo7P1r/Gaa4tI0
+	 +uIQUHvq2KVBQxJB7TaXZobUPpCu4J7m7IZ02FMM0/5y4FaSoG6wpCRlvemzDGy7fd
+	 ynumDHhMLAYv+sJj7UdVb8wiOB++bdgGMRPYwzGh1umhi3NH8WyprOuTgFNSVBdBbI
+	 0grrQwHpJaWzA==
+Message-ID: <2a96e380-4cfa-4a07-b63f-1806906898ba@kernel.org>
+Date: Fri, 11 Sep 2026 17:33:01 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911100427.2804601-1-kunwu.chan@gmail.com> <20260911133232.91581-1-sj@kernel.org>
-In-Reply-To: <20260911133232.91581-1-sj@kernel.org>
-From: KunWu Chan <kunwu.chan@gmail.com>
-Date: Fri, 11 Sep 2026 23:32:12 +0800
-X-Gm-Features: AcwNN1UB2lLvhFoOalBtTq0xTCkHEalZbjYl1gPmEXSR-cXhuK4bJrIAZhw-nSE
-Message-ID: <CAN_Opa95ePWNT6o2axVtvKNjC-1aNU09f_XMnUjcJFZAbYeUZA@mail.gmail.com>
-Subject: Re: [PATCH REPOST 5/5] mm/damon/vaddr: support pgidle_unset probe
- filter type
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, damon@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/7] proc/task_mmu: remove unnecessary inlines in
+ function definitions
+To: Suren Baghdasaryan <surenb@google.com>, akpm@linux-foundation.org
+Cc: liam@infradead.org, ljs@kernel.org, vbabka@kernel.org,
+ willy@infradead.org, jannh@google.com, paulmck@kernel.org, pfalcato@suse.de,
+ xueyuan.chen21@gmail.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, Usama Arif <usama.arif@linux.dev>
+References: <20260910234737.1340642-1-surenb@google.com>
+ <20260910234737.1340642-3-surenb@google.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260910234737.1340642-3-surenb@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 11, 2026 at 9:32=E2=80=AFPM SJ Park <sj@kernel.org> wrote:
->
-> Hi Kunwu,
->
-> On Fri, 11 Sep 2026 18:04:26 +0800 Kunwu Chan <kunwu.chan@gmail.com> wrot=
-e:
->
-> > On Wed,  9 Sep 2026 07:04:07 -0700 SJ Park <sj@kernel.org> wrote:
-> >
-> > > DAMON virtual address space operation set (vaddr) does not support
-> > > pgidle_unset probe filter type.  Add the support.
-> > >
-> > > Signed-off-by: SJ Park <sj@kernel.org>
-> > > ---
-> > >  mm/damon/vaddr.c | 55 ++++++++++++++++++++++++++++++++++++++++++----=
---
-> > >  1 file changed, 48 insertions(+), 7 deletions(-)
-> > >
-> > > diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
-> > > index 45239f05e113b..9a38dc89a156e 100644
-> > > --- a/mm/damon/vaddr.c
-> > > +++ b/mm/damon/vaddr.c
-> > > @@ -522,13 +522,49 @@ static void damon_va_prep_probes(struct damon_c=
-tx *ctx, bool set_samples)
-> > >     }
-> > >  }
-> > >
-> > > -static bool damon_va_filter_pass(struct folio *folio, struct damon_p=
-robe *p)
-> > > +static bool damon_va_young_addr(struct folio *folio, pte_t *pte, pmd=
-_t *pmd,
-> > > +           struct mm_struct *mm, unsigned long addr)
-> > > +{
-> > > +   bool young =3D false;
-> > > +
-> > > +   if (pte)
-> > > +           young =3D pte_young(*pte);
-> > > +   else if (pmd)
-> > > +           young =3D pmd_young(*pmd);
-> >
-> > Hi SJ,
-> > I see that all callers already check pte_present() / pmd_present()
-> > before calling this helper, so I don't see a correctness issue here.
-> >
-> > However, the other DAMON young/accessed helpers, such as
-> > damon_pte_young(), damon_hugetlb_young(), and the PMD path in
-> > damon_folio_young_one(), keep the present check together with the
-> > young check.
-> >
-> > Would it make sense to keep the same check here for consistency?
->
-> In my humble opinion, it is already consistent as long as we didn't miss
-> present check in callers.  If you concern a case that we call
-> damon_va_young_addr() without present check in future, how about adding a
-> comment noting that on damon_va_young_addr() as a followup work?
->
+On 9/11/26 01:47, Suren Baghdasaryan wrote:
+> It was pointed out in the previous reviews of this code that many
+> functions are specified as inline, which is unnecessary as the compile
+> can make that decision by itself. Cleanup these definitions.
+> 
+> No change in the resulting binary file size with gcc v15.2.0.
+> No functional change intended.
+> 
+> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> Reviewed-by: Liam R. Howlett (Oracle) <liam@infradead.org>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Acked-by: Usama Arif <usama.arif@linux.dev>
+> ---
 
-Thanks, SJ. That makes sense to me.
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-The current callers do provide the required =E2=80=98present=E2=80=99 check=
-, so I agree
-that documenting the assumption in a follow-up comment should be
-sufficient.
+-- 
+Cheers,
 
-Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
-
-Thanks,
-Kunwu
-
-> Also, thank you for your reviews to this series!
->
->
-> Thanks,
-> SJ
->
-> [...]
+David
