@@ -1,178 +1,113 @@
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FCA4AD7D8
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:51:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D228F46D573;
+	Fri, 11 Sep 2026 17:52:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789149121; cv=none; b=bMq1Fqh3Ai3j7yvG2+gR7okU5XqaO2DNejK2vOz+l7kBULAv+gNJ6DhkIPVZrIwOe2DM9+JbfJFSPRmi8RGLhpVkR5S/JXR6KFsUosSzKWex7u7iMP+83/0RahpJeGWuAVNmpC4Q2aJKymKjrJShDz8Z6MIWHAcmt1dMJkoUuTE=
+	t=1789149156; cv=none; b=PCqjfMCqoDa0PtZfKGWktdjzyPXiGaJFcoQs/8FIDVKUJQ8uu9CGjVPbOmgP1cIjGTZEdehKEMgluXl8X6dW0/6wfST5rdLf/6Ah7rO3YOfnT/8MJe1FXWFdnMFDMMrH7Pi5ZXjM6Vm0a8uTY4AWmkZpKJHuJO+JEwgpLLk3Zxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789149121; c=relaxed/simple;
-	bh=k3OTarJevq2L9zcrC5c0odON51Ym9WgieNS16JhSSvE=;
+	s=arc-20240116; t=1789149156; c=relaxed/simple;
+	bh=i4b1F550PpCySaT71xBmolUmbmF9GGfkwfUsfQ3BHDE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aR7kLNKcrAo26Hg0hFuCKQBrXcKBLXgdx4kDCGhidzSUGH6xemO4Hxf/WbbWZ86cuC26hUBufqwD6IXOAyXXx1B1RsKwMYXjFMguO7leFzsABX5iA81tK0yD7cWKltw2H6MbpUsJGjFIqrtMAYLfrkj11NfwcYOlx06AnVilJVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=hYHJGu/2; arc=none smtp.client-ip=209.85.210.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	 In-Reply-To:Content-Type; b=WUubEPgj6TWKUFiSpC5gmudGP1uXmWhiZ9u+E7FE9gHtXoLJJSWTDxaZ36+14KQcQ6oSK1P5iHNj3BFCpE94cbdL7SjH8X/TAY4AmE4hfCZ4uZYY6R7DONmAhsYqOV7DSg3TVqeEMm8h9gsV6w9y4X4SF4iUJfFt1+856epy9Fw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UQXONF6n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="hYHJGu/2"
-Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7f5934ba2a5so702522a34.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:51:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1789149117; x=1789753917; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9olr04AtyTbiPDIyx9X9sacFZEY3X0bYJ7/A2XJEuFA=;
-        b=hYHJGu/2ziX4bBkGiewO5v1bBnuOmCJ2LEW/2wTKOMcv9ON1YAFGMVMyg0rID03hSb
-         7VsedsnO/sxN3bQU9bDxp5mMYsASr66mWUEr/Bt2w1rPaHsNgAzSzTVbHK04CGjgEpjc
-         uoG6dGpnUFQ1wStLJVDj27M8ZPQhSLKGccd9bzEqaCGr9jA31BFsYE3jgi2jQqrNGENc
-         RiZ1uZqNsspWmBSqpvyWfw+nfl6JQUyTMk9P9kW5WJYqBGWtWWofkC+6Z7dM+oISpyNp
-         nGEtgqNWZDEbUyPo25IKhBLjFedxj6eXDoUkyV5MYjkopPW56tls6bi3DpjzcJFiBSo5
-         SXtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789149117; x=1789753917;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9olr04AtyTbiPDIyx9X9sacFZEY3X0bYJ7/A2XJEuFA=;
-        b=KcO6BJq7Fh+nUzwbH/tZf8xSOufSchCsGxRLVjgH6CiVMsZXNPRhZrQHuWAahWZwMK
-         5p6iFYsJbKXb23fEoLzON0diBq7UO5m5OAcp05HwIeoL9N8vi52Kw9qnLA64m7355w5s
-         pQrBCpufRXxlAYYplKZAQZ5O/fhP+OtQ2t3c875PZ5vteq/VQWAVl7T/zOVvfOJ3LuqC
-         eGxMTSIaHcse+bWE7Zx133+4jlk7Jey2DtX61x+8pkZ/R0MLwXRY7Z2xtCaBAIPzYBty
-         ZrB3FVSaWAZ+CCB7X6DuOTb+NwjqJIogjF5bx0q7hAx/vrBh60WEkE6t9dKDQzeH7dfz
-         NVyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwpxQo4P0BEJnbPc0T2GIiehT0CM0pFZHOyXOiXoYzxYMOqnnu5O97R53ulALx8nrGXLYPKvcWxvzlQW04=@vger.kernel.org
-X-Gm-Message-State: AFuF++mlNPVCCH8gGpoqdrBMD1LhODnioP2VmuVJUCxgjB93GHZqLjk2
-	hwKfSJqgaU0eeujkdoproFsA5zknIm0riMP0mZm1wGL4RYUhguWiX2VSXid+4AtYtTc=
-X-Gm-Gg: AYBFou01xWil7+UMdEi1ijzHv/pl1tyVSOO9n0SsVwZJrz6s9tSdUe5UnUOghPffv3r
-	MwmCMjRKV0VgHNoN3ZbWb4xO3tZa66sqb1LRAWHYpBup8PjubC76hVhnHHFQ4cj2NnGdWgBS8QL
-	lWudBWLHFx1ps2S901Ikl34MlAG72xa8qhudWQSkl8QAiY4SpT6+vgSxWMqecHYLCTlR7omXyN7
-	vlug8psQdAsON1+9Yl8yTbGwq3Yw3AmpZwIbcOiaksOVFm7+EElri3LUFSzteRNufjRfIuQl2to
-	5QKekiA8GJZrSPKZB2zQC9RmI2yosSdG38zZz+Ghq1sZwwqFFNnxGt5EI/b7hdwCucFjpzf16Je
-	PLDGA6MuJ/1DZr/qkuIlL1VcZEBSXD5d0TCyyv+SJSHWXw+SgwNNbyocTEermgOfteL8jXIU+qe
-	mNLB6spi6JWeXZTh3eo42gXTZa9AsyjT1bMdF/v7cz6xgJWSs0JM7kW9oNgtIBw9ZpK/gYITpxw
-	WfUI6k/6zcnHKQLyZP/eNqByGKSsXOrlznGCZebUzdMmoPiIxX0azxz
-X-Received: by 2002:a05:6830:6abc:b0:7fa:ab72:9dfa with SMTP id 46e09a7af769-803ff447bcdmr4271484a34.18.1789149117393;
-        Fri, 11 Sep 2026 10:51:57 -0700 (PDT)
-Received: from [192.168.1.102] ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-803f670d850sm3108041a34.17.2026.09.11.10.51.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 10:51:56 -0700 (PDT)
-Message-ID: <54310fb2-d4b0-4b97-bc07-68e27e462b29@kernel.dk>
-Date: Fri, 11 Sep 2026 11:51:55 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UQXONF6n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF28A1F0089A;
+	Fri, 11 Sep 2026 17:52:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789149154;
+	bh=Oc9x+QoinRMrwVUGGsxxeWc8hJ0c7qkvS5/RoKyI3TA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UQXONF6nq+aTYhUWN9SodyudovcypiE+se/USO9GXO8g207UBvg9mry+79TiOSWv/
+	 KvMMFHsQRJQmHa9TZ/M8+aX6WPss0Tdpd6BrcC2YIYw2gL8eumf0K9rruOv7ypeKPG
+	 5DK4/X5BIewCsJLNyYK4wTCMGxYW2h+6QEv01yUYJvNn+6mnMCwHxATAF1+Fpy1e9s
+	 C4f7nECpeX2YMcfEVClD54vf54JhtrEFRgjSQo+mCZmgWcGVi/+tneK4ZApYhfvV7O
+	 APDPGsxKmybLRUX6aSdPscDMEPzPHAXbSaH9SZeN+RK1WfQU0OGxz5dI5jU5KR9AqN
+	 dG5zYlKThPh1A==
+Message-ID: <21231b76-e21f-448b-bc6c-25f54e7cad36@kernel.org>
+Date: Fri, 11 Sep 2026 12:52:32 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 00/15] io_uring: thread identity handoff for blocking
- inline issue
-To: Gabriel Krisman Bertazi <krisman@suse.de>, io-uring@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- tglx@kernel.org, mingo@redhat.com, peterz@infradead.org
-References: <20260911154148.644489-1-axboe@kernel.dk>
- <87tsnv1ynh.fsf@mailhost.krisman.be>
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH 0/8] soundwire: amd: SoundWire manager driver bug fixes
 Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <87tsnv1ynh.fsf@mailhost.krisman.be>
-Content-Type: text/plain; charset=UTF-8
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, vkoul@kernel.org
+Cc: yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.dev,
+ Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
+ venkataprasad.potturu@amd.com, Syed.SabaKareem@amd.com,
+ Richard.Gong@amd.com, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260910190240.1604447-1-Vijendar.Mukunda@amd.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20260910190240.1604447-1-Vijendar.Mukunda@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 9/11/26 11:33 AM, Gabriel Krisman Bertazi wrote:
-> Jens Axboe <axboe@kernel.dk> writes:
+
+
+On 9/10/26 14:00, Vijendar Mukunda wrote:
+> This series collects eight bug fixes for the AMD SoundWire manager
+> driver (ACP6.3/7.0/7.1/7.2). The patches address correctness issues
+> in command response handling, slave status caching, work-queue teardown
+> ordering, resource cleanup on probe failure, and power-management
+> suspend/resume sequences.
 > 
->> Hi,
->>
->> io_uring issues requests inline with IO_URING_F_NONBLOCK and punts to
->> io-wq when that isn't possible. For a range of opcodes it isn't possible
->> at all, as there's no nonblocking path in the kernel for them: fsync,
->> statx, openat, the *at family, xattr, fadvise, splice, etc. Those are
->> punted unconditionally, and the punt costs a thread wakeup, a context
->> switch and a task_work completion round trip per request. io_uring HAS
->> to be cautious to prevent accidental blocking in the kernel, even if the
->> operations predominantly never block. Sad story. Examples of that are
->> things like an fdatasync that doesn't block, statx that hits dcache,
->> openat for O_TMPFILE, etc. All of those would've completed inline just
->> fine, but io_uring just cannot rely on that.
->>
->> This series issues those requests inline in blocking mode instead, and
->> only pays for the offload if the request actually blocks. But by the
->> time it blocks, the submitter is deep in the kernel with the request on
->> its stack, so the work can't be moved to another thread. What we can
->> move is the identity. If the submitting task blocks, an idle io-wq
->> worker takes over its user visible identity (tid, signal state,
->> credentials, scheduling attributes, cgroup, user register state),
->> finishes the io_uring_enter() call and returns to userspace as the
->> submitter. The original task finishes the request as an
->> io-wq worker and joins the pool. Userspace is none the wiser, hopefully,
->> the same tid came back from the syscall, it's just on a different
->> task_struct. Folks that have been around a while may remember earlier
->> attempts at this about 20 years ago.
+> Patch 1 fixes a silent type widening in amd_sdw_send_cmd_get_resp()
+> where -ETIMEDOUT was returned through a u64, producing a large positive
+> value instead of an error.
 > 
-> This is both really cool and seems like very dangerous thing :) Count me
-
-Oh yeah, it's definitely crazy and deeply an RFC.
-
-> amazed.  I worry this impersonating method will become as tricky as the
-> kthread impersonating model that you replaced with the user workers,
-> though.  I haven't looked at your patches yet, but I wonder how you
-> handle other tasks that have a reference to your task_struct.
-
-That one was different, because these are normal threads, not kthreads.
-They are created similarly to if you did pthread_create() in userspace,
-this is what io-wq workers are already. So it's mostly as safe as io-wq
-already is, by design, which is why the PF_IO_WORKER work happened and
-why kthreads haven't been used since back in the early 5.x days.
-
-So I don't think there's too much to worry about on the security front,
-it's mostly a "this will confuse the application" kind of thing because
-something has been missed. And yes that is no good either, but it's not
-a security concern. That's VERY different from the kthread case, where
-if you missed some kind of personality, then congrats you're now running
-with fully elevated privileges.
-
-> I was actually working something much simpler to improve this problem,
-> which still require subsystems to cooperate, but largely reduces issue:
+> Patch 2 caches the last successful ping slave status so that a command
+> timeout during sdw_show_ping_status() does not report a spurious
+> "no peripherals attached" warning.
 > 
-> My idea was to reuse the non_block_count which already exists in
-> task_struct preserved for every kernel config that has io_uring.  We we
-> scope the inline path with it.  We then provide new mutex, semaphore
-> callers that will check the flag and fail refusing to sleep, similar to
-> a try_lock.  The new callers are required because we want subsystems to
-> opt-in the behavior, properly clean after themselves, and return
-> EWOULDBLOCK.  This is why we need to clean blocking paths in io_uring.
-> sched throws a WARN_ON if we schedule out with the counter> 0, making it
-> easy to find issues.
-
-I think that would be a tough sell, mostly because of how many locking
-primitives we have and how widely they are used, and how difficult (or
-impossible) it is to introduce error paths for code that previously had
-none. That alone would make it a non-starter for me. Let alone is that
-it'd be a continual whack-a-mole kind of work, it'll never be fully
-done.
-
-> It has the downside of still requiring fixes to every path and we need
-> to handle every new case that comes by, but it is much cleaner than
-> plumbing a nonblock flag several layers down the stack across each
-> subsystem or having subsystem-specific details in io_uring, which is
-> what we have today.  On the upper side, it is much less complex than
-> your approach. It also allow us to just back off during memory
-> allocations that would block, solving the memory allocations anywhere in
-> the submission path, not only inside ->issue(), which we discussed
-> recently on discord.
-
-I think you'll find it'll be a lot MORE complicated than my approach!
-Backing out error handling is going to be impossible in some cases,
-think file systems for example. How would those cases be handled?
-
-> I'll give a try to this series and report back.
-
-Thanks!
-
--- 
-Jens Axboe
+> Patch 3 fixes the work-drain sequence in amd_sdw_manager_remove(): the
+> interrupt delivery gate must be closed before cancel_work_sync() to
+> prevent an in-flight IRQ handler from re-queuing work after the cancel
+> returns. A pm_runtime_disable() imbalance on partially-started managers
+> is also corrected.
+> 
+> Patch 4 adds the missing sdw_amd_exit() call and ctx pointer clear on
+> the sdw_amd_startup() failure path in sdw_amd_probe().
+> 
+> Patch 5 propagates the amd_init_sdw_manager() return value in
+> amd_resume_runtime() instead of ignoring it.
+> 
+> Patch 6 removes the amd_deinit_sdw_manager() helper and expands its
+> two call sites in the POWER_OFF suspend path to direct calls, making
+> the sequence explicit with no functional change.
+> 
+> Patch 7 replaces open-ended acp_rev >= ACP70_PCI_REV_ID comparisons
+> in the PM callbacks with explicit per-revision handling covering
+> ACP63, ACP70, ACP71 and ACP72, with a dev_err + -EINVAL default. The
+> repeated host-wake-by-revision block is factored into a helper,
+> amd_sdw_host_wake_enable_by_rev().
+> 
+> Patch 8 fixes the interrupt gate and work drain ordering in all four
+> suspend mode/path combinations: the ACP_EXTERNAL_INTR_CNTL gate must
+> be closed before cancel_work_sync() calls to prevent a racing ISR from
+> re-queuing work after the drain completes.
+> 
+> Vijendar Mukunda (8):
+>    soundwire: amd: fix SDW command timeout return value handling
+>    soundwire: amd: cache ping slave status to avoid spurious disconnect
+>      on timeout
+>    soundwire: amd: fix work drain ordering and pm_runtime guard in remove
+>      path
+>    soundwire: amd: fix ctx leak when sdw_amd_startup() fails
+>    soundwire: amd: propagate amd_init_sdw_manager() error on resume
+>    soundwire: amd: drop amd_deinit_sdw_manager() in POWER_OFF suspend
+>    soundwire: amd: replace >= ACP70 with explicit switch/case in PM paths
+>    soundwire: amd: fix interrupt gate and work drain ordering in PM ops
+> 
+>   drivers/soundwire/amd_init.c      |   9 +-
+>   drivers/soundwire/amd_manager.c   | 204 ++++++++++++++++++++----------
+>   include/linux/soundwire/sdw_amd.h |   3 +
+>   3 files changed, 148 insertions(+), 68 deletions(-)
+> 
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
