@@ -1,106 +1,365 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7401D351C1C
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:37:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789097831; cv=none; b=GhUiaDLy838u2YXtPhsyExHg10khM3rh9YM+Bx5RDCGe3sR0wiEcmNLsqFvtKIKbmMvaC2dV02H2z5g9U7aTEdoNHYUpq+pcPW8y0PPzzZ2XcxLbGEr5xGfredhlIPlbrc6gwR9XHcBPBaZYCHy5+DmmtXCUp+KxGPcBlJiGGis=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789097831; c=relaxed/simple;
-	bh=jnxbrAUNCi8h68fjyd8ZlDlk84mac5zqMfeH9/mmBI0=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B05B83B05BC
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:38:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789097912; cv=pass; b=XNwk76KYqLfK4bhXfGv2RyvIKJssbt5k4+29QiolxxiC32QcwTTu2F4ZpPkEM77D89JAO7+Chnp4buaoePuEXCEazxue6ndUZBapzoG99I9zSPecEbL31liAnofxgnvPN3b1YVM2HXdxjlnSYVVzJuU1p+BY75Aw84mmUl91c3k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789097912; c=relaxed/simple;
+	bh=8h54BVqmrM2WV/Gj8p2zfmqfgA1SOuvtKo58m6PmenQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=boPOer+urApKbRF+82AlgTmk2if3Q1Y+RtIi1aDv+PDNmMj5izJrgOKw5B05MNt2pydmN03KdrfcJrgJ1PYCYSXQnWM5wYVs4FHJpj1rRYT9RoiRX0uCLcxAkW6YKU2yPvhtBE+1+Lt6/Jt1BGwpXzfp/bpoqOul56JXqjSUtXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MkYW/9qB; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=PjtxgJ4wSVBLpNPUqEVwYalp5K5aNd6tMNUCfgpQcB7Tw9MtQ+PPXPGUeI/EGaRnSvOQ8/j5yG4YnAWau5deevoUDUdip2tx19tobhyZPK6xIxQM4LhLQMi4cR7gJ9J8AtMTtQW/kvj/h+RXHLy9ObPovWb+ieneekKFwz2Vtsk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=OjIqS5Hm; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MkYW/9qB"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso430201a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:37:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789097830; x=1789702630; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vTrVSBkVGPXm2gcTE8fmlqXbs+T/1ViJad0b75wnA3w=;
-        b=MkYW/9qB+6iLfHw0caDUOAaqQ0xW6BmFU5TPmQLgofu5E8WvDUpp5SCiYDV0OdmClx
-         QM1OvYRzSzrnFztyGMHisZgzsUxP63IUL5u4qWYFpaaJOQq2krPJ4mHy+4sCsUmLWH/p
-         AQHaq4hneBsoqeSS1ZNjvw/cM1lv5Z8aj+8reIWneQC5tzHMaznaXS9RMz1KcAkI0IaT
-         pDIDX+c0TfdTZ1Lt3UTaNX3gxzBBXYxAf7SHdIyK/dSIwILSCEaRsJVUUuFqqqHQyafA
-         xFax+V3/bVFZzVf0PIAKz7yWBxfcSzlVJOoXeuH+0nrxFaXT4BXFrqzwiL5ItwDbjCnJ
-         ri6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789097830; x=1789702630;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vTrVSBkVGPXm2gcTE8fmlqXbs+T/1ViJad0b75wnA3w=;
-        b=s5W4Y7NrWddT64o/Ef07IUHjV1wtSBXkLko0MWyCFySVGq+vEAPRoGwPmwtdchIahb
-         uQWJN6LFyzN2PFIuH/3OLvHBV2wmLd+TmUxQPFiWQ+9eWv0rUV6vWmqUrEHTL6u5ndkh
-         7nWM2dLhdMA2jJrpnTP91cuFq6M9RH9vRELZva5aAure7H1501OweIaffKg/TV5k+VkL
-         HGij4yeWIAkRjuzUQYojrZ5TE/nUyKpkJFnZsbAgpV1GxbDwUrz6o0c4WpWini5htfx2
-         wANC6MCHO7ZPMkEbYDkm5G/7cTtTQ0/6cRtoVCI1zuat6bp9/79f2VHElOIPGn+gAl5g
-         0phg==
-X-Forwarded-Encrypted: i=1; AKwUvBzHPMDz7bMlLY3uxJj4g9EBlaQWFsUkZEh2N2aFP1lQvdmVxCIa7u9pteuJ9cAFhACUWEHslF6WUgHeh2s=@vger.kernel.org
-X-Gm-Message-State: AFuF++mhiHuh/62jIuQMmLPqUmivDXyGVJnQyJq1KgOMHUwZQlcagly0
-	F+GAKL1Bs74ZyLw7OxOs4rDgtp7NiaA+xdLAMKo8i1kXrV/ch8j4+9KbfRcCA/ck
-X-Gm-Gg: AYBFou0Si+i0lwDztDRu4pvmXbn01aufb6uv619w9IrIjLyfA4amWWRJZbwuMoEAESS
-	hKXQRoshaeSk6wib87K2P0vYNcN7pEavQ6exM5YJgosCra8u3j7Zq9hPeLULn23RVZ6HjL3Fs+D
-	JU78o3Gq4poIqano7qj4ruSFm9pjgDp9Ih10K8QwlGGgmGdn1T8n9b2ANnM84bCdOU41bXxI+YJ
-	Jcw0gTzo9gCYh4ZfKPpLLaIzqGnkBI80d+mromwse8wy2iWpgnXPPD0tYPwhfBVVO7I+P7B8wS9
-	19ugr8SVbPKwnBpRYQOE3O81K4p5hI4qmvgktNL+pq7TfLEA4Qbk8IKTHKviREwDYmNQm6VDbgg
-	3o3C4QLcHz84umiQRYvkPJfJCRDVVbxOr3R90yB3ZABlQEPmKo3y1elcowFf9dEM64gtAmoEuzM
-	+6QryiRfJjTjL2qzO9fykvH2PPlUPhXPJZA7zC+kfpnXhQpmGU4NvrlBOMp0XDMLPtxXytKH0WV
-	FKMCNgdyvIcZisfsRCtQlA=
-X-Received: by 2002:a17:90b:384f:b0:39d:8794:5564 with SMTP id 98e67ed59e1d1-39d9c1c016bmr3307088a91.12.1789097829777;
-        Thu, 10 Sep 2026 20:37:09 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95713602sm2537488a91.11.2026.09.10.20.37.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 20:37:09 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Thu, 10 Sep 2026 20:37:08 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Zakariya Hadrami <zkh@mailbox.org>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-watchdog@vger.kernel.org, zkh1@proton.me,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v5 1/4] dt-bindings: watchdog: mediatek: Add MT8127
-Message-ID: <8bd4787a-1666-4f92-960f-287bc3b918a6@roeck-us.net>
-References: <20260910-mt8127-amazon-ford-basic-v5-0-3cb9eeaffd5c@mailbox.org>
- <20260910-mt8127-amazon-ford-basic-v5-1-3cb9eeaffd5c@mailbox.org>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="OjIqS5Hm"
+ARC-Seal: i=1; a=rsa-sha256; t=1789097894; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Yw/IXXuSWkIqgqVcfp4UQx/XwVvQT8qj/xReb6p0CbzxHjjJWyHhSMeFgK8pOy1Ve2k7fMNgcj3wJPyq7rmSYRlfanxoBqCs90n4FH24xESrAKcUYRHer4Uy6ICxRTCUjNaFvygq1Kon1m8uSP/q2nGIGGc/nQEoZH8h4LAV35I=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789097894; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=TVyKnlfUp0BtVdk+l9+8ffBYO8JEkFvGAhccaRXJBjk=; 
+	b=SJIdBzTvbLVkx7VFSrW/wa4d0yPesHzolKv6yAnI48y8Gwhj4n55A8ebx58KuzLcFXGyWXiSvklHqessoFWgzORHcNYnN5WVeNvFPMkuxrx2ysFgpu1rvxRpTIj0I5IhyFPXqLq5foaQ2sG4mbAUe9jVmOszOijnvv+B/IwWqGk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789097894;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+	bh=TVyKnlfUp0BtVdk+l9+8ffBYO8JEkFvGAhccaRXJBjk=;
+	b=OjIqS5HmwNO7jgdbkb/Cjz5jZtzf/5HEJfuKT6wuG32JWJ1w3RQQy/N26WbypOsW
+	gS7cu1Nqjan9OXaTUrQi/7BAcoyZVHrZE2DnnNrQz8jxv/w/M9X289z7O7FFyLNiYqD
+	f8RfXkEC7YWzEezKQzqZwZiWIbebf1NxlL4THeXI=
+Received: by mx.zohomail.com with SMTPS id 1789097893472537.4159305384613;
+	Thu, 10 Sep 2026 20:38:13 -0700 (PDT)
+Date: Fri, 11 Sep 2026 04:38:09 +0100
+From: Adrian Larumbe <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+	Chris Diamand <chris.diamand@arm.com>, Akash Goel <akash.goel@arm.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 09/18] drm/panthor: Add fine-grained restrictions on
+ VMs
+Message-ID: <aqME16MO2AnA3KC0@sobremesa>
+References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
+ <20260826-panthor-unplug-fixes-v4-9-982cc8f4234b@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260910-mt8127-amazon-ford-basic-v5-1-3cb9eeaffd5c@mailbox.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260826-panthor-unplug-fixes-v4-9-982cc8f4234b@collabora.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/289.74.40
 
-On Thu, Sep 10, 2026 at 03:29:12PM +0200, Zakariya Hadrami wrote:
-> From: Zakariya Hadrami <zkh@mailbox.org>
+Reviewed-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+
+On 26.08.2026 16:56, Boris Brezillon wrote:
+> We currently restrict what a VM is allowed to do based on two states:
+> panthor_vm::destroyed and panthor_vm_pgtable::unusable, but we'll soon
+> need a no-unmap restriction to fix the unplug logic.
 > 
-> Add entry for MT8127 SoC's watchdog which is compatible with MT6589's
-> one.
+> Instead of adding a third boolean that would reflect this new limitation,
+> let's overhaul the current restriction logic by adding separate
+> restriction flags representing the operations we want to prevent (map,
+> unmap and use).
 > 
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Acked-by: Guenter Roeck <linux@roeck-us.net>
-> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> Signed-off-by: Zakariya Hadrami <zkh@mailbox.org>
+> Map and use restrictions are set everywhere we were previously
+> calling panthor_vm_pgtable_declare_unusable() or setting ::destroyed
+> to true, since that's what those two flags were preventing.
+> 
+> We also add restriction checks in
+> panthor_vm_pgtable_prepare_[un]map_op_ctx() and
+> panthor_vm_pgtable_exec_op() and drop the ones we had in
+> panthor_vm_bind_job_create() since they are redundant.
+> 
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> ---
+>  drivers/gpu/drm/panthor/panthor_mmu.c | 134 ++++++++++++++++++++++------------
+>  1 file changed, 88 insertions(+), 46 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index 933cb820926d..3d9f9bf29e1d 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -225,6 +225,25 @@ struct panthor_as_op_ctx {
+>  	} map;
+>  };
+>  
+> +/**
+> + * enum panthor_as_restriction - List of restrictions that can apply to an AS.
+> + *
+> + * An AS always starts unrestricted, but based on the faults or device state
+> + * changes, restrictions can be added over time. Restrictions can't be removed
+> + * though. Once a VM is restricted, a new one must be created to lift the
+> + * restrictions.
+> + */
+> +enum panthor_as_restriction {
+> +	/** @PANTHOR_AS_FORBID_MAP: The AS can't map new buffers. */
+> +	PANTHOR_AS_FORBID_MAP = BIT(0),
+> +
+> +	/** @PANTHOR_AS_FORBID_UNMAP: The AS can't remove existing mappings. */
+> +	PANTHOR_AS_FORBID_UNMAP = BIT(1),
+> +
+> +	/** @PANTHOR_AS_FORBID_USE: The AS can't become active again. */
+> +	PANTHOR_AS_FORBID_USE = BIT(2),
+> +};
+> +
+>  /**
+>   * struct panthor_as - Used to managed a GPU address space.
+>   */
+> @@ -285,25 +304,8 @@ struct panthor_as {
+>  		struct list_head lru_node;
+>  	} hw_slot;
+>  
+> -	/**
+> -	 * @unusable: True if the AS has turned unusable because something
+> -	 * bad happened during an asynchronous request.
+> -	 *
+> -	 * We don't try to recover from such failures, because this implies
+> -	 * informing userspace about the specific operation that failed, and
+> -	 * hoping the userspace driver can replay things from there. This all
+> -	 * sounds very complicated for little gain.
+> -	 *
+> -	 * Instead, we should just flag the AS as unusable, and fail any
+> -	 * further request targeting this AS.
+> -	 *
+> -	 * We also provide a way to query an AS state, so userspace can
+> -	 * destroy it and create a new one.
+> -	 *
+> -	 * As an analogy, this would be mapped to a VK_ERROR_DEVICE_LOST
+> -	 * situation, where the logical device needs to be re-created.
+> -	 */
+> -	bool unusable;
+> +	/** @restrictions: Bitmask of panthor_as_restriction flags. */
+> +	atomic_t restrictions;
+>  
+>  	/**
+>  	 * @unhandled_fault: Unhandled fault happened.
+> @@ -431,13 +433,6 @@ struct panthor_vm {
+>  	/** @for_mcu: True if this is the MCU VM. */
+>  	bool for_mcu;
+>  
+> -	/**
+> -	 * @destroyed: True if the VM was destroyed.
+> -	 *
+> -	 * No further bind requests should be queued to a destroyed VM.
+> -	 */
+> -	bool destroyed;
+> -
+>  	/**
+>  	 * @dummy: Dummy object used for sparse mappings.
+>  	 *
+> @@ -699,7 +694,9 @@ bool panthor_vm_has_unhandled_faults(struct panthor_vm *vm)
+>   */
+>  bool panthor_vm_is_unusable(struct panthor_vm *vm)
+>  {
+> -	return vm->as->unusable;
+> +	return (atomic_read(&vm->as->restrictions) &
+> +		(PANTHOR_AS_FORBID_USE | PANTHOR_AS_FORBID_MAP |
+> +		 PANTHOR_AS_FORBID_UNMAP));
+>  }
+>  
+>  static void panthor_as_release_hw_slot_locked(struct panthor_as *as)
+> @@ -758,6 +755,11 @@ int panthor_vm_active(struct panthor_vm *vm)
+>  	mutex_lock(&as->op_lock);
+>  	mutex_lock(&ptdev->mmu->as.slots_lock);
+>  
+> +	if (atomic_read(&as->restrictions) & PANTHOR_AS_FORBID_USE) {
+> +		ret = -EINVAL;
+> +		goto out_unlock;
+> +	}
+> +
+>  	if (refcount_inc_not_zero(&as->active_cnt))
+>  		goto out_unlock;
+>  
+> @@ -926,21 +928,29 @@ static size_t get_pgsize(u64 addr, size_t size, size_t *count)
+>  	return SZ_2M;
+>  }
+>  
+> -static void panthor_as_declare_unusable(struct panthor_as *as)
+> +static void panthor_as_restrict_usage_locked(struct panthor_as *as,
+> +					     u32 new_restrictions)
+>  {
+>  	struct panthor_device *ptdev = container_of(as->base.drm, struct panthor_device, base);
+>  	int cookie;
+>  
+> -	if (as->unusable)
+> -		return;
+> +	lockdep_assert_held(&as->op_lock);
+>  
+> -	as->unusable = true;
+> -	mutex_lock(&ptdev->mmu->as.slots_lock);
+> -	if (as->hw_slot.id >= 0 && drm_dev_enter(&ptdev->base, &cookie)) {
+> -		panthor_mmu_as_disable(ptdev, as->hw_slot.id, false);
+> -		drm_dev_exit(cookie);
+> +	if (new_restrictions & PANTHOR_AS_FORBID_USE) {
+> +		guard(mutex)(&ptdev->mmu->as.slots_lock);
+> +		if (as->hw_slot.id >= 0 && drm_dev_enter(&ptdev->base, &cookie)) {
+> +			/* Try to disable the AS. If as_disable() passed, this should cause
+> +			 * a fault on the next memory access. If it failed, a reset is
+> +			 * scheduled to recover from the GPU hang.
+> +			 * We intentionally don't call release_as_locked() here, because
+> +			 * this would mess up with the active_cnt refcount.
+> +			 */
+> +			panthor_mmu_as_disable(ptdev, as->hw_slot.id, false);
+> +			drm_dev_exit(cookie);
+> +		}
+>  	}
+> -	mutex_unlock(&ptdev->mmu->as.slots_lock);
+> +
+> +	atomic_or(new_restrictions, &as->restrictions);
+>  }
+>  
+>  static void panthor_as_unmap_pages(struct panthor_as *as, u64 iova, u64 size)
+> @@ -976,7 +986,9 @@ static void panthor_as_unmap_pages(struct panthor_as *as, u64 iova, u64 size)
+>  			 * so flag the VM unusable to make sure it's not going
+>  			 * to be used anymore.
+>  			 */
+> -			panthor_as_declare_unusable(as);
+> +			panthor_as_restrict_usage_locked(as,
+> +							 PANTHOR_AS_FORBID_USE |
+> +							 PANTHOR_AS_FORBID_MAP);
+>  
+>  			/* If we don't make progress, we're screwed. That also means
+>  			 * something else prevents us from unmapping the region, but
+> @@ -1052,7 +1064,9 @@ panthor_as_map_pages(struct panthor_as *as, u64 iova, int prot,
+>  				 * table pages behind.
+>  				 */
+>  				panthor_as_unmap_pages(as, start_iova, iova - start_iova);
+> -				panthor_as_declare_unusable(as);
+> +				panthor_as_restrict_usage_locked(as,
+> +								 PANTHOR_AS_FORBID_USE |
+> +								 PANTHOR_AS_FORBID_MAP);
+>  				return ret;
+>  			}
+>  		}
+> @@ -1349,6 +1363,9 @@ static int panthor_as_prepare_map_op_ctx(struct panthor_as_op_ctx *op_ctx,
+>  	struct sg_table *sgt = NULL;
+>  	int ret;
+>  
+> +	if (atomic_read(&as->restrictions) & PANTHOR_AS_FORBID_MAP)
+> +		return -EINVAL;
+> +
+>  	if (!bo)
+>  		return -EINVAL;
+>  
+> @@ -1442,6 +1459,9 @@ static int panthor_as_prepare_unmap_op_ctx(struct panthor_as_op_ctx *op_ctx,
+>  	u32 pt_count = 0;
+>  	int ret;
+>  
+> +	if (atomic_read(&as->restrictions) & PANTHOR_AS_FORBID_UNMAP)
+> +		return -EINVAL;
+> +
+>  	memset(op_ctx, 0, sizeof(*op_ctx));
+>  	op_ctx->va.range = size;
+>  	op_ctx->va.addr = va;
+> @@ -1652,7 +1672,12 @@ static void panthor_vm_destroy(struct panthor_vm *vm)
+>  
+>  	as = vm->as;
+>  	ptdev = container_of(as->base.drm, struct panthor_device, base);
+> -	vm->destroyed = true;
+> +
+> +	scoped_guard(mutex, &as->op_lock) {
+> +		panthor_as_restrict_usage_locked(as,
+> +						 PANTHOR_AS_FORBID_USE |
+> +						 PANTHOR_AS_FORBID_MAP);
+> +	}
+>  
+>  	/* Tell scheduler to stop all GPU work related to this VM */
+>  	if (refcount_read(&as->active_cnt) > 0)
+> @@ -2169,7 +2194,7 @@ struct panthor_heap_pool *panthor_vm_get_heap_pool(struct panthor_vm *vm, bool c
+>  
+>  	mutex_lock(&vm->heaps.lock);
+>  	if (!vm->heaps.pool && create) {
+> -		if (vm->destroyed)
+> +		if (panthor_vm_is_unusable(vm))
+>  			pool = ERR_PTR(-EINVAL);
+>  		else
+>  			pool = panthor_heap_pool_create(ptdev, vm);
+> @@ -2546,6 +2571,17 @@ int panthor_vm_evict_bo_mappings_locked(struct panthor_gem_object *bo)
+>  		if (!mutex_trylock(&as->op_lock))
+>  			return -EDEADLK;
+>  
+> +		/* Unmaps are forbidden when we failed to communicate with the GPU,
+> +		 * meaning we can't guarantee that the GPU will see our page table
+> +		 * updates which might lead to UAF situations. In that case, we
+> +		 * just skip eviction on this VM. Things should go back to normal
+> +		 * after a GPU reset.
+> +		 */
+> +		if (atomic_read(&as->restrictions) & PANTHOR_AS_FORBID_UNMAP) {
+> +			ret = -EBUSY;
+> +			goto unlock_op;
+> +		}
+> +
+>  		/* It can be that the vm_bo was already evicted but a new
+>  		 * mapping pointing to this BO got created in the meantime,
+>  		 * thus turning the vm_bo in partially evicted state. In that case
+> @@ -2581,6 +2617,7 @@ int panthor_vm_evict_bo_mappings_locked(struct panthor_gem_object *bo)
+>  			vma->evicted = true;
+>  		}
+>  
+> +unlock_op:
+>  		mutex_unlock(&as->op_lock);
+>  
+>  		if (ret)
+> @@ -2795,7 +2832,7 @@ static int panthor_as_exec_op(struct panthor_as *as,
+>  			.map.gem.offset = op->map.bo_offset,
+>  		};
+>  
+> -		if (as->unusable) {
+> +		if (atomic_read(&as->restrictions) & PANTHOR_AS_FORBID_MAP) {
+>  			ret = -EINVAL;
+>  			break;
+>  		}
+> @@ -2805,6 +2842,11 @@ static int panthor_as_exec_op(struct panthor_as *as,
+>  	}
+>  
+>  	case DRM_PANTHOR_VM_BIND_OP_TYPE_UNMAP:
+> +		if (atomic_read(&as->restrictions) & PANTHOR_AS_FORBID_UNMAP) {
+> +			ret = -EINVAL;
+> +			break;
+> +		}
+> +
+>  		ret = drm_gpuvm_sm_unmap(&as->base, as, op->va.addr, op->va.range);
+>  		break;
+>  
+> @@ -2816,8 +2858,11 @@ static int panthor_as_exec_op(struct panthor_as *as,
+>  	panthor_as_unlock_region(as);
+>  
+>  out:
+> -	if (ret && flag_vm_unusable_on_failure)
+> -		panthor_as_declare_unusable(as);
+> +	if (ret && flag_vm_unusable_on_failure) {
+> +		panthor_as_restrict_usage_locked(as,
+> +						 PANTHOR_AS_FORBID_USE |
+> +						 PANTHOR_AS_FORBID_MAP);
+> +	}
+>  
+>  	as->op_ctx = NULL;
+>  	mutex_unlock(&as->op_lock);
+> @@ -3141,9 +3186,6 @@ panthor_vm_bind_job_create(struct drm_file *file,
+>  	if (!vm)
+>  		return ERR_PTR(-EINVAL);
+>  
+> -	if (vm->destroyed || vm->as->unusable)
+> -		return ERR_PTR(-EINVAL);
+> -
+>  	job = kzalloc_obj(*job);
+>  	if (!job)
+>  		return ERR_PTR(-ENOMEM);
+> 
+> -- 
+> 2.55.0
 
-Applied.
-
-Thanks,
-Guenter
+Adrian Larumbe
