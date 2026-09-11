@@ -1,166 +1,441 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C91937E2E7
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:05:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46657368263
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:05:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139122; cv=none; b=J3Chg7y3Bd8R3A9+P7dX2x00Dka3MgVYj3zuCHCB35pJi7SQMsXhTsm/cUksYZLHE/9yn12H7hoVPCibaQZhF/+ULyEcK6B98fGRRHuwAvhw9Vn/B2Qg+hSNoI38viEgIsGYbl0kAyRYYp/tIvRlKFSaF6U3noO6sG0gzZqd0wc=
+	t=1789139120; cv=none; b=YpVe4UF44pCuDJem22NjN+oUi489w8b5H1zY9lli8BIpu/6MeV9GplBe0gS5897oI+WctmumlHHDbK5q35X9HRNbg8pSLCGrrS1+8HezJsgbBeR7U2ZCo9helNIlJZx3sKrxY6V9NU9gpOoGlMqwUudYLPl1cXNKf37Fr6M3/5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139122; c=relaxed/simple;
-	bh=+BGYJv/Ec5lmfa8H8S/IhXnRpw8XMU+otzHcScLyKyQ=;
+	s=arc-20240116; t=1789139120; c=relaxed/simple;
+	bh=DtJ9ZpMVzp9pBwNVieDXauBpJyGXCHWbrcsUIqWrCLk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=seZT5Weq2xJU6iHjLaIKt6gKFc94gkADNiHekyI8qmPqr+UI0+frVw5GX+u404+UYPmXs/gZBCu8iAHWuu1On5EouxbsvyhV50GbjhQW8x1eo0dMt4PH7D3GJqWgHb/VPo7NiXyimrVY7PyoGN2coaBET8Lo/2ye+1fceCcuW1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=kdDnowvS; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 MIME-Version:Content-Type; b=cgSPnqMnvaZow1eqXYlgjyBWmZNzgXoyDROE1V+AqVtkzwxBBq5zL5eh5aTIr2pYggJceMUcOHZcAvBUWV6hNpgQNinYCKe4CFOFtN3IJuMGcDsjrjoSg8ipbRBOlpKhJHZiECPbmd0B/ZFYPRiM6uEOX9ptMy0b7WnDhyTmOas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=I+ZvYA1m; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="kdDnowvS"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 9E8BC4E401EF;
-	Fri, 11 Sep 2026 15:05:16 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 737DF601DE;
-	Fri, 11 Sep 2026 15:05:16 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4C43511C7AFA5;
-	Fri, 11 Sep 2026 17:05:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789139111; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=fO65BpNoMjprHokkh6R5n/KLjYhKRahGsAa+s7tmcCM=;
-	b=kdDnowvSHryo319s1WAmR815lG6lFHhbgm3+o57L3Hgz5ThMNPVEHZVz1kBLVzFT12+mxo
-	urfXzhKOToe24crfUAy2AdM5AE7kmVNvZNtInnlThsDA1Qzp2KGH0FtTrfuBsu0erZNoge
-	V1jy/kow5pO2wIwn95n7F+26prXsSubuNAlni16h6RG8OFwBAoliE8K1/HdBzT7ZmnC/iq
-	ebR9BewRm4EThScbtnYo02MTZ+7rChVi1ZPmR1pleQ+wQvh1Xt50Xt1uZSF21o3yLGlWS+
-	/QHInXaSb2MhOuwlDFaavjajpxPis9x0G7wL4/tSW+cIXWg1DjUhetfLRTF2Nw==
-From: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Pascal Eberhard <pascal.eberhard@se.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v5 1/4] dt-bindings: timer: Add the Renesas RZ/N1 timer
-Date: Fri, 11 Sep 2026 17:04:52 +0200
-Message-ID: <20260911150456.893761-2-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="I+ZvYA1m"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49ccfae359fso8297725e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:05:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1789139115; x=1789743915; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nniMuKkVKCBrFfej6b+g/WdQXf4DCG9QFf6qRLzwPt4=;
+        b=I+ZvYA1mbICTv0PbrqdQMGSq+gzptDaunsIRkczLkUVPh4RgeYjoWN4vx+l99uj4hc
+         zcO7ZRyK98cOCz0YD10nH0BPzXr57Tz5RI0IcGB8yfMyUZ9Vhww1By2HzkboYWvjEs+k
+         h5mYmWIInmYh27rNaIxNH4K+GM6nqC77p96zle/MtMjRZ4fGPi1zb5KcBkeExtUBpUuA
+         5Rmx/Gcwa6MXoLk3EO5HI9Ut5BuemqDBe5S+Ix+Ahm4A0UySPIX4lovRO03XUBNAbt5n
+         T1ZSHMnHfZRWoh5jbgeGxfcHFdOlPs5VkyPNR54wctreyKisukdw5jGWmJwMBvf6+RA+
+         oWtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789139115; x=1789743915;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nniMuKkVKCBrFfej6b+g/WdQXf4DCG9QFf6qRLzwPt4=;
+        b=DzwGJjE6umt4Pc5OOsSKw+WH6AdOx5VcDECvw4FiEfqgsQUoY2sb+kgkCB9QpwRRUq
+         wzDB/WLmE5hNqYxUqhuefs/Og/eNDDsp8meE3NbIB7cjdAirrom466JMFeZNOzvjHXH7
+         v+xOzV8+2mh1NGd0s2nTdwy7wpca0s1+UErq79WkmfxnDqKQUmlZ6aEyyvHyplBcB9iS
+         +/DeM2XTEF4QZI2Oy9UROedcuHpXOEyDWwiqpfkDddoAMy8uRc0CUIIecx1xOFNDptlZ
+         kVujgaREfvQC0A9fVkWkEb9/ryBmXwlFU06WUg3xltFaUD3F9pgLX5ZL08+YJy6ooorN
+         Qz/w==
+X-Forwarded-Encrypted: i=1; AKwUvByKhX0yE1TQhunmik1/bDqVWbqUWTn4hnuUVRkrcupKvgT0FV8spFTFJ9xtRbFRJjjGKs5ZfNUt5nBPCe0=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0UnGROrAxH8iKSiqnP/om/Mb+NI71CWQB3gjGUABebOMhth0f
+	eYB/NjBovzR7gwep+7657Lz2TjRCqerhFCb1cJru/NyiS9a2C2JwYlbzsDzdSNEn9rE=
+X-Gm-Gg: AYBFou0dhh0mgfexsQycXb0bg+bDj6/j3HfR30llNz0pfX1e2uKIYuLeGGd2bvYuZsD
+	Idnr6BbKrIbnfPUGelPkFqBdZPeJZNZCiy761/dR0Y8X4Qi31vOB0LDHeH23jETA2vtwLFflFAj
+	QSo6CIJOC71UIa2Z9XTzAFzmypcvr01mlp8JUKPad9y1w2seF3QT8QSujNoWdeZg8sB/3jLIoOD
+	4B5UHL+JtzbLoTVhZMIqeP1ndM5JRjkQK0Q7nYXbPAVW3IfSEqbWQJi+qo7EzCCJC5tdrN7uQTk
+	dIa+uswEEgYuH4MVWTAn/BS7SebEs51FL/3cxACe3vo/MtqQbG+Xzg7897Op4VTG5EFTA0FIRr8
+	y1u0/MCM9uPMXkM80zjydz1N1bC+Jh5u+n+/eoNrUoWuUU5syaIMHD8OUJ2YIlH/vb/xN+Py//g
+	aiL3JeZfnm2NeA4k92YfyZjqkA6wDklUmvLmg1epAiY2nwhkXigp6ESHTzjVfaVYrf2G5PyHKp4
+	qAIR4n0kLhpVXgI
+X-Received: by 2002:a05:600d:6501:20b0:495:48d7:f178 with SMTP id 5b1f17b1804b1-49e61988e73mr40996545e9.11.1789139114793;
+        Fri, 11 Sep 2026 08:05:14 -0700 (PDT)
+Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb350686sm6853579f8f.27.2026.09.11.08.05.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 08:05:14 -0700 (PDT)
+From: Petr Pavlu <petr.pavlu@suse.com>
+To: Jens Axboe <axboe@kernel.dk>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	Matthew Brost <matthew.brost@intel.com>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Simon Horman <horms@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Francois Dugast <francois.dugast@intel.com>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	linux-block@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-api@vger.kernel.org,
+	intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 5/6] drm/xe: Include error-injection.h for ALLOW_ERROR_INJECTION()
+Date: Fri, 11 Sep 2026 17:04:05 +0200
+Message-ID: <20260911-module-include-error_injection-v1-5-5da895d8c84d@suse.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260911150456.893761-1-herve.codina@bootlin.com>
-References: <20260911150456.893761-1-herve.codina@bootlin.com>
+In-Reply-To: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
+References: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-The Renesas RZ/N1 timer block controller is the controller in charge of
-timers available in the Renesas RZ/N1 SoCs family.
+Several drivers/gpu/drm/xe/*.c files use ALLOW_ERROR_INJECTION(), which is
+defined in asm-generic/error-injection.h. They currently rely on this
+header being included indirectly through linux/module.h ->
+linux/error-injection.h.
 
-This controller handles 8 timers:
- - 6 16-bit timers
- - 2 32-bit timers
+Add the missing includes in preparation for removing the
+linux/error-injection.h include from linux/module.h.
 
-Signed-off-by: Herve Codina (Schneider Electric) <herve.codina@bootlin.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Remove also the linux/fault-injection.h include, which commit 91b2c42c214f
+("drm/xe: Use fault injection infrastructure to find issues at probe time")
+mistakenly used to provide the definition of ALLOW_ERROR_INJECTION().
+
+Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
 ---
- .../bindings/timer/renesas,rzn1-timer.yaml    | 74 +++++++++++++++++++
- 1 file changed, 74 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/timer/renesas,rzn1-timer.yaml
+ drivers/gpu/drm/xe/xe_device.c                | 2 +-
+ drivers/gpu/drm/xe/xe_exec_queue.c            | 1 +
+ drivers/gpu/drm/xe/xe_ggtt.c                  | 2 +-
+ drivers/gpu/drm/xe/xe_guc.c                   | 1 +
+ drivers/gpu/drm/xe/xe_guc_ads.c               | 2 +-
+ drivers/gpu/drm/xe/xe_guc_ct.c                | 2 +-
+ drivers/gpu/drm/xe/xe_guc_log.c               | 2 +-
+ drivers/gpu/drm/xe/xe_guc_relay.c             | 2 +-
+ drivers/gpu/drm/xe/xe_hw_engine_class_sysfs.c | 1 +
+ drivers/gpu/drm/xe/xe_hw_engine_group.c       | 2 ++
+ drivers/gpu/drm/xe/xe_mmio.c                  | 1 +
+ drivers/gpu/drm/xe/xe_oa.c                    | 1 +
+ drivers/gpu/drm/xe/xe_pm.c                    | 2 +-
+ drivers/gpu/drm/xe/xe_pt.c                    | 2 ++
+ drivers/gpu/drm/xe/xe_pxp.c                   | 2 ++
+ drivers/gpu/drm/xe/xe_sriov.c                 | 2 +-
+ drivers/gpu/drm/xe/xe_sync.c                  | 1 +
+ drivers/gpu/drm/xe/xe_tile.c                  | 2 +-
+ drivers/gpu/drm/xe/xe_tuning.c                | 2 ++
+ drivers/gpu/drm/xe/xe_uc_fw.c                 | 2 +-
+ drivers/gpu/drm/xe/xe_vm.c                    | 1 +
+ drivers/gpu/drm/xe/xe_wa.c                    | 2 +-
+ drivers/gpu/drm/xe/xe_wopcm.c                 | 2 +-
+ 23 files changed, 27 insertions(+), 12 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/timer/renesas,rzn1-timer.yaml b/Documentation/devicetree/bindings/timer/renesas,rzn1-timer.yaml
-new file mode 100644
-index 000000000000..7218c0c2671d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/timer/renesas,rzn1-timer.yaml
-@@ -0,0 +1,74 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/timer/renesas,rzn1-timer.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+index ee732e5495f7..fcef8d5fc7ca 100644
+--- a/drivers/gpu/drm/xe/xe_device.c
++++ b/drivers/gpu/drm/xe/xe_device.c
+@@ -7,7 +7,7 @@
+ 
+ #include <linux/aperture.h>
+ #include <linux/delay.h>
+-#include <linux/fault-inject.h>
++#include <linux/error-injection.h>
+ #include <linux/units.h>
+ 
+ #include <drm/drm_client.h>
+diff --git a/drivers/gpu/drm/xe/xe_exec_queue.c b/drivers/gpu/drm/xe/xe_exec_queue.c
+index cd053de3c6b5..3e46c14584c4 100644
+--- a/drivers/gpu/drm/xe/xe_exec_queue.c
++++ b/drivers/gpu/drm/xe/xe_exec_queue.c
+@@ -5,6 +5,7 @@
+ 
+ #include "xe_exec_queue.h"
+ 
++#include <linux/error-injection.h>
+ #include <linux/nospec.h>
+ 
+ #include <drm/drm_device.h>
+diff --git a/drivers/gpu/drm/xe/xe_ggtt.c b/drivers/gpu/drm/xe/xe_ggtt.c
+index 8ec23862477f..e05582ad098a 100644
+--- a/drivers/gpu/drm/xe/xe_ggtt.c
++++ b/drivers/gpu/drm/xe/xe_ggtt.c
+@@ -6,7 +6,7 @@
+ #include "xe_ggtt.h"
+ 
+ #include <kunit/visibility.h>
+-#include <linux/fault-inject.h>
++#include <linux/error-injection.h>
+ #include <linux/io-64-nonatomic-lo-hi.h>
+ #include <linux/sizes.h>
+ 
+diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
+index 4286bd05c686..34e21a70d5ad 100644
+--- a/drivers/gpu/drm/xe/xe_guc.c
++++ b/drivers/gpu/drm/xe/xe_guc.c
+@@ -5,6 +5,7 @@
+ 
+ #include "xe_guc.h"
+ 
++#include <linux/error-injection.h>
+ #include <linux/iopoll.h>
+ #include <drm/drm_managed.h>
+ 
+diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
+index ff8eee3831aa..41a2b8c807d6 100644
+--- a/drivers/gpu/drm/xe/xe_guc_ads.c
++++ b/drivers/gpu/drm/xe/xe_guc_ads.c
+@@ -5,7 +5,7 @@
+ 
+ #include "xe_guc_ads.h"
+ 
+-#include <linux/fault-inject.h>
++#include <linux/error-injection.h>
+ 
+ #include <drm/drm_managed.h>
+ 
+diff --git a/drivers/gpu/drm/xe/xe_guc_ct.c b/drivers/gpu/drm/xe/xe_guc_ct.c
+index fe70c0fd85c5..ac6cbbaa6cc0 100644
+--- a/drivers/gpu/drm/xe/xe_guc_ct.c
++++ b/drivers/gpu/drm/xe/xe_guc_ct.c
+@@ -8,7 +8,7 @@
+ #include <linux/bitfield.h>
+ #include <linux/circ_buf.h>
+ #include <linux/delay.h>
+-#include <linux/fault-inject.h>
++#include <linux/error-injection.h>
+ 
+ #include <kunit/static_stub.h>
+ 
+diff --git a/drivers/gpu/drm/xe/xe_guc_log.c b/drivers/gpu/drm/xe/xe_guc_log.c
+index 538d4df0f7aa..6f0739204d9e 100644
+--- a/drivers/gpu/drm/xe/xe_guc_log.c
++++ b/drivers/gpu/drm/xe/xe_guc_log.c
+@@ -5,7 +5,7 @@
+ 
+ #include "xe_guc_log.h"
+ 
+-#include <linux/fault-inject.h>
++#include <linux/error-injection.h>
+ 
+ #include <linux/utsname.h>
+ #include <drm/drm_managed.h>
+diff --git a/drivers/gpu/drm/xe/xe_guc_relay.c b/drivers/gpu/drm/xe/xe_guc_relay.c
+index eed0a750d2eb..e528d95ba7fe 100644
+--- a/drivers/gpu/drm/xe/xe_guc_relay.c
++++ b/drivers/gpu/drm/xe/xe_guc_relay.c
+@@ -5,7 +5,7 @@
+ 
+ #include <linux/bitfield.h>
+ #include <linux/delay.h>
+-#include <linux/fault-inject.h>
++#include <linux/error-injection.h>
+ 
+ #include <drm/drm_managed.h>
+ 
+diff --git a/drivers/gpu/drm/xe/xe_hw_engine_class_sysfs.c b/drivers/gpu/drm/xe/xe_hw_engine_class_sysfs.c
+index d42e263e0611..ac81f382e7dc 100644
+--- a/drivers/gpu/drm/xe/xe_hw_engine_class_sysfs.c
++++ b/drivers/gpu/drm/xe/xe_hw_engine_class_sysfs.c
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include <drm/drm_managed.h>
++#include <linux/error-injection.h>
+ #include <linux/kobject.h>
+ #include <linux/sysfs.h>
+ 
+diff --git a/drivers/gpu/drm/xe/xe_hw_engine_group.c b/drivers/gpu/drm/xe/xe_hw_engine_group.c
+index 0804b426b6f9..418ff427ae30 100644
+--- a/drivers/gpu/drm/xe/xe_hw_engine_group.c
++++ b/drivers/gpu/drm/xe/xe_hw_engine_group.c
+@@ -3,6 +3,8 @@
+  * Copyright © 2024 Intel Corporation
+  */
+ 
++#include <linux/error-injection.h>
 +
-+title: Renesas RZ/N1 timers
+ #include <drm/drm_managed.h>
+ 
+ #include "xe_assert.h"
+diff --git a/drivers/gpu/drm/xe/xe_mmio.c b/drivers/gpu/drm/xe/xe_mmio.c
+index 7fa18dfcb5a2..d8f8a2453bb6 100644
+--- a/drivers/gpu/drm/xe/xe_mmio.c
++++ b/drivers/gpu/drm/xe/xe_mmio.c
+@@ -6,6 +6,7 @@
+ #include "xe_mmio.h"
+ 
+ #include <linux/delay.h>
++#include <linux/error-injection.h>
+ #include <linux/io-64-nonatomic-lo-hi.h>
+ #include <linux/minmax.h>
+ #include <linux/pci.h>
+diff --git a/drivers/gpu/drm/xe/xe_oa.c b/drivers/gpu/drm/xe/xe_oa.c
+index ab09dcff5860..b15c96e35fab 100644
+--- a/drivers/gpu/drm/xe/xe_oa.c
++++ b/drivers/gpu/drm/xe/xe_oa.c
+@@ -5,6 +5,7 @@
+ 
+ #include <linux/anon_inodes.h>
+ #include <linux/delay.h>
++#include <linux/error-injection.h>
+ #include <linux/nospec.h>
+ #include <linux/poll.h>
+ 
+diff --git a/drivers/gpu/drm/xe/xe_pm.c b/drivers/gpu/drm/xe/xe_pm.c
+index a5289a9df8d2..c0489a8d8a62 100644
+--- a/drivers/gpu/drm/xe/xe_pm.c
++++ b/drivers/gpu/drm/xe/xe_pm.c
+@@ -5,7 +5,7 @@
+ 
+ #include "xe_pm.h"
+ 
+-#include <linux/fault-inject.h>
++#include <linux/error-injection.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/suspend.h>
+ #include <linux/dmi.h>
+diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
+index a07316a45d79..6c6d9be2717e 100644
+--- a/drivers/gpu/drm/xe/xe_pt.c
++++ b/drivers/gpu/drm/xe/xe_pt.c
+@@ -5,6 +5,8 @@
+ 
+ #include "xe_pt.h"
+ 
++#include <linux/error-injection.h>
 +
-+maintainers:
-+  - Herve Codina <herve.codina@bootlin.com>
+ #include "regs/xe_gtt_defs.h"
+ #include "xe_bo.h"
+ #include "xe_device.h"
+diff --git a/drivers/gpu/drm/xe/xe_pxp.c b/drivers/gpu/drm/xe/xe_pxp.c
+index 2fef274a585e..2f3632ac201a 100644
+--- a/drivers/gpu/drm/xe/xe_pxp.c
++++ b/drivers/gpu/drm/xe/xe_pxp.c
+@@ -5,6 +5,8 @@
+ 
+ #include "xe_pxp.h"
+ 
++#include <linux/error-injection.h>
 +
-+description: |
-+  The Renesas RZ/N1 SoCs timers block controller is composed of 8 independent
-+  timers.
-+    - 6 are 16-bit timers
-+    - 2 are 32-bit timers
+ #include <drm/drm_managed.h>
+ #include <uapi/drm/xe_drm.h>
+ 
+diff --git a/drivers/gpu/drm/xe/xe_sriov.c b/drivers/gpu/drm/xe/xe_sriov.c
+index f3835867fce5..ec254b950daf 100644
+--- a/drivers/gpu/drm/xe/xe_sriov.c
++++ b/drivers/gpu/drm/xe/xe_sriov.c
+@@ -3,7 +3,7 @@
+  * Copyright © 2023 Intel Corporation
+  */
+ 
+-#include <linux/fault-inject.h>
++#include <linux/error-injection.h>
+ 
+ #include <drm/drm_managed.h>
+ 
+diff --git a/drivers/gpu/drm/xe/xe_sync.c b/drivers/gpu/drm/xe/xe_sync.c
+index 37866768d64c..711de22f4986 100644
+--- a/drivers/gpu/drm/xe/xe_sync.c
++++ b/drivers/gpu/drm/xe/xe_sync.c
+@@ -6,6 +6,7 @@
+ #include "xe_sync.h"
+ 
+ #include <linux/dma-fence-array.h>
++#include <linux/error-injection.h>
+ #include <linux/kthread.h>
+ #include <linux/sched/mm.h>
+ #include <linux/uaccess.h>
+diff --git a/drivers/gpu/drm/xe/xe_tile.c b/drivers/gpu/drm/xe/xe_tile.c
+index 74d925a337b7..810dfd98d830 100644
+--- a/drivers/gpu/drm/xe/xe_tile.c
++++ b/drivers/gpu/drm/xe/xe_tile.c
+@@ -3,7 +3,7 @@
+  * Copyright © 2023 Intel Corporation
+  */
+ 
+-#include <linux/fault-inject.h>
++#include <linux/error-injection.h>
+ 
+ #include <drm/drm_managed.h>
+ #include <drm/drm_pagemap_util.h>
+diff --git a/drivers/gpu/drm/xe/xe_tuning.c b/drivers/gpu/drm/xe/xe_tuning.c
+index bcec40ca2d35..d3d38b4380be 100644
+--- a/drivers/gpu/drm/xe/xe_tuning.c
++++ b/drivers/gpu/drm/xe/xe_tuning.c
+@@ -5,6 +5,8 @@
+ 
+ #include "xe_tuning.h"
+ 
++#include <linux/error-injection.h>
 +
-+  Each timer has its own interrupt line and can work in either one-shot or
-+  periodic mode.
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: renesas,r9a06g032-timer   # RZ/N1D
-+      - const: renesas,rzn1-timer
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: APB internal bus clock
-+
-+  clock-names:
-+    items:
-+      - const: pclk
-+
-+  power-domains:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 8
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - power-domains
-+  - interrupts
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/r9a06g032-sysctrl.h>
-+
-+    timer@51001000 {
-+        compatible = "renesas,r9a06g032-timer", "renesas,rzn1-timer";
-+        reg = <0x51001000 0x200>;
-+        clocks = <&sysctrl R9A06G032_HCLK_TIMER0>;
-+        clock-names = "pclk";
-+        power-domains = <&sysctrl>;
-+        interrupts = <GIC_SPI 112 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 113 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 116 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 117 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 118 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 119 IRQ_TYPE_LEVEL_HIGH>;
-+    };
-+...
+ #include <kunit/visibility.h>
+ 
+ #include <drm/drm_managed.h>
+diff --git a/drivers/gpu/drm/xe/xe_uc_fw.c b/drivers/gpu/drm/xe/xe_uc_fw.c
+index a8e6f18cc9b4..f17925ad53f5 100644
+--- a/drivers/gpu/drm/xe/xe_uc_fw.c
++++ b/drivers/gpu/drm/xe/xe_uc_fw.c
+@@ -4,7 +4,7 @@
+  */
+ 
+ #include <linux/bitfield.h>
+-#include <linux/fault-inject.h>
++#include <linux/error-injection.h>
+ #include <linux/firmware.h>
+ 
+ #include <drm/drm_managed.h>
+diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+index 23952ad8951e..f000564f1e59 100644
+--- a/drivers/gpu/drm/xe/xe_vm.c
++++ b/drivers/gpu/drm/xe/xe_vm.c
+@@ -6,6 +6,7 @@
+ #include "xe_vm.h"
+ 
+ #include <linux/dma-fence-array.h>
++#include <linux/error-injection.h>
+ #include <linux/nospec.h>
+ 
+ #include <drm/drm_drv.h>
+diff --git a/drivers/gpu/drm/xe/xe_wa.c b/drivers/gpu/drm/xe/xe_wa.c
+index 139434946f8f..98d2fdd3ba6f 100644
+--- a/drivers/gpu/drm/xe/xe_wa.c
++++ b/drivers/gpu/drm/xe/xe_wa.c
+@@ -8,7 +8,7 @@
+ #include <drm/drm_managed.h>
+ #include <kunit/visibility.h>
+ #include <linux/compiler_types.h>
+-#include <linux/fault-inject.h>
++#include <linux/error-injection.h>
+ 
+ #include <generated/xe_device_wa_oob.h>
+ #include <generated/xe_wa_oob.h>
+diff --git a/drivers/gpu/drm/xe/xe_wopcm.c b/drivers/gpu/drm/xe/xe_wopcm.c
+index fe65ed246775..7da1e3ebc839 100644
+--- a/drivers/gpu/drm/xe/xe_wopcm.c
++++ b/drivers/gpu/drm/xe/xe_wopcm.c
+@@ -5,7 +5,7 @@
+ 
+ #include "xe_wopcm.h"
+ 
+-#include <linux/fault-inject.h>
++#include <linux/error-injection.h>
+ 
+ #include "regs/xe_guc_regs.h"
+ #include "xe_device.h"
+
 -- 
 2.55.0
-
