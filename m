@@ -1,75 +1,86 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F437E0FF;
-	Sun, 13 Sep 2026 03:03:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B02F7E0FF;
+	Sun, 13 Sep 2026 03:04:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789268585; cv=none; b=hEHbJl9rtTQent+PNCsetctdq3ZHcArX51Sp+a6VGBDYt8q4rcfgIPI5jO7OgkCabc1yykIGCLa4CzDT67Y1omTf84c7Hfokz1Fn6lF9zhZuojT+kWodiTW0a4RCOxPlf7A9W6yEonGeA8NnT9C5dC/mRWD6CRhtVvWqI0fI8/M=
+	t=1789268662; cv=none; b=VFOi7ROe0NB/t58Gq/e4l0WDvhJrcqDTseRR+imW7P1Yv5tgnBmcf7US28V+s4TYO+8xm33Mp8K3wsXLOL2wQXSnXe+RtSV4s8tug4Mx3SJ6S+g+RjuFRx5Q6nlMrtN1v21nCN63V1OyFke0/Sc9zYpsdazva00Qx9iQ1RoXjAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789268585; c=relaxed/simple;
-	bh=b4gOxGcEIfLAYCLNPTVEM0GYPnhqvyknQ48/77IfXIo=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=HlYuDd9ZVcTmvXNobxNZ+KaEJyWPCg91e0lcwYg1FIbNhIkGLvI6jy3pDogCfv8usUgi6fG5u93+tMA3b6TFtGmRyHgMheg2yhZ+xdq1DROBjjGrJ4hbZOTQvIg5/mcFL2K3qXSeK2og1DM18xSZCjVnJMebu5CXz8NocvWxi5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=Qa56y0SH; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1789268662; c=relaxed/simple;
+	bh=r6yZynmnp2hr+Y2qX721PPePRWpAVWpG90UcknzeG5w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=S2iZnGJzrT6ieUN6eLetC6pzdWPQJ3mpz8puXbY6F7OGxsG7bi2WeMrxERc1gQjh6cKh2kFbVJruQIuGSoRq3U765JmPxSuNRZhwbm4BYuArrFUZJn+80M3Gv6y9Du64u2sHADzLn+xgTN19gNa/jp6ZpeaQzFVLKSeiME8++fI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=YgCXwaxw; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="Qa56y0SH"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68D32vZK23629900, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1789268578; bh=b4gOxGcEIfLAYCLNPTVEM0GYPnhqvyknQ48/77IfXIo=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=Qa56y0SHWkzbdHKIvq55EEaL+7Ig6hMznAxp0+A/tv/1kFnuVzcBmL8DrSStl5RLc
-	 E2rkKat7ebufP+TQg3tqupEqEhjBy/X0DJuuENAn7IUnypw72ePPCUVWebA2kLMjTQ
-	 8urr7ulY7Z0HLW3xllo+w+Zluo77H1rKOEQ4gsdZ6eO824udQ/JzFcsNAvdzJAYlXs
-	 5UOlpfRZkIFsm9Qm8K5LI8x2WqZDxAsy3MCewR/ca/PSMnYXjvLFZtsNBaVX/5oFGF
-	 ZcAtHCJUOKEHjaBRq3BYiWCmmkw+rDfONDGjC83jMgbQzC6T6GHvsWFQ6vymaVruDi
-	 L5fGTo2Ta4KUA==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68D32vZK23629900
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Sun, 13 Sep 2026 11:02:57 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sun, 13 Sep 2026 11:02:58 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sun, 13 Sep 2026 11:02:57 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Sun, 13 Sep 2026 11:02:57 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: kimwooseok <5mghybrid@khu.ac.kr>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>
-CC: "Jes.Sorensen@gmail.com" <Jes.Sorensen@gmail.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH RESEND wireless 1/4] wifi: rtl8xxxu: free RX skb when URB
- submission fails
-Thread-Topic: [PATCH RESEND wireless 1/4] wifi: rtl8xxxu: free RX skb when URB
- submission fails
-Thread-Index: AQHdQwNzVbXJAZy0LEOjDiLsjEfukbbL0kmA
-Date: Sun, 13 Sep 2026 03:02:57 +0000
-Message-ID: <2637a1d25de6431c89c4670b000fb9a9@realtek.com>
-References: <CAH1Bc_yJ1e_nHk9tP2qP_4D8MHEve1R2EF5cYCEXRwc+1xVAxw@mail.gmail.com>
- <CAH1Bc_zqe_a93WcmksWBfmBkW2JGdhuRHcLECpLtznXA_dTWEA@mail.gmail.com>
-In-Reply-To: <CAH1Bc_zqe_a93WcmksWBfmBkW2JGdhuRHcLECpLtznXA_dTWEA@mail.gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="YgCXwaxw"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1362B10364C;
+	Sun, 13 Sep 2026 05:04:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1789268657;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=r+dsOyuauVyftnIALjK1E6v3Vy0EWAr+12caK2RyzhU=;
+	b=YgCXwaxwW9SHo1xDWd02WuZx+i7/w3on54n0KB8T3Kb0tlBdTXGicKOADyuAvc91+Dt6Pk
+	qcEQsFAFj9YYKfdOBwOogFfzWWl99pmIy8ROO4Ecyjls6ssifb4EUZCy/ERrQ0Cs+rXj62
+	qaRc65ydEz5Hxx+i/PmTNzPpljZbZ7nlHUzScBoJ2sXAghS2tDO80qcCtowGxUcnh1ayE4
+	HKnkZRYLZHahqxbxs0J6IsGh6xoHglcE2AmTa+hTclkDMcr9ZNB0b8drWhmspDnJfrKS3p
+	o2pB0YDRQldXQuyWmd32xTqyFXMTpJN+RS0CBBBuGmY+6Dwpx9Vjk/H+hVMq8A==
+Message-ID: <fdf07bc2-428f-4055-97fa-61a302f57a6b@nabladev.com>
+Date: Fri, 11 Sep 2026 16:49:59 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] arm64: zynqmp: Add ifm ZynqMP VHIP6 EvalBoard
+To: Peter Korsgaard <peter@korsgaard.com>
+Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Michal Simek
+ <michal.simek@amd.com>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260909182641.165383-1-marex@nabladev.com>
+ <20260909182641.165383-2-marex@nabladev.com>
+ <874ifwjff2.fsf@dell.be.48ers.dk>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <874ifwjff2.fsf@dell.be.48ers.dk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-a2ltd29vc2VvayA8NW1naHlicmlkQGtodS5hYy5rcj4gd3JvdGU6DQo+ICBkcml2ZXJzL25ldC93
-aXJlbGVzcy9yZWFsdGVrL3J0bDh4eHh1L2NvcmUuYyB8IDE2ICsrKysrLS0tLS0tLS0tLS0NCj4g
-IDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDExIGRlbGV0aW9ucygtKQ0KDQpQbGVh
-c2Ugc2VuZCBwYXRjaCBsaWtlIG5vbi1SRVNFTkQgdmVyc2lvbiB3aXRob3V0IHBhdGNoIGF0dGFj
-aGVkLg0KDQpQaW5nLUtlDQoNCg==
+On 9/11/26 11:38 AM, Peter Korsgaard wrote:
+>>>>>> "Marek" == Marek Vasut <marex@nabladev.com> writes:
+> 
+>   > Add support for ifm ZynqMP VHIP6 EvalBoard reference design.
+>   > The board is populated with four ethernet ports, QSPI NOR,
+>   > eMMC, UART and USB host interfaces.
+> 
+>   > Signed-off-by: Marek Vasut <marex@nabladev.com>
+> 
+> ..
+> 
+>   > +	chosen {
+>   > +		bootargs = "clk_ignore_unused";
+> 
+> Why?
+
+This can be dropped, thanks.
+
+>   > +&gpio {
+>   > +	status = "okay";
+>   > +	gpio-line-names =
+>   > +		/* GPIO 0 - 77 */
+>   > +		"", "", "", "", "", "", "", "", "", "",	"", "", "", "", "", "",
+>   > +		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+>   > +		"", "", "", "", "",
+>   > +		"ifm_device_info_eeprom_wp",
+> 
+> NIT: The dts references a number of other GPIOs, any specific reason to
+> only name this one?
+The legacy userspace tooling used to depend on it, used libgpiod to look 
+up this GPIO by name.
