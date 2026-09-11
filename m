@@ -1,287 +1,107 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1802D238F
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:58:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789088312; cv=pass; b=Qe8ded4vDkOpT9wWwtn3SU0+YGcAP+zX3/AfvLw/WyslqMDmlZVzHbBDInHxI3O0EplRxsnWJcicD5HqAohsC+Tmh1f5WOZheLdNdP/4ur1eIsxsXG1ESKBRTtpbbsdHiomlk+grmnZNKM4x/vUQV3hDaI1UeVYfTkI7MwTO+xs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789088312; c=relaxed/simple;
-	bh=4drBGv6YyhxyX+VShit8G9MBohafzwBZaOD9UZFnRQg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cEOMhRXX5BY/mrTfkopgGLjr2jX8NT+5k/pKMNh/X6bPx+ob5VkOJkZMOppZg/A1CItcHhRyqaVtjXS0iWqygIZNSwIC7AGxU6wuubTxaLD8sNWDobHLh9FUOakMhewBhWk9dXuXq1DR78sPRMRHE25H+lluK4lib/0NmZBaKls=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Kw0wluWR; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B3825771
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:58:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789088319; cv=none; b=dZ+TS1VreWSYaC5Uolh+VDbyxxC3e5/TzKR976YYMtPM2C2yvUQd4cQxHg3DTRv8N61kh0Qj+uySDwgh/h6BlG+ON8U8qUeg1XpD+uFDRnxoxG/QGijeO9P0wpBRW7wUsjlI3cv30FJw0YHQo/RSY3IZLjgdvL5icUt0wuor03s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789088319; c=relaxed/simple;
+	bh=A265HADcB7R78V4B7WaaMJOPNRhCgF3KC+2zEGVJfuc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qvKgbIT0+damsNrsXFOIcSI15a+h1x2iIULjNPeMgf9mee2+a/m1n//QoYu9GV3X6/1n9/Ag1Uf46ZnVgal9L5+uJczExQHUciP69hq+diBh7M2D9IB3tqzG1URFb6cyhbT/TQTPl4PmFcyDw3Q3b5n80VjomY8NtJILzvxOe3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AO+9+bOA; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Kw0wluWR"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db425c9050so24965ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:58:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789088310; cv=none;
-        d=google.com; s=arc-20260327;
-        b=k82jDxwWL5Ql6TYSuqnF2J3twWZgXwJ/6H5/uSq5A5+f3eqZLK1FwTjDHt8j+1LaM1
-         BAsCtLa2wVBTWO7y8myWG32Gv5I1m3Zt2AdbOZ5TT40r1gWGhgtv8G8Be6tdVIzu5E8/
-         lSJqsmUnOHyuj//AIUQi3b52joihy6KuqqkJQEMNO6v5lT2T4bpPK28pu/f/vvuuYtsw
-         v/BJiILkUkAxMx2VF9A6HPoEQLUUxXy2SqCZAgwkgH/efDLMwmD7V3I8l4Zt5aY6+Ea3
-         buGsbArnqH09g7K6eX2dgOi5RpiCGkan0jCJDMr8jR5GRwEH51qAguOE0qqOOYT0J3Dv
-         N2MQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=nMOObWcWSTTmBPNIJxB9A2ZkbRi5NCB7Xm1BYtKAyac=;
-        fh=mdBOUtpnK2UMV5IIz4pPauK/zZO03YViEUpShFlf3XI=;
-        b=M8ot6oSI9rD+6q+VV6lPFPvK2pM5oPw4usPMa1fK8krONmbjKdFl3g1wmw1393Ya3U
-         flopnznSN2U3z5Ci1wqWhBKBtSQEBztIRk5eg2Wd7s6g7W7E9gdG0Z6g+hpRQy7plSXY
-         TcrypbtFqI9azjFepVZ2bhtlA02j2RXaonVCllOxtVKfSv4vepPfy3095CD17Z1Mq/2m
-         uz1Od45Rdb38LK5laIY3b07Q6c0JKDkKh2xY+jCbJKbxw+2qCR1jwfxjJHlZhiPvo6Q/
-         4ZbckQN005t8dGSQT++OuzMSr04UZ4VBOJpF2akC+ngzZ3+9/cLmv8wQLBUeWc2f+uia
-         CFHg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AO+9+bOA"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2dd020a2e44so3200385ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:58:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789088310; x=1789693110; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nMOObWcWSTTmBPNIJxB9A2ZkbRi5NCB7Xm1BYtKAyac=;
-        b=Kw0wluWRedRrcMdEgZz1C7knjgl71xNhzL+jxjanDdyM3D7bOb+S26t01D7taZgTPU
-         MQ2YH3d70/sl2e70XaiN6xocyXFTC/VsIioObNmqpSaaxSIW+E69a/DJuCR77GsilF+L
-         XqRdSRtt3Ey5Nv+W0OBTSndKKZ4/cseeK/HULMHhPFYAXyEBiKGudu50KA0nvUgc3BTj
-         0QNtoZVoFccm1VVOtosWf2+lPAzVzLtHzSF4aoRSmEvgNweAXgrNkO2K/OwPgip03OEk
-         kHcC+qZe3q5E3h4s+AINILraJaQwkX+wbFr5wPAnwAKXGWOvSqTW3uYebqsKKpyQRTcA
-         emkA==
+        d=gmail.com; s=20251104; t=1789088317; x=1789693117; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3zf8XnoSX09VWqI6ohFXF2kiQZv/9kfAXq5rTnrECXk=;
+        b=AO+9+bOAKW+LuY+ctXvo42bX1umc8OwZPhpPtWQJnvdZ0j+Yov/S6HerXDbdEx+Ov4
+         Cwf1+YqPvnnudxZFAm4+IP7raj0vJTnxryHHzpNeSeCqaJXHvo5inrydNSym4BXgxOuV
+         c2iH1rdB+WyDcKtQpEGZAYa67hHfvN0DtkO0mROQNQGYnDpcaqWFDcXAjENzLBjSrycv
+         pZOyMqYy/M8C0QQzcQYOIyRYj0hGHwuUPjeAZJOx29zwcAn8jLEJbH3Co8NdehdJ55Od
+         bpN7f7KGHiCqqdNCAZRuGG+9gKd/ourcBvEO3xTP2eU1G5gk6vJQzmLqOu7xKiGQyonA
+         1XwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789088310; x=1789693110;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1789088317; x=1789693117;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=nMOObWcWSTTmBPNIJxB9A2ZkbRi5NCB7Xm1BYtKAyac=;
-        b=iOZoxiTWW0fb0QKPKjeD79jq8EASXwuRwGdXO3At81Q/xXKygS0ibjDea5mnv4ETl6
-         iJhvOtGZtSylHG3V72JTkUtsMGgFd2wSNYYDN/+o88N55GvaeN7LrWia6vKMaGVdkX4d
-         pSPvlD9INQXFoNcmcpIk3iTpjzzRO5gP/UeV7hv8sgPq/WQaHThJwjpa1dV4szMzqkQb
-         8vwq8pFdVHnp51eYPm19hHIPHcqfoBq2ODFpWskFIgPIOaJ2E2sjQuUqrsCTqrHipTg6
-         K3szm9ST+Y7qARdHgggWSyF+7R7v8Q2ISvnwwWV2thqNKmIDRajv/QAPhgtAV77P28LM
-         4z8A==
-X-Forwarded-Encrypted: i=1; AKwUvBwPsNypLhJ9pubXcpIe65lIeLh2vbI1Il3vDs9KVEmsDQxWWS9YEsXHyc/GwC1O/BV+a+7kx5eiqETtBdg=@vger.kernel.org
-X-Gm-Message-State: AFuF++ngFLF+hZxNEr0HCac3AOFnYSNRW91ZJEOYOzbutwACV9ZahDHl
-	1TFEYDskfaPqOzaoZxP0SA1o3rI/hA8bsURLfcz5IGZwBQ2Nsdvt6lWQImuwE3qfc3U6jaSjd/Z
-	Zvz60d848pEuXAO8VWtUMfNASHs8Si7butEkfhA/a
-X-Gm-Gg: AYBFou3cvUapmhXORX4kBjJyDLIUlLXqhAw0ykOPQykOK6Tfxbj3O2uj7vSgyU3ClO+
-	me1aUWuurCkcfAhzqVKPILeLUirpOd58VI28eG+tKyM7vuml4wjMb7CURr7HuHDXQjba+iLU8dY
-	X4YmUL+af4apGH9O26InODWgW2WgWbZHDyHFqFjtnzj8r6ow6wCLGLqpVLrhppnELBdEteiUEhK
-	4v/GpgcdG+vEOobQf041uATQG8pzFq4tCzVj5DaH3Taj0GYv2zb9UderiWM7E5zS9jXERQ8CJ1B
-	ZGvH6eLf9gcHQ5VM4IPhv1pXkYoYRLn3Jte8qJIl3ROBqa3u/88poWZJlyWeALew9gShd57khDM
-	Mm+WA0hESYzyb5r6L4OUbD8gNBo2E8T5OZg==
-X-Received: by 2002:a17:902:f686:b0:2db:a1c:be59 with SMTP id
- d9443c01a7336-2dd2f53925emr1750545ad.7.1789088309766; Thu, 10 Sep 2026
- 17:58:29 -0700 (PDT)
+        bh=3zf8XnoSX09VWqI6ohFXF2kiQZv/9kfAXq5rTnrECXk=;
+        b=BmdoSVzx+DRZtSTBNHp834Hko34V2nXgDQjcccTTEoWYi4HY7Cj0inOVi9D3w02bEQ
+         9S7AftPbkeKQMo9v7+TIyPohU3Fz9sf6HH2TbCFnqezwO3FD5WmBNO+A00yDYryBQIQV
+         Cl+zA/LSQtwJ0aBb+bJ3SM3js03LJkI1hE2hbIuzY1IxUV+zsU1DqprNXIL+pJIkysyb
+         uMr4kE2jEAExMbOyUVXiutAcunglVVwt+NDPL/EHcZNLZashl+/+8cEwC48hb03DRmOX
+         bDLjg6jTXb/ONXMTGxn4R2Oi/x6KTSr8RPwou1jqxHFT4Zm/BEF1EnFx8oCAYgzj8Wzo
+         rgKQ==
+X-Forwarded-Encrypted: i=1; AKwUvByzVvbBrrSzZ6b1mXSdM7bpSDd13uscNhPL/kCjqC7aJyGBVBbL6UwHmG00/QOzVIPaJY8KlfbZD5/+lPY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nsg2THmGfbj1VCZpQinB+J+H6VV0a1dsxu+lTSYGZ2cSgI3VSW
+	00eU45rXZaXC0XA6WwoQWqUcKfMD5ffFq7Dn4n6HyxWWZtCiz5Po0MuA
+X-Gm-Gg: AYBFou0PQ36uFDKjSNbHq0BWkU/1dOt4o1PRxbStN2RWnc4eqeSnkipj0dXEPblUjke
+	Qyl0oEBRIYH5dGbNDxO8QRl3Lc3qDqRMCuORS3gKI+rPw9/G5nO7Zdt6j6lyE2oS1VMwjJYO4hj
+	T//bD8CGQz/aztfD9Gq562728CehIDpSncZQWYaLW9RUNM63kuVfmhrq6mfP0/9UMFnJUXjFHhy
+	KHlej2PpMup/VE/TCLHDI8M1IdkwCs1RRRvCcH4IWhhuqEErHceu2j7PT6NzRfCGp6NM5UH3ocw
+	gppAKygMMH+S7LoInFf10PAIj0r55B/Tkc268ZQDilttinYguPG8jbC48x1sGAsi//sVxTpNmPX
+	rIBkYBRdAlaa3SU9+LT9DCdBMXr8/uHCXN+eUNZPdG15RaFNfAg/hQkiYooDpt02gYRa8FVUifL
+	fgy3sz+SebGF/+bgvcrFBFBG+DplxissXrZRdOaL1M+C1o8W6hatMuy2uhvBu8hoHvbA1aDJQJo
+	lj16d2yaT9g
+X-Received: by 2002:a17:90a:fc48:b0:39a:e983:d4bd with SMTP id 98e67ed59e1d1-39d9c3527b5mr2180437a91.24.1789088317108;
+        Thu, 10 Sep 2026 17:58:37 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b8f1f7sm1919922c88.11.2026.09.10.17.58.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 17:58:36 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Thu, 10 Sep 2026 17:58:35 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Werner Gartner <Werner.Gartner@congatec.com>,
+	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, stable@kernel.org
+Subject: Re: [PATCH 1/2] hwmon: (cgbc-hwmon): Fix current sensors ID lookup
+Message-ID: <b7a59fe6-f8a9-49ae-bbff-c3785dc19ecd@roeck-us.net>
+References: <20260910-cgbc-hwmon-fix-and-new-sensors-v1-0-ef13ae2fa147@bootlin.com>
+ <20260910-cgbc-hwmon-fix-and-new-sensors-v1-1-ef13ae2fa147@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909191136.3811892-5-hramamurthy@google.com> <178907843138.219967.17268659724650641980@kernel.org>
-In-Reply-To: <178907843138.219967.17268659724650641980@kernel.org>
-From: Harshitha Ramamurthy <hramamurthy@google.com>
-Date: Thu, 10 Sep 2026 17:58:18 -0700
-X-Gm-Features: AcwNN1VDb-6nUoUNVsNwOs9BNQUF7tG5NDKWvlmE8TeyMwOHffTvadhBRirJUzo
-Message-ID: <CAEAWyHf63MgBXY2UvdyUx4M=Kb_73rBmwD2rUBGfAk1XOFMPmQ@mail.gmail.com>
-Subject: Re: [PATCH net-next v6 04/12] gve: introduce gve_adminq_get_device_properties()
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, joshwash@google.com, andrew+netdev@lunn.ch, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org, 
-	john.fastabend@gmail.com, sdf@fomichev.me, jordanrhee@google.com, 
-	willemb@google.com, nktgrg@google.com, maolson@google.com, thostet@google.com, 
-	jacob.e.keller@intel.com, debarghyak@google.com, kees@kernel.org, 
-	bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	przemyslaw.kitszel@intel.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910-cgbc-hwmon-fix-and-new-sensors-v1-1-ef13ae2fa147@bootlin.com>
 
-On Thu, Sep 10, 2026 at 3:13=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
-te:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider:
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 0 (1) =C2=B7 Low: 1
->
-> - [Low] gve_adminq_get_device_properties()
->   (drivers/net/ethernet/google/gve/gve_adminq.c:1148) bundles=E2=80=A6
->
-> Pre-existing issues:
-> - [Medium] gve_adminq_verify_driver_compatibility()
->   (drivers/net/ethernet/google/gve/gve_adminq.c:1264, moved verbatim=E2=
-=80=A6
->
-> --
->
-> gve: introduce gve_adminq_get_device_properties()
->
-> This adds gve_adminq_get_device_properties(), a helper that runs the
-> VERIFY_DRIVER_COMPATIBILITY and DESCRIBE_DEVICE admin queue commands in
-> sequence, and moves the driver-info allocation and fill-in from
-> gve_main.c into gve_adminq_verify_driver_compatibility().  The commit
-> message describes it as pure code movement with no functional change.
->
-> No Link: tags present in the commit header.
->
-> > diff --git a/drivers/net/ethernet/google/gve/gve_adminq.c b/drivers/net=
-/ethernet/google/gve/gve_adminq.c
-> > index 046155ae7d669..f420a8e1dd3df 100644
-> > --- a/drivers/net/ethernet/google/gve/gve_adminq.c
-> > +++ b/drivers/net/ethernet/google/gve/gve_adminq.c
->
-> [ ... ]
->
-> > @@ -1143,6 +1145,27 @@ int gve_adminq_describe_device(struct gve_priv *=
-priv)
-> >       return err;
-> >  }
-> >
-> > +int gve_adminq_get_device_properties(struct gve_priv *priv)
-> > +{
-> > +     int err;
-> > +
-> > +     err =3D gve_adminq_verify_driver_compatibility(priv);
-> > +     if (err) {
-> > +             dev_err(&priv->pdev->dev,
-> > +                     "Could not verify driver compatibility: err=3D%d\=
-n", err);
-> > +             return err;
-> > +     }
-> > +
-> > +     /* Get the initial information we need from the device */
-> > +     err =3D gve_adminq_describe_device(priv);
-> > +     if (err) {
-> > +             dev_err(&priv->pdev->dev,
-> > +                     "Could not get device information: err=3D%d\n", e=
-rr);
-> > +             return err;
-> > +     }
-> > +     return 0;
-> > +}
->
-> [Severity: Low]
-> Should this helper also carry the state handling that gve_init_priv()
-> currently performs around the same two commands?
->
-> gve_init_priv() in gve_main.c does this before calling
-> gve_adminq_describe_device():
->
->         priv->num_registered_pages =3D 0;
->
->         if (skip_describe_device)
->                 goto setup_device;
->
->         device_info->queue_format =3D GVE_QUEUE_FORMAT_UNSPECIFIED;
->         /* Get the initial information we need from the device */
->         err =3D gve_adminq_describe_device(priv);
->
-> The queue_format reset matters because gve_adminq_describe_device()
-> consumes the incoming value:
->
->         } else if (device_info->queue_format =3D=3D GVE_GQI_RDA_FORMAT) {
->                 dev_info(&priv->pdev->dev,
->                          "Driver is running with GQI RDA queue format.\n"=
-);
->
-> A caller that invokes gve_adminq_get_device_properties() with a stale
-> non-zero device_info.queue_format would keep the previous format and end
-> up with supported_features_mask left at 0, silently disabling jumbo
-> frames, buffer sizes, modify-ring, flow steering, RSS and timestamps.
->
-> For the record, this does not appear to be reachable anywhere: at this
-> commit gve_adminq_get_device_properties() has no callers, only the
-> prototype in gve_adminq.h and the definition, and gve_init_priv() still
-> calls gve_adminq_describe_device() directly with the reset in place.  By
-> the end of the series the concern is resolved rather than left latent:
-> the single call site in gve_probe() does
->
->         priv->device_info.queue_format =3D GVE_QUEUE_FORMAT_UNSPECIFIED;
->         err =3D gve_adminq_get_device_properties(priv);
+On Thu, Sep 10, 2026 at 03:28:21PM +0200, Thomas Richard (congatec GmbH) wrote:
+> Current sensors on the Congatec Board Controller don't use consecutive IDs,
+> unlike other sensor types (voltage, temperature, fan). The driver assumed
+> consecutive IDs and performed a simple lookup, which caused an unknown
+> sensor warning. Define current sensor IDs explicitly.
+> 
+> Changes the warning on conga-SA7 (type and channel are correct now).
+> Before:
+>   Board Controller returned an unknown sensor (type=2, channel=17), ignore it
+> After:
+>   Board Controller returned an unknown sensor (bc_type=1, bc_id=11), ignore it
+> 
+> Cc: stable@kernel.org
+> Fixes: 08ebc9def79f ("hwmon: Add Congatec Board Controller monitoring driver")
+> Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
 
-Like the AI notes, when gve_adminq_get_device_properties() is actually
-used later in the series, things are setup to run properly.
->
-> skip_describe_device no longer exists in the driver, and
-> priv->num_registered_pages =3D 0 has moved into gve_setup_device().  Woul=
-d
-> it be worth a note in the commit message that the surrounding state
-> handling stays with the caller?
->
-> > @@ -1205,20 +1228,53 @@ int gve_adminq_report_stats(struct gve_priv *pr=
-iv, u64 stats_report_len,
-> >       return gve_adminq_execute_cmd(priv, &cmd);
-> >  }
-> >
-> > -int gve_adminq_verify_driver_compatibility(struct gve_priv *priv,
-> > -                                        u64 driver_info_len,
-> > -                                        dma_addr_t driver_info_addr)
-> > +int gve_adminq_verify_driver_compatibility(struct gve_priv *priv)
-> >  {
-> > +     struct gve_driver_info *driver_info;
-> >       union gve_adminq_command cmd;
-> > +     dma_addr_t driver_info_bus;
-> > +     int err;
-> > +
-> > +     driver_info =3D dma_alloc_coherent(&priv->pdev->dev,
-> > +                                      sizeof(struct gve_driver_info),
-> > +                                      &driver_info_bus, GFP_KERNEL);
-> > +     if (!driver_info)
-> > +             return -ENOMEM;
->
-> [ ... ]
->
-> > -     return gve_adminq_execute_cmd(priv, &cmd);
-> > +     err =3D gve_adminq_execute_cmd(priv, &cmd);
-> > +
-> > +     /* It's ok if the device doesn't support this */
-> > +     if (err =3D=3D -EOPNOTSUPP)
-> > +             err =3D 0;
-> > +
-> > +     dma_free_coherent(&priv->pdev->dev,
-> > +                       sizeof(struct gve_driver_info),
-> > +                       driver_info, driver_info_bus);
-> > +     return err;
-> >  }
->
-> [Severity: Medium]
-> This isn't a bug introduced by this patch, but is it safe to hand
-> driver_info back to the DMA allocator when the admin queue timed out?
->
-> The identical sequence lived in gve_verify_driver_compatibility() in
-> gve_main.c before the move, so this is only being relocated here.
->
-> On the timeout path gve_adminq_kick_and_wait() has already rung the
-> doorbell and gives up without quiescing the queue:
->
->         gve_adminq_kick_cmd(priv, head);
->         if (!gve_adminq_wait_for_cmd(priv, head)) {
->                 dev_err(&priv->pdev->dev, "AQ commands timed out, need to=
- reset AQ\n");
->                 priv->adminq_timeouts++;
->                 return -ENOTRECOVERABLE;
->         }
->
-> The VERIFY_DRIVER_COMPATIBILITY descriptor still carries
-> driver_info_bus, so after gve_adminq_execute_cmd() returns
-> -ENOTRECOVERABLE the buffer is released while the device may still
-> fetch it.  Can the NIC read driver_info after dma_free_coherent() has
-> returned it to the allocator?
+Applied.
 
-This is a non-issue. If there is a timeout and the device is not
-responding, the driver resets the device and frees the AdminQ.
->
-> The same unconditional-free-after-execute pattern is used by
-> gve_adminq_register_page_list(), gve_adminq_execute_extended_cmd() and
-> gve_adminq_describe_device(), so if this is worth addressing it looks
-> like a separate change rather than something for this code movement.
->
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20260909191136.3811892-1-hramamurthy%40google.com
+Thanks,
+Guenter
