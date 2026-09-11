@@ -1,44 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4234125A321;
-	Fri, 11 Sep 2026 18:48:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F46E386443
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:48:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789152487; cv=none; b=uxk6UrOkbpvHlchB7v4jxm+XhxvnhTMIxVswYn1e23Vbro+VkxEQiCZorI0o2d/sgG5NqT/D0Hf4NsKW9oibkoNO9d6m9a+msrPmictoRGSqM/fKHPpnngxIdG9jjnCjR1Ibv3U4FUZjv3J/gDorQ84oCxUIlxLrmdsG6RqSf/A=
+	t=1789152515; cv=none; b=Ckf/GazBzS9qDNU6DmotMuhfO/TIuU+MeEfUrpU64J6N8KB4CHznrMFHMdk+o94MkvArNujFczLvciLFsdECOayzI7i219eDbGecMaUkLRT4WOIuvFPKyupgYM/WcCMsvMWeJClX8yVwMh5I00qwnhaXY6UZW0ul4V/ri/0QSGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789152487; c=relaxed/simple;
-	bh=CdtGzejQ3/70IhLqCvcDyaWYYJHJ6dcyLSsxPfaE0SI=;
+	s=arc-20240116; t=1789152515; c=relaxed/simple;
+	bh=hBlg7e02+t/YM6pIvJRIeAr5Jw7Vd/I+qWWjA/9gkT8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Oezdrqb6k23C+X8Zi7AMMzWkjiOd4UwLie1/LlsxbVbs2piBc+AXd0AdBFHTY7A5NZLoHqa3zoMOucOTUbc8mLUWlDOjfUEC9iRK6fmj+EtVLGS04y8Fst6EQpWYrNlDhQ2AwCCwl7lvPqMT/TsJ/0KuLu7zn/eKlATMeEiBOOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NxhUj3uR; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Krw9tzn2HnPm+QmpJ53zyu+aKJIEZU8eBPmlBo+QSy/qB0r3QfwWWqLgGje5MPcJN5qFRxiabzyRvYP45nkFWWlqIjKHja/7YoWdxFlbxSnjTa1aygnmQXB8mMlI7P8viRYwDcCbj1uYkZJbjoWziDVopmC5Ew7SMiVCUc+/RjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=AY2qXBt+; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NxhUj3uR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DF981F000FF;
-	Fri, 11 Sep 2026 18:48:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789152485;
-	bh=9ajwAaY0cVsvSHCyTqIKZnd53jar7upwfZE55GX+kls=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NxhUj3uRiZdCUVnfy9OJ6JxZSwXTLbC2JDs2SOawDDUst15bOPObpauIjTa4/lYez
-	 B2q/sRDfkck9M3N9IDoieUVemUV7eFXoyAZy8RRe5XD7vHLydhRCAb009rmiUlJRkP
-	 2U/g9JZX05It1GjaJj3gNnMIxz7B5IkAOTjIn5QumtQDQDQroFA0maitbO2TjL8Haj
-	 2TVt5zM1L6/P2aYau3PZzL1Mcbq4Akaz3GJtFm2kcSxWXjLtSkvjmpx4l2C9RwnwMd
-	 9K+8X0o6DpC+LjytkD0lU3ZjnpkNkSDVkl5HNOtWyziqf4nw6L+dpGSXNEznk+Elep
-	 XKjkkSjOf4dEw==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 6213ADAB022; Fri, 11 Sep 2026 19:47:51 +0100 (BST)
-Date: Fri, 11 Sep 2026 19:47:51 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Heiko Stuebner <heiko@sntech.de>, linux-spi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Ijae Kim <ae878000@gmail.com>
-Subject: Re: [PATCH] spi: rockchip-sfc: skip DMA cleanup in PIO mode
-Message-ID: <aqRM17TZ0-5pd6Y0@sirena.org.uk>
-References: <20260911172701.58177-1-mhun512@gmail.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="AY2qXBt+"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e64ccso1721435e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:48:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1789152511; x=1789757311; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hBlg7e02+t/YM6pIvJRIeAr5Jw7Vd/I+qWWjA/9gkT8=;
+        b=AY2qXBt+01lhHGjrXrxvRoTuHtT4DSIhV64PDjJF75a3gvWX7FQVAggm2W6Fdf6XsS
+         LDg/lr3eoAx6ZRKnDFEUCJ27EsX7ghAYlHwzz0ZWYUNVOWnIBKwx5h/MdrxyiAupmIhU
+         my3yTbBUeZP99yplxRjx4pThRWNSPaKtvdoYQ6eH+0vWe7PNdoJ9vBdZV5d4rVc0KOsJ
+         V9wTsQTc5biP2R6vhWy7WEe7YIYc6KjuVyXtTqrIGAC4+PcJIt4Q3yuJt/HZ0A6/+FXk
+         Fki4iOwXFyiNTbFeHvMRlaxMBe8xpgXzmCJf2CswcTxjtrxoRoumnOGCswoCxyWNgmjn
+         vb7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789152511; x=1789757311;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hBlg7e02+t/YM6pIvJRIeAr5Jw7Vd/I+qWWjA/9gkT8=;
+        b=IXv4+mMrGCUJElXvHs9LXi6NVm2KeAYBXd9UVxCwTbYQ/5A4KqqpRpJWhfJxHYzbMv
+         SHVRnCc3YZ7bMnMmmL1f0nS5w5P0/bv3c9nJJOPMUG44yIrQsVD/pwpAHL32GMbP6nJu
+         Jogrhk8HLzwe5+b6dT276sjahH0RhAWLuDRiAAK/ASWMAjx2+4HXwxEdO2zryE9rERO9
+         kI3FF1AoK7ocUc7tIBLtg3KTu8nQjCXqHsy3g7KOL+ued5CAOhS41CSLSGnt/B6Gnc6o
+         rhAVts4qjtRVDsB/gxApsykSP23MHYA/M5MRMbs+YpnmtLsfegUAVm2QNBgUCKE8xQeR
+         rFnw==
+X-Forwarded-Encrypted: i=1; AKwUvBzZTdg0Lh+KogpU2pX3g8VU0LcwN5wHPtFp3hgGC76LcFpm16fX/VuPrN5I79I1R2ekjsd+8xfqY3k8VjY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlcd69nxMOwgEmkQNTSgapHM5BCW4bURuJpp3wAVrxM+zfAR64
+	wGsatYlcXzSPer3P2XiyhEuJt4PEHAhxs3sPoF9SA/zwCymBz2v4eFLed8mJfqeKb8g=
+X-Gm-Gg: AYBFou10cnPpBeJ/6wjdCTya+763l8MwvokJmqh6SU6t2NxpFaJS/3fhGex9zMZHgGN
+	KKUKGQmzw9PMlZVhH5V6Mxil1MyigD6Wy/jCV5dZxQKKAEGQ7Ew67V9qcQnG1vQmQ/xuoyBAEbU
+	gfQLwN0sNH9mJ+f0n6erFvGUN8vgRg6rN6QObk++QPy+PjzrM7Ndgn6aSOzUkY/JEv6j9c5t527
+	PAGq6hc3XHg56vvwmRukbHytywopJcaHrqBbCaXdA1F2DmLwNkPhXUCBabvNHadZ2X3gJS63V2k
+	xVdveod+Rw0Y7bUUo3RpYzZVjfUrhJhv+sJydJhNhv26PymMQbN1fn9uvWRm1rvsAjzvhrrF/ox
+	B3aj9jQA62r6a0YBV9Sxdb87Tf4ryxgU7d3+1ZqWLZ/+5N7By2V/yNq+y4iWPqkwfd7w4rBMneV
+	DsLmG9eDVUbhybIXc+dRPHVBDX0fluwVVvktn3LobimAaDJtl7QsXOjk0IRNlcqsMwfauqjwjNx
+	CPW
+X-Received: by 2002:a05:600c:4693:b0:498:943:ccc0 with SMTP id 5b1f17b1804b1-49e619bec89mr124169185e9.6.1789152510907;
+        Fri, 11 Sep 2026 11:48:30 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49d26d49d57sm167326945e9.14.2026.09.11.11.48.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 11:48:30 -0700 (PDT)
+Date: Fri, 11 Sep 2026 20:48:28 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Cc: Saravanan Sekar <sravanhome@gmail.com>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/2] regulator: Add MPS MPQ4210 buck-boost regulator
+ driver
+Message-ID: <aqRMb8q7BT3uZ9iF@monoceros>
+References: <20260910-mpq4210-regulator-v1-0-d37e208dfc8d@vaisala.com>
+ <20260910-mpq4210-regulator-v1-2-d37e208dfc8d@vaisala.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,44 +79,46 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yXCBlsD+8N8P77Ma"
+	protocol="application/pgp-signature"; boundary="mrlar3tkipxi5k6z"
 Content-Disposition: inline
-In-Reply-To: <20260911172701.58177-1-mhun512@gmail.com>
-X-Cookie: Orders subject to approval.
+In-Reply-To: <20260910-mpq4210-regulator-v1-2-d37e208dfc8d@vaisala.com>
 
 
---yXCBlsD+8N8P77Ma
-Content-Type: text/plain; charset=us-ascii
+--mrlar3tkipxi5k6z
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
+Subject: Re: [PATCH 2/2] regulator: Add MPS MPQ4210 buck-boost regulator
+ driver
+MIME-Version: 1.0
 
-On Fri, Sep 11, 2026 at 01:27:01PM -0400, Myeonghun Pak wrote:
-> With rockchip,sfc-no-dma, probe skips allocating and mapping the transfer
-> buffer. However, controller registration failure and driver removal still
-> call dma_unmap_single() for that nonexistent mapping.
+Hello,
 
->  err_register:
-> +	if (!sfc->use_dma)
-> +		goto err_dma;
->  	dma_unmap_single(dev, sfc->dma_buffer, sfc->max_iosize,
->  			 DMA_BIDIRECTIONAL);
+On Thu, Sep 10, 2026 at 08:51:42AM +0000, Tapio Reijonen wrote:
+> +#include <linux/i2c.h>
+> [...]
+> +#include <linux/mod_devicetable.h>
 
-Rather than adding use of goto to skip aroud within the cleanup here you
-could guard the calls that need guarding with if statements, that would
-look a lot less scary than jumping around like this.
+Please don't add new includes for <linux/mod_devicetable.h>, this header
+is supposed to go away. For i2c_device_id and of_device_id you can rely
+on <linux/i2c.h> to provide both. If you want to go full iwyu use
+<linux/device-id/i2c.h> and <linux/device-id/of.h> respectively.
 
---yXCBlsD+8N8P77Ma
+Best regards
+Uwe
+
+--mrlar3tkipxi5k6z
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqkTNYACgkQJNaLcl1U
-h9CWowf9FYhn4CUqLi778/DZdnlco03RF07n1WzzIV7B/q7VDMOeIelC+xtd9Ltq
-7MDi3uvnr1X7i6KKjqeOD74R0Ty5sDH5nVjCtilRp+GZZ9E19CjA41jA9+Gb+Y/7
-9g3bpHT1bykk+xr9VgZM42sZ7sl5m8tFtSnrvDckjqzb4eC5To5MbkHwJM3ZXE+W
-UTQNnDachWQHnWxSQXCOYCpoQHfvy3BBsUP//ByXb/y/6M+7gvEhozDUJY5MEm06
-AXWiqb4zlZwznGh0gPNZ8vDy8JU74GRhF+xGrwLRDsg1zTuZPQ+5GwXJs40WWMia
-7jh1hekMc9VqDUbIG56TVwSaIk/7Gw==
-=AA3J
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqkTPkACgkQj4D7WH0S
+/k6gSgf/Rpe/v2jHPCvYEnv4fmlUk5h0i4KXQEgWNdKhGO2rjLnSUMju6dcPBhnv
+zee9/u9WMjUkKWpBr+WOrKZbRg34Yxkxi410Sw6PE1erxlF3qUaLAF/15ST72gPK
+DK75kf+00j/k/wYIMRVCjrhyoHH+QsgCTwQgGudzZtl0qK+wcq/T7j6v5WcUWbNG
+T8uUW7WIrh6DpxmNs6FgklXCxSqcBqKuQYt0ToNwN3nNpwZ0uFDqR80GIx5y3seX
+IfcACpuy70FNWoL9tzDGzPgETvRjHp59LQhr8vEViHB00egK+mq3Hff6ddGpR4bt
+8//wDpKe9ljrhJY1tktqW6w/Pc39iA==
+=AM1P
 -----END PGP SIGNATURE-----
 
---yXCBlsD+8N8P77Ma--
+--mrlar3tkipxi5k6z--
