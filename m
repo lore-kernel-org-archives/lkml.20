@@ -1,110 +1,124 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F01DA468C07;
-	Fri, 11 Sep 2026 08:42:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A90A4468C07;
+	Fri, 11 Sep 2026 08:42:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789116143; cv=none; b=pfrhIKXBALr4507Iwi2wZzDnVO0ItB36ZI/m4doDVUkWCgz1JUbLrPU4wn+xsC6pDanHz9xx8yDhbSZPoaKgC2vbJV5W5AnGhn5vh1n18DpRWJ0hiPGpvjv4UMeXIX/MSaFAI5jj9aYaJhoF2jH1CeNSFs5xcKS5elD4cVIrz+0=
+	t=1789116149; cv=none; b=MsjhO/J507HlNY01uSgRsPAEfaVsYwtVD/pXRX6D3om30mDNWOaJN/2hFF6thXAA5Czoa2v+zgOH/cX9EjPAQTz7AFtzz9eMHkJ0NNMToeXMm78DA8g5AdBVSI6orfV8k+TfVvPX1bv4GfF1tAed2gKSCjSJaGRS2CSfODmcgqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789116143; c=relaxed/simple;
-	bh=6oKoYiK2l5nU9+CxDm9C2X1pUBXuiUuZI1otIiFIDq4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i2/U+elWMcv6B8PZIzyf9hLw1G3J0yt0uTektCwlBR3FY3KUreNIBuI0RNmINdLpxAtdwyAJZGQXfitPwcm5RclchUgDIWpC3aQqQLY78n67H0bXqbxzBZ+jcspYc16Hpg7t42kYZjdxk1fanhvMT2CgT2Z+aA1MR4ZfTPXh0IU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=pjG5Or/q; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="pjG5Or/q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1789116131; bh=6oKoYiK2l5nU9+CxDm9C2X1pUBXuiUuZI1otIiFIDq4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=pjG5Or/qivetzcJqm2XKkZNhxY3I2rf5JPxSmbWrjehTNblKouybUAXedJu1QnhhY
-	 6OLGQ5iVshwJCvsGEiGohG0NuU4X+p0rCASSJ+jDzdYgLE+HoNeXHw52dZlaqEwx4M
-	 87aTKc+DMEhRKnS07vHDxK4ZTuGrRnNtI4IlMyqnX0R89q2aTOstZqHRBQbwx7ULk8
-	 /Kkn+dKFmpozQiVmWgRm8/o1RHyXMPQTov28Ldv9vCDwYq/ZJIyKcftc918ozyCR3w
-	 d93e6D7vk1wXro4PtR9hGu8kzOr09157kUMoxuANPQqDExv/64VKbJN39RotrAZwhS
-	 Z+fj6CjkqL8mQ==
-Received: by extorris.mess.org (Postfix, from userid 1001)
-	id 9F3F041444; Fri, 11 Sep 2026 09:42:11 +0100 (BST)
-Date: Fri, 11 Sep 2026 09:42:11 +0100
-From: Sean Young <sean@mess.org>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 08/19] media: rc: Use binary search for adding or
- updating a scancode
-Message-ID: <aqO-4_Fm_vx8-6Rh@extorris.mess.org>
-References: <cover.1788882189.git.sean@mess.org>
- <afefeadfb3f69f8a77294f0194db4ec7f428d0f0.1788882189.git.sean@mess.org>
- <28ee58c0-f33d-42ea-bb9e-ad32734a8df1@kernel.org>
+	s=arc-20240116; t=1789116149; c=relaxed/simple;
+	bh=YiYRIDHmBnNQNiydwY9NNvshpKlcQCEpaAIGJ2WQ0QI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WsLZvUjxbheBm7uCDW2cfjg2ePMns/5dGK03a5sUPNK2dip7sYcHcRm3bUWuck8S14+TU1A4feXShOM9q/GU38Fe3ZRiS3LmvxFY67RWXzxIbc+7ZR4if96+WzxrUrE7ix5Z/XxKnraBMeVhwPf/6ifasuWxwRN9vP6Ka0+YS1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A26F821B99;
+	Fri, 11 Sep 2026 08:42:25 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2E80213715;
+	Fri, 11 Sep 2026 08:42:25 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id hCEXCvG+o2rMFAAAD6G6ig
+	(envelope-from <jgross@suse.com>); Fri, 11 Sep 2026 08:42:25 +0000
+From: Juergen Gross <jgross@suse.com>
+To: linux-kernel@vger.kernel.org,
+	x86@kernel.org,
+	linux-coco@lists.linux.dev,
+	kvm@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>
+Subject: [PATCH v5 02/17] coco/tdx: Rename MSR access helpers
+Date: Fri, 11 Sep 2026 10:41:56 +0200
+Message-ID: <20260911084211.3149957-3-jgross@suse.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260911084211.3149957-1-jgross@suse.com>
+References: <20260911084211.3149957-1-jgross@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <28ee58c0-f33d-42ea-bb9e-ad32734a8df1@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Queue-Id: A26F821B99
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -4.00
+X-Spam-Level: 
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
 
-On Fri, Sep 11, 2026 at 10:10:52AM +0200, Hans Verkuil wrote:
-> On 08/09/2026 17:51, Sean Young wrote:
-> > We can have up to 1024 scancodes entries which are always sorted, so make
-> > this a little faster.
-> > 
-> > Signed-off-by: Sean Young <sean@mess.org>
-> > ---
-> >  drivers/media/rc/rc-main.c | 20 +++++++++++++-------
-> >  1 file changed, 13 insertions(+), 7 deletions(-)
-> > 
-> > diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-> > index 924b13fff753..795ac0fe4858 100644
-> > --- a/drivers/media/rc/rc-main.c
-> > +++ b/drivers/media/rc/rc-main.c
-> > @@ -391,7 +391,7 @@ static unsigned int ir_establish_scancode(struct rc_dev *dev,
-> >  					  struct rc_map *rc_map,
-> >  					  u64 scancode, bool resize)
-> >  {
-> > -	unsigned int i;
-> > +	unsigned int i, lo, hi;
-> >  
-> >  	lockdep_assert_held(&rc_map->lock);
-> >  
-> > @@ -406,15 +406,21 @@ static unsigned int ir_establish_scancode(struct rc_dev *dev,
-> >  	if (dev->scancode_mask)
-> >  		scancode &= dev->scancode_mask;
-> >  
-> > -	/* First check if we already have a mapping for this ir command */
-> > -	for (i = 0; i < rc_map->len; i++) {
-> > +	/*
-> > +	 * Binary search for an existing mapping for this ir command.
-> > +	 */
-> > +	lo = 0;
-> > +	hi = rc_map->len;
-> > +	while (lo < hi) {
-> > +		i = lo + (hi - lo) / 2;
-> >  		if (rc_map->scan[i].scancode == scancode)
-> >  			return i;
-> > -
-> > -		/* Keytable is sorted from lowest to highest scancode */
-> > -		if (rc_map->scan[i].scancode >= scancode)
-> > -			break;
-> > +		if (rc_map->scan[i].scancode < scancode)
-> > +			lo = i + 1;
-> > +		else
-> > +			hi = i;
-> >  	}
-> > +	i = lo;
-> 
-> Can you use bsearch() for this? (lib/bsearch.c)
+In order to avoid a name clash with some general MSR access helpers
+after a future MSR infrastructure rework, rename the TDX specific
+helpers.
 
-We want to insert an entry if it does not already exist. bsearch()
-does not give us an index if there is no match.
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Reviewed-by: Kiryl Shutsemau <kas@kernel.org>
+Reviewed-by: H. Peter Anvin (Intel) <hpa@zytor.com>
+Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+---
+ arch/x86/coco/tdx/tdx.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Arguably this should be an extension of lib/bsearch.c but I'm not
-clear what form that would take.
+diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
+index f904a636d449..29aa57fb4244 100644
+--- a/arch/x86/coco/tdx/tdx.c
++++ b/arch/x86/coco/tdx/tdx.c
+@@ -469,7 +469,7 @@ static void __cpuidle tdx_safe_halt(void)
+ 	raw_local_irq_enable();
+ }
+ 
+-static int read_msr(struct pt_regs *regs, struct ve_info *ve)
++static int tdx_read_msr(struct pt_regs *regs, struct ve_info *ve)
+ {
+ 	struct tdx_module_args args = {
+ 		.r10 = TDX_HYPERCALL_STANDARD,
+@@ -490,7 +490,7 @@ static int read_msr(struct pt_regs *regs, struct ve_info *ve)
+ 	return ve_instr_len(ve);
+ }
+ 
+-static int write_msr(struct pt_regs *regs, struct ve_info *ve)
++static int tdx_write_msr(struct pt_regs *regs, struct ve_info *ve)
+ {
+ 	struct tdx_module_args args = {
+ 		.r10 = TDX_HYPERCALL_STANDARD,
+@@ -841,9 +841,9 @@ static int virt_exception_kernel(struct pt_regs *regs, struct ve_info *ve)
+ 	case EXIT_REASON_HLT:
+ 		return handle_halt(ve);
+ 	case EXIT_REASON_MSR_READ:
+-		return read_msr(regs, ve);
++		return tdx_read_msr(regs, ve);
+ 	case EXIT_REASON_MSR_WRITE:
+-		return write_msr(regs, ve);
++		return tdx_write_msr(regs, ve);
+ 	case EXIT_REASON_CPUID:
+ 		return handle_cpuid(regs, ve);
+ 	case EXIT_REASON_EPT_VIOLATION:
+-- 
+2.55.0
 
-Thanks,
-
-Sean
