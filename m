@@ -1,56 +1,56 @@
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 545273DDDA1
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:43:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40EB63DDDBE
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:43:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789094605; cv=none; b=i3ekkJGUZ4JjTthDCpQIDeEpw66iUUaGpxz9QIqC4OimfU/9Pf7CG9he42Ejq1o9t5v940iOP85ycHp0JgNBnRw7uSIGYa5KNfPDlp8ut7wFSWu6lsOrpNU57sqMN+vzWCVNFqsVU2XIxEsIfksMMPzpS0KgAiAfYgCHW8kQKLA=
+	t=1789094607; cv=none; b=BjetF+Tp76zu+HMUCRvuhuTLl0fxVdUTrmIdNepCoWg/xIYYJlN8Gq6JmEGfOXUDt9vkpspEpMyL5fr4QpWddanio9HW6UJjED+lmdYHPHCKU8OHHQMjUWr4No5eCTBlM+HAZDQvr+zgyZZhmPvQKqu0a3wYGzgHdeFGCdhrS6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789094605; c=relaxed/simple;
-	bh=/cObwhUGxRYT81pWRaz2+xTY8TN+IfT3Lgkepn5EkFM=;
+	s=arc-20240116; t=1789094607; c=relaxed/simple;
+	bh=SE5RaLn3Dzf2vFzZ+yhriAZI3DsHt9x+u8rqlBaLDPQ=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=eNLe+tBs0WvKTGJUMxTdCebT1PZELSHhZ8sptW6D6AUsG1Ev+IjvWbK90i5/25x5zTEUZuooY9cuVNJjWBLw3Ks7Gb97zbj6HRcls/oY26yPppmOSbkPk9zgCbJMtWOJzHWWrcAc5uNT3W64kyGmBuW/iBr/hjpmm0k3+HrD8gQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kJGIlNaL; arc=none smtp.client-ip=209.85.216.70
+	 To:Cc:Content-Type; b=uIbic9VeiEv4ETktH01OL79q53pCKoTpBycN3c6APNcpkOoiAc9KU8sQEhsUhmsADRp/6loqCNbHKs2pFqN87S9i/1mafCzXd9+XJvUDrD3lpXw32HbexBRO+zL3fnQ1C1nsV750fqjf3ZgPy68Gy6cYGLkL0GXcFOqdEUa5ri8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pXBvgsIW; arc=none smtp.client-ip=209.85.215.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kJGIlNaL"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38dbf293831so905325a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:43:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pXBvgsIW"
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc489e7a701so669846a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:43:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789094604; x=1789699404; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789094605; x=1789699405; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=n65nahpXmxrqssgUn61577EijG7naLtO5boPcffg92w=;
-        b=kJGIlNaLYJrtxnNI6l9GtpLzYonuEueleiK/48zjQcPEvq6DgxyoNb7g3kaLH0crna
-         avPb1OQjfmagqjlLnPJ4OLbqBOlf6lXCA888hunBb2YvcqQLMQ7ZclM3GeAZO76S950x
-         KEFWpSHCm5P3k5W6FXsTP4BrHkWbtsKijB29fQ3xMg+Hwny0xaoIqv4QRYd1O/D7eMF1
-         W8QF80U+WU5s1ahXRPNohdPnhxCN6MbIK0VkyhUpIYHDpZCR0OBHOWazliWD0eCC8y1l
-         cwMlEmGAI9QxL6ZHRRsNVB5x4mN6d1OqhAdGJmUapz0hwIqYlWG1MUBoKhaOwsTF/KP5
-         Xjqg==
+        bh=mq94d3vXnQQDg8NO9kMY4Qofd5oIq09gpYbdjVFAs2k=;
+        b=pXBvgsIWe9xr+KPNPSaIzw0w11ppsgqpn6V+2qCCvjKxfBju8JahySGrHRf1Qk5ary
+         BWkXL6NZLV+C44I8o37tNL+3g+fwbdbDko7agSQNjJqn2vH1a9r+w7gal8GZ66q8myJ1
+         mfV3GmXgNNoeSBqymeuyllD2QGnprES58ct7cR3/0SQzyzA4OftNkzzKlh+K877w4e2V
+         w4hJigax9X+XrlFq8C88eTPDLkO05rrJMcD/U3qeO6GotesymGEMhpJr9Amg6GdSuZ9f
+         e+dyfnd09Xmae+VXXa3+ymOjsscD2ktdJKDPYyU68E6WCsY0klco9Pg+KGiieiYGQp8L
+         n7Ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789094604; x=1789699404;
+        d=1e100.net; s=20251104; t=1789094605; x=1789699405;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=n65nahpXmxrqssgUn61577EijG7naLtO5boPcffg92w=;
-        b=lAMSmPnJ75w0ymqW+wTuknFiVVWc1SX9dabu3YaO9O58VrDOTewCFOc2YCXyWODN/M
-         h8DzqQdI5Xd8UjGtDlwjibJFSw0JU78g6d1Z55N2hSr6oCGQbabBy5Wmh9glblXZivKn
-         pEqtQ560lVl0DjfRd7eGYTZNUdIOe7lGHn2Ob94PabOIjZ+AkBkUoJAynraR408+pgZi
-         DjfDYDe2cpYl9cFsINs0CQu+qXJ6JRfqlIW84iLHwrmF/JUi6xl3o4SZXrg5/SkQLuNh
-         uIQx1Jh/Vek6HBEDGdsmOYCIGg0SkUyVjIAbVpI/7yj86MZNAmHJHquoNMUzJCnTr2PC
-         VvcA==
-X-Forwarded-Encrypted: i=1; AKwUvBxOYykgmyn0yC6j6puh4TeG8qZx0ilMyXasSyoSLZY6znQ8VTrLnZboQpd9SJvNThqk82T7zAz5kJXpIHA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kPsMv5TJnyNM3+sKlza9CWyTnOurapZc3wqHFeFpoHxQFz/KX7
-	ymDJNvbobJquG60NFqvzz/oDGOdL5qaIPdEPtp5t6dwOzHuaRhPzIG55lLarx/TzOxuZG/PdNmi
-	q3OyQ32eZr2ZaIXspgoCZMg==
-X-Received: from pjzb21.prod.google.com ([2002:a17:90a:e395:b0:39d:8c1c:1e2f])
+        bh=mq94d3vXnQQDg8NO9kMY4Qofd5oIq09gpYbdjVFAs2k=;
+        b=jna/BPQvPvMnoFG/eWCOgJcjrswmttl9USfmrxfWYjrjzRKAfdjf+zhsA8/RrPbG13
+         B4cmU+g8ugahhMzKN2/sk+HCtayjFNb0gSGQCVNpi3GMVYu/yMnqAIWmAECCO8zKfl/D
+         paDMuC/e4CB1y9u3M2skjYg1Vm8Etj9ED3d53YyOXmAXxLv0jyAgrnUygXDPX+sWiEgF
+         smge4jm+/H/3NB4g2ifWz4RJ3f8y78Tc3ahPYGrOEIvm3YsmGB2drbHgtgZI9WGXpTZ4
+         opMDALU0cc2fTTe8boG7Vo8yYheuV6/g1C8Etqbyf+22IGNfVHQ/abnakbcfgGt7Yccj
+         6NEg==
+X-Forwarded-Encrypted: i=1; AKwUvBzgxq9yXblvxw03WcnHq/ZYzJZkfJIMnVmaXXWGIYhUoBBGkGKUDKXsV3XZMTWmMfKtWdwhrLxKUxvMKcc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lvCoH0hxOSZq66D8+xIdQNf0NunfOwP6OrUsYPtDVGKrwq2Pp2
+	vfEPAyzIpy9A7T90//CTF7kEC95x6vlBFNxLPGufmPBfHoe0Qb3sRT3zK/0LTqR0pQde2di+V/K
+	X2ngEF85MM7Bz9GCKVytILw==
+X-Received: from pjrx15.prod.google.com ([2002:a17:90a:bc8f:b0:39d:9869:f742])
  (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:35d2:b0:39d:8d38:8b04 with SMTP id 98e67ed59e1d1-39d9bbea1d3mr3240325a91.1.1789094603515;
- Thu, 10 Sep 2026 19:43:23 -0700 (PDT)
-Date: Fri, 11 Sep 2026 10:43:18 +0800
+ 2002:a17:90a:d2cb:b0:37f:ed7e:7e42 with SMTP id 98e67ed59e1d1-39d9c234851mr2889048a91.14.1789094605291;
+ Thu, 10 Sep 2026 19:43:25 -0700 (PDT)
+Date: Fri, 11 Sep 2026 10:43:19 +0800
 In-Reply-To: <20260911024319.1346706-1-stanleyjhu@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260911024319.1346706-1-stanleyjhu@google.com>
 X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
-Message-ID: <20260911024319.1346706-2-stanleyjhu@google.com>
-Subject: [PATCH 1/2] scsi: ufs: core: Fast-abort unsupported Query IDNs
+Message-ID: <20260911024319.1346706-3-stanleyjhu@google.com>
+Subject: [PATCH 2/2] scsi: ufs: core: Dynamically disable timestamp on
+ unsupported devices
 From: Stanley Jhu <stanleyjhu@google.com>
 To: mkp@kernel.org, James.Bottomley@HansenPartnership.com
 Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -69,130 +70,71 @@ Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Stanley Jhu <stanleyjhu@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-JEDEC JESD220F specifies that devices not supporting an optional
-Query IDN return QUERY_RESULT_INVALID_IDN (0xFD) in the Query Response
-UPIU.
+JEDEC JESD220F specifies that the Timestamp attribute (qTimestamp) is
+an optional feature for UFS devices. Some compliant UFS 4.0 devices do
+not implement it and return QUERY_RESULT_INVALID_IDN (0xFD).
 
-ufshcd_dev_cmd_completion() maps all non-zero Query responses to
--EINVAL and logs dev_err(). A device declining an optional IDN is
-spec-compliant, so this reports an error that did not occur and leaves
-the retry loops resending a request the device will never accept.
+ufshcd_set_timestamp_attr() gates the write on wspecversion >= 0x400
+and the absence of UFS_DEVICE_QUIRK_NO_TIMESTAMP_SUPPORT. Neither
+covers a device that advertises UFS 4.0 but declines the attribute, so
+the write is reissued on every boot and every resume.
 
-Decode 0xFD as -EOPNOTSUPP, terminate the query retry loops on it, and
-drop the dev_err() in the query wrappers and descriptor readers for
-that case. Other errors are logged and retried as before.
-
-The suppressed dev_err() calls carried the opcode and IDN; log them
-with dev_dbg() where the response is decoded.
+Record the capability in struct ufs_dev_info and clear it when the
+device answers -EOPNOTSUPP, so the write is not retried. -ETIMEDOUT
+and -EIO still reach dev_err(); they are transient and must not
+disable the attribute.
 
 Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 ---
- drivers/ufs/core/ufshcd.c | 29 +++++++++++++++++++++++------
- 1 file changed, 23 insertions(+), 6 deletions(-)
+ drivers/ufs/core/ufshcd.c | 10 +++++++---
+ include/ufs/ufs.h         |  1 +
+ 2 files changed, 8 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index 1ca731675ad1..f01703c3825f 100644
+index f01703c3825f..1964d0a23c17 100644
 --- a/drivers/ufs/core/ufshcd.c
 +++ b/drivers/ufs/core/ufshcd.c
-@@ -3284,6 +3284,11 @@ ufshcd_dev_cmd_completion(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -8962,6 +8962,9 @@ static int ufs_get_device_desc(struct ufs_hba *hba)
  
- 		if (response == 0) {
- 			err = ufshcd_copy_query_response(hba, lrbp);
-+		} else if (response == QUERY_RESULT_INVALID_IDN) {
-+			err = -EOPNOTSUPP;
-+			dev_dbg(hba->dev, "%s: unsupported opcode 0x%x idn 0x%x\n",
-+				__func__, lrbp->ucd_req_ptr->qr.opcode,
-+				lrbp->ucd_req_ptr->qr.idn);
- 		} else {
- 			err = -EINVAL;
- 			dev_err(hba->dev, "%s: unexpected response in Query RSP: %x\n",
-@@ -3446,6 +3451,8 @@ static int ufshcd_query_flag_retry(struct ufs_hba *hba,
+ 	ufs_fixup_device_setup(hba);
  
- 	for (retries = 0; retries < QUERY_REQ_RETRIES; retries++) {
- 		ret = ufshcd_query_flag(hba, opcode, idn, index, flag_res);
-+		if (ret == -EOPNOTSUPP)
-+			return ret;
- 		if (ret)
- 			dev_dbg(hba->dev,
- 				"%s: failed with error %d, retries %d\n",
-@@ -3512,7 +3519,8 @@ int ufshcd_query_flag(struct ufs_hba *hba, enum query_opcode opcode,
- 	}
++	dev_info->timestamp_sup = dev_info->wspecversion >= 0x400 &&
++		!(hba->dev_quirks & UFS_DEVICE_QUIRK_NO_TIMESTAMP_SUPPORT);
++
+ 	ufshcd_wb_probe(hba, desc_buf);
  
- 	err = ufshcd_exec_dev_cmd(hba, DEV_CMD_TYPE_QUERY, timeout);
--
+ 	ufshcd_temp_notif_probe(hba, desc_buf);
+@@ -9262,14 +9265,15 @@ static void ufshcd_set_timestamp_attr(struct ufs_hba *hba)
+ 	u64 ts_ns;
+ 	int err;
+ 
+-	if (dev_info->wspecversion < 0x400 ||
+-	    hba->dev_quirks & UFS_DEVICE_QUIRK_NO_TIMESTAMP_SUPPORT)
++	if (!dev_info->timestamp_sup)
+ 		return;
+ 
+ 	ts_ns = ktime_get_real_ns();
+ 	err = ufshcd_query_attr_qword(hba, UPIU_QUERY_OPCODE_WRITE_ATTR,
+ 				      QUERY_ATTR_IDN_TIMESTAMP, 0, 0, &ts_ns);
+-	if (err)
 +	if (err == -EOPNOTSUPP)
-+		goto out_unlock;
- 	if (err) {
- 		dev_err(hba->dev,
- 			"%s: Sending flag query for idn %d failed, err = %d\n",
-@@ -3577,7 +3585,8 @@ int ufshcd_query_attr(struct ufs_hba *hba, enum query_opcode opcode,
- 	}
++		dev_info->timestamp_sup = false;
++	else if (err)
+ 		dev_err(hba->dev, "%s: failed to set timestamp %d\n",
+ 			__func__, err);
+ }
+diff --git a/include/ufs/ufs.h b/include/ufs/ufs.h
+index afbb32654fab..b0207e694911 100644
+--- a/include/ufs/ufs.h
++++ b/include/ufs/ufs.h
+@@ -662,6 +662,7 @@ struct ufs_dev_info {
+ 	u8 rtt_cap; /* bDeviceRTTCap */
  
- 	err = ufshcd_exec_dev_cmd(hba, DEV_CMD_TYPE_QUERY, dev_cmd_timeout);
--
-+	if (err == -EOPNOTSUPP)
-+		goto out_unlock;
- 	if (err) {
- 		dev_err(hba->dev, "%s: opcode 0x%.2x for idn %d failed, index %d, err = %d\n",
- 				__func__, opcode, idn, index, err);
-@@ -3615,6 +3624,8 @@ int ufshcd_query_attr_retry(struct ufs_hba *hba,
- 	for (retries = QUERY_REQ_RETRIES; retries > 0; retries--) {
- 		ret = ufshcd_query_attr(hba, opcode, idn, index,
- 						selector, attr_val);
-+		if (ret == -EOPNOTSUPP)
-+			return ret;
- 		if (ret)
- 			dev_dbg(hba->dev, "%s: failed with error %d, retries %d\n",
- 				__func__, ret, retries);
-@@ -3676,6 +3687,8 @@ int ufshcd_query_attr_qword(struct ufs_hba *hba, enum query_opcode opcode,
- 	}
+ 	bool hid_sup;
++	bool timestamp_sup;
  
- 	err = ufshcd_exec_dev_cmd(hba, DEV_CMD_TYPE_QUERY, dev_cmd_timeout);
-+	if (err == -EOPNOTSUPP)
-+		goto out_unlock;
- 	if (err) {
- 		dev_err(hba->dev, "%s: opcode 0x%.2x for idn %d failed, index %d, selector %d, err = %d\n",
- 			__func__, opcode, idn, index, sel, err);
-@@ -3739,7 +3752,8 @@ static int __ufshcd_query_descriptor(struct ufs_hba *hba,
- 	}
- 
- 	err = ufshcd_exec_dev_cmd(hba, DEV_CMD_TYPE_QUERY, dev_cmd_timeout);
--
-+	if (err == -EOPNOTSUPP)
-+		goto out_unlock;
- 	if (err) {
- 		dev_err(hba->dev, "%s: opcode 0x%.2x for idn %d failed, index %d, err = %d\n",
- 				__func__, opcode, idn, index, err);
-@@ -3782,7 +3796,7 @@ int ufshcd_query_descriptor_retry(struct ufs_hba *hba,
- 	for (retries = QUERY_REQ_RETRIES; retries > 0; retries--) {
- 		err = __ufshcd_query_descriptor(hba, opcode, idn, index,
- 						selector, desc_buf, buf_len);
--		if (!err || err == -EINVAL)
-+		if (!err || err == -EINVAL || err == -EOPNOTSUPP)
- 			break;
- 	}
- 
-@@ -3831,6 +3845,8 @@ int ufshcd_read_desc_param(struct ufs_hba *hba,
- 	ret = ufshcd_query_descriptor_retry(hba, UPIU_QUERY_OPCODE_READ_DESC,
- 					    desc_id, desc_index, 0,
- 					    desc_buf, &buff_len);
-+	if (ret == -EOPNOTSUPP)
-+		goto out;
- 	if (ret) {
- 		dev_err(hba->dev, "%s: Failed reading descriptor. desc_id %d, desc_index %d, param_offset %d, ret %d\n",
- 			__func__, desc_id, desc_index, param_offset, ret);
-@@ -3917,8 +3933,9 @@ int ufshcd_read_string_desc(struct ufs_hba *hba, u8 desc_index, u8 **buf, enum u
- 	ret = ufshcd_read_desc_param(hba, QUERY_DESC_IDN_STRING, desc_index, 0,
- 				     (u8 *)uc_str, QUERY_DESC_MAX_SIZE);
- 	if (ret < 0) {
--		dev_err(hba->dev, "Reading String Desc failed after %d retries. err = %d\n",
--			QUERY_REQ_RETRIES, ret);
-+		if (ret != -EOPNOTSUPP)
-+			dev_err(hba->dev, "Reading String Desc failed after %d retries. err = %d\n",
-+				QUERY_REQ_RETRIES, ret);
- 		str = NULL;
- 		goto out;
- 	}
+ 	/* Unique device ID string (manufacturer+model+serial+version+date) */
+ 	char *device_id;
 -- 
 2.55.0.1007.g17ff1f9808-goog
 
