@@ -1,137 +1,87 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD40149B1EE;
-	Fri, 11 Sep 2026 16:04:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 327EE49CF23;
+	Fri, 11 Sep 2026 16:04:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789142667; cv=none; b=OpbWJaHonYjZOIfIZlB6XJJUB8RLNZnKSE+yV8sneCrfCAJK1O5Kpl+UkDDCWxvh+Ffe7/OUW1kbswoFLW+aj0GJR6aIu5nT8QIHUfP3j1PZc+m0/cAEpC18zMGLGaMGSnCj6fnchxDDWWHwlbwUzzi3Efgw/m5BHj6R3Lpd0Jw=
+	t=1789142695; cv=none; b=D6Rdst/qWlLir8Eeg+vdn4+NKZ+kLCiDBY/vZD78d0TkDeoTvlKtqJNulYbIkZS4NbJTC/wNUpoIBSMIASVDKy6AUUhXD/m3ECerzh2Yxj6UA7Q75eRNYh9Se+Y8SXbGqH7KpVnhnnW3Nd8c81Ce42cJDROi6dQsXjoZcoB970M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789142667; c=relaxed/simple;
-	bh=jFo8Hd4m85pycyUQC38wiwVhyJpxY+RbIouqwFFeIvI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=r+JkhX/VwQNMszO7azOAqrtNy1ST7jONJxCa4ACB9/LMFRTwKeHVbJH+BEFxZo6TCGn22DOpWqVDWHugbfSln0NJNVZO9OoI1ZEmgfPdl/4q3Vw3R5deQSi2eUPPafY88iNMOUqtr2Ii1zHh1nZd78F8xsc3W2Ot4eAtjm/itDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=meL5u9yt; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789142695; c=relaxed/simple;
+	bh=3Zc3nWyce5sMNuEKHI9DCuGmGl34YUEXrW0IwHMWgAI=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=aBr+ZeDuNEABsdW9THp9Q/uqCbGt5H6ri+DH1jW/DBC9SEXwXbVD0Mr/8QMV1P8TKU3wrRxo/dV3dG6LnajndWoN/TpKD80rMkHVEodG6o6WktOtAKlHsX/76CYmdY6HWXgyBc9BtrXSn8FqdXpJp0C/0qJdR+fyJnPbS8/9Csc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WDSAUtmN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="meL5u9yt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789142666; x=1820678666;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=jFo8Hd4m85pycyUQC38wiwVhyJpxY+RbIouqwFFeIvI=;
-  b=meL5u9yt+6h/QPvKeuyCKLe2skY7tzfOLsfTuo+oiN4Kf3CrWzwA9L7L
-   QEXtmjBUCx11A4xJE4uH1MxqdrPmXoxPStQIigR1B5j7ohFggfKMwKysc
-   SDnS3Wc/OvyS1kg5PrnZe3loy2kvRtVVlQWzLrNgtzR7rJBFaY0Zy5Uu6
-   kN7LCaSi3cxejIdUrmTfwwf6BdnMjIef9/zy96a94PX7zV15dM2wIpWiW
-   yDWw+tdITd5tKyasAe+2sH99NkLoPE1MtqvMBEmsiL50AU4kTGDv/HQ3o
-   3waGhM6YWLtomlT+Sy8ZHuVtQab9cdIjpWITgeLrLkd+Z8WlbHkzdim7J
-   A==;
-X-CSE-ConnectionGUID: 2o37p6bySTywGY06rcT5nw==
-X-CSE-MsgGUID: bIBqreTeRsmUgHHToxYhNw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="92117361"
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="92117361"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:04:25 -0700
-X-CSE-ConnectionGUID: 3YpawXnkRd67FUowBj/S2Q==
-X-CSE-MsgGUID: g2ea/M8dT7adJkPeV3/8NQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="273878900"
-Received: from schen9-mobl4.amr.corp.intel.com (HELO [10.125.108.42]) ([10.125.108.42])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:04:23 -0700
-Message-ID: <6f304ebd-91b3-4433-baa6-ae50f38dbea6@intel.com>
-Date: Fri, 11 Sep 2026 09:04:22 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WDSAUtmN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 623A21F00893;
+	Fri, 11 Sep 2026 16:04:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789142693;
+	bh=wtu38VMa0QReS4NmCuoeJ5ZXIzWAXunLBD6kLqxWGfg=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=WDSAUtmN1B2x8Fz9i+CePYHuTPFejqvRN31lDnteazx7eZ8nNHhrC3nG3z6qsXUo5
+	 wmG4tBdOYpZPjmZMJ03V7q8jjN9MmDy7fbyoLc+Xrn0k9all93MUJvhDxlcITVLX3c
+	 U69p6YPTGdMSNlfc2lFlKXq3UXRTVpnbJYPlWK5WsHoiRaNICkjNu/gNOcSPXnCi1w
+	 RymIgihdguF80aNdb+S5P79nojRdZ42FdONeALgE3+CrutaSBzOJHtA/WLAceWwqjO
+	 DrT7Y9k9CG9o105UfF4VBaVaZ/s+mU/LV9AIbDdhyDwduSz2OibxywmFaWFKkJY/wG
+	 29Xoy2eqlhxaQ==
+Date: Fri, 11 Sep 2026 18:04:51 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: Youth Cao <cocoh2os08@gmail.com>
+cc: Benjamin Tissoires <bentiss@kernel.org>, Xu Rao <raoxu@uniontech.com>, 
+    Ai Chao <aichao@kylinos.cn>, Kwok Kin Ming <kenkinming2002@gmail.com>, 
+    linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] HID: i2c-hid: Add i2c-hid-quirk-bad-input-size quirk
+ for 0911:5288 device
+In-Reply-To: <20260903161444.786-1-cocoh2os08@gmail.com>
+Message-ID: <r437p10n-qq2p-5p01-q059-520n2q31r17s@xreary.bet>
+References: <20260903161444.786-1-cocoh2os08@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cxl/regs: Reject register blocks in an unassigned BAR
-To: Junjie Cao <junjie.cao@intel.com>, Jonathan Cameron <jic23@kernel.org>,
- Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
- Davidlohr Bueso <dave@stgolabs.net>,
- Alison Schofield <alison.schofield@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>,
- linux-cxl@vger.kernel.org
-Cc: Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>,
- Richard Cheng <icheng@nvidia.com>, linux-kernel@vger.kernel.org
-References: <20260910093858.535969-1-junjie.cao@intel.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260910093858.535969-1-junjie.cao@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
+On Fri, 4 Sep 2026, Youth Cao wrote:
 
-
-On 9/10/26 2:38 AM, Junjie Cao wrote:
-> cxl_decode_regblock() only checks that the Register Locator offset fits
-> pci_resource_len().  A BAR the PCI core could not place is reset to zero
-> start, end and flags while config space keeps the firmware value, so a
-> zero offset passes and the block is mapped at physical address 0.  On
-> x86 ioremap() of the reserved low megabyte succeeds, the component
-> register header does not match, and a switch port fails with "HDM
-> decoder capability not found", pointing at the HDM decoders rather than
-> at the BAR.
+> I have recently acquired a cheap Apollo Lake-based laptop that uses a
+> Hynitron CST128-A touchpad controller. While booting from a Debian LiveCD,
+> the kernel log is flooded with the following error (though the touchpad
+> works well):
 > 
-> Reject a BAR with no length or still unassigned, next to the existing size
-> check.  Skip empty Register Locator entries first: they decode as BAR0
-> offset 0 and would trip the check, and nothing looks them up.
+>   i2c_hid_acpi i2c-ALPS0001:00: i2c_hid_get_input: incomplete report (27/42405)
 > 
-> Seen with edk2-stable202602 (f6489621b8ae, reverted in stable202605),
-> which places 64-bit non-prefetchable BARs behind a bridge in the
-> prefetchable window.  Linux refuses to claim them and the switch
-> upstream and downstream port BAR0s find no room in the 32-bit window.
-> QEMU q35 with a CXL switch, Fedora 43 edk2-ovmf-20260213, before:
+> The CST128-A was identified via ACPI as ALPS0001:00, and the I2C HID
+> device ID (0911:5288) was shared with the Hantick 5288.
 > 
-> pci 0000:0d:00.0: BAR 0 [mem size 0x00010000 64bit]: can't assign; no space
-> cxl_port port2: HDM decoder capability not found
+> Add the I2C_HID_QUIRK_BAD_INPUT_SIZE quirk option to the existing Hantick
+> 5288 quirk entry to suppress the kernel log flood.
 > 
-> after:
-> 
-> pcieport 0000:0d:00.0: BAR0: not assigned (type: 1)
-> cxl_port port2: No component registers mapped
-> cxl_port port2: Failed to map HDM decoder capability
-> 
-> Link: https://github.com/tianocore/edk2/issues/13104
-> Signed-off-by: Junjie Cao <junjie.cao@intel.com>
-
-Applied to cxl/next:
-dc96f35358a1
-
+> Signed-off-by: Youth Cao <cocoh2os08@gmail.com>
 > ---
->  drivers/cxl/core/regs.c | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
+>  drivers/hid/i2c-hid/i2c-hid-core.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/cxl/core/regs.c b/drivers/cxl/core/regs.c
-> index 20c2d9fbcfe7..41416fa2ce4a 100644
-> --- a/drivers/cxl/core/regs.c
-> +++ b/drivers/cxl/core/regs.c
-> @@ -277,6 +277,20 @@ static bool cxl_decode_regblock(struct pci_dev *pdev, u32 reg_lo, u32 reg_hi,
->  	u64 offset = ((u64)reg_hi << 32) |
->  		     (reg_lo & PCI_DVSEC_CXL_REG_LOCATOR_BLOCK_OFF_LOW);
->  
-> +	if (reg_type == CXL_REGLOC_RBI_EMPTY)
-> +		return false;
-> +
-> +	/*
-> +	 * A BAR the PCI core could not place is reset to zero; decoding it
-> +	 * would map the block at physical address 0.
-> +	 */
-> +	if (!pci_resource_len(pdev, bar) ||
-> +	    (pci_resource_flags(pdev, bar) & IORESOURCE_UNSET)) {
-> +		dev_warn(&pdev->dev, "BAR%d: not assigned (type: %d)\n", bar,
-> +			 reg_type);
-> +		return false;
-> +	}
-> +
->  	if (offset > pci_resource_len(pdev, bar)) {
->  		dev_warn(&pdev->dev,
->  			 "BAR%d: %pr: too small (offset: %pa, type: %d)\n", bar,
+> diff --git a/drivers/hid/i2c-hid/i2c-hid-core.c b/drivers/hid/i2c-hid/i2c-hid-core.c
+> index 0e725a0f0abe..776dd14feba7 100644
+> --- a/drivers/hid/i2c-hid/i2c-hid-core.c
+> +++ b/drivers/hid/i2c-hid/i2c-hid-core.c
+> @@ -123,7 +123,7 @@ static const struct i2c_hid_quirks {
+>  	__u32 quirks;
+>  } i2c_hid_quirks[] = {
+>  	{ I2C_VENDOR_ID_HANTICK, I2C_PRODUCT_ID_HANTICK_5288,
+> -		I2C_HID_QUIRK_NO_IRQ_AFTER_RESET },
+> +		I2C_HID_QUIRK_NO_IRQ_AFTER_RESET | I2C_HID_QUIRK_BAD_INPUT_SIZE },
+>  	{ I2C_VENDOR_ID_ITE, I2C_DEVICE_ID_ITE_VOYO_WINPAD_A15,
+>  		I2C_HID_QUIRK_NO_IRQ_AFTER_RESET },
+>  	{ I2C_VENDOR_ID_RAYDIUM, I2C_PRODUCT_ID_RAYDIUM_3118,
+
+Applied, thanks.
+
+-- 
+Jiri Kosina
+SUSE Labs
 
