@@ -1,128 +1,123 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1140D3749FE
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:17:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139846; cv=none; b=FvOpim8qqpJXvnkFisLj3K7VS8BmIBfR1NGUrSuo1U4+K0GUBntbE7gEN7i2xLxce5XaoEKlxYhyxSxQ6Y/ssQh9+PonkpeQJEINAQGUiQ2COGOvTYSGc4+Va5gQTjDzfQWnaRDM6RRPHFzBowL2483rsX5HIEy0E2IgJySgpuc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139846; c=relaxed/simple;
-	bh=2JzqsoiLxocAa5D2L3SPzdIZsS+OW1mUD+PJx4LQgiw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Wh3wL783fMX9aVxLx1fJe3IFnHkMx13ZzZvgoJvmsUCO5vthmFmW0wy/uqpYIokEN4BAr7jW0l0xWsoGonbGOOshOmK2WEaaNWlrpqaKeQPNcUE6pCQujPLFNYsVxUotGmRewj3+Ayj1LK9G6NAu3pF1xGkaTFjy0AmN+iiOpdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=I6RtdCym; arc=none smtp.client-ip=209.85.208.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB3536A033
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:17:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789139865; cv=pass; b=kgWiCOax0QyE10xOOnBT8hc/4nIyomV3hfrLBNgNoqcl6+/ip3rxuRAKiuOf0Vfsf19+AmtE8gqQEayaBnCggyiDeTOXbq0sZWBtArJqUKh4r9+X8dbxIct+WtyjWABKfZZ5wFXJf3o8nH/RNQVAuLb3mB+duVeavhk2OzQGElc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789139865; c=relaxed/simple;
+	bh=qKzGefYJg3Ze6BfCB+nFJHTLMgAtUc8Iojo0PlBGvk0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mLcn6GzA695ClTvuJVisogNg+kJKln4rP6j3X0cnl1//XzXjcYq0BN35B2n5thWU5gW5lcns9QyZDDOCOW9Q8VqEc0yeCNH3syO9oUGqWhcutEadI6v5G1pc0kQ/RRAPoeMPgwQNIpiGW0Gza+C4xtRt/o5mC0ItxtTunZqd9Fo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=oDEmzEXy; arc=pass smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="I6RtdCym"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-69f7fa1c548so1714764a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:17:24 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="oDEmzEXy"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2940ef15d3so511466b.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:17:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789139862; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ffE8P4jw+N/DnhHyaZ8DB6Rkj9WtGmrI3veBLn6rTdkaBZB9RU9BwYo9K8YD32dmc6
+         fl1oRzq+dK6VfQBKXlvmJwhsqk3pcC7fh8EP6BBGnjgaY/vG9R7fygremdCoFULwYnmi
+         MqL/JGzRo4IMNGzGVgKE4jXdBUNE+RKZPxijbJmVqj+z3Z4B2v5qzjBd5tQQ6b+X0v55
+         wiOZivbCXypAhraghzI5v1HQT/ZgJ5Gi4i/A6iObjimfYYGzv3otAZKdAG6wYLT2G7GG
+         LBJED+1KOsRnEuGYVCnNE+PpD5gLlFrpoNOTKkOBeQepOTIqgN1jjI9YWLs31rqZ44rH
+         VWLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qKzGefYJg3Ze6BfCB+nFJHTLMgAtUc8Iojo0PlBGvk0=;
+        fh=R/AxZKzO003oEH1Pl61JxjjmeGYQ9mSvlGU05lyDa4c=;
+        b=DNiVRoWaRM+WmeMl1jB4OID+9tN4SYfQA//+xsjJY64wivJpZBHqo9t5X9ZqQPgTn6
+         1wdGsxY7NfVKLxQi9D+TkDvcqtCZUDcIXrdj2pI3FduUutTdsNiq2gGogwLOe7WdJ8Ok
+         +3e+V+DOp56CadqqdfV5YCyWEgtld6ppqysSHz+V5/OKoSqzTh01M4XEMp0QlZQVq+ap
+         j+ARMin6XcEG1BHcjQUBTKLCdWGXySrSqLjIP6L8PlevnVXFTjqOkOBZSv+VnNBf5I1f
+         dPdcLs2ODK4N4a/R/u9Yt7GKXSoyVFeYRiMwxm57d1TN7rNas4zwY9vVIIZA4UTPf9Ju
+         DIOQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789139843; x=1789744643; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=chromium.org; s=google; t=1789139862; x=1789744662; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=2JzqsoiLxocAa5D2L3SPzdIZsS+OW1mUD+PJx4LQgiw=;
-        b=I6RtdCymQit8YVXUfVke0ZwgoF+2b4Tc/vK0eZ2VUZDUJChIYtI6CnGF4+IqV5FMy3
-         LOyeMJAaPO2kxMgLgb1ATDws207sX2VFKoAFTuMzLtypckeKCdP8poCGi+BBj04Lfq+D
-         kG9uHWBdcrp47SkdypV1RxuPCBKHyoJhlalbk3yJG1h39CeiZQW7rqBlpHHhXbIcxNDJ
-         1CDfNWCv8YLccrEGqj9XLOO7+0cvtgfU4Jl2JwaD/kkPq/DrsUYm+ycsaBjzpikCU2xH
-         OaOTgz7S78hceZxdyxmBLUuED4unG6DduCxil069rY9oJ3424QX13qkDmAkBTb1egp9j
-         UO9Q==
+        bh=qKzGefYJg3Ze6BfCB+nFJHTLMgAtUc8Iojo0PlBGvk0=;
+        b=oDEmzEXyS09nBZgfuEhTYwLCGJWLa2oQsKQWYALC/qULfqch9osMrjgYjJ7KnMJC85
+         zXPxieTGQnuz5rEJoThiIROBoGAXaQRz/St/FYuAukf0mGDd75rrXIqcszy8ADiMpPt3
+         05Db3ooUThz0XThH/JGGshdMd1TMFkBL2bplU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789139843; x=1789744643;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1789139862; x=1789744662;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2JzqsoiLxocAa5D2L3SPzdIZsS+OW1mUD+PJx4LQgiw=;
-        b=J+8hJov/8nViIs/hmsmLPWEMHCsTus5lqEbGa1ZT8qgXmL6pk81Dei+s3Ae52uEUWj
-         0WoKsAFTfOMcOHCsFioqkv0lOiMcaZM8rqbav6BMfg0lm0KVPDNY9+zhjmExu9n304nJ
-         4qMaH3m4cBlNdeq3FCWO1V/TzSYPCnDMh9ST4bjC5Z1jnx7UtEljRm9N7pZhx3NiBp+/
-         JAc7zPpqcCUlpSNZql7tuuKvMPr+rA0DWqNUoP0bodT7qWETuwPV5TWOWMV1sJiTJjaY
-         XSYbEErQWLogc8Y44ObSXvm14g3AgYu2vglGo3KoOvki6CmY9Ywvrzu4YaZ8bxw3ANmi
-         rRbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxz4kAXtWm9tgbbf3sY0cGQXcjAwQbwn+rxaUpNKGhn5w4SkOm7CPSSFT2MFsGbzrpO2udmRKotddGJB+U=@vger.kernel.org
-X-Gm-Message-State: AFuF++nrut3vAGUP3F4y7VF5ojnXt7Ait/sq/72bh3kIjXQx01KHGB2f
-	G79cdBMBQmYtptE+ub+42cHozC9+wYLhkEwwlCFOrQr0VO+pW5HyLqvGy1ayxP2uU38=
-X-Gm-Gg: AYBFou3IgBxB7uTK64G/pqFSUJQvEl9bcgd8GkQ5C0s+wKMez+VWih0rwzpyrvNMBdH
-	X2HxuwJk2/ZKyZwo4gUT27ZzX0IQJ/yqzkJ49OA1uxZuhonpIE9jUc+RjUhN/ccA109XzhEeSBl
-	xsidX/ttga8YNExdNNwVJE/bycRODmmPpg+6GFkNKa76T5VLlHD3nAcWfCOgQTna6NOBfoSXgnW
-	UQvDDg59PDD1G1NEIZ9yqPwvoKGnt82ip4RYjU56uZv40Y49xR2hEc74eiKCwA3mjAChb/H0P/I
-	qNHZKeOK69y7SkZ03Os/G5QGcMYAeTeoStaPD1l+/LPm0uqetcPp5mIq3oePbfxiEW+pmAEFiMN
-	yidRiboTdK67CzGvXtymo/fnsqn6HdtYAXGqgXHlco7Y9cj+AJ7YeE+Uf1N6qGM4iomTfLcOlYU
-	zlN/Jsblv6/Sr0jzJKdA0A0uGLkDcv/Ehacra8L3O7kS6sR17TQQb7TYJGm4WkRWGQGF6XIU6Ig
-	A==
-X-Received: by 2002:a17:906:6a03:b0:c29:45ce:85ad with SMTP id a640c23a62f3a-c29667f24c6mr225571866b.1.1789139843199;
-        Fri, 11 Sep 2026 08:17:23 -0700 (PDT)
-Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966026e2esm93138666b.19.2026.09.11.08.17.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 08:17:22 -0700 (PDT)
-Date: Fri, 11 Sep 2026 17:17:20 +0200
-From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
-To: linuszeng@tencent.com
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
-	Natalie Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>, Oscar Salvador <osalvador@suse.de>, 
-	Jingxiang Zeng <jingxiangzeng.cas@gmail.com>, Michal Hocko <mhocko@suse.com>, cgroups@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v2 0/3] mm: page_counter: move hierarchical protection
- out of struct page_counter
-Message-ID: <aqQZus_Cc3mRiuXn@localhost.localdomain>
-References: <20260909-descriptive-name-v2-0-d7dd7c099049@tencent.com>
+        bh=qKzGefYJg3Ze6BfCB+nFJHTLMgAtUc8Iojo0PlBGvk0=;
+        b=PYhamyqBcgSwSoeL4UbKOt8N4FuGqUyA+HcygNCnkZJYmAdnaKgQktOn/suK0ziqUS
+         yT1KMwGS4E8lhQLsyV+YJFau/lkcLdGFttd76T7Gbux3oZviJfADmvniSw99b6RukoJc
+         pYbCrijjcKRMn4bihTTZZgyimEzSXpg7Go6jdlHxsix6U7xMHLAEZ5mWdsXVpHE4xhDz
+         uHc/oOU6paT58j4zKe/JjKNYOI2iKode4wLrRa/KK4kC0NeKKSXRtpojXfN0BMaSwx7I
+         aM9MqvPwjxouIRpP3QesTpvXWh90lx9QGOofyb6wrxToJD8pwTeq1CZFp0UX8Btv5m9o
+         m9Ig==
+X-Gm-Message-State: AFuF++m8pyGln85mipzrwra5U/sESEcVl2PeUPnayneKAhnX1t+giXv7
+	SBYJvNZHOq73P5ypabZbuBd2W1GX9fEDZxJeFVpPpfQoI1buBMNg3szxKDodYh8KR9DC+5wl0ZZ
+	VunZoWtbbNR89voTz4+nC6X0P84F66CI0xcMaY0Fo
+X-Gm-Gg: AYBFou2x7cvf31Fw4L7sm49d1uybbwasCzcsQmZEfhXdCZrIbzWZIE1MPHtes+RS02b
+	ZpwGBAYAvrxfIfzev5qHc0FvjL6xJk80K0eLzf1OyvqAfGZgOGeCUcycIMfjdh8rqPEah51fplg
+	njO6K2ufK7lRupMWEQtrkHO4EU/eg7GBihksfrMTPscMcvwjHZuPmBdFw149a3092ZagBD82XZA
+	CmMFQ68g4xD704Q/TeMmQvABaI3yfGYIT50UUxrJBuSuuwGNr+mtkKrlaqla3GvWICno7w/hBzM
+	DSw+GY4U2owmFrsIDzZhdUC75g2aeRxsFtgbH1uGaarSEblJ4H9uJz2q
+X-Received: by 2002:a17:907:9410:b0:c25:cbec:22cc with SMTP id
+ a640c23a62f3a-c29665406bdmr399644566b.5.1789139861734; Fri, 11 Sep 2026
+ 08:17:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ozrropszbqjorccy"
-Content-Disposition: inline
-In-Reply-To: <20260909-descriptive-name-v2-0-d7dd7c099049@tencent.com>
+References: <20260910090512.1197517-1-jaszczyk@chromium.org> <875x0cymr5.ffs@fw13>
+In-Reply-To: <875x0cymr5.ffs@fw13>
+From: Grzegorz Jaszczyk <jaszczyk@chromium.org>
+Date: Fri, 11 Sep 2026 17:17:29 +0200
+X-Gm-Features: AcwNN1Wmpi9ArJPZMIyoqNY3g39YmYfPU8IArOv7x_0UkC7aT7EyEWppHhelNd8
+Message-ID: <CAGptq8F7MgYt94QuCFF0hRGDAw851sK_xByBJc_cnUpYAF2yMQ@mail.gmail.com>
+Subject: Re: [PATCH] x86/apic: Switch to x2apic driver early if x2apic is enabled
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dmaluka@chromium.org, vineethrp@chromium.org, 
+	chuanxiao.dong@intel.com, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Eric Dumazet <edumazet@google.com>, Melody Wang <huibo.wang@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, Sep 11, 2026 at 2:51=E2=80=AFPM Thomas Gleixner <tglx@kernel.org> w=
+rote:
+>
+> On Thu, Sep 10 2026 at 09:04, Grzegorz Jaszczyk wrote:
+> > To prevent this, check if x2apic is enabled in hardware during early AP=
+IC
+> > call setup in apic_setup_apic_calls() and switch the default APIC drive=
+r
+> > from apic_physflat to apic_x2apic_phys immediately. This ensures that a=
+ny
+> > early EOI writes use safe MSR-based accesses. The driver can still be
+> > upgraded later during the normal APIC probe phase.
+>
+> That's really the wrong place. Initializing those calls has absolutely
+> nothing to do with the driver probing.
+>
+> There is quite some historical ballast in this whole APIC driver
+> probing, which I never came around to clean up.
+>
+> I'll have a look how this can be done sanely without replicating half of
+> the existing code just to paper over the real issue.
+>
 
---ozrropszbqjorccy
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v2 0/3] mm: page_counter: move hierarchical protection
- out of struct page_counter
-MIME-Version: 1.0
-
-Hi.
-
-On Wed, Sep 09, 2026 at 05:44:18PM +0800, linuszeng via B4 Relay <devnull+linuszeng.tencent.com@kernel.org> wrote:
-> No functional change is intended: protection semantics and the cgroup
-> v1/v2 behaviour are preserved.
-
-It is not clear from the description what is the intention then :-)
-
-Do you have any measurements that the reduced cache footprint
-changes performance for setups without protection?
-And what is the positive impact on protected scenarios where the
-counters are in (possibly) different cacheline and one indirection
-further?
+Ok, understood. Thank you. Let me know when you have something to look
+at or test.
 
 Thanks,
-Michal
-
---ozrropszbqjorccy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCaqQbfBsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+AjHdwEA9eabDSoks6Xn+ni3bc0I
-AP32Ul+BBWTmz5HMyoTjovoA/2JJSh5lKBEsuu0fwEMrZGzX9XiTI5mG6CHzszPG
-ztkH
-=VS/g
------END PGP SIGNATURE-----
-
---ozrropszbqjorccy--
+Grzegorz
