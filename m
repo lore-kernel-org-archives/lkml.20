@@ -1,81 +1,98 @@
-Received: from mta0.migadu.com (out-205.mta0.migadu.com [91.218.175.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBEF02609C5
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:09:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDEE41D4D4;
+	Fri, 11 Sep 2026 08:09:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789114169; cv=none; b=ti0sXZJjHP1cNd/gw/VlcnHPA9tBcMRIuGCk1v0EVlUamDIjSj/+x6IRmiRsUhlBLpBt6hH9ZQYacxHJIaCG/v9Ydxs/ACaTwP9fUGTFH15H2phBma47g9q36gs7BSSq601RoJ2vf6eiWIfmbOYOA0LkajQZ16xbNNOWEPrzt8Y=
+	t=1789114173; cv=none; b=WLwv8KTKJ/IAn3LPSz1v1KGUR2B1dvO9a9k8zxCTgaHfarW2e8zE7aaMjQOyJV2jids+5Tnv85FOguvJSm4YzEKBLoiTNqM79N7eNXinHmqq19pbpiVtes/2b59mRbc8wwJADtx3FJ1jRh6r+eOfFPuw4ERFKSnhTtQTvWZGp/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789114169; c=relaxed/simple;
-	bh=ZDUrEhbV+2TXq+MkQPnXAz+dDI19w+d9G1ESNOiQmJg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qp/FIJuRbE03IZ261vfjnmVJA0Hfr/PpzAgoBQ59U2ENIGfTQKk55rookd+DtvrzGnaNWAt3xwVyOSVJIYk0dD7rD2dDeQXxPu6QWZ4YmN7y27c5WevPeVMbRgE4WWj3SCAPPqSSX0yE26JuL3XN8Y2yNvAevE5VtlbS2NGCO24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cJZmrMoe; arc=none smtp.client-ip=91.218.175.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789114173; c=relaxed/simple;
+	bh=OZi94MFbn80qGqeWjmm68L+x49CK/AaA4m52GJkAl0U=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Subject:Cc:
+	 References:In-Reply-To; b=eCFAfvZwjXj4n/x6BlMTWUBmPzFgIG2gC3Pb5IhaX4mAV4FdR4BMDci7eDoQY9AhWPO1BQ7g6JowiSZ1UTC9afNkh6h1cNW94BDp0t30H+zyPFLUMotvcwZE8RoW3lkb+Byvm4QuXx2QjI5xv2BLB5iAWcOMAhFqliNm7nmNkco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ABkeFsR8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cJZmrMoe"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ZDUrEhbV+2TXq+MkQPnXAz+dDI19w+d9G1ESNOiQmJg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789114163; v=1; x=1789718963;
- b=cJZmrMoe5/j1r6M89ukpc21PQLHEP2yStvfBhg8b9yLb6vGTHtUAoDIYu+SdUXGTm9xpK2Py
- NYAzNsaBV8rOTR0WobrF+oL/zgWPTy7ix1j531NfUXV2SL0kbrupoiHZ7cwKhWwI82FWqK3QGdE
- AmXGR4ifwVEzFmNtVkpTpTx4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 78e6f9d7077485fc;
-	Fri, 11 Sep 2026 08:09:23 +0000
-X-Mizu-Trace-ID: 78e6f9d7077485fc
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 11 Sep 2026 16:09:15 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Nikolay Aleksandrov <razor@blackwall.org>
-Cc: jv@jvosburgh.net, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	daniel@iogearbox.net, linux-kernel@vger.kernel.org,
-	liuhangbin@kylinos.cn
-Subject: Re: [PATCH net v3] bonding: fix slave_cnt leak on XDP error paths
-Message-ID: <aqO3Kw-ydibVisXK@fedora>
-References: <20260907-bond_slave_cnt-v3-1-57df3b3cf2cb@kylinos.cn>
- <178889459114.219967.6984751596437332187@kernel.org>
- <aqOrcoqnRMsvpS_5@fedora>
- <8149fce5-04c3-4a14-969c-c65a75dcf699@blackwall.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ABkeFsR8"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 891FE1F000FF;
+	Fri, 11 Sep 2026 08:09:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789114171;
+	bh=C/bSmY3dussktX4XXEfGa3xLo4YHGuzrmx2ufGQXu50=;
+	h=Date:From:To:Subject:Cc:References:In-Reply-To;
+	b=ABkeFsR8RRtD+1Vun7xe2fHSqIREw+siG1VKDK5hpnMUXpt1K7U6LtxHk5CemAhUL
+	 LdL0DB/Pr1jruWSxvsbxvmZWj5AmCUKL02hbBfNzBeh+e1rQV+HbJptlmWsEleWIuK
+	 v0imTqdKQOPCLlEzh9ydJEuhI+n3MUvuddeDz4oRoC4Op3yn9mYITdPiwnIXOXkMbD
+	 7fsL5gnZsdWi+lAPXOz/okxISoYki7JaaiqvToDp+A59tKocMGyJOIi5dbZ92Oc2Rk
+	 wlKDjLC+fqA/35sVoiXCVSqgGp+Il4WMNupgM6z3l6hqW/Y++9U/ol/lYM1dvm9Bie
+	 rskzWyquJKolA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8149fce5-04c3-4a14-969c-c65a75dcf699@blackwall.org>
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=450039049a878f99262beedcb50f43df13d2c89635805f68d2b59f1390f8;
+ micalg=pgp-sha384; protocol="application/pgp-signature"
+Date: Fri, 11 Sep 2026 10:09:27 +0200
+Message-Id: <DLCC1HX0HX8Z.1X4CEDDDVRQ58@kernel.org>
+From: "Michael Walle" <mwalle@kernel.org>
+To: "Sanjaikumar V S" <sanjaikumarvs@gmail.com>, <pratyush@kernel.org>
+Subject: Re: [PATCH v5] mtd: spi-nor: Fix SST AAI write mode opcode handling
+Cc: <hd@os-cillation.de>, <linux-kernel@vger.kernel.org>,
+ <linux-mtd@lists.infradead.org>, <miquel.raynal@bootlin.com>,
+ <richard@nod.at>, <sanjaikumar.vs@dicortech.com>, <stable@vger.kernel.org>,
+ <tudor.ambarus@linaro.org>, <vigneshr@ti.com>
+X-Mailer: aerc 0.20.0
+References: <20260331095026.38-1-sanjaikumarvs@gmail.com>
+In-Reply-To: <20260331095026.38-1-sanjaikumarvs@gmail.com>
 
-On Fri, Sep 11, 2026 at 10:23:26AM +0300, Nikolay Aleksandrov wrote:
-> > Oh, hold one. I miss read the comment. It's not about the
-> > bond_update_slave_arr() at bond_enslave() we moved to.
-> > 
-> > This is the bond_update_slave_arr() called by bond_uses_primary(), which
-> > is before the ndo_bpf ops. We need to either also move the
-> > if (bond_uses_primary(bond)) block after bond_update_slave_arr().
-> > Or just use my patch v1 version, that add a new err out.
-> > 
-> > Nikolay, what do you think?
-> > 
-> > pw-bot: changes-requested
-> > 
-> > Thanks
-> > Hangbin
-> 
-> Oh well, it is becoming too dangerous. I'd go with your v1. That is the safest bet
-> that can be easily backported. Sorry for leading you down this path, I missed
-> we can still reach the slave arr update via active slave selection.
+--450039049a878f99262beedcb50f43df13d2c89635805f68d2b59f1390f8
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-bond_update_slave_arr() is somewhat hidden, and I also missed it :(
+On Tue Mar 31, 2026 at 11:50 AM CEST, Sanjaikumar V S wrote:
+> From: Sanjaikumar V S <sanjaikumar.vs@dicortech.com>
+>
+> When the SPI controller lacks direct mapping support, the fallback path
+> in spi_nor_spimem_write_data() uses nor->write_proto based operation
+> template. However, this template uses the standard page program opcode
+> set during probe, not the AAI opcode required for SST flash.
 
-The settings in bond_enslave() are growing increasingly complex and
-interdependent. Moving any line around becomes risky.
+So it looks like that mtd->_write override in sst.c is rather
+hacky..
 
-Thanks
-Hangbin
+> Additionally, controllers that do support direct mapping will also use
+> the wrong opcode since the dirmap template is created at probe time
+> with the standard page program opcode.
+>
+> Fix this by:
+> 1. Checking the nodirmap flag in spi_nor_spimem_write_data() to ensure
+>    the code falls through to spi_nor_spimem_exec_op() path which builds
+>    the operation at runtime with the correct program_opcode.
+> 2. Setting nodirmap=3Dtrue for SST AAI devices in sst_nor_late_init() to
+>    disable dirmap and force the runtime opcode path.
+
+I'd be fine with disabling dirmap support as a workaround. But I'm
+not sure if we are supposed to change the nodirmap property as that
+is a property owned/set by the controller.
+
+Could we just compare the mtd->_write =3D=3D spi_nor_write and then skip
+the dirmap support? With a big here be dragons warning.
+
+-michael
+
+--450039049a878f99262beedcb50f43df13d2c89635805f68d2b59f1390f8
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCaqO3NxIcbXdhbGxlQGtl
+cm5lbC5vcmcACgkQEic87j4CH/gjMwGA5E7TquopeYXl0SpjG/PWzgt0kUtU/ZoQ
+uzs6pbnl1rGqJR84IXbMXDJGThX4Udh8AYDu9tBGaN9gWgZdAdaYkjYte1mBv8w4
+uvUdV+6z5WEYqoZDxG/J67/LhpXNUcHEdi8=
+=4Zdr
+-----END PGP SIGNATURE-----
+
+--450039049a878f99262beedcb50f43df13d2c89635805f68d2b59f1390f8--
