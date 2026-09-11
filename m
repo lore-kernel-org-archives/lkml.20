@@ -1,45 +1,45 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 751F33CAE93
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:29:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5488A3C3F7D
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:29:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789169350; cv=pass; b=u9g6tiMIhlr45hDgbntBhSk25Na7PEmg7bD3tf7PPgtHabka8oyWTL2ROPgpR0C7nnxYx5OPmLz0YBwnwndE6Qdmy/A3YtrtoFx6XnwqdgCcX92Ccd7ln3H593aWWbu3kFTEttmJGdCGmhXheh36mPUUc0myCmcmS3+kWikfP7Q=
+	t=1789169359; cv=pass; b=ZSRdGDCxlbG41Jx7TBNNXtS5iUaaDUjvjv8TbrNfe3TQObkdVjMI7kyeuw8wvR046lLoe/+Ek/XUDVWc15gU07fH7rSq0eLgQZ+M27Pw+rDWZK01pb1vzB0qDb9OkjE7wRepjfGxaSOCv3/z5MqOdvf3+M0F+6icMagFAfH+xo8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789169350; c=relaxed/simple;
-	bh=8N9OTvjoinX5/P8Bx031evS2KBpmBBnj/B3cF4lIFps=;
+	s=arc-20240116; t=1789169359; c=relaxed/simple;
+	bh=rGbyQBkNbY5a1OXBSal5Mure3AlHLFxQtfgc5Bhzvks=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Im0jcn8M7m28k09sZrZU+GPvU2DHRb0aeZ25atonQG+24klV6zoLbNcwV3lRlT30ny/YwVGrxuMjYzNOQQfWrhcu/EXROG2a5v6cI5+DXBuRyaPeN1GN00RmC77iEj2XoM3dRdLC/928qtVOIzVW9TglNp7AZff4SlRR/g/ILfo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=VLKOXLUw; arc=pass smtp.client-ip=165.173.182.11
+	 In-Reply-To:To:Cc; b=KMw0szCqNxoSJG7+aH2iI9XWgGLOo2Njk4awCDqFekfkSMI3x4EHmAe0+hd8Vau8/EGjdtYKc2dD/YgPvSl913BE3JiaKZRB3I9mhPR3O/dYIh4jfUKdQw1yoXUF0RJY8JnD0eadc7axHdLS8NBb8h3L5DwtqIAch/f+cNDWdoM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=OSpO+nDb; arc=pass smtp.client-ip=165.173.180.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="VLKOXLUw"
-ARC-Seal: i=1; a=rsa-sha256; t=1789169315; cv=none; 
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="OSpO+nDb"
+ARC-Seal: i=1; a=rsa-sha256; t=1789169325; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=h5GdodCEFYWC5aT5Y/s//I6Q+CHvxAqxaTWneE2iC2vVZRl12xU3dPyr/CLkxHedXIfoIGGdpLHl9k2w6cqmgY5X/2kwepXMNpu400fKuQMJ0O3DriDLEYrDgn3MvVd001kw7kTpvfQM4s/ozr10N3Wf4Py8FN6LlvbZ6q27DN4=
+	b=O5cMLdAMoDUutx0+TZxZxWQy6QyLTq80pweXOoEWL8Wh1NmhXLsmzFhm+6vbg4/S8VfsPqsKkSYSa9hamPW9vK77ZvT6GjZPn1eTRn6TJ8Z/38Q6yOXaoHSknnsnyx4pUDx4jp28qZGgxyVjJWHJZR6T+jp2HRdHvrD5OZSejbc=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789169315; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=mF1RZthkuxBEzV521eRDnzbipr0oJ1kFYAE3ZplKRrI=; 
-	b=YnLro6LnZjQIkSdX/VLtn69PK4p7HWAKA0r24RjFTOW0+kJPNfibSVF2L99ICzSR8H/l+98yqLpSdBXn/rK1zZxhvQ7ixZfpNHXnut7Q6uvI8iPhJ7JKxzMRJA/FIkF4c/XEnqX1efdRP8sg710O+cUi0QyAU2sWJZ1tkAv/8Uw=
+	t=1789169325; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=YLJJEy7HObDD1CKVtOGtdrfPLM+ZQOVKX8SKLnJRFuQ=; 
+	b=Ns9ICgC+pzFg1/yXpsoEyr9bvcwGhIC3tW51M0uq7VEYsninoZtRyMcOyU8AO548dlWdM0fpfO2AUFQtGoP881pTSIhP4bBZqEMcz6oh1Jim5OrMjgwmJQNdeGefZCyPjJZ6jVw71T9FrUPP1uVrAfaWe+SNN/7wQ1wmVYv01OY=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=collabora.com;
 	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
 	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789169315;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789169325;
 	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
 	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=mF1RZthkuxBEzV521eRDnzbipr0oJ1kFYAE3ZplKRrI=;
-	b=VLKOXLUw7RqplPKwJnSdOtPG40kQL9RcdPXU2x//YsPEKx45uWVRh9LZVCoJ1HL4
-	9bafbtktoI45L2M+xbt7SQiechlV6mdRWZ6+5Dk2s/d8Kq3v/QDc4NwythwRT5iw3XA
-	BWn17ab4mO0nR5HXAiC3TuWAK7hnWMArDk1T4rl4=
-Received: by mx.zohomail.com with SMTPS id 178916931426765.30832356669805;
-	Fri, 11 Sep 2026 16:28:34 -0700 (PDT)
+	bh=YLJJEy7HObDD1CKVtOGtdrfPLM+ZQOVKX8SKLnJRFuQ=;
+	b=OSpO+nDbjm2r8l7mkKIyJCujhuLFgB8OxrhQ2lGVZWFVRFpJViQza7tPy7ns1RKE
+	8WAiJH4r81CPXGHruIVYHrai58qe0O6qgDp80qajGOVHr1wbb6v94Ps4aULAyWYi3aT
+	Z5jIEVkIUokJ8c4wFKqOivm3GgXXEdSHf22Sdauw=
+Received: by mx.zohomail.com with SMTPS id 1789169324521206.45016185233806;
+	Fri, 11 Sep 2026 16:28:44 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Sat, 12 Sep 2026 00:28:06 +0100
-Subject: [PATCH v9 05/16] drm/panfrost: Consolidate device clock management
- and reset
+Date: Sat, 12 Sep 2026 00:28:08 +0100
+Subject: [PATCH v9 07/16] drm/panfrost: Explicitly enable MMU interrupts at
+ device init
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,7 +48,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260912-claude-fixes-v9-5-e588feaa61ef@collabora.com>
+Message-Id: <20260912-claude-fixes-v9-7-e588feaa61ef@collabora.com>
 References: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
 In-Reply-To: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -66,236 +66,70 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6296;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1801;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=8N9OTvjoinX5/P8Bx031evS2KBpmBBnj/B3cF4lIFps=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqpI6DNigqCJshDoRQPNvcgGhnu2sXDOg3GT1s0
- YkQaqCLPbeJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCaqSOgwAKCRAOJn5M7lND
- PS7QDACn3Oe8lAXZQy7znZ/c3vG6QzQ/yWJJDJLrgIOCdVaRvpp2S42zk1BX8fZ10j865qNwPhw
- /83YrT08hW3DlEO7CeEXUVSIGPVIwsIWPtKOMNJUBMdXBldSyq6pHD8HSfXDLxWOV2vIyWhsqXV
- tXiTRnRtRNMMdkM7olHXRQQPhpcdEqYy+z0RgsShPKazKZ3CKGEQwuIPCpcCrAjnIw943yEp/Tb
- mLcZ8xcr6Jehgzoe3mgRwDTg0M/uByTsz9il+jTeGthXWR6/GocYbLReI8EZUyv2+1Q7ZGWQAUT
- RhFXQPoLtVEbddnLHVPd8/Kq6M5ukXH2DA/95VYugN5CRKfawtY3jO/ABIa3mvCCKi8mrjFGIeM
- sjWL5BKVNOnwlpYAg7PD0I7ykfUxcblMNpty8lW0UzCaNec/OnczroXM3XyxBoXIYyXzv10y5vp
- m/ARckoiLl9DuNqsDlIg+VJR9oRi02jj44R22JXO1k3TyjmMJmj6B8dfGr15kW1sE07PY=
+ bh=rGbyQBkNbY5a1OXBSal5Mure3AlHLFxQtfgc5Bhzvks=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqpI6DzEr/T1iUFVkI2QPrIHIjMCvGnDL6nJbhV
+ Va0sFemfgOJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCaqSOgwAKCRAOJn5M7lND
+ PcJlC/oCi3WiKFWYZgTrnQ2gv+Tw4xWT9OHb9rRQzRnac/kwfT/VZ5l8Ba/N9P32EgoK8zeOJgf
+ 9AiBzya4Aai/R42StuSPTxzOaEsL8acTMrg1EQEokOOEsNvYA5cHD0mruPRvFzUyxHZwspEBxbK
+ uR1qkk221tS6yy4xhTpoHX4Cn6jth82RddCvvVRzx2JYIWkUnbfqPk5xzFIJK6O72Z3B5OixdoF
+ tQevfDZUCUomgHigJDkEohbstluxPmatrN9TetSwAVuCabW+OVczoxzSEfEVNDbgPWrHrV1E2iW
+ 4uWzaVf2oISrHckaHOoAnUQa75M3zybRXNit5lg1EQKz+WsO7hwXvMeLJVPnpYo6atimFj+uaxa
+ dxpx/YhCQLD72qHgqcqVxfSEtV6K7zSB+97MBQrt5GBd5RszpeuZfJr44HmR9Y2CdtToM1kxtuH
+ RPNbT9JYrMdgU/wdBE9YucNWjkxDldQJQzyWXn0YVYlcWGCmc20nBxIcTZyKKghtCUcFQ=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-Gather all clock enables and disables into a single function to avoid
-repetitions between driver init/fini and device resume/suspend, since
-these clocks are always handled in bulk.
+Because the device must be in a position to accept jobs between the time
+drm_dev_register() is called and autosuspend first kicks in, there's a very
+narrow window inbetween during which jobs targeting the tiler buffer
+object would time out, since the device's PM status is 'Active', but no MMU
+interrupts were enabled at device initialisation time.
 
-Also do clk (un)prepares and dis/enables at the same time, since the
-clk_prepare_* family of functions can simply increase the refcnt of
-an already prepared clock.
-
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+Fixes: 73e467f60acd ("drm/panfrost: Consolidate reset handling")
 ---
- drivers/gpu/drm/panfrost/panfrost_device.c | 118 +++++++++++++----------------
- 1 file changed, 52 insertions(+), 66 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_mmu.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-index b3a53504bd01..2fcbd223204c 100644
---- a/drivers/gpu/drm/panfrost/panfrost_device.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-@@ -34,10 +34,46 @@ static void panfrost_reset_fini(struct panfrost_device *pfdev)
- 	reset_control_assert(pfdev->rstc);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+index 5c393ed6e310..faa62643caf1 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
++++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+@@ -336,6 +336,12 @@ void panfrost_mmu_as_put(struct panfrost_device *pfdev, struct panfrost_mmu *mmu
+ 	WARN_ON(atomic_read(&mmu->as_count) < 0);
  }
  
--static int panfrost_clk_init(struct panfrost_device *pfdev)
-+static int panfrost_clk_enable(struct panfrost_device *pfdev, bool enable_ace_clock)
- {
- 	int err;
-+
-+	err = clk_prepare_enable(pfdev->clock);
-+	if (err)
-+		return err;
-+
-+	err = clk_prepare_enable(pfdev->bus_clock);
-+	if (err)
-+		goto disable_clock;
-+
-+	if (enable_ace_clock) {
-+		err = clk_prepare_enable(pfdev->bus_ace_clock);
-+		if (err)
-+			goto disable_bus_clock;
-+	}
-+
-+	return 0;
-+
-+disable_bus_clock:
-+	clk_disable_unprepare(pfdev->bus_clock);
-+disable_clock:
-+	clk_disable_unprepare(pfdev->clock);
-+
-+	return err;
++static void panfrost_mmu_enable_interrupts(struct panfrost_device *pfdev)
++{
++	mmu_write(pfdev, MMU_INT_CLEAR, ~0);
++	mmu_write(pfdev, MMU_INT_MASK, ~0);
 +}
 +
-+static void panfrost_clk_disable(struct panfrost_device *pfdev, bool disable_ace_clock)
-+{
-+	if (disable_ace_clock)
-+		clk_disable_unprepare(pfdev->bus_ace_clock);
-+	clk_disable_unprepare(pfdev->bus_clock);
-+	clk_disable_unprepare(pfdev->clock);
-+}
-+
-+static int panfrost_clk_init(struct panfrost_device *pfdev)
-+{
- 	unsigned long rate;
-+	int err;
- 
- 	pfdev->clock = devm_clk_get(pfdev->base.dev, NULL);
- 	if (IS_ERR(pfdev->clock)) {
-@@ -48,53 +84,31 @@ static int panfrost_clk_init(struct panfrost_device *pfdev)
- 	rate = clk_get_rate(pfdev->clock);
- 	dev_info(pfdev->base.dev, "clock rate = %lu\n", rate);
- 
--	err = clk_prepare_enable(pfdev->clock);
--	if (err)
--		return err;
--
- 	pfdev->bus_clock = devm_clk_get_optional(pfdev->base.dev, "bus");
- 	if (IS_ERR(pfdev->bus_clock)) {
--		dev_err(pfdev->base.dev, "get bus_clock failed %ld\n",
--			PTR_ERR(pfdev->bus_clock));
- 		err = PTR_ERR(pfdev->bus_clock);
--		goto disable_clock;
-+		dev_err(pfdev->base.dev, "get bus_clock failed %d\n", err);
-+		return err;
- 	}
- 
- 	if (pfdev->bus_clock) {
- 		rate = clk_get_rate(pfdev->bus_clock);
- 		dev_info(pfdev->base.dev, "bus_clock rate = %lu\n", rate);
--
--		err = clk_prepare_enable(pfdev->bus_clock);
--		if (err)
--			goto disable_clock;
- 	}
- 
- 	pfdev->bus_ace_clock = devm_clk_get_optional(pfdev->base.dev, "bus_ace");
- 	if (IS_ERR(pfdev->bus_ace_clock)) {
- 		err = PTR_ERR(pfdev->bus_ace_clock);
- 		dev_err(pfdev->base.dev, "get bus_ace_clock failed %d\n", err);
--		goto disable_bus_clock;
-+		return err;
- 	}
- 
--	err = clk_prepare_enable(pfdev->bus_ace_clock);
--	if (err)
--		goto disable_bus_clock;
--
--	return 0;
--
--disable_bus_clock:
--	clk_disable_unprepare(pfdev->bus_clock);
--disable_clock:
--	clk_disable_unprepare(pfdev->clock);
--
--	return err;
-+	return panfrost_clk_enable(pfdev, true);
- }
- 
- static void panfrost_clk_fini(struct panfrost_device *pfdev)
+ void panfrost_mmu_reset(struct panfrost_device *pfdev)
  {
--	clk_disable_unprepare(pfdev->bus_ace_clock);
--	clk_disable_unprepare(pfdev->bus_clock);
--	clk_disable_unprepare(pfdev->clock);
-+	panfrost_clk_disable(pfdev, true);
+ 	struct panfrost_mmu *mmu, *mmu_tmp;
+@@ -355,8 +361,7 @@ void panfrost_mmu_reset(struct panfrost_device *pfdev)
+ 
+ 	spin_unlock(&pfdev->as_lock);
+ 
+-	mmu_write(pfdev, MMU_INT_CLEAR, ~0);
+-	mmu_write(pfdev, MMU_INT_MASK, ~0);
++	panfrost_mmu_enable_interrupts(pfdev);
  }
  
- static int panfrost_regulator_init(struct panfrost_device *pfdev)
-@@ -436,34 +450,17 @@ static int panfrost_device_runtime_resume(struct device *dev)
- 		if (ret)
- 			return ret;
- 
--		ret = clk_enable(pfdev->clock);
--		if (ret)
--			goto err_clk;
--
--		ret = clk_enable(pfdev->bus_clock);
--		if (ret)
--			goto err_bus_clk;
--
--		ret = clk_enable(pfdev->bus_ace_clock);
--		if (ret)
--			goto err_bus_ace_clk;
-+		ret = panfrost_clk_enable(pfdev, true);
-+		if (ret) {
-+			reset_control_assert(pfdev->rstc);
-+			return ret;
-+		}
+ static size_t get_pgsize(u64 addr, size_t size, size_t *count)
+@@ -973,6 +978,8 @@ int panfrost_mmu_init(struct panfrost_device *pfdev)
+ 		return err;
  	}
  
- 	panfrost_device_reset(pfdev, true);
- 	panfrost_devfreq_resume(pfdev);
- 
++	panfrost_mmu_enable_interrupts(pfdev);
++
  	return 0;
--
--err_bus_ace_clk:
--	if (pfdev->comp->pm_features & BIT(GPU_PM_RT))
--		clk_disable(pfdev->bus_clock);
--err_bus_clk:
--	if (pfdev->comp->pm_features & BIT(GPU_PM_RT))
--		clk_disable(pfdev->clock);
--err_clk:
--	if (pfdev->comp->pm_features & BIT(GPU_PM_RT))
--		reset_control_assert(pfdev->rstc);
--	return ret;
  }
  
- static int panfrost_device_runtime_suspend(struct device *dev)
-@@ -480,9 +477,7 @@ static int panfrost_device_runtime_suspend(struct device *dev)
- 	panfrost_gpu_power_off(pfdev);
- 
- 	if (pfdev->comp->pm_features & BIT(GPU_PM_RT)) {
--		clk_disable(pfdev->bus_ace_clock);
--		clk_disable(pfdev->bus_clock);
--		clk_disable(pfdev->clock);
-+		panfrost_clk_disable(pfdev, true);
- 		reset_control_assert(pfdev->rstc);
- 	}
- 
-@@ -506,13 +501,9 @@ static int panfrost_device_resume(struct device *dev)
- 	}
- 
- 	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS)) {
--		ret = clk_enable(pfdev->clock);
-+		ret = panfrost_clk_enable(pfdev, false);
- 		if (ret)
- 			goto err_clk;
--
--		ret = clk_enable(pfdev->bus_clock);
--		if (ret)
--			goto err_bus_clk;
- 	}
- 
- 	ret = pm_runtime_force_resume(dev);
-@@ -523,10 +514,7 @@ static int panfrost_device_resume(struct device *dev)
- 
- err_resume:
- 	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS))
--		clk_disable(pfdev->bus_clock);
--err_bus_clk:
--	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS))
--		clk_disable(pfdev->clock);
-+		clk_disable_unprepare(pfdev->bus_clock);
- err_clk:
- 	if (pfdev->comp->pm_features & BIT(GPU_PM_VREG_OFF))
- 		dev_pm_opp_set_opp(dev, NULL);
-@@ -542,10 +530,8 @@ static int panfrost_device_suspend(struct device *dev)
- 	if (ret)
- 		return ret;
- 
--	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS)) {
--		clk_disable(pfdev->bus_clock);
--		clk_disable(pfdev->clock);
--	}
-+	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS))
-+		panfrost_clk_disable(pfdev, false);
- 
- 	if (pfdev->comp->pm_features & BIT(GPU_PM_VREG_OFF))
- 		dev_pm_opp_set_opp(dev, NULL);
 
 -- 
 2.55.0
