@@ -1,356 +1,395 @@
-Received: from gentwo.org (gentwo.org [62.72.0.81])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E32041B362
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:06:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.72.0.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E8C40EB8E;
+	Fri, 11 Sep 2026 19:07:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789153612; cv=none; b=dS3PbVKmJcAR30aJxv4rqcaqIHi69NYUpowhsRpE+4eEv/kEhbuJiuKgJVqIxCeyqoD1T2ze3RWpIiLdKpQjtxkWLJqJvYLQ8hYW/wIUwMuFHXl/PyrpOPQKweDrZy1cSQkGjy/xREVHgHJ3D1pEe9cURkVhg5+gskk4eaklmGo=
+	t=1789153656; cv=none; b=jGWK3zgLyf71sctiP3oS/+B8HF7SnS5pDJcTHApF8ICdQklCOZ/n1BEcEuRKB5oGHGm+Z32ABHQPjAhvm7Wp+R//qroloMEnni4rYt3MFJLSAI0Ea8e/MwIHnx+9pjFwuwo//rDrAn0t7actU7lK9gVqozp38IntEbwa8PtSD9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789153612; c=relaxed/simple;
-	bh=Bb7xx5L2v09zQ8WaBJEKdMGYL2amwkRAh0X+rfcrOtw=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=iYuHcneo3XV6QOiD1N5McoVynJMnoHgETiqOzNwiw4rCWzLdsQ721bD64uv98sUawlxkQwrHXsNecpAdDbQHYBWYbNh3OdEBoJbLYa0/SIxI/zaw2wlJr8+U9HJk3w6V1hULCCsdzuC/JmJbTPrshM0S1aGd82FkOmAKV+9+414=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org; spf=pass smtp.mailfrom=gentwo.org; dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b=iVepGxox; arc=none smtp.client-ip=62.72.0.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
+	s=arc-20240116; t=1789153656; c=relaxed/simple;
+	bh=Khndi0tWKHMe6yxvXOw5Ggby4SB4E+1jnn+GG4AOL5g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AH7FHfiFnY2QN5Jmj+AzqkY8EsEiD7TNTbPmGYwFkKxqY4hiS6WIkQDVjhSrfTnTsmfS39ZRWP5JsAvVV8dpkapJsinMUviqicj3D9VJHwk2gEtfv6cWHFbGg9YPwPV1fR/NAOIfcHn2IFzIPB42lqFhzPDEGsxoOX2M1h8ZybU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SMRSULqi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b="iVepGxox"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
-	s=default; t=1789152986;
-	bh=Bb7xx5L2v09zQ8WaBJEKdMGYL2amwkRAh0X+rfcrOtw=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=iVepGxoxPQMjEqoDnccnb9f8L9ReAHRFsaSI5Ajxfwsz3B/ie0NQJ4sn8/rv4ywNx
-	 PAlx/ellLXoR0g1LJcbJlZHdbmMC7tMI8EBgNDkFynyPR5vONkdsCTKX0CBdNTXGmy
-	 7P/cTVAL8VdkEr2vO9wNjktn+oGoYrCxJ7EKDP9c=
-Received: by gentwo.org (Postfix, from userid 1007)
-	id 3CC36402A5; Fri, 11 Sep 2026 11:56:26 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by gentwo.org (Postfix) with ESMTP id 3A26640110;
-	Fri, 11 Sep 2026 11:56:26 -0700 (PDT)
-Date: Fri, 11 Sep 2026 11:56:26 -0700 (PDT)
-From: Shubhang <sh@gentwo.org>
-To: Peter Zijlstra <peterz@infradead.org>
-cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>, 
-    Vincent Guittot <vincent.guittot@linaro.org>, 
-    Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-    Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
-    Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
-    K Prateek Nayak <kprateek.nayak@amd.com>, 
-    Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
-    Christoph Lameter <cl@gentwo.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] sched/fair: Restart hrtick after same-task repicks
-In-Reply-To: <20260911112056.GY776954@noisy.programming.kicks-ass.net>
-Message-ID: <b962cd29-f2fc-7081-8565-95640e2621d4@gentwo.org>
-References: <20260813-sched-fair-hrtick-restart-v1-1-4230d1e18fbb@gentwo.org> <20260911112056.GY776954@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SMRSULqi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DA8D1F00893;
+	Fri, 11 Sep 2026 19:07:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789153643;
+	bh=ETiJBHuuXeuIAEQKc1zcTyAWH7qqk4xH5LnWBOZQWFQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SMRSULqitKzQ6fimXD+vIZw4bIjmVl52dToJt8fWJJ8sYhAWgV4sqEOWprhYotsCw
+	 0JvYxwQcGitREfO8fJd9SiCdw2ykPwHrHXtKzcDoRhufHWmiKMxPUdyFDZs/jgjmN1
+	 cIsYw8dsP5IS2e17uUB58DXiEbbIeY7E/LhLqM+ATzTWZK+TrePINDnqczTW3AsGC+
+	 nFlFrdppQ5jHfh/8KOy3biVq3+JeFqerYTqO0fOVKEd4dmMRwJf6I1KjrBWX0j3yyj
+	 bjW3vqMfJAAhQjwINWq1X9ySb9lNNDh3nGxtfeHTV07jjOIXXOQaZdJ4ehHPvKoBlH
+	 NmPDBZ72TS4Jg==
+Date: Fri, 11 Sep 2026 20:07:17 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, 
+	david@redhat.com, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
+	pfalcato@suse.de, xueyuan.chen21@gmail.com, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH v3 6/7] proc/task_mmu: read proc/pid/smaps_rollup under
+ per-vma lock
+Message-ID: <aqRRUAxCsRC6IQIt@gremlin>
+References: <20260910234737.1340642-1-surenb@google.com>
+ <20260910234737.1340642-7-surenb@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII; format=flowed
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910234737.1340642-7-surenb@google.com>
 
-Hi Peter,
-
-On Fri, 11 Sep 2026, Peter Zijlstra wrote:
-
-> On Thu, Aug 13, 2026 at 02:23:48PM -0700, Shubhang Kaushik (Ampere) wrote:
->> Fair hrtick is implemented with a one-shot timer, so each precise
->> preemption point has to be programmed explicitly. The usual fair path
->> does this from set_next_task_fair(), which calls hrtick_start_fair().
->>
->> The missed path is:
->>
->>   hrtick
->>     -> task_tick_fair(..., queued=1)
->>        -> entity_tick()
->> 	  -> resched_curr()
->>     -> schedule()
->>        -> pick_task_fair() picks current again
->>        -> put_prev_set_next_task()
->> 	  -> next == prev
->> 	  -> return
->>
->> Since set_next_task_fair() is skipped, hrtick_start_fair() is not called
->> and no new fair hrtick is started.
+On Thu, Sep 10, 2026 at 04:47:36PM -0700, Suren Baghdasaryan wrote:
+> proc/pid/smaps_rollup can be read using the combination of RCU and
+> VMA read locks, similar to proc/pid/{maps|smaps|numa_maps}. RCU is
+> required to safely traverse the VMA tree and VMA lock stabilizes the
+> VMA being processed and the pagetable walk.
+> Note that we have to keep the logic to drop mmap_lock on contention
+> because even when using per-VMA locks we might have to fall back to
+> holding the mmap_lock.
 >
-> Indeed. However, you missed this is also true for DL.
+> Running Paul's contention benchmark [1] shows considerable improvement
+> both in median and in the worst case latencies:
 >
-> Does something like the below work for you?
+> Execution command: run-proc-vs-map.sh --nsamples 20 --rawdata -- \
+> --busyduration 2 --procfile smaps_rollup
 >
+> Baseline:
+>    Median   Minimum   Maximum
+>     0.174     0.161     2.553
+>     0.174     0.164     2.663
+>     0.174     0.165     2.664
+>     0.174     0.166     2.679
+>     0.174     0.167     2.691
+>     0.174     0.168     2.704
+>     0.174     0.169     2.729
+>     0.174     0.172     2.741
+>     0.174     0.174     2.745
+>     0.174     0.174     2.755
+>     0.174     0.175     2.790
+>     0.174     0.177     2.809
+>     0.174     0.179     3.096
+>     0.174     0.183     3.144
+>     0.174     0.184     3.158
+>     0.174     0.185     3.175
+>     0.174     0.185     4.568
+>     0.174     0.198     4.821
+>     0.174     0.214     5.143
+>     0.174     0.251     5.220
+>
+> Patched:
+>    Median   Minimum   Maximum
+>     0.007     0.007     1.952
+>     0.007     0.007     1.955
+>     0.007     0.007     1.955
+>     0.007     0.007     1.955
+>     0.007     0.007     1.957
+>     0.007     0.007     1.969
+>     0.007     0.007     2.065
+>     0.007     0.007     2.075
+>     0.007     0.007     2.146
+>     0.007     0.007     2.195
+>     0.007     0.007     2.223
+>     0.007     0.007     2.259
+>     0.007     0.007     2.488
+>     0.007     0.007     2.562
+>     0.007     0.007     2.599
+>     0.007     0.007     2.697
+>     0.007     0.007     3.030
+>     0.007     0.007     3.075
+>     0.007     0.007     3.145
+>     0.007     0.007     3.225
+>
+> Remove now unused lock_ctx_mm() and move unlock_ctx_vma() next to
+> unlock_ctx_mm() as they are logically related.
+>
+> Remove a long comment about 4 cases that we handle when dropping the
+> mmap lock in the middle of VMA walk due to contention. The first 3
+> cases explained there are handled naturally and only case 4 needs to
+> be handled in a special way, which is done in smap_gather_stats() by
+> gathering stats from the portion of the VMA that has not yet been
+> processed.
+> For posterity, moving this comment here:
+>
+> After dropping the lock, there are four cases to
+> consider. See the following example for explanation.
+>
+>   +------+------+-----------+
+>   | VMA1 | VMA2 | VMA3      |
+>   +------+------+-----------+
+>   |      |      |           |
+>  4k     8k     16k         400k
+>
+> Suppose we drop the lock after reading VMA2 due to
+> contention, then we get:
+>
+> 	last_vma_end = 16k
+>
+> 1) VMA2 is freed, but VMA3 exists:
+>
+>    vma_next(vmi) will return VMA3.
+>    In this case, just continue from VMA3.
+>
+> 2) VMA2 still exists:
+>
+>    vma_next(vmi) will return VMA3.
+>    In this case, just continue from VMA3.
+>
+> 3) No more VMAs can be found:
+>
+>    vma_next(vmi) will return NULL.
+>    No more things to do, just break.
+>
+> 4) (last_vma_end - 1) is the middle of a vma (VMA'):
+>
+>    vma_next(vmi) will return VMA' whose range
+>    contains last_vma_end.
+>    Iterate VMA' from last_vma_end.
+>
+> [1] https://github.com/paulmckrcu/proc-mmap_sem-test
+>
+> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
 
-Yes, this works for me.
+Everything LGTM and it runs fine locally so:
 
-When schedule() selects the current task again, next == prev 
-case returns from put_prev_set_next_task() without calling the selected
-task's set_next_task() function. For a fair task, that means 
-set_next_task_fair() is skipped, meaning hrtick_start_fair() is skipped.
-For a deadline task, set_next_task_dl() and start_hrtick_dl() are skipped 
-for the same reason.
-
-Using SNT_REPICK makes this case explicit:
-
-         next == prev
-           -> next->sched_class->set_next_task(rq, next, SNT_REPICK)
-
-set_next_task_fair(..., SNT_REPICK) can then bypass the normal
-fair task selection work and restart only the fair hrtick. Likewise,
-set_next_task_dl(..., SNT_REPICK) can restart only the DL hrtick.
-This seems cleaner than the fair specific rq flag and runnable count 
-checks in my patch. And it also fixes the DL case that I missed.
-
-It also retains the reason I moved the restart to the pick side. This
-call happens during schedule(), when rq->hrtick_sched is in its 
-deferred state. Therefore hrtick_start() records the new delay and
-hrtick_schedule_exit() rearms the hrtimer after scheduling completes,
-rather than reprogramming it directly from the hrtick callback.
-
-I will test this approach with the delayed dequeue workload and a DL
-hrtick case, then send a v2 based on it.
-
-On the vprot point, I agree with Vincent's follow-up i.e. SNT_REPICK
-must not call set_protect_slice(). As doing so would extend the protected
-minimum slice on every repick. Once vprot has passed, a newly eligible
-task should be able to preempt before the current task reaches deadline. 
-Will keep that as a separate fix.
-
-Thanks,
-Shubhang Kaushik
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
 > ---
-> kernel/sched/core.c      |  2 +-
-> kernel/sched/deadline.c  |  8 ++++++--
-> kernel/sched/ext/ext.c   |  5 ++++-
-> kernel/sched/fair.c      | 15 ++++++++++-----
-> kernel/sched/idle.c      |  5 ++++-
-> kernel/sched/rt.c        |  7 +++++--
-> kernel/sched/sched.h     | 16 ++++++++++++----
-> kernel/sched/stop_task.c |  5 ++++-
-> 8 files changed, 46 insertions(+), 17 deletions(-)
+>  fs/proc/task_mmu.c | 159 +++++++++++++++++++--------------------------
+>  1 file changed, 66 insertions(+), 93 deletions(-)
 >
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index 91f059a55695..a39d12d38070 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -7241,7 +7241,7 @@ static void __sched notrace __schedule(int sched_mode)
-> 			 * on_cpu.
-> 			 */
-> 			donor->sched_class->put_prev_task(rq, donor, donor);
-> -			donor->sched_class->set_next_task(rq, donor, true);
-> +			donor->sched_class->set_next_task(rq, donor, SNT_PICK);
-> 		}
-> 	} else {
-> 		rq_set_donor(rq, next);
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index de6a361a87c7..21d904d92c64 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -2773,11 +2773,14 @@ static void start_hrtick_dl(struct rq *rq, struct sched_dl_entity *dl_se)
->  * DL keeps current in tree, because ->deadline is not typically changed while
->  * a task is runnable.
->  */
-> -static void set_next_task_dl(struct rq *rq, struct task_struct *p, bool first)
-> +static void set_next_task_dl(struct rq *rq, struct task_struct *p, enum snt_e type)
-> {
-> 	struct sched_dl_entity *dl_se = &p->dl;
-> 	struct dl_rq *dl_rq = &rq->dl;
+> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+> index 9a3c996c1d61..6fee40bdd736 100644
+> --- a/fs/proc/task_mmu.c
+> +++ b/fs/proc/task_mmu.c
+> @@ -130,28 +130,12 @@ static void release_task_mempolicy(struct proc_maps_private *priv)
+>  }
+>  #endif
 >
-> +	if (type == SNT_REPICK)
-> +		goto repick;
-> +
-> 	p->se.exec_start = rq_clock_task(rq);
-> 	if (on_dl_rq(&p->dl))
-> 		update_stats_wait_end_dl(dl_rq, dl_se);
-> @@ -2788,7 +2791,7 @@ static void set_next_task_dl(struct rq *rq, struct task_struct *p, bool first)
-> 	WARN_ON_ONCE(dl_rq->curr);
-> 	dl_rq->curr = dl_se;
->
-> -	if (!first)
-> +	if (type != SNT_PICK)
-> 		return;
->
-> 	if (rq->donor->sched_class != &dl_sched_class)
-> @@ -2796,6 +2799,7 @@ static void set_next_task_dl(struct rq *rq, struct task_struct *p, bool first)
->
-> 	deadline_queue_push_tasks(rq);
->
-> +repick:
-> 	if (hrtick_enabled_dl(rq))
-> 		start_hrtick_dl(rq, &p->dl);
-> }
-> diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-> index 51de1d8b72a1..31a300f2d3b2 100644
-> --- a/kernel/sched/ext/ext.c
-> +++ b/kernel/sched/ext/ext.c
-> @@ -3003,10 +3003,13 @@ static enum scx_dsp_verdict dispatch_one(struct rq *rq, struct task_struct *prev
-> 	return verdict;
-> }
->
-> -static void set_next_task_scx(struct rq *rq, struct task_struct *p, bool first)
-> +static void set_next_task_scx(struct rq *rq, struct task_struct *p, enum snt_e type)
-> {
-> 	struct scx_sched *sch = scx_task_sched(p);
->
-> +	if (type == SNT_REPICK)
-> +		return;
-> +
-> 	if (p->scx.flags & SCX_TASK_QUEUED) {
-> 		/*
-> 		 * Core-sched might decide to execute @p before it is
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 4d0b94465d19..f469e469b402 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -15242,14 +15242,18 @@ static void switched_to_fair(struct rq *rq, struct task_struct *p)
-> 	}
-> }
->
-> -static void set_next_task_fair(struct rq *rq, struct task_struct *p, bool first)
-> +static void set_next_task_fair(struct rq *rq, struct task_struct *p, enum snt_e type)
-> {
-> 	struct sched_entity *se = &p->se;
-> -	bool throttled = false;
-> 	struct cfs_rq *cfs_rq = &rq->cfs;
-> 	unsigned long weight = NICE_0_LOAD;
-> +	bool first = type == SNT_PICK;
-> +	bool throttled = false;
-> 	bool on_rq = se->on_rq;
->
-> +	if (type == SNT_REPICK)
-> +		goto repick;
-> +
-> 	clear_buddies(cfs_rq, se);
->
-> 	if (on_rq)
-> @@ -15293,11 +15297,12 @@ static void set_next_task_fair(struct rq *rq, struct task_struct *p, bool first)
->
-> 	WARN_ON_ONCE(se->sched_delayed);
->
-> -	if (hrtick_enabled_fair(rq))
-> -		hrtick_start_fair(rq, p);
+> -static int lock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
+> -{
+> -	int ret = mmap_read_lock_killable(lock_ctx->mm);
 > -
-> 	update_misfit_status(p, rq);
-> 	sched_fair_update_stop_tick(rq, p);
+> -	if (!ret)
+> -		lock_ctx->mmap_locked = true;
+> -
+> -	return ret;
+> -}
+> -
+>  static void unlock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
+>  {
+>  	mmap_read_unlock(lock_ctx->mm);
+>  	lock_ctx->mmap_locked = false;
+>  }
+>
+> -static void reset_lock_ctx(struct proc_maps_locking_ctx *lock_ctx)
+> -{
+> -	lock_ctx->locked_vma = NULL;
+> -	lock_ctx->mmap_locked = false;
+> -}
+> -
+>  static void unlock_ctx_vma(struct proc_maps_locking_ctx *lock_ctx)
+>  {
+>  	if (lock_ctx->locked_vma) {
+> @@ -160,6 +144,12 @@ static void unlock_ctx_vma(struct proc_maps_locking_ctx *lock_ctx)
+>  	}
+>  }
+>
+> +static void reset_lock_ctx(struct proc_maps_locking_ctx *lock_ctx)
+> +{
+> +	lock_ctx->locked_vma = NULL;
+> +	lock_ctx->mmap_locked = false;
+> +}
 > +
-> +repick:
-> +	if (hrtick_enabled_fair(rq))
-> +		hrtick_start_fair(rq, p);
-> }
+>  static struct vm_area_struct *get_next_vma(struct proc_maps_private *priv,
+>  					   loff_t last_pos)
+>  {
+> @@ -1384,12 +1374,14 @@ static int show_smap(struct seq_file *m, void *v)
+>  static int show_smaps_rollup(struct seq_file *m, void *v)
+>  {
+>  	struct proc_maps_private *priv = m->private;
+> +	struct proc_maps_locking_ctx *lock_ctx = &priv->lock_ctx;
+> +	struct mm_struct *mm = lock_ctx->mm;
+>  	struct mem_size_stats mss = {};
+> -	struct mm_struct *mm = priv->lock_ctx.mm;
+> +	unsigned long last_vma_end = 0;
+> +	unsigned long vma_start = 0;
+>  	struct vm_area_struct *vma;
+> -	unsigned long vma_start = 0, last_vma_end = 0;
+> +	loff_t pos = 0;
+>  	int ret = 0;
+> -	VMA_ITERATOR(vmi, mm, 0);
 >
-> void init_cfs_rq(struct cfs_rq *cfs_rq)
-> diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
-> index eb73b65ce6c4..76f3c84ca684 100644
-> --- a/kernel/sched/idle.c
-> +++ b/kernel/sched/idle.c
-> @@ -487,8 +487,11 @@ static void put_prev_task_idle(struct rq *rq, struct task_struct *prev, struct t
-> 	update_rq_avg_idle(rq);
-> }
+>  	priv->task = get_proc_task(priv->inode);
+>  	if (!priv->task)
+> @@ -1400,89 +1392,66 @@ static int show_smaps_rollup(struct seq_file *m, void *v)
+>  		goto out_put_task;
+>  	}
 >
-> -static void set_next_task_idle(struct rq *rq, struct task_struct *next, bool first)
-> +static void set_next_task_idle(struct rq *rq, struct task_struct *next, enum snt_e type)
-> {
-> +	if (type == SNT_REPICK)
-> +		return;
+> -	ret = lock_ctx_mm(&priv->lock_ctx);
+> -	if (ret)
+> -		goto out_put_mm;
+> -
+>  	hold_task_mempolicy(priv);
+> -	vma = vma_next(&vmi);
+> +	rcu_read_lock();
+> +	reset_lock_ctx(lock_ctx);
+>
+> +	vma_iter_init(&priv->iter, mm, 0);
+> +	vma = proc_get_vma(m, &pos);
+>  	if (unlikely(!vma))
+>  		goto empty_set;
+>
+> -	vma_start = vma->vm_start;
+> -	do {
+> -		smap_gather_stats(priv, vma, &mss, vma->vm_start);
+> +	if (!IS_ERR(vma))
+> +		vma_start = vma->vm_start;
 > +
-> 	update_idle_core(rq);
-> 	scx_update_idle(rq, true, true);
-> 	schedstat_inc(rq->sched_goidle);
-> diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
-> index 85303add726d..1535046a23ff 100644
-> --- a/kernel/sched/rt.c
-> +++ b/kernel/sched/rt.c
-> @@ -1654,11 +1654,14 @@ static void wakeup_preempt_rt(struct rq *rq, struct task_struct *p, int flags)
-> 		check_preempt_equal_prio(rq, p);
-> }
->
-> -static inline void set_next_task_rt(struct rq *rq, struct task_struct *p, bool first)
-> +static inline void set_next_task_rt(struct rq *rq, struct task_struct *p, enum snt_e type)
-> {
-> 	struct sched_rt_entity *rt_se = &p->rt;
-> 	struct rt_rq *rt_rq = &rq->rt;
->
-> +	if (type == SNT_REPICK)
-> +		return;
+> +	while (vma) {
+> +		unsigned long start;
 > +
-> 	p->se.exec_start = rq_clock_task(rq);
-> 	if (on_rt_rq(&p->rt))
-> 		update_stats_wait_end_rt(rt_rq, rt_se);
-> @@ -1666,7 +1669,7 @@ static inline void set_next_task_rt(struct rq *rq, struct task_struct *p, bool f
-> 	/* The running task is never eligible for pushing */
-> 	dequeue_pushable_task(rq, p);
->
-> -	if (!first)
-> +	if (type != SNT_PICK)
-> 		return;
->
-> 	/*
-> diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-> index 6c3ad70e58b8..944366e2d142 100644
-> --- a/kernel/sched/sched.h
-> +++ b/kernel/sched/sched.h
-> @@ -2630,6 +2630,12 @@ struct affinity_context {
->
-> extern s64 update_curr_common(struct rq *rq);
->
-> +enum snt_e {
-> +	SNT_NORMAL,
-> +	SNT_PICK,
-> +	SNT_REPICK,
-> +};
+> +		if (IS_ERR(vma)) {
+> +			ret = PTR_ERR(vma);
+> +			goto out_unlock;
+> +		}
 > +
-> struct sched_class {
+> +		if (vma->vm_start < last_vma_end) {
+> +			/*
+> +			 * After retaking the lock, already reported VMA grew
+> +			 * or got merged with the next one and we found it
+> +			 * again. Gather stats for the remaining portion by
+> +			 * starting at last_vma_end.
+> +			 */
+> +			start = last_vma_end;
+> +		} else {
+> +			/* Found next unreported VMA, start from its beginning */
+> +			start = vma->vm_start;
+> +		}
+> +		smap_gather_stats(priv, vma, &mss, start);
+>  		last_vma_end = vma->vm_end;
 >
-> #ifdef CONFIG_UCLAMP_TASK
-> @@ -2687,7 +2693,7 @@ struct sched_class {
-> 	 * __schedule: rq->lock
-> 	 */
-> 	void (*put_prev_task)(struct rq *rq, struct task_struct *p, struct task_struct *next);
-> -	void (*set_next_task)(struct rq *rq, struct task_struct *p, bool first);
-> +	void (*set_next_task)(struct rq *rq, struct task_struct *p, enum snt_e type);
->
-> 	/*
-> 	 * select_task_rq: p->pi_lock
-> @@ -2790,7 +2796,7 @@ static inline void put_prev_task(struct rq *rq, struct task_struct *prev)
->
-> static inline void set_next_task(struct rq *rq, struct task_struct *next)
-> {
-> -	next->sched_class->set_next_task(rq, next, false);
-> +	next->sched_class->set_next_task(rq, next, SNT_NORMAL);
-> }
->
-> static inline void
-> @@ -2811,11 +2817,13 @@ static inline void put_prev_set_next_task(struct rq *rq,
->
-> 	__put_prev_set_next_dl_server(rq, prev, next);
->
-> -	if (next == prev)
-> +	if (next == prev) {
-> +		next->sched_class->set_next_task(rq, next, SNT_REPICK);
-> 		return;
+>  		/*
+> -		 * Release mmap_lock temporarily if someone wants to
+> -		 * access it for write request.
+> +		 * If the VMA lock is not taken, we hold the often contended
+> +		 * mmap lock. This can happen if we had to fall back to the
+> +		 * mmap lock.
+> +		 *
+> +		 * To relieve pressure, check if it is indeed contended, then
+> +		 * temporarily release it.
+>  		 */
+> -		if (mmap_lock_is_contended(mm)) {
+> -			vma_iter_invalidate(&vmi);
+> -			unlock_ctx_mm(&priv->lock_ctx);
+> -			ret = lock_ctx_mm(&priv->lock_ctx);
+> -			if (ret) {
+> -				release_task_mempolicy(priv);
+> -				goto out_put_mm;
+> -			}
+> -
+> +		if (lock_ctx->mmap_locked &&
+> +		    mmap_lock_is_contended(lock_ctx->mm)) {
+> +			unlock_ctx_mm(lock_ctx);
+>  			/*
+> -			 * After dropping the lock, there are four cases to
+> -			 * consider. See the following example for explanation.
+> -			 *
+> -			 *   +------+------+-----------+
+> -			 *   | VMA1 | VMA2 | VMA3      |
+> -			 *   +------+------+-----------+
+> -			 *   |      |      |           |
+> -			 *  4k     8k     16k         400k
+> -			 *
+> -			 * Suppose we drop the lock after reading VMA2 due to
+> -			 * contention, then we get:
+> -			 *
+> -			 *	last_vma_end = 16k
+> -			 *
+> -			 * 1) VMA2 is freed, but VMA3 exists:
+> -			 *
+> -			 *    vma_next(vmi) will return VMA3.
+> -			 *    In this case, just continue from VMA3.
+> -			 *
+> -			 * 2) VMA2 still exists:
+> -			 *
+> -			 *    vma_next(vmi) will return VMA3.
+> -			 *    In this case, just continue from VMA3.
+> -			 *
+> -			 * 3) No more VMAs can be found:
+> -			 *
+> -			 *    vma_next(vmi) will return NULL.
+> -			 *    No more things to do, just break.
+> -			 *
+> -			 * 4) (last_vma_end - 1) is the middle of a vma (VMA'):
+> -			 *
+> -			 *    vma_next(vmi) will return VMA' whose range
+> -			 *    contains last_vma_end.
+> -			 *    Iterate VMA' from last_vma_end.
+> +			 * Even though we previously fell back to mmap lock,
+> +			 * we try taking VMA lock for the next VMA, since it
+> +			 * might not be under modification. In the worst case
+> +			 * we will fall back to mmap lock again.
+>  			 */
+> -			vma = vma_next(&vmi);
+> -			/* Case 3 above */
+> -			if (!vma)
+> -				break;
+> -
+> -			/* Case 1 and 2 above */
+> -			if (vma->vm_start >= last_vma_end) {
+> -				smap_gather_stats(priv, vma, &mss, vma->vm_start);
+> -				last_vma_end = vma->vm_end;
+> -				continue;
+> -			}
+> -
+> -			/* Case 4 above */
+> -			if (vma->vm_end > last_vma_end) {
+> -				smap_gather_stats(priv, vma, &mss, last_vma_end);
+> -				last_vma_end = vma->vm_end;
+> -			}
+> +			rcu_read_lock();
+> +			reset_lock_ctx(lock_ctx);
+> +			/* Resume from the last position. */
+> +			pos = last_vma_end;
+> +			vma_iter_init(&priv->iter, mm, pos);
+>  		}
+> -	} for_each_vma(vmi, vma);
+> +		vma = proc_get_vma(m, &pos);
 > +	}
 >
-> 	prev->sched_class->put_prev_task(rq, prev, next);
-> -	next->sched_class->set_next_task(rq, next, true);
-> +	next->sched_class->set_next_task(rq, next, SNT_PICK);
-> }
+>  empty_set:
+>  	show_vma_header_prefix(m, vma_start, last_vma_end, 0, 0, 0, 0);
+> @@ -1491,10 +1460,14 @@ static int show_smaps_rollup(struct seq_file *m, void *v)
 >
-> /*
-> diff --git a/kernel/sched/stop_task.c b/kernel/sched/stop_task.c
-> index c909ca0d8c87..1e0109ec36b3 100644
-> --- a/kernel/sched/stop_task.c
-> +++ b/kernel/sched/stop_task.c
-> @@ -27,8 +27,11 @@ wakeup_preempt_stop(struct rq *rq, struct task_struct *p, int flags)
-> 	/* we're never preempted */
-> }
+>  	__show_smap(m, &mss, true);
 >
-> -static void set_next_task_stop(struct rq *rq, struct task_struct *stop, bool first)
-> +static void set_next_task_stop(struct rq *rq, struct task_struct *stop, enum snt_e type)
-> {
-> +	if (type == SNT_REPICK)
-> +		return;
-> +
-> 	stop->se.exec_start = rq_clock_task(rq);
-> }
+> +out_unlock:
+> +	if (lock_ctx->mmap_locked) {
+> +		unlock_ctx_mm(lock_ctx);
+> +	} else {
+> +		unlock_ctx_vma(lock_ctx);
+> +		rcu_read_unlock();
+> +	}
+>  	release_task_mempolicy(priv);
+> -	unlock_ctx_mm(&priv->lock_ctx);
+> -
+> -out_put_mm:
+>  	mmput(mm);
+>  out_put_task:
+>  	put_task_struct(priv->task);
+> --
+> 2.55.0.1007.g17ff1f9808-goog
 >
->
+
+--
+Cheers, Lorenzo
