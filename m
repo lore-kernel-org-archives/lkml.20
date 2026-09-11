@@ -1,144 +1,267 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCCE5486409
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:40:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29404A4984;
+	Fri, 11 Sep 2026 21:40:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789162849; cv=none; b=Js9l+4X2cuis6Lmn8VTB1HAvAr0FFu557vPADfxTsh17h9pVR2myAS4X2P+TD+/6G9Fe7Hqq+vLgpJBZUrgr+Fl0N2xn749wp0KotQ99UwFj2GGuDrPviWwfthobebtYWQZcOPoOA9gUgm9EmXI0+KJuNt1n+lwwRY3FZsxoqhQ=
+	t=1789162855; cv=none; b=byweZD9DRk64ZTbYBkmDa3WkpnOIAVV8qSG9i6F2l07U2FPx4O0Ob4LRrJxfqybvkc2MwNorwC4xBeASgXg3GYLASw/zR6yG5PJSzjsENpiMvCJpYZliWw0FA7ahJOkReHL9kG+Hpfd0fk7V6OKU4X7pG7E30AxyKfgW4jNs974=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789162849; c=relaxed/simple;
-	bh=ni1yH8hDgYu98Vo71GwCwrOcLuLqmuZR0ZNUMb+H2YY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ufSnr2JPlT6hCpgkrn4h8v3e8ljD8Cotgst2ZPXiDcFvLGuaC3NI7k+v0+oLZC1p7eJYLLDVRjopzxB2dkcN08iS4JmsBH7Ddmd6t7CtjaOxMBdK0M+aL3dHlUI2cHPg+YNx5ThxTOpVdMmz53toYgXV3pT8A1UivcbV0+kyq9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so181795e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:40:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789162846; x=1789767646;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=scQWPxTX6leGCHoMVtk1H+uYIxgRXtieeMFrI4vjiow=;
-        b=WWIAxsoW5Sh6QBgsAlqHeBYgFTyE0mk89XPrDhpskAANq0+a+sN42l8Ys+ARQEJFqv
-         W84ImWCnLBvYsk7iytWVifVPj6RZ54BspGfJzl50XRfkpHcHV6gCWyRLF9oHhk893ijA
-         ivvKRVcoqeaduuQK7UPvhxgpSD9b2gRZuRvMh+pxzJYzgDeRBYrtigVmQRSTm3DIFU1+
-         bTlYLe5+KGLGJF7kUug/TxDN5JpKBqTUNQviAwcj3q/xrUQDNmWhcCsrX4aPJhHE0zaj
-         rRpHl+gwC/rYgNZN5bYYMkQrO2UAKp5hGYgDegtSpR1D/I6+ykPElMhjMRnh1xG0so8+
-         NXFA==
-X-Forwarded-Encrypted: i=1; AKwUvBwGfP9DJBJPu18i9AGU5D+oTxgffRWkWznv5MPnsJTNz+vQpKsOQ2CzIx/UVEMcrEE3bSiUfZ+IY6Wx43g=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8LTcTbxl+OF2wjF6PJmrGZSB1pCeBswC7FIX0mGr4ZmH95cXx
-	lttJ41R2Hp0ctbKf3lbXNGqciI5AU5kO5dGGrWRLzJpYcW6/AowHwqjX
-X-Gm-Gg: AYBFou0Pn7L5Zj+hhzHBdUPGEcA8iJ6RowubPpLPWajwlVDFQYGUeX4/9oYcJvM+j9B
-	A619u45J8N7A0givQaHJ5TfQY06Z9C09AM2Dllr2HDBWg7Zvzrf4Pbx2DfOsoN9e/GdRScY4Owk
-	vLp1YJ+p107KFkQRUEdDedbxtdp7RjeAwa5fJgD+oBnYkpYaXZB9+/iCYcEZGSksa/2DNUbaHLO
-	8+H4WctDHHbjPCRJ/2xznHEdSNw4VuTNyBgownxWYS7dgyfAKaDm9RgAE93YupdX2NDe7URKSv7
-	KlYhhn1IiHsATuXUbRi3rTxwY70mdkfKkXDoD5JioZwLQrEHYR5bkp0Oj2Uy+4j9APwrbpe/ozD
-	Li9CNcVirZhEtmuQVAp5ZA8af7TBboy3nQj3A4yFCiTFJqjtW/CYDIGJT+wT+rkrywKQ+PU6974
-	753Usu9HdL/ihp2UQldTKoWpExBfrnJuo59qSQm4YPeXuxk+fCvGdHtKmk3eIJRL+adtLSHF21b
-	uHTpyvLfBcoCYdpHiXP1dMuFLyOZpEFcA==
-X-Received: by 2002:a05:600c:5394:b0:49c:fa20:cbff with SMTP id 5b1f17b1804b1-49e6cbfeefemr345985e9.22.1789162845841;
-        Fri, 11 Sep 2026 14:40:45 -0700 (PDT)
-Received: from [10.100.102.74] (89-138-77-243.bb.netvision.net.il. [89.138.77.243])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c1bfb5sm196305985e9.5.2026.09.11.14.40.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 14:40:45 -0700 (PDT)
-Message-ID: <3a06fc29-4364-4573-b12c-39b42d95a4b3@grimberg.me>
-Date: Sat, 12 Sep 2026 00:40:44 +0300
+	s=arc-20240116; t=1789162855; c=relaxed/simple;
+	bh=OHMvTxwx8WmR6ep9J+RcwSCq9HXroTytnAPdrb0CwxQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MepujKYpWKYFRKZO8Cz+lqHgvE16/pWuKKO9iysKg6WVI4OqByR5qqkZ6RXKc24oAPjoRUFqym+Lw1WiYT8XeZRSwwFVdfqpUctkvP9Y9lUbbA+HuriH8+ATYMzd5QhYeaKMfGbRIVqTRGj7DokOOMMWww4cTIMLg0j6dsVjSZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UIsZfn0p; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UIsZfn0p"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789162853; x=1820698853;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=OHMvTxwx8WmR6ep9J+RcwSCq9HXroTytnAPdrb0CwxQ=;
+  b=UIsZfn0pcUJC8hTk+GVxybkdVVRvjgbz/A3Jl2cL7SHywjDOwgnsGs7v
+   t993GrT2yj5oi3SITv3lDqKImT+tkmP8n5T3JRu5sGastGd0HcMOr8oDU
+   p6TdqYLMqX6z6LQQdqL1abqYN4VeB0b87DetFDdI+s8mxDn48ZVnMLMsF
+   p3ooMIVPnMXV++CSfwV+q65y1W/sU9kLWRBG/LvDiZwDhr2XTqeLxVwcj
+   Xv+XkMJZEBWKjQo4WDVjg8OkOp69+5PpblGxYh4Jtjv0GQL83j6AWTs+p
+   4ZSbqlf/KEWwmGMvsWlBJIncrT4jqiHgJzNu2ryEW4clxIx8zPq6x+IOL
+   A==;
+X-CSE-ConnectionGUID: eentJmiLTZGnHjBUdN99vg==
+X-CSE-MsgGUID: cbqcUK3jQg+TlaCuK/Vzfg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="88572502"
+X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
+   d="scan'208";a="88572502"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 14:40:52 -0700
+X-CSE-ConnectionGUID: CvQRHx7pQQOiI64O8Vt9mA==
+X-CSE-MsgGUID: je4Zy9atSymj2NENkdBA/A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
+   d="scan'208";a="272004040"
+Received: from sohilmeh.sc.intel.com ([172.25.103.65])
+  by orviesa007.jf.intel.com with ESMTP; 11 Sep 2026 14:40:51 -0700
+From: Sohil Mehta <sohil.mehta@intel.com>
+To: kvm@vger.kernel.org,
+	x86@kernel.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Xin Li <xin@zytor.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Nikunj A Dadhania <nikunj@amd.com>,
+	Shivansh Dhiman <shivansh.dhiman@amd.com>,
+	David Woodhouse <dwmw@amazon.co.uk>,
+	Chao Gao <chao.gao@intel.com>,
+	Binbin Wu <binbin.wu@linux.intel.com>,
+	Sohil Mehta <sohil.mehta@intel.com>,
+	Zhao Liu <zhao1.liu@intel.com>,
+	Yosry Ahmed <yosry@kernel.org>,
+	David Matlack <dmatlack@google.com>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH v10 07/28] KVM: VMX: Initialize VMCS FRED fields
+Date: Fri, 11 Sep 2026 14:36:37 -0700
+Message-ID: <20260911213659.2025974-8-sohil.mehta@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260911213659.2025974-1-sohil.mehta@intel.com>
+References: <20260911213659.2025974-1-sohil.mehta@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nvmet: accept ANA group ID NVMET_MAX_ANAGRPS in configfs
-To: Andrew Stellman <astellman@stellman-greene.com>,
- Christoph Hellwig <hch@lst.de>, Chaitanya Kulkarni <kch@nvidia.com>
-Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260910154849.66095-1-astellman@stellman-greene.com>
-Content-Language: en-US
-From: Sagi Grimberg <sagi@grimberg.me>
-In-Reply-To: <20260910154849.66095-1-astellman@stellman-greene.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+From: "Xin Li (Intel)" <xin@zytor.com>
 
+Initialize host VMCS FRED fields with host FRED MSRs' value and
+guest VMCS FRED fields to 0.
 
-On 10/09/2026 18:48, Andrew Stellman wrote:
-> nvmet_ns_ana_grpid_store() and nvmet_ana_groups_make_group() accept an
-> ANA group ID in the closed range 1..NVMET_MAX_ANAGRPS, but then pass it
-> through array_index_nospec() with NVMET_MAX_ANAGRPS as the size.  That
-> helper treats the size as a half-open bound, so the maximum valid ID,
-> 128, is rewritten to 0.
->
-> nvmet_ana_group_enabled[] is NVMET_MAX_ANAGRPS + 1 entries wide, so
-> index 128 is a valid slot, and the controller advertises ANAGRPMAX =
-> NVMET_MAX_ANAGRPS.  NVMe Base Specification 2.4, section 8.1.1
-> (Asymmetric Namespace Access Reporting), "ANA Groups", defines a valid
-> ANA Group Identifier as "a non-zero value that is less than or equal to
-> ANAGRPMAX".
->
-> Two visible effects.  Writing 128 to a namespace's ana_grpid succeeds
-> but the namespace lands in the reserved group 0, which Identify
-> Namespace then reports.  Creating and removing ports/N/ana_groups/128
-> increments slot 0 on create but decrements slot 128 on release, leaving
-> nvmet_ana_group_enabled[128] at 0xffffffff, so every subsequent ANA log
-> page reports a group 128 with no namespaces in the Inaccessible state.
->
-> Use NVMET_MAX_ANAGRPS + 1 as the array_index_nospec() bound at both
-> sites, matching the array's actual size.  A namespace assigned to group
-> 128 now follows the same path as any other group: its ANA state is
-> Inaccessible until ports/N/ana_groups/128 is created and configured,
-> where before it sat in group 0 with an uninitialized state and I/O was
-> allowed.
->
-> Tested on 7.3.0-rc1-qpb-cc-base+ (unpatched) and 7.3.0-rc1-qpb-cc-anagrpid+
-> (patched) in an arm64 QEMU guest with nvmet over NVMe/TCP to
-> 127.0.0.1.  Before: ana_grpid written as 128 reads back 0, and the ANA
-> log after mkdir+rmdir of ana_groups/128 lists group 128 with nnsids 0,
-> state inaccessible.  After: ana_grpid reads back 128 and the ANA log
-> lists only group 1.
->
-> The issue was found by Claude Opus 5 running Quality Playbook, an
-> LLM-driven code review tool:
-> https://github.com/andrewstellman/quality-playbook
->
-> Fixes: 20dc66f2d76b ("nvme: prevent potential spectre v1 gadget")
-> Assisted-by: Claude:claude-opus-5 [Quality Playbook]
-> Signed-off-by: Andrew Stellman <astellman@stellman-greene.com>
-> ---
->   drivers/nvme/target/configfs.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configfs.c
-> index 413ee2d16d29..0d4c69c4697a 100644
-> --- a/drivers/nvme/target/configfs.c
-> +++ b/drivers/nvme/target/configfs.c
-> @@ -698,7 +698,7 @@ static ssize_t nvmet_ns_ana_grpid_store(struct config_item *item,
->   
->   	down_write(&nvmet_ana_sem);
->   	oldgrpid = ns->anagrpid;
-> -	newgrpid = array_index_nospec(newgrpid, NVMET_MAX_ANAGRPS);
-> +	newgrpid = array_index_nospec(newgrpid, NVMET_MAX_ANAGRPS + 1);
+FRED CPU state is managed in 9 new FRED MSRs:
+        IA32_FRED_CONFIG,
+        IA32_FRED_STKLVLS,
+        IA32_FRED_RSP0,
+        IA32_FRED_RSP1,
+        IA32_FRED_RSP2,
+        IA32_FRED_RSP3,
+        IA32_FRED_SSP1,
+        IA32_FRED_SSP2,
+        IA32_FRED_SSP3,
+as well as a few existing CPU registers and MSRs:
+        CR4.FRED,
+        IA32_STAR,
+        IA32_KERNEL_GS_BASE,
+        IA32_PL0_SSP (also known as IA32_FRED_SSP0).
 
-There is a condition above:
+CR4, IA32_KERNEL_GS_BASE and IA32_STAR are already well managed.
+Except IA32_FRED_RSP0 and IA32_FRED_SSP0, all other FRED CPU state
+MSRs have corresponding VMCS fields in both the host-state and
+guest-state areas.  So KVM just needs to initialize them, and with
+proper VM entry/exit FRED controls, a FRED CPU will keep tracking
+host and guest FRED CPU state in VMCS automatically.
 
->   	nvmet_ana_group_enabled[newgrpid]++;
->   	ns->anagrpid = newgrpid;
->   	nvmet_ana_group_enabled[oldgrpid]--;
-> @@ -1976,7 +1976,7 @@ static struct config_group *nvmet_ana_groups_make_group(
->   	grp->grpid = grpid;
->   
->   	down_write(&nvmet_ana_sem);
-> -	grpid = array_index_nospec(grpid, NVMET_MAX_ANAGRPS);
-> +	grpid = array_index_nospec(grpid, NVMET_MAX_ANAGRPS + 1);
->   	nvmet_ana_group_enabled[grpid]++;
->   	up_write(&nvmet_ana_sem);
->   
->
-> base-commit: 4d7d9486c04d917265f64c55bd23b2cc4fe7749c
+Signed-off-by: Xin Li (Intel) <xin@zytor.com>
+Signed-off-by: Sohil Mehta <sohil.mehta@intel.com>
+Reviewed-by: Chao Gao <chao.gao@intel.com>
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+---
+v10:
+ - s/rdmsrl/rdmsrq (Chao)
+ - Remove a terse comment which doesn't help at all (Sean).
+ - Replace direct, raw use of __this_cpu_ist_top_va() with a self-
+   explanatory this_cpu_fred_rsp() helper for better readability (Sean).
+ - Add cpu_feature_enabled(X86_FEATURE_FRED) to patch out accesses to
+   VMCS FRED fields (Sean).
+ - Remove "#ifdef CONFIG_X86_64" after switching to this_cpu_fred_rsp()
+   (Sean).
+---
+ arch/x86/include/asm/kvm_host.h |  3 +++
+ arch/x86/include/asm/vmx.h      | 32 ++++++++++++++++++++++++++++++++
+ arch/x86/kvm/vmx/vmx.c          | 33 +++++++++++++++++++++++++++++++++
+ 3 files changed, 68 insertions(+)
+
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index 683bb8bf43a9..8d3999772ac2 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -294,6 +294,9 @@ struct kvm_host_values {
+ 	u64 xss;
+ 	u64 s_cet;
+ 	u64 arch_capabilities;
++
++	u64 fred_config;
++	u64 fred_stklvls;
+ };
+ extern struct kvm_host_values kvm_host;
+ 
+diff --git a/arch/x86/include/asm/vmx.h b/arch/x86/include/asm/vmx.h
+index 682f09933612..4720619f09ac 100644
+--- a/arch/x86/include/asm/vmx.h
++++ b/arch/x86/include/asm/vmx.h
+@@ -306,12 +306,44 @@ enum vmcs_field {
+ 	GUEST_BNDCFGS_HIGH              = 0x00002813,
+ 	GUEST_IA32_RTIT_CTL		= 0x00002814,
+ 	GUEST_IA32_RTIT_CTL_HIGH	= 0x00002815,
++	GUEST_IA32_FRED_CONFIG		= 0x0000281a,
++	GUEST_IA32_FRED_CONFIG_HIGH	= 0x0000281b,
++	GUEST_IA32_FRED_RSP1		= 0x0000281c,
++	GUEST_IA32_FRED_RSP1_HIGH	= 0x0000281d,
++	GUEST_IA32_FRED_RSP2		= 0x0000281e,
++	GUEST_IA32_FRED_RSP2_HIGH	= 0x0000281f,
++	GUEST_IA32_FRED_RSP3		= 0x00002820,
++	GUEST_IA32_FRED_RSP3_HIGH	= 0x00002821,
++	GUEST_IA32_FRED_STKLVLS		= 0x00002822,
++	GUEST_IA32_FRED_STKLVLS_HIGH	= 0x00002823,
++	GUEST_IA32_FRED_SSP1		= 0x00002824,
++	GUEST_IA32_FRED_SSP1_HIGH	= 0x00002825,
++	GUEST_IA32_FRED_SSP2		= 0x00002826,
++	GUEST_IA32_FRED_SSP2_HIGH	= 0x00002827,
++	GUEST_IA32_FRED_SSP3		= 0x00002828,
++	GUEST_IA32_FRED_SSP3_HIGH	= 0x00002829,
+ 	HOST_IA32_PAT			= 0x00002c00,
+ 	HOST_IA32_PAT_HIGH		= 0x00002c01,
+ 	HOST_IA32_EFER			= 0x00002c02,
+ 	HOST_IA32_EFER_HIGH		= 0x00002c03,
+ 	HOST_IA32_PERF_GLOBAL_CTRL	= 0x00002c04,
+ 	HOST_IA32_PERF_GLOBAL_CTRL_HIGH	= 0x00002c05,
++	HOST_IA32_FRED_CONFIG		= 0x00002c08,
++	HOST_IA32_FRED_CONFIG_HIGH	= 0x00002c09,
++	HOST_IA32_FRED_RSP1		= 0x00002c0a,
++	HOST_IA32_FRED_RSP1_HIGH	= 0x00002c0b,
++	HOST_IA32_FRED_RSP2		= 0x00002c0c,
++	HOST_IA32_FRED_RSP2_HIGH	= 0x00002c0d,
++	HOST_IA32_FRED_RSP3		= 0x00002c0e,
++	HOST_IA32_FRED_RSP3_HIGH	= 0x00002c0f,
++	HOST_IA32_FRED_STKLVLS		= 0x00002c10,
++	HOST_IA32_FRED_STKLVLS_HIGH	= 0x00002c11,
++	HOST_IA32_FRED_SSP1		= 0x00002c12,
++	HOST_IA32_FRED_SSP1_HIGH	= 0x00002c13,
++	HOST_IA32_FRED_SSP2		= 0x00002c14,
++	HOST_IA32_FRED_SSP2_HIGH	= 0x00002c15,
++	HOST_IA32_FRED_SSP3		= 0x00002c16,
++	HOST_IA32_FRED_SSP3_HIGH	= 0x00002c17,
+ 	PIN_BASED_VM_EXEC_CONTROL       = 0x00004000,
+ 	CPU_BASED_VM_EXEC_CONTROL       = 0x00004002,
+ 	EXCEPTION_BITMAP                = 0x00004004,
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index 2a2218e0983b..dc80ca5f804d 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -1562,6 +1562,12 @@ void vmx_vcpu_load_vmcs(struct kvm_vcpu *vcpu, int cpu)
+ 				    (unsigned long)(cpu_entry_stack(cpu) + 1));
+ 		}
+ 
++		if (cpu_feature_enabled(X86_FEATURE_FRED) && kvm_cpu_cap_has(X86_FEATURE_FRED)) {
++			vmcs_write64(HOST_IA32_FRED_RSP1, this_cpu_fred_rsp(FRED_STACK_LEVEL_1));
++			vmcs_write64(HOST_IA32_FRED_RSP2, this_cpu_fred_rsp(FRED_STACK_LEVEL_2));
++			vmcs_write64(HOST_IA32_FRED_RSP3, this_cpu_fred_rsp(FRED_STACK_LEVEL_3));
++		}
++
+ 		vmx->loaded_vmcs->cpu = cpu;
+ 	}
+ }
+@@ -4500,6 +4506,17 @@ void vmx_set_constant_host_state(struct vcpu_vmx *vmx)
+ 	 */
+ 	vmcs_write16(HOST_DS_SELECTOR, 0);
+ 	vmcs_write16(HOST_ES_SELECTOR, 0);
++
++	if (cpu_feature_enabled(X86_FEATURE_FRED) && kvm_cpu_cap_has(X86_FEATURE_FRED)) {
++		/* FRED CONFIG and STKLVLS are the same on all CPUs */
++		vmcs_write64(HOST_IA32_FRED_CONFIG, kvm_host.fred_config);
++		vmcs_write64(HOST_IA32_FRED_STKLVLS, kvm_host.fred_stklvls);
++
++		/* Linux doesn't support kernel shadow stacks, thus SSPs are 0s */
++		vmcs_write64(HOST_IA32_FRED_SSP1, 0);
++		vmcs_write64(HOST_IA32_FRED_SSP2, 0);
++		vmcs_write64(HOST_IA32_FRED_SSP3, 0);
++	}
+ #else
+ 	vmcs_write16(HOST_DS_SELECTOR, __KERNEL_DS);  /* 22.2.4 */
+ 	vmcs_write16(HOST_ES_SELECTOR, __KERNEL_DS);  /* 22.2.4 */
+@@ -5030,6 +5047,17 @@ static void init_vmcs(struct vcpu_vmx *vmx)
+ 	}
+ 
+ 	vmx_setup_uret_msrs(vmx);
++
++	if (cpu_feature_enabled(X86_FEATURE_FRED) && kvm_cpu_cap_has(X86_FEATURE_FRED)) {
++		vmcs_write64(GUEST_IA32_FRED_CONFIG, 0);
++		vmcs_write64(GUEST_IA32_FRED_RSP1, 0);
++		vmcs_write64(GUEST_IA32_FRED_RSP2, 0);
++		vmcs_write64(GUEST_IA32_FRED_RSP3, 0);
++		vmcs_write64(GUEST_IA32_FRED_STKLVLS, 0);
++		vmcs_write64(GUEST_IA32_FRED_SSP1, 0);
++		vmcs_write64(GUEST_IA32_FRED_SSP2, 0);
++		vmcs_write64(GUEST_IA32_FRED_SSP3, 0);
++	}
+ }
+ 
+ static void __vmx_vcpu_reset(struct kvm_vcpu *vcpu)
+@@ -8883,6 +8911,11 @@ __init int vmx_hardware_setup(void)
+ 
+ 	kvm_caps.inapplicable_quirks &= ~KVM_X86_QUIRK_IGNORE_GUEST_PAT;
+ 
++	if (cpu_feature_enabled(X86_FEATURE_FRED) && kvm_cpu_cap_has(X86_FEATURE_FRED)) {
++		rdmsrq(MSR_IA32_FRED_CONFIG, kvm_host.fred_config);
++		rdmsrq(MSR_IA32_FRED_STKLVLS, kvm_host.fred_stklvls);
++	}
++
+ 	return 0;
+ }
+ 
+-- 
+2.43.0
 
