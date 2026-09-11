@@ -1,85 +1,91 @@
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+Received: from sg-2-3.ptr.blmpb.com (sg-2-3.ptr.blmpb.com [71.18.227.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1862A49E14A
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:55:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3EBE443C3C
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:56:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789127756; cv=none; b=vBjeXGK6v6nqnS7fwyNo++pPs3HQK7/nirB3Mc36D7XiYyw0y3StAYd2WtjmEvq6pk7q5ZBbA078v6UOyHWOAVa8Y/wg3nLwgcxOi/TL83Ut5AnV65D/gQrq4ZBfsKa8b2J3fpWIKtJcZwA0EQFlUxFCqJ1ApH+0yTvzflQZqXI=
+	t=1789127767; cv=none; b=VaQW7vXccOyp30XnHn1WOevcdi12+6zW0VJeR5SBwtZQCbxvDBQfT0NtiQY/O+v5HRnrrsdItaN7eCywv539dJ/FXaGIyOncVS2tUsoJfqA0Pk0wk1O2qkP1zx0zCdT0uQfIkuxXZvJb6ejgFcR0m2DeDoWuA+mNEaDVnHHXAi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789127756; c=relaxed/simple;
-	bh=Akj0JGIhzq6ACFnfw2Sa1ABt4QIcgJsRU651vzot37E=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=dEJ+n2DZDOGv8cj1pPI9x8mQuXXT8Vslw6sYB9cXkBY3EJVFNAF+sGiXHLwKkWMlPTQE7uHYdE7Xe2DU61+fdHPykrj61v+8HrXm09sedutAyiMlPWKr8aowt2oMr4GY+WSuBj9ABBIQPDPmqwP5cJiJJUVcVQTelomTIuyvBvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6c1b24c4d0bso98254eaf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 04:55:54 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789127754; x=1789732554;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=vC5j4jUtdSmqMIxdYew64t/svIjKXf63TExKUyyupr4=;
-        b=jsFk+hGmmB0Nxyr1IXgwzOqjr0UaIbZZ5Xa10X4RypxR6Vg7UtzOSzkUplaEtDjOqL
-         z+FvT6LSbmGnzCYr9HpPiGu93kOrODTMW/gDE9+/h2V1+3Jl5ocrETX0uLAlBhcc4KTO
-         jx/EpFJLPl7wcp8pOCmnyQoYO5HlZP1Z6DI3QkKLbr/sgZeoDwNyZIShxOAJQUpLcVsA
-         unSCaCZYVSWsRQQvHcBlzenBd+Obnw6wQG+maFfbLSHQohvf5N3cdWkRO4ace1yn8TF1
-         LoWiIjRRBa662riawv2hl3b+pErh5MefJtYtIuCe3HFs+qpO9ZTtLCWcXMrdhsNWqhEL
-         I94Q==
-X-Gm-Message-State: AFuF++lESkH1HFpzOxtgn2NAjyNytzWM9v97gv3q6H40u4+ClrQWmRIQ
-	Vg8K4PcDtfY+y62hRsj+UqnPFoabhYiyJAFV918R17tcEKc/ja153zY6TnOWDu2bHDVyVU+w57q
-	Fo0ZptxPasn70lnDtA8PwJpgakNx8dW0O5HA3sSEVlPD1dsheFsANk2376XM=
+	s=arc-20240116; t=1789127767; c=relaxed/simple;
+	bh=wWmhXTa7aXrtxSqoiCP8YqnhLANRbQ/2CkpCs7n1ygs=;
+	h=References:Subject:Date:Mime-Version:Cc:From:Content-Type:To:
+	 Message-Id:In-Reply-To; b=cuWIgbFQHSIOAOVrI5i1KPJ5G3oqWMOVgr6wNHdTcgKki+wVt+UYF3v1JJbNg6jRbhvriFBahi26HI+In+Trkunj3NAMCuXszlTqUnybfi7GMUsMpuIAko8lBUD4Few5G704f5N+o6w0hfKEcATRql2+8XPpK+Ygrww6ZzS13tg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=imm0nv1nhtv.is-a.dev; spf=pass smtp.mailfrom=imm0nv1nhtv.is-a.dev; dkim=pass (2048-bit key) header.d=imm0nv1nhtv.is-a.dev header.i=@imm0nv1nhtv.is-a.dev header.b=OQMlXoST; arc=none smtp.client-ip=71.18.227.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=imm0nv1nhtv.is-a.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imm0nv1nhtv.is-a.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=imm0nv1nhtv.is-a.dev header.i=@imm0nv1nhtv.is-a.dev header.b="OQMlXoST"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=lark2602131731; d=imm0nv1nhtv.is-a.dev; t=1789127753;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=sttmLPJbXqHF8O2Q3VVBCslXXNEiPN/DARq1dGZW598=;
+ b=OQMlXoSTiuvUh7CxiC5gLNt14LEf46Dtw5N1y9TaRUMgUAEbWiqpkOqm0ncnRdZPPaX5WN
+ +7332n9yh/AjDbL9q9NMuDGJ4h586I5taapQ8crFSTTRrMnMKOs82sei94VtVx6AI6Ywfv
+ Q6M42sakRiNUUKSy0YH2DVbVBrHPftEDFZ3+2bAAzZGuTpW5QtCRjpHDX+i0/mt0XhW2ju
+ H4QmUIwK9UatLW6KjazoQhUy634Sh0v7/vo+XH7cPDbYfQmulzOg8r7yQuAkvvyqEB5wpa
+ tJBCJI928v28otULxTLw41gm416Wr5V6NtTZPn4N8gDCtijbvakvF5kvh72BVQ==
+References: <20260826170549.21985-1-neptune@imm0nv1nhtv.is-a.dev> <20260826204457.4666-1-neptune@imm0nv1nhtv.is-a.dev> <20260826204457.4666-2-neptune@imm0nv1nhtv.is-a.dev>
+Subject: Re: [PATCH v2 2/2] drm/amd/display: close DDC on I2C engine setup failure
+Date: Fri, 11 Sep 2026 18:55:50 +0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4dc7:b0:6b7:46fa:169a with SMTP id
- 006d021491bc7-6c0bc7c4a4cmr2415709eaf.47.1789127754013; Fri, 11 Sep 2026
- 04:55:54 -0700 (PDT)
-Date: Fri, 11 Sep 2026 04:55:53 -0700
-In-Reply-To: <6a6a9894.7eebbf3c.214d51.000c.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa3ec49.f2639fcc.29487d.0029.GAE@google.com>
-Subject: Forwarded: [PATCH] configfs: unhash dentry before dropping the item
-From: syzbot <syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Cc: "Rodrigo Siqueira" <siqueira@igalia.com>, 
+	"David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, 
+	<amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, 
+	<linux-kernel@vger.kernel.org>
+From: "NepNep7601" <neptune@imm0nv1nhtv.is-a.dev>
+Content-Type: text/plain; charset=UTF-8
+Autocrypt: addr=neptune@imm0nv1nhtv.is-a.dev; keydata= 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 w7556xiTImYhxhLT4QiuJfjqiGM=
+To: "Harry Wentland" <harry.wentland@amd.com>, "Leo Li" <sunpeng.li@amd.com>, 
+	"Alex Deucher" <alexander.deucher@amd.com>, 
+	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Message-Id: <a92e12a1-bd95-449d-bb02-9ab62481e8c7@imm0nv1nhtv.is-a.dev>
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+X-Original-From: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
+Received: from [192.168.100.185] ([42.112.63.158]) by smtp.larksuite.com with ESMTPS; Fri, 11 Sep 2026 11:55:52 +0000
+Content-Transfer-Encoding: 7bit
+In-Reply-To: <20260826204457.4666-2-neptune@imm0nv1nhtv.is-a.dev>
+X-Lms-Return-Path: <lba+26aa3ec49+e78d9d+vger.kernel.org+neptune@imm0nv1nhtv.is-a.dev>
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+Just a kind reminder to check this patch, thank you!
 
-***
+Best regards,
+NepNep7601
 
-Subject: [PATCH] configfs: unhash dentry before dropping the item
-Author: jchuang26@m.fudan.edu.cn
-
-#syz test: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git a7c1290eef60711c10289c056ad32ed1f2b47b12
-
-Reported-by: syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com
-
-diff --git a/fs/configfs/dir.c b/fs/configfs/dir.c
-index 3c88f13f1..d9c222ff0 100644
---- a/fs/configfs/dir.c
-+++ b/fs/configfs/dir.c
-@@ -418,6 +418,16 @@ static void configfs_remove_dir(struct dentry *d)
- 			pr_warn("remove_dir (%pd): attributes remain", d);
- 	}
- 
-+	/*
-+	 * The dentry can still have external references (e.g. from a
-+	 * concurrent configfs_symlink() path lookup), in which case
-+	 * simple_rmdir() will not have unhashed it yet.  Make sure the
-+	 * dentry is unreachable before the caller drops the last
-+	 * reference to the config_item, since configfs_symlink() resolves
-+	 * targets by taking a reference through a hashed dentry.
-+	 */
-+	d_drop(d);
-+
- 	pr_debug(" o %pd removing done (%d)\n", d, d_count(d));
- 
- 	dput(parent);
+On 27/08/2026 03:44, NepNep7601 wrote:
+> acquire_i2c_hw_engine() opens the DDC pins before setting up the
+> hardware engine. If setup_engine() fails, the error path releases the
+> engine but leaves the DDC pins open and the engine's DDC pointer set.
+> 
+> Subsequent attempts to open the pins then return
+> GPIO_RESULT_ALREADY_OPENED, preventing further I2C transfers, EDID
+> reads and hotplug detection on that port until reboot.
+> 
+> Mirror the normal teardown path by closing the DDC pins and clearing
+> the pointer after releasing the engine.
+> 
+> Assisted-by: Codex:gpt-5
+> Signed-off-by: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
+> ---
+>   drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c
+> index 05892ab4529f..e7a05494abab 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c
+> @@ -485,6 +485,8 @@ struct dce_i2c_hw *acquire_i2c_hw_engine(
+>   
+>   	if (!setup_engine(dce_i2c_hw)) {
+>   		release_engine(dce_i2c_hw);
+> +		dal_ddc_close(dce_i2c_hw->ddc);
+> +		dce_i2c_hw->ddc = NULL;
+>   		return NULL;
+>   	}
