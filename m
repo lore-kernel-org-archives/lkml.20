@@ -1,105 +1,227 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-75.mta0.migadu.com [91.218.175.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612AA36B90A;
-	Fri, 11 Sep 2026 14:58:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1293515CC
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:59:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789138734; cv=none; b=BTcu1C2W3iVzwOJOMaXY5zgct85ntEI68f6zGNFVtijkpqY6AmThlTs1BwwHp/xLYqWeTn/36fBwCW+hvtpwf31aWDhI7RWbKxRs8XWR3zBkmlrWp7O5Uds0GanIWon2IBIPJIh3EfnbuGyiInzHRkxXSY10KTGZdjWVU5JExHc=
+	t=1789138773; cv=none; b=QTbM2XdZQMENgSWu2XfRbKjgkyMJSQwyDpkidyUxX34keZ55f3kWHHpkKvzNS3CJOPMxqpuk7bafUFe7M1kDxg+bsJWQNCuFO/w5+rnGxC2bEyK8TxWdXC143hZWk1XUa/nDGE2yk/0KfSWtf5Z2OYhQQ04/dzIfuVyA1jgdDwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789138734; c=relaxed/simple;
-	bh=Kwiev2N4L+vyQUztK7DbbRxFpbZV8KwTiUhjm2O/L7U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BY6ZcnDJUY9p0DDAvaLfnqPCKaXU0MT+D7h9hyevkEY5gNPsgw03oX1i6DjTSShKlmjXx5xDjHCJ5Q8jgTY1sSdIDPJ1lU5yGCOrLWinJr+tFIfEZxRk4ZIdzWcHKNyz4NWkR2POQs0a0YO3f1NAPc+9QPoVLL6154AP0oGFbcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hqz5AEtv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789138773; c=relaxed/simple;
+	bh=IJ6M84jik/6WzHAEWYe3FHbzr4F2HaPJlKu+3Hyckm0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F4FYeW6/GnKePwlJ0qKqmNHpyLI+lO7HI5Vw2LUdU8vmEyXOBxxQHck6TjEvfRLzVBuJjuBPcQ2v1yNhY0K52jDtvVMrMpgUffQUibxhl5kusxOt0u3AZChKes9FZOWkuFO9/nKOKsOmbKWNwtRbQCIQn+u3DBtyPRb/IVyAKb0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=q7/1WOra; arc=none smtp.client-ip=91.218.175.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hqz5AEtv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EF0E1F000FF;
-	Fri, 11 Sep 2026 14:58:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789138729;
-	bh=CLYYj8/276uUFHKp2bAmnGjCPPOUxg1/tbdfRRnY79M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hqz5AEtv8bWAGxTuMNtJQO2wPSFWWYfCq+JSxjsW2aNGCo5VgdIdzSLSWqd1EQKf5
-	 PV+NDPGnkEYz0CAO9fV9YVVbj39Ws7M+cVb0kh29FAeCTGyGfPWtW7BdHJgMmnzTFq
-	 gEJ32WRXDa9WnfxmGqthkNrTKCcaseCh3ywj8MsITXYwpMSGp/6q028uEV7TTpM0hy
-	 woNWGJGhhsSMCKZDlpiCZntEgs72YAPBRF1t71AC4guU/LPAbNrmVjo2/BSzuxVGvk
-	 fsDYvlMe9lykYXEWYhDdIL72fLBJADzBrm+hz52rTYXxuJ2aISxsMX7BbucMksw4ID
-	 E4lf9OfMk6tyg==
-Date: Fri, 11 Sep 2026 15:58:44 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, akpm@linux-foundation.org, david@kernel.org, liam@infradead.org, 
-	vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com
-Subject: Re: [PATCH v2] kselftest: mm: fix potential failure for merged VMA
- in guard-regions
-Message-ID: <aqQXFG2O4CtoQERQ@gremlin>
-References: <20260911142904.1825452-1-yeoreum.yun@arm.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="q7/1WOra"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=IJ6M84jik/6WzHAEWYe3FHbzr4F2HaPJlKu+3Hyckm0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789138766; v=1; x=1789743566;
+ b=q7/1WOrajip27fGWJXOM0u7YkK9TRzuhKxFj1hmLMYy4eY13pL8Jv11+dEvmPLetnBNMlQWl
+ lkKNHRr7uRrb+8OLWLr1NKmPlGgAiqRI812gsl6TL4+XGDa/SyV0SEJ+ggDzSq1INZpnmxBvqU4
+ T8+TIM9k3dVfsETfEIzr9yJ8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e1490bb8f087fe33;
+	Fri, 11 Sep 2026 14:59:26 +0000
+X-Mizu-Trace-ID: e1490bb8f087fe33
+X-Migadu-Flow: FLOW_OUT
+From: Leon Hwang <leon.hwang@linux.dev>
+To: bpf@vger.kernel.org
+Cc: Quentin Monnet <qmo@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	Leon Hwang <leon.hwang@linux.dev>
+Subject: [PATCH bpf-next] bpftool: Compute map size of light skeletons at runtime
+Date: Fri, 11 Sep 2026 22:59:14 +0800
+Message-ID: <20260911145914.23676-1-leon.hwang@linux.dev>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911142904.1825452-1-yeoreum.yun@arm.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 03:29:03PM +0100, Yeoreum Yun wrote:
-> check_vmflag_guard() uses /proc/self/smaps to retrieve the VMA flags,
-> but this can fail if the mapping is merged with an adjacent VMA.
->
-> To avoid this potential failure, first allocate a temporary region with
-> extra pages at both ends, unmap it, and then map the test region within
-> the temporary address range, leaving an unmapped page on each side to
-> prevent VMA merging.
->
-> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+bpftool rounds memory-mapped data map sizes to the host page size when
+generating a light skeleton. The generated code therefore uses a 64K
+mapping size when bpftool runs on a 64K-page host, even if the skeleton
+runs on a 4K-page target. The target rejects the oversized map mmap(),
+causing failure of loading the light skeleton.
 
-LGTM so:
+When try to run 64K-page selftests on 4K-page VM, the error message does
+not provide the reason about page size.
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+ test_atomics:PASS:atomics skeleton open 0 nsec
+ test_atomics:FAIL:atomics skeleton load unexpected error: -12 (errno 22)
+ #15      atomics:FAIL
 
-Thanks!
+Pass the original map value size to the generated code and round it to the
+runtime page size in the user-space light skeleton helpers. This keeps
+generated light skeletons independent of the build host page size.
 
-> ---
-> Change in v2:
->   - change the prot as PROT_NONE for placeholder region.
->   - add comment for clarification.
->   - Link to v1: https://lore.kernel.org/all/20260911123534.1181501-1-yeoreum.yun@arm.com/
-> ---
->  tools/testing/selftests/mm/guard-regions.c | 14 ++++++++++++--
->  1 file changed, 12 insertions(+), 2 deletions(-)
->
-> diff --git a/tools/testing/selftests/mm/guard-regions.c b/tools/testing/selftests/mm/guard-regions.c
-> index 5c8ec3ca75d7..b724d62d2b75 100644
-> --- a/tools/testing/selftests/mm/guard-regions.c
-> +++ b/tools/testing/selftests/mm/guard-regions.c
-> @@ -2257,8 +2257,18 @@ TEST_F(guard_regions, smaps)
->  	char *ptr, *ptr2;
->  	int i;
->
-> -	/* Map a region. */
-> -	ptr = mmap_(self, variant, NULL, 10 * page_size, PROT_READ | PROT_WRITE, 0, 0);
-> +	/* Map then unmap placeholder to avoid adjacent merges */
-> +	ptr = mmap_(self, variant, NULL, 12 * page_size, PROT_NONE, 0, 0);
-> +	ASSERT_NE(ptr, MAP_FAILED);
-> +	ASSERT_EQ(munmap(ptr, 12 * page_size), 0);
-> +
-> +	/*
-> +	 * Map a region for the test. Since the preceding temporary mapping
-> +	 * succeeded, this mapping should also succeed without merging with
-> +	 * adjacent VMAs.
-> +	 */
-> +	ptr = mmap_(self, variant, ptr + page_size, 10 * page_size,
-> +		    PROT_READ | PROT_WRITE, MAP_FIXED, 0);
->  	ASSERT_NE(ptr, MAP_FAILED);
->
->  	/* We shouldn't yet see a guard flag. */
-> --
-> LEVI:{C3F47F37-75D8-414A-A8BA-3980EC8A46D7}
->
+Fixes: d510296d331a ("bpftool: Use syscall/loader program in "prog load" and "gen skeleton" command.")
+Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
+---
+ tools/bpf/bpftool/gen.c       | 27 ++++++++-------------------
+ tools/lib/bpf/skel_internal.h | 18 +++++++++++++-----
+ 2 files changed, 21 insertions(+), 24 deletions(-)
 
---
-Cheers, Lorenzo
+diff --git a/tools/bpf/bpftool/gen.c b/tools/bpf/bpftool/gen.c
+index a50540ef6521..77f04c28fee9 100644
+--- a/tools/bpf/bpftool/gen.c
++++ b/tools/bpf/bpftool/gen.c
+@@ -500,16 +500,6 @@ static void print_hex(const char *data, int data_sz)
+ 	}
+ }
+ 
+-static size_t bpf_map_mmap_sz(const struct bpf_map *map)
+-{
+-	long page_sz = sysconf(_SC_PAGE_SIZE);
+-	size_t map_sz;
+-
+-	map_sz = (size_t)roundup(bpf_map__value_size(map), 8) * bpf_map__max_entries(map);
+-	map_sz = roundup(map_sz, page_sz);
+-	return map_sz;
+-}
+-
+ /* Emit type size asserts for all top-level fields in memory-mapped internal maps. */
+ static void codegen_asserts(struct bpf_object *obj, const char *obj_name)
+ {
+@@ -686,8 +676,8 @@ static void codegen_destroy(struct bpf_object *obj, const char *obj_name)
+ 		if (!get_map_ident(map, ident, sizeof(ident)))
+ 			continue;
+ 		if (is_skel_data(map, ident, sizeof(ident)))
+-			printf("\tskel_free_map_data(skel->%1$s, skel->maps.%1$s.initial_value, %2$zu);\n",
+-			       ident, bpf_map_mmap_sz(map));
++			printf("\tskel_free_map_data(skel->%1$s, skel->maps.%1$s.initial_value, %2$u);\n",
++			       ident, bpf_map__value_size(map));
+ 		codegen("\
+ 			\n\
+ 				skel_closenz(skel->maps.%1$s.map_fd);	    \n\
+@@ -771,13 +761,12 @@ static int gen_trace(struct bpf_object *obj, const char *obj_name, const char *h
+ 		\n\
+ 		\";							    \n\
+ 									    \n\
+-				skel->%1$s = (__typeof__(skel->%1$s))skel_prep_map_data((void *)data, %2$zd,\n\
+-								sizeof(data) - 1);\n\
++				skel->%1$s = (__typeof__(skel->%1$s))skel_prep_map_data((void *)data, sizeof(data) - 1);\n\
+ 				if (!skel->%1$s)			    \n\
+ 					goto cleanup;			    \n\
+ 				skel->maps.%1$s.initial_value = (__u64) (long) skel->%1$s;\n\
+ 			}						    \n\
+-			", ident, bpf_map_mmap_sz(map));
++			", ident);
+ 	}
+ 	codegen("\
+ 		\n\
+@@ -871,14 +860,14 @@ static int gen_trace(struct bpf_object *obj, const char *obj_name, const char *h
+ 		if (bpf_map__type(map) == BPF_MAP_TYPE_PERCPU_ARRAY) {
+ 			codegen("\
+ 		\n\
+-			err = skel_protect_map_data(skel->%1$s, &skel->maps.%1$s.initial_value, %2$zd);\n\
++			err = skel_protect_map_data(skel->%1$s, &skel->maps.%1$s.initial_value, %2$u);\n\
+ 			if (err)					    \n\
+ 				return err;				    \n\
+ 		#ifdef __KERNEL__					    \n\
+ 			skel->%1$s = NULL;				    \n\
+ 		#endif							    \n\
+ 			",
+-			ident, bpf_map_mmap_sz(map));
++			ident, bpf_map__value_size(map));
+ 			continue;
+ 		}
+ 
+@@ -890,11 +879,11 @@ static int gen_trace(struct bpf_object *obj, const char *obj_name, const char *h
+ 		codegen("\
+ 		\n\
+ 			skel->%1$s = (__typeof__(skel->%1$s))skel_finalize_map_data(&skel->maps.%1$s.initial_value,\n\
+-							%2$zd, %3$s, skel->maps.%1$s.map_fd);\n\
++							%2$u, %3$s, skel->maps.%1$s.map_fd);\n\
+ 			if (!skel->%1$s)				    \n\
+ 				return -ENOMEM;				    \n\
+ 			",
+-		       ident, bpf_map_mmap_sz(map), mmap_flags);
++		       ident, bpf_map__value_size(map), mmap_flags);
+ 	}
+ 	codegen("\
+ 		\n\
+diff --git a/tools/lib/bpf/skel_internal.h b/tools/lib/bpf/skel_internal.h
+index 1f3f332dffbe..5787911f17f5 100644
+--- a/tools/lib/bpf/skel_internal.h
++++ b/tools/lib/bpf/skel_internal.h
+@@ -11,6 +11,7 @@
+ #include <linux/bpf.h>
+ #else
+ #include <unistd.h>
++#include <sys/param.h>
+ #include <sys/syscall.h>
+ #include <sys/mman.h>
+ #include <linux/keyctl.h>
+@@ -138,7 +139,7 @@ static inline void skel_free_map_data(void *p, __u64 addr, size_t sz)
+ 	 */
+ }
+ 
+-static inline void *skel_prep_map_data(const void *val, size_t mmap_sz, size_t val_sz)
++static inline void *skel_prep_map_data(const void *val, size_t val_sz)
+ {
+ 	void *addr;
+ 
+@@ -149,7 +150,7 @@ static inline void *skel_prep_map_data(const void *val, size_t mmap_sz, size_t v
+ 	return addr;
+ }
+ 
+-static inline void *skel_finalize_map_data(__u64 *init_val, size_t mmap_sz, int flags, int fd)
++static inline void *skel_finalize_map_data(__u64 *init_val, size_t val_sz, int flags, int fd)
+ {
+ 	struct bpf_map *map;
+ 	void *addr = NULL;
+@@ -193,13 +194,19 @@ static inline void skel_free(void *p)
+ 	free(p);
+ }
+ 
++static inline size_t skel_map_mmap_sz(size_t sz)
++{
++	return roundup(sz, sysconf(_SC_PAGE_SIZE));
++}
++
+ static inline void skel_free_map_data(void *p, __u64 addr, size_t sz)
+ {
+-	munmap(p, sz);
++	munmap(p, skel_map_mmap_sz(sz));
+ }
+ 
+-static inline void *skel_prep_map_data(const void *val, size_t mmap_sz, size_t val_sz)
++static inline void *skel_prep_map_data(const void *val, size_t val_sz)
+ {
++	size_t mmap_sz = skel_map_mmap_sz(val_sz);
+ 	void *addr;
+ 
+ 	addr = mmap(NULL, mmap_sz, PROT_READ | PROT_WRITE,
+@@ -210,8 +217,9 @@ static inline void *skel_prep_map_data(const void *val, size_t mmap_sz, size_t v
+ 	return addr;
+ }
+ 
+-static inline void *skel_finalize_map_data(__u64 *init_val, size_t mmap_sz, int flags, int fd)
++static inline void *skel_finalize_map_data(__u64 *init_val, size_t val_sz, int flags, int fd)
+ {
++	size_t mmap_sz = skel_map_mmap_sz(val_sz);
+ 	void *addr;
+ 
+ 	addr = mmap((void *) (long) *init_val, mmap_sz, flags, MAP_SHARED | MAP_FIXED, fd, 0);
+-- 
+2.55.0
+
