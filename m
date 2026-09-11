@@ -1,289 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013007.outbound.protection.outlook.com [40.107.159.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9113F8EA2;
-	Fri, 11 Sep 2026 18:52:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789152729; cv=none; b=RxU7ixKQdwxT8bCM9aahxsybAjNo1TIKznAGYWAM7ik87HU0AToNyeRlKcWEUXjv+ixcy3B04C4AFJWvdsYJq54LAI30f7nm/J+udfCd172hbUkMytUFCyPcvc/OYuZg/kQp7E+RwIU2ENOugyrlQ7xARpISQqC2Hxtc0C+SJqw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789152729; c=relaxed/simple;
-	bh=RCeSx3IrYG4rfAXHao35oWByJ4omMqIyh00vGCSQSfA=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=q2EqVi9HKsxjTIb2CvNevYmhytOPy/jKajW0ZmyExMIpwVwRp2qgII32RqJxUhfL0f9mjfssM2OJKYM8Vo0zMSzuIqjlweqitHhc+kM8BcYeDQq/FNwe4Ly6dRZ/r5M/LsmRCFoJu+TycHWWb8kW2OA7ysOnOzKhrLem1St5pJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U6SAHj6r; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C385040B6F9;
+	Fri, 11 Sep 2026 18:52:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789152732; cv=fail; b=AjRrzu62a5UyuOt+SPBv404kVnSn5usAFjsDbOzG+VRN12xAUQdGeeSZ3ugbj3xDMbbpL7DlZpmyyiOyYxeyVpAOrn/d2dx6gWpOOwFCjBptamZVYqIKsKE/zF3tnGA5PtLBE95ZgnePL9DguBnulRkrbfF0WaD7te9LSh9QKdU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789152732; c=relaxed/simple;
+	bh=Cc3pmcoWBR830DHZzkAJYIenylr0BM4zbOlGlva8UMY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=FboXaDJRuxC8N7YjntM7x8hNeJsUbdQiBMKkZL3/QbyTVPfmfRi7axUc54PQxuGJryeJ/Jwja85Ql620QHI5nB/m5z3Z/o8SZlCgqlj+npNj7Y8B9f0ampR/rHd8uA2UX7jihFCz/clsA2nhTmcfMvHgZZcKRIv/JRrSEM45AMY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=HU9qYTJD; arc=fail smtp.client-ip=40.107.159.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U6SAHj6r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 441701F00893;
-	Fri, 11 Sep 2026 18:52:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789152727;
-	bh=8p7zYuyuGA3gQQYpgulfyn0ZpME2hZEJKSkR2ar+2PM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=U6SAHj6r+4GI1aqP+QTcUvmucbddmVNZKycLoE586l6CWMmflmf5+xp72fJ7NbOYY
-	 4DgAuoPmFwQ9fmDWDBHRN4w4E590ygMiXRpe+c/+ikgUsDffJXHASWg5fsBA4JAdtI
-	 SSExCABZBX1timPi3xR+sdUFGhzNq8RD4+LJqSEJTxW7+drsSrQsH0kH/EcSeY+7s5
-	 CJ3a1lZy6eTSYtDDkVHdi1PoUqVvIcXvkDh33ExXeWtc5Q+5fHmGV6nqoHtnHI/IYX
-	 TIUNVAQSry6iWrn1IhHYOb7cSUKCe7NDySynlcQTAr7vUjIfQh8hrKK1el5YssM4h8
-	 MKCBrPiFX29Dw==
-Subject: Re: [PATCH RESEND net-next v17 05/10] net: phy: Represent PHY-less
- SFP modules with phy_port
-From: netdev-bot+sashiko@kernel.org
-To: maxime.chevallier@bootlin.com
-Cc: davem@davemloft.net, andrew@lunn.ch, kuba@kernel.org, edumazet@google.com,
- pabeni@redhat.com, linux@armlinux.org.uk, hkallweit1@gmail.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- thomas.petazzoni@bootlin.com, christophe.leroy@csgroup.eu,
- herve.codina@bootlin.com, f.fainelli@gmail.com, vladimir.oltean@nxp.com,
- kory.maincent@bootlin.com, kabel@kernel.org, o.rempel@pengutronix.de,
- nicveronese@gmail.com, horms@kernel.org, mwojtas@chromium.org,
- romain.gantois@bootlin.com, daniel@makrotopia.org,
- dimitri.fedrau@liebherr.com, frank.wunderlich@linux.dev, p.ameruoso@live.it
-Date: Fri, 11 Sep 2026 18:52:05 +0000
-Message-ID: <178915272580.219967.8750635719140746575@kernel.org>
-In-Reply-To: <20260910170103.1029108-6-maxime.chevallier@bootlin.com>
-References: <20260910170103.1029108-6-maxime.chevallier@bootlin.com>
-X-sashiko-severity: High
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="HU9qYTJD"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PZD9E/auFg/c5E27LjeKm4rUA+cIF0i3LwylfVnBZhsu8QMkrHc51SYMfOebVKlB+AvbhInFvGRiQ4+ZRrlVT4us97930L7VHJlF9MrstkNAyHF33QOCiOp+4xZotEHfpnt6wTWK6bjIqQY3A26ZhZi3+BfxIINSwp/DTPFW1v2I40V2D0efx4r+KJjHuQJeF0Fh47JKKnsO4e1b8cNJyofVmKdJYqmBjj890KOQKv7NVUK2SU2tpgTMQK8ZUuTtMhuCxiT6teHYwAk9KYT08O4W7ERnQfhxJ3ge5F7BdHGcFAXEExnMFAyOdnQG7amQz/K4GTr9TWDBJp6EzF3KFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iHvsQIpdPiQu8Aral9v2U7nRUZATCL4w4U0Ozarumls=;
+ b=xj1YzoX/e1crFfbAEvf8X/T/VJyJ5fplR0MLXGncXyLRVEdYleNSZy9AIhr+tSnmF9XnRVRRibQVQCGfukjww2LWc/8tGYd5JIjhhugnWTfZtjiAci804id421M9+quL3RyaE2igjdQzNPpXCTGV63BwM+tNfKbFxVVRHUqWx25BAacOYLll3oZfjAD68Rl1ynlGU2lrAOPF1k7UiUKJT5bO7yt721GT+AOEOvJ22Zcxg71uXJJ5IqRozioa+68DWSpB4zSPGAB9f1IGcraY+4NGEQemSy/Fu2HtOzJl1MJbhrrYsWTCn3kVv/dazdmGM49RmvOXuRLUSf5jDT+R5A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iHvsQIpdPiQu8Aral9v2U7nRUZATCL4w4U0Ozarumls=;
+ b=HU9qYTJD6IM8UM4SKvHYtZExtcgKt7ttJmfIGC5nQf3IVBUP4ZKwhIBKgHt/jjMwtZWEZ6iL78zmmPqPd6VbAm9OnGUg5Jfh3pIMwUJyCp7oWQMVWHYTmnd3mLKbzbMYNyAD9YeO0aMSpI8hA4AMknJX25fkEX/c7fB40dVx7pZiyiQFoC+FJN82l4xXREWiOiE0MWMMiPTZQFpEFTk/pUfrtF5J7ao1Fl9FQ0vPMIVKkZBzzIXBfAwfHWv2KTSp0ylrs510mlcIjTfE7D45+WoKFRRnGiq+g9hgw/iIg73j7wosaswnMeUp56dnvppnsuUAfbxIosiYVwz0oo167A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PA2PR04MB10409.eurprd04.prod.outlook.com (2603:10a6:102:415::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 18:52:07 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 18:52:06 +0000
+From: Frank.Li@oss.nxp.com
+To: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Luan Rafael Carneiro <luan.r@variscite.com>
+Subject: Re: [PATCH v1 1/1] arm64: dts: imx8mp-var-dart-sonata: Fix Sonata SD I/O supply
+Date: Fri, 11 Sep 2026 14:51:59 -0400
+Message-ID: <178915267857.2916670.15391959554330587521.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260902164317.45925-1-stefano.r@variscite.com>
+References: <20260902164317.45925-1-stefano.r@variscite.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH7P220CA0118.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:32d::18) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA2PR04MB10409:EE_
+X-MS-Office365-Filtering-Correlation-Id: d12f0662-297a-4055-485f-08df1035c6fb
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|366016|19092799006|1800799024|23010399003|376014|7416014|10067099003|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+ P8dmO7fOfibsKRIAEdU7cAtgp5qwOqAEjDizGANia6SwtxZumrLb81W3xiWuj95iLQAiWSYupSLXE/tC0aN1xEuFBJsNuZltO5ZWhWAphR1vDvE1gQ9Zv6prpiyN2jWcL5FxyFJ93/7jAUtXcpLxTr0wrmzv+Wg1TChWHlJe//8mlEcnDUQyfUumumWh/UwU7yMUEoR44j0Yxy5GcvWFouSFOHt5KLgI7f5oe2Ho3jO4RbCpoIY8YJlvmYezHuQbH16JOdbC3rGo/kOXaUD7bHp9JsFsQPE8yKlMbTTdz7GpYbBk2yEqXcC/VADDayFbYlYBZH9aLXsx6UFNMceSIrHG2+/KDuYvc4SGQrzoG+MVhNs+NWLkXHnECUmZQTHls5anHOJA6Am0llGPt62LEG/VpL0HUDZaUovyMC966mb8GgXMRw9gbdg4+k+DcT4c7VTozeuokBzMIBkAj97OuPsKkhApd8W4yzMjOThVHJDKfejceQAGQ3zH6Zm9lIrWDqCjG7RZKhZRt4wilKrY1Pf9UKtC+9Bxuf0bDgw6x60zYmOCGw+lgS68eJthyWhI3Pk6pr2FNLv9UittyA/CQy/YjXhX0peYBm4Y4+88YOgQj0vfpRGnB2MCdD1vKVNTOfivAwhfM1xs1dAKoRB+DKT1FL/fkrga2EO70oT7M8Q=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(23010399003)(376014)(7416014)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?ZTd6YXVmU0o4cGdQdFgyMnAyVXFlWGhyeDExVFhpbHpBVWM4MSsybU9IL2J4?=
+ =?utf-8?B?RXpKcElRZDdaMjBnMUZuVVhQM01kUThMOXF3Z3FPZ3B6ZlllT0JpWFR0NEkz?=
+ =?utf-8?B?ellTc0QvQUhJb0hNb250TUcvc1Fna0Y1NDMzVnZDWERsbkxrUTBIdnFnc2tK?=
+ =?utf-8?B?b2hQSkp3OFZTMVdBclRBOVJRMnNkUGowanNyV0F2R0dHdkZISjlPdXVLZ2I2?=
+ =?utf-8?B?ZnQzNXNaWFUxYmpNRzI5Rm5jZXh6UTdwNjBHc2RobTJGbml3a0ZZUkU1QmRO?=
+ =?utf-8?B?S1ZDZUhOVkNzbC9DL3RyVWxIQmNtVFVLWTFjREtFZU9BNkkxZ1NzTTV4eUVZ?=
+ =?utf-8?B?Qk5Lc2JQempMeHJTaWM4RmJyOGM3ckFhcVBmVkJvZlBtbTZTMXZ5STFLb2Nu?=
+ =?utf-8?B?T0ZoVmN0emMyZUphd0tVOEdCWDJzRXhJaTZXa0xudXowS3BxRDMwSzJsbkJv?=
+ =?utf-8?B?T29RRDRqb2dWd2NCL1J4MkN1U2psZ3FRS1c1bmtZRmdzeHU4UTNRQk5jQWly?=
+ =?utf-8?B?SGRUb0VMTnJ4NU1GeUs2ZlNLdFVsNVhxMjFOaUc2djc5T202TnhaSVpHYW5k?=
+ =?utf-8?B?ek9mRXdmTFl4N0FjYUVTaDBsb3Y3RTJEQ1JMTFVOZS8ycjdPbFdMWlVmM2Vx?=
+ =?utf-8?B?THU3a1pxWTNldkJXY2RiK0xYa0NBNE5UV0pid0FjWVJ2VHc2QmxYamxhREFq?=
+ =?utf-8?B?ZVIzVWpKTVJndFlNNzhOOG9tU21LeSt1Vk9GcmVZTHZsVW4yM3BlQmE2OVMz?=
+ =?utf-8?B?Q0VBRkdWdHpxZWMvWjhjTk84dkkyVHh6TWswbE9TcXV6VER1bUJWVEFibUZu?=
+ =?utf-8?B?NElseXhGeU1OOHlHSGdFSHhkOWlQQlAvWDkrQ0F4OUpYaWk2ZlFwTEtidkw2?=
+ =?utf-8?B?NGl1Wm9sTnZ4TXBqUElFd1hLNXpDaXJLSm02Nk53Y0JTOFVFYmYzVDdFeUFF?=
+ =?utf-8?B?Q1FQNVlkVWNxQm8rZUJlN3dodnB2VCtrMy9aOTFXd1ZwVVAwVVB4RWliQlBC?=
+ =?utf-8?B?VVZkVmdSWmJCUGlkN1lmaTA0S3ZUajMwbEdYWjlka2hhRnhGL3FKNllXUDJu?=
+ =?utf-8?B?N3hOOUl6Yzh5bzd4Y2lrWGtlaHh3ajl0ajYyVDloU1ZQaTZESVZJeG0yWkVt?=
+ =?utf-8?B?VXZqVjgwWGxZZWV4d1huWFplZVBlTUNwZTc5V3hiQWJuOUpIWFQyekl0L3Nh?=
+ =?utf-8?B?UHNWcHhvRCtwSzRNVjBNQWJRV3pXK0tOTGhXUi9QbFptUTdScUlmalUxQlQ1?=
+ =?utf-8?B?NGd6and5Nk5xeldvanJ4Tlh3eTB5STFXQzVBM3hjN2hPWitVakJEZFBjVDJh?=
+ =?utf-8?B?MDYvSE12K1JscmNyZlNRNjE2NHcwNXMxR3o1UHFtMmZHeHAxWStTZ0lCMUxk?=
+ =?utf-8?B?akhIaXBNK1F6NGh3VnlxWUp4c2hxYXFOY1lWakFJYlkxaGRHRjN0ZGFHalcv?=
+ =?utf-8?B?Q0lTVVBUTngzc1E0ak5GWkxqV3FrZ1FKYmRIa0xMVjFWQ3R5b2E1alNjRDhw?=
+ =?utf-8?B?UERMalVpMEFncGlUSklQQjFnNHRVbFF2Y3VnWGtHSXliTkMrY25BMHhVdnJo?=
+ =?utf-8?B?bjJNdHBOSHo5TElKS003Q2h1a3hVRTdZSGhwMTlNMEs1ZmFTTkY5bnAwOVN5?=
+ =?utf-8?B?U1FJaEp0MVMraEl0VStVaHFYdUI3eVhsZ3doekNKVytYaFY1d0Q4R2F5SWtL?=
+ =?utf-8?B?emRkaE1kUG0yNTJueFVxWkZlVjR6Vi9yajRWdFhHRFRrS1p0NW9nZUZnVE9u?=
+ =?utf-8?B?OHJjS0xFK29zbEExOTRGSU41L0x1L09DZ0YyMCsxdVZ3UlpWcHRQVDNnUzIz?=
+ =?utf-8?B?bEFmbHlBTGFGT1oySWYrNDlTR1FTdmZSZ28wOUlSU0JVTVNaekVCd3FyS0J3?=
+ =?utf-8?B?NkxybDQxNGMyVkZ5Q3FmQVNQTzRKalhHd2tKUFJOQXdWWUg2SUYySmJOMmpq?=
+ =?utf-8?B?ZmdQd2hLeEZUNXMvU3kwUGpPWkZMNXF5T1lXdUFEa3AwVHVmL2M3VEJ4Q01W?=
+ =?utf-8?B?b2FSaTg4VVcvSSt5Z3grNldzYlNZQWNBb2E1OTJzbGR5a1pGSEJPWUNNN05X?=
+ =?utf-8?B?ckluSG5ENTBBWEtqVzUvZDl2MmlGUW0xTzlnaWRiOGNOTWdRVzVjb25aM2JB?=
+ =?utf-8?B?UFN6NzcrR1UveUw1alFDTE52OTFYM3dtTUc1ZzUxSW9lY0FsRHZtVnVSSXcx?=
+ =?utf-8?B?WGRMSlRnVys0TWlkN29VcTl2d1hDQmdXNVlrYUtqZzBoaDgyZm1Pd3llb1ow?=
+ =?utf-8?B?eU9mQ21DTlFWcEN3TVhvYjFpTEZCRWZWRDVIdDdnb00xTmhSRVZMQUtNSnhr?=
+ =?utf-8?B?ZWd4OGpiUUp5T3oycHMrdm1QQUFNYmhIT1V4ZngxKzR3U0Nnc2tia2Q2WnRQ?=
+ =?utf-8?Q?rE/TVGKDfHnToV5glWb7nGW/NX+8YD/5zZJzT?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d12f0662-297a-4055-485f-08df1035c6fb
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 18:52:06.9025
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eA3yRhPyvmeXQpLqBptVoDTIq1dbVXyHQTG4qFKEWx6aw/QBadDPVEmj5IAODai6JwGJ6lShzPM6pQH7R14TFrMMD+qvDzSDVAzNC711p1aFqKkAS0Li8gX9FVGFoNiM
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA2PR04MB10409
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issue(s) to consider:
+From: Frank Li <Frank.Li@nxp.com>
 
-Critical: 0 · High: 2 · Medium: 2 · Low: 1
 
-- [High] FALSE POSITIVE (resolved later in the same series).
-- [High] Bitfield data race on `has_sfp_mod_phy` can silently corrupt
-  hardware interrupt flags
-- [Medium] Failure to allocate/register the purely informational SFP-
-  module phy_port now makes the whole SFP module bring-up fail…
-- [Medium] Unbalanced registration teardown for `phydev->mod_port`:
-  `phy_detach_internal()` unconditionally calls…
-- [Low] FALSE POSITIVE.
+On Wed, 02 Sep 2026 18:43:17 +0200, Stefano Radaelli wrote:
+> LDO5 powers the USDHC2 I/O rail on DART-MX8M-PLUS.
+> Without a regulator consumer, the kernel disables LDO5 during late init,
+> which removes the SD card and causes filesystem I/O errors.
+>
+> Reference LDO5 as the Sonata USDHC2 VQMMC supply, so the regulator
+> remains enabled while the SD interface is active.
+>
+> [...]
 
+Applied to branch fix, thanks!
+
+[1/1] arm64: dts: imx8mp-var-dart-sonata: Fix Sonata SD I/O supply
+      commit: 7ba5290db6bf365e46fb70bf13dc2a47048165ea
+
+Best regards,
 --
-
-net: phy: Represent PHY-less SFP modules with phy_port
-
-This adds a phy_port to represent a PHY-less SFP module, created and
-destroyed from the new .module_start / .module_stop upstream ops in both
-phy_device.c and phylink.c, plus a phy_caps helper to filter the module
-link modes by the cage port's MII interfaces.
-
-A couple of questions on the new error paths below.
-
-> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-> index f15c0fc339b4d..26634ef274f33 100644
-> --- a/drivers/net/phy/phy_device.c
-> +++ b/drivers/net/phy/phy_device.c
-
-[ ... ]
-
-> @@ -1617,6 +1629,75 @@ static void phy_sfp_link_down(void *upstream)
->  		port->ops->link_down(port);
->  }
->  
-> +static int phy_add_sfp_mod_port(struct phy_device *phydev)
-> +{
-> +	const struct sfp_module_caps *caps;
-> +	struct phy_port *port;
-> +	int ret = 0;
-> +
-> +	/* Create mod port */
-> +	port = phy_port_alloc();
-> +	if (!port)
-> +		return -ENOMEM;
-> +
-
-[ ... ]
-
-> +	if (phydev->attached_dev) {
-> +		ret = phy_link_topo_add_port(phydev->attached_dev, port);
-> +		if (ret) {
-> +			phy_port_destroy(port);
-> +			return ret;
-> +		}
-> +	}
-
-[ ... ]
-
-> +static int phy_sfp_module_start(void *upstream)
-> +{
-> +	struct phy_device *phydev = upstream;
-> +
-> +	/* If there's a downstream SFP module, and it doesn't contain a PHY
-> +	 * device, let's create a phy_port to represent that module.
-> +	 */
-> +	if (!phydev->has_sfp_mod_phy)
-> +		return phy_add_sfp_mod_port(phydev);
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Should a failure to create this port really abort the whole module
-bring-up?
-
-Both new .module_start implementations propagate the error: here
-phy_sfp_module_start() returns phy_add_sfp_mod_port()'s -ENOMEM from
-phy_port_alloc(), or whatever phy_link_topo_add_port() returns
-(xa_alloc_cyclic() -ENOMEM, or -EOPNOTSUPP after the WARN_ON_ONCE for
-netdev_need_ops_lock() devices), and phylink_sfp_module_start() does the
-same in its new else branch:
-
-	} else {
-		ret = phylink_add_sfp_mod_port(pl);
-		if (ret)
-			return ret;
-	}
-
-On the SFP core side, any non-zero return is fatal, in sfp_sm_main():
-
-	case SFP_S_INIT_PHY:
-		...
-		if (sfp_module_start(sfp->sfp_bus)) {
-			sfp_sm_next(sfp, SFP_S_FAIL, 0);
-			break;
-		}
-
-There is no case SFP_S_FAIL: in that switch, so the only way out is the
-global handling at the top of the function, i.e. losing SFP_MOD_PRESENT
-or clearing SFP_DEV_UP.
-
-So does a transient kzalloc() failure for this port leave the link down
-until the interface is taken down and up again, or the module is
-physically re-inserted? Given that the module port is a purely
-informational topology object with no data-path role, would it be
-preferable to warn and continue rather than to fail the state machine?
-
-The commit message describes only the representation of the module as a
-phy_port and doesn't mention this new failure mode.
-
-> @@ -1834,6 +1920,8 @@ static void phy_detach_internal(struct phy_device *phydev, bool notify_bus)
->  		phydev->attached_dev->phydev = NULL;
->  		phydev->attached_dev = NULL;
->  		phy_link_topo_del_phy(dev, phydev);
-> +		if (phydev->mod_port)
-> +			phy_link_topo_del_port(dev, phydev->mod_port);
->  	}
->  
->  	phydev->phy_link_change = NULL;
-> @@ -1963,6 +2051,12 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
->  		err = phy_link_topo_add_phy(dev, phydev, PHY_UPSTREAM_MAC, dev);
->  		if (err)
->  			goto error;
-> +
-> +		if (phydev->mod_port) {
-> +			err = phy_link_topo_add_port(dev, phydev->mod_port);
-> +			if (err)
-> +				goto error;
-> +		}
->  	}
-
-[Severity: Medium]
-Can this pair of add/del calls unregister a port that belongs to someone
-else?
-
-The del side in phy_detach_internal() runs whenever phydev->mod_port is
-non-NULL, with no record of whether the port was inserted into this
-netdev's topology during this attach. And the del is by id only, without
-checking the stored entry:
-
-drivers/net/phy/phy_link_topology.c:phy_link_topo_del_port() {
-	struct phy_link_topology *topo = dev->link_topo;
-
-	if (!topo)
-		return;
-
-	xa_erase(&topo->ports, port->id);
-}
-
-Since a phy_port keeps its id across detach so it can be re-used,
-phy_link_topo_add_port() re-inserts with xa_insert():
-
-	if (port->id)
-		ret = xa_insert(&topo->ports, port->id, port, GFP_KERNEL);
-	else
-		ret = xa_alloc_cyclic(&topo->ports, &port->id, port,
-				      xa_limit_32b, &topo->next_port_index,
-				      GFP_KERNEL);
-
-Two sequences look problematic:
-
-phy_link_topo_add_phy() fails (pdn allocation, -EBUSY on a colliding
-index, or -EOPNOTSUPP for an ops-locked netdev)
-
-	goto error;
-	  phy_detach_internal(phydev, false)
-	    phy_link_topo_del_port(dev, phydev->mod_port)
-	      xa_erase(&topo->ports, port->id)
-
-and the module port was never inserted into this topology, so whatever
-occupies that index is erased.
-
-The second one is the new call itself: xa_insert() returns -EBUSY when
-mod_port's retained id is already taken by another port of that netdev,
-and the cleanup then erases exactly that foreign entry.
-
-Would it make sense to only call phy_link_topo_del_port() for a port that
-was successfully added here (a flag, or clearing/zeroing the id), and to
-have phy_link_topo_del_port() verify the stored pointer before erasing?
-
-This needs mod_port to survive a previous detach, which looks possible
-since neither phy_detach() nor phy_detach_internal() stop the SFP state
-machine or clear mod_port - only .module_stop does.
-
-[ ... ]
-
-> diff --git a/include/linux/phy.h b/include/linux/phy.h
-> --- a/include/linux/phy.h
-> +++ b/include/linux/phy.h
-> @@ -724,6 +727,7 @@ struct phy_device {
->  	unsigned irq_rerun:1;
->  
->  	unsigned default_timestamp:1;
-> +	unsigned has_sfp_mod_phy:1;
->  
->  	int rate_matching;
->  
-
-[Severity: High]
-Which lock protects the word this new bit lives in?
-
-has_sfp_mod_phy is added right after default_timestamp, so it lands
-in the same machine word as the interrupt bookkeeping bits
-interrupts:1, irq_suspended:1 and irq_rerun:1. A C bitfield
-assignment is not atomic with respect to its neighbours: the compiler
-is free to emit a load of the enclosing word, an OR/AND of one bit,
-and a store back. Any concurrent update of a different bit in that
-same word is then lost.
-
-The writers of has_sfp_mod_phy are phy_sfp_connect_phy() and
-phy_sfp_disconnect_phy(), which run from the SFP state machine work
-under rtnl_lock() but without phydev->lock and with interrupts
-enabled. irq_rerun (and irq_suspended) are written from
-phy_interrupt() and from the mdio_bus_phy_suspend()/_resume() PM
-paths, neither of which take rtnl. So a store to has_sfp_mod_phy
-that races with phy_interrupt() setting irq_rerun = 1 can drop the
-irq_rerun update, and the pending wakeup interrupt is then never
-re-run after resume - a silently missed PHY interrupt / broken WoL
-wakeup rather than an obvious failure.
-
-The existing rtnl-protected SFP state in this struct is a plain bool
-(sfp_bus_attached, with the "This may be modified under the rtnl
-lock" comment above it), and the new sfp_cage_port / mod_port
-pointers you add sit in that same group. Would it be cleaner to make
-has_sfp_mod_phy a bool next to sfp_bus_attached, so it is covered by
-the same rule as the rest of the SFP fields and shares no word with
-the IRQ flags? If you would rather keep it a bitfield, which lock is
-intended to serialise the enclosing word, and how is that
-synchronised against phy_interrupt()?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260910170103.1029108-1-maxime.chevallier%40bootlin.com
+Frank Li <Frank.Li@nxp.com>
