@@ -1,190 +1,178 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9CD1757EA;
-	Fri, 11 Sep 2026 01:48:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7510F3B4EBD
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:48:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789091287; cv=none; b=MYwdD8ttqHftB0XTtGrAPYd15zhrjPWcn00lBc8No5BIIc/SEiOLrlm9FEmdVLzG8UJ1NHrFaa3Xsmr3zEP3vms3O4/1OqRMzZfCKbezPPkKB7lMBIS8sBTYSPj2WnmIHZBYgbsL/f8rvC9b5vkYdKlZUgFP1v0GBFZm8fOxtjw=
+	t=1789091323; cv=none; b=nvPx6qySn1CnfYeiuFPRd2wuIH6eOKs71jbORe5ba0cQiuDMgpC6QrwKE4Dguc/GpPv2uqxO+M67IP/CN3LpSbQ7zofCbXSiCKlD5JauSd4ZFbO03wqW1iiBpfvPtKBN6bBioITrjKALJMtSA/8nIMM2un6H4zgUwarw305fvTI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789091287; c=relaxed/simple;
-	bh=FuyTQKEtPmp5jrLLptMG5DhO0TqlDaiofz9cGAeYc30=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=q3T9zdBlNb1U86VcoUyIDYIFnQazIETvHrdi2pZW5gkYUH1LxC/vkAmAF6aTuAf9nyeDbZJQuA1DWrGFb84UPLE/gH1jyPY7qKeT+Y5t5qTU6gGNvI+Edyw3ckYW3C0VP8E1VFx90afFKgWvX2OYb/09MAqf4GFZ8cssr3Jah/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hgy9P3ypMzKHMR9;
-	Fri, 11 Sep 2026 09:47:53 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.75])
-	by mail.maildlp.com (Postfix) with ESMTP id 09E574056B;
-	Fri, 11 Sep 2026 09:47:59 +0800 (CST)
-Received: from [10.67.110.36] (unknown [10.67.110.36])
-	by APP2 (Coremail) with UTF8SMTPA id Syh0CgDnTEnOXaNqMeMgBg--.29875S2;
-	Fri, 11 Sep 2026 09:47:58 +0800 (CST)
-Message-ID: <0ef7dbfd-3bd6-40bb-b42a-a81edd2ba468@huaweicloud.com>
-Date: Fri, 11 Sep 2026 09:47:58 +0800
+	s=arc-20240116; t=1789091323; c=relaxed/simple;
+	bh=BlohuCT153xScu6Dy9vwc4wWqzDsTnfR928b6u7j8L0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Lwwo4CvvxGdig0xWeTCeQjeVujj08gRrk1NTn3j3zy47sfU1s/Qf26SdBgewFxuTdmI7U3FjnZEnf4fuYJVXGQfiULuIAGj6i0kg52hpJq8LnYRqs11IXagwi54deyAOwNLMoRvwgUhXLSErGYxlmA7ajLWj5Dqwu2wH8YkUj1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JEz0z4LI; arc=none smtp.client-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JEz0z4LI"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c1670dad7a8so78088066b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:48:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789091318; x=1789696118; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=GAHht+WghV3TdSDRxQQLgJBQ6j/lYQlO07gbmFFmu/8=;
+        b=JEz0z4LIrlyVqhppU2edhETE8nbv2SjWoE8zbXpB/vpg/ybe3vWPbfg1D4GOJX6ssI
+         qJHgR4Wev6+27bKfHgAxubpkvrYQ0l44ryGdxHN4beDIULFNZizZwb5OpypdinVibA9o
+         RPuENcjCjJP3YtWUc/4h4Oj7L2cgMstPx5qxfS739vC2mqZTpSJvoV+vH14CGgND+0Sj
+         fFzRsp6KrdhvrO3kraspz+Qsdu6uVGw0h5Jiibz5EPYT1DtnePgdNwgejsvY8G1MhS3f
+         GajhN9Cahl/Ko7S2kt7X6IjV9wOVePTX+4rnNar3h8sUdneXXCWi9hwCJBRMSdkfjemt
+         MW9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789091318; x=1789696118;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GAHht+WghV3TdSDRxQQLgJBQ6j/lYQlO07gbmFFmu/8=;
+        b=OCza8OMeHohgVVh7Vwu53aPT0FwQ9ItSZWE0ENzEADdOEX2WQE0h+Opsp512hM01dB
+         t4+AYRIVy+LxSwQ/Pani7OR+eHMO4K1tcrDhnOD5ot5X4VVeCYXxzr/0/ZHGUY9zmx3b
+         mggCcLI9wrvRp05uKx6MNw4fOERMQ9m2siBPC6Sv6H4HoF1IjndA355J9yTLRdcjEv0N
+         j6ijOAzKUJMlZGEU2yKcA3HgXD7iObjWOGE9w4UdjS/GMusASyfvYe2YSbeBjsV99bku
+         typvq1Ms1caLM8dTRnLhviLEFSUnp6xBra8EjT2tT2MJ+gm/sxWpQip+DMw/xah3+4tT
+         V+KA==
+X-Forwarded-Encrypted: i=1; AKwUvBzpsplgFvNZ4jfXQTWmDMBg4p2MGaiC+S1XZM4M9SK8mTRLjE+hBJVGAS3AMs2N5trgMzDJg/ppzAqDNPw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nje9WKmupcw6NpV6eRKrXbrfhq225/xZ0LryKIbKgfCYAgj0eC
+	UpyKvjwy+b2vLRr/qGlORY39kUnUS+HzckS5x7/cC78GVbfBQ9Pc28O00MPX
+X-Gm-Gg: AYBFou2a6O/oN/lmhZrm6tC3d20YG4oi0GbnyKRobawuR0ftpi7lPJLBqlN+O9irfls
+	SNDMWTNVXRSKFKBBUB41NOntrI4RkBqHPD5PipI2+k1aewqmRfjIsKes+llewWU/NkAIuELNrmC
+	kTU7DvUG89Nbm87XT5rfM8Giv2qV8b9/29AX9wacdjC4lkKCM87Zckukj95QnTt2GK07Gn2TrIz
+	UReUeKYRx4+LeSbi1fA5YABauInP0L2ADlUXBLlAF3RuIoF6DhQQBQApaCdqjj65RtBgnM36vGC
+	r5YEOHxKanlqDX5WVf+U47nyk9EZWfh7eSyoCYuC9uxhmtEBGt7KZYzCsrapwjP6Qe7gclIxnH3
+	x+mmyo/uRVT4jbPUByfjq3PA0VrAp7/rkYnqBzQLwBT0JbRI3enSZzV102dnbhX1/JxZmMcXiuq
+	Gr000F+P4JdZsikDOXwhQfsSKmHR3Pcr1kRIJ8x6hbcPFkDKc8wfpW8A84EtZKV6YA4sCaPwTpf
+	YoqNan16cXqidzudgy4DObvm95nbLNAWqcbmJR3AZqAnvsSsbmnjGD1/TFbVKa8EUmbNzAYelJy
+	acn+WUa8WqlHino=
+X-Received: by 2002:a17:907:d38c:b0:c26:19de:9138 with SMTP id a640c23a62f3a-c2966739de8mr60264466b.43.1789091318386;
+        Thu, 10 Sep 2026 18:48:38 -0700 (PDT)
+Received: from nn ([2001:1ab8:1003:0:5454:f357:ba89:4e22])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966021ae8sm28097866b.22.2026.09.10.18.48.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 18:48:37 -0700 (PDT)
+Sender: N B <gen.benner@gmail.com>
+From: =?UTF-8?q?Nerijus=20Bend=C5=BEi=C5=ABnas?= <nerijus.bendziunas@gmail.com>
+To: toke@toke.dk
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/2] wifi: ath9k: stop a failed register read from opening the RX filter
+Date: Fri, 11 Sep 2026 04:46:52 +0300
+Message-ID: <20260911014653.1566388-2-nerijus.bendziunas@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260911014653.1566388-1-nerijus.bendziunas@gmail.com>
+References: <20260911014653.1566388-1-nerijus.bendziunas@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 07/26] perf dwarf-regs: Adapt get_dwarf_regnum() for
- arm64
-To: Ian Rogers <irogers@google.com>
-Cc: Namhyung Kim <namhyung@kernel.org>, james.clark@linaro.org,
- xueshuai@linux.alibaba.com, Adrian Hunter <adrian.hunter@intel.com>,
- Peter Zijlstra <peterz@infradead.org>, leo.yan@linux.dev,
- Li Huafei <lihuafei1@huawei.com>, Kim Phillips <kim.phillips@arm.com>,
- Mark Rutland <mark.rutland@arm.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Bill Wendling <morbo@google.com>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Zecheng Li <zli94@ncsu.edu>, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev
-References: <20260908130122.633500-1-wutengda@huaweicloud.com>
- <20260908130122.633500-8-wutengda@huaweicloud.com>
- <CAP-5=fUAtw6-waqmF4RJFGZ__J=DSzbNLNsOfWekj378_PnrdQ@mail.gmail.com>
-Content-Language: en-US
-From: Tengda Wu <wutengda@huaweicloud.com>
-In-Reply-To: <CAP-5=fUAtw6-waqmF4RJFGZ__J=DSzbNLNsOfWekj378_PnrdQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:Syh0CgDnTEnOXaNqMeMgBg--.29875S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXw1kJw1fuw4rJr43GFWkXrb_yoWrXF1DpF
-	srC3W7Jr4DGa4akwnxXF1fWFyfXw4rXr40yryjyw47CrsruF12qw4xKr1j9F48ZrWDJw10
-	kayjgr1rWrn5JFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6x
-	kF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAq
-	x4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6x
-	CaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0E
-	n4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I
-	0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8
-	ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcV
-	CY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAF
-	wI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa
-	7IU0bAw3UUUUU==
-X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
+On USB a register read is a WMI round trip and a timeout returns -1.
+The spectral trigger reads AR_RX_FILTER back, ORs in the PHY error
+bits and writes it, so a timed-out read stores 0xffffffff and the
+device forwards every frame and PHY error to the host.
 
+Add ath9k_hw_enable_rxfilter(), which sets the requested bits with
+REG_SET_BIT() and reads nothing back, and use it in the trigger. With
+firmware 1.4 and later the read-modify-write is done by the firmware;
+older firmware still reads from the host.
 
-On 2026/9/9 2:08, Ian Rogers wrote:
-> On Tue, Sep 8, 2026 at 6:01 AM Tengda Wu <wutengda@huaweicloud.com> wrote:
->>
->> The current arm64 DWARF register lookup relies on 'aarch64_regstr_tbl',
->> a static string table. While this works for kprobe-tracer where register
->> names start with '%', it is insufficient for parsing register numbers
->> directly from raw instructions (e.g., extracting '6' from 'x6' or 'w6')
->> during annotation.
->>
->> Since get_dwarf_regnum() is currently used only by 'perf annotate' and
->> does not affect kprobe-tracer, replace the limited table-based lookup
->> with a programmatic implementation in __get_dwarf_regnum_arm64(). This
->> allows resolving arm64 register names (x0-x30, w0-w30, sp, etc.) directly
->> into their corresponding DWARF register numbers.
->>
->> Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
->> ---
->>  .../util/dwarf-regs-arch/dwarf-regs-arm64.c   | 22 +++++++++++++++++++
->>  tools/perf/util/dwarf-regs.c                  |  2 +-
->>  tools/perf/util/include/dwarf-regs.h          |  1 +
->>  3 files changed, 24 insertions(+), 1 deletion(-)
->>
->> diff --git a/tools/perf/util/dwarf-regs-arch/dwarf-regs-arm64.c b/tools/perf/util/dwarf-regs-arch/dwarf-regs-arm64.c
->> index 593ca7d4fccc..720c863d1869 100644
->> --- a/tools/perf/util/dwarf-regs-arch/dwarf-regs-arm64.c
->> +++ b/tools/perf/util/dwarf-regs-arch/dwarf-regs-arm64.c
->> @@ -1,5 +1,8 @@
->>  // SPDX-License-Identifier: GPL-2.0
->>  #include <errno.h>
->> +#include <ctype.h>
->> +#include <stdlib.h>
->> +#include <string.h>
->>  #include <dwarf-regs.h>
->>  #include "../../../arch/arm64/include/uapi/asm/perf_regs.h"
->>
->> @@ -10,3 +13,22 @@ int __get_dwarf_regnum_for_perf_regnum_arm64(int perf_regnum)
->>
->>         return perf_regnum;
->>  }
->> +
->> +int __get_dwarf_regnum_arm64(const char *name)
->> +{
->> +       int reg;
->> +
->> +       if (!strcmp(name, "sp"))
->> +               return 31;
->> +
->> +       if (*name != 'x' && *name != 'w')
->> +               return -ENOENT;
->> +
->> +       name++;
->> +       if (!isdigit(*name))
->> +               return -ENOENT;
->> +
->> +       reg = strtol(name, NULL, 10);
-> 
-> Nit: perhaps this can be a little faster and ensure correct string termination?
-> ```
-> if (!isdigit(name[0])) {
->     return -ENOENT;
-> } else if (isdigit(name[1]) && name[2] == '\0') {
->      reg = (name[1] - ' 0') * 10 + name[2] - '0';
-> } else if (name[1] == '\0) {
->    reg = name[1] - '0';
-> } else {
->    return -ENOENT;
-> }
-> ```
-> Everything else looks good to me.
-> 
-> Thanks,
-> Ian
-> 
+Fixes: e93d083f42a1 ("ath9k: add spectral scan feature")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Nerijus Bendžiūnas <nerijus.bendziunas@gmail.com>
+---
+ .../net/wireless/ath/ath9k/common-spectral.c  |  7 ++----
+ drivers/net/wireless/ath/ath9k/hw.c           | 23 +++++++++++++++++++
+ drivers/net/wireless/ath/ath9k/hw.h           |  1 +
+ 3 files changed, 26 insertions(+), 5 deletions(-)
 
-Sure, Ian. Thanks for the review. I'll make the change in v6.
-
-Thanks,
-Tengda
-
->> +
->> +       reg = strtol(name, NULL, 10);
->> +
->> +       return reg >= 0 && reg <= 30 ? reg : -ENOENT;
->> +}
->> diff --git a/tools/perf/util/dwarf-regs.c b/tools/perf/util/dwarf-regs.c
->> index 797f455eba0d..bacf5c13c3bc 100644
->> --- a/tools/perf/util/dwarf-regs.c
->> +++ b/tools/perf/util/dwarf-regs.c
->> @@ -114,7 +114,7 @@ int get_dwarf_regnum(const char *name, unsigned int machine, unsigned int flags)
->>                 reg = _get_dwarf_regnum(arm_regstr_tbl, name);
->>                 break;
->>         case EM_AARCH64:
->> -               reg = _get_dwarf_regnum(aarch64_regstr_tbl, name);
->> +               reg = __get_dwarf_regnum_arm64(name);
->>                 break;
->>         case EM_CSKY:
->>                 reg = __get_csky_regnum(name, flags);
->> diff --git a/tools/perf/util/include/dwarf-regs.h b/tools/perf/util/include/dwarf-regs.h
->> index 46a764cf322f..a25f038bbff2 100644
->> --- a/tools/perf/util/include/dwarf-regs.h
->> +++ b/tools/perf/util/include/dwarf-regs.h
->> @@ -105,6 +105,7 @@ int __get_dwarf_regnum_x86_64(const char *name);
->>  int __get_dwarf_regnum_for_perf_regnum_i386(int perf_regnum);
->>  int __get_dwarf_regnum_for_perf_regnum_x86_64(int perf_regnum);
->>
->> +int __get_dwarf_regnum_arm64(const char *name);
->>  int __get_dwarf_regnum_for_perf_regnum_arm(int perf_regnum);
->>  int __get_dwarf_regnum_for_perf_regnum_arm64(int perf_regnum);
->>
->> --
->> 2.34.1
->>
+diff --git a/drivers/net/wireless/ath/ath9k/common-spectral.c b/drivers/net/wireless/ath/ath9k/common-spectral.c
+index ca01a07f6630..73c1eb4ebe0e 100644
+--- a/drivers/net/wireless/ath/ath9k/common-spectral.c
++++ b/drivers/net/wireless/ath/ath9k/common-spectral.c
+@@ -716,7 +716,6 @@ void ath9k_cmn_spectral_scan_trigger(struct ath_common *common,
+ 				 struct ath_spec_scan_priv *spec_priv)
+ {
+ 	struct ath_hw *ah = spec_priv->ah;
+-	u32 rxfilter;
+ 
+ 	if (IS_ENABLED(CONFIG_ATH9K_TX99))
+ 		return;
+@@ -730,10 +729,8 @@ void ath9k_cmn_spectral_scan_trigger(struct ath_common *common,
+ 		return;
+ 
+ 	ath_ps_ops(common)->wakeup(common);
+-	rxfilter = ath9k_hw_getrxfilter(ah);
+-	ath9k_hw_setrxfilter(ah, rxfilter |
+-				 ATH9K_RX_FILTER_PHYRADAR |
+-				 ATH9K_RX_FILTER_PHYERR);
++	ath9k_hw_enable_rxfilter(ah, ATH9K_RX_FILTER_PHYRADAR |
++				     ATH9K_RX_FILTER_PHYERR);
+ 
+ 	/* TODO: usually this should not be necessary, but for some reason
+ 	 * (or in some mode?) the trigger must be called after the
+diff --git a/drivers/net/wireless/ath/ath9k/hw.c b/drivers/net/wireless/ath/ath9k/hw.c
+index e08ab73fcacb..d62b6ff00d41 100644
+--- a/drivers/net/wireless/ath/ath9k/hw.c
++++ b/drivers/net/wireless/ath/ath9k/hw.c
+@@ -2905,6 +2905,29 @@ void ath9k_hw_setrxfilter(struct ath_hw *ah, u32 bits)
+ }
+ EXPORT_SYMBOL(ath9k_hw_setrxfilter);
+ 
++/*
++ * Set bits in the RX filter without reading it back: on USB a failed read
++ * returns all ones, and writing that back would open every filter bit.
++ */
++void ath9k_hw_enable_rxfilter(struct ath_hw *ah, u32 bits)
++{
++	u32 phybits = 0;
++
++	if (bits & ATH9K_RX_FILTER_PHYRADAR)
++		phybits |= AR_PHY_ERR_RADAR;
++	if (bits & ATH9K_RX_FILTER_PHYERR)
++		phybits |= AR_PHY_ERR_OFDM_TIMING | AR_PHY_ERR_CCK_TIMING;
++
++	REG_SET_BIT(ah, AR_RX_FILTER, bits);
++
++	if (phybits) {
++		REG_SET_BIT(ah, AR_PHY_ERR, phybits);
++		/* PHY errors are reported in zero length frames. */
++		REG_SET_BIT(ah, AR_RXCFG, AR_RXCFG_ZLFDMA);
++	}
++}
++EXPORT_SYMBOL(ath9k_hw_enable_rxfilter);
++
+ bool ath9k_hw_phy_disable(struct ath_hw *ah)
+ {
+ 	if (ath9k_hw_mci_is_enabled(ah))
+diff --git a/drivers/net/wireless/ath/ath9k/hw.h b/drivers/net/wireless/ath/ath9k/hw.h
+index b942b8303d8f..f102f73a0114 100644
+--- a/drivers/net/wireless/ath/ath9k/hw.h
++++ b/drivers/net/wireless/ath/ath9k/hw.h
+@@ -1055,6 +1055,7 @@ void ath9k_hw_get_channel_centers(struct ath_hw *ah,
+ 				  struct chan_centers *centers);
+ u32 ath9k_hw_getrxfilter(struct ath_hw *ah);
+ void ath9k_hw_setrxfilter(struct ath_hw *ah, u32 bits);
++void ath9k_hw_enable_rxfilter(struct ath_hw *ah, u32 bits);
+ bool ath9k_hw_phy_disable(struct ath_hw *ah);
+ bool ath9k_hw_disable(struct ath_hw *ah);
+ void ath9k_hw_set_txpowerlimit(struct ath_hw *ah, u32 limit, bool test);
+-- 
+2.55.0
 
