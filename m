@@ -1,193 +1,239 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013010.outbound.protection.outlook.com [52.101.72.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2FD4A43F3;
-	Fri, 11 Sep 2026 16:39:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789144780; cv=none; b=RJMYuXVQ2oIq/yFLDIZNhzlkyA9mvCFqECtoGhT1AJwfc5FgYQ7Wyu5iKqVtai6gQ1wsiHf93uYF49AwUmAgLen5Qy0OqjgOErta4HYqySc/4QjJiUqMKNfYONK8D1USZdkL7QVkhmFA4fiRcjraijCAoab73E9lV4Scjoykrtk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789144780; c=relaxed/simple;
-	bh=zMi6M00P9+gGP2DawlzmK4x5D4ChpCE+33j6eEaXlcg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Uy/Tgl9yqk4cR4KgMvzXjYzmK5UAaDLleF7St9XlHh3ZwmsmCqXHWgxnlq5uFPx2/MM2+kFWfY5/bceHeQYKJzsXXaiic6R9dDDGk0HfYhlekByBxPQpo62kCLwfpd6jZQVkBv8k1OaIUxuM0VVfkjlgZ5d2LGDEAGYg09GZTMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MGl9I60x; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 015C44908A1
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:39:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789144785; cv=fail; b=YN9xQvFy2qarlZ7syMVwA9RFw5ENH09CFMgKdfht5F+L9RFKEtQuY+MT3GcCD6gAuqSUEHkVi1xUJ4mcG9Ed9bkBoslwEZ9/u+UYGkpSRY6kVo30j6DM3xpp83BOxmS5xy6rZ29DMwfhUKKqPL0ak6xZpil15HCSUqxRnU0yaqk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789144785; c=relaxed/simple;
+	bh=LJCrfGQnZ4S4LH1CSQFA9u6Lm+UA/YPWdVKfFmmpENs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=PMO7Jp8AGDN5GEaCkN9aT3P6SQwWbjVehlloGgy9vzxTlGxmxOZ7oSkN5qK7HEGDufCWcB7dGtluNTT0X/rulfY50CknvVeDCJ9eNF4LFKF+2UrW4OIoNAwZHOamulMvMrfFV181qGlEksanvha1P96DswBPRE9CghVaTk7OFm8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=dJ0VgbmY; arc=fail smtp.client-ip=52.101.72.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MGl9I60x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FEF91F000FF;
-	Fri, 11 Sep 2026 16:39:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789144774;
-	bh=OkTP2UvkR9L4UOg/cpBiigVG7rpJsSBTG6KbmpAnG+o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MGl9I60xY3Z2sFqyyRhad6HQLSNPVGaSdlpegFKSLHpF3B3rGo1tqdouOTEkjKNip
-	 alC0sHkDBVQbR5AEBqEpVXXiaUDQ8piArAQN5p42Uf1l1mEGXfrtfdPkLcc8DWVFHd
-	 uxS1/6MHrVb2aPWYKFqB25mTgla33/lPHoIXtpv+R5dEuU8fMbmQDpBzQdyMHTIgLR
-	 ALkurPnDO51TkRfpCizQmi+qxoWpwbCM+Hq/OSW+ug31KUDVs44DDpIXjCG2ElxENH
-	 1ciplIL2LP9dQiie4EW5MnBVvWvk7S/EMinDR/7sok2kQu9Vsord0jwYfSmqNZPT/N
-	 iV4NFGY3TFsVg==
-Date: Fri, 11 Sep 2026 17:39:28 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, 
-	david@redhat.com, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
-	pfalcato@suse.de, xueyuan.chen21@gmail.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH v3 4/7] proc/task_mmu: remove special-casing of
- smap_gather_stats() start parameter
-Message-ID: <aqQsWNfrBSp4DY_N@gremlin>
-References: <20260910234737.1340642-1-surenb@google.com>
- <20260910234737.1340642-5-surenb@google.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="dJ0VgbmY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oigNm7B71zV+pjS6wg3xtAv3qAq6Di4SwMX31u7itm2KpyVS9wJbDlT8vqjNd2Xer0pia3cO5zrwBDO+sjbYs5LBleaGghtYzeYME8ENu2A5BLo1nEciCQaUx99Loxxu5QXeufO4XP5bqQxD0nmP5E+nHD//6k/jSKpv9CzE2Nm6rJcT+vJsBNR8fdVQRdVDmi8EDbN13NsigoWwX+JbLni7xAnZQDzf4uKIiuORuusCNPwhWNa93L6aog+kQ4XgC0ehF7a2ULtQSs7ahmVh2e39LblLKRFTmuifKJEI6nQ0M0q3Hx+dadZBePLS1lLXvmYOMIGZpkjLn2ZNmdGqYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TK292hmwFwT1Cj9nWM0aALichiuP6ntdcuhp2R7rqTg=;
+ b=f3nTKMHyLo76hG6W2Ql7RKax7bYKeNSNqzd7XEpRCNFRdxquSl94Rsh7AJQUhQx0lREKhlneJ0UMowZCzm7NaBoO2Y0poaBeyL/Xju7BhU6nRM5tmBAIA+VpimFWSDX35oGkZ4m2LHikwuNijH8PhPfVMV/cpuTb5ip+w4TmuAZ7OWNOMoc+Q/TkcoGg5jFa8tIAT3C5eEr7Mq53GsT1Lc32ZmcVVkhpHtrFIpGrCRMR2keXQi/9lZiQSgsMIynq6fJGp1zO98vF9hCADYlnjdpbrsyaSjmpTI6hmnTSzJY/+ZAKe5GsqMS5vktVu8AJ67D1XN3W6hoM03GqMMWG5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TK292hmwFwT1Cj9nWM0aALichiuP6ntdcuhp2R7rqTg=;
+ b=dJ0VgbmYK2cB2SaKxacEg8cL8nfVilvMBVXsFa9kMkGC2sI8Es+e9HdgGBwGqm3AFgKLY0J4noBy6XyXunXOl6Wm3K/2fa2gEheN7tQFWGrJvyTIcLPhyouZy0fM9n7XPo+WUO38A5evF9S6Al35yoga+8KUveO1V54etRLF+IaS4SsIbRtim5k0L7nnbelnHhk2JKFRMLzvc4KZYwCEcDBJvi0DZ5FmZw0Hv/mIPVWitofTkaGb6y8sP+LC2kGfPZbF9lPFc027ebwAvRXuDdm9Rtip5Okscczda2JTup5+OUF1UtV0rkUtcg7xoEF58bqUVfb/dJj254hQeKoQKw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PA4PR04MB8015.eurprd04.prod.outlook.com (2603:10a6:102:c6::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 16:39:34 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 16:39:34 +0000
+Date: Fri, 11 Sep 2026 11:39:25 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>,
+	Allen Hubbe <allenbh@gmail.com>, Frank Li <Frank.Li@kernel.org>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	fuyuanli <fuyuanli0722@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Nicholas Bellinger <nab@linux-iscsi.org>,
+	Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 04/14] NTB: ntb_transport: Publish link state after QP
+ setup
+Message-ID: <aqQuvWacR6FSaMvn@SMW015318>
+References: <20260910040836.3792333-1-den@valinux.co.jp>
+ <20260910040836.3792333-5-den@valinux.co.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910040836.3792333-5-den@valinux.co.jp>
+X-ClientProxiedBy: PH8P221CA0063.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:510:349::15) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910234737.1340642-5-surenb@google.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA4PR04MB8015:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6447390d-5f01-4702-b70f-08df102342ec
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|366016|1800799024|376014|7416014|11063799006|4143699003|56012099006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	tTVi2AbXm6aPgaPAceTteUvs/65PrSeyC2q3BGYIIza5ckMojMECMmO53wcYIAYn35AjGEWNymIXA2CQDpeO0fWdKjC5r66KU14vfU71KWj9VWnhwdTf+YTUUGVpuVzOKlSijQLwgiCMnoLWTFm0cjW4N43sO4ejL7qkvknXAicU/nnt/PhiD8/EtyMd1LCA4Y2NbCLDBNE7WSMy0JtRqwAz7H4SnwZYsv07/z5e1woPeDWTymwGRo0O47jafbTpxvHd1t/PBh8zPvevXzUCAIXoCc7YSLo2Q/lx35RVAW/3B/DvPhDucnRXOqvJIs1Elw/YkyNUdkaIEISFer/9Rlvjs+oJBfvEYE9/79OHV9KYDE0b6Y4k9V656DJpwZHx0zHq4qD+2uJQ1XMS0A+BsfTI5ZfY+cDhf8lU+7KE25yqqsh0FLh8hQxBmcd4l1hE77Cu/0Ka745wiUwumJF4DXENy8lcP+E5l79KqFWoUEqq+M5kvdOvcl8X2MeiCTOfj3qq7TwjBLtscBgfAF9XtvSJc3SGjbXoa2VFhhZ65cWyI3UWrMAQHV8ARW78Goae5K0vuv8ACpk06cZVXf83jai/JyI5Ax6JNBkI6IwXdr203aFw45MFO1Om+B29Dn0QMSSFaWslqxmKM6VS71gXm9ATFy4RIS2FULPyQH7jnRw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(366016)(1800799024)(376014)(7416014)(11063799006)(4143699003)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?0IbK1AVXbGRhGz8A1HAcmjX5eUGtO7V7Yd62GRljLUYCmMczscfH6RDRSUKb?=
+ =?us-ascii?Q?D+pypryP9T6cxiaP5lfzGoCQp2NrCAEwxL1GE2uM39H0A/FSHWFBe9JIusXd?=
+ =?us-ascii?Q?nxovnSN1r0YbVqSlfPfsSopC8BLG0v/NC7XErs39vwC+D9JRFqUf+Oylkozy?=
+ =?us-ascii?Q?IOJPoL+MWILhymUP4QjXNONqCGpvsCtVU1uIEv5B3g/lBrYaklAzHAp3nwm0?=
+ =?us-ascii?Q?Z/BvriM+lfU+iEYy/bnfcywOQgcctebNrF7x//am4XmpnrqjgkKyg9GcqPz4?=
+ =?us-ascii?Q?NoQ7651e3yVZOEudg2/hWYqi3z8dOIiRXyt+wW1P6o+KpmILhqm6agO31j/3?=
+ =?us-ascii?Q?yb7qkjW+JrDoCNtETAn90WYXxfy2ZcO9F2mOEmSTJOSx3HXsIB5JiE/5CXVn?=
+ =?us-ascii?Q?nuJKQj/RLvFM8z4DoTvFzQDr7HDauu86UDdz6Ud+BxODr9z4bJ7++N2RxcRj?=
+ =?us-ascii?Q?flNVfMHEeV3z0D8OC6XjsBxPG0sZkyqA/t2WAe+9OFbi5CLIR/Lfg436rufs?=
+ =?us-ascii?Q?2NKLFtFkXDtpl/H3PGvE1DB3YTkZCOm1FHdjqVweFwAL7XFCWSa2jqN6+/GA?=
+ =?us-ascii?Q?5Zz9/50Z/Hm4AJXN0vsvA8worBqSoB7xKRJ4k2EevgovWOiJgUihbQWwI8LW?=
+ =?us-ascii?Q?21LdrBUdbzeQV93dFe3Oh4X8DOwjs7lETaPm4pmhRewDmEjfiTQmi8824slB?=
+ =?us-ascii?Q?VPmnw3t5Vwfizg1lSnY3G17kDcRCP1QybJgizntG1Mx8rD5xQ+0v+sKazky9?=
+ =?us-ascii?Q?zmes8IBvVumHjbl9iHuTA2lcd5fB3DUHItNfHy7H9JXoyCu96kHxav6ixRDR?=
+ =?us-ascii?Q?XOTTgFGXYwrlC2wIo6n3GhAmBcw5feN03zGmj0w3Npeqcx6RiTJzpb+Mr1Sp?=
+ =?us-ascii?Q?OJw1b3NN3t/rxZF1VFWuDla+p90X0/fTjYxl5i8FYmNXIsHoY4BYdgaSDLVj?=
+ =?us-ascii?Q?W/zbHyammlIUFE+mROUAZ2JcZjLoX7cMwlWxjfBs47dSgUb96msO32NOQhXL?=
+ =?us-ascii?Q?sSYgWL2Giuv5uW7kDGhSurtR9ygUty0B1zCc75n74kptKwlV4BephwSCBwJy?=
+ =?us-ascii?Q?OlutaxX+zBDl9Rx0+IQw5SAhqa24wThcYD28v7KU2+IXk9aFb2ox6yFx1J7Z?=
+ =?us-ascii?Q?yIGD13mVhqgy290bP5eztwQM7KQ3jNMF8xKsZ1dIginOyrXqKSxhqTJ9DJJi?=
+ =?us-ascii?Q?Mkl+8icv67Cc5IrvxobvdoUvFJVPfhzLKYNI/m0okzuupbTMtUqFEc1DHipQ?=
+ =?us-ascii?Q?/jRoPlIGF90/SYcD9QS7u8W5WzbupBQJTF+l8ahEXzrij9gpMMbGATofuqFH?=
+ =?us-ascii?Q?jpXvrzLh8mQ9F7GzfRNwpNHMYLbSIJ4Vp9XfWwiT1zrIacNGdHu/FO0pnEkx?=
+ =?us-ascii?Q?f1YONi6HUYqzVNBC5auipz0YZf2F891i3CehQ41fie/58pt5Dkeb4lO8IJ2G?=
+ =?us-ascii?Q?jXTIoFO7qY8IsjIxamPOG+m2lko0xWjEISj2RjU8n3N9MBN1iTWwtrggtqku?=
+ =?us-ascii?Q?IaNuSK4g973RtXzJPW8R/nzy0GxCVRXpebqKhjEMjiu9qtOdKaxQQd6jxfPt?=
+ =?us-ascii?Q?H6DwhmxB61HUBrnUJF9wQ1o9GPJKwV/nxsUyKuPdBDW5u5l+abBb8zllMky4?=
+ =?us-ascii?Q?dC/fXnEo3g7tJ5WxbCq22dXN5V5EYdhwrEJVmljq+//LBCrxT4hTIfMJxKJU?=
+ =?us-ascii?Q?/l7hys5fsc7naFj1Mrra3YKYAL/ARMJI7Z5N/pYsNAnHNV8/8zqN4dVq28rx?=
+ =?us-ascii?Q?GKGJWN61iJ4aHa4IV3lWEDHYcnXa2NvRceVU0RK/dMHPSEVIDu60?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6447390d-5f01-4702-b70f-08df102342ec
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 16:39:34.5353
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +RuQscAbwQw8EUOzMosjs5iFiHs5N2jJDajO1eH/WF/w6tv6cakG1qHIHFC2o7n+I52dLzTc1DUOZ+nvoXoKnmEm4WySx3yMoXORcrMrYBSwifo4bZlK+g7pVuOst2FT
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB8015
 
-On Thu, Sep 10, 2026 at 04:47:34PM -0700, Suren Baghdasaryan wrote:
-> smap_gather_stats() interprets its start parameter to mean vma->vm_start
-> when it's set to 0. Eliminate this special interpretation and pass
-> vma->vm_start explicitly when needed.
+On Thu, Sep 10, 2026 at 01:08:26PM +0900, Koichiro Den wrote:
+> ntb_transport_link_work() marks the transport link up before setting
+> up the QPs' MW and peer MSI state. A concurrent ntb_transport_link_up()
+> can then queue QP link work, which may enable RX and notify the client
+> before setup finishes.
 >
-> Since smap_gather_stats() operates within a single VMA, we can replace
-> walk_page_vma()/walk_page_range() calls with walk_page_range_vma()
-> which is simpler and also can be called while holding per-VMA lock.
+> Publish link_is_up with a release store after setting up all QPs,
+> and use acquire loads before queuing QP link work.
 >
-> No functional change intended.
->
-> Suggested by: Lorenzo Stoakes <ljs@kernel.org>
-
-Hmm did I? Where did I suggest this?... I guess a while ago?
-
-I mean I also happen to suggest it in the previous patch review :) but that was
-sent after you sent this...
-
-> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
-> Reviewed-by: Liam R. Howlett (Oracle) <liam@infradead.org>
-
-I don't love hacking a hack for a patch and then unhack it in the next in a
-slightly roundabout way.
-
-Feels like this should be squashed. And a wrapper function for
-start=vma->vm_start should be used rather than duplicating that param
-constantly.
-
+> Fixes: fce8a7bb5b4b ("PCI-Express Non-Transparent Bridge Support")
+> Cc: stable@vger.kernel.org
+> Link: https://lore.kernel.org/r/anyKbq3mpLG4y7rb@SMW015318
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
 > ---
->  fs/proc/task_mmu.c | 29 ++++++++++++++++-------------
->  1 file changed, 16 insertions(+), 13 deletions(-)
+
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+
+> Changes in v2:
+>   - No changes.
 >
-> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> index 3c40c9cbb9c9..ecce7ce116cb 100644
-> --- a/fs/proc/task_mmu.c
-> +++ b/fs/proc/task_mmu.c
-> @@ -1246,21 +1246,27 @@ get_smaps_shmem_walk_ops(struct proc_maps_private *priv)
->  	return &smaps_shmem_walk_vma_lock_ops;
+>  drivers/ntb/ntb_transport.c | 40 +++++++++++++++++++++++--------------
+>  1 file changed, 25 insertions(+), 15 deletions(-)
+>
+> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
+> index c77b173dca01..75d4a2e021f4 100644
+> --- a/drivers/ntb/ntb_transport.c
+> +++ b/drivers/ntb/ntb_transport.c
+> @@ -922,6 +922,16 @@ static void ntb_qp_link_down_reset(struct ntb_transport_qp *qp)
+>  		qp->remote_rx_info->entry = qp->rx_max_entry - 1;
 >  }
 >
-> -/*
-> - * Gather mem stats from @vma with the indicated beginning
-> - * address @start, and keep them in @mss.
-> +/**
-> + * smap_gather_stats() - Gather mem stats from @vma.
-> + * @priv: proc maps private state.
-> + * @vma: The VMA to gather stats for.
-> + * @mss: The accumulated stats.
-> + * @start: The address from which to start.
->   *
-> - * Use vm_start of @vma as the beginning address if @start is 0.
-> + * This gathers stats for the whole of the VMA unless the lock was dropped
-> + * and VMA grew or got merged and we found it again, in which case we only
-> + * gather stats for the remainder of the VMA range.
-
-This seems to be describing what callers do not what the function does unless
-I'm missing something? So that's really the wrong place for it.
-
-I think the description of why it might be a partial walk belongs to the bit of
-code that actually tries to do a partial walk.
-
-Anyway as per below I think separate partial/full functions make sense and there
-it can simply be described as walking either the full or part of the VMA.
-
->   */
->  static void smap_gather_stats(struct proc_maps_private *priv,
->  			      struct vm_area_struct *vma,
-> -			      struct mem_size_stats *mss, unsigned long start)
-> +			      struct mem_size_stats *mss,
-> +			      unsigned long start)
+> +static void ntb_transport_schedule_qp_link(struct ntb_transport_qp *qp,
+> +					   unsigned long delay)
+> +{
+> +	struct ntb_transport_ctx *nt = qp->transport;
+> +
+> +	/* Pair with the link publication in ntb_transport_link_work(). */
+> +	if (smp_load_acquire(&nt->link_is_up))
+> +		schedule_delayed_work(&qp->link_work, delay);
+> +}
+> +
+>  static void ntb_qp_link_cleanup(struct ntb_transport_qp *qp)
 >  {
->  	const struct mm_walk_ops *ops = get_smaps_walk_ops(priv);
->  	const bool is_partial = start > vma->vm_start;
+>  	struct ntb_transport_ctx *nt = qp->transport;
+> @@ -941,13 +951,10 @@ static void ntb_qp_link_cleanup_work(struct work_struct *work)
+>  	struct ntb_transport_qp *qp = container_of(work,
+>  						   struct ntb_transport_qp,
+>  						   link_cleanup);
+> -	struct ntb_transport_ctx *nt = qp->transport;
 >
->  	/* Invalid start */
-> -	if (start >= vma->vm_end)
-> +	if (start < vma->vm_start || start >= vma->vm_end)
->  		return;
+>  	ntb_qp_link_cleanup(qp);
+> -
+> -	if (nt->link_is_up)
+> -		schedule_delayed_work(&qp->link_work,
+> -				      msecs_to_jiffies(NTB_LINK_DOWN_TIMEOUT));
+> +	ntb_transport_schedule_qp_link(qp,
+> +				       msecs_to_jiffies(NTB_LINK_DOWN_TIMEOUT));
+>  }
 >
->  	if (vma == get_gate_vma(priv->lock_ctx.mm))
-> @@ -1285,10 +1291,7 @@ static void smap_gather_stats(struct proc_maps_private *priv,
->  			mss->swap += shmem_swapped;
+>  static void ntb_qp_link_down(struct ntb_transport_qp *qp)
+> @@ -1089,16 +1096,19 @@ static void ntb_transport_link_work(struct work_struct *work)
+>  			goto out1;
 >  	}
 >
-> -	if (!start)
-> -		walk_page_vma(vma, ops, mss);
-> -	else
-> -		walk_page_range(vma->vm_mm, start, vma->vm_end, ops, mss);
-> +	walk_page_range_vma(vma, start, vma->vm_end, ops, mss);
-
-I mean obviously am in favour of this as I suggested it in the last patch :)
-
+> -	nt->link_is_up = true;
+> -
+>  	for (i = 0; i < nt->qp_count; i++) {
+> -		struct ntb_transport_qp *qp = &nt->qp_vec[i];
+> -
+>  		ntb_transport_setup_qp_mw(nt, i);
+>  		ntb_transport_setup_qp_peer_msi(nt, i);
+> +	}
+> +
+> +	/* Publish the link only after every QP has been set up. */
+> +	smp_store_release(&nt->link_is_up, true);
+> +
+> +	for (i = 0; i < nt->qp_count; i++) {
+> +		struct ntb_transport_qp *qp = &nt->qp_vec[i];
 >
->  	reacquire_rcu(priv);
+>  		if (qp->client_ready)
+> -			schedule_delayed_work(&qp->link_work, 0);
+> +			ntb_transport_schedule_qp_link(qp, 0);
+>  	}
+>
+>  	return;
+> @@ -1146,9 +1156,10 @@ static void ntb_qp_link_work(struct work_struct *work)
+>
+>  		if (qp->active)
+>  			tasklet_schedule(&qp->rxc_db_work);
+> -	} else if (nt->link_is_up)
+> -		schedule_delayed_work(&qp->link_work,
+> -				      msecs_to_jiffies(NTB_LINK_DOWN_TIMEOUT));
+> +	} else {
+> +		ntb_transport_schedule_qp_link(qp,
+> +					       msecs_to_jiffies(NTB_LINK_DOWN_TIMEOUT));
+> +	}
 >  }
-> @@ -1343,7 +1346,7 @@ static int show_smap(struct seq_file *m, void *v)
->  	struct vm_area_struct *vma = v;
->  	struct mem_size_stats mss = {};
 >
-> -	smap_gather_stats(priv, vma, &mss, 0);
-> +	smap_gather_stats(priv, vma, &mss, vma->vm_start);
+>  static int ntb_transport_init_queue(struct ntb_transport_ctx *nt,
+> @@ -2392,8 +2403,7 @@ void ntb_transport_link_up(struct ntb_transport_qp *qp)
 >
->  	show_map_vma(m, vma);
+>  	qp->client_ready = true;
 >
-> @@ -1396,7 +1399,7 @@ static int show_smaps_rollup(struct seq_file *m, void *v)
+> -	if (qp->transport->link_is_up)
+> -		schedule_delayed_work(&qp->link_work, 0);
+> +	ntb_transport_schedule_qp_link(qp, 0);
+>  }
+>  EXPORT_SYMBOL_GPL(ntb_transport_link_up);
 >
->  	vma_start = vma->vm_start;
->  	do {
-> -		smap_gather_stats(priv, vma, &mss, 0);
-> +		smap_gather_stats(priv, vma, &mss, vma->vm_start);
->  		last_vma_end = vma->vm_end;
->
->  		/*
-> @@ -1455,7 +1458,7 @@ static int show_smaps_rollup(struct seq_file *m, void *v)
->
->  			/* Case 1 and 2 above */
->  			if (vma->vm_start >= last_vma_end) {
-> -				smap_gather_stats(priv, vma, &mss, 0);
-> +				smap_gather_stats(priv, vma, &mss, vma->vm_start);
-
-I mean this is all horrible, having to pass vma->vm_start explicitly.
-
-Although better than the hack that gets compounded in patch 3.
-
-There 4 invocations of smap_gather_stats(), only one of them passes a
-non-vma->vm_start start.
-
-So it'd make more sense to just make smap_gather_stats() lose its 3rd param and
-have it call smap_gather_stats_range(), then have 1 invocation of
-smaps_gather_stats_range() directly, as per suggestion in last patch.
-
-Or something similar to that.
-
-
->  				last_vma_end = vma->vm_end;
->  				continue;
->  			}
 > --
-> 2.55.0.1007.g17ff1f9808-goog
+> 2.51.0
 >
-
---
-Cheers, Lorenzo
