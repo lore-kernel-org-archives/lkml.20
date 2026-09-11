@@ -1,76 +1,204 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6191944F579
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:52:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3B7D459AD9
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:52:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789113164; cv=none; b=siZIKqTtm9euz/7xH/Yt9QtUdBqmuNQjNDIX5o9g5JLNg7aXlvr7oA4kYKIVpzJ4AdB2sQCC8YbTzHfJcy+ftjlK0O1xyer5xHCO+/sevtA6tOCJY3jg9JFbZRc94cEjFk1JkcfZ7cw7At0Vtv+cB04AZdsHpNLVeWzteaPGjNY=
+	t=1789113168; cv=none; b=YBJ5YumBl5kDZkQtEfAdB2ztG+AdDea25ckcmQWv5d+n8Tz/sGE4x/Kw0Ylr2Ey8I2jCS2n2Cbo4Z6rrGFa+wLQmeOeg0zSe4+5YDraVrunEp/NAVeKtuAwdBiNemj0h06jJsjgIMZzC8shEVxJaeTLlLsruo5YN/8qxCBCKkSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789113164; c=relaxed/simple;
-	bh=mAy/mjo9ky8p0zKdUD9C54wYiJlR2G9xib1258FjWlg=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KRAE4+b5JEtISBmUal3M2M9LSTHWwjemq/HOGQgHZjIWt4DJwiShC88+ZUrgyacy2g+OuxpI013/xay1wyQrQ0G2iDVPFuegsPMFpb1+Dhi6UUQGGbDKbnz54RN3HuYeLIoFFc27QeBr+1/7tEezW1HNKtqMcPRIyaP4bH+KNjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nBCejXNQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789113168; c=relaxed/simple;
+	bh=/eWQeo9koRJgrBCgnEff44nXQQ2kUKsppO3UvLLD9yk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mXe/OClAlPYqfSInqPaCHMIF5AEV/7PpRHXqUARrnF/XjO8xum8/IzYvdt9Bfvz13GWXBqH2U8k1MQFM5OcC8jrpNbiINYAslx5HwuwUGsSZd4O6VK6/qMzB0AnAmQji6CV/PR2KQXAEkK/eJ1ghlHBukdveE6+/SIVp/dHxC3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=GDWohYTr; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=fydkNycs; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nBCejXNQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 128D31F008A2
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:52:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789113163;
-	bh=mAy/mjo9ky8p0zKdUD9C54wYiJlR2G9xib1258FjWlg=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=nBCejXNQsWQR/kbP8ofYrcVfv2aqnR/3tYIIQUNpPeUU/OvtlVDSgmWDJN8kto6zT
-	 WjZ7krJVZ75zGCFIpW1Sn03CQhjNWofZQyPD7gvktU7uNfWxymEyLEu4lrwtm5fclM
-	 pCpsZM+7a4Hw7C2c4JhTqEDh4s50/Z1V99+0m1tVOFgytvKNW6uLLAinunCFH7QxWt
-	 qZINxZfKBI4bD84Qm6jzD8TkEDuXYWMOY2rcSsKIJMS+bRGvsxVIUhPjN8M2CEZxV2
-	 DNyJwOF4FWXsAfAX8YuBfhkvM7s3UXYq7qpmOwJ001w5/HVHv7wEp64Zt7VCFhiZ6m
-	 6B69oVXtJzFDQ==
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b5e5ab03afso602890e87.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:52:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzALyhubjsxbFSt4RLJbFW0JsShjuYF96aIEUeJj9FtWSGSdtsiHtPmg8V7OyK/30V1G4lI7fobKJOEFg8=@vger.kernel.org
-X-Gm-Message-State: AFuF++k9PtWjiX7UPylcPsg9YZl0k3ukSXoZdgFQx/mmMTH8fU2W28lE
-	09CFNTsOz4vOmfWNo1muTEGnegyjWdeQo18NzCXjSl1I7Iiw+fPPa4R1aR1QUjt5lQ/qO02UcHs
-	6xaDqQDJgf4bKPGN7ZeYqGOBEKuHvA2pcdMzO36d8KA==
-X-Received: by 2002:a05:651c:43c4:20b0:3a3:7682:49a7 with SMTP id
- 38308e7fff4ca-3a5a5291cf0mr2127591fa.28.1789113161739; Fri, 11 Sep 2026
- 00:52:41 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 11 Sep 2026 00:52:40 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 11 Sep 2026 00:52:40 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260831-shikra-upstream-v2-4-406661d75afa@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="GDWohYTr";
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="fydkNycs"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id C265F21D30;
+	Fri, 11 Sep 2026 07:52:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1789113160; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PS1lMat3e0bc2mKTSmwxcGje28XFS7xN8LQ1bb5HiWM=;
+	b=GDWohYTr0FHX52oGS1Jhbv1yZopho/hnIDVORSm+FuL1uM58Xk11ys6xMnKCaNpljRo8Co
+	KFOBLnwTllOU85OyAhYQFmNioBd5f6wMRKA7uGwI/jTto+eVOT5FZHiz1+BrG0ET2j+LOD
+	O9iHWfO0Qnj0czBu8gRHtSulZd/D+Qk=
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1789113156; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PS1lMat3e0bc2mKTSmwxcGje28XFS7xN8LQ1bb5HiWM=;
+	b=fydkNycsWyzL91yL2EsNY8rvGootfcYC+kzioJDFj8me0rFSlL3dk8JlQMuBFHsDiQX4wo
+	M3EWFoAwsOkDXShyRBEK/PMmLUQxdF0e/iGPfNrX9xFKwPTecoDqswcHtZKEcwlkvkp1lP
+	MRnc7bM2PRXKAjm9qwZSPKcJ8KEqbpc=
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4072B13770;
+	Fri, 11 Sep 2026 07:52:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 3xpSDkSzo2oPYAAAD6G6ig
+	(envelope-from <jgross@suse.com>); Fri, 11 Sep 2026 07:52:36 +0000
+From: Juergen Gross <jgross@suse.com>
+To: linux-kernel@vger.kernel.org,
+	x86@kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>
+Subject: [PATCH v2 3/5] x86/msr: Switch users of native_rdmsr() to native_rdmsrq()
+Date: Fri, 11 Sep 2026 09:52:14 +0200
+Message-ID: <20260911075216.3142309-4-jgross@suse.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260911075216.3142309-1-jgross@suse.com>
+References: <20260911075216.3142309-1-jgross@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831-shikra-upstream-v2-0-406661d75afa@oss.qualcomm.com> <20260831-shikra-upstream-v2-4-406661d75afa@oss.qualcomm.com>
-Date: Fri, 11 Sep 2026 00:52:40 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Mf=s2Q8z165ufJjj70TZPv7TFFF3b8QaTh1Uiz4r-64Og@mail.gmail.com>
-X-Gm-Features: AcwNN1WYfbMG0innksiJiNzSA1WdoA4NxNphoNZxr1Iyd160wvFBkOcClMlPLKs
-Message-ID: <CAMRc=Mf=s2Q8z165ufJjj70TZPv7TFFF3b8QaTh1Uiz4r-64Og@mail.gmail.com>
-Subject: Re: [PATCH v2 4/5] phy: qcom: qmp-pcie: Add QMP PCIe PHY support for Shikra
-To: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-pci@vger.kernel.org, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Spam-Score: -2.80
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-2.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.997];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,imap1.dmz-prg2.suse.org:helo];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[]
 
-On Mon, 31 Aug 2026 09:26:04 +0200, Sushrut Shree Trivedi
-<sushrut.trivedi@oss.qualcomm.com> said:
-> Add QMP PCIe PHY Gen2x1 support.
->
-> Signed-off-by: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
-> ---
+Switch all users of native_rdmsr() to native_rdmsrq() in order to
+prepare removal of native_rdmsr().
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ arch/x86/include/asm/microcode.h     | 6 +-----
+ arch/x86/kernel/cpu/intel.c          | 6 +++---
+ arch/x86/kernel/cpu/microcode/amd.c  | 4 ++--
+ arch/x86/kernel/cpu/microcode/core.c | 4 ++--
+ 4 files changed, 8 insertions(+), 12 deletions(-)
+
+diff --git a/arch/x86/include/asm/microcode.h b/arch/x86/include/asm/microcode.h
+index 645e65ac1586..6eef329def4b 100644
+--- a/arch/x86/include/asm/microcode.h
++++ b/arch/x86/include/asm/microcode.h
+@@ -64,17 +64,13 @@ static inline int intel_microcode_get_datasize(struct microcode_header_intel *hd
+ 
+ static inline u32 intel_get_microcode_revision(void)
+ {
+-	u32 rev, dummy;
+-
+ 	native_wrmsrq(MSR_IA32_UCODE_REV, 0);
+ 
+ 	/* As documented in the SDM: Do a CPUID 1 here */
+ 	native_cpuid_eax(1);
+ 
+ 	/* get the current revision from MSR 0x8B */
+-	native_rdmsr(MSR_IA32_UCODE_REV, dummy, rev);
+-
+-	return rev;
++	return native_rdmsrq(MSR_IA32_UCODE_REV) >> 32;
+ }
+ #endif /* !CONFIG_CPU_SUP_INTEL */
+ 
+diff --git a/arch/x86/kernel/cpu/intel.c b/arch/x86/kernel/cpu/intel.c
+index 2aabe9affa0c..99474f160b86 100644
+--- a/arch/x86/kernel/cpu/intel.c
++++ b/arch/x86/kernel/cpu/intel.c
+@@ -214,7 +214,7 @@ static u32 intel_cpuid_vfm(void)
+ 
+ u32 intel_get_platform_id(void)
+ {
+-	unsigned int val[2];
++	u64 val;
+ 
+ 	if (x86_hypervisor_present)
+ 		return 0;
+@@ -229,9 +229,9 @@ u32 intel_get_platform_id(void)
+ 		return 0;
+ 
+ 	/* get processor flags from MSR 0x17 */
+-	native_rdmsr(MSR_IA32_PLATFORM_ID, val[0], val[1]);
++	val = native_rdmsrq(MSR_IA32_PLATFORM_ID);
+ 
+-	return (val[1] >> 18) & 7;
++	return (val >> 50) & 7;
+ }
+ 
+ static void early_init_intel(struct cpuinfo_x86 *c)
+diff --git a/arch/x86/kernel/cpu/microcode/amd.c b/arch/x86/kernel/cpu/microcode/amd.c
+index 6cdc410e7547..f6dc79dd18dd 100644
+--- a/arch/x86/kernel/cpu/microcode/amd.c
++++ b/arch/x86/kernel/cpu/microcode/amd.c
+@@ -315,7 +315,7 @@ static union cpuid_1_eax ucode_rev_to_cpuid(unsigned int val)
+ 
+ static u32 get_patch_level(void)
+ {
+-	u32 rev, dummy __always_unused;
++	u32 rev;
+ 
+ 	if (IS_ENABLED(CONFIG_MICROCODE_DBG) && x86_hypervisor_present) {
+ 		int cpu = smp_processor_id();
+@@ -332,7 +332,7 @@ static u32 get_patch_level(void)
+ 		return microcode_rev[cpu];
+ 	}
+ 
+-	native_rdmsr(MSR_AMD64_PATCH_LEVEL, rev, dummy);
++	rev = native_rdmsrq(MSR_AMD64_PATCH_LEVEL);
+ 	if (!rev) {
+ 		if (x86_family(bsp_cpuid_1_eax) < 0x17)
+ 			return rev;
+diff --git a/arch/x86/kernel/cpu/microcode/core.c b/arch/x86/kernel/cpu/microcode/core.c
+index 0dd0c7241c57..ea696a202c31 100644
+--- a/arch/x86/kernel/cpu/microcode/core.c
++++ b/arch/x86/kernel/cpu/microcode/core.c
+@@ -94,13 +94,13 @@ struct early_load_data early_data;
+  */
+ static bool amd_check_current_patch_level(void)
+ {
+-	u32 lvl, dummy, i;
++	u32 lvl, i;
+ 	u32 *levels;
+ 
+ 	if (x86_cpuid_vendor() != X86_VENDOR_AMD)
+ 		return false;
+ 
+-	native_rdmsr(MSR_AMD64_PATCH_LEVEL, lvl, dummy);
++	lvl = native_rdmsrq(MSR_AMD64_PATCH_LEVEL);
+ 
+ 	levels = final_levels;
+ 
+-- 
+2.55.0
+
