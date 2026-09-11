@@ -1,306 +1,105 @@
-Received: from mta0.migadu.com (out-224.mta0.migadu.com [91.218.175.224])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D16B14B5123
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:28:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.224
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789151319; cv=none; b=E3Iq9eUfjnDpB68hkGwz6CtcJRVeb9tqV/uxKOI+3ts1qGSlY/mDYt5P1HoymUO1bkFdaUpu/B1+ON4C/tUhNwAPbXVqcq8epSZbpMRl4Xm7JVOS26fSEx+Sak9xydtwYo/8+MZj8cEttaz6Zif5pJF7DLYtW39nQwGbeRsoUxg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789151319; c=relaxed/simple;
-	bh=zzpjwUswTpyP7wYlZgMyj5G/NFUunoQdPWTRIzTl6y4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p3Fc8kV7aUrLaMlV+Wy/wBN8s9jUa4CY4g5Km4mLtZ7zU4oUJE+/Iw4o02fTlgIZs3sZKOI/EsPso7Dsuf0d65mPB8RWudMusnW5c/R3Ot2mPkFeYjLTuKK9yhG4SNqfRVKbj3PGv52NKHHhcJdChxA+4NxvN/olKn8edv0mCEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=UfBM+4RC; arc=none smtp.client-ip=91.218.175.224
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E6537E5EF
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:29:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789151357; cv=pass; b=ki8qOTfT/soOg3QpdckojqoDuseCshUUg4czl9c/t4+PrVN3dwobrf+Ciw0S29nOIJ9xklJMfGdbP0C7p+EJ58xHWPVBw+TQ9MYdWplxV3EQfTXyY0uFA/i86hIuKaJc1Y+zM1Joq3d1+9RYPDFSojBrSwmVzAJAd8Z9kP3Fw1s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789151357; c=relaxed/simple;
+	bh=V9UEJ51Q/7A2xK5RfquhTtGt78CDG/5WScCm8bqPpD8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hsm/tDQI4bI1YvOgMEHicb7TIASLqly5roNqeoew7qgmtkQZBHUzWocQ94RE00+4DhFeXn2CXoTi2F4VmtnryZSsaD04MTBYOobqMqhL7VnFTXUERdiJycVVF8yx4oDP/xP/hz5UX5VcfoT1WJYnWXk2zf6ik4tBkRbOLwXO9hU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EET1zZxh; arc=pass smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="UfBM+4RC"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=zzpjwUswTpyP7wYlZgMyj5G/NFUunoQdPWTRIzTl6y4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789151314; v=1; x=1789756114;
- b=UfBM+4RC2yDnGToKwAhTm7utIEhy6V8SoTGbPuhdj1mrhCizU+UHNp0j4NUux3LNA1cx7+i7
- g6/MSpylFsvXuzmDXatKghUeTcVtCeH+H7y3ieJr4qMqKziLr3bKhH3sCu6AFg68dgm0eqxVqGf
- VoNmuy/ZW/eFduyism5Arubo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id de4ee8a648a1b887;
-	Fri, 11 Sep 2026 18:28:34 +0000
-X-Mizu-Trace-ID: de4ee8a648a1b887
-X-Migadu-Flow: FLOW_OUT
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tejun Heo <tj@kernel.org>,
-	Christian Brauner <christian@brauner.io>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Meta kernel team <kernel-team@meta.com>,
-	linux-fsdevel@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 4/4] selftests: cover readdir resuming at a removed entry
-Date: Fri, 11 Sep 2026 11:28:15 -0700
-Message-ID: <20260911182815.1992483-5-shakeel.butt@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260911182815.1992483-1-shakeel.butt@linux.dev>
-References: <20260911182815.1992483-1-shakeel.butt@linux.dev>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EET1zZxh"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49b96837ca3so10345135e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:29:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789151354; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NZQMa2G3mK6pB7clkelbSwMHsY94ParW1rcN90GbYn0Nx5WM/PeorhPs0M3mRVflW+
+         ZP/2+8qofqXW1cLpX2NeLYy1M3G6FdRybC2x5r5B2Waq/jD2KDrjhapiyQAEjJswg+ru
+         lIPLoapJd4tk59zT8NnlHOtppXDBDFPM4mMZH+2UZnZ4OtQE70qNACZJkQrn41DdRAwe
+         ZHK/ZU1hxABbXdpmsa0fqvwUanAeEQMdJtiy2nU8aQhNgEMlgwmZ8F7eAIqxEtArZAO7
+         G2s1zPXA0PUxkaXfUCcGVJQLPsVZFnpwWt0FxYtfAKa6x+AYBg/I53y0mci45kn6teLo
+         441A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=V9UEJ51Q/7A2xK5RfquhTtGt78CDG/5WScCm8bqPpD8=;
+        fh=dYN+Gu0AB6DSbUijthwdD/jkvKq+YjDIx4edTTsynXE=;
+        b=jX/wfrOkcnRcouKHHziqMkvO00fqi1tuBsz1EcMaFQyCsADuv5zUtT9ExT8EnSWbrt
+         aUjOmkTPVPdOOVfuLBv0J4XvR6OGEQxPcV/3JilK+pWgw5opx6bAZPTizqr8k3oxwxxN
+         kpCfiSybr6gRc7uP2Y2pZo26Iuw3FKD7E+29fA09NY8NkKIsytjD8cpbpUA4LQEYs1Gj
+         JA1/ybpaJ10EZqiZT5NeT5lw2TK5u1CXbep/itN56eODXwIr1k9ulloV6kAlYomjFDh2
+         kN6rO0EUPukFddDjjDiJD5MK/HvD2Q7jhPxcTwXBMtxsWr9f4zayc9UzFF4TrGQpQWA7
+         4mDQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789151354; x=1789756154; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=V9UEJ51Q/7A2xK5RfquhTtGt78CDG/5WScCm8bqPpD8=;
+        b=EET1zZxhcmInoFLGZImpDYoGbOqm6A4K9GVlZZEbMGMHaYQjga1GH9r3gwoUDGE2P4
+         ZuQ73LPR+izkLhNWdEkfG57X0G8N0QG6qQPne3yW4bbctsd96xJfc0g0DakQ9fpuK6qG
+         rfiUFb8GAkGOjPTPCFSMZKE7Kw+cR0bsOqGCsF3vwZd3mHnFCRlJgRAE+9JbgKAJJvB4
+         vuU52tM2GuHgSnSQdUuhHfagcPAz1TSxhoftPkN9kIhyo2nHsxRPXhufzDObzNcL5juW
+         6HxGRRw0mr89H7QxAyTp1Ev/j6hwV6x9AlzrK8+PMVvKqlkFplX8QltSwjSZysTGHiuR
+         1pgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789151354; x=1789756154;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V9UEJ51Q/7A2xK5RfquhTtGt78CDG/5WScCm8bqPpD8=;
+        b=IBeC7/BZZYWaIxZ8pSDDJty3Ua5UdWCma+GywMd2WQ9OGRNieCBWXgwKm/0lTLGMYa
+         LBXT3vciFXzSujGnoR7pv/GrTxWacs3pyGvfHxjjgH/cFtZ33nUWxZxSVeX9NZ51+EzB
+         SMvIoykZ5SPjNdnp8F2zssVmarR9bw8+PVdnRAO18ROyBfuK8O2KthZhU+UZlLO6DAVR
+         cu1f4nHRJA6WKOPPLG8j98cOiYyoSNvQyVjAvwExC++WlteHsw619rDgA6KpCbtkd3bg
+         03Dj+j/THXdL6Ae4tXa96iVxjTAkLTsGSnb8Lir8wAeCm5C9j/Vkps177cb7XRVomloX
+         CgSA==
+X-Forwarded-Encrypted: i=1; AKwUvBxoQLPjOG/sUFLNUVhoZrKaKN5+jbuVQqeVtZYpi+6fDEXUQ+Rn8mrFksMw1A8Tc6xbls+MxBaa92/n6rI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nZzW8M/Z2mLQnGi6S8SzQQSnb0vWY66G6F2zjSoNVTlxYXhGkt
+	QVKYpZ0DbsuWEjATwJ69fYs1bFkDokMTXroyfbdv6ycjkaxygMHDHNgA/L6kYN8aWmOrDWhsbVA
+	aydi+T6QwjZOydiHRk0nnoux5VrDnx6JZm++IfrTW
+X-Gm-Gg: AYBFou0Lcz4wyNh4hY8g7HJUgf/3utLA5ELS7HKnZz9nQ20wYR/JbcuNrjpzG/SPIcL
+	8yb8paOHsvmmHx6Q4afAsxbEw6CicCkpmS6iCnmzb2oNChbd2RB9D0Y+jtalOlDvtMUgeCDuqec
+	hP4NReNX36sys0HDOfQS+w0mWELcGnvCCMSpgBkGMKzxbSuMw+8SOIjOKcAiUsyXYTLPnFSVNNj
+	ySA+PqSX85R+xJBT4ps7xn33hMvXIFbG5Qmb5UDd4otyOOVkmLD7p/kc+9IL77L3wzoqyfCsWuu
+	C0ECQzJ94Q/vnd4q6uxB+GqHZN/LuNrNpWn7IVAersuoRV2Td+EgRb0IBHEaZ+C0z83N8C+WKHX
+	/UetxZ7fu5g==
+X-Received: by 2002:a05:600c:1c10:b0:49c:fc6c:be05 with SMTP id
+ 5b1f17b1804b1-49e619f7187mr75881355e9.28.1789151353638; Fri, 11 Sep 2026
+ 11:29:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260910233553.3477055-1-jthies@google.com> <aqQCzNp9e6JfozyO@black.igk.intel.com>
+In-Reply-To: <aqQCzNp9e6JfozyO@black.igk.intel.com>
+From: Jameson Thies <jthies@google.com>
+Date: Fri, 11 Sep 2026 11:29:01 -0700
+X-Gm-Features: AcwNN1UmvAfXnMC2eFhkRALhuyKuEqgO9X_kgve427KCOZq2yvHQpgc8_cZnO00
+Message-ID: <CAMFSARc9XQ0BDADK0hV72GJrjee7OV1=wo2mVsZipoa4F46Diw@mail.gmail.com>
+Subject: Re: [PATCH v1 0/2] Cleanup UCSI DisplayPort OOB fix
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	bleung@chromium.org, gregkh@linuxfoundation.org, akuchynski@chromium.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The kernfs tests list only directories that do not change, so nothing
-covers the entry a listing stopped on being gone when it comes back.
+On Fri, Sep 11, 2026 at 6:32=E2=80=AFAM Heikki Krogerus
+<heikki.krogerus@linux.intel.com> wrote:
 
-readdir_resume_at_removed_entry takes a telldir(3) cookie for every
-entry, then removes each entry in turn, seeks to its cookie and reads
-the rest; nothing reported before it may come back.  This is a resume
-between two getdents(2) calls, and it fails without "kernfs: don't
-repeat or skip an entry when readdir resumes".
+> I don't think this is necessary.
 
-readdir_resume_vs_internal_remove is a resume inside one call, which
-"kernfs: don't hold kernfs_rwsem across dir_emit()" opens.  It churns
-cgroup.subtree_control rather than calling rmdir(2), which cannot reach
-that window because iterate_dir() holds the listed directory's i_rwsem
-for the whole listing.  It is a stress test, has not been seen to catch
-the ordering bug, and keeps the window busy for lockdep and KASAN.  It
-fails if the churn died and skips if the listings never overlapped it,
-so it cannot pass having listed a static directory.
-
-Assisted-by: LLM
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
----
- .../selftests/filesystems/kernfs_test.c       | 200 ++++++++++++++++++
- 1 file changed, 200 insertions(+)
-
-diff --git a/tools/testing/selftests/filesystems/kernfs_test.c b/tools/testing/selftests/filesystems/kernfs_test.c
-index 6e74da91ebca..01cd58e5e41e 100644
---- a/tools/testing/selftests/filesystems/kernfs_test.c
-+++ b/tools/testing/selftests/filesystems/kernfs_test.c
-@@ -8,6 +8,7 @@
- #include <limits.h>
- #include <net/if.h>
- #include <sched.h>
-+#include <signal.h>
- #include <stdio.h>
- #include <stdlib.h>
- #include <string.h>
-@@ -17,6 +18,7 @@
- #include <sys/mount.h>
- #include <sys/socket.h>
- #include <sys/stat.h>
-+#include <sys/syscall.h>
- #include <sys/xattr.h>
- 
- #include "kselftest_harness.h"
-@@ -472,6 +474,204 @@ TEST_F(kernfs_cgroup, readdir_no_duplicates)
- 			EXPECT_STRNE(names[i], names[j]);
- }
- 
-+#define RESUME_DIRS	24
-+
-+/*
-+ * Resuming at an entry that has gone must carry on after it, never before.
-+ * Take a cookie for every entry, then remove each one, seek to its cookie
-+ * and read the rest; nothing already reported may come back.
-+ */
-+TEST_F(kernfs_cgroup, readdir_resume_at_removed_entry)
-+{
-+	/* The cgroup's own control files are listed alongside ours. */
-+	char names[128][NAME_MAX + 1];
-+	long pos[128];
-+	char path[PATH_MAX];
-+	struct dirent *de;
-+	int n = 0, i, j;
-+	DIR *d;
-+
-+	for (i = 0; i < RESUME_DIRS; i++) {
-+		snprintf(path, sizeof(path), "%s/e%02d", self->scratch, i);
-+		ASSERT_EQ(mkdir(path, 0755), 0);
-+	}
-+
-+	/* Record the cookie before reading each entry, with its name. */
-+	d = opendir(self->scratch);
-+	ASSERT_NE(d, NULL);
-+	while (1) {
-+		long here = telldir(d);
-+
-+		de = readdir(d);
-+		if (!de)
-+			break;
-+		if (!strcmp(de->d_name, ".") || !strcmp(de->d_name, ".."))
-+			continue;
-+		ASSERT_LT(n, (int)ARRAY_SIZE(pos));
-+		pos[n] = here;
-+		strncpy(names[n], de->d_name, NAME_MAX);
-+		names[n][NAME_MAX] = '\0';
-+		n++;
-+	}
-+	closedir(d);
-+	ASSERT_GT(n, 1);
-+
-+	for (i = 0; i < n; i++) {
-+		/* Only the directories we made can be removed and put back. */
-+		if (strncmp(names[i], "e", 1))
-+			continue;
-+
-+		snprintf(path, sizeof(path), "%s/%s", self->scratch, names[i]);
-+		ASSERT_EQ(rmdir(path), 0);
-+
-+		/* Reopen so the seek has to reach the kernel. */
-+		d = opendir(self->scratch);
-+		ASSERT_NE(d, NULL);
-+		seekdir(d, pos[i]);
-+		while ((de = readdir(d))) {
-+			if (!strcmp(de->d_name, ".") || !strcmp(de->d_name, ".."))
-+				continue;
-+			for (j = 0; j < i; j++)
-+				ASSERT_STRNE(de->d_name, names[j])
-+					TH_LOG("resuming at %s (gone) went back to %s",
-+					       names[i], names[j]);
-+		}
-+		closedir(d);
-+
-+		ASSERT_EQ(mkdir(path, 0755), 0);
-+	}
-+
-+	for (i = 0; i < RESUME_DIRS; i++) {
-+		snprintf(path, sizeof(path), "%s/e%02d", self->scratch, i);
-+		EXPECT_EQ(rmdir(path), 0);
-+	}
-+}
-+
-+#define CHURN_ROUNDS	400
-+#define CHURN_BUFSZ	512	/* small, so a listing takes several calls */
-+
-+/*
-+ * The files appear at the end of the enabling write and go at the start of
-+ * the disabling one, so the window where they exist is the short one.
-+ */
-+#define CHURN_DWELL_ON	2000
-+#define CHURN_DWELL_OFF	200
-+
-+struct kernfs_dirent64 {
-+	unsigned long long	d_ino;
-+	long long		d_off;
-+	unsigned short		d_reclen;
-+	unsigned char		d_type;
-+	char			d_name[];
-+};
-+
-+/*
-+ * The same resume, but inside one getdents(2) call.  rmdir(2) cannot reach
-+ * that window because iterate_dir() holds the listed directory's i_rwsem
-+ * for the whole listing; cgroup.subtree_control can, having no VFS
-+ * operation on the names it adds and removes.  The files that are not the
-+ * controller's stay throughout, so each must appear exactly once.
-+ *
-+ * A stress test: it has not been seen to catch the ordering bug, and is
-+ * here to keep the unlocked window under load for lockdep and KASAN.
-+ */
-+TEST_F(kernfs_cgroup, readdir_resume_vs_internal_remove)
-+{
-+	char buf[CHURN_BUFSZ] __attribute__((aligned(8)));
-+	char stable[128][NAME_MAX + 1];
-+	int nstable = 0, i, r;
-+	int withctl = 0, without = 0;
-+	int seen[128], status;
-+	pid_t churner;
-+	DIR *d;
-+
-+	/* With the controller off, whatever is left is what must persist. */
-+	ASSERT_EQ(write_file(self->scratch_sc, self->disable), 0);
-+	d = opendir(self->child);
-+	ASSERT_NE(d, NULL);
-+	for (;;) {
-+		struct dirent *de = readdir(d);
-+
-+		if (!de)
-+			break;
-+		if (!strcmp(de->d_name, ".") || !strcmp(de->d_name, ".."))
-+			continue;
-+		ASSERT_LT(nstable, (int)ARRAY_SIZE(stable));
-+		strncpy(stable[nstable], de->d_name, NAME_MAX);
-+		stable[nstable][NAME_MAX] = '\0';
-+		nstable++;
-+	}
-+	closedir(d);
-+	ASSERT_GT(nstable, 0);
-+
-+	churner = fork();
-+	ASSERT_GE(churner, 0);
-+	if (churner == 0) {
-+		for (;;) {
-+			if (write_file(self->scratch_sc, self->enable))
-+				_exit(10);
-+			usleep(CHURN_DWELL_ON);
-+			if (write_file(self->scratch_sc, self->disable))
-+				_exit(11);
-+			usleep(CHURN_DWELL_OFF);
-+		}
-+	}
-+
-+	for (r = 0; r < CHURN_ROUNDS; r++) {
-+		int fd = open(self->child, O_RDONLY | O_DIRECTORY);
-+		int extra = 0;
-+		int n;
-+
-+		ASSERT_GE(fd, 0);
-+		memset(seen, 0, sizeof(seen));
-+
-+		while ((n = syscall(SYS_getdents64, fd, buf, sizeof(buf))) > 0) {
-+			int off = 0;
-+
-+			while (off < n) {
-+				struct kernfs_dirent64 *de = (void *)(buf + off);
-+				bool known = false;
-+
-+				off += de->d_reclen;
-+				for (i = 0; i < nstable; i++)
-+					if (!strcmp(de->d_name, stable[i])) {
-+						seen[i]++;
-+						known = true;
-+					}
-+				if (!known && strcmp(de->d_name, ".") &&
-+				    strcmp(de->d_name, ".."))
-+					extra++;
-+			}
-+		}
-+		ASSERT_GE(n, 0);
-+		EXPECT_EQ(close(fd), 0);
-+
-+		if (extra)
-+			withctl++;
-+		else
-+			without++;
-+
-+		for (i = 0; i < nstable; i++)
-+			ASSERT_EQ(seen[i], 1)
-+				TH_LOG("round %d: %s seen %d times",
-+				       r, stable[i], seen[i]);
-+	}
-+
-+	/* The churn must have been running, or the listings prove nothing. */
-+	EXPECT_EQ(kill(churner, SIGKILL), 0);
-+	ASSERT_EQ(waitpid(churner, &status, 0), churner);
-+	ASSERT_TRUE(WIFSIGNALED(status) && WTERMSIG(status) == SIGKILL)
-+		TH_LOG("churner exited on its own: status %d", status);
-+
-+	/*
-+	 * They also have to have overlapped it.  How much depends on the
-+	 * machine, so say the race could not be arranged rather than fail.
-+	 */
-+	if (!withctl || !without)
-+		SKIP(return, "listings did not span the churn: %d with, %d without",
-+		     withctl, without);
-+}
-+
- /*
-  * A telldir() cookie must resolve back to the same entry after seekdir().
-  * kernfs encodes the cookie as the node's name hash, so this covers
--- 
-2.53.0-Meta
-
+Hi Heikki, thanks for taking a look. Mentioned on the original thread,
+I'll send a fixup patch to make these changes.
