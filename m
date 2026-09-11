@@ -1,109 +1,131 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E455371887
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 22:58:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91AD43D8107;
+	Fri, 11 Sep 2026 22:59:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789167542; cv=none; b=fHApM4tHYCwzNuOLahVJqA6LoCiRX+Q1Ygt6WkXzUOB8SyJRcAIRh7a2axk6fMU+NjQigX6KBt+lwHVQ551ZSo0YpEG8VJM37bBUv/QO10HmInsv44RvG2X+4BK5Ud+nyeidB7Jei7wtr8rYhhGgM7nUXCHW23oxqKDw8ltp6O0=
+	t=1789167553; cv=none; b=Qe+rjO4E2X7ODPvDN91DoSX14xU/73FMY9USVEQRxi2JpUPnMdmA3XE9pPsqYHSdunPwNyhR6Mo8A2nR+KiUDZS+3fNf8OpIeVIH6/PfiDpW9adp89/qqYnX2mUf8cN6fwVwHVCx/1hofMjUGoEUJeaVH7nCCKYkIOMv0chmCRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789167542; c=relaxed/simple;
-	bh=7gtPvIGVRGX7H9NK9fWacujtcKXno+BRlmXcuNSGxas=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qoc3f3nxtB4NCg4qp+ocfeKSVjcX/wzCjg/VsH6gKwEWk8GdvtWPIPHa09pIrJaNdJrsgFDCElR6+fmeZXqbj5NHVjzOLra1D6Qfo1DLGU+YxeWo3ZdlqVgMWEWPm0J86jB/sH43MpAIB/2wwS4/I4FKlmeQavPhS0Z0g8fsNC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oGx5MZOx; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789167553; c=relaxed/simple;
+	bh=ifRCjs3PH652jLbyOuCHtqUqbYgTkGoi+j+DH4gUOFc=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=WmGn4uNixTWlQlAahu/iyAE3h6L5qMkXhKM8mQbYpE8xai4Z8BwaBrgYYdtttKVrNmnR2oRqfE5FgXLMWLGapJc+i1Oz096SntYQwcG3yySYHcbmZw5E+xX5KNy75+Rv857YOSFOrOUF5F6EPc/UZ1WBEWodbZ9IPNHGBOCgP1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=dvHTofRr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oGx5MZOx"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6351831so163504f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:58:59 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="dvHTofRr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 986C21F000FF;
+	Fri, 11 Sep 2026 22:59:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789167538; x=1789772338; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lo/atJ4TlAjfKpAQ23edpHxprTJz0JkYumYCWZqubbw=;
-        b=oGx5MZOxDK7y6mR9wtC0wd6E2QFDydmvfhNx11Xp/wuQlHlQXbig+BYeKa8ljmY8cW
-         EDfFhu/ACC/Fm/0XUKt0HK6KH2l8FZHmFD5aTqDlA9sdG2jEQ8XnjWNvwGftDX4GDtRh
-         PAOYoxiCRJm2tVvwBQ1pL8/C5LRP1Yu1o0z6R5cyNNUO5q1UEvwKdSVY2834RGxDuurF
-         RqO1ORXYtrJkVJYUSsXJx0uxb5KHCXxkQu5mzuGUn1rwPJFEuBxNAjwJOJnQCOuY/ii8
-         akwKlb4feyKTAYpixU0OrzYwM91G5eHlpdZByoCh9O8WYUsY+B9rmuW2EAOn+NioA3gm
-         w7GQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789167538; x=1789772338;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lo/atJ4TlAjfKpAQ23edpHxprTJz0JkYumYCWZqubbw=;
-        b=YVlAD3lbYshdOkUEbYX8ztHdF0LEt2yaThijGzoq3b3iiQ/gtna7kAs1BhfiAZJugF
-         5fah3+us30bKVq0bcWkjlGzl67GqSZJfVBlGPI4vFowwX5y5wt1IH6DoakaFLLJxN+Zc
-         GmQaOVF9UvL+rBeZ1dxQ/mGr83rOznrqCL6pCBw6QZ+jfbB24wXCiDreBLEdzne6HwaH
-         GiTDFWpOuXHIqWQZmypSIlHJJSe9QOYPSZeHFK+8/OO0Fllk7iyKdPI/wgDP3bm6cJzi
-         U0nClPyT3T2JkTaRtSLcFdFFifK/slBECzT4uz92mP7lbeAFyrO6PzjhTVBec8ZVr8j2
-         tY3A==
-X-Forwarded-Encrypted: i=1; AKwUvBz+Qu/aqwx0Zszh03pnFcqxg+loJNWVzxEVhoowlgIRxPSjAdxgDSEaqADfDKC/ma0+7Jj+N8BEmqOqSgk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kt3JX7zbiI4oa1YPNR6V+UwZbdJ9l9TdouISOcV92ANN6UTvEw
-	YsvdX6c3rUFHJF8SjNS29CaipIQCCaoagNp77O0Wm0Nk9ROM+upcHrnB
-X-Gm-Gg: AYBFou1LufJeFoGgYeUGZMaLjsbQ5eDLgUe3vriAc0NUlZ2M5JaXDcpng7xO6VPGDMT
-	GbfLyqNEn7h+C6lc2+eRrlh+YdyRYTwTL3pXelOJacfUwNHLFO2lNJB9qtCaB5tYlO306I+Qt+j
-	gQpmAt/O/d7N+T7d4n6T/yJ4DwcsnwQmrw9qdDEcDgviRoJEtiGWNgralbysLrLhZ3ZEAeZHjCJ
-	G9YOuCNw8cX5TdUn+oqugNYvKgmfoS21FZFDIeXgUKYiBSNV5NiejzZhswr8fl1ou4xHCpip6a0
-	NojR6ACbrD5hKGZF3WdKDkzcxr9VSs9dtTrcDbg9NCc+2FN0XpyyO73kGtMRKWGdFWTi8WbHDG0
-	ymscm7UbkE4fKQM3/fL0NNpBqJbxmSNkpLc18Mk/v9hi8OtNYFRnf5wsZp1FCPG3Ilra/0wueIh
-	nYsszlxOPkg/cj27G6nwvB7BvD/ruFQ0MWQD1TC8swWBEZTsmNbMDUEaSf4ASHVSRg+ffug33zJ
-	VMlLEbiriN+Dj0Un8wmITD23PV55LW7J469qjnnUEmcuxskA/L4KJRxoaAsHaFvEXPkZjHQHhC/
-	uBCZUbyYHXDaJLSrWdbXgpwanvNZn0DbWb09
-X-Received: by 2002:a05:6000:2311:b0:484:3a16:cc58 with SMTP id ffacd0b85a97d-486eb1d99a2mr7038096f8f.2.1789167537534;
-        Fri, 11 Sep 2026 15:58:57 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-095-114-033-154.95.114.pool.telefonica.de. [95.114.33.154])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb330bdcsm9520289f8f.13.2026.09.11.15.58.56
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 11 Sep 2026 15:58:57 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Vinicius Costa Gomes <vinicius.gomes@intel.com>,
-	Vinod Koul <vkoul@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Anil S Keshavamurthy <anil.s.keshavamurthy@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Yi Sun <yi.sun@intel.com>,
-	linux-kernel@vger.kernel.org,
-	Frank Li <Frank.Li@kernel.org>,
-	dmaengine@vger.kernel.org
-Subject: [PATCH] Documentation: ABI: sysfs-driver-dma-idxd: Fix the kernel version 6.20.0
-Date: Sat, 12 Sep 2026 00:57:37 +0200
-Message-Id: <20260911225737.11411-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	d=linux-foundation.org; s=korg; t=1789167551;
+	bh=t2S/m2h7UEB/CuumUnvTIa59is7Da5KmNcWpzEuJtu4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=dvHTofRrArBU1ooBY0qjprP0moPGMOQvfmyw3bctxWRnvnPYxKgQePr1matk2uZib
+	 CRmfPv2wQVEp7/uPCHczMScRzLYQoFUNwE+eAgoUDDwnMbCEc3+qnD6S1skgbnZz8O
+	 wWSL/P5u6uKIxWkGG+zbpD2cUmZbkXHq5keiODMg=
+Date: Fri, 11 Sep 2026 15:59:11 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ Sang-Heon Jeon <ekffu200098@gmail.com>
+Subject: Re: [PATCH v2 0/4] bootconfig: Reject unexpected data after null
+ character and cleanups
+Message-Id: <20260911155911.1cccfa39dd2e3c6e3a84e03f@linux-foundation.org>
+In-Reply-To: <178913597653.248794.1237187523153227751.stgit@devnote2>
+References: <178913597653.248794.1237187523153227751.stgit@devnote2>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-There is no kernel 6.20: the release after 6.19 was 7.0. The entry came
-in with commit 8308510b9365 ("dmaengine: idxd: Expose DSA3.0
-capabilities through sysfs"), first released in v7.0-rc1. Say 7.0.
+On Fri, 11 Sep 2026 23:12:56 +0900 "Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
 
-Fixes: 8308510b9365 ("dmaengine: idxd: Expose DSA3.0 capabilities through sysfs")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- Documentation/ABI/stable/sysfs-driver-dma-idxd | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> Hi,
+> 
+> Here are v2 patches for bootconfig to rejects unexpected config data after
+> null character and other cleanups including tools/bootconfig to consolidate
+> bootconfig initialization with errors, and skipping internal tree sanity
+> check in kernel.
+> 
+> ...
+>
 
-diff --git a/Documentation/ABI/stable/sysfs-driver-dma-idxd b/Documentation/ABI/stable/sysfs-driver-dma-idxd
-index 08d030159f0921b1796b19a0fa30e74c96a731bf..5be4e2d5775ff4c6e4bc82c92bf974cb8fdc64da 100644
---- a/Documentation/ABI/stable/sysfs-driver-dma-idxd
-+++ b/Documentation/ABI/stable/sysfs-driver-dma-idxd
-@@ -138,7 +138,7 @@ Description:	The last executed device administrative command's status/error.
+Thanks, I've updateed mm.git's mm-nonmm-unstable branch to this version,
+
+> This version removes redundant buffer copy in init_xbc_with_error() [2/4]
+> and moves BOOTCONFIG_FOOTER_SIZE to include/linux/bootconfig.h[4/4].
+
+Here's how v2 altered mm.git:
+
+
+ include/linux/bootconfig.h |    4 ++++
+ init/main.c                |    2 +-
+ tools/bootconfig/main.c    |   14 +-------------
+ 3 files changed, 6 insertions(+), 14 deletions(-)
+
+--- a/include/linux/bootconfig.h~b
++++ a/include/linux/bootconfig.h
+@@ -27,6 +27,10 @@ bool __init cmdline_has_extra_options(vo
+ #define BOOTCONFIG_ALIGN	(1 << BOOTCONFIG_ALIGN_SHIFT)
+ #define BOOTCONFIG_ALIGN_MASK	(BOOTCONFIG_ALIGN - 1)
  
- What:		/sys/bus/dsa/devices/dsa<m>/dsacaps
- Date:		April 5, 2026
--KernelVersion:	6.20.0
-+KernelVersion:	7.0
- Contact:	dmaengine@vger.kernel.org
- Description:	The DSA3 specification introduces three new capability
- 		registers: dsacap[0-2]. User components (e.g., configuration
--- 
-2.39.5 (Apple Git-154)
++/* Bootconfig footer is [size][csum][BOOTCONFIG_MAGIC]. */
++#define BOOTCONFIG_FOOTER_SIZE	\
++	(sizeof(uint32_t) * 2 + BOOTCONFIG_MAGIC_LEN)
++
+ /**
+  * xbc_calc_checksum() - Calculate checksum of bootconfig
+  * @data: Bootconfig data.
+--- a/init/main.c~b
++++ a/init/main.c
+@@ -278,7 +278,7 @@ static void * __init get_boot_config_fro
+ 	int i;
+ 
+ 	if (!initrd_end || initrd_end < initrd_start ||
+-	    initrd_end - initrd_start < BOOTCONFIG_MAGIC_LEN + 8)
++	    initrd_end - initrd_start < BOOTCONFIG_FOOTER_SIZE)
+ 		return NULL;
+ 
+ 	data = (char *)initrd_end - BOOTCONFIG_MAGIC_LEN;
+--- a/tools/bootconfig/main.c~b
++++ a/tools/bootconfig/main.c
+@@ -17,10 +17,6 @@
+ 
+ #define pr_err(fmt, ...) fprintf(stderr, fmt, ##__VA_ARGS__)
+ 
+-/* Bootconfig footer is [size][csum][BOOTCONFIG_MAGIC]. */
+-#define BOOTCONFIG_FOOTER_SIZE	\
+-	(sizeof(uint32_t) * 2 + BOOTCONFIG_MAGIC_LEN)
+-
+ static void show_xbc_error(const char *data, const char *msg, int pos)
+ {
+ 	int lin = 1, col, i;
+@@ -44,20 +40,12 @@ static void show_xbc_error(const char *d
+ 
+ static int init_xbc_with_error(char *buf, int len)
+ {
+-	char *copy = malloc(len);
+ 	const char *msg;
+ 	int ret, pos;
+ 
+-	if (!copy)
+-		return -ENOMEM;
+-
+-	memcpy(copy, buf, len);
+-	/* We do not terminate the copy with \0 for sanity checking */
+-
+ 	ret = xbc_init(buf, len, &msg, &pos);
+ 	if (ret < 0)
+-		show_xbc_error(copy, msg, pos);
+-	free(copy);
++		show_xbc_error(buf, msg, pos);
+ 
+ 	return ret;
+ }
+_
 
