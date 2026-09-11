@@ -1,343 +1,146 @@
-Received: from mail-pg1-f225.google.com (mail-pg1-f225.google.com [209.85.215.225])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ABE0429023
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:36:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.225
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789169784; cv=none; b=i9d6ANk8ynac0saVW/0wtt0TVw8DxsBWA9wZtfV3QAKPILozqXd+BYGNWmnGI8hHfMU7Pawd1356unTJI0kCx5aYnDOnMQL+pMa28px2chWjOgPLiIwR982V4QPmAxEiiy1HBuFdnatnwxaV/+ebrrWdQR+xVpOO0LpQf9Pudus=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789169784; c=relaxed/simple;
-	bh=POFZSV6vnv/AClRlphLecSZpmWEsaRDm0Vg66aP4l5c=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=RXmobtARJY4rOv5sVub9PANxHQbeKLkfbQ0TgekETOhCU8DguZXYiSCS5GQZX+vYbH610lQI7PH18EStEblCns9UEjOcxTcD6xCpDeL+4rxn/+Z0GxICeTNJkKYgo4Q+4InbMxQj8mPiYPc1F2jJyt/ufVpfBmDKsoJqKDjCMv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=NRIiSIjU; arc=none smtp.client-ip=209.85.215.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8D93CB547
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:39:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789169960; cv=pass; b=dhdLnQb3pG4Vv64/t3SlDQoQXKuuQIMwjeF++h+eOEfMG5bGj1SRzu0uCl92TgPu10SgCTlJw+iCyV9TfKMsoEqG2GoD3DB/HS1SvfHH1oSdnzMVV++UrsubYN7Qn/0uS+kJXKW2n0Wk5JEZfUUYLBRQgkHaV69dbQT3qXwozc0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789169960; c=relaxed/simple;
+	bh=+baXLC3GfGsNCxDGpqRt1A69XapGZ14uV6ZRgaWAtjo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s4g09hy1DKv1BOwhx6BquptAE++KGI+1fUWl6wQXNoScnbNByON0t2l2cVa4B4Yv1Flab7Q1D7mSPDpm57npFHyDebYduo9poQuicfJypaS2k+hmWqH5kXIIXO6OqBJUQQIVNqG1vvo5FSclJgk+DVe0HmkpwSSNsazdJe4GgUA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=bjdBsd7V; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="NRIiSIjU"
-Received: by mail-pg1-f225.google.com with SMTP id 41be03b00d2f7-cc147d86bebso1772954a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:36:12 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789169772; x=1789774572;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q3SnnjQ2kzL235/6CJf8lAWttCVovoEfu585meMFTts=;
-        b=JGNB1mAaLOfFM1MoKuNjZXeW2yRI+PiqeJXxuiUxUm/sSNRyFp9Lg5oDIueZGFcIgr
-         ilji56toOgl3oXbXWXnEZiTQnN0uTx5rN+0O/Du3br1U9Y6r0knvQVXLflf9LQoW1nye
-         urFe1yqipLPu6AkLwayVWuDZi6pQbfavShROX9RKdjHZKPGWV63MCtrUOUR91y5ppI6V
-         Femfi9yzN070yDczxcJqX6FnrsjlpXmoCiYKeEMmOS5/wUx3JzdFVy0hXN+ler3DmFrE
-         sbKLWuJnoQeKgN/uLHmdC8Kzj2JK/089uC+fFCQWJHKFCaTr2blOsgO5QkW0qjzWnr81
-         jiUA==
-X-Forwarded-Encrypted: i=1; AKwUvBzlW6wg2oJG7TH4jqFyhL0wPS3WaF8Nw22tGPCDU+NdgyAjQfpt1mqQK5LILNJzwJjzxQTmtBrtzfy97ZY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nlOdFiVhiFHzpxN3PTMtZ9MeoxQqF5MYFtFCw6L3Trfl3drtW5
-	wn8mQgO4ulfoWLWTNDFovEOEQ80r4k6cg7gXit7uGQCpQWVeqDKI0x9Khmmu8ThfYHRqboGV1Zi
-	i/i9tZE6nv+pr0oQdEPbr9JfG+Wgg/olVufztlgF6vtmOjA19fY7j8bIdUTC9ttfIWIUIUmXMdJ
-	bfmOwDdJ9xLNDbnTBCAAYnCl6Yq744NVlwynq8x/jkqMeHZVp4GxBWH6j4WPQMxHoPbNlXz9zCr
-	zBQxyfPHfHDWEi+HPam
-X-Gm-Gg: AYBFou1LC7Arb+OMEWH/xU9K6PQ67T1tH9BfHGgv7KcUjG5WRuEQHBu/ueG5n5JUzLj
-	WZFMk0VX/uBYDaEHsiWnbQq30qxgDZlJAWZ1ZYQtErDRi6nFUkyqqfpKhJ1ZrPZeaThcQEvidPk
-	mvomTNTZhn4AwYcSvVQJmeYpchvD8/2dcNig0Ct8JVWY3plTxDl55dIvokvXYgxZ54defqmyTnJ
-	N2Ps51RBPq8HGzFqzEV2rRwHXMaBcxd5vP9epqegflBlPL2pcQrYbU9Lu/QrgiuguyK/iPJVNBr
-	ksW7jQhUd+IRkio18vuRGNQZv3n1/Sq15avjuBYX02X/YP83P7GqGqHPUfKKhmUQv5JK0DQQf7E
-	hcWKBAzmNiyFnngr9STu7MqTxQ5QDTRwWmA6nGoqmIq1TNzJ3rX21Ad63B4bv
-X-Received: by 2002:a05:6300:2289:b0:3da:fa59:4f93 with SMTP id adf61e73a8af0-3dafa59538dmr4256050637.18.1789169772318;
-        Fri, 11 Sep 2026 16:36:12 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com ([144.49.247.127])
-        by smtp-relay.gmail.com with ESMTPS id 41be03b00d2f7-cc4c65c7f68sm1439234a12.7.2026.09.11.16.36.11
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 11 Sep 2026 16:36:12 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-52ff59f2c47so35574451cf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:36:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1789169771; x=1789774571; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=q3SnnjQ2kzL235/6CJf8lAWttCVovoEfu585meMFTts=;
-        b=NRIiSIjUCwVlezVHHaxLRJl3QzfkpUeyl9opvJ9Xq4dZxFR2hWODqQseWtNh03cWFh
-         Arjj4FgYFCNVZmsdXjox+2W43xvimKAS6ONXS2RsN8V7wZjcxO7LQT6wTyguogA6aAQ1
-         IKpxnp550F7LkMIWCOJLRxaEXQRmHTqJnQ0aE=
-X-Forwarded-Encrypted: i=1; AKwUvBydFDT1kPUeYV0GI8ggYBsIqPvxQ0peaexVbpgG6Dx3HdTGay6lgiHwiWQUMSrJMweYDJPccq9H1H1JkFw=@vger.kernel.org
-X-Received: by 2002:ac8:598a:0:b0:530:4773:1140 with SMTP id d75a77b69052e-530b3639755mr143682431cf.30.1789169770820;
-        Fri, 11 Sep 2026 16:36:10 -0700 (PDT)
-X-Received: by 2002:ac8:598a:0:b0:530:4773:1140 with SMTP id d75a77b69052e-530b3639755mr143682141cf.30.1789169770357;
-        Fri, 11 Sep 2026 16:36:10 -0700 (PDT)
-Received: from stband-bld-1.and.broadcom.net ([192.19.144.250])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f45ab71sm31717326d6.12.2026.09.11.16.36.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 16:36:09 -0700 (PDT)
-From: Jim Quinlan <james.quinlan@broadcom.com>
-To: linux-pci@vger.kernel.org,
-	Nicolas Saenz Julienne <nsaenz@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
-	bcm-kernel-feedback-list@broadcom.com,
-	jim2101024@gmail.com,
-	james.quinlan@broadcom.com
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	linux-rpi-kernel@lists.infradead.org (moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE),
-	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH 13/13] PCI: brcmstb: Split up complicated function into two variants
-Date: Fri, 11 Sep 2026 19:35:38 -0400
-Message-Id: <20260911233541.1650895-14-james.quinlan@broadcom.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260911233541.1650895-1-james.quinlan@broadcom.com>
-References: <20260911233541.1650895-1-james.quinlan@broadcom.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="bjdBsd7V"
+ARC-Seal: i=1; a=rsa-sha256; t=1789169940; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=lRnLB55j/xILywj6XtEoFzMt1It/KcuTz0dY15oOJ6SEOktUukTKcAL1QJ4UAer5ctVEVQy5MNUgU9Y5lP2hhkOVU619b0gKnGEZmzWil7RNIfBPhw+lnyIS16SVvOrZ/esPOE5ORxFCeTAYQGuHyuty8vNZmV0+IMZHUFpk7RY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789169940; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=toKKhuIQKSaL2Znd3cgcQ5ZnRq79DpOiYAZDjzqDWX4=; 
+	b=cywv7h8i1oojQYrF5OK0IAMbxFjD8DVhv9ySCTZlZaX9r5Kcd8BmGcHyNq+7zzzl/Af7PU+5j+C7Aj67r3ulu0kmt8i7FVjwWfxLE1WS/CW/Xyt0Iv++kyDz8C/oJgX03TUXFCTTXwuR1jkBaPSfUIeFrKgHh7tU+bPdL4A2kGQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789169940;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+	bh=toKKhuIQKSaL2Znd3cgcQ5ZnRq79DpOiYAZDjzqDWX4=;
+	b=bjdBsd7V/xWPHgZLh+a0hVqiilFmzitVQkgZVUMsJ076s9ZJz06RxJD/9PpqWLKC
+	8Qua4XpWtJ5jEZdW8kDWspyZxlhFp74JsERFn2k3srsKjCi3gOmW8mRp6RTPWRNRp2K
+	glEHEy4gW2ZSTVcY9B3mMftJ4EHlvsS/KyaU2vps=
+Received: by mx.zohomail.com with SMTPS id 1789169939703405.989826667481;
+	Fri, 11 Sep 2026 16:38:59 -0700 (PDT)
+Date: Sat, 12 Sep 2026 00:38:56 +0100
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
+	Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	kernel@collabora.com
+Subject: Re: [PATCH] drm/panfrost: Rename "panthor" prefixes in debugfs
+ identifiers
+Message-ID: <aqSP2d1at9937MIc@sobremesa>
+References: <20260901-panfrost-prefix-whoopsie-v1-1-138fb4c5a9f4@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+In-Reply-To: <20260901-panfrost-prefix-whoopsie-v1-1-138fb4c5a9f4@collabora.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/289.144.59
 
-The function brcm_pcie_get_inbound_wins() is abstruse.  Most of
-its code is used exclusively by older chips, where the PCIe HW employed a
-baroque internal inbound window mapping scheme which was an artifact for
-when the PCIe would be configured as an endpoint.
+Hi Nicolas, thanks for the patch.
 
-Create two variants of this function, one for the newer chips and one for
-the older chips, and assign them using the config_data structures.
+I was wondering whether it makes sense to apply it in light of changes
+in a patch series I've been working on for quite some time. One of the
+patches moves all debugfs plumbing away from panfrost_drv.c and into
+their relevant subsystems, and as part of that change I've renamed all
+erroneous panthor_* prefixes into panfrost.
 
-Signed-off-by: Jim Quinlan <james.quinlan@broadcom.com>
----
- drivers/pci/controller/pcie-brcmstb.c | 105 +++++++++++++++++---------
- 1 file changed, 68 insertions(+), 37 deletions(-)
+However, if the right policy in this case is to have them both committed
+separately, then I'll be applying this one first.
 
-diff --git a/drivers/pci/controller/pcie-brcmstb.c b/drivers/pci/controller/pcie-brcmstb.c
-index 53984cfa2c96..45e8a9e030d4 100644
---- a/drivers/pci/controller/pcie-brcmstb.c
-+++ b/drivers/pci/controller/pcie-brcmstb.c
-@@ -321,6 +321,9 @@ struct pcie_cfg_data {
- 	int (*perst_set)(struct brcm_pcie *pcie, u32 val);
- 	int (*bridge_sw_init_set)(struct brcm_pcie *pcie, u32 val);
- 	int (*post_setup)(struct brcm_pcie *pcie);
-+	int (*get_ib_wins)(struct brcm_pcie *pcie, struct inbound_win
-+			   *inbound_wins);
-+
- };
- 
- struct subdev_regulators {
-@@ -954,8 +957,58 @@ static void add_inbound_win(struct inbound_win *b, u8 *count, u64 size,
- 	(*count)++;
- }
- 
-+/*
-+ * This is used by newer SoCs. It configures the inbound mapping windows
-+ * in accordance to the values of the dma-ranges properties.
-+ */
- static int brcm_pcie_get_ib_wins(struct brcm_pcie *pcie,
- 				 struct inbound_win *ib_win)
-+{
-+	struct pci_host_bridge *bridge = pci_host_bridge_from_priv(pcie);
-+	struct resource_entry *entry;
-+	u64 size;
-+	u8 n = 0;
-+
-+	resource_list_for_each_entry(entry, &bridge->dma_ranges) {
-+		u64 pcie_start = entry->res->start - entry->offset;
-+		u64 cpu_start = entry->res->start;
-+
-+		size = resource_size(entry->res);
-+		add_inbound_win(ib_win++, &n, size, cpu_start, pcie_start);
-+		if (n > pcie->cfg->num_inbound_wins)
-+			break;
-+	}
-+
-+	if (!n) {
-+		dev_err(pcie->dev, "DT node has no dma-ranges\n");
-+		return -EINVAL;
-+	}
-+
-+	return n;
-+}
-+
-+/*
-+ * Originally, the Broadcom STB PCIe HW played the endpoint (EP) role.  As
-+ * an EP, one of its goals was to present system memory as a single
-+ * contigous PCIe BAR.  So if there was two regions of system memory, say
-+ * 1GB@0GB and 2GB@2GB, these two regions would be presented as a
-+ * contiguous BAR that was 3GB in size and started at a PCIe offset that
-+ * was configured by SW.
-+ *
-+ * Then the same PCIe HW was modified to also play the Root Complex (RC)
-+ * role and the same internal mapping strategy was employed.  For any SoC
-+ * that uses this scheme, each "BAR" is an inbound window and the PCIe HW
-+ * is internally mapped and hard-wired to system memory regions.  Even
-+ * though the code of the function below uses the dma-ranges properties, it
-+ * is unable to configure the CPU region that is covered, but it can set
-+ * the size and offset of the PCIe side of the window.
-+ *
-+ * Newer SoCs use the brcm_pcie_get_ib_wins() function have the freedom to
-+ * configure mapping windows from any CPU region to any PCIe region,
-+ * provided they follow the rules on offset alignment and size.
-+ */
-+static int brcm_pcie_get_ib_wins_internal_map(struct brcm_pcie *pcie,
-+					      struct inbound_win *ib_win)
- {
- 	struct pci_host_bridge *bridge = pci_host_bridge_from_priv(pcie);
- 	u64 pci_offset, cpu_addr, size = 0, tot_size = 0;
-@@ -965,33 +1018,15 @@ static int brcm_pcie_get_ib_wins(struct brcm_pcie *pcie,
- 	int ret, i = 0;
- 	u8 n = 0;
- 
--	/*
--	 * STB chips beside 7712 disable the first inbound window default.
--	 * Rather being mapped to system memory it is mapped to the
--	 * internal registers of the SoC.  This feature is deprecated, has
--	 * security considerations, and is not implemented in our modern
--	 * SoCs.
--	 */
--	if (pcie->cfg->soc_base != BCM7712)
--		add_inbound_win(ib_win++, &n, 0, 0, 0);
-+	/* By default, disable the first inbound window */
-+	add_inbound_win(ib_win++, &n, 0, 0, 0);
- 
- 	resource_list_for_each_entry(entry, &bridge->dma_ranges) {
- 		u64 pcie_start = entry->res->start - entry->offset;
--		u64 cpu_start = entry->res->start;
- 
--		size = resource_size(entry->res);
--		tot_size += size;
-+		tot_size += resource_size(entry->res);
- 		if (pcie_start < lowest_pcie_addr)
- 			lowest_pcie_addr = pcie_start;
--		/*
--		 * 7712 and newer chips may have many BARs, with each
--		 * offering a non-overlapping viewport to system memory.
--		 * That being said, each BARs size must still be a power of
--		 * two.
--		 */
--		if (pcie->cfg->soc_base == BCM7712)
--			add_inbound_win(ib_win++, &n, size, cpu_start, pcie_start);
--
- 		if (n > pcie->cfg->num_inbound_wins)
- 			break;
- 	}
-@@ -1001,14 +1036,6 @@ static int brcm_pcie_get_ib_wins(struct brcm_pcie *pcie,
- 		return -EINVAL;
- 	}
- 
--	/*
--	 * 7712 and newer chips do not have an internal memory mapping system
--	 * that enables multiple memory controllers.  As such, it can return
--	 * now w/o doing special configuration.
--	 */
--	if (pcie->cfg->soc_base == BCM7712)
--		return n;
--
- 	ret = of_property_read_variable_u64_array(pcie->np, "brcm,scb-sizes", pcie->memc_size, 1,
- 						  PCIE_BRCM_MAX_MEMC);
- 	if (ret <= 0) {
-@@ -1123,13 +1150,8 @@ static void brcm_pcie_set_ib_win_registers(struct brcm_pcie *pcie,
- 		/* Write high */
- 		writel_relaxed(upper_32_bits(pci_offset), base + reg_offset + 4);
- 
--		/*
--		 * Most STB chips:
--		 *     Do nothing.
--		 * 7712:
--		 *     All of their BARs need to be set.
--		 */
--		if (pcie->cfg->soc_base == BCM7712) {
-+		/* SoCs w/o fixed internal mapping can remap the cpu_addr */
-+		if (pcie->cfg->get_ib_wins == brcm_pcie_get_ib_wins) {
- 			/* BUS remap register settings */
- 			reg_offset = brcm_ubus_reg_offset(i);
- 			tmp = lower_32_bits(cpu_addr) & ~0xfff;
-@@ -1195,7 +1217,7 @@ static int brcm_pcie_setup(struct brcm_pcie *pcie)
- 	u32p_replace_bits(&tmp, 1, PCIE_MISC_MISC_CTRL_PCIE_RCB_64B_MODE_MASK);
- 	writel(tmp, base + PCIE_MISC_MISC_CTRL);
- 
--	num_inbound_wins = brcm_pcie_get_ib_wins(pcie, inbound_wins);
-+	num_inbound_wins = pcie->cfg->get_ib_wins(pcie, inbound_wins);
- 	if (num_inbound_wins < 0)
- 		return num_inbound_wins;
- 
-@@ -1943,6 +1965,7 @@ static const struct pcie_cfg_data generic_cfg = {
- 	.bridge_sw_init_set = brcm_pcie_bridge_sw_init_set_generic,
- 	.num_inbound_wins = 3,
- 	.burst_setting	= 0x2, /* 0=128B, 1=256B, 2=512B, 3=Rsvd */
-+	.get_ib_wins	= brcm_pcie_get_ib_wins_internal_map,
- };
- 
- static const struct pcie_cfg_data bcm2711_cfg = {
-@@ -1953,6 +1976,7 @@ static const struct pcie_cfg_data bcm2711_cfg = {
- 	.num_inbound_wins = 3,
- 	.quirks		= CFG_QUIRK_EARLY_PERST_ASSERT,
- 	.burst_setting	= 0x0, /* 0=128B, 1=256B, 2=512B, 3=Rsvd */
-+	.get_ib_wins	= brcm_pcie_get_ib_wins_internal_map,
- };
- 
- static const struct pcie_cfg_data bcm2712_cfg = {
-@@ -1965,6 +1989,7 @@ static const struct pcie_cfg_data bcm2712_cfg = {
- 		CFG_QUIRK_NO_RGR1_TIMER,
- 	.num_inbound_wins = 10,
- 	.burst_setting	= 0x2, /* 0=64B, 1=128B, 2=256B, 3=Rsvd */
-+	.get_ib_wins	= brcm_pcie_get_ib_wins,
- };
- 
- static const struct pcie_cfg_data bcm4908_cfg = {
-@@ -1975,6 +2000,7 @@ static const struct pcie_cfg_data bcm4908_cfg = {
- 	.num_inbound_wins = 3,
- 	.quirks		= CFG_QUIRK_PERST_PCIE_REV_CUTOFF,
- 	.burst_setting	= 0x0, /* 0=64B, 1=128B, 2=Rsvd, 3=Rsvd */
-+	.get_ib_wins	= brcm_pcie_get_ib_wins_internal_map,
- };
- 
- static const struct pcie_cfg_data bcm7278_cfg = {
-@@ -1984,6 +2010,7 @@ static const struct pcie_cfg_data bcm7278_cfg = {
- 	.bridge_sw_init_set = brcm_pcie_bridge_sw_init_set_7278,
- 	.num_inbound_wins = 3,
- 	.burst_setting	= 0x3, /* 0=Resv, 1=128B, 2=256B, 3=512B */
-+	.get_ib_wins	= brcm_pcie_get_ib_wins_internal_map,
- };
- 
- static const struct pcie_cfg_data bcm7425_cfg = {
-@@ -1996,6 +2023,7 @@ static const struct pcie_cfg_data bcm7425_cfg = {
- 		| CFG_QUIRK_OB_WIN_MAXSZ_128MB | CFG_QUIRK_32BIT_PCI_OPS,
- 	.flags		= CFG_FLG_IS_BMIPS,
- 	.burst_setting = 1, /* 0=128B, 1=256B, 2=Rsvd, 3=Rsvd */
-+	.get_ib_wins	= brcm_pcie_get_ib_wins_internal_map,
- };
- 
- static const struct pcie_cfg_data bcm7435_cfg = {
-@@ -2008,6 +2036,7 @@ static const struct pcie_cfg_data bcm7435_cfg = {
- 		| CFG_QUIRK_OB_WIN_MAXSZ_128MB,
- 	.flags		= CFG_FLG_IS_BMIPS,
- 	.burst_setting = 1, /* 0=128B, 1=256B, 2=Rsvd, 3=Rsvd */
-+	.get_ib_wins	= brcm_pcie_get_ib_wins_internal_map,
- };
- 
- static const struct pcie_cfg_data bcm7216_cfg = {
-@@ -2018,6 +2047,7 @@ static const struct pcie_cfg_data bcm7216_cfg = {
- 	.flags		= CFG_FLG_HAS_PHY | CFG_FLG_HAS_ERR_REPORT,
- 	.num_inbound_wins = 3,
- 	.burst_setting	= 0x3, /* 0=Resv, 1=128B, 2=256B, 3=512B */
-+	.get_ib_wins	= brcm_pcie_get_ib_wins_internal_map,
- };
- 
- static const struct pcie_cfg_data bcm7712_cfg = {
-@@ -2028,6 +2058,7 @@ static const struct pcie_cfg_data bcm7712_cfg = {
- 	.num_inbound_wins = 10,
- 	.quirks		= CFG_QUIRK_NO_RGR1_TIMER,
- 	.burst_setting	= 0x2, /* 0=64B, 1=128B, 2=256B, 3=Resv */
-+	.get_ib_wins	= brcm_pcie_get_ib_wins,
- };
- 
- static const struct of_device_id brcm_pcie_match[] = {
--- 
-2.34.1
+Check https://lore.kernel.org/r/20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com
+patch 3/16 for further context. 
 
+Reviewed-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+
+On 01.09.2026 15:39, Nicolas Frattaroli wrote:
+> When gems debugfs support was copied over from panthor to panfrost, the
+> function and struct names were not adjusted to carry the panfrost
+> prefix instead of the panthor prefix.
+> 
+> Rectify this by renaming them. No functional change.
+> 
+> Fixes: e48ade5e23ba ("drm/panfrost: show device-wide list of DRM GEM objects over DebugFS")
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_drv.c | 14 +++++++-------
+>  1 file changed, 7 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> index 96a66d673ba6..f5f11ad5f9b3 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> @@ -794,7 +794,7 @@ static const struct file_operations panfrost_drm_driver_fops = {
+>  };
+>  
+>  #ifdef CONFIG_DEBUG_FS
+> -static int panthor_gems_show(struct seq_file *m, void *data)
+> +static int panfrost_gems_show(struct seq_file *m, void *data)
+>  {
+>  	struct drm_info_node *node = m->private;
+>  	struct panfrost_device *pfdev = to_panfrost_device(node->minor->dev);
+> @@ -845,15 +845,15 @@ static int show_file_jm_ctxs(struct panfrost_file_priv *pfile,
+>  	return 0;
+>  }
+>  
+> -static struct drm_info_list panthor_debugfs_list[] = {
+> +static struct drm_info_list panfrost_debugfs_list[] = {
+>  	{"gems",
+> -	 panthor_gems_show, 0, NULL},
+> +	 panfrost_gems_show, 0, NULL},
+>  };
+>  
+> -static int panthor_gems_debugfs_init(struct drm_minor *minor)
+> +static int panfrost_gems_debugfs_init(struct drm_minor *minor)
+>  {
+> -	drm_debugfs_create_files(panthor_debugfs_list,
+> -				 ARRAY_SIZE(panthor_debugfs_list),
+> +	drm_debugfs_create_files(panfrost_debugfs_list,
+> +				 ARRAY_SIZE(panfrost_debugfs_list),
+>  				 minor->debugfs_root, minor);
+>  
+>  	return 0;
+> @@ -915,7 +915,7 @@ static void panfrost_sched_debugfs_init(struct drm_minor *minor)
+>  
+>  static void panfrost_debugfs_init(struct drm_minor *minor)
+>  {
+> -	panthor_gems_debugfs_init(minor);
+> +	panfrost_gems_debugfs_init(minor);
+>  	panfrost_sched_debugfs_init(minor);
+>  }
+>  #endif
+> 
+> ---
+> base-commit: 0116f19db5931348c937eafa1f76a9a19bf82c81
+> change-id: 20260901-panfrost-prefix-whoopsie-26300bf2dce9
+> 
+> Best regards,
+> --  
+> Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+
+Adrian Larumbe
