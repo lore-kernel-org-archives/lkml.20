@@ -1,184 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AFFB37C900
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:01:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F275D4ADD9D
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:02:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789149714; cv=none; b=eAAnwdB6xZ4Bv7kVMPNjl6JYsdh69aZXSSsYyPTRlUj3zVc8zLRV7jGXiMQW5XcQtpuJrXpExzuBdD0U5NqzH1QjBbY9y9IygpjhPn4TpBZFntHbf7LrONbCwKSWjM9e58YzO2Tbj7UjKVzqF7SKRhCITYAr64OZKhB63c49GlQ=
+	t=1789149769; cv=none; b=rkWXEPjaPozdx8/FyUoc3vSc/n6lNWvWBJ9vLOw4i6HIgJ7oXkzPBDjha6agiLi0sS4VVQ59ZBF8Khp5EF9CXMIHu40ki5z1l3WiQpNsuhSiHxk9PujUxEeo10W++AxabUOfJal88k8TQX+EEsMe+BoLgDjqOvvUB0FMtvCDGiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789149714; c=relaxed/simple;
-	bh=JUYInO57Kd2QrYVqmjJiEtmS5h4fB1SJFnB0mCaTuQg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kErcj0gGQaBLYGSAH0hmMWkX8j7FMhOpAUuuJKwDxsjYzAGOTw0N/Mnq2XUYcY29YdmS/UBGtBB3ubUzRrHgT5b2elpXbL5tpO405Vq7iAusMznAvnTmuL/ZHAJqUcdtPzn7a9BEJdshSE2dVUMIacdR5sohTjM3YeG0eLvLkdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NAoHBUUC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789149769; c=relaxed/simple;
+	bh=LnpI6w5jmvI4nlcFgLimbu3wSqiTwIXgE77VCD9j9qI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MtYrtBkWwq8gcczdKeJisT38M2D3INkJ8L5WihFedHDa8k7wyov/JFAe7s/vnn6iWiN5d0pN4p/vczWgw+6nhkqVq3NmxQZ0R3bkTQE7WBswi4w6XSy+MHxuzIxxEV1TX1dmhBqZbNHhsC9945ifpY9yqmFKZ3A1UlehBVYwAfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E7pGIBaR; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NAoHBUUC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9287A1F000FF;
-	Fri, 11 Sep 2026 18:01:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789149713;
-	bh=qhIWTcm0FYDnzyosqjyVmJ5CwqqhLKGSIdHrmte54X4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NAoHBUUC6iTOhnfEiRIL2ybzUIvjYJUlufJ6P2HXRugjhUvN0oxbF1Rz1J2+UVesd
-	 MSwhOvljnoikab8xv4GX4VgZJF3oY+jtQfYnKrlwYz/QhLJpTraFTE/LeyKhiHGpn9
-	 xNzwctdLeHSap4lro0YBpoKyHLYc5FumKwa1e4HDWvhGykBEURMyMj6ySXwOEFY7wP
-	 idWqFcZgUE01OaMdEebblpkci77+WDc4G4qjLUh9nlqyebO5HzerVaHmIkBOd8NRK4
-	 sKqJlmoX4ZelnHyyToErLTLBswdG823/SOgoLLThHRV8K4ZmOWwM3dUWWpOTewDYe4
-	 sdSuyGymWGzVQ==
-Message-ID: <664b3576-05a9-4c49-99c6-ba0928b25300@kernel.org>
-Date: Fri, 11 Sep 2026 20:01:44 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E7pGIBaR"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b2ad83dc6so82185a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:02:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789149765; x=1789754565; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tEg6c7bZ7wxXKsRmp0OjaJyQp7uwB9ezm8J/nXNrwM4=;
+        b=E7pGIBaRY/IKV4sms5e0qKPo5d4Fan3yI63nfzXXwzp/aM6RUM3TntsmgZ8y7hqiQc
+         oiLWWVjrDHHFmopikbypE8fw0orofJJa8NLJGh+PD0yxaliHBziJqGLrtgvWEloZ2yYD
+         Jp18csP3KTlaCTni16JizGkdl3WD2rmiJzI/PHN9h1YN7YFu4+Fv+8hQ94YR9utiPAqY
+         U/E6j8CWBUww/KqTNJ2bUIOiHUEOGB3RYWlqzVM2sFfQF/wdIoAh/a6QyFUFp3UYCJb9
+         0SRpp31FA5n/lICakhbFXEc+SYwkqAx+BcA/TASVPR+us1Npd+kLTcFYrg7NWBX1kdG8
+         lOtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789149765; x=1789754565;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tEg6c7bZ7wxXKsRmp0OjaJyQp7uwB9ezm8J/nXNrwM4=;
+        b=IAy88ObXo9lTTBn0be8EFHzQvMXVFFpgEi/eD+IcO9+JO1l4Eryke0pGSiAOH7H530
+         5Gx7unoU6H7F7mWBQIDZ5KB8KK2zoRBuhCnvb8SJNyumypSUheNfjuHQSn9wCjI17c7c
+         eDsgvCog71gPbNOgHKx6V50SlIGC3b8Y1z/RcKnAz0yLJ/YVKu2qaTPAkunaDo7h6mll
+         NiEN2lwR/2yfdCALELuCtTeV9JSQi6lcESXeRrCRWmOpqRfXiudIRHvn4Xn7IGamSqhW
+         MJQTPtw1UKTItCtYh+GTvb8gTEoW+zqwnNX7NaIeq+S5+aNXqwxR3/xHIiG+k9T7RvWK
+         8ZKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzC5nHgQ/45f/YWQmFV4AtW2RXYQwvZ+FKRcOmhjxIK2+JAqoiKjuf8a7EaG8rKjuLCWKP5Ze5E6Uus1Xg=@vger.kernel.org
+X-Gm-Message-State: AFuF++luB8s8HU9N5pQDwxpvNdW5GnE3Z9wlFwGXteVzEzmyqM2IrtdI
+	4KnKHYSy5TTCGQErEr0TiOX8C9FCG8I/zbL4sw8MwuaxdV4hBtqJoipS
+X-Gm-Gg: AYBFou1N4JxB7D9qP3QievcgJHfdxzzHTtxWJqA3v9UTjd+syBS0I6cog/eQN81VxkW
+	f1kAgyfhSLKYnaeZVnWvbpm9l/IeN4s0yW5615WwX5n8TA267SFCliIIMKYHbkspvy+xVJRh1Tn
+	e91Kzpws7YT8IlTnyhccUrSgQCm2sMNvOxLL3ScwSsMGYMpzCRNiSXqX0eIATT2qmGE9EzAdOVY
+	b3seLvcA50Hl/mCuiJCJgzqM7PXclFmxhS8h+tUJouUBcw7PMXjntpjPVjb5u+tpOxMwXm/dS6/
+	z86W+8jGVOgVFyMxP6I2DyOpElJV0Sy6phsJrwpVD2vUI890ORRAXYMZETO+UuRmZpY+zXaOmeb
+	MkNBxkfQ0hYrc1F0fkMV3cSgvxEtUa0F7thlS53gJWBIKXWOZP7uldDABOXOGZk2nUaL5vkK0fP
+	KSa6pMzddEHp+wBUkcvFpXbrS4Ubw1y5S1HNaAb9JHrYzKBSdw3RXl+BjNkmd26oV0xnETKKmZw
+	p1LKpRMI1/htRhXTOnDd5Tpara0jA1V5TMbUvRDQGmBhA==
+X-Received: by 2002:a17:90b:5246:b0:398:d2a0:87ff with SMTP id 98e67ed59e1d1-39d9bc67660mr9487469a91.1.1789149764717;
+        Fri, 11 Sep 2026 11:02:44 -0700 (PDT)
+Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([106.51.165.23])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d98a58d23sm6962244a91.2.2026.09.11.11.02.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 11:02:44 -0700 (PDT)
+Date: Fri, 11 Sep 2026 23:32:28 +0530
+From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
+To: Jirka Hladky <jhladky@redhat.com>
+Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, 
+	chleroy@kernel.org, ryabinin.a.a@gmail.com, glider@google.com, andreyknvl@gmail.com, 
+	dvyukov@google.com, vincenzo.frascino@arm.com, oleg@redhat.com, kees@kernel.org, 
+	luto@amacapital.net, wad@chromium.org, mchauras@linux.ibm.com, sshegde@linux.ibm.com, 
+	thuth@redhat.com, ruanjinjie@huawei.com, akpm@linux-foundation.org, 
+	macro@orcam.me.uk, ldv@strace.io, charlie@rivosinc.com, deller@gmx.de, 
+	kevin.brodsky@arm.com, ritesh.list@gmail.com, yeoreum.yun@arm.com, 
+	agordeev@linux.ibm.com, segher@kernel.crashing.org, mark.rutland@arm.com, 
+	ryan.roberts@arm.com, pmladek@suse.com, feng.tang@linux.alibaba.com, 
+	peterz@infradead.org, kan.liang@linux.intel.com, linuxppc-dev@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com
+Subject: Re: [PATCH v5 0/8] Generic IRQ entry/exit support for powerpc
+Message-ID: <aqRB8aSzbeQ-UcYY@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+References: <CAE4VaGACd2es4NPQyhbR9pMEoGiTVBSE7Lw7x9VOb1Qbpvc6nw@mail.gmail.com>
+ <amsapeQ2Kp6rwPpF@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+ <CAE4VaGB_EhbWq8_X6FLtOx2MqoP7JEkOKkKSjKB7N--tt-sCeA@mail.gmail.com>
+ <aqAMpawvpB7g1XdK@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+ <CAE4VaGBCmA0+28G=V_Qs37cR2GKYDUTGQWW_uRe0qvEp5io3qQ@mail.gmail.com>
+ <CAE4VaGCp7A7NuBC9Hwgzs5xg3bGBuRiDC8PRCu+yXnUZEXmt-g@mail.gmail.com>
+ <CAE4VaGATCET9F4XXS2oj47aNEZx3HN__Zp1CH4+ASec6BjhjGA@mail.gmail.com>
+ <aqONPHH8B_z_GpT2@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+ <CAE4VaGDJy-EzD_iHeb+AQOYi9LZN1dB9OXjf7FtVWM=LWrWVTg@mail.gmail.com>
+ <CAE4VaGAq1PugOAomUnJ4vEtmHzKPt5m6VJ21wErdOf19G8UPWw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/migrate_device: consolidate compound folio handling
-To: Hui Su <sh_def@163.com>, Andrew Morton <akpm@linux-foundation.org>
-Cc: Matthew Brost <matthew.brost@intel.com>, Balbir Singh
- <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20260911061348.2869524-1-sh_def@163.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <20260911061348.2869524-1-sh_def@163.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAE4VaGAq1PugOAomUnJ4vEtmHzKPt5m6VJ21wErdOf19G8UPWw@mail.gmail.com>
 
-On 9/11/26 08:13, Hui Su wrote:
-> Commit dc41e961a269 ("mm/migrate_device: avoid out-of-bounds writes for
-> compound folios") added handling for compound folios that do not fit in
-> the remaining PFN array.
+On Fri, Sep 11, 2026 at 02:24:44PM +0200, Jirka Hladky wrote:
+> Hi Mukesh,
 > 
-> migrate_device_range() and migrate_device_pfns() duplicate the logic for
-> locking device PFNs, encoding compound folios, and handling this boundary
-> condition.
+> I built 7.2-rc4 from source with your proposed rcu_ct_kernel_exit_qs()
+> patch and re-ran the same sweep - it shows minor improvements vs. stock
+> 7.2-rc4
 > 
-> A compound folio cannot be represented partially for migration. Warn when
-> one does not fit in the remaining PFN array, while retaining the existing
-> defensive handling: release any lock and reference acquired for the
-> current folio, clear the remaining entries, and stop collecting.
+> Full results, median bogo-ops/sec over 15 runs each:
 > 
-> Move the shared collection and encoding logic into a helper so both
-> interfaces handle compound folios consistently. Also use memset() for
-> the compound-folio tail entries instead of open-coding the clearing loop.
+>   Mode          7.1        7.2-rc4     7.2-rc4+patch
+>   Enforcing     68,275     70,154      71,585
+>   Permissive    68,082     67,166      68,705
+>   Disabled      99,654     100,510     101,016
 > 
-> Document that an encountered compound folio must fit entirely in the
-> remaining range or PFN array.
+> The patch vs. stock 7.2-rc4 differences (+4.8%/+0.9%/+1.3%) are hard
+> to distinquish
+> from run-to-run noise we've been seeing on this hardware, but they are
+> consistent.
 > 
-> Link: https://lore.kernel.org/r/c99ca53a-73ef-4a0c-8738-eba1cc89bea2@kernel.org
-> Suggested-by: David Hildenbrand <david@kernel.org>
-> Signed-off-by: Hui Su <sh_def@163.com>
-> ---
-> Tested on x86_64 with KASAN enabled:
+> I think it's a useful efficiency improvement on its own merits, as it
+> does avoid the unconditional rcu_preempt_deferred_qs() call on the common
+> fast path. Even with only small performance gains, the change looks correct
+> and low-risk to me, and I'd like to see it land in mainline. Let me
+> know if there's
+> anything else you'd like me to test before you post it, or if it's
+> already queued up
+> separately from this thread.
 > 
-> - Built mm/migrate_device.o and the kernel successfully.
-> - Ran the HMM migrate_anon_huge_zero selftest; the private-device case
->   passed.
-> - No KASAN report or truncated compound-folio WARN was observed.
+> Thank you!
+> Jirka
 > 
->  mm/migrate_device.c | 90 ++++++++++++++++++++++++---------------------
->  1 file changed, 49 insertions(+), 41 deletions(-)
-> 
-> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-> index 009bfa8b212d..c57eadea6565 100644
-> --- a/mm/migrate_device.c
-> +++ b/mm/migrate_device.c
-> @@ -1392,6 +1392,39 @@ static unsigned long migrate_device_pfn_lock(unsigned long pfn)
->  	return migrate_pfn(pfn) | MIGRATE_PFN_MIGRATE;
->  }
->  
-> +/*
-> + * Collect a device folio into the page-granular PFN array.
-> + *
-> + * Return the number of entries consumed, or 0 if the folio does not fit in
-> + * the remaining array.
-> + */
-> +static unsigned int migrate_device_collect_folio(unsigned long *src_pfn,
-> +						 unsigned long pfn,
-> +						 unsigned long remaining)
+Hey Jirka,
 
-Two tab indent please.
+Thanks for the verification. I think that's all i wanted. I would send
+out a patch for this soon. Thanks for all the support.
 
-> +{
-> +	struct folio *folio = page_folio(pfn_to_page(pfn));
-> +	unsigned int nr;
-> +
-> +	*src_pfn = migrate_device_pfn_lock(pfn);
-> +	nr = folio_nr_pages(folio);
-> +
-> +	if (WARN_ON_ONCE(nr > remaining)) {
-
-Just to be sure: there is no way we can currently validly trigger this, right?
-
-> +		if (*src_pfn & MIGRATE_PFN_MIGRATE) {
-> +			folio_unlock(folio);
-> +			folio_put(folio);
-> +		}
-> +		memset(src_pfn, 0, remaining * sizeof(*src_pfn));
-> +		return 0;
-> +	}
-> +
-> +	if (nr > 1) {
-> +		*src_pfn |= MIGRATE_PFN_COMPOUND;
-> +		memset(src_pfn + 1, 0, (nr - 1) * sizeof(*src_pfn));
-> +	}
-> +
-> +	return nr;
-> +}
-Looks much cleaner.
-
--- 
-Cheers,
-
-David
+Regards,
+Mukesh
+[...]
