@@ -1,95 +1,222 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA921443C0A
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:51:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBDC043F4B5
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:51:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789123891; cv=none; b=updhfbb85gnxq6/C+iTJwvY72Z+rDFduceCQLwdHO/aBrQ03YIwyvZ6hlkeZUwo8OE7Bdjv+GCvXlR3+gS9yT3rlWdCzGEiJdJ4qULPmIbf5cwvl0wCCe3WML3/kkwQ2pjS/MfNW2E/uuFMtS/1rU4ty+enUS9JB//092sMdgls=
+	t=1789123896; cv=none; b=LYZD/jS7XTHH1JsK997yZxuel76KfvdWHq7DRUq1vA5u4xvOz3dxrwHQrxhHMWLcN9UoFmnbpCtLE1WWpksdDgLOBqmFcnhbpmbGoSk3jkhSTB1RAPuCceF8WDyG/87/fGnAZU7x0iW1OFdYeCeNz4rKiIv8mG4aXSwBhF94WqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789123891; c=relaxed/simple;
-	bh=IQpJE3RZmdNgSQD3n6D0YXAXeTf6qpImDl/9LYyhJj0=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=KLSklTrMaoIuztE4OD3qPUlEK2XrZ6vgS899fHhY/S1eUcsQ5vk2OQt1HeQfla1vEinS+iuWkO7A52KWaY2qu+KQCBZMEAXmbS+XGQ4zjFWCiuqIu30FpsUgA1d6WImKnONKKelaGN8nxrdyhJqK13T0nWtZfnBW7JMEcsBaskc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=e7A7+eyw; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=UkfuQ8Jo; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1789123896; c=relaxed/simple;
+	bh=ZU59QORF8aEFGb/GLYQdk3XUMzkHjqCLpILtgCX8z2g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AfhejGNcCzzF5Los9WM6JvK2dzSIpvLyZd7yB/fSVMWzkQUO9eZ+Chjyic8fs+NSbNIujqrGpkYIyF3hQioT2BBLrloJioxsaw8ViDDBhU47Eqp4zlcULh9TD/Md+mRZysFyvGewc7btfhW22nDmYv/+9f/JA0qFemBRm7jsPio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XMkkw5zk; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="e7A7+eyw";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="UkfuQ8Jo"
-Date: Fri, 11 Sep 2026 12:51:26 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789123887;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=eSJnet9XQNAWsVk90MunccOTXviqb/KTAit/ZAd4LFg=;
-	b=e7A7+eywuyKogfMToYBOE6eKb8EHOFil2bbHIF7lxn+Or6+YxJxLJY9d93nGadL17lUsEY
-	PMgJ2io5rAr89kUkTY5DtEBtuNU3EdHzjom2YXJsFSMdSii1e3cqTqAqeylgrTrSMbiZtX
-	UG47/DAn/a3KHoBliXGDo8/whUDIFxzCMSjqruKIqZhyxmN209sf5+l/VNPT8ZdVUoUiy6
-	ae4/reTgRx3wz69//Dnz4oMcs/U4Mc213ukFd7xqQwFbMB7Psx908e3cSLp0kRimev+OPE
-	3If2Ue0URrTZjxTdpZGq4jrbRr2M8Boh71+ytTdtpQOHhKtKp2b2DG/rZGZpXQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789123887;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=eSJnet9XQNAWsVk90MunccOTXviqb/KTAit/ZAd4LFg=;
-	b=UkfuQ8JofSlcSVVqqdvIyZN6h8dI2+ykJSo8I/aWAMN5t6+JuRTxs+n5s8lZ3H/OW0P9yD
-	40MVLj/KwoBAMSDA==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: linux-kernel@vger.kernel.org
-Cc: Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>,
-	John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>
-Subject: [PATCH] printk: Remove preempt_disable() from __wake_up_klogd()
-Message-ID: <20260911105126.aPCuP2jV@linutronix.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XMkkw5zk"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fe517774so8810585ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:51:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789123892; x=1789728692; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CBprWD+UdIA7t4+GGinbNgIVbXulJoerlIuVIoo1MfM=;
+        b=XMkkw5zk0HwCI5r8UCpBZBHmXWM05M5E2vGmEb7dFg/fmonDVfeLdThe/gfYI4drst
+         qr60XNLpobm9a3I4fvbSfLm3UL4jziIle5CHcAYVTf5eE/zXxqcXuDWSrRIN5cZoqukX
+         K/s/7ubUCaS1LaEqoZNarwy5DbFGGK66J+FjqnWAhLqfEzkRsBO3xiVJf44BGGBqhyCr
+         MehETtOU4fHA600PEk6Prv3IX3voBNekKnu3igchr0T11Fwzt9aLah3pWN0/JNWaEA8M
+         gkRSue567BPLIq1yC8yF1uhNzWTlgEozyHGmFhOhTekwu+ELIxxEkek3AgE2jMBhhhJV
+         8eTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789123892; x=1789728692;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CBprWD+UdIA7t4+GGinbNgIVbXulJoerlIuVIoo1MfM=;
+        b=dYT5gcNLHmKc78JTxm8eQCj01dujGDdTbSUPHyzcTKs95D+EHMEpKaa5eCe0raLwvZ
+         V4oQ1TtD9eXvNL6/iTgMpivTedyWBICgJxXFt1HfUhdHZ9wP4ZaPYfGWvFUua0rOVSf0
+         u3gFJpan4fFDveHlWN/e1dao1oWxa2X+R039b5dYAx+33icX3ujQGPIqmBDNUW3dTRLD
+         ciBQaIbb+Gu1Oo0KT6sEQU2LL/tJxv/QJC5Jfg0lqnCCnocIIPqohX8TG+IXeuRF5ZuV
+         zL5UQHSwKHRRcxC89AjSx8mojqR559Ce935ajNGQonxxW6dbNWUU8azNd9e0mtK+ctgO
+         22kw==
+X-Forwarded-Encrypted: i=1; AKwUvByyu7zD6s7iWma4v+vy8g36y8s4XLbWOKLJADycLASonAV2WvlSabR125Ikp/ioj1VI9Qi73182i3u6HYE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGALhQwLcvXCDIbpMo4+3PmmCF+PlcYD3ArKLdIo8BJSxrsD+M
+	X1oKnpi5ob9Zm6odzSsnIRwNl5acmckxTH3r7Qithi4Rb5Vxaksxgs+p
+X-Gm-Gg: AYBFou0TlLNqeZT0uSY+5kHPcHDO2ylRQzB1czAjCLDZFRVLljTplZg3UDUSSteAU12
+	yGFDdiRLLiT2wIHS4ec17MP/M9bz3t7vYFMLkH8NQjnjGwTzj0gt38fMJtARGuF1CAUAaB4SUV1
+	KFjyxutgpvPSPGWG0yLWmDASc/bhX2c40FzcKjAFAvUpJoqWeoml/u4qSEI24GLIirvLqq/dvf9
+	kUrQHo3D/z7LPJwtN7N1R94CDNe1c7WbRB49iQWNyUorLtNvOL2ZVjTpyg6PwtlS+N3MNihAFJj
+	quewRPHQ6CeLMVeVRGGZNvvSHkKmlUHPFFqEol81qXz2YuWc972+huy4wryAg9sPUm8U9+4aTEs
+	3qD54b3xwH4CmPeXwHG222SWcz4yfoiw6nB2PhvtPCWm2J6kwxENaMsl4rS2cZKw6QYk/7dEm6J
+	Vm3DschMV19XErOUJsXygikXf692Db12XCeEosD1FET7CXpJ1hC1515zkYwbyIxg+/T/zqyCcx6
+	jDHtR/NSepN+3p+D4Q3MHnR70JEQvxFQYJuA08yh8zKAhUNwrNNwN5Y/qG9+w==
+X-Received: by 2002:a17:90b:2547:b0:398:9be8:ea64 with SMTP id 98e67ed59e1d1-39d9c225ceemr7107821a91.17.1789123892036;
+        Fri, 11 Sep 2026 03:51:32 -0700 (PDT)
+Received: from m-upc-A520M-HDV.flets-east.jp ([2400:2410:3f60:500:f7e5:8b43:47c8:5245])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d94bafb3bsm4876004a91.1.2026.09.11.03.51.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 03:51:31 -0700 (PDT)
+Sender: Yuyang Huang <uyoko90@gmail.com>
+From: Yuyang Huang <sigefriedhyy@gmail.com>
+To: Yuyang Huang <sigefriedhyy@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	David Ahern <dsahern@kernel.org>,
+	Donald Hunter <donald.hunter@gmail.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
+	Nikolaos Gkarlis <nickgarlis@gmail.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	Shuah Khan <shuah@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Stanislav Fomichev <sdf.kernel@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: [PATCH net-next v4 4/4] selftests: net: test AF_PACKET multicast dumps
+Date: Fri, 11 Sep 2026 19:51:03 +0900
+Message-ID: <20260911105103.7771-5-sigefriedhyy@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260911105103.7771-1-sigefriedhyy@gmail.com>
+References: <20260911105103.7771-1-sigefriedhyy@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-I was puzzled why there is a preempt_disable(). Turns out it is due to
-the per-CPU usage of the previous irq_work, as introduced in commit
-74876a98a87a1 ("printk: Wake up klogd using irq_work"), where the or and
-enqueue must happen on the same CPU.
+Dump the link-layer multicast addresses of a dummy device and verify
+that ifa_index restricts the dump to that device, that the all-hosts
+address joined on link up is listed without IFA_F_GLOBAL, that an
+address added with SIOCADDMULTI is listed with IFA_F_GLOBAL and
+IFA_MC_USERS, and that IFA_TARGET_NETNSID dumps another netns. Skip
+when the kernel does not support AF_PACKET dumps.
 
-Since we don't have this anymore, it can go.
-
-Remove the preempt_disable from __wake_up_klogd().
-
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Signed-off-by: Yuyang Huang <sigefriedhyy@gmail.com>
 ---
+ tools/testing/selftests/net/rtnetlink.py | 75 +++++++++++++++++++++++-
+ 1 file changed, 72 insertions(+), 3 deletions(-)
 
-I'm sorry, I noticed this after starring at it once I sent the patch. I
-could resend and merge it into the previous if it is preferred.
-
- kernel/printk/printk.c | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
-index 7c5a220e84323..0fd6c37e2b333 100644
---- a/kernel/printk/printk.c
-+++ b/kernel/printk/printk.c
-@@ -4623,7 +4623,6 @@ static void __wake_up_klogd(int val)
- 	if (WARN_ON_ONCE(console_irqwork_blocked))
- 		return;
+diff --git a/tools/testing/selftests/net/rtnetlink.py b/tools/testing/selftests/net/rtnetlink.py
+index 5cc3ebdcf08d..cca14c4008cf 100755
+--- a/tools/testing/selftests/net/rtnetlink.py
++++ b/tools/testing/selftests/net/rtnetlink.py
+@@ -1,17 +1,21 @@
+ #!/usr/bin/env python3
+ # SPDX-License-Identifier: GPL-2.0
  
--	preempt_disable();
- 	/*
- 	 * Guarantee any new records can be seen by tasks preparing to wait
- 	 * before this context checks if the wait queue is empty.
-@@ -4640,8 +4639,6 @@ static void __wake_up_klogd(int val)
++import errno
+ import socket
+ import struct
+ import time
+ from lib.py import bkg, ip, ksft_exit, ksft_run, ksft_eq, ksft_ge, ksft_true, KsftSkipEx
+-from lib.py import ksft_not_in, ksft_not_none
+-from lib.py import CmdExitFailure, NetNS, NetNSEnter, RtnlAddrFamily, RtnlRouteFamily
++from lib.py import ksft_in, ksft_not_in, ksft_not_none
++from lib.py import CmdExitFailure, NetNS, NetNSEnter, NlError, RtnlAddrFamily, RtnlRouteFamily
+ from lib.py import defer
  
- 	if (val & PRINTK_PENDING_OUTPUT)
- 		irq_work_queue(&pending_output_work);
--
--	preempt_enable();
- }
+ IPV4_ALL_HOSTS_MULTICAST = b'\xe0\x00\x00\x01'
+ IPV4_TEST_MULTICAST = b'\xef\x01\x01\x01'
+ IPV6_TEST_MULTICAST = bytes.fromhex('ff020000000000000000000000000123')
++ETH_ALL_HOSTS_MULTICAST = bytes.fromhex('01005e000001')
++ETH_TEST_MULTICAST_STR = '01:00:5e:01:01:01'
++ETH_TEST_MULTICAST = bytes.fromhex(ETH_TEST_MULTICAST_STR.replace(':', ''))
  
- /**
+ 
+ def _users_for(rtnl: RtnlAddrFamily, family: int, grp: bytes, ifindex: int):
+@@ -105,6 +109,70 @@ def dump_mcaddr6_check() -> None:
+                 s2.close()
+ 
+ 
++def dump_mcaddr_l2_check() -> None:
++    """
++    Verify link-layer multicast addresses in an AF_PACKET RTM_GETMULTICAST
++    dump: the ifa-index filter, mc-users, the global flag and
++    target-netnsid.
++    """
++
++    with NetNS() as ns, NetNSEnter(str(ns)):
++        for ifname in ("dummy1", "dummy2"):
++            ip(f"link add name {ifname} type dummy")
++            ip(f"link set {ifname} up")
++        dev_idx = socket.if_nametoindex("dummy1")
++        ip(f"maddr add {ETH_TEST_MULTICAST_STR} dev dummy1")
++
++        rtnl = RtnlAddrFamily()
++        defer(rtnl.close)
++        try:
++            addresses = rtnl.getmulticast(
++                {"ifa-family": socket.AF_PACKET, "ifa-index": dev_idx},
++                dump=True)
++        except NlError as e:
++            if e.error == errno.EOPNOTSUPP:
++                raise KsftSkipEx(
++                    "kernel does not support AF_PACKET multicast dump")
++            raise
++
++        # dummy2 has entries as well, only dummy1 may be listed
++        ksft_eq({addr['ifa-index'] for addr in addresses}, {dev_idx},
++                "AF_PACKET multicast dump ignored ifa-index filter")
++
++        entries = {addr['multicast']: addr for addr in addresses}
++
++        # Bringing an Ethernet device up joins 224.0.0.1, which maps
++        # to 01:00:5e:00:00:01 in the device multicast list.
++        all_hosts = entries.get(ETH_ALL_HOSTS_MULTICAST)
++        ksft_not_none(all_hosts,
++                      "dummy1 does not have the all-hosts link-layer address")
++        if all_hosts is not None:
++            ksft_not_in('global', all_hosts['flags'],
++                        "protocol entry is global")
++
++        static = entries.get(ETH_TEST_MULTICAST)
++        ksft_not_none(static, "dummy1 does not have the SIOCADDMULTI address")
++        if static is not None:
++            ksft_eq(static['mc-users'], 1,
++                    "unexpected mc-users for the SIOCADDMULTI address")
++            ksft_in('global', static['flags'],
++                    "SIOCADDMULTI entry is not global")
++
++        # target-netnsid dumps another netns, ifa-index is relative to it
++        with NetNS() as peer:
++            ip(f"netns set {peer} 5")
++            ip("link add name dummy3 type dummy", ns=peer)
++            ip("link set dummy3 up", ns=peer)
++            peer_idx = ip("link show dummy3", json=True, ns=peer)[0]['ifindex']
++
++            addresses = rtnl.getmulticast(
++                {"ifa-family": socket.AF_PACKET, "target-netnsid": 5},
++                dump=True)
++            ksft_eq({(addr['ifa-index'], addr['target-netnsid'])
++                     for addr in addresses}, {(peer_idx, 5)},
++                    "target-netnsid did not dump the peer netns")
++
++
+ def ipv4_devconf_notify() -> None:
+     """
+     Configure an interface and set ipv4-devconf values through netlink
+@@ -315,7 +383,8 @@ def ipv6_route_del_reason_absent() -> None:
+ 
+ 
+ def main() -> None:
+-    ksft_run([dump_mcaddr_check, dump_mcaddr6_check, ipv4_devconf_notify,
++    ksft_run([dump_mcaddr_check, dump_mcaddr6_check, dump_mcaddr_l2_check,
++              ipv4_devconf_notify,
+               ipv6_route_del_reason_expired,
+               ipv6_route_del_reason_ra_withdrawn,
+               ipv6_route_del_reason_absent])
 -- 
-2.55.0
+2.43.0
 
