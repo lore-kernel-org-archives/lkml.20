@@ -1,42 +1,48 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3A7A04399F9
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:52:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F4149E12F;
+	Fri, 11 Sep 2026 11:52:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789127529; cv=none; b=Yv7L29TESoP0wOC+Grmrb9RuRlPMRfAtoi1iyA655nToqsYo3/Kd7MJPagWJ6fnCXP1fyfnMtlDVOnJp6/V2S2VCS33D7J9Lw0QZTOc7RXNCFBx+BoCiQ3dw8QL8ga6sDWGB88A+XqPpWuY0h1I69ye42b4bvu2Z99cL6KHe64w=
+	t=1789127551; cv=none; b=okQgUn29qCX9AKgfoEN9fkCUGhXI5B+pBVHxnwQQh2fEY4dEleDg1UgYBUpXDNXqoyAYEAScWwBDqoAMA3P+NqYtjR5WSe03O7dRalt9kerbZeEI0ZJSgWfI32ucj16OjUfmJJZICz9Tt0vNfAfP85rGyfbU348H1yrjUTavQA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789127529; c=relaxed/simple;
-	bh=HOs3irXqb78xMsUCXOb+Jgwn/pSJ8kPNLFdAknY9XQg=;
+	s=arc-20240116; t=1789127551; c=relaxed/simple;
+	bh=xr1iQ+0ANjD4AhlQ8mUQMXP92Uraxm4SQUClYbCEmdE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RMa8AKej/LYKO42rzXadMOXlhQYWWGXCX0nB/1MeYkMVG/duV2HtjI+LhVzyAFIk6vKSy8ubpq0k8vc/d9iMU/2VcCOXLqUV8oifwQW/IdBJ6VxhTd7p5Uymj/197G8DPmtTtmkHOVdJg46y0GQuS7/3R23OsIPfK4TDhko+/EQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=sjW+52QV; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=siXATfEKa6D1FG8VfUhgDGXTEwMoZ47+1V2GjeaGmCIdMAqzInmfgWxuRbrNy2K/JDoGG5XHw3pVNaNn/I+QNuIGwFGgvuei74iEk+kaltwql5GH8M6damz2nrvS6NcwSnCXPxa5T8otc6FNBN2kZEi9JwomUEM4OcqieDuobjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=IS1534z5; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="sjW+52QV"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0E6641655;
-	Fri, 11 Sep 2026 04:52:04 -0700 (PDT)
-Received: from e129823.arm.com (unknown [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D685B3F59E;
-	Fri, 11 Sep 2026 04:52:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789127527; bh=HOs3irXqb78xMsUCXOb+Jgwn/pSJ8kPNLFdAknY9XQg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sjW+52QVTXOMCnmIOdpLQ+qEh0XqmSr9ZaI0CW6Fzz4FX5nFjScnUUQ1M5cswByK0
-	 YDtaKqlrCHxuvk5zFLmZWP6Tkl8LBIDUrflIPil6zWq2nX1Qy+AoEUyDs0Qw0tm9Qk
-	 XhHvWvXO6Fkb1Qr2Rt1+G7SBHrGT8KKoZ9q/vDYE=
-Date: Fri, 11 Sep 2026 12:52:04 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-rt-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v10 3/8] coresight: etm3x: change drvdata->spinlock type
- to raw_spin_lock_t
-Message-ID: <aqPrZD-NLo7gZr55@e129823.arm.com>
-References: <20260911-separate_etm_cfg_v2-v10-0-1b715d95927a@arm.com>
- <20260911-separate_etm_cfg_v2-v10-3-1b715d95927a@arm.com>
- <20260911111736.EBA341F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="IS1534z5"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=VnHi4B3D3EDHBd1o2lsdu30TZjWEe4IWwvich8nSuoI=; b=IS1534z5HHH3YbqZaAaY6//s+V
+	FaKchLDA/hWx9lgYhMTLy2UmrylUXiPH7z7R9U+CXM4o0s3jZy0fjv2c2fZXMFaeRJFMabnjhV1D6
+	AGvK8bwpW4kXcQioF91Zn2lxeF4Xe44H/GhsSJq0RNnW3nkd+KGEOsyJ+Ox4I8wrSEVQ=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x4znk-004gLh-Hw; Fri, 11 Sep 2026 13:52:16 +0200
+Date: Fri, 11 Sep 2026 13:52:16 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Kyle Switch <kyle.switch@motor-comm.com>
+Cc: Frank.Sae@motor-comm.com, hkallweit1@gmail.com, linux@armlinux.org.uk,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com,
+	jie.han@motor-comm.com, wei.zhang@gl-inet.com,
+	sijia.huang@gl-inet.com
+Subject: Re: [PATCH v16 2/2] dt-bindings: net: Document Motorcomm YT8824 PHY
+ package
+Message-ID: <4246e368-42f5-4037-8882-6ad87a85724e@lunn.ch>
+References: <20260910074624.2426899-1-kyle.switch@motor-comm.com>
+ <20260910074624.2426899-3-kyle.switch@motor-comm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,148 +51,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260911111736.EBA341F000FF@smtp.kernel.org>
+In-Reply-To: <20260910074624.2426899-3-kyle.switch@motor-comm.com>
 
-[...]
+> +  motorcomm,interface-mode:
+> +    description: |
+> +      PHY package interface mode.
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    enum:
+> +      - internal
+> +      - usxgmii
+> +    default: internal
 
-> 
-> > diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-> > index b3c67e96a82a4..0701edc094581 100644
-> > --- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-> > +++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-> > @@ -49,13 +49,13 @@ static ssize_t etmsr_show(struct device *dev,
-> >  	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
-> >  
-> >  	pm_runtime_get_sync(dev->parent);
-> > -	spin_lock_irqsave(&drvdata->spinlock, flags);
-> > +	raw_spin_lock_irqsave(&drvdata->spinlock, flags);
-> >  	CS_UNLOCK(drvdata->csa.base);
-> >  
-> >  	val = etm_readl(drvdata, ETMSR);
-> 
-> [Severity: High]
-> This is a pre-existing issue, but could this code cause a synchronous
-> external abort if the device fails to resume?
-> 
-> If pm_runtime_get_sync() returns a negative error code (e.g., if the device
-> is suspended and its clocks or power domains remain gated), the code proceeds
-> unconditionally to dereference drvdata->csa.base in etm_readl(). 
-> 
-> Accessing unclocked or unpowered CoreSight registers on ARM can result in a
-> kernel panic. Should the return value of pm_runtime_get_sync() be checked
-> before accessing the hardware?
+You are not the first vendor to use usxgmii, a vendor property is not
+required.. e.g. fsl-ls1028a-qds-13bb.dtso.
 
-Valid. might in another patchset.
-
-> 
-> [Severity: High]
-> This is another pre-existing issue, but can this sysfs read silently break
-> concurrent hardware enablement?
-> 
-> Concurrent sysfs readers like etmsr_show() use drvdata->spinlock to serialize
-> their own hardware accesses, issuing CS_UNLOCK and CS_LOCK. However,
-> etm_enable_hw() executes via smp_call_function_single() and does not hold
-> drvdata->spinlock while issuing its own register writes and CS_LOCK.
-> 
-> If a sysfs read occurs concurrently with etm_enable_hw():
-> 
-> Sysfs thread                           etm_enable_hw()
-> etmsr_show()
->   raw_spin_lock_irqsave()
->   CS_UNLOCK()
->                                        CS_UNLOCK()
->                                        write to registers...
->   CS_LOCK()                            
->                                        write to more registers... (ignored)
->                                        CS_LOCK()
-> 
-> Will the sysfs read's CS_LOCK lock the CoreSight Lock Access Register (LAR)
-> in the middle of etm_enable_hw()'s configuration sequence, causing
-> subsequent register writes in etm_enable_hw() to be silently ignored?
-> 
-> [ ... ]
-> 
-> > @@ -76,7 +76,7 @@ static ssize_t reset_store(struct device *dev,
-> >  		return ret;
-> >  
-> >  	if (val) {
-> > -		spin_lock(&drvdata->spinlock);
-> > +		raw_spin_lock(&drvdata->spinlock);
-> >  		memset(config, 0, sizeof(struct etm_config));
-> >  		config->mode = ETM_MODE_EXCLUDE;
-> >  		config->trigger_event = ETM_DEFAULT_EVENT_VAL;
-> > @@ -86,7 +86,7 @@ static ssize_t reset_store(struct device *dev,
-> >  
-> >  		etm_set_default(config);
-> >  		etm_release_trace_id(drvdata);
-> > -		spin_unlock(&drvdata->spinlock);
-> > +		raw_spin_unlock(&drvdata->spinlock);
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but can this cause a trace ID
-> use-after-free and corrupt the trace stream?
-> 
-> This resets the staging configuration and unconditionally calls
-> etm_release_trace_id() without checking if the tracer is currently active
-> (e.g., via coresight_get_mode()). 
-> 
-> If writing to this reset attribute happens while a tracing session is running,
-> the trace ID is returned to the pool and can be reallocated to another
-> CoreSight component while this device continues to emit hardware packets using
-> the freed ID.
-> 
-
-I think we should allow the reset when coresight_get_mode() == DISABLE
-only. @Leo?
-
-> > @@ -722,9 +722,9 @@ static ssize_t cntr_val_show(struct device *dev,
-> >  	struct etm_config *config = &drvdata->config;
-> >  
-> >  	if (!coresight_get_mode(drvdata->csdev)) {
-> > -		spin_lock(&drvdata->spinlock);
-> > +		raw_spin_lock(&drvdata->spinlock);
-> >  		val = config->cntr_val[config->cntr_idx];
-> > -		spin_unlock(&drvdata->spinlock);
-> > +		raw_spin_unlock(&drvdata->spinlock);
-> >  	} else {
-> >  		val = etm_readl(drvdata, ETMCNTVRn(config->cntr_idx));
-> 
-> [Severity: High]
-> This is a pre-existing issue, but can this race with a concurrent power down
-> and cause a synchronous external abort?
-> 
-> The check for coresight_get_mode() bypasses both the spinlock and
-> pm_runtime_get_sync(). If the device is active during the check, it jumps
-> to the else branch to read the hardware register. 
-> 
-> If another thread disables the device (which calls pm_runtime_put() and
-> powers down the hardware) concurrently, this will read from powered-off
-> hardware.
-> 
-> Additionally, is it safe to read config->cntr_idx here without a lock?
-> 
-> [ ... ]
-> 
-> > @@ -940,13 +940,13 @@ static ssize_t seq_curr_state_show(struct device *dev,
-> >  	}
-> >  
-> >  	pm_runtime_get_sync(dev->parent);
-> > -	spin_lock_irqsave(&drvdata->spinlock, flags);
-> > +	raw_spin_lock_irqsave(&drvdata->spinlock, flags);
-> >  
-> >  	CS_UNLOCK(drvdata->csa.base);
-> >  	val = (etm_readl(drvdata, ETMSQR) & ETM_SQR_MASK);
-> 
-> [Severity: High]
-> This is a pre-existing issue, but as with etmsr_show() earlier, could this
-> cause a synchronous external abort if the device fails to resume?
-> 
-> If pm_runtime_get_sync() returns a negative error, accessing the unclocked
-> hardware register will cause a kernel panic.
-
-@Leo, I think both of direct read from sysfs interface should be
-synchronized via IPI. What do you think?
-
--- 
-Sincerely,
-Yeoreum Yun
+	 Andrew
