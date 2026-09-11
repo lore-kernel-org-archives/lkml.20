@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FED248125C;
-	Fri, 11 Sep 2026 13:21:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B70472098;
+	Fri, 11 Sep 2026 13:21:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789132865; cv=none; b=Z8ZUvhbNCVunsZrrBmcCjA2mX8CFpOICkt8/QjRHBvuM96NbEB7MeP2mRVCk3IgsGs2ZeQ6Xe/HsV2XdvFqQeRE7/I8WEEklmtyzP6qCki3fvQqcuysnh5T7BRLevwL5XLg1Yo9of2lzflDsCh9/aw42StigG0QyBq8EcKcFrLQ=
+	t=1789132878; cv=none; b=Wb7RkTCW+RRtwUchYvpnOBENDGlgn93QNJhLysolZo09bd0dKzCwmL1zCMTKsXyowqN96iTmoac0Ja/qmYtk63ZMHPTzQE65NveTc+06x7bdchW+fDO6EJF772xE/1paxDRhexiILjKHdx3h4iU7FVkraGmemRU3Fc5JbioqNWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789132865; c=relaxed/simple;
-	bh=iUI7KyToskJADMgAFiBP2NBVeEzcmJst2iExDiQkLKY=;
+	s=arc-20240116; t=1789132878; c=relaxed/simple;
+	bh=LVtfPua2nFQQRvHWqVCkr2aYhqIZD81fW8p5hSMKOVU=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=dw3UhFaXlV5UkoivDV43roIu8BdbrNmdACPv+sF/GS1a63JKb6mXpDibq1+2uO7dJ3+7hKYqa2CyOIq6IglyujhQ3LSpev5HJJKSbX64SSGZpQ1xUzw7JufUAiCEZRn3Xs1fCj2pwhjz3EGzt1BOVu/0REcO1ukk42nCTIQTot4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zkr0DSqP; arc=none smtp.client-ip=100.103.45.18
+	 Content-Disposition; b=q10F1bIDJrjX7dYx3PAskZwjlNdmxoG9sPr0TwQs7/8nnKvVMxJyeVumFTny30McQhxYhrUsZf0vyiPtYckmryybr1qQHA2TAEHQU67jAbrKmigGIabd6S6YtZm4+6EoXPruxw10+l6GVbMG5MjWaPnvxvKN1TJGKqmxTo+VRuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=II0mQMfU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zkr0DSqP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 108971F00898;
-	Fri, 11 Sep 2026 13:21:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="II0mQMfU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC1051F000FF;
+	Fri, 11 Sep 2026 13:21:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789132863;
-	bh=hqy1+d9rRvLQHBuVpUCeDFGO0tz0LEOkI7PTfZe5m0U=;
+	s=k20260515; t=1789132873;
+	bh=avlp5r779dalvTpBbg+374wumzD01b73I7Ey2y8KDww=;
 	h=Date:From:To:Cc:Subject;
-	b=Zkr0DSqPg8cLHpTwaLDeXcvGP9E4KTzvmcu0BKxmLZaCvyO0Bb/K3PC3pJyTcLYuU
-	 JRRHRSmRMgoZp1CF/NYha6YWNq7jKOnlyhg0b2nBZv1nIP6Zm2D18OCifprY4FIiEg
-	 1o/lKfZi1Gf2RY/t0hvWLjo/bXYliLeGGXsIhU0MEx+kPL2cd2/cweWg7gLJiKOr3w
-	 3/vV6XdyYdF5wHeHIHY14XFFDAgmwC7FgcuXtuoFAeqe7mDqDl4sAgLqdpf2PvzvCd
-	 wnl6vYB8PHreBxZDYafWgDs/I9eQxRwf9D1pyM3ZVQGQrN+DY46pgbwzvSc7EiH2WL
-	 yY1mSz/Akvtjg==
-Date: Fri, 11 Sep 2026 14:21:00 +0100
+	b=II0mQMfU3BXvBy7dYLOmIrDIa63EiUh0U8owndeR+kzmkIu/A/z2P+oSYRBGCWW5u
+	 XO1HXyXp2zLPd+u+JdP0OFaeWhpAp6SoSQjK2NV4MpoLyqwfUONAngGtjAkRGLzcMi
+	 UKPHWUI2ZvBP2u0K77qCQAQKOZgMv4iewKm/a42327nFiDsjQDVEMtlKoRfFlx9pMV
+	 A+6qoHdSzfeKK33arfb/DWg3fCGjzOvreDTEHVR8PBQZIXr6lUpZR/iNjKgbarvLiW
+	 a6dyjvQ9hyU2DTsQXKTYX7GUlvdb4mG2M2Gg6FlzPXpoRhluT9Ey13R+KQNDGAcKZb
+	 yMjpeAKJGe3nA==
+Date: Fri, 11 Sep 2026 14:21:10 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Linux Next Mailing List <linux-next@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: linux-next: Tree for Sep 10
-Message-ID: <aqQAPHoYTH-TjpcO@sirena.org.uk>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Johan Hedberg <johan.hedberg@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+Subject: Missing signoff in the bluetooth tree
+Message-ID: <aqQARvWlSUQEHMtw@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,69 +40,35 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3p5u1W2h/uAupvNi"
+	protocol="application/pgp-signature"; boundary="9aEwxOLKQRheoRmh"
 Content-Disposition: inline
 
 
---3p5u1W2h/uAupvNi
+--9aEwxOLKQRheoRmh
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-Hi all,
+Commits
 
-Changes since 20260909:
+  e40edfa049b96 ("Bluetooth: SMP: Zeroize raw key data on the stack in smp_e()")
+  ee0662ba1e0a5 ("Bluetooth: hci_sync: Serialize local codec list cleanup")
+  6691666bb4b22 ("Bluetooth: hci_qca: Do not write to the serial port after it is closed")
 
-The i2c-rust tree acquired a conflict with the origin tree.
+are missing a Signed-off-by from their committers
 
-The bluetooth tree acquired a conflict with the net tree.
-
-Non-merge commits (relative to Linus' tree): 5134
- 5245 files changed, 284012 insertions(+), 72514 deletions(-)
-
-----------------------------------------------------------------------------
-
-I have created today's linux-next tree at
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
-are tracking the linux-next tree using git, you should not use "git pull"
-to do so as that will try to merge the new linux-next release with the
-old one.  You should use "git fetch" and checkout or reset to the new
-master.
-
-You can see which trees have been included by looking in the Next/Trees
-file in the source.  There is also the merge.log file in the Next
-directory.  Between each merge, the tree was built with a defconfig
-for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
-an arm64 build of various kselftests, a KUnit build and run on arm64,
-and a native build of tools/perf.  After the final fixups (if any), I do
-an x86_64 modules_install followed by builds for x86_64 allnoconfig,
-arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
-ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
-sparc64 defconfig and htmldocs.
-
-Below is a summary of the state of the merge.
-
-I am currently merging 427 trees (counting Linus' and 132 trees of bug
-fix patches pending for the current release).
-
-Stats about the size of the tree over time can be seen at
-http://neuling.org/linux-next-size.html .
-
-Thanks to Paul Gortmaker for triage and bug fixes.
-
---3p5u1W2h/uAupvNi
+--9aEwxOLKQRheoRmh
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqkADsACgkQJNaLcl1U
-h9CUtQf/VDRuLYaUcA43SL8dZTc4blN79eH4MxvzXlPSYranKVKf02S6+vjpSgb0
-RBSt/nODyJnGO6/XMJNzmCobP4gZlwTYpwJvEBKtTAeWLA4t+D1s9MmJJZpNS8DQ
-fUsWWSt4QumgwyqAhQbWaqi9CX4ljql40/YkaZXKzWKNAY59RxCN7LkIu80FMi4I
-52bbo5E5zecIEWEWaQ+6z72ltrsaT5CdcosAnNO3Ljlh+I+CiRhkWevoIFYT9KLF
-GW5VzA97wpnfgRInnV/AtaBoa9ee10eD+xOqo6TpRClWMuxNRgYQFzDhm7Fp/ppP
-tw4NB3U0GLlPXUBZQxqDkRcy1K/ahg==
-=QmE8
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqkAEUACgkQJNaLcl1U
+h9AyjAf/W1i/dEknvxmgFHnBlHMKuoZPYocKywE+NochLtDmjzHQZWDVADwAGhfR
+JMzHlNtR2BAF7p6JrPAeBHaEd8FgGspHPVgxd15P01tpIriEigcw936HYTXOGLCE
+0ObH4//aVXQl+VSAZSEF+1t3WwO9M3Y9M5aXQZbGz/vzBtGpySZXePBO2YB2snXY
+EgbsGDI9fS6a/VlxHIWZ7ClD4JRvoZ9cOrB+sQPKMVjHhF7suGcNF4XZ2Ny32dwx
+TvhWdHbWunvIwOklAHMUMZ6G4Sk8T5oF0UwVjIGscNA8A/jPHB1w/oLbSjcOs5sE
+q+icixVSFve/Ore4JYISDRAofW3B+w==
+=8m/Z
 -----END PGP SIGNATURE-----
 
---3p5u1W2h/uAupvNi--
+--9aEwxOLKQRheoRmh--
