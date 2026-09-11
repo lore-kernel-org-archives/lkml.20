@@ -1,111 +1,94 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D576E49BD68;
-	Fri, 11 Sep 2026 16:05:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0474F485949
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:06:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789142762; cv=none; b=EcWOCpO2498oTiwNiU7H9H2ysFgI+Omrlwm+yEM/ePTsv5a6EmGoB6fVtCIZk5OitNrPKATpNZaB3CINbTYgnb6ZqNQ+60hgO1ZhnSZDS6xlL0lBbVWVNaDaDLdQprRV5QqvCJP/TDUiB/2EO/vWYNlgAUH9ESywbnpkag1x97I=
+	t=1789142782; cv=none; b=DrCGUiJk6mOJ3Kje/AqQEAI7l23zRpJAcBe7WR/vm2/7HwO3mTW9az1g7Yd2bMZ8LHfio4y4Dyu+jyVgXxAvq6XEH9EAjwlaTECiH6eEe7K+xEtSEGe8ylavgugK+ThgG8isLXUwz5kxKcvS7L6XfTXGCmcyJGlfzIVkb80rz9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789142762; c=relaxed/simple;
-	bh=ZyoDMU6G3eZNpaZLhRifByQ7O2mJsMjwDSX7TXRIQjg=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=KeaAPnGpPEfWRI5fYBo3R6Q9LWZ5sKh2YGxNh4IBlp1p9UavSHDgytBAg50VTghDwQY16xjeHxxSI7R0/hL0jISkH1NLyxe7mgnl8fMNa9qiMUO4MKu8xijCkAN6t8NSXXNyCIA62Un8xgEOJfTP/1GZZ00EiZwcZwYSSkx0nrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=JGGiA5sq; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789142782; c=relaxed/simple;
+	bh=Hu4Jwo6y6RyJS/RkEDcFfPOQNAAIHAmz55w8vjnwnog=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RLQ/elTQ90llVwiSnDbylXK0pTGp8Nvv6hGGuitMFPYdYtWZqyNehUVCS06edujtA0W1T0bhC5igVtM7+Oknc8NtNQikkn5/BJ36TBQg5lOVyODfXCrbUvzi1OuoS9X+APQsAqbG+X7opoSTR4+6e3xgFoaJ2nyDsfQ8fr9EqNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ZK1jn3on; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="JGGiA5sq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Message-ID:MIME-Version:
-	Content-Type; bh=D8RO0QRG4E2Br/0EmqPhuKnJGH+9/OFKD0ff0d6/hCM=;
-	b=JGGiA5sq1olT/sW26ABQv0Qc73jCAsz2SNWOPmkuTt2okq+8skxSPavdM8+vSP
-	LHbJVQJxhXxEifa53CMgNwExkXVI68+EkNSXbRKKIJS0plH4SkDmsMWsRdaL7ORo
-	5t5im51eDFjw2s2ctcWP0tB9u3izKLkhBnEd8YmlNxn1U=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDHb8uqJqRqfB1jAA--.31618S2;
-	Sat, 12 Sep 2026 00:04:58 +0800 (CST)
-Date: Sat, 12 Sep 2026 00:04:57 +0800
-From: Hao Zhang <hao_zhang_kdev@163.com>
-To: linux-block@vger.kernel.org
-Cc: tj@kernel.org, josef@toxicpanda.com, axboe@kernel.dk, yukuai@fygo.io,
-	ming.lei@redhat.com, cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dm-devel@lists.linux.dev
-Subject: [PATCH] blk-cgroup: save IRQ state in blkg_tryget_closest()
-Message-ID: <aqQmqb1k57PXj8Ef@192.168.1.215>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ZK1jn3on"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9713D16F2;
+	Fri, 11 Sep 2026 09:06:16 -0700 (PDT)
+Received: from e134344.cambridge.arm.com (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id C648E3F7B4;
+	Fri, 11 Sep 2026 09:06:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789142780; bh=Hu4Jwo6y6RyJS/RkEDcFfPOQNAAIHAmz55w8vjnwnog=;
+	h=From:To:Cc:Subject:Date:From;
+	b=ZK1jn3onzBOrVFk94N9YkepQsZYzBBb9DwVxcoS7spnuNAnj7VjaaNijqGJzk3qdV
+	 icTOcZoIkXBYhgPOgl3I47vzjOJWdxonyjv1stzIlQcRke5mpSrP9vg50UK3IWzuiI
+	 00in/KmLz2YNbEu6jaOdaC1EbF5dk0a8Jm25OY6s=
+From: Ben Horgan <ben.horgan@arm.com>
+To: ben.horgan@arm.com
+Cc: tony.luck@intel.com,
+	reinette.chatre@intel.com,
+	x86@kernel.org,
+	Dave.Martin@arm.com,
+	james.morse@arm.com,
+	babu.moger@amd.com,
+	fenghuay@nvidia.com,
+	bp@alien8.de,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] fs/resctrl: Allocate rmid_ptrs[] using kvzalloc_objs()
+Date: Fri, 11 Sep 2026 17:06:08 +0100
+Message-ID: <20260911160608.1091121-1-ben.horgan@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-X-CM-TRANSID:_____wDHb8uqJqRqfB1jAA--.31618S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7KF4DZF1rZr4Dtw43Wry5CFg_yoW5JFWrpr
-	WvgF90k3y0qry0ga1kGF1qvF1Iga1kKrWUJrWkWwsakF4rtr1fXF1fZ34qvF4FgFZ7Ars8
-	ZF4UA3yvyr4j9w7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UhtxgUUUUU=
-X-CM-SenderInfo: pkdrs65kdqwshngh4qqrwthudrp/xtbC3Qp3amqkJqrNEAAA3V
+Content-Transfer-Encoding: 8bit
 
-From: Hao Zhang <zhanghao1@kylinos.cn>
+On an MPAM system the number of entries in rmid_ptrs[] is the number of PARTIDs
+multiplied by the number of PMGs. The maximum possible number of PARTIDs is
+0x10000 and the maximum number of PMGs is 0x100. On a system pushing the limits
+of the MPAM specification this can be large enough to consistently fail the
+kzalloc_objs() allocation and hence fail to mount the resctrl filesystem.
 
-bio_set_dev() associates the bio with a blkg through bio_associate_blkg().
-If the blkg lookup misses, blkg_tryget_closest() takes q->queue_lock with
-spin_lock_irq() and releases it with spin_unlock_irq(), which
-unconditionally enables local interrupts.
+Switch to allocating rmid_ptrs[] using kvzalloc_objs() so that large allocations
+fall back to vmalloc().
 
-Callers may call bio_set_dev() with interrupts already disabled, e.g.
-dm-thin's pool_map() does so while holding pool->lock taken with
-spin_lock_irq().  The nested spin_unlock_irq() then enables interrupts
-while pool->lock is still held, so an I/O completion softirq can run on
-the same CPU, re-acquire pool->lock (thin_endio(), or overwrite_endio()
--> complete_mapping_preparation()) and deadlock.  lockdep reports this
-as inconsistent SOFTIRQ-ON-W to IN-SOFTIRQ-W usage.
-
-Commit 3a762de55b4e ("block: save irq state in blkg_lookup_create()")
-fixed the same problem while the lock lived in blkg_lookup_create(), but
-commit 9327a865e395 ("blk-cgroup: don't nest queue_lock under rcu in
-blkg_lookup_create()") moved the locking into blkg_tryget_closest() and
-reverted it to spin_lock_irq().
-
-Save and restore the caller's IRQ state instead.
-
-Fixes: 9327a865e395 ("blk-cgroup: don't nest queue_lock under rcu in blkg_lookup_create()")
-Cc: Ming Lei <ming.lei@redhat.com>
-Signed-off-by: Hao Zhang <zhanghao1@kylinos.cn>
+Fixes: 264c285999fc ("arm_mpam: resctrl: Add monitor initialisation and domain boilerplate")
+Signed-off-by: Ben Horgan <ben.horgan@arm.com>
+Reviewed-by: Tony Luck <tony.luck@intel.com>
 ---
- block/blk-cgroup.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+I found this by testing the extremes of a software model and don't expect this
+to effect real systems.
+---
+ fs/resctrl/monitor.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/block/blk-cgroup.c b/block/blk-cgroup.c
-index 2b5c29434e42..b56db1cc6778 100644
---- a/block/blk-cgroup.c
-+++ b/block/blk-cgroup.c
-@@ -2091,6 +2091,7 @@ static inline struct blkcg_gq *blkg_tryget_closest(struct bio *bio,
- 	struct request_queue *q = bio->bi_bdev->bd_queue;
- 	struct blkcg *blkcg = css_to_blkcg(css);
- 	struct blkcg_gq *blkg;
-+	unsigned long flags;
+diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+index 73413cb128ea..2d7df60973d1 100644
+--- a/fs/resctrl/monitor.c
++++ b/fs/resctrl/monitor.c
+@@ -979,7 +979,7 @@ int setup_rmid_lru_list(void)
+ 		return 0;
  
- 	rcu_read_lock();
- 	blkg = blkg_lookup(blkcg, q);
-@@ -2105,11 +2106,11 @@ static inline struct blkcg_gq *blkg_tryget_closest(struct bio *bio,
- 	 * Fast path failed, we're probably issuing IO in this cgroup the first
- 	 * time, hold lock to create new blkg.
- 	 */
--	spin_lock_irq(&q->queue_lock);
-+	spin_lock_irqsave(&q->queue_lock, flags);
- 	blkg = blkg_lookup_create(blkcg, bio->bi_bdev->bd_disk);
- 	if (blkg)
- 		blkg = blkg_lookup_tryget(blkg);
--	spin_unlock_irq(&q->queue_lock);
-+	spin_unlock_irqrestore(&q->queue_lock, flags);
+ 	idx_limit = resctrl_arch_system_num_rmid_idx();
+-	rmid_ptrs = kzalloc_objs(struct rmid_entry, idx_limit);
++	rmid_ptrs = kvzalloc_objs(struct rmid_entry, idx_limit);
+ 	if (!rmid_ptrs)
+ 		return -ENOMEM;
  
- 	return blkg;
+@@ -1010,7 +1010,7 @@ void free_rmid_lru_list(void)
+ 		return;
+ 
+ 	mutex_lock(&rdtgroup_mutex);
+-	kfree(rmid_ptrs);
++	kvfree(rmid_ptrs);
+ 	rmid_ptrs = NULL;
+ 	mutex_unlock(&rdtgroup_mutex);
  }
-
-base-commit: 08df884136f1c1197bab2a27814404fd329d9aac
 -- 
-2.15.0
+2.43.0
 
