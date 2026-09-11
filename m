@@ -1,74 +1,130 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EEF643D4F7;
-	Fri, 11 Sep 2026 11:47:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F339243DEBC;
+	Fri, 11 Sep 2026 11:49:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789127228; cv=none; b=LK+MKidnsKPypBFgUJbPYFQqGRBngBqugeJRMC1qTlR1PGMXGFG2yVRr6RKuENEfGNPGA0Y6o8xdgCTBwxT/6dsOVcAq+c2wLCmhViz4NicxLRJ4y8Lpl1Cf+X0vDYblJmba9Xl632O7cRuV/LorVWL++ibAxnkWCA7JwtN27eM=
+	t=1789127359; cv=none; b=o56ZAfHjXYgEp+/ut7tCVCAD6LLUAPbw8UAN6nCJ+BcdDBX99r5bVkIVCt8lOSbbrmOyImwe6WJMUPbHA0x3e9IEVhgyRF3QtkWc1TIuRAUvFpQTx3fgYXMSptjofA9WSwt3n/KaVeTVf7cq2ZER2WS6pv6HorS0HHFPswxYT6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789127228; c=relaxed/simple;
-	bh=Qogs01YpZShm0/GXSyhaulSMfHxKylKvvQaBMm9Khu0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CLoxsaUVRRw7ZaHaUl6FOJsT/6RwWvKmB8F0VY8/QQsmapq8t461TlrwwBQ/3VLOYYlTt+i0R7yYYX192OSp9PmLdhG+Yt1CaT+sgXU3L9SYoPgbXKHR61F8Y9ArGjtv3y9hmsELNaurLElYD4ODhS8plGNaG34ncy7YqLaAANY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=5ekdaGoW; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1789127359; c=relaxed/simple;
+	bh=9RgdBUl9B26qFx1vgPdhdPoOIx74xjxmqQoBgNcFyD4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=XL16PU1hOta+VWmUs2P6O7jUOMKpVSEo1K1hK8GzkQtOK9U/hvUNkvMMrITaMHeZdopAm5eCwj1lpkZLBC0RbbsYE8XqiQOEHHsiQU1Vvkx3YbD+hxB8d4acsCxUYQjGV5ww5a8kwqYBM4/la6YXQDZ2m1QoWpLCEi96bkU/0mM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=WITEqmCr; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="5ekdaGoW"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=bXmVFEys3cXBY1+wCAiUJyO011XYfpjfHaUknc567eI=; b=5e
-	kdaGoWoCsTLq4rbzRN9A2gWIXfoYEGgNZUwML4BeRBhFEvCeenGp6p1l0u18n9bPZB6MejJEbWFW8
-	ie6hczylNin913Y9MdNDPcxRiwbifAffdMrN36os3HM7Od2uY6IQwKWRP9FuNb+AzCB4AxmgZBLdO
-	+SHAt/YhDzSRd2w=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x4ziU-004gFy-Ay; Fri, 11 Sep 2026 13:46:50 +0200
-Date: Fri, 11 Sep 2026 13:46:50 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: David Yang <mmyangfl@gmail.com>
-Cc: netdev@vger.kernel.org, Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 1/7] net: dsa: motorcomm: Split xMII and SERDES
- port masks
-Message-ID: <39ddc2cb-46c9-4754-99c1-0011a4cfdb7f@lunn.ch>
-References: <20260909190541.466476-1-mmyangfl@gmail.com>
- <20260909190541.466476-2-mmyangfl@gmail.com>
- <40e425e2-7d0b-4e20-9880-41e46ff340c6@lunn.ch>
- <CAAXyoMPG6s_z3g8fZ5CAF8BJa0OY7uzzO5PccaR6amfmYrYYHg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="WITEqmCr"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 7B204C653FE;
+	Fri, 11 Sep 2026 11:49:49 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id ABB04601DE;
+	Fri, 11 Sep 2026 11:49:07 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E859A11C7AF8E;
+	Fri, 11 Sep 2026 13:49:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789127343; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=+6pLw8cR88AzZdJv/BBjT2CzdKtKKYqeFDXgAQaILz8=;
+	b=WITEqmCr5XHG1GTfonHNMXMI1kk+mVdrj55O8C8aNAV7pocUqk8RHOvpbfDRUWbj12o5BX
+	PEZGCb/BzobBcsWeQc1INHRmJX4DVGzd/QAqqPnIjc0QJJSoinaNNTeDToPXxT7zPPnAy8
+	CfhH78RfJgdjQfI50MeWzNH8WBQZ3rJlhw5oLVlAaSOm93nYfGWIf6d+GdX/jN2XDAln9V
+	YeBWh7vWGI4/3ME4E7jtISoQOoNVpo648wLsdTvACWt+Tbuizt+3nd1ZfLF+Afop69tejs
+	cpf4Edusz0WA4wH2Qjd27w/PnZwDWnr1fu7SuLeB5Eg7vSWzBO9sMkpVLa8Q/g==
+From: =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
+Date: Fri, 11 Sep 2026 13:48:47 +0200
+Subject: [PATCH] clk: eyeq: Use devm_platform_ioremap_resource()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAXyoMPG6s_z3g8fZ5CAF8BJa0OY7uzzO5PccaR6amfmYrYYHg@mail.gmail.com>
+Message-Id: <20260911-clk-eyeq-res-v1-1-39b04542db38@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAJ/qo2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDS0MD3eScbN3UytRC3aLUYt2UlKQ0C/O0ZJO0FBMloJaCotS0zAqwcdG
+ xEH5xaVJWanIJyAyl2loAIO5tBHAAAAA=
+X-Change-ID: 20260910-clk-eyeq-res-ddbf87fc4fd4
+To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
+ Gregory CLEMENT <gregory.clement@bootlin.com>, 
+ =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Tawfik Bayouk <tawfik.bayouk@mobileye.com>, linux-mips@vger.kernel.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Sep 11, 2026 at 05:37:45AM +0800, David Yang wrote:
-> On Fri, Sep 11, 2026 at 4:59 AM Andrew Lunn <andrew@lunn.ch> wrote:
-> >
-> > >  #define YT921X_PORT_MASK_INTn(port)  BIT(port)
-> > >  #define YT921X_PORT_MASK_INT0_n(n)   GENMASK((n) - 1, 0)
-> > >  #define YT921X_PORT_MASK_EXT0                BIT(8)
-> >
-> > I'm i right in says YT921X_PORT_MASK_EXT0 refers to port 8, because of
-> > BIT(8)? And YT921X_PORT_MASK_EXT1 BIT(9) means port 9?
-> >
-> >         Andrew
-> 
-> Yes.
+Convert eqc_probe() from the open-coded platform_get_resource() +
+ioremap() sequence to devm_platform_ioremap_resource(). Besides less
+code, this requests the memory region so the OLB registers are properly
+reserved in the iomem_resource tree.
 
-Can we give these better names then, YT921X_PORT_MASK_EXT8, or
-YT921X_PORT_8_MASK_EXT.
+Move devm_platform_ioremap_resource() before checking for device match
+data, so OLBs bound without match data also get their memory region
+mapped and reserved.
 
-	Andrew
+Add an entry for mobileye,eyeq6h-central-olb without match data: its
+clocks are all registered by the early init and it has no auxiliary
+devices, so probe() now reserves its region and stops there.
+
+Suggested-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+Signed-off-by: Benoît Monin <benoit.monin@bootlin.com>
+---
+ drivers/clk/clk-eyeq.c | 16 ++++++----------
+ 1 file changed, 6 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/clk/clk-eyeq.c b/drivers/clk/clk-eyeq.c
+index cf37feccc734..bb680283b6f2 100644
+--- a/drivers/clk/clk-eyeq.c
++++ b/drivers/clk/clk-eyeq.c
+@@ -513,21 +513,16 @@ static int eqc_probe(struct platform_device *pdev)
+ 	const struct eqc_match_data *data;
+ 	struct clk_hw_onecell_data *cells;
+ 	unsigned int i, clk_count;
+-	struct resource *res;
+ 	void __iomem *base;
+ 	int ret;
+ 
++	base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(base))
++		return PTR_ERR(base);
++
+ 	data = device_get_match_data(dev);
+ 	if (!data)
+-		return 0; /* No clocks nor auxdevs, we are done. */
+-
+-	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	if (!res)
+-		return -ENODEV;
+-
+-	base = ioremap(res->start, resource_size(res));
+-	if (!base)
+-		return -ENOMEM;
++		return 0; /* Early only clocks, stop here but keep resource reserved */
+ 
+ 	/* Init optional auxiliary devices. */
+ 	eqc_auxdev_create_optional(dev, base, data->reset_auxdev_name);
+@@ -1175,6 +1170,7 @@ static const struct of_device_id eqc_match_table[] = {
+ 	{ .compatible = "mobileye,eyeq5-olb", .data = &eqc_eyeq5_match_data },
+ 	{ .compatible = "mobileye,eyeq6l-olb", .data = &eqc_eyeq6l_match_data },
+ 	{ .compatible = "mobileye,eyeq6lplus-olb", .data = &eqc_eyeq6lplus_match_data },
++	{ .compatible = "mobileye,eyeq6h-central-olb" /* no data, early only */ },
+ 	{ .compatible = "mobileye,eyeq6h-west-olb", .data = &eqc_eyeq6h_west_match_data },
+ 	{ .compatible = "mobileye,eyeq6h-east-olb", .data = &eqc_eyeq6h_east_match_data },
+ 	{ .compatible = "mobileye,eyeq6h-south-olb", .data = &eqc_eyeq6h_south_match_data },
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260910-clk-eyeq-res-ddbf87fc4fd4
+
+Best regards,
+--  
+Benoît Monin, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
