@@ -1,69 +1,64 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11020072.outbound.protection.outlook.com [40.93.198.72])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013051.outbound.protection.outlook.com [52.101.72.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF83C42C50B;
-	Fri, 11 Sep 2026 20:02:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEC8058F062;
+	Fri, 11 Sep 2026 20:03:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789156944; cv=fail; b=HnkNgNjnKdtt5qztT0MdLdB4ytYgEsfe5/ZpIsS+rGMtqfz7sIE3StlGn+swbmhUpX5fdmIlyXD0A20nZ8W5EBzIO/o8h5yL3wvbwAITUPR/spdyYjBvQXrjCTBvvk+bPx/7dRIghqbt4X5kAoe67btru37Vy6W7OBWEvxPmL2o=
+	t=1789157015; cv=fail; b=jeJnRkswE1/+NRiFCfZBE7CW1xQanfzc/0LvZl5ceoVOWxN65RSPd+RRbGtqmCbr9b/J+bGG9oPR3+yeltvk4tKvVe/YuJl0kTyDAXHDr17NSYEp3qX0PAXM4t1+6mBfvLjrheMjAtoAWvd2WIYKNDRPuIHr843XipNlYvx2kWQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789156944; c=relaxed/simple;
-	bh=jiL8sKzP7KDMOpDwW8hFnws94s5AwWkbc+sggjJ7NcY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rBn2AoQgVjbY80scL+ICFE8n3jcMnBMSINBn1Xiw41M/XxyAdXhPDxkCpmnxPEqmdWJy695l9ZAXsqH1Woq+Q5DbW49562SkPF0oNvYhvktPjx0rDipbhnp042lecWP+6m2LktEWgvOCaP1VIWPrA72v4AZV+hdu+FRBgAlorJs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thelustrecollective.com; spf=pass smtp.mailfrom=thelustrecollective.com; dkim=pass (2048-bit key) header.d=thelustrecollective.com header.i=@thelustrecollective.com header.b=wb9t5tBo; arc=fail smtp.client-ip=40.93.198.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thelustrecollective.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thelustrecollective.com
+	s=arc-20240116; t=1789157015; c=relaxed/simple;
+	bh=SGMYPamSjCUYgHWPmPztuYatXn6M9mGDIagcu7CX/TA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=rcT6pHSo95mzr0fmjSP7L8MpPylDlfwFugNtADn8Ep+4+kwvtH+bNDRdRTdHYl6lq2LXR0VIFpLxXBdTyL+CzHBPTqqiorG/JZKtTc6pEikQaWY+oTcJB6X4PoKiRWkdwaY4PWnGaH3ylrp7cbzhZ2QM5oncZRrF3FRwbl8jous=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=w9WqiTon; arc=fail smtp.client-ip=52.101.72.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thelustrecollective.com header.i=@thelustrecollective.com header.b="wb9t5tBo"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="w9WqiTon"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ukJLNSQZGA/4tm+qWIpmNqv+MuV5jmgDzFaKvcLFHtlQd/3v5WRxr2D9Fomals+ot779fEVK6xU4RjlQDSoI2q/pA9VjWcrRBda7VXv7TzRMC9Ml/3R67/El5BomdZvK+pqRpu2yYa40C+GD8qnrJZfTUmB00JOXTql9vyib0vwN6EhYDKl+ZC40S0XWrNcpGBFvwio2u4s2FF7xMIAWxMXKs+1eAYVkjF0NV56OLCXtXENukxHeofRD8rD7FPpOZCkJmX7fxywRj2MOMEj2AJYBS3opV7CFHEg9KynbN7Pa4sYdS6IrdoZaP04q4Q5PI1fLltAhbWafhK6HNrSvRw==
+ b=cTQUTRImxcAcu3jX1qanMl6+l6kH3pwvbP16tyXKKgB7d7WD6cv0axrdQ6n1/wmm6SyvT9Sjj404ImyKH54aLObwjfd/KGs0T3H6GKWyomPLsQeBfKDzAXHBcNgWfTRFgKhJqe8bPtMtxSIoFY/UNNbJdTMjZPhYdXO2+HYFLRvRz6vIgL4FPsQsD9Jy8zOCVLodDuadefKXJCQOBhwBHJGXKdEuD79o5iNNWlLcfEGaBf0fIbTsLi2tTlDtBgtAFDIEAfQvlVeiCgC/MCuOhvRE82CAvES+pdnjluvBnxbU58BMbDNZFCR/Tvr4N6NYnaK3EBAK3rZwohEJpe34Ew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sbJ+OAP7gWrfuBsYmIdI4DqpwuTVn9BYnjqs97TgeZk=;
- b=d5BEnHijZg9xYK/oNJK4CquOATxkKK4Ec3MWDqiAF2HqMnPXEDZCToJBSVXJKia3i+Ia6rIEC9BO27cvYDI8ACkyKbZidcXBAd1ws3ocwGCo90QbtZLr0Yr1DDvTt0e0BFSd8DW9N4ol1OOrVLDDlKAJEFfBMZvXMEB8NliuPqT6i4oF74rMZL6aSvQM6/DiHqn4WWZO+A3EgzuBqIN5ajrg7G5r+RurITITPnaLSA1wYv2pOCkJc2Sv8cVrUd+v3O8JkI4He5lD+pJA11lbglKMh3m1pvzoack819lJf3EoNIlKxBMjFhZU9q7VfYpf8WiNZT4Mgp05uSnPs3Ww2Q==
+ bh=TtGBQqpRntdO8H4ypur8vEc1nfY7av+Cu4lImMdhL60=;
+ b=CPuBvKGyQfBxAO94biya8SbgcaYzN8F4yj2oZxpg9nzsmvWkfuymiwet8NOcfZ6hQrbnyljzDO1a1sjlFD6DaXPJqWz27llPAM8qMLaRdhFccGGhGlNPaL851Iq0PsyCQ1jUl3xUvG/Nip1kh4zUUlFnwp0uAdF+uaN0LGcaXEdxaMPsb0sB1kYoTs5GfW0c2iCnk5EUw4Lj/gSfz2D8hIZ/8Ffz536ohcLml/WpyU6W6MK862a+rDqeFOVJSttv/frhV4jn6Q9BdYdz9Dz2gOMAvqbRZsKhqVhaXFMPX+UK5x1yFi+UajenoHbVFkKth250eL4I5PpEmw+wzl/dPQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=thelustrecollective.com; dmarc=pass action=none
- header.from=thelustrecollective.com; dkim=pass
- header.d=thelustrecollective.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=thelustrecollective.com; s=selector1;
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sbJ+OAP7gWrfuBsYmIdI4DqpwuTVn9BYnjqs97TgeZk=;
- b=wb9t5tBoY0zphEYFJ7CxuSStu9IGXxyoo9qhiHlBRGK5er46CR3I7D1PcRvsfLv16R0KiTX9sJq/gE8VrOAIuWPD6VhO+iCTP2sJJa5uElENiSgAlUhxBVbK5+zIfZJtFQ10paVYsSNBHycuK9Yjbn1VkEMvjf57mY3yUClR67kWs/IqGwIJoC3f8VmRf542sYQeM6a328F2JuNzOG+z9CJYJfPb1bA+ZsWn6RgzvR9CM/FmbJelyzpv61ltxaYhXd89fr2lMte98NmcFuSYm8/TtQDN/wBzp6vh+IJ+qf3/ejPQ0lWPygmsJwG7/XxD1qDRN4hAIJ2kRBcNTxgIvA==
+ bh=TtGBQqpRntdO8H4ypur8vEc1nfY7av+Cu4lImMdhL60=;
+ b=w9WqiTonIm4lMMZH7F1Aus4teA7p8/HSHsimKAIDEz1dwJozvtl9TMPml0CSeWctidpJe0+LW/avVr3xIv42VKq5ndmcl5qQv6VG+NYvlXArboAThZxVGI4HXKcSNo/DH+JvLUKV+5RBHe934HtII4aTw8cmXYtdqCFPC0hk2AMw+OICvJtMGpX8dx8q0h+NuU5IsLdaQhzkitvunKuCVG5JIslsF2xw9UgjgWsMNqSELxkKcVvnKdGn2c3EbZ6LgkDu23jqCQkj9b8JzGSvkfRVtusRQV0lccHgKrBoH9QLTeeuA38EmHSm7AaUWrPqlnPuxW/3OaD498mo3AyAwQ==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=thelustrecollective.com;
-Received: from DM6PR04MB4682.namprd04.prod.outlook.com (2603:10b6:5:24::20) by
- CY5PR04MB994403.namprd04.prod.outlook.com (2603:10b6:930:12a::13) with
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by DB9PR04MB11577.eurprd04.prod.outlook.com (2603:10a6:10:607::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Fri, 11 Sep
- 2026 20:02:02 +0000
-Received: from DM6PR04MB4682.namprd04.prod.outlook.com
- ([fe80::fa5e:6e7f:2655:bfee]) by DM6PR04MB4682.namprd04.prod.outlook.com
- ([fe80::fa5e:6e7f:2655:bfee%5]) with mapi id 15.21.0406.005; Fri, 11 Sep 2026
- 20:02:01 +0000
-From: Timothy Day <timday@thelustrecollective.com>
-To: Jan Kara <jack@suse.cz>
-Cc: Timothy Day <timday@thelustrecollective.com>,
-	Marco Elver <elver@google.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	linux-ext4@vger.kernel.org,
-	Jan Kara <jack@suse.com>,
-	Theodore Tso <tytso@mit.edu>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/8] Support Clang context analysis for ext2
-Date: Fri, 11 Sep 2026 16:01:51 -0400
-Message-ID: <20260911200152.1588568-1-timday@thelustrecollective.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <46mgpyanbjl7eiln3nodqtpbubrwsc5blcjqd6r5pfokmssrce@k5qgaws7b2l7>
-References: <20260811160336.782342-1-timday@thelustrecollective.com> <xiymqvu5la6h63umrp6upnzbl3xjjcacuyxg76xp4labnrioyj@xowfpjlhfrzh> <20260903072759.GA1750084@ax162> <CANpmjNNWiX51UU064+P823sDX42=O6ChSHrUux1aNqLj60mfUg@mail.gmail.com> <hnmqtyjazturtmhrw5xh445q4vrwv2mldhhspl6sf4hj6yzvqn@vzje2tuhtzdq> <CANpmjNPBxfgbuyK1VWsCukurEzhR5nFg1ydwEP9Gt0sGm9p5GQ@mail.gmail.com> <46mgpyanbjl7eiln3nodqtpbubrwsc5blcjqd6r5pfokmssrce@k5qgaws7b2l7>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: YQZPR01CA0125.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:87::27) To DM6PR04MB4682.namprd04.prod.outlook.com
- (2603:10b6:5:24::20)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 20:03:15 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 20:03:15 +0000
+Date: Fri, 11 Sep 2026 16:03:07 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Steve Longerbeam <slongerbeam@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH] media: ov5640: Initialize mutex before probe cleanup
+Message-ID: <aqRee2mzDJKru2J1@lizhi-Precision-Tower-5810>
+References: <20260910081608.1264077-1-runyu.xiao@seu.edu.cn>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910081608.1264077-1-runyu.xiao@seu.edu.cn>
+X-ClientProxiedBy: PH8PR07CA0003.namprd07.prod.outlook.com
+ (2603:10b6:510:2cd::17) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,116 +66,112 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR04MB4682:EE_|CY5PR04MB994403:EE_
-X-MS-Office365-Filtering-Correlation-Id: 94aa69fe-74ef-4bba-c0f3-08df103f8b2d
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DB9PR04MB11577:EE_
+X-MS-Office365-Filtering-Correlation-Id: 93621f3d-6015-4e96-c4d0-08df103fb6f8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|10067099003|56012099006|6133799003|4143699003|18002099003|22082099003;
+	BCL:0;ARA:13230040|1800799024|19092799006|23010399003|376014|366016|56012099006|11063799006|22082099003|18002099003|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	GIKW2bFRhO0Wsb8VHLcJwFMgEz02yxq5t4Na/fForH0l2Zq0cfTL20Pr7Xb2ccAYjgk7clsQOwFhXxD7Na7yTeRlXBOPkfPyfO9bjFqEwu60BtmIZy6DFiOUtuWl67sd/6fWIepThXuvh8DuDF29K8dSN6Ppq2l0XnSDwwjuZA0nZLGlNS94UAdnk+REurMTyxuRNwrtZ8P9QCjjAbVumUbP70PX1w1BkRmFmwUPrqjWXeDnIQKukQH7tonVXVANy3mhQCE5b8S6Nhmzbc8DCNXTpNXwNLJuHBCDDzEfXn2K9abIZ0AfvThclzUtrMXRbtChNlMiVgOI+E2nNUMJfuPCT9kA+iOZy9nwtG8pgri74zzIWg/nlB2Pjc/cuPLif7ZMmA54Vu6v17hFnKI7MYSW27AL312Od2Zq5sY01TU5K+WpJddcTDlFg9ZYAmd7jUkNXA1HNXuKki95nZu+ReEYvFIG7Htv++2Ps57u4BkPd09NVjXy8Oesm1ZY54Zg8WnTPW4O+PQJbfmtcXVeqoGDE5bxSxxgBhMICbglqv9qnwYpQiYf+URk3MtKU3VklP/qmU6GJd+/M+hREwA2lyydd4mbSBRUhvWTHtYWBVKEymDXeTCTbTPMQBCf25TWfv5GZjKMJSte0WGAbj58ejGslKXNif5V2SfGOp8TcYs=
+	/psOoehTbwBIjTCT9usur5sweidj2KIUxqR1BZSroA3sJONcKAOoa455I/Z+98UXMed/uEvOhkF11zc2+DL/egTSBTsbpbIfdbe5JOXUrXvxIonkF2NHPOnY8gDMGcXiRQw9zHHYkgxIFOs2uuukMu12Y1subJ60Iq/MtQLQQhDUOtGKSVnUUjvCjvw12EC7GlQseo9ZQc+aUIofzw5ZM4qVAdtTSaoxxYJgnZ+V5AJv4ODNgTjLss8OVpp8ysYyQbIN6b1W1OIkWX2U4T6S9hbmwaw6dDb29oOsXUcoeb9oxb8B1Q6lzsGpcjrX+UVtSYuv/u+pqrX24xsRlRxzQ+hfmvwOcbmf1ce7tCA4Vg5dDaulHp/rL6rKwmnBY2hqw4cgVqWICHHPQqPYtDBMX8ESwKRV+qmTAEpY2gPHj9evCSBfz9J1S21Gn8oSSogJ54WMyqRsEZduyoMIU8GyoSQKxkEM/5jmQ/7Ia5GrIF0eSMBVvXgzVQEBJa85Md0CI+LFBfIBg6A+VC7MWANqeEnHh63QF06fllLtiPmr3Ny0QQYchvrsnhZnYTAp3Jq+FdShFluOeyuCe128dZYYEioi7OhW3M9USrKa5aH+laelqX4wT+h+p6aGJrwJpWmV48jIQosR2rOybCXiKEjm1Q==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR04MB4682.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(10067099003)(56012099006)(6133799003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(23010399003)(376014)(366016)(56012099006)(11063799006)(22082099003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?hSAcoAxE5zRlGLMH8c6KKcZpyTmfyCKF0Tp4VhaIK2mb75WuAx6JUfWQkrf5?=
- =?us-ascii?Q?qhHANQzIYw3A/qkpoFJh0GGr+BRNTNWNhBnY6/eCGihIqNcTZy5YrnJWiXnV?=
- =?us-ascii?Q?m9Zubl/ZsG9H2U05jdC0cILR6pZwF9Rnl/GBtvFA+P4RVvl4sCuJC4zy0Fw8?=
- =?us-ascii?Q?N3UcFh7cm7FJWOK564aihmXLk9g+ehdsO6EFE9XxUQQNSM+hHBkeysIOP36N?=
- =?us-ascii?Q?IKmPz2IaTGfcDEU1xdWjlGSLjYUCMYOvuFNB/XPYXeeuKFaQ5IGOfr0b9kys?=
- =?us-ascii?Q?QIYWY3n7A7Yc/bMmOUxt026FckedXI/duGItY5bTVUeSVeT6Mlk/9DWcXaHK?=
- =?us-ascii?Q?IQbwt8qtFydYV4IzuFaVjUcNNuQTA9b+XAKDDE5jiQ+mK6f4vBbV+xD3dEBF?=
- =?us-ascii?Q?pLPoMC5E1h5op8gGlJt6RqTdobV9cXCpW98hN4L8j76BUUBayeKHtqPsOy2m?=
- =?us-ascii?Q?MImWihGlOZ8zYj4qlPURn+RYOlCb8zlIOQnKTZwhVZZ0Dq1KnKAG7/VdXpIV?=
- =?us-ascii?Q?+PctxglHFonvJ277AeQg+2TSIwc27Sir666CiPsHmnB9fTps36pI2gt8Daf2?=
- =?us-ascii?Q?DQfWGmcBzUJtJS9C2WrAK+MD49oMIgAuQ6fokk6prv6uSBmqshu4+VCTYXDm?=
- =?us-ascii?Q?1SpIqjDgo5k7xng2zU/cDhx3aMQLQgVJuHlamBgC/eEJIbZxyeVj1myz9n0F?=
- =?us-ascii?Q?3RTnFbG5p6jTfkc/y6jHTUrc8mQuDpJHIyer/uybGxagYCZQwhohsHOpwjxo?=
- =?us-ascii?Q?7cKG3kGZrUkwBxuO+XMZ0fUuegBRlWTeGjZNC+5dog6jl+MJTCJAQupetPvm?=
- =?us-ascii?Q?PTbi6aS+m6guxcxhM1GNwTczXzNp9lQR/nBg6mUDnHSLtoJr2DrcU2Ex0gjE?=
- =?us-ascii?Q?vr60EVca1d3wpK3amtkUsDLzqpAy14ZhMuSq5h68wW10JBm8UtwnzDvdiUTc?=
- =?us-ascii?Q?ckQDqIH6MvNJPOfbMDXEgMYHV818Y00nMm/OQhk7wpHeI3CWEZrIt/aWFrWJ?=
- =?us-ascii?Q?7Dy9YYRj6hYNUdSfBvgYBGHgg9+L4nUakUDj8XFDI+IHd08Vr6vwb86CSlWe?=
- =?us-ascii?Q?g6hJqOYl0RdKNXCMuoKgEb2EDnVDyXMkjfXKC8/zCVOnGiVKcEx87UxXg3OS?=
- =?us-ascii?Q?mdulvy1wjsnbdfYQvGi1Lyl4vqr4yh7Np32NfQdwmlAjQrYAv2u51egmnqxN?=
- =?us-ascii?Q?HGOMYK4flp68szYvnSJEGCIhhucPBzIFlxmxhKZ0nkmoWUZyVOwvzVDyNVcd?=
- =?us-ascii?Q?GJJPD+tHKWXHl2mqyAfCA3RFg4FJYW16GWVSUh5INSnNlXpPjoQ2eehY+4bj?=
- =?us-ascii?Q?zIRAor3lXa4zT6g+NEkYyHhVfWDifk6m4mJZy2QBCl84gZu1/gbkC+vUG+uv?=
- =?us-ascii?Q?q1WlcwJZFB4sUKTKiHvTTQiUBSOH9/LTo1WT/uhVE5UAg9ZY+7JdA5XJ9MwN?=
- =?us-ascii?Q?dVhYFQhPXUDF6z+duRFN/YcMazsZvNPihnI5lgUzYnfJToQdCm+QCSzCt6rN?=
- =?us-ascii?Q?kExMBc4rPhAKz0/uNPJfUwF/an2ah6VKfZ935wuT1JCCsloVXP/QCAfTYkm4?=
- =?us-ascii?Q?erHc2A9UItIywGhm1d4u6H8oLJEAx/WRClJM5kRURYq5K+7bd62T598/MGD/?=
- =?us-ascii?Q?0pjyoSK/90Ic+l6fo9GmW36FQEfKcl+XMhUtbBo2w7SfY2ItUXeVNkrxlW0f?=
- =?us-ascii?Q?PBuXTZeKhN/hDB2c1z2YdP4OEuZgEOJxd4z4Fox0Vt5eLxTfCq9Zr+XjsAoh?=
- =?us-ascii?Q?3HH8VLPIRbMAhBJv4PBVsYKNL9dVUcw=3D?=
-X-OriginatorOrg: thelustrecollective.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 94aa69fe-74ef-4bba-c0f3-08df103f8b2d
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR04MB4682.namprd04.prod.outlook.com
+	=?us-ascii?Q?pwucBenhv8Mh6FntBJo+go/acIi43W8MJcK1tz6EXf/B+06JMK6XK4FPCF0O?=
+ =?us-ascii?Q?H8rf0YXSYcl2nTz2xHbXlQeRCCOXtyEy70AURMAonEkDQWVzh8XZCW0gqNMk?=
+ =?us-ascii?Q?66nHa+Qj+2qURuuXiAf0qYzBkx5PGneE2AvQftSH6Pgb6PnHkotyI39kaDaA?=
+ =?us-ascii?Q?2GDr4VP0zIL9hwHhteFiSKP0kIY9Ofi1suAjS+YxlbmjHtxU0R3zIPRZc5B4?=
+ =?us-ascii?Q?v7BgppspyYF6Hls2VZwoGmx0svHV+zOeSjttIULM9v0WTacgSO4QjNEnqoyV?=
+ =?us-ascii?Q?ynjD3dgyW8qjBfeyZN/2BrwOYLvTo9V08Fk2vDxux8FTSIzdl8NmYrLL3yCi?=
+ =?us-ascii?Q?8UAutbW0yzxx41K6F/VIZtF6ENaz2UU9aD4dwdpywUtIeUYdbL5h1jhGhTQC?=
+ =?us-ascii?Q?wjQ9cNDW8i/cu5KoeeeC59mfvZQQorcFw3R3eG7bQAPOSC+Kyw8pxaXLhrek?=
+ =?us-ascii?Q?UJUEfwsrtJTc/TmNfruwPlrZimTc1TLctq52KSqJF9HisQ081rbiXkX3n+Ih?=
+ =?us-ascii?Q?923Gs2ozi2TxXnK+343ouxpFfJbsPcDnPecYTMr5Uiv96nooxooli7fKRnOJ?=
+ =?us-ascii?Q?1vsBNKu6TuF4eUNU4IlsMjdPZmJGxaTA9/EmcRBf6J0qnvM8darTxeD3qj3D?=
+ =?us-ascii?Q?WBawmc71jpqJvNY3m8XBkjx8nncctLpTH/+znyFZn57ViliwKp/tiltwB0AB?=
+ =?us-ascii?Q?0ej+WHjJTHMcdzc7OH54lz2Zg+glbWoaR5ptXweVuZHwPK8drr+z1GHVA/lW?=
+ =?us-ascii?Q?e00pvkHtxbQ7pezzBdD2FPiBUv2DMpIFjWHHHPlld6c2wGrcnZZKZnyNrFyB?=
+ =?us-ascii?Q?DsoelKbUoQyMfPHECpFchxPyV8GNYs85DQSXKmbzH2rd56XEZHx9sKLGSWeY?=
+ =?us-ascii?Q?+YGkjFATPSFm3N4/N7CeJvHK1b4fLduz4XpqV3asXNWeG9X7qPoRIdf+I4Vg?=
+ =?us-ascii?Q?dGoHfF78aBQouYGyZv/01gM3H9U3bM22eyRWK0cYRfdpcWPiAeIcxat3y7XL?=
+ =?us-ascii?Q?LRb4d9gwYQBskG3gDHruKZMdzVOxTSNmCk6VChaoXCRK0bT+hsBWp5nkGCvf?=
+ =?us-ascii?Q?KoyScCxjmrWeTTnGoaVXaGwNuAa0ncupkdYpIRkmdeevEFqW1VwhtWqtWIln?=
+ =?us-ascii?Q?ha/EuEfBT8CK81WLmqIuPtO6aWdPV8GLyn+wiG8rraD7PsDDCnmiWwrcTtij?=
+ =?us-ascii?Q?2Ys5hTjXAb9GmUXtJYcfDz91a+25k5M4R6P4A5JgQzBixzSTylBo2fvffvto?=
+ =?us-ascii?Q?krReIFVL71w2dgHRn2TY4UjmdupcWeDJPiJujGxytp6qEXvQPm4aslhhALdq?=
+ =?us-ascii?Q?R4mVl26/xU9wTTKC2IVB8oFlTrHD4RPoje8J3/G8mcfBp6pR6yNP+sS1AewG?=
+ =?us-ascii?Q?UbtESANMWn81Ms8LYSw90rPf9QOu1jBxpE2i6MmqN8c+Ixk/xgwiDTduqZwu?=
+ =?us-ascii?Q?kGMyzru9VCBWtu4LKVwynIod1IMHXp8Zf4I3JGEdx4Zc/iG+Yd6jyea9W4vf?=
+ =?us-ascii?Q?hwcVEvKtEBkIO3ljPaXuTm2ZPWSG9fbsCnJWr+amn34FVV67INOasGwcchfF?=
+ =?us-ascii?Q?xfS00OQki2WJK5ipY+xeU7xXMMKRsBiTaaqepYvGrJlkybT1LP7F6z8VudkN?=
+ =?us-ascii?Q?HLhvvUmbAYsycc3dSUswVet5cCvwMx62hB/WfRpY2EAP+d0gOcwq+SbTi1fn?=
+ =?us-ascii?Q?7yIwOYMaeTnRpT7pO2pWANtbd3oePhV60RU42G0WbI0YCrxJheiq8tCJparH?=
+ =?us-ascii?Q?ag6wLFu8ZI027wTDBsDYwrTZG32jx29ZJJKuGrbf3khSXw3+qneJ?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 93621f3d-6015-4e96-c4d0-08df103fb6f8
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 20:02:01.6057
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 20:03:15.2417
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4c9dec06-8f2c-4233-98d5-ca3cb36218fc
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: znP6JmfJfmKwLRdJevq2IwuGpP4Otse/1Ak6+dZe4zjyN3bNLKRkdWqPuArN4H8ilsdCRQAmImKyVfvTqxiI70/U8eJgOpAbVplIknPZjPw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR04MB994403
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4h/UVu6cdIKnQ1V4rGEoUoDXMo/zNjObYus+c7ri2DXtRZiMyD6bZblwHQlb1Tt5PLXVhfsTRKK3GnRuNvzqrH76gVGJzK5dgUgAxcP/4rnkaokENtzYrqRP5zVcNf/q
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB11577
 
-On Thu, 03 Sep 2026 14:43:03 +0200, Jan Kara wrote:
-> On Thu 03-09-26 14:06:22, Marco Elver wrote:
-> > On Thu, 3 Sept 2026 at 13:06, Jan Kara <jack@suse.cz> wrote:
-> > >
-> > > On Thu 03-09-26 12:34:34, Marco Elver wrote:
-> > > > On Thu, 3 Sept 2026 at 09:28, Nathan Chancellor <nathan@kernel.org> wrote:
-> > > > >   fs/ext2/super.c:1149:3: error: calling function 'ext2_rsv_window_add' requires holding spinlock 'EXT2_SB(sb).s_rsv_window_lock' exclusively [-Werror,-Wthread-safety-precise]
-> > > > >    1149 |                 ext2_rsv_window_add(sb, &sbi->s_rsv_window_head);
-> > > > >         |                 ^
-> > > > >   fs/ext2/super.c:1149:3: note: found near match '_res->s_rsv_window_lock'
-> > > >
-> > > > sbi was just allocated, and EXT2_SB(sb) and sbi are pointing to the
-> > > > same object (unless I misread the code), but the compiler can't tell
-> > > > since aliases can't be tracked through non-local objects. So that
-> > > > scoped_guard could just become:
-> > > >
-> > > >   scoped_guard(spinlock, &EXT2_SB(sb)->s_rsv_window_lock) {
-> > > >   ...
-> > > >
-> > > > But I'll leave that to Jan and Tim.
-> > >
-> > > Yes, at the beginning of ext4_fill_super() we do:
-> > >
-> > >         sbi = kzalloc_obj(*sbi);
-> > >         ...
-> > >         sb->s_fs_info = sbi;
-> > >
-> > > and EXT2_SB(sb) is just sb->s_fs_info. Are you saying that clang is not
-> > > able to infer that sb->s_fs_info and sbi are still pointing to the same
-> > > memory later in the function where we do scoped_guard()?
-> >
-> > Yes - alias tracking is only done through local aliases. sb is
-> > non-local, along with additional member indirection; unfortunately,
-> > the C language doesn't give us the guarantees that it wasn't modified
-> > somewhere in between, say after a function call (this rule is applied
-> > also for local aliases if clang sees that they "escape" their local
-> > scope via non-const pointer to pointer).
+On Thu, Sep 10, 2026 at 04:16:08PM +0800, Runyu Xiao wrote:
+> ov5640_probe() can jump to entity_cleanup when regulator setup fails,
+> before sensor->lock is initialized. The cleanup path unconditionally
+> destroys the mutex, so this error path passes an uninitialized mutex to
+> mutex_destroy().
 >
-> Hrm, ok, understood (but still it's annoying ;)). I've pushed out the patch
-> with the suggested fixup.
+> Initialize the mutex after media_entity_pads_init() succeeds and before
+> ov5640_get_regulators(). This keeps earlier direct-return paths outside the
+> mutex lifetime while ensuring that every path reaching mutex_destroy() has
+> initialized the mutex.
+>
+> Fixes: 19a81c1426c1 ("[media] add Omnivision OV5640 sensor driver")
+> Cc: stable@vger.kernel.org
+>
+> Found by PatchProof Module 4 candidates
+> PILOT-4c6b03072e508260 and PILOT-4f9a36d855eb7c54.
+>
+> No runtime reproducer was available; the failure path was verified by
+> inspection and the affected object was built successfully.
+>
+> Tested-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> Assisted-by: LLM Codex
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> ---
+>  drivers/media/i2c/ov5640.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
+> index 8deb5f550..36c8bb345 100644
+> --- a/drivers/media/i2c/ov5640.c
+> +++ b/drivers/media/i2c/ov5640.c
+> @@ -3930,12 +3930,12 @@ static int ov5640_probe(struct i2c_client *client)
+>  	if (ret)
+>  		return ret;
+>
+> +	mutex_init(&sensor->lock);
+> +
 
-Sorry for the late reply. I was out last month due to lung trouble
-(spontaneous pneumothorax corrected via surgery). Thanks Jan for
-pulling the series. I took a look at your branch [2] and everything
-seems fine. I agree the scoped guards can be peculiar. If you
-wanted to make some minor changes, I have no objection.
+Please use devm_mutex_init(); mutex need do tear down work if enable lock
+debug.
 
-Thanks Marco for the compilation fix in the other thread [1]. It seems
-like a reasonable fix. If there is anything else needed from me, let
-me know.
+Frank
 
-Now that I'm back, I'm hoping to resume work on some more context
-analysis patches. I have a few that were close to done that I
-hope to share soon.
-
-Tim Day
-
-[1] https://lore.kernel.org/all/20260903101843.3462767-1-elver@google.com/
-[2] https://git.kernel.org/pub/scm/linux/kernel/git/jack/linux-fs.git/log/?h=for_next
+>  	ret = ov5640_get_regulators(sensor);
+>  	if (ret)
+>  		goto entity_cleanup;
+>
+> -	mutex_init(&sensor->lock);
+> -
+>  	ret = ov5640_init_controls(sensor);
+>  	if (ret)
+>  		goto entity_cleanup;
+> --
+> 2.34.1
+>
