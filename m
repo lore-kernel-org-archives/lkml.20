@@ -1,211 +1,152 @@
-Received: from mta0.migadu.com (out-176.mta0.migadu.com [91.218.175.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 968FD4772B1
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:04:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747DE3E1D0B
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:06:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789131871; cv=none; b=rJBPVTgbk4uwFuoHg6O7ehE5Gnc8or0LEtPH95DtNdmRbv6/xd22nQ5K8eUlCz/fvVwXjX+yueMdcvfjsyRznHw2MDySVdfehjuZ/8GwRafngxcU/SD8BzYS++6xdlfARCjYyE0+Sqp0YcOpekDMFwIyK1EE7K3hkN/YFrj67K4=
+	t=1789131996; cv=none; b=HPF4zkrMHCq8Zpx66QPG+IJH1yYqkdB+JciAy4xU17uYpztgAcMpXbEfFrqzLsyOSkTVJW/bdcnKerPQAMhy8/3CuvKPHO8UBBxvW46Tjj1OrhyL3FHLbFVAAXPYYvZk1dD++HHQwTsOwnp82Rhgek2QgcDOEctm4QohkRnkxS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789131871; c=relaxed/simple;
-	bh=PmYOkXyCWA/NCJ3Eaz4VkslDAeMkWeUxEDpJ52XTEKI=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=Th/TFFmfCp4+n593Z9TuTqZ2H1Vbl936xanDp9qjxRmAqMZuqyMXGJpXFo0TYvW5cevHdM4HtRQI13QH4daWAZpL4DEuZ/Gk7TuJJCktfPilHwqBto3tsE8viOfJHXweypjoAAdoFdtyumIF3Zx/0WGGSxjbF7FaqkTLB+bVJVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=SeZrlmTP; arc=none smtp.client-ip=91.218.175.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+	s=arc-20240116; t=1789131996; c=relaxed/simple;
+	bh=qICWKUu737Ia1EDZlzujjZzNrdGaN8xhxK+YsoZGgjo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GSbnQkWeEC4EfL/UCdyZtEEnn/Sp8KUddMbpkWlpd7EZJUWWTiTQ+y6OteeqCBTuEeFrdD7sddUZYqIgV5t1IFmtRTXZ9q60liH8NuwAEdYB2YlOG7OeYBcTLWYKneBmcV0u+5SMZN3KmNpHG3Hvc4mP2u1mIr4mNxn/wOS2P+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lF1GvCoW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=it+cGZpZ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="SeZrlmTP"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=PmYOkXyCWA/NCJ3Eaz4VkslDAeMkWeUxEDpJ52XTEKI=;
- c=simple/simple; d=cknow-tech.com;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789131862; v=1; x=1789736662;
- b=SeZrlmTPjOuIDx8MQtVUJroc0kBdPHhlX36ebOT/Pr2/wyxh5tP9osmuOzKkZiL+WbBVXdBW
- 8Cc2YqItUGdmsUTl13eFk7wNqveN76dC3A76qYRPKM4GXx3VnbmWuD1Eg7Rucv0TIVWhuMdz8Tm
- DOrW0gQIG9JuLcJ0Tp2JSYXIdZ4JmV3W+TOdIrxYWBhFziSxXorfVXkACkDvTEI8iQE0xlHub/l
- F5jwMgZhBg6o5EuOwRBny5rHypS395QB3jlU5qWS5TUy21Y/v1QaHQ0pb3yN2KmwTplbC5uyAMv
- V5cbtusEd30A+cvSQU/v8PMmftp8a4Zsvlg64Xfgr7xzA==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c06cdbb5f92d0953;
-	Fri, 11 Sep 2026 13:04:22 +0000
-X-Mizu-Trace-ID: c06cdbb5f92d0953
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lF1GvCoW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="it+cGZpZ"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BCiU1o3686796
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:06:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	qICWKUu737Ia1EDZlzujjZzNrdGaN8xhxK+YsoZGgjo=; b=lF1GvCoWCkpCsvKS
+	9ue1lQ+CIgIApluEwM92BCXOT6vpzqc6JK0lNJujwC8VFNZMzucNtcILzSoJPVdT
+	8AirGO4CpufyG49jS2BdfFrSVEPEPc7uhn/GQF53gWKTXlfLAtZJELApv9iih5LM
+	aS6XqsEDCXDbBz5poekLiG0ASzvVuo1SZLy2GFD8eCV7E07o+iwoehhOS+fuOJjW
+	e2nO5ckeXyhqXXDGgCrhPQjTu6qlxkuJZo7c/HYuglPm5h/qxDCuPpG6819izlSw
+	39gyO+Lx074QuDOdHxGQ7MztdTjvMlHu8fgqqPGN29QC51iZQ9Fga0XubfX/Gar7
+	Ca0ZEg==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmfbbgsnm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:06:33 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc11b5dd54dso1757966a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:06:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789131987; x=1789736787; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qICWKUu737Ia1EDZlzujjZzNrdGaN8xhxK+YsoZGgjo=;
+        b=it+cGZpZ9GWPpVNXRl5RXbHeddXHdZtXDbccp2dobjRhqD7Gtl26Z440eRQjDngVcE
+         3/7IJ+vIBqlLVYb38kyCk3kXkwLqa8Z8yQ+aL1LXrFwUlQEC9RE+EL7MKrnMYsia+1An
+         K/gdt/jMLF33MCTO9q/ZquxgzhDXSSo5GLpSXGkRjZCOTlSC7mK4AfNDSxkyDg0qo/o6
+         cecMOVfuJx51qxINiX66m6wsbKLoVijfEgfBC4z2iORmJUruiZm8btXkgJYHBgitmzY7
+         cPjq89xbYCj80qJ6juIt9Cb1sON6/o15gu53TJubeBKd9U+eVmuNyPF+ux4tIJ0oc7/N
+         5IIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789131987; x=1789736787;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qICWKUu737Ia1EDZlzujjZzNrdGaN8xhxK+YsoZGgjo=;
+        b=AD0IiDNcqOlzoRNwmyQQVbNsIR8MILOkafHs0hFzg3z+7hLS0rZU0uhxSwJeL7khWl
+         266ZF3Pk/UMmtHFa4Ro+QkfUvxfQHVaLf6E2Sw0er5Sim1i7FsGbQC/iucaNecjOE6yM
+         0p15o2pfwBKuV5rxUIogF+4RL2E7+YoEQgWVo20THk9nS1Yz2hH/+90KQakXP4y5TV9G
+         LQHWUMuMbxoWJdqVBGTL1HcMI4Bhyhos2DRMTmZhG0HThl7Hu2zFWXXrRi0+of8aa3Ym
+         woKSVZhaK7eJDzUWxfVha4+u6pHAiAdG4Pm0d0Wn/itnJccA5GVUQ/+v6Zx4VKaNbfpQ
+         d3iQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx3GQuFU8nzSQosfBEYz/kY3z2BX47hWb6XoxembwbqyLuxK0XhDoGHPxRmpG2fsSaJ3s6BTHsTx170wjM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMwBH/TT4rQS05SX7BOOgi5GK2f0CFRacfl++63aUi4BWPYUpU
+	vqgebcGWjm0WAPEuEWUGZRzzZGa8LpTw15kxj/pg0hqAHOS5ep7lDGkbvlaXjaTASTXFt7IuQ4v
+	N8D7dBQW5hjqvD1464WXgjHZi2CXP/pq6vxqc6PeHEqDAGaWoLxVF2zLtOwC4/OsUByk=
+X-Gm-Gg: AYBFou2oqZANtrWFJgeFfuMtqudl/kKIBReL2ZdDdyIktis/s6tDwbjh0jpen0XiC7/
+	fiMGfSDSYvdFTgAlZu5yLLRdZTk7s6NPTMO1VSi1SzAJJm0SElTRSXum76KZ7UefXrWSubVfXBN
+	+aI0yhAxOhokrio/BU04C6ISTVVQCpjCvOH1BJjToNMQlpg3V2wtGEhSNJUTrxVF0cCSR0j11Ty
+	dBbZSFjQZhIxgSfDIu/vGJgrzFcmrpNt8jcx26xXmxd7KxjJblt5Tw1k2GXJah7eAxVPSo4WY8k
+	IzFjQ5neSdVywkdu+8VsHjUoNYdPEXbnyaMQ/utlDfEm3yT9kE/4chGtJW4aTcGys0OkcYTofv7
+	hAvm2yVv44VdLSRITuRDTZW4AUJPS
+X-Received: by 2002:a17:90b:384d:b0:398:e1f4:bda1 with SMTP id 98e67ed59e1d1-39d9c22ccc0mr6566241a91.21.1789131987251;
+        Fri, 11 Sep 2026 06:06:27 -0700 (PDT)
+X-Received: by 2002:a17:90b:384d:b0:398:e1f4:bda1 with SMTP id 98e67ed59e1d1-39d9c22ccc0mr6566169a91.21.1789131986710;
+        Fri, 11 Sep 2026 06:06:26 -0700 (PDT)
+Received: from [10.218.30.203] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d98a58d23sm5906289a91.2.2026.09.11.06.06.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 06:06:26 -0700 (PDT)
+Message-ID: <1d556871-2a93-45bd-9e37-d35f48be0291@oss.qualcomm.com>
+Date: Fri, 11 Sep 2026 18:36:21 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 11 Sep 2026 15:04:21 +0200
-Message-Id: <DLCIBAHNWQ3M.KN3L9LK8HRU6@cknow-tech.com>
-Cc: "Sebastian Reichel" <sebastian.reichel@collabora.com>,
- <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>
-Subject: Re: [PATCH v5 2/7] arm64: dts: rockchip: describe PCIe RTL8125
- Ethernet on NanoPC-T6
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-To: "Ricardo Pardini" <ricardo@pardini.net>, "Diederik de Haas"
- <diederik@cknow-tech.com>, "Heiner Kallweit" <hkallweit1@gmail.com>,
- <nic_swsd@realtek.com>, "Andrew Lunn" <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Heiko Stuebner" <heiko@sntech.de>
-X-Mailer: aerc 0.22.0-9-ge948bb7230f4
-References: <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-0-c1b9e5f10cd6@pardini.net> <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-2-c1b9e5f10cd6@pardini.net> <DLCE8BRWYCBL.2UH33L4RQMAGN@cknow-tech.com> <bd032333-c557-4595-ae0c-6cb2971a9a86@pardini.net>
-In-Reply-To: <bd032333-c557-4595-ae0c-6cb2971a9a86@pardini.net>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] soc: qcom: llcc: Add LLCC configuration for Nord
+To: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Conor Dooley <conor@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, zhangfei.gao@oss.qualcomm.com,
+        shengchao.guo@oss.qualcomm.com
+References: <20260910-nord_llcc-v1-0-30fd1cca65fe@oss.qualcomm.com>
+ <20260910-nord_llcc-v1-2-30fd1cca65fe@oss.qualcomm.com>
+Content-Language: en-US
+From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+In-Reply-To: <20260910-nord_llcc-v1-2-30fd1cca65fe@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: qQv8TWZfcOHcWlTBxsUpcxcULjAhgaDX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDE4MyBTYWx0ZWRfX1+0WhL35N2GK
+ Jiq8SXv0Bvh6Gao1LC3R1tczag7Gqh1tYwMIx9UuU1s0FH0h5ZXVva34evcy9J4MQlM7MyOP4wk
+ 6kVwvXlUCCXQF3AKZgy2dEt8NXIN70GFyQPCF1qYsmLRITLCW9GjC0UtVHbi59Xz6opDvevGLkx
+ YdtM9eUOqfH+W0qn3tsvIKFxyVtg5+KLN99cxodHZBVXIlI9DOiP/vomNWp1WahD5tEUcuUAa3f
+ Tdbfw4lkuhxksF6fbxLw/c5qMBE4e+QVySxvNf1ztRRCwdHAm15PTZuLvssITN+ty7ayxY9fHgg
+ 2ftw4gaF3gAfwovPoxnAly2W7ASOaxtwGed25x8R6rOM9xvTWcmWTXQhb1hFTaLIogmB1sb1uCs
+ wTLKzTIXsgqKVn9xtY0lC15n7tKZrXwBJX+DBaUB8jKmXnax0IdT+MgOmPr/d72fmMeM68Hq1tv
+ DG5PjKyrbRStBjP5rug==
+X-Authority-Analysis: v=2.4 cv=X6jHu2Te c=1 sm=1 tr=0 ts=6aa3fcda cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=OxrQ4fpuk6iiGASJZ2MA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDE4MyBTYWx0ZWRfXw8z5Iag4I+DV
+ Eio7r92odpkimF0ga1CWnZAvTOKxqJ4habi8k9VgBXBgh2JiT05DC+9XxKb2xniCe6CxiJIRnoV
+ oddBjZg8JF+AXICP1T8ydcYaxDL0dnw=
+X-Proofpoint-ORIG-GUID: qQv8TWZfcOHcWlTBxsUpcxcULjAhgaDX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-11_04,2026-09-11_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 adultscore=0 malwarescore=0 clxscore=1015
+ suspectscore=0 priorityscore=1501 bulkscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110183
 
-On Fri Sep 11, 2026 at 2:19 PM CEST, Ricardo Pardini wrote:
-> On 11/09/2026 11:52, Diederik de Haas wrote:
->> On Thu Sep 10, 2026 at 10:07 PM CEST, Ricardo Pardini via B4 Relay wrote=
-:
->>> From: Ricardo Pardini <ricardo@pardini.net>
->>>
->>> The FriendlyElec NanoPC-T6 carries two on-board Realtek RTL8125 NICs
->>> behind pcie2x1l0 and pcie2x1l2.
 
-Forgot to mention: thanks for this series :-)
-
->>> Describe the fixed function nodes and attach ethernet0/ethernet1
->>> aliases, so that U-Boot's fdt_fixup_ethernet() can fill in the MAC
->>> from its ethaddr/eth1addr env. The on-NIC EEPROMs on this board are
->>> not pre-programmed with a unique MAC, so this gives a stable MAC
->>> across boots that both U-Boot and the kernel agree on.
->>>
->>> Signed-off-by: Ricardo Pardini <ricardo@pardini.net>
->>> ---
->>>   arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi | 30 +++++++++++++=
-+++++++++
->>>   1 file changed, 30 insertions(+)
->>>
->>> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi b/arch/=
-arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
->>> index cfdb5c13f8606..550358a756618 100644
->>> --- a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
->>> +++ b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
->>> @@ -20,6 +20,8 @@ / {
->>>   	compatible =3D "friendlyarm,nanopc-t6", "rockchip,rk3588";
->>>  =20
->>>   	aliases {
->>> +		ethernet0 =3D &rtl_eth0;
->>> +		ethernet1 =3D &rtl_eth1;
->>>   		mmc0 =3D &sdhci;
->>>   		mmc1 =3D &sdmmc;
->>>   	};
->>> @@ -644,6 +646,20 @@ &pcie2x1l0 {
->>>   	pinctrl-names =3D "default";
->>>   	pinctrl-0 =3D <&pcie2_0_rst>;
->>=20
->> The new pinctrl reference is ``pcie_25glan_perstb_b_pin``, so this patch=
- needs
->> to be rebased.
+On 9/10/2026 6:30 PM, Anurag Pateriya wrote:
+> Add the sub-cache table for Nord, derived from the Nord AU (Safe IVI)
+> SCT table and limited to the POR use cases that have a unique SCID and a
+> usecase ID in llcc-qcom.h. Nord has the CFG0/CFG1 pairs and the full
+> ALGO_ALLOC0..3 set, so it uses the v6 register offsets.
 >
-> Indeed; I sent v5 vs v7.3-rc2 which doesn't have your recent series=20
-> fixing those. I've rebased onto next-20260910 which does, will send in a=
-=20
-> v6 - but it's really just fuzz/context changes.
+> num_banks is set explicitly because LLCC_LB_CNT in LLCC_COMMON_STATUS0
+> is four bits wide and cannot report sixteen banks; a wrong count makes
+> the driver map a bank aperture in place of the broadcast region and abort
+> on the first broadcast read. no_edac is set because the bootloader
+> leaves the LLCC EDAC registers locked, as on Glymur.
 >
-> I'll wait a bit until Heiner/Krysztof/Heiko chime in ref the binding and=
-=20
-> its wording as that has been contentious in the previous versions. And=20
-> who knows what Sashiko will find this time.
+> Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
 
-Agreed, their feedback is more important.
-
->>>   	status =3D "okay";
->>> +
->>> +	pcie@0,0 {
->>> +		reg =3D <0x200000 0 0 0 0>;
->>> +		#address-cells =3D <3>;
->>> +		#size-cells =3D <2>;
->>> +		ranges;
->>> +		device_type =3D "pci";
->>> +		bus-range =3D <0x21 0x2f>;
->>> +
->>> +		rtl_eth0: ethernet@0,0 {
->>> +			compatible =3D "pci10ec,8125";
->>> +			reg =3D <0x210000 0 0 0 0>;
->>> +		};
->>=20
->> Described on page 23 of the schematic titled '2.5G Ethernet B' and ``U12=
-``
->> (ie RTL8125BG) is connected to LAN2 which has ``ETH2`` as label on the c=
-ase.
->
-> Confirmed.
->
->>=20
->>> +	};
->>>   };
->>>  =20
->>>   &pcie2x1l1 {
->>> @@ -660,6 +676,20 @@ &pcie2x1l2 {
->>>   	pinctrl-names =3D "default";
->>>   	pinctrl-0 =3D <&pcie2_2_rst>;
->>=20
->> The new pinctrl reference is ``pcie_25glan_perstb_pin``.
->
-> Will also be fixed by rebasing onto linux-next.
->
->>=20
->>>   	status =3D "okay";
->>> +
->>> +	pcie@0,0 {
->>> +		reg =3D <0x400000 0 0 0 0>;
->>> +		#address-cells =3D <3>;
->>> +		#size-cells =3D <2>;
->>> +		ranges;
->>> +		device_type =3D "pci";
->>> +		bus-range =3D <0x41 0x4f>;
->>> +
->>> +		rtl_eth1: ethernet@0,0 {
->>> +			compatible =3D "pci10ec,8125";
->>> +			reg =3D <0x410000 0 0 0 0>;
->>> +		};
->>=20
->> Described on page 22 of the schematic titled '2.5G Ethernet A' and ``U10=
-``
->> (ie RTL8125BG) is connected to LAN1 which has ``ETH1`` as label on the c=
-ase.
->>=20
->> So this results in:
->> ETH1 -> rtl_eth1
->> ETH2 -> rtl_eth0
->>=20
->> This sounds like a recipe for confusion and/or potential future mistakes=
-.
->> I think using ``rtl_eth1`` and ``rtl_eth2`` would be less confusing, but
->> I'm fine with another construct which achieves a similar thing.
->
-> Yeah, that will result in aliases `ethernet0 =3D &rtl_eth1;` and=20
-> `ethernet1 =3D &rtl_eth2;`. It could also be `rtl_lan1`/`rtl_lan2`, or as=
-=20
-> the schematics seems to to use the `_b` suffix, just `rtl_lan` and=20
-> `rtl_lan_b`, I don't mind. Raise if you do, otherwise I'll send v6 as=20
-> you suggested.
-
-I'm not a fan of the `_b` suffix (also not in the schematic; without an
-`_a` suffix). Do the aliases have to be 0-based? If not, then `ethernet1`
-and `ethernet2` would be my preferred solution. If it needs to be 0-based
-then the off-by-one 'confusion' seems like the best solution.
-
-> Userspace will be off-by-one vs the printed case labels, thus _some_=20
-> confusion will remain, but it's already better than the current=20
-> enP2p33s0/enP4p65s0.
-
-Indeed :-)
-I triple checked whether my findings were correct before responding.
-
-Thanks to your series, I had a look at NanoPi R5S and found a few issues.
-There it's even worse:
-PCB/schematic: LAN1=3DGbE and 'WAN' on the case; LAN2=3D2.5GbE and LAN1 on =
-the
-case; LAN3=3D2.5GbE and LAN2 on the case.=20
-And those result in `end0`, `enp1s0` and `enP1p17s0` respectively :-P
-
-Cheers,
-  Diederik
+Reviewed-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
