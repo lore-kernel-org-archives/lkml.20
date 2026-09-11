@@ -1,141 +1,88 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3797B39446B
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:31:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 016833955F9;
+	Fri, 11 Sep 2026 13:31:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789133508; cv=none; b=Bne9FM6V/mdpH1mFQCikzjP+XtEzYRw8ii+Iv434lrg8c/+UmGSkjzxp1xZ3cI/eiywozPphXyTzGItGCKmWUdDLSGQrBNqh/7A+jSLyg0trJQujmgE5yyYIZiUXWA/+0jzkrbpV9LyK9bLtdTVVIPdBbIfnHc9foWcDtYw4FPo=
+	t=1789133521; cv=none; b=U27v1BhvtnEusJbEspN7rzAQ/9eAB1JZ8w8WLd8ua65baKpMzrrK4jQ28/6TVcqJoZKKVLKUGaoWrRma2hOi+fQFGO8vMq9rxcx1wnWtoS00fUU8NrlKSz6gULm3zIu8grwPHHy00tfKUutXrkpfPDsqLeWA5nPAIgP1JexeZoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789133508; c=relaxed/simple;
-	bh=xixb/irvDDTZ+1ALQQuckecjdupSCXFYvqi0iIQ8Dd8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tIFPiPicixmbaIdVbBFc8hLrkaedimflCnInWGhRyvBF0aYDDHjb1tEaaZuXvoHDMYL+9ldJUhyJguqP0aipyyTgZoMnD/HiUN6Vf1TpIO6iP6HKYUn3OU5ve5ZoAFZx2+bt9SZSQ9TuIqzPJRBOZnjypK9ARgpaENjuEf1uDSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rEheYlPI; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789133521; c=relaxed/simple;
+	bh=/I2uuwjWaxGY66U0trLeBUL6rVzxs+/pRjNxCZAMbGs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k0Tk0Nvis4OKG1vo+YCOstqL+FRQH0s4y/jHIrtdrwZNjviyj8HH0GRRUDJkMzd4ngzKRTLtba8CaGMKk6wC+SMCRbbwkhijISzYsyHvtdqGKY9OU3k3ClbdaoOXxuVDi1AwMHw0ZXrMqMVoyNvJFLP14HZ7iseOyHfM60x0Ad0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HaxbaJOd; arc=none smtp.client-ip=192.198.163.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rEheYlPI"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3964dfb5b9aso1098796a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:31:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789133506; x=1789738306; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7Z9QHqYcT1YWEzjyHufxn1J/JMrSvKtS/IwWIhbmHWM=;
-        b=rEheYlPIrxfemkmgL1yOkERCMoGNYVUhBVmlMVyv3JHWzdHiXi0e/2Nte+wYDtC3ZK
-         A9VgU782n/3ToERFmznfLmp3hNX9tq5QrXYLnNsb4NE7worrc+5h8KE+k9uHaIBp2c6n
-         /sMlxx+NRM2ZLUuHB3Bizw9syCavQe9KCpqr71BW0zn16svbFp+ljiwF1oNru3jkygjZ
-         d/c04uJ8hzHfI6I71SdTavvvy5aohcfQx/+BEd05mGXdqAVmo5WucTCskT+hASkka72W
-         ji22emXk+G61W+6Mx3v/3Q6FmmCnk5Zurqr/ukQ1S7UQuZ9LxglTHq3DS+PBuPsqtDL0
-         DNqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789133506; x=1789738306;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7Z9QHqYcT1YWEzjyHufxn1J/JMrSvKtS/IwWIhbmHWM=;
-        b=Lm0i7e2WTSH7B98is2SvMGcjQFyEhxKB17vMKXYMXqCAugm9jdxPr1tfZTua/g+EIr
-         xKETKQRGRl1rlbU6ZqQzV4ZJkgbCBrfqxQ9QNlKCwQ9abVND8Rn9Vn69mgYOfxVJRVJW
-         p622oUWEIwJte26BLKZtCiHA/2OvJ+CEvu8MPUTm9xkBBt5AK0IXcmnXKEeOqoCb/kT4
-         vGOrQbjxV1eJjDckjMawgwI7OPCVh61XJfIJHNL81zKCGNdrYdR3W/hlZn+DRXVEsiuf
-         8jTT7+uSmceTxVvGGl/4Yjo6+yEsUQyBWuRSlbvfw+QuzePaljgb1v9pb9u9hBaVxTH2
-         HpzA==
-X-Forwarded-Encrypted: i=1; AKwUvBzYifolMZwkjqGNAdyhaRGfLFcPjJXPHyv4IFYYLswxbDbT0Uw51BZa4XOct/W8F+liZlW6wrL2/wT2nFA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mPBLV05mcD3thBC5nQbmyq1DD7apOExgM7ewEx+dp5ALbueobh
-	X8e0sK4TUn+6+mI7Ol/H5RVQb6FCa6XpPfBN+Pbngobli8fTsj/qirks
-X-Gm-Gg: AYBFou3Nsl9iye/msKo8C97e8PPuOYpjp1F4uKw422MmbnJY/yg6JFDtZKFYQEPknkx
-	s98inip3LdBSZOg9ZEChbv5EMZEJLGHeXT5HIR08VUfERbsdqK9JxkyovAIvGRN+5rO23j/ggBL
-	vGlz3U9OrsGZCyjiGMhVsJFGBORIIFZZVi/pjIphZa0bfaGVj2YwmdVQU2zcDEBzXNHsXUCDRSp
-	kgRNYdrTlQx8Niq41lb7Tj8GMODhW0XrzDeQdqT/deSrYGOembnxmW9ESLoiL3UqtH3CbrNbCjk
-	S7A4JSR7EtMYiQJVK7sEmrGA9bxIFFD+03Yz7qYkjqgoON0oDOZ3x4r2HGkppw5Z465tt4otdkr
-	V2LpamE/MIP2bU2Bvjfqma5jrTgydWZnMfSiALyRcHWMvYYMO9JRh7YmvK+B9unSR8zNiv4Jj/X
-	S5lgJZlz8b5CcHh3OeE5ckiSsEz+R3CYhWU73kqrJ/I61cBy+ohvHxYdhYYiF0+dNsqzRlqAPz0
-	G/Z+1IKQ7dRxEbMIczY9cbRQCAL7UMWA3c=
-X-Received: by 2002:a17:90b:1c8b:b0:398:9c00:29ee with SMTP id 98e67ed59e1d1-39d9c38fa48mr6908147a91.22.1789133506138;
-        Fri, 11 Sep 2026 06:31:46 -0700 (PDT)
-Received: from LAPTOP-450UDG4J ([223.185.135.143])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfc5c7bsm11349015ad.51.2026.09.11.06.31.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 06:31:45 -0700 (PDT)
-From: Yogesh Gaur <yogeshgaur.83@gmail.com>
-To: Ilya Dryomov <idryomov@gmail.com>,
-	Alex Markuze <amarkuze@redhat.com>
-Cc: Viacheslav Dubeyko <slava@dubeyko.com>,
-	ceph-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yogesh Gaur <yogeshgaur.83@gmail.com>,
-	syzbot+1dbed5969931c19d3eb5@syzkaller.appspotmail.com
-Subject: [PATCH 2/2] ceph: don't keep a mon_addr= that failed to parse
-Date: Fri, 11 Sep 2026 19:01:10 +0530
-Message-ID: <20260911133110.2218-3-yogeshgaur.83@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20260911133110.2218-1-yogeshgaur.83@gmail.com>
-References: <20260911133110.2218-1-yogeshgaur.83@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HaxbaJOd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789133520; x=1820669520;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=/I2uuwjWaxGY66U0trLeBUL6rVzxs+/pRjNxCZAMbGs=;
+  b=HaxbaJOdVvt4SWyMQQ9HtC6oyGcnh4k6W5KUCRp/D9qZ8ZGSv4gCeXJ+
+   A0OKN3NiWZIBRCHHRrkzDkiGMCl1563qIulYKoie2Tm3odNLQJuYHR53o
+   I2oBJz+IqVOtfH3yVTvoOO3kjjlQPg8DuAiKKloropr08LJUez8VmaP1y
+   RvSXQ5mriyj6q0xk2fpVfrULXJ8ZRemnSW5irWoWtU080oeQh7MOnROBS
+   BUW2QDzlYv9nO3lAZusTBoaBIQ068DQ9P29e1nMx+lY86d/OMFOZ5tk86
+   FMs5VRInPwimmyWDmHje6kai7UbfUFbBbVWSbc1+pkj5bo9eUHpvu0k4u
+   w==;
+X-CSE-ConnectionGUID: fb47Xgt5Sh+rdyrfMxh4yA==
+X-CSE-MsgGUID: uKvFsdmuTzWFGDH3ftuFiw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="104502"
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="104502"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 06:32:00 -0700
+X-CSE-ConnectionGUID: sYo1BQJDSt2HuL54k0OvRQ==
+X-CSE-MsgGUID: 8kYak2VqT+iHzwahbaSQNw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="296907378"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa001.fm.intel.com with ESMTP; 11 Sep 2026 06:31:58 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id C5DB799; Fri, 11 Sep 2026 15:31:56 +0200 (CEST)
+Date: Fri, 11 Sep 2026 15:31:56 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Jameson Thies <jthies@google.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	bleung@chromium.org, gregkh@linuxfoundation.org,
+	akuchynski@chromium.org
+Subject: Re: [PATCH v1 0/2] Cleanup UCSI DisplayPort OOB fix
+Message-ID: <aqQCzNp9e6JfozyO@black.igk.intel.com>
+References: <20260910233553.3477055-1-jthies@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910233553.3477055-1-jthies@google.com>
 
-ceph_parse_mon_addr() stores the string in fsopt->mon_addr before handing
-it to ceph_parse_mon_ips(), and then returns that function's error. So
-after a mon_addr= that does not parse, fsconfig() reports the failure but
-the mount context keeps the rejected string.
+On Thu, Sep 10, 2026 at 11:35:51PM +0000, Jameson Thies wrote:
+> Recently I sent 
+> https://patch.msgid.link/20260825234545.2076049-1-jthies@google.com 
+> to prevent an OOB array index in the UCSI displayport driver. This
+> merged to 7.3-rc2 but did not include feedback from reviewers in a
+> v2 version of the patch here
+> https://lore.kernel.org/all/20260904234401.2339633-1-jthies@google.com/
+> 
+> This series reverts the v1 version of the patch merged to 7.3-rc2
+> then applies the fix including reviewer feedback. Because this
+> series is cleaning up the previous change, and not needed to prevent
+> the OOB access, I've removed the CC stable and Fixes tag from the
+> displayport driver update.
+> 
+> Let mw know if you have any questions/concerns.
 
-That matters because ceph_get_tree() uses fsopt->mon_addr as the "monitor
-addresses were supplied" test:
+I don't think this is necessary.
 
-	if (fsopt->new_dev_syntax && !fsopt->mon_addr)
-		return invalfc(fc, "No monitor address");
+Thanks,
 
-Userspace is free to ignore the error from fsconfig(FSCONFIG_SET_STRING)
-and go straight to FSCONFIG_CMD_CREATE. The check then passes on a value
-that was rejected, and the mount continues with ceph_options::num_mon
-still 0 - which is how syzbot reached the BUG_ON() in pick_new_mon()
-fixed by the previous patch.
-
-Parse first and commit only on success. A failed mon_addr= now leaves any
-previously accepted value in place instead of replacing it with one that
-does not parse.
-
-Reported-by: syzbot+1dbed5969931c19d3eb5@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1dbed5969931c19d3eb5
-Fixes: 7b19b4db5add ("ceph: new device mount syntax")
-Assisted-by: LLM
-Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
----
- fs/ceph/super.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/fs/ceph/super.c b/fs/ceph/super.c
-index 72935f665f11..9e0aee8f33ff 100644
---- a/fs/ceph/super.c
-+++ b/fs/ceph/super.c
-@@ -394,13 +394,18 @@ static int ceph_parse_mon_addr(struct fs_parameter *param,
- {
- 	struct ceph_parse_opts_ctx *pctx = fc->fs_private;
- 	struct ceph_mount_options *fsopt = pctx->opts;
-+	int ret;
-+
-+	ret = ceph_parse_mon_ips(param->string, strlen(param->string),
-+				 pctx->copts, fc->log.log, '/');
-+	if (ret)
-+		return ret;
- 
- 	kfree(fsopt->mon_addr);
- 	fsopt->mon_addr = param->string;
- 	param->string = NULL;
- 
--	return ceph_parse_mon_ips(fsopt->mon_addr, strlen(fsopt->mon_addr),
--				  pctx->copts, fc->log.log, '/');
-+	return 0;
- }
- 
- static int ceph_parse_mount_param(struct fs_context *fc,
 -- 
-2.55.0.windows.5
-
+heikki
