@@ -1,456 +1,152 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7430949E136;
-	Fri, 11 Sep 2026 11:10:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E1642E8DC;
+	Fri, 11 Sep 2026 11:12:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789125066; cv=none; b=tTeq7x1uCJUzUmrtPV/yN4sJYkAlQKxd1PulObtNvnOrilO7c3zUxjBHf3e/sEZvdOHxqvp0mojchghvSyni6vP/2VIhxVIi0trsYBwVITx7hh96G2ox4WOGPhHZxYtpB1oMpyxxCVQoW0bdh0Up9ufyXljUyQWxjaKpaXBcnO8=
+	t=1789125135; cv=none; b=Vf2GOI5jt26zJQwhLOnYjw+mw2M3rM4fJecH9C3moLfZtrujdisoMlMrxSVh4DZHjOBVn6TPK6k/2ahGRAdVFPd2fdtTldRx4W4jN7f/as8uNMbvk/5Ao9us6v4sG4sL3sfSXr8HgYzP04eWJGt70sXGnmnybfh38Bsyphxa5e8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789125066; c=relaxed/simple;
-	bh=9tmo7LnCa2gZ4wvu0gRKk4iwWl/CuwVoGBbOWdqP/EI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jLJWQO0xMZERJ39EekI7euTHadUK2R+jxdg7mcgr3s1Lu/Vk5vmFgQltDjjXeWJFiD/46pzoRuwgULhmDTdKLD3RcKlJQ+EUYlg1zYpP0Uz6TAgoNHO4kKDU4+ZcjwVB7yAwl9GU5iCNkaC3M4Yl2AKuIHJ3f9hMwGKPEWa+5YE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=WVKHKK2C; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789125135; c=relaxed/simple;
+	bh=hBIuk1LuvXOzzNpwC6P/xmvJnP8c4FVBB7STCewnrEA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hdpEONwg/6Lp9GAMcOHkLI2qDGRCUm4/aZUG7uAhTn6vldUTX9S3YKp6vGIT7hVoJEb05wxmNJa7FucvfLbEANGrqFrkYHO4s7P2rpgRRAO0dlmRejYxMihfvYKICJOjogmrN2e+n1XyAtRC3Lkh9hsb/kVg43SGHStqD0QAZVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZZ0P1Wow; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WVKHKK2C"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D1E1416F2;
-	Fri, 11 Sep 2026 04:10:52 -0700 (PDT)
-Received: from a081061.blr.arm.com (a081061.arm.com [10.164.19.84])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id DC3523F59E;
-	Fri, 11 Sep 2026 04:10:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789125056; bh=9tmo7LnCa2gZ4wvu0gRKk4iwWl/CuwVoGBbOWdqP/EI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=WVKHKK2CFRceqwP6ticU/SyBU/FGoDLRCcmtzTdsI2lPWtcXGHbIWX88nv7R0yBJA
-	 scGnq6iw62DmXaezxSuhbRbvjeR+vbMnJBddDfuHJkUajBaiCTfFIK52bGgQY68vdZ
-	 6SmcdkicYEKbBoyPttJuiYZxIhCO3JOArbrJ+CSo=
-From: Sarthak Sharma <sarthak.sharma@arm.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Peter Xu <peterx@redhat.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <npache@redhat.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Mark Brown <broonie@kernel.org>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sarthak Sharma <sarthak.sharma@arm.com>
-Subject: [PATCH v10 6/6] selftests/mm: add a GUP selftest
-Date: Fri, 11 Sep 2026 16:39:50 +0530
-Message-ID: <20260911110950.200240-7-sarthak.sharma@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260911110950.200240-1-sarthak.sharma@arm.com>
-References: <20260911110950.200240-1-sarthak.sharma@arm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZZ0P1Wow"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789125131; x=1820661131;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=hBIuk1LuvXOzzNpwC6P/xmvJnP8c4FVBB7STCewnrEA=;
+  b=ZZ0P1Wow2nLJU1bx2/BfBgIIsR88s5BzdMBFQu2TQ04vMdeWqROT0qrT
+   oDDtXXNpiy0YCBhY8AM87xzWxB/sHIfZiqeRZh3Y7ZevgreLUwbYIDEHP
+   YzVPqUEthRUIWxFykRKsVTo22Na3VOAXWiZ6xoDW/qZYREwVGjBLWHzeV
+   s4oSlIw9Enb7DfjoN+g1andU0KgakI26Hfrc6Yd6tOhSqD3kBpc4bRDwZ
+   ZRbnm0nDMEvmEoiFs7EqjtCdRgXJXgOKdU10b5Z2Mut/0zCjnGszbqy2F
+   0YHZsHZoKCxdkaDa0WbBOCZ1TB/WS4S1kpGXvyLwGlIbZlg5WIcq1fVwB
+   g==;
+X-CSE-ConnectionGUID: ls72ydMXSuyZY02YSGjqtg==
+X-CSE-MsgGUID: wIj4hgNwTN+Ua8ykQtviYQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="89716208"
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="89716208"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 04:12:06 -0700
+X-CSE-ConnectionGUID: W5nQ0RYeR7eUGNamAG4/DA==
+X-CSE-MsgGUID: s7r2QSHYSUyV/bXw2HoeYQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="272396366"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa009.jf.intel.com with ESMTP; 11 Sep 2026 04:12:05 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 01A6699; Fri, 11 Sep 2026 13:12:03 +0200 (CEST)
+Date: Fri, 11 Sep 2026 13:12:03 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Pannarat Wiriyaarritham <pannarat.wiriyaarritham@danielcorp.dev>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Guenter Roeck <linux@roeck-us.net>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: typec: ucsi: acpi: Assume UCSI 1.2 on Acer Nitro
+ ANV15-41
+Message-ID: <aqPiAwbVWQ1Owwdy@black.igk.intel.com>
+References: <20260910023338.31816-1-pannarat.wiriyaarritham@danielcorp.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910023338.31816-1-pannarat.wiriyaarritham@danielcorp.dev>
 
-Add a new GUP selftest which uses kselftest_harness.h. Cover
-12 mapping configurations: THP enabled, THP disabled and
-HugeTLB, each across private/shared mappings and with/without
-FOLL_WRITE. Run 5 test cases for every variant: get_user_pages,
-get_user_pages_fast, pin_user_pages, pin_user_pages_fast and
-pin_user_pages_longterm.
+On Thu, Sep 10, 2026 at 09:33:37AM +0700, Pannarat Wiriyaarritham wrote:
+> The Acer Nitro ANV15-41 exposes a functional UCSI ACPI PPM but
+> reports a UCSI VERSION value of zero.
+> 
+> ucsi_register() rejects a zero version with -ENODEV, leaving the
+> system without registered USB Type-C connectors.
+> 
+> The PPM works correctly when using the UCSI 1.2 layout. With UCSI
+> 1.2 assumed, both Type-C connectors register correctly and USB Power
+> Delivery negotiation works.
+> 
+> Add a DMI-specific UCSI operation for the Acer Nitro ANV15-41 that
+> substitutes UCSI 1.2 only when firmware reports a zero version.
+> Preserve any valid non-zero firmware version.
+> 
+> Tested on an Acer Nitro ANV15-41 with BIOS V1.51.
+> 
+> Fixes: c1b0bc2dabfa ("usb: typec: Add support for UCSI interface")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Pannarat Wiriyaarritham <pannarat.wiriyaarritham@danielcorp.dev>
 
-Use two default hugeTLB pages and derive the mapping size from
-their size. This exercises GUP both within a single HugeTLB page
-and across a HugeTLB boundary, without reserving an excessive
-number of pages.
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-Sweep four nr_pages_per_call values for each test: 1, 512, 123 and
-all pages. This preserves the coverage previously provided by
-run_gup_matrix(): 12 mapping combinations x 5 GUP/PUP operations x 4
-batch sizes. In total the selftest reports 60 TAP cases and issues
-240 ioctls.
+> ---
+>  drivers/usb/typec/ucsi/ucsi_acpi.c | 34 ++++++++++++++++++++++++++++++
+>  1 file changed, 34 insertions(+)
+> 
+> diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
+> index 18286d3e9..5697ccc24 100644
+> --- a/drivers/usb/typec/ucsi/ucsi_acpi.c
+> +++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
+> @@ -121,6 +121,33 @@ static const struct ucsi_operations ucsi_acpi_ops = {
+>  	.async_control = ucsi_acpi_async_control
+>  };
+>  
+> +static int ucsi_acer_read_version(struct ucsi *ucsi, u16 *version)
+> +{
+> +	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
+> +	int ret;
+> +
+> +	ret = ucsi_acpi_read_version(ucsi, version);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (!*version) {
+> +		dev_warn(ua->dev, "UCSI version is zero, assuming 1.2\n");
+> +		*version = UCSI_VERSION_1_2;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct ucsi_operations ucsi_acer_ops = {
+> +	.read_version = ucsi_acer_read_version,
+> +	.read_cci = ucsi_acpi_read_cci,
+> +	.poll_cci = ucsi_acpi_poll_cci,
+> +	.read_message_in = ucsi_acpi_read_message_in,
+> +	.write_message_out = ucsi_acpi_write_message_out,
+> +	.sync_control = ucsi_sync_control_common,
+> +	.async_control = ucsi_acpi_async_control
+> +};
+> +
+>  static int ucsi_gram_sync_control(struct ucsi *ucsi, u64 command, u32 *cci,
+>  				  void *val, size_t len, void *msg_out,
+>  				  size_t msg_out_size)
+> @@ -162,6 +189,13 @@ static const struct ucsi_operations ucsi_gram_ops = {
+>  };
+>  
+>  static const struct dmi_system_id ucsi_acpi_quirks[] = {
+> +	{
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "Nitro ANV15-41"),
+> +		},
+> +		.driver_data = (void *)&ucsi_acer_ops,
+> +	},
+>  	{
+>  		.matches = {
+>  			DMI_MATCH(DMI_SYS_VENDOR, "LG Electronics"),
+> -- 
+> 2.55.0
 
-Do not carry DUMP_USER_PAGES_TEST into the new selftest because its
-output is written to the kernel log and the selftest does not verify
-that output.
-
-Add the new gup binary to the selftests/mm build, run_vmtests.sh and
-MAINTAINERS. Update mm/Kconfig to describe the benchmark and
-selftest split.
-
-Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
----
- MAINTAINERS                               |   1 +
- mm/Kconfig                                |  19 +-
- tools/testing/selftests/mm/Makefile       |   1 +
- tools/testing/selftests/mm/gup.c          | 263 ++++++++++++++++++++++
- tools/testing/selftests/mm/run_vmtests.sh |   1 +
- 5 files changed, 273 insertions(+), 12 deletions(-)
- create mode 100644 tools/testing/selftests/mm/gup.c
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index cae3af861a7c..c47e655c4111 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17188,6 +17188,7 @@ F:	mm/gup.c
- F:	mm/gup_test.c
- F:	mm/gup_test.h
- F:	tools/mm/gup_bench.c
-+F:	tools/testing/selftests/mm/gup.c
- F:	tools/testing/selftests/mm/gup_longterm.c
- 
- MEMORY MANAGEMENT - KSM (Kernel Samepage Merging)
-diff --git a/mm/Kconfig b/mm/Kconfig
-index c180d40cd671..61ab1b8a2ebd 100644
---- a/mm/Kconfig
-+++ b/mm/Kconfig
-@@ -1291,24 +1291,19 @@ config PERCPU_STATS
- 	  be used to help understand percpu memory usage.
- 
- config GUP_TEST
--	bool "Enable infrastructure for get_user_pages()-related unit tests"
-+	bool "Enable infrastructure for get_user_pages()-related unit tests and benchmarks"
- 	depends on DEBUG_FS
- 	help
- 	  Provides /sys/kernel/debug/gup_test, which in turn provides a way
--	  to make ioctl calls that can launch kernel-based unit tests for
--	  the get_user_pages*() and pin_user_pages*() family of API calls.
-+	  to make ioctl calls that can launch kernel-based unit tests and
-+	  benchmarks for the get_user_pages*() and pin_user_pages*() families
-+	  of API calls.
- 
--	  These tests include benchmark testing of the _fast variants of
--	  get_user_pages*() and pin_user_pages*(), as well as smoke tests of
-+	  These include benchmark testing of the _fast variants of
-+	  get_user_pages*() and pin_user_pages*(), as well as tests of
- 	  the non-_fast variants.
- 
--	  There is also a sub-test that allows running dump_page() on any
--	  of up to eight pages (selected by command line args) within the
--	  range of user-space addresses. These pages are either pinned via
--	  pin_user_pages*(), or pinned via get_user_pages*(), as specified
--	  by other command line arguments.
--
--	  See tools/testing/selftests/mm/gup_test.c
-+	  See tools/testing/selftests/mm/gup.c and tools/mm/gup_bench.c.
- 
- comment "GUP_TEST needs to have DEBUG_FS enabled"
- 	depends on !GUP_TEST && !DEBUG_FS
-diff --git a/tools/testing/selftests/mm/Makefile b/tools/testing/selftests/mm/Makefile
-index 11ca9b11fef1..9c03624fd293 100644
---- a/tools/testing/selftests/mm/Makefile
-+++ b/tools/testing/selftests/mm/Makefile
-@@ -58,6 +58,7 @@ endif
- 
- TEST_GEN_FILES = cow
- TEST_GEN_FILES += compaction_test
-+TEST_GEN_FILES += gup
- TEST_GEN_FILES += gup_longterm
- TEST_GEN_FILES += hmm-tests
- TEST_GEN_FILES += hugetlb-madvise
-diff --git a/tools/testing/selftests/mm/gup.c b/tools/testing/selftests/mm/gup.c
-new file mode 100644
-index 000000000000..31ae38e09136
---- /dev/null
-+++ b/tools/testing/selftests/mm/gup.c
-@@ -0,0 +1,263 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#define __SANE_USERSPACE_TYPES__ // Use ll64
-+#include <fcntl.h>
-+#include <errno.h>
-+#include <stdbool.h>
-+#include <string.h>
-+#include <unistd.h>
-+#include <dirent.h>
-+#include <sys/ioctl.h>
-+#include <sys/mman.h>
-+#include <mm/gup_test.h>
-+#include "vm_util.h"
-+#include "kselftest_harness.h"
-+
-+#define MB (1UL << 20)
-+
-+/* Just the flags we need, copied from the kernel internals. */
-+#define FOLL_WRITE	0x01	/* check pte is writable */
-+
-+/* Page counts exercising single, THP-batch, partial, and full-mapping GUP. */
-+static const int nr_pages_list[] = { 1, 512, 123, -1 };
-+
-+#define GUP_TEST_FILE "/sys/kernel/debug/gup_test"
-+#define NR_HUGE_PAGES 2
-+
-+static unsigned long hp_size;
-+
-+FIXTURE(gup_test)
-+{
-+	int gup_fd;
-+	char *addr;
-+	unsigned long size;
-+};
-+
-+FIXTURE_VARIANT(gup_test)
-+{
-+	bool thp;
-+	bool hugetlb;
-+	bool write;
-+	bool shared;
-+};
-+
-+FIXTURE_VARIANT_ADD(gup_test, private_write)
-+{
-+	.thp = false,
-+	.hugetlb = false,
-+	.write = true,
-+	.shared = false,
-+};
-+
-+FIXTURE_VARIANT_ADD(gup_test, private_read)
-+{
-+	.thp = false,
-+	.hugetlb = false,
-+	.write = false,
-+	.shared = false,
-+};
-+
-+FIXTURE_VARIANT_ADD(gup_test, private_write_thp)
-+{
-+	.thp = true,
-+	.hugetlb = false,
-+	.write = true,
-+	.shared = false,
-+};
-+
-+FIXTURE_VARIANT_ADD(gup_test, private_read_thp)
-+{
-+	.thp = true,
-+	.hugetlb = false,
-+	.write = false,
-+	.shared = false,
-+};
-+
-+FIXTURE_VARIANT_ADD(gup_test, private_write_hugetlb)
-+{
-+	.thp = false,
-+	.hugetlb = true,
-+	.write = true,
-+	.shared = false,
-+};
-+
-+FIXTURE_VARIANT_ADD(gup_test, private_read_hugetlb)
-+{
-+	.thp = false,
-+	.hugetlb = true,
-+	.write = false,
-+	.shared = false,
-+};
-+
-+FIXTURE_VARIANT_ADD(gup_test, shared_write)
-+{
-+	.thp = false,
-+	.hugetlb = false,
-+	.write = true,
-+	.shared = true,
-+};
-+
-+FIXTURE_VARIANT_ADD(gup_test, shared_read)
-+{
-+	.thp = false,
-+	.hugetlb = false,
-+	.write = false,
-+	.shared = true,
-+};
-+
-+FIXTURE_VARIANT_ADD(gup_test, shared_write_thp)
-+{
-+	.thp = true,
-+	.hugetlb = false,
-+	.write = true,
-+	.shared = true,
-+};
-+
-+FIXTURE_VARIANT_ADD(gup_test, shared_read_thp)
-+{
-+	.thp = true,
-+	.hugetlb = false,
-+	.write = false,
-+	.shared = true,
-+};
-+
-+FIXTURE_VARIANT_ADD(gup_test, shared_write_hugetlb)
-+{
-+	.thp = false,
-+	.hugetlb = true,
-+	.write = true,
-+	.shared = true,
-+};
-+
-+FIXTURE_VARIANT_ADD(gup_test, shared_read_hugetlb)
-+{
-+	.thp = false,
-+	.hugetlb = true,
-+	.write = false,
-+	.shared = true,
-+};
-+
-+FIXTURE_SETUP(gup_test)
-+{
-+	int mmap_flags = MAP_PRIVATE | MAP_ANONYMOUS;
-+	char *p;
-+
-+	self->size = 128 * MB;
-+
-+	if (variant->hugetlb) {
-+		if (!hp_size)
-+			SKIP(return, "HugeTLB not available\n");
-+
-+		if (hugetlb_free_default_pages() < NR_HUGE_PAGES)
-+			SKIP(return, "Not enough huge pages\n");
-+
-+		self->size = NR_HUGE_PAGES * hp_size;
-+		mmap_flags |= MAP_HUGETLB;
-+	}
-+
-+	if (variant->shared)
-+		mmap_flags = (mmap_flags & ~MAP_PRIVATE) | MAP_SHARED;
-+
-+	/* gup_fd has to be >= 0. Already checked in main() */
-+	self->gup_fd = open(GUP_TEST_FILE, O_RDWR);
-+	ASSERT_GE(self->gup_fd, 0);
-+
-+	self->addr = mmap(NULL, self->size, PROT_READ | PROT_WRITE,
-+			  mmap_flags, -1, 0);
-+
-+	ASSERT_NE(self->addr, MAP_FAILED) {
-+		int err = errno;
-+
-+		close(self->gup_fd);
-+		TH_LOG("mmap failed: %s", strerror(err));
-+	}
-+
-+	if (variant->thp)
-+		madvise(self->addr, self->size, MADV_HUGEPAGE);
-+	else if (!variant->hugetlb)
-+		madvise(self->addr, self->size, MADV_NOHUGEPAGE);
-+
-+	for (p = self->addr; (unsigned long)p < (unsigned long)self->addr
-+			+ self->size; p += psize())
-+		p[0] = 0;
-+}
-+
-+FIXTURE_TEARDOWN(gup_test)
-+{
-+	munmap(self->addr, self->size);
-+	close(self->gup_fd);
-+}
-+
-+static void run_gup_cmd(struct __test_metadata *_metadata,
-+			 FIXTURE_DATA(gup_test) *self,
-+			 const FIXTURE_VARIANT(gup_test) *variant,
-+			 unsigned long command)
-+{
-+	int i;
-+
-+	for (i = 0; i < (int)ARRAY_SIZE(nr_pages_list); i++) {
-+		struct gup_test gup = {
-+			.addr = (unsigned long)self->addr,
-+			.size = self->size,
-+			.nr_pages_per_call = nr_pages_list[i] < 0 ?
-+				self->size / psize() : nr_pages_list[i],
-+			.gup_flags = variant->write ? FOLL_WRITE : 0,
-+		};
-+
-+		TH_LOG("nr_pages_per_call=%u", gup.nr_pages_per_call);
-+		ASSERT_EQ(ioctl(self->gup_fd, command, &gup), 0);
-+		ASSERT_EQ(gup.size, self->size);
-+	}
-+}
-+
-+TEST_F(gup_test, get_user_pages)
-+{
-+	run_gup_cmd(_metadata, self, variant, GUP_BASIC_TEST);
-+}
-+
-+TEST_F(gup_test, pin_user_pages)
-+{
-+	run_gup_cmd(_metadata, self, variant, PIN_BASIC_TEST);
-+}
-+
-+TEST_F(gup_test, get_user_pages_fast)
-+{
-+	run_gup_cmd(_metadata, self, variant, GUP_FAST_BENCHMARK);
-+}
-+
-+TEST_F(gup_test, pin_user_pages_fast)
-+{
-+	run_gup_cmd(_metadata, self, variant, PIN_FAST_BENCHMARK);
-+}
-+
-+TEST_F(gup_test, pin_user_pages_longterm)
-+{
-+	run_gup_cmd(_metadata, self, variant, PIN_LONGTERM_BENCHMARK);
-+}
-+
-+int main(int argc, char **argv)
-+{
-+	int fd;
-+
-+	fd = open(GUP_TEST_FILE, O_RDWR);
-+	if (fd == -1) {
-+		ksft_print_header();
-+		if (errno == EACCES)
-+			ksft_exit_skip("Please run this test as root\n");
-+		if (errno == ENOENT) {
-+			DIR *debugfs = opendir("/sys/kernel/debug");
-+
-+			if (!debugfs)
-+				ksft_exit_skip("Mount debugfs at /sys/kernel/debug\n");
-+			closedir(debugfs);
-+			ksft_exit_skip("Check CONFIG_GUP_TEST in kernel config\n");
-+		}
-+		ksft_exit_fail_msg("Failed to open %s: %s\n", GUP_TEST_FILE, strerror(errno));
-+	}
-+	close(fd);
-+
-+	hp_size = default_huge_page_size();
-+	if (hp_size)
-+		hugetlb_setup_default(NR_HUGE_PAGES);
-+
-+	return test_harness_run(argc, argv);
-+}
-diff --git a/tools/testing/selftests/mm/run_vmtests.sh b/tools/testing/selftests/mm/run_vmtests.sh
-index 8f1e828e4f39..ae0ab5efabae 100755
---- a/tools/testing/selftests/mm/run_vmtests.sh
-+++ b/tools/testing/selftests/mm/run_vmtests.sh
-@@ -251,6 +251,7 @@ fi
- 
- CATEGORY="mmap" run_test ./map_fixed_noreplace
- 
-+CATEGORY="gup_test" run_test ./gup
- CATEGORY="gup_test" run_test ./gup_longterm
- 
- CATEGORY="userfaultfd" run_test ./uffd-unit-tests
 -- 
-2.53.0
-
+heikki
