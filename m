@@ -1,129 +1,142 @@
 Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44C1F49B1E0
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:45:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789141506; cv=pass; b=Rvzbw0Cw8vBGcBHof1DDg+/DlvlS7Jo5qKRya7DkQx8eBFJo9xdjZIaJ5MRgPHiBKspNV4tWd78Yf0r8XZ8PildenFLlD5qgUdCzc7Uw6VjEYGctZzzOXacDj04n6ONxfw6polsZICFVhOpkqDKHklnXTu99VpSkH2iBeW3Jg/w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789141506; c=relaxed/simple;
-	bh=eR+DZtjxTGHsnzJaTy1dHb0uzl5eFl3JiNNFfBIoHpM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=puY05Dbn624NR/k1RhBIXOpzqO5iBWgd6s7YwsLXGBddPgx7wfiC3v2kGf/Jr54BA/LqkKCqKc3IXJl3Y59qfE9dkQXByN1M0vlr33/RJWLhpFtVruw6Q8mBWr00K0VB0IL6TXm6BCZVfjY/3fXbnIBVaPLMwW5FG7acvZymgkw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=m0yJXpyo; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13FD649B211
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:45:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789141548; cv=none; b=BPjXy29V+ztZ5oUaVSJ7SiNds9cW3KSfahpByB4Vz0gXLbmZL9fHidEDRRA39XpjDr7BDRCsi2DL6VXFBNjmbVGbGNswpUCI4yLxZC/XrrkbzzirtGmwORr+S9CpwWzJud2j/Oi+dO0TIy8EfiaZfTrnwBsKerD7sTRUQ5OjEpQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789141548; c=relaxed/simple;
+	bh=3jv+OGdcF/n4qHmwlEq3KZQYwc1fd09Z6ADzFn5Bb9M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DN2Ccin9PZzyqlAiL2nMEaLtBufjRWZ/vbkvM6LCawgvheBUudZjX/whOg6O5C2xAoS+yHaisMxpGhGEN4SkLSuWYCnKXLYrsnO/p5J1iDZ9qalHDjwELqF5OLmdahYD+O1FGvbbMfn1k6+/m7o/LIJKg/ATNKre1OAHrXluK+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TQ2oO7fw; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="m0yJXpyo"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db425c9050so10635ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:45:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789141504; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ncCQhrEXahji/ODZpBmIrBTiScJApUFXAj1andIwGyAS9pE5RM2uIQ3aYRYz9IdkEc
-         phmHbeZz/CyTU97ysr6j5utTcCKWO0F3StADjmhwSsUjO0A59vkuhB87KBurk454AZuW
-         EaoMSidio7wpTfVKJjQGPlFFAhsd91OhYDSaljBWXr/uxI5rGFaFr7LlMHijgsEsHA6e
-         wmzyhQXo7d53A8PTVHOAhFfaKFIFGo4Un9/5wYXPD2aQNae5ZEJ69YHjhaU5kK7qr6B0
-         CjbksucQ5zBAMu9ry1lg8LFZm0xIrlp0q2xOb3wAjlTlqH0+d2FMhd4hUjjZvs1e34Ua
-         JKkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=l5edhVg2tXWRMX3roRkpySjER0cDjb+C0WlaE36JMtM=;
-        fh=nlQg2WZEweu7PZceBmyZDcUpC/+xCPqQ28q7jLZ4nfw=;
-        b=Q99Ign9jPbj/Bowi0r5RqW2aGXwH4C2ruSSSkUPyco9nHJq5+G6ZGmpRF6Z8hv7n1c
-         sVVZ0JBIt+YYqmbA+zhykLGjjqRrDXEvjACK+itZO9ppkEsXlndZUuBMLay21L2x8dPu
-         6W3zF/x4I+RQrL0SB7cqz8fRZHgcgxV4KoOPL/Qem05CyM1xoETq08soHOVeJeF9s0zZ
-         QTL0Ov39cQwUe5C8CmpXJuQ/PpwtXjDjmocfojAZM+B8ZLj5xU5bvc/ulXy6t9VLL6LJ
-         ljME/WcrSoomPNt0py/P5kHy9IFcD2pmXcvqlDdu7BYLOJVWmVwc3/HCta6Vr20M06XT
-         MItQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TQ2oO7fw"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d90ba1d807so13102235ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:45:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789141504; x=1789746304; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=l5edhVg2tXWRMX3roRkpySjER0cDjb+C0WlaE36JMtM=;
-        b=m0yJXpyoZENCFLYprd6KfU5Nz82ynxYx1fpIzDbsuzUOB/a86AvSI2EDrX+3IO99jH
-         WwHuISCy0XtBBYNoZ6hIvuFbL1kN8hbyn986CNHUJnOiPriJhYC3vjYpZhGwYEcOjLVI
-         /oUYq1PyQHgd9/I9gRxkOJllefDost0GQA0OejMO/EniTGyeWVvU+hi1hwDNtj+7GYl4
-         V2FlK0YzhF5v3UeQq8jOov25bx2+CQrTljvoIIhm9V4lcl7/UzULXRM9tsdJ1lheOp3z
-         DeDy5e4sTWQftInT0AFWKopbQBFabEkBpf+PIk9WG9ps+r0oh8tYTZsRZK2GKeGwHpsQ
-         ltLw==
+        d=gmail.com; s=20251104; t=1789141546; x=1789746346; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RmWPw9HQP1XagMM9TGKgOpF0w9bX79g0MmpHkabvFyc=;
+        b=TQ2oO7fwxqrp3+huj2g3OKLY+avsQMzKrSouUm3jd8tabazqbiZErtrc5+vz3sAxnj
+         KZhqEa1PLtE6MhyyLYk4qOQGn3/GQOKZ5mU7NCuKOUwrMU3jm5fMvif/hhimArbSrxAa
+         NDWYCCYb/YyAu4Gsuc8015e5kOrp5QdCqNvWIXYtSCLAjzegr1rVjqPR+C7CB/tLWWTB
+         5ozgPGkiRiWLL+Ca0SnPuYd/OP7GL3kIhmPIvGoSrI7j+m9s/8A3iNWKCPat2y1VSWP3
+         eJGZG66nYQm88vTRxwT1gKkmgSxROsN1BI6tXK+r0owQ/NUeQs+D0c7dEuj8tSkdf8J7
+         iPlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789141504; x=1789746304;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l5edhVg2tXWRMX3roRkpySjER0cDjb+C0WlaE36JMtM=;
-        b=GvoOPO8Zc54pKUtC25K9lRBd5GCG3bKELnHJYEqkoT0gnWOjwTRJapx5wIm/xW2z16
-         nT5LPPGgRz40ucyq7hL+3v/TXciehZpogYOz9Y9Sy3jevSBKsVw/FBMFZ4CRTXlTSgAg
-         x3s1O1olBNQEhhEnzcHYvlAq6Xr2YZ3+lYJLUw+mo2fGPZIgigFWEXtgmFT6Kod3FiVN
-         VYK99TOwNcqQt7aZ3IZLKfyjTdVrFpTXm0KCGvSKpjy9N3q0nemXIykn7HVbXlRE6ADm
-         Npc4C4I7sG784gMy+S7bt9jK4g5VU4sICzi5992IPdasIUYM59mLzZRzf+nMpoPwpCkV
-         FYRw==
-X-Forwarded-Encrypted: i=1; AKwUvBwjt/dFB4Hgs27BPGZv4FLHeR7Z7fEeLPp6w06Uw3VqdxLmR44dHoBQYqba+Wh7q5zhOhIzlA4Y4uu/ZiY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lhR11k9RjKPN89eu0L6uuNAJAhhktg3LRkjTKtPo8EjJear/Li
-	3pIGObc3svIrm+zfM4tdjqZP1IX62u8LM22XYx7wvqxWkHqg9jDrRgASICcNb+Rl3W8kdOH6YtF
-	ERZKBqaTe/Arbjw4PQB7XE/E1vWqEu8mZHwDBHGaZxb2uHjB77y3zOzvq
-X-Gm-Gg: AYBFou01SBsbbZvFUAi+O/Ejm1sW1f0TLn+s/cSElWJbCAzNgiD32ViTbovFaBxTu4s
-	4i3a3pV5h55e+o7ZeyS75pJ6SeSVFLXj/z1Sl+rDufsbXGrg4mkKy7kDEBeubTg0TGKiXfLIpaL
-	XYN2QZqn37J3NRrXWPpSG1z1KoGDDL17zXCBURfvF1VTtaQQdzNoCkSDTyd6V621ccPnu7+UD24
-	v/Xjh3BNODL/toJvZVh0XAX8E9Ov5BcQzxCsGcj8xn+DFYrz/soKqUhO3fYdgSTCHnfa79Nt53x
-	pknP8uRjOt2CYehL4YtkkNoGxhviZmSgz5wBVy7kgl3M5aBiPXHyntKzckLNreWIgLPcSRuKgtL
-	AtoXlrADCiqvvnTLIdSHvsif3ukYxQiUt5bk5+I1hYQ==
-X-Received: by 2002:a17:902:f60f:b0:2d5:cad1:a2e8 with SMTP id
- d9443c01a7336-2dd2c9342f1mr8684325ad.6.1789141503667; Fri, 11 Sep 2026
- 08:45:03 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789141546; x=1789746346;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RmWPw9HQP1XagMM9TGKgOpF0w9bX79g0MmpHkabvFyc=;
+        b=I8vxjqKvYXNOFGm4xsfI5hNFx9tJb6uvPJDM5f7y4acfjNGpH5FKpi1SWGMWZTtuql
+         BCyKwEoqlFAsR7XRmoy1Y4ZmKlztbMxkT0vqhbY4gfLdjJvRn8t99aS8KhjMbDvf8dsw
+         eaJ6662xog0Eeul6w2JBS0BNfmr8+e+AyeveNDnenRyGlcxK7xbiuv7zrKDrDN6HvVxt
+         JRnUYp30JxiWjBpk/mNPMnRvo19ncxqmFUOP39XdUreWaEZNtnqDIKiSrIW6t9wcU2n8
+         +JoiWCaOdUsF1A2d3LR3nnzYzSlNkSIRyVq3n/nkcOrekgqxo05Vp1IMHGwbutPjbaGr
+         c4Dg==
+X-Forwarded-Encrypted: i=1; AKwUvBwLd1XUaIIS231s6EE7cA5rOrvbstoUWMyn6/X/eBZybbUrPs5PjYYtczrh9eOaL78OIDqen8ZaIW+KeQM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mRlkhilvQTwxpoxZHPE4SIr/gSpRZxvHCEC6R+9eksiL3gH56L
+	00bTOf3HPM4ok8eRxbIsZlF5IHTZ5TA0bwgR0bbFMAEvnmZrRu8/oKsb
+X-Gm-Gg: AYBFou2Aa7rb/drRq7luU24sgQgZxtTpYH+PDEyDlErnBIHIhppcVAGRvjIvgx69ht2
+	Z/26z4h9Bxkg6NcdM/TuFt6CRoyRbXvAKbDqT1NRDBttsUCUIPCOi7GtC0X3IbwyarR7xp2fzuU
+	lzrQ3ep5oWyyJv1yyqJ5BoXOXNnb8yozYg2IoQojIWsbC+5IFApsVJDEqsdvT3h+AAscPW/LAG6
+	Dqeu2DuIQsxWp+YJD/9VOnw4GqB8UJ64D2gs4r+JBViCnvFnRdgDLyqGMYiLs+X3whBOEJ48faE
+	gYVE0JOcqeuy11fuT5K/PmLsCevvGtDdiRfC5JzfgjR0Db5tGeqIDolLOIWO/t1AV+eZSwCF2Pd
+	CsFBO+Ly3EAqpvcubVVRmWBObFSH/qiMkvRI8YQ897kzTJJGmePaFirKjJAMCY4zz/dmZy3exYi
+	/U9LbgZ3Y0B13F6jO5CS+d49BPJWLj8WN6oo1c1S28hcCD6Ijk/5lLe3We23cdot2YJmCU8L6cT
+	DZXNP12
+X-Received: by 2002:a17:902:f60d:b0:2db:5c0a:f184 with SMTP id d9443c01a7336-2dd2a34fd91mr100447505ad.17.1789141545988;
+        Fri, 11 Sep 2026 08:45:45 -0700 (PDT)
+Received: from arch.localdomain ([158.101.31.158])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfc2d3bsm13628145ad.48.2026.09.11.08.45.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 08:45:45 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Jun Yan <jerrysteve1101@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org
+Subject: [PATCH] drm/bridge: analogix_dp: use devm_phy_optional_get() for the DP PHY
+Date: Fri, 11 Sep 2026 23:45:33 +0800
+Message-ID: <20260911154535.266121-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911-uring-fdinfo-tighten-v1-1-47c62a154aca@google.com>
-In-Reply-To: <20260911-uring-fdinfo-tighten-v1-1-47c62a154aca@google.com>
-From: Jann Horn <jannh@google.com>
-Date: Fri, 11 Sep 2026 17:44:27 +0200
-X-Gm-Features: AcwNN1Ulz6FVkSYBUki9FpHmMBQr4IeI2P7Odkxp60h8A2YAlYBmqO2GdtEHPXw
-Message-ID: <CAG48ez1dbEXQgvvAxchiiakym7KJntGFJ3f_obfnDwFouYZQnQ@mail.gmail.com>
-Subject: Re: [PATCH] io_uring/fdinfo: ignore IORING_CQE_F_32 in last CQ array slot
-To: Jens Axboe <axboe@kernel.dk>
-Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Dominik Maier <dmnk+artist@google.com>, stable+noautosel@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 5:35=E2=80=AFPM Jann Horn <jannh@google.com> wrote:
-> A cqe32 entry spans two CQ array slots, so the last CQ array slot can't
-> contain a cqe32 entry. If the CQ tail points at the last CQ array slot an=
-d
-> the kernel wants to write a cqe32 entry, it uses io_fill_nop_cqe() to pad
-> the last CQ array slot with a dummy entry and make the tail wrap around.
->
-> However, malicious userspace can directly set IORING_CQE_F_32 on the last
-> CQ array slot, causing __io_uring_show_fdinfo() to read the second cqe32
-> half from beyond the CQ array. Change __io_uring_show_fdinfo() to
-> explicitly ignore the IORING_CQE_F_32 flag in this case.
->
-> This is not a real bugfix, just tightening the code a bit, because:
->
-> 1. the number of CQE slots is always a power of 2, see io_uring_fill_para=
-ms
-> 2. the ring_region region consists of:
->     - a 64-byte header
->     - pow(2, N) CQE slots (each 0x10 bytes)
->     - optionally, the SQ array
-> 3. the ring_region size must be page-aligned because it is shared memory
->
-> Together, these properties imply that the last CQE slot can't be close
-> before the end of a page, so the "out-of-bounds" data is
+The DP PHY is optional: the Rockchip RK3399 eDP controller (used as the
+internal eDP port) has no separate PHY device and relies on its built-in
+PHY, which is programmed directly through the GRF registers, so its DT
+node carries no "phys"/"phy-names" property.
 
-Oops, sorry, somehow I forgot to complete that sentence, that was
-supposed to be:
+Requesting the PHY with devm_phy_get() therefore returns -ENODEV (or
+-ENOSYS when CONFIG_GENERIC_PHY is disabled) and the driver logs a
+misleading "no DP phy configured" error at probe time before falling back
+to a NULL phy.
 
-Together, these properties imply that the last CQE slot can't be close
-before the end of a page, so the "out-of-bounds" data is in memory
-that is anyway accessible to userspace.
+Use devm_phy_optional_get() instead, which returns NULL when the PHY is
+absent and otherwise behaves identically, and drop the manual -ENODEV/
+-ENOSYS handling. This also removes the spurious error message.
+
+Assisted-by: Claude:deepseek-v4-flash
+Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+---
+ .../gpu/drm/bridge/analogix/analogix_dp_core.c | 18 +++---------------
+ 1 file changed, 3 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 18e76d1e78e1..28eb668d3e3f 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -1427,21 +1427,9 @@ analogix_dp_probe(struct device *dev, struct analogix_dp_plat_data *plat_data)
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+-	dp->phy = devm_phy_get(dp->dev, "dp");
+-	if (IS_ERR(dp->phy)) {
+-		dev_err(dp->dev, "no DP phy configured\n");
+-		ret = PTR_ERR(dp->phy);
+-		if (ret) {
+-			/*
+-			 * phy itself is not enabled, so we can move forward
+-			 * assigning NULL to phy pointer.
+-			 */
+-			if (ret == -ENOSYS || ret == -ENODEV)
+-				dp->phy = NULL;
+-			else
+-				return ERR_PTR(ret);
+-		}
+-	}
++	dp->phy = devm_phy_optional_get(dp->dev, "dp");
++	if (IS_ERR(dp->phy))
++		return ERR_CAST(dp->phy);
+ 
+ 	dp->clock = devm_clk_get(&pdev->dev, "dp");
+ 	if (IS_ERR(dp->clock)) {
+-- 
+2.55.0
+
