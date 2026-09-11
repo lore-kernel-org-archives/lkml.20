@@ -1,190 +1,199 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2F8542E421;
-	Fri, 11 Sep 2026 15:44:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF126493657
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:44:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789141478; cv=none; b=m/wWoOYiXqVbJMi0X+yt9jjEZtz/1FFmlfxV6FsHJndEKeePRrq/2qB1WxhCefPSHgnwoLOoXULPndNltrssaT6P0FI24HPYJOVYcKv7OENn4yT4J++Wwj9mXoKot3dsIya7WJ+aX/3g1eGyjeGP0y07v2C3+w9gwF+x0tHj1HE=
+	t=1789141481; cv=none; b=o2T5MbCcHnkhoV7nMVMtVKEuJLYpjRj96Z0NGzryxvqed6yHUDiAHV5qiEO7M/Qf9jBbfiKyC+1l2GvTgNz6e3E5Um6ptp3EQoqhde239BW/zgMGpfjH5wUGVhPTQvlKsYjjgAbVvKfDb8UtdgEhVHYnFnmed71rURckhVkp4Vw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789141478; c=relaxed/simple;
-	bh=dIrbDnzgyXhHod8pRVMH4sZvy6JWr/7Wtzlgh1Obah8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JvusU2PUaP4uVuK8gIz7VNP1z+l2KR96Os/qLcsMvAva8RrE2x+3G/Xlhod3m4nlqmNx6pWshjZLVavfu3SeGGsb2KOoZsiNttZ3ewTMLnMk6wxf87hZkFf2lFsIlHaNUTRqtADYdO/v+bUGDT4XTcFODCohVQdeUAyWNDdexW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lmee9QMr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789141481; c=relaxed/simple;
+	bh=lcR2Fhlxl4eRvKV2aDV7+wbKm3ijM4c8/wlYtrzXmuw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fq7BF5iaDcIauLsYMGjtwzvYJarOKn7DnJsH9vQK+yR20wLcpMz4qTD9qhc/z/P5ltlF7DlL6oJYpPr1TQRFMXYUFp3wdJJI70BSTFxzCrgxMJDsHocgPvxWQTLw/LgI4eXGdYPrUzbWnvDrLH6j3ifwb5TBOVwFckcvTcKRAfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ed86Ehpe; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=G6o0C2v0; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lmee9QMr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7064F1F000FF;
-	Fri, 11 Sep 2026 15:44:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789141476;
-	bh=1B/r3anMNhgtOBMW1KxIb2EhbjZvlBVjZ1VTOFwKWAk=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=Lmee9QMr5Ft/bSPcW2z86IcfA3NUku51rdmD53b9lmn32AkaJhEqeI+M9G4E6zwrG
-	 UUdSwmk35IVrniaEEiz5eob74j7ZBka+Ccj6oYkwyTGbPbixBdWoSodUgaDM927AN1
-	 iXYKtvnAhMTKFbx1I/SiM2PKx5zlFDdkIpUr11lIlZVuyqRsGZAYgmx6ahW2mU5Sup
-	 3m+ry/Ozu/2QpSHF/54DrLpe3KTnsvUZi+R4P08z/USqsCTVJLXFhfx0EU84BZnrAM
-	 qMqVd6AuHfRejiNAKjTaRrAFLDWWvuObwzjbYlEYjJLhOLWOs66MlPIWVS/RiJ0O/v
-	 bz8F4LEHI9Csg==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 3AD70CE1902; Fri, 11 Sep 2026 08:44:36 -0700 (PDT)
-Date: Fri, 11 Sep 2026 08:44:36 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: urezki@gmail.com, harry@kernel.org, frederic@kernel.org,
-	neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com,
-	josh@joshtriplett.org, boqun@kernel.org, rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev, corbet@lwn.net, skhan@linuxfoundation.org,
-	rdunlap@infradead.org, surenb@google.com, vbabka@kernel.org,
-	rcu@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/1] rcu: make userspace barrier hook drain kvfree_rcu
- work
-Message-ID: <7050515d-eadf-4050-9c54-7a202d552b88@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <6092a9d0-0125-4da4-ac48-85ccaeb83beb@paulmck-laptop>
- <20260911034059.3569914-1-matthias.goergens@gmail.com>
- <20260911034059.3569914-2-matthias.goergens@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ed86Ehpe";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G6o0C2v0"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BEm2jF442903
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:44:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Q1DIDB+x6TVxI9bR6AVmRa+Nh/rJ1EKyRd7jafxRodU=; b=Ed86EhpemUWHPrpc
+	A1/sabt6fK8VXcL0QXO1psVFVXBtxgBOqiMOVVKTVNUbL6Ix0S5/uSN8lMRy5o1h
+	bEp4bcgFBK39K1/AormBdaeIxzzMVytLiw6SiFs/+qfw411lM150nI3LBz6IzFrO
+	dpIWtLuA0y3K9YW0RecQN9FmyaH2S73Itfe6LJwvcApclFutva5MjW/VMkZFqet5
+	D6w/JNsd8sjpH5qqxO6z7gfZu8NG5Xk8Lmi2dJqOWZpaajC+7sqfg+G3ew1lkLSD
+	dPBs2kEFeS9SJCSEvw7CENnRzGYlq/zWeTM9o8YKJvJMA/TyrgjmFNiNP0TWOvY2
+	1b4m7Q==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmapg2pep-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:44:38 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2db0a41434bso18156125ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:44:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789141477; x=1789746277; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q1DIDB+x6TVxI9bR6AVmRa+Nh/rJ1EKyRd7jafxRodU=;
+        b=G6o0C2v0QDxhlbjG0ZrIE24e9Z2aiVf3dIQvywz+CSKKGRrH6ORq2FFrZaOD1U0p+6
+         qwYEE7m+FF4Fa7Cki2qtSdFnLbkR+MIOp3XWmPiODWPa5RCVqQ5ori4dzuWkQDHIyL4r
+         Rx21yPINF/qUO8/ctbY0exeYXIEYV5VYG8U+TfZCqNK5SQ/ytsTTfknGF304cuqhrsnm
+         loBJJfWauMrNifLYpIbzPmFNnSALv6JwYa53Ize3jRCaa/yS9ONrb5FyXeYgX3VICHat
+         KIWD2KwJcCywVizuGKXZVvHyZk2OOYj6jonZDpkngFaVWhs15tvmtOyJpxo7axx9L/jo
+         xc5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789141477; x=1789746277;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Q1DIDB+x6TVxI9bR6AVmRa+Nh/rJ1EKyRd7jafxRodU=;
+        b=C1kOjYs2P//ipWvziLa83gCLWTqlKnkSCUiDVwk4gFe+esGv7mNAaxrQ9FejIBWSem
+         TDBAwhbK4DsC2ZY8aQcSV75YQF+qpaB7ZUZqO4DPWl71218tdYTYy5DdK7719CaOoSSf
+         E6AoeQzTJh8vzNENnkqjcmyg+zsCSGiD56clzrlNv18F8Iee8NyebWBf4Kc/2dYYGIef
+         YlDMs+ORnHvxPyMIk+Vemv+ud6f646AtFIcjZkg3zw1Hrf0jrN1Mx14v3juZsI3Tnh0n
+         qY6W3WoYYEQRTJBoLMWNklnSrOEdo1k2WNsqLIPSNGPfya17A6zxQ2+PVhx8WgZD+Qz9
+         ZUFw==
+X-Forwarded-Encrypted: i=1; AKwUvBwCbrizw5Hj70oUIWWtkpV2zNT4jmNPG0hMnKGNcimbaCwWg5M9eU0x8EARYfwjMtR+OilyJhKB4bc0/ro=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbKsi4KDZZnazG2BdS2QjGxwp9R4+k3aCI063IjYpuwp0dV7M0
+	gI7vNyMCq+XtoUFr8gjEZVIBOzPjLmaoXXCuG5BmK2Imeji9EKY0r2xnYVxQvmYX/r368MxaiNX
+	LSG/Mtw+lpM80ZUjiQ4EBK83YlnCPNlCsYMPobloKtLG+OpRURdAkt7pgby2eoxG7tpg=
+X-Gm-Gg: AYBFou01N60ypPo8Jq/28g3fIyewdnySAa40YsYisCMz6RbFQmrbYw6Dd7xbhi4W9yq
+	UJT+l9HFqV+XEj+zbaSjyEQtqjz3T/X2CISyK6f3BoQgloG4fzW9ue/jMCdEMlgPWGNtQK+f+7F
+	/Au2jfC3SCqz+OVzfqCtDr3W6e1UqTgWUSgs30D9AoRV8FPXhrQFkVieQF02HNWMIYfmAPcX60v
+	Rd2tpiIZgp6S4ejZwmv/Wm172mAKPGGDKD9mahQufsSJvc2LmyaNdAGtZzMVmwd0GT16Gkxzq/Z
+	wJk1+GYatGYgzr5cnSpsVcWaOOuIfbqynM+c5zOguSkFymOB8hzbVX5YFzybH10/N56E4LJCLe+
+	UYpY3zW2jyCEjJ3VFgc6F9lb3nSrs90akBA==
+X-Received: by 2002:a17:902:e745:b0:2d8:d4d1:3139 with SMTP id d9443c01a7336-2dd2a3502demr87243945ad.16.1789141477481;
+        Fri, 11 Sep 2026 08:44:37 -0700 (PDT)
+X-Received: by 2002:a17:902:e745:b0:2d8:d4d1:3139 with SMTP id d9443c01a7336-2dd2a3502demr87243315ad.16.1789141476868;
+        Fri, 11 Sep 2026 08:44:36 -0700 (PDT)
+Received: from [192.168.2.5] ([183.83.172.20])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfef639sm13357245ad.71.2026.09.11.08.44.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 08:44:36 -0700 (PDT)
+Message-ID: <908bb1c3-c9b2-4275-a8f5-55b51ac84988@oss.qualcomm.com>
+Date: Fri, 11 Sep 2026 21:14:32 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911034059.3569914-2-matthias.goergens@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] powercap: Introduce generic hierarchy helpers and
+ selftests
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, rafael@kernel.org
+Cc: linux-pm@vger.kernel.org, shuah@kernel.org, linux-kernel@vger.kernel.org,
+        linux-kselftest@vger.kernel.org
+References: <20260806110159.69690-1-daniel.lezcano@oss.qualcomm.com>
+ <ef124b64-e7d2-4c9c-9890-00685e34f314@oss.qualcomm.com>
+Content-Language: en-US
+From: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+In-Reply-To: <ef124b64-e7d2-4c9c-9890-00685e34f314@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: wAyfwuHLgsKY2Ssn0nZ-1BgJBcdns2xy
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDIxOSBTYWx0ZWRfX1O5eDSd2jFk7
+ eTxkvYJzKnLBuGNibXFi5hrvWrOR4Rm9IP/Gg3OCVsL6ZnqoK6u4zSZcJLXQf9wwmqJC4lyuv5K
+ n1rTYoYsFYehsn6qIS820QFL3G/6pe0=
+X-Proofpoint-GUID: wAyfwuHLgsKY2Ssn0nZ-1BgJBcdns2xy
+X-Authority-Analysis: v=2.4 cv=DLoacCNb c=1 sm=1 tr=0 ts=6aa421e6 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=OBv5q4clJIp12fzIbOuMAg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=RYFYpSSLLWBHpy-p7LEA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDIxOSBTYWx0ZWRfX+iRABx3zBE/A
+ N9fN5xMkwBm7huOa+QXhN/TVFSWNGme73Qvo9r6Pemf3CaFIl41V49H9Y03fVLVyAeeIoGH0A0/
+ 7cQfKN+NS1sLl+BL5+ujfKFImi4u4dxhrxNDDrvSqy6Fs/mFe3FpahcZxtHtU7ER40PWPn8xjQ5
+ Lpb1Cr+YEg6yRMONW979+IJAyBAQmctBoFxWIQW57BHSqoN0XajDKTQEZ2tHznczbn7YL65yk9O
+ eNpo5U9NPWz6CF+d/bOB0v6Wr+So8EUAaxCgcPkWay+bgfQsi+PqRiFyqIo9D+D5Q8e/m5IM4dV
+ +r3Y7eFY7571cO0xbpZuC8lBL4Jj6gUEZF8OPI6wCUveBMqEyZt7JOCBOHaF+CJCJBYXnopbO5m
+ hYqayjZOsRKLJ+zuYYzAPZtrwaxtMIHKc0gygPmTL+dnFEH0jQOzWmnyW8WkstVJHy0ZH44B9Qd
+ Ctv7jYY5u/SHxLceMPw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-11_05,2026-09-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 phishscore=0 adultscore=0 suspectscore=0
+ spamscore=0 impostorscore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110219
 
-On Fri, Sep 11, 2026 at 11:40:59AM +0800, Matthias Goergens wrote:
-> The bcachefs ktest allocation-leak check writes rcutree.do_rcu_barrier
-> before reading /proc/allocinfo. While testing bcachefs performance
-> changes, small objects released with kfree_rcu() remained visible after
-> repeated writes to the hook and 20 seconds of waiting, causing otherwise
-> clean tests to fail their leak check.
-> 
-> The test assumes a stronger contract than the hook currently documents:
-> rcu_barrier() waits for ordinary callbacks, but does not flush objects
-> still held in kfree_rcu() batching or per-CPU SLUB sheaves. The retained
-> population eventually fell as a sheaf filled; there is no evidence here
-> of unbounded growth or OOM.
-> 
-> Changing the hook to drain kvfree_rcu() work let the same unmodified
-> bcachefs workload pass its allocation check. All eight checkpoints in
-> one VM, after 50 through 400 option changes, reported zero retained
-> reconcile_scan objects. This motivated the separate private-cache test
-> used to isolate the incomplete drain from bcachefs.
-> 
-> Calling kvfree_rcu_barrier() from rcu_barrier_throttled() was proposed
-> when kvfree_rcu_barrier() was added in 2024, to restore a clean baseline
-> between userspace benchmark runs. The discussion concluded that keeping
-> the existing hook name, adding the second operation and documenting both
-> was the safest compatibility choice, but the follow-up was not added.
-> 
-> Add that drain and document the stronger test interface. Always retain
-> the existing start-rate limit and perform the kvfree_rcu() drain: an
-> unrelated ordinary barrier does not establish that this work completed.
-> 
-> Retain the entry ordinary-barrier sequence snapshot. After draining,
-> skip the final ordinary barrier only if that snapshot is complete,
-> preserving the memory barrier on the completion path. Otherwise, invoke
-> rcu_barrier() explicitly. This keeps the ordinary-callback guarantee
-> independent of whether kvfree_rcu_barrier() embeds an ordinary barrier.
-> 
-> Clarify that the documented completion guarantee covers work queued
-> before the request, without preventing new work from being queued.
-> 
-> Earlier validation of the unconditional-drain version used four fresh
-> VM pairs with a private-cache fixture: controls retained the queued
-> object (60 to 60 active objects), and treatments drained it (60 to 59).
-> An ordinary-callback test passed on both kernels. Those runs predated
-> the guarded skip and do not validate that change. No elapsed-time
-> improvement is claimed.
-> 
-> Link: https://lore.kernel.org/all/20240820155935.1167988-1-urezki@gmail.com/
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+Hi Daniel,
 
-Queued for further review and testing, thank you!
-
-							Thanx, Paul
-
-> ---
->  .../admin-guide/kernel-parameters.txt         |  9 ++++--
->  kernel/rcu/tree.c                             | 30 ++++++++++++-------
->  2 files changed, 26 insertions(+), 13 deletions(-)
+On 9/7/2026 3:33 PM, Daniel Lezcano wrote:
 > 
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-> index 68647ff4bdd2..914b65ae9413 100644
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -5699,9 +5699,12 @@ Kernel parameters
->  			there is an ongoing too-long CSD-lock wait.
->  
->  	rcutree.do_rcu_barrier=	[KNL]
-> -			Request a call to rcu_barrier().  This is
-> -			throttled so that userspace tests can safely
-> -			hammer on the sysfs variable if they so choose.
-> +			Wait for deferred kfree_rcu() frees and ordinary
-> +			call_rcu() callbacks queued before this request to
-> +			complete.  This does not prevent new work from being
-> +			queued concurrently.  Requests are throttled so that
-> +			userspace tests can safely hammer on the sysfs
-> +			variable if they so choose.
->  			If triggered before the RCU grace-period machinery
->  			is fully active, this will error out with EAGAIN.
->  
-> diff --git a/kernel/rcu/tree.c b/kernel/rcu/tree.c
-> index 96848fc1f02b..93b71682306c 100644
-> --- a/kernel/rcu/tree.c
-> +++ b/kernel/rcu/tree.c
-> @@ -3989,12 +3989,12 @@ EXPORT_SYMBOL_GPL(rcu_barrier);
->  static unsigned long rcu_barrier_last_throttle;
->  
->  /**
-> - * rcu_barrier_throttled - Do rcu_barrier(), but limit to one per second
-> + * rcu_barrier_throttled - Drain deferred RCU frees, but rate-limit starts
->   *
-> - * This can be thought of as guard rails around rcu_barrier() that
-> - * permits unrestricted userspace use, at least assuming the hardware's
-> - * try_cmpxchg() is robust.  There will be at most one call per second to
-> - * rcu_barrier() system-wide from use of this function, which means that
-> + * This can be thought of as guard rails around the deferred-free barriers
-> + * that permit unrestricted userspace use, at least assuming the hardware's
-> + * try_cmpxchg() is robust.  There will be at most one drain operation started
-> + * per sixteenth of a second from use of this function, which means that
->   * callers might needlessly wait a second or three.
->   *
->   * This is intended for use by test suites to avoid OOM by flushing RCU
-> @@ -4016,14 +4016,24 @@ static void rcu_barrier_throttled(void)
->  	while (time_in_range(j, old, old + HZ / 16) ||
->  	       !try_cmpxchg(&rcu_barrier_last_throttle, &old, j)) {
->  		schedule_timeout_idle(HZ / 16);
-> -		if (rcu_seq_done(&rcu_state.barrier_sequence, s)) {
-> -			smp_mb(); /* caller's subsequent code after above check. */
-> -			return;
-> -		}
->  		j = jiffies;
->  		old = READ_ONCE(rcu_barrier_last_throttle);
->  	}
-> -	rcu_barrier();
-> +	/*
-> +	 * kfree_rcu() can retain objects outside the ordinary callback lists in
-> +	 * per-CPU SLUB sheaves and kvfree_rcu batches.  Always drain those queues:
-> +	 * an ordinary barrier does not establish that this work was drained.
-> +	 */
-> +	kvfree_rcu_barrier();
-> +	/*
-> +	 * A completed barrier can still cover ordinary callbacks queued before
-> +	 * our entry snapshot.  Otherwise, retain an explicit ordinary barrier
-> +	 * without depending on the implementation of kvfree_rcu_barrier().
-> +	 */
-> +	if (rcu_seq_done(&rcu_state.barrier_sequence, s))
-> +		smp_mb(); /* caller's subsequent code after above check. */
-> +	else
-> +		rcu_barrier();
->  }
->  
->  /*
-> -- 
-> 2.55.0
+> Hi Rafael,
 > 
+> On 8/6/26 13:01, Daniel Lezcano wrote:
+>> Powercap controllers frequently expose a hierarchy of power zones (for
+>> example package, clusters and CPUs). Until now, each driver had to
+>> implement its own hierarchy traversal, parent lookup, error handling and
+>> teardown logic.
+>>
+>> This series introduces a generic hierarchy description and helper
+>> functions allowing a controller to instantiate and destroy an entire
+>> powercap hierarchy from a static description. The framework takes care of
+>> duplicating the hierarchy description, rebasing parent pointers,
+>> creating zones in dependency order and performing the appropriate
+>> rollback and cleanup on errors.
+>>
+>> The series also adds a kselftest exercising the new API by creating a
+>> synthetic hierarchy, validating the exported sysfs hierarchy and
+>> attributes, and ensuring that all resources are correctly released when
+>> the hierarchy is destroyed.
+>>
+>> The patches are organized as follows:
+>>
+>> 1. powercap: Add generic zone hierarchy creation helpers
+>> 2. selftests/powercap: Add powercap hierarchy creation API tests
+>>
+>> The API was primarily motivated by the recently posted SPEL series and
+>> also provides a migration path for DTPM to use the same generic
+>> infrastructure instead of maintaining its own hierarchy handling.
+>>
+>> Link: SPEL cover letter <https://lore.kernel.org/lkml/20260702- 
+>> qcom_spel_driver_upstream-v3-0-434d50f0c5b0@oss.qualcomm.com/>
+>>
+>> Daniel Lezcano (2):
+>> powercap: Add generic zone hierarchy creation helpers
+>> selftests/powercap: Add powercap hierarchy creation API tests
+>>
+>> -- 
+> It was easy to migrate DTPM to this API and AFAICT Manaf was able to 
+> migrate also its series to this new API.
+
+Yes, I rebased my Qualcomm SPEL powercap driver series on top of this
+patch and migrated the series without any issues.
+These APIs significantly simplify the driver code for creating and
+managing the powercap hierarchy.
+
+Tested-by: Manaf Meethalavalappu Pallikunhi 
+<manaf.pallikunhi@oss.qualcomm.com>
+
+Thanks,
+Manaf
+
+> 
+> Is it possible to consider it for merging ?
+> 
+> Thanks
+> 
+>    -- Daniel
+> 
+> [1] https://lore.kernel.org/all/20260819165605.1398880-1- 
+> daniel.lezcano@oss.qualcomm.com/
+> 
+> [2] https://lore.kernel.org/all/20260702-qcom_spel_driver_upstream- 
+> v3-0-434d50f0c5b0@oss.qualcomm.com/
+
