@@ -1,278 +1,122 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
+Received: from bramsgout01.huawei.com (bramsgout01.huawei.com [119.8.89.135])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42DD730BF70;
-	Fri, 11 Sep 2026 01:17:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1327D2F616B;
+	Fri, 11 Sep 2026 01:18:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.8.89.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789089448; cv=none; b=gVlsqJ367LvwETTcuqvgP7xfGJmPH31uCozLixbLDWWzuE7nNbUxKEbJRYUbvp5DFtTUBFddoM0JkNmlbfU3vHPN63z8r1fOW4+nNRatd+d1bEmQg72olAA41KzVCHeAJN2Cla4dx7bAdxk5WymGwMoieYoo13seuBof0BdhXHM=
+	t=1789089517; cv=none; b=FcGbNXfQ0LDL3euc4wyUcGPWi2vmvTaG+d9zhrC/t4l0GefUcRxjFyDY8Vs5HOcBMEvW5IXJ71J+8qMMIUjf1ja/sgN08vKLIh9O8A9aJMOpBle9Ak8gcx//+2HX7ljlH0hlFCQBhfLQDP0NtP7apbDv09areasrUxAnbhdYhCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789089448; c=relaxed/simple;
-	bh=q7vjhCHZDrpHxRIDlApnFfxlBVwPlOCdqCcxRycO2Fk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gO8ejKWqCHsHFF+OqGuK7mPDJeCuWj8JbFmB9m6cKY9vzNSG7v6TbbrzVORJnrVil8sgd5bmjOewtiBlYFzzlq7FG/KVV3FutP0HeejzoL/GmfEkX+ZXdRUz4gWurIzswMiq8HxFRFUrpvOm29Y2W8mmUTh6p26kPpTVD4geyck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hgxV14vqtzKHMNl;
-	Fri, 11 Sep 2026 09:17:13 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id 1F7134056B;
-	Fri, 11 Sep 2026 09:17:19 +0800 (CST)
-Received: from [10.67.110.68] (unknown [10.67.110.68])
-	by APP4 (Coremail) with UTF8SMTPA id gCh0CgDnkpCdVqNqQJkhBg--.21732S2;
-	Fri, 11 Sep 2026 09:17:18 +0800 (CST)
-Message-ID: <6b43a2a9-7e71-4af9-bd56-1bf0d39405d6@huaweicloud.com>
-Date: Fri, 11 Sep 2026 09:17:17 +0800
+	s=arc-20240116; t=1789089517; c=relaxed/simple;
+	bh=eQIauYMRa6TjIK0rYZQYCQSuFJBb2g7nTWO536zFGpg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=tt+aT2/YyzTYKzEkSyiQ14WStaFoxu7KTG0oW1Cl0DSqoHbJQbSgiS0lWbCDUg4aeywmJigj3PpCOL53zYx2D5kJCyBr1y7U5hBSqz2k4icJXMQmot1XSbfVcplJ8kgImrhBxdPi650NjB8YUC2bNdSIgPyskNtwVAc7HdTJWIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=h-partners.com; dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b=SsH0WuFi; arc=none smtp.client-ip=119.8.89.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b="SsH0WuFi"
+dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=d9oLsbBdX5Yj6u7M4OyHosIbampjoiJ4QXjlTq/p25o=;
+	b=SsH0WuFiMXnAG0m293RZ13Vl+LlToM8BH32ETgnDdUwyvcf1ExtmYpazNs/4rXhZPVTxN/ToN
+	Hx7wauJhF0eHgy1LjD0FnE4fk5knyhlCfjWIyoKLmXRXCwFAyTIszslxD25X19WwHBSccdc/rPV
+	zURzcXPu9EXWkzzgts6e0Kg=
+Received: from mail.maildlp.com (unknown [172.18.210.132])
+	by bramsgout01.huawei.com (SkyGuard) with ESMTPS id 4hgwws0JZ8z3NPNP;
+	Fri, 11 Sep 2026 08:51:57 +0800 (CST)
+Received: from kwepemp500001.china.huawei.com (unknown [7.202.195.40])
+	by mail.maildlp.com (Postfix) with ESMTPS id C461E4058E;
+	Fri, 11 Sep 2026 09:00:44 +0800 (CST)
+Received: from kwepemp500015.china.huawei.com (7.202.195.9) by
+ kwepemp500001.china.huawei.com (7.202.195.40) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 11 Sep 2026 09:00:44 +0800
+Received: from [10.67.120.108] (10.67.120.108) by
+ kwepemp500015.china.huawei.com (7.202.195.9) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 11 Sep 2026 09:00:43 +0800
+Message-ID: <a97c6cfb-8476-1030-a07a-fea1c004ecbe@huawei.com>
+Date: Fri, 11 Sep 2026 09:00:43 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf v4] bpf: Fix UAF due to concurrent consumption of
- ttrace lists in alloc_bulk
-To: bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
- Alexei Starovoitov <ast@kernel.org>, Hou Tao <houtao@huaweicloud.com>,
- Leon Hwang <leon.hwang@linux.dev>
-Cc: Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>,
- Yonghong Song <yonghong.song@linux.dev>, Song Liu <song@kernel.org>,
- Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, Pu Lehui <pulehui@huawei.com>
-References: <20260905021139.4116529-1-pulehui@huaweicloud.com>
-Content-Language: en-US
-From: Pu Lehui <pulehui@huaweicloud.com>
-In-Reply-To: <20260905021139.4116529-1-pulehui@huaweicloud.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:gCh0CgDnkpCdVqNqQJkhBg--.21732S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3GFW8AFykGr4kGF1xtr4fZrb_yoWxtw17pF
-	W3Jr98Jr4rAF4av3WSqr48C393Xw40q343G3y5u34S9r1Y9wn0gFWfCry3uF9IyrZ7u34f
-	tr1q9r18Ar4UZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
-	WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvEwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
-	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
-	zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
-	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
-	CwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCT
-	nIWIevJa73UjIFyTuYvjfUonmRUUUUU
-X-CM-SenderInfo: psxovxtxl6x35dzhxuhorxvhhfrp/
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.1
+Subject: Re: [PATCH] scsi: libsas: Fix SMP IO deadlock during HA resume
+Content-Language: en-CA
+To: <john.g.garry@oracle.com>, <yanaijie@huawei.com>, <jejb@linux.ibm.com>,
+	<martin.petersen@oracle.com>, <john.garry@linux.dev>, <mkp@kernel.org>
+CC: <linux-scsi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linuxarm@huawei.com>, <liuyonglong@huawei.com>, <kangfenglong@huawei.com>
+References: <20260826032845.1632348-1-yangxingui@huawei.com>
+From: yangxingui <yangxingui@huawei.com>
+In-Reply-To: <20260826032845.1632348-1-yangxingui@huawei.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepemj500017.china.huawei.com (7.202.194.47) To
+ kwepemp500015.china.huawei.com (7.202.195.9)
 
-Gentle ping~
+Hi John & Jason,
 
-Hi all, Is this commit looks proper?
+Kindly ping for review...
 
-On 2026/9/5 10:11, Pu Lehui wrote:
-> From: Pu Lehui <pulehui@huawei.com>
+On 2026/8/26 11:28, Xingui Yang wrote:
+> During sas_resume_ha() -> sas_drain_work(), ATA EH will trigger SMP IOs via
+> sas_phy_reset() -> sas_smp_phy_control() for expander-attached ATA devices.
+> Since ha->dev is RPM_RESUMING at that point, pm_runtime_get_sync() blocks
+> waiting for the resume to finish, but the resume is blocked in
+> sas_drain_work() waiting for the SMP IO — a deadlock.
 > 
-> Syzkaller repeatedly triggered UAF splats related to nodes in
-> waiting_for_gp_ttrace within the bpf memalloc:
+> Skip the PM get/put when SAS_HA_RESUMING is set. The hardware is already
+> initialized by the LLDD resume callback before sas_resume_ha() runs, so no
+> explicit resume is needed.
 > 
-> BUG: KASAN: slab-use-after-free in llist_del_first+0x85/0x110 lib/llist.c:61
-> Read of size 8 at addr ffff8881572cd080 by task syz.4.470/5112
->   ...
->   llist_del_first+0x85/0x110 lib/llist.c:61
->   alloc_bulk+0x193/0x460 kernel/bpf/memalloc.c:229
->   bpf_mem_refill+0x386/0x560 kernel/bpf/memalloc.c:436
+> Only hisi_sas enables runtime PM among libsas LLDDs, so other drivers
+> (pm8001, isci, aic94xx, mvsas) are unaffected.
 > 
-> Freed by task 14:
->   ...
->   __free_rcu kernel/bpf/memalloc.c:281 [inline]
->   __free_rcu_tasks_trace+0x48/0xd0 kernel/bpf/memalloc.c:291
->   rcu_tasks_invoke_cbs+0x1ec/0x3e0 kernel/rcu/tasks.h:571
->   rcu_tasks_one_gp+0x13d/0x220 kernel/rcu/tasks.h:621
->   rcu_tasks_kthread+0xf3/0x120 kernel/rcu/tasks.h:651
-> 
-> The reason is that the UAF occurs after the RCU Tasks Trace GP expires:
-> when the __free_rcu() callback runs, there is no synchronization
-> protecting llist_del_all() against concurrent alloc_bulk() operating on
-> waiting_for_gp_ttrace, leading to the race condition below:
-> 
-> CPU0                                           CPU1
->                                                 __free_rcu (RCU Tasks Trace callback)
-> alloc_bulk
->    llist_del_first(&c->waiting_for_gp_ttrace)
->      entry = smp_load_acquire(&head->first);
->      do {
->        if (entry == NULL)
->          return NULL;
->                                                 free_all(llist_del_all(&c->waiting_for_gp_ttrace))
->                                                   llist_for_each_safe(pos, t, llnode)
->                                                     free_one(pos);
->        next = READ_ONCE(entry->next); <-- trigger UAF
->      } while (!try_cmpxchg(&head->first, &entry, next));
-> 
-> In addition, there is also a theoretical race condition on the
-> free_by_rcu_ttrace list. This race requires two preconditions: an
-> in-flight Tasks Trace GP keeping c->call_rcu_ttrace_in_progress == 1,
-> and concurrent cross-CPU frees repopulating c->free_by_rcu_ttrace with
-> new nodes. Under these conditions, the following scenario triggers UAF:
-> 
-> // CPU0
-> // irq work is still busy (on PREEMPT_RT)
-> alloc_bulk()
->    llist_del_first(&c->free_by_rcu_ttrace)
->      entry = smp_load_acquire(&head->first);
->      do {
->        if (entry == NULL)
->          return NULL;
-> 
->          // CPU1
->          bpf_mem_alloc_destroy()
->            WRITE_ONCE(c->draining, true)
->            // wait for CPU0
->            irq_work_sync()
-> 
->                  // CPU2
->                  do_call_rcu_ttrace(tgt(CPU0))
->                    if (c->draining) {
->                      llist_del_all(&c->free_by_rcu_ttrace)
->                      free_all()
->                    }
-> 
-> // CPU0 continue
->        next = READ_ONCE(entry->next); <-- trigger UAF
->      while (!try_cmpxchg(&head->first, &entry, next));
-> 
-> Fix this by introducing a raw spinlock to synchronize the concurrent
-> consumption on waiting_for_gp_ttrace and free_by_rcu_ttrace.
-> 
-> Fixes: 04fabf00b4d3 ("bpf: Allow reuse from waiting_for_gp_ttrace list.")
-> Suggested-by: Alexei Starovoitov <ast@kernel.org>
-> Suggested-by: Hou Tao <houtao1@huawei.com>
-> Signed-off-by: Pu Lehui <pulehui@huawei.com>
+> Fixes: 0da7ca4c4fd9 ("scsi: libsas: Resume host while sending SMP I/Os")
+> Signed-off-by: Xingui Yang <yangxingui@huawei.com>
 > ---
-> v4:
-> - Update comments for ttrace list in alloc_bulk. (BPF CI)
-> - Drop initial troubleshooting explaining in commit message.
+>   drivers/scsi/libsas/sas_expander.c | 16 +++++++++++++---
+>   1 file changed, 13 insertions(+), 3 deletions(-)
 > 
-> v3: https://lore.kernel.org/bpf/20260901150307.3474349-1-pulehui@huaweicloud.com
-> - Fix concurrent issue also for free_by_rcu_ttrace. (bpfci and Hou Tao)
-> - Use scoped_guard. (Leon)
-> 
-> v2: https://lore.kernel.org/bpf/20260827084013.1062816-1-pulehui@huaweicloud.com
-> - Use raw spinlock to fix concurrent alloc_bulk and __free_rcu on
->    waiting_for_gp_ttrace after GP. (Hou Tao)
-> 
-> v1: https://lore.kernel.org/bpf/20260826103615.932094-1-pulehui@huaweicloud.com
-> 
->   kernel/bpf/memalloc.c | 50 ++++++++++++++++++++++++-------------------
->   1 file changed, 28 insertions(+), 22 deletions(-)
-> 
-> diff --git a/kernel/bpf/memalloc.c b/kernel/bpf/memalloc.c
-> index e9662db7198f..8a8f088e83e6 100644
-> --- a/kernel/bpf/memalloc.c
-> +++ b/kernel/bpf/memalloc.c
-> @@ -119,6 +119,7 @@ struct bpf_mem_cache {
->   	struct llist_head waiting_for_gp_ttrace;
->   	struct rcu_head rcu_ttrace;
->   	atomic_t call_rcu_ttrace_in_progress;
-> +	raw_spinlock_t lock;
->   };
->   
->   struct bpf_mem_caches {
-> @@ -214,25 +215,24 @@ static void alloc_bulk(struct bpf_mem_cache *c, int cnt, int node, bool atomic)
->   	gfp = __GFP_NOWARN | __GFP_ACCOUNT;
->   	gfp |= atomic ? GFP_NOWAIT : GFP_KERNEL;
->   
-> -	for (i = 0; i < cnt; i++) {
-> -		/*
-> -		 * For every 'c' llist_del_first(&c->free_by_rcu_ttrace); is
-> -		 * done only by one CPU == current CPU. Other CPUs might
-> -		 * llist_add() and llist_del_all() in parallel.
-> -		 */
-> -		obj = llist_del_first(&c->free_by_rcu_ttrace);
-> -		if (!obj)
-> -			break;
-> -		add_obj_to_free_list(c, obj);
-> -	}
-> -	if (i >= cnt)
-> -		return;
-> +	/*
-> +	 * c->lock serializes concurrent llist_del_first() against
-> +	 * llist_del_all() in __free_rcu() and do_call_rcu_ttrace().
-> +	 */
-> +	scoped_guard(raw_spinlock_irqsave, &c->lock) {
-> +		for (i = 0; i < cnt; i++) {
-> +			obj = llist_del_first(&c->free_by_rcu_ttrace);
-> +			if (!obj)
-> +				break;
-> +			add_obj_to_free_list(c, obj);
-> +		}
->   
-> -	for (; i < cnt; i++) {
-> -		obj = llist_del_first(&c->waiting_for_gp_ttrace);
-> -		if (!obj)
-> -			break;
-> -		add_obj_to_free_list(c, obj);
-> +		for (; i < cnt; i++) {
-> +			obj = llist_del_first(&c->waiting_for_gp_ttrace);
-> +			if (!obj)
-> +				break;
-> +			add_obj_to_free_list(c, obj);
-> +		}
->   	}
->   	if (i >= cnt)
->   		return;
-> @@ -279,8 +279,12 @@ static int free_all(struct bpf_mem_cache *c, struct llist_node *llnode, bool per
->   static void __free_rcu(struct rcu_head *head)
->   {
->   	struct bpf_mem_cache *c = container_of(head, struct bpf_mem_cache, rcu_ttrace);
-> +	struct llist_node *llnode;
+> diff --git a/drivers/scsi/libsas/sas_expander.c b/drivers/scsi/libsas/sas_expander.c
+> index 811c9eb4fef1..77ae2ae7b2c4 100644
+> --- a/drivers/scsi/libsas/sas_expander.c
+> +++ b/drivers/scsi/libsas/sas_expander.c
+> @@ -61,8 +61,17 @@ static int smp_execute_task_sg(struct domain_device *dev,
+>   	struct sas_internal *i =
+>   		to_sas_internal(dev->port->ha->shost->transportt);
+>   	struct sas_ha_struct *ha = dev->port->ha;
+> -
+> -	pm_runtime_get_sync(ha->dev);
+> +	bool skip_pm = test_bit(SAS_HA_RESUMING, &ha->state);
 > +
-> +	scoped_guard(raw_spinlock_irqsave, &c->lock)
-> +		llnode = llist_del_all(&c->waiting_for_gp_ttrace);
->   
-> -	free_all(c, llist_del_all(&c->waiting_for_gp_ttrace), !!c->percpu_size);
-> +	free_all(c, llnode, !!c->percpu_size);
->   	atomic_set(&c->call_rcu_ttrace_in_progress, 0);
->   }
->   
-> @@ -300,7 +304,8 @@ static void do_call_rcu_ttrace(struct bpf_mem_cache *c)
->   
->   	if (atomic_xchg(&c->call_rcu_ttrace_in_progress, 1)) {
->   		if (unlikely(READ_ONCE(c->draining))) {
-> -			llnode = llist_del_all(&c->free_by_rcu_ttrace);
-> +			scoped_guard(raw_spinlock_irqsave, &c->lock)
-> +				llnode = llist_del_all(&c->free_by_rcu_ttrace);
->   			free_all(c, llnode, !!c->percpu_size);
+> +	/*
+> +	 * Skip PM get/put during HA resume to avoid deadlock: the host is
+> +	 * RPM_RESUMING and the drain waits for this SMP IO to finish, but
+> +	 * pm_runtime_get_sync() would block on RPM_RESUMING. Safe because
+> +	 * hardware is already initialized by the LLDD before call
+> +	 * sas_resume_ha().
+> +	 */
+> +	if (!skip_pm)
+> +		pm_runtime_get_sync(ha->dev);
+>   	mutex_lock(&dev->ex_dev.cmd_mutex);
+>   	for (retry = 0; retry < 3; retry++) {
+>   		if (test_bit(SAS_DEV_GONE, &dev->state)) {
+> @@ -135,7 +144,8 @@ static int smp_execute_task_sg(struct domain_device *dev,
 >   		}
->   		return;
-> @@ -535,6 +540,7 @@ int bpf_mem_alloc_init(struct bpf_mem_alloc *ma, int size, bool percpu)
->   			c->objcg = objcg;
->   			c->percpu_size = percpu_size;
->   			c->tgt = c;
-> +			raw_spin_lock_init(&c->lock);
->   			init_refill_work(c);
->   			prefill_mem_cache(c, cpu);
->   		}
-> @@ -557,7 +563,7 @@ int bpf_mem_alloc_init(struct bpf_mem_alloc *ma, int size, bool percpu)
->   			c->objcg = objcg;
->   			c->percpu_size = percpu_size;
->   			c->tgt = c;
-> -
-> +			raw_spin_lock_init(&c->lock);
->   			init_refill_work(c);
->   			prefill_mem_cache(c, cpu);
->   		}
-> @@ -609,7 +615,7 @@ int bpf_mem_alloc_percpu_unit_init(struct bpf_mem_alloc *ma, int size)
->   		c->objcg = objcg;
->   		c->percpu_size = percpu_size;
->   		c->tgt = c;
-> -
-> +		raw_spin_lock_init(&c->lock);
->   		init_refill_work(c);
->   		prefill_mem_cache(c, cpu);
 >   	}
-
+>   	mutex_unlock(&dev->ex_dev.cmd_mutex);
+> -	pm_runtime_put_sync(ha->dev);
+> +	if (!skip_pm)
+> +		pm_runtime_put_sync(ha->dev);
+>   
+>   	BUG_ON(retry == 3 && task != NULL);
+>   	sas_free_task(task);
+> 
