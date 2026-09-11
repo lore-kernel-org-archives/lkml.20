@@ -1,159 +1,168 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010039.outbound.protection.outlook.com [52.101.201.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9196236194E
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:34:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A92F33BBAF
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:34:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.39
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789137242; cv=pass; b=uDNMGxHenFu9UOy3br0+MQ8ZByMiHIAvKxkUNGx5WAuYubiwD/tlbPV40oF+Ta6tYYWCHvC5IteFN2SLn5p/Bcl3FfH4Q9hrUqGYGnjlInyp07zZzalgVYYq18GVoYL1PY6KZQqSyr7GSAsSDWxv57UyfLhaW0BJQ+lrgGzXTwo=
+	t=1789137279; cv=fail; b=B2i/2dGGuGLVTzARF+ygRNX0e9K5kMKe2wVPV30qkks9GyFRONu22XFJoK0quUQ2GoF9uustfNCAOLL+nW1KEXxm2WedzeQ3JNrN2ufjrjAhaCMZoVw/xStk1Py3Ng9VqhEMhOBd9Q2qkPmjuBCRBXojrgsa0aSE3nXDHVr5k2w=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789137242; c=relaxed/simple;
-	bh=Lq85WXNE3B6YdVcdVzLIUHNyP68RoDDuzGsNkOKe6D8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ok8oU3CERhCjBUYQ70RqEHxcNOIWFlz2sM7br5v5Fwch4hoSpPYC5B/pEh7xqNnQxl3T4MkjxjbkWk+q4QUXLGBSfubKJ2dcwMiB60VTOd9owGpovcgDYlE3P/9rVy/tD9yJWo+jeuJ2afJY8/HuxQ9PQ9B+v3anxvtDThUg1Xo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rjHv0euU; arc=pass smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789137279; c=relaxed/simple;
+	bh=+kt5G7uU7jAk9888q4PMp9Wle7UITsUj66ZeBygTHes=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=YyTVk/MBsRM26KtS8048ZeGxZY28LWlzr84+s+ejtpHZy4tKJ95JB/3xqsz+cBCcoZ2Zu8EGIubvZTPRt5fVd0FSXSPoiqNGK/ISHpdSe4OKuIt1nQ3oyYw4Uta7v9HJEr7YP8iRkTANeq8v5raedIYD8VeekjUQGa3kDACrsfo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=WCPv7Vck; arc=fail smtp.client-ip=52.101.201.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rjHv0euU"
-Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d46e4cdcdso7585797b3.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:34:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789137239; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BrBulyES3R4+tIqmxu1KhmkCpi6iVrDfAptJh2PureRT3PG7SPTfI+9T88naFoJWpG
-         X60o1vSIIVV4WVXhxk1RSmyvbpENW7npJGdx7ZEhs+ZuAKYa7fFOjimboMWXJrru9QVc
-         rJsuL13Ccjt/rN5vy4wo9ipPjnYXSLm3pZQbWNnqyGs231sWmRRoqBoe+DNoHwiMWZSw
-         hz7Sk8iWrnk+tnpUOeTNQrSo1A8aEcZtlhVHD2xAYwoBn91GSBlFwtDlf2y+jAaGuqb8
-         eYaqAoan90t8dKU7aHj/Vzu5UFDc++w+IPLmIYf2o+JGGFOOWI5TkckD0kX7MdJlbJVY
-         KVHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=253PUwIF2lUbExbnq4pn03NFxabLUx1bSqL243QpTlU=;
-        fh=VB2yFHNBANU4XUunYaq+Ucq1D3WVoCYjiJRpKXdEmpA=;
-        b=LmR8kVjKfTKnTSYXw7HylX5EIrecJWcsbtlkso93WSmoE0YfP85/LQY92rjD0Xz6BV
-         j0taIywG/FsiHsya8DMr40157/d0WaMcxZAeIaF0Y+Aho9yRl0a0EKmUAgts6LesXsmz
-         /WQEQNDpPZ7MHobAJ3gmQdnLqds+1HOZfMNO3uZoK0uq0+KLXwuXzSBszJtLq9jv8p+Q
-         hp8E7R5t3hCtfpDCBJdPakkTozGroT5bDKirT1Oik+HNEeaiTXEMMmfnCs+HU0/8gv4z
-         iQxP4crdl0MeNigZHvKO8ZTsd6+EgZqINZtHomaVSfqWAx1F52RvRfkpnP1QtruORhVw
-         az6A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789137239; x=1789742039; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=253PUwIF2lUbExbnq4pn03NFxabLUx1bSqL243QpTlU=;
-        b=rjHv0euU+pcmVHL+V6UqxQi2WYPJD2pJH9lQxY/FIHlQEswSsGWtgrV3ByyD+1Amuk
-         WWkk1D4K9W8bLOVknbefu6dMM01T5UhKvepV5WK7gGHazGPqfVkD2706uFn0ccRijPK3
-         sJzn6JReReo19mM4kwu0d4/2IjVsNHn1JDZi6jYWzHRdcBgm4+frWyDJhm8joLmOQWjD
-         4MnozQab1ROzb1rn558JXRMeP/kDdPIVOLhlgQ8P6QPSUe+42zeJkN5m7G1RPi/y1IL3
-         n8kGFGMdpZlia+AD1FpH1dcYGfdBW2bk2IYPJdlYBNQpHdsRatd9MacjS/t+f6mwijLC
-         c4qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789137239; x=1789742039;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=253PUwIF2lUbExbnq4pn03NFxabLUx1bSqL243QpTlU=;
-        b=ama3iMMEGmSNsXhjvY4V15EgXT6PZT/8WEvv+GbTY9L3j6vqEMK9zfc2RVytrYuwb2
-         FghM2QRy/IEyFj0CKxxPo4NvlskYadJMIyLrHGYTzUskrqR07Dqsz9CqVAco+EfYHoK9
-         ddKkMDeGJIsPxPMiLhPqF7XJ6vwe+RUuaLnJq3GUrcPPdtlxtWYnTNRNvQLZ6ll2Oi+Z
-         uv61Ocbn5OXaWBJNeJHtl2ZDQi9FaD4iGT6nTYLzh2DhDWI5+iuX9Z+O8xYw2a5PqH+O
-         nD7F9ked6zqmt91mvjAEbolQFQiLUFYuH6iFACudirSH4i3thIhA0Wf1JhIf3CCm4nP/
-         rE1A==
-X-Forwarded-Encrypted: i=1; AKwUvBy/UdEI9GWIXqy9F8snAm7ZFg0f7ExgRQv+VUQOiIDaOjv/fXOyn5U37/L4S9O7CV8okojHg0e+/4AKRbs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTMQHVnboO1R0lHzkCNfnRDb0jlCObHipMPf37BLPmVX0Y1hwB
-	A2TbZsE1rVZg+cclPvs6niFQN1Two0R5Jo+/ir2r2O6kHkrcGMCyOZlYLSVchPygZZoo7id1HFJ
-	kLJliMHp8BEFpAKoa8lBeUIa2P4/r2hY=
-X-Gm-Gg: AYBFou33VW/16tDZTCCaLKkZ0I6c4jPeWIsop48sM0Uwt2upb68lZCq2/IPExZAZSco
-	R/P0+4s9JbX3/50qfblF/9e/QNVIYRguJ2OXr3vZIm3SbcgYX7VFF2HZ/TQGLG74YjRHLC3IVHy
-	j3yCsQ0+CM/ZDonqRsKt+FSWoimKU9GRt9jYSEDi5k5w8vajzj+Np3d88wqnRC0sqFRGPNR0CuY
-	WI77Zn+QlV1JHxlJfngW2GFeBUGGeKrafk7KGdn5EoAgirJv/iaOHmw1kcmuTe0VBJURIX96ylo
-	qvvfF12SkodpxgUqszsJU+MOpvlDmxPsDrW+KrdbArBx1DbAJp0Tt8k0UslgdhTyF6gWDQgddd7
-	yllqLWoPOETpjWTesyG4LpockBRokNTiBTpcUNcs=
-X-Received: by 2002:a05:690c:d94:b0:854:27c3:5cd8 with SMTP id
- 00721157ae682-884b387a6ecmr19566477b3.27.1789137239315; Fri, 11 Sep 2026
- 07:33:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="WCPv7Vck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bUSh6w+YYZwd8H/EodBdjhz75UStckdwzpm6vpezvbyKrMxRg//hJZQ6vhl7ywnpvd9SDuupezCdMz2BBaVL+OKlLog4ukcmQ6D4mXyqfkjxhW9RdZfwtH4Rs6X7kKUVrT9NWezRfuNDZQ471lwdO7BHF1dar/VQV2D2U/imnoWWfycnDZQFZwI6b0nobg4OdOStWnE7YdTAAm8MUYj0LRNwBuc3ejjmvlfxuQxtV6PPnJKt4ONTRUfputjuWec56JMekNU8gN1HsfAZFgXrGzWdgmrIggBhAIab/m3Dh92F07x3NNvanAoWQv/IZA0u2brL4hs2zgov34M6K3nm9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3cx825lV1m5kDyC9LW1BOghhObtj4WdsGxcZSYm7X3I=;
+ b=qTvWBtMK1j/qgJRvt9y/YfLJJ/9Jk1prL8SFDIvfZyNYtrKZwJC4K+cEOt+4KjCsItxX1Sp0+YhNQw92fOCcsb8Gq6QbxTi9shMHFgPZMYyN4PX4GFZGkZ3pCq1Jcp6r5N3lpZOZoTRDii97WGQnxywqnGGkRwUqDbSsulq1y2i7dLrB/wB5cZdTqdchHdXAD2326hhtsWAG5q4f936gEN2oYrsi2vCGALzKyW7aBXCfRnxy++6fpqRLm8un3hsBRLOEGBBHsGMIEm5JB2kDu1mcWpGUIpRO6AnssAKwJhkwbW3mWBOeptb9XGbQL0oxdiePUjd+LBnyZ5X1MwNo9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3cx825lV1m5kDyC9LW1BOghhObtj4WdsGxcZSYm7X3I=;
+ b=WCPv7Vck4e/lVHRHKZ/u3jkil7PfjOxUuuuR66bzTUlVnT7NY5O+xQPjbIwpL+/VSaHzMDIWt+iuupYAgLMRuBdg8aaqVC99EGe4+vuWPTYBgPKPfIDFQX9roRoGghJTF+5ZKyVr9YVAuPCL0NyCamD6QKGEt+SKjr2ZxLLSt0rRPew30CbMXqVnKIr2wxdOy5uQAbqQ+T1LD7T12nK55fohBPF24ScFZn18fqTLFqHAr1paMr63o6/XX6WFCBknKRBV8N7ZqvrAqBRFnmS4IV/dQw3c7Xn/4PTydUnDSLxNQrHnUA8hz1sDENMMfyboffScfTcKg0sWHD1osw/e7w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by IA0PPF4D923B935.namprd12.prod.outlook.com (2603:10b6:20f:fc04::bcd) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Fri, 11 Sep
+ 2026 14:34:34 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 14:34:34 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: akpm@linux-foundation.org, hughd@google.com, david@kernel.org,
+ liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com,
+ dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev,
+ usama.arif@linux.dev, kas@kernel.org, ljs@kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm: shmem: ignore sysfs configs for shmem forced collapse
+Date: Fri, 11 Sep 2026 10:34:36 -0400
+X-Mailer: MailMate (3.0r7032)
+Message-ID: <05182431-A4BB-4842-86CC-68B2E14A4F33@nvidia.com>
+In-Reply-To:
+ <b1829ac0d3f38217f031854ff0f40abef614ac0d.1789098446.git.baolin.wang@linux.alibaba.com>
+References:
+ <b1829ac0d3f38217f031854ff0f40abef614ac0d.1789098446.git.baolin.wang@linux.alibaba.com>
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+X-MS-Reactions: disallow
+X-ClientProxiedBy: BN9PR03CA0639.namprd03.prod.outlook.com
+ (2603:10b6:408:13b::14) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911104234.2276126-1-chris.lu@mediatek.com>
-In-Reply-To: <20260911104234.2276126-1-chris.lu@mediatek.com>
-From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Date: Fri, 11 Sep 2026 10:33:48 -0400
-X-Gm-Features: AcwNN1VOio-kJ1e73tLJ7cg4_i84qUwIWDri4lPL6COQQRrdpvIJBVG3J4WPA50
-Message-ID: <CABBYNZ+SD=KAyMwGf_cBZARONqXhjTg2O-r5FHTqUyMrsprZMQ@mail.gmail.com>
-Subject: Re: [PATCH 0/3] Bluetooth: btmtk: firmware debug event routing and
- WMT FUNC_CTRL status fixes
-To: Chris Lu <chris.lu@mediatek.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>, Johan Hedberg <johan.hedberg@gmail.com>, 
-	Sean Wang <sean.wang@mediatek.com>, Will Lee <will-cy.Lee@mediatek.com>, 
-	SS Wu <ss.wu@mediatek.com>, linux-bluetooth <linux-bluetooth@vger.kernel.org>, 
-	linux-kernel <linux-kernel@vger.kernel.org>, 
-	linux-mediatek <linux-mediatek@lists.infradead.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|IA0PPF4D923B935:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5faacaf2-9caa-45f6-11f2-08df1011cc4a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|366016|18002099003|22082099003|10067099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	Dg5lQskHk0HJL2BLooB1chMcgFRDMEUooG2rf43pgO7DgmY3M2EhGy2/IU/0bAAh2OyosUsKd92qafJph6eIoajPBxvzVKHLoMHf/KuY2VpbRnQRnBv80/Ly576A7Jn/00aA/c7g7lKLZu612isMz1esFAIc28u68wkB3DFZ86xP/q9zey5Tp5LAgX+/nNe9NMuurDlN0Ho8mEfAdlbHerJJZTyi2ziJOq23OFTAyWdLSosOOiUL/tRZkRI31DCWg06Nr9y1cGCH1s1+/pZgYTejWQJhUvxnr2H5LGdnX4rotN9KgZ/uPYSv7cazMXnFDXrBEFuaXqXCDzTTdx/BoaMciCXRdLQ+2nHwOIJWdw0yslinDDpMK+1dhD0kc5AIBLKaEnvzzDhF6+oLui98LX3a4HgHU69MRiwaU4ZeUsVNE7uO6hbO2PaIMerNNRUIw+BbanQZ/413CEh8QuCldvs0Vv/evxt26eyUbnATbWESEgRLIXuFfxZcSKJg0B+aHCVrbthcQa7JwnoygxYb6fGPm++6NDzYJgPvP7U4nzKscp8K5a2PeNcft9PLPLHHTeFcOK3ZbXiA5W0mbxdta7jIFgH+23qAeHJwv37QVCRIp4xRlDnu+Xb5ejggcQyqwiXQQ/y6UA18LHy219uaJGRxKARgYDFaG0661I6w+PM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(18002099003)(22082099003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?x2Ne+bILIuEu4dngwBgQhRzjiAaVCVaEmH3jFuxMqsWbdTQb6fTbKf0FFJc5?=
+ =?us-ascii?Q?Fv+KSzm7TE0YZV9eCP6spmV4AmllIcMtKeT9Q2GFBVJuQooK0nNf9N+b61xq?=
+ =?us-ascii?Q?T5LOHCCBSm7VAhXM6Nf0WAmhYSrfsfbubo6RI7Ttnoog0Rjk2EqYs76fLtSp?=
+ =?us-ascii?Q?z/9Nyiwc7prgQ8Zyr0ceE9ZHrbJD1Jc75o9SWk2Az0+HX4SpX0XN7G5thuKD?=
+ =?us-ascii?Q?O2p38Q+rxaQzLca8PXWcOXuQmABJisFfeS9JSC8FoT/Vd9MzobkfJQG/N9Oq?=
+ =?us-ascii?Q?uae37a7wpP/C2xhaSrcvpgcTKM/0MaoqJK/QHJL0IdiAOm2BvdVyQPynJpgI?=
+ =?us-ascii?Q?lhVRRNLumn6W+tiro2W8rORkiEOkWiUhbLnacqZlpkwdsNX0ZoXaCHSS19IX?=
+ =?us-ascii?Q?I4p21CSUzHFDgRERENwSV39ZNcQg4Nd8LdU47EfGgjGAYAXqpIYd65qh9SVv?=
+ =?us-ascii?Q?sJ3q+PEng7pgrcrAuzrTsocEYxeO+e1XW6VbnoJDCRqg2rffOhLfej/gdmg1?=
+ =?us-ascii?Q?+4DJHFtKEnN0dM8QtXcO8oUR8o0I1o0DJLeDuuANJ1p1Tnkd+Id5ZeEa7AhY?=
+ =?us-ascii?Q?RfGr5FegGfqBQCIhnCn6PxAIPfevO/Rmk0G6O+Q5lHbaF9mDqjH1i6nY7XHq?=
+ =?us-ascii?Q?O25vCP/ohSNhaZG+eyw/GD9/Db1tkQtzADDSl4+wovJ/K929Sr2+PXwGqKRz?=
+ =?us-ascii?Q?tz0hqlYiVPczRnFAAgOGP/5H4XwpWNByxP3wD/Nx5IaRrMKpPfzn/dScPKev?=
+ =?us-ascii?Q?7l3PcWw2gT9JQLF6eg+AxqB4rGu6/pBU7l2Ypk2Fdn0xuGw8mB/ytbIr0Lc+?=
+ =?us-ascii?Q?WCoygHdIk9CXPYlgEerwfNvDUI3CbK9gAN9a3xIfzK7Mmc+Mzx57oje6gntS?=
+ =?us-ascii?Q?kzc9+t8tiNxlFD/JmSLfJoXZTe+Nry9kHL/A654IlVqa0X35u7VY3FJpyBe4?=
+ =?us-ascii?Q?tBkTH2cHrAT9PW84F3Nq8lKbWbmWxiA18oc8bMohCoPPUgkwe1iAq5cXUXzp?=
+ =?us-ascii?Q?gJJ7y5n5Kau2l7x80Yattb3zrN0SJItX2MCXlJrNVju5UtrfVLtjbSfSD/4m?=
+ =?us-ascii?Q?BtEpPcc1yr10rSEDubJKq3+MLrhcBNnBgp08gSXgK68LzB6bb0XoHnPFLXtg?=
+ =?us-ascii?Q?ZZtCKmA/ABTTMJ/byrUqk8iQDjbKp7xh4RukcrSKLhk1UdJHzh3kH2uRnI4k?=
+ =?us-ascii?Q?tdt8CW8hSZ++pwJlYlPN6u+Aq96lcrXwSS629gwUewOP+LZK0GCKoq/fER2m?=
+ =?us-ascii?Q?SQ5VvAv0LpsbOdoVr+4SstM0dd6C+WhEPihjcFEW5ZdjcF0zUjnbNiuL6VXe?=
+ =?us-ascii?Q?QrsEd3NR+73vzde7s4mYCOu2+sAmEyKZ4Eidqufv+ZO3tygXB5AI3AzDuN5I?=
+ =?us-ascii?Q?F5hARQc2Qz1CBc84WvuPa1FARpHfKJ2G+ootW3wbbHNNDAEkFEccpjLOBoqa?=
+ =?us-ascii?Q?ouLvwSmSupL1AJQlOcnR3Kvwz0SIU0CXE6Ub6Y5MbZO1LKs2YNyNtUQbOU0U?=
+ =?us-ascii?Q?1dmsoQMfKRE1u4178h5CYHAhunZ8Ke86zn0ROOxDGpKXD/UriLcijQasNtil?=
+ =?us-ascii?Q?eAF9OkzKnNBSZXzbE+c0rfu6O5+wJnTfj6epIciGiwzKxJQZN61zV0yUE3+9?=
+ =?us-ascii?Q?XCxkT0Zta1HTOLnHfjVHv3gDZoCxKcFXK1kRIrzGO89ElIU/+c/1dOGooKx0?=
+ =?us-ascii?Q?1C14JMGJEOV9fQFsbL4/wRfbkqZxkyZp/Lj91IuBFd+LBV3/?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5faacaf2-9caa-45f6-11f2-08df1011cc4a
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 14:34:34.0022
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BZiipEPDe0hkiyylbmuDzxtCcv34pung/5a2Vmf6WiHVWb6rSIIAPxw2DQvPfF/Z
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF4D923B935
 
-Hi Chris,
+On 11 Sep 2026, at 0:04, Baolin Wang wrote:
 
-On Fri, Sep 11, 2026 at 6:42=E2=80=AFAM Chris Lu <chris.lu@mediatek.com> wr=
-ote:
+> According to Documentation/mm/transhuge.rst, MADV_COLLAPSE is expected =
+to
+> ignore any THP or mTHP interface settings.
 >
-> This series bundles three independent MediaTek Bluetooth driver fixes:
->
-> Patch 1 is a resend of a fix submitted on 25 Aug 2026
-> ("Bluetooth: btmtk: Route firmware debug event to the diag channel")
-> that received no review feedback. There are no code changes since
-> that submission; resending it alongside the two related fixes below.
->
-> Patches 2-3 fix how btmtk_usb_hci_wmt_sync() (and its btmtksdio.c /
-> btmtkuart.c counterparts) interpret a WMT FUNC_CTRL event that carries
-> only the WMT header and no trailing 2-byte status word. Such an event
-> is a normal firmware ack for a plain enable/disable request, with the
-> result carried in the header's own flag byte, not a failure as the
-> current code assumes:
->
->   - Patch 2 fixes this for btmtk.c, where a bounds check already
->     existed (added by e3ac0d9f1a20) but defaulted to the wrong
->     result.
->   - Patch 3 applies the same fix to btmtksdio.c and btmtkuart.c, which
->     never had a bounds check for this event at all and read 2 bytes
->     past the end of the received SKB whenever firmware sent the short
->     form. While there, it also adds the missing base WMT header length
->     check that btmtk.c already has (skb_pull_data() before touching
->     wmt_evt->whdr.op), since these two files were unconditionally
->     dereferencing that field with no length validation at all.
->
-> Chris Lu (3):
->   Bluetooth: btmtk: Route firmware debug event to the diag channel
->   Bluetooth: btmtk: fix wrong status for short WMT FUNC_CTRL events
->   Bluetooth: btmtksdio, btmtkuart: validate WMT event length before
->     struct access
->
->  drivers/bluetooth/btmtk.c     |  8 +++++++-
->  drivers/bluetooth/btmtksdio.c | 20 +++++++++++++++++++-
->  drivers/bluetooth/btmtkuart.c | 19 ++++++++++++++++++-
->  3 files changed, 44 insertions(+), 3 deletions(-)
->
-> --
-> 2.45.2
+> However, after commit 6beeab870e70 ("mm: shmem: move shmem_huge_global_=
+enabled()
+> into shmem_allowable_huge_orders()"), performing MADV_COLLAPSE on shmem=
 
-Sashiko flagged a problem regarding the usage of ACL connection handle
-without masking the PB field:
+> will depend on /sys/.../hugepages-2048kB/shmem_enabled being set to "in=
+herit"
+> (although that is the default), which can cause MADV_COLLAPSE to fail
+> unexpectedly.
+>
+> Fix this by returning the result of shmem_huge_global_enabled() directl=
+y
+> when MADV_COLLAPSE is requested, allowing PMD-order collapse while igno=
+ring
+> shmem THP/mTHP settings.
+>
+> Fixes: 6beeab870e70 ("mm: shmem: move shmem_huge_global_enabled() into =
+shmem_allowable_huge_orders()")
+> Reported-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Closes: https://lore.kernel.org/all/20260908125105.1510704-7-kirill@shu=
+temov.name/
+> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> ---
+> Hi Kiryl,
+>
+> I did not update the selftests, as I hope this fix will be merged first=
+=2E
+> After this fix has landed, I can send a patch to update the selftests.
+> ---
+>  mm/shmem.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+>
+Makes sense.
 
-https://sashiko.dev/#/patchset/20260911104234.2276126-1-chris.lu%40mediatek=
-.com
+Acked-by: Zi Yan <ziy@nvidia.com>
 
-If the HCI fragmentation doesn't apply to these handles, please add a
-comment regarding it; otherwise, users like Sashiko will keep flagging
-it going forward.
-
-
---=20
-Luiz Augusto von Dentz
+Best Regards,
+Yan, Zi
