@@ -1,123 +1,255 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012026.outbound.protection.outlook.com [40.107.209.26])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14211413D69
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F36A3F6601
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:02:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.26
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789153325; cv=pass; b=t6AY3dGhASm25XAhDcOxbQe1r3O4UPvCAzIbCP7Bj1DWnuJsDRH1Xpt6bIv85lFMnVRnfcYiV/h1GnLqb6/Tjiu4CkCn6YEajjop896PqPUQqFEGhAA/ETTkNA/bnRTRGP5VMhe1jp5xE+rXSyViRM3fj+X4GTJiB2RP5d8u3Ps=
+	t=1789153359; cv=fail; b=Q93Thr3p9zcpzdNWT9mjLVBtuVHAFAiOgPqSQVrjpWnUCHOm06HvgJ+NEnaj+yF3CqPrehFAtH6KS87N++x2hC/RoDv7YEjPjp7CyrcrNzAFdBcR49Da9mPzH3zqyUkyUKf17Cm3XPKtZ8kasAcgPe/f2W+C6jf6B1a51/xDhYI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789153325; c=relaxed/simple;
-	bh=zgXaZV//QYG4469dRhLaxLf4jDLcoZBNLlaluFRomK0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=N1uCVHjCn3dL2aDl1hRnxgbZwjJbi3F3nXAA/NaaurBzzVlHrR7FDn/Waq+3+wD8ezuX6s1gjJVow8OHJPC69pEUHZ7H7m9Xb/9tD8x7XIBMuLaBxSj0LdDib80EioUV8oCAIMEMJ11gBatzOxJzyIqd4QFT+sA0iDmTx8A+QIQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TbpjNv77; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789153359; c=relaxed/simple;
+	bh=/IywGPF68HyV9hVqaKPEiYGu6XmM8V75b/yoQjoOR7k=;
+	h=Content-Type:Date:Message-Id:Cc:To:From:Subject:References:
+	 In-Reply-To:MIME-Version; b=CvTtQb2lnAd77X1BDPJXmQo4UkloJsPCql/WuzjCpUfAnSWEG1mRFMx7QY+rPIiRayw+P8Xw9dzOJyQroAGmWvK2KCr54LjXovRmsFahsdcbxDm6wdJXoe1suQxQwMgJ/rrUaqHd34CA9uUJUOfUQQHxSC4PLSgLDlZs8BBwwq4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=irwF5Xye; arc=fail smtp.client-ip=40.107.209.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TbpjNv77"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591ae52so536424a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:01:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789153305; cv=none;
-        d=google.com; s=arc-20260327;
-        b=G85pbkUfJ5wOc6kmY/Kvnx/s6Qhj+izAi1fn6aV2DEIg3S/f1uEPm6ec1x35ZWJ7wr
-         ux5PlWOERiPDb2QQB6ngo3gn7xgSf75Eu9TIryy1RdsLPFOZDW5fZJZ9G19204EtqKZD
-         vxEVZwUUAmxbUkQYm7QksRv7bUl9tLOdCUfWzRPAlgEt5NdT4bRzZdI2v7SvLdS/b+q7
-         78V0FIn03CarQf4dRIWgvbzhrEUHwmpFEIqWKZ2GgGKq79NORlYze2IjTSXl37NAVgsE
-         IYqCsoeZsQW/TtpifKkFPEbsU/2JHzsRPuNtg5NmIcUmc3GlB7+KEckeX06BtYqssfIQ
-         ELeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=zgXaZV//QYG4469dRhLaxLf4jDLcoZBNLlaluFRomK0=;
-        fh=cmBewG5Og9n1bXUSV21Ki5cKsKIcUcMGdxTa9KgLCVk=;
-        b=WsOODArixYnHdkwej0auKDEZ1NyyrR+m+N7YWiHTGmUHZB7NDwDxufN7z6Iq5VMipP
-         BagPY2+PdJDjGPR2TaQ4/5cwLF0V9oTKZdK2agly5qTam7PLLfXgKuqpc3/6ze4rshjJ
-         PSnrMYocWI/qhUXZn2ymyf3w/6VykiL5HFXwivQVYt50+EUFTwmK/so3uRAknQEXUFMg
-         yX+ZbU+bhx9ycE0aebLZpiRMaHutqMWlzYW0sBO9NQif/58scNtm4jLDaFKPtCFvK/TH
-         xbYqemQRhKbGTkbocEggNovFrc9Sp9m8ohIlZ9hSqR5gTvJ5f6I57/8AB2kWZxPr2oZh
-         qPxg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789153305; x=1789758105; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zgXaZV//QYG4469dRhLaxLf4jDLcoZBNLlaluFRomK0=;
-        b=TbpjNv77h7PMHP0ATTD/d+yPvKvPJEpFsagODaqPzYdgugBetFTxEwnO91BSj0v/5P
-         0RCx2ESJNklOYv8gu2d1nWXj1bElyJgLsIhMekiQL4NxFYlO43Gr3R46KZ9ZJ6+qBhfh
-         0sm/5Qntg26dPH4i2ICDnXrsEfv8pYNkX7wqLKWJ1S/eGxJOVG5cGhTMYmOZAq8QdZZ2
-         JlgVNMeE+Tx/IrXtHGAOBmptko+98ylN50MibwtGIGwI4zAn/HRenwQMRyE6+V9/R+lL
-         Z4b73w6/eKuWeczfnre0tQB6uZUR2u3g1rDrFUKwYVQljVjaAYEpGOmWjCo7yfiro/E8
-         j+zQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789153305; x=1789758105;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zgXaZV//QYG4469dRhLaxLf4jDLcoZBNLlaluFRomK0=;
-        b=Vw+uqrfp/grwfRKSqAGZpjEPw9YxJ0rDZUAqD0sbEZFiabtueYv22XLFgVQ4zT5hax
-         EyeAFTn7Zw9kpDj80v5MZuiaRlv8nstiFjInMobtFw91RJu9O4ZwUX/+Nf1KSlGosFUq
-         MjsoAAVaM4GbPjWt6781wXi5woBHn8vZKE0D2S4zhfok1HnUsGzmLkqf8M3Tc399593i
-         +FNH0iI6PYi9WvX19oTK6859xnp6Z02ix/E8oePtlPCW8CUf9xH1ISGjWGFpMWTS7nfo
-         8tDrgjOPE951tduXZ8l2wVn+I0GDmRWQxd8+bXiTwUTAAzmPvlWIHVPA/cwhe3QKx2Y/
-         erqA==
-X-Forwarded-Encrypted: i=1; AKwUvByDcZM7xyzmqq2rgVRc/7IvGbIFd09ak3w/31v91RKrfcT644EF06FsdHnVrKrSO5GAW1eKTHfEviGk97E=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+moCD79Ozv0DRGr/rPdCVmZh1iiZe0ANilBMoPTWs9EtjroTE
-	G3JQD70c7lwhCegtfg8d0HU3skPh427JA7tLmCjY+VXw2I54Dk+7Cd4+mnuJvZQuLYhMqhvt7b+
-	YOT+dOixpfV319pSBlYAdy0yfCP6gbvA=
-X-Gm-Gg: AYBFou3OCQdwycmipY02j0c9Ird1yCWrtomhXJWHqpwmbtlNR+pi3ZTtsoqnrHr30gw
-	4SXao03Zj+s7Xn1W88YhZkG15kumzhx0MoiWehp5q//ivh4oMFFbT3U/CqzZZ5hSgtdlYHMtWda
-	MkctBhVBFeKrQgfc9+eHoXo1++bTF8mbHB5TJgbgOWMwMhi4XZ82dMJgtMGLFqvQPtb+LCifs6h
-	AtKNSgyt46hCMoaJ86ez7jfy6AdVWeM1AQVhWsbahfdfzxEy6UE4VSSp84pldR8ss2h5myFWjbs
-	zfUFnq+Ly7mLWB7QL9GywF2F5mhcTVq3dsf4eIKw2asmvgHIHzRtJFjP
-X-Received: by 2002:a05:6402:5024:b0:6a6:32f5:90b3 with SMTP id
- 4fb4d7f45d1cf-6a9b56cb90bmr5271034a12.21.1789153305023; Fri, 11 Sep 2026
- 12:01:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="irwF5Xye"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IY/69zgWdkviM66F5o8HHwo1+SU56CUehwtGx1+9Ba1TMtyO/pKFlHsJmKweuaLPRAt4aGLb/Uis8FphoFez92PJZuHIRyaIPXgSkarSA4ima8rTL0ZECe4zol9gZwPXjulsNORC4Pu9DC442VIq5sTVSlf8L3a2+XJcmwXpxM8bNpd5KR++zI5zZoizM3OlGHbc4kY5DUcnniTRg+CvoR5n5tFjQVU97B2evkN61SJEd9z+0QJ9n9jd49SXyMH9pwdnYCcC0pCSOQ+ocTpm2DN6M1Y0DfJDt6VZqkT21ZLDThcHvPlr7AxrJrLB+wPF+VO7FWrtIPRJBy7qq9bamg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3Xh1w3YV2hQfhKVSxY3cSeZpqtKum2MvHG4418AeW0E=;
+ b=sVYPLp8Mok/sQq5HoAdr7UjFvxuFOmtGlI0LTJXt7Yp22yfHgUDg6NIvHHTZFXQocL7ADjYAKLBffGmmXjnx/dpl6xsm4rNcwvi2X46GvwboQi2l1YmWLyog79doYBkIPb3M2NYMUuG2Qa0oETiIZdnKRgvkrfceyQ2hxU4DLJ/oRXJzKGHUxUNUuRZ/VhwMYM2RRIPxS/eWUF5KVT+6cg1NV+rrYiH9mdFTzZ6NMb779P1B5XQ+TfJkYAYycbAW9AJh3dzt52LePwRQVPA6y7R9owyBZcV6VnkEKrg850E2TQvMZ2wQBCVtXWtaM9OWJpoOxymGso7k1VRMIP0/rA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3Xh1w3YV2hQfhKVSxY3cSeZpqtKum2MvHG4418AeW0E=;
+ b=irwF5XyeY0tYiBrOJMRJIHQnrsPLCDaLsgyPX8rul1M1GazgI03SiutX71t9XnBhMz68boIC/zwdpyNtMLn7f6IPYVMJp+IHPnr1NJ6o+G9kV2bicC6icDE15Q1rqbLkgDpWx3swjA2iXSqJdM+SocK7FqTXZZeGnT3fbD5Rb5qXRbNAHmUAKp/qJv/Tdg6hPUrT6m6cXzF3Gjt5WTQNhgIBOTJ9lxMQXxsDpr4j1AwsIeTEWD5Bwb3WKuW5dXN8lV4ArK9dTzaMitab5WgB+9bEFmolSb1BsKHf5YEv87tHxSib+J2E1pzdV5oOc7t/GIG/0eVPoaFOyBWbAnit1Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by IA0PR12MB7532.namprd12.prod.outlook.com (2603:10b6:208:43e::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 19:02:28 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 19:02:26 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 11 Sep 2026 15:02:22 -0400
+Message-Id: <DLCPXEXM5YQ3.GPN2LX0UL19T@nvidia.com>
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>, <linux-mm@kvack.org>,
+ <linux-kernel@vger.kernel.org>, <kernel-team@meta.com>, "Liam R . Howlett"
+ <liam@infradead.org>, "Nico Pache" <nico.pache@linux.dev>, "Ryan Roberts"
+ <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>, "Barry Song"
+ <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>, "Usama Arif"
+ <usama.arif@linux.dev>, "Vlastimil Babka" <vbabka@kernel.org>, "Jann Horn"
+ <jannh@google.com>
+To: "Kiryl Shutsemau" <kirill@shutemov.name>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>,
+ "Lorenzo Stoakes" <ljs@kernel.org>, "Baolin Wang"
+ <baolin.wang@linux.alibaba.com>
+From: "Zi Yan" <ziy@nvidia.com>
+Subject: Re: [PATCH v2 11/12] mm/collapse: declare the collapse interface in
+ collapse.h
+X-Mailer: aerc 0.22.0
+References: <20260910120238.2529819-1-kirill@shutemov.name>
+ <20260910120238.2529819-12-kirill@shutemov.name>
+In-Reply-To: <20260910120238.2529819-12-kirill@shutemov.name>
+X-ClientProxiedBy: CY8P220CA0013.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:930:46::9) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908-riscv-vector-asm-fix-v1-1-147f314efb2b@linux.dev>
-In-Reply-To: <20260908-riscv-vector-asm-fix-v1-1-147f314efb2b@linux.dev>
-From: Andy Chiu <andybnac@gmail.com>
-Date: Fri, 11 Sep 2026 14:01:32 -0500
-X-Gm-Features: AcwNN1Ue_pfyyzvxcWu7bUZijifaEJzBimk14NP6B3kzlMYEX1HbytKB-0x_sYs
-Message-ID: <CAFTtA3MNxUp8pnUzcM-EfAQkZ=ZG6k=7aXKZBVmjGPnjXhywTw@mail.gmail.com>
-Subject: Re: [PATCH] riscv: vector: Fix data pointer constraints in context save/restore
-To: Troy Mitchell <troy.mitchell@linux.dev>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Guo Ren <guoren@kernel.org>, 
-	Vincent Chen <vincent.chen@sifive.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@rivosinc.com>, 
-	Alexandre Ghiti <alex@ghiti.fr>, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Palmer Dabbelt <palmer@rivosinc.com>, 
-	Greentime Hu <greentime.hu@sifive.com>, Heiko Stuebner <heiko@sntech.de>, 
-	Conor Dooley <conor.dooley@microchip.com>, 
-	Kevin Zhang <zhangmeng.kevin@linux.spacemit.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|IA0PR12MB7532:EE_
+X-MS-Office365-Filtering-Correlation-Id: febe8884-b048-418d-1006-08df1037387e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|366016|11063799006|4143699003|56012099006|5023799004|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	pq8iqTNLvhS7brvSCGfF4JD534byC2wH43g6zzjcTGWrgmwc4xMYihfrvUUBXODm5zfa22P4UBGqKUCMG9DdiMg03BTs6nf2cfIlkLcrnT+0M85+J4LXVy7qz5QR59zG/Sq5thkDadI3gtE75P2prdD1oZpcF6WLioSW7OgSoGKwWw0efxjnS2hBg67HdVfRW9kk71AGWOZ5HrVYLwFugC9WvcivhAbFw2279qFqKzUGWtAVgqcpM0MwQ82a9RG+CBMe6zT03cLAHfyGIP0RP8ue30Mt+SUnYxPe16SwTPxcg1F7ViiJRQ5C4nX6uDSMOfhAMPyRGWYk0WrdL3l52UT91Y6OMf0+L4Ws3kRkxBXgayF72ZmidMnfXdsElM6y/266UAgWZBeaJIVSRtU0erNfQ9X3ex3ZLPUxg2eOlXcIpq07R3OMQpp39tQw9eAFjXaERlBU/Z0VZt6CvJoejJmLN8zhj7pB6xGInMMvYU9i0oM4GtKAMIBQpg2E4wo85ZooQb1VzUu1+5lmkdwXXCtntVhWLJor3DZRSoLvg2HVx7J0i9hmaiMBCbDUaqzXDEMCDnQgLifw7kfg00f5BiKZyucPQLtfqQqPju1aq6s4nfc4205WPtQ14Enlju1LN44tg+y1gHU1mnMlwncQyDdW41xWcbcE4xAUdm++xxM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(366016)(11063799006)(4143699003)(56012099006)(5023799004)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZU10eWlDUXdzWHhVU3dVZ1BxNXBJRmxySU15bUxGd0QrQWRqak8welJjeXZJ?=
+ =?utf-8?B?ODhpSTk4YkNHeXZBdVh2QVJXV3JCejNIdWRtMTdWMlMzeC9YUTVPZ0VERDVO?=
+ =?utf-8?B?WkNiVEpmSy93ZXBkNndrNG83OGt6all6MWlzK3p3WUhDeHFjc2tkOWc3dDVG?=
+ =?utf-8?B?L1M3Zy9TbGY3VmwzREhJOUhHK0tyOTJ3OFJUZnk2M00zMEcwaGpYbTFVNnNl?=
+ =?utf-8?B?TThMRnovR2doTkdobWdYanJVOHdBZFRIcE9lWkZqQ3FUZC9LaUdJOElMV2lp?=
+ =?utf-8?B?NXZmRm9OTURRQS9kaGx0bi9VZFFxV3RWRU1MdEpocDF5NkFwcHlCT2pjM2hK?=
+ =?utf-8?B?bWY2NklteDJsa2t1WGdjbXlyOHZLNUovaktUS2pYZmxCdnh2b3ZpdnFaZ09W?=
+ =?utf-8?B?ZGpLYTAvM1pHbE5WNjgyZUpPY09uei9wTkRpWW02Q2p0RTlwS0lFUHpEc0hp?=
+ =?utf-8?B?NjAva0tOSVZiV1Y2am1RaDVIeFJoSGZrUm1vUnBIYThqUnk1aVpLRmZmT0N0?=
+ =?utf-8?B?ZmcvZGpIeVp5NG9wNi8zaWM2aDdaaUV1SHBGd0RmUjI2QUNUVFRQMUN5N2o1?=
+ =?utf-8?B?ZmFOaGlKOUVvdVkvTkJjbEozYjhOcks5ZTkvZ3d1TEZSRlpzK3o1YW9GZm95?=
+ =?utf-8?B?RVdRYWoxTjFOeU8wZXNsZndwbWFCa0Y5cDR3TEtaOGVTOFBPOTdjR2c1aVZP?=
+ =?utf-8?B?QlllUkJTOERLUnpUdHZHekFyMVpTN21jbFo0dCtRZTkxUlZRclQrM0JDR0Ew?=
+ =?utf-8?B?dGNQUjcyMGgwR1hwMzZwUFlVSnBkU0JMZGpnenpZazNWbk5BMklpR1pGSFY3?=
+ =?utf-8?B?TjhPeUZ0WjhRMzdDVTczWkdhQi9CSmJLRWdzMEJyajZKejNTVy9JSUFOUEJ4?=
+ =?utf-8?B?bzR6ck5IQkpZTUltbGZsQnVpTlJ6SnNjS2ZkZ0tQSFRxT09ZSEtxb1BaTm9G?=
+ =?utf-8?B?eXhlVFpxTncxOTZ3RnozTlpJYXl4dURPVnViVjlIejIycldEQWppMDgxUFdG?=
+ =?utf-8?B?dlV6VmhzcWRTZ2w0bWx5Z1F0TElrcytZRTBwc2N0M0ZlcDZvU1hsQmhDYmNR?=
+ =?utf-8?B?QkU5OWNFRUloWFZPYkdnVTRxWkZObU9oMzdsVHphRHdYUVgrOWVTaHZXbHpk?=
+ =?utf-8?B?VjlkaWpHajJ2WXF6OEZWbXdqclF2ckNuaEdGNzJYNzVra3BVYXVIZjVCVFhr?=
+ =?utf-8?B?RzdiWWNzRERFMjI4U2d1VFJuSzBuSy9YN0R6Ly9ueDJpVm9Sb2V0eVJORzJz?=
+ =?utf-8?B?KzFUVDlBNXNYRmluRWR4Vkw2SzhjUUYvMmxBM3Jwa1hpaW9nRTBBY0Y0dUpp?=
+ =?utf-8?B?REd1ZUNGOVZwMG1lSnJZWmJlbUNac0ZPUGkyUmc0TmZHU29pNVRHZ3BwWmZi?=
+ =?utf-8?B?K2hoREd3UHdqc01lWkM2R2taT1Z3VU1aUDBDcWdFbHRmK3J1T3NVdCtKMmxF?=
+ =?utf-8?B?VjIvRzl2YjMzQlRLTlRlSW8rZXZXaU0wditiUElMbXVQc2NUZGRrczVMcS9S?=
+ =?utf-8?B?aUc0TFRCZXB3ZXlRVlBQRmh0VTVoRXIzZXphZlQ2bHpDMmFEeG0ycUFlUDQz?=
+ =?utf-8?B?U1Vkb09NNXU0NVRNZDk5bVYySVkyWHh3b1AzczlDY0dIem1naWdsZG8xeU1o?=
+ =?utf-8?B?d050UndRVVgrcTlxbnpkM1NNTjg5WEZjRFd1K2h6d2tkemhUUDFLZDg4Tmd2?=
+ =?utf-8?B?UVk2UU9ES1hhd1FwWGRSV21QaWlodHJya2lmRFpBejBaOVVnWFU1YmE2dEh0?=
+ =?utf-8?B?K0pNT1JxWmU3RHp1NlBvLzJBdDZDeURCVjI3a3pMeFlDL0xrbUUrbmh4VDFK?=
+ =?utf-8?B?RzBjdUtSb2dBd0YzcHhZdVhKaFlVcFBBMkFVNWUyeTVDYU9YMXAzZWtiRWRV?=
+ =?utf-8?B?Y3YwK1NFbWtWWThnaC9vSHNHaXBvRGNESlI2QTFzSmRjS1lQbWFodytyaXhY?=
+ =?utf-8?B?TngxMm5meGxSeE5ZQk5IUFlRcGdRcXV6Y2JVTkpJVXVadWxYMnZyb0xYTkUz?=
+ =?utf-8?B?eTBBK0N5S3lRWmlkUHBFdC96UG9SSWxNb1VDSjdWVjVreEpXQW0xbFZqQ3pO?=
+ =?utf-8?B?VVo2Rk82VzRvSzZ0UXVkRjlDaWZlME0reURTSEJ5WG1nVDJ2UE9RVlQ1Zmpx?=
+ =?utf-8?B?cEJIbFkzTjI5cHV4WFYzWUxLNUVabmNyVC9tWktQa1MzZjcya2U0OUtMOUdY?=
+ =?utf-8?B?cDVpaXJNN2N3YkFiNlYwUHY1UU90TjErUnowQUNqc1k2TWxBUHU0Vm5YMk5X?=
+ =?utf-8?B?OEhYaFVLR3RVOE9IRWdTTyt4ekdJbnhyTUJMRGRtMTQwU2JVZzdhOVlaVjJ1?=
+ =?utf-8?Q?8Qhq92M1NnDjQEPuPX?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: febe8884-b048-418d-1006-08df1037387e
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 19:02:26.8773
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QkEPRKCH+w463WzRArcGdanYdUSeViqV2r3u0mJrn3W/5RiLmfXobvnxEEnc4SjX
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7532
 
-Hi Troy,
-
-On Tue, Sep 8, 2026 at 8:03=E2=80=AFAM Troy Mitchell <troy.mitchell@linux.d=
-ev> wrote:
+On Thu Sep 10, 2026 at 8:02 AM EDT, Kiryl Shutsemau wrote:
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 >
-> The standard vector save/restore asm advances datap but declares it as
-> input-only. An inlined caller reusing the original pointer may therefore
-> use the advanced address instead.
+> A collapse takes four calls:
 >
-> Declare datap as read-write so the compiler can preserve the original
-> pointer when needed.
+>   - collapse_control_init() - set up the control a caller carries;
+>   - collapse_scan_pmd() - scan one PTE table, under mmap_lock;
+>   - collapse_run_pmd() - collapse what the scan found, no mmap_lock;
+>   - collapse_control_release() - done with the control.
 >
-> Fixes: 03c3fcd9941a ("riscv: Introduce struct/helpers to save/restore per=
--task Vector state")
-> Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+> All four are static in khugepaged.c, as are collapse_possible_orders(),
+> which says what a VMA allows, and the revalidate a caller needs once a
+> collapse has given the mmap_lock up.  No other file can ask for a collaps=
+e
+> without them.
+>
+> Declare them in collapse.h, with a comment stating the order they are
+> called in and who holds the lock over each step.
+>
+> hugepage_vma_revalidate() becomes collapse_vma_revalidate(): it is part o=
+f
+> what a collapse offers now, not a helper of the daemon.
+>
+> Preparation for implementing MADV_COLLAPSE in madvise.c.
+>
+> No functional change.
+>
+> Assisted-by: LLM
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> ---
+>  mm/collapse.h   | 44 ++++++++++++++++++++++++++++++++++++++++++++
+>  mm/khugepaged.c | 18 +++++++++---------
+>  2 files changed, 53 insertions(+), 9 deletions(-)
+>
+> diff --git a/mm/collapse.h b/mm/collapse.h
+> index 346859a2184f..1ebbbf63fb25 100644
+> --- a/mm/collapse.h
+> +++ b/mm/collapse.h
+> @@ -106,4 +106,48 @@ struct collapse_control {
+>  	bool scan_retract_only;
+>  };
+> =20
+> +/* Which orders a VMA may collapse to, zero when it may not collapse at =
+all */
+> +unsigned long collapse_possible_orders(struct vm_area_struct *vma,
+> +		vm_flags_t vm_flags, enum tva_type tva_flags);
+> +
+> +/*
+> + * A caller states what it allows in cc->policy and then hands over one =
+PTE
+> + * table's worth of a VMA at a time:
+> + *
+> + *     collapse_control_init(cc)         once, before the first table
+> + *     collapse_scan_pmd(vma, addr, ...) per table
+> + *     collapse_run_pmd(mm, addr, cc)    when a scan found work
+> + *     collapse_control_release(cc)      once, when done with the contro=
+l
 
-Reviewed-by: Andy Chiu <tchiu@tenstorrent.com>
+This is a good overview of the workflow.
 
-Thank you,
-Andy Chiu
+> + *
+> + * The caller holds mmap_lock for reading over the scan and passes an ad=
+dress
+> + * within @vma, aligned to the PTE table the scan is to judge.
+> + *
+> + * The scan returns with that lock still held.  It only reads, and almos=
+t every
+> + * table it is offered has nothing to collapse, so a caller walks a whol=
+e VMA
+> + * under the one lock it took to get there.  SCAN_SUCCEED means there is
+> + * something to collapse; anything else is why there is not.
+> + *
+> + * The run is called without the lock and returns without it, taking wha=
+t it
+> + * needs in between: what it does -- allocate, isolate, copy, flush -- i=
+s slow
+> + * enough that a writer would wait behind it.  The caller gives the lock=
+ up
+> + * first, and with it @vma and anything derived under it, so a caller ca=
+rrying
+> + * on has to look up again with collapse_vma_revalidate().  The run reva=
+lidates
+> + * for itself rather than trusting what the scan saw.
+> + *
+> + * A scan that found something has to be run: the file side takes a refe=
+rence on
+> + * the file while it still has the VMA to take it from, and the run is w=
+hat
+> + * gives it back.
+> + */
+
+It might be better to document each function individually about the
+requirements and what each does instead of putting everything above.
+
+> +void collapse_control_init(struct collapse_control *cc);
+> +void collapse_control_release(struct collapse_control *cc);
+> +enum scan_result collapse_scan_pmd(struct vm_area_struct *vma,
+> +		unsigned long addr, struct collapse_control *cc,
+> +		unsigned long orders);
+> +enum scan_result collapse_run_pmd(struct mm_struct *mm, unsigned long ad=
+dr,
+> +		struct collapse_control *cc);
+> +enum scan_result collapse_vma_revalidate(struct mm_struct *mm,
+> +		unsigned long address, bool expect_anon,
+> +		struct vm_area_struct **vmap, struct collapse_control *cc,
+> +		unsigned int order);
+> +
+>  #endif	/* __MM_COLLAPSE_H */
+
+
+Otherwise, LGTM.
+
+--=20
+Best Regards,
+Yan, Zi
+
