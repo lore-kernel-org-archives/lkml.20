@@ -1,79 +1,71 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DAA140D588
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:35:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F938261B71;
+	Fri, 11 Sep 2026 10:36:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789122907; cv=none; b=SVc4tuamDFDwZbmVfROW4H3FlvvRRV9tATaz9vPiKeh/zzVz+74POkwNbFNQgf2BRNJ9kPI4ErKq4LMKLA+/gLbQ7ZS9k2wr8ZFj12XZaanO5PyqCCOWb0UjS9KybRq4VEzKrhmqPIL4ssOW6T/1izrZIvLa0YVBGQxRyF8vn0w=
+	t=1789123013; cv=none; b=UneYoSxRv9pWkv29anYX9RUcuSYNWtBnqPSBINJ6b2rSg9bu+LRXur61W7mt2uqXC+M8NTXtasZGkujp2bgQZrMgAfsG14aFpa0Lw6HaX6si959A4UkgypaUuc9MXl4/W9f05vXESMYiCAkOoAeLJ/Wyg4yIO5D+81/sSWrlcDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789122907; c=relaxed/simple;
-	bh=ZKEEiD16wKkBQjxmDmRAUzZxy57faOnn/iVbND/QIsk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=YusmQ3GtFYjAxLVKu1OEfJFrAAVZYk4lbd686/lGAYY827ufwjPStcvZb74KvAYwLqZkwkafkrGf1OLkKEKTMNkhpMRf15iAkvB7AYdnZuXb/jv+pmziJoUFwPr80NYC5xNs5XbbQdYT3FTjJHwKblKDKNDgb+FHuNdryNW2QJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=hiEerPN8; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1789123013; c=relaxed/simple;
+	bh=4Z0wBwgDK9LJpl+aoC6t5DrR4Cnkpggpd1pLyt0mNxs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PR6DbuM2c0chZaS44UWx64jEoh1UyFJSAhmRItETVORC3vCaI7R9jdpCDq5bz5AsXqwcNCcONKfCRYjGGb2e/90A4Cj1Yd5tq3VldhXnKhvcZrdbXSThb1FDaXHvUp96HXQsDBaaIUe1ueLboApS3PX8BosumanQNq7FdWJr2aU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XCTFwLye; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="hiEerPN8"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hh9sY0cKKzMlHB;
-	Fri, 11 Sep 2026 12:34:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789122897; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZKEEiD16wKkBQjxmDmRAUzZxy57faOnn/iVbND/QIsk=;
-	b=hiEerPN8mdqqrsx2qHOWOvFREe6NaSSh+iiKK1eFpYokR0Yc5WE2T3/iqQvKynpfQ9oVKr
-	CNllmCrH8Rq0+opOAY9GD5vrGJJA9xm+MgZuDSUF1Je+L91J7aaW+4S9dbZycPfe5LmNZf
-	5lVdSXQXfEGvDxo7V9FSHSjrfuCm9dtHjOuru+m3s3d1aNSA+blUZd1lyaBhjNt4RapOsA
-	eEviFPoTeDjDoMs9/0coIRurGj9ptRA7iGJpm3SXY7FpIikZNN4POCUqFT7bxLLjzbefT4
-	Yz9DYfW3FyUYfMXzxhSos3hLAnz3+/KIvUM0s1amYi4ik7s8G4njrAbdi1zWQg==
-Message-ID: <54380f35297f069d7c3874c5239956125e923fca.camel@mailbox.org>
-Subject: Re: [PATCH v3 0/3] drm/sched: Introduce more locking to entity
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Tvrtko Ursulin <tursulin@ursulin.net>, Philipp Stanner
- <phasta@kernel.org>,  Danilo Krummrich	 <dakr@kernel.org>, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <ckoenig.leichtzumerken@gmail.com>, Maarten
- Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin
- <tvrtko.ursulin@igalia.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Fri, 11 Sep 2026 12:34:51 +0200
-In-Reply-To: <23c88f50-1998-4de9-bbdb-3d15fd06d642@ursulin.net>
-References: <20260910075942.2000338-2-phasta@kernel.org>
-	 <23c88f50-1998-4de9-bbdb-3d15fd06d642@ursulin.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XCTFwLye"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7A301F000FF;
+	Fri, 11 Sep 2026 10:36:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789123006;
+	bh=u5aNvPNusM3lltrFeHu+T3Gy46Tk3FMqRHWpoFiEgHY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XCTFwLyeNcGWza0A58ztj0+blr86fxoT0uLerrweLvAud52RAU4HEVRqyIDhPRYHl
+	 aqqrxAVE5wyo1jbDIhs6oNDEkHWiqVW2fGnQCzr23+Yi938zllVi6ziOkDtpOUmdw+
+	 gklPi7YNzFHbSLfuOg1apLpJ8xZsZzoaheht1l/XXMGAF5IZPO+yQHr40+r/77QjZz
+	 8MemdgxGBrPDR+q9UwtNqnd5gDLzZfXEXg0QOOyJAMFAh3gFDKHJXqFk0LUOfk9qGQ
+	 ElvihhXGQBZk5UEy2yum15sx7gTjFx49upfF0S/NZQwlV3mfcLbxoM87DCaRkIfyt5
+	 EwEprbKtph2IQ==
+Date: Fri, 11 Sep 2026 11:36:42 +0100
+From: Simon Horman <horms@kernel.org>
+To: Hangbin Liu <hangbin.liu@linux.dev>
+Cc: Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Hangbin Liu <liuhangbin@kylinos.cn>
+Subject: Re: [PATCH net-next] selftests: netdevsim: add TEST_INCLUDES to
+ Makefile
+Message-ID: <20260911103642.GB48209@horms.kernel.org>
+References: <20260910-nsim_lib-v1-1-0be0d49eaa42@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: tp1esos6apfrrw8kgkncr4ej4hi35bao
-X-MBO-RS-ID: 40327136b90c505ca58
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910-nsim_lib-v1-1-0be0d49eaa42@kylinos.cn>
 
-On Fri, 2026-09-11 at 09:19 +0100, Tvrtko Ursulin wrote:
-> FWIW if you could review=20
-> https://lore.kernel.org/dri-devel/20260907130527.52530-1-tvrtko.ursulin@i=
-galia.com/=C2=A0
-> you could drop the first two patches from your series. Extra benefit is=
-=20
-> that patch fixes a bug and has been tested by the user.
+On Thu, Sep 10, 2026 at 04:06:58PM +0800, Hangbin Liu wrote:
+> From: Hangbin Liu <liuhangbin@kylinos.cn>
+> 
+> Some netdevsim selftests source forwarding/lib.sh and other files, but
+> the Makefile doesn't have TEST_INCLUDES targets, which makes
+> 
+>   make INSTALL_PATH=/tmp/kself TARGETS=drivers/net/netdevsim \
+>      -C tools/testing/selftests install
+> 
+> failed to install related lib files. Add TEST_INCLUDES to the Makefile
+> to install the dependencies.
+> 
+> Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+> ---
+> As there are multi nsim selftests include the lib.sh but no error report
+> for the installation issue. So I won't bother fixes tags and just post
+> this patch to net-next.
 
-See the other thread; I'm not super-hard opposed, but if we can agree
-on getting CFS to a non-experimental status by first improving
-spsc_queue, then it would be nicer from the diff / git log perspective
-to have these little patches as a preparational base-line for the spsc
-rework :)
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-Greetings
-Philipp
