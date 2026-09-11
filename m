@@ -1,84 +1,88 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90FE49362E;
-	Fri, 11 Sep 2026 16:09:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B37AA49362E
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:09:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789142981; cv=none; b=aC/wB2DVPF8O28xTRc7tdKGGX78FZFKdYJWmZO+zpTB6wBt6iaiU9Wf893vNucqg63mqDwaCIXVW3qn7TZku2u4eIld+qjwgauw/cidIUd/ipvI8+82KUxTiFPJ4o0sZIWZtxl9Ctkybsvki/c2tOLvMyzmuS4ITjeqhnY2YTRU=
+	t=1789142991; cv=none; b=TRo1fVQ1eYVVMyzNVfydhnwgMyaBwwh6gjsUAV1BDrEKNqRg6vxizrVU8xi2ws0MfcPL6K5wgzFj9k6eZHf/yh1GZH4dI7KHL207ol6I8LrNuylvPZk20yzCjR1ppUNziRYGyJ2YIcDtNQXlQ7fvPOALnLCG5nrKYk7dmfESAqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789142981; c=relaxed/simple;
-	bh=nGc4MsQZjD2VcTLlfN41zDAxz90aZkv7fLi5jdqZc40=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JWbFLS8RRT1eUgAU8ed3gKNdRGeMuElEchdJ/WS9novOJ3NUMOS61Ijgt5IfgEPd3zjR2xH60+2P49HWCceEFsq4fePV5t5Q/76IYQ1I/9wQFgLZ7IX95iril9YW1xdmtsfgUHaw0rH2gI4zEYI1gvFldN+Fzd4wjB0/P5osiTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=UrBCjTSE; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1789142991; c=relaxed/simple;
+	bh=R3y5188pd0F5/104NAoFNHI16Opb2VM5/osMkCNme7s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dr1AYObeGNTxjeqgPlWxU5V9VcxjfThqEL3ldlNBm3o+QxiB1RHFx9IB2Pi1CzilagCYrt4HEoPo4l1cJ6q3QTTEQriQtsfFVRgezhnfFKLshXepvgXUeYjlbM4J1MvjMusmMc7gKch3N4YIWYeB01iFzOTBYYzelpO/RVkDtS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=JshXtrxS; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="UrBCjTSE"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=x6ObjDhK35n1dGSg6qPiIBjnnl5pQb3BSL8UFeKAShk=; b=UrBCjTSEHl1sMpM5E90ET45GYF
-	YwzHp5lG+URoH5uY9cbn95xemgmJFApNr1fMJ+t55JCRCqI1WjZ7PhN8qO3TIQ1meYpNXk9gsSCgm
-	WEdkj/ApJG1jf43uLM4tUiv0fhefJGkhWJm7VrnfQgCtzeI6YKs3BSWeg3HRhviNgtWQJOYkTnHmW
-	v94GS/ETKkEwz7bHVXgTi9O0Msx4GGV710KAb6WyEFyzzLbOxWlRW0ZdJty/ngp4LtoNM9P1atqBD
-	LHa+6+BOS3gyocE+SuobIdu4Ne5y6y7UjDgGQxoCWDT+DdJRlAVe4DuZMaXsDDShBQN6LzOXBhqkM
-	hR3/4Ilg==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1x53oe-001PKs-0y;
-	Fri, 11 Sep 2026 16:09:28 +0000
-Date: Fri, 11 Sep 2026 09:09:22 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Stanislav Fomichev <sdf.kernel@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, Willem de Bruijn <willemb@google.com>, 
-	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, david.laight.linux@gmail.com, kernel-team@meta.com
-Subject: Re: [PATCH net-next 1/2] net: add sockopt_expand_out()
-Message-ID: <aqQnF9vWKVk3GkTp@gmail.com>
-References: <20260910-getsockopt_phase6-v1-0-e681e102d5b8@debian.org>
- <20260910-getsockopt_phase6-v1-1-e681e102d5b8@debian.org>
- <aqQkImqiHPorszOY@devvm7509.cco0.facebook.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="JshXtrxS"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 688F22A6B;
+	Fri, 11 Sep 2026 09:09:45 -0700 (PDT)
+Received: from [10.0.129.245] (unknown [10.0.129.245])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 784C03F7B4;
+	Fri, 11 Sep 2026 09:09:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789142989; bh=R3y5188pd0F5/104NAoFNHI16Opb2VM5/osMkCNme7s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=JshXtrxSRrDc6ppaqUNxzL3+c8nw0Rq35ew6fiWeq9Y8nm1TzCoTY6U7coeQnvSml
+	 Qv4sQtRVYZK0c/4QXq/1rq3WTwF+RdF/XL1fDQGAj6JQcJ4vA28kWeWlVfaQZz51A+
+	 9iPAGWE9xFM7a4K6nGjuMb7d0/ETE/256oE+FFVc=
+Message-ID: <16a02301-96a1-42cd-95ed-ed773f4ad77e@arm.com>
+Date: Fri, 11 Sep 2026 17:09:44 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqQkImqiHPorszOY@devvm7509.cco0.facebook.com>
-X-Debian-User: leitao
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v17 0/1] arm64: mm: Handle Granule Protection Faults
+ (GPFs)
+Content-Language: en-GB
+To: Will Deacon <will@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, maz@kernel.org,
+ pavan.kondeti@oss.qualcomm.com, tabba@google.com, aneesh.kumar@kernel.org,
+ mark.rutland@arm.com, sdonthineni@nvidia.com, steven.price@arm.com,
+ gshan@redhat.com, yuzenghui@huawei.com, kvmarm@lists.linux.dev
+References: <20260907162204.1479401-1-suzuki.poulose@arm.com>
+ <aqP72gst-Y0KtxA5@willie-the-truck>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <aqP72gst-Y0KtxA5@willie-the-truck>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 11, 2026 at 08:56:23AM -0700, Stanislav Fomichev wrote:
-> On 09/10, Breno Leitao wrote:
-> >
-> > +	if (size <= iov_iter_count(&opt->iter_out))
-> > +		return 0;
-> > +
-> > +	if (WARN_ON_ONCE(!iter_is_ubuf(&opt->iter_out)))
-> > +		return -EINVAL;
+On 11/09/2026 14:02, Will Deacon wrote:
+> On Mon, Sep 07, 2026 at 05:22:03PM +0100, Suzuki K Poulose wrote:
+>> This single patch teaches the arm64 fault handling code about Granule
+>> Protection Faults, introduced by FEAT_RME. This was posted with KVM CCA
+>> support series, but split from that, to allow for other users of GPF.
+>>
+>> The immediate user is KVM CCA, where the host may fault if it accesses
+>> granules that have been delegated for use by a Realm. However, the fault
+>> handling itself is architectural and not KVM-specific. It should also be useful
+>> for other FEAT_RME users where an access to secure memory or root memory can
+>> result in a GPF.
+>>
+>> GPFs during a page table walk are treated as kernel bugs, while non-page-walk
+>> faults can be reported to userspace with SIGBUS. The patch also allows existing
+>> exception-table fixups to handle known in-kernel accesses such as
+>> load_unaligned_zeropad() while private memory remains mapped in the linear map.
 > 
-> nit: if you end up re-spinning for some reason, maybe swap these two?
+> I assume you can't handle GUP for realm memory, so you must be using
+> guest_memfd to avoid userspace mappings of realm memory. In that case,
+> why don't you unmap it from the linear map entirely? There's ongoing work
+> to do that afaik, it can be done largely outside of arch code and it
+> seems like people want it to defend against side channels anyway.
 
-I am not sure we want to swap these two. This is the reason:
+Yes, thats the plan. Sorry, the commit message is a bit vague. Until we
+have that support, we should try to fixup the exception.
+Once we get the support to unmap them from the linear map, we could
+relax this.
 
-1) The first check (size <= iov_iter_count(&opt->iter_out)), check if we
-   need the "hack" or not.
 
-   a) If we don't need the tack, then we are fine and this could be called
-      from user or kernel.
-   
-   b) for the hack (which happens in the next line -- iov_iter_ubuf()), it
-      needs to be ubuf.
+Cheers
+Suzuki
 
-So, this force kernel callers to use the right optlen, avoiding hitting
-the same issue as userspace.
+> 
+> Will
 
