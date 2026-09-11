@@ -1,197 +1,112 @@
-Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205F7440658;
-	Fri, 11 Sep 2026 06:45:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.190
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6DF842669C
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:45:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789109117; cv=none; b=iz2nb6dEA5HZUCoowX3PnloI94mKDuPG1Lo1UjPEpWTCmqp5zl2LQso0c3BarNKl/DeoOvJEa8bVuXL0DX9ZPPaLayQHK15mvquxXIaJMsywMsSU6VCGSArf7kLSP/tSwh10Q3aCyvPs6lJo5Emp924vgD9gHnJOlBqV3kWCpUg=
+	t=1789109147; cv=none; b=QvHoJMW4fG2ckIDc2eOLrRIBbF6QnZSzi13rqJ9HDLjhhpPUHbxOXW58Fr1vKjj4XmMcmuXQzAtQX0NfUJVl4Ni7om9ihu41YuMUp4S2QqDg7SudKNXtamwq5snwLlV23KbZEAQZbLlGIDO6WPkhOq/Io/bxWDmTL0DexLyScto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789109117; c=relaxed/simple;
-	bh=W1lWyTR9TQELRjUZzDM3zaPLgGVyw3UieRYuB72Jvz4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=oF2TWa5DhaRcgbShCPWH1Z80w+ayGW/rQjGqFSsk4b31xT5sycEgANikZzIAkoAFGKOQR7dV5VqGsDzOfQm7GvJjoJEq4UZnb2DS2IP66Xf3VQZqupyJLt42WFjcAYkl9aHBtLChqwPGQTq/ZptWiffkaFZeUf9tQdpI15VepW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Qx9AWqzd; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Qx9AWqzd; arc=none smtp.client-ip=45.249.212.190
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1789109147; c=relaxed/simple;
+	bh=CP7ven0borOj5jWhhvoyM5B2jniHvPuxsvzcdkGssSQ=;
+	h=Mime-Version:Subject:From:To:CC:Message-ID:Date:Content-Type:
+	 References; b=fBznK3/5w4gAI4viwf678hdbgHeAhSvyDr9n7pW1NykWqFYtpwf02v1BDsqUp1I6UpWIBFPqIHjMBcbqM3m2cTMVh6s6GAgXQ6FPMOlhWHln5fIahkNi2M6by2VLLvWUe2YiTMq5cNM54NnZi9O3i3C+yZ/mHu5J2/DVt/i8fzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=OccR1Vuw; arc=none smtp.client-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Qx9AWqzd";
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Qx9AWqzd"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=SnNyIUKsorVAxqnwfpbUZwRMslljnk+vTb4CfKa2qOg=;
-	b=Qx9AWqzdHat03JckLm3M8BwOru2v7x0iL94Pntu/72z8LkNpVGJ0CuQsvObLbQQZKy7qxI+f7
-	POuCv4NaoAy2ApgQCxpmYgcqAwymFuufmDUhl++spML+a+SLlMEmg5rpQS//Ncrukr4XM5cLTau
-	hBIxU4k/6aa13wBQtOpnpjM=
-Received: from canpmsgout06.his.huawei.com (unknown [172.19.92.157])
-	by szxga04-in.huawei.com (SkyGuard) with ESMTPS id 4hh4ln1Nbtz126MCC;
-	Fri, 11 Sep 2026 14:44:37 +0800 (CST)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=SnNyIUKsorVAxqnwfpbUZwRMslljnk+vTb4CfKa2qOg=;
-	b=Qx9AWqzdHat03JckLm3M8BwOru2v7x0iL94Pntu/72z8LkNpVGJ0CuQsvObLbQQZKy7qxI+f7
-	POuCv4NaoAy2ApgQCxpmYgcqAwymFuufmDUhl++spML+a+SLlMEmg5rpQS//Ncrukr4XM5cLTau
-	hBIxU4k/6aa13wBQtOpnpjM=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4hh4WT0hVGzRhQs;
-	Fri, 11 Sep 2026 14:33:57 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 4382940579;
-	Fri, 11 Sep 2026 14:44:50 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 11 Sep 2026 14:44:48 +0800
-Message-ID: <7500ec7f-5e65-408c-a4ed-3f7af161219b@huawei.com>
-Date: Fri, 11 Sep 2026 14:44:47 +0800
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="OccR1Vuw"
+Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20260911064531epoutp025025afa73da824dd5b340afe251a0484~UMUamH5ta2886528865epoutp02f
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:45:31 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20260911064531epoutp025025afa73da824dd5b340afe251a0484~UMUamH5ta2886528865epoutp02f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789109131;
+	bh=P+llzaQn350lX1SLVgk5HtRhDecvte+vu6LLr8bCXio=;
+	h=Subject:Reply-To:From:To:CC:Date:References:From;
+	b=OccR1VuwRdQkmU0pYvkQUCmmZ1hWtFK5kkiatatrd47/ruegGmKr+gVXhUeT9eB+b
+	 bQmeRhCAHL1J7/YQN3UmFqJfHFwuULDCH8BlP7hNX1BLAhKc6jQAaFvpC9jlw6g6ld
+	 FJMFtgWKES1tld0WyUzEjklixg1g9s4P0Ls4xHA8=
+Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
+	epcas2p3.samsung.com (KnoxPortal) with ESMTPS id
+	20260911064531epcas2p3f6d5e28fd8fe6991e38f2044b0fb7ecb~UMUaMFHrv2830228302epcas2p31;
+	Fri, 11 Sep 2026 06:45:31 +0000 (GMT)
+Received: from epcas2p4.samsung.com (unknown [182.195.38.207]) by
+	epsnrtp02.localdomain (Postfix) with ESMTP id 4hh4mp4CMJz2SSKf; Fri, 11 Sep
+	2026 06:45:30 +0000 (GMT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 02/40] arm_mpam: Reset when feature configuration bit
- unset
-To: Ben Horgan <ben.horgan@arm.com>
-CC: <amitsinght@marvell.com>, <baisheng.gao@unisoc.com>,
-	<baolin.wang@linux.alibaba.com>, <carl@os.amperecomputing.com>,
-	<dave.martin@arm.com>, <david@kernel.org>, <dfustini@baylibre.com>,
-	<fenghuay@nvidia.com>, <gshan@redhat.com>, <james.morse@arm.com>,
-	<jonathan.cameron@huawei.com>, <kobak@nvidia.com>, <lcherian@marvell.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<peternewman@google.com>, <punit.agrawal@oss.qualcomm.com>,
-	<quic_jiles@quicinc.com>, <reinette.chatre@intel.com>,
-	<rohit.mathew@arm.com>, <scott@os.amperecomputing.com>,
-	<sdonthineni@nvidia.com>, <tan.shaopeng@fujitsu.com>,
-	<xhao@linux.alibaba.com>, <catalin.marinas@arm.com>, <will@kernel.org>,
-	<corbet@lwn.net>, <maz@kernel.org>, <oupton@kernel.org>,
-	<joey.gouly@arm.com>, <suzuki.poulose@arm.com>, <kvmarm@lists.linux.dev>,
-	<zengheng4@huawei.com>, <linux-doc@vger.kernel.org>
-References: <20260313144617.3420416-1-ben.horgan@arm.com>
- <20260313144617.3420416-3-ben.horgan@arm.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260313144617.3420416-3-ben.horgan@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Mime-Version: 1.0
+Subject: [PATCH 0/2] block: write streams on partitions
+Reply-To: keosung.park@samsung.com
+Sender: Keoseong Park <keosung.park@samsung.com>
+From: Keoseong Park <keosung.park@samsung.com>
+To: "axboe@kernel.dk" <axboe@kernel.dk>, "hch@lst.de" <hch@lst.de>,
+	"kbusch@kernel.org" <kbusch@kernel.org>, "hare@suse.de" <hare@suse.de>,
+	Kanchan Joshi <joshi.k@samsung.com>, Nitesh Shetty <nj.shetty@samsung.com>
+CC: Jinyoung Choi <j-young.choi@samsung.com>, Jeuk Kim
+	<jeuk20.kim@samsung.com>, Yunjae Jo <yunjae00.jo@samsung.com>,
+	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, SSDR Gost Dev
+	<gost.dev@samsung.com>
+X-Priority: 3
+X-Content-Kind-Code: NORMAL
+X-CPGS-Detection: blocking_info_exchange
+X-Drm-Type: N,general
+X-Msg-Generator: Mail
+X-Msg-Type: PERSONAL
+X-Reply-Demand: N
+Message-ID: <20260911064529epcms2p4791af8edd7c24d1a44b24e77c95c3f0b@epcms2p4>
+Date: Fri, 11 Sep 2026 15:45:29 +0900
+X-CMS-MailID: 20260911064529epcms2p4791af8edd7c24d1a44b24e77c95c3f0b
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+cpgsPolicy: CPGSC10-223,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260911064529epcms2p4791af8edd7c24d1a44b24e77c95c3f0b
+References: <CGME20260911064529epcms2p4791af8edd7c24d1a44b24e77c95c3f0b@epcms2p4>
 
+bdev_max_write_streams() returns 0 for any partition, so nothing on top
+of a partition can use write streams today.
 
+A partition already gets its own view of the device: the file system
+sees sectors from 0 and blk_partition_remap() turns them into disk
+sectors. The first patch does the same for write streams. A partition
+gets a subset of the disk's streams and exposes them as its streams 1 to
+N, so a file system on a partition needs no change, and the remap
+translates them to the streams reserved for that partition - two
+partitions can both write with stream 1 without sharing a stream on the
+device. The idea comes from an earlier patch by Christoph [1].
 
-在 2026/3/13 22:45, Ben Horgan 写道:
-> To indicate that the configuration, of the controls used by resctrl, in a
-> RIS need resetting to driver defaults the reset flags in mpam_config are
-> set. However, these flags are only ever set temporarily at RIS scope in
-> mpam_reset_ris() and hence mpam_cpu_online() will never reset these
-> controls to default. As the hardware reset is unknown this leads to unknown
-> configuration when the control values haven't been configured away from the
-> defaults.
-> 
-> Use the policy that an unset feature configuration bit means reset. In this
-> way the mpam_config in the component can encode that it should be in reset
-> state and mpam_reprogram_msc() will reset controls as needed.
-> 
-> Fixes: 09b89d2a72f3 ("arm_mpam: Allow configuration to be applied and restored during cpu online")
-> Signed-off-by: Ben Horgan <ben.horgan@arm.com>
-> ---
-> This goes back to the initial feature configuration policy that James
-> used in the MPAM base driver rfc but I unfortunately
-> suggested him to change it.
-> ---
->  drivers/resctrl/mpam_devices.c | 40 ++++++++++------------------------
->  1 file changed, 12 insertions(+), 28 deletions(-)
-> 
-> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-> index 0fd6590a9b5c..ff861291bd4e 100644
-> --- a/drivers/resctrl/mpam_devices.c
-> +++ b/drivers/resctrl/mpam_devices.c
-> @@ -1364,17 +1364,15 @@ static void mpam_reprogram_ris_partid(struct mpam_msc_ris *ris, u16 partid,
->  		__mpam_intpart_sel(ris->ris_idx, partid, msc);
->  	}
->  
-> -	if (mpam_has_feature(mpam_feat_cpor_part, rprops) &&
-> -	    mpam_has_feature(mpam_feat_cpor_part, cfg)) {
-> -		if (cfg->reset_cpbm)
-> -			mpam_reset_msc_bitmap(msc, MPAMCFG_CPBM, rprops->cpbm_wd);
-> -		else
-> +	if (mpam_has_feature(mpam_feat_cpor_part, rprops)) {
-> +		if (mpam_has_feature(mpam_feat_cpor_part, cfg))
->  			mpam_write_partsel_reg(msc, CPBM, cfg->cpbm);
-> +		else
-> +			mpam_reset_msc_bitmap(msc, MPAMCFG_CPBM, rprops->cpbm_wd);
->  	}
->  
-> -	if (mpam_has_feature(mpam_feat_mbw_part, rprops) &&
-> -	    mpam_has_feature(mpam_feat_mbw_part, cfg)) {
-> -		if (cfg->reset_mbw_pbm)
-> +	if (mpam_has_feature(mpam_feat_mbw_part, rprops)) {
-> +		if (mpam_has_feature(mpam_feat_mbw_part, cfg))
->  			mpam_reset_msc_bitmap(msc, MPAMCFG_MBW_PBM, rprops->mbw_pbm_bits);
+The second patch adds /sys/block/<disk>/<partition>/write_streams.
+Writing N reserves N of the disk's streams for the partition, writing 0
+gives them back, and the IDs come from a per-disk bitmap so that two
+partitions never share one. The count can only be changed while the
+partition is not open, the same rule as for a partition table change.
+Shrinking releases only the tail, so the streams a partition keeps map to
+the same device streams as before.
+The feature is opt-in: unless a partition's write_streams is set,
+partition I/O behaves exactly as before.
 
-This condition is written backwards, but it looks like it has already
-been fixed later.
+[1] https://lore.kernel.org/all/20241119121632.1225556-16-hch@lst.de/
 
-Otherwise, LGTM
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Keoseong Park (2):
+  block: allow write streams on partitions
+  block: add a sysfs interface to reserve write streams for a partition
 
->  		else
->  			mpam_write_partsel_reg(msc, MBW_PBM, cfg->mbw_pbm);
-> @@ -1384,16 +1382,14 @@ static void mpam_reprogram_ris_partid(struct mpam_msc_ris *ris, u16 partid,
->  	    mpam_has_feature(mpam_feat_mbw_min, cfg))
->  		mpam_write_partsel_reg(msc, MBW_MIN, 0);
->  
-> -	if (mpam_has_feature(mpam_feat_mbw_max, rprops) &&
-> -	    mpam_has_feature(mpam_feat_mbw_max, cfg)) {
-> -		if (cfg->reset_mbw_max)
-> -			mpam_write_partsel_reg(msc, MBW_MAX, MPAMCFG_MBW_MAX_MAX);
-> -		else
-> +	if (mpam_has_feature(mpam_feat_mbw_max, rprops)) {
-> +		if (mpam_has_feature(mpam_feat_mbw_max, cfg))
->  			mpam_write_partsel_reg(msc, MBW_MAX, cfg->mbw_max);
-> +		else
-> +			mpam_write_partsel_reg(msc, MBW_MAX, MPAMCFG_MBW_MAX_MAX);
->  	}
->  
-> -	if (mpam_has_feature(mpam_feat_mbw_prop, rprops) &&
-> -	    mpam_has_feature(mpam_feat_mbw_prop, cfg))
-> +	if (mpam_has_feature(mpam_feat_mbw_prop, rprops))
->  		mpam_write_partsel_reg(msc, MBW_PROP, 0);
->  
->  	if (mpam_has_feature(mpam_feat_cmax_cmax, rprops))
-> @@ -1491,16 +1487,6 @@ static int mpam_save_mbwu_state(void *arg)
->  	return 0;
->  }
->  
-> -static void mpam_init_reset_cfg(struct mpam_config *reset_cfg)
-> -{
-> -	*reset_cfg = (struct mpam_config) {
-> -		.reset_cpbm = true,
-> -		.reset_mbw_pbm = true,
-> -		.reset_mbw_max = true,
-> -	};
-> -	bitmap_fill(reset_cfg->features, MPAM_FEATURE_LAST);
-> -}
-> -
->  /*
->   * Called via smp_call_on_cpu() to prevent migration, while still being
->   * pre-emptible. Caller must hold mpam_srcu.
-> @@ -1508,14 +1494,12 @@ static void mpam_init_reset_cfg(struct mpam_config *reset_cfg)
->  static int mpam_reset_ris(void *arg)
->  {
->  	u16 partid, partid_max;
-> -	struct mpam_config reset_cfg;
-> +	struct mpam_config reset_cfg = {};
->  	struct mpam_msc_ris *ris = arg;
->  
->  	if (ris->in_reset_state)
->  		return 0;
->  
-> -	mpam_init_reset_cfg(&reset_cfg);
-> -
->  	spin_lock(&partid_max_lock);
->  	partid_max = mpam_partid_max;
->  	spin_unlock(&partid_max_lock);
+ Documentation/ABI/stable/sysfs-block |  19 ++++
+ block/bdev.c                         |   1 +
+ block/blk-core.c                     |  10 ++-
+ block/partitions/core.c              | 128 +++++++++++++++++++++++++++
+ include/linux/blk_types.h            |   3 +
+ include/linux/blkdev.h               |   4 +-
+ 6 files changed, 163 insertions(+), 2 deletions(-)
+
+-- 
+2.43.0
 
