@@ -1,48 +1,48 @@
 Received: from ironport.ite.com.tw (60-251-196-230.hinet-ip.hinet.net [60.251.196.230])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27ABE28505E;
-	Fri, 11 Sep 2026 10:18:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDBCE42E8DC;
+	Fri, 11 Sep 2026 10:18:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.251.196.230
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789121916; cv=none; b=tEqn0jptYLrU9FxmG7HwrLcqvsZyL3hlK/IoDU+5K97IaFzz172FQwU7CM+4Fkyqh+U5f8RlBEanNIIaFbPWKK8arW5a4Dkv/o6g8CqkDO089yNjSFGAF3r/X1RTtJJQcFvcw0PmSlO2s/QrzNkLjxpzqbZiWCqyi0Aa3+qL8aY=
+	t=1789121923; cv=none; b=Sv3C8K8ueLjt8poao7afwA/lrnm/cZdW7nKcdVhW6uONE4pD3ro+a4z/PqsWwhk3hnsWXRHTOuwbx3uXxmPb+untHRPZBs/utdRyHIdNo7PWjxAcLKlreMEYvMEugLMZUXIHWyFeOnqpG5SlE+DB0n0Kxy0BQ88c2zyd5ZLH974=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789121916; c=relaxed/simple;
-	bh=EZFgjzmIkXKtBiVBR5kDiTZvhm0BWlSah60eYrztaZc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=N7NRa7Sl54IDRJYPoBlbslmV3IM7XqeAP4ZSxB5L24k/L2OCx32Y3IEmtfoPfLME8004BgUOkZElqNE293zTgk/UZ15XISN0z24a1roLkhARPrihEAokyRzAYKAs0btA3UZT1ZrCtGNsVz6KCG9NAiDGNeFaA2bdNo48P+02ko0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=Fqwlyw3A; arc=none smtp.client-ip=60.251.196.230
+	s=arc-20240116; t=1789121923; c=relaxed/simple;
+	bh=NlNrje7LTfvXp7maV9lhHlpG6QvShtPIWuZFdjTrN7s=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=HbA3g59Nx4NojAMej/O8Y13QlN2owB6w5MIVEVeSPBmE2oO0WvtqALqce7Qoa+B0Wux06hCP9A+i3QZsSITXVXZZijlBjnX4HSohpdpFANoIKer81n2baibMr4+HhH2VnMWEqDjw25jpz7OCHFpCMEQEmu1Iheg3Ko53GqpNOjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=FCTQn9LP; arc=none smtp.client-ip=60.251.196.230
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="Fqwlyw3A"
+	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="FCTQn9LP"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=ite.com.tw; s=dkim;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=oHvNl5rUJ3iJJdtBUPTK1GIxlFixSOtnW5yXY3TOxLk=;
-  b=Fqwlyw3AwS1lZ5qS1YO/T2QU4of37Q2jEWB3YBDLxBzlNXOhhOrfxHJ5
-   nGhTWEmkmJpjaRT7vSF4GrV40y4/gsbpyvRvWZXv7+uKlhrlJzuQRpy4y
-   2pCouBCRuHsxQHxvtFTF1Swr/gKqktqFU9AVLngbQYTqvMg0vzuJ+wnb9
-   dt4DXdO/M+TIK9QSGZ3RM1JltZLrBH2umDKeSOPpLdDvnLkDx2QdKhQ6B
-   YY+JibqemAxUubpmXR1262m/tNgot/qXHz8zDMWk0LF66dIXEDetUM9y1
-   vnqipsvLQ2XNaottEBxPYMpG1CC+j0ruQKtogCfGy4bIw1eIlqHp2vsyr
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=n2p3zCH+NtyA5f7Fe13NEUPsv2WiyBHrv9a2BtmJwZE=;
+  b=FCTQn9LPxlxIhM72ac9p4VVN8wBhbH2Cven2Oq9dY/FmKJ/WQcGl0HnT
+   wqsXyjAeEdXHkBttRh7PpGhR/zjD8kmpID9rtojcseTdQDScMrR37zPdL
+   bZOhkSKBJ1do0t/xwz04udfcM2LJWnat345ljUQzfhul7li3pHBv1uqIJ
+   RQhnTPNQMWGZ+e+J4z1Q+kIFcmy1ZCTtJsxdz4WqeIqqx1DYehXLRKlx4
+   W4Pm+EY3wSDUz90m4tVtgqKjjUjdMAdxOgd1X/43thQfGWyu6ECkJjt1b
+   XPhpMrXbXmgQ7m1/3NHcvjZsRw9PZU+tSWMHmq9yW238DWrxYzZSRnQcp
    Q==;
-X-CSE-ConnectionGUID: 7drFANLVSYGdQwkq9b8wyw==
-X-CSE-MsgGUID: mCOKXzzqQf+SLLc0IAe7GQ==
+X-CSE-ConnectionGUID: qtUFtQivTcW+k9nqZUi0bQ==
+X-CSE-MsgGUID: 8vJsIZOaQMCHUkQH9oQppA==
 Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
-  by ironport.ite.com.tw with ESMTP; 11 Sep 2026 18:17:20 +0800
+  by ironport.ite.com.tw with ESMTP; 11 Sep 2026 18:17:22 +0800
 Received: from jiraproxy.ite.com.tw (jira.internal.ite.com.tw [192.168.35.200])
-	by mse.ite.com.tw with ESMTP id 68BAHGM7037146;
-	Fri, 11 Sep 2026 18:17:16 +0800 (+08)
+	by mse.ite.com.tw with ESMTP id 68BAHHrD037153;
+	Fri, 11 Sep 2026 18:17:17 +0800 (+08)
 	(envelope-from ite_pd@ite.com.tw)
 Received: from [127.0.1.1] (ITE01791W10.internal.ite.com.tw [192.168.37.107])
-	by jiraproxy.ite.com.tw (Postfix) with ESMTP id 7C62E2D59;
+	by jiraproxy.ite.com.tw (Postfix) with ESMTP id 6F1682D58;
 	Fri, 11 Sep 2026 18:17:16 +0800 (CST)
 From: Amber Kao <ite_pd@ite.com.tw>
-Date: Fri, 11 Sep 2026 18:17:57 +0800
-Subject: [PATCH 1/2] dt-bindings: usb: ite,it8851: Add IT5271 series
- support
+Subject: [PATCH 0/2] usb: typec: ucsi: Add ITE IT5271 series and
+ DisplayPort alt mode support
+Date: Fri, 11 Sep 2026 18:17:56 +0800
+Message-Id: <20260911-ucsi-itepd-it527x-v1-0-14c8041afb53@ite.com.tw>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,9 +51,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-ucsi-itepd-it527x-v1-1-14c8041afb53@ite.com.tw>
-References: <20260911-ucsi-itepd-it527x-v1-0-14c8041afb53@ite.com.tw>
-In-Reply-To: <20260911-ucsi-itepd-it527x-v1-0-14c8041afb53@ite.com.tw>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBCF4avIrDUxTSiuIhZtDcYC6SAScXfF5
+ iXf4v0XCAUmgTq5INDBwsscgWkCfrTzQIq7aNCZLrIKUe1eWPFGaxc31+ZUuSuNLdAadA7ibw3
+ U8/k1m/a37G4iv70huO8HnbhiuHUAAAA=
+X-Change-ID: 20260911-ucsi-itepd-it527x-5b87a61a71bb
 To: Amber Kao <amber.kao@ite.com.tw>, Jeson Yang <jeson.yang@ite.com.tw>,
         Yaode Fang <Yaode.Fang@ite.com.tw>,
         Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -64,124 +65,41 @@ To: Amber Kao <amber.kao@ite.com.tw>, Jeson Yang <jeson.yang@ite.com.tw>,
 Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, Amber Kao <ite_pd@ite.com.tw>
 X-Mailer: b4 0.15.2
-X-MAIL:mse.ite.com.tw 68BAHGM7037146
+X-MAIL:mse.ite.com.tw 68BAHHrD037153
 
-Add compatible strings for the ITE IT5271 series USB Type-C Power
-Delivery controllers. The IT5272 and IT5274 are the two-port variants,
-and the IT5273 and IT5274 additionally support EPR (Extended Power
-Range). All of them share the IT5271 programming interface.
+This series extends the itepd UCSI driver with support for the ITE
+IT5271 series controllers, and adds DisplayPort alternate mode
+handling.
+
+The IT5271 series shares the same programming interface as the
+IT8851/IT8853. The IT5272 and IT5274 drive two Type-C connectors, and
+the IT5273 and IT5274 additionally support EPR.
+
+For DisplayPort alternate mode, the driver queries the current
+alternate mode from the PPM, configures the Type-C mux and retimer
+accordingly, and reports HPD state and HPD IRQ through the DRM
+auxiliary HPD bridge.
+
+This series depends on the following series, which has not been picked
+up yet:
+
+  https://lore.kernel.org/linux-usb/20260807-ucsi-itepd-v7-0-998ac11ed0ef@ite.com.tw/
 
 Signed-off-by: Amber Kao <ite_pd@ite.com.tw>
 ---
- .../devicetree/bindings/usb/ite,it8851.yaml        | 72 +++++++++++++++++++---
- 1 file changed, 65 insertions(+), 7 deletions(-)
+Amber Kao (2):
+      dt-bindings: usb: ite,it8851: Add IT5271 series support
+      usb: typec: ucsi: itepd: Add DisplayPort alternate mode support
 
-diff --git a/Documentation/devicetree/bindings/usb/ite,it8851.yaml b/Documentation/devicetree/bindings/usb/ite,it8851.yaml
-index defd431aba97..e2e50507f573 100644
---- a/Documentation/devicetree/bindings/usb/ite,it8851.yaml
-+++ b/Documentation/devicetree/bindings/usb/ite,it8851.yaml
-@@ -4,23 +4,33 @@
- $id: http://devicetree.org/schemas/usb/ite,it8851.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
--title: ITE IT8851/IT8853 USB Type-C Power Delivery Controller
-+title: ITE USB Type-C Power Delivery Controllers
- 
- maintainers:
-   - Jeson Yang <jeson.yang@ite.com.tw>
--  - Amber Kao <amber.kao@ite.com.tw>
-+
- description:
--  The ITE IT8851 is an I2C-based USB Type-C Power Delivery (PD) controller
--  supporting one Type-C port.
--  The IT8853 is the two-port variant sharing the same programming interface.
-+  I2C-based USB Type-C Power Delivery (PD) controllers sharing the same
-+  programming interface. The IT8853, IT5272 and IT5274 drive two Type-C
-+  connectors, the other variants drive one.
- 
- properties:
-   compatible:
-     oneOf:
--      - const: ite,it8851
-+      - enum:
-+          - ite,it5271
-+          - ite,it8851
-+      - items:
-+          - enum:
-+              - ite,it5272
-+              - ite,it5273
-+              - ite,it5274
-+          - const: ite,it5271
-       - items:
-           - const: ite,it8853
-           - const: ite,it8851
-+    description:
-+      IT5273 and IT5274 support EPR (Extended Power Range).
- 
-   reg:
-     maxItems: 1
-@@ -63,7 +73,10 @@ allOf:
-         properties:
-           compatible:
-             contains:
--              const: ite,it8853
-+              enum:
-+                - ite,it5272
-+                - ite,it5274
-+                - ite,it8853
-     then:
-       properties:
-         connector@1: false
-@@ -154,3 +167,48 @@ examples:
-             };
-         };
-     };
-+
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        typec@26 {
-+            compatible = "ite,it5271";
-+            reg = <0x26>;
-+            interrupts-extended = <&tlmm 130 IRQ_TYPE_EDGE_FALLING>;
-+            wakeup-source;
-+
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            connector@0 {
-+                compatible = "usb-c-connector";
-+                reg = <0>;
-+                label = "USB-C";
-+                power-role = "dual";
-+                data-role = "dual";
-+
-+                ports {
-+                    #address-cells = <1>;
-+                    #size-cells = <0>;
-+
-+                    port@0 {
-+                        reg = <0>;
-+                        endpoint {
-+                            remote-endpoint = <&usb_hs_con>;
-+                        };
-+                    };
-+
-+                    port@1 {
-+                        reg = <1>;
-+                        endpoint {
-+                            remote-endpoint = <&usb_ss_con>;
-+                        };
-+                    };
-+                };
-+            };
-+        };
-+    };
+ .../devicetree/bindings/usb/ite,it8851.yaml        |  72 +++-
+ drivers/usb/typec/ucsi/Kconfig                     |  10 +-
+ drivers/usb/typec/ucsi/ucsi_itepd.c                | 405 ++++++++++++++++++++-
+ 3 files changed, 467 insertions(+), 20 deletions(-)
+---
+base-commit: 3c4aafdfefdc69285d7d4f11d7944f56083fdd8e
+change-id: 20260911-ucsi-itepd-it527x-5b87a61a71bb
 
--- 
-2.53.0
+Best regards,
+--  
+Amber Kao <ite_pd@ite.com.tw>
 
