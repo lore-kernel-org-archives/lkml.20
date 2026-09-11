@@ -1,235 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C5B3F54D9;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F1D3F4831;
 	Fri, 11 Sep 2026 10:02:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789120935; cv=none; b=JNa9H1iZdHkwX2qRS4njoekCSdkiFtj5SaREEVeCG5ZQYZCoiG2jHo8Hvr2PlH44p8w5hEfxdJRaIvY3Yaf6Fy6io+MO9dgxf7DAc0b4Ue73dEkJ+eoT2udndM1AYinIJXn05jcDju7Z1WqqBmXThJBP+40ZFXMFWU+biW0i+vI=
+	t=1789120937; cv=none; b=K2aXZUrzIPN9mOA9YhTLkGzyXb1nHbWiYTYIRgdbRhziljjFOrhF8y3YUy+VQnGR2SDMp51ACw4fbBZTu5qO0Sl79LAr1+6TKJYDiZHFEx7JufVnRzBAizZE2YxjQjXKFU9S5jvJ5zrkNdFp5aviXFT6am4Qlj78NyIficFeWFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789120935; c=relaxed/simple;
-	bh=Qg9Pf5m4fAlnXQyxa0YxUpu1miSnWRO3wmHqhRgDb/s=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=iV5+nGPtc7nt6bX4pkDFnnnNFHHnstHES/2R/Wm3EpVjaAeuIxdy9EPHEku0BZyoma/Djvxvplwm1si6wIfOxR3kmvITBzZt0wRDuOIJRaFEjLVfx8Pe+WpGAHJswFoLvyMpwERifvJEyfH6W+A2HfMOlzwBTfofeMht36LTN6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C7k8V0h8; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C7k8V0h8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DAD91F00893;
-	Fri, 11 Sep 2026 10:02:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789120929;
-	bh=w9bWC+Y7XLkxTdmDgp438euNI00pTW8sqJuzE5U3P+Y=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=C7k8V0h8QtAVlv9Ie0rVZ2eKXBd+YD+28C/1oEZ23V6bCHC/xKvdYS3jNiyHEaEvH
-	 EjhWQlPsCi7cD7m6mmL+Uw4Eldvmvt9532P1eQC9veIupMNSbXdsZxkdJdVZ+mjiK8
-	 IdSwdEDbZ+w712aWPMzDG028sBkEpZaiMwAhcxQ9mdqyKun7rN1Qfn2+Fhr0gEJoTQ
-	 43jAAM1kSSE66cJ2svmASRIr0dWfKkRsYcO0X6wXDnbFadooeVQ7egkmT827NjduTj
-	 P/4uFIpWFMy8gKumDs/2O5Z8KlMBlrPRbxdrtr7nSYjBl8HbAkSi0VR65Ztz3fg77n
-	 wcHBOpSTER55A==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id C0D4D1980054;
-	Fri, 11 Sep 2026 06:02:07 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Fri, 11 Sep 2026 06:02:07 -0400
-X-ME-Sender: <xms:ntGjahZMoVQE9rtT_tPzYQwPsFtCh8HqJhJCWXdsDjxHDi-vKR1XpA>
-    <xme:ntGjajP93wb2USWdonzykUirIXX3bYfwrh5raZyq43THV-VaSBLASX20gQLfLbAyX
-    j809tDWWUGNMoq7fv0dO6J0JRl-lCnBLQ1EXPxbfH3M1MShxFbnmOqR>
-X-ME-Proxy-Cause: dmFkZTGhJJeSc9NrlHirlaMeFwM1Tf/ZlaV7N5wqtk4nwTWW92rE2zIWFLXcjmlPYTDjgJ
-    djRSKEd4FkqHpmIkrxZ8DNUazmiLJRcdEevvd8UM5qZBEagwLtAyPoGDSfS+JQ3VDGlCd6
-    w6T5IILnvpPfOAB6vbDoyovSV0H0oNxlkDjNYQdSFheN8PVnQwnCW9MFReCj2os/4Rqt7r
-    E15mXFJoHlwcCJ80CG47C5FbEQA+9JhQXdraj0+xTPf17XEoyl5IEX9Q0S2yNYJEzESWcB
-    Xy2ur3j7P8UovskxT2fXwNZ47sb4cFTJiKiMwx4gJZ9FcbTnta86+yis7rvEvIh/oV4+pp
-    g7www+a0B6azD4BodIcaHmiE6ybCkO8qL0Klx3xbxkPDcNmJthpoIufFeazF60G/YxWmsp
-    D3NgDi0+YM+CONGQpXL/XfRyrNYUYy+O7zw1ek7Ya66rApc5R0tdRnJz+1zWHyWB44mkP0
-    TOgfNDFv2KiTzvum+Ziu8tc0HWs7ZDyBq9Px8wOhngcJNjC17gOJ5wiX8YBvkoNcQ15pKO
-    HPYPzFE/oLynbw+1xvbQ3LOUjzZVyJv/sWZWtKE0JnJZabbwz6XDZE3WDe03w6O1UMRUbk
-    OvVYL3OciTwyCQPCPu6LLUKAkPYFP5EujdxONkPjm/Is0fljbzD3ma9JSo+A
-X-ME-Proxy: <xmx:n9GjaoNhU3INvHu0CAGZDtT9AnOr78NjE0iXRnJiZ7L2gjg2PelDiw>
-    <xmx:n9Gjaip4UQ3PIoGoJwSNM60tk2gJYLGuC0swB8BOJXrXmbddTyAJ1g>
-    <xmx:n9GjapFAIVnXJIHMZ2o8gfSk09M9x18Db99OS-y_K2ldB7NIwrhpVA>
-    <xmx:n9GjanozxPo42J-e5S-mKfY-vmbUn6M2U1pLzoZ9rZvMbl-JJlgSjQ>
-    <xmx:n9GjaiZWt7JKDmFjzuHmlZnkUem3iMaZ0ZeaNNg8c7Fk36GT7JQ1FK2n>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 4944FF8007E; Fri, 11 Sep 2026 06:02:06 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=arc-20240116; t=1789120937; c=relaxed/simple;
+	bh=Ap6Qzh//tgwC9TM/BwK9j1bmQLM5lt5in9O/jOI+FVk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=p4gyW50KzRHZBtxdTG1DcQN20zz4YUw0nbGxes29IcA1iVpBkhmz7/zbqTQQJoZPqvhLRAiwzgdUa88vvvmR8UPrV4fz32C1OHWvf2SNL6yLLC0QX/qRbJIztH9PybNPjXTeh0qrm8p7PA07w7Bth2zLfvlAeV0PRG/SVzep7y8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: d750eb7eadc711f19a56ed5b684f684d-20260911
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:819c808a-b307-4357-8807-6cad48e8e97a,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:f324815990e8e8d85fd95d500e816260,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
+	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: d750eb7eadc711f19a56ed5b684f684d-20260911
+X-User: fuqingshuang@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <fuqingshuang@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1742510889; Fri, 11 Sep 2026 18:02:04 +0800
+From: Qingshuang Fu <fuqingshuang@kylinos.cn>
+To: Andy Whitcroft <apw@canonical.com>,
+	Joe Perches <joe@perches.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Willem de Bruijn <willemb@google.com>,
+	Anton Danilov <littlesmilingcloud@gmail.com>
+Cc: netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Qingshuang Fu <fuqingshuang@kylinos.cn>
+Subject: [PATCH] selftests: net: fou_mcast_encap: conditionally load fou module and skip IPv4 case
+Date: Fri, 11 Sep 2026 18:01:58 +0800
+Message-Id: <20260911100158.854183-1-fuqingshuang@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 11 Sep 2026 12:01:46 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: "Ard Biesheuvel" <ardb+git@google.com>, linux-pci@vger.kernel.org,
- LKML <linux-kernel@vger.kernel.org>, "Bjorn Helgaas" <bhelgaas@google.com>
-Message-Id: <48bb0fb6-10dc-46a7-84f6-3464d7c7bdfe@app.fastmail.com>
-In-Reply-To: <2e392b1b-3cbe-5cf8-e190-b1c82d69562f@linux.intel.com>
-References: <20260910143440.3865663-2-ardb+git@google.com>
- <aa0e034d-fc68-69d6-8d27-8f30d138b9be@linux.intel.com>
- <41345c53-fea4-4f98-8569-b3dc4e84cdcb@app.fastmail.com>
- <2e392b1b-3cbe-5cf8-e190-b1c82d69562f@linux.intel.com>
-Subject: Re: [RFC PATCH] PCI: Tolerate non-prefetchable 64-bit BARs in prefetchable
- windows
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
+The IPv4 FOU/GRETAP multicast test requires the fou module to register
+tunnel encapsulation operations and the FOU generic netlink family.
+Since there is no genetlink module alias, the module cannot be auto-loaded.
 
-On Fri, 11 Sep 2026, at 11:27, Ilpo J=C3=A4rvinen wrote:
-> On Thu, 10 Sep 2026, Ard Biesheuvel wrote:
->
->>=20
->> On Thu, 10 Sep 2026, at 19:31, Ilpo J=C3=A4rvinen wrote:
->> > On Thu, 10 Sep 2026, Ard Biesheuvel wrote:
->> >
->> >> From: Ard Biesheuvel <ardb@kernel.org>
->> >>=20
->> >> The prefetchable vs. non-prefetchable distinction is a relic of
->> >> conventional PCI, to denote from which regions PCI-PCI bridges were
->> >> permitted to perform speculative readahead.
->> >>=20
->> >> For software compatibility reasons, PCI Express inherited the Type=
- 1
->> >> header and models PCIe root ports as PCI-PCI bridges. However, this
->> >> readahead behavior does not exist in PCIe, and so this distinction=
- has
->> >> mostly become meaningless on the bridge level.
->> >>=20
->> >> As per the PCIe r6.3 ECN "Removing Prefetchable Terminology", the
->> >> 'prefetchable' designation has been removed from the specification
->> >> entirely, on the basis that it is obsolete, and is being abused to
->> >> inform memory mapping attributes and other device/BAR level proper=
-ties
->> >> that it was never intended for.
->> >>=20
->> >> Given the limited range for non-prefetchable windows in the Type 1
->> >> header, and the fact that the distinction no longer exists for PCI=
-e,
->> >> resource allocation performed by firmware may result in non-prefet=
-chable
->> >> 64-bit BARs being allocated inside prefetchable bridge windows.
->> >>=20
->> >> Linux rejects such allocations ("can't claim; no compatible bridge
->> >> window") when it encounters them, but will usually fail to produce=
- an
->> >> alternative allocation, given that firmware wouldn't have placed t=
-hem
->> >> there in the first place if there was sufficient space in the
->> >> non-prefetchable window.
->> >>=20
->> >> So at the very least, let's not reject such allocations when they =
-were
->> >> made by the firmware.
->> >>=20
->> >> Cc: Bjorn Helgaas <bhelgaas@google.com>
->> >> Cc: "Ilpo J=C3=A4rvinen" <ilpo.jarvinen@linux.intel.com>
->> >> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
->> >> ---
->> >> Link: https://github.com/tianocore/edk2/issues/13104
->> >>=20
->> >>  drivers/pci/pci.c   | 3 ++-
->> >>  include/linux/pci.h | 4 ++--
->> >>  2 files changed, 4 insertions(+), 3 deletions(-)
->> >>=20
->> >> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
->> >> index b2879a6be5f8..e33eb9f3a139 100644
->> >> --- a/drivers/pci/pci.c
->> >> +++ b/drivers/pci/pci.c
->> >> @@ -761,7 +761,8 @@ struct resource *pci_find_parent_resource(cons=
-t struct pci_dev *dev,
->> >>  			 * not, the allocator made a mistake.
->> >>  			 */
->> >>  			if (r->flags & IORESOURCE_PREFETCH &&
->> >> -			    !(res->flags & IORESOURCE_PREFETCH))
->> >> +			    !(res->flags & IORESOURCE_PREFETCH) &&
->> >> +			    !pci_is_pcie(dev))
->> >>  				return NULL;
->> >> =20
->> >>  			/*
->> >
->> > I was more thinking along the lines of always setting IORESOURCE_PR=
-EFETCH=20
->> > for 64-bit BARs on PCIe devices but I've not had time to look at th=
-at/test=20
->> > how many things would break as a result. ...It would seem much simp=
-ler=20
->> > solution to differentiate PCI from PCIe while keeping the existing =
-logic=20
->> > without adding similar pci_is_pcie() checks everywhere.
->> >
->>=20
->> I agree that the code changes would be much simpler.
->>=20
->> However, would this impact the PCI metadata observed by all consumers,
->> including userspace,
->
-> Yes, it will impact userspace. But quoting you from above:
->
-> "is being abused to inform memory mapping attributes and other device/=
-BAR=20
-> level properties that it was never intended for."
->
-> What does the userspace then do with the information? Does it qualify=20
-> under "it was never intended for"?
->
+The test previously assumed CONFIG_NET_FOU=y. On kernels built with
+CONFIG_NET_FOU=m, setup_ipv4() fails silently without terminating the
+script, causing a false positive test failure with 0/100 received packets.
 
-Perhaps, but that does not mean we are allowed to break it now.
+Fix this by trying to load the fou module before the IPv4 test. Skip the
+subtest cleanly if the module is unavailable, mirroring the existing
+IPv6 fou6 module handling and following pmtu.sh conventions.
 
-More specifically, would the output of 'lspci' change as a result?
+Only module load failures result in a skip. Any other setup errors still
+report a test failure, preserving test coverage.
 
->> and drivers that may expect a certain BAR layout,
->
-> ??? Would that even be spec compliant??
->
+The official selftest config enables CONFIG_NET_FOU=y, but many
+distribution kernels build it as a module. modprobe is a no-op for
+built-in configurations, so existing CI behavior remains unchanged.
 
-Again, maybe not, but if something that works fine today stops
-working because the PCI subsystem started lying to the driver about
-how the PCIe device describes itself, we'll be on the hook to fix it.
+Fixes: e5382133c51c ("selftests: net: add FOU multicast encapsulation resubmit test")
+Signed-off-by: Qingshuang Fu <fuqingshuang@kylinos.cn>
+---
+ tools/testing/selftests/net/fou_mcast_encap.sh | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
->> and/or base decisions about memory attributes on this?
->
-> The point is to consider them 64-bit window eligible so yes, kernel wo=
-uld=20
-> definitely be basing decision on that but that's intentional.
->
+diff --git a/tools/testing/selftests/net/fou_mcast_encap.sh b/tools/testing/selftests/net/fou_mcast_encap.sh
+index 70210d39fba3..d94c19237daf 100755
+--- a/tools/testing/selftests/net/fou_mcast_encap.sh
++++ b/tools/testing/selftests/net/fou_mcast_encap.sh
+@@ -51,8 +51,6 @@ setup_common() {
+ }
+ 
+ setup_ipv4() {
+-	# IPv4 FOU (CONFIG_NET_FOU) is built in on kernels configured for
+-	# these tests, so no module load is needed here.
+ 	ip -n "$NSENDER" addr add 10.0.0.1/24 dev veth_s
+ 	ip -n "$NRECV" addr add 10.0.0.2/24 dev veth_r
+ 
+@@ -160,8 +158,17 @@ run_ping_test() {
+ }
+ 
+ setup_common
+-setup_ipv4
+-run_ping_test -4 eoudp4 "$TUN4_R" "FOU/GRETAP IPv4 multicast encap resubmit"
++
++# The fou module registers both the tunnel encap ops used by "encap fou"
++# and the FOU genetlink family used by "ip fou add", and neither of them
++# is auto-loaded. modprobe succeeds as a no-op when CONFIG_NET_FOU=y.
++# Keep any other setup error as a test failure rather than a skip.
++if modprobe -q fou; then
++	setup_ipv4
++	run_ping_test -4 eoudp4 "$TUN4_R" "FOU/GRETAP IPv4 multicast encap resubmit"
++else
++	log_test_skip "FOU/GRETAP IPv4 multicast encap resubmit"
++fi
+ 
+ if setup_ipv6; then
+ 	run_ping_test -6 eoudp6 "$TUN6_R" "FOU/ip6gretap IPv6 multicast encap resubmit"
 
-That would mean that a driver may decide to use ioremap_wc() rather than
-ioremap() to map a non-prefetchable BAR that we decided to misrepresent
-as a prefetchable one. Even if the (pseudo-)PCI-PCI bridge will not do
-any readahead, the CPU or interconnect may behave very differently as a
-result, and touch BAR regions that the driver never accessed explicitly.
-
->> In particular, I am concerned about non-prefetchable BARs that actual=
-ly
->> have side effects on read, being mapped with WC (or Normal-NC on arm6=
-4)
->> semantics, where the interconnect may widen, combine or reorder acces=
-ses.
->
-> So on a more concrete terms, you're referring to the check in=20
-> proc_bus_pci_mmap()? And the one in __pci_resource_attr_is_visible() +=20
-> pci_dev_resource_wc_is_visible()? I suppose that wouldn't work then.
->
-
-No, I am referring to the hundreds of ioremap() and ioremap_wc() calls
-under drivers. Maybe none of them are affected but who knows.
-
-> So if just setting IORESOURCE_PREFETCH is not workable, how about addi=
-ng a=20
-> getter for res->flags which adds IORESOURCE_PREFETCH into the returned=20
-> flags if it's PCIe device and (in the end) use the raw value only in t=
-hose=20
-> places that actually care about wc distinction. What I don't want to s=
-ee=20
-> us adding that pci_is_pcie() everywhere.
->
-
-Maybe add another IORESOURCE_PREFETCH_xxx flag that indicates that the
-resource may be placed in a prefetchable bridge window? We'd only have
-to set it in a single place (when probing the BAR), and we can add
-support for it piecemeal in the validation and allocation logic.
-
-
-
+base-commit: 08df884136f1c1197bab2a27814404fd329d9aac
+-- 
+2.25.1
 
