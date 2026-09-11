@@ -1,237 +1,176 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 318E83793A5;
-	Fri, 11 Sep 2026 10:55:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A1C843A7F75
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:56:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789124128; cv=none; b=gxzOPYRjWBY+OHNe4EEqYRmsH6kf4m/XANcdwgGBlsqdzwRuvvRONUCZkia/BoPr9H1ANFj871JlCZvB8c0rw1TxmUeUyxNEedrryFWYrTq55U5oXRmbV09OF6C5oEzGWYWHgQtV9kvlzIcGnIUftaKWiVlj3Ln+X/rMLjje/n4=
+	t=1789124178; cv=none; b=XOW38yUPFY0QwuAe+dapZvGY987E54W4DThTlJFf3h0jiNb6JN9DHIqXTabv20t3h7tb6/D0ynj/w57KZE0230ssmoSKkuoioZHkPU1TuWRaVfqHE/LYJmnWVPgHjcTgAo+V6l8+ODObhtURCrJIQh04oud/3wL4zbo8tCYmwXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789124128; c=relaxed/simple;
-	bh=ve2s5k2AkcEmEu6uGupBJMjWdCPQzeGp6SYoEHL7tQY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tLL0c4h//eGpCSup5W02RFafvKAyFACT427RBRmO+phh2AUHIeajHRaZIwVt8Sp/rtgcsew+gCa36qi3QfP2Y9p326gRZbeXCHF3Bwf9kiInuYcGtD7Kwo/kUcJdMgrlUokT50/hxrezGEZDq7woWw4dlrsIAXtUEKeO4A4a2Z4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=HTvpUoue; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789124178; c=relaxed/simple;
+	bh=L8EzfeK5GHg9ts95UQZjIMXReLQVDSdUBWYGEouRTwo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cnFGPRu/Pp+z6gggP4hw11x4XVWSjZdqX8+8N0D1iJBKujp233gtuOJRaSClYM1/oi97dqOn0dG0lBtuw9nTKqqYQqPLRj15cB50QNBn47wSlelxPKKy3BHEfgTRs4rv+8N8IzPtLEBOSvEM+Mr/6fdsup9wUmkpCb3czxs/mHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FoWNhRN2; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="HTvpUoue"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68B81io71082809;
-	Fri, 11 Sep 2026 10:54:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=Dl1WGo
-	ynbtS7pJelxoHt7PUoSpyjimiBnE9ma6L8RAQ=; b=HTvpUoueqN2vo+EYb26yB4
-	+eJX+nI4VCUxVcVdS94GCvUEloSUX4D/+vgMNVHRlU9k1ldSlfXxca8OMLdHsBAz
-	RKWW/Jr9hzGqeR/RJlVFY+sQ7XqiYNR0i6ROghU16OXb72IAj46M4mMTdwo40bfj
-	nnws/xhcba0fg7nqbY6rjT3myMecCYryO8I7qUJAjos5f1gHk2HYk0agfdapt1Tb
-	DR8yO1KeNLEBH5xRQBPFgDjze6xf7G/12d6PC3tmp6vwC/usaSDRe2VArO9bt7V7
-	Gl+pmitp+LgkPqq3U3v87Dv49zSQPU7QiLutLNRogG8/2wJaHCk4YwOSp2238egQ
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gkd8sauyb-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 11 Sep 2026 10:54:54 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68BAo31a1499341;
-	Fri, 11 Sep 2026 10:54:54 GMT
-Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gkvwk5u9w-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 11 Sep 2026 10:54:54 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
-	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68BAsrCg49086866
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 11 Sep 2026 10:54:53 GMT
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6B7C758056;
-	Fri, 11 Sep 2026 10:54:53 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 522315803F;
-	Fri, 11 Sep 2026 10:54:45 +0000 (GMT)
-Received: from [9.61.102.225] (unknown [9.61.102.225])
-	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 11 Sep 2026 10:54:45 +0000 (GMT)
-Message-ID: <ec866125-6e45-4977-bb01-b13697fd3a8c@linux.ibm.com>
-Date: Fri, 11 Sep 2026 16:24:44 +0530
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FoWNhRN2"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 07CA61570;
+	Fri, 11 Sep 2026 03:56:11 -0700 (PDT)
+Received: from e129823.arm.com (unknown [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7C5973F7B4;
+	Fri, 11 Sep 2026 03:56:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789124174; bh=L8EzfeK5GHg9ts95UQZjIMXReLQVDSdUBWYGEouRTwo=;
+	h=From:Subject:Date:To:Cc:From;
+	b=FoWNhRN2PkKrNDMCkWpEKANSSmhj8pUl2ugXvG+rLVOagMPoUyWEONQZq1R2ehQKD
+	 FLtFtTPyY0xeIdyhGMS9SadjMeKuVFUGxFAIpSEKYo3EAAm+KKoaqO2iS6Wtpk3P3N
+	 bOtLmU5MFLTQIl/VtYxyrrjOJ5RwwtHRu/rCTdFE=
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+Subject: [PATCH v10 0/8] fix several inconsistencies with sysfs
+ configuration in etmX
+Date: Fri, 11 Sep 2026 11:55:59 +0100
+Message-Id: <20260911-separate_etm_cfg_v2-v10-0-1b715d95927a@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/8] md: pass a queue_limits through ->run()
-To: Jack Wang <jinpu.wang@ionos.com>, Song Liu <song@kernel.org>,
-        Yu Kuai <yukuai@fygo.io>, linux-raid@vger.kernel.org,
-        abd.masalkhi@gmail.com
-Cc: linux-block@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
-        Christoph Hellwig <hch@lst.de>, Damien Le Moal <dlemoal@kernel.org>,
-        Ming Lei <tom.leiming@gmail.com>, Xiao Ni <xiao@kernel.org>,
-        Li Nan <magiclinan@didiglobal.com>, Mike Snitzer <snitzer@kernel.org>,
-        Mikulas Patocka <mpatocka@redhat.com>, dm-devel@lists.linux.dev,
-        linux-kernel@vger.kernel.org, Jack Wang <jinpu.wang@cloud.ionos.com>
-References: <20260910081114.1605746-1-jinpu.wang@ionos.com>
- <20260910081114.1605746-7-jinpu.wang@ionos.com>
-Content-Language: en-US
-From: Nilay Shroff <nilay@linux.ibm.com>
-In-Reply-To: <20260910081114.1605746-7-jinpu.wang@ionos.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: mJoiRqb9F6DXhRIgws3wyshHKa-XeLSu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDE0NyBTYWx0ZWRfX4r2UUkKaDR7s
- /SjSUmnFJfz2+np+3mXaQu0tJ4M6RZ0m79KvqtNq+5MtCyj8POwnz0nh1sfzaydMnxI+0RZ/bs7
- NLjsxZht9sTLxPw/TVZ8PXoXayNjAGmVBgJncvy1hl4tMDNLH5Q3LxpPxUeRH7i7ywIVg7muDAy
- oa2+l9NUqQJU2/jOmWh6psLvbrdvasj32F49uAraPv9zHk/GhN61s+T9ih91/+LaXLNzlV9xl87
- 3U/6t2Wp5O5D9S6P685TSq2ncXF/jLDNSxZppV5jS9bSyDGst40TxK9BsA4TQ7pJ9agIwu6GlVh
- yLn5K/nnCsKiAant6dGxMHjPIczNoYSkIqovE42y+mJxZEXOoo6gXTP9A7Vt7HJYMImCpmEGNZH
- KGDJ4fQtwWKVNZcbgXDWgAbDXwyDJV/uqLyYnjNGElbc29JPEaesHuFBNLwKUxScX8W2KmGv2Zs
- Owf995Ef6HeghJIQg8g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDE0NyBTYWx0ZWRfX+BIy3pNXosbk
- HVBpn4uP59O/2q2bpnsnQ1bz6mkrraLxf3K7SPAbvDzjoes9/sXSPIycnbetoUwoxgw4T4da4gr
- iU13hGG0yxB6qyRiaPDs3MDYSRsNFtg=
-X-Authority-Analysis: v=2.4 cv=MpXHeGae c=1 sm=1 tr=0 ts=6aa3ddff cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=pFKa84mh1ibiSWCD5WAA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: GH09hlCRcLiK-W5DuwAjUlEKGBVt2biZ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-11_03,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
- adultscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110147
+X-B4-Tracking: v=1; b=H4sIAD/eo2oC/x2MWwqAIBAArxL7neAaSXWVCDFbbT96oBJBdPekz
+ xmYeSBRZEowVA9EujjxsRdAWVfgVrsHErwUAUoqLXtEkei00WYylDfjfDCXEk2LnUXdudl7KOU
+ ZyfP9b8fpfT9Urkq8ZgAAAA==
+To: Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>, 
+ Leo Yan <leo.yan@arm.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, coresight@lists.linaro.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-rt-devel@lists.linux.dev
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+ Yeoreum Yun <yeoreum.yun@arm.com>, Jie Gan <jie.gan@oss.qualcomm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4371; i=yeoreum.yun@arm.com;
+ h=from:subject:message-id; bh=L8EzfeK5GHg9ts95UQZjIMXReLQVDSdUBWYGEouRTwo=;
+ b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqo95HtZ4cpF4zqoXqt5mEqsg7wKxqYq7f+aYuk
+ 2jGxbUKS6+JAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCaqPeRwAKCRBt1cPRWsUx
+ M0XlC/9g+sHLYYPrYo3Ooh00EvSPsOSpRlswqk9J+F1lhK218YZPlskc2uLITKHOsEJ3pot966r
+ Eldo4+4z7he90kmj6kd5CRmynThXHjf61AZ/wJTM0d93L7XtQf9oFC22NiSQmD+41JuRJu4rgbf
+ 9CFTcviIUEZ8j4GkPl6017E38c10kSqB51SEWuK5Gm3Th0Bkv0zqIQEIHkYbE/OEql0Uaw+ueNF
+ UiIe2mbeAej3EmI0PPjfkvYInkN9fvKF4lBm/xipHVSUqO2p67QJUpcgvVCjtytJ/BbeVx+RgSI
+ 014Z9gEOTadTXxEJD0pbHJvgHd7upC7vWoSJBH40Ktsc30JuslyaF50WSw8nwkwjDUE3/IRcobB
+ vXG/ZY/u4AoRYIUTSyumdDewRpD2Ndk4zJL4IGRSYaKH8a85oAHUohvPF5yvV2sYVqnbmy7NlJb
+ 74pTZD1w6SYc91IOv/0KYNI85YpE4kJKDYv13MuiyoNLbMbFNCWzQg+xOS0MPM5LZIuTk=
+X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
+ fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
 
-> diff --git a/drivers/md/raid0.c b/drivers/md/raid0.c
-> index 35e103f0c2c3..59141e4299a8 100644
-> --- a/drivers/md/raid0.c
-> +++ b/drivers/md/raid0.c
-> @@ -379,7 +379,8 @@ static void raid0_free(struct mddev *mddev, void *priv)
->   	kfree(conf);
->   }
->   
-> -static int raid0_set_limits(struct mddev *mddev)
-> +static int raid0_set_limits(struct mddev *mddev,
-> +			    struct queue_limits *caller_lim)
->   {
->   	struct queue_limits lim;
->   	int err;
-> @@ -398,10 +399,19 @@ static int raid0_set_limits(struct mddev *mddev)
->   	err = mddev_stack_rdev_limits(mddev, &lim, MDDEV_STACK_INTEGRITY);
->   	if (err)
->   		return err;
-> +	/*
-> +	 * The caller owns an update and commits it itself; taking
-> +	 * q->limits_lock here would take it a second time.
-> +	 */
-> +	if (caller_lim) {
-> +		*caller_lim = lim;
-> +		return 0;
-> +	}
-> +
->   	return queue_limits_set(mddev->gendisk->queue, &lim);
->   }
->   
-[...]
+The current ETMx configuration via sysfs can lead to the following
+inconsistencies:
 
-> -static int raid1_set_limits(struct mddev *mddev)
-> +static int raid1_set_limits(struct mddev *mddev,
-> +			    struct queue_limits *caller_lim)
->   {
->   	struct queue_limits lim;
->   	int err;
-> @@ -3185,10 +3186,19 @@ static int raid1_set_limits(struct mddev *mddev)
->   	err = mddev_stack_rdev_limits(mddev, &lim, MDDEV_STACK_INTEGRITY);
->   	if (err)
->   		return err;
-> +	/*
-> +	 * The caller owns an update and commits it itself; taking
-> +	 * q->limits_lock here would take it a second time.
-> +	 */
-> +	if (caller_lim) {
-> +		*caller_lim = lim;
-> +		return 0;
-> +	}
-> +
->   	return queue_limits_set(mddev->gendisk->queue, &lim);
->   }
->   
+  - If a configuration is modified via sysfs while a perf session is
+    active, the running configuration may differ between before
+    a sched-out and after a subsequent sched-in.
 
-[...]
+  - If a perf session and sysfs session tries to enable concurrently,
+    configuration from configfs could be corrupted (etm4).
 
->   
-> -static int raid10_set_queue_limits(struct mddev *mddev)
-> +static int raid10_set_queue_limits(struct mddev *mddev,
-> +				   struct queue_limits *caller_lim)
->   {
->   	struct r10conf *conf = mddev->private;
->   	struct queue_limits lim;
-> @@ -3948,10 +3949,19 @@ static int raid10_set_queue_limits(struct mddev *mddev)
->   	err = mddev_stack_rdev_limits(mddev, &lim, MDDEV_STACK_INTEGRITY);
->   	if (err)
->   		return err;
-> +	/*
-> +	 * The caller owns an update and commits it itself; taking
-> +	 * q->limits_lock here would take it a second time.
-> +	 */
-> +	if (caller_lim) {
-> +		*caller_lim = lim;
-> +		return 0;
-> +	}
-> +
->   	return queue_limits_set(mddev->gendisk->queue, &lim);
->   }
->   
+  - There is chance to corrupt drvdata->config if perf session tries
+    to enabled among handling cscfg_csdev_disable_active_config()
+    in etm4_disable_sysfs() (etm4).
 
-[...]
+To resolve these inconsistencies, the configuration should be separated into:
 
-> diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
-> index 22759c631c4d..28bd81de86c1 100644
-> --- a/drivers/md/raid5.c
-> +++ b/drivers/md/raid5.c
-> @@ -7944,7 +7944,8 @@ static int raid5_create_ctx_pool(struct r5conf *conf)
->   	return conf->ctx_pool ? 0 : -ENOMEM;
->   }
->   
-> -static int raid5_set_limits(struct mddev *mddev)
-> +static int raid5_set_limits(struct mddev *mddev,
-> +			    struct queue_limits *caller_lim)
->   {
->   	struct r5conf *conf = mddev->private;
->   	struct queue_limits lim;
-> @@ -7996,10 +7997,19 @@ static int raid5_set_limits(struct mddev *mddev)
->   	/* No restrictions on the number of segments in the request */
->   	lim.max_segments = USHRT_MAX;
->   
-> +	/*
-> +	 * The caller owns an update and commits it itself; taking
-> +	 * q->limits_lock here would take it a second time.
-> +	 */
-> +	if (caller_lim) {
-> +		*caller_lim = lim;
-> +		return 0;
-> +	}
-> +
->   	return queue_limits_set(mddev->gendisk->queue, &lim);
->   }
->   
-[...]
-I'd propose the same changes as I suggested in patch 1/8, for
-raid5_set_limits(), raid10_set_queue_limits(), raid1_set_limits()
-and raid0_set_limits().
+  - active_config, which is applied configuration for the current session
+  - config, which stores the settings configured via sysfs.
 
-In particular, I think these functions should always operate on
-a caller-provided struct queue_limits and only prepare/update the
-limits, without deciding whether to commit them. The caller should
-own the limits update and commit it as appropriate for its locking
-context.
+and apply configuration from configfs after taking a mode.
 
-Thanks,
---Nilay
+Patch History
+=============
+from v9 to v10:
+  - rebase to coresight/next
+  - https://lore.kernel.org/all/20260725113645.57519-1-yeoreum.yun@arm.com/
+
+from v8 to v9:
+  - add feat_csdev_lock guard interface.
+  - set feat_csdev->drv_spinlock as NULL for etmv4_drvdata.
+  - https://lore.kernel.org/all/20260629090007.1718746-1-yeoreum.yun@arm.com/
+
+from v7 to v8:
+  - accept @Leo Yan' suggestion to handle error.
+  - small minor fixes following @Suzuki' suggestion.
+  - https://lore.kernel.org/all/20260519154812.254884-1-yeoreum.yun@arm.com/
+
+from v6 to v7:
+  - rebase on coresight/next
+  - add ETM_MAX_SEQ_TRANSITIONS define
+  - remove redundant patch relavent cpu-hotplug as coresight-pm patch
+    merged.
+  - https://lore.kernel.org/all/20260422132203.977549-1-yeoreum.yun@arm.com/
+
+from v5 to v6:
+  - fix missing of calling cscfg_csdev_disable_active_config()
+  - add rb & fixes tags.
+  - add ss_status field in etm4x_drvdata to expose STATUS and PENDING bits.
+  - https://lore.kernel.org/all/20260415165528.3369607-1-yeoreum.yun@arm.com/
+
+from v4 to v5:
+  - add rb-tag.
+  - fix underflow issue for nrseqstate.
+  - fix wrong check in etm4_sspcicrn_present().
+  - remove redundant fields on etmv4_save_state.
+  - rename caps->ss_status to ss_cmp.
+  - fix wrong location of etm4_release_trace_id.
+  - https://lore.kernel.org/all/20260413142003.3549310-1-yeoreum.yun@arm.com/
+
+from v3 to v4:
+  - change etm_drvdata->spinlock type to raw_spin_lock_t
+  - remove redundant call etmX_enable_hw() with starting_cpu() callsback.
+  - fix missing trace id release.
+  - add missing docs.
+  - https://lore.kernel.org/all/20260412175506.412301-1-yeoreum.yun@arm.com/
+
+from v2 to v3:
+  - fix build error for etm3x.
+  - fix checkpatch warning.
+  - https://lore.kernel.org/all/20260410074310.2693385-1-yeoreum.yun@arm.com/
+
+from v1 to v2
+  - rebased to v7.0-rc7.
+  - introduce etmX_caps structure to save etmX's capabilities.
+  - remove ss_status from etmv4_config.
+  - modify active_config after taking a mode (perf/sysfs).
+  - https://lore.kernel.org/all/20260317181705.2456271-1-yeoreum.yun@arm.com/
+
+---
+Yeoreum Yun (8):
+      coresight: etm4x: fix inconsistencies with sysfs configuration
+      coresight: etm3x: fix inconsistencies with sysfs configuration
+      coresight: etm3x: change drvdata->spinlock type to raw_spin_lock_t
+      coresight: etm3x: remove redundant cpu online check on etm_enable_sysfs()
+      coresight: etm4x: introduce struct etm4_caps
+      coresight: etm4x: exclude ss_status from drvdata->config
+      coresight: etm4x: remove s_ex_level from config
+      coresight: etm3x: introduce struct etm_caps
+
+ drivers/hwtracing/coresight/coresight-config.c     |  18 +-
+ drivers/hwtracing/coresight/coresight-config.h     |  22 ++
+ drivers/hwtracing/coresight/coresight-etm.h        |  48 ++-
+ drivers/hwtracing/coresight/coresight-etm3x-core.c |  96 ++---
+ .../hwtracing/coresight/coresight-etm3x-sysfs.c    | 155 ++++----
+ drivers/hwtracing/coresight/coresight-etm4x-cfg.c  |  14 +-
+ drivers/hwtracing/coresight/coresight-etm4x-core.c | 413 +++++++++++----------
+ .../hwtracing/coresight/coresight-etm4x-sysfs.c    | 204 +++++-----
+ drivers/hwtracing/coresight/coresight-etm4x.h      | 196 +++++-----
+ 9 files changed, 645 insertions(+), 521 deletions(-)
+---
+base-commit: 9e3604d7369cfc0110100eb1a0acab1865ee2d18
+change-id: 20260911-separate_etm_cfg_v2-3518a168cbff
+
+Best regards,
+-- 
+Sincerely,
+Yeoreum Yun
 
