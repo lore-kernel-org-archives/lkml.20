@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1506B47A87A;
-	Fri, 11 Sep 2026 13:02:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEC6447F3DF;
+	Fri, 11 Sep 2026 13:02:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789131727; cv=none; b=Kp06FSFSNCbDV0KIrDjBssk5q51ORXZ1xd1xWutGW2BwdXpt1fMPrg1cjeFneEBc4ENsrk8wLwIQM+NCMys7nOiEKYRbXZDiSBSt9OcJHpIAdvJ476dE7O5jRA6mqjW/Ywh143wLWRRwwPH++RDbqA9nznii/XGa7g18VlPr9Gc=
+	t=1789131748; cv=none; b=i3L4IB1aWa/ZaNU/M1r2cCCsDr0RfUwbo9nxXefaoxL2Jvp9ka+04TO4Tw1n72lUILQjL9MHznhdcntddj9iQhBooyYekAyTTVB4/wPVrqm1dol8A76G0CXflKgxuL3QQNRSEm8emcMS8m3Z6UWwecO5JALj6RmcV6VPwWSTJaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789131727; c=relaxed/simple;
-	bh=D8y/ChwnezgHRy5dWL1VmFVporLU0EQ9XInyedfH35o=;
+	s=arc-20240116; t=1789131748; c=relaxed/simple;
+	bh=DAshUoISkNtI2aqMygseUKniDThl7E5agzDNpoCsHl0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YdffQ78MrvhCzNkp2+su/E6XD0akaOFTEptyp8T01rNHZ58tcwEabJFSd4IOiiQWgHu8IRFXrr6XllhT/u0GUcuHafYt0JpMvq7LVZTB0Fg61yMHVwvgajIAuZ9V4GO9t2Tv17808HBMPo4N1mF/MV+N+4JYUK2nMBSmwjVMCu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eGf6kE80; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=leVpvicmR4ubKZ7NlgN8FWL2zuWTJOzqoWFMMxMN/onbpRwFrconXUFDTvOR8OuMaCTMpfJFvESFqo/qXbYqDMFI58EKCD4CYVIcCbm/CA8Ukpl5l5qLTPXt6ANMYAS4AfGmrJEK+ABpc8ZygjSkfjdAXCoRs62qak0bKz7wRb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ocr7i/XK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eGf6kE80"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FFBE1F000FF;
-	Fri, 11 Sep 2026 13:01:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ocr7i/XK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9CF81F000FF;
+	Fri, 11 Sep 2026 13:02:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789131721;
-	bh=nbFIIEzlUTxl2xJVgrwWeAYn7BDxFx09xtnVsWU/DZU=;
+	s=k20260515; t=1789131744;
+	bh=+G1OKXoNBIKzsbl+jc8rigOgfUUb72KCyBt1gFKV3Cw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eGf6kE80/niewCA/exBDVcLLTbWRMPwpulCnRJlfbdYNfHtJSrXSDAl6WIH3FTjtG
-	 gaFkHeK9+N2Lb/C4CsTee5ZeaAKLQB1DjL+lM2ijnCJmSzlMbr3eiqOFWHkizw5EJa
-	 6HtfC4xrAjaDF2jpRDgtoHcB1UQRrQur+rXjubVZS/d6dl5fmNzS6yupuZRVPW7LXb
-	 Hb440HnuyGwFbwdSc5ywhqJam0/v9ujlkJfeJFb2ZObm4MMuicmW75bfytQ9sTVxi0
-	 FJ6ZOxMr3f5f1IAxpAdX+Rz4SFHqEUigz5AMi7xOn3sv0tMRyaOJIWBU4RpOMmVEjh
-	 0WdO6plnGG75Q==
-Date: Fri, 11 Sep 2026 14:01:55 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>
-Cc: akpm@linux-foundation.org, shuah@kernel.org, david@kernel.org, 
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
-	mhocko@suse.com, ziy@nvidia.com, linux-mm@kvack.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests/mm: skip khugepaged file tests if mkfs.xfs is
- unavailable
-Message-ID: <aqP7gW98GIiYgL1z@gremlin>
-References: <20260911124517.63714-1-jaeyeon.lee.dev@gmail.com>
+	b=Ocr7i/XKsT0RN6w6ujzcRthZNm2ket/5ZIMILTxA1DtiBBAgEN7aDLFJfOxJOdCR0
+	 yTOHSaBzobg8rtZzQhaEJ96Aikqkhg0mW8VaSZkVI9NLXHSLYihIZgyCjiI3Uuk383
+	 tVG+BGjmZXW7lREFwrLg/tC2dHg+bLkMwjvCOtLIgbYUd54MCgEkwqq7+quMERF1th
+	 wf+VpD+mq5ZnF+GB9UglKAcgLAZ8XsuRF85QJatVv2jJd8bg4tkAU3/iJ7RSsE0vLi
+	 nTTcwL3tjYM7Q56E3amwa8g1/xV5z7ZvAOJ1vZAemQGPWGETPI+B5piU/PrH+giWyu
+	 bFrV8bAeTrZZg==
+Date: Fri, 11 Sep 2026 14:02:18 +0100
+From: Will Deacon <will@kernel.org>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, catalin.marinas@arm.com,
+	linux-kernel@vger.kernel.org, maz@kernel.org,
+	pavan.kondeti@oss.qualcomm.com, tabba@google.com,
+	aneesh.kumar@kernel.org, mark.rutland@arm.com,
+	sdonthineni@nvidia.com, steven.price@arm.com, gshan@redhat.com,
+	yuzenghui@huawei.com, kvmarm@lists.linux.dev
+Subject: Re: [PATCH v17 0/1] arm64: mm: Handle Granule Protection Faults
+ (GPFs)
+Message-ID: <aqP72gst-Y0KtxA5@willie-the-truck>
+References: <20260907162204.1479401-1-suzuki.poulose@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,54 +47,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260911124517.63714-1-jaeyeon.lee.dev@gmail.com>
+In-Reply-To: <20260907162204.1479401-1-suzuki.poulose@arm.com>
 
-On Fri, Sep 11, 2026 at 02:45:17PM +0200, Jaeyeon Lee wrote:
-> The XFS setup for ./khugepaged all:file checks that the kernel supports
-> XFS but not that mkfs.xfs is installed. When CONFIG_XFS_FS=y and
-> xfsprogs is missing, mkfs.xfs and mount both fail, but
-> SPLIT_HUGE_PAGE_TEST_XFS_PATH is assigned from mktemp -d and stays set.
-> The test then runs against plain tmpfs and six subtests fail.
->
-> The script already has a skip path for this test, but it never runs
-> because the path variable is always set. Check that mkfs.xfs exists
-> before attempting the XFS setup.
->
-> Assisted-by: claude.ai:claude-opus-5
+On Mon, Sep 07, 2026 at 05:22:03PM +0100, Suzuki K Poulose wrote:
+> This single patch teaches the arm64 fault handling code about Granule
+> Protection Faults, introduced by FEAT_RME. This was posted with KVM CCA
+> support series, but split from that, to allow for other users of GPF.
+> 
+> The immediate user is KVM CCA, where the host may fault if it accesses
+> granules that have been delegated for use by a Realm. However, the fault
+> handling itself is architectural and not KVM-specific. It should also be useful
+> for other FEAT_RME users where an access to secure memory or root memory can
+> result in a GPF.
+> 
+> GPFs during a page table walk are treated as kernel bugs, while non-page-walk
+> faults can be reported to userspace with SIGBUS. The patch also allows existing
+> exception-table fixups to handle known in-kernel accesses such as
+> load_unaligned_zeropad() while private memory remains mapped in the linear map.
 
-Convention is now:
+I assume you can't handle GUP for realm memory, so you must be using
+guest_memfd to avoid userspace mappings of realm memory. In that case,
+why don't you unmap it from the linear map entirely? There's ongoing work
+to do that afaik, it can be done largely outside of arch code and it
+seems like people want it to defend against side channels anyway.
 
-Assisted-by: LLM
-
-See https://docs.kernel.org/process/coding-assistants.html
-
-> Signed-off-by: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>
-
-This seems sensible, so with the tag fixed:
-
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-> ---
->  tools/testing/selftests/mm/run_vmtests.sh | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/tools/testing/selftests/mm/run_vmtests.sh b/tools/testing/selftests/mm/run_vmtests.sh
-> index d09f9f6a384e..6315b67b6733 100755
-> --- a/tools/testing/selftests/mm/run_vmtests.sh
-> +++ b/tools/testing/selftests/mm/run_vmtests.sh
-> @@ -415,7 +415,8 @@ CATEGORY="thp" run_test ./khugepaged -c 4 mthp_khugepaged:anon
->  # Try to create XFS if not provided
->  if [ -z "${SPLIT_HUGE_PAGE_TEST_XFS_PATH}" ]; then
->      if test_selected "thp"; then
-> -	if grep xfs /proc/filesystems &>/dev/null; then
-> +	if grep xfs /proc/filesystems &>/dev/null &&
-> +	   command -v mkfs.xfs &>/dev/null; then
->  	    XFS_IMG=$(mktemp /tmp/xfs_img_XXXXXX)
->  	    SPLIT_HUGE_PAGE_TEST_XFS_PATH=$(mktemp -d /tmp/xfs_dir_XXXXXX)
->  	    truncate -s 314572800 ${XFS_IMG}
-> --
-> 2.43.0
->
-
---
-Cheers, Lorenzo
+Will
