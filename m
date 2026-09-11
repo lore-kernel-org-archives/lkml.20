@@ -1,118 +1,74 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D42414BA1D9
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:21:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5BE34BA1CF
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:22:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789161700; cv=none; b=hNOgVa9pXAsDBxVrecLQ6VfG9nvoelJ2nR020w1KUhBtPEp1r5uvWG2Ruh0D0mhBGURtROY8pOZNnpMivLOEe+qiLf/jeUBilTXrFDeJzJEZ1zssQy7cR6Tde1BTbR6gA7GrsfEqsGLeytBvEUTQwykKfCZbVHvX74LfPZVUo10=
+	t=1789161778; cv=none; b=ae4Yp0b8kV/Wsek9UIchL4uG6E7AMyqugTiMzxyDR3AO9tTqZZ+PTCvsgHMxX3FGtOxNIDnG2MnPRt0NPhMnkMh321dq29lC4tbQbxuqfni/OWNjPAix8YtpF/NaEWwsWLnV5Cqt9CF8HICQ1T0znLCr8om3RnFfHS96st4ViOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789161700; c=relaxed/simple;
-	bh=w3vUhgx3u1w5w5lsNBe8uid6akfNeA658Av9oc09LCA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DtTF89CEObBhZ2ZBmvUm1azoKTzcYl1r0T+XNYA2hCx577iJvdJlsrjHjqP4hwll6tMSRUpIeHHVDWlxLudsZnKORPOvFRmXh6gaQSDM0gX2stJ5S3LBtOFfq5IArQ8nu09W3VrDBL7ZzKolnd8pZnBW+ZpsC9QHOlN9yNW/JZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=e0oZoW/N; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="e0oZoW/N"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 7704C1A0226;
-	Fri, 11 Sep 2026 21:21:37 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4A7D7601A3;
-	Fri, 11 Sep 2026 21:21:37 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 803A111C7AF95;
-	Fri, 11 Sep 2026 23:21:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789161691; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=lVlFXXS0Y6100599x+SkiEbiGjCXQZYo+KZ+IT1mUds=;
-	b=e0oZoW/NeajrzMZfAtHlmyRmvl8y+c82WNxSszyjf/Z9R8zzTU8zotCd+uuFOEsalNEnqT
-	mgwFUFOgttZlV3H/Je6oYnrW8/LtkviIawv2b5BXDRb4MV+TkpbRC8QeHH61eH/F6n/Ahy
-	H5VTdsHGHkI5UMod2Bi0gPrNh4aJybdYJ8WMVEzgYWwJ/ZzbYvBJCWNYAK7QHv74BhEACK
-	HeXA9H4L82Zm9+JfZ1HNxlKLwfH6/rB5GMhlKCDSqnkFSsv6fgcuqKnkmOkRFx07iz6pWc
-	9XvMDvDRjcskGPdZShfcpEFXfiCXbXH5QYEvPDi/PVQZcOx14AkEc3uLSp8aSw==
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Minda Chen <minda.chen@starfivetech.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Jan Petrous <jan.petrous@oss.nxp.com>,
-	Ovidiu Panait <ovidiu.panait.rb@renesas.com>,
-	Jose.Abreu@synopsys.com,
-	Nicolai Buchwitz <nb@tipi-net.de>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	thomas.petazzoni@bootlin.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	PKneuper@dspace.de,
-	David Laight <david.laight.linux@gmail.com>
-Subject: [PATCH net v3 6/6] net: stmmac: selftests: Account for alignment shift on dwmac1000 for Jumbo test
-Date: Fri, 11 Sep 2026 23:20:26 +0200
-Message-ID: <20260911212028.1497613-7-maxime.chevallier@bootlin.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260911212028.1497613-1-maxime.chevallier@bootlin.com>
-References: <20260911212028.1497613-1-maxime.chevallier@bootlin.com>
+	s=arc-20240116; t=1789161778; c=relaxed/simple;
+	bh=nWpDQmZNg8zKVk12QskQ7NNS05C4fI/JmZBKLdKyu8Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CivzG93EH0ar8E6bk5m5XYkP5Cdu1MFuUUckgvBkTEry3zQLB8OHDjsbUp2zr5iCRgsxq+et/ENZ9+RG8ludt2AhErQe/bLjVgnayH4Yq0GN/8kIQfgfh9Lo3q4L/yF5czr9zF04X3HL0Z87ezw4EPMmz7bXC4FKsbnKVtTxfQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e65b1cc29so4211095e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:22:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789161775; x=1789766575;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nWpDQmZNg8zKVk12QskQ7NNS05C4fI/JmZBKLdKyu8Q=;
+        b=oFTSG8rKqoh/ES3TsqiBf1ZhxJcad+NwR5ORJomj1nsb4zjaXqRGFzVx6OWcV3h8rn
+         sRhTkK3rUeUYvxWVmM3AjSoMgPDzEUfzj3/Nw+7Bsa6pwanQJg2m0ii/a9QhflYmj9n5
+         Z2pF7EuTMTi7lHruI1h3wYxEIPi92WRyU/tf+kxLVNLhKf7m8GFDb8RjuVod8Aga/971
+         QhRP8xhZSqh4QO0t/paQr/D2XBzZoRGgucTiIbmQ6W47uV0P4KMbK0wBWuHnYfZrYLcM
+         /9O6BMSLMWgPxF3+ZYAd3k35TsC8iZzmhzKpP210ge4gTE36h7EMZ7RyCheLRdh+9upk
+         p1CQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxxIYZad4Jp/II96U3ou4VjBZmV+Vz1jPwsYSJXv68zMrTSlZTnyuphV8YJwahWCo+E44GDLwglUYY+Lm0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lBcEuW+xlw5EQ3lmVswScVa32qlhRRTU7eJYgMcEENzo3JTqQa
+	Usbue//MV8xrqQfBhPyHlEBarSYytztKdq1mShGFt/t65+Y+rDxLBUIA
+X-Gm-Gg: AYBFou03h2dJckELENaD7YasjZlyMw3+ZXjgz31JYh+EhIr0rt++1qT4vjntoYeTIye
+	JynW7nfiSoEv9YMLk2vbPGDqEDH4Od7m2B6uo5Rny7VUNS0DpL9iPJK/VhDtXH/BEcWiKip4+bp
+	xehfQcGKovUSGU7C0ph2jGbDpSumjwHafFHxm350ImmE8KLOFUbLK+cHSp5vGi+jXRSyEl2znJG
+	0PQJ9sydP3qiFivXWnuAm8K6Yi3lrhKESNq5EoXBhfnwpHB2/JMfADSgqp01PZKcSPU6u9oejqJ
+	r9ufFwM0BmNWnhNqrhk57ea9VBzah3ojPSUrxtK/9v9ptxN1FnnRMiuOSD8Zz98AWQdee+usXP9
+	O6MV3JQHZDKkUz/vX/ZuBRXKsIo1cLDZ/zaFj71gNtzLQgbsNPmFRLGC1EzCpMWJL+COJ4eqlYt
+	gNOiF4vVMkvUzMgCThgikuUqsaVgWXZ4yuyvgLpQDCsf+ykyrw3lV/GhikHhgSQsMvYcmoTHKgm
+	lS16Zw5SCChhCm8UnHxV5910oYo6M96UHf+F2cHJ6Lz
+X-Received: by 2002:a05:600c:19c8:b0:499:b65e:49c9 with SMTP id 5b1f17b1804b1-49e619f3ae1mr131418245e9.10.1789161774848;
+        Fri, 11 Sep 2026 14:22:54 -0700 (PDT)
+Received: from [10.100.102.74] (89-138-77-243.bb.netvision.net.il. [89.138.77.243])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32e81asm8787126f8f.7.2026.09.11.14.22.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 14:22:53 -0700 (PDT)
+Message-ID: <59b0d6b8-133f-4a53-9754-bb308231a763@grimberg.me>
+Date: Sat, 12 Sep 2026 00:22:52 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] nvme-tcp: store and use the caller's network
+ namespace
+To: Surabhi Gogte <sgogte@purestorage.com>, Keith Busch <kbusch@kernel.org>,
+ Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>
+Cc: Solganik Alexander <sashas@lightbitslabs.com>,
+ Roy Shterman <roys@lightbitslabs.com>, linux-nvme@lists.infradead.org,
+ linux-kernel@vger.kernel.org, mkhalfella@purestorage.com,
+ randyj@purestorage.com, adailey@purestorage.com
+References: <20260910202812.1642832-1-sgogte@purestorage.com>
+ <20260910202812.1642832-2-sgogte@purestorage.com>
+Content-Language: en-US
+From: Sagi Grimberg <sagi@grimberg.me>
+In-Reply-To: <20260910202812.1642832-2-sgogte@purestorage.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On dwmac1000, we currently only support single-descriptor frames. The
-Jumbo test started failing when NET_IP_ALIGN was added to align the IP
-header, as this tests tries to send the biggest possible frame.
-
-On dwmac1000 the DMA transfer is aligned on 4-bytes, so adding a 2-byte
-shift at the start-of-buffer address means it takes a whole extra 4-byte
-DMA burst to receive the Jumbo packet, causing it to spill over the next
-descriptor.
-
-This doesn't seem to happen on dwmac4 and xgmac that appear to correctly
-handle unaligned xfers (only tested on dwmac4)
-
-Let's account for that in the Jumbo test, reduce the size of our big
-packet by the align size.
-
-Fixes: 23680bf5f8c6 ("net: stmmac: restore NET_IP_ALIGN in the RX DMA offset")
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-index 315c3cf82230..cd7dc99095a0 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
-@@ -1781,6 +1781,9 @@ static int __stmmac_test_jumbo(struct stmmac_priv *priv, u16 queue)
- 	struct stmmac_packet_attrs attr = { };
- 	int size = priv->dma_conf.dma_buf_sz;
- 
-+	if (!dwmac_is_xmac(priv->plat->core_type))
-+		size -= NET_IP_ALIGN;
-+
- 	attr.dst = priv->dev->dev_addr;
- 	attr.max_size = size - ETH_FCS_LEN;
- 	attr.queue_mapping = queue;
--- 
-2.55.0
-
+Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
