@@ -1,224 +1,232 @@
-Received: from mta0.migadu.com (out-166.mta0.migadu.com [91.218.175.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF2F2443C2B
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:25:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32770443C3E;
+	Fri, 11 Sep 2026 11:25:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789125918; cv=none; b=DNjQAVIvj9P57SsCq30MBVlz38OlLR4aEtraE+8QHo8YGiVffQhqlB1w4HzD1ASruQf0DhcGuKjJ/0QMtDy52aKwZN/oUs42y3omp1T7gmcE0xGumxE1j8xamzEz95HCK8qgRyuvezygY/3ehFUd4ZJ9QN6tS6e81RnkpJ4SnJQ=
+	t=1789125920; cv=none; b=mZ9u5d33KTeIGYorTLLIRV+PqsSDg0m+lq33g86uEExbhb8IB6loGDGX4gx5m6xvf/AzNseBebBzjmD/IId1HLQCqiG4/PYIoCi8Mvwd6tkA8zuvZ58jgKcMSu3nwcT3P0dpjtbfIOKbiS8EPlIq3y6IxZ0XLygkwgHeAFVlhNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789125918; c=relaxed/simple;
-	bh=f7vgrWFnlwg6/255249tFUq+HYEzRsS+Tx+IgMJ6FWc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IyINEiJzlQXzjhlwLj7wxjbiAiN0c/TjQPWBQQA1A+zo6Ah4cz3p06onMMHD6qVtQGDt6JK3iRfoMlooPRJMbtCXpHB+QPf8JPBQ4N5uCStMFxVo8Og9IAmXWIUQtFeMVzcscbP0nLvojfZt/H2Wot0scK5oMPsIGz4sKBKnLlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=e0LLpN1Q; arc=none smtp.client-ip=91.218.175.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789125920; c=relaxed/simple;
+	bh=sNetw9RCwWxkZx0SL7tXOlbpncfL+27wC5H+2xrw2XA=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bI/vM1CNAOC6p49AuCutsQCqMH3qkpEiBA7v+MxezEHtFsIHYbpE3DcViVw0Huyxu9f9f2b1joSIhF9H2wfIBU6sJL5r5C0Mi73Ihp1Uap0CoQGTydOkUhYLm1io5Gn0DtGgyisQgdoX9RvKiELeov6gD/7EGRAd748LVu1agj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SI09aKvb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="e0LLpN1Q"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=f7vgrWFnlwg6/255249tFUq+HYEzRsS+Tx+IgMJ6FWc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789125901; v=1; x=1789730701;
- b=e0LLpN1QAFDTi03psw8032fBWzWfOK8x9wggSKZtflhDdr6SRUzes6831HJ3yAQne8g4D4t5
- lon7fg0waEgbyxnC1o6TZ8J77LKM3LV5lno5wLHrfWt0HFEAMqHRlwBhxk1AdZntuJG0wHqys5K
- hjqXX6K91JggntSRPvvFJlE8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 363801b648538b55;
-	Fri, 11 Sep 2026 11:24:51 +0000
-X-Mizu-Trace-ID: 363801b648538b55
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 11 Sep 2026 19:24:45 +0800
-From: Hao Li <hao.li@linux.dev>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: harry@kernel.org, akpm@linux-foundation.org, cl@gentwo.org, 
-	rientjes@google.com, roman.gushchin@linux.dev, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Pedro Falcato <pfalcato@suse.de>
-Subject: Re: [RFC PATCH 0/2] mm/slub: reduce list_lock contention with slab
- parking
-Message-ID: <aqPg5YRKdaZiBj9b@fedora>
-References: <20260824122004.3652-1-hao.li@linux.dev>
- <a3e5581a-e039-45bb-b570-a01158b154bb@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SI09aKvb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 789631F000FF;
+	Fri, 11 Sep 2026 11:25:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789125910;
+	bh=RdZP/6HNOuGBfq2kgLhrIqIEX1HgQSuvTX9uOX9/bCI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=SI09aKvb19Mvv4ssXbRp4wFHGaW2N671Rf1nnDOT+y2Nm2tVd7B9FxrDZ+l+uI51y
+	 agZNpWtEZkl2xrM/fzbGYzqi9WLKIiQpxtXoLLPCCblFr2xgStLUVy04qClUn1a01p
+	 6aHwHI/RvHSlz4BkxExeJvLLYKtBnSLXmBpX8h6mW47HGt6xtridct2fHyk5LVIS/P
+	 I2Y8/IHkVU3vS8RqtqJFQXYDYS3T4cimG383r+UekX6M/SHdEV3BH9pWaa6m51BWfT
+	 o0zbAoeAp7Q5WF70JDoeIvyz5H5zGuTFNcxOOnvON/iYdNK6aMFAYbwV/IzuZOHZVv
+	 pdrFS8HZ0N6jg==
+Subject: Re: [PATCH net-next v2 2/9] net: phy: dp83867: add regulator supply
+ management
+From: netdev-bot+sashiko@kernel.org
+To: mohd.anwar@oss.qualcomm.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, afd@ti.com, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, richardcochran@gmail.com, andersson@kernel.org,
+ konradybcio@kernel.org, alexandre.torgue@foss.st.com, peppe.cavallaro@st.com,
+ joabreu@synopsys.com, maxime.chevallier@bootlin.com,
+ mcoquelin.stm32@gmail.com, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Date: Fri, 11 Sep 2026 11:25:09 +0000
+Message-ID: <178912590907.219967.12393486261427611719@kernel.org>
+In-Reply-To: <20260908-shikra_ethernet-v2-2-bbe3389d0652@oss.qualcomm.com>
+References: <20260908-shikra_ethernet-v2-2-bbe3389d0652@oss.qualcomm.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a3e5581a-e039-45bb-b570-a01158b154bb@kernel.org>
 
-On Mon, Sep 07, 2026 at 03:44:08PM +0200, Vlastimil Babka (SUSE) wrote:
-> On 8/24/26 14:19, Hao Li wrote:
-> > This patch series might sound a bit wild, but the initial numbers don't
-> > look too bad so far. I would really appreciate any feedback and
-> > discussion :)
-> > 
-> > On a will-it-scale mmap1 run with 192 processes, list_lock is the top
-> > contention point: __slab_free() and __refill_objects_node() together
-> > spend 44% of cycles in native_queued_spin_lock_slowpath. The free
-> > slowpath takes the lock mainly to add slabs that became non-full to the
-> > partial list.
-> > 
-> > By adding extra instrumentation to __slab_free(), I collect the following
-> > data for the maple_node cache (in counts):
-> > 
-> >   partial->partial    843017414
-> >   full->partial       550719384
-> >   partial->empty      17459564
-> >   full->empty         2
-> > 
-> > We can see that full -> partial transitions account for a significant
-> > proportion, and optimizing them can help reduce lock contention to some
-> > extent.
-> > 
-> > This series introduces the parking mechanism to address this issue.
-> > When the trylock fails during a full -> partial/empty transition,
-> > __slab_free() parks the slab on a per-node llist instead of waiting. The
-> > paths that consume the partial list (sheaf refill, alloc slowpath,
-> > shrink, cache destruction) unpark the slabs after taking the lock, and a
-> > delayed work covers the case where none of them runs.
-> > 
-> > Patch 1 cleans up the case handling in __slab_free(), no functional
-> > change. Patch 2 introduces the parking mechanism.
-> > 
-> > Tested with will-it-scale mmap1 (192 processes).
-> > 
-> > Summary data
-> > ------------
-> > 
-> > throughput             29237910 -> 35585663  (+21.7%)
-> > alloc_slab,free_slab   -52%
-> > cmpxchg_double_fail    -85%
-> > 
-> > perf data without this patchset:
-> > - 44.22% [kernel] [k] native_queued_spin_lock_slowpath
-> >    43.48% native_queued_spin_lock_slowpath
-> >     - _raw_spin_lock_irqsave
-> >        - 23.80% __refill_objects_node
-> >        - 19.12% __slab_free
-> > 
-> > perf data with this patchset:
-> > - 30.39% [kernel] [k] native_queued_spin_lock_slowpath
-> >    29.82% native_queued_spin_lock_slowpath
-> >     - _raw_spin_lock_irqsave
-> >        - 29.06% __refill_objects_node
-> > 
-> > Additionally, the number of partial slabs and the number of objects show
-> > no noticeable change before and after applying this patchset, indicating
-> > that this change has a negligible impact on slab fragmentation.
-> > 
-> > Detailed data
-> > -------------
-> > 
-> > metric                              before             after             delta      change
-> > ==========================================================================================
-> > alloc_fastpath                     155,417           168,534            13,117      +8.44%
-> > alloc_slab                      55,679,646        26,702,510       -28,977,136     -52.04%
-> 
-> It's interesting that this is reduced so much. Is it because parked slabs
-> cause more slabs to stay around for reuse, despite they are unparked
-> immediately when trying to allocate/refill? That seems odd?
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider:
 
-Yeah, it does look counter-intuitive at first glance. My understanding is that
-the parking mechanism helps by bypassing the partial list spinlock, allowing
-partial slabs to be parked onto the llist locklessly at any point. Because of
-this, the refill path gets to see and reuse more partial slabs instead of
-having to allocate fresh ones so frequently.
+Critical: 0 · High: 1 · Medium: 1 · Low: 1
 
-> 
-> > alloc_slowpath                           0                 0                 0      +0.00%
-> > barn_get                             2,715             2,771                56      +2.06%
-> > barn_get_fail                            2                 0                -2    -100.00%
-> > barn_put                             2,715             2,770                55      +2.03%
-> > barn_put_fail                1,370,488,457     1,668,257,974       297,769,517     +21.73%
-> > cmpxchg_double_fail              3,827,935           549,427        -3,278,508     -85.65%
-> > free_add_partial             1,684,340,964     2,161,921,625       477,580,661     +28.35%
-> > free_fastpath                       31,766            32,979             1,213      +3.82%
-> > free_rcu_sheaf              43,855,689,417    53,384,314,553     9,528,625,136     +21.73%
-> 
-> This metric (and others with similar numbers) should not be affected by the
-> change. Does it mean the benchmark has a fixed time to run, but manages to
-> do more work in that time thanks to the increased throughput?
+- [High] The rail enable sequence is placed in the PHY driver's probe
+  (dp83867_probe() -> dp83867_power_on(),…
+- [Medium] In dp83867_power_on() (drivers/net/phy/dp83867.c:723-748) the
+  variable `count` is incremented for every return value of 0 from…
+- [Low] dp83867_power_on() wraps its entire body in `#ifdef CONFIG_OF`
+  (drivers/net/phy/dp83867.c:725-746) although nothing inside uses an OF…
 
-Exactly! In fact, the increase in free_rcu_sheaf matches the throughput gain
-almost 1:1. A ~21% increase in throughput naturally translates to ~21% more object
-allocations and frees.
+--
 
-> 
-> > free_rcu_sheaf_fail                      0                 0                 0      +0.00%
-> > free_remove_partial             55,678,459        26,685,274       -28,993,185     -52.07%
-> > free_slab                       55,678,459        26,701,099       -28,977,360     -52.04%
-> > free_slowpath                  107,771,739        63,197,344       -44,574,395     -41.36%
-> > min_partial                              5                 5                 0      +0.00%
-> > object_size                            256               256                 0      +0.00%
-> > objects                             14,504            14,336              -168      -1.16%
-> > objects_partial                     14,504            14,208              -296      -2.04%
-> > objs_per_slab                           64                64                 0      +0.00%
-> > park_slab                                -     2,147,963,530                 -      absent
-> > partial                              1,398             1,367               -31      -2.22%
-> > sheaf_alloc                    743,660,288     1,284,618,991       540,958,703     +72.74%
-> > sheaf_capacity                          32                32                 0      +0.00%
-> > sheaf_flush                 43,855,651,858    53,384,274,983     9,528,623,125     +21.73%
-> > sheaf_free                     743,660,280     1,284,618,967       540,958,687     +72.74%
-> > sheaf_prefill_fast          17,585,335,850    21,378,958,833     3,793,622,983     +21.57%
-> > sheaf_prefill_oversize                   0                 0                 0      +0.00%
-> > sheaf_prefill_slow                   2,060             2,051                -9      -0.44%
-> > sheaf_refill                43,963,424,505    53,447,473,167     9,484,048,662     +21.57%
-> > sheaf_return_fast           17,585,336,335    21,378,959,334     3,793,622,999     +21.57%
-> > sheaf_return_slow                    1,402             1,277              -125      -8.92%
-> > slabs                                1,398             1,369               -29      -2.07%
-> > total_objects                       89,472            87,616            -1,856      -2.07%
-> > unpark_event                             -       315,397,838                 -      absent
-> > unpark_slab                              -     2,147,963,530                 -      absent
-> > 
-> > derived                                                  before             after      change
-> > =============================================================================================
-> > PARK_SLAB / FREE_ADD_PARTIAL                                  -            99.35%      absent
-> > UNPARK_SLAB / UNPARK_EVENT                                    -              6.81      absent
-> > PARK_SLAB - UNPARK_SLAB                                       -                 0      absent
-> > page allocator churn (alloc_slab + free_slab)       111,358,105        53,403,609     -52.04%
-> > 
-> > Note that some metrics have very small absolute values (such as
-> > alloc_fastpath, partial, slabs, and total_objects) and are subject to
-> > noise. Across multiple test runs, their rate of change fluctuates
-> > between positive and negative, which supports the hypothesis that this
-> > is measurement noise and demonstrates that this patch has no noticeable
-> > impact on these metrics.
-> > 
-> > For metrics with large absolute values, their trends are distinct. The
-> > data indicates that the primary benefit of this approach is
-> > significantly relieved pressure on the buddy system, with page allocator
-> > churn reduced by 52%. Additionally, free_slowpath decreases by 41%, and
-> > cmpxchg_double_fail decreases by 85%.
-> > 
-> > The PARK_SLAB / FREE_ADD_PARTIAL ratio reaches 99.35%, which indicates
-> > that the vast majority of partial slabs are added back to the partial
-> > list via the parking mechanism, reflecting that the lock stayed
-> > saturated and nearly all additions avoided waiting for the lock. The
-> > ratio of UNPARK_SLAB / UNPARK_EVENT shows that each unpark event
-> > processes roughly 6 slabs. PARK_SLAB - UNPARK_SLAB being 0 confirms
-> > that no parked slabs are left stranded.
-> > 
-> > I also observe increases in both sheaf_alloc and sheaf_free, which
-> > could currently be attributed to faster allocation and free paths
-> > resulting from the overall performance improvement. However, I'm not
-> > sure about this, which is part of why this is posted as an RFC.
-> > 
-> > Based on slab/for-next.
-> > 
-> > Hao Li (2):
-> >   mm/slub: make the case handling in __slab_free() easier to follow
-> >   mm/slub: introduce slab parking to reduce list_lock contention
-> > 
-> >  mm/slub.c | 326 +++++++++++++++++++++++++++++++++++++++++++++---------
-> >  1 file changed, 274 insertions(+), 52 deletions(-)
-> > 
-> > base-commit: e7f630142df2afccce90555e4972e60008222311
-> 
+net: phy: dp83867: add regulator supply management
+
+This adds dp83867_power_on(), called from dp83867_probe(), which walks four
+supply names with devm_regulator_get_enable_optional() and, if any of them
+returned success, sleeps 200 ms for the datasheet post power-up
+stabilisation.  A few questions about the new function below.
+
+> diff --git a/drivers/net/phy/dp83867.c b/drivers/net/phy/dp83867.c
+> index 88255e92b4cdb..dbeee7cad6f0c 100644
+> --- a/drivers/net/phy/dp83867.c
+> +++ b/drivers/net/phy/dp83867.c
+
+[ ... ]
+
+> @@ -719,9 +720,41 @@ static int dp83867_resume(struct phy_device *phydev)
+>  	return 0;
+>  }
+>  
+> +static int dp83867_power_on(struct phy_device *phydev)
+> +{
+> +#ifdef CONFIG_OF
+
+[Severity: Low]
+Is CONFIG_OF the right predicate here?  Nothing inside the guard uses an OF
+API, only devm_regulator_get_enable_optional(), dev_err_probe() and
+fsleep().
+
+On CONFIG_OF=n the whole body disappears and dp83867_power_on() becomes
+"return 0", so supplies that the regulator core would resolve through the
+non-DT lookup path (regulator_lookup_by_name() in _regulator_get(), taken
+when dev_of_node(dev) is NULL) are never enabled, and errors including
+-EPROBE_DEFER are never propagated.
+
+The rest of this file uses #if IS_ENABLED(CONFIG_OF_MDIO) for its genuinely
+OF-dependent code (dp83867_of_init_io_impedance()).  Would keying this on
+the regulator API instead, or dropping the guard entirely since the
+!CONFIG_REGULATOR stub already makes the calls harmless, be more accurate?
+
+> +	static const char * const supply_names[] = {
+> +		"vdda-2p5", "vdd-1p0", "vdda-1p8", "vddio",
+> +	};
+> +	struct device *dev = &phydev->mdio.dev;
+> +	u32 count = 0;
+> +	int i, ret;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(supply_names); i++) {
+> +		ret = devm_regulator_get_enable_optional(dev, supply_names[i]);
+> +		if (!ret)
+> +			count++;
+> +		else if (ret != -ENODEV)
+> +			return dev_err_probe(dev, ret,
+> +					     "failed to enable %s supply\n",
+> +					     supply_names[i]);
+> +	}
+> +
+> +	/* Datasheet section 6.6 suggests a 200ms post power-up stabilization */
+> +	if (count)
+> +		fsleep(200000);
+> +#endif
+
+[Severity: Medium]
+Can count reliably mean "a rail was newly powered up" here?
+
+With CONFIG_REGULATOR=n the API is a stub that can never return -ENODEV:
+
+include/linux/regulator/consumer.h:
+	static inline int devm_regulator_get_enable_optional(struct device *dev,
+							     const char *id)
+	{
+		return 0;
+	}
+
+so all four lookups "succeed", count == 4, and every DP83867 probe pays
+fsleep(200000), which for usecs >= USLEEP_RANGE_UPPER_BOUND lands in
+msleep(200).  DP83867_PHY in drivers/net/phy/Kconfig has no
+depends on REGULATOR, so this is a valid configuration.
+
+With CONFIG_REGULATOR=y, _devm_regulator_get_enable() in
+drivers/regulator/devres.c returns the result of regulator_enable():
+
+	ret = regulator_enable(r);
+	if (!ret)
+		ret = devm_add_action_or_reset(dev, &regulator_action_disable, r);
+
+and regulator_enable() also returns 0 for a rail that is already on
+(always-on/boot-on, enabled by the bootloader, or shared with another
+consumer), so the 200 ms wait is taken on every probe or re-bind merely
+because the rails are described in DT, with no off->on transition.
+
+Both cases seem to disagree with the commit message:
+
+> Absent supplies are silently skipped, so boards
+> that do not describe them are unaffected.
+
+and
+
+> When any supply is newly enabled the driver sleeps for 200 ms before
+> returning.
+
+Should the delay instead be gated on something that actually distinguishes
+an off->on transition?
+
+> +	return 0;
+> +}
+> +
+>  static int dp83867_probe(struct phy_device *phydev)
+>  {
+>  	struct dp83867_private *dp83867;
+> +	int ret;
+> +
+> +	ret = dp83867_power_on(phydev);
+> +	if (ret)
+> +		return ret;
+
+[Severity: High]
+Can this call site ever power up a DP83867 whose rails are off at boot,
+which is the board class the commit message describes?
+
+phy_driver->probe() runs only after the PHY has been identified over MDIO.
+For a DT node without an explicit "ethernet-phy-idXXXX.YYYY" compatible,
+fwnode_mdiobus_register_phy() takes the scanning path:
+
+drivers/net/mdio/fwnode_mdio.c:fwnode_mdiobus_register_phy() {
+	is_c45 = fwnode_device_is_compatible(child, "ethernet-phy-ieee802.3-c45");
+	if (is_c45 || fwnode_get_phy_id(child, &phy_id))
+		phy = get_phy_device(bus, addr, is_c45);
+	else
+		phy = phy_device_create(bus, addr, phy_id, 0, NULL);
+}
+
+and get_phy_device() -> get_phy_c22_id() gives up on an unpowered PHY:
+
+drivers/net/phy/phy_device.c:get_phy_c22_id() {
+	/* If the phy_id is mostly Fs, there is no device there */
+	if ((*phy_id & 0x1fffffff) == 0x1fffffff)
+		return -ENODEV;
+}
+
+With the rails off no phy_device with the TI ID is created, so this driver
+never binds and dp83867_power_on() never runs.  In the case where the driver
+does bind after a scan, the rails were already on, so the enable is a no-op
+and the 200 ms is dead time on every bind.  Would this power-up need to
+happen before MDIO identification (MDIO bus / reset-and-power stage) to have
+the intended effect?  The only configuration where the new code can power a
+dark PHY appears to be a DT node carrying an explicit phy-id compatible so
+the ID read is skipped, and the binding example added earlier in the series
+in Documentation/devicetree/bindings/net/ti,dp83867.yaml uses the scanned
+form.
+
+There is a second consequence of using the devm form here.
+devm_regulator_get_enable_optional() installs regulator_action_disable() via
+devres, so unbinding the PHY driver, or a later failure in dp83867_probe(),
+disables these rails while the mdio device stays registered.  Does that
+leave subsequent register access (generic PHY fallback, re-scan, ethtool)
+talking to a powered-off device?
+
+>  
+>  	dp83867 = devm_kzalloc(&phydev->mdio.dev, sizeof(*dp83867),
+>  			       GFP_KERNEL);
 
 -- 
-Thanks,
-Hao
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260908-shikra_ethernet-v2-0-bbe3389d0652%40oss.qualcomm.com
