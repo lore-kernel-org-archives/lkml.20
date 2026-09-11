@@ -1,96 +1,85 @@
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
+Received: from mta0.migadu.com (out-15.mta0.migadu.com [91.218.175.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F883A5E96
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:29:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E31B3A0E80
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:29:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789140571; cv=none; b=NFiVD8aks4REoGchqJVCs+8cujttdeqrSbjT4RDb/NZDT1zXFJcKYI0AvUEDKSUDYQMjDl82pN6BH68yAj8k986aTmSY2rLFMY2jfyTeLwnag7Uj9ZblH4rV798HnMYlX3vDBnPYxGPZXbia8so6IU3VQeq4pDjUhsGCNXniEvA=
+	t=1789140563; cv=none; b=h1aw5wdeNc3ocr5wldiGVp1vsyt52VM/eZ56nvBwYnk5hynolG+KwaEy98vE/U25HtlSqPnSffYznWuBc1x6doe2ll2Iq/hpllJjGWbaCTohwHjNpcT4m+xOJReZC8fsiqoMy6pE0dfaQ1/75thW8T3UQLsgO/d+2EmUuZqyOuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789140571; c=relaxed/simple;
-	bh=OAhI7gs+kphXf+PD1T34gRTLOMAJwXUxKg9WHDf3eQE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=FZLwitgfjadQTRKoS9UpdJIHgx9KoLKd/OqeYfXkAN4bYDPsbs6wLA0WVtZfPKxDO20TEkg3XoYBOhglz21oRDF31hBuVuiPVALovDubEKgBWjpvyL8R491RnU/EF2HtRcnPjTtN9LJ1BlcMbSofedYQBHc8QmJJrtEvj06piEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lewxSlht; arc=none smtp.client-ip=209.85.167.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789140563; c=relaxed/simple;
+	bh=peYt46gEnplFq6VAGkOGT5G4FCVR4PjJCVV/CvQlqiQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=de3y6rmoIz/LJ2TJ7fkMhOI0Mv77P7JZjFe8/WLFxw5l9ouW1KSXd0CJVnBR97QtOM5aHAha65+Eszx0S66QrwFzJ6LTK4yE6rMG4RnfsbwHOpCbRWTUdaLVj+20mstDIQ7pNvZ5uOXqsk25wReKf9hvJvNtGGfVL49VNN/dJKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=X9BUDtwM; arc=none smtp.client-ip=91.218.175.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lewxSlht"
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5b5e5ab03afso1022958e87.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:29:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789140567; x=1789745367; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=OAhI7gs+kphXf+PD1T34gRTLOMAJwXUxKg9WHDf3eQE=;
-        b=lewxSlhtPL1hbtTwb6TECxzuDRnrEvLjchSOKpza/hIVD+4FUVbu1j8tkyDsFWLA0h
-         2N6UR4dgiStWsdB35VbHKLao5l6VKhCmUHyJRAotShSUv5gNiv2zzuXk6wJ149TE0eTD
-         kX1Fs+eOVzfG857D2SPBWKLINqVWWS0MMk3posOKTULsC2pPIRrP/Vyp4L8kuqQ2vhFl
-         sckw4/nhqu+bsCYpMawxZPOOMOfbexQrbi8dRlAsMeop3F1uHR/oMaMigO9FKy9WU5d6
-         wTVyfr08k0tzbZFPXQYTNOp8BHdj3mxarUFjirvpxfcYPFsLzZ7+BTRr03bptmCSQvEf
-         X41w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789140567; x=1789745367;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OAhI7gs+kphXf+PD1T34gRTLOMAJwXUxKg9WHDf3eQE=;
-        b=Z7HBqKhwfSYvkSDqMXwezWgXsTva5yuHRQRUGF10pXNSpAlGh55/Aw7mT8K51fkqN8
-         mwE3kFqjsGQEoWN+tdJfasYufQT5DGHMgFGKq6xnUCQfioDPLcZ3jPCL6yFDRE5IfLl1
-         NrLHFt5C6bY6f2DWVzJM4Tal+dk+LS6jKkuqFAuGPFVNHQhDZ7d6LKoCE04itwXfv9lA
-         aQYPM33xru3DztwPCOzFHw/FuvoZxpeGLVSWauotiOborRtMSNUA9UMn3123kwbf30mk
-         Zxp8oZOOVz3fvakZRyA3boOu/xZirGqGsz1a37ewY0ULtZGO3aj55rXJYTzeDjun37ef
-         eleA==
-X-Forwarded-Encrypted: i=1; AKwUvBy1x+7GNQ7ymRSa5t9K4W4NKbXgIeGd+/KJTrOyiAdcFFWTmb+rOz8wMwzWbKlnedQhTMQA4KKCmPEC5RQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lX5R+Bkp+OmuHe0ZAIzy1uYDz5A6GODw8jLnOjN/LVncVsHt7T
-	nW/h9WYz7B1lyipsgKE7TLFlW6iEbBdGxdiEj5rz34VGdhGDsCbmQZ0r
-X-Gm-Gg: AYBFou13gmH5C+CEKtkhI4s51vQ4fiYZ54+AX4rRQbSjLCUptPypTIaDK+38u9F4+H8
-	19RNvX3sUmWn6g/t/WCjkiblEUF5wVI8wzht+bGw0i0/BBNV74rnkfKKwFEvPeBEWRg6HXyesIE
-	v/9FEH6o3zQSy77yew+QZVLPy0qvNwGlV8KqtQlRJQ5bGCkwH962VCbRo7c89b4GdEka2f5/Iwm
-	a14AuWPjYB7K86MNbRUtaEb+Wcra/kcGPrPUQMWJXROeUXPL9TkBVz0D4yZA9+kmqxySLrOBtCB
-	jsrip4MXj17nzW1dHR6AR6lMqAk6WyHdcLExQ+6SXpqM8/RPIZRFdd3fIBPFOi+Ebo7KzGmF9TA
-	ImMq0JLSMBeeLw5Vu+UUKz81fSnx+k4ifcecbAUc0m5ST5NEvssp9bD/Nl43p64sXRS4K0mNivi
-	ZnoMPEaQu4Otcs5PAJ68RcVPTwvhPt0BhPpc2tnNTw19sYDWf1e4K1eEFgI0CroMsBrA9ZRbMNC
-	8p0JzC52LwNog6wum3nGXPA3cz1AxJdRO/Zs3Bumf1s39ZSvvMrS4S0cLbzp/GxYlObdEiPfKw=
-X-Received: by 2002:a05:6512:39cd:b0:5b4:9dbb:71d0 with SMTP id 2adb3069b0e04-5b8a0303b30mr898325e87.23.1789140566769;
-        Fri, 11 Sep 2026 08:29:26 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:8::])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a0461ee3sm690597e87.40.2026.09.11.08.29.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 08:29:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="X9BUDtwM"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=peYt46gEnplFq6VAGkOGT5G4FCVR4PjJCVV/CvQlqiQ=;
+ c=simple/simple; d=cknow-tech.com;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789140556; v=1; x=1789745356;
+ b=X9BUDtwMo5RuqpPHiLXsntdkaPtrn4dznM0BxpF7FvQuWgBV5CnM81YxXX9CdLArTJTvsVdX
+ Ui62sfms6CYNn1+RK8FQDIf5HUazc4Vd3dVWzfzUQD6/OX5zwOME5tJUdNrCmDyVySPgaUoKB/s
+ 2Ee7xwEaNvMwc0V1RGchUYCCCVW5MCLbcBnBiBwROv4ApgqUlEml45ns5Xp7TqGya66GQPz9Dy6
+ erSANy+E281zijLeztY0LDsM1koHHrxbbP6kXXYCwOMOpcLnaxYYWTtdKirkhhW5TewT3Q8u5FP
+ hrtq4mzYDQFhbc4yp1544A48mQCpFj3HFoxPRrkJq3SNw==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4a6b1134c34ec148;
+	Fri, 11 Sep 2026 15:29:16 +0000
+X-Mizu-Trace-ID: 4a6b1134c34ec148
+X-Migadu-Flow: FLOW_OUT
+From: Diederik de Haas <diederik@cknow-tech.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Ricardo Pardini <ricardo@pardini.net>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Diederik de Haas <diederik@cknow-tech.com>
+Subject: [PATCH] arm64: dts: rockchip: Fix i2c6 clock-frequency on NanoPC-T6
+Date: Fri, 11 Sep 2026 17:28:33 +0200
+Message-ID: <20260911152911.2088363-1-diederik@cknow-tech.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 11 Sep 2026 08:29:21 -0700
-Message-Id: <DLCLEB5Z7HGS.1X65OY5VVEF1U@gmail.com>
-Cc: "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
- <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar
- Kartikeya Dwivedi" <memxor@gmail.com>, "Martin KaFai Lau"
- <martin.lau@linux.dev>, "Yonghong Song" <yonghong.song@linux.dev>, "Song
- Liu" <song@kernel.org>, "Jiri Olsa" <jolsa@kernel.org>, "Emil Tsalapatis"
- <emil@etsalapatis.com>, "Ihor Solodrai" <ihor.solodrai@linux.dev>, "Pu
- Lehui" <pulehui@huawei.com>
-Subject: Re: [PATCH bpf v4] bpf: Fix UAF due to concurrent consumption of
- ttrace lists in alloc_bulk
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Pu Lehui" <pulehui@huaweicloud.com>, <bpf@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "Alexei Starovoitov" <ast@kernel.org>, "Hou
- Tao" <houtao@huaweicloud.com>, "Leon Hwang" <leon.hwang@linux.dev>
-X-Mailer: aerc
-References: <20260905021139.4116529-1-pulehui@huaweicloud.com>
- <6b43a2a9-7e71-4af9-bd56-1bf0d39405d6@huaweicloud.com>
-In-Reply-To: <6b43a2a9-7e71-4af9-bd56-1bf0d39405d6@huaweicloud.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu Sep 10, 2026 at 6:17 PM PDT, Pu Lehui wrote:
-> Gentle ping~
->
-> Hi all, Is this commit looks proper?
+The i2c6 bus needs to run at 200kHz, because at the default frequency of
+100kHz it may fail to find the RTC resulting in warnings/errors like
 
-Sorry. swamped. It's on my todo list.
+  rtc-hym8563 6-0051: no valid clock/calendar values available
+  rtc-hym8563 6-0051: hctosys: unable to read the hardware clock
+
+But only sometimes. This should not happen when there is a battery backing
+the RTC, yet it does ... sometimes.
+
+Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
+---
+ arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
+index 4d97afbc33bf..ff4f766ce0df 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
+@@ -455,6 +455,8 @@ regulator-state-mem {
+ };
+ 
+ &i2c6 {
++	clock-frequency = <200000>;
++
+ 	status = "okay";
+ 
+ 	usbc0: usb-typec@22 {
+-- 
+2.55.0
+
