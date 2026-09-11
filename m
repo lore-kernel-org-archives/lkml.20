@@ -1,47 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBEEE4AEBF5;
-	Fri, 11 Sep 2026 18:16:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 232514AE127
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:16:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150580; cv=none; b=fJBAfGlk1fw7AAuFvEWKMKY1yVEPldkuiQK6Dw0ScEdTdhD+1Pgtc+7mE9IImDoOrjCIZyFl/ShTz1REIIP4fcU/6POCSeQtIjVRnkPASBAGAujiW8ysz4Eu1VP68fs8Dxku16VfbFMdOLwfbrpWjXqsmzHgj61pA5mQ4ULDRig=
+	t=1789150579; cv=none; b=J1dwtZQO0zppy8UJLcCi02UQwlFWWAJ9OAFqSfGt0qUAwh8FlTRn8JXZcRgViN4rV2CDKTMvhVkCJLib5hq6e8ZjSbv8f0EZ6lgp2L5k6Izh1CdFSOPEyrBeEoPY8b4IOb99DM5+YT4swx/9SRU0Iyy5CzRqi+o5WMXhs13YFs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789150580; c=relaxed/simple;
-	bh=QSD3eMCLrLuQgTXh7gAKcKxBIwLo7qPxGf2rRAEPZEU=;
+	s=arc-20240116; t=1789150579; c=relaxed/simple;
+	bh=Zk3FXHniipjw/+WRbl891JFRUeMJ23lamGmrr6/Uwm0=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=JhZWqJktRH0JVHs820j3LXFgzFuHwmhjJwenO237pIvFB0/4TO7weRi73iaux93b0PN7D4DSVgPChuO3uPNeGy6UgQ+ZtE5CC9r1FZqEvr98WmF7kw4To1RIi0+q1E35PB4gcPC5sLk9PRTrWF6HS5bm1d09sGRQpi87PMyhCg8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h3IUTb76; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=lcsr/IC5XoU/0J7skZw8UGwVVvaesJ6ustDBucP9JJ5HPaGJH0zjGUFzQ7vlqZJF8qWm/9qls7u8lKRbxlf2r2j3OodHkZhpLj2DbHvfQcX8I4lCEpqkHgGvu/AocuC1bg93qunYiLDO8sFupgTlWXAWiCpMhAw7tIzTm5N6lXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SWyeMS5A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h3IUTb76"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3105B1F0089C;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SWyeMS5A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0EB11F008A3;
 	Fri, 11 Sep 2026 18:16:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789150568;
-	bh=bL/rSYTIGCPz2ML0qUfMnK6Kt8ZSclOopkEza4Oddx4=;
+	bh=uexNQDNo7d7HNsbNZ2HKiPNKKIJxaV1+tpsEgCeUt0o=;
 	h=Date:From:To:Cc:Subject:References;
-	b=h3IUTb76WsZKGoO96+ZL26cjzLbvlgRpKICsFfxBuC346VMm7qBdNfDQQLk/giFKW
-	 AjSHpinvkDzHwWOAV6n+mvwNYl74tDrXbIScd32Z/od7RHI4O14JbfYHI+o2YXfrcc
-	 uPpK4r12aQqE3c4L9U10cOY3w0TbMd2uWXoM68FpI27Ae/zAJkEd346WECBqdMtsOz
-	 V4Dzpk4HO5qJFiAJvKw+cSYz4u4VK1KXjjaj6p4yXs/Pm2jTG+T7X5+DkT8HtEcDxu
-	 LvQx84EoycGvgnJDKiR/6x8336TQzbBUlv0m89C+dsIT8LnFCjAaxPLQz4fO3rl972
-	 D8h4B8Wzoz5+A==
+	b=SWyeMS5AHZk/s8AEWmODv5LosyihSVkZn7XBk5HrayxVZU9nKbh7FAry4+H/arySU
+	 RJxDgClJgbtdCKIPwF77k2OlNKFsfid/xZ9rGyLqwPqiIS76TkbXEMKa8LaNFqxJi6
+	 mrfm3i+5ASIMSuM9l09AttNgrqRnsHpDX9FkJEmF3s2M4v+rxkQeehHqbts6Ct589e
+	 Qr+Fs9hHFUxsMAU6qGbRAjb7vqHDyfzlCDvov9OgT4tXqvpRd+5V89BvNqFxhdLh3b
+	 KSWGCA0MV1FYrHYvFMaajy2ic3wM8kS5BREsmPctBW38qGZn/QQ9cTdqsdOYvkT6ac
+	 /dhTxvIzv9wBg==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1x55oX-000000094yM-3NFq;
-	Fri, 11 Sep 2026 14:17:29 -0400
-Message-ID: <20260911181729.623284631@kernel.org>
+	id 1x55oY-00000009503-1ksN;
+	Fri, 11 Sep 2026 14:17:30 -0400
+Message-ID: <20260911181730.228443484@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 11 Sep 2026 14:16:43 -0400
+Date: Fri, 11 Sep 2026 14:16:46 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mark Rutland <mark.rutland@arm.com>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
- stable@vger.kernel.org,
- Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Subject: [for-linus][PATCH 07/20] tracing: Free histogram the field rejected for a bad modifier
+ Hemanth Selam <hemanth.selam@gmail.com>
+Subject: [for-linus][PATCH 10/20] tracing: Fix typo "availabe" in comment
 References: <20260911181636.485043797@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -51,75 +50,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+From: Hemanth Selam <hemanth.selam@gmail.com>
 
-Writing a hist trigger whose value or variable carries a modifier that is
-not allowed there leaks the fields that were built for it.
+Correct "availabe" to "available", reported by scripts/checkpatch.pl using
+the misspelling list in scripts/spelling.txt.  Only touches comments, no
+code changes.
 
-__create_val_field() takes the field from parse_expr() and stores it in
-hist_data->fields[] only after the modifier checks have run:
-
-	hist_field = parse_expr(hist_data, file, field_str, flags, var_name,
-				&n_subexprs);
-	...
-	if (hist_field->flags & HIST_FIELD_FL_VAR) {
-		if (hist_field->flags & (...))
-			goto err;
-	} else {
-		if (hist_field->flags & (...))
-			goto err;
-	}
-
-	hist_data->fields[val_idx] = hist_field;
-
-Both checks jump past that store, and the err label returns without
-freeing anything. The error unwinds to create_hist_data(), which calls
-destroy_hist_data() -> destroy_hist_fields(), and that reaches a field
-only by walking fields[]. A field that never got there is unreachable.
-
-commit e0213434fe3e ("tracing: Do not let histogram values have some
-modifiers") set ret to -EINVAL and fell through to the store, which left
-the field owned by fields[] and freed along with the rest of hist_data.
-Splitting the check into a value case and a variable case replaced that
-fall-through with a goto that skips it.
-
-With CONFIG_DEBUG_KMEMLEAK, 200 writes of
-
-  # echo 'hist:keys=prev_pid:vals=next_pid.log2' > \
-	 events/sched/sched_switch/trigger
-
-each correctly rejected with -EINVAL, leave 332 unreferenced objects
-(63744 bytes) reported at create_hist_field(); 200 install and remove
-cycles of a valid trigger leave none. A '.log2' field is two
-allocations, since create_hist_field() puts the plain field in
-operands[0] of the log2 field, and both are reported.
-
-Use destroy_hist_field() rather than __destroy_hist_field() so that
-operands[0] is freed as well. It returns early for HIST_FIELD_FL_VAR_REF,
-which is what an operand owned by hist_data->var_refs[] needs; the
-rejected field itself is never a var ref, because a var ref never carries
-a modifier flag.
-
-Cc: stable@vger.kernel.org
-Fixes: e30fbc618e97 ("tracing/histograms: Allow variables to have some modifiers")
-Link: https://patch.msgid.link/20260907034948.240387-1-donggeunyoo.kernel@gmail.com
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Link: https://patch.msgid.link/20260907062608.13924-1-hemanth.selam@gmail.com
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_events_hist.c | 1 +
- 1 file changed, 1 insertion(+)
+ kernel/trace/rethook.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index bbdd56208eff..8cad99a8d01e 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -4317,6 +4317,7 @@ static int __create_val_field(struct hist_trigger_data *hist_data,
- 	return ret;
-  err:
- 	hist_err(file->tr, HIST_ERR_BAD_FIELD_MODIFIER, errpos(field_str));
-+	destroy_hist_field(hist_field, 0);
- 	return -EINVAL;
- }
- 
+diff --git a/kernel/trace/rethook.c b/kernel/trace/rethook.c
+index 5a8bdf88999a..87a27f3aa4a6 100644
+--- a/kernel/trace/rethook.c
++++ b/kernel/trace/rethook.c
+@@ -171,7 +171,7 @@ struct rethook_node *rethook_try_get(struct rethook *rh)
+ 	 * This expects the caller will set up a rethook on a function entry.
+ 	 * When the function returns, the rethook will eventually be reclaimed
+ 	 * or released in the rethook_recycle() with call_rcu().
+-	 * This means the caller must be run in the RCU-availabe context.
++	 * This means the caller must be run in the RCU-available context.
+ 	 */
+ 	if (unlikely(!rcu_is_watching()))
+ 		return NULL;
 -- 
 2.53.0
