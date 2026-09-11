@@ -1,385 +1,200 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011046.outbound.protection.outlook.com [40.107.208.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030D935E95A
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:57:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789138674; cv=none; b=JT62V1BNU1YVWO40OwBovE17z6+jhuirYhmuDnVUfVYD2a5FVh/U7I2FFnxBDJA32YnKzIWuMvaL2q32YSrYOxCil7dEoMo4YjN7x4iU5FiPOEBQYBrReMna3L2zIFfXgTosCZsCYYeV2d15XxJyfOz9ptlh0b3Uchv2WI1xL2c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789138674; c=relaxed/simple;
-	bh=D/cqQW3YEor1RaVzk6JWcbIBIdJAe18Cvto2+OHn1DI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WWQczJDUVQiD94SQaAHkIvoZ0/uRdQBAqtpCDrlNSt2MzPsoa2yBhO5zXnQLn4z9/OJYAeMgWvLTeNulDREqwW/LW4Vp+UwQKipPsepMLS8Sf/dT1nOxheTuD9hVTSYHV6WtjgAnmtPFoaQ6ydo8BNg4+hZDay164XJS2bYk9j0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=j4nHvQn0; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C44213655CD
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:57:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789138680; cv=fail; b=aRQmPpoI5XbFfB9XKky7sYjBjNv+Wba1xCwySonJr0oU6xtBoV0SR6BZMdm14Hmk9LsoXRYq4VpSBL9KW2HOGwcpGzuO0t0FJL2woq5QmXsDzU3U3a6PFqn0npnm/z9YOnaL4SgJL/sQA8PJ4XScEEbRhty5GQLdoxrMw1hXDf4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789138680; c=relaxed/simple;
+	bh=TILfLR8tee13k+feGXPtpzY1apjQ18DEZe8imNrDvlQ=;
+	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
+	 In-Reply-To:MIME-Version; b=TZMUFLR5Dc6lSGWDypRCHCNun9CJWtFBCN2nsMe/Q1fPbCgolvet7n6d9BLdRRY5p92Bo970W0F0hYuXs2AM9QDkCVVFzGRiLfU1F4Zll0+q+RcCYl3MlMa5+DuGvRredSJRdDPnBQSrKmEWYt90KEG7DvnY+rHzKJG/OY8chWw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=jCrknJHL; arc=fail smtp.client-ip=40.107.208.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="j4nHvQn0"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-869fe350825so1210595b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:57:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789138672; x=1789743472; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mTItDG+SPCPjDvjs6iUyky113T76JdD5XYB7K8F6/zA=;
-        b=j4nHvQn0RoMecy5tamdWgBjUaMGJBPqqgv/4qocaC35l5RDnd6yxydUCRM/eXCSkld
-         HbrME+vqlbmiY6reNRUjbOiK5N9rwwIj8mij0VsszC7oTdXD991Eivz22CM5NIt3du2w
-         057LMLJnA5LRlCUec+8c5MZBG3BKkvyrcPBfxyPMXHv26+A0JfTbklo/iK1SO8TGV6L8
-         p8E8gBPuNCIzwT0smW6vzCpdi4wahupT0GraclYN9b/uAPBRgERzhTgVvu65sptR3DDD
-         99DVa1y9DM1ot4uSvaTmkeJOwD/HLWojd6SZpLSxyQ5jC9G/NwXl2F1+TzM1AFu8IwoB
-         8rdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789138672; x=1789743472;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mTItDG+SPCPjDvjs6iUyky113T76JdD5XYB7K8F6/zA=;
-        b=pDMsSFjwOU+nHWIW1nSK3c8JJAFO3hvkZdIiiFoZnLKpTRnXnqOTzDvhJyoJ2HQbFQ
-         hKbQmWwimZ9zkjiFX+EiAGWrIMYXWMd9sTwY6Az2nxWVpw7f8l3W9C69mWUg/IeQDPrz
-         OLy9DM+f385gmNulNlzEFvFFxnwGRUZCx9CySwltQ+pe2wXggym81+PLCVDGw9D7I9Vx
-         Rc6HksQDYC8xcf+8OmkUIRUrDoLDetVenjVdo/eVkOpQBRYnEskPnhkUvN1iaV18Qoym
-         PWnyHyoRsqi+xYPRRrOGxdwEKj95u5oFhOKkaGpZBXTRrGxS9a6U5TayixIcXoJmAXze
-         Sfaw==
-X-Forwarded-Encrypted: i=1; AKwUvBzXWX0r9TR6eq52lqvm8z2FpBjW2kOfhYRwUqcF0+qp1CO0+upRJyC8rOsrFa09DwrNL5VIjmN3qz3rrms=@vger.kernel.org
-X-Gm-Message-State: AFuF++k62pVIt0WmiFXjv61oE0NrL0MvxXUbTPyKescDUY8pvC5CussD
-	RIu3nS3Uom2UEOVFagc+KODkGyYz2wVxG+qHW+Xwy+iKuU0K/xDdzuOJF4x1H2B7WDM=
-X-Gm-Gg: AYBFou2/c4GUVVhrV1J9q8CrSSmBLYnwkZZE/5shbqA8uAsdUNHZoMZO+zHsb344VaP
-	tF/hqNySO7P+i8ts4Bqez7KtYUE5pxeu0dTJ1VSNp4fNbMe9ktxABVelseoJ1ggdKWgLBPgWmfo
-	vVEWsjsqvAopubIphKwf1usxek5ATQ0bHhokoBHiRrwNa6W/7fpLpdLQZVZNlsORgA64tRBxizf
-	WUXdtIwrpXeCadQvBgvHj+Ysxphbe00IXmlq0zHD5yOaUYIQIVMzuADoSyX/TwWLls0Lm1GjnWh
-	W04Nqm8JT0xluNrk8T6jRQXT77maBXukKAkAd/jh5jyUJ7rPaoeP/aEU1kwEBC8FRO7czKNh+cn
-	ugvw6ePMiqCeoliZUmvOX1CmeC16oHgT80Qdm4Ruz/O/xdO1Bssq/IjqpXrUKkisToJggajf0im
-	hCZTOYSC5JfH5uSWPSSBg39EBKiJp/z8O0t2SP1w1QAlGPy+9DimD/PKzwRmUSO2sAbV43pUtCt
-	YI=
-X-Received: by 2002:a05:6a00:981:b0:861:2029:4f59 with SMTP id d2e1a72fcca58-86b2eaf0dd9mr7157609b3a.3.1789138672154;
-        Fri, 11 Sep 2026 07:57:52 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:bb01:88ad:cfcb:1cee])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b29cbb933sm1259021b3a.41.2026.09.11.07.57.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 07:57:51 -0700 (PDT)
-Date: Fri, 11 Sep 2026 08:57:49 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: tanmay.shah@amd.com
-Cc: andersson@kernel.org, linux-remoteproc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] remoteproc: remoteproc_virtio: add acknowledged vdev
- reset
-Message-ID: <aqQW7eOsFE7jRTXT@p14s>
-References: <20260902214453.634339-2-tanmay.shah@amd.com>
- <aqBNoaF7m_JEiVYY@p14s>
- <281ad636-7963-43ad-b88a-8a196eab217b@amd.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="jCrknJHL"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fLVlCUoQaWCPVetE4UhhOT1l5QQ8Tzv8QaIHqe3biGI/jDcuRCM3+FHJtWxJ/9Kjj9PfeIzIjxl3rFQKbODm0maroxyRYVCPvfUj5eengme+rKPXPi9hk5ebq7ShjDmpyFVbV0XLYKybUDKBPwV70VWWwg3baQm1ef+Z7F9lLwoIVKRLj8eDw3TlQNMPAis5wlxAYNSwjctWYuFG0V7gxfH1FBHVC2xvK5xJNMRERYGP0t65Ah9iXiKiWc+bLFxFQEjet5HWtXq7+8DMeq4Wo/6n/2BDnZ/VvWa8p7QekcHxSiRZqKqzp5h6fXV314QKcyNllIvpkOFe2u94MkoX5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Y5zHz7C3SYtPtFBoVWGT45/Vhw475AS8QamE/epO6Hw=;
+ b=hxhpTl4GQnzcYvwjm7GABMEMonFk+LM3YUBrPuUEmdAjrFTQTFjYtd5PUuDeQjTo/TmMsV2Gwwt7zi/V3qIFLcJeUnwloNMk64f2BXUsO6xaqWuWPbz2VP6YJHqnzlGsu2mV91ROmlt+akOqAfLM9/sWSt1Jmb2VksJU+AafKQfFak+bWUH+4QSUBJpsM1ZhIGJWyOdy1mAUmETyW+o7T7rOh8S2wei28RNqTPmY5EuXNrPpVd/NXuMCMd30Df/4u+DaJNbjh5UVehUhv5aa0dVvB4sRf8sPBppq1lhNOnbJQuGrZHrx5p85eL+SQEawwcxRhv//9aR9tudFxrzEhw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Y5zHz7C3SYtPtFBoVWGT45/Vhw475AS8QamE/epO6Hw=;
+ b=jCrknJHLmNuavyeJy7xzRAjhf+nXSzccvlkDS8AVqKQpUyq9tAga22pXMDbTLIzYVWfNPLqJEe73dSh+fPlCPl8sc3+4eUyuN1KKR4gbu2amKNKSLxJBfiepVuGpgTDAqQDGDeOX7xiT7RnV/qZ5NwYEbtWiPDOmktg2peJ42V+GdcYm/uResOcN+pArfLSXDrnUd661KIaPQuHpOIjtfRIO2JkvASOjKWLIsgq0T05TuNDxt3daERLwdKgDKJEAJDaD8srHSk7YYmZc2IJir+7y7UQldKp5QCKvgbMdZNi+pkS2L73+GHpDLPYZnQvbNp2rHP37NqPWzFN52OxOnQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by PH7PR12MB6934.namprd12.prod.outlook.com (2603:10b6:510:1b8::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Fri, 11 Sep
+ 2026 14:57:48 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 14:57:48 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 11 Sep 2026 10:57:46 -0400
+Message-Id: <DLCKQ4T6VJZA.3KVN87GD21IBI@nvidia.com>
+Subject: Re: [PATCH v2 09/12] mm/collapse: open-code collapse_single_pmd()
+ in its two callers
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>, <linux-mm@kvack.org>,
+ <linux-kernel@vger.kernel.org>, <kernel-team@meta.com>, "Liam R . Howlett"
+ <liam@infradead.org>, "Nico Pache" <nico.pache@linux.dev>, "Ryan Roberts"
+ <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>, "Barry Song"
+ <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>, "Usama Arif"
+ <usama.arif@linux.dev>, "Vlastimil Babka" <vbabka@kernel.org>, "Jann Horn"
+ <jannh@google.com>
+To: "Kiryl Shutsemau" <kirill@shutemov.name>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>,
+ "Lorenzo Stoakes" <ljs@kernel.org>, "Baolin Wang"
+ <baolin.wang@linux.alibaba.com>
+From: "Zi Yan" <ziy@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <20260910120238.2529819-1-kirill@shutemov.name>
+ <20260910120238.2529819-10-kirill@shutemov.name>
+In-Reply-To: <20260910120238.2529819-10-kirill@shutemov.name>
+X-ClientProxiedBy: YQBPR0101CA0201.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:67::7) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <281ad636-7963-43ad-b88a-8a196eab217b@amd.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|PH7PR12MB6934:EE_
+X-MS-Office365-Filtering-Correlation-Id: e5073c25-1685-4186-2b76-08df10150b9a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|366016|22082099003|18002099003|10067099003|56012099006|11063799006|4143699003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	ACYiBm4Lz+58cGTkniLtYn2hWqS2U1Mw2cTnpY+5THkUUiAFHPN3cIco866vXGRh4CE4v3dniHhFawzbqHHlFtUcZehkSXoxQymtcHa3B4CHoZ9Idu3/SwSTHAqBe7QCS8HxgfHk+jGPIRXpNL7ZWi1RbXcrjdkNLbWvZeGO5A6B0a/hdHnkTySIxZx33qaUBpyxvPqhFWmSn4y43LfD1ZgGXtXhn2FOIHXgj3hRWSJSDQthqeaOlJ0O+FiGp1MhMsPUQ2rVf69/XM8ES+MWQAHZSQ6cs2AnkyypgiW4Aawx8PcKuc+HJHn21Vi348T3B0bi4mWIJMEqcvOXk0YWIFNrHgCOBUCVhCi1Q8eCrY4jIXUQd/uZAGCgJSkVGaJTeLF8RoLEBlPKpSPMmMqKUzLABaqOg6vWIYS+mTXdc4RZtQSeXthPCB2eWN4SSk9WY+RWjjbWw63Qb6+tezFJwoimo9Te6bU8ACO3gYiCDH79e8OIcQFtcvFyXHJlSNZ8p4FKjU5wLSPgp1x8Hz2kfAFSOWnFsUC1BT2RNpcyrE2X0xdcIMD1JnIlQ48jje26f+x40jklFSzuNBVRx0yuGBE3yphOIG2nGGQs1YifnhK1S1ys5y7eRpuSax+U1ngKKNTRu+6Ctnu3KuLuwy0JTHhwggf6p4Bjyopvx5QM1g4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006)(4143699003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QjR1NjlScmpaT0pMb1ZtR2tmekJwb1VldmtKNzlPQVMzSFpiSSsxbm50Y2NG?=
+ =?utf-8?B?Z0ErdzlaRHRVcW1DVDV2Rkxoc09XTklvRDMvaTMyR0pOMGVHZjFjcnN5VXcy?=
+ =?utf-8?B?TG1DZWpVQkFTSnRoRENNY2xGa1hSRHVmZEdBNHE4QWZDT3BPTitoTDE2R1dz?=
+ =?utf-8?B?UjZTWnZ1QUxaSE9MYkJnMWFMdERJRlg4VFNNUGRHbWVxUkdQU1Fiem1LVVUz?=
+ =?utf-8?B?SGkydWRqQXJ3T2E4T1ZEcVdSUlZKL2lVUkhOcnFWMGtIeE9qMEhidmluaDBq?=
+ =?utf-8?B?QjVrSkFkYXJHK2VGSEZGYXpxL094NlN1cmN3Y0RUdUExZi9NcksyUEJrdk9s?=
+ =?utf-8?B?WWFydTg4eDFuRU1uU0RtYkZQMmIxak5mUzhma2paZkJNU1dRYngva1kxcUZs?=
+ =?utf-8?B?YXExQkUyQWZjQzR5MTVpdGpIb21vM1lZRThiZ095eXBRZkJtZ0JVL2d3N2FK?=
+ =?utf-8?B?WDc3VE5yT2F1SFhNV1pHdlFDRncrekwxMjlsWFF4UHBzS3hTckpZK0FJbWtO?=
+ =?utf-8?B?Rmc3TWl4dm5wNitXS3RyRXpDWDNuTXM2d2ZpOXlzbFpqa2pKNVlscUxiM2Ja?=
+ =?utf-8?B?ZG5FWXdRT20xd2U1VlcvU3hIRGRxSDMvVHhrK0dQRDhrVTBLQmtJVEJXb1RM?=
+ =?utf-8?B?djdMa2lDelFDNWMzTVVtYjZoOHFjZDN6TzVPYnU0OEU2YktHeXpSNm8vSWdt?=
+ =?utf-8?B?d2RURmxHZWtFYnBtTk1odU83dk9DRU9oOFBtOEFoMGRPTENDdzhkbkVoY0VP?=
+ =?utf-8?B?eVM0eUQxenVsMnV3OVdzN1NjSkttYmRxa05GWUJwQUZPemJmVjBaZ01YTzUx?=
+ =?utf-8?B?V0xKZ08xR3dxdXo5WmIxUGIrMG9ISVlsNXlNUHk2U2JRRUt4c2syaHoxRVZx?=
+ =?utf-8?B?Vi9mNFlja2ZVc25TUUQ0Z3RVY2ZwVThhQ1crR05KeXh2endXWlljM2d6c3dQ?=
+ =?utf-8?B?SEhoUVhaSktrMGdodzRDL2lMbTh2aE05cjNFbnQrZlIyT1YyT2Q3RWo4MmJ5?=
+ =?utf-8?B?eWZTa2xjZXBHRzNDRFEvbVBiOG8zUWhqTVhmVHA4WWY1UmJlVVV6eWNsU1JR?=
+ =?utf-8?B?eDlleFZBTnRyTVl6TVNDMnVHK1dlclpkS3V2bFhnSHU3aVMxMEVXbXlSRTZH?=
+ =?utf-8?B?S2dSZ29uRGE2SG5ZY1BKSnp6RDhqNGFHVElXMk9qR2FEZmpDcWR6QmFrbmhF?=
+ =?utf-8?B?NGY3KzlqWHg4QnNaMkpiSnJud2swa05JVFowWnBnd3JOcy9kRG5Jd08zby9F?=
+ =?utf-8?B?TXZUUEh5dlNpTmJ4RHVpWDNHUGhOYitCZEpvUmtVK2x6WnlhelZHZTNyMFhh?=
+ =?utf-8?B?V3FRVXpSblFESUUvMTZqdi9wQXFhSWZOOWVyUThBeWxWVTQwWWo1V2QrcS93?=
+ =?utf-8?B?WmdnR3pLSldvVkFLbDIxb01rWVBHK3ZJU0JjUTN3TCtCelRtSjQvSDdsSG9k?=
+ =?utf-8?B?TXVBTjFQTUF0eGVSdkt5dElvSEh2SGJBcHJha3BZS0hjcUZWVjcvYXFWWWdM?=
+ =?utf-8?B?bnI1VHBHVHlwcmR3MzdwbVVaMEk5aHlreGNNTEdtTVQ4K0tWaC94eEdXMUNx?=
+ =?utf-8?B?UU9SSCtxRm9Bd213bWw3YUxnYlhyTkVHZWN5NU1XMUQ0Mkd3L2QxQnI1cnJ0?=
+ =?utf-8?B?SDhHUkhIN1JhSW9HWUJoYnVpVi84VG51UWhCSEtEODNzTDRSLzQ2U3VoMlZG?=
+ =?utf-8?B?QTJMamYwVTRqOGJEMXpYOXVtclRmczNLczg3TGxoU3JrTlppVG5OdlBYb1p6?=
+ =?utf-8?B?K0ptajRIODB1anBVWVdnUnBSWURQdGh0cXIvTUcrOVdFSnFyWjB5bHpoNlRF?=
+ =?utf-8?B?UTNCTkQyVm5Ec1J3R21MV20yVld2VXJMT1hEcU9HbGxOaU5kbmNwbVNOL242?=
+ =?utf-8?B?eWxneUFHTk1HYXhlV2VST0RQc2ptMHQ3Q0hlY3BsNFEyRFIyeTJPTlBCOEhl?=
+ =?utf-8?B?dzdNN3hNZ0ZlejNaNlhzYjA3YmJiKzAvdVlVSHRXb2xRREhWTTBydzc2NkdJ?=
+ =?utf-8?B?M0VOa3lybDF4WUQvVzZBcTF0MWZjbzE5WGd5UC9QZXF3ZmdrNGhjUmtyeFpI?=
+ =?utf-8?B?cEJ2UXJnb1pwdGJjUkplOUVnU1ExdmhKTkNjK1drUkdsdXpoZ1hzc0VIMm9M?=
+ =?utf-8?B?RkRDTTZTazMzQ05qVFBMbWE3T0luMUlub01jUjJaTjc3Y0JPVE00bDVYQVhx?=
+ =?utf-8?B?NXlxaFMzaUplYkRmNktZYVdndExPZTkxL0ZIbFRxNzRSbVYzWHVqcXl1aHcx?=
+ =?utf-8?B?cjhWNWpJQnpoVmVtZDNXc1F4ZmowZitvYUxqZjlMSDlqcTZxRmFYc3JncStl?=
+ =?utf-8?Q?Sq93otEV9gvZfmKR8t?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5073c25-1685-4186-2b76-08df10150b9a
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 14:57:48.6731
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0LyRzz/HV4iaaaeKdlnDgnU5KLZuPRXBlLTnbv/zMRQXnAndP4oAPIv6XSiCnp3F
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6934
 
-On Tue, Sep 08, 2026 at 02:21:53PM -0500, Shah, Tanmay wrote:
-> Hello,
-> 
-> Thank you for the reviews.
-> 
-> On 9/8/2026 1:02 PM, Mathieu Poirier wrote:
-> > Good day,
-> > 
-> > On Wed, Sep 02, 2026 at 02:44:54PM -0700, Tanmay Shah wrote:
-> >> The existing remoteproc virtio reset path clears the vdev status locally
-> >> without notifying the remote processor. As a result, the host cannot tell
-> >> whether the remote side has observed the reset request or completed its
-> >> cleanup.
-> >>
-> >> Add a new resource type, RSC_VDEV_V2, for virtio vdevs that support an
-> >> acknowledged reset protocol. For these resources, encode a reset request
-> >> in the virtio status byte, kick the remote processor using the vdev notify
-> >> ID, and wait for the remote side to clear the status back to 0.
-> >>
-> >> Keep the existing RSC_VDEV behavior for backwards compatibility by
-> >> clearing the status locally. Also reset remoteproc-created virtio
-> >> devices before unregistering them, and expose RSC_VDEV_V2 reset state
-> >> in debugfs.
-> >>
-> >> Assisted-by: Codex:GPT-5
-> >> Signed-off-by: Tanmay Shah <tanmay.shah@amd.com>
-> >> ---
-> >>  drivers/remoteproc/remoteproc_core.c     |  3 +-
-> >>  drivers/remoteproc/remoteproc_debugfs.c  | 29 +++++++++++++++-
-> >>  drivers/remoteproc/remoteproc_internal.h | 21 +++++++++++
-> >>  drivers/remoteproc/remoteproc_virtio.c   | 44 ++++++++++++++++++++++--
-> >>  include/linux/rsc_table.h                |  5 ++-
-> >>  5 files changed, 97 insertions(+), 5 deletions(-)
-> >>
-> >> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-> >> index 1ed406714849..31d79684977c 100644
-> >> --- a/drivers/remoteproc/remoteproc_core.c
-> >> +++ b/drivers/remoteproc/remoteproc_core.c
-> >> @@ -471,6 +471,7 @@ void rproc_remove_rvdev(struct rproc_vdev *rvdev)
-> >>  static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
-> >>  			     int offset, int avail)
-> >>  {
-> >> +	struct fw_rsc_hdr *hdr = ptr - sizeof(*hdr);
-> > 
-> > Spurious change.
-> > 
-> 
-> Ack will remove it.
-> 
-> >>  	struct fw_rsc_vdev *rsc = ptr;
-> >>  	struct device *dev = &rproc->dev;
-> >>  	struct rproc_vdev *rvdev;
-> >> @@ -485,7 +486,6 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
-> >>  		return -EINVAL;
-> >>  	}
-> >>  
-> >> -	/* make sure reserved bytes are zeroes */
-> > 
-> > Same
-> 
-> Ack, will be removed.
-> 
-> > 
-> >>  	if (rsc->reserved[0] || rsc->reserved[1]) {
-> >>  		dev_err(dev, "vdev rsc has non zero reserved bytes\n");
-> >>  		return -EINVAL;
-> >> @@ -1009,6 +1009,7 @@ static rproc_handle_resource_t rproc_loading_handlers[RSC_LAST] = {
-> >>  	[RSC_DEVMEM] = rproc_handle_devmem,
-> >>  	[RSC_TRACE] = rproc_handle_trace,
-> >>  	[RSC_VDEV] = rproc_handle_vdev,
-> >> +	[RSC_VDEV_V2] = rproc_handle_vdev,
-> >>  };
-> >>  
-> >>  struct rproc_rsc_cb_data {
-> >> diff --git a/drivers/remoteproc/remoteproc_debugfs.c b/drivers/remoteproc/remoteproc_debugfs.c
-> >> index b86c1d09c70c..1fe99749f5b4 100644
-> >> --- a/drivers/remoteproc/remoteproc_debugfs.c
-> >> +++ b/drivers/remoteproc/remoteproc_debugfs.c
-> >> @@ -274,7 +274,7 @@ static const struct file_operations rproc_crash_ops = {
-> >>  /* Expose resource table content via debugfs */
-> >>  static int rproc_rsc_table_show(struct seq_file *seq, void *p)
-> >>  {
-> >> -	static const char * const types[] = {"carveout", "devmem", "trace", "vdev"};
-> >> +	static const char * const types[] = {"carveout", "devmem", "trace", "vdev", "vdev_v2"};
-> >>  	struct rproc *rproc = seq->private;
-> >>  	struct resource_table *table = rproc->table_ptr;
-> >>  	struct fw_rsc_carveout *c;
-> >> @@ -336,6 +336,33 @@ static int rproc_rsc_table_show(struct seq_file *seq, void *p)
-> >>  			seq_printf(seq, "  Reserved (should be zero) [%d][%d]\n\n",
-> >>  				   v->reserved[0], v->reserved[1]);
-> >>  
-> >> +			for (j = 0; j < v->num_of_vrings; j++) {
-> >> +				seq_printf(seq, "  Vring %d\n", j);
-> >> +				seq_printf(seq, "    Device Address 0x%x\n", v->vring[j].da);
-> >> +				seq_printf(seq, "    Alignment %d\n", v->vring[j].align);
-> >> +				seq_printf(seq, "    Number of buffers %d\n", v->vring[j].num);
-> >> +				seq_printf(seq, "    Notify ID %d\n", v->vring[j].notifyid);
-> >> +				seq_printf(seq, "    Physical Address 0x%x\n\n",
-> >> +					   v->vring[j].pa);
-> >> +			}
-> >> +			break;
-> >> +		case RSC_VDEV_V2:
-> >> +			v = rsc;
-> >> +			seq_printf(seq, "Entry %d is of type %s\n", i, types[hdr->type]);
-> >> +
-> >> +			seq_printf(seq, "  ID %d\n", v->id);
-> >> +			seq_printf(seq, "  Notify ID %d\n", v->notifyid);
-> >> +			seq_printf(seq, "  Device features 0x%x\n", v->dfeatures);
-> >> +			seq_printf(seq, "  Guest features 0x%x\n", v->gfeatures);
-> >> +			seq_printf(seq, "  Config length 0x%x\n", v->config_len);
-> >> +			seq_printf(seq, "  Status 0x%x\n", v->status);
-> >> +			seq_printf(seq, "  Number of vrings %d\n", v->num_of_vrings);
-> >> +			seq_printf(seq, "  Reset request pending %s\n",
-> >> +				   rproc_rsc_vdev_reset_requested(v->status) ?
-> >> +				   "yes" : "no");
-> >> +			seq_printf(seq, "  Reserved (should be zero) [%d][%d]\n\n",
-> >> +				   v->reserved[0], v->reserved[1]);
-> >> +
-> >>  			for (j = 0; j < v->num_of_vrings; j++) {
-> >>  				seq_printf(seq, "  Vring %d\n", j);
-> >>  				seq_printf(seq, "    Device Address 0x%x\n", v->vring[j].da);
-> >> diff --git a/drivers/remoteproc/remoteproc_internal.h b/drivers/remoteproc/remoteproc_internal.h
-> >> index 3a742ef6ef60..f07a96ff82a4 100644
-> >> --- a/drivers/remoteproc/remoteproc_internal.h
-> >> +++ b/drivers/remoteproc/remoteproc_internal.h
-> >> @@ -14,6 +14,7 @@
-> >>  
-> >>  #include <linux/irqreturn.h>
-> >>  #include <linux/firmware.h>
-> >> +#include <linux/virtio_config.h>
-> >>  #ifdef CONFIG_HAS_IOMEM
-> >>  #include <linux/io.h>
-> >>  #endif
-> >> @@ -42,6 +43,26 @@ struct rproc_vdev_data {
-> >>  	struct fw_rsc_vdev *rsc;
-> >>  };
-> >>  
-> >> +/*
-> >> + * RSC_VDEV_V2 requests an acknowledged reset by writing an otherwise
-> >> + * impossible virtio status pattern: DRIVER and FAILED set while
-> >> + * ACKNOWLEDGE is clear. Other status bits are left unchanged.
-> >> + */
-> >> +static inline u8 rproc_rsc_vdev_reset_status(u8 status)
-> >> +{
-> >> +	status |= VIRTIO_CONFIG_S_DRIVER | VIRTIO_CONFIG_S_FAILED;
-> >> +	status &= ~VIRTIO_CONFIG_S_ACKNOWLEDGE;
-> >> +
-> >> +	return status;
-> >> +}
-> >> +
-> >> +static inline bool rproc_rsc_vdev_reset_requested(u8 status)
-> >> +{
-> >> +	return !(status & VIRTIO_CONFIG_S_ACKNOWLEDGE) &&
-> >> +	       (status & VIRTIO_CONFIG_S_DRIVER) &&
-> >> +	       (status & VIRTIO_CONFIG_S_FAILED);
-> >> +}
-> >> +
-> >>  static inline bool rproc_has_feature(struct rproc *rproc, unsigned int feature)
-> >>  {
-> >>  	return test_bit(feature, rproc->features);
-> >> diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
-> >> index d5e9ff045a28..e682caa546b2 100644
-> >> --- a/drivers/remoteproc/remoteproc_virtio.c
-> >> +++ b/drivers/remoteproc/remoteproc_virtio.c
-> >> @@ -13,6 +13,7 @@
-> >>  #include <linux/dma-map-ops.h>
-> >>  #include <linux/dma-mapping.h>
-> >>  #include <linux/export.h>
-> >> +#include <linux/iopoll.h>
-> >>  #include <linux/of_reserved_mem.h>
-> >>  #include <linux/platform_device.h>
-> >>  #include <linux/remoteproc.h>
-> >> @@ -234,12 +235,48 @@ static void rproc_virtio_set_status(struct virtio_device *vdev, u8 status)
-> >>  static void rproc_virtio_reset(struct virtio_device *vdev)
-> >>  {
-> >>  	struct rproc_vdev *rvdev = vdev_to_rvdev(vdev);
-> >> +	struct rproc *rproc = rvdev->rproc;
-> >>  	struct fw_rsc_vdev *rsc;
-> >> +	struct fw_rsc_hdr *hdr;
-> >> +	int ret;
-> >> +	u8 val;
-> >> +
-> >> +	/*
-> >> +	 * During crash recovery, vdev can be stopped. But the driver can't reset
-> >> +	 * the device, as device is already crashed. In this case, reset becomes
-> >> +	 * no op.
-> >> +	 */
-> >> +	if (rproc->state == RPROC_CRASHED)
-> >> +		return;
-> >>  
-> >>  	rsc = (void *)rvdev->rproc->table_ptr + rvdev->rsc_offset;
-> >> +	hdr = (void *)rsc - sizeof(*hdr);
-> >> +
-> >> +	if (hdr->type == RSC_VDEV_V2) {
-> >> +		/*
-> >> +		 * RSC_VDEV_V2 encodes an acknowledged reset request in the
-> >> +		 * status byte. The remote is expected to complete the reset
-> >> +		 * and then clear status back to 0.
-> >> +		 */
-> >> +		rsc->status = rproc_rsc_vdev_reset_status(rsc->status);
-> >> +
-> >> +		/* after setting reset request, kick the device */
-> >> +		rproc->ops->kick(rproc, rsc->notifyid);
-> >>  
-> >> -	rsc->status = 0;
-> >> -	dev_dbg(&vdev->dev, "reset !\n");
-> >> +		/*
-> >> +		 * When device completes reset, it is expected to set status
-> >> +		 * to 0.
-> >> +		 */
-> >> +		ret = readb_poll_timeout(&rsc->status, val, val == 0,
-> >> +					 1000,      /* 1ms between reads */
-> >> +					 3000000);  /* 3s total timeout */
-> >> +		if (ret)
-> >> +			dev_warn(&vdev->dev, "vdev reset timed out\n");
-> > 
-> > The problem here is that we are introducing behavior that is not compliant with
-> > the virtio specifications.  One way to acheive the same behavior could be for
-> > the remote processor to check rsc->status before sending a interrupt of using
-> > the virtqueues.
-> > 
-> 
-> That is what remote is supposed to do. But what if remote do not
-> respond? If remote is deadlocked for some reason, then the Linux will
-> hang at this point too. That is why we need some kind of timeout.
+On Thu Sep 10, 2026 at 8:02 AM EDT, Kiryl Shutsemau wrote:
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+>
+> collapse_scan_pmd() and collapse_run_pmd() each have a clear locking
+> contract.  The scan is called with mmap_lock held for reading and returns
+> with it still held.  The collapse is called without it.
+>
+> collapse_single_pmd() kept that boundary inside itself.  It dropped the
+> lock on some paths and not others, and reported which by way of a bool it=
+s
+> callers had to carry along and then act on.
+>
+> Open-code it in the two callers.  Each scans under the lock it already
+> holds and, on SCAN_SUCCEED, gives the lock up before running the collapse=
+.
+> khugepaged's lock_dropped and madvise_collapse()'s mmap_unlocked both go:
+> the code dropping the lock is now the code that wanted to know.
+>
+> khugepaged's walk carries on to the next table while the scan keeps
+> refusing, and ends once a collapse has taken the lock from under it.
+> madvise_collapse() re-finds its VMA after a collapse, which it did before=
+,
+> and now uses a NULL vma to say that it has to.  It still reports the drop
+> to its own caller, from the line that does it.
+>
+> The lock is given up and taken again at the same points as before.  No
+> functional change.
+>
+> Assisted-by: LLM
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> ---
+>  mm/khugepaged.c | 102 +++++++++++++++++++++++-------------------------
+>  1 file changed, 49 insertions(+), 53 deletions(-)
+>
 
-If the remote is dead then a watchdog timer should fire at some point.
-Moreover, that situation won't be different from other circumstances where a
-remote processor locks up.
+LGTM. Thanks.
 
-Looking at your patch, sending a kick() won't do anything for a dead remote
-processor.  If the remote processor is alive, it should monitor rsc->status and
-take action when it is set to '0' by the host.  If it is locked-up, the normal
-lockup procedure should apply.
+Reviewed-by: Zi Yan <ziy@nvidia.com>
 
-I'm not sure what problem this patch is trying to address.
+One question:
 
-> 
-> I think timeout mechanism is better for AMP systems over waiting forever
-> for remote to clear the status.
-> 
-> Thanks,
-> Tanmay
-> 
-> 
-> >> +	} else {
-> >> +		/* back compatible for RSC_VDEV type of rsc vdev */
-> >> +		rsc->status = 0;
-> >> +	}
-> >> +	dev_info(&vdev->dev, "reset !\n");
-> >>  }
-> >>  
-> >>  /* provide the vdev features as retrieved from the firmware */
-> >> @@ -469,6 +506,9 @@ static int rproc_remove_virtio_dev(struct device *dev, void *data)
-> >>  {
-> >>  	struct virtio_device *vdev = dev_to_virtio(dev);
-> >>  
-> >> +	/* reset virtio device before unregister */
-> >> +	virtio_reset_device(vdev);
-> >> +
-> > 
-> > Regardless of this feature, I think it is wise to reset the device before
-> > unregistering with the virtio subsystem.
-> > 
-> 
-> Agreed. I intend to keep this.
-> 
-> > Thanks,
-> > Mathieu 
-> > 
-> >>  	unregister_virtio_device(vdev);
-> >>  	return 0;
-> >>  }
-> >> diff --git a/include/linux/rsc_table.h b/include/linux/rsc_table.h
-> >> index 71b60125310e..2398a6d7033e 100644
-> >> --- a/include/linux/rsc_table.h
-> >> +++ b/include/linux/rsc_table.h
-> >> @@ -66,6 +66,8 @@ struct fw_rsc_hdr {
-> >>   *		    the remote processor will be writing logs.
-> >>   * @RSC_VDEV:       declare support for a virtio device, and serve as its
-> >>   *		    virtio header.
-> >> + * @RSC_VDEV_V2:    declare support for a virtio device whose reset request is
-> >> + *		    encoded in the virtio status byte.
-> >>   * @RSC_LAST:       just keep this one at the end of standard resources
-> >>   * @RSC_VENDOR_START:	start of the vendor specific resource types range
-> >>   * @RSC_VENDOR_END:	end of the vendor specific resource types range
-> >> @@ -83,7 +85,8 @@ enum fw_resource_type {
-> >>  	RSC_DEVMEM		= 1,
-> >>  	RSC_TRACE		= 2,
-> >>  	RSC_VDEV		= 3,
-> >> -	RSC_LAST		= 4,
-> >> +	RSC_VDEV_V2		= 4,
-> >> +	RSC_LAST		= 5,
-> >>  	RSC_VENDOR_START	= 128,
-> >>  	RSC_VENDOR_END		= 512,
-> >>  };
-> >>
-> >> base-commit: d4d61a4b0a52e8f3cdb3e1578602850a3452ec3e
-> >> -- 
-> >> 2.43.0
-> >>
-> 
+What prevents us from doing:
+while () {
+    1. mmap_lock
+    2. scan_pmd
+    3. mmap_unlock, bail out if needed
+    4. run_pmd
+}
+
+for both cases? It improves readability. What is the downside of
+dropping the lock during multiple scans?
+
+for madvise_collapse(), I see mmap_read_lock is held when it is called,
+so it can be dropped at the entry and the code makes sure it is held at
+the exit.
+
+
+--=20
+Best Regards,
+Yan, Zi
+
