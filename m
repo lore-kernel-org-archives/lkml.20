@@ -1,64 +1,64 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59CA63B7767
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:31:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3797B39446B
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:31:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789133503; cv=none; b=YlpE0QuB9juF+IqL+m26ugfGiul+ZKKxgkIgA29FiOP8vK8J5B9adb6CyzC8pJGFwI086NVe7gGJ14X1xduxr95nt/Eybo2lUFHdPeGUaoMWLhETudnW3CiFYclMuzS670wAGtLiPVt8RNPH9jZWM1I7l9Ottcs/xsbkeoVe3IY=
+	t=1789133508; cv=none; b=Bne9FM6V/mdpH1mFQCikzjP+XtEzYRw8ii+Iv434lrg8c/+UmGSkjzxp1xZ3cI/eiywozPphXyTzGItGCKmWUdDLSGQrBNqh/7A+jSLyg0trJQujmgE5yyYIZiUXWA/+0jzkrbpV9LyK9bLtdTVVIPdBbIfnHc9foWcDtYw4FPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789133503; c=relaxed/simple;
-	bh=ZppestnB/L/9h/jlv1SF6oIBtJU8mdjxcVXZv2t6Ldo=;
+	s=arc-20240116; t=1789133508; c=relaxed/simple;
+	bh=xixb/irvDDTZ+1ALQQuckecjdupSCXFYvqi0iIQ8Dd8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=k5hzWlxfZD4YUu1JcYOQJxxaPsJ6NypgYGjCZkPCjih+0GjPl18fjjwKCQkSzAywfFiPQmGD3Rt80X8OsvQsfqb2ac0kYXhRMjYCGYufF0NtCq0EUj0OppYOPVdYK001upovv3CoeuZf1wj+v+55FqvUYSjG89sbi5n7C42cCBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=guqYGqgQ; arc=none smtp.client-ip=209.85.214.182
+	 MIME-Version; b=tIFPiPicixmbaIdVbBFc8hLrkaedimflCnInWGhRyvBF0aYDDHjb1tEaaZuXvoHDMYL+9ldJUhyJguqP0aipyyTgZoMnD/HiUN6Vf1TpIO6iP6HKYUn3OU5ve5ZoAFZx2+bt9SZSQ9TuIqzPJRBOZnjypK9ARgpaENjuEf1uDSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rEheYlPI; arc=none smtp.client-ip=209.85.216.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="guqYGqgQ"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d944747d41so10844125ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:31:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rEheYlPI"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3964dfb5b9aso1098796a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:31:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789133501; x=1789738301; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789133506; x=1789738306; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=O3EUyltHhlIzlcifnulrGVfpB7IyEyQBzKiFTuyNy3E=;
-        b=guqYGqgQn5sHhRmhd8SFEybvQkfNH+VAVRiXmwe/35XSr+Qw6WCrD/F0A2HnPdCR1G
-         gZSeSwkWUV1XA+FqpEwYwQpNPdvTlTw6CuSrfbaoZVs1F+GlxcxzFXBi9617Z+aOZlNJ
-         oVxK50LitwLO3g48c7zgyut7t14v5PY+txJgZPaMyfKYFZEF2GSPgHIUCpFJaytV/K1j
-         KBewl7JS4bxlHIdGm+Cw8iAi9yxTQ5s+28zkiQOJ21xhrWutz9bneTjbAalehNzJ9oDA
-         r/oB7B85oYHM7usub9omoJeY2pw8qpzd2gk5MYDpT9/RlozKGphCd2XuSmFFcUoqe4TL
-         R11w==
+        bh=7Z9QHqYcT1YWEzjyHufxn1J/JMrSvKtS/IwWIhbmHWM=;
+        b=rEheYlPIrxfemkmgL1yOkERCMoGNYVUhBVmlMVyv3JHWzdHiXi0e/2Nte+wYDtC3ZK
+         A9VgU782n/3ToERFmznfLmp3hNX9tq5QrXYLnNsb4NE7worrc+5h8KE+k9uHaIBp2c6n
+         /sMlxx+NRM2ZLUuHB3Bizw9syCavQe9KCpqr71BW0zn16svbFp+ljiwF1oNru3jkygjZ
+         d/c04uJ8hzHfI6I71SdTavvvy5aohcfQx/+BEd05mGXdqAVmo5WucTCskT+hASkka72W
+         ji22emXk+G61W+6Mx3v/3Q6FmmCnk5Zurqr/ukQ1S7UQuZ9LxglTHq3DS+PBuPsqtDL0
+         DNqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789133501; x=1789738301;
+        d=1e100.net; s=20251104; t=1789133506; x=1789738306;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O3EUyltHhlIzlcifnulrGVfpB7IyEyQBzKiFTuyNy3E=;
-        b=f6/r7GurY2cZiHmMJxfWZB7tRXNSnmJ/hQ5fMaQzkPlKHJiOcLzcERTk+kWB9Epo30
-         9OTh3NaRnmGObsTtlA3LaOXn/WMmrDOBSDSjFI+CoFz+U7MAuPMyT4skfZKX8GgVCUwq
-         rkKtdVA78wEgMk/0AP01JiJAzCge3swcidwzsdEZBa86ZMuniu6BauWjy5DUzcqJZb2F
-         ymAktwque0ckVcMOBULdfTrL4Wv5/irTLlU6pbgOtcd3Bj1JuNmz23v/OGAURHUG463+
-         1boEXygfqPdhxcO2KEvSAME5rnr+ePAvvhDgk/IuoXxvfqOzFqMHuDitSXXC9LoyChc3
-         q2OA==
-X-Forwarded-Encrypted: i=1; AKwUvBwhMLQxAGW5us+CVqD4bZRTAmW8YwEoRWl7YTcx+WcljzKrwf8Ehw0z7bcivtoCIoKr/r9eHt8NNylWWPo=@vger.kernel.org
-X-Gm-Message-State: AFuF++ngIVZORQrq4HWSblTmpkdDM6Tt2P3DikSZYn4eo4fCDlK7MW48
-	RLnTFBlEKbcByMdrKAdHKdtq7lCJo4Tiw+75a+QjBBkTOamUj4O1ljgm
-X-Gm-Gg: AYBFou2CwUc7UUdIbFytZgLlrPEXMA3EKA/soqoIg6fRzNy79D6OeA+AU3V4tXvfIQh
-	kEy1jedEjTNo5Rau/PEjZx4G77lMSSX8e26iMZDl4yxohOdr0+DmdELB0Sdox7xnDl1mx29UGFw
-	7gKYmYSw/V2kOq/Igua6jCxFRnk2JUYGj8o/Tnu1mp0df3Xg+RqC/OKYHYd0e34Co+A5aUE/dRy
-	2T0FUDBoDa01BwnFkewO1s0xezbftr6//woTf8iqproN3xr9AOOdH5e01GtRDn3nKaGhaRYzHaf
-	5L/mNi1SHHuYxJFNnsH8nsNcnK/Y1NafQV0iw66+DezB0uUoa5nkrLMpDhPK2GDTIEpZDlo9gkO
-	K/3HAayKBH1eOr50RxL1d/tozBIqTEKLx8xcaFL2pYqQoVNE0KlrPteZ3FIo1450VixtaSDFagO
-	QWmPqGcUYawPTPJTNpueUG2O+yo4R0Gc2ZF9tJx2Mzvumpsy66TjwUFPIqvPBvKuk4+0oc2M/v+
-	ezV/JLjm4lbvIDzviMUgRbB
-X-Received: by 2002:a17:903:40ce:b0:2d9:599e:df95 with SMTP id d9443c01a7336-2dd2a1ce379mr80201455ad.3.1789133501529;
-        Fri, 11 Sep 2026 06:31:41 -0700 (PDT)
+        bh=7Z9QHqYcT1YWEzjyHufxn1J/JMrSvKtS/IwWIhbmHWM=;
+        b=Lm0i7e2WTSH7B98is2SvMGcjQFyEhxKB17vMKXYMXqCAugm9jdxPr1tfZTua/g+EIr
+         xKETKQRGRl1rlbU6ZqQzV4ZJkgbCBrfqxQ9QNlKCwQ9abVND8Rn9Vn69mgYOfxVJRVJW
+         p622oUWEIwJte26BLKZtCiHA/2OvJ+CEvu8MPUTm9xkBBt5AK0IXcmnXKEeOqoCb/kT4
+         vGOrQbjxV1eJjDckjMawgwI7OPCVh61XJfIJHNL81zKCGNdrYdR3W/hlZn+DRXVEsiuf
+         8jTT7+uSmceTxVvGGl/4Yjo6+yEsUQyBWuRSlbvfw+QuzePaljgb1v9pb9u9hBaVxTH2
+         HpzA==
+X-Forwarded-Encrypted: i=1; AKwUvBzYifolMZwkjqGNAdyhaRGfLFcPjJXPHyv4IFYYLswxbDbT0Uw51BZa4XOct/W8F+liZlW6wrL2/wT2nFA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPBLV05mcD3thBC5nQbmyq1DD7apOExgM7ewEx+dp5ALbueobh
+	X8e0sK4TUn+6+mI7Ol/H5RVQb6FCa6XpPfBN+Pbngobli8fTsj/qirks
+X-Gm-Gg: AYBFou3Nsl9iye/msKo8C97e8PPuOYpjp1F4uKw422MmbnJY/yg6JFDtZKFYQEPknkx
+	s98inip3LdBSZOg9ZEChbv5EMZEJLGHeXT5HIR08VUfERbsdqK9JxkyovAIvGRN+5rO23j/ggBL
+	vGlz3U9OrsGZCyjiGMhVsJFGBORIIFZZVi/pjIphZa0bfaGVj2YwmdVQU2zcDEBzXNHsXUCDRSp
+	kgRNYdrTlQx8Niq41lb7Tj8GMODhW0XrzDeQdqT/deSrYGOembnxmW9ESLoiL3UqtH3CbrNbCjk
+	S7A4JSR7EtMYiQJVK7sEmrGA9bxIFFD+03Yz7qYkjqgoON0oDOZ3x4r2HGkppw5Z465tt4otdkr
+	V2LpamE/MIP2bU2Bvjfqma5jrTgydWZnMfSiALyRcHWMvYYMO9JRh7YmvK+B9unSR8zNiv4Jj/X
+	S5lgJZlz8b5CcHh3OeE5ckiSsEz+R3CYhWU73kqrJ/I61cBy+ohvHxYdhYYiF0+dNsqzRlqAPz0
+	G/Z+1IKQ7dRxEbMIczY9cbRQCAL7UMWA3c=
+X-Received: by 2002:a17:90b:1c8b:b0:398:9c00:29ee with SMTP id 98e67ed59e1d1-39d9c38fa48mr6908147a91.22.1789133506138;
+        Fri, 11 Sep 2026 06:31:46 -0700 (PDT)
 Received: from LAPTOP-450UDG4J ([223.185.135.143])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfc5c7bsm11349015ad.51.2026.09.11.06.31.37
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfc5c7bsm11349015ad.51.2026.09.11.06.31.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 06:31:41 -0700 (PDT)
+        Fri, 11 Sep 2026 06:31:45 -0700 (PDT)
 From: Yogesh Gaur <yogeshgaur.83@gmail.com>
 To: Ilya Dryomov <idryomov@gmail.com>,
 	Alex Markuze <amarkuze@redhat.com>
@@ -67,9 +67,9 @@ Cc: Viacheslav Dubeyko <slava@dubeyko.com>,
 	linux-kernel@vger.kernel.org,
 	Yogesh Gaur <yogeshgaur.83@gmail.com>,
 	syzbot+1dbed5969931c19d3eb5@syzkaller.appspotmail.com
-Subject: [PATCH 1/2] libceph: reject an initial monmap with no monitors
-Date: Fri, 11 Sep 2026 19:01:09 +0530
-Message-ID: <20260911133110.2218-2-yogeshgaur.83@gmail.com>
+Subject: [PATCH 2/2] ceph: don't keep a mon_addr= that failed to parse
+Date: Fri, 11 Sep 2026 19:01:10 +0530
+Message-ID: <20260911133110.2218-3-yogeshgaur.83@gmail.com>
 X-Mailer: git-send-email 2.55.0.windows.5
 In-Reply-To: <20260911133110.2218-1-yogeshgaur.83@gmail.com>
 References: <20260911133110.2218-1-yogeshgaur.83@gmail.com>
@@ -81,40 +81,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-build_initial_monmap() takes the monitor count straight from
-ceph_options::num_mon and builds a monmap with that many entries without
-checking that there is at least one. ceph_parse_ips() writes *count only
-after it has parsed an address successfully, so a ceph_options that went
-through a failed parse still has num_mon == 0 and the resulting monmap
-has no monitors in it at all.
+ceph_parse_mon_addr() stores the string in fsopt->mon_addr before handing
+it to ceph_parse_mon_ips(), and then returns that function's error. So
+after a mon_addr= that does not parse, fsconfig() reports the failure but
+the mount context keeps the rejected string.
 
-The first thing the client does with that monmap is open a session, and
-pick_new_mon() asserts the invariant that it is non-empty:
+That matters because ceph_get_tree() uses fsopt->mon_addr as the "monitor
+addresses were supplied" test:
 
-  kernel BUG at net/ceph/mon_client.c:211!
-  RIP: 0010:pick_new_mon net/ceph/mon_client.c:211 [inline]
-  RIP: 0010:__open_session+0x60f/0x740 net/ceph/mon_client.c:245
-  Call Trace:
-   ceph_monc_open_session+0x46/0x60 net/ceph/mon_client.c:534
-   __ceph_open_session+0x135/0x590 net/ceph/ceph_common.c:798
-   ceph_real_mount fs/ceph/super.c:1173 [inline]
-   ceph_get_tree+0xd98/0x1fd0 fs/ceph/super.c:1362
-   vfs_get_tree+0x92/0x320 fs/super.c:1947
-   vfs_cmd_create+0xd7/0x2a0 fs/fsopen.c:231
-   __do_sys_fsconfig+0x55a/0xcb0 fs/fsopen.c:463
+	if (fsopt->new_dev_syntax && !fsopt->mon_addr)
+		return invalfc(fc, "No monitor address");
 
-The reproducer gets there through the new device syntax: an fsconfig()
-mon_addr= that does not resolve ("libceph: resolve '127.0.0.' (ret=-3):
-failed") leaves fsopt->mon_addr set but num_mon at 0, so the "No monitor
-address" check in ceph_get_tree() passes and the mount proceeds with an
-empty monmap. The next patch stops that string from being kept, but the
-assertion should not be reachable from a mount option in the first place.
+Userspace is free to ignore the error from fsconfig(FSCONFIG_SET_STRING)
+and go straight to FSCONFIG_CMD_CREATE. The check then passes on a value
+that was rejected, and the mount continues with ceph_options::num_mon
+still 0 - which is how syzbot reached the BUG_ON() in pick_new_mon()
+fixed by the previous patch.
 
-Commit 40480eee361e ("libceph: Reject monmaps advertising zero monitors")
-made the same BUG_ON() unreachable from the wire by rejecting
-num_mon == 0 in ceph_monmap_decode(). Apply the same rule to the initial
-monmap, which is the only other way one gets built, and fail the mount
-with -EINVAL rather than assert afterwards.
+Parse first and commit only on success. A failed mon_addr= now leaves any
+previously accepted value in place instead of replacing it with one that
+does not parse.
 
 Reported-by: syzbot+1dbed5969931c19d3eb5@syzkaller.appspotmail.com
 Closes: https://syzkaller.appspot.com/bug?extid=1dbed5969931c19d3eb5
@@ -122,23 +108,34 @@ Fixes: 7b19b4db5add ("ceph: new device mount syntax")
 Assisted-by: LLM
 Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
 ---
- net/ceph/mon_client.c | 3 +++
- 1 file changed, 3 insertions(+)
+ fs/ceph/super.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/net/ceph/mon_client.c b/net/ceph/mon_client.c
-index c56457378d00..bcbcf47506c9 100644
---- a/net/ceph/mon_client.c
-+++ b/net/ceph/mon_client.c
-@@ -1141,6 +1141,9 @@ static int build_initial_monmap(struct ceph_mon_client *monc)
- 	int num_mon = opt->num_mon;
- 	int i;
- 
-+	if (num_mon < 1 || num_mon > CEPH_MAX_MON)
-+		return -EINVAL;
+diff --git a/fs/ceph/super.c b/fs/ceph/super.c
+index 72935f665f11..9e0aee8f33ff 100644
+--- a/fs/ceph/super.c
++++ b/fs/ceph/super.c
+@@ -394,13 +394,18 @@ static int ceph_parse_mon_addr(struct fs_parameter *param,
+ {
+ 	struct ceph_parse_opts_ctx *pctx = fc->fs_private;
+ 	struct ceph_mount_options *fsopt = pctx->opts;
++	int ret;
 +
- 	/* build initial monmap */
- 	monc->monmap = kzalloc_flex(*monc->monmap, mon_inst, num_mon);
- 	if (!monc->monmap)
++	ret = ceph_parse_mon_ips(param->string, strlen(param->string),
++				 pctx->copts, fc->log.log, '/');
++	if (ret)
++		return ret;
+ 
+ 	kfree(fsopt->mon_addr);
+ 	fsopt->mon_addr = param->string;
+ 	param->string = NULL;
+ 
+-	return ceph_parse_mon_ips(fsopt->mon_addr, strlen(fsopt->mon_addr),
+-				  pctx->copts, fc->log.log, '/');
++	return 0;
+ }
+ 
+ static int ceph_parse_mount_param(struct fs_context *fc,
 -- 
 2.55.0.windows.5
 
