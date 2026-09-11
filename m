@@ -1,245 +1,130 @@
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC1E046D548
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:12:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ABD5346E5E
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:12:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789117943; cv=none; b=gn9kNuYprP+e30eyIaiT1t8zUIswjxMwUiATCErgN0TTKGu5tzSdBE/1juZkcCwDT0apU49lBzH/eRMzG+/OuyiPpV97BZ7WCc0cBx83qj+lzxDSmLJoknvuUi+ZYS7vfoD6Yz2crSi0uquWZGij5vMrBxn7PLuvXnYxRwlFnpM=
+	t=1789117971; cv=none; b=p7ZM7XjKy8WRxEwIAaLwkkofW6SWm4CyEUPOcSSCp4vCFj5EY0EKtiAzDQ0Rg9W0s1hXcxrMPIqcikou7GyOmIXxTNtdtApAZxs30WSuZ1tB2RqdznSuioLfuJDFNFrJY84pBWj1x4A22Az3yC54KQTiqDmUjMvm0WvhTKfrNBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789117943; c=relaxed/simple;
-	bh=QiQyqlLW3ggMZoiAzDXU9OCA2AqU3+xob5Z5Ua/CsGI=;
-	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type; b=uaAFKMKwvR5iwIwPkE9eAoVccgpMeQw8vbAqQ4nqXNgWX1mF95W6Lmbr9AcQIP+hp+W3gTPMHLP3br9vhGE1Zq/GAkeyKA7iuY0qTSHh8ILPoqs6i6k9gs7+Q1MgAU757EHIvV821FFTE4IpzdwL5idtWc1AEq9mSwWOyoZ1dBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hh82C0Fx6z5BNS0;
-	Fri, 11 Sep 2026 17:12:19 +0800 (CST)
-Received: from xaxapp04.zte.com.cn ([10.99.98.157])
-	by mse-fl2.zte.com.cn with SMTP id 68B9C461028715;
-	Fri, 11 Sep 2026 17:12:04 +0800 (+08)
-	(envelope-from xu.xin16@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Fri, 11 Sep 2026 17:12:06 +0800 (CST)
-X-Zmail-TransId: 2afa6aa3c5e6859-237dc
-X-Mailer: Zmail v1.0
-Message-ID: <20260911171206334tMJBQdvGB6blX_uXxQx4Z@zte.com.cn>
-In-Reply-To: <20260911161333316ISAQaj9yJhmglKT5A9OnK@zte.com.cn>
-References: 20260911160421076_KNXun8Mpp9Xj7fxHG0i7@zte.com.cn,20260911161333316ISAQaj9yJhmglKT5A9OnK@zte.com.cn
-Date: Fri, 11 Sep 2026 17:12:06 +0800 (CST)
+	s=arc-20240116; t=1789117971; c=relaxed/simple;
+	bh=Hu78kufvk6uHF+MLulgqwbhqfipM64wRR8t1FV1Cs9s=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=CXlHSe6GbenMch+GbEp9736WnA+jmccTh9jLxhYGki/CqQH7Jkymi7dNsEM41INRht6rGGmC9jjKecsboJDD3HIoVmnxyX3mSY7gLMFhwIfKY6J0blZzoREO6I45RNaZUDbwq0PMhG6lJ7AjZlTD6bk6uCwWGS8sd6t7Sae6lHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZkXmTXpY; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZkXmTXpY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 383221F000FF;
+	Fri, 11 Sep 2026 09:12:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789117969;
+	bh=HirL8e1DCCh13QCT80B26M8DkyqTvQzzFoROzZnoOrw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZkXmTXpYaewG1OVQ7Q58YgJloq0+LssD8KDAz2TNrrX9JGjxIDZ9OFkdThtMQ/X/A
+	 oezwYxP0OhrSNw0Ln534bUt9AdvGdNNiqaG1fTQ6kMsblzqMEqnq31wQlLYK4kIGPz
+	 flO4x9kI14t5ypBwh0APDA17P7lGi9H0hPztCyL9IJ0phB1MSIYdi9ZMJ5LuJn/F1H
+	 IFIbBObILoBBeeLvixUByuJ3Fpb6sGZmN2r/Eu1Zg/0Bq3F028zxi+T8HLsJCt2gEx
+	 2GGgiIczm5QOQftzAlXFPpk2UfHR7LSoflCWiwiBnn1OHky59Utwzz3Ec6Ax+EFPS6
+	 uJjsXYdfZ5wxQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] mtd: spi-nor: Fix quad-enable for flashes with QER bit
+ in SR1
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Miquel Raynal" <miquel.raynal@bootlin.com>, "Michael Walle" <mwalle@kernel.org>, "Pratyush
+ Yadav" <pratyush@kernel.org>, "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, "Richard
+ Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>
+Cc: "Jon Hunter" <jonathanh@nvidia.com>, linux-kernel@vger.kernel.org, "Steam
+ Lin" <STLin2@winbond.com>, "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>, linux-mtd@lists.infradead.org
+In-Reply-To: <20260911-perso-fix-spi-nor-qe-mxic-v1-1-fd6d91416a2a@bootlin.com>
+References: <20260911-perso-fix-spi-nor-qe-mxic-v1-1-fd6d91416a2a@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 11 Sep 2026 09:12:48 +0000
+Message-Id: <20260911091249.383221F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <xu.xin16@zte.com.cn>
-To: <xu.xin16@zte.com.cn>, <ljs@kernel.org>
-Cc: <akpm@linux-foundation.org>, <david@kernel.org>, <liam@infradead.org>,
-        <surenb@google.com>, <rppt@kernel.org>, <ziy@nvidia.com>,
-        <baolin.wang@linux.alibaba.com>, <nico.pache@linux.dev>,
-        <dev.jain@arm.com>, <baohua@kernel.org>, <lance.yang@linux.dev>,
-        <chengming.zhou@linux.dev>, <usama.arif@linux.dev>,
-        <gourry@gourry.net>, <harry@kernel.org>, <vbabka@kernel.org>,
-        <peterz@infradead.org>, <borntraeger@linux.ibm.com>,
-        <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>
-Subject: =?UTF-8?B?UmU6IFtQQVRDSCA0LzRdIG1tL2tzbTogYWRkIGZpbmRfbWVyZ2VhYmxlX3ZtYV9sb2NrZWQoKSB0byB1c2UgcGVyLVZNQSBsb2NraW5n?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 68B9C461028715
-X-TLS: YES
-X-ENVELOPE-SENDER: xu.xin16@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Fri, 11 Sep 2026 17:12:19 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AA3C5F3.000/4hh82C0Fx6z5BNS0
 
-CC: Lorenzo Stoakes <ljs@kernel.org>
----
-From: Xu Xin (ZTE) <xu.xin@linux.dev>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Purpose
-=======
-Let's add find_mergeable_vma_locked(), which is similar to find_tcp_vma(),
-using the universal per-VMA locking helper, so that we can avoid
-mmap_read_lock() to reduce contention.
+New issues:
+- [High] Unintended Register Corruption for Flashes with `qe_mask[0]` and a=
+n Active SR2.
 
-To be used in KSM code to replace find_mergeable_vma() with
-mmap_read_lock(), the helper find_mergeable_vma_locked() uses the
-universal per-VMA locking allowing us to lock a struct vm_area_struct
-without taking the process-wide mmap lock in read mode.
+Pre-existing issues:
+- [High] spi_nor_write_sr1_and_sr2_and_check() still fails unconditionally =
+for flashes without SR2 if the QE bit needs to be set.
+--
 
-Performance
-===========
-As a test, I construct a testcase which follows the approach: Create
-one victim and several churner threads sharing one mm_struct; The
-victim registers a 32 MiB anonymous VM_MERGEABLE region containing
-8192 pages totally:churners hammer mmap_lock via mmap/munmap
-repeatedly; ksmd merges the victim's pages; Compare latency baseline
-VS this per-VMA patch.
+commit f2fd5923d5c3121a4c7513816b2b4ce3fb7e3a48
+Author: Miquel Raynal <miquel.raynal@bootlin.com>
 
-               Before patched         After Patched
-0 churner:     1.627 seconds          1.426 seconds
-4 churners:    72.45 seconds          36.61 seconds
+mtd: spi-nor: Fix quad-enable for flashes with QER bit in SR1
 
-In conclusion, when no mmap_lock contention (0 churner), there is little
-difference between the baseline kernel and the per-VMA optimized kernel;
-But under interference from 4 churner threads, the merge time of the
-per-VMA KSM-optimized kernel is significantly reduced by 50%.
+The patch modifies spi_nor_generic_quad_enable to only read SR1 when
+qe_mask[0] is set. This aims to fix probe failures on flashes lacking
+an SR2.
 
-Signed-off-by: Xu Xin (ZTE) <xu.xin@linux.dev>
----
- mm/ksm.c | 64 +++++++++++++++++++++++++++++++++++++-------------------
- 1 file changed, 42 insertions(+), 22 deletions(-)
+Closes: https://lore.kernel.org/linux-mtd/178876719232.3543902.144516250376=
+76421254.b4-ty@b4/T/#m5bc4ba6776436f2870ced0eb5789d229037ad840
 
-diff --git a/mm/ksm.c b/mm/ksm.c
-index dda105681d7f..1d85769ec7db 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -765,15 +765,36 @@ static bool vma_ksm_compatible(struct vm_area_struct *vma)
- 	return ksm_compatible(vma->vm_file, vma->flags);
- }
+> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+> index e2b6efafdd8d0..ac909dfb9657c 100644
+> --- a/drivers/mtd/spi-nor/core.c
+> +++ b/drivers/mtd/spi-nor/core.c
+> @@ -985,7 +985,10 @@ static int spi_nor_generic_quad_enable(struct spi_no=
+r *nor)
+>  	if (!qe_mask[0] && !qe_mask[1])
+>  		return 0;
+> =20
+> -	ret =3D spi_nor_read_sr1_and_sr2(nor, sr);
+> +	if (qe_mask[0])
+> +		ret =3D spi_nor_read_sr1(nor, sr);
 
--static struct vm_area_struct *find_mergeable_vma(struct mm_struct *mm,
--		unsigned long addr)
-+/**
-+ * find_mergeable_vma_locked() - Find the VMA covering 'address' which is
-+ * VM_MERGEABLE and read-lock it by per-VMA locks. Please use vma_end_read()
-+ * to unlock vma after finishing reading the VMA (non-NULL).
-+ *
-+ * Return: If a VMA exists which spans @address, return that VMA, read-locked.
-+ * If no VMA is mapped there or, very unlikely, a reference count overflow
-+ * occurred, return NULL, and no read-locked.
-+ *
-+ * IMPORTANT: If a VMA exists but is not VM_MERGEABLE or has no anon_vma,
-+ * this function releases the per-VMA read lock before returning NULL.
-+ * Callers must NOT call vma_end_read() on a NULL return value.
-+ */
-+static struct vm_area_struct *find_mergeable_vma_locked(struct mm_struct *mm,
-+		unsigned long address)
- {
- 	struct vm_area_struct *vma;
-+
- 	if (ksm_test_exit(mm))
- 		return NULL;
--	vma = vma_lookup(mm, addr);
--	if (!vma || !(vma->vm_flags & VM_MERGEABLE) || !vma->anon_vma)
-+
-+	vma = vma_start_read_unlocked(mm, address);
-+	if (!vma)
-+		return NULL;
-+
-+	if (!(vma->vm_flags & VM_MERGEABLE) || !vma->anon_vma) {
-+		vma_end_read(vma);
- 		return NULL;
-+	}
-+
- 	return vma;
- }
+[Severity: High]
+If qe_mask[0] is set and the flash has an active SR2, does this leave sr[1]
+unpopulated as 0x00 without ensuring the flash actually lacks a two-byte
+write opcode?
 
-@@ -799,11 +820,12 @@ static void break_cow(struct ksm_rmap_item *rmap_item)
- 	 */
- 	rmap_item->linear_page_index = 0;
+Later in this function, if the QE bit is not already set, it calls:
 
--	mmap_read_lock(mm);
--	vma = find_mergeable_vma(mm, addr);
--	if (vma)
--		break_ksm(vma, addr, addr + PAGE_SIZE, PGWALK_RDLOCK);
--	mmap_read_unlock(mm);
-+	vma = find_mergeable_vma_locked(mm, addr);
-+	if (!vma)
-+		return;
-+
-+	break_ksm(vma, addr, addr + PAGE_SIZE, PGWALK_VMA_RDLOCK_VERIFY);
-+	vma_end_read(vma);
- }
+    return spi_nor_write_sr1_and_sr2_and_check(nor, sr);
 
- static struct page *get_mergeable_page(struct ksm_rmap_item *rmap_item)
-@@ -814,13 +836,12 @@ static struct page *get_mergeable_page(struct ksm_rmap_item *rmap_item)
- 	struct page *page = NULL;
- 	struct folio *folio;
- 	struct folio_walk fw = {
--		.walk_lock  = PGWALK_RDLOCK,
-+		.walk_lock  = PGWALK_VMA_RDLOCK_VERIFY,
- 	};
+This will invoke the helper which executes the two-byte write_sr1_and_sr2
+opcode if set, writing the unpopulated sr[1] (0x00) to the flash's SR2/CR.
+Can this corrupt the flash state and fail the validation check if the second
+byte reads back as non-zero?
 
--	mmap_read_lock(mm);
--	vma = find_mergeable_vma(mm, addr);
-+	vma = find_mergeable_vma_locked(mm, addr);
- 	if (!vma)
--		goto out;
-+		return NULL;
+> +	else
+> +		ret =3D spi_nor_read_sr1_and_sr2(nor, sr);
+>  	if (ret)
+>  		return ret;
+> =20
 
- 	folio = folio_walk_start(&fw, vma, addr, 0);
- 	if (folio) {
-@@ -831,12 +852,12 @@ static struct page *get_mergeable_page(struct ksm_rmap_item *rmap_item)
- 		}
- 		folio_walk_end(&fw, vma);
- 	}
--out:
-+
- 	if (page) {
- 		flush_anon_page(vma, page, addr);
- 		flush_dcache_page(page);
- 	}
--	mmap_read_unlock(mm);
-+	vma_end_read(vma);
- 	return page;
- }
+[Severity: High]
+This is a pre-existing issue, but does this still fail unconditionally for
+flashes without SR2 if the QE bit needs to be set?
 
-@@ -1568,14 +1589,14 @@ static int try_to_merge_with_zero_page(struct ksm_rmap_item *rmap_item,
- 	if (ksm_use_zero_pages && (rmap_item->oldchecksum == zero_checksum)) {
- 		struct vm_area_struct *vma;
+If the QE bit is not already set, spi_nor_generic_quad_enable() proceeds to
+call spi_nor_write_sr1_and_sr2_and_check(), which reads both registers for
+verification:
 
--		mmap_read_lock(mm);
--		vma = find_mergeable_vma(mm, rmap_item->address);
-+		vma = find_mergeable_vma_locked(mm, rmap_item->address);
- 		if (vma) {
- 			err = try_to_merge_one_page(vma, page,
- 					ZERO_PAGE(rmap_item->address));
- 			trace_ksm_merge_one_page(
- 				page_to_pfn(ZERO_PAGE(rmap_item->address)),
- 				rmap_item, mm, err);
-+			vma_end_read(vma);
- 		} else {
- 			/*
- 			 * If the vma is out of date, we do not need to
-@@ -1583,7 +1604,6 @@ static int try_to_merge_with_zero_page(struct ksm_rmap_item *rmap_item,
- 			 */
- 			err = 0;
- 		}
--		mmap_read_unlock(mm);
- 	}
+drivers/mtd/spi-nor/core.c:spi_nor_write_sr1_and_sr2_and_check() {
+	...
+	ret =3D spi_nor_read_sr1_and_sr2(nor, tmp);
+	if (ret)
+		return ret;
+	...
+}
 
- 	return err;
-@@ -1602,10 +1622,9 @@ static int try_to_merge_with_ksm_page(struct ksm_rmap_item *rmap_item,
- 	struct vm_area_struct *vma;
- 	int err = -EFAULT;
+Because read_sr2 is 0 for flashes lacking SR2, spi_nor_read_sr2() returns
+-EINVAL. Doesn't this mean the generic helper still fails with -EINVAL duri=
+ng
+verification?
 
--	mmap_read_lock(mm);
--	vma = find_mergeable_vma(mm, rmap_item->address);
-+	vma = find_mergeable_vma_locked(mm, rmap_item->address);
- 	if (!vma)
--		goto out;
-+		goto out_trace;
-
- 	err = try_to_merge_one_page(vma, page, kpage);
- 	if (err)
-@@ -1625,7 +1644,8 @@ static int try_to_merge_with_ksm_page(struct ksm_rmap_item *rmap_item,
- 	rmap_item->linear_page_index = linear_anon_page_index(vma, rmap_item->address);
- 	get_anon_vma(vma->anon_vma);
- out:
--	mmap_read_unlock(mm);
-+	vma_end_read(vma);
-+out_trace:
- 	trace_ksm_merge_with_ksm_page(kpage, page_to_pfn(kpage ? kpage : page),
- 				rmap_item, mm, err);
- 	return err;
--- 
-2.25.1
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-perso-fix-=
+spi-nor-qe-mxic-v1-1-fd6d91416a2a@bootlin.com?part=3D1
