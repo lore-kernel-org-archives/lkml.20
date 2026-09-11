@@ -1,150 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5723B466B01
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:09:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78322470E8C
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:09:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789117775; cv=none; b=E2BgSw9VEVAsz12dRUebUjArI5v6nXnLUoPaMQraNW5u2CbTy23KhFOiBkGNUZokVmWSi40MoqQdEb6UB24DkDjkqnAWYpyPaifW3PER5Hku8TrEXl0WOeU/98H+JGWffiWb0eXJN/EIOpxGZ5+yzMfW5IYxtuPlcBhmOedageE=
+	t=1789117778; cv=none; b=gfqBDaNTHoir3IGOHBIY/R5+4TexyOmGOAsSFBSSgEKtQ71YDA59u0Db/Ym1ybcLPuuhlPQN/188zOQlBBjvuBybc7ovOYixj0AxBceYllB3dX4TLNEpGxcjusFcPIarukM6an9LpmMZoXV+NxaYo1dJxg2OX5r5qsfZUVmm5Rs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789117775; c=relaxed/simple;
-	bh=auNF5ZAwigJWxcTq9+9rQwCUSJTmyJg+oUb42yt5uYc=;
-	h=Date:Message-ID:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=Xl3pRYDAZiDUJj4hYVdu+O+OaGuHAgr+b8wzKe+dLG21nhvS6el+y1e1+SL6C1ScjTGNUpOFJwvEN1lcw2dx23ltnKIytNXB2PxuVBUbZTVNnlia6vupcNPyRRGWhChR+/pml5A5bkYAHgpdyhvLD0kNDob0xxidZKV2ivBFaAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IBy1ScLm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789117778; c=relaxed/simple;
+	bh=t+6MYxy5XUjX01KpC8TpqcYswDVyBlb/TK9KQ1ZJYVc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=FD1B+B8H9Q4mM9pzbrHpsVjH8c+i3E6brRADvkcyetYKc3U5szjVw0wzMCYUZwhiW7X/q3jW22KRMZXyuze86mfRngC2seEAlsUgjmRZMRZKA6lbetErrdRdsD8UEuH58U8IYWN6rM5U6nhri1sHvXEXefn56EMb5Xq1It4Nxvs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=DSrRpMzo; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IBy1ScLm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34C001F000FF;
-	Fri, 11 Sep 2026 09:09:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789117774;
-	bh=JRZ8BBMudhq1Q8x9ccrDWF+8TmIKlrUIqw0uwbr+vn0=;
-	h=Date:From:To:Cc:Subject:References;
-	b=IBy1ScLmcG/IWsq5LouuzTvai3kYw5MscgdlITVIPVKhwqHlavKGp2z1J3ys4ZDw5
-	 78dTp/5omzpTEMcEiKtJ8mMDZ3QSJir6aTfS6yQIIoZyLKfLiwOJh4RclQu4mObkVx
-	 ORFZclSt/IWOQ0/MTnz01QGfgdefu54MOalqU+zVEs047iZ5N79L2kOkuf9mXxKF3w
-	 gU1HstQdAbg9l7/0bZulMw1tRSPm74bPWbGtKyBhq/ewisFwgamBw709eC9GRNhJ36
-	 95EAdioBBBkSLbhBbd8yqBIpr0x0ZCJh9L/K8KfByQWdJt2EOV/CJ3qygr9b27dHZn
-	 5TazFHRYq9VWQ==
-Date: Fri, 11 Sep 2026 11:09:31 +0200
-Message-ID: <20260911090541.785749315@kernel.org>
-User-Agent: quilt/0.69
-From: Thomas Gleixner <tglx@kernel.org>
-To: LKML <linux-kernel@vger.kernel.org>
-Cc: Hyunwoo Kim <imv4bel@gmail.com>,
- Oleg Nesterov <oleg@redhat.com>,
- Frederic Weisbecker <frederic@kernel.org>,
- Christian Brauner <brauner@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- John Stultz <jstultz@google.com>,
- Ingo Molnar <mingo@kernel.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- "Eric W. Biederman" <ebiederm@xmission.com>,
- Alan Stern <stern@rowland.harvard.edu>
-Subject: [patch V3 5/8] posix-cpu-timers: Move inlines out of public header
-References: <20260911090341.949101445@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="DSrRpMzo"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 09AE4C653FC;
+	Fri, 11 Sep 2026 09:10:16 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 24DA5601DE;
+	Fri, 11 Sep 2026 09:09:34 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5556811C7AF8E;
+	Fri, 11 Sep 2026 11:09:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789117772; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=t+6MYxy5XUjX01KpC8TpqcYswDVyBlb/TK9KQ1ZJYVc=;
+	b=DSrRpMzo7xommH6ljF3n40eJNp4XkPIlSTnxYdGK9noi1maEjPYXHwbRBMJQlyifjzSK9/
+	OIJM1vSUZQWh5eGnUsmf7KridG6Y3f5lk5k3s1++gtzvm/aPAHNhxj6bBHccAghi6hSI0Z
+	U5rUj/t0oe1S2TpcRMVagB65Vjjc59OyYzz/FODdv6v2j5MVX+/m7t9MyC+isQw3SpZwq7
+	8D+DLBC82Gvc00XvStT/u28NAMGJkU/QusWmjSMxhTQ77O72cS4LJ8UgxxKwA+U31Cdjcp
+	d0V4UO4PuyEmfZtPDicT7LOHM3eezIDw+jsib6AWDgIWLilFWBlupjm9kwcXig==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Jon Hunter <jonathanh@nvidia.com>
+Cc: Pratyush Yadav <pratyush@kernel.org>,  Michael Walle
+ <mwalle@kernel.org>,  Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+  Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  Nicolas Ferre <nicolas.ferre@microchip.com>,
+  Alexandre Belloni <alexandre.belloni@bootlin.com>,  Claudiu Beznea
+ <claudiu.beznea@tuxon.dev>,  Jonathan Corbet <corbet@lwn.net>,  Shuah Khan
+ <skhan@linuxfoundation.org>,  Randy Dunlap <rdunlap@infradead.org>,  Steam
+ Lin <STLin2@winbond.com>,  Hsin-Yi Wang <hsinyi@chromium.org>,  Thomas
+ Petazzoni <thomas.petazzoni@bootlin.com>,  linux-mtd@lists.infradead.org,
+  linux-arm-kernel@lists.infradead.org,  linux-kernel@vger.kernel.org,
+  linux-doc@vger.kernel.org,  "linux-tegra@vger.kernel.org"
+ <linux-tegra@vger.kernel.org>
+Subject: Re: [PATCH v5 03/25] mtd: spi-nor: Refactor Read Status/Write
+ Status support
+In-Reply-To: <87ecf1sa2w.fsf@bootlin.com> (Miquel Raynal's message of "Thu, 10
+	Sep 2026 11:57:11 +0200")
+References: <20260904-winbond-v7-1-spi-nor-rv-addition-v5-0-2909a45fe4fa@bootlin.com>
+	<20260904-winbond-v7-1-spi-nor-rv-addition-v5-3-2909a45fe4fa@bootlin.com>
+	<b78b8e6a-2fab-489f-aa1b-a2ab23051794@nvidia.com>
+	<87ecf1sa2w.fsf@bootlin.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Fri, 11 Sep 2026 11:09:26 +0200
+Message-ID: <87tsnwqhmh.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Thomas Gleixner <tglx@kernel.org>
+Hello Jon,
 
-They are only used in the POSIX CPU timer code. No point in exposing them
-globally and parsing them for nothing.
+>> spi-nor spi0.0: probe with driver spi-nor failed with error -22
+>
+> Thanks for catching this early! I'll get back to you with a proposal
+> very soon.
 
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
+Here is a proposal, please let me know if that fixes your issue fully.
 
----
- include/linux/posix-timers.h   |   32 --------------------------------
- kernel/time/posix-cpu-timers.c |   32 ++++++++++++++++++++++++++++++++
- 2 files changed, 32 insertions(+), 32 deletions(-)
---- a/include/linux/posix-timers.h
-+++ b/include/linux/posix-timers.h
-@@ -66,38 +66,6 @@ struct cpu_timer {
- 	struct task_struct __rcu	*handling;
- };
- 
--static inline bool cpu_timer_enqueue(struct timerqueue_head *head,
--				     struct cpu_timer *ctmr)
--{
--	ctmr->head = head;
--	return timerqueue_add(head, &ctmr->node);
--}
--
--static inline bool cpu_timer_queued(struct cpu_timer *ctmr)
--{
--	return !!ctmr->head;
--}
--
--static inline bool cpu_timer_dequeue(struct cpu_timer *ctmr)
--{
--	if (cpu_timer_queued(ctmr)) {
--		timerqueue_del(ctmr->head, &ctmr->node);
--		ctmr->head = NULL;
--		return true;
--	}
--	return false;
--}
--
--static inline u64 cpu_timer_getexpires(struct cpu_timer *ctmr)
--{
--	return ctmr->node.expires;
--}
--
--static inline void cpu_timer_setexpires(struct cpu_timer *ctmr, u64 exp)
--{
--	ctmr->node.expires = exp;
--}
--
- static inline void posix_cputimers_init(struct posix_cputimers *pct)
- {
- 	memset(pct, 0, sizeof(*pct));
---- a/kernel/time/posix-cpu-timers.c
-+++ b/kernel/time/posix-cpu-timers.c
-@@ -438,6 +438,38 @@ static void trigger_base_recalc_expires(
- 	base->nextevt = 0;
- }
- 
-+static inline bool cpu_timer_enqueue(struct timerqueue_head *head,
-+				     struct cpu_timer *ctmr)
-+{
-+	ctmr->head = head;
-+	return timerqueue_add(head, &ctmr->node);
-+}
-+
-+static inline bool cpu_timer_queued(struct cpu_timer *ctmr)
-+{
-+	return !!ctmr->head;
-+}
-+
-+static inline bool cpu_timer_dequeue(struct cpu_timer *ctmr)
-+{
-+	if (cpu_timer_queued(ctmr)) {
-+		timerqueue_del(ctmr->head, &ctmr->node);
-+		ctmr->head = NULL;
-+		return true;
-+	}
-+	return false;
-+}
-+
-+static inline u64 cpu_timer_getexpires(struct cpu_timer *ctmr)
-+{
-+	return ctmr->node.expires;
-+}
-+
-+static inline void cpu_timer_setexpires(struct cpu_timer *ctmr, u64 exp)
-+{
-+	ctmr->node.expires = exp;
-+}
-+
- /*
-  * Dequeue the timer and reset the base if it was its earliest expiration.
-  * It makes sure the next tick recalculates the base next expiration so we
+Link: https://lore.kernel.org/linux-mtd/DLCD7NN2IW82.33ISZCKO1E7UY@kernel.o=
+rg/T/#t
 
+FYI it is only compile tested.
 
-
+Thanks,
+Miqu=C3=A8l
