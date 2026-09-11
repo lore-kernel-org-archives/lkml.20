@@ -1,155 +1,124 @@
-Received: from mta0.migadu.com (out-166.mta0.migadu.com [91.218.175.166])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B2145DF49
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.166
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789113575; cv=none; b=RJXQ9MX7+ApjATVcvjAcMd+VdtsHMNtkSTlyPTwJSpURW1fezhZBxS/0KYgXuGHFr7V01KP0fsTGO9md3i8FXxZqpvHOtDeGQc4pspfHefD8kymqqj7gSSG3iFWiifgr7HHN5a6iSuFVvg5xKKQMnRkv6uomKL+fwv980LJwWQ8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789113575; c=relaxed/simple;
-	bh=hw2TjBAqEOVWc+zu96DY/c0ZeYo5WpD38F+07ZSfH/w=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=C0rgS/L+7SqoSaMiNyOKap5KcNiBoyt3qVUqWut2qFJxK7Ag8zfl+uYfbrZw2B3WtYpPDcdG4nIxyRlkwLhZUFAYFntb12fjSvTTCujxsGrIrmnulTxwCe7C/nlgOmJOMy4i++/wiNVObzeQ6iCNbweYcmXqfho5bfHCPD08/DU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=D65qpbOS; arc=none smtp.client-ip=91.218.175.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C2F45C6E4
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:59:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789113587; cv=pass; b=ciz/+zcjKknkh5B31iQlxU0+XruUcdU5Bc3Bhirxd4a30/d1rZgDubbhknEMcznNFhjR7THglMMZW0xBfzP0C4KXuLuFPHzs2SjD+xv6mqjcZMCx1meioQEcDIuRAEPeQJfORwaoCVrS74JHnlJKhWA9BfUZio7tMayMKexo9ZU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789113587; c=relaxed/simple;
+	bh=PhsZxDO2Z8X2pi0uJMgCQyML9vz9sWK4s5OtsZHAckg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BtakvcmRzq5nPAsYaI8CsxMpytu+cc8UEahZqTpoBd6BjbftrTQc/Orhn3coNTdgRHWY4d9EwP+3gaw9o2dvOfXgvvfCsiuKrni2OilTZc66CzG9Uk5vVG1KI/nnopyi28lBkTHMEtLTTL4Okmic7bnbyOikrPw+imHVRwGNQcY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PYm2gyA7; arc=pass smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="D65qpbOS"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=hw2TjBAqEOVWc+zu96DY/c0ZeYo5WpD38F+07ZSfH/w=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789113571; v=1; x=1789718371;
- b=D65qpbOSyBxEKN3XOVZrQzcIrNiHdrCIiKIFKQ5w9q6yoj6XymHoRvuxPsguJWTKmV1OwcYo
- 3eIfb9i8n2UKi1KwJ/Cd7hNNEHwD83Rzm37VXBKrskmn8DtRRwcfwHYJ0bu+tou4jg4sTTOX4f5
- 8yEp4uVIzM4G8Fo7s/ZTfots=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 31e1e1833329852b;
-	Fri, 11 Sep 2026 07:59:30 +0000
-X-Mizu-Trace-ID: 31e1e1833329852b
-X-Migadu-Flow: FLOW_OUT
-From: Ye Liu <ye.liu@linux.dev>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>
-Cc: Ye Liu <liuye@kylinos.cn>,
-	Michal Hocko <mhocko@suse.com>,
-	SJ Park <sj@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>,
-	paulmck@kernel.org,
-	mingo@redhat.com,
-	rostedt@goodmis.org,
-	jpoimboe@kernel.org,
-	mic@digikod.net,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	linmiaohe@huawei.com,
-	nao.horiguchi@gmail.com,
-	rafael@kernel.org,
-	gnoack3000@gmail.com,
-	gourry@gourry.net,
-	rientjes@google.com,
-	shakeel.butt@linux.dev,
-	xu.xin16@zte.com.cn,
-	chengming.zhou@linux.dev,
-	will@kernel.org,
-	boqun@kernel.org,
-	frederic@kernel.org,
-	neeraj.upadhyay@kernel.org,
-	joelagnelf@nvidia.com,
-	josh@joshtriplett.org,
-	urezki@gmail.com,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	tony.luck@intel.com,
-	reinette.chatre@intel.com,
-	x86@kernel.org,
-	paul@paul-moore.com,
-	jmorris@namei.org,
-	serge@hallyn.com,
-	pavel@kernel.org,
-	lance.yang@linux.dev,
-	mhiramat@kernel.org,
-	pmladek@suse.com,
-	longman@redhat.com,
-	mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev,
-	dietmar.eggemann@arm.com,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	mark.rutland@arm.com,
-	Dave.Martin@arm.com,
-	james.morse@arm.com,
-	babu.moger@amd.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	rcu@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-security-module@vger.kernel.org
-Subject: [PATCH v3 05/15] cpu/hotplug: convert thread iterator to for_each_thread_rculock
-Date: Fri, 11 Sep 2026 15:57:50 +0800
-Message-Id: <20260911075800.491472-6-ye.liu@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260911075800.491472-1-ye.liu@linux.dev>
-References: <20260911075800.491472-1-ye.liu@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PYm2gyA7"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d91ff7d9acso4757095ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:59:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789113585; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Vhy4kPP+zyjIaBwMh4rCYEh6ZMDf7yIsaEebzkWA5ACW7IGrTZvAvI8j6+95dTkTRL
+         gWZ68QiZYLzzwclL7FW3LNGrZfiRZ17INgH8YMRlOLOZeINA8K7vzUT+EldsJuq1bh03
+         5R6JusZBqXo8HsWF9nTamY0Pl1p7O5kW4CDSjPUZjy/ay5b3gIuHQbo+F6C/KJVd/0ft
+         CDSg5UqJ9WYGCp8sy0a8IOW+xhlseWEs2Yt+36Kmpepz8wFlYxTzjQqQ4BTTWQ586oDH
+         QFCLybNFwSqJW1ks8gfNqywiHH/kEd2+ievwHcji+hVy40GFmOr9ylJl2OBEmk11a/r5
+         OoNw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=PhsZxDO2Z8X2pi0uJMgCQyML9vz9sWK4s5OtsZHAckg=;
+        fh=W4D29/sixweQPwZ/MLdYYtmukm3vjTsPShWj3uzsrF4=;
+        b=iwbkblB36ZgyAI1Rirzx8059uroRBzHtL68f0VHqfYD7UCyMQVhjxGPmSsFl2hab8z
+         4w80pbUGWjkTKBRvsMfzu4ELZ/jg3wuzV6/t71iALLU5tdKHO3x/xf1ZT/gzakSalZ0r
+         r6ksm2KBs6SUo2RkD/koacrDxpbTjGGvnZx67b05nr6CLJpimAUtHSN1BeSIBtLoO+2E
+         Twxb3ITSr5r5EtUjOOfW3PwOeCTns4BE/5DaN/ZSl7oH1VixRKwhw9kvn6vIrvno3tiJ
+         GsnDA/PWeD4BOnJWDL1DEgCo2pUmLestbcx2Jjpeue2WfTWs+Hy7yXYyrH10xKcKQFfz
+         xJyw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789113585; x=1789718385; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PhsZxDO2Z8X2pi0uJMgCQyML9vz9sWK4s5OtsZHAckg=;
+        b=PYm2gyA7Ej6+cFMrGoWhgez2LwX7YS1fFoi/eUc898ZMihGfaXWaLVb9nECUSeQE01
+         axlxdwk78hOZDZxhBwc4Jylgmnh2k7Ntewp1rbqKsDgVRTPYxT6d8pBiu8z+CqlOFS7t
+         n654Q5QrbqrfjO7JWLsajpol2LrCpNQljUW8nM+BeCyOWt/v0rX+lqp0LOzgrVTmGip7
+         jyuR12xRu0IQAJy6cNzUJUfttbo8MD5dVQNaAmorFESPqTREoMYxxFT8TGnhf0dWQfFB
+         7F5IIGcW0gvuRtJxeNTpkKllDS6YJCHEAF57VMPkDxwyex8DMk/3OriM8EiHL3fh/eoh
+         P9ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789113585; x=1789718385;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PhsZxDO2Z8X2pi0uJMgCQyML9vz9sWK4s5OtsZHAckg=;
+        b=QxG+ufyDzibhpxK6sV8qaPM3cSn+DFpnmASrBmyLD2if61E0WvfXy3EEhBtYZ6frV8
+         fXGPhbhGUkvx7Ll+i9+DSE6pJyO4iZyw5Jepq8YLmI8poJP9pEsMOcKjqdavz3t00PzC
+         pVua8mzKduAQLFehIm89wuXf3NMfBtnT7kCMlj3/qyQlOgfZF6kp9OVr4zRlvoMpNtWX
+         fgX6+Pmt3kzyLZHE81+qqKHrM6xkZ2Oj8b+JrpcNcE37M3fODNy25CvtgAyJ/7727cDG
+         odRsV9tJ1e4w1QFnTijz5MOkk8rfcxGat0pgzgvW1e1xlXXRbRuT4dxSRl4iEtNSngxq
+         FDPA==
+X-Forwarded-Encrypted: i=1; AKwUvBwPZIOSUeajz58WGcLtG5dRXZsQoQvqWU4rxOCJSEeuAvCHzjnK4XPPICHHhj2R5AFjLapVUGF/kADNnsY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kU150Ps1TFtlA1b4af7w5quEZP2h2CrJr9q2M8d2Ps8Nx4dxdn
+	wZhMb9/fUVa5MOtf4qjzeFG3NATG5fFkDuHAD3Mkjx34ys0Hz5ArY1podK4RIXOZpU2bOSLOoBK
+	hBh7mphzWx0Ln/7/cYrQRpoL78WghM1k=
+X-Gm-Gg: AYBFou1jmwjpinVzA/OGhQLaIdUnoVBZZHodBDaaI17H7L1VJqzryEfdqi7mVqiKbpT
+	aqwHhcAZm/gPT3q3N2lOx0dTqmIm0xuRF5VOiPMKovZB5t+sCWwBfSpMg1MtOGufcfOtYmz2E7h
+	hwhfnQlN/yeAgBIhztvdCSEVhTUJA00ebu35TdoVmBLbMdY/UEhoWNH/GGhRok0qA1/z5zQVydD
+	+ddGd3WSit7+kD0ph5tQD8joQkNYMDfvemQbdNfjhnxWhkEx0d2MhTVhgSTd6CZPJ8IcV3i3axN
+	bP1s1eMG96lWu2ohl83YyMY26CPLZez0jmaAcPnRUEKb01xQurq9825Z362m59hNGT4m4WCkvc3
+	5yxluImEMtEN/rpsVorzKPtqi3RKlv+hpQJSrgGaOGQI2iJ6h6dV0tntIh1KTEHsZNMAlr6D5o+
+	6hbw==
+X-Received: by 2002:a17:903:32ca:b0:2d6:f6ba:263d with SMTP id
+ d9443c01a7336-2dd300d2dcamr38221965ad.7.1789113584990; Fri, 11 Sep 2026
+ 00:59:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260910125742.150902-1-phucduc.bui@gmail.com>
+ <20260910125742.150902-3-phucduc.bui@gmail.com> <aqKxadkfX9Tqx8JR@stanley.mountain>
+In-Reply-To: <aqKxadkfX9Tqx8JR@stanley.mountain>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Fri, 11 Sep 2026 14:59:33 +0700
+X-Gm-Features: AcwNN1Wl0GTh-Z2Qm9Mk1VLPm1ruxloX7-jtdmf-ROLjbwYmLn7UVqKFYyP_TdY
+Message-ID: <CAABR9nHCK4X5iZORmHkN_jH62e34H2J_rBLiWLkwcg+5JAJJVg@mail.gmail.com>
+Subject: Re: [PATCH 02/13] ASoC: mediatek: mt8189: Propagate APLL enable errors
+To: Dan Carpenter <error27@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Cezary Rojewski <cezary.rojewski@intel.com>, Cyril Chao <Cyril.Chao@mediatek.com>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, cassiogabrielcontato@gmail.com, 
+	linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Ye Liu <liuye@kylinos.cn>
+Hi Dan,
 
-Replace the manual rcu_read_lock()/rcu_read_unlock() pair combined
-with for_each_thread() loop in kernel/cpu.c with for_each_thread_rculock(),
-which scopes the RCU read lock to the loop body via scoped_guard(rcu).
 
-No functional change.
+>
+> Better to name it err_clear_mux_setting or something.
+>
 
-Signed-off-by: Ye Liu <liuye@kylinos.cn>
-Acked-by: Michal Hocko <mhocko@suse.com>
-Reviewed-by: SJ Park <sj@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Oleg Nesterov <oleg@redhat.com>
----
-Changes in v3:
-  - Split from kernel/ patch in v2 (Peter Zijlstra, Steven Rostedt)
+Thanks for pointing this out, I'll rename the labels accordingly.
 
-Changes in v2:
-  - Rename *_rcu to *_rculock
- kernel/cpu.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+>
+> Since you can't test it, it's a bit risky to start caring about
+> errors.
+>
 
-diff --git a/kernel/cpu.c b/kernel/cpu.c
-index b3c8553d7bd6..00638d2abc0f 100644
---- a/kernel/cpu.c
-+++ b/kernel/cpu.c
-@@ -1254,8 +1254,7 @@ void clear_tasks_mm_cpumask(int cpu)
- 	 * full-fledged tasklist_lock.
- 	 */
- 	WARN_ON(cpu_online(cpu));
--	rcu_read_lock();
--	for_each_process(p) {
-+	for_each_process_rculock(p) {
- 		struct task_struct *t;
- 
- 		/*
-@@ -1268,7 +1267,6 @@ void clear_tasks_mm_cpumask(int cpu)
- 		arch_clear_mm_cpumask_cpu(cpu, t->mm);
- 		task_unlock(t);
- 	}
--	rcu_read_unlock();
- }
- 
- /* Take this CPU down. */
--- 
-2.25.1
+Fair point =E2=80=94 though ignoring all errors isn't ideal either.
 
+Best regards,
+Phuc
