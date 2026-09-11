@@ -1,185 +1,235 @@
-Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com [157.90.84.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E973CCA12;
-	Fri, 11 Sep 2026 10:01:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=157.90.84.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C5B3F54D9;
+	Fri, 11 Sep 2026 10:02:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789120892; cv=none; b=tESZn0TOVEbRInq8ssOKR0n50iLNgtDdAGOaSE50kRPWOjjCXlt6UgM21KsBzlyvAQ6h0ZGK9yaiRrgu9q0r2moZMAa4RCzn7Qyq4YVYm+0ye7cYASZhFu/X2SHJImFLOzbMJ6+Q9tfPYHJKUuyOr5ZAGnFTMG4qrfL8GhqknE0=
+	t=1789120935; cv=none; b=JNa9H1iZdHkwX2qRS4njoekCSdkiFtj5SaREEVeCG5ZQYZCoiG2jHo8Hvr2PlH44p8w5hEfxdJRaIvY3Yaf6Fy6io+MO9dgxf7DAc0b4Ue73dEkJ+eoT2udndM1AYinIJXn05jcDju7Z1WqqBmXThJBP+40ZFXMFWU+biW0i+vI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789120892; c=relaxed/simple;
-	bh=m2LNCeQtoeoWBWMM+KuDtibR6+RG/g54Jo8tuQwXdN8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uCVHBWsB2adLBAqRgdvPB8MmUEXjY+VW7LSRtuorSetI74ZRwhcC+Jrd3GyxQAWd8G+GOriaS2ADPGd3TPp5/wFnLaH58eZRVvNHcqoyR9LrUf3+uDdGQd3N0OACEBhr7CTyLVvETPS7dipay3vY0gazwP0RXgs4KUf+xFvRdss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com; spf=pass smtp.mailfrom=tuxedocomputers.com; dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b=PFtasN55; arc=none smtp.client-ip=157.90.84.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxedocomputers.com
+	s=arc-20240116; t=1789120935; c=relaxed/simple;
+	bh=Qg9Pf5m4fAlnXQyxa0YxUpu1miSnWRO3wmHqhRgDb/s=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=iV5+nGPtc7nt6bX4pkDFnnnNFHHnstHES/2R/Wm3EpVjaAeuIxdy9EPHEku0BZyoma/Djvxvplwm1si6wIfOxR3kmvITBzZt0wRDuOIJRaFEjLVfx8Pe+WpGAHJswFoLvyMpwERifvJEyfH6W+A2HfMOlzwBTfofeMht36LTN6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C7k8V0h8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="PFtasN55"
-Received: from [10.10.11.33] (business-24-134-105-141.pool2.vodafone-ip.de [24.134.105.141])
-	(Authenticated sender: a.erhardt@tuxedocomputers.com)
-	by mail.tuxedocomputers.com (Postfix) with ESMTPSA id 0F6AD2FC009E;
-	Fri, 11 Sep 2026 12:01:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
-	s=default; t=1789120875;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=q5PiXe+YtJ4kDxSUvGiXx1wqn57hKaXdq6JVWXcKGHI=;
-	b=PFtasN55byX5mLZ4wcPiNYBuraAyMO/362oneN8/aYVompv/sdDAijmFCtU31OVEC15CrA
-	T3IKHtGpb35VAKS9SoOu8F/JmAnsRXDo/mQJe6Kex2ncCnSvYEhJ0+Mrv88pAsxkiOICG8
-	ZJEatcj8Dz1OeVWWrBRTEY8TjLe9o1I=
-Authentication-Results: mail.tuxedocomputers.com;
-	auth=pass smtp.auth=a.erhardt@tuxedocomputers.com smtp.mailfrom=aer@tuxedocomputers.com
-Message-ID: <50192f8e-992b-43e2-b333-54d551af03eb@tuxedocomputers.com>
-Date: Fri, 11 Sep 2026 12:01:14 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C7k8V0h8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DAD91F00893;
+	Fri, 11 Sep 2026 10:02:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789120929;
+	bh=w9bWC+Y7XLkxTdmDgp438euNI00pTW8sqJuzE5U3P+Y=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=C7k8V0h8QtAVlv9Ie0rVZ2eKXBd+YD+28C/1oEZ23V6bCHC/xKvdYS3jNiyHEaEvH
+	 EjhWQlPsCi7cD7m6mmL+Uw4Eldvmvt9532P1eQC9veIupMNSbXdsZxkdJdVZ+mjiK8
+	 IdSwdEDbZ+w712aWPMzDG028sBkEpZaiMwAhcxQ9mdqyKun7rN1Qfn2+Fhr0gEJoTQ
+	 43jAAM1kSSE66cJ2svmASRIr0dWfKkRsYcO0X6wXDnbFadooeVQ7egkmT827NjduTj
+	 P/4uFIpWFMy8gKumDs/2O5Z8KlMBlrPRbxdrtr7nSYjBl8HbAkSi0VR65Ztz3fg77n
+	 wcHBOpSTER55A==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id C0D4D1980054;
+	Fri, 11 Sep 2026 06:02:07 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Fri, 11 Sep 2026 06:02:07 -0400
+X-ME-Sender: <xms:ntGjahZMoVQE9rtT_tPzYQwPsFtCh8HqJhJCWXdsDjxHDi-vKR1XpA>
+    <xme:ntGjajP93wb2USWdonzykUirIXX3bYfwrh5raZyq43THV-VaSBLASX20gQLfLbAyX
+    j809tDWWUGNMoq7fv0dO6J0JRl-lCnBLQ1EXPxbfH3M1MShxFbnmOqR>
+X-ME-Proxy-Cause: dmFkZTGhJJeSc9NrlHirlaMeFwM1Tf/ZlaV7N5wqtk4nwTWW92rE2zIWFLXcjmlPYTDjgJ
+    djRSKEd4FkqHpmIkrxZ8DNUazmiLJRcdEevvd8UM5qZBEagwLtAyPoGDSfS+JQ3VDGlCd6
+    w6T5IILnvpPfOAB6vbDoyovSV0H0oNxlkDjNYQdSFheN8PVnQwnCW9MFReCj2os/4Rqt7r
+    E15mXFJoHlwcCJ80CG47C5FbEQA+9JhQXdraj0+xTPf17XEoyl5IEX9Q0S2yNYJEzESWcB
+    Xy2ur3j7P8UovskxT2fXwNZ47sb4cFTJiKiMwx4gJZ9FcbTnta86+yis7rvEvIh/oV4+pp
+    g7www+a0B6azD4BodIcaHmiE6ybCkO8qL0Klx3xbxkPDcNmJthpoIufFeazF60G/YxWmsp
+    D3NgDi0+YM+CONGQpXL/XfRyrNYUYy+O7zw1ek7Ya66rApc5R0tdRnJz+1zWHyWB44mkP0
+    TOgfNDFv2KiTzvum+Ziu8tc0HWs7ZDyBq9Px8wOhngcJNjC17gOJ5wiX8YBvkoNcQ15pKO
+    HPYPzFE/oLynbw+1xvbQ3LOUjzZVyJv/sWZWtKE0JnJZabbwz6XDZE3WDe03w6O1UMRUbk
+    OvVYL3OciTwyCQPCPu6LLUKAkPYFP5EujdxONkPjm/Is0fljbzD3ma9JSo+A
+X-ME-Proxy: <xmx:n9GjaoNhU3INvHu0CAGZDtT9AnOr78NjE0iXRnJiZ7L2gjg2PelDiw>
+    <xmx:n9Gjaip4UQ3PIoGoJwSNM60tk2gJYLGuC0swB8BOJXrXmbddTyAJ1g>
+    <xmx:n9GjapFAIVnXJIHMZ2o8gfSk09M9x18Db99OS-y_K2ldB7NIwrhpVA>
+    <xmx:n9GjanozxPo42J-e5S-mKfY-vmbUn6M2U1pLzoZ9rZvMbl-JJlgSjQ>
+    <xmx:n9GjaiZWt7JKDmFjzuHmlZnkUem3iMaZ0ZeaNNg8c7Fk36GT7JQ1FK2n>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 4944FF8007E; Fri, 11 Sep 2026 06:02:06 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/2] HID: generic: add LampArray support via
- hid-lamparray helper
-To: Armin Wolf <W_Armin@gmx.de>, Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <bentiss@kernel.org>
-Cc: wse@tuxedocomputers.com, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260903073602.3815258-1-aer@tuxedocomputers.com>
- <456191a9-f914-4bb3-8cb8-90ed25a13b94@gmx.de>
- <a62d1907-73cb-4cfd-98b1-7cdce3b37541@tuxedocomputers.com>
- <19f2b88a-834a-485b-b546-94e0a604014e@gmx.de>
-Content-Language: en-US
-From: Aaron Erhardt <aer@tuxedocomputers.com>
-In-Reply-To: <19f2b88a-834a-485b-b546-94e0a604014e@gmx.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Fri, 11 Sep 2026 12:01:46 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: "Ard Biesheuvel" <ardb+git@google.com>, linux-pci@vger.kernel.org,
+ LKML <linux-kernel@vger.kernel.org>, "Bjorn Helgaas" <bhelgaas@google.com>
+Message-Id: <48bb0fb6-10dc-46a7-84f6-3464d7c7bdfe@app.fastmail.com>
+In-Reply-To: <2e392b1b-3cbe-5cf8-e190-b1c82d69562f@linux.intel.com>
+References: <20260910143440.3865663-2-ardb+git@google.com>
+ <aa0e034d-fc68-69d6-8d27-8f30d138b9be@linux.intel.com>
+ <41345c53-fea4-4f98-8569-b3dc4e84cdcb@app.fastmail.com>
+ <2e392b1b-3cbe-5cf8-e190-b1c82d69562f@linux.intel.com>
+Subject: Re: [RFC PATCH] PCI: Tolerate non-prefetchable 64-bit BARs in prefetchable
+ windows
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Am 10.09.26 um 00:36 schrieb Armin Wolf:
-> 
-> Am 07.09.26 um 18:30 schrieb Aaron Erhardt:
->> Am 04.09.26 um 22:49 schrieb Armin Wolf:
->>> Am 03.09.26 um 09:35 schrieb Aaron Erhardt:
->>>
->>>> Add a new hid-lamparray helper module and integrate it with the
->>>> hid-generic driver.
->>>>
->>>> While more complex lamparray handling should be done in userspace via
->>>> hidraw, providing a small module to add basic lamparray support makes it
->>>> possible for userspace software to interact with lamparrays by simply
->>>> using well-known APIs of the LED subsystem. One use-case would be to
->>>> enable desktop environments to support keyboard backlight control out of
->>>> the box for HID lamparray devices without having to implement the whole
->>>> HID protocol themselves.
->>>>
->>>> This patch is based on previous discussions:
->>>> https://lore.kernel.org/all/1fb08a74-62c7-4d0c-ba5d-648e23082dcb@tuxedocomputers.com/
->>>>
->>>> The helper provides basic support for devices exposing a
->>>> Lighting/LampArray application collection (usage page 0x59) and
->>>> registers a single-zone RGB LED representation via the LED
->>>> subsystem.
->>>>
->>>> hid-generic now checks for LampArray support after hid_parse() and
->>>> optionally registers a lamparray instance. Failures in the helper
->>>> do not abort device probe to keep the driver logic otherwise unchanged.
->>>>
->>>> LampArray resources are released on driver remove.
->>>>
->>>> This commit was successfully tested on the Microsoft MacroPad reference
->>>> implementation (https://github.com/microsoft/RP2040MacropadHidSample
->>>> 1d6c3ad) and in combination with the tuxedo_nb04_wmi driver, albeit
->>>> only fully functional with a recent fix posted to the LKML
->>>> (https://lore.kernel.org/all/20260826081149.235487-2-aer@tuxedocomputers.com).
->>> Nice work, it works on my ASUS Prime B650-Plus. However the behavior of the brightness
->>> attribute is a bit strange:
->>>
->>> - manually setting "brightness" does not change anything (max. is 1)
->>> - setting RGB to "0 0 0" causes "brightness" to become 0
->>> - setting RGB to a non-zero value causes "brightness" to become 1
->>>
->>> Any idea why this happens? I can check if the same problems also exists under Windows,
->>> if requested.
->>>
->>> Thanks,
->>> Armin Wolf
->>>
->> It is completely normal for LampArray devices to only offer two brightness
->> values (1 and 0) for turning the whole LED on and off. Since a lot of
->> userspace software seems to never use brightness (it is more convenient to
->> adjust the RGB channels directly), this was not even properly implemented in
->> the MacropadHidSample until recently:
->> https://github.com/microsoft/RP2040MacropadHidSample/commit/cfc29120a3910c5772976da29ecd57392dfd44d6
->>
->> Thus, I think it is likely, that the implementation is broken and simply
->> ignores brightness. The driver just forwards this to the device.
->>
->> However, the RGB values (aka. multi_intensity) should not interfere with the
->> brightness. Yet, I wasn't able to reproduce this on the Macropad. Capping the
->> brightness to 1 is normal on the other hand, at least if that's the
->> maxIntensity reported by your device.
->>
->> So the only really odd thing for me would be the RGB values influencing the
->> brightness. Please provide more detailed feedback if you can since I can't
->> reproduce this on the hardware available to me.
-> 
-> I did some further tests, and it turned out that the RGB values indeed do not
-> influence the brightness value. It seems that i confused myself during testing xd.
-> 
-> So it seems that Asus copied the buggy Macropad code. Would it be possible to
-> send RGB = (0, 0, 0) when the user has selected brightness 0 to work around this
-> firmware bug?
 
-Yes, I think that would be a reasonably small quirk that could be useful for a
-wide range of devices. I will add this in the next iteration.
+On Fri, 11 Sep 2026, at 11:27, Ilpo J=C3=A4rvinen wrote:
+> On Thu, 10 Sep 2026, Ard Biesheuvel wrote:
+>
+>>=20
+>> On Thu, 10 Sep 2026, at 19:31, Ilpo J=C3=A4rvinen wrote:
+>> > On Thu, 10 Sep 2026, Ard Biesheuvel wrote:
+>> >
+>> >> From: Ard Biesheuvel <ardb@kernel.org>
+>> >>=20
+>> >> The prefetchable vs. non-prefetchable distinction is a relic of
+>> >> conventional PCI, to denote from which regions PCI-PCI bridges were
+>> >> permitted to perform speculative readahead.
+>> >>=20
+>> >> For software compatibility reasons, PCI Express inherited the Type=
+ 1
+>> >> header and models PCIe root ports as PCI-PCI bridges. However, this
+>> >> readahead behavior does not exist in PCIe, and so this distinction=
+ has
+>> >> mostly become meaningless on the bridge level.
+>> >>=20
+>> >> As per the PCIe r6.3 ECN "Removing Prefetchable Terminology", the
+>> >> 'prefetchable' designation has been removed from the specification
+>> >> entirely, on the basis that it is obsolete, and is being abused to
+>> >> inform memory mapping attributes and other device/BAR level proper=
+ties
+>> >> that it was never intended for.
+>> >>=20
+>> >> Given the limited range for non-prefetchable windows in the Type 1
+>> >> header, and the fact that the distinction no longer exists for PCI=
+e,
+>> >> resource allocation performed by firmware may result in non-prefet=
+chable
+>> >> 64-bit BARs being allocated inside prefetchable bridge windows.
+>> >>=20
+>> >> Linux rejects such allocations ("can't claim; no compatible bridge
+>> >> window") when it encounters them, but will usually fail to produce=
+ an
+>> >> alternative allocation, given that firmware wouldn't have placed t=
+hem
+>> >> there in the first place if there was sufficient space in the
+>> >> non-prefetchable window.
+>> >>=20
+>> >> So at the very least, let's not reject such allocations when they =
+were
+>> >> made by the firmware.
+>> >>=20
+>> >> Cc: Bjorn Helgaas <bhelgaas@google.com>
+>> >> Cc: "Ilpo J=C3=A4rvinen" <ilpo.jarvinen@linux.intel.com>
+>> >> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+>> >> ---
+>> >> Link: https://github.com/tianocore/edk2/issues/13104
+>> >>=20
+>> >>  drivers/pci/pci.c   | 3 ++-
+>> >>  include/linux/pci.h | 4 ++--
+>> >>  2 files changed, 4 insertions(+), 3 deletions(-)
+>> >>=20
+>> >> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+>> >> index b2879a6be5f8..e33eb9f3a139 100644
+>> >> --- a/drivers/pci/pci.c
+>> >> +++ b/drivers/pci/pci.c
+>> >> @@ -761,7 +761,8 @@ struct resource *pci_find_parent_resource(cons=
+t struct pci_dev *dev,
+>> >>  			 * not, the allocator made a mistake.
+>> >>  			 */
+>> >>  			if (r->flags & IORESOURCE_PREFETCH &&
+>> >> -			    !(res->flags & IORESOURCE_PREFETCH))
+>> >> +			    !(res->flags & IORESOURCE_PREFETCH) &&
+>> >> +			    !pci_is_pcie(dev))
+>> >>  				return NULL;
+>> >> =20
+>> >>  			/*
+>> >
+>> > I was more thinking along the lines of always setting IORESOURCE_PR=
+EFETCH=20
+>> > for 64-bit BARs on PCIe devices but I've not had time to look at th=
+at/test=20
+>> > how many things would break as a result. ...It would seem much simp=
+ler=20
+>> > solution to differentiate PCI from PCIe while keeping the existing =
+logic=20
+>> > without adding similar pci_is_pcie() checks everywhere.
+>> >
+>>=20
+>> I agree that the code changes would be much simpler.
+>>=20
+>> However, would this impact the PCI metadata observed by all consumers,
+>> including userspace,
+>
+> Yes, it will impact userspace. But quoting you from above:
+>
+> "is being abused to inform memory mapping attributes and other device/=
+BAR=20
+> level properties that it was never intended for."
+>
+> What does the userspace then do with the information? Does it qualify=20
+> under "it was never intended for"?
+>
 
-> 
-> Thanks,
-> Armin Wolf
-> 
->> If you want to investigate the LampArray capabilities of your device, you're
->> probably better off with userspace tooling like my lampctl fork:
->> https://github.com/tuxedo-aer/lampctl
->>
->> You can adjust the hardcoded brightness here to see whether your device honors
->> the brightness value or not:
->> https://github.com/tuxedo-aer/lampctl/blob/main/crates/lamparray/src/hid.rs#L36
->>
->>>> v5:
->>>> - Proper hardware detection (no quirks necessary anymore)
->>>> - Add documentation for new sysfs knob
->>>> - Pass limits of the device to sysfs (intesities & brightness)
->>>> - More flexible Kconfig (use tristate)
->>>> - Improved locking
->>>> - Several memory leak and (de-)initialization fixes
->>>> - Don't read current color values from hardware (the HID spec does not
->>>>     offer this option)
->>>> - Remove redundant report dump functionality
->>>> v4:
->>>> - Restrict CONFIG_HID_LAMPARRAY to built-in configurations only to fix
->>>>     additional randconfig build errors
->>>> v3:
->>>> - Squash V1 and V2 into one patch
->>>> v2:
->>>> - Fix Kconfig to avoid build errors when LEDS_CLASS_MULTICOLOR is
->>>>     disabled
->>>>
->>>> Aaron Erhardt (2):
->>>>     HID: lamparray: add new LampArray helper module
->>>>     HID: generic: add LampArray support via hid-lamparray helper
->>>>
->>>>    .../ABI/testing/sysfs-driver-hid-lamparray    |  16 +
->>>>    drivers/hid/Kconfig                           |  18 +
->>>>    drivers/hid/Makefile                          |   2 +
->>>>    drivers/hid/hid-generic.c                     |  38 +
->>>>    drivers/hid/hid-lamparray.c                   | 812 ++++++++++++++++++
->>>>    include/linux/hid-lamparray.h                 |  88 ++
->>>>    6 files changed, 974 insertions(+)
->>>>    create mode 100644 Documentation/ABI/testing/sysfs-driver-hid-lamparray
->>>>    create mode 100644 drivers/hid/hid-lamparray.c
->>>>    create mode 100644 include/linux/hid-lamparray.h
->>>>
-> 
+Perhaps, but that does not mean we are allowed to break it now.
+
+More specifically, would the output of 'lspci' change as a result?
+
+>> and drivers that may expect a certain BAR layout,
+>
+> ??? Would that even be spec compliant??
+>
+
+Again, maybe not, but if something that works fine today stops
+working because the PCI subsystem started lying to the driver about
+how the PCIe device describes itself, we'll be on the hook to fix it.
+
+>> and/or base decisions about memory attributes on this?
+>
+> The point is to consider them 64-bit window eligible so yes, kernel wo=
+uld=20
+> definitely be basing decision on that but that's intentional.
+>
+
+That would mean that a driver may decide to use ioremap_wc() rather than
+ioremap() to map a non-prefetchable BAR that we decided to misrepresent
+as a prefetchable one. Even if the (pseudo-)PCI-PCI bridge will not do
+any readahead, the CPU or interconnect may behave very differently as a
+result, and touch BAR regions that the driver never accessed explicitly.
+
+>> In particular, I am concerned about non-prefetchable BARs that actual=
+ly
+>> have side effects on read, being mapped with WC (or Normal-NC on arm6=
+4)
+>> semantics, where the interconnect may widen, combine or reorder acces=
+ses.
+>
+> So on a more concrete terms, you're referring to the check in=20
+> proc_bus_pci_mmap()? And the one in __pci_resource_attr_is_visible() +=20
+> pci_dev_resource_wc_is_visible()? I suppose that wouldn't work then.
+>
+
+No, I am referring to the hundreds of ioremap() and ioremap_wc() calls
+under drivers. Maybe none of them are affected but who knows.
+
+> So if just setting IORESOURCE_PREFETCH is not workable, how about addi=
+ng a=20
+> getter for res->flags which adds IORESOURCE_PREFETCH into the returned=20
+> flags if it's PCIe device and (in the end) use the raw value only in t=
+hose=20
+> places that actually care about wc distinction. What I don't want to s=
+ee=20
+> us adding that pci_is_pcie() everywhere.
+>
+
+Maybe add another IORESOURCE_PREFETCH_xxx flag that indicates that the
+resource may be placed in a prefetchable bridge window? We'd only have
+to set it in a single place (when probing the BAR), and we can add
+support for it piecemeal in the validation and allocation logic.
+
+
+
 
