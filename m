@@ -1,145 +1,168 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010018.outbound.protection.outlook.com [52.101.201.18])
+Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F1A2377AB1
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:24:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789140298; cv=fail; b=INbWk6jcPST08JtnylOXpvBreSabr6yY3WiHGkGJkdgzopUimn7YQliG67FxEkjdy3ehheiEGKJbEcZa9KXFhFq4so9vxwh6m7rHc+Om/0S05cbDpQQSWzpwFqEPWHtXlpbksqz+XUQ4dRLY0BN55b7KahM4xPeTMQZYSJ3421M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789140298; c=relaxed/simple;
-	bh=dQrDdKj144O1jlanI/kTlVq7OoYL8kHbU1RcDVqqL0Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=bO1DINP8NULQ1YyguwvVG10OkA35v7Us5NqF61J3WnPjCQe6I5K4x8rjbBr8Ago2FzFUgIfW9pidwnGHOQVbLuUTFJwN5O339TU3RTE6zSvKVwoqkHtCm80GSoJjzbcu0yE8imkjOoZAgSR0YXEGl/x5YLhlu/xbPXsw1EisHa0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=AunyIOZQ; arc=fail smtp.client-ip=52.101.201.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5797377A82
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:24:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789140296; cv=none; b=cwAhIOPz1UxxWD//LHo8P6zlTS/v2lP3AxLfp6sgLl/vTCVqRqx0IBSIkOvP/zjaykOp8NWVWgmBWvmXTq+wrHKFeSOkIOFGr95t+7xK421TyZUH8gy/EJft71HOO+mbtVH7v1IxUIdsySekS8NZ87YwgTF9CRVOc2IzUQ7HyA0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789140296; c=relaxed/simple;
+	bh=vJsMiuSSl7OOUCYsBkM8650K2BhhXPF3mMDSrYWV6vc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BB2oP/zv+OXf7nwF91/RB2ugCLxol8k40eEwd4d+HXC/lnW+7hxW0AA/wNsHdPdPtLrY6K+A8/Cvo+4njxBIM9deJ3b3ds5VB7iRl44RGXIqE3Jcp/6pdtqnQsyEHOCvpoIyVLHlmNUZ/WY4UDAKo2oWsKMIT02mMqM3niptkVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=XrTwOd06; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=UtGeVKxj; arc=none smtp.client-ip=103.168.172.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="AunyIOZQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VmLXTNFFRj/fJ+c2FeE5V3vr2Iken3svugoJDuek5ucc/0q1kZLO0MiMh3/Ar1QgglbVeq8R3vCKCuDtfHAjeI2hFnOgnC/uDPyjIUfWyLSd6prcQ2CNWgEwY8RkJgZBgCM9vopEeSWkL6X9XZghsT7XswX7BYWRP1XqEwETHMQVFQpM2m44SXBbWotHmRjAn+N9TKMvNYL1u2JfxKqIxQYZWHiL8tiQPm7odq/aofNPnv5lpaZm63LUOvIdcvGZBKxkSItmDtf1BX2YWXiSD/OR1xuedrqwehDDeSWxR60MEyZTkaiG89iY9FALDJz4fqiPhnSKl5lThD/1/gaMhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Er1DCqmVi6rnDTQqo5M90hh0iC3zHAVclOpDEVMa+co=;
- b=sXZsEX9gZqGjITSD+lNrwrgUWc/F5iSyjRsJUuzDs5Imy6DNH3G6htYL/zp2BDT86Z0KDvyZITWc5OcKBhcFmyw97GBQ5MYdduqjQSg3qpz7gi1GOKsdYFPiAQxbwlTQ01vRrqiHSfaEfTf6U6XZBst4rO6m7Z1vxQoMCtONeONfgZzFmue0J+EERdL7yj3G4w+RxZdDsTz1EM8kc+qxtN1LeReuh0W1ckhNYoCO9eKnjpUBhILI46WzOvU3Uv+KnljbjxxtyJe7oWVOrFhh2i2QxoskPGp+DSNgrp0KoeougE8bKRZX7jxGL/3s3pQjAO4SKk1UKY0YS0QHGV4DuQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Er1DCqmVi6rnDTQqo5M90hh0iC3zHAVclOpDEVMa+co=;
- b=AunyIOZQgEBhtl9Wn/DYE0e4gEk6BNG99ns51MZvn3M5p4fu6kWh3+PZGKjm5TNNeqF0n1qnhuVmnb0n5xl5mzNezHnVrU6YS76pRS+P0WVJGz89RAZbXmJ4baUxPIIwLVQBBWUtwcWwRPIKhhrKjgnpRMfrgzl06BbI/krE660=
-Received: from PH8P223CA0001.NAMP223.PROD.OUTLOOK.COM (2603:10b6:510:2db::32)
- by DS0PR12MB8367.namprd12.prod.outlook.com (2603:10b6:8:fd::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 15:24:50 +0000
-Received: from SA2PEPF00003AEB.namprd02.prod.outlook.com
- (2603:10b6:510:2db:cafe::66) by PH8P223CA0001.outlook.office365.com
- (2603:10b6:510:2db::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.10 via Frontend Transport; Fri,
- 11 Sep 2026 15:24:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF00003AEB.mail.protection.outlook.com (10.167.248.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Fri, 11 Sep 2026 15:24:49 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 11 Sep
- 2026 10:24:49 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 11 Sep 2026 10:24:48 -0500
-Message-ID: <2e8a565e-a204-6833-3bcf-9220508e2903@amd.com>
-Date: Fri, 11 Sep 2026 08:24:48 -0700
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="XrTwOd06";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="UtGeVKxj"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.phl.internal (Postfix) with ESMTP id E211FEC03A9;
+	Fri, 11 Sep 2026 11:24:52 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Fri, 11 Sep 2026 11:24:52 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1789140292; x=
+	1789226692; bh=HAUzE7enydkaOLoMLY2SEAq0TLztLqE8++ymmdkXwxM=; b=X
+	rTwOd06S3cmlFUR/8CmFPLqHYPzH0GAdJErMbx1qtnsFZtyZwmaZ16fH449B98mD
+	15P8/eGL7KJuMRrMR/bfsY/CKslGVhFsJaE4wZdEYyIEYtiWiP0BsuIxQOMgay3G
+	TrTukiUaYJUmFsWxbb2JdPFYXKybguv9FVyRiNZhkFIO9Cg7hFkuYIrmQbz8FXAz
+	8l4a7PN2ufOdCSHOA1A68egPhhNGIqVdJmWAz+K2ePao1Ghv5FgM+q0mqgSR6ZwZ
+	T0igMD4zBgBzYJa3Ek5EEqtkTfjQ1wyGiT6qKcjdFAFLxB88rrC5lXDFFfshWGZC
+	KxsHhDVhNCUQrSarRAb0A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1789140292; x=1789226692; bh=HAUzE7enydkaOLoMLY2SEAq0TLztLqE8++y
+	mmdkXwxM=; b=UtGeVKxjsRWuhHiGsqL83O/bWnqXFZiookqn+h/qr5sn6yIfCIq
+	mFnKsd/Mw5djcncr1LgNIKUVN0uaFk4Arrz42H2ukunshCMtUY/x6xHk5epirdGM
+	RWFhBIlQFnU1ihIQY+xReR+FEbjkzkytJsX8nsmpMFq8T0oajgCT/XTc8n+1/Nm+
+	LZIWuvf2lr6Uz+HoQn78C0UvOMjDcgtTq//Oemxk5ipvrhvH/M6e2JpRA29kkAvZ
+	SmHK04KNSERPWwEXgzHIhP8WOpDVJkIxR1F5dZ2rAnuywhNudUYwOgPIatIgorBz
+	27miCYqsdbmOvXDAbLsM2qov+2IQtUvP3LA==
+X-ME-Sender: <xms:RB2kaixKMa73AXpse3t7nmu2tt5n2E63NMdjvV3AS2EIwrOIe0O8oA>
+    <xme:RB2kapGuaMscCcaFKT2A-_lTqJU0iWJ8UvEW2HsnVofP_XfPO7wgRV5SBHq8JzNH2
+    2M8r8hXPI2_bTL8iK-slAseWK__p3uQU-DRcM4nzA_tCP6zcrYZVKU>
+X-ME-Received: <xmr:RB2kailmPCbBApO5xFPpYCgKFSEVBv90ncf2nwDIxH7lxbI5i9yvza-u8LQ>
+X-ME-Proxy-Cause: dmFkZTF8LFgWtizom6IF8DNYZLn93DBEGoF0JIc/0HbvOUgORNJd3EKvjslq44ktpk5VHO
+    qvTYPuoI9Sp6S9b04PH5PhJ1ShvFJJtaNvccolXPixjRd04BXGXL0IIJizgNYjbLTxoYr0
+    XxiqsO9yNkn64vwtU07xFyJvRJWmK8gFguw3GYn3svneYKfYoiIgO1u79ummMhROnx0aJ/
+    atJuv5FfKd6tapVpJTslwSTllXPEEyxNVeA1n/VouCcU0dekT7GnAj421eUGIOIXKtrTIb
+    Q/0X6ZNM9xWzCNNzW4/ZsAUo6rM7fa7W4hlv1gfYqoztY4KnlggWKVQSrVr+XgJ+8NwdUY
+    wh5u8rx1ouHoafEoKZ6okSNIJHZDqk5REg4D1Tx9Odwzo/nD6ASa5uyPhd/1qlrFUEntr1
+    Jqka62hZnyauxqOwWN/hq2+GPhtZtpCgnhCGR0mECEDPwnVZkevKWH9vLQEgRqUHakSc2q
+    7jdTZcrySlgCYbjKwL4ZLqtKFXfe+t2BETcIOJJEUP4GXAgWuqctpaNnp6s7EikcN6S3R2
+    EHim1sNf+3XWHxE0X94uIGQQFxOfV+R6Dbsuu0hLzQgN2y4dmSIBlxKt3zDS/Qrj8wddLX
+    bgpsj+O8qiVbF1kb6ZHU+M1JGBMtmr2VOVs6MDJxr6DqjJJlfXYPQ2+FZdjw
+X-ME-Proxy: <xmx:RB2kaoENNFEFighu9SMs6OGDMyb8hLsiVyKfjMGR80nxbH-YIRgLEw>
+    <xmx:RB2katwmx4tTo8TeZuf527MqE4GaWcyORcOzpqULTfdNm7oVNxEwfA>
+    <xmx:RB2kapZ-Yxbnai99g1j_nbv1FIR9jlhmTSFz4YAPvCYfh9C-qs00Og>
+    <xmx:RB2kagnGtG9mZ24eM8f-vTzbVzfoTedCRoW3O62um8T5DcPhGbvL_w>
+    <xmx:RB2kavLBC_UqyhrL0wwWLxU0MNqZXIQt_nUXQwTvlmv2roNc2J4J7Hc1>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 11 Sep 2026 11:24:51 -0400 (EDT)
+Date: Fri, 11 Sep 2026 16:24:51 +0100
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: Zi Yan <ziy@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	kernel-team@meta.com, "Liam R . Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>
+Subject: Re: [PATCH v2 09/12] mm/collapse: open-code collapse_single_pmd() in
+ its two callers
+Message-ID: <aqQaxyxQYD_1KHju@thinkstation>
+References: <20260910120238.2529819-1-kirill@shutemov.name>
+ <20260910120238.2529819-10-kirill@shutemov.name>
+ <DLCKQ4T6VJZA.3KVN87GD21IBI@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V1 1/2] accel/amdxdna: Disable BO import via flink
-Content-Language: en-US
-To: Max Zhen <max.zhen@amd.com>, <ogabbay@kernel.org>,
-	<quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
-	<mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
-CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
-References: <20260902180955.3999242-1-lizhi.hou@amd.com>
- <8a526163-0762-4be4-a827-b2c11fef5959@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <8a526163-0762-4be4-a827-b2c11fef5959@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003AEB:EE_|DS0PR12MB8367:EE_
-X-MS-Office365-Filtering-Correlation-Id: 77216d8e-69c9-46e4-d5df-08df1018d1cf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|36860700016|82310400026|10067099003|22082099003|18002099003|56012099006|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	2W57Cn+EDg4zPsWEoKH4/rqGzeY2g0fJvNoANVqxHaKYcS1YNI9VJkexItV1DfCAN6/JyM+n3SUhLZRDvTcmyIEa6pouG7zhdU0fUNmNrM6rMwML7rr87wHvikl288w47WTggRwE7mtAhLC2OR8zFiRQkq+eGAl/Xv82GSkoZ3BJVr7RoJrikQUmJj/2WvCz5ht9tWmVr3HAs187FG2QcUSmwMGgYObGAborHugVKDgJ3YyjvP1IU8voGK797KEsVR6qcY23igNTJG7YOzKHSYDShM19lXZScVOImMWgVSkLtQWXDs9T7J5E5tXbLrU7JUcu95URHCWjBuovNelugQQCGHXD/miq5vF9bQpZN9fcZchL6bgQMjucclf7AwcbXoYZsJbMuna0lluKOjFd9RXETZATHh/TI7ZirPB2rojPAIhs31DfTLVfS74N1Zh6DdblXwnUTZV4uoogtPeH00ZUISBCNv68TV63z+tkJ7NonwoL2LM+WO7AG07qdsWp8tNlbutV602LVev1ubrwIxM9TcbyzTdDE9dv2232CUvfjTvXPu7FCKqXcnlF3PqC16/zJlqc/m3DFdxBmgkN8l22si/efhT8T0T31aU0kgGYSJ0U1Sfka97chHBhAurk6Ikg4mmMTfY18CUAD84cizZB9o8tKw7xyMuWCelsVEy966SzodwKYBcCI9/GRuaWQOvop5927kGFf503Nu/jrQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(36860700016)(82310400026)(10067099003)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	vzNzPI+O0cCH15i8GGWFyOCArqfrvcd21iKNgu1bQmXOF4Ec5a8mxasBheCv4zpeN+sM+12FlYpC9b2vA4kV6KQMZJNkro5slfB9rMljDWfkCkd/Ahz0wX3Me8CdcBTAKEAOw9xfFaCgCmoQfXwg2JnG/+00WHmQNJBCWCBlO0t2KaAnLZXLe8WuB99Iy/CqjXoaZIvOJdMzctPnK8jbpOJprAP6dKH5VHftkuz6mb0kXUoQP9aw+9Q/KdG8aDgcEtP9iPPyq+8UoeQ8GX5GaiS2BNZTygp8kjROGwsoqaC13GsOvDRa7oa4tVb4PKNeXY9p+YnLLabF6j+RDer+8exiiQqOC81W1DNIPZ3O72DXWMM286fN31kTAmBEDlChOzxs+VPj4449VzF/fFV+72aMXaEKqQ8puRwG2xHesWsJpffnX7FIEv59z4ewUXF2
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 15:24:49.4595
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77216d8e-69c9-46e4-d5df-08df1018d1cf
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003AEB.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8367
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLCKQ4T6VJZA.3KVN87GD21IBI@nvidia.com>
 
-Applied to drm-misc-next
+On Fri, Sep 11, 2026 at 10:57:46AM -0400, Zi Yan wrote:
+> On Thu Sep 10, 2026 at 8:02 AM EDT, Kiryl Shutsemau wrote:
+> > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> >
+> > collapse_scan_pmd() and collapse_run_pmd() each have a clear locking
+> > contract.  The scan is called with mmap_lock held for reading and returns
+> > with it still held.  The collapse is called without it.
+> >
+> > collapse_single_pmd() kept that boundary inside itself.  It dropped the
+> > lock on some paths and not others, and reported which by way of a bool its
+> > callers had to carry along and then act on.
+> >
+> > Open-code it in the two callers.  Each scans under the lock it already
+> > holds and, on SCAN_SUCCEED, gives the lock up before running the collapse.
+> > khugepaged's lock_dropped and madvise_collapse()'s mmap_unlocked both go:
+> > the code dropping the lock is now the code that wanted to know.
+> >
+> > khugepaged's walk carries on to the next table while the scan keeps
+> > refusing, and ends once a collapse has taken the lock from under it.
+> > madvise_collapse() re-finds its VMA after a collapse, which it did before,
+> > and now uses a NULL vma to say that it has to.  It still reports the drop
+> > to its own caller, from the line that does it.
+> >
+> > The lock is given up and taken again at the same points as before.  No
+> > functional change.
+> >
+> > Assisted-by: LLM
+> > Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> > ---
+> >  mm/khugepaged.c | 102 +++++++++++++++++++++++-------------------------
+> >  1 file changed, 49 insertions(+), 53 deletions(-)
+> >
+> 
+> LGTM. Thanks.
+> 
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> 
+> One question:
+> 
+> What prevents us from doing:
+> while () {
+>     1. mmap_lock
+>     2. scan_pmd
+>     3. mmap_unlock, bail out if needed
+>     4. run_pmd
+> }
+> 
+> for both cases? It improves readability. What is the downside of
+> dropping the lock during multiple scans?
 
-On 9/2/26 11:48, Max Zhen wrote:
->
->
-> On 9/2/2026 Wed 11:09, Lizhi Hou wrote:
->> Accessing abo->client in amdxdna_gem_del_bo_usage() may result in a
->> use-after-free when the BO is imported via flink.
->>
->> Disable flink import by verifing that filp->driver_priv matches the 
->> client
->> stored in abo->client before accessing the client.
->>
->> Fixes: 3cc5d7a59519 ("accel/amdxdna: Add carveout memory support for 
->> non-IOMMU systems")
->> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-> Reviewed-by: Max Zhen <max.zhen@amd.com>
->> ---
->>   drivers/accel/amdxdna/amdxdna_gem.c | 2 ++
->>   1 file changed, 2 insertions(+)
->>
->> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c 
->> b/drivers/accel/amdxdna/amdxdna_gem.c
->> index 476649685e5a..1353393194e2 100644
->> --- a/drivers/accel/amdxdna/amdxdna_gem.c
->> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
->> @@ -697,6 +697,8 @@ static int amdxdna_gem_obj_open(struct 
->> drm_gem_object *gobj, struct drm_file *fi
->>       int ret;
->>         guard(mutex)(&abo->lock);
->> +    if (abo->open_ref > 0 && filp->driver_priv != abo->client)
->> +        return -EPERM;
->>       abo->open_ref++;
->>       if (abo->open_ref > 1)
->>           return 0;
->
+The scan/run ratio.
+
+Once memory is mostly huge nearly every scan refuses, and a refused
+table is cheap: one pmd read for SCAN_PMD_MAPPED, one PTE walk under the
+PTL otherwise.
+
+In your version of the collapse loop, mmap lock/unlock plus VMA
+revalidation would dominate the cost. It is not productive.
+
+Note that scan in khugepaged is bounded by pages_to_scan so we would not
+hog the lock.
+
+> for madvise_collapse(), I see mmap_read_lock is held when it is called,
+> so it can be dropped at the entry and the code makes sure it is held at
+> the exit.
+
+That makes every MADV_COLLAPSE report lock_dropped, including one on a
+range that is already huge, which today never lets the lock go. The same
+performance consideration as above.
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
