@@ -1,92 +1,72 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26BEB47CA71;
-	Fri, 11 Sep 2026 12:57:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE0D47D956
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:57:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789131438; cv=none; b=C0SPqGYkyDhhKhPi08cf0ky1aR+I/kVtHk2vpToZVsQ4fbQ1TjT4gVsvztKOt4SDd3x0h0kDVvpbbAJOm/gNcudlZWjhFOd5O/MyfH+tSWbkGgK5p0KsvGXNTCgbGqy3/NCfrzBhIpGYUf+ll70rvK206SJn4+ZSdplfB1G9dgs=
+	t=1789131444; cv=none; b=a78dFcRfvO+9L3DMOxNhfGDXLaZFWqmQPhb/gYU3HMrd7jd4R6DLs1ZcJpm90FlvaGkmgOl/1z/w5cyIo1vRwKrATMaYqYfXyBg4DVNUofqDxLiJOurYCxSjXD8yvpBtVmLx18JuDzkMvABXNDCwvo9TRDHyi5BUi3AQ3wiL2/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789131438; c=relaxed/simple;
-	bh=ei6/coqPeA2IIb+Ksb3fVuzObHky3fFGrbKzBLL/oLc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Sb1ka3N5e0VRA4zg68qRLy4GZmq5DCudt+Gb8e6/RATLEl9xcb71BQymXgDyN2vZ5EccOiroSmbidfqo3ZYTzR534noRQfDUq/jp4f4zaL9ygtCcOLC2tNWKmVqCcOa3OCdt61teMp126Uv+a81Y4M5WWf98RaO7Uo5EXxJaYCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=gh7JU/bu; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1789131444; c=relaxed/simple;
+	bh=2cs+LmB415+j4xvRTGyqVgMwGKSUnPgtfC3V3a89qHE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BC3pn5ofHDPn6l6ac5NzjQybtsS6OKZtPr+qFWGPQiu8ju2jPdE/vMF5Sif3K6cwtx47cDvFBH0MQuHBfrY007BtGoVH+l/lRnxZHxnQoqApo0/aORxNMYqFNAQztBW3kcW7LYIS/++lMotgZzgczIqd7fofBNRo5q6Cra77It4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BU9pqrFp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="gh7JU/bu"
-Received: from omf11.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay01.hostedemail.com (Postfix) with ESMTP id C64AF1C1801;
-	Fri, 11 Sep 2026 12:56:53 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf11.hostedemail.com (Postfix) with ESMTPA id C51C42002A;
-	Fri, 11 Sep 2026 12:56:33 +0000 (UTC)
-Date: Fri, 11 Sep 2026 08:57:54 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Ye Liu <ye.liu@linux.dev>
-Cc: Josh Poimboeuf <jpoimboe@kernel.org>, Ye Liu <liuye@kylinos.cn>, Michal
- Hocko <mhocko@suse.com>, SJ Park <sj@kernel.org>, Lorenzo Stoakes
- <ljs@kernel.org>, Oleg Nesterov <oleg@redhat.com>, peterz@infradead.org,
- paulmck@kernel.org, mingo@redhat.com, mic@digikod.net, tglx@kernel.org,
- akpm@linux-foundation.org, david@kernel.org, linmiaohe@huawei.com,
- nao.horiguchi@gmail.com, rafael@kernel.org, gnoack3000@gmail.com,
- gourry@gourry.net, rientjes@google.com, shakeel.butt@linux.dev,
- xu.xin16@zte.com.cn, chengming.zhou@linux.dev, will@kernel.org,
- boqun@kernel.org, frederic@kernel.org, neeraj.upadhyay@kernel.org,
- joelagnelf@nvidia.com, josh@joshtriplett.org, urezki@gmail.com,
- juri.lelli@redhat.com, vincent.guittot@linaro.org, tony.luck@intel.com,
- reinette.chatre@intel.com, x86@kernel.org, paul@paul-moore.com,
- jmorris@namei.org, serge@hallyn.com, pavel@kernel.org,
- lance.yang@linux.dev, mhiramat@kernel.org, pmladek@suse.com,
- longman@redhat.com, mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
- qiang.zhang@linux.dev, dietmar.eggemann@arm.com, bsegall@google.com,
- mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
- mark.rutland@arm.com, Dave.Martin@arm.com, james.morse@arm.com,
- babu.moger@amd.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, rcu@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-security-module@vger.kernel.org
-Subject: Re: [PATCH v3 12/15] unwind: convert process/thread iterator to
- for_each_process_thread_rculock
-Message-ID: <20260911085728.47d3b351@gandalf.local.home>
-In-Reply-To: <20260911075800.491472-13-ye.liu@linux.dev>
-References: <20260911075800.491472-1-ye.liu@linux.dev>
-	<20260911075800.491472-13-ye.liu@linux.dev>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BU9pqrFp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5B4F1F00893;
+	Fri, 11 Sep 2026 12:57:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789131433;
+	bh=snWpfyIoxF+5iUdUC2Q149RGC6bzU24eMSopGKtayLQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BU9pqrFp8KoLcgy05K75awi7EZw7+b/41XeUUzDTC5ALRfmsFSm+M76AHU9iN/69A
+	 5KRaHg2TAK0CZxIIYkZtCdUWGnPoFZh5caxpz1RD7Y/fttLdZWGchZRrkId7PMDiW9
+	 dnvEotSJ4EUs2B5IhGaOc9HlH946XiwAeb6k/k0P6iR0vODSoOoL11uxR6Zw+e45xQ
+	 XX1S+iLr90veXwzL6MyB86B/c5FcIbp7alxka7L9HpchRP4+lWTS4g53wrtOelxFL/
+	 GR0QDpK0wpj5Ny5jebskPJWitMMKdq6s911U7bGr1EmnRip82vgePK2XdzfpQgQJcn
+	 yG4/kvRNiDgMw==
+Date: Fri, 11 Sep 2026 13:57:08 +0100
+From: Will Deacon <will@kernel.org>
+To: Vladimir Murzin <vladimir.murzin@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Arnd Bergmann <arnd@arndb.de>, Ard Biesheuvel <ardb@kernel.org>,
+	Ada Couprie Diaz <ada.coupriediaz@arm.com>,
+	David Hildenbrand <david@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mostafa Saleh <smostafa@google.com>,
+	Lorenzo Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Linus Walleij <linusw@kernel.org>, Marc Zyngier <maz@kernel.org>
+Subject: Re: [PATCH 00/21] arm64: Move overflow sp into SP_EL1 and kernel sp
+ into SP_EL0
+Message-ID: <aqP6pKFicKO3j-Tw@willie-the-truck>
+References: <20260907164247.17223-1-will@kernel.org>
+ <40954731-a235-4877-b615-7a3f66f1b039@arm.com>
+ <aqFDFYECDl15R_39@willie-the-truck>
+ <5ecf87dc-30ec-454f-bee3-0c05f2f11168@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: C51C42002A
-X-Stat-Signature: etnbh8canf3f1kmc7jj9utoztbtwrixp
-X-Rspamd-Server: rspamout07
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/KtCaZ9/tsi0hxBkYuIS2CFwjudzULElM=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=E0ssg816zZqGUemHya07FEZhfM/BCVla+Qd4d9ec2gc=; b=gh7JU/bubZhrpxGBgrxho2alJtCMELUzto5Po0cae150cpl0BavJgC2dRHwU4FvXJDWgj7yOyyuU2Stz8X9XeWiOLT41yNeO3tUvFSw40L8rqSvkkd6r1CgWOdrbH+uscOfxXomLGGWuLAhDqRhufkG1WPXyO7BUnbgmm77KIMY=
-X-HE-Tag: 1789131393-869492
-X-HE-Meta: U2FsdGVkX18a8IZpiamWSNHMOGJqi766L2hoU7BxJ2jc1mbGcETaj4OLytypvLF1C/8k4P6eKXvas+lrJd2fkaPBqv3KUx75daqT4beXqnn0s2TYyKccRHJ75eB75GbvBLtsIiHrPJIERzvArIitexLxj/cO9kvTrTnKbk61hiBe7r2nGDYiIOb1LXm9ZUaQdU3q4M27XcVbYDqNe8LJroq3pRtqtAzUxadzwfvnx2yAElBekjB5HsCjqmT+iIl7VHmhuoQbgdgPLcfu1uuZPVtwqwe4tPyVIqWTA8JTY+/xeG00csaaYSlhKyUuwM4zCh0hTIx4hiAhC0O7Hxmc1L4GgNlGmvWrkiJxOxCWnZSjVtEWmHLD9bmVh59kOkTIR4M5NtVHKoy0W8PLA7ap0pa5fEVrBPjp3LVjOdSzjgHtfss8M5cvpx2hDQTJ21CwWfHIl/mD6Xc5kDP/SGon2U9aC1WoX7LRXWG0diJrZik=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5ecf87dc-30ec-454f-bee3-0c05f2f11168@arm.com>
 
-On Fri, 11 Sep 2026 15:57:57 +0800
-Ye Liu <ye.liu@linux.dev> wrote:
-
-> From: Ye Liu <liuye@kylinos.cn>
+On Thu, Sep 10, 2026 at 02:49:37PM +0100, Vladimir Murzin wrote:
+> On 9/9/26 12:29, Will Deacon wrote:
+> > On Wed, Sep 09, 2026 at 11:39:24AM +0100, Vladimir Murzin wrote:
+> > [...]
+> > 
+> >> I gave it a try and I observe splat:
+>
+> > I've hacked up an untested diff below, please can you take it for a spin?
+> > 
 > 
-> Replace guard(rcu)() combined with for_each_process_thread() loop in
-> kernel/unwind/deferred.c with for_each_process_thread_rculock(),
-> which scopes the RCU read lock to the loop body via scoped_guard(rcu).
-> 
-> No functional change.
-> 
-> Signed-off-by: Ye Liu <liuye@kylinos.cn>
-> Acked-by: Michal Hocko <mhocko@suse.com>
-> Reviewed-by: SJ Park <sj@kernel.org>
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+> With fixup applied I do not see splat anymore :) 
 
-Acked-by: Steven Rostedt <rostedt@goodmis.org>
+Excellent, thanks for testing it!
 
--- Steve
+Will
