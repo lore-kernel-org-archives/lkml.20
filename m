@@ -1,229 +1,277 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 394292E92BA;
-	Fri, 11 Sep 2026 09:35:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37A17282F1B;
+	Fri, 11 Sep 2026 09:36:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789119343; cv=none; b=NWL4FHox2tnDtpgmDnjRixXxKh1qSa8TYEprTMzX4DPWy12CY8kYk15c8szU1CxxoQXJoKaUD6hiFZoCVtGhgTg9u8wqBmgqe6Gsak3T1cipZubqTQ4zbn6Py2fZs5JLw7V/yVdPkBW7btQBkrkRhEMTyUyYcuPIq84arkpvmC8=
+	t=1789119370; cv=none; b=bUhqTlAeTNBdGbi24wb/x0nUd15ubrlz2GbRF5J5we+r/29mtomG2T4LqVGCllpsPQL0VGxlviJrMZW5uftrRgh7BP+SVNTYOH0TrQrNU4Bw5cffdJdWNORlMrR11nod8EeFfwUxwKvYlLjGa0kf4XxGBblnMdLukyS+6I+TrIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789119343; c=relaxed/simple;
-	bh=5ilCdKcqCwxjYRqo4FSYfH9Cm2vVzU9QtahGdbQcnhE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tqDkuzSoMwolud8rMLYmsIwkJEcMtmjoSou2H3/1PJHy5XU7/Dk7zKwZXYjWqJw3Ht1xxmMAbv53jAE1pHb01RZErKjOVcKksfXSRyEYL/MABXEN/FWJ0JX7sFLEiIOwhW40RAEGGAJOhCFIcCkvy9qmQLgTibPUZXFg4/sUatc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=xIGNt+l8; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=ZKVNvNPz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=qgEvyuQI; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=gifg9d9E; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1789119370; c=relaxed/simple;
+	bh=B9v8d7iETnFFe/NuHO6wTQUtOOro82ObwYm/yJ6LQ3g=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=GozfB8Zq1YZvJIjgcunMW78UKaH+uON3JTHQ743OSjt/8NdAKjryi1zbb9QkKHP2cEvWUypKpxanL8TDe/yf/Z7n6N7P5gi4WNRW8w0+1VrA2qHf6u9gZfaBdH2LCTNBNUAcOkPGQpDT5yQeHat17OepsDPbZTo/DoPCaebOGvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GhsUJJ4N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="xIGNt+l8";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="ZKVNvNPz";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="qgEvyuQI";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="gifg9d9E"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B28B321D2B;
-	Fri, 11 Sep 2026 09:35:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789119334; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wE8iaWly/EkLPx8G/L2Hp0WSTnhziRsEW8T9oadhB7o=;
-	b=xIGNt+l8jOYVNSIX7ujdNAJ1iW2XTiRGd9o0QOutyKQFtqYhlRk8Ln6Zj8M85EdjaqMVkM
-	mxmUNjlFVY8/WrxpH1v+mdxlpH+I3xAf6zN5j0lQr5Yi0OGpLfwHTTji11TmtJG9bv0XYf
-	Voqt5G5GoUCkxlvbZ2UwLBWZZM19URg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789119334;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wE8iaWly/EkLPx8G/L2Hp0WSTnhziRsEW8T9oadhB7o=;
-	b=ZKVNvNPz5qWa4w8sVHqBKpx6WsNPpKs08O41aAs5ed0wVyPAo7RrDbUamJvJ0hv01si4ud
-	JUF1OHVk4WrvXVCg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=qgEvyuQI;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=gifg9d9E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789119330; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wE8iaWly/EkLPx8G/L2Hp0WSTnhziRsEW8T9oadhB7o=;
-	b=qgEvyuQItOS7u/bdUozwj1bNWb7OG5ekxdo4V4NPGbk5ruGgWMhGs/5TAqICwjcs+lMFEb
-	V2DxeCmtmFN3wCSzHFlVp1rgL3MPBsJ3O06awTZC/HWqRIXk776qRYc19f3Ydl574sfnbZ
-	1duejhtKAT1YEj+V12QKZhFQL/7J/HQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789119330;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wE8iaWly/EkLPx8G/L2Hp0WSTnhziRsEW8T9oadhB7o=;
-	b=gifg9d9Ea0zwtw+0PzXVfC8+1NX8ADLaPtx9Iss8SqiAbPxBOBdspM/7hXlho1yrmj+QI9
-	skypO+UFmhJCd+Ag==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 89305136ED;
-	Fri, 11 Sep 2026 09:35:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id jEl4IWLLo2pPSwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Fri, 11 Sep 2026 09:35:30 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 1A278A1342; Fri, 11 Sep 2026 11:35:30 +0200 (CEST)
-Date: Fri, 11 Sep 2026 11:35:30 +0200
-From: Jan Kara <jack@suse.cz>
-To: "Patrick Lu (Anthropic)" <perf.patrick.lu@gmail.com>
-Cc: Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Tejun Heo <tj@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Dennis Zhou <dennis@kernel.org>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] writeback: bound cleanup_offline_cgwb() rescans by
- rotating b_attached
-Message-ID: <5onojwm73shl2c3ddwboijarrefjw4gmkfcvnwdvow2wybhu5u@wu37jhkboemj>
-References: <20260909-wb-cgwb-rotate-v1-1-f2eb994d2a46@gmail.com>
- <vciagp74qvys2zdbsfcr2brhbv4uyabvm67czm255ascytesjz@n6q775zxxwvb>
- <3ebd03824f0df04947ffca7f25c96c30.perf.patrick.lu@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GhsUJJ4N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 365BC1F000FF;
+	Fri, 11 Sep 2026 09:36:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789119368;
+	bh=O4x6t1/WtG8DeGWc5q0VOQD/GtT4W1lzrL2RmKnX8BE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=GhsUJJ4NTgvL9XZC3Jo54kpt93UZoKiyLIv5ZHWm/KNWNRRNUIePM7TM5woI84+3/
+	 F7ppLvlf59iP9KYerpd9ZIIDMiS8aCLzjzNrU15xRDueaGBkIckKOdbySo/PQJU5br
+	 UK2u5p7wSiuYZzH1W47PGJNYFpNSkJPlIyPfO9lgbkojsK+XhzNQy/EAOj8x/PjFjc
+	 4orTUMWdxAwP6f0gN5U0P0KQogDuXuc7FEs6su4XnM3j24PGlsJiXiDW34wGzqkXmY
+	 t3jcxmZ0sViD6CEN8CblEi+vau0OtD/0O+qMzayzVp5uS+1YaTB7ijs3ad2Tc+PTJ0
+	 mghuENKwU2VQg==
+Subject: Re: [PATCH v8 net-next] octeontx2-af: switch qmem from coherent DMA
+ alloc to streaming DMA mapping
+From: netdev-bot+sashiko@kernel.org
+To: rkannoth@marvell.com
+Cc: davem@davemloft.net, gakula@marvell.com, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, sgoutham@marvell.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, leon@kernel.org
+Date: Fri, 11 Sep 2026 09:36:07 +0000
+Message-ID: <178911936770.219967.4327734860588306431@kernel.org>
+In-Reply-To: <20260908063411.257228-1-rkannoth@marvell.com>
+References: <20260908063411.257228-1-rkannoth@marvell.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3ebd03824f0df04947ffca7f25c96c30.perf.patrick.lu@gmail.com>
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: B28B321D2B
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
-X-Spam-Score: -2.51
 
-On Thu 10-09-26 23:47:44, Patrick Lu (Anthropic) wrote:
-> On Thu, Sep 10, 2026 at 01:24:52PM +0200, Jan Kara wrote:
-> > On Wed 09-09-26 18:50:27, Patrick Lu (Anthropic) wrote:
-> > > Move every scanned inode to the tail of b_attached, so the next pass
-> > > starts where the previous one stopped and the drain becomes linear.
-> > > b_attached is unordered and isw_prepare_wbs_switch() is its only
-> > > walker, so nobody else sees the reorder. b_dirty_time is ordered by
-> > > expiry for move_expired_inodes() and keeps its current scan.
-> >
-> > OK, but isn't there the very same quadratic behavior problem with
-> > b_dirty_time scan which you don't touch (and where your trick cannot work)?
-> 
-> Yes, the same thing happens there. We never saw it because none of our
-> filesystems are mounted with lazytime, so b_dirty_time was always empty
-> on the hosts we looked at.
-> 
-> We realized the rotation works for b_dirty_time too if the walk starts
-> from the oldest end instead of the newest. sync takes the whole list no
-> matter the order, and move_expired_inodes() picks from the oldest end,
-> so walking with list_for_each_entry_safe_reverse() and moving scanned
-> inodes to the newest end keeps the oldest unscanned inode right where
-> the expiry looks. Prepared inodes leave the list as soon as the switch
-> work runs and get a new dirtied_time_when on the new wb anyway
-> (9a6ebbdbd412), so the only inodes left out of order are the ones that
-> can never switch (DAX), and only on the dying wb.
-> 
-> I tried it in qemu with 100k lazytime inodes on a dying cgwb. With v1
-> the b_dirty_time scan under list_lock still grows from 11 to 115 ms per
-> pass across the drain, same as unpatched. Walking both lists from the
-> oldest end keeps b_attached and b_dirty_time flat at ~0.6 ms per pass,
-> with one loop and no flag. Does that make sense? Something like this,
-> which I can send as v2:
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider:
 
-Yes, I was also thinking that since we are going to clobber
-dirtied_time_when anyway, we can as well do it a bit earlier to ease
-iteration.
+Critical: 0 · High: 3 (1) · Medium: 0 · Low: 0
 
-I can see in your patch you don't touch dirtied_time_when at all which will
-make the b_dirtied_time list not ordered by the timestamps. That makes me a
-bit uneasy but since we are going to move everything out from that list
-eventually I think that is fine.
+- [High] otx2_dma_alloc_coherent()
+  (drivers/net/ethernet/marvell/octeontx2/af/common.h:51-69) creates a…
+- [High] dma_map_single() is not guaranteed to return an address that
+  aliases the caller's buffer, and the new helper accepts any successful…
+- [High] The newly added check in qmem_alloc() (af/common.h:95) 'if
+  (get_order(PAGE_ALIGN(qmem->alloc_sz)) > MAX_PAGE_ORDER) return…
 
-								Honza
+Pre-existing issues:
+- [High] qmem_alloc() computes 'qmem->alloc_sz = (qsize * entry_sz) +
+  OTX2_ALIGN' (af/common.h:93) in int from mailbox-supplied, unbounded…
 
+--
 
-> diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
-> index e744f9f9d43f..ea3eb40bf828 100644
-> --- a/fs/fs-writeback.c
-> +++ b/fs/fs-writeback.c
-> @@ -727,19 +727,34 @@ static bool isw_prepare_wbs_switch(struct bdi_writeback *new_wb,
->  				   struct inode_switch_wbs_context *isw,
->  				   struct list_head *list, int *nr)
->  {
-> -	struct inode *inode;
-> +	struct inode *inode, *tmp;
-> +	LIST_HEAD(scanned);
-> +	bool full = false;
+octeontx2-af: switch qmem from coherent DMA alloc to streaming DMA mapping
+
+This replaces the dma_alloc_attrs(DMA_ATTR_FORCE_CONTIGUOUS) backing of
+qmem with kmalloc() plus dma_map_single(), wrapped in new
+otx2_dma_alloc_coherent()/otx2_dma_free_coherent() helpers. qmem_alloc()
+and qmem_free() are wired through the new helpers, and a
+get_order()/MAX_PAGE_ORDER size check is added to qmem_alloc().
+
+> diff --git a/drivers/net/ethernet/marvell/octeontx2/af/common.h b/drivers/net/ethernet/marvell/octeontx2/af/common.h
+> index 779413a383b74..0569b6d9f03b5 100644
+> --- a/drivers/net/ethernet/marvell/octeontx2/af/common.h
+> +++ b/drivers/net/ethernet/marvell/octeontx2/af/common.h
+
+[ ... ]
+
+> +static inline void *otx2_dma_alloc_coherent(struct device *dev, size_t size,
+> +					    dma_addr_t *dma_handle)
+> +{
+> +	dma_addr_t dma_addr;
+> +	void *vaddr;
 > +
-> +	/*
-> +	 * Walk from the oldest end and move scanned inodes to the newest
-> +	 * end, so the next scan resumes at unscanned inodes instead of
-> +	 * re-walking an ever-growing run of prepared and skipped ones.
-> +	 * For b_dirty_time this keeps the oldest unscanned inode at the
-> +	 * end move_expired_inodes() picks from; b_attached is unordered.
-> +	 */
-> +	list_for_each_entry_safe_reverse(inode, tmp, list, i_io_list) {
-> +		list_move(&inode->i_io_list, &scanned);
->  
-> -	list_for_each_entry(inode, list, i_io_list) {
->  		if (!inode_prepare_wbs_switch(inode, new_wb))
->  			continue;
->  
->  		isw->inodes[*nr] = inode;
->  		(*nr)++;
->  
-> -		if (*nr >= WB_MAX_INODES_PER_ISW - 1)
-> -			return true;
-> +		if (*nr >= WB_MAX_INODES_PER_ISW - 1) {
-> +			full = true;
-> +			break;
-> +		}
->  	}
-> -	return false;
-> +	list_splice(&scanned, list);
+> +	vaddr = kmalloc(size, GFP_KERNEL | __GFP_ZERO);
+> +	if (!vaddr)
+> +		return NULL;
 > +
-> +	return full;
->  }
+> +	dma_addr = dma_map_single(dev, vaddr, size, DMA_BIDIRECTIONAL);
+> +	if (dma_mapping_error(dev, dma_addr)) {
+> +		kfree(vaddr);
+> +		return NULL;
+> +	}
+
+[Severity: High]
+The v8 changelog says "Retain dev_is_dma_coherent() guard in
+otx2_dma_alloc_coherent()", but is that guard actually present here?  A
+grep of drivers/net/ethernet/marvell/octeontx2/ for
+dev_is_dma_coherent|dma_sync_single|dma_max_mapping_size returns nothing at
+this commit, so the coherency premise of the changelog does not appear to
+be expressed anywhere in the code.
+
+Does this matter for the qmem consumers?  They use the buffer in the
+dma_alloc_coherent() model, not the streaming model.  For example
+nix_aq_enqueue_wait() in af/rvu_nix.c:
+
+	memcpy((void *)(aq->inst->base + (head * aq->inst->entry_sz)),
+	       (void *)inst, aq->inst->entry_sz);
+	memset(result, 0, sizeof(*result));
+	/* sync into memory */
+	wmb();
+	/* Ring the doorbell and wait for result */
+	rvu_write64(rvu, block->addr, NIX_AF_AQ_DOOR, 1);
+	while (result->compcode == NIX_AQ_COMP_NOTDONE) {
+
+The CPU writes the instruction, the device DMA-writes result->compcode, and
+the only barrier is wmb() with no dma_sync_single_for_device()/for_cpu()
+ownership transfer.  npa_aq_enqueue_wait() and the NIX CQ rings do the
+same.
+
+On a device that is not IO-coherent, can the CPU-written contexts stay in
+dirty cache lines while the device fetches stale data, and can the
+device-written result words never be invalidated so the poll loop spins on
+a stale compcode until it times out?
+
+The kernel already has DMA_ATTR_REQUIRE_COHERENT for exactly this, in
+include/linux/dma-mapping.h:
+
+	/*
+	 * DMA_ATTR_REQUIRE_COHERENT: Indicates that DMA coherency is required.
+	 * All mappings that carry this attribute can't work with SWIOTLB and cache
+	 * flushing.
+	 */
+
+The v8 changelog states this attribute was dropped.  Would using it (or an
+explicit dev_is_dma_coherent() bail-out) make the requirement enforced
+rather than assumed?
+
+[Severity: High]
+Separately, this helper accepts any non-error dma_addr and returns the
+kmalloc pointer to the caller.  Is dma_map_single() guaranteed to return an
+address that aliases that buffer?
+
+In dma_direct_map_phys() (kernel/dma/direct.c):
+
+	if (is_swiotlb_force_bounce(dev)) {
+		if (attrs & (DMA_ATTR_MMIO | DMA_ATTR_REQUIRE_COHERENT))
+			return DMA_MAPPING_ERROR;
+		return swiotlb_map(dev, phys, size, dir, attrs);
+	}
+
+and later the dma_capable()/dma_kmalloc_needs_bounce() path also falls back
+to swiotlb_map() when DMA_ATTR_REQUIRE_COHERENT is absent.
+dma_kmalloc_needs_bounce() in include/linux/dma-map-ops.h is:
+
+	return !dma_kmalloc_safe(dev, dir) && !dma_kmalloc_size_aligned(size);
+
+which is true for a non-coherent device with DMA_BIDIRECTIONAL when the
+kmalloc size is neither >= 2*ARCH_DMA_MINALIGN nor cache-line rounded --
+for instance qmem_alloc(dev, &sq->sqe, 1, 64) in nic/otx2_common.c gives
+alloc_sz = 192.
+
+If the mapping is bounced, the IOVA programmed into NIX_AF_LFX_*_BASE,
+NPA_AF_LFX_*_BASE, RVU_PF_VF_MBOX_ADDR and the LMT map table refers to a
+bounce slot that receives one all-zero copy, while the driver keeps reading
+and writing the original kmalloc buffer with no dma_sync_* to reconcile
+them.  Can this leave the device armed with memory the driver never
+updates?  dma_alloc_attrs()/dma_alloc_coherent() did not have this
+property.
+
+Also, under SWIOTLB the largest streaming mapping is
+IO_TLB_SEGSIZE * IO_TLB_SIZE (256 KiB).  Do the multi-hundred-KiB qmem
+regions (the CN10K LMT region sized num_online_cpus() * 32 * 128, CQ rings,
+aura/pool context tables) simply fail to map and abort queue init in that
+configuration?
+
+> +
+> +	*dma_handle = dma_addr;
+> +	return vaddr;
+> +}
+
+[ ... ]
+
+> @@ -60,8 +91,11 @@ static inline int qmem_alloc(struct device *dev, struct qmem **q,
 >  
->  /**
-> 
-> Thanks,
-> Patrick
+>  	qmem->entry_sz = entry_sz;
+>  	qmem->alloc_sz = (qsize * entry_sz) + OTX2_ALIGN;
+> -	qmem->base = dma_alloc_attrs(dev, qmem->alloc_sz, &qmem->iova,
+> -				     GFP_KERNEL, DMA_ATTR_FORCE_CONTIGUOUS);
+> +
+> +	if (get_order(PAGE_ALIGN(qmem->alloc_sz)) > MAX_PAGE_ORDER)
+> +		return -ENOMEM;
+
+[Severity: High]
+Does this new check, combined with the switch to kmalloc(), introduce a
+hard size ceiling that the old CMA-backed path did not have?
+
+KMALLOC_MAX_SIZE in include/linux/slab.h is:
+
+	#define KMALLOC_SHIFT_MAX	(MAX_PAGE_ORDER + PAGE_SHIFT)
+	/* Maximum allocatable size */
+	#define KMALLOC_MAX_SIZE	(1UL << KMALLOC_SHIFT_MAX)
+
+i.e. 4 MiB on a 4 KiB-page kernel.  Some existing callers ask for more.
+cn20k_pfvf_mbox_alloc() in nic/otx2_pf.c does:
+
+	err = qmem_alloc(&pf->pdev->dev, &mbox_addr, numvfs, MBOX_SIZE);
+
+with MBOX_SIZE == SZ_64K, so at numvfs == 64 alloc_sz is 4 MiB + 128,
+PAGE_ALIGN gives 0x401000 and get_order() returns 11 > MAX_PAGE_ORDER (10).
+qmem_alloc() then returns -ENOMEM before attempting any allocation and
+otx2_pfvf_mbox_init()/otx2_sriov_enable() fail, even though the same driver
+handles numvfs > 64 elsewhere.  Does 'echo 64 > .../sriov_numvfs' still
+work on CN20K after this change?
+
+rvu_alloc_mbox_memory() in af/cn20k/mbox_init.c requests ndevs * MBOX_SIZE
+scaling with the hardware PF/VF count, and rvu_mbox_handler_npa_lf_alloc()
+in af/rvu_npa.c requests NPA_AURA_COUNT(aura_sz) * hwctx_size, which for
+the mailbox-legal aura_sz == NPA_AURA_SZ_1M is 1M * 128 = 128 MiB.  Do
+those now fail too?
+
+Two smaller points on the same branch: get_order(PAGE_ALIGN(x)) equals
+get_order(x), so the PAGE_ALIGN() adds nothing, and the branch returns
+-ENOMEM with no dev_err() where the previous path produced a visible
+allocation warning.  Could the new size ceiling and the changed failure
+characteristics (plain GFP_KERNEL order-9/10 buddy allocations, no
+__GFP_NOWARN or __GFP_RETRY_MAYFAIL) be mentioned in the changelog, given
+the Fixes: tag makes this a stable-backport candidate?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but the value being validated
+here has already wrapped.  qmem->alloc_sz is an int and the multiplication
+'qsize * entry_sz' is done in int on mailbox-supplied counts, so the new
+get_order() check bounds the wrapped size rather than the requested one.
+
+rvu_mbox_handler_npa_lf_alloc() in af/rvu_npa.c rejects only !req->nr_pools
+(a u32 mailbox field) before calling:
+
+	err = qmem_alloc(rvu->dev, &pfvf->pool_ctx, req->nr_pools, hwctx_size);
+
+With nr_pools = 0x2000000 and hwctx_size = 128 the product is 2^32, which
+wraps to 0, so alloc_sz = 128, get_order(PAGE_ALIGN(128)) = 0 passes the
+new check and kmalloc(128) succeeds -- while pool_ctx->qsize keeps the full
+33554432.  rvu_npa_aq_enq_inst() then only checks against that qsize:
+
+	if (req->aura.pool_addr >= pfvf->pool_ctx->qsize) {
+		rc = NPA_AF_ERR_AQ_FULL;
+		break;
+	}
+	/* Set pool's context address */
+	req->aura.pool_addr = pfvf->pool_ctx->iova +
+	(req->aura.pool_addr * pfvf->pool_ctx->entry_sz);
+
+so the device is handed an IOVA up to 4 GiB past a 128-byte mapping.  The
+NIX path has the same shape with the u32 req->rq_cnt/sq_cnt/cq_cnt fields
+in rvu_mbox_handler_nix_lf_alloc(), whose values are also programmed into
+NIX_AF_LFX_*_BASE.
+
+Since this patch adds a size-validation step at exactly this point, would
+it make sense to do the arithmetic in size_t with size_mul()-style
+overflow-checked helpers before validating, so the check bounds the real
+request?
+
+> +
+> +	qmem->base = otx2_dma_alloc_coherent(dev, qmem->alloc_sz, &qmem->iova);
+>  	if (!qmem->base)
+>  		return -ENOMEM;
+>  
+
+[ ... ]
+
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260908063411.257228-1-rkannoth%40marvell.com
