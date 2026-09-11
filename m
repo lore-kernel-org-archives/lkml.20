@@ -1,81 +1,40 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A2842CB0D
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:41:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD7943B6DA;
+	Fri, 11 Sep 2026 06:42:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789108904; cv=none; b=sQZiY0ZfBvfFUEfkUjTUOX/mScBSQTlm8TwfURY9942sYF05rqFMIMOOUpAlbmay2jqCApBkM8BIrrpKL4VKQouAA1sweOW/rsNx4U5RxMmZArjYidnbiY4eMvZZGDEI7uB/2l6btbY/gv/XVhGibvs+ZaMz8l306cgvJtyJ42U=
+	t=1789108932; cv=none; b=TuSmJBMJf6Zk02iKozF7iAQnX1ycPTgeOm1emZB7fwHG6tuzn2J9OjOe6miR0S3ocrpk84taNWQhdXXW9un6T9rpm/iMiM5XzE4o8q+H0kj8vtCnM+MEuhObyUYwZVMSGv7cbDPtK82q9qW4QlDBCrp7rUyZWhTYOk9j0k4So7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789108904; c=relaxed/simple;
-	bh=dx2/BySP9Nled5R+xStHYm3QUYIGdUJO0Hd8+9/Ra2s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gNQDrSDZqojMuf3eWaacAffJs0KBEzzAaL9tMCyQ+O91+0yRX5wf1t5vTR7lFG8uILoLNXE7qFodBVlCKY/TNrwtDWQFin5AqTtQcmr7aMKtj5z/jwletlL/zGziQECy04tkuhjmAu+Y0Be/eh3haNHnOXhDuvCsWtYkOBYhJV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=CrqGhoLK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=SAVgbt3N; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=geT7RK51; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=G3AvYMlT; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1789108932; c=relaxed/simple;
+	bh=457f5cRwPoXHuVT5tY7qO1+iTVrHBYEEa5+bQdA01u0=;
+	h=Message-ID:Date:MIME-Version:Subject:CC:References:From:To:
+	 In-Reply-To:Content-Type; b=GP93KOZdwnhW25PPHGySJEfUIur0VKBM3HXM3j1ZzOodAiL4VCQ66QH6TjdJPNva9q3p0zHYqJ1ku/ZupXNqK2LKdUOzmoNAk/QPyX+5cLVuQqtUnxALy6Sft8eXext+wbp9drLiK5MPjkSeLVlO1wOe0ZMtMul4gmh7O4zPv/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=GIIMTrkX; arc=none smtp.client-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="CrqGhoLK";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="SAVgbt3N";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="geT7RK51";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="G3AvYMlT"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 8023F21BF9;
-	Fri, 11 Sep 2026 06:41:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789108888; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=FLnvEMqVHLVo/izCkctcIG3kEzi0YsCcX8UXgC3El4k=;
-	b=CrqGhoLK7oOtYFt1SX9AJuw4DyQduDPPsyYIhLxN+R/Ou7kA3Okb57v8nIWXWh8N98+2j4
-	jREgPk/WuLZoYqI9mzfGqqLTuX0HewLokgNhIcAqVlPrhvNRmao2se7Z7UR9oyetn4nznU
-	btEDkaMkcA0dXrDYgjW2MXGWccRFoU0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789108888;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=FLnvEMqVHLVo/izCkctcIG3kEzi0YsCcX8UXgC3El4k=;
-	b=SAVgbt3NRSBzG4NuI2lWxdBG5hgrri++vaLyGnNRxj5Lbj8HEA4raLBjT5mahsLHS+TlGo
-	1iJMopWj+sIc4ZCw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=geT7RK51;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=G3AvYMlT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789108884; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=FLnvEMqVHLVo/izCkctcIG3kEzi0YsCcX8UXgC3El4k=;
-	b=geT7RK515tgdNyLeBhuNzrrhw3oIAIb0lubroYjb6qIwneCd06hw2a39PVTcuExQdbRPQU
-	0WV8RWH7VOdkDhoesKe9Fi8G4ecOietQStVp6CJ041XpYO8+xGO2tNWzvVSmsSVAn/DjVv
-	/3o6B0j+Q8gGMyYlYKudhdlsTOd1V1Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789108884;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=FLnvEMqVHLVo/izCkctcIG3kEzi0YsCcX8UXgC3El4k=;
-	b=G3AvYMlT6B+zdCJiUFEIP+wFwHXQsOF2vEYpsqg0+/Te1cnwyoD4682OUk8Fi98eU+e1Q4
-	fiBOWnwIixcS+2AA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 15340132D3;
-	Fri, 11 Sep 2026 06:41:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id uUMFO5Oio2pFGQAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Fri, 11 Sep 2026 06:41:23 +0000
-Message-ID: <90cfb3e0-ae5f-40ae-813a-db702837c3d0@suse.de>
-Date: Fri, 11 Sep 2026 08:41:23 +0200
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="GIIMTrkX"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=bIPghYDjldaQhWAAAGEJ/xvZF4ExUts68Xdqztjk628=;
+	b=GIIMTrkXpqOqobIhcZXPy2aapSwvv1ajs9SmI2b4KVEHN2OH174sPwQ5kyIdAFR8KzyW793Hk
+	35P4G8ADMp0dxlidnCJ9WqB82klTzW32sH/2Kj0/YpwEEQ+Q7LB7vtrChIFEqnWucFlouvDVAUp
+	6rybl2B2o7iGh2R+eYM5ZlA=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4hh4Rz4CYxz1prKW;
+	Fri, 11 Sep 2026 14:30:55 +0800 (CST)
+Received: from whupemo200004.china.huawei.com (unknown [7.152.184.18])
+	by mail.maildlp.com (Postfix) with ESMTPS id 8F41A40575;
+	Fri, 11 Sep 2026 14:41:52 +0800 (CST)
+Received: from [10.67.120.233] (10.67.120.233) by
+ whupemo200004.china.huawei.com (7.152.184.18) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 11 Sep 2026 14:41:49 +0800
+Message-ID: <4019452b-b25f-4c17-bc5c-570a28782bf1@huawei.com>
+Date: Fri, 11 Sep 2026 14:41:48 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,306 +42,105 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/pl111: drop alpha formats the hardware cannot scan
- out
-To: Roshan Kumar <roshaen09@gmail.com>, linusw@kernel.org,
- dri-devel@lists.freedesktop.org
-Cc: leandro.ribeiro@collabora.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch, pimyn@google.com,
- linux-kernel@vger.kernel.org
-References: <20260825105427.686619-1-roshaen09@gmail.com>
- <20260910192526.137057-1-roshaen09@gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260910192526.137057-1-roshaen09@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -4.51
-X-Rspamd-Queue-Id: 8023F21BF9
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,kernel.org,lists.freedesktop.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[collabora.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,google.com,vger.kernel.org];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	FROM_EQ_ENVFROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email,suse.de:mid];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
+Subject: Re: [PATCH v4 0/8] Enhance TLP packet decoder with field-level
+ parsing and versioning
+CC: <rostedt@goodmis.org>, <mhiramat@kernel.org>,
+	<mathieu.desnoyers@efficios.com>, <corbet@lwn.net>,
+	<skhan@linuxfoundation.org>, <bhelgaas@google.com>, <yangyccccc@gmail.com>,
+	<jic23@kernel.org>, <john.g.garry@oracle.com>, <will@kernel.org>,
+	<james.clark@linaro.org>, <mike.leach@arm.com>, <leo.yan@linux.dev>,
+	<peterz@infradead.org>, <mingo@redhat.com>, <namhyung@kernel.org>,
+	<mark.rutland@arm.com>, <alexander.shishkin@linux.intel.com>,
+	<jolsa@kernel.org>, <irogers@google.com>, <adrian.hunter@intel.com>,
+	<wangyushan12@huawei.com>, <wuzongyu1@huawei.com>,
+	<linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+	<linux-perf-users@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-doc@vger.kernel.org>, <linuxarm@huawei.com>,
+	<prime.zeng@hisilicon.com>, Arnaldo Carvalho de Melo <acme@kernel.org>
+References: <20260908140509.2485649-1-liusizhe5@huawei.com>
+ <aqB37YCMUYKodo3N@x2>
+From: Sizhe Liu <liusizhe5@huawei.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <aqB37YCMUYKodo3N@x2>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ whupemo200004.china.huawei.com (7.152.184.18)
 
+On 2026/9/9 5:02, Arnaldo Carvalho de Melo wrote:
+> On Tue, Sep 08, 2026 at 10:05:01PM +0800, Sizhe Liu wrote:
+>> The original hisi-ptt-decoder only prints raw hex values with
+>> generic field names for DW0/DW1/DW2/DW3, without classifying TLP
+>> types or decoding DW0/DW1/DW2/DW3 fields according to the hardware-
+>> defined packet format.
+>> 
+>> This series enhances the HiSilicon PTT (PCIe Trace and Tuning) packet
+>> decoder in perf tool to provide detailed field-level parsing of TLP
+>> headers based on message type, and adds a versioning mechanism for
+>> backward compatibility both in hisi_ptt driver and perf tool.
+> 
+> Series is sashiko clean by now, has a Reviewed-by, but it touches both
+> kernel and tools, I wouldn't have a problem if it was processed by whoever
+> maintains the kernel part.
+> 
+> - Arnaldo
+> 
 
+Hi Suzuki,
 
-Am 10.09.26 um 21:25 schrieb Roshan Kumar:
-> The PL110/PL111 controller scans out a single framebuffer and never
-> blends its alpha channel with anything. In every pixel-format table
-> each alpha-carrying entry (ARGB/ABGR in 8888, 1555 and 4444) maps to
-> exactly the same register configuration as its XRGB/XBGR counterpart,
-> so the alpha byte was never used by the hardware.
->
-> Commit 860e748bddcc ("drm: ensure blend mode supported if pixel format
-> with alpha exposed") added validation that warns when a plane exposes
-> alpha formats without a pixel blend mode property, and PL111 does exactly
-> that. With panic_on_warn enabled the warning prevents the syzkaller
-> vexpress-a15 manager from booting.
->
-> Drivers should not report formats they do not support, so remove the
-> alpha formats from all variant tables: the generic PL110, PL111 and
-> Nomadik tables in pl111_drv.c and the board-specific Integrator, IM-PD1,
-> Versatile and RealView/Versatile-Express tables in pl111_versatile.c,
-> plus the now dead case labels in the display setup and the Versatile
-> syscon connector switch, instead of advertising a blend mode property.
-> Behavior is unchanged for userspace that picks an XRGB/XBGR/RGB format;
-> alpha-picking clients fall back to the identical X variant.
->
-> Link: https://github.com/google/syzkaller/issues/7805
-> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
-> Signed-off-by: Roshan Kumar <roshaen09@gmail.com>
+The series is now Sashiko-clean and has Reviewed-by tags. It touches both
+driver and tools. Arnaldo is fine with the tools part. Would you mind
+reviewing the driver part and picking it up through your tree if it looks good?
 
-The tags always go last, but we can fix this when we merge the patch. 
-Thanks for fixing the issue.
+If there are any changes needed, please let me know.
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Link: https://lore.kernel.org/all/20260908140509.2485649-1-liusizhe5@huawei.com/
 
->
-> Changes in v2: drop the alpha formats entirely instead of advertising a
-> DRM_MODE_BLEND_PIXEL_NONE property, per review feedback from Thomas
-> Zimmermann. Leandro's Reviewed-by from v1 is not carried as the
-> approach changed.
->
-> Changes in v3: v2 missed the board-specific variant tables in
-> pl111_versatile.c (Integrator, IM-PD1, Versatile, RealView and
-> Versatile Express), which still exposed alpha formats and would fall
-> through to the WARN_ONCE default in pl111_display_enable() on those
-> boards. Pointed out by the sashiko AI reviewer.
-> ---
->   drivers/gpu/drm/pl111/pl111_display.c   |  6 ------
->   drivers/gpu/drm/pl111/pl111_drv.c       | 16 ----------------
->   drivers/gpu/drm/pl111/pl111_versatile.c | 18 ------------------
->   3 files changed, 40 deletions(-)
->
-> diff --git a/drivers/gpu/drm/pl111/pl111_display.c b/drivers/gpu/drm/pl111/pl111_display.c
-> index 5d10bc5fdf1f..e1b513d36c27 100644
-> --- a/drivers/gpu/drm/pl111/pl111_display.c
-> +++ b/drivers/gpu/drm/pl111/pl111_display.c
-> @@ -267,14 +267,12 @@ static void pl111_display_enable(struct drm_simple_display_pipe *pipe,
->   		if (priv->variant->st_bitmux_control)
->   			cntl |= CNTL_ST_LCDBPP24_PACKED;
->   		break;
-> -	case DRM_FORMAT_ABGR8888:
->   	case DRM_FORMAT_XBGR8888:
->   		if (priv->variant->st_bitmux_control)
->   			cntl |= CNTL_LCDBPP24 | CNTL_BGR;
->   		else
->   			cntl |= CNTL_LCDBPP24;
->   		break;
-> -	case DRM_FORMAT_ARGB8888:
->   	case DRM_FORMAT_XRGB8888:
->   		if (priv->variant->st_bitmux_control)
->   			cntl |= CNTL_LCDBPP24;
-> @@ -297,13 +295,11 @@ static void pl111_display_enable(struct drm_simple_display_pipe *pipe,
->   		else
->   			cntl |= CNTL_LCDBPP16_565 | CNTL_BGR;
->   		break;
-> -	case DRM_FORMAT_ABGR1555:
->   	case DRM_FORMAT_XBGR1555:
->   		cntl |= CNTL_LCDBPP16;
->   		if (priv->variant->st_bitmux_control)
->   			cntl |= CNTL_ST_1XBPP_5551 | CNTL_BGR;
->   		break;
-> -	case DRM_FORMAT_ARGB1555:
->   	case DRM_FORMAT_XRGB1555:
->   		cntl |= CNTL_LCDBPP16;
->   		if (priv->variant->st_bitmux_control)
-> @@ -311,13 +307,11 @@ static void pl111_display_enable(struct drm_simple_display_pipe *pipe,
->   		else
->   			cntl |= CNTL_BGR;
->   		break;
-> -	case DRM_FORMAT_ABGR4444:
->   	case DRM_FORMAT_XBGR4444:
->   		cntl |= CNTL_LCDBPP16_444;
->   		if (priv->variant->st_bitmux_control)
->   			cntl |= CNTL_ST_1XBPP_444 | CNTL_BGR;
->   		break;
-> -	case DRM_FORMAT_ARGB4444:
->   	case DRM_FORMAT_XRGB4444:
->   		cntl |= CNTL_LCDBPP16_444;
->   		if (priv->variant->st_bitmux_control)
-> diff --git a/drivers/gpu/drm/pl111/pl111_drv.c b/drivers/gpu/drm/pl111/pl111_drv.c
-> index ac7b1d12a0f5..2175ac953795 100644
-> --- a/drivers/gpu/drm/pl111/pl111_drv.c
-> +++ b/drivers/gpu/drm/pl111/pl111_drv.c
-> @@ -341,13 +341,9 @@ static void pl111_amba_shutdown(struct amba_device *amba_dev)
->    * This early variant lacks the 565 and 444 pixel formats.
->    */
->   static const u32 pl110_pixel_formats[] = {
-> -	DRM_FORMAT_ABGR8888,
->   	DRM_FORMAT_XBGR8888,
-> -	DRM_FORMAT_ARGB8888,
->   	DRM_FORMAT_XRGB8888,
-> -	DRM_FORMAT_ABGR1555,
->   	DRM_FORMAT_XBGR1555,
-> -	DRM_FORMAT_ARGB1555,
->   	DRM_FORMAT_XRGB1555,
->   };
->   
-> @@ -361,19 +357,13 @@ static const struct pl111_variant_data pl110_variant = {
->   
->   /* RealView, Versatile Express etc use this modern variant */
->   static const u32 pl111_pixel_formats[] = {
-> -	DRM_FORMAT_ABGR8888,
->   	DRM_FORMAT_XBGR8888,
-> -	DRM_FORMAT_ARGB8888,
->   	DRM_FORMAT_XRGB8888,
->   	DRM_FORMAT_BGR565,
->   	DRM_FORMAT_RGB565,
-> -	DRM_FORMAT_ABGR1555,
->   	DRM_FORMAT_XBGR1555,
-> -	DRM_FORMAT_ARGB1555,
->   	DRM_FORMAT_XRGB1555,
-> -	DRM_FORMAT_ABGR4444,
->   	DRM_FORMAT_XBGR4444,
-> -	DRM_FORMAT_ARGB4444,
->   	DRM_FORMAT_XRGB4444,
->   };
->   
-> @@ -387,19 +377,13 @@ static const struct pl111_variant_data pl111_variant = {
->   static const u32 pl110_nomadik_pixel_formats[] = {
->   	DRM_FORMAT_RGB888,
->   	DRM_FORMAT_BGR888,
-> -	DRM_FORMAT_ABGR8888,
->   	DRM_FORMAT_XBGR8888,
-> -	DRM_FORMAT_ARGB8888,
->   	DRM_FORMAT_XRGB8888,
->   	DRM_FORMAT_BGR565,
->   	DRM_FORMAT_RGB565,
-> -	DRM_FORMAT_ABGR1555,
->   	DRM_FORMAT_XBGR1555,
-> -	DRM_FORMAT_ARGB1555,
->   	DRM_FORMAT_XRGB1555,
-> -	DRM_FORMAT_ABGR4444,
->   	DRM_FORMAT_XBGR4444,
-> -	DRM_FORMAT_ARGB4444,
->   	DRM_FORMAT_XRGB4444,
->   };
->   
-> diff --git a/drivers/gpu/drm/pl111/pl111_versatile.c b/drivers/gpu/drm/pl111/pl111_versatile.c
-> index 0d8331a3909f..9a60f10231b1 100644
-> --- a/drivers/gpu/drm/pl111/pl111_versatile.c
-> +++ b/drivers/gpu/drm/pl111/pl111_versatile.c
-> @@ -209,9 +209,7 @@ static void pl111_versatile_enable(struct drm_device *drm, u32 format)
->   	drm_info(drm, "enable Versatile CLCD connectors\n");
->   
->   	switch (format) {
-> -	case DRM_FORMAT_ABGR8888:
->   	case DRM_FORMAT_XBGR8888:
-> -	case DRM_FORMAT_ARGB8888:
->   	case DRM_FORMAT_XRGB8888:
->   		val |= SYS_CLCD_MODE_888;
->   		break;
-> @@ -221,9 +219,7 @@ static void pl111_versatile_enable(struct drm_device *drm, u32 format)
->   	case DRM_FORMAT_RGB565:
->   		val |= SYS_CLCD_MODE_565_B_LSB;
->   		break;
-> -	case DRM_FORMAT_ABGR1555:
->   	case DRM_FORMAT_XBGR1555:
-> -	case DRM_FORMAT_ARGB1555:
->   	case DRM_FORMAT_XRGB1555:
->   		val |= SYS_CLCD_MODE_5551;
->   		break;
-> @@ -266,44 +262,30 @@ static void pl111_realview_clcd_enable(struct drm_device *drm, u32 format)
->   
->   /* PL110 pixel formats for Integrator, vanilla PL110 */
->   static const u32 pl110_integrator_pixel_formats[] = {
-> -	DRM_FORMAT_ABGR8888,
->   	DRM_FORMAT_XBGR8888,
-> -	DRM_FORMAT_ARGB8888,
->   	DRM_FORMAT_XRGB8888,
-> -	DRM_FORMAT_ABGR1555,
->   	DRM_FORMAT_XBGR1555,
-> -	DRM_FORMAT_ARGB1555,
->   	DRM_FORMAT_XRGB1555,
->   };
->   
->   /* Extended PL110 pixel formats for Integrator and Versatile */
->   static const u32 pl110_versatile_pixel_formats[] = {
-> -	DRM_FORMAT_ABGR8888,
->   	DRM_FORMAT_XBGR8888,
-> -	DRM_FORMAT_ARGB8888,
->   	DRM_FORMAT_XRGB8888,
->   	DRM_FORMAT_BGR565, /* Uses external PLD */
->   	DRM_FORMAT_RGB565, /* Uses external PLD */
-> -	DRM_FORMAT_ABGR1555,
->   	DRM_FORMAT_XBGR1555,
-> -	DRM_FORMAT_ARGB1555,
->   	DRM_FORMAT_XRGB1555,
->   };
->   
->   static const u32 pl111_realview_pixel_formats[] = {
-> -	DRM_FORMAT_ABGR8888,
->   	DRM_FORMAT_XBGR8888,
-> -	DRM_FORMAT_ARGB8888,
->   	DRM_FORMAT_XRGB8888,
->   	DRM_FORMAT_BGR565,
->   	DRM_FORMAT_RGB565,
-> -	DRM_FORMAT_ABGR1555,
->   	DRM_FORMAT_XBGR1555,
-> -	DRM_FORMAT_ARGB1555,
->   	DRM_FORMAT_XRGB1555,
-> -	DRM_FORMAT_ABGR4444,
->   	DRM_FORMAT_XBGR4444,
-> -	DRM_FORMAT_ARGB4444,
->   	DRM_FORMAT_XRGB4444,
->   };
->   
+Thanks for your time!
+Sizhe
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
+>> --- Changes in v4: - Add missing space in hisi-ptt.rst (Sashiko). -
+>> Widen the pattern bit field in struct hisi_ptt_trace_ctrl (Sashiko). 
+>> - Add protocol defined TLP header length parsing in patch 05/08. -
+>> Add MRd and DMRr message types parsing in patch 05/08. - Add comment
+>> for enum hisi_ptt_pkt_msg_type in patch 05/08. - Add DW0 and DW1
+>> fields analysing in patch 06/08. - Refine bit-fields parsing of DW0/
+>> DW1/DW2/DW3 based on different requests in patch 06/08. - Refine the
+>> description of pattern=1 in the document in patch 07/08. - Extract
+>> the bit-field printing of v1 version into functions in patch 08/08. -
+>> Link to v3: https://lore.kernel.org/linux-
+>> pci/20260903075241.1445338-1-liusizhe5@huawei.com/
+>> 
+>> Changes in v3: - Add explicit inclusion of <stdbool.h> (Sashiko). -
+>> Make patch 07/08 apply cleanly to mainline (Yushan). - Pick up the
+>> reviewed-by tag (Yushan). - Link to v2: https://lore.kernel.org/
+>> linux-pci/20260827140442.2031128-1-liusizhe5@huawei.com/
+>> 
+>> Changes in v2: - Split patch 01/10 and patch 02/10 from series v1
+>> into independent patch series for backporting (Bjorn). - Use bitwise
+>> operations instead of C bitfields for cross-platform cases (Sashiko).
+>> - Add `pattern` parameter in hisi_ptt driver for layout
+>> compatibility. - Link to v1: https://lore.kernel.org/linux-
+>> pci/20260604075005.2219785-1-liusizhe5@huawei.com/
+>> 
+>> --- Sizhe Liu (8): perf hisi-ptt: Abstract trace data buf and offset 
+>> perf hisi-ptt: Complete the field names for 4DW and 8DW packets perf
+>> hisi-ptt: Extract the raw data printing part perf hisi-ptt: Merge
+>> 4DW and 8DW HEAD0 printing perf hisi-ptt: Add parsing of supported
+>> message types and proto length perf hisi-ptt: Add field-level
+>> parsing for header DW0/DW1/DW2/DW3 hwtracing: hisi_ptt: Add pattern
+>> PMU config for trace format selection perf hisi-ptt: Pass pattern
+>> version to decoder for compatibility
+>> 
+>> Documentation/trace/hisi-ptt.rst              |  26 +- drivers/
+>> hwtracing/ptt/hisi_ptt.c              |  25 +- drivers/hwtracing/ptt/
+>> hisi_ptt.h              |   4 + tools/perf/arch/arm64/util/hisi-
+>> ptt.c         |  18 + .../hisi-ptt-decoder/hisi-ptt-pkt-decoder.c
+>> | 593 ++++++++++++++++-- .../hisi-ptt-decoder/hisi-ptt-pkt-
+>> decoder.h   | 241 ++++++- tools/perf/util/hisi-
+>> ptt.c                    |  51 +- tools/perf/util/hisi-
+>> ptt.h                    |   9 +- 8 files changed, 872
+>> insertions(+), 95 deletions(-)
+>> 
+>> -- 2.33.0
 
