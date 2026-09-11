@@ -1,171 +1,171 @@
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F3C53B71AB
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:48:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789091325; cv=none; b=NGpSbMqAG+T6H5jKbIKknxLlZfsKQlDnwxskmCwFefvt0jRq4j6jgWRjxCHs+5ivofO93vDYjGKTcNIjXoqch1vxFsSK3qsse1YiSBzcps6ANB/P1+7A4RlXElA8sv3KUqjimsh+yVVwuUtTISDwZBT51DY4vh8vSY2CX3yLLWA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789091325; c=relaxed/simple;
-	bh=+Hq6yCndvk+xNMtgXUSDWp7midRlZI5LvFk7k938tpM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EjuCXqDkUy9XOga+sE48pO+jVy/5qzp30pFG5vyvUTpSFL0TSd0ARZVyR/4Jv7UBFppmlRqSyva63J00TNuGWAfURhs4DsOy/qYcMI8KdaVYP8zIsZgY5N7RZ7vlaMdG8ai1+vWO/e0ZxyjDxhZ10oi6MDNRhUumbS4Phi463SI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hMfOlxbp; arc=none smtp.client-ip=209.85.218.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E66F224DFF9
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:50:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789091425; cv=pass; b=elZ5K/3opfkrbgL0EKGUYLU8EP1n6cTaZok9Czst+0aPIXXh9DXJmBZMthTE4aCZUpimwup4ibVXOBIiIdZckRTI26KoA+M9miNjNXg9OaJPMqPaPOM0g8eErf3ywtGm3STk+QpXXVwWDdUFgvoMFAyOa/x8fLM9KEtppQLKFuI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789091425; c=relaxed/simple;
+	bh=vx+ssvLQ/2n0xT68XYMop9NM0klSBbbzW7GdOKIDDYo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=L37nfJDDmcJGvO/iYxvy8jL+nQBGzibpxDDoXjhpUgyf+UIylzXG4ruDwwz4ORSlwDbSoQMNZ2XfNxWF6d3s57Gn2xPDXhtRTRGzfOmVlflMZg+S9rfV/iv/q3ZIOjW4OKJDiW4icmc8SLu+Umi1fpamuxpNqNveGtnwsJTiY60=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eVzV5k0q; arc=pass smtp.client-ip=209.85.128.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hMfOlxbp"
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c2940d16190so66334966b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:48:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eVzV5k0q"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49b965570d7so4872905e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:50:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789091422; cv=none;
+        d=google.com; s=arc-20260327;
+        b=P90+aj4LICCNmdU61W4O8tkoH+l03oNZxcAmn2pb952G9p4omrF62x0nvMvGMt/M5t
+         PjJ0T+gBwpB/giXPTZx/YV3YVlB0gS3C8cFi+zbzyzpws7fKWevbqpjAdrqb1f/xbz3A
+         MUwhYqcY6pwrukL3ZwwYgNKov7G1X3ZDUejDmqxCVCNg0+Q1rMzYuR4B42y4bTqnmauB
+         jSuc4Ujey2FeBqqKTdJmKYqV5zobSu/+D42dcLlZY2VsY9uLGYSGOPkieNx71a9ZagHk
+         I5OZF456bcayRmzYLtYYLomWoHIZFIzsbFXU2qeaDBiG4MVuAVJxdOBwFURDdFW9Neli
+         NJ6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=QCPrKmDOLjswZ/G8gb4hedrH78EI5NhsoNyjf+nq07k=;
+        fh=uwjK/4RJSRIvi3lacwEYeAr/+BMF4MM2z6SK/jDyP4w=;
+        b=DOxyKxyFwf9OLg/lw+3r5iU7MADk/H95Go6idE4I/lrIByWcirOFHyZ64FdfTjtddN
+         hiw0SKkoLsKXzuifYKle4FwQiK/e2t9cy8zn0EEsytGyFJvr5XGx8jVaUQR7dMF/oRdM
+         7xnVjv512CEpxI79z7gJUdSnsKyOEDVhF0uHkJGJGftOZrXMe2TSsxjpNA75IgkE9tAm
+         TcZA8VBU6NcqsCBCidfhB5u3opJumWKxbxwfMF4m/UYRqwvOJ9JyD2+n4jos5my4NK+L
+         fy0R8TGJPT1VpU6JglbTix59GH2ftcMAuAmr6z1wPP0FtXoIRZWDnYvYfZnZneSpcwbC
+         e8aw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789091321; x=1789696121; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Wl0Xht5utq/aA2gpsKqp71wsx5z8mSCgYWNC6eA+7n0=;
-        b=hMfOlxbpdZiEd7GUlLMuVA4T81nfl8RGvgxH1HbQ2irbUi83YICCUgLNbmViZ0jTWq
-         6ENcD/3zA6koiyZaHuSmJcO9I1LKEK72XsgTUv1FwyhTDQMQXgfWBAh7vm0RULvLD+dY
-         YqjZ4AOf+/ULSZT8qGdku4U65owpV04O4bNOyw4zafUgVR1q0TKcup/Gah5EXijA3k10
-         OlLRUI1amJnslb7Vtj4U1t+zXOsTGHKc4VnkX4oBlPhfxww3aGC2MvL8JbdOGWLoQNfl
-         62d9H/64MnsYe2BNN4+c2/wXl593ac31A0kmvVaFDNXE2Ou556K+dAESmQoDSg/W1EKY
-         Gu0w==
+        d=gmail.com; s=20251104; t=1789091422; x=1789696222; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QCPrKmDOLjswZ/G8gb4hedrH78EI5NhsoNyjf+nq07k=;
+        b=eVzV5k0qLx5hWDYWn+5hQQSM4bmYBZUR1AS2DJy38sbB/YC5dlIiyJYg9+fGVvsc76
+         9pZ7hgvHuqkd8Ie/+F52HaBZ6lEmN3TPqZHhjt7RRhomD20izRz94rdrh5/SRrF1i5PO
+         LZyz99alU1BVd7/8abqIvjqzQx+kWKr5GUiticqmITAiGq+IDSoN8wKdW6VYFxlXY5Fq
+         BIX9Z18Ic9/okrd0wXE7yObWbj35xC8qGekJ5OaRdg/NEWKuwX37Fq8jjMgYFNZO5OfF
+         Q6lmMsoNK1hpL0cHoMhvityBEg/zMMtCULxwu2A5YpyUlD4eBBYj7+Yavu8aGkYzoP8s
+         WlGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789091321; x=1789696121;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:sender:x-gm-gg
+        d=1e100.net; s=20251104; t=1789091422; x=1789696222;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Wl0Xht5utq/aA2gpsKqp71wsx5z8mSCgYWNC6eA+7n0=;
-        b=TXwb5iDnF2cAljjWhQbevx6/2eDTNkqUvWY5k05gBpdjJNZ7uQlh7sZuy4kXveJ4ze
-         02lqger8few4tI+7gd/cJG8fY4e5TXogoJPRV18wWUzOv2GKo8ex4LTe/gQufkEEH5RO
-         IH2U4+23JbxaotlrjDmp7Xx+DB4wkQ8mbp+MqR41QvyLHwd7ojPpNeGB22+CA+x1Lr2Z
-         SK6wWuJsUou/5qigrsHzivfmlhIZf0D3R68KSlKzyqEiF9LbOC45bpM9MWUfHV3XXFuz
-         5ekrlKEjnAaWGSmhJT78uDoFFV9ijJcxJjdz9f+ZVlGCIjSMzjWl9VbOqdUxPvv67LwV
-         siAA==
-X-Forwarded-Encrypted: i=1; AKwUvBzCRPnZrIEvYWqviybnL/ykOjuUCA56FsTDRC/MII58ZSqyC9g388tapVfhj0KkYbNRG1YweN2h+54bMfg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nWBtsXG097+rjxWzfxnYZXnOgDx7MHrECMd1Evd1Rq7iZbQVmf
-	PSUCSw9R8h6ypkdM3y7BdkT6wLbaV1C/jj55gxzZHu9XxPrPYSdUl7w=
-X-Gm-Gg: AYBFou3PpZuyhyzVPV54W5WrOHSJK2sYUpygWLECwqGeKhczDXHA9olxsnsRdfAziMn
-	Lb1edQptW4/H2s2upUIDAAvUMcVqfVyZjOinsdvxboCR9s+jepxlO+RQTpTR/UdqTf0JxbTkWgy
-	Kam/+PWl9rg0fz9BFaEw1y01TWKv7GYYOzLMewW93UoWL7v2JwNL8NTDa+guPr+hPdG1ShgwzrL
-	+ispKDZ2DVgsEV19M3PzcxHVvlwkvR0iC7OiBzZGEHsgNVyIeKCyRLnkE0qyelCFSgkUHm4SQQF
-	rA7wgPW8hV5WuBc65K7ouiKzQ2rE6WJ9z9471kpbCpbzMzBV9NW/sxozebiNWVh+UuhX2AL7Veb
-	wnw4Puaxn179Qiv2FbLh9gcg60rCYSYh4+2PmSvWbnYUAapSE9KkrPux7t6ehs0cj0Kl6ZV6Vnn
-	3Oh0BGBCMFDqsq67oG9Xea29qWuTvPW4gVXj4VLOtr7xfCJkA9YFG93Ax+ZD/KRah9cH0B0WkZs
-	AJcOlB0wOmml2MH2qqRUs+Om0ruafv5H3rzgjdiE2tGiMlU4P4kxpg6QE8/13IQd7k3ls/C/tfd
-	d6EgQJXP6p0ioVM=
-X-Received: by 2002:a17:907:3cc3:b0:c12:e178:9e68 with SMTP id a640c23a62f3a-c2966668eb3mr59295066b.19.1789091320753;
-        Thu, 10 Sep 2026 18:48:40 -0700 (PDT)
-Received: from nn ([2001:1ab8:1003:0:5454:f357:ba89:4e22])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966021ae8sm28097866b.22.2026.09.10.18.48.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 18:48:39 -0700 (PDT)
-Sender: N B <gen.benner@gmail.com>
-From: =?UTF-8?q?Nerijus=20Bend=C5=BEi=C5=ABnas?= <nerijus.bendziunas@gmail.com>
-To: toke@toke.dk
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] wifi: ath9k: clear the PHY error filter when a spectral scan is disabled
-Date: Fri, 11 Sep 2026 04:46:53 +0300
-Message-ID: <20260911014653.1566388-3-nerijus.bendziunas@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260911014653.1566388-1-nerijus.bendziunas@gmail.com>
-References: <20260911014653.1566388-1-nerijus.bendziunas@gmail.com>
+        bh=QCPrKmDOLjswZ/G8gb4hedrH78EI5NhsoNyjf+nq07k=;
+        b=lIQYje4eNjeDMC3MnHyUhcTIBPkfrlpFuBVLuH7IC/DWlUbURD98SC8AI0mjF0w7Ia
+         55K0/OE0ide47t1jZBFIe1u5+pmDx9m7VnkuoH6H+P7iU8Vu98ZVUSLElp5jb47MF+ud
+         6lFAKBNCNO5KjNTakufB9Rge3cw/ID54yIMKXN+2X0GjklY4plEqCPPSqNhc4MeSfhSi
+         QSXFF/OUo8i/qJs5KNdu/Re+0INR7vNaTD1Az7XZr279e4eLuXbudo+XD0SSmr7L6GxQ
+         aD8gQ9FeU96K291LBom167jtWfFJ20dNtn1B6aG81DkSluPMrkvtf5ZsSW1PcUY+Ovrw
+         DD1A==
+X-Forwarded-Encrypted: i=1; AKwUvBxKgOR4SiUghP4/mPnDZAK6HADiKSF9Qm7gzFQkUbG8CqJTmaM4gmXhiHAtkGagInNujh5HVDncVGxtaAs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kVSA/reatvHgxWukAANCPqoQuN7UTYtPivZhzBOzKH4qVStqll
+	bdVfnQrvAXUGJ7zC3mE9cC8wv2CiSa9JvuWQXPMJwq3jsknZO6qve9IpXkqRkP5jISSAe5AZwMf
+	GwXnGq4ExDZAnQGlhU3+jOhIvCuEjkBU=
+X-Gm-Gg: AYBFou3JitzM4GICc0HdfAyJbCLqwfDpZTwRo7G36N+2Q3dD5BXmYuLvTxnFgCFUtV7
+	skFUENwMfT20uCbPGYNxw3H51oce3lvHdBBqX+7JgEwXUG3+JM9exiBcW4IyTweuZgY5En/9KFD
+	sl7KGoBdU+griOxOB18LR6+/DktPdT9cJlitpowzALV0t3PIt8NXX4JNMRC2WhzkRNioiy6vZi0
+	RG8Vy/XIyfpVBivhF1lODsU8rTNS0+qm+adomk9Wo+Zd4gSr35pak1ggwChnLldtSNnc7epOq9r
+	LJx2B5cxJJM7ofP9sOv7hAhSyyT+UMnCNQaC5+P+GU2b3kexUp7zOgqpl9ykmvv4IGAm4in3h1G
+	suhv77zlBw+hqj/k=
+X-Received: by 2002:a05:600c:4f84:b0:49c:fc6e:8cb9 with SMTP id
+ 5b1f17b1804b1-49e619dbe1dmr16170215e9.29.1789091421145; Thu, 10 Sep 2026
+ 18:50:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260910084629.3695383-1-kunwu.chan@gmail.com> <d1bf830e-8755-4eef-a8f6-35612640a478@paulmck-laptop>
+In-Reply-To: <d1bf830e-8755-4eef-a8f6-35612640a478@paulmck-laptop>
+From: KunWu Chan <kunwu.chan@gmail.com>
+Date: Fri, 11 Sep 2026 09:50:09 +0800
+X-Gm-Features: AcwNN1VvrNWvy6Z_lG_xJ7XlHcRflo55ggo_837jUIbeAoVb3xV3EQxAkPXSWis
+Message-ID: <CAN_Opa_X1Gq4DxMhZvM_8XPg96Anw6UWW2EnndtVJ6vPYKE0YQ@mail.gmail.com>
+Subject: Re: [PATCH v2] srcutree: Add WARN_ON_ONCE() for atomic SRCU in srcu_gp_end()
+To: paulmck@kernel.org
+Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org, 
+	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Triggering a spectral scan sets the PHY error bits in AR_RX_FILTER and
-AR_PHY_ERR and sets AR_RXCFG_ZLFDMA. Disabling it clears none of them,
-and ath9k_htc carries the hardware bits into every later filter update.
-An idle AR9271 in monitor mode then keeps forwarding every PHY error
-as a zero-length frame.
+On Fri, Sep 11, 2026 at 12:58=E2=80=AFAM Paul E. McKenney <paulmck@kernel.o=
+rg> wrote:
+>
+> On Thu, Sep 10, 2026 at 04:46:29PM +0800, Kunwu Chan wrote:
+> > Atomic SRCU remain in the small size state, so add a
+> > WARN_ON_ONCE() before the transition check to catch any future
+> > code path that might violate this invariant.
+> >
+> > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> > ---
+> > Changes since v1:
+> > - Drop the !is_atomic guard from v1 and add WARN_ON_ONCE() instead,
+> >   per Paul McKenney's suggestion.
+> > - v1: https://lore.kernel.org/rcu/20260907075829.2073224-8-kunwu.chan@l=
+inux.dev/
+> > ---
+> >  kernel/rcu/srcutree.c | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >
+> > diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
+> > index 84c022ec8e09..68441c32cebf 100644
+> > --- a/kernel/rcu/srcutree.c
+> > +++ b/kernel/rcu/srcutree.c
+> > @@ -1074,6 +1074,8 @@ static void srcu_gp_end(struct srcu_struct *ssp, =
+bool is_atomic)
+> >       }
+> >
+> >       /* Transition to big if needed. */
+> > +     WARN_ON_ONCE(ssp->srcu_reader_flavor =3D=3D SRCU_READ_FLAVOR_ATOM=
+IC &&
+> > +                     ss_state !=3D SRCU_SIZE_SMALL);
+>
+> Also much better, but we also need to avoid doing the transition in this
+> case, because doing that transition breaks atomic SRCU.  On way to make
+> this happen is something like this:
+>
+>         if (ssp->srcu_reader_flavor =3D=3D SRCU_READ_FLAVOR_ATOMIC && ss_=
+state !=3D SRCU_SIZE_SMALL) {
+>                 WARN_ON_ONCE(1);
+>         } else if (ss_state !=3D SRCU_SIZE_SMALL && ss_state !=3D SRCU_SI=
+ZE_BIG) {
+>                 if (ss_state =3D=3D SRCU_SIZE_ALLOC)
+>                         init_srcu_struct_nodes(ssp, GFP_KERNEL);
+>
 
-Clear all three on SPECTRAL_DISABLED unless radar detection is enabled,
-which needs the same bits. AR_RXCFG_ZLFDMA must go too: with it set the
-frames keep coming after the PHY error mask is cleared. As with the
-enable path, firmware older than 1.4 still reads from the host.
+Thanks, Paul. Good point. The original !is_atomic guard in v1
+already prevented the transition for atomic SRCU. I was mainly
+thinking of the WARN as a diagnostic, since this state should not
+occur with the current code. I agree that retaining the protection
+against the transition is safer if the invariant is ever violated.
 
-Fixes: e93d083f42a1 ("ath9k: add spectral scan feature")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Nerijus Bendžiūnas <nerijus.bendziunas@gmail.com>
----
- .../net/wireless/ath/ath9k/common-spectral.c  |  6 +++++
- drivers/net/wireless/ath/ath9k/hw.c           | 23 +++++++++++++++++++
- drivers/net/wireless/ath/ath9k/hw.h           |  1 +
- 3 files changed, 30 insertions(+)
+> Other approaches might take advantage of the fact that WARN_ON_ONCE()
+> returns the value of its argument, allowing WARN_ON_ONCE() to be used
+> as a condition in an "if" statement.
+>
 
-diff --git a/drivers/net/wireless/ath/ath9k/common-spectral.c b/drivers/net/wireless/ath/ath9k/common-spectral.c
-index 73c1eb4ebe0e..841075d904f8 100644
---- a/drivers/net/wireless/ath/ath9k/common-spectral.c
-+++ b/drivers/net/wireless/ath/ath9k/common-spectral.c
-@@ -776,6 +776,12 @@ int ath9k_cmn_spectral_scan_config(struct ath_common *common,
- 
- 	ath_ps_ops(common)->wakeup(common);
- 	ath9k_hw_ops(ah)->spectral_scan_config(ah, &spec_priv->spec_config);
-+
-+	/* Radar detection needs the same bits. */
-+	if (spectral_mode == SPECTRAL_DISABLED &&
-+	    !common->hw->conf.radar_enabled)
-+		ath9k_hw_disable_rxfilter(ah, ATH9K_RX_FILTER_PHYRADAR |
-+					      ATH9K_RX_FILTER_PHYERR);
- 	ath_ps_ops(common)->restore(common);
- 
- 	spec_priv->spectral_mode = spectral_mode;
-diff --git a/drivers/net/wireless/ath/ath9k/hw.c b/drivers/net/wireless/ath/ath9k/hw.c
-index d62b6ff00d41..6f86a8967548 100644
---- a/drivers/net/wireless/ath/ath9k/hw.c
-+++ b/drivers/net/wireless/ath/ath9k/hw.c
-@@ -2928,6 +2928,29 @@ void ath9k_hw_enable_rxfilter(struct ath_hw *ah, u32 bits)
- }
- EXPORT_SYMBOL(ath9k_hw_enable_rxfilter);
- 
-+/*
-+ * Counterpart of ath9k_hw_enable_rxfilter(). AR_RXCFG_ZLFDMA goes with the
-+ * PHY error mask or the frames keep coming; callers clear all the PHY error
-+ * bits together, as checking for a remaining one would need a read.
-+ */
-+void ath9k_hw_disable_rxfilter(struct ath_hw *ah, u32 bits)
-+{
-+	u32 phybits = 0;
-+
-+	if (bits & ATH9K_RX_FILTER_PHYRADAR)
-+		phybits |= AR_PHY_ERR_RADAR;
-+	if (bits & ATH9K_RX_FILTER_PHYERR)
-+		phybits |= AR_PHY_ERR_OFDM_TIMING | AR_PHY_ERR_CCK_TIMING;
-+
-+	REG_CLR_BIT(ah, AR_RX_FILTER, bits);
-+
-+	if (phybits) {
-+		REG_CLR_BIT(ah, AR_PHY_ERR, phybits);
-+		REG_CLR_BIT(ah, AR_RXCFG, AR_RXCFG_ZLFDMA);
-+	}
-+}
-+EXPORT_SYMBOL(ath9k_hw_disable_rxfilter);
-+
- bool ath9k_hw_phy_disable(struct ath_hw *ah)
+I prefer the first approach. Using !WARN_ON_ONCE() directly in the
+existing condition would make it rather long and less readable,
+while the explicit if/else keeps the control flow clear.
+
+Thanks,
+Kunwu
+
+>                                                         Thanx, Paul
+>
+> >       if (ss_state !=3D SRCU_SIZE_SMALL && ss_state !=3D SRCU_SIZE_BIG)=
  {
- 	if (ath9k_hw_mci_is_enabled(ah))
-diff --git a/drivers/net/wireless/ath/ath9k/hw.h b/drivers/net/wireless/ath/ath9k/hw.h
-index f102f73a0114..983146208f26 100644
---- a/drivers/net/wireless/ath/ath9k/hw.h
-+++ b/drivers/net/wireless/ath/ath9k/hw.h
-@@ -1056,6 +1056,7 @@ void ath9k_hw_get_channel_centers(struct ath_hw *ah,
- u32 ath9k_hw_getrxfilter(struct ath_hw *ah);
- void ath9k_hw_setrxfilter(struct ath_hw *ah, u32 bits);
- void ath9k_hw_enable_rxfilter(struct ath_hw *ah, u32 bits);
-+void ath9k_hw_disable_rxfilter(struct ath_hw *ah, u32 bits);
- bool ath9k_hw_phy_disable(struct ath_hw *ah);
- bool ath9k_hw_disable(struct ath_hw *ah);
- void ath9k_hw_set_txpowerlimit(struct ath_hw *ah, u32 limit, bool test);
--- 
-2.55.0
-
+> >               if (ss_state =3D=3D SRCU_SIZE_ALLOC)
+> >                       init_srcu_struct_nodes(ssp, GFP_KERNEL);
+> > --
+> > 2.43.0
+> >
