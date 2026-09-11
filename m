@@ -1,226 +1,494 @@
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [217.70.183.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 450343515C2;
-	Fri, 11 Sep 2026 12:15:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD98390C90
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:15:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789128908; cv=none; b=LdbtP1rXHz8eEMP8vnOqkgigJ3U258pj2m1RQW3JIMywOckDHbTGSibGlIGxS3jQrp3Ux+7gvP9q7I40UweVTw5G7hIbo1EJScI3+frCRCbqawM6lBHl13DxUwavVgbz2Vg5+C65jDiYWbms8sY6s8I2gTaDl7+5LYkpTsbqoJ0=
+	t=1789128935; cv=none; b=A/nQtD1q/MX06CrmTVIj8brlRnEMwQH8QXs+4PRxOqCehrJt6wA89I38sveBsmZOUAjI0I/33l1gz+HgqfhH+bnlZUgHQzKK5mA5+kvV/H+Laf+fJ3LOqyw8fo2IhMuNLJNZfJarJXoZ4D+idFpzK6VAupI/e/ynrdsXHJd1ZRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789128908; c=relaxed/simple;
-	bh=xe7RTnGJ07oHf8k2Dj/sAgJUe+EDTT6QFFlh85x6Crg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YS0rRQDC6bvi6LwCGzFOk4Za2W3iXqgfyioPVHIhgvncuFZ+h3VtRD6A1nPCSN3jUC30MYsCaGLK8i1y5qeUHo+7vPWKthr3co34HxqGmGiZyQBH+1bbMBo4jeGpT28acPBeeCgX9ugHdjTDG1MLXRBW5NNSyDcQWuP+qPfYEbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr; spf=pass smtp.mailfrom=ghiti.fr; arc=none smtp.client-ip=217.70.183.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghiti.fr
-Received: by mail.gandi.net (Postfix) with ESMTPSA id DBC853EE31;
-	Fri, 11 Sep 2026 12:14:51 +0000 (UTC)
-From: Alexandre Ghiti <alex@ghiti.fr>
-To: Johannes Weiner <hannes@cmpxchg.org>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>
-Cc: Kairui Song <ryncsn@gmail.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Wei Xu <weixugc@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	Tal Zussman <tz2294@columbia.edu>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
+	s=arc-20240116; t=1789128935; c=relaxed/simple;
+	bh=XJ9obYSWtY4qthMuIzrbSVIGHV8ERc0eSptJiFIpbKo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=uanQgO5lwj/5elYthazJUorScFCH7ePCkDrbVGvYFZcpo4GQkyHCpPUj/OLoxj59v43a1qfZ2aFbppjtxP5vWXRUBllK6tY7jjAlsloLPzJBlqRKvKir0GZ97ZXs/TORr06CDlckLEHJvXpANU1qMfWpVaj3IbpqIg9U8wvisTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=b6zkASsm; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="b6zkASsm"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d90ba1d807so9655635ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:15:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1789128933; x=1789733733; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HtKZQct/qW4J5I+VejgYdZtvYsRIM1Drv1Z+7+Cq5s8=;
+        b=b6zkASsm1xdPyXO6AQcyGj2ywQ9HKib9At15Bx1cjbX7TN54adMWQ6VhcgqUxM9Y4Y
+         1mKZz11WAkSIwFnlQyDDxTABF/uaU7idf2lLYHq2cfSUE0Cy0yvd4Q7dpIOuMuhVoGTc
+         eYM44xt2HY0B5PYep3KW3/DVr35HrHkpQPwYmBaBAgXl0ubowo67XRX+K4fto2e1PaNG
+         UL8YWfnLClw3WY5Rx9yMIx+IFxdGVx9zlTuX3foTJYxH4Tq8iLpaN7GgfnBvXQhbfhlu
+         VhZbKb1Jwrmj3yHytwc62SvMpEZwOtq1rbaKGPEYejtZvIXMtyzrsgGbWJsODEoXY9mS
+         6u+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789128933; x=1789733733;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HtKZQct/qW4J5I+VejgYdZtvYsRIM1Drv1Z+7+Cq5s8=;
+        b=ddCCmkuKEKZGllqnkJzdKPaGEISYYbi/QD11uVEvVXZdhIP5EYx+TYYFyjqTq91BId
+         Nxb4G2RE5XTab7NE8fd6TQIMFFq1XBs9RaiyAb8P3wfd3IUp+TjIkRyBq6F5LNE09w68
+         XOQkahz9y6sXbzazMfMcJUuBrnS8l29ThqS37T/UYMUtCuHPI66d6KsL3LxY4V6hnJE9
+         TzFbbmij3ZKs2q1I3oftGA+kvUX4pS/ksXSXsvlsGIE7PQxD6vJWUUVsuwgPoueqJKqo
+         t/MXE42MeyYLyj9JVeqabKeCR0Gd7bDZPcR+aYGJl2huiBwrTI352zkPEECLSHrlDlSr
+         8jKw==
+X-Forwarded-Encrypted: i=1; AKwUvByYhjbGSCJUZPlQoB41CFI1Qxw0tlgzxhYHVX8fp6WP3tOLXJLNdYC9fSTtbhWt5EYhDHwTXoY5k5oWahY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVS951nUUvC+gwZ3WenwCCRNuivztjgaUI3vVm3mU5UmAhekSY
+	SoH1+of5lXLncdYXNBm2Tah/cym0WW5qvuTX8+dTJJRX8kOVs7PBh8NC3ynVV2NQi/E=
+X-Gm-Gg: AYBFou06A1eCPm9qEkdQlapqyNBqI+ccmorN8t4YldbCGWxCjatn5SdYViTqjeUL+xl
+	4p/8S4VrMqVdsbxUzYIIus5Tza69JiH5tDdH/ngiwSBrWeV1P+lFyBkXSOLbahV1wSwDapmT1zG
+	ngtFUf6MJVLP+180BLWUN4hOAAMU+Y4wxek3djhmd1clpwHIXqJtpI8TevQsFmTcNYvXjzKbpJC
+	sscBgSyEJSzRW4nNC5iGxwSzzDhxbzd9HbRRMxi71JoMVA0wuK5zFvG7IeSVPvn1Ya/LCroOyoq
+	Pq8ZJAAHlckWJHUl4WmDoAV8XtCBMY6uRn3FtH2cE1pAG+NVUQf6AQfoMx+Kk20cOZyUMo9Oyr7
+	Exc8SC0P/QFEh2nH6dbBYa5/vyZc/sFx8TQPworq4Gzrz2HAdQ2giJP0GsNkJ1mMubtocAuS6nI
+	lo6ob5FdWvQ3vu+ZkN2iBMzd1xElIMvgabQVX6DuXllDLcfviJD7yLYoNSN48SBcLqSD75DnCwj
+	7fb5q15lQQP1YyaCSv9FpNL1Sqvh5GvijRHsEVml/pJ79ObQW3A
+X-Received: by 2002:a17:90b:1d44:b0:38e:57a3:f218 with SMTP id 98e67ed59e1d1-39d9c234a8emr6774079a91.13.1789128931521;
+        Fri, 11 Sep 2026 05:15:31 -0700 (PDT)
+Received: from FJ7FR2JRQ3 ([2409:8a28:f48:3091:908c:b537:572a:4db0])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33baf0ea9a1sm3178278eec.8.2026.09.11.05.15.11
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 11 Sep 2026 05:15:30 -0700 (PDT)
+From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
 	Alexandre Ghiti <alex@ghiti.fr>,
-	Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH v5 1/3] mm: swap: move LRU insertion out of the swap cache allocator
-Date: Fri, 11 Sep 2026 14:13:28 +0200
-Message-ID: <20260911121341.178028-2-alex@ghiti.fr>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260911121341.178028-1-alex@ghiti.fr>
-References: <20260911121341.178028-1-alex@ghiti.fr>
+	Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>,
+	Conor Dooley <conor@kernel.org>,
+	Anup Patel <anup@brainfault.org>
+Cc: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <cleger@rivosinc.com>,
+	Yunhui Cui <cuiyunhui@bytedance.com>,
+	Atish Patra <atish.patra@linux.dev>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Will Deacon <will@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Yuanzhu <yuanzhu@bytedance.com>,
+	Yicong Yang <yang.yicong@picoheart.com>,
+	Susheng Yang <yang.susheng@zte.com.cn>,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+Subject: [PATCH v10 0/9] riscv: add SBI Supervisor Software Events support
+Date: Fri, 11 Sep 2026 20:14:47 +0800
+Message-ID: <20260911121456.33223-1-zhangzhanpeng.jasper@bytedance.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-GND-Sasl: alex@ghiti.fr
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: dmFkZTEHRPri608QdqX6Uj/BbR+hiAEqvAJNom1pMUaPCDF92wYu3ptg6D8gDZW2m7AvuQwIR2KkJm7RAJk3qeVC81VqEBriyq2Xdjp0AkofstRRVIHILe7cZr6l7t4f+ZKKWwj7745VQLOUqBJD9XxbkV5akW9m/vZnNgm4vNpb9ydmOxvLDanCIkyPQkljOkGS/d6zP/hgl5t79Smmd9JlhTybu2Diwh+eRj0dOJKXMe8t0uExHKdrFvDVypESTLCitwfT3LQsgEesG/8CTTaCUNDOth3Vv6FT5jDyJo9k/tttrmUE3LC7BxoOrohdZXA7bWgJIy8/L4PoQV6JuGOeZNVrAydr/M/Unk1WMzvuPcjb4Hd4uk4M8iOuPTUmHhjU58cXIEjZeyJQlaRrUBY4zkTuVoehOKQUGCsV/ONEYVrKv39Wks4nHPDUS0ZmY3jXR5P9iw2byjlaTIr8qSHXgVNi5xOmkBeXJIaZiWXzFL2loFPw3GIhhYeAfYEAmy33dbUQ6iFfIo2XbUY2HE3oNuYwAZAODPAkv5Bhv/RITaIy5Y+VlE1InwPCj2LkbRYK3uzszINY0nDeIfQcwUcEpxtypI2L+HqLeS5xdm/9y3UY7NELZObB8MtI7hIjPwJZaDK6DL2EH80xTRXH1V0rF+eyEV92wcx2Y57t8IV5lQJk5g
 
-This is a preparatory patch.
+RISC-V does not architecturally define a supervisor-mode non-maskable
+interrupt (NMI). An interrupt that arrives while Linux has cleared SIE stays
+pending and is not observed until interrupts are enabled again. That is
+correct for ordinary interrupt handling, but some kernel work needs an
+NMI-like notification that can run even inside an interrupt-disabled region:
+sampling a PMU overflow at the instruction that caused it, or taking a
+high-priority RAS report promptly, cannot wait for the next unmask boundary.
 
-__swap_cache_alloc_folio() adds the new folio to the LRU itself, which
-leaves its callers no way to act on the folio before it becomes visible
-to reclaim.  Two users need exactly that:
+The SBI Supervisor Software Events (SSE) extension [1] fills this gap. It lets
+Linux register handlers for events that the SBI implementation can deliver
+ahead of ordinary traps and interrupts, giving RISC-V the NMI-like supervisor
+notification mechanism it otherwise lacks.
 
- - moving the refault evaluation out of the swap cache folio allocation
-   requires it to happen before folio_add_lru(): that consumes PG_active
-   to file the folio on the inactive or the active list, and under MGLRU
-   it also reads PG_workingset to pick the generation.  Setting either
-   flag afterwards does not move the folio;
+SSE can carry several event sources: high-priority RAS reports, double traps,
+and PMU overflow, with room for further standard and platform events. This
+series focuses on PMU overflow, its first user. Delivering overflows through
+SSE lets perf sample the code that was actually running while interrupts were
+disabled, rather than the later point where execution reached an
+interrupt-unmask boundary.
 
- - zswap writeback dropbehind needs the buffer folio to stay off the LRU
-   entirely, as the per-CPU LRU batch would hold a reference on it and
-   keep remove_mapping() from freeing it once writeback completes.
+This series implements the Linux side of that interface: the architecture
+entry machinery, a firmware driver that exposes SSE events to in-kernel
+clients, PMU overflow delivery, and regression tests. Per-hart local events
+and system-wide global events share one client API.
 
-Defer the LRU insertion to the callers of __swap_cache_alloc_folio():
-each of them adds the folio right after the allocation, so there is no
-functional change intended.
+SSE delivery model
+==================
 
-Suggested-by: Kairui Song <kasong@tencent.com>
-Reviewed-by: Nhat Pham <nphamcs@gmail.com>
-Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
-Acked-by: Usama Arif <usama.arif@linux.dev>
-Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
+Linux first registers a handler and an event stack with the SBI
+implementation, then enables the event. When an event source is signalled, the
+M-mode SBI implementation preempts Linux even in an interrupt-disabled region:
+it saves the interrupted supervisor state and constructs an S-mode context
+that enters the registered handler. Linux can now run its own handler, for
+example to take a perf sample or process a RAS report, then completes the
+event with another SBI call, allowing the interrupted context to resume.
+
+The typical hardware-triggered delivery flow is (software-injected events skip
+the hardware trigger):
+
+       <--------- Linux kernel ----------->  <-- Firmware --->  <- Hardware ->
+     interrupted context  SSE handler             OpenSBI          Hardware
+              |                 |                    |                 |
+[1] setup     |                 |-register & enable-->                 |
+              |                 |                    |                 |
+[2] trigger   |                 |                    <----trigger------|
+              |                 |                    |                 |
+[3] save      |                 |            +--------------+          |
+              |                 |            | context save |          |
+              |                 |            +--------------+          |
+              |                 |                    |                 |
+[4] inject    |                 |        +-----------------------+     |
+              |                 |        | handler context setup |     |
+              |                 |        +-----------------------+     |
+              |                 <---inject (mret) ---|                 |
+              |                 |                    |                 |
+[5] handle    |        +----------------+            |                 |
+              |        | event handling |            |                 |
+              |        +----------------+            |                 |
+              |                 |                    |                 |
+[6] complete  |                 |-----complete------->                 |
+              |                 |                    |                 |
+[7] restore   |                 |           +-----------------+        |
+              |                 |           | context restore |        |
+              |                 |           +-----------------+        |
+              |                 |                    |                 |
+[8] resume    <------------resume (mret) ------------|                 |
+              |                 |                    |                 |
+
+The context used to enter the handler exists only for this handoff; it is not
+the task context that the event interrupted. The architecture entry code joins
+the two sides: it moves execution onto the event's dedicated stack and shadow
+call stack, establishes the current task, and presents the interrupted
+registers to the callback as a normal pt_regs. Clients can therefore operate
+on the original interrupted context without depending on the firmware entry
+details.
+
+Linux implementation
+====================
+
+An SSE handler runs in NMI-like context: it must not sleep, must not take a
+page fault, and may interrupt code that holds arbitrary locks or is partway
+through kernel entry. The implementation is shaped by those constraints.
+
+Because it is NMI-like, an SSE can arrive at any point where interrupts are
+disabled, including while Linux is midway through exception entry, a task
+switch, or a KVM guest transition, where the normal kernel entry state is only
+partially established. The SSE entry wrapper (the architecture assembly that
+runs before the client callback) copes with this: it preserves Linux-owned
+stvec, hstatus, and task stack metadata across the handler and any nested
+exception, and its earliest instructions, which run before the event stack and
+current task are set up, are kept outside kprobe instrumentation.
+
+The callback receives the interrupted registers as a pt_regs and is allowed to
+edit them. On RISC-V a6 and a7 carry SBI call arguments and results, so a
+callback that wants to influence an in-flight SBI call the event interrupted
+edits them there. The entry wrapper copies just a6 and a7 from that pt_regs
+back into the context handed to the completion SBI call, so the edit takes
+effect when the interrupted code resumes; the rest of the interrupted state is
+restored by firmware and left untouched.
+
+The firmware driver maps the SBI event state machine onto kernel resource
+ownership. A callback, stack, and attribute buffer stay alive until firmware
+has removed every registration that can refer to them. Failed partial
+operations remain tracked for later cleanup, an aborted CPU-offline operation
+restores the requested event state, and shutdown and kexec mask SSE before
+Linux stops servicing handlers.
+
+PMU overflow and perf
+=====================
+
+The RISC-V SBI PMU driver delivers overflows through ordinary interrupts by
+default. When firmware implements SSE and the local PMU-overflow event, the
+driver routes overflows through SSE instead. The choice is made once at setup
+and is not switched at runtime; an operational failure disables sampling
+rather than risking two active routes for the same overflow.
+
+This changes where perf can observe an overflow, not how applications use
+perf. A normal PMU interrupt raised while S-mode interrupts are masked is
+handled only once they are enabled again, so the resulting sample often points
+at the unmask boundary rather than at the code that consumed the cycles. SSE
+can enter Linux at the original point and remove that source of sampling bias.
+No new perf option or perf.data format is introduced.
+
+The entry code supplies the interrupted pt_regs needed for register samples
+and for kernel and user callchains. DWARF callchains additionally require a
+copy of the interrupted user stack. Since an SSE handler cannot take a normal
+page fault, this series takes a temporary reference to the resident user pages
+with fast-only GUP, copies them through their kernel mappings, and truncates
+the sample at the first page that is not immediately available. The existing
+in-atomic copy remains unchanged outside SSE context.
+
+The PMU integration retains perf's throttling and stopped-event semantics. It
+restarts only runnable counters and orders the CPU power-management callbacks
+so that counters cannot resume after a hart has failed to restore its SSE
+delivery path.
+
+Hardware results
+================
+
+We measured this on a RISC-V server platform. The same kernel source
+and perf binary were used for both routes; one delivered PMU overflows through
+ordinary interrupts and the other through SSE. The table shows the mean of
+three runs of three million single-CPU "perf bench sched pipe" operations. The
+"ops/s" columns are workload throughput (higher is better, so they show the
+profiling overhead); the "samples/s" columns are the sampling rate perf
+actually achieved against the requested -F frequency:
+
+  rate       IRQ ops/s   SSE ops/s   delta   IRQ samples/s   SSE samples/s
+  -F 99        337,707     339,555   +0.55%            98.0            98.6
+  -F 999       338,352     338,289   -0.02%           995.7           998.0
+  -F 5000      329,002     333,034   +1.23%          5001.7          5001.6
+
+There were no lost samples. Across these normal frequency settings, both
+delivery modes reached the requested sample rate and workload throughput
+differed by no more than 1.23%.
+
+The "perf bench sched pipe" workload also shows why the delivery mechanism
+matters to the resulting profile. Ordinary PMU interrupts cannot enter an
+interrupt-disabled kernel critical section. Overflows raised there remain
+pending until interrupts are enabled again. Samples consequently accumulate
+at the enable boundary rather than at the code that consumed the cycles. In
+the IRQ profile, finish_task_switch() and _raw_spin_unlock_irqrestore()
+therefore accounted for 54.99% of all samples.
+
+SSE can enter Linux while S-mode interrupts are disabled. The PMU-SSE
+profile therefore samples inside those critical sections and exposes the
+scheduler, locking, address-space switching, and wake-up paths doing the
+actual work. The leading entries from the two -F 999 reports show the
+difference.
+
+With ordinary PMU interrupt delivery:
+
+  overhead   symbol
+    36.63%   finish_task_switch.isra.0
+    18.36%   _raw_spin_unlock_irqrestore
+     7.66%   __internal_syscall_cancel
+     7.55%   do_trap_ecall_u
+     4.19%   mutex_lock
+     3.64%   mutex_unlock
+     3.06%   exit_to_user_mode_loop
+
+With PMU-SSE delivery:
+
+  overhead   symbol
+     5.48%   __kprobes_text_end
+     5.29%   __schedule
+     5.10%   ret_from_exception
+     4.71%   do_raw_spin_lock
+     4.01%   do_trap_ecall_u
+     3.99%   mutex_lock
+     3.66%   switch_mm
+     3.43%   mutex_unlock
+     3.29%   exit_to_user_mode_loop
+     3.28%   psi_group_change
+
+The ordinary interrupt profile is dominated by two interrupt-enable
+boundaries. With SSE, those two entries account for only 3.37%. The samples
+are instead distributed across scheduler paths within the critical sections.
+
+At perf's configured limit of 100,000 samples per second, both routes still
+made progress without lost samples. In this deliberately saturated regime SSE
+reduced workload throughput by 2.7% to 5.8%, which exposes the additional
+firmware-entry cost and marks a practical upper boundary for sampling.
+Thirty-second perf top runs at the same rate each processed about 3.1 million
+samples with no loss, stalls, or kernel failures.
+
+The DWARF callchain path gets dedicated coverage because it was the source of
+the corruption this series fixes. On the same platform,
+"perf record -a -g --call-graph dwarf,512 -F 999" layered on a concurrent
+"hackbench -g25 -l600" -- the configuration that previously corrupted
+spinlocks and mutexes under SSE -- now completes cleanly, with no lost
+samples, lockups, RCU stalls, or faults, including a 431-iteration soak.
+Patch 9 adds a regression test that drives the non-faulting user-stack copy
+through the SSE handler with 32 concurrent samplers and checks perf's
+truncation semantics.
+
+Changes in v10
+==============
+
+V10 turns the earlier feature series into a path suitable for sustained perf
+use. In particular, it:
+
+  - reconstructs and publishes the interrupted context for perf register
+    samples and kernel and user callchains;
+  - preserves current, task stack metadata, stvec, hstatus, and shadow-call
+    stack state across synthetic entry and nested exceptions;
+  - prevents fault-disabled accesses from entering the generic RISC-V page
+    fault path and provides a non-faulting SSE user-stack copy;
+  - makes event lifetime and rollback explicit across partial firmware
+    operations, CPU hotplug, shutdown, crash, and kexec;
+  - closes PMU throttle, counter restart, CPU power-management, and cleanup
+    races without adding a runtime SSE-to-IRQ transition; and
+  - expands the framework stress coverage and adds a regression test for
+    high-frequency DWARF user-stack sampling.
+
+Changes in v9:
+  - Rebased the original series onto RISC-V for-next.
+  - Preserved Linux-owned trap, virtualization, and supervisor state across
+    the synthetic SSE handler.
+  - Added framework stress modes and updated MAINTAINERS.
+
+Previous versions:
+  v9:
+    https://lore.kernel.org/r/cover.1778331862.git.zhangzhanpeng.jasper@bytedance.com
+  v8:
+    https://lore.kernel.org/r/20251105082639.342973-1-cleger@rivosinc.com
+
+How to test
+===========
+
+Enable the SSE framework and SSE overflow delivery:
+
+  CONFIG_RISCV_SBI_SSE=y
+  CONFIG_RISCV_PMU_SBI=y
+  CONFIG_RISCV_PMU_SBI_SSE=y
+
+PMU-SSE also requires two OpenSBI fixes:
+
+  f30a54f3b3a0 ("lib: sbi: pmu: Remove MIP clearing from pmu_sse_enable()")
+    [2], included since OpenSBI v1.7,
+    which keeps an overflow pending while its SSE event is temporarily
+    disabled; and
+  35511bc6ee1c ("lib: sbi: sse: clear SPV for non-virtualized events") [3],
+    not yet included in a tagged release,
+    which stops a stale HSTATUS.SPV from being applied to a non-virtualized
+    event.
+
+Build tools/testing/selftests/riscv, then run:
+
+  for stress in 0 1 2; do
+          ./run_sse_test.sh stress=$stress || break
+  done
+  ./sse_perf_ustack
+
+Useful perf regression workloads include:
+
+  perf record -e cycles -a -- sleep 1
+  perf top
+  perf record -g -F 999 -- hackbench
+  perf record --call-graph dwarf,8192 -F 999 -- hackbench
+  perf record -a -C 3 -e cycles -F 999 -- \
+          taskset -c 3 perf bench sched pipe -l 3000000
+
+Limitations and follow-up work
+==============================
+
+This series does not yet deliver SSE events into a guest or unwind a guest
+stack; a later KVM-SSE series will let the host receive an event from firmware
+and inject the corresponding event into the guest.
+
+Hibernation and crash kernels are unsupported: the current SBI interface
+cannot reconstruct firmware registrations after an image is restored, and a
+crash kernel cannot take over the registrations left by the crashed kernel, so
+it leaves SSE masked.
+
+[1] https://docs.riscv.org/reference/sbi/ext-sse.html
+[2] https://github.com/riscv-software-src/opensbi/commit/f30a54f3b3a091c225a00476f4039bf399badd1f
+[3] https://github.com/riscv-software-src/opensbi/commit/35511bc6ee1c9c17b6a89b44c52e2044bb51b979
+
+Acknowledgements
+================
+
+The original five feature patches were developed by Clément Léger and
+Himanshu Chauhan. Thanks to Susheng Yang for reporting the perf callchain
+failure and for providing a workload that made it reproducible.
+
+Sorry for keeping you waiting. Since v9 I spent a good deal of time hardening
+the lifecycle and error paths and reproducing and analysing the bugs that only
+show up in the callchain path, until the series finally passed both functional
+and sustained stress testing on hardware. I am confident in v10, but, echoing
+Clément, SSE is a genuinely complex feature: it adds a new NMI-like entry path
+into the kernel to stand in for a hardware NMI. I would therefore welcome wider
+community testing and feedback, especially under high-frequency delivery and
+more complex handlers.
+
 ---
- mm/swap.h       |  6 +++---
- mm/swap_state.c | 20 ++++++++++++--------
- mm/swapfile.c   |  2 +-
- mm/zswap.c      |  5 +++--
- 4 files changed, 19 insertions(+), 14 deletions(-)
 
-diff --git a/mm/swap.h b/mm/swap.h
-index 90a551a88df6..8679cb61268e 100644
---- a/mm/swap.h
-+++ b/mm/swap.h
-@@ -312,9 +312,9 @@ bool swap_cache_has_folio(swp_entry_t entry);
- struct folio *swap_cache_get_folio(swp_entry_t entry);
- void *swap_cache_get_shadow(swp_entry_t entry);
- void swap_cache_del_folio(struct folio *folio);
--struct folio *swap_cache_alloc_folio(swp_entry_t target_entry, gfp_t gfp_mask,
--				     unsigned long orders, struct vm_fault *vmf,
--				     struct mempolicy *mpol, pgoff_t ilx);
-+struct folio *__swap_cache_alloc_folio(swp_entry_t target_entry, gfp_t gfp_mask,
-+				       unsigned long orders, struct vm_fault *vmf,
-+				       struct mempolicy *mpol, pgoff_t ilx);
- /* Below helpers require the caller to lock and pass in the swap cluster. */
- void __swap_cache_add_folio(struct swap_cluster_info *ci,
- 			    struct folio *folio, swp_entry_t entry);
-diff --git a/mm/swap_state.c b/mm/swap_state.c
-index f3961fdd857d..e5b7fa468ade 100644
---- a/mm/swap_state.c
-+++ b/mm/swap_state.c
-@@ -489,13 +489,11 @@ static struct folio *__swap_cache_alloc(struct swap_cluster_info *ci,
- 	node_stat_mod_folio(folio, NR_FILE_PAGES, nr_pages);
- 	lruvec_stat_mod_folio(folio, NR_SWAPCACHE, nr_pages);
- 
--	/* Caller will initiate read into locked new_folio */
--	folio_add_lru(folio);
- 	return folio;
- }
- 
- /**
-- * swap_cache_alloc_folio - Allocate folio for swapped out slot in swap cache.
-+ * __swap_cache_alloc_folio - Allocate folio for swapped out slot in swap cache.
-  * @targ_entry: swap entry indicating the target slot
-  * @gfp: memory allocation flags
-  * @orders: allocation orders, must be non zero
-@@ -507,13 +505,17 @@ static struct folio *__swap_cache_alloc(struct swap_cluster_info *ci,
-  * doing IO (e.g. swap in or zswap writeback). The swap slot indicated by
-  * @targ_entry must have a non-zero swap count (swapped out).
-  *
-+ * The returned folio is locked and is NOT on the LRU. The caller must either
-+ * add it to the LRU with folio_add_lru() so page reclaim can find it, or free
-+ * it directly once done; a folio left off the LRU is unreclaimable and leaks.
-+ *
-  * Context: Caller must protect the swap device with reference count or locks.
-  * Return: Returns the folio if allocation succeeded and folio is in the swap
-  * cache. Returns error code if failed due to race, OOM or invalid arguments.
-  */
--struct folio *swap_cache_alloc_folio(swp_entry_t targ_entry, gfp_t gfp,
--				     unsigned long orders, struct vm_fault *vmf,
--				     struct mempolicy *mpol, pgoff_t ilx)
-+struct folio *__swap_cache_alloc_folio(swp_entry_t targ_entry, gfp_t gfp,
-+				       unsigned long orders, struct vm_fault *vmf,
-+				       struct mempolicy *mpol, pgoff_t ilx)
- {
- 	int order, err;
- 	struct folio *ret;
-@@ -649,12 +651,13 @@ static struct folio *swap_cache_read_folio(struct swap_io_ctx *ctx,
- 		folio = swap_cache_get_folio(entry);
- 		if (folio)
- 			return folio;
--		folio = swap_cache_alloc_folio(entry, gfp, BIT(0), NULL, mpol, ilx);
-+		folio = __swap_cache_alloc_folio(entry, gfp, BIT(0), NULL, mpol, ilx);
- 	} while (PTR_ERR(folio) == -EEXIST);
- 
- 	if (IS_ERR_OR_NULL(folio))
- 		return NULL;
- 
-+	folio_add_lru(folio);
- 	swap_read_folio(ctx, folio);
- 	if (readahead) {
- 		folio_set_readahead(folio);
-@@ -690,12 +693,13 @@ struct folio *swapin_sync(swp_entry_t entry, gfp_t gfp, unsigned long orders,
- 		folio = swap_cache_get_folio(entry);
- 		if (folio)
- 			return folio;
--		folio = swap_cache_alloc_folio(entry, gfp, orders, vmf, mpol, ilx);
-+		folio = __swap_cache_alloc_folio(entry, gfp, orders, vmf, mpol, ilx);
- 	} while (PTR_ERR(folio) == -EEXIST);
- 
- 	if (IS_ERR(folio))
- 		return folio;
- 
-+	folio_add_lru(folio);
- 	swap_read_folio(&ctx, folio);
- 	swap_read_submit(&ctx);
- 	return folio;
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 53bf01d5f7f1..d678a40fcaac 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -1870,7 +1870,7 @@ void folio_put_swap(struct folio *folio, struct page *page)
-  *   CPU1				CPU2
-  *   do_swap_page()
-  *     ...				swapoff+swapon
-- *     swap_cache_alloc_folio()
-+ *     __swap_cache_alloc_folio()
-  *       // check swap_map
-  *     // verify PTE not changed
-  *
-diff --git a/mm/zswap.c b/mm/zswap.c
-index 37f34e406c8e..0d2efe21f18a 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -1001,8 +1001,8 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
- 		return -EEXIST;
- 
- 	mpol = get_task_policy(current);
--	folio = swap_cache_alloc_folio(swpentry, GFP_KERNEL, BIT(0), NULL, mpol,
--				       NO_INTERLEAVE_INDEX);
-+	folio = __swap_cache_alloc_folio(swpentry, GFP_KERNEL, BIT(0), NULL, mpol,
-+					 NO_INTERLEAVE_INDEX);
- 	put_swap_device(si);
- 
- 	/*
-@@ -1014,6 +1014,7 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
- 	 */
- 	if (IS_ERR(folio))
- 		return PTR_ERR(folio);
-+	folio_add_lru(folio);
- 
- 	/*
- 	 * folio is locked, and the swapcache is now secured against
--- 
-2.53.0-Meta
+Clément Léger (5):
+  riscv: add SBI SSE extension definitions
+  riscv: add support for SBI Supervisor Software Events extension
+  drivers: firmware: add riscv SSE support
+  perf: RISC-V: add support for SSE event
+  selftests/riscv: add SSE test module
 
+Zhanpeng Zhang (4):
+  riscv: sse: mask events during shutdown and kexec
+  riscv: mm: avoid enabling interrupts for nofault page faults
+  perf: RISC-V: support callchains with SSE delivery
+  selftests/riscv: add perf user-stack SSE copy regression test
+
+ Documentation/arch/riscv/index.rst            |    1 +
+ Documentation/arch/riscv/pmu-sse.rst          |   55 +
+ MAINTAINERS                                   |   22 +
+ arch/riscv/include/asm/asm.h                  |   14 +-
+ arch/riscv/include/asm/perf_event.h           |   10 +
+ arch/riscv/include/asm/sbi.h                  |   63 +
+ arch/riscv/include/asm/scs.h                  |    7 +
+ arch/riscv/include/asm/sse.h                  |   82 ++
+ arch/riscv/include/asm/thread_info.h          |    1 +
+ arch/riscv/kernel/Makefile                    |    1 +
+ arch/riscv/kernel/asm-offsets.c               |   14 +
+ arch/riscv/kernel/entry.S                     |   14 +
+ arch/riscv/kernel/machine_kexec.c             |   11 +
+ arch/riscv/kernel/perf_callchain.c            |  142 +++
+ arch/riscv/kernel/reset.c                     |   18 +
+ arch/riscv/kernel/sbi_sse.c                   |  246 ++++
+ arch/riscv/kernel/sbi_sse_entry.S             |  226 +++
+ arch/riscv/kernel/smp.c                       |   17 +
+ arch/riscv/mm/fault.c                         |   11 +-
+ drivers/firmware/Kconfig                      |    1 +
+ drivers/firmware/Makefile                     |    1 +
+ drivers/firmware/riscv/Kconfig                |   18 +
+ drivers/firmware/riscv/Makefile               |    3 +
+ drivers/firmware/riscv/riscv_sbi_sse.c        | 1223 +++++++++++++++++
+ drivers/perf/Kconfig                          |   11 +
+ drivers/perf/riscv_pmu.c                      |   14 +-
+ drivers/perf/riscv_pmu_sbi.c                  |  544 ++++++--
+ include/linux/cpuhotplug.h                    |    1 +
+ include/linux/perf/riscv_pmu.h                |   20 +-
+ include/linux/riscv_sbi_sse.h                 |   95 ++
+ tools/testing/selftests/riscv/Makefile        |    2 +-
+ tools/testing/selftests/riscv/sse/Makefile    |   10 +
+ .../selftests/riscv/sse/module/Makefile       |   22 +
+ .../riscv/sse/module/riscv_sse_test.c         | 1154 ++++++++++++++++++
+ .../selftests/riscv/sse/run_sse_test.sh       |   59 +
+ .../selftests/riscv/sse/sse_perf_ustack.c     |  564 ++++++++
+ 36 files changed, 4596 insertions(+), 101 deletions(-)
+ create mode 100644 Documentation/arch/riscv/pmu-sse.rst
+ create mode 100644 arch/riscv/include/asm/sse.h
+ create mode 100644 arch/riscv/kernel/sbi_sse.c
+ create mode 100644 arch/riscv/kernel/sbi_sse_entry.S
+ create mode 100644 drivers/firmware/riscv/Kconfig
+ create mode 100644 drivers/firmware/riscv/Makefile
+ create mode 100644 drivers/firmware/riscv/riscv_sbi_sse.c
+ create mode 100644 include/linux/riscv_sbi_sse.h
+ create mode 100644 tools/testing/selftests/riscv/sse/Makefile
+ create mode 100644 tools/testing/selftests/riscv/sse/module/Makefile
+ create mode 100644 tools/testing/selftests/riscv/sse/module/riscv_sse_test.c
+ create mode 100644 tools/testing/selftests/riscv/sse/run_sse_test.sh
+ create mode 100644 tools/testing/selftests/riscv/sse/sse_perf_ustack.c
+
+base-commit: 77ae27fd98f3b548797c9f22c10ab5cf1c4ada53
+--
+2.50.1 (Apple Git-155)
