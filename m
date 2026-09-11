@@ -1,181 +1,646 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0813A4BEE3C
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:53:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC674BEE29
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:53:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789163607; cv=none; b=sMqx00bl1mWMM19VIa5KldCoU0lXGsTuVFMLIDXeTuQfD7Gjp0kWGgvEUoeJ73DSoQVYPLw1eF24hpT8Dh6tEx5unetBSxbMzRSOzjxTybAIJfgGEiKokYIgG2laybF3FRwA5rBsKxLcv+xnAvEIs85Syetyh9q6WFjDleajzlY=
+	t=1789163629; cv=none; b=ZgZRwjFRNv7plTtX77M5akjIGDuTxAG5/eN2xjAHdfQ5exbZFLmYsVznAUM9nP6s6vrfVq/ole0uR2Pcr2t6sBeqiUQ0wIp7y1cWxJbgMK6ypsXTuyuw5RmJjzEi+ThP0YFPGa0J3WDj+HnGMQSpQ9howKUtBb9yz+W6ZcYauNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789163607; c=relaxed/simple;
-	bh=QTAAvVo+D7Wnc9KGN3ZO+mOdZs3GkHWnL/npgBHGXy4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kc/yZlIjP9kwYwUZZ580Z+DyrkiMYH5bKY0rGo2p8aQndYwgHBaK1uHtDCaTX/DJub8UikipG0luTLB3xaB+UUcPoiM7TBfK48EkmX6DiS5mmQvvnwxOW9TFT+jM0q5sA5qsCMrMK6+kDaTlU8zdcUAuE2oJ2AdH3LICbTNgac0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=llWp0jX3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QxIYNrd4; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789163629; c=relaxed/simple;
+	bh=nwkwsVe8qcZX8Qp2xjQ7ZFv1InoQh8iT/fObeTFZUS0=;
+	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:In-Reply-To:
+	 References:MIME-Version; b=Lf1mk0l34yae657VgbN3B9pUzY8+5LAoJD856KjULuaU0ycB5f9+GkLwJL0/JsyHnkQqeXhIempMvfPiKNBooibPfw6FkQv1zn8r7yqKoVXgReigw30LMXkBVNIg45FH5xJ7OcXtKRFDwYrJliA5BdA7Qj+TK+Wuhbwl9N11KDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=nRWcuevK; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="llWp0jX3";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QxIYNrd4"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BHWO68810126
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:53:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=B7ceDK0YYL2iC58PsLjwpIR2KHifRP2AdMv
-	tXE1Mcqk=; b=llWp0jX3cIf3nmN3w040iOOyH2DoQUiIVWUMGPHD7xvNgEBWz6r
-	8aBOFWXOIq60JMJ2+yUX/8tix8JIxcdVj/WdmWA3inMyc2MnYicr1a5bvnPr3kwg
-	LmN5ra7vLGRHwLw3GGW6JBFusqyQOHn2nyztRMDDGdKTI3NGSOaHcMuuXpwU5Ap/
-	ZJHjYftaYKaw9P6rOoQCUvTkuMuyZFjgYp8Xi8nC73ZIYwfDGqxRtLpBAZBSzuac
-	bY2k4aFcVFSH2Pt28JBNgjgqu6EvXNOqQtlbkPJ2GJVrQXVCmg3cT68e92fYdZkJ
-	xsWZ+UNNdO3RmaH6aG/RAKwUHkph1aavltg==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmnv20y0c-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:53:24 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1b80835d5so1681498a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:53:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789163604; x=1789768404; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B7ceDK0YYL2iC58PsLjwpIR2KHifRP2AdMvtXE1Mcqk=;
-        b=QxIYNrd4DB/3cu3wJhqBG3UuVMFjN89TwxlHTKLO5tRNfPvRhAK4AAVuyRQTbBhtcu
-         rQoyqutUPY69RGL7cWyodWiCVkAYBLab+No8JLzmILwnHr7CiSOot7kOqvv+CFyvaIrU
-         FPL4t71SsKWlU3VNOANtgp4adLqrwnwbyMumG7PF9S2m4QQjSThKp2FPxoPXbIuqLxOF
-         uptthC7ScYZ3Q65EYZVaKeNQFB0tzGzkX49y3DxuIbpRuPfNpTwQNYS20hZWs9JtngGn
-         BTZdFezoZ/X0eRb+OO+S7GpB70ujHxhZ0QIGFu11z+J/cLuLILPvKaBwQPbiQg7fzU7o
-         CgYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789163604; x=1789768404;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B7ceDK0YYL2iC58PsLjwpIR2KHifRP2AdMvtXE1Mcqk=;
-        b=tKBTRUPtol0RvugUtzZ/PX0WpKoM0Qis1bhGQmz/amQe41oXmBY4/hsEN3mH/VYFQo
-         TFRIee+Lps6e61wYzycKTseFsKa5bBHdWMczsQ2JTgrvDjtErgZADU1Aeux5VAmVt9mT
-         ilPLRY+TiY8KNU5hMztVNNUoXEfdSwoclC3aOdv/VCqoP+ouqkD1lPlK9rNBToc91e+B
-         9Dcz3TwgQPmWENBdq+/N5wERMgTvk4ZVeBXXkeR0/sVIKKF6YbAQEilrL5MuPSOnaW9h
-         qE+uobjSd/hn4R8XJKmNexpOObvAwJAiCTGiumk2YHvj8GIGlcDEsytRjvx3cSHEGrQc
-         yH/g==
-X-Forwarded-Encrypted: i=1; AKwUvBxndzWG7IoyLIsuilazeqwP1P3avEl4mJifM+OMMEOkj/zYVZRnYkk1OEHI/6b3ykNrIkRRMZm3YWHe2ng=@vger.kernel.org
-X-Gm-Message-State: AFuF++lWJ0RO7r3CpcUFzQJurlGwDGvvZUj5r5Wtsv/+gz9Kgu6P1O9m
-	f0pu+jyL/cVyXogm5veZ6Q1/S0o0J/WN6O9z0gGCli5NHjNQEVLXpeQYI9FXiiHZKjCtFR5w0uf
-	AdOwgIUNvQJc0wVWo2g+qR4McJcA7Dv/KWzvodtuqSnxypE2QzpPct9LxZWp0lES/1f8=
-X-Gm-Gg: AYBFou079QubSEhsCjwAEbnDpPTHiGzr2nPLJNKZtumu2Vzw45anAg6dLrypZ69/jjD
-	UI+EvGO3niE3B6bbQJZsh4/KFWY0rMafKzqxH1KLHl/OPNgBAO/izM46PGB6BxEWaXiBjPbsrgT
-	jgFLInydIxjMJbJVX3cwsl+in8VMrB45OsaDeJgP/rU8lYmnsrU0SgovJnZZzL5JgHazKyA/Sj7
-	xir9WSAj2P58B10xZ4qz688Q8ShVtB7cBjj3LDipdJxU67LHhVpJGu+S0/aSmsJfcAUlyomK6BX
-	jRbqzHiXwU7CWX/W4Pl7Ij7Xnv36QHpt5rS1sNpGfqhRCatJFA9e45AGHoRZoouTCUmaB1iafVu
-	YD3DdIAKR10mwBJMEHcuc3T2FQytvAvVfFB6c0geLO1tCoJX7YQ==
-X-Received: by 2002:a17:90b:3850:b0:398:9be8:ea69 with SMTP id 98e67ed59e1d1-39d9c36187amr9706300a91.22.1789163603683;
-        Fri, 11 Sep 2026 14:53:23 -0700 (PDT)
-X-Received: by 2002:a17:90b:3850:b0:398:9be8:ea69 with SMTP id 98e67ed59e1d1-39d9c36187amr9706262a91.22.1789163603274;
-        Fri, 11 Sep 2026 14:53:23 -0700 (PDT)
-Received: from hu-ashoraj-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4f739b5sm9100610eec.25.2026.09.11.14.53.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 14:53:22 -0700 (PDT)
-From: Ashok Raj <ashok.raj@oss.qualcomm.com>
-To: Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>,
-        Dave Jiang <dave.jiang@intel.com>,
-        Alison Schofield <alison.schofield@intel.com>,
-        Vishal Verma <vishal.l.verma@intel.com>,
-        Dan Williams <djbw@kernel.org>, Ira Weiny <iweiny@kernel.org>,
-        Li Ming <ming.li@zohomail.com>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-hardening@vger.kernel.org,
-        Ashok Raj <ashok.raj@oss.qualcomm.com>
-Subject: [RESEND PATCH] cxl/features: Ensure that count is set before access to end[] __counted_by()
-Date: Fri, 11 Sep 2026 14:53:04 -0700
-Message-ID: <20260911215304.1816467-1-ashok.raj@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="nRWcuevK"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 2CD221A0226;
+	Fri, 11 Sep 2026 21:53:43 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id BB051601A3;
+	Fri, 11 Sep 2026 21:53:42 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3080911C7A23F;
+	Fri, 11 Sep 2026 23:53:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789163617; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=PXhwIoA5YrzEr7CnOC2IKZ0EMecuH8cMMUx2syI+imw=;
+	b=nRWcuevKqwTmKvT031GCVWoqjbfj9VJGA0wblLQs5UPv0wAJgQNN58BlcICglrdENo4vXA
+	yiTCZcOJsy0sT9rNdUFK1EEDuc8YMnmDiqxoG1xZsVPkKk8SoksUOOLcw7SI9peQOZ80Xh
+	O8GZQubeKjenzZJVTioqNEt2j1+9KSPDZpY9BfOMt4fbfrTd0lQzvufdI2ziGTvAxBFuhR
+	A4vFAWz6bRO2YpNHr9AkXziuXrW4FMv/L4/6D7Lxmb3dDstooqk1tAQzXaFEoqzShX2IZ+
+	pRPPnil/brpAo4SmZmNX/18RM77PAAP1J1wE1WYvgl8kZRQVDyc/J0588x5+Gw==
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 11 Sep 2026 23:53:28 +0200
+Message-Id: <DLCTKEROUJCX.12G2JSI26LQXH@bootlin.com>
+Subject: Re: [PATCH net-next v9 16/17] net: macb: use context swapping in
+ .set_ringparam()
+Cc: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Nicolas
+ Ferre" <nicolas.ferre@microchip.com>, "Claudiu Beznea"
+ <claudiu.beznea@tuxon.dev>, "Paolo Valerio" <pvalerio@redhat.com>, "Nicolai
+ Buchwitz" <nb@tipi-net.de>, "Vladimir Kondratiev"
+ <vladimir.kondratiev@mobileye.com>, "Gregory CLEMENT"
+ <gregory.clement@bootlin.com>, =?utf-8?q?Beno=C3=AEt_Monin?=
+ <benoit.monin@bootlin.com>, "Tawfik Bayouk" <tawfik.bayouk@mobileye.com>,
+ "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>, "Maxime Chevallier"
+ <maxime.chevallier@bootlin.com>
+To: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, "Conor Dooley"
+ <conor.dooley@microchip.com>, "Andrew Lunn" <andrew+netdev@lunn.ch>, "David
+ S. Miller" <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>,
+ "Jakub Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>,
+ "Richard Cochran" <richardcochran@gmail.com>, "Russell King"
+ <linux@armlinux.org.uk>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+In-Reply-To: <20260812-macb-context-v9-16-7ddbf5f715e0@bootlin.com>
+References: <20260812-macb-context-v9-16-7ddbf5f715e0@bootlin.com>
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDMxMCBTYWx0ZWRfX4t+1vXEDByej
- 3Jxz6qLi+1tyKcif91jeJof2Lwg4UUZmlkBu7CVT2/7MxWUPLyZuwlBpZmYZJHfy3YhiMIN9HOM
- 18z2GMSxKYzyMbZPunygwauCcZlaKuE=
-X-Proofpoint-GUID: wHtRzKSJEqd0elhl_-6J9oHq6NYdebk0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDMxMCBTYWx0ZWRfX2n27ln2rD+NW
- hpxcY6RmeyjUEztCtYT1PiAoLLI7ntARXfmpMmm8YlhZL85e9iQkMz8jckPB3851T1kK3CblAIj
- SP/TOxsxmRibqcBCSy8FkhRLexZYPNR3agcKEAAz69V00/ifSd5wdNU1+nBi89+UZV6PfjRm7VO
- UQIY8pFHJ/D+165kb5NfD1Sg+7DCI26TyRuPdQK1wvwWyGBrEkq8TAovc9z0WaIn5eRcmZfdVj4
- csv53W0vJHBbdTsxtCxNQtSZcPkeV98qydK/zIlyLESyi7VmVdvzaeD/jdp0WddqFusP+J0IYuX
- hBZku88R5C7nbJGpfwGVppQYnD79GvXcRp5Ywwwh9YGOacWuFgRgn8LQ2HzyEvIvYwGag2ww3MC
- KnGx1znZYAY840IpkYG/UkU8RGgTQR6ZiUPZvTvv759rI8LBjQTgso/9Y2Dl3RwUHj8F8o3vpqJ
- IB2hcbxMpIgFmdMaRow==
-X-Proofpoint-ORIG-GUID: wHtRzKSJEqd0elhl_-6J9oHq6NYdebk0
-X-Authority-Analysis: v=2.4 cv=XvdvqlF9 c=1 sm=1 tr=0 ts=6aa47854 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=hVXjItmcbegfcmPrdh8A:9 a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-11_06,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 priorityscore=1501 phishscore=0 suspectscore=0
- adultscore=0 malwarescore=0 clxscore=1015 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110310
+X-TUID: HrqNTrNukpF3
+X-Last-TLS-Session-Version: TLSv1.3
 
-get_supported_features() assigns entries->num_features only after the
-memcpy() loop that fills entries->ent[] has already run. Since ent[]
-is __counted_by(num_features), the compiler's bounds instrumentation
-sees a 0-length array during that loop and FORTIFY_SOURCE trips on
-the memcpy. Set @num_features right after allocation, before any
-write into ent[], so the bound is correct for the whole lifetime of
-the array.
+Replying to non-net sashiko
+https://sashiko.dev/#/patchset/20260812-macb-context-v9-0-7ddbf5f715e0%40bo=
+otlin.com
 
-This was found via a fortify panic:
+> commit 34a47bcab06bd390622de5b8628e1ca4b22fa12e
+> Author: Th=C3=A9o Lebrun <theo.lebrun@bootlin.com>
+> Subject: net: macb: use context swapping in .set_ringparam()
+>
+> This commit modifies the ethtool set_ringparam implementation to use a
+> new context swapping mechanism instead of the previous close and reopen
+> sequence. It introduces macb_context_swap_start() and
+> macb_context_swap_end() helpers to handle the transition smoothly, along
+> with a new mac_cfg_lock to serialize changes against phylink MAC callback=
+s.
+>
+> > diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/eth=
+ernet/cadence/macb_main.c
+> > index 6d79663e42bfe..55c97f2035e76 100644
+> > --- a/drivers/net/ethernet/cadence/macb_main.c
+> > +++ b/drivers/net/ethernet/cadence/macb_main.c
+> > @@ -814,6 +831,10 @@ static void macb_mac_link_down(struct phylink_conf=
+ig *config, unsigned int mode,
+> >  	unsigned int q;
+> >  	u32 ctrl;
+> > =20
+> > +	mutex_lock(&bp->mac_cfg_lock);
+> > +
+> > +	bp->link_up =3D false;
+> > +
+> >  	if (!(bp->caps & MACB_CAPS_MACB_IS_EMAC))
+> >  		for (q =3D 0, queue =3D bp->queues; q < bp->num_queues; ++q, ++queue=
+)
+> >  			queue_writel(queue, IDR,
+> > @@ -824,6 +845,8 @@ static void macb_mac_link_down(struct phylink_confi=
+g *config, unsigned int mode,
+> >  	macb_writel(bp, NCR, ctrl);
+>
+> [Severity: High]
+> This is a pre-existing issue, but does this read-modify-write of NCR need
+> protection to avoid dropping hardware configuration?
 
- memcpy: detected buffer overflow: 384 byte write of buffer size 0
- WARNING: lib/string_helpers.c:1035 at __fortify_report+0x54/0xa0
- kernel BUG at lib/string_helpers.c:1043!
- Call trace:
-  __fortify_panic+0x10/0x18
-  get_supported_features.isra.0+0x4a0/0x4d0 [cxl_core]
-  devm_cxl_setup_features+0x84/0x120 [cxl_core]
-  cxl_pci_probe+0x254/0x5e0 [cxl_pci]
+Indeed. Unrelated but will do.
 
-Same class of bug, same fix shape as commit 6c9d2e87df40
-("cxl/fwctl: Fix __fortify_panic"), which fixed the analogous issue
-in cxlctl_get_supported_features() but missed this one.
+> >  	netif_tx_stop_all_queues(netdev);
+> > +
+> > +	mutex_unlock(&bp->mac_cfg_lock);
+> >  }
+>
+> [ ... ]
+>
+> > @@ -3105,6 +3135,134 @@ static void macb_configure_dma(struct macb *bp)
+> >  	}
+> >  }
+> > =20
+> > +static void macb_context_swap_start(struct macb *bp)
+> > +{
+> > +	struct macb_queue *queue;
+> > +	unsigned long flags;
+> > +	unsigned int q;
+> > +	u32 ctrl;
+> > +
+> > +	mutex_lock(&bp->mac_cfg_lock);
+> > +
+> > +	/* We cannot mask IRQs because they'll get re-armed by BH. So instead=
+ we
+> > +	 * signal to IRQ handler it shouldn't drive BH features and should
+> > +	 * self-disarm.
+> > +	 */
+> > +	spin_lock_irqsave(&bp->lock, flags);
+> > +	bp->ctx_swap =3D true;
+> > +	spin_unlock_irqrestore(&bp->lock, flags);
+> > +
+> > +	/* Drain BH features. HW is still active and usable at this point but
+> > +	 * IRQs are being ignored.
+> > +	 */
+> > +
+> > +	cancel_work_sync(&bp->hresp_err_bh_work);
+> > +
+> > +	for (q =3D 0, queue =3D bp->queues; q < bp->num_queues; ++q, ++queue)=
+ {
+> > +		/* Must be done before NAPI is disabled. */
+> > +		cancel_work_sync(&queue->tx_error_task);
+>
+> [Severity: High]
+> This is a pre-existing issue, but since we are carefully cancelling worke=
+r
+> threads here during context swap, should we also be cancelling them durin=
+g
+> macb_close() and macb_suspend()?
 
-Fixes: f0e6a2329bf9 ("cxl: Add Get Supported Features command for kernel usage")
-Signed-off-by: Ashok Raj <ashok.raj@oss.qualcomm.com>
+Yes I'll integrate all that for next revision. See this email where I
+went into more details.
+https://lore.kernel.org/netdev/DLCLQPVD8B9N.NFKWDS6SH0QN@bootlin.com/
+
+[...]
+> > +
+> > +		napi_disable(&queue->napi_rx);
+> > +		napi_disable(&queue->napi_tx);
+> > +	}
+> > +
+> > +	/* Must be done after napi_tx is disabled. */
+> > +	cancel_delayed_work_sync(&bp->tx_lpi_work);
+> > +
+> > +	/* Can finally disable software Tx; need to wait until napi_tx and
+> > +	 * tx_error_task cannot be scheduled as either might wakeup Tx.
+> > +	 */
+> > +	netif_tx_disable(bp->netdev);
+>
+> [Severity: High]
+> Does this sequence leave the interface vulnerable to a false TX timeout?
+>
+> When macb_context_swap_start() stops the software TX queues via
+> netif_tx_disable(), it does not suspend the watchdog via netif_carrier_of=
+f()
+> or update the queue's trans_start time.
+
+Well actually netif_tx_disable() does reset dev_queue->trans_start of
+all queues. So a race does exist but it is pretty slim (not the full
+context swap): either before this netif_tx_disable() line or if context
+swap lasts more than 5s.
+
+I'll protect this by (1) grabbing bp->lock inside macb_tx_restart() and
+(2) checking the state of our boolean flag to know if context swap is
+ongoing.
+
+> > +
+> > +	/* Now that everything is stopped, clear DQL. */
+>
+> [ ... ]
+>
+> > +static void macb_context_swap_end(struct macb *bp,
+> > +				  struct macb_context *new_ctx)
+> > +{
+>
+> [ ... ]
+>
+> > +	/* Free old context. */
+> > +
+> > +	macb_free(old_ctx);
+> > +	kfree(old_ctx);
+>
+> [Severity: Critical]
+> This is a pre-existing issue, but could this initialization sequence lead
+> to severe memory corruption if we are under memory pressure?
+
+Yes, that's the whole point.
+
+>
+> macb_init_buffers() is called earlier in this function to swap to the new
+> context. When initializing DMA rings, gem_init_rings() calls
+> gem_init_rx_ring(), which leaves the newly allocated descriptors complete=
+ly
+> zeroed, and then calls gem_rx_refill().
+>
+> If netdev_alloc_skb() fails due to memory pressure, gem_rx_refill() abort=
+s
+> early:
+>
+>     if (unlikely(!skb)) {
+>         netdev_err(bp->netdev, "Unable to allocate sk_buff\n");
+>         break;
+>     }
+
+That's the main issue: gem_rx_refill() should propagate the error and
+make the context swap fail. This patch exists but was part of the XDP
+series. I'll take it along the ride as it's needed to make context swap
+reasonable.
+
+[...]
+
+> > @@ -3829,9 +3987,10 @@ static int macb_set_ringparam(struct net_device =
+*netdev,
+> >  			      struct kernel_ethtool_ringparam *kernel_ring,
+> >  			      struct netlink_ext_ack *extack)
+> >  {
+> > +	unsigned int new_rx_size, new_tx_size;
+> >  	struct macb *bp =3D netdev_priv(netdev);
+> > -	u32 new_rx_size, new_tx_size;
+> > -	unsigned int reset =3D 0;
+> > +	bool running =3D netif_running(netdev);
+> > +	struct macb_context *new_ctx;
+> > =20
+> >  	if (bp->caps & MACB_CAPS_MACB_IS_EMAC)
+> >  		return -EOPNOTSUPP;
+> > @@ -3853,16 +4012,20 @@ static int macb_set_ringparam(struct net_device=
+ *netdev,
+> >  		return 0;
+> >  	}
+> > =20
+> > -	if (netif_running(bp->netdev)) {
+> > -		reset =3D 1;
+> > -		macb_close(bp->netdev);
+> > +	if (running) {
+> > +		new_ctx =3D macb_context_alloc(bp, netdev->mtu,
+> > +					     new_rx_size, new_tx_size);
+>
+> [Severity: High]
+> Can this allocation path lead to a kernel panic and memory leak on failur=
+e?
+>
+> When macb_context_alloc() is called here under memory pressure, it calls
+> macb_alloc().
+>
+> In macb_alloc(), if the RX DMA allocation fails (or boundary check fails)=
+,
+> it jumps to the error path after allocating tx:
+>
+> drivers/net/ethernet/cadence/macb_main.c:macb_alloc() {
+>     ...
+>     if (!rx || upper_32_bits(rx_dma) !=3D upper_32_bits(rx_dma + size - 1=
+))
+>         goto out_err;
+>     ...
+> out_err:
+>     macb_free(ctx);
+> }
+>
+> At this point, txq->ring is still NULL. macb_free() will unconditionally =
+call:
+>
+>     dma_free_coherent(dev, size, txq->ring, txq->ring_dma);
+>
+> Will this trigger a panic on architectures where dma_free_coherent() lack=
+s
+> tolerance for a NULL virtual address, and permanently leak the successful=
+ly
+> allocated TX DMA ring?
+
+I don't see where dma_free_coherent() "lacks tolerance for a NULL
+virtual address". That would be surprising.
+
+However we do have a leak yes, which I plan on fixing (still unrelated
+to context swapping).
+
+>
+> > +		if (IS_ERR(new_ctx))
+> > +			return PTR_ERR(new_ctx);
+> > +
+> > +		macb_context_swap_start(bp);
+> >  	}
+
 ---
-RESEND: Dropped the mailing lists (linux-cxl, linux-kernel) from Cc
-by mistake on the first send. Resending with proper Cc.
 
- drivers/cxl/core/features.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Replying to net sashiko
+https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260812-macb-context-v=
+9-0-7ddbf5f715e0%40bootlin.com
 
-diff --git a/drivers/cxl/core/features.c b/drivers/cxl/core/features.c
-index ba6d2a5acb74..754fe5eb4b76 100644
---- a/drivers/cxl/core/features.c
-+++ b/drivers/cxl/core/features.c
-@@ -97,6 +97,7 @@ get_supported_features(struct cxl_features_state *cxlfs)
- 		kvmalloc_flex(*entries, ent, count);
- 	if (!entries)
- 		return NULL;
-+	entries->num_features = count;
- 
- 	struct cxl_mbox_get_sup_feats_out *mbox_out __free(kvfree) =
- 		kvmalloc(cxl_mbox->payload_size, GFP_KERNEL);
-@@ -174,7 +175,6 @@ get_supported_features(struct cxl_features_state *cxlfs)
- 		start += num_entries;
- 	} while (remain_feats);
- 
--	entries->num_features = count;
- 	entries->num_user_features = user_feats;
- 
- 	return no_free_ptr(entries);
--- 
-2.43.0
+> commit c12dbce3061c66a490797075684d70f4e544b34f
+> Author: Th=C3=A9o Lebrun <theo.lebrun@bootlin.com>
+>
+> net: macb: use context swapping in .set_ringparam()
+>
+> This replaces the close / resize / reopen sequence in
+> ethtool_ops.set_ringparam() with a context swap: a new context (rings and
+> buffers) is allocated first, the datapath is quiesced via a new bp->ctx_s=
+wap
+> flag plus NAPI/work draining, the new context is handed to the hardware, =
+and
+> the old context is freed afterwards. A new mac_cfg_lock mutex serialises =
+the
+> swap against the phylink MAC callbacks, and a redundant bp->link_up boole=
+an
+> tracks link state under that mutex.
+>
+> A few questions below, first on the changelog and then inline in the diff=
+.
+>
+> [Severity: Low]
+> [Finding: main-1-0]
+> [Sources: opus-5]
+> The changelog describes the new mutex and the redundant link state boolea=
+n:
+>
+>     Introduce a new locking primitive (mac_cfg_lock mutex) to serialise s=
+wap
+>     with phylink MAC callbacks. [...] so we use a redundant bp->link_up
+>     boolean that is mac_cfg_lock protected.
+>
+> but the second new state flag, bp->ctx_swap, is not mentioned anywhere, a=
+nd
+> neither is the change of macb_interrupt() semantics that goes with it. Wh=
+ile
+> a swap is in progress the handler treats every pending cause as if the de=
+vice
+> were down (IDR -1, ISR clear, break), so MACB_INT_MISC_FLAGS handling and
+> HRESP DMA bus errors are acknowledged and discarded for the duration of t=
+he
+> window.
+>
+> Could the changelog say a word about bp->ctx_swap and about the interrupt
+> handler behaviour during the swap, since correctness of the sequence depe=
+nds
+> on both?
+
+Good point, this is missing!
+
+>
+> > diff --git a/drivers/net/ethernet/cadence/macb.h b/drivers/net/ethernet=
+/cadence/macb.h
+> > index ed9bd58d2e26..35564f2ed662 100644
+> > --- a/drivers/net/ethernet/cadence/macb.h
+> > +++ b/drivers/net/ethernet/cadence/macb.h
+>
+> [ ... ]
+>
+> > @@ -1415,6 +1417,12 @@ struct macb {
+> >  	struct delayed_work	tx_lpi_work;
+> >  	u32			tx_lpi_timer;
+> > =20
+> > +	/* ISR must not drive NAPI & BH mechanisms. Protected by bp->lock. */
+> > +	bool			ctx_swap;
+> > +
+> > +	/* Redundant to netif_carrier_ok(), but set under bp->mac_cfg_lock. *=
+/
+> > +	bool			link_up;
+> > +
+> >  	u32	rx_intr_mask;
+> > =20
+> >  	struct macb_pm_data pm_data;
+> > diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/eth=
+ernet/cadence/macb_main.c
+> > index 6d79663e42bf..55c97f2035e7 100644
+> > --- a/drivers/net/ethernet/cadence/macb_main.c
+> > +++ b/drivers/net/ethernet/cadence/macb_main.c
+>
+> [ ... ]
+>
+> > @@ -2199,8 +2227,10 @@ static irqreturn_t macb_interrupt(int irq, void =
+*dev_id)
+> >  	}
+> > =20
+> >  	while (status) {
+> > -		/* close possible race with dev_close */
+> > -		if (unlikely(!netif_running(netdev))) {
+> > +		/* close possible race with dev_close, and with context-swap
+> > +		 * teardown
+> > +		 */
+> > +		if (unlikely(!netif_running(netdev) || bp->ctx_swap)) {
+> >  			queue_writel(queue, IDR, -1);
+> >  			macb_queue_isr_clear(bp, queue, -1);
+> >  			break;
+>
+> [Severity: Medium]
+> [Finding: main-5-8]
+> [Sources: opus-5]
+> bp->ctx_swap is set on entry to the swap region in macb_context_swap_star=
+t()
+> and cleared on exit in macb_context_swap_end(), purely to keep the interr=
+upt
+> handler away from state the swap is mutating. Is a boolean the right
+> mechanism here rather than masking the per-queue IRQs?
+>
+> The driver already owns queue->irq, so disable_irq()/enable_irq(), or IMR
+> masking plus synchronize_irq(), would enforce the exclusion instead of
+> relying on the handler observing the flag.
+
+No the masking+synchronize_irq() doesn't work. If we start context
+swapping by masking interrupts, NAPI/BH is still active and might
+re-arm IRQs. See how napi_rx/napi_tx/tx_error_task/hresp_task all can
+enable/disable IRQs, and they are not yet disabled/cancelled.
+
+So then we might think "we'll disable NAPI/BH features first then
+disable IRQs". But that doesn't fly either! Notice how IRQs schedule
+the NAPI/BH features and we can't have that if they are disabled. Eg
+napi_disable on an already disabled NAPI is a deadlock.
+
+|               |   enable/disable   |           schedule            |
+|               |----|-------|-------|------|----|----|--------|-----|
+|               |IRQs|napi_tx|napi_rx|tx_lpi|napi|napi|tx_error|hresp|
+| Context       |    |       |       | task | rx | tx |  task  |task |
+|=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D|=3D=3D=3D=3D|=3D=3D=3D=3D=3D=
+=3D=3D|=3D=3D=3D=3D=3D=3D=3D|=3D=3D=3D=3D=3D=3D|=3D=3D=3D=3D|=3D=3D=3D=3D|=
+=3D=3D=3D=3D=3D=3D=3D=3D|=3D=3D=3D=3D=3D|
+| open          | X  |   X   |   X   |      |    |    |        |     |
+| link_up       | X  |       |       |      |    |    |        |     |
+| link_down     | X  |       |       |      |    |    |        |     |
+| close         | X  |   X   |   X   |      |    |    |        |     |
+| enable_tx_lpi |    |       |       |  X   |    |    |        |     |
+| swap          | X  |   X   |   X   |  X   |    |    |        |     |
+| suspend       | X  |   X   |   X   |      |    |    |        |     |
+| resume        | X  |   X   |   X   |      |    |    |        |     |
+|---------------|----|-------|-------|------|----|----|--------|-----|
+| irq & netpoll | X  |       |       |      | X  | X  |   X    | X   |
+|---------------|----|-------|-------|------|----|----|--------|-----|
+| napi_rx       | X  |       |       |      | X  |    |        |     |
+| napi_tx       | X  |       |       |  X   |    | X  |        |     |
+|---------------|----|-------|-------|------|----|----|--------|-----|
+| tx_error_task | X  |   X   |       |      |    |    |        |     |
+| hresp task    | X  |       |       |      |    |    |        |     |
+
+The reason disable_irq()/enable_irq() doesn't work is more long term. We
+also need the same "shutdown IRQs atomically" mechanism for the suspend
+WOL path. In that case we need to shutdown all but one IRQ. There's the
+same thing for when the interface is down. We'll use this "quiesce
+IRQs" mechanism as well, but might want to keep some activated.
+
+We're not the first ones using such a mechanism. Check out tg3 for
+example and its tg3_irq_quiesce() function.
+https://elixir.bootlin.com/linux/v7.2.2/source/drivers/net/ethernet/broadco=
+m/tg3.c#L7488
+
+[...]
+
+>
+> > @@ -3105,6 +3135,134 @@ static void macb_configure_dma(struct macb *bp)
+> >  	}
+> >  }
+> > =20
+> > +static void macb_context_swap_start(struct macb *bp)
+> > +{
+>
+> [ ... ]
+>
+> > +	/* Must be done after napi_tx is disabled. */
+> > +	cancel_delayed_work_sync(&bp->tx_lpi_work);
+> > +
+> > +	/* Can finally disable software Tx; need to wait until napi_tx and
+> > +	 * tx_error_task cannot be scheduled as either might wakeup Tx.
+> > +	 */
+> > +	netif_tx_disable(bp->netdev);
+>
+> [Severity: High]
+> [Finding: gpt-5-6-sol-5-11]
+> [Sources: gpt-5-6-sol, opus-5]
+> This stops all TX queues while netif_running() and the carrier both stay =
+set,
+> since this is an ethtool op and phylink is deliberately not stopped. Does
+> that leave the netdev TX watchdog free to run during the swap?
+
+Yes! See above (grep for "^Well actually") where I explained how we fix
+this TX watchdog race. And we explicitely don't touch phylink because
+we don't want any PHY retrain. Gotta go fast.
+
+[...]
+
+>
+> > +	spin_unlock_irqrestore(&bp->lock, flags);
+> > +}
+> > +
+> > +static void macb_context_swap_end(struct macb *bp,
+> > +				  struct macb_context *new_ctx)
+> > +{
+> > +	struct macb_context *old_ctx;
+> > +	struct macb_queue *queue;
+> > +	unsigned long flags;
+> > +	unsigned int q;
+> > +	u32 ctrl;
+> > +
+> > +	lockdep_assert_held(&bp->mac_cfg_lock);
+> > +
+> > +	/* Swap contexts & give buffer pointers to HW. */
+> > +
+> > +	old_ctx =3D bp->ctx;
+> > +	bp->ctx =3D new_ctx;
+> > +	macb_init_buffers(bp);
+>
+> [Severity: Medium]
+> [Finding: main-5-9]
+> [Sources: opus-5]
+> bp->ctx is published here with a plain store, with no bp->lock, no
+> WRITE_ONCE() and no barrier, and old_ctx is dma-freed and kfree()d at the
+> end of this function after mac_cfg_lock has been dropped and after NAPI,
+> software TX and hardware RX/TX have been restarted.
+
+Yes that's a mistake. Should be WRITE_ONCE() followed by mb().
+All codepaths that assign bp->ctx should look like that.
+
+Btw, I learnt something reading a good chunk of
+Documentation/memory-barriers.txt: "Memory operations issued before the
+ACQUIRE may be completed after the ACQUIRE operation has completed". So
+here we do
+
+   bp->ctx =3D ...;
+   spin_lock(...);
+   relaxed_writel(...);
+
+And the spin_lock isn't implicitely introducing a mandatory mb. TIL.
+
+> Every other non-rtnl reader of bp->ctx runs from hardirq, softirq or work
+> context under bp->lock or queue->tx_ptr_lock, for example
+> macb_tx_lpi_work_fn() -> macb_tx_all_queues_idle():
+>
+>     for (q =3D 0; q < bp->num_queues; ++q) {
+>         txq =3D &bp->ctx->txq[q];
+>
+> so the safety of the swap rests entirely on the drain list in
+> macb_context_swap_start() being exhaustive. The macb_tx_timeout() ->
+> macb_tx_restart() path noted above is one reader that is not on it.
+>
+> Would doing the pointer swap under bp->lock (taken a few lines below
+> anyway), and freeing old_ctx only after a synchronisation point, make tha=
+t
+> contract enforced rather than assumed?
+
+No let's not do this. It is "taken a few lines below anyway" but
+inbetween there's napi_enable() and it mustn't be done in bp->lock
+critical section and the sequence ordering must stay as-is.
+
+And doing the ctx write in a bp->lock critical section doesn't help
+anything if in the same section we also write some MMIO registers
+(taking the same example as below).
+
+>
+> > +
+> > +	/* Start NAPI, HW Tx/Rx and software Tx. */
+> > +
+> > +	for (q =3D 0, queue =3D bp->queues; q < bp->num_queues; ++q, ++queue)=
+ {
+> > +		napi_enable(&queue->napi_rx);
+> > +		napi_enable(&queue->napi_tx);
+> > +	}
+> > +
+> > +	spin_lock_irqsave(&bp->lock, flags);
+> > +
+> > +	/* Re-arm normal interrupt processing before enabling IRQs. */
+> > +	bp->ctx_swap =3D false;
+> > +
+> > +	macb_configure_dma(bp);
+> > +
+> > +	if (bp->link_up) {
+> > +		for (q =3D 0, queue =3D bp->queues; q < bp->num_queues; ++q, ++queue=
+) {
+> > +			queue_writel(queue, IER,
+> > +				     bp->rx_intr_mask |
+> > +				     MACB_TX_INT_FLAGS |
+> > +				     MACB_BIT(HRESP));
+> > +		}
+> > +
+> > +		ctrl =3D macb_readl(bp, NCR);
+> > +		macb_writel(bp, NCR, ctrl | MACB_BIT(RE) | MACB_BIT(TE));
+> > +	}
+>
+> [Severity: Medium]
+> [Finding: gpt-5-6-sol-7-14]
+> [Sources: gpt-5-6-sol, opus-5]
+> The descriptors for new_ctx were written earlier, in macb_context_alloc()=
+ ->
+> mog_init_rings(), and the ring base registers were handed over just above=
+ by
+> macb_init_buffers(); RE|TE are then enabled here. Is a wmb() missing betw=
+een
+> the descriptor stores and those register writes?
+
+Covered above.
+
+[...]
+
+> > +	spin_unlock_irqrestore(&bp->lock, flags);
+> > +
+> > +	if (bp->link_up) {
+> > +		netif_tx_wake_all_queues(bp->netdev);
+> > +
+> > +		if (bp->eee_active)
+> > +			macb_txp_lpi_initial_defer(bp);
+> > +	}
+>
+> [Severity: Medium]
+> [Finding: main-2-3]
+> [Sources: opus-5]
+> bp->link_up is documented in macb.h as "Redundant to netif_carrier_ok(), =
+but
+> set under bp->mac_cfg_lock", and it gates both IER/RE|TE re-arming and th=
+e
+> TX wake here. Is macb_hresp_error_task() able to break that redundancy?
+
+hresp_error is not even taking bp->lock to writel to the hardware. It
+races against every other context in MACB. One we get in, the right
+primitives will be there to fix this, as it is almost a context swap
+operation (just with old_ctx free before new_ctx alloc).
+
+[...]
+
+Thanks,
+--=20
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
