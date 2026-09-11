@@ -1,80 +1,39 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C3C92EBB84;
-	Fri, 11 Sep 2026 18:41:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F07F34AF9DC;
+	Fri, 11 Sep 2026 18:42:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789152117; cv=none; b=J6kO3tLVrsowags8C/GaaCHrtAlq0NB0h3O5mTXa6Albsm442xmnkN+iOv037TqLdFVedBwJ5uPQyOogXJqYOKeuqfV4WZtai91J1NvJfVVeIfK5JUtLBNCdnQwB5cO8TQ+xzMsbhL0tf+dmyuo10Gng8yfpynJeTcYDQAAEVj4=
+	t=1789152130; cv=none; b=S50kvfUKgxo7jZyZRc+ROu0LbvFsblKNMq6XUzkt9YH45+4buxbWupsgViYiC9FAfWWPXVU3gJASkQWRz1HBSq7HjEwMgt1sw/be2jY8DqJrSfuQnV8fsnVhwYJncVN5XroXpWM4crMKr/LeOmarVavkseDIkyIpNr/6OXk2OnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789152117; c=relaxed/simple;
-	bh=GU3HVbWvMuk5BYOYxHSjKK3L1+JcDqIPoatgfbJRJXw=;
+	s=arc-20240116; t=1789152130; c=relaxed/simple;
+	bh=UBYUwVJ+HLAWNIXYST+Re1c1Q5Ue1zkuzoGOShspLXU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PiaovKv2W3gUvooAV7Y/MxLg1x0cVdrgXqo5180X8vL95unxTUCiMNEfxfzqp/5bkF0Tr6t3Qt5qiER4yWmjRSVO+KXBapyySW8vahfqr1iEnHQvMsqeDudfO/ifxaK08FsHg5sIyqwPhCw+qHY+6OkfK0c35uaGE8Hr9ysb9CE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=RkY/M0mS; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=wlq1Qg4Q; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Ms4mfNdu; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=t1HRb21j; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	 In-Reply-To:Content-Type; b=oJDmd8zvpjdk8oSlUEg5lsJSXBAUlkeFn5NZBV6B6h1KlTdQ1+JHBVRoqTayxho/ewQaic8EzYkv+269/LpFBUdv1sTIIqPlXGMhvyXyztDE4pTyxo6SGScjLR9BijEKDS/GhjJwbZa6qSlVX0Eoyyhm2unGPUywVLSaX6q67iw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=BEWDvx0k; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="RkY/M0mS";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="wlq1Qg4Q";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Ms4mfNdu";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="t1HRb21j"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="BEWDvx0k"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 61E0B21D08;
-	Fri, 11 Sep 2026 18:41:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789152109; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	by ixit.cz (Postfix) with ESMTPSA id D80455340298;
+	Fri, 11 Sep 2026 20:41:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1789152119;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Y0gb1YTzyq1tY8Su9YkmnVJWgy1TkvTwTxxXy9SCpjo=;
-	b=RkY/M0mSQDtBwqIu6f/fIc29Amt/L8mUaFwnHx0GIwah9Lzw/pNGlorIFjfrEOSXWVkH7Q
-	GlheZ17kgncviUXpcaqC1WryqKQUfloiSZ9/LpyY/kBJJEnqjbHcNfSVn4RciI24eGVnqg
-	TKxQP8HMZ5JDjuGHNxmWMcBB5CSb58E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789152109;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Y0gb1YTzyq1tY8Su9YkmnVJWgy1TkvTwTxxXy9SCpjo=;
-	b=wlq1Qg4QibM0Nx9TOoJ7itJSTMV2mU3MqDiCInKrVBCNHhApf4+FRz4Rtkzoul+9lvUb7i
-	UEtjI2UQT7ejN1DA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789152105; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Y0gb1YTzyq1tY8Su9YkmnVJWgy1TkvTwTxxXy9SCpjo=;
-	b=Ms4mfNducoXCdJdwgneA930TXB6lfwJEeLdqj+a/+gyLPolyAdvQwKtYKzxeTmImdfxBJ+
-	p0CviZSbqz9XVvXwhL8ePfQ1f7gAFlHr2rBcP2QBE0wbns+N47l2LDu6nSV5IfRxpitZZT
-	ad67zye62h/9XjaeScPg3PMVyV3l3Sg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789152105;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Y0gb1YTzyq1tY8Su9YkmnVJWgy1TkvTwTxxXy9SCpjo=;
-	b=t1HRb21jf6dXlxt4qlVQM0JwQp+OHn2WmSxNuC3U1RcaI0tQ7A6zjqjE1Bii0IC6O3Bb1A
-	+f6M/tqvTZHjeyDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 60FFB132D3;
-	Fri, 11 Sep 2026 18:41:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 5yPcFGhLpGpifgAAD6G6ig
-	(envelope-from <fmancera@suse.de>); Fri, 11 Sep 2026 18:41:44 +0000
-Message-ID: <fcb24a94-d62d-4166-b51b-4585a021500b@suse.de>
-Date: Fri, 11 Sep 2026 20:41:10 +0200
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=rHSjTarwBc7bg0NGFzwow8Dj+HXlOlAGtccg+T6t/AM=;
+	b=BEWDvx0kN4RjDqrMEWjh+20MLWSmMvQ6uKKSr6/qUqTKzmtQuACKe5RSYzu+kBKMbMoV1B
+	MTie3d5RK3tPbjabPI8tsfV1GPP5dYP6ClY+M0rXDpKgRjsdCvxpuyxjx5vVaiY4pz5p63
+	9Co3MpCPac6rL6xnCisipv7x2cRNkRQ=
+Message-ID: <94dcb0f5-f886-478e-be3b-722d4c808a49@ixit.cz>
+Date: Fri, 11 Sep 2026 20:41:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,211 +41,154 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/13 net-next] net: inet: relocate ip_generic_getfrag and
- guard IPv4 socket logic
-To: Stanislav Fomichev <sdf.kernel@gmail.com>
-Cc: netdev@vger.kernel.org, horms@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, edumazet@google.com, davem@davemloft.net,
- David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
- Willem de Bruijn <willemb@google.com>, Kees Cook <kees@kernel.org>,
- Kuniyuki Iwashima <kuniyu@google.com>,
- Richard Gobert <richardbgobert@gmail.com>,
- Marc Kleine-Budde <mkl@pengutronix.de>, Jeff Layton <jlayton@kernel.org>,
- Qi Tang <tpluszz77@gmail.com>, linux-kernel@vger.kernel.org
-References: <20260910144914.8025-1-fmancera@suse.de>
- <20260910144914.8025-4-fmancera@suse.de>
- <aqMeeDnj4pcuvz7-@devvm7509.cco0.facebook.com>
-Content-Language: en-US
-From: Fernando Fernandez Mancera <fmancera@suse.de>
-In-Reply-To: <aqMeeDnj4pcuvz7-@devvm7509.cco0.facebook.com>
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sdm845-oneplus: use generic fuel
+ gauge compatible
+To: Andrew Davis <afd@ti.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Pali_Roh=C3=A1r?=
+ <pali@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260829205258.26955-1-rinat.muhamedgaliev@gmail.com>
+ <20260909234744.1177153-1-rinat.muhamedgaliev@gmail.com>
+ <20260909234744.1177153-4-rinat.muhamedgaliev@gmail.com>
+ <20260911-relaxed-dexterous-hummingbird-72dfbe@quoll>
+ <6c45cfd5-ac37-4f8e-bde3-0391512df982@ti.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <6c45cfd5-ac37-4f8e-bde3-0391512df982@ti.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spam-Level: 
-X-Spam-Score: -2.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,kernel.org,redhat.com,google.com,davemloft.net,nvidia.com,gmail.com,pengutronix.de];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+Content-Transfer-Encoding: 8bit
 
 
 
-On 9/10/26 11:19 PM, Stanislav Fomichev wrote:
-> On 09/10, Fernando Fernandez Mancera wrote:
->> To enable compiling the INET subsystem without IPv4, shared generic
->> utilities must be relocated and IPv4 socket logic must be guarded for
->> CONFIG_IPV4.
+On 11/09/2026 15:37, Andrew Davis wrote:
+> On 9/11/26 3:21 AM, Krzysztof Kozlowski wrote:
+>> On Thu, Sep 10, 2026 at 02:47:44AM +0300, Rinat Muhamedgaliev wrote:
+>>> OnePlus 6 and OnePlus 6T battery packs may contain either a TI
+>>> bq27411 or bq27541 fuel gauge. Use the generic ti,bq27xxx compatible
+>>> so the driver can select the register map from DeviceType at probe
+>>> time.
+>>>
+>>> Tested on OnePlus 6T (fajita) with a bq27541 (DeviceType 0x0541):
+>>> after booting the new kernel, the battery reported 4.360 V, 100% state
+>>> of charge, 27.8 C, and Full status.
+>>>
+>>> Fixes: 12dfb002ca01 ("arm64: dts: qcom: sdm845-oneplus-*: add fuel gauge")
 >>
->> This patch moves the generic ip_generec_getfrag() from ip_output.c to
->> af_inet.c. It also introduces CONFIG_IPV4 guards around af_inet.c to
->> reject IPv4-specific ioctls, protocol registrations and bind requests.
->> The same guard is added to reject IPv4-mapped IPv6.
+>> What is the bug here? Your commit msg should be specific about it.
 >>
->> Signed-off-by: Fernando Fernandez Mancera <fmancera@suse.de>
->> ---
->>   net/ipv4/af_inet.c   | 96 +++++++++++++++++++++++++++++++++++++-------
->>   net/ipv4/ip_output.c | 18 ---------
->>   net/ipv6/af_inet6.c  |  5 +++
->>   net/ipv6/datagram.c  | 12 ++++++
->>   4 files changed, 99 insertions(+), 32 deletions(-)
->>
->> diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
->> index d9421ac38d78..b0c48ba544bf 100644
->> --- a/net/ipv4/af_inet.c
->> +++ b/net/ipv4/af_inet.c
->> @@ -129,6 +129,28 @@
->>   int disable_ipv6_mod;
->>   EXPORT_SYMBOL(disable_ipv6_mod);
->>   
->> +/* Keep the function here for now as it is generic, it should be moved
->> + * to a common L3 place
->> + */
->> +int
->> +ip_generic_getfrag(void *from, char *to, int offset, int len, int odd, struct sk_buff *skb)
->> +{
->> +	struct msghdr *msg = from;
->> +
->> +	if (skb->ip_summed == CHECKSUM_PARTIAL) {
->> +		if (!copy_from_iter_full(to, len, &msg->msg_iter))
->> +			return -EFAULT;
->> +	} else {
->> +		__wsum csum = 0;
->> +
->> +		if (!csum_and_copy_from_iter_full(to, len, &csum, &msg->msg_iter))
->> +			return -EFAULT;
->> +		skb->csum = csum_block_add(skb->csum, csum, odd);
->> +	}
->> +	return 0;
->> +}
->> +EXPORT_SYMBOL(ip_generic_getfrag);
->> +
->>   /* The inetsw table contains everything that inet_create needs to
->>    * build a new socket.
->>    */
->> @@ -425,8 +447,10 @@ int inet_release(struct socket *sock)
->>   		if (!sk->sk_kern_sock)
->>   			BPF_CGROUP_RUN_PROG_INET_SOCK_RELEASE(sk);
->>   
->> +#if IS_ENABLED(CONFIG_IPV4)
->>   		/* Applications forget to leave groups before exiting */
->>   		ip_mc_drop_socket(sk);
->> +#endif
->>   
->>   		/* If linger is set, we don't return until the close
->>   		 * is complete.  Otherwise we return immediately. The
->> @@ -478,6 +502,7 @@ EXPORT_SYMBOL(inet_bind);
->>   int __inet_bind(struct sock *sk, struct sockaddr_unsized *uaddr, int addr_len,
->>   		u32 flags)
->>   {
->> +#if IS_ENABLED(CONFIG_IPV4)
->>   	struct sockaddr_in *addr = (struct sockaddr_in *)uaddr;
->>   	struct inet_sock *inet = inet_sk(sk);
->>   	struct net *net = sock_net(sk);
->> @@ -570,6 +595,9 @@ int __inet_bind(struct sock *sk, struct sockaddr_unsized *uaddr, int addr_len,
->>   		release_sock(sk);
->>   out:
->>   	return err;
->> +#else
->> +	return -EAFNOSUPPORT;
->> +#endif
->>   }
->>   
->>   int inet_dgram_connect(struct socket *sock, struct sockaddr_unsized *uaddr,
->> @@ -962,18 +990,24 @@ EXPORT_SYMBOL(inet_shutdown);
->>   int inet_ioctl(struct socket *sock, unsigned int cmd, unsigned long arg)
->>   {
->>   	struct sock *sk = sock->sk;
->> -	int err = 0;
->> -	struct net *net = sock_net(sk);
->> +#if IS_ENABLED(CONFIG_IPV4)
->>   	void __user *p = (void __user *)arg;
->> -	struct ifreq ifr;
->> +	struct net *net = sock_net(sk);
->>   	struct rtentry rt;
->> +	struct ifreq ifr;
->> +#endif
->> +	int err = 0;
->>   
->>   	switch (cmd) {
->>   	case SIOCADDRT:
->>   	case SIOCDELRT:
->> +#if IS_ENABLED(CONFIG_IPV4)
->>   		if (copy_from_user(&rt, p, sizeof(struct rtentry)))
->>   			return -EFAULT;
->>   		err = ip_rt_ioctl(net, cmd, &rt);
->> +#else
->> +		err = -EOPNOTSUPP;
->> +#endif
->>   		break;
->>   	case SIOCRTMSG:
->>   		err = -EINVAL;
->> @@ -981,18 +1015,26 @@ int inet_ioctl(struct socket *sock, unsigned int cmd, unsigned long arg)
->>   	case SIOCDARP:
->>   	case SIOCGARP:
->>   	case SIOCSARP:
->> +#if IS_ENABLED(CONFIG_IPV4)
->>   		err = arp_ioctl(net, cmd, (void __user *)arg);
->> +#else
->> +		err = -EOPNOTSUPP;
->> +#endif
->>   		break;
->>   	case SIOCGIFADDR:
->>   	case SIOCGIFBRDADDR:
->>   	case SIOCGIFNETMASK:
->>   	case SIOCGIFDSTADDR:
->>   	case SIOCGIFPFLAGS:
->> +#if IS_ENABLED(CONFIG_IPV4)
->>   		if (get_user_ifreq(&ifr, NULL, p))
->>   			return -EFAULT;
->>   		err = devinet_ioctl(net, cmd, &ifr);
->>   		if (!err && put_user_ifreq(&ifr, p))
->>   			err = -EFAULT;
->> +#else
->> +		err = -EOPNOTSUPP;
->> +#endif
->>   		break;
->>   
->>   	case SIOCSIFADDR:
->> @@ -1001,9 +1043,13 @@ int inet_ioctl(struct socket *sock, unsigned int cmd, unsigned long arg)
->>   	case SIOCSIFDSTADDR:
->>   	case SIOCSIFPFLAGS:
->>   	case SIOCSIFFLAGS:
->> +#if IS_ENABLED(CONFIG_IPV4)
->>   		if (get_user_ifreq(&ifr, NULL, p))
->>   			return -EFAULT;
->>   		err = devinet_ioctl(net, cmd, &ifr);
->> +#else
->> +		err = -EOPNOTSUPP;
->> +#endif
 > 
-> (passing by comment)
+> Commit msg seems pretty clear about the bug (to me at least), the DT
+> says the fuel gauge is a BQ27411 but that isn't the case, some shipped
+> with a BQ27541 fuel gauge.
 > 
-> Don't we have a coding style rule to avoid ifdef conditional in C code?
-> Should we add some new devinet4_ioctl/etc wrappers that we can conditionally
-> compile out in the headers?
-
-I think yes but when it makes sense. Of course, that is something a bit 
-hard to judge IMHO. I tried to use it when it makes sense, like for 
-stubs or for functions that are protocol agnostic but contains a small 
-part related to IPv4/IPV6. I was willing to avoid code duplication as 
-much as possible.
+> (I do agree though this shouldn't have a fixes tag as back-porting this
+> without also back-porting the driver-side change would break users)
+> 
+> Since these fuel gauges often live on the battery pack and not the
+> device itself, folks changing their batteries might end up with
+> different fuel gauges, so having some detection method is going to
+> be helpful.
+> 
+> Rinat,
+> 
+> I'm not familiar with the bootflow on these devices, but is this something
+> you could detect in the bootloader and fixup the DT before it is passed
+> to kernel? That way the kernel gets a DT with the correct and specific
+> compatible to start with?
+> 
+> Andrew
+> 
+>>>
+>>> Signed-off-by: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+>>> ---
+>>>   arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi   | 4 ++--
+>>>   arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts | 2 +-
+>>>   arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts    | 2 +-
+>>>   3 files changed, 4 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/ 
+>>> arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+>>> index 948a0dd..8c5cd94 100644
+>>> --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+>>> +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+>>> @@ -790,8 +790,8 @@ &i2c10 {
+>>>       status = "okay";
+>>>       clock-frequency = <100000>;
+>>> -    bq27441_fg: bq27441-battery@55 {
+>>> -        compatible = "ti,bq27411";
+>>> +    bq27xxx_fg: fuel-gauge@55 {
+>>> +        compatible = "ti,bq27xxx";
+>>
+>> And this is just breaking all users without any explanation.
+>>
+>>
+>>
+>>>           status = "okay";
+>>>           reg = <0x55>;
+>>>       };
+>>> diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts b/arch/ 
+>>> arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+>>> index 5f01115..cf40842 100644
+>>> --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+>>> +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+>>> @@ -44,7 +44,7 @@ main_cam_ois: main-cam-ois-regulator {
+>>>       };
+>>>   };
+>>> -&bq27441_fg {
+>>> +&bq27xxx_fg {
+>>
+>> No, irrelevant to the supposed bug here.
+>>
+>> Best regards,
+>> Krzysztof
+>>
+> 
 
