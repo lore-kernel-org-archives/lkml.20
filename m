@@ -1,112 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx.prosyst.ru (m2.prosoftsystems.ru [46.48.77.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3010337E5D1
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:30:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D34D735E1CC;
+	Fri, 11 Sep 2026 09:31:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.48.77.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789119034; cv=none; b=Ih1MF7dyGcT9nQKQUczbVfOb9w7bCe4TsOIBGJN3N63w8C5CGao0IY80yejQlzc4HTJXFmGRz0CrkP0azcYdodYIqpGLtyruSBL9+ADAXTP1EFzwEzLTNZ62/tZ62jeiEBxthK2X+JosVbT8uNPEYQ2E1bp8ka/qQRnthWGgZdw=
+	t=1789119104; cv=none; b=EYJpwY24PqJhTPoUfuD0u45BdN1a7JfclbWv7oVEZhkZvRn3my+bHVo0Msyfrh/gQsfqKiqhDhF+WPZEoBTtiEcokWv5BGgc3FVgpYQ4iYZT3ak1FRnOCt4opei/eYZTt5GKGF1o0O97veg4CxwOzEOlzXB5arAyge25VuIdTm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789119034; c=relaxed/simple;
-	bh=630poMWQzgcbZPW1krsIlacK+TXkVKw7zMWvcU5xltQ=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
-	 References:In-Reply-To; b=fuNMp0AXkbC3sKl5gDFJVigizoEgAZmBvRP2VvIbAjmtsMvFgMuYq/0TrwLbShFPFJ8NJyZrtUAdFyC4Wdt1RV7mCozGs6AflbgIsLoZR29jKjFMexwv9Z/P4B/vnYcrhXiK+/yj5mQIkRpfx3p58MXu46JPvJnQbSvYV3AK1Hw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=duEllfOM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789119104; c=relaxed/simple;
+	bh=EArwqju02I7Xzo5ITZJTsizIUFjx7Agcd6i6FF4JwD4=;
+	h=Content-Type:From:To:CC:Subject:Date:Message-ID:MIME-Version; b=cTlMLZEieoAOKS/eQoVfh55lkFLDw+iW9vNHLx4eIUtP+iUbBcDwzAVT1hdmHEPBUHFCQsWo6gWV5L9abzRAsbOsoFHDbfwzjaoSFfHerS/4yAJ8osP2+9FB4uHPvHWYAzhBux1+uz38vj1fOvvoOr7oZ+z11e2zNv5vMraQvPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=prosoftsystems.ru; spf=pass smtp.mailfrom=prosoftsystems.ru; dkim=pass (2048-bit key) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b=XHMOTKdI; arc=none smtp.client-ip=46.48.77.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=prosoftsystems.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=prosoftsystems.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="duEllfOM"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5A95E1F000FF;
-	Fri, 11 Sep 2026 09:30:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789119032;
-	bh=rz4T8CBZwQqzwi0m3a2/ZBRyZSVhbKnDKVE9J0f6yUI=;
-	h=Date:Subject:Cc:From:To:References:In-Reply-To;
-	b=duEllfOMN4cmFPg1neMONWzv1LcnzeFR7WrZN/h3FSFMD/HyxpfMQu5yYo5aZFI52
-	 7uw1XxdsjXsRJBnmL2tYLjlGMNhCMaZ32yVAeKhkRRaULaiseLX/1aTD5visBZONoR
-	 POjWrOF0btei7PIlweD/vHwE2Do6ohyrZkQOf0k0QQtblFpZZLDb+IYMAI1GtgxQ1Z
-	 V8LIATKU3HK5pz136Mwa+0K3ethLUPXdCcxLRIcEl/6B+xRrSfOVGf2TBgO8wUIFPb
-	 pFm1vk1z2nbp6VEITBcw1lDZHJ94Kq1hQ+uz43BrGOLzwpBLvg0bf9+R2LLTBKHma8
-	 X95QHSARBoCIQ==
+	dkim=pass (2048-bit key) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b="XHMOTKdI"
+Content-Language: ru-RU
+Content-Type: text/plain; charset="koi8-r"
+Content-Transfer-Encoding: quoted-printable
+DKIM-Signature: v=1; a=rsa-sha256; d=prosoftsystems.ru; s=ps;
+	c=relaxed/relaxed; t=1789119096; h=from:to:date:message-id:subject;
+	bh=bZV4WNmYM3+Grp//mW6iYzrxlqH3yVKntecCVlgazV0=;
+	b=XHMOTKdIIM9aniRpm4ykRlnZBh5NaA0lLWuWvMOa9lqDpxv8S+59XOLQCjN2jERsyPdDqCyhOTi
+	VrqatJib1osTq8YMrw93alkQFwydClJoMt9YMIKTHx740mlBhVChk+adGcjFfPBe1TlDjc/TaZFCl
+	mRfjxAGiNLWQ85JvAZg4nZElQIoZ/1MqqwXE/4p5I7DUKQ8FcZIE76pMKF1cZQZd/LycIhF9Dad22
+	TWl0Zsqg3sH7GfSfZnWOrlfXCn0JpPgKAVoZFpa46B0cts4wXspXJkmmlVNcw0YDSpw5Yzoo/0stw
+	oqYwFKIhFyWm60HXyKhaLGenR2xJQSuS6CcA==
+Received: from ECHO-3.prosoft.ural.ru (172.25.100.229) by mx.prosoftsystems.ru
+ (172.21.240.33) with Microsoft SMTP Server (TLS) id 15.1.396.30; Fri, 11 Sep
+ 2026 14:31:36 +0500
+Received: from echo-2.prosoft.ural.ru (172.21.245.22) by
+ ECHO-3.prosoft.ural.ru (172.25.100.229) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.39; Fri, 11 Sep 2026 14:31:36 +0500
+Received: from echo-2.prosoft.ural.ru ([::1]) by echo-2.prosoft.ural.ru
+ ([fe80::c1a2:90f7:8820:c669%17]) with mapi id 15.02.1748.039; Fri, 11 Sep
+ 2026 14:31:36 +0500
+From: =?koi8-r?B?9sHNwsHLycXXIPLBxMnKIPLJy8HSxMnOz9fJ3g==?=
+	<r.zhambakiev@prosoftsystems.ru>
+To: Eduardo Valentin <edubezval@gmail.com>
+CC: =?koi8-r?B?9sHNwsHLycXXIPLBxMnKIPLJy8HSxMnOz9fJ3g==?=
+	<r.zhambakiev@prosoftsystems.ru>, Keerthy <j-keerthy@ti.com>, "Rafael J.
+ Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "linux-pm@vger.kernel.org"
+	<linux-pm@vger.kernel.org>, "linux-omap@vger.kernel.org"
+	<linux-omap@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "lvc-project@linuxtesting.org"
+	<lvc-project@linuxtesting.org>
+Subject: [PATCH] thermal: ti-soc-thermal: Check return value of
+ clk_prepare_enable()
+Thread-Topic: [PATCH] thermal: ti-soc-thermal: Check return value of
+ clk_prepare_enable()
+Thread-Index: AQHdQdBXybVgwHSdD06fJ70Al9uVrw==
+Date: Fri, 11 Sep 2026 09:31:36 +0000
+Message-ID: <20260911093110.105635-1-r.zhambakiev@prosoftsystems.ru>
+Accept-Language: ru-RU, en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=059ea684f812920f19099ef40d45683ff7173b765f8d76345088bce21655;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Fri, 11 Sep 2026 11:30:29 +0200
-Message-Id: <DLCDRJG22PDM.UPGN3KXWKND4@kernel.org>
-Subject: Re: [PATCH] mtd: spi-nor: Fix quad-enable for flashes with QER bit
- in SR1
-Cc: "Pratyush Yadav" <pratyush@kernel.org>, "Takahiro Kuwano"
- <takahiro.kuwano@infineon.com>, "Richard Weinberger" <richard@nod.at>,
- "Vignesh Raghavendra" <vigneshr@ti.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, "Jon Hunter" <jonathanh@nvidia.com>, "Steam
- Lin" <STLin2@winbond.com>, <linux-mtd@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>
-From: "Michael Walle" <mwalle@kernel.org>
-To: "Miquel Raynal" <miquel.raynal@bootlin.com>
-X-Mailer: aerc 0.20.0
-References: <20260911-perso-fix-spi-nor-qe-mxic-v1-1-fd6d91416a2a@bootlin.com> <DLCD7NN2IW82.33ISZCKO1E7UY@kernel.org> <87o6e4qh5g.fsf@bootlin.com>
-In-Reply-To: <87o6e4qh5g.fsf@bootlin.com>
+MIME-Version: 1.0
 
---059ea684f812920f19099ef40d45683ff7173b765f8d76345088bce21655
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+From: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
 
-On Fri Sep 11, 2026 at 11:19 AM CEST, Miquel Raynal wrote:
->
->>> -	ret =3D spi_nor_read_sr1_and_sr2(nor, sr);
->>> +	if (qe_mask[0])
->>> +		ret =3D spi_nor_read_sr1(nor, sr);
->>> +	else
->>> +		ret =3D spi_nor_read_sr1_and_sr2(nor, sr);
->>
->> Shouldn't that be the other way around?
->>
->> +	if (qe_mask[1])
->> +		ret =3D spi_nor_read_sr1_and_sr2(nor, sr);
->> +	else
->> +		ret =3D spi_nor_read_sr1(nor, sr);
->>
->> I know qe_mask won't be spread across two SRs. Just to be
->> correct and make it easier to grok.
->
-> Why is the second version easier to parse? First version is maybe more
-> future proof since we are treating a specific case. Because either it is
-> a specific chip (Mxic) or we end up in the more common case. There is
-> only one QER entry for qe_mask[0], many for qe_mask[1], and chances are
-> that in the future we will mostly see new chips only using a qe_mask[1]
-> mask. So having this in the else doesn't sound so strange to me? I also
-> don't think we will ever see masks spanning the two registers.
+On SoCs with the CLK_CTRL feature the bandgap fclk is enabled in
+ti_bandgap_probe(), but the return value of clk_prepare_enable() is
+ignored. If the clock cannot be enabled, probe continues and all
+subsequent register accesses fail or return stale values.
 
-Because for the first one you'll have to know that qe_mask wont span
-two different registers, where with my proposal, you don't have to
-have that knowledge, no?
+Check the return value and abort probe with the proper error code,
+using the existing put_clks cleanup path, which releases both clocks
+and the TSHUT IRQ that have been acquired at that point.
 
-If qe_mask[1] is used regardless of qe_mask[0], you know you have to
-write sr2, otherwise you'd be skipping something.
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-With the former, qe_mask[1] might or might not be 0 and you could
-end up in spi_nor_read_sr1().
+Fixes: 8feaf0ce1a04 ("staging: OMAP4+: thermal: introduce bandgap temperatu=
+re sensor")
+Signed-off-by: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
+---
+ drivers/thermal/ti-soc-thermal/ti-bandgap.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-What do you mean with future prove? In the end it's the very same
-logic iff there will only be one bit set in qe_mask[] and
-sizeof(qe_mask) =3D=3D 2.
-
--michael
-
---059ea684f812920f19099ef40d45683ff7173b765f8d76345088bce21655
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCaqPKNRIcbXdhbGxlQGtl
-cm5lbC5vcmcACgkQEic87j4CH/ib/wF+IbYzfExispJ6WUUDK1Tad18sAqKeIw8l
-ViPZ6kqaJgPZ2jhyY3d+k/Jt/JFkNxqOAX9AqsfgLcNR8IzSZoya04+VPRlc1/Nc
-On6SXRPYPLktuFU2LjKMo6mNJVALf/L+D0g=
-=H6a2
------END PGP SIGNATURE-----
-
---059ea684f812920f19099ef40d45683ff7173b765f8d76345088bce21655--
+diff --git a/drivers/thermal/ti-soc-thermal/ti-bandgap.c b/drivers/thermal/=
+ti-soc-thermal/ti-bandgap.c
+index ba43399d0b38..de9ad65d854a 100644
+--- a/drivers/thermal/ti-soc-thermal/ti-bandgap.c
++++ b/drivers/thermal/ti-soc-thermal/ti-bandgap.c
+@@ -953,9 +953,13 @@ int ti_bandgap_probe(struct platform_device *pdev)
+ 		dev_err(&pdev->dev, "Cannot re-set clock rate. Continuing\n");
+=20
+ 	bgp->clk_rate =3D clk_rate;
+-	if (TI_BANDGAP_HAS(bgp, CLK_CTRL))
+-		clk_prepare_enable(bgp->fclock);
+-
++	if (TI_BANDGAP_HAS(bgp, CLK_CTRL)) {
++		ret =3D clk_prepare_enable(bgp->fclock);
++		if (ret) {
++			dev_err(&pdev->dev, "failed to enable fclock\n");
++			goto put_clks;
++		}
++	}
+=20
+ 	spin_lock_init(&bgp->lock);
+ 	bgp->dev =3D &pdev->dev;
+--=20
+2.53.0
