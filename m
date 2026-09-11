@@ -1,88 +1,178 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B28C34AD7CA;
-	Fri, 11 Sep 2026 17:51:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FCA4AD7D8
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:51:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789149118; cv=none; b=QBnaBqB6VS9/nODYlSNrhSoYxFJlMM9GbqigWdJBwX/iY66GfDrjWXbn3SAn4PfO1my0jtuqayiBEbD26C0NUJHzAusFJCbLu8bV1BKVj1UvCB24Z3hLOR+0fUjL0exgTGI/E7L2TgGpTf/rng6o5Wzh2SHwmDdQlrrYkSdPucI=
+	t=1789149121; cv=none; b=bMq1Fqh3Ai3j7yvG2+gR7okU5XqaO2DNejK2vOz+l7kBULAv+gNJ6DhkIPVZrIwOe2DM9+JbfJFSPRmi8RGLhpVkR5S/JXR6KFsUosSzKWex7u7iMP+83/0RahpJeGWuAVNmpC4Q2aJKymKjrJShDz8Z6MIWHAcmt1dMJkoUuTE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789149118; c=relaxed/simple;
-	bh=7Nm6FYo4GXzkpPgmiRgntaMxy35TbQyo6ON4gFJvBiQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Uv1DRc5zvL8fu2YHN0Xc8mc9hR2f1G/WFoeTlZIW2qA2Ch4t2Kb1un52StFaGMklqF9RVkCcYh6g1xdgSwm133ID2Y0qHJNEHXDjDLDlYtFFBdD3/LM+TNG/r96JqHvJtL5mnPuG+HxWHnVYyGeZMMX9R5da1NvlrtoLAnCgj5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=aYhTBS6V; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1789149121; c=relaxed/simple;
+	bh=k3OTarJevq2L9zcrC5c0odON51Ym9WgieNS16JhSSvE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aR7kLNKcrAo26Hg0hFuCKQBrXcKBLXgdx4kDCGhidzSUGH6xemO4Hxf/WbbWZ86cuC26hUBufqwD6IXOAyXXx1B1RsKwMYXjFMguO7leFzsABX5iA81tK0yD7cWKltw2H6MbpUsJGjFIqrtMAYLfrkj11NfwcYOlx06AnVilJVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=hYHJGu/2; arc=none smtp.client-ip=209.85.210.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="aYhTBS6V"
-Received: from UbuntuVM-22.efytirfs5hsengjwslc1ligxab.xx.internal.cloudapp.net (unknown [20.112.67.58])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 6717920B7166;
-	Fri, 11 Sep 2026 10:51:14 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6717920B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1789149074;
-	bh=CORYO3XveuNPmRLRjv4VwC9D8zQGTqIrGY5gmcAeUXQ=;
-	h=From:To:Cc:Subject:Date:From;
-	b=aYhTBS6VWKld0svBWhZ5XfIek50ulWdB/Tr7+b5OtzSjCl9aod+8HQK0d4cdjxP9p
-	 XzROCtnKsIvTMcLv91zU2qU1GmHpPxGPoA2TYQiz6B7Txnz2Iuw1n+8NSCJbR7mbGJ
-	 zr/yjzHeIMjESolx3TS7yCqHiLdnasnXZE8uLF1I=
-From: Hardik Garg <hargar@linux.microsoft.com>
-To: kys@microsoft.com,
-	haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com
-Cc: mhklinux@outlook.com,
-	ssengar@linux.microsoft.com,
-	namjain@linux.microsoft.com,
-	romank@linux.microsoft.com,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] mshv_vtl: Check per-CPU register page before mmap
-Date: Fri, 11 Sep 2026 17:51:46 +0000
-Message-Id: <20260911175146.1370148-1-hargar@linux.microsoft.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="hYHJGu/2"
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7f5934ba2a5so702522a34.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:51:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1789149117; x=1789753917; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9olr04AtyTbiPDIyx9X9sacFZEY3X0bYJ7/A2XJEuFA=;
+        b=hYHJGu/2ziX4bBkGiewO5v1bBnuOmCJ2LEW/2wTKOMcv9ON1YAFGMVMyg0rID03hSb
+         7VsedsnO/sxN3bQU9bDxp5mMYsASr66mWUEr/Bt2w1rPaHsNgAzSzTVbHK04CGjgEpjc
+         uoG6dGpnUFQ1wStLJVDj27M8ZPQhSLKGccd9bzEqaCGr9jA31BFsYE3jgi2jQqrNGENc
+         RiZ1uZqNsspWmBSqpvyWfw+nfl6JQUyTMk9P9kW5WJYqBGWtWWofkC+6Z7dM+oISpyNp
+         nGEtgqNWZDEbUyPo25IKhBLjFedxj6eXDoUkyV5MYjkopPW56tls6bi3DpjzcJFiBSo5
+         SXtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789149117; x=1789753917;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9olr04AtyTbiPDIyx9X9sacFZEY3X0bYJ7/A2XJEuFA=;
+        b=KcO6BJq7Fh+nUzwbH/tZf8xSOufSchCsGxRLVjgH6CiVMsZXNPRhZrQHuWAahWZwMK
+         5p6iFYsJbKXb23fEoLzON0diBq7UO5m5OAcp05HwIeoL9N8vi52Kw9qnLA64m7355w5s
+         pQrBCpufRXxlAYYplKZAQZ5O/fhP+OtQ2t3c875PZ5vteq/VQWAVl7T/zOVvfOJ3LuqC
+         eGxMTSIaHcse+bWE7Zx133+4jlk7Jey2DtX61x+8pkZ/R0MLwXRY7Z2xtCaBAIPzYBty
+         ZrB3FVSaWAZ+CCB7X6DuOTb+NwjqJIogjF5bx0q7hAx/vrBh60WEkE6t9dKDQzeH7dfz
+         NVyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwpxQo4P0BEJnbPc0T2GIiehT0CM0pFZHOyXOiXoYzxYMOqnnu5O97R53ulALx8nrGXLYPKvcWxvzlQW04=@vger.kernel.org
+X-Gm-Message-State: AFuF++mlNPVCCH8gGpoqdrBMD1LhODnioP2VmuVJUCxgjB93GHZqLjk2
+	hwKfSJqgaU0eeujkdoproFsA5zknIm0riMP0mZm1wGL4RYUhguWiX2VSXid+4AtYtTc=
+X-Gm-Gg: AYBFou01xWil7+UMdEi1ijzHv/pl1tyVSOO9n0SsVwZJrz6s9tSdUe5UnUOghPffv3r
+	MwmCMjRKV0VgHNoN3ZbWb4xO3tZa66sqb1LRAWHYpBup8PjubC76hVhnHHFQ4cj2NnGdWgBS8QL
+	lWudBWLHFx1ps2S901Ikl34MlAG72xa8qhudWQSkl8QAiY4SpT6+vgSxWMqecHYLCTlR7omXyN7
+	vlug8psQdAsON1+9Yl8yTbGwq3Yw3AmpZwIbcOiaksOVFm7+EElri3LUFSzteRNufjRfIuQl2to
+	5QKekiA8GJZrSPKZB2zQC9RmI2yosSdG38zZz+Ghq1sZwwqFFNnxGt5EI/b7hdwCucFjpzf16Je
+	PLDGA6MuJ/1DZr/qkuIlL1VcZEBSXD5d0TCyyv+SJSHWXw+SgwNNbyocTEermgOfteL8jXIU+qe
+	mNLB6spi6JWeXZTh3eo42gXTZa9AsyjT1bMdF/v7cz6xgJWSs0JM7kW9oNgtIBw9ZpK/gYITpxw
+	WfUI6k/6zcnHKQLyZP/eNqByGKSsXOrlznGCZebUzdMmoPiIxX0azxz
+X-Received: by 2002:a05:6830:6abc:b0:7fa:ab72:9dfa with SMTP id 46e09a7af769-803ff447bcdmr4271484a34.18.1789149117393;
+        Fri, 11 Sep 2026 10:51:57 -0700 (PDT)
+Received: from [192.168.1.102] ([96.43.243.2])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-803f670d850sm3108041a34.17.2026.09.11.10.51.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 10:51:56 -0700 (PDT)
+Message-ID: <54310fb2-d4b0-4b97-bc07-68e27e462b29@kernel.dk>
+Date: Fri, 11 Sep 2026 11:51:55 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 00/15] io_uring: thread identity handoff for blocking
+ inline issue
+To: Gabriel Krisman Bertazi <krisman@suse.de>, io-uring@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ tglx@kernel.org, mingo@redhat.com, peterz@infradead.org
+References: <20260911154148.644489-1-axboe@kernel.dk>
+ <87tsnv1ynh.fsf@mailhost.krisman.be>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <87tsnv1ynh.fsf@mailhost.krisman.be>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Register-page setup is optional for each CPU. If allocation or
-registration fails, mshv_vtl_configure_reg_page() warns and leaves that
-CPU's reg_page NULL, but initial context setup continues successfully.
-Meanwhile, successful setup on another CPU sets the global
-mshv_has_reg_page flag.
+On 9/11/26 11:33 AM, Gabriel Krisman Bertazi wrote:
+> Jens Axboe <axboe@kernel.dk> writes:
+> 
+>> Hi,
+>>
+>> io_uring issues requests inline with IO_URING_F_NONBLOCK and punts to
+>> io-wq when that isn't possible. For a range of opcodes it isn't possible
+>> at all, as there's no nonblocking path in the kernel for them: fsync,
+>> statx, openat, the *at family, xattr, fadvise, splice, etc. Those are
+>> punted unconditionally, and the punt costs a thread wakeup, a context
+>> switch and a task_work completion round trip per request. io_uring HAS
+>> to be cautious to prevent accidental blocking in the kernel, even if the
+>> operations predominantly never block. Sad story. Examples of that are
+>> things like an fdatasync that doesn't block, statx that hits dcache,
+>> openat for O_TMPFILE, etc. All of those would've completed inline just
+>> fine, but io_uring just cannot rely on that.
+>>
+>> This series issues those requests inline in blocking mode instead, and
+>> only pays for the offload if the request actually blocks. But by the
+>> time it blocks, the submitter is deep in the kernel with the request on
+>> its stack, so the work can't be moved to another thread. What we can
+>> move is the identity. If the submitting task blocks, an idle io-wq
+>> worker takes over its user visible identity (tid, signal state,
+>> credentials, scheduling attributes, cgroup, user register state),
+>> finishes the io_uring_enter() call and returns to userspace as the
+>> submitter. The original task finishes the request as an
+>> io-wq worker and joins the pool. Userspace is none the wiser, hopefully,
+>> the same tid came back from the syscall, it's just on a different
+>> task_struct. Folks that have been around a while may remember earlier
+>> attempts at this about 20 years ago.
+> 
+> This is both really cool and seems like very dangerous thing :) Count me
 
-mshv_vtl_fault() checks this global flag before selecting the requested
-CPU's register page. With mixed setup results across online CPUs, the
-check passes even for a CPU with no register page, reaching
-get_page(NULL) when userspace faults in that mapping.
+Oh yeah, it's definitely crazy and deeply an RFC.
 
-Check the selected per-CPU register page before taking its reference and
-return VM_FAULT_SIGBUS if it is absent.
+> amazed.  I worry this impersonating method will become as tricky as the
+> kthread impersonating model that you replaced with the user workers,
+> though.  I haven't looked at your patches yet, but I wonder how you
+> handle other tasks that have a reference to your task_struct.
 
-Fixes: 7bfe3b8ea6e3 ("Drivers: hv: Introduce mshv_vtl driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
----
- drivers/hv/mshv_vtl_main.c | 3 +++
- 1 file changed, 3 insertions(+)
+That one was different, because these are normal threads, not kthreads.
+They are created similarly to if you did pthread_create() in userspace,
+this is what io-wq workers are already. So it's mostly as safe as io-wq
+already is, by design, which is why the PF_IO_WORKER work happened and
+why kthreads haven't been used since back in the early 5.x days.
 
-diff --git a/drivers/hv/mshv_vtl_main.c b/drivers/hv/mshv_vtl_main.c
-index fc993560a45c..3296ab5c0243 100644
---- a/drivers/hv/mshv_vtl_main.c
-+++ b/drivers/hv/mshv_vtl_main.c
-@@ -912,6 +912,9 @@ static vm_fault_t mshv_vtl_fault(struct vm_fault *vmf)
- 		return VM_FAULT_NOPAGE;
- 	}
- 
-+	if (!page)
-+		return VM_FAULT_SIGBUS;
-+
- 	get_page(page);
- 	vmf->page = page;
- 
+So I don't think there's too much to worry about on the security front,
+it's mostly a "this will confuse the application" kind of thing because
+something has been missed. And yes that is no good either, but it's not
+a security concern. That's VERY different from the kthread case, where
+if you missed some kind of personality, then congrats you're now running
+with fully elevated privileges.
+
+> I was actually working something much simpler to improve this problem,
+> which still require subsystems to cooperate, but largely reduces issue:
+> 
+> My idea was to reuse the non_block_count which already exists in
+> task_struct preserved for every kernel config that has io_uring.  We we
+> scope the inline path with it.  We then provide new mutex, semaphore
+> callers that will check the flag and fail refusing to sleep, similar to
+> a try_lock.  The new callers are required because we want subsystems to
+> opt-in the behavior, properly clean after themselves, and return
+> EWOULDBLOCK.  This is why we need to clean blocking paths in io_uring.
+> sched throws a WARN_ON if we schedule out with the counter> 0, making it
+> easy to find issues.
+
+I think that would be a tough sell, mostly because of how many locking
+primitives we have and how widely they are used, and how difficult (or
+impossible) it is to introduce error paths for code that previously had
+none. That alone would make it a non-starter for me. Let alone is that
+it'd be a continual whack-a-mole kind of work, it'll never be fully
+done.
+
+> It has the downside of still requiring fixes to every path and we need
+> to handle every new case that comes by, but it is much cleaner than
+> plumbing a nonblock flag several layers down the stack across each
+> subsystem or having subsystem-specific details in io_uring, which is
+> what we have today.  On the upper side, it is much less complex than
+> your approach. It also allow us to just back off during memory
+> allocations that would block, solving the memory allocations anywhere in
+> the submission path, not only inside ->issue(), which we discussed
+> recently on discord.
+
+I think you'll find it'll be a lot MORE complicated than my approach!
+Backing out error handling is going to be impossible in some cases,
+think file systems for example. How would those cases be handled?
+
+> I'll give a try to this series and report back.
+
+Thanks!
+
 -- 
-2.34.1
-
+Jens Axboe
