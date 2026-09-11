@@ -1,77 +1,66 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9FAF3C3443
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 22:21:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 107613DB651
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 22:24:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789165312; cv=none; b=kIvvm1D5mLs6QZyV8AMsOjwX3x4SAkYPCXX95XWglG0BeWZ9y3OS7w3Ba62mjI0zlelpK10hhpLtp95HZN1a/8HpRjFW03QqttR2oKZCvJxMPLtCxUr0u2ODBhEmbvtsAb8mEIQN9hk4FqlCKzVGsCl/WrTXjM2/501gT2ob5jA=
+	t=1789165491; cv=none; b=DtuPxkaKfx6jPcqqiKk6tiQLYkPkfgyY2vjC5z6h0hc5aW7+YrOfp9pbLgAm3cPh7ykHnI+voG8Pm3CFG3IjhEQZc9c97uGuqm/GsFQSZz2hWjisIdI5394w7G0P8oNXnNwXX9vA5tcOuGCyR+xjHzWWJoUChySuvRCdDZp/5/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789165312; c=relaxed/simple;
-	bh=0bKbFA6rTlExsl6Cq0rBiqoF5/Pq5eHAPxz7mw8aMnE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VFYXSShYe1hI5jgYauQF3uO94uwAltO7PlWP8VdslxFHU4U7B/o4tNs/0mORkY178R/43KXnCcPPyGcLLjgVjpxr0gqNp4rqRrg7KeSOQUf0FfgAISLWQgkFIu1dRr5CsxE3/tqtVH+J6xrNfsuCxw+zQZKiK7Tvwb6Iqv2su7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=APGJMt4Q; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789165491; c=relaxed/simple;
+	bh=/3yYSnGEA33M5uN9KvFgeKYKLnii1+uHN85Ctr2VRfg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JmC1S2fgvj7tLarPCLRMY3b3UMcDZjYyplvOXpiWGUpwZo8LsFkSc2JMJuKgVpvpeRN1SNCgdspQV7M4RgPGa994IiK7wt2eXRFcVW+5FC4hAQwT0jJcmfh/D9Zt+p3Sn5Q41KF9UuswcJt41HgVK3HmgkXrgU7ELwgUH2R89XY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MiBQ2pIy; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="APGJMt4Q"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso609485e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:21:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789165309; x=1789770109; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PMkIufKt71ok5WIE343MhLBROfiL7lwrRjMZxsGxKkw=;
-        b=APGJMt4QgHMzMOE4xcI6+4gSS4HmwrtEyg0+4J28w8vfNxzbAk40kg3JUneJUZLFr7
-         wK9Wx/U39a6NZTAYraMBCf6a1AsTgwk3xBGURwa32NvDdnh0oN+Vs3SW9hA2o1Cy2Opi
-         5HHHP321mZv7p7VBBURS065CAchUfl1Ko6pVhpwAiZy4xNKl1SJnlPO0fXiqWT4LeNcP
-         +d5pvN5hVi18WJce6gPGs08qE8mP7o9eWahdWramXGNyMIsZwMIZ7X2GdJabE+HTBPsI
-         dXdBxk5J1d3It1IdG17Tfp9a/p1nZEh/mDqPEIFWTgZJmXKPfYvAMQRWbSonay64/KxU
-         +6ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789165309; x=1789770109;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PMkIufKt71ok5WIE343MhLBROfiL7lwrRjMZxsGxKkw=;
-        b=eeVeOL394+Lc6qS8ivPOWbVnZO2AJzrM7MqVEtitjI8+vav8uGixhIOwpqovPURM+9
-         psGms0c2kTviwSDHyv5CCEVCKv8CXTSYf5lMzjG1s5CglCZXJ89XmieCwC2+FQEjzIG3
-         /DGy5sFlRhaeeeWa+ZgxelNUPcTQ0a/kx3a1tX5ROILvvGz5+r6wvdwJNLgCC1P/KCXi
-         B4yKbuirPLe7KAd8ymefdw+tgnfr2zTXsgvIz5ac+PxS0B8JzBg3GOdTzFW4SpEI15jC
-         oGRJWb9buAf4Ohb1lQHRdZCYsuy993efs+XOo8Ey+v56cAEOP8aThuLtJ1Q0NVBGBiD/
-         VsxA==
-X-Forwarded-Encrypted: i=1; AKwUvByxinY+8eu+6TtsmdfhYUHYTTizNArTpSmAY9fAZX0glJ3wOVn5mrF4MiSEVHRueboLTm53vLXVCsb281o=@vger.kernel.org
-X-Gm-Message-State: AFuF++m4CUewyBZM1V3xV6y7uFBpcn8ftby7k/jlDx9QQcpt88nHhjVZ
-	duDRTWd8AKGC48lYHaVmzMr9rpKTYu8+aY5cyXbIkaRm8hqCVBqH5pS7
-X-Gm-Gg: AYBFou00p8OsiOHDm+fvrkx8d2HngjIQCcM4pmfDoUtKUuL14C3yqp0wIaNb7QTvGq6
-	U/iYDS0eLNdypZPaij1eiv+FsBKnRvMGGivZrVDwmyiQQ17/D7S9Ae5JRGyWeyQU7xYUXb83E3r
-	KhquyuvIlQSt4IHugxrnbzn3cf7g06mDQnaXCMn5hzODPZABydw5dz1UKGQH0egRIJSxMXrZOQb
-	NqcIbiUVOtUx4JLzKJX+D1a8QMnjnZL7xUHz63d+tVygG+0wvN8ZIoIRPB2Otm8DVfUtH6wxF1c
-	B4Vq43N/D4uOX2CGmwQwSJA9cuKmjsXpEzfyDQKydF2dwJOIPlx01o2ukIf0dOvj0nOrVJ7kxap
-	W7ABu+/1qc6VWAZmC1XK8bO4NhWADKk2vmpSjfdLDgxjf0Wy7Ya60JmyctqzzTVaK0P/6SXQk7U
-	zj+p+MHUHQ0xV62/bnSch8ASw9/uzK3RKVhThdzg1dEkeQqQlcvI1ZJD8P9t/g98wV6CuRfXFCH
-	ToHKYoLA/a/YL0wU+QJQEYY583E3SowJcSqKKzz+NVD+APwT9Z3DDYPoN7zGjTB90w6hvqJXjtQ
-	r3eDxiepFi+gVdbqvCDI70wOjY8FsgPLc+W7
-X-Received: by 2002:a05:600c:138c:b0:49c:fa21:1c84 with SMTP id 5b1f17b1804b1-49e6cc078b0mr1148525e9.25.1789165308867;
-        Fri, 11 Sep 2026 15:21:48 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-095-114-033-154.95.114.pool.telefonica.de. [95.114.33.154])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb2ecf2esm9720604f8f.2.2026.09.11.15.21.47
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 11 Sep 2026 15:21:47 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Yang Yingliang <yangyingliang@huawei.com>,
-	Luben Tuikov <ltuikov89@gmail.com>,
-	driver-core@lists.linux.dev,
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MiBQ2pIy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789165483;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=MLcC3slPi0kXizJ1i2QlzDWQPcjnDpfhBQdjq8/AAys=;
+	b=MiBQ2pIyOOqeQDuERRhSs3YiQEM98qmBYEGXjwti2wADAbYae2VXeFSeZ6Yyis7NllEVai
+	0cS8HgS4RArEfbuIz5JKJ6zcldDdwKZ//EnlVfFocMQfev+zdcpkvUmXbGcSkKRn4MAuyc
+	o7mHUXpcotdGMSqtKpau0vW2Y+EPtBk=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-220-Bj706SCFOnaNXMRUh6bL2A-1; Fri,
+ 11 Sep 2026 18:24:42 -0400
+X-MC-Unique: Bj706SCFOnaNXMRUh6bL2A-1
+X-Mimecast-MFC-AGG-ID: Bj706SCFOnaNXMRUh6bL2A_1789165479
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 986AE1953973;
+	Fri, 11 Sep 2026 22:24:38 +0000 (UTC)
+Received: from GoldenWind.redhat.com (unknown [10.22.88.4])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id B4A1E19560AB;
+	Fri, 11 Sep 2026 22:24:35 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] kobject: Fix the kobj_set_name reference in kset_register() kernel-doc
-Date: Sat, 12 Sep 2026 00:20:29 +0200
-Message-Id: <20260911222029.7267-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+Cc: "Dave Airlie" <airlied@redhat.com>,
+	"Timur Tabi" <ttabi@nvidia.com>,
+	"Mohamed Ahmed" <mohamedahmedegypt2001@gmail.com>,
+	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+	"Kees Cook" <kees@kernel.org>,
+	"Simona Vetter" <simona@ffwll.ch>,
+	"David Airlie" <airlied@gmail.com>,
+	"Thomas Zimmermann" <tzimmermann@suse.de>,
+	"Maxime Ripard" <mripard@kernel.org>,
+	"Mel Henning" <mhenning@darkrefraction.com>,
+	"Hongling Zeng" <zenghongling@kylinos.cn>,
+	"Danilo Krummrich" <dakr@kernel.org>,
+	"Lyude Paul" <lyude@redhat.com>
+Subject: [PATCH 0/5] drm/nouveau/gsp/r570: Follow OpenRM's runtime PM process more closely
+Date: Fri, 11 Sep 2026 17:49:53 -0400
+Message-ID: <20260911222428.752641-1-lyude@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,27 +68,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-The kernel-doc comment of kset_register() refers to kobj_set_name, which
-does not exist. The name is kobject_set_name. Say kobject_set_name.
+While we have runtime PM working a lot more reliably then in the past
+with R570, we're still doing things a lot differently then OpenRM. For
+instance, we don't save/restore comptag backing stores, and we don't ask
+GSP whether it's OK to enter GcOff.
 
-Fixes: 1662cea4623f ("kset: fix memory leak when kset_register() returns error")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- lib/kobject.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This series fixes this, and gets our runtime PM process to look a lot
+closer to OpenRM's by implementing some missing pieces and workarounds.
 
-diff --git a/lib/kobject.c b/lib/kobject.c
-index e7b010a989fb9e4a4ddb105989ced638ce02ccd6..942ee439f06ef8962386ac9b7b37ce60b29e83a6 100644
---- a/lib/kobject.c
-+++ b/lib/kobject.c
-@@ -855,7 +855,7 @@ EXPORT_SYMBOL_GPL(kobj_sysfs_ops);
-  * kset_register() - Initialize and add a kset.
-  * @k: kset.
-  *
-- * NOTE: On error, the kset.kobj.name allocated by() kobj_set_name()
-+ * NOTE: On error, the kset.kobj.name allocated by() kobject_set_name()
-  * is freed, it can not be used any more.
-  */
- int kset_register(struct kset *k)
+Tested on my daily-driver desktop with an AD102, a ThinkPad P17 Gen1
+with a GA103GLM, and a Dell Precision 7780 with an AD103.
+
+Patch series based on drm-misc/drm-misc-next. Branch with patches here:
+
+    https://gitlab.freedesktop.org/lyudess/linux/-/commits/nouveau/rpm-openrm-sync
+
+Lyude Paul (5):
+  drm/nouveau/gsp/r535: Add support for INTERNAL_GCX_ENTRY_PREREQUISITE
+  drm/nouveau/gsp/r535: Add support for MEMSYS_GET_STATIC_CONFIG
+  drm/nouveau/gsp/r570: Add comp mode workaround from issue #3172217
+  drm/nouveau/gsp/r570: Start saving comptag backing stores
+  drm/nouveau/gsp/r570: Enable Gcoff in fbsr again
+
+ drivers/gpu/drm/nouveau/include/nvif/cl0080.h | 10 +++
+ drivers/gpu/drm/nouveau/include/nvif/device.h |  1 +
+ .../gpu/drm/nouveau/include/nvkm/subdev/gsp.h |  7 ++
+ drivers/gpu/drm/nouveau/nouveau_drm.c         |  9 +++
+ drivers/gpu/drm/nouveau/nvif/device.c         | 13 ++++
+ .../gpu/drm/nouveau/nvkm/engine/device/user.c | 36 +++++++++
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/priv.h    |  1 +
+ .../drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c | 43 +++++++++++
+ .../nvkm/subdev/gsp/rm/r535/nvrm/gsp.h        | 52 +++++++++++++
+ .../nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c    | 76 ++++++++++++++++++-
+ .../drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c |  8 ++
+ .../nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h       | 29 +++++++
+ .../nvkm/subdev/gsp/rm/r570/nvrm/gsp.h        | 50 ++++++++++++
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h   |  2 +
+ 14 files changed, 335 insertions(+), 2 deletions(-)
+
+
+base-commit: 9d4c98219598e77ca7044c453ae6994519ac0a96
+-- 
+2.55.0
+
