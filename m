@@ -1,198 +1,283 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010071.outbound.protection.outlook.com [52.101.61.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05FB72DE6E6;
-	Fri, 11 Sep 2026 14:09:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.71
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789135762; cv=fail; b=rbF6D+xFgM9fPnRF7idZt1Cu6tFDBaTHF1zblxGtQ2rcrY0q9cTRlJO2lRBPg1CyLFThU5QeEtrZo2mnPC/zvNMna6QSSP85NEkH7SmOZYdLHzk0UB+c2u+LsFAeCRbZdAF+8QZISNWHL33g0E/2idKniWUKZfYBgTU6ZvxRWOU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789135762; c=relaxed/simple;
-	bh=EsODgA5eMeIc7RPZK+1RIm02jHcGdHRR0m+VNlOAmbI=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=t1bcGmtEGJjzrvvHkstxPQvy51ptEqV9oKAbS1SC3IgG6BXY166LrEIhQ/nrUFKwGKFy709Mai5dSukeA++FOqXIHJibkJKcU9hFmvSlJM7KjCWAN5Ul4E5JbqrYSPHXIDrS3kTyRGSlj472IR6/8tCRELfjeGEC64y6Ad9dGG8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=a2178IyA; arc=fail smtp.client-ip=52.101.61.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08516331EA8
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:09:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789135786; cv=none; b=u3bMLFs+o0Hx+k5o1I99oD93QKfmh7ZY/wVBqnfGH60yDFuOtl9esFZa5AbuhlD051zt+aQh98Y37H8Bn/oS1UrxypmgAW6MP354NshcpxwiRvbBrqjG0dJPmBuS98u3Leac/WY80lEweP3xCNmojSAvoPenq0qoY7FQVHnpXOw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789135786; c=relaxed/simple;
+	bh=ciq/+qqHqSRSh7FRYtq3aWelW6Wh5G33c0OaJbqUUSk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=O+6wTuhQSTOF2U8KPw2tUfm3eEUa1BB8PMALW5s4QDJ7836KMrg84DufqyN1WEPUAXf7IzfOkRvJs8T3R43kIlOwNYnoQx2sBh+M6nsMNJQHOEUp5qM4Vou3wlhPjxTqdatnSV0gfIKmMjC+4snW0qybbZn+I0Ta6RDJNaJaYTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=DFGJgU7t; arc=none smtp.client-ip=209.85.128.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="a2178IyA"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y7pp/EQTTZKdO9HUB9p73ZiT3xdI8oi4M7niBn83k3YVG9vPqr4GcxhOMKCjWUWGJZQv2Hp9kolohIssSIL1jISX+UW7bgbLbtjA6PLjFXTxwr5jefvED+r3BLvaw9p31mMJ54lRmXqbbfS5/4cjGZShPCu3WQJacj/4VVWMXNg/gQEC+AWmRXGRtNU+vpWleyqqd37UUGmjprIsIwwx2je+Dv/FGDVNsJ6RJ/2Y3gSBxqE/xgeu3MX5spjxeaU5Je1a80GXvfD88IIaqL9+pGC2CK3WXf52VquCHjeXM0UYskY5u6UG3KbO1Csg/o/l8mmz1ZbpWqGfg8Dp2Iw9HQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nS73trkfb+nuz9hoUveWnT6pAidZbjcZ1MS88QnRlh0=;
- b=vxmGjtMwtQ0b9lNrlCXIOYEzOkMyZ111slEzUQmB8L8Jfk8lUPrX6nYiSD9VC1/425zUf3xuunShQ59IFkpNSeLwWAcW/Myg7LzJaw3l0uKSDXgb2wBwYDchDEQev7vTc+M7KWcwOg8Io0pTMONHErnLjDiFNEWKPkgJJ4d+1dKx+ULAjia+rWUh0z9nG4Z86y9KDMOWfCOjOkZ/Sfi/VrKEOHjk3tEJLLK7cliw3P0vrUr7Qtcy4sO7sWp9u6nHQ9D2hQYebwTcT7NhsTNIqQ96G0jcIRnYcW0ixTAOZCOG898njtGpJXLkQah0OLsOZl1jYN9HqfsQ5KvlHWK5MA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nS73trkfb+nuz9hoUveWnT6pAidZbjcZ1MS88QnRlh0=;
- b=a2178IyASqaevYveHjMGh5RDsofiF1TY5GGVAfAf4+BU0ezrSn3G+hgyo7x+D3OAV4/8lMJIZ1pwTbKNSF8v358LFv2qpNNda302/MwHxfyZOrFeYtYbdU1hN36cnpg2BpGvreKKyr9EkBvQ6fiXhct79zOPtT2pk6AIKfxeukc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH3PR12MB7571.namprd12.prod.outlook.com (2603:10b6:610:147::9)
- by LVUPR12MB999185.namprd12.prod.outlook.com (2603:10b6:408:3a3::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 14:09:14 +0000
-Received: from CH3PR12MB7571.namprd12.prod.outlook.com
- ([fe80::7a06:d977:dd3:6176]) by CH3PR12MB7571.namprd12.prod.outlook.com
- ([fe80::7a06:d977:dd3:6176%5]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 14:09:11 +0000
-Message-ID: <58e8a8f9-6e5e-4c29-a974-7b3d6413ab48@amd.com>
-Date: Fri, 11 Sep 2026 16:09:06 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] PCI: Accept AtomicOps already enabled by the
- hypervisor
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Nikola Prica <nikprica@amd.com>, bhelgaas@google.com
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- jerry.jiang@amd.com, haijun.chang@amd.com, andy.zhang@amd.com,
- jim.chow@broadcom.com, matthew.mcclure@broadcom.com,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <20260903121217.23F751F000E9@smtp.kernel.org>
- <20260907161701.454364-1-nikprica@amd.com>
- <9a71c692-66e7-4c5a-b98a-69ebae2e5bb8@amd.com>
-Content-Language: en-US
-From: "Prica, Nikola" <nikola.prica@amd.com>
-In-Reply-To: <9a71c692-66e7-4c5a-b98a-69ebae2e5bb8@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PR1P264CA0171.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:347::17) To CH3PR12MB7571.namprd12.prod.outlook.com
- (2603:10b6:610:147::9)
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="DFGJgU7t"
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-87f4e914a45so8399557b3.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:09:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1789135784; x=1789740584; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=HYwKQGYnNu1I2ntnnDPNcKeVNgWeStLdN/CP2LgAeVM=;
+        b=DFGJgU7tetnlOWunNDJ7nxnwE03Gae7pMcCYJQRLH02qHnZzFhLC0KvqcYSOgicXGK
+         vvB66QBgC1MrfUPP2GmgGpdQ2sqds+jDUj7bE5inVXUS+F2S5DkpvtPoIAkl2dP2L7Ea
+         yT6tYnslpn64YZDZbLDGamhk/VOAtyDIYFSr8XiIuWxDi14b/SQzENnCavQ07fr1UvL7
+         oQri8GfXOKJxqYYctq3rbcsbgJPEBh/7lBDkIsr+BFync+plECVYazCnoovtBNpF0gmM
+         FCB/TDalkKwxBw1ofWz0h8kcxosqconDkQlTDo61CufE45Plmnt1TxavNJsLqyMYBI9a
+         Evhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789135784; x=1789740584;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=HYwKQGYnNu1I2ntnnDPNcKeVNgWeStLdN/CP2LgAeVM=;
+        b=gf7/WDTi88wC7Dp0IQLYs+9lhHGTIeeGzEoD2BECnVftFVx3l4ZJ5XjXrnG//vS9nQ
+         +/n3TQD4fKGRSIJhmOppbWo9sQfNYxK6Tn7jc5xoiKqhis431Krkx0uTCT2PYvL5X2N+
+         G/pp8OEwFsd2QKNEw2r+bzysbKzvQVTysDFIh2V2F3dg7jllHm6PCVwRDBDXPjVvG0ZA
+         JMyfG/uf+60Mr1C8SSZj748tgc4kEm/hrxXYek+udBinNc6lm3yTm6ndxO9Wr9qQG7ZA
+         dHxUZDA1Rp1yzUAht45eHmPR9yNey4Uoh2OAdjccg2zbARUi9GxankSuCdpz13KAa9KX
+         rUjw==
+X-Forwarded-Encrypted: i=1; AKwUvBxsWGSLsqwlzPEq5MBVcTUkwzctijRbDyGr7g8VZuAMq3wDHEsnqVFkW/v489c9jLlJXE0mCREZFgTFMO8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlNAN3bFk6szEXqcbQZfV4edPBqrd7zqP9LXBsl20iK6VtGn52
+	r5+s612JIwMdDgf9Vync8nqjUs+x8zvx9pQLAlKu+B8hdJ9hRQJ1wqKQ+pETL0toSKI=
+X-Gm-Gg: AYBFou2d9/3zGNoX9BtRgGFOSNCdyXUDLjDfcMc7WgFGPtIqTzQ+rNGDle98yn7sDJq
+	9brqktWNkQM+x/yhmQhYAsXvYRcMHXDjB2o/xkO6gkpdI6UosgQP8K0AyprcAT70ph4pqM4bfBy
+	kuZF6rwinYMlG12idAuoRv+qC4Jba9kpylgpcjeIh5I7eJ13JZOuiBUGVq6zaNvpXbVgnbw1BKe
+	b3QleIHn0hILVKzig7wCpemejNKyX8dMoVJ+lCV3Wn9bgxCHEryOhPtJ0izhumO7rCGr72s3Bwb
+	LkIi+SS3h4yqyqrf8h6JYz1Vfw0VCCth1+SaNSZGwvYGjwebdUfaAIwCRdvzqk4Z08DiNsTSrf4
+	cb/X+FnVo5pnOofC2MOmtK7FGXxVbTJaLPNLW3mqkl15+DSURXnC683alBlGJ87aTs6rx5p+/je
+	737qx75aTaKO/AJLtsIotdIzdII0mMIwBf7DeOZMSvcOnnner0OqOu2K62EgQhJAt12QeJIjmPz
+	Nwj5gMK1vevXFn35x14iTWcDdF2c4JsJf7U5CPL69tDC3DsE/hSpfwH
+X-Received: by 2002:a05:690c:397:b0:869:1ab2:33aa with SMTP id 00721157ae682-884afd12eb1mr15658867b3.20.1789135783644;
+        Fri, 11 Sep 2026 07:09:43 -0700 (PDT)
+Received: from toxicpanda.com (ec2-34-228-114-98.compute-1.amazonaws.com. [34.228.114.98])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939ecc38105sm175654485a.4.2026.09.11.07.09.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 07:09:42 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+Subject: [PATCH RFC v2 00/15] rcu-tasks: let preemption outside trampolines
+ be a quiescent state
+Date: Fri, 11 Sep 2026 14:08:38 +0000
+Message-Id: <20260911-b4-rcu-tasks-preempt-qs-v2-0-eaaa61ed2da4@toxicpanda.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PR12MB7571:EE_|LVUPR12MB999185:EE_
-X-MS-Office365-Filtering-Correlation-Id: ce92aab4-2f51-4f80-9d0b-08df100e40a4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|6133799003|18002099003|22082099003|10067099003|5023799004|11063799006|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	srGFBZIfdTugRy8Tb7W5ObNm2f1q/2cVpBHX0YwmwYRRp1ojoaP1nopTjLJqFm21XGM/23exE0apfhFJd+591xDzr5RSQ15f37kL4x1RzGkBE6yVIFGfpUwinZp+Divx/qwLdjKKPEbeFWr9/v+iWtEMD7UyVwb/HBp6vjiq+FYkUjLpoevRFP7+dO0pgExuQHkL4q6ove02XIWqaHhN0O4B3wKJAyW2f+RH/R4x65yNGjp8Bp04jF1hdBspZqwF9tQy1RVhr7agu9ApvvTF3A1jjNBm8gwPn9DoTV1N9qOy0uAaP2ysRg3ycPhe5Y9lXT9OAv2zDZFvuD0/ZUJbXVMEmF9De6lMhKjuF5aKDT48mPvYJTH4PkoNs4SYxafR/7Mps4PHMhi5DSPei0WrosYBHcIj95RX22Rp2i3093Dqv5LXvNEeH8FcbIkwPvN9OLAymn7GVjmPXk+231fF3BOE9cx3aerQC+p6Oei/WKNOT8VQazCdGtwiMlIqtsqZRLohyrlj2kZ18q8Taa1O5PxBtwnkIPeT/6CgVRrimf9G2U/2MIUdIti5zXeSxKOxoUnNiaqSPtLNxufk5TCKJl803u4ax/jPlVVQBziNhj/pVKjmPz52hw85I76uCFt5cZ0yJwqIbbpIXMdt3y/RLbfVJB4hXxmBUym4foXX5Jk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR12MB7571.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(6133799003)(18002099003)(22082099003)(10067099003)(5023799004)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UmNYWWE1Q0MxZTMwbWF5MkQ0d3dlQ1lxcm54YWJpZXNvMTZiMnZsUmhiNi83?=
- =?utf-8?B?cFBhY1dJMUsreFluRkw5Z21XcXYzUHhWemk1bFFQaVlPd21TbHU3QTVmQytx?=
- =?utf-8?B?YkNpVFhPQndpdktZc2lqOUMyVDlHQ0gvU0dBUkpSK3RiV01kdHlKaW90ZHAz?=
- =?utf-8?B?RUdNTUd1dHo5dUVmdDNwZnF0cGhINFFRWmhPSGVOTEgwZ3RpNGh0SFVTYWxR?=
- =?utf-8?B?dUZYSjVWSjhVQUZPODFxcHVoYkNDRkY0eEFXdzlwVHJ5SXdNRjl6M2R2bVdK?=
- =?utf-8?B?S2ROTC9qNjk4VGR1WWZwbUp6ajg3T05aWHhhSXlKMmpsNVFteC9iYlYrL09C?=
- =?utf-8?B?UThLL2xObEg1ZnpSYXFPbmxWYVFnQ1VoMTlzVEJNM0ZNTTJsNTVqS0J2LzZI?=
- =?utf-8?B?TmhVOVVITEVTN1pKWkZNWnRVVkdMcGF2a1RuaU5IeVNiSXJnT2pMVUVFbmNB?=
- =?utf-8?B?TERZVi9wYWpHYXNyczM5VTl1NGVqT0ZIRmZCb0RZR3BqSXlrK2R2RExJNFk1?=
- =?utf-8?B?YlhkUVpxRzg2c0VzMnV2d1pxdEFRYXpMQ2JYVEpZcStVU2xRc3N6VWZyUitm?=
- =?utf-8?B?aERpNmRWbHNxeU9IMCtnUHFBaXZzRHB4ZEhkK2RpSG9BcDIyYmROcFBybTh1?=
- =?utf-8?B?cU1KRzlQaGZiMDFRMnZHc1A2SHZEUjF2U0sveHJWWUE0ekxob2RleXNncVFL?=
- =?utf-8?B?ZnJxbDliVG8xUUhpbGlqQ040ajVVUEVzUzREOUdFbDBuTlo2U1hib0txREVN?=
- =?utf-8?B?emlnVHY0WnZqVm1lTk15TFg4QTBCcXMzVzd1RS81Z2dKSG14My9TeHZwMWVZ?=
- =?utf-8?B?RTF4dm5wL05GZlZ2MlVYa2Y0MkxzbThNQWJuNE1HaDVUeWlEVzRYdGp2Mnox?=
- =?utf-8?B?OUFROXRzYVpzc25VVzgrTDBNVDhOTm1WTkduR1YzZTFseFhGbTZYYlRBWEgv?=
- =?utf-8?B?cStnVmMwN3luTmxPeGJTY1hkVmMxVHFxS3krQ2ovN2RFOTJ0UnIvU2poQzJy?=
- =?utf-8?B?Q2VBZ2wvRkloeUtSaHhRVlZnY1lRTmliaWdnWGVkUTVUNEtQSzI5aTcwZjEv?=
- =?utf-8?B?NVdGcmZOVHpnNi9pa3RuK3RMbEVyWUU2V2NLNGlCNUVDOWNSRytaNDFtS0ZY?=
- =?utf-8?B?R21RMUxjbnV2d1FJcXQ0V2lKdFZKTmV5NmZ1MHpBcnRrUm5aY1VXaVRmZWt5?=
- =?utf-8?B?MjdFNWc1WTMwK285b2xkdmhWVEJSTVYyMzd2MGFyODdqZ2FYTm1US01RZUJB?=
- =?utf-8?B?dklWb0NQeXkvVWVmYnJWSW8vSVdwMVBHT1FFaWlBYjJoS05TOGIrZnJWaHNa?=
- =?utf-8?B?amRyR2pTZ2RqMUdaOTJsK0hOTGppR3dyd1lydnA4RnNjVVk2UW83ZC9MQ29o?=
- =?utf-8?B?YnprbzdyckdxV2ErcFJOckpRT054cTRhaWpGNC84aWJNRVNqancrc1l5UDJo?=
- =?utf-8?B?UFZ6RGVIbzdSSVZxWkRDdWtwR2doZHMzcVpselV2LzI2Y29wNmNUV1RSQmwx?=
- =?utf-8?B?Z1UwK1BjR3MzYlhoRnV0cjJXRlVuTW1iVjBadHpZTUhrZkF2VTAwRjNCN2Ny?=
- =?utf-8?B?SHk2QlBNaDI2a1daMk1tb1JjOVg0NWYvK2lLd3VCOXhlMnBMYTdkWStXQWJG?=
- =?utf-8?B?K1B2UENySXprY0pCaytyc2xlRWxCWUZtT0o1L1hUUWkxN0ZiYkRwWHNmUUNC?=
- =?utf-8?B?SDduZWtXbE1pa1o0M0tzcGVXRGRaN1hucmN5Rkd4ZGdEa0J6eHpCQ0wxMC9k?=
- =?utf-8?B?Z1B2N2xOaHBvMDJjbjBaV29YVDJXUVp2WFRoaFhXM2VRRC9GbDhIVExEZ29z?=
- =?utf-8?B?OG9mN2p3ODVzMEdaSHcvMFZvN0xxQ0RvckdsTmVDNzNQZFdaRk4xNEJkd3FY?=
- =?utf-8?B?RUtoRDlQaHFYalBOSUVNZHlTamtXNzNkRTBLbmtWbmVzcjZWN09JZVI2TGNX?=
- =?utf-8?B?K0tvOVl1RzhSS1JuNDE4WFo1Z3JEZ3hLWHQ5T04rSysxMTBjR1FsdlRUTDVE?=
- =?utf-8?B?SXRNLzRkN0xkK0wvZDJqWTFzY2E2OGhiaW10Q2FJcUc3L3hWOG9jM0FtaVNm?=
- =?utf-8?B?OEhwYlFOakpUcllTRlhkQkpZRmVuOWMyV1grQ3pOOUQ2YkhtQVk4TllYZzlZ?=
- =?utf-8?B?cmF3MjlvcDljUlQvU2tTUWprd1ZTbDg4M1U2eGRac1BIMVNVbUhiWDRqN05z?=
- =?utf-8?B?L2JVaVRKOHAwVldCZkNKeHFCdGllbXl4OVVLTTU5WThDRFZGaEI3WldkSlho?=
- =?utf-8?B?VnN3M1c4d0x1b2diU2FCclU5ME9RSGYxdWNVZ3VaenRMOFF0QWZBQzdCdkZN?=
- =?utf-8?B?K2h2TE4ydmVKSDFXMTgvcDhUSUlWZ0tKdVEzemtjNG56VUd4elFLZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce92aab4-2f51-4f80-9d0b-08df100e40a4
-X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB7571.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 14:09:11.2575
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lkfi99Un2Udxp/X4Ox3+xiJB5UXwBNKoC4sf7woLkcuTKqpTO+F6jk2KG1UQICTwCSAznLeoxSjIirgcSnjGyA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LVUPR12MB999185
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGgLpGoC/4WOzQ6CMBCEX8Xs2ZWWFAyeTEx8AK+GQ7sUqT+A3
+ UowhHcX8GricWZnvp0B2HpnGXarAbztHLumnkS8XgFVur5YdMWkIRZxKjIp0Cj09MKg+cbYems
+ fbcAnoxKyLFWi0oS2MLWnU+n6hXyG0/EA+dfkl7laCjNzjhnNFo3XNVWzdW8jo6LF/PVlblSOQ
+ +Pfy+JOLvi/4zqJAgul0qxURFLIfWh6R62uC72h5gH5OI4f1jKPpQwBAAA=
+X-Change-ID: 20260910-b4-rcu-tasks-preempt-qs-401ff45465c7
+To: "Paul E. McKenney" <paulmck@kernel.org>, 
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
+ Joel Fernandes <joelagnelf@nvidia.com>, Boqun Feng <boqun@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ x86@kernel.org, Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, 
+ Xu Kuohai <xukuohai@huaweicloud.com>
+Cc: Andy Lutomirski <luto@kernel.org>, 
+ Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, 
+ Juergen Gross <jgross@suse.com>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, linux-kernel@vger.kernel.org, 
+ rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ xen-devel@lists.xenproject.org, Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1789135736; l=9888;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=ciq/+qqHqSRSh7FRYtq3aWelW6Wh5G33c0OaJbqUUSk=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QAo5VaRxmnCLTA74sHK3/IXlJk4maBdHJ/o8BcYQaWxLTsL0V/6t0pY/lmq70yYasPVK7mviH+F
+ JmwKt5LbXdQw=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-Hi Bjorn, any thoughs on this? Do you need more information?
+v1: https://lore.kernel.org/all/20260910-b4-rcu-tasks-preempt-qs-v1-0-d4469f4cc101@toxicpanda.com/
 
-Thanks,
-Nikola
+v1->v2:
+- Only walk the kprobe hash while the optimizer is actually waiting (Sashiko).
+- Re-check the kprobe jump window at every QS decision instead of once at
+  preemption time (AI review).
+- Updated Documentation/RCU for the new rule (AI review).
+- Added 14/15 and 15/15 to address Paul's comments.
+- Added a comment in trace_recursion.h per Steve.
+- No change for the arm64 ftrace_static_tramp_end report, the Kconfig
+  dependency already covers it (Sashiko).
+- Re-ran the x86-64 QEMU tests, still 0.2-0.3s and clean.
 
-On 9/8/2026 10:47 AM, Christian König wrote:
-> On 9/7/26 18:17, Nikola Prica wrote:
->> From: Nikola Prica <nikola.prica@amd.com>
->>
->> pci_enable_atomic_ops_to_root() currently fails when no root port is
->> visible. That is common in passthrough guests (ESXi, Hyper-V): the
->> endpoint is assigned to the VM, but the guest topology has no root
->> port above it.
->>
->> In those setups the hypervisor may already have enabled AtomicOp
->> requester enable on the device. If PCI_EXP_DEVCTL2_ATOMIC_REQ is set,
->> treat AtomicOps as already enabled and return success instead of
->> failing the Root Port walk.
->>
->> Signed-off-by: Nikola Prica <nikola.prica@amd.com>
-> 
-> Reviewed-by: Christian König <christian.koenig@amd.com>
-> 
-> Bjorn first of all any objections to this? It sounds save to me, only a handful of drivers actually use this function and it generally seems to be the right things to do.
-> 
-> Then if you agree any objections to up-streaming it through AMDs GPU branch? That would make things a bit easier for us.
-> 
-> Thanks,
-> Christian.
-> 
->> ---
->> Changes in v2:
->> - Be more strict and only apply logic in headless device case.
->>
->>   drivers/pci/pci.c | 12 +++++++++++-
->>   1 file changed, 11 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
->> index b2879a6be5f8..62729ade496f 100644
->> --- a/drivers/pci/pci.c
->> +++ b/drivers/pci/pci.c
->> @@ -3769,8 +3769,18 @@ int pci_enable_atomic_ops_to_root(struct pci_dev *dev, u32 cap_mask)
->>   	}
->>   
->>   	root = pcie_find_root_port(dev);
->> -	if (!root)
->> +	if (!root) {
->> +		/*
->> +		 * A hypervisor may expose a headless topology with no
->> +		 * visible root port.  If it has already set AtomicOp
->> +		 * Requester Enable, there is nothing more to do.
->> +		 */
->> +		pcie_capability_read_dword(dev, PCI_EXP_DEVCTL2, &ctl2);
->> +		if (ctl2 & PCI_EXP_DEVCTL2_ATOMIC_REQ)
->> +			return 0;
->> +
->>   		return -EINVAL;
->> +	}
->>   
->>   	pcie_capability_read_dword(root, PCI_EXP_DEVCAP2, &cap);
->>   	if ((cap & cap_mask) != cap_mask)
-> 
+--- Original email ---
+
+Tasks RCU only treats a voluntary context switch, usermode or idle as a
+quiescent state, because a preempted task may be sitting in a trampoline
+that is about to be freed. That was a fine trade when PREEMPT_NONE
+servers compiled Tasks RCU away and PREEMPT desktops rarely ran
+long-lived in-kernel loops. PREEMPT_LAZY changes both halves at once:
+Tasks RCU is now real on server configs, and cond_resched() is a no-op,
+so a CPU-bound kthread or kworker only ever loses the CPU by being
+preempted, which is exactly the event Tasks RCU refuses to count.
+
+The way this showed up for us was a cgroup writeback worker draining a
+very large cgwb for around eleven minutes on an arm64 box. Nothing wrong
+with that on its own, but a BPF program detach on another CPU went
+bpf_trampoline_update() -> ftrace_shutdown() -> synchronize_rcu_tasks()
+while holding trampoline_mutex, forty-odd tasks piled up behind the
+mutex, and the hung task detector panicked the machine. The kprobe jump
+optimizer is worse in principle: it does synchronize_rcu_tasks() under
+kprobe_mutex, text_mutex and cpus_read_lock(), so one long-running
+kthread can stall static key updates and CPU hotplug for its whole run.
+The current answer is to find each such loop and add
+cond_resched_tasks_rcu_qs() to it, which is the kind of annotation
+PREEMPT_LAZY was supposed to let us stop writing.
+
+This series tries the other direction: have the trampolines say when a
+task is inside them, so that a preemption anywhere else can be a
+quiescent state.
+
+ - task_struct grows an int, rcu_tramp_nesting. Every trampoline whose
+   lifetime Tasks RCU guards increments it before calling out and
+   decrements it before returning: ftrace_caller and its dynamic copies,
+   the BPF trampoline (which drops it again around the call to the
+   original function, since im->pcref covers that), the x86 optprobe
+   template, and out-of-line register_ftrace_direct() trampolines. Only
+   current writes it and nested users are balanced, so it is a plain
+   non-atomic inc/dec, one load of current plus one RMW per entry/exit.
+
+ - The inc/dec are inside the trampoline, so there is a window of a few
+   instructions on each side where the count is zero but the task is in
+   (or on its way into) trampoline text. Nothing there can be preempted
+   synchronously, only from an interrupt, so the irq-exit preemption path
+   looks at regs->ip and holds the count across preempt_schedule_irq()
+   when the IP is somewhere the counter cannot cover: outside core and
+   module text (all the dynamically allocated trampolines and slots), in
+   the static ftrace stubs or the x86 return thunks that still hold a
+   direct-call target, in a module that hosts its own direct trampoline,
+   or inside the bytes after a kprobe that the jump optimizer may be
+   about to rewrite (the one synchronize_rcu_tasks() user that is not
+   about trampolines at all).
+
+ - With those in place, rcu_tasks_classic_qs() also clears the holdout
+   flag on a preemption when the count is zero, on architectures that
+   opt in. x86-64 and arm64 do so here. Everyone else keeps the
+   voluntary-only rule and is untouched apart from the (unused) field.
+
+A running holdout already gets poked via rcu_request_urgent_qs_task(),
+which makes the next tick set NEED_RESCHED, so with this the resulting
+preemption retires it and a Tasks RCU grace period is bounded by roughly
+a tick plus the longest preempt-off section rather than by the longest
+stretch without a voluntary schedule().
+
+Patches 1-12 are scaffolding and change no behaviour on their own; patch
+13 flips the rule and selects the option for the two architectures.
+
+Testing so far is QEMU only: x86-64, PREEMPT_LAZY with PREEMPT_RCU=n,
+PROVE_RCU and lockdep, with and without PREEMPT_DYNAMIC. A kthread
+spinning in-kernel for 30s with the function tracer, an ftrace kprobe,
+an optimized kprobe and fentry/fexit programs attached:
+synchronize_rcu_tasks() goes from 29.7s to 0.1-0.3s, tearing down a
+DYNAMIC ftrace_ops (tracefs instance function -> nop) from 27s to
+0.2-0.8s, and the ftrace-direct sample modules load, fire and unload in
+about 2.5s each while the spinner runs, with no warnings and the new
+return-to-user assertion quiet. arm64 is build-tested only at this
+point; real hardware numbers for both are the obvious next step and I
+did not want to sit on the idea waiting for them.
+
+Things I would particularly like opinions on:
+
+ - Whether hooking rcu_tasks_classic_qs() is the right place, or whether
+   Paul would rather see this expressed differently inside Tasks RCU.
+ - return_to_handler and the rethook/kretprobe trampolines are not
+   instrumented. Their C callees take the ftrace recursion lock before
+   touching any ops and the trampolines themselves are static text, so I
+   believe they do not need it, but I would like Steven and Masami to
+   confirm.
+ - The register_ftrace_direct() contract change: out-of-line direct
+   trampolines now have to maintain the count themselves (the samples
+   are converted). I do not know of out-of-tree users beyond BPF, but
+   this is the one place an existing user could be silently weakened.
+ - Whether arm64 folks are comfortable with the ldr/add/str in
+   ftrace_caller and the BPF trampoline, and with treating all of
+   ftrace_caller as trampoline text for the IP check.
+ - If this holds up, cond_resched_tasks_rcu_qs() and
+   rcu_softirq_qs_periodic() become unnecessary on the opted-in
+   architectures; I have not touched them here.
+
+Based on v7.3-rc2+ (893e11787f78).
+
+---
+Josef Bacik (15):
+      rcu-tasks: Add per-task trampoline nesting count
+      entry: Pass pt_regs to irqentry_exit_cond_resched()
+      rcu-tasks: Hold trampoline nesting across irq-exit preemption in trampoline text
+      kprobes: Let Tasks RCU recognise tasks preempted in an optprobe jump window
+      ftrace: Mark modules hosting direct-call trampolines for Tasks RCU
+      x86/ftrace: Maintain Tasks RCU trampoline nesting in ftrace_caller
+      x86/kprobes: Maintain Tasks RCU trampoline nesting in the optprobe template
+      bpf, x86: Maintain Tasks RCU trampoline nesting in the BPF trampoline
+      arm64: ftrace: Maintain Tasks RCU trampoline nesting in ftrace_caller
+      bpf, arm64: Maintain Tasks RCU trampoline nesting in the BPF trampoline
+      samples: ftrace: Maintain Tasks RCU trampoline nesting in direct-call trampolines
+      rcutorture: Bracket Tasks RCU readers with trampoline nesting
+      rcu-tasks: Treat preemption outside trampolines as a quiescent state
+      rcu-tasks: Retire switched-out tasks with no trampoline nesting at scan time
+      rcu-tasks: Kick running holdouts through the scheduler
+
+ .../RCU/Design/Requirements/Requirements.rst       |  28 +++-
+ Documentation/RCU/checklist.rst                    |   8 +-
+ arch/arm64/Kconfig                                 |   1 +
+ arch/arm64/kernel/asm-offsets.c                    |   3 +
+ arch/arm64/kernel/entry-ftrace.S                   |  35 +++++
+ arch/arm64/kernel/ftrace.c                         |  16 +++
+ arch/arm64/net/bpf_jit_comp.c                      |  46 +++++++
+ arch/x86/Kconfig                                   |   1 +
+ arch/x86/kernel/asm-offsets.c                      |   3 +
+ arch/x86/kernel/ftrace.c                           |  37 ++++++
+ arch/x86/kernel/ftrace_64.S                        |  43 +++++++
+ arch/x86/kernel/kprobes/opt.c                      |  20 +++
+ arch/x86/kernel/vmlinux.lds.S                      |   4 +
+ arch/x86/net/bpf_jit_comp.c                        |  43 +++++++
+ arch/x86/xen/enlighten_pv.c                        |   2 +-
+ include/linux/irq-entry-common.h                   |  14 +-
+ include/linux/kprobes.h                            |   8 +-
+ include/linux/module.h                             |   7 +
+ include/linux/rcupdate.h                           |  86 ++++++++++++-
+ include/linux/sched.h                              |   2 +
+ include/linux/trace_recursion.h                    |  11 ++
+ kernel/entry/common.c                              |  38 +++++-
+ kernel/fork.c                                      |   2 +
+ kernel/kprobes.c                                   |  46 +++++++
+ kernel/rcu/Kconfig                                 |  17 ++-
+ kernel/rcu/rcutorture.c                            |   6 +
+ kernel/rcu/tasks.h                                 | 141 ++++++++++++++++++++-
+ kernel/rcu/update.c                                |   2 +
+ kernel/trace/ftrace.c                              |  39 ++++++
+ samples/ftrace/ftrace-direct-modify.c              |   9 ++
+ samples/ftrace/ftrace-direct-multi-modify.c        |   9 ++
+ samples/ftrace/ftrace-direct-multi.c               |   5 +
+ samples/ftrace/ftrace-direct-too.c                 |   5 +
+ samples/ftrace/ftrace-direct.c                     |   5 +
+ samples/ftrace/ftrace-direct.h                     |  64 ++++++++++
+ 35 files changed, 776 insertions(+), 30 deletions(-)
+---
+base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
+change-id: 20260910-b4-rcu-tasks-preempt-qs-401ff45465c7
+
+Best regards,
+--  
+Josef Bacik <josef@toxicpanda.com>
 
