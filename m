@@ -1,134 +1,133 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9FA90257844
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:55:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAF2D35F8C5;
+	Fri, 11 Sep 2026 14:55:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789138553; cv=none; b=YJtz0K6Gm6LcJusa/koo5dAj5+9g1zN0NlQMaiGFLxJKikCvzxswbeAFL5VOUM1ZUBGc0adXk5DWZd0eQ5FbX9wcmHmlkCdcmLG/rrn4YxpX1IcBsHhbs+W3ExUyeHU1A964awlovhFOoj/hTBG4P1Lugg3KOMdvuIsIdmF7970=
+	t=1789138557; cv=none; b=P4chl81f9MpuKN2a86wpt8rugUlkL0DRDCKsKc7g1w4fdflz8bWptpH9wcljSZL/RxhGV7Dz2FgdAcvmpS/LSOGpCbtQbhd/fJimHBhogtIs+YBDp85QQ1obUZRq02SmZ/8Gexp2x1SZptKVbZv6oEV7MW5R2jrkAoz2QNp+j8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789138553; c=relaxed/simple;
-	bh=zPZGk1vxERfRcanAsZShseukdti04juJdVA94TVfAWk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TWkeEi8tB4EccccKkwpFHixUyLZ0R6Kl4TSg18QfFffK9rkQU6P447Pe5hrK0DPcmrwoc3/cIEo+SsjAUmJPZNfFjlk8Uu4esuub61xLAYid+LE5KNi7xd9zAkwx4PxMOT5Y3GRx3QXq3FDN/q9UtPPWUUCgGjLLcJ2kjozUM44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fvHYyr/K; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789138557; c=relaxed/simple;
+	bh=KjCMr93PTFov7gyqhGK83knHGp41cZ419o05C6nHwc0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Ebc9BV2mspZh2WrB8w8lB0YG3qVsxPqjGA+JVG9ozyJDOXijIy6FoGUvYPaZv/rp7u1s8Kj6BEKxI9kd9zfsd3BB54uOaTteiQgUnPiQBtvDEJrK+sZIO70eoS9suQYo0LFbFrkhrNzVX3lnj+mbrZgW14XykF27FtESpxxQVG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aTsL7gTR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fvHYyr/K"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 616D216A3;
-	Fri, 11 Sep 2026 07:55:46 -0700 (PDT)
-Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BB8653F7B4;
-	Fri, 11 Sep 2026 07:55:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789138550; bh=zPZGk1vxERfRcanAsZShseukdti04juJdVA94TVfAWk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fvHYyr/KUqnR0dTJ/eQnFEAFSi4QhvOoYyjPmKA21Vo0XlGXBR+ynNbQN8nsKJEky
-	 5x41N4+6/ZAQS2iuSTVEdghlKTv+fzK1D7gWov9U8WCZ8Vzw3ahvwYWOyczOCTxHyv
-	 CNxfUXXTjBI2UKTYIjF+j6ThNBOiNquQsehRJPvM=
-Message-ID: <d8ab9189-7804-4e4a-a270-b4e3d61c4271@arm.com>
-Date: Fri, 11 Sep 2026 15:55:45 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aTsL7gTR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BE8C1F000FF;
+	Fri, 11 Sep 2026 14:55:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789138555;
+	bh=qkZ4IyVvStUJzakzj5R5H25jdgCJRE7/sNTSWMjUtDY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=aTsL7gTRbqvy4z1G6/QhBAykaUiCrVMtt/L1GVMu+hamQ0tU+drIL6P+fULAaFqGZ
+	 OZ8UCqdoQ4zpT9FLN3jXiB8ulNwtHuKvo+YwL67kWwJWTDcEXEdue8pNth+TtwHar3
+	 3ktykKEXFu5m8Jh0xfn8038AwHyMd79sEY7Lz/HSOPivaY2lCDfhPw/W76PVznLewW
+	 pPKN5EHYs0wWZ6JSVdVbRHwtHzxb3CKtAVx1eARyyJodseDoc09/NSNOcIfCZFFYm3
+	 8+munRNtbW+AnrW989kPJxKHQTpRzZCp6jFfvc9PVj4PdJyHFz9wY0K9gzJDge1Ik6
+	 cHnIz4+gDzHaw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] irq_work: Flush lazy work CPU down on PREEMPT_RT
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sebastian Andrzej Siewior" <bigeasy@linutronix.de>
+Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20260911143815.997254-3-bigeasy@linutronix.de>
+References: <20260911143815.997254-1-bigeasy@linutronix.de>
+ <20260911143815.997254-3-bigeasy@linutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 11 Sep 2026 14:55:55 +0000
+Message-Id: <20260911145555.8BE8C1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 6/7] firmware: smccc: arm-cca-guest: Bind the TSM
- provider to an SMCCC device
-To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>
-Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>,
- Greg KH <gregkh@linuxfoundation.org>, Jeremy Linton <jeremy.linton@arm.com>,
- Jonathan Cameron <jic23@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Sudeep Holla <sudeep.holla@arm.com>,
- Will Deacon <will@kernel.org>, Steven Price <steven.price@arm.com>,
- Andre Przywara <andre.przywara@arm.com>
-References: <20260904095000.1184861-1-aneesh.kumar@kernel.org>
- <20260904095000.1184861-7-aneesh.kumar@kernel.org>
- <178855077571.693280.17942746234757215326.b4-review@b4>
- <yq5atsnyeuz5.fsf@kernel.org>
-Content-Language: en-US
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <yq5atsnyeuz5.fsf@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 09/09/2026 08:37, Aneesh Kumar K.V wrote:
-> Jason Gunthorpe <jgg@nvidia.com> writes:
-> 
->>> [ ... 42 lines skipped ... ]
->>> @@ -94,6 +95,11 @@ static const struct smccc_device_info smccc_devices[] __initconst = {
->>>   		.requires_smc   = false,
->>>   		.device_name    = "arm-smccc-trng",
->>>   	},
->>> +	{
->>> +		.func_id        = SMC_RSI_ABI_VERSION,
->>> +		.requires_smc   = true,
->>> +		.device_name    = "arm-rsi",
->>> +	},
->>>   };
->>>   
->>>   static bool __init smccc_probe_smccc_device(const struct smccc_device_info *smccc_dev)
->>
->>     [Severity: High]
->>     When this new entry is probed by smccc_probe_smccc_device(), does
->>     arm_smccc_1_1_invoke() pass uninitialized registers to the firmware?
->>
->>     Looking at smccc_probe_smccc_device() during system initialization:
->>
->>     drivers/firmware/smccc/smccc.c:smccc_probe_smccc_device() {
->>         ...
->> 	   arm_smccc_1_1_invoke(smccc_dev->func_id, &res);
->>         ...
->>     }
->>
->>     Since arm_smccc_1_1_invoke() is a variadic macro, providing only the func_id
->>     leaves x1/r1 uninitialized in the SMC inline assembly.
->>
->>     For SMC_RSI_ABI_VERSION, the RMM uses x1 as the requested interface revision
->>     to determine supported revisions.
->>
->>     Could this pass a garbage requested interface revision to the RMM,
->>     potentially causing probe failures or returning an unsupported boundary?
->>
->>     Could this also leak kernel register state to EL2?
->>
->> Sashiko still has this to say, I think it should pass 0 as the x1
->> 'requested version' instead of unpredictable garbage.
->>
-> 
-> To handle
-> 
->> Could this also leak kernel register state to EL2?
->>
-> 
-> Should we instead do
-> 
-> 	arm_smccc_1_1_invoke(smccc_dev->func_id,
-> 			     0, 0, 0, 0, 0, 0, 0, &res);
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Executing a dying CPU's lazy irq_work callbacks on the control CPU=
+ violates `this_cpu_*()` assumptions, leading to memory leaks and state cor=
+ruption.
+- [High] Use-after-free of `irq_work` structure due to missing `rcu_read_lo=
+ck()` in `irq_work_run_cpu()`.
+--
 
-That looks safe to me.
+commit c2c4af12bef2f74291db156f37cadb81d93b8598
+Author: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
+irq_work: Flush lazy work CPU down on PREEMPT_RT
 
-> 	ret = res.a0;
-> 
-> There is no standard defining how the various SMCCC VERSION calls are
-> expected to work. For example, ARM_SMCCC_TRNG_VERSION does not use x1,
-> while SMC_RSI_ABI_VERSION does. Another VERSION call could use both x1
-> and x2. The only consistent behavior is to return
-> SMCCC_RET_NOT_SUPPORTED when the SMCCC function ID is not supported.
+This commit adds support for flushing lazy IRQ work for a dead CPU when
+PREEMPT_RT is enabled. It introduces irq_work_run_cpu() to process the
+dying CPU's lazy list from the control CPU during smpcfd_dead_cpu().
 
-True, relying on "SMCCC_RET_NOT_SUPPORTED" => Function ID is not
-supported is the safe way. If one of the parameters are not supported,
-then the call should return INVALID_PARAMETER.
+> While looking through the users of irq_work, it does not matter if the
+> callback is enqueued on another CPU. This makes it possible to invoke
+> the callbacks from a remote CPU by smpcfd_dead_cpu().
 
-Cheers
-Suzuki
+[Severity: High]
+Is this statement accurate?
 
-> 
-> -aneesh
+Several lazy irq_work callbacks (e.g., cgrp_dead_tasks_iwork_fn in
+kernel/cgroup/cgroup.c) rely on this_cpu_*() accessors to process local que=
+ues:
 
+kernel/cgroup/cgroup.c:cgrp_dead_tasks_iwork_fn() {
+    ...
+    lnode =3D llist_del_all(this_cpu_ptr(&cgrp_dead_tasks));
+    ...
+}
+
+Executing them remotely on the control CPU causes them to access and drain =
+the
+control CPU's per-CPU lists instead of the dying CPU's. Could this permanen=
+tly
+leak task structs and pin cgroups on the dead CPU indefinitely, while
+incorrectly altering the state of the control CPU?
+
+> diff --git a/kernel/irq_work.c b/kernel/irq_work.c
+> index 9f19c05c9962c..73eabcbdcd50c 100644
+> --- a/kernel/irq_work.c
+> +++ b/kernel/irq_work.c
+[ ... ]
+> @@ -263,6 +263,17 @@ void irq_work_run(void)
+>  }
+>  EXPORT_SYMBOL_GPL(irq_work_run);
+> =20
+> +void irq_work_run_cpu(unsigned int cpu)
+> +{
+> +	if (WARN_ON_ONCE(!cpumask_test_cpu(cpu, cpu_dying_mask)))
+> +		return;
+> +
+> +	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
+> +		return;
+> +
+> +	irq_work_run_list(per_cpu_ptr(&lazy_list, cpu));
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: High]
+Could this result in a use-after-free of the irq_work structure?
+
+irq_work_sync() protects against concurrent execution by waiting for
+IRQ_WORK_BUSY to clear and then calling synchronize_rcu(). This assumes the=
+ work
+callback executes inside an RCU read-side critical section.
+
+However, irq_work_run_cpu() runs from preemptible thread context in
+smpcfd_dead_cpu() without holding the RCU read lock. irq_work_single() can =
+be
+preempted after clearing IRQ_WORK_BUSY but before calling rcuwait_wake_up().
+
+If irq_work_sync() on another CPU sees the BUSY bit clear, it will call
+synchronize_rcu() which returns immediately, and the caller may then free t=
+he
+irq_work structure. When the preempted work function resumes, could it acce=
+ss
+freed memory in rcuwait_wake_up()?
+
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911143815.9972=
+54-1-bigeasy@linutronix.de?part=3D2
