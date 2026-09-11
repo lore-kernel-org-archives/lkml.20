@@ -1,143 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB35384CC4;
-	Fri, 11 Sep 2026 14:51:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8518335A3A4
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:52:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789138274; cv=none; b=ciZpM+6H1NcDNFPKd6YZbNpCVatY30aIPF6fXQFk1FOzd/47dVIPKNfF5PfpgDJrahQbizfMs7S+I4Wu/gp7Vj37bfrg0/46LQ0TGy13zft/qii4C44u+hpYss6NBfM7AxflC9CjH5E4ONy/aLebe7Jf8inYMZ3WqH2U+oTA9vE=
+	t=1789138338; cv=none; b=VxBG9AtQufXBjX/4N2E/2Xr8NJtCrNCSiveAkmZJvh18l0h8Edr3BdDfXQm5rozhssMkbwzxyxvxHyRMbd6SKjNSb7C62Et2SoboRYQQeaFpsXNwFHGtnARRAuUjQ23BANfi7XxwfuNxkzkTJmNpd/Z27sL3/LJVy8Bs2oFhFqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789138274; c=relaxed/simple;
-	bh=7LMRweeILDSHzT25PGcExpHA7cHGgyL4pkca/4lRCF0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=TV5SWv3vvc6rBW1HspqwVwSHcGgFKyZ/Wki48jE+lzLmaX5m77fDLgdQBLBg9l5RfkJqrALLigN+Fq/ClX1OLXzAJQV2W5jZG24naNCM68oxR25CVs083wmPamwlwMYbeKBh4/4w1/Bb5DU1QWoZ2JDn0yHuVkYLp6XwUKe6Z4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B+4WhgNh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789138338; c=relaxed/simple;
+	bh=xB7Gjx7oi7AEzV/VUG5hfLvIwZPLCZ4R2dv/uIR6uUc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FV1Rg1x+2VDPgzFgw6XZUzvZXqJQXOS3NmBmuCVibiYTAi59obcg3Osnd2MEfOCkzeQ9EAbvNYUDBpn4Eq+lWCFkHCoV5c2XeQ6WrYxkCpDCR0oRbeRn1ZDw56a7CT50XxLpkHHhb56WtC2rJQfzHb5LvID6OIEFXyG9gJ3mFEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=eXASwIuK; arc=none smtp.client-ip=209.85.222.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B+4WhgNh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E6571F000FF;
-	Fri, 11 Sep 2026 14:51:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789138270;
-	bh=+ZV6YNue20TnIjTpwuwmCKzHqMlJIZt+sj+pIvAVlmM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=B+4WhgNhc/4iBsmFs/bl4lC5x8EVnEpW8EFo7GszeK0xB3vt/ULe99Ps90dhPsQ+3
-	 w3iyOzW1NpwtSiNUW69q0v0ogRz+xuACTf5KYsnlVfniOjr+kt6301qV+KW5dQO489
-	 yaGzZO4G4kK+uFv5IVfWFJlK4JSQVvHSXqAwdm/56ZzYlTWUk9Lqmn6qNfcuDr/b8c
-	 VRrrOgg+UGqMmpt0dF5yoIVxE06vsP84nTS1tg/9GLh0sG+rLXZTKLAIqdnp5XZipo
-	 Hdk3C3reckHvzp8SmL5p8c0gDYD9BtTDugRjs4VXSgTjDjU9YlUQVyurx/pUAu0tTD
-	 oyHT+DuSruOOg==
-Date: Fri, 11 Sep 2026 16:51:08 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: syzbot <syzbot@kernel.org>
-cc: syzkaller-bugs@googlegroups.com, Slawomir Stepien <sst@poczta.fm>, 
-    Basavaraj Natikar <basavaraj.natikar@amd.com>, 
-    Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, 
-    Sandeep Singh <sandeep.singh@amd.com>, linux-kernel@vger.kernel.org, 
-    syzbot@lists.linux.dev
-Subject: Re: [PATCH] HID: amd_sfh: Validate PCI BAR size before mapping
-In-Reply-To: <94704655-d654-4500-8122-b80bea9bd908@mail.kernel.org>
-Message-ID: <nqs64qn0-3723-8rq0-p3r8-oo7p5rn97480@xreary.bet>
-References: <94704655-d654-4500-8122-b80bea9bd908@mail.kernel.org>
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="eXASwIuK"
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-9309d4ea213so112177085a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:52:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1789138335; x=1789743135; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZhZv1vGSR2vVlo/Lr0l698roU8RNHR6wgwQoRxUqXLI=;
+        b=eXASwIuKdpFQKSvFguXK8WanZ3+6GoXcjlg83VLEwY29poF4nlfT09fOLMzRHE3HQ0
+         GtiFg4Io6L9YFeEskUOsw2mHxhDeCM9vc70HX4v1cNM1qfg/PDVNbJPIqEY5FAACImmY
+         HQLmiHr4EbQhijUCJoeB9xGnASYMFjRpmwHFK1kgIZwIgBzWbPh/AE/3pcFCrqYy6aQ0
+         CUKBFW5ybEBe1VFLfrOWHkf+RB0RkRdS4F52LZWHwrupa3q7RcUGN9nKU/OfQfAbXwAR
+         BzUl7Zt4tHKLqgBRls4RkaQkD2yANz/4qnyrTdYg2iUuT78a+S3yJzImFDu1GX73xRCn
+         lLCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789138335; x=1789743135;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ZhZv1vGSR2vVlo/Lr0l698roU8RNHR6wgwQoRxUqXLI=;
+        b=TZv6qXDxPwpAyXBEa3czpliIX9LhwM7QVlPQyhOtbFWiKjc4PWLyBcH1c1KdAO9lC3
+         bprQVCemMd4fHa2PpREPh+g1dDp+Gyuy9VWPVLMl7f1CotajWk1F9FPuSPKKxQXofRj4
+         lFNB0PrkYUHS5MRJWvoaIIy3kSPYuumj+eYcXWGqS+efHgGh/A8uFTMK3DOnIwjCnqT3
+         FLw5vem9sneKGGitPfonCPt6RgtL1ZWYTohwDfCAwi4jhNf4VmEeAM1mIxyuhB5p4Zua
+         VuYa17LQImrJGg48JmtSBTj5vyeCWLKPuiaJGoR9+iDBkY9e/zx23WO9mqd4wKp1e1Fr
+         Ff9Q==
+X-Forwarded-Encrypted: i=1; AKwUvByUE6GjM2wfLgEApMVFAP0XmWMTG7i9996Km4GLzUfRTKTDix1NCmZPwmVW2FxOffmsQdCyV0IB+rhxjCE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kXgLREZDFscT1CdLfDLK9aGh/+seDj2LmFjV7KKlLVf6h23pm2
+	kJhkJIupTNYHfqEW00Ez8PAqRO+BVXucas6HTG32YidNWNK+3mu1+84qjMUJY97RpQ==
+X-Gm-Gg: AYBFou02LodVUAbaAI+N4YZa9kvWlUKNtUww7hkrOiCkkxKaMBotoUZG/vNHRI4AoWv
+	PIQ7WabrnKxveHa+F3hQSkWlrCH7miF11Lgur8bEa5MYaKZfrb/oJP9p5XSE3BIzOuYyc/GlwlU
+	dloyxqVIE0R/0Uq7fQ5Q/pb+aHdGG6+IwNuQTaY/KGBTliFhpWIzZt3URrxqWzcXhsB+s3Tg06U
+	RtmzdKg0VwegXLb8kHXYGgnXuc9R+57nqOE6yQQfQ8ZC/zLX4VRdCAK1J5UH/ntGiaDd/R+Hgqi
+	cYofKxi4iG+SSUda9m+oF2hLJL9qEx/3uOjJk7O8Jt2Nx2c42+jxIX+1cCr317z3pIXVpYea+BN
+	YDfHsgSUlf5O4UPGz723v5yaZ95sdQUumYCJ/tYa16EtMYdh5spHlU+jMdu8e44AP2MIvk1E8c8
+	EPg5N5cEdAxqJgA8mzvi4u/ZC3L0V1oqM7mElqDnCFzOI0PUvPMiIsDIoJJMeliKXlByhxxDuW
+X-Received: by 2002:a05:620a:17a2:b0:92e:8310:7369 with SMTP id af79cd13be357-939ea030e13mr590476385a.37.1789138335253;
+        Fri, 11 Sep 2026 07:52:15 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939ed67a93dsm171386185a.43.2026.09.11.07.52.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 07:52:14 -0700 (PDT)
+Date: Fri, 11 Sep 2026 10:52:10 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Frederic Weisbecker <frederic@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, boqun@kernel.org,
+	LKML <linux-kernel@vger.kernel.org>,
+	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Christian Brauner <brauner@kernel.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+Message-ID: <e8e2bd62-13dc-4a53-af0d-051c83b08f4f@rowland.harvard.edu>
+References: <aqFNV4k6DcbyxYCe@localhost.localdomain>
+ <20260909124555.GM776954@noisy.programming.kicks-ass.net>
+ <aqFw--VfXWz-yZt8@localhost.localdomain>
+ <d633542b-2a2f-4adb-82c1-ea650466f63a@rowland.harvard.edu>
+ <87pkymywth.ffs@fw13>
+ <adea7b13-51cc-4603-acbe-9e6d5baa5247@rowland.harvard.edu>
+ <aqKu8nJqPsmKOo1d@localhost.localdomain>
+ <20260910132843.GS776954@noisy.programming.kicks-ass.net>
+ <aqPQrGWqKfX_5MMj@localhost.localdomain>
+ <20260911102203.GF1837346@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260911102203.GF1837346@noisy.programming.kicks-ass.net>
 
-On Thu, 27 Aug 2026, syzbot wrote:
+On Fri, Sep 11, 2026 at 12:22:03PM +0200, Peter Zijlstra wrote:
+> On Fri, Sep 11, 2026 at 11:58:04AM +0200, Frederic Weisbecker wrote:
+> > Le Thu, Sep 10, 2026 at 03:28:43PM +0200, Peter Zijlstra a écrit :
+> 
+> > > The way data dependencies work in this case is a LOAD->LOAD ordering.
+> > > The LOAD-ACQUIRE that is part of LOCK must happen after the initial
+> > > load. And then the later load is constrained by the ACQUIRE.
+> > > 
+> > > So LOAD(B) must resolve in order to do LOAD_ACQUIRE(B->lock.value).
+> > 
+> > Ok I must confess that's not a pattern I'm used to and therefore it's
+> > still a bit counter-intuitive to me. I hope we can document that somehow
+> > somewhere.
+> 
+> One way of looking at it is the computation for the address of
+> &B->lock.value.
+> 
+> A	void *r = LOAD(B);			 // B
+> B	r += offsetof(typeof(*B), lock);	 // &B->lock
+> 	spin_lock(r)
+> C	  r += offsetof(typeof(B->lock), value); // &B->lock.value
+> 	  for (;;)
+> D	    v = LOAD_ACQUIRE(r);
+> 	    if (!v && !cmpxchg_relaxed(r, 0, 1))
+> 	      break;
+> 	    cpu_relax();
+> 
+> Note how the LOAD_ACQUIRE() at D depends on the computation of C, and B,
+> which in turn depend on the load of A.
+> 
+> If A does not complete, B,C cannot compute the address for the load of
+> D. Therefore A must come before D.
 
-> From: Slawomir Stepien <sst@poczta.fm>
-> 
-> The amd_sfh driver maps PCI BAR 2 using pcim_iomap_regions() and
-> subsequently accesses MMIO registers at offsets up to 0x10958 (e.g.,
-> AMD_P2C_MSG3 at 0x1068C). However, the driver never validates that the BAR
-> size is large enough to cover these accesses. If the driver is bound to a
-> device with a smaller BAR 2, this leads to an out-of-bounds memory access
-> and a page fault during the probe function.
-> 
-> For example, a page fault can occur when reading from privdata->mmio +
-> AMD_P2C_MSG3 in mp2_select_ops():
-> 
->   BUG: unable to handle page fault for address: ffffc9000390368c
->   PGD 100000067 P4D 100000067 PUD 1012c1067 PMD 105b64067 PTE 0
->   Oops: Oops: 0000 [#1] SMP KASAN NOPTI
->   RIP: 0010:readl arch/x86/include/asm/io.h:59 [inline]
->   RIP: 0010:mp2_select_ops drivers/hid/amd-sfh-hid/amd_sfh_pcie.c:282
->   [inline]
->   RIP: 0010:amd_mp2_pci_probe+0x337/0x5f0
->   drivers/hid/amd-sfh-hid/amd_sfh_pcie.c:487
->   Call Trace:
->    <TASK>
->    local_pci_probe drivers/pci/pci-driver.c:332 [inline]
->    pci_call_probe drivers/pci/pci-driver.c:394 [inline]
->    __pci_device_probe drivers/pci/pci-driver.c:455 [inline]
->    pci_device_probe+0x431/0xc90 drivers/pci/pci-driver.c:489
-> 
-> Fix this by verifying that the length of BAR 2 is at least 128KB before
-> attempting to map it. Since the maximum accessed offset is 0x10958, and PCI
-> BAR sizes are powers of 2, any legitimate hardware will have a BAR size of
-> at least 128KB.
-> 
-> Fixes: 4f567b9f8141 ("SFH: PCIe driver to add support of AMD sensor fusion hub")
-> Assisted-by: Gemini:gemini-3.7-flash Gemini:gemini-3.1-pro-preview syzbot
-> Reported-by: syzbot+4eadd4dfe9e66522bae8@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=4eadd4dfe9e66522bae8
-> Link: https://syzkaller.appspot.com/ai_job?id=3bc1c45c-548f-4ab5-8243-d2c8ec321d6c
-> Signed-off-by: Slawomir Stepien <sst@poczta.fm>
+There's one subtle point worth making here, although it doesn't affect 
+the final result.
 
-Basavaraj, can you please review this one as well?
+We have to be a little careful when talking about when a load happens, 
+because executing a load actually involves two separate things:
 
-Thanks.
+	Obtaining a value from memory or cache, and
 
-> 
-> ---
-> diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_common.h b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-> index 78f830c13..c0c324565 100644
-> --- a/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-> +++ b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-> @@ -17,6 +17,8 @@
->  #define PCI_DEVICE_ID_AMD_MP2		0x15E4
->  #define PCI_DEVICE_ID_AMD_MP2_1_1	0x164A
->  
-> +#define AMD_SFH_MIN_BAR_SIZE		(128 * 1024)
-> +
->  #define AMD_C2P_MSG(regno) (0x10500 + ((regno) * 4))
->  #define AMD_P2C_MSG(regno) (0x10680 + ((regno) * 4))
->  
-> diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
-> index 4b81cebdc..039b6ac32 100644
-> --- a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
-> +++ b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
-> @@ -451,6 +451,16 @@ static int amd_mp2_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
->  	if (rc)
->  		return rc;
->  
-> +	if (!(pci_resource_flags(pdev, 2) & IORESOURCE_MEM)) {
-> +		dev_err(&pdev->dev, "BAR 2 is not IORESOURCE_MEM\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	if (pci_resource_len(pdev, 2) < AMD_SFH_MIN_BAR_SIZE) {
-> +		dev_err(&pdev->dev, "BAR 2 is too small\n");
-> +		return -EINVAL;
-> +	}
-> +
->  	rc = pcim_iomap_regions(pdev, BIT(2), DRIVER_NAME);
->  	if (rc)
->  		return rc;
-> 
-> 
-> base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
-> -- 
-> See https://goo.gle/syzbot-ai-patches for information about AI-generated patches.
-> The person who has signed off on the patch is responsible for
-> addressing comments.
-> syzbot engineers can be reached at syzkaller@googlegroups.com.
-> 
+	Completing (retiring) the load instruction.
 
--- 
-Jiri Kosina
-SUSE Labs
+These two things don't have to happen at the same time, and in the case 
+of speculative loads they can happen at very different times.  So 
+whenever you talk about when a load occurs, or whether it occurs before 
+or after some other operation, you have to be careful about which part 
+of the load you're referring to.
 
+In theory, a CPU could try to obtain a value from memory speculatively 
+before it knew for certain what address to load from.  This would defeat 
+an address dependency leading to that load.  As mentioned in 
+explanation.txt, none of the archictectures supported by Linux do this, 
+and the LKMM does not allow it.
+
+However, if it did happen in the example above, the CPU could read the 
+value of *r at D before A had finished (say, by remembering what address 
+it had used the last time it executed D's load and trying to read 
+speculatively from that old address).  But even if this did happen, the 
+cmpxchg_relaxed() in the line following D would not be able to execute 
+successfully until the CPU knew for certain what the value of *r was, 
+that is, until A had completed.
+
+Alan Stern
