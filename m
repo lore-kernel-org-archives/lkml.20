@@ -1,283 +1,85 @@
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D9D1DA62E;
-	Fri, 11 Sep 2026 11:55:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1862A49E14A
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:55:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789127722; cv=none; b=OkrqhNB+ZTxZv3GRibKNJ3p7odlc8TkmCMhRTHg2fAa2ZAn2X820Z7ENyWG75vERYW0CeoEobhNWIxJR7L0L+z/8xRhJwlyJO0gcfMMFtt6VzefI2dcfT6CoEjUOn5D+Aw8OvfvVSy5S2nv0/nWRyYD4lmKQ4MBvNBDH0v3BYe4=
+	t=1789127756; cv=none; b=vBjeXGK6v6nqnS7fwyNo++pPs3HQK7/nirB3Mc36D7XiYyw0y3StAYd2WtjmEvq6pk7q5ZBbA078v6UOyHWOAVa8Y/wg3nLwgcxOi/TL83Ut5AnV65D/gQrq4ZBfsKa8b2J3fpWIKtJcZwA0EQFlUxFCqJ1ApH+0yTvzflQZqXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789127722; c=relaxed/simple;
-	bh=jKG5f3sMcPLB448Av+nigu6xVhsFrJSj+j/MWXb4UoQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kfDHI7901LzPGsFKbRJEN7Z0DqKEot3I51QpSzQkpWeMDO3g0M7Pmn4yb9hFFs/wI4tY/59M2SVft28sJevm9JWfOhzJhESvEFO67DmYdVC1xdjfrBM739CloQzBVlsaHceyIu7898YXaZZSa+1P0IMC0E2PIGzbtctTa8fDZDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=sCyG1B1N; arc=none smtp.client-ip=217.70.190.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="sCyG1B1N"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1789127719;
-	bh=QLWEkLmxCshbdHvMjkSZPhxUzDKiPbs68ITYSBqXba8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sCyG1B1N/MiAc9tn9eLsMoqD6fPesLRxbMF8ZLR5epqxDX0BRqLl30p/RikW5pROT
-	 4RgdU8Q5Ndj3sfx8nrxFCaCvh/hpdES0Z6UWQjnmGHgX/rIwvB+wh9eRqRCq9vkH3B
-	 wfPfE6q8yJYpD/JOEIMbPt91s4295nxHVsmlJtu7Fl31swzL255jWlcaGX/m29jFIj
-	 3MOvRvjgzQ/w4+cxrWboILZ0Re0WQqTyNv78LpH5epNDki8QjtO9r2C1DykcPnZboZ
-	 VKO9hT+WSlv47t3/kJN5+k1gzlQywzXsBlQBnTT+rnxkKbr2eE+ArUGu2ZdzNa+Ke8
-	 9407zffGoPfFw==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id CF43F603F0;
-	Fri, 11 Sep 2026 13:55:18 +0200 (CEST)
-Date: Fri, 11 Sep 2026 13:55:16 +0200
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: Bernard Ladenthin <bernard.ladenthin@gmail.com>
-Cc: akpm@linux-foundation.org, linux-kernel@vger.kernel.org, fw@strlen.de,
-	netfilter-devel@vger.kernel.org, kunit-dev@googlegroups.com,
-	davem@davemloft.net
-Subject: Re: [PATCH 1/4] lib/ts_bm: advance state->offset past the reported
- match
-Message-ID: <aqPsJF4nj2vFWAg6@chamomile>
-References: <20260816170541.3384-2-bernard.ladenthin@gmail.com>
- <aoIfn1SzxQKa5t8m@chamomile>
- <20260906221955.6311-1-bernard.ladenthin@gmail.com>
+	s=arc-20240116; t=1789127756; c=relaxed/simple;
+	bh=Akj0JGIhzq6ACFnfw2Sa1ABt4QIcgJsRU651vzot37E=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=dEJ+n2DZDOGv8cj1pPI9x8mQuXXT8Vslw6sYB9cXkBY3EJVFNAF+sGiXHLwKkWMlPTQE7uHYdE7Xe2DU61+fdHPykrj61v+8HrXm09sedutAyiMlPWKr8aowt2oMr4GY+WSuBj9ABBIQPDPmqwP5cJiJJUVcVQTelomTIuyvBvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6c1b24c4d0bso98254eaf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 04:55:54 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789127754; x=1789732554;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=vC5j4jUtdSmqMIxdYew64t/svIjKXf63TExKUyyupr4=;
+        b=jsFk+hGmmB0Nxyr1IXgwzOqjr0UaIbZZ5Xa10X4RypxR6Vg7UtzOSzkUplaEtDjOqL
+         z+FvT6LSbmGnzCYr9HpPiGu93kOrODTMW/gDE9+/h2V1+3Jl5ocrETX0uLAlBhcc4KTO
+         jx/EpFJLPl7wcp8pOCmnyQoYO5HlZP1Z6DI3QkKLbr/sgZeoDwNyZIShxOAJQUpLcVsA
+         unSCaCZYVSWsRQQvHcBlzenBd+Obnw6wQG+maFfbLSHQohvf5N3cdWkRO4ace1yn8TF1
+         LoWiIjRRBa662riawv2hl3b+pErh5MefJtYtIuCe3HFs+qpO9ZTtLCWcXMrdhsNWqhEL
+         I94Q==
+X-Gm-Message-State: AFuF++lESkH1HFpzOxtgn2NAjyNytzWM9v97gv3q6H40u4+ClrQWmRIQ
+	Vg8K4PcDtfY+y62hRsj+UqnPFoabhYiyJAFV918R17tcEKc/ja153zY6TnOWDu2bHDVyVU+w57q
+	Fo0ZptxPasn70lnDtA8PwJpgakNx8dW0O5HA3sSEVlPD1dsheFsANk2376XM=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260906221955.6311-1-bernard.ladenthin@gmail.com>
+X-Received: by 2002:a05:6820:4dc7:b0:6b7:46fa:169a with SMTP id
+ 006d021491bc7-6c0bc7c4a4cmr2415709eaf.47.1789127754013; Fri, 11 Sep 2026
+ 04:55:54 -0700 (PDT)
+Date: Fri, 11 Sep 2026 04:55:53 -0700
+In-Reply-To: <6a6a9894.7eebbf3c.214d51.000c.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa3ec49.f2639fcc.29487d.0029.GAE@google.com>
+Subject: Forwarded: [PATCH] configfs: unhash dentry before dropping the item
+From: syzbot <syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-First off, I cannot believe you wrote such a lengthy text... this can
-be only generated by LLM.
+***
 
-On Mon, Sep 07, 2026 at 12:19:54AM +0200, Bernard Ladenthin wrote:
-> On Sun, Aug 16, 2026 at 10:37:51PM +0200, Pablo Neira Ayuso wrote:
-> > > A caller looping until UINT_MAX never terminates.
-> >
-> > Yes, for a good reason.
-> 
-> Thanks for the review. Let me start with the question I actually have.
-> 
-> One interface, three implementations. The same test, unchanged, run
-> against each of them. kmp passes it, bm fails it. I cannot find where
-> that difference is written down, and that is what I would like to
-> understand.
-> 
-> Where I looked. include/linux/textsearch.h:20 describes the field as
-> 
->    * @offset: offset for next match
-> 
-> and lib/textsearch.c:72 says
-> 
->  *   Subsequent occurrences can be found by calling textsearch_next()
->  *   regardless of the linearity of the data.
-> 
-> Both are from 2005 and neither has changed. ts_bm.c does record one
-> deviation from the other algorithms, in its file header, that a match
-> spread over multiple blocks will be missed and that kmp should be used
-> when that matters. It says nothing about repeating the same offset.
-> 
-> If what you mean is that the algorithm as Boyer and Moore published it
-> stops at the first match and therefore defines no shift after one, that
-> is true, and it may well be how this came about. kmp_find() faces the
-> same question and answers it in two lines, and patch 1 is those same two
-> lines:
-> 
->   kmp:  state->offset = consumed + i + 1;
->         return state->offset - kmp->pattern_len;
-> 
->   bm:   state->offset = consumed + shift + 1;
->         return state->offset - bm->patlen;
-> 
-> So the question is not really about Boyer-Moore. It is about why two
-> backends of one interface answer the same question differently, with
-> nothing saying which answer is the intended one.
-> 
-> > With bm, it reports offset 6, because it looks from right to left,
-> > this is how the original Boyer-Moore algorithm works.
-> 
-> I put that into a test case. The diff at the end adds it,
-> parameterised like the others, so it makes the same claim about kmp and
-> about bm. Applying it turns the suite red on purpose.
-> 
-> Patch 2 applies without patch 1 and does not touch lib/ts_bm.c, so this
-> describes today's behaviour:
-> 
->   echo CONFIG_KUNIT=y > .kunitconfig
->   echo CONFIG_TEXTSEARCH_KUNIT_TEST=y >> .kunitconfig
->   ./tools/testing/kunit/kunit.py run --arch=um \
->       --kunitconfig=.kunitconfig "textsearch.*"
-> 
-> In the output below I cut the "at lib/tests/..." suffix so the lines
-> fit, nothing else is changed:
-> 
->   ============ ts_first_match_is_last_occurrence  ============
->   [FAILED] kmp
->       # ts_first_match_is_last_occurrence: EXPECTATION FAILED
->       Expected pos == 6, but
->           pos == 2 (0x2)
-> 
->   first match reported
->   [FAILED] bm
->       # ts_first_match_is_last_occurrence: EXPECTATION FAILED
->       Expected pos == 6, but
->           pos == 2 (0x2)
-> 
->   first match reported
+Subject: [PATCH] configfs: unhash dentry before dropping the item
+Author: jchuang26@m.fudan.edu.cn
 
-To my knowledge, **noone** uses this first_match_is_last_occurrent
-behaviour.
+#syz test: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git a7c1290eef60711c10289c056ad32ed1f2b47b12
 
-At least xt_string just return true on the first match.
+Reported-by: syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com
 
-So what's the point? Just "fix it" to make the new Kunit tests.
-
-Or maybe this is being used by tc?
-
-> Both report 2, so the first match is the same for either algorithm. If
-> that case asserts the wrong thing, please tell me what it should assert.
-> The run also gives
-> 
->   # Totals: pass:17 fail:5 skip:0 total:22
-> 
-> Two of the five are that case, red by design. The other three are bm, in
-> ts_next_advances, ts_next_finds_all and ts_blocks_iteration_terminates.
-> Every kmp case passes.
-> 
-> > Why? What do you get by setting state->offset?
-> >
-> > What are you trying to fix?
-> 
-> I should be plain about the scope. Nothing in the tree calls
-> textsearch_next(), and as far as I can tell nothing ever has. I checked
-> the whole history with git log -S over 1.46 million commits back to
-> 2.6.12-rc2, which covers the entire life of lib/textsearch.c. So this
-> repairs no reported breakage, and I am not claiming otherwise.
-> 
-> What led me here is that lib/ts_bm.c has needed five correctness fixes
-> in twenty-one years. In 2008 a pattern at the very start of the text was
-> never found, "abc" in "abcdefg" returned nothing, and that had been true
-> since 2005. In 2023 an iptables rule with --algo bm silently stopped
-> matching, reported through bugzilla.netfilter.org #1390 and fixed by
-> 6f67fbf8192d. Neither was caught by a test, because there were none.
-> 
-> That is why patch 2 exists, and it is the patch I care about most.
-> 
-> Which brings me to a basic question. Why has this code never had tests?
-
-There was no test infrastructure in the kernel tree for netdev at the
-time this was made.
-
-> I looked and found none, and git ls-tree agrees with me, but I may have
-> missed them. If there are any, I would rather extend those than add a
-> new file.
-> 
-> I ask because the suite does find two of those old bugs when they are
-> put back on a current tree:
-> 
->   the 2008 one, shift = bm->patlen instead of bm->patlen - 1
->       ts_find_at_start               red for bm, green for kmp
-> 
->   the 2023 one, revert 6f67fbf8192d
->       ts_blocks_match_within_block   red for bm, green for kmp
-> 
-> Not all five, to be clear. The 2026 overflow it does not catch, because
-> textsearch_prepare() rejects the zero length before the algorithm sees
-> it. The two from 2006 I did not try to put back, the code around them
-> has moved too far for that to mean anything.
-> 
-> > > Which algorithm a caller selected should not decide whether that
-> > > works.
-> >
-> > Why?
-> 
-> Because the promise is made at the interface, not per algorithm.
-
-Yes, for correctness. But there is no users of this "find last
-occurrence" that I'm aware of?
-
-> lib/textsearch.c and include/linux/textsearch.h describe
-> textsearch_next() without naming one, while lib/ts_bm.c lists its own
-> deviation in its own header. And xt_string.c:56 hands conf->algo
-> straight from userspace to textsearch_prepare(), so the caller cannot
-> know in advance which of the two behaviours it will get.
-> 
-> > Yes, and people that use it rely on the current behaviour, so you have
-> > to explain what you are aiming at fixing.
-> 
-> Nothing observable changes for them. The returned value is the same
-> expression:
-> 
->   before:  consumed + (shift - (bm->patlen - 1))
->   after:   state->offset - bm->patlen,
->            with state->offset = consumed + shift + 1
-> 
-> Both are consumed + shift + 1 - bm->patlen. The patch only writes down
-> the offset the return statement already implied. skb_find_text() keeps
-> its ts_state on its own stack and uses only the return value, and
-> xt_string reads only that return value, so no netfilter path can observe
-> the write.
-> 
-> > You are not specifying any tree for this patches.
-> 
-> Sorry about that. get_maintainer.pl points at LIBRARY CODE for these
-> files, so the series is aimed at Andrew Morton, and I should have said
-> so in the subject. I will use a prefix on the next posting.
-> 
-> So my request is not that patch 1 be applied. It is that the difference
-> be explained or written down. If bm is meant to be single shot, I will
-> send a patch saying so in the same place the multi-block limitation is
-> already stated, and drop patch 1. And if the Fixes: tag looks wrong for
-> something nothing can reach today, I am happy to drop that too and let
-> patch 1 stand as a follow-on to the tests.
-> 
-> The case below is not meant for merging. It is your sentence written
-> as a test.
-> 
-> Thanks,
-> Bernard
-> 
-> ---
-> --- a/lib/tests/textsearch_kunit.c
-> +++ b/lib/tests/textsearch_kunit.c
-> @@ -302,6 +302,26 @@
->  	KUNIT_EXPECT_EQ(test, PTR_ERR(conf), -EINVAL);
->  }
->  
-> +/*
-> + * Not part of the contract the other cases check, and not meant to be
-> + * merged. It encodes the description that "bm" reports the last
-> + * occurrence first, so that the claim can be run. It is parameterised
-> + * like the rest, so it makes the same claim about kmp and about bm.
-> + */
-> +static void ts_first_match_is_last_occurrence(struct kunit *test)
-> +{
-> +	static const char text[] = "xxABxxABxx";
-> +	static const char pattern[] = "AB";
-> +	struct ts_config *conf = ts_conf_get(test, pattern);
-> +	struct ts_state state;
-> +	unsigned int pos;
-> +
-> +	pos = textsearch_find_continuous(conf, &state, text, strlen(text));
-> +	KUNIT_EXPECT_EQ_MSG(test, pos, 6, "first match reported");
-> +
-> +	textsearch_destroy(conf);
-> +}
-> +
->  static struct kunit_case textsearch_test_cases[] = {
->  	KUNIT_CASE_PARAM(ts_find_middle, ts_algo_gen_params),
->  	KUNIT_CASE_PARAM(ts_find_at_start, ts_algo_gen_params),
-> @@ -313,6 +333,7 @@
->  	KUNIT_CASE_PARAM(ts_blocks_iteration_terminates, ts_algo_gen_params),
->  	KUNIT_CASE_PARAM(ts_get_pattern, ts_algo_gen_params),
->  	KUNIT_CASE_PARAM(ts_prepare_zero_len, ts_algo_gen_params),
-> +	KUNIT_CASE_PARAM(ts_first_match_is_last_occurrence, ts_algo_gen_params),
->  	{}
->  };
->  
+diff --git a/fs/configfs/dir.c b/fs/configfs/dir.c
+index 3c88f13f1..d9c222ff0 100644
+--- a/fs/configfs/dir.c
++++ b/fs/configfs/dir.c
+@@ -418,6 +418,16 @@ static void configfs_remove_dir(struct dentry *d)
+ 			pr_warn("remove_dir (%pd): attributes remain", d);
+ 	}
+ 
++	/*
++	 * The dentry can still have external references (e.g. from a
++	 * concurrent configfs_symlink() path lookup), in which case
++	 * simple_rmdir() will not have unhashed it yet.  Make sure the
++	 * dentry is unreachable before the caller drops the last
++	 * reference to the config_item, since configfs_symlink() resolves
++	 * targets by taking a reference through a hashed dentry.
++	 */
++	d_drop(d);
++
+ 	pr_debug(" o %pd removing done (%d)\n", d, d_count(d));
+ 
+ 	dput(parent);
