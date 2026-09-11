@@ -1,111 +1,92 @@
-Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AEDD376BE0;
-	Fri, 11 Sep 2026 17:02:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E0F54A4828
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:02:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789146140; cv=none; b=YYY3AmXwVuuloZyHCQMJYRdhWNAcAOSa5WGWtreGdSQMe5uj/wvAqU05xiOqkMpBxkWZqIs2IwGsmNo1ty4NlxjQfPVaCOwGGiqYhvwzbOUE4PbDsOghHdq6tvzyxgE+0lg1onaApX5RJEqr2eaxwZviZxp3MQNwrJP4kqtADs8=
+	t=1789146147; cv=none; b=iJ09njlus+CHXOFJHf6AehJ0fqZseG04PeK0MREOLGgT8wahkvpDYA7Q+UPwhe/Ge7ckvjc+qW/wndsCxZu1wZJHJq4GwDmtYxd147OORwWGy0yQXokSx3/rHeRuEkgrMcLRluo40zzsUkNnFc+vKbRxz2+epYiG58PNcdJiAkw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789146140; c=relaxed/simple;
-	bh=gSjBIMWHca5U46ZxsrGHxju0cEEsz9xxV4nSDxxb9do=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ZzPQvyrcEoolPpm6IQY1DIaoodynF6ibL7Pasq1Wu6PZQOgbXWWE3Nt6RvxeBOZXiJ04oEh7MYoVbKVVpiTIzjQDSG1EZ+gh2q/IIB514LlzeBbBNfEsftOYmukTnHunK0+5YToeCvEEMFR/DHi8GS0ldiBJxPgQMZzQqnkhQ48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=K1g13/KK; arc=none smtp.client-ip=195.39.247.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
+	s=arc-20240116; t=1789146147; c=relaxed/simple;
+	bh=NRD+E16Ntqi48SkKeqUEb2XLh/7GQUHq/VvV71uQbds=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qAR5T5qzWZlENWmebS4Q3IexnCFXg+bZJUnDZoZJCcb93eaI5gBoEcOhV0bIiTK2Qqt4lSc9le8exNnxR3X/+CNtstFgqhc1dg1SnDZZePEwpzb4EudLEvppybHYmbyEvMV+mHKd6cP4dcE0cX4ZDhbf7weFZrPHy+SF74WpPf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=akAKooVA; arc=none smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="K1g13/KK"
-From: Yureka Lilian <yureka@cyberchaos.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1789146136;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=OvNAr9Lgf36KCWSOvkbkg/HFww2daCBUTIh+sBR2P4U=;
-	b=K1g13/KK5UI8evEeIQXEUSuMs02USPPzMIudRpiaZJi4NkU7J/oMGlIADehtdMtmkKfvg5
-	ib+crH1GsP1U4Lj8LhRxfTOxUOk8hMlBIP0gyG0jaQaF0C4aWNWFFzB/WbbKo5wRvCE3AL
-	c69F38j5muCCl26A3VmS3oBCcA+s0xM=
-Date: Fri, 11 Sep 2026 19:02:10 +0200
-Subject: [PATCH RESEND] arm64: Add override for WFxT
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="akAKooVA"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85e68bdbcc1so1560047b3.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:02:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789146144; x=1789750944; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NRD+E16Ntqi48SkKeqUEb2XLh/7GQUHq/VvV71uQbds=;
+        b=akAKooVAa3kqR2kW2UhQmz5kGjh7vuPgUOGtKAuR188p62NuSw4yci0yeTDSSuZtjA
+         Ez8UJWG4hSe/VA8H5RyvVrtJiDPmJkJOjNolmOns2Bg43OiQ25GX+y29k/xl8WCy5C7I
+         D9eMGZZU04VBTD1vjno3MAGDKqBDEKze8jM2jowpCQH4V/lIsdwT8QjoFW99Ahp+Nu9R
+         0SVX6Y6MI2Fizf9GIilGRMpXBKHJNBEEV/JJ9Y4p3US9qIptrtxoChHXoryXnGP9Qmk7
+         bw4Z9N7yI/ulh1vxlgV/IIbBbBR1R2Hof5H/NejgVaeGCy4uukGiurIRt6DuMZRk3Hpx
+         QrFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789146144; x=1789750944;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NRD+E16Ntqi48SkKeqUEb2XLh/7GQUHq/VvV71uQbds=;
+        b=Sc1zs3/+7rbV/BXfbisfBLxd6y8ygKzMsfOKTTxH3HXPH97sMsV1RFiaG6rBJ7K81C
+         wOKRfP702WZQT22ZzO389vTn0zDCArnaMQ8crMr/Y/LpLCxiZUt308aEwX2TVg4pWjzE
+         znjWUh8Ao5AIX9kZ9lKPFCFKcvelceXRLQ6mxpaXKupku3UQRdp0WB7M35892Po9lZix
+         rG7Iv7p3qa1A4ZVo+Vnyu6avRcW1a7ISs+Fj7//N3uoV9ntGvxf132P90oREpo8d5eVl
+         BTQuwJqxAeXKu6kUgQMZffQ3S9ITnAsJZUmlZcTcVtza8i/GqIg3aTpv2M+WfMVeqJXh
+         N3wQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwMB+JbYWolBzU2ckcsDuEQK32iBrojyT2UfvI2MkONdm3GNBbXSHmd68PDih6sKKyptwMRR5M4DZf7VNU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mLPZ10U7XW8hEmEgG/fusIURXwXjORAd6Hr/eeB9FKqSdFxSoY
+	VaDPSWVr1Fj1ilfk52S7FFSV6W4sHK96Ad6JARyvs6D6Sz/lEQUuWdK0OEARhQ==
+X-Gm-Gg: AYBFou33hzbpuej8OJDXsx8sWwH2LrevpcPQvuRpz83IEZmXm4Z6PpZwZSQyZIqro8c
+	rT2WNLH9aFbv+2CQL5a5yaO27RyTug3UbRbB5OI3gPFZ2Ge3JIr5wLOhr0KdH9sDcBdJ+/c+woJ
+	8IiHVLoHjxY3+CpkzaADZJXSiL5Poegu3oKhAX7wzn+hGY3fQpV6WvcEaxjZVYNY2PVufcyW6aO
+	IPFnx/arWZfFJ0eE4JBVCUlZZZ4DviwKsxcVdJtMCt5XP09tfbEGkaR+O5oEhRAebaBJblRk0mn
+	YWaAaHcvzZxqmAC98FZbxXV/1Etwv0F+p9W53UIyrHfETlwMTuGoet+kBytcUcv32Ihq8o8Z1h5
+	WqTuPjNZ408+7kE/5mod6oa5uYCBTlLvW9kL8SOUzJGSFkw7xDALhJeVMundjddjeRQGJktTC0K
+	7oJXB1tNmoNIUHkJQt3sGNQxDscoci1Bk/vgTnjYP1BFDBi9X/wcUGmA6uYt7sX8C3Z3te6RB7+
+	Ztoe7OwseWIaKktYw==
+X-Received: by 2002:a05:690c:97:b0:81f:e85b:f9da with SMTP id 00721157ae682-884b4b01ddamr20863627b3.33.1789146144099;
+        Fri, 11 Sep 2026 10:02:24 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d38:5c70:b928:dcab:35a4:adf0])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-884899d85fasm13403587b3.48.2026.09.11.10.02.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 10:02:23 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: tytso@mit.edu
+Cc: Jan Kara <jack@suse.cz>,
+	adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] ext4: avoid buffer/folio lock inversion in __ext4_get_inode_loc()
+Date: Sat, 12 Sep 2026 00:02:15 +0700
+Message-ID: <20260911170215.35183-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260907155017.75543-1-ngocthang2710.1999@gmail.com>
+References: <20260907155017.75543-1-ngocthang2710.1999@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-idreg-override-wfxt-v1-1-7917636741f3@cyberchaos.dev>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32OMQ+CMBCF/wq52Zq2EEAnB1kddDQM0l6hDtRcs
- UII/92Cu3nT9/LuvZvBI1n0cExmIAzWW9dHELsEVPfoW2RWRwbJZc5LISIStswFJLIa2ceMA2t
- knqZGZ5pnBuLli9DYcWu9w7W6VZcz1D/fv5snqmGtXJOd9YOjaZsPYsv/XQqCRalCSFlqXojDS
- U0NUnzV+b3GAPWyLF9oolAm1QAAAA==
-X-Change-ID: 20260811-idreg-override-wfxt-b2633fd4d04f
-To: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, asahi@lists.linux.dev, 
- Yureka Lilian <yureka@cyberchaos.dev>
+Content-Transfer-Encoding: 8bit
 
-Add an override for WFxT support within ID_AA64ISAR2_EL1 to allow
-it to be disabled using the new arm64.nowfxt command line parameter.
+Hi Ted,
 
-This accompanies the idle=nop param introduced in a previous patch
-series [1] in dealing with misbehaving WFI and WFIT instructions on
-Apple Silicon SoCs, and eases debugging of other quirky WFxT
-implementations.
+Gentle ping on this one -- v2 addressed Jan's comments and carries his
+Reviewed-by. Let me know if anything else is needed.
 
-Link[1]: https://lore.kernel.org/all/20260804-arm64-idle-param-v3-1-d10f8159062b@cyberchaos.dev/
-Suggested-by: Will Deacon <will@kernel.org>
-Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
----
- Documentation/admin-guide/kernel-parameters.txt | 3 +++
- arch/arm64/kernel/pi/idreg-override.c           | 2 ++
- 2 files changed, 5 insertions(+)
-
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index cb5251242311..6a35623e4a17 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -587,6 +587,9 @@ Kernel parameters
- 	arm64.nosve	[ARM64] Unconditionally disable Scalable Vector
- 			Extension support
- 
-+	arm64.nowfxt    [ARM64] Unconditionally disable Wait For Event with
-+			Timeout and Wait For Interrupt with Timeout support
-+
- 	ataflop=	[HW,M68k]
- 
- 	atarimouse=	[HW,MOUSE] Atari Mouse
-diff --git a/arch/arm64/kernel/pi/idreg-override.c b/arch/arm64/kernel/pi/idreg-override.c
-index 274bc72ba98d..acaf56234973 100644
---- a/arch/arm64/kernel/pi/idreg-override.c
-+++ b/arch/arm64/kernel/pi/idreg-override.c
-@@ -186,6 +186,7 @@ static const struct ftr_set_desc isar2 __prel64_initconst = {
- 	.name		= "id_aa64isar2",
- 	.override	= &id_aa64isar2_override,
- 	.fields		= {
-+		FIELD("wfxt", ID_AA64ISAR2_EL1_WFxT_SHIFT, NULL),
- 		FIELD("gpa3", ID_AA64ISAR2_EL1_GPA3_SHIFT, NULL),
- 		FIELD("apa3", ID_AA64ISAR2_EL1_APA3_SHIFT, NULL),
- 		FIELD("mops", ID_AA64ISAR2_EL1_MOPS_SHIFT, NULL),
-@@ -254,6 +255,7 @@ static const struct {
- 	  "id_aa64isar1.api=0 id_aa64isar1.apa=0 "
- 	  "id_aa64isar2.gpa3=0 id_aa64isar2.apa3=0"	   },
- 	{ "arm64.nomops",		"id_aa64isar2.mops=0" },
-+	{ "arm64.nowfxt",		"id_aa64isar2.wfxt=0" },
- 	{ "arm64.nomte",		"id_aa64pfr1.mte=0" },
- 	{ "nokaslr",			"arm64_sw.nokaslr=1" },
- 	{ "rodata=off",			"arm64_sw.rodataoff=1" },
-
----
-base-commit: 5e6de6a2b522f659defacb1551d0465ba6ce13cf
-change-id: 20260811-idreg-override-wfxt-b2633fd4d04f
-
-Best regards,
---  
-Yureka Lilian <yureka@cyberchaos.dev>
-
+Thanks,
+Thang
