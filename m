@@ -1,364 +1,237 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822DC41A51B
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:21:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E45074A2070
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:21:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789143677; cv=none; b=RUuR4R/a1L2eRuh/s/EvqlhTn7hZxoecHudasimnXNHDs+/Sch17I2phZz9ktwR/WiG9jKwkdDF1YzLMk37+xEmM3q5YtoNUmh4GdemkCQGl2GDPkUtEsnSUBd1GGwBm6mslSs3ow6L4IpJ5yaiWSMBdFucp58PqztGWO4RPhx8=
+	t=1789143689; cv=none; b=hgSgil+MYuVlzScxF42h5GIvC1pvNSMeBW8Nem7dzsT8yrvGz/pndytIYA6UpdB6LWMaCfT+YfJiUqdFaGrUFDDUxb/olQgJCgm4QF1C3Ifp4sjtXGqWEWG4GsdVWHPeXAU64i8V1gfhiuoSqBo3UlNr4uzz9wN3CcTXtVc4SDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789143677; c=relaxed/simple;
-	bh=E5aLrOEcpjHMCvCy2tZZDsD3xzjmw+bFWjrFay4JW7I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BR6hMOUIdPtG0TPvg5v5HURE5VcEGZo4/YtnFEC2j2mT056CcIybicb4b+jjChU9N4Hxxe4dxlQnuiCcHklxs/xM1oZlQLmkK0i3Rm+7X5PPhCE3fSvD5Ilv/5UA/b1V9qaV32K2+gybdl8bVRtTCkUGj05qu3G0r6UA0dagaZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=jNMv/tQa; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	s=arc-20240116; t=1789143689; c=relaxed/simple;
+	bh=S1ENme052wMNFkY0+NQvj/AsSy0pVsRnb9curA5kdsQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=R9TwovK7Qq75Fnm2mUQlTiWmtfmo48gc/fu9SlvL+CBa39Z1TEWoQcH6GW4KB6NPOHvHfRlo34ObBXcQFbOGaCCZ6np9WsdfUS/f6yBrGxULTF/wHHFWCJQXREk5wB9OhK4uAw3eVYnjpqWuKfDk1fuCWx11SV9nqZ+PXfYfxw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m1/82OwX; arc=none smtp.client-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="jNMv/tQa"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-939109fafd7so99982685a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:21:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m1/82OwX"
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-851cbd64814so964360b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:21:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1789143673; x=1789748473; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nEwb8woqh6nRAXbiUoFhhnkq6OhguWwIPf7kiOxr9zo=;
-        b=jNMv/tQaI7skGuscuxVjEd/uoxITBqBCd1waB4dRcznGeLvf127w0/DoscfoRtCqDE
-         sLNaqbpaOPI2tXjDRo51+7+cUMvRNJ3Xpj1Q/lXjABxM315n6Gr23BZZfRjPkje67gp7
-         y15BVqVGSj1jfGXTp9FK9+emAMYT1cNND5y9mC4vsRw/sFUvh+E+8yvnMYnpJm3e7PPh
-         swVkng6BdeEKze27dtwyzu0JlcTPsfgpLuVa9ICBDkwkcMGAcC63kdiE7B1S6c0njGUd
-         HHQgPz3i576hW1dIcOKZ40Z3q0bVOfyFtCx2JuAvGksCB515Jj25hJORpJDBzvpCtz3r
-         PO1g==
+        d=gmail.com; s=20251104; t=1789143687; x=1789748487; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OWiuSXnfujaiQ1izanqTrt5xnxdwldQIkKoLEBQrQ6U=;
+        b=m1/82OwXxYYjZJkds/xaFYqkT2vvvaB1Xqvd9f+57Qefki+dt9EZCBhO5YFA5Uz8nK
+         w2voqhGqdxEKOn0iBthL6xOZicNc/dOOfblClLwlM3/3xOP3vpewdvwxPj73UW9MqsMZ
+         Pcp8KBlrgwtU/e9ppGqC277reYv/PRvOwUKhVd/qRbxoU+hTSd5WrqOrWHdyEPSGBSEO
+         NT3hfewZZqIS0avo5WDk4YPNssxopii/wT4jFEVm8Sl6Vs3vSmJC6kCQwgogBChBVY8C
+         TA4B/7SA4frKLJo7WUjV0H20sWwl5XCd+rkI98t/pYXTIkH22faYyynWNY0G1KfADl40
+         IhtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789143673; x=1789748473;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=nEwb8woqh6nRAXbiUoFhhnkq6OhguWwIPf7kiOxr9zo=;
-        b=nGtm1W7H7YpnuywtCGOeW3w+5ettcQkJOkgTCQYUanV41HdGgV+dl2NIEFEZkXpWPC
-         8so9A4J1lg10ZsN2fNatT3ZtG0OhJfxCPdES/NlgjdQufw5QO2FEX7VEgvdzOEDvmqrr
-         56sWIeXvJIsjWA1mS5LDjSevfC9wTdNtlbT5vjJdJbQiLapoLvKoY7ALrgC6PcyIqhqP
-         CQTqRlZdNXL0ji2Jd7Y0GoGOXXEs+fGvNmSOaWFJVe0zuSbd1CmqB7he0NfGXsP0OVEl
-         l1ufkqVIqVXVPeWl+aHDUl2Qgf/9vly9ZvF4r6ziPa7mx/bllcdCrvdJjY2N/K++Rf14
-         yRBg==
-X-Forwarded-Encrypted: i=1; AKwUvBzyH69f9obYN2kUQIIFoCBVRjnJ5ztqgWqPwMkh7V4qm0miB1gbiWOjB/Oa0eW4vYbINeRglZ4CY8s8Y7c=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgjG4mVdOk7wIi5btZ3TNTmL/JmP14O7pD6KKZ/Z6bS0Ro7QPn
-	h9qkA4/DEeNtaK2tsIZSouE0MXTnneLYab8o95Dj+gXmIrtjmXxujSvJ/B5FSbkIOls=
-X-Gm-Gg: AYBFou2kWX605A6FIECIP4fE4fwiIXlwtA50pJOd22R7mdXeJAgsIHbOI0Nnsnccwz2
-	iqpGT9PmVS5z8RXJEZ3iu3MWaQD3aJrRToNyug6Rrfg9cRDjmxNR4gmwp/u5ckf4fqJ2vwJIP62
-	ro03hVqvMdaoFDlJH0ualxCHiDhood6VaINaFtDfW6cSb8VOmaRW93aUmvYSoCwv8zQjqUET5yr
-	TvKP2EREJvjsvrjtrPyK42rXMxj1wiejQc9bRXHB4WAxV0raJF/G+uaF/RdTX+jsyPFnPNPY5XZ
-	rTwlFXKyAFnDi73hVy/Vtsh370+K8ygu7EKsAXnRbAqbwvYpM04bpciAE3MLgIpqKEOWjOmYA5d
-	gWum51Qnb85NdhpaX1j0S6DOVFdC2EE6J3RMPTNT69aWY5Y+OV1wAeecPM/HMIpPC+CL5HC/B7w
-	/boGV+C2dJDTsnQpxbNSKxQPjA0piTDbGGH6K49X5r4m4dDSxPmmznPdyq9CoXVka9gCMxfw==
-X-Received: by 2002:a05:620a:2410:20b0:939:eb65:bd38 with SMTP id af79cd13be357-939eb65be93mr420474985a.35.1789143672247;
-        Fri, 11 Sep 2026 09:21:12 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e809fd0bsm272865785a.33.2026.09.11.09.21.11
+        d=1e100.net; s=20251104; t=1789143687; x=1789748487;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OWiuSXnfujaiQ1izanqTrt5xnxdwldQIkKoLEBQrQ6U=;
+        b=HQ9K9YFbWXU2o4RYHZOG/56Ptq8E44Km/POpyyNXYTAnOsPolt4KPImnzxlM5t2MLC
+         4KATVx28C4PrR/zNmLypWiY3rTNpnvuS+xnTuRWQkrUq9nS8YeYZXVeaGwF8dnZRif4R
+         jXnDJZNCYjrytf9Bqdwyh7hWJVCzoXWbAptRHoSzpxba+7Jb6JLtosgRSflmgk1yHIm6
+         oFLnGHA8BxVDknQGLWmdJAuarNF9CsHM57D0kgd4YjsT3/Wbg9IH95xZdBPIY8qWHigX
+         svKiQgHquHO1TzKhJBh7l+9D0Z2nsqNyNUbaRy8GflyhZOdLjIm70mCwpwXa1xdO0Iy1
+         g/Hw==
+X-Forwarded-Encrypted: i=1; AKwUvBy3gXSzQwgaQrImgvKZA+vwVpPxWg/RVeGHmsRydISRdeJN5o3IBE+OWrRhM/J9CopqkM0nuGfkHzMzeks=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+nPMNF499mtlWB4JOjii99KACWRLT0DqgOoMTG3L7gaMdoFEz
+	RTJD7yHFnKbc3AP7JcLUGILogSqTTCb0vjQ74DVHYphyyckJwRd+/D4d
+X-Gm-Gg: AYBFou2zI7nmXLiEA7ud9fcujIycFHXDxTc8f/PohgVHjZPethclmCo1uNQWX2vkbKI
+	13suNMiJzUonzQV9SUAZxT6rIBCfsQ2HSYBzcTRqjWiN0skd+Le+WwJoUKvaOnz8o9PdQNHkjAV
+	H8zKyghWDEQkgrHiYSbN87eKDKx5jr1yY5oueciQbdLauBsm15jzk9mmOJy8ntimyVULijg48OY
+	ZcnzTS9lFwqjcsumFuTmMwgN0wV2ZLrgEkoxpTj22YdCjHXdVok/MRE4buGfueEA0BXncdy6RW1
+	DZ1WlG4wsF0UU4ahoqKzMjAas9GeKRRXfNnTg+5hNauDUV00xlUcZ4y7JYLftC6BOzJkMbAkmx5
+	rPcksFZZu+W9bPnHRgiGhmZBXO9Bet01w+lWbjtR1YYrAgbGc0klfHQ3BIhttjXdRZxj8iaKVXd
+	88JSv3XYGom/dVvsEiYcghkgNoql2z/csYbWUSwlKzjxU9shvH10mIE0MLERczdxIeITy0bBses
+	f88QFz8hA/zXYcl3Q==
+X-Received: by 2002:a05:6a00:4103:b0:857:4dea:e2fe with SMTP id d2e1a72fcca58-86b32dea8e5mr8235798b3a.13.1789143687007;
+        Fri, 11 Sep 2026 09:21:27 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d38:5c70:b928:dcab:35a4:adf0])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b2a2b5c72sm1337539b3a.52.2026.09.11.09.21.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 09:21:11 -0700 (PDT)
-Date: Fri, 11 Sep 2026 12:21:08 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: Nhat Pham <nphamcs@gmail.com>, Kairui Song <kasong@tencent.com>,
-	Chris Li <chrisl@kernel.org>, Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Yosry Ahmed <yosry@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Barry Song <baohua@kernel.org>,
-	YoungJun Park <youngjun.park@lge.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	Rik van Riel <riel@surriel.com>, Gregory Price <gourry@gourry.net>,
-	Wenchao Hao <haowenchao22@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Tejun Heo <tj@kernel.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Kunwu Chan <kunwu.chan@linux.dev>,
-	Meta kernel team <kernel-team@meta.com>,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	linux-doc@vger.kernel.org,
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Kairui Song <ryncsn@gmail.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-Message-ID: <aqQqdJWtjAUBytkK@cmpxchg.org>
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <aqJXx2vtbKaRLt3x@fedora>
- <aqLi6cIjD2wJwk0B@cmpxchg.org>
- <aqPzlIVJccbqbaUr@fedora>
+        Fri, 11 Sep 2026 09:21:25 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: mst@redhat.com,
+	jasowangio@gmail.com,
+	mkp@kernel.org,
+	James.Bottomley@HansenPartnership.com
+Cc: pbonzini@redhat.com,
+	stefanha@redhat.com,
+	eperezma@redhat.com,
+	virtualization@lists.linux.dev,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	syzbot+53706c567afab5131044@syzkaller.appspotmail.com
+Subject: [RFC PATCH] scsi: virtio_scsi: bound EH timer resets to avoid unkillable hang
+Date: Fri, 11 Sep 2026 23:21:18 +0700
+Message-ID: <20260911162118.32414-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <aqPzlIVJccbqbaUr@fedora>
 
-On Fri, Sep 11, 2026 at 08:27:00PM +0800, Baoquan He wrote:
-> On 09/10/26 at 01:03pm, Johannes Weiner wrote:
-> > [This reply was not LLM-generated.]
-> > 
-> > On Thu, Sep 10, 2026 at 03:09:59PM +0800, Baoquan He wrote:
-> > > Hi Nhat,
-> > > 
-> > > On 09/04/26 at 02:14pm, Nhat Pham wrote:
-> > > .....snip...
-> > > > Now, on xswap. Baoquan's working on a series [15] that covers some of the
-> > > > same ground, and the VM_SPARSE cluster_info idea in it is genuinely good.
-> > > > I've been reviewing that lineage since July [16] and I'd like whatever
-> > > > lands to end up with the best parts of both. From my perspective the
-> > > > differences are:
-> > > > 
-> > > > 1. Userspace knobs. xswap asks the admin for a size (a percent of RAM) plus
-> > > >    a per-device limit to tune afterwards. I'm not aware of any use case
-> > > >    that needs those, and I don't think users have a good way to answer the
-> > > >    question anyway - sizing swap for compressed memory depends on memory
-> > > >    size, workload, and compression ratio all at once. That's precisely the
-> > > >    provisioning problem vswap exists to remove. The kernel should be as
-> > > >    transparent and dynamic as possible here, and not add knobs unless
-> > > >    there's a use case for them.
-> > > > 
-> > > > 2. Writeback support. Writeback is core functionality for zswap, not an
-> > > >    add-on, and a design needs to account for it from the start. This came
-> > > >    up before, in the discussion around Chris' ghost swapfile RFC [17]: for
-> > > >    a solution here to be acceptable, it has to work with the primary
-> > > >    usecase and support disk writeback. Without it, whatever zswap won't
-> > > >    take (incompressible pages especially) has nowhere to go, and cold
-> > > >    compressed data can never leave RAM.
-> > > > 
-> > > > 3. Cgroup charging behavior. vswap/xswap shouldn't be charged against the
-> > > >    swap usage counter. It's fundamentally a different resource from
-> > > >    physical swapfile space, and memory.swap.* should read 0 when nothing is
-> > > >    on disk [18]. I made the longer argument for this in [19].
-> > > > 
-> > > > 4. Data structure (xarray vs sparse vmalloc array). Even with xarray, vswap
-> > > >    is already on par with or beating baseline. I like the sparse array
-> > > >    idea, but why are we landing an optimization before the feature itself,
-> > > >    without any A/B data showing the difference matters?
-> > > 
-> > > 
-> > > Thanks for laying this out, and for the honest push to converge. Let me
-> > > be equally direct about the ordering: I think the xswap base should land
-> > > first, and the things vswap demonstrates -  writeback, rmap lookup, the
-> > > charging semantics, later THP -- should be built on top of it. Because
-> > > it is the foundation that keeps the swap core simpler, and the first thing
-> > > to merge should be the one that doesn't have to be redone.
-> > > 
-> > > The VM_SPARSE array is not an optimization to bolt on later; it is a
-> > > structural choice, and the code reflects it. In vswap, the cluster
-> > > metadata lives in a dynamically-allocated xarray.
-> > > 
-> > > struct swap_cluster_info_dynamic {
-> > >         struct swap_cluster_info ci;
-> > >         unsigned int index;             /* for cluster_index() */
-> > >         struct rcu_head rcu;
-> > >         atomic_long_t *virtual_table;   /* Backing pointers for vswap slots */
-> > > };
-> > > 
-> > > To support dynamic growth and shrink, vswap stores its cluster metadata
-> > > in an xarray, and that forces two things the plain swap_cluster_info[]
-> > > array never needed:
-> > > 
-> > > 1. Every cluster has to carry an extra index and an rcu_head —
-> > > 24 bytes per cluster — purely so the xarray can locate it and free
-> > > it safely.
-> > > 2. To keep that bookkeeping from leaking into the normal-swap code, the
-> > > cluster had to be wrapped in a container, swap_cluster_info_dynamic,
-> > > so the xarray holds a pointer to the wrapper instead of an inline
-> > > array element.
-> > > 
-> > > So in vswap, every cluster access in the shared hot path has to answer
-> > > "is this a vswap device?" and take a separate branch:
-> > > 
-> > > - swap_is_vswap() is checked in 36 places across page_io.c, swapfile.c,
-> > >   zswap.c and swap.h;
-> > > - __swap_offset_to_cluster() branches into xa_load() for vswap vs the
-> > >   flat array otherwise, and the xarray path can return NULL (a cluster
-> > >   can be torn down);
-> > > - __swap_cluster_lock() branches into __vswap_cluster_lock(), which
-> > >   wraps every access in rcu_read_lock() and a CLUSTER_FLAG_DEAD check,
-> > >   plus kfree_rcu()/container_of()/rcu_head plumbing for node lifetime.
-> > 
-> > Well to state the obvious: the reason it does all that is to make the
-> > compression space transparent to the user.
-> > 
-> > The user can answer a simple boolean question: whether they want
-> > compression or not. And it will work on tiny machines, on humongous
-> > machines, and everything in between. That's a simple policy question
-> > with a clear answer.
-> > 
-> > What you're doing, asking the user for a static size, is much more
-> > difficult and has usability issues.
-> > 
-> > You're comparing implementations that don't accomplish the same thing.
-> > 
-> > The problem we're trying to solve is implementing a clean compression
-> > space abstraction. I'm arguing that vswap does, and xswap does not.
-> > 
-> > While they're both using parts of the swap device code to implement a
-> > compression space, xswap actually PRESENTS IT TO THE USER as a swap
-> > device, and then makes optimizations BASED ON BAKED IN LIMITATIONS.
-> > 
-> > But a conventional, statically sized swap device is a bad abstraction
-> > for the compression space. Here is why:
-> > 
-> > In conventional swap space, one memory page translates to one swap
-> > page. Compression space doesn't act this way: a memory page can
-> > consume anything between a few bytes to a full page in compression
-> > space. It depends on memory contents and compression algorithm. So
-> > right off the bat, this is a hard question to answer at the host level
-> > which could run all kinds of workloads.
-> > 
-> > In conventional swap space, the resource consumed is a different
-> > one. You're offloading memory by consuming disk space. This eats into
-> > the space available to the filesystem, which is totally unrelated.
-> > Asking the user for this tradeoff is a legitimate policy question.
-> > 
-> > Compression space is not a separate resource. It's page tables,
-> > backing pages, and swap descriptors. It's just MEMORY. There isn't a
-> > size tradeoff, because moving pages from memory space into compression
-> > space DOES NOT CONSUME A NEW RESOURCE. It's still just memory. All you
-> > need for containment already exists: rlimits, OOM killer, cgroup
-> > memory controls.
-> > 
-> > By making this a user-visible virtual swap device, you're sending
-> > users down the wrong path. You're asking them to set a new limit on a
-> > resource that's already limited by other means. You're framing the
-> > question as conventional swap which behaves completely differently.
-> > 
-> > If you ask them "how much swap space", they WILL reference this to
-> > available RAM capacity. Maybe half of ram, maybe twice the RAM.
-> > 
-> > But when compression space is referenced to RAM, it's trivial to fill
-> > it up with zeroed pages or easily compressible data LONG BEFORE the
-> > process or container would hit any of its MEMORY limits.
-> > 
-> > This creates an artificial resource shortages. It forces a competition
-> > where there shouldn't be one. And then you need new controls to manage
-> > a competition that doesn't have to exist.
-> > 
-> > Like I said before, including compression space (which is memory) in
-> > memory.swap.* (which is for disk space) is not going to be acceptable
-> > from the cgroup side. We can talk about that if you want.
-> > 
-> > But asking the user questions they shouldn't have to answer, or
-> > already answered elsewhere, is weak interface design. Allowing, let
-> > alone encouraging, answers that create a whole new host of
-> > organizational issues is outright bad interface design.
-> > 
-> > So if you want to compare implementations, you first have to actually
-> > implement the same thing:
-> > 
-> > Stop asking user "how large". Let compression space expand towards
-> > existing memory limits, such that it doesn't create an awkward and
-> > artificial new resource competition.
-> > 
-> > Then we can compare implementations.
-> > 
-> > If the optimizations still apply under those constraints, great.
-> > 
-> > Until then, there is little point in discussing differences that, by
-> > your own admission, have little to no impact on real world performance.
-> 
-> Thanks for your sharing with deliberate thought.
-> 
-> Agreed, and I want to be clear that the size knob is my implementation
-> choice, not something the design needs.
+Reported-by: syzbot+53706c567afab5131044@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=53706c567afab5131044
+("INFO: task hung in __rq_qos_throttle (2)", still open upstream, no
+fix, bisection failed, 97 crashes since 2026-08-08)
 
-+1
+virtscsi_eh_timed_out() always returns SCSI_EH_RESET_TIMER, trusting
+the host to eventually answer every command. A privileged raw write
+to /sys/bus/pci/devices/*/config that clears PCI_COMMAND_MASTER on
+the disk breaks that assumption: the device can no longer DMA, so no
+completion -- real or error -- ever arrives, and the reset loop runs
+forever. Any submitter that then hits wbt's inflight limit blocks
+uninterruptibly in wbt_wait() with no way to recover.
 
-> Now in v2, xswap's create() already takes no size, only an optional
-> priority: the device's address space is set by the kernel to the machine's
-> memory
+The syzbot C reproducer does exactly this: it opens the disk's PCI
+config sysfs file and pwrite()s the two bytes 02 00 at offset 4
+(PCI_COMMAND), clearing PCI_COMMAND_MASTER while keeping
+PCI_COMMAND_MEMORY set. The hung task is a writeback worker stuck in
+wbt_wait() <- __rq_qos_throttle() <- blk_mq_get_new_requests(), on a
+disk named sdaN -- i.e. a SCSI-model disk, consistent with
+virtio_scsi rather than virtio-blk.
 
-I've tried to explain above why this is a problem ;)
+Bound the resets: after VIRTSCSI_EH_RESET_LIMIT tries (~150s), let
+real SCSI EH run (abort -> device reset -> offline), which fails the
+command and unblocks rq_qos waiters. A host that is merely slow for
+longer than that now gets its commands aborted/offlined instead of
+waited on indefinitely -- a deliberate tradeoff.
 
-To be sure, the space cannot be completely unlimited. There are
-internal restrictions, such as the refcount_t issue Nhat surfaced in
-testing.
+virtscsi_tmf(), used by both abort and device-reset handlers, waited
+on the same broken ctrl virtqueue unboundedly, which would just move
+the hang into the EH thread. Bound it too. On timeout the command is
+left queued on the ctrl vq (a device that answers late must still be
+able to find it), so it is not freed. Clearing cmd->comp so a late
+completion doesn't write through the now-invalid on-stack completion
+has to be serialized against virtscsi_complete_free(), which reads
+cmd->comp and calls complete() on it under ctrl_vq.vq_lock -- taking
+that same lock around the check-and-clear (and re-checking
+completion_done() inside it) closes the race instead of just
+shrinking it. The leak is one virtio_scsi_cmd per timed-out TMF,
+bounded by queue depth, on a path where the device is being offlined
+anyway.
 
-But I want to re-iterate the need to separate implementation choices
-from what is visible to the user.
+Verified with a QEMU virtio-scsi repro that reproduces the syzbot
+mechanism above (pwrite of 02 00 at PCI config offset 4 on the sda
+backing device, mid-writeback, via /sys/bus/pci/devices/*/config):
+unpatched, a request sits stuck past its own 30s timeout with zero EH
+activity even after 100+s; patched, eh_resets increments
+deterministically, SCSI EH aborts/resets/offlines the device at the
+expected ~150-190s mark, and both previously-stuck writers come back
+with -EIO instead of hanging. Full dmesg from the patched run was
+checked for WARN/BUG/lockdep output around the new ctrl_vq.vq_lock
+critical section in virtscsi_tmf(); none appeared.
 
-The address space should not be limited by anything but these hard
-(and temporary) implementation limits. They can be fixed later as
-machines evolve. But they shouldn't be anywhere near where real setups
-can run out of compression space before they run out of memory.
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+ drivers/scsi/virtio_scsi.c | 51 ++++++++++++++++++++++++++++++++++----
+ 1 file changed, 46 insertions(+), 5 deletions(-)
 
-Whether we want to vmap a petabyte+ of address space on boot, I'm a
-bit skeptical... That sounds like an inherent point of tension between
-large and small machines again. Dynamically extending the cluster
-space as needed seems much more robust to me.
+diff --git a/drivers/scsi/virtio_scsi.c b/drivers/scsi/virtio_scsi.c
+index 35731b18c519..b4f20c487718 100644
+--- a/drivers/scsi/virtio_scsi.c
++++ b/drivers/scsi/virtio_scsi.c
+@@ -37,6 +37,11 @@
+ #define VIRTIO_SCSI_EVENT_LEN 8
+ #define VIRTIO_SCSI_VQ_BASE 2
+ 
++/* Max timer resets in virtscsi_eh_timed_out() before letting real EH run. */
++#define VIRTSCSI_EH_RESET_LIMIT 5
++/* How long to let the host answer an abort/reset TMF before giving up. */
++#define VIRTSCSI_TMF_TIMEOUT (10 * HZ)
++
+ static unsigned int virtscsi_poll_queues;
+ module_param(virtscsi_poll_queues, uint, 0644);
+ MODULE_PARM_DESC(virtscsi_poll_queues,
+@@ -46,6 +51,7 @@ MODULE_PARM_DESC(virtscsi_poll_queues,
+ struct virtio_scsi_cmd {
+ 	struct scsi_cmnd *sc;
+ 	struct completion *comp;
++	unsigned int eh_resets;
+ 	union {
+ 		struct virtio_scsi_cmd_req       cmd;
+ 		struct virtio_scsi_cmd_req_pi    cmd_pi;
+@@ -586,6 +592,7 @@ static enum scsi_qc_status virtscsi_queuecommand(struct Scsi_Host *shost,
+ 		"cmd %p CDB: %#02x\n", sc, sc->cmnd[0]);
+ 
+ 	cmd->sc = sc;
++	cmd->eh_resets = 0;
+ 
+ 	BUG_ON(sc->cmd_len > VIRTIO_SCSI_CDB_SIZE);
+ 
+@@ -625,7 +632,35 @@ static int virtscsi_tmf(struct virtio_scsi *vscsi, struct virtio_scsi_cmd *cmd)
+ 			      sizeof cmd->req.tmf, sizeof cmd->resp.tmf, true) < 0)
+ 		goto out;
+ 
+-	wait_for_completion(&comp);
++	if (!wait_for_completion_timeout(&comp, VIRTSCSI_TMF_TIMEOUT)) {
++		unsigned long flags;
++		bool completed;
++
++		/*
++		 * No answer within the timeout. virtscsi_complete_free()
++		 * reads cmd->comp and calls complete() on it under
++		 * ctrl_vq.vq_lock, so take the same lock to decide, atomically
++		 * with that path, whether the completion already happened.
++		 *
++		 * If it hasn't: clear cmd->comp so a completion that arrives
++		 * after we drop the lock finds NULL and leaves this
++		 * soon-to-be-invalid stack frame alone. cmd stays queued on
++		 * the ctrl vq (a device that answers late must still be able
++		 * to find it), so it is not freed here.
++		 *
++		 * If it has: the response landed (and complete() already ran)
++		 * right as we timed out, so fall through and read it as if
++		 * wait_for_completion_timeout() had succeeded.
++		 */
++		spin_lock_irqsave(&vscsi->ctrl_vq.vq_lock, flags);
++		completed = completion_done(&comp);
++		if (!completed)
++			cmd->comp = NULL;
++		spin_unlock_irqrestore(&vscsi->ctrl_vq.vq_lock, flags);
++
++		if (!completed)
++			return FAILED;
++	}
+ 	if (cmd->resp.tmf.response == VIRTIO_SCSI_S_OK ||
+ 	    cmd->resp.tmf.response == VIRTIO_SCSI_S_FUNCTION_SUCCEEDED)
+ 		ret = SUCCESS;
+@@ -783,13 +818,19 @@ static void virtscsi_commit_rqs(struct Scsi_Host *shost, u16 hwq)
+ }
+ 
+ /*
+- * The host guarantees to respond to each command, although I/O
+- * latencies might be higher than on bare metal.  Reset the timer
+- * unconditionally to give the host a chance to perform EH.
++ * The host normally answers every command, so reset the timer and keep
++ * waiting. But if the transport is broken (e.g. bus mastering was turned
++ * off), no completion can ever arrive: give up after a few resets so SCSI
++ * EH fails the command instead of blocking its submitter forever.
+  */
+ static enum scsi_timeout_action virtscsi_eh_timed_out(struct scsi_cmnd *scmnd)
+ {
+-	return SCSI_EH_RESET_TIMER;
++	struct virtio_scsi_cmd *cmd = scsi_cmd_priv(scmnd);
++
++	if (++cmd->eh_resets < VIRTSCSI_EH_RESET_LIMIT)
++		return SCSI_EH_RESET_TIMER;
++
++	return SCSI_EH_NOT_HANDLED;
+ }
+ 
+ static const struct scsi_host_template virtscsi_host_template = {
+-- 
+2.43.0
 
-> and cluster_info is mapped lazily, so nothing is allocated up front.
-> The only knob left is an optional per-device ceiling. If we really want to
-> remove it, that's quite easy thing, we can just remove the runtime
-> growth ceiling and the shrink machinery that serves it.
-
-+1
-
-> When I asked why shrink is needed, Nhat told on system, memory pressure
-> could reach a peak, than later may not reach it again for a long time. I
-> don't like the continuous automatic growing/shrinking, I think it
-> doesn't make much sense just for saving that memory serving struct
-> swap_cluster_info. But it's not bad to provide a mechanism for
-> admin/users to tune it.
-
-This also sounds like punting an implementation problem to userspace
-again. If a workload peaks into compression space, the management
-overhead is expected. But if they clear out, that memory should come
-back predictably and automatically.
-
-Requiring userspace to make garbage collection choices is not great.
-
-I assume there is a limit to predictability either way because the
-clusters may well fragment and remain sparsely populated. But IMO at
-least the clusters that do clear out should free their memory quickly.
-
-> But as I said, xswap/vswap both claim to solve the problem of zswap
-> physical disk slot and swap slot coupling, and meantime extend
-> functionality to make it more flexible than zswap/zram. While Nhat's
-> vswap is boot-time per-device swap. And Nhat's own description of it
-> in this thread is "vswap is just a normal swap device, no?". If I didn't
-> apply Nhat's code and test I couldn't realize it. I executed swapon but
-> can't see any output. I was shocked.
-
-That's the implementation vs user-visible abstraction I was talking
-about. This is why I think we should stop talking about swapfiles and
-frame the discussion around how a compression space should act from a
-user POV.
-
-Compression space should not look like a conventional swap device to
-users. Even if it shares an implementation.
-
-Wanting visibility is fine. We have RSS, we have counts for zswap, we
-should probably have counts for swapped zerofilled pages. Having
-numbers for aggregate virtual swap entries is fine too. The problem is
-showing some sort of hard upper bound, or showing it side to side with
-conventional swapfiles that actually sit in storage.
-
-> I really appreciated your patient and detailed sharing, while it takes
-> you so long words to explain it. IMHO, it deserves a separate patch
-> posting to justify it so that anyone can know why it is.
-
-Thanks for the discussion!
