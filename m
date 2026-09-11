@@ -1,164 +1,98 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA9F84A8426;
-	Fri, 11 Sep 2026 18:12:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE961A3166
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:12:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150325; cv=none; b=dI8L/VnQBm+ZlhvNG6oVwjleRWIpRZC4fgUV26+L/Omh4fWqpjviwYrrytXBeGpipnHJZb3Al6D3e5MZEazcNZCZm3crYjfLTsXJMpgajUwLuf3YPFsP6Tb3yJemVsfDh5//GM9xnsMIY5BhXcGuoGEhDWI9p8YjtZWvNhsLlT0=
+	t=1789150362; cv=none; b=QXLZRZGua7x26UEEQm8tpuBPTnGwUHIHy4MlCAHLZVfM9y4K4BZBHR04wkjvwaLBxQB5YnpvOf0zjZAwMhrqlJvFBf06jZeAV1YaXdhvd1weGrFrKoQLMhpnWwk8u4yBju5+BQ3/db4UFkc4kYFA7CycihOmw8r8Bh5oDhyOqXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789150325; c=relaxed/simple;
-	bh=JftqGOaqgr7dU0x1t6YZMM5cyKQ5++aHATyFOl9v58c=;
+	s=arc-20240116; t=1789150362; c=relaxed/simple;
+	bh=acvjJbMVUCOebvdl1z/1rtpg3FOw/WrLZvEUGSjzGGw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G/q8aY8TsJZeoLfYVyAXiOcyNDJDyNym+3hQJeTpYUu9JUtsSr4SWzuBnTbOtemgoJ7PhjYioGv9Ejuho0E7vRGvcUKkBFMlQVUgmE2TPznhuRSA5qc67dQ/8ZgXTvfFh0LAFGb8pKUqogkBIg7TO3kMsPzd+tAezMmkVmj7/c8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ORSKkg4g; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=qf8oeHsZ; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=phbCJ6de; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Mb1IEYsc; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	 Content-Type:Content-Disposition:In-Reply-To; b=pi6I9s+YYXFZVDC3pMhWyAf8ixOpeDRZp8fhdxOKs3kGD8m/TqjLMh5b1vE6A2PuEnKFrDvj3j/dA5Q6mTqZeDEPbvwXEa8w1sEvVM6N43bqHLtVSyFjvpwrqx0MnZ077YY4COv4szsB7nR84xZd86ure7JTqB2aGopheV7QRgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=oIxRlhmc; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ORSKkg4g";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="qf8oeHsZ";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="phbCJ6de";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Mb1IEYsc"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 7BCF41FB40;
-	Fri, 11 Sep 2026 18:11:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789150312;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=E7D0fhQrwvyjSXWm8XugRBBmpPAvcOLfcr+xNLIXwyc=;
-	b=ORSKkg4gqUfvZmNpLUe4eJN8t2KIOS5+HPOI44S1rZ9Kf67cLRMCDrNU7OzdWNSAI1BnS1
-	auY0CRtVpOk4TLt6/qe9PG33FEd0dcxapReOmw2zxtYM6Pim3OhV+TCvbn8FvAgOeUqWaG
-	rcAm+XXrbo5DP8MmQweg18VwQ80ZSx4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789150312;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=E7D0fhQrwvyjSXWm8XugRBBmpPAvcOLfcr+xNLIXwyc=;
-	b=qf8oeHsZuFBcfWNzSa6A+gyHjtSq4fpIrt5KkSj4j2Z2xpLk6uGHmoOWw4TUvK+xzbNBfd
-	eALmz3AER9/TbAAg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=phbCJ6de;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=Mb1IEYsc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789150308;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=E7D0fhQrwvyjSXWm8XugRBBmpPAvcOLfcr+xNLIXwyc=;
-	b=phbCJ6de7JSJtb3W/RkKgtrP/WIe9OoVY1alX6RXEsPAEtMKsFUDAj2jkWDP8+TVq2wRue
-	fpuQpYYjQQG3s+DLosJZA094nePBAEgq+BKfzb6aH2nu7yHqYBqt0TDAWtLb80noav6StU
-	ulkC08RYYi1CYSt0wdFXkU4kJxHR8bs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789150308;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=E7D0fhQrwvyjSXWm8XugRBBmpPAvcOLfcr+xNLIXwyc=;
-	b=Mb1IEYsck6/sD8GcsDycrajrnkoH2aBjWIPjbM0IPXla0siGqneo4IeZbNZdX5CWgwwwFz
-	A2VvpW/dLQgnL0Cw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 46EB5136ED;
-	Fri, 11 Sep 2026 18:11:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id jD8VEWREpGpPXwAAD6G6ig
-	(envelope-from <dsterba@suse.cz>); Fri, 11 Sep 2026 18:11:48 +0000
-Date: Fri, 11 Sep 2026 20:11:47 +0200
-From: David Sterba <dsterba@suse.cz>
-To: Qu Wenruo <wqu@suse.com>
-Cc: Hanabishi <i.r.e.c.c.a.k.u.n+kernel.org@gmail.com>, dsterba@suse.cz,
-	quwenruo.btrfs@gmx.com, linux-kernel@vger.kernel.org,
-	linux-btrfs <linux-btrfs@vger.kernel.org>
-Subject: Re: commit 108cc873398932af589c295f78c348513b8d70d9 breaks
- update-grub on btrfs root filesystem
-Message-ID: <20260911181146.GD54722@twin.jikos.cz>
-Reply-To: dsterba@suse.cz
-References: <CAKLYgeL7nrA4nXcewdv9Fqg_s=3GS=vmoypnEiZBKQ7rySZFuQ@mail.gmail.com>
- <20260909002506.GF9053@twin.jikos.cz>
- <7c331e23-d0ea-4611-9bed-d7099dcb41ab@gmail.com>
- <9ca6e653-f89e-4ed2-8f97-783a5663f97c@suse.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="oIxRlhmc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789150360; x=1820686360;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=acvjJbMVUCOebvdl1z/1rtpg3FOw/WrLZvEUGSjzGGw=;
+  b=oIxRlhmcwPpjhvDMsUUKhLnYa8r5CrnzgrNWoeJCXf3bHfZZbLu1S8V9
+   AUgG/Upv4YP2JzYi/UoCTZxUHK9W2M8MBQ3dJO3zD66J7OTLZWfO5Gc3H
+   koRHqFFCmhhdcdXWRjuhjzWMndmy8wRKQCYcofy41ZtgNzw5Ej8ejbIV8
+   Zku7W3CzOkJBbXn+38VIlY/bpLgKUwSw2GpayjHKViIB56Xvrr0RQydQD
+   LjpB08AxbSbD7+wiP8sw08iN7AbwdUWje+HYN8xdJAm5NaonUhBufzjfJ
+   +ysQUdYozTSwV+eGtChaPIEOjiTTkU34eni9JbdSOWWS4ff5KFL4x2MRF
+   w==;
+X-CSE-ConnectionGUID: FqTMUVSiQB2pJ9tGOWgOhg==
+X-CSE-MsgGUID: RQxHdbPXTY+aUoNPuZ3ZOw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="106988877"
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="106988877"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 11:12:36 -0700
+X-CSE-ConnectionGUID: m4dKVsCxRMq871LngzfC/Q==
+X-CSE-MsgGUID: FjGBQZBCQ1etAksjsi8E7Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="276143787"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.80])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 11:12:33 -0700
+Date: Fri, 11 Sep 2026 21:12:31 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Pavol Sakac <sakacpav@amazon.de>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tejun Heo <tj@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Xu Yang <xu.yang_2@nxp.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	nh-open-source@amazon.com
+Subject: Re: [PATCH 1/3] kernfs: activate nodes while linking them
+Message-ID: <aqREj_l5fMCZwX4f@ashevche-desk.local>
+References: <20260911-vfopt-s3-v1-0-66e3602f76f7@amazon.de>
+ <20260911171639.68348-1-sakacpav@amazon.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <9ca6e653-f89e-4ed2-8f97-783a5663f97c@suse.com>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
-X-Spam-Score: -2.71
-X-Rspamd-Queue-Id: 7BCF41FB40
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.71 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	HAS_REPLYTO(0.30)[dsterba@suse.cz];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.com];
-	FREEMAIL_CC(0.00)[gmail.com,suse.cz,gmx.com,vger.kernel.org];
-	RCPT_COUNT_FIVE(0.00)[6];
-	REPLYTO_ADDR_EQ_FROM(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[kernelorg];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:replyto,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,twin.jikos.cz:mid]
-X-Spam-Flag: NO
+In-Reply-To: <20260911171639.68348-1-sakacpav@amazon.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Sep 10, 2026 at 07:28:39AM +0930, Qu Wenruo wrote:
-> 在 2026/9/9 23:48, Hanabishi 写道:
-> > Hello.
-> > 
-> > May I ask why you guys keep ignoring me completely?
+On Fri, Sep 11, 2026 at 07:16:03PM +0200, Pavol Sakac wrote:
+> kernfs_add_one() links a new node, releases kernfs_rwsem, and takes it
+> again through kernfs_activate(). A new node has no descendants, so the
+> second hold only activates that node.
 > 
-> If you think we have time to reply every report, then just check how 
-> many syzbot reports are not addressed.
+> Activate ordinary nodes before releasing the linking hold, removing a
+> second write-side acquisition and the linked-but-inactive interval.
+> KERNFS_ROOT_CREATE_DEACTIVATED roots retain explicit subtree activation.
 > 
-> > This is clearly a regression for userspace (see my previous reports).
-> 
-> Unfortunately it's not.
+> Removing the unlock-to-lock pair also removes its publication ordering.
+> The in-tree lockless ID lookups use CREATE_DEACTIVATED roots and retain
+> kernfs_activate(); unsynchronized callers cannot rely on observing a
+> node.
 
-Are we looking at the same reports??? "My system does not boot after
-update" is a regression.
+...
 
-> The problem is there no matter if you have that patch.
-> 
-> There are a lot of ways to make btrfs to report a weird device path even 
-> before that commit.
-> > If your answer is "won't fix", state it explicitly please.
-> 
-> Won't fix.
+> +static void kernfs_activate_one(struct kernfs_node *kn);
+> +
 
-Can't be, for the same reason the bug 218353 was a regression and had to
-be fixed.
+Can we avoid adding forward declarations like this? Or is there circular
+dependencies? If not, add another patch that simply moves the existing code
+upper, so this patch won't need a forward declaration.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
