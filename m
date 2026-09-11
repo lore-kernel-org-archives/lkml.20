@@ -1,162 +1,184 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013011.outbound.protection.outlook.com [40.107.162.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E893F44D7;
-	Fri, 11 Sep 2026 19:03:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F9C3E5ED8
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:04:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.49
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789153433; cv=fail; b=C2sn0Jaq1OOnxnTeNpzIO4wM88b88BuHenS3LvuRsUxziBrCHZG/5IP+PUAQpkhVkVOVKfEjbOk36VE6Roo/6H+dbQVi9aYaVTYUxnqCMAKglKsQBGYJJrpFTESFoGC+UOzW4FbGJU2a2iYLnN27Jjb/5e7VOmyAL1g4mJjJxCs=
+	t=1789153454; cv=pass; b=izWp9iFqknMA11Gi8r6BHSIByAJhGAmVrseathq6YvLy8kah9Zc9CMm/oJmbXIqioR1FOQw5S4lqVTrM+172CfM/28OxfzdZ/fS4db5UBDzxrfLasuPDHzAxasM3DwSu+l0H6IxR9w0m5D/jksz5xVXDp7QW9mtPMx3rEK+wmXY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789153433; c=relaxed/simple;
-	bh=1Jz/DzWKNv9VgiOMef/xSPW6mB/C0w+Y6vo65MnXSAY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bmERJW5e31qKG78QVVP7zmsgDyEXsdnPADxmsBHtjRRBAReSbA0/ZhEC1OZXqcgV1qahK4q2V9gDLMV8tKntVCAu3FmZ767Q9w7zoyQ7ew6UB2qAtQlT/04PCcpqtBXcKfVxOGQY5BHPlNu0F0T1FP3c7BG8L/GYk8yEUgS0ivY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=H5JG3tLO; arc=fail smtp.client-ip=40.107.162.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1789153454; c=relaxed/simple;
+	bh=trX+U7XJlu2wfrqosEL7RKHWRz95q3a0XycwYv9NMmY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JS88uUy29vKTG+7k02tzzIWFJv7fefoLKDfErTFl75DGlOqUze8SVMWDthxNNNnMryZWBZTg4t7QpPqpjOc+UUAe1EDdsSDkBwIrLWwURiff2BAZDZ/6CiaSe9vwdUBEnYWU8dzRDyiUgaMBbC1tqk4WEAoFKAjz6D0AJOTJDdo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=guED+60N; arc=pass smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="H5JG3tLO"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C/F3JUIL0obrMJsAc9UBswnff+mAHkT17QtmQBzbSuMWRyL0q2oZy6dCipUADtCKTUurQCl0GaBwmDtEEi5Y/W72zDYK8hH4cqvHdI8mDVCwgY3edCVWi55C7ZzwKVhT6bVGfyEAtGL6o6xH73wShhL63RSExnfipJt/F/cAapl6gqFu0ZTGekRj5WSwyEkdOBx/WT8x8H/8Vy7DKXA8HDxMDE3UH8M5ekIbY/pEGDauVnZJvKiE7PZA69jrVMiMBPa78OD3HALcrJX0SmUnLOqWTXJirjKqgDs0gAr1s2bgSf3UXEnsfFjz9B9o+09c6r6QqfAofKF51nx6fWLkMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PjPtn5s1HatrYX2+yIVteaK2ZXIhB4evXIKDKr2FP08=;
- b=JDYeRykj8pRVaK5x6+KmUWDLHblPu953r1H5tpkeeMgl7/LCB9j/NqUHacYkw5/CUdCq5k0lycMSEvAtwHQA2G0jnKhb9hfofsmkJjuaTNyVoZW14NgvD5/a6mTmozNmFMgBk40D1EqctpvwNMgMvrByL2Rzrn8PqHB2jC/AnuhH0C4TxNr+Fy485SgTz4xFD5CtDZOa6OqDSZ1cfop/MV7MFOmGbIYrGzcZMvdaVuXtdTRpul7jp7O2re3rZadJxfJW+SmCiot+OLojg1qECZ28pjgozcMSxzgiNN2e1yNXU+qjQoJQjt0oxDQ0MCjMcHXrv6CVhfIAMW0RxMf1xw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PjPtn5s1HatrYX2+yIVteaK2ZXIhB4evXIKDKr2FP08=;
- b=H5JG3tLOrCTX5T4RaBRyrc2KwNXfS4PT/M/XWd4Bz3RJxcArVtSzwXAobyg7y0+5f/lFZ3XmIL1Z8g86aZFy2oN0VRddvcvTK7bj6ZydgyV2vsA23Zcr3soJWHa1abIgApmayj6uKp0sAD2/w37w5fKVaEToQsubWKcw5oWqjqkmEIxKUq3Ryzi/YENeJVRPJh0rmTxB7FNjEni2AotWw/EmPfxq4ACcEb6E3ex2KrqsQ33kOaPVYt+EPh+E4ukWwtTeDen8hCYTq02xmYdrNhrf7+YqPDTlDn8+YQwtR1YBQ001JFbsm/Ltiw+e5y6A8hc3e6BbtcKgdpFhdhCqXQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM9PR04MB8651.eurprd04.prod.outlook.com (2603:10a6:20b:43e::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 19:03:49 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 19:03:49 +0000
-From: Frank.Li@oss.nxp.com
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco@dolcini.it>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] ARM: dts: imx7d-colibri-emmc: Add VGA overlay
-Date: Fri, 11 Sep 2026 15:03:42 -0400
-Message-ID: <178915341680.2925793.13552519851578100449.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260901124921.78635-1-francesco@dolcini.it>
-References: <20260901124921.78635-1-francesco@dolcini.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH7PR17CA0014.namprd17.prod.outlook.com
- (2603:10b6:510:324::29) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="guED+60N"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-495437bb891so6337795e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:04:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789153451; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NqErWwlqLI4Ipdg/3Y4Amv5te7FVveh8rKvbpf0d0+NBlhFNNdHsbnbWJQKLshB4o7
+         c4PqDJRPx3U/vhgWbzYcAFyf4IolR3PaE6N23jl/VVkE7lBFdNxq1fq2/yMbGkpKSGO5
+         DdSFxvT6ihDJK+8s8161RC6xBLv+bITtEkLieZ7uoyJ4NUkt3sszl8CX1gfcgVSmgjfn
+         jqBMpQbyfjhRlDw7muaQyIIOWnunGYIIFwP/uBMQniVt3NTU6ZiAkoW8Ly/J6B3ReynI
+         1sH2igpBiiZ3peXcO2flhxPr9LwCwPhB1BQNFu+UmGvzQ3KBuYa68UpAb0Ro2cU1Ya5s
+         nCKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=trX+U7XJlu2wfrqosEL7RKHWRz95q3a0XycwYv9NMmY=;
+        fh=tJFJHpDVazkH1fNSvm0vxjbuwduYeS2kWe1t9fCEiHk=;
+        b=g7ZHHVe2hucE16jRSh97vGDZtvoJjqgehPcb+bZXxyLdkETCVh19DQyrC8spGpRuMk
+         j6KInvxR7xwpxhFugRlF5n9KUEpa6raB0FbLFBnnZ52Q9cVFn01R7nZSGeJ/5Z2MOjtT
+         l6zER2CE0iyAF4C/O6L8O+JF9MsKXHe+3UTzhvfpAYI7FOJsZs4AzyidgD8fLasBqAlX
+         5JPAoJj+oywWtuFFpJm8/9NXvtHyq9ZaslJnrbw+XQLCG5TMsmZvSWIm7tuwCmt/lBk6
+         0MtbcN3WLAHSb6BA47WbrJ3BhTdBqYxumqYft9+5Mfh13mrx6uomkjIDyO2YI+pH6VC7
+         7Dgg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789153451; x=1789758251; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=trX+U7XJlu2wfrqosEL7RKHWRz95q3a0XycwYv9NMmY=;
+        b=guED+60N9+7cL2o6r9EPpthdfQPVqZkG1OXjvqUx2o2JRExpILfXtPPkI/X8ey4as6
+         dKsiFfySJHOKnLnBILgFwNydmhCWDXyOoqF92TR0943aJzhX0BIkV6Yecc+VoSPME0J2
+         ipvhtsAsUsEjH4XSJ06th4871uh4PJ2ht+2CYBWpWd+6NUjcB+3Ph2d4uQRU5pD7+R+g
+         /RDfqZbDUhbcOrEUYXpI6beBmfU7zRCiMrcQZtfPT6XYMOkpmhezMwMxDv6AngTeOWA6
+         ISYzeB6suuXFsCZ228rNDj3xuNjmc43QN22rdKP6O+QLyIqm2ghaQ7Ze4A35ELA0XFcM
+         Fltw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789153451; x=1789758251;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=trX+U7XJlu2wfrqosEL7RKHWRz95q3a0XycwYv9NMmY=;
+        b=DhNWXKOnE0exRluL3OVz82YHTcyOdQlc+Fge8qVSb0i/M2yFipdFBeZE2smPKp6SNI
+         4HF2H9iyIRS5lqTEepTsGTIYZTZpmZiUeyXddX4cm0Z81x8fiWRzf0/8qCTSmmS4AauW
+         oYnh6k2GlSNcVt9UPQfZUWkNgzeWnbumA4wjrYN+/UtlhWrehQT4JBixcytdJz9dCSig
+         5bTkhW9am8RL6k76/1xOhqnaLzsmZ6hnlO8zbyU7bYOug5PHr37T0qsR1++sgcJ5igdD
+         mZ9NoUAk5SumjWF6ALRMNbqMJTl5bVktXMaskQgGRJ/qSf2vuDDfCEfAVBx7m78EMt+G
+         uDgg==
+X-Forwarded-Encrypted: i=1; AKwUvByF2eEQUeAjl8XQ48WHej75OXGf913a+CR20uXvsOdMP0W/bbycUGFlwTkzc+IB9vs9yz0ZMYHtcCep0nE=@vger.kernel.org
+X-Gm-Message-State: AFuF++k8k9gNlY8Byotoq+d6I+A05pL7KRZ6G6CJ0HwSVDi9wv37PtsX
+	iNA6mqXGpwflbnopVqeRsT+fPOdUF73J1DSLBTjq0B5oU1IHyXacUS1w5s+zMLC8YDqT6qvownE
+	S0O21ZW549Mgiawvgegaz2exK0gx9gDk=
+X-Gm-Gg: AYBFou3W2vhCcDNB2RggjNnRy2/GwM9euGzKqjfneiXU9BEwZoBTfUdT+qVsyiI3+AE
+	scremIxJv1aByZBAev3TMjqAmgqHAmmnx+koj8vxceTVWrpaJqRvdaJnsJTQ1RreRUFBBwFCHW0
+	Ij/rcDmS8G2FPFYK6iFUwm2Zm9JTYLyqnYO7/sjV32nJBsMsU54CIhK+UzryTWvDCiNyaVsYUzT
+	vjcBL/N3EHQjm2hpPOO5WF+PtNVv1QVhOoZBS+BnJGhmAi1knph98h11ucEe/addD4qnLoBOE4J
+	cG+RTLmg8OPIQA2JhntSyDzKU/zRkg17hF80E0xaMp+3s8d1p1QGR2s5erX1P7iQYVUykh08hZT
+	bbrOVgpuYbp8=
+X-Received: by 2002:a05:600c:3584:b0:49c:ff66:7d88 with SMTP id
+ 5b1f17b1804b1-49d26d7f8a2mr170508775e9.7.1789153450782; Fri, 11 Sep 2026
+ 12:04:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB8651:EE_
-X-MS-Office365-Filtering-Correlation-Id: 45ba3991-1814-43d3-5ef9-08df10376976
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|19092799006|7416014|1800799024|366016|23010399003|3023799007|56012099006|11063799006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	ONr8XGWtWxI55gRr6ULfgp4bDbzocDOCq64S9fBZo1RprhfF+uL/yFJcDNGYvQ8KHxSul2qgYWbZbLiY+8f5H3GYS1YNxeQL+P0GqeDh2XSxc/TNf+7TMFo35S/1a3hTc8aIpPteSV02PbZ489xCkVvVFmVPE0ofRdGUhKJ/QMSbycMveR+uJROEyeFJI959X1lBwIUh7rq1bbYy2X6XTn07kXyRpDY+G2PhnoRBoDGLaOfjKE7JuLG5XwK9LQn8kOhll2fwWlJ6tR0V7qF1Jqw34CTGAbvT+wX+zx6EyMSATiKwRUk0cNgYNIOEZIBtIkzkvxOUiNk/5PzvW35ySPGe1s8uYbNLRXVKBg9TP/eO+jLR7xxl4eow+FislvwlqOGfVUNnqU94JG2bDIHaf4316BEwDnYgx0hNO/x9MVIBC/DSW/Y2PEHP4UbUH0SmXiFOyWoyL1baTYVHscbOWq3hIG2IZAeS1TjXr8zTF6AqDnKoRXm+4jeSR+pvvgjHIFOW90NC6Gf8wanEMt3CqUj2vKGPUf9XiQg7XtBmGkaO/SHV5toiiA50j1vtqj8t0QoCQChXYQ3niBV6Jlv2T0hnnTY+dh2N1wTGnfQjKeYTytFNfk5dqD/PVcQMVrd1EYqmxiMmXzRTFrDBjaAlY2rWwJqk9eSoEP01EjAsnNQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(19092799006)(7416014)(1800799024)(366016)(23010399003)(3023799007)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OEliN2pFREJJSktWYkNQYjZWSk8wV05mZ3hGSWg0Z1M4VmVNYi82bmF6d2Fn?=
- =?utf-8?B?Zm5LVXlmZ3dZcXZUdGkyNlVBZW1sYXp4cE1MSkUwSzFPWld2MXdUci9HR2dW?=
- =?utf-8?B?RnRYTCtOa1FCd3Q1YzcrY3RMY3FrdFQ5VE9yR2N5MlBpRkg5YzNFMGxadFdw?=
- =?utf-8?B?UTg3Sm5qN3MwUUxRaExtdDFZUlM0MWhrNFdGd1JxMnlwSFJkRmJIRWZZcWtY?=
- =?utf-8?B?K29IOGl4dUc5M0VQcHVPWGRra3U4RHVjcW9DYzl6aU9pM0NrYjJFYlRxMjdx?=
- =?utf-8?B?cWR1eVI3ejNub0crWW5wNVVlQ3RKT2pZM2FvaXRTc1ZHMlcyc2RoMGVwR2c4?=
- =?utf-8?B?cGdEWmZpandQbzZjSzhkcEh4NktLQnZqRjFpMUZZWmM3R3RhSStManZZdXZV?=
- =?utf-8?B?NmpKOTBqb0JuWGVYWm9icUVNK3FYY2VCZTU1L21PZmdtMEhPeGVVSGVNWVdG?=
- =?utf-8?B?bHBMVW1pZFVXWm9nN1cyeDVwbEwxd3lZVytFelFOcGJvK05iclo5TE5yeXFa?=
- =?utf-8?B?UnlWeFpFVTV3ZVVLV3VyeHB3bVRNVXkyRnM0dnJHeEhxMWtzVGVjS256T1FL?=
- =?utf-8?B?R0ZZNE1NcU5vVEx2blBYKzA0M3MxNE4vUHVrVHppYWtXMDNTV21rcDAxRWxz?=
- =?utf-8?B?cU4zU09FZit6WGlVOWpRVldmSHpYMmk4Q0lpWmNhTDk2VSs2c2VqWjB6S0R5?=
- =?utf-8?B?ZTBsWkg2cmlBRlNrMmU1MlloM2JQMVg2WmpacEdqQnVWZXBUd09nL2hSWFk0?=
- =?utf-8?B?OFJmQnN6b1NPamtRUnkyMXJjYXdHNGhIMnRFOXFlZ2xYL1NzTTY2MjhReU5J?=
- =?utf-8?B?Q0JqNjIvN3RDSXEvNWZ0cndCdVFnMjE3a3JnZ1NId1d4NzJVeUQrSGlZNnhN?=
- =?utf-8?B?RWw0bmF0dzN2YklMMkEyalROaFJFdHFSVXp6bEdFTU9CMFJDOVdzVzYrTGo3?=
- =?utf-8?B?R2pyUnNFVzFVdE1zR0tLc1N1MTh6UlFMUkwwaEw5ZXE1dnMrcHpGUHY3Y2Za?=
- =?utf-8?B?WkdURWEzaml2bzRvQ1JJa3F1TG1BeFpjVVY3dnRPbmFCcnV4ZVYzR2hwZ2tW?=
- =?utf-8?B?T2puNVpqSFJiRkxuVldWMm9Ham5YclJHVnZ4ZkF3N3hISXc0NDlDR0wzQk91?=
- =?utf-8?B?QlNFeXVsUGFLOG5UZUo0cEdYRDIzdkoyV2hmWmhxVTh0WEMyUjF2NWUrMXNi?=
- =?utf-8?B?bUFPNTZqMElIL2grY1pFbHhnS1ZwTi9Mek5jS3lYckNmVms2Um1ZNHJVRk5r?=
- =?utf-8?B?ZXlXK210emVvZjdXM2RpUnF6UllEWTl4bTZKLytLb3R4eFJKb3dIZm0wKzE5?=
- =?utf-8?B?azBXZW8vUDVwOVhJOEY1WGVkUlllc1dBMS80QmVPczZ0TUdZN2Fqbko0MDln?=
- =?utf-8?B?WnBkbGUvWHJYSDlhRTJ4V0JacnhJQlNIekFvMjR4UVdyYldocUEwTEs1d2VY?=
- =?utf-8?B?NW1XK1REWmZESHZ2RXhZbnJxNmQ4OHE5SWtvUTYzeGtPMFdvMm9pbVhKVUZE?=
- =?utf-8?B?eXVibjhmZTN1RCs2WkdVWmoxMk54VnQrSGFHMzJFOFpTN0tsbG1OSUlVVHFh?=
- =?utf-8?B?UnNPeUlXV3ZvV1Q0UXQzYlBia2EwV0lPVjI1KzhNemVJUC81dTR4SFRQdWJ1?=
- =?utf-8?B?VzVtb0hlYnh6VzlzSnJwQUs4bXVuby9lbm5aVXVNMjNscjNHeTRyaEZrRVI4?=
- =?utf-8?B?WXRtanR3cnk3OW1BVlVlVytMRDhxM3lFMG5YM2RiSDd4T2hYSG0wYnRBbXpN?=
- =?utf-8?B?eEpUZmhxaEl3YUtORUxVdXR4bk9nODVYK0Zxa3hHOFdXNFNGcUwxVi9ENUtw?=
- =?utf-8?B?TVNKV0pUREpiRVRWM1o1MUh2OWlwQzdvZ2tJOUVrN09pb21PSUJLbWt4cGVV?=
- =?utf-8?B?UVJNck5ZQm4vUkpwU1RLVFE2K1ZjazI0ZEt0d0tWNU5UaHVXZWtyR2JtM1lX?=
- =?utf-8?B?TFNiWFcrWEJBSXB6Sk9HVDR2eU5Dam5PM3o1K0Radkh3S05ONEpEN2cvQ2Ru?=
- =?utf-8?B?b3pCZEx3ckFma2RpSy9MdDNRYy9LeTB6U00wNEZDajhMZjVyVXpaaE1PTno0?=
- =?utf-8?B?SWtYczhxanBDaUR4S3ZJd1BvMy9oUklEVkNKV1NoNk9EdHJXUy9RRnZ6WDNz?=
- =?utf-8?B?MXhPTGZLdG81eldKUUZmMkhRa1NUakNYbk1KNEZ3WEc0VjN6VEpLUDlOalhE?=
- =?utf-8?B?eVBLNSs3YWtDWUdNVnVjbk0rK1BPQXU0TGZUUy8xWDhZQVNsL01ZYnI0SWFm?=
- =?utf-8?B?aUNmY3BHazVBczdhcFI0S1QxRm5lTENDanVsYVo4dE1jOEFBaVJWNml5Slo0?=
- =?utf-8?B?c3lEWXdCYzNZaWc3V1B2VjJrcy9rclZNSmVZNnpLSmhFOHFuZzFPTzl1cmJi?=
- =?utf-8?Q?lzfi8IVZGgo743thsNp5IQlbx/45sCAlOmexm?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 45ba3991-1814-43d3-5ef9-08df10376976
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 19:03:49.0097
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7ks/rSdakc8bURxbVHSubFsX5Y9xmePArcpx/NJPSWLy1ooZwuLnQb7cbwPcDHpuS+c3+fhy1Nfii7vYUj7nByNPzg1dgBBgECZ9hatuaPR6oBHrRDdnD/l2loLuXufO
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8651
+References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
+ <CAMgjq7AHRzBsbmGOx0s=TQFBwcn=DEU1naR443sO6x+pJd6hAg@mail.gmail.com>
+ <CAKEwX=O8i+OsP6BJXNZNk07hveN9HDT+PoyMTAU6gOc-xp0Ppg@mail.gmail.com>
+ <CAMgjq7BQeQQOZMDPFJ+8LS2N4t3x53r6Nm+9o0_pi92oVUgjgQ@mail.gmail.com>
+ <CAKEwX=MS-7C96i4tzBijHN=-xuZgny_wQEa_0YjfHzhoNysdYQ@mail.gmail.com> <CAMgjq7B7Mc7vpQN0gBknsSrfZWXdif5L7nU29YskG9mzS-_jsA@mail.gmail.com>
+In-Reply-To: <CAMgjq7B7Mc7vpQN0gBknsSrfZWXdif5L7nU29YskG9mzS-_jsA@mail.gmail.com>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Fri, 11 Sep 2026 12:03:59 -0700
+X-Gm-Features: AcwNN1WTqoBlEbiKI6CdE02QFoxhwTxTh-PKBQg_YuUX7rc2TMIFeAiuSkD6Ytk
+Message-ID: <CAKEwX=PxZ68_4240DC8HjcqPRE0bQWGmouoqapqqTQ2b0xqpvg@mail.gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+To: Kairui Song <ryncsn@gmail.com>
+Cc: YoungJun Park <youngjun.park@lge.com>, Chris Li <chrisl@kernel.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Barry Song <baohua@kernel.org>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
+	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Frank Li <Frank.Li@nxp.com>
+On Fri, Sep 11, 2026 at 11:14=E2=80=AFAM Kairui Song <ryncsn@gmail.com> wro=
+te:
+>
+> > Would something like this fix it for you? ZRAM users will not get
+> > vswap indirection overhead at all, because it would bypass vswap :)
+> > Down the line we can revisit this decision - for e.g, if there is a
+> > use case for vswap-on-top-of-swapfile. There might be other interface
+> > that makes more sense.
+>
+> Hmm, this interface looks confusing though. you mean tangles vswap
+> with zswap through the cgroup's zswap limit? I originally expected
+> this to be a problem solved by tiering, skipping certain tiers seems
+> much more intuitive. Maybe Youngjun have some idea here?
 
+It wouldn't be confusing if this is something users don't have to
+think about at all :) My point is that we don't have a use case where
+we need userspace input on vswap-enablement on a per-cgroup basis yet,
+so let's just keep it all transparent. From user perspective, they
+enable zswap, and it just works - vswap is just an internal
+implementation details.
 
-On Tue, 01 Sep 2026 14:49:20 +0200, Francesco Dolcini wrote:
-> Add a device tree overlay for the VGA output on the Colibri iMX7 parallel
-> RGB LCD interface. The VGA output is driven through a non-programmable
-> video DAC without VESA DDC I2C signals to a DVI connector.
-> 
-> The overlay is also combined with the Aster, Evaluation Board v3, Iris
-> and Iris v2 carrier board device trees to provide ready-to-use DTBs.
-> 
-> [...]
+I have discussed with Youngjun regarding vswap participation in swap
+tiering interface in the first version of this new design. It's
+technically achievable, but we decided to post-pone that for now until
+a true use case comes about - trying to cut down as much code as
+possible...
 
-Applied, thanks!
+>
+> >
+> > Potentially, but we have many users at Meta. There's a huge diversity
+> > of machine types, workingset size, access patterns (both frequency and
+> > file:anon split), compressibility, etc.
+>
+> You can just set the number as 8PB? :)
 
-[1/1] ARM: dts: imx7d-colibri-emmc: Add VGA overlay
-      commit: cc6c96f0bdd7212cb5055c9a38792e35562f2648
+Sure, but with the vmalloc-array approach, there is more metadata
+overhead even if we have not allocated the backing page of the
+clusters yet. This will be annoying on the smaller size machines
+(O(dozen of GB)) to also pay the overhead of 8PB-swap space metadata
+reservation.
 
-Best regards,
--- 
-Frank Li <Frank.Li@nxp.com>
+With xarray yeah it's truly just a number limit. Put it as big as it is all=
+owed.
+
+The "allowed" part brings me to the next point - not sure if you have
+seen my other thread, but I think we need to be even more careful with
+this limit - I have found another weird interaction between memcg and
+swap subsytem, specifically with the refcount of private id. I think
+this is another argument for transparency - this limit is now also
+capped on architectural (page size?) and implementational (refcount
+type) details of the host and the kernel.
+
+https://lore.kernel.org/all/CAKEwX=3DNYoMH8pTKeCvA=3DXHFmmNVMeDz3mxbhp5q6-P=
+xSTJ5wOg@mail.gmail.com/
+
+Seems a bit much to ask the userspace to know all of this. Better to just l=
+et:
+
+a. the space grow on demand, automatically.
+
+b. the space be limited by an implementation-induced cap.
+
+all transparent to user (until we have a true use case for a userspace
+sizing knob).
