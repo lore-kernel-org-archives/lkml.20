@@ -1,102 +1,203 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC1503B6347;
-	Fri, 11 Sep 2026 09:46:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789119984; cv=none; b=C58yEh3Iawwu8lB0PboOFea+uP04gc2SXMSShl4Khb8k0nV0bcqTByUx9twY0L2SNhBBo78GciJzqfzfrUwTvyyNHiVsh9LM42otbeeWqoyxkiPwt6ZWXYGVZ8KIDZk3aLFXyxDWhWKFUsIPwg8qj6EgVRbLHQj1F2t6BndrcUA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789119984; c=relaxed/simple;
-	bh=/g2RqwbdR1NRxF3RcvknAG0kcbst2SkXfi+Cset1UQE=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hMBXTOBs8dm3pSWGsVKSZZdJ0YJue2s33uGlVIM4AmNmBgzemtJMz/dMdCPhFLd12FA6wTyOSFTqvXPdn764nMR6qfiOgauav4M6kGM47c/PiGtwYdj+4cSr2guL7TlRm1ZXaA2NYPJAC9eiFaVkz++Fh1V7xVSVQNfU5n/1uz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn; spf=pass smtp.mailfrom=realsil.com.cn; dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b=KKOsLotT; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realsil.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DBAE3B6347;
+	Fri, 11 Sep 2026 09:46:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789120008; cv=fail; b=bOZgYDu8d5xR5NRSQMU4FJmyCALbWM4BA5mi6pg7LXNedzGZTz0x36LoxC4pu4BtYnMO8FZFUh19+7/Kvcc7MmSSGaT+myMqO48Er8bDk64z+rCJGG6vg/P+4SO0dvu5LGha+r1vr3P3B/nJ3q5s7R7Utq9DYHfAfMPrCdOzbpI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789120008; c=relaxed/simple;
+	bh=DIRkyzoPl1oOiPvJHQDi5/e45JQynfbJjFZdhbYSZb0=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Dv6svljL4QZfM90B0PfuCoLW+peSokUqLutXNtw/JLT5LOn5PsLaT4eN46BcriJAQG438fyKqB3HezI6Qbmepk4KHkZjqdi3AtdDUKGwWJ0tQkN5UCaixfftX1QwNMIOyPfcG2qT97av8RajQU9muTj7M7ohufUpjTukbSlI3ng=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DiY82dIp; arc=fail smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b="KKOsLotT"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68B9jT1412289443, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realsil.com.cn;
-	s=dkim; t=1789119930;
-	bh=Js7XufGh0qtkKbkYdUlm5LCmrkcB96Lng1sN8Q3WcNg=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type;
-	b=KKOsLotT1vYOxuytZbgn67doRvm+ScEUayxq0xDn8ZBuaRkdcTjVTAD1IIFrgYVt0
-	 9t91v5DLN+KmCh6AJxF5GKHq76r4yvp7hkZugBDTbdVhjckvug5K7H+dk/ep9rZxcw
-	 IcTJqLAGdb1osns/r6Zi72W7a6pVOqUqn9JYBVxr/uAmTmKjJdCXOKE8mkFYCshG0p
-	 oHxivx/+8C3egwskekyGGX4S03XRUXlLBCSRcenzB2A0+MkD7i+yuydmboau4MIJlE
-	 zuyaZ3TEMSva/MjIFxvbuAXGwcF1J4jkG+zAFclmcOw9E0fAo5KHrYecb4f32pVCwz
-	 8AnlnRzW2cHJA==
-Received: from RS-EX-MBS2.realsil.com.cn ([172.29.17.102])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68B9jT1412289443
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 11 Sep 2026 17:45:29 +0800
-Received: from RS-EX-MBS2.realsil.com.cn (172.29.17.102) by
- RS-EX-MBS2.realsil.com.cn (172.29.17.102) with Microsoft SMTP Server
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DiY82dIp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789120007; x=1820656007;
+  h=date:from:to:cc:subject:message-id:reply-to:references:
+   in-reply-to:mime-version;
+  bh=DIRkyzoPl1oOiPvJHQDi5/e45JQynfbJjFZdhbYSZb0=;
+  b=DiY82dIpVQ0ELcLziwsgjNLwjNfRl85EaNQ1kilZH4acWdZs1Y+b7NDI
+   wjH9x5h6LYig0m5mwpzazL1Hhbw0Q0sZLKjWsHtUaR5CvnSiUFmZpUN7C
+   Byi8xSJ+giwXiw4p8eXWBzsneMo6ccJoisJzTK8s8i9pq9tf9lIwkMwQa
+   ee0Ny1jJYXK7qLMSIJHLJ675j87QiaPzISlzL3vk6gVvvDUZ9LPZMCQHn
+   WzkRcEJ41qKpKM8GZG1E3wccqyI7XwvpxTSvIhVZY81IpnpXZ9Rrz/6LN
+   4sE2C+mckrDTIkieKrAn3yqyQaCI/QBXb/1Vpccfz9TLle1jF9a2mjXty
+   Q==;
+X-CSE-ConnectionGUID: x3kktdvjSYqilcMINxlldw==
+X-CSE-MsgGUID: 3LWhRAz5Q4Kun5l5UecAIQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="115121357"
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="115121357"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 02:46:46 -0700
+X-CSE-ConnectionGUID: Qq3FtTbpRJSRzH2zSHCqHg==
+X-CSE-MsgGUID: QMoPsYZ0S6WMwtyGso2WMQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="296860041"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 02:46:44 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 11 Sep 2026 17:45:29 +0800
-Received: from 172.29.37.154 (172.29.37.152) by RS-EX-MBS2.realsil.com.cn
- (172.29.17.102) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Fri, 11 Sep 2026 17:45:29 +0800
-From: javen <javen_xu@realsil.com.cn>
-To: <andrew@lunn.ch>, <hkallweit1@gmail.com>, <linux@armlinux.org.uk>,
-	<davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
-	<pabeni@redhat.com>, <freddy_gu@realsil.com.cn>, <nb@tipi-net.de>,
-	<maxime.chevallier@bootlin.com>
-CC: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<daniel@makrotopia.org>, <vladimir.oltean@nxp.com>, Javen Xu
-	<javen_xu@realsil.com.cn>
-Subject: [PATCH net-next v2] net: phy: realtek: improve firmware write speed
-Date: Fri, 11 Sep 2026 17:45:27 +0800
-Message-ID: <20260911094527.1928-1-javen_xu@realsil.com.cn>
-X-Mailer: git-send-email 2.50.1.windows.1
+ 15.2.2562.46; Fri, 11 Sep 2026 02:46:44 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Fri, 11 Sep 2026 02:46:44 -0700
+Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.11) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 11 Sep 2026 02:46:43 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=al0o8OCZWCIOuRSHGurvYj0/q9Z/R+xVcIa1l5hpobARZxqqnPr9Wauk2+HwqI3rxW1FurjycQswhDT5uXCbj+xcCYjqKEqLygSWFk9i+W1K2Ozxl5vEHP3HDEIS3Xm4mKUm6cZ/mVwXnaTyqSqkmX/i5aQ9XD2lYaevGpZ8VlUsFl3K6eZVFhIRmKk88KSbkeQYwjrSZXRAZxNVaPwV4+S7cwCmA2elznHMQ24LkGJ1c3liFPb1uALpY3jrX+5jdtwSKFycVxm4SkEQbW/9p4cQQtF9UmoHycRaqVnvJeFcol3t1neoqkc690Hkjdv0cJPFjioAzGF4JY/GDzDMuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mXCeD7af4CqN4w3BHA75JQpTrzDCJWHdDp0N+KgWt1s=;
+ b=XkSqchKvn2NQTLYpk6X5gFLLRW2waHwQWeI3pS7v0qc3elhN0tZZv/XyCl8mJuCTqdfJ822ZDnHlc5UtU8qTc5QFPAXA2MtG5UFagH7+vsF7yEEsGesvhFSEnsYYv3m+/OwtsXFElUepHfjTQ58mtlNKKKjcqQizIBq57z3bBO/TSwhg5ZTLyZHXjqq6Iqor9z/tgKBzBf3S/W7la80nG26rwahFLYvSNrTHBkNoobi4gHVrbXvrKnbzZX8dJhN06KiF0t5fukgK0pYC/9bMjaff5UTvlqfMxtnqEZnFWJR5SZr8GaGPjmOzNkHUEPc0VmeCTGtup1xD0jJqTwtDNw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DSVPR11MB9579.namprd11.prod.outlook.com (2603:10b6:8:383::17)
+ by CO1PR11MB5060.namprd11.prod.outlook.com (2603:10b6:303:93::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 09:46:38 +0000
+Received: from DSVPR11MB9579.namprd11.prod.outlook.com
+ ([fe80::ab5f:5d0f:fb90:9d]) by DSVPR11MB9579.namprd11.prod.outlook.com
+ ([fe80::ab5f:5d0f:fb90:9d%3]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 09:46:37 +0000
+Date: Fri, 11 Sep 2026 17:45:51 +0800
+From: Yan Zhao <yan.y.zhao@intel.com>
+To: <ackerleytng@google.com>
+CC: <aik@amd.com>, <andrew.jones@linux.dev>, <binbin.wu@linux.intel.com>,
+	<brauner@kernel.org>, <chao.p.peng@linux.intel.com>, <david@kernel.org>,
+	<jmattson@google.com>, <jthoughton@google.com>, <michael.roth@amd.com>,
+	<oupton@kernel.org>, <pankaj.gupta@amd.com>, <qperret@google.com>,
+	<rick.p.edgecombe@intel.com>, <rientjes@google.com>, <shivankg@amd.com>,
+	<steven.price@arm.com>, <willy@infradead.org>, <wyihan@google.com>,
+	<forkloop@google.com>, <pratyush@kernel.org>, <suzuki.poulose@arm.com>,
+	<aneesh.kumar@kernel.org>, <liam@infradead.org>, Paolo Bonzini
+	<pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, "Thomas
+ Gleixner" <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, <x86@kernel.org>,
+	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
+	<mathieu.desnoyers@efficios.com>, Jonathan Corbet <corbet@lwn.net>, "Shuah
+ Khan" <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, "Vishal
+ Annapurve" <vannapurve@google.com>, Andrew Morton
+	<akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, Kairui Song
+	<kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham
+	<nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, Axel Rasmussen
+	<axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu
+	<weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, Qi Zheng
+	<qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Kiryl Shutsemau
+	<kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe
+	<jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu
+	<peterx@redhat.com>, <tarunsahu@google.com>, Randy Dunlap
+	<rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka
+	<vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, "Suren Baghdasaryan"
+	<surenb@google.com>, Michal Hocko <mhocko@suse.com>, Fuad Tabba
+	<fuad.tabba@linux.dev>, <kvm@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
+	<linux-doc@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+	<linux-mm@kvack.org>, <linux-coco@lists.linux.dev>, Xiaoyao Li
+	<xiaoyao.li@intel.com>
+Subject: Re: [PATCH v13 00/44] guest_memfd: In-place conversion support
+Message-ID: <aqPNz00MkV5piTyc@yzhao56-desk.sh.intel.com>
+Reply-To: Yan Zhao <yan.y.zhao@intel.com>
+References: <20260910-gmem-inplace-conversion-v13-0-dd6fbf94f4e1@google.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260910-gmem-inplace-conversion-v13-0-dd6fbf94f4e1@google.com>
+X-ClientProxiedBy: SG2PR01CA0186.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:189::14) To DSVPR11MB9579.namprd11.prod.outlook.com
+ (2603:10b6:8:383::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DSVPR11MB9579:EE_|CO1PR11MB5060:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3bbc4e4c-ce09-4655-7710-08df0fe9928f
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|1800799024|376014|366016|23010399003|10067099003|6133799003|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: YwqIEbxu4RgKFSc28FM1rd8ymkSWWNGh8C5qMTipL3h1swy6y0eymp20rlNzIpJ8NZXRsdMHLFDPAquP4YWrTY3UL0bh7PM2dI5QM01TEwik4TKjIqKhvDXx7LvV5bKwCkJ6KodLIps0IOZhVn9pKLHE3w+RMSGY+u+v2lQ0X6fHsnq4eWFNBnuaSw/zJEOoK18fWjHd27Tqu1D2WsuTHncMkjuAIaSdaGRFGhOVFHa2LUbTQ9Qf4zAjCdhcsFLjVqCVLiNyYNIslKbpoAxWHx436H4e4CERAKZKiHLlUqm2OclDrqLm6GAxFWXnZpQy9Tn1mVR83/Hzb/F2KFiu3No73VTd+hiCDFF09Wgu9u00JjBXued851Una+eyQteKdWCPUDFOVQdfFBHjhELRchuX7GLe+iytxUjSSF22v/y90PeQRGZaNS9a6WMUzYFC5ajFgKplnbsz/7OiweUh5LxisUs6EdOg7d3zi9zYAJ0XtR7yZGGwfIZ8P3WL15vfKdguTn2UdHVlZHch9p0P5JQlOii7fT8JO3co6ev8+plPoFvaP3Xcu2koNi+Attq9mz8gWSiBg4zqJVpuahOzn5FOxX/8JNINYnIM+TcYrKiFu+R34BVVmjqGudmf5NDd356zwd7jHiVq7/r0E1g0AeU947q3IYWea0aTtprm9is=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DSVPR11MB9579.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(366016)(23010399003)(10067099003)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?y5UDoVOsLzF31zsJtdqqwphxUuvJtHmZtdDmDMrcq3oLC897PGH00pgN3I9d?=
+ =?us-ascii?Q?o4Etr/VoKCMG3xIljF0cBNQQuatbgWVxjgFya3KknPaWmxyhze1CBNCc8Um+?=
+ =?us-ascii?Q?RJlaW1uLGXANRT3ErNWHcflHqK/2J/nHrUNVLY1tKkgmnQ7UpY+rP4/Ai/tl?=
+ =?us-ascii?Q?zPVhWCQIrtMUTR5DPGp96D+pL1X0Kl9xAoOFElAtc12kcA6RkVTHqbPMTc0l?=
+ =?us-ascii?Q?6uKiX2o5psJXOBjQ8szaQXK8VNrXq/0dfeFfageW2tPTMsgoAvYGGFH8dKCw?=
+ =?us-ascii?Q?YPVzcwnVCD2WqPwYF59NkQZBtsJM74P2gC0q+n73dLc0PkfTW8Tv2Aqsv2+x?=
+ =?us-ascii?Q?ogq3c2pQiLpakFIz1OMlthWVB+IK3b588HcarMYKPc9OeFi9t0OVHgNbMvlj?=
+ =?us-ascii?Q?D9suuZMNAOt7r06IpUyDhkxY2OCgiaLxaj4SmiXf10P4VA1EWg/H2ie7nmq1?=
+ =?us-ascii?Q?ESM/27BGrCIUKHLc35e6c9hAGuevcQkmi7cfMA3NGzkEjjBvpkDwpUL1QKZm?=
+ =?us-ascii?Q?zhj+W3FGw8jg1oLfwBuJffep8lbXqPhqMizhnAUTVLhoth2k5FaWumI2OSCU?=
+ =?us-ascii?Q?VpsI3OqTYCHEt3m5IeXMfT7K1Iu1CGeOZeub0C/C0WIwy1KvPI1TQZunsKJZ?=
+ =?us-ascii?Q?T/+9Bb8DqaL0CCTwtLfwYNXzYCidNum9f3Oppki75kQ4wM3Us7gis9ywfdMy?=
+ =?us-ascii?Q?3jg2x2oE6S+4+O28J9fRuHspu1XwbjC+vSXAMlypAQOBIn1V0t8mmgESJLfo?=
+ =?us-ascii?Q?mFn8rKDGwlx2MRtkwhiaeNSij6FaACHCaOf3j7vH7uxJQWyTBZvqTdFNOJJS?=
+ =?us-ascii?Q?lWkfH2V94kQDv37tahZuRKo4x/unh5XiDFH1h9wXN5hLT2PWYGYV/qQ3+m0M?=
+ =?us-ascii?Q?FNa7+5WOExF13pzJcIyUCo1QWYOmFaVYWWygHqauOaunfQoRYl7V4ykZtfAf?=
+ =?us-ascii?Q?ky6V1X8KtTPBJDeZlDCbRaQ6tAPcTiCSuLNAllzeglXSALpjxofnHIHLxReG?=
+ =?us-ascii?Q?JJpZodgMn3Kuk5fkigEilVZGzVfLBFLmP6ji2REi5I/ABmxqtTP/YO6PgkRC?=
+ =?us-ascii?Q?2G6z1uJHAKcFR8rrT+3CKYJFhOhkh4bRt+2joF0KyhHZ0x2e93azI9ux9T87?=
+ =?us-ascii?Q?sbk8YWEJ5ra1Omr2FlPNQAEv/icT6X86L+jF0yk5oEtbLNQipjEEnFMX3Pb+?=
+ =?us-ascii?Q?6bu+s0D9OBfxIhMjCDqJ+qd8gwN3KyXCmFMdPxPojT88+Kx+w4aIljCNRbcu?=
+ =?us-ascii?Q?OU/x/moAwbTbwwb8Wu00Q6V0+55vyt6+W12Z98tEPMfPUN9LzAoWbtgp622H?=
+ =?us-ascii?Q?jmn/aoV8c04XyvRjzk5LqWEmaO42R6BW1wrKWmRbt35CK525qaoRdqiDIh4D?=
+ =?us-ascii?Q?ycQu4maT4w8IKXyYpvrIJ3PWUU9Y7N3y66MG5EPnR2FsdJWjUD+T+A6p55Mw?=
+ =?us-ascii?Q?fXyCysw8JXiIYhH1+0Bvrgso80TPF8EW/Zs3wcCA8BLzuGLTLvMagWqPtwMw?=
+ =?us-ascii?Q?w6rGi9YF491sY8AWKT7tm7Orx/SvenkB5Srzlke8pRG5jeMDaMT0JZFxNSXj?=
+ =?us-ascii?Q?Ws9veySehVx1t9oO1LdID2QWXCwcRRvrCg7KmRp0lJJPy1328ltqsMEBSMWs?=
+ =?us-ascii?Q?aXIdeWCbZLwCHCNk5wR79bpFcSPBsm5T0l+SCUkZ0JsaSAwMLAN7og0skvM3?=
+ =?us-ascii?Q?+ztFADNJ0XQDNMDYAHzAB3Z2kSINg363+RsdzwEbbHtLtIF2Rk6jYLcchnE5?=
+ =?us-ascii?Q?XbVqlecMBA=3D=3D?=
+X-Exchange-RoutingPolicyChecked: qXlKzRjHjQNRGW/YS9TxLKSrA8xVBqKvJXzkfG4MO3rd7/p4FyF99H40HlrV8GDRqkp7sFioSyfNkNVkFNfI7Dgk0cnYEudL4CEZ5wGMvCVA1bo50XmkSDoMv+qsNT13HtBTVAIRo4zBMybeSl5doBFBcUegbJnrYUsJ4l1u0dym096Rv+ta5podEd9+b/mrzAUdQ6vm55C3b8cRwtF+Pm+CiUGUHcEqe5SmPbsssua5/bO2UHGEcm5YyB4Sx8YFMifZ/qGvhdOA9oD+FLTJUkd7yknsFr6B16l6XsGNQSVRx6IKUmlOTG9sZz1CxK1FYsKwSZbrr8kBwG85ZvyHVw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3bbc4e4c-ce09-4655-7710-08df0fe9928f
+X-MS-Exchange-CrossTenant-AuthSource: DSVPR11MB9579.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 09:46:37.2334
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sU2sh2dVk/3NYEwKz9tJL907uuq4XCcBV4YfFm53bK6GI686U4tmeh2Fx6QbPUhA6AXFymep1Yd3ObqPrCB+mw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB5060
+X-OriginatorOrg: intel.com
 
-From: Javen Xu <javen_xu@realsil.com.cn>
+On Thu, Sep 10, 2026 at 04:55:26PM -0700, Ackerley Tng via B4 Relay wrote:
+> Here's v13. Thanks everyone for the comments and fast responses!
+> We're now at ~3 weeks to soft-close at 7.3-rc5.
+> 
+> v13 is based on 7.3-rc2 and:
+> 
+> + Hugh's patch to export lru_cache_drain_for_folio()
+> + Another series [1], which makes kvm_gmem_get_pfn() NOT return a
+>   refcounted page to KVM.
+> 
+> Here's everything stitched together for your convenience:
+> 
+> https://github.com/googleprodkernel/linux-cc/commits/guest_memfd-inplace-conversion-v13
+The following configurations were tested and all booted TDs successfully:
+(1) gmem_in_place_conversion=1, in-place conversions + in-place-add init mem
+(2) gmem_in_place_conversion=1, in-place conversions + out-of-place-add init mem
+(3) gmem_in_place_conversion=0, out-of-place conversions + out-of-place-add init mem
 
-Firmware execution routine unconditionally uses phy_modify_mmd() for
-all OP_WRITE entries which introduces an unnecessary read transaction
-when updating an entire 16-bit register. So we optimize this by
-checking bitmask boundaries. Use phy_write_mmd() directly to speed up
-firmware loading process.
-
-Benchmark number from tracing MDC/MDIO hardware transactions during
-firmware loading process:
- - Unpatched: about 28,000 MDIO transactions
- - Patched: about 9,600 MDIO transactions
-This results in an approx 65% reduction in MDIO traffic.
-
-Signed-off-by: Javen Xu <javen_xu@realsil.com.cn>
----
- drivers/net/phy/realtek/realtek_main.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/phy/realtek/realtek_main.c b/drivers/net/phy/realtek/realtek_main.c
-index 27e31a799e2c..97b0b67b9900 100644
---- a/drivers/net/phy/realtek/realtek_main.c
-+++ b/drivers/net/phy/realtek/realtek_main.c
-@@ -548,8 +548,12 @@ static int rtl8261x_fw_execute_entry(struct phy_device *phydev,
- 
- 	switch (entry->type) {
- 	case OP_WRITE:
--		ret = phy_modify_mmd(phydev, dev, addr,
--				     GENMASK(msb, lsb), (value << lsb) & GENMASK(msb, lsb));
-+		if (msb != 15 || lsb != 0)
-+			ret = phy_modify_mmd(phydev, dev, addr, GENMASK(msb, lsb),
-+					     (value << lsb) & GENMASK(msb, lsb));
-+		else
-+			ret = phy_write_mmd(phydev, dev, addr, value);
-+
- 		if (ret)
- 			return ret;
- 		break;
--- 
-2.43.0
+Tested-by: Yan Zhao <yan.y.zhao@intel.com>
 
