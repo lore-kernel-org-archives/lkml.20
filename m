@@ -1,113 +1,146 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 698713AB29D;
-	Fri, 11 Sep 2026 09:55:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 182B912AAF1;
+	Fri, 11 Sep 2026 09:57:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789120524; cv=none; b=Uo9zByNUkre0v6WGAisafmZQAME/ClLCemCdDLpxBAe5Wt6c1vOjtGce+n/X5e3GNyGl+17Lh9ebxJ4lZg6dn9cONgtdB9FOhwG/5GEca93jWYxtg/FJKtaF+qqT21yFh5/waYoQV2WkK9pcnK/A0uBscXffBqg4YG2iqw5MZI8=
+	t=1789120637; cv=none; b=qzLVkHtWSKBXYNTZeSGx2nYp4ZXVPkD8shrlEvSrW/haZLGoWwb6gR5DQCEjSOvqVorG+5yhKTrvtx5k8JELjRjMdWJXcOnGVvHOZ4u8erYjH4/8xlyr32PYiCLQqO/cCf/V+4hUbtjsGDFOJLSp5lUH/VeD4BHQ6gxUyMBZs8I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789120524; c=relaxed/simple;
-	bh=0tQ5UOcfmXeoMU2bbIGxdIrQatK2ev1arDHG7vwy7T8=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=tlPSVep7WrtMKZKsdNiPcPJUidWD/GOVn7+I/E4Q7O7O3VCFnj12mHuqkaZzHkJFVfLAGwyzq16q10CpvcxVLUer4pRc2Td+hiKS5f9L0K7RGOtj+3gpalIKxGzL6kL/F/C5OdceqZVtsMUSk+DwUh9rM8jj318nmo9KmmfPa0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=5SglTdFH; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1789120637; c=relaxed/simple;
+	bh=0Mb2jec7SC/M2jGZ8yCvAiTQM3VLRz8n562F616cniU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=cz+XQKL1FUOAoEyfrgYZqfL69KFtsgSExh2ok8DuGVKPafTOilUkC28nLx3PIMrdmc+Yg48GTyccNj3kZKraOnTagNNp9Fb+nI9JdtBhoa1qga1itOxydJrB1Uy6+c0kE2+Jcyu5W180w8YV2476olRED65Rn5XuuuYE+0hITJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mebtXxCf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="5SglTdFH"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DB6E6A4C11;
-	Fri, 11 Sep 2026 11:55:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1789120515; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=U+rkct1N0ewPgHDfDC9pZh5mG5IDXEtz1Rz15dwMtTM=;
-	b=5SglTdFHwNSNPAs7eSjcxRbhk8Z7Is044GE5xQP8mc2+bVSShmluT3VQE2eL9cgv381Yom
-	6kBBW1Fykq7wBLy7/F8KigE1U1f35N7qD42HyyGLDN9D7wcUzW1Vhagrg7l1HYqvSLTbha
-	P+nZj9K+GQRGmMNERS4DG7o5wAnnn+WuIxACZ3buGtgtnx+VL9/O1jvlNwMMJ59CDqvfPT
-	nrNkL3hBgwSRinec+tXnlf5T6QMFYirjAWT0vn6/NCedkezJmwOJCSd2ToDCRtgpnDbSr0
-	XPqzhHS8CsDAg5/eeLQ3oone7n0SXNfS3Wqumt+vhONUbHJPHoQ3GTYg+T5PrA==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mebtXxCf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAC931F00893;
+	Fri, 11 Sep 2026 09:57:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789120635;
+	bh=8P2Yw1kZDR+cr2UnfAN0wqpuuU89nW1sv8/eiS1R53o=;
+	h=From:Date:Subject:To:Cc;
+	b=mebtXxCfiWhdPcfHCAS53tpaRBtXhOCKse8AtKiHcK/d38aYXjplfjhjKfIElr6EZ
+	 K/J1ckW6962153sNc29KyfHmoxMSfnvqWgwAQRcvqVM5OXBXJyelOzW1UjWr7Tjfzt
+	 zFCnmYPYOba1LXs4ubVesIedaOqJZEZKmmWcFmPSNe7vptrKe+bafbDMIRshqKUx31
+	 Wnw1DqwBQaDj2HN7pBg1wNkHoGvf7REIQOzhMWwSImkWjFm5R/o+DY6dJa7RD1RCkU
+	 5mBHBN4CsulrpCvqF0kD+0sVlKc0OmhzRVZXyn5E6Ol1+fco4VovNLH2s5s6FaF9X8
+	 3rmW8vGkxd8qQ==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Date: Fri, 11 Sep 2026 11:57:08 +0200
+Subject: [PATCH] arm64: dts: qcom: sdm845-tama: Enable RGB and flash LEDs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 11 Sep 2026 11:55:14 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: kimwooseok <5mghybrid@khu.ac.kr>
-Cc: netdev@vger.kernel.org, theo.lebrun@bootlin.com,
- conor.dooley@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- richardcochran@gmail.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net RESEND 2/2] net: macb: Use all-frame timestamping for
- PTPv1 RX filters
-In-Reply-To: <178911388671.25348.11008812384009904081.macb-resend-2@khu.ac.kr>
-References: <178911388592.25348.177462085059763031.macb-plaintext-resend-cover@khu.ac.kr>
- <178911388671.25348.11008812384009904081.macb-resend-2@khu.ac.kr>
-Message-ID: <185fa72f08b8d7882a48c3ba922c10b8@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Message-Id: <20260911-topic-tama_leds-v1-1-863badcf5ac5@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrA0kCmntVUQkJpN2xD8yUYTg3
+ U3b5bd4LwFjIGR4FQkCHsS0LhmqLMB+zPJGQS4bKllp2Sgl4rqRFdHMpp/QsWi0GvTDP2tnJeR
+ qC+jp/B3b7m/ehxFt/G7gum4L/EOEcwAAAA==
+X-Change-ID: 20260911-topic-tama_leds-961b67f83dc0
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789120632; l=2038;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=/JF6095MFfLX7dBYa9Gw/FT+t9CO981tE8qLl1dYW6o=;
+ b=Pv4bHSD6tRa3uwojyj7JkGOTI5IbfzBstggudIesCQPA/BpnCxulD9luuqdr0vO4H7gaoB6rF
+ 0+9IWDKESiACWbHzoHCRqHqnBYeg19jb/wzqtNlL4bMDY88tHssd76S
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-Hi Kimwoo
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-On 11.9.2026 10:04, kimwooseok wrote:
-> gem_set_hwtst() accepts HWTSTAMP_FILTER_PTP_V1_L4_SYNC and
-> HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ without changing rx_bd_control from
-> TSTAMP_DISABLED. A successful request thus disables receive 
-> timestamping
-> while reporting the requested nonempty filter to userspace.
-> 
-> Handle these two filters through the existing all-frame fallback used
-> for HWTSTAMP_FILTER_PTP_V1_L4_EVENT. This enables receive timestamping
-> for a superset of the requested packets and returns HWTSTAMP_FILTER_ALL
-> to describe the configuration actually selected.
-> 
-> Fixes: ab91f0a9b5f4 ("net: macb: Add hardware PTP support")
-> Assisted-by: GPT-6 Astra
-> Signed-off-by: kimwooseok <5mghybrid@khu.ac.kr>
-> ---
-> Resending as plain text because the previous webmail submission 
-> included
-> HTML and quoted and rewrapped the patch. No code changes; the 
-> Assisted-by
-> trailer now names the tool.
-> 
->  drivers/net/ethernet/cadence/macb_ptp.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/cadence/macb_ptp.c 
-> b/drivers/net/ethernet/cadence/macb_ptp.c
-> index 51659bb..2ffc46b 100644
-> --- a/drivers/net/ethernet/cadence/macb_ptp.c
-> +++ b/drivers/net/ethernet/cadence/macb_ptp.c
-> @@ -430,10 +430,6 @@ int gem_set_hwtst(struct net_device *netdev,
->  	switch (tstamp_config->rx_filter) {
->  	case HWTSTAMP_FILTER_NONE:
->  		break;
-> -	case HWTSTAMP_FILTER_PTP_V1_L4_SYNC:
-> -		break;
-> -	case HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ:
-> -		break;
->  	case HWTSTAMP_FILTER_PTP_V2_EVENT:
->  	case HWTSTAMP_FILTER_PTP_V2_L2_EVENT:
->  	case HWTSTAMP_FILTER_PTP_V2_L4_EVENT:
-> @@ -448,6 +444,8 @@ int gem_set_hwtst(struct net_device *netdev,
->  		regval = macb_readl(bp, NCR);
->  		macb_writel(bp, NCR, (regval | MACB_BIT(SRTSM)));
->  		break;
-> +	case HWTSTAMP_FILTER_PTP_V1_L4_SYNC:
-> +	case HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ:
->  	case HWTSTAMP_FILTER_PTP_V1_L4_EVENT:
->  	case HWTSTAMP_FILTER_ALL:
->  		rx_bd_control = TSTAMP_ALL_FRAMES;
+All of the XZ2/3 series devices have a front RGB notification LED and
+a single rear camera flash LED. Describe them.
 
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+ .../boot/dts/qcom/sdm845-sony-xperia-tama.dtsi     | 43 ++++++++++++++++++++++
+ 1 file changed, 43 insertions(+)
 
-Reviewed-by: Nicolai Buchwitz <nb@tip-net.de>
-Tested-by: Nicolai Buchwitz <nb@tipi-net.de> # Raspberry Pi CM5
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi
+index 05e5a3674e5f..dd38ed73da1f 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi
+@@ -5,6 +5,7 @@
+ 
+ #include <dt-bindings/arm/qcom,ids.h>
+ #include <dt-bindings/input/input.h>
++#include <dt-bindings/leds/common.h>
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ #include "sdm845.dtsi"
+@@ -618,6 +619,19 @@ snapshot_n: snapshot-n-state {
+ 	};
+ };
+ 
++&pmi8998_flash {
++	status = "okay";
++
++	led-0 {
++		function = LED_FUNCTION_FLASH;
++		color = <LED_COLOR_ID_WHITE>;
++		led-sources = <1>, <2>;
++		led-max-microamp = <100000>;
++		flash-max-microamp = <625000>;
++		flash-max-timeout-us = <1280000>;
++	};
++};
++
+ &pmi8998_gpios {
+ 	cam_io_en: cam-io-en-state {
+ 		pins = "gpio12";
+@@ -629,6 +643,35 @@ cam_io_en: cam-io-en-state {
+ 	};
+ };
+ 
++&pmi8998_lpg {
++	qcom,power-source = <1>;
++
++	status = "okay";
++
++	multi-led {
++		color = <LED_COLOR_ID_RGB>;
++		function = LED_FUNCTION_STATUS;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		led@3 {
++			reg = <3>;
++			color = <LED_COLOR_ID_BLUE>;
++		};
++
++		led@4 {
++			reg = <4>;
++			color = <LED_COLOR_ID_GREEN>;
++		};
++
++		led@5 {
++			reg = <5>;
++			color = <LED_COLOR_ID_RED>;
++		};
++	};
++};
++
+ &pmi8998_wled {
+ 	default-brightness = <800>;
+ 	qcom,switching-freq = <800>;
 
-Thanks,
-Nicolai
+---
+base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
+change-id: 20260911-topic-tama_leds-961b67f83dc0
+
+Best regards,
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
