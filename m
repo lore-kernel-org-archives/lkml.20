@@ -1,63 +1,65 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA53835CB6F
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:46:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DDD357D10
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:47:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789138023; cv=none; b=r4ELbdjFdUZEUAzTCzoxthZK9I070t63lbD4q+jZnaqux52qKIcJx4DpeqyjsbU3XsoLF2Iok7RgzvsitliIWBea4MobuWpBY6H85VrqXqlHtarBV9RWasqyNT4QYweDxTbtYgOj8TMrKBX40RUfiKKBbN9gr3oaMRBiEyM9IQY=
+	t=1789138030; cv=none; b=BaaTDMuYzBrHcTe/iW92XojNWJ2hBd5eEVuLXeC/x+QEe/zTZWMLCz0X+It5oaRX7VokfnIH3rZZX5FIGduqsRYgcg9PfbgHGznPDw17iJF7uzKJL4KjYUTSXrC4PhaZ6W01DezTslNAkLZ9bAxJMn3sAQUpz73nwHVbSxPHYL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789138023; c=relaxed/simple;
-	bh=DmDN6UHtKvikcXdajHKVO+yHNn5RNaijR4wIa+sYjRU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Rsdo0gI9RvljEHh9LwCnN7BDi2I44xg+w2wUBbnIESKCYTowvyXVzHu4ptCEb/7B9+nwN60FPQRidr1EjdlC6ES6g6TAYenstfEPrQ8FNTV96q78fAR02xfL/uO7K+PcJtKfNmv0HOQgorxa8i5yZywo4S5VPfkZDUtQ1makkUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=B4uAGCpW; arc=none smtp.client-ip=209.85.128.46
+	s=arc-20240116; t=1789138030; c=relaxed/simple;
+	bh=6qK7Y4OCyC5WsOE2SJMQ4fti6jzNs1Pji9/QbACrVAA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Dgy2Wd65eQX2nmoaGzARcnY/gV3s0Uh6fm+l8DJOCU/ZRdffigclvP2K7zxIjJJcUtNjCQrcLxAQF3kYgkZm9C8MrdX17rnfrviT7Ge2mW2L/SSgbwfQnm0FF+BA6hjRToyfkZUbkBaRQyxxt6DoWfHi9tojrpXwKCiscuqeJLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=A/5m4Fh/; arc=none smtp.client-ip=209.85.221.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="B4uAGCpW"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso9238935e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:46:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="A/5m4Fh/"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-482ea739de2so670371f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:47:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789138018; x=1789742818; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6DAY0H524IPnoUin0wM315IyLKxNaVBFm7h+DvdUw5U=;
-        b=B4uAGCpWL5jpC8i1sY5F+3M4833A8BFjWN6LmY6MP4JQjZc5Ifb4szZU4q47YDSqFg
-         8rB2pBsDFN9ddgmA17zUhtJZ1cf3mqkYsQLmNEBfx9DTq/fR9pctpKx3oJmWcJIKvjYa
-         Qjk3RbZvRdMMoAJ1riJU9GXdTRspE4CFCh8IywRMw6mcdiUTiq8zo9HLQ14sJcYvP+U2
-         jsI7GZUnhFf/4QIhvNo87/no0MO7ukavX183hQ/Kzo9m6UaUzjwlLpD+u/WtXjXLgF81
-         ykuaNCSAQ20shbx+xhRJpuFrMy+jxtaqz7wF74dTLC5ehrikNnbBMK0QFxP/CeUEt6IB
-         Fz/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789138018; x=1789742818;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=suse.com; s=google; t=1789138023; x=1789742823; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=6DAY0H524IPnoUin0wM315IyLKxNaVBFm7h+DvdUw5U=;
-        b=LHrsYmPKh4NIXwo+IUWHgf9MJK3Xg++XEX6p6herp7IMVFxzV9ILartYtJly38s6vI
-         p1XBKmOIsLLO1xtiWCE72BhZ6Pz39Et4PGVNZ0ckWvPaKPBzl0pL2HTmX4W4jcKo8jWb
-         DGD+VWjQEHEdKBEegusTprW8TR5I/SlkgDzxUwJmCHONp9W3Ohz33t9UJ/W3n+G1D5Gy
-         86sEke2YseAgadHflxGN9wp93geyB0m6geiwwhjozYItEKaPt+KyJjWiFpI/h9B0A2LR
-         vnYcyNsxf79CCditqcVxbX85c5SkfHCvu8B2r8ZPFGfMxfD/wCcMNrk91hkkFMio780d
-         5h/w==
-X-Forwarded-Encrypted: i=1; AKwUvBygHhzFXiwW5LvfNKJWNwNgIfOx1OryOX6Vc7kXhXIDFfgX24iiK3CIeBEy1y3hoqSPJ9tjtA3+BjybvSo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mwP7l8G5Hq/LgiPge+Jo0nBRTowvRCvddqOC33kmHwqoPIYJq4
-	VrLAM3ga5Z1IlGzpRUhPJhP89ZTPrnFYNp4ZTi25LyrNI/paYKQBLLHswncWTFCeUvU=
-X-Gm-Gg: AYBFou3nI4H30Lh6HjXND8bzgE51OyEK9N/vXAVKdkZZ6zgOV/WD8uHzFRhJ8WXIIy4
-	xgU6kYfqPEoDhnS1NwIV6O2bVFLZ2aqcVSegdz/4ofWEqpzFyRYz+Zh8gUTC9vMezZye7FmfFIx
-	tF8K77fzVSnYWFyDd3Z7QiH866v41u8Vc9sKFPGcH+hUrtLj6i9Qi23lIInCvqiH6g1Sq1KEFHs
-	JmLbDOak5U+aLwbMup0ZNV1nJaUC6+Y2VOkIbOuiwFiYkC3DouupROwFMoQoZ/5BOKhPg4ULZcM
-	ccXC78bHdBqy51m9J11vv8hWdqBADNhNsGb9mvUgvICZAJU1CFae1DfgbT6GJgALHrbmgK4dPyV
-	OTtpc6qeyZA+zllI7BPg6Xq1C556s1JnjhF0elL1MK0hp/bEmgp4ebuzkUOlMtYoT2HWfBd4SS8
-	7H2yHxbLMNzUU9d2poHxQtBdD/xNAr0b6y/+W80CHVFW8qydvDqAqJwOvo5h4q/WRhhWvymvxQa
-	qBx+w==
-X-Received: by 2002:a05:600d:8444:20b0:49d:27ee:79c9 with SMTP id 5b1f17b1804b1-49d27ee7af0mr93376655e9.8.1789138017731;
-        Fri, 11 Sep 2026 07:46:57 -0700 (PDT)
+        bh=QuYE5JBWhvW9oHs2kdysh3HB71WxLYQMcei9gKN4bpc=;
+        b=A/5m4Fh/sngCKaEoJLtOhd0PEwql+T8zBi0qHa6cFg5H9HZAwcJa6OQkyRfUkv+4l5
+         PrwPUM2nfa2NQ5ZfES2qecayX0h9xaZPjNb5dZ+gNkld9Gq+JI7LtsTkqcJdS043KHXL
+         AYrw5uKonljqZ69+949bBF4VmJLQCR12wMLd9GTD7yU89XnGbPwo5FMSdRPi3bUSbnco
+         ibBekgmGXt2s/P3iIX1rpyu/BfwNKBORTLgqjA1B0N5VgKnIbC7oztcfa1lA32Qmm1Fp
+         rZA6+wXmHyJJXapZZo9qqcM+UPHrA+PTNhVhLBZyYMs5jY9zkFEivXrcP5idys2xQ9LL
+         Xd5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789138023; x=1789742823;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QuYE5JBWhvW9oHs2kdysh3HB71WxLYQMcei9gKN4bpc=;
+        b=bCm2SkZO1lJ0gtpaDEF6Z2ku3W0aT9ZAaH8n5/qhQtuIUUIjPRLdNT7WVkie/8Ky1I
+         pT+ULr46Z4ShX3V6XIsIQ4NLZO+/gdzCSFGb24i96N1IwourW+8dcL6yvd9J28KZqgYX
+         odv+CiXUBPi6VxbvuqTG6pGrv9ftgmVcEwVCtHKmhQGTE9pnnTwi4QEYkYHBrNfE8gQK
+         wH37nt2s1ayvD6RUczefE3KcyM5kUIu3/YTPzW2Lp8jvAXOs0EAXLvraJEeezlFDbXJO
+         Fhe1mj0KHLATmwVLa1se4Wdt9Jd5brsJWu+MKBD0h6lhLHX7gZBxFJj6VycYcSftTbCq
+         6B+w==
+X-Forwarded-Encrypted: i=1; AKwUvBya0X7PbFWf+7IUPBlAhhOkc6IsRi0GGCTGmnd56iHvUCJR17ng/icBrO0TvPlGzWH9a5cPdU6BSYdl89E=@vger.kernel.org
+X-Gm-Message-State: AFuF++mcEzMvDdc4AiHJ4hZmOp7lNlcOjjvYa4rXdnSNDg2e87MA3aUo
+	FkLoyiXkt4MifQrnjqAljznNERKtv+cB8TNpdIEYnLwhfgvzz81eEs4cGJXs6rgmiSo=
+X-Gm-Gg: AYBFou05wfkOxtuWCxUyMdyiBrZOXU/pAGt9uoHmn+fWufNrEFF2NAZrcceR3rIc1gP
+	BrK1YrvHsASSLcXz3BgD0G3BYLWsC/PnxjvVXi00upVRZ2UlB34wyC1uV8rX3CTKC+YY5Qe0EqR
+	F2KcCEulLjPCJEHCl3fLK/TTpx2tO2OJ9RBDDzb0dpDNiTwbW4103/F+NBBaOU7JFYune3jBs4d
+	FPpbLwocEq7sK70NRfx21PhdoDIFGaKZRF7mYPMOQu05WTg1ACXPB4VYnnJfg0NA2cPft9uAIKn
+	BFEgAhscbdU3nQqqvzbpSS1YxQIUHcdgrNpLg++8tV/DqsaD0DvO/sH9X5wqmdVwDd2E2cXPz4u
+	dDgDUWxpr3GtPmIfyvliyOjOrsiBh703cWhRUb1Rneri89JbFDQ+Q4sass+GOBeUcFI1H7jFYQf
+	nk6/bE92MQuN85qCLv2hswhraNlNXZr23mKrBqdY1gn3Q9wgbTq76YcboGyhl9fktnLLLNOF+CM
+	1UZ/A==
+X-Received: by 2002:a5d:5e08:0:b0:486:e81b:842a with SMTP id ffacd0b85a97d-486eb358ab6mr5259626f8f.48.1789138022582;
+        Fri, 11 Sep 2026 07:47:02 -0700 (PDT)
 Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32e8d1sm6328068f8f.11.2026.09.11.07.46.55
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32e8d1sm6328068f8f.11.2026.09.11.07.47.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 07:46:57 -0700 (PDT)
+        Fri, 11 Sep 2026 07:47:02 -0700 (PDT)
 From: Petr Pavlu <petr.pavlu@suse.com>
 To: Tony Luck <tony.luck@intel.com>,
 	Borislav Petkov <bp@alien8.de>,
@@ -136,10 +138,12 @@ Cc: linux-edac@vger.kernel.org,
 	netdev@vger.kernel.org,
 	keyrings@vger.kernel.org,
 	linux-security-module@vger.kernel.org
-Subject: [PATCH v3 0/3] Bring includes in linux/kmod.h up to date
-Date: Fri, 11 Sep 2026 14:46:13 +0000
-Message-ID: <20260911-module-include-kmod-v3-0-6ebccc3e0731@suse.com>
+Subject: [PATCH v3 2/3] time/jiffies: Include linux/sysctl.h for proc_int_u2k_conv_uop(), ...
+Date: Fri, 11 Sep 2026 14:46:15 +0000
+Message-ID: <20260911-module-include-kmod-v3-2-6ebccc3e0731@suse.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260911-module-include-kmod-v3-0-6ebccc3e0731@suse.com>
+References: <20260911-module-include-kmod-v3-0-6ebccc3e0731@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -147,70 +151,35 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-X-Change-ID: 20260816-module-include-kmod-14d1a0e19462
 Content-Transfer-Encoding: 8bit
 
-The usermode helper declarations were previously provided by linux/kmod.h
-but commit c1f3fa2a4fde ("kmod: split off umh headers into its own file")
-moved them to linux/umh.h in 2017. Add explicit includes of linux/umh.h to
-files that use usermode helpers and remove linux/kmod.h where it is no
-longer needed.
+jiffies.c uses proc_int_u2k_conv_uop(), proc_int_k2u_conv_kop(),
+proc_int_conv(), proc_dointvec_conv() and proc_doulongvec_minmax_conv(),
+which are declared in linux/sysctl.h. It currently gets that header
+indirectly through linux/module.h -> linux/kmod.h, but the latter no longer
+needs to include linux/sysctl.h.
 
-Also add a missing include of linux/sysctl.h to kernel/time/jiffies.c.
+Include linux/sysctl.h directly in jiffies.c ahead of removing the
+unnecessary include from linux/kmod.h.
 
-Finally, clean up linux/kmod.h so that it includes only the headers that it
-actually requires, importantly removing the compat linux/umh.h include.
-
-This cleanup is motivated by trying to reduce the preprocessed size of
-linux/module.h, which includes linux/kmod.h. linux/module.h appears in
-roughly 15k #include directives across the kernel. This makes it a "hot"
-header, so it should avoid pulling in unnecessary definitions. Note that
-this series doesn't immediately improve the situation, since most of the
-files included by linux/kmod.h are, for now, also included by
-linux/module.h through other paths.
-
-Apologies for the wide distribution. Acked-bys are appreciated.
-
+Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
+Acked-by: Thomas Gleixner <tglx@kernel.org>
 ---
-Changes in v3:
-- Rebase on top of v7.3-rc2.
-- Clean up commit descriptions.
-- Link to v2: https://patch.msgid.link/20260721131207.803760-1-petr.pavlu@suse.com
+ kernel/time/jiffies.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Changes in v2:
-- Remove the linux/kmod.h include from kernel/cgroup/cgroup-v1.c.
-- Add a missing include of linux/sysctl.h to kernel/time/jiffies.c.
-- Link to v1: https://patch.msgid.link/20260708154510.6794-1-petr.pavlu@suse.com
+diff --git a/kernel/time/jiffies.c b/kernel/time/jiffies.c
+index 213ae1d6a014..9231fea557ce 100644
+--- a/kernel/time/jiffies.c
++++ b/kernel/time/jiffies.c
+@@ -8,6 +8,7 @@
+ #include <linux/jiffies.h>
+ #include <linux/module.h>
+ #include <linux/init.h>
++#include <linux/sysctl.h>
+ 
+ #include "timekeeping.h"
+ #include "tick-internal.h"
 
----
-Petr Pavlu (3):
-      umh, treewide: Explicitly include linux/umh.h where needed
-      time/jiffies: Include linux/sysctl.h for proc_int_u2k_conv_uop(), ...
-      module: Bring includes in linux/kmod.h up to date
-
- arch/x86/kernel/cpu/mce/dev-mcelog.c |  2 +-
- drivers/block/drbd/drbd_nl.c         |  1 +
- drivers/greybus/svc_watchdog.c       |  1 +
- drivers/macintosh/windfarm_core.c    |  1 +
- drivers/pnp/pnpbios/core.c           |  2 +-
- drivers/video/fbdev/uvesafb.c        |  1 +
- fs/coredump.c                        |  2 +-
- fs/nfs/cache_lib.c                   |  2 +-
- fs/nfsd/nfs4layouts.c                |  2 +-
- fs/nfsd/nfs4recover.c                |  1 +
- fs/ocfs2/stackglue.c                 |  1 +
- include/linux/kmod.h                 | 12 ++----------
- kernel/cgroup/cgroup-v1.c            |  2 +-
- kernel/module/kmod.c                 |  1 +
- kernel/power/process.c               |  2 +-
- kernel/reboot.c                      |  2 +-
- kernel/time/jiffies.c                |  1 +
- kernel/umh.c                         |  2 +-
- lib/kobject_uevent.c                 |  2 +-
- net/bridge/br_stp_if.c               |  2 +-
- security/keys/request_key.c          |  2 +-
- security/tomoyo/common.h             |  2 +-
- 22 files changed, 23 insertions(+), 23 deletions(-)
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260816-module-include-kmod-14d1a0e19462
+-- 
+2.55.0
