@@ -1,160 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9BDB296BBC
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:32:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A151A42EEA3;
+	Fri, 11 Sep 2026 07:33:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789111972; cv=none; b=tkp2jXUyyThQ3fllzzhPrCCf3vb5XB8mrAof1B+WVlen7K99t1LALMxDr/B5eAyWH6gdHaKenzq/ue5VJBtsFc83i3j/GJ8oYhbS1wPKKBUd7NK0uxTZLE9T61iG55n/wZGRXLh8GJ7dCzf6872grLKyOXRCVWaekXHTkI4bb9M=
+	t=1789112038; cv=none; b=RoKYhX0kWLvByDOqv6NDTHotViFP6FPhPWEdSb7i4LaLkzn7gDXiXdG+X228WqqeWK/NqCbiaZxQ5ifY3mXG2MKe4mE7J/wynIVnPEBsdBWQuaCPQUpFujwekf3QDn+td9L8g6+Nfx6UoHV06S3IgUUMoankxUtYq8zVauhIxMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789111972; c=relaxed/simple;
-	bh=1UFHnwd6+8Wr85l8PNqVg9OGvRzjDP7RS2PmEv71huo=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=gdln4uhzzC7qmpsBGKrfsLhLnFbDhtzw/ie29mBoERNfT01aKBH8VLiPyEWrVUdgV6rXlUANC9/lUvtAkdh/cLiKtTrdX+hLQJV5IUfTjN7i9UAqt2lV1SGblZbx+uOWU4buqRGwC6m2678o2/CSK2hP9KXqj/Ch0vrO6/vXSQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cp3EG9iM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789112038; c=relaxed/simple;
+	bh=TkVzHPFpPgH50bX6nKV2RFkHqUxJzUUnFkdJ7sP34WE=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=PKl8wiw3d21HwqvPbCoNkgjSrx1LX+lW95PSpVm+oh0lim2pF96onUXbI27Z7c15n1PIPLswqYg6Qt3Hdj3RMGiHCbYPUuKhlbBzbT1oGKfzchpQ6cm1jWDXVv7rmvSX18OFljSs/H6lk/72iZL7Q0enTfAXsR+bC2MJx6/MmGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=qOCRGx2D; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cp3EG9iM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E32241F00893;
-	Fri, 11 Sep 2026 07:32:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789111970;
-	bh=zRoqA8gwo46Z3d3793xmQ09WXeGIuNZTk/LbcAQmCXc=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=cp3EG9iMYLd2b1XT2xoX9M3RezyPQX9/ChM+hJZNV84tfUhItZgSvz2TaasyRkIhc
-	 g9gd6QJsPRZFH3Et4SWVR8dtR6nqrEQK/H5vY4x3ePxMd/64vk0Ug3ENOFUqB6zuJv
-	 GiMYGm7lDcfEEKkB03+utbFbqG9TLes1M3u+i6VaG80wU4bnVZbB0PzFnHR6rToqJK
-	 Q53SAMQBO8KehW6lSpqMtyKVHhHjewNWisTBBf3Iuf+xrZHtPfuFejGPZRv/VU4x6D
-	 Uqbd79i/UkjUF9GoDlEtKi/z8zsLwp2glNgui5UGPQMlxcpyuTpb9n8gIgEBBsfrKf
-	 RBi1Vr5HNcGiw==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 7A9FE198005C;
-	Fri, 11 Sep 2026 03:32:48 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Fri, 11 Sep 2026 03:32:48 -0400
-X-ME-Sender: <xms:n66jao8z-GA-k_vaH3SoJT6xRgYo6dX3JEeM1Ku6M7gM5NYC1i9aYw>
-    <xme:n66jarhBY61pQvqPbnEmBRixgwH9UM65RlU3ZYtrfY0Hy-esn407LThXYI-iGgW1f
-    daINW_CWHVrKQBlVRjxvlNcz9TTfQYyG3I6ZQnZA5U0tJyfGbS5WJLt>
-X-ME-Proxy-Cause: dmFkZTEEpozdq6tFcxcD2mkfJbcSNGdltWWmuDlHCPU83f9wctUWSTu/n82SxX94Ph42oK
-    MTsFHkOapClX1grXWGfyIdbqrmagAKXFg54yeQeNrV/hbT47A1HYOnG6Mmx6D8vmYRjnpQ
-    RtP5YL4LoSyVe8QCBf/EJiMHJ90iJvTd1NROvJxnRNHxCUOurPJJYYNK+uXfDGpke7Ntn2
-    0Mi+XK8jLGNLpnaB2ThcsFNa+22SW09zjD09VkaiWnfU5T7E2Y1GFwtJTm3ioEWTXR0uw/
-    cfHqtJk4eL+BjnnjP68q9TUFieTH3fB3NbxwCrepDqAK2WXkaWkj2bfpoKnEhD06iTAHa0
-    59HYgfqW+5MBbHu/dX2GVYPRUYPKp4gulpc5lwcY0S+xJtmVay3s2iEk+XvnFWeg1x/KPS
-    SKW1NAknqgjfrK6EF5v6qoCab/c4499IaokAcQp6vgZxDO+zS41AHIhYS9DsPehwjjluKA
-    TkykPQdq+E1tknC6Dhh6q7eju3h3vhSc2i9xXskPvJcnJBVYSNrPcxENFLBMrRRJNUwVPn
-    eklg77xDMc5dEaOEyTf9OHOXVB+ei8l7qVpnWBU1weCB0TqFl1cyEw8NhtkRb5NYVtvJSr
-    wy7W4hmMpmRg2G4gPAiUYiYGnSNgLf3EDKWugwbxeCEHjVm5tYSFIP2Ap8TA
-X-ME-Proxy: <xmx:oK6jainLI2qgtrH2WCZU5DlTQRoT9M5yJEohLUgtEEDyfQl3UV9_0Q>
-    <xmx:oK6jaj623YP4pjc8Sk7T6frQxyeXxs2KJVXNVNMD8ICOS5xj7iDWeA>
-    <xmx:oK6jagioJJDlOc2kRExWgsiWX9LiKWwxdeIx5vfF1T7V-G4FwpKv3Q>
-    <xmx:oK6jaoG2W7TY0lLzjp8AT7qLCeFc4qOl1YjWjbzoOI-SHp5Jhwwlag>
-    <xmx:oK6jauRYfeH3RE6kefmtlp0Nf89sTDKPkbZ4Gil17OWG996H0e6KD9TT>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 1974AF8007D; Fri, 11 Sep 2026 03:32:47 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="qOCRGx2D"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 64F98A0580;
+	Fri, 11 Sep 2026 09:33:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1789112029; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=CAtppEZ9aj3HrQWPynhETYHoffVkjhVOafGCQyLac7Y=;
+	b=qOCRGx2DXN1NswiqSZpKMRclb0OnU6NvkxJIrHkTz+ZQdT0jjx4b/kpna1Phfc22IM1hF2
+	UkX7NidsUQzoSi0sH8ASJBwC9fdHG84qFyD0I+8aIEHcNLwhYJF2kT736hYavJtqWdaOo5
+	htREIMqW0a7k2sqKS4NGG2xCjDUZ1SztLuZU6q+O2rwsGYX7b/lnmMjDQVP3Srgn7fdtQ1
+	h58c0mTDgeHzUQuKqY8zy7RK55l2O0NFdpyQWTnc3wMExjvI6VETVMSc9l2KOHpdL/D7w0
+	4nqai+R2I5Npk5XkSKHadbVDgsY6rgA/dWnwx5lH7LE5THiw+ETbZdH0jaxeyw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 11 Sep 2026 09:32:26 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Kiryl Shutsemau" <kirill@shutemov.name>
-Cc: "Borislav Petkov" <bp@alien8.de>, "Ard Biesheuvel" <ardb+git@google.com>,
- linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
- "Vincent Mailhol" <mailhol@kernel.org>, x86@kernel.org
-Message-Id: <b24b9785-b790-476d-985d-e8c5405d192b@app.fastmail.com>
-In-Reply-To: <aqKrhNQ3mZMs5-Dy@thinkstation>
-References: <20260909115530.1924665-12-ardb+git@google.com>
- <20260909115530.1924665-13-ardb+git@google.com>
- <20260909191410.GAaqGwAsCewrdVZZ0s@fat_crate.local>
- <cee2e02b-3817-44cf-857f-62a148290367@app.fastmail.com>
- <aqKrhNQ3mZMs5-Dy@thinkstation>
-Subject: Re: [PATCH v2 01/10] x86/boot: Drop pointless re-implementation of panic()
-Content-Type: text/plain
+Date: Fri, 11 Sep 2026 09:33:42 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Javen <javen_xu@realsil.com.cn>
+Cc: Andrew Lunn <andrew@lunn.ch>, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, =?UTF-8?Q?=E9=A1=BE=E6=99=93?=
+ =?UTF-8?Q?=E5=86=9B?= <freddy_gu@realsil.com.cn>,
+ maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, daniel@makrotopia.org, vladimir.oltean@nxp.com
+Subject: Re: [PATCH net-next v1] net: phy: realtek: improve firmware write
+ speed
+In-Reply-To: <52ca9b2eddf24d5088124f1274d8cb17@realsil.com.cn>
+References: <20260910024927.1644-1-javen_xu@realsil.com.cn>
+ <06862775-e6cb-425c-9118-d2571e8ab222@lunn.ch>
+ <52ca9b2eddf24d5088124f1274d8cb17@realsil.com.cn>
+Message-ID: <1e621cbb34e8077a76fb44b72c8c44fc@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hi Javen
 
-On Thu, 10 Sep 2026, at 15:12, Kiryl Shutsemau wrote:
-> On Wed, Sep 09, 2026 at 10:43:23PM +0200, Ard Biesheuvel wrote:
+On 11.9.2026 07:51, Javen wrote:
 >> 
->> On Wed, 9 Sep 2026, at 21:14, Borislav Petkov wrote:
->> > On Wed, Sep 09, 2026 at 01:55:32PM +0200, Ard Biesheuvel wrote:
->> >> From: Ard Biesheuvel <ardb@kernel.org>
->> >> 
->> >> The decompressor has its own implementation of panic(), which is based
->> >> on the vsnprintf() routine provided by the EFI stub.
->> >> 
->> >> Relying on the EFI stub from code that does not execute in the context
->> >> of the EFI boot services is a bad idea. It is also completely pointless
->> >> in this case, given that the only user of this version of panic() only
->> >> passes a compile time constant string, without any printf conversions.
->> >> 
->> >> So use error() instead of panic() in that case, and drop the panic()
->> >> implementation entirely. This is needed so that the EFI stub's
->> >> vsnprintf() can be modified in a manner that is incompatible with the
->> >> expectations of this caller.
->> >> 
->> >> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
->> >> ---
->> >>  arch/x86/boot/compressed/error.c | 19 -------------------
->> >>  arch/x86/boot/compressed/error.h |  1 -
->> >>  arch/x86/boot/compressed/mem.c   |  2 +-
->> >>  3 files changed, 1 insertion(+), 21 deletions(-)
->> >> 
->> >> diff --git a/arch/x86/boot/compressed/error.c b/arch/x86/boot/compressed/error.c
->> >> index 19a8251de506..ce5ed7d8265e 100644
->> >> --- a/arch/x86/boot/compressed/error.c
->> >> +++ b/arch/x86/boot/compressed/error.c
->> >> @@ -22,22 +22,3 @@ void error(char *m)
->> >>  	while (1)
->> >>  		asm("hlt");
->> >>  }
->> >> -
->> >> -/* EFI libstub  provides vsnprintf() */
->> >> -#ifdef CONFIG_EFI_STUB
->> >> -void panic(const char *fmt, ...)
->> >
->> > So this thing appeared magically in v8 of the TDX unaccepted memory patches
->> > and I don't think we questioned it back then.
->> >
->> > v7's tdx_accept_memory() does error():
->> >
->> > https://lore.kernel.org/all/20220614120231.48165-15-kirill.shutemov@linux.intel.com/
->> >
->> > and v8 started doing panic():
->> >
->> > +void tdx_accept_memory(phys_addr_t start, phys_addr_t end)
->> > +{
->> > +	if (!tdx_enc_status_changed_phys(start, end, true))
->> > +		panic("Accepting memory failed: %#llx-%#llx\n",  start, end);
->> > +}
->> >
->> > https://lore.kernel.org/all/20221207014933.8435-15-kirill.shutemov@linux.intel.com/
->> >
->> > and it switched to it being a vsnprintf() wrapper because it wanted to dump
->> > start and end perhaps.
->> >
->> > But then it ended up dropping the params in v13 and landed upstream with
->> > a single string as an argument.
->> >
->> > Anyway, adding Kiryl/Kirill for comment and leaving in the rest for reference.
->> >
+>> On Thu, Sep 10, 2026 at 10:49:26AM +0800, javen wrote:
+>>> From: Javen Xu <javen_xu@realsil.com.cn>
+>>> 
+>>> Firmware execution routine unconditionally uses phy_modify_mmd() for
+>>> all OP_WRITE entries which introduces an unnecessary read transaction
+>>> when updating an entire 16-bit register. So we optimize this by
+>>> checking bitmask boundaries. Use phy_write_mmd() directly to speed up
+>>> firmware loading process.
 >> 
->> Looking at that v13, it seems the panic() call was added to
->> arch/x86/coco/tdx/tdx-shared.c, which was shared between the kernel proper and
->> the decompressorat the time, and so a panic() implementation was needed in the
->> decompressor too. But that is no longer the case.
->
-> Right. I don't mind dropping this panic() from the decompressor. The
-> range was already gone since v13 and I never saw the error trigger
-> anyway.
->
-> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
->
+>> For optimisations, it is normal to include some benchmark numbers to 
+>> show
+>> how big a change it made. Is the added complexity worth the change?
+>> 
+> 
+> I traced the actual MDC/MDIO hardware transactions during firmware 
+> loading process. Here are the benchmark numbers:
+> 
+> - Unpatched : about 28,000 MDIO transactions.
+> - Patched: about 9,600 MDIO transactions.
+> 
+> This results in a 65% reduction in MDIO traffic.
 
-Thanks. Can this be applied as a fix please? I need it to base efi/next
-on it for the next cycle.
+Can you please add these numbers to the commit?
 
+The patch itself looks fine and also compiles cleanly on my machine.
+So with the number added, I'd be happy to R-b.
+
+> 
+> Thanks,
+> Javen
+> 
+>>        Andrew
+
+Thanks,
+Nicolai
