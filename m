@@ -1,164 +1,314 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013007.outbound.protection.outlook.com [40.107.159.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C385040B6F9;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 495873FB05A;
 	Fri, 11 Sep 2026 18:52:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789152732; cv=fail; b=AjRrzu62a5UyuOt+SPBv404kVnSn5usAFjsDbOzG+VRN12xAUQdGeeSZ3ugbj3xDMbbpL7DlZpmyyiOyYxeyVpAOrn/d2dx6gWpOOwFCjBptamZVYqIKsKE/zF3tnGA5PtLBE95ZgnePL9DguBnulRkrbfF0WaD7te9LSh9QKdU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789152732; cv=none; b=ZMBYtCeNq7fMrMAnKaMhEZsJLSgMRKeuFAf4Nf9xjXoRiqPOP7r9Gpbu7FIv64La8ero7FTXcrTxVQa4FwJaFstNSJc3lK25UtpOLaQhf1xha38LPUXHVkZ9joToALqAj9nuPqnu0oMoFx4TDB/lxh/x7uF3nSWBJnm71DYO2MU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789152732; c=relaxed/simple;
-	bh=Cc3pmcoWBR830DHZzkAJYIenylr0BM4zbOlGlva8UMY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=FboXaDJRuxC8N7YjntM7x8hNeJsUbdQiBMKkZL3/QbyTVPfmfRi7axUc54PQxuGJryeJ/Jwja85Ql620QHI5nB/m5z3Z/o8SZlCgqlj+npNj7Y8B9f0ampR/rHd8uA2UX7jihFCz/clsA2nhTmcfMvHgZZcKRIv/JRrSEM45AMY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=HU9qYTJD; arc=fail smtp.client-ip=40.107.159.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	bh=9Huzq8M2+09FRqtWfB+IUeG9XO9Zcqv8eW8fGF3KC/M=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=jPlUHFA2asDIyovjOLgadp3Bh2DjfvO+pa6R2j6wkX8gPO88Z2g++BOcMUBR2Ls2O6j+ARzPsoMcLnidKL+9x7k4mwDSk2ORLsLK9XMFpUer9Wm9BwqzQ58Y6pHPQqqQTiwJaAD34riQKbAVfaYmLvCaiiQXKPZ8Yckvr4XuF1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RCnjftY6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="HU9qYTJD"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PZD9E/auFg/c5E27LjeKm4rUA+cIF0i3LwylfVnBZhsu8QMkrHc51SYMfOebVKlB+AvbhInFvGRiQ4+ZRrlVT4us97930L7VHJlF9MrstkNAyHF33QOCiOp+4xZotEHfpnt6wTWK6bjIqQY3A26ZhZi3+BfxIINSwp/DTPFW1v2I40V2D0efx4r+KJjHuQJeF0Fh47JKKnsO4e1b8cNJyofVmKdJYqmBjj890KOQKv7NVUK2SU2tpgTMQK8ZUuTtMhuCxiT6teHYwAk9KYT08O4W7ERnQfhxJ3ge5F7BdHGcFAXEExnMFAyOdnQG7amQz/K4GTr9TWDBJp6EzF3KFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iHvsQIpdPiQu8Aral9v2U7nRUZATCL4w4U0Ozarumls=;
- b=xj1YzoX/e1crFfbAEvf8X/T/VJyJ5fplR0MLXGncXyLRVEdYleNSZy9AIhr+tSnmF9XnRVRRibQVQCGfukjww2LWc/8tGYd5JIjhhugnWTfZtjiAci804id421M9+quL3RyaE2igjdQzNPpXCTGV63BwM+tNfKbFxVVRHUqWx25BAacOYLll3oZfjAD68Rl1ynlGU2lrAOPF1k7UiUKJT5bO7yt721GT+AOEOvJ22Zcxg71uXJJ5IqRozioa+68DWSpB4zSPGAB9f1IGcraY+4NGEQemSy/Fu2HtOzJl1MJbhrrYsWTCn3kVv/dazdmGM49RmvOXuRLUSf5jDT+R5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iHvsQIpdPiQu8Aral9v2U7nRUZATCL4w4U0Ozarumls=;
- b=HU9qYTJD6IM8UM4SKvHYtZExtcgKt7ttJmfIGC5nQf3IVBUP4ZKwhIBKgHt/jjMwtZWEZ6iL78zmmPqPd6VbAm9OnGUg5Jfh3pIMwUJyCp7oWQMVWHYTmnd3mLKbzbMYNyAD9YeO0aMSpI8hA4AMknJX25fkEX/c7fB40dVx7pZiyiQFoC+FJN82l4xXREWiOiE0MWMMiPTZQFpEFTk/pUfrtF5J7ao1Fl9FQ0vPMIVKkZBzzIXBfAwfHWv2KTSp0ylrs510mlcIjTfE7D45+WoKFRRnGiq+g9hgw/iIg73j7wosaswnMeUp56dnvppnsuUAfbxIosiYVwz0oo167A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PA2PR04MB10409.eurprd04.prod.outlook.com (2603:10a6:102:415::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 18:52:07 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 18:52:06 +0000
-From: Frank.Li@oss.nxp.com
-To: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Stefano Radaelli <stefano.radaelli21@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Luan Rafael Carneiro <luan.r@variscite.com>
-Subject: Re: [PATCH v1 1/1] arm64: dts: imx8mp-var-dart-sonata: Fix Sonata SD I/O supply
-Date: Fri, 11 Sep 2026 14:51:59 -0400
-Message-ID: <178915267857.2916670.15391959554330587521.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260902164317.45925-1-stefano.r@variscite.com>
-References: <20260902164317.45925-1-stefano.r@variscite.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RCnjftY6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AF1C1F000FF;
+	Fri, 11 Sep 2026 18:52:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789152729;
+	bh=Yo7yRsSPgH9fp6rWbrvzGiLjFsvTI26AJbX7GyjJFx8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=RCnjftY6FoQgojpl0WgXUmhXclIn93TKDImZfhxTkMIb1v3SRhFy/n3emZDoy35EG
+	 9rXfNe8pR4PTc5xionnV+NwX6RrBCsjm8c/2crNGmDQ9vYz00Plgxpd5ZRVGwQfTHu
+	 gH1LC9MZMtDCtgrTSNCXtVsFKJLJxRYrOWz4ni79pk2OA6GNb9HHgeIN+hGBZ09OPB
+	 XHDx5XWDg8SFba1uaQBNVkgcZMxZ97Ply/yXZsrlm8ktz6N7twmqKj6I3iKQpBrCwO
+	 TaDe5ZOqOopK1IGVd7278NqjKUbB08HLw8bJtKl+JgfrzB+lmOx5CUfbQ9q7foz1Wi
+	 NMzykz+qp+bKA==
+Subject: Re: [PATCH RESEND net-next v17 06/10] net: phy: phy_port: Store
+ information about a port's upstream
+From: netdev-bot+sashiko@kernel.org
+To: maxime.chevallier@bootlin.com
+Cc: davem@davemloft.net, andrew@lunn.ch, kuba@kernel.org, edumazet@google.com,
+ pabeni@redhat.com, linux@armlinux.org.uk, hkallweit1@gmail.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ thomas.petazzoni@bootlin.com, christophe.leroy@csgroup.eu,
+ herve.codina@bootlin.com, f.fainelli@gmail.com, vladimir.oltean@nxp.com,
+ kory.maincent@bootlin.com, kabel@kernel.org, o.rempel@pengutronix.de,
+ nicveronese@gmail.com, horms@kernel.org, mwojtas@chromium.org,
+ romain.gantois@bootlin.com, daniel@makrotopia.org,
+ dimitri.fedrau@liebherr.com, frank.wunderlich@linux.dev, p.ameruoso@live.it
+Date: Fri, 11 Sep 2026 18:52:07 +0000
+Message-ID: <178915272783.219967.7690619054974247239@kernel.org>
+In-Reply-To: <20260910170103.1029108-7-maxime.chevallier@bootlin.com>
+References: <20260910170103.1029108-7-maxime.chevallier@bootlin.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH7P220CA0118.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:32d::18) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA2PR04MB10409:EE_
-X-MS-Office365-Filtering-Correlation-Id: d12f0662-297a-4055-485f-08df1035c6fb
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|366016|19092799006|1800799024|23010399003|376014|7416014|10067099003|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
- P8dmO7fOfibsKRIAEdU7cAtgp5qwOqAEjDizGANia6SwtxZumrLb81W3xiWuj95iLQAiWSYupSLXE/tC0aN1xEuFBJsNuZltO5ZWhWAphR1vDvE1gQ9Zv6prpiyN2jWcL5FxyFJ93/7jAUtXcpLxTr0wrmzv+Wg1TChWHlJe//8mlEcnDUQyfUumumWh/UwU7yMUEoR44j0Yxy5GcvWFouSFOHt5KLgI7f5oe2Ho3jO4RbCpoIY8YJlvmYezHuQbH16JOdbC3rGo/kOXaUD7bHp9JsFsQPE8yKlMbTTdz7GpYbBk2yEqXcC/VADDayFbYlYBZH9aLXsx6UFNMceSIrHG2+/KDuYvc4SGQrzoG+MVhNs+NWLkXHnECUmZQTHls5anHOJA6Am0llGPt62LEG/VpL0HUDZaUovyMC966mb8GgXMRw9gbdg4+k+DcT4c7VTozeuokBzMIBkAj97OuPsKkhApd8W4yzMjOThVHJDKfejceQAGQ3zH6Zm9lIrWDqCjG7RZKhZRt4wilKrY1Pf9UKtC+9Bxuf0bDgw6x60zYmOCGw+lgS68eJthyWhI3Pk6pr2FNLv9UittyA/CQy/YjXhX0peYBm4Y4+88YOgQj0vfpRGnB2MCdD1vKVNTOfivAwhfM1xs1dAKoRB+DKT1FL/fkrga2EO70oT7M8Q=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(23010399003)(376014)(7416014)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?ZTd6YXVmU0o4cGdQdFgyMnAyVXFlWGhyeDExVFhpbHpBVWM4MSsybU9IL2J4?=
- =?utf-8?B?RXpKcElRZDdaMjBnMUZuVVhQM01kUThMOXF3Z3FPZ3B6ZlllT0JpWFR0NEkz?=
- =?utf-8?B?ellTc0QvQUhJb0hNb250TUcvc1Fna0Y1NDMzVnZDWERsbkxrUTBIdnFnc2tK?=
- =?utf-8?B?b2hQSkp3OFZTMVdBclRBOVJRMnNkUGowanNyV0F2R0dHdkZISjlPdXVLZ2I2?=
- =?utf-8?B?ZnQzNXNaWFUxYmpNRzI5Rm5jZXh6UTdwNjBHc2RobTJGbml3a0ZZUkU1QmRO?=
- =?utf-8?B?S1ZDZUhOVkNzbC9DL3RyVWxIQmNtVFVLWTFjREtFZU9BNkkxZ1NzTTV4eUVZ?=
- =?utf-8?B?Qk5Lc2JQempMeHJTaWM4RmJyOGM3ckFhcVBmVkJvZlBtbTZTMXZ5STFLb2Nu?=
- =?utf-8?B?T0ZoVmN0emMyZUphd0tVOEdCWDJzRXhJaTZXa0xudXowS3BxRDMwSzJsbkJv?=
- =?utf-8?B?T29RRDRqb2dWd2NCL1J4MkN1U2psZ3FRS1c1bmtZRmdzeHU4UTNRQk5jQWly?=
- =?utf-8?B?SGRUb0VMTnJ4NU1GeUs2ZlNLdFVsNVhxMjFOaUc2djc5T202TnhaSVpHYW5k?=
- =?utf-8?B?ek9mRXdmTFl4N0FjYUVTaDBsb3Y3RTJEQ1JMTFVOZS8ycjdPbFdMWlVmM2Vx?=
- =?utf-8?B?THU3a1pxWTNldkJXY2RiK0xYa0NBNE5UV0pid0FjWVJ2VHc2QmxYamxhREFq?=
- =?utf-8?B?ZVIzVWpKTVJndFlNNzhOOG9tU21LeSt1Vk9GcmVZTHZsVW4yM3BlQmE2OVMz?=
- =?utf-8?B?Q0VBRkdWdHpxZWMvWjhjTk84dkkyVHh6TWswbE9TcXV6VER1bUJWVEFibUZu?=
- =?utf-8?B?NElseXhGeU1OOHlHSGdFSHhkOWlQQlAvWDkrQ0F4OUpYaWk2ZlFwTEtidkw2?=
- =?utf-8?B?NGl1Wm9sTnZ4TXBqUElFd1hLNXpDaXJLSm02Nk53Y0JTOFVFYmYzVDdFeUFF?=
- =?utf-8?B?Q1FQNVlkVWNxQm8rZUJlN3dodnB2VCtrMy9aOTFXd1ZwVVAwVVB4RWliQlBC?=
- =?utf-8?B?VVZkVmdSWmJCUGlkN1lmaTA0S3ZUajMwbEdYWjlka2hhRnhGL3FKNllXUDJu?=
- =?utf-8?B?N3hOOUl6Yzh5bzd4Y2lrWGtlaHh3ajl0ajYyVDloU1ZQaTZESVZJeG0yWkVt?=
- =?utf-8?B?VXZqVjgwWGxZZWV4d1huWFplZVBlTUNwZTc5V3hiQWJuOUpIWFQyekl0L3Nh?=
- =?utf-8?B?UHNWcHhvRCtwSzRNVjBNQWJRV3pXK0tOTGhXUi9QbFptUTdScUlmalUxQlQ1?=
- =?utf-8?B?NGd6and5Nk5xeldvanJ4Tlh3eTB5STFXQzVBM3hjN2hPWitVakJEZFBjVDJh?=
- =?utf-8?B?MDYvSE12K1JscmNyZlNRNjE2NHcwNXMxR3o1UHFtMmZHeHAxWStTZ0lCMUxk?=
- =?utf-8?B?akhIaXBNK1F6NGh3VnlxWUp4c2hxYXFOY1lWakFJYlkxaGRHRjN0ZGFHalcv?=
- =?utf-8?B?Q0lTVVBUTngzc1E0ak5GWkxqV3FrZ1FKYmRIa0xMVjFWQ3R5b2E1alNjRDhw?=
- =?utf-8?B?UERMalVpMEFncGlUSklQQjFnNHRVbFF2Y3VnWGtHSXliTkMrY25BMHhVdnJo?=
- =?utf-8?B?bjJNdHBOSHo5TElKS003Q2h1a3hVRTdZSGhwMTlNMEs1ZmFTTkY5bnAwOVN5?=
- =?utf-8?B?U1FJaEp0MVMraEl0VStVaHFYdUI3eVhsZ3doekNKVytYaFY1d0Q4R2F5SWtL?=
- =?utf-8?B?emRkaE1kUG0yNTJueFVxWkZlVjR6Vi9yajRWdFhHRFRrS1p0NW9nZUZnVE9u?=
- =?utf-8?B?OHJjS0xFK29zbEExOTRGSU41L0x1L09DZ0YyMCsxdVZ3UlpWcHRQVDNnUzIz?=
- =?utf-8?B?bEFmbHlBTGFGT1oySWYrNDlTR1FTdmZSZ28wOUlSU0JVTVNaekVCd3FyS0J3?=
- =?utf-8?B?NkxybDQxNGMyVkZ5Q3FmQVNQTzRKalhHd2tKUFJOQXdWWUg2SUYySmJOMmpq?=
- =?utf-8?B?ZmdQd2hLeEZUNXMvU3kwUGpPWkZMNXF5T1lXdUFEa3AwVHVmL2M3VEJ4Q01W?=
- =?utf-8?B?b2FSaTg4VVcvSSt5Z3grNldzYlNZQWNBb2E1OTJzbGR5a1pGSEJPWUNNN05X?=
- =?utf-8?B?ckluSG5ENTBBWEtqVzUvZDl2MmlGUW0xTzlnaWRiOGNOTWdRVzVjb25aM2JB?=
- =?utf-8?B?UFN6NzcrR1UveUw1alFDTE52OTFYM3dtTUc1ZzUxSW9lY0FsRHZtVnVSSXcx?=
- =?utf-8?B?WGRMSlRnVys0TWlkN29VcTl2d1hDQmdXNVlrYUtqZzBoaDgyZm1Pd3llb1ow?=
- =?utf-8?B?eU9mQ21DTlFWcEN3TVhvYjFpTEZCRWZWRDVIdDdnb00xTmhSRVZMQUtNSnhr?=
- =?utf-8?B?ZWd4OGpiUUp5T3oycHMrdm1QQUFNYmhIT1V4ZngxKzR3U0Nnc2tia2Q2WnRQ?=
- =?utf-8?Q?rE/TVGKDfHnToV5glWb7nGW/NX+8YD/5zZJzT?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d12f0662-297a-4055-485f-08df1035c6fb
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 18:52:06.9025
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eA3yRhPyvmeXQpLqBptVoDTIq1dbVXyHQTG4qFKEWx6aw/QBadDPVEmj5IAODai6JwGJ6lShzPM6pQH7R14TFrMMD+qvDzSDVAzNC711p1aFqKkAS0Li8gX9FVGFoNiM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA2PR04MB10409
 
-From: Frank Li <Frank.Li@nxp.com>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider:
 
+Critical: 0 · High: 0 · Medium: 0 (1) · Low: 3
 
-On Wed, 02 Sep 2026 18:43:17 +0200, Stefano Radaelli wrote:
-> LDO5 powers the USDHC2 I/O rail on DART-MX8M-PLUS.
-> Without a regulator consumer, the kernel disables LDO5 during late init,
-> which removes the SD card and causes filesystem I/O errors.
->
-> Reference LDO5 as the Sonata USDHC2 VQMMC supply, so the regulator
-> remains enabled while the SD interface is active.
->
-> [...]
+- [Low] The commit message states the change keeps track of "the port id
+  of the MII port backing it", but phy_set_upstream_port()…
+- [Low] The kernel-doc of the newly exported phy_set_upstream_port()
+  (drivers/net/phy/phy_device.c:3786-3791) documents only that it "Sets…
+- [Low] Claimed missing error-path rollback: both new connect_phy
+  implementations (phy_sfp_connect_phy() at…
 
-Applied to branch fix, thanks!
+Pre-existing issues:
+- [Medium] phy_set_upstream_port()
+  (drivers/net/phy/phy_device.c:3792-3803) traverses phydev->ports with…
 
-[1/1] arm64: dts: imx8mp-var-dart-sonata: Fix Sonata SD I/O supply
-      commit: 7ba5290db6bf365e46fb70bf13dc2a47048165ea
-
-Best regards,
 --
-Frank Li <Frank.Li@nxp.com>
+
+net: phy: phy_port: Store information about a port's upstream
+
+This adds an upstream_port pointer to struct phy_port and struct phy_device,
+along with a new exported helper phy_set_upstream_port(), so that an MDI port
+backed by an MII port (for example an SFP module port backed by the SFP cage
+port) records the port feeding it. The SFP connect/disconnect callbacks in
+both phy_device.c and phylink.c are updated to set and clear it.
+
+A few questions below.
+
+> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+> index 26634ef274f33..561d19edf331c 100644
+> --- a/drivers/net/phy/phy_device.c
+> +++ b/drivers/net/phy/phy_device.c
+> @@ -1493,6 +1493,7 @@ static int phy_sfp_connect_phy(void *upstream, struct phy_device *phy)
+>  	int ret;
+>  
+>  	phydev->has_sfp_mod_phy = true;
+> +	phy_set_upstream_port(phy, phydev->sfp_cage_port);
+>  
+>  	/* If we aren't attached to a netdev, we can't add the SFP PHY to its
+>  	 * topology.
+
+[Severity: Low]
+Here and in phylink_sfp_connect_phy(), the cage port pointer is published
+into the module PHY before a fallible step (phy_link_topo_add_phy() here,
+phylink_sfp_config_phy() there) and is not cleared if that step fails.
+sfp_register_bus() also returns a connect_phy() error without calling
+disconnect_phy().
+
+Is a rollback needed on those paths, or is it intentionally left out?
+
+Tracing it through suggests no dangling pointer is reachable today:
+
+  sfp_sm_probe_phy()
+      err = sfp_add_phy(sfp->sfp_bus, phy);
+      if (err) {
+              phy_device_remove(phy);
+              phy_device_free(phy);
+
+so the module phy_device and its ports are destroyed on that failure, and
+the cage port is still alive at that point. The two paths that free the
+cage port (phy_sfp_probe() out_port below, and phylink_register_sfp() ->
+phylink_destroy_sfp_cage_port()) only run when sfp_register_bus() fails,
+which requires bus->phydev to be non-NULL:
+
+  sfp_register_bus()
+      if (ops->connect_phy && bus->phydev) {
+              ret = ops->connect_phy(bus->upstream, bus->phydev);
+
+and the state machine detaches the module PHY (sfp_sm_phy_detach() ->
+sfp_remove_phy(), which clears bus->phydev and invokes disconnect_phy())
+before any upstream can register again. Would it still be worth making
+the failure path symmetric so this does not depend on that ordering?
+
+> @@ -1526,6 +1527,8 @@ static void phy_sfp_disconnect_phy(void *upstream, struct phy_device *phy)
+>  
+>  	if (dev)
+>  		phy_link_topo_del_phy(dev, phy);
+> +
+> +	phy_set_upstream_port(phy, NULL);
+>  }
+>  
+>  /**
+
+[ ... ]
+
+> @@ -1816,6 +1821,8 @@ static int phy_sfp_probe(struct phy_device *phydev)
+>  		}
+>  	}
+>  
+> +	phydev->sfp_cage_port = port;
+> +
+>  	ret = sfp_bus_add_upstream(bus, phydev, &sfp_phydev_ops);
+>  	if (ret)
+>  		goto out_port;
+> @@ -1825,14 +1832,13 @@ static int phy_sfp_probe(struct phy_device *phydev)
+>  	 */
+>  	sfp_bus_put(bus);
+>  
+> -	phydev->sfp_cage_port = port;
+> -
+>  	return ret;
+>  
+>  out_port:
+>  	if (port) {
+>  		phy_del_port(phydev, port);
+>  		phy_port_destroy(port);
+> +		phydev->sfp_cage_port = NULL;
+>  	}
+>  out_sfp:
+>  	sfp_bus_put(bus);
+
+[ ... ]
+
+> @@ -3777,6 +3783,25 @@ struct phy_port *phy_get_sfp_port(struct phy_device *phydev)
+>  }
+>  EXPORT_SYMBOL_GPL(phy_get_sfp_port);
+>  
+> +/**
+> + * phy_set_upstream_port() - Sets the phy_port controlling the MII this PHY is
+> + *			     attached to.
+> + * @phydev: pointer to the PHY device we set the upstream of.
+> + * @port: The phy_port upstream of this PHY, can be NULL.
+> + */
+> +void phy_set_upstream_port(struct phy_device *phydev, struct phy_port *port)
+> +{
+> +	struct phy_port *local_port;
+> +
+> +	ASSERT_RTNL();
+
+[Severity: Low]
+The kernel-doc for phy_set_upstream_port() describes only that it sets the
+phy_port controlling the MII, but the body does two more things that callers
+need to know about: it hard-asserts RTNL, and it overwrites upstream_port on
+every entry of phydev->ports.
+
+Since this is EXPORT_SYMBOL_GPL() and the prototype in include/linux/phy.h
+carries no locking annotation either, a caller following only the documented
+contract will trip the WARN_ONCE() in ASSERT_RTNL(). Could the kernel-doc
+state that RTNL must be held and that the value is propagated to all of the
+PHY's ports?
+
+> +
+> +	phydev->upstream_port = port;
+> +
+> +	phy_for_each_port(phydev, local_port)
+> +		local_port->upstream_port = port;
+> +}
+> +EXPORT_SYMBOL_GPL(phy_set_upstream_port);
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but the phy_for_each_port()
+traversal here relies solely on ASSERT_RTNL(), while the list entries are
+unlinked and freed from the driver-core unbind path, which does not take
+RTNL:
+
+  phy_remove()
+      phy_sfp_release() / phy_cleanup_ports()
+          list_for_each_entry_safe(port, tmp, &phydev->ports, head) {
+                  phy_del_port(phydev, port);
+                  phy_port_destroy(port);
+          }
+
+phy_get_sfp_port() and phy_link_topo_del_phy() already walk the same list
+under the same RTNL-only convention, so the pattern predates this change,
+and all in-tree callers of the new helper run from the SFP state machine
+with RTNL held (sfp.c takes rtnl_lock() around sfp_sm_event()). The only
+concurrent mutator found is a root-initiated sysfs unbind of the module PHY
+driver.
+
+Would it make sense to either take phydev->lock around the traversal, or
+write down the rule that phydev->ports is immutable while the PHY is
+registered?
+
+Also, phy_add_sfp_mod_port() and phylink_add_sfp_mod_port() assign
+port->upstream_port directly, and this helper later rewrites every port of
+the PHY. Which of the two is meant to be authoritative?
+
+>  
+>  /**
+>   * fwnode_mdio_find_device - Given a fwnode, find the mdio_device
+>   * @fwnode: pointer to the mdio_device's fwnode
+
+[ ... ]
+
+> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+> index c8f57d78f96eb..320c8c2dd206a 100644
+> --- a/drivers/net/phy/phylink.c
+> +++ b/drivers/net/phy/phylink.c
+> @@ -4132,6 +4134,8 @@ static int phylink_sfp_connect_phy(void *upstream, struct phy_device *phy)
+>  	phy_interface_and(phy->host_interfaces, phylink_sfp_interfaces,
+>  			  pl->config->supported_interfaces);
+>  
+> +	phy_set_upstream_port(phy, pl->sfp_cage_port);
+> +
+>  	/* Do the initial configuration */
+>  	return phylink_sfp_config_phy(pl, phy);
+>  }
+> @@ -4140,6 +4144,7 @@ static void phylink_sfp_disconnect_phy(void *upstream,
+>  				       struct phy_device *phydev)
+>  {
+>  	phylink_disconnect_phy(upstream);
+> +	phy_set_upstream_port(phydev, NULL);
+>  }
+>  
+>  static const struct sfp_upstream_ops sfp_phylink_ops = {
+
+> diff --git a/include/linux/phy.h b/include/linux/phy.h
+> index cb579b8a5b5f7..335821eb22171 100644
+> --- a/include/linux/phy.h
+> +++ b/include/linux/phy.h
+> @@ -615,6 +615,7 @@ struct phy_oatc14_sqi_capability {
+>   * @sfp_bus: SFP bus attached to this PHY's fiber port
+>   * @sfp_cage_port: The phy_port connected to the downstream SFP cage
+>   * @mod_port: phy_port representing the SFP module, if it is phy-less
+> + * @upstream_port: phy_port this PHY's MII attaches to, if any
+>   * @attached_dev: The attached enet driver's device instance ptr
+>   * @adjust_link: Callback for the enet controller to respond to changes: in the
+>   *               link state.
+> @@ -809,6 +810,7 @@ struct phy_device {
+>  	struct sfp_bus *sfp_bus;
+>  	struct phy_port *sfp_cage_port;
+>  	struct phy_port *mod_port;
+> +	struct phy_port *upstream_port;
+
+[Severity: Low]
+Is this new phy_device member read anywhere? phy_set_upstream_port() assigns
+it, but grepping for upstream_port through the end of the series shows the
+only reader is in net/ethtool/port.c:
+
+  reply->upstream_port = port->upstream_port ? port->upstream_port->id : 0;
+
+which uses the phy_port field, not the phy_device one. Could
+phy_device::upstream_port be dropped, or is there a planned consumer?
+
+Related to that, the commit message says:
+
+  "let's keep track of the port id of the MII port backing it"
+
+but what is stored is a raw struct phy_port pointer, not an id, and the new
+phy_device field is not mentioned at all. Could the wording be adjusted to
+match what the code stores?
+
+>  	struct phylink *phylink;
+>  	struct net_device *attached_dev;
+>  	struct mii_timestamper *mii_ts;
+> @@ -2493,6 +2495,8 @@ int __phy_hwtstamp_set(struct phy_device *phydev,
+>  
+>  struct phy_port *phy_get_sfp_port(struct phy_device *phydev);
+>  
+> +void phy_set_upstream_port(struct phy_device *phydev, struct phy_port *port);
+> +
+>  /**
+>   * phy_module_driver() - Helper macro for registering PHY drivers
+>   * @__phy_drivers: array of PHY drivers to register
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260910170103.1029108-1-maxime.chevallier%40bootlin.com
