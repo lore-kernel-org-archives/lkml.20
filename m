@@ -1,140 +1,83 @@
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D14485CC3
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:59:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7BF4472068
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:59:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789135160; cv=none; b=m8mK31ZQblyJ+12QCInK0KL87kqXSRwjHPE+HHFcSu6bmOy7JyLwFAQ9TIdggjp/rPpxi08dVNU9SDPBz0+8Xp2P2uQdlJJgwat7h7G6VGWdMJ6udw40DkRxuKIBYDFkQCdPzd9M2Af8frFWPN9ijOi1bguKx8kPk9Vp4i3j0pU=
+	t=1789135166; cv=none; b=LbaIK5xjKUYllOxnIgcLe+riUWnw8Gtq8e6juqPIa3lCOWSCIro+fVXzEBzhJY/ZotILN6px6cOMpUv0SYO49BVaqW6FD/jmnfOXgvgLojF4td/nFx+45fUPITNAu8VJWyJbTZ1x7J3qRxKzaoAemFy4fJAgIaAXf1R96o5Mk/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789135160; c=relaxed/simple;
-	bh=LWoqwo8OPOF1pqAPY7zk58MStnc+PQK6YDQKYR9dyZA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pkocupgywBWvfPFx9F9uMmWjj/lHcHAlKhg4+f77Z5+8rOqPsASrzJoSFzSf84veNZ5OWNsEju94uocj3OG/bxDenYItE5088r1yqH6Q+KXBzIpdvQs7PL99jTgg0Ib9RXfWR9vSOGx4lsKANTmWHzr60JeEQhuABMj4SJ2gKvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PB8VItdy; arc=none smtp.client-ip=209.85.215.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789135166; c=relaxed/simple;
+	bh=aHrUMGLWWZoEkY3s9fya1Mg02ffx6C0f6PKOUdo9Q8M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C8QdJ/ft2p9eL31AsJGU9VyXYWMWMHWGvgwGHNCVEOgXAmopk6FI+P5Cgr6s4aINzZhHOQHlPyToXKLWH2tFoW1+vK+P7iWSuL+2Tg1ULjZIETihWoCADa7DUVcvx3d+4RxBTnYJc+8LWWVnWHLPClARg1gw0V2RltKFUagspN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=AP5FLzQ3; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PB8VItdy"
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc4c7fab7b6so1011539a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:59:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789135158; x=1789739958; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pHtTy9lDcxvA2WiCWTCjZ0Fyc3K2ZxTW6s38+wxLTi4=;
-        b=PB8VItdyJaSpA3h9dyrkvqzTCZ3E4T0+tYwfJ/eRiI1TnIe0boTHRF4KB6+xjwatti
-         83RRp5WbySoBj58AqIAXoomo4uljpuqxyKdvGTis7Imv74Al4Y+6xtE8qqBagEo38n4e
-         Nx1ULG7KY4/jGWzc94BjC9MyADP94NenDaDjyXvR6/R2D8ZYBPdiwMn9rTXoEAWHVygP
-         /IrgSI0FuosFJVjD6u3tPz2OwE+eGPChHWd/U7fEEOslMFXI6usDSmmZwHocnkNFBv2O
-         kAwMQ0i+vpk9O4BKAX4HiWUDQOWJGk0hSIKSGoGHQfRGRD9V8DjWRDc5p0+0MrkWiqQe
-         Hcow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789135158; x=1789739958;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pHtTy9lDcxvA2WiCWTCjZ0Fyc3K2ZxTW6s38+wxLTi4=;
-        b=kTbga9BRYoVPngcTnohvGdyl5AwdIKSkAaPPB4FkdLmnd/kLckNhft7EaF+G1UTPU2
-         sPNElI/Gd5ayXFuTLz9u/wV6PpcPOn+iq0Nv9f+a2OyumsHjPP0Q83za7KHgcSxQvO1t
-         CQ+0H6K+KQW24ssHrvSCYw97gLV5LGeMv2adxnmIeySW3ebf4DH1c+runLT52gwVnyRQ
-         Snb9TDlU8BgxKymVGCQ3G6gNxO9VgtlSdY0fDLd97R6qD2McNvEAgP9BnPPLAYj5CqNF
-         KoM0tgrFqMnBTZ8nkolnFOF0l++DErkK4tiNM0z42CJWP15SSxct0+VIOaB29zOYvc+W
-         oTCg==
-X-Forwarded-Encrypted: i=1; AKwUvBz8dNJobsCHx55zGBx3Ym8OUUJq/ASb8DAXoP4glbnfxjsaZJQ2iI6zzS5+rkIzsVA5fq6y2L5AT3q9bYc=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9sfEXzwzT0lbCLzODFEGtdeWjZgsZMEWoggsZnFI2H4I++nk5
-	YQKkHXzR9dBQIoWJ75pOkN7wVfOL1E57Mv92ftR54ozKcFh9Y3cAr+xt
-X-Gm-Gg: AYBFou1/TNYBko+kt9SWfrajSVqm5mCy9Hs1fFNVHx/iSdAsyiD3YkR9N85Aoxx86i+
-	cujA4a+7XfsKpPi034fyvzMqnS91sroYhgC4fCK5ROQglgsa1aHoZk/kp1kN5HbmfBY6nvtihXj
-	9vUuJsFRk/j3wZXZxU0kKHP0Rn0tYr7FEM0UGEwV1Co9G81XKa3cYcBJUZDGUQm1D/0Fum36PxK
-	SDIIWzquyWomIDU8bnfmMEb0llDKsjIVG+Ps3m6MrbazKggBJxQVi7W/dlaV9OmANN/MtFeBXGD
-	DAXCs9mtXE0RYtGYrexTDjNOy6gCMbpgZKKcpMSZAy+4F/hSOdrqvD9UvSGGIe572XpVHG6MphY
-	NR5n2I+bGAPAJBcaM9jO+CERzFQ8FpLURgK5UkMhJdQBvV0Ml/UmhbUHx9Fd34TUJxZdWaM08P8
-	N5c9FQtJxOlQc6C5pA//4QJpMURspkrtS7WWY/dtW1/9DT38q46G1VLBDo0TtE9PirT/xKqamo1
-	n8sR84pcbADw4XQdUsD6oh+Z4rCfkBHqBpXN1qNSzTnSPRx
-X-Received: by 2002:a05:6a20:a120:b0:3d3:ae50:97c7 with SMTP id adf61e73a8af0-3daed7dcbedmr7207784637.20.1789135158291;
-        Fri, 11 Sep 2026 06:59:18 -0700 (PDT)
-Received: from fabio-X870-EAGLE-WIFI7.. ([2804:1b3:a803:6c49:9c35:d64e:78e3:c51b])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e5193dsm6586878eec.10.2026.09.11.06.59.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 06:59:17 -0700 (PDT)
-From: Fabio Estevam <festevam@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: mathias.nyman@intel.com,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	parth.pancholi@toradex.com,
-	francesco.dolcini@toradex.com,
-	Fabio Estevam <festevam@gmail.com>
-Subject: [PATCH v2] usb: xhci-pci: Add TUSB73x0 definitions
-Date: Fri, 11 Sep 2026 10:59:12 -0300
-Message-ID: <20260911135912.1604622-1-festevam@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AP5FLzQ3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789135163;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aHrUMGLWWZoEkY3s9fya1Mg02ffx6C0f6PKOUdo9Q8M=;
+	b=AP5FLzQ35wSkz6pSq4Fr++1i5hOY8ClHgyTilW8J/B24lnCVsv8BVt52i3wH0ce5iU358i
+	bInAg4h4cRUa7ktIrpIr2ww5hp/FSMVNL552CrIvCHIkd5wBGtTDs0gy1plIEe9zRcKT1N
+	sYVHSH3Y3iTc6LCiLfdPnj8aIO8gLUo=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-470-NIYOUXgtOIWmDmt7FNVmKA-1; Fri,
+ 11 Sep 2026 09:59:17 -0400
+X-MC-Unique: NIYOUXgtOIWmDmt7FNVmKA-1
+X-Mimecast-MFC-AGG-ID: NIYOUXgtOIWmDmt7FNVmKA_1789135156
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A7FEC1954AC5;
+	Fri, 11 Sep 2026 13:59:15 +0000 (UTC)
+Received: from fedora (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 3C5AA195608D;
+	Fri, 11 Sep 2026 13:59:12 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Fri, 11 Sep 2026 15:59:15 +0200 (CEST)
+Date: Fri, 11 Sep 2026 15:59:11 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, Hyunwoo Kim <imv4bel@gmail.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>,
+	Alan Stern <stern@rowland.harvard.edu>
+Subject: Re: [patch V3 4/8] posix-timers: Move POSIX timer group exit related
+ code out of do_exit()
+Message-ID: <aqQJL_sY3o01lE2p@redhat.com>
+References: <20260911090341.949101445@kernel.org>
+ <20260911090541.733966325@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260911090541.733966325@kernel.org>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Instead of hard-coding the TUSB73X0 PCI ID, USB_CTRL register address
-and the PWRON_POLARITY, introduce definitions for them to make the code
-easier to read.
+On 09/11, Thomas Gleixner wrote:
+>
+> From: Thomas Gleixner <tglx@kernel.org>
+>
+> Move the POSIX timer group exit handling into the posix timer code and
+> provide a proper stub when POSIX timers are disabled in Kconfig.
+>
+> No functional change.
 
-No functional change.
-
-Signed-off-by: Fabio Estevam <festevam@gmail.com>
----
-Changes since v1:
-- None. Only sent it as a standalone patch instead of part
-of a series.
-
- drivers/usb/host/xhci-pci.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
-index a8889081ae82..c580e0b86011 100644
---- a/drivers/usb/host/xhci-pci.c
-+++ b/drivers/usb/host/xhci-pci.c
-@@ -28,6 +28,9 @@
- #define SPARSE_DISABLE_BIT	17
- #define SPARSE_CNTL_ENABLE	0xC12C
- 
-+#define TUSB73X0_USB_CTRL			0xe0
-+#define TUSB73X0_PWRON_POLARITY			BIT(22)
-+
- /* Device for a quirk */
- #define PCI_VENDOR_ID_FRESCO_LOGIC		0x1b73
- #define PCI_DEVICE_ID_FRESCO_LOGIC_PDK		0x1000
-@@ -95,6 +98,8 @@
- #define PCI_DEVICE_ID_ASMEDIA_3042_XHCI			0x3042
- #define PCI_DEVICE_ID_ASMEDIA_3242_XHCI			0x3242
- 
-+#define PCI_DEVICE_ID_TI_TUSB73X0			0x8241
-+
- static const char hcd_name[] = "xhci_hcd";
- 
- static struct hc_driver __read_mostly xhci_pci_hc_driver;
-@@ -479,7 +484,8 @@ static void xhci_pci_quirks(struct device *dev, struct xhci_hcd *xhci)
- 	    pdev->device == PCI_DEVICE_ID_ASMEDIA_3042_XHCI)
- 		xhci->quirks |= XHCI_RESET_ON_RESUME;
- 
--	if (pdev->vendor == PCI_VENDOR_ID_TI && pdev->device == 0x8241)
-+	if (pdev->vendor == PCI_VENDOR_ID_TI &&
-+	    pdev->device == PCI_DEVICE_ID_TI_TUSB73X0)
- 		xhci->quirks |= XHCI_LIMIT_ENDPOINT_INTERVAL_7;
- 
- 	if ((pdev->vendor == PCI_VENDOR_ID_BROADCOM ||
-@@ -678,7 +684,8 @@ int xhci_pci_common_probe(struct pci_dev *dev, const struct pci_device_id *id)
- 	dma_set_max_seg_size(&dev->dev, UINT_MAX);
- 
- 	if (device_property_read_bool(&dev->dev, "ti,pwron-active-high"))
--		pci_clear_and_set_config_dword(dev, 0xE0, 0, 1 << 22);
-+		pci_clear_and_set_config_dword(dev, TUSB73X0_USB_CTRL, 0,
-+					       TUSB73X0_PWRON_POLARITY);
- 
- 	return 0;
- 
--- 
-2.43.0
+Reviewed-by: Oleg Nesterov <oleg@redhat.com>
 
