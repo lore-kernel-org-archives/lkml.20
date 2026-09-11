@@ -1,150 +1,228 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC214AA1E4;
-	Fri, 11 Sep 2026 18:16:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E2B04AD4B4
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:16:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150577; cv=none; b=NECDPvvtJ/7nAh/LyTap3ohh6oyTlsZPfWr1IDMJoTR2Kj931l/lI8rm4I9FyFHAo9muu9LnEDg9EiK4Ah6E72FsBMkN/sM5YNlF42UYdDDp5DNl0GgwYKdl1euojmvYcqz/oz+EMvUl2X4+Y2JPx/ZiVXVzbQh7sQT82u5aOAY=
+	t=1789150575; cv=none; b=m0MFEo7oHTkUfWhr87Mp4CBRVAWsmoEtHha3GL6GcibMI/j4TZoIusJNvMwIAoJyCpu8EdxA+K/Oic5vtMBdlWMxFzDp0FfGq8IBSjs5fjrH4fPxDKz04rLGXKOwOlSKZtkIaYZGz4WTQeV+Cv/3xmZTvhXlqk/UlSAlBDxUufE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789150577; c=relaxed/simple;
-	bh=unD1bACTbEL3QbNRseqgPpbhjnVkE5+IG8xF41To1EI=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=bCarv/X5NUGjtA2tzK9G2OQCwRMlhbF2kk2jmcEbbWj+k8J3RYfrGA7eGZEH4gKet0x6guCBeQ5vA0ggOWUpo3LjAzkZh1hn5CfM3cyVdEPMBYEmBU4vVQYVEsllIYb+Mkvp34pcDw/gzHNz/HFtPrwNhY6XbkVVuWjiQREDDMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iZlnZvSP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789150575; c=relaxed/simple;
+	bh=LCD7gdzajKWCVUwRqfFHLD8+ICLj+ABHSdLQNBqnH7A=;
+	h=Message-ID:Date:From:To:Cc:Subject; b=rEDEBL85hRqJ91+UpakCXw7T3H+zBevi8Bl3p+CCfp/CojA4XmCo7dIglCstMz+bXw51hQdD6IdGgWo7JP98kzDH697czK5lHgKUvAAFVyPvOlM0HjwaQFQ5YOucAaFZF6t1TtWhi3aTsWb4JDVPl2UDJBoekhyM2mqJFXT/vic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=juFnpxqb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iZlnZvSP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13C831F0089A;
-	Fri, 11 Sep 2026 18:16:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="juFnpxqb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2D431F000FF;
+	Fri, 11 Sep 2026 18:16:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789150567;
-	bh=7aBkvDAjs0rhAtrLr4xdw2vsPlHvsQzthg8lSC73E0o=;
-	h=Date:From:To:Cc:Subject:References;
-	b=iZlnZvSPk7pUxcflIhM2uPzZasm3skZ1jyQcuSKJtMnLtGofumD0s2dG9AaD443xb
-	 eAuAs5rMT1TyYvFwm+2MSanJUyc7duxJn8i6enFLtPb/IS7hnNsE4sPOUOq1zzfBpZ
-	 ZTLZEm+t1bdKFgO6S8WE8YrOztO8Phb1kvOD2Q6aQFuBvzd4gV9NiT7ABzNQgnjAi3
-	 wacaEm7FXflDdp4wft7wuC7Hogf7MNqNdJRjphFkL7fLwUndSUKFH8tCWtP1XAsYmk
-	 Ox1+mhPCYBpHi8WomvXfDM5jmtJiBGWRqjYYXwBnMWUB3rjK2tFY2RHf32WY+7NShp
-	 4yGtpu23dK6Qg==
+	s=k20260515; t=1789150566;
+	bh=JXeW2edCff2ijWr4nvHd/xF/nRaVI5Pr4juDx1yNCBk=;
+	h=Date:From:To:Cc:Subject;
+	b=juFnpxqbmXjEfi/5nwC0Yx7lwUxz9PKPPyyRzoC2d6M4VupsnhaWwIZZP3fI3cwoe
+	 UEap99flxnGPQ1uCVi5NNgjYdoqMofYlrX1VB1cOm+sgO0TGUPJ3MppjiAnsJbE+/F
+	 VQ7flnx61+kRb6bawLqUUzTCMkboBVszydgn/btJ9TajH0MaSLljeSnrcJUNFccIK3
+	 zY1LUaKn0rvkVpPzk3TMK8yq90BfuPu4zQk4yUydOoUb47M23+f9Kpp6MfrC+UDMdM
+	 wSp8Kh7NQywu+ZWNmU34gRMILeTZucl3u33Yj95kiE2NCnp+SBbQrnKfk6pQEIZon5
+	 099KZtW+pWijA==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1x55oW-000000094vZ-37Ue;
+	id 1x55oW-000000094uQ-1BEt;
 	Fri, 11 Sep 2026 14:17:28 -0400
-Message-ID: <20260911181728.537106536@kernel.org>
+Message-ID: <20260911181636.485043797@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 11 Sep 2026 14:16:38 -0400
+Date: Fri, 11 Sep 2026 14:16:36 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mark Rutland <mark.rutland@arm.com>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
- stable@vger.kernel.org,
- Bradley Morgan <include@grrlz.net>,
- =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Subject: [for-linus][PATCH 02/20] ftrace: fork: Initialize function graph state before
- copy_exec_state()
-References: <20260911181636.485043797@kernel.org>
+ Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+ Hemanth Selam <hemanth.selam@gmail.com>,
+ Henry Martin <bsdhenrymartin@gmail.com>,
+ =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+ Karl Mehltretter <kmehltretter@gmail.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+Subject: [for-linus][PATCH 00/20] tracing: Fixes for v7.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
 
-dup_task_struct() copies the parent's task_struct, including ret_stack.
-ftrace_graph_init_task() clears the copied function graph state, but it
-currently runs after copy_exec_state().
+tracing fixes for 7.3:
 
-For non-CLONE_VM forks, copy_exec_state() allocates a new task_exec_state.
-If that allocation fails, copy_process() reaches bad_fork_free and
-free_task() calls ftrace_graph_exit_task(). Since the child still carries
-the parent's ret_stack pointer, the unwind frees the parent's active
-function graph return stack. The parent subsequently accesses freed memory
-from function_graph_enter_regs().
+- Don't destroy user event fields when removal fails
 
-KASAN reports:
+  User event fields are destroyed before the event is removed from
+  visibility. But that can fail leaving the still visible event with no
+  fields. Move the destroying of the fields to after the event is
+  successfully removed from visibility.
 
-[   22.190920] ==================================================================
-[   22.195899] BUG: KASAN: slab-use-after-free in function_graph_enter_regs+0xa76/0xb90
-[   22.200747] Write of size 8 at addr ff110000054dc0a8 by task repro/1
-[   22.205134]
-[   22.210770] CPU: 0 UID: 0 PID: 1 Comm: repro Not tainted 7.2.0-07732-g9328b3b03bdc-dirty #3 PREEMPT(lazy)
-[   22.212576] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[   22.213750] Call Trace:
-[   22.215271]  <TASK>
-[   22.216242]  ? ftrace_stub_direct_tramp+0x10/0x10
-[   22.217774]  dump_stack_lvl+0x4e/0x70
-[   22.220531]  print_report+0x157/0x4b4
-[   22.223202]  ? fixup_red_left+0x9/0x30
-[   22.224407]  ? complete_report_info+0x83/0x110
-[   22.226679]  ? function_graph_enter_regs+0xa76/0xb90
-[   22.228084]  kasan_report+0xce/0x100
-[   22.230109]  ? function_graph_enter_regs+0xa76/0xb90
-[   22.232860]  ? stack_trace_save+0x4/0xd0
-[   22.234156]  function_graph_enter_regs+0xa76/0xb90
-[   22.236090]  ? kasan_save_stack+0x30/0x50
-[   22.237752]  ? __pfx_function_graph_enter_regs+0x10/0x10
-[   22.238694]  ? ring_buffer_lock_reserve+0x345/0xf80
-[   22.239628]  ? stack_trace_save+0x4/0xd0
-[   22.242121]  ? stack_trace_save+0x4/0xd0
-[   22.243588]  ftrace_graph_func+0xda/0x160
-[   22.245362]  ? ftrace_stub_direct_tramp+0x10/0x10
-[   22.246520]  0xffffffffa0000095
-[   22.250528]  ? stack_trace_save+0x9/0xd0
-[   22.251757]  ? ring_buffer_unlock_commit+0x11d/0x5c0
-[   22.253152]  stack_trace_save+0x9/0xd0
-[   22.254264]  kasan_save_stack+0x30/0x50
-[   22.273631]  kasan_save_track+0x14/0x30
-[   22.276763]  kasan_save_free_info+0x3b/0x70
-[   22.278296]  __kasan_slab_free+0x43/0x70
-[   22.280157]  kmem_cache_free+0xbf/0x3b0
-[   22.282963]  ? ftrace_stub_direct_tramp+0x10/0x10
-[   22.284001]  free_task+0xa2/0x160
-[   22.285699]  ? ftrace_stub_direct_tramp+0x10/0x10
-[   22.286752]  copy_process+0x2aae/0x7bc0
+- Initialize function graph state is fork before calling copy_exec_state()
 
-Initialize the child function graph state immediately after
-dup_task_struct(), before the first fallible operation.
+  For non-CLONE_VM forks, copy_exec_state() allocates a new task_exec_state.
+  If that allocation fails, ftrace_graph_exit_task() will free the tasks
+  ret_stack pointer. Since that pointer is still using the parent's
+  ret_stack, it mistakenly frees the parent's pointer too.
 
-Cc: stable@vger.kernel.org
-Fixes: 6b1c66c9cca9 ("exec_state: relocate dumpable information")
-Reviewed-by: Bradley Morgan <include@grrlz.net>
-Link: https://patch.msgid.link/20260822195321.962383-2-Jeremy.Jean@oss.cyber.gouv.fr
-Assisted-by: Codex:gpt-5
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
----
- kernel/fork.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+  Call ftrace_graph_init() on the task first which will NULL out the new
+  tasks's ret_stack and if the copy fails, it will not free anything.
 
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 416758c8a3d4..a5934a317634 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -2133,6 +2133,11 @@ __latent_entropy struct task_struct *copy_process(
- 	p = dup_task_struct(current, node);
- 	if (!p)
- 		goto fork_out;
-+	/*
-+	 * Must run before the first fallible op, so error paths never
-+	 * free the parent's ret_stack.
-+	 */
-+	ftrace_graph_init_task(p);
- 	retval = copy_exec_state(clone_flags, p);
- 	if (retval)
- 		goto bad_fork_free;
-@@ -2159,8 +2164,6 @@ __latent_entropy struct task_struct *copy_process(
- 	 */
- 	p->clear_child_tid = (clone_flags & CLONE_CHILD_CLEARTID) ? args->child_tid : NULL;
- 
--	ftrace_graph_init_task(p);
--
- 	rt_mutex_init_task(p);
- 	raw_spin_lock_init(&p->blocked_lock);
- 
--- 
-2.53.0
+- Remove FGRAPH_MAX_INDEX
+
+  The macro FGRAPH_MAX_INDEX was added but never used. Remove it.
+
+- Save ent_size in function graph printing of nested functions
+
+  The function graph tracer needs to look at the next event to see if the
+  next event is the return of the current function entry. If it is, it
+  prints a single line:
+
+    ktime_get();
+
+  Otherwise it prints it like a nested function:
+
+    tick_nohz_irq_exit() {
+      ktime_get();
+      kcpustat_irq_exit();
+    }
+
+  In order to look at the next event, it must save the current event so that
+  it has the information to print from it. It saves the event in the
+  iterator descriptor called "ent". What it doesn't save is the ent_size of
+  the event which is now used to know if the function graph arguments are to
+  be printed. The peek doesn't save the size so the size used happens to be
+  that of the size of the last event that was seen.
+
+  Save the entry event size in the iterator descriptor so that the correct
+  size is used.
+
+- Fix several errors with freeing data in the histogram code
+
+  The histogram code had a lot of leaked or or incorrect accounting when
+  failures happen. Correct them.
+
+- Fix histogram regression of .percent and .graph modifiers
+
+  Up until 6.3 histogram values could have "percent" or "graph" modifiers
+  that changed how they were printed. But a change that added restricting
+  histograms values from being strings, stack traces and other modifiers
+  inadvertently prevented them from using the percent and graph modifiers,
+  which were legal use cases for values.
+
+  Put back the percent and graph modifiers.
+
+- Fix various typos in the comments
+
+- Set the trace_clock before initializing a histogram with clock argument
+
+  The histogram API allows the user to specific which trace clock to use via
+  a "clock=" string. The histogram is set up first before the clock is
+  checked. If the passed in clock is not valid, it exits without fully
+  fixing up the histogram leaving it on the list and a use-after-free can
+  trigger.
+
+  Update the clock argument first and if it fails then exit gracefully
+  before the histogram trigger is placed on any lists.
+
+- Restore :mod: trailer after parsing in ftrace_set_clr_event
+
+  The function ftrace_set_clr_event() modifies the parse string and needs to
+  put it back to what was passed in. It searches for ":mod:" via a strsep()
+  but fails to put back the first ':' in the string.
+
+  Add back the ':' in the passed in string.
+
+- Take trace_array reference when opening a tracer options file
+
+  The options files are dynamically created and some tracers add their own
+  options. When a tracer adds their own list of options, the trace_array
+  holding them has an array to hold the list of options for each tracer.
+  This array increases in size via a krealloc(), and the new entry gets a
+  newly allocated array to hold the options of the new tracer being added.
+
+  The element in each entry of the tracer's option array holds a pointer
+  back to the trace_array, a pointer to the tracer it is associated to, a
+  pointer to the flags of the option.
+
+  The issue is that these arrays are freed when the trace_array is freed
+  when its instance it represents is removed from the instances directory.
+  There's a race that an open of one of these options files can happen when
+  the instance is being removed.
+
+  Add a new helper function to be called by the open function of the options
+  file to iterate all existing trace_arrays under a lock and find the one
+  that has the given option element in one of it's tracer arrays. If found,
+  then update the associated trace_array's reference counter to keep it from
+  being freed. If not found, have the open call return -ENODEV.
+
+- Disable interrupts when acquiring the lock in rb_wake_up_waiters()
+
+  The function rb_wake_up_waiters() assumes it will be called in interrupt
+  context and does not disable irqs when taking cpu_buffer->reader_lock,
+  which can be called in hard interrupt context. The issue is in PREEMPT_RT,
+  this function is called in thread context leaving this lock open to a
+  deadlock.
+
+  Take the lock with interrupts disabled.
+
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
+trace/fixes
+
+Head SHA1: 815e07c8fe885a87751c2496a30ae0dcd4118210
+
+
+Donggeun Yoo (12):
+      fgraph: Remove unused FGRAPH_MAX_INDEX
+      function_graph: Use the saved entry's size when reprinting it
+      tracing: Free histogram var refs regardless of how often they are referenced
+      tracing: Free histogram the var ref when its initialization fails
+      tracing: Free histogram the field rejected for a bad modifier
+      tracing: Keep the entry count when the histogram stats allocation fails
+      tracing: Let histogram values keep the percent and graph modifiers
+      tracing: Set the trace clock before registering the histogram trigger
+      tracing: Take the reference before publishing the named histogram trigger
+      tracing: Undo the registration when enabling the histogram trigger fails
+      tracing: Fix memory corruption from the histogram stacktrace modifier
+      tracing: Fix memory corruption from a "STACKTRACE" histogram key
+
+Hemanth Selam (2):
+      tracing: Fix typo "availabe" in comment
+      tracing: Fix typo "preceeded" in comment
+
+Henry Martin (1):
+      tracing/user_events: Don't destroy fields when event removal fails
+
+Jérémy Jean (1):
+      ftrace: fork: Initialize function graph state before copy_exec_state()
+
+Karl Mehltretter (1):
+      tracing: Fix ring_buffer_read_page_size() kernel-doc
+
+Sebastian Andrzej Siewior (1):
+      ring-buffer: Acquire the lock with irqsave in rb_wake_up_waiters()
+
+Steven Rostedt (1):
+      tracing: Take trace_array reference when opening a tracer options file
+
+Thomas Weißschuh (1):
+      tracing: Restore :mod: trailer after parsing in ftrace_set_clr_event()
+
+----
+ include/trace/events/timer.h         |  2 +-
+ kernel/fork.c                        |  7 ++-
+ kernel/trace/fgraph.c                |  3 --
+ kernel/trace/rethook.c               |  2 +-
+ kernel/trace/ring_buffer.c           | 15 +++----
+ kernel/trace/trace.c                 | 46 ++++++++++++++++++-
+ kernel/trace/trace.h                 |  1 +
+ kernel/trace/trace_events.c          |  2 +
+ kernel/trace/trace_events_hist.c     | 86 +++++++++++++++++++-----------------
+ kernel/trace/trace_events_user.c     | 26 ++++++++---
+ kernel/trace/trace_functions_graph.c |  3 ++
+ 11 files changed, 130 insertions(+), 63 deletions(-)
