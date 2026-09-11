@@ -1,130 +1,154 @@
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 479FA3D891F
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:18:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.24
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789093092; cv=none; b=S6ZGq0tuSjAUG9I14rF3Zvj7Qg0IUtH05KbS7ALOq7OVgb0NnFdyPdpaEoarp+GnfN1ibeqCjdsZSEhmTw53sPXjlK7wRP+0RNa37hfKa4HVw8MYU8+XSwf8kwMkBk5DMbHVPlGEiRQwVVTcc2PlSnojyc2O0Iy4uwr7uZ7PbLk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789093092; c=relaxed/simple;
-	bh=sb9XA5jIUBxmoa+Co1REyrkLnNvoLNEwcKFBsdJV6xo=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
-	 Content-Type:References; b=sNt05TM2CXW5fYMofo9IhumKiB281jzu1DFZKHXDwSXQPRgqZ6lD9zZWNKwj2Lo9HBbT0TlBewOME6UYw7b0RKKDdAOzLcT1ZTxiSs/7oWm8iBigdboSA67VWlsVJoMOmKsTRpeta70+mlYHhZqJz6ZS/VoGnXioL/3PK6M1g4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=ZWEAKJZJ; arc=none smtp.client-ip=203.254.224.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 669B33DDAFA
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:18:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789093090; cv=pass; b=Rxq6v1lj+Brug63cpfZ7BcDd9NEV/6RFy1U1jT05b4S3LEz2ChzBbVtJNueWgyuXKyQPmyDXuN1hwXEbVsDXtzMZqF/AlpjWsqXaa2OciAJtYApgDzORIAe8iqem88/ObmySunS1Y8NflrM2aEXOXGQqM+SUf4WL/1x35uewX0Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789093090; c=relaxed/simple;
+	bh=fSxVRMq132kOj2ATc0wCqEK6btSyS1N+nOlxjKOO1SI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=B+rtvo5v3UWux1szwv44nkIkMAT5XQBS0DHS+/592EcCkQoIBwTiO2qzDN0mo+C0YRUZ6qRJqrk30KwW0pOVuKhZHlWYBRGVdRnDhp3j57qQjdgtm73qtU3YU0CqFsxFNC10Lq9fhVOGdjy2F0oYbnxlXt2LHOvQ9IsU7vZA47E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NsqziPQm; arc=pass smtp.client-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="ZWEAKJZJ"
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20260911021803epoutp01eea364fc0b18796bcf3b1cd0f6d1fd4f~UIq42-ilT1798217982epoutp01G
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:18:03 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20260911021803epoutp01eea364fc0b18796bcf3b1cd0f6d1fd4f~UIq42-ilT1798217982epoutp01G
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1789093083;
-	bh=NFtbyzYoNl/zCEgTU0VH6n/v1JONtCfMPfAx62T90jY=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
-	b=ZWEAKJZJVgEC7eZ2jFl1u3xZ2Hhys6o8newPTd3nLC9fZ6xPEaB05tziAoTWtxTjr
-	 B4hpZh2sClxvvqyGaHKyBLlKOeTEFD1QXCpBKdO/pa+fsdU4/zxRPhX5y7+skWBvCb
-	 YoVT56EZh2H+0zs9SkMUcI3tx4OJ8LfU51XvgkUc=
-Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
-	20260911021803epcas5p125a2fd347d43b9bfdd2cf660e77fbc2b~UIq4dqRYd1230512305epcas5p1s;
-	Fri, 11 Sep 2026 02:18:03 +0000 (GMT)
-Received: from epcpadp2new (unknown [182.195.40.142]) by
-	epsnrtp02.localdomain (Postfix) with ESMTP id 4hgyrC15sTz2SSKZ; Fri, 11 Sep
-	2026 02:18:03 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260910155949epcas5p25209000963122d8c73dc18152feeabee~UAPGFN7l72530325303epcas5p2N;
-	Thu, 10 Sep 2026 15:59:49 +0000 (GMT)
-Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip2.samsung.com
-	(KnoxPortal) with ESMTPA id
-	20260910155947epsmtip28ec55c8ae2033e856b86e2b9ec9c545e~UAPEp86IB1332813328epsmtip2p;
-	Thu, 10 Sep 2026 15:59:47 +0000 (GMT)
-From: "Alim Akhtar" <alim.akhtar@samsung.com>
-To: "'Krzysztof Kozlowski'" <krzysztof.kozlowski@oss.qualcomm.com>,
-	<linux-fsd@tesla.com>, "'Krzysztof	Kozlowski'" <krzk@kernel.org>, "'Peter
- Griffin'" <peter.griffin@linaro.org>, "'Rob	Herring'" <robh@kernel.org>,
-	"'Conor Dooley'" <conor+dt@kernel.org>
-Cc: <linux-arm-kernel@lists.infradead.org>,
-	<linux-samsung-soc@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-In-Reply-To: <20260909-dts-samsung-cleanup-strict-v1-4-1b755a446b22@oss.qualcomm.com>
-Subject: RE: [PATCH 4/5] arm64: dts: fsd: Re-order nodes to match coding
- style
-Date: Thu, 10 Sep 2026 21:29:46 +0530
-Message-ID: <2084663827.61789093083145.JavaMail.epsvc@epcpadp2new>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NsqziPQm"
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a9bd4db6ccso78634a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:18:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789093085; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Un3qnTvAUCBDGSRZjSI+9yGj9qVJK2ty2/qX8D3TmfLWDngpzWXFpDMYnkKaOoP/fZ
+         QlC6SK41YZASyBWvSLINDO9nb3DiI5+3GrmxVlyRJFAiE6JtxxzIa9F85xSDWOu1aTJI
+         giVlf80Cm47c/3+SlVuI1cEuOutX25yA/NNrgQEfWBL/IETMXInngs2TH91gSGVjaFEn
+         m0wsTaC/nZ2CfvddHdKX7XzXQ3MUj5Fio0BPyq5hF44CCrkXyetnueK6TjME2/nRHJWE
+         FUhhyQkhdo1702mQ9bwqWL97NR4vbe1L6c2zYdpNo2ykm7gChQyaob/TUTIwiMAxvQiX
+         w7ww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=VOf8wCMzpNS46oThIuz/r1xf8XxutZ0hada+Stru3rY=;
+        fh=yokjfeV04BPpbMZdYhvuR0KDhk3sYz/sAWzMOqJ3TPM=;
+        b=ZgtfAh2rytzslKd/Y+wIUefIXUVjuWg157AnURTMU8DtXfbEiEiBHyYel1wu8sJOsq
+         PnwldkM9Di9dokawE3q+ghIbeamH9Ii5loMal5EYMmjtQSfQRcDglpzYkhGB2kZz3qPp
+         pH6g6IQGU1FtN0wqBQ0cXJl5LBDT1zWw3SQP7qhIA+aKEoc/fS8PKD/9bBsF5dV41noF
+         +Bov9FbU71cvEZbvidOEAKZg5osaKw6FBI7JOOudYPOzrFpzDz4AY0pRvhXVrJ+L/uJA
+         /h9O4B3XYdM1l+1q8KQJusSb3xpmla7CKOUoI5AKhhLhlbumB2Su0rHRto1GGFCLf8f7
+         ZK+g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789093085; x=1789697885; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VOf8wCMzpNS46oThIuz/r1xf8XxutZ0hada+Stru3rY=;
+        b=NsqziPQmRuJ67Y6R/gAwrBmusYWrnskSOcW2fT9HKv3YIxm+42/0vmQuPpv6y7ZK78
+         SoTLP5HIg4F4ovhmX2xps++NGUHJFkAODl7+ffhhoB7TaYADqoYZ7mWXEmWSi0lwYX1f
+         oDpNgQOqPHiKUwqAphhIHEFXZQBKw/biKla0JfgRgFvX4Vmv3MQwjMN4CHzCzI3tVRLs
+         EMZllASCQ+6tGhkTkGIdaQPLPRk4IwuoLwL8aJwh89begODF6ggrEhOekXMsySi2+87F
+         cMGVC82Y2wEQWTiQ5g/2Jea48SzOrhn5G362BWsMiB9kvBYDJMHRSi5XKfr1aJZoVHoG
+         nhHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789093085; x=1789697885;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VOf8wCMzpNS46oThIuz/r1xf8XxutZ0hada+Stru3rY=;
+        b=R4yEVX4opqhbFo8tZ+8uvN+DYe1ycPvTLMn1LjGZ8gTITfSvq+vUmzbgrkhdrxDjLa
+         Dv4/6cPZozIjVQ+foYTADHM7wR17SaShwlH2w+aRMc9VWa3HM4PCfeSJO9aRxItp2K05
+         MmjmP1MGAiABqhW5DfS2O4t8PoBTu+dUdNzOHG0SuBP/VSYzh++RjjWhZehB9Yqf6Vrc
+         n22ljtOVIT7YqRu6BKatXgsZB6ry63L4fUsktbfKhyP8oe/DRUevEsvVfBZdwrfxCHKa
+         Yx2nVCWM/1H7goyGy4U1sbCttvsQ8zX12qJ0jTRxV+L1LGtc3dspNUtCubegv7ch9V+a
+         Zz4A==
+X-Forwarded-Encrypted: i=1; AKwUvBxOtrPingJ771EnfT5aIqzDOcVIZ2LTe3au0lD2Z8CFGNB53FlM0U98QErGnPVKpCYTwR1RRKwXnyERNY8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nUknfMz7JGV8X2K8ivO6cssH3fF0H30cAypa6V0N9tBc8RlHiT
+	oKd60ykTdsq0tIdJrFQg9m5irTOaILxT4OcBIdlBV3rs7Kon6TTGFEuoxFwPZrY8xbtdrocTAQ9
+	GBlo2D2rMpQLDhRPcvWN2E3BnAXjZFVIioHLb
+X-Gm-Gg: AYBFou39tCHhrESO86AwZ6qOg2u5ixCiHYavEmXCEKFDl/Hzz0em6huPn1TVXIUHqkf
+	RIKQu7TEH3k2EEdhj494YBOKPBtnTIT1foGzP07EpKiGpd73RQlcZ/KsLSpVJ3vcSjsjcJ74wbj
+	m+5PYGgWEuQYiQEVVJ9guHxmCGUZE1bTFXhDbscHY8s+ZbNzc2TYLNmGSIo63LGLIqISTUE4Bfx
+	/Qe8PZW9Y+NXokfMqoxv2Obbpybx3KL6F0NVH8VCTegloaBTpAqz0vK6zQaTvMQoFSM3p/E7QLU
+	erj4BjvNeVewuYfOwdLK7T/w/N1ZMWB5gXWSyfttKM4L00lLotmxQQuNq2arRIGk32mbeiLByRC
+	ew4Ejzz7k3bH+ZnNTQcohqQ==
+X-Received: by 2002:a05:6402:434c:b0:6a7:ee54:f89b with SMTP id
+ 4fb4d7f45d1cf-6a9b56b92aemr845829a12.31.1789093084498; Thu, 10 Sep 2026
+ 19:18:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260910123903.1717-1-lirongqing@baidu.com>
+In-Reply-To: <20260910123903.1717-1-lirongqing@baidu.com>
+From: Jason Wang <jasowangio@gmail.com>
+Date: Fri, 11 Sep 2026 10:17:52 +0800
+X-Gm-Features: AcwNN1Vwyl3IOS3-AfXLFBbOtS2xium60bWgjIdD1Wj01boHjLIsh_FiFaULx-Y
+Message-ID: <CAAf7B_M=tfyL33WGkxSX68FwPaRRRBcASVx92EGwPMXaFtUdzQ@mail.gmail.com>
+Subject: Re: [PATCH] virtio_ring: reset IN_ORDER state in virtqueue_init()
+To: lirongqing <lirongqing@baidu.com>
+Cc: "Michael S . Tsirkin" <mst@redhat.com>, =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, virtualization@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQI+vGmeAYQ1M8KGwzLNRALcGC0DngIGdcDsAfk7HAC15QOycA==
-Content-Language: en-us
-X-CMS-MailID: 20260910155949epcas5p25209000963122d8c73dc18152feeabee
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-X-CPGSPASS: Y
-X-Hop-Count: 3
-X-CMS-RootMailID: 20260909141824epcas5p28e392ad97ca2e5dae47a857272b5ea14
-References: <20260909-dts-samsung-cleanup-strict-v1-0-1b755a446b22@oss.qualcomm.com>
-	<CGME20260909141824epcas5p28e392ad97ca2e5dae47a857272b5ea14@epcas5p2.samsung.com>
-	<20260909-dts-samsung-cleanup-strict-v1-4-1b755a446b22@oss.qualcomm.com>
 
+On Thu, Sep 10, 2026 at 8:39=E2=80=AFPM lirongqing <lirongqing@baidu.com> w=
+rote:
+>
+> From: Li RongQing <lirongqing@baidu.com>
+>
+> The IN_ORDER feature uses additional software state to track the next
+> available descriptor and in-flight descriptor batches.
+>
+> virtqueue_init() resets the common virtqueue state, but free_head and
+> batch_last.id are initialized only when the virtqueue is created. When
+> an IN_ORDER virtqueue is reset, these fields can retain state from the
+> previous queue instance.
+>
+> Reset free_head and invalidate batch_last when initializing an IN_ORDER
+> virtqueue. Keep this in virtqueue_init() so the state is initialized
+> consistently for both newly created and reset virtqueues.
+>
+> Fixes: f6a15d854986 ("virtio_ring: add in order support")
 
+I think this is needed for -stable.
 
-> -----Original Message-----
-> From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Sent: Wednesday, September 9, 2026 7:48 PM
-> To: Alim Akhtar <alim.akhtar@samsung.com>; linux-fsd@tesla.com;
-> Krzysztof Kozlowski <krzk@kernel.org>; Peter Griffin
-> <peter.griffin@linaro.org>; Rob Herring <robh@kernel.org>; Conor Dooley
-> <conor+dt@kernel.org>
-> Cc: linux-arm-kernel@lists.infradead.org; linux-samsung-
-> soc@vger.kernel.org; devicetree@vger.kernel.org; linux-
-> kernel@vger.kernel.org; Krzysztof Kozlowski
-> <krzysztof.kozlowski@oss.qualcomm.com>
-> Subject: [PATCH 4/5] arm64: dts: fsd: Re-order nodes to match coding styl=
-e
->=20
-> Re-order several top-level and MMIO nodes to match coding style - orderin=
-g
-> by name or by unit address, as pointed out by dt-check-style,
-> e.g.:
->=20
->   fsd.dtsi:981: [child-address-order] child node @10040000 out of address
-> order
->   fsd.dtsi:315: [child-name-order] child node 'arm-pmu' out of name order
->   fsd.dtsi:348: [child-name-order] child node 'clock' out of name order
->=20
-> While moving chunks of code, also re-order a few properties (I2S, SPI and
-> CAN nodes) to fix:
->=20
->   fsd.dtsi:661: [property-order] property 'clocks' out of canonical order
-> (should sort before 'samsung,syscon-phandle')
->   fsd.dtsi:936: [property-order] property 'pinctrl-names' must be placed =
-after
-> 'pinctrl-0'
->   fsd.dtsi:936: [property-order] property 'pinctrl-names' out of canonica=
-l
-> order (should sort before 'samsung,spi-src-clk')
->=20
-> Moving several nodes already creates unreviewable commit, thus reshufflin=
-g
-> the properties allows to skip changing the same line twice without loss o=
-f
-> readability.
->=20
-> Signed-off-by: Krzysztof Kozlowski
-> <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Li RongQing <lirongqing@baidu.com>
 > ---
+>  drivers/virtio/virtio_ring.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/drivers/virtio/virtio_ring.c b/drivers/virtio/virtio_ring.c
+> index db678f5..d0dc464 100644
+> --- a/drivers/virtio/virtio_ring.c
+> +++ b/drivers/virtio/virtio_ring.c
+> @@ -559,6 +559,11 @@ static void virtqueue_init(struct vring_virtqueue *v=
+q, u32 num)
+>         vq->in_use =3D false;
+>         vq->last_add_time_valid =3D false;
+>  #endif
+> +
+> +       if (virtqueue_is_in_order(vq)) {
+> +               vq->free_head =3D 0;
+> +               vq->batch_last.id =3D UINT_MAX;
+> +       }
 
-Reviewed-by: Alim Akhtar <alim.akhtar@samsung.com>
+I would try to reuse or refactor virtqueue_vring_attach_split() to
+reduce code duplication.
 
+Btw have you checked Qemu shadow virtqueue as it might suffer from the
+same issue.
 
+Thanks
 
+>  }
+>
+>
+> --
+> 2.9.4
+>
