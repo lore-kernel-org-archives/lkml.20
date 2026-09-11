@@ -1,33 +1,33 @@
 Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A7F470EA9;
-	Fri, 11 Sep 2026 09:20:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1224749DD;
+	Fri, 11 Sep 2026 09:20:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789118429; cv=none; b=QKax01TmQ3CqebPiT3r42pz7EcoWnPBsXb/Yc/WZZAZbU7aFvlJNnptvpPE8Nl7oWsMebJRtQ89YSrhEbL98uVJH7oV/nkkZJmT+Bp4sM7mSBmmVTAMdX6meO6KGNfNnrqQRAXNt1+ywRmpHdZw1rxQcIcT+TWw4Tm484Df2gm8=
+	t=1789118431; cv=none; b=uLqBVg7zyjYJQwaDuHGNvpPuvVDS4JTNXcn8tEi42a4SH6P5R62bONlpZPC0rda2Mm1MBJ0yH64S6EXUElUVY3iAAnkwHF64II0c770ZauTtXc7AguwMVunDLF3p6HXnLsDdqCF9u6xukiCZVINqVGeEbpShLeT8h7Dfn2rg768=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789118429; c=relaxed/simple;
-	bh=qv/pge2Ap4CnQwMwwU/apBOTqI1n0BM0YF/SNPyiN8E=;
+	s=arc-20240116; t=1789118431; c=relaxed/simple;
+	bh=7UDp7DV290QTnlw6YLcJv/4PPDwc1MfouVorh7CClAY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=L8as18OEqmLbN/W6PTdHNHtmfnWYLEk3rdEKnXmvE8AkI1UE6irvcXUAQS9/KCrTbJC7D87YAw0nk8CTGMqfTuMM6dDycWj0Naa3sW86SotQo3CWx1OXwKVRw9cjRRq/67KWubrHKOVgz5Gi1Ex8L4IvcKsPE9pfX+t8FOTOu+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=yA4yoNev; arc=none smtp.client-ip=217.194.8.81
+	 MIME-Version; b=WhNxmGJYUF5KzO4ha+vRL0pSTPRIOodewBAEUmGqJxxUQ6/A8ILx2ZbrlKLiwJiYlkON6P1Kkt3gRACdrClQxDzYUg32NhT+WSLuGv65irXNyw6VquJv7/hWUBZaadCpV1bRSAyRiYOF2i4/04R8Yce64n2OTS66Acu84ZrjaO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=m6MUgGCr; arc=none smtp.client-ip=217.194.8.81
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="yA4yoNev"
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="m6MUgGCr"
 Received: from francesco-nb.. (93-33-8-46.ip42.fastwebnet.it [93.33.8.46])
-	by mail11.truemail.it (Postfix) with ESMTPA id 954E922DF9;
-	Fri, 11 Sep 2026 11:20:24 +0200 (CEST)
+	by mail11.truemail.it (Postfix) with ESMTPA id 0C9C022D97;
+	Fri, 11 Sep 2026 11:20:25 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1789118425;
-	bh=QHfO73kDcEP+7INr7vFqDT9vnQPxAaieW9owluqHhx4=; h=From:To:Subject;
-	b=yA4yoNevV8ot8Y586s5jCKMJil7D2NmQUJHH4cuseZm6Np5cDNHmwx5yo9AAlEDCp
-	 eh6TFH3BRTEsOuIsgYAAvu+ts5DVdoGoUxMGf6dasGXabBI4aMFZtXl3vsVl3TsTEn
-	 cEjTKwUAwnseXEPl3anvl/gZpWhqWdPbIxEMfI5x+snCRH4mCZNUOu0vewVedO1xKv
-	 7GDJ+ictZpDv0yOsEbLsOwcOG5vfmHn2LVdWoZMByQp4fdKraDIuABkSw3wBcyOegu
-	 DXmDVkf924a+XXhA3tQX/NEvRSyd3OzHH4s1b7xCbv+ZX1/5ZXWBG078RGZ4j3N4RL
-	 I9e8jsbzhJFEQ==
+	s=default; t=1789118427;
+	bh=/sy7gRXtnjwIHtwhnfONP60XrCHVuwa4fizeDybyGjU=; h=From:To:Subject;
+	b=m6MUgGCr+8OzTdp74BECZnnZaju6FJmWt6pfSSKfRNZDTRf83QHj8G9MkEjWTTwnm
+	 zjw6QYpgA4din+Meq4TTJ/FZhDrsYhPUtMiEcePclfXozu2HrxwuiYmfa/anQrvLjc
+	 gVKbFOwP4SNQvlqvpahZxzB44mZkeKeP49HFRR+DpyX8tZhJIltYq06Pp4d8OA+AAy
+	 LRDw2rNpNXlvyWMrlJW+RMEnH4p80cZH2uEAe46GVdFZaVeCDykS3y+O/f9zwCRoWm
+	 eanovtKPJVIr0lUzDcelmIeaGMHE2HQNW+gQf9p8cyCJN0h6WY4VWWJ6UksQ6bPe+H
+	 UlFKez5VqoVaA==
 From: Francesco Dolcini <francesco@dolcini.it>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -42,9 +42,9 @@ Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
 	linux-kernel@vger.kernel.org,
 	imx@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v2 4/7] arm64: dts: freescale: imx93-lino: Add dahlia
-Date: Fri, 11 Sep 2026 11:19:47 +0200
-Message-ID: <20260911091952.96233-5-francesco@dolcini.it>
+Subject: [PATCH v2 5/7] arm64: dts: freescale: Add Lino iMX91
+Date: Fri, 11 Sep 2026 11:19:48 +0200
+Message-ID: <20260911091952.96233-6-francesco@dolcini.it>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260911091952.96233-1-francesco@dolcini.it>
 References: <20260911091952.96233-1-francesco@dolcini.it>
@@ -58,266 +58,407 @@ Content-Transfer-Encoding: 8bit
 
 From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-Add support for Lino iMX93 mated with the Verdin adapter and Dahlia
-carrier board.
+Add support for the Lino iMX91 SoM, its Verdin adapter, dahlia and
+development carrier board.
 
-Link: https://www.toradex.com/computer-on-modules/lino-arm-family/nxp-imx93
+Link: https://www.toradex.com/computer-on-modules/lino-arm-family/nxp-imx91
 Link: https://www.toradex.com/accessories/lino-verdin-adapter
+Link: https://www.toradex.com/products/carrier-board/verdin-development-board-kit
 Link: https://www.toradex.com/products/carrier-board/dahlia-carrier-board-kit
 Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 ---
- arch/arm64/boot/dts/freescale/Makefile        |   1 +
- ...imx93-imx91-lino-verdin-dahlia-common.dtsi | 198 ++++++++++++++++++
- .../freescale/imx93-lino-verdin-dahlia.dts    |  24 +++
- 3 files changed, 223 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx93-imx91-lino-verdin-dahlia-common.dtsi
- create mode 100644 arch/arm64/boot/dts/freescale/imx93-lino-verdin-dahlia.dts
+ arch/arm64/boot/dts/freescale/Makefile        |   2 +
+ .../freescale/imx91-lino-verdin-dahlia.dts    |  24 ++
+ .../dts/freescale/imx91-lino-verdin-dev.dts   |  24 ++
+ arch/arm64/boot/dts/freescale/imx91-lino.dtsi | 305 ++++++++++++++++++
+ 4 files changed, 355 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx91-lino-verdin-dahlia.dts
+ create mode 100644 arch/arm64/boot/dts/freescale/imx91-lino-verdin-dev.dts
+ create mode 100644 arch/arm64/boot/dts/freescale/imx91-lino.dtsi
 
 diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index eb71f126a8ed..319a0e797e94 100644
+index 319a0e797e94..823ef16ba621 100644
 --- a/arch/arm64/boot/dts/freescale/Makefile
 +++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -887,6 +887,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx93-11x11-frdm-pixpaper.dtb
+@@ -847,6 +847,8 @@ dtb-$(CONFIG_ARCH_MXC) += imx91-9x9-qsb-tianma-tm050rdh03.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx91-11x11-evk.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx91-11x11-frdm.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx91-11x11-frdm-s.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx91-lino-verdin-dahlia.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx91-lino-verdin-dev.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx91-phyboard-segin.dtb
  
- dtb-$(CONFIG_ARCH_MXC) += imx93-14x14-evk.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx93-kontron-bl-osm-s.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx93-lino-verdin-dahlia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx93-lino-verdin-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx93-phyboard-nash.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx93-phyboard-segin.dtb
-diff --git a/arch/arm64/boot/dts/freescale/imx93-imx91-lino-verdin-dahlia-common.dtsi b/arch/arm64/boot/dts/freescale/imx93-imx91-lino-verdin-dahlia-common.dtsi
+ imx91-9x9-qsb-can1-dtbs += imx91-9x9-qsb.dtb imx91-9x9-qsb-can1.dtbo
+diff --git a/arch/arm64/boot/dts/freescale/imx91-lino-verdin-dahlia.dts b/arch/arm64/boot/dts/freescale/imx91-lino-verdin-dahlia.dts
 new file mode 100644
-index 000000000000..5f6136204e30
+index 000000000000..eb3a8cdcd08f
 --- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx93-imx91-lino-verdin-dahlia-common.dtsi
-@@ -0,0 +1,198 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Lino iMX93/iMX91 SoM on Lino-Verdin Adapter / Dahlia carrier board
-+ *
-+ * https://www.toradex.com/computer-on-modules/lino-arm-family/nxp-imx91
-+ * https://www.toradex.com/computer-on-modules/lino-arm-family/nxp-imx93
-+ * https://www.toradex.com/products/carrier-board/dahlia-carrier-board-kit
-+ */
-+
-+/ {
-+	aliases {
-+		eeprom1 = &carrier_eeprom;
-+	};
-+
-+	reg_1v8_sw: regulator-1v8-sw {
-+		compatible = "regulator-fixed";
-+		regulator-max-microvolt = <1800000>;
-+		regulator-min-microvolt = <1800000>;
-+		regulator-name = "On-carrier +V1.8_SW";
-+	};
-+
-+	sound {
-+		compatible = "simple-audio-card";
-+		simple-audio-card,bitclock-master = <&codec_dai>;
-+		simple-audio-card,format = "i2s";
-+		simple-audio-card,frame-master = <&codec_dai>;
-+		simple-audio-card,mclk-fs = <256>;
-+		simple-audio-card,name = "verdin-wm8904";
-+		simple-audio-card,routing =
-+			"Headphone Jack", "HPOUTL",
-+			"Headphone Jack", "HPOUTR",
-+			"IN2L", "Line In Jack",
-+			"IN2R", "Line In Jack",
-+			"Microphone Jack", "MICBIAS",
-+			"IN1L", "Microphone Jack";
-+		simple-audio-card,widgets =
-+			"Microphone", "Microphone Jack",
-+			"Headphone", "Headphone Jack",
-+			"Line", "Line In Jack";
-+
-+		codec_dai: simple-audio-card,codec {
-+			sound-dai = <&wm8904_1a>;
-+		};
-+
-+		simple-audio-card,cpu {
-+			sound-dai = <&sai3>;
-+		};
-+	};
-+};
-+
-+/* Lino ADC_1, ADC_2, ADC_3 and ADC_4 */
-+&adc1 {
-+	status = "okay";
-+};
-+
-+&gpio2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpio1>, <&pinctrl_gpio2>, <&pinctrl_gpio3>,
-+		    <&pinctrl_gpio4>, <&pinctrl_gpio5>;
-+};
-+
-+&gpio3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpio6>, <&pinctrl_gpio7>;
-+};
-+
-+&gpio4 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpio8>, <&pinctrl_gpio9>, <&pinctrl_gpio10>;
-+};
-+
-+/* Lino ETH_1 */
-+&eqos {
-+	status = "okay";
-+};
-+
-+/* Lino CAN_1 */
-+&flexcan1 {
-+	status = "okay";
-+};
-+
-+/* Lino CAN_2 */
-+&flexcan2 {
-+	status = "okay";
-+};
-+
-+/* Lino I2C_2 */
-+&lpi2c3 {
-+	status = "okay";
-+};
-+
-+/* Lino I2C_3 */
-+&lpi2c4 {
-+	status = "okay";
-+};
-+
-+/* Lino SPI_1 */
-+&lpspi8 {
-+	status = "okay";
-+};
-+
-+/* Lino UART_3, used as the Linux Console */
-+&lpuart1 {
-+	status = "okay";
-+};
-+
-+/* Lino UART_4 */
-+&lpuart2 {
-+	status = "okay";
-+};
-+
-+/* Lino UART_2 */
-+&lpuart7 {
-+	status = "okay";
-+};
-+
-+/* Lino I2S_1 */
-+&sai3 {
-+	status = "okay";
-+};
-+
-+/* Lino PWM_1 */
-+&tpm4 {
-+	status = "okay";
-+};
-+
-+/* Lino PWM_2 */
-+&tpm5 {
-+	status = "okay";
-+};
-+
-+/* Lino PWM_3 */
-+&tpm6 {
-+	status = "okay";
-+};
-+
-+/* Lino USB_1 */
-+&usbotg1 {
-+	status = "okay";
-+};
-+
-+/* Lino USB_2 */
-+&usbotg2 {
-+	status = "okay";
-+};
-+
-+/* Lino SD_1 */
-+&usdhc2 {
-+	status = "okay";
-+};
-+
-+/* Verdin CTRL_WAKE1_MICO# */
-+&verdin_gpio_keys {
-+	status = "okay";
-+};
-+
-+/* Verdin I2C_1 */
-+&verdin_i2c_1 {
-+	status = "okay";
-+
-+	wm8904_1a: audio-codec@1a {
-+		compatible = "wlf,wm8904";
-+		reg = <0x1a>;
-+		clock-names = "mclk";
-+		clocks = <&verdin_i2s1_mclk>;
-+		#sound-dai-cells = <0>;
-+		AVDD-supply = <&reg_1v8_sw>;
-+		CPVDD-supply = <&reg_1v8_sw>;
-+		DBVDD-supply = <&reg_1v8_sw>;
-+		DCVDD-supply = <&reg_1v8_sw>;
-+		MICVDD-supply = <&reg_1v8_sw>;
-+	};
-+
-+	/* Current measurement into module VCC */
-+	hwmon@40 {
-+		compatible = "ti,ina219";
-+		reg = <0x40>;
-+		shunt-resistor = <10000>;
-+	};
-+
-+	temperature-sensor@4f {
-+		compatible = "ti,tmp75c";
-+		reg = <0x4f>;
-+	};
-+
-+	carrier_eeprom: eeprom@57 {
-+		compatible = "st,24c02", "atmel,24c02";
-+		reg = <0x57>;
-+		pagesize = <16>;
-+	};
-+};
-+
-+/* Verdin PCIE_1_RESET# */
-+&verdin_pcie_1_reset_hog {
-+	status = "okay";
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx93-lino-verdin-dahlia.dts b/arch/arm64/boot/dts/freescale/imx93-lino-verdin-dahlia.dts
-new file mode 100644
-index 000000000000..c708a2e18c90
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx93-lino-verdin-dahlia.dts
++++ b/arch/arm64/boot/dts/freescale/imx91-lino-verdin-dahlia.dts
 @@ -0,0 +1,24 @@
 +// SPDX-License-Identifier: GPL-2.0-only OR MIT
 +/*
 + * Copyright (c) Toradex
 + *
-+ * Lino iMX93 SoM on Lino-Verdin Adapter / Dahlia carrier board
++ * Lino iMX91 SoM on Lino-Verdin Adapter / Dahlia carrier board
 + *
-+ * https://www.toradex.com/computer-on-modules/lino-arm-family/nxp-imx93
++ * https://www.toradex.com/computer-on-modules/lino-arm-family/nxp-imx91
 + * https://www.toradex.com/products/carrier-board/dahlia-carrier-board-kit
 + */
 +
 +/dts-v1/;
 +
-+#include "imx93.dtsi"
-+#include "imx93-lino.dtsi"
++#include "imx91.dtsi"
++#include "imx91-lino.dtsi"
 +#include "imx93-imx91-lino-verdin-common.dtsi"
 +#include "imx93-imx91-lino-verdin-dahlia-common.dtsi"
 +
 +/ {
-+	model = "Toradex Lino iMX93 on Verdin Adapter plus Dahlia Board";
-+	compatible = "toradex,lino-imx93-verdin-dahlia",
-+		     "toradex,lino-imx93-verdin",
-+		     "toradex,lino-imx93",
-+		     "fsl,imx93";
++	model = "Toradex Lino iMX91 on Verdin Adapter plus Dahlia Board";
++	compatible = "toradex,lino-imx91-verdin-dahlia",
++		     "toradex,lino-imx91-verdin",
++		     "toradex,lino-imx91",
++		     "fsl,imx91";
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx91-lino-verdin-dev.dts b/arch/arm64/boot/dts/freescale/imx91-lino-verdin-dev.dts
+new file mode 100644
+index 000000000000..a988897f3388
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx91-lino-verdin-dev.dts
+@@ -0,0 +1,24 @@
++// SPDX-License-Identifier: GPL-2.0-only OR MIT
++/*
++ * Copyright (c) Toradex
++ *
++ * Lino iMX91 SoM on Lino-Verdin Adapter / Development carrier board
++ *
++ * https://www.toradex.com/computer-on-modules/lino-arm-family/nxp-imx91
++ * https://www.toradex.com/products/carrier-board/verdin-development-board-kit
++ */
++
++/dts-v1/;
++
++#include "imx91.dtsi"
++#include "imx91-lino.dtsi"
++#include "imx93-imx91-lino-verdin-common.dtsi"
++#include "imx93-imx91-lino-verdin-dev-common.dtsi"
++
++/ {
++	model = "Toradex Lino iMX91 on Verdin Adapter plus Development Board";
++	compatible = "toradex,lino-imx91-verdin-dev",
++		     "toradex,lino-imx91-verdin",
++		     "toradex,lino-imx91",
++		     "fsl,imx91";
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx91-lino.dtsi b/arch/arm64/boot/dts/freescale/imx91-lino.dtsi
+new file mode 100644
+index 000000000000..99d95694e910
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx91-lino.dtsi
+@@ -0,0 +1,305 @@
++// SPDX-License-Identifier: GPL-2.0-only OR MIT
++/*
++ * Copyright (c) Toradex
++ *
++ * Lino iMX91 SoM
++ *
++ * https://www.toradex.com/computer-on-modules/lino-arm-family/nxp-imx91
++ */
++
++#include "imx91-pinfunc.h"
++#include "imx93-imx91-lino-common.dtsi"
++
++&iomuxc {
++	/* Lino CAN_1 */
++	pinctrl_can1: can1grp {
++		fsl,pins = <MX91_PAD_PDM_BIT_STREAM0__CAN1_RX	0x139e>, /* Lino P12 */
++			   <MX91_PAD_PDM_CLK__CAN1_TX		0x139e>; /* Lino P10 */
++	};
++
++	/* Lino CAN_2 */
++	pinctrl_can2: can2grp {
++		fsl,pins = <MX91_PAD_GPIO_IO25__CAN2_TX	0x139e>, /* Lino S28 */
++			   <MX91_PAD_GPIO_IO27__CAN2_RX	0x139e>; /* Lino S30 */
++	};
++
++	/* Lino ETH_1 RGMII */
++	pinctrl_eth1: eqosgrp {
++		fsl,pins = <MX91_PAD_ENET1_RD0__ENET_QOS_RGMII_RD0			0x1fe>, /* Lino P77 */
++			   <MX91_PAD_ENET1_RD1__ENET_QOS_RGMII_RD1			0x1fe>, /* Lino P79 */
++			   <MX91_PAD_ENET1_RD2__ENET_QOS_RGMII_RD2			0x1fe>, /* Lino P81 */
++			   <MX91_PAD_ENET1_RD3__ENET_QOS_RGMII_RD3			0x1fe>, /* Lino P83 */
++			   <MX91_PAD_ENET1_RXC__ENET_QOS_RGMII_RXC			0x1fe>, /* Lino P73 */
++			   <MX91_PAD_ENET1_RX_CTL__ENET_QOS_RGMII_RX_CTL		0x1fe>, /* Lino P75 */
++			   <MX91_PAD_ENET1_TD0__ENET_QOS_RGMII_TD0			0x1fe>, /* Lino P97 */
++			   <MX91_PAD_ENET1_TD1__ENET1_RGMII_TD1				0x1fe>, /* Lino P95 */
++			   <MX91_PAD_ENET1_TD2__ENET_QOS_RGMII_TD2			0x1fe>, /* Lino P93 */
++			   <MX91_PAD_ENET1_TD3__ENET_QOS_RGMII_TD3			0x1fe>, /* Lino P91 */
++			   <MX91_PAD_ENET1_TXC__CCM_ENET_QOS_CLOCK_GENERATE_TX_CLK	0x1fe>, /* Lino P89 */
++			   <MX91_PAD_ENET1_TX_CTL__ENET_QOS_RGMII_TX_CTL		0x1fe>; /* Lino P85 */
++	};
++
++	/* Lino ETH MDIO */
++	pinctrl_mdio: eqosmdiogrp {
++		fsl,pins = <MX91_PAD_ENET1_MDC__ENET1_MDC	0x1fe>, /* Lino P69 */
++			   <MX91_PAD_ENET1_MDIO__ENET_QOS_MDIO	0x1fe>; /* Lino P67 */
++	};
++
++	/* Lino ETH_2 RGMII */
++	pinctrl_eth2: fecgrp {
++		fsl,pins = <MX91_PAD_ENET2_RD0__ENET2_RGMII_RD0		0x1fe>, /* Lino S77 */
++			   <MX91_PAD_ENET2_RD1__ENET2_RGMII_RD1		0x1fe>, /* Lino S79 */
++			   <MX91_PAD_ENET2_RD2__ENET2_RGMII_RD2		0x1fe>, /* Lino S81 */
++			   <MX91_PAD_ENET2_RD3__ENET2_RGMII_RD3		0x1fe>, /* Lino S83 */
++			   <MX91_PAD_ENET2_RXC__ENET2_RGMII_RXC		0x1fe>, /* Lino S71 */
++			   <MX91_PAD_ENET2_RX_CTL__ENET2_RGMII_RX_CTL	0x1fe>, /* Lino S73 */
++			   <MX91_PAD_ENET2_TD0__ENET2_RGMII_TD0		0x1fe>, /* Lino S99 */
++			   <MX91_PAD_ENET2_TD1__ENET2_RGMII_TD1		0x1fe>, /* Lino S97 */
++			   <MX91_PAD_ENET2_TD2__ENET2_RGMII_TD2		0x1fe>, /* Lino S93 */
++			   <MX91_PAD_ENET2_TD3__ENET2_RGMII_TD3		0x1fe>, /* Lino S91 */
++			   <MX91_PAD_ENET2_TXC__ENET2_RGMII_TXC		0x1fe>, /* Lino S87 */
++			   <MX91_PAD_ENET2_TX_CTL__ENET2_RGMII_TX_CTL	0x1fe>; /* Lino S89 */
++	};
++
++	/* Lino GPIO_11 */
++	pinctrl_gpio_11: gpio1io10grp {
++		fsl,pins = <MX91_PAD_PDM_BIT_STREAM1__GPIO1_IO10	0x139e>; /* Lino P65 */
++	};
++
++	/* Lino SPI_2_CS as GPIO */
++	pinctrl_spi2_cs0_gpio: gpio1io11grp {
++		fsl,pins = <MX91_PAD_SAI1_TXFS__GPIO1_IO11	0x139e>; /* Lino S18 */
++	};
++
++	/* Lino GPIO_1 */
++	pinctrl_gpio1: gpio2io0grp {
++		fsl,pins = <MX91_PAD_GPIO_IO00__GPIO2_IO0	0x139e>; /* Lino P30 */
++	};
++
++	/* Lino GPIO_2 */
++	pinctrl_gpio2: gpio2io1grp {
++		fsl,pins = <MX91_PAD_GPIO_IO01__GPIO2_IO1	0x139e>; /* Lino P32 */
++	};
++
++	/* Lino SPI_1_CS as GPIO */
++	pinctrl_spi1_cs0_gpio: gpio2io12grp {
++		fsl,pins = <MX91_PAD_GPIO_IO12__GPIO2_IO12	0x139e>; /* Lino P58 */
++	};
++
++	/* Lino GPIO_3 */
++	pinctrl_gpio3: gpio2io17grp {
++		fsl,pins = <MX91_PAD_GPIO_IO17__GPIO2_IO17	0x139e>; /* Lino P34 */
++	};
++
++	/* Lino GPIO_4 */
++	pinctrl_gpio4: gpio2io22grp {
++		fsl,pins = <MX91_PAD_GPIO_IO22__GPIO2_IO22	0x139e>; /* Lino P36 */
++	};
++
++	/* Lino PWM_3 as GPIO */
++	pinctrl_pwm3_gpio: gpio2io23grp {
++		fsl,pins = <MX91_PAD_GPIO_IO23__GPIO2_IO23	0x139e>; /* Lino P5 */
++	};
++
++	/* Lino GPIO_5 */
++	pinctrl_gpio5: gpio2io24grp {
++		fsl,pins = <MX91_PAD_GPIO_IO24__GPIO2_IO24	0x139e>; /* Lino P38 */
++	};
++
++	/* Lino GPIO_6 */
++	pinctrl_gpio6: gpio3io26grp {
++		fsl,pins = <MX91_PAD_CCM_CLKO1__GPIO3_IO26	0x139e>; /* Lino P40 */
++	};
++
++	/* Lino GPIO_7 */
++	pinctrl_gpio7: gpio3io27grp {
++		fsl,pins = <MX91_PAD_CCM_CLKO2__GPIO3_IO27	0x139e>; /* Lino P42 */
++	};
++
++	/* Lino GPIO_9 */
++	pinctrl_gpio9: gpio4io14grp {
++		fsl,pins = <MX91_PAD_ENET2_MDC__GPIO4_IO14	0x139e>; /* Lino P46 */
++	};
++
++	/* Lino GPIO_10 */
++	pinctrl_gpio10: gpio4io15grp {
++		fsl,pins = <MX91_PAD_ENET2_MDIO__GPIO4_IO15	0x139e>; /* Lino P48 */
++	};
++
++	/* Lino GPIO_8 */
++	pinctrl_gpio8: gpio4io28grp {
++		fsl,pins = <MX91_PAD_CCM_CLKO3__GPIO4_IO28	0x139e>; /* Lino P44 */
++	};
++
++	/* On-module GPIO_EXP_INT# */
++	pinctrl_gpio_exp_int: gpio4io29grp {
++		fsl,pins = <MX91_PAD_CCM_CLKO4__GPIO4_IO29	0x139e>; /* GPIO_EXP_INT# */
++	};
++
++	/* Lino I2C_1 as GPIO */
++	pinctrl_i2c1_gpio: lpi2c1gpiogrp {
++		fsl,pins = <MX91_PAD_I2C1_SCL__GPIO1_IO0	0x40000b9e>, /* Lino P18 */
++			   <MX91_PAD_I2C1_SDA__GPIO1_IO1	0x40000b9e>; /* Lino P16 */
++	};
++
++	/* Lino I2C_1 */
++	pinctrl_i2c1: lpi2c1grp {
++		fsl,pins = <MX91_PAD_I2C1_SCL__LPI2C1_SCL	0x40000b9e>, /* Lino P18 */
++			   <MX91_PAD_I2C1_SDA__LPI2C1_SDA	0x40000b9e>; /* Lino P16 */
++	};
++
++	/* On-module PMIC I2C as GPIO */
++	pinctrl_pmic_i2c_gpio: lpi2c2gpiogrp {
++		fsl,pins = <MX91_PAD_I2C2_SCL__GPIO1_IO2	0x40000b9e>, /* PMIC_I2C_SCL */
++			   <MX91_PAD_I2C2_SDA__GPIO1_IO3	0x40000b9e>; /* PMIC_I2C_SDA */
++	};
++
++	/* On-module PMIC I2C */
++	pinctrl_pmic_i2c: lpi2c2grp {
++		fsl,pins = <MX91_PAD_I2C2_SCL__LPI2C2_SCL	0x40000b9e>, /* PMIC_I2C_SCL */
++			   <MX91_PAD_I2C2_SDA__LPI2C2_SDA	0x40000b9e>; /* PMIC_I2C_SDA */
++	};
++
++	/* Lino I2C_2 as GPIO */
++	pinctrl_i2c2_gpio: lpi2c3gpiogrp {
++		fsl,pins = <MX91_PAD_GPIO_IO28__GPIO2_IO28	0x40000b9e>, /* Lino P20 */
++			   <MX91_PAD_GPIO_IO29__GPIO2_IO29	0x40000b9e>; /* Lino P22 */
++	};
++
++	/* Lino I2C_2 */
++	pinctrl_i2c2: lpi2c3grp {
++		fsl,pins = <MX91_PAD_GPIO_IO28__LPI2C3_SDA	0x40000b9e>, /* Lino P20 */
++			   <MX91_PAD_GPIO_IO29__LPI2C3_SCL	0x40000b9e>; /* Lino P22 */
++	};
++
++	/* Lino I2C_3 as GPIO */
++	pinctrl_i2c3_gpio: lpi2c4gpiogrp {
++		fsl,pins = <MX91_PAD_GPIO_IO02__GPIO2_IO2	0x40000b9e>, /* Lino P24 */
++			   <MX91_PAD_GPIO_IO03__GPIO2_IO3	0x40000b9e>; /* Lino P26 */
++	};
++
++	/* Lino I2C_3 */
++	pinctrl_i2c3: lpi2c4grp {
++		fsl,pins = <MX91_PAD_GPIO_IO02__LPI2C4_SDA	0x40000b9e>, /* Lino P24 */
++			   <MX91_PAD_GPIO_IO03__LPI2C4_SCL	0x40000b9e>; /* Lino P26 */
++	};
++
++	/* Lino SPI_2 */
++	pinctrl_spi2: lpspi1grp {
++		fsl,pins = <MX91_PAD_SAI1_TXD0__LPSPI1_SCK	0x139e>, /* Lino S20 */
++			   <MX91_PAD_SAI1_RXD0__LPSPI1_SOUT	0x139e>, /* Lino S22 */
++			   <MX91_PAD_SAI1_TXC__LPSPI1_SIN	0x139e>; /* Lino S24 */
++	};
++
++	/* Lino SPI_1 */
++	pinctrl_spi1: lpspi8grp {
++		fsl,pins = <MX91_PAD_GPIO_IO13__LPSPI8_SIN	0x139e>, /* Lino P54 */
++			   <MX91_PAD_GPIO_IO14__LPSPI8_SOUT	0x139e>, /* Lino P56 */
++			   <MX91_PAD_GPIO_IO15__LPSPI8_SCK	0x139e>; /* Lino P52 */
++	};
++
++	/* Lino UART_3 */
++	pinctrl_uart3: lpuart1grp {
++		fsl,pins = <MX91_PAD_UART1_RXD__LPUART1_RX	0x39e>, /* Lino P17 */
++			   <MX91_PAD_UART1_TXD__LPUART1_TX	0x39e>; /* Lino P19 */
++	};
++
++	/* Lino UART_4 */
++	pinctrl_uart4: lpuart2grp {
++		fsl,pins = <MX91_PAD_UART2_RXD__LPUART2_RX	0x39e>, /* Lino P23 */
++			   <MX91_PAD_UART2_TXD__LPUART2_TX	0x39e>; /* Lino P25 */
++	};
++
++	/* Lino UART_1 */
++	pinctrl_uart1: lpuart6grp {
++		fsl,pins = <MX91_PAD_GPIO_IO04__LPUART6_TX	0x39e>, /* Lino P11 */
++			   <MX91_PAD_GPIO_IO05__LPUART6_RX	0x39e>, /* Lino P9 */
++			   <MX91_PAD_GPIO_IO06__LPUART6_CTS_B	0x39e>, /* Lino P8 */
++			   <MX91_PAD_GPIO_IO07__LPUART6_RTS_B	0x39e>; /* Lino P6 */
++	};
++
++	/* Lino UART_2 */
++	pinctrl_uart2: lpuart7grp {
++		fsl,pins = <MX91_PAD_GPIO_IO08__LPUART7_TX	0x39e>, /* Lino P15 */
++			   <MX91_PAD_GPIO_IO09__LPUART7_RX	0x39e>, /* Lino P13 */
++			   <MX91_PAD_GPIO_IO10__LPUART7_CTS_B	0x39e>, /* Lino S7 */
++			   <MX91_PAD_GPIO_IO11__LPUART7_RTS_B	0x39e>; /* Lino S5 */
++	};
++
++	/* Lino I2S_1 */
++	pinctrl_i2s1: sai3grp {
++		fsl,pins = <MX91_PAD_GPIO_IO16__SAI3_TX_BCLK	0x139e>, /* Lino S94 */
++			   <MX91_PAD_GPIO_IO19__SAI3_TX_DATA0	0x139e>, /* Lino S98 */
++			   <MX91_PAD_GPIO_IO20__SAI3_RX_DATA0	0x139e>, /* Lino S100 */
++			   <MX91_PAD_GPIO_IO26__SAI3_TX_SYNC	0x139e>; /* Lino S96 */
++	};
++
++	/* Lino PWM_1 */
++	pinctrl_pwm1: tpm4ch1grp {
++		fsl,pins = <MX91_PAD_GPIO_IO21__TPM4_CH1	0x139e>; /* Lino P1 */
++	};
++
++	/* Lino PWM_2 */
++	pinctrl_pwm2: tpm5ch2grp {
++		fsl,pins = <MX91_PAD_GPIO_IO18__TPM5_CH2	0x139e>; /* Lino P3 */
++	};
++
++	/* Lino PWM_3 */
++	pinctrl_pwm3: tpm6ch1grp {
++		fsl,pins = <MX91_PAD_GPIO_IO23__TPM6_CH1	0x139e>; /* Lino P5 */
++	};
++
++	/* On-module eMMC */
++	pinctrl_emmc: usdhc1grp {
++		fsl,pins = <MX91_PAD_SD1_CLK__USDHC1_CLK	0x5fe>,      /* eMMC_CLK    */
++			   <MX91_PAD_SD1_CMD__USDHC1_CMD	0x400013fe>, /* eMMC_CMD    */
++			   <MX91_PAD_SD1_DATA0__USDHC1_DATA0	0x400013fe>, /* eMMC_DATA0  */
++			   <MX91_PAD_SD1_DATA1__USDHC1_DATA1	0x400013fe>, /* eMMC_DATA1  */
++			   <MX91_PAD_SD1_DATA2__USDHC1_DATA2	0x400013fe>, /* eMMC_DATA2  */
++			   <MX91_PAD_SD1_DATA3__USDHC1_DATA3	0x400013fe>, /* eMMC_DATA3  */
++			   <MX91_PAD_SD1_DATA4__USDHC1_DATA4	0x400013fe>, /* eMMC_DATA4  */
++			   <MX91_PAD_SD1_DATA5__USDHC1_DATA5	0x400013fe>, /* eMMC_DATA5  */
++			   <MX91_PAD_SD1_DATA6__USDHC1_DATA6	0x400013fe>, /* eMMC_DATA6  */
++			   <MX91_PAD_SD1_DATA7__USDHC1_DATA7	0x400013fe>, /* eMMC_DATA7  */
++			   <MX91_PAD_SD1_STROBE__USDHC1_STROBE	0x1580>;     /* eMMC_STROBE */
++	};
++
++	/* Lino SD_1_CD# */
++	pinctrl_sd1_cd: usdhc2cdgrp {
++		fsl,pins = <MX91_PAD_SD2_CD_B__GPIO3_IO0	0x139e>; /* Lino P78 */
++	};
++
++	/* Lino SD_1 */
++	pinctrl_sd1: usdhc2grp {
++		fsl,pins = <MX91_PAD_SD2_CLK__USDHC2_CLK	0x5fe>,      /* Lino P68 */
++			   <MX91_PAD_SD2_CMD__USDHC2_CMD	0x400013fe>, /* Lino P66 */
++			   <MX91_PAD_SD2_DATA0__USDHC2_DATA0	0x400013fe>, /* Lino P74 */
++			   <MX91_PAD_SD2_DATA1__USDHC2_DATA1	0x400013fe>, /* Lino P76 */
++			   <MX91_PAD_SD2_DATA2__USDHC2_DATA2	0x400013fe>, /* Lino P60 */
++			   <MX91_PAD_SD2_DATA3__USDHC2_DATA3	0x400013fe>; /* Lino P64 */
++	};
++
++	/* Lino SD_1_PWR_EN */
++	pinctrl_sd1_pwr_en: usdhc2pwrgrp {
++		fsl,pins = <MX91_PAD_SD2_RESET_B__GPIO3_IO7	0x139e>; /* Lino P72 */
++	};
++
++	/* On-module PMIC_SD_2_VSEL */
++	pinctrl_sd1_vsel: usdhc2vselgrp {
++		fsl,pins = <MX91_PAD_SD2_VSELECT__GPIO3_IO19	0x51e>; /* PMIC_SD_2_VSEL */
++	};
++
++	/* Lino SD_2 */
++	pinctrl_sd2: usdhc3grp {
++		fsl,pins = <MX91_PAD_SD3_CLK__USDHC3_CLK	0x5fe>,      /* Lino S10 */
++			   <MX91_PAD_SD3_CMD__USDHC3_CMD	0x400013fe>, /* Lino S8  */
++			   <MX91_PAD_SD3_DATA0__USDHC3_DATA0	0x400013fe>, /* Lino S12 */
++			   <MX91_PAD_SD3_DATA1__USDHC3_DATA1	0x400013fe>, /* Lino S16 */
++			   <MX91_PAD_SD3_DATA2__USDHC3_DATA2	0x400013fe>, /* Lino S2  */
++			   <MX91_PAD_SD3_DATA3__USDHC3_DATA3	0x400013fe>; /* Lino S4  */
++	};
++
++	pinctrl_wdog: wdoggrp {
++		fsl,pins = <MX91_PAD_WDOG_ANY__WDOG1_WDOG_ANY 0x31e>; /* PMIC_WDOG_B */
++	};
 +};
 -- 
 2.47.3
