@@ -1,65 +1,76 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F8B33F8C4
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:57:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030D935E95A
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:57:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789138668; cv=none; b=cH57c3qkjtmrky1HtMcWbg6FnMohcRofL5/uMIYKB+mGaKsDBS/y432RMtXtd4ijwda0shXyAkxHPWQGXRNbGiH+gz4V6NatZj8rO6jT7hLWJ+O+1xKKVLjArjSFxFUQvaV49O04p08gmlAxwupkuRfLHuu8cNSU8qBL7NkHL6E=
+	t=1789138674; cv=none; b=JT62V1BNU1YVWO40OwBovE17z6+jhuirYhmuDnVUfVYD2a5FVh/U7I2FFnxBDJA32YnKzIWuMvaL2q32YSrYOxCil7dEoMo4YjN7x4iU5FiPOEBQYBrReMna3L2zIFfXgTosCZsCYYeV2d15XxJyfOz9ptlh0b3Uchv2WI1xL2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789138668; c=relaxed/simple;
-	bh=8w0/XgbsZHCJEAgoMotxRhuUHXmVwjWByI9b9pscAls=;
+	s=arc-20240116; t=1789138674; c=relaxed/simple;
+	bh=D/cqQW3YEor1RaVzk6JWcbIBIdJAe18Cvto2+OHn1DI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZhT6epftwzV8YEWkLIgVcFJ3UTotT1VIfB0TU8cq8OZh4MPDGJ7yoEwk5yYnwUok64pRO2/mAAaFUkmFb3lftJtH9/fmF66oockZMKU0C1DcCVQEvRwxHZtv6fUt3CeQZmqjh5xW/9VIjUkDnMJWsqeqHoHL6Gi6JuFiKELGWFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fL0QSfZ6; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=WWQczJDUVQiD94SQaAHkIvoZ0/uRdQBAqtpCDrlNSt2MzPsoa2yBhO5zXnQLn4z9/OJYAeMgWvLTeNulDREqwW/LW4Vp+UwQKipPsepMLS8Sf/dT1nOxheTuD9hVTSYHV6WtjgAnmtPFoaQ6ydo8BNg4+hZDay164XJS2bYk9j0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=j4nHvQn0; arc=none smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fL0QSfZ6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789138664;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KD0eOrBEbb+VrFVYh6f5jiyQlHzKdjClS157J0LrQqs=;
-	b=fL0QSfZ6vAv/fuYnAbo/gsn554T6pBvUd9XkkwdL3A/JoDShlCjgbs3ss0wi7+F1gj0h8W
-	18u4CcUgPfIli60g0AtuxaGH4fJW9pTxWzeJdkBIeqHeZgHxK6cy58kmRmWHYnKKuFDtta
-	TE3AYPZTRdnOC9cDIaIGJf8viTRmCFE=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-564-j3YMwKy9NZqDPtU3kn2kDQ-1; Fri,
- 11 Sep 2026 10:57:40 -0400
-X-MC-Unique: j3YMwKy9NZqDPtU3kn2kDQ-1
-X-Mimecast-MFC-AGG-ID: j3YMwKy9NZqDPtU3kn2kDQ_1789138657
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9C4A51953964;
-	Fri, 11 Sep 2026 14:57:36 +0000 (UTC)
-Received: from bfoster (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6684D18002B1;
-	Fri, 11 Sep 2026 14:57:31 +0000 (UTC)
-Date: Fri, 11 Sep 2026 10:57:29 -0400
-From: Brian Foster <bfoster@redhat.com>
-To: Zhang Yi <yi.zhang@huaweicloud.com>
-Cc: linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org,
-	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
-	surenb@google.com, mhocko@suse.com, hughd@google.com,
-	baolin.wang@linux.alibaba.com, willy@infradead.org, jack@suse.cz,
-	ziy@nvidia.com, joannelkoong@gmail.com, djwong@kernel.org,
-	yi.zhang@huawei.com, yizhang089@gmail.com, yangerkun@huawei.com,
-	chengzhihao1@huawei.com, wangkefeng.wang@huawei.com,
-	yukuai@fnnas.com
-Subject: Re: [PATCH v2] mm/truncate: fix data loss when truncating straddling
- large folios
-Message-ID: <aqQW2ezVl5bPs0u6@bfoster>
-References: <20260909062339.473816-1-yi.zhang@huaweicloud.com>
- <aqLaQcZvaFIrAz0e@bfoster>
- <5796c4ea-fd8f-48aa-8c9b-f1cc8ec1dde1@huaweicloud.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="j4nHvQn0"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-869fe350825so1210595b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:57:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789138672; x=1789743472; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mTItDG+SPCPjDvjs6iUyky113T76JdD5XYB7K8F6/zA=;
+        b=j4nHvQn0RoMecy5tamdWgBjUaMGJBPqqgv/4qocaC35l5RDnd6yxydUCRM/eXCSkld
+         HbrME+vqlbmiY6reNRUjbOiK5N9rwwIj8mij0VsszC7oTdXD991Eivz22CM5NIt3du2w
+         057LMLJnA5LRlCUec+8c5MZBG3BKkvyrcPBfxyPMXHv26+A0JfTbklo/iK1SO8TGV6L8
+         p8E8gBPuNCIzwT0smW6vzCpdi4wahupT0GraclYN9b/uAPBRgERzhTgVvu65sptR3DDD
+         99DVa1y9DM1ot4uSvaTmkeJOwD/HLWojd6SZpLSxyQ5jC9G/NwXl2F1+TzM1AFu8IwoB
+         8rdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789138672; x=1789743472;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mTItDG+SPCPjDvjs6iUyky113T76JdD5XYB7K8F6/zA=;
+        b=pDMsSFjwOU+nHWIW1nSK3c8JJAFO3hvkZdIiiFoZnLKpTRnXnqOTzDvhJyoJ2HQbFQ
+         hKbQmWwimZ9zkjiFX+EiAGWrIMYXWMd9sTwY6Az2nxWVpw7f8l3W9C69mWUg/IeQDPrz
+         OLy9DM+f385gmNulNlzEFvFFxnwGRUZCx9CySwltQ+pe2wXggym81+PLCVDGw9D7I9Vx
+         Rc6HksQDYC8xcf+8OmkUIRUrDoLDetVenjVdo/eVkOpQBRYnEskPnhkUvN1iaV18Qoym
+         PWnyHyoRsqi+xYPRRrOGxdwEKj95u5oFhOKkaGpZBXTRrGxS9a6U5TayixIcXoJmAXze
+         Sfaw==
+X-Forwarded-Encrypted: i=1; AKwUvBzXWX0r9TR6eq52lqvm8z2FpBjW2kOfhYRwUqcF0+qp1CO0+upRJyC8rOsrFa09DwrNL5VIjmN3qz3rrms=@vger.kernel.org
+X-Gm-Message-State: AFuF++k62pVIt0WmiFXjv61oE0NrL0MvxXUbTPyKescDUY8pvC5CussD
+	RIu3nS3Uom2UEOVFagc+KODkGyYz2wVxG+qHW+Xwy+iKuU0K/xDdzuOJF4x1H2B7WDM=
+X-Gm-Gg: AYBFou2/c4GUVVhrV1J9q8CrSSmBLYnwkZZE/5shbqA8uAsdUNHZoMZO+zHsb344VaP
+	tF/hqNySO7P+i8ts4Bqez7KtYUE5pxeu0dTJ1VSNp4fNbMe9ktxABVelseoJ1ggdKWgLBPgWmfo
+	vVEWsjsqvAopubIphKwf1usxek5ATQ0bHhokoBHiRrwNa6W/7fpLpdLQZVZNlsORgA64tRBxizf
+	WUXdtIwrpXeCadQvBgvHj+Ysxphbe00IXmlq0zHD5yOaUYIQIVMzuADoSyX/TwWLls0Lm1GjnWh
+	W04Nqm8JT0xluNrk8T6jRQXT77maBXukKAkAd/jh5jyUJ7rPaoeP/aEU1kwEBC8FRO7czKNh+cn
+	ugvw6ePMiqCeoliZUmvOX1CmeC16oHgT80Qdm4Ruz/O/xdO1Bssq/IjqpXrUKkisToJggajf0im
+	hCZTOYSC5JfH5uSWPSSBg39EBKiJp/z8O0t2SP1w1QAlGPy+9DimD/PKzwRmUSO2sAbV43pUtCt
+	YI=
+X-Received: by 2002:a05:6a00:981:b0:861:2029:4f59 with SMTP id d2e1a72fcca58-86b2eaf0dd9mr7157609b3a.3.1789138672154;
+        Fri, 11 Sep 2026 07:57:52 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:bb01:88ad:cfcb:1cee])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b29cbb933sm1259021b3a.41.2026.09.11.07.57.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 07:57:51 -0700 (PDT)
+Date: Fri, 11 Sep 2026 08:57:49 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: tanmay.shah@amd.com
+Cc: andersson@kernel.org, linux-remoteproc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] remoteproc: remoteproc_virtio: add acknowledged vdev
+ reset
+Message-ID: <aqQW7eOsFE7jRTXT@p14s>
+References: <20260902214453.634339-2-tanmay.shah@amd.com>
+ <aqBNoaF7m_JEiVYY@p14s>
+ <281ad636-7963-43ad-b88a-8a196eab217b@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -68,405 +79,307 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <5796c4ea-fd8f-48aa-8c9b-f1cc8ec1dde1@huaweicloud.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+In-Reply-To: <281ad636-7963-43ad-b88a-8a196eab217b@amd.com>
 
-On Fri, Sep 11, 2026 at 03:34:48PM +0800, Zhang Yi wrote:
-> On 9/11/2026 12:26 AM, Brian Foster wrote:
-> > On Wed, Sep 09, 2026 at 02:23:39PM +0800, Zhang Yi wrote:
-> >> From: Zhang Yi <yi.zhang@huawei.com>
+On Tue, Sep 08, 2026 at 02:21:53PM -0500, Shah, Tanmay wrote:
+> Hello,
+> 
+> Thank you for the reviews.
+> 
+> On 9/8/2026 1:02 PM, Mathieu Poirier wrote:
+> > Good day,
+> > 
+> > On Wed, Sep 02, 2026 at 02:44:54PM -0700, Tanmay Shah wrote:
+> >> The existing remoteproc virtio reset path clears the vdev status locally
+> >> without notifying the remote processor. As a result, the host cannot tell
+> >> whether the remote side has observed the reset request or completed its
+> >> cleanup.
 > >>
-> >> truncate_inode_partial_folio() splits a large folio so that the caller's
-> >> truncate loop can drop the in-range sub-folios while keeping the
-> >> out-of-range tail. The first split at the punch start edge is
-> >> non-uniform, which leaves the sub-folio at the truncation end edge as
-> >> large as possible, this means it may still straddle the range, holding
-> >> both zeroed in-range and valid out-of-range data. The function then
-> >> attempts a second split at offset + length to isolate that tail.
+> >> Add a new resource type, RSC_VDEV_V2, for virtio vdevs that support an
+> >> acknowledged reset protocol. For these resources, encode a reset request
+> >> in the virtio status byte, kick the remote processor using the vdev notify
+> >> ID, and wait for the remote side to clear the status back to 0.
 > >>
-> >> If the second split fails the straddling sub-folio stays merged. The
-> >> function returned true unconditionally on all exit paths of the success
-> >> block, telling the caller it was fully handled. The caller kept its
-> >> default end and the truncate loop truncated every sub-folio below it,
-> >> including the merged straddler, discarding the valid out-of-range tail.
+> >> Keep the existing RSC_VDEV behavior for backwards compatibility by
+> >> clearing the status locally. Also reset remoteproc-created virtio
+> >> devices before unregistering them, and expose RSC_VDEV_V2 reset state
+> >> in debugfs.
 > >>
-> >> For example, a 4-page order-2 folio punched from offset 0 to the middle
-> >> of the last page:
-> >>
-> >>   truncate_inode_pages_range()
-> >>     truncate_inode_partial_folio()      # same_folio == true
-> >>       1st split at page0 -> [p0, p1, p2-3]   # non-uniform, success
-> >>       folio2 = p2-3 # straddles: p2 zeroed, p3 tail valid
-> >>       2nd split of folio2 fails / cannot lock
-> >>       return true                       # BUG: caller keeps default end
-> >>     end = 3
-> >>     loop truncates p0, p1, p2-3        # p3's valid tail is lost
-> >>
-> >> This became reachable after commit 7460b470a131 ("mm/truncate: use
-> >> folio_split() in truncate operation") replaced the atomic split_folio()
-> >> with folio_split(), whose non-uniform split can partially split a folio
-> >> and leave the end edge merged.
-> >>
-> >> It has gone unnoticed because a dirty large folio normally carries the
-> >> filesystem's private data, for example buffer_head, so
-> >> filemap_release_folio() -> iomap_release_folio() returns false on a
-> >> dirty folio and folio_split() aborts with -EBUSY before any split,
-> >> leaving the straddler safely unsplit. The bug is only reachable on paths
-> >> that produce dirty large folios without filesystem private data, and it
-> >> was caught on the upcoming ext4 iomap buffered I/O path when no ifs is
-> >> attached.
-> >>
-> >> In addition, even when both splits succeed, data can still be lost when
-> >> the mapping's minimum folio order (min_order) is non-zero. folio_split()
-> >> stops at min_order instead of order 0, so the sub-folio containing a
-> >> split point stays aligned to 1 << min_order rather than to a page. The
-> >> original success path left start at the page-aligned head of the range
-> >> and set end to the exact page index of the end edge, neither of which is
-> >> a folio boundary in general. Either one could land inside the large
-> >> folio at its edge, and the truncate loop would drop that straddling
-> >> folio together with its valid out-of-range tail.
-> >>
-> >> For example, a 64K (order-4) folio with min_order = 2 punched from
-> >> offset 0 to 36K:
-> >>
-> >>   truncate_inode_pages_range()
-> >>     truncate_inode_partial_folio()        # same_folio == true
-> >>       1st split at p0 -> [p0-p3, p4-p7, p8-p15]  # non-uniform, min_order
-> >>       folio2 = p8-p15 # straddles: p8 in range, p9-p15 tail valid
-> >>       2nd split of folio2 -> [p8-p11, p12-p15]   # success
-> >>       end = p9                           # BUG: p9 inside [p8-p11]
-> >>     loop truncates ... p8-p11           # p9-p11's valid tail is lost
-> >>
-> >> Rework the contract so the caller is told the page range to discard:
-> >>
-> >>   - Return true only when a split occurred, false otherwise. This
-> >>     clarifies the existing confusing return value semantics.
-> >>
-> >>   - Add pgoff_t *pstart and *pend out-parameters that receive the page
-> >>     range fully covered by [lstart, lend] after any split (or none),
-> >>     i.e. the pages wholly within the range and safe to discard. They are
-> >>     aligned up (pstart) and down (pend) to the mapping's minimum folio
-> >>     order so they always fall on a folio boundary.
-> >>
-> >>   - Rename the byte-range parameters start/end to lstart/lend to avoid
-> >>     clashing with the new outputs and to separate byte offsets from
-> >>     folio indices.
-> >>
-> >> Callers in truncate_inode_pages_range() and shmem_undo_range() pass
-> >> &pstart for the folio at the start edge and &pend for the folio at the
-> >> end edge, so the truncate loop drops exactly the fully covered pages and
-> >> never touches a straddling folio that still holds valid out-of-range
-> >> data.
-> >>
-> >> Suggested-by: Brian Foster <bfoster@redhat.com>
-> >> Link: https://lore.kernel.org/linux-fsdevel/anH-WKA1coW6wtfG@bfoster/
-> >> Fixes: 7460b470a131 ("mm/truncate: use folio_split() in truncate operation")
-> >> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+> >> Assisted-by: Codex:GPT-5
+> >> Signed-off-by: Tanmay Shah <tanmay.shah@amd.com>
 > >> ---
-> >> v1->v2:
-> >>  - Export pstart as a new parameter so that the generic and shmem
-> >>    truncate paths don't need to recompute the start value from the
-> >>    return value. (Brian)
-> >>  - When min_order is nonzero, align [pstart, pend] to the inner
-> >>    boundaries of the folio to ensure they do not point into the middle
-> >>    of a large folio, which could otherwise cause valid data within the
-> >>    folio to be incorrectly cleared. (Joanne)
+> >>  drivers/remoteproc/remoteproc_core.c     |  3 +-
+> >>  drivers/remoteproc/remoteproc_debugfs.c  | 29 +++++++++++++++-
+> >>  drivers/remoteproc/remoteproc_internal.h | 21 +++++++++++
+> >>  drivers/remoteproc/remoteproc_virtio.c   | 44 ++++++++++++++++++++++--
+> >>  include/linux/rsc_table.h                |  5 ++-
+> >>  5 files changed, 97 insertions(+), 5 deletions(-)
 > >>
-> >> v1: https://lore.kernel.org/linux-mm/20260903115018.2034541-1-yi.zhang@huaweicloud.com/
+> >> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+> >> index 1ed406714849..31d79684977c 100644
+> >> --- a/drivers/remoteproc/remoteproc_core.c
+> >> +++ b/drivers/remoteproc/remoteproc_core.c
+> >> @@ -471,6 +471,7 @@ void rproc_remove_rvdev(struct rproc_vdev *rvdev)
+> >>  static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
+> >>  			     int offset, int avail)
+> >>  {
+> >> +	struct fw_rsc_hdr *hdr = ptr - sizeof(*hdr);
+> > 
+> > Spurious change.
+> > 
+> 
+> Ack will remove it.
+> 
+> >>  	struct fw_rsc_vdev *rsc = ptr;
+> >>  	struct device *dev = &rproc->dev;
+> >>  	struct rproc_vdev *rvdev;
+> >> @@ -485,7 +486,6 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
+> >>  		return -EINVAL;
+> >>  	}
+> >>  
+> >> -	/* make sure reserved bytes are zeroes */
+> > 
+> > Same
+> 
+> Ack, will be removed.
+> 
+> > 
+> >>  	if (rsc->reserved[0] || rsc->reserved[1]) {
+> >>  		dev_err(dev, "vdev rsc has non zero reserved bytes\n");
+> >>  		return -EINVAL;
+> >> @@ -1009,6 +1009,7 @@ static rproc_handle_resource_t rproc_loading_handlers[RSC_LAST] = {
+> >>  	[RSC_DEVMEM] = rproc_handle_devmem,
+> >>  	[RSC_TRACE] = rproc_handle_trace,
+> >>  	[RSC_VDEV] = rproc_handle_vdev,
+> >> +	[RSC_VDEV_V2] = rproc_handle_vdev,
+> >>  };
+> >>  
+> >>  struct rproc_rsc_cb_data {
+> >> diff --git a/drivers/remoteproc/remoteproc_debugfs.c b/drivers/remoteproc/remoteproc_debugfs.c
+> >> index b86c1d09c70c..1fe99749f5b4 100644
+> >> --- a/drivers/remoteproc/remoteproc_debugfs.c
+> >> +++ b/drivers/remoteproc/remoteproc_debugfs.c
+> >> @@ -274,7 +274,7 @@ static const struct file_operations rproc_crash_ops = {
+> >>  /* Expose resource table content via debugfs */
+> >>  static int rproc_rsc_table_show(struct seq_file *seq, void *p)
+> >>  {
+> >> -	static const char * const types[] = {"carveout", "devmem", "trace", "vdev"};
+> >> +	static const char * const types[] = {"carveout", "devmem", "trace", "vdev", "vdev_v2"};
+> >>  	struct rproc *rproc = seq->private;
+> >>  	struct resource_table *table = rproc->table_ptr;
+> >>  	struct fw_rsc_carveout *c;
+> >> @@ -336,6 +336,33 @@ static int rproc_rsc_table_show(struct seq_file *seq, void *p)
+> >>  			seq_printf(seq, "  Reserved (should be zero) [%d][%d]\n\n",
+> >>  				   v->reserved[0], v->reserved[1]);
+> >>  
+> >> +			for (j = 0; j < v->num_of_vrings; j++) {
+> >> +				seq_printf(seq, "  Vring %d\n", j);
+> >> +				seq_printf(seq, "    Device Address 0x%x\n", v->vring[j].da);
+> >> +				seq_printf(seq, "    Alignment %d\n", v->vring[j].align);
+> >> +				seq_printf(seq, "    Number of buffers %d\n", v->vring[j].num);
+> >> +				seq_printf(seq, "    Notify ID %d\n", v->vring[j].notifyid);
+> >> +				seq_printf(seq, "    Physical Address 0x%x\n\n",
+> >> +					   v->vring[j].pa);
+> >> +			}
+> >> +			break;
+> >> +		case RSC_VDEV_V2:
+> >> +			v = rsc;
+> >> +			seq_printf(seq, "Entry %d is of type %s\n", i, types[hdr->type]);
+> >> +
+> >> +			seq_printf(seq, "  ID %d\n", v->id);
+> >> +			seq_printf(seq, "  Notify ID %d\n", v->notifyid);
+> >> +			seq_printf(seq, "  Device features 0x%x\n", v->dfeatures);
+> >> +			seq_printf(seq, "  Guest features 0x%x\n", v->gfeatures);
+> >> +			seq_printf(seq, "  Config length 0x%x\n", v->config_len);
+> >> +			seq_printf(seq, "  Status 0x%x\n", v->status);
+> >> +			seq_printf(seq, "  Number of vrings %d\n", v->num_of_vrings);
+> >> +			seq_printf(seq, "  Reset request pending %s\n",
+> >> +				   rproc_rsc_vdev_reset_requested(v->status) ?
+> >> +				   "yes" : "no");
+> >> +			seq_printf(seq, "  Reserved (should be zero) [%d][%d]\n\n",
+> >> +				   v->reserved[0], v->reserved[1]);
+> >> +
+> >>  			for (j = 0; j < v->num_of_vrings; j++) {
+> >>  				seq_printf(seq, "  Vring %d\n", j);
+> >>  				seq_printf(seq, "    Device Address 0x%x\n", v->vring[j].da);
+> >> diff --git a/drivers/remoteproc/remoteproc_internal.h b/drivers/remoteproc/remoteproc_internal.h
+> >> index 3a742ef6ef60..f07a96ff82a4 100644
+> >> --- a/drivers/remoteproc/remoteproc_internal.h
+> >> +++ b/drivers/remoteproc/remoteproc_internal.h
+> >> @@ -14,6 +14,7 @@
+> >>  
+> >>  #include <linux/irqreturn.h>
+> >>  #include <linux/firmware.h>
+> >> +#include <linux/virtio_config.h>
+> >>  #ifdef CONFIG_HAS_IOMEM
+> >>  #include <linux/io.h>
+> >>  #endif
+> >> @@ -42,6 +43,26 @@ struct rproc_vdev_data {
+> >>  	struct fw_rsc_vdev *rsc;
+> >>  };
+> >>  
+> >> +/*
+> >> + * RSC_VDEV_V2 requests an acknowledged reset by writing an otherwise
+> >> + * impossible virtio status pattern: DRIVER and FAILED set while
+> >> + * ACKNOWLEDGE is clear. Other status bits are left unchanged.
+> >> + */
+> >> +static inline u8 rproc_rsc_vdev_reset_status(u8 status)
+> >> +{
+> >> +	status |= VIRTIO_CONFIG_S_DRIVER | VIRTIO_CONFIG_S_FAILED;
+> >> +	status &= ~VIRTIO_CONFIG_S_ACKNOWLEDGE;
+> >> +
+> >> +	return status;
+> >> +}
+> >> +
+> >> +static inline bool rproc_rsc_vdev_reset_requested(u8 status)
+> >> +{
+> >> +	return !(status & VIRTIO_CONFIG_S_ACKNOWLEDGE) &&
+> >> +	       (status & VIRTIO_CONFIG_S_DRIVER) &&
+> >> +	       (status & VIRTIO_CONFIG_S_FAILED);
+> >> +}
+> >> +
+> >>  static inline bool rproc_has_feature(struct rproc *rproc, unsigned int feature)
+> >>  {
+> >>  	return test_bit(feature, rproc->features);
+> >> diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
+> >> index d5e9ff045a28..e682caa546b2 100644
+> >> --- a/drivers/remoteproc/remoteproc_virtio.c
+> >> +++ b/drivers/remoteproc/remoteproc_virtio.c
+> >> @@ -13,6 +13,7 @@
+> >>  #include <linux/dma-map-ops.h>
+> >>  #include <linux/dma-mapping.h>
+> >>  #include <linux/export.h>
+> >> +#include <linux/iopoll.h>
+> >>  #include <linux/of_reserved_mem.h>
+> >>  #include <linux/platform_device.h>
+> >>  #include <linux/remoteproc.h>
+> >> @@ -234,12 +235,48 @@ static void rproc_virtio_set_status(struct virtio_device *vdev, u8 status)
+> >>  static void rproc_virtio_reset(struct virtio_device *vdev)
+> >>  {
+> >>  	struct rproc_vdev *rvdev = vdev_to_rvdev(vdev);
+> >> +	struct rproc *rproc = rvdev->rproc;
+> >>  	struct fw_rsc_vdev *rsc;
+> >> +	struct fw_rsc_hdr *hdr;
+> >> +	int ret;
+> >> +	u8 val;
+> >> +
+> >> +	/*
+> >> +	 * During crash recovery, vdev can be stopped. But the driver can't reset
+> >> +	 * the device, as device is already crashed. In this case, reset becomes
+> >> +	 * no op.
+> >> +	 */
+> >> +	if (rproc->state == RPROC_CRASHED)
+> >> +		return;
+> >>  
+> >>  	rsc = (void *)rvdev->rproc->table_ptr + rvdev->rsc_offset;
+> >> +	hdr = (void *)rsc - sizeof(*hdr);
+> >> +
+> >> +	if (hdr->type == RSC_VDEV_V2) {
+> >> +		/*
+> >> +		 * RSC_VDEV_V2 encodes an acknowledged reset request in the
+> >> +		 * status byte. The remote is expected to complete the reset
+> >> +		 * and then clear status back to 0.
+> >> +		 */
+> >> +		rsc->status = rproc_rsc_vdev_reset_status(rsc->status);
+> >> +
+> >> +		/* after setting reset request, kick the device */
+> >> +		rproc->ops->kick(rproc, rsc->notifyid);
+> >>  
+> >> -	rsc->status = 0;
+> >> -	dev_dbg(&vdev->dev, "reset !\n");
+> >> +		/*
+> >> +		 * When device completes reset, it is expected to set status
+> >> +		 * to 0.
+> >> +		 */
+> >> +		ret = readb_poll_timeout(&rsc->status, val, val == 0,
+> >> +					 1000,      /* 1ms between reads */
+> >> +					 3000000);  /* 3s total timeout */
+> >> +		if (ret)
+> >> +			dev_warn(&vdev->dev, "vdev reset timed out\n");
+> > 
+> > The problem here is that we are introducing behavior that is not compliant with
+> > the virtio specifications.  One way to acheive the same behavior could be for
+> > the remote processor to check rsc->status before sending a interrupt of using
+> > the virtqueues.
+> > 
+> 
+> That is what remote is supposed to do. But what if remote do not
+> respond? If remote is deadlocked for some reason, then the Linux will
+> hang at this point too. That is why we need some kind of timeout.
+
+If the remote is dead then a watchdog timer should fire at some point.
+Moreover, that situation won't be different from other circumstances where a
+remote processor locks up.
+
+Looking at your patch, sending a kick() won't do anything for a dead remote
+processor.  If the remote processor is alive, it should monitor rsc->status and
+take action when it is set to '0' by the host.  If it is locked-up, the normal
+lockup procedure should apply.
+
+I'm not sure what problem this patch is trying to address.
+
+> 
+> I think timeout mechanism is better for AMP systems over waiting forever
+> for remote to clear the status.
+> 
+> Thanks,
+> Tanmay
+> 
+> 
+> >> +	} else {
+> >> +		/* back compatible for RSC_VDEV type of rsc vdev */
+> >> +		rsc->status = 0;
+> >> +	}
+> >> +	dev_info(&vdev->dev, "reset !\n");
+> >>  }
+> >>  
+> >>  /* provide the vdev features as retrieved from the firmware */
+> >> @@ -469,6 +506,9 @@ static int rproc_remove_virtio_dev(struct device *dev, void *data)
+> >>  {
+> >>  	struct virtio_device *vdev = dev_to_virtio(dev);
+> >>  
+> >> +	/* reset virtio device before unregister */
+> >> +	virtio_reset_device(vdev);
+> >> +
+> > 
+> > Regardless of this feature, I think it is wise to reset the device before
+> > unregistering with the virtio subsystem.
+> > 
+> 
+> Agreed. I intend to keep this.
+> 
+> > Thanks,
+> > Mathieu 
+> > 
+> >>  	unregister_virtio_device(vdev);
+> >>  	return 0;
+> >>  }
+> >> diff --git a/include/linux/rsc_table.h b/include/linux/rsc_table.h
+> >> index 71b60125310e..2398a6d7033e 100644
+> >> --- a/include/linux/rsc_table.h
+> >> +++ b/include/linux/rsc_table.h
+> >> @@ -66,6 +66,8 @@ struct fw_rsc_hdr {
+> >>   *		    the remote processor will be writing logs.
+> >>   * @RSC_VDEV:       declare support for a virtio device, and serve as its
+> >>   *		    virtio header.
+> >> + * @RSC_VDEV_V2:    declare support for a virtio device whose reset request is
+> >> + *		    encoded in the virtio status byte.
+> >>   * @RSC_LAST:       just keep this one at the end of standard resources
+> >>   * @RSC_VENDOR_START:	start of the vendor specific resource types range
+> >>   * @RSC_VENDOR_END:	end of the vendor specific resource types range
+> >> @@ -83,7 +85,8 @@ enum fw_resource_type {
+> >>  	RSC_DEVMEM		= 1,
+> >>  	RSC_TRACE		= 2,
+> >>  	RSC_VDEV		= 3,
+> >> -	RSC_LAST		= 4,
+> >> +	RSC_VDEV_V2		= 4,
+> >> +	RSC_LAST		= 5,
+> >>  	RSC_VENDOR_START	= 128,
+> >>  	RSC_VENDOR_END		= 512,
+> >>  };
 > >>
-> > 
-> > Hi Zhang,
-> > 
-> > Thanks for the tweaks. I still found some of the logic circuitous as I
-> > read through it so I spent some time playing with this just to
-> > experiment with cleaning it up a bit. I ended up removing a couple of
-> > the labels, lifting the pstart/pend assignment to a default init/case,
-> > and reshuffling the split case pstart/pend assignments in a way that I
-> > think also elides the need for the boolean or using folio2. (I'm curious
-> > if this happens to address the Sashiko feedback as well..?)
-> > 
-> > Note that this is completely untested and needs further review. Since
-> > the current patch looked mostly Ok to me functionally (though I do agree
-> > with the comment about possibly splitting up into smaller changes) and
-> > has other reviews, I'm just posting this as an FYI. Here's a diff of the
-> > changes I made on top of this patch (Assisted-by: LLM, fwiw). Feel free
-> > to use some, all or none of it. Thanks!
-> > 
-> > Brian
+> >> base-commit: d4d61a4b0a52e8f3cdb3e1578602850a3452ec3e
+> >> -- 
+> >> 2.43.0
+> >>
 > 
-> Hi Brian,
-> 
-> Thanks a lot for spending time on this, and for posting the diff. I
-> agree with most of it.
-> 
-> Lifting the default pstart/pend assignment to the top and turning the
-> early exits into plain returns removed the need for the no_split: /
-> split: labels and the tail_isolated boolean, which does make the
-> function easier to follow.
-> 
-> One thing I was wondering about: in your diff, when setting pend while
-> trying to split folio2, you completely dropped the use of folio2->index.
-> With folio2->index gone, an unaligned end means any failed split falls
-> back to folio->index. I assume that is mainly because its value is not
-> reliable under concurrency, which is exactly what sashiko pointed out.
-> However, it does mean we lose a bit of precision though, I mean the
-> sub-folios that were successfully split off at the pstart edge end up
-> left behind in the page cache. Please see a small example below.
-> 
-
-Yeah, it's possible this went a little too far on the simplification
-side. I was thinking of just being conservative and saying it's probably
-safer to err on the side of leaving folios around in the failure case
-vs. being too aggressive and losing data like the issue this is trying
-to fix.
-
-I won't be able to take a closer look at this until next week, but on a
-quick glance what you describe below sounds reasonable to me. Thanks!
-
-Brian
-
-> > 
-> > --- 8< ---
-> > 
-> > diff --git a/mm/truncate.c b/mm/truncate.c
-> > index d88a1b159084..8da16d7e6763 100644
-> > --- a/mm/truncate.c
-> > +++ b/mm/truncate.c
-> > @@ -237,10 +237,16 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
-> >  	else
-> >  		length = lend + 1 - pos - offset;
-> >  
-> > +	if (pstart)
-> > +		*pstart = offset ? folio_next_index(folio) : folio->index;
-> > +	if (pend)
-> > +		*pend = (pos + size > (u64)lend) ? folio->index :
-> > +						   folio_next_index(folio);
-> > +
-> >  	folio_wait_writeback(folio);
-> >  	if (length == size) {
-> >  		truncate_inode_folio(folio->mapping, folio);
-> > -		goto no_split;
-> > +		return false;
-> >  	}
-> >  
-> >  	/*
-> > @@ -254,7 +260,7 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
-> >  	if (folio_needs_release(folio))
-> >  		folio_invalidate(folio, offset, length);
-> >  	if (!folio_test_large(folio))
-> > -		goto no_split;
-> > +		return false;
-> >  
-> >  	min_order = mapping_min_folio_order(folio->mapping);
-> >  	min_nrbytes = mapping_min_folio_nrbytes(folio->mapping);
-> > @@ -266,29 +272,30 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
-> >  		 * for shmem truncate
-> >  		 */
-> >  		struct folio *folio2;
-> > -		bool tail_isolated = true;
-> >  
-> > -		if (pend)
-> > -			*pend = round_down(pos + offset + length,
-> > +		if (pstart)
-> > +			*pstart = round_up(pos + offset,
-> >  					   min_nrbytes) >> PAGE_SHIFT;
-> >  
-> > -		if (offset + length == size)
-> > -			goto split;
-> > +		if (offset + length == size) {
-> > +			if (pend)
-> > +				*pend = round_down(pos + offset + length,
-> > +						   min_nrbytes) >> PAGE_SHIFT;
-> > +			return true;
-> > +		}
-> >  retry:
-> >  		split_at2 = folio_page(folio,
-> >  				PAGE_ALIGN_DOWN(offset + length) / PAGE_SIZE);
-> >  		folio2 = page_folio(split_at2);
-> >  
-> >  		if (!folio_try_get(folio2))
-> > -			goto split;
-> > +			return true;
-> >  
-> >  		if (!folio_test_large(folio2))
-> >  			goto out;
-> >  
-> > -		if (!folio_trylock(folio2)) {
-> > -			tail_isolated = false;
-> > +		if (!folio_trylock(folio2))
-> >  			goto out;
-> > -		}
-> >  
-> >  		/*
-> >  		 * split_at2 may no longer belong to folio2 due to concurrent
-> > @@ -304,28 +311,18 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
-> >  		/* make sure folio2 is large and does not change its mapping */
-> >  		if (folio_test_large(folio2) &&
-> >  		    folio2->mapping == folio->mapping &&
-> > -		    folio_split_or_unmap(folio2, split_at2, min_order))
-> > -			tail_isolated = false;
-> > +		    !folio_split_or_unmap(folio2, split_at2, min_order) &&
-> > +		    pend)
-> > +			*pend = round_down(pos + offset + length,
-> > +					   min_nrbytes) >> PAGE_SHIFT;
-> 
-> [...]
-> 
-> Assume a 4-page order-2 folio [p0 p1 p2 p3], punched from offset 0 into
-> the middle of p3, with min_order == 0.:
-> 
->    [p0 p1 p2 p3]  --1st split @p0-->  [p0] [p1] [p2-p3]
->    folio now points to [p0]
->    folio2 = [p2-p3]            # p2 zeroed, p3 tail valid
->    2nd split of [p2-p3] fails  # folio_split_or_unmap() returns failure.
-> 		
-> As a result, both pstart and pend are p0, so the sub-folios p0 and p1
-> are left behind.
-> 
-> I agree that under concurrency we really can't get a valid end position
-> since folio2 is not trustworthy(e,g., failed to get the folio2 or failed
-> to lock the folio2...). But once we have successfully got a reference to
-> and locked folio2, its index should be valid. So I've ended up with
-> something like the below (This hasn't been tested yet, just wanted to see
-> everyone's opinions), let me know what you and the other reviewers think.
-> 
-> 
-> diff --git a/mm/truncate.c b/mm/truncate.c
-> index d88a1b159084..b551e8253de7 100644
-> --- a/mm/truncate.c
-> +++ b/mm/truncate.c
-> @@ -237,10 +237,16 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
->  	else
->  		length = lend + 1 - pos - offset;
-> 
-> +	if (pstart)
-> +		*pstart = offset ? folio_next_index(folio) : folio->index;
-> +	if (pend)
-> +		*pend = (pos + size > (u64)lend) ? folio->index :
-> +						   folio_next_index(folio);
-> +
->  	folio_wait_writeback(folio);
->  	if (length == size) {
->  		truncate_inode_folio(folio->mapping, folio);
-> -		goto no_split;
-> +		return false;
->  	}
-> 
->  	/*
-> @@ -254,7 +260,7 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
->  	if (folio_needs_release(folio))
->  		folio_invalidate(folio, offset, length);
->  	if (!folio_test_large(folio))
-> -		goto no_split;
-> +		return false;
-> 
->  	min_order = mapping_min_folio_order(folio->mapping);
->  	min_nrbytes = mapping_min_folio_nrbytes(folio->mapping);
-> @@ -266,66 +272,65 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
->  		 * for shmem truncate
->  		 */
->  		struct folio *folio2;
-> -		bool tail_isolated = true;
-> +		pgoff_t end, aligned_end = round_down(pos + offset + length,
-> +						min_nrbytes) >> PAGE_SHIFT;
-> 
-> -		if (pend)
-> -			*pend = round_down(pos + offset + length,
-> +		if (pstart)
-> +			*pstart = round_up(pos + offset,
->  					   min_nrbytes) >> PAGE_SHIFT;
-> 
-> -		if (offset + length == size)
-> -			goto split;
-> -retry:
-> +		if (offset + length == size) {
-> +			end = aligned_end;
-> +			goto out;
-> +		}
-> +
->  		split_at2 = folio_page(folio,
->  				PAGE_ALIGN_DOWN(offset + length) / PAGE_SIZE);
->  		folio2 = page_folio(split_at2);
-> 
-> -		if (!folio_try_get(folio2))
-> -			goto split;
-> -
-> -		if (!folio_test_large(folio2))
-> -			goto out;
-> -
-> -		if (!folio_trylock(folio2)) {
-> -			tail_isolated = false;
-> -			goto out;
-> -		}
-> -
->  		/*
-> -		 * split_at2 may no longer belong to folio2 due to concurrent
-> -		 * split. Retry to find the correct folio in case it's still
-> -		 * large.
-> +		 * folio2 may become stale due to a concurrent split or
-> +		 * freeing, so validate it before and after taking its lock.
-> +		 * If it fails, we can't get an accurate end position and fall
-> +		 * back to folio->index, which may leave sub-folios split off
-> +		 * at the offset edge in the page cache this round.
->  		 */
-> +		end = folio->index;
-> +		if (!folio_try_get(folio2))
-> +			goto out;
-> +		if (folio2->mapping != folio->mapping ||
-> +		    !folio_test_large(folio2))
-> +			goto out_put;
-> +
-> +		if (!folio_trylock(folio2))
-> +			goto out_put;
-> +
->  		if (page_folio(split_at2) != folio2) {
->  			folio_unlock(folio2);
-> -			folio_put(folio2);
-> -			goto retry;
-> +			goto out_put;
-> +		}
-> +		if (!folio_test_large(folio2)) {
-> +			end = aligned_end;
-> +			folio_unlock(folio2);
-> +			goto out_put;
->  		}
-> 
-> -		/* make sure folio2 is large and does not change its mapping */
-> -		if (folio_test_large(folio2) &&
-> -		    folio2->mapping == folio->mapping &&
-> -		    folio_split_or_unmap(folio2, split_at2, min_order))
-> -			tail_isolated = false;
-> +		/* Split failed: back off to the head of the straddler */
-> +		if (folio_split_or_unmap(folio2, split_at2, min_order))
-> +			end = folio2->index;
-> +		else
-> +			end = aligned_end;
-> 
->  		folio_unlock(folio2);
-> -out:
-> -		if (!tail_isolated && pend)
-> -			*pend = folio2->index;
-> +out_put:
->  		folio_put(folio2);
-> -split:
-> -		if (pstart)
-> -			*pstart = round_up(pos + offset,
-> -					   min_nrbytes) >> PAGE_SHIFT;
-> +out:
-> +		if (pend)
-> +			*pend = end;
->  		return true;
->  	}
->  	if (!folio_test_dirty(folio))
->  		truncate_inode_folio(folio->mapping, folio);
-> -no_split:
-> -	if (pstart)
-> -		*pstart = offset ? folio_next_index(folio) : folio->index;
-> -	if (pend)
-> -		*pend = (pos + size > (u64)lend) ? folio->index :
-> -						   folio_next_index(folio);
->  	return false;
->  }
-> 
-> 
-
