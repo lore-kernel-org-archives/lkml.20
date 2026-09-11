@@ -1,93 +1,143 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+Received: from pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.245.243.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF2C747D442;
-	Fri, 11 Sep 2026 12:58:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE8A47F3B6;
+	Fri, 11 Sep 2026 12:58:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.245.243.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789131538; cv=none; b=QHkwKFyODE3AHhXQ4j0iQx8QqjCQkz1EE+EHwylI3G++rZOfd8sGpirPMPaja5a9onL9dU5CYO1NA4adIfWge5BZMZm2IfFjYeh8qqmB2OLT/UHQi7JISYTX0PzstGUWErNRJX1+LKwTq0CHFoc3U6Q+J3bV71sHl33uGAXRqPs=
+	t=1789131540; cv=none; b=J/MqqD2V4flsKJqxO+1FBm+s4huerY/QQjb9rZRma9DRmUdLejgJqmBSJuUBzu6cKjtiZ6sm5Z2y3YyON0+mIHpfNiwtv/o8ypAKTovz702Q+TQ5uSwFbO7ntkJeYy6HV7BPA8LTDg3a678H8gK848kqt4PDtAWjnbK3k7rgsrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789131538; c=relaxed/simple;
-	bh=bjoTTqpWpKvplAqU+RyCcsF1m/WtPEW3tfKywXliCM4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=p8yaJNx4Z0Kn+7xf7QCDEANgT7Qp9d4dKtLtneBVPLDLFHB8Tub4xRmTh9RUS4JKQUGtIlXVwWakKsbK8juslUY5SS2yCvABdAUPzpcOXCBXQ6aS6UnQr/SnZOQv1LTGenpA5sczC+xBRmiylpK2w5EfX5xfOdzeoVOR1RWqdE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=0JqVOVv+; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1789131540; c=relaxed/simple;
+	bh=CuyMTV2toefKFBu22fflUqCz/Qh7DGVjuBXqnSnFCQU=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=sXHWKgIGsZUk1VA60Xs9oxaWKznw7d3hvT1UbFJ7ueYPvWr5+05tePA679TfufGIEnSFRIP1V1uK1rgjZogb8JYtKTJ/J57PzKiairIQaodpDsDe2UcP+rlM9ErriofCKJZwKjDk10VGurI+HETfS8KrXwL/TpdF9znjj45FarQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=ATaV1XzW; arc=none smtp.client-ip=44.245.243.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="0JqVOVv+"
-Received: from omf02.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay04.hostedemail.com (Postfix) with ESMTP id 57FF11A0226;
-	Fri, 11 Sep 2026 12:58:17 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf02.hostedemail.com (Postfix) with ESMTPA id 411FB80012;
-	Fri, 11 Sep 2026 12:57:57 +0000 (UTC)
-Date: Fri, 11 Sep 2026 08:59:18 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Ye Liu <ye.liu@linux.dev>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Ye Liu <liuye@kylinos.cn>,
- Michal Hocko <mhocko@suse.com>, SJ Park <sj@kernel.org>, Lorenzo Stoakes
- <ljs@kernel.org>, Oleg Nesterov <oleg@redhat.com>, peterz@infradead.org,
- paulmck@kernel.org, mingo@redhat.com, jpoimboe@kernel.org, mic@digikod.net,
- tglx@kernel.org, akpm@linux-foundation.org, david@kernel.org,
- linmiaohe@huawei.com, nao.horiguchi@gmail.com, rafael@kernel.org,
- gnoack3000@gmail.com, gourry@gourry.net, rientjes@google.com,
- shakeel.butt@linux.dev, xu.xin16@zte.com.cn, chengming.zhou@linux.dev,
- will@kernel.org, boqun@kernel.org, frederic@kernel.org,
- neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com, josh@joshtriplett.org,
- urezki@gmail.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
- tony.luck@intel.com, reinette.chatre@intel.com, x86@kernel.org,
- paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com, pavel@kernel.org,
- lance.yang@linux.dev, pmladek@suse.com, longman@redhat.com,
- mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
- qiang.zhang@linux.dev, dietmar.eggemann@arm.com, bsegall@google.com,
- mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
- mark.rutland@arm.com, Dave.Martin@arm.com, james.morse@arm.com,
- babu.moger@amd.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, rcu@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-security-module@vger.kernel.org
-Subject: Re: [PATCH v3 11/15] tracing/fgraph: convert process/thread
- iterator to for_each_process_thread_rculock
-Message-ID: <20260911085918.30c87ab3@gandalf.local.home>
-In-Reply-To: <20260911075800.491472-12-ye.liu@linux.dev>
-References: <20260911075800.491472-1-ye.liu@linux.dev>
-	<20260911075800.491472-12-ye.liu@linux.dev>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="ATaV1XzW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1789131524; x=1820667524;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=zyLeE2j4JM9qN3t73F4gnb9yLZClmnJFub7Nlabs4hs=;
+  b=ATaV1XzWI6dKXkWwEUXf7WlhCXwlhiZxI3NkPqBujvteVD3zlMusna0o
+   4GV6pY6zdxmgXUehEwyeiHZIS8bvCXcsQ8EFw2Z73/fLyFTs6z2NUOlbg
+   HWvXqHeS5nA9pDwMsPuS0syPwayoktn7uS/DQcgHXacJZ95mlSKX9Ay0c
+   Wf3k0HhOROqMNS/S5Ip/mcU6WicYnspE4bs5r8XtLWWtf7mu7W1HzWVhw
+   GqMfq7mk4sninnAEiXal7ziV5xs25S0x6f8xMpgQiSBBIhFYIF6A4wZwZ
+   eEHQq82CrYA8RKGaY3HG3A7c0PeXzTnnU2PH+7Q81QFmK8UadPKUXVb2F
+   Q==;
+X-CSE-ConnectionGUID: Bo5p7fyHTp2YUvV/ByIykA==
+X-CSE-MsgGUID: xQfQhnVIQpO07KtGrIrJtw==
+X-IronPort-AV: E=Sophos;i="6.27,97,1787011200"; 
+   d="scan'208";a="27926022"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 12:58:38 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.51:15362]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.43.236:2525] with esmtp (Farcaster)
+ id 9bdc87fd-5149-4492-992c-52ea92ac8b52; Fri, 11 Sep 2026 12:58:38 +0000 (UTC)
+X-Farcaster-Flow-ID: 9bdc87fd-5149-4492-992c-52ea92ac8b52
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
+ Fri, 11 Sep 2026 12:58:37 +0000
+Received: from dev-dsk-sakacpav-1a-480d1124.eu-west-1.amazon.com
+ (172.19.96.155) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Fri, 11 Sep 2026
+ 12:58:36 +0000
+From: Pavol Sakac <sakacpav@amazon.de>
+To: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>
+CC: Robin Murphy <robin.murphy@arm.com>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	<linux-pci@vger.kernel.org>, <nh-open-source@amazon.com>
+Subject: [RFC PATCH 0/3] iommu: Reduce iommu_probe_device_lock contention
+Date: Fri, 11 Sep 2026 14:58:31 +0200
+Message-ID: <20260911-vfopt-s2-v1-0-fff3db7e01c2@amazon.de>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 411FB80012
-X-Stat-Signature: n6a6yg87erzr1tr8kadm4kbym8uws4c7
-X-Rspamd-Server: rspamout03
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX184cgL4CPzpG6wyU7gqy6pHH3IT2rF9ets=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=UaQYdknTmueyDeiPHskDcTArMbJldar1uQP+OR5ILiM=; b=0JqVOVv+9L81lkGml08i9mMS8B782yjgSSh0J7qB8NJfLJbXU0fLz9weZAM4fQ5Ra9CUavRTBo+PCH73WKm//G+wNOzwNoyxnF2a7JXOtbmdL7tZR3SzwRbbk7iw2rNQVN3kwRcItAAPl3JNid1xBW4naEquTGk2Qi05wOwcUrA=
-X-HE-Tag: 1789131477-955751
-X-HE-Meta: U2FsdGVkX18IEJ34TJ0+KfkZrrzHJ2dGti8SCtUwJBxnBs7A77nAwjwyHWgBGGkRmcWxfRbbgYYDx9+//1mp9vVOjUQbCfr8JwoUfq6qObLo5XckYsaDveVKT4KVuSxa43lMppAHrfkQ6q66hua38QSWiGZ4pR4WLuiB/fRlv95rgRSwCTUef6/9xZIREFm6zARLWSxhMwm/+USXJ5Odeo33wnQhHtMWXVBSR1fuAOuRDXqRFn/VmuEmY4R93qX7JzsgtbqMZNWtX+CwTgbkKXii7THG1FmHcDAGAFH4eWA8QubRpp9x6o0Bf0fFFGOxvfWU4KGfGsEN23tdH4CEfp8DdKmJ89MyETXiouFLfhLA9mjoesG1uJ4spkJ5GIdarVsiaR7bvBIJXGMAkAiEBCCCpjOlciuLokm1pcCBCZvkrE1QZjTT39frBEzytesHCZdU724fPrc5uye0+xI5ILZJA4Ngv6OQ1x3Efp0PWJo=
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Fri, 11 Sep 2026 15:57:56 +0800
-Ye Liu <ye.liu@linux.dev> wrote:
+iommu_probe_device_lock is a file-scope mutex held across
+__iommu_probe_device(): every device's IOMMU probe serializes against
+every other. With "PCI/IOV: Initialize virtual functions in
+parallel" [1] fanning an SR-IOV enable across CPUs, it collects 94.7%
+of all lock wait. Patch 1 gathers per-member sysfs publication into one
+all-or-nothing helper (no functional change); patches 2-3 move that
+publication and first-device default-domain setup into per-group
+finalisation after the global unlock, under group->mutex, mirroring the
+removal path and bus_iommu_probe().
 
-> From: Ye Liu <liuye@kylinos.cn>
-> 
-> Replace the manual rcu_read_lock()/rcu_read_unlock() pair combined
-> with for_each_process_thread() loop in kernel/trace/fgraph.c with
-> for_each_process_thread_rculock(), which scopes the RCU read lock
-> to the loop body via scoped_guard(rcu).
-> 
-> No functional change.
-> 
-> Signed-off-by: Ye Liu <liuye@kylinos.cn>
-> Acked-by: Michal Hocko <mhocko@suse.com>
-> Reviewed-by: SJ Park <sj@kernel.org>
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+Lock statistics and SR-IOV init time for 4x PF (NVMe, 255 VFs each), on
+the reproducer from the parallel VF initialization cover letter [1]:
 
-Acked-by: Steven Rostedt <rostedt@goodmis.org>
+  lock_stat:
+  Lock                     wait: Before     After   contentions: Before   After
+  iommu_probe_device_lock      25507 ms  10471 ms                  1143     841
+  &root->kernfs_rwsem            942 ms   1834 ms                 93208  116316
+  &vfio.group_lock               425 ms   3614 ms                   497     736
 
--- Steve
+  avg wait per acquisition  6.3 ms -> 2.6 ms (4080 acq., both arms)
+
+  Stage                 SR-IOV init time:
+  S0 (baseline)         3027 ms
+  S1                     999 ms
+  S2 (this series)       995 ms
+
+Reproducer disclaimer:
+I lean primarily on lock_stat numbers to defend the improvements. In
+the reproducer, this lock's residual hold dominates the window and
+masks the later series' wall-time gains, more in [1].
+
+This is relief, not removal: the lock still has the highest wait
+time in the profile after this series. Wait per acquisition drops
+from 6.3 ms to 2.6 ms, which is what makes the smaller
+serialization points behind it measurable for the later series.
+
+RFC on the direction: The comment in __iommu_probe_device() expects
+the lock to narrow to device_lock() once the ACPI/OF replay calls
+are cleaned up. I could not make that work for the whole section:
+group formation in ops->device_group() is a cross-device decision a
+per-device lock cannot order. This series instead moves the work
+that needs no global ordering out of the section. Is that an
+acceptable step, or is there a scoping or removal plan this should
+wait for?
+
+A second question: I have measured where 90% of the residual hold goes:
+get_pci_alias_group() walks every PCI device in the system to find
+same-bus DMA aliases. It runs once per device probed, so once per VF,
+under this lock, and the VFs keep growing the list it walks. A prototype
+that skips the walk when no device has a dma_alias_mask and this device
+has no pci_real_dma_dev() override cuts this lock's hold time by about
+90%, for the same acquisitions and the same groups. I am not proposing
+it here, as I do not have the time to get it right this cycle. How can
+we optimize this preferably in O(1) time?
+
+The lock_stat and timing figures come from the public reproducer. The
+full series has also been tested on current datacenter server hardware
+with thousands of VFs.
+
+[1] https://lore.kernel.org/r/20260911-vfopt-s1-v1-0-693271dc0226@amazon.de
+
+Pavol Sakac (3):
+  iommu: split sysfs link publication out of iommu_group_alloc_device()
+  iommu: create device sysfs links outside iommu_probe_device_lock
+  iommu: set up the default domain outside iommu_probe_device_lock
+
+ drivers/iommu/iommu.c | 197 ++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 160 insertions(+), 37 deletions(-)
+
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.47.3
+
