@@ -1,98 +1,73 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE961A3166
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:12:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 112F23E7635
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:14:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150362; cv=none; b=QXLZRZGua7x26UEEQm8tpuBPTnGwUHIHy4MlCAHLZVfM9y4K4BZBHR04wkjvwaLBxQB5YnpvOf0zjZAwMhrqlJvFBf06jZeAV1YaXdhvd1weGrFrKoQLMhpnWwk8u4yBju5+BQ3/db4UFkc4kYFA7CycihOmw8r8Bh5oDhyOqXY=
+	t=1789150444; cv=none; b=Zql8qXcFOtNTNDXINGDscuy2UZUUJX0OscsXNLj9qf8YIhi5P+kGSxUwJyv+R7m0jEWR2YbdkNxa8r03sHv8prIzrf7TsygRD/UaZE0qpYchX7tp55uE8ToKmj/puDIrNrmnJWpK+XQMErtr6P5ACrbNfgnw+4G1vIsZIq7CEwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789150362; c=relaxed/simple;
-	bh=acvjJbMVUCOebvdl1z/1rtpg3FOw/WrLZvEUGSjzGGw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pi6I9s+YYXFZVDC3pMhWyAf8ixOpeDRZp8fhdxOKs3kGD8m/TqjLMh5b1vE6A2PuEnKFrDvj3j/dA5Q6mTqZeDEPbvwXEa8w1sEvVM6N43bqHLtVSyFjvpwrqx0MnZ077YY4COv4szsB7nR84xZd86ure7JTqB2aGopheV7QRgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=oIxRlhmc; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="oIxRlhmc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789150360; x=1820686360;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=acvjJbMVUCOebvdl1z/1rtpg3FOw/WrLZvEUGSjzGGw=;
-  b=oIxRlhmcwPpjhvDMsUUKhLnYa8r5CrnzgrNWoeJCXf3bHfZZbLu1S8V9
-   AUgG/Upv4YP2JzYi/UoCTZxUHK9W2M8MBQ3dJO3zD66J7OTLZWfO5Gc3H
-   koRHqFFCmhhdcdXWRjuhjzWMndmy8wRKQCYcofy41ZtgNzw5Ej8ejbIV8
-   Zku7W3CzOkJBbXn+38VIlY/bpLgKUwSw2GpayjHKViIB56Xvrr0RQydQD
-   LjpB08AxbSbD7+wiP8sw08iN7AbwdUWje+HYN8xdJAm5NaonUhBufzjfJ
-   +ysQUdYozTSwV+eGtChaPIEOjiTTkU34eni9JbdSOWWS4ff5KFL4x2MRF
-   w==;
-X-CSE-ConnectionGUID: FqTMUVSiQB2pJ9tGOWgOhg==
-X-CSE-MsgGUID: RQxHdbPXTY+aUoNPuZ3ZOw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="106988877"
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="106988877"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 11:12:36 -0700
-X-CSE-ConnectionGUID: m4dKVsCxRMq871LngzfC/Q==
-X-CSE-MsgGUID: FjGBQZBCQ1etAksjsi8E7Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="276143787"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.80])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 11:12:33 -0700
-Date: Fri, 11 Sep 2026 21:12:31 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Pavol Sakac <sakacpav@amazon.de>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tejun Heo <tj@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Xu Yang <xu.yang_2@nxp.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	nh-open-source@amazon.com
-Subject: Re: [PATCH 1/3] kernfs: activate nodes while linking them
-Message-ID: <aqREj_l5fMCZwX4f@ashevche-desk.local>
-References: <20260911-vfopt-s3-v1-0-66e3602f76f7@amazon.de>
- <20260911171639.68348-1-sakacpav@amazon.de>
+	s=arc-20240116; t=1789150444; c=relaxed/simple;
+	bh=Yfg2juP1184JKO29G87l8Y7ne38kjTz0flE1V8LpoGg=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=ukZOC/t6rJDcVlXXHjgLx8wiCs+9OFPKqobmyxOK18CQ8GRPxkSnVUiG9+QitMT1HCOU1CEMLyo5ijEUkJMtg5exyCugEbSrCc9ofRLnw0T+kMzuHddHZLrWSo8ssLs4yUExcdf/VUQqyl707YPa3u1+Nah/WEgms3p6mVr0oik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4ab4dd46ddeso973987b6e.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:14:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789150442; x=1789755242;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=JSjM91GH08wn6prgIRPH6mHdt8AOOF1Y9SfqXTBzxyA=;
+        b=kcHFDxWIFx6wYCh74vTnHefaZFlWFjHqjIjSZeb3otzWCc74s3iPsBQp4EDs0NG6C0
+         KcPifi86zDoXQJCCOdJGLAZpZWEP4P6xD1x3iMjvAeX/etduSLUbKBWLfHN/wQx04DZ1
+         jMhXl6Acn0Sm7ebmFQony2v/RNLhW9O0hFVR8kTFJjca8Ej/j10WoDahQZQhQ570Mwho
+         jf6O9vbzu/GJsE4g4oqXlHPbV0Wbz+sRleEzwoLtQKwMDFgpnRRWZNaiC1ksdNvwpIzd
+         ZCsinYzxd7YHY1jK0BQYxRIxibEOA+eXBmPZKZX2ve+qZber/+46zgO3QzLO64ewkpBn
+         kcjA==
+X-Forwarded-Encrypted: i=1; AKwUvByjxkwgyNJC8d8+3kjlTvmwi/ff9/HsJbTwciLQPUd9GXTB4jefbR+90bPj+bX2feSaCkWxv8pRKBloa2g=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAxerD6eOhdWbpzdMBLYzbN6CHdvjsB+QKwlXtIuqOIPO1wlws
+	4ohPEqVJuSo2E4XjT4PhHqsw2BaYcDWejTn6a6yXcaEfrtxGm/EpTDtTR7yCs7xoBBkUIvbwxnj
+	/Rld2YrzbqaBCEmWf96+TNZwt/I24xZnCwYMpPElo7ESKaXnh8OXPbuHWbuc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911171639.68348-1-sakacpav@amazon.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-Received: by 2002:a05:6820:1620:b0:6b1:464d:4d1d with SMTP id
+ 006d021491bc7-6c0b9274492mr3995719eaf.11.1789150441967; Fri, 11 Sep 2026
+ 11:14:01 -0700 (PDT)
+Date: Fri, 11 Sep 2026 11:14:01 -0700
+In-Reply-To: <fcabab93-13bf-47da-91ac-5e7fcaec6362@acm.org>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa444e9.f2639fcc.29487d.0033.GAE@google.com>
+Subject: Re: [syzbot] [scsi?] INFO: task hung in scsi_scan_host_selected
+From: syzbot <syzbot+1f678bd2872aefb11d8a@syzkaller.appspotmail.com>
+To: bvanassche@acm.org, james.bottomley@hansenpartnership.com, 
+	linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org, mkp@kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Sep 11, 2026 at 07:16:03PM +0200, Pavol Sakac wrote:
-> kernfs_add_one() links a new node, releases kernfs_rwsem, and takes it
-> again through kernfs_activate(). A new node has no descendants, so the
-> second hold only activates that node.
-> 
-> Activate ordinary nodes before releasing the linking hold, removing a
-> second write-side acquisition and the linked-but-inactive interval.
-> KERNFS_ROOT_CREATE_DEACTIVATED roots retain explicit subtree activation.
-> 
-> Removing the unlock-to-lock pair also removes its publication ordering.
-> The in-tree lockless ID lookups use CREATE_DEACTIVATED roots and retain
-> kernfs_activate(); unsynchronized callers cannot rely on observing a
-> node.
+Hello,
 
-...
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-> +static void kernfs_activate_one(struct kernfs_node *kn);
-> +
+Reported-by: syzbot+1f678bd2872aefb11d8a@syzkaller.appspotmail.com
+Tested-by: syzbot+1f678bd2872aefb11d8a@syzkaller.appspotmail.com
 
-Can we avoid adding forward declarations like this? Or is there circular
-dependencies? If not, add another patch that simply moves the existing code
-upper, so this patch won't need a forward declaration.
+Tested on:
 
--- 
-With Best Regards,
-Andy Shevchenko
+commit:         74786683 scsi: core: Make SCSI host scan interruptible
+git tree:       https://github.com/bvanassche/linux/ scsi-scan-syzbot
+console output: https://syzkaller.appspot.com/x/log.txt?x=1242a1f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
+dashboard link: https://syzkaller.appspot.com/bug?extid=1f678bd2872aefb11d8a
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
-
+Note: no patches were applied.
+Note: testing is done by a robot and is best-effort only.
