@@ -1,69 +1,138 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D1759E337;
-	Fri, 11 Sep 2026 20:20:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AA0459E35D;
+	Fri, 11 Sep 2026 20:21:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789158051; cv=none; b=vGPK6cy+GHgC8jCncouqqVu3jCEW6NuWXtxtSvCkvCdJK2KilERefCuEEwiJ379Qbm/1flOanboRQYAYIWYmtHHYUfGx/dPgZS/j3wZwVi3+4Eb18z4HdvfxtOv/mda668XPuXC7gmVX11CO0FVmI7wfk/9N31B4sIlkPtNXBJw=
+	t=1789158113; cv=none; b=VtyMnC5xDEb39UrZawTfV5AO5HBQrfmeOULD5kEtQ9oLhceoHRwc6XRKbx7ZpgVyUatnGy3di9CF3clGcKcv9fNQP6vV/wLYjt1FqS5QC7tqoIU4B2KTa1FNo46QzMOs+CQ23WeGDPw1THmb/H4z8bidQ2jt/8c0wBF+dub5DR8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789158051; c=relaxed/simple;
-	bh=lpaXRPJxbfkNUnSKjznQuKuprZtqR8LRqml2W/CXNqE=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=TsknmmTVlOL/JH0o5Ze+6I6p1u279xki+lqmV8CH4qA2PapLvguPu7NGyKTXljRuCInkw4x2lt6yE2cgBjiMHokNAb9usYLGxCSZVa+jytGwx5ZeF67mUqlLa38TFtmyQme82Q2B2CkUGOymbqvDReEfMPttXE/O+LhiNCe7fD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.helo=mail.mainlining.org; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.helo=mail.mainlining.org
-Date: Fri, 11 Sep 2026 21:20:30 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Arnd Bergmann <arnd@arndb.de>, "Paul E. McKenney" <paulmck@kernel.org>
-CC: Frederic Weisbecker <frederic@kernel.org>, neeraj.upadhyay@kernel.org,
- Boqun Feng <boqun@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>,
- rcu <rcu@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Linux-Arch <linux-arch@vger.kernel.org>, Vineet Gupta <vgupta@kernel.org>,
- linux-snps-arc@lists.infradead.org, Russell King <linux@armlinux.org.uk>,
- linux-arm-kernel@lists.infradead.org, guoren <guoren@kernel.org>,
- "linux-csky@vger.kernel.org" <linux-csky@vger.kernel.org>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- linux-sh@vger.kernel.org, Chris Zankel <chris@zankel.net>,
- Max Filippov <jcmvbkbc@gmail.com>, linux-kernel@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_0/6=5D_Add_two-byte_cmpxchg_emu?=
- =?US-ASCII?Q?lation_and_wire_it_into_the_architectures?=
-In-Reply-To: <a817a6ed-7345-435c-97bd-a394b90e8366@app.fastmail.com>
-References: <20260911192540.20983-1-brads@mainlining.org> <a817a6ed-7345-435c-97bd-a394b90e8366@app.fastmail.com>
-Message-ID: <95BE6915-5583-4E32-9CCC-FED8BC91AD41@mainlining.org>
+	s=arc-20240116; t=1789158113; c=relaxed/simple;
+	bh=Gda/p45mn0eDZ98/49FQRJN55Cd0HHPAXWHYrDruXPk=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 MIME-Version:Content-Type; b=eV+G2U8O9/uQXeKW8gVCKQlSXZCiC57rtpQ4zwwLy4Lnxpv1dtC8xnGa8Ecepy5rkLhXbGZXLsq7Y+R/w3LXP7qsVD6H3+udUsviAOYUY7M637wL1aWwWXxCmy+MdGqAcQ0/1SJPirdQi9ffUx7OGpARD13XrvVHX2lppZ0vfag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=Ul0TTLRS; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="Ul0TTLRS"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
+	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=tdC+eeHQ2/y5B3/a3WDCCd1iGftUlGNNEOZKxfjw6Y8=; b=Ul0TTLRSppbnaeKmw4fCK2ft1x
+	F34mxzOMJUI0cVF9k/fXLnBWQgRO3UeJzWuhRYtK1KaZ8BnrVVFf6IZ8pWFPGAfyyz3lKhFN1UBsv
+	AhadtmlzpndrOPRm6lPyp0tyHYNEmMYUcq/tuyKNB5uS91toVwMIoiqZKtDHBnxt3vSHyfL0K+PCw
+	+SjgtXfNotNqhkNOwgjOzxOPKMftYOcwjSPDk3IaYWoAKYXMQXM9OA8ZrYyfpk6n1C6EwR3TZ6QKM
+	scYOL0wrM48BLSc4OLEb6vcHRx6dsk0wX5A40eNqhsDsU/oDu3KS8Ihsemii5xwg19/ZlnAwO9sdP
+	xO+iBfJA==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1x57kh-00000001Exp-194l;
+	Fri, 11 Sep 2026 17:21:39 -0300
+Message-ID: <920f0b50480231f1af8a9c8e7f118f5c@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: David Howells <dhowells@redhat.com>, Christian Brauner
+ <christian@brauner.io>
+Cc: David Howells <dhowells@redhat.com>, Matthew Wilcox
+ <willy@infradead.org>, Namjae Jeon <linkinjeon@kernel.org>, Marc Dionne
+ <marc.dionne@auristor.com>, Stefan Metzmacher <metze@samba.org>, Eric Van
+ Hensbergen <ericvh@kernel.org>, Dominique Martinet
+ <asmadeus@codewreck.org>, Ilya Dryomov <idryomov@gmail.com>,
+ netfs@lists.linux.dev, linux-afs@lists.infradead.org,
+ linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
+ ceph-devel@vger.kernel.org, v9fs@lists.linux.dev,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v12 5/5] cachefiles: Preset the state xattr when
+ creating a new file
+In-Reply-To: <20260910220242.2165023-6-dhowells@redhat.com>
+References: <20260910220242.2165023-1-dhowells@redhat.com>
+ <20260910220242.2165023-6-dhowells@redhat.com>
+Date: Fri, 11 Sep 2026 17:21:38 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On 11 September 2026 21:17:15 BST, Arnd Bergmann <arnd@arndb.de> wrote:
->On Fri, Sep 11, 2026, at 21:25, Bradley Morgan wrote:
->> Per Paul's note, Arnd Bergmann's platform removal series was
->> checked before analyzing the users. It removes the imx31 and
->> omap24xx CPU_ARM1136R0 selectors, but INTEGRATOR_CM1136JFS still
->> selects CPU_ARM1136R0 until its scheduled removal in early 2027,
->> so the ARMv6 path in patch 3 is still live.
+David Howells <dhowells@redhat.com> writes:
+
+> With a really small cache, cachefiles is likely to see a lot of writes
+> hitting ENOSPC - and this can include setxattr that sets the state xattr on
+> a cachefile - but we don't really want to successfully fill a cache file
+> only to have to scrap it because we can't set the xattr.
 >
->I can still restructure this and pull the INTEGRATOR_CM1136JFS
->removal a little earlier. At the moment, this is part of the
->patch to remove CPU_ARM1136R0, which I had planned to submit
->once the arch/arm/mach-*/ platform removal patches are done:
+> Instead, preset the xattr when we create the tmpfile we're going to use,
+> and scrap the file at that point if we get ENOSPC.  Only if setxattr
+> succeeds do we allow data to be written to the file.
 >
->https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/commit/?id=a8cfcc5533e33a
+> Note that there is a potential performance loss in that writes to the cache
+> have to be delayed until this is completed - but we do the tmpfile/setxattr
+> in parallel, starting when the file is opened and only have to wait once
+> writeback occurs.
 >
->I could turn the mach-versatile/Kconfig change into a separate
->(trivial) patch and add it to the platform series to avoid
->churn here. The armv6 cmpxchg() code would still exist
->in 7.4 then, but be unreachable.
+> Signed-off-by: David Howells <dhowells@redhat.com>
+> cc: Marc Dionne <marc.dionne@auristor.com>
+> cc: Paulo Alcantara <pc@manguebit.org>
+> cc: netfs@lists.linux.dev
+> cc: linux-fsdevel@vger.kernel.org
+> ---
+>  fs/cachefiles/internal.h |  1 +
+>  fs/cachefiles/namei.c    |  5 ++++
+>  fs/cachefiles/xattr.c    | 59 +++++++++++++++++++++++++++++++++++++++-
+>  3 files changed, 64 insertions(+), 1 deletion(-)
 >
->       Arnd
-Hi, is this like V2 required? Or a *ugh fine that's ok* kinda message?
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+> diff --git a/fs/cachefiles/internal.h b/fs/cachefiles/internal.h
+> index b2605111fd56..664be64ab538 100644
+> --- a/fs/cachefiles/internal.h
+> +++ b/fs/cachefiles/internal.h
+> @@ -283,6 +283,7 @@ void cachefiles_withdraw_volume(struct cachefiles_volume *volume);
+>  /*
+>   * xattr.c
+>   */
+> +int cachefiles_preset_object_xattr(struct cachefiles_object *object, struct file *file);
+>  extern int cachefiles_set_object_xattr(struct cachefiles_object *object);
+>  extern int cachefiles_check_auxdata(struct cachefiles_object *object,
+>  				    struct file *file);
+> diff --git a/fs/cachefiles/namei.c b/fs/cachefiles/namei.c
+> index ca093840e577..ef656a319ede 100644
+> --- a/fs/cachefiles/namei.c
+> +++ b/fs/cachefiles/namei.c
+> @@ -450,6 +450,11 @@ struct file *cachefiles_create_tmpfile(struct cachefiles_object *object)
+>  		pr_notice("Cache does not support read_iter and write_iter\n");
+>  		goto err_unuse;
+>  	}
+> +
+> +	/* Preallocate space for the xattr. */
+> +	ret = cachefiles_preset_object_xattr(object, file);
+> +	if (ret < 0)
+> +		goto err_unuse;
+>  out:
+>  	cachefiles_end_secure(cache, saved_cred);
+>  	object->content_info = CACHEFILES_CONTENT_ALL;
+> diff --git a/fs/cachefiles/xattr.c b/fs/cachefiles/xattr.c
+> index 551a3b0069c2..8ebb713482e3 100644
+> --- a/fs/cachefiles/xattr.c
+> +++ b/fs/cachefiles/xattr.c
+> @@ -34,6 +34,57 @@ struct cachefiles_vol_xattr {
+>  	__u8	data[];		/* netfs volume coherency data */
+>  } __packed;
+>  
+> +/*
+> + * Preset the state xattr on a cache file to allocate space for it.
+> + */
+> +int cachefiles_preset_object_xattr(struct cachefiles_object *object, struct file *file)
+> +{
+> +	struct cachefiles_xattr *buf;
+> +	struct dentry *dentry = file->f_path.dentry;
+> +	unsigned int len = object->cookie->aux_len;
+> +	int ret;
+> +
+> +	buf = kzalloc(sizeof(struct cachefiles_xattr) + min(len, sizeof(__be64)), GFP_KERNEL);
+
+You should use max() here.
+
+Otherwise looks good,
+
+Reviewed-by: Paulo Alcantara <pc@manguebit.org>
