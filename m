@@ -1,150 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B67DA48423C;
-	Fri, 11 Sep 2026 13:21:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789132887; cv=none; b=sPx9263luNHEpf8DLsQUNZ6IigqDIcSUd7bST/CcTd9SoQLLZNllXm0rcjE3qJOsvrmawuWL1G24I/hBzFgS18BgFWcVbhlYQljHl/2/v0t45ZHp9CHiQiZWt1QfXmr7saJaRCAeNt8dWf69All6p3tpwgBGL6ZhJ/uGGO3QLls=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789132887; c=relaxed/simple;
-	bh=p2qxGS1cP7zVbxoOpZIPaER0eYmJcdUZNyniid6vf/c=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=ZuxQZ1G3yhcQatF1ej42lYg+68N0QySbWfhAi/fYbXgk6OQrhIMuK/5hIN/YPwdyjUeTzKcneb//BGmOuBf95PL50lH45vxe3FqQsuiYStoJk1z1XKZjq2J8iRFoTAmbu84MhPhB60Y7vm3sPTDr3gE1SpfOJ+BqnSO9kLMzOBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VjdBzo0O; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B636847728F
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:21:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789132908; cv=pass; b=QxqFo0e5gLMhm1b2WvemNvT2NxTs5ubJ/kM3yV9AAXMZqjigZh7EabHkCEZ33xvngnCqcEP8+bq5ZBBFOLNI9QK32DGp1FApHiKXX7I1wX238H5C1DGpzB/EFpEptZBOdP725LAbDG6dGCJM9+VDWsGb5qIq3PJb9vlELTun5sY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789132908; c=relaxed/simple;
+	bh=5GSzj0e9Yb2VMZ3KqK3B/p1FAZi4+1j3IUEAn1TPPbE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IQUneO0ax1qArREUbFOhhYB1MqMF/hZANTBponGNGR0OFwoO7oe/LO2Q3uFaugg0E0gSMFQDMydBGEs3PjUxGwm4MfCjQJUvpgjvZ0tWmmo2Ly6O6eEaamH9LwnF2JNbzUb+DyuBLQoYbr3QHaC2JjdPR5GQhpCrShpHFKBrhr8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DP8T2clZ; arc=pass smtp.client-ip=209.85.160.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VjdBzo0O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CD371F00899;
-	Fri, 11 Sep 2026 13:21:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789132883;
-	bh=uDGa9ugcbovdEyxQU2kdvgrK+ycBCxHLeEwjUwXgcSI=;
-	h=Date:From:To:Cc:Subject;
-	b=VjdBzo0ORLfobVYzdFwO1qwPaIJZg0d1SOTlghJRn1uOnI6o8yd4Dr8PxSeNnR1hy
-	 gr6M/bfyNYfjg0AFaB9yUTcopq0HM1RYY3fab2uJhJa9nYJzw2XlzDALM0v0zfFIPt
-	 I+39tHsgKZZ4SHw94N1+Ws90krjVTcT03wfVxqtpIN1wxK+VkrKUGsO2ZyjmnHcV30
-	 ufJMyIjnBeVvt6Lu0MGWks2NdgFoawHbq6a6rkfcsuZsZcFWxSghct2ElAGUizEIh0
-	 /GXxUt/YdD451MW1AsK2emLbg4MiVgDT4q7UNyJ0rffoTrrg3u51BIhMvo24PpgDj/
-	 oSuk4o4ORdj3Q==
-Date: Fri, 11 Sep 2026 14:21:18 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tejas Upadhyay <tejas.upadhyay@intel.com>,
-	Varun Gupta <varun.gupta@intel.com>
-Subject: linux-next: manual merge of the drm tree with the drm-fixes tree
-Message-ID: <aqQATlmEVVr661dl@sirena.org.uk>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DP8T2clZ"
+Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-478622cd851so386854fac.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:21:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789132905; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Ki/e3/riAr+iQxJhv7VoUFH0JzoFCILFM/E26O/sxeNvJnFcDDSaQUJqxHl4hF0DIb
+         /PPuxQGpz+1UvFD2ECOf/snGpF7sBkfCHziJdT0vmuVaDz8hRZFIFLn38PNctTiRrH1X
+         BYVpdI1Z+bfrgRyYz2Upl/KC0KZzmJ6TLQF8SL3uADF5bOPpybwAUay4FENXx607GBJg
+         0PJ0N315bDta31S391ey5sYlhiqfts+7QAMhn02CJBjPlZBFEhlvLWrXGcPj/xyERVTm
+         7YsLPLMJD5tD0SZ1QumIssXzXat6Nfv/YjpbEg9dWzLd7IEOdiwR4fXG5W7nZpY91eAi
+         bg9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=5GSzj0e9Yb2VMZ3KqK3B/p1FAZi4+1j3IUEAn1TPPbE=;
+        fh=u+4rbO31r/RRJp+rMCTe33IhdNzWcpxAo4+T/rUCHnc=;
+        b=fx06NZZmSKEImE8d3EVY2GbYz3bHLRydV4h+ca0wNRpaaF7Fh+aFTeb+ODh21PJ0lC
+         wRBA4BknrjXA3hJUR4b5wji05Ih0xEC/dm8nSyzHpdHhx5lcMuuenmSqezkdniQ8gBNz
+         Ofq6P1f0fWtB6uqo5nnhFjwHPhHEBUT/9XwZoKr2hgBnLazuDhiub309AYZFfEZEGTW8
+         j5IUT7t6+g2hpoNzuDAiDvEkkj1BI6/0iRkJR+Yc4uCS8/XYiphsvC/eUJSdsOiUjlBt
+         FWbbDHMYaoSaswmfICWPyl/zgJg5hN7/r8lh4QObfjaQUKz+Cd/11KZb1fFqkkgLLzMg
+         0ZuA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789132905; x=1789737705; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5GSzj0e9Yb2VMZ3KqK3B/p1FAZi4+1j3IUEAn1TPPbE=;
+        b=DP8T2clZDChX8ueDK9UJNf50GY+zepjIWDaySeeaSPEqSM9rCOIaOvPrdl8Hu9nGDN
+         CD4M83bIRrmxEhZSLMcAJXHuxO8P3TxRmdCGreE//i2HN3QebyILDZYFH/4zIps/OOfP
+         GnZnslNjZz3+7olfFCslrvWH6vtGBlm9evBdCZrKNtGKESsK2Lwgt2MemiwbFEfUv5ib
+         9j0Sv7THzNS+MUSBZ3bBrAslGUVE1oaYRiPf44iFyGgG0fBGaRzrAsyLnJMCE8dfae20
+         Ch4usIpe3SKuzKE7WSyIxqz3ukcb2mVww3c4BPdkZ5n5BiRjgMO8RbQKa0tPeLa1mRIM
+         LsKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789132905; x=1789737705;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=5GSzj0e9Yb2VMZ3KqK3B/p1FAZi4+1j3IUEAn1TPPbE=;
+        b=NTYuihXQ2Sopvyl++gEfSYc+8MyX6lnwnIuxAvs9EkDXEB4g5daOw+jL3zfdryPnE5
+         BDK0AjVu3VVcg7VcGWnP5DlY7BDX0hFXRj5LfS0SVCeswUf1Yuk6whC2lR6rJLV8UkQO
+         95FJ2UZsMOK4JpNKNdI7BKYfwZ0vGkIRYNNMkwuQwRVW/Hya4nEkGwqMmqUwn6r0MstU
+         o55Ds4fgflpeegqkEJ0wU+e52Alqzw+uDucg7TPpmZE16rjzXMn315FuPCJjVetg5Amr
+         5u1Tck2xr4ai+kTSn9/r/Sm7qciglMu+w97arwQhflCnGg5OIBZa9bkz1/Ok0v0gHuMO
+         YSOw==
+X-Forwarded-Encrypted: i=1; AKwUvBw8A/w1LRm3xJwM3BUb7I/Iq6ci7pr/+mkIePhcja0NQsKHswXTyc7O5RBcuL/NQ79fPkpbQuoutJ7Y87o=@vger.kernel.org
+X-Gm-Message-State: AFuF++miU1TtZRWaZRxd2ya/saZdQB2GnX3yzFF7HjWglI6ZvO17I/IV
+	U7TcldzanCsl6A3Dk9tgLKDw4E+eJVktbqmjaYHNBeilGQm6Rq150eJT6AdcoeHweLsdX805uYO
+	XPlFQDnvDXMLSrN2mKkDHCzu/SVfPZdM=
+X-Gm-Gg: AYBFou3S1gyzbaX1fme3bDIYW6eHmpIsBSuoKt74lFHH9uUyBbKbukWNVvb3u7YQEgO
+	2+bNlQZElbxWqufzArzZjqzh4XHCHZ73VBTlMxmmc+pUGi8To+0Uep1cPczg9pGjb2FEz8Lk0Gu
+	xORezH5LdW2PUslDl/pS6FmFRAO1BtIkMf8zCumSDg+WuqAdq0d/GrjtXGLx0FRLmpFcK41T/Hr
+	owsLDrpeNFoWBEhW6JYusbcGnznd/WTRJnBdqpU658e1gFpZxO1T67vYNXdnvX+cf/OTLjdrrrI
+	gZVCjEWLmAOcltmcywhz4eWXub/+P4h5lhDMOQuNTIkcbFcdfEmu8v56iOUCWkiACxY=
+X-Received: by 2002:a05:6871:4082:b0:479:a30d:60e5 with SMTP id
+ 586e51a60fabf-47deb6b21a2mr3169202fac.37.1789132905351; Fri, 11 Sep 2026
+ 06:21:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6KgKimICWc2l1DlR"
-Content-Disposition: inline
+References: <20260911110456.24873-1-abdelnasserhussein11@gmail.com>
+ <20260911110456.24873-2-abdelnasserhussein11@gmail.com> <20260911131834.0000514b@gmail.com>
+In-Reply-To: <20260911131834.0000514b@gmail.com>
+From: nasser <abdelnasserhussein11@gmail.com>
+Date: Fri, 11 Sep 2026 16:21:33 +0300
+X-Gm-Features: AcwNN1V6XBqz-WHyitn1RiLjHTKAlPQpxveccB8dqCvxZHDUYuXYYdrHvshVrYM
+Message-ID: <CANpqX3YjCJCmvp98iymexGLvL0zLXvM_M1F1YypbMCUQA0BM-g@mail.gmail.com>
+Subject: Re: [PATCH v5 1/2] staging: iio: adc: ad7816: Serialize SPI read operations
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: jic23@kernel.org, gregkh@linuxfoundation.org, nuno.sa@analog.com, 
+	Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org, 
+	linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Joshua,
 
---6KgKimICWc2l1DlR
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you very much for your continuous guidance and patience with my
+patches. I truly appreciate your feedback.
 
-Hi all,
+You are completely right. I mistakenly thought I could clean up and
+sort the headers alongside the mutex addition without needing to
+isolate it in a separate patch. I also apologize for letting the
+`sizeof(buf)` change slip into the mutex patch.
 
-Today's linux-next merge of the drm tree got a conflict in:
+I will prepare a v6 series shortly where I will:
+1. Add a separate precursor patch solely for sorting and cleaning up
+the headers.
+2. Keep the mutex patch strictly focused on serializing the read
+operations (adding only <linux/mutex.h> and <linux/cleanup.h>).
+3. Move the `sizeof()` argument change to the DMA buffer patch where
+it logically belongs.
 
-  drivers/gpu/drm/xe/xe_pagefault.c
+Thanks again for pointing these out.
 
-between commit:
-
-  20fce5b34b21a ("drm/xe: Guard page-fault worker with runtime PM check")
-
-=66rom the drm-fixes tree and commit:
-
-  f2b4b3f814662 ("drm/xe: Chain page faults via queue-resident cache to avo=
-id fault storms")
-
-=66rom the drm tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --cc drivers/gpu/drm/xe/xe_pagefault.c
-index a4986df8328d6,2e415995f067b..0000000000000
---- a/drivers/gpu/drm/xe/xe_pagefault.c
-+++ b/drivers/gpu/drm/xe/xe_pagefault.c
-@@@ -14,9 -14,9 +14,10 @@@
-  #include "xe_gt_types.h"
-  #include "xe_gt_stats.h"
-  #include "xe_hw_engine.h"
-+ #include "xe_log.h"
-  #include "xe_pagefault.h"
-  #include "xe_pagefault_types.h"
- +#include "xe_pm.h"
-  #include "xe_svm.h"
-  #include "xe_trace_bo.h"
-  #include "xe_vm.h"
-@@@ -291,19 -594,16 +595,23 @@@ static void xe_pagefault_save_to_vm(str
- =20
-  static void xe_pagefault_queue_work(struct work_struct *w)
-  {
-- 	struct xe_pagefault_queue *pf_queue =3D
-- 		container_of(w, typeof(*pf_queue), worker);
-- 	struct xe_device *xe =3D pf_queue->xe;
-- 	struct xe_pagefault pf;
-+ 	struct xe_pagefault_work *pf_work =3D
-+ 		container_of(w, typeof(*pf_work), work);
-+ 	struct xe_device *xe =3D pf_work->xe;
-+ 	struct xe_pagefault_queue *pf_queue =3D &xe->usm.pf_queue;
-+ 	struct xe_pagefault *pf;
-+ 	ktime_t start =3D xe_gt_stats_ktime_get();
-  	unsigned long threshold;
-+ 	u64 cache_start =3D XE_PAGEFAULT_CACHE_START_INVALID, cache_end =3D 0;
-+ 	u32 cache_asid =3D 0;
- =20
- +	/*
- +	 * A live VM holds a PM reference, but a torn-down VM does not.
- +	 * Guard the entire worker loop to safely drain stale faults and
- +	 * prevent autosuspends from desyncing batched CT flushes.
- +	 */
- +	guard(xe_pm_runtime)(xe);
- +
-  #define USM_QUEUE_MAX_RUNTIME_MS      20
-  	threshold =3D jiffies + msecs_to_jiffies(USM_QUEUE_MAX_RUNTIME_MS);
- =20
-@@@ -374,9 -731,7 +739,8 @@@ static int xe_pagefault_queue_init(stru
-  	drm_dbg(&xe->drm, "xe_pagefault_entry_size=3D%d, total_num_eus=3D%d, pf_=
-queue->size=3D%u",
-  		xe_pagefault_entry_size(), total_num_eus, pf_queue->size);
- =20
- +	pf_queue->xe =3D xe;
-  	spin_lock_init(&pf_queue->lock);
-- 	INIT_WORK(&pf_queue->worker, xe_pagefault_queue_work);
- =20
-  	pf_queue->data =3D drmm_kzalloc(&xe->drm, pf_queue->size, GFP_KERNEL);
-  	if (!pf_queue->data)
-
---6KgKimICWc2l1DlR
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqkAE4ACgkQJNaLcl1U
-h9Cmogf/UqYPztpfI+/eAEMB/caWUfvDHCXMkQjwQARXYz5QZTv2WUqxQcX/wmT5
-6HjUr0iW+0OI2ZvByw/a3tKy3TBo7Eze+I5EZPNe4mzYgyAmiqripG4fTmgP/Hjg
-jOoYCEFghUT5n2G/ye50DTjRQn3Oxa77RByT0gEsS5+1ok/gEDmRHmr9s3JEgu3L
-jPRa4thupd61IwHhZrr6wrQT7Yyo39qkbG40oku8sXu+ghLSjotfpUX9aWHWm8iK
-w2xYh+TNpEkKk2F/p4Rso90IqAmnTo/iK9Bg0r1gNPAfas11XMAc4s5mHyasW890
-EhhGXSA8toJz3mjW7BHyIVDMEqytKQ==
-=8q+X
------END PGP SIGNATURE-----
-
---6KgKimICWc2l1DlR--
+Best regards,
+Abdelnasser
