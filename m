@@ -1,90 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF66D489FB3;
-	Fri, 11 Sep 2026 13:44:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A370488762
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:44:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789134282; cv=none; b=P3+ZRuWMwqfspqyE9GULunAZneNtxj0EQa8M/Oz3y8PT134j2zmOo6wHgvc9kp2NzOTXfZsuWdMSWpBRt7OkxA9zARrwc1fNGkHA2zceDOp1e0l9JA3F8FqLFk/1LvtPMmjEpQ7Ma/evL3Si44SzlnXEJzpMc4zkXNAQAGkWK/c=
+	t=1789134299; cv=none; b=dscPYpBpec2wLloJEufPVjl0E6pebNIIFw4u3m99l5xWTk+sR6Sf/m0IxOowD68MjvnyDbZ0lK4j5vENPEn+KGvEcGgMGyRuAJhdHaqXWoyqXOFBInAqPhj6OnO1wAKMwXQW8WxMFVb+9LYYGTRGazLYIH8ES0eX3b/MPI4n6Ks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789134282; c=relaxed/simple;
-	bh=2HCQ0onCOv8t4cSd08pv7aUL7n0DeKsvmk1ezOK3lbk=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=Fxxn6duW/lm52xorvLO6bNMD+g7HQasHNbTp9nQBIrCPtch9ftoSyHv0QsG5g71zuNPBB1Qp80shgVzx+MtHZ4WdQkh0SC/Vs11FMbZezGO2fgT+rtUWjMl0oZqhuZxE98PmtOmgn9NXvHNLauOktTZxH4OdM6SUzK7M9yc+jBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WF9Gnvt3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789134299; c=relaxed/simple;
+	bh=z1IBBN+1WUfDf5cT8bAka5f8p45OV+l+sxZzQy3xMvk=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=lBXUhCHKlKbyMytlKYaU78oe7PC9CGDGEHOcg1uZCOil0q+ymOTPQhpKAdZEfZ+tgvYQyx07APXZ6864BqlYTIosjJmXwbU71zTIoUvOnltWvVvN+tKp9TFxQ5caHnpQA61l5QVWFN7McGK0f9gyz3cPbGdwocL2l5x69mkqgng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PJxXdm+a; arc=none smtp.client-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WF9Gnvt3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13C351F000FF;
-	Fri, 11 Sep 2026 13:44:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789134278;
-	bh=SlEKdTbVEoutjYOksHy3BUmRBcFogtPtsUCMkHNfLow=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=WF9Gnvt3RyqjxWIACb+JywubqoQswMfbwZH1ZlSuad6HozbtCij/3fxIUZO7g25XD
-	 wVi24rfBk+XyDcQt5Jz8hYpy4nHWIYhx2TAgetWcdP38j4KjlU3fy2IHwZa45/ATHk
-	 kyaY5DMLQWTqkis9XZh+dKhvWI7xf8+cAkNlgm0Km3iK0porqvVBoMn4mz8JHLRfKW
-	 zk/eFqTAiK+4pPfXXKyBpzkr4OKUWkMRaaUOC6tqTMyiVvwZTulkYQ3syAoxRx/6Oi
-	 6ROqRPE3W8pKmWD0C7uHyErVoj761761Mnw9l6BQd8FQ/PSOryeFKDng9ZvhepJET5
-	 UY5kwW52Qz7pQ==
-Date: Fri, 11 Sep 2026 15:44:35 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Wei Jie LAW <98lawweijie@gmail.com>
-cc: Ping Cheng <ping.cheng@wacom.com>, Jason Gerecke <jason.gerecke@wacom.com>, 
-    Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-    Jason Gerecke <killertofu@gmail.com>
-Subject: Re: [PATCH v4] HID: wacom: fix OOB read in
- wacom_wac_pen_serial_enforce()
-In-Reply-To: <20260909011515.2314-1-98lawweijie@gmail.com>
-Message-ID: <362p32oq-pp7r-44sr-s0ss-8snn6q9r04q9@xreary.bet>
-References: <20260828033323.82958-1-98lawweijie@gmail.com> <CANRwn3RFVDy+y-fpLkb1mfjiKyQgp1Jg0tyBTO+G0xem2s1jkQ@mail.gmail.com> <20260909011515.2314-1-98lawweijie@gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PJxXdm+a"
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cb6cf425e86so1189389a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:44:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789134291; x=1789739091; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=35qTFGciq12kEJU+EMJ4woELZzEj6I4YMtoPAd4aNAQ=;
+        b=PJxXdm+a+euQUyQZMaj+1xNum8ZW6CpqOCX567sqtcKG76RNivO5/ngMhvgSK08Ljm
+         J+tnQGPEU6Zqh+X9i8fCKegkiG+g24cFjyry4l1+Sg/rJkymCKLxCavFK+B5p5UVggpt
+         bz1UiQfHa58So2MfZgi8VqAjc1NSH0Z9S2noWjY+bnpsv0Ixkax2xy9qYh4gicLzODB5
+         rB6X326hXNCSZTSklfDlQnqEJ0XjbqiwewmXPw44IVEgkvOl75gxoVGey3TMqhJ26krr
+         yXHlQNz4p3K64BQnpKrsNuAMNM2ISyge59NUZ/8FJbZeN1NT64bmlSilrEYfi1KK+umI
+         Glig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789134291; x=1789739091;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=35qTFGciq12kEJU+EMJ4woELZzEj6I4YMtoPAd4aNAQ=;
+        b=CcyHnX3GHcanm3d2KgYhBEkhyBR0N5Gy8Y9OjGvBUNLDpaB/8TjCVHDVUAqWjBe2PB
+         c9aQ1I1GIOHXgM1qTUdeeVNAIsSPoM4fLHO5VTKJi2a0y7QiAijtbyhQr2pObrYD949b
+         W9leWoy9yLqv9MEaD3sDSByPRB4caKyURVgLaF+ZplY4rRBCLwKR3qvAPJcGhOIq6FoM
+         aEAf8/1hbUM93ChSFgU9KBiSw9S3/XhlYmHDIDfFvIuW1nJDqY8UsEFYe+OxtWwSCFgs
+         1L1etMZ5LcPB5+koRu3g5IGYHsCKHEyp+tRSYjXNfnrHzS2Yr+MJJMIA+7fV4kFOGiCy
+         X5cg==
+X-Forwarded-Encrypted: i=1; AKwUvBxL9rlrKFEm48db22vvSqEZAekKDKW3es3FBI2FHWJp7hlU3A/9tOC9gowfWWuHOKcjggF7OKzHy7YYSzo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kPaK2jUWkqc/iofpdeFRl6t5kUAZ2GNXHnn78XKZyaDuC4+akf
+	Ie2ouEgY5Ze1SR9R1E3/WBeYlh47tdEBRQ4aVC4LF8KGHM80TrZCRmBYQsJEg6XockGEeF2iLm8
+	ZaC0/WQ==
+X-Received: from pgjj10.prod.google.com ([2002:a63:230a:0:b0:cc4:5907:21e9])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:b08d:b0:3c6:61b9:917c
+ with SMTP id adf61e73a8af0-3daed1fd3cfmr8633653637.11.1789134291123; Fri, 11
+ Sep 2026 06:44:51 -0700 (PDT)
+Date: Fri, 11 Sep 2026 06:44:50 -0700
+In-Reply-To: <20260910225728.GB857650@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Mime-Version: 1.0
+References: <aptFFYqcSiBdMLE8@google.com> <20260905012403.GX4157646@nvidia.com>
+ <aqIAtOoew-_6jw29@google.com> <20260910143448.GD3968357@nvidia.com>
+ <aqLOWkuVKccR-I7W@google.com> <20260910171210.GF3968357@nvidia.com>
+ <aqMgjXfTJ8u3n7Kj@google.com> <20260910221832.GH3968357@nvidia.com>
+ <aqMyXE-fD-UN6w5L@google.com> <20260910225728.GB857650@nvidia.com>
+Message-ID: <aqQF0gz3Q2weDyEd@google.com>
+Subject: Re: [RFC PATCH 0/3] liveupdate: Move to feature flags for LUO and
+ memfd ABI compatibility
+From: Sean Christopherson <seanjc@google.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: David Matlack <dmatlack@google.com>, Logan Odell <loganodell@google.com>, arnd@arndb.de, 
+	pasha.tatashin@soleen.com, rppt@kernel.org, pratyush@kernel.org, 
+	graf@amazon.com, akpm@linux-foundation.org, pbonzini@redhat.com, 
+	maz@kernel.org, oupton@kernel.org, bhelgaas@google.com, alex@shazbot.org, 
+	kevin.tian@intel.com, dwmw2@infradead.org, baolu.lu@linux.intel.com, 
+	joro@8bytes.org, will@kernel.org, robin.murphy@arm.com, 
+	linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kexec@lists.infradead.org, linux-mm@kvack.org, kvm@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-pci@vger.kernel.org, iommu@lists.linux.dev
+Content-Type: text/plain; charset="us-ascii"
 
-On Wed, 9 Sep 2026, Wei Jie LAW wrote:
+On Thu, Sep 10, 2026, Jason Gunthorpe wrote:
+> On Thu, Sep 10, 2026 at 03:42:36PM -0700, Sean Christopherson wrote:
+> > On Thu, Sep 10, 2026, Jason Gunthorpe wrote:
+> > > Sean's initial email was asking for strict never-break ABI compatability
+> > > rules on top, and that is what I've been reacting to.
+> > 
+> > No, I was never asking for that.  I think we just have a different interpretation
+> > of ABI, or rather are talking about different pieces of ABI.
+> > 
+> > I am still asking for never-break serialization format compatibility, i.e. the
+> > more literal save/restore ABI.  I'm not asking for full backwards/forwards
+> > compatibility across all kernels version, i.e. the higher level "kernel" ABI.
+> > 
+> > To phrase things differently: I am a-ok if kernels are inherently incompatible
+> > because they fundamentally operate differently and/or support different features.
+> > I am not ok if we end up with incompatible kernels because the save/restore
+> > interfaces and payloads are poorly designed, lack abstraction, etc.  
+> 
+> I can more agree with this, it is mostly what I thought we'd end up
+> doing anyhow with version numbers and growing the structs not
+> replacing them.
+> 
+> So you still end up with a version label (string I guess?) because we
+> can break it from time to time, 
+   
+Why bother with a label/string?  I don't understand what it buys us; I see only
+pain.  Make the features discoverable and punt on all of the "is this pile of
+insanity my company has created compatible with this other pile of insanity?" to
+layers above the kernel.
 
-> The 'wacom_wac_pen_serial_enforce()' function may calculate and pass an
-> invalid offset to hid_field_extract(), resulting in memory reads at
-> incorrect addresses -- possibly beyond the end of the report.  If a
-> field in the HID descriptor lists more usages than its Report Count
-> actually reserves space for, the function's inner 'j' will walk past
-> the end of the field:
-> 
-> 	for (i = 0; i < report->maxfield; i++) {
-> 		for (j = 0; j < report->field[i]->maxusage; j++) {
-> 			...
-> 			value = hid_field_extract(hdev, raw_data + 1,
-> 						  offset + j * size, size);
-> 
-> A descriptor listing 12288 usages against Report Count 1 has the loop
-> extract the usage at index 12287 from bit offset 98296 -- about 12 KB
-> past a 2-byte received report.  The value is stored in
-> wacom_wac->serial[0] and can reach userspace as an MSC_SERIAL event,
-> making this an information disclosure.
-> 
-> Clamp the loop to field->report_count, the number of value slots the
-> report holds.  Value slots past the last declared usage are still
-> scanned; they reuse that usage (HID 1.11, 6.2.2.8).
-> 
-> Verified on v6.12.105 with a UHID reproducer: a 2-byte report from
-> such a descriptor trips KASAN before the patch and not after it.
-> 
-> Fixes: 83417206427b ("HID: wacom: Queue events with missing type/serial data for later processing")
-> Suggested-by: Jason Gerecke <killertofu@gmail.com>
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5
-> Assisted-by: GLM:glm-5.3
-> Signed-off-by: Wei Jie Law <98lawweijie@gmail.com>
-> Reviewed-by: Jason Gerecke <jason.gerecke@wacom.com>
+IMO, trying to capture compatibility in a version string is doomed to fail.  To
+be useful, the version would have to be extremely sensitive to changes, otherwise
+userspace will have to do its own compatibility analysis/checks anyways.  And at
+that point, a verson string will be too restrictive, e.g. will mismatch due to
+changes in features the deployment isn't using.
 
-Applied, thanks.
-
--- 
-Jiri Kosina
-SUSE Labs
-
+> just the version should have the feature mechanism layered under it? I'm fine
+> with that
+> 
+> Jason
