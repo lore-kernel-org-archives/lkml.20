@@ -1,98 +1,260 @@
-Received: from outbound.baidu.com (mx24.baidu.com [111.206.215.185])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id EE1F93B6366
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:05:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.206.215.185
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789106746; cv=none; b=jOEH4DISR++Jt4q/aEtG0fE9Qg0z5YT+HsGlfm19BM3+XgsoV9ykBIdWKniodkOx01+IrYWY9rlLZsW9gx24PiIpe/rFjlWgG5ZAbL/sAv8Tp5OaElKY9opmZq68ofHjr+q1Wt3R9hjMhWE7jPc0WE49yf9WjDghbfkR07X8Lds=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789106746; c=relaxed/simple;
-	bh=j08jtL2NnAAtGlf0HPmiPrRSTh86i8kkz4d+9opoJUk=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=P5py4RJ14AHfDruOmT1NqC6Dcg96wuO1v7X0WbcJbklcPIoSV8tO64AbZYNWZyEgGngK8FZmysLLg/Tv0StBnfL6alwmepyZEyyCW5or14t7hCeYTIU1gXpczbpgPLao6PqUGtuJToV6ASAVd7TWdr5UzqJLS/3+mFfvGAi9NqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com; spf=pass smtp.mailfrom=baidu.com; dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b=DgA3+5Pc; arc=none smtp.client-ip=111.206.215.185
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F03E42D9EDB
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:06:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789106814; cv=pass; b=oA9Wco9ERdcmeSvJWFl3nZLYFB/cGUs4pvhwGx2H9newIxIipJgzxEdpTKjNvtBXRiGFMpg27s4o1zaQSajIzuNDyP7uifdMeNF0VaXaffI4ikwbbGZHgbU0aNqbxp7KNbt3cdxFUSih6puEJgTxP/pl0/T2GDbufE1XCLejpiI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789106814; c=relaxed/simple;
+	bh=65rAF/Cs6IL3Le7/iV3QARBikGe+f5E8zHG0rnav/UY=;
+	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=kxBoTwIfBDl06r03rcy/x9kSyWeILSckAy6Idjzde+waFeINM8gHGh8bG23w0+Z2UaJBubpDwtybRNCHALI0UgFwwAOWNFKL5v3MVcUtz0L4Jdt4LHK2d2YfkPXatEiaQnTNKKrQVG26fDgAQu/jYwH9/N7AL8AeBKs6OF3V3WQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=qRd1qajx; arc=pass smtp.client-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b="DgA3+5Pc"
-X-MD-Sfrom: lirongqing@baidu.com
-X-MD-SrcIP: 172.31.50.46
-From: "Li,Rongqing" <lirongqing@baidu.com>
-To: Jason Wang <jasowangio@gmail.com>
-CC: "Michael S . Tsirkin" <mst@redhat.com>, =?utf-8?B?RXVnZW5pbyBQw6lyZXo=?=
-	<eperezma@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	"virtualization@lists.linux.dev" <virtualization@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: =?utf-8?B?562U5aSNOiBb5aSW6YOo6YKu5Lu2XSBSZTogW1BBVENIXSB2aXJ0aW9fcmlu?=
- =?utf-8?B?ZzogcmVzZXQgSU5fT1JERVIgc3RhdGUgaW4gdmlydHF1ZXVlX2luaXQoKQ==?=
-Thread-Topic: =?utf-8?B?W+WklumDqOmCruS7tl0gUmU6IFtQQVRDSF0gdmlydGlvX3Jpbmc6IHJlc2V0?=
- =?utf-8?B?IElOX09SREVSIHN0YXRlIGluIHZpcnRxdWV1ZV9pbml0KCk=?=
-Thread-Index: AQHdQSFpJC7F+DEBIESNJfSXG16LubbIHx8AgADFC+A=
-Date: Fri, 11 Sep 2026 06:05:25 +0000
-Message-ID: <fe5e4fb1b68d4203812e253d722cbe69@baidu.com>
-References: <20260910123903.1717-1-lirongqing@baidu.com>
- <CAAf7B_M=tfyL33WGkxSX68FwPaRRRBcASVx92EGwPMXaFtUdzQ@mail.gmail.com>
-In-Reply-To: <CAAf7B_M=tfyL33WGkxSX68FwPaRRRBcASVx92EGwPMXaFtUdzQ@mail.gmail.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="qRd1qajx"
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-86959a6f7f6so392405b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 23:06:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789106812; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZMIFYvF2tahvU3fcl3ZQ5WCPlIkr+SqnWIMrOrQoIJd4hAg0HqOt+FOX9WK7e4yZn9
+         ynXLUufDLTnqFqKQZt+AgVDAph8lZW9iaTw7IxxRUHkUzVtlaShVGyhWIHDODj4QLfj8
+         M6ayowiShJcz0GwmsIQkvM2SZSihqSH8DEQ61v4tVPX+2YaizczJwzRpf4XUo/EARQ86
+         gr2/Uv9VIRLA/8e/cmdDqNJXZ4+MaSTwKQM7wxucOYhgqZ5MbvBnA87fvobjAep34AFB
+         bhrMhOI7ZgQqpYwzjM+xhd1j6iQOYv8trvH8XDyIh5Vh7M8bDw3p5wk9U0SiiSjS4jYM
+         tsWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=+7UczWskDtXOSeWlE0iacB1dXldD1z1mt2uISkpPTKw=;
+        fh=GyMDHCEgkBK9hD0auj6dL81+AeFkD7hrlaSl/WsyMJw=;
+        b=PA0ej8ZDLXEZkE5R5BPbTubn5A0VQEhDeOBIiVcg60dCdVFcFnmTlF7obeg8eEe4hh
+         LQ5MivLPHWIZ3YX88Y5uBzQk6kg9XpIVH9lhrjfUOJSrkyztyy5/LsAwuNQdQUlMFkLC
+         ow5gdjkVYDG5ov5p+Cf4CFOA8TYagaf78Wugpt9BgQbFCObXh03uVtXyaOUaunSROiNQ
+         eL1bTORY6Ykv1tv4H8G1BIHBU1wKOlr6dGn+yOOcYSW9xmqN33ZaBsLt+Na7mPMZ/C/9
+         5ct+xpm7EwRGy0ti5fBbFc891qtf8P2wDqd5C77q2jYXzwgBnYrxfVRm+SlbqefKbIKq
+         sKnw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=berkeley.edu; s=google; t=1789106812; x=1789711612; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+7UczWskDtXOSeWlE0iacB1dXldD1z1mt2uISkpPTKw=;
+        b=qRd1qajxaplbRAM2uxvDoOqa0buEe2GAMYO5t80kdNSIkUyOO1BZYv+8z/mVEGrOo7
+         cQxZV86320TkKwpZzuWUZ3Ri88VCC8HldrgV1Md57RighO9IJZfbTTk+oRcwvinRUdhd
+         LD7Uf1iM2EfXdkOPYR7dmbyDm/Inbp5X1v+fknrpc1IAtRPfBqwUetawMNx2sKyNzWrz
+         HP7JvjJxYIzE3Mq/dkBBmIuxbIx2IUimoPm0ykUSVvMpZJ/up5eDHCEZoBUl4RE0N9If
+         0mAUbq1eOa3/2HEm6+GQ64UMKB5isbDjta3oQDyfS1r1tm83bJpem9vjm6bxXBDpUBxT
+         viiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789106812; x=1789711612;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=+7UczWskDtXOSeWlE0iacB1dXldD1z1mt2uISkpPTKw=;
+        b=sxj1kJjy8vz/1mVk2bavIz6VgAmIppWsCt1NjkB6aCQenFuUfBBjBZxEOMgPOPtAmK
+         RBogzKQx13zdclx2dB+K2sxnjo1/D4DlIGIYtQQCgSya4/l+uwNoZj/tG1GwT1QyhWIX
+         /IMYyeOe4b+13NGHocI/xrzGlXQmgvuSnVtQPMhdVM/w4iAj9heEoVA0n2wFcLBoLby+
+         8OGgQpjYsTjJ6+rxyi2TnqSY1MXOeoUKtJay1QGx9PkjomjD4tH5WbRhkFiuPdoRfB3I
+         cxSrprvE1r4ts4ik5gbOkplk+dDy1uVj12UaO5M+V1UjJ0eKA1FQt8x4cW3lFz4st6Rq
+         wy8w==
+X-Forwarded-Encrypted: i=1; AKwUvBzuTkX8ZqQvgBzm2dNjIthMC/+zvWmsfoe/rFkBVqo6ePwBBrPiZEFZSS3P+KyPRt2QfQrbTLGpSpIHdYs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mfgmFS7CDMizafdEbytORCv/ogfHvNGBgUtsV+MmcZOIxDGETQ
+	5gP4+TvjrX14D74TM/ckp8g7reucp3Y6TC3WzO5GEZ+qG3ILKlNX2tAYyCw6VgACb43F6ugeS+q
+	YvuNC+LHsI1Rv/aKi0Ds4Z9Z2cvdZDTmUWEP8fQEN
+X-Gm-Gg: AYBFou2pOssZJdIQZroMiQTBve119W0FNM0OEjlo1NtOsz535Mj+R5oJg0yfhbv78iv
+	zq70WtfqUMNlnu2p1OqfIjj182VPuAeUun4vMRXcXlz1dzVd1JqpeSo875BkGvSzCqzT3ZR1jsB
+	53xKd+ECsqdXCdyTlM0a+eHq9BDH2GPOCnXlbL1GHh6qt6lUQkGIFgqKR//+zxb9M6sWutOVcPK
+	je3Xxvu4PYVN+gTidFlldAfVREJQWmHZVXoImTX9A3wlYBiyk1+KfBwksYbTmVoNeKz70jmdUOm
+	7hI7Mowl+wdTgW18sm0+v7bNjBk90qUA7uFzOvc2jEMlrCigpIzvjKlYJyL2BQ1LYAzDpdCxbs+
+	PU89eWQfGUhX6w4z+Q26+H1Z77JbfQ7WDrtR1ZxbsKrY=
+X-Received: by 2002:a05:6a00:1945:b0:857:727c:a1f1 with SMTP id
+ d2e1a72fcca58-86b30c14d7fmr4073357b3a.19.1789106811232; Thu, 10 Sep 2026
+ 23:06:51 -0700 (PDT)
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 10 Sep 2026 23:06:50 -0700
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 10 Sep 2026 23:06:50 -0700
+From: Farhad Alemi <farhad.alemi@berkeley.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1789106736;
-	bh=j08jtL2NnAAtGlf0HPmiPrRSTh86i8kkz4d+9opoJUk=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
-	b=DgA3+5Pce/kMuMVCDnOFQqGN7aC90hGteChLpN8pK6YSlmY8Oc/AhvpIPs79WwG0k
-	 Tb/Qv62xN5Tdf2UIielqzWTk8UOJ62TrYf45qJtZaxF+Lv5q267E+pz8atm4gRiy9Z
-	 AwQvRnj81uL5IM+b1B3iZfAHurSnqa8v20pXyZpNATa4334/ugbf1f/Yv7K2JwRokB
-	 +CLda3W2cgPtdsnL7sQrDKb55w0SJvdWveAAhazLVGFrgMacd3etpfU6UBCouHLcKS
-	 jFGoUIis67OjJXzOemIvPN/UFkw/BZNib6y93nYoNfXdZJZvVqAzgvjGa6vkUrEoN9
-	 U1kaCp2rXI35w==
+Date: Thu, 10 Sep 2026 23:06:50 -0700
+X-Gm-Features: AcwNN1UxDJNIhsIiFRtzYHtfxZL11pXEbbhGOJAfBff3mJZz27JbVBiSHzKb7xo
+Message-ID: <CA+0ovCh3hR2O8tfg_62B6AGhGzxB9bVpRGASYuDaG8oNt6LXhQ@mail.gmail.com>
+Subject: [PATCH] media: gspca: m5602: fix NULL sensor deref on disconnect
+To: Erik Andren <erik.andren@gmail.com>, Hans Verkuil <hverkuil@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: falemi@asu.edu, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-PiA+DQo+ID4gVGhlIElOX09SREVSIGZlYXR1cmUgdXNlcyBhZGRpdGlvbmFsIHNvZnR3YXJlIHN0
-YXRlIHRvIHRyYWNrIHRoZSBuZXh0DQo+ID4gYXZhaWxhYmxlIGRlc2NyaXB0b3IgYW5kIGluLWZs
-aWdodCBkZXNjcmlwdG9yIGJhdGNoZXMuDQo+ID4NCj4gPiB2aXJ0cXVldWVfaW5pdCgpIHJlc2V0
-cyB0aGUgY29tbW9uIHZpcnRxdWV1ZSBzdGF0ZSwgYnV0IGZyZWVfaGVhZCBhbmQNCj4gPiBiYXRj
-aF9sYXN0LmlkIGFyZSBpbml0aWFsaXplZCBvbmx5IHdoZW4gdGhlIHZpcnRxdWV1ZSBpcyBjcmVh
-dGVkLiBXaGVuDQo+ID4gYW4gSU5fT1JERVIgdmlydHF1ZXVlIGlzIHJlc2V0LCB0aGVzZSBmaWVs
-ZHMgY2FuIHJldGFpbiBzdGF0ZSBmcm9tIHRoZQ0KPiA+IHByZXZpb3VzIHF1ZXVlIGluc3RhbmNl
-Lg0KPiA+DQo+ID4gUmVzZXQgZnJlZV9oZWFkIGFuZCBpbnZhbGlkYXRlIGJhdGNoX2xhc3Qgd2hl
-biBpbml0aWFsaXppbmcgYW4NCj4gPiBJTl9PUkRFUiB2aXJ0cXVldWUuIEtlZXAgdGhpcyBpbiB2
-aXJ0cXVldWVfaW5pdCgpIHNvIHRoZSBzdGF0ZSBpcw0KPiA+IGluaXRpYWxpemVkIGNvbnNpc3Rl
-bnRseSBmb3IgYm90aCBuZXdseSBjcmVhdGVkIGFuZCByZXNldCB2aXJ0cXVldWVzLg0KPiA+DQo+
-ID4gRml4ZXM6IGY2YTE1ZDg1NDk4NiAoInZpcnRpb19yaW5nOiBhZGQgaW4gb3JkZXIgc3VwcG9y
-dCIpDQo+IA0KPiBJIHRoaW5rIHRoaXMgaXMgbmVlZGVkIGZvciAtc3RhYmxlLg0KPiANCj4gPiBT
-aWduZWQtb2ZmLWJ5OiBMaSBSb25nUWluZyA8bGlyb25ncWluZ0BiYWlkdS5jb20+DQo+ID4gLS0t
-DQo+ID4gIGRyaXZlcnMvdmlydGlvL3ZpcnRpb19yaW5nLmMgfCA1ICsrKysrDQo+ID4gIDEgZmls
-ZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKykNCj4gPg0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L3ZpcnRpby92aXJ0aW9fcmluZy5jDQo+ID4gYi9kcml2ZXJzL3ZpcnRpby92aXJ0aW9fcmluZy5j
-IGluZGV4IGRiNjc4ZjUuLmQwZGM0NjQgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy92aXJ0aW8v
-dmlydGlvX3JpbmcuYw0KPiA+ICsrKyBiL2RyaXZlcnMvdmlydGlvL3ZpcnRpb19yaW5nLmMNCj4g
-PiBAQCAtNTU5LDYgKzU1OSwxMSBAQCBzdGF0aWMgdm9pZCB2aXJ0cXVldWVfaW5pdChzdHJ1Y3Qg
-dnJpbmdfdmlydHF1ZXVlICp2cSwNCj4gdTMyIG51bSkNCj4gPiAgICAgICAgIHZxLT5pbl91c2Ug
-PSBmYWxzZTsNCj4gPiAgICAgICAgIHZxLT5sYXN0X2FkZF90aW1lX3ZhbGlkID0gZmFsc2U7ICAj
-ZW5kaWYNCj4gPiArDQo+ID4gKyAgICAgICBpZiAodmlydHF1ZXVlX2lzX2luX29yZGVyKHZxKSkg
-ew0KPiA+ICsgICAgICAgICAgICAgICB2cS0+ZnJlZV9oZWFkID0gMDsNCj4gPiArICAgICAgICAg
-ICAgICAgdnEtPmJhdGNoX2xhc3QuaWQgPSBVSU5UX01BWDsNCj4gPiArICAgICAgIH0NCj4gDQo+
-IEkgd291bGQgdHJ5IHRvIHJldXNlIG9yIHJlZmFjdG9yIHZpcnRxdWV1ZV92cmluZ19hdHRhY2hf
-c3BsaXQoKSB0byByZWR1Y2UgY29kZQ0KPiBkdXBsaWNhdGlvbi4NCj4gDQo+IEJ0dyBoYXZlIHlv
-dSBjaGVja2VkIFFlbXUgc2hhZG93IHZpcnRxdWV1ZSBhcyBpdCBtaWdodCBzdWZmZXIgZnJvbSB0
-aGUgc2FtZQ0KPiBpc3N1ZS4NCj4gDQoNCkkgY2hlY2tlZCBRRU1VJ3Mgc2hhZG93IHZpcnRxdWV1
-ZSBpbXBsZW1lbnRhdGlvbi4gYmF0Y2hfbGFzdCBpcyByZWluaXRpYWxpemVkIGluIHZob3N0X3N2
-cV9zdGFydCgpLCANCmJ1dCBmcmVlX2hlYWQgaXMgbm90LiBTaW5jZSB0aGUgU1ZRIG9iamVjdCBj
-YW4gYmUgcmV1c2VkIGFjcm9zcyBzdG9wL3N0YXJ0LCBmcmVlX2hlYWQgbWF5IHJldGFpbiBzdGFs
-ZSANCnN0YXRlLiBTbyBhIGNvcnJlc3BvbmRpbmcgZml4IHNob3VsZCBiZSBuZWVkZWQNCg0Kdm9p
-ZCB2aG9zdF9zdnFfc3RhcnQoVmhvc3RTaGFkb3dWaXJ0cXVldWUgKnN2cSwgVmlydElPRGV2aWNl
-ICp2ZGV2LA0KICAgICAgICAgICAgICAgICAgICAgIFZpcnRRdWV1ZSAqdnEsIFZob3N0SU9WQVRy
-ZWUgKmlvdmFfdHJlZSkNCiB7DQogICAgIC4uLg0KICAgICBzdnEtPnNoYWRvd19hdmFpbF9pZHgg
-PSAwOw0KICAgICBzdnEtPnNoYWRvd191c2VkX2lkeCA9IDA7DQorICAgIHN2cS0+ZnJlZV9oZWFk
-ID0gMDsNCiAgICAgbWVtc2V0KCZzdnEtPmJhdGNoX2xhc3QsIDAsIHNpemVvZihzdnEtPmJhdGNo
-X2xhc3QpKTsNCiAgICAgc3ZxLT5sYXN0X3VzZWQgPSAwOw0KICAgICBzdnEtPmxhc3RfdXNlZF9p
-ZHggPSAwOw0KDQp0aGFua3MNCiANCltMaSxSb25ncWluZ10gDQoNCg0KPiBUaGFua3MNCj4gDQo+
-ID4gIH0NCj4gPg0KPiA+DQo+ID4gLS0NCj4gPiAyLjkuNA0KPiA+DQo=
+The m5602 sensor ->disconnect handlers store NULL into sd->sensor, and
+m5602_disconnect() runs them before gspca_disconnect() stops streaming,
+so two paths then fault on that pointer: m5602_stop_transfer() reads
+sd->sensor->stop when gspca_stream_off() runs the stopN callback at
+release, and m5602_write_sensor() reads sd->sensor->i2c_regW when a
+read() already inside gspca_init_transfer() reaches it through the
+->start dispatch. The six sensor descriptors are static const and are
+never freed, so the store guards nothing: drop it from every handler,
+and remove the three handlers, their prototypes and their .disconnect
+initializers that are then left with nothing to do.
+m5602_stop_transfer() also runs arbitrarily later than disconnect, by
+which time gspca_dev->dev is freed because gspca takes no reference on
+the usb_device, so return early there when gspca_dev->present is clear.
+
+Closes: https://lore.kernel.org/all/CA+0ovCh63ei3SWria1JexWc0r9ckhj=XVNhXSzgHQFMUEj+ypA@mail.gmail.com/
+Signed-off-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+---
+The device was emulated.
+
+--- a/drivers/media/usb/gspca/m5602/m5602_core.c
++++ b/drivers/media/usb/gspca/m5602/m5602_core.c
+@@ -356,6 +356,12 @@ static void m5602_stop_transfer(struct gspca_dev
+*gspca_dev)
+ {
+ 	struct sd *sd = (struct sd *) gspca_dev;
+
++	/* gspca_stream_off() runs this even after disconnect, when the USB
++	 * device every sensor register access goes through is already freed.
++	 */
++	if (!gspca_dev->present)
++		return;
++
+ 	/* Run the sensor specific end transfer sequence */
+ 	if (sd->sensor->stop)
+ 		sd->sensor->stop(sd);
+--- a/drivers/media/usb/gspca/m5602/m5602_mt9m111.c
++++ b/drivers/media/usb/gspca/m5602/m5602_mt9m111.c
+@@ -383,11 +383,6 @@ int mt9m111_start(struct sd *sd)
+ 	return err;
+ }
+
+-void mt9m111_disconnect(struct sd *sd)
+-{
+-	sd->sensor = NULL;
+-}
+-
+ static int mt9m111_set_hvflip(struct gspca_dev *gspca_dev)
+ {
+ 	int err;
+--- a/drivers/media/usb/gspca/m5602/m5602_mt9m111.h
++++ b/drivers/media/usb/gspca/m5602/m5602_mt9m111.h
+@@ -108,7 +108,6 @@ int mt9m111_probe(struct sd *sd);
+ int mt9m111_init(struct sd *sd);
+ int mt9m111_init_controls(struct sd *sd);
+ int mt9m111_start(struct sd *sd);
+-void mt9m111_disconnect(struct sd *sd);
+
+ static const struct m5602_sensor mt9m111 = {
+ 	.name = "MT9M111",
+@@ -119,7 +118,6 @@ static const struct m5602_sensor mt9m111 = {
+ 	.probe = mt9m111_probe,
+ 	.init = mt9m111_init,
+ 	.init_controls = mt9m111_init_controls,
+-	.disconnect = mt9m111_disconnect,
+ 	.start = mt9m111_start,
+ };
+ #endif
+--- a/drivers/media/usb/gspca/m5602/m5602_ov7660.c
++++ b/drivers/media/usb/gspca/m5602/m5602_ov7660.c
+@@ -316,8 +316,6 @@ int ov7660_stop(struct sd *sd)
+ void ov7660_disconnect(struct sd *sd)
+ {
+ 	ov7660_stop(sd);
+-
+-	sd->sensor = NULL;
+ }
+
+ static int ov7660_set_gain(struct gspca_dev *gspca_dev, __s32 val)
+--- a/drivers/media/usb/gspca/m5602/m5602_ov9650.c
++++ b/drivers/media/usb/gspca/m5602/m5602_ov9650.c
+@@ -544,8 +544,6 @@ int ov9650_stop(struct sd *sd)
+ void ov9650_disconnect(struct sd *sd)
+ {
+ 	ov9650_stop(sd);
+-
+-	sd->sensor = NULL;
+ }
+
+ static int ov9650_set_exposure(struct gspca_dev *gspca_dev, __s32 val)
+--- a/drivers/media/usb/gspca/m5602/m5602_po1030.c
++++ b/drivers/media/usb/gspca/m5602/m5602_po1030.c
+@@ -543,11 +543,6 @@ static int po1030_set_auto_exposure(struct
+gspca_dev *gspca_dev,
+ 	return m5602_write_sensor(sd, PO1030_AUTOCTRL1, &i2c_data, 1);
+ }
+
+-void po1030_disconnect(struct sd *sd)
+-{
+-	sd->sensor = NULL;
+-}
+-
+ static int po1030_s_ctrl(struct v4l2_ctrl *ctrl)
+ {
+ 	struct gspca_dev *gspca_dev =
+--- a/drivers/media/usb/gspca/m5602/m5602_po1030.h
++++ b/drivers/media/usb/gspca/m5602/m5602_po1030.h
+@@ -149,7 +149,6 @@ int po1030_probe(struct sd *sd);
+ int po1030_init(struct sd *sd);
+ int po1030_init_controls(struct sd *sd);
+ int po1030_start(struct sd *sd);
+-void po1030_disconnect(struct sd *sd);
+
+ static const struct m5602_sensor po1030 = {
+ 	.name = "PO1030",
+@@ -161,6 +160,5 @@ static const struct m5602_sensor po1030 = {
+ 	.init = po1030_init,
+ 	.init_controls = po1030_init_controls,
+ 	.start = po1030_start,
+-	.disconnect = po1030_disconnect,
+ };
+ #endif
+--- a/drivers/media/usb/gspca/m5602/m5602_s5k4aa.c
++++ b/drivers/media/usb/gspca/m5602/m5602_s5k4aa.c
+@@ -709,11 +709,6 @@ static int s5k4aa_s_ctrl(struct v4l2_ctrl *ctrl)
+ 	return err;
+ }
+
+-void s5k4aa_disconnect(struct sd *sd)
+-{
+-	sd->sensor = NULL;
+-}
+-
+ static void s5k4aa_dump_registers(struct sd *sd)
+ {
+ 	int address;
+--- a/drivers/media/usb/gspca/m5602/m5602_s5k4aa.h
++++ b/drivers/media/usb/gspca/m5602/m5602_s5k4aa.h
+@@ -67,7 +67,6 @@ int s5k4aa_probe(struct sd *sd);
+ int s5k4aa_init(struct sd *sd);
+ int s5k4aa_init_controls(struct sd *sd);
+ int s5k4aa_start(struct sd *sd);
+-void s5k4aa_disconnect(struct sd *sd);
+
+ static const struct m5602_sensor s5k4aa = {
+ 	.name = "S5K4AA",
+@@ -78,7 +77,6 @@ static const struct m5602_sensor s5k4aa = {
+ 	.init = s5k4aa_init,
+ 	.init_controls = s5k4aa_init_controls,
+ 	.start = s5k4aa_start,
+-	.disconnect = s5k4aa_disconnect,
+ };
+
+ #endif
+--- a/drivers/media/usb/gspca/m5602/m5602_s5k83a.c
++++ b/drivers/media/usb/gspca/m5602/m5602_s5k83a.c
+@@ -374,8 +374,6 @@ int s5k83a_stop(struct sd *sd)
+ void s5k83a_disconnect(struct sd *sd)
+ {
+ 	s5k83a_stop(sd);
+-
+-	sd->sensor = NULL;
+ }
+
+ static int s5k83a_set_gain(struct gspca_dev *gspca_dev, __s32 val)
