@@ -1,179 +1,201 @@
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A13784756D5
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:32:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C72B34756C0
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:32:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789129941; cv=pass; b=MNfDGkACHVKOjFW1EyYTxfkOPxJiMiK7tiEtheF8eWiGPe4oMID9qGhrcS0edd366dnO2urN+nAFEX/vaKG8GL6XuA+aUzxLVV9VUKYmyxpqG5qC+J19roj/CB3G8KXSfcmfsDtNaM3lfxPZk66wm1NX5WNDGhr90g31P0a3qLo=
+	t=1789129964; cv=pass; b=WTMsnLJnqIU1BC2YoSLSixOJLuMy5mHzKbhji6G6nPLJ/RLFpJxo8EMfjN3l6DLlf6/mstVinXaiLxxBhqAJsvw0ljzhutHANBkFiyEK8vG9Ta48yjX2NVSBoV4mrWaTaX+n1ZNeq+hyA0JZ277KHMjxFr8JzbosipkDv080Nts=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789129941; c=relaxed/simple;
-	bh=GfGY13tQsBIBtgNZNUsiTH0qNAGdLQBQm0DmdUH5d+A=;
+	s=arc-20240116; t=1789129964; c=relaxed/simple;
+	bh=s1lcJX+wp0vVbXUUAs5avPDLZ1EsiakRHR4cT+AsasY=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uvcBIoT9M1tHsdVZ7quutjf1oeJO+ZkciWvd5nGBfBjpWsUhDx85wS/jceACgiF0kOfFhBclgJR1yH3/Iz1/SQPthKgI5zcpC2JAYl9tVwQ3skiMn3e4uj1eVIE4sV8plOemEOQ6UqG1vVyC7jqB9qDz+vP+JEs+SSKiPxwLZeE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GDXP98Tj; arc=pass smtp.client-ip=74.125.224.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=q/vesalm/stritj7EqtRj1V7CD4gtX3fz8E0HsncAfK/ovoCoooq+9IRcZHsSFUedHnx2QdMvU9dEnFBlf4bz0cbP1Z/RNT8eiW07A0rgV5anIE9UNK1zZx08DJ5rKUn9PLcaRjdlHUDX56BZV31a2yEXSP4oAChpjH8qy0GI3U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=t2RB/vHi; arc=pass smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GDXP98Tj"
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-6712ffe3022so110345d50.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:32:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789129923; cv=none;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="t2RB/vHi"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c294a71c377so114248666b.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:32:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789129957; cv=none;
         d=google.com; s=arc-20260327;
-        b=exgOxsz0tXScTUPuO5R+VS3la4TJOZLnjHHhItRJbH24J+tRC4XFaAG2TNHrOZg7OW
-         ss/6k81oBUaKydivujELdS6GfcMM8TmVfBy+A8++zZb947oYI6ZzWqGzNGrotVoQGfjt
-         GX98UMgVVt0h3Z95K0pgiZXDgTFAbcgaako4R+3ioBMfpEFp4O2V2PuBxPOqN0JYG7gH
-         I3jqvx40eT4NSxKvH60lALNYLBYgeOBhowU6znTnSlqFigJs8y/IdckGf5/+rM0jEuEx
-         m/IzaCyl2Djxgt7iYx6n3Pmq2D3IlZzv1ABPu2PRGpyNS0gZYXJudzxfYA7W+249Tmu4
-         QPOA==
+        b=mAiYRyvPIdIkXFRYy2Ru89scto0DqlC4sd/cZ0ytZGP6tEM94GybHJelTdQgeHgFYb
+         GJyot8hpbJur642iHdafuhPvncBkh8FhzkwmwWA2sYHFNCSiJWRoR5p14DCWjUvtLAmg
+         eSWuDbRICBTE5VqM8t9rqcEUeh/DdB+Jm78amRusx9BGZvfnl5NirTsvvhuCrS0ZKQJ0
+         poCzBggRy4uUCl0WRMwQmVgalXETKx6HSGmRxKOCQ1gsRwD1w307AlBOhHOKFLZCBne9
+         U+4Gaabt4DiwIM3TikWWU4my4pkTJFbq0ei+20i44Wb4g07zIHp5YHGoW84rbFJIsquZ
+         gaIA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=caD0AN8MUeIKYzz7vLP38Y8N+w2mnj0GbXgaghHlPqA=;
-        fh=EoOaG2umArZMnNxjkHqPN/Oh55vCSDb9ubf+3vCLmJ0=;
-        b=QuASaas8Gh4HhxWQJuaEaUWVAi5cfjSkyO0m6n3f7VASZwvnkNVZPHJ4RzdDcPBgSQ
-         b1n1tfChlZ2h85sKuQosvzYyPYlmNR3symAjo3JrFUnT8kDNSB013kal3xbNQTfINU10
-         GAenYgaGoGOpGSUHBS13lVJAibW6joZfSzYb7x3SBXEeFGmZkW3D8gJwQ9Wa01rI4L2T
-         Y4a66S9rZJEtgkIr5U+1EfPqDGvTONXKgREpwyh+AYVs9i+hRhCh6HT46/t5kHWSFe5i
-         hksq4B6kT83EI8EnY0V7bpQltkwlwhXMJPk0Ao22hHemu69xaiR0fqIQ3SB5NoSUZQLa
-         JvgQ==;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=VXWoKfG8YqkeEwfoPvx2qLHtQyDekPWfCPr5OIiNrY4=;
+        fh=JJ2p6BanE9strrafez5Pu6J1SIo6vlYlbMyXB0geyQw=;
+        b=lPQm+taa/gWqzlqrUgqcOsPp2zGoRL399Iew9vqC355N9Su+eJuwI6FRla1U6GJXQO
+         mJJ7rf4pQBxBfNVskRWt7ycZaTzBClFpQupvPmZxjTo8cPAxuKm0AJnzXqW8Ry2zxH57
+         mGX1g01Rm+BufudIbK+C9p1X23WP/7nJG84Kp35tu5Cu8zesto9GKs2D4FIH7/pUtgTm
+         v7E5m+JIs8+6bg+I9QkTlPS4rMscZ/BC0o9FlBVidR50XrO5+1VSZK9RUBbm+uOXILyT
+         SXrJfYipMlynQErsuJdpHSAyYyn+Di1Dk+aE6QbgOVAnoCChgrYvg7ogBaQ6VW3ACj+X
+         pFKQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789129923; x=1789734723; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=caD0AN8MUeIKYzz7vLP38Y8N+w2mnj0GbXgaghHlPqA=;
-        b=GDXP98TjbTn7dENk33rIPd0Ksa4F7AqCVKcln4PHWCVvu879DL88cLai6ObgxzmMAh
-         TkdvpcbJFO8zkdQJkS+Gu4GTALJFYfGCNFfg5fLsBiSufeWjgxnXJ776BbQOgihAjJ29
-         4oFe2Ft+sy1SzkwQ7kBKDD0wbIYqLSVJRW47OtOz3ejBZ4wF4nacIAmlTyXcSnTDnXSb
-         BfxI//fsRzBmFIUt5uWD/ktmd530t6ZNMchhNjN0DY7tSnjlevGO2+J+hXPQu6c5ij7X
-         4kW8+ANcv/5rm7RVciGrVvcfD4VJObQn33JSlBK9WgtEGfJ8axi3H3YV31M2tBPTppvJ
-         z8Rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789129923; x=1789734723;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linaro.org; s=google; t=1789129957; x=1789734757; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=caD0AN8MUeIKYzz7vLP38Y8N+w2mnj0GbXgaghHlPqA=;
-        b=Q+jgMO/hveTCUACOO/LMz8aRWjT7QW7iWoFSKUA/O2iYhWpqULYScpTQspyh8mV3P5
-         ut7kN8lVJ8bbwJyz0jdlMpKBEg151ZAQ0sGASNQX4jjRdxnRBBrVYYhWSSlbNQW82QgR
-         XKReHI49BayVMdGL9otMaIJD5j6A0a1RTeXYKTZsRvumJPOAtuMg6TN3oTXIZOO5AnYb
-         pXrTi+TwK/Km+w+ylLkvL/7mATu598rj8y82BnfVw9LSE7TBU8/m0Aimzgb9GzILcT0u
-         zRdCQY1GJ1NBX9fujeHkaCpr1mz7Pli5ZsRd7ybLBmuOyazelfoGmv6zWrDGPCC7fxQ6
-         Hi0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy+dIOnOTup1ZPObL1XdnvtttMYwzCqaVrwStNnzr+3VeNN1gDK2NBzKLPSMewxE+dYvKrNgQ2gMaXao1c=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7r2m4lcc+hVAWPdi+0R35wnnDfJDJyEwNkEnY0CZCgZieH4qb
-	DsU/S2JEG+6vY7D3xMNCePQnV0arn+wnIxCNiPUwsRuvwpPbV5q53CIzBd/8vKtkEVVC3vzyiNx
-	Sd4/F39lCswOmNy7bhTdcFOXphXuy2E0k8nkA
-X-Gm-Gg: AYBFou256P4uSaFzFRVnnn5/L69QSMS5+LT1zmbR2aSED7tr3Oah5HbBytWMYhu8+n0
-	RWqmqsf1xffeMJ2rRjYDECCXlkRQOQojlivceUX4I9dUqqA8hFHXZC2hWN9CbKhZViOco9/EA71
-	iVeS6iFgrZoMyf1yhz9rXJwsofPY8dGEO6c8tI50Ux5A45SAeotB7a6EvkUGT4zMqiMe4jllLe0
-	pxlXiwqSCLXfNdywNL+7iVDnB7i8PN54AZGv/2nbfR4pWDB0/HsEtCsYy9lxdRIDfWKZ8QOiG9P
-	9rwNR16cg5TbM6lzksrzuABkY8LWHZfAqQ/DlwTnn+h7eeKxHTL5
-X-Received: by 2002:a05:690e:4547:10b0:671:23de:14d9 with SMTP id
- 956f58d0204a3-67124574c68mr1013303d50.31.1789129923374; Fri, 11 Sep 2026
- 05:32:03 -0700 (PDT)
+        bh=VXWoKfG8YqkeEwfoPvx2qLHtQyDekPWfCPr5OIiNrY4=;
+        b=t2RB/vHiB7JCTwt0RqEDN1oq1jIvkbQ6Je1C1eKjZkifHaPBrlmzKvAqWldTbtI9Fg
+         vhJWYDGiyfBQuhnrSQuI8s/rXtL1RYfJrRKfg5IB9+URx5M7SM5qiupfPkuFQdZDnxtz
+         Qs2WZ63L/6zsllkY/Ohys/8Mwx+KBbVStCkWQdXh7wfTA3f2ii89OOiqdmnJ8S0hgsyl
+         UyTwB36p2Jlvph8FgF3psxGNolikcvPpgdyo8Ksdt0O84AXQHXkizAvmOGrPrDLfaaq0
+         08pwIhQOli2NrQbl7Ax/+KbcDzJj8BusnrFTiXJm29oWKhyAbuLvO7KL8XFly8cH8ziV
+         zWNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789129957; x=1789734757;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=VXWoKfG8YqkeEwfoPvx2qLHtQyDekPWfCPr5OIiNrY4=;
+        b=tWXCOQOvYH+mfPDPqcTTgNNqqFYJA63MdK6MwTruuo2SY0F12gYWcegxAsYYqZTRQc
+         nEsnJL6DZPoVKmdyzOIBdGsHzX405NS9T1CGxCgN7HqEQ6atGsay0r8ZWvuYLSCl153G
+         /zR0Iv+fa9NnwY3JXifCPaGiozBn7J6n8sG0GnG/4+FnFS0v4TcmRp6+elWUjPZbHMR0
+         PJUtozez5b93lbXJBRXzPZtx9rBXngmcs60UHS2ylYa3fwQKBdxZRfIUyTZ1VywCYod4
+         vikHECXgsJNO9EdT5Gcnx+VgaHoAcqr8Xm8h9S47n2nwv8uOv+kOdrTCXzVr5DrlBY8w
+         od9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBybv24tHS0JNUTVaeR4uWIq62jd2rSnduIYKJ470i7vKLXlAEeFxz4DOernrlFfTqvrNH8whfLuX/JAQpM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mEb2Mb7cNvQWbSarZPn9b2aTVUCh7MMLlb4t6R554UflG3VwsJ
+	EEj5Pbd6LsR8R3Pl0KH9034pC7AWKZrjuze+M35xHTaxZqVLNBLFJOb05I8yDzK2b3M66ZCCY6M
+	s6Iuhj+Z8LppFGD59lwcDOk0WqBNQQzoUfKFqKsAtQg==
+X-Gm-Gg: AYBFou21fNJghbny7dxChM0DUwVb08wr66ntaiJcIPdFYfDiYnyqF4RVCtsj8CW0wRJ
+	v9BmH/388+TRxYbqiWPwgNeI0iYuh0UePoi4AdorHTAHdEmI7Ap3+m2AKnn89tmzCuo2cSQN5bK
+	3kinBNtcHZFLz6If9SRa6BzkS7DqFHCWPFfpmOCCS8V9iLDycC0xbX9fCmVjQIqA2j67maTaDU7
+	Vj0HNHZFBGwSnbJ9I678JuOEWdiz/r0MHcLgLg3vNSbdXyBKUVzVsdmkn2BsXN84xdNMoZMjUb7
+	fs12tgXrDYHgzvv5TvsVitaeCyUDlgTt/0Ys1oINFxz+huf/IaEPsPr91uWW1cy2otTNDDKiAva
+	0QA95o9uu6JMS
+X-Received: by 2002:a17:906:c141:b0:c29:5151:16b8 with SMTP id
+ a640c23a62f3a-c2966534d19mr156643166b.2.1789129956866; Fri, 11 Sep 2026
+ 05:32:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910051649.3806214-1-april.cardenas@canonical.com>
-In-Reply-To: <20260910051649.3806214-1-april.cardenas@canonical.com>
-From: Bharath SM <bharathsm.hsk@gmail.com>
-Date: Fri, 11 Sep 2026 12:31:52 +0000
-X-Gm-Features: AcwNN1WbsQN-BPoDZ6fJmFMQpIFFBjaprIPiBLElv0YUz9QVJuPOcZeQ_WLxtig
-Message-ID: <CAGypqWxKokujjRHmrJ=iSM4vhqmmTxAPy_GrQQDmeZk271+Rmg@mail.gmail.com>
-Subject: Re: [PATCH] smb/client: send lease break ACKs thru correct session
- for multiuser mounts
-To: April Cardenas <april.cardenas@canonical.com>
-Cc: linux-cifs@vger.kernel.org, pc@manguebit.org, linkinjeon@kernel.org, 
-	ronniesahlberg@gmail.com, sprasad@microsoft.com, tom@talpey.com, 
-	bharathsm@microsoft.com, samba-technical@lists.samba.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260910042950.1619727-1-jackzxcui1989@163.com> <20260910042950.1619727-5-jackzxcui1989@163.com>
+In-Reply-To: <20260910042950.1619727-5-jackzxcui1989@163.com>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Fri, 11 Sep 2026 14:32:25 +0200
+X-Gm-Features: AcwNN1W7ERrfbH5ZkCb4ynwggj7QLLhOsm9vthhRZpMEiVoS3f1-NpsGjzOvADI
+Message-ID: <CAKfTPtBRLNWu6KyLs_=uLh7fwZpc5fEsGCwcSV2dCXuf6UqucQ@mail.gmail.com>
+Subject: Re: [RFC PATCH RESEND 04/10] sched/fair: Add LB_PROMOTE feature to
+ enhance real-time performance of fair tasks
+To: Xin Zhao <jackzxcui1989@163.com>
+Cc: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 10, 2026 at 5:17=E2=80=AFAM April Cardenas
-<april.cardenas@canonical.com> wrote:
+On Thu, 10 Sept 2026 at 06:30, Xin Zhao <jackzxcui1989@163.com> wrote:
 >
-> Currently, when cifs_oplock_break handles a break request from the server
-> it searches for the appropriate tlink to handle the request
-> but incorrectly uses the current fsuid as the search key, eventually
-> causing read errors for users with multiuser mounts on NetApp.
-> Fix this by using the tlink from the cfile struct instead to respond
-> through the correct session.
+> Embedded platforms commonly use CONFIG_HZ_250, and testing has revealed
+> that there are numerous instances of unreasonable CPU idle events on such
+> platforms. Unreasonable CPU idle refers to situations where the CPU enters
+> an idle state for a duration of time (t), while there are tasks that can
+> run on the idle CPU and are not limited by cgroup constraints, yet these
+> tasks remain unscheduled for a duration greater than (t), t > 2.5 ms.
+
+Which looks reasonable with a 4ms tick
+
+The ILB fixes this at next tick and we have a similar version for slow
+path wake up
+
+Also you might want to look at the newly idle load balance path
+
 >
-> As breaks are handled in a worker thread, the current fsuid
-> isn't guaranteed to match the session that the break is intended for.
-> This means that cifs_sb_tlink may search the rbtree using the wrong fsuid=
-,
-> and return a tlink with an incorrect session than
-> the lease break was intended for. As a result, the breaks
-> may be ACKed through an incorrect session.
+> Testing has shown that over 95% of these events last less than 4 ms, but
+> there are still some instances of longer durations between 4-5ms, even
+> occasionally between 5-10 ms. For a real-time system, scheduling delays
+> greater than 4 ms can lead to performance spikes.
+
+For a real-time system, use the real-time scheduler but you might want
+to refer interactive systems
+
 >
-> While it seems that Samba/Windows Servers 2016-2025 ignore this as long a=
-s
-> the lease key is correct, we ran into a case where if you're using
-> NetApp ONTAP or Azure NetApp Files they will reject the ACK
-> and return `STATUS_LOCK_NOT_GRANTED` errors on any future read requests
-> a user may initiate through their still held open file handle,
-> and the server will eventually close the file.
+> Enabling this option can effectively reduce the occurrence of unreasonable
+> CPU idle events on low HZ systems like CONFIG_HZ_250, and completely
+> eliminate events exceeding 4 ms. Note that the feature only affects fair
+> tasks.
 >
-> In the dmesg logs, the user may see errors like these:
+> Note that enabling this feature will increase sys%, as it uses CPU time
+> that would have been idle to expedite the scheduling of tasks. There will
+> also be some CPU overhead involved in searching for suitable tasks.
 >
-> CIFS: Status code returned 0xc0000128 STATUS_FILE_CLOSED
-> CIFS: VFS: Send error in read =3D -9
+> This feature has been split into several smaller patches, which will be
+> elaborated on one by one later. Below are some test data:
 >
-> With a multiuser mount using NetApp, this issue is really easy
-> for users to hit on a wide variety of kernel versions
-> by attempting to copy a file from the share
-> to the local machine through GNOME Files/Nautilus.
-> This copy will always result in Nautilus throwing
-> a `Bad File Descriptor` error to the user and fail.
-> With this fix, you can copy files through Nautilus without issue.
+> Test one compares the number of unreasonable CPU idle events and their
+> distribution when this feature is enabled versus when it is not, under
+> the same fillback scenario. The test duration was 60 seconds.
 >
-> From looking at the traces, it seems that glib will
-> open the file first, and call listxattr before actually attempting
-> to copy the file data. The listxattr call always triggers a break,
-> causing the copy to fail.
+>       LB_PROMOTE(on/off) 2.5-3ms 3-4ms  4ms+
+> index 0               on       0     0     0
+> index 1              off       4    13     1
+> index 2               on       0     0     0
+> index 3              off       6     3     0
+> index 4               on       0     0     0
+> index 5              off       1     1     0
 >
-> The proposed fix returns to the way the client grabbed the tlink before
-> commit e8f5f849ffce2 ("cifs: fix potential oops in cifs_oplock_break").
+> Test two compares the performance of the system with and without the
+> feature enabled, based on the same fillback scenario. Each test lasts for
+> 25 minutes, and a total of 15 comparative tests were conducted. The
+> results include a comparison of the maximum and median values of
+> end-to-end latency and sys%.
 >
-> The bulk of that commit (checking for list empty) remains untouched, and
-> I think the change to using cifs_sb_tlink was intended to avoid a
-> NULL/ERR deference on the tlink as well as update the reference count.
+> LB_PROMOTE(on/off)                    on        off
+> end-to-end latency(max)              172        180
+> end-to-end latency(median of avg)    166     167.68
+> sys%(max)                           9.68       9.35
+> sys%(median of avg)                 8.81       8.55
 >
-> I believe this fix should preserve those safety properties, but of course
-> I'd appreciate any corrections here.
->
-> Fixes: e8f5f849ffce2 ("cifs: fix potential oops in cifs_oplock_break")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: April Cardenas <april.cardenas@canonical.com>
+> Signed-off-by: Xin Zhao <jackzxcui1989@163.com>
 > ---
->  fs/smb/client/file.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  kernel/sched/features.h | 24 ++++++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
 >
-> diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
-> index 1aa4844f8b8a..0d428517f454 100644
-> --- a/fs/smb/client/file.c
-> +++ b/fs/smb/client/file.c
-> @@ -3354,8 +3354,8 @@ void cifs_oplock_break(struct work_struct *work)
->         wait_on_bit(&cinode->flags, CIFS_INODE_PENDING_WRITERS,
->                         TASK_UNINTERRUPTIBLE);
+> diff --git a/kernel/sched/features.h b/kernel/sched/features.h
+> index 8f0dee8fc475..4916a4b89ab3 100644
+> --- a/kernel/sched/features.h
+> +++ b/kernel/sched/features.h
+> @@ -142,3 +142,27 @@ SCHED_FEAT(LATENCY_WARN, false)
+>   */
+>  SCHED_FEAT(NI_RANDOM, true)
+>  SCHED_FEAT(NI_RATE, true)
+> +
+> +/*
+> + * Embedded platforms commonly use CONFIG_HZ_250, and testing has revealed that
+> + * there are numerous instances of unreasonable CPU idle events on such
+> + * platforms. Unreasonable CPU idle refers to situations where the CPU enters
+> + * an idle state for a duration of time (t), while there are tasks that can run
+> + * on the idle CPU and are not limited by cgroup constraints, yet these tasks
+> + * remain unscheduled for a duration greater than (t), t > 2.5 ms.
+> + *
+> + * Testing has shown that over 95% of these events last less than 4 ms, but
+> + * there are still some instances of longer durations between 4-5ms, even
+> + * occasionally between 5-10 ms. For a real-time system, scheduling delays
+> + * greater than 4 ms can lead to performance spikes.
+> + *
+> + * Enabling this option can effectively reduce the occurrence of unreasonable
+> + * CPU idle events on low HZ systems like CONFIG_HZ_250, and completely
+> + * eliminate events exceeding 4 ms. Note that the feature only affects fair
+> + * tasks.
+> + *
+> + * Note that enabling this feature will increase sys%, as it uses CPU time that
+> + * would have been idle to expedite the scheduling of tasks. There will also be
+> + * some CPU overhead involved in searching for suitable tasks.
+> + */
+> +SCHED_FEAT(LB_PROMOTE, false)
+> --
+> 2.34.1
 >
-> -       tlink =3D cifs_sb_tlink(cifs_sb);
-> -       if (IS_ERR(tlink)) {
-> +       tlink =3D cifs_get_tlink(cfile->tlink);
-> +       if (IS_ERR_OR_NULL(tlink)) {
->                 /* drop the reference taken when the break was queued */
->                 _cifsFileInfo_put(cfile, false /* do not wait for ourself=
- */, false);
->                 goto out;
-
-LGTM. Reviewed-by: Bharath S M <bharathsm@microsoft.com>
