@@ -1,108 +1,80 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B9F6392C5A
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:38:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB8A30568B;
+	Fri, 11 Sep 2026 05:38:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789105096; cv=none; b=gxOZjQFrzKvbpg1i0WkBvuS/4bQp6Fnvr4TXZEcvAHyoLTCgN5Wejb7AOIOtYofL4jLjBSjwtCo3KsN54QAh87NhMVfV2cuGdxsjmNd2UnWZOgYeoN6WLnLKQW8+2Ut0KrlB6KCKbgpqv9h7VmlHUS9YUvyxxRNkz76TWzhRlS0=
+	t=1789105113; cv=none; b=JBoo1wBT1Cy1ZRrYXDxxBTN+6pYZBxsNgHBPHJMFx0Bp3EhcdlEy0yqaSb88DNDMaE7mBbvITgHFfo2eevVtGyI01NlIWTtR+1wHK/MSDf/fJ1CeBzFxIn4Aepa/Viro9PtLye3K3tyavUqXl+1iZ7pLOXCHxdmoadV4JteKHSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789105096; c=relaxed/simple;
-	bh=tLluc74BtFIEXZif5R7YprcAZbnZaygcxvkypf+brYI=;
+	s=arc-20240116; t=1789105113; c=relaxed/simple;
+	bh=IEs+rpwobwtcxO60zbMsuUVV9vxXzvUlCMmCfcDMa00=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k+JLb/3kjZmwgpdRs8TtCIAS1nFAgGrNLUbgIhErl4eRjBuKQLmEnAq0pWdqNgNzKVQInJMSDSqEc+Z1TSV3opjMZf24XEGMcOvzKiG6GfC5X/WAV2cZ6IExK/q8V9pkrpGS/yB2ZOnYgNyb30Xxvl8tsE72zyoxa2yXTY9NjGs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=u0hE2LBQ; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=CF28muOj3yxbP3bP/1TJM0W/7LHvSBvIz3ARZTWiFGrXRpS3fCYlf8XwBJ5URCDF67vW0Z88LSyKLGIZrb9UQDE79ipgMdEBESw8CKLcasocoGpyY97ixJsY+3cN1vZ26+T3g5aZsHr7myvvZFXNd+vbMrM1v0OhMAqzNbms7rs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AGgiNDCr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="u0hE2LBQ"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-939109fafd7so47914485a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 22:38:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789105093; x=1789709893; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oqqJPfwVD9qfgrw5ni2b4uR4Rq24ucUxHntuj8sDFZk=;
-        b=u0hE2LBQ/cyURpJcZkewr26SY0f8LtuE8jNVpIAaTw7kWRcBopGqGUd/ykVH2RXjza
-         QHxTm96RE4+GyfBEitrLXdQiR9CXEL1vj/66jdRMNzwKlMVjm5Nk5KEh9RVI+rKAmcBu
-         LTel6S7Krr3HWSAGUfaQ64rZxOF3RWtckVsKjwsIwnRd4ZhB0vDpKsJ+uBYCkHL5NuWF
-         BmLIKQ2A50I+9pcM21y4TVDgwLXa8jHC50GXmpDJdDDoMkoFdePQUSsBXP8m7cg4OXkF
-         8ev+0ZVRpvvcIERgRxiDDA56Tq7iSSddomoKV9T97AkidypvaKAxhg2XAWNIPUOpNLve
-         wmeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789105093; x=1789709893;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oqqJPfwVD9qfgrw5ni2b4uR4Rq24ucUxHntuj8sDFZk=;
-        b=SIvVrisLvw9zRYFKboTI7ObxxEc2yaO9Hr6V2HcorJUsR8pQnVKzMBed9NaG4L+lY/
-         uKBsOA0H82n+2qhqAN5AYBNiByxne7sqjbdDyqOe3vS3ALmLt4yWsJtSL6zYaMMs/Atp
-         Do8HHkkNZFK9rOqCqQ4ldMQiP459MOUyF7sen5UsP3AO11kr8vHHWUzW4ajgp6+OYJDM
-         8Oi3mG4IMmsHyfVxGV0f4/8VCfkN2LQ2dF/XE2+VE5hrGIgVnk55pK66E9Z0bHch2nDm
-         6iMiplQGSuuDGnlR/uWDrlGuCaeO51vMAbZfCS4O6JKv7/Cq3QSm4WrbZ69z+byUsNRA
-         IPEQ==
-X-Gm-Message-State: AFuF++mQd6ZWrmxdKoWfOhw09iRBwWJ9NWEuTTiTj3O5z9/L2+Xjn8cx
-	CARfZvympvz0TuXIfxytRgpEJKXiKFNTe2v1TsL1IhBcK1gKr7puW4loDOQuUbhKTsw=
-X-Gm-Gg: AYBFou19BCfohs1+hIwZcv+0WXKB63nD4V6SbLRHGSfcMRKbNt6zr3VgdmqzWFdH1St
-	IKzEyWtbZbTKQpU8+fkKA7PWTWD+nVmttaXb49LUewrMTMNuIAZIp9FYNHFMdAXj1KFJfeQ3WQJ
-	Nx1Wxal8FpdHl7gsQbxBYqpXBdLPu3ASJJ1hRZQRgC+3E8+kz9ngKul55FnO7suE3fyGUXMKTzf
-	CmVY8nHUoJQG8mJio+LziSltOiFNJJ/hpvH2nPRT6NLY7FmRRKg77lvAhTxsjSfn6C26msz3NpH
-	JdrqCk0RTjCz9+K4ZijNF2y/tpz7f8RB+gjDFuJldVl/gLN1vCkKUosytfjog2DML+SNnlWx5Yg
-	E8fY9g0DG/ZVM451gTLUg8pKMohfwXM/RRgwNJ2K4yTVvinAfKXl6SmGCAQsSBNfd31FzGWHe5x
-	RPZlL5oupO5kDbB7c+d/3fSxsXhs4VSzScD7FBL6q6jG+0rSC4BkMaHmZnSg8XlsYbKqtgLTY1M
-	UkTANaRig3Kl3Xc5di5znJbm18TxhFJbTnbfX+LknyqNGqGv+cb7lit
-X-Received: by 2002:a05:620a:4688:b0:939:a9d4:50b7 with SMTP id af79cd13be357-939ea177661mr311177385a.26.1789105093018;
-        Thu, 10 Sep 2026 22:38:13 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e7f184f5sm163816985a.15.2026.09.10.22.38.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 22:38:12 -0700 (PDT)
-Date: Fri, 11 Sep 2026 01:38:10 -0400
-From: Gregory Price <gourry@gourry.net>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, liam@infradead.org, 
-	vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
-	mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
-	ziy@nvidia.com, baolin.wang@linux.alibaba.com, nico.pache@linux.dev, 
-	ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, 
-	usama.arif@linux.dev, kas@kernel.org, matthew.brost@intel.com, joshua.hahnjy@gmail.com, 
-	rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com, 
-	apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, osalvador@suse.de, 
-	hannes@cmpxchg.org, raghavendra.kt@amd.com
-Subject: Re: [PATCH v2 0/4] sched/numa: stop VMA scan filters from gating
- promotion
-Message-ID: <aqOR7TY5YtIadMAK@gourry-fedora-PF4VCD3F>
-References: <20260911001826.2109390-1-gourry@gourry.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AGgiNDCr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C43EE1F000FF;
+	Fri, 11 Sep 2026 05:38:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789105112;
+	bh=hi/sAfcZebnb6L2iDczSy+R8ulaoBQH7kOjtfHM4/pA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AGgiNDCraZXyIAz8C/b/bklo9OffRBsyFB1OuLCpdtQ3nLuDPxvHEIVeaZNQmb5F2
+	 qyaFh1SxR9kv8fiyFdEWL+GnEvHSlEZPvqTrcqRFBPpLRvYC9CCcNnW1L6ye/2QD9w
+	 lqZCZ86XSsmUNWzcNi3hbavISVU2taS6lEln5oRNMgREf5rHzW6zxi7WsaLC8sAX9+
+	 4XGpLb8JfeZoVLWIYQq3UVFOHiO5nq51+gD1gOiC6YmMbXq1ZQPVN4xE6HLI/jRm0V
+	 HJgz1B7yroHlT1DrS20LnD9lF8BneT6h4JkSVOyBs1wWeSBYrXtLKIg8sPcAKe7lPl
+	 Bn2/ImwIgyPIg==
+Date: Fri, 11 Sep 2026 07:38:25 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Nabige Aala <nabige.aala@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>, 
+	Mahadevan P <mahadevan.p@oss.qualcomm.com>
+Subject: Re: [PATCH v4 8/9] phy: qualcomm: qmp-combo: Fix Glymur v8 DP PHY
+ init and configure sequences
+Message-ID: <4pqee6uuymjb5ek65a4uhtfgr2dm3jpwv5j6gj4s44qokjx2r5@kqlbwljmahw6>
+References: <20260908-glymur-phy-v3-v4-0-ff22e5150538@oss.qualcomm.com>
+ <20260908-glymur-phy-v3-v4-8-ff22e5150538@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260911001826.2109390-1-gourry@gourry.net>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260908-glymur-phy-v3-v4-8-ff22e5150538@oss.qualcomm.com>
 
-On Thu, Sep 10, 2026 at 08:18:22PM -0400, Gregory Price wrote:
-> NUMA balancing uses hinting faults for both task placement and memory-tier
-> promotion. Several filters designed to avoid unproductive socket-placement
-> faults can also prevent promotion.
+On Tue, Sep 08, 2026 at 07:31:01PM +0530, Nabige Aala wrote:
+> From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+> 
+> Update qmp_v8_dp_aux_init():
+> - Add CLK_FWD_CONFIG_1 initialization (0x3f) before power-down control
+> - Replace PSR_PWRDN with LANE_0_1_PWRDN and LANE_2_3_PWRDN in PD_CTL
+>   to correctly power down the data lanes
+> - Correct BIAS_EN_CLKBUFLR_EN value from 0x1c to 0x17
+> 
+> Update qmp_v4_configure_dp_tx():
+> - Correct default TX_EMP_POST1_LVL value from 0x20 to 0x2b
+> 
+> Update qmp_v8_configure_dp_phy():
+> - Correct 2-lane and 4-lane driver enable values to 0x30 (was 0x10/0x34)
+> - Add CLKBUF_ENABLE (0x87) programming for both TX lanes before driver
+>   enable writes
+> - Add TSYNC_OVRD sequence (0x03 -> 0x23 -> 0x22 -> 0x3e) and
+>   LALB_RESET_TSYNC_EN_CTRL (0x0a) programming for proper TSYNC handling
+> - Fix QPHY_DP_PHY_STATUS poll to check BIT(0) instead of BIT(1)
+> - Replace post-lock TX_DRV_LVL/TX_EMP writes with two COM_CMN_STATUS
+>   polls (BIT(0) and BIT(1)) to properly verify PLL lock completion
 > 
 
-sashiko notes - remaining notes appear to be false positives.
+Same comment as other patches. What issue does this patch fix? Any error log?
 
-patch 2: "... bounce horizontally between slow tiers" <- nonsense
-patch 3 and 4: it's existing code extracted into a helper, using the
-               same checks we're already using.  If we want it updated,
-               that can come in a separate patch.
+- Mani
 
-note: this work has some backport conflicts, but tiered numa balancing
-has effectively been broken multiple times since 2022 and 2023 due to
-these filtering mechanisms.
-
-~Gregory
+-- 
+மணிவண்ணன் சதாசிவம்
