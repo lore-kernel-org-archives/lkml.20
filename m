@@ -1,50 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 538783803DF;
-	Fri, 11 Sep 2026 06:53:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0153D448CEC
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:53:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789109623; cv=none; b=i7zXLjSK4gUpUQ3I/hD3t5ke+JFbcwDGACD272tG+BBpNhZkaJ0Dp41FePXFQPtE/Mt5O+uqFn4T2jetFzYV7W+YUwWGnamy64WNxQD+JU8uoWCfYkRCIfy86GPz5GmEgmuvBGoo3zviiIPYstmdVX4k5zx31+zOlb/naO5k80o=
+	t=1789109628; cv=none; b=i1njZQwEWoE5J00MZKLj/GaRSIDJqDsXmc2mG1qmQOtbNYtaz+63wpGKAlsqplbse1tVrDcDpGe3o4k6199SXgZWiMboAUqNqi1gasg8+fjPT16rPu/6EeaYRMTv0QP6/i9/4di+DrlVBtez3IhXcbLjt6bp0qwzxcgBUO9tyaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789109623; c=relaxed/simple;
-	bh=7jukiRDIQUe98DOlCWGj00+XVBxaD6qe6aDh1w82DGg=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=YxjDEWbmVqv2KU4RV2mH5xKyNaLuaN8hqQsBLoMRG1mBtUrBPVpp3a2REQ852Vj+CO9I3PK42IEbBWojdChpSWoxv3VDkQA3UPthbkmXOqu6kPN6rAb+LR7Xod2vZBUSp9gTgN82usF5GoDJf0XGt95ke6c6Ixn1t6XRfUj/gZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GlgUb6no; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789109628; c=relaxed/simple;
+	bh=hJoXMEecocoPgwpL7lXQbZxHMZKvuD0rUfETEcO365o=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=K5ZtBqTZ/ZZTXTTkQJLOxXzZHAswXW1aLYWjnFPaa5EaAgOkJRLa3KCLTkTQcdltVhAElO7q9uNgmcICj4uWrBz3otR6BdSFZ8RL755LqbdcKanGMdfQrgaQjG98wUYAR8Uyl0/4/1GESPygkNrMEik2t+xh/mndxsw8wjU+GAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=c+cVzuJk; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=VgOKo7D9; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GlgUb6no"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C6691F00899;
-	Fri, 11 Sep 2026 06:53:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789109608;
-	bh=snprWzUSgbKVG/P47RkBXhtyoJ+JYJhl5Vp4QkYh3b0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=GlgUb6no7XIiM36oO/8ENvyzGupSPUJ/NdDsjVfZoyA2b1H7y09TKAcFVEv4nW+J8
-	 W68cqWpVekf4YX0HUondRpdk/x2c0+qz/5rFkyWguzr00qy9jpX0I2vGInwXx+OV3+
-	 uoFhHlgXoGCBCAQhtFIxKhO5kcDWkO09OehcUwEXbQX+ZnONg5GBhBSJO27VPv1lQL
-	 P2Zqv9R2BYMzNhUl2JNTKwZJElriRI8K/6zkF+OI0o1krd6sUqLPzgJU2REiZHevT/
-	 a8an2NbbQlA8xZnLrzAshcZWSR9rCFomwSAaenB5QjJRMnM5X/4LLMhq7evjDN6yk6
-	 ln7BfRUAxrlPQ==
-Subject: Re: [PATCH net-next v5 4/4] net: mana: add dynamic HWC queue depth
- with reinit path
-From: netdev-bot+sashiko@kernel.org
-To: longli@microsoft.com
-Cc: longli@kernel.org, kotaranov@microsoft.com, kuba@kernel.org,
- davem@davemloft.net, pabeni@redhat.com, edumazet@google.com,
- andrew+netdev@lunn.ch, jgg@ziepe.ca, leon@kernel.org, haiyangz@microsoft.com,
- kys@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
- shradhagupta@linux.microsoft.com, horms@kernel.org, ernis@linux.microsoft.com,
- stephen@networkplumber.org, shirazsaleem@microsoft.com,
- netdev@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Fri, 11 Sep 2026 06:53:26 +0000
-Message-ID: <178910960684.219967.7896357652375395801@kernel.org>
-In-Reply-To: <20260908035201.402424-5-longli@microsoft.com>
-References: <20260908035201.402424-5-longli@microsoft.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="c+cVzuJk";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="VgOKo7D9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789109618;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=CUiWZRov/457RXv0Axbnnwf3f4Hs0T8xh/BGp2XYrEo=;
+	b=c+cVzuJkBRwWmmOJBIVEwPbBz2vhUhVlPSrzCJmZVDHUfwFQAMBxD6rXn5sYzOyXnzSagh
+	/Ma+FRrU/WP/KAGs/e15tz+CF7uziOqU45LXeVdR1QNrag3usV5pQayzlK7ne+qlI3pzQu
+	Sf6VkBIYGzPA5lPA+tBlOKRa93J3+KI=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-94-39vhURN4NYiac9b0c9We-w-1; Fri, 11 Sep 2026 02:53:37 -0400
+X-MC-Unique: 39vhURN4NYiac9b0c9We-w-1
+X-Mimecast-MFC-AGG-ID: 39vhURN4NYiac9b0c9We-w_1789109616
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-482f41ca436so503866f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 23:53:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789109616; x=1789714416; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CUiWZRov/457RXv0Axbnnwf3f4Hs0T8xh/BGp2XYrEo=;
+        b=VgOKo7D9GAIMX7iFwzmFM0yjNUyw1w3NgLMjtCj2fEtFQUaUUAm38VK9O0OyIDGOAa
+         8Y8YZcPihgvE5SZfza2WiLJZpWoVp0RgQ9jqOIaqi9XN/3jGQ9c8hTmuqNmEe3Fk0VtS
+         NO5iy0FfLn/npNgXdN0UCVoduuGvV5g2H5B8F38dvqQ9+88T4SPLwKZqaTChdfnavR7i
+         0ouX80UntP4b7muBxJIoMc+VCjUjAh/oJ1kY8L0/aaoxQKPVpOtyc6sjS41vZLM09Ufa
+         Ul5RLiAlFUQ9VXTjkMNQItD+ySAtK9+CtLp9lcRfI3kSeiDghnBDjyQlVzAJgzcAFMIO
+         rEcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789109616; x=1789714416;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=CUiWZRov/457RXv0Axbnnwf3f4Hs0T8xh/BGp2XYrEo=;
+        b=U0KDVGTSSm7EClwu8dz3vku2tKFjBV4dTrPrtzW9NmpQA3fc1IBhkFD/4n9bx7nXRI
+         TyW1fAYUdo5J9kltc1mXj7D9aFyJ+HX9OV0EzGYx+tEf34ct4cIqeFXgMRnwMfwKgM9M
+         A1dSMq97tKzbYqEKraDhULTf1ZTSMeEYfkyGPD92VZZ/UPlLZSkqKDalxV1qVYqyFzNW
+         Qu55bm71Aco0JyxjmQUgjiNp045mE4rntT7KpOirKB+AIxGAHgkP4XyhjkoIoiGxU2fY
+         vUMHHdZMBez7GmpOIdGwb0pCb+ccuhQPHHhHJjl5T8+oRssYosvU+pZkGHLTUCZ5aA7n
+         3oCQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy5DUeNaJzzp+p9ZwvQcHzMeMJGMJiJR3ZKSBGDPcwsKVX8+jY/ibt9AiBcGKKNacqeGYyVqmWRPwxbrb4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQeKl9cO/TRAMh+XGTomPBRdV+xSbx3B/mLSklz1GNV9bwXU3W
+	e0G3cU/mG2FZTF+qQHYOmQVx+JEWk9SHnOhdari6mffnevQb4LlH5R24nSULCox88MYoD8SfczH
+	E/jMEYi5Vw9KsQmQW/f5ddZL8gYmrA3i7oRM6wcwdJojFEMlu7k4GIE0LfIzitSBDwg==
+X-Gm-Gg: AYBFou3NESuI69FqhSLDMgz3u+W3jTI5vMICA5Q9hExctMt9P7e0iZHyX6kwxbuQf2Y
+	QfbrAGdRLUJkoresFnAOmvyya7osyn4ueMC4PIKTTnWwIDYGhIOmcuuUn1U9PyX2nx9UjpHvaID
+	+Lb6/IjCSE6eZVIw67oqWH9YwLrwr9+6Y4ciswcsasCrcPbqFUadL6nnsMAr/3tLdaYNR1nvFWE
+	fjzaJ1+rcPy/5MfWktW00C5olrtYGP3VOSNLQN6RQB1qNFjXYjcl5rNjteJUoEtQyIJeMT6LmVD
+	mgo2kvexkFMjx12j1jw3zPLaeQT0DxAOEKumgQjHvF3mT/7pjlhGy3bi5n7tK/doUX8B6Kqxt3p
+	LkEFe64YAorWGRDdzbIZMTcWbUdUvfQ==
+X-Received: by 2002:a05:6000:25f4:b0:486:e723:efb with SMTP id ffacd0b85a97d-486eb46ae78mr2581469f8f.57.1789109615879;
+        Thu, 10 Sep 2026 23:53:35 -0700 (PDT)
+X-Received: by 2002:a05:6000:25f4:b0:486:e723:efb with SMTP id ffacd0b85a97d-486eb46ae78mr2581456f8f.57.1789109615462;
+        Thu, 10 Sep 2026 23:53:35 -0700 (PDT)
+Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.135.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32d3c7sm3615184f8f.10.2026.09.10.23.53.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 23:53:34 -0700 (PDT)
+Message-ID: <b5ec9da630968a5f801623c8d6e2aaeb0bb509d8.camel@redhat.com>
+Subject: Re: [PATCH v5 3/5] rv/reactors: export rv_register_reactor() and
+ rv_unregister_reactor()
+From: Gabriele Monaco <gmonaco@redhat.com>
+To: wen.yang@linux.dev
+Cc: Nam Cao <namcao@linutronix.de>, linux-trace-kernel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Fri, 11 Sep 2026 08:53:33 +0200
+In-Reply-To: <7c931773dacd7c3da35a22629c3d7dc286b5a0fe.1788705281.git.wen.yang@linux.dev>
+References: <cover.1788705281.git.wen.yang@linux.dev>
+	 <7c931773dacd7c3da35a22629c3d7dc286b5a0fe.1788705281.git.wen.yang@linux.dev>
+Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
+ keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
+ 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
+ Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
+ Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
+ cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
+ T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
+ eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
+ 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,441 +108,237 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider:
+On Mon, 2026-09-07 at 01:10 +0800, wen.yang@linux.dev wrote:
+> From: Wen Yang <wen.yang@linux.dev>
+>=20
+> rv_react() is exported to modules, but the reactor registration helpers
+> are not.=C2=A0 Export them with EXPORT_SYMBOL_GPL() so reactor modules an=
+d
+> the tristate KUnit test module can register and unregister reactors
+> without hitting undefined symbol errors at link time(modpost).
+>=20
+> Commit 3d3800b4f7f4 ("rv: Remove reactor's reference counter") noted
+> that if module-based reactors are supported, try_module_get()/module_put(=
+)
+> should be used. Add struct module *owner to struct rv_reactor so a module
+> cat set owner =3D THIS_MODULE; pin the module in monitor_swap_reactors_gi=
+ngle()
+> and release it when a monitor detaches or is unregistered.
 
-Critical: 0 · High: 3 (1) · Medium: 1 (1) · Low: 0
+You needed these symbols in KUnit and we are exporting them for /potential/
+future support of reactors as modules. I don't see any technical reason why=
+ we
+shouldn't support this, but they are currently /not/ supported.
 
-- [High] The new re-init and bootstrap-fallback blocks in
-  mana_hwc_create_channel() unpublish the CQ table in the wrong order:…
-- [High] The new reinit_fallback block treats a failed DESTROY_HWC as
-  fatal (`if (mana_smc_teardown_hwc(&gc->shm_channel, false)) {…
-- [High] mana_hwc_establish_channel() now sets `gc->hwc.doorbell =
-  INVALID_DOORBELL;` (UINT_MAX) at the top of every establish, after…
-- [Medium] The commit message states "Advertise support in the driver-
-  version request", but GDMA_DRV_CAP_FLAG_1_DYN_HWC_QUEUE_DEPTH cannot…
+I know sashiko and other LLMs complain about this, and they have a point, b=
+ut
+you can ignore them. At most state in this commit message that this does NO=
+T add
+support for reactors as modules.
 
-Pre-existing issues:
-- [High] The new guard in mana_hwc_establish_channel() validates the HWC
-  doorbell only against the INVALID_DOORBELL sentinel (UINT_MAX); it…
-- [Medium] mana_hwc_destroy_cq() frees resources that the still-live HWC
-  EQ interrupt handler can reach before the EQ is deregistered:…
+Let's focus this series on its original intent (fix a lockdep warning and a=
+dd
+some KUnit tests that expose a reproducer), then if adding support for reac=
+tors
+as modules is so simple, you can do it in another series.
 
---
+If you really want to /also/ add support for reactors as modules in this se=
+ries,
+you need to make that very explicit (not just a vague line in the changelog=
+, but
+rather rewrite the entire cover letter and commit message).
+And mind that this would mean your series needs to go through another round=
+ of
+review and serious testing: you are adding a new feature.
 
-net: mana: add dynamic HWC queue depth with reinit path
+> In-tree reactors leave owner =3D NULL and are unaffected.
+>=20
+> Reviewed-by: Gabriele Monaco <gmonaco@redhat.com>
 
-This rebuilds the depth-one HWC bootstrap queues at the device-advertised
-maximum depth, capped at 128, and keeps the 24-bit reported depth in a u32
-with bounded DMA allocations. It adds a bootstrap fallback path that tears
-down and rebuilds at depth one when the larger-depth teardown, rebuild or
-re-establishment fails.
+Please, whenever you significantly change an already reviewed patch, remove=
+ the
+reviewed-by, so I can quickly see I need to review it again.
 
-No Link: tags in the commit header.
+Thanks,
+Gabriele
 
-A few questions below about the new reinit and fallback paths.
-
-> diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-> index eb88bae2b14d8..78424e1d884f1 100644
-> --- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
-> +++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-> @@ -1260,15 +1260,17 @@ static void mana_gd_create_cq(const struct gdma_queue_spec *spec,
->  static void mana_gd_destroy_cq(struct gdma_context *gc,
->  			       struct gdma_queue *queue)
->  {
-> +	struct gdma_queue **cq_table = READ_ONCE(gc->cq_table);
->  	u32 id = queue->id;
->  
-> -	if (id >= gc->max_num_cqs)
-> +	/* HWC re-establishment can fail before allocating the CQ table. */
-> +	if (!cq_table || id >= gc->max_num_cqs)
->  		return;
->  
-> -	if (!gc->cq_table[id])
-> +	if (!cq_table[id])
->  		return;
->  
-> -	gc->cq_table[id] = NULL;
-> +	cq_table[id] = NULL;
->  }
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/microsoft/mana/hw_channel.c b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-> index a4f7346d285f7..750ee8f729994 100644
-> --- a/drivers/net/ethernet/microsoft/mana/hw_channel.c
-> +++ b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-
-[ ... ]
-
-> @@ -771,6 +780,15 @@ static int mana_hwc_establish_channel(struct gdma_context *gc, u16 *q_depth,
->  	struct gdma_queue *cq = hwc->cq->gdma_cq;
->  	int err;
->  
-> +	/* Do not reuse dimensions or routing IDs from a previous establish. */
-> +	hwc->hwc_init_q_depth_max = 0;
-> +	hwc->hwc_init_max_req_msg_size = 0;
-> +	hwc->hwc_init_max_resp_msg_size = 0;
-> +	gc->hwc.doorbell = INVALID_DOORBELL;
-> +	gc->hwc.pdid = INVALID_PDID;
-> +	hwc->pf_dest_vrq_id = 0;
-> +	hwc->pf_dest_vrcq_id = 0;
+> Signed-off-by: Wen Yang <wen.yang@linux.dev>
+> ---
+> =C2=A0include/linux/rv.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0 3 +++
+> =C2=A0kernel/trace/rv/rv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0 5 +++++
+> =C2=A0kernel/trace/rv/rv_reactors.c | 38 +++++++++++++++++++++++++++++---=
+---
+> =C2=A03 files changed, 40 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/include/linux/rv.h b/include/linux/rv.h
+> index 541ba404926a..ff3289ba4f02 100644
+> --- a/include/linux/rv.h
+> +++ b/include/linux/rv.h
+> @@ -128,10 +128,13 @@ union rv_task_monitor {
+> =C2=A0};
+> =C2=A0
+> =C2=A0#ifdef CONFIG_RV_REACTORS
+> +struct module;
 > +
-
-[Severity: High]
-Is it safe to set gc->hwc.doorbell to INVALID_DOORBELL here while the HWC
-EQ is already registered on the shared msix 0 interrupt?
-
-mana_hwc_init_queues() has already run mana_gd_create_eq() ->
-mana_gd_register_irq() -> list_add_rcu(&queue->entry, &gic->eq_list), so
-mana_gd_process_eq_events() can run at any point after
-mana_smc_setup_hwc() writes the shared-memory request. At the end of every
-batch it arms unconditionally:
-
-drivers/net/ethernet/microsoft/mana/gdma_main.c:mana_gd_process_eq_events() {
-	...
-	mana_gd_ring_doorbell(gc, eq->gdma_dev->doorbell, eq->type, eq->id,
-			      head, SET_ARM_BIT);
-	...
-}
-
-and mana_gd_ring_doorbell() forms the MMIO address with no validity check:
-
-	void __iomem *addr = gc->db_page_base + gc->db_page_size * db_index;
-	...
-	writeq(e.as_uint64, addr);
-
-Only GDMA_EQE_HWC_INIT_EQ_ID_DB repopulates gd->doorbell in
-mana_hwc_init_event_handler(). If the first delivered batch does not start
-with that event, does the writeq() run with db_index == 0xFFFFFFFF, i.e.
-roughly 17 TiB past the ioremapped BAR0 window?
-
-The field is also written from hard IRQ context (gd->doorbell =
-eq_db.doorbell;) while this store is a plain process-context store with no
-WRITE_ONCE() or barrier. Since the reinit path calls
-mana_hwc_establish_channel() two or three times per probe, does this
-multiply the window rather than close it?
-
->  	init_completion(&hwc->hwc_init_eqe_comp);
->  
->  	err = mana_smc_setup_hwc(&gc->shm_channel, false,
-> @@ -789,6 +807,14 @@ static int mana_hwc_establish_channel(struct gdma_context *gc, u16 *q_depth,
->  	*max_req_msg_size = hwc->hwc_init_max_req_msg_size;
->  	*max_resp_msg_size = hwc->hwc_init_max_resp_msg_size;
->  
-> +	/* Reject a missing doorbell before the channel test. This neither
-> +	 * validates its BAR range nor protects earlier IRQ rearming.
-> +	 */
-> +	if (gc->hwc.doorbell == INVALID_DOORBELL) {
-> +		dev_err(hwc->dev, "HWC: no doorbell in init data\n");
-> +		return -EPROTO;
+> =C2=A0struct rv_reactor {
+> =C2=A0	const char		*name;
+> =C2=A0	const char		*description;
+> =C2=A0	__printf(1, 0) void	(*react)(const char *msg, va_list args);
+> +	struct module		*owner;
+> =C2=A0	struct list_head	list;
+> =C2=A0};
+> =C2=A0#endif
+> diff --git a/kernel/trace/rv/rv.c b/kernel/trace/rv/rv.c
+> index 29f155c6968b..458b17c005b3 100644
+> --- a/kernel/trace/rv/rv.c
+> +++ b/kernel/trace/rv/rv.c
+> @@ -803,6 +803,11 @@ int rv_unregister_monitor(struct rv_monitor *monitor=
+)
+> =C2=A0	guard(mutex)(&rv_interface_lock);
+> =C2=A0
+> =C2=A0	rv_disable_monitor(monitor);
+> +#ifdef CONFIG_RV_REACTORS
+> +	if (monitor->reactor)
+> +		module_put(monitor->reactor->owner);
+> +
+> +#endif
+> =C2=A0	list_del(&monitor->list);
+> =C2=A0	destroy_monitor_dir(monitor);
+> =C2=A0
+> diff --git a/kernel/trace/rv/rv_reactors.c b/kernel/trace/rv/rv_reactors.=
+c
+> index ff7d478227c3..136eb7f47c4a 100644
+> --- a/kernel/trace/rv/rv_reactors.c
+> +++ b/kernel/trace/rv/rv_reactors.c
+> @@ -62,6 +62,7 @@
+> =C2=A0 */
+> =C2=A0
+> =C2=A0#include <linux/lockdep.h>
+> +#include <linux/module.h>
+> =C2=A0#include <linux/slab.h>
+> =C2=A0
+> =C2=A0#include "rv.h"
+> @@ -159,7 +160,7 @@ static const struct seq_operations
+> monitor_reactors_seq_ops =3D {
+> =C2=A0	.show	=3D monitor_reactor_show
+> =C2=A0};
+> =C2=A0
+> -static void monitor_swap_reactors_single(struct rv_monitor *mon,
+> +static int monitor_swap_reactors_single(struct rv_monitor *mon,
+> =C2=A0					 struct rv_reactor *reactor,
+> =C2=A0					 bool nested)
+> =C2=A0{
+> @@ -167,29 +168,39 @@ static void monitor_swap_reactors_single(struct
+> rv_monitor *mon,
+> =C2=A0
+> =C2=A0	/* nothing to do */
+> =C2=A0	if (mon->reactor =3D=3D reactor)
+> -		return;
+> +		return 0;
+> +
+> +	if (reactor->owner && !try_module_get(reactor->owner))
+> +		return -EBUSY;
+> =C2=A0
+> =C2=A0	monitor_enabled =3D mon->enabled;
+> =C2=A0	if (monitor_enabled)
+> =C2=A0		rv_disable_monitor(mon);
+> =C2=A0
+> +	if (mon->reactor)
+> +		module_put(mon->reactor->owner);
+> =C2=A0	mon->reactor =3D reactor;
+> =C2=A0	mon->react =3D reactor->react;
+> =C2=A0
+> =C2=A0	/* enable only once if iterating through a container */
+> =C2=A0	if (monitor_enabled && !nested)
+> =C2=A0		rv_enable_monitor(mon);
+> +
+> +	return 0;
+> =C2=A0}
+> =C2=A0
+> -static void monitor_swap_reactors(struct rv_monitor *mon, struct rv_reac=
+tor
+> *reactor)
+> +static int monitor_swap_reactors(struct rv_monitor *mon, struct rv_react=
+or
+> *reactor)
+> =C2=A0{
+> =C2=A0	struct rv_monitor *p =3D mon;
+> +	int ret;
+> =C2=A0
+> =C2=A0	if (rv_is_container_monitor(mon))
+> =C2=A0		list_for_each_entry_continue(p, &rv_monitors_list, list) {
+> =C2=A0			if (p->parent !=3D mon)
+> =C2=A0				break;
+> -			monitor_swap_reactors_single(p, reactor, true);
+> +			ret =3D monitor_swap_reactors_single(p, reactor, true);
+> +			if (ret)
+> +				return ret;
+> =C2=A0		}
+> =C2=A0	/*
+> =C2=A0	 * This call enables and disables the monitor if they were active.
+> @@ -197,7 +208,7 @@ static void monitor_swap_reactors(struct rv_monitor *=
+mon,
+> struct rv_reactor *rea
+> =C2=A0	 * All nested monitors are enabled also if they were off, we may
+> refine
+> =C2=A0	 * this logic in the future.
+> =C2=A0	 */
+> -	monitor_swap_reactors_single(mon, reactor, false);
+> +	return monitor_swap_reactors_single(mon, reactor, false);
+> =C2=A0}
+> =C2=A0
+> =C2=A0static ssize_t
+> @@ -236,10 +247,14 @@ monitor_reactors_write(struct file *file, const cha=
+r
+> __user *user_buf,
+> =C2=A0	guard(mutex)(&rv_interface_lock);
+> =C2=A0
+> =C2=A0	list_for_each_entry(reactor, &rv_reactors_list, list) {
+> +		int ret;
+> +
+> =C2=A0		if (strcmp(ptr, reactor->name) !=3D 0)
+> =C2=A0			continue;
+> =C2=A0
+> -		monitor_swap_reactors(mon, reactor);
+> +		ret =3D monitor_swap_reactors(mon, reactor);
+> +		if (ret)
+> +			return ret;
+> =C2=A0
+> =C2=A0		return count;
+> =C2=A0	}
+> @@ -314,6 +329,7 @@ int rv_register_reactor(struct rv_reactor *reactor)
+> =C2=A0	guard(mutex)(&rv_interface_lock);
+> =C2=A0	return __rv_register_reactor(reactor);
+> =C2=A0}
+> +EXPORT_SYMBOL_GPL(rv_register_reactor);
+> =C2=A0
+> =C2=A0/**
+> =C2=A0 * rv_unregister_reactor - unregister a rv reactor.
+> @@ -327,6 +343,7 @@ int rv_unregister_reactor(struct rv_reactor *reactor)
+> =C2=A0	list_del(&reactor->list);
+> =C2=A0	return 0;
+> =C2=A0}
+> +EXPORT_SYMBOL_GPL(rv_unregister_reactor);
+> =C2=A0
+> =C2=A0/*
+> =C2=A0 * reacting_on interface.
+> @@ -421,6 +438,15 @@ int reactor_populate_monitor(struct rv_monitor *mon,
+> struct dentry *root)
+> =C2=A0	 * Configure as the rv_nop reactor.
+> =C2=A0	 */
+> =C2=A0	mon->reactor =3D get_reactor_rdef_by_name("nop");
+> +	if (WARN_ON(!mon->reactor)) {
+> +		rv_remove(tmp);
+> +		return -EINVAL;
 > +	}
 > +
-
-[Severity: High]
-This isn't a bug introduced by this patch, but since a doorbell sanity
-check is being added right here, could it also cover the BAR range?
-
-The value comes from a 16-bit device-controlled field and is stored with no
-validation:
-
-drivers/net/ethernet/microsoft/mana/hw_channel.c:mana_hwc_init_event_handler() {
-	...
-	eq_db.as_uint32 = event->details[0];
-	hwc->cq->gdma_eq->id = eq_db.eq_id;
-	gd->doorbell = eq_db.doorbell;
-	...
-}
-
-It is then consumed unchecked by mana_gd_ring_doorbell() from the EQ rearm,
-from mana_gd_ring_cq() on the HWC CQ and from mana_gd_wq_ring_doorbell() on
-the HWC SQ/RQ. The driver already has the corresponding check for the
-PF-reported db_id:
-
-drivers/net/ethernet/microsoft/mana/gdma_main.c:mana_gd_register_device() {
-	...
-	if (gc->db_page_off + gc->db_page_size * ((u64)resp.db_id + 1) > gc->bar0_size) {
-		dev_err(gc->dev, "Doorbell ID %u out of range\n", resp.db_id);
-		return -EPROTO;
-	}
-	...
-}
-
-With a 4 KiB doorbell page, a reported index of 0x8000 gives a 128 MiB
-offset, well outside a typical VF BAR0. Can the writeq() then land outside
-the ioremapped region at a device-chosen offset? The commit message notes
-the gap ("does not cover BAR bounds"), so was leaving it open intentional?
-
->  	/* Both were set in mana_hwc_init_event_handler(). */
->  	if (WARN_ON(cq->id >= gc->max_num_cqs))
->  		return -EPROTO;
-
-[ ... ]
-
-> @@ -846,13 +878,44 @@ static int mana_hwc_init_queues(struct hw_channel_context *hwc, u16 q_depth,
->  	return err;
->  }
->  
-> +/* Bring-up only: requires no senders or concurrent lifecycle operations.
-> + * This helper does not unpublish the HWC or drain senders.
-> + */
-> +static void mana_hwc_destroy_queues(struct hw_channel_context *hwc)
-> +{
-> +	struct gdma_context *gc = hwc->gdma_dev->gdma_context;
-> +
-> +	/* The CQ helper deregisters the HWC EQ before returning. */
-> +	if (hwc->cq) {
-> +		mana_hwc_destroy_cq(gc, hwc->cq);
-> +		hwc->cq = NULL;
+> +	if (mon->reactor->owner && !try_module_get(mon->reactor->owner)) {
+> +		rv_remove(tmp);
+> +		return -EBUSY;
 > +	}
+> =C2=A0
+> =C2=A0	return 0;
+> =C2=A0}
 
-[Severity: Medium]
-This is a pre-existing ordering issue rather than something this patch
-introduces, but the comment says the CQ helper deregisters the EQ before
-returning, and that only happens as the last step:
-
-drivers/net/ethernet/microsoft/mana/hw_channel.c:mana_hwc_destroy_cq() {
-	kfree(hwc_cq->comp_buf);
-
-	if (hwc_cq->gdma_cq)
-		mana_gd_destroy_queue(gc, hwc_cq->gdma_cq);
-
-	if (hwc_cq->gdma_eq)
-		mana_gd_destroy_queue(gc, hwc_cq->gdma_eq);
-	...
-}
-
-The list_del_rcu()/synchronize_rcu() pair that actually drains in-flight EQ
-users lives in mana_gd_deregister_irq(), reached only from the final
-gdma_eq destroy. During the first two frees the EQ is still on
-gic->eq_list.
-
-Can an interrupt in that window reach mana_hwc_comp_event() and use the
-already freed comp_buf?
-
-drivers/net/ethernet/microsoft/mana/hw_channel.c:mana_hwc_comp_event() {
-	...
-	completions = hwc_cq->comp_buf;
-	comp_read = mana_gd_poll_cq(q_self, completions, hwc_cq->queue_depth);
-	...
-}
-
-An HWC init EQE in the same window would instead reach
-mana_hwc_init_event_handler(), which writes hwc->cq->gdma_eq->id and
-hwc->cq->gdma_cq->id while those objects are being freed, since hwc->cq is
-only cleared after mana_hwc_destroy_queues() returns. Would destroying the
-EQ first, before comp_buf and the gdma_cq, close this?
-
-> +
-> +	kfree(hwc->caller_ctx);
-> +	hwc->caller_ctx = NULL;
-> +
-> +	if (hwc->txq) {
-> +		mana_hwc_destroy_wq(hwc, hwc->txq);
-> +		hwc->txq = NULL;
-> +	}
-> +
-> +	if (hwc->rxq) {
-> +		mana_hwc_destroy_wq(hwc, hwc->rxq);
-> +		hwc->rxq = NULL;
-> +	}
-> +
-> +	mana_gd_free_res_map(&hwc->inflight_msg_res);
-> +	hwc->num_inflight_msg = 0;
-> +}
-> +
-
-[ ... ]
-
-> @@ -896,8 +959,132 @@ int mana_hwc_create_channel(struct gdma_context *gc)
->  		goto out;
->  	}
->  
-> +	if (q_depth_max > HW_CHANNEL_VF_BOOTSTRAP_QUEUE_DEPTH) {
-
-[ ... ]
-
-> +		err = mana_smc_teardown_hwc(&gc->shm_channel, false);
-> +		if (err) {
-> +			dev_err(hwc->dev,
-> +				"Failed to teardown HWC for reinit: %d\n",
-> +				err);
-> +			goto reinit_fallback;
-> +		}
-> +
-> +		hwc->setup_active = false;
-> +
-> +		/* Unpublish the CQ and drain its EQ before freeing the table. */
-> +		mana_hwc_destroy_queues(hwc);
-> +
-> +		old_cq_table = gc->cq_table;
-> +		gc->cq_table = NULL;
-> +		gc->max_num_cqs = 0;
-> +		synchronize_rcu();
-> +		vfree(old_cq_table);
-
-[Severity: High]
-Is the store order here inverted with respect to what the readers check?
-
-The pre-existing teardown in mana_hwc_destroy_channel() clears the bound
-first and only drops the pointer at the very end (gc->max_num_cqs = 0; ...
-vfree(gc->cq_table); gc->cq_table = NULL;). Here the pointer goes away
-first, leaving a state where the bound check passes but the pointer is
-NULL.
-
-The surviving hard IRQ consumer validates only the bound:
-
-drivers/net/ethernet/microsoft/mana/gdma_main.c:mana_gd_process_eqe() {
-	...
-	cq_id = eqe->details[0] & 0xFFFFFF;
-	if (WARN_ON_ONCE(cq_id >= gc->max_num_cqs))
-		break;
-
-	cq = gc->cq_table[cq_id];
-	...
-}
-
-That is exactly the case the patch guards against in mana_gd_destroy_cq()
-with READ_ONCE() plus a NULL check, but mana_gd_process_eqe() has neither.
-
-Beyond the adjacent-store window, is there a much longer one? The
-subsequent mana_hwc_init_queues() re-registers the HWC EQ on msix 0 before
-mana_hwc_establish_channel() runs, and the hard IRQ init handler sets
-gd->gdma_context->max_num_cqs = val from HWC_INIT_DATA_MAX_NUM_CQS while
-gc->cq_table is still NULL. The vcalloc() that repopulates it only happens
-after the up-to-60 s wait_for_completion_timeout() returns. Would a
-GDMA_EQE_COMPLETION delivered in that window pass the bound check and
-dereference NULL plus cq_id * 8, then call through the loaded value as
-cq->cq.callback?
-
-Also, since the reclaim now relies on synchronize_rcu(), should these be
-WRITE_ONCE()/rcu_assign_pointer() stores rather than plain ones?
-
-> +
-> +		err = mana_hwc_init_queues(hwc, q_depth_max,
-> +					   max_req_msg_size,
-> +					   max_resp_msg_size);
-> +		if (err) {
-> +			dev_err(hwc->dev, "Failed to reinit HWC: %d\n", err);
-> +			goto reinit_fallback;
-> +		}
-
-[ ... ]
-
-> +	}
-> +
-> +	goto skip_reinit;
-> +
-> +reinit_fallback:
-> +	/* A failed handshake leaves queue ownership uncertain. */
-> +	if (hwc->setup_active) {
-> +		if (mana_smc_teardown_hwc(&gc->shm_channel, false)) {
-> +			dev_err(hwc->dev,
-> +				"Failed to tear down HWC before bootstrap fallback\n");
-> +			goto out;
-> +		}
-> +		hwc->setup_active = false;
-> +	}
-
-[Severity: High]
-Does this abort actually avoid freeing memory the device may still own?
-
-The goto out lands in mana_hwc_destroy_channel(), which retries the
-teardown once and then continues regardless of the result:
-
-drivers/net/ethernet/microsoft/mana/hw_channel.c:mana_hwc_destroy_channel() {
-	...
-	if (hwc->setup_active) {
-		if (!mana_smc_teardown_hwc(&gc->shm_channel, false))
-			hwc->setup_active = false;
-		else
-			dev_err(hwc->dev, "Failed to tear down HWC\n");
-	}
-	gc->max_num_cqs = 0;
-
-	/* Deregister the HWC EQ before freeing the work queues. */
-	if (hwc->cq)
-		mana_hwc_destroy_cq(hwc->gdma_dev->gdma_context, hwc->cq);
-	...
-}
-
-So a third failure is logged and then mana_hwc_destroy_cq() and
-mana_hwc_destroy_wq() run mana_gd_destroy_queue() ->
-mana_gd_free_memory() -> dma_free_coherent(), plus vfree(gc->cq_table) and
-kfree(hwc), with hwc->setup_active still true.
-
-mana_smc_teardown_hwc() states the requirement explicitly:
-
-drivers/net/ethernet/microsoft/mana/shm_channel.c:mana_smc_teardown_hwc() {
-	...
-	/* Read shmem response (polling for VF possession) and validate.
-	 * For teardown, waiting for response is required to ensure hardware
-	 * invalidates MST entries before software frees memory.
-	 */
-	...
-}
-
-Can the coherent EQ/CQ/SQ/RQ rings and HWC message buffers then be returned
-to the page allocator while the hardware MST entries still map them, and
-with hwc freed so no later safe teardown is possible? The ignore-the-failure
-behaviour in mana_hwc_destroy_channel() predates this series, but this abort
-path is newly reachable, and the commit message says the intent is to
-"never test queues after an indeterminate destroy result".
-
-[ ... ]
-
-> diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
-> index 571a533e62e64..22dd7c9cecc8a 100644
-> --- a/include/net/mana/gdma.h
-> +++ b/include/net/mana/gdma.h
-> @@ -692,6 +692,9 @@ enum {
->  /* Driver supports dynamic interrupt moderation - DIM */
->  #define GDMA_DRV_CAP_FLAG_1_DYN_INTERRUPT_MODERATION BIT(28)
->  
-> +/* Driver supports dynamic queue depth for HWC */
-> +#define GDMA_DRV_CAP_FLAG_1_DYN_HWC_QUEUE_DEPTH BIT(29)
-> +
-
-[Severity: Medium]
-The commit message says "Advertise support in the driver-version request."
-Can this flag gate the new behaviour at all?
-
-GDMA_DRV_CAP_FLAGS1 is only transmitted by mana_gd_verify_vf_version(),
-which runs after the HWC has been created:
-
-drivers/net/ethernet/microsoft/mana/gdma_main.c:mana_gd_setup() {
-	...
-	err = mana_hwc_create_channel(gc);
-	if (err)
-		goto remove_irq;
-
-	err = mana_gd_verify_vf_version(pdev);
-	...
-}
-
-By then mana_hwc_create_channel() has already consumed
-HWC_INIT_DATA_QUEUE_DEPTH and performed the DESTROY_HWC plus second
-ESTABLISH_HWC cycle, and the verify request itself travels over the rebuilt
-channel. So the rebuild in mana_hwc_create_channel() is taken purely from
-the device-reported depth:
-
-	if (q_depth_max > HW_CHANNEL_VF_BOOTSTRAP_QUEUE_DEPTH) {
-
-Unlike other capabilities in this driver, there is no PF acknowledgment
-check (GDMA_PF_CAP_FLAG_1_* in gc->pf_cap_flags1) before acting.
-
-In the baseline, hwc_init_q_depth_max was stored but never acted on, since
-mana_hwc_test_channel() was always called with
-HW_CHANNEL_VF_BOOTSTRAP_QUEUE_DEPTH. Does existing hardware that already
-reports a depth above one now perform an extra shared-memory
-teardown/establish per probe, each with mana_smc_poll_register() polling and
-a 60 * HZ wait_for_completion_timeout()? And can probe now fail through the
-reinit_fallback goto out paths where it previously succeeded at depth one?
-
-Could the commit message describe the flag as informational only, and
-mention the behaviour change on PF firmware that never saw the new bit?
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260908035201.402424-1-longli%40microsoft.com
