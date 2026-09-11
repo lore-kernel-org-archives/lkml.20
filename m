@@ -1,32 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 938873EF0D3;
-	Fri, 11 Sep 2026 03:41:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82D4B3F328C;
+	Fri, 11 Sep 2026 03:41:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789098109; cv=none; b=uWn45HynRYbMJB2IGxiJ2XjAiXitUCVz90KxmcqqDlvZu4blUSmfM2D8SYMY/9W1J+XnJ1SUlkY1D0Yc+E3rgID2zh+2Yt3Kq92eHIySghoxAJBXjDTfhHE0oJ3siXPQDj5B5BOT0s71bDyxMDlXZ6cPP6eDqpXfNJry+q3V66I=
+	t=1789098112; cv=none; b=Bryb0zdHciSo4wItdEdd93MXkjE1NjIZEGriTi4JAbyfA5oOgEF8Y7e1h7p6BJjGmBoHu/qaKaXEyZQFGux5/vryPw2HDvlNdxCHsFSSFAHL35URFHCEqr+ZU92coYI97C7KHb2gPmQK0CixiMGsEtK9/DMO7BUbkOu0bLhSs+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789098109; c=relaxed/simple;
-	bh=+GA/2k2nsBNp//R5tgVMewp7rjktNMjV7PfWt3LhZx4=;
+	s=arc-20240116; t=1789098112; c=relaxed/simple;
+	bh=328udNkCXvF2D0blJB5r+tjgduVN/0GunIK5vCSf06o=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jLnhQwngbO004KL0i8yxP0p5ZwVrZTqw3jKTddNyGuH0RYiiFMeaa5UMsIJBbEfEsfiexPjSuep0hJMQLh6LgPZnlqEgEgygDSPinPrw/U2zryRrHCkx1hjQmn2Infki8j0vEfNrEgb2KYRpeIpiZ8AARk6YY5jLPMn2lBf5qbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NFe6bMlw; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=m5h3YfHo3Tkm6rRXuQbTexHVLd3kCxSZWrD8jpqsthHBfDfWfEdxsdKhHQe9yxFYjessrHy/N8Foq0Mo6oKJSA3QgN26VS/U7knwi+zi9hoIidEM2zczGXISHVGP+7dkPH8DxjMPAeoWJbNYRfR39j3YELU7c86HU5DPzjtvoSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O89cvkH/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NFe6bMlw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 590791F000FF;
-	Fri, 11 Sep 2026 03:41:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O89cvkH/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 789C71F000FF;
+	Fri, 11 Sep 2026 03:41:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789098107;
-	bh=5BSjft3i4y3jWfafXI1flGf0Xh6nrttiHGDbj+PFSdw=;
+	s=k20260515; t=1789098110;
+	bh=k7ZquKIQddlc8EIX1GJAj86Q5Oc8dcvFyf2p1vVeGTQ=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=NFe6bMlwP/v+ZGxKfA6tlBAdQuNbLFj9+ERZnCAEsVy+I9ZRGs/0l3nqL+ptr64CC
-	 /lO2UggMy3fukMR1qJg9m3sdL9fkoeXdZV4Rev1J5gURLvox8vET90Gp+GhqmduQ2R
-	 d2h1L9V08jNN+zjtXj6kHt3LEBskXPCjeU5PICB0LSDdjsEt55QQNWDcGPWZ+KDlkU
-	 eJ5z5CmoCkZIHy4sBO38OmijQQjpYot2uI506VQ+5L3Ba0vcXZm2PreYAVRK/AjbZp
-	 IJQUX2xACAfG2IqgXJ9zheAtLFSuq1jocerZ8XrGZSQIxU27fkeQ0mW3wBBltXLIEv
-	 sQ1ZlN1HI8fSw==
-Subject: Re: [PATCH v27 net-next 03/10] net/nebula-matrix: add channel layer
+	b=O89cvkH/7QKwwARgIyansdfNkM93ddWcG8IaoHtsNgDbiFVy7FueDUwZoNYUeTLUf
+	 9DgyC/dGd6Hvw0X84E64kP6SDDj/R58xeT/1pJdKZ2KUql3UFw1IhJ/BOxjYy070La
+	 2W7UjUzkvBAUdpu9yTMKkPW8NieNPKnkB1Er4sScIkE7/9Q+nT3Bs77JTA9M0Yb3KT
+	 09lnLzMJERRSQt/Ynd/rZvJOZEOveAXnuR/EXqlbNaiGn0brrN1k5u1MRQjfrwRMfc
+	 pB8rqswj3hYwtAwp1/ohi+qQ1J41dyO9S3q+amtpaTurOZjWBPcgnwkaXfn174NU+K
+	 scjAsS/pmCZdA==
+Subject: Re: [PATCH v27 net-next 05/10] net/nebula-matrix: add intr resource
+ implementation
 From: netdev-bot+sashiko@kernel.org
 To: illusion.wang@nebula-matrix.com
 Cc: dimon.zhao@nebula-matrix.com, alvin.wang@nebula-matrix.com,
@@ -35,11 +36,11 @@ Cc: dimon.zhao@nebula-matrix.com, alvin.wang@nebula-matrix.com,
  pabeni@redhat.com, vadim.fedorenko@linux.dev, lukas.bulwahn@redhat.com,
  edumazet@google.com, enelsonmoore@gmail.com, skhan@linuxfoundation.org,
  hkallweit1@gmail.com, linux-kernel@vger.kernel.org
-Date: Fri, 11 Sep 2026 03:41:45 +0000
-Message-ID: <178909810593.219967.8709638663166999561@kernel.org>
-In-Reply-To: <20260907123848.30256-4-illusion.wang@nebula-matrix.com>
-References: <20260907123848.30256-4-illusion.wang@nebula-matrix.com>
-X-sashiko-severity: High
+Date: Fri, 11 Sep 2026 03:41:49 +0000
+Message-ID: <178909810904.219967.6857628941684553135@kernel.org>
+In-Reply-To: <20260907123848.30256-6-illusion.wang@nebula-matrix.com>
+References: <20260907123848.30256-6-illusion.wang@nebula-matrix.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -49,428 +50,309 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 12 potential
+Thank you for your contribution! Sashiko AI review found 4 potential
 issue(s) to consider:
 
-Critical: 0 · High: 1 · Medium: 4 · Low: 7
+Critical: 0 · High: 0 · Medium: 1 · Low: 3
 
-- [High] nbl_chan_quiesce_and_reclaim_tx() (TX timeout recovery) resets
-  the software doorbell counter txq->tail_ptr to 0 to match the…
-- [Medium] The commit message justifies leaving the mailbox BAR2 register
-  path unlocked by asserting that the multi-dword QINFO config sequences…
-- [Medium] nbl_chan_recv_ack_msg() completes a request slot (copies the
-  response, sets wait_head->acked = 1) but never transitions…
-- [Medium] nbl_chan_quiesce_and_reclaim_tx() uses wmb() with the comment
-  "Ensure reset write is posted before reclaiming descriptors" and then…
-- [Medium] nbl_hw_cfg_mailbox_qinfo() builds the QINFO map dword from
-  scratch (FUNCTION/DEVID/BUS only) and writes it, unconditionally…
-- [Low] Concern (verified FALSE POSITIVE): nbl_chan_send_msg() never
-  checks chan_info->active, so a send issued before…
-- [Low] Concern (verified FALSE POSITIVE): nbl_chan_teardown_queue()
-  frees nothing but clears chan_info->active, so a subsequent…
-- [Low] Concern (verified FALSE POSITIVE): the commit message advertises
-  working capabilities (dual RX modes, complete queue lifecycle, PF…
-- [Low] Concern (verified FALSE POSITIVE): nbl_common_get_hash_node()
-  returns hash_node->data after dropping the per-bucket spinlock while…
-- [Low] Concern (verified FALSE POSITIVE): setup_queue/teardown_queue
-  check and modify chan_info->active, shutdn, the state bitmap,…
-- [Low] Concern (verified FALSE POSITIVE): nbl_chan_update_txqueue()
-  accepts arg_len > 0 with arg == NULL; in the external-buffer branch it…
-- [Low] Concern (verified FALSE POSITIVE): nbl_chan_remove_common()
-  destroys the workqueue and frees the handler table but never tears…
+- [Medium] Coherent MSI-X map table is released based on a timed guess,
+  not on proven device quiescence.
+- [Low] Two in-tree comments state mutually exclusive ownership models
+  for the coherent MSI-X tables.
+- [Low] The 'Step 1' comment in __nbl_res_intr_destroy_msix_map() says
+  'mask each MSIX vector in hardware first', but the call it annotates…
+- [Low] Reported concern: nbl_intr_mgt_stop() publishes the 'dead' state
+  with a plain store 'res_mgt->intr_mgt = NULL' outside intr_mgt->lock,…
 
 --
 
-net/nebula-matrix: add channel layer
+net/nebula-matrix: add intr resource implementation
 
-This adds the mailbox-based inter-PF channel layer for the Nebula Matrix
-adapter, including the TX/RX descriptor ring management, a hash table of
-message handlers, and the hardware ops that program the mailbox QINFO
-tables and the tail pointer doorbell.
+This adds the nbl_interrupt module which owns the driver-wide global MSI-X
+index space and programs the chip-internal MSI-X map/info registers.  It
+adds cfg_msix_map, destroy_msix_map, set_mailbox_irq and cfg_msix_info,
+plus nbl_intr_mgt_start()/nbl_intr_mgt_stop() wired into the leonis
+resource layer.
 
-A few questions about the TX timeout recovery path, the ACK completion
-handshake, and the QINFO map table write.
-
-> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_channel/nbl_channel.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_channel/nbl_channel.c
-> new file mode 100644
-> index 0000000000000..879e7bab14e94
-> --- /dev/null
-> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_channel/nbl_channel.c
-
-[ ... ]
-
-> +static int nbl_chan_alloc_all_tx_bufs(struct nbl_channel_mgt *chan_mgt,
-> +				      struct nbl_chan_info *chan_info)
-> +{
-
-[ ... ]
-
-> +	txq->next_to_clean = 0;
-> +	txq->next_to_use = 0;
-> +	txq->tail_ptr = 0;
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static int nbl_chan_update_txqueue(struct nbl_channel_mgt *chan_mgt,
-> +				   struct nbl_chan_info *chan_info,
-> +				   struct nbl_chan_tx_param *param)
-> +{
-
-[ ... ]
-
-> +	/* Ensure descriptor data visible to device before AVAIL flag */
-> +	dma_wmb();
-> +	tx_desc->flags = cpu_to_le16(BIT(NBL_CHAN_TX_DESC_AVAIL));
-> +
-> +	txq->next_to_use =
-> +		NBL_NEXT_ID(txq->next_to_use, chan_info->num_txq_entries - 1);
-> +	txq->tail_ptr++;
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * Quiesce the TX mailbox queue and reclaim all outstanding
-> + * descriptors.  Called from the timeout path of nbl_chan_kick_tx_ring()
-> + * with txq_lock held.
-> + *
-> + * The device failed to fetch/complete the current descriptor within the
-> + * polling window.  We assert QUEUE_RST to stop further DMA fetches,
-> + * reclaim every descriptor between next_to_clean and next_to_use,
-> + * reset the software tail_ptr counter to match the hardware reset state,
-> + * and re-enable the queue so subsequent sends can proceed.
-> + */
-> +static void nbl_chan_quiesce_and_reclaim_tx(struct nbl_channel_mgt *chan_mgt,
-> +					    struct nbl_chan_info *chan_info)
-> +{
-> +	struct nbl_hw_ops *hw_ops = chan_mgt->hw_ops_tbl->ops;
-> +	struct nbl_hw_mgt *hw_priv = chan_mgt->hw_ops_tbl->priv;
-> +	struct nbl_chan_ring *txq = &chan_info->txq;
-> +	struct nbl_chan_tx_desc *tx_desc;
-> +
-> +	/* Assert QUEUE_RST to stop hardware fetching new descriptors */
-> +	hw_ops->stop_mailbox_txq(hw_priv);
-> +	/* Ensure reset write is posted before reclaiming descriptors */
-> +	wmb();
-
-[Severity: Medium]
-Does this wmb() actually guarantee the posted QUEUE_RST write has reached
-the device before the descriptor flags below are rewritten?
-
-writel() already contains the MMIO ordering barriers (__io_bw() and
-__io_aw() in include/asm-generic/io.h), so the extra wmb() adds nothing
-with respect to the device.  nbl_hw_stop_mailbox_txq() only performs
-posted BAR2 writes with no read-back, and nbl_chan_config_queue() below
-de-asserts RST and sets EN in the immediately following writes:
-
-	cfg_tbl.data[3] = FIELD_PREP(NBL_MAILBOX_QINFO_CFG_QUEUE_RST_MASK, 0) |
-			  FIELD_PREP(NBL_MAILBOX_QINFO_CFG_QUEUE_EN_MASK, 1);
-
-The QINFO_CFG layout added in this patch exposes RST/EN/DIF_ERR/PTR_ERR
-but no reset-done bit, and nothing reads the register back.
-
-Would a read from the same BAR, or a device status poll, be needed before
-mutating descriptors the device may still own and before re-enabling the
-queue?
-
-> +
-> +	/*
-> +	 * Reclaim all outstanding descriptors between next_to_clean and
-> +	 * next_to_use.  Under txq_lock there is at most one in-flight
-> +	 * descriptor, but iterate the full range for robustness.
-> +	 */
-> +	while (txq->next_to_clean != txq->next_to_use) {
-> +		tx_desc = NBL_CHAN_TX_RING_TO_DESC(txq,
-> +						   txq->next_to_clean);
-> +		WRITE_ONCE(tx_desc->flags, 0);
-> +		txq->next_to_clean =
-> +			NBL_NEXT_ID(txq->next_to_clean,
-> +				    chan_info->num_txq_entries - 1);
-> +	}
-> +
-> +	/*
-> +	 * Hardware tail_ptr counter is cleared by QUEUE_RST.  Reset
-> +	 * software counter to match so the next doorbell update does
-> +	 * not produce a false 16-bit wrap delta.
-> +	 */
-> +	txq->tail_ptr = 0;
-
-[Severity: High]
-tail_ptr is reset to 0 here, but next_to_use and next_to_clean keep their
-pre-timeout values.  Can this leave the ring index and the doorbell
-counter permanently out of step?
-
-Everywhere else the two advance together:
-
-nbl_chan_alloc_all_tx_bufs():
-	txq->next_to_clean = 0;
-	txq->next_to_use = 0;
-	txq->tail_ptr = 0;
-
-nbl_chan_update_txqueue():
-	txq->next_to_use =
-		NBL_NEXT_ID(txq->next_to_use, chan_info->num_txq_entries - 1);
-	txq->tail_ptr++;
-
-After a timeout on slot X the reclaim loop above leaves
-next_to_use == next_to_clean == X + 1 while tail_ptr == 0.
-
-The next send then writes descriptor X + 1 and rings the doorbell with
-tail_ptr == 1.  If QUEUE_RST cleared the hardware fetch pointer as the
-comment states, the device looks at slot 0, whose flags the reclaim loop
-just zeroed, while nbl_chan_kick_tx_ring() polls descriptor X + 1 for
-NBL_CHAN_TX_DESC_USED, times out again and re-enters this same recovery.
-Would that make every subsequent nbl_chan_send_msg() return -ETIMEDOUT?
-
-And if QUEUE_RST does not clear the hardware counter, does writing
-tail_ptr = 0 produce exactly the bogus 16-bit delta the comment is trying
-to avoid?
-
-Should next_to_use and next_to_clean be reset to 0 here as well?
-
-> +
-> +	/* Re-enable queue with current ring base and size */
-> +	nbl_chan_config_queue(chan_mgt, chan_info, true);
-> +}
-
-[Severity: Medium]
-The commit message states:
-
-  Mailbox BAR2 register access is intentionally left unlocked: single
-  dword mailbox writes are atomic, and the multi-dword QINFO config
-  sequence (config_mailbox_txq/rxq, stop_mailbox_txq/rxq) only runs
-  during queue setup/teardown when chan_info->active is false, with no
-  concurrent producers.
-
-Does this recovery path match that description?  It issues
-stop_mailbox_txq() and config_mailbox_txq() at runtime from the send
-path, and chan_info->active is only cleared at the very end of
-nbl_chan_teardown_queue(), so active is true throughout.
-
-Related to that, nbl_chan_teardown_queue() calls nbl_chan_stop_queue()
-without taking txq_lock, and it does so even when the drain times out:
-
-	if (!ret) {
-		dev_warn(chan_mgt->common->dev,
-			 "teardown: inflight tx drain timeout\n");
-		ret = -ETIMEDOUT;
-	}
-	...
-	/* After all TX drained, stop hardware queue */
-	nbl_chan_stop_queue(chan_mgt);
-
-Can teardown's 4-dword QINFO sequence then interleave with a sender still
-executing the stop + config sequence above, leaving QUEUE_EN=1 on a ring
-the driver considers torn down?
-
-> +
-> +static int nbl_chan_kick_tx_ring(struct nbl_channel_mgt *chan_mgt,
-> +				 struct nbl_chan_info *chan_info)
-> +{
-> +	struct nbl_hw_ops *hw_ops = chan_mgt->hw_ops_tbl->ops;
-> +	struct nbl_chan_ring *txq = &chan_info->txq;
-> +	struct device *dev = chan_mgt->common->dev;
-> +	int max_retries = NBL_CHAN_TX_WAIT_TIMES;
-> +	struct nbl_chan_tx_desc *tx_desc;
-> +	int retry_count = 0;
-> +	u16 msg_type;
-> +
-> +	nbl_chan_update_tail_ptr(hw_ops, chan_mgt->hw_ops_tbl->priv,
-> +				 txq->tail_ptr, NBL_MB_TX_QID);
-> +
-> +	tx_desc = NBL_CHAN_TX_RING_TO_DESC(txq, txq->next_to_clean);
-
-[ ... ]
-
-> +		retry_count++;
-> +		if (retry_count == max_retries) {
-> +			msg_type = le16_to_cpu(READ_ONCE(tx_desc->msg_type));
-> +			dev_err_ratelimited(dev, "chan send msg type: %d timeout\n",
-> +					    msg_type);
-> +			/*
-> +			 * Device failed to complete this descriptor.
-> +			 * Quiesce the queue, reclaim the timed-out
-> +			 * descriptor, and re-enable so future sends can
-> +			 * proceed instead of stalling the ring full.
-> +			 */
-> +			nbl_chan_quiesce_and_reclaim_tx(chan_mgt,
-> +							chan_info);
-> +			return -ETIMEDOUT;
-> +		}
-> +		usleep_range(NBL_CHAN_TX_WAIT_US, NBL_CHAN_TX_WAIT_US_MAX);
-> +	}
-> +
-> +	txq->next_to_clean = txq->next_to_use;
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static void nbl_chan_recv_ack_msg(void *priv, u16 srcid, u16 msgid, void *data,
-> +				  u32 data_len)
-> +{
-
-[ ... ]
-
-> +	if (w_status != NBL_MBX_STATUS_WAITING) {
-> +		mutex_unlock(&chan_info->pending_lock);
-> +		dev_err_ratelimited(dev,
-> +				    "Skip ack invalid status, wait msgtype:%u idx:%u status:%d ack msgtype:%u msgid:%u datalen:%u\n",
-> +				    w_msgtype, w_msgidx, w_status,
-> +				    ack_msgtype, ack_msgid, ack_datalen);
-> +		return;
-> +	}
-
-[ ... ]
-
-> +ack_done:
-> +	/* Guarantee payload data finished before acked flag visible */
-> +	smp_wmb();
-> +	WRITE_ONCE(wait_head->acked, 1);
-> +	mutex_unlock(&chan_info->pending_lock);
-> +	wake_up(&wait_head->wait_queue);
-> +}
-
-[Severity: Medium]
-This completes the slot by setting acked = 1 but leaves
-wait_head->status at NBL_MBX_STATUS_WAITING.  Can that make the timeout
-paths in nbl_chan_send_msg() discard a delivered ACK?
-
-The interrupt path tests only status:
-
-	if (ret == 0) {
-		mutex_lock(&chan_info->pending_lock);
-		if (READ_ONCE(wait_head->status) ==
-		    NBL_MBX_STATUS_WAITING) {
-			WRITE_ONCE(wait_head->status,
-				   NBL_MBX_STATUS_TIMEOUT);
-			WRITE_ONCE(wait_head->acked, 0);
-
-So if the RX cleanup work runs the code above in the window between
-wait_event_timeout() evaluating its condition for the last time and the
-sender taking pending_lock, the sender sees WAITING, clears acked and
-returns -ETIMEDOUT for a request that was answered.
-
-The polling path has a similar window: it checks acked, then sleeps
-NBL_CHAN_TX_WAIT_ACK_US_MIN..MAX, and after the last iteration falls
-straight through to ret = -ETIMEDOUT with no further locked check, so an
-ACK arriving during that final ~1 ms sleep is dropped.
-
-Since status also stays WAITING, would a duplicate ACK for the same
-msgid still pass all the validation above and memcpy into the requester's
-response buffer a second time?
-
-Should the ACK handler move the slot to a completed state (or should the
-timeout transitions re-check acked under pending_lock)?
-
-> +
-> +static int nbl_chan_send_msg(struct nbl_channel_mgt *chan_mgt,
-> +			     struct nbl_chan_send_info *chan_send)
-> +{
-
-[ ... ]
+A few questions about the teardown path and about some of the comments
+below.
 
 > diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c
-> index 0ba0b7f643c64..379dbb9dc0034 100644
+> index b4aba4faa555a..4c2e577610230 100644
 > --- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c
 > +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c
-> @@ -10,6 +10,156 @@
 
 [ ... ]
 
-> +static void nbl_hw_stop_mailbox_txq(struct nbl_hw_mgt *hw_mgt)
+> @@ -91,6 +115,124 @@ static void nbl_hw_get_fw_eth_map(struct nbl_hw_mgt *hw_mgt, u32 *eth_map)
+
+[ ... ]
+
+> +static void nbl_hw_cfg_msix_info(struct nbl_hw_mgt *hw_mgt, u16 func_id,
+> +				 bool valid, u16 interrupt_id, u8 bus,
+> +				 u8 devid, u8 function, bool msix_mask_en)
 > +{
-> +	struct nbl_mailbox_qinfo_cfg_table cfg_tbl;
+> +	u32 host_msix_fid = 0;
+> +	struct nbl_host_msix_info msix_info;
 > +
-> +	memset(&cfg_tbl, 0, sizeof(cfg_tbl));
-> +	cfg_tbl.data[3] = FIELD_PREP(NBL_MAILBOX_QINFO_CFG_QUEUE_RST_MASK, 1);
-> +	nbl_hw_write_mbx_regs(hw_mgt, NBL_MAILBOX_QINFO_CFG_TX_TABLE_ADDR,
-> +			      cfg_tbl.data, sizeof(cfg_tbl));
-> +}
+> +	memset(&msix_info, 0, sizeof(msix_info));
+> +	if (valid) {
+> +		host_msix_fid =
+> +			FIELD_PREP(NBL_PCOMPLETER_HOST_MSIX_FID_TABLE_FID_MASK,
+> +				   func_id) |
+> +			FIELD_PREP(NBL_PCOMPLETER_HOST_MSIX_FID_TABLE_VLD_MASK,
+> +				   1);
 > +
-> +static void nbl_hw_get_host_pf_mask(struct nbl_hw_mgt *hw_mgt, u32 *pf_mask)
-> +{
-> +	nbl_hw_rd_regs_lock(hw_mgt, NBL_PCIE_HOST_K_PF_MASK_REG, pf_mask,
-> +			    sizeof(*pf_mask));
-> +}
+> +		msix_info.data[1] =
+> +			FIELD_PREP(NBL_HOST_MSIX_INFO_FUNCTION_MASK, function) |
+> +			FIELD_PREP(NBL_HOST_MSIX_INFO_DEVID_MASK, devid) |
+> +			FIELD_PREP(NBL_HOST_MSIX_INFO_BUS_MASK, bus) |
+> +			FIELD_PREP(NBL_HOST_MSIX_INFO_VALID_MASK, 1);
 > +
-> +static void nbl_hw_cfg_mailbox_qinfo(struct nbl_hw_mgt *hw_mgt, u16 func_id,
-> +				     u8 bus, u8 devid, u8 function)
-> +{
-> +	u32 data = 0;
+> +		if (msix_mask_en)
+> +			msix_info.data[1] |=
+> +			FIELD_PREP(NBL_HOST_MSIX_INFO_MSIX_MASK_EN_MASK, 1);
+> +	}
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_resource_leonis.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_resource_leonis.c
+> index 46180522295a3..c1f10f1f6b775 100644
+> --- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_resource_leonis.c
+> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_resource_leonis.c
+
+[ ... ]
+
+> @@ -328,8 +337,24 @@ int nbl_res_init_leonis(struct nbl_adapter *adap)
+>  
+>  void nbl_res_remove_leonis(struct nbl_adapter *adap)
+>  {
+> +	struct nbl_resource_mgt *res_mgt = adap->core.res_mgt;
+> +	struct nbl_common_info *common = &adap->common;
 > +
-> +	data = FIELD_PREP(NBL_MAILBOX_QINFO_MAP_FUNCTION_MASK, function) |
-> +	       FIELD_PREP(NBL_MAILBOX_QINFO_MAP_DEVID_MASK, devid) |
-> +	       FIELD_PREP(NBL_MAILBOX_QINFO_MAP_BUS_MASK, bus);
-> +	nbl_hw_wr_regs_lock(hw_mgt, NBL_MAILBOX_QINFO_MAP_REG_ARR(func_id),
-> +			    &data,
-> +			    sizeof(data));
-> +}
+> +	if (!res_mgt)
+> +		return;
+> +
+> +	/*
+> +	 * Tear down all MSI-X maps before devres releases the coherent
+> +	 * tables.	This is critical on the control PF, which may hold
+> +	 * maps for remote PFs that are still bound.
+> +	 */
+> +	if (common->has_ctrl && res_mgt->intr_mgt)
+> +		nbl_intr_mgt_stop(res_mgt);
+> +
+>  	/*
+> -	 * No resource release here because all memory uses devm managed
+> -	 * allocation
+> +	 * Note: the per-function interrupts arrays (kcalloc) are freed
+> +	 * by nbl_intr_mgt_stop() above.  The coherent MSI-X tables
+> +	 * (dmam_alloc_coherent) and intr_mgt itself (devm_kzalloc) are
+> +	 * released by devres after this function returns.
+>  	 */
+>  }
 
-[Severity: Medium]
-This builds the whole dword from FUNCTION/DEVID/BUS and writes it, but
-the MSI-X fields share the same dword:
+[Severity: Low]
+Is this comment still accurate?
 
-#define NBL_MAILBOX_QINFO_MAP_MSIX_IDX_MASK		GENMASK(28, 16)
-#define NBL_MAILBOX_QINFO_MAP_MSIX_IDX_VALID_MASK	BIT(29)
+nbl_intr_mgt_stop() loops over every function id and calls
+__nbl_res_intr_destroy_msix_map(), which itself calls dmam_free_coherent()
+on msix_map_table->base_addr and then sets it to NULL.  So by the time
+nbl_res_remove_leonis() returns, there should be no devres-managed
+coherent MSI-X table left for devres to release.
 
-Does this zero the mailbox MSI-X routing of the entries it rewrites?
+The kernel-doc on nbl_res_intr_cfg_msix_map() states the opposite
+ownership model:
 
-nbl_chan_cfg_qinfo_map_table() programs an entry for every unmasked PF,
-not just the local function:
+ * Old MSIX table memory is explicitly freed inside the locked
+ * destroy path after a bounded DMA quiesce sleep (best-effort;
+ * hardware provides no idle status register), so repeated
+ * reconfiguration does not accumulate devres-managed DMA memory.
 
-	for (func_id = 0; func_id < NBL_MAX_PF; func_id++) {
-		if (!(pf_mask & (1 << func_id)))
-			hw_ops->cfg_mailbox_qinfo(p, func_id, bus,
-						  devid, func_id);
+The commit message carries the same wording as the comment here, "It is
+called from nbl_res_remove_leonis() before devres releases the coherent
+tables."
+
+Could these be reconciled so a later change does not drop the explicit
+dmam_free_coherent() on the assumption devres still owns the tables?
+
+> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_interrupt.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_interrupt.c
+> new file mode 100644
+> index 0000000000000..fd3b71a05c236
+> --- /dev/null
+> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_interrupt.c
+> @@ -0,0 +1,544 @@
+
+[ ... ]
+
+> +	/* Step 0: disable mailbox IRQ routing before tearing down map */
+> +	__nbl_res_intr_set_mailbox_irq(res_mgt, func_id, 0, false);
+> +
+> +	/* Step 1: mask each MSIX vector in hardware first */
+> +	for (i = 0; i < intr_num; i++) {
+> +		hw_ops->cfg_msix_info(res_mgt->hw_ops_tbl->priv,
+> +				      func_id, false, interrupts[i],
+> +				      0, 0, 0, false);
+> +	}
+> +	hw_ops->flush_write(res_mgt->hw_ops_tbl->priv);
+
+[Severity: Low]
+Does this loop actually mask anything?
+
+The call passes valid=false and msix_mask_en=false, and
+nbl_hw_cfg_msix_info() starts with:
+
+	memset(&msix_info, 0, sizeof(msix_info));
+	if (valid) {
+		...
 	}
 
-so re-probing one PF would clear MSIX_IDX and MSIX_IDX_VALID for its
-already-bound siblings.  Those siblings keep NBL_CHAN_IRQ_RDY set, so
-each synchronous send would wait out NBL_CHAN_ACK_WAIT_TIME and fail with
--ETIMEDOUT until they are re-bound.
+so for valid=false both host_msix_fid and msix_info.data[] stay zero and
+the writes to NBL_PCOMPLETER_HOST_MSIX_FID_TABLE() and
+NBL_PADPT_HOST_MSIX_INFO_REG_ARR() drive
+NBL_HOST_MSIX_INFO_MSIX_MASK_EN_MASK (BIT(17)) and
+NBL_HOST_MSIX_INFO_VALID_MASK (BIT(16)) to 0 and clear the FID VLD bit.
 
-The commit message also says:
+That invalidates the entry and turns mask-enable off rather than masking
+the vector.  Would "invalidate each MSIX info entry" describe the step
+more accurately?  The commit message has the same wording, "Step 1 masks
+each vector."
 
-  Add per-hw_mgt reg_lock to protect read-modify-write sequences on the
-  general-purpose register BAR (hw_addr, BAR0), such as QINFO map table
-  entries and k_pf_mask reads
-
-Where is the read-modify-write on the QINFO map entry?  This helper only
-writes.  Should it read the entry first and preserve the MSI-X fields?
-
+> +	/*
+> +	 * Stage 1 tear down: retain valid DMA address, ONLY clear
+> +	 * VALID bit to avoid hardware torn read (VALID=1 & dma_addr=0).
+> +	 */
+> +	hw_ops->cfg_msix_map(res_mgt->hw_ops_tbl->priv, func_id,
+> +			      false, msix_map_table->dma, 0, 0, 0);
+> +	hw_ops->flush_write(res_mgt->hw_ops_tbl->priv);
 > +
-> +static struct nbl_hw_ops hw_ops = {
-> +	.update_mailbox_queue_tail_ptr = nbl_hw_update_mailbox_queue_tail_ptr,
-> +	.config_mailbox_rxq = nbl_hw_config_mailbox_rxq,
-> +	.config_mailbox_txq = nbl_hw_config_mailbox_txq,
-> +	.stop_mailbox_rxq = nbl_hw_stop_mailbox_rxq,
-> +	.stop_mailbox_txq = nbl_hw_stop_mailbox_txq,
-> +	.get_host_pf_mask = nbl_hw_get_host_pf_mask,
-> +	.cfg_mailbox_qinfo = nbl_hw_cfg_mailbox_qinfo,
+> +	/*
+> +	 * Hardware provides no idle status register for the MSIX map
+> +	 * DMA engine.  Use a bounded sleep to mitigate the race between
+> +	 * posted MMIO disable writes and an ongoing in-flight table
+> +	 * read DMA.
+> +	 *
+> +	 * This is best-effort, not a guarantee: a table fetch already
+> +	 * issued before the VALID clear was observed can complete after
+> +	 * this sleep.  On the normal teardown path the mailbox channel
+> +	 * is stopped before this function runs, so no new interrupts
+> +	 * can trigger table fetches.  On the residual cleanup path in
+> +	 * nbl_intr_mgt_stop(), a longer global quiesce is applied
+> +	 * after all functions are torn down.
+> +	 */
+> +	usleep_range(NBL_MSIX_DMA_SYNC_MIN_US, NBL_MSIX_DMA_SYNC_MAX_US);
 > +
-> +};
+> +	/* safe to release global vector IDs, pcompler no longer reads table */
+> +	nbl_intr_release_bitmap(res_mgt, interrupts, intr_num);
+> +
+> +	/*
+> +	 * Stage 2: hardware has quiesced MSIX table DMA access, fully
+> +	 * zero the MSIX map entry safely now.
+> +	 */
+> +	hw_ops->cfg_msix_map(res_mgt->hw_ops_tbl->priv, func_id,
+> +			     false, 0, 0, 0, 0);
+> +	hw_ops->flush_write(res_mgt->hw_ops_tbl->priv);
+> +
+> +	/*
+> +	 * Now safe to release the MSIX DMA coherent memory.  Hardware
+> +	 * DMA has quiesced after the sleep above, so no IOMMU fault
+> +	 * risk remains.
+> +	 */
+> +	if (msix_map_table->base_addr) {
+> +		dmam_free_coherent(dev, msix_map_table->size,
+> +				   msix_map_table->base_addr,
+> +				   msix_map_table->dma);
+> +		msix_map_table->base_addr = NULL;
+> +		msix_map_table->dma = 0;
+> +		msix_map_table->size = 0;
+> +	}
+
+[Severity: Medium]
+Can the coherent table be freed here while the pcompleter still has a
+table fetch outstanding?
+
+The two comments in __nbl_res_intr_destroy_msix_map() disagree with each
+other.  The first says:
+
+	 * This is best-effort, not a guarantee: a table fetch already
+	 * issued before the VALID clear was observed can complete after
+	 * this sleep.
+
+and a few lines later:
+
+	 * Hardware DMA has quiesced after the sleep above, so no IOMMU
+	 * fault risk remains.
+
+followed by dmam_free_coherent() on the buffer the device DMA-reads.
+
+If a fetch does land after the free, with an IOMMU the read hits an
+unmapped IOVA and produces a DMAR/SMMU fault; without one it reads
+recycled memory whose bytes are interpreted as an MSI-X map entry
+(NBL_MSIX_MAP_VALID_MASK plus the 13-bit NBL_MSIX_MAP_INDEX_MASK), which
+could steer an interrupt to a global vector now owned by a different
+function.
+
+The table size does not depend on the request:
+
+	tmp_msix_tbl->size =
+		sizeof(struct nbl_msix_map) * NBL_MSIX_MAP_TABLE_MAX_ENTRIES;
+
+Since the allocation is a fixed 2 KiB regardless of num_net_msix /
+num_others_msix, would it be simpler to allocate the table once per
+function and rewrite the entries in place, so the free/realloc cycle, the
+timed sleeps and the admitted race all go away?
+
+The commit message describes the same mechanism, "sleeps 1 ms to allow
+in-flight table fetch DMA to quiesce (best-effort; no idle status register
+exists), then zeroes the entry before freeing memory."
 
 [ ... ]
 
-> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.h
-> index 1f9e509dc6312..71691e893790e 100644
-> --- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.h
-> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.h
-> @@ -11,5 +11,61 @@
+> +void nbl_intr_mgt_stop(struct nbl_resource_mgt *res_mgt)
+> +{
+> +	struct nbl_interrupt_mgt *intr_mgt = res_mgt->intr_mgt;
+> +	u16 func_id;
+> +	int ret;
+> +
+> +	if (!intr_mgt)
+> +		return;
+> +
+> +	mutex_lock(&intr_mgt->lock);
+> +	for (func_id = 0; func_id < NBL_MAX_FUNC; func_id++) {
+> +		if (intr_mgt->func_intr_res[func_id].interrupts) {
+> +			dev_info(res_mgt->common->dev,
+> +				 "intr_mgt_stop: destroying leftover map for func %u\n",
+> +				 func_id);
+> +			ret = __nbl_res_intr_destroy_msix_map(res_mgt,
+> +							      func_id);
+> +			if (ret)
+> +				dev_warn(res_mgt->common->dev,
+> +					 "intr_mgt_stop: destroy map for func %u failed: %d\n",
+> +					 func_id, ret);
+> +		}
+> +	}
+> +	mutex_unlock(&intr_mgt->lock);
+> +
+> +	/*
+> +	 * Global quiesce after all functions are torn down.  Each
+> +	 * destroy has an internal 1ms sleep between Stage 1 (clear
+> +	 * VALID) and Stage 2 (zero dma_addr), but Stage 2 itself has
+> +	 * no trailing sleep.  This final wait covers the last
+> +	 * function's Stage 2 and any straggler DMA from
+> +	 * concurrently-torndown functions.
+> +	 */
+> +	usleep_range(NBL_MSIX_DMA_SYNC_MIN_US, NBL_MSIX_DMA_SYNC_MAX_US);
 
-[ ... ]
+[Severity: Medium]
+Does this final usleep_range() still cover anything?
 
-> +/* MAILBOX qinfo_map_table */
-> +#define NBL_MAILBOX_QINFO_MAP_FUNCTION_MASK		GENMASK(2, 0)
-> +#define NBL_MAILBOX_QINFO_MAP_DEVID_MASK		GENMASK(7, 3)
-> +#define NBL_MAILBOX_QINFO_MAP_BUS_MASK			GENMASK(15, 8)
-> +#define NBL_MAILBOX_QINFO_MAP_MSIX_IDX_MASK		GENMASK(28, 16)
-> +#define NBL_MAILBOX_QINFO_MAP_MSIX_IDX_VALID_MASK	BIT(29)
+The loop above has already called __nbl_res_intr_destroy_msix_map() for
+every func_id, and each of those calls ends with dmam_free_coherent() on
+that function's table.  By the time this sleep runs there is no coherent
+table left that a straggler DMA could safely land in, so the wait appears
+to be after the window the comment says it protects.
+
+Should this wait happen before the per-function dmam_free_coherent()
+instead, or is it simply not needed?
 
 [ ... ]
 
