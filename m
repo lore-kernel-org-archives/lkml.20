@@ -1,371 +1,350 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5A2A35E1AD
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:06:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150003; cv=pass; b=XX9cz/YY31TvyfBlGTPrPN7T6/XGzI1jvctplDohFo603u2uoocZSYMY6uSPNTAu0HFBAeaynP2ZsLi4N04ET0diT+Pm5sQdVRGa3+yB9I26I7InBSpy4Q23amOQwgq5LHIwCA5ZUdi8J4JtBY63kKtWE62JDPkthBhj+I6NRmY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789150003; c=relaxed/simple;
-	bh=98hvdYUQRAQnArtgHRxFqpAw52ijLzkKM/9cnlXcpGI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DAUTAfYgQGbLqd+0XQLLsBjUsLEQkr2vNVrhoXYUHGnPmJB1gf9UnhsdDvhvFP1ps5Or0/jyc0t/HeLaLZTG+sjD1pf26DZ+GlpQUp7f4TfF7O+hPgiXGUh+r9AqTaURcDV6lX0pu/aE+QZB7VByyIrLa8dg1rLwsuLGO/N91qM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=c1CFuIS0; arc=pass smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12B5C4AD7D8
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:06:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789150010; cv=none; b=GCbDG8jiVeEF8yTL5JQ0y7HUmjAuPLI5+A+6vQahF9xSrFMCr/ohGtsVJxTnMag0pWsBd32zdSB/7w/uMCKqEyVqbyimhHL0PKonhTrDanYNZdUSNwFhgWh+jhqLmR4ss8FjYXcFfRsfZbAh4t79+1Uhg7AZGk8smu3+8Ln/HZQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789150010; c=relaxed/simple;
+	bh=kQwNoRuIOj+YwvTIht2Su2OdhcJfIrI4pdY7rp+2EK4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X9WOSsLciL4yCT4j4mVqEOQkK0wbqrOuuwaAuKBF9ZfyEig9J5QXpCcCyP+QyyHiWvUzFFunrEQR+CMMBdp6r1st+2Q8MNoLzOVLo0VC5HhdWFuxxSSVhkZq8yurpRG57gg6gzTnCzt1AgRqmnKYeFb4vxtLRG0tO9Ov6GBiLN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=shIv3mvh; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="c1CFuIS0"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-530411c7ee1so92501cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:06:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789150001; cv=none;
-        d=google.com; s=arc-20260327;
-        b=B9Svyf0yeqwE0ghnutveHVrCCHad/Ew0p+7shTwZpnYQCPokKVLoHodsxF/vUEktcJ
-         sI4wvyNdgChx0d9ubWCbJeAMbsVZxjAt80a0c4WUxwH/7qRCCiaRM0NRxwZvAfXXC0WC
-         n3OVL0GwUX1zYeU4ut6m3ASycAdZdzUqWmoqJQeiam3lHFSFBWL2Bc0WCG0KB2uYUz/n
-         J00cKR+xL2uX+AnEXWfLXZilhoAyY3DwZqX+DFydDeVea/A9kWCfQMgtj6QOqlL/oBgO
-         lJYY63c5mmHl4OtQPDtvpRMq2dVUAOhW7RPj+YpM3aY12X6XBpkH2uUH6Zi+0I+XpltT
-         23Lw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=L0Iac+7+1XRJVGRm7qhhyrQds1DwdpS7YmgEfvKp+Z4=;
-        fh=fxVeH+QIFbU9caNyW/dkGENJXTQJwsIUJeG2beVNyH0=;
-        b=mjnvML3d0klTw+lBTuQMtWgA2XM49qP63qJIevbU0EvNWR4YpM1LHDhR5LKdv7BFW8
-         SKQ2F09h7bfiGDpeOa1Od5aWXGG0QD/X/WauWlzSrbO1PI4neBmKdoNG910u0XUq7vXM
-         +af0VgGPwscqe9UYxdxJnFD+MrMCmDA1SdMmB36URCF8h8Z82/gzeoDGc55qN2JnE13S
-         1N8WUgwqzQTCcqEqRSx/+5t7RyKG5QaZ7uicdsYIUzRTh+nQGFvjmetk2Yum7d4xPaGL
-         Xgo4y2jB3/wG51CZwzUHuxJ9c+VIHzACmzA41Byf4V2ElApiG8msvNWpRKw5tHOI8qSz
-         K6yQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="shIv3mvh"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398c066106cso48937a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:06:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789150001; x=1789754801; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=L0Iac+7+1XRJVGRm7qhhyrQds1DwdpS7YmgEfvKp+Z4=;
-        b=c1CFuIS0r/GhPWuU59t8+1u9a8NPHVQkTpFpq9FkjLK6vzHOk3SXqdHl8KPdoi4eSg
-         1n3AeJE/XNrMUcmTE+/6/GwvYmX03GvKOl4XBmYdJ+zbOlIqCQnZVmtD0oL99HJE+A6f
-         onYYQd92UFHi96AB1AqkhVNS4swqM0SXXnF6Loeehk6C30IteM/oNF235Co4JaApaIA+
-         /bSRYIMr1byjHFPBsm9LhmHZoJr8s+EY70z/lfaVoIYFFKAKgYBjb7/ufC9exGboKN/d
-         k8Pb6HxhAZKkCbsdU45rucWX8Ooc7QaZ/ZhqTUed8u0pbDYiXFsmeIU8Fb7mujj2Hare
-         9FlA==
+        d=gmail.com; s=20251104; t=1789150007; x=1789754807; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Jo2uzj/N171DScFnL7iq1Y1nF9wLs6WiaF8JUd+T4Ro=;
+        b=shIv3mvh3JGbML4jYnVT6ljh57om36s7YmC1/OmoaEDNjm07JCo3SzfCctxIlfnDKe
+         t7U3V0DiMRuczNgPg90SkehpgbTXY+w58aue8QENJnQ8d94ZeEJxwcyrg83YXsGGgx6I
+         D4wj+PUp/HwfNi5KbGlRaaHSZJdI1RF1kdXTQHlalrX5MMTKp5eIRgIDnkp8F19cOScj
+         TWzXT9nSc1CNKTBhHTOaN3L6wG95aHaA3ZduiyV2hZZJJL1UcUzJ57Ul+RWapBrIKY2t
+         jKM6/nxbWxMWdRYf67NK9iCz4ieEjVnCo7214brlJnxje0VBj2vfv6NKj4KI7sz7JQXm
+         bPFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789150001; x=1789754801;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=L0Iac+7+1XRJVGRm7qhhyrQds1DwdpS7YmgEfvKp+Z4=;
-        b=HiIVSAl8p5REcQEt1/4o4BEAS+N+tGe0wM50vXfffWD8uA5bHUokbhiaaevyw3iLmW
-         TT7PtEGQ913wHdph1Fv3OEyQmYhg5Y0o/7a5c5JSmhTJtaiZJcucoGB42tPctABUp3Ao
-         ebxAbsAQp2J2SQ48vIKw3cjHGe16QQZp0t4m24Otc71n9BznI5gdVUSMwxxvAf3t+da3
-         CIXyJjg0rB7jnmZokvdl8k0h7JrD1r6jmHTrIfPcihFhUXaS60vKclbUBuHoodJqM5y1
-         baU71dqI68F/ZSvXP0WMCtuYN8rIPl+ktyhLMfkqMHH9vcIpKUZz+wMhWh/HSrX96RnT
-         06lg==
-X-Forwarded-Encrypted: i=1; AKwUvBztVXPuyGtuA29xGBZnmQkMtvQw2T5EGq3rX8EUy4imUYe5yhr8J+gZBjWdKvMLYxnnf4oPiJK8XBnyEew=@vger.kernel.org
-X-Gm-Message-State: AFuF++kcGqJ+oOmvnpVHWn0YF9t/OuZoLdZ0qEB2bF7yW0/quxRT54qg
-	/sH+2wc29mT59oGhC2VyS2Wrv6wOYOreqmaALoymOLI06EZxbJ3QMbfVYXjbiJ9UzuPPNpXb2hR
-	VERwH25PdOYeVeL1XkITTZ6RN4ORvWxn1AkJHhVpt
-X-Gm-Gg: AYBFou3N+0VpZ58sK75Vu+lW7ksVzwz3n0N5lDjZYhj20bkdIk8AXFH4P1qDw7ylYDn
-	VWnEtH1Km10miqEaswplp8rT6wQwGIag8Lh4fNv4KR5w24C+MUq8rnExHQX5fZBrPV3Pz0LSJqn
-	hnlSMk/5//cYnAgcY1wEJACmcn9Ev9tck/FTcPy/Hoy1kqGYlKzispoe42iYNSogl+YZOmsKZnI
-	wDu3+Z77MiKXngi2ms32FpTSG6wvWZ8+znPofTjFgPogjuDDYrs0bvwVAbHRKbiARBn/FkE6NIQ
-	ItpnM2eQT/eV8H4PoqTTNdQew2wdSB3tW+PYIQHid0Lgveyenz9ZQM9J08ZwDeHKflH9ejZIjz8
-	SH/onp97YIA==
-X-Received: by 2002:a05:622a:c0c:b0:51c:ca9:3d17 with SMTP id
- d75a77b69052e-530e468d6f2mr1048401cf.12.1789150000015; Fri, 11 Sep 2026
- 11:06:40 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789150007; x=1789754807;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Jo2uzj/N171DScFnL7iq1Y1nF9wLs6WiaF8JUd+T4Ro=;
+        b=axCgfAzEAAfMAah2wz6mWtaqikP4Uy73G7Dho+s0Oe9YLLQkzUlXPwgUAD3BTraTiv
+         Jrg4ojyMJA3lRoisMwpMm5ENd49hBIVnj+DGLTYs8AhEQp8gvvfpfcWQeQQ6EPZkvR0F
+         XOq1VRa1EZ91T5N7b775mNRYSqtVGwgfU1zQbm2IoVmhjg0CaTpwJU0rMkvNs05wk2tu
+         k5ugY+WwK42hF53l3/1OGiUI8b/6xKQUmett4ltt33rwzlpnBTmjwsuzsoW9MUpSEfDA
+         t2/1GPAv+I6LskTa7HKEJS9q+QA05OHcLyj3Ji3wo0rfjY3TWj58RMpFHvnZqSDde3Ax
+         ErJA==
+X-Forwarded-Encrypted: i=1; AKwUvBxjBs0JwtD9HM+4TBjT5/hwcmQVf6sRMKmO+G8wMGDbTNheADk7sS1MD94Q4sSr5PnK5hL+5/H6xRBnC94=@vger.kernel.org
+X-Gm-Message-State: AFuF++kL/NLMLOhwhP2j3mGew466rvkxO5zzq/Gf0i2MUwqC7Ggqw5l+
+	Ads4qwSV5Gv+ZqMI7pOLxXTblw7kR06O+wDPVUVdMPHXSUiy0TlrL5FM
+X-Gm-Gg: AYBFou1YIK/n+wfkSLnnuAiMudLa2FuOD3r9vqhV/UWwrH4pnBAitOfC2cqXKDQnM36
+	7/UnK574lZ6eSeaME3Mo1i/fw5vZVmDkogTFWDzcHOG/bHFpcrNnY2kBqoXpOoTbo8J+U4S4Uiw
+	1N7oH03lja8bm6R/mGprRxmf4462iwjnJIMtH0YFpX7s6HmCL2TcKCVCDDp0vCS0FLIKKERdTVr
+	bDV2TFyhwDEJ6PRku6e5yTg7yYcQFyk2cp49EfKLaldFIK5fPtjuEF841aF5OFXWa2kpT23v8CT
+	vwAMWxxck6blH0eaVgrF08518fDB4Pe+EFz5VDcEs2Ff22fmN6UIgn+xlmUEaXjG6BirKcSBkJu
+	6d5qd2JnytfYymqM/7WnzsIgkqm/iU1j4ODJ3MkibDOQS2DNVtEQmr/oM2o7poePPtIjCFyFAxd
+	0vOURUQlfb+luASQiuRtUWmxmt2kiS/az8MTd7kLXirnCJKuHPP3mgoXt3mCidv7xH0AOOvb1uq
+	RTwinPuFOv6HqS76MmM5TcMjjz4r0zaFoqSAJ0mOHRFCHAKxFs=
+X-Received: by 2002:a17:90b:4fc9:b0:37f:e326:6557 with SMTP id 98e67ed59e1d1-39d9bbfc338mr9687313a91.4.1789150006816;
+        Fri, 11 Sep 2026 11:06:46 -0700 (PDT)
+Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com.com ([106.51.165.23])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b759d0sm8806721c88.7.2026.09.11.11.06.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 11:06:46 -0700 (PDT)
+From: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
+To: maddy@linux.ibm.com,
+	mpe@ellerman.id.au,
+	npiggin@gmail.com,
+	chleroy@kernel.org,
+	ryabinin.a.a@gmail.com,
+	glider@google.com,
+	andreyknvl@gmail.com,
+	dvyukov@google.com,
+	vincenzo.frascino@arm.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	kees@kernel.org,
+	mkchauras@gmail.com,
+	ritesh.list@gmail.com,
+	amachhiw@linux.ibm.com,
+	mahesh@linux.ibm.com,
+	nikhilks@linux.ibm.com,
+	robh@kernel.org,
+	sayalip@linux.ibm.com,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	kasan-dev@googlegroups.com,
+	linux-riscv@lists.infradead.org,
+	linux-hardening@vger.kernel.org
+Cc: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+Subject: [PATCH V2] powerpc/kasan: require memintrinsic prefix support for KASAN
+Date: Fri, 11 Sep 2026 23:35:37 +0530
+Message-ID: <20260911180536.3234640-2-mkchauras@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910234737.1340642-1-surenb@google.com> <20260910234737.1340642-5-surenb@google.com>
- <aqQsWNfrBSp4DY_N@gremlin> <CAJuCfpEEi-9ZqhKR536tJHywprb9RFcx92gK00qp_ecBGH9Fvw@mail.gmail.com>
- <aqQ2M5bZv4k43j91@gremlin>
-In-Reply-To: <aqQ2M5bZv4k43j91@gremlin>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Fri, 11 Sep 2026 11:06:28 -0700
-X-Gm-Features: AcwNN1XJcFI1qpSul5kFpPRx9O73QUYS1FieU23uJkjNgjnxdeFXxY6hqfMzzMg
-Message-ID: <CAJuCfpG21qzef-yag3A9d22BUXnx2EFmbSvT=Zi5uRx_h7BxbA@mail.gmail.com>
-Subject: Re: [PATCH v3 4/7] proc/task_mmu: remove special-casing of
- smap_gather_stats() start parameter
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, 
-	david@redhat.com, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
-	pfalcato@suse.de, xueyuan.chen21@gmail.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 10:49=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.=
-org> wrote:
->
-> On Fri, Sep 11, 2026 at 05:07:48PM +0000, Suren Baghdasaryan wrote:
-> > On Fri, Sep 11, 2026 at 4:39=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kern=
-el.org> wrote:
-> > >
-> > > On Thu, Sep 10, 2026 at 04:47:34PM -0700, Suren Baghdasaryan wrote:
-> > > > smap_gather_stats() interprets its start parameter to mean vma->vm_=
-start
-> > > > when it's set to 0. Eliminate this special interpretation and pass
-> > > > vma->vm_start explicitly when needed.
-> > > >
-> > > > Since smap_gather_stats() operates within a single VMA, we can repl=
-ace
-> > > > walk_page_vma()/walk_page_range() calls with walk_page_range_vma()
-> > > > which is simpler and also can be called while holding per-VMA lock.
-> > > >
-> > > > No functional change intended.
-> > > >
-> > > > Suggested by: Lorenzo Stoakes <ljs@kernel.org>
-> > >
-> > > Hmm did I? Where did I suggest this?... I guess a while ago?
-> >
-> > In [1] on June 9, 2026.
-> >
-> > [1] https://lore.kernel.org/all/aifO_rCurVhFRTcl@lucifer/
->
-> Yup a while ago :)
->
-> >
-> > >
-> > > I mean I also happen to suggest it in the previous patch review :) bu=
-t that was
-> > > sent after you sent this...
-> > >
-> > > > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
-> > > > Reviewed-by: Liam R. Howlett (Oracle) <liam@infradead.org>
-> > >
-> > > I don't love hacking a hack for a patch and then unhack it in the nex=
-t in a
-> > > slightly roundabout way.
-> > >
-> > > Feels like this should be squashed. And a wrapper function for
-> > > start=3Dvma->vm_start should be used rather than duplicating that par=
-am
-> > > constantly.
-> > >
-> > > > ---
-> > > >  fs/proc/task_mmu.c | 29 ++++++++++++++++-------------
-> > > >  1 file changed, 16 insertions(+), 13 deletions(-)
-> > > >
-> > > > diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> > > > index 3c40c9cbb9c9..ecce7ce116cb 100644
-> > > > --- a/fs/proc/task_mmu.c
-> > > > +++ b/fs/proc/task_mmu.c
-> > > > @@ -1246,21 +1246,27 @@ get_smaps_shmem_walk_ops(struct proc_maps_p=
-rivate *priv)
-> > > >       return &smaps_shmem_walk_vma_lock_ops;
-> > > >  }
-> > > >
-> > > > -/*
-> > > > - * Gather mem stats from @vma with the indicated beginning
-> > > > - * address @start, and keep them in @mss.
-> > > > +/**
-> > > > + * smap_gather_stats() - Gather mem stats from @vma.
-> > > > + * @priv: proc maps private state.
-> > > > + * @vma: The VMA to gather stats for.
-> > > > + * @mss: The accumulated stats.
-> > > > + * @start: The address from which to start.
-> > > >   *
-> > > > - * Use vm_start of @vma as the beginning address if @start is 0.
-> > > > + * This gathers stats for the whole of the VMA unless the lock was=
- dropped
-> > > > + * and VMA grew or got merged and we found it again, in which case=
- we only
-> > > > + * gather stats for the remainder of the VMA range.
-> > >
-> > > This seems to be describing what callers do not what the function doe=
-s unless
-> > > I'm missing something? So that's really the wrong place for it.
-> > >
-> > > I think the description of why it might be a partial walk belongs to =
-the bit of
-> > > code that actually tries to do a partial walk.
-> > >
-> > > Anyway as per below I think separate partial/full functions make sens=
-e and there
-> > > it can simply be described as walking either the full or part of the =
-VMA.
-> >
-> > This is verbatim of what you wrote at the end of [1]
->
-> OK, I guess I disagree with myself of 3 months ago?
->
-> The technical point being made here, which I think is the more constructi=
-ve one
-> to engage with, is that this is a function that can be called with differ=
-ent
-> parameters for whatever reason.
->
-> Somebody might decide to call it for another reason, putting something in=
- the
-> description of the function that assumes what callers will do when that c=
-ode can
-> change is asking for bit rot.
+powerpc unconditionally selects GENERIC_ENTRY. The GENERIC_ENTRY
+infrastructure relies on the compiler emitting __asan_mem*() calls at
+instrumented mem*() sites rather than plain memset/memcpy/memmove, so
+that entry/exit paths calling those functions are not instrumented.
 
-Yeah, that makes sense.
+This assumption is encoded in two places:
 
->
-> So as I suggested above:
->
->         I think the description of why it might be a partial walk belongs=
- to the
->         bit of code that actually tries to do a partial walk.
->
-> I.e. I guess past me's description is apt, but belongs with the partial c=
-ase.
+  mm/kasan/shadow.c:
+    #if !defined(CONFIG_CC_HAS_KASAN_MEMINTRINSIC_PREFIX) &&
+        !defined(CONFIG_GENERIC_ENTRY)
 
-Ok, sounds like you want two separate functions supporting complete or
-partial walk. I don't have a strong preference here and it's easy to
-do like this:
+  include/linux/fortify-string.h:
+    #if !defined(CONFIG_CC_HAS_KASAN_MEMINTRINSIC_PREFIX) &&
+        !defined(CONFIG_GENERIC_ENTRY)
 
-staic void smap_gather_stats_range(priv, vma, &mss, start)
-{
-        ....
-}
+When GENERIC_ENTRY is set, both guards suppress the C wrappers for
+memset/memcpy/memmove and the __underlying_mem*() redirections. This
+is only safe when the compiler supports the prefixed __asan_mem*()
+intrinsics. On older toolchains (e.g. GCC 9) that lack this support,
+plain mem*() calls from instrumented code fall through to the raw
+assembly implementations in mem_64.S / copy_32.S, completely bypassing
+the KASAN shadow check.
 
-staic void smap_gather_stats(priv, vma, &mss)
-{
-        smap_gather_stats_range(priv, vma, &mss, vma->vm_start);
-}
+Other arches with GENERIC_ENTRY (x86, s390, loongarch, riscv) do not
+hit this because their CI toolchains are always new enough to support
+the prefix flag.
 
-Does that sound good?
+Background: the !GENERIC_ENTRY guard was introduced by commit 69d4c0d32186
+("entry, kasan, x86: Disallow overriding mem*() functions", Peter Zijlstra,
+Jan 2023). The root problem is that the KASAN C wrappers override the
+linker symbol memset/memcpy/memmove globally, so any call from noinstr or
+__no_sanitize_address code (e.g. irqentry_enter/irqentry_exit) would still
+reach the KASAN shadow-check wrapper -- at a point where KASAN invariants
+may not hold. The compiler prefix approach (Marco Elver, Feb 2023,
+commit 51287dcb00cc) solves this by having the compiler emit __asan_memset
+at instrumented call sites and bare memset inside __no_sanitize_address
+functions, splitting the decision at code-generation time rather than at
+link time.
 
->
-> >
-> > >
-> > > >   */
-> > > >  static void smap_gather_stats(struct proc_maps_private *priv,
-> > > >                             struct vm_area_struct *vma,
-> > > > -                           struct mem_size_stats *mss, unsigned lo=
-ng start)
-> > > > +                           struct mem_size_stats *mss,
-> > > > +                           unsigned long start)
-> > > >  {
-> > > >       const struct mm_walk_ops *ops =3D get_smaps_walk_ops(priv);
-> > > >       const bool is_partial =3D start > vma->vm_start;
-> > > >
-> > > >       /* Invalid start */
-> > > > -     if (start >=3D vma->vm_end)
-> > > > +     if (start < vma->vm_start || start >=3D vma->vm_end)
-> > > >               return;
-> > > >
-> > > >       if (vma =3D=3D get_gate_vma(priv->lock_ctx.mm))
-> > > > @@ -1285,10 +1291,7 @@ static void smap_gather_stats(struct proc_ma=
-ps_private *priv,
-> > > >                       mss->swap +=3D shmem_swapped;
-> > > >       }
-> > > >
-> > > > -     if (!start)
-> > > > -             walk_page_vma(vma, ops, mss);
-> > > > -     else
-> > > > -             walk_page_range(vma->vm_mm, start, vma->vm_end, ops, =
-mss);
-> > > > +     walk_page_range_vma(vma, start, vma->vm_end, ops, mss);
-> > >
-> > > I mean obviously am in favour of this as I suggested it in the last p=
-atch :)
-> > >
-> > > >
-> > > >       reacquire_rcu(priv);
-> > > >  }
-> > > > @@ -1343,7 +1346,7 @@ static int show_smap(struct seq_file *m, void=
- *v)
-> > > >       struct vm_area_struct *vma =3D v;
-> > > >       struct mem_size_stats mss =3D {};
-> > > >
-> > > > -     smap_gather_stats(priv, vma, &mss, 0);
-> > > > +     smap_gather_stats(priv, vma, &mss, vma->vm_start);
-> > > >
-> > > >       show_map_vma(m, vma);
-> > > >
-> > > > @@ -1396,7 +1399,7 @@ static int show_smaps_rollup(struct seq_file =
-*m, void *v)
-> > > >
-> > > >       vma_start =3D vma->vm_start;
-> > > >       do {
-> > > > -             smap_gather_stats(priv, vma, &mss, 0);
-> > > > +             smap_gather_stats(priv, vma, &mss, vma->vm_start);
-> > > >               last_vma_end =3D vma->vm_end;
-> > > >
-> > > >               /*
-> > > > @@ -1455,7 +1458,7 @@ static int show_smaps_rollup(struct seq_file =
-*m, void *v)
-> > > >
-> > > >                       /* Case 1 and 2 above */
-> > > >                       if (vma->vm_start >=3D last_vma_end) {
-> > > > -                             smap_gather_stats(priv, vma, &mss, 0)=
-;
-> > > > +                             smap_gather_stats(priv, vma, &mss, vm=
-a->vm_start);
-> > >
-> > > I mean this is all horrible, having to pass vma->vm_start explicitly.
-> > >
-> > > Although better than the hack that gets compounded in patch 3.
-> > >
-> > > There 4 invocations of smap_gather_stats(), only one of them passes a
-> > > non-vma->vm_start start.
-> > >
-> > > So it'd make more sense to just make smap_gather_stats() lose its 3rd=
- param and
-> > > have it call smap_gather_stats_range(), then have 1 invocation of
-> > > smaps_gather_stats_range() directly, as per suggestion in last patch.
-> > >
-> > > Or something similar to that.
-> >
-> > Hmm. Ok, I'll wait for you to read your previous suggestions in [1]
-> > and after that let's discuss what the final version should look like.
->
-> I don't really think that's hugely constructive.
+A manual C-level override cannot replicate this split: a single linker
+symbol cannot be made to resolve differently depending on the caller.
 
-I wasn't trying to offend in any way. Just wanted to give you some
-time to recall previous conversation and consolidate your position.
+x86 also placed its raw memset/memcpy/memmove implementations in
+.noinstr.text (same commit, 69d4c0d32186), which is the other half of
+the fix: noinstr callers hit the raw assembly directly, safely bypassing
+KASAN. PowerPC has not done this. Placing mem_64.S / memcpy_64.S /
+copy_32.S implementations in .noinstr.text would be the complementary
+long-term fix that could re-enable KASAN on older toolchains, but it
+requires care around linker stub overflow on large PPC64 kernels (the
+same reason powerpc uses NOKPROBE_SYMBOL rather than noinstr for its
+interrupt handlers -- see the comment in asm/interrupt.h). That work
+is left as a follow-up.
 
->
-> I'm sorry I'm (mildly) disagreeing with my past self, I've sent tens of
-> thousands of words of review since then so I think it can be forgiven.
+For now, introduce PPC_CC_HAS_KASAN_MEMINTRINSIC_PREFIX, an arch-local
+compiler probe that mirrors the same check as CC_HAS_KASAN_MEMINTRINSIC_PREFIX
+in lib/Kconfig.kasan but lives outside the 'if KASAN' block to avoid a
+recursive dependency (CC_HAS_KASAN_MEMINTRINSIC_PREFIX depends on KASAN
+which depends on HAVE_ARCH_KASAN). Gate the three HAVE_ARCH_KASAN selects
+on this new symbol so that KASAN is not offered as a config option on
+toolchains that cannot support it correctly with GENERIC_ENTRY.
 
-Definitely. Again, I wasn't trying to blame or anything like that.
-Just pointing out our previous discussion and want to make sure we are
-on the same page (while having some fun in the process).
+Since KASAN on powerpc now unconditionally implies
+CC_HAS_KASAN_MEMINTRINSIC_PREFIX, the old !CC_HAS_KASAN_MEMINTRINSIC_PREFIX
+code paths in asm/kasan.h and asm/string.h are dead. Clean them up:
 
->
-> In any case, I really do think:
->
->         smap_gather_stats(priv, vma, &mss);
->         smap_gather_stats(priv, vma, &mss);
->         smap_gather_stats(priv, vma, &mss);
->         smap_gather_stats_range(priv, vma, &mss, last_vma_end);
->
-> Works better than:
->
->         smap_gather_stats(priv, vma, &mss, vma->vm_start);
->         smap_gather_stats(priv, vma, &mss, vma->vm_start);
->         smap_gather_stats(priv, vma, &mss, vma->vm_start);
->         smap_gather_stats(priv, vma, &mss, last_vma_end);
->
-> ?
->
-> I usually come back on review very quickly so I don't think this series
-> will be held up with any such change.
->
-> But let me know if you think it's not a good idea technically.
+- asm/kasan.h: remove the dual-entry-point variant of _GLOBAL_KASAN /
+  _GLOBAL_TOC_KASAN / EXPORT_SYMBOL_KASAN that emitted both memset and
+  __memset as entry points to the same assembly. These aliases were only
+  needed so the C KASAN wrappers in shadow.c could call __memset() to
+  reach raw memory ops; with the compiler prefix approach those wrappers
+  are not used for mem* on powerpc.
 
-TBH I don't have strong preference but if you like it this way, it will be =
-done.
-I'll post an update today since I don't think there will be more
-controversial parts. The biggest blunder on my part was the way I
-split patch 3 and 4.
-Thanks for the review!
+- asm/string.h: remove the separate __memset/__memcpy/__memmove symbol
+  declarations and the memset/memcpy/memmove macro redirections for
+  uninstrumented files that were needed on old toolchains. Simplify the
+  CONFIG_KASAN block to just the three #define aliases (still used by
+  shadow.c as raw backends to bypass KASAN checking).
 
->
-> > Thanks,
-> > Suren.
->
-> --
-> Cheers, Lorenzo
+- cputable.c, prom_init.c: the original comments said "use memcpy() so
+  GCC emits __memcpy() under KASAN". The real reason is that these run
+  pre-relocation: the destination pointer is PTRRELOC-adjusted to its
+  current physical address, and the kernel is loaded at a different
+  address than it was linked at. A struct assignment (*t = *s) may cause
+  the compiler to emit an implicit memcpy() call that resolves through
+  the unrelocated virtual symbol address -- before the MMU mapping is set
+  up -- jumping to garbage. An explicit memcpy(t, ...) uses the already-
+  corrected pointer and is safe. Update the comments accordingly.
+
+Reported-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+Closes: https://lore.kernel.org/all/96dae110-f79b-4e54-8a9b-514369019b5d@linux.ibm.com
+Tested-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+---
+Changelog:
+
+V1 -> V2:
+	- Comments reworded
+	- Commit message reworded
+V1: https://lore.kernel.org/all/20260908064948.999530-1-mkchauras@gmail.com
+
+ arch/powerpc/Kconfig              | 10 +++++++---
+ arch/powerpc/include/asm/kasan.h  | 11 -----------
+ arch/powerpc/include/asm/string.h | 21 +--------------------
+ arch/powerpc/kernel/cputable.c    | 14 +++++++++++---
+ arch/powerpc/kernel/prom_init.c   | 10 ++++++----
+ 5 files changed, 25 insertions(+), 41 deletions(-)
+
+diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
+index 2580e27e4328..b27ed9739eea 100644
+--- a/arch/powerpc/Kconfig
++++ b/arch/powerpc/Kconfig
+@@ -7,6 +7,10 @@ config CC_HAS_ELFV2
+ config CC_HAS_PREFIXED
+ 	def_bool PPC64 && $(cc-option, -mcpu=power10 -mprefixed)
+ 
++config PPC_CC_HAS_KASAN_MEMINTRINSIC_PREFIX
++	def_bool (CC_IS_CLANG && $(cc-option,-fsanitize=kernel-address -mllvm -asan-kernel-mem-intrinsic-prefix=1)) || \
++		 (CC_IS_GCC && $(cc-option,-fsanitize=kernel-address --param asan-kernel-mem-intrinsic-prefix=1))
++
+ config CC_HAS_PCREL
+ 	# Clang has a bug (https://github.com/llvm/llvm-project/issues/62372)
+ 	# where pcrel code is not generated if -msoft-float, -mno-altivec, or
+@@ -220,9 +224,9 @@ config PPC
+ 	select HAVE_ARCH_HUGE_VMAP		if PPC_RADIX_MMU || PPC_8xx
+ 	select HAVE_ARCH_JUMP_LABEL
+ 	select HAVE_ARCH_JUMP_LABEL_RELATIVE
+-	select HAVE_ARCH_KASAN			if PPC32 && PAGE_SHIFT <= 14
+-	select HAVE_ARCH_KASAN			if PPC_RADIX_MMU
+-	select HAVE_ARCH_KASAN			if PPC_BOOK3E_64
++	select HAVE_ARCH_KASAN			if PPC32 && PAGE_SHIFT <= 14 && PPC_CC_HAS_KASAN_MEMINTRINSIC_PREFIX
++	select HAVE_ARCH_KASAN			if PPC_RADIX_MMU && PPC_CC_HAS_KASAN_MEMINTRINSIC_PREFIX
++	select HAVE_ARCH_KASAN			if PPC_BOOK3E_64 && PPC_CC_HAS_KASAN_MEMINTRINSIC_PREFIX
+ 	select HAVE_ARCH_KASAN_VMALLOC		if HAVE_ARCH_KASAN
+ 	select HAVE_ARCH_KCSAN
+ 	select HAVE_ARCH_KFENCE			if ARCH_SUPPORTS_DEBUG_PAGEALLOC
+diff --git a/arch/powerpc/include/asm/kasan.h b/arch/powerpc/include/asm/kasan.h
+index a690e7da53c2..d62756b87ba4 100644
+--- a/arch/powerpc/include/asm/kasan.h
++++ b/arch/powerpc/include/asm/kasan.h
+@@ -2,20 +2,9 @@
+ #ifndef __ASM_KASAN_H
+ #define __ASM_KASAN_H
+ 
+-#if defined(CONFIG_KASAN) && !defined(CONFIG_CC_HAS_KASAN_MEMINTRINSIC_PREFIX)
+-#define _GLOBAL_KASAN(fn)			\
+-	_GLOBAL(fn);				\
+-	_GLOBAL(__##fn)
+-#define _GLOBAL_TOC_KASAN(fn)			\
+-	_GLOBAL_TOC(fn);			\
+-	_GLOBAL_TOC(__##fn)
+-#define EXPORT_SYMBOL_KASAN(fn)			\
+-	EXPORT_SYMBOL(__##fn)
+-#else /* CONFIG_KASAN && !CONFIG_CC_HAS_KASAN_MEMINTRINSIC_PREFIX */
+ #define _GLOBAL_KASAN(fn)	_GLOBAL(fn)
+ #define _GLOBAL_TOC_KASAN(fn)	_GLOBAL_TOC(fn)
+ #define EXPORT_SYMBOL_KASAN(fn)
+-#endif /* CONFIG_KASAN && !CONFIG_CC_HAS_KASAN_MEMINTRINSIC_PREFIX */
+ 
+ #ifndef __ASSEMBLER__
+ 
+diff --git a/arch/powerpc/include/asm/string.h b/arch/powerpc/include/asm/string.h
+index 1981bd4036b5..72b5c93a2b84 100644
+--- a/arch/powerpc/include/asm/string.h
++++ b/arch/powerpc/include/asm/string.h
+@@ -29,29 +29,10 @@ extern void * memchr(const void *,int,__kernel_size_t);
+ void memcpy_flushcache(void *dest, const void *src, size_t size);
+ 
+ #ifdef CONFIG_KASAN
+-/* __mem variants are used by KASAN to implement instrumented meminstrinsics. */
+-#ifdef CONFIG_CC_HAS_KASAN_MEMINTRINSIC_PREFIX
++/* Used by mm/kasan/shadow.c as raw backends to bypass KASAN checking. */
+ #define __memset memset
+ #define __memcpy memcpy
+ #define __memmove memmove
+-#else /* CONFIG_CC_HAS_KASAN_MEMINTRINSIC_PREFIX */
+-void *__memset(void *s, int c, __kernel_size_t count);
+-void *__memcpy(void *to, const void *from, __kernel_size_t n);
+-void *__memmove(void *to, const void *from, __kernel_size_t n);
+-#ifndef __SANITIZE_ADDRESS__
+-/*
+- * For files that are not instrumented (e.g. mm/slub.c) we
+- * should use not instrumented version of mem* functions.
+- */
+-#define memcpy(dst, src, len) __memcpy(dst, src, len)
+-#define memmove(dst, src, len) __memmove(dst, src, len)
+-#define memset(s, c, n) __memset(s, c, n)
+-
+-#ifndef __NO_FORTIFY
+-#define __NO_FORTIFY /* FORTIFY_SOURCE uses __builtin_memcpy, etc. */
+-#endif
+-#endif /* !__SANITIZE_ADDRESS__ */
+-#endif /* CONFIG_CC_HAS_KASAN_MEMINTRINSIC_PREFIX */
+ #endif /* CONFIG_KASAN */
+ 
+ #ifdef CONFIG_PPC64
+diff --git a/arch/powerpc/kernel/cputable.c b/arch/powerpc/kernel/cputable.c
+index 6f6801da9dc1..233b5c650d1e 100644
+--- a/arch/powerpc/kernel/cputable.c
++++ b/arch/powerpc/kernel/cputable.c
+@@ -36,8 +36,12 @@ void __init set_cur_cpu_spec(struct cpu_spec *s)
+ 
+ 	t = PTRRELOC(t);
+ 	/*
+-	 * use memcpy() instead of *t = *s so that GCC replaces it
+-	 * by __memcpy() when KASAN is active
++	 * Use memcpy() instead of *t = *s because t is a PTRRELOC-adjusted
++	 * pointer and this code runs before the MMU mapping is established.
++	 * A struct assignment is a compiler-generated aggregate copy whose
++	 * implementation is not under our control in relocation-sensitive code;
++	 * memcpy() ensures the adjusted pointer is explicitly passed to the
++	 * copy routine.
+ 	 */
+ 	memcpy(t, s, sizeof(*t));
+ 
+@@ -55,7 +59,11 @@ static struct cpu_spec * __init setup_cpu_spec(unsigned long offset,
+ 
+ 	/*
+ 	 * Copy everything, then do fixups. Use memcpy() instead of *t = *s
+-	 * so that GCC replaces it by __memcpy() when KASAN is active
++	 * because t is a PTRRELOC-adjusted pointer and this code runs before
++	 * the MMU mapping is established. A struct assignment is a
++	 * compiler-generated aggregate copy whose implementation is not under
++	 * our control in relocation-sensitive code; memcpy() ensures the
++	 * adjusted pointer is explicitly passed to the copy routine.
+ 	 */
+ 	memcpy(t, s, sizeof(*t));
+ 
+diff --git a/arch/powerpc/kernel/prom_init.c b/arch/powerpc/kernel/prom_init.c
+index eb9f556b0937..d6d7f1ede319 100644
+--- a/arch/powerpc/kernel/prom_init.c
++++ b/arch/powerpc/kernel/prom_init.c
+@@ -1363,10 +1363,12 @@ static void __init prom_check_platform_support(void)
+ 				       "ibm,arch-vec-5-platform-support");
+ 
+ 	/*
+-	 * First copy the architecture vec template
+-	 *
+-	 * use memcpy() instead of *vec = *vec_template so that GCC replaces it
+-	 * by __memcpy() when KASAN is active
++	 * First copy the architecture vec template. Use memcpy() instead of
++	 * a struct assignment because this code runs before the MMU mapping
++	 * is established. A struct assignment is a compiler-generated
++	 * aggregate copy whose implementation is not under our control in
++	 * relocation-sensitive code; memcpy() ensures the adjusted pointer
++	 * is explicitly passed to the copy routine.
+ 	 */
+ 	memcpy(&ibm_architecture_vec, &ibm_architecture_vec_template,
+ 	       sizeof(ibm_architecture_vec));
+-- 
+2.55.0
+
