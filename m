@@ -1,111 +1,90 @@
-Received: from r3-19.sinamail.sina.com.cn (r3-19.sinamail.sina.com.cn [202.108.3.19])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E47FC33ADBA
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:01:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC2931280D
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:02:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789135297; cv=none; b=XhFKW8bkgD2gkC/x/CfhLdHq8zivfQacKR8+OYpxN8mJ0hQ0rHEM+8zNqvQ3dIwqvJSTsuzaaLbZKLraGsP+4EVPbAq/h/jOMPjfCag8j5vOBxJaqwVQNO5vF32ClUXP9r6jqmLxmUkdBqHrlANXVjVnPGj4C3z9wMAK4W9R79Q=
+	t=1789135364; cv=none; b=BF5O6GFVzNPeGpvXdbNZJKujPJVoFKU51kAU+cxu/Z62amEEORDI+YMzYeyx3V5JnexAyVSq0mOo2Kt6MA4pc8zLYB0+KjZjyeru6fnm78dxBbboqfCnLPndbWtLV+OMIZYTNt0lGha65baddYIdGEgDrFp4zKd1AmRPNjrNr2w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789135297; c=relaxed/simple;
-	bh=WQemfS3+YoWxOOn1vLjyJiveqV4wGefGNjV15zTnag8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Q5pDNUl9IUCLFCmhaxci1WID1gmCg86Y64t05hutMt+vIhKf9aKAm1TPnRqPjanFGWtQG7/tThPLahX7hj4eg3a7IHyTKTPrCrk1nGa2ZhRvxFWw8LJIwIGd3qhJ3FfNn6rZsqetlbM2P0JXOOihXXNbJ0iT725Qjx8net82dXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=l9HWZSW4; arc=none smtp.client-ip=202.108.3.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	s=arc-20240116; t=1789135364; c=relaxed/simple;
+	bh=6Gq9Fg5fGNniGN6Q9vzeVbYZVZ/i6ytIu1tFK3r46U0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l/tlx5AUKl0ZDT7iyJPsybzaV4COMz4hr6AgmO/AHun1N43OEwpVwjJBs4NIRM5lUzzydrsZff3dym9nBRQokT1MoFBlt9Xq4Q3HhUbBMhy3iXrVFTT9nRQGBCEPS98RyQqKQ1KiqMUZuO55N/cdjVOGcj1oPoXPQKpTqQvx5D4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=i+Dr5a4H; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="l9HWZSW4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1789135292;
-	bh=A1Al0oEmi9FS/HMks3AVF9haopiQhso4aa3qva+SAhQ=;
-	h=From:Subject:Date:Message-ID;
-	b=l9HWZSW4v8WYVuRmBS3vzcD6uMDtXLXFRyEGeZej5n+RoZDCDzmZ1CWihRwy3bnrU
-	 e+WmnOa5p21rY/V7BaH426MKp+sTQmx2iUiQDt7vGwEhNvm89w7WIRta4nJg4vmAEj
-	 wSczow/RKOH+3xYS7J0RI2suTCVDqdmeng0n5PV8=
-X-SMAIL-HELO: lxu-ped-host..
-Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
-	by sina.com (10.54.253.32) with ESMTP
-	id 6AA409AA00002A27; Fri, 11 Sep 2026 22:01:21 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 1090394456897
-X-SMAIL-UIID: 2B13AABE8E51442BB04E11A10E795460-20260911-220121-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: eadavis@sina.com
-Cc: amarkuze@redhat.com,
-	ceph-devel@vger.kernel.org,
-	idryomov@gmail.com,
-	linux-kernel@vger.kernel.org,
-	sage@newdream.net,
-	slava@dubeyko.com,
-	syzbot+1dbed5969931c19d3eb5@syzkaller.appspotmail.com,
-	syzkaller-bugs@googlegroups.com
-Subject: [PATCH v2] ceph: reject create client if no monitor
-Date: Fri, 11 Sep 2026 22:01:14 +0800
-Message-ID: <20260911140114.864756-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260911135718.864217-1-eadavis@sina.com>
-References: <20260911135718.864217-1-eadavis@sina.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="i+Dr5a4H"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789135361;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6Gq9Fg5fGNniGN6Q9vzeVbYZVZ/i6ytIu1tFK3r46U0=;
+	b=i+Dr5a4H+AijEYxqPqviga14Gmr6fk/9ydzFdgyTxjd2Ac0Yx3CrwNoESL/TWHzicK4CcV
+	+DzI6xT/c130BbML3G+vZnzSeELCsXg8j7K/p0FhS/XjY93v8tRXj0AdeiD7biw3D4pIdv
+	3DOkVtpcNgwB8q9JF8Aft/crCnQ6rv8=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-463-DTkhKYAkO86coK8mNnLO4w-1; Fri,
+ 11 Sep 2026 10:02:36 -0400
+X-MC-Unique: DTkhKYAkO86coK8mNnLO4w-1
+X-Mimecast-MFC-AGG-ID: DTkhKYAkO86coK8mNnLO4w_1789135353
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 065CF1954225;
+	Fri, 11 Sep 2026 14:02:33 +0000 (UTC)
+Received: from fedora (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id C91A3195608D;
+	Fri, 11 Sep 2026 14:02:29 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Fri, 11 Sep 2026 16:02:32 +0200 (CEST)
+Date: Fri, 11 Sep 2026 16:02:28 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, Hyunwoo Kim <imv4bel@gmail.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>,
+	Alan Stern <stern@rowland.harvard.edu>
+Subject: Re: [patch V3 8/8] posix-timers: Handle exit in do_exit() completely
+Message-ID: <aqQJ9JMK-p9JGUaJ@redhat.com>
+References: <20260911090341.949101445@kernel.org>
+ <20260911090541.947206186@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260911090541.947206186@kernel.org>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-During the resolution of monitor addresses, the failure to resolve the
-server name [1] resulted in no available monitors (i.e., the num_mon
-value in ceph_options was 0).
+On 09/11, Thomas Gleixner wrote:
+>
+> From: Thomas Gleixner <tglx@kernel.org>
+>
+> Now that POSIX CPU timers cannot be enqueued on a task after PF_EXITING is
+> set and process wide timers cannot be enqueued when PF_EXITING is set and
+> the last thread in the group is exiting, it is possible to mop up POSIX
+> timers in do_exit() completely.
+>
+> This requires to cancel an eventually pending POSIX CPU timer task work
+> right there because do_exit() invokes exit_task_work() later, which would
+> be acting on torn down data.
 
-This triggered the issue [2] when joining the Ceph cluster.
+> Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+> ---
+> V3: Don't touch pending posix timer work on exec() - Oleg
 
-Before creating the client, if the number of monitors specified in the
-options is invalid, the client creation process is aborted.
-
-[1]
-libceph: resolve '127.0.0.' (ret=-3): failed
-
-[2]
-kernel BUG at net/ceph/mon_client.c:211!
-Call Trace:
- ceph_monc_open_session+0x46/0x60 net/ceph/mon_client.c:534
- __ceph_open_session+0x135/0x590 net/ceph/ceph_common.c:798
- ceph_real_mount fs/ceph/super.c:1173 [inline]
- ceph_get_tree+0xd98/0x1fd0 fs/ceph/super.c:1362
-
-Fixes: 16725b9d2a2e ("ceph: super.c")
-Reported-by: syzbot+1dbed5969931c19d3eb5@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1dbed5969931c19d3eb5
-Tested-by: syzbot+1dbed5969931c19d3eb5@syzkaller.appspotmail.com
-Signed-off-by: Edward Adam Davis <eadavis@sina.com>
----
-v1 -> v2: unified email address
-
- fs/ceph/super.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/fs/ceph/super.c b/fs/ceph/super.c
-index 72935f665f11..0f20d6c5e4bd 100644
---- a/fs/ceph/super.c
-+++ b/fs/ceph/super.c
-@@ -818,7 +818,11 @@ static struct ceph_fs_client *create_fs_client(struct ceph_mount_options *fsopt,
- 					struct ceph_options *opt)
- {
- 	struct ceph_fs_client *fsc;
--	int err;
-+	int err, num_mon;
-+
-+	num_mon = opt->num_mon;
-+	if (num_mon == 0 || num_mon > CEPH_MAX_MON)
-+		return ERR_PTR(-EINVAL);
- 
- 	fsc = kzalloc_obj(*fsc);
- 	if (!fsc) {
--- 
-2.43.0
+Reviewed-by: Oleg Nesterov <oleg@redhat.com>
 
