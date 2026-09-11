@@ -1,63 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010018.outbound.protection.outlook.com [52.101.201.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9F25343893;
-	Fri, 11 Sep 2026 15:24:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789140288; cv=none; b=TybxbMv9bOfX34ZBuo0dkEOCJKkqw6l5QGMp259TkBaxBAWzGQw4cMr0w7TpKiqggZ8O6pIjYQ6znd73fdHCqU5/7/ICc6GvX93IPw/Olctkjw566ntxgYu/lGXKH1BPjY9RTvDWfntGiK/sW7/xr+smGBFZKaXJGhKaNwkbUk8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789140288; c=relaxed/simple;
-	bh=V2O6WzAnESLr2yQYCHfHE1ZXxxdBZXybjVOKTI8Lba0=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=IMJpm0YDZ5tFihJSNpHIHCRyJeChAZc083hZTK5MaWaR6n2/8Jayvzo+/zsHT7wh+RGrDshTP925rIuhZjnMLIn81Uvnh6Ft/96sIUgd3zrroCk0T4VfD+rbCQxlrs0+T0q6IftxPZ2t9qF6B8yr59SB9XVm6Ct3GX4qyDin4Ts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HNY20cTd; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F1A2377AB1
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:24:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789140298; cv=fail; b=INbWk6jcPST08JtnylOXpvBreSabr6yY3WiHGkGJkdgzopUimn7YQliG67FxEkjdy3ehheiEGKJbEcZa9KXFhFq4so9vxwh6m7rHc+Om/0S05cbDpQQSWzpwFqEPWHtXlpbksqz+XUQ4dRLY0BN55b7KahM4xPeTMQZYSJ3421M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789140298; c=relaxed/simple;
+	bh=dQrDdKj144O1jlanI/kTlVq7OoYL8kHbU1RcDVqqL0Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=bO1DINP8NULQ1YyguwvVG10OkA35v7Us5NqF61J3WnPjCQe6I5K4x8rjbBr8Ago2FzFUgIfW9pidwnGHOQVbLuUTFJwN5O339TU3RTE6zSvKVwoqkHtCm80GSoJjzbcu0yE8imkjOoZAgSR0YXEGl/x5YLhlu/xbPXsw1EisHa0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=AunyIOZQ; arc=fail smtp.client-ip=52.101.201.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HNY20cTd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 446B71F00898;
-	Fri, 11 Sep 2026 15:24:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789140286;
-	bh=bZFG8hjbQ+crUPEETSshlmuaHxthzD4ir6qFk7vMToU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=HNY20cTdtvcezDKmNDdYYOM5gfOse0+zpyanFKy9EDvycPV3TleOTXH8yqDMwDNN9
-	 9m1FHkmK2uT+vnhNn/KNtFp5vsPeyRKfK8rxOPYvpqcEjK8IX4JGjoZeTfwxwJdzcl
-	 33+T5cwQecsxggTw7DAwaVQVFbuu14B/e/8kH0gyoRtME0WqdTLkrzudXOHzZnwPrk
-	 xkxWVtkE9gmOzF9F1a7vnZ+kiVS56KllgqytUxClcQqod3mN7Ry94iIti8KSeqavS5
-	 idBweRrwHk4Nw1YEUiGBTniW4/wUw9SK4p1RILWqBamz6I3IJ2fjUQfJLiLntGA1jB
-	 qaEE0w9SWOu5Q==
-Date: Fri, 11 Sep 2026 05:24:45 -1000
-Message-ID: <664afc289472acecc783762fdf7a9baa@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Qiurong Fang <fangqiurong@kylinos.cn>
-Cc: sched-ext@lists.linux.dev, David Vernet <void@manifault.com>,
- Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>,
- Emil Tsalapatis <emil@etsalapatis.com>, linux-kernel@vger.kernel.org,
- tj@kernel.org
-Subject: Re: [PATCH v2] sched_ext: Close the pre-enable ops error claim window
-In-Reply-To: <20260911024256.125287-1-fangqiurong@kylinos.cn>
-References: <20260910084533.2420199-1-fangqiurong@kylinos.cn>
- <20260911024256.125287-1-fangqiurong@kylinos.cn>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="AunyIOZQ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VmLXTNFFRj/fJ+c2FeE5V3vr2Iken3svugoJDuek5ucc/0q1kZLO0MiMh3/Ar1QgglbVeq8R3vCKCuDtfHAjeI2hFnOgnC/uDPyjIUfWyLSd6prcQ2CNWgEwY8RkJgZBgCM9vopEeSWkL6X9XZghsT7XswX7BYWRP1XqEwETHMQVFQpM2m44SXBbWotHmRjAn+N9TKMvNYL1u2JfxKqIxQYZWHiL8tiQPm7odq/aofNPnv5lpaZm63LUOvIdcvGZBKxkSItmDtf1BX2YWXiSD/OR1xuedrqwehDDeSWxR60MEyZTkaiG89iY9FALDJz4fqiPhnSKl5lThD/1/gaMhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Er1DCqmVi6rnDTQqo5M90hh0iC3zHAVclOpDEVMa+co=;
+ b=sXZsEX9gZqGjITSD+lNrwrgUWc/F5iSyjRsJUuzDs5Imy6DNH3G6htYL/zp2BDT86Z0KDvyZITWc5OcKBhcFmyw97GBQ5MYdduqjQSg3qpz7gi1GOKsdYFPiAQxbwlTQ01vRrqiHSfaEfTf6U6XZBst4rO6m7Z1vxQoMCtONeONfgZzFmue0J+EERdL7yj3G4w+RxZdDsTz1EM8kc+qxtN1LeReuh0W1ckhNYoCO9eKnjpUBhILI46WzOvU3Uv+KnljbjxxtyJe7oWVOrFhh2i2QxoskPGp+DSNgrp0KoeougE8bKRZX7jxGL/3s3pQjAO4SKk1UKY0YS0QHGV4DuQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Er1DCqmVi6rnDTQqo5M90hh0iC3zHAVclOpDEVMa+co=;
+ b=AunyIOZQgEBhtl9Wn/DYE0e4gEk6BNG99ns51MZvn3M5p4fu6kWh3+PZGKjm5TNNeqF0n1qnhuVmnb0n5xl5mzNezHnVrU6YS76pRS+P0WVJGz89RAZbXmJ4baUxPIIwLVQBBWUtwcWwRPIKhhrKjgnpRMfrgzl06BbI/krE660=
+Received: from PH8P223CA0001.NAMP223.PROD.OUTLOOK.COM (2603:10b6:510:2db::32)
+ by DS0PR12MB8367.namprd12.prod.outlook.com (2603:10b6:8:fd::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 15:24:50 +0000
+Received: from SA2PEPF00003AEB.namprd02.prod.outlook.com
+ (2603:10b6:510:2db:cafe::66) by PH8P223CA0001.outlook.office365.com
+ (2603:10b6:510:2db::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.10 via Frontend Transport; Fri,
+ 11 Sep 2026 15:24:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF00003AEB.mail.protection.outlook.com (10.167.248.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Fri, 11 Sep 2026 15:24:49 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 11 Sep
+ 2026 10:24:49 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Fri, 11 Sep 2026 10:24:48 -0500
+Message-ID: <2e8a565e-a204-6833-3bcf-9220508e2903@amd.com>
+Date: Fri, 11 Sep 2026 08:24:48 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V1 1/2] accel/amdxdna: Disable BO import via flink
+Content-Language: en-US
+To: Max Zhen <max.zhen@amd.com>, <ogabbay@kernel.org>,
+	<quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
+	<mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
+CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
+References: <20260902180955.3999242-1-lizhi.hou@amd.com>
+ <8a526163-0762-4be4-a827-b2c11fef5959@amd.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <8a526163-0762-4be4-a827-b2c11fef5959@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003AEB:EE_|DS0PR12MB8367:EE_
+X-MS-Office365-Filtering-Correlation-Id: 77216d8e-69c9-46e4-d5df-08df1018d1cf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|36860700016|82310400026|10067099003|22082099003|18002099003|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	2W57Cn+EDg4zPsWEoKH4/rqGzeY2g0fJvNoANVqxHaKYcS1YNI9VJkexItV1DfCAN6/JyM+n3SUhLZRDvTcmyIEa6pouG7zhdU0fUNmNrM6rMwML7rr87wHvikl288w47WTggRwE7mtAhLC2OR8zFiRQkq+eGAl/Xv82GSkoZ3BJVr7RoJrikQUmJj/2WvCz5ht9tWmVr3HAs187FG2QcUSmwMGgYObGAborHugVKDgJ3YyjvP1IU8voGK797KEsVR6qcY23igNTJG7YOzKHSYDShM19lXZScVOImMWgVSkLtQWXDs9T7J5E5tXbLrU7JUcu95URHCWjBuovNelugQQCGHXD/miq5vF9bQpZN9fcZchL6bgQMjucclf7AwcbXoYZsJbMuna0lluKOjFd9RXETZATHh/TI7ZirPB2rojPAIhs31DfTLVfS74N1Zh6DdblXwnUTZV4uoogtPeH00ZUISBCNv68TV63z+tkJ7NonwoL2LM+WO7AG07qdsWp8tNlbutV602LVev1ubrwIxM9TcbyzTdDE9dv2232CUvfjTvXPu7FCKqXcnlF3PqC16/zJlqc/m3DFdxBmgkN8l22si/efhT8T0T31aU0kgGYSJ0U1Sfka97chHBhAurk6Ikg4mmMTfY18CUAD84cizZB9o8tKw7xyMuWCelsVEy966SzodwKYBcCI9/GRuaWQOvop5927kGFf503Nu/jrQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(36860700016)(82310400026)(10067099003)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	vzNzPI+O0cCH15i8GGWFyOCArqfrvcd21iKNgu1bQmXOF4Ec5a8mxasBheCv4zpeN+sM+12FlYpC9b2vA4kV6KQMZJNkro5slfB9rMljDWfkCkd/Ahz0wX3Me8CdcBTAKEAOw9xfFaCgCmoQfXwg2JnG/+00WHmQNJBCWCBlO0t2KaAnLZXLe8WuB99Iy/CqjXoaZIvOJdMzctPnK8jbpOJprAP6dKH5VHftkuz6mb0kXUoQP9aw+9Q/KdG8aDgcEtP9iPPyq+8UoeQ8GX5GaiS2BNZTygp8kjROGwsoqaC13GsOvDRa7oa4tVb4PKNeXY9p+YnLLabF6j+RDer+8exiiQqOC81W1DNIPZ3O72DXWMM286fN31kTAmBEDlChOzxs+VPj4449VzF/fFV+72aMXaEKqQ8puRwG2xHesWsJpffnX7FIEv59z4ewUXF2
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 15:24:49.4595
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77216d8e-69c9-46e4-d5df-08df1018d1cf
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF00003AEB.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8367
 
-Hello, Qiurong.
+Applied to drm-misc-next
 
-On Fri, Sep 11, 2026 at 10:42:56AM +0800, Qiurong Fang wrote:
-> +		scx_tryset_enable_state(SCX_DISABLED, SCX_ENABLING);
-
-All allocation failures precede ops->priv publication, so no disable can
-race here and the state must still be SCX_ENABLING. Please use:
-
-        WARN_ON_ONCE(scx_set_enable_state(SCX_DISABLED) != SCX_ENABLING);
-
-Please also update the moved comment. Allocation failure still unwinds
-locally. Full disabling on failure applies only after
-scx_alloc_and_add_sched() succeeds.
-
-Thanks.
-
--- 
-tejun
+On 9/2/26 11:48, Max Zhen wrote:
+>
+>
+> On 9/2/2026 Wed 11:09, Lizhi Hou wrote:
+>> Accessing abo->client in amdxdna_gem_del_bo_usage() may result in a
+>> use-after-free when the BO is imported via flink.
+>>
+>> Disable flink import by verifing that filp->driver_priv matches the 
+>> client
+>> stored in abo->client before accessing the client.
+>>
+>> Fixes: 3cc5d7a59519 ("accel/amdxdna: Add carveout memory support for 
+>> non-IOMMU systems")
+>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+> Reviewed-by: Max Zhen <max.zhen@amd.com>
+>> ---
+>>   drivers/accel/amdxdna/amdxdna_gem.c | 2 ++
+>>   1 file changed, 2 insertions(+)
+>>
+>> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c 
+>> b/drivers/accel/amdxdna/amdxdna_gem.c
+>> index 476649685e5a..1353393194e2 100644
+>> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+>> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+>> @@ -697,6 +697,8 @@ static int amdxdna_gem_obj_open(struct 
+>> drm_gem_object *gobj, struct drm_file *fi
+>>       int ret;
+>>         guard(mutex)(&abo->lock);
+>> +    if (abo->open_ref > 0 && filp->driver_priv != abo->client)
+>> +        return -EPERM;
+>>       abo->open_ref++;
+>>       if (abo->open_ref > 1)
+>>           return 0;
+>
