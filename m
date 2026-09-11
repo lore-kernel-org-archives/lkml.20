@@ -1,122 +1,138 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.12.53.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44D5647605B
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:33:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF7CD46AA60;
+	Fri, 11 Sep 2026 12:34:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.12.53.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789130025; cv=none; b=GxEpb0W9IkBLQfX7fsj71saUwwQQv55Y6cJ3GTKv1ETTWA/2qbLqk/R0sgCLVXjiTcmdVIfr1fIIRaKLRW6mPn4tcQJevjvt56Yit+XY8ZRmLQvBM3JVlZ0dcBCGFkpxtQxPYKI7Rt9kMrVV+22G1vIH2U7EpfmghURi6+vILVM=
+	t=1789130076; cv=none; b=KRLZ6914IhBYNZwGqueHmadBeGVz52NLHJTwG0f8eoFdllJ44SLsDJR+yU8GA0iCv6Xly8GbG1YTkdQrAsV5WP18DmS45eoFlVJRLZbzi4Ss58AuXDz9duEVIx9GuVf4qiuyiP292qn+3zUYgrCg4DqDE3FZA5ZqvCINyo6toWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789130025; c=relaxed/simple;
-	bh=W1BT5wLV5UACWU59maDhG8w3WFFvnU7ZUpjM8vM/QNY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=REpKtGvaWahd1yT7CVK6LtMr5KSprW4z5QK/xVvokG7fN7UBcFmnYvTnDTB0oZ+Jq3WMTqAUUkV7R/xiOrnBF6qi9Z3wCl3aNt76P5yUG6fBOmd6FNhHsQm5BGtTpVXbdJFm3ViSHQm3SB22S/VDzgXDC8H7drsbwBdajAaWETI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=16DnCVCF; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789130076; c=relaxed/simple;
+	bh=cmspiYdTEUA6pGHUuwd7h1loRX0CIRxqktQS3CmMLoI=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BPuyNRENq8UJR8xqx9UQO6rpBhtJqVdZ/Tt4Kz1uRLcLJ8Szap8k+LSk1pwoRSRsp6RIXPuIatz2W0RtOZwZo4b1WtiQ7eRf2Oct62IHl9uLxIW6Nj1wdwLc2PZ/NBJTDTOoEStzweV1SC+3eb7fmJXMp187j+zk5M2BosYs+xo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=optqVINp; arc=none smtp.client-ip=52.12.53.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="16DnCVCF"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 610B01A01B0;
-	Fri, 11 Sep 2026 12:33:41 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2033E601DE;
-	Fri, 11 Sep 2026 12:33:41 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 57C8411C7AFA8;
-	Fri, 11 Sep 2026 14:33:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789130016; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=8yy5zNv8/frc4Fc0jGFJfjDkAWKZuVZtLGLeGk49jBk=;
-	b=16DnCVCFtBW4gV4TVQQqvP3Gq9ICfkIWVX2W2DYsCVeoO8ZjC2tB2M4dafoGRugsfLX2vQ
-	1x+z4BL9WCTbq6cQdh2WuXmVb9yYUzrE53EkDSttVlzKJ3lvPe99LoaEHwmPqgAbnbfvRt
-	qe8wcu/jvdGnELCeWC3B9F6OTLUgccQmmwGKyU1FJ+mPCzs2fInaUrOyrZMnmr4DuCJ0fv
-	Hw+tqRJdLVX7KMyUqRylTS67R4AxKA9sW4/5mSEo09F4noJRAx0M7YG/Rm1Z2TBV8c3/nN
-	4Kekxa+nXPvtIc9n8Tkbyp+Zeq9E0B9oVGbYZEGG+9XLjWlXyQd1/Bnjk17H5w==
-From: =?UTF-8?B?QmVub8OudA==?= Monin <benoit.monin@bootlin.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Frank Li <Frank.Li@kernel.org>, imx@lists.linux.dev,
- dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH v9 2/2] dmaengine: fsl-edma: Support dynamic scatter/gather
- chaining
-Date: Fri, 11 Sep 2026 14:33:34 +0200
-Message-ID: <oBv7yd-8ShCSaD2GFjIzIg@bootlin.com>
-In-Reply-To: <aqMqaaDRKHzZObJE@lizhi-Precision-Tower-5810>
-References:
- <20260909-fsl-edma-dyn-sg-v9-0-60bb2e678e8f@bootlin.com>
- <20260909-fsl-edma-dyn-sg-v9-2-60bb2e678e8f@bootlin.com>
- <aqMqaaDRKHzZObJE@lizhi-Precision-Tower-5810>
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="optqVINp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1789130074; x=1820666074;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=TtB3+ZqqigKPMCEU3NIGj/FC5xLnLRZnxg1hSDBeBgU=;
+  b=optqVINpGpbjNAwMpGcawgo4mvXrafOxx0oedHj62ETScRgdho84pSmT
+   4znE5BWZv9C2s7NexK8tlYKEFnQOdMebaBmAh5sNiuzWv2xYJ50V1cj0Q
+   HqH3d+P9tzp2tSo47ydq0b4gbR3FoPnVK8Vz68d8QFZ4SLF6NNCPiMpZ2
+   mGcNEsCcp/1+NauJ9eKkA9cwbkojXFCUkPa0YfNMoGF2iDalrUt7wQrSj
+   R9VGcDdMjQtk1H2EJrYpaWFOGQcW8DKJ46nft5cTOL2tTHZoDutGyj1Ex
+   BtobLzC1v/eIcn4vQOUHDQ53KtLGgvZLlCT9gyWPEzQ/s5wWFqvOxXpC5
+   g==;
+X-CSE-ConnectionGUID: V8kWbUZpS0uhb04BY/Kk5g==
+X-CSE-MsgGUID: ZOhDAvsiSRaGYYP42HgeRg==
+X-IronPort-AV: E=Sophos;i="6.27,97,1787011200"; 
+   d="scan'208";a="28294073"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 12:34:34 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.234:3959]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.6.93:2525] with esmtp (Farcaster)
+ id 48290a84-2435-4cd0-b88c-3197c072d08d; Fri, 11 Sep 2026 12:34:34 +0000 (UTC)
+X-Farcaster-Flow-ID: 48290a84-2435-4cd0-b88c-3197c072d08d
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
+ Fri, 11 Sep 2026 12:34:33 +0000
+Received: from dev-dsk-sakacpav-1a-480d1124.eu-west-1.amazon.com
+ (172.19.96.155) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Fri, 11 Sep 2026
+ 12:34:31 +0000
+From: Pavol Sakac <sakacpav@amazon.de>
+To: Bjorn Helgaas <bhelgaas@google.com>
+CC: <linux-pci@vger.kernel.org>, <linux-kernel@vger.kernel.org>, David Matlack
+	<dmatlack@google.com>, =?UTF-8?q?Ilpo=20J=C3=A4rvinen?=
+	<ilpo.jarvinen@linux.intel.com>, =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?=
+	<kwilczynski@kernel.org>, Kees Cook <kees@kernel.org>, Madhavan Srinivasan
+	<maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin
+	<npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
+	<linuxppc-dev@lists.ozlabs.org>, Niklas Schnelle <schnelle@linux.ibm.com>,
+	Benjamin Block <bblock@linux.ibm.com>, Lukas Wunner <lukas@wunner.de>, "Ionut
+ Nechita" <ionut.nechita@windriver.com>, <nh-open-source@amazon.com>
+Subject: [RFC PATCH 8/8] PCI: Probe inline from node-local workqueue workers
+Date: Fri, 11 Sep 2026 14:34:29 +0200
+Message-ID: <20260911123429.11491-1-sakacpav@amazon.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260911-vfopt-s1-v1-0-693271dc0226@amazon.de>
+References: <20260911-vfopt-s1-v1-0-693271dc0226@amazon.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D032UWB004.ant.amazon.com (10.13.139.136) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Friday, 11 September 2026 at 00:08:41 CEST, Frank Li wrote:
-> > +      /* Link the SG descriptors with the available identifiers */
-> > +      list_for_each_entry_safe(vdesc, tmp, &fsl_chan->vchan.desc_submi=
-tted, node) {
-> > +              if (++issued_count > FIELD_MAX(EDMA_TCD_CSR_LINKCH))
-> > +                      break;
-> > +              fsl_edma_link_sg(fsl_chan, to_fsl_edma_desc(vdesc));
-> > +              list_move_tail(&vdesc->node, &fsl_chan->vchan.desc_issue=
-d);
->=20
-> If this happen, it will depend on DONE irq to queue left desc_issued to
-> hardware tcd? So there are idle gap?
->=20
-> I think it is fine, less possible longer than 31. I just want to confirm
-> if my understand is correct.
->=20
-Yes, only 31 descriptors get linked at most, to make sure that we never get
-the same link_sg_id twice in the issued queue. So we always know which
-descriptor to handle in the end of transfer interrupt.
+pci_call_probe() dispatches each probe with queue_work_on() to a
+housekeeping CPU of the device's node, except where it already probes
+inline. A VF added by one of the preceding node-placed async VF-add
+workers already executes on its device's node, so the dispatch buys it no
+locality: it funnels every VF probe through the single CPU
+cpumask_any_and() elects and re-serializes the parallel enable at the
+probe step.
 
-If we have more descriptors, their last TCD keep the D_REQ flag, and they
-are handled one by one as we are doing today with a "stop-and-start" of the
-channel.
+Call local_pci_probe() directly when the caller is a workqueue worker
+(PF_WQ_WORKER) whose current CPU is on the device's node and in the same
+HK_TYPE_DOMAIN housekeeping mask the dispatch elects from. The gate is
+not VF-specific: any probe already running in a node-local housekeeping
+kworker takes it, while a probe from a task that is not a worker keeps
+the dispatch.
 
-[...]
-> > +#define FSL_EDMA_DRV_EDMA3    (FSL_EDMA_DRV_SPLIT_REG |               \
-> > +                               FSL_EDMA_DRV_BUS_8BYTE |               \
-> > +                               FSL_EDMA_DRV_DEV_TO_DEV |              \
-> > +                               FSL_EDMA_DRV_ALIGN_64BYTE |            \
-> > +                               FSL_EDMA_DRV_CLEAR_DONE_E_SG |         \
-> > +                               FSL_EDMA_DRV_CLEAR_DONE_E_LINK |       \
-> > +                               FSL_EDMA_DRV_CSR_LINKCH)
-> >
-> > -#define FSL_EDMA_DRV_EDMA3    (FSL_EDMA_DRV_SPLIT_REG |       \
-> > -                               FSL_EDMA_DRV_BUS_8BYTE |       \
-> > -                               FSL_EDMA_DRV_DEV_TO_DEV |      \
-> > -                               FSL_EDMA_DRV_ALIGN_64BYTE |    \
-> > -                               FSL_EDMA_DRV_CLEAR_DONE_E_SG | \
-> > -                               FSL_EDMA_DRV_CLEAR_DONE_E_LINK)
-> > -
-> > -#define FSL_EDMA_DRV_EDMA4    (FSL_EDMA_DRV_SPLIT_REG |       \
-> > -                               FSL_EDMA_DRV_BUS_8BYTE |       \
-> > -                               FSL_EDMA_DRV_DEV_TO_DEV |      \
-> > -                               FSL_EDMA_DRV_ALIGN_64BYTE |    \
-> > -                               FSL_EDMA_DRV_CLEAR_DONE_E_LINK)
-> > +#define FSL_EDMA_DRV_EDMA4    (FSL_EDMA_DRV_SPLIT_REG |               \
-> > +                               FSL_EDMA_DRV_BUS_8BYTE |               \
-> > +                               FSL_EDMA_DRV_DEV_TO_DEV |              \
-> > +                               FSL_EDMA_DRV_ALIGN_64BYTE |            \
-> > +                               FSL_EDMA_DRV_CLEAR_DONE_E_LINK |       \
-> > +                               FSL_EDMA_DRV_CSR_LINKCH)
->=20
-> Can you avoid move \ in this patch to reduce difference.
->=20
-Ok, I will revert that change and resend.
+Assisted-by: LLM
+Signed-off-by: Pavol Sakac <sakacpav@amazon.de>
+---
+ drivers/pci/pci-driver.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-Best regards,
-=2D-=20
-Beno=C3=AEt
-
+diff --git a/drivers/pci/pci-driver.c b/drivers/pci/pci-driver.c
+index e16aa59dd7ac..f5e12a5044cf 100644
+--- a/drivers/pci/pci-driver.c
++++ b/drivers/pci/pci-driver.c
+@@ -392,6 +392,22 @@ static bool pci_physfn_is_probed(struct pci_dev *dev)
+ #endif
+ }
+ 
++static bool pci_probe_inline(int node)
++{
++	/* The CPU is a placement hint; an unstable raw read is fine. */
++	int cpu = raw_smp_processor_id();
++	bool ret;
++
++	if (!(current->flags & PF_WQ_WORKER) || cpu_to_node(cpu) != node)
++		return false;
++
++	rcu_read_lock();
++	ret = housekeeping_cpu(cpu, HK_TYPE_DOMAIN);
++	rcu_read_unlock();
++
++	return ret;
++}
++
+ static int pci_call_probe(struct pci_driver *drv, struct pci_dev *dev,
+ 			  const struct pci_device_id *id)
+ {
+@@ -412,7 +428,7 @@ static int pci_call_probe(struct pci_driver *drv, struct pci_dev *dev,
+ 	 * device is probed from work_on_cpu() of the Physical device.
+ 	 */
+ 	if (node < 0 || node >= MAX_NUMNODES || !node_online(node) ||
+-	    pci_physfn_is_probed(dev)) {
++	    pci_physfn_is_probed(dev) || pci_probe_inline(node)) {
+ 		error = local_pci_probe(&ddi);
+ 	} else {
+ 		struct pci_probe_arg arg = { .ddi = &ddi };
+-- 
+2.47.3
 
