@@ -1,149 +1,139 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13DFB3F075A
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:50:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789152656; cv=pass; b=sXjOJe7Mni7YvuUPU1uNpA3MBPd9hNs1suIMn1sd1f0gp+owuCGptRqaFLKZrIhrEyltA9iZozUhykA8i0TcRyOcsHmxKYpfTb5Lck9waTjKcXbQNUcHhUjrnP0uyAeBfv3Cf3uDU/l2eB2e2hrqWWZqzGivJnARC7vZkYblssY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789152656; c=relaxed/simple;
-	bh=RtqsMSgbSK0DoXzM/jOKS0u9JMf6ypFVGoks8rGZP34=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rjmjsA3N1pjW35RUP+Wjuk83mEvySp6Dv+NJ8ARcVjitbti60gUwZ5Xv/55oEqByFf7V+64dYoMD48E68zkqpEe17wQc2PneMEEDfjROBgNaSkglYTRIQ1i0QZBeJDm+lBN/L1lYUofT7+Gqpc/bD+EF8dyQke0O34eV9PDCWKE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z67J7PON; arc=pass smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A99384CEC;
+	Fri, 11 Sep 2026 18:52:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789152723; cv=none; b=R1UgFDo8N0U0AjGYu4nImTqN3vVsEgFTUvpwvSnNT6SC6ECsFtiIVmykYlJP38HS2nlKfzYw8G5xWYQjWyTpdruEFJYDI31HYD+L58iTWYDwnSOMi2XCaS2d5oDI7AwELnripgOu1FCMVgWl+LZCTiLAXxXSdYLUx5P9WGI0GME=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789152723; c=relaxed/simple;
+	bh=YoLZdHfYUDKZiIGuPobJ+qdjxlZ5L36ikQj4ePDQMOo=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=XJT8+5ajrPbcr0we89U2IrNO8EW8fesamep4DINOSPqC+VA2ilbEANEwHRkY3wvHtpwr/yLBYWYE3+wdCsyR9f54XWmgCWMC8uN8oUjYBBGpeRoFka1KuuNpExh2KofQOOR6U7SF5TErC3W0jApKp82SrH7Tuq92LxxvaeQLZ8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FqeRJbUT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z67J7PON"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b1fso36772966b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:50:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789152653; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LjO5OxieizXFAqemTK705KANwbZ70emtSQmK6gr1GQTUBN8gVpov2SE3ZZWN43wSuk
-         Wx5LJBv44SzYHQQ+X2S8YiwK9MiSqDza80E8V2LuTuZPTNt5sCjAs427KYoiSGWi42dm
-         EN95YxbOnzUSpA/B70WbBW4RI+T1amIBQokceVKXOKHjeMZF6gKFHY07KzdLyZ/swB9R
-         EYXxnY/Ly0ij26NiZ91tUduCpMVOzPLA14f0YoDZishxU2UHDOQK8Gg9OLpqNGvpxmg6
-         +XZiFzVKuXflajzuiAnPhE5SeY5Q94RGL02i2wsKwcnvgD9W7vhu4SI7pug89BXZFHpH
-         kgog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ypEeHjBqTijbQav3RLhdA7zJA9N6dFormi6rhg8jlO0=;
-        fh=pYFAhle4iqpNOF8XX+TcyQxhIXuTOjl/JMjqQRyX2uY=;
-        b=pPs++a5brVJYufgvlZKfWEm3TyHnqVck6Y/7DK1bvVQG7C4yJnplP76K+fjKqD64mV
-         QMxlaOsTBcXC8YGOibJezummaxkGxbeszTeyAtXwYkODS5aph/JitapQaURujvRphYHv
-         oIm0rSrEZTXmYAocTBx7cnRr+BmfFka9eZ0S266TZZWAFwO+U/FDJtXJlMqfCjAyVFaN
-         VsB35RaYaoHBqWhS999qnCoXA9ytqdvY4TcpLl2v209UBuiZbZE7CWJTvho7OosFgKzm
-         WNsYm5VEyKusHyQvFin9wsF9lZbXXgS8M8AfoSATLEwcniA4krU01fzBm4tMZ9wCgh69
-         lsbw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789152653; x=1789757453; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ypEeHjBqTijbQav3RLhdA7zJA9N6dFormi6rhg8jlO0=;
-        b=Z67J7PONtf4j90DVRuIUDXP1J+SojR1pWnezXkF8esU1lwCUc/BQMoBFPuBwRrCJdO
-         xjpH53Y+SYsEL74cXMUEhjqb7wCR1tYlsWRuTsp1LmZclofVXQ2uPBFJ2wpBpkQxbmEH
-         uC6UsLiUaZPuKURFv9rku4t2XjNNSZHtjrQUl0dWix0wm3RCFOGYDrFFfkY1tyx852ip
-         WxNMv8siY3637rcO+OSP/lUPndtusgAvaF7Mt528SW4fwE+FFcpJh9WmRk/vwwuOyRSv
-         KrxgpuB9JwK5WnBkVmTisFg8wmlLovMznmAotZG9Ts/RAwI+oq2rffyRXaBhL5bH4KZu
-         tucA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789152653; x=1789757453;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ypEeHjBqTijbQav3RLhdA7zJA9N6dFormi6rhg8jlO0=;
-        b=PgF/egFSOvL3/xyclvJQj/rhesngYGrfEsCjcgKw3OAyQhbY2T95e3v8Zf2H8gbOi+
-         5gwof2iAsiUaff9AL27FhW+aWh/taYvJXB1Mt9tdQxNRVuN2kXIv9qhCD9zyzM47BdMn
-         4dPv04rI/8HJeEacRI+qbPlJQVEfgjLpcb75/84cdfBqC97S+XESw2cyVPJtD0S4Kv4K
-         P3ig2wLslkhiCAQWtEnQjAX9fj6r8bR+G+9oXcPytQlTr0nQT4qrwgz5b3CWMa3g42RT
-         Jo3JiHbqVf3LJy0vfb9tzRxyIJ2SkAwopnFc4JhxI731F707QTIjyBJXtM5xB83OzZAs
-         jv7A==
-X-Forwarded-Encrypted: i=1; AKwUvBxLujHBi5C0QUzCjs78TWyZ4ipKDc1ercnXTdXHhSqDZ4IJcvq2I8T+1sT9o8w8hvqg5zKiISNo82SQ6uE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lPr6K8cTXW5234C+fl8opj/P7r1fpRH+cQeW5IAimhFgMPpv5A
-	ATEXYPA0V2jK6lT+DSfGwApT1+h/HRylbmiph45akeR9LY5uxglM5WBrkz0eFpGp9veNs6QggGh
-	hNEQBkk8vmxjAgQnRquc7AQCfr3xNsXk=
-X-Gm-Gg: AYBFou2C1p1EWN5vgR9F4qMFI2/MnTA7kWakIevv28wGtz+8d6nYynibv+5BT+ULJZw
-	vpVRLH+hPedEeEGGtT+EvGPqRdme8t7kzuwPweQken0IMODO+gWU2p51H9aTQ33mwMaxUhNrfpF
-	cc/68aOBzD77k1ijQ5ts+1IqW85/I4sTtPZcehB2QtR1fnIgVudEGQSeOcOL/UYNkumyDSMFRwm
-	F+ghSmhiDRUfa5rEwbHGCe4LPyYRGb1ynhgYAVuo8glkgFCkqeUWvbJCwRJiSsPh63VXlapqJfL
-	J6eS0McEduGMxOanfIqLIQD14o654pQXoq+6H5JCelvGwlWBHVhnSfhapPHPr3FDXQXYPhfENg/
-	/IbDnxHVSTcxHHsRTl0Ca+PoqNg0fc8XnOnIEQqHu854hdc0Y1ik6FG5Z9hgYuEuKhu/EI82Sxf
-	i2wZNo/M6sdUAejhp8GXG+oIDyEl/1VrHYoTkYel9Tu3oBUrUM77PMLRauYBtkRkEK+httfs0HD
-	MEX
-X-Received: by 2002:a17:907:7211:b0:c29:53ba:a4cd with SMTP id
- a640c23a62f3a-c29666f90fdmr483569066b.11.1789152653082; Fri, 11 Sep 2026
- 11:50:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FqeRJbUT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06D021F000FF;
+	Fri, 11 Sep 2026 18:51:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789152721;
+	bh=f+6ZKOGA5YsWao0IZpyUtgeHVx3PC7VhFf0ZEGNQZEQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=FqeRJbUTusOhaF3FxbHXBlx0xahvf/t5pupE20JZMKOksidM+p0ZSjfrbP+FJgeaa
+	 AsZRQZXtJ7MaqgKfqMFmYdWzg+sVFNfFQY1EEm5Nvohr/nJ+C7rH9xGImeoZL4YlaJ
+	 1wJzy1KbEB5Ml0s/bNmupwS/voFm+yndaJLKl+FljX9t8VCzXic+nrmXzsLcdzo4gf
+	 4PNY/L5IWi+qSVvQdsVqlvSkfEDpA2BSsRgNsYFV9udYLaS5/PCF+M+pBMpcw/2YRy
+	 uP/fxkFp0RSLwbz0c7s/aMHQR857xF9G1ca4WwGoJf6dQNR5wyHrAYzG8MGTMzdpqH
+	 lOE6mvWQg4G5g==
+Subject: Re: [PATCH RESEND net-next v17 01/10] net: phy: phy_link_topology:
+ Add a helper for opportunistic alloc
+From: netdev-bot+sashiko@kernel.org
+To: maxime.chevallier@bootlin.com
+Cc: davem@davemloft.net, andrew@lunn.ch, kuba@kernel.org, edumazet@google.com,
+ pabeni@redhat.com, linux@armlinux.org.uk, hkallweit1@gmail.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ thomas.petazzoni@bootlin.com, christophe.leroy@csgroup.eu,
+ herve.codina@bootlin.com, f.fainelli@gmail.com, vladimir.oltean@nxp.com,
+ kory.maincent@bootlin.com, kabel@kernel.org, o.rempel@pengutronix.de,
+ nicveronese@gmail.com, horms@kernel.org, mwojtas@chromium.org,
+ romain.gantois@bootlin.com, daniel@makrotopia.org,
+ dimitri.fedrau@liebherr.com, frank.wunderlich@linux.dev, p.ameruoso@live.it
+Date: Fri, 11 Sep 2026 18:51:59 +0000
+Message-ID: <178915271948.219967.6044042768895968016@kernel.org>
+In-Reply-To: <20260910170103.1029108-2-maxime.chevallier@bootlin.com>
+References: <20260910170103.1029108-2-maxime.chevallier@bootlin.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910001209.116465-1-rosenp@gmail.com> <6a65465e-f860-434f-9dad-59d9538c97b8@broadcom.com>
- <CAKxU2N-DJS+ZotHsgami8pc2tnC2+V3nL4JZrqgf=rpTpFHNEA@mail.gmail.com>
-In-Reply-To: <CAKxU2N-DJS+ZotHsgami8pc2tnC2+V3nL4JZrqgf=rpTpFHNEA@mail.gmail.com>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Fri, 11 Sep 2026 11:50:42 -0700
-X-Gm-Features: AcwNN1UBWpQbvDkHrDHhG5kJOPM-dImHVyKgKakwlCkD2k7qVSn-bXfs2dvbyzk
-Message-ID: <CAKxU2N_Z9OHUx4LBmxU+8GZ3_vFYTVuCt04P4XwjyfkRBZ8AOQ@mail.gmail.com>
-Subject: Re: [PATCHv2] ARM: dts: BCM5301X: AC56U: add nvram node
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: devicetree@vger.kernel.org, Hauke Mehrtens <hauke@hauke-m.de>, 
-	=?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"moderated list:BROADCOM BCM5301X ARM ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, 
-	open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 10, 2026 at 11:56=E2=80=AFAM Rosen Penev <rosenp@gmail.com> wro=
-te:
->
-> On Thu, Sep 10, 2026 at 9:46=E2=80=AFAM Florian Fainelli
-> <florian.fainelli@broadcom.com> wrote:
-> >
-> > On 9/9/26 17:12, Rosen Penev wrote:
-> > > Add it and set for gmac0, which is the only GMAC used on this board.
-> > >
-> > > nvram size found from a random bootlog online.
-> > >
-> > > Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> > > ---
-> > >   v2: fix typo.
-> > >   .../boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts    | 14 +++++++++++=
-+++
-> > >   1 file changed, 14 insertions(+)
-> > >
-> > > diff --git a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts b/a=
-rch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
-> > > index c80ac16ad949..9ab618a097b1 100644
-> > > --- a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
-> > > +++ b/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
-> > > @@ -25,6 +25,15 @@ memory@0 {
-> > >                     <0x88000000 0x08000000>;
-> > >       };
-> > >
-> > > +     nvram@1c080000 {
-> > > +             compatible =3D "brcm,nvram";
-> > > +             reg =3D <0x1c080000 0x180000>;
-> >
-> > Why is not the nvram node moved to bcm5301x.dtsi given it is common to
-> > all of the chips?
-> To avoid probe errors on hardware where sizes are unknown.
-I looked at this again. It makes no sense to centralize:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-+       nvram@1c080000 {
-+               compatible =3D "brcm,nvram";
-+               reg =3D <0x1c080000 0x180000>;
+Critical: 0 · High: 0 · Medium: 0 · Low: 1
 
-The reg and @ values are correct here but not for all devices. There's
-also nvram@1e3f0000 and nvram@1e1f0000 as examples.
-> > --
-> > Florian
+- [Low] The comment added to phy_link_topo_get_or_alloc()
+  (drivers/net/phy/phy_link_topology.c:38-51) justifies the lock-free…
+
+--
+
+net: phy: phy_link_topology: Add a helper for opportunistic alloc
+
+This moves the opportunistic allocation of struct phy_link_topology out of
+phy_link_topo_add_phy() into a new helper, phy_link_topo_get_or_alloc(),
+which returns the existing topology or allocates one, reporting failures
+via ERR_PTR().
+
+> diff --git a/drivers/net/phy/phy_link_topology.c b/drivers/net/phy/phy_link_topology.c
+> index 4134de7ae313d..0462283c80202 100644
+> --- a/drivers/net/phy/phy_link_topology.c
+> +++ b/drivers/net/phy/phy_link_topology.c
+> @@ -28,11 +28,39 @@ static int netdev_alloc_phy_link_topology(struct net_device *dev)
+>  	return 0;
+>  }
+>  
+> +static struct phy_link_topology *phy_link_topo_get_or_alloc(struct net_device *dev)
+> +{
+> +	int ret;
+> +
+> +	if (dev->link_topo)
+> +		return dev->link_topo;
+> +
+> +	/* The topology is allocated the first time we add an object to it.
+> +	 * It is freed alongside the netdev. It can be called on multiple
+> +	 * contexts:
+> +	 *  - It can be called from .probe() : No rtnl, no netdev_lock
+> +	 *  - .ndo_open() : rtnl and possibly netdev_lock
+> +	 *  - SFP state machine : rtnl held or not
+> +	 *
+> +	 *  However, we can't really have races :
+> +	 *  - If we have a PHY, phy_link_topo_add_phy() will always run first
+> +	 *    and trigger the alloc. Only then the ports can be added through
+> +	 *    phylib or sfp.
+> +	 *  - If we don't, the SFP port for the cage is registered first, and
+> +	 *    only then other ports/PHYs can be registered.
+> +	 */
+
+[Severity: Low]
+This isn't a bug, but the new comment in phy_link_topo_get_or_alloc()
+reasons about objects that don't exist yet at this commit.
+
+At this point struct phy_link_topology only tracks PHYs:
+
+include/linux/phy_link_topology.h:
+	struct phy_link_topology {
+		struct xarray phys;
+		u32 next_phy_index;
+	};
+
+and there is no phy_link_topo_add_port(), so "Only then the ports can be
+added through phylib or sfp" and "the SFP port for the cage is registered
+first" have no counterpart in the tree at this commit.
+
+Would it read better to move that part of the comment to the follow-up
+patch that adds the ports xarray, next_port_index and
+phy_link_topo_add_port()/phy_link_topo_del_port()?
+
+For the record, this resolves itself later in the series: the next patch,
+"net: phy: phy_link_topology: Track ports in phy_link_topology", adds the
+ports xarray and the port add/del helpers that call
+phy_link_topo_get_or_alloc(), so by the end of the series the comment
+matches the code.
+
+> +	ret = netdev_alloc_phy_link_topology(dev);
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> +
+> +	return dev->link_topo;
+> +}
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260910170103.1029108-1-maxime.chevallier%40bootlin.com
