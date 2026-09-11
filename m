@@ -1,165 +1,98 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2DBEB38425B;
-	Fri, 11 Sep 2026 04:32:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481F3338939
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 04:33:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789101153; cv=none; b=c69XcI3bQVnoZnDVDPVJsnD89hcw29AvXBNl5wqhfH2Wnz4DZY01NOntrkobWu3CquUsAu1+mtXnnVp372EZgTNFcVxkyURcih4YP2OgGI5rAYXi6pdB3enQSG08JMmb1qxhiheLE6IsWvsG1QmQvagcC7mVsCt0T1YQk0g0FWI=
+	t=1789101208; cv=none; b=IjSmMN5ZmpfH5722x1WDVqx6AokJ8t02Z0dlb5uLOZwbytC6f2VhAhszuWeDbzgLAxrNz5VS0nGo1kbYkE8uzUGK4snS0mG+9x4gDseFw7XOtdu8NJnXov0irpcJgbVYzHfSxvvdaJWThCTNzTr8p7H7J1xf0ZDbpPCKR5GF62o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789101153; c=relaxed/simple;
-	bh=6nIY7vDGZl1HSYvtDHEzSpFXJFmf/2f+RPP48FA6xjQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u+pcNdHtjvMj7EKDD/ds/hOfvh8jn+ClFDtNiZGQFVk8Uobv2Xl9lYFt19X9L2VeumdCGsCkx1q5nD5Y4IuWB6NtcyTEjhfr9Uq1ZUz9WFCYIw/aV+FCc4F/0fe7+QPS9R/1AGFssBDo8xQuGAY/cJ4QHECiDONIGveb6HB4Brc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Xmrwydqh; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Xmrwydqh"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 75BDC1BCA;
-	Thu, 10 Sep 2026 21:32:25 -0700 (PDT)
-Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F2D773F7B4;
-	Thu, 10 Sep 2026 21:32:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789101149; bh=6nIY7vDGZl1HSYvtDHEzSpFXJFmf/2f+RPP48FA6xjQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=XmrwydqhBZ/vf1ECBYZqTArXWHBOiLel894SB9CwN4Xy7DofCaJ+zOog4ySBEP7Hz
-	 4KhKGUpFRrxfJZ2ULqbeOunH7b0q2UHOnOjSo+TkHoCHono2PP0xtQpCYja39Rnbls
-	 4gcwvzdWSOE2J6vNY9m5bsFQyw5Lpa2MPLdctktg=
-Message-ID: <f7416ebc-f897-4c9b-8266-6aa7c9fd5473@arm.com>
-Date: Fri, 11 Sep 2026 10:02:19 +0530
+	s=arc-20240116; t=1789101208; c=relaxed/simple;
+	bh=M0vpayOJusPZNC5TxT6ZBVxJWPK9fbSc3dLYXof4CcY=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=qdJDF8ZM9DUPsmNTWhnWBqnfNbDPyH9fXhZ+sC7pGgFzHH7SQMd9u4baLouDW6oLrLUGRFFoBLlK/fWt+1hi+7JyMPiymv0xcXqza732Zqb/dQ6B7fUpmvtFrQ+PrPcCMfEFG/3RFVvbuZXuRlynAHFWq9YsFnuphlysRQ3jGnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6b1a3f01d2aso707522eaf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:33:27 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789101206; x=1789706006;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NhICgvIzJELQ84zwtgc/jRZJI7hwENPGveWeZp0zBhI=;
+        b=ZyCR571VCS1a2ig+YnhA4qQnm+LWo8EvLNzPqOAXtn4Y7pRCqoHZdw54puX9PnC6DE
+         nDM5QLi+LlGPgKgC+a1PXwTikipXdLBkdVtTN9AwoZivEex5Q0fUoC5Iy595/brmxJ8p
+         OkSRICz2eZwfv0dJolaA27X2oqiOx7JQkDyjDk3UVuvZ4L9uFGl0cMtMwSLlhHOZ5fMt
+         dr1lp6DYnHgaq3szTOyBCTKlJ7RfY37XvYmt7QLM16Kig0IuTm22Sk6THxecriyIRMGM
+         xRDCWlECxCYvgjHzq1jO6K2f6N6KK2ob0WOP6qxOSXt0OSb6HZ7wd9ORPW8beynWvB98
+         E71g==
+X-Forwarded-Encrypted: i=1; AKwUvBxNA3h9Lp1fR7RRiPyr4SNg7q8u3Oe0n3tn2h7gfKltBlnlNF+XqCyXLcwdpkw0FwXRrjm9UXj7OUX+6RY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbhmkoBu9yImSICuYSVkxPmJedrcYm9yarKwsFczPXXkc7WpO5
+	bavLmnN4J1K9EuPtCeSWfxsmyvIR6LVTK7AS5brBwVvE9vbQF3pGDyj3ARfRDDjk1wS10nv+AW4
+	Xi+gdk1FSZOWK9TedzZmx4VN3XFniG/1XFqzUTuE8OrfeovGImqufUoTM060=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 6/6] selftests/mm: add a GUP selftest
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
- Shuah Khan <skhan@linuxfoundation.org>, Jonathan Corbet <corbet@lwn.net>,
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Mark Brown <broonie@kernel.org>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Muhammad Usama Anjum <usama.anjum@arm.com>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260904123631.198697-1-sarthak.sharma@arm.com>
- <20260904123631.198697-7-sarthak.sharma@arm.com>
- <b0400430-c3b6-40d5-b476-49189b1cc292@kernel.org>
- <5e0b9365-cbac-4f2d-b915-85edf3093508@arm.com>
- <fadb8870-37f8-46f4-aefb-c21bc3a31e5b@kernel.org>
-Content-Language: en-US
-From: Sarthak Sharma <sarthak.sharma@arm.com>
-In-Reply-To: <fadb8870-37f8-46f4-aefb-c21bc3a31e5b@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6820:1849:b0:6b1:4cb:39ec with SMTP id
+ 006d021491bc7-6c0ba244d68mr1614687eaf.12.1789101206230; Thu, 10 Sep 2026
+ 21:33:26 -0700 (PDT)
+Date: Thu, 10 Sep 2026 21:33:26 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa38496.6e6c5f9e.28f11f.003e.GAE@google.com>
+Subject: [syzbot] Monthly ext4 report (Sep 2026)
+From: syzbot <syzbot+listf3145eb1fa111ea03ab9@syzkaller.appspotmail.com>
+To: linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi David!
+Hello ext4 maintainers/developers,
 
-On 9/9/26 10:33 PM, David Hildenbrand (Arm) wrote:
->>> BTW, I was wondering what it would take to:
->>>
->>> 1) Turn mm/gup_test.o into an OOT module (would we need more EXPORT_SYMBOL_GPL?
->>> EXPORT_SYMBOL_FOOR_MODULE ?)
->>>
->>> 2) Move it to tools/mm/modules or sth like that.
->>>
->>> 3) Build it with the selftests etc
->>>
->>> 4) Remove GUP_TEST
->>>
->>> 5) Try insmod'ing it from the tools+selftests that need it.
->>
->> This is an interesting change. We can keep this open for discussion
->> here. If required, I can work on this in the future.
-> 
-> Yes, we should in general try moving all test modules out of the core.
-> 
->>>
->>>> +int main(int argc, char **argv)
->>>> +{
->>>> +	char *file = "/dev/zero";
->>>> +	int fd;
->>>> +
->>>> +	fd = open(file, O_RDWR);
->>>> +	if (fd < 0) {
->>>> +		ksft_print_header();
->>>> +		ksft_exit_fail_msg("Unable to open %s: %s\n", file, strerror(errno));
->>>> +	}
->>>> +	close(fd);
->>>
->>>
->>> I'm confused. Why do we have to open+close /dev/zero?
->>
->> This is a pre requisite check. Every test opens and closes /dev/zero and
->> /sys/kernel/debug/gup_test of its own. So I wanted to check before
->> running the harness if these two are available, so that we don't have
->> setup failures for 60 test cases.
-> 
-> But why /dev/zero? We should understand why that would possibly be required.
+This is a 31-day syzbot report for the ext4 subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/ext4
 
-This was carried over from the old test, where /dev/zero was the default
-backing for mmap unless the user selected another file to back the
-mapping. Now since we don't support file backed mappings, we can
-directly use MAP_ANONYMOUS here. Thanks for pointing it out, I'll remove
-it from this patch.
+During the period, 3 new issues were detected and 1 were fixed.
+In total, 39 issues are still open and 184 have already been fixed.
+There are also 8 low-priority issues.
 
-> 
->>
->>>
->>>> +
->>>> +	fd = open(GUP_TEST_FILE, O_RDWR);
->>>> +	if (fd == -1) {
->>>> +		ksft_print_header();
->>>> +		if (errno == EACCES)
->>>> +			ksft_exit_skip("Please run this test as root\n");
->>>
->>> Wouldn't we want to fail here?
->>
->> mm selftests normally skip if the test is not run as root. So I tried
->> keeping the same thing here. Do you think I should change it to fail?
-> 
-> If other tests do that, it's fine!
-> 
-> [...]
-> 
->>>
->>> BTW, why are we using HUGETLB_TARGET_SIZE instead of just using the
->>> default_huge_page_size()?
->>
->> HUGETLB_TARGET_SIZE is the target mapping size and
->> default_huge_page_size() gives the size of a single hugetlb page.
->>
->> Using default_huge_page_size() would reduce coverage for 2MB hugetlb
->> pages. The old test set self->size to be 256 MB for the hugetlb case.
->>
->> Now it was discussed in a previous version of this patchset that we can
->> derive the self->size for hugetlb case by fixing the nr_hugepages and
->> multiplying by hugetlb size, and thought 128 would be a good number for
->> nr_hugepages [1].
->>
->> But in case the hugetlb pages are very large, eg we can have 1 GB
->> hugepages as well, reserving 128 GB is not a good idea. So I tried to
->> keep the target size of the mapping as 256 MB, as it was before in the
->> old gup test. If the hugetlb pages are larger than this, we'll reserve
->> only one of them. Else, we'll reserve (256 MB /
->> default_huge_page_size()) hugetlb pages, which comes out to be 128 for
->> the case of 2MB hugetlb pages.
-> It's odd that 2M gets better test coverage than 512M or 1G.
-> 
-> Is there really a lot of value in testing 128 2M pages? Would, like, 2 already
-> be good enough?
+Some of the still happening issues:
 
-Yup, seems like keeping 128 pages is not adding an extra value. I'll go
-with 2 hugetlb pages to test both pinning within a hugetlb page and
-across the hugetlb boundary. This would make things a lot simpler.
+Ref  Crashes Repro Title
+<1>  21100   Yes   possible deadlock in ext4_writepages (2)
+                   https://syzkaller.appspot.com/bug?extid=eb5b4ef634a018917f3c
+<2>  7962    Yes   KASAN: out-of-bounds Read in ext4_xattr_set_entry
+                   https://syzkaller.appspot.com/bug?extid=f792df426ff0f5ceb8d1
+<3>  4881    Yes   kernel BUG in ext4_do_writepages
+                   https://syzkaller.appspot.com/bug?extid=d1da16f03614058fdc48
+<4>  2502    Yes   possible deadlock in ext4_xattr_set_handle (7)
+                   https://syzkaller.appspot.com/bug?extid=f0b58a1f5075a90dd9a5
+<5>  228     Yes   WARNING in ext4_iomap_begin (3)
+                   https://syzkaller.appspot.com/bug?extid=626aa13bf52efc3aa86e
+<6>  82      Yes   WARNING in ext4_mb_load_buddy_gfp
+                   https://syzkaller.appspot.com/bug?extid=fd3f70a4509fca8c265d
+<7>  16      Yes   INFO: task hung in ext4_write_end
+                   https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
+<8>  3026    Yes   INFO: task hung in sync_inodes_sb (5)
+                   https://syzkaller.appspot.com/bug?extid=30476ec1b6dc84471133
+<9>  481     Yes   kernel BUG in ext4_mb_use_inode_pa (2)
+                   https://syzkaller.appspot.com/bug?extid=d79019213609e7056a19
+<10> 111     Yes   WARNING in ext4_journal_check_start (2)
+                   https://syzkaller.appspot.com/bug?extid=b75d75f957975f3d40e3
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
