@@ -1,227 +1,415 @@
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FEB838B7D1
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:09:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=183.62.165.209
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8928B3F0773
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:10:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789114200; cv=none; b=YGedII/PgJ+hAv8HXPMbTr95UUrrvaocu9ZaRRLCpU0L3EMMwv4/dbfAGygrHEpQRe91AnFxuIn5faRkIZr+Tm/IiG9VYTcMVrTVSKNELxCS9RS67pXUCrH0CMU01d1mBe3poMkMd0U3r7CqQ6snrWBqLZRfd74WrNvjNh8lsG0=
+	t=1789114244; cv=none; b=KboFtE3PSNrPty8n8ZzFmGqQRlCpsjI7Dj4wMBhpzHSLdZU3NktTSn2jpI89xQtjBJpmtOoEid+H3QjODVEmFVTee9W8xXqY8LhKq0lpO/MITTM+ObQb65dBHNBO5cLSIdwp5MFtoW0jerrMIuvleecmR3+G8ELDCLjhZld3zpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789114200; c=relaxed/simple;
-	bh=W6HeEpQNY03uVRRnRjbY7FH/Z/LeZzURBhcyKL8iNrk=;
-	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type; b=m/h4k3NRX5mR+AAkgO6Zo52ZNO8ri4zC5mA8LI04xkF2tb8qKt0p9Q9CVjPdF+hHI9CTMLg6fsuru953W0PemCEjy1iSSIUbQaXLkDGUJRsAOGxBNs5BhfcyZhv3eGs1QFXF2flUMR0VVL4q0NzOkfZvt5hMdwhc/em1ryOG56g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=183.62.165.209
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4hh6f24N3gz58fdY;
-	Fri, 11 Sep 2026 16:09:46 +0800 (CST)
-Received: from xaxapp04.zte.com.cn ([10.99.98.157])
-	by mse-fl1.zte.com.cn with SMTP id 68B89dvq051060;
-	Fri, 11 Sep 2026 16:09:39 +0800 (+08)
-	(envelope-from xu.xin16@zte.com.cn)
-Received: from mapi (xaxapp04[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Fri, 11 Sep 2026 16:09:42 +0800 (CST)
-X-Zmail-TransId: 2afb6aa3b746af2-9faf8
-X-Mailer: Zmail v1.0
-Message-ID: <20260911160942109wy2iDTGJslK6rHl8E56si@zte.com.cn>
-In-Reply-To: <20260911160421076_KNXun8Mpp9Xj7fxHG0i7@zte.com.cn>
-References: 20260911160421076_KNXun8Mpp9Xj7fxHG0i7@zte.com.cn
-Date: Fri, 11 Sep 2026 16:09:42 +0800 (CST)
+	s=arc-20240116; t=1789114244; c=relaxed/simple;
+	bh=Hjn5D/KsOBnj/6SzCxyIYYhw+PVj8k1aY5xVPxRy8fU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Uzm7WhugrW4mt50O+1onVO5IjKZDy3ekZ34RH6FAETFcNZ7hGP1LL0UwN8TmmTkvXyzomzx5BtfgGDReQxp4Yd+1cQcaDNMp1wserB+YFN7J+CJwlnkbqFlsqLIlFzLLeeDwCFn1QdhFa/SCOVfx30Xmk7go97aQ4LYYWEQkV/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZbSaRGsg; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZbSaRGsg"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d942c7cc2fso5491045ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:10:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789114242; x=1789719042; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=u7Qx43bG49fe/sQM/Uno0+GUNPMxqPw+3RuQb5XIhZY=;
+        b=ZbSaRGsg0uy8OyWI0eaD4sFkSEjXwwdqd1vAMgV7+/wRZJT1TrnYhrekDZDX7BWTv5
+         CIyDUFXi+nD06MLoDz/Q6tLgw6iU2smgX9Ry+vPrwLJ9akCorBX9yo1wYNDJJUOwav9k
+         mYKjdJc6f5mD1inlCWZP+fttco/RZB5/6Y9barqDg2oqZGaQbysMuRPCZj3eebMVnp1G
+         GAOm6lTWuu+rkJyIe5uyzMMFilHUqvgjx4upbvCoOcl4u/hHEQeeTkUnhRIREVB/JA42
+         9l5MPjh7JZOwcmNQGUSBAQ3ghqpVpj5T7McaKskg+kbMimrCVTBMEpVyhZt1QFGzjADQ
+         2OsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789114242; x=1789719042;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=u7Qx43bG49fe/sQM/Uno0+GUNPMxqPw+3RuQb5XIhZY=;
+        b=coEaETVGwrxED4JJ9haTr2/mI7GRwW+HsxJeNg7E5uHTg4VYTIBo8BOjNt2DeBJH9D
+         sxnJIN3MNH+m+Pclb8CJYUhKNDic+GcTC8mq54XvxoNpig8c9Bb/gTQd1ZdWbxFdDkep
+         H7d9xIntPXnRfMSqMvi7SyoFbMsILToqGrOaJ3ULoiBRLQQ+gTIB8hKgw933BSQswwVk
+         0n5s5JKqdGvZrI3Secatn4fyqE705USxqLeE8AZWKdn74Pcxg4iMZQqwy0OnZF8WE5yH
+         GAtCKqgyPTQAZcajXNrwybn/gzXV7+5Ip1Q8hjm8gBmZkyhBomIScKNJKpL6mgtc/NLr
+         7TLg==
+X-Forwarded-Encrypted: i=1; AKwUvByUaeLCNJaREI28mGaNb5cSk5Pz0NyevWDEfXR81xL4idWe27JvryF9L4hwCbJkfMm6LIz8LU+CpO4mLCM=@vger.kernel.org
+X-Gm-Message-State: AFuF++m/szWJemvPo39oyIReZhaAREeKYo8RQwtXDLenFXMUPZb9JSkK
+	4N1rigrfJkW+JzkvIu+Fp396llGXeVfhQMlOCpVdDS9e8nFEZquXQh8=
+X-Gm-Gg: AYBFou35xCEHpyBSCP4d2cX5LdekHi6WQbS92krtk13Y4QwKMCVhuA7Qb8Nbu+ILGnd
+	Cu3kIxsdVbufEWbIAyDrAQz7rBKy3plEFnzgP3VBbnXIKbQDH0C2L0izfAekk11R9pdxsiJeLQj
+	jzAwkM+kWdWEfWHd5EG4Ty2v+hYvsOF2VR0Uc1H2/Qb2QsLY+DCBfCmVc16THRodSHx3dXEcL1A
+	tXq2gd7O1wyEjYDbx/G92OhZwX8Iddn1RHBhiNT/pzGWSYp1Us6fYagoO8pUWz6Q+7h7m17BPjt
+	zABQqjQsB6AyfvsQEQxnUeRCUIRmTHilU8E96onCdxliqP1B09LxWueGj/qJHIrO6bI3QZ3+lqT
+	0Ns44XMvAMt2mFPt4yrWVRI11PtlrI7jAoDV3kR3DJ1A3STVo4OA4Dk469LLI5twIUKCOXtM9DB
+	RYd5OqRCqKTdPsK4Fu/ejnyXX3OX0s2wX0g7JpY4HKLyV3PCY/9YJyXUk6BNFa3aF6h1FbAB4xW
+	lYYnqaedF4Z
+X-Received: by 2002:a17:90b:3c89:b0:398:ba9e:75ff with SMTP id 98e67ed59e1d1-39d9c35047emr5120013a91.21.1789114241653;
+        Fri, 11 Sep 2026 01:10:41 -0700 (PDT)
+Received: from DL2XHKPB4.dl.net ([103.63.104.162])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d994872e0sm3514967a91.8.2026.09.11.01.10.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 01:10:40 -0700 (PDT)
+From: Triet Hoang <triet.hoang.dev@gmail.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Chanwoo Choi <cw00.choi@samsung.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Tony Lindgren <tony@atomide.com>,
+	mfd@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-omap@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Triet Hoang <triet.hoang.dev@gmail.com>
+Subject: [PATCH v2 RESEND] mfd: Convert to DEFINE_SIMPLE_DEV_PM_OPS()
+Date: Fri, 11 Sep 2026 15:10:22 +0700
+Message-ID: <20260911081022.3475479-1-triet.hoang.dev@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <xu.xin16@zte.com.cn>
-To: <akpm@linux-foundation.org>, <david@kernel.org>, <liam@infradead.org>,
-        <surenb@google.com>, <rppt@kernel.org>, <ziy@nvidia.com>,
-        <baolin.wang@linux.alibaba.com>, <nico.pache@linux.dev>,
-        <dev.jain@arm.com>, <baohua@kernel.org>, <lance.yang@linux.dev>,
-        <chengming.zhou@linux.dev>, <usama.arif@linux.dev>,
-        <gourry@gourry.net>, <harry@kernel.org>, <vbabka@kernel.org>,
-        <peterz@infradead.org>, <borntraeger@linux.ibm.com>
-Cc: <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>
-Subject: =?UTF-8?B?W1BBVENIIDIvNF0gbW06IG1ha2UgZm9saW9fd2Fsa19zdGFydCgpJ3MgbG9ja2luZyBhc3NlcnRzIHNjYWxhYmxl?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 68B89dvq051060
-X-TLS: YES
-X-ENVELOPE-SENDER: xu.xin16@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Fri, 11 Sep 2026 16:09:46 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AA3B74A.000/4hh6f24N3gz58fdY
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Xu Xin (ZTE) <xu.xin@linux.dev>
+Convert the deprecated SIMPLE_DEV_PM_OPS() to DEFINE_SIMPLE_DEV_PM_OPS()
+and pm_sleep_ptr().
 
-Add an additional member 'walk_lock' to folio_walk to indicate
-locking requirements for the walk. Similar to commit 49b0638502da0
-("mm: enable page walking API to lock vmas during the walk").
-But no change is made on any existing locking behavior,
-all existing folio_walk_start() callers are currently still
-under mmap_read_lock() protection.
+This allows us to drop the __maybe_unused annotations from PM callbacks.
+This is a straightforward cleanup with no functional change intended.
 
-This change is prepared for the latter patch to enable VMA locking
-asserts. folio_walk_start now operate under write-locked mmap_lock.
-With introduction of vma locks at the next patch, the vmas have to
-be locked as well during such walks to prevent concurrent page
-faults in these areas.
-
-No functional change intended.
-
-Signed-off-by: Xu Xin (ZTE) <xu.xin@linux.dev>
+Signed-off-by: Triet Hoang <triet.hoang.dev@gmail.com>
 ---
- arch/s390/mm/fault.c     |  4 +++-
- include/linux/pagewalk.h |  1 +
- kernel/events/uprobes.c  |  4 +++-
- mm/huge_memory.c         |  4 +++-
- mm/ksm.c                 |  4 +++-
- mm/migrate.c             |  8 ++++++--
- mm/pagewalk.c            | 10 +++++++++-
- mm/rmap.c                |  4 +++-
- 8 files changed, 31 insertions(+), 8 deletions(-)
+Changes in v2:
+- Change commit message prefix from "drivers/mfd: " to "mfd: ".
+- Wrap to 75 ish chars for commit messages.
 
-diff --git a/arch/s390/mm/fault.c b/arch/s390/mm/fault.c
-index 46d828926009..968f128a5232 100644
---- a/arch/s390/mm/fault.c
-+++ b/arch/s390/mm/fault.c
-@@ -412,7 +412,9 @@ __context_unsafe(/* folio_walk_end() not instrumented */)
- 	unsigned long addr = get_fault_address(regs);
- 	struct mm_struct *mm = current->mm;
- 	struct vm_area_struct *vma;
--	struct folio_walk fw;
-+	struct folio_walk fw = {
-+		.walk_lock  = PGWALK_RDLOCK,
-+	};
- 	struct folio *folio;
- 	int rc;
+Link to v1: https://lore.kernel.org/all/20260821092508.324787-1-triet.hoang.dev@gmail.com/
+Link to v2: https://lore.kernel.org/all/20260829050228.42638-1-triet.hoang.dev@gmail.com/
+---
+ drivers/mfd/iqs62x.c           | 8 ++++----
+ drivers/mfd/max77843.c         | 8 ++++----
+ drivers/mfd/mt6360-core.c      | 8 ++++----
+ drivers/mfd/rk8xx-i2c.c        | 4 ++--
+ drivers/mfd/rn5t618.c          | 8 ++++----
+ drivers/mfd/ti_am335x_tscadc.c | 8 ++++----
+ drivers/mfd/tps6586x.c         | 8 ++++----
+ drivers/mfd/twl-core.c         | 8 ++++----
+ 8 files changed, 30 insertions(+), 30 deletions(-)
 
-diff --git a/include/linux/pagewalk.h b/include/linux/pagewalk.h
-index 1c397be0d092..455428eaf1fc 100644
---- a/include/linux/pagewalk.h
-+++ b/include/linux/pagewalk.h
-@@ -184,6 +184,7 @@ struct folio_walk {
- 	};
- 	/* private */
- 	spinlock_t *ptl;
-+	enum page_walk_lock walk_lock;
- };
-
- struct folio *folio_walk_start(struct folio_walk *fw,
-diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
-index 7709ea882477..054fdcb52136 100644
---- a/kernel/events/uprobes.c
-+++ b/kernel/events/uprobes.c
-@@ -507,7 +507,9 @@ int uprobe_write(struct arch_uprobe *auprobe, struct vm_area_struct *vma,
- 	int ret, ref_ctr_updated = 0;
- 	unsigned int gup_flags = FOLL_FORCE;
- 	struct mmu_notifier_range range;
--	struct folio_walk fw;
-+	struct folio_walk fw = {
-+		.walk_lock  = PGWALK_RDLOCK,
-+	};
- 	struct folio *folio;
- 	struct page *page;
-
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index dd66c6ad5af1..b714677e2f20 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -4795,7 +4795,9 @@ static int split_huge_pages_pid(int pid, unsigned long vaddr_start,
- 	 */
- 	for (addr = vaddr_start; addr < vaddr_end; addr += PAGE_SIZE) {
- 		struct vm_area_struct *vma = vma_lookup(mm, addr);
--		struct folio_walk fw;
-+		struct folio_walk fw = {
-+			.walk_lock  = PGWALK_RDLOCK,
-+		};
- 		struct folio *folio;
- 		struct address_space *mapping;
- 		unsigned int target_order = new_order;
-diff --git a/mm/ksm.c b/mm/ksm.c
-index 624f37975e12..8df66b4e5de0 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -817,8 +817,10 @@ static struct page *get_mergeable_page(struct ksm_rmap_item *rmap_item)
- 	unsigned long addr = rmap_item->address;
- 	struct vm_area_struct *vma;
- 	struct page *page = NULL;
--	struct folio_walk fw;
- 	struct folio *folio;
-+	struct folio_walk fw = {
-+		.walk_lock  = PGWALK_RDLOCK,
-+	};
-
- 	mmap_read_lock(mm);
- 	vma = find_mergeable_vma(mm, addr);
-diff --git a/mm/migrate.c b/mm/migrate.c
-index 15b45832bcfa..fa638adfb0de 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -2302,7 +2302,9 @@ static int add_folio_for_migration(struct mm_struct *mm, const void __user *p,
- 		int node, struct list_head *pagelist, bool migrate_all)
+diff --git a/drivers/mfd/iqs62x.c b/drivers/mfd/iqs62x.c
+index ee017617d1d1..bea1ebdca9e7 100644
+--- a/drivers/mfd/iqs62x.c
++++ b/drivers/mfd/iqs62x.c
+@@ -1015,7 +1015,7 @@ static void iqs62x_remove(struct i2c_client *client)
+ 	wait_for_completion(&iqs62x->fw_done);
+ }
+ 
+-static int __maybe_unused iqs62x_suspend(struct device *dev)
++static int iqs62x_suspend(struct device *dev)
  {
- 	struct vm_area_struct *vma;
--	struct folio_walk fw;
-+	struct folio_walk fw = {
-+		.walk_lock  = PGWALK_RDLOCK,
-+	};
- 	struct folio *folio;
- 	unsigned long addr;
- 	int err = -EFAULT;
-@@ -2464,7 +2466,9 @@ static void do_pages_stat_array(struct mm_struct *mm, unsigned long nr_pages,
- 	for (i = 0; i < nr_pages; i++) {
- 		unsigned long addr = (unsigned long)(*pages);
- 		struct vm_area_struct *vma;
--		struct folio_walk fw;
-+		struct folio_walk fw = {
-+			.walk_lock  = PGWALK_RDLOCK,
-+		};
- 		struct folio *folio;
- 		int err = -EFAULT;
-
-diff --git a/mm/pagewalk.c b/mm/pagewalk.c
-index 7411702a37f5..8eb29fba20ad 100644
---- a/mm/pagewalk.c
-+++ b/mm/pagewalk.c
-@@ -910,7 +910,15 @@ struct folio *folio_walk_start(struct folio_walk *fw,
- 	pgd_t *pgdp;
- 	p4d_t *p4dp;
-
--	mmap_assert_locked(vma->vm_mm);
-+	/*
-+	 * Other locking modes except for mmap or vma read locking are not
-+	 * expected.
-+	 */
-+	if (fw->walk_lock != PGWALK_RDLOCK && fw->walk_lock != PGWALK_VMA_RDLOCK_VERIFY)
-+		WARN_ONCE(1, "walk_lock is not expected!\n");
-+	process_mm_walk_lock(vma->vm_mm, fw->walk_lock);
-+	process_vma_walk_lock(vma, fw->walk_lock);
-+
- 	vma_pgtable_walk_begin(vma);
-
- 	if (WARN_ON_ONCE(addr < vma->vm_start || addr >= vma->vm_end))
-diff --git a/mm/rmap.c b/mm/rmap.c
-index 5fefe5b060b1..fd8e1c9e4424 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -2871,7 +2871,9 @@ struct page *make_device_exclusive(struct mm_struct *mm, unsigned long addr,
- 	struct mmu_notifier_range range;
- 	struct folio *folio, *fw_folio;
- 	struct vm_area_struct *vma;
--	struct folio_walk fw;
-+	struct folio_walk fw = {
-+		.walk_lock  = PGWALK_RDLOCK,
-+	};
- 	struct page *page;
- 	swp_entry_t entry;
- 	pte_t swp_pte;
+ 	struct iqs62x_core *iqs62x = dev_get_drvdata(dev);
+ 	int ret;
+@@ -1036,7 +1036,7 @@ static int __maybe_unused iqs62x_suspend(struct device *dev)
+ 				  IQS62X_PWR_SETTINGS_PWR_MODE_HALT);
+ }
+ 
+-static int __maybe_unused iqs62x_resume(struct device *dev)
++static int iqs62x_resume(struct device *dev)
+ {
+ 	struct iqs62x_core *iqs62x = dev_get_drvdata(dev);
+ 	int ret;
+@@ -1051,7 +1051,7 @@ static int __maybe_unused iqs62x_resume(struct device *dev)
+ 				  IQS62X_PWR_SETTINGS_DIS_AUTO, 0);
+ }
+ 
+-static SIMPLE_DEV_PM_OPS(iqs62x_pm, iqs62x_suspend, iqs62x_resume);
++static DEFINE_SIMPLE_DEV_PM_OPS(iqs62x_pm, iqs62x_suspend, iqs62x_resume);
+ 
+ static const struct of_device_id iqs62x_of_match[] = {
+ 	{ .compatible = "azoteq,iqs620a" },
+@@ -1067,7 +1067,7 @@ static struct i2c_driver iqs62x_i2c_driver = {
+ 	.driver = {
+ 		.name = "iqs62x",
+ 		.of_match_table = iqs62x_of_match,
+-		.pm = &iqs62x_pm,
++		.pm = pm_sleep_ptr(&iqs62x_pm),
+ 	},
+ 	.probe = iqs62x_probe,
+ 	.remove = iqs62x_remove,
+diff --git a/drivers/mfd/max77843.c b/drivers/mfd/max77843.c
+index 2a48577b1a79..9ae6715642ae 100644
+--- a/drivers/mfd/max77843.c
++++ b/drivers/mfd/max77843.c
+@@ -173,7 +173,7 @@ static const struct i2c_device_id max77843_id[] = {
+ 	{ },
+ };
+ 
+-static int __maybe_unused max77843_suspend(struct device *dev)
++static int max77843_suspend(struct device *dev)
+ {
+ 	struct i2c_client *i2c = to_i2c_client(dev);
+ 	struct max77693_dev *max77843 = i2c_get_clientdata(i2c);
+@@ -185,7 +185,7 @@ static int __maybe_unused max77843_suspend(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int __maybe_unused max77843_resume(struct device *dev)
++static int max77843_resume(struct device *dev)
+ {
+ 	struct i2c_client *i2c = to_i2c_client(dev);
+ 	struct max77693_dev *max77843 = i2c_get_clientdata(i2c);
+@@ -197,12 +197,12 @@ static int __maybe_unused max77843_resume(struct device *dev)
+ 	return 0;
+ }
+ 
+-static SIMPLE_DEV_PM_OPS(max77843_pm, max77843_suspend, max77843_resume);
++static DEFINE_SIMPLE_DEV_PM_OPS(max77843_pm, max77843_suspend, max77843_resume);
+ 
+ static struct i2c_driver max77843_i2c_driver = {
+ 	.driver	= {
+ 		.name = "max77843",
+-		.pm = &max77843_pm,
++		.pm = pm_sleep_ptr(&max77843_pm),
+ 		.of_match_table = max77843_dt_match,
+ 		.suppress_bind_attrs = true,
+ 	},
+diff --git a/drivers/mfd/mt6360-core.c b/drivers/mfd/mt6360-core.c
+index b9b1036c8ff4..8a97c30cad3f 100644
+--- a/drivers/mfd/mt6360-core.c
++++ b/drivers/mfd/mt6360-core.c
+@@ -583,7 +583,7 @@ static int mt6360_probe(struct i2c_client *client)
+ 	return 0;
+ }
+ 
+-static int __maybe_unused mt6360_suspend(struct device *dev)
++static int mt6360_suspend(struct device *dev)
+ {
+ 	struct i2c_client *i2c = to_i2c_client(dev);
+ 
+@@ -593,7 +593,7 @@ static int __maybe_unused mt6360_suspend(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int __maybe_unused mt6360_resume(struct device *dev)
++static int mt6360_resume(struct device *dev)
+ {
+ 
+ 	struct i2c_client *i2c = to_i2c_client(dev);
+@@ -604,7 +604,7 @@ static int __maybe_unused mt6360_resume(struct device *dev)
+ 	return 0;
+ }
+ 
+-static SIMPLE_DEV_PM_OPS(mt6360_pm_ops, mt6360_suspend, mt6360_resume);
++static DEFINE_SIMPLE_DEV_PM_OPS(mt6360_pm_ops, mt6360_suspend, mt6360_resume);
+ 
+ static const struct of_device_id __maybe_unused mt6360_of_id[] = {
+ 	{ .compatible = "mediatek,mt6360", },
+@@ -615,7 +615,7 @@ MODULE_DEVICE_TABLE(of, mt6360_of_id);
+ static struct i2c_driver mt6360_driver = {
+ 	.driver = {
+ 		.name = "mt6360",
+-		.pm = &mt6360_pm_ops,
++		.pm = pm_sleep_ptr(&mt6360_pm_ops),
+ 		.of_match_table = of_match_ptr(mt6360_of_id),
+ 	},
+ 	.probe = mt6360_probe,
+diff --git a/drivers/mfd/rk8xx-i2c.c b/drivers/mfd/rk8xx-i2c.c
+index 2951b2911a37..161b25fbe146 100644
+--- a/drivers/mfd/rk8xx-i2c.c
++++ b/drivers/mfd/rk8xx-i2c.c
+@@ -251,7 +251,7 @@ static void rk8xx_i2c_shutdown(struct i2c_client *client)
+ 	rk8xx_shutdown(&client->dev);
+ }
+ 
+-static SIMPLE_DEV_PM_OPS(rk8xx_i2c_pm_ops, rk8xx_suspend, rk8xx_resume);
++static DEFINE_SIMPLE_DEV_PM_OPS(rk8xx_i2c_pm_ops, rk8xx_suspend, rk8xx_resume);
+ 
+ static const struct of_device_id rk8xx_i2c_of_match[] = {
+ 	{ .compatible = "rockchip,rk801", .data = &rk801_data },
+@@ -270,7 +270,7 @@ static struct i2c_driver rk8xx_i2c_driver = {
+ 	.driver = {
+ 		.name = "rk8xx-i2c",
+ 		.of_match_table = rk8xx_i2c_of_match,
+-		.pm = &rk8xx_i2c_pm_ops,
++		.pm = pm_sleep_ptr(&rk8xx_i2c_pm_ops),
+ 	},
+ 	.probe = rk8xx_i2c_probe,
+ 	.shutdown  = rk8xx_i2c_shutdown,
+diff --git a/drivers/mfd/rn5t618.c b/drivers/mfd/rn5t618.c
+index 23ca00d2c624..8c68dd16bb9e 100644
+--- a/drivers/mfd/rn5t618.c
++++ b/drivers/mfd/rn5t618.c
+@@ -243,7 +243,7 @@ static void rn5t618_i2c_remove(struct i2c_client *i2c)
+ 	unregister_restart_handler(&rn5t618_restart_handler);
+ }
+ 
+-static int __maybe_unused rn5t618_i2c_suspend(struct device *dev)
++static int rn5t618_i2c_suspend(struct device *dev)
+ {
+ 	struct rn5t618 *priv = dev_get_drvdata(dev);
+ 
+@@ -253,7 +253,7 @@ static int __maybe_unused rn5t618_i2c_suspend(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int __maybe_unused rn5t618_i2c_resume(struct device *dev)
++static int rn5t618_i2c_resume(struct device *dev)
+ {
+ 	struct rn5t618 *priv = dev_get_drvdata(dev);
+ 
+@@ -263,7 +263,7 @@ static int __maybe_unused rn5t618_i2c_resume(struct device *dev)
+ 	return 0;
+ }
+ 
+-static SIMPLE_DEV_PM_OPS(rn5t618_i2c_dev_pm_ops,
++static DEFINE_SIMPLE_DEV_PM_OPS(rn5t618_i2c_dev_pm_ops,
+ 			rn5t618_i2c_suspend,
+ 			rn5t618_i2c_resume);
+ 
+@@ -271,7 +271,7 @@ static struct i2c_driver rn5t618_i2c_driver = {
+ 	.driver = {
+ 		.name = "rn5t618",
+ 		.of_match_table = rn5t618_of_match,
+-		.pm = &rn5t618_i2c_dev_pm_ops,
++		.pm = pm_sleep_ptr(&rn5t618_i2c_dev_pm_ops),
+ 	},
+ 	.probe = rn5t618_i2c_probe,
+ 	.remove = rn5t618_i2c_remove,
+diff --git a/drivers/mfd/ti_am335x_tscadc.c b/drivers/mfd/ti_am335x_tscadc.c
+index 068c25401c6c..81f07a1d780c 100644
+--- a/drivers/mfd/ti_am335x_tscadc.c
++++ b/drivers/mfd/ti_am335x_tscadc.c
+@@ -313,7 +313,7 @@ static int __maybe_unused ti_tscadc_can_wakeup(struct device *dev, void *data)
+ 	return device_may_wakeup(dev);
+ }
+ 
+-static int __maybe_unused tscadc_suspend(struct device *dev)
++static int tscadc_suspend(struct device *dev)
+ {
+ 	struct ti_tscadc_dev *tscadc = dev_get_drvdata(dev);
+ 
+@@ -331,7 +331,7 @@ static int __maybe_unused tscadc_suspend(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int __maybe_unused tscadc_resume(struct device *dev)
++static int tscadc_resume(struct device *dev)
+ {
+ 	struct ti_tscadc_dev *tscadc = dev_get_drvdata(dev);
+ 
+@@ -345,7 +345,7 @@ static int __maybe_unused tscadc_resume(struct device *dev)
+ 	return 0;
+ }
+ 
+-static SIMPLE_DEV_PM_OPS(tscadc_pm_ops, tscadc_suspend, tscadc_resume);
++static DEFINE_SIMPLE_DEV_PM_OPS(tscadc_pm_ops, tscadc_suspend, tscadc_resume);
+ 
+ static const struct ti_tscadc_data tscdata = {
+ 	.adc_feature_name = "TI-am335x-adc",
+@@ -373,7 +373,7 @@ MODULE_DEVICE_TABLE(of, ti_tscadc_dt_ids);
+ static struct platform_driver ti_tscadc_driver = {
+ 	.driver = {
+ 		.name   = "ti_am3359-tscadc",
+-		.pm	= &tscadc_pm_ops,
++		.pm	= pm_sleep_ptr(&tscadc_pm_ops),
+ 		.of_match_table = ti_tscadc_dt_ids,
+ 	},
+ 	.probe	= ti_tscadc_probe,
+diff --git a/drivers/mfd/tps6586x.c b/drivers/mfd/tps6586x.c
+index 3cfd2f02b62f..600186b1e8cb 100644
+--- a/drivers/mfd/tps6586x.c
++++ b/drivers/mfd/tps6586x.c
+@@ -618,7 +618,7 @@ static void tps6586x_i2c_remove(struct i2c_client *client)
+ 		free_irq(client->irq, tps6586x);
+ }
+ 
+-static int __maybe_unused tps6586x_i2c_suspend(struct device *dev)
++static int tps6586x_i2c_suspend(struct device *dev)
+ {
+ 	struct tps6586x *tps6586x = dev_get_drvdata(dev);
+ 
+@@ -628,7 +628,7 @@ static int __maybe_unused tps6586x_i2c_suspend(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int __maybe_unused tps6586x_i2c_resume(struct device *dev)
++static int tps6586x_i2c_resume(struct device *dev)
+ {
+ 	struct tps6586x *tps6586x = dev_get_drvdata(dev);
+ 
+@@ -638,7 +638,7 @@ static int __maybe_unused tps6586x_i2c_resume(struct device *dev)
+ 	return 0;
+ }
+ 
+-static SIMPLE_DEV_PM_OPS(tps6586x_pm_ops, tps6586x_i2c_suspend,
++static DEFINE_SIMPLE_DEV_PM_OPS(tps6586x_pm_ops, tps6586x_i2c_suspend,
+ 			 tps6586x_i2c_resume);
+ 
+ static const struct i2c_device_id tps6586x_id_table[] = {
+@@ -651,7 +651,7 @@ static struct i2c_driver tps6586x_driver = {
+ 	.driver	= {
+ 		.name	= "tps6586x",
+ 		.of_match_table = of_match_ptr(tps6586x_of_match),
+-		.pm	= &tps6586x_pm_ops,
++		.pm	= pm_sleep_ptr(&tps6586x_pm_ops),
+ 	},
+ 	.probe		= tps6586x_i2c_probe,
+ 	.remove		= tps6586x_i2c_remove,
+diff --git a/drivers/mfd/twl-core.c b/drivers/mfd/twl-core.c
+index c024a28b057e..b7d749208131 100644
+--- a/drivers/mfd/twl-core.c
++++ b/drivers/mfd/twl-core.c
+@@ -903,7 +903,7 @@ twl_probe(struct i2c_client *client)
+ 	return status;
+ }
+ 
+-static int __maybe_unused twl_suspend(struct device *dev)
++static int twl_suspend(struct device *dev)
+ {
+ 	struct i2c_client *client = to_i2c_client(dev);
+ 
+@@ -913,7 +913,7 @@ static int __maybe_unused twl_suspend(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int __maybe_unused twl_resume(struct device *dev)
++static int twl_resume(struct device *dev)
+ {
+ 	struct i2c_client *client = to_i2c_client(dev);
+ 
+@@ -923,7 +923,7 @@ static int __maybe_unused twl_resume(struct device *dev)
+ 	return 0;
+ }
+ 
+-static SIMPLE_DEV_PM_OPS(twl_dev_pm_ops, twl_suspend, twl_resume);
++static DEFINE_SIMPLE_DEV_PM_OPS(twl_dev_pm_ops, twl_suspend, twl_resume);
+ 
+ static const struct i2c_device_id twl_ids[] = {
+ 	{ "twl4030", TWL4030_VAUX2 },	/* "Triton 2" */
+@@ -942,7 +942,7 @@ static const struct i2c_device_id twl_ids[] = {
+ /* One Client Driver , 4 Clients */
+ static struct i2c_driver twl_driver = {
+ 	.driver.name	= DRIVER_NAME,
+-	.driver.pm	= &twl_dev_pm_ops,
++	.driver.pm	= pm_sleep_ptr(&twl_dev_pm_ops),
+ 	.id_table	= twl_ids,
+ 	.probe		= twl_probe,
+ 	.remove		= twl_remove,
 -- 
-2.25.1
+2.53.0
+
