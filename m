@@ -1,97 +1,90 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AEA83F99F4
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:36:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DCBB3F411B;
+	Fri, 11 Sep 2026 07:36:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789112189; cv=none; b=CFVctKjn0fLqE/PvdZBZVzb6ESTCXMdP8OBko63FQqkwBWXw8oH0v6R8qmonyeE/3Hp0ZVDp3hIZ9qt0PTNtdjw4ysEnV5J0uRPdi7tSX2OOukEkJBMhbGKAwEUoQIpPR4fOnfPqopbxEi6qg35yXLk30uhtLChQ6qCm7tO+EdE=
+	t=1789112210; cv=none; b=pO2ufT9/sT4BYEH7RNpjLyYMMAvh2xUGEOh9SHFAgBfDUfkV0kFhnyqkxyzxepyjupTZVk5Mnb1yAF0DouM7xlwUtVlcIgymKrzSb7/HvFkhWzhigvaNpkwhmfsNDW3Ta74Bjk/qNgLvGQo8nHU5g0O4cGX6qT2mYg4M6Kh5qts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789112189; c=relaxed/simple;
-	bh=fsWO5RfUtrwYBghqZbddt7joHj5CDeK4xYY0+hFA124=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=InvuBf0s7cHCz2t0mSaNh7Nm5i3d8dH2hI6TUVK6Pi52qB6e4G2ZLYM8jvrYUC6hydNsDdcWJgizsZ5lhN0Uxy4g/zE9U+aq1qMIPLnOVyahnGsPrmJ3jIA0I3aoD8ml+1r/cw/DldEn66jLWn2qR23KPlRzB9XwtmwyT1CWUrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Qkaji6DE; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789112210; c=relaxed/simple;
+	bh=AnroKEyqdJQvFOpvOs79z595jN7dadCJbMNEsa6kYew=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BRcKlu/a7lf7ar+b8dqEIsuYYJlxEs/ATHTZ2ZMc+iJQ4oiANluxbUhUv9X8tfaJ+jVi2PuORQuUEaNznaa8pTDEtMOhGr6U0x2vWx4EVpqg/2mlql3ARDd2cEWOSe581R3pTyu7VRYhY0xblQe7fmkUTi4hSwqQc+CjuMNnHKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OCeK6J2L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Qkaji6DE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789112186;
-	bh=fsWO5RfUtrwYBghqZbddt7joHj5CDeK4xYY0+hFA124=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Qkaji6DEBChYB6Y1WQhTLVJgKyo3Ywqi8KCx2nY3VQm2QuhK6l0yLy/DVuZeBbHf7
-	 Qkg9/u23+zPY1aMuhsNdEnkZ/84v/EInCLzKV/hnd9Ga1Og8FQ9WLKpR86/Dbghy1v
-	 OKo+pptyBeZ7pFKyQYQydwrnBZlKxoM8U6Kk1wx33TeXEIo9K8XLNIIWyGgOn951Q5
-	 HB1s6+cEDdbFopVBRAxAEeJo61OYb3IUwWtM+gqVapJkHRCFfx6h+M3UwP4B9o965U
-	 AwOaXyKI/9gJOD0VBpfQiGL0H8BLP1L5VGAXqJ4k2K44w5jxUunabAzBmcaJieRDLE
-	 iBfpIEDY2850w==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 77FA917E0260;
-	Fri, 11 Sep 2026 09:36:25 +0200 (CEST)
-Message-ID: <8fc8791a-911b-4c17-b291-5bdd468335ce@collabora.com>
-Date: Fri, 11 Sep 2026 09:36:24 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OCeK6J2L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B74B31F00893;
+	Fri, 11 Sep 2026 07:36:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789112208;
+	bh=7a9YePOnaFH9W0Y5DqstZ8618+Ta51BlMEbNhzPrNtg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OCeK6J2LqDCgnJeGGAZqb5qagM06mnJEZGwq0eTmnkQT3suYJsiGNTZRNMu8qi8De
+	 5lQXMq/vneH7Ny33rqRaJ9I9NiP4FdqJ6KKxisIxMelbqpjmjEDPQhk/UqS6L8NC1T
+	 ENwW87j2Q2ZdMfAuVCCGb3iOEnZd9Bbk1Gjso+igTNCprJjxi05LLZB6Rjqn4rxHD7
+	 kXZwm2XnEjfwlpxrJYD4sdoo+ExL7vyPHwa3+ieMTE1KWKJvRPUASs26Mi3i/WZLET
+	 twRYqc2L0lGh625eA20uyyJYpAtPpj4LRoNZcNsel2Z6OZ8k9ZIpVkwR3L+ZCww6vN
+	 Y75HiNu/MaVWw==
+Date: Fri, 11 Sep 2026 09:36:45 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, 
+	Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	German <germanpapulindez@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] dt-bindings: media: Add Sony IMX681
+Message-ID: <20260911-wonderful-marvellous-petrel-7dbaf2@quoll>
+References: <20260909203717.90605-1-lsa.uz@pm.me>
+ <20260909203717.90605-2-lsa.uz@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] phy: mediatek: phy-mtk-hdmi-mt8195: Fix TMDS clk bit
- ratio setting
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: chunfeng.yun@mediatek.com, p.zabel@pengutronix.de,
- chunkuang.hu@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org,
- matthias.bgg@gmail.com, granquet@baylibre.com, justin.yeh@mediatek.com,
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
- linux-kernel@vger.kernel.org, kernel@collabora.com
-References: <20260701121936.19407-1-angelogioacchino.delregno@collabora.com>
- <20260701121936.19407-3-angelogioacchino.delregno@collabora.com>
- <5bmxa4pcwkiemubwfjun3dti4szu66gnxe6yw2pudq3wplpc23@inyswc2bdlhw>
- <cb72ff50-b62f-47fe-af40-d38558bdff6e@collabora.com>
- <pptwnkay4jvyom2ihwtice7usgndsw2fnffkbenkg7gyjejure@4y2znrvtmbtg>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <pptwnkay4jvyom2ihwtice7usgndsw2fnffkbenkg7gyjejure@4y2znrvtmbtg>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260909203717.90605-2-lsa.uz@pm.me>
 
-On 9/11/26 07:11, Manivannan Sadhasivam wrote:
-> On Thu, Sep 10, 2026 at 10:39:06AM +0200, AngeloGioacchino Del Regno wrote:
->> On 9/9/26 17:06, Manivannan Sadhasivam wrote:
->>> On Wed, Jul 01, 2026 at 02:19:36PM +0200, AngeloGioacchino Del Regno wrote:
->>>> The comment in the mtk_phy_tmds_clk_ratio() function clearly and
->>>> correctly explains that the TMDS ratio has to be 1/10 for data
->>>> rates under 3.4Gbps, and 1/40 over that.
->>>>
->>>> Unfortunately though, the TXC_DIV register setting was wrong, as
->>>> in value 3 means to divide by 8 and, in order to achieve the in
->>>> spec 1/40 (tmds) data rate, this has to divide by 4 instead!
->>>> In order to achieve the correct 1/40 (tmds) data rate, this has
->>>
->>> This statement is cut-off!
->>>
->>
->> Oh oops. It's just a forgotten line that has to be removed....
->>
->> Should I resend or can you simply remove the line
->> "In order to achieve the correct 1/40 (tmds) data rate, this has"
->> while applying?
->>
+On Wed, Sep 09, 2026 at 08:37:30PM +0000, Sergey Lebedev wrote:
+> The Sony IMX681 is a CMOS image sensor used as the user-facing camera on
+> several Microsoft Surface devices. It operates from analog 2.8 V, digital
+> 1.05 V and interface 1.8 V supplies, is programmable over I2C, and outputs
+> 10-bit Bayer data over a two-lane MIPI CSI-2 D-PHY interface.
 > 
-> I do not apply the patches, only Vinod does. It would help if you can just
-> send a next version with this change and tags.
-> 
-> - Mani
-> 
+> Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
 
-Sure, will send v2 in a jiffy.
+Just remember that "Tested-by" does not apply here.
 
-Cheers,
-Angelo
+> ---
+>  .../bindings/media/i2c/sony,imx681.yaml       | 107 ++++++++++++++++++
+>  1 file changed, 107 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml
+> new file mode 100644
+> index 000000000..6d2e4ddce
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml
+> @@ -0,0 +1,107 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/i2c/sony,imx681.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Sony IMX681 CMOS Image Sensor
+> +
+> +maintainers:
+> +  - Andre Gilerson <andre.gilerson@gmail.com>
+
+Andre should ack this.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
+
