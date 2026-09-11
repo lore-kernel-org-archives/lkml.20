@@ -1,208 +1,120 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3664E3C2774
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:49:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789120199; cv=pass; b=fNBSAnRtFXbNkrm5QlG3B8UAGcERbV9TCT7s9KVwItgfTD8a1xUvD8Pp0dhdOvXQoS/tiivXEHwe34t9DYheQed51gf1baHgn0+fpTaB095pl4FCsM2gF3gaygE6tZX3986HcDYDerHFFf0PrHOJ1TkzNfwZ3qm2/tkFGY/3EXY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789120199; c=relaxed/simple;
-	bh=w5BCY+Altqrl2z+KInkTE2HJzyoRga3lLbsK4NkbGZY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cAFUo8zrgo0bLxoHSE4bcp9BvI+0JEhcoxMy50KpTRXIXzFKxnTo3LAuba2kWyj+O8WxnzGGlYHDHCHE5gIrz50zJRlCPPZs8g4aLrDRL+brtdcDt0LA3gkP9pomb4kOHbuno7MAUUTj6sCW5HR4X1TUhWNYWNvWuOcs9/JoRDw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e22eWa9u; arc=pass smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30DD63C3F7D
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:50:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789120230; cv=none; b=ZUq23i/cCdIqkGATFvQ50RCu6I3l5qDmNT3GibyaDI9R3qbr9kQBwrjN8IYLxU/HATn9GnjXp7gqsoQv/3MpmC6CRHFgWAces5MVC0FWVWeCtZ4rbmjXriQ13FPoTOkQVuI8mejNtZYyIrVCg1/UTevWO5CTobzLvLEEKxfZNwo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789120230; c=relaxed/simple;
+	bh=No71cd5buUUHeBE48TQG44YiouRm3taIpFkpoL0GdvU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=H3avDI0/I3WqixJHUxN13mN1eXbyTnsb/wsg+0oPKkTmLmaVYs+Q4EhbVjsgkBRilGw3wKKlE0jyfG6jMmHTIddSC7k33+DlBb0jjfIIUsfc7uXiemKTwolfGHGOeMhDmeYsv/vlDBGmSCya8nrrP0JsXlmq0NxXy56XpSaU46k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=miewqeWi; arc=none smtp.client-ip=209.85.208.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e22eWa9u"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso8819395e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:49:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789120195; cv=none;
-        d=google.com; s=arc-20260327;
-        b=exwrq1bGYTe7cmpU4ot203B8U8QYznVK5Y46P/sLvCfZUPuKo9kF4wHPUlasjEyZAU
-         6wr07l5/rGS5NhA9oeZ71PBVOEhnbZZQk6MtataAsVRTzXYtWJcaXrqgw+FfcD763003
-         Bne5kroKlzUjziAzmkuCRWQrnjyb+5+pqNYgG9K2KJZ4WnJMyfwfB9PCimsZkaf1ISoU
-         saoYlBDAnBAo3Q1/30cnqaEeJbf4MYGA8cOzpeiuLDul1gw+ur8jLEKKqujZ84VMqi1L
-         EvZzVlEXgUd5zIbTN+7I+7Bhk0TNMMI0TT7z2oY3IeZtgdGRMctk9Lrox3sqFLnkx13J
-         qEnw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XmO8P+ChMoFawAYjtFDVo7MOu50AybaSOeGB/ttRwB4=;
-        fh=cAdBorLMZi0Z1gubn8w+++4sNB1KPPDKtpKDKeZu3wM=;
-        b=Ziq83DAquqrj0L1fntuZXpY+8zXCM02E2hjW/CbFiT6curZ/jUBwasAzRY+++GmBE9
-         dY8WJb+khaZLuxOtjwZLdikNbGIJSVuaxv6ZL6GBq9Tmb16U7hBHyVPhkRdYGd8o0BKE
-         VdHRd+DB9eFaZHfNoi2cAJ2MVRVc7F80+c8mKwNE++rCl2nwKu+K63WiQeIB24VbdGH/
-         ll0rxv20tfDqxf0Cae/0n/zC/FcCRtc+2k1rfqnt3PJfbyIY65OpKJZaZM2p1TmsJzci
-         2kCTkyv8ogfpo32Xdz8BMxodljRL13fkMuDj5WePGnqJ0/bpgKa0PwRX8DMVntkT/t3q
-         YG6w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="miewqeWi"
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3a20dec69f9so5474941fa.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:50:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789120195; x=1789724995; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XmO8P+ChMoFawAYjtFDVo7MOu50AybaSOeGB/ttRwB4=;
-        b=e22eWa9uGH97TD4ApTY8m6YFBTAuAXV38SC4Rr2Ckj+sfPMLr67MRyoG4qrk0CtcxT
-         MzvtPe0RaNt9TcUK2RHkYuJaA4Q2GDOW3aDSi1Kh/Wh3wCe+it5kXoNbi/X6dXmGx5kN
-         OY4H+UpTdMhF+hE0bGbjiIDIritAsqJjnFjqu7mS38k73v/IIBA2feauMjJFlGxk6ivk
-         9jKVBthF1AquQjJdpqdocrRPPQC+F+pBjlFKaMoly9WMht8BjEueFFYtqSO3/2X1mXRA
-         ulaOYSCHHwyevG0z25m8ZXeVHPY1/dYccXhd/Yov9rrxHGoaON9YScAo7jCftyl5DZJS
-         PTAQ==
+        d=chromium.org; s=google; t=1789120225; x=1789725025; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Hdzbs4lJ5S888JvEnLEEzWnpR79iP4hGYQ+NNaIqwIk=;
+        b=miewqeWi19LXZgrZS54WPwI3F+kFKrDhmNZl/OVZnMLPmPvUbNXxJw3Kk4GW1bhSRG
+         FT6VBU4+IHZ4eKF+heZqkJTqXtnzbpD95u0sfsVLrjtLInRzhOEZsGIODO0Ox0QaK7Ur
+         oBEL90BLETJou+W8Fc+mGgXxWyYmqNsUnH1hU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789120195; x=1789724995;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XmO8P+ChMoFawAYjtFDVo7MOu50AybaSOeGB/ttRwB4=;
-        b=XJxjLeWlo9rQJcdWKH9C58dIt5O0qvZLUFCOm6kh9D63nk40rmwNMC3gCDfnhNMbzD
-         IgIrmxSZ8VrKfuZudSOdNtFtyOBJOwqro2ZdA5ri+vNTiyZP3wiZqlvZx23odnGSfA8g
-         9GCD2ck4xVtGbpM5VnNeFcm9kegPD4zt7XAnWFuAlBNloVTXsoTxQdV0nrHSSpCyLu5x
-         H42nk4utlWi1TYKj5VrZGv1ruAiy87DXfHUpRohCIVNjCrg4ZQED7Pw8vyRBFfuPW6OH
-         RJy2BwD4FvFvSP2lS5+B0wwpol2eovXvnl+OB9DtT80ZrQwvy5q02Z1ihgm89/FLFt2a
-         gVFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxUODr+CsZ2OJoqNFy1vsKcvVrzWJA5d4wUHJLEbdDEYM/FrScstV53LSaN3oznYy88uxr7gykBlrZuQb4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXBXti1YsEHWpfCis73Jiubma8CalfD/wvbCm7GB035ZZcLF0O
-	YgHbVf5xp3GM/nEXMnBO2bEDuarbJOFYsmnc0M4jiEKnMfglF8x/Hij8zWnk3PLoD0+46xLyjsQ
-	Us4gEFoAa94Xwd1+RGuAfWjWfUiGFJjM=
-X-Gm-Gg: AYBFou1CfDpAIc4x01VRooO2WMnTmEXxBHxyJRjn7GY3t2LJLgyonoiqR9Ht8J5URNr
-	8XfhrEsZn9vJfUAkhyFTiwybVkn62FbB7C2gIM51fjBpoZ6HX8n/RrWtMUphOJQPEvj2QWU1DgI
-	lw5Jjmj+Z94Os/XSO5EnQUGWuq/WjhQkmqC8irOiMZ9niNq1O/BNQqPvkYwGwesb3owMeEgwJwW
-	MpCQMaevs2yLAQu7B+BXIjRMh01AA8AIxRfM3r9cgaDLalTalIablXyOSeGUd7v0RgmrOxQWjmE
-	755DkvDSj/T/FS58RnjEi3ftv3rn2X39Ngc5xwHnox81OrM16I1owvxL3rDRI82KflozYhHlD+M
-	frFYW53J7Y+RKBg==
-X-Received: by 2002:a05:600c:a107:b0:49e:663c:c69f with SMTP id
- 5b1f17b1804b1-49e663cc929mr20825795e9.15.1789120194398; Fri, 11 Sep 2026
- 02:49:54 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789120225; x=1789725025;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Hdzbs4lJ5S888JvEnLEEzWnpR79iP4hGYQ+NNaIqwIk=;
+        b=VMI7J3MBd7H7YNzSec3wiloRjNDh7avcEJieEc/khcjKtUpOv/yKupiv3KfUG05l3M
+         CYGWrdQMH0JVXOztb6oTg0VmyZfX+v7oj4ottA5oxD3z8fW0dQ9kMeQu4AWgazwVylI6
+         Tn8KmnVxg0mj3EM+W+g1Hj8nWo58Ru49E8MNSxbrP/gmyDKtwq0F2j5YnS7RNEI2N6Sn
+         vjWix23YbPhHGwY1AI9UIQlTcRrsdrUCNOwmHXMZLrWxMDBlcMNrWQXhgzIdAuFCo/p+
+         3A/phNma71xSGD+ADcb2W61oAzYSn6X9oiAahjjiP6QbE9IlfCOseRZl3xwPCeG8q3IM
+         JmOg==
+X-Forwarded-Encrypted: i=1; AKwUvBw0inYMwF69c+vZ5xlcBdNleh4HKD7u8UH92a58WepwjS3TFDkxGgH/EvMxCNF0kh2tyo8wOu7FyWjXT4w=@vger.kernel.org
+X-Gm-Message-State: AFuF++n4j97Hz7bJm3DkcOzMUYIPsAP1N8ratg3o6KVsO51duk16QDdj
+	Sl2JJHyMahHQaGu9oxcdzYMWfjYeNkKqpnuFylcCENWfTcJBFD0RlMQMbHuPw5DdfQ==
+X-Gm-Gg: AYBFou0ILiAV1UzLVl2wbU4gp1kxgiytdguzArLdNoQ6t1vccFRnEujxcvDY/DnT0dz
+	TZAqOQ2p66SrpJJhJQmORq/F5/rlYm/+N81FDMGae2a1LC1noeJlA0eafdWr8FnkcLekSPhH+gb
+	Wp4m9xOF5Tm7sYx/ZrX9WMU/4b69UOYE+Hmafdect6HxdVdlimo4cgZl7Yta8r7OyE3joKjPA1L
+	gSXSxAOqwUvdHwEqxBUbDvWMTT0nOhu1UovLXGFxyPoqFFvT0n1wAErmG9LQsGUgGt976CopMS+
+	FAkV5ImujbsD2R9Rc+9g+G3R7agnm7rYIxNL+YBfNzQvC7shgMF/y4AVkWU5AdoKktzm3T6/OAH
+	ruKXWoXYG+vYUaCFe6TpeB6dFB3ZKxhYhC7ZSPWwrhUZZQbY/mhy+kk3MN3odEZ/lV9gXio1nx4
+	4UBywHkGG0WvwsWjl3wTX/e5k8BephUoVItqq9lQCQOg88wZU2+qrR/yBPNecgRWHqTdVDiTt8M
+	pqcDlIZgiT0hVgnjEC3+Li2V6WydjFx44uyb9g8ZAe9RGmyxg==
+X-Received: by 2002:a2e:a551:0:b0:3a3:7741:b43c with SMTP id 38308e7fff4ca-3a5a5082d76mr3491941fa.7.1789120225152;
+        Fri, 11 Sep 2026 02:50:25 -0700 (PDT)
+Received: from ribalda.c.googlers.com (11.36.88.34.bc.googleusercontent.com. [34.88.36.11])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5a33263ebsm5138231fa.17.2026.09.11.02.50.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 02:50:24 -0700 (PDT)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Subject: [PATCH v2 0/2] media: uvcvideo: Automatically handle invalid
+ uvc_versions
+Date: Fri, 11 Sep 2026 09:50:21 +0000
+Message-Id: <20260911-uvc-version-v2-0-395f27b0444c@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907075829.2073224-1-kunwu.chan@linux.dev> <c201584b58aec856342e0f23f8df9f81baccba1d@linux.dev>
-In-Reply-To: <c201584b58aec856342e0f23f8df9f81baccba1d@linux.dev>
-From: KunWu Chan <kunwu.chan@gmail.com>
-Date: Fri, 11 Sep 2026 17:49:43 +0800
-X-Gm-Features: AcwNN1UxmSgtIai_95aeqnZoEeATzU6VAkoqwwuqt7M2NT-d2JkrVJBjQKj2o60
-Message-ID: <CAN_Opa-cvXVJeMxniuarq+2mE9EepjzTCgii1bW6mmSnaCKKxQ@mail.gmail.com>
-Subject: Re: [PATCH 00/13] srcu: Round out atomic SRCU support
-To: Zqiang <qiang.zhang@linux.dev>
-Cc: paulmck@kernel.org, rostedt@goodmis.org, mathieu.desnoyers@efficios.com, 
-	rcu@vger.kernel.org, linux-kernel@vger.kernel.org, jiangshanlai@gmail.com, 
-	josh@joshtriplett.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAN3Oo2oC/22MOw7DIBAFr2JtnY0wJt8q94hcWLCYLWyiJUaJL
+ O4e7DrlPL2ZFRIJU4J7s4JQ5sRxrqAPDdgwzCMhu8qglT6rm7rgki1mku2HAzny1nRXYwmq8RL
+ y/Nlrz75y4PSO8t3jud3W/53cYoudIXNynpRx9LBB4sTLdIwyQl9K+QHsbC9MqQAAAA==
+X-Change-ID: 20260907-uvc-version-aedefc4384ce
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Edwin Gatier <edwin.gatier@protonmail.com>, linux-media@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+ Ricardo Ribalda <ribalda@chromium.org>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
 
-On Thu, Sep 10, 2026 at 8:16=E2=80=AFPM Zqiang <qiang.zhang@linux.dev> wrot=
-e:
->
-> >
-> > From: Kunwu Chan <kunwu.chan@gmail.com>
-> >
-> > This series rounds out atomic SRCU support with a reader-free fastpath,
-> > some atomic-context fixes, and additional test coverage.
-> >
-> > The core change is a reader-free fastpath for synchronize_srcu_atomic()=
-.
-> > Atomic SRCU's read-side critical sections disable preemption, so when
-> > the summed lock and unlock counts match for both ranks,
-> > synchronize_srcu_atomic() can end the grace period immediately, without
-> > the index flip or the srcu_advance_state() scans. Correctness depends
-> > on the grace-period anchor written by srcu_gp_start() preceding the
-> > lock-count scan; two LKMM litmus tests (patches 1-2) verify that
-> > ordering.
->
-> For synchronize_srcu_atomic(), the following items maybe also
-> need to be added:
+This series changes the way we handle invalid uvc_versions. Instead of
+just failing it will try to continue probing.
 
-Hi Zqiang
-Sent as: https://lore.kernel.org/rcu/20260911093515.2802551-1-kunwu.chan@gm=
-ail.com/
+Now that we are at it, add a quirk to fix an Avermedia device affected
+by this error.
 
-Did a small late_initcall that enters an atomic read-side critical section =
-and
-calls synchronize_srcu_atomic().  srcu_lock_sync() catches it:
-      WARNING: possible recursive locking detected
-      swapper/0/1 is trying to acquire lock: (&ss) at:
-synchronize_srcu_atomic+0x28/0x380
-      but task is already holding lock:     (&ss) at:
-srcu_lockdep_test_init+0xd0/0x170
-      *** DEADLOCK ***
-Rcutorture SRCU-N/P also pass.
+Why keep using the quirk? Because I think it is more correct to handle
+them that way and the quirk system can give us an idea of what vendors
+are more respectful with the spec.
 
-Thanks, Kunwu
+Thanks!
 
->
->         srcu_lock_sync(&ssp->dep_map);
->
->         RCU_LOCKDEP_WARN(lockdep_is_held(ssp),
->                          "Illegal synchronize_srcu() in same-type SRCU re=
-ad-side critical section");
->
->         if (rcu_scheduler_active =3D=3D RCU_SCHEDULER_INACTIVE)
->                 return;
->
-> Thanks
-> Zqiang
->
->
->
-> >
-> > The series is:
-> >
-> >  1-2 LKMM litmus tests for the reader-free fastpath ordering.
-> >  3 srcutree: add the reader-free fastpath.
-> >  4 rcutorture: add --do-atomic-srcu to torture.sh.
-> >  5-7 srcutree: honor and propagate is_atomic so atomic SRCU never
-> >  transitions to big.
-> >  8 srcutree: forbid srcu_expedite_current() on atomic SRCU.
-> >  9 rcutorture: disable srcu_expedite_current() for atomic SRCU.
-> >  10 srcutree: skip callback scheduling for atomic SRCU grace periods.
-> >  11 srcutree: drop the srcu_barrier() sleep for atomic SRCU.
-> >  12 srcutree: remove leftover debug pr_alert()s.
-> >  13 srcu: restrict the non_block annotation to task context, fixing a
-> >  KCSAN data race.
-> >
-> > The KCSAN race in patch 13 is a data race on the interrupted task's
-> > ->non_block_count when a timer callback runs atomic-SRCU readers in
-> > inline softirq context.
-> >
-> > Tested with herd7 7.58 (litmus tests), torture.sh --do-atomic-srcu, and
-> > torture.sh --do-atomic-srcu --do-kcsan (KCSAN+PROVE_LOCKING).
-> >
-> > Kunwu Chan (13):
-> >  litmus: Add SRCU fastpath anchor-before-scan test
-> >  litmus: Add SRCU fastpath scan-before-anchor test
-> >  srcutree: Add reader-free fastpath to synchronize_srcu_atomic()
-> >  rcutorture: Add atomic-SRCU support to torture.sh
-> >  srcutree: Honor is_atomic in check_init_srcu_struct()
-> >  srcutree: Make init_srcu_struct_atomic() prevent transition to big
-> >  srcutree: Don't transition atomic SRCU to big in srcu_gp_end()
-> >  srcutree: Forbid srcu_expedite_current() on atomic SRCU
-> >  rcutorture: Disable srcu_expedite_current() for atomic SRCU
-> >  srcutree: Skip callback scheduling for atomic SRCU grace periods
-> >  srcutree: Remove srcu_barrier() sleep for atomic SRCU
-> >  srcutree: Remove debug pr_alert()s
-> >  srcu: Restrict atomic-SRCU non_block annotation to task context
-> >
-> >  include/linux/srcu.h | 10 +-
-> >  kernel/rcu/rcutorture.c | 1 +
-> >  kernel/rcu/srcutree.c | 95 ++++++++++++++-----
-> >  tools/memory-model/litmus-tests/README | 16 ++++
-> >  .../SRCU-fastpath-anchor-before-scan.litmus | 56 +++++++++++
-> >  .../SRCU-fastpath-scan-before-anchor.litmus | 53 +++++++++++
-> >  .../selftests/rcutorture/bin/torture.sh | 24 +++++
-> >  7 files changed, 229 insertions(+), 26 deletions(-)
-> >  create mode 100644 tools/memory-model/litmus-tests/SRCU-fastpath-ancho=
-r-before-scan.litmus
-> >  create mode 100644 tools/memory-model/litmus-tests/SRCU-fastpath-scan-=
-before-anchor.litmus
-> >
-> > base-commit: ef15070f96c5f07de3a9b593c36f6e83bc9e3d58
-> > --
-> > 2.43.0
-> >
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+Changes in v2:
+- Add quirk for Avermedia
+- Change the way the compliance error message is printed and cache
+  ctrl_size
+- Link to v1: https://lore.kernel.org/r/20260907-uvc-version-v1-1-34e45dfe04de@chromium.org
+
+---
+Ricardo Ribalda (2):
+      media: uvcvideo: Force UVC version for Avermedia GC515
+      media: uvcvideo: Automatically handle cameras with invalid uvc_version
+
+ drivers/media/usb/uvc/uvc_driver.c | 22 +++++++++++++++----
+ drivers/media/usb/uvc/uvc_video.c  | 44 ++++++++++++++++++++++++++------------
+ drivers/media/usb/uvc/uvcvideo.h   |  1 +
+ 3 files changed, 49 insertions(+), 18 deletions(-)
+---
+base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
+change-id: 20260907-uvc-version-aedefc4384ce
+
+Best regards,
+-- 
+Ricardo Ribalda <ribalda@chromium.org>
+
