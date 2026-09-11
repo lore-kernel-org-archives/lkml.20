@@ -1,163 +1,81 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B850328B7F
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:10:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9125B331EAE
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:11:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789135845; cv=none; b=aIthOWeu+71RaRCeahj2UCTpJLszbevtpOgWLnxKZqKAOIJYbBzVxSBHd/dWMhIzaCnU5QaaK4F9XQu/mcKVorPyj8v8UJQOHAmSc4+q/E9C/cISy/ysqLc+DKmyCpKkatzPZkqN4Dak+BXOoxYhpUHGyxW2W+Jl58nYXGMDRlA=
+	t=1789135905; cv=none; b=JUpj/GQjq2pc3v2M58Ryzt2m64UIr16fmCMvNKgmbCkbXCcupSKJUIu2kFlGaJXwY+twNsIR0s6PnrPaJaClLu6pGQnb1Xdx8DK0IsGhXjCZFH4BwSRGXUwkNlyK8pplVo+lgKa0cxGrVzp1z6Io+6E6dcae3Kt96493oKVL99M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789135845; c=relaxed/simple;
-	bh=K9+ZKIgsGRgsc959M4tS0rMKOB/eZlOXTQ8Ho0gK2m4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=V4eL5g276WlbKBcTPRHZ91z71N8+WjbxppyrjhjT//4GEOZPBGnOT1QaATZ2KtNjbUa5BPHJ1FOEbOhhl6kzjt1N2of6pRArah0PzABKDoZDWIqIXvinziar5uYrSQPr/KwzQSFhK/MxK1bcPKeJxPevxTLuZ7E22NX5mQSAE5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=DlojXtNQ; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	s=arc-20240116; t=1789135905; c=relaxed/simple;
+	bh=xWDRCpoj9WdBEt44L+2RNU/fKnJEuXhR5O1t04EL2RM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gSvsRSShABBvvGtCab3emtRcpr0I8Hervzck0K/QFrEL7EtMUysbMm+yFs+feOltFU5l8c3C+/64u0szypJkfd2NKSjge+ldAj+iOtq24qwb/TtUuUalUcLZMQ2h+E29ja9v1bdjIL/BujXr5YZE3pU3nCpM4rKC+Kpett5bLdk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=tohXVArB; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="DlojXtNQ"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb76543e1so4032561cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:10:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1789135842; x=1789740642; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qrCxqh0lkRJGK/msNx4sQvIno2OGGDXwsMjyZ+inPRg=;
-        b=DlojXtNQUMI+4RY2899Vd4IPmVGYjdfubWPeJfZpIUvjJBU3wym3CQSinEvyvDr9pK
-         082SvIG7BLzZLFY79cZL8B70om+Olx3fXxpAcQQR1qCc591L7hzuznE4vhfcDug9oYzN
-         Nr2s2ZDFpiRGrI4U6t3n8BBycDUuL98yWwZaNenafr0YfxKl8p5iZtwwD+H5tGylC0ct
-         r0vS+8Sfrp3pA0mXnjnnJCktcs+aqWnZCuT0uONmPA/cwW3Lx0yD3xB0L3dhCTO7sASw
-         wE1kkzSkDG1EJ1nLU/KszNnGOj1bg3TQDvvf/zzzO5i6M4HjgFs7HaRiQ3jZqZRXMvvx
-         Cg3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789135842; x=1789740642;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qrCxqh0lkRJGK/msNx4sQvIno2OGGDXwsMjyZ+inPRg=;
-        b=od2fDcNdS5FqJ2/jvJCneFGPNnNiivnQg1bB6oigyMjxsfS+csWzkfyRbfijRr6Pg8
-         5hRVUGLY8Um4W0QnrCTepiHiKCD4vkQgQ3hvyZRWYx04bjDtY/sATL7i77fUBI+TyVVo
-         HQ8fd/Koje6qTcm+grliwj9Kpzx/o7nucw+c+aQuHRuBk1E9t2X/zJaP7T08vrsygl3d
-         rMMADBRA9n3MPQiHEL0i7rJidN21cxSwXeSfQWN8YUyx9v9rTtds4ezQ2uqam8+BhJA8
-         lh+qVFPittR49pxvctg+ymVGjeLRjrcvT0zxa3qCr/Ad5DSGH/2rDqb8RwTTI4eOtnAL
-         /Z/A==
-X-Forwarded-Encrypted: i=1; AKwUvBxwRGD9k4RXQs78eDFowfzUalYS+ZF8bud27UB+qH9AJm1QFdAZoW4t7mUlC5ig8gJWTzOf1Ay6edz2wyY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mFoHxF88Re5p8P3fzJwjC9ZXI5CLz22LwhUR8uWWx1VFKqXEEK
-	CevVFkCNHiXrsIuAU7xpObVICSkLCCJWjioACBd1WmAt7pVFXP2hLxQhd1VVtmnM/ro=
-X-Gm-Gg: AYBFou0hsXFdisi4AnCbN1f6pq02HLxiEgoJ2yENRnpEHgGbkROCE/eS9LXOcW7jG7X
-	fOQ+nBUQa2sFA+HpyWaRef1itU8aKNHsrNeq1AhC+RO50WyhVpws/GUqEM0H45rHs3i8zOJs20n
-	oZgWzyrKCU44wii6YMl4BaNHOnm5b67q6lgeHvHmnzVgO6UTw3BqK0PwtDLSnXzGVAEzORt1hnD
-	yCXgNbsTo+LubtUNYWWaoMz5lT15hJ8MntkvyuaGbMfwfCsCvbXoTFsu61lt9W8x9VUDA64qG5B
-	z0FQUna/+1S1MfUTWl9mdwvGenF1jJhi1FVfgBHrenKQgM2E1uN/xbSE7weSjn67bu2TDjmA5bc
-	T3uYx8gMwReIrASGQH8ifofHXpMvdh8CxuXtJJUOL0TUyLekEuEHKLD4ydI1c72ZAlBPADWnpGn
-	lhYywlnHyN6hMu9eQAIb795T1TTbf1EqAN5C14dsoGKDoI69cmtFgCKkNNKtghGoHUiTTV7NjVq
-	6c/tq8vtSWTCy2GLwDpQzVCx+46cStdYO+7fjH8HI9OP/z4Re6UtWjI
-X-Received: by 2002:a05:622a:53c5:b0:51c:b98c:f772 with SMTP id d75a77b69052e-530c86f6195mr51379741cf.15.1789135827987;
-        Fri, 11 Sep 2026 07:10:27 -0700 (PDT)
-Received: from toxicpanda.com (ec2-34-228-114-98.compute-1.amazonaws.com. [34.228.114.98])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca460a32sm20960711cf.9.2026.09.11.07.10.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 07:10:27 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Fri, 11 Sep 2026 14:08:53 +0000
-Subject: [PATCH RFC v2 15/15] rcu-tasks: Kick running holdouts through the
- scheduler
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="tohXVArB"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CBD7F16A3;
+	Fri, 11 Sep 2026 07:11:38 -0700 (PDT)
+Received: from [10.57.73.19] (unknown [10.57.73.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BE8CC3F7B4;
+	Fri, 11 Sep 2026 07:11:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789135902; bh=xWDRCpoj9WdBEt44L+2RNU/fKnJEuXhR5O1t04EL2RM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=tohXVArBKXDI653lw5Y93+F9TsGTSnLtrf7pLj0Ohcyc9b8lGL7yh5428aPO4vB2B
+	 wFYmgo+YfQpoXqkp92OBsMZviKrg6tzf/iISYqyiKLCC/AVkBQP+zb+Wy9chCKs0Vw
+	 6q+wcSq6E6QIWi3Kb2ZDhCKF3uu+aOulSGpPvo3w=
+Message-ID: <1529268b-8e10-4fef-be6e-60b6dd1e74a0@arm.com>
+Date: Fri, 11 Sep 2026 16:11:38 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] sched/fair: Honor asymmetric SMT priority in idle
+ selection
+To: Andrea Righi <arighi@nvidia.com>, Ingo Molnar <mingo@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>, Mark Rutland
+ <mark.rutland@arm.com>, Christian Loehle <christian.loehle@arm.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld <pauld@redhat.com>,
+ Breno Leitao <leitao@debian.org>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260909062649.469633-1-arighi@nvidia.com>
+ <20260909062649.469633-3-arighi@nvidia.com>
+Content-Language: en-GB
+From: Dietmar Eggemann <dietmar.eggemann@arm.com>
+In-Reply-To: <20260909062649.469633-3-arighi@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-b4-rcu-tasks-preempt-qs-v2-15-eaaa61ed2da4@toxicpanda.com>
-References: <20260911-b4-rcu-tasks-preempt-qs-v2-0-eaaa61ed2da4@toxicpanda.com>
-In-Reply-To: <20260911-b4-rcu-tasks-preempt-qs-v2-0-eaaa61ed2da4@toxicpanda.com>
-To: "Paul E. McKenney" <paulmck@kernel.org>, 
- Frederic Weisbecker <frederic@kernel.org>, 
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
- Joel Fernandes <joelagnelf@nvidia.com>, Boqun Feng <boqun@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Jiri Olsa <jolsa@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- x86@kernel.org, Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, 
- Xu Kuohai <xukuohai@huaweicloud.com>
-Cc: Andy Lutomirski <luto@kernel.org>, 
- Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, 
- Juergen Gross <jgross@suse.com>, Luis Chamberlain <mcgrof@kernel.org>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, linux-kernel@vger.kernel.org, 
- rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
- bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- xen-devel@lists.xenproject.org, Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1789135737; l=1790;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=K9+ZKIgsGRgsc959M4tS0rMKOB/eZlOXTQ8Ho0gK2m4=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QFxu9w6oKo935Kq6bYpzSj4sd/pud6qAfpTImYrmpDnci7BPIoYh09XWotebu7q/uE6z/VGg6k/
- nk0bYtqCcqAg=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-A holdout that is running on a CPU with nothing else runnable is only
-preempted if the tick acts on rcu_request_urgent_qs_task()'s flag, and
-there may be no tick.  Now that a preemption outside a trampoline is a
-quiescent state, have check_holdout_task() call resched_cpu() on a
-running holdout as well, so the scheduler IPIs it and it goes through
-__schedule() and reports (or, if it is inside a trampoline, does not
-report) its own state with purely local ordering.  Nothing reads a
-running task's rcu_tramp_nesting remotely.
+On 09.09.26 08:26, Andrea Righi wrote:
 
-Only under CONFIG_RCU_TASKS_PREEMPT_QS; other architectures are
-unchanged.
+[...]
 
-Suggested-by: Paul E. McKenney <paulmck@kernel.org>
-Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- kernel/rcu/tasks.h | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+> +static bool has_asym_smt_domain(int cpu)
+> +{
+> +	struct sched_domain *sd;
+> +
+> +	for_each_domain(cpu, sd) {
+> +		if (!(sd->flags & SD_SHARE_CPUCAPACITY))
+> +			break;
+> +
+> +		if (sd->flags & SD_ASYM_PACKING)
+> +			return true;
+> +	}
+> +
+> +	return false;
+> +}
 
-diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
-index ba432bd922e2..02d2592ab7a3 100644
---- a/kernel/rcu/tasks.h
-+++ b/kernel/rcu/tasks.h
-@@ -1038,8 +1038,18 @@ static bool rcu_tasks_preempted_qs(struct task_struct *t)
- {
- 	return task_call_func(t, rcu_tasks_switched_out_clean, NULL);
- }
-+
-+/* Make a running holdout pass through __schedule() soon, tick or no tick. */
-+static void rcu_tasks_kick_running(struct task_struct *t)
-+{
-+	int cpu = task_cpu(t);
-+
-+	if (task_curr(t) && cpu_online(cpu))
-+		resched_cpu(cpu);
-+}
- #else
- static bool rcu_tasks_preempted_qs(struct task_struct *t) { return false; }
-+static void rcu_tasks_kick_running(struct task_struct *t) { }
- #endif
- 
- /* Per-task initial processing. */
-@@ -1219,6 +1229,7 @@ static void check_holdout_task(struct task_struct *t,
- 		return;
- 	}
- 	rcu_request_urgent_qs_task(t);
-+	rcu_tasks_kick_running(t);
- 	if (!needreport)
- 		return;
- 	if (*firstreport) {
+Replace for_each_domain() w/ sd = rcu_dereference_all(cpu_rq(cpu)->sd)
+here as well?
 
--- 
-2.55.0
-
+[...]
