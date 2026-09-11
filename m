@@ -1,99 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8437935C6A5;
-	Fri, 11 Sep 2026 14:22:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6729353A9C
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:22:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789136551; cv=none; b=JmzPyttC3VJYMP6M0WroWdIIKslrZu/oNc1QumSb9lZBhvbCndqPTz1jy1YufREzkBh8HvhxqDwbd9rYWeQ3Vyz6xE4weISi0QCFe3izfLf5YUFc99OiiOj4QtSdmt01m3yNH1ciGwwaZDsW8yPsMHpfy5+ZmPuildCFwUc9D5Q=
+	t=1789136564; cv=none; b=rYVMMuCSaPOf3G2fWo1XLNoIv1pV8KFqV8dA9p1cSqtDBpgnuGqrJHMvA4ubSsyDRuK7tG7YfcP6rnq5JCqt/jcnpFFuEqb6sZDUs+OjhDCcwhbp0ksgWyExldkEiMwN0zAF5wZdkxuZVdjN729RUuVbTFYdD+T9gJEfuyfKMdw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789136551; c=relaxed/simple;
-	bh=uWOrzaXvG2Yf89CBRuN2sB9GRYTs5OY3PS9d+qNCzcA=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=OAz5DgZx7SjdGSSEJKayZCojW1rrqp7vmxJgU03v9vdsH1vuNIIVbwgCguPCx0nFcuysqI+6JifRbFar1qjTiM+iJLDI7PU50k7JZBTFo4rbJFTbLpxBXOQyTy1dCUQJPujLziSAQi6ebqviWpUdxx9pFYgprS7oLcr2G9wVwYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SV2EBE5Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789136564; c=relaxed/simple;
+	bh=77jSaPEQqn/wr2ah1jsnAt1nWlrbn0HWyARmuUwIaVU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WWJc+e+oaC7wKu+7fPorglQYQISHL1NSHPyeNZtYBtTzkkYHvWwdSG7pI+70OwlcZTll+JArRSV6h7uixko1YLCTjMpCmIr8uUaDpA6Wl0hn/bC5cbDn2a7nKuDm+80tRTDEjUQvagBIXdB1xHfxFGSEweJcvYuyWiflZ8r2iM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I/3Einqv; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SV2EBE5Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B33791F000FF;
-	Fri, 11 Sep 2026 14:22:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789136550;
-	bh=VgnRZ70Sbk3i9nIYZSSl0brf7pmFUJLQBruWGNhTJ9s=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=SV2EBE5ZDfnu91xo0OWyKwvZltlMjBN/gU5HAxRA5Z5MJAVgomEnHZA2IlVR4TySn
-	 CMGTKdLpThiWoCwn4FCffBstPdLRgrlj7cSXliZcniCa5Cr1XEH2GPeB32RIT6ghPn
-	 6R8dzkVXwltJmuAo5hCCBiJ8pbsFltoNwvP/Dr44kIGG3RBUZvE4DLdPZlMvVZ1+I+
-	 8/PFiuN6DMrCSFzZa21m+RY7WROeOclCPneehtU51i2ZoM1SbnRej+PyYXKvcSty6I
-	 q4FsnmICnfX4XR83oJLMPz9v7r1aq3ipzsh/D+Lz1avVmWQoqIBW8Qj7orQgxXd+Cx
-	 fvew2bUQkAlPA==
-Date: Fri, 11 Sep 2026 16:22:27 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Preetam Sundar Das <daspreetam4@gmail.com>
-cc: basavaraj.natikar@amd.com, Benjamin Tissoires <bentiss@kernel.org>, 
-    sandeep.singh@amd.com, Nehal-bakulchandra.Shah@amd.com, 
-    skhan@linuxfoundation.org, linux-input@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, 
-    syzbot+4eadd4dfe9e66522bae8@syzkaller.appspotmail.com
-Subject: Re: [PATCH] HID: amd_sfh: Validate BAR 2 as memory-mapped I/O in
- probe
-In-Reply-To: <20260815121938.1337631-1-daspreetam4@gmail.com>
-Message-ID: <nr9p85pr-39r8-0r18-60os-p7958qq473oo@xreary.bet>
-References: <20260815121938.1337631-1-daspreetam4@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I/3Einqv"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so5903595e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:22:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789136560; x=1789741360; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1tQhcg+41jd4jYbxHs0U+uMedbQ9Wrg5f7CMD2RYFJw=;
+        b=I/3EinqvXRj7YJwty6zdvDA0O5cw9fRi1ZwSY8daQgqLgNcOVLv0jxvVtN6XqKIGz1
+         O4/1cEHg8poogxMu6Lt5qQHD8nVDsroFL+TKd2uy0FsJre+WNRT6XojVdGLCwknQjaxT
+         yUiM+KNwKkWkKz5IKkEmzLbjeDKk/XfrZL+5/89I6GKSDGDed4djCqZKGBYx0gc2x/o8
+         5QXxsOtXHo0DGdX0uXYvjFV5E1xnQksLtCeERLU3qmCpHVtRljrJY+gugDKX7q26Ji+a
+         nYE7rE91JDhC4xzl0Vhv7gtm96Ll8K6a0Ri98DHnuzANctqmf/+TNdZVK3lal9pdwwfI
+         R/EQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789136560; x=1789741360;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1tQhcg+41jd4jYbxHs0U+uMedbQ9Wrg5f7CMD2RYFJw=;
+        b=lXNpNYs9udbVf9xHLrScJOA2YSPWrWeahr7Sf33/ekgKJA3LGxamihuKglNfR4d4am
+         B8CqLzw/ExmNG0i1eSwBs0R/6H9++4NF4EvBW2lHx4FD9WCwzYemJJ1p1KampTIPUrP9
+         AJ+GbLmyP9/y4T+aYdsQHdepDpMHxG1N9YZOZjnjeSi3TIh4cCoeXE/Wzqgy2VfLZN2j
+         Ib7tPR3XZcihBV09XimVkj6EGYdE/sovoRPqkAYInhtzmEQkJK8JtGVZj+Lcsj75Js3D
+         Wrpy2TXO79PEl3yn7lJPLzD97poJHIquBlQsFxxF188aMzr+eeJ1dbtvnqnPJcKy8sbH
+         DRwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxzlwk5pE5pUDVsVZ8LJwDmDs9wNe/CxDa40Ke8xWyBm5Hz4lcPwmCGaps/RxyS/GnboZxhMBUGyVLbqrU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lvJ3vEe1aeRLmZYbi19g87OcpUolESzNeNyl/b1oV+mUGn6IxJ
+	OJNiK/2yIsLKXYNdOnU77eGilOQA7jh0yzCva92pjqG3Em8AesduSooJ
+X-Gm-Gg: AYBFou3hAwo22EhRuhdKHKleMKCnBB2j3+dLLJQCZWGCj8gngzNwRFMEVOdlbsall6O
+	SJ3vu01JxjvbLL6odIqUhbwsS8/gf5/wnha9RVkoD9CpW+AE4M61ZrhbpdGkuHEOZGi3H7nv+Uq
+	8iJz1nGsQAkDdVQvP/mLXZOhXnEKyOnHcuklW0f8E4LSyuiEKbN0oOlO7dh9JExe5yx9VFGT0w8
+	MYAZ55IabKC7xIxQcKrxgD3Mrk0DRoPm66QAmdTtZ2JyAszZn8XTz+TGFOoLm2PJk+2J8XaH2+F
+	vH8iAw5HSoKstJicniz//0I63F5GEfxS5sMb+zhTL/9iBLW9PMXlOnDGHf4XPYtx6V5o7M3imZG
+	NgEh1F+aOvRBfDhgtNt2tKUpPZhoMfy6NWZE9tgI6GWmUkAl81OoSEUEni3+aodAqQI4EAG4Bdn
+	S91iM72VeCtuJ1cDlizEcejcqrY14lUQvVkiu0jZ45Dha1l6jdwQL/tZUnWux8/zgj3meVfBY=
+X-Received: by 2002:a05:600c:4e0c:b0:49c:ed94:cdd8 with SMTP id 5b1f17b1804b1-49e6198734emr131454315e9.6.1789136559455;
+        Fri, 11 Sep 2026 07:22:39 -0700 (PDT)
+Received: from mobilestation ([185.195.191.165])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6420de77sm25861295e9.3.2026.09.11.07.22.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 07:22:39 -0700 (PDT)
+Date: Fri, 11 Sep 2026 17:22:33 +0300
+From: Joseph Steel <recv.jo@gmail.com>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 5/5] spi: dw: use threaded interrupt and optimize the
+ threaded ISR
+Message-ID: <zp7o6gc3cvjy7cvtq4tnnbmsvkcjflp745ug6zfqbwgfx3x7ez@ml6dwb7jmz4n>
+References: <20260909143652.9234-1-jszhang@kernel.org>
+ <20260909143652.9234-6-jszhang@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909143652.9234-6-jszhang@kernel.org>
 
-On Sat, 15 Aug 2026, Preetam Sundar Das wrote:
+Hi
 
-> Syzbot reported a page fault in amd_mp2_pci_probe(). The fuzzer creates
-> a malicious PCI device where BAR 2 is defined as an I/O port rather
-> than a memory-mapped I/O (MMIO) region.
+On Wed, Sep 09, 2026 at 10:36:52PM +0800, Jisheng Zhang wrote:
+> To avoid blocking for an excessive amount of time, eventually impacting
+> on system responsiveness, hard interrupt handlers should finish
+> executing in as little time as possible.
 > 
-> The driver previously assumed BAR 2 would always be MMIO and blindly
-> passed the I/O port address to readl(), causing a fatal page fault
-> when the CPU attempted to read from restricted memory.
+> Use threaded interrupt and move the SPI transfer handling to an
+> interrupt thread for host mode and non enhanced spi for two reasons:
 > 
-> Fix this by explicitly checking the PCI resource flags after waking
-> the device. If BAR 2 is not an IORESOURCE_MEM region, safely reject
-> the device with -EINVAL to prevent the panic.
+> "while the performance improvement will apply for both target mode
+> has no control over the clocking of data by the host so is much more
+> vulnerable to dropping data in a threaded interrupt if the system is
+> loaded.  In host mode this isn't an issue since we'll simply stop
+> clocking data while waiting for the scheduler to get round to the
+> interrupt thread."
+
+This isn't correct. FYI the IRQ-based Tx/Rx has been implemented in
+the driver for a reason. The reason is - "damn automatic chip-select
+toggling if there is no data to transmit in Tx FIFO." That is if a
+platform uses the native controller chip-selects and the driver can't
+feed the Tx FIFO fast enough so one wouldn't get empty for the entire
+SPI-message handling, then the native CS will be automatically
+de-asserted on the Tx FIFO emptying event which will effectively break
+the message transfer.
+
+So if you still wish the threaded IRQ handling, then it must be
+utilized only for the non-native CS (like GPIO) or if the platform has
+a custom native chip-select override.
+
+-Joseph
+
 > 
-> Fixes: 4f567b9f8141 ("SFH: PCIe driver to add support of AMD sensor fusion hub")
-> Reported-by: syzbot+4eadd4dfe9e66522bae8@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?id=227a9acbe565367eb7a1277b47115df8706d9a12
-> 
-> Signed-off-by: Preetam Sundar Das <daspreetam4@gmail.com>
-
-Basavaraj, can I please get your Ack/Reviewed-by on this one?
-
-Thanks.
-
-> ---
->  drivers/hid/amd-sfh-hid/amd_sfh_pcie.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
-> index 4b81cebdc335..aef105a81570 100644
-> --- a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
-> +++ b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
-> @@ -451,6 +451,9 @@ static int amd_mp2_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
->  	if (rc)
->  		return rc;
->  
-> +	if (!(pci_resource_flags(pdev, 2) & IORESOURCE_MEM))
-> +		return -EINVAL;
-> +
->  	rc = pcim_iomap_regions(pdev, BIT(2), DRIVER_NAME);
->  	if (rc)
->  		return rc;
-> -- 
-> 2.43.0
-> 
-
--- 
-Jiri Kosina
-SUSE Labs
-
