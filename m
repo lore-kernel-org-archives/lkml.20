@@ -1,110 +1,125 @@
-Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
+Received: from smtp.jvdsn.com (smtp.jvdsn.com [129.153.194.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F89539FCAE;
-	Fri, 11 Sep 2026 02:50:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB0149E150;
+	Fri, 11 Sep 2026 02:53:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=129.153.194.31
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789095011; cv=none; b=oxQXBbStXMqsx4xy2vkgFzS9Ji47abOaQ/C1w1PBk4z9yQVF33QpkOPHQ6y3C5nALf1eF5rEss5z9dMfVF2BPqoBMalqvki8onBMPIEnubH753XTxyP/zEv5gJw8LjC0umM/0AJMT5B73TQkYuPd1AqF4B2L5idYACyOs8ZPECE=
+	t=1789095213; cv=none; b=svygimq0ZwuHuldxVQcTfnk7A9CtxvPySla5YbA1cisjCQLbONH4fdy2B+vHR1Js9VZWiDRowM3ypLax29zEi6oHXUaeNHzkvzDFex+w5oAd+EygAB3psdxZ3W6do69V8qbV63QD0i2JTtoNdmwpCqfxTM0lEgjdCXVv9QLp/Rk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789095011; c=relaxed/simple;
-	bh=wCaPxS/hIt13v/BlRL85KzydtkVELLxvezhjNy6rMuc=;
+	s=arc-20240116; t=1789095213; c=relaxed/simple;
+	bh=1RhRGsA/+i354nq29SKiIHFX5cjaUHf/p/lQTaN2tk8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GHvDgjhCL4iHgj4UtkVBsjRcPgzsMpjiaxMsnSChjohZNsfVrGNbP3B4Dy64yIj5OPHYNyD5cT6icEIO1IGf+Piq5/ohzz2/paDFm+bZHcwNk2+TERuWhyg9tGRI94VfD3PdDWaSYlaft+lEJQUUdpfmx7LyfSp8y+AIxE5ldnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=OYaoPJtf; arc=none smtp.client-ip=115.124.30.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	 In-Reply-To:Content-Type; b=NVnOIO/MoG//pPaHQIdnHLhvPuCnf3ddYl3F5UJLwJmM+ZdtwL8mAABMTOZ2uTiEh2lyz38qHYxPthRd/QyQBaTWErRHL1XYmrTzTgqRzTttcR/rFdynlUS6snw4PrYiWz+hN8l7y0Kc+T08qj+LXTidP+9BPQWW/cm1zmryXHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=jvdsn.com; spf=pass smtp.mailfrom=jvdsn.com; dkim=pass (2048-bit key) header.d=jvdsn.com header.i=@jvdsn.com header.b=4/pB/uEY; arc=none smtp.client-ip=129.153.194.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=jvdsn.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jvdsn.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="OYaoPJtf"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1789095004; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=/qoPgN105gt2P4UL8cGJgEPkDgefVho21FsHOdfrr3Q=;
-	b=OYaoPJtf5rOfFDkfjgDt/nanPwQiaZdKxU1FTNt6Q8dHESj4SjsySxTdy0bHaA+w6Cqw8pwOFNBr84yEqoanx2xgFaYUAjvgnA+ta58zm7sKl90Uzmh22+lJBddPfHA6DCIF3NhbsbZyG7S0BhMhwq9qLfwnk1NpRIVZSKuxUy8=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R631e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=26;SR=0;TI=SMTPD_---0XAj1dJ._1789095001;
-Received: from 30.74.144.118(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAj1dJ._1789095001 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 11 Sep 2026 10:50:02 +0800
-Message-ID: <708fbbe2-4eba-4641-8267-ed930ade0068@linux.alibaba.com>
-Date: Fri, 11 Sep 2026 10:50:00 +0800
+	dkim=pass (2048-bit key) header.d=jvdsn.com header.i=@jvdsn.com header.b="4/pB/uEY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=jvdsn.com; s=mail;
+	t=1789095211; bh=1RhRGsA/+i354nq29SKiIHFX5cjaUHf/p/lQTaN2tk8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=4/pB/uEYmTrLXPTvO0NmuWhXOUuRYJE0IWF9Re4C1MJhW80WoYEXPuSxueOCTWbFx
+	 Sb3ghS3L4wanuWcb987JOWi5s/AEzDSn2NIo+zsqsNJUzqZYvetdpCfyzi0m7e8bp1
+	 plSkHrBIcgArcQKVXl2j4m+6FEZJbuD+66NWdVA5cga/LmxaqhSrsV2kxE2bLzlZ10
+	 Bcs2k/m9xNYxBLO2/F+caD7bZcr3HekTYiuzqg7k56rdeEuSTOFJEKcTljDp3PiqFM
+	 dbr4ECVl4qm2PwplC9QnTulbMoOHFGYDrxxqgcOqVTOxg4yl1LGvFs/A/oV0JDKLXq
+	 f4/8+iQv5TG9g==
+Message-ID: <e1d45f87-de65-4ff2-903a-80fd2c0b3861@jvdsn.com>
+Date: Thu, 10 Sep 2026 21:53:30 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 08/19] selftests/mm: add folio-order check for address
- ranges
-To: Kiryl Shutsemau <kirill@shutemov.name>
-Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
- rppt@kernel.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, usama.anjum@arm.com, usama.arif@linux.dev,
- nico.pache@linux.dev, ziy@nvidia.com, baohua@kernel.org, dev.jain@arm.com,
- hughd@google.com, lance.yang@linux.dev, liam@infradead.org, mhocko@suse.com,
- ryan.roberts@arm.com, shuah@kernel.org, surenb@google.com,
- vbabka@kernel.org, agordeev@linux.ibm.com, jgg@ziepe.ca, leon@kernel.org,
- kernel-team@meta.com
-References: <20260908125105.1510704-1-kirill@shutemov.name>
- <20260908125105.1510704-9-kirill@shutemov.name>
- <feb76c81-db9d-4a36-9a31-0b2b31e3c3fb@linux.alibaba.com>
- <aqKFXlpSELmCtt-z@thinkstation>
- <65bf1722-c1fd-452a-88c1-c030b042cfbc@linux.alibaba.com>
- <aqKqr62-718Vw35k@thinkstation>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <aqKqr62-718Vw35k@thinkstation>
+Subject: Re: [PATCH] crypto: testmgr - block Crypto API xxhash64 in FIPS mode
+To: Eric Biggers <ebiggers@kernel.org>, Thomas Huth <thuth@redhat.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Herbert Xu <herbert@gondor.apana.org.au>
+References: <20260303060509.246038-1-git@jvdsn.com>
+ <abTuFto8Tc3mhRRe@gondor.apana.org.au>
+ <64592fee-1956-4a70-a751-9ac3335cfc27@jvdsn.com>
+ <9926908a-5f08-43ba-99dd-b83c7067d52b@redhat.com>
+ <83d09aa1-729a-47a2-a8e9-381c74e92f42@jvdsn.com>
+ <48f12b65-428d-4809-9735-18876b09e759@redhat.com>
+ <20260910141456.GA1936@quark>
+From: Joachim Vandersmissen <joachim@jvdsn.com>
+Content-Language: en-US
+In-Reply-To: <20260910141456.GA1936@quark>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Hi Eric,
 
-
-On 9/10/26 9:04 PM, Kiryl Shutsemau wrote:
-> On Thu, Sep 10, 2026 at 07:14:42PM +0800, Baolin Wang wrote:
->>
->>
->> On 9/10/26 6:45 PM, Kiryl Shutsemau wrote:
->>> On Wed, Sep 09, 2026 at 06:01:13PM +0800, Baolin Wang wrote:
->>>>
->>>>
->>>> On 9/8/26 8:50 PM, Kiryl Shutsemau wrote:
->>>>> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+On 9/10/26 9:14 AM, Eric Biggers wrote:
+> On Thu, Sep 10, 2026 at 10:57:32AM +0200, Thomas Huth wrote:
+>> On 10/09/2026 05.24, Joachim Vandersmissen wrote:
+>>> Hi Thomas,
+>>>
+>>> On 9/9/26 9:36 AM, Thomas Huth wrote:
+>>>> On 15/03/2026 01.43, Joachim Vandersmissen wrote:
+>>>>> Hi Herbert,
 >>>>>
->>>>> An mTHP collapse test needs to know that a range is backed by folios of the
->>>>> target order, and that they sit where a collapse would put them.  Nothing
->>>>> answers that today: is_backed_by_folio() classifies the folio behind a
->>>>> single page, and check_huge_anon() reads smaps AnonHugePages, which only
->>>>> accounts PMD mappings.
->>>>
->>>> Have you checked check_large_folios() in vm_util.c? It seems to meet your
->>>> requirements, or am I missing something?
->>>
->>> The changelog is out of date, sorry: since 6dedaf0d46a9 check_huge_anon()
->>> counts mTHP folios through check_large_folios() rather than reading
->>> smaps, and it is what check_huge() already uses for mthp_khugepaged.
->>>
->>> It could do this job too, called once per window.
->>>
->>> What is_range_backed_by_order() adds is alignment check: the folio has
->>> to sit at the window start. And check_large_folios() reopens two fds per
->>> per call which kinda wasteful.
->>
->> OK. But can we extend the check_huge_xxx() functions to meet your
->> requirements, for example by adding a check_aligned_huge_xxx() that wraps
->> the underlying implementation of check_large_folios()?
->>
->> I still find it confusing that khugepaged.c has two separate sets of
->> functions for checking large folios.
-> 
-> Agreed that two sets is one too many.  Yeoreum's series rewrites
-> check_huge_xxx() on top of pagemap and kpageflags, which is what
-> is_backed_by_folio() already walks, so once that lands the two can meet:
-> the mTHP branch of check_huge() checks each window for a folio of the
-> order at its start, and is_range_backed_by_order() goes away or becomes
-> its internal.  That also makes the generic mTHP cases stricter for free.
+>>>>> I don't think this one can be applied yet since dm-integrity
+>>>>> still uses xxhash64 through the crypto API. This would break
+>>>>> fips=1 systems that use it.
+>>>> Out of curiosity: Wouldn't such a system be FIPS-incompliant anyway?
+>>>> If xxhash64 isn't FIPS-compliant, nobody should use it for
+>>>> dm-integrity there, right? So I doubt that there are any systems out
+>>>> there that use fips=1 and use xxhash64 at the same time?
+>>> There is a risk that users may not know that xxhash64 is not FIPS
+>>> compliant and would still use it. Especially considering it was marked
+>>> as "fips_allowed = 1" for a while.
+>> So isn't that a very bad situation? They think they are FIPS compliant, but
+>> actually they are not since they use an unapproved algorithm by accident.
+>> Maybe it would be better to include this patch so that they are aware of the
+>> mistake? If there is really somebody running into this issue, they could
+>> boot once with fips=0, fix their system, reboot again with fips=1 and
+>> finally be really compliant. Sounds like the better solution to me. WDYT?
+> As described in the dm-integrity documentation, dm-integrity supports
+> non-cryptographic checksums for protection from accidental corruption.
+> That use case is no different from any other use case of a checksum.
+>
+> It's also no different from using crc32 or crc32c, which similarly have
+> fips_allowed=1 and this patch completely ignores.
+>
+> The solution is not banning checksums or making any other code change,
+> but rather just doing what it seems everyone has already been doing:
+> documenting in their FIPS security policy that checksums are only for
+> use cases that are not "security functions".
 
-Look forward to seeing this happen:)
+Unfortunately, this is not an option anymore due to the opinion of the 
+CMVP that was issued back in March. If you have an account (you can sign 
+up for free), you can read it in full here: 
+https://cmuf-workspace.org/Products/Projects/Messages.aspx?prjID=3&id=559. 
+I can also send a copy of the PDF file privately, if necessary.
 
-> I would rather do that as a follow-up than fold it into either series
-> now, since both touch the same functions.
+The relevant text is:
 
-Sure.
+     1.a. Can xxhash64 be used in approved mode as non-security function 
+without any further action (in this case FIPS IG 2.4.A will not be 
+applicable)?
+
+     Answer: No, xxhash64 cannot be understood as a non-security 
+function because:
+     1) It is offered as an equivalent hash alternative to approved hash 
+algorithms (i.e., SHA) using the same interface/API and therefore 
+appears to an operator that it can provide cryptographic protection 
+(i.e., security).
+     2) Its return value (i.e., mode indicator) is the same as for 
+approved cryptographic functions that provide security.
+     3) It is accessed by an interface/API that has “crypto” in the name 
+and thus implies security.
+     4) It is an available hash function (i.e. PRF) of HMAC, which is a 
+keyed algorithm that implies security.
+
+crc32 and crc32c were not explicitly called out in the resolution, which 
+is why this patch didn't target them. Though following the same 
+rationale, they should also be disabled.
+
+>
+> - Eric
