@@ -1,154 +1,113 @@
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDFEC3CEBBD
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:54:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789120476; cv=pass; b=VTg97ATDTOR4G+mDW/zkDjcjtGBimYXCXtenynsD2m4TX2ItKHNNyeN7Pa2SlRij5XhMD2tSedpZKoG/FLH9oynUsjhg0FfFwK5qMTGLCOzXsVoK/H8+x6AqwLOTo4oAg4j8LYx9WdiBjQxo7iBA3OWiTSaPzRCIVJtL/YzZHxE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789120476; c=relaxed/simple;
-	bh=sxPQd2WIotJ9767P38oBEjiKB0X2FvjDyh2e0Xku6Ag=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SgpdVjO5rVFaWE11DVmkYUp9wSXN4SKd1dZyObeW03FP475YMkU9Q5M5j82lyTyIv8FDcuvN7N5UyQETLxbZt4pe5tGDD3Ab3V51SA76aPkZZ8rUR6nAraaGg3QVYkIkRSUmhGOlDoZfhIzKZ6YykZgnHdny0K4tL6c5Ko8HuCI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RStG1qwx; arc=pass smtp.client-ip=209.85.210.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 698713AB29D;
+	Fri, 11 Sep 2026 09:55:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789120524; cv=none; b=Uo9zByNUkre0v6WGAisafmZQAME/ClLCemCdDLpxBAe5Wt6c1vOjtGce+n/X5e3GNyGl+17Lh9ebxJ4lZg6dn9cONgtdB9FOhwG/5GEca93jWYxtg/FJKtaF+qqT21yFh5/waYoQV2WkK9pcnK/A0uBscXffBqg4YG2iqw5MZI8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789120524; c=relaxed/simple;
+	bh=0tQ5UOcfmXeoMU2bbIGxdIrQatK2ev1arDHG7vwy7T8=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=tlPSVep7WrtMKZKsdNiPcPJUidWD/GOVn7+I/E4Q7O7O3VCFnj12mHuqkaZzHkJFVfLAGwyzq16q10CpvcxVLUer4pRc2Td+hiKS5f9L0K7RGOtj+3gpalIKxGzL6kL/F/C5OdceqZVtsMUSk+DwUh9rM8jj318nmo9KmmfPa0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=5SglTdFH; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RStG1qwx"
-Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7f4f53975e6so794702a34.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:54:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789120474; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VCtXMyApPYTH0IQCNjV20qVUL1jgVzPs90DQkDBVbOtCG6y+Pa72SDVuA8wFq2Yo0Y
-         UlsFVnL+NmprMpaFCwv7orDRlMMcvlO7ugdVJbNG9glD0qAqER+HZvJghJSqDurMRIpw
-         c8MLydvKbesw6iFqaBJV687c6FkGFBU8xQtViUP/ATmZrnccgo5U1xRm2YzkmrlmUnkW
-         ZYeaFi2qf9AA4TD004r56FyXTKnSuHaDwDZPygmim/4BtNvyYW0u/R//lqhwOh9MtXxI
-         U32D5Rkr7fuEobyQSE9I7kgQHcJ28POT09TbiA4Wu30eJF+r8gQ/u2J7rN/PdSkIsJRn
-         tZGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=sxPQd2WIotJ9767P38oBEjiKB0X2FvjDyh2e0Xku6Ag=;
-        fh=IiWdqz7ycgM7LPy5JN/rEDyeG02486pqDEaekz0Y4AI=;
-        b=fnqSb/jsfoqlJxDWcbKKZZUVx+5zyLr9E6PquT11w9cf8PimgC1+1gkoodaJCvOZsJ
-         5YQnzYifKTu0mxrVnBeSx7/1CwswCj1VMloYGRedlKdDa8zx43znd79AO+dZimOXpsiv
-         ITwcIQbH9ACqyHGS/5VhqMXt9JEKGLzyk8o+cPCOnv45X6K0t/wcNrwL3sgOjcUtf/AR
-         hr7U5e9HdjdtyardWu8Ux/kyLsVQIHLqh2H1HSRCc6hQT3dDz+MkUPEnvihCmw44YsTy
-         c/bc+EZrviRkFncRj8sgknszC5OxI69AzPPcYk0Svpuw++N7sYhcOUk44lecF3jKFCLo
-         Myrg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789120474; x=1789725274; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sxPQd2WIotJ9767P38oBEjiKB0X2FvjDyh2e0Xku6Ag=;
-        b=RStG1qwxGVgK/4N9ZBGWVzVbKICczvDyu85Ctz3aG8c+go527GpD/ZAaUOcJ4Ye9H4
-         15XeChf2kr6dnPUJza7Svd5cV4f27OH+h/O0aDV3iF15s+kjSRM09wj4JANeHkbYx/lg
-         31qrF1zinkFtqPhrEik7w0u4UuDEHTIcU4ERWpXAdiLDE2+XgSpC+pxPL5QAwcGwLE9+
-         fnEd3yv66ZaqPj+NcfArCduHqrk5t7TGym7j5JVHNWJNvbVvZREJCbIPdD1UKxwm7sU+
-         P/wyjLEA5Q/LfX4mzwWNbQaDxoo7NGqbQQMSKoWPda8cG9z5mWDYuztrQdnvl/7pbFgE
-         2a8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789120474; x=1789725274;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sxPQd2WIotJ9767P38oBEjiKB0X2FvjDyh2e0Xku6Ag=;
-        b=bIy5YehegqEVKhay2tdNIdpbWJX1nkQ3wMzeSvZtW3cQp2s/6EYf9a4N7Hydf3U5hu
-         P7gE7YtkTLNypIKQdtATobJmWkAx4RYoOTk2n2OMpSGWdu6R9LzdaggoQZJSNCGK/1FD
-         6ZaOTNIl7y8pZULQ53t15PcBtjebewK4UgdxC1OWw4ltc486BZrcr8jalxufmdCEOGD5
-         6KO1qKdWhTkUtnv+CfL3AAA2fCPf4Q5vSOp5dtl6sGSDrUOih1iJS/AMysHT8ywksmn7
-         mJflHxiPoGODTYE2nXfGEzcU9PtVfNDaTLltcB9lrDHCFW6AJYXf6OOQABY1l7z/m7NM
-         TXcg==
-X-Forwarded-Encrypted: i=1; AKwUvBydyksDcTtPFFak7GybYYUbb7TWRna4miNkI67jj/IwHQp4Wat2LSvSpQc9X1GUiW9vrrBsYfky0oiYNAE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lCMV4LdPxoEu+xqGW3Fcu9GtB1+0jFHX2VTYoWlyMQ47ya6BUv
-	ClsDCHfo0s/jZT1WnOEpeA4OkVNP44yjN3ekNQQ7jrhZp3ji9H2rh5aaippCBohDdD4U5SkiEgq
-	v4mKRlyX60J7IGOklgQYK3vnck6mJy9FgJqHfrJvH
-X-Gm-Gg: AYBFou1ld8xqxO3iWB73HSbFIQvT006pnDtnR+VSxAGx6DjCHiSbGomCSMzZOC5JzFj
-	1ZAJmE+bTtnObkT1BBfv056GIAwWMdDG6rZMZzUCeSNRI3MtKctSPocKYKUHy62nqEFvtzoiwGI
-	UG/OXuA+k8XlF/8nFf+vjIzBVL4tEcMqmI9PyxVKvTWPOkSRZy+GKAy6gQkHbLtHMYoPN0wTiOZ
-	sLNz6N+5Gw8VIF5dxKacFmhyN1doWQX4d3I2bsu5C7rF8O2cpZf9cathLGBl/obx27SeZQFiZFc
-	hOaY9R5ixH/DejxWUYDMOznPN7c+OxNME2utkdxmOhLfr6C7Hp7/FO/9q7hY33NweI8ZosHPYkA
-	wZIbLwUTtLGFI26vo6J6zT+7y/uWh93PuFn7hN+s3MxuxH10k23o8xiuRmKo6yt8EI0y/mXPK0u
-	HyQoUGROrSvvBQWOCLYxI+wjgP
-X-Received: by 2002:a05:6830:f98:b0:800:d883:9988 with SMTP id
- 46e09a7af769-803fb6cb448mr2828620a34.0.1789120473081; Fri, 11 Sep 2026
- 02:54:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="5SglTdFH"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DB6E6A4C11;
+	Fri, 11 Sep 2026 11:55:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1789120515; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=U+rkct1N0ewPgHDfDC9pZh5mG5IDXEtz1Rz15dwMtTM=;
+	b=5SglTdFHwNSNPAs7eSjcxRbhk8Z7Is044GE5xQP8mc2+bVSShmluT3VQE2eL9cgv381Yom
+	6kBBW1Fykq7wBLy7/F8KigE1U1f35N7qD42HyyGLDN9D7wcUzW1Vhagrg7l1HYqvSLTbha
+	P+nZj9K+GQRGmMNERS4DG7o5wAnnn+WuIxACZ3buGtgtnx+VL9/O1jvlNwMMJ59CDqvfPT
+	nrNkL3hBgwSRinec+tXnlf5T6QMFYirjAWT0vn6/NCedkezJmwOJCSd2ToDCRtgpnDbSr0
+	XPqzhHS8CsDAg5/eeLQ3oone7n0SXNfS3Wqumt+vhONUbHJPHoQ3GTYg+T5PrA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <6a88066b.ae6ddae5.3da009.002d.GAE@google.com> <6a9bceeb.a5e650b3.26d8a.0008.GAE@google.com>
- <20260905104331.6d4288df.michal.pecio@gmail.com> <2026090536-numbness-enlisted-917e@gregkh>
- <20260906123835.56902ed7.michal.pecio@gmail.com> <CANp29Y4VaiT=oj5mkbf00hq6ogDs7zHZb1_9SC6qTQL7_UPfZw@mail.gmail.com>
- <20260907102252.6eff5c54.michal.pecio@gmail.com>
-In-Reply-To: <20260907102252.6eff5c54.michal.pecio@gmail.com>
-From: Aleksandr Nogikh <nogikh@google.com>
-Date: Fri, 11 Sep 2026 11:54:21 +0200
-X-Gm-Features: AcwNN1U9QqScehaKOEShCisWyOXNyJs7MHAC8Id3_uKnwcGvz7UQHjUestEfjCk
-Message-ID: <CANp29Y66ZREv=wr6PWBt-KORVJ+BdinM8J1B+RC_QoCzy1s1Ng@mail.gmail.com>
-Subject: Re: [syzbot] [usb?] general protection fault in vhci_hcd_probe
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: Greg KH <gregkh@linuxfoundation.org>, 
-	syzbot <syzbot+7300affe388249d66dfe@syzkaller.appspotmail.com>, i@zenithal.me, 
-	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, shuah@kernel.org, 
-	syzkaller-bugs@googlegroups.com, valentina.manea.m@gmail.com, 
-	syzkaller@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Date: Fri, 11 Sep 2026 11:55:14 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: kimwooseok <5mghybrid@khu.ac.kr>
+Cc: netdev@vger.kernel.org, theo.lebrun@bootlin.com,
+ conor.dooley@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ richardcochran@gmail.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net RESEND 2/2] net: macb: Use all-frame timestamping for
+ PTPv1 RX filters
+In-Reply-To: <178911388671.25348.11008812384009904081.macb-resend-2@khu.ac.kr>
+References: <178911388592.25348.177462085059763031.macb-plaintext-resend-cover@khu.ac.kr>
+ <178911388671.25348.11008812384009904081.macb-resend-2@khu.ac.kr>
+Message-ID: <185fa72f08b8d7882a48c3ba922c10b8@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Sep 7, 2026 at 10:22=E2=80=AFAM Michal Pecio <michal.pecio@gmail.co=
-m> wrote:
->
-> On Mon, 7 Sep 2026 09:59:36 +0200, Aleksandr Nogikh wrote:
-> > On Sun, Sep 6, 2026 at 12:38=E2=80=AFPM Michal Pecio <michal.pecio@gmai=
-l.com> wrote:
-> > >
-> > > On Sat, 5 Sep 2026 13:30:01 +0200, Greg KH wrote:
-< .. >
+Hi Kimwoo
 
-> > > >
-> > > > That will taint the kernel in newer releases, and syzbot has alread=
-y
-> > > > been told not to do this, it's not "valid" at all.
-> > >
-> > > What cought my attention is that Google apparently has some capabilit=
-y
-> > > (human, machine or otherwise) to understand how this repro works, and
-> > > yet they keep reporting this broken pattern.
-> >
-> > As Greg pointed out, we've adjusted the fuzzer to stop using this
-> > kernel interface, so there should be no new bugs of this type.
-> > However, we haven't yet invalidated all such reported bugs, so some
-> > notifications like this one may still leak. I'll look into
-> > mass-invalidation of them all, but in the meanwhile let's close this
-> > particular one:
-> >
-> > #syz invalid
->
-> Thanks, that should do it.
->
-> Nota bene, this can be triggered not only by the per-device
-> 'driver_override' files, but also the per-driver 'new_id'. While
-> I haven't yet seen your syzbot instance using the latter, I have
-> seen others, so this needs to be filtered too.
+On 11.9.2026 10:04, kimwooseok wrote:
+> gem_set_hwtst() accepts HWTSTAMP_FILTER_PTP_V1_L4_SYNC and
+> HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ without changing rx_bd_control from
+> TSTAMP_DISABLED. A successful request thus disables receive 
+> timestamping
+> while reporting the requested nonempty filter to userspace.
+> 
+> Handle these two filters through the existing all-frame fallback used
+> for HWTSTAMP_FILTER_PTP_V1_L4_EVENT. This enables receive timestamping
+> for a superset of the requested packets and returns HWTSTAMP_FILTER_ALL
+> to describe the configuration actually selected.
+> 
+> Fixes: ab91f0a9b5f4 ("net: macb: Add hardware PTP support")
+> Assisted-by: GPT-6 Astra
+> Signed-off-by: kimwooseok <5mghybrid@khu.ac.kr>
+> ---
+> Resending as plain text because the previous webmail submission 
+> included
+> HTML and quoted and rewrapped the patch. No code changes; the 
+> Assisted-by
+> trailer now names the tool.
+> 
+>  drivers/net/ethernet/cadence/macb_ptp.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/cadence/macb_ptp.c 
+> b/drivers/net/ethernet/cadence/macb_ptp.c
+> index 51659bb..2ffc46b 100644
+> --- a/drivers/net/ethernet/cadence/macb_ptp.c
+> +++ b/drivers/net/ethernet/cadence/macb_ptp.c
+> @@ -430,10 +430,6 @@ int gem_set_hwtst(struct net_device *netdev,
+>  	switch (tstamp_config->rx_filter) {
+>  	case HWTSTAMP_FILTER_NONE:
+>  		break;
+> -	case HWTSTAMP_FILTER_PTP_V1_L4_SYNC:
+> -		break;
+> -	case HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ:
+> -		break;
+>  	case HWTSTAMP_FILTER_PTP_V2_EVENT:
+>  	case HWTSTAMP_FILTER_PTP_V2_L2_EVENT:
+>  	case HWTSTAMP_FILTER_PTP_V2_L4_EVENT:
+> @@ -448,6 +444,8 @@ int gem_set_hwtst(struct net_device *netdev,
+>  		regval = macb_readl(bp, NCR);
+>  		macb_writel(bp, NCR, (regval | MACB_BIT(SRTSM)));
+>  		break;
+> +	case HWTSTAMP_FILTER_PTP_V1_L4_SYNC:
+> +	case HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ:
+>  	case HWTSTAMP_FILTER_PTP_V1_L4_EVENT:
+>  	case HWTSTAMP_FILTER_ALL:
+>  		rx_bd_control = TSTAMP_ALL_FRAMES;
 
-Thanks for the suggestion!
-I've looked through the open bugs, and none of them seems to be using
-new_id indeed, but I've sent a fix to prohibit that just in case:
-https://github.com/google/syzkaller/pull/7888.
 
-Please feel free to ping us if you notice any similar false positives.
+Reviewed-by: Nicolai Buchwitz <nb@tip-net.de>
+Tested-by: Nicolai Buchwitz <nb@tipi-net.de> # Raspberry Pi CM5
 
---=20
-Aleksandr
-
->
-> Regards,
-> Michal
+Thanks,
+Nicolai
