@@ -1,226 +1,114 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEDE042D75F
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 22:06:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09E3497B63
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 22:09:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789164404; cv=none; b=tVhJgeM5bOmw00dHCzyChMoIRdm7GGUk2Sz3A8JMAsY1HGriY+f80CJIQuoHRRzY7Z561oBE4Dzb+uy6YZmZjVOkkxLJ8jniVd0S55u+vU74sl3VY0kRWjvEtHlfF93RnS7KXvAwj5vHml4iKEVCGYZ6gTuTtO136qh6APazTH8=
+	t=1789164569; cv=none; b=DZ/6mT1+tk75HWLSXVnRHCaHmW3s5uexPdGngDLbstYuSgmiEcYqkHePuuOj2bPhSTnX7wBK+7ppPGwavaWjeRO3EOce/bM4VSTd0CX4iW7vwcK91gvBhv+9RPpW8Cjo85JMBebxspLgC5fn55sN+H83wPPUgIOzvYcMC9ahnpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789164404; c=relaxed/simple;
-	bh=aToO4pp8C7M492LuZqiVte8e2Tu4lbhA5eT7W+4ZbNQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=H04NnqDXuNS66Bf2qHqMZlRAj0wrtGq/ojdpaAhQNBw4zW9/M0ycJY+OhJ/QpiU4ykOJScHB12XVtj6Q/4ubVcHxx7sv/o/Du70pQETpQkbQ3WVkYNtL+LgZG/V1vhGanH6rlZm4NAUxYbv0j34qEBi9wRugw3jDMDlstQL5CHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nPFseqjZ; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789164569; c=relaxed/simple;
+	bh=ZhtceR9Fm3x1PqtxgXKQP5KqcUOG2uEBhA+0sw07vNs=;
+	h=Date:Message-ID:MIME-Version:Content-Type:From:To:Cc:Subject:
+	 References:In-Reply-To; b=fKg63pTKKApxqB5BupqJAbWyGxemSgmA8BKt7CS3E3zHlKogOVVC7hh28bD2hypuaFOW+qoASPEQOvf5Izn4U9kp0euq0GBqhY8IJ9tIlwP6qtl60ZUq+ttZE1tMU+AxnGEg8zsVnOs7I6/WjnW/YTImGPg3HQpq8hk/f3GjKbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=VnmBmrqF; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nPFseqjZ"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed1368so398495ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:06:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="VnmBmrqF"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910ad20d4so5030885a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:09:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789164402; x=1789769202; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nnH05WBvR/80ATWuPrHor+2LYakQx2ATwEyMS0URpoA=;
-        b=nPFseqjZsrrDLE5vdfrynjpEIjO71l9a6hWuJIOeRlENyrzsE9R1pIR//67qqX6wiv
-         JwUdI49YfnuSv6UvI9GChucjNlUENcanD+RQ4CrMksuUIeP+8tHJ1IOggtsM5nTfy0k3
-         YtpMH9Zf9y9WXj1EJS7mJf/Ux/Q10RipfQTPqG1osYvn8qdLeJkN/u1eG2C+btkLR2vV
-         cym+92irSjuj61HbrG6QBk/rHSqRTiKXfBeCc3gL7oy8CIRTzx4MwZ8J8Q7Z9PZcksUs
-         a1a0jvvQIxe2S2vQb8pniZDKrZeum0DjgjiDrRzb3PLrxfWvk0u/o3caO70fw8KdplJY
-         rZPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789164402; x=1789769202;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=paul-moore.com; s=google; t=1789164566; x=1789769366; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+         :content-type:mime-version:message-id:date:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nnH05WBvR/80ATWuPrHor+2LYakQx2ATwEyMS0URpoA=;
-        b=FezUtvd6CK4VR8GbbJaBbOh352zZxt+ohXt0CAUAMHltJ5MpYy4kIwy/uU4wyhd4UC
-         u87m5yH1FXBbWmVGPfVTD6IKiMLbnoiUamVz460pXkrLLCJEtiSRSRnGVzhcz9Dc0Yjt
-         MrTai3VkcNYi7vwNa32B4acT1qqhYFDfGc0mnOswbru6Hdt4eO+NP7kazZ/Im8Ga1NuC
-         IqtHNNCiO573IYBL+PwoWjC0bmZzSKIivtHej9zA8eQmw/bTbkNprPAD0+qIT+HNkCKM
-         O+/SUVQJSq65/tcD8YH0CnAAiW/TYxXkMP9QRa1ygLY/tY+WR+txTRlwKTTWYdiAfrK0
-         cI2w==
-X-Forwarded-Encrypted: i=1; AKwUvBzO4GwSZYP2JnjrvSySiESzIZNBbZ17c+ho4fx1Ec4MMV1ve1EE6pi49dW9Pc1HnSe2q+5RwVVTkzgGPy4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQgyFfLToY0qk9ZFYgUXkDemRx+cXxNI3Y+FQWMFedNsrCi3ke
-	K8DJS91WeckOTLmM7P5r1BsQZVQ5NhkRP1kFrX/xQbIHgJsX3sonThK9hhyKdw==
-X-Gm-Gg: AYBFou1hVA/fDwMnt1tkv4GWir9Jf0l57hYB67ppiF03rKBvXwgl+5btjYj+q7dSeOA
-	YewNFlx/0lZaRK44xapL/jVw4iKN0/st8ew8+5SQypGhRj3O5fM26WshuEvsJpARow0lXmI7C+2
-	fnypQizghZ5nlMoRNCuS6TKBPMpSlL9eGEyY384eFOKp549sHIUk/HXr9b+InSye2lE2tQOFTT8
-	oSlifQ/ZmOcYsATPifrT77mwvu+dTDdX2Y+iO7T/ll6JFL/IjAI8LuDAq27k+KY+w6W75A/Fz0G
-	AO3Mk/twnybQYF2wOvC1MtVtsWdT0WtR2ywp9sJZtGGUJU0KePVeLzQXMis3d8lOrSPaAVsjeru
-	NTG+8YXN8ZVy1cs9cOHZDcfVv5VKsbR29oMo6ww6QQISnjAA8JI3toaYOZZ5r/3EII+hmKcfQPw
-	OY1OzEo3V2GKEn/xyxyu7FD9CPAbLTMdTM2Hc0rePf7ZM67kYbd1eBttojbP5UUZcGz7QxH12uj
-	KM/Zc4mi1/XqsTrZkMiXWblUdbgH96rgqpoQYjlN/0G9gMBMDnTHDZzH0UGmhje5b6lxS5ApTOF
-	INYgyO3K6U1Kt2TpLvvQEO8W3nqRJEvb2sxtnBwresFe8uLUqA==
-X-Received: by 2002:a17:90b:4b0e:b0:398:bee5:61d6 with SMTP id 98e67ed59e1d1-39dbc725258mr311632a91.24.1789164402015;
-        Fri, 11 Sep 2026 15:06:42 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9d58adb5sm2091295a91.3.2026.09.11.15.06.40
+        bh=3LX6vyJd3+fW0hcCFrd1cZ1+qMqiip6Fji47Ec3/FuU=;
+        b=VnmBmrqFi/Ky4EaYgXb+5LF0He76SwsE1aEDzuw0ykfftpg/LAxW2KEzCLmMPDnhF9
+         1Cga+bQIN5BIarqclsaDYRQJXkZH4tPexBGQtTIbLBUu1U1kzWLPuonSua40v/x8XJ8G
+         zybm2yraGgkgfkCWl/11yEGDVANZ+Y7GjlfXG8B766jHmjSzgY0KaLGKT5eS12km51YG
+         SqEFx1EoMOP3UxUDhU/agcvYq6gMqwHRRk4B1HTodUm24ZtE/CzECRRhCIhbnCAMytAW
+         Uf/guP7ZX8TQn9qmrJCebZPtYBlPkbwRL4BIvMsmgEQuTfez9+j+UaCtUZnJ3cahA9LO
+         PJzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789164566; x=1789769366;
+        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+         :content-type:mime-version:message-id:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3LX6vyJd3+fW0hcCFrd1cZ1+qMqiip6Fji47Ec3/FuU=;
+        b=eVc0ISJKcCw+bJduW6KUDp1zC84KGReZiU6AK380EFuhjZ1SazRPPr7+44Y83Ib1d0
+         brJsBlp3TlpDxLF/juOgjph2OZMWJx4dof5pkDaWlCtjzrsVj2XT1wLjfyTJAf4S5F+d
+         yef5pZpOtkFWNica6r5QSdfdw9q097o8FMZI65BP5QBl452/APOR4wArOD4QDCAj/PWA
+         RBeqk0EzbZ/Z7WWwO/pbZ7zpADQi9/X79FsviioicLa9BnDMsBFaLwb2FECv9f9y92Gd
+         l5JJyzW3mNpjVjsq41WN6n8XRWOtBUHXSBUNZgVFVr/2WBsXbe49Y17tyvDh7Qp3kcrQ
+         OhLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwpzvoZIvSi6MF+tOcF6mjNjJaknXaUscPbjSQs/YVBNvrrURyK8k2IXO2JBVxYOeELIaoTOyrgfZW/z2Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVtA3pBv1deGAHkTP9Ifjs0RZOqFoZkNv734EMdIxdOhjquRde
+	PDHEIrQnWi1ME7ofia5R6AodlyfwwHgATpjKpBruOWorMJwcJI4fkuBTEXJ8HgJ/dw==
+X-Gm-Gg: AYBFou1jQJSAGE4aiQldSH5TRyqY/y1I9ubsfHLon4fBewg04QtNh4RQgFgBm3t+Tz2
+	ouUQPtiD1+ZPMtoWrcHiKpHOFgxPWi4OFqbhANyp2Mlf6QoPTyKmkU216y0Qd51HMBanweqoFpk
+	ka1/WkuHq3W6S1gcm6KHe05yG0u6wKDVOHMSFzqgfhvCb53/m6zlFcRTgq3bz3lWGD5srtvII76
+	hTAkWH9eLit0VNE8NPpgD0DFV8BBudepjQ+ZAZqkswhKfEB2+KLzbpugBD1vT5r4NTZbpg0ythm
+	ut0W6GzHcROWl3ddFkOpL6Q0X/sqzaYdlOpNNaudxUo7eoPtcGNAwLcmve5TTdXzmkEiFRNjtk7
+	AEeFBKb37lv+iHQReBD6Y1T38Ejs+1oT1+YAOq3wv6Vvr19EFbuZhE0xXFGTsDZhYBHygIpIXlT
+	2bMrlCr1pgEcRJn/VDwZnwwB6YE4Q8F/ScPKzQuT9m531sjrsUGZiPZ1/yolnl0ZhlLbTSJzvfY
+	GKXcKgBftS1IqqxLoAlMvYOeJD/NG/CHxbmujC0h54Es35IwL6tZIIpRwehm0BJSt2RN3Jqq73k
+X-Received: by 2002:a05:620a:260f:b0:939:3a81:326 with SMTP id af79cd13be357-93a0390793emr45756085a.37.1789164566557;
+        Fri, 11 Sep 2026 15:09:26 -0700 (PDT)
+Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e80bfc90sm342667285a.37.2026.09.11.15.09.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 15:06:41 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: dmaengine@vger.kernel.org
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv2] dmaengine: ppc4xx: use devm_platform_ioremap_resource()
-Date: Fri, 11 Sep 2026 15:06:40 -0700
-Message-ID: <20260911220640.178074-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Fri, 11 Sep 2026 15:09:25 -0700 (PDT)
+Date: Fri, 11 Sep 2026 18:09:25 -0400
+Message-ID: <81cbd4589373304334c7df4c1eba3660@paul-moore.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 
+Content-Type: text/plain; charset=UTF-8 
+Content-Transfer-Encoding: 8bit 
+X-Mailer: pstg-pwork:20260911_1254/pstg-lib:20260910_1848/pstg-pwork:20260911_1254
+From: Paul Moore <paul@paul-moore.com>
+To: Lincoln Wallace <locnnil0@gmail.com>, corbet@lwn.net
+Cc: skhan@linuxfoundation.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org, penguin-kernel@I-love.SAKURA.ne.jp, rdunlap@infradead.org, Lincoln Wallace <locnnil0@gmail.com>
+Subject: Re: [PATCH 1/2] doc: LSM: describe CONFIG_LSM and lsm= as the  selection mechanism
+References: <20260714013832.977443-2-locnnil0@gmail.com>
+In-Reply-To: <20260714013832.977443-2-locnnil0@gmail.com>
 
-Replace the open-coded sequence of of_address_to_resource(),
-request_mem_region(), and ioremap() with devm_platform_ioremap_resource().
-This eliminates error-path cleanup for both the memory region and the
-ioremap.
+On Jul 13, 2026 Lincoln Wallace <locnnil0@gmail.com> wrote:
+> 
+> The LSM usage document states that security modules are selectable at
+> build time via CONFIG_DEFAULT_SECURITY and can be overridden at boot
+> time via the "security=..." kernel command line argument.
+> 
+> CONFIG_DEFAULT_SECURITY no longer exists: LSMs are enabled via
+> CONFIG_LSM, an ordered list of the LSMs to initialize, which can be
+> overridden at boot time with the "lsm=" parameter. The "security="
+> parameter remains as a deprecated way to choose a legacy "major"
+> security module, and is ignored when "lsm=" is specified; see commit
+> 89a9684ea158 ("LSM: Ignore "security=" when "lsm=" is specified").
+> 
+> A previous attempt replaced "security=" with "lsm=" in place [1],
+> which was rejected because the parameters are not equivalent:
+> "security=" selects a single major module while the built-in
+> CONFIG_LSM list otherwise remains active, whereas "lsm=" must list
+> every LSM to enable.
+> 
+> Update the paragraph to describe CONFIG_LSM and "lsm=" as the current
+> selection mechanism, keeping "security=" documented as the deprecated
+> legacy option, matching the wording in kernel-parameters.txt.
+> 
+> Link: https://lore.kernel.org/r/20250114225156.10458-1-rdunlap@infradead.org [1]
+> 
+> Signed-off-by: Lincoln Wallace <locnnil0@gmail.com>
+> ---
+>  Documentation/admin-guide/LSM/index.rst | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
 
-The two separate initcodes PPC_ADMA_INIT_MEMRES and PPC_ADMA_INIT_MEMREG
-are collapsed into PPC_ADMA_INIT_MEMRES since the combined call covers
-both steps.
+Merged into lsm/dev, thanks!
 
-Also emove unused PPC_ADMA_INIT_MEMREG enum value
-
-The PPC_ADMA_INIT_MEMREG error code is no longer used after converting
-to devm_platform_ioremap_resource().  Remove it from the enum and the
-corresponding error string.
-
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v2: cut some stuff from description
- drivers/dma/ppc4xx/adma.c | 46 +++++----------------------------------
- 1 file changed, 6 insertions(+), 40 deletions(-)
-
-diff --git a/drivers/dma/ppc4xx/adma.c b/drivers/dma/ppc4xx/adma.c
-index 39498779e241..17b60704a702 100644
---- a/drivers/dma/ppc4xx/adma.c
-+++ b/drivers/dma/ppc4xx/adma.c
-@@ -37,7 +37,6 @@
- enum ppc_adma_init_code {
- 	PPC_ADMA_INIT_OK = 0,
- 	PPC_ADMA_INIT_MEMRES,
--	PPC_ADMA_INIT_MEMREG,
- 	PPC_ADMA_INIT_ALLOC,
- 	PPC_ADMA_INIT_COHERENT,
- 	PPC_ADMA_INIT_CHANNEL,
-@@ -49,7 +48,6 @@ enum ppc_adma_init_code {
- static char *ppc_adma_errors[] = {
- 	[PPC_ADMA_INIT_OK] = "ok",
- 	[PPC_ADMA_INIT_MEMRES] = "failed to get memory resource",
--	[PPC_ADMA_INIT_MEMREG] = "failed to request memory region",
- 	[PPC_ADMA_INIT_ALLOC] = "failed to allocate memory for adev "
- 				"structure",
- 	[PPC_ADMA_INIT_COHERENT] = "failed to allocate coherent memory for "
-@@ -3997,7 +3995,6 @@ static void ppc440spe_adma_release_irqs(struct ppc440spe_adma_device *adev,
- static int ppc440spe_adma_probe(struct platform_device *ofdev)
- {
- 	struct device_node *np = ofdev->dev.of_node;
--	struct resource res;
- 	struct ppc440spe_adma_device *adev;
- 	struct ppc440spe_adma_chan *chan;
- 	struct ppc_dma_chan_ref *ref, *_ref;
-@@ -4040,28 +4037,12 @@ static int ppc440spe_adma_probe(struct platform_device *ofdev)
- 		pool_size <<= 2;
- 	}
- 
--	if (of_address_to_resource(np, 0, &res)) {
--		dev_err(&ofdev->dev, "failed to get memory resource\n");
--		initcode = PPC_ADMA_INIT_MEMRES;
--		ret = -ENODEV;
--		goto out;
--	}
--
--	if (!request_mem_region(res.start, resource_size(&res),
--				dev_driver_string(&ofdev->dev))) {
--		dev_err(&ofdev->dev, "failed to request memory region %pR\n",
--			&res);
--		initcode = PPC_ADMA_INIT_MEMREG;
--		ret = -EBUSY;
--		goto out;
--	}
--
- 	/* create a device */
- 	adev = kzalloc_obj(*adev);
- 	if (!adev) {
- 		initcode = PPC_ADMA_INIT_ALLOC;
- 		ret = -ENOMEM;
--		goto err_adev_alloc;
-+		goto out;
- 	}
- 
- 	adev->id = id;
-@@ -4081,10 +4062,10 @@ static int ppc440spe_adma_probe(struct platform_device *ofdev)
- 	dev_dbg(&ofdev->dev, "allocated descriptor pool virt 0x%p phys 0x%llx\n",
- 		adev->dma_desc_pool_virt, (u64)adev->dma_desc_pool);
- 
--	regs = ioremap(res.start, resource_size(&res));
--	if (!regs) {
--		dev_err(&ofdev->dev, "failed to ioremap regs!\n");
--		ret = -ENOMEM;
-+	regs = devm_platform_ioremap_resource(ofdev, 0);
-+	if (IS_ERR(regs)) {
-+		ret = PTR_ERR(regs);
-+		initcode = PPC_ADMA_INIT_MEMRES;
- 		goto err_regs_alloc;
- 	}
- 
-@@ -4121,7 +4102,7 @@ static int ppc440spe_adma_probe(struct platform_device *ofdev)
- 	if (!chan) {
- 		initcode = PPC_ADMA_INIT_CHANNEL;
- 		ret = -ENOMEM;
--		goto err_chan_alloc;
-+		goto err_regs_alloc;
- 	}
- 
- 	spin_lock_init(&chan->lock);
-@@ -4214,19 +4195,12 @@ static int ppc440spe_adma_probe(struct platform_device *ofdev)
- 	}
- err_page_alloc:
- 	kfree(chan);
--err_chan_alloc:
--	if (adev->id == PPC440SPE_XOR_ID)
--		iounmap(adev->xor_reg);
--	else
--		iounmap(adev->dma_reg);
- err_regs_alloc:
- 	dma_free_coherent(&ofdev->dev, adev->pool_size,
- 			  adev->dma_desc_pool_virt,
- 			  adev->dma_desc_pool);
- err_dma_alloc:
- 	kfree(adev);
--err_adev_alloc:
--	release_mem_region(res.start, resource_size(&res));
- out:
- 	if (id < PPC440SPE_ADMA_ENGINES_NUM)
- 		ppc440spe_adma_devices[id] = initcode;
-@@ -4240,8 +4214,6 @@ static int ppc440spe_adma_probe(struct platform_device *ofdev)
- static void ppc440spe_adma_remove(struct platform_device *ofdev)
- {
- 	struct ppc440spe_adma_device *adev = platform_get_drvdata(ofdev);
--	struct device_node *np = ofdev->dev.of_node;
--	struct resource res;
- 	struct dma_chan *chan, *_chan;
- 	struct ppc_dma_chan_ref *ref, *_ref;
- 	struct ppc440spe_adma_chan *ppc440spe_chan;
-@@ -4278,12 +4250,6 @@ static void ppc440spe_adma_remove(struct platform_device *ofdev)
- 
- 	dma_free_coherent(adev->dev, adev->pool_size,
- 			  adev->dma_desc_pool_virt, adev->dma_desc_pool);
--	if (adev->id == PPC440SPE_XOR_ID)
--		iounmap(adev->xor_reg);
--	else
--		iounmap(adev->dma_reg);
--	of_address_to_resource(np, 0, &res);
--	release_mem_region(res.start, resource_size(&res));
- 	kfree(adev);
- }
- 
--- 
-2.55.0
-
+--
+paul-moore.com
