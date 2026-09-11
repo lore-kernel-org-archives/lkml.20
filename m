@@ -1,147 +1,175 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE7D37204D
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:05:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E16D636B901
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:05:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139114; cv=none; b=u+/4zH7MMbCo9NtkI0mzsZa6Q7wfXVM/6uFcReVn90ICArJuxkRV7ZC0VaiycKY3q3t+CKJUgjDdHZnwmFmAMxqDJ0hZPLKLaugHmuX2mF39y18Pw0GYtNn05dkMTtPbaJ8AfQ7RJ9/tz0kStCev3TkqxTU0WYY1eLeaoiweazo=
+	t=1789139115; cv=none; b=rr0kefryToLch6kjj6M8y9cokGuEcMd6C9JjSvYcsBdQMhajgKg5jH5tbLFjrnALRr3523senRutIdVmsJOSvjg7Qn9Xdh3XrpbOItCNG8qVVlUJX+pMg8zJnMD379mK/m0sULK4/H06tGAbrbuSs2FZ7ZnxWMA79rBPlKEuXmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139114; c=relaxed/simple;
-	bh=b5RQb0WbJ1RrTqB8nh+r8QKYRT6EMd81lemOzqrccCw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tfm1WXSAvlHGuVIj1AC+4s97l3mtBC6rvflYzI/5cuoD19l9KHnqp1MJepyi0nohVPTm2/zIwF9GwvrDG/SAllseshA0flweAo5gy58i6D/CCco7gIcSHVBA6OZTD4fu2vaNZVYWROHJpOVtYiqVRT1FUUX4pHUOla3T3XQ8PyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=g2R/ghfw; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1789139115; c=relaxed/simple;
+	bh=70DrvFyAPhlc9IMAFfZ2HG5TuaUpRag6jzqakuBr+o8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Gp20oHEgUl6zcYFWeJejWgNSBZBOSC7wv69K9J5gyWMCK6Q7NB2w+X6vK0Deqj2K3I00KyIQIaz56I/A+tqvQ+9J+50pohltoPIZcQUmKOGi8Vs5dUqGmT8/7oEsTVnECaS/a8fK6/KSfk2Kjb7mIU8I/RmicNEFdi00J9ZPMpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Comn83tf; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="g2R/ghfw"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-4843f205a5bso743852f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:05:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789139111; x=1789743911; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=glNc1H2atyKhB4WSC099onb1QIuZPymRMjgiGWekzpE=;
-        b=g2R/ghfwA9c7FbD3rDBiA2JMYJ3JDnGvXzdJPZ2/N37pWyUiR5fe/jkoM+S8Xj9Osh
-         Td7vi9tajpjbxZnzNHzkS8e+Dle9y/4gEVbukum/7r4YzBBxcJ9RitqsBzYcQQewkuuT
-         62U8XWflFKwu+bc9ImtwgSwK1mGCbgzHFI7iDs6ufxupSQo7ROowYWmEEkzxfPmCgujL
-         PWtxzIs3VJMWlw1d86Ly2VK+aU/U17WO7B0v3vjjrFWp/wxGHYe78Aj0iov3FPgmgvpA
-         cC7KRxN8jXseYdw1Bh1MCEaK5pIOdGK/enujMajEKDEL2DSR+sgdJSlG1X3pYamUW02S
-         GAuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789139111; x=1789743911;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=glNc1H2atyKhB4WSC099onb1QIuZPymRMjgiGWekzpE=;
-        b=C4h9PiIB+lEN1hpEhj2+ZrS89KdSUw0m31qnADL63bj8QVxWe+/YVTtDdYyfXjOpPN
-         AS7OWCjDY6S/7Iebv9bLXNwCb3ll+vr4gsKBZZ1fukcxDAs66Lm8vH5r7st0d6+hIEui
-         RBrRopXh8r4IR6XkvhtBByzu1SzTRAQ8kONloZHFw6pw7YVfVqyrQPW/3aI4jrq3AZRB
-         8fnw/GGoVe01K6UpZGntAFyNMYM/p521SHKvn5LSQfDbL5GADwMaUiBMD/VdrWVL33zS
-         KyvaKFyQAqXhEsZeD7pxJB2jKHlh/ghrIK4S9v3umMyFzcU8EHIMbPCIuelTTTdSeb1C
-         Mkwg==
-X-Forwarded-Encrypted: i=1; AKwUvBzoylTyQTGfok8rMeVf5VzaswQgqQ0HEzT0SxmWgydsIbSgnGzs4gWaBE1pwVPF31y9P1jqTghWOZAM/nU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJR/GLwS1nQt3DCLMInxJlYJ2ER/YryJNbTfclFyWsYDkJVoo5
-	rBkCGv59GADRTfZURSDmwUcU0oDs7XDiTx3WI4Clob42oQSJFCI3juVIu+nuZI2CKJQ=
-X-Gm-Gg: AYBFou0DjB+I26naYGhJzpygNNt6p+VejqE6VR/xTEw6NM8FSSwhq9HP5HG9/HX851w
-	tLmVvOWLSbZpcfzNUodiWEEhNjpO0SctMbXsQf0g8+NElhkPQGoMKQ9WzyguQRDLLDBzA/0YlX5
-	xTQ1Ucy308bP7MJlnEJ5iLiJaTcQjlUUkQtNZUOq/2nR5lxOSb6oSuIQ4vztC6GpnKzCMrD8Ojv
-	4e5B1VQAQbU6p1xg9fR+RjMgjAmmUmh9kHfwEfbvAFNigWnHtaOUfTp9MlcKFQJP2qEZjTKWklG
-	GKvrNvSVRUUOiaPj6RaonCYlSCVr/pNiZj1MA/bn1j90qPFmQiM0fQPTnRhKLL+U2CHCYRCx85s
-	0IC3ebPajOt81HMdtfnXhWfRWxJBWdiXu7BWKx7AN9vI449J4UOI16zdUweCb7eQzsPMCXTIA01
-	MgGuDSGslhRoT4ljT0sTgNhMgHOtTmoKN4O6p2VUpjr+0oALuStmC2EuHA+r7IfJgDbmk5m3V1W
-	Nk9v4BBqwAM9uL2
-X-Received: by 2002:a05:6000:1acf:b0:485:8a46:b3b8 with SMTP id ffacd0b85a97d-486eb32253bmr5503727f8f.32.1789139110499;
-        Fri, 11 Sep 2026 08:05:10 -0700 (PDT)
-Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb350686sm6853579f8f.27.2026.09.11.08.05.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 08:05:10 -0700 (PDT)
-From: Petr Pavlu <petr.pavlu@suse.com>
-To: Jens Axboe <axboe@kernel.dk>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	Matthew Brost <matthew.brost@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: Simon Horman <horms@kernel.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Francois Dugast <francois.dugast@intel.com>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	linux-block@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-api@vger.kernel.org,
-	intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/6] net: Include error-injection.h for ALLOW_ERROR_INJECTION()
-Date: Fri, 11 Sep 2026 17:04:02 +0200
-Message-ID: <20260911-module-include-error_injection-v1-2-5da895d8c84d@suse.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Comn83tf"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id D3D9D4E401EF;
+	Fri, 11 Sep 2026 15:05:09 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9847B601DE;
+	Fri, 11 Sep 2026 15:05:09 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5347311C7AFAD;
+	Fri, 11 Sep 2026 17:04:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789139104; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=tKcWoHPn15pp0Jw1+pjpfBx16c/xsh9IK/tLbzskd/M=;
+	b=Comn83tfa5fkJ2oyPM4rDnH2IsyAMF/2IeEsB7y42GXDzzauKVUVT2nBRR1fyjEect5Jnu
+	aipieCe3HMdzIHu9rIICgWBaW7HzqllpAg1yTniexAxS35z3f7WhWoLWTPyPkwAo1JIC+b
+	aDZf7tOZJgELzmTCxeuCoYNaLXHV/wcER5QugYNwgGpfRpcdx7VaHB0xT3rnuRTBbAJT/x
+	QPZkfGzYgk+pgtlYMmW9xiSloz5vG/U3MMqGL6KECQTN2/Wz9rg7JK3UGGMWDdNvlTeejs
+	xlq/0Tnbz18a8jVJ2ScAdxs7O/5/kGruBfk/59GfJ4CGzLZQY/n5PgBuFoSDhQ==
+From: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Pascal Eberhard <pascal.eberhard@se.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: [PATCH v5 0/4] timers: Add support for RZ/N1 SoCs timers
+Date: Fri, 11 Sep 2026 17:04:51 +0200
+Message-ID: <20260911150456.893761-1-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
-References: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-drivers/net/netdevsim/tc.c and net/core/skb_fault_injection.c use
-ALLOW_ERROR_INJECTION(), which is defined in asm-generic/error-injection.h.
-They currently rely on this header being included indirectly through
-linux/module.h -> linux/error-injection.h.
+The Renesas RZ/N1 SoCs family has two timers block controller
+available.
 
-Add the missing include in preparation for removing the
-linux/error-injection.h include from linux/module.h.
+Each controller is charge of 8 timers (six 16-bit timers + two 32-bit
+timers).
 
-Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
----
- drivers/net/netdevsim/tc.c     | 1 +
- net/core/skb_fault_injection.c | 1 +
- 2 files changed, 2 insertions(+)
+Each timer has its own interrupt, its own prescaler that can be used to
+divide the clock by 25 (timers block are fed with a 25 MHz clock) and
+all timers can work in either one-shot or periodic mode.
 
-diff --git a/drivers/net/netdevsim/tc.c b/drivers/net/netdevsim/tc.c
-index a415e02a6df1..e2d7d3aba193 100644
---- a/drivers/net/netdevsim/tc.c
-+++ b/drivers/net/netdevsim/tc.c
-@@ -1,5 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- 
-+#include <linux/error-injection.h>
- #include <linux/netdevice.h>
- #include <net/pkt_sched.h>
- #include <net/pkt_cls.h>
-diff --git a/net/core/skb_fault_injection.c b/net/core/skb_fault_injection.c
-index 4235db6bdfad..2c7f519bef80 100644
---- a/net/core/skb_fault_injection.c
-+++ b/net/core/skb_fault_injection.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0-only
- 
- #include <linux/debugfs.h>
-+#include <linux/error-injection.h>
- #include <linux/fault-inject.h>
- #include <linux/netdevice.h>
- #include <linux/skbuff.h>
+This series adds support for those timers blocks.
+
+Best regards,
+Hervé
+
+Changes v4 -> v5
+  v4: https://lore.kernel.org/all/20260721082952.215691-1-herve.codina@bootlin.com/
+
+  Rebase on top of v7.3-rc1
+
+  Wolfram sent his 'Tested-by' tag for patch 2 in the v4 iteration but
+  because of timers re-assignment done this v5, I haven't add his tag
+  in patch 2.
+
+  Patch 1:
+   - Reduce the reg area size
+   - Add 'Reviewed-by: Wolfram Sang'
+
+  Patch 2:
+   - Take into account Shashiko's feedback and avoid paths which could
+     lead to a NULL pointer dereference in the interrupt handle. Even if
+     these paths cannot be reached with our hardware timers, remove
+     them from the driver.
+   - Reassign timers usage for the first timers instance probed:
+       * First and second 16-bit timers: clock events per CPU
+       * Last (second one) 32-bit timer: clocksource and sched_clock
+       * Other timers: clock events for all possible CPUs
+
+  Patch 3:
+   - Reduce the reg area size
+   - Remove some empty lines in commit log
+   - Add 'Reviewed-by: Wolfram Sang'
+   - Add 'Tested-by: Wolfram Sang'
+
+  Patch 4:
+   - Add 'Reviewed-by: Wolfram Sang'.
+
+Changes v3 -> v4
+  v3: https://lore.kernel.org/all/20260717095552.767475-1-herve.codina@bootlin.com/
+
+  Patches 1, 3 and 4:
+   No changes.
+
+  Patch 2:
+   Took into account Shashiko's feedback
+    - Remove CLOCK_SOURCE_SUSPEND_NONSTOP flag
+    - Fix CPU ids checks against number of 32-bit timers (avoid
+      out-of-bound accesses)
+    - Enable IRQ in CPU hotpluig startup function
+    - Add CPU hotplug teardown function and disable IRQ in this
+      function.
+    - Adapt probe() to avoid IRQ handled by CPU hotplug startup/teardown
+      been enabled by default.
+
+Changes v2 -> v3
+  v2: https://lore.kernel.org/all/20260429115054.158160-1-herve.codina@bootlin.com/
+
+  Rebase on top of v7.2-rc1.
+
+  Patch 1, 3 and 4:
+    - Add 'Reviewed-by: Geert Uytterhoeven'
+
+  Patch 2:
+    - Fix typos in commit log.
+    - Split Kconfig 'depends on' in 2 lines.
+    - Fix indentation, space and alignment in code.
+    - Fix dev_err_probe() conversion format.
+    - Introduce rzn1_timer_setup_timers() and rzn1_timer_register_clkevt()
+      to avoid code duplication in rzn1_timer_probe_{first,other}()
+    - Add '.suppress_bind_attrs = true'.
+
+Changes v1 -> v2
+  v1: https://lore.kernel.org/all/20260331152616.197031-1-herve.codina@bootlin.com/
+
+  Rebase on top of v7.1-rc1.
+
+  Patch 1:
+    - Drop minItems related to interrupts property
+    - Add 'Reviewed-by: Krzysztof Kozlowski'
+
+  Patches 2, 3 and 4:
+    No changes
+
+Herve Codina (Schneider Electric) (4):
+  dt-bindings: timer: Add the Renesas RZ/N1 timer
+  clocksource/drivers: Add support for the Renesas RZ/N1 timers
+  ARM: dts: r9a06g032: Add support for timers
+  MAINTAINERS: Add the Renesas RZ/N1 timers driver entry
+
+ .../bindings/timer/renesas,rzn1-timer.yaml    |  74 +++
+ MAINTAINERS                                   |   7 +
+ arch/arm/boot/dts/renesas/r9a06g032.dtsi      |  34 ++
+ drivers/clocksource/Kconfig                   |  11 +
+ drivers/clocksource/Makefile                  |   1 +
+ drivers/clocksource/timer-rzn1.c              | 484 ++++++++++++++++++
+ 6 files changed, 611 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/timer/renesas,rzn1-timer.yaml
+ create mode 100644 drivers/clocksource/timer-rzn1.c
 
 -- 
 2.55.0
+
