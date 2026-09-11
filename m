@@ -1,118 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BF0143DEC3;
-	Fri, 11 Sep 2026 10:52:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BE564349B9
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:52:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789123967; cv=none; b=cS4UiMYZWyhx/0Oct6wXBZcCNl8fAvk+fiTcR/PecfIyEpmhpKerOKy0swi7N1fEmIoUOik6LYW+xy0GjLbLjSy2XKZh6aFxsty4V5ZmuM/efvtsoAniqXRIsgRlNzt2DKHfc51S6GuQGRx6jrbb2PgWL8YtrLpREmrtdh02aAs=
+	t=1789123967; cv=none; b=Uvh/DG5dBrKnI0ijSDiA7QrjU0TnrblNdzvAyfLQMludKB9vsXxON9NKkudPK2ufMKZwC05Zsfi5SJVPTWuHAGAZK1MADDAkCMbY6WVOwHYA86Pma4NmZcJkIPzcxv7SWJT0ppySVW8O4ab+vkYPBMdIZD4fUg+t+yok+xqgNhE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789123967; c=relaxed/simple;
-	bh=Uq/8X0HiJupWH4RNI9HVqPD9Bm1/hdFvPw0h4j81gxE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tMk2Dly9sW8jplIYQE3+mge9WzW7PMUqXeD+sVdijUgKlCuXtJy/MbPj+61UtCw5lh8vqdapzEVcC/HTapbNvf9j6608OqaZCs9BoEIKgPgmGXWY9rkzVP1dJzapXiR27O7QFswOF2pxAbnQ7LOu49gIXi5LIImuAwYVbpA4Afs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TMai2M/J; arc=none smtp.client-ip=100.103.45.18
+	bh=JWoIoc8tLXrJ3xuz+3+ViM9nOMpwaViwTZKv28U6Sb8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gO9LmGb2Jrc3uIUzy1+nS43LMyGHkuc67qInUMBw//MsTCTBolQb4N9/SihDzMwJc5c2K5uE+V8d1Yx2o9mHycEUYkO2OuUe16NDI8O203nfODo1xutnLG1Jb9WjIIDDvYrTy+xoSEloDFIFnN28l0YXuZfW2Fb0NRaDrAp3ZA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oYsWDOMJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TMai2M/J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 553D91F000FF;
-	Fri, 11 Sep 2026 10:52:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oYsWDOMJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 408171F00893;
+	Fri, 11 Sep 2026 10:52:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789123965;
-	bh=X0wLJyzoS+rujzOY6JY3rDS0t6N6NQfza06M9gcgofo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=TMai2M/JzHX97Uof3kYcZNAXQxel+xYoWDt/nsWStU1GsLYFl6mRdPH2B6r1ujc4J
-	 eFHtj7ktF0FM3oVUDCjjkGnA2ySaseAaONIGzvxd8fKMQKtM0uLlnnpL4Bh3EU+O9q
-	 lA0G9iakdBgTAzB4VMlc7MW4xd8FPUO9HSKG6wkooCyjJI32HmMV12LlKT6kGdEFE/
-	 iHnV2fjW2JqnLRLDsMD5vdgP9nuUK3QbYMy5PLFBnOVkxlS8ZeWJ+diTH1ShYdVatl
-	 0y2uZxCb7gT5yQJRJ2TNQjwp0+JwvIQSgnHgKf7eyuhk3z4NW3nqW3E078ejLa2HrQ
-	 y3c+tcRPpLFUA==
-Message-ID: <008dcaa3-2068-46e5-9e58-afb590d90584@kernel.org>
-Date: Fri, 11 Sep 2026 12:52:39 +0200
+	bh=c6Cwwnk73gp5XSyU0doZGD+8vzCu7Q6LPoYV28cPnXw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=oYsWDOMJ0l53BeGZelTynmCuUtj16bIGAuqh5RhUpbj7bzpwvUzL3Fbn+8EZVr/aW
+	 pShpSifEYG0g8AHLHMFYQ5E0ecNBcDwOQgnT0+N2T5T0NvhDy22OF3hhUMrTv6Vtaf
+	 7CGG8iwgCxZW25csAKC5LxwGkHbl6oaAvTeWwMWW3C2UsfqwqA+572ZDQCMOST8Wz+
+	 h1hUeptKMSj1CptgM0QdQUMtmNU5jfglH3QlVxlqPiyL6dnzeXcOVsKxkrRjSrg4Ky
+	 6l96I6Mk32XGjCzF6IiuPxyEmqNBuAV/okbkApdKI2OI98oxgKqRwD81iW2ccF6aYY
+	 BZ2/AA182S9iw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] mtd: spi-nor: Fix quad-enable for flashes with QER
+ bit in SR1
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vignesh Raghavendra" <vigneshr@ti.com>, "Pratyush Yadav" <pratyush@kernel.org>, "Michael
+ Walle" <mwalle@kernel.org>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Takahiro
+ Kuwano" <takahiro.kuwano@infineon.com>, "Richard Weinberger" <richard@nod.at>
+Cc: "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>, linux-kernel@vger.kernel.org, "Steam
+ Lin" <STLin2@winbond.com>, linux-mtd@lists.infradead.org, "Jon Hunter" <jonathanh@nvidia.com>
+In-Reply-To: <20260911-perso-fix-spi-nor-qe-mxic-v2-1-70c324e9f30e@bootlin.com>
+References: <20260911-perso-fix-spi-nor-qe-mxic-v2-1-70c324e9f30e@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 11 Sep 2026 10:52:44 +0000
+Message-Id: <20260911105245.408171F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/7] proc/task_mmu: remove unnecessary helpers
-To: Suren Baghdasaryan <surenb@google.com>, akpm@linux-foundation.org
-Cc: liam@infradead.org, ljs@kernel.org, vbabka@kernel.org,
- willy@infradead.org, jannh@google.com, paulmck@kernel.org, pfalcato@suse.de,
- xueyuan.chen21@gmail.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, Usama Arif <usama.arif@linux.dev>
-References: <20260910234737.1340642-1-surenb@google.com>
- <20260910234737.1340642-2-surenb@google.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260910234737.1340642-2-surenb@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 9/11/26 01:47, Suren Baghdasaryan wrote:
-> When per-vma locks were behind a config option, a number of helper
-> functions were needed to simplify the locking code. Now that these
-> locks are universally available, we can do a little cleanup.
-> Remove lock_vma_range(), unlock_vma_range(), query_vma_setup(),
-> query_vma_teardown() helpers.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
-> Reviewed-by: Liam R. Howlett (Oracle) <liam@infradead.org>
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Acked-by: Usama Arif <usama.arif@linux.dev>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] spi_nor_read_sr1_and_sr2() leaves sr[1] uninitialized when read_sr=
+2 is unsupported, leading to uninitialized stack memory use in callers and =
+spurious -EIO errors.
+--
 
-I think you CCed me only on this mail correctly (the other ones went to my old
-RH address, I thought that one would bounce)
+commit d557e6d5e442dbe4ee4d997bc0f3bb6190d5ba2c
+Author: Miquel Raynal <miquel.raynal@bootlin.com>
 
--- 
-Cheers,
+mtd: spi-nor: Fix quad-enable for flashes with QER bit in SR1
 
-David
+Some flashes do set BFPT_DWORD15_QER_SR1_BIT6, which means they do not
+have an SR2 to read from/write to. The generic QE helper has forgotten
+about the Macronix case, which causes booting to fail. This fix makes
+sure SR2 reads just return 0 if unsupported to accommodate this situation.
+
+Link: https://lore.kernel.org/linux-mtd/178876719232.3543902.14451625037676=
+421254.b4-ty@b4/T/#m5bc4ba6776436f2870ced0eb5789d229037ad840
+
+> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+> index e2b6efafdd8d0..7bb197df5585b 100644
+> --- a/drivers/mtd/spi-nor/core.c
+> +++ b/drivers/mtd/spi-nor/core.c
+> @@ -864,7 +865,10 @@ int spi_nor_read_sr1_and_sr2(struct spi_nor *nor, u8=
+ *sr)
+>  	if (ret)
+>  		return ret;
+> =20
+> -	return spi_nor_read_sr2(nor, &sr[1]);
+> +	if (nor->params->opcodes.read_sr2)
+> +		ret =3D spi_nor_read_sr2(nor, &sr[1]);
+> +
+> +	return ret;
+>  }
+
+[Severity: High]
+Does this code leave sr[1] uninitialized when read_sr2 is unsupported?
+
+In spi_nor_write_sr1_and_sr2_and_check(), an uninitialized u8 tmp[2] is
+passed to spi_nor_read_sr1_and_sr2():
+
+drivers/mtd/spi-nor/core.c:spi_nor_write_sr1_and_sr2_and_check() {
+	u8 tmp[2];
+	...
+	ret =3D spi_nor_read_sr1_and_sr2(nor, tmp);
+	if (ret)
+		return ret;
+
+	if (sr[0] !=3D tmp[0] || sr[1] !=3D tmp[1])
+		return -EIO;
+	...
+}
+
+For chips without SR2, tmp[1] remains uninitialized stack garbage and the
+comparison sr[1] !=3D tmp[1] can evaluate to true, returning a spurious -EIO
+error. This causes quad-enable and device probing to fail for the exact
+flashes the patch is attempting to fix.
+
+Also, does this affect spi_nor_otp_lock_sr2()?
+
+drivers/mtd/spi-nor/otp.c:spi_nor_otp_lock_sr2() {
+	u8 sr[2];
+	...
+	ret =3D spi_nor_read_sr1_and_sr2(nor, sr);
+	if (ret)
+		return ret;
+
+	/* no need to write the register if region is already locked */
+	if (sr[1] & lock_bit)
+		...
+}
+
+Here, sr[1] contains garbage, which is evaluated in the lock condition
+check and potentially modified and written back to the device.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-perso-fix-=
+spi-nor-qe-mxic-v2-1-70c324e9f30e@bootlin.com?part=3D1
