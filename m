@@ -1,395 +1,334 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E8C40EB8E;
-	Fri, 11 Sep 2026 19:07:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789153656; cv=none; b=jGWK3zgLyf71sctiP3oS/+B8HF7SnS5pDJcTHApF8ICdQklCOZ/n1BEcEuRKB5oGHGm+Z32ABHQPjAhvm7Wp+R//qroloMEnni4rYt3MFJLSAI0Ea8e/MwIHnx+9pjFwuwo//rDrAn0t7actU7lK9gVqozp38IntEbwa8PtSD9U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789153656; c=relaxed/simple;
-	bh=Khndi0tWKHMe6yxvXOw5Ggby4SB4E+1jnn+GG4AOL5g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AH7FHfiFnY2QN5Jmj+AzqkY8EsEiD7TNTbPmGYwFkKxqY4hiS6WIkQDVjhSrfTnTsmfS39ZRWP5JsAvVV8dpkapJsinMUviqicj3D9VJHwk2gEtfv6cWHFbGg9YPwPV1fR/NAOIfcHn2IFzIPB42lqFhzPDEGsxoOX2M1h8ZybU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SMRSULqi; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 847FE41DDE1
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:09:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789153793; cv=pass; b=uG02lSnrSzUp9Wf595Sq8SLIJ5GuOxwZMYHb76rWWRM3q4I3ZzH9Ky3BHHrlCvxumVYaNHfSkkSOE/Onah4953nLxwIGCY8HnXirPMwMXdHWLM0PzXvzZXL6KKFqdcHuU2zexmwzkjM6a/yjcH0pVeXTZ2R3glBoZm3jJPQBpss=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789153793; c=relaxed/simple;
+	bh=t68U1RhcMfyku4E1nHiQ0z7KjaiJOw8gSWlsWBs9Ulo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NfqztwAm5/DfQmXYUaS3yglaWvuqRMlksGv62BSsQIsjZq4XlKLtCVpkVPnOSlQQDK5mn+2IEBpWtv3YtVQuPZthQ3kOOx59Q0ySQhcXC9eoldilpDkUhpgiFsydPEhduFPZNHIV2wSjRM2iudVKNfHuuPwEE+TY2z6VKLaTWpo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RUT96gMm; arc=pass smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SMRSULqi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DA8D1F00893;
-	Fri, 11 Sep 2026 19:07:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789153643;
-	bh=ETiJBHuuXeuIAEQKc1zcTyAWH7qqk4xH5LnWBOZQWFQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SMRSULqitKzQ6fimXD+vIZw4bIjmVl52dToJt8fWJJ8sYhAWgV4sqEOWprhYotsCw
-	 0JvYxwQcGitREfO8fJd9SiCdw2ykPwHrHXtKzcDoRhufHWmiKMxPUdyFDZs/jgjmN1
-	 cIsYw8dsP5IS2e17uUB58DXiEbbIeY7E/LhLqM+ATzTWZK+TrePINDnqczTW3AsGC+
-	 nFlFrdppQ5jHfh/8KOy3biVq3+JeFqerYTqO0fOVKEd4dmMRwJf6I1KjrBWX0j3yyj
-	 bjW3vqMfJAAhQjwINWq1X9ySb9lNNDh3nGxtfeHTV07jjOIXXOQaZdJ4ehHPvKoBlH
-	 NmPDBZ72TS4Jg==
-Date: Fri, 11 Sep 2026 20:07:17 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, 
-	david@redhat.com, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
-	pfalcato@suse.de, xueyuan.chen21@gmail.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH v3 6/7] proc/task_mmu: read proc/pid/smaps_rollup under
- per-vma lock
-Message-ID: <aqRRUAxCsRC6IQIt@gremlin>
-References: <20260910234737.1340642-1-surenb@google.com>
- <20260910234737.1340642-7-surenb@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RUT96gMm"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-39682983a0fso1513164a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:09:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789153788; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MPUg88IX3NglxpbIcBe6XxzVWA3x+jEnkod8gfOwTsMqOC64qXwre+X6CiNtxI46Uf
+         F5KLJNN6kk5YbaM1mv00rv1MZuAAUEyOAe+l7apb1tkmZtqGHaOWFUJa+DjDUi89HwWJ
+         yJwjSL0qBerps59Yfh7MWFl7Ih8Wl6Epk9kkSJJ35EUlAPkC19uqSHfztCL4CBLgLVm7
+         iVkvcZGBmcLsyKZpOudxwYPPfpFBdRE/ySgxyS5iGXmCiB4JLiqDi1aOxaQzHVeAWkTw
+         LULtKz0HjyLAq8M8xKoNgOhDZvi5cf7IMwnr+kRsafleQdE9XdFd8TWAlK+jVbxBH1OM
+         ZoeQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=HxBnYviaKnot3JD7Ip8qV0PmKuDvoY1dcqiPFDgt9VM=;
+        fh=tiEGCdcCdaEVD1k5lJzz/RmW4TrPynsKDRsnAthe9RI=;
+        b=pbvP/2o0eKROcv3rb2EyCbXwywIG2OxHoA8zVGN7+lvNqt4SGZAtIz9Ungh6FIAB6x
+         WY7G1N7QfgazjHveFKsdZH17Cg6oFGa8YAEk4FFMpQC8FGzqYzbpeKvtxU/lWqgPSqti
+         xXpvCr/hJMcScKAFpqQhwfmGNs7PpLfhl7zoD9WzG97vq/hCU6XVa3daErsJKi9YixmT
+         zhvdJaAClT5U5fzD3sqHu4jl6Bch8O1VQM7JNaz4EF8K1HYkPSHnPja/gc3mNEEwTsYg
+         JikQ2fKu31SnnDQOi/dAS5nJpronij8/jlBrgXdhuSkYWzXs0lGPRSv4yp7h0I2ghtJ1
+         LDsA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789153788; x=1789758588; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HxBnYviaKnot3JD7Ip8qV0PmKuDvoY1dcqiPFDgt9VM=;
+        b=RUT96gMmrSCY25YczBpHCEJT8NY8e8gU7TMg1AMkhwZXv+iYp7pj0G8xfqw7xQ78dC
+         8nKv//Sf9SZWfEEwqae5t9tFoIesfqx2VRzOlEpDJkjjd87MpzFIqf12BfYjWyjhcRnM
+         SvnmJIgkbC5+ZY5BjtRCRNFUcWTKCxrgR7795LKza1eUskHSNyPVM4TogN9VBTUFogRF
+         pdD8mLwKjcwQvG/846NsMLZRrVNGg3eRJdeORkmSa8RxEo5Gmc4bHIzU6S89izuG2PgU
+         6GiowsjTGhjm+gBLmNu1JQjLXfP7I39j9PbUO7Ou34j2gyDc+aHQGPy0osgIvJXsKcy0
+         i/Gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789153788; x=1789758588;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HxBnYviaKnot3JD7Ip8qV0PmKuDvoY1dcqiPFDgt9VM=;
+        b=HTRZ6yeUqjqaanIlx1ry4AhiwUn12JALcFhYCzSXpCquv3mxtcipxd0pirwd8sRoIf
+         tSaA0nnMU4lnGuVOnSjJ2/uH1FNTEIWg/qNU8Ag3muD78bLs2KI6vc4Fy/UsV69hPNW6
+         cLsDFz+COX6qUUORt4yEyeRn11A/tivXAgfWBEFWpk0Z258KOtvDTRlmA3FsFg7XF+hh
+         +TB7bij8gkNoiZnRgHNC5hUqWwBzki6QPvxaz3jNspTvMoTfQZsGaH1U30J0EAbcFP9e
+         P93DpoZGs54hlk4ETmjqtbkjxGQsxHuz9USAKTZzXcL5goHLeyte3uKgbgqPEf9tAKW+
+         7F0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzCvbSf1s7RXleu6wLiUj3JrSlL9aXxADhLehvkMlStAbZCv6WcbpNbIq3qiAuSvFpaNlQuob+kEHkGHmw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lNiLYtrqGLGLOqYAwK5G70Ek3KpEg+QRPUZyt9BmjztfgGrNrP
+	M6vUUp3RKBHEq35Pr20oYH3FIyqOGaNfJ+48qLPbSEeqxItJXaqgxUZakj4fBj30QntZVomvYKc
+	FC7/gWpVWDfjNc3PpwJS+jmhUcxJJ6sU=
+X-Gm-Gg: AYBFou2AGelqHd04aoAgCEvEqa9bXnOJhoulYU4fNBsDyL2ZhLF/moak2nn0yjur7xu
+	AdwYgqCFx3tdOy2YDRFFN2j+ETp+iLJQq2meIjNkiQDoBTwPIxa9yZsOWHjtZjEcrZ2mFqy6Vlm
+	GFOOJpEnT5SBKflj09WIGq03QsHmRA5Tb0ue5+jlcdw9oJYIuvl8+HmnVz71jMAsjbZHtU3hrsm
+	KSrdxPJdTq7td6drSNYNM/HljUAH/kgPJFaIjKnGOtyh3jmFmXOsPqtA/sRvPRIJrnJuwswfIkg
+	GTJf5X9bOcr4kOihb9pv1ZPy2JFCANXCs3HZGINUm38/p7c8gq9JRyr+7hd9A9xXMr9UvwdRcaB
+	373RfiBIX4wXV54E38loDh4XaScDq+KS1LCRN43FGwkE+0L0=
+X-Received: by 2002:a17:90b:2d03:b0:38e:67e1:15b with SMTP id
+ 98e67ed59e1d1-39d9bc3f8c8mr9089834a91.6.1789153787860; Fri, 11 Sep 2026
+ 12:09:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910234737.1340642-7-surenb@google.com>
+References: <20260911145914.23676-1-leon.hwang@linux.dev>
+In-Reply-To: <20260911145914.23676-1-leon.hwang@linux.dev>
+From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Date: Fri, 11 Sep 2026 12:09:36 -0700
+X-Gm-Features: AcwNN1XpdaLHjnOIrzt8AsZjQzusOGkcm82c6vNUfKKJSZjajLO4amshejVAhjA
+Message-ID: <CAEf4BzZQW2=gxMRQVtMpCF3pA2N-O6Z0o5POBzHGQG6rc3sdrQ@mail.gmail.com>
+Subject: Re: [PATCH bpf-next] bpftool: Compute map size of light skeletons at runtime
+To: Leon Hwang <leon.hwang@linux.dev>
+Cc: bpf@vger.kernel.org, Quentin Monnet <qmo@kernel.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 10, 2026 at 04:47:36PM -0700, Suren Baghdasaryan wrote:
-> proc/pid/smaps_rollup can be read using the combination of RCU and
-> VMA read locks, similar to proc/pid/{maps|smaps|numa_maps}. RCU is
-> required to safely traverse the VMA tree and VMA lock stabilizes the
-> VMA being processed and the pagetable walk.
-> Note that we have to keep the logic to drop mmap_lock on contention
-> because even when using per-VMA locks we might have to fall back to
-> holding the mmap_lock.
+On Fri, Sep 11, 2026 at 7:59=E2=80=AFAM Leon Hwang <leon.hwang@linux.dev> w=
+rote:
 >
-> Running Paul's contention benchmark [1] shows considerable improvement
-> both in median and in the worst case latencies:
+> bpftool rounds memory-mapped data map sizes to the host page size when
+> generating a light skeleton. The generated code therefore uses a 64K
+> mapping size when bpftool runs on a 64K-page host, even if the skeleton
+> runs on a 4K-page target. The target rejects the oversized map mmap(),
+> causing failure of loading the light skeleton.
 >
-> Execution command: run-proc-vs-map.sh --nsamples 20 --rawdata -- \
-> --busyduration 2 --procfile smaps_rollup
+> When try to run 64K-page selftests on 4K-page VM, the error message does
+> not provide the reason about page size.
 >
-> Baseline:
->    Median   Minimum   Maximum
->     0.174     0.161     2.553
->     0.174     0.164     2.663
->     0.174     0.165     2.664
->     0.174     0.166     2.679
->     0.174     0.167     2.691
->     0.174     0.168     2.704
->     0.174     0.169     2.729
->     0.174     0.172     2.741
->     0.174     0.174     2.745
->     0.174     0.174     2.755
->     0.174     0.175     2.790
->     0.174     0.177     2.809
->     0.174     0.179     3.096
->     0.174     0.183     3.144
->     0.174     0.184     3.158
->     0.174     0.185     3.175
->     0.174     0.185     4.568
->     0.174     0.198     4.821
->     0.174     0.214     5.143
->     0.174     0.251     5.220
+>  test_atomics:PASS:atomics skeleton open 0 nsec
+>  test_atomics:FAIL:atomics skeleton load unexpected error: -12 (errno 22)
+>  #15      atomics:FAIL
 >
-> Patched:
->    Median   Minimum   Maximum
->     0.007     0.007     1.952
->     0.007     0.007     1.955
->     0.007     0.007     1.955
->     0.007     0.007     1.955
->     0.007     0.007     1.957
->     0.007     0.007     1.969
->     0.007     0.007     2.065
->     0.007     0.007     2.075
->     0.007     0.007     2.146
->     0.007     0.007     2.195
->     0.007     0.007     2.223
->     0.007     0.007     2.259
->     0.007     0.007     2.488
->     0.007     0.007     2.562
->     0.007     0.007     2.599
->     0.007     0.007     2.697
->     0.007     0.007     3.030
->     0.007     0.007     3.075
->     0.007     0.007     3.145
->     0.007     0.007     3.225
+> Pass the original map value size to the generated code and round it to th=
+e
+> runtime page size in the user-space light skeleton helpers. This keeps
+> generated light skeletons independent of the build host page size.
 >
-> Remove now unused lock_ctx_mm() and move unlock_ctx_vma() next to
-> unlock_ctx_mm() as they are logically related.
->
-> Remove a long comment about 4 cases that we handle when dropping the
-> mmap lock in the middle of VMA walk due to contention. The first 3
-> cases explained there are handled naturally and only case 4 needs to
-> be handled in a special way, which is done in smap_gather_stats() by
-> gathering stats from the portion of the VMA that has not yet been
-> processed.
-> For posterity, moving this comment here:
->
-> After dropping the lock, there are four cases to
-> consider. See the following example for explanation.
->
->   +------+------+-----------+
->   | VMA1 | VMA2 | VMA3      |
->   +------+------+-----------+
->   |      |      |           |
->  4k     8k     16k         400k
->
-> Suppose we drop the lock after reading VMA2 due to
-> contention, then we get:
->
-> 	last_vma_end = 16k
->
-> 1) VMA2 is freed, but VMA3 exists:
->
->    vma_next(vmi) will return VMA3.
->    In this case, just continue from VMA3.
->
-> 2) VMA2 still exists:
->
->    vma_next(vmi) will return VMA3.
->    In this case, just continue from VMA3.
->
-> 3) No more VMAs can be found:
->
->    vma_next(vmi) will return NULL.
->    No more things to do, just break.
->
-> 4) (last_vma_end - 1) is the middle of a vma (VMA'):
->
->    vma_next(vmi) will return VMA' whose range
->    contains last_vma_end.
->    Iterate VMA' from last_vma_end.
->
-> [1] https://github.com/paulmckrcu/proc-mmap_sem-test
->
-> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
-
-Everything LGTM and it runs fine locally so:
-
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
+> Fixes: d510296d331a ("bpftool: Use syscall/loader program in "prog load" =
+and "gen skeleton" command.")
+> Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
 > ---
->  fs/proc/task_mmu.c | 159 +++++++++++++++++++--------------------------
->  1 file changed, 66 insertions(+), 93 deletions(-)
+>  tools/bpf/bpftool/gen.c       | 27 ++++++++-------------------
+>  tools/lib/bpf/skel_internal.h | 18 +++++++++++++-----
+>  2 files changed, 21 insertions(+), 24 deletions(-)
 >
-> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> index 9a3c996c1d61..6fee40bdd736 100644
-> --- a/fs/proc/task_mmu.c
-> +++ b/fs/proc/task_mmu.c
-> @@ -130,28 +130,12 @@ static void release_task_mempolicy(struct proc_maps_private *priv)
+> diff --git a/tools/bpf/bpftool/gen.c b/tools/bpf/bpftool/gen.c
+> index a50540ef6521..77f04c28fee9 100644
+> --- a/tools/bpf/bpftool/gen.c
+> +++ b/tools/bpf/bpftool/gen.c
+> @@ -500,16 +500,6 @@ static void print_hex(const char *data, int data_sz)
+>         }
 >  }
->  #endif
 >
-> -static int lock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
+> -static size_t bpf_map_mmap_sz(const struct bpf_map *map)
 > -{
-> -	int ret = mmap_read_lock_killable(lock_ctx->mm);
+> -       long page_sz =3D sysconf(_SC_PAGE_SIZE);
+> -       size_t map_sz;
 > -
-> -	if (!ret)
-> -		lock_ctx->mmap_locked = true;
-> -
-> -	return ret;
+> -       map_sz =3D (size_t)roundup(bpf_map__value_size(map), 8) * bpf_map=
+__max_entries(map);
+> -       map_sz =3D roundup(map_sz, page_sz);
+> -       return map_sz;
 > -}
 > -
->  static void unlock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
+>  /* Emit type size asserts for all top-level fields in memory-mapped inte=
+rnal maps. */
+>  static void codegen_asserts(struct bpf_object *obj, const char *obj_name=
+)
 >  {
->  	mmap_read_unlock(lock_ctx->mm);
->  	lock_ctx->mmap_locked = false;
+> @@ -686,8 +676,8 @@ static void codegen_destroy(struct bpf_object *obj, c=
+onst char *obj_name)
+>                 if (!get_map_ident(map, ident, sizeof(ident)))
+>                         continue;
+>                 if (is_skel_data(map, ident, sizeof(ident)))
+> -                       printf("\tskel_free_map_data(skel->%1$s, skel->ma=
+ps.%1$s.initial_value, %2$zu);\n",
+> -                              ident, bpf_map_mmap_sz(map));
+> +                       printf("\tskel_free_map_data(skel->%1$s, skel->ma=
+ps.%1$s.initial_value, %2$u);\n",
+> +                              ident, bpf_map__value_size(map));
+>                 codegen("\
+>                         \n\
+>                                 skel_closenz(skel->maps.%1$s.map_fd);    =
+   \n\
+> @@ -771,13 +761,12 @@ static int gen_trace(struct bpf_object *obj, const =
+char *obj_name, const char *h
+>                 \n\
+>                 \";                                                      =
+   \n\
+>                                                                          =
+   \n\
+> -                               skel->%1$s =3D (__typeof__(skel->%1$s))sk=
+el_prep_map_data((void *)data, %2$zd,\n\
+> -                                                               sizeof(da=
+ta) - 1);\n\
+> +                               skel->%1$s =3D (__typeof__(skel->%1$s))sk=
+el_prep_map_data((void *)data, sizeof(data) - 1);\n\
+>                                 if (!skel->%1$s)                         =
+   \n\
+>                                         goto cleanup;                    =
+   \n\
+>                                 skel->maps.%1$s.initial_value =3D (__u64)=
+ (long) skel->%1$s;\n\
+>                         }                                                =
+   \n\
+> -                       ", ident, bpf_map_mmap_sz(map));
+> +                       ", ident);
+>         }
+>         codegen("\
+>                 \n\
+> @@ -871,14 +860,14 @@ static int gen_trace(struct bpf_object *obj, const =
+char *obj_name, const char *h
+>                 if (bpf_map__type(map) =3D=3D BPF_MAP_TYPE_PERCPU_ARRAY) =
+{
+>                         codegen("\
+>                 \n\
+> -                       err =3D skel_protect_map_data(skel->%1$s, &skel->=
+maps.%1$s.initial_value, %2$zd);\n\
+> +                       err =3D skel_protect_map_data(skel->%1$s, &skel->=
+maps.%1$s.initial_value, %2$u);\n\
+>                         if (err)                                         =
+   \n\
+>                                 return err;                              =
+   \n\
+>                 #ifdef __KERNEL__                                        =
+   \n\
+>                         skel->%1$s =3D NULL;                             =
+     \n\
+>                 #endif                                                   =
+   \n\
+>                         ",
+> -                       ident, bpf_map_mmap_sz(map));
+> +                       ident, bpf_map__value_size(map));
+>                         continue;
+>                 }
+>
+> @@ -890,11 +879,11 @@ static int gen_trace(struct bpf_object *obj, const =
+char *obj_name, const char *h
+>                 codegen("\
+>                 \n\
+>                         skel->%1$s =3D (__typeof__(skel->%1$s))skel_final=
+ize_map_data(&skel->maps.%1$s.initial_value,\n\
+> -                                                       %2$zd, %3$s, skel=
+->maps.%1$s.map_fd);\n\
+> +                                                       %2$u, %3$s, skel-=
+>maps.%1$s.map_fd);\n\
+>                         if (!skel->%1$s)                                 =
+   \n\
+>                                 return -ENOMEM;                          =
+   \n\
+>                         ",
+> -                      ident, bpf_map_mmap_sz(map), mmap_flags);
+> +                      ident, bpf_map__value_size(map), mmap_flags);
+>         }
+>         codegen("\
+>                 \n\
+> diff --git a/tools/lib/bpf/skel_internal.h b/tools/lib/bpf/skel_internal.=
+h
+> index 1f3f332dffbe..5787911f17f5 100644
+> --- a/tools/lib/bpf/skel_internal.h
+> +++ b/tools/lib/bpf/skel_internal.h
+> @@ -11,6 +11,7 @@
+>  #include <linux/bpf.h>
+>  #else
+>  #include <unistd.h>
+> +#include <sys/param.h>
+>  #include <sys/syscall.h>
+>  #include <sys/mman.h>
+>  #include <linux/keyctl.h>
+> @@ -138,7 +139,7 @@ static inline void skel_free_map_data(void *p, __u64 =
+addr, size_t sz)
+>          */
 >  }
 >
-> -static void reset_lock_ctx(struct proc_maps_locking_ctx *lock_ctx)
-> -{
-> -	lock_ctx->locked_vma = NULL;
-> -	lock_ctx->mmap_locked = false;
-> -}
-> -
->  static void unlock_ctx_vma(struct proc_maps_locking_ctx *lock_ctx)
+> -static inline void *skel_prep_map_data(const void *val, size_t mmap_sz, =
+size_t val_sz)
+> +static inline void *skel_prep_map_data(const void *val, size_t val_sz)
 >  {
->  	if (lock_ctx->locked_vma) {
-> @@ -160,6 +144,12 @@ static void unlock_ctx_vma(struct proc_maps_locking_ctx *lock_ctx)
->  	}
+>         void *addr;
+>
+> @@ -149,7 +150,7 @@ static inline void *skel_prep_map_data(const void *va=
+l, size_t mmap_sz, size_t v
+>         return addr;
 >  }
 >
-> +static void reset_lock_ctx(struct proc_maps_locking_ctx *lock_ctx)
+> -static inline void *skel_finalize_map_data(__u64 *init_val, size_t mmap_=
+sz, int flags, int fd)
+> +static inline void *skel_finalize_map_data(__u64 *init_val, size_t val_s=
+z, int flags, int fd)
+>  {
+>         struct bpf_map *map;
+>         void *addr =3D NULL;
+> @@ -193,13 +194,19 @@ static inline void skel_free(void *p)
+>         free(p);
+>  }
+>
+> +static inline size_t skel_map_mmap_sz(size_t sz)
 > +{
-> +	lock_ctx->locked_vma = NULL;
-> +	lock_ctx->mmap_locked = false;
+> +       return roundup(sz, sysconf(_SC_PAGE_SIZE));
+
+original code had this logic:
+
+map_sz =3D (size_t)roundup(bpf_map__value_size(map), 8) *
+bpf_map__max_entries(map);
+map_sz =3D roundup(map_sz, page_sz);
+
+you completely ignore max_entries in a new code now, which works for
+global data because that have max_entires 1, but at the very least we
+should add some check or assert for that so that we don't miss a case
+when max_entries is not 1
+
+pw-bot: cr
+
 > +}
 > +
->  static struct vm_area_struct *get_next_vma(struct proc_maps_private *priv,
->  					   loff_t last_pos)
+>  static inline void skel_free_map_data(void *p, __u64 addr, size_t sz)
 >  {
-> @@ -1384,12 +1374,14 @@ static int show_smap(struct seq_file *m, void *v)
->  static int show_smaps_rollup(struct seq_file *m, void *v)
+> -       munmap(p, sz);
+> +       munmap(p, skel_map_mmap_sz(sz));
+>  }
+>
+> -static inline void *skel_prep_map_data(const void *val, size_t mmap_sz, =
+size_t val_sz)
+> +static inline void *skel_prep_map_data(const void *val, size_t val_sz)
 >  {
->  	struct proc_maps_private *priv = m->private;
-> +	struct proc_maps_locking_ctx *lock_ctx = &priv->lock_ctx;
-> +	struct mm_struct *mm = lock_ctx->mm;
->  	struct mem_size_stats mss = {};
-> -	struct mm_struct *mm = priv->lock_ctx.mm;
-> +	unsigned long last_vma_end = 0;
-> +	unsigned long vma_start = 0;
->  	struct vm_area_struct *vma;
-> -	unsigned long vma_start = 0, last_vma_end = 0;
-> +	loff_t pos = 0;
->  	int ret = 0;
-> -	VMA_ITERATOR(vmi, mm, 0);
+> +       size_t mmap_sz =3D skel_map_mmap_sz(val_sz);
+>         void *addr;
 >
->  	priv->task = get_proc_task(priv->inode);
->  	if (!priv->task)
-> @@ -1400,89 +1392,66 @@ static int show_smaps_rollup(struct seq_file *m, void *v)
->  		goto out_put_task;
->  	}
+>         addr =3D mmap(NULL, mmap_sz, PROT_READ | PROT_WRITE,
+> @@ -210,8 +217,9 @@ static inline void *skel_prep_map_data(const void *va=
+l, size_t mmap_sz, size_t v
+>         return addr;
+>  }
 >
-> -	ret = lock_ctx_mm(&priv->lock_ctx);
-> -	if (ret)
-> -		goto out_put_mm;
-> -
->  	hold_task_mempolicy(priv);
-> -	vma = vma_next(&vmi);
-> +	rcu_read_lock();
-> +	reset_lock_ctx(lock_ctx);
+> -static inline void *skel_finalize_map_data(__u64 *init_val, size_t mmap_=
+sz, int flags, int fd)
+> +static inline void *skel_finalize_map_data(__u64 *init_val, size_t val_s=
+z, int flags, int fd)
+>  {
+> +       size_t mmap_sz =3D skel_map_mmap_sz(val_sz);
+>         void *addr;
 >
-> +	vma_iter_init(&priv->iter, mm, 0);
-> +	vma = proc_get_vma(m, &pos);
->  	if (unlikely(!vma))
->  		goto empty_set;
->
-> -	vma_start = vma->vm_start;
-> -	do {
-> -		smap_gather_stats(priv, vma, &mss, vma->vm_start);
-> +	if (!IS_ERR(vma))
-> +		vma_start = vma->vm_start;
-> +
-> +	while (vma) {
-> +		unsigned long start;
-> +
-> +		if (IS_ERR(vma)) {
-> +			ret = PTR_ERR(vma);
-> +			goto out_unlock;
-> +		}
-> +
-> +		if (vma->vm_start < last_vma_end) {
-> +			/*
-> +			 * After retaking the lock, already reported VMA grew
-> +			 * or got merged with the next one and we found it
-> +			 * again. Gather stats for the remaining portion by
-> +			 * starting at last_vma_end.
-> +			 */
-> +			start = last_vma_end;
-> +		} else {
-> +			/* Found next unreported VMA, start from its beginning */
-> +			start = vma->vm_start;
-> +		}
-> +		smap_gather_stats(priv, vma, &mss, start);
->  		last_vma_end = vma->vm_end;
->
->  		/*
-> -		 * Release mmap_lock temporarily if someone wants to
-> -		 * access it for write request.
-> +		 * If the VMA lock is not taken, we hold the often contended
-> +		 * mmap lock. This can happen if we had to fall back to the
-> +		 * mmap lock.
-> +		 *
-> +		 * To relieve pressure, check if it is indeed contended, then
-> +		 * temporarily release it.
->  		 */
-> -		if (mmap_lock_is_contended(mm)) {
-> -			vma_iter_invalidate(&vmi);
-> -			unlock_ctx_mm(&priv->lock_ctx);
-> -			ret = lock_ctx_mm(&priv->lock_ctx);
-> -			if (ret) {
-> -				release_task_mempolicy(priv);
-> -				goto out_put_mm;
-> -			}
-> -
-> +		if (lock_ctx->mmap_locked &&
-> +		    mmap_lock_is_contended(lock_ctx->mm)) {
-> +			unlock_ctx_mm(lock_ctx);
->  			/*
-> -			 * After dropping the lock, there are four cases to
-> -			 * consider. See the following example for explanation.
-> -			 *
-> -			 *   +------+------+-----------+
-> -			 *   | VMA1 | VMA2 | VMA3      |
-> -			 *   +------+------+-----------+
-> -			 *   |      |      |           |
-> -			 *  4k     8k     16k         400k
-> -			 *
-> -			 * Suppose we drop the lock after reading VMA2 due to
-> -			 * contention, then we get:
-> -			 *
-> -			 *	last_vma_end = 16k
-> -			 *
-> -			 * 1) VMA2 is freed, but VMA3 exists:
-> -			 *
-> -			 *    vma_next(vmi) will return VMA3.
-> -			 *    In this case, just continue from VMA3.
-> -			 *
-> -			 * 2) VMA2 still exists:
-> -			 *
-> -			 *    vma_next(vmi) will return VMA3.
-> -			 *    In this case, just continue from VMA3.
-> -			 *
-> -			 * 3) No more VMAs can be found:
-> -			 *
-> -			 *    vma_next(vmi) will return NULL.
-> -			 *    No more things to do, just break.
-> -			 *
-> -			 * 4) (last_vma_end - 1) is the middle of a vma (VMA'):
-> -			 *
-> -			 *    vma_next(vmi) will return VMA' whose range
-> -			 *    contains last_vma_end.
-> -			 *    Iterate VMA' from last_vma_end.
-> +			 * Even though we previously fell back to mmap lock,
-> +			 * we try taking VMA lock for the next VMA, since it
-> +			 * might not be under modification. In the worst case
-> +			 * we will fall back to mmap lock again.
->  			 */
-> -			vma = vma_next(&vmi);
-> -			/* Case 3 above */
-> -			if (!vma)
-> -				break;
-> -
-> -			/* Case 1 and 2 above */
-> -			if (vma->vm_start >= last_vma_end) {
-> -				smap_gather_stats(priv, vma, &mss, vma->vm_start);
-> -				last_vma_end = vma->vm_end;
-> -				continue;
-> -			}
-> -
-> -			/* Case 4 above */
-> -			if (vma->vm_end > last_vma_end) {
-> -				smap_gather_stats(priv, vma, &mss, last_vma_end);
-> -				last_vma_end = vma->vm_end;
-> -			}
-> +			rcu_read_lock();
-> +			reset_lock_ctx(lock_ctx);
-> +			/* Resume from the last position. */
-> +			pos = last_vma_end;
-> +			vma_iter_init(&priv->iter, mm, pos);
->  		}
-> -	} for_each_vma(vmi, vma);
-> +		vma = proc_get_vma(m, &pos);
-> +	}
->
->  empty_set:
->  	show_vma_header_prefix(m, vma_start, last_vma_end, 0, 0, 0, 0);
-> @@ -1491,10 +1460,14 @@ static int show_smaps_rollup(struct seq_file *m, void *v)
->
->  	__show_smap(m, &mss, true);
->
-> +out_unlock:
-> +	if (lock_ctx->mmap_locked) {
-> +		unlock_ctx_mm(lock_ctx);
-> +	} else {
-> +		unlock_ctx_vma(lock_ctx);
-> +		rcu_read_unlock();
-> +	}
->  	release_task_mempolicy(priv);
-> -	unlock_ctx_mm(&priv->lock_ctx);
-> -
-> -out_put_mm:
->  	mmput(mm);
->  out_put_task:
->  	put_task_struct(priv->task);
+>         addr =3D mmap((void *) (long) *init_val, mmap_sz, flags, MAP_SHAR=
+ED | MAP_FIXED, fd, 0);
 > --
-> 2.55.0.1007.g17ff1f9808-goog
+> 2.55.0
 >
-
---
-Cheers, Lorenzo
