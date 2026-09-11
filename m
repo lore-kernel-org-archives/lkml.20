@@ -1,77 +1,34 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FB6A48EC93
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:48:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 320BF40E8D6;
+	Fri, 11 Sep 2026 13:50:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789134535; cv=none; b=uxa2T554ibNUApgbhnesEbrtdggusrxkHty8k/Wtm56ULhgYM7CuN/JBaxCglMqHaWnWtuf1coIdfEOnA9JYlTFBwOTxi2a3TE4uAJVEz9/26ijnE8e59+ioTBGv1BIpBEXcTJMpF9XlBsYXQvRkQ0sDxTX1nXL0bIGeCFBgkOQ=
+	t=1789134620; cv=none; b=bWdc/ZvLkBSIUMCEjs9Q0BjPYylYtcC+7vU3EQwkyPkUXsMbzRRTXpI/nc8mggl8USXK/14P5S5AL+YHhVOl27gfgTkron5qRo08ngKCOG4Hntzx9s38GKlK6QAk5RsKmzHnBo/lYo2mlOqliJM6b5XIUPw2PffFdb30EsQVqd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789134535; c=relaxed/simple;
-	bh=mYUY1X0u4jMAiaxT3A2tqJfINJC7WO9ByblU8W1JI7M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GT0ru11/OEHLe6ITd4t51mTLyShcRl+pf2Vqzoeqc8hhwKwiQQSm6RyvRItmNeiI2H5cQb6mz4J4j4Sp3SLS4zf7QAwHniDJSXgcabSTeSf1a5mpfvRyctRgRmyAMx7ZmWzx+/XHOfu+z3FysAB5EAbNS02YrS8CfYJblg015Lw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cuh2iY11; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789134620; c=relaxed/simple;
+	bh=cuIAEQFe9YfTBQZx01ANX5jmaVryZ8zhbwRp/JdAoqM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TuvVa+EPi/GPtGjAgsS0a8qgDCgccf7S6Kr2rr1twKNg3J4R/mf19u8vls0QCthK3sm4bxXIK4FyEgCxT0OPhCbBimaH6WiYkS9wsPFAqRWTGU4wCYBmAx5M8olF93vWSMJHrV6CSFWIZENnOaoIZqvw5Te1+grsPUbRU0CZe4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=oKP79ioi; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cuh2iY11"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2dcff8f44f2so12490775ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:48:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789134529; x=1789739329; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=P7hwUc1tIO7zM19os5B2JuOflqEWXi9bUCh3PtnCIVg=;
-        b=Cuh2iY11t7q21BGVBzXIiW+S3nDFEbUu2B4sEY3ukzdf8JoyAFZH70aQN5xsayHSEp
-         Du6LcyNXT45vuXdXpT5F5PNdL520wZKGLfZ2Y0z8KM3nBb8ls56vqeUB6CgGHFIRS2ed
-         Gl7ure2T3V+kuzi1IuQWeE+JqiiLNscF8dh2jRE9WbFmC3EeH3qA4SQQ5RwGy1naOTQp
-         e2ZpDm5b5NrQHK0MhPsylfOxV5uFuv7f/r6V0MKrF+isXZXUQe0f/dKhHq+3At/QSaXo
-         rdWXRgF2bfL+Per46UdI6AenVokt3Duu5pzLwvsc7v/fb+RzHFxRXWGVqIgq6w5OqWAs
-         x2xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789134529; x=1789739329;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=P7hwUc1tIO7zM19os5B2JuOflqEWXi9bUCh3PtnCIVg=;
-        b=fDW3N8cnAVFHXoOrJC71EnrkibLL1mSpQZi9yFBW7BOplxP5pv9ExHz/q/CPyE6s5K
-         xGF5eSXncGi63wYY0VzJzflBhqgaOrwF96fAd8LtMP+/tXwhloIrtTpDIpvKWYdKWApU
-         ebxrmoII+o0YqbCVI0VYiXvchwAEGGrtx5YcZclUn0hTb3iQhq6WOuv5sZSOkel2BwTk
-         ULLtkWrdQTCwMGSrEkoNOJ538Jk5tT+ipNRsoDC0HirahkR5nypMKt5Emslzc7UxJdXX
-         Ul/XkOhrOsI/pG9wV1eQaHePZG29wErp1++4YUCIECopFQQAqplH2rottvenzfnyMgtq
-         TqdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz7iRtwmNix9uLJVoImk7qWDxLd2qB8O4P9xhGledf3kaZH8r1S60NAJIQ0aPmYCeiEoWPlQH874VP9tJw=@vger.kernel.org
-X-Gm-Message-State: AFuF++n22WnNTwQwMXuHIj/TwY0SQJj+Qb+M8vFLAyZ9YEsERHYCIvd4
-	liWGBfKH/ewfMBnD2weGmILzZzQAF2vgc7iSTH/FQLxd3J8nFW0r7hMj
-X-Gm-Gg: AYBFou2/RoS9Ix2Nqw1UkHjxBbM/t2o+4jmo5DDCgIWw/DQW8T8yGRl1x4uQkGLeFEX
-	WFFvDGCOB+S1l6ky8wE+D+3KeUfTH8rrJXfBFML9ZYzdyw8BbRBUPWhYIBwP83iPH2kiROBRcZ7
-	Da6NOKwp+AkUBAnl20e9BgaOTSgpzgZffp4oaF3rtDiTZOwY7FZSgRfktjNHcZy98OACHtxORHt
-	QewDhW+1wBhron14JH0dhyWguvrf0VVPvfCeANI17iLrb7t0izr8fXsjpbLDvIwANBbn5P0dg2f
-	BaqqAL28ZhlOLRzj0O1SHSq4JlBzqIFoDjW2MCHVWCSIfFd2J0S6Kqe/LQFb34qZVCk8c0BD6dQ
-	bEVXR7kSbJVTJ7rNJPRSPPDG/8FZohArBgWyD4tEFD0916aol0LztrXDttKr6Rn/1FX6AVzqkW0
-	UuXgJSJcKPNlOlQsbcxsVcxDUecB0s7g8o5ry/73eIC20pd0TYaTbTTJOoXRUQNVa25NXKGyg3F
-	vIMWLU+l3g/OjFlISrHiooGpu/c
-X-Received: by 2002:a17:903:19c8:b0:2d8:d4cc:5bb2 with SMTP id d9443c01a7336-2dd2a357792mr86930675ad.18.1789134528965;
-        Fri, 11 Sep 2026 06:48:48 -0700 (PDT)
-Received: from localhost ([200.151.1.221])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfc56b1sm11650265ad.54.2026.09.11.06.48.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 06:48:48 -0700 (PDT)
-From: Davi Chaves Azevedo <davichazbh@gmail.com>
-To: peterz@infradead.org,
-	mingo@redhat.com
-Cc: Chen Yu <yu.c.chen@intel.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
+	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="oKP79ioi"
+Received: from tju.edu.cn (gy-adaptive-ssl-proxy-4-entmail-virt151.gy.ntes [183.242.150.9])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4d7226c34;
+	Fri, 11 Sep 2026 21:50:04 +0800 (GMT+08:00)
+From: Yibo Tan <lhfff@tju.edu.cn>
+To: Rodolfo Giometti <giometti@enneenne.com>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	driver-core@lists.linux.dev,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] sched/cache: Refresh LLC capacity across CPU hotplug
-Date: Fri, 11 Sep 2026 10:48:05 -0300
-Message-ID: <20260911134825.420748-1-davichazbh@gmail.com>
+Subject: [PATCH v1] pps: generators: Pin dummy provider while a file is open
+Date: Fri, 11 Sep 2026 21:49:52 +0800
+Message-Id: <20260911134952.648064-1-lhfff@tju.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,170 +36,72 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa090bb863803a1kunm423d710f1df1cc
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQxofVh4fSU1NSE5LGEIZS1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKQ0hVSU9JVUpOS1VCWVdZFhoPEhUdFFlBWU9LSFVKS0hKTk
+	xOVUpLS1VKQktLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=oKP79ioihPAIs98Tt5QlAoEjLiAoB2BzUg1v+Nzms8UiqpAClLMyLWTb7TuuRdGIzSV3psNjt8E5hDoX4zptc1y7Zn0qzXLHvnhmJS+DwgQViqhnsawLGmQzA8beK3woMqLllfzk0raoYVwCYkmEstoZVBLwxs4J51w3nfkmvZw=; c=relaxed/relaxed; s=default; d=tju.edu.cn; v=1;
+	bh=cExZDgHOjTvpPQx1lVAEHRgDVoPv0zocD9YK+/lelZY=;
+	h=date:mime-version:subject:message-id:from;
 
-The scheduler scales LLC capacity by the fraction of cache-sharing CPUs
-covered by a domain:
+pps_gen_register_cdev() copies pps_gen_source_info.owner to cdev.owner so
+an open file pins the module that owns provider metadata and callbacks. The
+dummy generator leaves owner unset, allowing pps_gen_dummy to unload while
+an old file remains usable through pps_gen_core.
 
-  llc_bytes = cache_size * span_weight / shared_weight
+The old file retains the core-owned pps_gen_device, whose info pointer then
+refers to unloaded pps_gen_dummy rodata. PPS_GEN_SETENABLE dereferences the
+stale info->enable member and may call through memory reused by another
+module.
 
-During CPU teardown, sched_cpu_deactivate() rebuilds scheduler domains
-before cacheinfo_cpu_pre_down() removes the CPU from shared_cpu_map. The
-new domains therefore use the old sharing weight. The later call to
-sched_update_llc_bytes() looks up the departing CPU's sd_llc, which has
-already been detached, and returns without correcting the surviving CPUs.
+In three KASAN runs, a uid-65534 process with no capabilities held the old
+file while a separate root process unloaded the dummy provider. The later
+ioctl faulted in pps_gen_cdev_ioctl(). A stock-module follow-up also
+reproduced three kernel panics after the same uid-65534 process naturally
+autoloaded can-bcm.ko into the retired rodata page and reached a NULL call.
+The administrator-performed provider unload remains a prerequisite.
 
-On a Ryzen 5 7535U with twelve logical CPUs sharing a 16 MiB LLC,
-offlining one SMT sibling left the remaining CPUs with:
+Set owner to THIS_MODULE and update the documentation example. In three
+owner-only fixed runs, the open file raised the provider refcount, unload
+failed with EAGAIN, and the ioctl, close, and subsequent unload completed
+without a kernel diagnostic.
 
-  llc_bytes = floor(16777216 * 11 / 12) = 15379114 bytes
-
-The correct capacity is still 16777216 bytes. On systems with active
-cache-aware scheduling, an underestimated capacity can cause
-exceed_llc_capacity() to reject aggregation for a process whose footprint
-would fit. Unchanged cpuset partitions sharing the physical cache can
-also retain stale capacity when a CPU comes online in another partition.
-
-Pass the cache-sharing mask already retained by cacheinfo to the
-scheduler update. Refresh every surviving CPU using its own LLC domain
-so that each partition receives the correct share. This also preserves
-the correction needed as cache-sharing maps grow during boot.
-
-Keep the existing CPU-hotplug and scheduler-domain synchronization. The
-update remains on the hotplug path; no steady-state scheduling operation
-or persistent allocation is added.
-
-Fixes: 7030513a0877 ("sched/cache: Calculate the LLC size and store it in sched_domain")
-Signed-off-by: Davi Chaves Azevedo <davichazbh@gmail.com>
+Fixes: 580afe4acbd4 ("drivers pps/generators: add dummy PPS generator")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
 ---
-The issue was identified by tracing the scheduler/cacheinfo teardown
-ordering, then checking live llc_bytes values using the running kernel's
-BTF layout and /proc/kcore.
+ Documentation/driver-api/pps.rst       | 1 +
+ drivers/pps/generators/pps_gen-dummy.c | 1 +
+ 2 files changed, 2 insertions(+)
 
-Validation:
-  - Reproduced the stale value on 7.2.3-arch1-3 on the Ryzen system above.
-    The patched kernel retained 16777216 bytes on every surviving CPU.
-  - Ten SMT-thread and ten whole-core hotplug cycles passed on the patched
-    kernel, including capacity checks after each removal and restoration.
-    The existing limited CPU-hotplug selftest also passed.
-  - Source-level state fixtures: five failures in eight scenarios before
-    the fix, eight passes after it. These cover partition changes, unequal
-    spans, sparse CPU IDs and boot-time map growth, but not concurrency.
-  - Full x86-64 baseline and patched bzImage/modules builds passed with
-    matched configs apart from LOCALVERSION. Focused ARM64, x86 without
-    CONFIG_SCHED_CACHE, and x86 UP builds also passed.
-
-This host has only one LLC, so the live checks establish the accounting
-correction, not an aggregation speedup. No controlled same-version
-performance comparison or multi-LLC hardware result is claimed.
-
- drivers/base/cacheinfo.c       | 11 ++++++-----
- include/linux/sched/topology.h |  4 ++--
- kernel/sched/topology.c        | 27 ++++++++++++---------------
- 3 files changed, 20 insertions(+), 22 deletions(-)
-
-diff --git a/drivers/base/cacheinfo.c b/drivers/base/cacheinfo.c
-index 9f9c72727a05..7a47a392568a 100644
---- a/drivers/base/cacheinfo.c
-+++ b/drivers/base/cacheinfo.c
-@@ -1040,9 +1040,10 @@ static int cacheinfo_cpu_online(unsigned int cpu)
- 	rc = cache_add_dev(cpu);
- 	if (rc)
- 		goto err;
--	if (cpu_map_shared_cache(true, cpu, &cpu_map))
-+	if (cpu_map_shared_cache(true, cpu, &cpu_map)) {
- 		update_per_cpu_data_slice_size(true, cpu, cpu_map);
--	sched_update_llc_bytes(cpu);
-+		sched_update_llc_bytes(cpu_map);
-+	}
- 	return 0;
- err:
- 	free_cache_attributes(cpu);
-@@ -1059,10 +1060,10 @@ static int cacheinfo_cpu_pre_down(unsigned int cpu)
- 		cpu_cache_sysfs_exit(cpu);
+diff --git a/Documentation/driver-api/pps.rst b/Documentation/driver-api/pps.rst
+index 598729f9c..89a473be7 100644
+--- a/Documentation/driver-api/pps.rst
++++ b/Documentation/driver-api/pps.rst
+@@ -207,6 +207,7 @@ registered in the kernel by defining a struct pps_gen_source_info as
+ follows::
  
- 	free_cache_attributes(cpu);
--	if (nr_shared > 1)
-+	if (nr_shared > 1) {
- 		update_per_cpu_data_slice_size(false, cpu, cpu_map);
--
--	sched_update_llc_bytes(cpu);
-+		sched_update_llc_bytes(cpu_map);
-+	}
- 
- 	return 0;
- }
-diff --git a/include/linux/sched/topology.h b/include/linux/sched/topology.h
-index b5d9d7c2b8ad..f96812d71c51 100644
---- a/include/linux/sched/topology.h
-+++ b/include/linux/sched/topology.h
-@@ -281,9 +281,9 @@ static inline int task_node(const struct task_struct *p)
- }
- 
- #ifdef CONFIG_SCHED_CACHE
--extern void sched_update_llc_bytes(unsigned int cpu);
-+extern void sched_update_llc_bytes(const struct cpumask *cpus);
- #else
--static inline void sched_update_llc_bytes(unsigned int cpu) { }
-+static inline void sched_update_llc_bytes(const struct cpumask *cpus) { }
- #endif
- 
- #endif /* _LINUX_SCHED_TOPOLOGY_H */
-diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
-index 0248227d983a..a10eecc49d51 100644
---- a/kernel/sched/topology.c
-+++ b/kernel/sched/topology.c
-@@ -985,8 +985,8 @@ void sched_cache_active_set(void)
- }
- 
- /*
-- * Update the bottom sched_domain's llc_bytes for @cpu and all its
-- * LLC siblings. Called from cacheinfo_cpu_online() or
-+ * Update the bottom sched_domain's llc_bytes for @cpus sharing a physical
-+ * LLC. Called from cacheinfo_cpu_online() or
-  * cacheinfo_cpu_pre_down() with cpu hotplug lock held.
-  *
-  * Note: get_effective_llc_bytes() returns 0 on PowerPC.
-@@ -996,32 +996,29 @@ void sched_cache_active_set(void)
-  * and does not populates the per-CPU struct cpu_cacheinfo array
-  * that get_cpu_cacheinfo_llc() reads.
+     static const struct pps_gen_source_info pps_gen_dummy_info = {
++            .owner                  = THIS_MODULE,
+             .use_system_clock       = true,
+             .get_time               = pps_gen_dummy_get_time,
+             .enable                 = pps_gen_dummy_enable,
+diff --git a/drivers/pps/generators/pps_gen-dummy.c b/drivers/pps/generators/pps_gen-dummy.c
+index a4395543c..393c44246 100644
+--- a/drivers/pps/generators/pps_gen-dummy.c
++++ b/drivers/pps/generators/pps_gen-dummy.c
+@@ -58,6 +58,7 @@ static int pps_gen_dummy_enable(struct pps_gen_device *pps_gen, bool enable)
   */
--void sched_update_llc_bytes(unsigned int cpu)
-+void sched_update_llc_bytes(const struct cpumask *cpus)
- {
- 	struct sched_domain *sd, *sdp;
- 	unsigned int i;
  
- 	sched_domains_mutex_lock();
- 
--	sdp = rcu_dereference_sched_domain(per_cpu(sd_llc, cpu));
--	if (!sdp)
--		goto unlock;
--
- 	/*
--	 * ci->shared_cpu_map is built incrementally as CPUs come
--	 * online, so the first CPU in an LLC initially sees
--	 * hw_weight == 1 and computes an inflated llc_bytes in
--	 * get_effective_llc_bytes().  Re-evaluating every LLC
--	 * sibling on each online event corrects this once the full
--	 * shared_cpu_map is known.
-+	 * The departing CPU's domains have already been detached when
-+	 * cacheinfo removes it. Use the surviving cache siblings instead.
-+	 * They may belong to different cpuset partitions, so use each CPU's
-+	 * own LLC domain to scale its share of the physical cache.
- 	 */
--	for_each_cpu(i, sched_domain_span(sdp)) {
-+	for_each_cpu(i, cpus) {
-+		sdp = rcu_dereference_sched_domain(per_cpu(sd_llc, i));
-+		if (!sdp)
-+			continue;
-+
- 		sd = rcu_dereference_sched_domain(cpu_rq(i)->sd);
- 		if (sd)
- 			sd->llc_bytes = get_effective_llc_bytes(i, sdp);
- 	}
- 
--unlock:
- 	sched_domains_mutex_unlock();
- }
- 
-base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+ static const struct pps_gen_source_info pps_gen_dummy_info = {
++	.owner			= THIS_MODULE,
+ 	.use_system_clock	= true,
+ 	.get_time		= pps_gen_dummy_get_time,
+ 	.enable			= pps_gen_dummy_enable,
+-- 
+2.39.5
+
