@@ -1,237 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EFE12E738A;
-	Fri, 11 Sep 2026 23:57:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789171046; cv=none; b=hYWHrWnnnoxaDlhZeRXXFjFG2s42yY2P8nPlQUbX30DIspOSK0g3xJdBfOE8lexpHqtgw5alk0d1PsI89QX88UkoHZC9iZDpVqZfNymBfGVHM9Bmm/lUpKgaW9wnCMrjx64fJr8fxpsVX0tG9UoXr2K3tKpLgvc+kuoEK+I9HKk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789171046; c=relaxed/simple;
-	bh=1A6JNvuhNGDEk7YLy5oJSEm6tvsSpe4TiRd+6EeRr/I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=uXY5HACR+04tD0HGICKl0WH3gUYYNW9zctq3I7bjCgTTT1di4pZLhMPtlsvV/hOq1WeAkJxDc9w9X0QVghzVjuIg8oCiSkcVpRMOKc4Jfa8IUhuaZukFaLnLSzg4XM4LT9HH4eCMn5I+6FY82606miuVWcxXvOOdldrDLAZeoak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oeHxX6pU; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0469B2D47F1
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:57:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789171064; cv=pass; b=Uqj8LX503QObV4LXl/GpwiJeQxqHElML71FfhEQy2kfvRGa4RDspeFiN7sV737XQhpvuZoH7zU2YfYtZWyP7wPro2bfHxjUQpWuRHvtBaLS5xm5x73XMAV4b33iIQDRb98xGi7+tXLadu9TpiW6z2M9qtv1uve+YiynXNfPaeQo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789171064; c=relaxed/simple;
+	bh=WQq2pAxxltC3cCwqlUs0gtYpd6fcKoy7z/dHR1GPO7Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iu6T2F8jyxjaXjEVWhPME8bDz7wKnOsCBb/n4gqgGHZg+DGOAHiz1+DObzWUsZFoAJ6mcf/TpuhhrMPLOCyJ6CYn8DKZ3CMC77kaZXiY06YOGj5Og6Hz+lelCB2fqTosrD3SrAJcJVkrPi9F/oiczpj9IIQalQ8vGvXGHa2I10M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=FM4cyvu8; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oeHxX6pU"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1B524C2BCB8;
-	Fri, 11 Sep 2026 23:57:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789171046;
-	bh=1A6JNvuhNGDEk7YLy5oJSEm6tvsSpe4TiRd+6EeRr/I=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=oeHxX6pU8cy2HOwLJeIxSjknJBv+LUWEujLdJeVbIv8JIXKp+hZe9p3K4gaFTrvQf
-	 Sc3ymieAqOhC/6C3lPC7FipQ4MQQ62U/9wCMInQ4tyE2RFHH7mKv7qlA4tSI1cZnyZ
-	 MpWLji77gDyGBMseWkzYlhzTgxWItOxlG89D2ghmA9+x8WNUr4xVCJcpH/VXU7RGT0
-	 uwBEarUZCa27UluNIv4zVFXY6w8Fzg4XRDLSOzn8hoSXIdj58LEeT8wF7p39d7vTx7
-	 hQ0XxKWtd0NTkmU6v/LTQ8PFhLfE0IE1FTX5HSPdwsNqsAyupYGXnEYCSr1ur3ZAHI
-	 S+WlwnlblIwEg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ECD0FC88E50;
-	Fri, 11 Sep 2026 23:57:25 +0000 (UTC)
-From: Haseeb Malik via B4 Relay <devnull+haseebulhaq55.gmail.com@kernel.org>
-Date: Fri, 11 Sep 2026 19:57:21 -0400
-Subject: [PATCH net] macsec: initialize SecY before registering the
- netdevice
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="FM4cyvu8"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43db0c29so922177b3.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:57:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789171062; cv=none;
+        d=google.com; s=arc-20260327;
+        b=g/TvMuGceOak6NjWMFC6SDXove2f+s+0NIbU9GzDXTtLamfAL6FbdU+IOqKrhDsdbu
+         HWT/HnzlBC0yPVghZLXpbQUN+HV0THIErEqmJ8bcFHsHJSejWoNtQYbd/FN3lA+pTwer
+         i+mFQ3YuZb9gHG2OyxJcO/Ig6jVYga+0deXEtyZL4X1uVkuCPVrY/TaDMEsqWf7qRCic
+         QjcmrYLPlq0L6U8i7GQzhWnho5EwoWn7fgshBel7gCBT46Off1myB+Xn3CYFwhimpe32
+         oUgHxa4DzqNPjEtku/KvrLUe2mdBPLdBQ9L0tUONMkk2kmZvTTfDObeIntGeUCtMQbR7
+         fd0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=WQq2pAxxltC3cCwqlUs0gtYpd6fcKoy7z/dHR1GPO7Q=;
+        fh=7b+jzSfy921INtyYmFJLItnpnSvyXhMvi86bHAheqnw=;
+        b=Z/+KkeNNwal83HvhsJMINxbD0weLDdAY0Ewwy3eeMtNoNQFAWJ2vzS79YZ4p8I0UUm
+         b6UaLebRu8bm3s2NQl5Ka6q6kMlKUzDwuCfT6SV/H/GE90dqI9rMS4Afas29FYTfZeWl
+         xK9olMjHIRb1r7rXkHWkA3j2sds1hT4d+/6ctTCCVtzhkKVVOer1DE8MAFNPMo7mLlgJ
+         nIEiF6VTt4lHUF0wUCyj1r4gM+DXW1PlkGtFxJu5OCh9iicrLdzoN71oP/QDQYTxMfxR
+         tP8tgbP6uxj00pgopyFQ1XWB4L+o9wvRGllaZU3PRKZSVtF2Xy+K6/yhacZUykFh/gp9
+         ywbg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789171062; x=1789775862; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WQq2pAxxltC3cCwqlUs0gtYpd6fcKoy7z/dHR1GPO7Q=;
+        b=FM4cyvu89E1OWKk9hosCSj5zbM4oQeW1EIG4jJBAz8eDsapssYhgU17X5+Zmiu+B5+
+         Ge2NyNWN/z3fHCOX9Evx4sDzjJRVHUJImHBwsaCKgIQ/v2ctQSXq/RvEaqg7zfH3gU26
+         l+zAON5uQsVzsvfOUYKrWahnr0TvrZQIs5uEl9xxbuOhFwkQoSwxvaD3GozL+qLDYO9s
+         TcWXGvoXlBylQFuENoGV6XxUMYAMFEtA5G2q//KR/6g3kYqRu+lRG9FnYsBtPwUjGtYZ
+         z5Irnlht0h3VI+Kw8LLXw+bqHpL3I+gdqm3wYlJv+zhJVvHC7m8hhDG5uiTAS3UyoACi
+         7d0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789171062; x=1789775862;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WQq2pAxxltC3cCwqlUs0gtYpd6fcKoy7z/dHR1GPO7Q=;
+        b=WikiUPLK6ysT+aBT3J/gsBlEg2js9zXU8NZmD1W4l5rkQ8rymWdM4DM8vL3TxsdQCc
+         ms5LcyeX4E8jMSfdql6/dDYhHjvQUwZ7tLrElfkdfb+2nfsw/uiLg9ynHs5biw1R/Wmc
+         XNTk/LPKlHIYqwtpQDHWlK/V3lr/XzfJjkwl7c2f91dZ5Wem1N3yvLT6jmHbBCgJu8aK
+         60wCxGl+sCLDbASwIRqsYTmtSJ30U7k9g8ddBTFKVQ0l37l3bzWdB41ct5fA5Okl96QE
+         KlVdk+wZz720C5aOzgNvOzl0cyeZJXv33XwvOV/8JBKWr2QNh03LowIKgOshgVFXo7it
+         N+3g==
+X-Forwarded-Encrypted: i=1; AKwUvBwpsQohuEWkPDLzEe/dN6RHRNWBr4+Mfl7UPyUVPa/CWDCWs4+kN8AKHhmNewc4pUS7PPf6dbTG8q7nfjg=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+gDxcI7PuaQILUsoVoUB26O6PwdBtcOdWckCtLW34SjV2qCv9
+	S43ZHgEmP9+HpM2imMMV071TDwltzOKhhkgjLVpBmC4UsRNR1jcSRPfw+fpyQdeL30WGacG5wY3
+	+kJmpREcrAcwNTrCUJtSJNxx7mu9eHoGTMxx0pC6iQGyXARTLSl1B2iMRhDQ=
+X-Gm-Gg: AYBFou2HcIxTXfQ2gjzzhwXXtgAUdRfT9T8sCN3kZ+2mE7ki9rFuueaNsPyGIRqDSWs
+	yXcAMeV1428j63DjbsL0Xf4KNTyeF6SUckC+W36B/Gvi9o2gz7/8w0ZK5P0Nsmw3KQayuDQc4LP
+	Y7aMOO8asIHLSw49OqMh+Ncti86Ex+nlXeY8l1djWRxgeHNPe2gRaTyOQlCccHjr1tT3R/pVvo2
+	IgWz9ctU6/lJ2V7mC4A/4YuntLu339fskjnnDBhS71/tEDkDjooNm5sYkU7bpykjqwsi9aSk+Gb
+	AVqAolStJUDo8jirFhMyYKFzJrjDDpeaNZwfd8eZY8cZFpaZpGy0mCgbRnzJrHS/fc0/kl/s1hc
+	KmsKUjI0M3w==
+X-Received: by 2002:a05:690c:281:b0:869:adba:625b with SMTP id
+ 00721157ae682-887a87bf532mr2501367b3.25.1789171061244; Fri, 11 Sep 2026
+ 16:57:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-fix-macsec-net-v1-1-c82aa58ae741@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAGCVpGoC/x2MQQrCQAxFr1KyNnSmYku9irjIxIzNolEmIkLp3
- Y0u3+P9v4FLU3E4dxs0eavrwwLyoQNeyO6CeguGIQ1jmnPGqh9ciV0YTV5Y67HwSSYqiSBGzyZ
- R/A8vEAFcQxZywdLIePl9he5XUoN9/wIHzjdwgAAAAA==
-To: Sabrina Dubroca <sd@queasysnail.net>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Simon Horman <horms@kernel.org>, 
- Hangbin Liu <hangbin.liu@linux.dev>, 
- Felix Walter <felix.walter@cloudandheat.com>, netdev@vger.kernel.org, 
- syzkaller-bugs@googlegroups.com, Jakub Kicinski <kuba@kernel.org>, 
- syzbot+f2f6312ad1b5a0bfe316@syzkaller.appspotmail.com, 
- "David S. Miller" <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>, 
- Eric Dumazet <edumazet@google.com>, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789171045; l=5581;
- i=haseebulhaq55@gmail.com; s=default; h=from:subject:message-id;
- bh=KSA/709t2+4DBX9OBd6ktaJ9IHFKNEyjhqrtYtrgPRk=;
- b=FrLFoZNkqAVAf7jQS/0uFbGMIu17BznN0PwdWaGq1SToCd23aRuB6hYGqH+mVpXpzbVxTabmS
- enUsZOBgTJtBKiIxLN+NmoXcMhIT5LsIaTkofNp4wm66wc4EjNhz+9M
-X-Developer-Key: i=haseebulhaq55@gmail.com; a=ed25519;
- pk=U/yCVc6cTsqDqxWLzvoONZ7DUA3EfRU+rfO9Xxo4p2w=
-X-Endpoint-Received: by B4 Relay for haseebulhaq55@gmail.com/default with
- auth_id=1026
-X-Original-From: Haseeb Malik <haseebulhaq55@gmail.com>
-Reply-To: haseebulhaq55@gmail.com
+References: <20260906202747.4041389-1-samagazaryan@google.com>
+ <20260906202747.4041389-4-samagazaryan@google.com> <aqHU-6RV_AapSu3M@lizhi-Precision-Tower-5810>
+ <DLC6ERLST1B6.6K3HLH38DQLK@google.com> <aqQZzqJohIxBwnk0@SMW015318>
+In-Reply-To: <aqQZzqJohIxBwnk0@SMW015318>
+From: Sam Agazaryan <samagazaryan@google.com>
+Date: Fri, 11 Sep 2026 16:57:30 -0700
+X-Gm-Features: AcwNN1WTU8WlhVvS_yNOKejgBbjum4EMT2blUBC4r1H9SFjK7U-mdGDrxdPBeGA
+Message-ID: <CAHreonG_BH_ri7_p1VQ6h=_iTpWxhqzVLksc=p7Kyro2D3nW=Q@mail.gmail.com>
+Subject: Re: [PATCH v4 3/3] i3c: add i3cdev module to expose i3c dev in /dev
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: linux-i3c@lists.infradead.org, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Vitor Soares <vitor.soares@toradex.com>, 
+	Oleksandr Shulzhenko <oleksandr.shulzhenko.viktorovych@intel.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Haseeb Malik <haseebulhaq55@gmail.com>
+> this is problem, Maybe we can use ioctrl to set default cmd, hdr/ sdr(default).
 
-Creating a MACsec device with MAC offload over an LRO-capable lower
-device triggers a warning in rtmsg_ifinfo_build_skb() when IPv4
-forwarding is enabled by default.
+That makes sense.
 
-register_netdevice() invokes inetdev_init(), which disables LRO and emits
-a NETDEV_FEAT_CHANGE notification. This reaches macsec_fill_info() before
-macsec_add_dev() initializes the SecY. key_len is still zero, so
-macsec_fill_info() returns -EMSGSIZE and trips the WARN_ON in
-rtmsg_ifinfo_build_skb(), even though the skb has enough space.
+We can keep read()/write() defaulting to I3C_SDR out of the box, and add an
+ioctl (e.g. I3C_IOC_SET_MODE) to allow configuring the default mode and
+command byte for that file descriptor if a user wants to use read()/write()
+with HDR. How does that sound?
 
-Initialize the SecY and apply the new-link attributes before registration.
-Move the per-CPU statistics and metadata destination allocation into
-ndo_init(), and release partial allocations on failure. Keep SCI
-assignment after registration because ndo_init() may inherit the lower
-device's MAC address.
+>How about this driver built-in and other devices build as modules, modules
+>load maybe later than this driver?
 
-Fixes: ccfdec908922 ("macsec: Add support for GCM-AES-256 cipher suite")
-Reported-by: syzbot+f2f6312ad1b5a0bfe316@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=f2f6312ad1b5a0bfe316
-Suggested-by: Sabrina Dubroca <sd@queasysnail.net>
-Link: https://lists.openwall.net/linux-kernel/2026/08/19/552
-Assisted-by: LLM
-Signed-off-by: Haseeb Malik <haseebulhaq55@gmail.com>
----
-Tests:
-  - arm64 KASAN/lockdep kernel build
-  - original syzbot reproducer and reduced reproducer
-  - 16 cipher/offload/forwarding combinations
-  - link notifications, configuration error paths, and encrypted veth
-    traffic
-  - W=1 MACsec object builds with allmodconfig and allyesconfig
----
- drivers/net/macsec.c | 66 ++++++++++++++++++++++++++++------------------------
- 1 file changed, 35 insertions(+), 31 deletions(-)
+This scenario is handled automatically by our bus notifier
+(i3cdev_notifier_call):
 
-diff --git a/drivers/net/macsec.c b/drivers/net/macsec.c
-index 6f9f3aceffaa..11207d671fb6 100644
---- a/drivers/net/macsec.c
-+++ b/drivers/net/macsec.c
-@@ -3539,6 +3539,20 @@ static int macsec_dev_init(struct net_device *dev)
- 	if (err)
- 		return err;
- 
-+	err = -ENOMEM;
-+	macsec->stats = netdev_alloc_pcpu_stats(struct pcpu_secy_stats);
-+	if (!macsec->stats)
-+		goto destroy_gro_cells;
-+
-+	macsec->secy.tx_sc.stats = netdev_alloc_pcpu_stats(struct pcpu_tx_sc_stats);
-+	if (!macsec->secy.tx_sc.stats)
-+		goto free_secy_stats;
-+
-+	macsec->secy.tx_sc.md_dst = metadata_dst_alloc(0, METADATA_MACSEC,
-+						       GFP_KERNEL);
-+	if (!macsec->secy.tx_sc.md_dst)
-+		goto free_tx_sc_stats;
-+
- 	macsec_inherit_tso_max(dev);
- 
- 	dev->hw_features = real_dev->hw_features & MACSEC_OFFLOAD_FEATURES;
-@@ -3560,6 +3574,14 @@ static int macsec_dev_init(struct net_device *dev)
- 	netdev_hold(real_dev, &macsec->dev_tracker, GFP_KERNEL);
- 
- 	return 0;
-+
-+free_tx_sc_stats:
-+	free_percpu(macsec->secy.tx_sc.stats);
-+free_secy_stats:
-+	free_percpu(macsec->stats);
-+destroy_gro_cells:
-+	gro_cells_destroy(&macsec->gro_cells);
-+	return err;
- }
- 
- static void macsec_dev_uninit(struct net_device *dev)
-@@ -4116,29 +4138,11 @@ static sci_t dev_to_sci(struct net_device *dev, __be16 port)
- 	return make_sci(dev->dev_addr, port);
- }
- 
--static int macsec_add_dev(struct net_device *dev, sci_t sci, u8 icv_len)
-+static void macsec_init_secy(struct net_device *dev, u8 icv_len)
- {
- 	struct macsec_dev *macsec = macsec_priv(dev);
- 	struct macsec_secy *secy = &macsec->secy;
- 
--	macsec->stats = netdev_alloc_pcpu_stats(struct pcpu_secy_stats);
--	if (!macsec->stats)
--		return -ENOMEM;
--
--	secy->tx_sc.stats = netdev_alloc_pcpu_stats(struct pcpu_tx_sc_stats);
--	if (!secy->tx_sc.stats)
--		return -ENOMEM;
--
--	secy->tx_sc.md_dst = metadata_dst_alloc(0, METADATA_MACSEC, GFP_KERNEL);
--	if (!secy->tx_sc.md_dst)
--		/* macsec and secy percpu stats will be freed when unregistering
--		 * net_device in macsec_free_netdev()
--		 */
--		return -ENOMEM;
--
--	if (sci == MACSEC_UNDEF_SCI)
--		sci = dev_to_sci(dev, MACSEC_PORT_ES);
--
- 	secy->netdev = dev;
- 	secy->operational = true;
- 	secy->key_len = DEFAULT_SAK_LEN;
-@@ -4148,16 +4152,12 @@ static int macsec_add_dev(struct net_device *dev, sci_t sci, u8 icv_len)
- 	secy->replay_protect = false;
- 	secy->xpn = DEFAULT_XPN;
- 
--	secy->sci = sci;
--	secy->tx_sc.md_dst->u.macsec_info.sci = sci;
- 	secy->tx_sc.active = true;
- 	secy->tx_sc.encoding_sa = DEFAULT_ENCODING_SA;
- 	secy->tx_sc.encrypt = DEFAULT_ENCRYPT;
- 	secy->tx_sc.send_sci = DEFAULT_SEND_SCI;
- 	secy->tx_sc.end_station = false;
- 	secy->tx_sc.scb = false;
--
--	return 0;
- }
- 
- static struct lock_class_key macsec_netdev_addr_lock_key;
-@@ -4220,6 +4220,14 @@ static int macsec_newlink(struct net_device *dev,
- 	if (rx_handler && rx_handler != macsec_handle_frame)
- 		return -EBUSY;
- 
-+	/* Registration can notify listeners before returning. */
-+	macsec_init_secy(dev, icv_len);
-+	if (data) {
-+		err = macsec_changelink_common(dev, data);
-+		if (err)
-+			return err;
-+	}
-+
- 	err = register_netdevice(dev);
- 	if (err < 0)
- 		return err;
-@@ -4247,15 +4255,11 @@ static int macsec_newlink(struct net_device *dev,
- 		goto unlink;
- 	}
- 
--	err = macsec_add_dev(dev, sci, icv_len);
--	if (err)
--		goto unlink;
-+	if (sci == MACSEC_UNDEF_SCI)
-+		sci = dev_to_sci(dev, MACSEC_PORT_ES);
- 
--	if (data) {
--		err = macsec_changelink_common(dev, data);
--		if (err)
--			goto del_dev;
--	}
-+	macsec->secy.sci = sci;
-+	macsec->secy.tx_sc.md_dst->u.macsec_info.sci = sci;
- 
- 	/* If h/w offloading is available, propagate to the device */
- 	if (macsec_is_offloaded(macsec)) {
+When i3cdev is built-in, it attaches to unbound target devices at boot. If a
+device driver module is loaded later (e.g. via modprobe), the driver core
+emits BUS_NOTIFY_BIND_DRIVER right before binding the new driver.
 
----
-base-commit: 78445023439506ebd83b86d40b1e428a3b309d4a
-change-id: 20260911-fix-macsec-net-ff3bc5e7ab0a
+Our notifier listens for BUS_NOTIFY_BIND_DRIVER and immediately calls
+i3cdev_detach(), which unregisters the device clears i3cdev->i3c.
+That way, i3cdev automatically steps aside whenever a dedicated driver
+loads. And if that module is ever unloaded later, BUS_NOTIFY_UNBOUND_DRIVER
+triggers i3cdev_attach() to re-expose the /dev node.
 
-Best regards,
--- 
-Haseeb Malik <haseebulhaq55@gmail.com>
-
-
+Thanks,
+Sam
