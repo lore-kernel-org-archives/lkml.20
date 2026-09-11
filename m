@@ -1,99 +1,255 @@
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.245.243.92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D34E1476064
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:33:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8E54756B4;
+	Fri, 11 Sep 2026 12:33:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.245.243.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789130014; cv=none; b=pdItumPp3bpfyYsWJmES/V+m05c9tHFUGyqdFliNPewAc1jSEom42/uKlOGSSKrkMM6p3FHLQdvVS9wT3EA+c75LqVqA8TAyXeppyOGPY5qkhDboZa7JWjWfNPa+bsDwLDNRKTNBa1Fh5x4UvfcVNxKS7c4kNEbE4EXga7hBcOQ=
+	t=1789130022; cv=none; b=gIW7rikf67fyzpAj1eeQarGAUElNCATHHAzH9F+N9QxX81xT8GirItyfBrdoyIcd4eoo+AWgLlHs+UAOmufRCj/aRF0YcW+b3v+Vm7fsD9bdGU9bGUXE6GRONJ2ZDNMVu/8bowCfChrynejHg3VnA3kW1d9E+kTB6HEGkUZDgw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789130014; c=relaxed/simple;
-	bh=Yuz5L7e5NkvWbA0ATJ/mkkGYozizg7NYLQ2XtBmH/Xk=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Jh5fLaD5Rh4PFT1o4d6Sscqpky75D7rITmKwad03RpUYKszjN2FYrdh92wCCuK3CdHxfP3sHnS6oHm+ypTJQeJD+XoMY/zozWJuODSDGytJycBz/MvcwDLn2I9S5l3gXR5DhATdi0+qctLz+kJRC2Q0c+QeqxJxIJ8GOA1s6lgw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6bdc0e8af81so810794eaf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:33:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789130008; x=1789734808;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1x2q4dn+cMVLp+9PDO0kgzLAyr/7wEbtWldTSqUF0L0=;
-        b=V06Hhn5X0WOmGw7U9Z6YR+8yYmvaX+QcehmE1vz6W+P/pvKX5Nm6yf3T3QZDSZ5HPr
-         DEJplNLgebo+c2CxewbVemLH62WeuX9zSxag9B/Ahz37KbO8+zaZvoS2i4dBInD+7st+
-         68NKr4+cLXnjbUmz572AB3Wq9+7b8R5k9z4w7MAHgUB2bx1KchDRkVWitP7aT6LWuUNi
-         ZkwhWGImYeOUbYbv5hFIndcQ+kM0lT6nvriACuEySlMfwC3mMmbz/QB7JUyvA4Y3mKin
-         sil9CHJ3HiwvRiB9AAoC0WKBKaFGV69d8VTu/3sxjtpx/cLLQYFUBSozOX+3rPEEKK3H
-         OjKA==
-X-Forwarded-Encrypted: i=1; AKwUvBxlEd/5J1HtQ8Y+wI/r6XgGmSiSYouy7J7n7vWD7RCEJG2KSnSOOQZGczFpi9uHlCz6SWV5S/I9KMAxADg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nUcv5kEzuWQs245x7GTPrYZqrnucJ9oyP3k4CrSgrvYy55pfbZ
-	O8FiOsE6t4AjmcIXzvkqnh+rDCnaWt/hy7eE0OnsPd5wJGn1njBWInu2NPBNRfOEA6o0MqG/Dkh
-	hi/feXzlh7FV4LNyU6R40loA/ls5q5j/DTGIFRCbg9FWiij7dH/akOUEyDfI=
+	s=arc-20240116; t=1789130022; c=relaxed/simple;
+	bh=VjakNwENdXvrn/9FZZ8OZL8oQvOvPLvx4BwTPCaqVYA=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Y6EtxOxObkCxn7BOK2juIo2gvI63s0W7fPtf7sfG5gEjbi+Nzb5GCNDaJ1lHCyUhjZ4TdEnm60S5AGRBsVE/UfAHK6G4LLr+G5mF1lYNrACwTppwvp1aJD50wJh2g2cQVYr/vY17rb1pMSrSiJergEmJIAZIIzYyDvHZTawRcpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=BNT1qZXH; arc=none smtp.client-ip=44.245.243.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="BNT1qZXH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1789130020; x=1820666020;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=1vETXbf3r5hI7BpXmqQgNKVdrE3cdotOo6s5YjUJkp8=;
+  b=BNT1qZXHQdirSLM7AMFEOdjhMZDdq1P/NLKosfCZnGfjaxjOmUmGMnLx
+   VLp8b9LKnRamHv3Ojz4X08BXPsjXoykfzWUfQZnJmo6hWFV7N/8jS4ovh
+   +8+MBoR/mQ0yVmC8JhIDLTkcNVU4MuVZfFBD/ijky6+5FRRfjYZzUEimX
+   pMTTlnudUXg3FN03kRFmJCTypMWEUrhWCFkkFHipFiRsHtW5SNaYKaH3k
+   VJL3Po5ogIl3/oZX9Z8G4QmEe3oRmJ6EKLqr2iELFSC0UrSLVC0PSAC/k
+   yGc5vuSf253vHk8eY8Oqqk0norjEE6InZbDYrQimojOgpwMCx3dvOMc1C
+   g==;
+X-CSE-ConnectionGUID: UkOggjMGQ66LJB+WpG4Ung==
+X-CSE-MsgGUID: 0IQ9IS1yRgOD0kiITQ7KdQ==
+X-IronPort-AV: E=Sophos;i="6.27,97,1787011200"; 
+   d="scan'208";a="27924283"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 12:33:40 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:4960]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.22.113:2525] with esmtp (Farcaster)
+ id fe2077a9-0e1e-48fc-8900-b530f5abcdae; Fri, 11 Sep 2026 12:33:40 +0000 (UTC)
+X-Farcaster-Flow-ID: fe2077a9-0e1e-48fc-8900-b530f5abcdae
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
+ Fri, 11 Sep 2026 12:33:39 +0000
+Received: from dev-dsk-sakacpav-1a-480d1124.eu-west-1.amazon.com
+ (172.19.96.155) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Fri, 11 Sep 2026
+ 12:33:37 +0000
+From: Pavol Sakac <sakacpav@amazon.de>
+To: Bjorn Helgaas <bhelgaas@google.com>
+CC: <linux-pci@vger.kernel.org>, <linux-kernel@vger.kernel.org>, David Matlack
+	<dmatlack@google.com>, =?UTF-8?q?Ilpo=20J=C3=A4rvinen?=
+	<ilpo.jarvinen@linux.intel.com>, =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?=
+	<kwilczynski@kernel.org>, Kees Cook <kees@kernel.org>, Madhavan Srinivasan
+	<maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin
+	<npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>,
+	<linuxppc-dev@lists.ozlabs.org>, Niklas Schnelle <schnelle@linux.ibm.com>,
+	Benjamin Block <bblock@linux.ibm.com>, Lukas Wunner <lukas@wunner.de>, "Ionut
+ Nechita" <ionut.nechita@windriver.com>, <nh-open-source@amazon.com>
+Subject: [RFC PATCH 7/8] PCI/IOV: Initialize virtual functions in parallel
+Date: Fri, 11 Sep 2026 14:33:35 +0200
+Message-ID: <20260911123335.7558-1-sakacpav@amazon.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260911-vfopt-s1-v1-0-693271dc0226@amazon.de>
+References: <20260911-vfopt-s1-v1-0-693271dc0226@amazon.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:273:b0:6b8:ce67:77d5 with SMTP id
- 006d021491bc7-6c0bae0b068mr4556925eaf.13.1789130008502; Fri, 11 Sep 2026
- 05:33:28 -0700 (PDT)
-Date: Fri, 11 Sep 2026 05:33:28 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa3f518.f2639fcc.29487d.002b.GAE@google.com>
-Subject: [syzbot] Monthly ocfs2 report (Sep 2026)
-From: syzbot <syzbot+list23d4f5ba12358c4333ba@syzkaller.appspotmail.com>
-To: jlbec@evilplan.org, joseph.qi@linux.alibaba.com, 
-	linux-kernel@vger.kernel.org, mark@fasheh.com, ocfs2-devel@lists.linux.dev, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D039UWB004.ant.amazon.com (10.13.138.57) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Hello ocfs2 maintainers/developers,
+Serial per-VF scanning and device addition dominate SR-IOV enable time at
+large VF counts, and a kexec-based live update re-creates every VF
+through this same loop. Distribute the per-VF work over the kernel's
+async machinery.
 
-This is a 31-day syzbot report for the ocfs2 subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/ocfs2
+VF0 is added synchronously first because pci_iov_scan_device() writes the
+config fields shared by every VF only on the id == 0 pass and reads them
+locklessly afterwards. The rest are fanned out over async entries
+sharing an on-stack context with an atomic id cursor, scheduled on the
+PF's node with async_schedule_node_domain(). A worker that fails records
+the first error there and the enabling task unwinds every id descending;
+when several fail the temporally first errno is reported where the serial
+code reported the lowest failing id's, and nothing in-tree consumes the
+distinction.
 
-During the period, 1 new issues were detected and 0 were fixed.
-In total, 34 issues are still open and 58 have already been fixed.
-There are also 4 low-priority issues.
+The workers claim ids from that cursor and keep draining until the range
+is exhausted, so entries are capped at one per online CPU rather than one
+per VF.
 
-Some of the still happening issues:
+One entry per VF would make the submission cost -- an allocation plus the
+global async_lock per entry -- scale with the VF count and fall on the
+enabling task, contending with the workers it has already queued.
 
-Ref  Crashes Repro Title
-<1>  433239  Yes   possible deadlock in ocfs2_try_remove_refcount_tree
-                   https://syzkaller.appspot.com/bug?extid=1fed2de07d8e11a3ec1b
-<2>  49814   Yes   possible deadlock in ocfs2_reserve_suballoc_bits
-                   https://syzkaller.appspot.com/bug?extid=5d516fba7bc3c966c9a9
-<3>  20057   Yes   possible deadlock in ocfs2_setattr
-                   https://syzkaller.appspot.com/bug?extid=d78497256d53041ee229
-<4>  9371    No    possible deadlock in ocfs2_xattr_set
-                   https://syzkaller.appspot.com/bug?extid=ba9a789bd1f4d21fcefe
-<5>  6281    Yes   kernel BUG in ocfs2_write_cluster_by_desc
-                   https://syzkaller.appspot.com/bug?extid=18a87160c7d64ba2e2f6
-<6>  537     Yes   kernel BUG in ocfs2_reserve_suballoc_bits
-                   https://syzkaller.appspot.com/bug?extid=fd05de09d1267725aa95
-<7>  451     Yes   kernel BUG in ocfs2_dio_wr_get_block
-                   https://syzkaller.appspot.com/bug?extid=f8b081be889b639423bb
-<8>  27181   Yes   possible deadlock in ocfs2_reserve_local_alloc_bits
-                   https://syzkaller.appspot.com/bug?extid=843fa26882088a9ee7e3
-<9>  2714    Yes   INFO: trying to register non-static key in ocfs2_dlm_shutdown
-                   https://syzkaller.appspot.com/bug?extid=d7935821694d430624ea
-<10> 2028    Yes   kernel BUG in ocfs2_iget
-                   https://syzkaller.appspot.com/bug?extid=5bdd4953bc58c8fbd6eb
+No worker takes pci_rescan_remove_lock, which the sysfs enable path holds
+around the whole sriov_configure() call, and each runs exactly the code
+the enabling task ran serially, so no new deadlock class is
+constructible. The probe-time pci_enable_sriov() path holds no rescan
+lock, so its failure unwind reaches pci_stop_and_remove_bus_device()
+unlocked, a pre-existing hole this neither widens nor closes.
 
+Within one enable, sysfs links, uevents and VF binds now occur in
+nondeterministic order, and a failed enable may transiently create VFs
+past the failing id before unwinding them all. VF probes run in async
+context, where a synchronous request_module() WARNs.
+
+Assisted-by: LLM
+Signed-off-by: Pavol Sakac <sakacpav@amazon.de>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ drivers/pci/iov.c | 83 ++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 78 insertions(+), 5 deletions(-)
 
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
+diff --git a/drivers/pci/iov.c b/drivers/pci/iov.c
+index a32b2c295922..ac2ddda4bf14 100644
+--- a/drivers/pci/iov.c
++++ b/drivers/pci/iov.c
+@@ -7,6 +7,7 @@
+  * Copyright (C) 2009 Intel Corporation, Yu Zhao <yu.zhao@intel.com>
+  */
+ 
++#include <linux/async.h>
+ #include <linux/bitfield.h>
+ #include <linux/bitmap.h>
+ #include <linux/bits.h>
+@@ -350,6 +351,12 @@ static struct pci_dev *pci_iov_scan_device(struct pci_dev *dev, int id,
+ 	return virtfn;
+ }
+ 
++/*
++ * Safe to run concurrently for distinct ids only, on pre-created buses
++ * the caller keeps alive; id 0 must complete first
++ * (pci_read_vf_config_common()).  Must not take pci_rescan_remove_lock;
++ * failures are unwound by the caller via pci_iov_remove_virtfn().
++ */
+ static int __pci_iov_add_virtfn(struct pci_dev *dev, struct pci_bus *bus,
+ 				int id)
+ {
+@@ -644,11 +651,41 @@ int __weak pcibios_sriov_disable(struct pci_dev *pdev)
+ 	return 0;
+ }
+ 
++/* On-stack; live until async_synchronize_full_domain() drains the workers. */
++struct sriov_add_ctx {
++	struct pci_dev *dev;
++	struct pci_bus **buses;
++	u16 num_vfs;
++	atomic_t next_id;
++	atomic_t error;
++};
++
++static void sriov_add_vf_work(void *data, async_cookie_t cookie)
++{
++	struct sriov_add_ctx *ctx = data;
++	int id;
++	int rc;
++
++	while ((id = atomic_fetch_inc(&ctx->next_id)) < ctx->num_vfs) {
++		rc = __pci_iov_add_virtfn(ctx->dev, ctx->buses[id], id);
++		if (rc)
++			atomic_cmpxchg(&ctx->error, 0, rc);
++	}
++}
++
+ static int sriov_add_vfs(struct pci_dev *dev, u16 num_vfs)
+ {
++	/*
++	 * EXCLUSIVE: a registered domain joins async_global_pending, so a
++	 * VF probe calling async_synchronize_full() from a worker would
++	 * self-deadlock.
++	 */
++	ASYNC_DOMAIN_EXCLUSIVE(sriov_async_domain);
++	struct sriov_add_ctx ctx;
+ 	unsigned long *created_buses;
+ 	struct pci_bus **buses;
+ 	struct pci_bus *bus;
++	unsigned int nr_workers;
+ 	unsigned int i;
+ 	int rc;
+ 
+@@ -678,17 +715,48 @@ static int sriov_add_vfs(struct pci_dev *dev, u16 num_vfs)
+ 			__set_bit(i, created_buses);
+ 	}
+ 
+-	for (i = 0; i < num_vfs; i++) {
+-		rc = __pci_iov_add_virtfn(dev, buses[i], i);
+-		if (rc)
+-			goto failed;
++	/* Id 0 writes the shared config fields later ids read locklessly. */
++	rc = __pci_iov_add_virtfn(dev, buses[0], 0);
++	if (rc) {
++		i = 0;
++		goto failed;
++	}
++
++	ctx.dev = dev;
++	ctx.buses = buses;
++	ctx.num_vfs = num_vfs;
++	atomic_set(&ctx.next_id, 1);	/* VF0 was added above */
++	atomic_set(&ctx.error, 0);
++
++	/*
++	 * An entry async_schedule_node_domain() cannot queue (allocation
++	 * failure or async backlog) runs in the caller and drains the
++	 * remaining range -- every id is added exactly once.
++	 */
++	nr_workers = min_t(unsigned int, num_vfs - 1, num_online_cpus());
++	for (i = 0; i < nr_workers; i++)
++		async_schedule_node_domain(sriov_add_vf_work, &ctx,
++					   dev_to_node(&dev->dev),
++					   &sriov_async_domain);
++
++	async_synchronize_full_domain(&sriov_async_domain);
++
++	rc = atomic_read(&ctx.error);
++	if (rc) {
++		i = num_vfs - 1;
++		goto failed;
+ 	}
+ 
+ 	bitmap_free(created_buses);
+ 	kvfree(buses);
+ 	return 0;
+ failed:
+-	/* VF i may be partially added: unwind ids 0..i inclusive. */
++	/*
++	 * Unwind ids 0..i inclusive: i is 0 on the sync VF0 path and
++	 * num_vfs - 1 on the worker path (workers past the first failure
++	 * may have added more); pci_iov_remove_virtfn() copes with
++	 * partial and never-added ids.
++	 */
+ 	do {
+ 		pci_iov_remove_virtfn(dev, i);
+ 	} while (i--);
+@@ -832,6 +900,11 @@ static void sriov_del_vfs(struct pci_dev *dev)
+ 	struct pci_sriov *iov = dev->sriov;
+ 	int i;
+ 
++	/*
++	 * Deliberately serial: the parallel-add locking arguments (and the
++	 * powerpc pcibios_bus_add_device() serialization) assume removal
++	 * never runs concurrently.
++	 */
+ 	for (i = 0; i < iov->num_VFs; i++)
+ 		pci_iov_remove_virtfn(dev, i);
+ }
+-- 
+2.47.3
 
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.
