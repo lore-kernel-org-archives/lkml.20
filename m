@@ -1,227 +1,148 @@
-Received: from mta0.migadu.com (out-75.mta0.migadu.com [91.218.175.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011015.outbound.protection.outlook.com [52.101.52.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1293515CC
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:59:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.75
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789138773; cv=none; b=QTbM2XdZQMENgSWu2XfRbKjgkyMJSQwyDpkidyUxX34keZ55f3kWHHpkKvzNS3CJOPMxqpuk7bafUFe7M1kDxg+bsJWQNCuFO/w5+rnGxC2bEyK8TxWdXC143hZWk1XUa/nDGE2yk/0KfSWtf5Z2OYhQQ04/dzIfuVyA1jgdDwA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789138773; c=relaxed/simple;
-	bh=IJ6M84jik/6WzHAEWYe3FHbzr4F2HaPJlKu+3Hyckm0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F4FYeW6/GnKePwlJ0qKqmNHpyLI+lO7HI5Vw2LUdU8vmEyXOBxxQHck6TjEvfRLzVBuJjuBPcQ2v1yNhY0K52jDtvVMrMpgUffQUibxhl5kusxOt0u3AZChKes9FZOWkuFO9/nKOKsOmbKWNwtRbQCIQn+u3DBtyPRb/IVyAKb0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=q7/1WOra; arc=none smtp.client-ip=91.218.175.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59E2E2EEE85
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:59:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789138792; cv=fail; b=LZ4TuXrppz4uIl2z/sQOEy7pre8FzLW+OyQdw/53Sa0csg19PLC9iw8X0DqYf9/a+G0LnxG2MFVNLtBknjzkwZQKVle5Yue0z9++NqdR1PvhYrA48Lu7ItUIPKVPiCkLB77yyrVKJmmBajaoZD5w+XI/qgFUyKXefBX0n3FCISs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789138792; c=relaxed/simple;
+	bh=F/HVavIQ++hd07cAFAIJHc666uhRZsht7AB1yGezZTw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=gE14a+3Cp7beC7gNdoebxJXPDxlliwFUyxWOJ9wDJeUVDmY3NI0EZF7zfNvIj5IZRXHxWvlpgCXgA/oFMWxHOFCIc7wu8F4BmHpntVRuVj0gy+wAClyXp4qLVpL0dV7pzqDTgKsXlzS6cDrKZdcprhB6ZAaxkND1sjlobI72jNY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=rCKaLDyo; arc=fail smtp.client-ip=52.101.52.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="q7/1WOra"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=IJ6M84jik/6WzHAEWYe3FHbzr4F2HaPJlKu+3Hyckm0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789138766; v=1; x=1789743566;
- b=q7/1WOrajip27fGWJXOM0u7YkK9TRzuhKxFj1hmLMYy4eY13pL8Jv11+dEvmPLetnBNMlQWl
- lkKNHRr7uRrb+8OLWLr1NKmPlGgAiqRI812gsl6TL4+XGDa/SyV0SEJ+ggDzSq1INZpnmxBvqU4
- T8+TIM9k3dVfsETfEIzr9yJ8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e1490bb8f087fe33;
-	Fri, 11 Sep 2026 14:59:26 +0000
-X-Mizu-Trace-ID: e1490bb8f087fe33
-X-Migadu-Flow: FLOW_OUT
-From: Leon Hwang <leon.hwang@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Quentin Monnet <qmo@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="rCKaLDyo"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=P2zv2jnsxsr5CgxGi1TIuO3boRQ2lv2YSchBd79syRnUimSLYoCrznIAn6lstZ+P20mBmCK5YKmQn+0ulufVv1ayYTdA0j4eZFrQKxVaFQlrXlpN7qdlMeSF7nGY7PgsFLrosap/S26+4Ize2UGNIWNUvKYNMN5rP/keNoo27kmePCqY9uLuPD/Z99rQKd4U/66PTne7+ER60bQAVvbh3a9Grb34+8P+4h014so3VlVkeRwoCVFSWJsm1USkn15eHwXCk4GQCd1u0O2D8ACTso9zeExCuyitQYco0gpFXXD4oh8U4/LzETiYUM3Njoeu71ZWsad2WKDhSAeRSXBNFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rhYashYqXBZM4hCf8HvTWUylX2+MjdwuDny3pRHKLbI=;
+ b=FZ1gVAVrFklW43bcJe5dvaSfiEukCrNFwP6fa/YJQuNFiiN7hBvlqM+JMWHSQetJh7m4c8cgzmcFxtoPspGGEA++niS7j43xpiJ4FuGYeME42hqTPfojZ7Dg69GBVsZtQ2D8MN4DH+/xCZVRXwTNaI8h5xPtr88bRN27aZUazpTzJKzxviKrnFKYmHjKgS34OjQJjD4iq09/s/zHBRDqUysyLejpx5sy5SXqwZrnGghRQOT3l41vPvFliCB8VZPs9q+CLejbT8oyLVdjc/73kXb0Y/0A4cSNus0D+rQWDbgb5qWpCuxbGeXp7v5GNMGmnhYOhm4ZdqbqLDcWuU62cQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rhYashYqXBZM4hCf8HvTWUylX2+MjdwuDny3pRHKLbI=;
+ b=rCKaLDyoMgAOCqkMe/A8PchWHoVYgje4LVefGIcoCM71d0dgPbJNfpNpgIBe9sPSGuSi7dn0vcf3HF9pe6dA/bkOPO6BlYa2fwEyzbAb5BwdAOljxn6Ae3sFRGnLzBs+iOsbX227aqT/jWpZGvAvxOC9QyTy5aq0DEkYO6AAc2qGSjy3He4KjqaRYRF5JWvaftC8WUBgY3RlwAlWO8TDzx+4Bj5Rtj+fGSegZEL9NoGpWwsfvQOaL0KQOB4Xy6/H1lfpD+p9ZYyfossWCUK21kckg5xXAbnx++3xGa5zwQ6ciVSFP6vPg3r7A2EQJuwpMW2VpsvL24bZOfhQqDdV2w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by MN0PR12MB5858.namprd12.prod.outlook.com
+ (2603:10b6:208:379::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Fri, 11 Sep
+ 2026 14:59:47 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 14:59:47 +0000
+Date: Fri, 11 Sep 2026 11:59:46 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Leon Hwang <leon.hwang@linux.dev>
-Subject: [PATCH bpf-next] bpftool: Compute map size of light skeletons at runtime
-Date: Fri, 11 Sep 2026 22:59:14 +0800
-Message-ID: <20260911145914.23676-1-leon.hwang@linux.dev>
-X-Mailer: git-send-email 2.55.0
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Jeremy Linton <jeremy.linton@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sudeep Holla <sudeep.holla@arm.com>, Will Deacon <will@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Andre Przywara <andre.przywara@arm.com>
+Subject: Re: [PATCH v10 6/7] firmware: smccc: arm-cca-guest: Bind the TSM
+ provider to an SMCCC device
+Message-ID: <20260911145946.GJ3968357@nvidia.com>
+References: <20260904095000.1184861-1-aneesh.kumar@kernel.org>
+ <20260904095000.1184861-7-aneesh.kumar@kernel.org>
+ <178855077571.693280.17942746234757215326.b4-review@b4>
+ <yq5atsnyeuz5.fsf@kernel.org>
+ <d8ab9189-7804-4e4a-a270-b4e3d61c4271@arm.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d8ab9189-7804-4e4a-a270-b4e3d61c4271@arm.com>
+X-ClientProxiedBy: YT4PR01CA0213.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:ad::8) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|MN0PR12MB5858:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7dd7098d-1cfc-4823-4775-08df10155297
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|18002099003|22082099003|11063799006|56012099006|4143699003|3023799007|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	GZr+T2WePkWKq4WkZ413s25RmOc9gYe121IIVBMH/piIOGTZHdwKFAhadyZpUqyTtTamLLZygCMLIRybr9FJ9uVNDDqFLBFTkm3aUwvGD74ONEAFmx61vCjyDX8OrzWsS/r8PJVkv9rLPtRyDpmHlVoS2Mmp8y2DZ0aXnf0L17Ao6pRD1/mKEnji9QPj/2dWfw4B3WSPbRYvZnwo5G0GEUIZrs92eesDQffNhSSlcgYoDtaoIwhlXK7SGD33VkwYwAyefPoy04H0JWE0bgWgGlZdBSqOwdSpR3B4O/m82TBZtNnSxmwfUMGYRot3nMxm/nv6RvQFRf/c3MMZ0yFp5FvVtVKlYE0pePMmtSxKlw40zwNl36yDUjmGZXe8qxgKjU+wS0+ofRZP7U/btALmHO9qX0UJI839Ybeada9tzaVi9n6XbQ1T+uZKKARqdWBGFzQZSnheHYPbvIQq73uTSxmJNcssfac77DVX1kMnGxe3KPf45NPMO76t5GpsYJ1td3LbCy7WRFa0Q1GtVesWW9ZgFJ/uUh3MGIfXSOuinBVJOiW5tnuq/IVbe064Gh6p88FhZyvIiV90evhWhCez6E9GEBGMihIDxBxIQ2hhMc+fCmmngIvsLH1h1rjgyfsE2DKql3wNA7R+M09CMsUeyCLKyaa+dbpphG1ztIObHcc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(18002099003)(22082099003)(11063799006)(56012099006)(4143699003)(3023799007)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?XgvvgN6LuUIeYbnAqEVqKK0+rAZdByHJw8KtkWtLLTNws/YhArT4hUYHdOQF?=
+ =?us-ascii?Q?LeRE/g7H9zqtH0kbpo2qkCx1/VgsIGhNecgO2KN6R5jKfc5KUQZwrieOslzn?=
+ =?us-ascii?Q?f6p9mB9zDTELTHVznxRye64dsNElSbrdpirkqkzU9nDbuWNpH4jGTdbYa0L8?=
+ =?us-ascii?Q?r7fFx8KjX+Bzq/A96fm3Apw0rfccMmTzZCnJcPbGPexIDFmdNH8kY1ubo3kX?=
+ =?us-ascii?Q?9MdLpyDjy6NUCp23TEYvrqAYUNLZWlgYzff8/TI/DiHH5ggHKh//AMZ7xYzN?=
+ =?us-ascii?Q?Kh0HK2PSRaziIl76WZjLs5Diso7MzPMlj6NwCJMJKnaXRMCA5kfJYJhhpAv1?=
+ =?us-ascii?Q?loj7BkMkFvFDJ9mPmStkZgn9VSQGLsib0gVK5lokVQ9HrLR/SMaBQzrNJuVG?=
+ =?us-ascii?Q?t8COi351kaiMeZCNghWJbi1vKTSld8R3Q5p4Yj5jxLR+CINTqigaTQIZivTH?=
+ =?us-ascii?Q?5bpCSlNAtzJr2RG6auXDqPyEKuX91U5/v0ShK4fCIfu0VjB/q244A3YTOmGX?=
+ =?us-ascii?Q?WIvLZu1uQYS9HbEfMJF939HxBagTaZnBfhbpuNSe/kXiDzqLQ3h1ptKUsbYE?=
+ =?us-ascii?Q?kXyHbEyYBMbqD327bhrIGGZ+1q1frqwcSxdTgCmLzqAVc9Q+eEUyR8mBIHEN?=
+ =?us-ascii?Q?pBHJV2WW7rSftkkZvjpMmen7b+zFjoPvsbsdIENo+etpGMXQ4f6UiE5A0u2D?=
+ =?us-ascii?Q?ozi98nQ4LCDW2CGVQH/qZXgR57KKCn6WWoGilafPJzAcioafB96IjUunI8eh?=
+ =?us-ascii?Q?WCLdKeom96/Gb05bvPtsfx+1MR9nHi1u61M5JrZyHHyxz8R6+WJH1Y+qJDkO?=
+ =?us-ascii?Q?5Y25V0Scd4SRAGK0dwpJyeSeWU1V/lWHImfscYntXHjraT9/7b7X/ozRv7nL?=
+ =?us-ascii?Q?mh71IhYyNrHNnbOLVnnL5MFa0vemlRzELrEhEhqf3/7nFzy1wlwHn5Y16/Zi?=
+ =?us-ascii?Q?50+suP8Dz57yDI8rNJ7/FisPMfeu9EtTSXjAWaRx/TpGBXxsaEuOTBPfqPk6?=
+ =?us-ascii?Q?KU12viXUrimpzlfd/tvk65q+OfM9N14OYNHwBMO8eU+vuRc1FNpNHlhE+C7J?=
+ =?us-ascii?Q?Zs0CFhtwsbec4YHBD0/3ucGhmmqA1xain5lZr5PmKa5wOlifqfNAqzCJ1RKr?=
+ =?us-ascii?Q?GBSK6k9nbdA+4RRKanAHi2rIV2H7t/WTp03/6JqaXyOgQas8HyAzAtJFQ5UM?=
+ =?us-ascii?Q?rA4hQrtRUl1a64J9X8Gq8zaLujyMHBoCD0nwfDCWEZD1GNw0vb0rjskBniHy?=
+ =?us-ascii?Q?wdF64dEFMN9uIfBghMk3r/kiqJMEbdsVBFfJ6yR+mK+FDRJq8hX17L47T3w/?=
+ =?us-ascii?Q?hqY3qXeXTTt6X5+rgfCZe7Wa5M2ZXuXgXRkQod98iKTwLl24PoY9ET+58Hhq?=
+ =?us-ascii?Q?PljTLwCWcKjwHxiK1k4EfscdA5n5zuE6VNmErf+RM78/VcRlbN+y3TlRVgYw?=
+ =?us-ascii?Q?P45Xc211NFPxjXeuBv2IJ7Un6g2h4uD8o8XcGXdFhDg0n3aT8VqxfJYBdDwg?=
+ =?us-ascii?Q?ZkyF2MYhm7PcPFKx4etXzELGLtIyYIy9z8dKuHwm1IKpqsNPi9stHPq4uy3c?=
+ =?us-ascii?Q?0y1cDor0u/7oMESAHbPd/zlGhVEHn+zG4Y0l9TT8KK1OMvsHVmBB2uJ3/dLh?=
+ =?us-ascii?Q?bKcontzUlHoAjvuZqngH1HYjtw4alRV1tbwuO/+HgjQCbNLSGrOON9d9jDu/?=
+ =?us-ascii?Q?nPOabtrCQxnFvLPkcABIeqUweGceZcGifks2ewABIGGlk7FQ?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7dd7098d-1cfc-4823-4775-08df10155297
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 14:59:47.6821
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MkqQn+iivawLTkYrow8mqmlUTKEVvJzmhaQWRubsyyKguuxP6Q+IS9rP3rOzyYAi
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5858
 
-bpftool rounds memory-mapped data map sizes to the host page size when
-generating a light skeleton. The generated code therefore uses a 64K
-mapping size when bpftool runs on a 64K-page host, even if the skeleton
-runs on a 4K-page target. The target rejects the oversized map mmap(),
-causing failure of loading the light skeleton.
+On Fri, Sep 11, 2026 at 03:55:45PM +0100, Suzuki K Poulose wrote:
 
-When try to run 64K-page selftests on 4K-page VM, the error message does
-not provide the reason about page size.
+> > There is no standard defining how the various SMCCC VERSION calls are
+> > expected to work. For example, ARM_SMCCC_TRNG_VERSION does not use x1,
+> > while SMC_RSI_ABI_VERSION does. Another VERSION call could use both x1
+> > and x2. The only consistent behavior is to return
+> > SMCCC_RET_NOT_SUPPORTED when the SMCCC function ID is not supported.
+> 
+> True, relying on "SMCCC_RET_NOT_SUPPORTED" => Function ID is not
+> supported is the safe way. If one of the parameters are not supported,
+> then the call should return INVALID_PARAMETER.
 
- test_atomics:PASS:atomics skeleton open 0 nsec
- test_atomics:FAIL:atomics skeleton load unexpected error: -12 (errno 22)
- #15      atomics:FAIL
+If the FW is perfect :)
 
-Pass the original map value size to the generated code and round it to the
-runtime page size in the user-space light skeleton helpers. This keeps
-generated light skeletons independent of the build host page size.
-
-Fixes: d510296d331a ("bpftool: Use syscall/loader program in "prog load" and "gen skeleton" command.")
-Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
----
- tools/bpf/bpftool/gen.c       | 27 ++++++++-------------------
- tools/lib/bpf/skel_internal.h | 18 +++++++++++++-----
- 2 files changed, 21 insertions(+), 24 deletions(-)
-
-diff --git a/tools/bpf/bpftool/gen.c b/tools/bpf/bpftool/gen.c
-index a50540ef6521..77f04c28fee9 100644
---- a/tools/bpf/bpftool/gen.c
-+++ b/tools/bpf/bpftool/gen.c
-@@ -500,16 +500,6 @@ static void print_hex(const char *data, int data_sz)
- 	}
- }
- 
--static size_t bpf_map_mmap_sz(const struct bpf_map *map)
--{
--	long page_sz = sysconf(_SC_PAGE_SIZE);
--	size_t map_sz;
--
--	map_sz = (size_t)roundup(bpf_map__value_size(map), 8) * bpf_map__max_entries(map);
--	map_sz = roundup(map_sz, page_sz);
--	return map_sz;
--}
--
- /* Emit type size asserts for all top-level fields in memory-mapped internal maps. */
- static void codegen_asserts(struct bpf_object *obj, const char *obj_name)
- {
-@@ -686,8 +676,8 @@ static void codegen_destroy(struct bpf_object *obj, const char *obj_name)
- 		if (!get_map_ident(map, ident, sizeof(ident)))
- 			continue;
- 		if (is_skel_data(map, ident, sizeof(ident)))
--			printf("\tskel_free_map_data(skel->%1$s, skel->maps.%1$s.initial_value, %2$zu);\n",
--			       ident, bpf_map_mmap_sz(map));
-+			printf("\tskel_free_map_data(skel->%1$s, skel->maps.%1$s.initial_value, %2$u);\n",
-+			       ident, bpf_map__value_size(map));
- 		codegen("\
- 			\n\
- 				skel_closenz(skel->maps.%1$s.map_fd);	    \n\
-@@ -771,13 +761,12 @@ static int gen_trace(struct bpf_object *obj, const char *obj_name, const char *h
- 		\n\
- 		\";							    \n\
- 									    \n\
--				skel->%1$s = (__typeof__(skel->%1$s))skel_prep_map_data((void *)data, %2$zd,\n\
--								sizeof(data) - 1);\n\
-+				skel->%1$s = (__typeof__(skel->%1$s))skel_prep_map_data((void *)data, sizeof(data) - 1);\n\
- 				if (!skel->%1$s)			    \n\
- 					goto cleanup;			    \n\
- 				skel->maps.%1$s.initial_value = (__u64) (long) skel->%1$s;\n\
- 			}						    \n\
--			", ident, bpf_map_mmap_sz(map));
-+			", ident);
- 	}
- 	codegen("\
- 		\n\
-@@ -871,14 +860,14 @@ static int gen_trace(struct bpf_object *obj, const char *obj_name, const char *h
- 		if (bpf_map__type(map) == BPF_MAP_TYPE_PERCPU_ARRAY) {
- 			codegen("\
- 		\n\
--			err = skel_protect_map_data(skel->%1$s, &skel->maps.%1$s.initial_value, %2$zd);\n\
-+			err = skel_protect_map_data(skel->%1$s, &skel->maps.%1$s.initial_value, %2$u);\n\
- 			if (err)					    \n\
- 				return err;				    \n\
- 		#ifdef __KERNEL__					    \n\
- 			skel->%1$s = NULL;				    \n\
- 		#endif							    \n\
- 			",
--			ident, bpf_map_mmap_sz(map));
-+			ident, bpf_map__value_size(map));
- 			continue;
- 		}
- 
-@@ -890,11 +879,11 @@ static int gen_trace(struct bpf_object *obj, const char *obj_name, const char *h
- 		codegen("\
- 		\n\
- 			skel->%1$s = (__typeof__(skel->%1$s))skel_finalize_map_data(&skel->maps.%1$s.initial_value,\n\
--							%2$zd, %3$s, skel->maps.%1$s.map_fd);\n\
-+							%2$u, %3$s, skel->maps.%1$s.map_fd);\n\
- 			if (!skel->%1$s)				    \n\
- 				return -ENOMEM;				    \n\
- 			",
--		       ident, bpf_map_mmap_sz(map), mmap_flags);
-+		       ident, bpf_map__value_size(map), mmap_flags);
- 	}
- 	codegen("\
- 		\n\
-diff --git a/tools/lib/bpf/skel_internal.h b/tools/lib/bpf/skel_internal.h
-index 1f3f332dffbe..5787911f17f5 100644
---- a/tools/lib/bpf/skel_internal.h
-+++ b/tools/lib/bpf/skel_internal.h
-@@ -11,6 +11,7 @@
- #include <linux/bpf.h>
- #else
- #include <unistd.h>
-+#include <sys/param.h>
- #include <sys/syscall.h>
- #include <sys/mman.h>
- #include <linux/keyctl.h>
-@@ -138,7 +139,7 @@ static inline void skel_free_map_data(void *p, __u64 addr, size_t sz)
- 	 */
- }
- 
--static inline void *skel_prep_map_data(const void *val, size_t mmap_sz, size_t val_sz)
-+static inline void *skel_prep_map_data(const void *val, size_t val_sz)
- {
- 	void *addr;
- 
-@@ -149,7 +150,7 @@ static inline void *skel_prep_map_data(const void *val, size_t mmap_sz, size_t v
- 	return addr;
- }
- 
--static inline void *skel_finalize_map_data(__u64 *init_val, size_t mmap_sz, int flags, int fd)
-+static inline void *skel_finalize_map_data(__u64 *init_val, size_t val_sz, int flags, int fd)
- {
- 	struct bpf_map *map;
- 	void *addr = NULL;
-@@ -193,13 +194,19 @@ static inline void skel_free(void *p)
- 	free(p);
- }
- 
-+static inline size_t skel_map_mmap_sz(size_t sz)
-+{
-+	return roundup(sz, sysconf(_SC_PAGE_SIZE));
-+}
-+
- static inline void skel_free_map_data(void *p, __u64 addr, size_t sz)
- {
--	munmap(p, sz);
-+	munmap(p, skel_map_mmap_sz(sz));
- }
- 
--static inline void *skel_prep_map_data(const void *val, size_t mmap_sz, size_t val_sz)
-+static inline void *skel_prep_map_data(const void *val, size_t val_sz)
- {
-+	size_t mmap_sz = skel_map_mmap_sz(val_sz);
- 	void *addr;
- 
- 	addr = mmap(NULL, mmap_sz, PROT_READ | PROT_WRITE,
-@@ -210,8 +217,9 @@ static inline void *skel_prep_map_data(const void *val, size_t mmap_sz, size_t v
- 	return addr;
- }
- 
--static inline void *skel_finalize_map_data(__u64 *init_val, size_t mmap_sz, int flags, int fd)
-+static inline void *skel_finalize_map_data(__u64 *init_val, size_t val_sz, int flags, int fd)
- {
-+	size_t mmap_sz = skel_map_mmap_sz(val_sz);
- 	void *addr;
- 
- 	addr = mmap((void *) (long) *init_val, mmap_sz, flags, MAP_SHARED | MAP_FIXED, fd, 0);
--- 
-2.55.0
-
+Jason
