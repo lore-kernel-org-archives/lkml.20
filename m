@@ -1,117 +1,164 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B99804A99CC
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:11:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA9F84A8426;
+	Fri, 11 Sep 2026 18:12:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150289; cv=none; b=dKOZE193BSUyz7YjBBymhfG8XNyvNPGaKdwPMI+FGcfHMfr+jdJE4oWGislsgQD4PozukEs/CDpYzMcWIQNzvsr1QpOdd+4eEfnmjKIalWSd7Ry5PvpwaMFdxA+sDZXQLUhb8iF7rwaliFsMDfT1In4rdTJB4j2AhKr3vvLvulE=
+	t=1789150325; cv=none; b=dI8L/VnQBm+ZlhvNG6oVwjleRWIpRZC4fgUV26+L/Omh4fWqpjviwYrrytXBeGpipnHJZb3Al6D3e5MZEazcNZCZm3crYjfLTsXJMpgajUwLuf3YPFsP6Tb3yJemVsfDh5//GM9xnsMIY5BhXcGuoGEhDWI9p8YjtZWvNhsLlT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789150289; c=relaxed/simple;
-	bh=HCQbWa7LkKEX50QT3DwF/c7T/iKLPW1K21LgtlRNWgc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=j/mQz6ixKK5yc2QgtAEpUWODh0vAAVHSlDRxD8L1y9v0YllLyHigJU5sdz4H41CiYd2wJj/1DqowXJUIPYQ8afZ/Y239ElLET6yuZm8+JvPU4K/9aCnEvOwNWoQNpBrSHOrSGAjNB7fG1nGt3WL8f94/xvrL1CDRp64pxbQW9Qw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lt9SXcB9; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789150325; c=relaxed/simple;
+	bh=JftqGOaqgr7dU0x1t6YZMM5cyKQ5++aHATyFOl9v58c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=G/q8aY8TsJZeoLfYVyAXiOcyNDJDyNym+3hQJeTpYUu9JUtsSr4SWzuBnTbOtemgoJ7PhjYioGv9Ejuho0E7vRGvcUKkBFMlQVUgmE2TPznhuRSA5qc67dQ/8ZgXTvfFh0LAFGb8pKUqogkBIg7TO3kMsPzd+tAezMmkVmj7/c8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ORSKkg4g; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=qf8oeHsZ; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=phbCJ6de; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Mb1IEYsc; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lt9SXcB9"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b94fce6e8so1475225e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:11:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789150277; x=1789755077; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1iFhVzmJnHThQ931GRzwOosH5WkLdTobwxrbVY8PCx4=;
-        b=Lt9SXcB9iYPCtFYeg07KKMQR+9/oRFQx9ogHUpekAL0nOWo7W38FJq/xgLqEju6dSc
-         PbJns6rsmbTsq+wUdA/p1UhgN3Klg87jLWlYxT8PhqIChgol7v/6Y6+ke+FxupoBe7IZ
-         7xfncVhWdYUW4GqRK+9YhsxJc3+mWOZSMHLRTNYnH1Wp80t7/k/eBtroj/d2IXZGxiCZ
-         c9Ajt5IMnrunDApTPuwOA1HcVIhjlTNUftO4n0Hg8ALcETsxecdskKi1VcGd3SGlmJC5
-         hKHO7CbCaG+9qNOfRb3v4/PjXg6gtfZdKxEfrIVJh0de4Gb4sLTDznnae6OrIT4yn756
-         kPFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789150277; x=1789755077;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1iFhVzmJnHThQ931GRzwOosH5WkLdTobwxrbVY8PCx4=;
-        b=F6PK+23OaQjItA8EPe63YaxNiqJ6e8FLW2TU0g9uyREjnYE+iL7+jV5IDfXaF/HKX5
-         rtmiLjQu3HGJKRaAHPPFXFpTynOq+dsDz48Sq/jPwDDIuaGOdrFbVlhaa2dtSryY8qmj
-         Dlf7h7qBt4MipWl/+Y4uODXakn8y4PdamvEKyt9QnA7hxNAX7sOfzJOIcxLoKQHw3wdx
-         FGLzphyg0octNwLcPiQQcniqH62ZCLyHsecz9H/SxBFYjZd9hxjvPKJMRbzI6jWF1sDR
-         kIrrczMKx6+8ep9tvEJyP+FrnM6rj/Rg9I0Y9CGx5Q60/MZwgb7J4wAsZB6WpbsukqL5
-         O6vw==
-X-Forwarded-Encrypted: i=1; AKwUvBxYiRyW70TsQCasOqTaBN7zAXGgTK8Snr+At1w3UKJYDnWBi6vNwq9OAdrdEJ8wDgUH5hH68FR3NkLvUnY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMVcpBrEoEr0RjO5ctYPOpFh66v4i0ffHYg0/bNvbtM8u+/WA1
-	a3bdRTCkWn4OoeWpWkBZNrvNry5XAZHFbRbWqXp8ciY+DHdDA9swsfUM
-X-Gm-Gg: AYBFou1PByJ6pEESa+ko1vfYaEcutMt1DW1aP5O8+91R71rGog4rDN/YhgfL7z6+P5U
-	cCz2yh0qhmAx3GvoLCU4sdXzyBV0+XvFfVRsVix7JerjqfwBj2vhsiaT+CalRw25vPTstLxLt7R
-	quzdmBKNa5rcJqSHtpvNARUBb2pOoBUi5BTmbePD7pfCaFDOeNTz0UTNeMPfsF5j1H6autcZq27
-	796S11Ewx1vjsl7naxipt2u0crB/CLYAml0o1Vtqf/k/BScwEFyetdx8JjHpHLV7nGrNT+hQiFt
-	6HBBNMoo4h57po4zEZG5WHcO8MN+6PsprP1BsF7RmDF1YUs9e1esz463W5rkyySI1OH/oxC/DEq
-	dkodeVmCHqTfPyaqsrN5WFZfOb82gdgNFdmjyqYgd6vDr7Pp7599eGH9WFVT5+f7AL3ML9//lT4
-	KYINierqsCUkjZP9Gdl/cayTJN0CNSURGmfLEPcIcPPiNrKfEQbhaLSqepDBVUGOkMTnjpRgaD/
-	FOmhymtKA==
-X-Received: by 2002:a05:600c:3b02:b0:49c:e3ad:41d3 with SMTP id 5b1f17b1804b1-49e61649b8dmr68492305e9.0.1789150276731;
-        Fri, 11 Sep 2026 11:11:16 -0700 (PDT)
-Received: from foxbook (bfg95.neoplus.adsl.tpnet.pl. [83.28.44.95])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60adaee4sm134624405e9.14.2026.09.11.11.11.15
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Fri, 11 Sep 2026 11:11:16 -0700 (PDT)
-Date: Fri, 11 Sep 2026 20:11:13 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Fabio Estevam <festevam@gmail.com>
-Cc: gregkh@linuxfoundation.org, mathias.nyman@intel.com,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- parth.pancholi@toradex.com, francesco.dolcini@toradex.com
-Subject: Re: [PATCH 3/3] usb: xhci-pci: Put PWRON_POLARITY on a defined
- state
-Message-ID: <20260911201113.42cce0a6.michal.pecio@gmail.com>
-In-Reply-To: <CAOMZO5DfPToSOqi4CW8ETAVkU0RXTr=eyyOqLwkFC8CjhKkoeA@mail.gmail.com>
-References: <20260909125842.528340-1-festevam@gmail.com>
-	<20260909125842.528340-3-festevam@gmail.com>
-	<20260909164339.7252469b.michal.pecio@gmail.com>
-	<CAOMZO5DfPToSOqi4CW8ETAVkU0RXTr=eyyOqLwkFC8CjhKkoeA@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ORSKkg4g";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="qf8oeHsZ";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="phbCJ6de";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Mb1IEYsc"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 7BCF41FB40;
+	Fri, 11 Sep 2026 18:11:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789150312;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=E7D0fhQrwvyjSXWm8XugRBBmpPAvcOLfcr+xNLIXwyc=;
+	b=ORSKkg4gqUfvZmNpLUe4eJN8t2KIOS5+HPOI44S1rZ9Kf67cLRMCDrNU7OzdWNSAI1BnS1
+	auY0CRtVpOk4TLt6/qe9PG33FEd0dcxapReOmw2zxtYM6Pim3OhV+TCvbn8FvAgOeUqWaG
+	rcAm+XXrbo5DP8MmQweg18VwQ80ZSx4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789150312;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=E7D0fhQrwvyjSXWm8XugRBBmpPAvcOLfcr+xNLIXwyc=;
+	b=qf8oeHsZuFBcfWNzSa6A+gyHjtSq4fpIrt5KkSj4j2Z2xpLk6uGHmoOWw4TUvK+xzbNBfd
+	eALmz3AER9/TbAAg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=phbCJ6de;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=Mb1IEYsc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789150308;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=E7D0fhQrwvyjSXWm8XugRBBmpPAvcOLfcr+xNLIXwyc=;
+	b=phbCJ6de7JSJtb3W/RkKgtrP/WIe9OoVY1alX6RXEsPAEtMKsFUDAj2jkWDP8+TVq2wRue
+	fpuQpYYjQQG3s+DLosJZA094nePBAEgq+BKfzb6aH2nu7yHqYBqt0TDAWtLb80noav6StU
+	ulkC08RYYi1CYSt0wdFXkU4kJxHR8bs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789150308;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=E7D0fhQrwvyjSXWm8XugRBBmpPAvcOLfcr+xNLIXwyc=;
+	b=Mb1IEYsck6/sD8GcsDycrajrnkoH2aBjWIPjbM0IPXla0siGqneo4IeZbNZdX5CWgwwwFz
+	A2VvpW/dLQgnL0Cw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 46EB5136ED;
+	Fri, 11 Sep 2026 18:11:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id jD8VEWREpGpPXwAAD6G6ig
+	(envelope-from <dsterba@suse.cz>); Fri, 11 Sep 2026 18:11:48 +0000
+Date: Fri, 11 Sep 2026 20:11:47 +0200
+From: David Sterba <dsterba@suse.cz>
+To: Qu Wenruo <wqu@suse.com>
+Cc: Hanabishi <i.r.e.c.c.a.k.u.n+kernel.org@gmail.com>, dsterba@suse.cz,
+	quwenruo.btrfs@gmx.com, linux-kernel@vger.kernel.org,
+	linux-btrfs <linux-btrfs@vger.kernel.org>
+Subject: Re: commit 108cc873398932af589c295f78c348513b8d70d9 breaks
+ update-grub on btrfs root filesystem
+Message-ID: <20260911181146.GD54722@twin.jikos.cz>
+Reply-To: dsterba@suse.cz
+References: <CAKLYgeL7nrA4nXcewdv9Fqg_s=3GS=vmoypnEiZBKQ7rySZFuQ@mail.gmail.com>
+ <20260909002506.GF9053@twin.jikos.cz>
+ <7c331e23-d0ea-4611-9bed-d7099dcb41ab@gmail.com>
+ <9ca6e653-f89e-4ed2-8f97-783a5663f97c@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <9ca6e653-f89e-4ed2-8f97-783a5663f97c@suse.com>
+User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
+X-Spam-Score: -2.71
+X-Rspamd-Queue-Id: 7BCF41FB40
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-2.71 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	HAS_REPLYTO(0.30)[dsterba@suse.cz];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.com];
+	FREEMAIL_CC(0.00)[gmail.com,suse.cz,gmx.com,vger.kernel.org];
+	RCPT_COUNT_FIVE(0.00)[6];
+	REPLYTO_ADDR_EQ_FROM(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[kernelorg];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:replyto,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,twin.jikos.cz:mid]
+X-Spam-Flag: NO
 
-On Fri, 11 Sep 2026 10:58:27 -0300, Fabio Estevam wrote:
-> Hi Michal,
->=20
-> On Wed, Sep 9, 2026 at 11:43=E2=80=AFAM Michal Pecio <michal.pecio@gmail.=
-com> wrote:
-> >
-> > On Wed,  9 Sep 2026 09:58:42 -0300, Fabio Estevam wrote: =20
-> > > Currently, TUSB73X0_PWRON_POLARITY is set when the
-> > > "ti,pwron-active-high" is present.
-> > >
-> > > However, when "ti,pwron-active-high" is absent, its status could
-> > > have been set previously by a bootloader or by a previous running
-> > > kernel. =20
-> >
-> > or by EEPROM.
-> >
-> > Do they bother to put the chip in a wrong, non-default state at
-> > boot? =20
->=20
-> I was working on a hardware bring-up with the TUSB7320, and I never
-> saw it happen.
+On Thu, Sep 10, 2026 at 07:28:39AM +0930, Qu Wenruo wrote:
+> 在 2026/9/9 23:48, Hanabishi 写道:
+> > Hello.
+> > 
+> > May I ask why you guys keep ignoring me completely?
+> 
+> If you think we have time to reply every report, then just check how 
+> many syzbot reports are not addressed.
+> 
+> > This is clearly a regression for userspace (see my previous reports).
+> 
+> Unfortunately it's not.
 
-That could practically only happen due to a bug. Seems more likely
-that EEPROM or boot FW may set the bit because it's required by the
-board and then the kernel could clear it for lack of knowledge.
+Are we looking at the same reports??? "My system does not boot after
+update" is a regression.
 
-If there is ever a need to support clearing the bit, it would better
-be done by checking if the DT property is specified at all, and only
-then tweaking the bit accordingly. Otherwise, leave it alone.
+> The problem is there no matter if you have that patch.
+> 
+> There are a lot of ways to make btrfs to report a weird device path even 
+> before that commit.
+> > If your answer is "won't fix", state it explicitly please.
+> 
+> Won't fix.
 
-Regards,
-Michal
+Can't be, for the same reason the bug 218353 was a regression and had to
+be fixed.
