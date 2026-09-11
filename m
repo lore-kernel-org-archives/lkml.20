@@ -1,129 +1,128 @@
-Received: from outboundhk.mxmail.xiaomi.com (outboundhk.mxmail.xiaomi.com [207.226.244.123])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1B1A038DC6C;
-	Fri, 11 Sep 2026 17:18:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.226.244.123
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07AE14A99CF;
+	Fri, 11 Sep 2026 17:18:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789147087; cv=none; b=nZK3YvdsGHdVjj1YokBNfMNSGEJ5f0yx1jviG1SgFHLirJgQ6DQl+R1tXoEwVuJQeQXe5Mr2xLvPPQHL4PDzdIVFAwS/pohk+xpnRgJ5zfIcqo/mUogK0SGzjUdjXrXp/VYnkJAQEwRGRBdmOGZJGOe7ypHgWP8bEjtHLAURIaM=
+	t=1789147090; cv=none; b=e8IKbmYgRItt1qsYwM8mic4o7dJc9xdAjNxRQkMiddNesGEv9ygO/OO4HoLFtJjtXrEIQerNspefLnIitYgGn2EzrCiC0UBeSqoEz/G1HOtofYcOwJn9VBOpT9v10s5K0Ki1/lkczfHtTrYu/7UJFbIY+6jlz718FpYBBkX00RI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789147087; c=relaxed/simple;
-	bh=YS5uo5DloeGRIVXajvRxTCJkecqjh+eSBOyNZmMKuEE=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=UYWijD65G+TnfFVeLCT/LvvUzG8C5pXLOFQDiRPoiAqpZuRiyrTfD/ymS/TbljC/cQ9wyDjdg0Yz3Io2QM4NZR26WOc0Nu8k55Uw8aW2PPGXSnUJDVqFqIDxCkdtfU9v2E0Z2g1jnjq3yyMI6ph9FoUY/U/jqoXBarsvojMJFF8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=xiaomi.com; arc=none smtp.client-ip=207.226.244.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=xiaomi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaomi.com
-X-CSE-ConnectionGUID: a0ACOuSsRxSd6HdC8l9/AQ==
-X-CSE-MsgGUID: nBGPCgqnRZe6e8CgfTz6zA==
-X-IronPort-AV: E=Sophos;i="6.27,97,1786982400"; 
-   d="scan'208";a="188644074"
-From: =?gb2312?B?wO7Hvw==?= <liqiang35@xiaomi.com>
-To: "vinicius.gomes@intel.com" <vinicius.gomes@intel.com>
-CC: "jhs@mojatatu.com" <jhs@mojatatu.com>, "jiri@resnulli.us"
-	<jiri@resnulli.us>, "davem@davemloft.net" <davem@davemloft.net>,
-	"edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
-	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"horms@kernel.org" <horms@kernel.org>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH net] net/sched: taprio: fix infinite loop in
- taprio_dequeue_tc_priority()
-Thread-Topic: [PATCH net] net/sched: taprio: fix infinite loop in
- taprio_dequeue_tc_priority()
-Thread-Index: AQHdQhEMcFkoIUEhqkujbx/7hdrLVg==
-Date: Fri, 11 Sep 2026 17:18:02 +0000
-Message-ID: <6a248e46f1654ddfaf074cdfffab1349@xiaomi.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+	s=arc-20240116; t=1789147090; c=relaxed/simple;
+	bh=zKUMKrASgkid4sZE4XHGazly8P6BIiP8uvoqbldK8q8=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=dO1RlR2tuhyuyM9ZvLBhhxh5XBid6nbhWsAx60eZ07HPbVI8lQW5YaxGEVPZygSkDVj4/OU/+sQUj/HbosUeWtkr8P52asOualdhwdyfoTbvWL2DwjAsSLa6cHKm28X1JKh/uocXw80HWTLLCEDxuLN+gIO5AlICWHqn5Mmn6SY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EOctJEUN; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EOctJEUN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C2021F000FF;
+	Fri, 11 Sep 2026 17:18:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789147088;
+	bh=BiMS/bzN218uVxMjPWQUVYFg4XO3qw5jGV0pgdNd/6A=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=EOctJEUNrMyP6akxzbwkzsqcM66c8tMEa6G49mp7eF2KRpiE78EVu+zVbRjqcN6Xw
+	 CB9evm6Z0nbjVK8ZsaBlg5dDILWoIlR5wY9fJeZw3FJWUfJ46yN9qTSJHr+eUmWQ5y
+	 9xVh5Kq/wMY+YSWLiWq+8wU6jcMnuyDXw4R8QGL4XY8zjmznOQx9ru/8mnbEczTBmS
+	 UT1tYaJHaSDgNXOGUTS18zzaYhp2dU8KvWQbJieDNZPCqF0GyWFELyoDFGpuZIq6WX
+	 KApp42Hg8Vs9pxcJKRjPYw+ZZXFbN6M7pqewJ0MitfmgSeD5NeqUKaHuBYcC01aTt8
+	 cpDgzXZd9aLig==
+Date: Fri, 11 Sep 2026 12:18:07 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Qiang Yu <qiang.yu@oss.qualcomm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	linux-pci@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] PCI: qcom: Block accesses to downstream devices on
+ link down
+Message-ID: <20260911171807.GA402207@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ienbx5wjdzhgtdtbmuqcc76ovzy5d4wid7x4nhq5e4bco6u4il@264db3obw2qq>
 
-DQpEZWFyIEFsbCwNCg0KDQpJIGFtIHdyaXRpbmcgdGhpcyBlbWFpbCB0byByZXBvcnQgYW4gaW5m
-aW5pdGUgbG9vcCBidWcgaW4gdGFwcmlvX2RlcXVldWVfdGNfcHJpb3JpdHkoKSB3aGlsZSBmdXp6
-aW5nIHRoZSBMaW51eCBFdGhlcm5ldCBuZXR3b3JraW5nIHN0YWNrIG9uIGVtYmVkZGVkIGRldmlj
-ZXMuDQoNCnRhcHJpb19kZXF1ZXVlX3RjX3ByaW9yaXR5KCkgY29udGFpbnMgYSBkby13aGlsZSBs
-b29wIHRoYXQgaXRlcmF0ZXMgb3ZlciBUWFFzIGJlbG9uZ2luZyB0byBhIHRyYWZmaWMgY2xhc3Mg
-dXNpbmcgYSBwZXJzaXN0ZW50IGN1cnNvciAocS0+Y3VyX3R4cVt0Y10pLiBUaGUgbG9vcCB0ZXJt
-aW5hdGlvbiBjb25kaXRpb24gY29tcGFyZXMgdGhlIGN1cnJlbnQgY3Vyc29yIHBvc2l0aW9uIHdp
-dGggaXRzIGluaXRpYWwgdmFsdWUgKGZpcnN0X3R4cSkuDQoNCkhvd2V2ZXIsIHRhcHJpb19uZXh0
-X3RjX3R4cSgpIHJlYWRzIHRoZSBUQy10by1UWFEgbWFwcGluZyBmcm9tIGRldi0+dGNfdG9fdHhx
-W3RjXSwgd2hpY2ggaXMgYSBwZXItZGV2aWNlIHNoYXJlZCBmaWVsZC4gV2hlbiBhbm90aGVyIHFk
-aXNjIChlLmcuLCBtcXByaW8pIGlzIGdyYWZ0ZWQgb250byB0aGUgc2FtZSBkZXZpY2Ugd2l0aCBh
-IGRpZmZlcmVudCBxdWV1ZSBtYXBwaW5nLCBkZXYtPnRjX3RvX3R4cVtdIGlzIHVwZGF0ZWQgYnV0
-IHRhcHJpbydzIHByaXZhdGUgY3VyX3R4cVtdIHJldGFpbnMgdGhlIHN0YWxlIHZhbHVlIGZyb20g
-dGhlIG9sZCBtYXBwaW5nLg0KDQpUaGlzIGNyZWF0ZXMgYSBzaXR1YXRpb24gd2hlcmUgZmlyc3Rf
-dHhxIChmcm9tIG9sZCBtYXBwaW5nIEEpIGZhbGxzIG91dHNpZGUgdGhlIG5ldyBbb2Zmc2V0LCBv
-ZmZzZXQrY291bnQpIHJhbmdlIChmcm9tIG5ldyBtYXBwaW5nIEIpLiBUaGUgd3JhcCBsb2dpYyBp
-biB0YXByaW9fbmV4dF90Y190eHEoKSBjb25maW5lcyB0aGUgY3Vyc29yIHRvIHRoZSBuZXcgcmFu
-Z2UsIHNvIGl0IGNhbiBuZXZlciByZWFjaCBmaXJzdF90eHEsIGNhdXNpbmcgYW4gaW5maW5pdGUg
-bG9vcA0KaW4gc29mdGlycSBjb250ZXh0IHdpdGggaW50ZXJydXB0cyBkaXNhYmxlZC4NCg0KVGhl
-IGxvb3AgbWFuaWZlc3RzIGFzIGEgaGFyZCBDUFUgbG9ja3VwOiB0aGUgYWZmZWN0ZWQgY29yZSBz
-cGlucyBpbmRlZmluaXRlbHkgaW4gdGFwcmlvX2RlcXVldWVfZnJvbV90eHEoKSwgdGltZXIgdGlj
-a3Mgc3RvcCwgUkNVDQpzdGFsbHMsIGFuZCB0aGUgcnRubF9sb2NrIGlzIGhlbGQgZm9yZXZlciAt
-LSBibG9ja2luZyBhbGwgbmV0d29yayBjb25maWd1cmF0aW9uICh0YywgaXAsIG5ldGxpbmspIGFu
-ZCBldmVuIHJlYm9vdC4gT25seSBTeXNScSBoYXJkDQpyZXNldCBjYW4gcmVjb3ZlciB0aGUgc3lz
-dGVtLg0KDQpUaGlzIGlzIDEwMCUgZGV0ZXJtaW5pc3RpYyB3aXRoIGp1c3QgMiB0YyBjb21tYW5k
-cyBhbmQgemVybyBuZXR3b3JrIHRyYWZmaWM6DQoNCiAgdGMgcWRpc2MgcmVwbGFjZSBkZXYgZXRo
-MCByb290IHRhcHJpbyBcDQogICAgICBudW1fdGMgMyBtYXAgMCAwIDEgMSAyIDIgMCAwIDAgMCAw
-IDAgMCAwIDAgMCBcDQogICAgICBxdWV1ZXMgMUAwIDFAMSAxQDIgYmFzZS10aW1lIDAgXA0KICAg
-ICAgc2NoZWQtZW50cnkgUyBmZiAxMDAwMDAwIGNsb2NraWQgQ0xPQ0tfVEFJDQoNCiAgdGMgcWRp
-c2MgcmVwbGFjZSBkZXYgZXRoMCByb290IG1xcHJpbyBcDQogICAgICBudW1fdGMgMyBtYXAgMCAw
-IDEgMSAyIDIgMCAwIDAgMCAwIDAgMCAwIDAgMCBcDQogICAgICBxdWV1ZXMgMUAxIDFAMiAxQDMN
-Cg0KVGhlIHNlY29uZCBjb21tYW5kIHRyaWdnZXJzIHRoZSBncmFmdCBwYXRoOiBtcXByaW8gd3Jp
-dGVzIGRldi0+dGNfdG9fdHhxW10gd2l0aCB0aGUgbmV3IG1hcHBpbmcsIHRoZW4gZGV2X2RlYWN0
-aXZhdGUoKSBmaXJlcw0KYSBwZW5kaW5nIFRYIHNvZnRpcnEgdGhhdCBjYWxscyB0YXByaW8ncyBk
-ZXF1ZXVlIHdpdGggdGhlIHN0YWxlIGN1cnNvciAtLSBpbnN0YW50IGRlYWRsb29wLg0KDQpUZXN0
-ZWQgb246DQogIC0gYWFyY2g2NCAoNi4xMi43My1ydDE1Kywgc3RtbWFjIHBoeXNpY2FsIE5JQyk6
-IDYuNWggbG9ja3VwDQogIC0geDg2XzY0ICg2LjguMC0xMzgtZ2VuZXJpYywgdmV0aCB2aXJ0dWFs
-IE5JQyk6IGluc3RhbnQgbG9ja3VwDQoNCkZpeCBieSBjbGFtcGluZyBmaXJzdF90eHEgaW50byB0
-aGUgY3VycmVudCBbb2Zmc2V0LCBvZmZzZXQrY291bnQpIHJhbmdlIHJlYWQgZnJvbSBkZXYtPnRj
-X3RvX3R4cVt0Y10gYXQgdGhlIHN0YXJ0IG9mIGVhY2ggVEMgaXRlcmF0aW9uLiBJZiB0aGUgY3Vy
-c29yIGlzIG91dHNpZGUgdGhlIHZhbGlkIHJhbmdlLCByZXNldCBpdCB0byBvZmZzZXQuIFRoaXMg
-YWRkcyBhIHNpbmdsZSBSRUFEX09OQ0UgKyBicmFuY2ggcGVyIFRDIHBlciBkZXF1ZXVlIGNhbGwg
-d2l0aCBuZWdsaWdpYmxlIG92ZXJoZWFkLg0KDQpGaXhlczogMmY1MzBkZjc2YzhjICgibmV0L3Nj
-aGVkOiB0YXByaW86IGdpdmUgaGlnaGVyIHByaW9yaXR5IHRvIGhpZ2hlciBUQ3MgaW4gc29mdHdh
-cmUgZGVxdWV1ZSBtb2RlIikNClNpZ25lZC1vZmYtYnk6IExpUWlhbmcgPGxpcWlhbmczNUB4aWFv
-bWkuY29tPg0KLS0tDQogbmV0L3NjaGVkL3NjaF90YXByaW8uYyB8IDE0ICsrKysrKysrKysrKysr
-DQogMSBmaWxlIGNoYW5nZWQsIDE0IGluc2VydGlvbnMoKykNCg0KZGlmZiAtLWdpdCBhL25ldC9z
-Y2hlZC9zY2hfdGFwcmlvLmMgYi9uZXQvc2NoZWQvc2NoX3RhcHJpby5jDQppbmRleCAzOWFjNWI5
-N2EuLjlhZTBkZTAwNyAxMDA2NDQNCi0tLSBhL25ldC9zY2hlZC9zY2hfdGFwcmlvLmMNCisrKyBi
-L25ldC9zY2hlZC9zY2hfdGFwcmlvLmMNCkBAIC03ODEsNiArNzgxLDcgQEAgc3RhdGljIHN0cnVj
-dCBza19idWZmICp0YXByaW9fZGVxdWV1ZV90Y19wcmlvcml0eShzdHJ1Y3QgUWRpc2MgKnNjaCwN
-CiAgc3RydWN0IHRhcHJpb19zY2hlZCAqcSA9IHFkaXNjX3ByaXYoc2NoKTsNCiAgc3RydWN0IG5l
-dF9kZXZpY2UgKmRldiA9IHFkaXNjX2RldihzY2gpOw0KICBpbnQgbnVtX3RjID0gbmV0ZGV2X2dl
-dF9udW1fdGMoZGV2KTsNCisgc3RydWN0IG5ldGRldl90Y190eHEgdGNfdHhxOw0KICBzdHJ1Y3Qg
-c2tfYnVmZiAqc2tiOw0KICBpbnQgdGM7DQoNCkBAIC03OTAsNiArNzkxLDE5IEBAIHN0YXRpYyBz
-dHJ1Y3Qgc2tfYnVmZiAqdGFwcmlvX2RlcXVldWVfdGNfcHJpb3JpdHkoc3RydWN0IFFkaXNjICpz
-Y2gsDQogIGlmICghKGdhdGVfbWFzayAmIEJJVCh0YykpKQ0KICBjb250aW51ZTsNCg0KKyAvKiBD
-bGFtcCB0aGUgcGVyc2lzdGVudCBjdXJzb3IgaW50byB0aGUgY3VycmVudCB0Y190b190eHENCisg
-KiByYW5nZS4gQW5vdGhlciBxZGlzYyAoZS5nLiBtcXByaW8pIGdyYWZ0ZWQgb250byB0aGUgc2Ft
-ZQ0KKyAqIGRldmljZSBtYXkgaGF2ZSByZXdyaXR0ZW4gZGV2LT50Y190b190eHFbXSBzaW5jZSB0
-YXByaW8NCisgKiBsYXN0IHNldCBjdXJfdHhxW10sIG1ha2luZyBmaXJzdF90eHEgZmFsbCBvdXRz
-aWRlIHRoZSBuZXcNCisgKiBbb2Zmc2V0LCBvZmZzZXQrY291bnQpIGludGVydmFsIGFuZCB0aGUg
-ZG8td2hpbGUgZXhpdA0KKyAqIGNvbmRpdGlvbiB1bnJlYWNoYWJsZSAtLSBhbiBpbmZpbml0ZSBs
-b29wLg0KKyAqLw0KKyB0Y190eHEuY29tYmluZWQgPSBSRUFEX09OQ0UoZGV2LT50Y190b190eHFb
-dGNdLmNvbWJpbmVkKTsNCisgaWYgKHRjX3R4cS5jb3VudCA9PSAwIHx8DQorICAgIGZpcnN0X3R4
-cSA8IHRjX3R4cS5vZmZzZXQgfHwNCisgICAgZmlyc3RfdHhxID49IHRjX3R4cS5vZmZzZXQgKyB0
-Y190eHEuY291bnQpDQorIHEtPmN1cl90eHFbdGNdID0gZmlyc3RfdHhxID0gdGNfdHhxLm9mZnNl
-dDsNCisNCiAgZG8gew0KICBza2IgPSB0YXByaW9fZGVxdWV1ZV9mcm9tX3R4cShzY2gsIHEtPmN1
-cl90eHFbdGNdLA0KICAgICAgIGVudHJ5LCBnYXRlX21hc2spOw0KLS0NCjIuNTAuMQ0KDQoNCkJl
-c3QgcmVnYXJkcywNCkxpUWlhbmcNClhpYW9taSBTaGFkb3dCbGFkZSBTZWN1cml0eSBMYWINCiMv
-KioqKioqsb7Tyrz+vLDG5Li9vP66rNPQ0KHD17mry761xLGjw9zQxc+io6y99s/e09q3osvNuPjJ
-z8PmtdjWt9bQwdCz9rXEuPbIy7vyyLrX6aGjvfvWucjOus7G5Mv7yMvS1MjOus7Qzsq9yrnTw6Oo
-sPzAqLWrsrvP3tPayKuyv7vysr+31rXY0LnCtqGiuLTWxqGiu/LJoreio6mxvtPKvP7W0LXE0MXP
-oqGjyOe5+8T6tO3K1cHLsb7Tyrz+o6zH68T6waK8tLXnu7C78tPKvP7NqNaqt6K8/sjLsqLJvrP9
-sb7Tyrz+o6EgVGhpcyBlLW1haWwgYW5kIGl0cyBhdHRhY2htZW50cyBjb250YWluIGNvbmZpZGVu
-dGlhbCBpbmZvcm1hdGlvbiBmcm9tIFhJQU9NSSwgd2hpY2ggaXMgaW50ZW5kZWQgb25seSBmb3Ig
-dGhlIHBlcnNvbiBvciBlbnRpdHkgd2hvc2UgYWRkcmVzcyBpcyBsaXN0ZWQgYWJvdmUuIEFueSB1
-c2Ugb2YgdGhlIGluZm9ybWF0aW9uIGNvbnRhaW5lZCBoZXJlaW4gaW4gYW55IHdheSAoaW5jbHVk
-aW5nLCBidXQgbm90IGxpbWl0ZWQgdG8sIHRvdGFsIG9yIHBhcnRpYWwgZGlzY2xvc3VyZSwgcmVw
-cm9kdWN0aW9uLCBvciBkaXNzZW1pbmF0aW9uKSBieSBwZXJzb25zIG90aGVyIHRoYW4gdGhlIGlu
-dGVuZGVkIHJlY2lwaWVudChzKSBpcyBwcm9oaWJpdGVkLiBJZiB5b3UgcmVjZWl2ZSB0aGlzIGUt
-bWFpbCBpbiBlcnJvciwgcGxlYXNlIG5vdGlmeSB0aGUgc2VuZGVyIGJ5IHBob25lIG9yIGVtYWls
-IGltbWVkaWF0ZWx5IGFuZCBkZWxldGUgaXQhKioqKioqLyMNCg==
+On Fri, Sep 11, 2026 at 08:17:29AM +0200, Manivannan Sadhasivam wrote:
+> On Tue, Sep 08, 2026 at 06:00:30PM -0500, Bjorn Helgaas wrote:
+> > On Wed, Aug 19, 2026 at 11:36:54PM -0700, Qiang Yu wrote:
+> > > After a PCIe link goes down, software may still access the BAR
+> > > (MMIO) space or configuration space of devices behind that link
+> > > before recovery has run. As the link is down, these accesses
+> > > never complete, resulting in a storm of Completion Timeout AERs.
+> > 
+> > What is special about qcom here?  It seems like the Completion
+> > Timeouts and AER interrupts should happen with every PCIe
+> > controller.
+> 
+> The special behavior which is common across many (not all) ARM SoCs
+> is that they don't synthesize all-one response for completion
+> timeouts, unlike RCs in x86 machines. Rather, they return AXI error
+> response, resulting in CPU treating them as SError, in-addition to
+> AER storm.
+> 
+> Commit message missed mentioning SError though.
+
+I don't know how SError works, but this sounds like a pretty big open
+issue with respect to RAS.  I don't think we want a kernel panic
+because a device failed to respond to a config or MMIO access, e.g.,
+if a card or Thunderbolt cable got unplugged.
+
+> > Is this mitigating an issue that will still happen on other
+> > controllers and should be solved elsewhere, e.g., by changing the
+> > software that accesses the BAR to look for the error responses it
+> > gets when the Completion Timeout happens?
+> 
+> That would be too late as we don't get a proper error response.
+> That's why this patch is used.
+> 
+> > The patch refers to the ECAM blocker (which I assume affects
+> > config accesses) and doesn't mention MMIO.  Is the SLV_AXI stuff
+> > for MMIO?
+> 
+> ECAM blocker is a Qcom's custom implementation which prevents the
+> config access to go out of the link and terminate the request
+> properly. And yes, it doesn't affect MMIO like BAR.
+
+The commit log implies that the patch blocks both config and MMIO
+accesses: "software may access MMIO or config space ... Use ECAM
+blocker to drop these accesses."  If the ECAM blocker only affects
+config accesses, we need to reword that description.
+
+If this patch doesn't affect MMIO accesses, I assume they will still
+fail and lead to SError?  I'm a little dubious about the utility of
+this because I assume most runtime driver accesses will be to MMIO
+space, not config space.
+
+I assume this is also racy: any config access that happens in the
+window between the link going down and the ECAM blocker being enabled
+will still fail and result in SError, right?
+
+> > Assume the root port leads to a switch, and the switch has two
+> > links to downstream devices.  If one of the switch downstream
+> > links goes down, is this going to kill the device on the other
+> > link that is still up?
+> 
+> ECAM blocker is only enabled when the PCIe link to the Root Port
+> goes down. We don't get LDn interrupt when the switch downstream
+> link goes down. In that case, the switch should synthesize the error
+> response if the CPU tries to access the unavailable device.
+
+For config or MMIO reads targeting a device below a switch, if the
+link to the device is down, I think the switch will return an
+Unsupported Request completion without data (PCIe r7.0, sec 2.3.1.1).
+
+The PCIe spec doesn't prescribe whether RC synthesizes data to
+complete the read, but x86 RCs typically synthesize ~0 data.  I guess
+some arm64 RCs assert SError instead of completing the read.
+
+IIUC, if the link from the RP goes down, we'll take the LDn interrupt,
+enable ECAM blocker, and future config reads would return ~0.  But if
+a link below a switch goes down, there's no LDn interrupt and it
+sounds like future config reads would result in a UR Cpl and SError.
