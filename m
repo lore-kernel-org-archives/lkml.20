@@ -1,107 +1,178 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4526737B407
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:17:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789154257; cv=none; b=cvVeHEK49vp2MzxeHJ+b7jEw4j2rsTl3PvT35KigCAahWTCKrVeeMTm9kU/1bzS+qGR1l1XdUfJo9pp4BRcolLL0L45lU6SpyieiZN1oHm2mOIyAs+o/X1DghOsPkzQQYs//aFepUkTgvIcGtiEB/SOKX2MspW2igOvotrBSmfU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789154257; c=relaxed/simple;
-	bh=z5AMCbTCJKiKwhdeueVhwArRsGJl7LsXJxyw2+s69h0=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B458B31715D
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:17:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789154266; cv=pass; b=eObR3RgBbuutn2u+MBvnf5B3Qk1VBKUXUGxSOW0aT8/DRRe5Lef8500UFfUCcF1FcxukEY3KbhMzAz7ho/WY6nRtM8x5IqpCTaYesAB8b/2/ux/PU80uxygj3OQOwvgAN+WoSld158el2Sr4xwT749hdjD024ZHZ5NYbQ9S/Koo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789154266; c=relaxed/simple;
+	bh=YylrmKUFGrThuB/4p7F8oVdq34rWmbJXFppyrlNKmVo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BhkIIi6Wyk8nZ6URSqWXHQHjeYKs1oORd8NniZB3FFDAQB1hxGoIktDZFzCMUypHnUqucWCRaXEvrL9Bsu5r9KtremLvDqz2vPxLysAdgObuaPrxZ5xiZt+gn1rwvbQRpywhuiXSI/kqsd2EdM1HhXfe+zlY0dA8uKb9Zk0fHyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n5Wd7qUb; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=UKw8jk0VcdRT3g72LpQQS2jWXabw2J0mONQ13iMQeTX1qVB93/79hPUm9sEnKX5R7ogAyR3+W42xjoQSqxgPYIdHxmJRL3uAtHZz8ixsfPcv5HtugN6N62oAV+4QnIUxj3vyrdNlQhNEovnlPTG9/51chAMrJRESan/0/vgj5cE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=B3Fods4B; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n5Wd7qUb"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-382ef647e20so1676072a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:17:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789154243; x=1789759043; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+1FYrSwjWs0il95z3HoNX6WKScSsEKBA0Ab3Jhz+P48=;
-        b=n5Wd7qUbXBb52MIPy9zOsuTen8ubkv6bp6Pi48hWIJn8Z1qNhctuUM2Oj7bIG4y8f/
-         70N/78FcKN1xKbIA6cWus/VxbyyxnEmrnCmzG0SiVc6Gv1Cs7AEb9akpyFDblB0iiC7F
-         sX0LSupbCOzYLnRRYHiq/Rp0sZtsAWDRu2fKObHySRggJ6vlkXS+0S+LDg4FLOXnydx5
-         9o+rZX4fAzVGFeJ9vPMV+vmKaBrLlH2+MFeEN4WqJX+yQ4pY1FuKpAWQnZ/UeX3X+WK6
-         k5d2wEDI0RyRB5H+wD0XbNA1rD2zp8TqcxRuSMKDkBhULvb9EekiRjwgqe8N02XMuXjP
-         6/jA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789154243; x=1789759043;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+1FYrSwjWs0il95z3HoNX6WKScSsEKBA0Ab3Jhz+P48=;
-        b=G0TkfJ08af2vQ2i1xDEJqpyqjSBlSP9SMCcxi4NHjXQ9XFtBiguY+0AIlZ2bppVo8c
-         chmLVUiYW/ipK0mRqTXAh3T6AbYWd67r9+RmOjWDGiIhzCWr/6Z+MeEdx6WvbAlEqICp
-         ywBesyQCQLpLB43bKBLrNvD3S7whYFpWmLJGl5/2GlW+EZbBB4meuJtRmfEZA43Xs6wy
-         XuHoCeFYq4CobsCxKkNs/Q0V1NF8aXognqk4OGlnrUnU4IQ6UeS5vM/vaHMn4LPttW7t
-         o6lBxegxqrpT3/2GMEqIkl+vsaZyC5pN+d3IM78wGIo3Cvfy3Pe+IboSdiWzGv+yorhJ
-         HLCg==
-X-Forwarded-Encrypted: i=1; AKwUvByhogvwUGmNQ+SctTvXpJigNabD/oNUdmdWBRDMXScpnUYV3jvQJow9A6g2V2Qo5F1lwy5bZjd2wn8QjeE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJhs7nZAGeNoq1LQUi6GI0dB38FU1Pf7JT2RUsM25dPO+K2QRh
-	ba34pFnWTLS/VmgPBRhVn37KDXHVVjjbS8d8uau0VPxW9xRmFzMvpu1p
-X-Gm-Gg: AYBFou06+wWcv5G0s0tGQs9AplJgntqwP6mvH6AG9uSk3UD6nKvDjPAufiqJPzqBN74
-	3u51HT53C0YwUic+C98sllw9FpJcM1hqwobHBXQ5OAi6GewksO38UGFLMzqQ5dJJUkUTU3ZTzSm
-	cMKKa2Qj5jdQ/R9tbHIqG/nGck0LA2WCdDKI/tjXbpbgwyOMVuuRDY1lDe9hDNBBvq714j0IvF+
-	V3Qdx0hSV0WZqDNZD/1mP+6o+ejc8CiqRUUVpWN3vPvHy5RWwWDB16l5UBbKrTfpAER9/T9Y7To
-	vHi8IXUpki/JRnUKilsRCxtvj8V1p4uAT4g2Vg0UdbjLiz8/8C5NGazqqnP0baqRPGnc7CYWeQn
-	9paFi4h6m+W+NhgC+4RUQ+g/d2huvjAhxTnKsCy4SYs1GTZDaDIsPBSZYU+XLDAYVsC4R0+2sZm
-	U3MWgh1qnVFv+bPU3KFSz7NSbxRqDhCXNbMLo5yIhWcr8tUTCD/eI3on3FT9iHuXBiHBa1s+gWE
-	vmLa+XLEbGz7Q==
-X-Received: by 2002:a17:90b:1b05:b0:38f:5869:387b with SMTP id 98e67ed59e1d1-39d9bd9515amr8974372a91.9.1789154243279;
-        Fri, 11 Sep 2026 12:17:23 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d94744dfdsm6689115a91.0.2026.09.11.12.17.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 12:17:22 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Fri, 11 Sep 2026 12:17:21 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Werner Gartner <Werner.Gartner@congatec.com>,
-	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, stable@kernel.org
-Subject: Re: [PATCH v2 1/2] hwmon: (cgbc-hwmon): Fix current sensors ID lookup
-Message-ID: <8b822b80-8d5b-403a-8bee-c288fde6cbc6@roeck-us.net>
-References: <20260911-cgbc-hwmon-fix-and-new-sensors-v2-0-0c6bf078d173@bootlin.com>
- <20260911-cgbc-hwmon-fix-and-new-sensors-v2-1-0c6bf078d173@bootlin.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="B3Fods4B"
+ARC-Seal: i=1; a=rsa-sha256; t=1789154233; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Oo1xpzXRZBoW/ohEal9JzMxLBfyTeSmhlO/NtRI0IxaQkgd2fhgi/RTUSREiz702C11veNTPDPstYErsQqNaYkAmZlQ7Y4NBINCOEEmbousvO4+K2naZmVbwWx9n0zMDJTjDSSK3T9Nkq5olUDqoqiGoMNn/n3L7zj8JbP5P9ow=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789154233; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=+v9ar8wPBD0xHuf/zTdqOyqjdltZ2NhVgxC47rIZ6iM=; 
+	b=EPGxE9ChslyVa02BCZ2KiOrFxf2veW+fSAMFeznAyOkw6E0dVQRPHfgLXDxKNQgl8GAvcyof1ZCXeVBevYFa6yzucL01CWb3/La6swOb4cHDicrTmpFG00/PQ/Y9caT31yyPokDgieQVwBtk2zzaEK5NsGmw7kdlsTP/UMGuFmk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789154233;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+	bh=+v9ar8wPBD0xHuf/zTdqOyqjdltZ2NhVgxC47rIZ6iM=;
+	b=B3Fods4B7PIKs7oRpHmHsZWlC7Gn5nkjVWiwBJzYE8JPcs+ZADIEDjYotTPnRAkH
+	vscd2d2DsQaupxRMv2R9Sbx4aWR7OUDkmrkaKxijunrg0vzAkkSaIHeLGdae5JXrtmB
+	TnC/W1KgUw/nknpMSP4XcUTP9f9mwbfoRm8J0jBg=
+Received: by mx.zohomail.com with SMTPS id 1789154231098208.1192348446799;
+	Fri, 11 Sep 2026 12:17:11 -0700 (PDT)
+Date: Fri, 11 Sep 2026 20:17:07 +0100
+From: Adrian Larumbe <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+	Chris Diamand <chris.diamand@arm.com>, Akash Goel <akash.goel@arm.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 15/18] drm/panthor: Track user owned VMs
+Message-ID: <aqQTkeakkiMdTfcE@sobremesa>
+References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
+ <20260826-panthor-unplug-fixes-v4-15-982cc8f4234b@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260911-cgbc-hwmon-fix-and-new-sensors-v2-1-0c6bf078d173@bootlin.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260826-panthor-unplug-fixes-v4-15-982cc8f4234b@collabora.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/289.144.59
 
-On Fri, Sep 11, 2026 at 07:31:58PM +0200, Thomas Richard (congatec GmbH) wrote:
-> Current sensors on the Congatec Board Controller don't use consecutive IDs,
-> unlike other sensor types (voltage, temperature, fan). The driver assumed
-> consecutive IDs and performed a simple lookup, which caused an unknown
-> sensor warning. Define current sensor IDs explicitly.
+Reviewed-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+
+On 26.08.2026 16:56, Boris Brezillon wrote:
+> We will soon need this to fix the unplug logic and make sure panthor_vm
+> objects are not left behind after an unplug.
 > 
-> Changes the warning on conga-SA7 (type and channel are correct now).
-> Before:
->   Board Controller returned an unknown sensor (type=2, channel=17), ignore it
-> After:
->   Board Controller returned an unknown sensor (bc_type=1, bc_id=11), ignore it
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> ---
+>  drivers/gpu/drm/panthor/panthor_mmu.c | 31 +++++++++++++++++++++++++++----
+>  1 file changed, 27 insertions(+), 4 deletions(-)
 > 
-> Cc: stable@kernel.org
-> Fixes: 08ebc9def79f ("hwmon: Add Congatec Board Controller monitoring driver")
-> Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index 47c57b39bd12..6368bf57b8f5 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -117,12 +117,15 @@ struct panthor_mmu {
+>  
+>  	/** @vm: VMs management fields */
+>  	struct {
+> -		/** @vm.lock: Lock protecting access to list. */
+> +		/** @vm.lock: Lock protecting access to list and user_owned. */
+>  		struct mutex lock;
+>  
+>  		/** @vm.list: List containing all VMs. */
+>  		struct list_head list;
+>  
+> +		/** @vm.list: List containing VMs with a valid handle. */
+> +		struct list_head user_owned;
+> +
+>  		/** @vm.reset_in_progress: True if a reset is in progress. */
+>  		bool reset_in_progress;
+>  
+> @@ -447,6 +450,9 @@ struct panthor_vm {
+>  	/** @node: Used to insert the VM in the panthor_mmu::vm::list. */
+>  	struct list_head node;
+>  
+> +	/* @user_node: Used to insert the VM in the panthor_mmu::vm::user_owned list. */
+> +	struct list_head user_node;
+> +
+>  	/** @for_mcu: True if this is the MCU VM. */
+>  	bool for_mcu;
+>  
+> @@ -1681,10 +1687,19 @@ int panthor_vm_pool_create_vm(struct panthor_device *ptdev,
+>  	drm_gem_object_get(&pool->dummy->base);
+>  	vm->dummy = pool->dummy;
+>  
+> +	/* Insert in the list before xa_alloc() so we can't race with
+> +	 * panthor_vm_pool_destroy_vm() have the VM inserted in the
+> +	 * user_owned list after it's been destroyed.
+> +	 */
+> +	scoped_guard(mutex, &ptdev->mmu->vm.lock)
+> +		list_add_tail(&vm->user_node, &ptdev->mmu->vm.user_owned);
+> +
+>  	ret = xa_alloc(&pool->xa, &id, vm,
+>  		       XA_LIMIT(1, PANTHOR_MAX_VMS_PER_FILE), GFP_KERNEL);
+>  
+>  	if (ret) {
+> +		scoped_guard(mutex, &ptdev->mmu->vm.lock)
+> +			list_del_init(&vm->user_node);
+>  		panthor_vm_put(vm);
+>  		return ret;
+>  	}
+> @@ -1739,13 +1754,19 @@ static void panthor_vm_destroy(struct panthor_vm *vm)
+>   */
+>  int panthor_vm_pool_destroy_vm(struct panthor_vm_pool *pool, u32 handle)
+>  {
+> +	struct panthor_device *ptdev;
+>  	struct panthor_vm *vm;
+>  
+>  	vm = xa_erase(&pool->xa, handle);
+> +	if (!vm)
+> +		return -EINVAL;
+> +
+> +	ptdev = container_of(vm->as->base.drm, struct panthor_device, base);
+> +	scoped_guard(mutex, &ptdev->mmu->vm.lock)
+> +		list_del_init(&vm->user_node);
+>  
+>  	panthor_vm_destroy(vm);
+> -
+> -	return vm ? 0 : -EINVAL;
+> +	return 0;
+>  }
+>  
+>  /**
+> @@ -1785,7 +1806,7 @@ void panthor_vm_pool_destroy(struct panthor_file *pfile)
+>  		return;
+>  
+>  	xa_for_each(&pfile->vms->xa, i, vm)
+> -		panthor_vm_destroy(vm);
+> +		panthor_vm_pool_destroy_vm(pfile->vms, i);
+>  
+>  	if (pfile->vms->dummy)
+>  		drm_gem_object_put(&pfile->vms->dummy->base);
+> @@ -3182,6 +3203,7 @@ panthor_vm_create(struct panthor_device *ptdev, bool for_mcu,
+>  		goto err_put_as;
+>  	}
+>  
+> +	INIT_LIST_HEAD(&vm->user_node);
+>  	vm->user_va_range = kernel_va_start;
+>  	vm->as = as;
+>  	mutex_init(&vm->heaps.lock);
+> @@ -3707,6 +3729,7 @@ int panthor_mmu_init(struct panthor_device *ptdev)
+>  		return ret;
+>  
+>  	INIT_LIST_HEAD(&mmu->vm.list);
+> +	INIT_LIST_HEAD(&mmu->vm.user_owned);
+>  	ret = drmm_mutex_init(&ptdev->base, &mmu->vm.lock);
+>  	if (ret)
+>  		return ret;
+> 
+> -- 
+> 2.55.0
 
-Applied.
 
-Thanks,
-Guenter
+Adrian Larumbe
