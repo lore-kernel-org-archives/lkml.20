@@ -1,128 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-116.mta0.migadu.com [91.218.175.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C46193769F6
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:37:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E16EC43BDA9
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:37:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789123040; cv=none; b=LkPr4AxK1b/KfhBVCaqas3zgR8Y+xtpGrqYrn5ZSCcEgZ5xehsN0OooyLyUQfh2riirU6tD4SSC3t56fZNJz+xBFRvY9ZHd9lyS3tFwKxgFLpXz+vged/hpIYUGr3OPwOY0TSeDTmLkpTZwxoBmbHM0LEGrZcxlU62tTXhVAmWg=
+	t=1789123083; cv=none; b=Q9woTVIwGo9yEOlkPzQ12UoyA03FtYlJZvLSlMYWY9K3pj6mP0+vG0Lpr/rC1tiJTaQM2p7hsXjfW6AmU0DcZP/Z792ozYe/4WgYX5735mRWIUaFrzawdUrDhiSvUkdAoOIGeDWn7lz75aEennpjm/A7kxaG0Wxong21wrlzFUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789123040; c=relaxed/simple;
-	bh=Zj6VBx/ShSOg/ofBg8MaQUi1PFJSwwejRlQRLC6bEK4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k2prNsuthqNGP+xIhdFQL29AcB6PcStJ9jvRQ8Bz7358XrQtUWav6PYIqTQ7888oUF0bVBRN+OOouJ0nHWFsL4YC0IyO+stGiraqbb/3et6BjtFWWy0oCJfgbRr1CxasjsQaT1bBSkI5IsbT5nz4k/0Gj0upyHQ3yZJxjvSyjfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DKTk2e/y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789123083; c=relaxed/simple;
+	bh=qcidQxwh1HceK3n0EKSlmvhY5SFvKe+nZW7HpSIIh40=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OoEbGvfJyA1b7V+PTB6UsBk8Lw3TbI9DnQlhBGD0AigUnbCk+6C6RwUGc0AmjQh/VXZXiD5ZAQv79ijaH2B52hyCqdJHiBDL/6y5HjLHNos8MPVtio78Yb6Esr4nIv1lDmqKZg25ZS7S+0A6iswaleIhzuERB6bzPLK+KWmnjQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FeqWRFZj; arc=none smtp.client-ip=91.218.175.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DKTk2e/y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 251D51F00893;
-	Fri, 11 Sep 2026 10:37:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789123032;
-	bh=+2HrtVafR8OcAx49ufL9H8GmxuAw4u1l8/SSkfwNfsE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DKTk2e/ycvYCdub4YkABnLZRfBGdjGKB2HcmUCT2c6T9PDaRB1SwnSDZErG30/ig2
-	 0YB1iECX0mzpK4IOtuzHy4Fo+5J2hkQ2wXfmxVJ/l96+oLX1tSuvr/u6JB1lNgrNhG
-	 Kx/IemPWbu2dr/YbNCTlLGgvqgdzsF0EnmFvXyZDXPP/UdcfzLO/BGrxH6gXlExfO4
-	 JGYJzJFw5BpgOdtJESGcmAn3jpxppHmSHhp2I4sdvgxsE0Gwxa2gDgWUBU3Z3DRtWQ
-	 NAvQXre87Bdw2aOvyxljT/qIQhZe3udB0YL8GTBR48CvJqLu/cB+vuVB/WlgwAZ5FQ
-	 eJ3M1RoNPFjPw==
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 753961980052;
-	Fri, 11 Sep 2026 06:37:09 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-09.internal (MEProxy); Fri, 11 Sep 2026 06:37:10 -0400
-X-ME-Sender: <xms:1NmjasoEJqirEUNEwABFkjzturF0KpXyGBWj7Fwy2S9sB9vAuS7aZQ>
-    <xme:1NmjarYh3vMF1wVKzggsRyhMmbqfLXn5SL1EzLxjOf4wjt3w0vA1ReUSabyrPuArn
-    XIqKHaE0u2tGknHVN780HhqW5cYhri0GYoPHxLweItgT1swN36ssWQ>
-X-ME-Received: <xmr:1Nmjav79RJpxbzxrijxlnwoO-dFsmfUa4nY3yt_Vbc0DNkodiiqZYejt8BM>
-X-ME-Proxy-Cause: dmFkZTGyGEM0rlMbrekGelzPyrgxDtaD0RwJW120HE24VizydBvm/r6RoCj4O8FOhfnUe6
-    9ExYL8FSafpFaUsrj/UjeSg6HgXfUr1JDlEWINQUh0ADGu21g6NYjgsfodzQfRWVk/aq3m
-    zJxge4gvzziUSpDcbyzvVfks2TDakAvbxPnjyi9Q0mGN99/lfiscu///v8x3dfFUn6JiAw
-    MN/m4hSLIU2TPE+zR2vhXQvj1udNT6515VDkx737OmbJZPg0jVmZs/uy0zp7H66TyKHELB
-    VArTxaa1cWblXsxZa6D3GNEDlvKxs7zSvA1ficFZ6cnf3vC5CTTJDSjVFEhKa2240K3ALs
-    6qllgaUuO35veKV776cX/BWXnBYv60Vk8a6xdrzJhTDPXYA7NW+87HKEaF3MAP3IAJZ9wy
-    VC6Rze2XtXBH8nv2Y94q1j5L2ggxLKPQ3gQh2GOKzTghjPlY51+Upf//G9+fLxDgXLgS1t
-    uL1SPTe2/E8arX9g46mYfQNnJLOO7ZlhfXlyAt+O4RMUkzt9HUT959SlQZkAgxMySfGIBT
-    Ir9RER45UT/RLdNfCdb9/SeCN2Z57Of/w5ltSXzEkEbzzdnZwTstLOIeu+8QOYHVdC2G4l
-    9EnZrCrRFb35hXscwM8x3YwjlJYgAsNsjYc2yNH5oRliwHqDgQbb/+h8Q7Ww
-X-ME-Proxy: <xmx:1NmjamTw1HdJ6DfYF_MRnZrH9JOQxaf-0o58JIfRo9xU59exJmk1-A>
-    <xmx:1NmjavvxikWedCMYkh_8ZsIVH_QX6VXH0EPtSHPhUIIr8pIp6Jx5sA>
-    <xmx:1NmjaoZA6zLDKDx7Rdz1tkdmxY8zdNJjCHK-A-lihqyww-XTI0DeNQ>
-    <xmx:1Nmjap_mUM_0j4nidK5MvjOXLoUHXvuA7bwSIibBiRo4qdlHuTbD4g>
-    <xmx:1dmjakppHIY4-36P-tIO1jSFLyocap6FWqduBu5pY6E4_LxYfrkTvXsN>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 11 Sep 2026 06:37:08 -0400 (EDT)
-Date: Fri, 11 Sep 2026 11:37:07 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "Verma, Vishal L" <vishal.l.verma@intel.com>, 
-	"x86@kernel.org" <x86@kernel.org>, "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, 
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "ak@linux.intel.com" <ak@linux.intel.com>
-Subject: Re: [PATCH] x86/tdx: Remove the early #VE handler
-Message-ID: <aqPTIyi--7f2Fzxm@thinkstation>
-References: <20260910-b4-tdx_remove_early_ve_handler-v1-1-bf47a4d360c5@intel.com>
- <b41da075607d1eaa9d96eddbf3acc24502edd604.camel@intel.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FeqWRFZj"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=qcidQxwh1HceK3n0EKSlmvhY5SFvKe+nZW7HpSIIh40=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789123076; v=1; x=1789727876;
+ b=FeqWRFZjB8+M+Fh50goi/A+OFT+O+HoW+UcXUzMyc+keEYtc8vXgvqs7sjmqfyU1CZNlAvJm
+ vqmT6wIAgWVFD/Vq4JI2c7t5jzOSMgZYOHKf71wTj88DVAzYPVZ+hgwYzJehSJ9do1xajFlRx0t
+ hJNQ9IlD44neFpl8/JxZ7IPo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 53bf64e9feeab3da;
+	Fri, 11 Sep 2026 10:37:56 +0000
+X-Mizu-Trace-ID: 53bf64e9feeab3da
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <74387fa7-b2e3-4b12-a75d-d192f08d14ac@linux.dev>
+Date: Fri, 11 Sep 2026 16:07:50 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b41da075607d1eaa9d96eddbf3acc24502edd604.camel@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next v2 05/13] bpf: keep the range across a sign
+ extension that cannot change it
+To: bot+bpf-ci@kernel.org, ast@kernel.org, daniel@iogearbox.net,
+ andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com
+Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ martin.lau@kernel.org, mason@kernel.org
+References: <20260910164635.459558-6-vineet.gupta@linux.dev>
+ <92fc8746a5a16b3e0e544244b584cc6b287a466539230bdb4043e0e8a716c9af@mail.kernel.org>
+From: Vineet Gupta <vineet.gupta@linux.dev>
+Content-Language: en-US
+In-Reply-To: <92fc8746a5a16b3e0e544244b584cc6b287a466539230bdb4043e0e8a716c9af@mail.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 10, 2026 at 08:39:47PM +0000, Edgecombe, Rick P wrote:
-> On Thu, 2026-09-10 at 12:28 -0600, Vishal Verma wrote:
-> > tdx_early_handle_ve() emulates port I/O for #VEs taken before
-> > idt_setup_early_traps() installs the real #VE gate. Per commit
-> > 32e72854fa5f ("x86/tdx: Port I/O: Add early boot support"), it exists to
-> > support earlyprintk's serial driver.
-> > 
-> > "earlyprintk=" and "earlycon=" are both early_param() handlers, so no
-> > console can be registered before parse_early_param(), which runs from
-> > setup_arch(), after idt_setup_early_traps() has replaced the early IDT.
-> > Nothing in the window between idt_setup_early_handler() and
-> > idt_setup_early_traps() does port I/O, so this emulation doesn't ever
-> > get called.
-> > 
-> > Remove the handler. Any #VE in the early window now falls through to
-> > early_fixup_exception(), as it previously did for #VEs that were not I/O
-> > instructions.
-> > 
-> > Found with the help of an LLM observing that the real IDT is installed
-> > before parse_early_param(). LLMs were also used to verify this. On a TDX
-> > guest booted with earlyprintk, a counter added to tdx_early_handle_ve()
-> > for testing remained 0 after boot.
-> 
-> The logic and history makes sense to me. I'm surprised early printk is not
-> useful this early.
-> 
-> Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+On 9/10/26 11:22 PM, bot+bpf-ci@kernel.org wrote:
+>> bpf: keep the range across a sign extension that cannot change it
+>>
+>> coerce_reg_to_size_sx() decides whether a sign extension is lossless by
+>> comparing the bits above the field in smin and smax:
+>>
+>>          top_smax_value = ((u64)reg_smax(reg) >> num_bits) << num_bits;
+>>          top_smin_value = ((u64)reg_smin(reg) >> num_bits) << num_bits;
+>>          if (top_smax_value != top_smin_value)
+>>                  goto out;
+>>
+>> Equal high bits do imply the truncation is lossless, but the converse does
+>> not hold. Whenever the range straddles zero the high bits necessarily
+>> differ -- smin sign-extends to all ones, smax to all zeroes -- even when
+>> every value in the range fits the field and (sN)v == v throughout. The
+>> second gate, "both of s64_max/s64_min positive or negative", rejects the
+>> same shape again for the same reason.
+>>
+>> So a register holding an errno-or-zero value, [-4095, 0], comes out of r0
+>> = (s32)r0 as the full [S32_MIN, S32_MAX] even though the instruction is a
+>> no-op on it. The no_sext test at the call site does not help: it is an
+>> unsigned check, so it only covers non-negative values that fit.
+>>
+>> Test the range against the field directly and return early when it fits.
+>> Sign extension is then the identity, so nothing needs updating -- which
+>> also preserves var_off, where the existing path would have replaced known
+>> bits with a coarse tnum_range().
+>>
+>> This only tightens: the early return fires exactly where the value is
+>> provably unchanged, and the cases the current tests do accept still take
+>> the same path and produce the same bounds.
+> Does the last sentence accurately describe the change? The early return
+> is placed before the top_s*_value and sign gates, so it intercepts every
+> fitting range, including those the existing gates accept.
+>
+> For example, with 'w0 &= 0x3c; r0 = (s8)r0', the register holds [0, 60]
+> with var_off = (0; 0x3c). The old path passed both gates (equal top bits,
+> both non-negative) and set var_off = tnum_range(0, 60) = TNUM(0, 0x3f),
+> losing the known low bits. The early return now keeps (0; 0x3c).
+>
+> This is the var_off preservation the message describes two sentences
+> earlier, so "produce the same bounds" seems inaccurate. Would "produce
+> bounds no wider than before" be more precise, given that the accepted
+> cases are where the behaviour actually changes?
 
-Rick, could you actually test it?
+Yes this is the right phrasing.
 
-Are we sure there's no other port I/O in before idt_setup_early_traps()?
 
-I don't see anything direct, but exception path is different story.
+>> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+> This looks like a bug fix for sign extension handling in the verifier.
+> Should this include:
+>
+>    Fixes: 1f9a1ea821ff ("bpf: Support new sign-extension load insns")
 
-native_machine_emergency_restart() does port I/O for BOOT_KBD which
-seems to be reachable and leads to #VE with the patch:
+This is a limitation not really a regression - I doubt if this would be 
+backported.
+but up to the maintainers.
 
-machine_emergency_restart()
-  __machine_emergency_restart(1)
-    machine_ops.emergency_restart()
-      native_machine_emergency_restart()
-        reboot_type == BOOT_ACPI (default)
-	acpi_reboot()
-	reboot_type = BOOT_KBD
-  	  kb_wait()
-            inb(0x64) --> #VE
+>> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+>> index 58e788f53ae5..eb093194e2a3 100644
+>> --- a/kernel/bpf/verifier.c
+>> +++ b/kernel/bpf/verifier.c
+>> @@ -5754,6 +5754,7 @@ static void set_sext64_default_val(struct bpf_reg_state *reg, int size)
+>>   static void coerce_reg_to_size_sx(struct bpf_reg_state *reg, int size)
+>>   {
+>>   	s64 init_s64_max, init_s64_min, s64_max, s64_min, u64_cval;
+>> +	s64 field_smin, field_smax;
+>>   	u64 top_smax_value, top_smin_value;
+>>   	u64 num_bits = size * 8;
+>>
+>> @@ -5773,6 +5774,27 @@ static void coerce_reg_to_size_sx(struct bpf_reg_state *reg, int size)
+>>   		return;
+>>   	}
+>>
+>> +	if (size == 1) {
+>> +		field_smin = S8_MIN;
+>> +		field_smax = S8_MAX;
+>> +	} else if (size == 2) {
+>> +		field_smin = S16_MIN;
+>> +		field_smax = S16_MAX;
+>> +	} else {
+>> +		/* size == 4 */
+>> +		field_smin = S32_MIN;
+>> +		field_smax = S32_MAX;
+>> +	}
+>> +
+>> +	/*
+>> +	 * The range already fits the field, so (sN)v == v for every value the
+>> +	 * register can hold and the sign extension changes nothing. The tests
+>> +	 * below cannot reach this case once smin is negative: a negative smin
+>> +	 * and a non-negative smax never share their high bits.
+>> +	 */
+> Is the comment's condition accurate? It says the tests below cannot
+> reach this case once smin is negative, but the justification only covers
+> a negative smin together with a non-negative smax.
+>
+> A fitting range that is entirely negative is reached and accepted by
+> the tests below. For reg_smin = -63, reg_smax = -1 with size == 1:
+>
+>    top_smax_value = ((u64)-1 >> 8) << 8 = 0xffffffffffffff00
+>    top_smin_value = ((u64)-63 >> 8) << 8 = 0xffffffffffffff00
+>
+> The first gate passes (equal top bits), and the second gate also accepts
+> since (s64_max >= 0) == (s64_min >= 0) holds for both negative. The same
+> is true for entirely non-negative fitting cases like [0, 60] with size == 1.
+>
+> So the early return intercepts cases the tests below handle, which is
+> the var_off-preserving improvement the commit message describes. Should
+> the condition be "once the range straddles zero" rather than "once smin
+> is negative"?
 
-Could you check if the patch changes panic() behaviour in the window
-before idt_setup_early_traps()?
+Yes this needs fixing.
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Thx,
+-Vineet
+
+>> +	if (reg_smin(reg) >= field_smin && reg_smax(reg) <= field_smax)
+>> +		return;
+>> +
+>>   	top_smax_value = ((u64)reg_smax(reg) >> num_bits) << num_bits;
+>>   	top_smin_value = ((u64)reg_smin(reg) >> num_bits) << num_bits;
+>
+> ---
+> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+>
+> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34506184282
+
