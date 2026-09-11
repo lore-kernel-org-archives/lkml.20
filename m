@@ -1,106 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4507949B210
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:33:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37504A0925
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:34:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789144441; cv=none; b=ZB7my2khxAXQtXwY8mTBO+QZmu1xyWdtfgNFotWpEMHpefmA7e6/7sSGRYHH3XWEp9n7ppBYf/Rh99ZC0OfZfUmpjgSxwi2dIc1IQPN6BIuQC917bglYWc385+TpX2295ebK4kOizGTN0NRFkChZPJdLOCzbTiJFzCMLP/yZQm8=
+	t=1789144492; cv=none; b=doN+Gwv3kj0yFYbqt7wsmW8XFx6d6j8u/5TF3CCQOJ37ObAxHV1gq6vKwloPddgqb3nHREaiNUWnJfgacrz8ytpg70YYREtGOFtsB9cc6NvXZhI6R6Vm2hy85R//3NWOUoM0hYvCRp9njgaXRL7Y86xwlz6VSH1ArAdPHbK3Zdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789144441; c=relaxed/simple;
-	bh=msCS5tCKdjtIEc2/jXg5PZJFqnLBA0ZMyQ3RC0Rf5xw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CoZ25GCfzSTgfFBf54XLanDrqRKdhO5prXtzU+cpWUy8Q4G4AMAZUzhfy1gicVRtysIG4Gm67wJl7kql0xQIg8ajOncS2gtLUMXYIizqF2Ks6tLV+QvZH2OuqAHFolqI2wgOrwBdbkn4UD1Qk1sJMa1DJWT70ell+SVNDgZGCcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bRKUvGVl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789144492; c=relaxed/simple;
+	bh=LEJvde1T1QgWV4JszP/5nGakWdX6yAxYHLWmT6I4mrg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ck44xyQwIbO6a+JVgOzUINn0sQ4hxh7RqNh4STpWph292LDeyN3Inrot2if5ZlKcxvuTgwUo/uKL62Gx8Um29RkGOZELfW9vzcelYeZQoPFLa4YOjuxMr6z9kMPi3VysRtgKuRByx8DO/oyy8OixJyRDgbfkV6Y9p6R61KEcxIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IVLbI6WG; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bRKUvGVl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ECFD1F000FF;
-	Fri, 11 Sep 2026 16:33:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789144439;
-	bh=6W0lMrOglM3ZrRlDWL8dh3teSU0pXkZqsr+VimgF2RU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bRKUvGVl2nMVS0xG5tDBvi1PSTwbbkDdlC4yggWT+BTrCBFjSt0awW4kRDNMdXoYT
-	 VSy+K/YMI9gYu/jenVXoTe9+sn6l3fWHF+tLwSfEHrUWypsiBDFnyCY/fwwCfeN2oP
-	 WeXh7/s8FvQccLsyoNEz3vvLANX7VGQAPIU+untQJGxUaUhLpEt6pnkUcsfuIXmRdb
-	 WAb8sp9zd8XiIiwKfXTMDudPtBAt8XUgQ+05aW9o1WcN7e5UHmBLxfhguVJO5Ha1m6
-	 +3CUDqx6MaBMbKeWKiZ7a8hks+x5ee8G1oIPE9dhUiew/8jnsTv6H+RaRne6B87dNC
-	 /RYxPnpGgg1dg==
-Date: Fri, 11 Sep 2026 11:33:56 -0500
-From: Serge Hallyn <sergeh@kernel.org>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Yazen Ghannam <yazen.ghannam@amd.com>, x86@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] x86/amd_node: Fix PCI device reference counting in
- amd_smn_init()
-Message-ID: <aqQtdHUN3NVQI9yu@shallyn-amd>
-References: <20260903154325.74343-1-yazen.ghannam@amd.com>
- <apnMZINAYLpwkcS2@shallyn-amd>
- <20260911030303.GCaqNvZ3QRcCLSmzja@fat_crate.local>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IVLbI6WG"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b9184fa80so1194225a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:34:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789144490; x=1789749290; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=drA4MbAbfA7Yk2ZplEVuf7AbjA5LPX00J45ZkvRmoLA=;
+        b=IVLbI6WGRbFI1xnN9QU+FbHVOA8KUFwuNO0fkeJVWjFvTPtRCv0Rxu/4udk9c+uvjW
+         f2v0IgliQLGZrg1MTS9uuGGIfGykmjC02VGaxLXefzX2J6nTsCe7anc0JLng0Hd8B+/J
+         BDE+CDae7VZoAfWeyh7cu1kvAZp9T71oP+UF1lUj8dKEzI1HW2EkxFcf56ohy4bXnKFy
+         zK8ExNB3YC0aLorMb+JTAIJZcggXZ492Qt1xAbaJnMkB5vHwTB6+AE9+CtgAapWknlJz
+         CS6trkDAHo7vKkDdPPXYaWZKpNwUUT38qxcVfWKr/ps8e9B066BNNCRLdiDbWylnTD1R
+         Jscw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789144490; x=1789749290;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=drA4MbAbfA7Yk2ZplEVuf7AbjA5LPX00J45ZkvRmoLA=;
+        b=jcAuIsdvB4TRrAJm/B+geRJjWaUn4JT8EivZ/Xi925GMModce6JgBbCme05+62jeu3
+         OC3lz+cgXMOxlSHGPLOIcS4ZPIcpB/SaKyaEa8QWFMYyF8ZPEfIY50svXcXrXyBtoxbF
+         5xl80ZnX22ljYQWl52yRiBafBUEb1jShDXw8BEi/VbDNMnTxgNxct0Gnccs74KYO1Cx/
+         fFBQmEkaA4vNvp9JEcfIaOn7WzsjkGORl+81HKBzEw8GVc1IPr42te8rgSGnGhg+lC9v
+         D1PE1LQmfGCMNzDf28/JHMkuj71aL+waowMINxtoy9ujsPXPiN9VPC1iQ4x8CNHsXeHg
+         BICw==
+X-Forwarded-Encrypted: i=1; AKwUvBwUi1ptAR+XG4BSUWZe8RTU8lPlQPW5xvnUCr5qATtwq19l6+3EdWOHpQJ5yx3rbCRZSx8LFc75ijJBuZw=@vger.kernel.org
+X-Gm-Message-State: AFuF++ntXhWD2ZsQ/SrUhydTydt/84ao7SXogZrl4iWBE8lwFZyGRVcQ
+	l6CwB8Mm2+aX6kf3qo/vwnNh9mkU9hcVcjWIgItXqQBLhygk9eMiooeY
+X-Gm-Gg: AYBFou2wF6t2vkjcVwPncehGGLxSDeskzV+pB0xvco6OdDVjihxIcLzCEi6Hb/UTGq9
+	UXyrnD6cfEjbU/yuzz9KItosbhxMQbbvY/2y4O90RkkQQbfDDg96JUxvnTwlfpBpek37UsYrUc2
+	/mHgtj41wPYybqjAOGK8BYwUM1Er0tXWLM3LzCfFlLsF9A9vphJR8VEWNtx8JMx5PKwozDhHAKz
+	V3JDENmSl4Araq2NqKegoOckw+zjjbfq31Jpu1m6UmEJYKWjWH9nROQNYXasVZihqMmeq12AWBl
+	MSLIvOpNZ/ssQ2+8xEt6tIvRSW2hKTyL/XDkdryfaa0h5chI6Uq2WTUVfROpZNwcl3kvG/rWKUS
+	O0pS+llF8NTM5yw/5KoeBBrBcxANPfOAewCztFxKSBQDG+ZC6GqYgMMagN1ouZKzIJcfFkCT+hC
+	L0mERVGZ7ZqHZtUUBWQ/CQXhnW5UajOQUaYAm2CiUqrWegl6tVExT3HHN+M6oR2v2WrHtZ8N2Zs
+	Jwmmq5tE9sz51sGMDoELxziodhEMFuVR8uRqH2Zj7uXR5LdFQ==
+X-Received: by 2002:a17:90b:498c:b0:39b:2b10:d05c with SMTP id 98e67ed59e1d1-39d9bbfa327mr9043413a91.5.1789144490077;
+        Fri, 11 Sep 2026 09:34:50 -0700 (PDT)
+Received: from ?IPV6:2406:7400:56:e503:ad72:fda5:83e8:be95? ([2406:7400:56:e503:ad72:fda5:83e8:be95])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d951d6b08sm6058803a91.8.2026.09.11.09.34.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 09:34:49 -0700 (PDT)
+Message-ID: <327e3afc-0803-4ca4-9c76-249077ab9b2e@gmail.com>
+Date: Fri, 11 Sep 2026 22:04:42 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911030303.GCaqNvZ3QRcCLSmzja@fat_crate.local>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/5] cpuidle: psci: Initialize the PM domains in
+ powered off state for OSI
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
+ Sudeep Holla <sudeep.holla@kernel.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, linux-pm@vger.kernel.org
+Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Christian Loehle <christian.loehle@arm.com>,
+ Maulik Shah <maulik.shah@oss.qualcomm.com>,
+ Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
+ Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260907111659.263324-1-ulf.hansson@oss.qualcomm.com>
+ <20260907111659.263324-5-ulf.hansson@oss.qualcomm.com>
+Content-Language: en-US
+From: Dhruva G <goledhruva@gmail.com>
+In-Reply-To: <20260907111659.263324-5-ulf.hansson@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 10, 2026 at 08:03:03PM -0700, Borislav Petkov wrote:
-> On Thu, Sep 03, 2026 at 02:37:08PM -0500, Serge Hallyn (AMD) wrote:
-> > On Thu, Sep 03, 2026 at 10:43:25AM -0500, Yazen Ghannam wrote:
-> > > The local "root" pointer is a temporary variable used during the device
-> > > search. Therefore, refcount related to the search iterators should be
-> > > cleaned up after the search is complete.
+On 07-09-2026 16:46, Ulf Hansson wrote:
+> At the point when the PM domain and the topology are registered through the
+> genpd subsystem, it's not really known whether corresponding CPUs are
+> online and thus if the PM domain should be initialized as powered on or
+> not. Instead this information becomes available when the CPU devices gets
+> attached to their respective PM domain through dt_idle_attach_cpu().
 > 
-> Ontop of this:
+> This is a problem when using PSCI OS-initiated mode, as we may end up with
+> a PM domain that has the genpd's status indicating it to be powered on,
+> while it in fact may not be the case. In the less severe scenario, this
+> leads to selecting a shallower domain idle state for the PM domain than
+> necessary. A more critical problem is when a non-CPU device shares the PM
+> domain, leading to their corresponding drivers not being able to trust the
+> status of it.
 > 
-> From: "Borislav Petkov (AMD)" <bp@alien8.de>
-> Date: Thu, 10 Sep 2026 18:43:33 -0700
-> Subject: [PATCH] x86/topo: Initialize AMD nodes per package
+> Let's fix these problems by initializing the state for the genpd's to be
+> powered off and in the deepest possible domain idle state, when using
+> OS-initiated mode. The support for ->sync_state() is maintained by setting
+> the GENPD_FLAG_POWER_UNKNOWN for the genpds in question.
 > 
-> Sashiko reports that
-> 
->   If amd_num_nodes() evaluates to 0, kzalloc_objs(*amd_roots, 0) returns the
->   truthy ZERO_SIZE_PTR (typically (void *)16).
-> 
->   Because ZERO_SIZE_PTR is not NULL, the subsequent check for !amd_roots will
->   fail to catch it, resulting in a divide-by-zero kernel panic on the very
->   next line during the __init boot phase.
-> 
-> Make sure topology_amd_nodes_per_pkg() doesn't return 0 - the AMD nodes per
-> package count can be trivially 1 if detection fails just like the rest
-> of the max* and num* packages topology attributes.
-
-May not be worth it, but should we also add a num_nodes == 0 or
-ZERO_OR_NULL_PTR(amd_roots) check, in case as code churns we
-end up with another way for amd_num_nodes() to return 0?
-
-> Closes: https://sashiko.dev/#/patchset/20260903154325.74343-1-yazen.ghannam%40amd.com
-> Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+> Reported-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
+> Link: https://lore.kernel.org/all/20260811-domain_off_ss3-v1-0-6a0a0fc023f5@oss.qualcomm.com/
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Tested-by: Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>
+> Signed-off-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
 > ---
->  arch/x86/kernel/cpu/topology_common.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/arch/x86/kernel/cpu/topology_common.c b/arch/x86/kernel/cpu/topology_common.c
-> index 6845e3c63fbb..7a7442981594 100644
-> --- a/arch/x86/kernel/cpu/topology_common.c
-> +++ b/arch/x86/kernel/cpu/topology_common.c
-> @@ -14,7 +14,7 @@
->  struct x86_topology_system x86_topo_system __ro_after_init;
->  EXPORT_SYMBOL_GPL(x86_topo_system);
+> Changes in v3:
+> 	- None.
+> Changes in v2:
+> 	- Fix a bug in the call to pm_genpd_init().
+> 
+> ---
+>  drivers/cpuidle/cpuidle-psci-domain.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/cpuidle/cpuidle-psci-domain.c b/drivers/cpuidle/cpuidle-psci-domain.c
+> index b9e4ad7d43a3..4d8c63d329c2 100644
+> --- a/drivers/cpuidle/cpuidle-psci-domain.c
+> +++ b/drivers/cpuidle/cpuidle-psci-domain.c
+> @@ -68,7 +68,8 @@ static int psci_pd_init(struct device_node *np, bool use_osi)
+>  	 */
+>  	if (use_osi) {
+>  		pd->power_off = psci_pd_power_off;
+> -		pd->flags |= GENPD_FLAG_ACTIVE_WAKEUP;
+> +		pd->flags |= GENPD_FLAG_ACTIVE_WAKEUP | GENPD_FLAG_POWER_UNKNOWN;
+> +		pd->state_idx = pd->state_count ? pd->state_count - 1 : 0;
+>  		if (IS_ENABLED(CONFIG_PREEMPT_RT))
+>  			pd->flags |= GENPD_FLAG_RPM_ALWAYS_ON;
+>  	} else {
+> @@ -78,7 +79,7 @@ static int psci_pd_init(struct device_node *np, bool use_osi)
+>  	/* Use governor for CPU PM domains if it has some states to manage. */
+>  	pd_gov = pd->states ? &pm_domain_cpu_gov : NULL;
 >  
-> -unsigned int __amd_nodes_per_pkg __ro_after_init;
-> +unsigned int __amd_nodes_per_pkg __ro_after_init = 1;
->  EXPORT_SYMBOL_GPL(__amd_nodes_per_pkg);
->  
->  /* CPUs which are the primary SMT threads */
-> -- 
-> 2.53.0
-> 
-> -- 
-> Regards/Gruss,
->     Boris.
-> 
-> https://people.kernel.org/tglx/notes-about-netiquette
+> -	ret = pm_genpd_init(pd, pd_gov, false);
+> +	ret = pm_genpd_init(pd, pd_gov, use_osi);
+
+If CONFIG_PREEMPT_RT=y,
+
+psci_pd_init(use_osi=true)
+  -> sets GENPD_FLAG_POWER_UNKNOWN
+  -> sets GENPD_FLAG_RPM_ALWAYS_ON
+  -> pm_genpd_init(..., is_off=true)
+  -> genpd->status = GENPD_STATE_OFF
+  -> RPM_ALWAYS_ON + OFF is rejected (pmdomain/core.c: pm_genpd_init() 
+				      rejects an RPM_ALWAYS_ON domain whose initial state is OFF)
+  -> return -EINVAL
+
+Therefore, on a PREEMPT_RT platform using OSI and hierarchical PSCI domains, psci_cpuidle_domain_probe()
+should fail while initializing the first domain. The genpd providers are then unavailable, so 
+dt_idle_attach_cpu() fails during PSCI cpuidle initialization and the driver rolls back its CPU
+registrations.
+
+I don't have a device on me to test this path, perhaps one of the QC devices + RT config
+can reproduce this?
+
+Should PREEMPT_RT case instead initialize these domains as ON?
+
+This might be safer here atleast:
+
+ret = pm_genpd_init(pd, pd_gov,
+		    use_osi && !IS_ENABLED(CONFIG_PREEMPT_RT));
+
+Regards,
+Dhruva
