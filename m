@@ -1,73 +1,76 @@
-Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B991030C60F
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:10:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC063E5EF2
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:11:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789096225; cv=none; b=T+NrratvY8G3OmhokjL+JXMGyPgnwt3Gf9goVP5rwphyX+kbVjvs8x6k4ieX4UX3Zz9DxiZBq3umnAuItySiP5y+kvhN6GmJ9vrecKlTa2tcUFjsXRfJ2z9ZZ26j8lYQoXNAm4sW+hxVGU9sJlJXpd2xc4whZljPnnAqDiQ722Q=
+	t=1789096291; cv=none; b=f++DJ3A3gQJjLHhY7aphNHOWIYdYn1nAdDV2BzS8UWHMpaPa9pWQTX7tSwKYiFwVszPwP8fBwO5n/lcttkl9Fj5zEjdmsiQANgaHfriCs+FlGBAVRHUoQ6UAsdnp2u2ezuVJ1N48Gb4SBbdg5nToblr950CvjSLKWvIeF+28pQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789096225; c=relaxed/simple;
-	bh=Lhtai34JnNJX35WDokE40hIm/9HligBsTA8PHOKgR2c=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=odDiiugfy3gI0drrkgwUC31uo4Ts8XamffcZbaPYm4MdKv02G8wTpMYJRs/OphXtyXZt60CA8201WRlycZjPsd2kgG2waSy+LWhUk/1lv5O3pIeB3P31fzMpJi4G29InAtP5BNibIT8vtkBmmtw21VcFTz5MIkugn8b+CLvSIig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j6HOTPjk; arc=none smtp.client-ip=74.125.227.129
+	s=arc-20240116; t=1789096291; c=relaxed/simple;
+	bh=IsH/uiXS6PCMYKUcTa6HJLyo15+CD5yZpyixAyCfD84=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q/d9uf/gXdepHacezuHjD2SWiGx7Fs2LPusYlmK3gmEDETtDdCfRiD7+nui7WrEjmaxUQT8C/9gYoJ3Dq/buNgXtlWeVzU6osUBYrKMwCZLDJc00Lz/E06gJ+1OKLBB3qwoLQxdmFhiTo2LeqHUMtbKdcG0p2Wh2tP3kIoYQzvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dgm6T8Kx; arc=none smtp.client-ip=209.85.222.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j6HOTPjk"
-Received: by mail-pj2-f1.google.com with SMTP id 98e67ed59e1d1-398e10200a6so226076a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:10:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dgm6T8Kx"
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-9377f717879so32327885a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:11:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789096223; x=1789701023; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789096289; x=1789701089; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dtc34+Z5/QntunTf9WdL8o2+F8D64gPTWfEUx32hdlc=;
-        b=j6HOTPjkjnZ89MDIxUspp95jKxuIqR5GLuBVozFa+1SwbnXwDS/UsxUzmqse/jDMbY
-         rrk6mmH4POov4eQSRDxTKhDM4dkK1KfDb7POIocq50lizmWvmyIl5EKtJvsrKhE7ct/D
-         xjboEZOeOMSpPSM7N20dxqV1pUamkUF7JFUBHckJ2dYVHGwTnDOSA+LPvQ49s1tpWmQt
-         2IZtE1XMEowp4XM+wyDOp8MgOY9+W1+Hj5eT8uxekb6bUUqWAVvmFuBpsKI2JrBbRlvK
-         9SzVLn1FIU2OwqpgTMHLXYUQIdUgcaPmqpRbTaITLie7mZnuXxB8dNuRuuEMjzKrJ6YD
-         ZGFQ==
+        bh=W+7mpvDw1F56ZPu1ONqje79/4zvVptkv9Mg6Nl0mTjo=;
+        b=dgm6T8KxbyCxESOM4r/q/CFHYw+ksIcv+MUJ3BZwIginVpvVqLvs+KULqtJcreG2o7
+         /UdQXv36CbYJ8MwUmKKUJSOsU35ohzJ5onzRDnK1z6uojOhOWuYal6KhFvSGVIJmMDYn
+         Bbapo5gb0sk05iUt/utI5HQO5Ah/vkZDoTsDbljbwMAvM+LZd/AcNcetPwy64WXgZw6z
+         5ZjXrDI5fdOSEr2/mr9cvcNuD60AO4QvtDMxBB7fFdWRujCWC0xRJ3277xO+vFK1ciMX
+         8KtmCCIcgcP2463cBXEl3ZHoQDutfsAxyFbaU5Vz3lYI/nbyA7Od91GKcmUuagGKfdcl
+         3UGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789096223; x=1789701023;
+        d=1e100.net; s=20251104; t=1789096289; x=1789701089;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dtc34+Z5/QntunTf9WdL8o2+F8D64gPTWfEUx32hdlc=;
-        b=UwetOQAsF2YGANUOOTOqZq3J2EPVqbhWdPgH01U2cx8MBZEA3qQUUA1z+EOYve6Ev2
-         wmbfpF+ar02yJhx979WSWEr8dJvNIIm7A8byZ9mXBZkHm75mlvzpv3VXLhk6Vt9gvwxZ
-         QgTeK0CssbObjoaVlRHG6/eUrRaQpr+jfiuYDwOdlr78S+BNMhFDJP9xWROspHMCkJS/
-         ZMmDxeQbF3VTN4j816P3S9EnCu/dV6XIVEhO+zBNZpJ/M9sN9HDYBcnhCh/V5YM3N/VF
-         0T3nSbiX8wHKBp4jw8nB9GTL8Sw4WJFEFFm6qtzJckrupkXsyPGY15kCYO6bIUoXBdXk
-         rPNg==
-X-Forwarded-Encrypted: i=1; AKwUvBy/7i4MA1wvmxHArIzBZSOkL/IHYEJApmwk2E4mISh11kax6Fj42coZdPp331jOPW3OP4t0g9zkAkpEuw4=@vger.kernel.org
-X-Gm-Message-State: AFuF++k2XstKJbTqE62GyF22KDSvohs/vvvwWsBWMGR2lkNOk+FwBZUK
-	5N5kuurl64Dm/Bd4ibHMZ+tdT8FpX0elw4UhlikfEDgi7ylrnV4C6fZ8
-X-Gm-Gg: AYBFou2KSS4FjtIPgoz51T9R+S1QDfUnIqbt0pk//OPm6q+7Olp+smqQrUMjH5M3A1l
-	povYLJnOYh6eV5W1LXpDwV73F5R53ahQhgjSnVNZBc6I7Pb9mZm9JUv+ornmmlCHgGfNqdoKY3k
-	O9r/HbuzSGEgUFgmahSNKfgbSIo2D3bWzD8x0BXXl3ftuGncj8ipg0AQoI+NWnV74r7rtDXeATi
-	KG86yPzLw6nXC5GGovSs1z4/HlGqsmTnvK6tXh/p+CldV5J7upVZwhW+eFT+ydNPw4/ycLTmhv3
-	QV0ceiS6oL2fcuQfXnwu/IBbt5y+FYYdt4UbSe8jZRWikj0WYIXXAPJRh2RkYBoKU8WjYWB1sgV
-	d/EIcoBefbxj6WPc7DSrU0yl0nZd76BRkdXty1/HoGxAKaklcxisLWt9z4LY7wjbm/kUFHwmOdC
-	u4OrH0izoeYEU4g9anylSvHfI1jOYswZVRIE0H92xBSmGM7yO2/JmANraXert0CZNAxAS5kqI7/
-	eyXbQ23Mzj3Jq4xN4YL
-X-Received: by 2002:a17:90b:5287:b0:398:9bd5:490d with SMTP id 98e67ed59e1d1-39d9c22e224mr3463607a91.20.1789096222067;
-        Thu, 10 Sep 2026 20:10:22 -0700 (PDT)
-Received: from embedsky001.tail6d6b2f.ts.net ([183.34.211.247])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9959ac65sm1981207a91.16.2026.09.10.20.10.19
+        bh=W+7mpvDw1F56ZPu1ONqje79/4zvVptkv9Mg6Nl0mTjo=;
+        b=UsTXbYOr6YFuknmtcKE+H1pPazlU6YuhtYprkUgaODMAMp/FWXfObyULygi/9G6VrP
+         ziciSPChaWPkIgG1jLPauSs59/+YaP69TSLHsqrtsdmrbbQgoTvW41toAd/I1PPOjbPA
+         udgqb+ZPpa9kXa25mvpIK50G5a1NwEqnrekXTDeDYUyb8LXb9iAaF5q/pgwzCMt7PPub
+         N0c0oXoLQvLQNpx+FAyT1LHY7TnuYPMP12Ne53A/5fLguaFwoZ+1kYhNAtK1/xf/scRU
+         Qjwp1kXaokDBFQGPXUBytBGmVWOvMNhe6mdcW+MJmxVR2zjkpu38rz0T/zQYvz1vIOej
+         8JSw==
+X-Forwarded-Encrypted: i=1; AKwUvByb30JpNc0zusHYm4fDzYx853qO0eDMypv7G9fOQMhvjjPEyVPRXFwSPeOt+T3yd23mKwiYKiXS8vegPo0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGvVB51wMT5rbH5ma8gb4TVDhkXMHtbT+SD73gxcYdhn7IXDQy
+	XwC1punqOoFlAaNEKGjivvCcHpkcUc8C+AcCt4Oi4nHkeK8W9z0vh39f
+X-Gm-Gg: AYBFou0PB5WJ0il2p9AOm2p+pA3X7oNRiPuW3D3l02bNXrmkD+FheRgV+yuK4IxP3uL
+	IgmuudnHagogOysYqO0dC56tWOlMAYzLSlgsxQSE6bWq3X1d/eu5hTYXtsdYfoumpBn1C1cxWuj
+	hKwCOG0yNZxMTegVH8kC1omU16iM8alSsosi1a0fOOeextzigvIcFIa4dThqMnRoNLBUxVnbHiG
+	LwET/jU3MZ7mw+YcFKWCvEigwD5sU6N7JT7APKMLgLELmE/SNxWwcO1H9UzQqzN7MR/e3zVswb/
+	Bjcpo+PjkW1RTnPaPyOTkLtTGSlpDYOkVcw8EmRbKOdszQV4XXQ7yNXOohN14EvAE+nMG6u4p1J
+	f/rPiyLEQm9FGm9oXSFEeJur+9GCAPhzRXiGAo59jo7jSeCZ0dmWv0/41zFfylwz/IOjSuSiiX9
+	cAXAeDXgfmRC6w9i8whqgTh1Pd1d5OQ2phnENjSN79gE1MUkzWupFjP6gfNVbAYZ5yk0ZYPzqNW
+	HpYoWCRzfE/bWIaZg==
+X-Received: by 2002:a05:620a:1a08:b0:934:970a:beb2 with SMTP id af79cd13be357-939ea22a13cmr252005985a.26.1789096288727;
+        Thu, 10 Sep 2026 20:11:28 -0700 (PDT)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e80bfc90sm136878085a.37.2026.09.10.20.11.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 20:10:21 -0700 (PDT)
-From: Yonghao Zhang <hyz3367@gmail.com>
-To: andersson@kernel.org,
-	mathieu.poirier@linaro.org
-Cc: rishabhb@codeaurora.org,
-	linux-remoteproc@vger.kernel.org,
+        Thu, 10 Sep 2026 20:11:28 -0700 (PDT)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: Anton Yakovlev <anton.yakovlev@opensynergy.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: virtualization@lists.linux.dev,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Yonghao Zhang <hyz3367@gmail.com>
-Subject: [PATCH] remoteproc: sysfs: Fix stale coredump attribute documentation
-Date: Fri, 11 Sep 2026 11:09:44 +0800
-Message-Id: <20260911030944.1645477-1-hyz3367@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	stable@vger.kernel.org,
+	Yuho Choi <oss.patchbox@gmail.com>
+Subject: [PATCH v1] ALSA: virtio: reset device before deleting virtqueues
+Date: Thu, 10 Sep 2026 23:11:21 -0400
+Message-ID: <20260911031121.1542502-1-oss.patchbox@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,54 +79,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The documentation of the 'coredump' sysfs entry still advertises a
-"default" configuration option and describes it as the default value
-of the entry.  Both date back to before the option was renamed to
-"enabled" and the default configuration was changed to "disabled".
+virtsnd_remove() and virtsnd_freeze() delete the virtqueues before
+resetting the device. del_vqs() frees the vring backing, but does not
+provide a generic device quiesce operation. In particular, modern
+virtio-pci keeps enabled queues active until the device is reset.
 
-Update the comment to describe the three options the store callback
-actually accepts, "disabled", "enabled" and "inline", along with the
-real default value, and fix the coredump_show() comment which wrongly
-claims the configuration is exposed via debugfs.
+Reset the device before deleting the virtqueues so it can no longer
+access the vring memory when that memory is released. This also covers
+probe failures after DRIVER_OK, which unwind through virtsnd_remove().
 
-Fixes: bf41a0910cb2 ("remoteproc: Change default dump configuration to "disabled"")
-Assisted-by: Claude-Code:glm-5.3
-Signed-off-by: Yonghao Zhang <hyz3367@gmail.com>
+Fixes: de3a9980d8c3 ("ALSA: virtio: add virtio sound driver")
+Fixes: 575483e90a32 ("ALSA: virtio: introduce device suspend/resume support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
 ---
- drivers/remoteproc/remoteproc_sysfs.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ sound/virtio/virtio_card.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/remoteproc/remoteproc_sysfs.c b/drivers/remoteproc/remoteproc_sysfs.c
-index 925b0cdbe577..c37736ff4acc 100644
---- a/drivers/remoteproc/remoteproc_sysfs.c
-+++ b/drivers/remoteproc/remoteproc_sysfs.c
-@@ -76,7 +76,7 @@ static const char * const rproc_coredump_str[] = {
- 	[RPROC_COREDUMP_INLINE]		= "inline",
- };
+diff --git a/sound/virtio/virtio_card.c b/sound/virtio/virtio_card.c
+index 647190f4d5afc..6f35276416fed 100644
+--- a/sound/virtio/virtio_card.c
++++ b/sound/virtio/virtio_card.c
+@@ -354,8 +354,8 @@ static void virtsnd_remove(struct virtio_device *vdev)
+ 	if (snd->card)
+ 		snd_card_free(snd->card);
  
--/* Expose the current coredump configuration via debugfs */
-+/* Expose the current coredump configuration via sysfs */
- static ssize_t coredump_show(struct device *dev,
- 			     struct device_attribute *attr, char *buf)
- {
-@@ -87,14 +87,15 @@ static ssize_t coredump_show(struct device *dev,
+-	vdev->config->del_vqs(vdev);
+ 	virtio_reset_device(vdev);
++	vdev->config->del_vqs(vdev);
  
- /*
-  * By writing to the 'coredump' sysfs entry, we control the behavior of the
-- * coredump mechanism dynamically. The default value of this entry is "default".
-+ * coredump mechanism dynamically. The default value of this entry is
-+ * "disabled".
-  *
-  * The 'coredump' sysfs entry supports these commands:
-  *
-  * disabled:	This is the default coredump mechanism. Recovery will proceed
-  *		without collecting any dump.
-  *
-- * default:	When the remoteproc crashes the entire coredump will be
-+ * enabled:	When the remoteproc crashes the entire coredump will be
-  *		copied to a separate buffer and exposed to userspace.
-  *
-  * inline:	The coredump will not be copied to a separate buffer and the
+ 	for (i = 0; snd->substreams && i < snd->nsubstreams; ++i) {
+ 		struct virtio_pcm_substream *vss = &snd->substreams[i];
+@@ -383,8 +383,8 @@ static int virtsnd_freeze(struct virtio_device *vdev)
+ 	virtsnd_disable_event_vq(snd);
+ 	virtsnd_ctl_msg_cancel_all(snd);
+ 
+-	vdev->config->del_vqs(vdev);
+ 	virtio_reset_device(vdev);
++	vdev->config->del_vqs(vdev);
+ 
+ 	for (i = 0; i < snd->nsubstreams; ++i)
+ 		cancel_work_sync(&snd->substreams[i].elapsed_period);
 -- 
-2.34.1
+2.43.0
 
