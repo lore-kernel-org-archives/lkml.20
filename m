@@ -1,380 +1,234 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013007.outbound.protection.outlook.com [40.93.196.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1185130EF92
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 20:46:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789159573; cv=none; b=DFAOZzg6biY7RqO21DXtL/jw+PSYPgl4kzD4s4ovw9QRNPRfV65Mj3gtZdNMJw4Ny+RY/irMHtZgcQgRv9ZYMKfGF2BrzHwQ6+dIl7jQwi1SNgN0BuFnfBjGf575NpLNGZ2yNMINyFIBS7SxWW509FjAKRGGk278ykWkQ6+Uduw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789159573; c=relaxed/simple;
-	bh=TT31i/fvUvTxHsWhpTQxj3jthDXVh6uvrE98k1zovWs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IEILBZZzc3g8WN8qJ5g43ngRPdrucLW91A45JR8TK1L8SrmlLGt4k0Jd8MlrgKKcTllqcxQmAtsJ8Vq6x7q9GyWV7xdBvm5XT+RVKML1dxTBcHS2Qzq5ZjSxZbZF3PquxhXwdO3k+rCbTOWV9+UzFd7gD8iGSW3P6+aNyUPqZVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hYvmOzL3; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59BAA4AF175;
+	Fri, 11 Sep 2026 20:51:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789159866; cv=fail; b=Taqj/TvRLUBONzO+YvsmO3bHlsHHrnhb/eJ6Pw2e3HGiuDOjClVernJss39p3Hh30RwwHCcpQtH9furRXH2aN9xFdj0yI2NOM9+J9ojb7srWUn7IKPEIq/yWqZCyslPtku6UIzwNQaOpi84D7oGN1ZR2gfkf9ItrY0ZMO2eHuFA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789159866; c=relaxed/simple;
+	bh=+hfdXQ7vp6U4SUpJtfQ4EvkAy0y4l8atqTy4e0motPU=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=EyT0jYsy7kllttsFJUb/TvYee828sRvOo6dR/vn0B5xSaTwdKl/yAmcKSvJDOwoz68La5j84FWyzg5c6kml1FNu9g18QWWILkLcBvHREmIKjryoxN68r7sEDrmaHHahW9Iv++vUeRjDDkYB5DBqLkh3dHMthMzUSVUoVKG5Bemk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=34sIGnmF; arc=fail smtp.client-ip=40.93.196.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hYvmOzL3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789159571; x=1820695571;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=TT31i/fvUvTxHsWhpTQxj3jthDXVh6uvrE98k1zovWs=;
-  b=hYvmOzL3+qM3hRuSKCxr6RTJ+g/wt8JAGtxHzB9l10aF4efdBRkmXp/z
-   BwuVEFZma0IpO1RHWJu1Bpf6u6qZRRWY1ez4ptcEoenK4YhIyIIyBvY3H
-   kE6rieIVaX9puN70rudcABEMr8HVFS5CHedPKEeBmBHGs2iRNm9mCY6Oc
-   dfDnsd0tCM/oWBpbC8+KkjkyqYACI8KMaJGJ3LAq5Z2inhxtmk49stx/H
-   i9m+B+5ZBqOdmSMgE5VYTnojS8RZEmoYxhxl1PWGKfRrbM8c4r2L8myYS
-   HdxbE0blTWiZl28AKiHAy4cVI4ISZIaLWjuEONggBJj/5ZihCEsmAxVgh
-   Q==;
-X-CSE-ConnectionGUID: voniGWSmRBWN889taJ+gOA==
-X-CSE-MsgGUID: dA0IKub3QWCRqPv2AJmuKQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="88767537"
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="88767537"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 13:46:10 -0700
-X-CSE-ConnectionGUID: QGr2N0ITQXydgeip/Nh1/A==
-X-CSE-MsgGUID: cdp0ojVbTHObEi/ZhFv5nQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="295510660"
-Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
-  by fmviesa002.fm.intel.com with ESMTP; 11 Sep 2026 13:46:05 -0700
-Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x588I-0000000029J-1mH8;
-	Fri, 11 Sep 2026 20:46:02 +0000
-Date: Sat, 12 Sep 2026 04:45:18 +0800
-From: kernel test robot <lkp@intel.com>
-To: Aaron Tomlin <atomlin@atomlin.com>, akpm@linux-foundation.org,
-	mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org
-Cc: oe-kbuild-all@lists.linux.dev, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, feng.tang@linux.alibaba.com, pmladek@suse.com,
-	kprateek.nayak@amd.com, atomlin@atomlin.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] sched/debug, sys_info: Introduce SYS_INFO_CPU_RUNQUEUES
-Message-ID: <202609120421.J3jtss6v-lkp@intel.com>
-References: <20260911022844.521413-1-atomlin@atomlin.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="34sIGnmF"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AS3uIz1JsrziVMRjPN2R8vJNcbOZEHzYyY6ehV37bSYPp10Xu9Ksact9ZsHAsQShS02YY21p/8CCZgouuJ9MAN82IxyhFE9PfAwi/7b6YHTrsUcaPz1XIefkMKrwaf2PvcCbUhQO3lBgzv/f/P6551fk2NNzxI730bjmcPqTcYqV+IeCy4O7/+BmFnpHaiykjYny9kIwZLfozbh24ogy2bRJjOlGMvCYBYJ7T9L7be9PegddCmGEMoPb3HDaNJGKUeEdxzHakTha1bUw+3cMe9qXKL+frQdTB8+j5MDzyVPnwADOPtU9qVMW9wtYPKKVvXds59YQK9VrHQrTpED2Eg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LXxqLR4c2ImOCgEMjntylrnwrMjq5DmOtvU+Z/gNuJM=;
+ b=qqHAYTROROzaA3EpBJUU6VJ6wGnDMnpi9jPpI9gLTz52YcQqPev49eLA8qDdjT3JhiTolHatCv+FUJ97QnlZBN/ULnqZlai3mgYzQcDkpjXO+cJp3/ix1Gyrt4eFnr2omAj+zY4POLJwEHDJOpzgJpEIeaC2EZueQ82ptShU+NuHm6iNWRSydc6rQ9sIt918W5YeXv1tp8JWMIHaW3r/AxJPa5Vc9SXHJYMbpzk+4mjw6MaiYYdBgc+OsGlPC44ep3HzVMXanMXLBkiQpBgddANLJC73/V5cOxWDbjmNTIfWNUYGDbiFo/toCsT25FOxYSgtZbKpjAPrYC8oR1/dbw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LXxqLR4c2ImOCgEMjntylrnwrMjq5DmOtvU+Z/gNuJM=;
+ b=34sIGnmFusMO6CgYna5PHAou6e0KqUydzGH+0j5h/wiBvhRlADUQQx0AskXk5mo0P5prJDviFui+R3lQv3pE7f6tM3BOMO+wME5jLVB2/EGOuOF237pgAg5l6vsR9P0kV+7YUxJISTtvjRsl+FELi+oXNdN2gt7NV7BlOyoFpNw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by SA3PR12MB208015.namprd12.prod.outlook.com (2603:10b6:806:517::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Fri, 11 Sep
+ 2026 20:50:58 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8%3]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 20:50:58 +0000
+Message-ID: <0819d227-083e-4ce1-b376-81e5941404f2@amd.com>
+Date: Fri, 11 Sep 2026 14:50:55 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] drm/amd/display: use kunit/visibility.h for test
+ helpers
+To: Albert Esteve <aesteve@redhat.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>
+References: <20260907-visibility-unification-v1-0-6a962e5b3351@redhat.com>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <20260907-visibility-unification-v1-0-6a962e5b3351@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR02CA0006.namprd02.prod.outlook.com
+ (2603:10b6:303:16d::12) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911022844.521413-1-atomlin@atomlin.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|SA3PR12MB208015:EE_
+X-MS-Office365-Filtering-Correlation-Id: 618414cc-02a8-47aa-bccd-08df10466190
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|6133799003|18002099003|22082099003|56012099006|10067099003|921020|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	ICzMOX023LjSJ3WNIlp2gIHU52yRsrA9IyKS8X8xzcISxl+DjHLdrDQueYWR5tI4uskv42Z0PUGyPcHpH4B0CWaL+FTX3tESxaQQOTeyif8H/mTvvEgPn8t0IKItpBHgJH/PX/JSnXGckuM/xmkU0WGH7hlcgAudUGELiP7uHZ61rxBNWyWld2gUNOrlaHmXeOVGYK3mAOHkUnWJl+1MO51k1yx3BqKKTNotE+z8eIl4bIiaxgoOoDajTpx4gF1iaG8grZdN8DYsxYoMekr1WBqpgkBIAqhQ5W3L64cCVQC/L9VOKCv9Jxw0EQ9se7VmpAfTY+34ytuoufO9XIHfhAphGN2Ed7Fc8r4MKVLlV76OdPF3EOv5AZtRfsZjplPMijs90eYqRIYp8w5DLA+tf/PlaCXDJqXERzq7Rmlpe1FOffNY4H4tob+ZV1h9aAT/shQDLnHrUVa8b928MV1dO1rpsqaQZbi1edH80cDp7NJTziT1g07tJHsLpdpTz34gwBoYa6wcdMZ0nV9OJMznu7y8BhUO13wKe/zJlLR6BoEFsgJ32qCYw7K64LqDZDSf61Ql4SxVv7zKScyifezopfEXXh84oes0YfvrOo9LH/e4RcuGE9NhXUMrovRyUJCba+2rxL16DQq9MwQ2Xn4K8ef2vw4n6E4y8NIHOOjnTq+SsxZIg8hI5yXffRb2f/ek+SHbYlUlOi/RKfKWKvhORw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB8476.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(6133799003)(18002099003)(22082099003)(56012099006)(10067099003)(921020)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VVJvamR3WjFmS2RCTWcrWXVSSkZvZnVTRXMvR1pyMm1KOStObnBhMGJqUzNW?=
+ =?utf-8?B?MUMzOTFiV3BzSHFEN3Zhck80YndQZEVuaTA0U2dlZEdUZHM5UnZIL3JkL3pX?=
+ =?utf-8?B?eTJuck84eklrbDJ4TE0xQWlNbm45TzVoSDdOdHc3OENQc3cvanhRU1E5b2tX?=
+ =?utf-8?B?d3dHYXRmbW84ZmFzMmYyWXEzdnczaG1MRDFvVGFYWUFhc1BXTWNpOU9Td2xz?=
+ =?utf-8?B?QUVZNlhiaE1JS0o3aDFOVmp1STJmTTdXWVBPM1JXL1psWTU2cnpGSkcvTUJQ?=
+ =?utf-8?B?RzZZM2FYK1kwcnZaaUdQSzk5NlhyWGNOU2xRSkhIcU9yVmFTZzUyRGNPVEZy?=
+ =?utf-8?B?YitnRVh2T2JLWmgwbnd5VmtjZTJvZjdtK2U5dW1tcWdWcWllUThnWmpYenlw?=
+ =?utf-8?B?eThvK05rbFdSQi9SSnI1am5UQ2JjSG9jWWNZdlpEcjB5WGdWNU1Pc3I4QTh6?=
+ =?utf-8?B?VlVHVHU5c2kxQmR2UUROWDZGNjRQRE5iTWIweUJkdzEzaWJIMm9ZS1RsV1Zj?=
+ =?utf-8?B?TkdhVU9CZThUQnlNQVBHRTl3cFZnT2kzZE42TUp6bmxjY3g4ckFRdHlhUWhL?=
+ =?utf-8?B?QWdoTmZMdkQ1N2llcERCZ1FqRDNsTytWU2Nma2hVQ0FIZmxLRVVhR3FUVDAz?=
+ =?utf-8?B?MTJzTzlRWkxUZ1VoY1VCUzlHVXVQNm5ndTIwY1lrcVlwazJtK1Bid0hlRjFi?=
+ =?utf-8?B?bVlKbUpKYmdpM0hBUUhtemhmTWhncEh2Y3ByeHFDMWVhS2NSMDB3WU41Nmt1?=
+ =?utf-8?B?U2hnRHdtbC9XWWRDS2plR3dLZUM0WEVGU0VuZ1pnWFVUa1VMQlZtY2lKa2lk?=
+ =?utf-8?B?OWRDWSt1UlVmV3FKZGtYVStraFAwc2xmbHhRb0diT1RLQ0szcExJbzQvNFc4?=
+ =?utf-8?B?ekk3QUEvWjMyaFNnT2o0aEJuNnltZVVJTzNYd09hUnZGa2t3bE9BYlAzRThH?=
+ =?utf-8?B?M0l3SFlhazg3dEJ5V3BUMy96WFF2YXEreHFSSXM5RVROcGtnOVZyY1p5WDBE?=
+ =?utf-8?B?V2QzbHRYV2k2YmRsbVNTako1VTBsYXdRc1dudVJKYWMyd001Q2RUTCtPNHdm?=
+ =?utf-8?B?aVl6N1RHZURQeHNUVzVzN2pTMFMreWVzeHJoZlFQUWNlTHJWc2lBUGxTUmZK?=
+ =?utf-8?B?WkNybVlIMlF5cFhPbUtvQ25KdWRaN0hYMTlXZi9vNlR0SS9Mc2ZacUtSenhi?=
+ =?utf-8?B?cnRmUzBHd000N2NFR1ovR0ZtWFZIQmhFVytBT2ljR2MxYktmWkxKOGMyZDNr?=
+ =?utf-8?B?OWVndUFxaDlZZWpqbFNMNVkrM1RWZ1hjSjQyMWVUVmk0U2pzUGVVeEdOM25j?=
+ =?utf-8?B?UnBaZ3RNVlovUUxSSzZCM3hSMHR2citoQURHUFpSNWl2WTRJWE8vWDBmL294?=
+ =?utf-8?B?dUE1aEMrL1F3YVRlMzVGaDlJcndrc3hwcTZvTUlwUzA0Ui9TQ1Z4VWRIcVRJ?=
+ =?utf-8?B?RGRNYUEvaUdTZ3VTTklIWWtEMDhTSE5CdllRZlF6dWNFQ3Z5clJLYUpUT1hM?=
+ =?utf-8?B?dnQxTWNZdjVrVXlpd0RwcXE5TzFXU1JIWlhrMk9xbWhtb2tmbWZOc3RiR1pZ?=
+ =?utf-8?B?SzhQMll1enZHbjlkZlgvZmJySjNOMDJPczZlUXBKNWJ0ejFRYzRXQnVPbm1C?=
+ =?utf-8?B?MHUrNEI2QmMrT1lROFF5VG1DeHZrYllsOFlad3dOc0lZOVdmZmtIQzg4Nm9l?=
+ =?utf-8?B?K0xiWHlDaFU0WVFsMi8yYnliZ0wxNkI4dCs0TjkwNllMd3RLTVhnKzFSdGNQ?=
+ =?utf-8?B?WVNpNngwWkpNWE5xajFLVTgwMzZXODZxVVh2cUJzWXpYUFJWMTZ2YUw5eUYv?=
+ =?utf-8?B?aUlpTXdkZ21TL2RaV1BGRDRBU01MTkQvMElxS1drZWFGQVM5UjBIOElhcEJx?=
+ =?utf-8?B?QmJQcHV0QXlTVHpzcCtWUEFvL1hyTjJVdmpIcWpHN3c2eUk1Tyt0S0k5REpY?=
+ =?utf-8?B?SjRLMk4yOHZhbGFNSzBNdGlMRlhCZEwvc3NqUUt0R2piOWN5WmRjRStraHhv?=
+ =?utf-8?B?QmY1UjlOeWg2TjJXNnZYMTQzTnhMZ0R4eWE2ZzZoWGpNZjNjZHQ0cyt4UWtR?=
+ =?utf-8?B?RUN2dFZybDZ0WHk5NmdDeUVwNEE2VS82em1rSGZwYUxmNzV6bXM1bUREYWkw?=
+ =?utf-8?B?ejZUQk1GSlk0Q3hiMS9WV1lwdWlTMHdkUGxzUS8xMCtIaGpGUEowNHF6SnNv?=
+ =?utf-8?B?SUpTYjlMcHhaWVd2NjZpUFd5c2NZK3ltRnRndWcrcnA3SzhWSkE3Y1VtUGFI?=
+ =?utf-8?B?dGd4elAzelcreTlVajVzcXRka2pvMVJwNHNDaFlFaTVtNTJtUWxVaFZqRjlu?=
+ =?utf-8?Q?OWZcVHhPR59Ntf6iGq?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 618414cc-02a8-47aa-bccd-08df10466190
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 20:50:58.2330
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OLTilAmBWDgpunm8tQfFrHQgQp+322fxdPfw1CtiMrZjBYh8wPsA9fXAXr04EQFR+3TMK2KMlGap7if8v8VayQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB208015
 
-Hi Aaron,
+Looks good to me, and I will forward this to next week's test and update 
+the results.
 
-kernel test robot noticed the following build warnings:
 
-[auto build test WARNING on akpm-mm/mm-everything]
-[also build test WARNING on tip/sched/core akpm-mm/mm-nonmm-unstable linus/master v7.3-rc2 next-20260909]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+On 9/7/26 07:28, Albert Esteve wrote:
+> [Some people who received this message don't often get email from aesteve@redhat.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> amdgpu_dm grew its own STATIC_IFN_KUNIT / EXPORT_IF_KUNIT /
+> INLINE_IFN_KUNIT macros instead of using kunit/visibility.h. This
+> series switches the KUnit helpers over to the common API.
+> 
+> VISIBLE_IF_KUNIT is gated on CONFIG_KUNIT rather than
+> CONFIG_DRM_AMD_DC_KUNIT_TEST, so the helpers are non-static whenever
+> KUnit is enabled. EXPORT_SYMBOL_IF_KUNIT places the symbols in the
+> EXPORTED_FOR_KUNIT_TESTING namespace; the AMD DC test files import
+> that namespace with MODULE_IMPORT_NS().
+> 
+> INLINE_IFN_KUNIT is dropped rather than generalized. It was only used
+> on amdgpu_dm_fixpt_from_s3132(), inverted the original static inline,
+> and is unnecessary for tests in another translation unit.
+> 
+> Tested with:
+>    ./tools/testing/kunit/kunit.py run --arch=x86_64 \
+>      --kunitconfig=drivers/gpu/drm/amd/display/amdgpu_dm/tests
+> 
+> (CONFIG_GCOV omitted; it is not available on x86_64.)
+> 
+> Suggested-by: Maxime Ripard <mripard@kernel.org>
+> 
+> Signed-off-by: Albert Esteve <aesteve@redhat.com>
+> ---
+> Albert Esteve (3):
+>        drm/amd/display: replace STATIC_IFN_KUNIT with VISIBLE_IF_KUNIT
+>        drm/amd/display: replace EXPORT_IF_KUNIT with EXPORT_SYMBOL_IF_KUNIT
+>        drm/amd/display: drop INLINE_IFN_KUNIT
+> 
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  79 ++++-----
+>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c    |  26 +--
+>   .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |  74 ++++----
+>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c    | 133 +++++++--------
+>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c  |  12 +-
+>   .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    | 190 ++++++++++-----------
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c  |  38 ++---
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |  52 +++---
+>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c   |  10 +-
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c |  30 ++--
+>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c |  10 +-
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c | 105 ++++++------
+>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  | 140 +++++++--------
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  | 146 ++++++++--------
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c  |  40 ++---
+>   .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  60 +++----
+>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 104 +++++------
+>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c   | 116 ++++++-------
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c  |  22 +--
+>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c   |   4 +-
+>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c   |   9 +-
+>   .../drm/amd/display/amdgpu_dm/amdgpu_dm_services.c |  10 +-
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   |  18 +-
+>   .../display/amdgpu_dm/tests/amdgpu_dm_audio_test.c |   1 +
+>   .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     |   1 +
+>   .../display/amdgpu_dm/tests/amdgpu_dm_color_test.c |   1 +
+>   .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c       |   1 +
+>   .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     |   1 +
+>   .../display/amdgpu_dm/tests/amdgpu_dm_crc_test.c   |   1 +
+>   .../display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c  |   1 +
+>   .../amdgpu_dm/tests/amdgpu_dm_cursor_test.c        |   1 +
+>   .../display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c  |   1 +
+>   .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c      |   1 +
+>   .../display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c  |   1 +
+>   .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c       |   1 +
+>   .../display/amdgpu_dm/tests/amdgpu_dm_irq_test.c   |   1 +
+>   .../display/amdgpu_dm/tests/amdgpu_dm_ism_test.c   |   1 +
+>   .../amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c      |   1 +
+>   .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     |   1 +
+>   .../display/amdgpu_dm/tests/amdgpu_dm_plane_test.c |   1 +
+>   .../amdgpu_dm/tests/amdgpu_dm_pp_smu_test.c        |   1 +
+>   .../display/amdgpu_dm/tests/amdgpu_dm_psr_test.c   |   1 +
+>   .../amdgpu_dm/tests/amdgpu_dm_quirks_test.c        |   1 +
+>   .../amdgpu_dm/tests/amdgpu_dm_replay_test.c        |   1 +
+>   .../amdgpu_dm/tests/amdgpu_dm_services_test.c      |   1 +
+>   .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |   1 +
+>   .../display/amdgpu_dm/tests/amdgpu_dm_wb_test.c    |   1 +
+>   drivers/gpu/drm/amd/display/dc/core/dc_sink.c      |   6 +-
+>   drivers/gpu/drm/amd/display/dc/core/dc_stream.c    |   2 +-
+>   drivers/gpu/drm/amd/display/dc/dm_helpers.h        |  13 +-
+>   tools/lib/python/kdoc/xforms_lists.py              |   3 +-
+>   51 files changed, 748 insertions(+), 728 deletions(-)
+> ---
+> base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
+> change-id: 20260907-visibility-unification-fd358c580447
+> 
+> Best regards,
+> --
+> Albert Esteve <aesteve@redhat.com>
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Aaron-Tomlin/sched-debug-sys_info-Introduce-SYS_INFO_CPU_RUNQUEUES/20260910-222844
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
-patch link:    https://lore.kernel.org/r/20260911022844.521413-1-atomlin%40atomlin.com
-patch subject: [PATCH] sched/debug, sys_info: Introduce SYS_INFO_CPU_RUNQUEUES
-config: microblaze-randconfig-r132-20260911 (https://download.01.org/0day-ci/archive/20260912/202609120421.J3jtss6v-lkp@intel.com/config)
-compiler: microblaze-linux-gcc (GCC) 8.5.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260912/202609120421.J3jtss6v-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609120421.J3jtss6v-lkp@intel.com/
-
-sparse warnings: (new ones prefixed by >>)
-   kernel/sched/build_utility.c: note: in included file:
-   kernel/sched/debug.c:868:17: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd @@     got struct sched_domain [noderef] __rcu *parent @@
-   kernel/sched/debug.c:868:17: sparse:     expected struct sched_domain *[assigned] sd
-   kernel/sched/debug.c:868:17: sparse:     got struct sched_domain [noderef] __rcu *parent
-   kernel/sched/debug.c:1220:9: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct task_struct *tsk @@     got struct task_struct [noderef] __rcu *curr @@
-   kernel/sched/debug.c:1220:9: sparse:     expected struct task_struct *tsk
-   kernel/sched/debug.c:1220:9: sparse:     got struct task_struct [noderef] __rcu *curr
-   kernel/sched/debug.c:1220:9: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct task_struct *tsk @@     got struct task_struct [noderef] __rcu *curr @@
-   kernel/sched/debug.c:1220:9: sparse:     expected struct task_struct *tsk
-   kernel/sched/debug.c:1220:9: sparse:     got struct task_struct [noderef] __rcu *curr
->> kernel/sched/debug.c:1355:30: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct task_struct *curr @@     got struct task_struct [noderef] __rcu *curr @@
-   kernel/sched/debug.c:1355:30: sparse:     expected struct task_struct *curr
-   kernel/sched/debug.c:1355:30: sparse:     got struct task_struct [noderef] __rcu *curr
->> kernel/sched/debug.c:1360:30: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct task_struct *curr @@     got struct task_struct [noderef] __rcu * @@
-   kernel/sched/debug.c:1360:30: sparse:     expected struct task_struct *curr
-   kernel/sched/debug.c:1360:30: sparse:     got struct task_struct [noderef] __rcu *
-   kernel/sched/build_utility.c: note: in included file:
-   kernel/sched/topology.c:118:56: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *child @@
-   kernel/sched/topology.c:118:56: sparse:     expected struct sched_domain *sd
-   kernel/sched/topology.c:118:56: sparse:     got struct sched_domain [noderef] __rcu *child
-   kernel/sched/topology.c:137:60: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *parent @@
-   kernel/sched/topology.c:137:60: sparse:     expected struct sched_domain *sd
-   kernel/sched/topology.c:137:60: sparse:     got struct sched_domain [noderef] __rcu *parent
-   kernel/sched/topology.c:160:20: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *parent @@
-   kernel/sched/topology.c:160:20: sparse:     expected struct sched_domain *sd
-   kernel/sched/topology.c:160:20: sparse:     got struct sched_domain [noderef] __rcu *parent
-   kernel/sched/topology.c:470:19: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct perf_domain *pd @@     got struct perf_domain [noderef] __rcu *pd @@
-   kernel/sched/topology.c:470:19: sparse:     expected struct perf_domain *pd
-   kernel/sched/topology.c:470:19: sparse:     got struct perf_domain [noderef] __rcu *pd
-   kernel/sched/topology.c:654:49: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct sched_domain *parent @@     got struct sched_domain [noderef] __rcu *parent @@
-   kernel/sched/topology.c:654:49: sparse:     expected struct sched_domain *parent
-   kernel/sched/topology.c:654:49: sparse:     got struct sched_domain [noderef] __rcu *parent
-   kernel/sched/topology.c:753:50: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct sched_domain *parent @@     got struct sched_domain [noderef] __rcu *parent @@
-   kernel/sched/topology.c:753:50: sparse:     expected struct sched_domain *parent
-   kernel/sched/topology.c:753:50: sparse:     got struct sched_domain [noderef] __rcu *parent
-   kernel/sched/topology.c:775:55: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain [noderef] __rcu *[noderef] __rcu child @@     got struct sched_domain *[assigned] tmp @@
-   kernel/sched/topology.c:775:55: sparse:     expected struct sched_domain [noderef] __rcu *[noderef] __rcu child
-   kernel/sched/topology.c:775:55: sparse:     got struct sched_domain *[assigned] tmp
-   kernel/sched/topology.c:788:29: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] tmp @@     got struct sched_domain [noderef] __rcu *parent @@
-   kernel/sched/topology.c:788:29: sparse:     expected struct sched_domain *[assigned] tmp
-   kernel/sched/topology.c:788:29: sparse:     got struct sched_domain [noderef] __rcu *parent
-   kernel/sched/topology.c:793:20: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *parent @@
-   kernel/sched/topology.c:793:20: sparse:     expected struct sched_domain *sd
-   kernel/sched/topology.c:793:20: sparse:     got struct sched_domain [noderef] __rcu *parent
-   kernel/sched/topology.c:826:13: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] tmp @@     got struct sched_domain [noderef] __rcu *sd @@
-   kernel/sched/topology.c:826:13: sparse:     expected struct sched_domain *[assigned] tmp
-   kernel/sched/topology.c:826:13: sparse:     got struct sched_domain [noderef] __rcu *sd
-   kernel/sched/topology.c:1069:38: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct sched_domain *sdp @@     got struct sched_domain [noderef] __rcu *parent @@
-   kernel/sched/topology.c:1069:38: sparse:     expected struct sched_domain *sdp
-   kernel/sched/topology.c:1069:38: sparse:     got struct sched_domain [noderef] __rcu *parent
-   kernel/sched/topology.c:1076:21: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *sdp @@     got struct sched_domain [noderef] __rcu *parent @@
-   kernel/sched/topology.c:1076:21: sparse:     expected struct sched_domain *sdp
-   kernel/sched/topology.c:1076:21: sparse:     got struct sched_domain [noderef] __rcu *parent
-   kernel/sched/topology.c:1223:70: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *child @@
-   kernel/sched/topology.c:1223:70: sparse:     expected struct sched_domain *sd
-   kernel/sched/topology.c:1223:70: sparse:     got struct sched_domain [noderef] __rcu *child
-   kernel/sched/topology.c:1252:59: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *child @@
-   kernel/sched/topology.c:1252:59: sparse:     expected struct sched_domain *sd
-   kernel/sched/topology.c:1252:59: sparse:     got struct sched_domain [noderef] __rcu *child
-   kernel/sched/topology.c:1298:57: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *child @@
-   kernel/sched/topology.c:1298:57: sparse:     expected struct sched_domain *sd
-   kernel/sched/topology.c:1298:57: sparse:     got struct sched_domain [noderef] __rcu *child
-   kernel/sched/topology.c:1300:25: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *sibling @@     got struct sched_domain [noderef] __rcu *child @@
-   kernel/sched/topology.c:1300:25: sparse:     expected struct sched_domain *sibling
-   kernel/sched/topology.c:1300:25: sparse:     got struct sched_domain [noderef] __rcu *child
-   kernel/sched/topology.c:1308:55: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *child @@
-   kernel/sched/topology.c:1308:55: sparse:     expected struct sched_domain *sd
-   kernel/sched/topology.c:1308:55: sparse:     got struct sched_domain [noderef] __rcu *child
-   kernel/sched/topology.c:1310:25: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *sibling @@     got struct sched_domain [noderef] __rcu *child @@
-   kernel/sched/topology.c:1310:25: sparse:     expected struct sched_domain *sibling
-   kernel/sched/topology.c:1310:25: sparse:     got struct sched_domain [noderef] __rcu *child
-   kernel/sched/topology.c:1380:62: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *child @@
-   kernel/sched/topology.c:1380:62: sparse:     expected struct sched_domain *sd
-   kernel/sched/topology.c:1380:62: sparse:     got struct sched_domain [noderef] __rcu *child
-   kernel/sched/topology.c:1484:40: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct sched_domain *child @@     got struct sched_domain [noderef] __rcu *child @@
-   kernel/sched/topology.c:1484:40: sparse:     expected struct sched_domain *child
-   kernel/sched/topology.c:1484:40: sparse:     got struct sched_domain [noderef] __rcu *child
-   kernel/sched/topology.c:1620:9: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd @@     got struct sched_domain [noderef] __rcu *parent @@
-   kernel/sched/topology.c:1620:9: sparse:     expected struct sched_domain *[assigned] sd
-   kernel/sched/topology.c:1620:9: sparse:     got struct sched_domain [noderef] __rcu *parent
-   kernel/sched/topology.c:1877:52: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd @@     got struct sched_domain [noderef] __rcu *parent @@
-   kernel/sched/topology.c:1877:52: sparse:     expected struct sched_domain *[assigned] sd
-   kernel/sched/topology.c:1877:52: sparse:     got struct sched_domain [noderef] __rcu *parent
-   kernel/sched/topology.c:1987:43: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct sched_domain [noderef] __rcu *child @@     got struct sched_domain *child @@
-   kernel/sched/topology.c:1987:43: sparse:     expected struct sched_domain [noderef] __rcu *child
-   kernel/sched/topology.c:1987:43: sparse:     got struct sched_domain *child
-   kernel/sched/topology.c:2791:31: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain [noderef] __rcu *parent @@     got struct sched_domain *sd @@
-   kernel/sched/topology.c:2791:31: sparse:     expected struct sched_domain [noderef] __rcu *parent
-   kernel/sched/topology.c:2791:31: sparse:     got struct sched_domain *sd
-   kernel/sched/topology.c:2919:16: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *parent @@     got struct sched_domain [noderef] __rcu *[noderef] __rcu parent @@
-   kernel/sched/topology.c:2919:16: sparse:     expected struct sched_domain *parent
-   kernel/sched/topology.c:2919:16: sparse:     got struct sched_domain [noderef] __rcu *[noderef] __rcu parent
-   kernel/sched/topology.c:2921:24: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *parent @@     got struct sched_domain [noderef] __rcu *parent @@
-   kernel/sched/topology.c:2921:24: sparse:     expected struct sched_domain *parent
-   kernel/sched/topology.c:2921:24: sparse:     got struct sched_domain [noderef] __rcu *parent
-   kernel/sched/topology.c:2926:16: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *parent @@     got struct sched_domain [noderef] __rcu *parent @@
-   kernel/sched/topology.c:2926:16: sparse:     expected struct sched_domain *parent
-   kernel/sched/topology.c:2926:16: sparse:     got struct sched_domain [noderef] __rcu *parent
-   kernel/sched/topology.c:2931:24: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *parent @@     got struct sched_domain [noderef] __rcu *parent @@
-   kernel/sched/topology.c:2931:24: sparse:     expected struct sched_domain *parent
-   kernel/sched/topology.c:2931:24: sparse:     got struct sched_domain [noderef] __rcu *parent
-   kernel/sched/topology.c:3008:25: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd_asym @@     got struct sched_domain [noderef] __rcu *parent @@
-   kernel/sched/topology.c:3008:25: sparse:     expected struct sched_domain *[assigned] sd_asym
-   kernel/sched/topology.c:3008:25: sparse:     got struct sched_domain [noderef] __rcu *parent
-   kernel/sched/topology.c:3143:57: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd @@     got struct sched_domain [noderef] __rcu *parent @@
-   kernel/sched/topology.c:3143:57: sparse:     expected struct sched_domain *[assigned] sd
-   kernel/sched/topology.c:3143:57: sparse:     got struct sched_domain [noderef] __rcu *parent
-   kernel/sched/topology.c:3165:28: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd @@     got struct sched_domain [noderef] __rcu *parent @@
-   kernel/sched/topology.c:3165:28: sparse:     expected struct sched_domain *[assigned] sd
-   kernel/sched/topology.c:3165:28: sparse:     got struct sched_domain [noderef] __rcu *parent
-   kernel/sched/topology.c:3191:57: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd @@     got struct sched_domain [noderef] __rcu *parent @@
-   kernel/sched/topology.c:3191:57: sparse:     expected struct sched_domain *[assigned] sd
-   kernel/sched/topology.c:3191:57: sparse:     got struct sched_domain [noderef] __rcu *parent
-
-vim +1355 kernel/sched/debug.c
-
-  1212	
-  1213	#define PN(x) \
-  1214		SEQ_printf(m, "  .%-30s: %Ld.%06ld\n", #x, SPLIT_NS(rq->x))
-  1215	
-  1216		P(nr_running);
-  1217		P(nr_switches);
-  1218		P(nr_uninterruptible);
-  1219		PN(next_balance);
-> 1220		SEQ_printf(m, "  .%-30s: %ld\n", "curr->pid", (long)(task_pid_nr(rq->curr)));
-  1221		PN(clock);
-  1222		PN(clock_task);
-  1223	#undef P
-  1224	#undef PN
-  1225	
-  1226	#define P64(n) SEQ_printf(m, "  .%-30s: %Ld\n", #n, rq->n);
-  1227		P64(avg_idle);
-  1228		P64(max_idle_balance_cost);
-  1229	#undef P64
-  1230	
-  1231	#define P(n) SEQ_printf(m, "  .%-30s: %d\n", #n, schedstat_val(rq->n));
-  1232		if (schedstat_enabled()) {
-  1233			P(yld_count);
-  1234			P(sched_count);
-  1235			P(sched_goidle);
-  1236			P(ttwu_count);
-  1237			P(ttwu_local);
-  1238		}
-  1239	#undef P
-  1240	
-  1241		print_cfs_stats(m, cpu);
-  1242		print_rt_stats(m, cpu);
-  1243		print_dl_stats(m, cpu);
-  1244	
-  1245		print_rq(m, rq, cpu, true, false);
-  1246		SEQ_printf(m, "\n");
-  1247	}
-  1248	
-  1249	static const char *sched_tunable_scaling_names[] = {
-  1250		"none",
-  1251		"logarithmic",
-  1252		"linear"
-  1253	};
-  1254	
-  1255	static void sched_debug_header(struct seq_file *m)
-  1256	{
-  1257		u64 ktime, sched_clk, cpu_clk;
-  1258		unsigned long flags;
-  1259	
-  1260		local_irq_save(flags);
-  1261		ktime = ktime_to_ns(ktime_get());
-  1262		sched_clk = sched_clock();
-  1263		cpu_clk = local_clock();
-  1264		local_irq_restore(flags);
-  1265	
-  1266		SEQ_printf(m, "Sched Debug Version: v0.11, %s %.*s\n",
-  1267			init_utsname()->release,
-  1268			(int)strcspn(init_utsname()->version, " "),
-  1269			init_utsname()->version);
-  1270	
-  1271	#define P(x) \
-  1272		SEQ_printf(m, "%-40s: %Ld\n", #x, (long long)(x))
-  1273	#define PN(x) \
-  1274		SEQ_printf(m, "%-40s: %Ld.%06ld\n", #x, SPLIT_NS(x))
-  1275		PN(ktime);
-  1276		PN(sched_clk);
-  1277		PN(cpu_clk);
-  1278		P(jiffies);
-  1279	#ifdef CONFIG_HAVE_UNSTABLE_SCHED_CLOCK
-  1280		P(sched_clock_stable());
-  1281	#endif
-  1282	#undef PN
-  1283	#undef P
-  1284	
-  1285		SEQ_printf(m, "\n");
-  1286		SEQ_printf(m, "sysctl_sched\n");
-  1287	
-  1288	#define P(x) \
-  1289		SEQ_printf(m, "  .%-40s: %Ld\n", #x, (long long)(x))
-  1290	#define PN(x) \
-  1291		SEQ_printf(m, "  .%-40s: %Ld.%06ld\n", #x, SPLIT_NS(x))
-  1292		PN(sysctl_sched_base_slice);
-  1293		P(sysctl_sched_features);
-  1294	#undef PN
-  1295	#undef P
-  1296	
-  1297		SEQ_printf(m, "  .%-40s: %d (%s)\n",
-  1298			"sysctl_sched_tunable_scaling",
-  1299			sysctl_sched_tunable_scaling,
-  1300			sched_tunable_scaling_names[sysctl_sched_tunable_scaling]);
-  1301		SEQ_printf(m, "\n");
-  1302	}
-  1303	
-  1304	static int sched_debug_show(struct seq_file *m, void *v)
-  1305	{
-  1306		int cpu = (unsigned long)(v - 2);
-  1307	
-  1308		if (cpu != -1)
-  1309			print_cpu(m, cpu);
-  1310		else
-  1311			sched_debug_header(m);
-  1312	
-  1313		return 0;
-  1314	}
-  1315	
-  1316	void sysrq_sched_debug_show(void)
-  1317	{
-  1318		int cpu;
-  1319	
-  1320		sched_debug_header(NULL);
-  1321		for_each_online_cpu(cpu) {
-  1322			/*
-  1323			 * Need to reset softlockup watchdogs on all CPUs, because
-  1324			 * another CPU might be blocked waiting for us to process
-  1325			 * an IPI or stop_machine.
-  1326			 */
-  1327			touch_nmi_watchdog();
-  1328			touch_all_softlockup_watchdogs();
-  1329			print_cpu(NULL, cpu);
-  1330		}
-  1331	}
-  1332	
-  1333	void sched_show_runqueues(void)
-  1334	{
-  1335		int cpu;
-  1336	
-  1337		pr_info("CPU Runqueues:\n");
-  1338		for_each_online_cpu(cpu) {
-  1339			struct rq *rq = cpu_rq(cpu);
-  1340			struct task_struct *curr;
-  1341			unsigned int nr_running;
-  1342			u64 nr_switches;
-  1343			unsigned long flags;
-  1344			bool locked;
-  1345	
-  1346			touch_nmi_watchdog();
-  1347			touch_all_softlockup_watchdogs();
-  1348	
-  1349			rcu_read_lock();
-  1350			local_irq_save(flags);
-  1351			locked = raw_spin_rq_trylock(rq);
-  1352			if (locked) {
-  1353				nr_running = rq->nr_running;
-  1354				nr_switches = rq->nr_switches;
-> 1355				curr = rq->curr;
-  1356				raw_spin_rq_unlock(rq);
-  1357			} else {
-  1358				nr_running = READ_ONCE(rq->nr_running);
-  1359				nr_switches = READ_ONCE(rq->nr_switches);
-> 1360				curr = READ_ONCE(rq->curr);
-  1361			}
-  1362			local_irq_restore(flags);
-  1363	
-  1364			pr_info("cpu#%d: nr_running:%u switches:%llu curr:%s[%d]%s\n",
-  1365				cpu, nr_running, nr_switches,
-  1366				curr ? curr->comm : "<none>",
-  1367				curr ? task_pid_nr(curr) : -1,
-  1368				locked ? "" : " (contended)");
-  1369	
-  1370			print_rq(NULL, rq, cpu, false, true);
-  1371			rcu_read_unlock();
-  1372		}
-  1373	}
-  1374	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
