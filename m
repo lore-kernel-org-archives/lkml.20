@@ -1,187 +1,128 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD0E330D25
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:41:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4917B33AD88;
+	Fri, 11 Sep 2026 14:42:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789137683; cv=none; b=Xf7wg4lhAGMGpl/XYAfPAH1NqvPsm7g3nD26/ZCs/sN9+6Rh3BSWWL+l8+4AMjcqFRPuo1FuqzniItKCzXbpnLUOwJsqAGD9qfegPetJmKfFDmNMCgNzUY0pwFRnF023N4R0EBo+GaJE0t9UzxXlx4IuRyZIro7qx+5nbKqNpSU=
+	t=1789137740; cv=none; b=DK3bxtl8hsPCLJ1WqVLBA0PeTWMSgfLGlf91senLlM5dZ9daDJpExLMguCsOVsxSoTLPH5aJ3daNMPwKFUn2bP9XrkJ8ZIe6djqDYNIqAHUH+ZkgBOcZr6DYcbholhi6vJxaK/+nnVfPUw4oDNrZiDjZGIcI4BciVPx/XcjltPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789137683; c=relaxed/simple;
-	bh=QYccRU8H/gzRwstiobodgqhgwv0Yo9ddmWdiqbrLYqM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=KdTDW3SQ4cu5LeL5novA4l03FzfF7HdqSfQzqk/RcXJ1jkKZMMTcvtCWH3hCbGOnDbTwkgvtiZE2Sb9fosG2DviozQ0J+Om8O8X3KtoR29LELFIlDnlRUNLafEqXswWREPfYtS9gqyCz2hshOvWsXnb0DMZoab6Eh9PGFdCnKhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=pOxEdfZT; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789137740; c=relaxed/simple;
+	bh=ZJvILFXfqLrN6MWpCkkcmbMEe17Lgrao+NuI5sGdMUc=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=UNanHPE5xLsa5Q6PQ6ZgXu4afZwnyVr+e+NZAYeK5wduTZP2Yql532i3CfrFyB9L6F+q4CzHKP+3xWCmsab6//gCh1NwiKAUWScmnzz8tDnHo6kMtDnRiHKI8y4IyWF3UVx7BozdMwpyp4T9BhKnxpD6jQBZQ1h0VPh8r90rhSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UTODIENp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="pOxEdfZT"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 0C3951A010A;
-	Fri, 11 Sep 2026 14:41:14 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C0CF1601DE;
-	Fri, 11 Sep 2026 14:41:13 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1838E11C7AFAC;
-	Fri, 11 Sep 2026 16:41:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789137668; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=v3N881ANTbgSYUw2pUytXhs3TJN2uAHfgP2ZynhyqsU=;
-	b=pOxEdfZTZ+Rk89EO3XgzuvvZZ9NobasjADmGMXj/DnIHiaSGikgGzjV4lKR4AJwUX3y6WG
-	FxYmIjzwpYQl31pSYb9cSFS2KEdGsGLib5ut4rEGDv6Wo4/ogak5sOMoBKF7QmPLf3L11X
-	BcyNYQDOvZJnoLLQduFmbdQD4asTBmKuCEwqRjaaQUOl8irNOWrnk1/MmDflDvxvmVkzLO
-	r3aQJwqT9hR5aE1xetvX5x6yrRQDiBkyzXimopJ0+GK6MbSOQCBOXzBQoZZwS80RYHmsoB
-	WHNIro1Kx5YFrbAaIupES3IZoxVQSAjvEB958Fs9lBWPZG+9A7svTiJcfoS/iw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: sashiko-bot@kernel.org
-Cc: "Pratyush Yadav" <pratyush@kernel.org>,  "Takahiro Kuwano"
- <takahiro.kuwano@infineon.com>,  "Michael Walle" <mwalle@kernel.org>,
-  "Richard Weinberger" <richard@nod.at>,  "Vignesh Raghavendra"
- <vigneshr@ti.com>,  sashiko-reviews@lists.linux.dev,
-  linux-mtd@lists.infradead.org,  "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>,  "Jon Hunter" <jonathanh@nvidia.com>,
-  linux-kernel@vger.kernel.org,  "Steam Lin" <STLin2@winbond.com>
-Subject: Re: [PATCH v3] mtd: spi-nor: Fix quad-enable for flashes with QER
- bit in SR1
-In-Reply-To: <20260911142254.EF8021F000FF@smtp.kernel.org>
-	(sashiko-bot@kernel.org's message of "Fri, 11 Sep 2026 14:22:54
-	+0000")
-References: <20260911-perso-fix-spi-nor-qe-mxic-v3-1-2ecaefb2ef2c@bootlin.com>
-	<20260911142254.EF8021F000FF@smtp.kernel.org>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Fri, 11 Sep 2026 16:41:02 +0200
-Message-ID: <87se3fq29t.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UTODIENp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A7181F00893;
+	Fri, 11 Sep 2026 14:42:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789137738;
+	bh=jzIVeIhjtNFySoQ9axI4l0d2pzod0TfXsrojah0kEAs=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=UTODIENpMxVF5/nkgtBCeTavAEBfMZziPNDkRjSwD9xUzvnVpC2SmvzQCQC3WP2gj
+	 PZn9p835lFxhDLzj7sgQFHr46TEcfvp9hBINTe8xqT5zQcRs94Th+Riw20RwXkzBGM
+	 qEQww4NWThp8IoieX5/ZfSHf4Ct11aoKIGQz1IAx2Sm+rDyBZ+vYPzCm/Jm+aipWoO
+	 7SB7fmfwRyEC0fmTToGKFPd2mlIY3e4hxXz0fVjp2zU6esIWKB0nwD5T6NG3LryneM
+	 WlDz1jyN0mg9bhC5Ifrlfap5kBZ8OZNUSqVS61aN5sVF21+KYoTlIgyuQhSEcO0rSg
+	 t0zOBPzb17BTQ==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 89C63F40066;
+	Fri, 11 Sep 2026 10:42:17 -0400 (EDT)
+Received: from phl-imap-04 ([10.202.2.82])
+  by phl-compute-02.internal (MEProxy); Fri, 11 Sep 2026 10:42:17 -0400
+X-ME-Sender: <xms:SROkakMqrIKnZKA8ifh_ITqnOnrFMXXeuJQgiJCyxVMkTnKhg5T40g>
+    <xme:SROkalwEmTx8K1Xx4vQv0h3s2UTjaaqQ4AwRIkZ0T_PixneJRXTLMtEYPKjukZomF
+    ReWuhmkZXayGr3VY5cmXhZfEphhnp2zNzYa5rRCr1FJudWtfqBgqjya>
+X-ME-Proxy-Cause: dmFkZTEwmORBrOBGy3zchLvhuyGMAGTNVOECzxDrR6LbMQMVkgoaTCjPOw4U4v1oZJFECR
+    J5nc2ImjfZ3truW5TFVoBJ/YtRlHp/w2gOxNqxczC2gtjk2FDKorhF0eWgTXNl8EUKy5fB
+    eLYd2Eej7ETDvX4odSByPV5jK4c0zSowsiKDs27uNcR0Z56aPbvV2F/K7h/5bh0xTYzJLT
+    6hR7RULlogRzJNZeFfozIciyXTQlF6H1uEEJaMFqomteqSukJyX6V0qvfgH6n4YwTNAjEB
+    hs6fgnwLmyV1NK/nAhyBzcODyHJaO80K6rlzJG3yyVeBG7nOOusgbCKRAohqZeWe+de6HU
+    200eRNK6fbBySudA4kwzYmpzx7fGQ7/I+ksXOi8YlZmE9TN8Sk8V/QJmFPft6oCqsyb0a9
+    04kzrsn3vWL1hMmmbjFLP6Del8QRl9HM+C50AW/MiP/bIfrRJ7o1FzBhaEqgtwlg1tcaSF
+    dkNFyxkfkMVLtTsdqEhCOu+sE7ZnClEgfhSMVlq7m5RhqK+Iq7UXBtu0cyBaTciw8Lo5KY
+    kNu+aC6KDiEd/ijkVdLhAWx3BBNj2jgUIREEJSJsNqSwEYXiM5VQPQy+nCpPQYC8oKch0V
+    04WEx8KoiQHyi+U9mqg22OCp8zZRxHlu5qhMrsGAXb3o1jsov58D9EWPitdQ
+X-ME-Proxy: <xmx:SROkag_8z9uP_9JLO5ZduPwGRTlpUP9N0WB5xIHVgk2nZGa7B4Gsxg>
+    <xmx:SROkavNrRTmFmfEeqPy2L_agaH8-t6TyapvNg0J1L37FYLLpkX3Nsg>
+    <xmx:SROkakBTeZg_vTh0vALjOVczFdGXjF4Zr3i9wkyVu45qysK6cBKkww>
+    <xmx:SROkajM-HjnNKkhhbrnzPCnppt0i5UIffb_nUUfSBxFV6_5dhpKHbQ>
+    <xmx:SROkarcwtIhmUVQd1bpKyDgzOjqhiVgafjQoFG157NF0xl7QXNk3G0lT>
+Feedback-ID: i20964851:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 6D9A7B6006E; Fri, 11 Sep 2026 10:42:17 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+X-ThreadId: AyyZ_jHnZjjs
+Date: Fri, 11 Sep 2026 10:41:57 -0400
+From: "Anna Schumaker" <anna@kernel.org>
+To: "Pranjal Shrivastava" <praan@google.com>, linux-nfs@vger.kernel.org,
+ "Trond Myklebust" <trondmy@kernel.org>
+Cc: "Chuck Lever" <cel@kernel.org>, "Jeff Layton" <jlayton@kernel.org>,
+ linux-kernel@vger.kernel.org, "Christoph Hellwig" <hch@lst.de>,
+ "Logan Gunthorpe" <logang@deltatee.com>, "Jason Gunthorpe" <jgg@ziepe.ca>,
+ linux-pci@vger.kernel.org, linux-rdma@vger.kernel.org,
+ "Shivaji Kant" <shivajikant@google.com>
+Message-Id: <0b3d8f13-e691-411a-a507-d3e6bd1608c6@app.fastmail.com>
+In-Reply-To: <aqP6nM7OSX087UCs@google.com>
+References: <20260814143255.861084-1-praan@google.com>
+ <aqP6nM7OSX087UCs@google.com>
+Subject: Re: [PATCH v6 0/5] nfs: modernize direct I/O path
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On 11/09/2026 at 14:22:54 GMT, sashiko-bot@kernel.org wrote:
+Hi Pranjal,
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
+On Fri, Sep 11, 2026, at 8:57 AM, Pranjal Shrivastava wrote:
+> On Fri, Aug 14, 2026 at 02:32:50PM +0000, Pranjal Shrivastava wrote:
+>> Modernize the NFS Direct I/O path as a preparatory step to enable PCI
+>> Peer-to-Peer DMA (P2PDMA) support. Following feedback on the initial
+>> RFC [1], the modernization and architectural changes are split into
+>> different series. Additionally, based on the discussion in the v2 [2]
+>> of this series, the migration of NFS Direct I/O to folios would be
+>> handled in a separate follow-up series.
+>> 
+>> Currently, NFS O_DIRECT relies on the legacy iov_iter_get_pages_alloc2()
+>> API which does not support the pinning requirements for P2P memory.
+>> The implementation moves NFS to the modern iov_iter_extract_pages() API.
+>> 
 >
-> Pre-existing issues:
-> - [High] Spurious -EIO failure during write verification in
-> spi_nor_write_sr1_and_sr2_and_check() for flashes with QER=3D4 or 5 (e.g.,
-> BFPT_DWORD15_QER_SR2_BIT1_NO_RD).
-> --
+> Gentle ping on this series. 
+> (I realized that I sent it close to the merge window, Apologies).
 >
-> commit 65f885da367814b98529830d97438f96b6f29aa0
-> Author: Miquel Raynal <miquel.raynal@bootlin.com>
->
-> mtd: spi-nor: Fix quad-enable for flashes with QER bit in SR1
->
-> This commit attempts to fix quad-enable for flashes lacking an SR2 regist=
-er
-> by having the generic helper return 0 when SR2 reads are unsupported. It =
-also
-> updates the SFDP parsing step to assert that no chip has an SR2 write path
-> without an SR2 read path.
->
-> Reported-by: Jon Hunter <jonathanh@nvidia.com>
-> Closes:
-> https://lore.kernel.org/linux-mtd/178876719232.3543902.144516250376764212=
-54.b4-ty@b4/T/#m5bc4ba6776436f2870ced0eb5789d229037ad840
-> Fixes: 63489002d397 ("mtd: spi-nor: Refactor Read Status/Write Status sup=
-port")
->
->> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
->> index e2b6efafdd8d0..62b53933927f2 100644
->> --- a/drivers/mtd/spi-nor/core.c
->> +++ b/drivers/mtd/spi-nor/core.c
->> @@ -864,7 +865,12 @@ int spi_nor_read_sr1_and_sr2(struct spi_nor *nor, u=
-8 *sr)
->>  	if (ret)
->>  		return ret;
->>=20=20
->> -	return spi_nor_read_sr2(nor, &sr[1]);
->> +	if (nor->params->opcodes.read_sr2)
->> +		ret =3D spi_nor_read_sr2(nor, &sr[1]);
->> +	else
->> +		sr[1] =3D 0;
->
-> [Severity: High]
-> This is a pre-existing issue, but does forcing sr[1] to 0 here cause a
-> spurious -EIO failure downstream during write verification?
->
-> For flashes with QER=3D4 or 5 (e.g., BFPT_DWORD15_QER_SR2_BIT1_NO_RD), SF=
-DP
-> parsing disables reading SR2 (read_sr2 =3D 0) but retains a 16-bit write =
-path
-> via write_sr1_and_sr2 and sets qe_mask[1] =3D BIT(1).
->
-> During quad enable, sr[1] gets populated with BIT(1) and is written using=
- the
-> 16-bit command. However, spi_nor_write_sr1_and_sr2_and_check() verifies t=
-he
-> write by calling this function, which forcefully sets tmp[1] =3D 0.
->
-> The check if (sr[0] !=3D tmp[0] || sr[1] !=3D tmp[1]) then compares sr[1]=
-=3D0x02
-> against tmp[1]=3D0x00, fails, and returns -EIO. This leaves probing compl=
-etely
-> broken for these flashes.
+> Please let me know if anything else needs to be done for this..
 
-Michael you thought we had circled back to the previous version, you
-were almost right, but with this new feedback, now we have :-)
+Thanks for the ping! The plan right now is to send it along as part of
+the 7.4 merge window. I haven't pushed out a public linux-next branch
+yet, but when I do these patches will be included.
 
-But I see an easy way forward that can keep the atrocious hack in swp.c
-like you want:
+I hope this helps!
+Anna
 
---- a/drivers/mtd/spi-nor/core.c
-+++ b/drivers/mtd/spi-nor/core.c
-@@ -966,7 +966,10 @@ int spi_nor_write_sr1_and_sr2_and_check(struct spi_nor=
- *nor, const u8 *sr)
-        if (ret)
-                return ret;
-=20
--       if (sr[0] !=3D tmp[0] || sr[1] !=3D tmp[1])
-+       if (sr[0] !=3D tmp[0])
-+               return -EIO;
-+
-+       if (nor->params->opcodes.read_sr2 && sr[1] !=3D tmp[1])
-                return -EIO;
-=20
-        return 0;
-
-Basically we can just state that if we cannot read SR2 there is just no
-point in comparing its content. It's probably more accurate anyway to do
-it this way.
-
->> diff --git a/drivers/mtd/spi-nor/sfdp.c b/drivers/mtd/spi-nor/sfdp.c
->> index c21a6953db960..641f17ad51a09 100644
->> --- a/drivers/mtd/spi-nor/sfdp.c
->> +++ b/drivers/mtd/spi-nor/sfdp.c
->> @@ -656,7 +656,8 @@ static int spi_nor_parse_bfpt(struct spi_nor *nor,
->>=20=20
->>  	/* opcodes sanity check */
->>  	WARN_ON(!params->opcodes.read_sr1 ||
->> -		(!params->opcodes.write_sr1 && !params->opcodes.write_sr1_and_sr2));
->> +		(!params->opcodes.write_sr1 && !params->opcodes.write_sr1_and_sr2) ||
->> +		(!params->opcodes.read_sr2 && params->opcodes.write_sr2));
 >
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does this sanity check fai=
-l to
-> account for write_sr1_and_sr2?
+> [...]
 >
-> A chip can lack read_sr2 (read_sr2 =3D 0) and write_sr2 (write_sr2 =3D 0)=
-, passing
-> this WARN_ON, but still possess a valid SR2 write path via
-> write_sr1_and_sr2.
+>> 
+>> [v6]
+>>  - Fixed double unpin bugs pointed out by Sashiko:
+>>    https://sashiko.dev/#/patchset/20260810195040.2877784-1-praan%40google.com
+>>  - Added R-bs from Christoph (due since v4)
+>> 
+>> [v5]
+>>  - https://lore.kernel.org/all/20260810195040.2877784-1-praan@google.com/
+>>  - Fixed an iov_iter_revert oops in nfs_direct_extract_pages().
+>>  - Fixed a refcount underflow in nfs_direct_release_pages() during
+>>    swap-over-NFS by ensuring we do not call put_page() on unpinned memory.
+>>  - Rebased on fs-next
+>> 
 >
-> For QER=3D4 or 5, this means we can write to SR2 without being able to re=
-ad it,
-> which the WARN_ON fails to catch, giving a false sense of safety.
-
-This one however is a false positive. We already handle that case
-properly.
-
-Miqu=C3=A8l
+> [...]
+>
+> Thanks,
+> Praan
