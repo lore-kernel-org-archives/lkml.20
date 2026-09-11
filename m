@@ -1,38 +1,38 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57FF744E64E
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:40:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9246344C51F
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:40:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789112460; cv=none; b=uuhmXtC0PcWw0c7557x9MXGIrJroAtDxrT/20aT48CC+sHixCnddGqp3po/SZu3Yo7zc+00Ywja0dc6/TJmKEF0Sl9JmbcWDPh/g/wCegO29X6xd3w0oqn5TbhECjN3voPA0Gun1pC9ZLA9vplQGleTEhm35GtCYCaIOZ6naIkM=
+	t=1789112462; cv=none; b=sitBspCSu6uvLiXiByA3RfIUbbMKP7vSEYBdhfPpKdsJ7JbyQCnYlu9ort3s2s/8i2Wc4dgVTJIm6SRDoM3fFr+meFskN+Xpq7zeqeuegp5ydwYMgSoNXZaoguKWrKLJn/lHGS4+kUlLJ4UHdaytnmCeVngBWEc0R/1jiEgn9JQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789112460; c=relaxed/simple;
-	bh=0oqwV4n087TkcdE7smt77VXoCFhNFiNEr2EbMxZFD4Q=;
+	s=arc-20240116; t=1789112462; c=relaxed/simple;
+	bh=RctPS754DU/t+qBmFIbvj4yy7arbALAwJti9yGAZYSM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HFyu51yLSj6ivslY4Ux4J01ImmrY2NbRagbd3Snyznn9DEn0bC3+nCavtEE+c7MPWziT2Ax/iidYrRlEqyLPlZcvOO79stXEiYI/D78uJxDL6S+JPSUpenI9+WkKXwWNySSaWuVfffTnKJrdvGK4k+zTzWxq8nZpqxGAIdX2fL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=po0tBroq; arc=none smtp.client-ip=148.251.105.195
+	 MIME-Version; b=FC7x61hWsYjxUyVB0b0ssgEqUNrKvJwZxIqktvYM4kVUaIUjcfQCF2etfhRjutXD65xIXjz8JHX2A0yuEPaij7zLmWjmi0V0/m6r0Ik1w2vHPE366D3bPUp4Hndzzc6WjnANWIaWCvZ7JlosZopOZimq76knbJXlwF+PII9dSzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=oCl1nCDh; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="po0tBroq"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="oCl1nCDh"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789112452;
-	bh=0oqwV4n087TkcdE7smt77VXoCFhNFiNEr2EbMxZFD4Q=;
+	s=mail; t=1789112451;
+	bh=RctPS754DU/t+qBmFIbvj4yy7arbALAwJti9yGAZYSM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=po0tBroqkvLelMZmwCQ9WY3xbdOJ3a40sY2PKdyRNnUl11BmACIbJfP+PbLHdMnS+
-	 ZFTMHhqawslg1E4RjkaQrOpTLVLjNRsD4Ey8HPiYJTc0uFPeS+k4RNM/oTIURRepZY
-	 O61bREKmshLrFzaMw8J7QPi8z00IX5sc4EPSbcQxjHPUuVlJHMYrRhjvHors3rvN+n
-	 acbB3f7u8pRVWgEJwJLU256wcO8EeS7+heaZKdCfDk/gOmCX1xR9k+kk842602Arxm
-	 GXKC7alwI8+SPk3LMmPNnT59vGaGuEWW/9H1XE4vgKb9twl6xP1OdFc3yNqJq+G2Gy
-	 pdvMnP/DiJcxw==
+	b=oCl1nCDhRSX+SvulyjiOudPqry3mT5cNq311NaiAP80DEwhr/NWalUuNrBv7N7YQ4
+	 l5iGq6tCUtO9T+PeKZVBvENp1xuC6TAPz5rVUOYRHQUQbS5kcUUQE6o0KwLnV871t7
+	 yoBRn69cI/oN7xZ1ox0e93NfyNgH7KVKdiKPBIGbqcU0nBl1Yrntug86fmtv8upbxL
+	 3ekLpbZOpSFHVviVGRGN/4F0tUL+8jNozGdA5nzECZtyTiTHNFkR4DQ+6OWdA+Z1ZP
+	 UiBMqxEP4v/trHTGLwF5tdD3UFHMCku1NnU0w12tEdOm7LdlMXYZ+JmVmEDZGoOVLs
+	 eYztcOz0N7bsA==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id A7E9917E0CA6;
-	Fri, 11 Sep 2026 09:40:51 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id DFB4417E0C7E;
+	Fri, 11 Sep 2026 09:40:50 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: vkoul@kernel.org
 Cc: chunfeng.yun@mediatek.com,
@@ -50,9 +50,9 @@ Cc: chunfeng.yun@mediatek.com,
 	linux-kernel@vger.kernel.org,
 	kernel@collabora.com,
 	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Subject: [PATCH v2 2/2] phy: mediatek: phy-mtk-hdmi-mt8195: Fix TMDS clk bit ratio setting
-Date: Fri, 11 Sep 2026 09:40:15 +0200
-Message-ID: <20260911074015.9994-3-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v2 1/2] phy: mediatek: phy-mtk-hdmi-mt8195: Fix PLL calc divisor overflow
+Date: Fri, 11 Sep 2026 09:40:14 +0200
+Message-ID: <20260911074015.9994-2-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260911074015.9994-1-angelogioacchino.delregno@collabora.com>
 References: <20260911074015.9994-1-angelogioacchino.delregno@collabora.com>
@@ -64,57 +64,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The comment in the mtk_phy_tmds_clk_ratio() function clearly and
-correctly explains that the TMDS ratio has to be 1/10 for data
-rates under 3.4Gbps, and 1/40 over that.
+When trying to calculate a PLL rate for target display resolutions
+above 2560x1440, 24bpp, 30Hz, the pixel clock value will be more
+than 32-bits long but the division to finally calculate the digital
+clock divider is being done with div_u64(), which expects a 32bit
+unsigned divisor.
 
-Unfortunately though, the TXC_DIV register setting was wrong, as
-in value 3 means to divide by 8 and, in order to achieve the in
-spec 1/40 (tmds) data rate, this has to divide by 4 instead!
+Fix the overflow by using div64_u64() instead.
 
-Add definitions for the TXC_DIV register values clearly explaining
-the meanings (DIV2, DIV4, DIV8), and program the correct, DIV 4,
-value to the register in mtk_phy_tmds_clk_ratio().
-
-This fixes out of spec clocking and, with this change, SoCs using
-the MT8195 class HDMI PHYs can now successfully be configured to
-output 3840x2160@60Hz over HDMI.
-
-Fixes: 45810d486bb4 ("phy: mediatek: add support for phy-mtk-hdmi-mt8195")
+Fixes: 9d9ff3d2a4a5 ("phy: mediatek: hdmi: mt8195: fix wrong pll calculus")
 Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
  drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c | 2 +-
- drivers/phy/mediatek/phy-mtk-hdmi-mt8195.h | 3 +++
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c b/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c
-index e6ee8e080022..a4bc1268946d 100644
+index 1426a2db984d..e6ee8e080022 100644
 --- a/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c
 +++ b/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.c
-@@ -36,7 +36,7 @@ mtk_phy_tmds_clk_ratio(struct mtk_hdmi_phy *hdmi_phy, bool enable)
- 	 * clock bit ratio 1:40, under 3.4Gbps, clock bit ratio 1:10
- 	 */
- 	if (enable)
--		mtk_phy_update_field(regs + HDMI20_CLK_CFG, REG_TXC_DIV, 3);
-+		mtk_phy_update_field(regs + HDMI20_CLK_CFG, REG_TXC_DIV, VAL_TXC_DIV4);
- 	else
- 		mtk_phy_clear_bits(regs + HDMI20_CLK_CFG, REG_TXC_DIV);
- }
-diff --git a/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.h b/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.h
-index e26caaf4d104..58800d7659ca 100644
---- a/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.h
-+++ b/drivers/phy/mediatek/phy-mtk-hdmi-mt8195.h
-@@ -17,6 +17,9 @@
+@@ -290,7 +290,7 @@ static int mtk_hdmi_pll_calc(struct mtk_hdmi_phy *hdmi_phy, struct clk_hw *hw,
+ 	posdiv2 = 1;
  
- #define HDMI20_CLK_CFG 0x70
- #define REG_TXC_DIV GENMASK(31, 30)
-+#define VAL_TXC_DIV2 1
-+#define VAL_TXC_DIV4 2
-+#define VAL_TXC_DIV8 3
+ 	/* Digital clk divider, max /32 */
+-	digital_div = div_u64(ns_hdmipll_ck, posdiv1 * posdiv2 * pixel_clk);
++	digital_div = div64_u64(ns_hdmipll_ck, posdiv1 * posdiv2 * pixel_clk);
+ 	if (!(digital_div <= 32 && digital_div >= 1))
+ 		return -EINVAL;
  
- #define HDMI_1_CFG_0 0x00
- #define RG_HDMITX21_DRV_IBIAS_CLK GENMASK(10, 5)
 -- 
 2.55.0
 
