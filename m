@@ -1,118 +1,258 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 917903E49E2;
-	Fri, 11 Sep 2026 15:33:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 890FC3E16A8
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:33:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789140820; cv=none; b=DJFpRLHAOqhTKnJTExmFH6BVMI1v2Tz0zWS2xbY46y1EpPNSnPmWF+vpoYR2n0manW7srsqemCM9S/lgWmwulaK0bYExnF8dVAKLDBL76Eb1ausArjlrcnD2dWvcxnVS3fJZ1JZxLQDXBkeGV0SNGMc4He8ZJRfxA42vvU+phts=
+	t=1789140844; cv=none; b=FYzwFpdTN0MU4HY6gKALgY26/JgrlVST1/ByvCW8hS6TqpLUV5j2nlVDh4E1ossGcKKubc3IJqlg2Dv+DKGvE1ANgvu11AKXDNaLQKZ2nxSEXs7ApckkISoEW1/K8DkNzsmabVSLmKgmOMTKgWzUClStO5ZVZRkDWlKtpLRcAcI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789140820; c=relaxed/simple;
-	bh=G2KMCzFlA5oNkYSTmJT/nzBx5bRs6R2Y/lMaPfAROBU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Oy7EWS2HuSsU/7CJpQZOGCkb7HNpKya4PQJF/wbqZ5448iAkiYRK2cF2pqU5OQgJSeh1TW9Z4rDs7yNzf1t8BK18w6DX2Ib1RUVTQ2+pCs0LuD6qGTiRTbNdeEkITPTBWQkdT5V9c8RQXpQR7I/CaKD62znwJzQJn8xOPIwUkbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=StSZwZPs; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="StSZwZPs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C89931F000FF;
-	Fri, 11 Sep 2026 15:33:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789140819;
-	bh=aF7Nxwvxz+Lpi7RwrS2E2i/AXxZY4vMNQyRAn9DKm5M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=StSZwZPsx9Eq1nxx/2p/O0vcQVU7Ig0LZHAbQ9v6d9oXTZQ1hO9ThN0Mcggm9hA1h
-	 HhjmjAkjpT3kyuyB1dRU1kXW8NUma3pAL79hDWDVs2y4i45Rq40PDAPvSpBcM8NsDb
-	 X/xTHb4HbBqMdgBc52URyYRb5fZBTnvq02Vv0fk7elUQkKTuq/8zhPCJ2uXtr6vFSF
-	 qwmLnu4CG/fqq8EeboQsqDiwOfvrQdR3rhawM2T7hpbnftWjU219TeVPpV4fjYj77C
-	 JWnFwpeYJA9d89Pcrpi3wj1vBJewgngY0LLVBFwVviisrPlxxhOdjhxDQMlyNIyLd5
-	 QYwmet90Vkzpw==
-Message-ID: <db06ebd6-8538-4154-9267-9e818cf8113e@kernel.org>
-Date: Fri, 11 Sep 2026 17:33:31 +0200
+	s=arc-20240116; t=1789140844; c=relaxed/simple;
+	bh=kUiOoeNh0jQCD4dIRhTrK1r8rBf35htpF7ZKIvlCOOA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=FTeQNM4GW198n2DPThQaK9i5yuujhwnfjtx+grK2+2W6iP6+qWbMhbT+tZJAIWH4yCDr3NKrYUFD0eFyoFq7mTvV1ZJJUxwsD5Vu7sMLe8HYUf59XVxy3znb654lkf7BwTDX8oxna3lueXUJbE7lKrUoQWWs3zUBEgwUNAcqSNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.66])
+	by APP-05 (Coremail) with SMTP id zQCowADHLzpHH6RqIcntBw--.39685S2;
+	Fri, 11 Sep 2026 23:33:28 +0800 (CST)
+Message-ID: <8d1e3735c40b452f7ab89228ad5a0040f5f41b35.camel@iscas.ac.cn>
+Subject: Re: [PATCH] drm: verisilicon: support non-coherent DMA framebuffers
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Dominique Belhachemi <domibel@debian.org>, Maxime Ripard	
+ <mripard@kernel.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Thomas Zimmermann
+ <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Paul Walmsley
+ <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+ <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: Simona Vetter <simona@ffwll.ch>, Paul Cercueil <paul@crapouillou.net>, 
+ Michal Wilczynski <m.wilczynski@samsung.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org
+Date: Fri, 11 Sep 2026 23:33:27 +0800
+In-Reply-To: <20260505042631.1916555-1-domibel@debian.org>
+References: <20260505042631.1916555-1-domibel@debian.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/7] proc/task_mmu: clarify shmem mapping walk
- conditions in smap_gather_stats()
-To: Suren Baghdasaryan <surenb@google.com>, akpm@linux-foundation.org
-Cc: liam@infradead.org, ljs@kernel.org, vbabka@kernel.org,
- willy@infradead.org, jannh@google.com, paulmck@kernel.org, pfalcato@suse.de,
- xueyuan.chen21@gmail.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org
-References: <20260910234737.1340642-1-surenb@google.com>
- <20260910234737.1340642-4-surenb@google.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260910234737.1340642-4-surenb@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:zQCowADHLzpHH6RqIcntBw--.39685S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3AFy7Xr1fKry7WFy3Wr4UArb_yoWxGw48pa
+	1DAFW5KrWUtw4kGr9rJF1jkayak3WxKayIgry8GwnIvr1Yyr98X3WrAr9xCF45JrW7G3WS
+	qwsFkF1DCr17CrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY
+	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+	wI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+	v20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
+	ZFpf9x07betCcUUUUU=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-On 9/11/26 01:47, Suren Baghdasaryan wrote:
-> smap_gather_stats() optimizes stats gathering by skipping the walk for
-> shmem mappings in certain conditions. Update the comment to clarify
-> these conditions and use vma_is_cow_mapping() for COW identification
-> instead of open-coding it.
-> Instead of using (start != 0) condition to identify partial walks, use
-> more semantically correct (start > vma->vm_start) check.
-> 
-> No functional change intended.
-> 
-> Suggested by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+=E5=9C=A8 2026-05-05=E4=BA=8C=E7=9A=84 04:26 +0000=EF=BC=8CDominique Belhac=
+hemi=E5=86=99=E9=81=93=EF=BC=9A
+> Wire up the standard non-coherent path matching the ingenic DRM
+> driver.
+>=20
+> Tested on StarFive JH7110 (VisionFive 2 v1.3B).
+>=20
+> Signed-off-by: Dominique Belhachemi <domibel@debian.org>
 > ---
+> =C2=A0drivers/gpu/drm/verisilicon/vs_drm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 | 31
+> +++++++++++++++++--
+> =C2=A0drivers/gpu/drm/verisilicon/vs_drm.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 7 +++++
+> =C2=A0.../gpu/drm/verisilicon/vs_primary_plane.c=C2=A0=C2=A0=C2=A0 | 11 +=
++++++-
+> =C2=A03 files changed, 46 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/verisilicon/vs_drm.c
+> b/drivers/gpu/drm/verisilicon/vs_drm.c
+> index fd259d53f49f..52d8749445df 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_drm.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_drm.c
+> @@ -4,7 +4,7 @@
+> =C2=A0 */
+> =C2=A0
+> =C2=A0#include <linux/aperture.h>
+> -#include <linux/dma-mapping.h>
+> +#include <linux/of_address.h>
+> =C2=A0#include <linux/platform_device.h>
+> =C2=A0#include <linux/module.h>
+> =C2=A0#include <linux/regmap.h>
+> @@ -49,6 +49,31 @@ static int vs_gem_dumb_create(struct drm_file
+> *file_priv,
+> =C2=A0
+> =C2=A0DEFINE_DRM_GEM_FOPS(vs_drm_driver_fops);
+> =C2=A0
+> +static struct drm_gem_object *vs_gem_create_object(struct drm_device
+> *drm,
+> +						=C2=A0=C2=A0 size_t size)
+> +{
+> +	struct drm_gem_dma_object *obj;
+> +
+> +	obj =3D kzalloc_obj(*obj);
+> +	if (!obj)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	obj->map_noncoherent =3D to_vs_drm_dev(drm)->noncoherent;
+> +
+> +	return &obj->base;
+> +}
+> +
+> +static struct drm_framebuffer *
+> +vs_gem_fb_create(struct drm_device *drm, struct drm_file *file,
+> +		 const struct drm_format_info *info,
+> +		 const struct drm_mode_fb_cmd2 *mode_cmd)
+> +{
+> +	if (to_vs_drm_dev(drm)->noncoherent)
 
-Thanks!
+(Added arch/riscv list/maintainers to To/Cc)
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+I am still thinking how to decide whether to use dirty-tracking-based
+cache coherent maintenance or writecombine/uncached mapping.
 
--- 
-Cheers,
+Maybe a helper should be added, but where? Should it be in arch/riscv
+(in this case architecture-specific code would be present in the
+verisilicon driver) or in drivers/gpu/drm?
 
-David
+Nevertheless I think using dev->noncoherent is improper here because in
+case of writecombine mapping it's also true.
+
+Except for this I think I have no more opinion and okay with the
+implementation of this patch now.
+
+Thanks,
+Icenowy
+
+> +		return drm_gem_fb_create_with_dirty(drm, file, info,
+> mode_cmd);
+> +
+> +	return drm_gem_fb_create(drm, file, info, mode_cmd);
+> +}
+> +
+> =C2=A0static const struct drm_driver vs_drm_driver =3D {
+> =C2=A0	.driver_features	=3D DRIVER_MODESET | DRIVER_GEM |
+> DRIVER_ATOMIC,
+> =C2=A0	.fops			=3D &vs_drm_driver_fops,
+> @@ -58,12 +83,13 @@ static const struct drm_driver vs_drm_driver =3D {
+> =C2=A0	.minor	=3D DRIVER_MINOR,
+> =C2=A0
+> =C2=A0	/* GEM Operations */
+> +	.gem_create_object	=3D vs_gem_create_object,
+> =C2=A0	DRM_GEM_DMA_DRIVER_OPS_WITH_DUMB_CREATE(vs_gem_dumb_create),
+> =C2=A0	DRM_FBDEV_DMA_DRIVER_OPS,
+> =C2=A0};
+> =C2=A0
+> =C2=A0static const struct drm_mode_config_funcs vs_mode_config_funcs =3D =
+{
+> -	.fb_create		=3D drm_gem_fb_create,
+> +	.fb_create		=3D vs_gem_fb_create,
+> =C2=A0	.atomic_check		=3D drm_atomic_helper_check,
+> =C2=A0	.atomic_commit		=3D drm_atomic_helper_commit,
+> =C2=A0};
+> @@ -98,6 +124,7 @@ int vs_drm_initialize(struct vs_dc *dc, struct
+> platform_device *pdev)
+> =C2=A0
+> =C2=A0	drm =3D &vdrm->base;
+> =C2=A0	vdrm->dc =3D dc;
+> +	vdrm->noncoherent =3D !of_dma_is_coherent(dev->of_node);
+> =C2=A0	dc->drm_dev =3D vdrm;
+> =C2=A0
+> =C2=A0	ret =3D drmm_mode_config_init(drm);
+> diff --git a/drivers/gpu/drm/verisilicon/vs_drm.h
+> b/drivers/gpu/drm/verisilicon/vs_drm.h
+> index 606338206a42..17704cd0df1d 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_drm.h
+> +++ b/drivers/gpu/drm/verisilicon/vs_drm.h
+> @@ -18,8 +18,15 @@ struct vs_drm_dev {
+> =C2=A0
+> =C2=A0	struct vs_dc *dc;
+> =C2=A0	struct vs_crtc *crtcs[VSDC_MAX_OUTPUTS];
+> +
+> +	bool noncoherent;
+> =C2=A0};
+> =C2=A0
+> +static inline struct vs_drm_dev *to_vs_drm_dev(struct drm_device
+> *drm)
+> +{
+> +	return container_of(drm, struct vs_drm_dev, base);
+> +}
+> +
+> =C2=A0int vs_drm_initialize(struct vs_dc *dc, struct platform_device
+> *pdev);
+> =C2=A0void vs_drm_finalize(struct vs_dc *dc);
+> =C2=A0void vs_drm_shutdown_handler(struct vs_dc *dc);
+> diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> index e8fcb5958615..0049737f492b 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+> @@ -8,6 +8,7 @@
+> =C2=A0#include <drm/drm_atomic.h>
+> =C2=A0#include <drm/drm_atomic_helper.h>
+> =C2=A0#include <drm/drm_crtc.h>
+> +#include <drm/drm_fb_dma_helper.h>
+> =C2=A0#include <drm/drm_fourcc.h>
+> =C2=A0#include <drm/drm_framebuffer.h>
+> =C2=A0#include <drm/drm_gem_atomic_helper.h>
+> @@ -16,8 +17,9 @@
+> =C2=A0#include <drm/drm_print.h>
+> =C2=A0
+> =C2=A0#include "vs_crtc.h"
+> -#include "vs_plane.h"
+> =C2=A0#include "vs_dc.h"
+> +#include "vs_drm.h"
+> +#include "vs_plane.h"
+> =C2=A0#include "vs_primary_plane_regs.h"
+> =C2=A0
+> =C2=A0static int vs_primary_plane_atomic_check(struct drm_plane *plane,
+> @@ -86,6 +88,8 @@ static void vs_primary_plane_atomic_disable(struct
+> drm_plane *plane,
+> =C2=A0static void vs_primary_plane_atomic_update(struct drm_plane *plane,
+> =C2=A0					=C2=A0=C2=A0 struct drm_atomic_state
+> *atomic_state)
+> =C2=A0{
+> +	struct drm_plane_state *old_state =3D
+> drm_atomic_get_old_plane_state(atomic_state,
+> +							=09
+> 	=C2=A0=C2=A0 plane);
+> =C2=A0	struct drm_plane_state *state =3D
+> drm_atomic_get_new_plane_state(atomic_state,
+> =C2=A0								=C2=A0=C2=A0=C2=A0=C2=A0
+> =C2=A0=C2=A0 plane);
+> =C2=A0	struct drm_framebuffer *fb =3D state->fb;
+> @@ -101,6 +105,8 @@ static void vs_primary_plane_atomic_update(struct
+> drm_plane *plane,
+> =C2=A0		return;
+> =C2=A0	}
+> =C2=A0
+> +	drm_fb_dma_sync_non_coherent(plane->dev, old_state, state);
+> +
+> =C2=A0	vcrtc =3D drm_crtc_to_vs_crtc(crtc);
+> =C2=A0	output =3D vcrtc->id;
+> =C2=A0	dc =3D vcrtc->dc;
+> @@ -169,5 +175,8 @@ struct drm_plane *vs_primary_plane_init(struct
+> drm_device *drm_dev, struct vs_dc
+> =C2=A0
+> =C2=A0	drm_plane_helper_add(plane, &vs_primary_plane_helper_funcs);
+> =C2=A0
+> +	if (to_vs_drm_dev(drm_dev)->noncoherent)
+> +		drm_plane_enable_fb_damage_clips(plane);
+> +
+> =C2=A0	return plane;
+> =C2=A0}
+
