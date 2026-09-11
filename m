@@ -1,193 +1,122 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010008.outbound.protection.outlook.com [52.101.69.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 032CA48A8D1
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:21:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789143717; cv=fail; b=qisg+7x5PXs/MGFkXzIbkWp4SEf+I91PtubiZIEvFpmuvk2lFX+S+pSW9OMvMnnPWf4ajvniIHpi7zBKIQfL23sm3vyQZXKGbzHKzx9p2hqtkq6O/lnRQs3T8NY0UJc3kLcKQya3aVUEjKH0H545jOmZF2VeNGoeFmFbTj3uk3s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789143717; c=relaxed/simple;
-	bh=E0j/4Pd+FaZTEA/1Il2jjEbrToGYlumSoWGZnoPi+yI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=ktOwUGGGnEM9FtrAMpbOVm3p3yF/7BgK3CBDXg1Dbvaq7TlYPQCdAqt8qNv4b9lj2+Mwq4cCpZDm4KyX/9jW2lBwQ6w2KTRGDtd0+JNITnGEW490JVEroWYdBp82iLCsKQoI2ZUVK1ve/8W1hGyW8zaUURrRM8dxK8nJFBaRSKo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Y6jBjbSa; arc=fail smtp.client-ip=52.101.69.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 635CA47606D
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:22:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789143726; cv=none; b=t5yLug8HHnMoEo9MvadJNpExIWsE3REQsHWI3NO1eBUZEgsPoj3ScCTujcA9gkulekOtlS8MIkeqKnnOMWQS/4gBV1XDYf328WZOjStimtx9s+53pcRou9IVBDfELi/o2IfYpLIKYdXd6mAiFEsfnPOFoGAp4gG+TJKFUn1nRk4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789143726; c=relaxed/simple;
+	bh=GxfLvy1lNLqnB7cOHn1e+wG0w1lu+LJsHvlm3Jjb4j0=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=Awplz5IGkUK0KnX0V/1Trc1rnRiEj+6/rP+jZ4XWz2EDnhS5utUkiBHQk3byoP1uiv3bav9OUYFTxvmGJEo/qa4Mzmif9JxmMNQrC/tbidS88LxxzdbjGX89l7KUs1uzUl0tiS5b/M2MZosRpdfDQ+6uP71MnQFb7KpCRIw6EV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ZwQ0qhGa; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Y6jBjbSa"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GF7gUVMREUCerJnTr3rYfbG12n1hZv5m3XqVRK45ESb1b/uDDCOaK4ke6Aa/SniJZ8hYsYdp9N1uvt2AFoOYVHWPm28jiifxlwl74KcK7o9CnTSwnqAXjv6tK8wZmB4WJd2FYdmU2GBQC7wCuHAZ5a+ya6bxo4hNfSddmuHn//4+YbbCGiv8aVjdEiMUc/5d3WJ8YkGDIXmD4ykfLiOOuwgXcddsYiJ+r0m346ldqnvCC7Vp0KHV9Ee/lbYle8t45cClAn4AvDhlBHJFeaccwkURTWMes38y+95uSyIJtqA8KDvAk+rBknWKQ5P0Ep274wggykDdAHye+ZZzJpfsbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vLOBAPN4UU58VICp6QEugscY3LfieRY4vP5ZzxJKma4=;
- b=UoXDXWDjZE3kxValydTg+PzqkjOyU7agydMt5BwZWN7E2BAZvL2SmFicgRMKoHvgtDmegXioKL1CYuq5GLkKWaNDf/1ncbdA3EKjWDS5IwyvEz57TefU4HKki8SA8O0BJID9oRZSkjzMb1US/I3QMSUaBVbS96pHwqQEbm/YylM7BUNQTHotIpxdh0ik4Os3fl5lWxyA4T17AlV183mbag15Bk/JH5KrxsKNPIjoFeBREtDU1c3QJs4NmBzXHn8eOygxbh0H6YjwTPRm36tJubkdiUQYAIDhRYqJlw1omGRtZZ22dVoJAF5rSYglbhxMOX3Docf8Wvq/bN3RJdMobw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vLOBAPN4UU58VICp6QEugscY3LfieRY4vP5ZzxJKma4=;
- b=Y6jBjbSaQAkxmOunC75WfzMxxgyL4hW1mSkBHQjiTvxZBXRCALz79VHXPLOY+2ENsLvvych3FZkJADyFXteHFYuPNsAf+d6mjmWA72sPYgpYsJqoL+lTCrBxORqFx3gK1Fcs13zLQHzuqv95BnkEt2QfdItAW/5E5hD2eb6H9TmXB+/oIhXjnkPvsUxqQW756AGlF8eTl9kxqQiTvjz/7GyQFsDJt5H0cUCuTkm3v8B7OnEtJaio6ShuSx1p+mxBZGsivGv3ND+bd2gkLgKN5douv610p9SLmA3kQL7FehxVwvPr5ebjIYhRwIkwKsfVMk4j5AwKhe/AqXp6R+vf/w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PA4PR04MB7904.eurprd04.prod.outlook.com (2603:10a6:102:c3::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Fri, 11 Sep
- 2026 16:21:52 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 16:21:51 +0000
-Date: Fri, 11 Sep 2026 11:21:43 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>,
-	Allen Hubbe <allenbh@gmail.com>, Frank Li <Frank.Li@kernel.org>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	fuyuanli <fuyuanli0722@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Nicholas Bellinger <nab@linux-iscsi.org>,
-	Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 03/14] NTB: ntb_transport: Avoid deadlock when
- cancelling link work
-Message-ID: <aqQql6oOVIITjr82@SMW015318>
-References: <20260910040836.3792333-1-den@valinux.co.jp>
- <20260910040836.3792333-4-den@valinux.co.jp>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910040836.3792333-4-den@valinux.co.jp>
-X-ClientProxiedBy: CY8PR19CA0023.namprd19.prod.outlook.com
- (2603:10b6:930:44::9) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ZwQ0qhGa"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so12287905e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:22:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789143722; x=1789748522; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2u8iyN3q0EUKLYr5pleadR3LYPKgReYhURZxG75dAWM=;
+        b=ZwQ0qhGaV6/PT65RDyP2g6qHmcWxAiCLfwzjGYgsaASBEHR8L8x5HdunFDG5OZbNpB
+         78yGcMELWwm7PB6xD8CsIzzDKlaUZUYTXeT3VLBsaab0am0mlb+PR65D7IuaVSgETA2u
+         jOKpYVLsfO+ZD0hHUpj8AD+FpElOyIVAoZJKmeLqN8qTuIYDvMeAdbcuD9yC1ILYMbyB
+         G5dMJwLhJ26rumxuZwI+wh9Y8kiyFk4Pmc8R5mTbI1c4bMHGfCDYXC1Ni8uxObLxE48S
+         vGX+cyHIrZEwSs0QXKqy6s+IxOst3rkYnR4DQlcFWrLZnM5+xa6sHjkMTcPW/QSncVN6
+         Ociw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789143722; x=1789748522;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2u8iyN3q0EUKLYr5pleadR3LYPKgReYhURZxG75dAWM=;
+        b=doCFEtXVt/3Hke08bk+PYWc5g32RLy33sQ5L1aqGLOlMIfD0M4DAdFoBMfDWd1jFWK
+         MpmFKZ/rmJfsHyll1SWM03cKrZ72opHub4eFFttxPET7R5aNTZLH7H7QrwM04pu0ypnd
+         cqS5vOxNX7IBUA3HUWfMbvqrxuynDvMIIbMb4UQTkd02PFdMwhJVGNrSz2bntIIR7j32
+         a2GZaN/h64Nx4HR3Y1Zh0vbNk3gacTB/GzwE0kC/IGBCYlFvPwieTfde5Qw368YvEt0Z
+         gKS0BSjO1Sj/kaoZ2q5beo9Xx94SR4iRXmnt5/XXxjMYkzDBfN0VLq1/CmIiSOaXfsHu
+         SGpw==
+X-Forwarded-Encrypted: i=1; AKwUvBz6q5c73MYkSl1SU2CVgeleR3qWWYTu1MTrkIZOhH85C7eCfbfa9yKNpZwJ+vgaBh4LLxYQWyDejm3otTM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lcHkdt/qIZhg9+/4iyKDdwQcGgVAff/68U3kSGZTZ2w3prr1V5
+	34RM55XaziPFr+C/559YbxtMIW7Ay9SiFzOEX3W1DLg75NdG2Ql/mp+W+VB0BZU0L+A=
+X-Gm-Gg: AYBFou14vvzqp4CUDKDZk+hKtNr7fzE+lhjI92t/aAeFWduSorhnRQz0ucIHhX32b7u
+	qFM9TVfNAusC3GqmabiiQKPxjjTAbTB/Qgnx3wyWfpIGwewQOVXo1tv2DTaA0h21eEjTLk1UITB
+	prxjSw6RphWwFvNvBueP6iKPGNmUgslRmeV4EzKG2fnFebhzxflf8s5bUktUOgWTwJNj9Mp6Mn1
+	xgRIpAT3B3sTxtAB/JDaetbrc8Rj0EjsM0Vwruhjqx5kIAFuAVGhQvvabfUxfOV2ivm0HIYXZel
+	MWUXEPfIEKmU6GtR3AZQ5esqHqAkHJ5XG2GNjDdAuzjcCPTHLjNfVMvP9yMcsGgfZveAaS61zXx
+	GEPdiLpKgAmZJYMdjpjok/wE5SQQp0SQJSmvJDqfrHPI9yZaYmlpgRSkfvrbYxXE6ArS/UtYj79
+	Yx7oOm80yy/S9W9cBsH1uVy7xg/mvueX5rVvbILH0DiTlB+D5zfCi+bs2cwfRmum5/JT/6wcdTC
+	zhLErueGrxllFJUG7l4EkDiCSNXed3pAIWbMY5CJbkn/jBYKYSKshqOLp31Ipj4Xi5mb9kK
+X-Received: by 2002:a05:600d:6414:10b0:49c:fc6c:be16 with SMTP id 5b1f17b1804b1-49e619c64cfmr43100325e9.28.1789143722456;
+        Fri, 11 Sep 2026 09:22:02 -0700 (PDT)
+Received: from localhost ([94.4.85.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6576122bsm75330195e9.2.2026.09.11.09.22.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 09:22:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA4PR04MB7904:EE_
-X-MS-Office365-Filtering-Correlation-Id: 41fb2bbd-964d-4100-c9be-08df1020c995
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|1800799024|366016|23010399003|7416014|6133799003|4143699003|10067099003|56012099006|18002099003|11063799006|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	tg9mebEPZz6kxCB8kBqTQqxlvXCgPuvZbg0an74dkHB968zto5Q/wGR3/4zj6sPdXQQIxyw2zatXBLmAQlMEdKHAaC0tJD0AEwqvd50xmuuRgVdafwNK+6fgobCL6Yp/Ut32r+e8qK7d9yGeQAlk1s/pW3D4nh4ycrDUmhCw+09+rgZ/2whdsXrY9w0nYfzSLt6RcBl/GbrSaVxXEGBybk7MpC5O7KVtreIxbb6MulPobZXnRCcN3yr+GgAxrnhd0BSXl0GLqYeUHIBC8V1ogASn699bs9YGoQNW7wvs7oL8n1USUonU1m220O+/n3xTxRtCwUEznxj0CyNlaiUvUsogiKvY13MiSMQ45xQ46lQOqjGH4ljs9kLpdpsBubG7YcxLmWnorYAAZOWJ8FCh5Dwbv/DqegvHKQ2kIrGz0ZZYvXRQ37bxJUtR/BGrOPkEk//YUYh8GQyft6G3VT6qopNrUjlrjDHmgDz881gTCAY4SKP9rweKUffjt+sB2LgkoTtN+T4KB7tSf8nqIV4jjydXkdbB8LuVgSijoTUr89QVs5Jgx0Ry7C/4HHifinbWepqIU6MzR9JRJl0DcJL7rUyGRvk/YKl5rHJQaEnpfcSK/LwMkZRqZoqfMBCgZ1BI3dY2jq2O0aQQRxMVgk7Dmwgzd/3vH1Zjy3ImBgdGUio=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(1800799024)(366016)(23010399003)(7416014)(6133799003)(4143699003)(10067099003)(56012099006)(18002099003)(11063799006)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?XFIpFFDs81k/q2rG2o5Cr6cBaCOL8Ac15KGbApyyClSJlGMJhsom6zauOUv9?=
- =?us-ascii?Q?C5stMnHBC9diM7jwuJDZ8AWlIne5inMiTzliQg3a8rUYQ57EheDpIXr0qmdU?=
- =?us-ascii?Q?1nPytSRwszCiqX8Vozh+PABUct7kFafHgemjpjt94BUFGkpVQs2VcKi/Yeb+?=
- =?us-ascii?Q?DU/58YASiSiJrW41xEqFLx2ROmYPmd+HvGOdldViWuDXP6ESfLMrSkLCe/gU?=
- =?us-ascii?Q?a6/Qlt0a8rzEPkeScEveI8fCjkn1VyTjZCIXGqppBEkwOF0XMHydZvgwWf0y?=
- =?us-ascii?Q?AX7JsXgC0ebaCc/a3ZoS/2Y9bmt8du/6A6bP9CvO4Ig+HF9yGPLwyl5hD0HJ?=
- =?us-ascii?Q?lUzANrH0ekpBHkmiy1ngZfxMJQJF2WgbdNTmcUJKPdJIOvNw6BaGf0HdKoG3?=
- =?us-ascii?Q?EEE9G9dYlbAQH/q3IJWRKDaaYnCEvMBnf6uDKgqKnFqMFLAwO5E7wW+23UHS?=
- =?us-ascii?Q?VnnjktYKT1DlFHqGVtSBLXdaLbrUhA2tl0SCXToMl5sbyM5ePlkCeDbGrAHU?=
- =?us-ascii?Q?sc5JMfCU5eSQHWKHmLwSmyKeEUUeAw1ejpNvWVHXUnVFdrB0MsUt282c/vQR?=
- =?us-ascii?Q?LsEg3zslr5NzKoOGY6ijKAKA9ZsTaF0KkPTvxa1Dmgqz6LWkTaGoe9k679wi?=
- =?us-ascii?Q?vhYZ2v7Aymd8TWYVW4/Q7abQRZqtcxCXwuB0pP+dqD1JnE0enngE4e/eSmSB?=
- =?us-ascii?Q?1eEykgGYVrN5w5VAHugyoeizAkHJZaDwpP1cpfpDdi4OfB7sXRgqkUJmxfJn?=
- =?us-ascii?Q?XGV5pwcXQbTQUkCrYdxNjMGVITUdxJTGszfoGFhIPbzsHwBglDbRDk0eD31h?=
- =?us-ascii?Q?ugJgIv1MNjFdHN+qaZdw/a9RymzmY3zdDuTFZ5CQner5mcBlucapD0EJ0gha?=
- =?us-ascii?Q?DHxmYUEltfuViE/FX0e2t/0+YUEkcCYw02LHApPC9IUn8PrvDrTUiTnY3slA?=
- =?us-ascii?Q?WfrrCdIxEilZIGCYDFsA+rtoPwMPDDs9AKs9S6IaYstDc+xSdvraEzFMHMCi?=
- =?us-ascii?Q?7wmO/zwiTJQ8cu5RAksWjGr+x2uKSjiLkOjuyhK5gf/B2B0l/CUJUi6TuZyY?=
- =?us-ascii?Q?8AqD24ZqM7wGk5GycjU7wBnwQXzXM/mI0F11M8qr6toeerDMAsUsW7yT00Nk?=
- =?us-ascii?Q?Kwi725A4kBPTk8gUfet7mpRFiFbQL/DjYqSjFF4ggacuNhAw0KwP0wY0j9jo?=
- =?us-ascii?Q?MAolwI/cEpGavkrc9juR2DlK3WiPzTV0MSZ+v1vxvurtW1LE/l+aCocn18zf?=
- =?us-ascii?Q?fubZh4ArQDD46264CZDQj2y53AdMRUil5J7E6eAX4gIAi0I8UeqKMJ0FVyx8?=
- =?us-ascii?Q?c2vzrE/usxg0ddEsuOB0EM8K9P6kNpa6yTmz0lh3ttHCenJPDIAkqZlVqVSp?=
- =?us-ascii?Q?9SUdRmMarxOYByZjBfVootYSrtfjak5M5UKd0lQHvNJLyz3inYIagatWVIQf?=
- =?us-ascii?Q?pTwlaHBkEwRKldME/ZlyFutoXcIA3ImpMhxFxZWLf1PUwRB+lINe1L/Zf8/R?=
- =?us-ascii?Q?irvaHBoXvlitJVYNtuaofg5Cu++3GDC59iUqjo9pt3uv5ZjKh1ROL9ormoE2?=
- =?us-ascii?Q?2qYUds8Lul09/9h7n/DJcc9O1CCyB/7GLJx9lHSVUT0UCb9rf8PNgVcxOhYH?=
- =?us-ascii?Q?YYPLx3SiXPT7bZmJNJl4miVfowo2EHt+0eprNjmxXffTYSX+JgsRHCs0UsDH?=
- =?us-ascii?Q?ebO5wZKR6HEEJ51Hz0f7cYI4z5Z+ya9tvhAaaOaJV6744HaDGTir8vcV6QCM?=
- =?us-ascii?Q?S5AOHjUZbvFBi0ezE0ECKAXZF442lWlozkYg6vUD5XyJfoaHQidF?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 41fb2bbd-964d-4100-c9be-08df1020c995
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 16:21:51.8917
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CTSuHZ1Diw3oXqOu/w7Iatk5Gi3o7rY4ecLaJ+MQtjqc2bjFhTPTCwk7+i7MIGnHiOLtS5Or3vBi35HifIfqTJtiNGUylqtrYqUv5s6A322rBt8WT8E8ciFbMRGvd/Gx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7904
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 11 Sep 2026 17:22:01 +0100
+Message-Id: <DLCMIMOI4D23.1YB1F2148RZE4@linaro.org>
+Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Alim Akhtar"
+ <alim.akhtar@samsung.com>, "Peter Griffin" <peter.griffin@linaro.org>,
+ "Tudor Ambarus" <tudor.ambarus@linaro.org>,
+ <linux-samsung-soc@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 2/2] arm64: dts: exynos850: Add acpm SRAM node
+From: "Alexey Klimov" <alexey.klimov@linaro.org>
+To: "Sam Protsenko" <semen.protsenko@linaro.org>
+X-Mailer: aerc 0.21.0
+References: <20260727-exynos850_sram-v3-0-8627a49188ec@linaro.org>
+ <20260727-exynos850_sram-v3-2-8627a49188ec@linaro.org>
+ <CAPLW+4kBHV=pcK1WyEerQ=yg-_XcR+FMXe1W7OmrMX3hxcXo_Q@mail.gmail.com>
+In-Reply-To: <CAPLW+4kBHV=pcK1WyEerQ=yg-_XcR+FMXe1W7OmrMX3hxcXo_Q@mail.gmail.com>
 
-On Thu, Sep 10, 2026 at 01:08:25PM +0900, Koichiro Den wrote:
-> During initial link setup, ntb_transport_link_work() can retry with
-> nt->link_is_up still false. A retry can block on link_event_lock
-> while cleanup holds it and waits in cancel_delayed_work_sync(),
-> leading to deadlock.
+On Fri Sep 11, 2026 at 1:28 AM BST, Sam Protsenko wrote:
+> On Mon, Jul 27, 2026 at 8:23=E2=80=AFAM Alexey Klimov <alexey.klimov@lina=
+ro.org> wrote:
+>>
+>> SRAM is used by the ACPM protocol to retrieve the ACPM channels
+>> information and configuration data. Add the SRAM node.
+>>
+>> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+>> ---
+>>  arch/arm64/boot/dts/exynos/exynos850.dtsi | 5 +++++
+>>  1 file changed, 5 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot=
+/dts/exynos/exynos850.dtsi
+>> index 3881f573ec08..0b614caa411c 100644
+>> --- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
+>> +++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
+>> @@ -163,6 +163,11 @@ soc: soc@0 {
+>>                 #size-cells =3D <1>;
+>>                 ranges =3D <0x0 0x0 0x0 0x20000000>;
+>>
+>> +               apm_sram: sram@2039000 {
+>> +                       compatible =3D "samsung,exynos850-acpm-sram";
+>> +                       reg =3D <0x2039000 0x40000>;
 >
-> Move the conditional cancellation outside link_event_lock, before
-> QP cleanup. Keep QP cleanup and MW release under the lock so link
-> work cannot restart QPs between them. Put the locking in
-> ntb_transport_link_cleanup() to cover both worker and remove paths.
->
-> Fixes: 3db835dd8f9a ("ntb: Add mutex to make link_event_callback executed linearly.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> ---
-> Changes in v2:
->   - No changes.
->
->  drivers/ntb/ntb_transport.c | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
-> index 55a20ae9a85e..c77b173dca01 100644
-> --- a/drivers/ntb/ntb_transport.c
-> +++ b/drivers/ntb/ntb_transport.c
-> @@ -960,6 +960,15 @@ static void ntb_transport_link_cleanup(struct ntb_transport_ctx *nt)
->  	struct ntb_transport_qp *qp;
->  	u64 qp_bitmap_alloc;
->  	unsigned int i, count;
-> +	bool cancel_link_work;
-> +
-> +	scoped_guard(mutex, &nt->link_event_lock)
-> +		cancel_link_work = !nt->link_is_up;
-> +
-> +	if (cancel_link_work)
-> +		cancel_delayed_work_sync(&nt->link_work);
+> Why it's 0x40000? I checked the TRM, and it says iRAM APM area is from
+> 0x02039000 to 0x02069000, which is 0x30000 (192 KiB). The downstream
+> kernel (v4.14) also say the APM SRAM size is 0x30000.
 
-what happen if schedule new work here?
+Good catch. That's my bad.
 
-Frank
-> +
-> +	guard(mutex)(&nt->link_event_lock);
->
->  	qp_bitmap_alloc = nt->qp_bitmap & ~nt->qp_bitmap_free;
->
-> @@ -972,9 +981,6 @@ static void ntb_transport_link_cleanup(struct ntb_transport_ctx *nt)
->  			cancel_delayed_work_sync(&qp->link_work);
->  		}
->
-> -	if (!nt->link_is_up)
-> -		cancel_delayed_work_sync(&nt->link_work);
-> -
->  	for (i = 0; i < nt->mw_count; i++)
->  		ntb_free_mw(nt, i);
->
-> @@ -992,7 +998,6 @@ static void ntb_transport_link_cleanup_work(struct work_struct *work)
->  	struct ntb_transport_ctx *nt =
->  		container_of(work, struct ntb_transport_ctx, link_cleanup);
->
-> -	guard(mutex)(&nt->link_event_lock);
->  	ntb_transport_link_cleanup(nt);
->  }
->
-> --
-> 2.51.0
->
+Thanks,
+Alexey
+
