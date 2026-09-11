@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA52630AAD8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3E88635D;
 	Fri, 11 Sep 2026 23:11:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789168285; cv=none; b=oTgJCs20o1SDApLyXAMARwJx/MVDRbllh0XpSMNyym4Sa1P7iJc7/N/wp/UmydH+pjtnfz6sEJu4195pA5va/HKLAQuMzwVCmTCzwxOcHAChh+Q4z3BZG20FGwb5YE0P+/E+gofddfiALWxfoaBL0TLHgxjnlrcM8wLFeLU4X0U=
+	t=1789168285; cv=none; b=YWiy8/L4zoow0zWUueW8iyvRw03vMneRYezJxlkBvjK/BGDW8YrRCkFC/3jcUEF2QiSLwbcLiJ92OvjQAgaDF50xutBAFT42sHfO4Yur1iMb3chmzv8HD4EfsmVTt2pqCTjUIbEzUm6DNf2xjV/0yy0tOXOUjK59nC7iulZ7lAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789168285; c=relaxed/simple;
-	bh=poZE6G7l8mXHXez7alx4IXviwmEYDJVB5doeIShWyj0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=qHuEoIT/tfZDkqMhoDSJxplSEkGNaKaC2F+7dyV3Dww4O32ZHDzXmpDv1Ru6BMqZLxyWAsCNxlMjSNlsm4hzZcNdcaTt8LOS3asVd9Q1ai3Z1bCnn9gnnCpIoEqbQyg89le5+peFjSVU+8XB1njNX/USh81+TahH8/YJD07yzlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o7Ahc78W; arc=none smtp.client-ip=10.30.226.201
+	bh=Gm8deTUUq8SK2KfDTmxZ9wTG4dA0MDu2rhDhD3qrcgU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=qWOy1fLvcwufXvvWalq/YMTIJgmoDrpS+3rPQFbL4achMWR/y6bZA37bho1jslbBbl4P6HErt3ehICGAS3w5au8HaMBcl5IExMOyxVD20EfokSezuUzyLDBE0GsuXd4EZXlCD8KvccZmNvtMGu9x+acQDK1XbngZhKzZKb6Kroc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vO+7T5+4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o7Ahc78W"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 618CBC2BCB8;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vO+7T5+4"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 85922C2BCF5;
 	Fri, 11 Sep 2026 23:11:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789168285;
-	bh=poZE6G7l8mXHXez7alx4IXviwmEYDJVB5doeIShWyj0=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=o7Ahc78W36onSlRc5bUzhr1RSbuadLRcBF3k9ezTrcQjVsIiCFvRflRxggZnqvDwE
-	 uVkmp1NPLgI9nk6OvgP9EclKhpEeYYx6uOoMRmwEE0pbeQtxBMZKwxEoKCet20sh8Z
-	 L0dl7Qd1J55X95Yj5nRaUPLTgbMbuKoYsD6aYFunxsONK2SKrqTRux+FHb9Z7eBXxA
-	 QE09/SU3MBVBGC+SIh0fq3bJRh6G3IZzoth+9Efix9AHHDS3DmrESH9v6gOW2wyftV
-	 LqLkD3bAQKkboTLwRdf61aOARqmU9kVidaVhlY5QHZ15nHqWb6JXFHBkpzTgxqO1GU
-	 r7fvr+oGMyrgg==
+	bh=Gm8deTUUq8SK2KfDTmxZ9wTG4dA0MDu2rhDhD3qrcgU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=vO+7T5+4H9kXr3jpX6euDk0la4aH9N9leU0n0E8tztXkFy5a5NxvpS44cHVMoj95s
+	 9/IXBr9NfvxNAinoVCzsT8mt8aYMg/5LgK3L6VfdWPtKr/5B63zxKIEpGpb7qsLjf4
+	 QHm9jvwAWg1FkIP0wEvn4Arp7PggQma7EII2u/Pkdmi5F+eqFXqzVfP5Ma+iJOi0ls
+	 eGvCqxQvhz7Z++fVGnMUwVkCi94st4A7VOHkosMvBw2AaIwDFdithjTffQndM0yEXF
+	 2SL8SV0FFX7uv0n7XcvdMBwA+YrumZmsZjyarvBeMgWOZ2L3MifJBLMs/RWp7m+gql
+	 bxvJY/L1EIvhg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4DB36C88E45;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7500FC88E53;
 	Fri, 11 Sep 2026 23:11:25 +0000 (UTC)
 From: Mark Amirkan via B4 Relay <devnull+markdamirkan.gmail.com@kernel.org>
-Subject: [PATCH net 0/2] ipv6: rpl: fix loop detection for separated local
- addresses
-Date: Fri, 11 Sep 2026 16:11:20 -0700
-Message-Id: <20260911-sympwn-rpl-send-v1-0-1753993bb584@gmail.com>
+Date: Fri, 11 Sep 2026 16:11:22 -0700
+Subject: [PATCH net 2/2] selftests: net: add RPL SRH loop test
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,24 +40,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJiKpGoC/yWMSw6CQBAFr0Le2k4YJCBexbiAocU22k6m8UMId
- 2eUZVVSNcM4ChuO2YzIbzF5agK3y+CvrQ5M0idGkRdV3jhHNj3CRymGOxlrT77eN13pD1XZ1kh
- ViHyR7/94gvKI8ybt1d3Yj78XlmUFNXz31XgAAAA=
-X-Change-ID: 20260911-sympwn-rpl-send-c739b4c864a7
+Message-Id: <20260911-sympwn-rpl-send-v1-2-1753993bb584@gmail.com>
+References: <20260911-sympwn-rpl-send-v1-0-1753993bb584@gmail.com>
+In-Reply-To: <20260911-sympwn-rpl-send-v1-0-1753993bb584@gmail.com>
 To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
  Simon Horman <horms@kernel.org>, Alexander Aring <alex.aring@gmail.com>, 
  Shuah Khan <shuah@kernel.org>
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, Mark Amirkan <markdamirkan@gmail.com>, 
- stable@vger.kernel.org
+ linux-kselftest@vger.kernel.org, Mark Amirkan <markdamirkan@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789168285; l=1120;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789168285; l=2121;
  i=markdamirkan@gmail.com; s=pscsi-20260818; h=from:subject:message-id;
- bh=poZE6G7l8mXHXez7alx4IXviwmEYDJVB5doeIShWyj0=;
- b=eKXJgapi1xe1t9oJHeaMBIbo9BqmO/qfByRm+EboQECBMG3uU7xeBWbzJImoEd8KTpH3uYfym
- BpfddUkJZVUB4QeE8Gu+XOKslrgXJe+lbGkggCoISinnCf6ou6KBcRx
+ bh=oYolW/2kgmaKhTJtOnbVhNTitMeYR8kNTB72g56mfrI=;
+ b=0qrhrLzhLU4s5WCOOGL+Sb8Y7nG72SoC7cAB0bpXuevjbeF4Nb744BtxjOSTiIYledauPAv+f
+ pVCl44yEdPQARSt1BVeseREqX1K8mXPvx8PtvZMGIX8NsnlTjjkAEG4
 X-Developer-Key: i=markdamirkan@gmail.com; a=ed25519;
  pk=/wb49ibt4gZFDncmhFQBYtjPvzT1tfJtvK4Mqt1P2Wc=
 X-Endpoint-Received: by B4 Relay for markdamirkan@gmail.com/pscsi-20260818
@@ -66,33 +63,77 @@ X-Endpoint-Received: by B4 Relay for markdamirkan@gmail.com/pscsi-20260818
 X-Original-From: Mark Amirkan <markdamirkan@gmail.com>
 Reply-To: markdamirkan@gmail.com
 
-ipv6_chk_rpl_srh_loop() misses the shortest RPL loop pattern containing
-two local addresses with a non-local address between them. The check is
-made before the current local address is counted, so found is 1 rather
-than greater than 1 when the second local address is reached.
+From: Mark Amirkan <markdamirkan@gmail.com>
 
-Patch 1 fixes the condition. Patch 2 adds a selftest which verifies that
-adjacent local addresses are accepted and separated local addresses are
-rejected.
-
-The selftest fails on the unmodified net tree and passes with the fix.
+Add two local addresses to a network namespace and exercise RPL route
+validation. Verify that adjacent local addresses remain valid, while a
+non-local address between them causes the route to be rejected.
 
 Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
+Assisted-by: Symbolic
 ---
-Mark Amirkan (2):
-      ipv6: rpl: fix loop detection for separated local addresses
-      selftests: net: add RPL SRH loop test
-
- net/ipv6/addrconf.c                         |  2 +-
  tools/testing/selftests/net/Makefile        |  1 +
  tools/testing/selftests/net/rpl_srh_loop.sh | 38 +++++++++++++++++++++++++++++
- 3 files changed, 40 insertions(+), 1 deletion(-)
----
-base-commit: 78445023439506ebd83b86d40b1e428a3b309d4a
-change-id: 20260911-sympwn-rpl-send-c739b4c864a7
+ 2 files changed, 39 insertions(+)
 
-Best regards,
---  
-Mark Amirkan <markdamirkan@gmail.com>
+diff --git a/tools/testing/selftests/net/Makefile b/tools/testing/selftests/net/Makefile
+index 3ee3378f8b26..7fe7e38b9c6c 100644
+--- a/tools/testing/selftests/net/Makefile
++++ b/tools/testing/selftests/net/Makefile
+@@ -80,6 +80,7 @@ TEST_PROGS := \
+ 	reuseport_addr_any.sh \
+ 	route_hint.sh \
+ 	route_localnet.sh \
++	rpl_srh_loop.sh \
+ 	rps_default_mask.sh \
+ 	rtnetlink.py \
+ 	rtnetlink.sh \
+diff --git a/tools/testing/selftests/net/rpl_srh_loop.sh b/tools/testing/selftests/net/rpl_srh_loop.sh
+new file mode 100755
+index 000000000000..a2e9991d789d
+--- /dev/null
++++ b/tools/testing/selftests/net/rpl_srh_loop.sh
+@@ -0,0 +1,38 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++
++source lib.sh
++
++cleanup()
++{
++	cleanup_ns "$NS"
++}
++
++trap cleanup EXIT
++
++require_command ip
++setup_ns NS || exit $?
++
++ip -n "$NS" -6 address add 2001:db8:1::1/128 dev lo nodad
++ip -n "$NS" -6 address add 2001:db8:3::1/128 dev lo nodad
++
++if ! ip -n "$NS" -6 route add 2001:db8:10::/64 \
++	encap rpl segs 2001:db8:4::1 dev lo 2>/dev/null; then
++	echo "SKIP: RPL lightweight tunnel support not available"
++	exit $ksft_skip
++fi
++
++RET=0
++ip -n "$NS" -6 route add 2001:db8:11::/64 \
++	encap rpl segs 2001:db8:1::1,2001:db8:3::1 dev lo
++check_err $? "Adjacent local addresses were rejected"
++log_test "RPL accepts adjacent local addresses"
++
++RET=0
++ip -n "$NS" -6 route add 2001:db8:12::/64 \
++	encap rpl segs 2001:db8:1::1,2001:db8:2::1,2001:db8:3::1 dev lo \
++	2>/dev/null
++check_fail $? "Separated local addresses were accepted"
++log_test "RPL rejects separated local addresses"
++
++exit $EXIT_STATUS
+
+-- 
+2.43.0
 
 
