@@ -1,293 +1,200 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BADD548D896
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:11:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789161079; cv=pass; b=kLOa+qMDISXol+CQw5nRRR3PIK2ytDdA4newNznljRMGOADxc1IEG/dcY7CbsQXgHRzdkuEE4Xu8kZVE0lNAj0CdU5BbzJRhCh0NLb2NCeNKUO85780NLAkpqsmPBZr/hc64ribD4Y5GAoeOz2TtnloSGhkdKj1ggh7s/UrF6iQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789161079; c=relaxed/simple;
-	bh=qtfRGgc0150IdS009KTkrjseWK9uySmbmCuWcYChZ9A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IpZ1m/rp2pHUZ8yoHrgXgJEKx0ixXB9QYQJ291CUbiwedwE/YyPyR3b/RUUT7x6Xhp73C48UO7pd3d/UhsCrIf0mk1+KEHgRr1HzS+Ob9lw+hOfbPZ4vGMthLr5zhIdgbHfPg8E/QEIEURlDoyIQW73F6G+AalcXxP8Ny7RdqB0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wUoioV8K; arc=pass smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wUoioV8K"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4bdf8acd6so343803a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:11:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789161077; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gfX5WJBTtRfU70PoAJLkw3UWz/9nalwaS2bgcDOSPA7US9KnlSZ6+duz5tD2TIYIse
-         UABAJegff9527VGmsWgN9xraQdixRF49BX+jzqHvFg98QiJfO5QnMYiA3HbGRa1tnXtP
-         Or4MNre/reeGe+PMncoCbmUZJsZl/zXwPc6gdN+bSGFHuDaxGe2u6Qp/F6RRXKTtIQH0
-         rtc4Joi6QK27nKcj3Sx1Q0LSPeIsAclA2W+E0cWarMZzMIYv9NgJ9r5Q/V0xd9Kr2NcL
-         hm4gVTjY2jes8K+0jE9a7DtYrLHRTS6Q1sCnh33aNqDag7+rAYsAV7SstQN/32XUy43l
-         9DBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=c6HV8uHNfHnA3I2z6iazz6poKohSe+yKAEsfT8M/ffc=;
-        fh=ZzOI6ZFigso+1N5JWc5ndTJIL2thxLI9V74D2atPTEE=;
-        b=rho99bRYHEKjmJT8eZ2HQ1gt/axxG+ZoXO8evu7oav6X8QWhIUXxBh9GuboVjLK8vi
-         gqY4SUw2Y/e75clDX7JlwtUze0TvPi+VekJ5mMAj+2ebvz76srnN4edVkALcy33iJ1SN
-         F1mXeTncylg+jARRV5JZ7mu85bRzO3W/KBULeKzIjBu6tY4DAO30dIjPVpwvWCs0iBst
-         mT2vmpeNjRcWpSapm1SZsU+0E8tY7Pq9U+YG9iQNrzxs7X5/GeCEt7ToVtDMiEoknQBB
-         172iITuQ3ig9cp2gB4jCwvW2RW27rd2e2k7NPe0k3kCVDYDMTDbPTsMmT4CK6Vn6kgdW
-         jiTg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789161077; x=1789765877; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=c6HV8uHNfHnA3I2z6iazz6poKohSe+yKAEsfT8M/ffc=;
-        b=wUoioV8KmTCjJby31NYdsmi2gDM8dWfScP6aBTPzSPvTzWkRMWo+sqNJ5Qe07TA2+Y
-         FFCQITvw4HrSkjgBpoQ48nr2mhDwNDiJ/zlvlw9Yp2QAaWUPQ2OVBQYhqSGAQ1sRaDPr
-         PH7GHWil68hH8D9OHJgyVVxNN4LjpyDLPUT+AJx1yjUIBXceIgjnvBP+gGkA+ixasXHc
-         DE2dUnWtjwCcsF/STMUiPGWu6i1RxS8steSH0FSwy6SLhTJTiT+lU18knXI9g+s446S4
-         WrBl9XCzcx9yNRE4C5u4kuyHUwxBK6S7Q0bDZ1i8saeh+vyLcFNJvJeERUpCrege3KWY
-         UUog==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A7314A0F0F
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:11:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789161086; cv=none; b=LkHmwq4kNcJC+opTEBR3RJquRS+ISoMrKaK8677HzsL987auTwX41hwTUoz8l5hc25DV7xHaVq1G0GLoOee3Z3QmhHNkHQtNUZfuMUxiykD/0zFMR1iQ0r2JxfEQikIRBBT95Aq4hXLVoJE3u3E3PMhia9T2uzqv2boJkFkQlnE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789161086; c=relaxed/simple;
+	bh=tvyId/Etw8jxlO7xx1e/dl76CoqsDxgvKUYOrScQUTk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SoyVmsghAuKcw58kmGuE6ixrmSZp8Kz8AQno9g5FvId30qwm6Nxao2wcr61O4MU+AgM2NcemU7MC84/pAzrIylIIh4HW9lfDCVyj6ON6O433dxYSrXxwaiSmXWY9ji2WBcMNxt/oQ76cFLIP2wrhg4f2Xigryvpuef7Nr8YVOzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49a97714f5dso12333505e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:11:24 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789161077; x=1789765877;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c6HV8uHNfHnA3I2z6iazz6poKohSe+yKAEsfT8M/ffc=;
-        b=VWvSK8iuAgslUDUej5e8DLNpDCSzV4L/xcsC+E4goUm8SuySh/paE4joxcBPiNyplg
-         4TCy9Gma5Z2lAB30CdndO+BL0oLaSTIFoEWg7INnlAw5raL8Hvw2P8I2TkA9UA07u/bd
-         E451mjZBNQr30Vil/8PSUb8Awur+pboGGffDvEtugK9MGGtDkxDFg6YJiyZt0zi+SI7e
-         zcbC8U9+x6ZPCj2cMM7/vyPq0unOvbn66yPNTHY/W0Pj2RoLnqnav3TWFARnEWMMKPGP
-         xVsm5qLOnpqRaMNSlrfaMZt6w9y+4m3au3eCwrptYAbYRQkNNNp5hgWLj4h2v7qdB5Oi
-         oknQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx6wh2ap2pYU4b+wfi+JSsxCPzP3FbHXtZX2WFblrHjQQYp5E9lSOznB93JKSesv1e8zMT8umrQS3TyuSY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQpn6UjuAoP6RS/5TrgZTLyHXdC4NoQkEkS4vaKnab1bAfXjUS
-	RmCqDJVgpjbikc5/ahwMSo5jTYB6ISUV5QT2fy9JJ+kvx3ubD8T4h4H4kKDGM0VA1DGdMlsfdH4
-	OwlNycX83grUYICMeUXdka7ePVa1oY5+Y4RtRBXbGxgqOJXqLIqp0QwwWtTI=
-X-Gm-Gg: AYBFou0X92uGTn5bU/LXV0R8c1hiYsg9T/Kp1nNXZa0W4LSdDa8OeGcivyYFJ4QSDNH
-	ZY3XejwVBs/5QQqNeqNDo1Ga09q+Mhi/O19u3+eycFpCrLwDUVGZtDIE/b3XoTo1envztpPVB/H
-	r7WYvpeBVd65qTOrkCyqEidCXiykPA/1vpQ2cfI3sXk3XNQrFkS2q1TiPG6pY6DIB9nG3Z8Z1tB
-	vOuws4PECJ9UtDFEs9AajjRHFb4VuluRK5uxc2otgXLfm/GVisOPM5mf8zFC5QNvdNIC2I0HBJj
-	cWhWe4yQxvdIyukZkCypvZgLaQmBvYRn9f+BFuKbSMlXUAjA4nqZBIXL
-X-Received: by 2002:a05:6a21:a95:b0:3da:6bdd:2c74 with SMTP id
- adf61e73a8af0-3daed306372mr12662047637.10.1789161076494; Fri, 11 Sep 2026
- 14:11:16 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789161082; x=1789765882;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=k2p8FtP3AGlh3ut8VRC50Ab+KYAxGDJIcjJQgH3hmPc=;
+        b=mN/tRQ9+ik1LAYUqgooPgRqh+B/4Hon8bPytVurodpqT1lGVFOFdSy7Drg2jKJ9tDH
+         1WXStDs9IWkehOMw0sl6n7dZuah0gmeYljE7TobizG5VUVhL+B++RC4Ibf2OvquEUs2Z
+         zyKGZKxqVPe8l98ph6+UGqIcfvY1zLIDUX4yNX5pLN3vjSNjMtaAAwZd0yO6s6KyaCuZ
+         KepCREFFXR5vOBuvd3Z9+I/9M4oXkvopUrwsOIVMuOzXL4JLuXYfQwY2GhpOTNzM4zno
+         V4Df41kHRH7W/6pPGQ06L+/LiGshp6qZOj6ywQ7vJpqj57ejwWWmDW8QUgr8ZNnXBHFa
+         dzsw==
+X-Forwarded-Encrypted: i=1; AKwUvBzypuF/wmc6pZfHPobR4YC+tOXVfljFKHPbqEAokcjOQCZBuFds9Enmo2hB8FP2pg/RH9dFUTFa2BEb0Og=@vger.kernel.org
+X-Gm-Message-State: AFuF++mSLNkcTyyAW0jZ9imrFCHbTJRFGdg6Fg6jdVvZy6zccpixMQXW
+	re8+iQDJJokJc9iD7P9YxSjBadqn/Acbe/xImqWR+DMAuUiQQok51Qvi
+X-Gm-Gg: AYBFou02/xzu7BQ53l1oSc+apcw2PjPpGKT8poa+349NzqDdkQ47NjhzPQwSuhcU3Fo
+	/ET1/WOuzCroHNzMhcpRqvQAB5c0iS8MIGIxnnQY9ROTbL+4ZgIbcZB4/e7x9rT50F4NU7tfLvc
+	jV7nZDDstoTqIVwGQ0bazY7YIEZshkWZfvGhlBvVgIusFgXLfgiyFDQYfGh6req3rhFm6re/icf
+	FjMu000uZqoQMdaSsSTYFsrc3XLN8b/f/9ownDGHnbYh83qoDI7fGUAz/VVS9Qph3Pcd1CoQDGL
+	kyqoGXdAJ7Ul07c3gPZOHBgjh78uwqzuc6v0NgBjEhZsczhBjUPaFR3i0iDSI21/yiWPg5unqwf
+	ZQypuoERFT7+HBHD7mt2BvUrU473NZ3MVPnRQECLKo8v11lDwTL+qlorAG4GNyQ3U1x3arECDaD
+	CZIK0ubxScuCbjUbdIfo/6GdlwXu7FFY7/veRvcX2C/qSqOmHdjOcFRfHv6cbC/CWImNa0Qk5SQ
+	AJM7326X3IDbCXuUvwjFdPGqIzCtNZq
+X-Received: by 2002:a05:600c:1c11:b0:49c:f504:2af5 with SMTP id 5b1f17b1804b1-49e61887fe2mr85200775e9.1.1789161082182;
+        Fri, 11 Sep 2026 14:11:22 -0700 (PDT)
+Received: from [10.100.102.74] (89-138-77-243.bb.netvision.net.il. [89.138.77.243])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60ababd5sm139607975e9.4.2026.09.11.14.11.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 14:11:20 -0700 (PDT)
+Message-ID: <13c160d0-0657-47ce-9a16-58d348267ab0@grimberg.me>
+Date: Sat, 12 Sep 2026 00:11:18 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901180713.4185641-1-dmatlack@google.com> <CAEvNRgEs82CVTL_CUn=Ovrwvt86U1dxzr8psWGu=nk98ZH6Esw@mail.gmail.com>
- <aqRFSiicubfsw3N6@google.com> <CAEvNRgFCrcyk6F0vJ11pgj2EDSUAXj6Zw-oEdZpfj2SrH1Cv9g@mail.gmail.com>
-In-Reply-To: <CAEvNRgFCrcyk6F0vJ11pgj2EDSUAXj6Zw-oEdZpfj2SrH1Cv9g@mail.gmail.com>
-From: David Matlack <dmatlack@google.com>
-Date: Fri, 11 Sep 2026 14:10:45 -0700
-X-Gm-Features: AcwNN1VPqi3zVmYZAELfBj-CBxTUTXJC8KC_tY6rHii958hpSbyM_Grda2-osHc
-Message-ID: <CALzav=cKG9hXskFgQfub3Jg5O-rKUWBe8TBcPdJz+tBKzenFrg@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/5] liveupdate: LIVEUPDATE_SESSION_RETRIEVE_INTO_FD
-To: Ackerley Tng <ackerleytng@google.com>
-Cc: kexec@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-mm@kvack.org, 
-	Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
-	Samiullah Khawaja <skhawaja@google.com>, Shuah Khan <shuah@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] nvme-tcp: allow setting per-queue io_cpu through sysfs
+To: Saravanan D <saravanand@crusoe.ai>, linux-nvme@lists.infradead.org
+Cc: kbusch@kernel.org, hch@lst.de, axboe@kernel.dk, nilay@linux.ibm.com,
+ dwagner@suse.de, linux-kernel@vger.kernel.org, iyamahata@crusoe.ai,
+ kiyer@crusoe.ai, ganbalagane@crusoe.ai, sj@kernel.org
+References: <20260909211432.6741-1-saravanand@crusoe.ai>
+Content-Language: en-US
+From: Sagi Grimberg <sagi@grimberg.me>
+In-Reply-To: <20260909211432.6741-1-saravanand@crusoe.ai>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 1:59=E2=80=AFPM Ackerley Tng <ackerleytng@google.co=
-m> wrote:
->
-> David Matlack <dmatlack@google.com> writes:
->
-> > On 2026-09-11 11:04 AM, Ackerley Tng wrote:
-> >> David Matlack <dmatlack@google.com> writes:
-> >>
-> >> > This series adds support for LIVEUPDATE_SESSION_RETRIEVE_INTO_FD, a =
-new
-> >> > UAPI to enable preserved files to be restored into a userspace-provi=
-ded
-> >> > file instead of a kernel-allocated file, and uses this to support
-> >> > preserving tmpfs files in-place without any changes to the LUO ABI.
-> >> >
-> >>
-> >> I'm interested in the idea of retrieving folios into an fd for a
-> >> different reason, I'm exploring handling over ownership physical memor=
-y
-> >> to a guest_memfd.
-> >>
-> >> > The Live Update Orchestrator (LUO) API currently explicitly returns =
-a
-> >> > new struct file for every preserved file during retrieve() (e.g. via
-> >> > memfd_alloc_file()). This then forces userspace to use anonymous mem=
-fds
-> >> > for all in-memory files it wants to preserve. This works reasonably =
-well
-> >> > for VM guest memory but does not work well for other types of files =
-that
-> >> > userspace may want to preserve (e.g. in-memory logs, binaries,
-> >> > configuration files, etc.).
-> >> >
-> >>
-> >> Does this assume that VM guest memory is usually provided using
-> >> anonymous memfds?
-> >>
-> >> More generally, is the problem that there isn't a simple way to
-> >> implement retrieval into anything other than anonymous memfds?
-> >
-> > Roughly, yes.
-> >
-> >> > Preserving entire tmpfs mounts in-place would require a large amount=
- of
-> >> > kernel support and would effectively make tmpfs an ABI, which is a
-> >> > non-starter (or so I hear). Instead, we can delegate the reconstruct=
-ion
-> >> > of the tmpfs mounts (directory structure, permissions, etc.) post-ke=
-xec
-> >> > to userspace. The kernel just needs to preserve the contents of tmpf=
-s
-> >> > files and provide userspace a mechanism to restore those contents ba=
-ck
-> >> > into a specific file on the filesystem after the kexec. Hence,
-> >> > LIVEUPDATE_SESSION_RETRIEVE_INTO_FD.
-> >> >
-> >>
-> >> Suppose pre-kexec, the data was in a tmpfs file (and fd), how would th=
-e
-> >> preservation work? Would the user have to
-> >>
-> >> 1. Transfer the data from tmpfs fd -> anonymous fd
-> >> 2. Preserve from anonymous fd
-> >> 3. kexec
-> >> 4. Set up the tmpfs fd
-> >> 5. Retrieve into the tmpfs fd
-> >
-> > No, the proposal in this series is to support:
-> >
-> > 1. ioctl(LIVEUPDATE_SESSION_PRESERVE_FD, {TOKEN, tmpfs_fd})
-> > 2. kexec
-> > 3. tmpfs_fd =3D open(..., O_CREAT)
-> > 4. ioctl(LIVEUPDATE_SESSION_RETRIEVE_INTO_FD, {TOKEN, tmpfs_fd})
-> >
-> > No transfering to or from an anonymous fd is required.
-> >
->
-> Cool that preserving a tmpfs_fd is supported. How is that done without
-> preserving the rest of the tmpfs stuff?
->
-> Why is it possible to preserve the fd without the rest of the tmpfs
-> stuff but not retrieve without the rest of the tmpfs stuff?
->
-> Is retrieving into an fd a bit too much of a shortcut? Would preserving
-> the rest of the tmpfs eventually be required, and hence retrieval of the
-> rest of tmpfs should also be eventually supported symmetrically?
 
-The idea is that the kernel is responsible for preserving the
-_contents_ of the tmpfs file in place. Userspace is responsible for
-setting up a new tmpfs mount, configuring permissions, etc. after
-kexec and telling the kernel which file should receive those preserved
-contents. Userspace set up these mounts before kexec, so it is
-responsible for setting them up after kexec as well. I see no issue
-with that.
 
-There is some nuance that this series doesn't handle though (it is RFC
-after all). Pratyush brought up offline that the tmpfs mount might
-have allocation policies attached to it. The
-LIVEUPDATE_SESSION_RETRIEVE_INTO_FD handler needs to confirm the
-preserved contents do not violate the allocation policies of the mount
-it is retrieving into. But that seems easily solvable to me.
+On 10/09/2026 0:14, Saravanan D wrote:
+> nvme_tcp_set_queue_io_cpu() picks each queue's io_cpu at connect time
+> as the least loaded CPU in the queue's blk-mq map group, and all socket
+> work runs there for the connection's lifetime. This decision falls
+> short when the host partitions its CPUs after connect time. On a 384
+> cpu multi tenant host with 128 queue controllers, blk-mq folds three
+> CPUs into every map group, some groups straddle two tenants' cpusets,
+> and 9% of nvme_tcp_io_work executions ran outside the submitting VM's
+> cpuset, seen by the neighbor as steal time.
+>
+> Expose each I/O queue's io_cpu as a writable sysfs attribute
+>
+>    /sys/class/nvme/nvmeX/tcp_queues/<qid>/io_cpu
+>
+> so a control plane that owns CPU placement can set it directly instead
+> of relying on the driver's heuristic. A written value persists across
+> reconnects, marked by NVME_TCP_Q_IO_CPU_USER. Writing -1 clears the
+> mark and re-runs the connect time selection. Reading returns the CPU,
+> or -1 when the queue is unbound.
+
+No need for NVME_TCP_Q_IO_CPU_USER flag and restoring to the original 
+connect time selection. -1 would mean WORK_CPU_UNBOUND. In fact lets 
+allow this file to access "unbound" string (same as -1). I don't think 
+we need to restore the connect time selection, the user who touches 
+these settings is obviously interested to be in control.
+>
+> The store, the connect time selection and queue stop serialize their
+> accounting of nvme_tcp_cpu_queues under the queue lock.
+
+I think that the queue accounting is something we'd do anyways, 
+regardless of how the
+queue is set. It just represents the io_cpu spread across cpu cores.
 
 >
-> >> > An alternative approach to restoring data to a named file would be
-> >> > supporting a zero-copy sendfile() that can be used to convert named
-> >> > tmpfs files to/from memfds across the kexec. But this poses signific=
-ant
-> >> > challenges on the *preserve* side since the preserved file might sti=
-ll
-> >> > be actively in use. The benefit of the retrieve-into approach introd=
-uced
-> >> > in this series is that it does not require dealing with two differen=
-t
-> >> > files. There is only ever one file that owns the preserved memory.
-> >> >
-> >>
-> >> Would it be more symmetric if the process is
-> >>
-> >> 1. Transfer the data from tmpfs fd -> anonymous fd
-> >> 2. Preserve from anonymous fd
-> >> 3. kexec
-> >> 4. Retrieve into anonymous fd
-> >> 5. Transfer the data from anonymous fd -> tmpfs fd
-> >>
-> >> As to the exact details of "transfer", I think the best we could do
-> >> would be some kind of move from one fd's page cache to the other fd's
-> >> page cache?
-> >>
-> >> Is the goal of the transfer to avoid any memcpy and fully transfer
-> >> ownership (so, not just by increasing folio refcounts?)
-> >
-> > Yes this is the alternative proposal that has been proposed and
-> > discussed a little bit off list, with sendfile() and copy_file_range()
-> > being the possible mechanisms to do the "transfer". I think there are a
-> > few fundamental problems with that approach on the pre-kexec side.
-> >
-> >  1. iommufd requires that fds mapped into it are preserved. If the file
-> >     mapped into iommufd is tmpfs, but then we transfer that file to mem=
-fd
-> >     for preservation, iommufd will fail to preserve because the tmpfs f=
-ile
-> >     is not preserved.
-> >
-> >  2. Even if you only use this feature for files not mapped into an
-> >     iommufd, transfering the contents in a zero-copy way seems
-> >     challenging. What do you do if the tmpfs file is still in use when
-> >     you want to transfer it?
-> >
+> Suggested-by: Sagi Grimberg <sagi@grimberg.me>
+> Link: https://lore.kernel.org/linux-nvme/220e9da3-f756-4a16-8de1-d4b171f15009@grimberg.me/
+> Assisted-by: Claude:claude-opus-4-8 [Claude Code]
+> Signed-off-by: Saravanan D <saravanand@crusoe.ai>
+> ---
+> Changes since v2 [1]:
+> - Replaced the io_cpu_adopt connect option and the submitter adoption
+>    heuristic with a per queue writable sysfs attribute, following Sagi's
+>    suggestion [2]. The control plane now sets each queue's io_cpu
+>    directly, the assignment is kept across reconnects and writing -1
+>    reverts to the connect time selection.
+> - Retitled from "nvme-tcp: pin io_cpu to submitter cpu".
 >
-> When you say in-use, I suppose you mean folio is in-use by some IO and
-> is mapped in IO page tables, and that the IO must continue while the
-> folio is transferred?
+> The per queue directories follow the blk-mq mq/<hctx> sysfs pattern.
 >
-> Are you expecting guests (as in stage 2 mappings) to continue to be
-> functional while the folio is transferred?
+> Tested on a 2 socket 384 cpu host with 128 queue controllers. Writing
+> a cpu number changed the queue's io_cpu to it. Writing an invalid
+> value was rejected. Writing -1 re-ran the connect time selection.
+> Pinned queues kept their io_cpu across a controller reset while
+> unpinned queues received a fresh pick.
 >
-> I'll have to think a bit more, I was initially thinking of just
-> transferring folios where I could unmap from everywhere (processes,
-> stage 2, IO page tables) for the transfer.
+> The multiple queues per hctx RFC [3] found the same need to steer the
+> socket work cpu, so this attribute may gain a second user.
+>
+> [1] https://lore.kernel.org/linux-nvme/20260820083634.71689-1-saravanand@crusoe.ai/
+> [2] https://lore.kernel.org/linux-nvme/1d56144d-6987-40c1-ac02-b15333db121e@grimberg.me/
+> [3] https://lore.kernel.org/linux-nvme/20260903152623.614951-1-kbusch@meta.com/
+>
+>   Documentation/ABI/stable/sysfs-nvme |  12 +++
+>   drivers/nvme/host/tcp.c             | 153 +++++++++++++++++++++++++++-
+>   2 files changed, 162 insertions(+), 3 deletions(-)
+>
+> diff --git a/Documentation/ABI/stable/sysfs-nvme b/Documentation/ABI/stable/sysfs-nvme
+> index a2f5d0710db4..2bbb5a0b7c2e 100644
+> --- a/Documentation/ABI/stable/sysfs-nvme
+> +++ b/Documentation/ABI/stable/sysfs-nvme
+> @@ -451,3 +451,15 @@ Contact:	Hannes Reinecke <hare@suse.de>
+>   Description:
+>   		Shows the subsystem type. Possible values: "discovery",
+>   		"nvm", "reserved".
+> +
+> +What:		/sys/class/nvme/nvmeX/tcp_queues/<qid>/io_cpu
+> +Date:		September 2026
+> +KernelVersion:	7.4
+> +Contact:	Saravanan D <saravanand@crusoe.ai>
+> +Description:
+> +		(RW) The CPU that runs the socket work for I/O queue <qid>
+> +		of an NVMe over TCP controller, selected by the driver at
+> +		connect time. Writing a CPU number overrides the selection
+> +		and persists across reconnects. Writing -1 reverts to the
+> +		driver's selection. Reads show the current CPU, or -1 when
+> +		the queue is unbound.
+> diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+> index 921934028e0b..22ad1fdf4a12 100644
+> --- a/drivers/nvme/host/tcp.c
+> +++ b/drivers/nvme/host/tcp.c
+> @@ -93,6 +93,7 @@ enum nvme_tcp_queue_flags {
+>   	NVME_TCP_Q_LIVE		= 1,
+>   	NVME_TCP_Q_POLLING	= 2,
+>   	NVME_TCP_Q_IO_CPU_SET	= 3,
+> +	NVME_TCP_Q_IO_CPU_USER	= 4,
+>   };
+>   
+>   enum nvme_tcp_recv_state {
+> @@ -102,6 +103,17 @@ enum nvme_tcp_recv_state {
+>   };
+>   
+>   struct nvme_tcp_ctrl;
+> +struct nvme_tcp_queue;
+> +
+> +/*
+> + * Allocated per registration and freed by its kobject release, so a
+> + * reconnect never reuses a kobject whose release is still pending.
+> + */
+> +struct nvme_tcp_queue_kobj {
+> +	struct kobject		kobj;
+> +	struct nvme_tcp_queue	*queue;
+> +};
 
-I was imagining a userspace process may have the tmpfs file mmap()'d
-and is accessing the memory. I guess you can argue that userspace
-should stop doing that during LU. But I think the iommufd use-case
-shows that that is not really possible. The whole point is to preserve
-the memory mapped into the iommufd throughout the Live Update.
+I am wandering if it is time to introduce the core nvme queue:
+struct nvme_queue {
+         struct kobject        kobj;
+         unsigned int          qid;
+         u64                          flags;
+};
 
->
-> >> > By leaving file and metadata allocation purely in the purview of
-> >> > userspace, programs can create the target files where they want, wit=
-h
-> >> > the names and security permissions they desire, before directing the
-> >> > kernel to restore the preserved folios into them.
-> >> >
-> >> > Currently, only tmpfs shmem files are allowed as valid target recept=
-ors.
-> >> > Attempting to target populated files, or anything other than an empt=
-y
-> >> > shmem file, will trigger -EINVAL. HugeTLBfs files could be supported=
- in
-> >> > the future.
-> >> >
-> >>
-> >> Is this basically that at some point, all in-memory filesystems' fds c=
-an
-> >> support transfers?
-> >
-> > Yes, theoretically.
-> >
-> >>
-> >> >
-> >> > [...snip...]
-> >> >
+And have the transport queue embed it:
+struct nvme_tcp_queue {
+         struct nvme_queue        nvmeq;
+         ....
+};
+
+I suspect it will allow for better abstractions.
+
+Thoughts? Keith, Christoph?
