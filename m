@@ -1,48 +1,50 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97727449985;
-	Fri, 11 Sep 2026 19:26:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 718C44FECF6;
+	Fri, 11 Sep 2026 19:27:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789154820; cv=none; b=Rf1evqF+wRYGZMYwRX2LaXbartmI1Vp47+PrVhCvKWzTRDiLAHUsU1a5Tcef6pwVSJEaJZLSiNlUCaPf2mnh7GBggm5Ebqh/+pRedy+zvxek8e0aBcfMHz7d5pbRbSfqXQczp5qfGpuYiVogyBP/5VfIu9ono7mRp4aTrb/THgw=
+	t=1789154880; cv=none; b=XNlQyebS8cjLLtMwPX2Od3ETgsc2cd0G15anjBV4L0zPFfiC2fW64hJeHZyf1LFSRemzbGPX1KylAL/WgXNn64v4b2GjTM5DcTgOscFqKNMGbFoaiswyLdVajTbjbQYQB2nZd/aJoi9/QzU0SkS+AqdJdfc+9tRbdAevVBWa0hA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789154820; c=relaxed/simple;
-	bh=QfnLHRYTRGvnkZs+uTUt3CS66hqbWU4GBY4NJL6GvWQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b+z1Z58wxXzdeNm1BPZktysMq6hLstEyR5aedVTNmNcdHIPvVFW9DzKASiQeWL1reJXOYG7gRAoGK94OCJWkXig7Bj5tt8ot9YOIlmIGnXS3DrodQjguOOaAkXO616+3QakuK99cXXMLCaVnhsoHvFXOE7G+yxeKYgQtvdl11HE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JMsyThF+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789154880; c=relaxed/simple;
+	bh=KpDrJISlaF6H/M0MMFyA0RGb7eh15mdVcRTNvu1Wy5U=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 MIME-Version:Content-Type; b=NJAN93pls5hf3/3d6rnHp6sgjk22UuhfjUSzNyAwj3VVGZpJRFJx2N83uWS/ASKpNijpqbquAVQ9GlK0FUYmLTrSnzzU41qjvH1D/+iQzl3kQpW3BRK/2kmTp7ayAES2GesxEihA5WJqOYVneZ7BnIQrpVe7iQnHZ+/RPcxrRu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=lEbbRtOo; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JMsyThF+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 164BD1F000FF;
-	Fri, 11 Sep 2026 19:26:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789154818;
-	bh=b0O4uX2KxGpU0xHP/fkirBcUw3lYbB//1G421bBqPZ0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JMsyThF+eFING3jywDW0rCma9gBDFSSk9za7CH91vogQleXQjw0OVhjzTcvJtUlpq
-	 Ro01gdMnSouNoCkjH/sI1zR5/UG8e/bodteawGjp5FGv2zR7905Po83AAEZE72tS9A
-	 z2EKdi0NWqdrj+9MIDgM9rPgD1MisZ0DQKzWYyBrSb0EtChz3sfBlEo8uwZCKiiz7Q
-	 kbNRycbizvQc4D/+xWVrcrpLXolXYmuooi/e7vvg8CxL0+gvtrw8I0b2K6LIBU6aXw
-	 IZy+IN1zGvMgMNP+UJgc1sv4BED3yUlNrPNUdom3Qyr/mm/5kr9QBo/dBu89An5or6
-	 wIra8LV56l1og==
-Date: Fri, 11 Sep 2026 20:26:52 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, 
-	david@redhat.com, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
-	pfalcato@suse.de, xueyuan.chen21@gmail.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH v3 5/7] proc/task_mmu: change proc_get_vma() to stop
- returning gate VMA at the end
-Message-ID: <aqRVzecC23YpZeh0@gremlin>
-References: <20260910234737.1340642-1-surenb@google.com>
- <20260910234737.1340642-6-surenb@google.com>
- <aqRF4YB7Ijk9PmRM@gremlin>
- <aqRPeZH4yeYXfWgS@gremlin>
- <CAJuCfpG-8sQjg2ECiRQpjn9tBj3AfEXnmgmomdfFGS7JoDhZ4w@mail.gmail.com>
- <aqRSvISJtYrt5Gvp@gremlin>
- <CAJuCfpGvB4o1HrKsi4zbzKNmdxppW_76xJUbaYeE+sN6w-u6UA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="lEbbRtOo"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Date:References:In-Reply-To:Subject:Cc:To:From:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description;
+	bh=KpDrJISlaF6H/M0MMFyA0RGb7eh15mdVcRTNvu1Wy5U=; b=lEbbRtOo45j4MXVpsX4v4PWFoI
+	CuKF9lYGgjtBd9tsOVTinG8ncuzVQ/6stZDO+GDk6c6kD2b2RUA2oF6DB9hJytT/aSkEU4bKuEOKX
+	bJOkPaE9X7AJu3g20w0HqJZYqGAfJ9n6kRHeOqy/k0qUWUc3ajEJAm5waR0NxRyZoEOmJgqZdirZL
+	Ir6VYWVFL+og9yQ+JJIKQCH66LBnDWStm0JOlteM/JBv/TDBSfxdg0M2BVIUIZv2p+zX053976Fpd
+	vt3pxdwE4ObXzYhSC3LRSIz8F9EDs0MSfTUoxGQA/AhOr8XWJmfy01kYiMxVbX3XfZ+qNaTgU0AIt
+	QKHXlksQ==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1x56uV-00000001Ek3-27YU;
+	Fri, 11 Sep 2026 16:27:43 -0300
+Message-ID: <35fa98de2def19bee8e0bdc1e82d83e5@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: =?utf-8?B?SsOpcsOpbXk=?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>, Namjae
+ Jeon
+ <linkinjeon@kernel.org>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N
+ <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, Bharath SM
+ <bharathsm@microsoft.com>, linux-cifs@vger.kernel.org,
+ samba-technical@lists.samba.org, linux-kernel@vger.kernel.org,
+ =?utf-8?B?SsOpcsOpbXk=?= Jean
+ <Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: Re: [PATCH] smb: client: validate absolute native symlink targets
+ before NT fixups
+In-Reply-To: <20260910183742.4029092-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20260910183742.4029092-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Date: Fri, 11 Sep 2026 16:27:43 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,163 +52,23 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJuCfpGvB4o1HrKsi4zbzKNmdxppW_76xJUbaYeE+sN6w-u6UA@mail.gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 11, 2026 at 12:18:41PM -0700, Suren Baghdasaryan wrote:
-> On Fri, Sep 11, 2026 at 12:13 PM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
-> >
-> > On Fri, Sep 11, 2026 at 12:11:55PM -0700, Suren Baghdasaryan wrote:
-> > > On Fri, Sep 11, 2026 at 12:03 PM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
-> > > >
-> > > > On Fri, Sep 11, 2026 at 07:26:49PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > > > > On Thu, Sep 10, 2026 at 04:47:35PM -0700, Suren Baghdasaryan wrote:
-> > > > > > proc_get_vma() returning gate VMA at the end is desirable for the its
-> > > > > > current m_start/m_next callers, as they need to report a gate VMA at the
-> > > > > > end of the address space. This behavior is very specific to these callers
-> > > > > > and makes proc_get_vma() hard to use for other purposes.
-> > > > > >
-> > > > > > Move this usage-specific behavior into the callers themselves so that
-> > > > > > proc_get_vma() returns either a valid VMA, an error or a NULL when no
-> > > > > > more VMAs are available. This makes it more generic, simpler and usable
-> > > > > > in the later patches.
-> > > > > >
-> > > > > > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
-> > > > >
-> > > > > Yes, very good change, thanks!
-> > > > >
-> > > > > Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > > > >
-> > > > > > ---
-> > > > > >  fs/proc/task_mmu.c | 23 ++++++++++++++++++-----
-> > > > > >  1 file changed, 18 insertions(+), 5 deletions(-)
-> > > > > >
-> > > > > > diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> > > > > > index ecce7ce116cb..9a3c996c1d61 100644
-> > > > > > --- a/fs/proc/task_mmu.c
-> > > > > > +++ b/fs/proc/task_mmu.c
-> > > > > > @@ -236,9 +236,6 @@ static struct vm_area_struct *proc_get_vma(struct seq_file *m, loff_t *ppos)
-> > > > > >              * found the extended vma with the same vm_start.
-> > > > > >              */
-> > > > > >             *ppos = vma->vm_end;
-> > > > > > -   } else {
-> > > > > > -           *ppos = SENTINEL_VMA_GATE;
-> > > > > > -           vma = get_gate_vma(priv->lock_ctx.mm);
-> > > > >
-> > > > > Yeah this is just so confusing as-was.
-> > > > >
-> > > > > >     }
-> > > > > >
-> > > > > >     return vma;
-> > > > > > @@ -248,6 +245,7 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
-> > > > > >  {
-> > > > > >     struct proc_maps_private *priv = m->private;
-> > > > > >     struct proc_maps_locking_ctx *lock_ctx;
-> > > > > > +   struct vm_area_struct *vma;
-> > > > > >     loff_t last_addr = *ppos;
-> > > > > >     struct mm_struct *mm;
-> > > > > >
-> > > > > > @@ -280,16 +278,31 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
-> > > > > >     if (last_addr == SENTINEL_VMA_GATE)
-> > > > > >             return get_gate_vma(mm);
-> > > > > >
-> > > > > > -   return proc_get_vma(m, ppos);
-> > > > > > +   vma = proc_get_vma(m, ppos);
-> > > > > > +   if (vma)
-> > > > > > +           return vma;
-> > > > > > +
-> > > > > > +   /* Return gate VMA at the end */
-> > > > > > +   *ppos = SENTINEL_VMA_GATE;
-> > > > > > +   return get_gate_vma(mm);
-> > > > > >  }
-> > > > > >
-> > > > > >  static void *m_next(struct seq_file *m, void *v, loff_t *ppos)
-> > > > > >  {
-> > > > > > +   struct proc_maps_private *priv = m->private;
-> > > > > > +   struct vm_area_struct *vma;
-> > > > > > +
-> > > > > >     if (*ppos == SENTINEL_VMA_GATE) {
-> > > > > >             *ppos = SENTINEL_VMA_END;
-> > > > > >             return NULL;
-> > > > > >     }
-> > > > > > -   return proc_get_vma(m, ppos);
-> > > > > > +   vma = proc_get_vma(m, ppos);
-> > > > > > +   if (vma)
-> > > > > > +           return vma;
-> > > > >
-> > > > > OK so I guess the logic is, iterate through every VMA, then once you run out,
-> > > > > report the gate VMA. Makes sense.
-> > > >
-> > > > Hmm one thing on this though - m_start() still has:
-> > > >
-> > > >         if (last_addr == SENTINEL_VMA_GATE)
-> > > >                 return get_gate_vma(mm);
-> > > >
-> > > > As well as:
-> > > >
-> > > >         vma = proc_get_vma(m, ppos);
-> > > >         if (vma)
-> > > >                 return vma;
-> > > >
-> > > >         /* Return gate VMA at the end */
-> > > >         *ppos = SENTINEL_VMA_GATE;
-> > > >         return get_gate_vma(mm);
-> > > >
-> > > > Now at the end.
-> > > >
-> > > > Is this correct? Is it maybe duplicated now?
-> > >
-> > > Yeah, I noticed that too but I it's not duplication. The first check
-> > > handles the case when right after m_next() hit the end of the address
-> > > space and set *ppos = SENTINEL_VMA_GATE, we ran out of page space and
-> > > had to flush its content. Once that's done, m_start will be called and
-> > > last_addr will be set to SENTINEL_VMA_GATE. In that case we should
-> > > return get_gate_vma() and avoid calling proc_get_vma(). That's what
-> > > the first check for sentinel is doing. The second one handles the case
-> > > when m_start() itself readches the end of the address space and has to
-> > > return SENTINEL_VMA_GATE.
-> > >
-> > > It's possible this can be refactored a bit and made cleaner but I
-> > > would keep that as a separate change.
-> >
-> > Maybe just add a comment to the first one to explain when it'll trigger? That
-> > should suffice, cleanups can be separate yes.
+J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr> writes:
+
+> With symlinkroot unset, an absolute target is copied without conversion
+> to an NT drive path. Later code still assumes an NT prefix is present
+> when modifying the target and calculating the print name length.
 >
-> Will do. Appreciate the reviews!
+> For "/ab", this causes two failures: sym[5] and path[5] are written
+> past their allocations, and plen -=3D 2 * poff subtracts an assumed
+> 8-byte prefix from a 6-byte UTF-16 target, wrapping u16 plen to 65534.
+> That underflow causes another overflow: memcpy() copies 65534 bytes
+> into a 24-byte buffer. A user with write access to a mounted share
+> can trigger these bugs with default settings.
 >
-> I'll post the update today because there is some urgency to backport
-> these patches and I want to have a public link when backporting but I
-> don't expect anyone to burn the midnight oil to review the final
-> version. Have a nice weekend!
+> Validate the NT drive prefix, including an ASCII drive letter, before
+> accessing fixed offsets or subtracting the prefix length.
+> ...
 
-Well you have tags on most things from me now so it'll only be one patch I
-think? That'll be missing mine anyway.
-
->
-> >
-> > >
-> > > >
-> > > > >
-> > > > > > +
-> > > > > > +   /* Return gate VMA at the end */
-> > > > > > +   *ppos = SENTINEL_VMA_GATE;
-> > > > > > +   return get_gate_vma(priv->lock_ctx.mm);
-> > > > > >  }
-> > > > > >
-> > > > > >  static void m_stop(struct seq_file *m, void *v)
-> > > > > > --
-> > > > > > 2.55.0.1007.g17ff1f9808-goog
-> > > > > >
-> > > > >
-> > > > > --
-> > > > > Cheers, Lorenzo
-> > > >
-> > > > --
-> > > > Cheers, Lorenzo
-> >
-> > --
-> > Cheers, Lorenzo
-
---
-Cheers, Lorenzo
+Applied.
