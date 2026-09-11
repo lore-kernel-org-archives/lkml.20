@@ -1,135 +1,271 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EC094908BD
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:21:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789154487; cv=pass; b=aIJsMEUYPUNgPwkGy8sqw0yIT6TTuVL6uvKCZZnKY1v03N3bTTX1aMi6uM4pq+wXWRJqei2HX0kXOETJ31NrqcToI7p/tMbAh0Hvw1AJxAq/SRvvsUh9oJ3tbK5BAVZJiWnyx3trcT+EuCx3eOXtOmw0eflREiACe5oUKyc29pE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789154487; c=relaxed/simple;
-	bh=BOV4Fh+PDB2Z2rZvij7HgrPGo1mR/1Km77YpcS54GKo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AUg5u5WgruVoz/GVZLQQqw94Dtrc8bwgqgycVkIAyKfv3d84F6I0sAH9zKyFdhQchVIg1WL+tjnuLgVoL0N04CVHw+0YWN9YU2kJX5gfABLtuQRFzsgVHpmmVGo6alRQqmE6nI6uauZE6njMXKkBtZ0AETQaI9cWo09enbpYgwY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a2VodzLj; arc=pass smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 571364A9D42
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:22:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789154566; cv=none; b=opF0bHKGUzRISRZrbNBEWme0m3IlJZwT/6FUOPuGFpSIe+YmsEbno2aQMvgkV44uxOC+/bb1arXzzF+dI7UyI2M44O9lPkt+X3P1W0Rgh25dRed04gkwI0YMLu9Lcx5XbS67lSfZCkEeWe6cRQTt3H98eIhwI5ZJXhszCyCmPUU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789154566; c=relaxed/simple;
+	bh=SjqVUcClyaoSghgoqURaG31bIRC48pa5N+lDRfufibY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k7lyU/TRHevWKJ/dpU3CW8Ba9cmn66WDE3U2o412uFH0twkPOdq2t4Y3EkucGQpOuv0oKG+M7XBZjhHwe4T4L2EkWPynDHPFb7WqBy86cJGcXQtM02N20gOcA7gsCeEMzghJdPpEN1mS/17Cae0ntBMa33f5vlu9F6Ybvgs/MK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=crUKiDpF; arc=none smtp.client-ip=209.85.222.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a2VodzLj"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-381b831d535so2305401a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:21:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789154473; cv=none;
-        d=google.com; s=arc-20260327;
-        b=L1gd406JCTzAY67rywd0z05PwL1cg9FBKqHVYANlGC2CwEkrQgrkJoe8oKjrcfZJ66
-         Me0//J/5e1A1Y6XqG+1/SwrNrdeCzJ5lL1w3PxS3A8uHFhIP0ZN10xuPmSRBj9zMqk2W
-         C/PDLn1Jc1tI9OR74yeucinAOFeRm5g1JF/SXV5Lq/oXDb5kEDsp6Gu/2Kal6dYjiBbc
-         WITQYTFhRGfU9Mx8XItGL1GnYeYpjOTrtjIVxZaGlP+kyVDdFTiLHyxtRR1L6VF0vU7w
-         NdKpb8McSh6Muco5Jue4UXHyKW2q9L5TxRvSldCYQJao4odS7UQpjJGFtBj9BMIX5bFB
-         kEAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=E5tfA38f+j0POlE4iIpcFWR5pq2Vcd0sRoqvAs5ymGk=;
-        fh=h2qY8Ns7BZXRtWF1tYOs3es2wZUob3MTuziQbDNxLCQ=;
-        b=sk/i6K1XDp4FoDy8wF8jOEnd9M8DLMZ3oSykKVJ2CuJgO/a509FC4JkXGEMxd3Z2jK
-         hDyjsCRXh15LduSpYNSXM/9MgreId0PHxDA+W1Hcou0V8TVesFxN+NubECsU4Ww1mmGU
-         JHOnSpMJ1qWQGlaiWkffs8M7mvfL5HoVxw4PhX45hI1+FVsKBycPDP3oZKR3BgZP+WK8
-         Of0kodDWHbsFj7VHo+DfNc1Cjd7MosxoD8HGMHVyyoi5tJbakMKBG8AihZY4CuTCdRnx
-         jsNt+1hJGsrcK/TV1fxdKVOcRTskmc3ofJ8RIhdaVUKl4rSlnkRcXvNOrR1AfugAlGzI
-         ARJA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="crUKiDpF"
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-92edb12cdf2so90424885a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:22:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789154473; x=1789759273; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E5tfA38f+j0POlE4iIpcFWR5pq2Vcd0sRoqvAs5ymGk=;
-        b=a2VodzLj0VSGhy37l/MCa2PDOpvj8Z5reK9F3DBK1huyjinmoAaFaretVXf0eMelZR
-         MYmOWhSjCQvzdJ6O299o/dAyMAfhtwNveAL7gq86DTc2b5OmyvoWe6w8taazSCi1Gn/p
-         vbCJz+6hNzHBh3yHZnab95oj2C67fzW6WosC7+wbfVsd3TrlgzOuVnuX5Sjidy6rcmVK
-         K2zDqF5VSSwRd5KmG+yFn9sGkH68eXZHC8+3wAMIDw/XblmYC3pAw5jb7+nkNvLwSGfw
-         wrf1JjVvF+DHmDd2mFbcuyj/cwJBMlhUjuoMdVXjfs9pmOHt+wCJNhK0PXzJeoYqUzuK
-         a9GQ==
+        d=rowland.harvard.edu; s=google; t=1789154554; x=1789759354; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=M0EoHccTp+TMQFIefzO5qRUOI8W90Xabolm9/fCqvXs=;
+        b=crUKiDpFg8Dd5itc+sev4/9iXHHq3u5AMmfIZRpeRosIEroQiTHxkuXr42o0MLQxqj
+         J5pdeZPuwcgxchAHiejrnGOUR/5Je8Ht86DM8yROjbA+MI2cVdx8VCJgdnQ04QVdGQQa
+         wNgx7NSFgJvyD+gqzQ7JYG1vfIaa25bKi+G4r7GmfINwJx5coEMY/eHj2et5+IBliTwY
+         SfTIrzQYFUcD3z9DUhVnPXh6dh90BL+2FDQWVWCPbHL+Z5Dj8mfAUjVurJHq0Z0p2jkj
+         PInSwk1uT166ROiPsdfu62flheS9SwMNSfSUfUpd72m3B0+dP5EeoWgAeyn0sd3G85p5
+         rCsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789154473; x=1789759273;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=E5tfA38f+j0POlE4iIpcFWR5pq2Vcd0sRoqvAs5ymGk=;
-        b=FoVxmL1OJjWZ7INFKDVNWL31r3G05FfoCPWEfKfiOZBuiwWENQaciGcMISD5oui/JB
-         bri9NGLYMuk3du8VXEKHKvgjd82eGoY9LDJmApB2MSjks4uQdl0LBLOdzWj9tR8hByUv
-         un0HCspaYJFdj1NlFQ1VvKTJgRMu6YoPV1K3yVFyliWq2gFkSr2mNt8sDE2ElFp9sd1K
-         sHWFRWw9AXi9D686j15Fg1s5KCF6G4KZYOTqQeVmBn6/qIK0xOHR8KsVZS28svb9ERQd
-         e8KHr/vPQROxFrvTrsetEd7kEozto4rNDDyBpMeP/BjBCl9aQTQqc7MjqSMyDelw1tQq
-         VbEw==
-X-Forwarded-Encrypted: i=1; AKwUvByjsiInU+CSGmpEp1wfp1Uw+Bp9zYZOb0ZQ4lVhioRdelRNp81CSlflvXJOiRVIEILS/8PVIScqmVIzga0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kaxjOznDO1+YK98/J/v8TwnooHX6fbzzjEXpibLVXMWRG2q6yI
-	niRf4PHAsCh0sxjFGYTE0p3YRhfeymHAMdHYmRfaTpkOIZBcU9oX9dl6inV8XqIqLRqsfAcRXfC
-	FbMz5wj4Q/ri48FYkSy2/0l0GqZct378=
-X-Gm-Gg: AYBFou0ClIIb2p6lIXqzDKbQ+phYEBo6ZUVGhXl5sgeTuHuGYAtexTXqCJ5tRZ8T9rR
-	AjqojHwwLRcdsuFqX6MKlXTRLwve7ltdxN7CjDhECTaJ9J/wXD5u4CGdbZHjUYXGmBWGCuCVAIK
-	jLoSpyDptrN0LkntuMgz0/ob+spwhc6c5bkYnfcfA7eXomGlDkD97QFLN/BaQmvoA4m+Ssbh7LZ
-	W+LlVauiRuFGpQgDRhk5O3nkDATiqBnJXfBGKICqrgqGYMWeHmEd+ZZSUG3jg8Myatvj5sF31SS
-	QhEMRKaKcoj6pLMq4JrTxlAmfEWXi1qPPwU20V6aq4tS+MqQd8vKIdXt2GJhHGPRwcI7W1mYnUj
-	VWB2FSCybjBLV
-X-Received: by 2002:a17:90b:514b:b0:39b:ac66:bbc with SMTP id
- 98e67ed59e1d1-39d9bd5e466mr10210009a91.7.1789154473041; Fri, 11 Sep 2026
- 12:21:13 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789154554; x=1789759354;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M0EoHccTp+TMQFIefzO5qRUOI8W90Xabolm9/fCqvXs=;
+        b=aiK1oMdN9j6fzYgruDXGuI/HkrTcg+HU9I9TkmZ1qvNbz2dyZFxgzSrWtH1ohpbFy6
+         p9HOsUixMqMXuImrADfsA8aGHyMQZhDeQ9Fv6a6jzQhnFASKGSi7y6FE4y+x+ROR7dLZ
+         AGgTsYFZU0J3GDeWTbX45reaW2QPhrr9rybwNWMAbUPTycOMhIQFB5IbTPYZTkus2QcE
+         6X25fGNf98uCTb1YaIDvdvGpbH9qR1lLc3xrFijenREzc4AjSjWc5nKFrfOQOJ0OklB3
+         HSSxrmcmr0KPEw5sFZAho75b0dkjje5fQMGgHP9ff5OfzEU67dZEPdSq9qgQRtcBmYU0
+         IMGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw02+/Zu5FbUWMLzM/HSRE+uPKnwBDm7//Tinjdw8u3jiLz5wJDUNOBgX9d18XPCj7wjKa001c7J1U/zl0=@vger.kernel.org
+X-Gm-Message-State: AFuF++llxw50AKusRq13eGLTcALnicjOnS2tcIA3YqHuDwW91iFokpLF
+	mj0SGWH+QfY0jDyWks/+biZzwtJ18p37qx1mRmEIcf8dwbbjeIUIdJIjI1GTatRm1g==
+X-Gm-Gg: AYBFou11xILiyrDbNbfL+LpOCXrLjL2for8g/WxdxGuUnu4o2stWuFQ1CQ14qgaICdq
+	TIOIRLa0XcRqtv9ssG4J4eAQ/SP1XshVurGEBGjVFJlNguKyxCxdbMU3fUSs+XDVU/xyOELQ73U
+	zCqpxIMqg9NFWMuNfxJafQ/rlgS/ekjAXAXT8T1s3LDqoJaX3lObdHQGxyy4if10w+36UEMsy3c
+	aBea671LCCA0+1jsY+Ckh0lXtzawPGYhU7jzXC02Ber1CHSMG6RMl5p7PN+TcM+Y4RUzxHbcxLc
+	b3Ngrk70Xr+grAaaCCc20FDXQVPkMiOxi/CkbcVfVF0ERUJXqAsl9wKRqrIrxKgKIuOv2DQ0xK7
+	sQjvvJIsa9OVJoorYQf8COZ8zbGE4GMkwZJAKKyNQTlvNYmGEZ9DtgKrqAYreQofQ9R2pTaFh+W
+	F9LYZrfXjVpumCxOkGcV9bf3R+Px1KUXIUKFcOeMYsM0/54UkO+MdjJkAdyjViPBoODUcZzeTC
+X-Received: by 2002:a05:620a:7087:b0:939:15e:1a5 with SMTP id af79cd13be357-939ea24729bmr820094985a.35.1789154549125;
+        Fri, 11 Sep 2026 12:22:29 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e8080404sm312628785a.28.2026.09.11.12.22.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 12:22:27 -0700 (PDT)
+Date: Fri, 11 Sep 2026 15:22:24 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Minseo Kim <neck3922@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andrey Konovalov <andreyknvl@gmail.com>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, syzkaller@googlegroups.com
+Subject: Re: [BUG] usb: gadgetfs: KASAN null-ptr-deref and intermittent UAF
+ in ep_aio_cancel()
+Message-ID: <0b6b13ff-789e-4ba4-9765-1052a154ef27@rowland.harvard.edu>
+References: <1b92cd86-fe64-43eb-9539-53a559cd14e3@rowland.harvard.edu>
+ <CAFmvuTWw90k+Fvs5Ve=1nxCDSQrzH7rytY-3vjGwv=edQOCBPw@mail.gmail.com>
+ <fb56064c-6481-44b3-88e5-8e5ff7b85703@rowland.harvard.edu>
+ <CAFmvuTXWxQJUZfAAC=vs5QM=myDLE-o0jZZ8OXdqiGioPkRwfA@mail.gmail.com>
+ <f928b74b-ce57-4454-bdd4-511b823bf742@rowland.harvard.edu>
+ <CAFmvuTXwUiap39-FHv6aqGbJVzORRx8tV1QfN0BDjJaPsbfKHg@mail.gmail.com>
+ <cec9b2a0-3454-45a6-b128-51d708cc8cbc@rowland.harvard.edu>
+ <CAFmvuTUwGr-=joWrsYMu-Ra3XpHTe_HFhaY5inJnhg=e5b=1PA@mail.gmail.com>
+ <1a93bb26-9ded-4b71-b409-62896a2681a6@rowland.harvard.edu>
+ <CAFmvuTUogd8MyQM02VpM7iHaopzrOoex+X-McQE28X1fgb_AeQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910124403.95741-1-7israr.work@gmail.com> <aqKzBTM-CdBqQzXi@stanley.mountain>
-In-Reply-To: <aqKzBTM-CdBqQzXi@stanley.mountain>
-From: Muhammad Israr <7israr.work@gmail.com>
-Date: Sat, 12 Sep 2026 00:21:01 +0500
-X-Gm-Features: AcwNN1WeLF1JmgXP8K5-fB6_KWQp7HGW3iQihCXg4WYNpI5_-GaC74CZsxkWRZ4
-Message-ID: <CAGKr8w2e4YGF41X5mv5Mf2FDvoezpzeKmFMKaHKf43eypCKdFg@mail.gmail.com>
-Subject: Re: [PATCH] staging: most: video: add comments to mutex and spinlock definitions
-To: Dan Carpenter <error27@gmail.com>
-Cc: parthiban.veerasooran@microchip.com, christian.gromm@microchip.com, 
-	gregkh@linuxfoundation.org, linux-staging@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAFmvuTUogd8MyQM02VpM7iHaopzrOoex+X-McQE28X1fgb_AeQ@mail.gmail.com>
 
-On Thu, Sep 12, 2026 at 12:19:00AM +0000, Dan Carpenter wrote:
-> It's supposed to but it is buggy...  What prevents multiple
-> threads from reading comp_vdev_read() at the same time?
-> I prefer to keep the warning around until someone fixes the
-> code.
+On Fri, Sep 11, 2026 at 11:00:00PM +0900, Minseo Kim wrote:
+> Hi Alan,
+> 
+> Thank you for the questions. I reran the tests to distinguish the
+> request's endpoint-queue state from the callback's execution state, and
+> the unbind flush from workqueue destruction during module cleanup.
+> 
+> > I didn't think this was possible.  gadgetfs_unbind() calls
+> > destroy_ep_files() before doing the flush, and destroy_ep_files() calls
+> > usb_ep_disable() for each active endpoint.  usb_ep_disable() doesn't
+> > return until the completion handlers for all the outstanding requests on
+> > the endpoint have finished.  This means no copy_work items should have
+> > been left to queue when the flush occurred.
+> 
+> With both patches applied, this ordering was possible in the dummy_hcd
+> test because the target request had already been removed from its
+> endpoint queue before ep_aio_complete() ran. When gadgetfs_unbind()
+> subsequently called destroy_ep_files(), dummy_disable() found the
+> endpoint queue empty. The request associated with the already-running
+> callback was no longer on that queue, so nuke() had no queued request to
+> give back and dummy_disable() returned while the callback was still held
+> at the gate. The unbind flush then returned before the callback queued
+> copy_work.
 
-Thanks for pointing this out!
-I traced through comp_vdev_read(): list_lock (the spinlock --
-the mutex field in this struct is unrelated, it's only vdev->lock
-used for V4L2 ioctl serialization) is only actually held around
-the final list_del() in the read loop. data_ready() and
-get_top_mbo(), both called earlier in the same function, read
-pending_mbos with no lock held at all. comp_rx_data() (the
-rx_completion producer) does take list_lock correctly around its
-list_add_tail(), but that only protects against whatever happens
-to be holding list_lock at that instant  which today is just
-the list_del() call. So nothing stops two threads from both being
-inside comp_vdev_read() concurrently and reading/deciding on the
-same list state unprotected, which is what you were asking about.
+Aha!  In other words, usb_ep_disable() doesn't guarantee that the 
+completion handlers for all outstanding requests on the endpoint have 
+finished -- it only guarantees that they have started.  That's an 
+important difference.  Guess I should update the documentation for 
+that routine.
 
-The change I am proposing is to add a dedicated mutex to struct
-most_video_dev, held across the whole read() call, so only one
-thread is ever inside comp_vdev_read() at a time. list_lock still
-wraps the actual list touches (checking for an empty list and
-picking the head entry, and the existing list_del()), matching
-what comp_rx_data() already does; copy_to_user() stays outside
-any lock since it can fault. The mutex handles thread-vs-thread
-serialization, list_lock keeps handling reader-vs-rx_completion
-synchronization.
+> I confirmed this with markers recording the request and endpoint
+> pointers. The gate was inside ep_aio_complete(), after the request had
+> already been removed from its endpoint queue. It used a bounded,
+> non-sleeping loop. dummy_hcd had already released dum->lock before
+> calling usb_gadget_giveback_request().
+> 
+> In a control with the host-side transfer delayed, the request remained
+> queued when usb_ep_disable() began. dummy_disable() called nuke(), which
+> removed it and invoked its completion callback through
+> usb_gadget_giveback_request(). While I held the callback at entry,
+> neither usb_ep_disable() nor the ep0 close returned. After I released the
+> gate, the callback returned before usb_ep_disable() did, matching your
+> expectation for this pending-request case. The AIO request produced
+> exactly one completion with res=-ESHUTDOWN.
+> 
+> In a separate run with GadgetFS still mounted, the unbind flush and ep0
+> close returned while the callback was held before queuing copy_work. The
+> reproducer had no GadgetFS file descriptors left open in userspace, but
+> the module usage count was 2. rmmod was rejected because gadgetfs was in
+> use, and gadgetfs_cleanup() had not begun. After I released the callback
+> and the reproducer exited, the count was 1; subsequent unmount and rmmod
+> succeeded.
+> 
+> > What prevented rmmod from completing after iocb->ki_complete() had
+> > finished?  Was it waiting for the flush to finish?  If any additional
+> > work items were added to the queue after the flush started, they should
+> > not have blocked the flush.
+> 
+> In a separate worker-tail run using the same late-queueing ordering, the
+> unbind flush had already returned before the callback queued copy_work.
+> I then held the worker immediately after iocb->ki_complete() returned.
+> The module usage count was zero before rmmod started. When rmmod was
+> started, it waited in destroy_workqueue() during module cleanup, not in
+> the earlier unbind flush. The relevant part of the blocked rmmod task's
+> stack was:
+> 
+>     __flush_workqueue
+>     drain_workqueue
+>     destroy_workqueue
+>     gadgetfs_cleanup [gadgetfs]
+>     __do_sys_delete_module
+> 
+> The __flush_workqueue frame came from drain_workqueue(), which was
+> called by destroy_workqueue(). Thus, the late copy_work did not block
+> the earlier flush_workqueue() in gadgetfs_unbind(); it was already
+> running when gadgetfs_cleanup() called destroy_workqueue(), and
+> drain_workqueue() waited for it instead. Markers confirmed that
+> destroy_workqueue() returned only after I released the worker, and rmmod
+> then completed successfully.
+> 
+> This is consistent with the entry-gated ep_unlink_worker result in my
+> previous message. In that test, unlink_work had already been queued
+> before the unbind flush began, so the flush and the ep0 close remained
+> blocked until I released the worker. In the late-queueing run above,
+> copy_work was not queued until after the unbind flush had returned. A
+> separate control with copy_work queued before the flush likewise kept
+> the unbind flush and the ep0 close blocked until I released the worker.
+> 
+> Thank you for asking me to check this more closely.
 
-Does that match what you had in mind, or would you take a
-different approach?
+These results explain a lot.  They mean that flushing the workqueue in 
+gadgetfs_unbind() not only doesn't do what we want, it also isn't 
+necessary -- because destroy_workqueue() will automatically do a flush 
+for us.
 
-I will send the race fix on its own, and once the locking is
-accurate I will send the follow-up comment patch.
+Also, it isn't really necessary to flush the workqueue when the user 
+program closes ep0 or unmounts the gadgetfs filesystem.  We merely have 
+to make sure that when the module is unloaded, no work items are running 
+or will be started.
 
-regards,
-Muhammad Israr
+Here's a revised version of the second patch, which omits the 
+flush_workqueue() call from gadgetfs_unbind().  I expect it will 
+eliminate the "module unloaded while work items are still running" 
+problem just as well as the original version did.
+
+Alan Stern
+
+
+
+Index: usb-devel/drivers/usb/gadget/legacy/inode.c
+===================================================================
+--- usb-devel.orig/drivers/usb/gadget/legacy/inode.c
++++ usb-devel/drivers/usb/gadget/legacy/inode.c
+@@ -237,6 +237,7 @@ static const char *CHIP;
+ static DEFINE_MUTEX(sb_mutex);		/* Serialize superblock operations */
+ 
+ static DEFINE_SPINLOCK(aio_lock);	/* Protect aio cancellation info */
++static struct workqueue_struct *gadgetfs_wq;
+ 
+ /*----------------------------------------------------------------------*/
+ 
+@@ -514,9 +515,7 @@ static int ep_aio_cancel(struct kiocb *i
+ 		spin_unlock_irqrestore(&aio_lock, flags);
+ 		return 0;	/* ep_aio() will call us again if needed */
+ 	}
+-
+ 	priv->cancel_state = AIO_UNLINKING;
+-	spin_unlock_irqrestore(&aio_lock, flags);
+ 
+ 	/*
+ 	 * We are called with the aio core holding iocb's context lock.
+@@ -527,7 +526,9 @@ static int ep_aio_cancel(struct kiocb *i
+ 	 * For this reason, do the dequeue operation in a work routine.
+ 	 */
+ 	INIT_WORK(&priv->unlink_work, ep_unlink_worker);
+-	schedule_work(&priv->unlink_work);
++	queue_work(gadgetfs_wq, &priv->unlink_work);
++
++	spin_unlock_irqrestore(&aio_lock, flags);
+ 	return 0;
+ }
+ 
+@@ -597,7 +598,7 @@ static void ep_aio_complete(struct usb_e
+ 
+ 	if (new_req_state == AIO_COMPLETED) {
+ 		INIT_WORK(&priv->copy_work, ep_user_copy_worker);
+-		schedule_work(&priv->copy_work);
++		queue_work(gadgetfs_wq, &priv->copy_work);
+ 	}
+ 	if (cancel_state != AIO_UNLINKING) {
+ 		usb_ep_free_request(ep, req);
+@@ -2245,10 +2246,17 @@ static int __init gadgetfs_init (void)
+ {
+ 	int status;
+ 
++	gadgetfs_wq = alloc_workqueue("gadgetfs", WQ_PERCPU, 0);
++	if (!gadgetfs_wq)
++		return -ENOMEM;
++
+ 	status = register_filesystem (&gadgetfs_type);
+-	if (status == 0)
+-		pr_info ("%s: %s, version " DRIVER_VERSION "\n",
+-			shortname, driver_desc);
++	if (status) {
++		destroy_workqueue(gadgetfs_wq);
++		return status;
++	}
++
++	pr_info("%s: %s, version " DRIVER_VERSION "\n", shortname, driver_desc);
+ 	return status;
+ }
+ module_init (gadgetfs_init);
+@@ -2257,6 +2265,7 @@ static void __exit gadgetfs_cleanup (voi
+ {
+ 	pr_debug ("unregister %s\n", shortname);
+ 	unregister_filesystem (&gadgetfs_type);
++	destroy_workqueue(gadgetfs_wq);
+ }
+ module_exit (gadgetfs_cleanup);
+ 
+
