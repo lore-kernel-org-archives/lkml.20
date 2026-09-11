@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C270255E43;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C58645628B;
 	Fri, 11 Sep 2026 08:28:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789115332; cv=none; b=B5cYGFDw8l5avf0eDB9M7k+tG9cNYZdzqqLBLbqbC1pgALTrZxmhy6FDokV4r9Zin59d+awXuYKrfTAFakrOyR2vljAB7lX8jcWve9SBTtLhPXFjXEnHI/rjbr3DzA2JdU9qz+gnFzWh34AKoQ+NSMZAoDJFiLkQZjIxPufO2gs=
+	t=1789115332; cv=none; b=h+AfcdSOKj2mJZa75+RLk+6o39rB8WkLArGfZuxaB8N2IggB/IGrLuKSmR9kksvZNsF6pc4He6ekcqNzqoD/Nu/9BoKTVGXK/Tj6xvQvgqcfxHgRnG07ahxthXISezbgiWgC0YyJmMGFbxqpgDzDqs0BQfExTjOI7dMwLvcg68Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789115332; c=relaxed/simple;
-	bh=6RbbWrcoZScMGk5YexuS8vhIyYx9Gl3h5u8+H0EPJrM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GA/Ft2+V/PZ9e0qyRGSrgASV2SIPDubIyFLIkM/HgYFez/gORpnwcnspqmbNrmIDp7dFLVB0FkId/zmnw3Nzox9MWsMJNYxM5Dtta9nWSza4hK7n2aHKL0j/c02il8wWq8Kp+hkWqpM5ysX7qMARwXTHfSgqHQyo9Gmp3y3rics=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nKqVJRYL; arc=none smtp.client-ip=10.30.226.201
+	bh=1VS5ElObVqR4WKXROqPaqb+LeB1gJwIdpIW5IFGGrxA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=N/vQgmRkNBpiNplE85UTVyoQPXcpaXO9ve3bxeolFSrCc1tn3g9XwvJ06Xsd7OVYu0XzS3DKKvbRiq3iISd3UN6icH2FXFKIQewilQHvrZf9H6mNS26BAloZtCEJkhSVjtmXWMSHTXeZOPS3iTgbNssw4XdiDPrXVrsIdBlq5JY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lHTZYpQr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nKqVJRYL"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 05579C2BD00;
-	Fri, 11 Sep 2026 08:28:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lHTZYpQr"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C707EC2BCB8;
+	Fri, 11 Sep 2026 08:28:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789115332;
-	bh=6RbbWrcoZScMGk5YexuS8vhIyYx9Gl3h5u8+H0EPJrM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=nKqVJRYLfCalF2Qp/VzKUjAaTKljdXHAzsZRB0bHIZAaLgkMgeac4CEyjUU+9shTI
-	 qBst3DEtnrda2RQvn4S+HvJ02vqGjv/BeJ0RNrj5aZctpbZL9zjJ2zZ7UJf1LfERF7
-	 CzElpFQytVG7xcSuhe8YRIhJRRu++ta5+lhSmixn/Y3P9fqotWO5o3neePIqpK+wXM
-	 9YiJsg6gWwanRKAv3GNATj8d8pWrQbnMzG2db2OLu25hdBqpSWtF+e/rgxGci+zRJN
-	 5Asa+awQRO88U17HT+r3hAEBlM7IacEOdCkgbSDAJvbYE+Qy9GoM6UvKsxQHJQ/Zz7
-	 +bAfhzK6s2rhw==
+	s=k20201202; t=1789115331;
+	bh=1VS5ElObVqR4WKXROqPaqb+LeB1gJwIdpIW5IFGGrxA=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=lHTZYpQrs+0MPrNJ1Kf9WfhORtho4Qd0BL6fZ1ngaacv3k4ZFgLfBrrARi0wset6a
+	 r2dfdcnfeQaXojaZE0gOFJkp/omct/lYzMY/Zw2he3oWrRla09WNISizoWTTzYsFoc
+	 8XN5xgTpenvNg6U2HfHKKqSInT9cPorLjT8uzGVHRqFO0boBuVb53sCUVgFJCuGmHb
+	 v6CtIIiYOGYopBF7wAaFpC3MuxrISD9GoebR3eYWeACsz/+hem1c03AIVktOBpEyTW
+	 +F13nve6LsIvrjwj3MtE8HTKkUHrJv9NmPQqg4sxqTD4SZhgx+pjPShMlsz1S1udA5
+	 Cg9w0mEDUHVPQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E49E7C88E50;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A2537C88E4D;
 	Fri, 11 Sep 2026 08:28:51 +0000 (UTC)
 From: Chuan Liu via B4 Relay <devnull+chuan.liu.amlogic.com@kernel.org>
-Date: Fri, 11 Sep 2026 16:28:31 +0800
-Subject: [PATCH 04/10] soc: amlogic: clk-measure: Optimize CLK_MSR_ID to
- reduce memory usage
+Subject: [PATCH 00/10] soc: amlogic: clk-measure: Add support for more SoCs
+Date: Fri, 11 Sep 2026 16:28:27 +0800
+Message-Id: <20260911-more-socs-to-support-clk_measure-v1-0-940e269aa52f@amlogic.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,9 +40,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-more-socs-to-support-clk_measure-v1-4-940e269aa52f@amlogic.com>
-References: <20260911-more-socs-to-support-clk_measure-v1-0-940e269aa52f@amlogic.com>
-In-Reply-To: <20260911-more-socs-to-support-clk_measure-v1-0-940e269aa52f@amlogic.com>
+X-B4-Tracking: v=1; b=H4sIAKu7o2oC/x2N0QqDMAwAf0XyvEDtQ637lTFG18UtOE1JVAbiv
+ 6/4eBzc7WCkTAbXZgeljY1lrtBeGsifNL8J+VUZvPPBda3DSZTQJBsugraWIrpg/o6PiZKt1eX
+ owxDTs6cQoWaK0sC/c3G7H8cfS9aQVHIAAAA=
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -53,11 +52,11 @@ Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Chuan Liu <chuan.liu@amlogic.com>
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789115329; l=2725;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789115329; l=2217;
  i=chuan.liu@amlogic.com; s=20240902; h=from:subject:message-id;
- bh=5uBs1UfvmnA5lnpZwSQY5T4qwPJESJ7rRb5slRMsFVc=;
- b=JVJO2L04VaSRAj9p4DlTVpEhj7Oc8SfFhQNBiLAj70lEMEHCCrNhMpEqse4WnslvTcQB797/b
- ss8Z7L1FEKSAKUoYdBymScEpxiwE+H9Oalhx+kSDFLrtjJCJFMd6qx+
+ bh=1VS5ElObVqR4WKXROqPaqb+LeB1gJwIdpIW5IFGGrxA=;
+ b=E3+DeB6GV9hFUk8OaEE06kHsbHmsvNlb9k5j5OnWHHmzw333FSBd2uBr+Mkvls08BW/it78qn
+ 1KzIArLeCE+DQ3f0fI/UQOoysDxV49AHMVuHd5NI1lPSwNhnPXzhZfO
 X-Developer-Key: i=chuan.liu@amlogic.com; a=ed25519;
  pk=fnKDB+81SoWGKW2GJNFkKy/ULvsDmJZRGBE7pR5Xcpo=
 X-Endpoint-Received: by B4 Relay for chuan.liu@amlogic.com/20240902 with
@@ -65,68 +64,51 @@ X-Endpoint-Received: by B4 Relay for chuan.liu@amlogic.com/20240902 with
 X-Original-From: Chuan Liu <chuan.liu@amlogic.com>
 Reply-To: chuan.liu@amlogic.com
 
-From: Chuan Liu <chuan.liu@amlogic.com>
+This patch series adds clk-measure support for the Amlogic A5, A4, S7,
+S7D, S6 and A9 SoCs, listed in the order of their release.
 
-The original CLK_MSR_ID macro uses __id as the designated array index.
-This can waste memory when defining struct meson_msr_id arrays. For
-example:
+The clock names for the clk-measure channels are kept consistent with
+those used by the clock driver as much as possible, making it easier to
+identify the relationship between the clk-measure channels and the
+corresponding clocks in the clock driver.
 
-    static const struct meson_msr_id clk_msr_foo[] = {
-        CLK_MSR_ID(255, NULL),
-    };
+This patchset also includes an additional patch to optimize memory usage:
 
-Although the array contains only one valid entry, it occupies space for
-256 elements because the designated initializer forces the array size to
-match the highest index.
+  - soc: amlogic: clk-measure: Optimize CLK_MSR_ID to reduce memory usage
 
-The driver does not rely on the array index when accessing measurement
-IDs. Instead, the measurement ID is obtained from the id field of struct
-meson_msr_id. Therefore, removing the designated array index from
-CLK_MSR_ID does not affect the current driver behavior while
-significantly reducing unnecessary memory usage.
-
-Compared with before and after modification, the memory size is reduced
-by 24.76%:
-$ scripts/bloat-o-meter pre_meson-clk-measure.o meson-clk-measure.o
-add/remove: 0/0 grow/shrink: 0/15 up/down: 0/-16224 (-16224)
-Function                                     old     new   delta
-clk_msr_sm1                                 3072    3048     -24
-clk_msr_a1                                  1488    1272    -216
-clk_msr_g12a                                2952    2712    -240
-clk_msr_gx                                  1992    1608    -384
-clk_msr_m8                                  1536    1104    -432
-clk_msr_a9                                  6120    5544    -576
-clk_msr_t7                                  5352    4632    -720
-clk_msr_axg                                 2640    1704    -936
-clk_msr_s6                                  5064    3672   -1392
-clk_msr_c3                                  4896    3264   -1632
-clk_msr_s7d                                 4632    2880   -1752
-clk_msr_s4                                  5376    3576   -1800
-clk_msr_a4                                  4488    2544   -1944
-clk_msr_s7                                  4632    2664   -1968
-clk_msr_a5                                  4560    2352   -2208
-Total: Before=65527, After=49303, chg -24.76%
+To avoid requiring everyone to spend additional effort on a separate
+patchset, I have included it in this series. Please feel free to point
+out if this is not appropriate for this series.
 
 Signed-off-by: Chuan Liu <chuan.liu@amlogic.com>
 ---
- drivers/soc/amlogic/meson-clk-measure.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Chuan Liu (10):
+      dt-bindings: soc: amlogic: Add compatible to support more SoCs
+      soc: amlogic: clk-measure: Support more measurement channels
+      soc: amlogic: clk-measure: Add support for more SoCs
+      soc: amlogic: clk-measure: Optimize CLK_MSR_ID to reduce memory usage
+      arm64: dts: amlogic: a5: Add clk-measure controller node
+      arm64: dts: amlogic: a4: Add clk-measure controller node
+      arm64: dts: amlogic: s7: Add clk-measure controller node
+      arm64: dts: amlogic: s7d: Add clk-measure controller node
+      arm64: dts: amlogic: s6: Add clk-measure controller node
+      arm64: dts: amlogic: a9: Add clk-measure controller node
 
-diff --git a/drivers/soc/amlogic/meson-clk-measure.c b/drivers/soc/amlogic/meson-clk-measure.c
-index 671e0c3753de..f2562a37e8cf 100644
---- a/drivers/soc/amlogic/meson-clk-measure.c
-+++ b/drivers/soc/amlogic/meson-clk-measure.c
-@@ -55,7 +55,7 @@ struct meson_msr {
- };
- 
- #define CLK_MSR_ID(__id, __name) \
--	[__id] = {.id = __id, .name = __name,}
-+	{.id = __id, .name = __name,}
- 
- static const struct meson_msr_id clk_msr_m8[] = {
- 	CLK_MSR_ID(0, "ring_osc_out_ee0"),
+ .../soc/amlogic/amlogic,meson-gx-clk-measure.yaml  |   6 +
+ arch/arm64/boot/dts/amlogic/amlogic-a4.dtsi        |   5 +
+ arch/arm64/boot/dts/amlogic/amlogic-a5.dtsi        |   5 +
+ arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi        |   5 +
+ arch/arm64/boot/dts/amlogic/amlogic-s6.dtsi        |   5 +
+ arch/arm64/boot/dts/amlogic/amlogic-s7.dtsi        |   5 +
+ arch/arm64/boot/dts/amlogic/amlogic-s7d.dtsi       |   5 +
+ drivers/soc/amlogic/meson-clk-measure.c            | 901 ++++++++++++++++++++-
+ 8 files changed, 935 insertions(+), 2 deletions(-)
+---
+base-commit: 87e20720aaadf9540c1596b05b93073a99d02258
+change-id: 20260710-more-socs-to-support-clk_measure-c826f8ab9e68
 
+Best regards,
 -- 
-2.42.0
+Chuan Liu <chuan.liu@amlogic.com>
 
 
