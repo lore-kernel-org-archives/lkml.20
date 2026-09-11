@@ -1,103 +1,56 @@
-Received: from mta0.migadu.com (out-120.mta0.migadu.com [91.218.175.120])
+Received: from mta0.migadu.com (out-136.mta0.migadu.com [91.218.175.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF4A3391836
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:01:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A58C423EAE
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:01:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789113663; cv=none; b=CHgoxb7eyKdIlsEq8wmVxhR4WDjTPPhdB/ZY2lY9QnR0IyOUpzZ+cEekckOr8JIYPwEPYl5ed++9GrfKd5zgIrUn6Eij1lxm6qpY1oKNZFeYaKej5NODA72F+ibmE3MQT7BQkxK54QtLB/xfgxpLr8PDexHRXVVuE7gqLkF+d5w=
+	t=1789113678; cv=none; b=noFBOSmwBwYuR66O+dkVEpACBU5r4tZSVTGA/yDjXlptSfCfPcQUrXxGhnxS5fFTayucAZORL6sB9Ci1608wOHG30Aqf6UrAVE4aOmJsbgihNZaMe9B7XqxemXroWC24Qog024ALNsZcHmAqoZeOnMIeTjZyIyY8zFUZIKFQL9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789113663; c=relaxed/simple;
-	bh=vF8dJvwfO0k4j+Rhq4+Quj7N58x+aoewGF5Ku9uTa1M=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=dfrYa5UFUTZGOzUcL19X+c/9LTt3n1NSpWbfWRhkJ8tkTkc1Pa58DB4f3vNU3Z5xjZA+M7YaCtnJ8nNto8wNEJmDVl3zLmGBb+64Ml2T/Ge3tdGfqngZy8Soumqstgl6RN9EhDHSMaivnmZW75pDETHCzG5lwhrjLByaehkRvA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MfiO3KUv; arc=none smtp.client-ip=91.218.175.120
+	s=arc-20240116; t=1789113678; c=relaxed/simple;
+	bh=OKkfFQ/5u1ZQ06ulHO9rwS0KYJDTzNO4EMxRVAB2baU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=phUv3tGBmFLGDATQlBuXND6dL1Ic836Aw/A9H1B3gOQLg47vcr/ZHDjJB4rqmFOPPip3WPZHqhSY7dVRJ8Xe+3aBxrWEm07N2UKHm9Y7god0FIMYh/thuAuXilw+fCC7v7pc31K7g2p/XEPek/BGUwL8muYs4VLv95HE+LxzUoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dHNE8/Cn; arc=none smtp.client-ip=91.218.175.136
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MfiO3KUv"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dHNE8/Cn"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=vF8dJvwfO0k4j+Rhq4+Quj7N58x+aoewGF5Ku9uTa1M=;
+DKIM-Signature: a=rsa-sha256; bh=OKkfFQ/5u1ZQ06ulHO9rwS0KYJDTzNO4EMxRVAB2baU=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789113659; v=1; x=1789718459;
- b=MfiO3KUvs2ayehQUR1oT0ZYnafFK1ZKlw7J9qdatwAyI/n6a/U6yECelsZHxvQWoVXt7Uoql
- 4lsOlfdsyJl7p8dAvZr7j1e6OvMOxkFXxvadZV04xuhUVcJk2WYiesYAfPvUZaDpHAaUSnbWEhj
- 3b6wjlKFsdHJqEHIHAd+LkXU=
+ t=1789113672; v=1; x=1789718472;
+ b=dHNE8/Cny96RhIuRk/dZscC6RK6INg30/jQLti7Lei1AJuy3BkbEVjfLE+F5Gw/I2SWdpQhq
+ D4UAFvpHdAy3eIi9Cjq4HkZUL/uR+B38NyhGzoTkzUscVomIsRZUSK7CSdcE5Lp3LY1buxd5D6w
+ SUEORgoSuF2ywt4EskN09jm4=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 92b4a417acb68777;
-	Fri, 11 Sep 2026 08:00:58 +0000
-X-Mizu-Trace-ID: 92b4a417acb68777
+Received: by mta12.migadu.com with ESMTPS id bcd983cb8d37cc8f;
+	Fri, 11 Sep 2026 08:01:12 +0000
+X-Mizu-Trace-ID: bcd983cb8d37cc8f
 X-Migadu-Flow: FLOW_OUT
-From: Ye Liu <ye.liu@linux.dev>
-To: "Paul E. McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Uladzislau Rezki <urezki@gmail.com>
-Cc: Ye Liu <liuye@kylinos.cn>,
-	Michal Hocko <mhocko@suse.com>,
-	SJ Park <sj@kernel.org>,
+From: Hui Zhu <hui.zhu@linux.dev>
+To: Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
 	Lorenzo Stoakes <ljs@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	rostedt@goodmis.org,
-	jpoimboe@kernel.org,
-	mic@digikod.net,
-	tglx@kernel.org,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	linmiaohe@huawei.com,
-	nao.horiguchi@gmail.com,
-	rafael@kernel.org,
-	gnoack3000@gmail.com,
-	gourry@gourry.net,
-	rientjes@google.com,
-	shakeel.butt@linux.dev,
-	xu.xin16@zte.com.cn,
-	chengming.zhou@linux.dev,
-	will@kernel.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	tony.luck@intel.com,
-	reinette.chatre@intel.com,
-	x86@kernel.org,
-	paul@paul-moore.com,
-	jmorris@namei.org,
-	serge@hallyn.com,
-	pavel@kernel.org,
-	lance.yang@linux.dev,
-	mhiramat@kernel.org,
-	pmladek@suse.com,
-	longman@redhat.com,
-	mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev,
-	dietmar.eggemann@arm.com,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	mark.rutland@arm.com,
-	Dave.Martin@arm.com,
-	james.morse@arm.com,
-	babu.moger@amd.com,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	cgroups@vger.kernel.org,
 	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	rcu@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-security-module@vger.kernel.org
-Subject: [PATCH v3 09/15] rcu: convert process/thread iterator to for_each_process_thread_rculock
-Date: Fri, 11 Sep 2026 15:57:54 +0800
-Message-Id: <20260911075800.491472-10-ye.liu@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260911075800.491472-1-ye.liu@linux.dev>
-References: <20260911075800.491472-1-ye.liu@linux.dev>
+	linux-kernel@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>
+Subject: [PATCH v5 0/4] mm: workingset: fix the shadow node budget under MGLRU
+Date: Fri, 11 Sep 2026 16:00:47 +0800
+Message-ID: <cover.1789096175.git.zhuhui@kylinos.cn>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -106,50 +59,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ye Liu <liuye@kylinos.cn>
+From: Hui Zhu <zhuhui@kylinos.cn>
 
-Replace the manual rcu_read_lock()/rcu_read_unlock() pair combined
-with for_each_process_thread() loop in kernel/rcu/update.c with
-for_each_process_thread_rculock(), which scopes the RCU read lock
-to the loop body via scoped_guard(rcu).
+Commit 7404bd37cfbe ("mm: workingset: use lruvec_lru_size() to get the
+number of lru pages") broke the workingset shadow node budget under
+MGLRU: lruvec_lru_size() reads mz->lru_zone_size, which MGLRU never
+maintains, so count_shadow_nodes() sees the evictable LRU lists as
+empty and the shadow shrinker reclaims eviction tokens almost as fast
+as they are created, losing thrashing protection.
 
-No functional change.
+Patch 1 extends the dying-mcg stat redirection (previously cgroup v1
+only) to all hierarchies, addressing the reparenting race that motivated
+7404bd37cfbe.
 
-Signed-off-by: Ye Liu <liuye@kylinos.cn>
-Acked-by: Michal Hocko <mhocko@suse.com>
-Reviewed-by: SJ Park <sj@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Oleg Nesterov <oleg@redhat.com>
----
-Changes in v3:
-  - Split from kernel/ patch in v2 (Peter Zijlstra, Steven Rostedt)
+Patch 2 then switches count_shadow_nodes() back to
+lruvec_page_state_local(), which both classic LRU and MGLRU maintain.
 
-Changes in v2:
-  - Rename *_rcu to *_rculock
- kernel/rcu/update.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+Patch 3 recovers the performance.  Patch 1 added an unconditional
+rcu_read_lock() to the stat update fast path; patch 3 checks
+memcg_is_dying() first and takes the RCU lock only on the rare dying
+path.
 
-diff --git a/kernel/rcu/update.c b/kernel/rcu/update.c
-index 2a778b8ab4ad..d8e0b5896db9 100644
---- a/kernel/rcu/update.c
-+++ b/kernel/rcu/update.c
-@@ -548,15 +548,13 @@ void synchronize_rcu_trivial_preempt(void)
- 	struct task_struct *t;
- 
- 	smp_mb(); // Order prior accesses before grace-period start.
--	rcu_read_lock(); // Protect task list.
--	for_each_process_thread(g, t) {
-+	for_each_process_thread_rculock(g, t) {
- 		if (t == current)
- 			continue;  // Don't deadlock on ourselves!
- 		// Order later rcu_read_lock() on other tasks after QS.
- 		while (smp_load_acquire(&t->rcu_trivial_preempt_nesting))
- 			continue;
- 	}
--	rcu_read_unlock();
- }
- EXPORT_SYMBOL_GPL(synchronize_rcu_trivial_preempt);
- #endif // #if IS_ENABLED(CONFIG_TRIVIAL_PREEMPT_RCU)
+Patch 4 closes an accounting gap that patch 2 makes visible: on cgroup
+v2, reparent_state_local() never moves the dying memcg's
+non-hierarchical lruvec stats to the parent, so the parent receives
+the uncharges without the matching charges and its state_local
+underflows.  Patch 4 reparents those stats, mirroring cgroup v1.
+
+Performance testing
+===================
+
+The test script and the raw results are available at [1].
+
+Environment: 10-vCPU QEMU guest, 8 GiB RAM, cgroup v2; 7 runs per
+configuration, medians reported.  Workloads:
+
+  w1-anon-churn: single-threaded anon fault/charge loop in a memcg
+                 (MADV_DONTNEED + re-fault, no reclaim).  Every touch
+                 is a real fault with charge and memcg stat updates,
+                 so it stresses exactly the fast path patch 1 changes.
+                 This is the meaningful signal: it is not reclaim-bound,
+                 so the small fast-path overhead is not drowned out.
+  w2-file-churn: file read loop under memory.high pressure
+                 (reclaim-bound; the differences below are within
+                 run-to-run noise and are shown for completeness only).
+  w3-reparent:   reparent accounting sanity check.
+
+w1-anon-churn (pages/s):
+
+                 classic LRU          MGLRU
+base             4393028              4377122
+patches 1-2      4385996   (-0.2%)    4352887   (-0.6%)
+patches 1-3      4381832   (-0.3%)    4377053   (+0.0%)
+
+w2-file-churn (MB/s):
+
+                 classic LRU          MGLRU
+base             8277                 8226
+patches 1-2      8226      (-0.6%)    8123      (-1.3%)
+patches 1-3      8157      (-1.4%)    8294      (+0.8%)
+
+w3-reparent passed on all kernels.
+
+The small overhead visible with patches 1-2 comes from the redirection
+added by patch 1; patch 3 brings w1 back to the base level in both LRU
+configurations.  The w2-file-churn differences are within run-to-run
+noise: that workload is reclaim-bound and too noisy to expose the small
+fast-path overhead, so w1-anon-churn is the meaningful signal.  Patch 4
+only touches the memcg offline path and is not exercised by these
+workloads.
+
+[1] https://gist.github.com/teawater/32f373ec41d185d840455eb167321a5a
+
+Changelog:
+v5:
+According to the comments of Andrew, clarify the performance testing
+section: the w2-file-churn differences are within run-to-run noise;
+w1-anon-churn is the meaningful signal.
+v4:
+According to the comments of Andrew, Fix "follow-up patch" to
+"preceding patch" in the commit message to match the reordered series.
+According to the comments of Sashiko, add patch 4 to reparent the
+non-hierarchical lruvec stats on cgroup v2 to fixing the state_local
+underflow.
+v3:
+According to the comments of Shakeel, reorder the series per review,
+add Fixes/Cc stable and the user-visible impact to patch 1.
+
+Hui Zhu (4):
+  mm: memcg: redirect stats updates of dying memcgs for all hierarchies
+  mm: workingset: use lruvec_page_state_local() to count lru pages
+  mm: memcg: skip the RCU lock when the memcg is not dying
+  mm: memcg: reparent non-hierarchical lruvec stats on cgroup v2
+
+ mm/memcontrol-v1.h |  5 ++--
+ mm/memcontrol.c    | 72 +++++++++++++++++++++++++---------------------
+ mm/workingset.c    |  5 ++--
+ 3 files changed, 45 insertions(+), 37 deletions(-)
+
 -- 
-2.25.1
+2.43.0
 
