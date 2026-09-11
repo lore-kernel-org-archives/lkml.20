@@ -1,107 +1,133 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mta0.migadu.com (out-205.mta0.migadu.com [91.218.175.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB961366054
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:28:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789151291; cv=pass; b=LJ6aX55lf141XaD6LkmNwr7e5V1C/XGHI1j4aQXf16t0NWgrrRCvUDIvpNRkhDGFLC9HIzu84VHnum4PvEXulMcgy91MGl9NaT0jhh+JaxoKCcAqt9a9D9YsP6/2wN7JcmKfDbIeGhH2HvWKU3uZAvNfG6UVvSMEDbnHqxqN6BI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789151291; c=relaxed/simple;
-	bh=y9nTbIjY2+t5cR0URENpGmSTYgd1reBZmat/Eu9yGBo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WWJcsSIJgFubalP8VAZHUcW+WdFJbsLYJae77NFcqxDCwNIfIWRQukd8AENFA2zGHFQHp6gd/Q8r1DfFTxt2LD4YjPC9/xGUxY5+hLTtqBZOvDxW756Nn3IhiJfq4qdtcclmU/rGvRtBI51FRYitW6oaFVmndyThBiG8GGxd47s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jRnft8B5; arc=pass smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98FC496D29
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:28:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.205
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789151305; cv=none; b=lHwWsIrk/fWvhi0oshI4o4PqPwaocGzqCR4EQOm24W2BoNoR6M1YAFsBzXQwZ7amQeawFkQNQ6ccgxayxZEmWzsWj21l/DTuGC5XYRfbQ3oQHzVkx4RsDj1GDzyHt6dJFAMMP9L4QBE+D0YG/sqfKCTjUgkF8JoSVFASTDTcB5E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789151305; c=relaxed/simple;
+	bh=qD/8jGcsB0PwT4vXosTJ3LKl5LQeSQQLhek2WRS6rN0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Vua7CNfk6pfNMvitHeFcTlivb1X1f5A5PardF6ZdgktfWRkRsjKIXzOMeRhfifOEU7YjkYY1Sv1L2kwLX4R2O7QLDs/7qvIIVv6ZUn55cX9k7G9qgQ2/m2YmpGEKcx5+VVh0/he6L+Pd5QyPwORWSKksKm8YiMJApwOLJk2Jze0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GjN+ytHY; arc=none smtp.client-ip=91.218.175.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jRnft8B5"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6351832so68693f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:28:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789151288; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RgoIps3UzMB4i4EmDFyUreiBOOnu/zzJzZCkFOcMvfB10GKaOZRJvueyh9+veAqROw
-         PO/bwiZpLT0A46rKWIx2CKkkCIBu4d9P+Xsq+fH+DPwMhu0e7d+CqDf+eYd/KXUpaxua
-         nv0x4WUWBM4H2QSLeOsYZ76trKy2mVTwK3x1b0n3bAA9TfbCrWsjFwWBHquW/mPI64mZ
-         3k3vDpqQlGYJkzuSlHIiSt+pG0k3jwz6/qKUGHX12ucszP51go0YMqrWZrH6y0nTIs10
-         sZpOBRomLc4UpLyY6Nw7jCysff/fXl0oihgi8XJ3G+Vtax8vJE3+t2mbqbpmp3rDyUTR
-         fEig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=y9nTbIjY2+t5cR0URENpGmSTYgd1reBZmat/Eu9yGBo=;
-        fh=5SkVI6SrRMNJSFcFXiRit1vXwg7t4GR5Q1v+cVJsarE=;
-        b=LYNPhki5cW2Q4eMTvuAQ0L+n7xDJD3UWuNNPBInQdjVKARj4nKzHODO4rPXO3CSj87
-         RZOPSHXhyvBhvwTFI9VJgNPgAg314Xb7oDuCPdEb6eZ/EL0jzyjFGnZFVV2Nyp9AkwkM
-         RTDR2xPyWCAXh1xWPb87TnJ7c5TOp5v8nMDe9awjs0IybUhazAiBvMRo8v0NA3oQwo7m
-         ioG/TF0h4lw74mk1jF9ITCab3TSPrgavLmVIfgPLlIihGUx2K7M8R8gU1Hfqhfkx2bi8
-         aSbuX+HIOxsrBNOy9ZIO3IgwYcD6boBGe7MSTYW+E6stkxYAjyxK/6u+lQuKI5PD/nPj
-         O/jA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789151288; x=1789756088; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=y9nTbIjY2+t5cR0URENpGmSTYgd1reBZmat/Eu9yGBo=;
-        b=jRnft8B5UGDOkTwcFD420fwte2Et9asVQD9na48sP31wLIrhJfZqpNw6aKvO5Zm/5S
-         3d0n2jordDICmvg0OjV30YeSiyCiiaKYB+uehjbc/wpzE/WlFJOi5AJdG1J46b6J139b
-         wZ7QEOMtFemVOh6nnbNnFlfoxjc/UuAKYslNgOHjM+aSSNeR8g0rib7sLhMkLAntPoFb
-         /+jMBJX+1qL50lOBMHjHXa9p0Y7lxLdXyLjTQW5uXf2yPb6l5H8iH8pRKGYOjEIhMXrU
-         lkKETvhYWiQrmVWyv+FwuUZn4rFrObZVBY0R5XkDZQw7JMK4K7SEz0+gDg8sNLYckPZE
-         Jw6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789151288; x=1789756088;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y9nTbIjY2+t5cR0URENpGmSTYgd1reBZmat/Eu9yGBo=;
-        b=d1M8rD00j7ebepCp3cXsuvMLVSErM5fSc10k8MACqeMAFjzZwtRPC1u1WbpVO1tmhS
-         ODwpPMnZfnsFzchexew/oshxEQWM8vrRRWUQD5w0/rlP9jTvLcL8GpX9EFdcpJYMU2Pr
-         YghmXPeQp+EK4lWKxvhWpy2AAMOvimkm1yn7Mi9TJnDZw/MsMug0fuexlA7gY+u/AhCk
-         WxtlToBTZCWkf+Xa1azh6sMz0qXkNzHt1mXvsVHpDhYREvoPM//blXUubPyjrA88BhsI
-         1Ixx/WtzVT/gnYMdFDF51BPblNaN+yWhrt550qqK23OIlkR6K48nDiqNDigOWuzafZzA
-         bQxA==
-X-Forwarded-Encrypted: i=1; AKwUvBytL1lL8Ts54j11ZXXYy6P0vVE8Or5DOheApe5/WsmA9kihVB2gwBogxamYtW1RUCp3oSXSJggI2dASfTs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLhAAZEP3g8+bUAr/GLZMOIFcMPLlbuJqrMEQ5WWzk0pHO/b0I
-	s1QRhmBQC/lw4MeGuYZG4Ss3c7gRWFUEJ6Ae86is1ZoHmwT5WsrwKXEehd8EWDSfSLqmDqRm3sf
-	3adiSmgAdOqNWgZYb/GSnuMapcHIA0NeOgcAh2gNM
-X-Gm-Gg: AYBFou3Ayk8ezSgyT7X5jdriBA1J2ppaNc8qbOShap9ZWYxdINmj6k7yHE47JdaCtEf
-	kdLHgdlX3xG+JUUx/bEKyXoyDplP/9T5cAprjcKaPhIAihzFjYmLm9YXpTCcnCWDETXv2TVbuET
-	k7gUp+9y3izRdMlCI76F4UlzOQRFNOp5bGbAwodqpPAcI1MZyON3Rd0F4hZc+rxtvqc7sqF8+ip
-	A62wo8wGxhNiuJL5VjBJviKooCELXLfXguKo8Jg3Se21Xic3MXYkD2KIwPD5RwG+KlwnB7aJsx5
-	UN4c6kPB2hWLo9rAQhAc0ZN9uZ7Vme9Hx4mek60wZJ1lNjyXmZ6YYH5EYmsx7zGzbTuxufqvNBz
-	wNA14QePwtQ==
-X-Received: by 2002:a5d:5887:0:b0:485:ae8d:1e07 with SMTP id
- ffacd0b85a97d-486eb3543c0mr6951383f8f.56.1789151287712; Fri, 11 Sep 2026
- 11:28:07 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GjN+ytHY"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=qD/8jGcsB0PwT4vXosTJ3LKl5LQeSQQLhek2WRS6rN0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789151301; v=1; x=1789756101;
+ b=GjN+ytHYbW42ul7UHKe9RKTQtwlbYjWUMlFkNcLyjTBTCbnyJx6/yTa1K0LjF6Vt7pzPDc6U
+ cCgqKsh6/jkIf6d0IJu7XLbzf9z/a15ESaJlHQqBVLAjZiW49Yzp1EFsI8xuombdOcw2dUBKUiA
+ E8IuwtFliC7dgnvOPfNShpwE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f6c6a0564a26cf05;
+	Fri, 11 Sep 2026 18:28:21 +0000
+X-Mizu-Trace-ID: f6c6a0564a26cf05
+X-Migadu-Flow: FLOW_OUT
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tejun Heo <tj@kernel.org>,
+	Christian Brauner <christian@brauner.io>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Meta kernel team <kernel-team@meta.com>,
+	linux-fsdevel@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/4] kernfs: don't hold kernfs_rwsem across dir_emit()
+Date: Fri, 11 Sep 2026 11:28:11 -0700
+Message-ID: <20260911182815.1992483-1-shakeel.butt@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904234401.2339633-1-jthies@google.com> <2026091023-numeric-husband-1b03@gregkh>
- <CAMFSARfnRpkq21j7WZYqdthy4aC7VSPjQAKm1eHvbYxhM6pOnQ@mail.gmail.com> <2026091139-spindle-zodiac-2342@gregkh>
-In-Reply-To: <2026091139-spindle-zodiac-2342@gregkh>
-From: Jameson Thies <jthies@google.com>
-Date: Fri, 11 Sep 2026 11:27:55 -0700
-X-Gm-Features: AcwNN1WsFlTMBvEiNMDzIzZo5OmwjBJhmGTnyMtJQR0FexDEekyndWgnFLMhtM4
-Message-ID: <CAMFSARdSyB9m72r0gpujZmknN_aDVUnyOzKHfdksKhemfzcUhg@mail.gmail.com>
-Subject: Re: [PATCH v2] usb: typec: ucsi: displayport: Fix OOB altmode array index
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: heikki.krogerus@linux.intel.com, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, bleung@chromium.org, akuchynski@chromium.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 10, 2026 at 10:56=E2=80=AFPM Greg KH <gregkh@linuxfoundation.or=
-g> wrote:
+kernfs_fop_readdir() takes kernfs_rwsem for reading and holds it for the
+whole listing, dir_emit() included.  dir_emit() copies into a userspace
+buffer, so it can fault, and under memory pressure that fault goes to
+reclaim.
 
-> Why not just a fixup patch instead?
+We are hitting this case on the Meta fleet very regularly.  Many times it
+is below[1], a monitoring daemon.  It walks the cgroup tree and faults on
+its own getdents(2) buffer with the lock held for reading.
 
-Sorry, wasn't aware this was an option. I'll send a fixup patch to address =
-this.
+	below: page allocation stall for 120 secs: order:0,
+	mode:0x140dca(GFP_HIGHUSER_MOVABLE|__GFP_ZERO|__GFP_COMP)
+	nodemask=(null),cpuset=hostcritical.slice,mems_allowed=0
+	Call Trace:
+	 <TASK>
+	 dump_stack_lvl+0x5d/0x80
+	 __alloc_frozen_pages_noprof+0x5f4d/0x6300
+	 ? memcg_list_lru_alloc+0x73/0x320
+	 ? ima_file_check+0xd0/0x7d0
+	 vma_alloc_folio_noprof+0x145/0x560
+	 handle_mm_fault+0x17c9/0x2720
+	 ? find_vma+0x27/0x30
+	 do_user_addr_fault+0x39f/0x6e0
+	 exc_page_fault+0x8f/0x110
+	 asm_exc_page_fault+0x22/0x30
+	RIP: 0010:filldir64+0xd7/0x1a0
+	[Code:/RSP:/RAX:..R15: register block elided]
+	 kernfs_fop_readdir+0x2de/0x420
+	 iterate_dir+0x8c/0x1f0
+	 __se_sys_getdents64+0x61/0xe0
+	 ? copy_page_from_iter+0x860/0x860
+	 do_syscall_64+0x6a/0x250
+	 entry_SYSCALL_64_after_hwframe+0x4b/0x53
+	 </TASK>
+
+kernfs_rwsem is the lock every create, remove and rename in the hierarchy
+needs, and sysfs and cgroupfs have one per machine.  More importantly, the
+userspace OOM killers such as systemd-oomd also traverse the cgroupfs
+hierarchy and can get stuck behind below, which is stuck in reclaim.  They
+are supposed to relieve memory pressure on the system, but can get stuck
+themselves.
+
+The fix is to not hold the lock across dir_emit().  Copy the name while the
+lock is held, drop the lock, emit, and take it again.
+
+That opens a window.  With the lock dropped, the entry the listing stopped
+on can be removed or renamed before the listing picks up again, and readdir
+only remembers its place as a name hash.  Two entries in one directory can
+share a hash, so the hash alone does not say where the listing stopped.
+
+Patch 1 makes the fallback search land after the missing entry rather than
+on either side of it.  Patch 2 keeps the name of the entry the listing is
+on and resumes on the full key.  Patch 3 is the fix.  Patch 4 adds tests.
+
+Patch 1 is worth having on its own.  Without the rest, the same search can
+land on the entry before the missing one and report it a second time,
+between two getdents(2) calls.
+
+The series applies to the vfs-7.4.kernfs branch of the vfs tree.
+
+Changes since v1 [2]:
+ - Split the old patch 2 in two, per Tejun.  Patch 2 adds the name copy and
+   the full-key resume with the locking unchanged; patch 3 only drops the
+   lock.
+
+[1] https://github.com/facebookincubator/below
+[2] https://lore.kernel.org/all/20260910003650.1680854-1-shakeel.butt@linux.dev/
+
+Shakeel Butt (4):
+  kernfs: don't repeat or skip an entry when readdir resumes
+  kernfs: resume readdir on the full entry key
+  kernfs: don't hold kernfs_rwsem across dir_emit()
+  selftests: cover readdir resuming at a removed entry
+
+ fs/kernfs/dir.c                               |  85 ++++++--
+ .../selftests/filesystems/kernfs_test.c       | 200 ++++++++++++++++++
+ 2 files changed, 263 insertions(+), 22 deletions(-)
+
+
+base-commit: 7f24d0f60b1087dbc28d68398957c18774e5a7d8
+-- 
+2.53.0-Meta
+
