@@ -1,133 +1,79 @@
-Received: from mta0.migadu.com (out-166.mta0.migadu.com [91.218.175.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA18F507
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:41:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A51753F99F4
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:41:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789112475; cv=none; b=Bwgb6Xjczr0dp0v9pqz2AEoNDfBVpk6Yufgai8rroQG4YIVdUgNjf6RejgajL2dsAjHJEdd+F8Ni5S2jcrglEOlHrc/g9uCax47dCZLYlctJnpAKOsbOU3s1yauCZThHZ0XA2E8TglVEaUWSD6mjcBOO05VoxfElEKCYcpLTD8Q=
+	t=1789112486; cv=none; b=SfnqDLAtylnk7dALIavJt77WDg6c3CnBzET0wxL8Y3NLhsC2oJpDSmnuBzs/j2clBikdDNMcRkSpkZ2tRih7pBYjHT0V31hy7sfDntrbGeaI3m+ascjMv/7vcGipFEYmIIVR+1/QkYQf5RPeHBaWXCXvKFsQwU6FtZN7dH8S92s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789112475; c=relaxed/simple;
-	bh=hjsUTDS0aUfhWrQcW8ActP7iZuTl1bW/eidquzAMAC8=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=QnBbHzNw/4yz8LDxTLpNhLgpayfs8vdX8wTjl84fPe/lP73MxzdCiqntR1FkHs5IuP9jE+4203MNXvad8gzVtUEAT9jGqUdqJkaHoJ8ib2U3epaFo0O12ksx0cysy9dS7xyJbVhjEyBmpSUQirKIz6eqMWuKV3scyWwpPVdl264=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TopX4yvy; arc=none smtp.client-ip=91.218.175.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789112486; c=relaxed/simple;
+	bh=NO/OF5kdS6j1QF4/t6fTKO7uogCt4Zulz2Ll0FAdBeA=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=R0Ii0HFqsMKyuua+lEKkRH7HlkFIwzP1bEAcIlIg+buFXDxPvFe9c+wGqid0vkY7moP+uTcwObA7fBTWKfue+5Z2rgsE0J4QR7m0n5gr7/g8xQ2y8rHdMBAG18OTeCQRbrn7GlkdmheVZu7RDU541NMVlo30BMc9FFEskcZXWQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c5yIk1ZK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TopX4yvy"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=hjsUTDS0aUfhWrQcW8ActP7iZuTl1bW/eidquzAMAC8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789112470; v=1; x=1789717270;
- b=TopX4yvyCEzW4bZ8Qqigd/9cJBpUsNWFPZweIhgrwXovHWoWCBjlWGeG7Yw0/pEQ7oWUYY4a
- +c6F8StRMNIQC8w58MtsSlNDCpp8OTvhf8uqkLiURXclqH89JHJ5b1vhRtyYX8w9fF79RnkJotN
- Z3gHcbBgYurg/6Pn1kJdyWmE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 357b0a632a779fc6;
-	Fri, 11 Sep 2026 07:41:00 +0000
-X-Mizu-Trace-ID: 357b0a632a779fc6
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c5yIk1ZK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6044D1F008A1
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:41:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789112484;
+	bh=NO/OF5kdS6j1QF4/t6fTKO7uogCt4Zulz2Ll0FAdBeA=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=c5yIk1ZKQWrpT7q3tlD/FHemkJLrK2xQ6VBo/ec4kFurOeSlrzrTxfPO9eqAuR+Hl
+	 qK2A3lc5zvC/nELRwZQcTHViahP4SPrAd6jIsZOWamLOVQnit8A0TCiujvmEWRlgEw
+	 bi7UHpBk5QzSxUmZKfKdpQ/ivmaMi3ZM1elnqQPNoFSbOjkEMpxh4az/JVv5J9okjs
+	 ziPVt5QiBzjT9EdjLvKOl9+IzhkL4yzdF/eA/FSxxvQQcmyTDOqSPtgIDl7spjDnnm
+	 y01QdJ1ZQK+q+0gHE63FaXd16MAPmlFTQYv2UZisMsPW/owRW4sxdg5aDqutEQjetk
+	 uh2kpWsJt4Zyg==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a354118856so4970951fa.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:41:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzxjeK2WmFzODKw32nN1eQqnAZ+5w6cgySHT906NvxTj2L61QDbWFW83AJ0KbRVMZzKAHry2gYW86Ohj4Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++ls/CBs2XYizZBPrO+NgOhenecfw8BnMEV3bvQkMzTfsdXwUzpM
+	iOa1AmkYs/tHJIZ2095x2bYGgx1pg6YldbsGtZE1zmwcTWF9I8d/UBpJo29r0mfX75g6mPSY/AN
+	JYDH8oH1nuTGYt+3squA9mnfx68YhMy3+HGCL64c0oQ==
+X-Received: by 2002:a05:651c:31c6:b0:3a4:8913:a259 with SMTP id
+ 38308e7fff4ca-3a5a52919e6mr2819641fa.29.1789112482986; Fri, 11 Sep 2026
+ 00:41:22 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 11 Sep 2026 00:41:20 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 11 Sep 2026 00:41:20 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260910-ad7768-driver-v7-16-7f70b07627e1@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 11 Sep 2026 09:40:55 +0200
-Message-Id: <DLCBFNKN09SW.2SIEDXTB4PGJD@linux.dev>
-Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
- Straube" <straube.linux@gmail.com>, "Peter Robinson"
- <pbrobinson@gmail.com>, "Bitterblue Smith" <rtl8821cerfe2@gmail.com>
-Subject: Re: [PATCH v11 4/7] wifi: rtw88: sdio: zero the padding added to a
- TX transfer
-From: "Luka Gejak" <luka.gejak@linux.dev>
-To: "Ping-Ke Shih" <pkshih@realtek.com>, "Luka Gejak" <luka.gejak@linux.dev>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260909074556.55709-1-luka.gejak@linux.dev>
- <20260909074556.55709-5-luka.gejak@linux.dev>
- <d6507fd0447c4c09a9c80bb57dfef35c@realtek.com>
- <DLBQ2H40DC71.2Z3B32X9JQ17I@linux.dev>
- <DLBR915C5L0S.1TEYXZ8LADNTH@linux.dev>
- <2294d792e937441fbf4ef8169c03df18@realtek.com>
- <a17a665d7d4c47fbb33e038d122ed200@realtek.com>
-In-Reply-To: <a17a665d7d4c47fbb33e038d122ed200@realtek.com>
+MIME-Version: 1.0
+References: <20260910-ad7768-driver-v7-0-7f70b07627e1@analog.com> <20260910-ad7768-driver-v7-16-7f70b07627e1@analog.com>
+Date: Fri, 11 Sep 2026 00:41:20 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mei5ZrOcW3B0mGw1woX3ws+q6t1jzR+Pv6_dKKRo7ZOvA@mail.gmail.com>
+X-Gm-Features: AcwNN1W5R2PpX2POIWzVZ_dgShbvNnsPO4gL5fI0M7B8ZSyCOdNjEzti7afKFRU
+Message-ID: <CAMRc=Mei5ZrOcW3B0mGw1woX3ws+q6t1jzR+Pv6_dKKRo7ZOvA@mail.gmail.com>
+Subject: Re: [PATCH v7 16/17] iio: adc: ad7768: Register GPIO auxiliary device
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+	Jonathan Cameron <jic23@kernel.org>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Olivier Moysan <olivier.moysan@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Michael Walle <mwalle@kernel.org>, 
+	Randy Dunlap <rdunlap@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri Sep 11, 2026 at 2:53 AM CEST, Ping-Ke Shih wrote:
-> Ping-Ke Shih <pkshih@realtek.com> wrote:
->> Luka Gejak <luka.gejak@linux.dev> wrote:
->> > mac80211 reserves IEEE80211_ENCRYPT_TAILROOM, 18 bytes, and offers
->> > no way for a driver to ask for more on TX; extra_tx_headroom is headro=
-om
->> > and extra_beacon_tailroom is beacons only.
->>=20
->> You can modify mac80211 to reserve larger ndev->needed_tailroom to
->> see if it can really resolve the symptom. If so, you can propose
->> to add fields for tailroom like headroom:
->>=20
->>   struct ieee80211_hw:: extra_tx_tailroom
->>   struct ieee80211_local:: tx_headroom
->>=20
+On Thu, 10 Sep 2026 19:36:34 +0200, Janani Sunil <janani.sunil@analog.com> said:
+> Register an auxiliary device when the AD7768 is described as a GPIO
+> controller. This allows the GPIO driver to share the parent regmap and
+> runtime power-management state.
 >
-> Note that the ndev->needed_tailroom isn't guaranteed by comments, so doin=
-g
-> some experiments by normal use case would be helpful to know if it's wort=
-h.
->
->  *	@needed_tailroom: Extra tailroom the hardware may need, but not in all
->  *			  cases can this be guaranteed. Some cases also use
->  *			  LL_MAX_HEADER instead to allocate the skb
->
-> Ping-Ke
+> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+> ---
 
-I ran it: one line in net/mac80211/iface.c, IEEE80211_ENCRYPT_TAILROOM
-+ 512, nothing else. It does not help. Over 60000 frames the average
-tailroom went from 106 to 139 bytes against an average pad of 469, and
-96% still reallocate.
-
-Your caveat is why, and it is stronger than the comment suggests:
-mac80211 never reads ndev->needed_tailroom as the field appears once in
-net/mac80211, which is the assignment itself. The only code that acts on
-it is skb_ensure_writable_head_tail(), whose one caller is net/dsa/user.c.
-And the protocols that do honour it read it when they allocate, which TCP
-never does, which is why only the few non-TCP frames moved the average.
-
-So that tested the wrong knob rather than the idea.
-
-Your fields do work. I built them and measured it. ieee80211_skb_resize()
-is the only place on the TX path that grows tailroom, and it derives
-tail_need from IEEE80211_ENCRYPT_TAILROOM alone, gated on the frame
-needing software crypto tailroom, which is false for data frames under
-hardware CCMP. The headroom side is already what you describe:
-hw.extra_tx_headroom folds into local->tx_headroom and both callers add
-it into head_need. Adding hw.extra_tx_tailroom, folding it into a new
-local->tx_tailroom and adding that to tail_need outside the crypto gate
-delivers the tailroom. One further piece is needed: ieee80211_build_hdr()
-skips the resize entirely when it wants no headroom and the skb is not
-cloned, so that condition has to widen as well.
-
-With the driver asking for one SDIO block, frames arriving short of
-tailroom go from 29056 in 30000 to 1 in 30000, and uplink is about 6%
-faster in an interleaved A/B.
-
-One caveat though: this does not remove the reallocation, it moves it.
-pskb_expand_head() is called just as often, from ieee80211_skb_resize()
-now instead of from __skb_pad() in the driver. The driver side becomes
-much cheaper, 445 ms of __skb_pad per 20 s run against 82 ms, and total
-time in pskb_expand_head falls by about a third, but whole system CPU
-does not drop. The gain looks like moving the work off the SDIO critical
-path rather than doing less of it.
-
-I can write that up for Johannes as a separate mac80211 patch, with the
-rtw88 side as a follow up. It is independent of this series, but considerin=
-g
-your question was about CPU usage and this change doesn't overall reduce it=
-,
-it is probably not worth it.
-
-Best regards,
-Luka Gejak
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
