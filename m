@@ -1,41 +1,44 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73E723624BF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDF41345736
 	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:38:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789137509; cv=none; b=LHpztVUd4Ehwpp2ectPMM5lWVc4a+s+xEugL4XMmUGvHX+aNUYwl6NyOuKoqUC9j6M+IhObl33pMDtze7m2ig9Qe2rZVOlvl9MMh3AvLUZ0QhV6/kRGMrK+/txO9OzNtFtwlBf85i+9biSlpGGiqeoDY2k2+l62OitKq1xWA8B4=
+	t=1789137508; cv=none; b=aFdfgXMAXIL0pPbLhevC4SvCDwEfpwie15VyVDSdWOL0zz2dKhBj3ULJ49Xc7wx5LbsyW7jDf9lBdIJy2jvLwY8b94yk+CKHhE32sKvM1ieQz/uGrwHbwHaY2BqagsaWzXLvXdS/Hj5c0vuoj/i10qt1JSd7JVL+S/DZ1Jr6Zdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789137509; c=relaxed/simple;
-	bh=9UJFyZ/yDghIK+87yVI/6Ni4aMm90o+d2/LvTvtEHa8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UFOxym6BERXn74oA57uHRjm2NPpOaw0OXnJu/FyExMDGLWvHIo+noceobcyf1Wmevu6Hy1VxFUlDcOL3AhXSYihzSQ2WxI6srrYzBQi0DnOMmOX1uwQy6aAHtZKz+vM3NGnXpW4CyqRQuI8rUWn9axLg+RSp794pYrsKyivb//0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=tQIYHmZe; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=yjAdc7I5; arc=none smtp.client-ip=193.142.43.55
+	s=arc-20240116; t=1789137508; c=relaxed/simple;
+	bh=R7R18QEPttI5tJ0Mnid1UU0N5zuu9+//SNy8MOd6bO4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=p5+pOyPwxiKyI+WQMvN6USF6+9GQvmK/iNUkOe71CR5a7ENuQl3R4Erqk6cwRqPjJUuBK4jpIVX3kCY10zKPcPB+tOt9krjrpp1ZBqW6rMLaffi2hWCYHFdbvD0V9bAC8j/0UFKXGx+n+kNTEX4AjLkKpomFCTY044eiL+m8hRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=qGPwVphw; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=19WPZ2GN; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="tQIYHmZe";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="yjAdc7I5"
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="qGPwVphw";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="19WPZ2GN"
 From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
 	s=2020; t=1789137501;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=N6PaIRR6vaepl3eIq3aZZKgYxRKsTTVY7PDJr2bCpPY=;
-	b=tQIYHmZeeN9/8Vb8iaoo/KCuWoQ1bVs+S70OB1NyV+81/IKkIYHQmDKHuwd5xo6UlLq0lI
-	NzbKoSMwYGY3JI9u4T+hJlLkDnkhw321G203pflxI5N0tx/rB+Zks0Ck/oSQRd8TOFGgm0
-	dnC/elr+zIIzx6fpaHZTlF2IOlqV0vg63KpEvzjik71lUk7o+Rn/6lRtOwfJLkzwiDQLQe
-	buuv1aQQfl6NIt0B8yXwmZAq5tVHapl8uwbArLzI9DMd0MMQ2+0SQE9c2RhWI0HT6HAA1P
-	j35Ka6hx65RRVLujkosi6LDYnAtKEeeFYBL7BXFNBb0cG13ABoqTAcmKot0wQw==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=D9IFnuoISe8DVZ4o8aEwdjhC6POqjZl+keV1u44bYjE=;
+	b=qGPwVphwNXxowtP7Vv3qfHiY2O1+kE0YLhyRRIe0Xv7c05S/z2aR2xIj6Pr6/vS25TI8rE
+	/Cbus7YMLfxbPFyf5mLr2W3H/RQFk3U7bKjpxvvqmNlYQHFbNmFCeOLt6oRj6SQt/h4PLU
+	7KT5LS28ykAtghs4B7r+c46cpF6dQ5hiuiHAytbxqP9OYPnkhn/jT3KqDXmRJH3piNsiVa
+	94do4qidRHRnYb9KSZuNE459smv5oe2KgzraLQJdRbjzXETVuclXZkjxrIFpCrCHkdrfHR
+	OjxzkxdUUuPx17i04LdBjGd1KA69/MDeN2yFSHDSjB9L2zSxp+aYyl3MOxZnXA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
 	s=2020e; t=1789137501;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=N6PaIRR6vaepl3eIq3aZZKgYxRKsTTVY7PDJr2bCpPY=;
-	b=yjAdc7I5yIo9aNHU7bRT+dcuP++qHCpau5A/+bYZnYUDRspx1d6b9m2TOMHs93rV8gLUT+
-	YsOFn4fzeqDCHoDA==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=D9IFnuoISe8DVZ4o8aEwdjhC6POqjZl+keV1u44bYjE=;
+	b=19WPZ2GN5M/wPzdSaCQB5gsPYjpVRUlsrF5K2uWPXcGcWR27MzW3i4PKedvrVoJ9kHEDk1
+	ecyIx09iKYf8IfDA==
 To: linux-kernel@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev
 Cc: Thomas Gleixner <tglx@kernel.org>,
@@ -43,9 +46,11 @@ Cc: Thomas Gleixner <tglx@kernel.org>,
 	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
 	Clark Williams <clrkwllms@kernel.org>,
 	Steven Rostedt <rostedt@goodmis.org>
-Subject: [PATCH 0/3] irq_work: CPU-hotplug improvements on PREEMPT_RT
-Date: Fri, 11 Sep 2026 16:38:11 +0200
-Message-ID: <20260911143815.997254-1-bigeasy@linutronix.de>
+Subject: [PATCH 2/3] irq_work: Flush lazy work CPU down on PREEMPT_RT
+Date: Fri, 11 Sep 2026 16:38:13 +0200
+Message-ID: <20260911143815.997254-3-bigeasy@linutronix.de>
+In-Reply-To: <20260911143815.997254-1-bigeasy@linutronix.de>
+References: <20260911143815.997254-1-bigeasy@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,43 +59,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 
-There was an unrelated thread which made me look into how
-!IRQ_WORK_HARD_IRQ is processed on PREEMPT_RT. Turns out the queue of
-callbacks gets never flushed on CPU shutdown. !PREEMPT_RT has a flush
-but on PREEMPT_RT the thread context is required.
-This almost never happens but if it happens it is a pain.
+PREEMPT_RT invokes IRQ_WORK_LAZY callbacks and callbacks which are not
+explicitly marked IRQ_WORK_HARD_IRQ from thread context.  If a CPU gets
+shutdown, the irq_work is flushed during smpcfd_dying_cpu() which is
+invoked on the target CPU with disabled interrupts.
 
-A small fix is for the smpboot thread to invoke the thread-function
-before parking. This is an improvement. There is still a small window if
-callbacks are added after the irq_work thread has been shutdown.
-As a fix I added an explicit flush on the control CPU once the CPU is
-dead.
-From what I've seen there are two users that don't behave as expected if
-invoked from the "wrong" CPU:
-- cgrp_dead_tasks_iwork()
-  This shouldn't be a problem because no task terminates after the
-  smpboot thread parked. Everythng that was queued up before will be
-  flushed during parking.
-  Regardless posted
-     https://lore.kernel.org/all/20260911101900.984420-1-bigeasy@linutronix=
-.de/
+The callbacks enqueued on lazy_list on PREEMPT_RT are not flushed because
+they require thread context. The callbacks remain and get processed once
+the CPU gets back online.
 
-- wake_up_klogd_work()
-  This will not cause data curruption but console printing will be
-  delayed until the following printk. Not pretty, posted
-     https://lore.kernel.org/all/20260911103832.w6C8cT4L@linutronix.de/
+per-CPU irq_work items continue to work for enqueues on their local-CPU,
+only the work on the "offline" CPU get stuck. "Single" irq_work are
+worse because they remain "claimed" and can not be used again. One
+"symptom" is the late printk() in CPU down path which enqueues the
+irq_work for printing but it never gets scheduled. Further prints don't
+print to the console because the irq_work is "pending" of the offline
+CPU.
+Another problem is the canceling/ flushing of the irq_work which is
+stuck. Since the irq_work will not continue, the task waiting for its
+completion will block waiting.
 
-Sebastian Andrzej Siewior (3):
-  irq_work: Update a comment regarding CPU hotplug invocation
-  irq_work: Flush lazy work CPU down on PREEMPT_RT
-  smpboot: Don't park the thread if work is pending
+While looking through the users of irq_work, it does not matter if the
+callback is enqueued on another CPU. This makes it possible to invoke
+the callbacks from a remote CPU by smpcfd_dead_cpu(). This is invoked
+from the control CPU with enabled interrupts shortly after the
+hotplugged CPU is shutdown so the llist can be accessed safely.
 
+Add irq_work_run_cpu() which invokes the irq_work callbacks of the
+specified dead CPU. Invoke it from smpcfd_dead_cpu().
+
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+---
  include/linux/irq_work.h |  2 ++
- kernel/irq_work.c        | 16 ++++++++++++----
+ kernel/irq_work.c        | 11 +++++++++++
  kernel/smp.c             |  1 +
- kernel/smpboot.c         |  6 ++++--
- 4 files changed, 19 insertions(+), 6 deletions(-)
+ 3 files changed, 14 insertions(+)
 
+diff --git a/include/linux/irq_work.h b/include/linux/irq_work.h
+index c5afd053ae32c..7184e12739653 100644
+--- a/include/linux/irq_work.h
++++ b/include/linux/irq_work.h
+@@ -59,6 +59,7 @@ void irq_work_sync(struct irq_work *work);
+ #include <asm/irq_work.h>
+=20
+ void irq_work_run(void);
++void irq_work_run_cpu(unsigned int cpu);
+ bool irq_work_needs_cpu(void);
+ void irq_work_single(void *arg);
+=20
+@@ -67,6 +68,7 @@ void arch_irq_work_raise(void);
+ #else
+ static inline bool irq_work_needs_cpu(void) { return false; }
+ static inline void irq_work_run(void) { }
++static inline void irq_work_run_cpu(unsigned int cpu) { }
+ static inline void irq_work_single(void *arg) { }
+ #endif
+=20
+diff --git a/kernel/irq_work.c b/kernel/irq_work.c
+index 9f19c05c9962c..73eabcbdcd50c 100644
+--- a/kernel/irq_work.c
++++ b/kernel/irq_work.c
+@@ -263,6 +263,17 @@ void irq_work_run(void)
+ }
+ EXPORT_SYMBOL_GPL(irq_work_run);
+=20
++void irq_work_run_cpu(unsigned int cpu)
++{
++	if (WARN_ON_ONCE(!cpumask_test_cpu(cpu, cpu_dying_mask)))
++		return;
++
++	if (!IS_ENABLED(CONFIG_PREEMPT_RT))
++		return;
++
++	irq_work_run_list(per_cpu_ptr(&lazy_list, cpu));
++}
++
+ void irq_work_tick(void)
+ {
+ 	struct llist_head *raised =3D this_cpu_ptr(&raised_list);
+diff --git a/kernel/smp.c b/kernel/smp.c
+index b696bcc60c08f..8f530a094c304 100644
+--- a/kernel/smp.c
++++ b/kernel/smp.c
+@@ -87,6 +87,7 @@ int smpcfd_dead_cpu(unsigned int cpu)
+=20
+ 	free_cpumask_var(cfd->cpumask);
+ 	free_cpumask_var(cfd->cpumask_ipi);
++	irq_work_run_cpu(cpu);
+ 	return 0;
+ }
+=20
 --=20
 2.55.0
 
