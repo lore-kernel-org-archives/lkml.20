@@ -1,114 +1,117 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED114AEBED
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:11:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B99804A99CC
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:11:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150287; cv=none; b=ewiQhlS+/86KoRvrj5RpYzdptPNTOBxfxzLvEZ0m/VoEqTsmD5cp6V6eIEX9CIc831gHrp8OlOYpMZ2vEqAsUP+V14WgUe+cC/WWe1aPZ7o2BmhFOimDk6JNVR5UfUM9YX5abKOKOrNJhAy7np3VGIrV3ciPM4ZmJTYvw78FPHI=
+	t=1789150289; cv=none; b=dKOZE193BSUyz7YjBBymhfG8XNyvNPGaKdwPMI+FGcfHMfr+jdJE4oWGislsgQD4PozukEs/CDpYzMcWIQNzvsr1QpOdd+4eEfnmjKIalWSd7Ry5PvpwaMFdxA+sDZXQLUhb8iF7rwaliFsMDfT1In4rdTJB4j2AhKr3vvLvulE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789150287; c=relaxed/simple;
-	bh=WoZsDwdqdocOe0hEZMkueDIWq0W/xjfajFErOApe9vM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FYmpP8wRLa/EaH9TKI2d8UEexohbeZLla0sVHUm+KGNsugLSrwDUcN9LElnU+iOr87cBaugKHnYDEEJO5nIDWBKgk31BP2hnvDPbuvIs8bXr4/czUMqH49GtM5cvCX4L8TbiZHlXveMJOrDv32p+FJXpFz2jBOL9eV6baEgIulQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KWK+moZP; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789150289; c=relaxed/simple;
+	bh=HCQbWa7LkKEX50QT3DwF/c7T/iKLPW1K21LgtlRNWgc=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=j/mQz6ixKK5yc2QgtAEpUWODh0vAAVHSlDRxD8L1y9v0YllLyHigJU5sdz4H41CiYd2wJj/1DqowXJUIPYQ8afZ/Y239ElLET6yuZm8+JvPU4K/9aCnEvOwNWoQNpBrSHOrSGAjNB7fG1nGt3WL8f94/xvrL1CDRp64pxbQW9Qw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lt9SXcB9; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KWK+moZP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789150281; x=1820686281;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=WoZsDwdqdocOe0hEZMkueDIWq0W/xjfajFErOApe9vM=;
-  b=KWK+moZPpZkAdpU6hxMi2RYM+nFOswcW1ezNctvvc3YWkCidMGEhbwjM
-   VAcrzyMVn7grpHE/+xXU4/VqJkOYUmDhDaJjfqB6yDTt7H3VfqyHfStaq
-   NhmzlnfYIHDp2dq441cxS90Rb964ztstxiNT5suY7qCMiSZqdZYu6IOsP
-   38uASZPcHp4Trx+5Xufby+opSS/E2wlbiTLEYqGu8AXt6uGuubBcLrbA3
-   6wAWs/wkAAjlrtOumEvOs7AIdkT7FZQgqyg36Hanic0bjziDI7aJTWWVe
-   6fBFrJ95+1Si6GqCeuSz59zEuD9LPtqLRgyKgZpqZILz/dYGJYSJODXpP
-   Q==;
-X-CSE-ConnectionGUID: MwkUJL6JRrqu0j27dVLhuQ==
-X-CSE-MsgGUID: dz4bNKfGT8ur18kKjCd1NA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="101138474"
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="101138474"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 11:11:16 -0700
-X-CSE-ConnectionGUID: O8MlsPJvREC32sXwcZuCZw==
-X-CSE-MsgGUID: YfVcjJjVS+qer7oLA1BT4Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="296970260"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.80])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 11:11:12 -0700
-Date: Fri, 11 Sep 2026 21:11:10 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Pavol Sakac <sakacpav@amazon.de>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tejun Heo <tj@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Xu Yang <xu.yang_2@nxp.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	nh-open-source@amazon.com
-Subject: Re: [PATCH 2/3] driver core: Index class glue directories by parent
- kobject
-Message-ID: <aqREPkLIxxd1wZH6@ashevche-desk.local>
-References: <20260911-vfopt-s3-v1-0-66e3602f76f7@amazon.de>
- <20260911171639.68348-2-sakacpav@amazon.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lt9SXcB9"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b94fce6e8so1475225e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:11:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789150277; x=1789755077; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1iFhVzmJnHThQ931GRzwOosH5WkLdTobwxrbVY8PCx4=;
+        b=Lt9SXcB9iYPCtFYeg07KKMQR+9/oRFQx9ogHUpekAL0nOWo7W38FJq/xgLqEju6dSc
+         PbJns6rsmbTsq+wUdA/p1UhgN3Klg87jLWlYxT8PhqIChgol7v/6Y6+ke+FxupoBe7IZ
+         7xfncVhWdYUW4GqRK+9YhsxJc3+mWOZSMHLRTNYnH1Wp80t7/k/eBtroj/d2IXZGxiCZ
+         c9Ajt5IMnrunDApTPuwOA1HcVIhjlTNUftO4n0Hg8ALcETsxecdskKi1VcGd3SGlmJC5
+         hKHO7CbCaG+9qNOfRb3v4/PjXg6gtfZdKxEfrIVJh0de4Gb4sLTDznnae6OrIT4yn756
+         kPFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789150277; x=1789755077;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1iFhVzmJnHThQ931GRzwOosH5WkLdTobwxrbVY8PCx4=;
+        b=F6PK+23OaQjItA8EPe63YaxNiqJ6e8FLW2TU0g9uyREjnYE+iL7+jV5IDfXaF/HKX5
+         rtmiLjQu3HGJKRaAHPPFXFpTynOq+dsDz48Sq/jPwDDIuaGOdrFbVlhaa2dtSryY8qmj
+         Dlf7h7qBt4MipWl/+Y4uODXakn8y4PdamvEKyt9QnA7hxNAX7sOfzJOIcxLoKQHw3wdx
+         FGLzphyg0octNwLcPiQQcniqH62ZCLyHsecz9H/SxBFYjZd9hxjvPKJMRbzI6jWF1sDR
+         kIrrczMKx6+8ep9tvEJyP+FrnM6rj/Rg9I0Y9CGx5Q60/MZwgb7J4wAsZB6WpbsukqL5
+         O6vw==
+X-Forwarded-Encrypted: i=1; AKwUvBxYiRyW70TsQCasOqTaBN7zAXGgTK8Snr+At1w3UKJYDnWBi6vNwq9OAdrdEJ8wDgUH5hH68FR3NkLvUnY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMVcpBrEoEr0RjO5ctYPOpFh66v4i0ffHYg0/bNvbtM8u+/WA1
+	a3bdRTCkWn4OoeWpWkBZNrvNry5XAZHFbRbWqXp8ciY+DHdDA9swsfUM
+X-Gm-Gg: AYBFou1PByJ6pEESa+ko1vfYaEcutMt1DW1aP5O8+91R71rGog4rDN/YhgfL7z6+P5U
+	cCz2yh0qhmAx3GvoLCU4sdXzyBV0+XvFfVRsVix7JerjqfwBj2vhsiaT+CalRw25vPTstLxLt7R
+	quzdmBKNa5rcJqSHtpvNARUBb2pOoBUi5BTmbePD7pfCaFDOeNTz0UTNeMPfsF5j1H6autcZq27
+	796S11Ewx1vjsl7naxipt2u0crB/CLYAml0o1Vtqf/k/BScwEFyetdx8JjHpHLV7nGrNT+hQiFt
+	6HBBNMoo4h57po4zEZG5WHcO8MN+6PsprP1BsF7RmDF1YUs9e1esz463W5rkyySI1OH/oxC/DEq
+	dkodeVmCHqTfPyaqsrN5WFZfOb82gdgNFdmjyqYgd6vDr7Pp7599eGH9WFVT5+f7AL3ML9//lT4
+	KYINierqsCUkjZP9Gdl/cayTJN0CNSURGmfLEPcIcPPiNrKfEQbhaLSqepDBVUGOkMTnjpRgaD/
+	FOmhymtKA==
+X-Received: by 2002:a05:600c:3b02:b0:49c:e3ad:41d3 with SMTP id 5b1f17b1804b1-49e61649b8dmr68492305e9.0.1789150276731;
+        Fri, 11 Sep 2026 11:11:16 -0700 (PDT)
+Received: from foxbook (bfg95.neoplus.adsl.tpnet.pl. [83.28.44.95])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60adaee4sm134624405e9.14.2026.09.11.11.11.15
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Fri, 11 Sep 2026 11:11:16 -0700 (PDT)
+Date: Fri, 11 Sep 2026 20:11:13 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: gregkh@linuxfoundation.org, mathias.nyman@intel.com,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ parth.pancholi@toradex.com, francesco.dolcini@toradex.com
+Subject: Re: [PATCH 3/3] usb: xhci-pci: Put PWRON_POLARITY on a defined
+ state
+Message-ID: <20260911201113.42cce0a6.michal.pecio@gmail.com>
+In-Reply-To: <CAOMZO5DfPToSOqi4CW8ETAVkU0RXTr=eyyOqLwkFC8CjhKkoeA@mail.gmail.com>
+References: <20260909125842.528340-1-festevam@gmail.com>
+	<20260909125842.528340-3-festevam@gmail.com>
+	<20260909164339.7252469b.michal.pecio@gmail.com>
+	<CAOMZO5DfPToSOqi4CW8ETAVkU0RXTr=eyyOqLwkFC8CjhKkoeA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911171639.68348-2-sakacpav@amazon.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 11, 2026 at 07:16:04PM +0200, Pavol Sakac wrote:
-> get_device_parent() finds a parent's glue directory by walking the
-> class's glue_dirs kset list under gdp_mutex, so one per parent, as
-> vfio-dev needs per SR-IOV VF, is quadratic.
-> 
-> Index them by parent kobject in an rbtree embedded in the class's
-> subsys_private, which dies with the kset list it indexes, so no
-> per-entry class check is needed: two classes below one parent are told
-> apart by tree selection. The key is a kobject because a parentless
-> class device hangs off the shared "virtual" kobject, referenced by the
-> glue dir while indexed. The rb_node lives in struct class_dir, adding
-> no allocation and no failure mode.
-> 
-> gdp_mutex serializes the index, as it has glue dir lookup/create/remove
-> since commit 77d3d7c1d561f
-> ("driver-core: fix race condition in get_device_parent()") and
-> commit e4a60d1390609
-> ("sysfs: driver core: Fix glue dir race condition by gdp_mutex").
+On Fri, 11 Sep 2026 10:58:27 -0300, Fabio Estevam wrote:
+> Hi Michal,
+>=20
+> On Wed, Sep 9, 2026 at 11:43=E2=80=AFAM Michal Pecio <michal.pecio@gmail.=
+com> wrote:
+> >
+> > On Wed,  9 Sep 2026 09:58:42 -0300, Fabio Estevam wrote: =20
+> > > Currently, TUSB73X0_PWRON_POLARITY is set when the
+> > > "ti,pwron-active-high" is present.
+> > >
+> > > However, when "ti,pwron-active-high" is absent, its status could
+> > > have been set previously by a bootloader or by a previous running
+> > > kernel. =20
+> >
+> > or by EEPROM.
+> >
+> > Do they bother to put the chip in a wrong, non-default state at
+> > boot? =20
+>=20
+> I was working on a hardware bring-up with the TUSB7320, and I never
+> saw it happen.
 
-> A kernfs name lookup in the parent's directory needs no new state, but
-> takes the kernfs root rwsem under gdp_mutex, behind the writes
-> concurrent sysfs directory creation generates.
-> 
-> A KUnit suite covers the index: reuse of one parent's glue directory,
-> two classes below one parent, the parentless "virtual" cases, reap and
-> recreate, name collision, many parents, device_move(), and class
-> teardown.
+That could practically only happen due to a bug. Seems more likely
+that EEPROM or boot FW may set the bit because it's required by the
+board and then the kernel could clear it for lack of knowledge.
 
-...
+If there is ever a need to support clearing the bit, it would better
+be done by checking if the DT property is specified at all, and only
+then tweaking the bit accordingly. Otherwise, leave it alone.
 
-> +++ b/drivers/base/test/.kunitconfig
-> @@ -1,2 +1,3 @@
->  CONFIG_KUNIT=y
->  CONFIG_DM_KUNIT_TEST=y
-> +CONFIG_GLUE_DIR_KUNIT_TEST=y
-
-Is this test case is so important that it must *always* run?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Regards,
+Michal
