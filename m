@@ -1,102 +1,403 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D2A34388E;
-	Fri, 11 Sep 2026 05:07:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E4AA30AD05
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:07:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789103228; cv=none; b=VipVQEglzOt+gpgKtNf8kMzde3pe3vBRS7um//WOyeT5NAVasCIVorL5pT5kCfF7/SVDr1AQ8jJz1DMKAKfmZenD2IxgB6aqMezuyG6y2Yl+v5MIylN+Hxboe77iOa/p3YaGA1FgN9Bdq0lDcKNtHiQLidG4egbg0TUbqF2WyrU=
+	t=1789103237; cv=none; b=DX9wSfJzgSodKs3k1dYa+nW/DGW5r8misvX9NgHVxtaOtO/PVCPIeuby2rqlgeQA6uPtpLoHMdi3A9gJbwVoBQI92qBoaSX8S68dTybPwtTo+SUgG8DrcMEfCSNPovA4m8eTu+15ZuknSlZKAtF/Sk8kI+lZ0xf7hYwXoZKpg04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789103228; c=relaxed/simple;
-	bh=yw8fLNwBbMUPSyGG4yRvzZGlGcBx+83dbxW3/xXGyrA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GosLsjfmcg+EJC6kVwUru3Lhay66DKFBkLXkAOkdr2dtGCr8uOQwalMMkAvE3So2oJq1WB2xMOZlW6fHJW4yF6TlUyBLmStFAo4PtTFEOTk294sfHT77Iau7yEE3TXiZKa3poZDtv860W2aL4w/k4alFOt809WIzxADDoJ5aTfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=rqNx6Y2v; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1789103237; c=relaxed/simple;
+	bh=ZaFGIDfawrHUUxa5nHLH28/OmIOy4WSy0vQhbUcqnB8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JOsJPiRcxwmF48zAxpJIVHh3iUWHgNWPgTE2U/NXL9XuhGL5/ox+nsuJprpKH7cWm/pXSCF21uuT1GQLMgSzVoqHphkZW2pCu8FS1Io0QVvwoC7J0rxfsWcrl8HWAH2XQb/KE5N0WpSnrhhFkD5maz1mgQx5tjqaKNe09tQ3zUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UCvgZbLk; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="rqNx6Y2v"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=bgXj9iW4L8xDvAQnLVHYY9iMfqiEAgCZF8Tut2lsVRs=; 
-	b=rqNx6Y2vRspOzRws6KhcNKe9q0Y5z7Yl63mj2rZZT+RmuqaYGyLN5eNxSXQfJ6ppRHTAayEzOb2
-	SP1BRIbe88AuVEvR8CvLcxEQZ/UKhRIV37+62Qo5YeXJhE3sInWAbnRZ7eBrlvAMqjmqddYs9+gVW
-	C53AVqZtDTPOuWkGUFvdADOL51gVhoZPPF41WJOujfAACnbd1m3kRVVo2mpKD8tPFEOJLWH+8FqI4
-	GFf1LNyAO1VmkKbRsCUuWGpS8ydQuZ7yKkF0rRaG0//2+TfI5CpPk7E/YdGE0+7qf7TJs4RT2KKjp
-	s/RsPB3aHpiHYVP8RcarO+Ldsn8xLyU7sYJA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x4tTX-0000000Ctmc-24FK;
-	Fri, 11 Sep 2026 13:07:00 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 11 Sep 2026 15:06:59 +1000
-Date: Fri, 11 Sep 2026 15:06:59 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Chenghai Huang <huangchenghai2@huawei.com>
-Cc: davem@davemloft.net, robh+dt@kernel.org, linux-kernel@vger.kernel.org,
-	linux-crypto@vger.kernel.org, xuwei5@huawei.com,
-	prime.zeng@hisilicon.com, liulongfang@huawei.com,
-	qianweili@huawei.com, wangzhou1@hisilicon.com,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	catalin.marinas@arm.com, will@kernel.org
-Subject: Re: [PATCH v2] crypto: hisilicon/sec - remove SEC crypto block
- cipher accelerator
-Message-ID: <aqOMc1vGnmiULh2E@gondor.apana.org.au>
-References: <20260819075353.94500-1-huangchenghai2@huawei.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UCvgZbLk"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-39647184c73so1505534a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 22:07:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789103235; x=1789708035; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1qpR/l+l6DSt5PfzhDDrVR6LXxBi2hXX6W33aq3/g/M=;
+        b=UCvgZbLkBj7G52YMDuYt+Eby5N7MGATHfs3otDQ63YNriNfrMFu7T18EnRwAT4siHD
+         2GsmBq5isZbrNQDwTHDR/qP/U201uYJX3x7Fb3pX6J0InWFyxxylDnjzoLTlBH1GJHph
+         oP/marEL8M+ypFEW3FmLhde2WmmC4XgaSgaEZJk619COT9CosFW0BVS2F51tEKPMUj+c
+         IBoY6clVwjIRE0/KZp7VBpmM1d0pZzsTdsiZH6PTXbzpOeHc1pwpLUNRHyA27oWzj3Ql
+         4ZN5izJDTQqMSR+Vo6SzTk6vMU2IsbiFb6UHKKCu952KTTfA54CdLD9LzEKTxsD4Y+U8
+         jEcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789103235; x=1789708035;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1qpR/l+l6DSt5PfzhDDrVR6LXxBi2hXX6W33aq3/g/M=;
+        b=Fw3W3Jc5WxoluHSKW3z5Yu1gVxCUhWJysIYZ7vLyzFwghDzbOGd+Wsqga8laC8IWnE
+         Bo6cGzqWNVO4K4nMVUBiurFQCjwKp5odMrLQ/Xzty89W9jxkWk4rNiWxc9e/nc2ojDet
+         delpdnYaxqCyN5LtYQAft+fummTi0WTOsGoU1bJgaPKbTKQJ8ySYUihCgeRmVCDGq0Ki
+         PmyPoJWwdOaVDHJamo9XMoFn1nexrjHJhaTnzha1btMi5iiPGOmUp0W+J3ByTEOJVB+d
+         wjbhP92c2vXziJhVSNNnj5nsAqiroH2fYqIJLlgzbqbyEkeP0u3/loe+9FhkOZmBtUj7
+         w9tw==
+X-Forwarded-Encrypted: i=1; AKwUvBwWrIdcSmZx1lEHpDZg1EnliVKzx2ocuTMibrvWRzc6KgZ/wGgVFklr5E+NetpljKBjfY+PFN/D3r0jJpc=@vger.kernel.org
+X-Gm-Message-State: AFuF++m379g70IWeRxf3Gsw4aYPOaqqycx+rTPHiMDz9KGQ32BpRfdE7
+	9x0YnlcPOuLOYrKjZJjRBQ+BG5VLz2U3J5j/HO5ds96kQXN8frvUTNyO
+X-Gm-Gg: AYBFou2dJ5usZwZJ2siWLBKRij5Sd5rOTzpF9z5Pl4y3QUv6yCwsfdtJhBp/cMVG60e
+	Ha0MKZVJkzi8idJiz3+sB8xXDmPMCzWVK4y0JZkNVbzQWr9XwaIJKn2sn5+fmcQ5DWzH+s5iAoy
+	63Cc3/Jhdpc+dnrXZjoMQHurdZFh5qPa8DPnsFLNx92rdzzlCBGr3CPNa4zlImMQgxu8eJLP0I+
+	epZdjn4aZuUFZXfPaeXKxGq3xxPCwMlE/b3TTfDzyWy0aGcVreLF/WOmAXlL7mO6AqC06mc1eqd
+	uqfP25+20g8GXJ/aKKE47rqoYjXrR8tRAbVaHtGxkwjFKXFOS3EdUBApw6dMjAibiir8T8jE3UD
+	m8iB4gL7oCdQS1WivmVSWzWIjHgqTS4GUYAay107d3rXkBiIcBw7Ql0Un1/umhfxsu4dGICqGyr
+	F/iA9RSEzf4M9PXqZ/3Q82sUiAyHLO9ppic/St9TJpYRTJYxnWQZa4phRiTAEdlwsBVubLl95xk
+	KJ11LqHBeDGgEZtEVDSgNmO5a7JLm5RDLsm
+X-Received: by 2002:a17:90b:54c6:b0:38e:9784:dd47 with SMTP id 98e67ed59e1d1-39d779167ddmr9732189a91.1.1789103234848;
+        Thu, 10 Sep 2026 22:07:14 -0700 (PDT)
+Received: from narcisav-mac.thefacebook.com ([2620:10d:c090:400::5:a575])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e9a3casm2912806eec.12.2026.09.10.22.07.13
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 10 Sep 2026 22:07:14 -0700 (PDT)
+From: Narcisa Vasile <narcisav.kernel@gmail.com>
+To: netdev@vger.kernel.org,
+	kuba@kernel.org,
+	daniel.zahka@gmail.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	shuah@kernel.org,
+	horms@kernel.org,
+	willemb@google.com,
+	petrm@nvidia.com,
+	anubhavsinggh@google.com,
+	richardbgobert@gmail.com
+Cc: linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	narcisav.kernel@gmail.com
+Subject: [PATCH net-next] selftests: drv-net: add BIG TCP test cases
+Date: Thu, 10 Sep 2026 22:06:59 -0700
+Message-ID: <20260911050659.13367-1-narcisav.kernel@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260819075353.94500-1-huangchenghai2@huawei.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 19, 2026 at 03:53:53PM +0800, Chenghai Huang wrote:
-> The Hisilicon SEC crypto cipher accelerator has been superseded
-> by the newer SEC2 driver (drivers/crypto/hisilicon/sec2/). SEC2
-> provides wider algorithm coverage and is the maintained path forward,
-> and users have migrated to it.
-> 
-> The legacy SEC driver has had no active users for some time, and its
-> primary maintainer, Jonathan Cameron, has moved on from Huawei and
-> is no longer in a position to maintain it. With thanks to Jonathan
-> for his contributions to this driver over the years, and with no one
-> left to keep it up to date, remove it from the tree.
-> 
-> This drops the legacy SEC driver together with all of its residual
-> configuration, devicetree binding and board description references:
-> 
->   - drivers/crypto/hisilicon/sec/
->   - CONFIG_CRYPTO_DEV_HISI_SEC Kconfig option
->   - sec/ entry from drivers/crypto/hisilicon/Makefile
->   - Documentation/devicetree/bindings/crypto/hisilicon,hip06-sec.yaml
->   - hisilicon,hip07-sec device nodes and their supporting mbigen_alg /
->     smmu_alg infrastructure from arch/arm64/boot/dts/hisilicon/hip07.dtsi
-> 
-> Signed-off-by: Chenghai Huang <huangchenghai2@huawei.com>
-> Reviewed-by: Longfang Liu <liulongfang@huawei.com>
-> Acked-by: Eric Biggers <ebiggers@kernel.org>
-> Acked-by: Wei Xu <xuwei5@hisilicon.com>
-> ---
->  .../bindings/crypto/hisilicon,hip06-sec.yaml  |  134 --
->  arch/arm64/boot/dts/hisilicon/hip07.dtsi      |  280 ----
->  drivers/crypto/hisilicon/Kconfig              |   14 -
->  drivers/crypto/hisilicon/Makefile             |    1 -
->  drivers/crypto/hisilicon/sec/Makefile         |    3 -
->  drivers/crypto/hisilicon/sec/sec_algs.c       | 1122 --------------
->  drivers/crypto/hisilicon/sec/sec_drv.c        | 1307 -----------------
->  drivers/crypto/hisilicon/sec/sec_drv.h        |  428 ------
->  8 files changed, 3289 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/crypto/hisilicon,hip06-sec.yaml
->  delete mode 100644 drivers/crypto/hisilicon/sec/Makefile
->  delete mode 100644 drivers/crypto/hisilicon/sec/sec_algs.c
->  delete mode 100644 drivers/crypto/hisilicon/sec/sec_drv.c
->  delete mode 100644 drivers/crypto/hisilicon/sec/sec_drv.h
+Add four new test cases that validate coalescing
+under increased size limits (BIG TCP):
 
-Patch applied.  Thanks.
+big_tcp_data_same
+  - validates that equal-sized segments coalesce past
+   the legacy IP_MAXPACKET limit.
+big_tcp_data_lrg_sml
+  - validates that a smaller final segment coalesces into the
+    previous chain of large-sized segments while crossing the
+    IP_MAXPACKET limit.
+big_tcp_tcp_seq
+  - validates that a packet with a wrong sequence number doesn't
+    coalesce. The test uses a sequence number for which the low 16 bits
+    correspond to the correct sequence number to validate against
+    truncation bugs, since total aggregate length crosses over the
+    legacy size limit for BIG TCP.
+big_tcp_large_max
+  - validates that coalescing stops at the configured BIG TCP limit.
+
+Signed-off-by: Narcisa Vasile <narcisav.kernel@gmail.com>
+---
+ .../testing/selftests/drivers/net/gro_lib.py  |  50 ++++++-
+ tools/testing/selftests/net/lib/gro.c         | 133 +++++++++++++++++-
+ 2 files changed, 180 insertions(+), 3 deletions(-)
+
+diff --git a/tools/testing/selftests/drivers/net/gro_lib.py b/tools/testing/selftests/drivers/net/gro_lib.py
+index b7ac0660adc0..229840f8b3ae 100644
+--- a/tools/testing/selftests/drivers/net/gro_lib.py
++++ b/tools/testing/selftests/drivers/net/gro_lib.py
+@@ -40,13 +40,17 @@ Test cases:
+   - ip_v6ext_diff: (IPv6) IPv6 ext header with different payload doesn't coalesce
+   - large_max: Packets exceeding GRO_MAX_SIZE don't coalesce
+   - large_rem: Large packet remainder handling
++  - big_tcp_data_same: Same size packets coalesce past IP_MAXPACKET
++  - big_tcp_data_lrg_sml: Smaller last packet coalesces past IP_MAXPACKET
++  - big_tcp_tcp_seq: Packets with 16-bit truncated seqno don't coalesce
++  - big_tcp_large_max: Packets exceeding the BIG TCP limit don't coalesce
+ """
+ 
+ import glob
+ import os
+ import re
+-from lib.py import ksft_run, ksft_exit, ksft_pr
+-from lib.py import NetDrvEpEnv, KsftFailEx, KsftXfailEx
++from lib.py import ksft_run, ksft_exit, ksft_pr, ksft_eq
++from lib.py import NetDrvEpEnv, KsftFailEx, KsftSkipEx, KsftXfailEx
+ from lib.py import NetdevFamily, EthtoolFamily
+ from lib.py import bkg, cmd, ctl_file_write, defer, ethtool, ip
+ from lib.py import ksft_variants, KsftNamedVariant
+@@ -55,6 +59,8 @@ from lib.py import ksft_variants, KsftNamedVariant
+ # gro.c uses hardcoded DPORT=8000
+ GRO_DPORT = 8000
+ 
++BIG_TCP_GRO_MAX_SIZE = 128000
++
+ 
+ def _resolve_dmac(cfg, ipver):
+     """
+@@ -91,6 +97,34 @@ def _set_mtu_restore(dev, mtu, host):
+         defer(ip, f"link set dev {dev['ifname']} mtu {dev['mtu']}", host=host)
+ 
+ 
++def _set_gro_size_restore(cfg, size):
++    """
++    Set the local device's GRO size limits, then confirm they stuck.
++    """
++
++    _set_mtu_restore(cfg.dev, 4096, None)
++    _set_mtu_restore(cfg.remote_dev, 4096, cfg.remote)
++
++    if "gro_max_size" not in cfg.dev or "gro_ipv4_max_size" not in cfg.dev:
++        raise KsftSkipEx("iproute2 does not report the GRO size limits")
++
++    if (cfg.dev["gro_max_size"] == size and
++            cfg.dev["gro_ipv4_max_size"] == size):
++        return
++
++    old = (f"gro_max_size {cfg.dev['gro_max_size']} "
++           f"gro_ipv4_max_size {cfg.dev['gro_ipv4_max_size']}")
++    new = f"gro_max_size {size} gro_ipv4_max_size {size}"
++
++    ip(f"link set dev {cfg.ifname} {new}")
++    defer(ip, f"link set dev {cfg.ifname} {old}")
++
++    dev = ip("-d link show dev " + cfg.ifname, json=True)[0]
++    ksft_eq(dev["gro_max_size"], size, comment="gro_max_size not applied")
++    ksft_eq(dev["gro_ipv4_max_size"], size,
++            comment="gro_ipv4_max_size not applied")
++
++
+ def _set_ethtool_feat(dev, current, feats, host=None):
+     s2n = {True: "on", False: "off"}
+ 
+@@ -289,6 +323,9 @@ def _setup(cfg, mode, test_name):
+     except KsftXfailEx:
+         pass
+ 
++    if test_name.startswith("big_tcp_"):
++        _set_gro_size_restore(cfg, BIG_TCP_GRO_MAX_SIZE)
++
+ 
+ def _gro_variants():
+     """Generator that yields all combinations of protocol and test types."""
+@@ -304,6 +341,11 @@ def _gro_variants():
+         "large_max", "large_rem",
+     ]
+ 
++    big_tcp_tests = [
++        "big_tcp_data_same", "big_tcp_data_lrg_sml",
++        "big_tcp_tcp_seq", "big_tcp_large_max",
++    ]
++
+     # Tests specific to IPv4
+     ipv4_tests = [
+         "ip_csum",
+@@ -322,6 +364,10 @@ def _gro_variants():
+         for test_name in common_tests:
+             yield protocol, test_name
+ 
++        if protocol in ["ipv4", "ipv6"]:
++            for test_name in big_tcp_tests:
++                yield protocol, test_name
++
+         if protocol in ["ipv4", "ipip"]:
+             for test_name in ipv4_tests:
+                 yield protocol, test_name
+diff --git a/tools/testing/selftests/net/lib/gro.c b/tools/testing/selftests/net/lib/gro.c
+index 7a333155de1a..70b0deb3c11f 100644
+--- a/tools/testing/selftests/net/lib/gro.c
++++ b/tools/testing/selftests/net/lib/gro.c
+@@ -46,6 +46,12 @@
+  *   - large_max: exceeding max size
+  *   - large_rem: remainder handling
+  *
++ * big_tcp_*:
++ *   - big_tcp_data_same:    equal segments coalescing past IP_MAXPACKET
++ *   - big_tcp_data_lrg_sml: a smaller final segment carrying it over
++ *   - big_tcp_tcp_seq:      16-bit truncated sequence number must not coalesce
++ *   - big_tcp_large_max:    coalescing stops at the configured limit
++ *
+  * single, capacity:
+  *  Boring cases used to test coalescing machinery itself and stats
+  *  more than protocol behavior.
+@@ -110,6 +116,16 @@
+ 
+ #define EXIT_OVER_COALESCE	42
+ 
++/* Must match BIG_TCP_GRO_MAX_SIZE in gro_lib.py. */
++#define BIG_TCP_GRO_MAX_SIZE	128000
++
++#define BIG_TCP_RECV_BUF_LEN \
++	(BIG_TCP_GRO_MAX_SIZE + MAX_MSS + L2_HLEN_MAX)
++#define BIG_TCP_MIN_MSS		(ASSUMED_MTU - (MAX_HDR_LEN - ETH_HLEN))
++#define BIG_TCP_MAX_FILL_CNT \
++	((int)((BIG_TCP_GRO_MAX_SIZE - 1 - (MAX_HDR_LEN - ETH_HLEN)) / \
++	       BIG_TCP_MIN_MSS))
++
+ #define ipv6_optlen(p)  (((p)->hdrlen+1) << 3) /* calculate IPv6 extension header len */
+ #define BUILD_BUG_ON(condition) ((void)sizeof(char[1 - 2*!!(condition)]))
+ 
+@@ -166,6 +182,27 @@ static int num_large_pkt(void)
+ 	return max_payload() / calc_mss();
+ }
+ 
++/* How many maximum sized segments fit under the configured limit. */
++static int big_tcp_large_cnt(void)
++{
++	return (BIG_TCP_GRO_MAX_SIZE - 1 - (total_hdr_len - ETH_HLEN)) /
++	       calc_mss();
++}
++
++/* How many calc_mss() sized segments are needed to satisfy the
++ * following condition:
++ * pkt_count * calc_mss() < IP_MAXPACKET < (pkt_count + 1) * calc_mss()
++ */
++static int big_tcp_fill_cnt(void)
++{
++	return IP_MAXPACKET / calc_mss();
++}
++
++static int big_tcp_fill_len(void)
++{
++	return big_tcp_fill_cnt() * calc_mss();
++}
++
+ static void vlog(const char *fmt, ...)
+ {
+ 	va_list args;
+@@ -560,6 +597,61 @@ static void send_data_pkts(int fd, struct sockaddr_ll *daddr,
+ 	write_packet(fd, buf, total_hdr_len + payload_len2, daddr);
+ }
+ 
++/* Send num_pkt segments of pkt_len bytes, then one of remainder len. */
++static void send_big_tcp(int fd, struct sockaddr_ll *daddr, int pkt_len,
++			 int num_pkt, int remainder)
++{
++	static char pkts[BIG_TCP_MAX_FILL_CNT][MAX_HDR_LEN + MAX_MSS];
++	static char last[MAX_HDR_LEN + MAX_MSS];
++	const int filled = num_pkt * pkt_len;
++	int i;
++
++	if (num_pkt > BIG_TCP_MAX_FILL_CNT)
++		error(1, 0, "need %d packets, array holds %d",
++		      num_pkt, BIG_TCP_MAX_FILL_CNT);
++
++	for (i = 0; i < num_pkt; i++)
++		create_packet(pkts[i], i * pkt_len, 0, pkt_len, 0);
++	create_packet(last, filled, 0, remainder, 0);
++
++	for (i = 0; i < num_pkt; i++)
++		write_packet(fd, pkts[i], total_hdr_len + pkt_len, daddr);
++	write_packet(fd, last, total_hdr_len + remainder, daddr);
++}
++
++/* In BIG TCP configuration, the total aggregate length can
++ * be greater than the legacy IP_MAXPACKET. Since the aggregate
++ * length is used in calculating the sequence numbers,
++ * send a packet with a sequence number that differs by IP_MAXPACKET + 1,
++ * to test against truncation bugs.
++ */
++static void send_big_tcp_bad_seq(int fd, struct sockaddr_ll *daddr)
++{
++	static char pkts[BIG_TCP_MAX_FILL_CNT][MAX_HDR_LEN + MAX_MSS];
++	const int num_pkt = big_tcp_fill_cnt() + 1;
++	static char last[MAX_HDR_LEN + MAX_MSS];
++	const int pkt_len = calc_mss();
++	int bad_seq;
++	int filled;
++	int i;
++
++	filled = num_pkt * pkt_len;
++	/* Low 16 bits match with the correct incoming sequence number. */
++	bad_seq = filled - (IP_MAXPACKET + 1);
++
++	if (num_pkt > BIG_TCP_MAX_FILL_CNT)
++		error(1, 0, "need %d packets, array holds %d",
++		      num_pkt, BIG_TCP_MAX_FILL_CNT);
++
++	for (i = 0; i < num_pkt; i++)
++		create_packet(pkts[i], i * pkt_len, 0, pkt_len, 0);
++	create_packet(last, bad_seq, 0, pkt_len, 0);
++
++	for (i = 0; i < num_pkt; i++)
++		write_packet(fd, pkts[i], total_hdr_len + pkt_len, daddr);
++	write_packet(fd, last, total_hdr_len + pkt_len, daddr);
++}
++
+ /* If incoming segments make tracked segment length exceed
+  * legal IP datagram length, do not coalesce
+  */
+@@ -1161,7 +1253,7 @@ static void recv_error(int fd, int rcv_errno)
+ static void check_recv_pkts(int fd, int *correct_payload,
+ 			    int correct_num_pkts)
+ {
+-	static char buffer[IP_MAXPACKET + L2_HLEN_MAX + 1];
++	static char buffer[BIG_TCP_RECV_BUF_LEN];
+ 	int nhoff = ETH_HLEN + (pppoe ? PPPOE_SES_HLEN : 0);
+ 	struct iphdr *iph = (struct iphdr *)(buffer + nhoff);
+ 	struct ipv6hdr *ip6h = (struct ipv6hdr *)(buffer + nhoff);
+@@ -1541,6 +1633,25 @@ static void gro_sender(void)
+ 		send_large(txfd, &daddr, remainder + 1);
+ 		write_packet(txfd, fin_pkt, total_hdr_len, &daddr);
+ 
++	/* big tcp sub-tests */
++	} else if (strcmp(testname, "big_tcp_data_same") == 0) {
++		send_big_tcp(txfd, &daddr, calc_mss(), big_tcp_fill_cnt(),
++			     calc_mss());
++		write_packet(txfd, fin_pkt, total_hdr_len, &daddr);
++	} else if (strcmp(testname, "big_tcp_data_lrg_sml") == 0) {
++		int remainder = calc_mss() / 2;
++
++		send_big_tcp(txfd, &daddr, calc_mss(), big_tcp_fill_cnt(),
++			     remainder);
++		write_packet(txfd, fin_pkt, total_hdr_len, &daddr);
++	} else if (strcmp(testname, "big_tcp_tcp_seq") == 0) {
++		send_big_tcp_bad_seq(txfd, &daddr);
++		write_packet(txfd, fin_pkt, total_hdr_len, &daddr);
++	} else if (strcmp(testname, "big_tcp_large_max") == 0) {
++		send_big_tcp(txfd, &daddr, calc_mss(), big_tcp_large_cnt(),
++			     calc_mss());
++		write_packet(txfd, fin_pkt, total_hdr_len, &daddr);
++
+ 	/* machinery sub-tests */
+ 	} else if (strcmp(testname, "single") == 0) {
+ 		static char buf[MAX_HDR_LEN + PAYLOAD_LEN];
+@@ -1768,6 +1879,26 @@ static void gro_receiver(void)
+ 		printf("last segment sent individually: ");
+ 		check_recv_pkts(rxfd, correct_payload, 3);
+ 
++	/* big tcp sub-tests */
++	} else if (strcmp(testname, "big_tcp_data_same") == 0) {
++		correct_payload[0] = big_tcp_fill_len() + calc_mss();
++		printf("data packets of same size past IP_MAXPACKET: ");
++		check_recv_pkts(rxfd, correct_payload, 1);
++	} else if (strcmp(testname, "big_tcp_data_lrg_sml") == 0) {
++		correct_payload[0] = big_tcp_fill_len() + calc_mss() / 2;
++		printf("smaller last packet past IP_MAXPACKET: ");
++		check_recv_pkts(rxfd, correct_payload, 1);
++	} else if (strcmp(testname, "big_tcp_tcp_seq") == 0) {
++		correct_payload[0] = (big_tcp_fill_cnt() + 1) * calc_mss();
++		correct_payload[1] = calc_mss();
++		printf("aliased seq past IP_MAXPACKET doesn't coalesce: ");
++		check_recv_pkts(rxfd, correct_payload, 2);
++	} else if (strcmp(testname, "big_tcp_large_max") == 0) {
++		correct_payload[0] = big_tcp_large_cnt() * calc_mss();
++		correct_payload[1] = calc_mss();
++		printf("shouldn't coalesce past gro_max_size: ");
++		check_recv_pkts(rxfd, correct_payload, 2);
++
+ 	/* machinery sub-tests */
+ 	} else if (strcmp(testname, "single") == 0) {
+ 		printf("single data packet: ");
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.53.0-Meta
+
