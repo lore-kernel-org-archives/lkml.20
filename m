@@ -1,64 +1,65 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13AF23750BD
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:05:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35CB7377A9E
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:05:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139116; cv=none; b=UT/HcyFgPZ3hBmgamJW9hivKy6f/ieuyza7+Rq3b1OGraUmXSsCQ9oyp0lLN4Jh17bfRo7KRoXuyPwRACddWi+zB7ewRG9jE5oAygkuMm74NMxXGFjmhRYjvsJutr8s4cZ2EJvJbcsl3ynDZ/lu2zG9zONL3Wr0zO74/obayz8k=
+	t=1789139118; cv=none; b=kwdhu/IPBlT8yaBkPjfsx9yQfVMu05Ew+E18HIXg2YtgKtGUjwUi0ilFMNLZrE7qKiCS9O6GxjGQ74PXLG3KNr1f1tUjz/lyF2EE7TZdkcn81/Elq7Y1sTMy0mfOmt/fKRwl8qa2e3mgpV7hf9hFYpYpUc3xbcsf7ZKMMfo4gZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139116; c=relaxed/simple;
-	bh=SulItpOpA28ukZfWYCS1+ezWXd+i3c1ust4snZvaoAY=;
+	s=arc-20240116; t=1789139118; c=relaxed/simple;
+	bh=jx3j2XbXWnO55UDnCdyL4nYB8h7oZRpXcwhJjfFasT8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=N4G1rkOk7E02F9HLJX+bT29P5EtqDB1HskaYZW7EgQFCyj48/VZq8tuse5u5lcgGeKJZeLDJJla/bDIf1u6mDIipL3mr7Q2cYmDrII2DhMiJjUYqK81wZUU3ntmi2SrwoVusEIALkw6aMEDGNbLgZ9/HUFIZNpzMfd1qgJ3txbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=dpY9Vw/W; arc=none smtp.client-ip=209.85.128.49
+	 MIME-Version:Content-Type; b=bbuGusLJB3C/CxOtaXH4JRsioE3qTMvdGnhc6rh2mbEvXFxxBGLuEa+r0SXHjVixBT4O1jfDhNCY1FU01bkC7aP9vPL91IbprFI13XS6xgj8sKiFq7ovnqi/TaBrBNwTnIKcayKHLmfaBNCf6za6rJqrlRewywpdDdXauz6+YR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=MZduPaIz; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="dpY9Vw/W"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49b0d8bc2aaso12095485e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:05:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="MZduPaIz"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-484366874b0so560772f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:05:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789139112; x=1789743912; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1789139113; x=1789743913; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=7/A+IkvGH5yYLsl3B/FA+2ENzgeK330huKjO7uo/XWA=;
-        b=dpY9Vw/WbRSQ4vAmcbMbVsDNf97x3fiJTZq1V3vuarPpkrVkQMkq7Qw9A3NT1MpM+z
-         L3pCZuHMbsVeZ07kHa79dndIHXwQOCQHY9dcRkLL7qpE1CdxelO59oqkVSOBO5Qd5eNk
-         wxQy4TkrGLSeXDH8DQQ/XCg7NpAnbvI1BRBPTHihUJqcg8DnhFFThHW3iT/mcEpbP3DS
-         IKx8LonNMoHEscVCzKZsJDlxQZ6poGnEY9yZY1WhsCLpJUNdV7vT30jmqvxP9HVX78cf
-         ZLbcHsOOADCJZ+kzBfHM+AGn/66uFYWxppyh3qA1RSoPnSs7px5U0GxR+sv5+QCbGRzL
-         aA2Q==
+        bh=XKohTBQhTvhy9wNz0LcPmFyXDw2Vls36EVI0PSYF1LE=;
+        b=MZduPaIz+l8Za7XdIBJ01uZ3wldcJoGuDoHHInjQbkz/cqJ/3CD2lScvmKTTiWjYin
+         +h0misW0DqVQmTyHDIv64TtRvgb80h4iTOlNEGtE/2hrIKGMT00q6Doy3JkXUjbY5mlo
+         raaQvuIkcG2UsgEIvq1UgsobMXJMJrHnyVn/5fUIPamySp74mubvNeaSh7Po4h91rRra
+         DyT0X9PuoihJ96RNYis9ozRlXBKx4zbV4edN5ux0ULgg5I0aDEWNls4k2iI1nmS5V68Z
+         DkWBTyocYP4mW9xakgPG28XvSa6bDqSizN0ljrPfj4h3GV+w9LHgCpr5KXfERvJC4+Hf
+         NLTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789139112; x=1789743912;
+        d=1e100.net; s=20251104; t=1789139113; x=1789743913;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7/A+IkvGH5yYLsl3B/FA+2ENzgeK330huKjO7uo/XWA=;
-        b=BS8DK3BibGDkGCH5xPJC8FI463GzavcXuU3pP1zu8Dk8UnuaSJ/SSppNOyBpWlVqQW
-         G4BANUgrCg0u7TaaS4TA6LihpJDAYVaAQa6XO2O3PaaoHR+pPoKqJ06rXZG5fIdHoGpu
-         f/uAEYB81FW92nWrteoWn8hblEpNcRe6oX9HidE9iUQst//Lhx020AMbVFBwoj06rH+3
-         nrvYc0YmuSSZTs8yCFqN369NB5D6X1EzxXlvF2kmqclkW9OTIipi63H1AWLjY5xH38N/
-         +nTI8vnhMuhKOJfCAQ49PYz8dOnMDfVcbXdHf8RfEkTLl3aRF7pnuvhnFxComObbNhMh
-         sFRA==
-X-Forwarded-Encrypted: i=1; AKwUvBweAwDBUkmHaE78jXU+raXjCL1fwUcUQ8FixKVLnGSzf0GkLO1acHwQJhJsMnfkp+uJVQNk8kRcdvjkoy4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgXyI8Byq8vtiOwwWg4lsLTCOqxBOKfobgrBuhoeeRDqkLpMBd
-	6wzTIl92Zm0hdSXxZ9IlF+Q22PgDClfvt10gb9FsvIkXbdfrQVpaiHnt3BW78j3Jgts=
-X-Gm-Gg: AYBFou1IKVc1DffW2iUsTUO19DXT3LYVeVfDGoO6tdhhWKEdbhBgfRT8m0sT73wCF7A
-	oPYqf9oQXilnS0D8UrnchxBvxgeFdKGVsOEOlwXoSiinluq/8tN/1oIIN9sOsYwDN6ycuBnY6r/
-	kLkTL2wi2bYFnrwVeHzF8LoGOYknH2Rftbd0jDZ1myvBlGBtTs0HkgIS6a9iBH2Js09ekWP5pRg
-	zixiCEyoQu/voCvQN7gMGoNjHbaqO7CiitTKVT3YOUF1UqvZ9jc8QqY+J2HxNWRCVNCSGnIghR8
-	tStnsnPL4r/fizpWQolUl+4rrKJ4owLr6pEn3hFPJ4OzCDtuzZlb9QyjCS03Dn2JBwBpHz/HsL9
-	rQ+CFHbEGGG2GTF+lL6niXAw5c1UbWkYrENyJDzZjJfQw0Fphhexj308sqz2eeCwiiN+EBFQVgk
-	H/ryiigzVWrBmNBueYLL3zUbHBN7TeYvWlBehewrC0XAlQ6v/Z+5dSE1TxOLUQXxE=
-X-Received: by 2002:a05:600d:8498:20b0:49c:fc6c:be15 with SMTP id 5b1f17b1804b1-49e619c6eecmr39713085e9.27.1789139111976;
-        Fri, 11 Sep 2026 08:05:11 -0700 (PDT)
+        bh=XKohTBQhTvhy9wNz0LcPmFyXDw2Vls36EVI0PSYF1LE=;
+        b=nowOVIXl4X8yuAOSP4JR1XOTQ4BQFw8tnM8x90sR2kSYN68OBqNGNEcVPgzOazka91
+         uG3nUMNvPM2zroQoZ+rZJ+bkLHTWLW5S+9MdBHEZ56aeiI9fqYnWahWNntBGgrUEH2Q/
+         0AMwCvfJH29ZfCUA3kOUHeJ2CvsAofDVYSP/3Gf0PzFO8KTzztiBS3yzp7aSPWn5M4S0
+         2GcvY16PyNNv4PwRpi5ZJaEN/0ekfzBkGm5si91J4k86ZfbHdmjIT/D9+tgObp+5wCQD
+         +nnDhLWiOK9UN497anc+hTHQjUmX+uiJPMQRXE4ul6wC0DGX5asTDREw9EhP6N83/Ubx
+         obDg==
+X-Forwarded-Encrypted: i=1; AKwUvBxiV+1uQhDvT5Ip4NeGiU+vjVGL2koNLgwcdI1iTJjUmp24h3eXxkWGQ6mOE6hFBN1IN2CkwAl9bvP+g5o=@vger.kernel.org
+X-Gm-Message-State: AFuF++lP5CBJSBwd5WXrc44hJb6N911fpmijt5HTY76qLyCitQdrbUSJ
+	rnMkiddWAPxCqM9fFZel2GEZ/dyPn5gL4olWNHf1krRLApuOXhPy0dVxK2x44oGWZW0=
+X-Gm-Gg: AYBFou32UtgjNCIIpJnWxwj37cFJTIhe1lJXxIHmlVPzK9ilJ8n3FgfZPFCqLlywVUN
+	KBV5GYFa1jr7lb904SPnpILvNNaza5y0xQN3e2sWiS5+ZAYW0LYPj7wuU5Iiy0AlkzeAGLI6QOa
+	Zic8zYMrMuT5XLG8HaTX/wxVdpMm533ZxWbg0K2qgMJTV506S9L+UvRlruSat40Jxh6DRg0TZiB
+	EVb4CVWF/i/jfAvqHIAWIkDQ+sV/lCq0moN250qJMVD86nMwmkUPO9hXCYnn7gQpXd/94NERhCB
+	JZzPymqJf2iEuLCNIJ9/S3B4hQt8KZ5KWhK2Zi3wENI4IMMh5lG6fycS16/5nksMZMNeY9rNI3Y
+	SEVN5wxOtN9JTG/mOwik64l2JK00jbO1H2wx9twPrFbkGimnGeElmj1QbWiX/OZdnx8vbORKd3K
+	BIu7xApO1KUaLhybZ+iUDccdmIdPKcSMItiVnIAFNuF+p3lWJo4gkbIlaElsmisFyciYA/7xMP3
+	58g5Q==
+X-Received: by 2002:a05:600c:540e:b0:49e:6692:27fd with SMTP id 5b1f17b1804b1-49e66922810mr55050755e9.2.1789139113470;
+        Fri, 11 Sep 2026 08:05:13 -0700 (PDT)
 Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb350686sm6853579f8f.27.2026.09.11.08.05.10
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb350686sm6853579f8f.27.2026.09.11.08.05.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 08:05:11 -0700 (PDT)
+        Fri, 11 Sep 2026 08:05:12 -0700 (PDT)
 From: Petr Pavlu <petr.pavlu@suse.com>
 To: Jens Axboe <axboe@kernel.dk>,
 	Jakub Kicinski <kuba@kernel.org>,
@@ -89,9 +90,9 @@ Cc: Simon Horman <horms@kernel.org>,
 	dri-devel@lists.freedesktop.org,
 	linux-modules@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/6] syscalls: Include error-injection.h for ALLOW_ERROR_INJECTION()
-Date: Fri, 11 Sep 2026 17:04:03 +0200
-Message-ID: <20260911-module-include-error_injection-v1-3-5da895d8c84d@suse.com>
+Subject: [PATCH 4/6] drm/i915: Include error-injection.h for ALLOW_ERROR_INJECTION()
+Date: Fri, 11 Sep 2026 17:04:04 +0200
+Message-ID: <20260911-module-include-error_injection-v1-4-5da895d8c84d@suse.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
 References: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
@@ -104,44 +105,150 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-include/linux/compat.h and include/linux/syscalls.h use
-ALLOW_ERROR_INJECTION(), which is defined in asm-generic/error-injection.h.
-They currently rely on that header being included indirectly through other
-files, typically via linux/module.h -> linux/error-injection.h.
+Several drivers/gpu/drm/i915/*.c files use ALLOW_ERROR_INJECTION(), which
+is defined in asm-generic/error-injection.h. They currently rely on this
+header being included indirectly through linux/module.h ->
+linux/error-injection.h.
 
-Add the missing include in preparation for removing the
+Add the missing includes in preparation for removing the
 linux/error-injection.h include from linux/module.h.
 
 Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
 ---
- include/linux/compat.h   | 1 +
- include/linux/syscalls.h | 1 +
- 2 files changed, 2 insertions(+)
+ drivers/gpu/drm/i915/display/intel_connector.c      | 1 +
+ drivers/gpu/drm/i915/display/intel_display_driver.c | 1 +
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c           | 1 +
+ drivers/gpu/drm/i915/gt/intel_gt.c                  | 2 ++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c           | 1 +
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c               | 1 +
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c            | 1 +
+ drivers/gpu/drm/i915/i915_driver.c                  | 1 +
+ drivers/gpu/drm/i915/i915_pci.c                     | 2 ++
+ drivers/gpu/drm/i915/intel_uncore.c                 | 1 +
+ 10 files changed, 12 insertions(+)
 
-diff --git a/include/linux/compat.h b/include/linux/compat.h
-index 8da0a15c95f4..ad37ca617e65 100644
---- a/include/linux/compat.h
-+++ b/include/linux/compat.h
-@@ -18,6 +18,7 @@
- #include <linux/aio_abi.h>	/* for aio_context_t */
- #include <linux/uaccess.h>
- #include <linux/unistd.h>
-+#include <linux/error-injection.h>
+diff --git a/drivers/gpu/drm/i915/display/intel_connector.c b/drivers/gpu/drm/i915/display/intel_connector.c
+index 7ef9338d67ab..a287884c0045 100644
+--- a/drivers/gpu/drm/i915/display/intel_connector.c
++++ b/drivers/gpu/drm/i915/display/intel_connector.c
+@@ -23,6 +23,7 @@
+  * DEALINGS IN THE SOFTWARE.
+  */
  
- #include <asm/compat.h>
- #include <asm/siginfo.h>
-diff --git a/include/linux/syscalls.h b/include/linux/syscalls.h
-index 8413b624ad47..552d9710a0d5 100644
---- a/include/linux/syscalls.h
-+++ b/include/linux/syscalls.h
-@@ -92,6 +92,7 @@ struct file_attr;
- #include <linux/quota.h>
- #include <linux/key.h>
- #include <linux/personality.h>
 +#include <linux/error-injection.h>
- #include <trace/syscall.h>
+ #include <linux/i2c.h>
+ #include <linux/slab.h>
  
- #ifdef CONFIG_ARCH_HAS_SYSCALL_WRAPPER
+diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
+index 70d112fd4287..204810a11e46 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_driver.c
++++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
+@@ -7,6 +7,7 @@
+  * details here.
+  */
+ 
++#include <linux/error-injection.h>
+ #include <linux/vga_switcheroo.h>
+ #include <acpi/video.h>
+ #include <drm/display/drm_dp_mst_helper.h>
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index c0fd349a4600..2c3bc7b67c0d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -3,6 +3,7 @@
+  * Copyright © 2016 Intel Corporation
+  */
+ 
++#include <linux/error-injection.h>
+ #include <linux/string_helpers.h>
+ 
+ #include <drm/drm_print.h>
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+index 5c7f862f7100..2f0e1cb5578c 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+@@ -3,6 +3,8 @@
+  * Copyright © 2019 Intel Corporation
+  */
+ 
++#include <linux/error-injection.h>
++
+ #include <drm/drm_managed.h>
+ #include <drm/intel/intel-gtt.h>
+ #include <drm/intel/intel_gmd_interrupt_regs.h>
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index 1c455d84bf9d..091aa33f624a 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include <linux/circ_buf.h>
++#include <linux/error-injection.h>
+ #include <linux/ktime.h>
+ #include <linux/string_helpers.h>
+ #include <linux/time64.h>
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+index bd07c72a66fc..d367a897c86b 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+@@ -3,6 +3,7 @@
+  * Copyright © 2016-2019 Intel Corporation
+  */
+ 
++#include <linux/error-injection.h>
+ #include <linux/string_helpers.h>
+ 
+ #include "gt/intel_gt.h"
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+index 7fac97fe30a6..d7c731fe972b 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include <linux/bitfield.h>
++#include <linux/error-injection.h>
+ #include <linux/firmware.h>
+ #include <linux/highmem.h>
+ 
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index ce6d20958320..aeb7b24c81c8 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -30,6 +30,7 @@
+ #include <linux/aperture.h>
+ #include <linux/acpi.h>
+ #include <linux/device.h>
++#include <linux/error-injection.h>
+ #include <linux/module.h>
+ #include <linux/oom.h>
+ #include <linux/pci.h>
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 2f03f95945f1..84a7dc6ab5db 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -22,6 +22,8 @@
+  *
+  */
+ 
++#include <linux/error-injection.h>
++
+ #include <drm/drm_color_mgmt.h>
+ #include <drm/drm_drv.h>
+ #include <drm/intel/pci_config.h>
+diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
+index 170e83a8c9fc..e360e4f9d9a2 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.c
++++ b/drivers/gpu/drm/i915/intel_uncore.c
+@@ -21,6 +21,7 @@
+  * IN THE SOFTWARE.
+  */
+ 
++#include <linux/error-injection.h>
+ #include <linux/pm_runtime.h>
+ 
+ #include <drm/drm_managed.h>
 
 -- 
 2.55.0
