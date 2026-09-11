@@ -1,25 +1,25 @@
 Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020120.outbound.protection.outlook.com [52.101.196.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC5859C97E;
-	Fri, 11 Sep 2026 20:12:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0E9C59E34A;
+	Fri, 11 Sep 2026 20:12:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.120
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789157563; cv=fail; b=iwZYYLPbSjJ7Ojl4XKcHQu38o4AtMbd0FlhnvarCg+a2GQLqawESknuUGWXQskv2WluWjCOcQnCm5iugKUm6mb1RF5n6Gz+qhj7IQrNezibxJ2d2e/fAEQI+B/6ltuhsgQuNvJuDmIFEgQzvzkcbNhMY8qvHx3pgblgwKCZ3v1E=
+	t=1789157578; cv=fail; b=Hisarq9HEkv92231C2pEDnUlmsy8SG9x5Anv5vTL0MxNC1AoAapWFW6klewtdMEzr9ntJv3ZGmmxit6ITrUWDPjbuCPgDzWzado1WztlhSMveGefLZpyrsUD9pKuwxxigpsTsH5KnjfJBHppUMd4swO1HDFrB4fwKBVIlBYxy/g=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789157563; c=relaxed/simple;
-	bh=iWCP7KZc9SPZ1Yyp38nsgG056IgNWJN4NGPlklVEg5w=;
+	s=arc-20240116; t=1789157578; c=relaxed/simple;
+	bh=7PKpg48X5nZ+RMwBuEDobmhbR9PynGOKN7rO5F2QHWw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VlX0ImlGarxfq+JCIUrEkRWp0mAxzcUKQGpLJqcoFf56OheA6ZyT+cdBDloVqXScOH1DIjtchcLfRk3piz+v+4XVBVkN58/9zUB8w33Ebl35vpwGRDg7X2BL/BgCTpOyeS8TdbK/yISeitReFdIpNTE49BlqC+PYQh7U5kygjPE=
+	 Content-Type:MIME-Version; b=hWt1hgkuX4+AitPjRdxeon30MQrCGZe/3yvfvz3N0xLaIXyfkA82eIsruytR4VT9N8GKq815nvA/PnXXhGv/ifllt41khPAnth+C+W5QB4bOx+CIxzqYVwJkD5UrIMX70Ag8u7GGLOL2ofkl3mTSKqJOeuFeWuWLSvEdYkvTK4w=
 ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.196.120
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vJ18xZJSSa/Cj+2g0QgnsSE4EqB3C3izKBaf914rj8Vsuso+gTED9sbHAptDvz1BPsIz3Gr24qgfKOku/9QnDmCvg3lZJ9O/EcGhJJ4pVp8gKGX+faXe1GsFkGoxLEHC00otee5vPHnMQZGtkR8XmGz3LJ8BQCm6IiK1K0UZUyxaMgE00KFGTJpvpWMTpHk8sdDM/eLnSJ7oHNh+qNpKC5Mz4xJbbLWJe5PIRbNF928FwK52oimKfSRUAg4FodbnrNBA5ogvelnfC0s8fKoeauPUhFTYDJp4+Ha2Uss4TW9TSET7dg1hnNPQRJEdK6UnzA0Xy1fNIEKpvld5EUEjbg==
+ b=o49vc6hNVoSc3UfIz1f0jgimPG5D2RdgGobYv6Tk1OerW1Rpv0NrEy/GCVjHkCcaDbn7AEMjnVSbeOZMOkN502bTNZsmkQMoIYkNJ+CKm6iXZV3TvmRXwow5MSHsR5zlaN8QcHmH14Ai0OOyXcLJW31hpMIA4pmZ4OAfNFCCoXznZZCThf525TqlJQumz21ZZzMJGUVWsN8dXXcXb5JCqeV4B2lxEXChcpJ+J/y4UHD40leN2N4tU+hd2Yl0hgTOnftKDmn2Nzf5x6JLwjJkTkJRRBUrwjkci9SiHD6ja/Qh3NNZrZ+jtqN3PBOxOf2KUfIaAzUzIdUjZDmZzCsQ/w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=/YFJhaaH7Ry9L7GFNz6RAO6isQkfNGeM2mxhZFDYWRE=;
- b=F5Kd6zuTIzBaInUYhQki7n94OjwaGZ19D02UCJa94atHhJZTYjajwlcQXY2cBHl4HdwjuNZ5lyx0utQnkNUc1kuIxE5Q9kPbtZmvqUSwin489ZJCTSgIOZ1igRg7iGwhL8LMjTNEZU59jLbfxvZVHRoWXosFS6TN2bsJYuXRmu8TXFXI0DuduNj64RmPt+LsLfsbIpkseuzdsgTKWSy1lBPEQTAJubj4NGwaHAaXjs6Vi8lwORJiYQwOnQQ28e/44G+/E6LniaJsxSTIgV8Gk8cPpSE3iKoBO1ntgS5OOr+H6PD4Mx6BES3sBVWY1O98kUDYmAo1Zn/LOpUfQ7BE7A==
+ bh=tA9fYcmD1ljSRzqTGxb5kE9UX31Sz5uuMoJyWsWiW1M=;
+ b=snfewK+r3Y+E0OHmR6p4Vh4sW8ru+K84ub5xKz7XNjxfaWhequZj4OcvWvQQFnexS/k9ABO99rqDoOsPjD/CjPw7d2zTNoXmC8INVnqB3W1natYT9YzU8uGSI7nLXWOelEdwBmXOSDHBvFHslVCvsQhtXs5X3tz1pVmUpsZSgogEmXMf6N2LmCHRJRJEXnVNAkxEA55Pu45iUJ0KmWojJ/QHvvddlP8j0AiXMWPpKt8FRRK3ljIoCwWI2qpOYjJvmAaTN1bKYJfKrUzJflcqDQ/USff/dcWuZ2WGslp1ujyQ5FXreDmUheLlHydF6q/nUHEwPERKfusByXUibEsIDQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
  dkim=pass header.d=atomlin.com; arc=none
@@ -29,11 +29,11 @@ Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
  by CWXP123MB3207.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:3b::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 20:12:22 +0000
+ 2026 20:12:25 +0000
 Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 20:12:21 +0000
+ 20:12:25 +0000
 From: Aaron Tomlin <atomlin@atomlin.com>
 To: tony.luck@intel.com,
 	bp@alien8.de,
@@ -51,16 +51,16 @@ Cc: x86@kernel.org,
 	nick.lange@gmail.com,
 	linux-edac@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v6 3/4] x86/mce/intel: Clear mce_poll_banks for firmware-first banks on hotplugged CPUs
-Date: Fri, 11 Sep 2026 16:12:05 -0400
-Message-ID: <20260911201206.532113-4-atomlin@atomlin.com>
+Subject: [PATCH v6 4/4] x86/mce: Avoid arming periodic polling timer when not required
+Date: Fri, 11 Sep 2026 16:12:06 -0400
+Message-ID: <20260911201206.532113-5-atomlin@atomlin.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260911201206.532113-1-atomlin@atomlin.com>
 References: <20260911201206.532113-1-atomlin@atomlin.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: BN9PR03CA0590.namprd03.prod.outlook.com
- (2603:10b6:408:10d::25) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-ClientProxiedBy: BN1PR13CA0027.namprd13.prod.outlook.com
+ (2603:10b6:408:e2::32) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -70,115 +70,201 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CWXP123MB3207:EE_
-X-MS-Office365-Filtering-Correlation-Id: be2dba92-ac7a-4829-24d7-08df1040fcea
+X-MS-Office365-Filtering-Correlation-Id: 3b809564-c98c-4483-0f19-08df1040ff1d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|6133799003|10067099003|5023799004|56012099006|22082099003|18002099003;
+	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|10067099003|5023799004|56012099006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	TaiEDoTeylcKPEM+3xnPknBEhDW8ull7ql00cuXnQY9Zc5kru7+OLnVtgu9U/UG7SqXOUHWLtZ4HCJUugiR341Q3rUg/vhv1ZTXCTbRU0pFAVru06dYXyPbCvG+sr+Nm5clj4Hm1n/hIC89PvYTQlnZbQjwmHd1wHIkky1hAGzfThhn6w9C/1cmLerVyqNbkHIAGLW0crpsyp6zfjacMJj9NdDGoWjKwGzK8/Qtgn2UVS7H2aZ+c4lUgzVm2FN0NcRXjK75VkW66DjPFlTN4UfXm+Bgw81pncR1qS/D0ykG38ljbxb/JkXdiVUmtvZYKPOJcKuKp/Fdf+3Yt/hZvJSeZdscaXZyaC9oFqxMz58BrWHSGOF4wSc2Z/VL9dapvnPbbti7q2rgk+kOOLnXNOHKZ9NKDEyeP6ZVpDjrjxeSMfWIYpAV6N8CICHfG3eQCQOTm/fDBrpEel+HtCNxRBYFCryu121RR2bHZ7ObIWTjbuRUyUYRcSMcF+GOi5r0SNABjh9iOxIImSuvNSngAdL5Ce7S/fxRZ3OmWqgnV/T/t/qt/SE23s/MfnGvgCq+3oqx8iKdUZ2bZFuN55ZSIx+YWGWlSDgq7ZrzjI9o/Z9K4AGSRa5+8Y6GIKNkmTfAWm6gC/PuXXwvH80th/7umXChZ6zIz6+3AWck1Iwq+Kk8=
+	p9uN9EPAOtFIYE2+6oH6KlGVlkkkUjrVRWNXcviCpxI92DfWQqZnn2ovG2bmS+35rpxo/OXL4MWZkp8kr3LyCibSoZqpm3YHjmMYJwDbQC7uFDa+WuVyz8RK2Bkv2hfj7eTelGJgFPQN9w6zFkH6Mczc1XPP/Zy7mc878RwH8pyK+jXP2OyCOeNW25eIOLXYU2U+bgsMyyz6sZ41zhLTaE8A2Jc1sfDFtCVDSDZQk/Q6ilRWOVdaDOwfyBCXcfyuKIPefJGq6iH9x6aOqQL0uq5lzg0Cgkgcx0AIqTj9+kj1Lb6kq2f8tBaiPi0CAkb7ENXQWqc6E2shcYN48JgVxnaESc5IK9iiGmTRPwUvUEC96KQpk6AZjOyd8CZnBMxM0TvClIrNX/SDL7HykXoQNFBmLOk5LT9V/qrCbUJJrRAF9orKrNB+FpcArrIchq1KCKVeYUkUuXi5FtqeFU/npt7Y/zcdiLtoO72XbA5f19CMf+xFbnB1ol8nu0+O5mxmWlqmCHhwHX/QwH+ijAzOk2BvL8M4t0/ndnmsmXLxVBXhbZfireFWwIhjbPbboLBJBZEcpDrPLrLMNFLdcTbaWrpVporLuhJTOmRUlMuBzHDjd8qyL/gPoqosac+bp71n8K8H4yo1Y+3tfbmHPU5Rl8Xd+ajdE+5hQoKjnTHeL4w=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(6133799003)(10067099003)(5023799004)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(10067099003)(5023799004)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?DLFW0XCax0paf5Ox/lyoJyLpGVBDcz+4HTd5IP3h0N4O4iO+MAIDaYc18RTd?=
- =?us-ascii?Q?uyd0L3InOiXuJd0qVJ0L3cb3KNUFFjWlwmRmbyCsN8N1pJCLqb51A4nnsSOX?=
- =?us-ascii?Q?GA7bAFDM6AVZmt8vawJfNSIkf/+gfg3tUAwUdZf+0ERoTn2xUvJ3oRhUslz3?=
- =?us-ascii?Q?lp/mCa8Cypv5N1zub3GRvxgTPK4q9iXvBen1ZZKpYs3Kr5qBlbpweVN5zl8+?=
- =?us-ascii?Q?dBaPQRRMCzHrvsh4ObRRIWeilMXENMKFMS28E4hZDpiCtLJ0kM6rPBL+awMr?=
- =?us-ascii?Q?yshpwhpbBSJWcoi5Vs9CJCOV/ptEUaMepZNbzk6P6EakmwMGxNQ4zCav6Pdg?=
- =?us-ascii?Q?Jyf3suW/TGygB2oxWW8IQLUuFig7pa+V07yX1uU0OweZJjMwBe1Tfdbj0qNX?=
- =?us-ascii?Q?TvxLr4+yt4eGu7PKtZXFpf5eWkfcpNW2Z2bCpSHrQcBtpYBzeX1oGySeJ2zg?=
- =?us-ascii?Q?2ALlxLaMpfdVVnLsALU6r+rx9EbCHnxNQBjyeq3ZrSlmlkhxrZkgO04z5WvA?=
- =?us-ascii?Q?BL518b3V66oiljhIrps4lwv0gbWNUhzb/dT5lEy9Kyh4IuSv4Rdn0FJirYhg?=
- =?us-ascii?Q?sw+H2lm0WreMm0FusaAt2grnUop5hun6fQLbHzMbw/CzWWnNgkaGf0TYG5Kc?=
- =?us-ascii?Q?PeUTxDnAxVAC/iXzF6loJYYPq7UnSmov+UfewUc9WH8Ae2zdjfbN7Tvrrl1h?=
- =?us-ascii?Q?yjmPZ1zfQxmJhvHl5t/URPdAmj1r5Ym602j0EnQcrvUmJFPQOzCH1Igvjctb?=
- =?us-ascii?Q?6GHcHDCCdmDjHMKcmfXU1KAI/H7ACRz0RZIiu8tONk05RAku5+wyuL1lcyry?=
- =?us-ascii?Q?PqOmeg51uwgUbYK6/ohI13O+/cXqsOg/L933yGyjtF41nRJq1QE5v5sqLSSR?=
- =?us-ascii?Q?kjukPL1R7OwB6oLIJ5NS7NSTw7xoDFhLblbL4vfSMAqRMs0ZXdC3HiNAgjWZ?=
- =?us-ascii?Q?iGe/S35zVFcb3snysvl4QjbR/UkdnUNPNwjiesJpQwhC/dQ5s2k1DQ1RI9aA?=
- =?us-ascii?Q?scjxto3TKkDBhrLYEbjDmMwsKeHcQtMX3t5GYH88vw337ZUonQv8MUakSNHd?=
- =?us-ascii?Q?3BU81bjbULDWseNUBsusncckluorvXTCfDdb3Gr/uonnH88BTIHDlGQm7+T6?=
- =?us-ascii?Q?XbEmvF8gtUVmRLqqRTivGq4n11JGdzAnacXs7cU2qEaVVIiFHyIlojYL3jCs?=
- =?us-ascii?Q?bq1cFm/3SlbLbeVvz31HCEPY/NfMyVJ+Q9Zjs3HUdEaURz4WkkMiua7J9U+y?=
- =?us-ascii?Q?QpYZNduRaSDDzc1iUW2wdSehfGd0n/dEygH3CYIk5uyB+0myARFk7jj5nTmw?=
- =?us-ascii?Q?snDfPse4CpQFgwu4YxSX/7RXIGnZ4pGD/l0+LVuh+h0EhhXDIN2VxlolPJWL?=
- =?us-ascii?Q?OkLdd3Zl3wP8pfS9BxnULzIDCo8mFcl/PZcuFr41o7ceVq5pxesbAVq1ZTl0?=
- =?us-ascii?Q?oeTxjIqJ64d0vij+uSBUTITEoH0npIZxJbyE3hpHjfRGPNXjdIUNtsprOCAW?=
- =?us-ascii?Q?17IkqDd54zZbMm8rDivKsDRJQLsgLptUwCXMuQpcmReZ5aixmpQU7lyjVeLM?=
- =?us-ascii?Q?hfpfFHwBgRVVmGpKlKoxFs96XwwM5NIbK8r8QeYMLEWgt4oji7VjE+BScgSM?=
- =?us-ascii?Q?ZvMC/N4Zg8ydhRcesG1CBrbRuT4pEQbj9Fww1lJk4M7WglPjwPzx49r1GOCa?=
- =?us-ascii?Q?FB5oC5dgogkL6z7nA2hyXv6NofOf6yw91s4M2DoI/Kyh57aUaVz9GOgA+K6W?=
- =?us-ascii?Q?6ld+THIjKA=3D=3D?=
+	=?us-ascii?Q?pOc3bSw9bbcfsjmtsd0fLc0me3zd5zphT1JMcibOXuwimC03Takh5yefugtv?=
+ =?us-ascii?Q?6sctaI6/xyCHxetnjdVpqcbvahmgmYX3sDESIRXfWOzrnuebznoJ93KmdUbQ?=
+ =?us-ascii?Q?oHo1MfO88Nw5IR8NUfdc2lQhmwt2vBmAMVNyStvMOzsBGtNvyHEA/DOvkV84?=
+ =?us-ascii?Q?/GGBvHMYBmCVNvXuyvcXuj/SHpnLog6W35x7AvkmzXKDdJhYUtiRLZdjpUoT?=
+ =?us-ascii?Q?8ug6suhlxq+KRVq2p9eU+vIXF2NdjP0jURSnL5GYGezaBjrSGCzXihsce5L+?=
+ =?us-ascii?Q?/Ah2yj6UIQpv41x+Ns0NB2LlIp/KbU6oYtGAGpTf6IxDhzdzMNChMAKE/thc?=
+ =?us-ascii?Q?IxX6QLh+/SaCKfA9C8mnWNTTRG/TVVp3IMP7m1N6QIRxmcUgSwnzg6yzAEve?=
+ =?us-ascii?Q?2Zb1yHBfQfyHe452hIOa4m4EjX2icFcj0V+ddFrKe6VEZJ9Ht9MQ392/mjQI?=
+ =?us-ascii?Q?Ke1VAyvOXm3p8l7ggygNaewuwZ8M/WdMJq6XH3eAaVBeDa6W0DhKIxHVNkI7?=
+ =?us-ascii?Q?2H0FWusTUN6F6ahkNL3p2H6KcEMwMQjGXlGVcvZLr2R+r3hUJiDiUfjiWcaC?=
+ =?us-ascii?Q?i6Zq77ouqN6U0JtHCwzcKH1lRobSWEHtNBD0o5l1zb9TzdVFRsNzq7iUcttj?=
+ =?us-ascii?Q?xNMGOtffXaFctpDVJjVajb2KhuUGcrB4VbLhBKfJTGGiSAT1Dbmj69DUQzeH?=
+ =?us-ascii?Q?+BuL5QkbD/5VNk/0PvKnbD939ENvWE9vg6dFLVKgUkYn2QLmVFUUMoA10SmF?=
+ =?us-ascii?Q?N7xdPAZuD1RkUnFW8R/RcO6mCpTuo2h9nSJx2VGdfIahzWIUWNglVckTTpng?=
+ =?us-ascii?Q?Nl/oiIxIK6CfrtntnTgD//iEHmXfF7q8BOuytqxmv9/LY0g6GXR9QmwiMBh8?=
+ =?us-ascii?Q?52MvL4y2ZRq+P2MioUNRhI2YdFqueuotHBWY6YEvUn6xKN8imsSchD6GsjeI?=
+ =?us-ascii?Q?mx6Gdnry1yTljEUpJtTES30JwYizQo9mCjvpWDUq3NVfA09mcsYI/EWLW5jx?=
+ =?us-ascii?Q?M07JLEL1yalnMQMp6m75tQgw3xyTVDiCSmt1kFHCoO2NfNE/1NPAmOHpfY4C?=
+ =?us-ascii?Q?ewbQdZoH97xPREX5aHTEQBBK3FVwmIrTtmJdn+jtj9OBhTTPlT2+9hvkYwy4?=
+ =?us-ascii?Q?KjUtfDtphd43L054c0C8DfLwb3pMbkji4gdO8ARieaa+5mHnr9FAxk9XEj9H?=
+ =?us-ascii?Q?OmFEvUVjGVqywG9xJCwaYsZSpAnGCbIZkh/0SbXqh8lkuzYQMILOeGeXAjpP?=
+ =?us-ascii?Q?oN6Xx2fop04E87twq2TjK1iXt8pn59P2Ih/F1JHY65jziJ3XglvKLSp9phKc?=
+ =?us-ascii?Q?+FFQJ77WJkRuMwB8OvuvrUFQx75MjB9PuxwEgAV351OXeQEnO4lL023FDQ+q?=
+ =?us-ascii?Q?uG+8rSpWiD5V8P2iVbUZ4i6jn+v52fOQtTLX4DdbCx/KdRk8bUCSeAdbhA19?=
+ =?us-ascii?Q?RgFilZkODLaycZns7Er2g2OLxMluL9+PX8MBhuSFvkOvQiV0GnselHgflvcP?=
+ =?us-ascii?Q?qy4dbc39NtB+vt4izmqi9qtdAGitUlU7ARozwEk5yBkvhN2iTud6kiU54Pym?=
+ =?us-ascii?Q?4fwpvnGhsXwkMVFnUcchqGOeomDBbhtNOtNcjrvj+9X8XazvIlEqqcRg67jt?=
+ =?us-ascii?Q?RN2QduFHNIAp6Ry0XNOdN4bEsKMAdUzl0/oY+Cago0Ahpri1OkfOk3yNEsS6?=
+ =?us-ascii?Q?Myim78+Sadobp2EhAqS4AJ7hGiTy1zJEahQTyoP28e59WnWNmo5hRNav6uc3?=
+ =?us-ascii?Q?hgzkcqJYWw=3D=3D?=
 X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: be2dba92-ac7a-4829-24d7-08df1040fcea
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b809564-c98c-4483-0f19-08df1040ff1d
 X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 20:12:21.8739
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 20:12:25.5835
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IOGd+bqznPrUJmSpLgk7YEymX8qjSTfqqlx++XzCjqYetKYnm3nAx+J+9QpF+AYPuOd7nQQlOgFuIm/mG1R6gw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: SYAiRsFBGBWyDfvQSuX3GOa1t7TPYt+A23KM9YcsgALWufMJkXn2OBFJib0kUvMYqDLICO4zi883k9Ph+POftg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP123MB3207
 
-During early boot, acpi_hest_init() parses APEI HEST CMC structures and
-calls mce_disable_bank() for banks designated as Firmware First.
-mce_disable_bank() broadcasts via on_each_cpu() to clear the bank from
-the per-CPU mce_poll_banks bitmap on all currently online CPUs.
+On x86 platforms, the Machine Check Architecture (MCA) subsystem arms a
+per-CPU, pinned standard timer (mce_timer) to periodically poll hardware
+banks for "silent" corrected machine check errors. Because mce_timer is
+pinned to the local CPU via TIMER_PINNED, the timer core cannot migrate
+its expiration to a housekeeping CPU, causing periodic latency jitter on
+isolated cores.
 
-However, CPUs that are brought online late or physically hotplugged
-after boot miss this broadcast. Because per-CPU mce_poll_banks is
-statically initialised to ~0UL, hotplugged CPUs retain the set bit for
-the Firmware First bank.
+On Intel systems supporting Corrected Machine Check Interrupt (CMCI),
+hardware generates an interrupt for banks with CMCI enabled, clearing
+their respective bits in mce_poll_banks. However, for banks where
+MCI_CTL2_CMCI_EN does not stick (such as the Power Control Unit bank),
+Linux historically assumed software polling was required and left the
+bank flagged in mce_poll_banks.
 
-When such a CPU comes online, cmci_discover() invokes cmci_skip_bank(),
-which checks mce_banks_ce_disabled and skips CMCI setup for the bank.
-However, cmci_skip_bank() returns early without clearing the bank's bit
-from mce_poll_banks.
+Per the Intel SDM (Vol 3B, Section 18.5 "Corrected Machine Check Error
+Interrupt"), if bit 30 of IA32_MCi_CTL2 is zero, no CMCI is available
+for that bank and no corrected or Uncorrected No Action Required (UCNA)
+errors will be reported on that bank. Therefore, polling such banks is
+redundant and wasteful.
 
-Consequently, machine_check_poll() on hotplugged CPUs periodically polls
-the Firmware First bank, reading and clearing IA32_MCi_STATUS. This
-steals hardware error telemetry from the firmware, breaking Firmware
-First error handling. In addition, leaving the bit set defeats software
-optimisations that check whether mce_poll_banks is empty.
+Clear non-CMCI banks from mce_poll_banks in cmci_claim_bank() on
+CMCI-capable CPUs, and amend should_enable_timer() to:
+    1.  Check bitmap_empty(mce_poll_banks) bounded to the number of
+        implemented banks (this_cpu_read(mce_num_banks)) so that
+        mce_timer is never armed when no banks require polling.
 
-Fix this by clearing the bank's bit from mce_poll_banks in
-cmci_skip_bank() when the bank is configured for Firmware First mode.
+    2.  Pin the MCE polling timer to a HK_TYPE_TIMER housekeeping CPU,
+        sparing isolated nohz_full cores from periodic wakeups on
+        systems requiring mce_poll_banks polling.
 
-Fixes: c3d1fb567a63 ("mce: acpi/apei: Honour Firmware First for MCA banks listed in APEI HEST CMC")
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Cc: stable@vger.kernel.org
+On systems requiring software polling such as legacy platforms lacking CMCI
+or when booted with mce=no_cmci, mce_timer is restricted to
+housekeeping CPUs. While this intentionally leaves core-private banks
+(e.g. L1/L2 caches) on isolated cores exempt from periodic polling to
+guarantee zero timer jitter, housekeeping CPUs continue to harvest
+telemetry from their own banks as well as shared package-level
+resources. Synchronous (#MC) exceptions on isolated cores remain
+entirely unaffected.
+
+Suggested-by: Tony Luck <tony.luck@intel.com>
 Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
 ---
- arch/x86/kernel/cpu/mce/intel.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ arch/x86/kernel/cpu/mce/core.c      |  7 +++++++
+ arch/x86/kernel/cpu/mce/intel.c     | 13 +++++++------
+ arch/x86/kernel/cpu/mce/internal.h  |  2 --
+ arch/x86/kernel/cpu/mce/threshold.c |  4 ----
+ 4 files changed, 14 insertions(+), 12 deletions(-)
 
+diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
+index aa604d981358..66783205a958 100644
+--- a/arch/x86/kernel/cpu/mce/core.c
++++ b/arch/x86/kernel/cpu/mce/core.c
+@@ -25,6 +25,7 @@
+ #include <linux/delay.h>
+ #include <linux/ctype.h>
+ #include <linux/sched.h>
++#include <linux/sched/isolation.h>
+ #include <linux/sysfs.h>
+ #include <linux/types.h>
+ #include <linux/slab.h>
+@@ -1759,6 +1760,12 @@ void (*mc_poll_banks)(void) = mc_poll_banks_default;
+ 
+ static bool should_enable_timer(unsigned long iv)
+ {
++	if (bitmap_empty(this_cpu_ptr(mce_poll_banks), this_cpu_read(mce_num_banks)))
++		return false;
++
++	if (!housekeeping_cpu(smp_processor_id(), HK_TYPE_TIMER))
++		return false;
++
+ 	return !mca_cfg.ignore_ce && iv;
+ }
+ 
 diff --git a/arch/x86/kernel/cpu/mce/intel.c b/arch/x86/kernel/cpu/mce/intel.c
-index 4655223ba560..7be5713aa190 100644
+index 7be5713aa190..f5f27d3798a8 100644
 --- a/arch/x86/kernel/cpu/mce/intel.c
 +++ b/arch/x86/kernel/cpu/mce/intel.c
-@@ -181,15 +181,17 @@ static bool cmci_skip_bank(int bank, u64 *val)
- 		return true;
+@@ -231,16 +231,17 @@ static u64 cmci_pick_threshold(u64 val, int *bios_zero_thresh)
+  */
+ static void cmci_claim_bank(int bank, u64 val, int bios_zero_thresh, int *bios_wrong_thresh)
+ {
+-	struct mca_storm_desc *storm = this_cpu_ptr(&storm_desc);
+-
+ 	val |= MCI_CTL2_CMCI_EN;
+ 	wrmsrq(MSR_IA32_MCx_CTL2(bank), val);
+ 	rdmsrq(MSR_IA32_MCx_CTL2(bank), val);
  
- 	/* Skip banks in firmware first mode */
--	if (test_bit(bank, mce_banks_ce_disabled))
-+	if (test_bit(bank, mce_banks_ce_disabled)) {
+-	/* If the enable bit did not stick, this bank should be polled. */
++	/*
++	 * If the enable bit did not stick, this bank does not support CMCI
++	 * and no corrected or UCNA errors will be reported on this bank
++	 * (SDM Vol 3B 18.5). No polling is needed.
++	 */
+ 	if (!(val & MCI_CTL2_CMCI_EN)) {
+-		WARN_ON(!test_bit(bank, this_cpu_ptr(mce_poll_banks)));
+-		storm->banks[bank].poll_only = true;
 +		clear_bit(bank, this_cpu_ptr(mce_poll_banks));
- 		return true;
-+	}
- 
- 	rdmsrq(MSR_IA32_MCx_CTL2(bank), *val);
- 
- 	/* Already owned by someone else? */
- 	if (*val & MCI_CTL2_CMCI_EN) {
- 		clear_bit(bank, owned);
--		__clear_bit(bank, this_cpu_ptr(mce_poll_banks));
-+		clear_bit(bank, this_cpu_ptr(mce_poll_banks));
- 		return true;
+ 		return;
  	}
  
+@@ -252,7 +253,7 @@ static void cmci_claim_bank(int bank, u64 val, int bios_zero_thresh, int *bios_w
+ 		mce_inherit_storm(bank);
+ 		cmci_storm_begin(bank);
+ 	} else {
+-		__clear_bit(bank, this_cpu_ptr(mce_poll_banks));
++		clear_bit(bank, this_cpu_ptr(mce_poll_banks));
+ 	}
+ 
+ 	/*
+diff --git a/arch/x86/kernel/cpu/mce/internal.h b/arch/x86/kernel/cpu/mce/internal.h
+index a31cf984619c..32ae574d2ad5 100644
+--- a/arch/x86/kernel/cpu/mce/internal.h
++++ b/arch/x86/kernel/cpu/mce/internal.h
+@@ -84,13 +84,11 @@ static inline u32  mce_get_apei_thr_limit(void) { return 0; }
+  *
+  * timestamp:		Last time (in jiffies) that the bank was polled.
+  * in_storm_mode:	Is this bank in storm mode?
+- * poll_only:		Bank does not support CMCI, skip storm tracking.
+  */
+ struct storm_bank {
+ 	u64 history;
+ 	u64 timestamp;
+ 	bool in_storm_mode;
+-	bool poll_only;
+ };
+ 
+ #define NUM_HISTORY_BITS (sizeof(u64) * BITS_PER_BYTE)
+diff --git a/arch/x86/kernel/cpu/mce/threshold.c b/arch/x86/kernel/cpu/mce/threshold.c
+index 83f3e2250ae2..07f326edae83 100644
+--- a/arch/x86/kernel/cpu/mce/threshold.c
++++ b/arch/x86/kernel/cpu/mce/threshold.c
+@@ -126,10 +126,6 @@ void mce_track_storm(struct mce *mce)
+ 
+ 	local_irq_save(flags);
+ 
+-	/* No tracking needed for banks that do not support CMCI */
+-	if (storm->banks[mce->bank].poll_only)
+-		goto out;
+-
+ 	/*
+ 	 * When a bank is in storm mode it is polled once per second and
+ 	 * the history mask will record about the last minute of poll results.
 -- 
 2.55.0
 
