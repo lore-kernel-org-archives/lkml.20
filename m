@@ -1,67 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-80.mta0.migadu.com [91.218.175.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D777D44F56E;
-	Fri, 11 Sep 2026 07:29:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEDB94189C5
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:29:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789111746; cv=none; b=cQDojyVOGUZi7FU9EC6PplBCjCz+O65WPvsfeGob94EKvRjKX4Yu8VgNpFf9nejKnF/0pn/tZuLr37zoeoAWSpid/HhiSr4GJR6LgZCWhfve9R2ENEyWvt/JYN1eU+7B3ruifr1k6PigaTEabt1nbwwE4UA/xt4KBz4lCNzX+tg=
+	t=1789111754; cv=none; b=VMOnl0IHeEHxJf+Zzdvmo80LHu5rQMeNMJ7PH3jsThvfgJdXfu9t9kalSuc4sUnhHvKe1V8pvcxGbx7pAIOvuanZWha7MoLiDRjNoFQrAusXEEGvpp8TBb0FQCkfzRcepBcA3hxVUgwTunWUoLCwh19D1bcuajDhu1ABMJE0Vog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789111746; c=relaxed/simple;
-	bh=LLeopuchSu6Fs+Ym+7R3u9a4TLh/uZHWUq6heCvUmTs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=V4T/ozUQ7h4AqgXhNTwbhZb1orKssgmuBpArkAvcSJy0yISFKrvnLboGc22C3Le+Jzi2cmHkr4PK2Wh9Sl6G8sqL+14pd2rILA17GGYvme7c7oELGluE4yKI3VPfgU2G+iPeK3ggGkYETlRYNe9xFc/Mow4CPdZGA6FYWvr6SWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MLcC3Gsp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789111754; c=relaxed/simple;
+	bh=dNMvSuQN0N4qCRyjVFInfr2Drz4mm/aQHqOjmNew14U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=q41rulk8S6WhtBZIwC5V82m2O8s1wqbzsfhEkxdlrP9kbAF6cPH6wGxq7eTFKUsmqkxz1cEMgfnPgwk0RmODD4FpLcSM7XK3I0Q4d8B6+eYu0CRPakQfsjP6o50OR5Uy+yMNC+Sf94U+yNW461t/WXVQYAsRygGImBWQA2nBIVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OBj9RCxo; arc=none smtp.client-ip=91.218.175.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MLcC3Gsp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 960101F00893;
-	Fri, 11 Sep 2026 07:29:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789111742;
-	bh=jPO3YZjp0NTneOto/PGhZ/C6mLSbEUhY1NbbRXSGup8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=MLcC3Gsp8utfdxpOruqmKmlRfetED0D4iDHba2uv+STeeenVBpWK+Fy9sfJVb+1Rn
-	 3iejQSBUCoCAcF8Mzk3arcCa/FT0NqgWV4GZrwBtQvNNOYeQLKUridfKg/245MABR4
-	 xgAs19D0mG8btyPzZPwVJrOBiq4GCDberSqhvN1kVgDAi6EojMUR9LKROsP29mHbsG
-	 XnwPKHAr4nOYQgGq69hmecNCL0sAscWAzrrhEF5GFp05j8hxiK1PE9WRvR4/kVGavy
-	 +e7DXzrXh+4mcKEuTmTqeBIktTdr9rOoEC8d5pNNF4DEW1U9Vx6BI8aMQ3+dgyWmmq
-	 IzUAXDgPteE1A==
-From: Carlos Maiolino <cem@kernel.org>
-To: djwong@kernel.org, Deepanshu Kartikey <kartikey406@gmail.com>
-Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
- syzbot+ccdf3469f5f653bff7ac@syzkaller.appspotmail.com
-In-Reply-To: <20260906144629.17009-1-kartikey406@gmail.com>
-References: <20260906144629.17009-1-kartikey406@gmail.com>
-Subject: Re: [PATCH] xfs: take hm->lock in xfs_ioc_health_monitor() before
- insert
-Message-Id: <178911174131.25328.11347565991995752423.b4-ty@kernel.org>
-Date: Fri, 11 Sep 2026 09:29:01 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OBj9RCxo"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=dNMvSuQN0N4qCRyjVFInfr2Drz4mm/aQHqOjmNew14U=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789111748; v=1; x=1789716548;
+ b=OBj9RCxoqVKw0/w5QkxywDIGP7RszP7PgftdaMu5VQTs+Ii+2a/tZEhAcebHwBlQUqZ4eCfn
+ QONfz6O4tJGw3Gr1930RRjQ9kIWI6rK9N1OK0ZtkHAxmFeJXUnyzzpgiEkhg137iRmk0HmYXoOM
+ XyZFq8Ez9xQFRx0BZjfc6To8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 047fe7891b18b0a7;
+	Fri, 11 Sep 2026 07:29:08 +0000
+X-Mizu-Trace-ID: 047fe7891b18b0a7
+X-Migadu-Flow: FLOW_OUT
+From: Ridong Chen <ridong.chen@linux.dev>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Kairui Song <kasong@tencent.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-mm@kvack.org (open list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)),
+	Ridong Chen <ridong.chen@linux.dev>,
+	Ridong Chen <chenridong@xiaomi.com>
+Subject: [PATCH 0/3] mm/mglru: add tracepoints for scan and aging paths
+Date: Fri, 11 Sep 2026 15:28:45 +0800
+Message-Id: <20260911072848.2346073-1-ridong.chen@linux.dev>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
 
-On Sun, 06 Sep 2026 20:16:29 +0530, Deepanshu Kartikey wrote:
-> __xfs_healthmon_insert() asserts that hm->lock is held
-> (lockdep_assert_held), but xfs_ioc_health_monitor() called it right
-> after allocating hm, before ever taking the lock, triggering a
-> lockdep warning.
-> 
-> Take hm->lock around the call.
-> 
-> [...]
+From: Ridong Chen <chenridong@xiaomi.com>
 
-Applied to for-next, thanks!
+Background
+==========
 
-[1/1] xfs: take hm->lock in xfs_ioc_health_monitor() before insert
-      commit: e240919ca727776f16a468d3d90686dc82cfe9cb
+MGLRU currently has no tracepoints of its own. The scan and evict paths
+reuse the classic-LRU tracepoints (trace_mm_vmscan_lru_isolate() and
+trace_mm_vmscan_lru_shrink_inactive()), which predate MGLRU and carry no
+generation, sequence, memcg or swappiness context. A trace of a running
+system therefore cannot tell which memcg a given scan belongs to, how far
+reclaim has progressed through the generations, or when a new generation
+is created - so how MGLRU actually operates is effectively invisible.
 
-Best regards,
+Implementation
+==============
+
+Patch 1 is a cleanup that factors the per-generation page-count
+summation into a helper, lru_gen_seq_nr_pages(), reused by patch 3.
+
+Patch 2 adds mm_mglru_scan_folios on the scan path, and patch 3 adds
+mm_mglru_inc_max_seq on the aging path. Both carry the memcg id and the
+generation window (min_seq/max_seq), live at MGLRU-specific layers with
+no classic-LRU counterpart, and are guarded so the hot paths stay
+zero-cost when disabled.
+
+Effect
+======
+
+Paired, the two tracepoints make the full aging-to-eviction window
+observable per memcg: aging advances max_seq (the leading edge), scanning
+consumes the oldest generations, and the min_seq/max_seq pair on each
+event shows how the generation window moves over time.
+
+A sample trace, with the classic-LRU tracepoints left enabled to show
+how they interleave:
+
+  mm_vmscan_lru_isolate: classzone=4 order=0 nr_requested=36 nr_scanned=31 nr_skipped=0 nr_taken=29 lru=inactive_file
+  mm_mglru_scan_folios: memcg_id=73 classzone=4 order=0 nr_requested=36 nr_scanned=31 nr_sorted=2 nr_skipped=0 nr_taken=29 lru=inactive_file max_seq=3 tier=3 min_seq=0
+  mm_vmscan_lru_shrink_inactive: nid=0 nr_scanned=31 nr_reclaimed=29 nr_dirty=0 nr_writeback=0 nr_congested=0 nr_immediate=0 nr_activate_anon=0 nr_activate_file=0 nr_ref_keep=0 nr_unmap_fail=0 priority=5 flags=RECLAIM_WB_FILE|RECLAIM_WB_ASYNC
+  mm_mglru_inc_max_seq: memcg_id=73 max_seq=4 anon_min_seq=1 file_min_seq=1 nr_anon={0x0,0x0,0x1,0x0} nr_file={0x0,0x427,0x6,0x4a}
+  mm_vmscan_lru_isolate: classzone=4 order=0 nr_requested=5 nr_scanned=5 nr_skipped=0 nr_taken=1 lru=inactive_file
+  mm_mglru_scan_folios: memcg_id=73 classzone=4 order=0 nr_requested=5 nr_scanned=5 nr_sorted=4 nr_skipped=0 nr_taken=1 lru=inactive_file max_seq=4 tier=3 min_seq=1
+  mm_vmscan_lru_shrink_inactive: nid=0 nr_scanned=5 nr_reclaimed=1 nr_dirty=0 nr_writeback=0 nr_congested=0 nr_immediate=0 nr_activate_anon=0 nr_activate_file=0 nr_ref_keep=0 nr_unmap_fail=0 priority=5 flags=RECLAIM_WB_FILE|RECLAIM_WB_ASYNC
+
+The mm_mglru_scan_folios lines carry the memcg id and the generation
+window (max_seq/min_seq) that the bare mm_vmscan_lru_isolate lines above
+them cannot - those cannot even say which memcg they came from. The
+mm_mglru_inc_max_seq line then shows a new generation being created
+(max_seq 3 -> 4) with the per-generation page counts for both types.
+
+
+Ridong Chen (3):
+  mm/mglru: factor out lru_gen_seq_nr_pages()
+  mm/mglru: add tracepoint for scan_folios()
+  mm/mglru: add tracepoint for inc_max_seq()
+
+ include/trace/events/vmscan.h | 101 ++++++++++++++++++++++++++++++++++
+ mm/vmscan.c                   |  52 ++++++++++++++---
+ 2 files changed, 145 insertions(+), 8 deletions(-)
+
 -- 
-Carlos Maiolino <cem@kernel.org>
+2.34.1
 
