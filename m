@@ -1,117 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F802EEE79;
-	Fri, 11 Sep 2026 05:15:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B01838757A
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:16:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789103737; cv=none; b=CdDrtj5tBdeHptd3CnMy4PUf20zUBiOwSXSqNinoxDFlBLCVKv43496WiBLJhidtqf1M74Qwkl49n/Lv47asxNT8SW1wt4QU193fnznXhCybcdus3u2nA5KDYVB6YueEUk7K+o3j1vXO+CUou/CeZQubmU1lXK8sHvXIAUBqcpg=
+	t=1789103784; cv=none; b=nuys5qMlIXRw66bBIfqz/V8gygGRSmmMwKlKRYZvgJ1x+hb4cyXufWve9uV6y/d+hTxI5YtpsPts+gNocCcTegLsrQ8wG0QbRGfCxpfPkNKZd54Bmv5S2a6Gek5oIeAspYv38o38dvJAmL26582huozLassFe3us8zbvAC+WiBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789103737; c=relaxed/simple;
-	bh=FZzuc3RrsYrSpuSv3TTKiT1eYqTf+KwP8rZ6MpkyFuk=;
+	s=arc-20240116; t=1789103784; c=relaxed/simple;
+	bh=m2uyPzp+R3+sWOW8xYa+N/Car2zCoXVJYfU/R1QYc+w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XKggtsFg78HLacwLyvjzo9FvLeRvY29hx4DlaVenWxjxBJC6VpyCm4Xv6QXpuYZ2g69CIeRrj+Bol70yPD63WG/Pbid5DQ6qg0uHAC1YB+VRcgA18sqWWRsMHO8XWuCZyF7A5OPaZPD7Ik7gf2RT2GGgQjx8IW7cuT2Xzv05bsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IJUV/GsK; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ft6ngSwO0K60irJaodqDKxSI+v07LVTDu7DiJz9YiACxT+u+3Dnaix9q8BeCwdf38zogiR/TYMJnu9WtjbdjwdgoPPqH6iRJ+1hY9joyLx+R2ATM2SSaNRtUVYl1ENRmjxVHnbaKWtew78Or82SWQlrD0Jz0F9wcfEHi24iovyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fSP9lae3; arc=none smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IJUV/GsK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4014D1F000FF;
-	Fri, 11 Sep 2026 05:15:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789103735;
-	bh=Re4OuRwLxErTc9uR7CpD1jNt1FFENy/RKFyXLL/LfjI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IJUV/GsKHHvt9HrUKFv1KLSB1qHKzOiUQX8PYVGxYjP+6GKODDx7yyMP2zHhC8/SW
-	 pczlz20cM18LzibHOMKTJJ8JMfBfaa2hBQDetiD/d6mwq3/zOQ0fxw0D++FV7Ln9r6
-	 +/8mdx3vSyGNbwTtqZIV30bThMaYlkK3LpH8vX7btR4mqJJwU53jOgnmFNMp0CyvlY
-	 cPS5nP6kVuu7BGd5lWQx+YM8Ou8zQUPN0jwZ7XBBXaxFJ51Q/JLhf+QKzF4MpDWD2k
-	 zTnR69WtvBkinYcgt51aN5lJ87ZtRqhRwjJM3oyJeM4UOvtEXGa+bkzfnH+AAMXdzb
-	 6A53O1yu12W8Q==
-Date: Fri, 11 Sep 2026 07:15:26 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: chunfeng.yun@mediatek.com, vkoul@kernel.org, neil.armstrong@linaro.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
-	chunkuang.hu@kernel.org, p.zabel@pengutronix.de, justin.yeh@mediatek.com, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, kernel@collabora.com
-Subject: Re: [PATCH v3 11/12] phy: phy-mtk-dp: Add PHYD Lane EN register mask
- to SoC data
-Message-ID: <m3fpa2igwmsnsxhhxtg5hubsmxbn2vmzcpo4hwacs66z52x5ll@xrl5kac2qmtk>
-References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
- <20260707154245.198361-12-angelogioacchino.delregno@collabora.com>
- <cydeh263kd5o2un27oeplqx2phe7vzhxvk53kr7dbvtplazafv@rs37qtkhguhj>
- <4e658914-7a17-444b-b20b-8d8b647238b5@collabora.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fSP9lae3"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so417771a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 22:16:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789103782; x=1789708582; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JQ54+lD2n/aIXsWwyvLa1NXcPj36AMrVbfAkkYOl2fw=;
+        b=fSP9lae3pplaMBlzvB9Lk0fi6l2gK1A1CbROx0lvrLtSXU5yzGCHz585uGiUtSX0qR
+         ElMA+fefQ/bA2A09ENDv63FrS5zwqITJh79nMae7SiE38TZjk7SH6tLlMUIExY/zbvQZ
+         y/ouRJ/FRsH2Lg/8vBWc9rlm7tcPsCzg8DgrHcxnRSq8PUQuSy0kSO7c4z2qNcc+XbHS
+         CU3es571RWHwQd+WHVxIFzKJP3puGDE+YRWV57+cfB4AKuYMFsyD5A3tGhPpbR4BxB/b
+         c6rBBQ42ujhYVQRhn/DEJ+sXkx6ID7V73LgbVeiP+UdBcxh5KbTisTX/YIM2rcp9osqt
+         CD3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789103782; x=1789708582;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JQ54+lD2n/aIXsWwyvLa1NXcPj36AMrVbfAkkYOl2fw=;
+        b=OxubknviDEt5s6QrK6WgLyTQOP9X1WSu89OVk90cijWK6SUF4s6H+X64i4OCIW6ZSw
+         0f8PbdVkufnUYrfQ2TDnpuLyVaoRydqzHYMjTjZixGqC13cII1GRVPV+KZfhQ9VI0Kwl
+         rdA5ny/fETuHhr6O5Nlqg8LzQ38AT030Gk4fP66g5P6rOdMU5c3ydgXmW36L7zPar0pa
+         gYB5Jyp0b220hHbm/SV2TCqKrSP9MmcpmblN/o9n1PCg+h9+ycyznvqoDeD+xbfgKlJC
+         MM/evK5qHP7woa+BQHk438SWiolc+lZsFrLj9BsFN5t5g1j7e/fv0bCfJI82NIh7XgSO
+         XoXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzqz2of5sSnWrSDcigdzIqwlQNyfHCvOjPG0vnfAbsiBE5paR+NrYoAHAfduncbjNa9wIz0BdltHf9BXPs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAEaovLhsxrAdONbaO1suhi96ZK8FtW6sK9thhVMHLgW+0D2N4
+	hUH8nIUYQqRP61qPd3AM/HtrIWssmMDQC2WIl/GbiNvwbL7p4TrsKbLd
+X-Gm-Gg: AYBFou3XRZfucxXlKpdkem8RxgsO37iCpUAWahMg1GTvsK/1s7OPJmeFleBXpwN7SsH
+	NuuFWEsFhxaLMUN8m26Ck7qVpMKQA/pponN8XzhBS0GSWYEQOA9A3Nd7trVP84lA9Z0U9vUhuEw
+	c9CIbYSUrlmnerVVLq7XJTngQ71oUpkkc7WXw/3Deef0taMgEuPUOyCVdo4EmgaPmjpTYPz32Kz
+	s+MQEIt1Ji5k+R86ev7/cCE7SIhuATEdTlyD5xEmno1wYLkPnAvhqc+Vv5X8d8K7f4OI6newerh
+	TdMWQV1qOfs1lylBAapVvs5i6Ra6hoUDI8HZZzjk3hoQOFIkM/m2B/l6f4BenC3zhQvYbjM+kiD
+	Gye/gk2D1ihnfvgnc0rd3ZYAPRudpyjFWZznkZtEP8rzMVLVQ585WJNPJcR4asbV2UBV9E4gRL0
+	OgiOMfJYoODQGfUu3QajWUWIauQ+cGHeelMh1zcgO5fjEErY7yJ7EqZvZl/AdQzcdPYU3TTDVH6
+	3C506hMuWTaXmG1SvPN5SkicVR2Vb0GBkQg4aPyF8FiDIGzz8eRHDPO
+X-Received: by 2002:a05:6a20:7347:b0:3d1:39e9:b269 with SMTP id adf61e73a8af0-3daed15388dmr4300321637.4.1789103782257;
+        Thu, 10 Sep 2026 22:16:22 -0700 (PDT)
+Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([106.51.165.23])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4ed79absm3295201eec.17.2026.09.10.22.16.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 22:16:21 -0700 (PDT)
+Date: Fri, 11 Sep 2026 10:46:10 +0530
+From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
+To: Gary Guo <gary@garyguo.net>
+Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, 
+	chleroy@kernel.org, pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, 
+	alex@ghiti.fr, ojeda@kernel.org, boqun@kernel.org, bjorn3_gh@protonmail.com, 
+	lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com, tmgross@umich.edu, 
+	dakr@kernel.org, daniel.almeida@collabora.com, tamird@kernel.org, 
+	acourbot@nvidia.com, work@onurozkan.dev, linkmauve@linkmauve.fr, 
+	linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	rust-for-linux@vger.kernel.org, FUJITA Tomonori <tomo@flapping.org>
+Subject: Re: [PATCH V3] powerpc/bug: Add ARCH_WARN_ASM and refactor
+ _EMIT_BUG_ENTRY for Rust support
+Message-ID: <aqON9aluXdKk8nNq@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+References: <20260910100801.2159785-2-mkchauras@gmail.com>
+ <DLBMFNHCKSJ6.1I36FDVEACEUF@garyguo.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <4e658914-7a17-444b-b20b-8d8b647238b5@collabora.com>
+In-Reply-To: <DLBMFNHCKSJ6.1I36FDVEACEUF@garyguo.net>
 
-On Thu, Sep 10, 2026 at 11:05:39AM +0200, AngeloGioacchino Del Regno wrote:
-> On 9/9/26 19:25, Manivannan Sadhasivam wrote:
-> > On Tue, Jul 07, 2026 at 05:42:44PM +0200, AngeloGioacchino Del Regno wrote:
-> > > In preparation for adding support for the eDP PHY found in newer
-> > > SoCs, transfer the register mask for PHYD_TX_LN_EN to SoC specific
-> > > data.
-> > > 
-> > > Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> > > ---
-> > >   drivers/phy/mediatek/phy-mtk-dp.c | 13 +++++++++----
-> > >   1 file changed, 9 insertions(+), 4 deletions(-)
-> > > 
-> > > diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy-mtk-dp.c
-> > > index 4603f28d1466..f5aadc5fdc42 100644
-> > > --- a/drivers/phy/mediatek/phy-mtk-dp.c
-> > > +++ b/drivers/phy/mediatek/phy-mtk-dp.c
-> > > @@ -220,6 +220,7 @@ struct mtk_dp_phya_imp_sel {
-> > >    * @regs_ana_lane:  Register (layout) offsets for ana_lan
-> > >    * @regs_dig_glb:   Register (layout) offsets for dig_glb
-> > >    * @regs_dig_lane:  Register (layout) offsets for dig_lan
-> > > + * @mask_dig_tx_ln: Register mask for PHYD_TX_LN_EN field
-> > >    * @val_dig_bitrate:IP Version specific register values for Bit Rate setting
-> > >    * @ana_bias_r:     Internal resistance "R" Selection Settings (global)
-> > >    * @ana_cktx_imp:   TX Clock Impedance Selection Settings (global)
-> > > @@ -239,6 +240,9 @@ struct mtk_dp_phy_pdata {
-> > >   	const u8 *regs_dig_glb;
-> > >   	const u8 *regs_dig_lane;
-> > > +	/* Register masks */
-> > 
-> > Duplicate comment. With this removed,
-> > 
+On Thu, Sep 10, 2026 at 01:05:27PM +0100, Gary Guo wrote:
+> On Thu Sep 10, 2026 at 11:08 AM BST, Mukesh Kumar Chaurasiya (IBM) wrote:
+> > The Rust kernel infrastructure generates inline asm for WARN() via
+> > ARCH_WARN_ASM(file, line, flags, size), expanding it through a C
+> > preprocessor pass (generated_arch_warn_asm.rs.S) to produce an
+> > arch-specific asm template string for use in Rust's core::arch macros.
+> >
+> > powerpc currently lacks ARCH_WARN_ASM and ARCH_WARN_REACHABLE, causing
+> > Rust builds to fail on powerpc with
+> > ```
+> > error: no rules expected `ARCH_WARN_ASM`
+> >    --> /home/linkmauve/dev/linux/wii/rust/kernel/generated_arch_warn_asm.rs:1:28
+> >     |
+> >   1 | ::kernel::concat_literals!(ARCH_WARN_ASM("{file}", "{line}", "{flags}", "{size}"))
 > 
-> Sorry but I think you didn't understand what the comments are there: the kerneldoc
-> is used to describe the structure, of course, but the comments in between are used
-> as a way to describe (and kind of enforce) the order of members.
+> I think we probably want to catch this earlier by have something like
 > 
-> /* Register offsets */
-> u16 member1;
-> u16 member2;
-> ....
+> #ifndef ARCH_WARN_ASM
+> #error "ARCH_WARM_ASM is not defined"
+> #endif
 > 
-> /* Register maps */
-> const u8 *regs1;
-> const u8 *regs2;
-> ...
+> in generated_arch_warn_asm.rs.S.
 > 
-> /* Register masks */
-> u32 mask1;
-> u32 mask2;
-> ....
-> 
-> etc.
-> 
-> Does that make sense now? :-)
-> 
+Hey Gary,
 
-Yes it does. Sorry for the oversight
+Sounds good.
+[...]
+> >
+> >  arch/powerpc/include/asm/bug.h | 36 +++++++++++++++++++---------------
+> >  1 file changed, 20 insertions(+), 16 deletions(-)
+> >
+> > diff --git a/arch/powerpc/include/asm/bug.h b/arch/powerpc/include/asm/bug.h
+> > index 0db48977c70c..df2183c35945 100644
+> > --- a/arch/powerpc/include/asm/bug.h
+> > +++ b/arch/powerpc/include/asm/bug.h
+> > @@ -32,34 +32,38 @@
+> >  #endif /* verbose */
+> >  
+> >  #else /* !__ASSEMBLER__ */
+> > -/* _EMIT_BUG_ENTRY expects args %0,%1,%2,%3 to be FILE, LINE, flags and
+> > -   sizeof(struct bug_entry), respectively */
+> >  #ifdef CONFIG_DEBUG_BUGVERBOSE
+> > -#define _EMIT_BUG_ENTRY				\
+> > -	".section __bug_table,\"aw\"\n"		\
+> > -	"2:	.4byte 1b - .\n"		\
+> > -	"	.4byte %0 - .\n"		\
+> > -	"	.short %1, %2\n"		\
+> > -	".org 2b+%3\n"				\
+> > -	".previous\n"
+> > +#define _EMIT_BUG_ENTRY(label, file, line, flags)	\
+> > +	".section __bug_table,\"aw\"\n"			\
+> > +	"2:	.4byte " label "b - .\n"		\
+> 
+> "b" is part of the label. "1b" itself is a label and "1" is just an integer.
+> 
+> If the code uses
+> 
+>     _EMIT_BUG_ENTRY(..)
+>     "1: ..."
+> 
+> then the correct label would be "1f".
+> 
+> Best,
+> Gary
+> 
+Thanks, I missed that part.
 
-- Mani
+Will fix it and send it out.
 
--- 
-மணிவண்ணன் சதாசிவம்
+Regards,
+Mukesh
+> 
+[...]
