@@ -1,87 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A79A7275AEB;
-	Fri, 11 Sep 2026 14:14:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 889563128AB;
+	Fri, 11 Sep 2026 14:14:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789136075; cv=none; b=KChIxhAKPHBSgFkBYAM3r7AQjSOXCENr5pm5gjJ+qS6zIRGbXzXRohTZDvo/fxPcM/riaN89g6DNRV5oFAcIi2xY1BO9Sz33Lu7/k0FbFNY9BmPJ/DlwHmlNUyWt1BA8mqOEgu6yL5R97EiPeasol3pvaj6u2CWdIs4fE8+9wl8=
+	t=1789136085; cv=none; b=jhKHtX35fuxVIkEL692udRM/vxSgmYye+8bYSrjhLd/7FMWciUZIZB4Wv4WM8w+X4+suKRnMA4HJggAeZAariDB+qh8c9uqze3j4gXh3cDERJhXy+bukXcnz/ImHHvA5HZDADKilIVAGPqlw1xaTgmJYnN2gKj1pPx6pfzsg6kg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789136075; c=relaxed/simple;
-	bh=YcR96b0CPruCHzNuRntmU04kiz+ZDDKX3K4wZq/krw8=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=ABgl3qmRRCpJ/YMDHzrmB5qdrBuEiYc3TbNdztfh97abe++bAHpzaVg5zMknf2YqSsEpUtQmsGnZXG9wXlM3TPTEy0s17avyFrISTIDuMq2/jIxLJJONR2mX5P0IxTdCv0oTCQn8M9kYTvlPJGr54LnFBmLxi9JkZIl9688hFr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nqzrvn2S; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789136085; c=relaxed/simple;
+	bh=JpRn1uofAnQ0yYDTpJsabuQSlCIWjiR6qBw0w5BCgPI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=p6+7n2Ip/9fLCso8EqQbVU5UX5P0x5rBcjyLKm4txnWOwxem0UE+HTRliKW1fLpHTFGkMqQ8QNLK9p8cbrmVsQi1ymxIqQTK625e0swldy7vHW1LhpiyHpz5i51Pyk6koXSmvmmCbqnSVTJ2ONPlUrsD8+CWXwyW8BfJltModM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RG3+G+x2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nqzrvn2S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC37B1F008A2;
-	Fri, 11 Sep 2026 14:14:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RG3+G+x2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD2B91F008A2;
+	Fri, 11 Sep 2026 14:14:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789136074;
-	bh=GM+2ljeyjKcDAZ8vz206TrC3EaMevn4lT70TYqXO1MQ=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=Nqzrvn2SmfFdpH00cGbajnv8cQ6w5lCNJE5+wEbMcYxTX0qSobs0Og6uqCIDM5rdu
-	 X/ddlOUchESOOFQVDAF+KkUyxgR6hL6XgfFSK0w1+xEVgC4Kmovo8tTKxF9EraZuMl
-	 X30LfmgHQeFIdXZNCmkxSV5u9n0n2kKTCSsbrEOkIt7YOTZkfR8R+ZTr39ewB62hwO
-	 sXHPzV1Ja34jDWlgUS/xZKFDnEap+v1keDd8pZbbvnHDSckqmDuF9PNgf8+pxnL/3o
-	 6iWZeAFR3DXrqXIaJDPXY/ExvIZsX7fzE4x6rTg7vYmf2YREj/FTGkvWabylEgS1fJ
-	 ExTPCVjp4JcJw==
-Date: Fri, 11 Sep 2026 16:14:31 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-cc: bentiss@kernel.org, rydberg@bitmath.org, linux-input@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, mayhemandcoffee <mayhemandcoffee@gmail.com>
-Subject: Re: [PATCH] HID: multitouch: Add report ID mismatch quirk for ASUS
- ROG Z13 Folio
-In-Reply-To: <20260804202031.75738-1-lovekeshsolanki00@gmail.com>
-Message-ID: <264920or-433p-8173-5osq-4897qr327r88@xreary.bet>
-References: <20260804202031.75738-1-lovekeshsolanki00@gmail.com>
+	s=k20260515; t=1789136084;
+	bh=Vl7wtwlKjWj9kG+1Rk8/BQ+oiCTCw1b09aebu1WqEcQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RG3+G+x2UV6fCbVtatMP+dcn5QzA2lx8x95K/GC88eWoQ+HywGLGvmgbTuT3oaiL4
+	 H+989DvjJ+e8s6Uv1XIsCznIYTj/g02LxIjqW1lQOGH85wYg7Cunqujq3COmyamcPp
+	 B0SWH3AqlpPqMXcX601xGAcB/Z+G5pNZIQ0BpoVGmXliYUkNdyli6vmGc2W+rSSnHJ
+	 cjba6gQyGjeKqsxtIH6CWkV3D5RvpikYR+BI7dGPT7v3OEH1vU2Q7scVZCpcbVEGj8
+	 XXS2ILR9st8du5Oh9ihnzojkxkJhJLPDiYDOIWPoIlkzSvvIRTrZqZgFPluFL1ymbP
+	 6y/RsDdju71Jw==
+Date: Fri, 11 Sep 2026 15:14:39 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, akpm@linux-foundation.org, david@kernel.org, liam@infradead.org, 
+	vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com
+Subject: Re: [PATCH] kselftest: mm: fix potential failure for merged VMA in
+ guard-regions
+Message-ID: <aqQMKAjwpvf9dMfa@gremlin>
+References: <20260911123534.1181501-1-yeoreum.yun@arm.com>
+ <aqP29-H0iKl-2CVH@gremlin>
+ <aqQDbfMOVasuejA3@e129823.arm.com>
+ <aqQG5LgqXnrmY1_l@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqQG5LgqXnrmY1_l@gremlin>
 
-On Wed, 5 Aug 2026, Lovekesh Solanki wrote:
+On Fri, Sep 11, 2026 at 02:51:09PM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Fri, Sep 11, 2026 at 02:34:37PM +0100, Yeoreum Yun wrote:
+> > On Fri, Sep 11, 2026 at 01:59:31PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > > On Fri, Sep 11, 2026 at 01:35:34PM +0100, Yeoreum Yun wrote:
+> > > > check_vmflag_guard() uses /proc/self/smaps to retrieve the VMA flags,
+> > > > but this can fail if the mapping is merged with an adjacent VMA.
+> > > >
+> > > > To avoid this potential failure, first allocate a temporary region with
+> > > > extra pages at both ends, unmap it, and then map the test region within
+> > > > the temporary address range, leaving an unmapped page on each side to
+> > > > prevent VMA merging.
+> > > >
+> > > > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> > > > ---
+> > > >  tools/testing/selftests/mm/guard-regions.c | 14 ++++++++++++--
+> > > >  1 file changed, 12 insertions(+), 2 deletions(-)
+> > > >
+> > > > diff --git a/tools/testing/selftests/mm/guard-regions.c b/tools/testing/selftests/mm/guard-regions.c
+> > > > index 5c8ec3ca75d7..a28a57d34e97 100644
+> > > > --- a/tools/testing/selftests/mm/guard-regions.c
+> > > > +++ b/tools/testing/selftests/mm/guard-regions.c
+> > > > @@ -2257,8 +2257,18 @@ TEST_F(guard_regions, smaps)
+> > > >  	char *ptr, *ptr2;
+> > > >  	int i;
+> > > >
+> > > > -	/* Map a region. */
+> > > > -	ptr = mmap_(self, variant, NULL, 10 * page_size, PROT_READ | PROT_WRITE, 0, 0);
+> > > > +	/* Try to Map a region. */
+> > >
+> > > Map -> map
+> > >
+> > > > +	ptr = mmap_(self, variant, NULL, 12 * page_size, PROT_READ | PROT_WRITE, 0, 0);
+> > >
+> > > Should be PROT_NONE otherwise it'll merge with the below.
+> >
+> > It doesn't matter. since this memory is unmapped and then second map
+> > at ptr + page_size.
+> >
+> > IOW, though the first one is merged, it unammped and then
+> > the second is allocated at ptr + page_size, it wouldn't be merged:
+> >
+> >   after unmap:
+> >    [existing VMA][ 12 pages ][existing VMA]
+> >
+> >   second:
+> >    [exiting VMA] [hole (page)] [ 10 pages (for test)] [hole (page)] [existing VMA]
+> >
+> > Am I missing something?
+>
+> Yeah, unmapped (unfaulted) VMAs can be merged with mapped (faulted) VMAs.
+>
+> In general it's also better to be explicit by specifying distinct attributes
+> anyway to spell out clearly that the VMAs are intended to perform that task.
 
-> Commit e716edafedad ("HID: multitouch: Check to ensure report
-> responses match the request") introduced validating GET_FEATURE
-> responses return the requested report ID.
-> 
-> ASUS ROG Z13 Flow (2025) GZ302EA touchpad (USB 0b05:1a30) returns
-> a different report ID for Win8 feature request. Before this check,
-> the response was still processed and allowed device to switch into
-> its full Touchpad Precision mode.
-> 
-> After the validation, the response is discarded before
-> hid_report_raw_event() processes it and device remains in fallback
-> mode and no longer exposes ABS_MT_SLOT, ABS_MT_TOOL_TYPE or the
-> multi-finger BTN_TOOL_* capabilities for palm rejection.
-> 
-> Add a device quirk to allow the known firmware behavior for
-> this device while preserving report ID validation for all other
-> devices.
-> 
-> The device previously matched the generic MT_CLS_WIN_8 entry, so
-> base the new class on MT_CLS_WIN_8 to keep it on the same quirk set
-> as before the regression.  MT_QUIRK_CONFIDENCE must be set
-> explicitly: it is normally enabled by the class name check in
-> mt_touch_input_mapping(), which only matches the MT_CLS_WIN_8*
-> names, and it is what makes ABS_MT_TOOL_TYPE available for
-> touchpads.
-> 
-> Fixes: e716edafedad ("HID: multitouch: Check to ensure report responses match the request")
-> 
-> Signed-off-by: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-> Reported-by: mayhemandcoffee <mayhemandcoffee@gmail.com>
-> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221774
-> Tested-by: mayhemandcoffee <mayhemandcoffee@gmail.com>
+Oops, I missed that you immediately unmapped the VMA too :)
 
-Applied, thank you.
+In that case it's fine but I'd still prefer it PROT_NONE to clearly single it
+out as a placeholder.
 
--- 
-Jiri Kosina
-SUSE Labs
+Also a comment above it like:
 
+	/* Map then unmap placeholder to avoid adjacent merges */
+
+>
+> >
+> > --
+> > Sincerely,
+> > Yeoreum Yun
+>
+> --
+> Cheers, Lorenzo
+
+--
+Cheers, Lorenzo
