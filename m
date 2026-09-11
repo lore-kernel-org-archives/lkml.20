@@ -1,99 +1,119 @@
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9B574E1D
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:02:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD6AF248F72
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:04:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789088559; cv=none; b=SkPnGSyYXRLKdbLtzJo0qtFr3OUJoOlsIGmxWoriunjh/XmQtyaAfbk+ENK4J9UHsFzQHzd/dspWIFIjmWgdaRPpLD1bxF4FpRrv7xHOofceG4uQh7VxZp0aScvAmjrLEvci2YVdQLnnDigkyIiMLmDuROhCTQDyaMetWhYbDXo=
+	t=1789088698; cv=none; b=ujIPhGqi97tDXb/IHWoVDUdPFPw4BhJrdkAVISqI9j6x0GKg/V2w8eE1fcYDggD6jBy63bAct8in1Cz1IqH/ILYu5yli9Y8mP4uNJUa2NLT29yfqaBm0H+iVpcyBP6/eXnTtOwdiHEvMbh1YC8eFEXRg2vNKQTzpxOEJlKPpDQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789088559; c=relaxed/simple;
-	bh=TiFzUS2aHYLoApSqvwEeB9zLb2sSir/BfO8lZ3oW3tE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k42hSZ3qc4ejVECydu4zDGJLe6VQt/tdDBGKj6XmpirmwSGtDMX2WlKBUAeopBRQq5K+YTq9ynixiWdsmVmP7N0eJPNXc9kODfIuG913KKuKXR7DcxRYV3kzbn3wEu98gvVwXpFFt4luLU3gU9wPYGvO1AbXazTTqSc7KhldoKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QKW7dDZT; arc=none smtp.client-ip=74.125.224.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789088698; c=relaxed/simple;
+	bh=40Lu2wRqdfrtqMAY7zIJIS5t314kE0EHdzhMCpzObd0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=R/I+3WLcn8ayKh+Fuk4mwHbY+kCzWy2N3fJ0eat4D7hAGF4jgTKCmMQXOIItkmimSJ9kLjWDqkcpGvLdf3eyPsYQoXcIMWZN26vAZTIgZPW78wYxXM5RRDqS8fG4r6R5H0OwKJUbNhe/YfM2AXwoBZ2WsmAzXPyF9nyjEDQrYAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VAxQ5xON; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QKW7dDZT"
-Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-66c7e3a2332so246256d50.2
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:02:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789088557; x=1789693357; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=gU2WF9XqL472gayp+lMBaEHlfREfA6uslBJW7Hl4Whs=;
-        b=QKW7dDZTUEnoo+36DM4WzjJ5RLrqB2Fia6IP9KMuwEerQ2zrjzy0l3gpL6/gfeh5II
-         2L0+Q1zu0FKuwKOqp7Awbd7JsvICfR4oLW3v3zQao25YddawqV4rRAqTSVx1zFBxd4ui
-         RgLrsfuenJn91A11Cw3WRCJVB6uaUlknqkgNAihbnsFaHdqW9V7eBJuu9MDJC65Ork6O
-         9MWv+/RQj4MWy8L4MSB3pbTro4X+4Cmsopu2RxKbnP4S9GAV+bonAbanO5sVcxAU1YZn
-         x9Gyyc+K3jRNvTAWdDL7d+nzycYX5sxIQY3nme0W2OuMgjPhgM2jnAgjPTv7mYt38XCh
-         priw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789088557; x=1789693357;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gU2WF9XqL472gayp+lMBaEHlfREfA6uslBJW7Hl4Whs=;
-        b=FihkF5sPSlfTUFYjJVEZK3kW841mlXc8SKOSQVEILVSkFjrwWDkAWANs7+5UXO40zS
-         dLZoVdTnTzcEFsOF7R21FtwW4Gsql6DJl4xdaqox8gGMiN6lBvttXjvUyfTckhd4za+P
-         W08fIlT1dP/M1JPf5xgrTOf233LPwtQ2nZPRAew+CkrBkPPh3TszEJFv6DMNq+u+SHNU
-         O4kb8Sc6FdTIzqDrFtzsDnQRY3Y06j6hnsToHWuqOfPaqi7wxbnkXESB2qGZY3c5s4dE
-         61JQnbSEPaKpjEbOLUqjO4OrF6RRzFnTvVxmD7bvd1xu99sqq2R5jrAyJfhanQ4cQjOl
-         MiKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw8gIdcKgt38I1vOtSxG7qZJcWFbPF6w3g/6ybI4pGy6fcZ5w0fjKA/RLuxn9spKSurHHTyFMIKNEoxWoo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kM54QEUoRivgiQSwUpshe1n3oKVnLkI2cW62iQtRSBGjD0ctEX
-	y7HhkM+zpkPZAA8UknFUxSVTdpUc/bLXN2q0GXxtEZfT9Dcq2XyjTot8
-X-Gm-Gg: AYBFou0jyPj6sRTjyiWtWjtJI7+S27TeDC6vaVqJoDeSp2EFYjXM4FrwPI3nPAYAOgl
-	pvXx5HUeEnaeaxId4lQS/q+OV04GB6LFZ4/87wOllteun2CzGkhR6G5YUW8GRYeyt8Ff5MHEGFX
-	GfIyRc+s13gU1pwN7X6PovR9Ck0jO3XhxJ3ZpYeYWEK31apRyYsCZU2nkBG/AxK5u+/KU8bpRJA
-	l46HQZbfLvQmj5Awrh+go6LwgMO1wUZGCzLHTDga6cOGJXTRrNsJycsFG4OkUVB9NitKYHzKeSu
-	z83191Y0UaLbWaGwpSmNR5gHVh/wAVA4qXHReFNtMVBsr+ted9eQn1K5yD7miFhIOoXiiMiuAZK
-	2YDRkTosA4MqCUJnzD4+48DUfnAgwiE/2lVeKT0ZgmEW6vKscQPJjkUi8C7lvt2oNAPkw8YyV+D
-	SVuwjYP5xUzuUxB3Vk+MYi7u2UP3Rtz1onehRcrWze6X+fJIGxJoFmSeb8HPHP2cygUOl6QUv2W
-	hc48mgHQ4aj
-X-Received: by 2002:a05:690e:b46:b0:66f:a1e3:9c77 with SMTP id 956f58d0204a3-671245584afmr961357d50.2.1789088556949;
-        Thu, 10 Sep 2026 18:02:36 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4ed64fcsm1826445eec.16.2026.09.10.18.02.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 18:02:36 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Thu, 10 Sep 2026 18:02:35 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] hwmon: (nct6775) Add support for NCT6122D
-Message-ID: <0c683a7a-a824-4b68-83d4-3c640d90f876@roeck-us.net>
-References: <20260909-bootlin-hwmon-nct6126-v1-0-4e85615fef10@bootlin.com>
- <20260909-bootlin-hwmon-nct6126-v1-3-4e85615fef10@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VAxQ5xON"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BEC71F00899
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:04:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789088695;
+	bh=40Lu2wRqdfrtqMAY7zIJIS5t314kE0EHdzhMCpzObd0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=VAxQ5xONjv3ztUEcYy7yDo+iCH7TGm6/Xvu0LrQtuaYb7CeWB/ZaVKBp4sXcL/JP5
+	 iLxslT+w0+5W40sGuyoD4sE8JDQk1+2RR6jjmlof2jRtHC46PcrG6StWou+CEujdvx
+	 xVCC6Zsk/VEuZ54ol26x+gV2SpB12M8P0RAXrKcZlfsE2R0BwxW2uO2j3YBQkWl1Lc
+	 e72iYafvmwp7H6rxgVQSVdVrQSX4Jm13Xr+GM7h79uA+4iygAHTFW9/SJ7EJuxDpe8
+	 jyCKP4c18bbESK9RTg36Ej8Yfaw6luiFepIjVa8yBNKqMIhbU2AM/+Ly75SA8huX10
+	 dZu1UMN5E+10w==
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a9b7b89514so284049a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:04:55 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzn2UKsWAmjgFkm2DtHVURdOp+NKO1b+MrUhPZ2jv6UdJSqcEn6Y4b6/DzWPJ1643wS3l3Iq153iTC6jMw=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+eULsqZuwtkPOa8EaUp97PHf/q8RJFr2usz4oIu8G8xm8B6vZ
+	Ev+b8yCVMcbC5vb2s/lJwJN+M0vqeqNyaoJJ3AKLBAuH3etbAdm9+O24UaRf/AzbO8+MH04/fC7
+	W+JJDFdxTs6PzAbTrx4XCIF2Pc/3uOIg=
+X-Received: by 2002:a17:907:961a:b0:c28:ec7c:27ae with SMTP id
+ a640c23a62f3a-c29666bfe90mr53903566b.25.1789088694040; Thu, 10 Sep 2026
+ 18:04:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909-bootlin-hwmon-nct6126-v1-3-4e85615fef10@bootlin.com>
+References: <20260910051649.3806214-1-april.cardenas@canonical.com>
+In-Reply-To: <20260910051649.3806214-1-april.cardenas@canonical.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Fri, 11 Sep 2026 10:04:41 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd829H6zq5g+n6Ue40cW96PfFaPu3kAXe+i5WZhp6E9u=w@mail.gmail.com>
+X-Gm-Features: AcwNN1XpUYrtKTZJ2AXoyTyNrttIcCISwwbTIIFxmObetxMzLHFFFo8SvJuZfwM
+Message-ID: <CAKYAXd829H6zq5g+n6Ue40cW96PfFaPu3kAXe+i5WZhp6E9u=w@mail.gmail.com>
+Subject: Re: [PATCH] smb/client: send lease break ACKs thru correct session
+ for multiuser mounts
+To: April Cardenas <april.cardenas@canonical.com>
+Cc: linux-cifs@vger.kernel.org, pc@manguebit.org, ronniesahlberg@gmail.com, 
+	sprasad@microsoft.com, tom@talpey.com, bharathsm@microsoft.com, 
+	samba-technical@lists.samba.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 09, 2026 at 08:25:56PM +0200, Paul Louvel wrote:
-> The NCT6122D hardware monitor is the same as the NCT6126D, the only
-> difference if the number of UARTs: two instead of six.
-> Add it to the driver using the nct6126 chip kind to avoid code
-> duplication.
-> 
-> Assisted-by: opencode:z-ai/glm-5.3-flash
-> Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
-
-Applied.
-
-Thanks,
-Guenter
+On Thu, Sep 10, 2026 at 2:17=E2=80=AFPM April Cardenas
+<april.cardenas@canonical.com> wrote:
+>
+> Currently, when cifs_oplock_break handles a break request from the server
+> it searches for the appropriate tlink to handle the request
+> but incorrectly uses the current fsuid as the search key, eventually
+> causing read errors for users with multiuser mounts on NetApp.
+> Fix this by using the tlink from the cfile struct instead to respond
+> through the correct session.
+>
+> As breaks are handled in a worker thread, the current fsuid
+> isn't guaranteed to match the session that the break is intended for.
+> This means that cifs_sb_tlink may search the rbtree using the wrong fsuid=
+,
+> and return a tlink with an incorrect session than
+> the lease break was intended for. As a result, the breaks
+> may be ACKed through an incorrect session.
+>
+> While it seems that Samba/Windows Servers 2016-2025 ignore this as long a=
+s
+> the lease key is correct, we ran into a case where if you're using
+> NetApp ONTAP or Azure NetApp Files they will reject the ACK
+> and return `STATUS_LOCK_NOT_GRANTED` errors on any future read requests
+> a user may initiate through their still held open file handle,
+> and the server will eventually close the file.
+>
+> In the dmesg logs, the user may see errors like these:
+>
+> CIFS: Status code returned 0xc0000128 STATUS_FILE_CLOSED
+> CIFS: VFS: Send error in read =3D -9
+>
+> With a multiuser mount using NetApp, this issue is really easy
+> for users to hit on a wide variety of kernel versions
+> by attempting to copy a file from the share
+> to the local machine through GNOME Files/Nautilus.
+> This copy will always result in Nautilus throwing
+> a `Bad File Descriptor` error to the user and fail.
+> With this fix, you can copy files through Nautilus without issue.
+>
+> From looking at the traces, it seems that glib will
+> open the file first, and call listxattr before actually attempting
+> to copy the file data. The listxattr call always triggers a break,
+> causing the copy to fail.
+>
+> The proposed fix returns to the way the client grabbed the tlink before
+> commit e8f5f849ffce2 ("cifs: fix potential oops in cifs_oplock_break").
+>
+> The bulk of that commit (checking for list empty) remains untouched, and
+> I think the change to using cifs_sb_tlink was intended to avoid a
+> NULL/ERR deference on the tlink as well as update the reference count.
+>
+> I believe this fix should preserve those safety properties, but of course
+> I'd appreciate any corrections here.
+>
+> Fixes: e8f5f849ffce2 ("cifs: fix potential oops in cifs_oplock_break")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: April Cardenas <april.cardenas@canonical.com>
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Thanks.
