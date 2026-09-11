@@ -1,128 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BE564349B9
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:52:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF2B43CE56;
+	Fri, 11 Sep 2026 10:54:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789123967; cv=none; b=Uvh/DG5dBrKnI0ijSDiA7QrjU0TnrblNdzvAyfLQMludKB9vsXxON9NKkudPK2ufMKZwC05Zsfi5SJVPTWuHAGAZK1MADDAkCMbY6WVOwHYA86Pma4NmZcJkIPzcxv7SWJT0ppySVW8O4ab+vkYPBMdIZD4fUg+t+yok+xqgNhE=
+	t=1789124044; cv=none; b=Wez/MuA8d/GgpjxAUMaK45z50iFhoLn/5HxnQoYBt3JFGmnxVz0NZM1YJqywMk/d6O2pfRGWFzQ0YHBCfCGqtKaxZVHSLY+RzSbgQ6kkbc5ZVgBTDsEu6iFhxS0O8Y7y7Aj+cszhmVPhJe/k2mbPt2v5q+clXoEh3Xu0+jteUC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789123967; c=relaxed/simple;
-	bh=JWoIoc8tLXrJ3xuz+3+ViM9nOMpwaViwTZKv28U6Sb8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gO9LmGb2Jrc3uIUzy1+nS43LMyGHkuc67qInUMBw//MsTCTBolQb4N9/SihDzMwJc5c2K5uE+V8d1Yx2o9mHycEUYkO2OuUe16NDI8O203nfODo1xutnLG1Jb9WjIIDDvYrTy+xoSEloDFIFnN28l0YXuZfW2Fb0NRaDrAp3ZA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oYsWDOMJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789124044; c=relaxed/simple;
+	bh=QB+9HG3aMo7t4aNhrrRHbnFlXTuSwPs0aOR9EayEbLs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Zt7nim8BRPglTqobsRFD0I3v/C7+PJOO4Y6VJyHJj9Hs5l/2MZCyzeqFL3gGpeylIJ3O6L1nCg/Y7hhgkN4pJWNYbVtrtcEdYss6/qmx3+zs5bXlWd9CGIL2FSlCwkMST6BYgXvHX0my3wCV67jMBSW+484Os9Xw1SqfiUnQOaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I2HF9zFQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oYsWDOMJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 408171F00893;
-	Fri, 11 Sep 2026 10:52:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I2HF9zFQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD6D91F000FF;
+	Fri, 11 Sep 2026 10:54:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789123965;
-	bh=c6Cwwnk73gp5XSyU0doZGD+8vzCu7Q6LPoYV28cPnXw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oYsWDOMJ0l53BeGZelTynmCuUtj16bIGAuqh5RhUpbj7bzpwvUzL3Fbn+8EZVr/aW
-	 pShpSifEYG0g8AHLHMFYQ5E0ecNBcDwOQgnT0+N2T5T0NvhDy22OF3hhUMrTv6Vtaf
-	 7CGG8iwgCxZW25csAKC5LxwGkHbl6oaAvTeWwMWW3C2UsfqwqA+572ZDQCMOST8Wz+
-	 h1hUeptKMSj1CptgM0QdQUMtmNU5jfglH3QlVxlqPiyL6dnzeXcOVsKxkrRjSrg4Ky
-	 6l96I6Mk32XGjCzF6IiuPxyEmqNBuAV/okbkApdKI2OI98oxgKqRwD81iW2ccF6aYY
-	 BZ2/AA182S9iw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] mtd: spi-nor: Fix quad-enable for flashes with QER
- bit in SR1
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vignesh Raghavendra" <vigneshr@ti.com>, "Pratyush Yadav" <pratyush@kernel.org>, "Michael
- Walle" <mwalle@kernel.org>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Takahiro
- Kuwano" <takahiro.kuwano@infineon.com>, "Richard Weinberger" <richard@nod.at>
-Cc: "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>, linux-kernel@vger.kernel.org, "Steam
- Lin" <STLin2@winbond.com>, linux-mtd@lists.infradead.org, "Jon Hunter" <jonathanh@nvidia.com>
-In-Reply-To: <20260911-perso-fix-spi-nor-qe-mxic-v2-1-70c324e9f30e@bootlin.com>
-References: <20260911-perso-fix-spi-nor-qe-mxic-v2-1-70c324e9f30e@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 10:52:44 +0000
-Message-Id: <20260911105245.408171F00893@smtp.kernel.org>
+	s=k20260515; t=1789124043;
+	bh=nlFiPjgIYaXefonnpKUDARfjcawn8SLbfllvFr0tO/0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=I2HF9zFQKicAZjed9rwYN+JTEbVb/bv2yG5kyYDTMfFfjHjqYzDbYqp804t66fF0A
+	 vL5VOgbw91B6Q1U50fweYg/c2+IkLjCd/Wq1GjcXuojI+0vPLHn8L9k61GWVkoRA+m
+	 WkjomVDC0LeVk00USoOv6qyW9085av5XbfslUMAXkAegHBBUK5+6KcQS5D9Dd75u6g
+	 XAgN9nVm6rc7MaOmA70Rdoym5L2jg9SRaoynkmGANe15+8FlWpRktBGOdqYfIrAsPY
+	 DsVXcH2VCxpQtZZiJ7gNKRtI30BXWsKMTK80McSi6QAfLe1twtc8AyWAZh/iMc/DZ8
+	 1nhtKQsVyAJtg==
+Date: Fri, 11 Sep 2026 11:53:58 +0100
+From: Simon Horman <horms@kernel.org>
+To: Jiangshan Yi <yijiangshan@kylinos.cn>
+Cc: sgoutham@marvell.com, rkannoth@marvell.com, gakula@marvell.com,
+	sbhatta@marvell.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	13667453960@163.com
+Subject: Re: [PATCH net-next v2] octeontx2-af: consolidate RVU AFVF device id
+ definitions
+Message-ID: <20260911105358.GD48209@horms.kernel.org>
+References: <20260910104102.590989-1-yijiangshan@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910104102.590989-1-yijiangshan@kylinos.cn>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] spi_nor_read_sr1_and_sr2() leaves sr[1] uninitialized when read_sr=
-2 is unsupported, leading to uninitialized stack memory use in callers and =
-spurious -EIO errors.
---
+On Thu, Sep 10, 2026 at 06:41:02PM +0800, Jiangshan Yi wrote:
+> commit f695390ea639 ("octeontx2-af: Fix limiting SRIOV VF count logic")
+> added a local PCI_DEVID_OCTEONTX2_RVU_AFVF define in rvu.c, although
+> the same value was already defined twice elsewhere: as RVU_LBK_VF_DEVID
+> in af/rvu.h and as PCI_DEVID_OCTEONTX2_RVU_AFVF in nic/otx2_common.h.
+> 
+> Move the definition into the "PCI device IDs" block in af/rvu.h, rename
+> RVU_LBK_VF_DEVID to match the PCI_DEVID_* naming convention of its
+> peers, and drop the redundant copies in rvu.c and nic/otx2_common.h,
+> the latter already including <rvu.h> through the af include path.
+> 
+> No functional change.
+> 
+> Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+> Acked-by: Ratheesh Kannoth <rkannoth@marvell.com>
+> ---
+> Changes in v2:
+> - also drop the duplicate PCI_DEVID_OCTEONTX2_RVU_AFVF define in
+>   nic/otx2_common.h, which already includes <rvu.h>, so that all three
+>   definitions of this device id are consolidated into af/rvu.h
+>   (suggested by the Sashiko netdev review).
+> 
+> Link: https://lore.kernel.org/r/20260908094051.666769-1-yijiangshan@kylinos.cn
 
-commit d557e6d5e442dbe4ee4d997bc0f3bb6190d5ba2c
-Author: Miquel Raynal <miquel.raynal@bootlin.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-mtd: spi-nor: Fix quad-enable for flashes with QER bit in SR1
-
-Some flashes do set BFPT_DWORD15_QER_SR1_BIT6, which means they do not
-have an SR2 to read from/write to. The generic QE helper has forgotten
-about the Macronix case, which causes booting to fail. This fix makes
-sure SR2 reads just return 0 if unsupported to accommodate this situation.
-
-Link: https://lore.kernel.org/linux-mtd/178876719232.3543902.14451625037676=
-421254.b4-ty@b4/T/#m5bc4ba6776436f2870ced0eb5789d229037ad840
-
-> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
-> index e2b6efafdd8d0..7bb197df5585b 100644
-> --- a/drivers/mtd/spi-nor/core.c
-> +++ b/drivers/mtd/spi-nor/core.c
-> @@ -864,7 +865,10 @@ int spi_nor_read_sr1_and_sr2(struct spi_nor *nor, u8=
- *sr)
->  	if (ret)
->  		return ret;
-> =20
-> -	return spi_nor_read_sr2(nor, &sr[1]);
-> +	if (nor->params->opcodes.read_sr2)
-> +		ret =3D spi_nor_read_sr2(nor, &sr[1]);
-> +
-> +	return ret;
->  }
-
-[Severity: High]
-Does this code leave sr[1] uninitialized when read_sr2 is unsupported?
-
-In spi_nor_write_sr1_and_sr2_and_check(), an uninitialized u8 tmp[2] is
-passed to spi_nor_read_sr1_and_sr2():
-
-drivers/mtd/spi-nor/core.c:spi_nor_write_sr1_and_sr2_and_check() {
-	u8 tmp[2];
-	...
-	ret =3D spi_nor_read_sr1_and_sr2(nor, tmp);
-	if (ret)
-		return ret;
-
-	if (sr[0] !=3D tmp[0] || sr[1] !=3D tmp[1])
-		return -EIO;
-	...
-}
-
-For chips without SR2, tmp[1] remains uninitialized stack garbage and the
-comparison sr[1] !=3D tmp[1] can evaluate to true, returning a spurious -EIO
-error. This causes quad-enable and device probing to fail for the exact
-flashes the patch is attempting to fix.
-
-Also, does this affect spi_nor_otp_lock_sr2()?
-
-drivers/mtd/spi-nor/otp.c:spi_nor_otp_lock_sr2() {
-	u8 sr[2];
-	...
-	ret =3D spi_nor_read_sr1_and_sr2(nor, sr);
-	if (ret)
-		return ret;
-
-	/* no need to write the register if region is already locked */
-	if (sr[1] & lock_bit)
-		...
-}
-
-Here, sr[1] contains garbage, which is evaluated in the lock condition
-check and potentially modified and written back to the device.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-perso-fix-=
-spi-nor-qe-mxic-v2-1-70c324e9f30e@bootlin.com?part=3D1
