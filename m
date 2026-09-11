@@ -1,88 +1,86 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1459F4334C9
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:00:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89F6F442377
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:00:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789110033; cv=none; b=dgCxk7u+8pCUtrnkRcy4nJW1LaUFNY5D9YxZ0kbFI69ltUU/2QMa/GGCWtmqN1RQeMhj9sJs43HTvklbd2JgMyvocvxD5QA4pisruUxxTtc1N6uwVodyj+ycLhes5u/2q4fDtp+q3O9pEVe7jmdvrzK5Unc73GGm+9cq0sKMxL0=
+	t=1789110036; cv=none; b=GoR5gHdAzCxu3XfNLBafr6rzS5h9rA/pgqSU3fpLYO9AgWxRGp1dp/VqfjJxacabPRbjOJVqcGY8ln4GP7LlQ9/9I0opgYPN5wHahJ3GTJ6nRE7aOVT5ePBcJRTS/KlU1yp+xE7RmQSgrJnZ/C1f+8Qyj9y5bqZ7LpYpBZ5NLSo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789110033; c=relaxed/simple;
-	bh=CBt8MX5rIzNb3d5REngrwYN6aQHq1xRM1sRT2r61QFA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nZxqEXPnvuRa8fkvuVfPrj5XXbI6WyIMnbHGdKwrxV1AGJlW2SSjXWpYrI1YqMvnwTV0MX73S7mFaGHwNnRYBeKj+jMAFpJr0vcuyT1zTE3AQ7HLwRckbFWK8ZislRkVvYKKHzx6DUnjeGLxddgUKAoZdHjrftSM0hRei7EXXJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Spk4E/zm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BXNOxARm; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1789110036; c=relaxed/simple;
+	bh=ylkjx/zKj9feNOcLIH+wx13fieHyCJOIYgit6seCmw4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=mQiUyJvW66wAQwZxTsYD9ayoQCpk3sHb/KNa5jSaAb5+RtjA+FryccmipNOserbjlaPgbN1OILvjOC7lMjz9x7Rj/srP+zpOemjiTqgbLt7ozmKMlM5u6jEWHivau+j8NY7R5I2dngka6sRu+1VzzGh5c0zmZ4w3oTBoQZgjOOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GjSpZDbn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VGxGLASU; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Spk4E/zm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BXNOxARm"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68B6kQgD3376574
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:00:12 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GjSpZDbn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VGxGLASU"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68B6kI4A3328625
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:00:14 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	B0C1RJkdi9pngWirNo4qhGJuYnCZd20yeNRymvfFXgc=; b=Spk4E/zmrLSEfIug
-	MlybMJpKcec+3UpZhNwZny4gTGAsnvXINVKGPQr13DDCLB4HQJXwGhzDDoqufsU+
-	Z3Vmflhdd5RLf3Crje0vw48syJHkcRssvBpAng1Npzy74RquGcXbIgYlp4/tDEym
-	omsXYY4lebwtkbr9fwa0RYcjQXCTZZyR5ySBz5VSAzzug6oESNxysSUUhoevs4qi
-	zYS1TSVsLkm8TYMV9P2ss5wiktB6TVgma8/oo0h8RHCZQE3vMcZqia9j2Lemhrmi
-	LaAyP68/4RUMGlebTbKDDS0HNAk0E7ClXlWQNXs7awAcLStXQiU/Y83yZKny9W1e
-	Gw7XHA==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmbd50btw-1
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=ot0o1fL3FlIljmyMpGi3Yg
+	ySihAQwuGmlbW1iDnqSlA=; b=GjSpZDbnuxfZj4YnlV8VWnN5/xDr803fZPn6g5
+	YiJpokORQACDmSQJYtG8fpJdl+Th93P8uHshvkoTXg8jAoqtcqpYDXHNl+/EpcPF
+	SOajObKqY8qUvr9OazhuYIxwZS4qPpvhO+vzd51dcJtMvLS0sHJowWT6X0DyMGyt
+	NCWSvu+GY8szkMJ8L4JCMVB5P7/XAjB416IEZgs4lBl4rrpmURopjpT2umk57hLK
+	DEWCZxtPR3Gn4blCSAOMct2lzAX0b6+Pv/7u/ph24OMWGE4SkWUqkpq5FcLgcjpt
+	9BSfa25H5YdsO4q/3VrvKjDtU2Y/HrhzmflGDMgde2jTAYaA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmbdr8bwv-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:00:12 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc18ced1a5aso1141836a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:00:12 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:00:13 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39af92138f9so1178577a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:00:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789110011; x=1789714811; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B0C1RJkdi9pngWirNo4qhGJuYnCZd20yeNRymvfFXgc=;
-        b=BXNOxARmDLjvD/joaDL1CkRjIRXh/Fbr55vta4d7qORzHDK0yhikeBNigrkBfnvB4b
-         QnPippaziSzCldxolW/lv740MW/Hpb614gCFnXPgnBnWsDQg2DhlRAJNfIiLfySk9PA5
-         8f/B59B3wzwPLqKBfTRaDvkrTXdM4NoQ+4QiNTyI1TIE8nm44My6qpLEAs0cADQ/HM0J
-         Qhv+bqlzkMSBjgLHjTvzC2laXNz3PkXCHoLHGoD148mFVJnVcAgsFC6jwy29/J9HJnBi
-         4s6Uce9e/PyVDa9ExGMK3G1zXOAMUGqLJz25/whSj8oQYDD37sdOXFZaqu7/r4IEeWgT
-         rThA==
+        d=oss.qualcomm.com; s=google; t=1789110008; x=1789714808; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ot0o1fL3FlIljmyMpGi3YgySihAQwuGmlbW1iDnqSlA=;
+        b=VGxGLASUqlboHIgHTBtQGMfAIxy6gWraBKc4ydL86vS38+beIspYbJ3rb7fHyO+E5z
+         KF5Itt9Y8QyhXhEIJ3c8Zos38atPpFa+eEe4dyeg4ZI1n1zIaY+qEOLvo2qedXjqDk5U
+         bvS/Yufavbt3AXRu0bBZPbkbI2GRMCxgiK/NiG1r/uzzv9eSY5lU39ojfwAvDv04BzO/
+         7wt6QUC/fqdTvCA8mCQH7r33kzbdJyH8Ob8WoUFOiTrQYsfGxkOterVo6sb0kbBUafMh
+         nW7ry0h/g0t966ufUlHMzhj7S2pnfeQZksaG/0SUO/SoRc4yXVGSU6P1ShlvzPRSEFrr
+         656Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789110011; x=1789714811;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B0C1RJkdi9pngWirNo4qhGJuYnCZd20yeNRymvfFXgc=;
-        b=quRPg6YtmzwkV7i9xzILXtMlCnWqQLqTF+czJjMKh+orO7lec67j+0sdt245DazXYO
-         uFAmsatQNoxJjIWJspHAM+Pz5R63BtqGnjielVFAIMVuGg58/TbLupS1SeaKSlFMvh7u
-         8myBYas9BkQset4usM0b3ivBzqiLIrExRy9AYFhU41w4mXqQDvPmg6E7QjWssK8vGmqr
-         IIhSo/UfVJLdQJnOTotDzFP+nFijPkCl6vkAJ8Gu1zl8sUKZksmnyXUQXU5qlbtmzOpQ
-         x4YE0C6g7oG17VgMHSuYlGhl5vbE6zi+3lnW5hysGAAbeoChAhxcluBBGMziX72Qg+Nr
-         Elbg==
-X-Forwarded-Encrypted: i=1; AKwUvBwx1N+bGg7YPfDpajz1zjJxK4L2hu5ysIep4bjcu7b6dFt17XAtoIDjQn8D4YQLsBoINhkU5biyQdYwpDo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lCYC0lfkxDzy4HkwIFtbGGfnvXILSvyKyezOYd3Vtt5YGkrhjo
-	Iucc+pvyYot5nAexmitLr0Rg9npDnWXswWMCqZCY04AHyadl/pHerT48BpnM2M/DmXn/eYQilMn
-	Acc8S2JkdDmfAHzxq+LkfYE2hqNpnEXryhVV1QpKPLFkuIBGcoM2pCUMDB1tsK/SzkAw=
-X-Gm-Gg: AYBFou1+6935CwWkxfW0SUA8EbyJwZzcrZfgIIaK7BBtra1TKAJhb7snMaMiQ6YSbA7
-	JgULLY0dF6+Hl57oGeoZxIAUdda+hKMYcXhl8UJvu8skhklGrCvYvduIH/RhOIWe7QCUcmT+X/a
-	+e39m82Ivdxq14Gjd+lgYdlvg1xe278ntUPSJeFRR6pLST/KhBoO3cYRvq/HwzdJkJMs2hgk+Am
-	CHn1kiyvjrKWSonQ9fsvA3REEdBSC4WQ4vqc0Pxpamt1bpqeyT93GeFJx4DNDwfEeDl7XaGSNwp
-	BNk++/DdAsjY288ClaQpmzEs0bKoto9H3j8MNrR/u/dSpc1vMOHxDm5U4FUtk7v46P157OSdgH4
-	dmj4Ek9ZodmRBGv1R1pwjSwQLI2u9kqJlIbs=
-X-Received: by 2002:a05:6a21:a96:b0:3d3:afeb:880 with SMTP id adf61e73a8af0-3daed895710mr4985619637.28.1789110011555;
-        Fri, 11 Sep 2026 00:00:11 -0700 (PDT)
-X-Received: by 2002:a05:6a21:a96:b0:3d3:afeb:880 with SMTP id adf61e73a8af0-3daed895710mr4985522637.28.1789110010978;
-        Fri, 11 Sep 2026 00:00:10 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789110008; x=1789714808;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ot0o1fL3FlIljmyMpGi3YgySihAQwuGmlbW1iDnqSlA=;
+        b=HIILfvlhIXy2fdaItLXKhr7UYCS675gFI2IeMlC3GQV+grHwcn4/Og3luOPfIQUMEI
+         fSijL794tM5V+sM6gmIXJJ1BGR/bSsvLVNR8WQxN9SrovOgbzpaqyErGaK6SX/UG5nRT
+         Gk34ZYO+nHiQCBUWeuViRBb6xtKRndcJHLy2fKZZg1xtR+cI7u/8KVjKzfcWY4Px6reG
+         9rUcnO5M+NeZd2JYxjJZrK+r+4nl3B4NsrnE8uveH7bp8JX7M943C5m4Iswv1Rw0r/tQ
+         vrnOtUfCStF0fKSGjWmGWMS9BzLB7SMfQbobKFCbSluniymN3xDXWD0WAmX897sCvkt8
+         6PBA==
+X-Forwarded-Encrypted: i=1; AKwUvBzT9LzgI+oGDZUMd6SjorZlNghLu+i1xGQU/2iKXzPF1wcU4vVhyHZLF5TIyl9geEACQkd+F2X1kVIfLV8=@vger.kernel.org
+X-Gm-Message-State: AFuF++ls6VQEgg8iL824gZOSoXO8/HOlaq3lyX1cW0DMF29yQXjHaAZM
+	/738iBZ5PsHnZfXP7SxmPpI/GoWSMIhekEWXp48LQEZ8iGC7sk9bqbYsWuAJC8QJl+mWYkSl3Ag
+	rzp0QCtwMI55DMuCwyiFCyl88ZYdsxyR7G7j3FCaa8BfZ3NFcbDadypEFzy0swyf1/Ec=
+X-Gm-Gg: AYBFou1VlQT/civ9wo3Yt4Csel3GR5B4457zO2hY3n/f2jy8nQ+MhXFlI/2VthzquCv
+	IN/J7OAt0dkVJXIoW09O8Z6utqL6uDl2eEpmTroqqBmMgT2tlJJsiHxOH0SpoUSI5ePXWhsGlTG
+	vMDHpno3H3w0bXoAtgtrdQJlnfzB51vhZwICtCbYvKI89PrWOSUwgqn4S8Rq8sDkgZVonesyFAX
+	PMzDN6jiWf1PFxLHoAb7AXl6cgF768BsOX5Z4MN2plR8klxh4aqCkjVi1FD0b/f+1KNlLCB+lXA
+	Egg7UVExf+5+SwzFwvBhS8Y49Hije87EYK3xrwp4RXHQ6Lg56UFHpRX2Wc/llDBKfLC3IrR8fqb
+	4SWiYRZa1pwVJHqDS0UH7yG8Q6UYIxYgnXbQ=
+X-Received: by 2002:a17:90b:4ec7:b0:398:a649:8fa3 with SMTP id 98e67ed59e1d1-39d77b770ccmr11682968a91.23.1789110007738;
+        Fri, 11 Sep 2026 00:00:07 -0700 (PDT)
+X-Received: by 2002:a17:90b:4ec7:b0:398:a649:8fa3 with SMTP id 98e67ed59e1d1-39d77b770ccmr11682908a91.23.1789110007177;
+        Fri, 11 Sep 2026 00:00:07 -0700 (PDT)
 Received: from hu-arandive-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e9a8a9sm3799532eec.13.2026.09.11.00.00.07
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e9a8a9sm3799532eec.13.2026.09.11.00.00.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 00:00:10 -0700 (PDT)
+        Fri, 11 Sep 2026 00:00:06 -0700 (PDT)
 From: Aniket Randive <aniket.randive@oss.qualcomm.com>
-Date: Fri, 11 Sep 2026 12:29:51 +0530
-Subject: [PATCH v9 1/2] i2c: core: Add i2c_update_timeout() helper for
- dynamic transfer timeouts
+Subject: [PATCH v9 0/2] i2c: Add dynamic transfer timeout based on message
+ length and frequency
+Date: Fri, 11 Sep 2026 12:29:50 +0530
+Message-Id: <20260911-master-v9-0-77ac458344e2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,9 +89,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-master-v9-1-77ac458344e2@oss.qualcomm.com>
-References: <20260911-master-v9-0-77ac458344e2@oss.qualcomm.com>
-In-Reply-To: <20260911-master-v9-0-77ac458344e2@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAOamo2oC/22NwQ7CIBAFf6XhLA2loYAn/8N4oBQsxoqyLdE0/
+ XehjcaDl00meTM7IzDBGUD7YkbBRAfO3xLIXYF0r25ng12XGFFCG8KrBg8KRhOw5Z1iXHNGpUJ
+ pfA/GuucaOp42hqm9GD1mOy96B6MPr/VT5Hm3RUVVf6KRY4JrK0lFtJWUyoMHKB+Tumo/DGU6K
+ Lej+LEp/9oi2Uw2rRaVZinwx16W5Q0R/ebS8wAAAA==
+X-Change-ID: 20260716-master-f7da57c7529a
 To: Andi Shyti <andi.shyti@kernel.org>,
         Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
 Cc: Dmitry Guzman <Dmitry.Guzman@mobileye.com>,
@@ -102,213 +102,127 @@ Cc: Dmitry Guzman <Dmitry.Guzman@mobileye.com>,
         Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
         Aniket Randive <aniket.randive@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789110003; l=6911;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789110003; l=4088;
  i=aniket.randive@oss.qualcomm.com; s=20260325; h=from:subject:message-id;
- bh=CBt8MX5rIzNb3d5REngrwYN6aQHq1xRM1sRT2r61QFA=;
- b=2nsXlxL4z5MH7mBlCzFLtLc5y/2kYL7anQuSShQ7XF+7K/hg6R5jGr8VCpfxi7JEjEgusXeL9
- I7Wq/yqa2IJAV7d3r8dCFx3N6wctk9L9BP4lTZzJdzoxCBaaGiMLOsI
+ bh=ylkjx/zKj9feNOcLIH+wx13fieHyCJOIYgit6seCmw4=;
+ b=cNYpkOrAYObvZYLEbWVlwSo4eX+zpxX1cRCnXHr/rRAqg1EF1iiv3OYF1Jzy1a1XAx7yIQnvr
+ N+M5USBmP/KBZjTZ1xoXqkYB2eemF4AiOiN8DQtodT3I7wGQCIqD1ub
 X-Developer-Key: i=aniket.randive@oss.qualcomm.com; a=ed25519;
  pk=4o37X1ZqGbCO/T2SR8kq/HnWvq0yb1RUlFuNukovbQk=
-X-Proofpoint-GUID: lAOMB44mp3HuXqBNCRs_c9vANHyP8bv2
-X-Proofpoint-ORIG-GUID: lAOMB44mp3HuXqBNCRs_c9vANHyP8bv2
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDA5NSBTYWx0ZWRfX/wFbJIN+bsMw
- qk+3pzN4zYbF+JfQLOfGpnB2c4CxoH1riffOcQ89n7lzQGyjo1pF5Jgg1dUhaBgkjrq5lSLHrGH
- ZBEBp3J+kLqmL9CU0sqOV1OzXFxB2Uc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDA5NSBTYWx0ZWRfX3AtUr+2qKWDi
- K3678yMpZJFcX9p4/sVdhop6chFhcDkmo2Fdbht765Z/Uvn0EVlD1A0UWcYwz9bAixZG5Ev5Yc7
- plctYWe5gMF59Moz4sQJzfPy+3nWTeIk9fhITHpzEVD7gqBr2BiN7mBEqwDPTjMtuaZgp5g4s2/
- SR/UKD3XhT8beCEWGKpXjSa9zGa/ecX6asJjJfttrgFH0eCkwzBpVtBRalKxYT4f70J78YHLqd/
- ySlp32lDZH9SXp4522oePQZqEfn0k2EoXKJ+hYey7qHzieDb/9h3696lZwB5GPVuoRQ4Zeu7G2I
- zNiF4X/fyRNsnmF0YUqjES8kuiqDMdV3U2Gys+0i/cB6D4gyn/dqodB5k8wARhof3fSlDO1SX+N
- ouumbx2IifWwLImT3H2WM4Zcu8eGHS4SPvvzvqHVhvDP0CgP3iTmWgq78Q/E9S4pgAUiJHW1o7G
- PiMFhrMbDPDAOMBbe2Q==
-X-Authority-Analysis: v=2.4 cv=db0VTnXe c=1 sm=1 tr=0 ts=6aa3a6fc cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-GUID: OTtYoNQK0GvnUnQZXfPicYcaGClnHTiH
+X-Authority-Analysis: v=2.4 cv=PLmaavqC c=1 sm=1 tr=0 ts=6aa3a6fd cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=Xw8hV2vT4XMzfsrjPA4A:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=JvO64EORAAAA:8
+ a=ernR5N_utsnnydoaGBgA:9 a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
+ a=FO4_E8m0qiDe52t0p3_H:22 a=Qz6KxWHdQ2_aS5WpiCfK:22
+X-Proofpoint-ORIG-GUID: OTtYoNQK0GvnUnQZXfPicYcaGClnHTiH
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDA5NSBTYWx0ZWRfX4ZGCVOlUGbSB
+ imYubYFVmIitRRQzaqiyNWm971863d/OuUzI7ZVGgih3xr7BEca1GWm0brRCzR+rgknDc3KVOyC
+ fGYlEVikhxb8nE9+vi7nX7dCfI5Biko=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDA5NSBTYWx0ZWRfX65fn10wHQ1eq
+ bv0Atl02Edjnk6WuFhvneiwud4e4aHjji5bKUv+3tcDVH5Jug85Om1P6LfyJQhloK9s5694tFuL
+ 7U93CTNI4gI8p6/zwT+blEH2TouFSU5E0Lj0kMj99eaMhsGq0HpgenMIGKqHGeqpFIoY/NFUBYJ
+ RviEBIT7VNvSqL5or+kJD9eQJ8Bm+cji1eO2odoyg3ENQF5nGaqMR0QQUJsxY+4Ov2vYLDBCvB3
+ Yf0K5x3PLEUH48lrXlL4kfs2dlnmqLCrKWwfAGFT1RH4b8tqfPnlHQSaVWfOgKCmGDR4XbCsmuD
+ Pd7U9yuiUb5G/RZsxp7seATwSmAosinKtITvtGEMlZIgNWQiR2JndVilgFGtcB1gZvWRmkDgHrf
+ 0Jcs7Iir0EIR17gQ5lzWFUOao6TQD1RjUaG0MItmiL+AzoH1+n9Zd3FgOtguApFrrgh1nI+dg3G
+ 2dYNL4u56nX7++dnJdA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-11_02,2026-09-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 adultscore=0 clxscore=1015 lowpriorityscore=0
- spamscore=0 impostorscore=0 priorityscore=1501 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110095
+ bulkscore=0 suspectscore=0 spamscore=0 phishscore=0 adultscore=0
+ malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609110095
 
-The transfer timeout for an I2C controller should reflect the actual
-message length and bus frequency rather than a static 1-second value.
-A static timeout causes unnecessary delays on error paths for short
-messages, and may be insufficient for very long transfers.
+The I2C core and many controller drivers currently rely on a fixed
+timeout value that does not account for transfer characteristics such as
+message length or bus frequency. This can make the timeout unnecessarily
+large for short transfers, while longer transfers at lower bus
+frequencies may require a timeout that better matches the expected
+transfer duration.
 
-Add i2c_update_timeout() to i2c-core which computes a transfer-specific
-timeout and stores it directly in the standard adap->timeout field.  The
-formula accounts for 9 bits per byte (8 data + 1 ACK) at the configured
-bus frequency.  The caller supplies a safety multiplier and a minimum
-floor so that each driver retains full control over its timing policy
-without those values becoming public API.
+Introduce a generic helper API in the I2C core to calculate a
+transfer-specific timeout from the expected wire time of a transaction.
+Store the computed value in adap->timeout so that both the I2C core retry
+logic and controller drivers use a timeout value that reflects the
+current transfer.
 
-Storing the result in adap->timeout makes it visible to all consumers of
-that field, including the arbitration-loss retry loop in __i2c_transfer().
+Keep timeout policy decisions within individual controller drivers. Let
+drivers provide their own safety margins and minimum timeout floors, and
+avoid exposing those driver-specific policy values as part of the
+generic API.
 
-The function is gated by CONFIG_I2C_DYNAMIC_TIMEOUT.  When the config is
-disabled, i2c_update_timeout() compiles to a no-op inline stub so drivers
-that call it build cleanly and the existing static 1-second default is
-preserved unchanged.
+Convert the Qualcomm GENI I2C driver to use the helper while preserving
+its existing timeout policy. Preserve the static timeout behaviour when
+CONFIG_I2C_DYNAMIC_TIMEOUT is disabled, and let a userspace-configured
+I2C_TIMEOUT value take precedence over the computed timeout.
 
-A timeout explicitly configured by userspace via the I2C_TIMEOUT ioctl is
-stored in a new adap->user_timeout field and always takes precedence over
-the kernel-computed value.  When userspace has not configured a timeout,
-the computed value is used.  The ioctl keeps writing adap->timeout as well,
-so adapters that never call i2c_update_timeout() continue to honour it
-exactly as before.
+Suggested-by: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+---
+Changes in v9:
+- Add '---' demarcation before revision history in the cover letter
+- Link to v8: https://patch.msgid.link/20260827-master-v8-0-596bc81c5cf9@oss.qualcomm.com
 
-As i2c_update_timeout() is an exported helper, guard against a zero bus
-frequency from a misbehaving caller with WARN_ON_ONCE() and return early,
-leaving the existing timeout untouched as a safe fallback rather than
-dividing by zero.
+Changes in v8:
+- Compute GPI multi-descriptor timeout using the total length of all
+  messages in the batch, since completion is reported only after the
+  entire batch finishes.
+- Guard against zero bus frequency in i2c_update_timeout() with
+  WARN_ON_ONCE() and retain the existing timeout as a safe fallback.
+- Link to v7: https://patch.msgid.link/20260813-master-v7-0-3f9010cf9229@oss.qualcomm.com
 
+Changes in v7:
+- Add CONFIG_I2C_DYNAMIC_TIMEOUT to gate i2c_update_timeout(); no-op
+  stub when config is disabled preserving existing static behaviour
+- Store userspace I2C_TIMEOUT ioctl value in a new adap->user_timeout
+  field; userspace-configured timeout always takes precedence over the
+  kernel-computed value
+- Fix geni_i2c_gpi_multi_xfer_timeout_handler() parameter type u32 ->
+  unsigned long to match wait_for_completion_timeout() expectation
+
+Changes in v6:
+- Split into two patches: core helper + driver consumer
+- Moved timeout calculation to i2c-core as i2c_update_timeout(), which
+  writes directly into adap->timeout so all consumers of that field
+  (including the __i2c_transfer() retry loop) benefit automatically
+- Driver supplies safety coefficient and minimum floor as parameters,
+  keeping I2C_TIMEOUT_SAFETY_COEFFICIENT and I2C_TIMEOUT_MIN_USEC
+  internal to i2c-qcom-geni.c
+- Compute timeout once per batch in geni_i2c_xfer() using max message
+  length, all internal wait sites read adap->timeout directly
+
+Link: https://lore.kernel.org/r/20260715101805.3615166-1-aniket.randive@oss.qualcomm.com
+
+To: Andi Shyti <andi.shyti@kernel.org>
+To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Cc: naresh.maramaina@oss.qualcomm.com
+Cc: linux-i2c@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
 Reviewed-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
 Signed-off-by: Aniket Randive <aniket.randive@oss.qualcomm.com>
+
 ---
- drivers/i2c/Kconfig         | 13 +++++++++++++
- drivers/i2c/i2c-core-base.c | 43 +++++++++++++++++++++++++++++++++++++++++++
- drivers/i2c/i2c-dev.c       |  3 +++
- include/linux/i2c.h         | 13 +++++++++++++
- 4 files changed, 72 insertions(+)
+Aniket Randive (2):
+      i2c: core: Add i2c_update_timeout() helper for dynamic transfer timeouts
+      i2c: qcom-geni: Add dynamic transfer timeout based on transfer length and frequency
 
-diff --git a/drivers/i2c/Kconfig b/drivers/i2c/Kconfig
-index c232054fddd6..1d9691ec0e7e 100644
---- a/drivers/i2c/Kconfig
-+++ b/drivers/i2c/Kconfig
-@@ -136,6 +136,19 @@ config I2C_SLAVE_TESTUNIT
- 
- endif
- 
-+config I2C_DYNAMIC_TIMEOUT
-+	bool "Dynamic per-transfer timeout based on message length"
-+	depends on I2C
-+	help
-+	  When enabled, the I2C core computes a per-transfer timeout from the
-+	  message length and bus frequency instead of using a static 1-second
-+	  default.  A timeout explicitly configured via the I2C_TIMEOUT userspace
-+	  interface always takes precedence over the computed value.
-+
-+	  When disabled, the existing static 1-second timeout is preserved.
-+
-+	  If unsure, say N.
-+
- config I2C_DEBUG_CORE
- 	bool "I2C Core debugging messages"
- 	help
-diff --git a/drivers/i2c/i2c-core-base.c b/drivers/i2c/i2c-core-base.c
-index fb25704219c7..5f6a7370dc89 100644
---- a/drivers/i2c/i2c-core-base.c
-+++ b/drivers/i2c/i2c-core-base.c
-@@ -29,6 +29,7 @@
- #include <linux/irq.h>
- #include <linux/jump_label.h>
- #include <linux/kernel.h>
-+#include <linux/math64.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/of_device.h>
-@@ -2001,6 +2002,48 @@ void i2c_parse_fw_timings(struct device *dev, struct i2c_timings *t, bool use_de
- }
- EXPORT_SYMBOL_GPL(i2c_parse_fw_timings);
- 
-+#ifdef CONFIG_I2C_DYNAMIC_TIMEOUT
-+/**
-+ * i2c_update_timeout - compute and set a dynamic transfer timeout on an adapter
-+ * @adap: the i2c_adapter whose timeout field will be updated
-+ * @bus_freq_hz: I2C bus clock frequency in Hz
-+ * @len: transfer length in bytes
-+ * @safety_coeff: multiplier applied over the theoretical wire time
-+ * @min_usec: minimum timeout floor in microseconds
-+ *
-+ * Computes a transfer-specific timeout from the message length and bus
-+ * frequency, applies a safety multiplier and a minimum floor, then stores
-+ * the result in adap->timeout (in jiffies).  The caller supplies the policy
-+ * constants so they remain internal to the driver.
-+ *
-+ * A timeout explicitly configured by userspace via the I2C_TIMEOUT ioctl
-+ * always takes precedence; the computed value is used only when userspace
-+ * has not configured one.
-+ */
-+void i2c_update_timeout(struct i2c_adapter *adap, u32 bus_freq_hz,
-+			size_t len, unsigned int safety_coeff,
-+			unsigned int min_usec)
-+{
-+	u64 bit_usec, total_usec;
-+	unsigned long jiffies_val;
-+
-+	if (adap->user_timeout > 0) {
-+		adap->timeout = adap->user_timeout;
-+		return;
-+	}
-+
-+	if (WARN_ON_ONCE(!bus_freq_hz))
-+		return;
-+
-+	bit_usec = mul_u64_u32_div(len * 9, USEC_PER_SEC, bus_freq_hz);
-+	total_usec = bit_usec * safety_coeff + min_usec;
-+
-+	jiffies_val = usecs_to_jiffies((unsigned int)min_t(u64, total_usec, UINT_MAX));
-+	adap->timeout = (int)min_t(unsigned long, jiffies_val, INT_MAX);
-+}
-+EXPORT_SYMBOL_GPL(i2c_update_timeout);
-+#endif /* CONFIG_I2C_DYNAMIC_TIMEOUT */
-+
- /* ------------------------------------------------------------------------- */
- 
- int i2c_for_each_dev(void *data, int (*fn)(struct device *dev, void *data))
-diff --git a/drivers/i2c/i2c-dev.c b/drivers/i2c/i2c-dev.c
-index ccaac5e29f90..d219eb89f978 100644
---- a/drivers/i2c/i2c-dev.c
-+++ b/drivers/i2c/i2c-dev.c
-@@ -495,6 +495,9 @@ static long i2cdev_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
- 			return -EINVAL;
- 
- 		client->adapter->timeout = msecs_to_jiffies(arg * 10);
-+#ifdef CONFIG_I2C_DYNAMIC_TIMEOUT
-+		client->adapter->user_timeout = client->adapter->timeout;
-+#endif
- 		break;
- 	default:
- 		/* NOTE:  returning a fault code here could cause trouble
-diff --git a/include/linux/i2c.h b/include/linux/i2c.h
-index 14ab4d3055af..e4302a1bd8ea 100644
---- a/include/linux/i2c.h
-+++ b/include/linux/i2c.h
-@@ -742,6 +742,9 @@ struct i2c_adapter {
- 	struct rt_mutex mux_lock;
- 
- 	int timeout;			/* in jiffies */
-+#ifdef CONFIG_I2C_DYNAMIC_TIMEOUT
-+	int user_timeout;		/* I2C_TIMEOUT ioctl value in jiffies */
-+#endif
- 	int retries;
- 	struct device dev;		/* the adapter device */
- 	unsigned long locked_flags;	/* owned by the I2C core */
-@@ -913,6 +916,16 @@ unsigned int i2c_adapter_depth(struct i2c_adapter *adapter);
- 
- void i2c_parse_fw_timings(struct device *dev, struct i2c_timings *t, bool use_defaults);
- 
-+#ifdef CONFIG_I2C_DYNAMIC_TIMEOUT
-+void i2c_update_timeout(struct i2c_adapter *adap, u32 bus_freq_hz,
-+			size_t len, unsigned int safety_coeff,
-+			unsigned int min_usec);
-+#else
-+static inline void i2c_update_timeout(struct i2c_adapter *adap, u32 bus_freq_hz,
-+				      size_t len, unsigned int safety_coeff,
-+				      unsigned int min_usec) {}
-+#endif
-+
- /* Return the functionality mask */
- static inline u32 i2c_get_functionality(struct i2c_adapter *adap)
- {
+ drivers/i2c/Kconfig                | 13 +++++++++++
+ drivers/i2c/busses/i2c-qcom-geni.c | 48 +++++++++++++++++++++++++++++++-------
+ drivers/i2c/i2c-core-base.c        | 43 ++++++++++++++++++++++++++++++++++
+ drivers/i2c/i2c-dev.c              |  3 +++
+ include/linux/i2c.h                | 13 +++++++++++
+ 5 files changed, 111 insertions(+), 9 deletions(-)
+---
+base-commit: f82a5da2f04960df9fb57489992d03dd5e64ec6f
+change-id: 20260716-master-f7da57c7529a
 
--- 
-2.34.1
+Best regards,
+--  
+Aniket Randive <aniket.randive@oss.qualcomm.com>
 
