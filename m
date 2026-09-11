@@ -1,125 +1,104 @@
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B224B351C34;
-	Fri, 11 Sep 2026 14:22:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F3A3546D3
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:22:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789136534; cv=none; b=PFC7ZfzYYNb8pa/qOOtuD25CFHo6EONM2rR5ihz08MLOscuoxde6xBwaUXmB1OvpDr2c9Sdawgum/gVwJxAOGk9Acoy2y0yy65k7HjWsgCvop5L8IVzeyiZFHZ36SABwIeQgju1kDcDIZj5wqYEAFK2gb/BauBHopUXGqalvw/g=
+	t=1789136546; cv=none; b=CF1fkbXagNLq9L4GfY8UqJSIjT1LncJrGeUmcIBP9GzvnpRrnvkCwUHDufG9obP5/FY68pBacbul0oNlQoOQAMFt+JDFrJgjmHp0L3J0AOJuMfDEu1iuETBbTrgglITHu0bW1OSH4QBJDGHqs9JiWjY32GZN13p8jVfv6X/WzHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789136534; c=relaxed/simple;
-	bh=jmNvfqXjweVniseb8oBYU2SlAr/cTHg9c4d+ZJ85pK8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s1rllgNy80WjzN+qY91STWPJa9Jh9ScpQxxOHeoFm18IAI7yfEe9fpBTfW81yo0/Fztlu5rO2fzd3tsTM4HZAnKA7h6FTqKA5CTeppyoidISc9vFP42m/5xbY7viWY25RNDGBlOlNjpMDrzE2Cz0xlfxHJW6PPRRra4WFK2Z/ZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=dRmx73Q/; arc=none smtp.client-ip=217.70.190.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	s=arc-20240116; t=1789136546; c=relaxed/simple;
+	bh=CKEQ5986CV/kzwyn5wRQ5Od0ZfAMuzoy3/vGXU7ndXw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WC+3A8K+MTyye0js5urlStaJWop7wYTLZ6OLX6LoSdL1bKpuqKnzDyD/Y8qR8ZhX+NTlAE3x4fHbbcTSXaMtcjZCC6kWpnWMxAhg0C+b/7RkVmk+Dnt/Lbw4kWBnpd+LEXpQBA4b2+vdaaLme3uvBXvaBdeMOsHlX/B2456NG9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y7tOSJfx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="dRmx73Q/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1789136530;
-	bh=Ox7YSacdV7h2InVZd1Iw3kxrYUsfnmdCyCbV+t17m9Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dRmx73Q/BqINvAznK12hHcya8HwHtUWWApvOp3949LNn7lbg00QuvV+XbJvOBjmqk
-	 qnEwahN+MXSnHfEuFfB1jR68KSJV6kbVjaVJ/xb+0CiEn0uE2i1XBtRydooWhtihAe
-	 ebUrtLoLjFoZWeD/L0U8JIzqTghuuQ/82VVra4VnwvUiGoKv/7Bzf/6sGEmuU0u2m7
-	 B9XRVOFTG34sHFOjTeXMsKvEYcAF8eNJasho/uhyMrptFRXMDjNDfnCUrPAURY3wGk
-	 ZT57vPYEODsmxnxI3PBQQnPCs+Bk0eIDIuYS8daqFCGitNr6DorRDxTwpAZhvEU6Pg
-	 +/tE0aGrVoVdQ==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 06475603E1;
-	Fri, 11 Sep 2026 16:22:10 +0200 (CEST)
-Date: Fri, 11 Sep 2026 16:22:07 +0200
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: Farhad Alemi <farhad.alemi@berkeley.edu>
-Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	falemi@asu.edu, Simon Horman <horms@kernel.org>,
-	Florian Westphal <fw@strlen.de>, netfilter-devel@vger.kernel.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: reject a forward path that loops back to the
- tunnel
-Message-ID: <aqQOj8EHUb6ZzWjR@chamomile>
-References: <CA+0ovCj+Pd5owGH+51rA8-RDu9YFx5oYUv8bV0zOE72QgVfY0A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y7tOSJfx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C9E51F0089B
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:22:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789136545;
+	bh=TxAn6ueekm44HEOWY30thTo349hdrLwTtPKtsmgWunA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Y7tOSJfxrk5G6npv+DhJi1lYpeo6/FikZNipxLmIw3AKHllZVyFuBr0Wm0sHPgr8+
+	 RN2ChT+R95Rs4+T6xp5dAQ4Tl2nsvfVXDKHJUqmB6GbSrV4X+oClILQXedWmwvR3PU
+	 T61+LGgkaUuj+7yBvjlYTdh4AaPu9ZoPe/c9BQwXlv5lCzRueC9j+XIjaDCnNZSIOt
+	 0iWNQwPYHkzF2XVigsesYNOl/GVeJapFpcKZFeBv9xj3r3c1rP1mO6fMAoNKTW7gVU
+	 wDGjaH79SsbFuw4vkvtXfDiUOO9qbe06gXSs2hMgxyGw0BwiP2/Ncn/FIUlbg8Bc04
+	 GZDjJdMW4AJaw==
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3a4fc78b556so8920771fa.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:22:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz3b+fpbrVa+hftxSfSqEs2qrmVCTIJQ+cZ8YG5yKfgzZtdAalJ2HACtslnZiITeFAJtLlnBSY0l+7XkEI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nA0ELk4Ls3M5RQvivu1vA8WAGHUj8lkEBUpzKbokShgdUh4NLX
+	ksOEQvYgXkehJ8DOxm1vR8EEoRSH80Jp5SNIOJskbBwN5ulPwDU//GW9hr9qxo5ZIDMadjenbCA
+	JaI2jLiiPODvAyCdngO1iSaiyRjTka50=
+X-Received: by 2002:a05:651c:211c:b0:3a3:42cf:c035 with SMTP id
+ 38308e7fff4ca-3a5a505d60amr4839001fa.2.1789136543723; Fri, 11 Sep 2026
+ 07:22:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CA+0ovCj+Pd5owGH+51rA8-RDu9YFx5oYUv8bV0zOE72QgVfY0A@mail.gmail.com>
+References: <20260827094820.3900062-1-luoxueqin@kylinos.cn>
+In-Reply-To: <20260827094820.3900062-1-luoxueqin@kylinos.cn>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 11 Sep 2026 16:21:10 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0ihYqbucMQeJE_ZtbUbhBERmvN=YrvqAtT_fG+9k0F5Lg@mail.gmail.com>
+X-Gm-Features: AcwNN1Wb1x4Wa89YnnzehnAvHYl21bHVksfC4doTtVVYnu6JAUsT7uHn6sZzk2I
+Message-ID: <CAJZ5v0ihYqbucMQeJE_ZtbUbhBERmvN=YrvqAtT_fG+9k0F5Lg@mail.gmail.com>
+Subject: Re: [PATCH] cpuidle: menu: Do not return a disabled idle state
+To: Xueqin Luo <luoxueqin@kylinos.cn>
+Cc: rafael@kernel.org, daniel.lezcano@kernel.org, christian.loehle@arm.com, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
-
-On Fri, Sep 11, 2026 at 12:17:08AM +0000, Farhad Alemi wrote:
-> ipip_fill_forward_path() and ip6_tnl_fill_forward_path() assign the outer
-> route's device to ctx->dev without checking that it differs from the tunnel
-> device itself.  When a tunnel's outer route resolves back to that same
-> tunnel, the walk in dev_fill_forward_path() makes no progress and trips its
-> loop check WARN_ON_ONCE(last_dev == ctx->dev). Release the route and
-> return -EOPNOTSUPP when the resolved dst device equals ctx->dev, so the
-> path walk either advances to a different device or fails cleanly.
-
-I think we can remove this WARN_ON_ONCE() from dev_fill_forward_path(), ie.
-
-diff --git a/net/core/dev.c b/net/core/dev.c
-index ecfbd72d5d1a..c67900354fa6 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -789,7 +789,7 @@ int dev_fill_forward_path(struct net_device_path_ctx *ctx,
-                        goto err_out;
- 
-                stack->num_paths++;
--               if (WARN_ON_ONCE(last_dev == ctx->dev))
-+               if (last_dev == ctx->dev)
-                        goto err_out;
-        }
- 
-> Closes: https://lore.kernel.org/all/CA+0ovCgaRvbd0Udj70b2xxG8Cx3CaCpNhnf1V4RWQuDveZYZhA@mail.gmail.com/
-> Signed-off-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+On Thu, Aug 27, 2026 at 11:48=E2=80=AFAM Xueqin Luo <luoxueqin@kylinos.cn> =
+wrote:
+>
+> When idle state 0 is disabled and the PM QoS latency constraint is
+> zero (latency_req =3D=3D 0), the first branch of the || in the early-retu=
+rn
+> condition of menu_select() is taken immediately, so state 0 is returned
+> regardless of its disable flag.
+>
+> Address this by making the !disable check a prerequisite for the entire
+> early-return condition, so that when state 0 is disabled the normal
+> state selection loop is used instead, which already skips disabled
+> states.
+>
+> Fixes: 53812cdc9100 ("cpuidle: menu: Move the latency_req =3D=3D 0 specia=
+l case check")
+> Signed-off-by: Xueqin Luo <luoxueqin@kylinos.cn>
 > ---
-> --- a/net/ipv4/ipip.c
-> +++ b/net/ipv4/ipip.c
-> @@ -375,6 +375,12 @@ static int ipip_fill_forward_path(struct
-> net_device_path_ctx *ctx,
->  	if (IS_ERR(rt))
->  		return PTR_ERR(rt);
-> 
-> +	/* The path walk must advance: a route back into the tunnel is a loop. */
-> +	if (rt->dst.dev == ctx->dev) {
-> +		ip_rt_put(rt);
-> +		return -EOPNOTSUPP;
-> +	}
-> +
->  	path->type = DEV_PATH_TUN;
->  	path->tun.src_v4.s_addr = tiph->saddr;
->  	path->tun.dst_v4.s_addr = tiph->daddr;
-> --- a/net/ipv6/ip6_tunnel.c
-> +++ b/net/ipv6/ip6_tunnel.c
-> @@ -1863,7 +1863,12 @@ static int ip6_tnl_fill_forward_path(struct
-> net_device_path_ctx *ctx,
->  	fl6.flowi6_proto = 0;
-> 
->  	dst = ip6_route_output(dev_net(ctx->dev), NULL, &fl6);
-> -	if (!dst->error) {
-> +	err = dst->error;
-> +	/* The path walk must advance: a route back into the tunnel is a loop. */
-> +	if (!err && dst->dev == ctx->dev)
-> +		err = -EOPNOTSUPP;
-> +
-> +	if (!err) {
->  		path->type = DEV_PATH_TUN;
->  		path->tun.src_v6 = fl6.saddr;
->  		path->tun.dst_v6 = fl6.daddr;
-> @@ -1873,7 +1878,6 @@ static int ip6_tnl_fill_forward_path(struct
-> net_device_path_ctx *ctx,
->  		ctx->dev = dst->dev;
->  	}
-> 
-> -	err = dst->error;
->  	if (err)
->  		dst_release(dst);
+>  drivers/cpuidle/governors/menu.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/cpuidle/governors/menu.c b/drivers/cpuidle/governors=
+/menu.c
+> index 544a5d593007..eb529d73d4b7 100644
+> --- a/drivers/cpuidle/governors/menu.c
+> +++ b/drivers/cpuidle/governors/menu.c
+> @@ -284,10 +284,10 @@ static int menu_select(struct cpuidle_driver *drv, =
+struct cpuidle_device *dev,
+>                 data->bucket =3D BUCKETS - 1;
+>         }
+>
+> -       if (latency_req =3D=3D 0 ||
+> -           ((data->next_timer_ns < drv->states[1].target_residency_ns ||
+> -             latency_req < drv->states[1].exit_latency_ns) &&
+> -            !dev->states_usage[0].disable)) {
+> +       if (!dev->states_usage[0].disable &&
+> +           (latency_req =3D=3D 0 ||
+> +            data->next_timer_ns < drv->states[1].target_residency_ns ||
+> +            latency_req < drv->states[1].exit_latency_ns)) {
+>                 /*
+>                  * In this case state[0] will be used no matter what, so =
+return
+>                  * it right away and keep the tick running if state[0] is=
+ a
+> --
+
+Applied as 7.4 material, thanks!
