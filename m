@@ -1,100 +1,194 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
+Received: from mail-06.mail-europe.com (mail-06.mail-europe.com [85.9.210.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE956255E43;
-	Fri, 11 Sep 2026 23:01:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C704D3C0633
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:01:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.210.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789167712; cv=none; b=gW0/s/NE3q+s3Vit7sWwbvclHQ2uBqFB6RTywL2mrglBZsYHTqglGiGc7Mc0wFgObUyCpKEACBsPPYTb7Q0FjGvFOUOUZxSymkJKdDdRIA1kWW7Mz7Hd9wrTpkqMlMvjJL/qQW7/3Rn5OWucGv4je97spAbYVVGRm9xLTQ0utfg=
+	t=1789167717; cv=none; b=dhD6XJh+6KzMmQyduMYFHemn/PT+QmCZS84U7ZgTxzMIf3fGI6yhTcb/ss9wCUQEbpZxBGh9V3Tgb72V+fL/fHKP1HJof+uZ0ZOZ9Vm9JrS6kGe+I4Lppai//EJARFsTs/4XSDjaBvDwJlUlsmnboUJv7bB4z0UpexfV2chf/K8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789167712; c=relaxed/simple;
-	bh=Lkn6t+flzcX1Jz141eCHG+HamT5VAB4eH22MEYlMaF8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Op1y8oZcKsgKBXj7gFF55xXPsKTZNsJUIEGo96pk65DCmGwE9iNwIWdddA5XUtLfnC9M/UkAA8ysJXQ6EXXeaflaGVYw5quuj5eE+Ey/iu9vybrXPhdQEIFcKR2A9JDaDzmN7iM3du48YkRDV2Tr3vKXPtcoNKizUUnb5lVJeoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MFsnqESk; arc=none smtp.client-ip=192.198.163.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789167717; c=relaxed/simple;
+	bh=GDWpdlWBvWQt3dhuKeKibH1Tjl0SGYwcHArgbQuxBAs=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=eHXRWGlXGnTCQZrBrre/fu0J4hPkUUc5r0yyxXO1VJ0HjSDlOfr7CP0sMoQT2QyUsTz498s9Ge1XRU/anZaXFHWTlw/xelGsvgj/Yftb3Nr3Z0qRvhoDhG2r8Yr3hJMLFE0XST4r8mq5/pzlJzXuRoxpA77EvMmsgn5d7SuX1dQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev; spf=pass smtp.mailfrom=httpd.dev; dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b=r/1NWGdP; arc=none smtp.client-ip=85.9.210.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=httpd.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MFsnqESk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789167710; x=1820703710;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Lkn6t+flzcX1Jz141eCHG+HamT5VAB4eH22MEYlMaF8=;
-  b=MFsnqESkwJHjIHrmLMkLbMVkvGYxfSaC9ldHFBBvUdpsLPA+wB5pbzHT
-   tXCxXk9Fg5kKF9pAz0Xja7WhfgBtJyKqxgYkL9d0VS5BHBxRN6UdtaJk5
-   pfpHG/1LkEaN4IQBgV6QXtb5KE6gWjT+lRiraNigu/PvolcMFXThomp/g
-   XuOa5wNkxuT58KjNLITFedbS/OFQkHZMKWOpU8A04QakVsTLal3qI41I2
-   FvVZcDKZ5qd9Bggv4NdBY3ntHRV9/67s/HsyUlUMWopO7aiO8lsOeny7b
-   mDfI+j2mYA2kjdwGoVOcfdXh3SyivRG4Zhh2NtQwqfQnKtrpAx9dLB3WU
-   Q==;
-X-CSE-ConnectionGUID: H1Frq0n8SeaTmHWK3hU47Q==
-X-CSE-MsgGUID: FNFHWMrZS1yPSEmAxJj8wg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="145149"
-X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
-   d="scan'208";a="145149"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 16:01:50 -0700
-X-CSE-ConnectionGUID: oAyKfhRUQ3GzUzCQDMCTzA==
-X-CSE-MsgGUID: UqNcUvhNQJuGrEzYtFoomQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
-   d="scan'208";a="301945664"
-Received: from schen9-mobl4.amr.corp.intel.com (HELO [10.125.108.42]) ([10.125.108.42])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 16:01:49 -0700
-Message-ID: <cc202de5-87ad-4a87-9e06-73ceb0fd0113@intel.com>
-Date: Fri, 11 Sep 2026 16:01:48 -0700
+	dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b="r/1NWGdP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=httpd.dev;
+	s=protonmail3; t=1789167701; x=1789426901;
+	bh=svNifJx/ssGLp8arNI7ZY0FJrahK16lXJGPKGD+vP4w=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=r/1NWGdPchEZbBl26e4NC9V6mD2SZDu0PFIJ9f+Aah6f0Mgt5PMT+8uMniIdkI5Td
+	 +hEOdsLGiP1pODfTr4CMXGObRDzb/zMcc9cNSQaYf6afWhHsV/R6/tooGJ6/HARNTP
+	 l+KQMlqUAaCz2Yc/b3YtHfacM34jMgvUcCCM3R1z+u5zr9QXcm2+vR+aJ8kRDQunAJ
+	 DEZdu+rdPTceCxW10Qi/wx7cKo4V0vrPvC8Qu+XqbOVxQQWxKb2pgWsPjEU605GqfW
+	 Jw6if3Z+G8Z2XWk0AnF7nG+ok/JcTzAtSBaSBoJt0uXHZvXImVTPbztF5tV0W3+bYy
+	 3rHknZxRCgbkA==
+Date: Fri, 11 Sep 2026 23:01:38 +0000
+To: "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
+From: Angel J <iamanaws@httpd.dev>
+Cc: "regressions@lists.linux.dev" <regressions@lists.linux.dev>, "stable@vger.kernel.org" <stable@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-rpi-kernel@lists.infradead.org" <linux-rpi-kernel@lists.infradead.org>, "helgaas@kernel.org" <helgaas@kernel.org>, "robh@kernel.org" <robh@kernel.org>, "andrea.porta@suse.com" <andrea.porta@suse.com>, "florian.fainelli@broadcom.com" <florian.fainelli@broadcom.com>
+Subject: Re: [REGRESSION] PCI: Dynamic OF node creation hangs on invalid bridge configuration
+Message-ID: <cFJoUZ6c5g5YbFCrwUnx6RlitHRl-0cS2fadDSFJNf9SgLreKutrmZj1r56hFh8ZUAbzvuCqBG4w9ZYAE8xAWP9HnLwbjMOBzac-iMnMMZc=@httpd.dev>
+In-Reply-To: <GXe6anuewkS4bLNwca3cYOmUxN9csc0TxLYGSBc1qNRmfrmvFlcmD62wEM23TxfzfuXAv4P3yvUv7pyraleARrL1Na-aN8w-t9uc1Igu8DA=@httpd.dev>
+References: <GXe6anuewkS4bLNwca3cYOmUxN9csc0TxLYGSBc1qNRmfrmvFlcmD62wEM23TxfzfuXAv4P3yvUv7pyraleARrL1Na-aN8w-t9uc1Igu8DA=@httpd.dev>
+Feedback-ID: 163474212:user:proton
+X-Pm-Message-ID: a0b45507d5eac067fa00aa047aa0fedcad9d25b7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Documentation: ABI: sysfs-driver-dma-idxd: Fix the kernel
- version 6.20.0
-To: Karl Mehltretter <kmehltretter@gmail.com>,
- Vinicius Costa Gomes <vinicius.gomes@intel.com>,
- Vinod Koul <vkoul@kernel.org>
-Cc: Anil S Keshavamurthy <anil.s.keshavamurthy@intel.com>,
- Yi Sun <yi.sun@intel.com>, linux-kernel@vger.kernel.org,
- Frank Li <Frank.Li@kernel.org>, dmaengine@vger.kernel.org
-References: <20260911225737.11411-1-kmehltretter@gmail.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260911225737.11411-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------584d05c12d919d8b9959a7be2db6ff9738f85cff09fbdb5a0c245caa7bd7149b"; charset=utf-8
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------584d05c12d919d8b9959a7be2db6ff9738f85cff09fbdb5a0c245caa7bd7149b
+Content-Type: multipart/mixed;boundary=---------------------5847a96ded5969a4c792075b9c3489f2
+
+-----------------------5847a96ded5969a4c792075b9c3489f2
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;charset=utf-8
+
+Hi Andrea, Herv=C3=A9, Bjorn, Thorsten,
+
+Thanks for the guidance, it was very useful. I went back through the tests
+and got some more insight into the hang.
+
+Andrea wrote:
+> Angel, could you please provide the following output:
+>
+> lspci -nn
+> setpci -s 00:00.0 HEADER_TYPE
+>
+> from a running (i.e. with CONFIG_PCI_DYNAMIC_OF_NODES=3Dn) system?
+
+On Linux 6.12.109, with CONFIG_PCI_DYNAMIC_OF_NODES disabled, the relevant
+output is:
+
+  $ lspci -nn
+  00:00.0 PCI bridge [0604]: Intel Corporation Device [8086:4c43] (rev 01)
+
+  $ setpci -s 00:00.0 HEADER_TYPE
+  01
+
+  $ setpci -s 00:00.0 PRIMARY_BUS SECONDARY_BUS SUBORDINATE_BUS
+  ff
+  ff
+  ff
+
+The device is bound to icl_uncore. I get the same values on the patched
+kernel with CONFIG_PCI_DYNAMIC_OF_NODES=3Dy.
+
+Herv=C3=A9 wrote:
+> Is this PCI logs reported with PCI_DYNAMIC_OF_NODES=3Dy or PCI_DYNAMIC_O=
+F_NODES=3Dn
+> or always whatever the PCI_DYNAMIC_OF_NODES Kconfig value ?
+
+The messages appear on successful boots with either setting:
+
+  pci 0000:00:00.0: [8086:4c43] type 01 class 0x060400 conventional PCI br=
+idge
+  pci 0000:00:00.0: bridge configuration invalid ([bus ff-ff]), reconfigur=
+ing
+
+I confirmed this on 6.12.107 with the option disabled and 6.12.108 with it
+enabled. They also appear on the patched 6.18.44 kernel.
+
+Bjorn wrote:
+> I don't think 49d63971f963 ("misc: rp1: RaspberryPi RP1 misc driver")
+> is a likely culprit by itself because there's just nothing there that
+> looks like it would relate to a Dell XPS 8940.
+
+That change exposed the problem by enabling PCI_DYNAMIC_OF_NODES in my
+configuration. I bisected again with the option enabled throughout and
+found an earlier boundary:
+
+  3dc8adeeefa0  PCI: of_property: Constify parameter in of_pci_get_addr_fl=
+ags()
+  1f340724419e  PCI: of: Create device tree PCI host bridge node
+
+The first is the direct parent of the second. I boot-tested both without
+any guard, changing only the source commit; their generated kernel
+configurations are identical.
+
+All of these tests have CONFIG_PCI_DYNAMIC_OF_NODES=3Dy:
+
+  Source         Change             Result
+  3dc8adeeefa0    None               Boots
+  1f340724419e    None               Hangs
+  1f340724419e    Subordinate guard  Boots
+  6.18.44        None               Hangs
+  6.18.44        Subordinate guard  Boots
+
+Herv=C3=A9 wrote:
+> Maybe the test done at [1] should be improved to detect those wrong brid=
+ges.
+> and skip the of_pci_make_dev_node() call when a wrong bridge is detected=
+.
+
+I added logging to the first bad commit to check the bridge scan. It shows
+that 00:00.0 has no subordinate bus after either pass, despite satisfying
+pci_is_bridge():
+
+  pci 0000:00:00.0: PCI OF debug: scan pass 0, buses ff/ff/ff
+  pci 0000:00:00.0: PCI OF debug: scan pass 0 done, subordinate bus absent
+  pci 0000:00:00.0: PCI OF debug: scan pass 1, buses ff/ff/ff
+  pci 0000:00:00.0: PCI OF debug: scan pass 1 done, subordinate bus absent
+
+of_pci_prop_bus_range() dereferences pdev->subordinate without checking it=
+.
+of_pci_prop_intr_map() also uses that pointer. Before 1f340724419e,
+of_pci_make_dev_node() returns because the parent OF node is missing on
+this ACPI system. That commit creates the parent node, allowing property
+generation to reach the unchecked access.
+
+My earlier report overstated the device_type=3D"pci" result. The minimal-n=
+ode
+test that hung added device_type, bus-range and interrupt-map together;
+I haven't confirmed a hang with device_type alone.
+
+I tested this guard in of_pci_make_dev_node(), before node creation:
+
+  if (pci_is_bridge(pdev) && !pdev->subordinate)
+          return;
+
+Both the first bad commit and 6.18.44 boot with it. The 6.18.44 test uses
+only the guard, without diagnostic logging. The host OF node and the nodes
+for bridges 00:01.0 and 00:1c.0 are still created; 00:00.0 is skipped.
+
+This points to the NULL subordinate pointer as the cause of the hang,
+although I still don't have a crash trace from an unguarded boot. I'll
+send the patch as a reply to this email. Is of_pci_make_dev_node() the
+right place for this check?
+
+#regzbot introduced: 1f340724419eda8ab07a20edcaf5ec8f70134231
+
+Thanks,
+Angel J
+
+-----------------------5847a96ded5969a4c792075b9c3489f2--
+
+--------584d05c12d919d8b9959a7be2db6ff9738f85cff09fbdb5a0c245caa7bd7149b
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wrsEARYKAG0FgmqkiEMJEBoBbwppzUxnRRQAAAAAABwAIHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmegSr5JAKTKbLgmkCFNkhGukr6dbSbs2YiqV+yU
+jqBBgBYhBEAFf9htFyVnqZzmVhoBbwppzUxnAACUBAEA+Vrv4qecaflgoNqE
+krZ5Pt2A+D2ZHLPlXo7tpk7HjFQA/Am4TUPLoTW5RVSeYbATvytA/Gnbz89i
+DW2hzZv5IxwL
+=it4L
+-----END PGP SIGNATURE-----
 
 
-
-On 9/11/26 3:57 PM, Karl Mehltretter wrote:
-> There is no kernel 6.20: the release after 6.19 was 7.0. The entry came
-> in with commit 8308510b9365 ("dmaengine: idxd: Expose DSA3.0
-> capabilities through sysfs"), first released in v7.0-rc1. Say 7.0.
-> 
-> Fixes: 8308510b9365 ("dmaengine: idxd: Expose DSA3.0 capabilities through sysfs")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-
-> ---
->  Documentation/ABI/stable/sysfs-driver-dma-idxd | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/ABI/stable/sysfs-driver-dma-idxd b/Documentation/ABI/stable/sysfs-driver-dma-idxd
-> index 08d030159f0921b1796b19a0fa30e74c96a731bf..5be4e2d5775ff4c6e4bc82c92bf974cb8fdc64da 100644
-> --- a/Documentation/ABI/stable/sysfs-driver-dma-idxd
-> +++ b/Documentation/ABI/stable/sysfs-driver-dma-idxd
-> @@ -138,7 +138,7 @@ Description:	The last executed device administrative command's status/error.
->  
->  What:		/sys/bus/dsa/devices/dsa<m>/dsacaps
->  Date:		April 5, 2026
-> -KernelVersion:	6.20.0
-> +KernelVersion:	7.0
->  Contact:	dmaengine@vger.kernel.org
->  Description:	The DSA3 specification introduces three new capability
->  		registers: dsacap[0-2]. User components (e.g., configuration
+--------584d05c12d919d8b9959a7be2db6ff9738f85cff09fbdb5a0c245caa7bd7149b--
 
