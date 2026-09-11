@@ -1,310 +1,159 @@
-Received: from mail-m1602365263.xmail.ntesmail.com (mail-m1602365263.xmail.ntesmail.com [160.236.52.63])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0202255E43
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:53:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.236.52.63
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1410E30B51E
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:56:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789091619; cv=none; b=T1rmxuMHiK93vPJvrcanNEF9yZPzKCjRyI8n1UbKj7Cy7VDEruHAEqP+9HKebB2ritlBYLQEGMHk1+lj1qSpt3dKuk2LQpgppHubPdRxqDOxAxKQDcL0ou+/TPX2FplwsuRtp4IsjXuuEegZT+wV18jRAPVUFE6pKYLjSZnhhN4=
+	t=1789091809; cv=none; b=LNvksfuCo5jg97GBaFiu0f/guLM++ECUascN5It7wAeJx2LJwHeaoxXqWawqYP/5GZLwVXKWvAJqXV/YDwsH3xl+F6P2g8kRkv/MYMCNmdY6flQm7kauYp+vyy+759SpsV0chqV/9iwKwkgklhLh9jfkAVbEk0coAmiJQV6QxkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789091619; c=relaxed/simple;
-	bh=GJnrAQOQhT59zaqPF940WHY9YFgS9tDbauUYQ69fvY0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LNnmt3/b7WP2W2Zjoszg6PLrIg1t7rRqiWLP2+hX2QVNlxFzKRwyJLtkqGjpGum3nfpBa2ciZuqKNb3mG318zM85ELeLxo1Le2ErDjajK621mHK9ZkUnhIpw6WJzfw9cWVCap+DQ57RvUPk+DDgGxObLOTMzz7DITalE+2LnPk0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=a/hfhmb4; arc=none smtp.client-ip=160.236.52.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1789091809; c=relaxed/simple;
+	bh=pTIKxt3rN8svwwlF+VkWkXOvUISb8VIjuqknOEyyVfE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L90esmwfT5hp3nIzqIBt+ni1le5qGsvoHe2gXuQhb7AiVvna+Bsxyjl6rfm16Y1mWzqPto00wp621QOEj1xcNfDKcyCpEdRNsHFTH0x1e4JGMIWtOt6Od8VG/obpyfk1SFaZ4CB/ojBn2E3tKTqjVqVC9v+QJvZEidDhkOtZMKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CteS1cUc; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="a/hfhmb4"
-Received: from [127.0.0.1] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4d5a509ec;
-	Fri, 11 Sep 2026 09:53:23 +0800 (GMT+08:00)
-Message-ID: <382b0c3b-95a1-4089-b413-717f65b9e99d@rock-chips.com>
-Date: Fri, 11 Sep 2026 09:53:19 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CteS1cUc"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc4aa02a269so451320a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:56:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789091807; x=1789696607; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nxq2TIe8bS3KM2vl9kkxjnCBMcSMNKULAJlsrLiD/GU=;
+        b=CteS1cUcvQfb+tGE5jbQ4TxVO794UcvJMa1pXysOXTvUQxmO5jArAQ9GpOEYcn9LHv
+         yy3YH+FOMxMD4PcWMNza8IprW8QQ0ZOyy4FiDwDxcG6jfatQxQ2kRPvCoRIVxie/NkuU
+         OgN8zCH3nAEtkrU589pPyWfRbdb86Bzt9rdrD7olfW2WGPD0IyMWZo9D0E+fqDl44AQ3
+         T5UhnbhnHEjH0jFGmVO7qzRL9SDPZMG0q2lMHeV6A0WwR3GTZKvIGuwtZNzq6Qr6bgpN
+         GvRvMOwHDmuQUgDEWnBmT1W6TxjIPPg434F3pXLds7IwkQME24xoYwptRZagDVkhOW3/
+         cPrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789091807; x=1789696607;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nxq2TIe8bS3KM2vl9kkxjnCBMcSMNKULAJlsrLiD/GU=;
+        b=YiV8jXveR2iJq2P1el2/7CjHqC7a7TlUxu+ex01ZUuZPVLong9hbxijCwhgqmyEurZ
+         yiIm0DOusckyQWaudU2S9OVfeop8F60HVsx3zv7GAgbXthqwf8eqOh9ZldDPFnYOCTaq
+         /tr4ntyMcUsPO5isaISJHcayYeCgNq3jfvP3ynF4u3r7B8p9Mpm4C3KvhIDlShV+4aaR
+         M4+eCGVYakAwoGny+K+jhn3Aa+ISbSGq3R9+u0g8Fe6Axhckmx+jWRedrVfuFVkBFqCq
+         WQqYY38AN1wEmhbHt7ioN6IokSx28V05VBr65tORjNf1vfxiElJi7lboliN/ClgTHM2o
+         3jFA==
+X-Forwarded-Encrypted: i=1; AKwUvByWWrvID7KW5Lz7keREfWS7IK1c4sjVaPQJlVPfQnnOJZsOr85DkgNG1CiFg+bhcbunBdL5KJ/D9YJNnSw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lNgLw/V6ffRg8fee0ihW9qG9eklOtV4Km63HDtmS/38CusEznN
+	qJlffiFDfZALuw1RkaxrmDOm3uPKWdeJemWILUfoGhb3Vk9lMHxHg/ju
+X-Gm-Gg: AYBFou2icpgQuKvKpQ+q+DPrMybDMCQXn6VqyqJ5WjVZopXb/GhMUhrlVpCHnRE91ro
+	wXEn996g1uI6O1oexpVCihaNERkZfVMyxrcWDVu0sjoqpPtZt8l1ye87wQbE5AQW9hWM5Hu4QMy
+	XLhOFGm8LU/zDZuEAH5t5TKjnCxvxL95xcF72kntLbjYjOsTTHQMDXW7zEz6QgsuRoCAygigdva
+	SB1QyuRGlZiJ2bOJk45Lauj3er+mPebTyLco/saiaUi5Tzs2BbMJy5CHFe19DKDHbAVispC2jr+
+	Wf3dp3A4xk/TsIak9j0hj+6SCpHcg16DqIan+7/IC9na8w9dHopQTxZ8NCglWoMLkTD/vtuz6Io
+	/YS5iXyopBo0iZyAA13Nb82mqidTyWR33DpbVs+cP6JxuEG0zVK2DC7qTkFzEbvzqr/oVVaH52f
+	fxcMt+qd+SCqBleabASpf7CeIpXxKvA3E/EIbHBl7dDDCgD2NNOReqar0ExeTP9hs02bxeZvijV
+	z8SCy6vyOnGVad3
+X-Received: by 2002:a17:90a:da8f:b0:381:25ce:bcc2 with SMTP id 98e67ed59e1d1-39d9bc10072mr2329431a91.6.1789091807236;
+        Thu, 10 Sep 2026 18:56:47 -0700 (PDT)
+Received: from haichao.tail057a43.ts.net ([2001:da8:e000:1206:fdee:b2:3ee8:60d7])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95095946sm2178864a91.5.2026.09.10.18.56.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 18:56:46 -0700 (PDT)
+From: Ruoyu Wang <ruoyuw560@gmail.com>
+To: Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Jacopo Mondi <jacopo+renesas@jmondi.org>,
+	=?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ruoyu Wang <ruoyuw560@gmail.com>
+Subject: [PATCH v2] media: adv748x: Fix endpoint reference leaks on probe failure
+Date: Fri, 11 Sep 2026 09:56:40 +0800
+Message-ID: <20260911015640.1728828-1-ruoyuw560@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/connector: Cache out-of-band hotplug events
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
- Igor Paunovic <royalnet026@gmail.com>, Alexey Charkov <alchark@flipper.net>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- kernel@collabora.com, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Heiko Stuebner <heiko@sntech.de>, Dmitry Baryshkov <lumag@kernel.org>
-References: <20260821-drm-connector-oob-hotplug-cache-v1-1-e92e146fdc7b@collabora.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20260821-drm-connector-oob-hotplug-cache-v1-1-e92e146fdc7b@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa08e2b621d03a7kunmb79f0cb776a9bd
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTBhDVhpDGhgYTR8dGR8fGlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=a/hfhmb4fB7OCWDgHaUK4+MQbkutytq38VOL95lIHib/1/ZerxmhVd5SD+TiJObqinbliTMgiu1Bslo6xfWhetKFUQ5B46s69KU0F6AFftPDIQa9YrQwAVHCPHQG/d311BoNbrHE0kqnDR7Vsjn2OE42oLY/kAUGZzONU3u+1cw=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=LUQgxyC9QeyHgi0GApq633kxPd9T2302b9i3nCPlxU8=;
-	h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: 8bit
 
-Hello Sebastian,
+adv748x_parse_dt() takes an extra reference for every endpoint saved in
+state->endpoints. If parsing later fails, adv748x_probe() skips
+adv748x_dt_cleanup(), so the saved references remain held. A CSI-2 lane
+parsing error also returns from for_each_endpoint_of_node() without
+dropping the iterator's reference.
 
-On 8/21/2026 10:55 PM, Sebastian Reichel wrote:
-> When the USB-C state machine finished negotiating DP AltMode before the
-> DRM device has been probed, the out-of-band hotplug events fired to
-> early and are lost. Without replugging the display or reloading the
-> USB-C driver, the DRM driver assumes nothing is plugged.
-> 
-> Reproducing this race condition at boot time depends on kernel
-> configuration and exact USB-C equipment due to timing, but it can easily
-> be reproduced by reloading the DRM driver consuming the out-of-band
-> hotplug events without reloading the USB-C driver.
-> 
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> ---
-> This has been tested together with the patch series adding USB-C DP
-> AltMode support for Rockchip RK3588/RK3576. This is mostly independent
-> and should also affect other platforms, so I'm sending it separately.
-> 
-> I ran into this during development via the module reload path, but it
-> seems Heiko [0] and Igor [1] managed to hit the race condition with a
-> normal boot.
-> 
-> [0] https://lore.kernel.org/dri-devel/20767137.geO5KgaWL5@diego/
-> [1] https://lore.kernel.org/dri-devel/20260811211534.8618-1-royalnet026@gmail.com/
-> ---
->  drivers/gpu/drm/drm_connector.c     | 106 ++++++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/drm_crtc_internal.h |   1 +
->  drivers/gpu/drm/drm_drv.c           |   1 +
->  3 files changed, 108 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> index 8b4baed060f3..b69e3776b153 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -33,6 +33,7 @@
->  #include <drm/drm_sysfs.h>
->  #include <drm/drm_utils.h>
->  
-> +#include <linux/cleanup.h>
->  #include <linux/export.h>
->  #include <linux/platform_device.h>
->  #include <linux/property.h>
-> @@ -81,6 +82,22 @@
->  static DEFINE_MUTEX(connector_list_lock);
->  static LIST_HEAD(connector_list);
->  
-> +/*
-> + * List of connector fwnodes with their last out-of-band hotplug status
-> + * required to forward them to a connector on registration. This ensures
-> + * the connector sees a HPD event, if the event arrived before the DRM
-> + * driver was probed (either due to module reload, or because of bad
-> + * timing during bootup).
-> + */
-> +struct drm_oob_hotplug_state {
-> +	struct list_head head;
-> +	struct fwnode_handle *fwnode;
-> +	enum drm_connector_status status;
-> +};
-> +
-> +static DEFINE_MUTEX(oob_hotplug_list_lock);
-> +static LIST_HEAD(oob_hotplug_list);
-> +
->  struct drm_conn_prop_enum_list {
->  	int type;
->  	const char *name;
-> @@ -130,6 +147,19 @@ void drm_connector_ida_destroy(void)
->  		ida_destroy(&drm_connector_enum_list[i].ida);
->  }
->  
-> +void drm_connector_oob_hotplug_cleanup(void)
-> +{
-> +	struct drm_oob_hotplug_state *e, *tmp;
-> +
-> +	scoped_guard(mutex, &oob_hotplug_list_lock) {
-> +		list_for_each_entry_safe(e, tmp, &oob_hotplug_list, head) {
-> +			list_del(&e->head);
-> +			fwnode_handle_put(e->fwnode);
-> +			kfree(e);
-> +		}
-> +	}
-> +}
-> +
->  /**
->   * drm_get_connector_type_name - return a string for connector type
->   * @type: The connector type (DRM_MODE_CONNECTOR_*)
-> @@ -829,6 +859,36 @@ void drm_connector_cleanup(struct drm_connector *connector)
->  }
->  EXPORT_SYMBOL(drm_connector_cleanup);
->  
-> +/**
-> + * drm_connector_replay_oob_hotplug_event - send cached OOB HPD event
-> + * @connector: the connector that should receive the event
-> + *
-> + * Send the cached out-of-band hotplug as a new out-of-band hotplug event.
-> + */
-> +static void drm_connector_replay_oob_hotplug_event(struct drm_connector *connector)
-> +{
-> +	struct fwnode_handle *fwnode = connector->fwnode;
-> +	enum drm_connector_status status;
-> +	struct drm_oob_hotplug_state *e;
-> +	bool found = false;
-> +
-> +	if (!fwnode || !connector->funcs->oob_hotplug_event)
-> +		return;
-> +
-> +	scoped_guard(mutex, &oob_hotplug_list_lock) {
-> +		list_for_each_entry(e, &oob_hotplug_list, head) {
-> +			if (e->fwnode == fwnode || fwnode->secondary == e->fwnode) {
-> +				status = e->status;
-> +				found = true;
-> +				break;
-> +			}
-> +		}
-> +	}
-> +
-> +	if (found)
-> +		connector->funcs->oob_hotplug_event(connector, status);
-> +}
-> +
->  /**
->   * drm_connector_register - register a connector
->   * @connector: the connector to register
-> @@ -849,6 +909,7 @@ EXPORT_SYMBOL(drm_connector_cleanup);
->   */
->  int drm_connector_register(struct drm_connector *connector)
->  {
-> +	bool replay_oob_hotplug = false;
->  	int ret = 0;
->  
->  	if (!connector->dev->registered)
-> @@ -888,6 +949,7 @@ int drm_connector_register(struct drm_connector *connector)
->  	mutex_lock(&connector_list_lock);
->  	list_add_tail(&connector->global_connector_list_entry, &connector_list);
->  	mutex_unlock(&connector_list_lock);
-> +	replay_oob_hotplug = true;
->  	goto unlock;
->  
->  err_late_register:
-> @@ -898,6 +960,10 @@ int drm_connector_register(struct drm_connector *connector)
->  	drm_sysfs_connector_remove(connector);
->  unlock:
->  	mutex_unlock(&connector->mutex);
-> +
-> +	if (replay_oob_hotplug)
-> +		drm_connector_replay_oob_hotplug_event(connector);
-> +
->  	return ret;
->  }
->  EXPORT_SYMBOL(drm_connector_register);
-> @@ -3671,6 +3737,41 @@ struct drm_connector *drm_connector_find_by_fwnode(struct fwnode_handle *fwnode)
->  	return found;
->  }
->  
-> +/**
-> + * drm_connector_record_oob_hotplug_status - Cache OOB hotplug status
-> + * @fwnode - fwnode for the DRM connector
-> + * @status - out-of-band status info
-> + *
-> + * Cache the latest out-of-band hotplug status for a fwnode so it can be
-> + * (re)played from when the DRM device is (re)registered after this event
-> + * arrived.
-> + */
-> +static void drm_connector_record_oob_hotplug_status(struct fwnode_handle *fwnode,
-> +						    enum drm_connector_status status)
-> +{
-> +	struct drm_oob_hotplug_state *e;
-> +
-> +	if (!fwnode)
-> +		return;
-> +
-> +	guard(mutex)(&oob_hotplug_list_lock);
-> +
-> +	list_for_each_entry(e, &oob_hotplug_list, head) {
-> +		if (e->fwnode == fwnode) {
-> +			e->status = status;
-> +			return;
-> +		}
-> +	}
-> +
-> +	e = kzalloc(sizeof(*e), GFP_KERNEL);
-> +	if (!e)
-> +		return;
-> +
-> +	e->fwnode = fwnode_handle_get(fwnode);
-> +	e->status = status;
-> +	list_add_tail(&e->head, &oob_hotplug_list);
-> +}
-> +
->  /**
->   * drm_connector_oob_hotplug_event - Report out-of-band hotplug event to connector
->   * @connector_fwnode: fwnode_handle to report the event on
-> @@ -3683,12 +3784,17 @@ struct drm_connector *drm_connector_find_by_fwnode(struct fwnode_handle *fwnode)
->   *
->   * This function can be used to report these out-of-band events after obtaining
->   * a drm_connector reference through calling drm_connector_find_by_fwnode().
-> + *
-> + * The last status for each fwnode is cached and replayed when a matching DRM
-> + * connector device is (re)registered.
->   */
->  void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode,
->  				     enum drm_connector_status status)
->  {
->  	struct drm_connector *connector;
->  
-> +	drm_connector_record_oob_hotplug_status(connector_fwnode, status);
-> +
->  	connector = drm_connector_find_by_fwnode(connector_fwnode);
->  	if (IS_ERR(connector))
->  		return;
+Save the endpoint reference only after lane parsing succeeds. Drop the
+iterator reference before returning a lane parsing error and route all
+parse failures through the endpoint cleanup path to release any saved
+references. This retains the endpoints only for a successful probe.
 
+This issue was found by a static analysis checker and confirmed by
+manual source review.
 
-Sorry for late reply.
+Fixes: 6a18865da8e3 ("media: i2c: adv748x: store number of CSI-2 lanes described in device tree")
+Fixes: eccf442ce156 ("media: i2c: adv748x: Support probing a single output")
+Suggested-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
+---
+Changes in v2:
+- Move of_node_get() and the assignment to state->endpoints[ep.port]
+  after successful lane parsing, as suggested by Hans Verkuil.
 
-Should we call drm_connector_record_oob_hotplug_status() only when 
-drm_connector_find_by_fwnode() can't find the connector?
+v1: https://lore.kernel.org/r/20260814134106.1387486-1-ruoyuw560@gmail.com/
 
-> diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
-> index 83146ffef00c..c2714ea256a7 100644
-> --- a/drivers/gpu/drm/drm_crtc_internal.h
-> +++ b/drivers/gpu/drm/drm_crtc_internal.h
-> @@ -188,6 +188,7 @@ int drm_mode_getencoder(struct drm_device *dev,
->  /* drm_connector.c */
->  void drm_connector_ida_init(void);
->  void drm_connector_ida_destroy(void);
-> +void drm_connector_oob_hotplug_cleanup(void);
->  void drm_connector_unregister_all(struct drm_device *dev);
->  int drm_connector_register_all(struct drm_device *dev);
->  int drm_connector_set_obj_prop(struct drm_mode_object *obj,
-> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> index 3c570f9393b9..c1aeab297ff9 100644
-> --- a/drivers/gpu/drm/drm_drv.c
-> +++ b/drivers/gpu/drm/drm_drv.c
-> @@ -1239,6 +1239,7 @@ static void drm_core_exit(void)
->  	drm_sysfs_destroy();
->  	WARN_ON(!xa_empty(&drm_minors_xa));
->  	drm_connector_ida_destroy();
-> +	drm_connector_oob_hotplug_cleanup();
->  }
->  
->  static int __init drm_core_init(void)
-> 
-> ---
-> base-commit: d3d1e0c4343385fb343a552e4f3b6b97d5762fc2
-> change-id: 20260821-drm-connector-oob-hotplug-cache-13386679f852
-> 
-> Best regards,
-> --  
-> Sebastian Reichel <sebastian.reichel@collabora.com>
+ drivers/media/i2c/adv748x/adv748x-core.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/media/i2c/adv748x/adv748x-core.c b/drivers/media/i2c/adv748x/adv748x-core.c
+index 3eb6d5e8f0826..70594d0018048 100644
+--- a/drivers/media/i2c/adv748x/adv748x-core.c
++++ b/drivers/media/i2c/adv748x/adv748x-core.c
+@@ -675,9 +675,6 @@ static int adv748x_parse_dt(struct adv748x_state *state)
+ 			continue;
+ 		}
+ 
+-		of_node_get(ep_np);
+-		state->endpoints[ep.port] = ep_np;
+-
+ 		/*
+ 		 * At least one input endpoint and one output endpoint shall
+ 		 * be defined.
+@@ -689,8 +686,13 @@ static int adv748x_parse_dt(struct adv748x_state *state)
+ 
+ 		/* Store number of CSI-2 lanes used for TXA and TXB. */
+ 		ret = adv748x_parse_csi2_lanes(state, ep.port, ep_np);
+-		if (ret)
++		if (ret) {
++			of_node_put(ep_np);
+ 			return ret;
++		}
++
++		of_node_get(ep_np);
++		state->endpoints[ep.port] = ep_np;
+ 	}
+ 
+ 	return in_found && out_found ? 0 : -ENODEV;
+@@ -739,7 +741,7 @@ static int adv748x_probe(struct i2c_client *client)
+ 	ret = adv748x_parse_dt(state);
+ 	if (ret) {
+ 		adv_err(state, "Failed to parse device tree");
+-		goto err_free_mutex;
++		goto err_cleanup_dt;
+ 	}
+ 
+ 	/* Configure IO Regmap region */
+@@ -809,7 +811,6 @@ static int adv748x_probe(struct i2c_client *client)
+ 	adv748x_unregister_clients(state);
+ err_cleanup_dt:
+ 	adv748x_dt_cleanup(state);
+-err_free_mutex:
+ 	mutex_destroy(&state->mutex);
+ 
+ 	return ret;
 
 -- 
-Best, 
-Chaoyi
+2.34.1
+
