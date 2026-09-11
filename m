@@ -1,152 +1,140 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30CDC48A8A6
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:59:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D14485CC3
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:59:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789135151; cv=none; b=GkV7p3O+hbgNha7y/FsqpXBPV8f4NTuB7eRKoQ2r8YoD7u/2J36nGRUwUnqWtHsu73xUTXUdPDnfH6iW/cSFP0Kgz+fhkNPG1N7MPn3Z13uJH62oUoMGVIkKZEWZq/8IMuf1qIEH9Qd3t+E4WUFQrcsRmNqiWaQ/hKBKoernNCY=
+	t=1789135160; cv=none; b=m8mK31ZQblyJ+12QCInK0KL87kqXSRwjHPE+HHFcSu6bmOy7JyLwFAQ9TIdggjp/rPpxi08dVNU9SDPBz0+8Xp2P2uQdlJJgwat7h7G6VGWdMJ6udw40DkRxuKIBYDFkQCdPzd9M2Af8frFWPN9ijOi1bguKx8kPk9Vp4i3j0pU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789135151; c=relaxed/simple;
-	bh=qyZRqlRVa+te18rp4tHtL2Z96Joq707rpJxoDVai6bE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RtNmfu0Eyfx0vxgU1dhcelxuJx0BN1PGIZXUMQSy5lVLKa95PCgWmqG4gYZuWRiveqUfTfhnMePpN2q6G++DE0oJec5YpOnbXfla5UunZrESi0rKnqYQ/EgaMJzJi0ejJDIWf/hXSDzsHMuw8OuPKMl51JY2fk6g6PCoOJf78QU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=TfDfx0Ki; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1789135160; c=relaxed/simple;
+	bh=LWoqwo8OPOF1pqAPY7zk58MStnc+PQK6YDQKYR9dyZA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pkocupgywBWvfPFx9F9uMmWjj/lHcHAlKhg4+f77Z5+8rOqPsASrzJoSFzSf84veNZ5OWNsEju94uocj3OG/bxDenYItE5088r1yqH6Q+KXBzIpdvQs7PL99jTgg0Ib9RXfWR9vSOGx4lsKANTmWHzr60JeEQhuABMj4SJ2gKvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PB8VItdy; arc=none smtp.client-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="TfDfx0Ki"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=NUjN4B4f7lGZ0KhNS6XMFk8J0whNkOXMOPXQ3kaf6lc=; b=TfDfx0KimNdWpbzcT+1nHoreWq
-	k2ETKfEy4meSWlDd9bnTuSRZxGViWyaTTh2bgtAIjk7pHynVaZjo3PZVwYKGz8rtteKmPkpx4KdeB
-	8TV7drQ0eo79j5FAVnz//7Z4lSM76YWHVJwcFpm0/aXuy+SBOuHAoFskdfwPBzdZ2+oNIa8Yv7pm0
-	hSVp+0HPnT2Db4+an24NFZjt1mKaT00Q0vgWOuEM+Wf58w6gm+j360WSPCceabNu2IhhX662wU6SL
-	PuhzuZpiyRkr+AEgU6Zh1WUy7wpBtqN8UqC7EPJEGe3VwJYJuI2YCfXgvQ0YmTZ+l/5airPDkW7IR
-	jETV7bxw==;
-Received: from 113.red-79-144-92.dynamicip.rima-tde.net ([79.144.92.113] helo=[192.168.1.210])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1x51m2-000hUv-IU; Fri, 11 Sep 2026 15:58:38 +0200
-Message-ID: <48a67b88-7ad8-4764-bab0-c226e9247dda@igalia.com>
-Date: Fri, 11 Sep 2026 15:58:36 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PB8VItdy"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc4c7fab7b6so1011539a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:59:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789135158; x=1789739958; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pHtTy9lDcxvA2WiCWTCjZ0Fyc3K2ZxTW6s38+wxLTi4=;
+        b=PB8VItdyJaSpA3h9dyrkvqzTCZ3E4T0+tYwfJ/eRiI1TnIe0boTHRF4KB6+xjwatti
+         83RRp5WbySoBj58AqIAXoomo4uljpuqxyKdvGTis7Imv74Al4Y+6xtE8qqBagEo38n4e
+         Nx1ULG7KY4/jGWzc94BjC9MyADP94NenDaDjyXvR6/R2D8ZYBPdiwMn9rTXoEAWHVygP
+         /IrgSI0FuosFJVjD6u3tPz2OwE+eGPChHWd/U7fEEOslMFXI6usDSmmZwHocnkNFBv2O
+         kAwMQ0i+vpk9O4BKAX4HiWUDQOWJGk0hSIKSGoGHQfRGRD9V8DjWRDc5p0+0MrkWiqQe
+         Hcow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789135158; x=1789739958;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pHtTy9lDcxvA2WiCWTCjZ0Fyc3K2ZxTW6s38+wxLTi4=;
+        b=kTbga9BRYoVPngcTnohvGdyl5AwdIKSkAaPPB4FkdLmnd/kLckNhft7EaF+G1UTPU2
+         sPNElI/Gd5ayXFuTLz9u/wV6PpcPOn+iq0Nv9f+a2OyumsHjPP0Q83za7KHgcSxQvO1t
+         CQ+0H6K+KQW24ssHrvSCYw97gLV5LGeMv2adxnmIeySW3ebf4DH1c+runLT52gwVnyRQ
+         Snb9TDlU8BgxKymVGCQ3G6gNxO9VgtlSdY0fDLd97R6qD2McNvEAgP9BnPPLAYj5CqNF
+         KoM0tgrFqMnBTZ8nkolnFOF0l++DErkK4tiNM0z42CJWP15SSxct0+VIOaB29zOYvc+W
+         oTCg==
+X-Forwarded-Encrypted: i=1; AKwUvBz8dNJobsCHx55zGBx3Ym8OUUJq/ASb8DAXoP4glbnfxjsaZJQ2iI6zzS5+rkIzsVA5fq6y2L5AT3q9bYc=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9sfEXzwzT0lbCLzODFEGtdeWjZgsZMEWoggsZnFI2H4I++nk5
+	YQKkHXzR9dBQIoWJ75pOkN7wVfOL1E57Mv92ftR54ozKcFh9Y3cAr+xt
+X-Gm-Gg: AYBFou1/TNYBko+kt9SWfrajSVqm5mCy9Hs1fFNVHx/iSdAsyiD3YkR9N85Aoxx86i+
+	cujA4a+7XfsKpPi034fyvzMqnS91sroYhgC4fCK5ROQglgsa1aHoZk/kp1kN5HbmfBY6nvtihXj
+	9vUuJsFRk/j3wZXZxU0kKHP0Rn0tYr7FEM0UGEwV1Co9G81XKa3cYcBJUZDGUQm1D/0Fum36PxK
+	SDIIWzquyWomIDU8bnfmMEb0llDKsjIVG+Ps3m6MrbazKggBJxQVi7W/dlaV9OmANN/MtFeBXGD
+	DAXCs9mtXE0RYtGYrexTDjNOy6gCMbpgZKKcpMSZAy+4F/hSOdrqvD9UvSGGIe572XpVHG6MphY
+	NR5n2I+bGAPAJBcaM9jO+CERzFQ8FpLURgK5UkMhJdQBvV0Ml/UmhbUHx9Fd34TUJxZdWaM08P8
+	N5c9FQtJxOlQc6C5pA//4QJpMURspkrtS7WWY/dtW1/9DT38q46G1VLBDo0TtE9PirT/xKqamo1
+	n8sR84pcbADw4XQdUsD6oh+Z4rCfkBHqBpXN1qNSzTnSPRx
+X-Received: by 2002:a05:6a20:a120:b0:3d3:ae50:97c7 with SMTP id adf61e73a8af0-3daed7dcbedmr7207784637.20.1789135158291;
+        Fri, 11 Sep 2026 06:59:18 -0700 (PDT)
+Received: from fabio-X870-EAGLE-WIFI7.. ([2804:1b3:a803:6c49:9c35:d64e:78e3:c51b])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e5193dsm6586878eec.10.2026.09.11.06.59.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 06:59:17 -0700 (PDT)
+From: Fabio Estevam <festevam@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: mathias.nyman@intel.com,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	parth.pancholi@toradex.com,
+	francesco.dolcini@toradex.com,
+	Fabio Estevam <festevam@gmail.com>
+Subject: [PATCH v2] usb: xhci-pci: Add TUSB73x0 definitions
+Date: Fri, 11 Sep 2026 10:59:12 -0300
+Message-ID: <20260911135912.1604622-1-festevam@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] drm: Fix drm_pending_vblank_event leak in error path
- for out_fence_ptr
-To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com, sashiko-bot@kernel.org
-References: <20260826-drm_pending_vblank_event_leak-v4-1-f8de8b996b9d@igalia.com>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <20260826-drm_pending_vblank_event_leak-v4-1-f8de8b996b9d@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Instead of hard-coding the TUSB73X0 PCI ID, USB_CTRL register address
+and the PWRON_POLARITY, introduce definitions for them to make the code
+easier to read.
 
+No functional change.
 
-On 26/08/2026 13:46, Thadeu Lima de Souza Cascardo wrote:
-> When an out_fence_ptr is provided but DRM_MODE_PAGE_FLIP_EVENT is not
-> set, a drm_pending_vblank_event will be allocated. If later, there is an
-> allocation failure or another failure at setup_out_fence(), that event
-> will not have base.fence set and it will not be released at
-> complete_signaling().
->
-> Release the event and set crtc_state->event to NULL just like in the
-> DRM_MODE_PAGE_FLIP_EVENT case when there is a failure at
-> drm_event_reserve_init(). That is, prepare_signaling() releases the
-> event and there is nothing to be done at complete_signaling(). Use
-> drm_event_cancel_free() as that will also undo drm_event_reserve_init()
-> in case it has been called.
+Signed-off-by: Fabio Estevam <festevam@gmail.com>
+---
+Changes since v1:
+- None. Only sent it as a standalone patch instead of part
+of a series.
 
-LGTM. Thanks!
+ drivers/usb/host/xhci-pci.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-Reviewed-by: Melissa Wen <mwen@igalia.com>
-
->
-> Reported-by: sashiko-bot@kernel.org
-> Closes: https://sashiko.dev/#/patchset/20260727-drm_crtc_atomic_commit_leak-v1-1-23d9948a9d7c@igalia.com?part=1
-> Fixes: 92c715fca907 ("drm/atomic: Fix double free in drm_atomic_state_default_clear")
-> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-> ---
-> Changes in v4:
-> - Rename label to err_free_event.
-> - Use crtc_state->event instead of a local variable e.
-> - Link to v3: https://patch.msgid.link/20260817-drm_pending_vblank_event_leak-v3-1-7582b24447d0@igalia.com
->
-> Changes in v3:
-> - Use a label for the common exit pattern.
-> - Link to v2: https://patch.msgid.link/20260729-drm_pending_vblank_event_leak-v2-1-a5074aae07df@igalia.com
->
-> Changes in v2:
-> - Fix UAF when DRM_MODE_PAGE_FLIP_EVENT is used.
-> - Link to v1: https://patch.msgid.link/20260728-drm_pending_vblank_event_leak-v1-1-08429b920b16@igalia.com
-> ---
->   drivers/gpu/drm/drm_atomic_uapi.c | 13 ++++++++++---
->   1 file changed, 10 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-> index ae7667d1072d..8c0eea2fed4a 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -1458,10 +1458,12 @@ static int prepare_signaling(struct drm_device *dev,
->   			struct dma_fence *fence;
->   			struct drm_out_fence_state *f;
->   
-> +			ret = -ENOMEM;
-> +
->   			f = krealloc(*fence_state, sizeof(**fence_state) *
->   				     (*num_fences + 1), GFP_KERNEL);
->   			if (!f)
-> -				return -ENOMEM;
-> +				goto err_free_event;
->   
->   			memset(&f[*num_fences], 0, sizeof(*f));
->   
-> @@ -1470,12 +1472,12 @@ static int prepare_signaling(struct drm_device *dev,
->   
->   			fence = drm_crtc_create_fence(crtc);
->   			if (!fence)
-> -				return -ENOMEM;
-> +				goto err_free_event;
->   
->   			ret = setup_out_fence(&f[(*num_fences)++], fence);
->   			if (ret) {
->   				dma_fence_put(fence);
-> -				return ret;
-> +				goto err_free_event;
->   			}
->   
->   			crtc_state->event->base.fence = fence;
-> @@ -1531,6 +1533,11 @@ static int prepare_signaling(struct drm_device *dev,
->   	}
->   
->   	return 0;
-> +
-> +err_free_event:
-> +	drm_event_cancel_free(dev, &crtc_state->event->base);
-> +	crtc_state->event = NULL;
-> +	return ret;
->   }
->   
->   static void complete_signaling(struct drm_device *dev,
->
-> ---
-> base-commit: 4d4be202165e832d74849b4a68e289a2a377039c
-> change-id: 20260728-drm_pending_vblank_event_leak-a36cedb296ba
->
-> Best regards,
-> --
-> Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
->
+diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
+index a8889081ae82..c580e0b86011 100644
+--- a/drivers/usb/host/xhci-pci.c
++++ b/drivers/usb/host/xhci-pci.c
+@@ -28,6 +28,9 @@
+ #define SPARSE_DISABLE_BIT	17
+ #define SPARSE_CNTL_ENABLE	0xC12C
+ 
++#define TUSB73X0_USB_CTRL			0xe0
++#define TUSB73X0_PWRON_POLARITY			BIT(22)
++
+ /* Device for a quirk */
+ #define PCI_VENDOR_ID_FRESCO_LOGIC		0x1b73
+ #define PCI_DEVICE_ID_FRESCO_LOGIC_PDK		0x1000
+@@ -95,6 +98,8 @@
+ #define PCI_DEVICE_ID_ASMEDIA_3042_XHCI			0x3042
+ #define PCI_DEVICE_ID_ASMEDIA_3242_XHCI			0x3242
+ 
++#define PCI_DEVICE_ID_TI_TUSB73X0			0x8241
++
+ static const char hcd_name[] = "xhci_hcd";
+ 
+ static struct hc_driver __read_mostly xhci_pci_hc_driver;
+@@ -479,7 +484,8 @@ static void xhci_pci_quirks(struct device *dev, struct xhci_hcd *xhci)
+ 	    pdev->device == PCI_DEVICE_ID_ASMEDIA_3042_XHCI)
+ 		xhci->quirks |= XHCI_RESET_ON_RESUME;
+ 
+-	if (pdev->vendor == PCI_VENDOR_ID_TI && pdev->device == 0x8241)
++	if (pdev->vendor == PCI_VENDOR_ID_TI &&
++	    pdev->device == PCI_DEVICE_ID_TI_TUSB73X0)
+ 		xhci->quirks |= XHCI_LIMIT_ENDPOINT_INTERVAL_7;
+ 
+ 	if ((pdev->vendor == PCI_VENDOR_ID_BROADCOM ||
+@@ -678,7 +684,8 @@ int xhci_pci_common_probe(struct pci_dev *dev, const struct pci_device_id *id)
+ 	dma_set_max_seg_size(&dev->dev, UINT_MAX);
+ 
+ 	if (device_property_read_bool(&dev->dev, "ti,pwron-active-high"))
+-		pci_clear_and_set_config_dword(dev, 0xE0, 0, 1 << 22);
++		pci_clear_and_set_config_dword(dev, TUSB73X0_USB_CTRL, 0,
++					       TUSB73X0_PWRON_POLARITY);
+ 
+ 	return 0;
+ 
+-- 
+2.43.0
 
