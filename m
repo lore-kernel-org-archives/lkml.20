@@ -1,33 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 061F23E1D16;
-	Fri, 11 Sep 2026 15:33:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA1E3E2746
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:33:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789140789; cv=none; b=dFS7EZVGzlGtV1nt8rbZ+ihCreTwAPyomsTQmsAv15/ppooGr8PkjZF7yNdE+nRwTzw1zhNCtZwohsxU/UEUQVQSU/701Vs7aUcQRlCB3/GtFip/YkK1aTrLxPRXM9AknzxbsYjCInu28jw2zV2xwZXML2gnJr1RLuW+6o3fsw8=
+	t=1789140803; cv=none; b=jKpTr1UN6gdT/xa27W7pgxts0TEynYerzK6xm/5HXs+cFebsKqL+TulIDiVWYfMooLy5+d5iOm0b8+42tv3+e+yTnxQnxuCzyxIdOZ6chQCP6fWjSTu7kqBFp7nmy+OhQQYvvXLLnyAFsLoxaYW/Htgeyxaw2ay5usXcniJgpBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789140789; c=relaxed/simple;
-	bh=asgZcdYNJhnhjZOihPPBLInlOYvJJo6kypyIhjLjAcY=;
+	s=arc-20240116; t=1789140803; c=relaxed/simple;
+	bh=Jxjx7/IZ/oZcJi7k9UeBKSIKhEVAXb20kNUg00lhbfk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hJOiYLmJLq7ls9VJnW2fpJvGQ36lMcyzf/PP1K4ukifmbslaB2ZBOTRMmiVxNouQ7iDyT+aYKTFR+MgbuH9Wj34/+c1ceLZFU+x9n7xa/V9YNQZDu9eQmCzlQD0Ef4VOWG8VgoP+EL/PdZ5h7UhCWmQ1/n5BLHkzJphZDBCtEE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c9HAbm/w; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=I1+7j9xRM5i+qyMMTbxflWp2gi778bWX5rNrTbzfjsgB4islD1lr4SBJv+bM1CgV2VF6gJ1YhSwVeE93GL3uBIWb4GP/a9/AArUaGmUoIcExB5Y9FgLiknSceffsQhsTFdKLdMQeB0in0PSXPEqAP+U91ajoJ7PBvwBKtO0du8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ctopJ+5d; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c9HAbm/w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4729E1F000FF;
-	Fri, 11 Sep 2026 15:33:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789140787;
-	bh=bSKqnb/4RyBm0Huws1qR3jtmSUmdErdTlsTI43caL/A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=c9HAbm/wDoDlK5wMtGMZWX9zEUl0Vw2jF7F4jO1ypvTr8HD3Iq12CmfQQWVW/2kKq
-	 AJKvYoLR4OonhRg7EsYC0Ce5pI57nRsGyI4/BhYc4AUwAzYPBmHiIQbyrnM47go2r1
-	 rzoT/N1EMeMUHOjobriVhorQOOiVRdpIm92KjOPboNICnPvT205qlo7P1r/Gaa4tI0
-	 +uIQUHvq2KVBQxJB7TaXZobUPpCu4J7m7IZ02FMM0/5y4FaSoG6wpCRlvemzDGy7fd
-	 ynumDHhMLAYv+sJj7UdVb8wiOB++bdgGMRPYwzGh1umhi3NH8WyprOuTgFNSVBdBbI
-	 0grrQwHpJaWzA==
-Message-ID: <2a96e380-4cfa-4a07-b63f-1806906898ba@kernel.org>
-Date: Fri, 11 Sep 2026 17:33:01 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ctopJ+5d"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb769ca02so15351661cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:33:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789140800; x=1789745600; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HUm6FsdO55jOVY3JrBx1R4mKoNfkbT3ZZvod1aeZi4M=;
+        b=ctopJ+5d9pRisEbYgo7H537PqWg67RWXKzXEcxNTroMgCBIf9XnQohp66WfMCZhy/e
+         2eb+kTb5jV4plF2AG4FUxqKmq2UPWZ2HNyNiFnzTN1wwuHwHVCZ+t+FZILxPQjUiLNzm
+         gJCj323qqArKFDHiDrgUXdD7FbrfSpH/DCn6Ft9rAojRgisSZAlBG7DRcZjgeNIx8S0/
+         Xjda0NBFKfVyP5KW/aLO8Db0dleZ8Ej9onvaRyR8FRUngsgUPtGrbOKGVzNYch6hbXnN
+         51dmhvUm35WGAuxZOAx2hX+eUgvCxTyLdGz3x2Jx3jSYNL1O4mm/RD9dwLXln3rAYuBv
+         aUdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789140800; x=1789745600;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HUm6FsdO55jOVY3JrBx1R4mKoNfkbT3ZZvod1aeZi4M=;
+        b=MZwVatLe7xNekq0jzcWMJusO9Luvd/PnyFvxQtMolxdqWR+du4P+9gpY/AJ2+eDhrB
+         nGJeZptVknv/cjsaozKxfLdEtDKi5QPNSHoQ3QMpi5VtMnCamv5YpbQdr6MhHoZv/7eo
+         ugbtdyLPC1F+OBZdsJGfzzwIyaExO703aDA7RdcLXLDbQ5YbwLCapUtX0eGvkX8HQQF/
+         ZYiQ4adHJCrp3tYFt49dM7mSb9Jb/Ez50hrOIXcHglUSX5+bwGNJ2cuYuQXyIHa7b3RY
+         RJWJSEuAxFaCfcwWuh3ZRhiikGjukrgHnXMfQcwWaliJL6qpOJgGNvIa3hXw7/3YyRle
+         t7Sw==
+X-Forwarded-Encrypted: i=1; AKwUvBytRAaTpxce8Qh1o8c3LrJ5yyqNmork2m7/G9Vd+s1NAnWFF/m/JBiZLJ4BqPn6qzGpnq6MyzCp9YtFNo0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mz69tJS4ySNpozdAb5RVLUrAQ+y2Spz0kAaqq3Xo9ml+txO/EI
+	p8ktYxiww/B33Nd+RwdkLSj5Prqm2acpVv0LGrZPLbo51uYGfIxQinU6
+X-Gm-Gg: AYBFou3Gcm25gsvCQi/QvfwMoDQFf/Vu9JcORq5d89/8NVqfHNoaLvL0az8+7iW/9Kw
+	2rl1N3WuvWgHayYCJtGsHUrf598P8kyj49F7nRScAEQu0NNoUslr+0XR4clBS9MuUXEsf16b/a3
+	72+dA+FOXjta/0goaVY3Wc3pBpBGeHVB1QLQq8koXlil9JOJLYewxtbXLpVeNeMDuER+90USKHq
+	IurQD9NYBGjFw8bLGCNYz8QnjWNvyP/ectsMaqdudJpQBwDkAz1C4thV4BEJXjMW5RbvMIzPAFh
+	S8SxMHP+ok/0LYdoZz3DPOp8dvGB2SqwWMpnCdCAfQ6lN8X83NOOzYUd2qC+OCppx1E98QlrHeK
+	BJJGPk8D/NQ9b49fxNrSmH2hEL7ZMleMV+amgJMOIZZA+8WSoA5vCF7cIiUsyyXGrGEd+AJ4ggs
+	geKEKY5eobu9s7m1b/kPi3cAV9gxY2XSHs1wpMxS229WWL9Zk3xkzOpt9cIErp5C3B4S3VuiNj7
+	qlarEVqbpXiLwFWhNHJqADwHgr0AglIHNiYwtd1eszbh+Ab9eQ5fZhU+P0o
+X-Received: by 2002:a05:622a:4019:b0:530:198c:12dc with SMTP id d75a77b69052e-530c850fdd0mr92777781cf.12.1789140798640;
+        Fri, 11 Sep 2026 08:33:18 -0700 (PDT)
+Received: from ?IPV6:2406:7400:56:e503:ad72:fda5:83e8:be95? ([2406:7400:56:e503:ad72:fda5:83e8:be95])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca4b9a97sm23226571cf.18.2026.09.11.08.33.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 08:33:18 -0700 (PDT)
+Message-ID: <56587aea-443e-4aec-81f6-e5fde844afc4@gmail.com>
+Date: Fri, 11 Sep 2026 21:03:09 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,82 +70,108 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/7] proc/task_mmu: remove unnecessary inlines in
- function definitions
-To: Suren Baghdasaryan <surenb@google.com>, akpm@linux-foundation.org
-Cc: liam@infradead.org, ljs@kernel.org, vbabka@kernel.org,
- willy@infradead.org, jannh@google.com, paulmck@kernel.org, pfalcato@suse.de,
- xueyuan.chen21@gmail.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, Usama Arif <usama.arif@linux.dev>
-References: <20260910234737.1340642-1-surenb@google.com>
- <20260910234737.1340642-3-surenb@google.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH v3 2/5] pmdomain: core: Allow a non-CPU device in a CPU PM
+ domain to do power on
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, linux-pm@vger.kernel.org,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Christian Loehle <christian.loehle@arm.com>,
+ Maulik Shah <maulik.shah@oss.qualcomm.com>,
+ Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
+ Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260907111659.263324-1-ulf.hansson@oss.qualcomm.com>
+ <20260907111659.263324-3-ulf.hansson@oss.qualcomm.com>
+ <02b29827-3ca3-414b-9377-972f3d46eb03@gmail.com>
+ <CAPx+jO8Cf_NGJ6h30+cd-arAJGQL=V1HayRZqaTrM-xg9eUhpg@mail.gmail.com>
+ <CAPx+jO-ZP_09poe0rHm+h4QQZBbHJisCdQGa6kA67sQAkU-BfA@mail.gmail.com>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260910234737.1340642-3-surenb@google.com>
+From: Dhruva G <goledhruva@gmail.com>
+In-Reply-To: <CAPx+jO-ZP_09poe0rHm+h4QQZBbHJisCdQGa6kA67sQAkU-BfA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/11/26 01:47, Suren Baghdasaryan wrote:
-> It was pointed out in the previous reviews of this code that many
-> functions are specified as inline, which is unnecessary as the compile
-> can make that decision by itself. Cleanup these definitions.
+On 11-09-2026 15:46, Ulf Hansson wrote:
+> On Fri, Sep 11, 2026 at 11:06 AM Ulf Hansson
+> <ulf.hansson@oss.qualcomm.com> wrote:
+>>
+>> On Thu, Sep 10, 2026 at 8:31 PM Dhruva G <goledhruva@gmail.com> wrote:
+>>>
+>>> On 07-09-2026 16:46, Ulf Hansson wrote:
+>>>> A driver for a non-CPU device that is attached to a CPU PM domain (the
+>>>> genpd has the GENPD_FLAG_CPU_DOMAIN configuration set), is currently not
+>>>> able to power on the PM domain. More precisely, to power on a CPU PM domain
+>>>> one of its corresponding CPUs needs to be woken up if they are idle.
+>>>>
+>>>> The current support for a non-CPU device is that its driver can only
+>>>> prevent an already powered on CPU PM domain from being powered off. This
+>>>> leads to problems for a driver while probing its device or when it needs to
+>>>> call pm_runtime_get_sync() to turn on the power for it. From the driver
+>>>> point of view it looks like it all works fine, but when accessing the
+>>>> device it may end up with various errors as the device may not be fully
+>>>> powered on.
+>>>>
+>>>> To fix the behavior for these types of devices, let's adjust the behaviour
+>>>> in genpd_power_on() to wake up an idle CPU that belongs to it, in cases
+>>>> when it's needed.
+>>>>
+>>>> Link: https://lore.kernel.org/all/CAPx+jO-sCierYj8jnoKQHckJG16dOBxnNrsZVYO=38R2cLV8nw@mail.gmail.com/
+>>>> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+>>>> Tested-by: Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>
+>>>> Signed-off-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+>>>> ---
+>>>>
+>>>> Changes in v3:
+>>>>       - Moved to atomic polling, pointed out by Dhruva.
+>>>
+>>> Thanks, but even in v3 we still have potential issues.
+>>> It does not fully address the consequences of polling for five seconds in that context,
+>>> nor the parent-lock nesting issue.
+>>
+>> Well, I assume we will not be polling for 5s, as it would be an error
+>> and it means that we fail to wake up the CPU. But, I get your point,
+>> 5s is really an unnecessary long timeout.
+>>
+>> Ideally the timeout should map towards the deepest domain idle state's
+>> entry+exit-latency-us, but rather than looking at what is actually
+>> available for the PM domain(s) in question, I think it's easier (and
+>> good enough) if we just pick a common value. Usually these values are
+>> in the range of a couple milliseconds and in some cases up to
+>> ~15-20ms. I suggest we decrease the timeout to 300ms and see how that
+>> plays out.
+>>
+>> Also note that, at this point I don't know of any use cases similar to
+>> what you describe, where the device in question is in an irqsafe child
+>> domain. Hence the polling would not be done in an atomic context at
+>> all, so we should be safe. Anyway, if this doesn't work we would
+>> simply have to limit the support to non irqsafe child domains.
+>>
+>> In regards to the parent-lock nesting issue. I don't think it's a
+>> problem as genpd_wakeup_cpu() is not being called recursively, but let
+>> me double check this to be sure.
 > 
-> No change in the resulting binary file size with gcc v15.2.0.
-> No functional change intended.
+> Confirmed, I could not trigger any lockdep problems with my tests.
+
+thanks!
+
 > 
-> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
-> Reviewed-by: Liam R. Howlett (Oracle) <liam@infradead.org>
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Acked-by: Usama Arif <usama.arif@linux.dev>
-> ---
+> If you are fine with the above suggestion for the timeout, I am
+> thinking of amending the patch when applying to avoid posting a new
+> version of the series. Please let me know.
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Yeah I am fine with this, will monitor in future if I suspect anything arising.
 
--- 
-Cheers,
+Reviewed-by: Dhruva Gole <goledhruva@gmail.com>
 
-David
+
+> 
+> [...]
+> 
+> Kind regards
+> Uffe
+
