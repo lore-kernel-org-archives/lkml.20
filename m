@@ -1,187 +1,110 @@
-Received: from mta0.migadu.com (out-232.mta0.migadu.com [91.218.175.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B1EC31F9AC
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:50:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F89539FCAE;
+	Fri, 11 Sep 2026 02:50:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789095004; cv=none; b=BiUzR+yBMkg0ibdDZGR+NyqBkubV2PA4v6L1Ewedps5ZnBkpskLMGISwCUM90AtGlEJZYmCmIMrdJXSe1Ala+rz93ccfsJ8Ke7/7M3QkUmIgRJTIUYKhIe9PWTb+4MMRpRAj6Syl82Y4e3Xn1i+rDRuCi6MaLFCE1fLJS+yT2uo=
+	t=1789095011; cv=none; b=oxQXBbStXMqsx4xy2vkgFzS9Ji47abOaQ/C1w1PBk4z9yQVF33QpkOPHQ6y3C5nALf1eF5rEss5z9dMfVF2BPqoBMalqvki8onBMPIEnubH753XTxyP/zEv5gJw8LjC0umM/0AJMT5B73TQkYuPd1AqF4B2L5idYACyOs8ZPECE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789095004; c=relaxed/simple;
-	bh=QlW8xaRR8XMQQMLMmhsm7NOZLYvVZWtLyYURA0wt09M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b+m6jh+Ghk6QFKbQEnCw82B03yzE8AjfCb5JHFD/CXvyJHxm4slQIRVt3rmZ50cqr5J2fbFBaPSis44nXG8e2XgFhmCRHiSsmRKZzHCNr0xwQ/wBhUcm2b59RMv49yhbEkHeAgdmdB6UHHEBBbmfPQgnhQeKMdlgrGPL+/xu5Ns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PwLje7at; arc=none smtp.client-ip=91.218.175.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789095011; c=relaxed/simple;
+	bh=wCaPxS/hIt13v/BlRL85KzydtkVELLxvezhjNy6rMuc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GHvDgjhCL4iHgj4UtkVBsjRcPgzsMpjiaxMsnSChjohZNsfVrGNbP3B4Dy64yIj5OPHYNyD5cT6icEIO1IGf+Piq5/ohzz2/paDFm+bZHcwNk2+TERuWhyg9tGRI94VfD3PdDWaSYlaft+lEJQUUdpfmx7LyfSp8y+AIxE5ldnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=OYaoPJtf; arc=none smtp.client-ip=115.124.30.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PwLje7at"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=QlW8xaRR8XMQQMLMmhsm7NOZLYvVZWtLyYURA0wt09M=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789095000; v=1; x=1789699800;
- b=PwLje7at27yZN644KK3d7xSS5eznLqiMTeGr6D+gic+Lr77Ybgu08lZlN4q6XjxHhKwICfhf
- 9ZGG+pG4GZGQ+4ldYAD4/7kaQAq/PsqlvM6dMX0qNeECUn5cTYke5B4jVlqG8By9y724S+NrWmm
- +bzpnygPPEQhZ5fBQz0ykTdc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id f48e2a564b1decce;
-	Fri, 11 Sep 2026 02:49:59 +0000
-X-Mizu-Trace-ID: f48e2a564b1decce
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 11 Sep 2026 10:49:42 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Junjie Cao <junjie.cao@intel.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	David Ahern <dsahern@kernel.org>, Simon Horman <horms@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v5] net: dropreason: add
- SKB_DROP_REASON_IP_TTL_EXCEEDED
-Message-ID: <aqNsRizP27HvHcGB@fedora>
-References: <20260910094937.536150-1-junjie.cao@intel.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="OYaoPJtf"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1789095004; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=/qoPgN105gt2P4UL8cGJgEPkDgefVho21FsHOdfrr3Q=;
+	b=OYaoPJtf5rOfFDkfjgDt/nanPwQiaZdKxU1FTNt6Q8dHESj4SjsySxTdy0bHaA+w6Cqw8pwOFNBr84yEqoanx2xgFaYUAjvgnA+ta58zm7sKl90Uzmh22+lJBddPfHA6DCIF3NhbsbZyG7S0BhMhwq9qLfwnk1NpRIVZSKuxUy8=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R631e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=26;SR=0;TI=SMTPD_---0XAj1dJ._1789095001;
+Received: from 30.74.144.118(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAj1dJ._1789095001 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 11 Sep 2026 10:50:02 +0800
+Message-ID: <708fbbe2-4eba-4641-8267-ed930ade0068@linux.alibaba.com>
+Date: Fri, 11 Sep 2026 10:50:00 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910094937.536150-1-junjie.cao@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 08/19] selftests/mm: add folio-order check for address
+ ranges
+To: Kiryl Shutsemau <kirill@shutemov.name>
+Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+ rppt@kernel.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, usama.anjum@arm.com, usama.arif@linux.dev,
+ nico.pache@linux.dev, ziy@nvidia.com, baohua@kernel.org, dev.jain@arm.com,
+ hughd@google.com, lance.yang@linux.dev, liam@infradead.org, mhocko@suse.com,
+ ryan.roberts@arm.com, shuah@kernel.org, surenb@google.com,
+ vbabka@kernel.org, agordeev@linux.ibm.com, jgg@ziepe.ca, leon@kernel.org,
+ kernel-team@meta.com
+References: <20260908125105.1510704-1-kirill@shutemov.name>
+ <20260908125105.1510704-9-kirill@shutemov.name>
+ <feb76c81-db9d-4a36-9a31-0b2b31e3c3fb@linux.alibaba.com>
+ <aqKFXlpSELmCtt-z@thinkstation>
+ <65bf1722-c1fd-452a-88c1-c030b042cfbc@linux.alibaba.com>
+ <aqKqr62-718Vw35k@thinkstation>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <aqKqr62-718Vw35k@thinkstation>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 10, 2026 at 05:49:37PM +0800, Junjie Cao wrote:
-> The forwarding paths report an expired TTL or hop limit as
-> SKB_DROP_REASON_IP_INHDR, the reason otherwise used for a header that is
-> malformed (ip_input.c, exthdrs.c, br_netfilter). Nothing else in the drop
-> path separates the two: IPSTATS_MIB_INHDRERRORS covers both, and the TTL
-> check runs before NF_INET_FORWARD, so netfilter tracing stops at
-> PREROUTING and never sees the drop.
-> 
-> The Fedora bug linked below shows how that reads in practice. The
-> reporter took kfree_skb(reason=IP_INHDR, loc=ip_forward) to mean the
-> software header checksum check had failed, and worked through RX checksum
-> offload, tc csum actions and both libvirt firewall backends before the
-> drops turned out to be replies arriving with TTL 1. ip_forward() never
-> verifies the header checksum; that runs earlier, in ip_rcv_core(), and
-> reports IP_CSUM.
-> 
-> TTL expiry is not a corner case -- every traceroute through a Linux
-> router goes through too_many_hops.
-> 
-> The three loopback hop limit checks in exthdrs.c drop with no reason at
-> all; give them the new one.
-> 
-> IPSTATS_MIB_INHDRERRORS stays as it is: RFC 1213 counts time-to-live
-> exceeded under ipInHdrErrors. The drop reason has no such constraint.
-> 
-> Link: https://bugzilla.redhat.com/show_bug.cgi?id=2517131
-> Signed-off-by: Junjie Cao <junjie.cao@intel.com>
-> Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-> Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
-> ---
-> v5: move the entry next to the other IP_* reasons, after IP_INVALID_DEST
->     (Jakub Kicinski)
->     IPVS decrement_ttl() is a follow-up: its xmit callers free at tx_error
->     with plain kfree_skb(), so the reason has to come back out of
->     __ip_vs_get_out_rt() (David Ahern, Hangbin Liu)
-> v4: https://lore.kernel.org/netdev/20260907030133.482834-1-junjie.cao@intel.com/
-> v3: https://lore.kernel.org/netdev/20260904030112.450920-1-junjie.cao@intel.com/
-> v2: https://lore.kernel.org/netdev/20260901020613.417495-1-junjie.cao@intel.com/
-> v1: https://lore.kernel.org/netdev/20260825073906.336072-1-junjie.cao@intel.com/
->  include/net/dropreason-core.h | 6 ++++++
->  net/ipv4/ip_forward.c         | 2 +-
->  net/ipv6/exthdrs.c            | 6 +++---
->  net/ipv6/ip6_output.c         | 2 +-
->  4 files changed, 11 insertions(+), 5 deletions(-)
-> 
-> diff --git a/include/net/dropreason-core.h b/include/net/dropreason-core.h
-> index 2f312d1f67d6..12f909651591 100644
-> --- a/include/net/dropreason-core.h
-> +++ b/include/net/dropreason-core.h
-> @@ -93,6 +93,7 @@
->  	FN(IP_INVALID_SOURCE)		\
->  	FN(IP_LOCALNET)			\
->  	FN(IP_INVALID_DEST)		\
-> +	FN(IP_TTL_EXCEEDED)		\
->  	FN(PKT_TOO_BIG)			\
->  	FN(DUP_FRAG)			\
->  	FN(FRAG_REASM_TIMEOUT)		\
-> @@ -474,6 +475,11 @@ enum skb_drop_reason {
->  	 * 1) dest ip is 0
->  	 */
->  	SKB_DROP_REASON_IP_INVALID_DEST,
-> +	/**
-> +	 * @SKB_DROP_REASON_IP_TTL_EXCEEDED: IPv4 TTL or IPv6 hop limit <= 1
-> +	 * (see IPSTATS_MIB_INHDRERRORS)
-> +	 */
-> +	SKB_DROP_REASON_IP_TTL_EXCEEDED,
->  	/**
->  	 * @SKB_DROP_REASON_PKT_TOO_BIG: packet size is too big (maybe exceed the
->  	 * MTU)
-> diff --git a/net/ipv4/ip_forward.c b/net/ipv4/ip_forward.c
-> index 8b65f12583eb..b242561d37e7 100644
-> --- a/net/ipv4/ip_forward.c
-> +++ b/net/ipv4/ip_forward.c
-> @@ -174,7 +174,7 @@ int ip_forward(struct sk_buff *skb)
->  	/* Tell the sender its packet died... */
->  	__IP_INC_STATS(net, IPSTATS_MIB_INHDRERRORS);
->  	icmp_send(skb, ICMP_TIME_EXCEEDED, ICMP_EXC_TTL, 0);
-> -	SKB_DR_SET(reason, IP_INHDR);
-> +	SKB_DR_SET(reason, IP_TTL_EXCEEDED);
->  drop:
->  	kfree_skb_reason(skb, reason);
->  	return NET_RX_DROP;
-> diff --git a/net/ipv6/exthdrs.c b/net/ipv6/exthdrs.c
-> index 09a4552f7f08..55391e2e5612 100644
-> --- a/net/ipv6/exthdrs.c
-> +++ b/net/ipv6/exthdrs.c
-> @@ -464,7 +464,7 @@ static int ipv6_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
->  			__IP6_INC_STATS(net, idev, IPSTATS_MIB_INHDRERRORS);
->  			icmpv6_send(skb, ICMPV6_TIME_EXCEED,
->  				    ICMPV6_EXC_HOPLIMIT, 0);
-> -			kfree_skb(skb);
-> +			kfree_skb_reason(skb, SKB_DROP_REASON_IP_TTL_EXCEEDED);
->  			return -1;
->  		}
->  		ipv6_hdr(skb)->hop_limit--;
-> @@ -623,7 +623,7 @@ static int ipv6_rpl_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
->  			__IP6_INC_STATS(net, idev, IPSTATS_MIB_INHDRERRORS);
->  			icmpv6_send(skb, ICMPV6_TIME_EXCEED,
->  				    ICMPV6_EXC_HOPLIMIT, 0);
-> -			kfree_skb(skb);
-> +			kfree_skb_reason(skb, SKB_DROP_REASON_IP_TTL_EXCEEDED);
->  			return -1;
->  		}
->  		ipv6_hdr(skb)->hop_limit--;
-> @@ -815,7 +815,7 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
->  			__IP6_INC_STATS(net, idev, IPSTATS_MIB_INHDRERRORS);
->  			icmpv6_send(skb, ICMPV6_TIME_EXCEED, ICMPV6_EXC_HOPLIMIT,
->  				    0);
-> -			kfree_skb(skb);
-> +			kfree_skb_reason(skb, SKB_DROP_REASON_IP_TTL_EXCEEDED);
->  			return -1;
->  		}
->  		ipv6_hdr(skb)->hop_limit--;
-> diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
-> index 96ee3de55f93..ddaba0aebcb1 100644
-> --- a/net/ipv6/ip6_output.c
-> +++ b/net/ipv6/ip6_output.c
-> @@ -577,7 +577,7 @@ int ip6_forward(struct sk_buff *skb)
->  		icmpv6_send(skb, ICMPV6_TIME_EXCEED, ICMPV6_EXC_HOPLIMIT, 0);
->  		__IP6_INC_STATS(net, idev, IPSTATS_MIB_INHDRERRORS);
->  
-> -		kfree_skb_reason(skb, SKB_DROP_REASON_IP_INHDR);
-> +		kfree_skb_reason(skb, SKB_DROP_REASON_IP_TTL_EXCEEDED);
->  		return -ETIMEDOUT;
->  	}
->  
-> -- 
-> 2.43.0
-> 
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+
+On 9/10/26 9:04 PM, Kiryl Shutsemau wrote:
+> On Thu, Sep 10, 2026 at 07:14:42PM +0800, Baolin Wang wrote:
+>>
+>>
+>> On 9/10/26 6:45 PM, Kiryl Shutsemau wrote:
+>>> On Wed, Sep 09, 2026 at 06:01:13PM +0800, Baolin Wang wrote:
+>>>>
+>>>>
+>>>> On 9/8/26 8:50 PM, Kiryl Shutsemau wrote:
+>>>>> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+>>>>>
+>>>>> An mTHP collapse test needs to know that a range is backed by folios of the
+>>>>> target order, and that they sit where a collapse would put them.  Nothing
+>>>>> answers that today: is_backed_by_folio() classifies the folio behind a
+>>>>> single page, and check_huge_anon() reads smaps AnonHugePages, which only
+>>>>> accounts PMD mappings.
+>>>>
+>>>> Have you checked check_large_folios() in vm_util.c? It seems to meet your
+>>>> requirements, or am I missing something?
+>>>
+>>> The changelog is out of date, sorry: since 6dedaf0d46a9 check_huge_anon()
+>>> counts mTHP folios through check_large_folios() rather than reading
+>>> smaps, and it is what check_huge() already uses for mthp_khugepaged.
+>>>
+>>> It could do this job too, called once per window.
+>>>
+>>> What is_range_backed_by_order() adds is alignment check: the folio has
+>>> to sit at the window start. And check_large_folios() reopens two fds per
+>>> per call which kinda wasteful.
+>>
+>> OK. But can we extend the check_huge_xxx() functions to meet your
+>> requirements, for example by adding a check_aligned_huge_xxx() that wraps
+>> the underlying implementation of check_large_folios()?
+>>
+>> I still find it confusing that khugepaged.c has two separate sets of
+>> functions for checking large folios.
+> 
+> Agreed that two sets is one too many.  Yeoreum's series rewrites
+> check_huge_xxx() on top of pagemap and kpageflags, which is what
+> is_backed_by_folio() already walks, so once that lands the two can meet:
+> the mTHP branch of check_huge() checks each window for a folio of the
+> order at its start, and is_range_backed_by_order() goes away or becomes
+> its internal.  That also makes the generic mTHP cases stricter for free.
+
+Look forward to seeing this happen:)
+
+> I would rather do that as a follow-up than fold it into either series
+> now, since both touch the same functions.
+
+Sure.
