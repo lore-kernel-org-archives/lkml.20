@@ -1,174 +1,382 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C17B3442384;
-	Fri, 11 Sep 2026 19:14:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1105843C043
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:15:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789154085; cv=none; b=CH5nbEWNFfZl2wQkyqmuAwtwtsPUy6s5lcZQbxFUj9yTf7jnDR6YHUaigRB8ifxcI3IktXwawEqGZwGEFDOeOeGcQp441jZ5uUzGp3sXcEnDmBUXm/xjSyPM+kr99gsbWBbYNeQg2buFUxb1cnXRh5EH75WBShi9L1sqvhCh3UI=
+	t=1789154119; cv=none; b=g/TWTKscnFgUg7S2+0eOqqr1YfKd7LY4g7oOvcYFsfKsYONDJUBvu6D7DONhejbYtbLD88zekb+fDxC0vY77nIE88Oiy7rSHBdrzbFamwxazYHuhsjseM1HXiO/qfCFOvkE/iMGtZ0Z2OxJ37byvsjM6fnW9lX1z7QgUymxfe/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789154085; c=relaxed/simple;
-	bh=dpc7anxfP2ZPPTeVcg35RlsGI7X0Ls2XyqXjTybPouY=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=uJrjWtqzWViyLqSiMklWvdSyFk93Z9wLdGc7wuMpuCpg4oiN8vdV9LkTplUNrWTt42cLqMhMhHh4LBYLxblaUM9s3AnXDeTAAfUgQF0kDfJcRVilJa8IKUcL8Izm/qUuZQ3+bky7qmToq1igewAAklRXxukELk2W+U/z01qfylU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KEalvI/2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789154119; c=relaxed/simple;
+	bh=suCLjVjlPtCVTRxt/yyl4+CfCD3zfr9c7UniXKBFnzU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tDRYTe5TdjOJRR1WNjmIbfMnhJ6p4qcJhv6cP+WDP7JHHeINSZ7ygPYgnK61RRC237Xbl7/tBWuovYVfKJPOfnTF9jC0DOkQMmxVD9CsqjLIrAbwaTmVTd9QNsGQmdHI6X6W1rUWW3YFJnNekWY1KnlMM60piKx/4ysNCIK8gLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Mq2Eaaca; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g2GBpCWe; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KEalvI/2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC5731F000FF;
-	Fri, 11 Sep 2026 19:14:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789154070;
-	bh=6dBTiX4xAO3JV4ryYMi2B6agwtg8EoTxOEevYmBg6jY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=KEalvI/2bEBdkDuKN4fDoYIKLX7rAzEfZt8bke8EBvHnfyzM7P2NknWBSV2RDem7Q
-	 nhaUbLczJcFxoJ2dWu9IENtTm3GibRW0LJjdgS+08etBmUihh9/mu3OrOuss+dmBk8
-	 5ywqAybM2Oes8BjZDd5OendLHvt7KVyTiPdnapbIF1HjYXhC8LMf/lmyuJx3wKgJSz
-	 94NeaGgX75Ry5f+8KjxF/nthw1h2JoGfRDyarbp7DU2eXY4rvxW+Ai+7oVxL22fjW2
-	 zbE261wRJJnNpV/wDW8to41BavEmjVlRTfgeYlESIwNN6TDpN/5HpdiHXEyQVKoou6
-	 8bRA/EtABB+QA==
-Date: Fri, 11 Sep 2026 14:14:29 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Semih Baskan <strst.gs@gmail.com>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>
-Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
-	robh@kernel.org, bhelgaas@google.com, rjui@broadcom.com,
-	sbranden@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
-	rafal@milecki.pl, florian.fainelli@broadcom.com, arnd@arndb.de,
-	linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, rosenp@gmail.com, rani.hod@gmail.com
-Subject: Re: [PATCH v3] PCI: iproc: Use the EROM outbound window on BCMA
-Message-ID: <20260911191429.GA549927@bhelgaas>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Mq2Eaaca";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g2GBpCWe"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BHWOmO810126
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:15:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	XA4Kl0KLnzcJOt9vayKyZzMGbRlqf8uEKgvEQ7zEOY4=; b=Mq2EaacaVAgjVX0e
+	3N8B2iHucKabcLOOEc02aUGBnNV1A7FsZjlojV+zwiV62S0nJB50RHkgs4H7Mouf
+	jxR1Kdr0rE8AaO3AmU0CgCnGFzgNpJkUL/ugujL2vccMZ00PuHYh3c7IqldvdpAP
+	ynDMWe3JmtbC/oxvCR+MN2m7uHqKznVzdB/RsXqbBo6CJKmBPUd1noI5I51K3TmK
+	ShkkAr06YPlO0GE3JaY4A58G2ThIv6fSyyQDv7e5v2d5Uip9sUFZdM1JoOWPo146
+	UPVT5a6IA2VpVthw8tSq+HpaT0FP6OLuvdgRBUXbxIoBEAdSEq5sOxVqMNr9JvgX
+	P+IDRQ==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmnv20eaj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:15:06 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cb11535e6a1so1211033a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:15:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789154105; x=1789758905; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XA4Kl0KLnzcJOt9vayKyZzMGbRlqf8uEKgvEQ7zEOY4=;
+        b=g2GBpCWeXdmZUUIXR1Xihyq//HSB7A70Fub/P898+M1nG67CKaa/mA06sYfOt3fH+N
+         7uhR0QlK0pfQkRZvf4rGRBCfudnRcaF0hB/JFuEU59VR3RWTu3hXqBf1TCGlUkAPGZbM
+         /uZSaZyPAzHyaQ7Ec7oKht6FuHMqdisr80SH4zuJQ0Anlhjs98RyD2sI54gXy7dAImNv
+         dnHqDHxn0ALO0HO0BZ8ag+4ryv4ysekd2o7f3H63w0pntRONtdA91Ywa6Y4zmT4BuYFf
+         JeTPZxmb9BkRsuB56if4TPk9HsG1EWnuHD8vDpSSzjUB6ukIRrGth/iVaFKsVPuHjeoB
+         10Ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789154105; x=1789758905;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XA4Kl0KLnzcJOt9vayKyZzMGbRlqf8uEKgvEQ7zEOY4=;
+        b=fluxoZY2kQhhYdwX988bwCEctA4Zkg/uRWIeq8NDtEdETkWaMZrUDXqpH6CHR/x0Md
+         SN4MOgEFqvr/40eJ0MbZIUH8H63tOb8XiUxnltNwYsFxrErSGGXBdTz5GJfdOe5PFiRb
+         7U7gim1nmHessmdWa1AAcDKUcZ3/05Mz8lpDFn6EPX9fRwf696YXpUPYT8qWb3bauY7G
+         R0bX8PcsgviQU1AfHOy91nn345k9P+3XJDC+Gu5iSlMznJGFnpGWmEC0WkGR0AXYyYKg
+         XV+QXesX7c5zUNAYNrJB5T6fYtZsFAVcTGZZ+Pv30LORvxB9QduC4xo9KwQLTD1JU7M9
+         ag2g==
+X-Forwarded-Encrypted: i=1; AKwUvBz47p8LCFBonh8hgoaSmhTg73oa/5cfOJfXU3HhzEv9cwb+wux4NIc4b3ExmkNqyV5AWhnOUSxft/iMgWA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mM3alIrEX+Umqz/3eNgbdQJ3tUmyO5JzoNbS+Jl8m2ZHDtlDL6
+	Ccpk+BPUvZ+c+tc+3Tzz/GHSAwT0rg/ps/x1Q9WndNnlupKIoK0hpctx6eDCLeoVNMkAlfHtbQB
+	KM39n1QMQihfvMlwyANhL9ic1uQ086tGa6huuI4eWRhPcatUzeVhevIS3/B0xyMlDh4k=
+X-Gm-Gg: AYBFou1fga8nVoVwHbWFABIXgqlHpuiF7wAybvpa+YkNzhqqu54toQmVasw1u8xHlkT
+	VOgvM7dUap0USuUs7fGLP2Pvq4lOvs3H3MNbB1VYhAgr8Obj4veeSo1L09iMkf2ow+NXFdOiM6y
+	f8SJYhUjyURh+9K053CH086VpMoRwOK/DPMov85kohjW4QXWuALVXlCIPj/avClFyF+rcvWurCN
+	gRZddu5xUH3hWUujk/JmKCn3YBpQF9werD6xlA9CGCfdyCBG4y0O+jeS0GVDBqDDax+NpwRTjzH
+	NDJfGnnkgoslHar/xo6BknU7zwH7cCZq7hCfXcZO7n1RrFzUbxOuyE7E3WEe4uJk/8hNdtKRwaf
+	8E/C4ek2WxsOVDFUlx6dDSFcF9lt/jItzI+YUpCVipLDWT3ZN9TtF5er1TsP8
+X-Received: by 2002:a05:6a21:6b10:b0:3d3:ad3c:49a8 with SMTP id adf61e73a8af0-3daed3b9745mr10795672637.22.1789154105061;
+        Fri, 11 Sep 2026 12:15:05 -0700 (PDT)
+X-Received: by 2002:a05:6a21:6b10:b0:3d3:ad3c:49a8 with SMTP id adf61e73a8af0-3daed3b9745mr10795608637.22.1789154104461;
+        Fri, 11 Sep 2026 12:15:04 -0700 (PDT)
+Received: from [10.227.105.111] (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143659a9a06sm8271959c88.0.2026.09.11.12.15.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 12:15:03 -0700 (PDT)
+Message-ID: <d91ce2be-6489-4399-b035-23f6aec0371f@oss.qualcomm.com>
+Date: Fri, 11 Sep 2026 12:15:00 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260807160526.379-1-strst.gs@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 00/12] ath1{1,2}k: support multiple PCI devices in one
+ system
+To: Juha-Matti Tilli <juha-matti.tilli@iki.fi>, ath11k@lists.infradead.org,
+        ath12k@lists.infradead.org, Kalle Valo <kvalo@kernel.org>,
+        Jeff Johnson <jjohnson@kernel.org>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        "David S . Miller" <davem@davemloft.net>,
+        Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+        Mihai Moldovan <ionic@ionic.de>, linux-wireless@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260908093145.2492666-1-juha-matti.tilli@iki.fi>
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20260908093145.2492666-1-juha-matti.tilli@iki.fi>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDI3MCBTYWx0ZWRfX7IXZ5TywLiT5
+ kGF/TLEMt14Rjh1Be639XUa9GzC+5kwC6Vle0pXEnfz/WxSyJIaHVqjuoofgLiEXG5VQy1jnxt/
+ ZxPH7iF72B65yxQrdcXHrqiDusWBlDQ=
+X-Proofpoint-GUID: afkhTRLFFJGh4UYBFplEKJTr86LNbq1p
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDI3MCBTYWx0ZWRfXwhP9IJY3LkBL
+ EsB4L6X8ZetMD7pNJBtJZpPce1Y2ErzLclgw1fUAPB1dkou79F5M1OH6o4nIWJK231v97TkhuEz
+ vpKOvRgW+xwvDr9R1FJzof4HC2FUGyagqcWzVlwjS1JofslH1rkGNdMzizibGZWZHuAHR9/6dVc
+ LBTV7yqEDowKzfZ3iIRRtoMuSkXTcowN6QygK/fKdTfM3CzP1MSaUTrkxAappiZRDAvveoopj8y
+ A0Mn4nCSlEEdUYkkfcGuVtXSww81CeNUwydR43yFXt8n7pIb9gZ/K6lnROzGXC2EZw6D/nS7xcb
+ jhDJSUYQtpoYbS4dTABU+Rvk8cZzalX5lkkgmZj+K+Q7Pn9eutn+QY+NM8tDh9CgzYRyjtjtvwl
+ 0SDBfBF/aAfkz0AAsmXpM1z4l35K4iWGMJG4HJT0T6EbHYyGrsJKsY1Srmxr0iWfYoHUUZx3yWV
+ 8NE8EZfFZvbBFr2y7GA==
+X-Proofpoint-ORIG-GUID: afkhTRLFFJGh4UYBFplEKJTr86LNbq1p
+X-Authority-Analysis: v=2.4 cv=XvdvqlF9 c=1 sm=1 tr=0 ts=6aa4533a cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=bC-a23v3AAAA:8 a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
+ a=COk6AnOGAAAA:8 a=nuVjNcMAjKUeO9L8OkEA:9 a=QEXdDO2ut3YA:10
+ a=x9snwWr2DeNwDh03kgHS:22 a=FO4_E8m0qiDe52t0p3_H:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-11_06,2026-09-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 priorityscore=1501 phishscore=0 suspectscore=0
+ adultscore=0 malwarescore=0 clxscore=1015 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110270
 
-[+to Rafał; probably same as rafal@milecki.pl, but MAINTAINERS lists
-zajec5@gmail.com for BCMA]
+On 9/8/2026 2:31 AM, Juha-Matti Tilli wrote:
+> Hello,
+> 
+> As you may well know, multiple identical ath11k and ath12k devices are
+> not supported in a single Linux host because they use conflicting QRTR
+> node IDs. Fortunately, Denis Kenzior created a patchset to support
+> multiple QRTR endpoints with identical node IDs, and Mihai Moldovan
+> refined it, after which I took over the patchset and refined it more.
+> 
+> Mihai Moldovan also created a patchset for actually adding the support
+> for this QRTR multi-endpoint feature to ath11k and ath12k drivers.
+> Unfortunately, the code of Mihai was not merge-quality, since it leaked
+> memory if you ran rmmod and modprobe inside a loop. Mihai mentioned this
+> drawback, without providing an API for deleting endpoints or usage of
+> such API in code that's responsible for freeing resources. Also Mihai's
+> patchset had a race condition.
+> 
+> Since Mihai has been busy recently and the previous iteration of this
+> patchset is nearly 2 years old, I decided to "steal" the patchset from
+> him since he said he doesn't care who eventually implements this, as
+> long as it "just works". I am willing to give the responsibility of this
+> patchset back to Mihai if he so wants.
+> 
+> I reverted back to the approach where MHI knows the QRTR endpoint id.
+> This is somewhat ugly, but really the only way resources can be freed
+> (unless you resort to some kind of reference counting which would be
+> doable in kernel, or garbage-collection which wouldn't be doable). It
+> does create some extra memory usage in the mhi_controller data
+> structure, but a large fraction of the time, the data there is useful,
+> since a large fraction of MHI devices actually use QRTR. So this is not
+> as bad as making every PCI device know its QRTR endpoint ID (which a
+> vast majority don't have), even though MHI can be compiled in without
+> QRTR so we have to do the freeing via a function pointer.
+> 
+> I think the code is mostly merge-quality now. It does require the QRTR
+> multi-endpoint support, such as this v6 (I'm soon going to post v7 --
+> note that in v6 one intermediate commit doesn't compile on 32-bit
+> although the tip of the branch does compile):
+> 
+> https://msgid.link/all/20260901131934.225991-1-juha-matti.tilli@iki.fi
+> 
+> I tested it on dual ath11k setup, but more testers would be good. If you
+> only have a single ath11k card, your testing is useful too ("given
+> enough races, all race conditions are shallow").
+> 
+> Link to Github if you don't want to apply patches manually from mails:
+> 
+> https://github.com/jmtilli/linux/tree/athnext_multi_qrtr_v7_multi_ath11k_ath12k_v3
+> 
+> Bugzilla: https://bugzilla.kernel.org/show_bug.cgi?id=218480
+> 
+> Mihai mentioned in Bugzilla in comment 21 that there was a hardware
+> crash he couldn't reproduce and he believed it's a race condition. I
+> could reproduce it in older Mihai's patchset version by treating -EEXIST
+> as an error, which indeed points to it being a race condition. I believe
+> the source was qrtr_endpoint_id_get_or_assign that tried to get an ID
+> and then assign an ID if it couldn't get one, while not holding a
+> spinlock. In my newest patchset, my belief is this race condition is
+> gone (the entire offending function is gone), but any kind of review
+> about thread-safety of my code would be good input.
+> 
+> Original description:
+> 
+> ath11k and ath12k suffer from a long-standing issue that is partly
+> caused by the QRTR implementation, which only supports one device per
+> node/port combination and partly caused by the fact that the
+> QMI instance ID of the devices are statically set to 1.
+> 
+> P Praneesh <quic_ppranees at quicinc.com> submitted a patch[0] that fixes
+> this issue generating a unique QMI instance ID based on the PCI bus data
+> for the device and passing that information to the QMI subsystem and the
+> device's firmware via a special PCI register.
+> 
+> However, it quickly turned out that this approach works for the hardware
+> he tested, but fails for other ath11k-based devices, including the
+> popular QCA6930, since its firmware just ignores the special register
+> being used.
+> 
+> Since we need QMI (and, for matter, QRTR) to work for the initial
+> firmware upload, this approach will not work generically.
+> 
+> Fortunately, Denis Kenzior <denkenz at gmail.com> cooked up a patch set for
+> QRTR[1] that introduces the concept of endpoint IDs, which are
+> dynamically allocated and can be used to distinguish different devices
+> even though they use the same node/port combination. Using this patch
+> set, endpoint IDs can be reported as part of auxiliary data in the QRTR
+> socket and bound to for client sockets, which will automatically filter
+> messages from other endpoints and also make sure that client messages
+> are routed to the correct endpoint.
+> 
+> This looked promising, and with that functionality, the only challenge
+> is to find out the correct endpoint IDs and bind to them in drivers to
+> finally support multiple devices in a generic way.
+> 
+> This patch set implements exactly that, and it WORKSFORME, but
+> unfortunately it turns out that "the only challenge" is very difficult
+> to overcome due to the socket-based architecture.
+> 
+> ath1{1,2}k and QRTR are at opposite sides of the socket, with QRTR
+> assigning endpoint IDs and ath1{1,2}k needing a way to fetch and operate
+> on them.
+> 
+> The endpoint reporting feature in QRTR is not helpful in this case,
+> because drivers do not generally know which endpoint belongs to the
+> device they currently handle (i.e., there is no central registry) and
+> even if we were to snoop on the socket and take the first endpoint ID we
+> are unaware of, this might not be the correct one, because it might be
+> in use by a different driver for instance, or correspond to a different
+> device.
+> 
+> The first iteration of this patch set[2] extended struct mhi_device with
+> a qrtr_endpoint_id field that was initialized to zero and populated by
+> the QRTR MHI driver as soon as it was loaded. Drivers could then query
+> this field through an mhi_device->mhi_cntrl->mhi_device chain (if they
+> also use the MHI bus, of course). This, however, was an incredibly ugly
+> hack because QRTR data should not be part of MHI device structures in
+> the first place, timing is critical (drivers querying the endpoint ID
+> must do so after the QRTR MHI module initialized, which is typically
+> only the case after QRTR socket was created) and it was not possible to
+> query or pre-assign an endpoint ID before creating a socket and directly
+> bind to it (which might lead to races such as seeing messages over the
+> socket that are not meant for the endpoint ID drivers are actually
+> interested in).
+> 
+> Since that was not elegant at all, and due to the other mentioned
+> issues, this iteration uses a different approach: endpoint IDs can now
+> be associated with (private) backend endpoint-specific data, which
+> allows us to identify which endpoint ID is being used with what backend,
+> and additionally new API is introduced so that other parts in the kernel
+> can either get an endpoint ID for given endpoint-specific data or even
+> attach endpoint-specific data to a new endpoint ID generated by the QRTR
+> driver. The QRTR system will try to use endpoint-specific data if
+> possible, but falls back to generating endpoint IDs without
+> endpoint-specific data (as in, NULL pointer) if that did not work.
+> 
+> Crucially, the endpoint-specific data pointer is used as an opaque void
+> pointer and at most compared with data stored in the endpoints XArray.
+> 
+> In the QRTR MHI backend, we use the MHI controller's structure pointer
+> as endpoint-specific data, and since the MHI controller is also the bus
+> master and responsible for the physical link, clients (drivers) can
+> pre-register an endpoint ID for their MHI controllers and directly tell
+> QMI to bind to the endpoint ID at socket creation time.
+> 
+> The QRTR SMD backend uses its rpmsg_device pointer and the TUN backend
+> uses the inode pointer as their respective endpoint-specific data
+> pointers.
+> 
+> This approach is cleaner and works better, because it is not prone to
+> races (although it requires coordination between QRTR backends and
+> clients/drivers because both must use the same endpoint-specific data
+> for the scheme to work).
+> 
+> There are, however, also issues with this approach:
+>   - Any kernel part can generate an unlimited number of endpoint IDs
+>     with arbitrary pointers. The amount of endpoint IDs that can be
+>     tracked is limited, though, so there is potential for exhaustion of ID
+>     space.
+>   - Since previously endpoint IDs were only generated by the QRTR
+>     subsystem, there was no need to use any kind of life cycle management
+>     for the endpoint IDs: they were created at node creation time and
+>     also deleted at node deletion time. Since other subsystems can now
+>     create endpoint IDs, it would probably be good to have a way to
+>     reclaim created but unused endpoint IDs. No such implementation is
+>     provided here.
+>   - Multiple PCI/MHI devices will work, but no AHB + PCI/MHI interaction
+>     has been tested. Since PCI/MHI devices bind to their endpoint ID,
+>     these will likely work, but the AHB devices might still see messages
+>     for all endpoints and fail to work correctly. AHB devices seem to be
+>     using QMI and thus also QRTR, but without a specific QRTR backend
+>     driver (going through REMOTEPROC instead?), so this approach might
+>     not be viable for AHB devices.
+> 
+> I am much more comfortable with this patch set, even if it has some
+> rough edges and might not fix the situation for AHB devices.
+> 
+> [0] https://patch.msgid.link/20230111170033.32454-1-kvalo@kernel.org
+> [1] https://patch.msgid.link/20241018181842.1368394-1-denkenz@gmail.com
+> [2] https://msgid.link/cover.1730790058.git.ionic@ionic.de
+> 
+> v3:
+>   - rebase against current ath-next
+>   - solved a major memory leak
+>   - replaced O(N) algorithm by O(1) where N is the leaked memory
+>   - solved all known race condition issues
+>   - Link to v2: https://msgid.link/cover.1732506261.git.ionic@ionic.de
+> 
+> v2: code and metadata cleanup (checkpatch.pl), no functional changes
+> 
+> BR, Juha-Matti
+> 
+> Juha-Matti Tilli (5):
+>   net: qrtr: support getting new endpoint ids externally
+>   bus: mhi: allow mhi to know about its qrtr endpoint id and free it
+>   net: qrtr: mhi: register new qrtr endpoint id for mhi
+>   wifi: ath11k: implement QRTR endpoint ID fetching for PCI
+>   wifi: ath12k: implement QRTR endpoint ID fetching for PCI
+> 
+> Mihai Moldovan (7):
+>   soc: qcom: qmi_helpers: add QRTR endpoint ID to qmi_handle
+>   soc: qcom: qmi_helpers: optionally bind to QRTR endpoint ID in
+>     qmi_sock_create
+>   wifi: ath11k: add QRTR endpoint ID hif feature
+>   wifi: ath11k: stub QRTR endpoint ID fetching
+>   wifi: ath11k: bind to QRTR endpoint ID in ath11k_qmi_init_service
+>   wifi: ath12k: add QRTR endpoint ID hif feature
+>   wifi: ath12k: bind to QRTR endpoint ID in ath12k_qmi_init_service
+> 
+>  MAINTAINERS                           |  1 +
+>  drivers/bus/mhi/host/init.c           |  8 +++++
+>  drivers/net/wireless/ath/ath11k/ahb.c |  7 ++++
+>  drivers/net/wireless/ath/ath11k/hif.h |  9 ++++++
+>  drivers/net/wireless/ath/ath11k/mhi.c | 46 +++++++++++++++++++++++++++
+>  drivers/net/wireless/ath/ath11k/mhi.h |  1 +
+>  drivers/net/wireless/ath/ath11k/pci.c |  1 +
+>  drivers/net/wireless/ath/ath11k/qmi.c |  8 +++++
+>  drivers/net/wireless/ath/ath12k/hif.h | 10 ++++++
+>  drivers/net/wireless/ath/ath12k/mhi.c | 46 +++++++++++++++++++++++++++
+>  drivers/net/wireless/ath/ath12k/mhi.h |  3 ++
+>  drivers/net/wireless/ath/ath12k/pci.c |  1 +
+>  drivers/net/wireless/ath/ath12k/qmi.c |  9 ++++++
+>  drivers/soc/qcom/qmi_interface.c      | 28 ++++++++++++++++
+>  include/linux/mhi.h                   |  5 +++
+>  include/linux/soc/qcom/qmi.h          |  3 ++
+>  include/net/qrtr.h                    | 10 ++++++
+>  net/qrtr/af_qrtr.c                    | 42 ++++++++++++++++++++----
+>  net/qrtr/mhi.c                        | 31 ++++++++++++++++++
+>  net/qrtr/qrtr.h                       |  5 +++
+>  20 files changed, 268 insertions(+), 6 deletions(-)
+>  create mode 100644 include/net/qrtr.h
+> 
 
-On Fri, Aug 07, 2026 at 07:05:26PM +0300, Semih Baskan wrote:
-> The PCIe outbound window base on Northstar depends on the PCIe Gen2 core
-> revision. Revision 0x01 uses 0x08000000, 0x40000000 and 0x48000000 for
-> controllers 0 to 2, while revision 0x07 (NS-B0) uses 0x08000000,
-> 0x20000000 and 0x28000000. Broadcom's own driver branches on the core
-> revision for exactly this reason.
-> 
-> bcm-ns.dtsi is shared by every Northstar SoC, so it cannot carry a value
-> that is correct on both. Commit 767012397976 ("ARM: dts: BCM5301X:
-> Describe PCIe controllers fully") gave the controllers a ranges property.
-> The commit shipped in v7.1.
-> 
-> With that property present, two things go wrong with this driver:
-> 
->  - devm_pci_alloc_host_bridge() parses those ranges and requests them,
->    then this driver adds its own window and requests the whole list a
->    second time, so every controller fails to probe with -EBUSY.
-> 
->  - The DT window itself is only correct on core revision 0x07. On
->    revision 0x01 it points at an address the hardware does not decode,
->    and the first MMIO access to a BAR takes an imprecise external
->    abort.
-> 
-> The enumeration ROM reports the correct base for the revision actually
-> present, and bcma already provides it as addr_s[0]. Drop any memory
-> window that came from the device tree and use that instead, requesting
-> only the window this driver owns. This makes the driver correct whether
-> or not the DT describes a window.
-> 
-> When a dropped window does not match what the EROM reports, print a
-> warning naming both. The mismatch means the devicetree describes a
-> window the hardware does not decode, and that should be fixed in the
-> dts rather than ignored silently.
-> 
-> The same commit also added compatible = "brcm,iproc-pcie", so these
-> nodes now match pcie-iproc-platform. With CONFIG_PCIE_IPROC_PLATFORM
-> enabled, which is the default on ARCH_BCM_IPROC, that driver binds them
-> first and this driver's probe fails inside devm_pci_alloc_host_bridge().
-> This patch fixes the configurations where the BCMA driver is the one in
-> use; OpenWrt builds that way, with PCIE_IPROC_PLATFORM disabled. The
-> platform path takes the DT window as-is and has the same wrong address
-> on core revision 0x01, so that side needs a devicetree fix either way.
-> 
-> Tested on an ASUS RT-N18U (BCM47081) and a Linksys EA9200 (BCM4709),
-> both core revision 0x01.
-> 
-> Fixes: 767012397976 ("ARM: dts: BCM5301X: Describe PCIe controllers fully")
-> Tested-by: Rani Hod <rani.hod@gmail.com>
-> Cc: stable@vger.kernel.org # v7.1+
-> Signed-off-by: Semih Baskan <strst.gs@gmail.com>
-> ---
-> v2 -> v3: format the two problem descriptions as bullet points.
-> Requested by Bjorn Helgaas.
-> 
-> v1 -> v2: print a warning for every devicetree memory window that does
-> not match the EROM window. Requested by Arnd Bergmann:
-> https://lore.kernel.org/all/d05ffeca-f289-42dd-b454-5a7c7741c6d5@app.fastmail.com/
-> 
-> v2: https://lore.kernel.org/all/20260807035726.387-1-strst.gs@gmail.com/
-> v1: https://lore.kernel.org/all/20260727140939.389-1-strst.gs@gmail.com/
-> 
->  drivers/pci/controller/pcie-iproc-bcma.c | 17 ++++++++++++++++-
->  1 file changed, 16 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/pci/controller/pcie-iproc-bcma.c b/drivers/pci/controller/pcie-iproc-bcma.c
-> index 593418c2b..06a471f4a 100644
-> --- a/drivers/pci/controller/pcie-iproc-bcma.c
-> +++ b/drivers/pci/controller/pcie-iproc-bcma.c
-> @@ -36,6 +36,7 @@ static int iproc_bcma_pcie_probe(struct bcma_device *bdev)
->  	struct device *dev = &bdev->dev;
->  	struct iproc_pcie *pcie;
->  	struct pci_host_bridge *bridge;
-> +	struct resource_entry *win, *tmp;
->  	int ret;
->  
->  	bridge = devm_pci_alloc_host_bridge(dev, sizeof(*pcie));
-> @@ -59,8 +60,22 @@ static int iproc_bcma_pcie_probe(struct bcma_device *bdev)
->  	pcie->mem.end = bdev->addr_s[0] + SZ_128M - 1;
->  	pcie->mem.name = "PCIe MEM space";
->  	pcie->mem.flags = IORESOURCE_MEM;
-> +
-> +	resource_list_for_each_entry_safe(win, tmp, &bridge->windows) {
-> +		if (resource_type(win->res) != IORESOURCE_MEM)
-> +			continue;
-> +
-> +		if (win->res->start != pcie->mem.start ||
-> +		    win->res->end != pcie->mem.end)
-> +			dev_warn(dev, "DT window %pR does not match EROM window %pR, using EROM\n",
-> +				 win->res, &pcie->mem);
-> +
-> +		devm_release_resource(dev, win->res);
-> +		resource_list_destroy_entry(win);
-> +	}
-> +
->  	pci_add_resource(&bridge->windows, &pcie->mem);
-> -	ret = devm_request_pci_bus_resources(dev, &bridge->windows);
-> +	ret = devm_request_resource(dev, &iomem_resource, &pcie->mem);
+How are you populating the list of recipients for your e-mail?
 
-If the EROM supplies the information the driver needs, why does this
-BCMA driver use DT at all?
+You are including folks no longer involved in kernel development, but more
+importantly, you are using an obsolete e-mail address for the MHI maintainer
+(Mani). I've replaced his address in my reply.
 
-AFAICS, pcie-iproc-bcma.c doesn't use any of the information from DT.
-devm_pci_alloc_host_bridge() *looks* in DT, parses it, and fills in
-bridge->windows, and requests those windows, but I don't think
-iproc-bcma ever uses them.
+Please make sure to use scripts/get_maintainer.pl to get an accurate list of
+recipients.
 
-iproc_bcma_pcie_probe() passes &bridge->windows to iproc_pcie_setup(),
-where I think it's ignored because pcie->need_ob_cfg is never set for
-iproc_bcma.
 
-It looks like iproc_bcma_pcie_probe() should just call
-pci_alloc_host_bridge() directly and skip devm_pci_alloc_host_bridge()
-and the DT things it does.
-
->  	if (ret)
->  		return ret;
->  
-> -- 
-> 2.43.0
-> 
