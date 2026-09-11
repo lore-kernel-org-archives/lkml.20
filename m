@@ -1,208 +1,833 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.42.203.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F038749504E
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:47:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77AB549504E;
+	Fri, 11 Sep 2026 17:47:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.42.203.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789148822; cv=none; b=tv01/8q9wUOXNZmgmd6EIf8PahoaqnegXFGPH0PCiyIPXVmOmAiuQWUKMhg9aj1fEbe7cx9/EujWkAx32O4ryJaXMaZHDRH/M/bnNgGapn47mmelAPFP9gdyBAP7ICy+ZjUkCYd29UH8q8fKjIUWa9auiJPHxdnOQae+X08rUvo=
+	t=1789148835; cv=none; b=Ly6ZtQO5Gs9IG5HIdSCpCWz2G6WVj9bTOS3jez/VPsCxsK/vVTjjqiGuRO0VI27Ri1WOVW7bmeKtvXiLzstEMXPqHk5K40/aKQzVg1Jr7gFCkoeuraP9DJMvCttGQCkrpZzI0M2zJF7R+Zyimec7/jLW0btSYHl1N/Ph3Abq5a0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789148822; c=relaxed/simple;
-	bh=8I8OglRCEAVJH2OPdrvFUHnij1NfmtFjfc83aLX5lcw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CL7CK4Szv2nVifmQzF+1ylXZUdkRYR/qrG+9mcfj8gZR/A0569t5e9RyNsE/99Gp0CP0GZOPzvXGwjoeD7LcFDjOCulojyCgpakzVwktgGi60Ffujp79NhL0aNgrPpSXkv9dZk3ERWueJqM7LoU3EkRi5QwlbTxJWpfzwePvPEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hMEf0DKg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bPPlI5fR; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789148835; c=relaxed/simple;
+	bh=FvDNAs1nt85rTHybp22wpHzMFjt6BIQ5aV6U6y0fiV8=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IffvyC5rf3fY8041CPMjhJzzQaloBeyTZLqC+8VQazMwAa4dkLyoTrRYNGo/q29iE69dRvXSWG/eUUXnlXSUnffYxvOJKJDEoM12xX7rYt8eAR2ScjY+j18zrxUyrFeOmLcDSN7ME4NqbgVQ+pBbyiu5KJv62N3lPA7VOBq7hyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=R1B8H1+i; arc=none smtp.client-ip=52.42.203.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hMEf0DKg";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bPPlI5fR"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BHWqT8589827
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:46:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fsgmAPw6yBdhTP5tdUXY2KIVjFb7ZoZOJkT3weJPqcg=; b=hMEf0DKgaxDLZHie
-	OQN47RZMrFw779TQBk80AIqOD7gShUZcM6LuGVYVYAA4VtcEJiHzyGddDcBg/Ddj
-	v2YS5fwDp6oYrrWwFcE6d0D+00mLZFJh/tj3F5orftjGseMWWq97HhL67aMpFjw5
-	EcVpOGoHdHpDcEWTmvddvRGY3MrQBRVXqCdalF9O/bcY8S82IHvSXsyP0oGBUtmq
-	UW+Xb5ZmposUlivB2+JJnyCE7G0HT52sKdkOC+g7mHAvdWjps5wXr/gtIOF36QuM
-	zcS4ZvTHWJDT+uoYQVSghvWfgMU2F38zCLXejEuLd93NIhtpmSh2OQY8SfEHEujD
-	9LdOCg==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmbdrb0p4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:46:59 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc2229450b4so1037573a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:46:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="R1B8H1+i"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789148818; x=1789753618; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fsgmAPw6yBdhTP5tdUXY2KIVjFb7ZoZOJkT3weJPqcg=;
-        b=bPPlI5fRBn0ZLkW4ZLCD7SzMgVUEqLhzZ4ttFbNBDRj4HjOWWfkTupDje/R7i4ZD6+
-         7s3hGRP/SHv0DumweVXbhI3zwOSTPVnFLa9rZgayZrG9C/WIQ/NelfPW0LQSUyKRxr9l
-         G++u6U53G7y+yFd2zNocvolYKUuvxT6SO6txPPm7pebL8kuyIjLEt8UDwWyGf3pgRukL
-         mJHY0CSUhzIHlaNQ+HWgj/84aIzcQYINcRg6uV93gu4B89wfR2vItnM0cOZcB7urJIHp
-         E5VS3CBv+oA5+kKzvQaPLM7Q6GpqXU8c6mVpVvzDoUOMg0LL8wAJKQ/XzPKBmhF9PVsa
-         zfbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789148818; x=1789753618;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fsgmAPw6yBdhTP5tdUXY2KIVjFb7ZoZOJkT3weJPqcg=;
-        b=HzO4tTby32rJCuSfT6CJgwMzmar/Zu2BhsJNAsyNCqWCu8KVn34IM32ITxfXl33Z9l
-         h68g5M5V2slKampUSR3xf9B0vzHmWPxYqGrnI5jFVY69sygs9nU9GxXTp03435nP/aVG
-         URiOYlXlYDolGQ4A/7H4nQ4jqpZd+56tJS4eL532IGtAA4LlKilaZnAlJjafJf/MDBkW
-         vb3W7Esgv0hVZO3yye97s2DjtnXrGVOpZO0ESJA/eUd2obWi23S0Ynq/ZkMw/u1/BgJF
-         OHaCzsIBaKhtAHZiM80DSD4eojE/VXTeMTsqF172UrTZPDmArzhuDdxjQE49uha9jd9M
-         qcDA==
-X-Forwarded-Encrypted: i=1; AKwUvBy7MzDLFHgbG+AF2sOsmozMG3P3M9hT1czIxkaaW6XYGSVySgL9NEwMkzYZ7gzctiQD9K5cVCFRs83PivU=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8Boz+U3k+eTPySnj5eNczkn2b8B/rWOxu1cfHfSFNGaocoPjS
-	Jio6O2sNHz6tanfBr8kevsVnVCJMMWpvjb4EVb5eYZebUz7o2E4FsO+ZSAKF0aLehNV+4mp/csS
-	bPTLdcIBnsEaZJElKcSGLKPlIxYHMBKbLxugb1+swkJU6fIXhyoPuKkr7T/jgy9DgsEI=
-X-Gm-Gg: AYBFou3iTNZvRoMyuOrRVq9JCLxAgiu2x5GjZPwPoLvDZ74Ht7k5H+skH/o0+h5kJsC
-	rrZHHR9Txe475ys0q5mv1NQZIRLZoe1xamzW+rs0BUblAh9H/Aw6riVZ54ycDCwkIDbmcqHtadw
-	A4Mo2W+PZ2LHgYDqADzCnLrvY40O83t3uloYX32V9URzCSBp/UsX/On84xa8hx9wbrU0PNxtkyW
-	yh3wz2C8GBV9wclTGAualpVdlO9rUBfsZFYcXFioJk/utflGk/YvnZqTShlMLT/XdTYcD3JeHcw
-	DxXioUAFykym11DqUBGGUXt2gOLihlrxbcLUJVINo81pZVBd+qTATm0a+2In94LMLPvnfBRy/5u
-	a965Ef7biNdnG1mwfFc4WLTBn/qgpBbCtNFE=
-X-Received: by 2002:a17:90b:2f10:b0:38e:5c6:4db9 with SMTP id 98e67ed59e1d1-39d9becda16mr9589987a91.11.1789148818583;
-        Fri, 11 Sep 2026 10:46:58 -0700 (PDT)
-X-Received: by 2002:a17:90b:2f10:b0:38e:5c6:4db9 with SMTP id 98e67ed59e1d1-39d9becda16mr9589942a91.11.1789148818123;
-        Fri, 11 Sep 2026 10:46:58 -0700 (PDT)
-Received: from [192.168.0.172] ([183.83.137.104])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e5182fsm7928959eec.9.2026.09.11.10.46.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 10:46:57 -0700 (PDT)
-Message-ID: <fb559fe7-2e63-4d20-b0be-ff788e742cfb@oss.qualcomm.com>
-Date: Fri, 11 Sep 2026 23:16:48 +0530
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1789148831; x=1820684831;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=JJbbk3LWF9sIhfos1AEb1lxm5c8t9hJGGm6Fe8bvX4A=;
+  b=R1B8H1+ius2Equ5rxgAw0Hpz73nqL7R3L2Cx6rMmpCnx8bc29HHjCNf3
+   dSsQUkKLv8OFb/LkMW2yrTkwsNvObgaTM1z1Tncgb+l313NwFsKJX30u5
+   Yyws0MKU61MLaYNi8JjlWKKhnEyUD7rtN209aQbQ6lMS4J/ltW6MmPurM
+   dU3/q2P7QUsizz3kNur3svPGUztl6kydwU1x1GZYSEZ0LqIp1UI7Niq8Z
+   h2wasY8I5kqpm4R6N1gfQriSIhS+iETw0MdfwOl3Eie8LVMGzg1T0Y0Lp
+   p/znf9vdEpsoiCl+SkxclHqCHvAngn3O13nRQAo5jtDc+/CSizdpsBJBO
+   A==;
+X-CSE-ConnectionGUID: Er41EoCTRJSU+LVC3bObyw==
+X-CSE-MsgGUID: WJgDU8iyTbejOMgRaxa3nQ==
+X-IronPort-AV: E=Sophos;i="6.27,97,1787011200"; 
+   d="scan'208";a="28480116"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 17:47:09 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:1792]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.6.93:2525] with esmtp (Farcaster)
+ id 081a47fd-4d6d-4715-9a6a-ce953a42307e; Fri, 11 Sep 2026 17:47:08 +0000 (UTC)
+X-Farcaster-Flow-ID: 081a47fd-4d6d-4715-9a6a-ce953a42307e
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
+ Fri, 11 Sep 2026 17:47:08 +0000
+Received: from dev-dsk-sakacpav-1a-480d1124.eu-west-1.amazon.com
+ (172.19.96.155) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Fri, 11 Sep 2026
+ 17:47:05 +0000
+From: Pavol Sakac <sakacpav@amazon.de>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Tejun Heo
+	<tj@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, Danilo Krummrich
+	<dakr@kernel.org>
+CC: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>, "Andy
+ Shevchenko" <andriy.shevchenko@linux.intel.com>, Xu Yang <xu.yang_2@nxp.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Bjorn Helgaas
+	<bhelgaas@google.com>, <linux-pci@vger.kernel.org>, Alex Williamson
+	<alex@shazbot.org>, <kvm@vger.kernel.org>, <nh-open-source@amazon.com>
+Subject: [RFC PATCH 6/8] driver core: Defer uevents for devices registered in a staged window
+Date: Fri, 11 Sep 2026 19:43:38 +0200
+Message-ID: <20260911174414.97060-6-sakacpav@amazon.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260911-vfopt-s5-v1-0-fa4cacdb6ca8@amazon.de>
+References: <20260911-vfopt-s5-v1-0-fa4cacdb6ca8@amazon.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/13] dt-bindings: media: qcom,sm8550-iris: Add
- context bank subnodes
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Konrad Dybcio
- <konrad.dybcio@oss.qualcomm.com>, iommu@lists.linux.dev,
-        Daniel J Blueman <daniel@quora.org>,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-References: <20260909-vpu_iommu_iova_handling-v3-0-2fe43ae45495@oss.qualcomm.com>
- <20260909-vpu_iommu_iova_handling-v3-2-2fe43ae45495@oss.qualcomm.com>
- <20260910-gracious-angelic-frogmouth-bcddc1@quoll>
-Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <20260910-gracious-angelic-frogmouth-bcddc1@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: Ix6Z11WSGGqS7tvFsGcVFd__6FQcCQPu
-X-Authority-Analysis: v=2.4 cv=PLmaavqC c=1 sm=1 tr=0 ts=6aa43e93 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=TwCXObd+TJU0JWB7kQOUgw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=NEAV23lmAAAA:8 a=t9ty7G3lAAAA:8
- a=K3eY9hOJoobCHU9vVZQA:9 a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22
- a=Vxmtnl_E_bksehYqCbjh:22 a=CsAS6f0m0zARWR-uHzm3:22
-X-Proofpoint-ORIG-GUID: Ix6Z11WSGGqS7tvFsGcVFd__6FQcCQPu
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDI0OSBTYWx0ZWRfXzJl1bN7+vKIC
- qh9YhGe5Bl0qtgNlXoa+qxmUIvLArh7AhW6hGfxxM0tMgccnGKY52MphEVklk/SYgb9ABltotW6
- eitDwR4NGN6g6BVe+vaiizuojGc+WAU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDI0OSBTYWx0ZWRfX2hWXkuNkF1o6
- 80YYbZABc1gqhlKGgg5Y4frObOi9FeapHnP7VU2M66Wb5CSfGOYvyfo8jEUG80aQJmQNvtKcXoh
- 71xyzEZKidEO4I/akzul3i+zRFUY3j21eUrilynh26Hd0ytUuusgkvsnAyW+1F/ig8zR1SqExko
- Ju5/04vG2mez4tw0U9PyGzgHPRWVq5gsu/ik1YTKBZKtuAR90JTMeaabpUYqhWlh8BkAgwJZRHs
- nG7Qu5F3ya3vYmnRz7d+urkw6wkIMWERpmiLwdMchgel+Kuit2JKaXLydnvRy31fuFsdW/dPRdh
- NpU1FRgh93iw4X7mJPwSVk+uROM/ZOlfzjikUt51Uw7RaigdEAWhhUxDg59FGjtR4tHIiMvfdV1
- nBsCU+pSsQGQ1RSaYBklXKMuQ5g35HmrvH6k+Ua7c6JWh7xeO4Irq6kh/EE7Ev0xScbbWs2e80s
- Ee3RvzBBbenmkvQgQNg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-11_06,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0 spamscore=0 phishscore=0 adultscore=0
- malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609110249
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D036UWC002.ant.amazon.com (10.13.139.242) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
+Staged registration publishes a device's subtree in one step, so nothing
+observes the device before it is complete. That does not hold for a
+device registered from inside the window: device_add() calls hooks that
+can register a child of the device being added, and such a child takes
+the eager path and announces itself with KOBJ_ADD while its own path
+resolves to nothing. Nothing replays that event, so a consumer that
+cannot open the DEVPATH never learns of the child. Neither opt-in in
+this series reaches that case: nothing attaches a wakeup source to a
+PCI VF or to the VFIO class devices, and pci_acpi_setup() enables
+wakeup only for a bridge that can do D3. It is reachable by code the
+opt-in caller does not control: dpm_sysfs_add() registers a
+wakeup-source device whenever power.wakeup is already attached, and
+wakeup_source_register() registers one directly for a device that is
+already registered, which a staged device is. The driver core
+therefore handles the case rather than forbidding it in the opt-in
+contract.
 
-On 9/10/2026 12:30 PM, Krzysztof Kozlowski wrote:
-> On Wed, Sep 09, 2026 at 08:27:09PM +0530, Vikash Garodia wrote:
->> The VPU issues DMA through several SMMU streams, and the hardware does
->> not give every stream the same addressable range. The non-pixel stream
->> cannot address the low 600MB of IOVA space, while the pixel stream can
->> address the full range:
->>      +-----------------------------------------------------------+
->>      | non-pixel stream addressable range (600 MB - 3.5 GB)      |
->>      | 0x25800000 - 0xe0000000                                   |
->>      +-----------------------------------------------------------+
->>      | pixel stream addressable range (0 - 3.5 GB)               |
->>      | 0x00000000 - 0xe0000000                                   |
->>      +-----------------------------------------------------------+
->> A single "iommus" property on the video-codec node puts every stream in
->> one IOMMU domain sharing one IOVA allocator, so nothing restricts a
->> non-pixel buffer to avoid 0 to 600MB. Once an allocation lands below
->> that boundary the hardware faults, which shows up as unhandled SMMU page
->> faults and spontaneous reboots:
->> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
->>
->> Given that the address range restriction is for specific VPU stream, it
->> should be ideally be moved to that stream. To achieve the same, a subset
->> of streams is now represented as subnodes, so that each can be
->> associated with its respective addressable range. The design was
->> discussed and agreed by mainatiners here
->> https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org
->>
->> In the past, this limitation was addressed with an iommu-map approach,
->> with the iris driver dynamically creating the devices. That approach was
->> later concluded to be a hack to avoid having subnodes, and was NAKed by
->> the iommu maintainers. It was discussed in detail here:
->> https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
->>
->> Update example to the subnode form. Doing so, it picks up the supporting
->> properties needed on the video-codec node, address-cells, size-cells and
->> dma-ranges to declare 1:1 DMA translation into the parent. Given a soc
->> with address-cells and size-cells as 2, update the video-codec "reg"
->> accordingly.
->>
->> This patch depends-on:
->> https://github.com/devicetree-org/dt-schema/pull/207
->>
->> Tested-by: Daniel J Blueman <daniel@quora.org>
-> 
-> I already asked at v2.
+Defer such a registration, composing the idiom block/genhd.c already uses
+for a disk's partition tree: suppress the uevents, complete the tree,
+then unsuppress and replay KOBJ_ADD. A device whose directory kernfs
+marked staged is enqueued suppressed on the window of the nearest
+ancestor that opted in, and the window is drained as the ancestor's
+device_add() returns, just after its own KOBJ_ADD, each member's ADD
+delivered in registration order followed by BIND where a driver bound
+in the window. An ancestor whose owner suppresses its uevent and
+replays it after registration will see members announced before its
+replayed ADD. The window lives in a global hashtable keyed by the
+opted-in device, so no struct grows.
 
-Sure, will drop the tag and dependency PR will be added to changelog.
+Members are expected to be registered synchronously by the opted-in
+device_add() that owns the window, the only shape the driver core can
+reason about here. Raw uevent_suppress is not reused as the detection
+marker, precisely because a subsystem may already own it; a device found
+already suppressed is left out of the window entirely. An in-window
+KOBJ_CHANGE is dropped rather than replayed, as in the genhd case, since
+only the addition can be reconstructed afterwards. A failed opted-in
+registration closes its window without replaying anything and leaves
+suppression set, so a member's KOBJ_REMOVE is dropped too and userspace
+never sees a removal for an addition it never saw.
 
-> 
-> Best regards,
-> Krzysztof
+The staged_device suite gains five cases for the window: the replay of a
+member's addition once the owner's device_add() returns, the aborted
+window that replays nothing and leaves suppression set, a member behind
+a class glue directory, the reconstructed KOBJ_BIND of a driver bound in
+the window, and a member found already suppressed being left out of the
+window.
+
+If you would rather not carry this until a caller needs it, it can be
+dropped and the restriction stated as an opt-in condition instead.
+
+Assisted-by: LLM
+Signed-off-by: Pavol Sakac <sakacpav@amazon.de>
+---
+ drivers/base/core.c                    | 170 +++++++++++-
+ drivers/base/test/staged-device-test.c | 364 +++++++++++++++++++++++++
+ fs/sysfs/dir.c                         |  26 ++
+ include/linux/device.h                 |  15 +
+ include/linux/sysfs.h                  |   6 +
+ 5 files changed, 579 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/base/core.c b/drivers/base/core.c
+index caba5610a04d..7d3784bd2136 100644
+--- a/drivers/base/core.c
++++ b/drivers/base/core.c
+@@ -3663,6 +3663,148 @@ static int device_private_init(struct device *dev)
+ 	return 0;
+ }
+ 
++/*
++ * Deferred uevents for devices registered inside a staged window.
++ *
++ * A hook called from an opted-in device_add() may register a child inside
++ * the still-invisible subtree; announcing it right away would advertise a
++ * path userspace cannot open, so its uevents are suppressed at registration
++ * and replayed once the window's top publishes.
++ *
++ * A window is a record on the top's device_add() stack, hashed by the top
++ * device, so a member is found without a field of its own in struct device,
++ * kobject or kernfs_node.  Membership is decided under @staged_windows_lock,
++ * which also serializes against the drain: a device either joins a window that
++ * has not drained yet, and is replayed, or finds no window -- which means the
++ * subtree is published and announcing immediately is correct.
++ */
++struct staged_window {
++	struct hlist_node	node;
++	struct device		*top;
++	struct list_head	members;
++};
++
++struct staged_member {
++	struct list_head	node;
++	struct device		*dev;		/* holds a reference */
++};
++
++static DEFINE_HASHTABLE(staged_windows, 6);
++static DEFINE_SPINLOCK(staged_windows_lock);
++
++static void staged_window_open(struct staged_window *win, struct device *top)
++{
++	win->top = top;
++	INIT_LIST_HEAD(&win->members);
++
++	spin_lock(&staged_windows_lock);
++	hash_add(staged_windows, &win->node, (unsigned long)top);
++	spin_unlock(&staged_windows_lock);
++}
++
++/*
++ * Suppress and enqueue @dev if it is being registered inside an ancestor's
++ * staged window.  The fast path is one query of @dev's own directory, which
++ * kernfs marked staged when it linked it below a staged parent, so the
++ * non-opted world pays no ancestor walk.  Only a device that is genuinely
++ * inside a window walks up to the nearest opted-in ancestor, the device whose
++ * window it is.
++ */
++static void device_defer_uevents(struct device *dev)
++{
++	struct staged_member *member;
++	struct staged_window *win;
++	struct device *top;
++
++	if (!sysfs_dir_staged(&dev->kobj))
++		return;
++
++	/*
++	 * Suppression already set belongs to whoever set it (block/genhd.c
++	 * suppresses a disk across device_add() and keeps a hidden disk
++	 * suppressed for good); taking no membership at all is what keeps
++	 * the drain from clearing it or announcing on the owner's behalf.
++	 */
++	if (dev_get_uevent_suppress(dev))
++		return;
++
++	for (top = dev->parent; top; top = top->parent)
++		if (dev_sysfs_staged(top))
++			break;
++	/*
++	 * Nothing above @dev opted in, so there is no window to defer into.
++	 * Announce immediately -- the eager behaviour, unresolvable path
++	 * included; a registration is not worth failing over a uevent.
++	 */
++	if (!top)
++		return;
++
++	member = kzalloc_obj(*member);
++	/*
++	 * Same fallback, same reason, for a membership record that cannot be
++	 * allocated: announce immediately rather than fail the registration.
++	 */
++	if (!member)
++		return;
++	member->dev = get_device(dev);
++
++	spin_lock(&staged_windows_lock);
++	hash_for_each_possible(staged_windows, win, node, (unsigned long)top) {
++		if (win->top != top)
++			continue;
++		dev_set_uevent_suppress(dev, 1);
++		list_add_tail(&member->node, &win->members);
++		member = NULL;
++		break;
++	}
++	spin_unlock(&staged_windows_lock);
++
++	if (member) {
++		put_device(dev);
++		kfree(member);
++	}
++}
++
++/*
++ * Close @win.  With @replay the members' suppressed uevents are delivered in
++ * registration order, ADD and then BIND for a member a driver has already bound
++ * to.  Without it -- the top's registration failed -- nothing is delivered and
++ * suppression stays set, so a member's KOBJ_REMOVE is dropped as well and
++ * userspace never sees a removal for an addition it never saw (a member
++ * deleted before publication is likewise never announced).  Emission
++ * sleeps, so the list is spliced out under the lock and walked without it.
++ *
++ * A member is expected to have been registered synchronously, by the top's own
++ * device_add(), so what the drain reads of a member is settled state written by
++ * this thread.  The registration and driver tests below are a guard against
++ * misuse, not an ordering contract with a thread registering members of its
++ * own: nothing here makes that concurrent.
++ */
++static void staged_window_close(struct staged_window *win, bool replay)
++{
++	struct staged_member *member, *tmp;
++	LIST_HEAD(members);
++
++	spin_lock(&staged_windows_lock);
++	hash_del(&win->node);
++	list_splice_init(&win->members, &members);
++	spin_unlock(&staged_windows_lock);
++
++	list_for_each_entry_safe(member, tmp, &members, node) {
++		struct device *dev = member->dev;
++
++		if (replay && device_is_registered(dev)) {
++			dev_set_uevent_suppress(dev, 0);
++			kobject_uevent(&dev->kobj, KOBJ_ADD);
++			/* best effort: members bind in this thread */
++			if (READ_ONCE(dev->driver))
++				kobject_uevent(&dev->kobj, KOBJ_BIND);
++		}
++		put_device(dev);
++		kfree(member);
++	}
++}
++
+ /**
+  * device_add - add device to device hierarchy.
+  * @dev: device.
+@@ -3696,6 +3838,7 @@ int device_add(struct device *dev)
+ 	struct device *parent;
+ 	struct kobject *kobj;
+ 	struct class_interface *class_intf;
++	struct staged_window win;
+ 	int error = -EINVAL;
+ 	struct kobject *glue_dir = NULL;
+ 
+@@ -3760,6 +3903,17 @@ int device_add(struct device *dev)
+ 		goto Error;
+ 	}
+ 
++	/*
++	 * The directory is invisible from here to publication: open the
++	 * window that devices registered from inside it defer their uevents
++	 * into, or -- for a device that is itself such a registration --
++	 * join the window of the ancestor whose subtree it landed in.
++	 */
++	if (kobject_sd_staged(&dev->kobj))
++		staged_window_open(&win, dev);
++	else
++		device_defer_uevents(dev);
++
+ 	/* notify platform of device entry */
+ 	device_platform_notify(dev);
+ 
+@@ -3790,8 +3944,9 @@ int device_add(struct device *dev)
+ 	 * whose target is this device -- class/bus/ACPI -- are created earlier
+ 	 * and resolve only at publication.)  Children added by notify hooks
+ 	 * inside the staged window were created staged-interior and are
+-	 * published together with this device; their uevents may precede
+-	 * their sysfs visibility.
++	 * published together with this device; their uevents were suppressed at
++	 * registration and are replayed below, once publication has made them
++	 * resolvable.
+ 	 */
+ 	if (kobject_sd_staged(&dev->kobj)) {
+ 		error = sysfs_publish_dir(&dev->kobj);
+@@ -3818,6 +3973,10 @@ int device_add(struct device *dev)
+ 	bus_notify(dev, BUS_NOTIFY_ADD_DEVICE);
+ 	kobject_uevent(&dev->kobj, KOBJ_ADD);
+ 
++	/* the subtree is visible now: announce what was registered inside it */
++	if (kobject_sd_staged(&dev->kobj))
++		staged_window_close(&win, true);
++
+ 	/*
+ 	 * Check if any of the other devices (consumers) have been waiting for
+ 	 * this device (supplier) to be added so that they can create a device
+@@ -3897,6 +4056,13 @@ int device_add(struct device *dev)
+ 	device_remove_file(dev, &dev_attr_uevent);
+  attrError:
+ 	device_platform_notify_remove(dev);
++	/*
++	 * Matching remove notifications must undo registrations made by
++	 * the add notifications.  Anything still queued is dropped without
++	 * announcement.
++	 */
++	if (kobject_sd_staged(&dev->kobj))
++		staged_window_close(&win, false);
+ 	kobject_uevent(&dev->kobj, KOBJ_REMOVE);
+ 	glue_dir = get_glue_dir(dev);
+ 	kobject_del(&dev->kobj);
+diff --git a/drivers/base/test/staged-device-test.c b/drivers/base/test/staged-device-test.c
+index d32f00214a8b..55891d8426ba 100644
+--- a/drivers/base/test/staged-device-test.c
++++ b/drivers/base/test/staged-device-test.c
+@@ -858,8 +858,13 @@ static void staged_test_device_add_unwind(struct kunit *test)
+ 
+ /* Deferred bus-klist insertion, on a real bus with a real driver. */
+ 
++/* Records replayed child uevents; defined with the in-window cases below. */
++static int staged_test_bus_uevent(const struct device *dev,
++				  struct kobj_uevent_env *env);
++
+ static const struct bus_type staged_test_bus = {
+ 	.name = "staged_kunit_bus",
++	.uevent = staged_test_bus_uevent,
+ };
+ 
+ static int staged_test_driver_probe(struct device *dev)
+@@ -1010,6 +1015,360 @@ static void staged_test_hashed_slot_collision(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, sd_subdirs(priv->parent), base);
+ }
+ 
++/* Uevents deferred for devices registered inside the window. */
++
++/*
++ * A device registered from inside another device's staged window must not
++ * announce itself while its path is unresolvable, and must be announced once
++ * the window's top publishes.
++ *
++ * The seam: the hook has to run between kobject_add() and publication, and the
++ * one such point a test can drive is an attribute group's is_visible()
++ * callback, which device_add_attrs() invokes on the device's own groups inside
++ * the window.  BUS_NOTIFY_ADD_DEVICE cannot serve -- device_add() emits it
++ * after publication.  (The in-tree instance is the wakeup source an ACPI
++ * platform notifier registers under the device being added.)
++ */
++struct staged_window_ctx {
++	struct kunit *test;
++	struct device *top;		/* the staged device being added */
++	struct device *child;		/* pre-allocated, added by the hook */
++	const struct class *child_class;	/* set: a glue dir interposes */
++	const struct bus_type *child_bus;	/* if set, a driver can bind */
++	bool suppress_child;		/* the child's owner suppresses it */
++	bool hook_ran;
++	bool delete_in_window;		/* delete the child while inside */
++	int add_ret;
++	unsigned int suppressed_in_window;
++	bool staged_in_window;
++	bool bound_in_window;
++	unsigned int suppressed_at_delete;
++	unsigned int add_uevents;	/* child ACTION=add bus callbacks */
++	unsigned int bind_uevents;	/* child ACTION=bind bus callbacks */
++	unsigned int uevent_seq;
++	unsigned int add_seq;		/* sequence of the last ADD */
++	unsigned int bind_seq;		/* sequence of the last BIND */
++};
++
++static struct staged_window_ctx *staged_window_ctx;
++
++/*
++ * Records the child's replayed uevents as they are dispatched through the
++ * bus uevent callback -- which runs upstream of netlink broadcast, so this
++ * observes action-specific kernel dispatch and ordering, not reception by
++ * any consumer.  Scoped to the active context's child: the same static bus
++ * serves another case, and teardown emits further events.
++ */
++static int staged_test_bus_uevent(const struct device *dev,
++				  struct kobj_uevent_env *env)
++{
++	struct staged_window_ctx *c = staged_window_ctx;
++	int i;
++
++	if (!c || dev != c->child)
++		return 0;
++
++	for (i = 0; i < env->envp_idx; i++) {
++		if (!strcmp(env->envp[i], "ACTION=add")) {
++			c->add_uevents++;
++			c->add_seq = ++c->uevent_seq;
++		} else if (!strcmp(env->envp[i], "ACTION=bind")) {
++			c->bind_uevents++;
++			c->bind_seq = ++c->uevent_seq;
++		}
++	}
++	return 0;
++}
++
++/*
++ * Outcome-aware deferred cleanup for the window tests' devices: registered
++ * as soon as an initialized reference exists, so a fatal assertion cannot
++ * leak a device whichever side of registration it aborts on.  Explicit
++ * teardown goes through kunit_release_action() so no stale action remains.
++ */
++static void staged_dev_cleanup(void *data)
++{
++	struct device *dev = data;
++
++	if (device_is_registered(dev))
++		device_unregister(dev);
++	else
++		put_device(dev);
++}
++
++static umode_t staged_window_is_visible(struct kobject *kobj,
++					struct attribute *attr, int n)
++{
++	struct staged_window_ctx *c = staged_window_ctx;
++
++	if (!c || c->hook_ran || kobj != &c->top->kobj)
++		return attr->mode;
++	c->hook_ran = true;
++
++	c->add_ret = device_add(c->child);
++	if (c->add_ret)
++		return attr->mode;
++
++	c->suppressed_in_window = dev_get_uevent_suppress(c->child);
++	c->staged_in_window = sd_is_staged(&c->child->kobj);
++	c->bound_in_window = c->child->driver;
++
++	if (c->delete_in_window) {
++		struct device *child = c->child;
++
++		device_del(child);
++		c->suppressed_at_delete = dev_get_uevent_suppress(child);
++		c->child = NULL;
++		/* runs staged_dev_cleanup: unregistered now, so put_device */
++		kunit_release_action(c->test, staged_dev_cleanup, child);
++	}
++	return attr->mode;
++}
++
++static struct attribute in_window_attr = {
++	.name = "in_window_attr", .mode = 0644,
++};
++
++static struct attribute *in_window_attrs[] = { &in_window_attr, NULL };
++static const struct attribute_group in_window_grp = {
++	.attrs = in_window_attrs,
++	.is_visible = staged_window_is_visible,
++};
++
++static const struct attribute_group *in_window_grps[] = {
++	&in_window_grp, NULL,
++};
++
++/* Register @name staged under @parent, with a child added inside its window. */
++static struct device *staged_window_dev_add(struct kunit *test,
++					    struct staged_window_ctx *ctx,
++					    struct device *parent,
++					    const char *name, int want)
++{
++	struct device *top;
++	int ret;
++
++	ctx->test = test;
++	top = staged_dev_alloc(test, parent, NULL, name, true);
++	top->groups = in_window_grps;
++	ctx->top = top;
++	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test,
++							staged_dev_cleanup,
++							top), 0);
++	ctx->child = staged_dev_alloc(test, top, ctx->child_bus, "in_window",
++				      false);
++	ctx->child->class = ctx->child_class;
++	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test,
++							staged_dev_cleanup,
++							ctx->child), 0);
++	/* the genhd shape: an owner suppresses the device before adding it */
++	if (ctx->suppress_child)
++		dev_set_uevent_suppress(ctx->child, 1);
++
++	staged_window_ctx = ctx;
++	ret = device_add(top);
++	staged_window_ctx = NULL;
++
++	/* the success paths below depend on a registered top */
++	if (!want)
++		KUNIT_ASSERT_EQ(test, ret, 0);
++	else
++		KUNIT_EXPECT_EQ(test, ret, want);
++
++	/* the hook ran inside the window, and the child registered there */
++	KUNIT_ASSERT_TRUE(test, ctx->hook_ran);
++	KUNIT_ASSERT_EQ(test, ctx->add_ret, 0);
++	KUNIT_EXPECT_EQ(test, ctx->suppressed_in_window, 1u);
++	KUNIT_EXPECT_TRUE(test, ctx->staged_in_window);
++	return top;
++}
++
++/*
++ * Replay: the child is suppressed and invisible inside the window, and once
++ * the top's device_add() returns it is visible and unsuppressed again.
++ */
++static void staged_test_in_window_uevent_replay(struct kunit *test)
++{
++	struct staged_window_ctx ctx = {};
++	struct device *root, *top;
++
++	root = root_device_register("staged_kunit_replay");
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, root);
++	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test,
++							staged_root_unregister,
++							root), 0);
++
++	top = staged_window_dev_add(test, &ctx, root, "replay_top", 0);
++
++	/* published: the deferred addition was announced and is resolvable */
++	KUNIT_EXPECT_EQ(test, dev_get_uevent_suppress(ctx.child), 0u);
++	KUNIT_EXPECT_FALSE(test, sd_is_staged(&ctx.child->kobj));
++	KUNIT_EXPECT_TRUE(test, child_visible(&top->kobj, "in_window"));
++
++	/* a child goes before the parent directory it lives in */
++	kunit_release_action(test, staged_dev_cleanup, ctx.child);
++}
++
++/*
++ * Unwind: the top's registration fails at publication, after a child was
++ * registered inside the window and deleted again there.  The deletion must
++ * leave suppression set -- userspace saw no addition, so it must see no
++ * removal -- the aborted window must drain without replaying anything, and the
++ * mechanism must still work for the next window.
++ */
++static void staged_test_in_window_uevent_unwind(struct kunit *test)
++{
++	struct staged_window_ctx ctx = { .delete_in_window = true };
++	struct staged_window_ctx retry_ctx = {};
++	struct device *root, *eager, *top, *retry;
++
++	root = root_device_register("staged_kunit_replay_unwind");
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, root);
++	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test,
++							staged_root_unregister,
++							root), 0);
++
++	/* the collision winner: the staged top below fails at publication */
++	eager = staged_dev_alloc(test, root, NULL, "collide", false);
++	KUNIT_ASSERT_EQ(test, device_add(eager), 0);
++	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test,
++							staged_dev_unregister,
++							eager), 0);
++
++	top = staged_window_dev_add(test, &ctx, root, "collide", -EEXIST);
++
++	/* deleted before publication: still suppressed, so its REMOVE is too */
++	KUNIT_EXPECT_EQ(test, ctx.suppressed_at_delete, 1u);
++
++	/* the failed top is fully unwound, and its last reference frees it */
++	KUNIT_EXPECT_NULL(test, top->kobj.sd);
++	kunit_release_action(test, staged_dev_cleanup, top);
++
++	/* the next window still defers and replays */
++	retry = staged_window_dev_add(test, &retry_ctx, root, "retry", 0);
++	KUNIT_EXPECT_EQ(test, dev_get_uevent_suppress(retry_ctx.child), 0u);
++	KUNIT_EXPECT_TRUE(test, child_visible(&retry->kobj, "in_window"));
++	kunit_release_action(test, staged_dev_cleanup, retry_ctx.child);
++}
++
++/*
++ * A member behind a glue directory.  An eager class device parented to the
++ * staged top does not land directly underneath it: get_device_parent()
++ * interposes a class glue directory, so the member's own directory sits a level
++ * further down.  It is detected all the same, because detection queries the
++ * member's own directory -- which kernfs marks staged for every node it links
++ * inside a staged subtree, at any depth -- rather than its parent kobject,
++ * which here is the glue directory and never opted in.
++ */
++static void staged_test_in_window_class_member(struct kunit *test)
++{
++	struct staged_window_ctx ctx = {};
++	struct device *root, *top;
++	struct class *class;
++
++	class = class_create("staged_kunit_in_window");
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, class);
++	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test,
++							staged_class_destroy,
++							class), 0);
++
++	root = root_device_register("staged_kunit_class_member");
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, root);
++	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test,
++							staged_root_unregister,
++							root), 0);
++
++	ctx.child_class = class;
++	top = staged_window_dev_add(test, &ctx, root, "class_top", 0);
++
++	/* the glue dir interposed: the member is not the top's own child */
++	KUNIT_EXPECT_PTR_NE(test, ctx.child->kobj.parent, &top->kobj);
++
++	KUNIT_EXPECT_EQ(test, dev_get_uevent_suppress(ctx.child), 0u);
++	KUNIT_EXPECT_FALSE(test, sd_is_staged(&ctx.child->kobj));
++	KUNIT_EXPECT_TRUE(test, child_visible(ctx.child->kobj.parent,
++					      "in_window"));
++
++	kunit_release_action(test, staged_dev_cleanup, ctx.child);
++}
++
++/*
++ * A member a driver binds to inside the window.  bus_probe_device() runs from
++ * the member's own device_add(), so the binding happens while the member is
++ * still suppressed and its KOBJ_BIND is dropped along with everything else.
++ * Successful closure must reconstruct it after the ADD: exactly one ADD
++ * followed by exactly one BIND passed through the child device's bus uevent
++ * callback.  The callback runs upstream of netlink broadcast, so this pins
++ * kernel dispatch and ordering, not delivery to a consumer.
++ */
++static void staged_test_in_window_bind_replay(struct kunit *test)
++{
++	struct staged_window_ctx ctx = {};
++	struct device *root, *top;
++
++	KUNIT_ASSERT_EQ(test, bus_register(&staged_test_bus), 0);
++	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test,
++							staged_bus_unregister,
++							(void *)&staged_test_bus), 0);
++
++	KUNIT_ASSERT_EQ(test, driver_register(&staged_test_driver), 0);
++	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test,
++							staged_driver_unregister,
++							&staged_test_driver), 0);
++
++	root = root_device_register("staged_kunit_bind_replay");
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, root);
++	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test,
++							staged_root_unregister,
++							root), 0);
++
++	ctx.child_bus = &staged_test_bus;
++	top = staged_window_dev_add(test, &ctx, root, "bind_top", 0);
++
++	/* the driver bound inside the window, so the BIND was suppressed too */
++	KUNIT_EXPECT_TRUE(test, ctx.bound_in_window);
++
++	/* the drain replayed exactly one ADD, then exactly one BIND */
++	KUNIT_EXPECT_EQ(test, ctx.add_uevents, 1u);
++	KUNIT_EXPECT_EQ(test, ctx.bind_uevents, 1u);
++	KUNIT_EXPECT_LT(test, ctx.add_seq, ctx.bind_seq);
++
++	KUNIT_EXPECT_EQ(test, dev_get_uevent_suppress(ctx.child), 0u);
++	KUNIT_EXPECT_PTR_EQ(test, ctx.child->driver, &staged_test_driver);
++	KUNIT_EXPECT_TRUE(test, child_visible(&top->kobj, "in_window"));
++
++	kunit_release_action(test, staged_dev_cleanup, ctx.child);
++}
++
++/*
++ * A member that owns its own suppression (the genhd shape; see
++ * device_defer_uevents()) is not taken into the window at all, and has to
++ * come out of it exactly as it went in: neither unsuppressed nor announced;
++ * the suppression the case observes in-window is the owner's.
++ */
++static void staged_test_in_window_foreign_suppress(struct kunit *test)
++{
++	struct staged_window_ctx ctx = { .suppress_child = true };
++	struct device *root, *top;
++
++	root = root_device_register("staged_kunit_foreign_suppress");
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, root);
++	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test,
++							staged_root_unregister,
++							root), 0);
++
++	top = staged_window_dev_add(test, &ctx, root, "foreign_top", 0);
++
++	/* the drain left the owner's state alone: not cleared, not replayed */
++	KUNIT_EXPECT_EQ(test, dev_get_uevent_suppress(ctx.child), 1u);
++
++	/* and the member was published with the window all the same */
++	KUNIT_EXPECT_FALSE(test, sd_is_staged(&ctx.child->kobj));
++	KUNIT_EXPECT_TRUE(test, child_visible(&top->kobj, "in_window"));
++
++	kunit_release_action(test, staged_dev_cleanup, ctx.child);
++}
++
+ static struct kunit_case staged_device_tests[] = {
+ 	KUNIT_CASE(staged_test_publish_end_to_end),
+ 	KUNIT_CASE(staged_test_duplicate_name),
+@@ -1026,6 +1385,11 @@ static struct kunit_case staged_device_tests[] = {
+ 	KUNIT_CASE(staged_test_device_add_unwind),
+ 	KUNIT_CASE(staged_test_bus_klist),
+ 	KUNIT_CASE(staged_test_hashed_slot_collision),
++	KUNIT_CASE(staged_test_in_window_uevent_replay),
++	KUNIT_CASE(staged_test_in_window_uevent_unwind),
++	KUNIT_CASE(staged_test_in_window_class_member),
++	KUNIT_CASE(staged_test_in_window_bind_replay),
++	KUNIT_CASE(staged_test_in_window_foreign_suppress),
+ 	{}
+ };
+ 
+diff --git a/fs/sysfs/dir.c b/fs/sysfs/dir.c
+index 1694c01e8b84..33ee798d421c 100644
+--- a/fs/sysfs/dir.c
++++ b/fs/sysfs/dir.c
+@@ -114,6 +114,32 @@ int sysfs_publish_dir(struct kobject *kobj)
+ }
+ EXPORT_SYMBOL_IF_KUNIT(sysfs_publish_dir);
+ 
++/**
++ * sysfs_dir_staged - whether a kobject's directory is still unpublished
++ * @kobj: object to query
++ *
++ * True while @kobj's directory belongs to a staged subtree, either because it
++ * was created staged or because it was created underneath one -- kernfs marks
++ * every node it adds inside a staged subtree, so the answer holds at any depth.
++ *
++ * The read is advisory, in the shape kernfs_staged_lock() uses while it climbs:
++ * publication clears the flag under the staged subtree mutex, which this query
++ * does not take.  A %true answer therefore means "staged a moment ago", and a
++ * caller acting on it must re-establish authority under whatever lock
++ * serializes it against publication.  A %false answer cannot be stale for the
++ * caller that created the directory itself: the flag is set in that caller's
++ * own thread and publication only ever clears it.
++ *
++ * Return: %true if the directory is still staged.
++ */
++bool sysfs_dir_staged(const struct kobject *kobj)
++{
++	struct kernfs_node *kn = READ_ONCE(kobj->sd);
++
++	/* advisory read; the caller re-establishes authority (see above) */
++	return kn && (data_race(kn->flags) & KERNFS_STAGED);
++}
++
+ /**
+  *	sysfs_remove_dir - remove an object's directory.
+  *	@kobj:	object.
+diff --git a/include/linux/device.h b/include/linux/device.h
+index 74701a8aa9d2..89dc57ab3c94 100644
+--- a/include/linux/device.h
++++ b/include/linux/device.h
+@@ -607,6 +607,21 @@ struct device_physical_location {
+  *		sysfs-root lock cost stops scaling with the number of nodes in
+  *		the directory, which matters when many devices (for example
+  *		SR-IOV virtual functions) are registered in parallel.
++ *		Devices registered from inside such a window -- synchronously,
++ *		from the opted-in device_add() itself, as one of the hooks it
++ *		calls may do; a foreign thread registering members is outside
++ *		this contract -- have their uevents suppressed until
++ *		publication.  Every uevent emitted in the window is dropped;
++ *		what is replayed afterwards is the addition, as KOBJ_ADD
++ *		followed by KOBJ_BIND if a driver is bound by then.
++ *		Publication has to succeed before queued members are
++ *		announced.  If top-level registration fails, queued members
++ *		are not replayed and remain suppressed; registrations made by
++ *		an add notification must be removed by its matching remove
++ *		notification.  A device that is already suppressed when it is
++ *		detected is left untouched, that state belonging to whoever set
++ *		it, and a device that has itself opted in cannot nest inside
++ *		another window -- its publication is rejected.
+  *		Must be set before device_add().
+  * @DEV_FLAG_COUNT: Number of defined struct_device_flags.
+  */
+diff --git a/include/linux/sysfs.h b/include/linux/sysfs.h
+index b537a5b52e1a..5538858f31f7 100644
+--- a/include/linux/sysfs.h
++++ b/include/linux/sysfs.h
+@@ -398,6 +398,7 @@ struct sysfs_ops {
+ 
+ int __must_check sysfs_create_dir_ns(struct kobject *kobj, const struct ns_common *ns);
+ int __must_check sysfs_publish_dir(struct kobject *kobj);
++bool sysfs_dir_staged(const struct kobject *kobj);
+ void sysfs_remove_dir(struct kobject *kobj);
+ int __must_check sysfs_rename_dir_ns(struct kobject *kobj, const char *new_name,
+ 				     const struct ns_common *new_ns);
+@@ -513,6 +514,11 @@ static inline int sysfs_publish_dir(struct kobject *kobj)
+ 	return 0;
+ }
+ 
++static inline bool sysfs_dir_staged(const struct kobject *kobj)
++{
++	return false;
++}
++
+ static inline void sysfs_remove_dir(struct kobject *kobj)
+ {
+ }
+-- 
+2.47.3
 
