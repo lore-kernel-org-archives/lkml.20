@@ -1,155 +1,115 @@
-Received: from mta0.migadu.com (out-170.mta0.migadu.com [91.218.175.170])
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F706582BBC
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:55:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9074758596D
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:56:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789156562; cv=none; b=P6UnmpbR+/Zl5G/KKEhlSZbRg9vB+mDC+3GMHLFfEQl+zZdcVvRicCFD3Sitl5hhC8mYhjIHX5BsxD/8BGgelHGJNxfGFgxawxdUofFVqivjy95jhIzm8IvrBWoLiBhKmJ2OM9xkdh2Mq8cIcQNtcGqdI6PY6fFHLdl2VcfAZO0=
+	t=1789156581; cv=none; b=FgKoSf2fH6blAlwDtZBDj3piVuFI+7E6hJY5VGSOpX1AXRkENUOF34L1aLA7+m6QvWZ3jyCv+SazwSVgqIXpnoVCXS58VPl/b/u8obsq27wTFYaPSkzu3byDmBzX+fn5mOmFBsyDMmySfvu8FBcwCJMj26Fv3SVuaaG9R/9Ic0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789156562; c=relaxed/simple;
-	bh=ZXn9b98sKbqLypZH0aIB7sqpEcIF9OpKxPnoD71YjMw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ah3cVOikS8MbEbhN+RchtOJWBX15C8C86xXt6SkODcS48UyU0ZiPvAg652LDui4WCp2o1q1Y56sirC6RPQ9WZwFC3/9weB2YvvEB9YRcttQSy0yz7sX0nPZK3QPw/iryqeYvERUvHQyvOhFnq812NU2hOWKM3O+MwGHSX/3GKi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org; spf=pass smtp.mailfrom=wyuan.org; dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b=kJSDz+pX; arc=none smtp.client-ip=91.218.175.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	s=arc-20240116; t=1789156581; c=relaxed/simple;
+	bh=MuXg6y241kQAFFXgtK2Q3UkQFZr1v0D+y3gdcjdSvI0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tZnSCsdAzdHk99Pids+MpgVepG+MGc62g2Bp1GZdu1uDcKdQ+3ap57kOYgJA35PVpHGCZnlhrW+JqCUCyeko4aaim2rpd6NllxyDS8KFtK1mZGGp6ortxr+p6r8De2C9t0Qz9Deh/CClhWSg2kywuoE3G72ojoIvJ2lgBVGcl98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PNN24k9M; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b="kJSDz+pX"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ZXn9b98sKbqLypZH0aIB7sqpEcIF9OpKxPnoD71YjMw=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789156554; v=1; x=1789761354;
- b=kJSDz+pXen2gTMr1K0N86h4wRKjFiyAc/HKeSQWnw/28uOwJbmU5uVlxHTBaeQv3pzXvqYJj
- 40LCwg4AatMLsX2n4EYIsvaNxgqnHLsrpXCv3o8PSs83iTl+V1P/qZ0Z3Vj9yyQlL+TC9m+r0lv
- Xq1FO/miLdTZbtzJjj/N4vbxqDAM7/IedK7z9Vlcf4kd6qoRg7p7+prKd05UlrJAwB+/pElI6ER
- QdchZlFoq6uh4Af/VyDWvuG3GiOiM7K+ZqWokgtteb9ftwSNv7B44r2ZYxDra3knNRiRkPM32Zh
- VWOwxM8w3fwF0QnYh1pToFnRvTMTB95bFqzqdKs6iOpYw==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8e3bd5d72649b28d;
-	Fri, 11 Sep 2026 19:55:43 +0000
-X-Mizu-Trace-ID: 8e3bd5d72649b28d
-X-Migadu-Flow: FLOW_OUT
-Date: Sat, 12 Sep 2026 03:55:40 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: =?utf-8?B?6JGJ5a645L2R?= <chenyou910331@gmail.com>
-Cc: Dongliang Mu <dzm91@hust.edu.cn>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] docs/zh_TW: add process/applying-patches Traditional
- Chinese translation
-Message-ID: <aqRcvOC72e7lna0J@wyuan.org>
-References: <20260817-apply-patches-tw-v1-0-c182c1c425ba@wyuan.org>
- <20260817-apply-patches-tw-v1-1-c182c1c425ba@wyuan.org>
- <CAKspUh+bMqOYuV=uTRr35wt-xWd97YR=dfDQGoAvF5MjujOZEg@mail.gmail.com>
- <aqKgJh6MfOTS0KtQ@wyuan.org>
- <CAKspUhK+60mzSnh+_u_+8_P99LG7LkDp1xp1_feSgd0_ax5s1w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PNN24k9M"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c2637dd37c1so198004266b.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:56:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789156563; x=1789761363; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VbxJsFTbQ+RydGePFrpF5dFVh+W/MFXSp8uy2MJMaaU=;
+        b=PNN24k9M8dVAGL8x7ciTQZ44C20MJ8Kj2jfC8cWHrn60dNP5vW6DzIwEI95FGciRUr
+         zVDqyAkqgwGWNqsAAeJEXUkoNllXuMG0h4OKmnxE6ee1Vm+HrAZ1Wm/trBrOrzfYm9fo
+         QrtLKwA9yrsg1t5oD2NFqn936poJJgcZidGWT+LRjFrLm87ikyxRVIDOnXwsjQQgC6Z4
+         4M8PYa++upd5egNnZ6qJ7wTMLxTnj4g/btxW2u0438RDq6EsIf/yMWgmzmUdIn/8cs5l
+         AvswYJrh8qSRdRNnbZglzvycyT8qOhYRAFzJ7B4BGePPICvaIu+533364JEOc96YGFig
+         dPiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789156563; x=1789761363;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VbxJsFTbQ+RydGePFrpF5dFVh+W/MFXSp8uy2MJMaaU=;
+        b=Lu3gkHoG00XVk2IAVGD2VrA5ZlXHnDwtL552xCo6aOOfhoMuM8wqBVfdrxUwaZaL+D
+         3OoN29vYjWaYE/UHKatvM2tsOym/4sE5OfghEKl1++cvsgWOB7zkzNlnplMiNrU0Z8rU
+         D6QgXO0+M6r9IYq73+QEAubS4K8ixEV6aZ9IvaZHq/iJVYi0NosKM3pu8DzRcIl9TfN0
+         5U9sPT2yr3Eg2Hf/xhZN8P3Q88FPVjx0/GTn/1cXZ/YPsA6tIpPIQG8qlttPX2A3AWTT
+         bKv3Wxfy5aZZRbORw63C0tCE78CLUNL7Z2JoxjeaGX03XGepsUxoknk+4t2dPEC8ZS2i
+         Ktig==
+X-Forwarded-Encrypted: i=1; AKwUvByoD64JjDKWexMhH/5vqMi9AB+skCT3kp7iWWlNIQtFysHqtpjFVUwLEL8cepaCrhRDbPA/qw8xmQSPRXo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kfIKeIm42uJ2tAgDzQVaYkCPH5DWTsw9m2VKCzpgiuBRqapNiH
+	3RPGlUMyGF1KIt7xoQ8KnhUkL0WvocgooQ1PDacAJjxWhwjfffMsiiLG
+X-Gm-Gg: AYBFou3cFdWK0sh6SQxcCm3jjWN+peI/R4jfqnhdFEJ7lYcsXIajsI1Zgfh8t59sQjw
+	eQZmZ6btwwH72lMWC+aIJ6SdMypt9F+CzkZD91vnD/7rOrwYYx+GJKt/PSHNQPImGIyC5tPsUye
+	b8soh1x3we+jTwEXctem+JtG9Ajc+ICAZeqPqaTOnjIEGlGvCZ5zYyScGKoYCPEI1HNGacQcgf6
+	+8vkGxFcEn7vXuCXwU/hbdhZJWsYpq9N+xnDSn4/ygheH7dr+r065pDOVmnW3yUdypuHuQ11Hxf
+	+I+wvmCI1ontl37fi497KVXTW6J4mgGT7hyH9iIKPbIEQPJRzV7UfqiMVghU6L2zjHNVrOde2ee
+	x3Rw95+g2qDVwm8pHUp3xPS06yyE7ipb4anQUURlPgQom9nKDflZEimk3I6wQYMdblaqGSo1tYg
+	GMIwCeQFrHiGqEWAkUe8AiKWJS52f/9dowrqDEVR20bsSZFpjZR8mXWO6io6gh9woQziTTHH5kF
+	RP1SdIyUXHhq10dF/9uz84Piw4K3TMiyxIWt0vs7vJHo65LYv8nxXAoL1g=
+X-Received: by 2002:a17:907:c28:b0:c25:34c7:44d1 with SMTP id a640c23a62f3a-c2966235aabmr287609966b.0.1789156562685;
+        Fri, 11 Sep 2026 12:56:02 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4cf01sm121013966b.1.2026.09.11.12.56.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 12:56:02 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: Masami Hiramatsu <mhiramat@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Martin Kaiser <martin@kaiser.cx>,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	David Carlier <devnexen@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] fprobe: Clear the unused part of the fgraph_data reservation
+Date: Fri, 11 Sep 2026 20:55:59 +0100
+Message-ID: <20260911195559.230709-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAKspUhK+60mzSnh+_u_+8_P99LG7LkDp1xp1_feSgd0_ax5s1w@mail.gmail.com>
 
-On Fri, Sep 11, 2026 at 04:50:39PM +0800, 葉宸佑 wrote:
-> On Thu, Sep 10, 2026 at 08:18:46PM +0800, Weijie Yuan wrote:
-> > > 5. Missing .. _tw_applying_patches: label
-> >
-> > This kind of top-level label is not recommended/allowed right now ;-)
-> 
-> You are right, and I checked: doc-guide/sphinx.rst says cross-references
-> between documents need no special syntax, just the path. Withdrawn --
-> sorry for sending you the wrong way.
-> 
-> Reading that section also makes my point 6 land differently. The same
-> text says:
-> 
->   For most use cases, the former is preferred, as it is cleaner and more
->   suited for people reading the source files.  If you come across a
->   :doc: usage that isn't adding any value, please feel free to convert
->   it to just the document path.
-> 
-> So the two files in 2/2 should converge on README.rst's bare-path form
-> rather than howto.rst's :doc:, which is the opposite of what I suggested.
+fprobe_fgraph_entry() reserves shadow stack space for every fprobe with
+an exit handler, but only fills it for those whose entry handler returns
+0. fprobe_return() walks the whole reservation, so the unused tail is
+parsed as stale headers from an earlier call, and an exit handler can
+run twice or despite its entry handler asking to skip it.
 
-Sure, but I didn't directly carry the concern from the CN side when
-sending this series, so now paste it here now (again) for reference. :)
+The original memset cleared only (reserved_words - used) bytes, and
+commit e0a384434ae1 ("tracing: fprobe: do not zero out unused
+fgraph_data") removed it. Clear the whole tail.
 
-<20260817-apply-patches-v3-0-45e3bd2b1ccc@wyuan.org>:
+Fixes: 4346ba160409 ("fprobe: Rewrite fprobe on function-graph tracer")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Carlier <devnexen@gmail.com>
+---
+ kernel/trace/fprobe.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
---- >8 ---
+diff --git a/kernel/trace/fprobe.c b/kernel/trace/fprobe.c
+index 1e9b00997ff2..bd84a982961a 100644
+--- a/kernel/trace/fprobe.c
++++ b/kernel/trace/fprobe.c
+@@ -635,6 +635,10 @@ static int fprobe_fgraph_entry(struct ftrace_graph_ent *trace, struct fgraph_ops
+ 		}
+ 	}
+ 
++	/* Clear unused slots so fprobe_return() does not see stale headers. */
++	if (used < reserved_words)
++		memset(fgraph_data + used, 0, (reserved_words - used) * sizeof(long));
++
+ 	/* If any exit_handler is set, data must be used. */
+ 	return used != 0;
+ }
+-- 
+2.55.0
 
-The second patch updates existing zh_CN references to point to the new
-translation.  In ordinary paragraphs, the absolute Documentation/...rst
-path is used and is handled by automarkup.  The entry in process/howto.rst
-is a definition-list term, which automarkup does not process.  It therefore
-uses the named :doc: form as the minimal explicit-link exception, without
-reintroducing a cn_applying_patches label and using :ref:.
-
-RFC:
-
-I considered the two competing preferences for cross-references. Jon
-recommends using a plain absolute Documentation/...rst path, while
-another view (I found the discussion in 2021, so I added your email
-addresses, thanks.) is to avoid :doc: markup where automarkup can create
-the link automatically.  I follow both rules where they apply: the plain
-path is used in normal paragraphs.  However, this particular entry is a
-definition-list term, which automarkup does not process, so the plain
-path is rendered as text rather than a link.  The named :doc: form is
-therefore used only for this narrow exception, without adding a
-translation-specific label. (Seems to be a workaround)
-
-I would welcome guidance on one stylistic point.  (Since I missed
-previous discussions)  The surrounding entries in this definition list
-use :ref:, while this new entry uses the named :doc: form because it
-links to a whole document without a translation-specific label. Does
-this look out of place here?  If so, I am happy to follow the preferred
-cross-reference style.
-
---- >8 ---
-
-And, I think this might be the best way to avoid changing the rendering
-method? Although it may seem a bit ugly in terms of the writing style.
-
-(It's been almost a month now. I might need to review my statement to
-see if there are any mistakes.) Sorry ;-)
-
-> > It's kind of weird that this series cannot be applied cleanly with
-> > Linus' current master tip commit 50d05c7c76c9
-> >
-> > Did I did something stupid? Confused..
-> 
-> Nothing stupid -- I hit the same thing trying to apply your series for
-> review. Your base includes my process/ series, which Alex picked up on
-> 18 August but which has not reached Linus yet, so process/index.rst
-> differs between the two trees. It applies on Alex's docs-next.
-
-Oh, that makes sense. It turns out that process/index.rst has been
-updated. However, I really should have double-checked instead of posting
-it on the list to ask.
-
-> > However, since adding new translations is not our current main goal, I
-> > will put this series on the to-do list for now.
-> 
-> Makes sense -- it will apply cleanly once Alex's pull request lands, so
-> there is little to do until then.
-
-Okay.
-
-> > > Would you send that glossary change yourself once v3 lands?
-> >
-> > I'd like to do that. If you have time, you can do it in person as well.
-> > ;-)
-> 
-> If possible, please make the changes while you're at it; I need to
-> prepare the subsequent patch series.
-
-Sure! Appreciate it. ;-)
-
-Thanks!
