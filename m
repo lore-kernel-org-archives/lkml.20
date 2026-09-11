@@ -1,175 +1,316 @@
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2D6C313E1B
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:14:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13EA04766AB
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:14:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789132450; cv=none; b=aaYsJCpW86Or+RPCliqeWLUMkh7a13vmBbUsulx0fvCantGlESRLBnJK8Gsa/34LHTpUnoKg+Qtdczx5YLJ3oRLuBo4igUWplHVHqnr/7z1qX1jLKehGQsQFgflWs+DigtoEc7866bQx+Eo2X5lG2OruOvh6jocXBabgKiWilws=
+	t=1789132487; cv=none; b=rk8dHcLFr5OFXs/7G026LVsk4osc27hKmFMBiVPcFbtDzr2TZMuuWxQUBWOU3NW4onjJzWMppNYxBKUFL8ql+r32UuhtCwqgPniNnQd4GD4Gi1fBPJpCKHgreyLpO9bpoM9YJviMBQjxgKJcd1QAN0PiGVdZ9lb++s2dhENdmKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789132450; c=relaxed/simple;
-	bh=kb2P+rTup+4JQ+0u04UZoPNTMrRO+p4MdWOy6K8k+Z8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Vk1Xr6LRCL9W3Up0qTr0Ub7w1A0BYIztebBm7XPutMYj3ydReQKZAvzR/qh5fhXBu8gknrjwXfJU+wHVlPMuISW8BRCGyB71Vyd5GVZ3LxKp0SUyCAPOGk0f6xjMoVIHTSW2cYYFRcZaxuxSjkOAERL2h59az57z4mOH5YwPJbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YW/nzIas; arc=none smtp.client-ip=209.85.215.182
+	s=arc-20240116; t=1789132487; c=relaxed/simple;
+	bh=/bnlFAePkZ1na0mCv4sfAxjApdpfgRD7l0afJ27iyW4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nVJUcC0SBx8Xx6folyaub336uI8nadHC7tnTulDNVP5/Fkfr5s4Y8lR1B1jgKtRyh2ndblkqbXGVHR3OJREkWlWazan6aZsFGoeGRqbxu3HOrJZ1OIejrbBdElrXCLxBdQ3hsuSYyZhEgVc9uMY9HpnSOH8weD08hd+DyXmmWjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LbJG0AhI; arc=none smtp.client-ip=209.85.221.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YW/nzIas"
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc4c7fab7b6so966419a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:14:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LbJG0AhI"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48589798dbbso840735f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:14:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789132449; x=1789737249; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TweUWxwgfruCndSfAUR84PmaICMDLQdodubhsVbm6eo=;
-        b=YW/nzIasoFDH+g463egLYNjF0dfdZf6OhBeSPIUjv9NN43w5UB44YyMcbbi/LPpBTf
-         jnyBc12XjqTbnjvfUQmbNpFN/lbzoWqALWcOlA7KMz//Olclb/zd2aKJ19KKszixyXPm
-         l/bC2ntS+8C63jpD/gQ6mzY/kCsd+dD7XRORF3WU44Zl6ca0Mw3wKlmzXRa+ygkyC4nE
-         vsdlDbx604F9wmFM6vsh8Sn9D8FtavcKezktzAYcVxIKXKncin2Sn4otmiK4jxqj67B4
-         alxXzljsKQTwZIzjJebDge1UGzk4XEtmRG6PSMk+1PzlMgJS33/4KwZdTUnVaea7zq0w
-         YZUQ==
+        d=gmail.com; s=20251104; t=1789132484; x=1789737284; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1mp5ib3Fs9DH1L5FAP5/ujPlgaD7DQh9Zjtve4GxBeA=;
+        b=LbJG0AhIrfDHaLBNvqVHVepiPUhvvO09jWlFlpDQDAYAMmyEqQNAZxpj7YTbsrAnHM
+         AcMZlm8De7ZhlzjmelE0gnDHzQ3PG2RJb3ifMIYUk2sceky8Fa0mTR8jMtgkFF8SMI3s
+         TgZMZBQwJq/nP7FksNjDPwdB0ug+IS4nJ3lTRpEtL9ZQu31kjb9/jd1YsAmP8jNqdfU0
+         QrtudKG2l+wfnmaFfd5C7RhWTJV49DY9WD+/hwfXaF/8FCZUuvJmB/mu9Zs4nBBWthNk
+         lTzrcBCKciMDJHrKa5LDPQ9y0bUgt1cEWpZIsfq4crIvJvCtsx9TisQwAMM+GPHbe++u
+         dnHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789132449; x=1789737249;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TweUWxwgfruCndSfAUR84PmaICMDLQdodubhsVbm6eo=;
-        b=CBUxu0IuaxKDRbM+dmvqFj4iMVmNbj9iXbiiapYv5r/cqzYin64+Im7E4j7LLxxx/p
-         2Hoz8mgJD/g+LISy5cE2osl9Khw8h6DeLDpagUGZAUAXPh5NUG+8CSXMu8lWcB52gsOC
-         6bf9XJ+xhmy74NDwSYNJC2f4/qcWNmb4u1TIHutV2lnXUmCvB0GL2yBPibjIs+KtiErc
-         5iq+bUxcel42ZEv6eKHiJtA0/mVIOTrNTL0MrVkrdZMlC/FTCSyaphi8lbJQLE8R0vlg
-         6qrbioODJgRGzcVH8S0gxFYIS1gknVpQCvNLiXAxj3v9w8BRIU5XT8ISO7eiLQn7iJlL
-         afRg==
-X-Forwarded-Encrypted: i=1; AKwUvBzzedAYqZRwGZ8iB1NFDXCzdU596/iy1z1/DM5tGISeFsgoQpRcFBtXcW3x80No5DZKeR8BDWPBqEkyTdo=@vger.kernel.org
-X-Gm-Message-State: AFuF++luj5dlGG4wIlTtepdbU+/lEx1wIvrl0EnNr1xRiSQSU+QwkjNB
-	oayyRuuRgAA6W7iSkZ7buELXGQ1bezlhQrEjz6O3a9ibPxn7XXXpA2Du
-X-Gm-Gg: AYBFou10rW40r0E4XCUxzHaVMCbV/ppB/00/WetQZLhcTC6anbORs4j/vzbC2qTsRl3
-	L8PHUDn1XRd7ReKqT7lGigw9PqsSJJD/6IuXcINnX9qyUxjPT5aKIPr0L3kAVKcN8h6Ze5lyctZ
-	KwBL52D7zb2py6vyEuLYpjzT+4u3xs/fSbsK3TxQZBBSH8EZ/GNhWhNhds0tPnqiMdeeCSSkS9i
-	uLoY7VicMlJJmeXPF5imN4qQoY9Lr0MSVwG/dkzzOihY7DcjE7pUbJdpMONbmWIBdkeaNgbznaX
-	l3cItbhqpMS+rlOed2HQ6ocqGrhnbjiF6ruUpJt44XHukf+7QTRmgNfjp1H6VVjvW0xrkpmM9MI
-	m32s7MLzQ9hIZ67/6CENGC0jzPf8BeSFlBNI4QXzFhnAijja8BobAhOHqRwkDmnbFcQi0RLlIrE
-	IlT9HjOmA+9/K+al9a+nmGpug4e9+UzTz/ze9+ajUFijpmAPN/XeR6En6yTXyoLqVpfQJYloRwI
-	NKUbNXkRK6NqiyHrXSN3cKtTA==
-X-Received: by 2002:a17:90b:384d:b0:398:e1f4:bda1 with SMTP id 98e67ed59e1d1-39d9c22ccc0mr6616814a91.21.1789132448828;
-        Fri, 11 Sep 2026 06:14:08 -0700 (PDT)
-Received: from LAPTOP-450UDG4J ([223.185.135.143])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d94bafb3bsm5582882a91.1.2026.09.11.06.14.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 06:14:08 -0700 (PDT)
-From: Yogesh Gaur <yogeshgaur.83@gmail.com>
-To: Heiner Kallweit <hkallweit1@gmail.com>,
-	nic_swsd@realtek.com
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Javen Xu <javen_xu@realsil.com.cn>,
-	Yogesh Gaur <yogeshgaur.83@gmail.com>
-Subject: [PATCH net v3] r8169: don't enable chip LTR when the platform has not enabled LTR
-Date: Fri, 11 Sep 2026 18:43:52 +0530
-Message-ID: <20260911131352.2036-1-yogeshgaur.83@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20260910130140.910-1-yogeshgaur.83@gmail.com>
-References: <20260910130140.910-1-yogeshgaur.83@gmail.com>
+        d=1e100.net; s=20251104; t=1789132484; x=1789737284;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1mp5ib3Fs9DH1L5FAP5/ujPlgaD7DQh9Zjtve4GxBeA=;
+        b=qr81VI1UrONOywZCm9I6CPOiDEc2h7UDH+gQqSMCsBKVFO5Ggs0oHkjb15oshvaR1m
+         OO0Ebl0To+/w1lu3pBR9xkY4kFkIZps7gV59eTSghAvswP6V5tAS1nF7m90A2lb3qO5s
+         D/BKnPGc9t8L1noQ5Cx5sNol7P0EgdZJr3FOiOXps6TCsHZxqtq1GP3ZlDdUkgFBhKrZ
+         hqtS3gXaVJQ6LRE+37hwvfNdTvkLppkajgEXLX08/pjKyvdRtf9BZ5EEsb2UCaJ+Uj66
+         0CKIWcbLucWAaF7sLcCz22hCNGHxj4dBDcDQvjnDweOatEwzXCS2E+edsHgwi4ynQfFH
+         7GMA==
+X-Forwarded-Encrypted: i=1; AKwUvBzcgEr06DGO3klkYNHXKaj6qrLk8vBOFr5Mdm11tvbhdsI1wXiN/mpzUfN98m9aREkhK4hx/ec/UbXdHFc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lm/hC0ODu1TSoBp0p+C0L205/538MeT/2a1iu28fCJuuj300ps
+	fzrD1xe5g5vYZ3TJVCKV+aAz6xko+8rXNUGpvg2Uqtt/451hbn7wfdAQ
+X-Gm-Gg: AYBFou26ADeEYhsi0SMLWBuUO7bFvUK3jwvTUjNP+PhcWv94FW1xN4AACPWm0S2nRtf
+	C9vJkOsjk8xLB+XzDD0Sk03cZmjVKMcvG21vu+1gsHi5QPdSd6wiVlrLO1aKRUDOTZrc1HBJwPN
+	KOIj69jVuzVXMMWfo4ZJF8qo7Ed4vQmHrhIHYSkKFn+swYYIThoDQbn7Zjs/UxwURZZBK3udByr
+	gDLdzv46mi/67tsQwHSV3tYfr5RTC+KMS6+kreU7AsIB5nlihU87TjCZWxSviZ6IF1SdC1Os3nY
+	z3yCe6l+X596/YHYZmIdu91T09UV9xV7wiQbZc5Wp0kPggGiLcEZeAxDM78RkF111091tfJe8MQ
+	+xxu3acmh8IbBjX+0Smk0TFNcGLAYQLcWqGjUl+YnhHv+jrJfgGCV754yEO7bd+f/s0WPjcxYGR
+	fRRtpDdtiQoJQUNZXp1ax9sQsU9H8QNYICVzlMgIkmHoVu7sUmW09YQff42JcQP0rliRQRnBGIi
+	yUcCCKTD6P6AoArhYE/WK1PfZ7JPdmLoJ18pP3tHsLH44Um8YCc4kubwCY01pqoRnpntU8gMljl
+	Y+3MgGoZW6iSYIkwzwwASTyl51wCFF81I9MA
+X-Received: by 2002:a05:6000:1a8b:b0:485:956a:1607 with SMTP id ffacd0b85a97d-486eb340eaamr5437449f8f.40.1789132483823;
+        Fri, 11 Sep 2026 06:14:43 -0700 (PDT)
+Received: from ?IPV6:2003:ea:8f48:7f00:eca9:807e:6ba1:9814? (p200300ea8f487f00eca9807e6ba19814.dip0.t-ipconnect.de. [2003:ea:8f48:7f00:eca9:807e:6ba1:9814])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb35bed0sm5761987f8f.32.2026.09.11.06.14.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 06:14:41 -0700 (PDT)
+Message-ID: <dc33c0ec-ae64-464f-b656-8c55bb17cacd@gmail.com>
+Date: Fri, 11 Sep 2026 15:14:38 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] r8169: don't enable chip LTR when the platform has
+ not enabled LTR
+To: Yogesh Gaur <yogeshgaur.83@gmail.com>
+Cc: nic_swsd@realtek.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Javen Xu <javen_xu@realsil.com.cn>
+References: <20260910130140.910-1-yogeshgaur.83@gmail.com>
+ <46807790-6f07-4f0a-b50b-375cc1c9b061@gmail.com>
+ <CAG6enPy441a-cyzsP2_WoQ1+4rj6gikWzOrNmX6yXx1mOo-M1Q@mail.gmail.com>
+Content-Language: en-US
+From: Heiner Kallweit <hkallweit1@gmail.com>
+In-Reply-To: <CAG6enPy441a-cyzsP2_WoQ1+4rj6gikWzOrNmX6yXx1mOo-M1Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-rtl_enable_ltr() programs the MAC to generate LTR messages - ALDPS_LTR_EN,
-LTR_SNOOP_EN, LTR_OBFF_LOCK_EN, plus LINK_SPEED_CHANGE_EN on
-RTL8125/RTL8126/RTL8127 - and rtl_hw_aspm_clkreq_enable() calls it on
-every ASPM enable, then goes on to let the chip trigger L1.2.
+On 11.09.2026 15:00, Yogesh Gaur wrote:
+> On Fri, Sep 11, 2026 at 1:03 AM Heiner Kallweit <hkallweit1@gmail.com> wrote:
+>>
+>> On 10.09.2026 15:01, Yogesh Gaur wrote:
+>>> rtl_enable_ltr() programs the MAC to generate LTR messages - ALDPS_LTR_EN,
+>>>
+>>
+>> Empty lines, mail formatting issue?
+> Yes, I would correct it in v3.
+> 
+>>
+>>> LTR_SNOOP_EN, LTR_OBFF_LOCK_EN, plus LINK_SPEED_CHANGE_EN on
+>>>
+>>> RTL8125/RTL8126/RTL8127 - and rtl_hw_aspm_clkreq_enable() calls it on
+>>>
+>>> every ASPM enable, then goes on to let the chip trigger L1.2.
+>>>
+>>>
+>>>
+>>> The only gate is tp->aspm_manageable, which records that the OS is allowed
+>>>
+>>> to control ASPM. It says nothing about LTR. LTR is a separate PCIe
+>>>
+>>> capability that only works if every device on the path to the root port
+>>>
+>>> supports it. The PCI core works that out in pci_configure_ltr() and
+>>>
+>>> records the result in pci_dev->ltr_path; per PCIe r6.0 sec 7.5.3.16 a
+>>>
+>>> function must not issue LTR messages while LTR Mechanism Enable is clear.
+>>>
+>>>
+>>>
+>>> So on a platform whose hierarchy has no LTR path, the driver tells the
+>>>
+>>> chip to start sending LTR messages nothing will honour, and ties ALDPS -
+>>>
+>>> the PHY's link-down power saving - to them. A report against RTL8125B
+>>>
+>>> (rev 05, firmware rtl8125b-2_0.0.2) in a mini PC shows the effect: 291
+>>
+>> Did you verify that this is caused by LTR messages, and not by any other
+>> root cause?
+>>
+>>>
+>>> link down/up transitions in one eight-hour boot, with repeated downshifts
+>>>
+>>> to 100Mbps, against four transitions at boot and then a stable link on
+>>>
+>>> the kernel before the LTR change.
+>>>
+>>>
+>>>
+>>> Gate the chip's LTR programming on pci_dev->ltr_path. That field lives
+>>>
+>>> inside CONFIG_PCIEASPM, and without ASPM support there is nothing here to
+>>>
+>>> enable LTR for, so compile the function out in that configuration.
+>>>
+>>>
+>>>
+>>> Note this does change CONFIG_PCIEASPM=n builds, which used to program
+>>>
+>>> chip LTR unconditionally: pci_disable_link_state() is a stub that returns
+>>>
+>>> success there, so tp->aspm_manageable ends up set. The PCI core does not
+>>>
+>>> configure LTR in that configuration either.
+>>>
+>>>
+>>>
+>>> Fixes: 9ab94a32af70 ("r8169: enable LTR support")
+>>>
+>>> Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2529752
+>>
+>> Did you verify that your patch fixes the reported issue? Or do you
+>> just assume this? Because in the bug comment history I don't see
+>> a statement that issue has been resolved.
+> I don't have a board with me, hence have not verified it. I did a
+> compile check only.
 
-The only gate is tp->aspm_manageable, which records that the OS is allowed
-to control ASPM. It says nothing about LTR. LTR is a separate PCIe
-capability that only works if every device on the path to the root port
-supports it. The PCI core works that out in pci_configure_ltr() and
-records the result in pci_dev->ltr_path; per PCIe r6.0 sec 7.5.3.16 a
-function must not issue LTR messages while LTR Mechanism Enable is clear.
+If it's not verified that your patch fixes the reported issue, better
+remove the Closes line.
 
-So on a platform whose hierarchy has no LTR path, the driver tells the
-chip to start sending LTR messages nothing will honour, and ties ALDPS -
-the PHY's link-down power saving - to them. A report against RTL8125B
-(rev 05, firmware rtl8125b-2_0.0.2) in a mini PC shows the effect: 291
-link down/up transitions in one eight-hour boot, with repeated downshifts
-to 100Mbps, against four transitions at boot and then a stable link on
-the kernel before the LTR change.
+>>
+>>> Assisted-by: LLM
+>>>
+>>> Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
+>>>
+>>> ---
+>>>
+>>> v2:
+>>>
+>>>  - Gate on pci_dev->ltr_path instead of reading PCI_EXP_DEVCTL2 directly,
+>>>
+>>>    and compile rtl_enable_ltr() out for CONFIG_PCIEASPM=n, where that
+>>>
+>>>    field does not exist and there is nothing to enable LTR for.
+>>>
+>>>    Suggested by Heiner Kallweit.
+>>>
+>>>  - Commit message notes the resulting change for CONFIG_PCIEASPM=n builds.
+>>>
+>>>  - No change to the RTL8125 register programming itself.
+>>>
+>>>
+>>>
+>>> v1: https://lore.kernel.org/all/20260909110554.1977-1-yogeshgaur.83@gmail.com/
+>>>
+>>>
+>>>
+>>>  drivers/net/ethernet/realtek/r8169_main.c | 13 +++++++++++++
+>>>
+>>>  1 file changed, 13 insertions(+)
+>>>
+>>>
+>>>
+>>> diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethernet/realtek/r8169_main.c
+>>>
+>>> index ec4fc21fa21f..05f7a44aff01 100644
+>>>
+>>> --- a/drivers/net/ethernet/realtek/r8169_main.c
+>>>
+>>> +++ b/drivers/net/ethernet/realtek/r8169_main.c
+>>>
+>>> @@ -3035,8 +3035,16 @@ static void rtl_disable_exit_l1(struct rtl8169_private *tp)
+>>>
+>>>       }
+>>>
+>>>  }
+>>>
+>>>
+>>>
+>>> +#ifdef CONFIG_PCIEASPM
+>>>
+>>>  static void rtl_enable_ltr(struct rtl8169_private *tp)
+>>>
+>>>  {
+>>>
+>>> +     /* The chip must not issue LTR messages unless LTR is enabled on the
+>>>
+>>> +      * whole path up to the root port. pci_configure_ltr() works that out
+>>>
+>>> +      * and records the result in pci_dev->ltr_path.
+>>>
+>>> +      */
+>>>
+>>> +     if (!tp->pci_dev->ltr_path)
+>>
+>> Simpler would be:
+>> if (!IS_ENABLED(CONFIG_PCIEASPM) || !tp->pci_dev->ltr_path)
+>>
+> I tried that and it does not build, because ltr_path itself is declared
+> inside the #ifdef:
+> 
+>   include/linux/pci.h:443
+>     #ifdef CONFIG_PCIEASPM
+>             struct pcie_link_state  *link_state;
+>             unsigned int    aspm_l0s_support:1;
+>             unsigned int    aspm_l1_support:1;
+>             unsigned int    ltr_path:1;
+>     #endif
+> 
+> IS_ENABLED() is a C expression, so the member reference still has to
+> compile even when the left operand is 0:
+> 
+>   drivers/net/ethernet/realtek/r8169_main.c: In function 'rtl_enable_ltr':
+>   error: 'struct pci_dev' has no member named 'ltr_path'
+>        if (!IS_ENABLED(CONFIG_PCIEASPM) || !tp->pci_dev->ltr_path)
+> 
+Right, ofc ..
 
-Gate the chip's LTR programming on pci_dev->ltr_path. That field exists
-only when CONFIG_PCIEASPM is enabled, so the test needs a preprocessor
-guard rather than IS_ENABLED(). With CONFIG_PCIEASPM=n the PCI core's
-pci_configure_ltr() is a stub and LTR is enabled nowhere, so the chip
-must not issue LTR messages in that configuration either.
+>> Then you don't need the stub function.
+>>
+> You are right that the stub function should go, though. v3 drops it and
+> keeps a single rtl_enable_ltr() with the guard inline:
+> 
+>         static void rtl_enable_ltr(struct rtl8169_private *tp)
+>         {
+>                 /* comment */
+>         #ifdef CONFIG_PCIEASPM
+>                 if (!tp->pci_dev->ltr_path)
+>                         return;
+>         #else
+>                 return;
+>         #endif
 
-Note this does change CONFIG_PCIEASPM=n builds, which used to program
-chip LTR unconditionally: pci_disable_link_state() is a stub that returns
-success there, so tp->aspm_manageable ends up set.
+LGTM
 
-Fixes: 9ab94a32af70 ("r8169: enable LTR support")
-Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2529752
-Assisted-by: LLM
-Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
----
-v3:
- - Drop the #ifdef/#else pair of rtl_enable_ltr() definitions and keep a
-   single function with the guard inline, so there is no stub function.
-   Suggested by Heiner Kallweit.
- - IS_ENABLED(CONFIG_PCIEASPM) cannot replace the #ifdef here: ltr_path is
-   declared inside #ifdef CONFIG_PCIEASPM in include/linux/pci.h, so the
-   member reference still has to compile in a CONFIG_PCIEASPM=n build:
-     error: 'struct pci_dev' has no member named 'ltr_path'
-   (x86_64 defconfig + EXPERT=y + PCIEASPM=n + R8169=m). Happy to send a
-   PCI patch first that either moves the field out of the #ifdef or adds a
-   pcie_ltr_path() accessor, and then drop the #ifdef from here - please
-   say if you would prefer that, it is a different tree.
- - Added testing disclosure below.
-
-v2: https://lore.kernel.org/all/20260910130140.910-1-yogeshgaur.83@gmail.com/
-v1: https://lore.kernel.org/all/20260909110554.1977-1-yogeshgaur.83@gmail.com/
-
-NOT VERIFIED ON HARDWARE. I have no RTL8125 here. The causal claim above is
-reasoned from the register writes.
-
-Compile-tested only: drivers/net/ethernet/realtek/r8169_main.o, x86_64
-defconfig + R8169=m, built W=1 clean with both CONFIG_PCIEASPM=y and
-CONFIG_PCIEASPM=n.
-
- drivers/net/ethernet/realtek/r8169_main.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethernet/realtek/r8169_main.c
-index ec4fc21fa21f..c305a8f19551 100644
---- a/drivers/net/ethernet/realtek/r8169_main.c
-+++ b/drivers/net/ethernet/realtek/r8169_main.c
-@@ -3037,6 +3037,18 @@ static void rtl_disable_exit_l1(struct rtl8169_private *tp)
- 
- static void rtl_enable_ltr(struct rtl8169_private *tp)
- {
-+	/* The chip must not issue LTR messages unless LTR is enabled for the
-+	 * whole path up to the root port. pci_configure_ltr() works that out
-+	 * and records the result in pci_dev->ltr_path, which exists only with
-+	 * CONFIG_PCIEASPM; without it the PCI core never enables LTR anywhere.
-+	 */
-+#ifdef CONFIG_PCIEASPM
-+	if (!tp->pci_dev->ltr_path)
-+		return;
-+#else
-+	return;
-+#endif
-+
- 	switch (tp->mac_version) {
- 	case RTL_GIGA_MAC_VER_80:
- 		r8168_mac_ocp_write(tp, 0xcdd0, 0x9003);
--- 
-2.55.0.windows.5
+>>>
+>>> +             return;
+>>>
+>>> +
+>>>
+>>>       switch (tp->mac_version) {
+>>>
+>>>       case RTL_GIGA_MAC_VER_80:
+>>>
+>>>               r8168_mac_ocp_write(tp, 0xcdd0, 0x9003);
+>>>
+>>> @@ -3120,6 +3128,11 @@ static void rtl_enable_ltr(struct rtl8169_private *tp)
+>>>
+>>>       /* chip can trigger LTR */
+>>>
+>>>       r8168_mac_ocp_modify(tp, LTR_OBFF_LOCK, 0x0003, LTR_OBFF_LOCK_EN);
+>>>
+>>>  }
+>>>
+>>> +#else
+>>>
+>>> +static void rtl_enable_ltr(struct rtl8169_private *tp)
+>>>
+>>> +{
+>>>
+>>> +}
+>>>
+>>> +#endif
+>>>
+>>>
+>>>
+>>>  static void rtl_hw_aspm_clkreq_enable(struct rtl8169_private *tp, bool enable)
+>>>
+>>>  {
+>>>
+>>
 
