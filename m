@@ -1,67 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 003904483A4;
-	Fri, 11 Sep 2026 08:20:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 084B7455199;
+	Fri, 11 Sep 2026 08:20:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789114824; cv=none; b=YGKjcbhtRbC1bbjcnRC3QodC6D3GzYFO08FL/n1n9rXe3QId4ymbELRZJesJeLh3hoP+ePX+N2NPuSI7cMPZQF+tLe9xy+SO0omRxq5sf7bUZWgBDpUjIOVf2zxeJNOOkTp/NXQ8UG/db0NqLxOVKwlgzHrSdgNBHr+RZ78o9Z4=
+	t=1789114830; cv=none; b=TDQAHTzOKvzrmI+ofjaN1QgJe+osTAxV7bUAWn7A4PyGiZN4xJt5rddrE8oSLUuLip5j5T8UxIPE2TZ/YMyCObcdTr4w0qpEQ6sV+7TJO37wd3I64LGiSyFnnVEXnfTSvWaOjwH9+yWVRcWyPfG3fGCs+Doyp1KMyHKNy4nNaTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789114824; c=relaxed/simple;
-	bh=xmsQyJ/QklFMTqaX5qmXI4VOHeLjqJ36W3Dh/16BKPk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pI46GAM/FMY5nx3lskgq+GMmjToSslSuDvs0csXE/T9JfT1zlmvUa9E+d/djZwOrwUp1MZbfBdVbW8cGbornJYR3TQSODw/3ubZyNVByiJATLFvwH7DNl133UPABMjNZNfa7m8elhtEmVjZ6W7Dw/5EY0MYAWcBma5ET0omHDp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iFUPkdFJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789114830; c=relaxed/simple;
+	bh=00IoiYJMvc428TUnHqRDhNjDZIuoPykN8PPXnyrtpcU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=eBzaZryqiwkMXPfM7kUfzmWFDCKW/UeBEVODidLEXI0dsVbA6lIuT5astznnjnPGUb4WiXLgMeH6J5GMNTHejBxHBGXmA1ut3XhJShB1CaPeKnL1X8xFARdnP84OWi89pwbCManEJUbhhk65r9sn4OUZw0DQyOo6swlxqwPWCJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=VUXwpXLP; arc=none smtp.client-ip=113.46.200.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iFUPkdFJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CD771F000FF;
-	Fri, 11 Sep 2026 08:20:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789114822;
-	bh=xmsQyJ/QklFMTqaX5qmXI4VOHeLjqJ36W3Dh/16BKPk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iFUPkdFJg/kJo4PbYBkxsNHPyJ/jgMXHKBA1cwNryslLxCbgJ2XyInxn51UMAS2+y
-	 bA/YS2m2yhHmadVzVLe95NrPl78O2dGR/Pp5gfHTTP0g+8EkWdfEudNuQjxhyD4rfO
-	 FQuLZmV/BEounRG6HWcDIcI/t82FyqQVXegQUl1NL66aOJqs8B4oFXr/a9nr+C580u
-	 6pR49nEMfcvZqyKAjB/8sEm8QY9sCHZQE1c9vQpKt/uvVgwwkkMGpnvDF1ALSAoP1h
-	 r7rI4adpF6j9a0zvTc0ERhRcD3ZabXCGNgmYP4UuAc7FK0xwiMBzVT5QbNRK848zBF
-	 mKtX4JRMM8uTQ==
-Date: Fri, 11 Sep 2026 10:20:18 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Sebastian Reichel <sre@kernel.org>, 
-	David Heidelberg <david@ixit.cz>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>, "Andrew F . Davis" <afd@ti.com>, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] dt-bindings: power: supply: bq27xxx: add generic
- compatible
-Message-ID: <20260911-rare-honored-spoonbill-132c0f@quoll>
-References: <20260829205258.26955-1-rinat.muhamedgaliev@gmail.com>
- <20260909234744.1177153-1-rinat.muhamedgaliev@gmail.com>
- <20260909234744.1177153-2-rinat.muhamedgaliev@gmail.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="VUXwpXLP"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=UPlgI6itf/jQAT/aGqHZlGQ1rbaMbhD6LnTalkOaXRQ=;
+	b=VUXwpXLPX3wlAPyKd9HP3OrmXW/ey4+zvbJbIX499s4n/+IXiH0dkVEQr5TrMy2E3XAeziUBI
+	RR1vctPY0rEiuDKk8KSfefyOOHQNi1FOLtB6ohyZdvDu1rfdf/aZquVFDwQ4S7mK7uJu0FiGKWR
+	iGRHUTDuyAd1BdWFcR4o6Lo=
+Received: from mail.maildlp.com (unknown [172.19.163.214])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hh6dd0TMyzKm5t;
+	Fri, 11 Sep 2026 16:09:25 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 476474056C;
+	Fri, 11 Sep 2026 16:20:24 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 11 Sep 2026 16:20:22 +0800
+Message-ID: <66752c5a-8bdf-4895-b692-585ccfce3b01@huawei.com>
+Date: Fri, 11 Sep 2026 16:20:21 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260909234744.1177153-2-rinat.muhamedgaliev@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 05/40] KVM: arm64: Make MPAMSM_EL1 accesses UNDEF
+To: Ben Horgan <ben.horgan@arm.com>
+CC: <amitsinght@marvell.com>, <baisheng.gao@unisoc.com>,
+	<baolin.wang@linux.alibaba.com>, <carl@os.amperecomputing.com>,
+	<dave.martin@arm.com>, <david@kernel.org>, <dfustini@baylibre.com>,
+	<fenghuay@nvidia.com>, <gshan@redhat.com>, <james.morse@arm.com>,
+	<jonathan.cameron@huawei.com>, <kobak@nvidia.com>, <lcherian@marvell.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<peternewman@google.com>, <punit.agrawal@oss.qualcomm.com>,
+	<quic_jiles@quicinc.com>, <reinette.chatre@intel.com>,
+	<rohit.mathew@arm.com>, <scott@os.amperecomputing.com>,
+	<sdonthineni@nvidia.com>, <tan.shaopeng@fujitsu.com>,
+	<xhao@linux.alibaba.com>, <catalin.marinas@arm.com>, <will@kernel.org>,
+	<corbet@lwn.net>, <maz@kernel.org>, <oupton@kernel.org>,
+	<joey.gouly@arm.com>, <suzuki.poulose@arm.com>, <kvmarm@lists.linux.dev>,
+	<zengheng4@huawei.com>, <linux-doc@vger.kernel.org>, Shaopeng Tan
+	<tan.shaopeng@jp.fujitsu.com>
+References: <20260313144617.3420416-1-ben.horgan@arm.com>
+ <20260313144617.3420416-6-ben.horgan@arm.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260313144617.3420416-6-ben.horgan@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Thu, Sep 10, 2026 at 02:47:42AM +0300, Rinat Muhamedgaliev wrote:
-> Add a generic compatible for I2C fuel gauges whose device type is
-> determined at probe time.
 
-Generic compatibles are not allowed. Existing ones should be used.
 
-Do not attach (thread) your patchsets to some other threads (unrelated
-or older versions). This buries them deep in the mailbox and might
-interfere with applying entire sets. See also:
-https://elixir.bootlin.com/linux/v6.16-rc2/source/Documentation/process/submitting-patches.rst#L830
+在 2026/3/13 22:45, Ben Horgan 写道:
+> The MPAMSM_EL1 register controls the MPAM labeling for an SMCU, Streaming
+> Mode Compute Unit. As there is no MPAM support in KVM, make sure MPAMSM_EL1
+> accesses trigger an UNDEF.
+> 
+> Tested-by: Gavin Shan <gshan@redhat.com>
+> Tested-by: Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>
+> Tested-by: Peter Newman <peternewman@google.com>
+> Tested-by: Zeng Heng <zengheng4@huawei.com>
+> Tested-by: Punit Agrawal <punit.agrawal@oss.qualcomm.com>
+> Reviewed-by: Zeng Heng <zengheng4@huawei.com>
+> Reviewed-by: Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>
+> Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
+> Reviewed-by: Gavin Shan <gshan@redhat.com>
+> Acked-by: Marc Zyngier <maz@kernel.org>
+> Signed-off-by: Ben Horgan <ben.horgan@arm.com>
+> ---
+> Changes since v2:
+> Remove paragraph from commit on allowed range of values
+> ---
+>  arch/arm64/kvm/sys_regs.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
+> index 1b4cacb6e918..0edd655934a9 100644
+> --- a/arch/arm64/kvm/sys_regs.c
+> +++ b/arch/arm64/kvm/sys_regs.c
+> @@ -3376,6 +3376,8 @@ static const struct sys_reg_desc sys_reg_descs[] = {
+>  
+>  	{ SYS_DESC(SYS_MPAM1_EL1), undef_access },
+>  	{ SYS_DESC(SYS_MPAM0_EL1), undef_access },
+> +	{ SYS_DESC(SYS_MPAMSM_EL1), undef_access },
 
-Best regards,
-Krzysztof
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+
+> +
+>  	{ SYS_DESC(SYS_VBAR_EL1), access_rw, reset_val, VBAR_EL1, 0 },
+>  	{ SYS_DESC(SYS_DISR_EL1), NULL, reset_val, DISR_EL1, 0 },
+>  
 
