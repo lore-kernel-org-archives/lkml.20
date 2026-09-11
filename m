@@ -1,122 +1,140 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C2F43DAADC
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:32:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AF673DB63A
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:32:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789140733; cv=pass; b=MHoHKuXv32k6b8AqpHT5GP/QCmBdJ6O5yhcuPGfqRCNiIpf6FzMLEDC5Kyyk6jjRPeZgaBU3rgrMgHvW69aB+vOpNaSFd8Bjw+Ix3VjsYB91GYlMkg/fE2sjVyuK95C5KeUGafD6k/fd1jo5wc1P6MBsqOuF73nj2NORcPBGQ8s=
+	t=1789140748; cv=pass; b=buCNgCetbS0vcmNsOX6a3V2oPVkotl4FpfTaHrsQsAxkIiB6vuFRoPnHiySIOTP7ngTfhGyyO67yoD01Rbxhl6IyQXyZaKK42zjbZEkdjn6AKNH+lKZBgX8lqsUqtycrBEaMAm9O7hh6AcD6bgvfUlLBfJHbLstllhToxVQQ83Y=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789140733; c=relaxed/simple;
-	bh=Jo+bhSqK6mGk85cB2O91OylXX1j2JSTJECEb6foh0hI=;
+	s=arc-20240116; t=1789140748; c=relaxed/simple;
+	bh=DkIYo85Pn4ngA9GK0ES4cPklKc4uBJicpFFxWLmU/j4=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JBXjNBWVajEA9cqed5wTZ5z4clcmV/O3oA3E8I9bcYuNgRzIgmuxPSbbdA6qf6/+z122hunuqjKugZJfXuLRdT5b8vxCKdPCwqPZ6h0UeDkNnGAUfJVYtrmfM1VL+DJO89H0SgxEEgakfeLaNW1KRJAk9gkY/KUcelmQ4vm1v1A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=IVOTdwA6; arc=pass smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 To:Cc:Content-Type; b=EtZsmLcHC/85sXCqPGtiGucXRkr0B4lJNpaIFD063F4iSNVBjdwPC8ZpMkgG/p/0WWJhy2SjJTprKX6tbHj7aI0IqSVRRfnTyNPb66k8naVkvKKJu/cnqMqnlrmheMgcjH17sfXCCQzecg4EARTndu5j4Y5Z/i0BRSHDkLDW6Jo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gbJL5Q+L; arc=pass smtp.client-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="IVOTdwA6"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d6ff3aca06so6775ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:32:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789140727; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gbJL5Q+L"
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a20319d030so1627044a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:32:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789140746; cv=none;
         d=google.com; s=arc-20260327;
-        b=stxZE2GBd6lq+3dFb5eKk0u5KePsiS97h7CQbQNNpcH3Tt39N9lyxuKxZm5U9MejH/
-         f6z33fyw58VGGmGqOtIWgX7xeXE8JO3+pxa/S1SDYK2HRViFLFByZZhL+doNYgyDRvBJ
-         qVziEyskjyQMpxeW+1dzRDZHry2Mxx88LgnQWwwcyf6Mhy6T0D2sV2TwwMI3FmkRsfsF
-         NbeOffPQE3QnpwqaRX0BDbNQhx3ujENGH06dn9KYEdemxyhl8DbimLsls1c8FumyBpzu
-         IFiCzRPoJBxx8xOUxmgqE2nbflrO5LGdLrvRfSU0fnU9r01+1aDmHS4bii+Hv4VxpCRn
-         m7uQ==
+        b=b4jOOIebfu7luMpwbUyO+5maElnJlauzSkvZHHBZgoXLnqy85Iq14ZDTC0W9UQg72a
+         Z8yA1T6KkNLcSrjeiX/hNiwlnuUGFZy49Ts0byoP4x1KwUC4smsgLNEKb3q5rCQUZ+iq
+         A1HPye6v532EHd27K+/Z3arZu5bhGQKuIhI4cvvmlQopjVBUFUDgErmOPlHwHrw0pOJB
+         YtNH91f5p1R7vz/G5GQFDMkAoK9AkcBvXGBmpXTrBEh5OAkn5I8H9JUSMWOxl8N8Kj7I
+         gC97VXjZimjS77DpnYowWFkg3kaazIvTClr0WflZ/s9aXkdF2zK3Eg2xuEDacrOeZBOX
+         q7fw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=Jo+bhSqK6mGk85cB2O91OylXX1j2JSTJECEb6foh0hI=;
-        fh=Qf566JYhAACfPL1y5FbwZQ9Le4k6w5a6JVTSF5ojTDg=;
-        b=m87VRmwpZguKOTYr02gGliBNICS1PSc4Iotrcd4o+OV5qEVsYwPoWgVndjmXx6UxCb
-         7QaMT4gqT0TEJwtW2os3Bl78uaQbfPM5dgXNSh2y0CDMY8hySOoPR2PcM4WPoSQ1nvMp
-         sl42aNk0nm80tDoE1AbYkHKFa7ItHLqQj1Sz1MThhWI1bjKnisbtOuB2L17GYK2+5nJP
-         Kt7qpp4nP0drQvtmdhg1EJAlYZnYS+scg4cypdtOeTh2B0goV8E0Ow5R3QJrTm96FxJE
-         /gS5O+NgUR76HVtYDJ/ZK3dIwTuIbga12AH8mNAPhrjr2lvV0Q+rCk37bFea1HMAuR3F
-         CYFA==;
+        bh=jfN2aS/+tGG4m/Gr1t61ow0ODqlfB2pmuz3SNqMPHwA=;
+        fh=ZfDwicCpND28868IErm66xWo7LWagM3S9ibQsKH2AsM=;
+        b=JIlETpcopng8iETh7PMLfEs8I7QLeaciHs3qiXtiJSjsbM9/C051SN3sdZbARl/qFH
+         P42cAKbXX21AEwyoQxtgF+dLrtMXgCPXx6Z3QQv5kYdZsF7DCbcvVhDvDmwAPqToggIR
+         rPHULCGj42Mp71X3/uh3k5r/CoUY3Rl+ETBkuj3O/WCD3jXSwHStnQo1LLjBg5wv0CMt
+         u45z62Rbghz91S2uFBgPMbiHm1qEzChWPXubPoqTaGH+9Ol/0L1gDPfPUb3lZwdu2zpw
+         paSK0XdhcfseJZy5DTkGvMzWWcskBG1uUbAgEzV0gPHMjrPi8H1TOfd7epFM0ygIJgsn
+         hmSA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789140727; x=1789745527; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789140746; x=1789745546; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Jo+bhSqK6mGk85cB2O91OylXX1j2JSTJECEb6foh0hI=;
-        b=IVOTdwA6M3ct1WeaUi5Fiz16rQ0O88d4S3VhsMV4n5xW0JsIOlo2q78Wf9J0wZ11bn
-         1Ofp2lrrH3VBcYzYCPuBZbb59Yn7iTpFIapwFJIA58/mQpLbnkB49kAl1vYKQL1oYw3h
-         rg2cSGSMycdmlMmwl2gXljIjhfwgVWu+om+1YEc/LbBXNGv1oNFNznMfqgaOKaTRbGra
-         1MKcZpCLAlGo+l0VlWUF/IBpSVdxmXRVxuRb9YWgwS06uuF/5epDZ/5m1270aCmYQjkc
-         tSH3t9OJzcAb18PpQSV3z9Kzwjl2MfIZe/JO0YzEl9TNpupUuhqjedW+UNfN5CfWQ8Aq
-         Y/6w==
+        bh=jfN2aS/+tGG4m/Gr1t61ow0ODqlfB2pmuz3SNqMPHwA=;
+        b=gbJL5Q+LJ0n9G7KAG7wJgDHlMO3iWS5DWST6P/kfuZNp8CY854vIyRfMOflcFJyRTN
+         j3SLWjWmQJp84f/GN2MXjAhYLOWVAd7rOEMdQZPb2fYZpYkB8T54nJ7N4Mlp2lLxi0LI
+         FkfTjnnCkVKoUmqOTBgWh6gfJysyWMgjMUkQRhQH5lCtwef7hGcKdX3spYK1ignWe1k4
+         AJd2a72RXhZM/gNlir8fgxkmmoGaV75XsuXr6MTmaT/JVuWW4V6nNAL8QcjfFNVml/2Q
+         fqzEWoCFI6tuA8Vq0mqACcyZy994Dj40Nq3DqhUlNWN9wkj3g29Fg8rl62vvwppvHgAN
+         u/vA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789140727; x=1789745527;
+        d=1e100.net; s=20251104; t=1789140746; x=1789745546;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Jo+bhSqK6mGk85cB2O91OylXX1j2JSTJECEb6foh0hI=;
-        b=COYOuuu+L/xcLSfzWbWxzdyuqAfMkzl4C8ZdgvGimHjb1Bu8U3JrxuB7Jnmj/SLz1d
-         rlnJu1Sh4CwOc4nOagitpRcRGWZAx78fGVZ8zWr9InoII5H+wzouWcDk0E9X7gU/pPs3
-         zChVGRcz+VZ4PtsOnJrN5321DeDFHwW4QLE0fCZObzErX7tttrLhHx/DUffdZiC77FmV
-         rWrFsiQf1scFiMhXElhB95LbRTPyRHzWWSkjhCgl84xPuL49CkdsMFDY3Cxh8s0cZzoG
-         6vD7rHjpbYFUOU3zv3BsIRiO2+9m9cKwgo2cNbeCJ+VZ7irjIK2u2417UdMkLcIQqBzs
-         3o9A==
-X-Forwarded-Encrypted: i=1; AKwUvBz8YQx7VKVRlGqeLwMXdiljobpR/EZznSdnf/9TqL/W70x7AQ74Vi8sDpK6EUHFhk8kZEli0ZREYLYZE/w=@vger.kernel.org
-X-Gm-Message-State: AFuF++maJ6rQspTmQmmeEQjV5jrg9kHJZ+zyTGtNrM8mvZL/Qa6YSWFN
-	UcJ5EbOxFIP3eAtClqUWFnZtTGLrIraDZPO5NG323LrfjDPNsLUn8j1MgqxRc6Q9n5jUFOPaW8N
-	vXXpjeCr80Uixl9LRlyZdHGHkw7ixJSlxMX0gVgE4
-X-Gm-Gg: AYBFou37FSenwK9/KY4hku3GZoXPVsIMN6npGAE/9ciw63x9l/q5JuPlqFU4CBM+flm
-	Hz3ZtlovKPZlXXaZk84iNBR23ebji9DimaApmeXu9XWOk10BtHk/8oS0+YlwGcTlkV10wO2Noio
-	uwsfGgluyPjUPYyCJcOeMBmLUsjG5jOgenQyYooDTgz1mktSK8NQCG1gAUjkisuPCdWD/pwdrit
-	jKp2m8O2g0WsIrQL9/NgEGvt4HoylaOE2ahJS9bwD3BzoJRNoc8swisUd+eef50rr9cK66b6QjH
-	+OSk3cj/QK72SD4StBO6y8xXSxY0ep2h5aoM6RhpjGJ9oS7IUYPeTmHkUV4xWSJFJytKwEntu7c
-	9p0Ox8aTaMWqGEuZ23E6enOt21dnCLZK3u9xjk5LwKzg=
-X-Received: by 2002:a17:902:d2c8:b0:2d5:db38:800f with SMTP id
- d9443c01a7336-2dd2ce1d5f3mr6245075ad.14.1789140726833; Fri, 11 Sep 2026
- 08:32:06 -0700 (PDT)
+        bh=jfN2aS/+tGG4m/Gr1t61ow0ODqlfB2pmuz3SNqMPHwA=;
+        b=lMHC7BXESZbfeYeOtcQa3x0v7CiVLImClYuAFS6A++LN+GEARtq+TiEDKf9QOuOMIJ
+         5JjAKga8P7ixYxJ3oNOU5KHszaW4gzimqHVYCP3Kmtt16hlHUbz6yZr25AOVeZV3BiQy
+         goEW9eyMLjEe6iJFc6VTLQtlGzH9T7hRojLmYKyqpFyobmCVDbl3c7HVexiSut+wb90s
+         /+2NddTMJR3MF+UmK/A2QyvWpO3QBS/9EMhFyEHPLSAFJWx8Wor7e19sOOBqHEOYgpBG
+         RgPVmbMwIRdcIO7hP16dPWhWAmRGmNbqIfa7B822l4VraaRgtfJFbJinlNCYI1DJJiR1
+         Etqg==
+X-Forwarded-Encrypted: i=1; AKwUvBx4eLIIhicJHjhpen1hLaaWN3Jq8E//f1+Ph9x5ubtov2UAM6NzSdrE79yRy5OjcD6oMnNvuMzo2K5a9AM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kr/BNMvFOfakjKdmT83gRubdHuJP0kCbsgFvFytUOvZepB6Ker
+	tMgtMCf9axGrJJXPzQYMz8AahgnKQViyKucJvPOUEcln5NMIkx1Lnc1LGPou3TQLn/gUf3/eLuN
+	PMP9yVX/8VRir3iAky6bFwhJHJUIkDZQ=
+X-Gm-Gg: AYBFou3Udi+nOGAOfX75pPRgenTOFKeFOZU9mO4JuMsCPa36jZw+JMIGzgqDxSDUlfu
+	HMeQMwr6iePgcMqP3sL5YknkEbjeCbehZ+Zw3UL1xtbpqC6CzsYVMvg/4vr6H2cpvsUg1QUlu0V
+	tyxQBIhD1uot7dtvk4OB4DRardKPQjvitA9+7qqgQOv0I/XZlloMJsQY2PWdW5QHBivq5cUb+At
+	RtJtMgx9EtNvlno343xyAUmIR4Aj7+/K6nRkvc8EuSorpmvfYY7fZQn5229zK9Ja15OZRTYUOoO
+	PsoqF8EjAVY11amGzlxzxlP1hnMOU7cjdxsT57EA0Ki4lJX7JLrixgJUkZhgDhvCgE3dFBl630i
+	aUCjkiBd2hoWm2A==
+X-Received: by 2002:a05:6402:518c:b0:6a7:ee54:f897 with SMTP id
+ 4fb4d7f45d1cf-6a9b56a48c9mr2177348a12.27.1789140745444; Fri, 11 Sep 2026
+ 08:32:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAG48ez26PrUOb8er9TP1gWLsqVLU8TEDr+1Zs25fgH0++=zhUQ@mail.gmail.com>
- <20260911083639.GX776954@noisy.programming.kicks-ass.net>
-In-Reply-To: <20260911083639.GX776954@noisy.programming.kicks-ass.net>
-From: Jann Horn <jannh@google.com>
-Date: Fri, 11 Sep 2026 17:31:29 +0200
-X-Gm-Features: AcwNN1X5QJK5xCJ9ymuHdJf_f1sobutrJF0doN5uEEjSSosujEZhtUeTzrePbbw
-Message-ID: <CAG48ez3BCZi-wEi3HAtPhTmiRxfUuk4y97NquPjz0FBrnyfD_g@mail.gmail.com>
-Subject: Re: [BUG] futex: scheduling-while-atomic because nested vfork can
- break guard(private_hash)
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Hyunwoo Kim <imv4bel@gmail.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Darren Hart <dvhart@infradead.org>, Davidlohr Bueso <dave@stgolabs.net>, 
-	=?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
-	kernel list <linux-kernel@vger.kernel.org>
+References: <20260911144204.2089401-1-dmitry.osipenko@collabora.com>
+In-Reply-To: <20260911144204.2089401-1-dmitry.osipenko@collabora.com>
+From: Yiwei Zhang <zzyiwei@gmail.com>
+Date: Fri, 11 Sep 2026 08:32:12 -0700
+X-Gm-Features: AcwNN1V_cGfwO5j1Bxt8GNsLjTC8MCOtlSabaRFMfY5X1VvYPK3yIDdCB9APKfE
+Message-ID: <CAJ+hS_j5w1sfpLS91HC_dSDgdK-=0z3PemY51hUbJVLW-wyF1g@mail.gmail.com>
+Subject: Re: [PATCH v1] Revert "drm/virtio: Allow importing prime buffers when
+ 3D is enabled"
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
+	Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, 
+	Val Packett <val@invisiblethingslab.com>, dri-devel@lists.freedesktop.org, 
+	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 11, 2026 at 10:36=E2=80=AFAM Peter Zijlstra <peterz@infradead.o=
-rg> wrote:
-> On Thu, Sep 10, 2026 at 05:27:54PM +0200, Jann Horn wrote:
-> What's with the markdown tags? The email is text/plain, so plain it
-> should be.
-
-I like having clear delimiters around code blocks in the middle of
-text, I feel it can otherwise be annoying to scan for where cited code
-ends. I used to put <<< and >>> around them in the past, but that was
-kinda weird and ~nobody else uses that syntax...
-
-> > Then race like this (view this in monospace):
+On Fri, Sep 11, 2026 at 7:42=E2=80=AFAM Dmitry Osipenko
+<dmitry.osipenko@collabora.com> wrote:
 >
-> What a crazy ass world we live in that this has to be stated :-( Of
-> course you should view text/plain in monospace, anything else would be
-> absolutely insane. (And yes, I know outlook exists, but people using
-> that deserve all the pain that piece of shit gets them.)
+> Guest userspace may import udmabuf to vrend. Vrend doesn't support guest
+> blobs, and thus, further 3d operations with the imported blob are failing=
+.
+> Typical scenario of the problem shown with mouse cursor RGBA image import=
+ed
+> into virtio-gpu, which previously was rejected by virtio-gpu driver.
+> Revert enabling guest blobs importing into vrend to fix the regression.
+>
+> Link: https://gitlab.freedesktop.org/virgl/virglrenderer/-/work_items/674
+> Fixes: df4dc947c46b ("drm/virtio: Allow importing prime buffers when 3D i=
+s enabled")
+> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+> ---
+>  drivers/gpu/drm/virtio/virtgpu_prime.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_prime.c b/drivers/gpu/drm/vir=
+tio/virtgpu_prime.c
+> index 149e6bcb5878..ebf471044d06 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_prime.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_prime.c
+> @@ -349,7 +349,7 @@ struct drm_gem_object *virtgpu_gem_prime_import(struc=
+t drm_device *dev,
+>                 }
+>         }
+>
+> -       if (!vgdev->has_resource_blob)
+> +       if (!vgdev->has_resource_blob || vgdev->has_virgl_3d)
+>                 return drm_gem_prime_import(dev, buf);
+>
+>         bo =3D kzalloc_obj(*bo);
+> --
+> 2.55.0
+>
 
-(As another example, my employer's webmailer is also not particularly
-polished when it comes to text/plain mails.)
+r-b. Thanks for the prompt revert!
