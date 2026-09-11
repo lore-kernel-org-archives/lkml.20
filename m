@@ -1,441 +1,609 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46657368263
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:05:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B454F38B15B;
+	Fri, 11 Sep 2026 15:05:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139120; cv=none; b=YpVe4UF44pCuDJem22NjN+oUi489w8b5H1zY9lli8BIpu/6MeV9GplBe0gS5897oI+WctmumlHHDbK5q35X9HRNbg8pSLCGrrS1+8HezJsgbBeR7U2ZCo9helNIlJZx3sKrxY6V9NU9gpOoGlMqwUudYLPl1cXNKf37Fr6M3/5I=
+	t=1789139127; cv=none; b=g7yTC/iuHpIX4FOq9EU6bkjKfIwIXc1Z7fv9CzatikH3Tw3zoe7iqmuS9FLo3JlBbdwZuoZUgap2475hiv2pJHQQty58rGyj4TrKuHu9nh96X43Kv348jHr1fONctMaT1GpWwqOhmumsDOzl5gXpm3+tjsq65Yikr6C6ndWCUSk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139120; c=relaxed/simple;
-	bh=DtJ9ZpMVzp9pBwNVieDXauBpJyGXCHWbrcsUIqWrCLk=;
+	s=arc-20240116; t=1789139127; c=relaxed/simple;
+	bh=LRoQhAET0B5Vnu4vygcr7kE88uVVUfdeHdoZRwL08Sk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cgSPnqMnvaZow1eqXYlgjyBWmZNzgXoyDROE1V+AqVtkzwxBBq5zL5eh5aTIr2pYggJceMUcOHZcAvBUWV6hNpgQNinYCKe4CFOFtN3IJuMGcDsjrjoSg8ipbRBOlpKhJHZiECPbmd0B/ZFYPRiM6uEOX9ptMy0b7WnDhyTmOas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=I+ZvYA1m; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 MIME-Version; b=ezrRA5uBB30YX9QvUOoBXm8x73RqJOyVpssGqT/BHFz18EV3YkGgiKqCjgxN7HUuUhq5CfpWT89jxLoZYdpilZ1gC/wCHdgm+8lViustpHSPvzQu4yIpuD9QgmYx9bjsk2CRWheO/jbldi2x3MVUni1wTxPBRenQ488woIYENNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=P71XK9XW; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="I+ZvYA1m"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49ccfae359fso8297725e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:05:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789139115; x=1789743915; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nniMuKkVKCBrFfej6b+g/WdQXf4DCG9QFf6qRLzwPt4=;
-        b=I+ZvYA1mbICTv0PbrqdQMGSq+gzptDaunsIRkczLkUVPh4RgeYjoWN4vx+l99uj4hc
-         zcO7ZRyK98cOCz0YD10nH0BPzXr57Tz5RI0IcGB8yfMyUZ9Vhww1By2HzkboYWvjEs+k
-         h5mYmWIInmYh27rNaIxNH4K+GM6nqC77p96zle/MtMjRZ4fGPi1zb5KcBkeExtUBpUuA
-         5Rmx/Gcwa6MXoLk3EO5HI9Ut5BuemqDBe5S+Ix+Ahm4A0UySPIX4lovRO03XUBNAbt5n
-         T1ZSHMnHfZRWoh5jbgeGxfcHFdOlPs5VkyPNR54wctreyKisukdw5jGWmJwMBvf6+RA+
-         oWtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789139115; x=1789743915;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nniMuKkVKCBrFfej6b+g/WdQXf4DCG9QFf6qRLzwPt4=;
-        b=DzwGJjE6umt4Pc5OOsSKw+WH6AdOx5VcDECvw4FiEfqgsQUoY2sb+kgkCB9QpwRRUq
-         wzDB/WLmE5hNqYxUqhuefs/Og/eNDDsp8meE3NbIB7cjdAirrom466JMFeZNOzvjHXH7
-         v+xOzV8+2mh1NGd0s2nTdwy7wpca0s1+UErq79WkmfxnDqKQUmlZ6aEyyvHyplBcB9iS
-         +/DeM2XTEF4QZI2Oy9UROedcuHpXOEyDWwiqpfkDddoAMy8uRc0CUIIecx1xOFNDptlZ
-         kVujgaREfvQC0A9fVkWkEb9/ryBmXwlFU06WUg3xltFaUD3F9pgLX5ZL08+YJy6ooorN
-         Qz/w==
-X-Forwarded-Encrypted: i=1; AKwUvByKhX0yE1TQhunmik1/bDqVWbqUWTn4hnuUVRkrcupKvgT0FV8spFTFJ9xtRbFRJjjGKs5ZfNUt5nBPCe0=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0UnGROrAxH8iKSiqnP/om/Mb+NI71CWQB3gjGUABebOMhth0f
-	eYB/NjBovzR7gwep+7657Lz2TjRCqerhFCb1cJru/NyiS9a2C2JwYlbzsDzdSNEn9rE=
-X-Gm-Gg: AYBFou0dhh0mgfexsQycXb0bg+bDj6/j3HfR30llNz0pfX1e2uKIYuLeGGd2bvYuZsD
-	Idnr6BbKrIbnfPUGelPkFqBdZPeJZNZCiy761/dR0Y8X4Qi31vOB0LDHeH23jETA2vtwLFflFAj
-	QSo6CIJOC71UIa2Z9XTzAFzmypcvr01mlp8JUKPad9y1w2seF3QT8QSujNoWdeZg8sB/3jLIoOD
-	4B5UHL+JtzbLoTVhZMIqeP1ndM5JRjkQK0Q7nYXbPAVW3IfSEqbWQJi+qo7EzCCJC5tdrN7uQTk
-	dIa+uswEEgYuH4MVWTAn/BS7SebEs51FL/3cxACe3vo/MtqQbG+Xzg7897Op4VTG5EFTA0FIRr8
-	y1u0/MCM9uPMXkM80zjydz1N1bC+Jh5u+n+/eoNrUoWuUU5syaIMHD8OUJ2YIlH/vb/xN+Py//g
-	aiL3JeZfnm2NeA4k92YfyZjqkA6wDklUmvLmg1epAiY2nwhkXigp6ESHTzjVfaVYrf2G5PyHKp4
-	qAIR4n0kLhpVXgI
-X-Received: by 2002:a05:600d:6501:20b0:495:48d7:f178 with SMTP id 5b1f17b1804b1-49e61988e73mr40996545e9.11.1789139114793;
-        Fri, 11 Sep 2026 08:05:14 -0700 (PDT)
-Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb350686sm6853579f8f.27.2026.09.11.08.05.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 08:05:14 -0700 (PDT)
-From: Petr Pavlu <petr.pavlu@suse.com>
-To: Jens Axboe <axboe@kernel.dk>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	Matthew Brost <matthew.brost@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: Simon Horman <horms@kernel.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Francois Dugast <francois.dugast@intel.com>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	linux-block@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-api@vger.kernel.org,
-	intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 5/6] drm/xe: Include error-injection.h for ALLOW_ERROR_INJECTION()
-Date: Fri, 11 Sep 2026 17:04:05 +0200
-Message-ID: <20260911-module-include-error_injection-v1-5-5da895d8c84d@suse.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="P71XK9XW"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id C6766C63A0C;
+	Fri, 11 Sep 2026 15:06:04 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 01604601DE;
+	Fri, 11 Sep 2026 15:05:23 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 186D311C7AFB0;
+	Fri, 11 Sep 2026 17:05:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789139118; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Lnr9C0bZyORf1WD2hR8PEhaL8UhqzVbZdxttr4+aoSM=;
+	b=P71XK9XW0hq7ehQzcH/KnZc/SjqPLmNwOMCCpuv70NJjhiP9E0SCOZdkiFMZAoRftO91ly
+	wZ6JbS5zWSw8MWUXLfYYutjsQeLjVf/QKZcdFed+6LGRwz+ypAt0x34jfu2cDWWw6eXDLs
+	HbrdlHyh1mEq0U+xrm3n1PAj3k0kCvDPp2Qa9EKBhTeqZbFgQ+ifufdGxOIqSU46j48vqJ
+	lfOLfmFNdZy7pjxePoYj3ypFBiw1qZQvYvEvKVsnvD/LZI3nZMKami0DuKJanoKFx67OYM
+	IWby+I9ZQHfdNLgU0tTKn/QM4fqnWfwzXupg01/gE8EsHh7WxH76eBA6D9ZaZQ==
+From: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Pascal Eberhard <pascal.eberhard@se.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: [PATCH v5 2/4] clocksource/drivers: Add support for the Renesas RZ/N1 timers
+Date: Fri, 11 Sep 2026 17:04:53 +0200
+Message-ID: <20260911150456.893761-3-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
-References: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
+In-Reply-To: <20260911150456.893761-1-herve.codina@bootlin.com>
+References: <20260911150456.893761-1-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Several drivers/gpu/drm/xe/*.c files use ALLOW_ERROR_INJECTION(), which is
-defined in asm-generic/error-injection.h. They currently rely on this
-header being included indirectly through linux/module.h ->
-linux/error-injection.h.
+The Renesas RZ/N1 timer block controller is the controller in charge of
+timers available in the Renesas RZ/N1 SoCs family.
 
-Add the missing includes in preparation for removing the
-linux/error-injection.h include from linux/module.h.
+This controller handles 8 timers:
+  - 6 16-bit timers
+  - 2 32-bit timers
 
-Remove also the linux/fault-injection.h include, which commit 91b2c42c214f
-("drm/xe: Use fault injection infrastructure to find issues at probe time")
-mistakenly used to provide the definition of ALLOW_ERROR_INJECTION().
+Each timer has its own interrupt, its own prescaler that can be used to
+divide the clock by 25 and all of them can work in either one-shot or
+periodic mode.
 
-Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
+Signed-off-by: Herve Codina (Schneider Electric) <herve.codina@bootlin.com>
 ---
- drivers/gpu/drm/xe/xe_device.c                | 2 +-
- drivers/gpu/drm/xe/xe_exec_queue.c            | 1 +
- drivers/gpu/drm/xe/xe_ggtt.c                  | 2 +-
- drivers/gpu/drm/xe/xe_guc.c                   | 1 +
- drivers/gpu/drm/xe/xe_guc_ads.c               | 2 +-
- drivers/gpu/drm/xe/xe_guc_ct.c                | 2 +-
- drivers/gpu/drm/xe/xe_guc_log.c               | 2 +-
- drivers/gpu/drm/xe/xe_guc_relay.c             | 2 +-
- drivers/gpu/drm/xe/xe_hw_engine_class_sysfs.c | 1 +
- drivers/gpu/drm/xe/xe_hw_engine_group.c       | 2 ++
- drivers/gpu/drm/xe/xe_mmio.c                  | 1 +
- drivers/gpu/drm/xe/xe_oa.c                    | 1 +
- drivers/gpu/drm/xe/xe_pm.c                    | 2 +-
- drivers/gpu/drm/xe/xe_pt.c                    | 2 ++
- drivers/gpu/drm/xe/xe_pxp.c                   | 2 ++
- drivers/gpu/drm/xe/xe_sriov.c                 | 2 +-
- drivers/gpu/drm/xe/xe_sync.c                  | 1 +
- drivers/gpu/drm/xe/xe_tile.c                  | 2 +-
- drivers/gpu/drm/xe/xe_tuning.c                | 2 ++
- drivers/gpu/drm/xe/xe_uc_fw.c                 | 2 +-
- drivers/gpu/drm/xe/xe_vm.c                    | 1 +
- drivers/gpu/drm/xe/xe_wa.c                    | 2 +-
- drivers/gpu/drm/xe/xe_wopcm.c                 | 2 +-
- 23 files changed, 27 insertions(+), 12 deletions(-)
+ drivers/clocksource/Kconfig      |  11 +
+ drivers/clocksource/Makefile     |   1 +
+ drivers/clocksource/timer-rzn1.c | 484 +++++++++++++++++++++++++++++++
+ 3 files changed, 496 insertions(+)
+ create mode 100644 drivers/clocksource/timer-rzn1.c
 
-diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
-index ee732e5495f7..fcef8d5fc7ca 100644
---- a/drivers/gpu/drm/xe/xe_device.c
-+++ b/drivers/gpu/drm/xe/xe_device.c
-@@ -7,7 +7,7 @@
+diff --git a/drivers/clocksource/Kconfig b/drivers/clocksource/Kconfig
+index d9c76dd443f8..da83483296d5 100644
+--- a/drivers/clocksource/Kconfig
++++ b/drivers/clocksource/Kconfig
+@@ -152,6 +152,17 @@ config REALTEK_OTTO_TIMER
+ 	  RT8391, RTL8392, RTL8393 and RTL8396 and chips of the RTL930x series
+ 	  such as RTL9301, RTL9302 or RTL9303.
  
- #include <linux/aperture.h>
- #include <linux/delay.h>
--#include <linux/fault-inject.h>
-+#include <linux/error-injection.h>
- #include <linux/units.h>
- 
- #include <drm/drm_client.h>
-diff --git a/drivers/gpu/drm/xe/xe_exec_queue.c b/drivers/gpu/drm/xe/xe_exec_queue.c
-index cd053de3c6b5..3e46c14584c4 100644
---- a/drivers/gpu/drm/xe/xe_exec_queue.c
-+++ b/drivers/gpu/drm/xe/xe_exec_queue.c
-@@ -5,6 +5,7 @@
- 
- #include "xe_exec_queue.h"
- 
-+#include <linux/error-injection.h>
- #include <linux/nospec.h>
- 
- #include <drm/drm_device.h>
-diff --git a/drivers/gpu/drm/xe/xe_ggtt.c b/drivers/gpu/drm/xe/xe_ggtt.c
-index 8ec23862477f..e05582ad098a 100644
---- a/drivers/gpu/drm/xe/xe_ggtt.c
-+++ b/drivers/gpu/drm/xe/xe_ggtt.c
-@@ -6,7 +6,7 @@
- #include "xe_ggtt.h"
- 
- #include <kunit/visibility.h>
--#include <linux/fault-inject.h>
-+#include <linux/error-injection.h>
- #include <linux/io-64-nonatomic-lo-hi.h>
- #include <linux/sizes.h>
- 
-diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
-index 4286bd05c686..34e21a70d5ad 100644
---- a/drivers/gpu/drm/xe/xe_guc.c
-+++ b/drivers/gpu/drm/xe/xe_guc.c
-@@ -5,6 +5,7 @@
- 
- #include "xe_guc.h"
- 
-+#include <linux/error-injection.h>
- #include <linux/iopoll.h>
- #include <drm/drm_managed.h>
- 
-diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
-index ff8eee3831aa..41a2b8c807d6 100644
---- a/drivers/gpu/drm/xe/xe_guc_ads.c
-+++ b/drivers/gpu/drm/xe/xe_guc_ads.c
-@@ -5,7 +5,7 @@
- 
- #include "xe_guc_ads.h"
- 
--#include <linux/fault-inject.h>
-+#include <linux/error-injection.h>
- 
- #include <drm/drm_managed.h>
- 
-diff --git a/drivers/gpu/drm/xe/xe_guc_ct.c b/drivers/gpu/drm/xe/xe_guc_ct.c
-index fe70c0fd85c5..ac6cbbaa6cc0 100644
---- a/drivers/gpu/drm/xe/xe_guc_ct.c
-+++ b/drivers/gpu/drm/xe/xe_guc_ct.c
-@@ -8,7 +8,7 @@
- #include <linux/bitfield.h>
- #include <linux/circ_buf.h>
- #include <linux/delay.h>
--#include <linux/fault-inject.h>
-+#include <linux/error-injection.h>
- 
- #include <kunit/static_stub.h>
- 
-diff --git a/drivers/gpu/drm/xe/xe_guc_log.c b/drivers/gpu/drm/xe/xe_guc_log.c
-index 538d4df0f7aa..6f0739204d9e 100644
---- a/drivers/gpu/drm/xe/xe_guc_log.c
-+++ b/drivers/gpu/drm/xe/xe_guc_log.c
-@@ -5,7 +5,7 @@
- 
- #include "xe_guc_log.h"
- 
--#include <linux/fault-inject.h>
-+#include <linux/error-injection.h>
- 
- #include <linux/utsname.h>
- #include <drm/drm_managed.h>
-diff --git a/drivers/gpu/drm/xe/xe_guc_relay.c b/drivers/gpu/drm/xe/xe_guc_relay.c
-index eed0a750d2eb..e528d95ba7fe 100644
---- a/drivers/gpu/drm/xe/xe_guc_relay.c
-+++ b/drivers/gpu/drm/xe/xe_guc_relay.c
-@@ -5,7 +5,7 @@
- 
- #include <linux/bitfield.h>
- #include <linux/delay.h>
--#include <linux/fault-inject.h>
-+#include <linux/error-injection.h>
- 
- #include <drm/drm_managed.h>
- 
-diff --git a/drivers/gpu/drm/xe/xe_hw_engine_class_sysfs.c b/drivers/gpu/drm/xe/xe_hw_engine_class_sysfs.c
-index d42e263e0611..ac81f382e7dc 100644
---- a/drivers/gpu/drm/xe/xe_hw_engine_class_sysfs.c
-+++ b/drivers/gpu/drm/xe/xe_hw_engine_class_sysfs.c
-@@ -4,6 +4,7 @@
-  */
- 
- #include <drm/drm_managed.h>
-+#include <linux/error-injection.h>
- #include <linux/kobject.h>
- #include <linux/sysfs.h>
- 
-diff --git a/drivers/gpu/drm/xe/xe_hw_engine_group.c b/drivers/gpu/drm/xe/xe_hw_engine_group.c
-index 0804b426b6f9..418ff427ae30 100644
---- a/drivers/gpu/drm/xe/xe_hw_engine_group.c
-+++ b/drivers/gpu/drm/xe/xe_hw_engine_group.c
-@@ -3,6 +3,8 @@
-  * Copyright © 2024 Intel Corporation
-  */
- 
-+#include <linux/error-injection.h>
++config RZN1_TIMER
++	bool "Renesas RZ/N1 Timer"
++	depends on HAS_IOMEM && COMMON_CLK
++	depends on ARCH_RZN1 || COMPILE_TEST
++	help
++	  Enables support for RZ/N1 SoC timers.
++	  A timers block in RZ/N1 SoCs is composed of 8 timers
++	    - 6 16-bit timers
++	    - 2 32-bit timers
++	  Two timers blocks are available in RZ/N1 SoCs.
 +
- #include <drm/drm_managed.h>
- 
- #include "xe_assert.h"
-diff --git a/drivers/gpu/drm/xe/xe_mmio.c b/drivers/gpu/drm/xe/xe_mmio.c
-index 7fa18dfcb5a2..d8f8a2453bb6 100644
---- a/drivers/gpu/drm/xe/xe_mmio.c
-+++ b/drivers/gpu/drm/xe/xe_mmio.c
-@@ -6,6 +6,7 @@
- #include "xe_mmio.h"
- 
- #include <linux/delay.h>
-+#include <linux/error-injection.h>
- #include <linux/io-64-nonatomic-lo-hi.h>
- #include <linux/minmax.h>
- #include <linux/pci.h>
-diff --git a/drivers/gpu/drm/xe/xe_oa.c b/drivers/gpu/drm/xe/xe_oa.c
-index ab09dcff5860..b15c96e35fab 100644
---- a/drivers/gpu/drm/xe/xe_oa.c
-+++ b/drivers/gpu/drm/xe/xe_oa.c
-@@ -5,6 +5,7 @@
- 
- #include <linux/anon_inodes.h>
- #include <linux/delay.h>
-+#include <linux/error-injection.h>
- #include <linux/nospec.h>
- #include <linux/poll.h>
- 
-diff --git a/drivers/gpu/drm/xe/xe_pm.c b/drivers/gpu/drm/xe/xe_pm.c
-index a5289a9df8d2..c0489a8d8a62 100644
---- a/drivers/gpu/drm/xe/xe_pm.c
-+++ b/drivers/gpu/drm/xe/xe_pm.c
-@@ -5,7 +5,7 @@
- 
- #include "xe_pm.h"
- 
--#include <linux/fault-inject.h>
-+#include <linux/error-injection.h>
- #include <linux/pm_runtime.h>
- #include <linux/suspend.h>
- #include <linux/dmi.h>
-diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
-index a07316a45d79..6c6d9be2717e 100644
---- a/drivers/gpu/drm/xe/xe_pt.c
-+++ b/drivers/gpu/drm/xe/xe_pt.c
-@@ -5,6 +5,8 @@
- 
- #include "xe_pt.h"
- 
-+#include <linux/error-injection.h>
+ config SUN4I_TIMER
+ 	bool "Sun4i timer driver" if COMPILE_TEST
+ 	depends on HAS_IOMEM
+diff --git a/drivers/clocksource/Makefile b/drivers/clocksource/Makefile
+index b46376af6b49..464ec6690ab6 100644
+--- a/drivers/clocksource/Makefile
++++ b/drivers/clocksource/Makefile
+@@ -96,3 +96,4 @@ obj-$(CONFIG_EP93XX_TIMER)		+= timer-ep93xx.o
+ obj-$(CONFIG_RALINK_TIMER)		+= timer-ralink.o
+ obj-$(CONFIG_NXP_STM_TIMER)		+= timer-nxp-stm.o
+ obj-$(CONFIG_RTK_SYSTIMER)		+= timer-realtek.o
++obj-$(CONFIG_RZN1_TIMER)		+= timer-rzn1.o
+diff --git a/drivers/clocksource/timer-rzn1.c b/drivers/clocksource/timer-rzn1.c
+new file mode 100644
+index 000000000000..a66a045309f6
+--- /dev/null
++++ b/drivers/clocksource/timer-rzn1.c
+@@ -0,0 +1,484 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * RZ/N1 timers driver
++ *
++ * Copyright (C) 2026 Schneider-Electric
++ *
++ * Author: Herve Codina <herve.codina@bootlin.com>
++ */
 +
- #include "regs/xe_gtt_defs.h"
- #include "xe_bo.h"
- #include "xe_device.h"
-diff --git a/drivers/gpu/drm/xe/xe_pxp.c b/drivers/gpu/drm/xe/xe_pxp.c
-index 2fef274a585e..2f3632ac201a 100644
---- a/drivers/gpu/drm/xe/xe_pxp.c
-+++ b/drivers/gpu/drm/xe/xe_pxp.c
-@@ -5,6 +5,8 @@
- 
- #include "xe_pxp.h"
- 
-+#include <linux/error-injection.h>
++#include <linux/bits.h>
++#include <linux/clk.h>
++#include <linux/clockchips.h>
++#include <linux/clocksource.h>
++#include <linux/cpuhotplug.h>
++#include <linux/interrupt.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/sched_clock.h>
 +
- #include <drm/drm_managed.h>
- #include <uapi/drm/xe_drm.h>
- 
-diff --git a/drivers/gpu/drm/xe/xe_sriov.c b/drivers/gpu/drm/xe/xe_sriov.c
-index f3835867fce5..ec254b950daf 100644
---- a/drivers/gpu/drm/xe/xe_sriov.c
-+++ b/drivers/gpu/drm/xe/xe_sriov.c
-@@ -3,7 +3,7 @@
-  * Copyright © 2023 Intel Corporation
-  */
- 
--#include <linux/fault-inject.h>
-+#include <linux/error-injection.h>
- 
- #include <drm/drm_managed.h>
- 
-diff --git a/drivers/gpu/drm/xe/xe_sync.c b/drivers/gpu/drm/xe/xe_sync.c
-index 37866768d64c..711de22f4986 100644
---- a/drivers/gpu/drm/xe/xe_sync.c
-+++ b/drivers/gpu/drm/xe/xe_sync.c
-@@ -6,6 +6,7 @@
- #include "xe_sync.h"
- 
- #include <linux/dma-fence-array.h>
-+#include <linux/error-injection.h>
- #include <linux/kthread.h>
- #include <linux/sched/mm.h>
- #include <linux/uaccess.h>
-diff --git a/drivers/gpu/drm/xe/xe_tile.c b/drivers/gpu/drm/xe/xe_tile.c
-index 74d925a337b7..810dfd98d830 100644
---- a/drivers/gpu/drm/xe/xe_tile.c
-+++ b/drivers/gpu/drm/xe/xe_tile.c
-@@ -3,7 +3,7 @@
-  * Copyright © 2023 Intel Corporation
-  */
- 
--#include <linux/fault-inject.h>
-+#include <linux/error-injection.h>
- 
- #include <drm/drm_managed.h>
- #include <drm/drm_pagemap_util.h>
-diff --git a/drivers/gpu/drm/xe/xe_tuning.c b/drivers/gpu/drm/xe/xe_tuning.c
-index bcec40ca2d35..d3d38b4380be 100644
---- a/drivers/gpu/drm/xe/xe_tuning.c
-+++ b/drivers/gpu/drm/xe/xe_tuning.c
-@@ -5,6 +5,8 @@
- 
- #include "xe_tuning.h"
- 
-+#include <linux/error-injection.h>
++/* Per-timer register offsets */
++#define RZN1_TIMER_LOAD_COUNT_REG	0x00
++#define RZN1_TIMER_CURRENT_COUNT_REG	0x04
++#define RZN1_TIMER_CONTROL_REG		0x08
++#define   RZN1_TIMER_CONTROL_INT_UNMASK		BIT(3)
++#define   RZN1_TIMER_CONTROL_ENABLE		BIT(2)
++#define   RZN1_TIMER_CONTROL_AUTORELOAD		BIT(1)
++#define   RZN1_TIMER_CONTROL_PRESCALER_DIV25	BIT(0)
++#define RZN1_TIMER_CLEAR_INT_REG	0x0c
++#define RZN1_TIMER_STATUS_INT0_REG	0x10
++#define RZN1_TIMER_STATUS_INT1_REG	0x14
 +
- #include <kunit/visibility.h>
- 
- #include <drm/drm_managed.h>
-diff --git a/drivers/gpu/drm/xe/xe_uc_fw.c b/drivers/gpu/drm/xe/xe_uc_fw.c
-index a8e6f18cc9b4..f17925ad53f5 100644
---- a/drivers/gpu/drm/xe/xe_uc_fw.c
-+++ b/drivers/gpu/drm/xe/xe_uc_fw.c
-@@ -4,7 +4,7 @@
-  */
- 
- #include <linux/bitfield.h>
--#include <linux/fault-inject.h>
-+#include <linux/error-injection.h>
- #include <linux/firmware.h>
- 
- #include <drm/drm_managed.h>
-diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-index 23952ad8951e..f000564f1e59 100644
---- a/drivers/gpu/drm/xe/xe_vm.c
-+++ b/drivers/gpu/drm/xe/xe_vm.c
-@@ -6,6 +6,7 @@
- #include "xe_vm.h"
- 
- #include <linux/dma-fence-array.h>
-+#include <linux/error-injection.h>
- #include <linux/nospec.h>
- 
- #include <drm/drm_drv.h>
-diff --git a/drivers/gpu/drm/xe/xe_wa.c b/drivers/gpu/drm/xe/xe_wa.c
-index 139434946f8f..98d2fdd3ba6f 100644
---- a/drivers/gpu/drm/xe/xe_wa.c
-+++ b/drivers/gpu/drm/xe/xe_wa.c
-@@ -8,7 +8,7 @@
- #include <drm/drm_managed.h>
- #include <kunit/visibility.h>
- #include <linux/compiler_types.h>
--#include <linux/fault-inject.h>
-+#include <linux/error-injection.h>
- 
- #include <generated/xe_device_wa_oob.h>
- #include <generated/xe_wa_oob.h>
-diff --git a/drivers/gpu/drm/xe/xe_wopcm.c b/drivers/gpu/drm/xe/xe_wopcm.c
-index fe65ed246775..7da1e3ebc839 100644
---- a/drivers/gpu/drm/xe/xe_wopcm.c
-+++ b/drivers/gpu/drm/xe/xe_wopcm.c
-@@ -5,7 +5,7 @@
- 
- #include "xe_wopcm.h"
- 
--#include <linux/fault-inject.h>
-+#include <linux/error-injection.h>
- 
- #include "regs/xe_guc_regs.h"
- #include "xe_device.h"
-
++/*
++ * 8 timers are available. Among those 8 timers, the first 6 timers are 16-bit
++ * timers and the last two ones are 32-bit timers.
++ */
++#define RZN1_TIMER_BASE_INDEX_16BIT_TIMERS	0
++#define RZN1_TIMER_NB_16BIT_TIMERS		6
++#define RZN1_TIMER_LAST_INDEX_16BIT_TIMERS	(RZN1_TIMER_BASE_INDEX_16BIT_TIMERS + \
++						 RZN1_TIMER_NB_16BIT_TIMERS - 1)
++
++#define RZN1_TIMER_BASE_INDEX_32BIT_TIMERS	6
++#define RZN1_TIMER_NB_32BIT_TIMERS		2
++#define RZN1_TIMER_LAST_INDEX_32BIT_TIMERS	(RZN1_TIMER_BASE_INDEX_32BIT_TIMERS + \
++						 RZN1_TIMER_NB_32BIT_TIMERS - 1)
++
++#define RZN1_TIMER_IS_16BIT_TIMER(_i) ((_i) < RZN1_TIMER_BASE_INDEX_32BIT_TIMERS)
++
++/* Total numbers of timers */
++#define RZN1_TIMER_NB_TIMERS	(RZN1_TIMER_NB_16BIT_TIMERS + \
++				 RZN1_TIMER_NB_32BIT_TIMERS)
++
++/* Offset of registers related to the timer number _i in the timers regs area */
++#define RZN1_TIMER_REGS_OFFSET(_i) (0x20 * (_i))
++
++struct rzn1_timer {
++	void __iomem *base;
++	unsigned int width;
++	unsigned long rate;
++	unsigned long hz_period;
++	struct clock_event_device ced;
++};
++
++static int rzn1_timer_config(struct rzn1_timer *timer, u32 period, bool is_periodic)
++{
++	u32 ctrl;
++
++	ctrl = readl(timer->base + RZN1_TIMER_CONTROL_REG);
++
++	/* Disable the timer */
++	writel(ctrl & ~RZN1_TIMER_CONTROL_ENABLE,
++	       timer->base + RZN1_TIMER_CONTROL_REG);
++
++	/* Set the new period */
++	writel(period, timer->base + RZN1_TIMER_LOAD_COUNT_REG);
++
++	/* Prepare the timer mode */
++	if (is_periodic)
++		ctrl |= RZN1_TIMER_CONTROL_AUTORELOAD;
++	else
++		ctrl &= ~RZN1_TIMER_CONTROL_AUTORELOAD;
++
++	/*
++	 * Enable the timer.
++	 *
++	 * This automatically resets the CURRENT_COUNT register.
++	 */
++	ctrl |= RZN1_TIMER_CONTROL_ENABLE;
++	writel(ctrl, timer->base + RZN1_TIMER_CONTROL_REG);
++
++	return 0;
++}
++
++static void rzn1_timer_disable(struct rzn1_timer *timer)
++{
++	u32 ctrl;
++
++	ctrl = readl(timer->base + RZN1_TIMER_CONTROL_REG);
++	ctrl &= ~RZN1_TIMER_CONTROL_ENABLE;
++	writel(ctrl, timer->base + RZN1_TIMER_CONTROL_REG);
++}
++
++static void rzn1_timer_int_enable(struct rzn1_timer *timer)
++{
++	u32 ctrl;
++
++	ctrl = readl(timer->base + RZN1_TIMER_CONTROL_REG);
++	ctrl |= RZN1_TIMER_CONTROL_INT_UNMASK;
++	writel(ctrl, timer->base + RZN1_TIMER_CONTROL_REG);
++}
++
++static irqreturn_t rzn1_timer_interrupt(int irq, void *dev_id)
++{
++	struct rzn1_timer *timer = dev_id;
++
++	/* Ack the interrupt */
++	readl(timer->base + RZN1_TIMER_CLEAR_INT_REG);
++
++	timer->ced.event_handler(&timer->ced);
++	return IRQ_HANDLED;
++}
++
++static int rzn1_clkevt_set_next_event(unsigned long cycles,
++				      struct clock_event_device *evt)
++{
++	struct rzn1_timer *timer = container_of(evt, struct rzn1_timer, ced);
++
++	return rzn1_timer_config(timer, cycles, false);
++}
++
++static int rzn1_clkevt_shutdown(struct clock_event_device *evt)
++{
++	struct rzn1_timer *timer = container_of(evt, struct rzn1_timer, ced);
++
++	rzn1_timer_disable(timer);
++	return 0;
++}
++
++static int rzn1_clkevt_set_periodic(struct clock_event_device *evt)
++{
++	struct rzn1_timer *timer = container_of(evt, struct rzn1_timer, ced);
++
++	rzn1_timer_config(timer, timer->hz_period, true);
++	return 0;
++}
++
++/*
++ * This global lock is used to prevent race conditions during global timers
++ * test and set operation in case the driver is using the async probe option.
++ */
++static DEFINE_MUTEX(rzn1_global_timers_lock);
++
++static int rzn1_timer_instance;
++
++/* scheduler and clocksource */
++static struct rzn1_timer *rzn1_sched_clock;
++
++static u64 notrace rzn1_sched_read(void)
++{
++	return readl_relaxed(rzn1_sched_clock->base + RZN1_TIMER_CURRENT_COUNT_REG);
++}
++
++static u64 rzn1_clksrc_read(struct clocksource *cs)
++{
++	return readl_relaxed(rzn1_sched_clock->base + RZN1_TIMER_CURRENT_COUNT_REG);
++}
++
++static struct clocksource rzn1_clocksource = {
++	.name = "rzn1_timer_clocksource",
++	.rating = 200,
++	.flags = CLOCK_SOURCE_IS_CONTINUOUS,
++	.read = rzn1_clksrc_read,
++};
++
++/* Timers table where 16-bit timers will be assigned per-cpu */
++static struct rzn1_timer *rzn1_tab_timers;
++
++static int rzn1_local_timer_starting_cpu(unsigned int cpu)
++{
++	struct rzn1_timer *timer;
++
++	/* We assign the first and second 16-bit timer as per-cpu timers. */
++	if (cpu >= 2)
++		return 0;
++
++	timer = &rzn1_tab_timers[cpu + RZN1_TIMER_BASE_INDEX_16BIT_TIMERS];
++
++	timer->ced.cpumask = cpumask_of(cpu);
++	irq_force_affinity(timer->ced.irq, cpumask_of(cpu));
++
++	clockevents_config_and_register(&timer->ced, timer->rate, 1,
++					GENMASK(timer->width - 1, 0));
++	/*
++	 * Time to enable the interrupt even if no interrupt can be fired yet.
++	 * Indeed, the timer is still globally disabled.
++	 * It will be enabled when rzn1_timer_config() is called
++	 */
++	enable_irq(timer->ced.irq);
++	return 0;
++}
++
++static int rzn1_local_timer_dying_cpu(unsigned int cpu)
++{
++	struct rzn1_timer *timer;
++
++	if (cpu >= 2)
++		return 0;
++
++	timer = &rzn1_tab_timers[cpu + RZN1_TIMER_BASE_INDEX_16BIT_TIMERS];
++
++	rzn1_timer_disable(timer);
++	disable_irq_nosync(timer->ced.irq);
++	return 0;
++}
++
++static void rzn1_timer_init(struct rzn1_timer *timer, unsigned int index,
++			    void __iomem *timers_base, unsigned long clock_rate)
++{
++	timer->base = timers_base + RZN1_TIMER_REGS_OFFSET(index);
++
++	/* Disable the timer */
++	writel(0, timer->base + RZN1_TIMER_CONTROL_REG);
++
++	/* Clear potential interrupts */
++	readl(timer->base + RZN1_TIMER_CLEAR_INT_REG);
++
++	if (RZN1_TIMER_IS_16BIT_TIMER(index)) {
++		timer->width = 16;
++		/*
++		 * Enable pre-scaler for 16-bit timers.
++		 *
++		 * Timers are fed by a 25MHz clock. With this pre-scaler (1/25)
++		 * enabled, the 16-bit timers resolution is 1 microsecond.
++		 */
++		writel(RZN1_TIMER_CONTROL_PRESCALER_DIV25,
++		       timer->base + RZN1_TIMER_CONTROL_REG);
++		timer->rate = clock_rate / 25;
++	} else {
++		timer->width = 32;
++		timer->rate = clock_rate;
++	}
++	timer->hz_period = DIV_ROUND_UP(timer->rate, HZ);
++}
++
++static void rzn1_timer_clkevt_init_ced(struct rzn1_timer *timer, const char *name,
++				       int irq)
++{
++	timer->ced.features = CLOCK_EVT_FEAT_PERIODIC | CLOCK_EVT_FEAT_ONESHOT;
++	timer->ced.set_next_event = rzn1_clkevt_set_next_event;
++	timer->ced.set_state_shutdown = rzn1_clkevt_shutdown;
++	timer->ced.set_state_periodic = rzn1_clkevt_set_periodic;
++	timer->ced.cpumask = cpu_possible_mask;
++
++	/*
++	 * 32-bit timers are fed with a 25 MHz clock directly derived from the
++	 * main PLL (1 GHz). The arch timer, ARMv7 CP15 in RZ/N1 SoCs, is fed
++	 * with to a 6.25 MHz clock.
++	 *
++	 * The clock of the RZ/N1 timers block is a stable one and the RZ/N1
++	 * timers have a higher resolution than the ARM CP15 one.
++	 *
++	 * Also those 32-bit RZ/N1 timers are assigned per-cpu.
++	 *
++	 * Use a high rating for the 32-bit RZ/N1 timers in order to have them
++	 * chosen by the system.
++	 */
++	timer->ced.rating = timer->width == 16 ? 200 : 460;
++	timer->ced.owner = THIS_MODULE;
++	timer->ced.name = name;
++	timer->ced.irq = irq;
++}
++
++static int rzn1_timer_setup_timers(struct platform_device *pdev,
++				   struct rzn1_timer *tab_timers,
++				   unsigned int first_timer_index,
++				   unsigned int last_timer_index,
++				   void __iomem *base, unsigned long clock_rate)
++{
++	struct device *dev = &pdev->dev;
++	struct rzn1_timer *timer;
++	unsigned int i;
++	char *name;
++	int irq;
++	int ret;
++
++	for (i = first_timer_index; i <= last_timer_index; i++) {
++		timer = &tab_timers[i];
++
++		rzn1_timer_init(timer, i, base, clock_rate);
++
++		irq = platform_get_irq(pdev, i);
++		if (irq < 0)
++			return irq;
++
++		name = devm_kasprintf(dev, GFP_KERNEL, "%s-%u", dev_name(dev), i);
++		if (!name)
++			return -ENOMEM;
++
++		rzn1_timer_clkevt_init_ced(timer, name, irq);
++
++		ret = devm_request_irq(dev, timer->ced.irq, rzn1_timer_interrupt,
++				       IRQF_TIMER | IRQF_NO_AUTOEN,
++				       timer->ced.name, timer);
++		if (ret < 0)
++			return dev_err_probe(dev, ret, "timer%u: Failed to request IRQ\n", i);
++
++		rzn1_timer_int_enable(timer);
++	}
++	return 0;
++}
++
++static void rzn1_timer_register_clkevt(struct rzn1_timer *tab_timers,
++				       unsigned int first_timer_index,
++				       unsigned int last_timer_index)
++{
++	struct rzn1_timer *timer;
++	unsigned int i;
++
++	for (i = first_timer_index; i <= last_timer_index; i++) {
++		timer = &tab_timers[i];
++		clockevents_config_and_register(&timer->ced, timer->rate,
++						1, GENMASK(timer->width - 1, 0));
++		/*
++		 * Time to enable the interrupt even if no interrupt can be
++		 * fired yet. Indeed, the timer is still globally disabled.
++		 * It will be enabled when rzn1_timer_config() is called
++		 */
++		enable_irq(timer->ced.irq);
++	}
++}
++
++static int rzn1_timer_probe_first(struct platform_device *pdev,
++				  struct rzn1_timer *tab_timers,
++				  void __iomem *base, unsigned long clock_rate)
++{
++	struct device *dev = &pdev->dev;
++	struct rzn1_timer *timer;
++	int ret;
++
++	/*
++	 * Each timer instance has 6 x 16-bit timers and 2 x 32-bit timers.
++	 *
++	 * Probe the first instance. In that case, timers are assigned as
++	 * follow:
++	 *   - First and second 16-bit timers: clock events per CPU
++	 *   - Last (second one) 32-bit timer: clocksource and sched_clock
++	 *   - Other timers: clock events for all possible CPUs
++	 *
++	 * First step, perform all operation that could fail without calling
++	 * clockevents_config_and_register(), sched_clock_register() nor
++	 * cpuhp_setup_state(). Those operation don't have unregister nor
++	 * teardown counterparts and so, once called, we cannot remove the
++	 * related resource.
++	 */
++
++	/* First step for 16-bit timers and the first 32-bit timers. */
++	ret = rzn1_timer_setup_timers(pdev, tab_timers,
++				      RZN1_TIMER_BASE_INDEX_16BIT_TIMERS,
++				      RZN1_TIMER_BASE_INDEX_32BIT_TIMERS,
++				      base, clock_rate);
++	if (ret)
++		return ret;
++
++	/*
++	 * Second step, almost all operations that can fail have been called.
++	 * Timers are ready to work. Start with the last operation that can fail,
++	 * installing and invoking hotplug callbacks
++	 */
++	rzn1_tab_timers = tab_timers;
++	ret = cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
++				"clockevents/rzn1/global_timer:starting",
++				rzn1_local_timer_starting_cpu,
++				rzn1_local_timer_dying_cpu);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "Setup CPU hotplug state failed\n");
++
++	/*
++	 * At this point, no more operations can fail. Perform remaining
++	 * operations. Starting by handling the last (second one) 32-bit timer
++	 */
++	timer = &tab_timers[RZN1_TIMER_LAST_INDEX_32BIT_TIMERS];
++
++	rzn1_timer_init(timer, RZN1_TIMER_LAST_INDEX_32BIT_TIMERS, base, clock_rate);
++	rzn1_timer_config(timer, GENMASK(timer->width - 1, 0), true);
++
++	rzn1_sched_clock = timer;
++
++	sched_clock_register(rzn1_sched_read, rzn1_sched_clock->width, rzn1_sched_clock->rate);
++
++	rzn1_clocksource.mask = CLOCKSOURCE_MASK(rzn1_sched_clock->width);
++	clocksource_register_hz(&rzn1_clocksource, rzn1_sched_clock->rate);
++
++	/*
++	 * Register clockevents for 16-bit timers (except the first and second
++	 * ones) and for the first 32-bit timer. The first and second 16-bit
++	 * timers clockevents are registered by CPU hotplug startup function set
++	 * previously by the cpuhp_setup_state() call.
++	 */
++	rzn1_timer_register_clkevt(tab_timers,
++				   RZN1_TIMER_BASE_INDEX_16BIT_TIMERS + 2,
++				   RZN1_TIMER_BASE_INDEX_32BIT_TIMERS);
++
++	return 0;
++}
++
++static int rzn1_timer_probe_other(struct platform_device *pdev,
++				  struct rzn1_timer *tab_timers,
++				  void __iomem *base, unsigned long clock_rate)
++{
++	int ret;
++
++	/*
++	 * Probe other instance(s), i.e. not the first one. In that case,
++	 * all timers are used as clock events and available for all possible
++	 * CPUs
++	 *
++	 * First step, perform all operation that could fail without calling
++	 * clockevents_config_and_register(). Unregister counterpart does not
++	 * exist and so, once called, we cannot remove the related resource.
++	 */
++	ret = rzn1_timer_setup_timers(pdev, tab_timers,
++				      RZN1_TIMER_BASE_INDEX_16BIT_TIMERS,
++				      RZN1_TIMER_LAST_INDEX_32BIT_TIMERS,
++				      base, clock_rate);
++	if (ret)
++		return ret;
++
++	/*
++	 * Second step, all operation that can fail have been called. We can
++	 * register our timers.
++	 */
++	rzn1_timer_register_clkevt(tab_timers,
++				   RZN1_TIMER_BASE_INDEX_16BIT_TIMERS,
++				   RZN1_TIMER_LAST_INDEX_32BIT_TIMERS);
++	return 0;
++}
++
++static int rzn1_timer_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct rzn1_timer *tab_timers;
++	unsigned long clock_rate;
++	void __iomem *base;
++	struct clk *clk;
++	int ret;
++
++	tab_timers = devm_kcalloc(dev, RZN1_TIMER_NB_TIMERS, sizeof(*tab_timers),
++				  GFP_KERNEL);
++	if (!tab_timers)
++		return -ENOMEM;
++
++	base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(base))
++		return PTR_ERR(base);
++
++	clk = devm_clk_get_enabled(dev, "pclk");
++	if (IS_ERR(clk))
++		return dev_err_probe(dev, PTR_ERR(clk), "Failed to get pclk\n");
++
++	clock_rate = clk_get_rate(clk);
++
++	scoped_guard(mutex, &rzn1_global_timers_lock) {
++		ret = !rzn1_timer_instance ?
++			rzn1_timer_probe_first(pdev, tab_timers, base, clock_rate) :
++			rzn1_timer_probe_other(pdev, tab_timers, base, clock_rate);
++		if (!ret)
++			rzn1_timer_instance++;
++	}
++
++	return ret;
++}
++
++static const struct of_device_id rzn1_timer_of_match[] = {
++	{ .compatible = "renesas,rzn1-timer", },
++	{ /* sentinel */ }
++};
++
++static struct platform_driver rzn1_timer_driver = {
++	.driver = {
++		.name = "rzn1_timer",
++		.of_match_table = rzn1_timer_of_match,
++		.suppress_bind_attrs = true,
++	},
++};
++builtin_platform_driver_probe(rzn1_timer_driver, rzn1_timer_probe);
 -- 
 2.55.0
+
