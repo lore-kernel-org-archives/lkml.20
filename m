@@ -1,77 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-15.mta0.migadu.com [91.218.175.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9CE6468C14;
-	Fri, 11 Sep 2026 08:41:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3789D432BC1
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:42:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789116069; cv=none; b=qpQJu06k7/lJXcHW6/um0gCyaddTF6OGXBD4bZf5YsGMTAGp0tt4bQ3gQ3heY74dEX05xdzgJ8rCfN1nFLXsyhJbE1PHl5BcRfuEI4vrxR6A/h0WtrvT4wg/h+yiKo4Vhf05kIpLV5AWzfUFkDqAksDl2FfrfWklA5uNYgm2vw0=
+	t=1789116139; cv=none; b=Sn13vXag74Vy2+iVsfKGRtTCYIfhmyLsBxxlR4c0RrO3JmiRSt9USpqv6mOjk3XHSm/ZCgBhQbfw8Rd0IXc8U98HcaQpjc0vA2LqzsOXlfI2B0ylhe3qWXCU09RORXOUzEJJDaALh+/B8PZZdFGHvI9DSeMM5XGPLu3IBtE2qBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789116069; c=relaxed/simple;
-	bh=rDD5WdJ6FwIvJQ/rdD6h0LbgUyo4SNwab9Ow6DBkBr0=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=jAS9eW17ajyoNKtLg/wmP2bVal3+KeFxYdSQAegKpr4SmfYcteOhydKvcmR+HcQBr+8q8r3Wj3TQ4DT22kHyiA+8TxKlk7HjHAFRv+/aD0VB6KaP06Yabs1YvCjPhTZpOT8naJUr+bTQQdPi+CcyALSP0bU4TKb2hysh6NArr/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bJm7bY5n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789116139; c=relaxed/simple;
+	bh=9Rl/2Dwn3EBk+1V6E1oPPEJyovJn7q/s0zuVVE8xjh0=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=Nbiu8I3Gpt1sH/7qOtyc/yoWu0JLjpy5KSp1keJdAV3tfGF7qbnB+OugjJP+7khQGxCItk4MWoF/EMbVj2ldd3voLT9UsmWdulBJiM3jYtCF0yMpjvKpnLCfwOUrPqFwrRLCJ4NNaN0Xb/QkaWRihvqpozY9IMOklPxtEDG7rCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ueifeafa; arc=none smtp.client-ip=91.218.175.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bJm7bY5n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97EB01F00893;
-	Fri, 11 Sep 2026 08:41:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789116067;
-	bh=icLjni0YZ4pG764hXKj3kZcdRW9BBp5jcpTb2gvrg8Y=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=bJm7bY5n7KnC6VV8hw6to+jDnsX1WrMZd8cKmWg3xxukSmlrSLDuNAzJwOQtEhqot
-	 Ax+eco1hmw+JOWG8CN0OFTsUT36Dh6RYEswNKc8Ua//PAzsgkUvTbxHd9SgUzGfKpW
-	 tL0/qAKEgAs6sk9wbw0z85fkI1iXWpVX23LgFu/uDfPx+Pj6H/+N63iv05Pzw3enhL
-	 950iVobTRz592hQL4xO96hY51ZdkR1TVkuhTrWucPG+BviZoLFesVzCk+Vc9g4t1dc
-	 KZAGQ5U5M6TrY/XOnv79CE5hewY4FoUhONkyLSZDAF2lUs8sMoji0mHb2TvWQfXOrc
-	 ZDiPZ3rrPkJ2Q==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0AF23811957;
-	Fri, 11 Sep 2026 08:40:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ueifeafa"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=9Rl/2Dwn3EBk+1V6E1oPPEJyovJn7q/s0zuVVE8xjh0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789116133; v=1; x=1789720933;
+ b=ueifeafaXFFWP1OHG3Xp2Mpw6YgID12FyBcpTygeQ7viTdCQEA2upIICh/RQcverU4QhhdAA
+ B2FyWMdD5c9ZpzFPS32R+9rab965PZ6OKMphvJOZsLkHh8Od0jVMBYDcnLgpZceH5GLnjxYRdaG
+ qobPbOSmdd42TDdlsk2MTO0Q=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4511d20fe87ed201;
+	Fri, 11 Sep 2026 08:42:13 +0000
+X-Mizu-Trace-ID: 4511d20fe87ed201
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next] octeontx2: collapse consecutive blank lines in
- source files
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178911600463.2314117.11103940478198681712.git-patchwork-notify@kernel.org>
-Date: Fri, 11 Sep 2026 08:40:04 +0000
-References: <20260908061113.246837-1-rkannoth@marvell.com>
-In-Reply-To: <20260908061113.246837-1-rkannoth@marvell.com>
-To: Ratheesh Kannoth <rkannoth@marvell.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, sgoutham@marvell.com
+Date: Fri, 11 Sep 2026 08:42:13 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <108d4da2ab381d6e22d4f84f1c1254aa59b20d88@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH v11 4/7] wifi: rtw88: sdio: zero the padding added to a
+ TX transfer
+To: "Ping-Ke Shih" <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael 
+ Straube" <straube.linux@gmail.com>, "Peter Robinson"
+ <pbrobinson@gmail.com>, "Bitterblue Smith" <rtl8821cerfe2@gmail.com>,
+ luka.gejak@linux.dev
+In-Reply-To: <a0a617f1b7e34b979a801e7c10ad98f3@realtek.com>
+References: <20260909074556.55709-1-luka.gejak@linux.dev>
+ <20260909074556.55709-5-luka.gejak@linux.dev>
+ <d6507fd0447c4c09a9c80bb57dfef35c@realtek.com>
+ <DLBQ2H40DC71.2Z3B32X9JQ17I@linux.dev>
+ <DLBR915C5L0S.1TEYXZ8LADNTH@linux.dev>
+ <2294d792e937441fbf4ef8169c03df18@realtek.com>
+ <a17a665d7d4c47fbb33e038d122ed200@realtek.com>
+ <DLCBFNKN09SW.2SIEDXTB4PGJD@linux.dev>
+ <a0a617f1b7e34b979a801e7c10ad98f3@realtek.com>
 
-Hello:
-
-This patch was applied to netdev/net-next.git (main)
-by David S. Miller <davem@davemloft.net>:
-
-On Tue, 8 Sep 2026 11:41:13 +0530 you wrote:
-> Remove extra blank lines across the octeontx2 driver source.
-> 
-> Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
-> ---
->  drivers/net/ethernet/marvell/octeontx2/af/cgx.c     | 2 --
->  drivers/net/ethernet/marvell/octeontx2/af/mcs_reg.h | 2 --
->  drivers/net/ethernet/marvell/octeontx2/nic/qos.h    | 2 --
->  3 files changed, 6 deletions(-)
-
-Here is the summary with links:
-  - [net-next] octeontx2: collapse consecutive blank lines in source files
-    https://git.kernel.org/netdev/net-next/c/17d3afadf539
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+September 11, 2026 at 9:45 AM, "Ping-Ke Shih" <pkshih@realtek.com mailto:=
+pkshih@realtek.com?to=3D%22Ping-Ke%20Shih%22%20%3Cpkshih%40realtek.com%3E=
+ > wrote:
 
 
+>=20
+>=20Luka Gejak <luka.gejak@linux.dev> wrote:
+>=20
+>=20>=20
+>=20> I can write that up for Johannes as a separate mac80211 patch, with=
+ the
+> >  rtw88 side as a follow up. It is independent of this series, but con=
+sidering
+> >  your question was about CPU usage and this change doesn't overall re=
+duce it,
+> >  it is probably not worth it.
+> >=20
+>=20Thanks for the experiments. I think it is not worth...
+>
+
+I agree, just let me know when the series is merged so I can send driver =
+series.
+Best regards,
+Luka Gejak
