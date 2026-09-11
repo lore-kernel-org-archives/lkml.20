@@ -1,88 +1,36 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E608044780F
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:38:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B390439F63;
+	Fri, 11 Sep 2026 15:38:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789141135; cv=none; b=YaJOxN4FIjNbkg+tafmQlCYl3W6jKiWYkBluB42uuxp0oO7lbjlNFC51ZZtQJqCJNR2cYAQjzvbUhoXdMXzSlGrnEdyQh4OsI2n5xaw6R/JjusX3O2uJsDYNieLbvUgJaS2nY/5A3aXjIL1cuPzzicLJfbEdVczdz11vreHms20=
+	t=1789141129; cv=none; b=W6Vc1VkPpz+CLtC5PiYVxVYCEt7w7c7KxHUjqVjRW79PkMmy2W4gwYorSc6Z3Abi4WNsdU8JmnxOHp9d3dU7ReE8hSgL8iFR2L7AVjZQgSGx1OurV1JtIMclZvLjh4NmZ4WGtZeWJjbgvkn/+VoelUu4xFEb+p2T1mAoaHkyNQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789141135; c=relaxed/simple;
-	bh=CrKvfbaILEML0/XxKBQWTQNqscCnfIE0NSr6QPB6VwI=;
+	s=arc-20240116; t=1789141129; c=relaxed/simple;
+	bh=uhcwLE+XC8Qm/BUUK2a1bxZsizXwU4aFFlSESX+bGIA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IJ46OYr0OZ+NEHTrJU8G3WXMpUt+qR4e6dkF911VwYsfvXfAz1BQkCMGHeAboTu1ttFxp9+r5x/I2UbwC3S2IxND/YJFgV1MghX6V9yKv0LdkrWFljVL1/5Vr74cbpMnyjLcFigfrXz1N3zrM9DVHjUbcgLsek3+zzDZvefCYAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cAwVgFbr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Basjw3VA; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:To:Cc; b=WU4dDlFDalZvwFe6IS0gglAu89CH0A5zHEp0OQpBpUkTVPGfNOwMkp/HFtZJaXSQWXYqTKqtN5AmiItH9/fPKcubr3j9BbA8sbtWY4olR33NXB889HJnUlmMFjQjC+9xdzOaiq3WW1ZnIG2FGbekneDxQr652vKK9pmtvZVswEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=TSmIxn2F; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=5iCmz624; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cAwVgFbr";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Basjw3VA"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BEmEIx3780630
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:38:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	5NxuIBW575W0eOajYRS3D3fuU11r9CtXlXrtxeBTWyI=; b=cAwVgFbrxyx1ddw1
-	WrNGrpTh836+8VxMQDkvHRfWVkIIOrYKxX/cICdOiwy8lC67CrYUJH3tA3aOgCC1
-	UDu6atn1GvanNEYh/IquKYfs7qFBL75gfsaa8+GbJgzbpTSMZdKKRZ4Uk7Fr8rk1
-	MuEKiTBHTG2ixukBphSsSHMsBC72UMYc5IxWTfD4F6jNYQgWgqnTcUYxkRfMrDax
-	FLqXPlQJ7TSmRb+2KVp9DV8JMB9hrABGk3oY0GQtZIDmzvJGTCzAuQZctE19nIrw
-	GTzoBOG+9mzBgs5UhiFja5YHpphJMxUF/yrvZYK0bzg6R+J2EP1gfvBAxK6Xksqo
-	m6wGMQ==
-Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com [209.85.160.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmcgfj7u9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:38:47 +0000 (GMT)
-Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-464fb819ac5so999549fac.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:38:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789141127; x=1789745927; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5NxuIBW575W0eOajYRS3D3fuU11r9CtXlXrtxeBTWyI=;
-        b=Basjw3VAwsLVTuIst08U7SZ8bRhlFFFztMiEKxFtXX6AFLRF/zqHTmk//xxDzYaGrz
-         Y7SdwsN6YfXei4kwZZ1tIRcvGz81Oo0z/e3Me8fLEOlWrFJ5ftBqYtARNupJWKWnw3r2
-         nPZmlF3gk4I0RIFDasNPvTT2KvCpMRv4f5yf6iA65xvteu+rDLOUF44j45uXHExGX8E7
-         ZxeRQoX1/o6bS3slD0bmzDIvOFxeSYzA9bob4hFOrb7lG9ulBkN9hD6qNynSuFfpY42l
-         93lhaK1qZn6xWm2LWdyMsXlzEH38NNY1V4ND+hgPLLIzTz/OFQn3WiYJv7p3pe+0c3QC
-         AggA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789141127; x=1789745927;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5NxuIBW575W0eOajYRS3D3fuU11r9CtXlXrtxeBTWyI=;
-        b=adGWYOb0flVE727wPuQaybRA7qX3GaVXDvgyNTAxayVnwqFiB8Dz8n5QqiFtl/b9oX
-         0+K+CF8u9iGP+FqbD4ggw1b6ffHEIg54M1b6O2OamJv7Bbi6BSvC+b4kRNV8q/s2cfag
-         ZzyfQqlstSCjQLFAQH5/t20yFJjxE/RAkXGJbgCzLZqW9lOP+ld6nP00AYStBJ1+Wbwz
-         Q29svetQLnOkZv3GZrLHIF8DZLCSNZISYpADMTg/lYq8lnqBZ1A+q5WjbMMiffAdrRhK
-         sqKsy5BG+95mJHZgye9Lt9g+94SMWuO/XMRRcwhHA8Mhm3ojHktaVdvBn8ek6GWaJxST
-         xiQw==
-X-Forwarded-Encrypted: i=1; AKwUvBxodPJnl9u+mnN2TTQZ5pbDzLPyEcxWeKDF82ElssgO8l6pODcMrQHpsocc+Jv0YAbLE7W26q5JhF+VIpo=@vger.kernel.org
-X-Gm-Message-State: AFuF++msQA3EQn951ZkGVSd4fDvSxTBqyntoxXYGVLJTm4XnERK7HHDe
-	4YMXWpEogGBYjqclRNlLxWv4mmQOlXOZY56gpPA9qu48xBx9Zc99uQHYArGbavLB8Zze/dL7Wv+
-	REXz7std+NO3DLtLy3nbqcb4LByTfAzS/5dyjlDvrpkkJ5Rei7QX/OTsEfqX1GQ5HsiU=
-X-Gm-Gg: AYBFou0I9+KVFsA0kNlB7A1R53rr70MMLzBpZb/n/tKxd7jn7mFS4wijKmG3LT2B8C9
-	jfbEbSg3Oq1nL4G5ll7Gmazmhkvk5EbG1lcs3csgUdNfIlgnPwffqrKcd4v3WI9aknCQzzTDJ3E
-	rwO+p7Rf2u3rPBHP6vcjcf7KqtG2gBqhc/f9kNGVBEhWd1e0zJod1Fp72S1brbh6641SxVbzHhp
-	moLKiY/M4mtKH53enyi0nV+YZM8cuYufuhEVKzdrxUWptYRndkpZBbjU8+xOMp7tUYqP2wsA2nf
-	8YNGD18l0oxGtXRIpTTfc43Ny2WMJPPqaOd0Xiby0Sb3IHWqsl4kp0TfX8tPfr2nBUat5BlIylJ
-	3dQd4E95gtU/DgniaBLYm9kizVWM=
-X-Received: by 2002:a05:6820:7092:20b0:6b1:89ff:8a1a with SMTP id 006d021491bc7-6c0b9b541c2mr2653057eaf.3.1789141126650;
-        Fri, 11 Sep 2026 08:38:46 -0700 (PDT)
-X-Received: by 2002:a05:6820:7092:20b0:6b1:89ff:8a1a with SMTP id 006d021491bc7-6c0b9b541c2mr2653018eaf.3.1789141126125;
-        Fri, 11 Sep 2026 08:38:46 -0700 (PDT)
-Received: from hu-naala-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47df90ff148sm1882160fac.14.2026.09.11.08.38.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 08:38:45 -0700 (PDT)
-From: Nabige Aala <nabige.aala@oss.qualcomm.com>
-Date: Fri, 11 Sep 2026 21:06:42 +0530
-Subject: [PATCH 11/17] phy: qcom: edp: Add Nord PHY power-on and reset
- state-machine callbacks
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="TSmIxn2F";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="5iCmz624"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=To:Message-Id:Subject:Date:From; t=1789141092; bh=hAnCgglOsVasUB1dl2VqX+h
+	ShnJXDtmdON6y/4IdYH4=; b=TSmIxn2FPUZ9lg6YbMLUar5nvokrqVFxNB5/cWxrvSEEjiK2Lv
+	FgnFgCmGqQPDRBUpMPvSOG38gnBN1L+mS8QNiLZfeBSSFtz569ONtssaxXmkQ92BiGxYFScTFCH
+	rqlfIRE2cGRK59X8FeXdL6UCvGW5hrbyg8GMHJSopvWJMZrf0/jx498EKNSwfErwlfolKmVj5CE
+	whLOXF3R0XwyIhpoDgRIbc/H4RuT0h9nhVA14lJdoikM3JgbqpcCcKwxqn51tyzBmysXLf7twUH
+	kxKuA1k8pS6iQlW+3yakMpzy+Rd7plj361UEu2riM35xIUfjL3/ATOtOMO+WbaRlTVA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=To:Message-Id:Subject:Date:From; t=1789141092; bh=hAnCgglOsVasUB1dl2VqX+h
+	ShnJXDtmdON6y/4IdYH4=; b=5iCmz624r3LgJ7v/1FHDmZGs6RTRGVm3YMz05M5J0fYVuHeNMx
+	FK2XwpKXoqJPZMIf44pdMTE1ye6kJyx9s5DQ==;
+From: Nickolay Goppen <setotau@mainlining.org>
+Date: Fri, 11 Sep 2026 18:38:01 +0300
+Subject: [PATCH v2 2/3] drivers: gpu: drm: panel: Add BOE NT51021 driver
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,117 +39,882 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-nord-drv-dt-v1-11-e25c073cf1b6@oss.qualcomm.com>
-References: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
-In-Reply-To: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
-To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Kuogee Hsieh <quic_khsieh@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
-        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
-        Nabige Aala <nabige.aala@oss.qualcomm.com>
-X-Mailer: b4 0.16-dev-d5d98
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789141012; l=1878;
- i=nabige.aala@oss.qualcomm.com; s=20260520; h=from:subject:message-id;
- bh=K21vnVfWi3gJkL/oAMBFt2meTnwDXfVTNB9ot4N0Fng=;
- b=vc3SiT3OwSc+YhqE+td40cxikmsldcWKufYbhRHCLviUwyr2w89FqbTA0uHqR50TW9d2QTk05
- tb4Vf47coz7DcwHh50iiUINbuEbeKui2v8SnRU3cwWtZ7O2+fInAqaz
-X-Developer-Key: i=nabige.aala@oss.qualcomm.com; a=ed25519;
- pk=PYHJom8sPos1IGkrbCCsWiE7XTBQrQZd9jzAo051tgw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDIxOCBTYWx0ZWRfX6SPrI7w5bdAn
- WnMX2c5vvwSzTC2qrNWNnKsUKNy4PnMARHu8GNCJlM0ssUJN/u0J/WrlR08R9CMfoAmQg94DnMo
- QNiK2rCbidA+Eb7fD1zP8jdfCcR1IAbO4ShuUaaYOEujtdd5JO72qwsBbqB/gmgKdD+MRp7OR7D
- KykjXZx2khUBT0XzXkylvUZOgIoGVRpAoRL7qybMr4k4m7sRHkT/+wFS64+E52UMtnk/lm1Sjvc
- zB+876FEiahukK+m56rZ+mdKV7bB7OiiXceZfUM/79f3KkBb7Ww6K8/cgA84j+UnDIPgbDwFZW7
- UFB0lL240yF72sy5pdajZ2HgQ/rSmc0wUHhE6F2JJGNf+cj4MRLd7i4wLETjXuk5LW89hPbgCMp
- KD2yFH7+u/siBazZoaGIoiEsVQJZ7VU4UJWFXSqfU13/XpVHNiYPXMAyjOn/aTeXchWffgH+Jwr
- /yE7LIsXGL7S8rs4APw==
-X-Proofpoint-GUID: q4yRpgSpD9Ux2o8ZZbpADKtcGdhevtSr
-X-Proofpoint-ORIG-GUID: q4yRpgSpD9Ux2o8ZZbpADKtcGdhevtSr
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDIxOCBTYWx0ZWRfX14eM6pWyjyeB
- X063ag5gFqu1XcmM7zRqTrp0qMl4Qa6b/tpjS7vAiskVnzmT5oI7wsn5vIBghwdr7sHrhb4cqRE
- S6lEvMI7X7jvw8GMKpJDAVnq7ef8/8Q=
-X-Authority-Analysis: v=2.4 cv=ULtIjyfy c=1 sm=1 tr=0 ts=6aa42087 cx=c_pps
- a=nSjmGuzVYOmhOUYzIAhsAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=X8Wa9jmQWlBxTcu95m0A:9 a=QEXdDO2ut3YA:10
- a=1zu1i0D7hVQfj8NKfPKu:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-11_05,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 phishscore=0 bulkscore=0 clxscore=1015
- malwarescore=0 suspectscore=0 spamscore=0 lowpriorityscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110218
+Message-Id: <20260911-qcom-novatek-nt51021-panels-v2-2-135e3190a7fb@mainlining.org>
+References: <20260911-qcom-novatek-nt51021-panels-v2-0-135e3190a7fb@mainlining.org>
+In-Reply-To: <20260911-qcom-novatek-nt51021-panels-v2-0-135e3190a7fb@mainlining.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Nickolay Goppen <setotau@mainlining.org>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, ryanbrue.dev@gmail.com, 
+ Alexey Minnekhanov <alexeymin@minlexx.ru>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789141089; l=41094;
+ i=setotau@mainlining.org; s=20250815; h=from:subject:message-id;
+ bh=uhcwLE+XC8Qm/BUUK2a1bxZsizXwU4aFFlSESX+bGIA=;
+ b=aYYB29VjAD0LdEdJr6FoPgGLU6moSBUeb+DLihqIszssgVLPNQyTMSKwK6h+/sUolglAbA4le
+ 2nszRz9oi/fAdRIfDc6ESMqovtxMILCcs42WFLTLjKE+pPwEKN7K2Vo
+X-Developer-Key: i=setotau@mainlining.org; a=ed25519;
+ pk=Og7YO6LfW+M2QfcJfjaUaXc8oOr5zoK8+4AtX5ICr4o=
 
-From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+Add driver for BOE NT51021-based 8-inch and 10-inch DSI video mode
+panels used in Xiaomi Mi Pad 4 and Mi Pad 4 Plus (xiaomi-clover)
+tablets.
 
-Nord relocates the QSERDES COM CMN_STATUS and C_READY_STATUS registers
-so the generic sequences cannot be reused.  Add
-qcom_edp_phy_power_on_nord() which powers down all lanes and polls
-CMN_STATUS_NORD (0x1d0), and qcom_edp_phy_com_resetsm_cntrl_nord()
-which triggers the reset SM and polls C_READY_STATUS_NORD (0x1f8).
+NT51021-based panels also support content-adaptive brightness control by
+generating a PWM signal for backlight driver IC. Content adaptation
+means that content grey level scale can be increased while
+simultaneously decreasing brightness of the backlight to achieve
+same perceived brightness. This makes the power consumption of
+backlight be reduced with keeping acceptable display quality.
 
-Signed-off-by: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
-Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+Both panels are very similar, differences are only in init sequence
+and resolution.
+
+Co-developed-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
 ---
- drivers/phy/qualcomm/phy-qcom-edp.c | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+ drivers/gpu/drm/panel/Kconfig                 |   9 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ drivers/gpu/drm/panel/panel-novatek-nt51021.c | 791 ++++++++++++++++++++++++++
+ 3 files changed, 801 insertions(+)
 
-diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/phy-qcom-edp.c
-index 64878398f43c..6cac4b55b66f 100644
---- a/drivers/phy/qualcomm/phy-qcom-edp.c
-+++ b/drivers/phy/qualcomm/phy-qcom-edp.c
-@@ -1612,6 +1612,31 @@ static const struct qcom_edp_swing_pre_emph_cfg nord_dp_swing_pre_emph_cfg = {
- };
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index cbdf7b8f7f7a..b7c11990b46f 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -727,6 +727,15 @@ config DRM_PANEL_NOVATEK_NT39016
+ 	  Say Y here if you want to enable support for the panels built
+ 	  around the Novatek NT39016 display controller.
  
- 
-+static int qcom_edp_phy_power_on_nord(const struct qcom_edp *edp)
++config DRM_PANEL_NOVATEK_NT51021
++	tristate "Novatek NT51021 DSI panel"
++	depends on OF
++	depends on DRM_MIPI_DSI
++	depends on BACKLIGHT_CLASS_DEVICE
++	help
++	  Say Y here if you want to enable support for the panels built
++	  around the Novatek NT51021 Display controller.
++
+ config DRM_PANEL_OLIMEX_LCD_OLINUXINO
+ 	tristate "Olimex LCD-OLinuXino panel"
+ 	depends on OF
+diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+index 3b523cf37833..3fe7c2e579d3 100644
+--- a/drivers/gpu/drm/panel/Makefile
++++ b/drivers/gpu/drm/panel/Makefile
+@@ -70,6 +70,7 @@ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672E) += panel-novatek-nt36672e.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37700F) += panel-novatek-nt37700f.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37801) += panel-novatek-nt37801.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT39016) += panel-novatek-nt39016.o
++obj-$(CONFIG_DRM_PANEL_NOVATEK_NT51021) += panel-novatek-nt51021.o
+ obj-$(CONFIG_DRM_PANEL_MANTIX_MLAF057WE51) += panel-mantix-mlaf057we51.o
+ obj-$(CONFIG_DRM_PANEL_OLIMEX_LCD_OLINUXINO) += panel-olimex-lcd-olinuxino.o
+ obj-$(CONFIG_DRM_PANEL_ORISETECH_OTA5601A) += panel-orisetech-ota5601a.o
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt51021.c b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
+new file mode 100644
+index 000000000000..61dd283769a7
+--- /dev/null
++++ b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
+@@ -0,0 +1,791 @@
++// SPDX-License-Identifier: GPL-2.0-only
++// Copyright (c) 2025, Nickolay Goppen <setotau@mainlining.org>
++// Copyright (c) 2024, Alexey Minnekhanov <alexeymin@minlexx.ru>
++
++/*
++ * This panel IC doesn't use the set_display_on command although
++ * it uses set_display_off command. This is not an error.
++ */
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/regulator/consumer.h>
++
++#include <drm/drm_mipi_dsi.h>
++#include <drm/drm_modes.h>
++#include <drm/drm_panel.h>
++#include <drm/drm_probe_helper.h>
++
++struct novatek_nt51021_desc;
++
++struct novatek_nt51021_variant {
++	int (*init)(struct novatek_nt51021_desc *ctx);
++
++	const struct drm_display_mode *display_mode;
++};
++
++struct novatek_nt51021_desc {
++	struct drm_panel panel;
++	struct mipi_dsi_device *dsi;
++	struct regulator_bulk_data *supplies;
++	struct gpio_desc *reset_gpio;
++
++	const struct novatek_nt51021_variant *variant;
++};
++
++static const struct regulator_bulk_data nt51021_novatek_supplies[] = {
++	{ .supply = "vdd" },
++	{ .supply = "avdd" },
++	{ .supply = "havdd" },
++};
++
++static inline struct novatek_nt51021_desc *to_novatek_panel(struct drm_panel *panel)
 +{
-+	u32 val;
-+
-+	writel(DP_PHY_PD_CTL_PWRDN | DP_PHY_PD_CTL_AUX_PWRDN |
-+	       DP_PHY_PD_CTL_LANE_0_1_PWRDN | DP_PHY_PD_CTL_LANE_2_3_PWRDN |
-+	       DP_PHY_PD_CTL_PLL_PWRDN | DP_PHY_PD_CTL_DP_CLAMP_EN,
-+	       edp->edp + DP_PHY_PD_CTL);
-+	writel(0xfc, edp->edp + DP_PHY_MODE);
-+
-+	return readl_poll_timeout(edp->pll + DP_QSERDES_V8_COM_CMN_STATUS_NORD,
-+				 val, val & BIT(7), 5, 200);
++	return container_of_const(panel, struct novatek_nt51021_desc, panel);
 +}
 +
-+static int qcom_edp_phy_com_resetsm_cntrl_nord(const struct qcom_edp *edp)
++static void nt51021_novatek_reset(struct novatek_nt51021_desc *ctx)
 +{
-+	u32 val;
-+
-+	writel(0x20, edp->pll + DP_QSERDES_V8_COM_RESETSM_CNTRL);
-+
-+	return readl_poll_timeout(edp->pll + DP_QSERDES_V8_COM_C_READY_STATUS_NORD,
-+				 val, val & BIT(0), 500, 10000);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	msleep(20);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++	usleep_range(10000, 11000);
 +}
 +
++static void nt51021_cabc_on(struct mipi_dsi_multi_context *dsi_ctx)
++{
++	if (dsi_ctx->accum_err)
++		return;
 +
- static const struct of_device_id qcom_edp_phy_match_table[] = {
- 	{ .compatible = "qcom,glymur-dp-phy", .data = &glymur_phy_cfg, },
- 	{ .compatible = "qcom,sa8775p-edp-phy", .data = &sa8775p_dp_phy_cfg, },
++	mipi_dsi_generic_write_seq_multi(dsi_ctx, 0x8f, 0x00);
++	mipi_dsi_usleep_range(dsi_ctx, 1000, 2000);
++	mipi_dsi_generic_write_seq_multi(dsi_ctx, 0x8f, 0xa5);
++	mipi_dsi_usleep_range(dsi_ctx, 1000, 2000);
++	mipi_dsi_generic_write_seq_multi(dsi_ctx, 0x83, 0xbb);
++	mipi_dsi_generic_write_seq_multi(dsi_ctx, 0x84, 0x22);
++	mipi_dsi_generic_write_seq_multi(dsi_ctx, 0x90, 0x40);
++	mipi_dsi_generic_write_seq_multi(dsi_ctx, 0x8f, 0x00);
++	mipi_dsi_usleep_range(dsi_ctx, 1000, 2000);
++}
++
++static void nt51021_cabc_off(struct mipi_dsi_multi_context *dsi_ctx)
++{
++	if (dsi_ctx->accum_err)
++		return;
++
++	mipi_dsi_generic_write_seq_multi(dsi_ctx, 0x8f, 0xa5);
++	mipi_dsi_usleep_range(dsi_ctx, 1000, 2000);
++	mipi_dsi_generic_write_seq_multi(dsi_ctx, 0x83, 0xbb);
++	mipi_dsi_generic_write_seq_multi(dsi_ctx, 0x84, 0x22);
++	mipi_dsi_generic_write_seq_multi(dsi_ctx, 0x90, 0xc0);
++	mipi_dsi_generic_write_seq_multi(dsi_ctx, 0x8f, 0x00);
++	mipi_dsi_usleep_range(dsi_ctx, 1000, 2000);
++}
++
++static int boe_tv080wum_nx2_init(struct novatek_nt51021_desc *ctx)
++{
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0xa5);
++	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x01, 0x00);
++	mipi_dsi_msleep(&dsi_ctx, 20);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0xa5);
++	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x83, 0x00);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x84, 0x00);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8c, 0x8e);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcd, 0x6c);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc0, 0x8b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc8, 0xf0);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8b, 0x10);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa9, 0x20);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x97, 0x00);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfa, 0x15);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfd, 0x1b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x83, 0xaa);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x84, 0x11);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa9, 0x4b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x85, 0x04);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x86, 0x08);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x98, 0xc1);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x83, 0xaa);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x84, 0x11);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc0, 0x05);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc1, 0x0c);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc2, 0x22);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc3, 0x34);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc4, 0x44);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc5, 0x52);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc6, 0x5d);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc7, 0x66);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc8, 0x70);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc9, 0x00);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xca, 0x11);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcb, 0x3b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcc, 0x53);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcd, 0x69);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xce, 0x6a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcf, 0x6c);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd0, 0x6b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd1, 0x75);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd2, 0x83);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd3, 0x99);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd4, 0x9a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd5, 0xd0);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd6, 0xd6);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd7, 0xdb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd8, 0xe1);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd9, 0xe7);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xda, 0xed);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdb, 0xf4);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdc, 0xfb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdd, 0xff);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xde, 0xff);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdf, 0x0f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe0, 0x15);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe1, 0x1c);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe2, 0x32);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe3, 0x44);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe4, 0x52);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe5, 0x60);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe6, 0x6b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe7, 0x74);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe8, 0x7e);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe9, 0x14);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xea, 0x25);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xeb, 0x4d);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xec, 0x63);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xed, 0x71);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xee, 0x6a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xef, 0x6c);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf0, 0x6b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf1, 0x75);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf2, 0x83);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf3, 0x99);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf4, 0x9a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf5, 0xd0);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf6, 0xd6);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf7, 0xdb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf8, 0xe1);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf9, 0xe7);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfa, 0xed);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfb, 0xf4);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfc, 0xfb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfd, 0xff);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfe, 0xff);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xff, 0x0f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x83, 0xbb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x84, 0x22);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa1, 0xff);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa2, 0xfe);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa3, 0xfa);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa4, 0xf7);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa5, 0xf3);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa6, 0xf1);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa7, 0xed);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa8, 0xeb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa9, 0xe9);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xaa, 0xe6);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xaf, 0x00);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb0, 0x35);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb1, 0x89);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb2, 0x99);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb3, 0x99);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb4, 0x0d);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb5, 0x1a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb6, 0x16);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x9a, 0x10);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x9b, 0x00);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x96, 0xe6);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x99, 0x06);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc0, 0x05);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc1, 0x0c);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc2, 0x22);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc3, 0x34);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc4, 0x44);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc5, 0x52);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc6, 0x5d);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc7, 0x66);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc8, 0x70);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc9, 0x00);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xca, 0x11);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcb, 0x3b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcc, 0x53);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcd, 0x69);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xce, 0x6a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcf, 0x6c);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd0, 0x6b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd1, 0x75);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd2, 0x83);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd3, 0x99);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd4, 0x9a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd5, 0xd0);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd6, 0xd6);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd7, 0xdb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd8, 0xe1);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd9, 0xe7);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xda, 0xed);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdb, 0xf4);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdc, 0xfb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdd, 0xff);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xde, 0xff);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdf, 0x0f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe0, 0x15);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe1, 0x1c);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe2, 0x32);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe3, 0x44);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe4, 0x52);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe5, 0x60);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe6, 0x6b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe7, 0x74);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe8, 0x7e);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe9, 0x14);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xea, 0x25);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xeb, 0x4d);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xec, 0x63);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xed, 0x71);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xee, 0x6a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xef, 0x6c);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf0, 0x6b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf1, 0x75);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf2, 0x83);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf3, 0x99);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf4, 0x9a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf5, 0xd0);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf6, 0xd6);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf7, 0xdb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf8, 0xe1);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf9, 0xe7);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfa, 0xed);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfb, 0xf4);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfc, 0xfb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfd, 0xff);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfe, 0xff);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xff, 0x0f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x83, 0xcc);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x84, 0x33);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc0, 0x05);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc1, 0x0c);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc2, 0x22);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc3, 0x34);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc4, 0x44);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc5, 0x52);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc6, 0x5d);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc7, 0x66);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc8, 0x70);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc9, 0x00);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xca, 0x11);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcb, 0x3b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcc, 0x53);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcd, 0x69);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xce, 0x6a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcf, 0x6c);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd0, 0x6b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd1, 0x75);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd2, 0x83);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd3, 0x99);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd4, 0x9a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd5, 0xd0);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd6, 0xd6);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd7, 0xdb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd8, 0xe1);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd9, 0xe7);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xda, 0xed);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdb, 0xf4);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdc, 0xfb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdd, 0xff);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xde, 0xff);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdf, 0x0f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe0, 0x15);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe1, 0x1c);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe2, 0x32);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe3, 0x44);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe4, 0x52);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe5, 0x60);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe6, 0x6b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe7, 0x74);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe8, 0x7e);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe9, 0x14);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xea, 0x25);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xeb, 0x4d);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xec, 0x63);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xed, 0x71);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xee, 0x6a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xef, 0x6c);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf0, 0x6b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf1, 0x75);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf2, 0x83);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf3, 0x99);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf4, 0x9a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf5, 0xd0);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf6, 0xd6);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf7, 0xdb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf8, 0xe1);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf9, 0xe7);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfa, 0xed);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfb, 0xf4);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfc, 0xfb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfd, 0xff);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfe, 0xff);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xff, 0x0f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x83, 0x00);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x84, 0x00);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x9f, 0xff);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x83, 0xbb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x84, 0x22);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x94, 0xba);
++	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
++	mipi_dsi_usleep_range(&dsi_ctx, 5000, 6000);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0x00);
++	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
++
++	nt51021_cabc_on(&dsi_ctx);
++
++	return dsi_ctx.accum_err;
++}
++
++static int boe_tv101wum_nx0_init(struct novatek_nt51021_desc *ctx)
++{
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0xa5);
++	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x01, 0x00);
++	mipi_dsi_msleep(&dsi_ctx, 20);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0xa5);
++	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x83, 0x00);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x84, 0x00);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8c, 0x8e);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfa, 0x12);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfd, 0x1b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcd, 0x6c);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc8, 0xfc);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x97, 0x00);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8b, 0x10);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa9, 0x20);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x83, 0xaa);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x84, 0x11);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa9, 0x4b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x85, 0x04);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x86, 0x08);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x98, 0xc1);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x9c, 0x10);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x83, 0xaa);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x84, 0x11);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc0, 0x0e);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc1, 0x11);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc2, 0x1f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc3, 0x30);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc4, 0x3f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc5, 0x4b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc6, 0x55);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc7, 0x5d);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc8, 0x68);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc9, 0xe3);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xca, 0xea);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcb, 0x01);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcc, 0x0a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcd, 0x0a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xce, 0x07);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcf, 0x08);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd0, 0x09);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd1, 0x1d);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd2, 0x31);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd3, 0x52);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd4, 0x5b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd5, 0xb6);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd6, 0xbd);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd7, 0xc5);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd8, 0xcd);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd9, 0xd6);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xda, 0xe0);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdb, 0xeb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdc, 0xf8);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdd, 0xff);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xde, 0xfc);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdf, 0x0f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe0, 0x0e);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe1, 0x11);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe2, 0x1f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe3, 0x30);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe4, 0x3f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe5, 0x4b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe6, 0x55);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe7, 0x5d);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe8, 0x68);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe9, 0xe3);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xea, 0xea);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xeb, 0x01);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xec, 0x0a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xed, 0x0a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xee, 0x07);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xef, 0x08);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf0, 0x09);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf1, 0x1d);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf2, 0x31);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf3, 0x52);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf4, 0x5b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf5, 0xb6);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf6, 0xbd);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf7, 0xc5);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf8, 0xcd);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf9, 0xd6);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfa, 0xe0);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfb, 0xeb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfc, 0xf8);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfd, 0xff);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfe, 0xfc);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xff, 0x0f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x83, 0xbb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x84, 0x22);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa1, 0xff);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa2, 0xfe);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa3, 0xfa);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa4, 0xf7);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa5, 0xf3);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa6, 0xf1);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa7, 0xed);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa8, 0xeb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xa9, 0xe9);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xaa, 0xe6);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xaf, 0x00);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb0, 0x12);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb1, 0x23);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb2, 0x34);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb3, 0x77);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb4, 0x0d);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb5, 0x1a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb6, 0x16);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x9a, 0x10);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x9b, 0x00);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x96, 0xe6);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x99, 0x06);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc0, 0x0e);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc1, 0x11);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc2, 0x1f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc3, 0x30);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc4, 0x3f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc5, 0x4b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc6, 0x55);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc7, 0x5d);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc8, 0x68);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc9, 0xe3);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xca, 0xea);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcb, 0x01);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcc, 0x0a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcd, 0x0a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xce, 0x07);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcf, 0x08);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd0, 0x09);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd1, 0x1d);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd2, 0x31);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd3, 0x52);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd4, 0x5b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd5, 0xb6);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd6, 0xbd);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd7, 0xc5);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd8, 0xcd);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd9, 0xd6);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xda, 0xe0);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdb, 0xeb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdc, 0xf8);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdd, 0xff);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xde, 0xfc);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdf, 0x0f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe0, 0x0e);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe1, 0x11);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe2, 0x1f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe3, 0x30);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe4, 0x3f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe5, 0x4b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe6, 0x55);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe7, 0x5d);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe8, 0x68);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe9, 0xe3);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xea, 0xea);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xeb, 0x01);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xec, 0x0a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xed, 0x0a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xee, 0x07);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xef, 0x08);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf0, 0x09);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf1, 0x1d);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf2, 0x31);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf3, 0x52);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf4, 0x5b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf5, 0xb6);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf6, 0xbd);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf7, 0xc5);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf8, 0xcd);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf9, 0xd6);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfa, 0xe0);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfb, 0xeb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfc, 0xf8);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfd, 0xff);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfe, 0xfc);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xff, 0x0f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x83, 0xcc);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x84, 0x33);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc0, 0x0e);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc1, 0x11);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc2, 0x1f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc3, 0x30);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc4, 0x3f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc5, 0x4b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc6, 0x55);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc7, 0x5d);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc8, 0x68);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xc9, 0xe3);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xca, 0xea);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcb, 0x01);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcc, 0x0a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcd, 0x0a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xce, 0x07);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xcf, 0x08);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd0, 0x09);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd1, 0x1d);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd2, 0x31);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd3, 0x52);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd4, 0x5b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd5, 0xb6);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd6, 0xbd);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd7, 0xc5);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd8, 0xcd);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xd9, 0xd6);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xda, 0xe0);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdb, 0xeb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdc, 0xf8);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdd, 0xff);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xde, 0xfc);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xdf, 0x0f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe0, 0x0e);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe1, 0x11);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe2, 0x1f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe3, 0x30);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe4, 0x3f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe5, 0x4b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe6, 0x55);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe7, 0x5d);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe8, 0x68);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xe9, 0xe3);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xea, 0xea);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xeb, 0x01);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xec, 0x0a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xed, 0x0a);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xee, 0x07);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xef, 0x08);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf0, 0x09);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf1, 0x1d);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf2, 0x31);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf3, 0x52);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf4, 0x5b);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf5, 0xb6);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf6, 0xbd);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf7, 0xc5);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf8, 0xcd);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf9, 0xd6);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfa, 0xe0);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfb, 0xeb);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfc, 0xf8);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfd, 0xff);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xfe, 0xfc);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xff, 0x0f);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x83, 0x00);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x84, 0x00);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x9f, 0xff);
++	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
++	mipi_dsi_usleep_range(&dsi_ctx, 5000, 6000);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0x00);
++	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
++
++	nt51021_cabc_on(&dsi_ctx);
++	mipi_dsi_usleep_range(&dsi_ctx, 1000, 2000);
++
++	return dsi_ctx.accum_err;
++}
++
++static int nt51021_novatek_off(struct novatek_nt51021_desc *ctx)
++{
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++
++	nt51021_cabc_off(&dsi_ctx);
++
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0xa5);
++	mipi_dsi_msleep(&dsi_ctx, 20);
++	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 130);
++	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 70);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0x8f, 0x00);
++	mipi_dsi_usleep_range(&dsi_ctx, 4000, 5000);
++
++	return dsi_ctx.accum_err;
++}
++
++static int nt51021_novatek_prepare(struct drm_panel *panel)
++{
++	struct novatek_nt51021_desc *ctx = to_novatek_panel(panel);
++	struct device *dev = &ctx->dsi->dev;
++	int ret;
++
++	ret = regulator_bulk_enable(ARRAY_SIZE(nt51021_novatek_supplies), ctx->supplies);
++	if (ret < 0) {
++		dev_err(dev, "Failed to enable regulators: %d\n", ret);
++		return ret;
++	}
++	nt51021_novatek_reset(ctx);
++
++	ret = ctx->variant->init(ctx);
++	if (ret < 0) {
++		dev_err(dev, "Failed to initialize panel: %d\n", ret);
++		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++		regulator_bulk_disable(ARRAY_SIZE(nt51021_novatek_supplies), ctx->supplies);
++		return ret;
++	}
++
++	return 0;
++}
++
++static int nt51021_novatek_unprepare(struct drm_panel *panel)
++{
++	struct novatek_nt51021_desc *ctx = to_novatek_panel(panel);
++	struct device *dev = &ctx->dsi->dev;
++	int ret;
++
++	ret = nt51021_novatek_off(ctx);
++	if (ret < 0)
++		dev_err(dev, "Failed to un-initialize panel: %d\n", ret);
++
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	regulator_bulk_disable(ARRAY_SIZE(nt51021_novatek_supplies), ctx->supplies);
++
++	return 0;
++}
++
++static int nt51021_novatek_get_modes(struct drm_panel *panel,
++				 struct drm_connector *connector)
++{
++	struct novatek_nt51021_desc *ctx = to_novatek_panel(panel);
++
++	return drm_connector_helper_get_modes_fixed(connector,
++						    ctx->variant->display_mode);
++}
++
++static const struct drm_panel_funcs nt51021_novatek_panel_funcs = {
++	.prepare = nt51021_novatek_prepare,
++	.unprepare = nt51021_novatek_unprepare,
++	.get_modes = nt51021_novatek_get_modes,
++};
++
++static int nt51021_novatek_probe(struct mipi_dsi_device *dsi)
++{
++	struct device *dev = &dsi->dev;
++	struct novatek_nt51021_desc *ctx;
++	int ret;
++
++	ctx = devm_drm_panel_alloc(dev, struct novatek_nt51021_desc, panel,
++				   &nt51021_novatek_panel_funcs,
++				   DRM_MODE_CONNECTOR_DSI);
++	if (IS_ERR(ctx))
++		return PTR_ERR(ctx);
++
++	ctx->variant = of_device_get_match_data(dev);
++	if (!ctx->variant)
++		return dev_err_probe(dev, -ENODEV, "No match data\n");
++
++	ret = devm_regulator_bulk_get_const(dev,
++					    ARRAY_SIZE(nt51021_novatek_supplies),
++					    nt51021_novatek_supplies,
++					    &ctx->supplies);
++	if (ret < 0)
++		return ret;
++
++	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
++	if (IS_ERR(ctx->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
++				     "Failed to get reset-gpios\n");
++
++	ctx->dsi = dsi;
++	mipi_dsi_set_drvdata(dsi, ctx);
++
++	dsi->lanes = 4;
++	dsi->format = MIPI_DSI_FMT_RGB888;
++	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
++			  MIPI_DSI_MODE_NO_EOT_PACKET | MIPI_DSI_MODE_LPM;
++
++	ctx->panel.prepare_prev_first = true;
++
++	ret = drm_panel_of_backlight(&ctx->panel);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to get backlight\n");
++
++	devm_drm_panel_add(dev, &ctx->panel);
++
++	ret = devm_mipi_dsi_attach(dev, dsi);
++
++	return 0;
++}
++
++static const struct drm_display_mode boe_tv080wum_nx2_mode = {
++	.clock = (1200 + 84 + 4 + 60) * (1920 + 36 + 1 + 25) * 60 / 1000,
++	.hdisplay = 1200,
++	.hsync_start = 1200 + 84,
++	.hsync_end = 1200 + 84 + 4,
++	.htotal = 1200 + 84 + 4 + 60,
++	.vdisplay = 1920,
++	.vsync_start = 1920 + 36,
++	.vsync_end = 1920 + 36 + 1,
++	.vtotal = 1920 + 36 + 1 + 25,
++	.width_mm = 107,
++	.height_mm = 172,
++	.type = DRM_MODE_TYPE_DRIVER,
++};
++
++static const struct drm_display_mode boe_tv101wum_nx0_mode = {
++	.clock = (1200 + 172 + 4 + 32) * (1920 + 25 + 1 + 14) * 60 / 1000,
++	.hdisplay = 1200,
++	.hsync_start = 1200 + 172,
++	.hsync_end = 1200 + 172 + 4,
++	.htotal = 1200 + 172 + 4 + 32,
++	.vdisplay = 1920,
++	.vsync_start = 1920 + 25,
++	.vsync_end = 1920 + 25 + 1,
++	.vtotal = 1920 + 25 + 1 + 14,
++	.width_mm = 135,
++	.height_mm = 216,
++	.type = DRM_MODE_TYPE_DRIVER,
++};
++
++static const struct novatek_nt51021_variant boe_tv080wum_nx2_data = {
++	.init = boe_tv080wum_nx2_init,
++	.display_mode = &boe_tv080wum_nx2_mode,
++};
++
++static const struct novatek_nt51021_variant boe_tv101wum_nx0_data = {
++	.init = boe_tv101wum_nx0_init,
++	.display_mode = &boe_tv101wum_nx0_mode,
++};
++
++static const struct of_device_id nt51021_novatek_of_match[] = {
++	{ .compatible = "boe,tv080wum-nx2", .data = &boe_tv080wum_nx2_data },
++	{ .compatible = "boe,tv101wum-nx0", .data = &boe_tv101wum_nx0_data },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, nt51021_novatek_of_match);
++
++static struct mipi_dsi_driver nt51021_boe_driver = {
++	.probe = nt51021_novatek_probe,
++	.driver = {
++		.name = "panel-novatek-nt51021",
++		.of_match_table = nt51021_novatek_of_match,
++	},
++};
++module_mipi_dsi_driver(nt51021_boe_driver);
++
++MODULE_AUTHOR("Nickolay Goppen <setotau@mainlining.org>");
++MODULE_AUTHOR("Alexey Minnekhanov <alexeymin@minlexx.ru>");
++MODULE_DESCRIPTION("DRM driver for Novatek NT51021-based DSI panels");
++MODULE_LICENSE("GPL");
 
 -- 
-2.34.1
+2.55.0
 
