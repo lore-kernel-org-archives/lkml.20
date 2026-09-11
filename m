@@ -1,122 +1,152 @@
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com [209.85.208.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA05B48F006
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:58:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789135122; cv=pass; b=VJ5ZfP79BTRB1HExX1JqQvwK5LM5Ad0nyLZcGusc1MqZZ0fYTE6iYBH5zX39EmgaI1D6WbO01Dl+a32KwyH/1E19X5YyYt4liBMyHC/52VHEf1T9oC57+U0WmR3tiAx2bJfFqp844Ornt1Mm2k4nYsjmWkc5bnGtwJseSCwIHrQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789135122; c=relaxed/simple;
-	bh=xDEHxvbeRV+H+3ZnrTLb1ZOhWNi2risnbOgmdwBS5bk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ALMUkc5os7eM89SxYX/5I0nKp3E7bF1tK5z8EI8Gi0wF7Ahxoy6F7Q3XE7z43XNAlYB/GIQD9qKm8OY7caddo5Cch8FJeEPvXqpNM/Kpf2hchiGEmw57IZoFNX2JWGGwChaZyiokN67PC29fALQAaUVz/Ep9IXTpqBNxYDVUu6c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xc0mAi9M; arc=pass smtp.client-ip=209.85.208.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30CDC48A8A6
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:59:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789135151; cv=none; b=GkV7p3O+hbgNha7y/FsqpXBPV8f4NTuB7eRKoQ2r8YoD7u/2J36nGRUwUnqWtHsu73xUTXUdPDnfH6iW/cSFP0Kgz+fhkNPG1N7MPn3Z13uJH62oUoMGVIkKZEWZq/8IMuf1qIEH9Qd3t+E4WUFQrcsRmNqiWaQ/hKBKoernNCY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789135151; c=relaxed/simple;
+	bh=qyZRqlRVa+te18rp4tHtL2Z96Joq707rpJxoDVai6bE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RtNmfu0Eyfx0vxgU1dhcelxuJx0BN1PGIZXUMQSy5lVLKa95PCgWmqG4gYZuWRiveqUfTfhnMePpN2q6G++DE0oJec5YpOnbXfla5UunZrESi0rKnqYQ/EgaMJzJi0ejJDIWf/hXSDzsHMuw8OuPKMl51JY2fk6g6PCoOJf78QU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=TfDfx0Ki; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xc0mAi9M"
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3a5921f2a66so8089721fa.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:58:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789135119; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iPdMt0MgsNIhlPIZ4UGwZzDNeFc/sz4D7UchIDELO0KlGOYs/n7XrfHMkcBJnXs3ff
-         8BRAqEE6ejcLY+kLssx1CfLnq95ILcHabocc5NHxFlcHzXWv3QiZsM5JfftoxTuhmXAa
-         c6q93EMbdssuZO/n3Wdcj6s2EMnKr5xaUQKZDRaqXBDw/n+oRPDXfXWxdh61k1Vhbutf
-         7n4YG0NwyOQC5Y4QAqIlHrTpM9Hr35klMbGL/9dXZS//oEt/e8hZFyb5HjTxsPmBfqdt
-         dPFrtDEvBHui+eX/tQjgLIXsGBk3VDlWOM+yGb8cCGTDSVzBekWpYYX8Cv6Nm1DYEPuB
-         buig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qy+0mFYaryQ+eScYF7uiBLvncEmqva9qKNca69Pe4l8=;
-        fh=rMvVVY03m+CtLfl5/KZNaLbl+W4M0Gd/kmWTFGN+2k4=;
-        b=kQTtnZxOHhJfT5mezPq+lY7TS0xodrVNdp/BN3ZtHidE+ylhOuAQqxfR6PfTRvsNfp
-         ocVDql32yLoVgpUrDOEY6wMFp6gbbCb4nybleKXRpoU0ptj624CjfEZfyoTuw/J0nlqr
-         /alSRq4wwtEcbtvPQ0C/RXJFgXaMbFxz6Mw8AnOpYJVsAfQOXTuFI4etQqBuKszdjBSu
-         R04L7wI39WbNn+0dZnEBTdoysx+RkFDEyc5CDL1MQ49RzaY0J/EBCytYUIupT3TIYK51
-         uEm5AzImuGHtgsLTNWNRIZZysUE3Nl8WQyQfJ6qVr+8j6dwve6qEUPsVruFCWCIh1q9v
-         DDtg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789135119; x=1789739919; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qy+0mFYaryQ+eScYF7uiBLvncEmqva9qKNca69Pe4l8=;
-        b=Xc0mAi9M7OOJ1D+QjwjD6pnDoHqBQK0299xq6Umf436oZe+bvTEQYAJ0IgK8W7vqgN
-         IsPtSdNuvH3Xx2ehVwLola7q7y3wF8pBNnhAMu8Ua/0hgBT8SxIpC1tTHsoyMmB3F1mV
-         V45kFYDsmr9Q9wC6KCaKCUhfgTGLCiEXAmZEwRx8Sidp7jVEcvFdlXohWnu03Kg6RGXP
-         BcyP2Hsk2saEbASBDep9R9LUwEu+cNr0OMliKKMcjdaAZYF+6qA8NVYHdu2oywrN2jh3
-         2k6JnB8G3wkD9qAB09ymXq07ZvVAe4CGL4rbk6za+bEh79rCNzJROzN6USmw+Z/j2Gsh
-         7WqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789135119; x=1789739919;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qy+0mFYaryQ+eScYF7uiBLvncEmqva9qKNca69Pe4l8=;
-        b=XxUAIVpThwsG1uU9PBVB4dlDbTBP7YBYQ6Br84trqAUDNQTtGcteRK1ySIMn7uG1XG
-         yQSYYWODpALmgw1ks2wMGn0DFzTr8VxY6wMQhMQoEXqF3vnYHoLBhpbMPe2+WDF5e+hY
-         HVPGSC1SajnvwG5wTMGEOVMLplrt9Qju6MwrZM+WSJ2Mdn8pr2O6EVutw6SOwur+Wtgb
-         hr1fQsygKiKekzrl3FOX4LOlDQv/GxwtvK7juWHx2OGzSz12Zta9WYxxEs3JDA5nxJt1
-         0TNXpyJZm9D6bpnGogHH94uKIWOi3AdtNz3eTb4I4JDsf651G0NrsWULJo+5VXIO/fce
-         dX5A==
-X-Forwarded-Encrypted: i=1; AKwUvBz6nv9wHA3nL0kJcEv6rE5T40Wq1666TCpawids48FAj+2M3ysP1uApvPr4F5LCTn9KvF748TKXSvPU6Ms=@vger.kernel.org
-X-Gm-Message-State: AFuF++mdCLGCkCBECL3Rkwa+tzCCD1MjcOgwHMbNxt8WMdvPu2HW9UFU
-	FUl0jhw9CvwORXOpC8LyZBq6hucOqO7/hSfQZqJyO2TbZoKODA3dJaKjgHQ4o2MHV+OOV8eWk+Q
-	xqcirfEmNJZ/dbhqawHNM4W5szzOIUGg=
-X-Gm-Gg: AYBFou3swGsZ3aFW7lds0SsAp1JMJ9gxg0azueASCahsBxtO9eNeRwH/wHgz8yewACL
-	z7/2RlY6AUBgHBfitvBmauoT9rRRN/fCE4/XBrkJTNMvZdGplzcxybqbWkmR1FVQDKOkr2z+INh
-	0C8Zkqf34d+800icZr3IdEhiXFNwvEZ7RksecBx8kaFE3hgpLVz+fKCdcQZ+35Vw4wcgU1nBkWw
-	v6BSoV1ELByodc4sRVlbMmUGXq2zyH9F8b+PU7HG8bjkrdRmo+WomgxgDxDQibKnDazVaGi2HcT
-	AOcIhUM1ZoGbkmp0HzWZ/wXvPmL/OY/yXUAqF94Ug1gjYNw9RRqLXBn3LTz5EMJsdbkV5b5emZm
-	uhGQvH1fhRUG+hWs4ZYuCJCBqFSV39wC2S9EgfTPV4VfsXDY8x4K9ykU=
-X-Received: by 2002:a2e:a54d:0:b0:3a3:74b9:8a77 with SMTP id
- 38308e7fff4ca-3a5a51d1316mr5420091fa.16.1789135118445; Fri, 11 Sep 2026
- 06:58:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="TfDfx0Ki"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=NUjN4B4f7lGZ0KhNS6XMFk8J0whNkOXMOPXQ3kaf6lc=; b=TfDfx0KimNdWpbzcT+1nHoreWq
+	k2ETKfEy4meSWlDd9bnTuSRZxGViWyaTTh2bgtAIjk7pHynVaZjo3PZVwYKGz8rtteKmPkpx4KdeB
+	8TV7drQ0eo79j5FAVnz//7Z4lSM76YWHVJwcFpm0/aXuy+SBOuHAoFskdfwPBzdZ2+oNIa8Yv7pm0
+	hSVp+0HPnT2Db4+an24NFZjt1mKaT00Q0vgWOuEM+Wf58w6gm+j360WSPCceabNu2IhhX662wU6SL
+	PuhzuZpiyRkr+AEgU6Zh1WUy7wpBtqN8UqC7EPJEGe3VwJYJuI2YCfXgvQ0YmTZ+l/5airPDkW7IR
+	jETV7bxw==;
+Received: from 113.red-79-144-92.dynamicip.rima-tde.net ([79.144.92.113] helo=[192.168.1.210])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1x51m2-000hUv-IU; Fri, 11 Sep 2026 15:58:38 +0200
+Message-ID: <48a67b88-7ad8-4764-bab0-c226e9247dda@igalia.com>
+Date: Fri, 11 Sep 2026 15:58:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909125842.528340-1-festevam@gmail.com> <20260909125842.528340-3-festevam@gmail.com>
- <20260909164339.7252469b.michal.pecio@gmail.com>
-In-Reply-To: <20260909164339.7252469b.michal.pecio@gmail.com>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Fri, 11 Sep 2026 10:58:27 -0300
-X-Gm-Features: AcwNN1Xun7EaOLsaQG84F5_Fc8OiEmhbwXmVCCU5E7N0Id-pN0oZLYQbqB7PQyA
-Message-ID: <CAOMZO5DfPToSOqi4CW8ETAVkU0RXTr=eyyOqLwkFC8CjhKkoeA@mail.gmail.com>
-Subject: Re: [PATCH 3/3] usb: xhci-pci: Put PWRON_POLARITY on a defined state
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: gregkh@linuxfoundation.org, mathias.nyman@intel.com, 
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	parth.pancholi@toradex.com, francesco.dolcini@toradex.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] drm: Fix drm_pending_vblank_event leak in error path
+ for out_fence_ptr
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, sashiko-bot@kernel.org
+References: <20260826-drm_pending_vblank_event_leak-v4-1-f8de8b996b9d@igalia.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <20260826-drm_pending_vblank_event_leak-v4-1-f8de8b996b9d@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Michal,
 
-On Wed, Sep 9, 2026 at 11:43=E2=80=AFAM Michal Pecio <michal.pecio@gmail.co=
-m> wrote:
+
+On 26/08/2026 13:46, Thadeu Lima de Souza Cascardo wrote:
+> When an out_fence_ptr is provided but DRM_MODE_PAGE_FLIP_EVENT is not
+> set, a drm_pending_vblank_event will be allocated. If later, there is an
+> allocation failure or another failure at setup_out_fence(), that event
+> will not have base.fence set and it will not be released at
+> complete_signaling().
 >
-> On Wed,  9 Sep 2026 09:58:42 -0300, Fabio Estevam wrote:
-> > Currently, TUSB73X0_PWRON_POLARITY is set when the
-> > "ti,pwron-active-high" is present.
-> >
-> > However, when "ti,pwron-active-high" is absent, its status could have
-> > been set previously by a bootloader or by a previous running kernel.
+> Release the event and set crtc_state->event to NULL just like in the
+> DRM_MODE_PAGE_FLIP_EVENT case when there is a failure at
+> drm_event_reserve_init(). That is, prepare_signaling() releases the
+> event and there is nothing to be done at complete_signaling(). Use
+> drm_event_cancel_free() as that will also undo drm_event_reserve_init()
+> in case it has been called.
+
+LGTM. Thanks!
+
+Reviewed-by: Melissa Wen <mwen@igalia.com>
+
 >
-> or by EEPROM.
+> Reported-by: sashiko-bot@kernel.org
+> Closes: https://sashiko.dev/#/patchset/20260727-drm_crtc_atomic_commit_leak-v1-1-23d9948a9d7c@igalia.com?part=1
+> Fixes: 92c715fca907 ("drm/atomic: Fix double free in drm_atomic_state_default_clear")
+> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> ---
+> Changes in v4:
+> - Rename label to err_free_event.
+> - Use crtc_state->event instead of a local variable e.
+> - Link to v3: https://patch.msgid.link/20260817-drm_pending_vblank_event_leak-v3-1-7582b24447d0@igalia.com
 >
-> Do they bother to put the chip in a wrong, non-default state at boot?
+> Changes in v3:
+> - Use a label for the common exit pattern.
+> - Link to v2: https://patch.msgid.link/20260729-drm_pending_vblank_event_leak-v2-1-a5074aae07df@igalia.com
+>
+> Changes in v2:
+> - Fix UAF when DRM_MODE_PAGE_FLIP_EVENT is used.
+> - Link to v1: https://patch.msgid.link/20260728-drm_pending_vblank_event_leak-v1-1-08429b920b16@igalia.com
+> ---
+>   drivers/gpu/drm/drm_atomic_uapi.c | 13 ++++++++++---
+>   1 file changed, 10 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+> index ae7667d1072d..8c0eea2fed4a 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -1458,10 +1458,12 @@ static int prepare_signaling(struct drm_device *dev,
+>   			struct dma_fence *fence;
+>   			struct drm_out_fence_state *f;
+>   
+> +			ret = -ENOMEM;
+> +
+>   			f = krealloc(*fence_state, sizeof(**fence_state) *
+>   				     (*num_fences + 1), GFP_KERNEL);
+>   			if (!f)
+> -				return -ENOMEM;
+> +				goto err_free_event;
+>   
+>   			memset(&f[*num_fences], 0, sizeof(*f));
+>   
+> @@ -1470,12 +1472,12 @@ static int prepare_signaling(struct drm_device *dev,
+>   
+>   			fence = drm_crtc_create_fence(crtc);
+>   			if (!fence)
+> -				return -ENOMEM;
+> +				goto err_free_event;
+>   
+>   			ret = setup_out_fence(&f[(*num_fences)++], fence);
+>   			if (ret) {
+>   				dma_fence_put(fence);
+> -				return ret;
+> +				goto err_free_event;
+>   			}
+>   
+>   			crtc_state->event->base.fence = fence;
+> @@ -1531,6 +1533,11 @@ static int prepare_signaling(struct drm_device *dev,
+>   	}
+>   
+>   	return 0;
+> +
+> +err_free_event:
+> +	drm_event_cancel_free(dev, &crtc_state->event->base);
+> +	crtc_state->event = NULL;
+> +	return ret;
+>   }
+>   
+>   static void complete_signaling(struct drm_device *dev,
+>
+> ---
+> base-commit: 4d4be202165e832d74849b4a68e289a2a377039c
+> change-id: 20260728-drm_pending_vblank_event_leak-a36cedb296ba
+>
+> Best regards,
+> --
+> Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+>
 
-I was working on a hardware bring-up with the TUSB7320, and I never
-saw it happen.
-
-Since this is more theoretical, let's discard patches 2 and 3 for now.
-
-I'll resend only the first patch of this series.
