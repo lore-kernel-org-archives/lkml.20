@@ -1,365 +1,432 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BA6FB35F8D2;
-	Fri, 11 Sep 2026 15:09:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE0462F60B2;
+	Fri, 11 Sep 2026 15:10:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139394; cv=none; b=mUMgyrO/ZtUSxp7C1euJcGaHc1JrCnVfmGlGf3De9W69/8NEKWNCVZIkX7WxRuzE65z8VHaQKuwRCB0nHJ6wOlbt93cBKgdpKN4DkHkVneMLKc9Bea+QoUPDcIiE9u4Xy54LinkgmrjYXvm1xXXiuWuEFjg7YyiTLcsHAxDIQqA=
+	t=1789139402; cv=none; b=E1pjcOgxpZTovmLGxSwETC2uKV8+q4nPZXrJ3kmnGMk7zYX/miUYzZ2K1XmyXEkznt+dLJ9jd5NVH8tvdpGlwJ1xDVnPuevRdYUO2F4wkdeS0OoqWCJww1cQJRvDbJfXghaoCR5fy0XPim7ueAFVr4RVxCUEzq81sOhJhd3jyiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139394; c=relaxed/simple;
-	bh=sbQft3RiYwiBnRwgWP9qJj4nzj3aI7MtQq3JJdfFVuQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jwu5VaYOAzZsaGhhLRuKr7NFOGUTtHgSbzTOOkuBX2vdpJ4cvxT5NBofR2aKT80GrHzTAJHYFLu/f1Ys7QR3tp6NzECcMeJvZfZc1F6GG765fSiq0NqhCrrqQnUJPCfCMQYz+S3vV9E7d4tL4kg8W4PHvpcjY/0wxBU4jyuIGQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Hv4BaVby; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789139402; c=relaxed/simple;
+	bh=NEbPSZ2t00eU18Z5kxCrMQCqugRoIk0GDnvLDMI8x/8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GC0LkJWhBpOmSgc761V8M1j4OxbQyeUwl1vQNmCgfUlA98eHzeSlGIZSswXfUQ1W0QIozlvArvrBKnei6XQzpeCLI48Y3/F2VePPKdon+uxQGeON10y+PVqV2hsIBZI0laBAeOLwmumyuBuAcjiid8BC0EMHK8mE2JVFp1PPp7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AMkcoDsT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Hv4BaVby"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1FA4216A3;
-	Fri, 11 Sep 2026 08:09:48 -0700 (PDT)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 570493F8C6;
-	Fri, 11 Sep 2026 08:09:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789139391; bh=sbQft3RiYwiBnRwgWP9qJj4nzj3aI7MtQq3JJdfFVuQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Hv4BaVbyI+lFkOT0vJWMuWoemhDJT0YwsHsemeHvYTgt3SNX2YbDzi+mrxx6z7/sM
-	 gb3cbrg+LJJXL3jMEzVKcd08htjVam5esGnqMIMC/ICwZAhs5irs8YBSRX+WyvRKEO
-	 oRiiM6Ze5/xd796FFljM/IaazilMMOXlgDJqdfWE=
-Message-ID: <3e7bdafd-d6ea-422c-82ff-e278a17280ff@arm.com>
-Date: Fri, 11 Sep 2026 16:09:48 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AMkcoDsT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91E151F000FF;
+	Fri, 11 Sep 2026 15:09:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789139400;
+	bh=OZM5g0rSgwoNM6soW2oPcrS1vpn8S3mwVUqbQA7qr34=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AMkcoDsThp6Kp6zr/xdcXcsyslcanXAulZRLL33UUkq1kKY8UO5zBKCSooqpUwhT2
+	 KINgu3P/IRe4Tij8ksdF7V0GRVaKGq344q/tw/pr0LZ9Di3/X3f3NC7ZgRmVSKIhGz
+	 jsROJGEMwvuOpxxK7mMxbXPl1OtUMDdOWP8rMcxMIoFpX2YC+cAzA0aDTdgyyWPmIv
+	 VyChy5FgjUbaiaA9I+Oh5kdMMVscMgTfQDhfvO3Nl0xUXdBOyC8PTYYzFYaMbdc3w2
+	 XxlXDH63hSDMP7guUg6SLvu4bBcbnS3XFgHC+wQpf8bJ0U31nS5WG1zjMfRyOGbZqc
+	 4pwshBpJsXesQ==
+Date: Fri, 11 Sep 2026 16:09:53 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+	Alex Huang <Alex.Huang2@amd.com>, Alex Hung <alex.hung@amd.com>,
+	Alvin Lee <Alvin.Lee2@amd.com>,
+	Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+	Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
+	Dillon Varone <Dillon.Varone@amd.com>,
+	"Dr. David Alan Gilbert" <linux@treblig.org>,
+	Fangzhi Zuo <jerry.zuo@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
+	Harry Wentland <harry.wentland@amd.com>,
+	Ivan Lipski <ivan.lipski@amd.com>, James Lin <pinglei.lin@amd.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Maarten Lankhorst <dev@lankhorst.se>,
+	Mario Limonciello <superm1@kernel.org>,
+	Michel =?iso-8859-1?Q?D=E4nzer?= <mdaenzer@redhat.com>,
+	Ray Wu <ray.wu@amd.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Satyajit Roy <sroy14@alum.utk.edu>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
+	Tomasz =?utf-8?Q?Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>,
+	Tom Chung <chiahsuan.chung@amd.com>,
+	Wenjing Liu <wenjing.liu@amd.com>,
+	YiPeng Chai <YiPeng.Chai@amd.com>
+Subject: Re: linux-next: manual merge of the amdgpu tree with the
+ drm-misc,drm-fixes tree
+Message-ID: <b727a292-7d88-457f-ad7f-e0149d9777ab@sirena.org.uk>
+References: <aqQBUuTVpgnTkQ8k@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 12/14] arm_mpam: detect and enable MPAM-Fb PCC support
-To: Andre Przywara <andre.przywara@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Hanjun Guo
- <guohanjun@huawei.com>, Sudeep Holla <sudeep.holla@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- James Morse <james.morse@arm.com>,
- Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu <fenghuay@nvidia.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
- Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
- Ganapatrao Kulkarni <ganapatrao.kulkarni@oss.qualcomm.com>,
- Trilok Soni <tsoni@quicinc.com>, Srinivas Ramana <sramana@qti.qualcomm.com>,
- Niyas Sait <niyas.sait@arm.com>, Lee Trager <lee@trager.us>,
- Ritwick Sharma <ritwick.sharma@arm.com>, Gavin Shan <gshan@redhat.com>,
- linux-acpi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260911112835.714162-1-andre.przywara@arm.com>
- <20260911112835.714162-13-andre.przywara@arm.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20260911112835.714162-13-andre.przywara@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="0mf8J3IckdF05zKY"
+Content-Disposition: inline
+In-Reply-To: <aqQBUuTVpgnTkQ8k@sirena.org.uk>
+X-Cookie: Piece of cake!
 
-Hi Andre,
 
-On 11/09/2026 12:28, Andre Przywara wrote:
-> The Arm MPAM-Fb specification [1] describes a protocol to access MSC
-> registers through a firmware interface. This requires a shared memory
-> region to hold the message, and a mailbox to trigger the access.
-> For ACPI this is wrapped as a PCC channel, described using existing
-> ACPI abstractions.
-> 
-> Add code to parse those PCC table descriptions associated with an MSC,
-> and store the parsed information in the MSC struct.
-> There can be multiple PCC channels, and each channel can serve multiple
-> MSCs, so we need to keep track of the channel usage, using a list and
-> a refcount.
-> 
-> This will be used by the MPAM-Fb access wrapper code.
-> 
-> [1] https://developer.arm.com/documentation/den0144/latest
-> 
-> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-> Tested-by: Ritwick Sharma <ritwick.sharma@arm.com> # on Arm AGI CPU
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> Tested-by: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
-> Reviewed-by: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
-> Reviewed-by: Gavin Shan <gshan@redhat.com>
-> ---
->  drivers/resctrl/Kconfig         |   1 +
->  drivers/resctrl/mpam_devices.c  | 119 +++++++++++++++++++++++++++++++-
->  drivers/resctrl/mpam_fb.c       |  41 +++++++++++
->  drivers/resctrl/mpam_internal.h |   2 +
->  4 files changed, 161 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/resctrl/Kconfig b/drivers/resctrl/Kconfig
-> index 9591d792736e5..3f81638f57be3 100644
-> --- a/drivers/resctrl/Kconfig
-> +++ b/drivers/resctrl/Kconfig
-> @@ -2,6 +2,7 @@ menuconfig ARM64_MPAM_DRIVER
->  	bool "MPAM driver"
->  	depends on ARM64 && ARM64_MPAM
->  	select ACPI_MPAM if ACPI
-> +	select PCC if ACPI
->  	select MAILBOX
->  	help
->  	  Memory System Resource Partitioning and Monitoring (MPAM) driver for
-> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-> index 14dc8461e4b8f..150a529458388 100644
-> --- a/drivers/resctrl/mpam_devices.c
-> +++ b/drivers/resctrl/mpam_devices.c
-> @@ -20,14 +20,19 @@
->  #include <linux/irqdesc.h>
->  #include <linux/list.h>
->  #include <linux/lockdep.h>
-> +#include <linux/mailbox_client.h>
->  #include <linux/mutex.h>
->  #include <linux/platform_device.h>
->  #include <linux/printk.h>
-> +#include <linux/property.h>
->  #include <linux/srcu.h>
->  #include <linux/spinlock.h>
->  #include <linux/types.h>
->  #include <linux/workqueue.h>
->  
-> +#include <acpi/pcc.h>
-> +#include <acpi/acpi_io.h>
-> +
->  #include "mpam_internal.h"
->  
->  /* Values for the T241 errata workaround */
-> @@ -50,6 +55,87 @@ static LIST_HEAD(mpam_all_msc);
->  
->  struct srcu_struct mpam_srcu;
->  
-> +/* PCC channels might be serving multiple MSCs, so keep a refcounted list. */
-> +static DEFINE_MUTEX(pcc_chan_list_lock);
-> +static LIST_HEAD(pcc_chan_list);
-> +
-> +static void mpam_pcc_chan_release(struct kref *ref)
-> +{
-> +	struct mpam_pcc_chan *cur = container_of(ref, struct mpam_pcc_chan,
-> +						 refcount);
-> +
-> +	pcc_mbox_free_channel(cur->pcc_chan);
-> +	list_del(&cur->pcc_chans);
-> +	mutex_destroy(&cur->pcc_chan_lock);
-> +	kfree(cur);
-> +}
-> +
-> +static struct mpam_pcc_chan *mpam_pcc_chan_get(struct device *dev,
-> +					       int subspace_id)
-> +{
-> +	struct mpam_pcc_chan *cur;
-> +
-> +	guard(mutex)(&pcc_chan_list_lock);
-> +
-> +	list_for_each_entry(cur, &pcc_chan_list, pcc_chans) {
-> +		if (cur->subspace_id == subspace_id) {
-> +			kref_get(&cur->refcount);
-> +
-> +			return cur;
-> +		}
-> +	}
-> +
-> +	cur = kzalloc_obj(*cur);
-> +	if (!cur)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	cur->pcc_cl.tx_block = true;
-> +
-> +	cur->pcc_chan = pcc_mbox_request_channel(&cur->pcc_cl, subspace_id);
-> +	if (IS_ERR(cur->pcc_chan)) {
-> +		long err = PTR_ERR(cur->pcc_chan);
-> +
-> +		kfree(cur);
-> +		return ERR_PTR(err);
-> +	}
-> +
-> +	/*
-> +	 * Timeout based on the "nominal latency" in us, from the
-> +	 * PCC ACPI table. tx_tout is in ms.
-> +	 * Add some margin here to be on the safe side.
-> +	 */
-> +	cur->pcc_cl.tx_tout = DIV_ROUND_UP(cur->pcc_chan->latency * 5, 1000);
-> +
-> +	mutex_init(&cur->pcc_chan_lock);
-> +
-> +	cur->subspace_id = subspace_id;
-> +	kref_init(&cur->refcount);
-> +
-> +	list_add_tail(&cur->pcc_chans, &pcc_chan_list);
-> +
-> +	return cur;
-> +}
-> +
-> +static int mpam_pcc_chan_put(struct mpam_pcc_chan *pcc_chan)
-> +{
-> +	struct mpam_pcc_chan *cur, *tmp;
-> +
-> +	if (!pcc_chan)
-> +		return 0;
-> +
-> +	guard(mutex)(&pcc_chan_list_lock);
-> +
-> +	list_for_each_entry_safe(cur, tmp, &pcc_chan_list, pcc_chans) {
-> +		if (cur == pcc_chan) {
-> +			kref_put(&cur->refcount, mpam_pcc_chan_release);
-> +
-> +			return 0;
-> +		}
-> +	}
-> +
-> +	return -ENOENT;
-> +}
-> +
->  /*
->   * Number of MSCs that have been probed. Once all MSCs have been probed MPAM
->   * can be enabled.
-> @@ -2285,6 +2371,8 @@ static void mpam_msc_drv_remove(struct platform_device *pdev)
->  	if (!msc)
->  		return;
->  
-> +	mpam_pcc_chan_put(msc->pcc_chan);
-> +
->  	mutex_lock(&mpam_list_lock);
->  	mpam_msc_destroy(msc);
->  	mutex_unlock(&mpam_list_lock);
-> @@ -2295,7 +2383,7 @@ static void mpam_msc_drv_remove(struct platform_device *pdev)
->  static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
->  {
->  	int err;
-> -	u32 tmp;
-> +	u32 pcc_subspace_id;
->  	struct mpam_msc *msc;
->  	struct resource *msc_res;
->  	struct device *dev = &pdev->dev;
-> @@ -2339,7 +2427,7 @@ static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
->  	if (err)
->  		return ERR_PTR(err);
->  
-> -	if (device_property_read_u32(&pdev->dev, "pcc-channel", &tmp))
-> +	if (device_property_read_u32(dev, "pcc-channel", &pcc_subspace_id))
->  		msc->iface = MPAM_IFACE_MMIO;
->  	else
->  		msc->iface = MPAM_IFACE_PCC;
-> @@ -2360,6 +2448,33 @@ static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
->  		}
->  		msc->mapped_hwpage_sz = msc_res->end - msc_res->start;
->  		msc->mapped_hwpage = io;
-> +	} else if (msc->iface == MPAM_IFACE_PCC) {
-> +		u32 mpam_fb_msc_id;
-> +
-> +		msc->pcc_chan = mpam_pcc_chan_get(dev, pcc_subspace_id);
-> +		if (IS_ERR(msc->pcc_chan)) {
-> +			pr_err("Failed to request MSC PCC channel\n");
-> +			return ERR_CAST(msc->pcc_chan);
-> +		}
-> +
-> +		err = mpam_fb_check_shared_buffer_size(msc);
-> +		if (err) {
-> +			mpam_pcc_chan_put(msc->pcc_chan);
-> +
-> +			return ERR_PTR(err);
-> +		}
-> +
-> +		err = mpam_fb_check_protocol_version(msc);
-> +		if (err) {
-> +			mpam_pcc_chan_put(msc->pcc_chan);
-> +
-> +			return ERR_PTR(err);
-> +		}
-> +
-> +		if (device_property_read_u32(&pdev->dev, "mpam-fb-msc-id",
-> +					     &mpam_fb_msc_id))
-> +			mpam_fb_msc_id = msc->id;
-> +		msc->mpam_fb_msc_id = mpam_fb_msc_id;
+--0mf8J3IckdF05zKY
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-This looks like the change earlier in the series to drivers/acpi/arm64/mpam.c makes no functional
-effect unless the proposed spec changes are accepted; the default is msc->id. I'd just move the
-earlier drivers/acpi/arm64/mpam.c to your last patch and introduce this device_property_read_u32()
-their too (or a separate patch if it's easier for anyone). That way all but the last two patches can
-be considered for merging without knowing what's going to happen with the spec.
+On Fri, Sep 11, 2026 at 02:25:38PM +0100, Mark Brown wrote:
+> Hi all,
+>=20
+> Today's linux-next merge of the amdgpu tree got conflicts in:
+>=20
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
+>   drivers/gpu/drm/amd/display/dc/clk_mgr/dcn60/dcn60_clk_mgr.c
 
-The struct msc property mpam_fb_msc_id is a bit long. Better as msc->fb_id?
+*sigh*  This isn't the right fixup in a similar way to what happened
+earlier this week.  In this case it looks like whatever you are doing
+has massively confused git too, there's horrible messes in files that
+didn't show up as needing merge resolutions.  I've done something that
+builds but I'm confident it doesn't work, especially given that it's
+layered on top of the cleanup of the earlier fallout which I'm also
+confident didn't work.
 
-Thanks,
+Please, could you have a look at your processes so that you are not
+continually introducing noisy conflicts with your own work so that when
+there is an actual conflict like seems to be happening here it's
+actually visible when doing the resolution rather than showing up as
+build failures like this. =20
 
-Ben
+One thing that would be very helpful if you have a super invasive change
+would be to actively merge up branches that conflict so they're not so
+visible externally, this looks a lot like something we went through the
+entire last release cycle with *huge* conflicts caused by splitting up a
+big file needing to be redone every time either your fixes or new work
+touched that file, when there's a change in a conflict I have to redo
+the whole merge.
 
->  	} else {
->  		return ERR_PTR(-EINVAL);
->  	}
-> diff --git a/drivers/resctrl/mpam_fb.c b/drivers/resctrl/mpam_fb.c
-> index 98212f761de38..8fc1d78a7b5ab 100644
-> --- a/drivers/resctrl/mpam_fb.c
-> +++ b/drivers/resctrl/mpam_fb.c
-> @@ -20,10 +20,15 @@
->  #define MPAM_FB_PROTOCOL_ID		0x1a
->  
->  #define MPAM_PROTOCOL_VERSION_CMD	0x0
-> +#define MPAM_FB_VERSION_MAJOR_MASK		GENMASK_U32(31, 16)
-> +#define MPAM_FB_VERSION_MINOR_MASK		GENMASK_U32(15, 0)
-> +
->  #define MPAM_MSC_READ_CMD		0x4
->  #define MPAM_MSC_WRITE_CMD		0x5
->  
->  #define MPAM_FB_PROT_HEADER_LEN		sizeof(u32)
-> +/* The longest message is MPAM_MSC_WRITE, with 4 parameters. */
-> +#define MPAM_FB_MAX_MSG_SIZE		(4 * sizeof(u32))
->  
->  #define MPAM_FB_SUCCESS		 0
->  #define MPAM_FB_ERR_NOT_SUPPORTED	-1
-> @@ -209,3 +214,39 @@ int mpam_fb_send_write_request(struct mpam_msc *msc, u16 reg, u32 value)
->  	return mpam_fb_send_request(msc, msc->mpam_fb_msc_id, reg, &value,
->  				    MPAM_MSC_WRITE_CMD);
->  }
-> +
-> +/* We only support MPAM-Fb protocol version 1.x */
-> +int mpam_fb_check_protocol_version(struct mpam_msc *msc)
-> +{
-> +	u32 version;
-> +	int ret;
-> +
-> +	ret = mpam_fb_send_request(msc, 0, 0, &version,
-> +				   MPAM_PROTOCOL_VERSION_CMD);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (FIELD_GET(MPAM_FB_VERSION_MAJOR_MASK, version) != 1) {
-> +		pr_err("Incompatible MPAM-Fb protocol version %d.%d\n",
-> +		       FIELD_GET(MPAM_FB_VERSION_MAJOR_MASK, version),
-> +		       FIELD_GET(MPAM_FB_VERSION_MINOR_MASK, version));
-> +
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +int mpam_fb_check_shared_buffer_size(struct mpam_msc *msc)
-> +{
-> +	int min_buffer_size = MPAM_FB_MAX_MSG_SIZE +
-> +			      sizeof(struct acpi_pcct_ext_pcc_shared_memory);
-> +
-> +	if (msc->pcc_chan->pcc_chan->shmem_size < min_buffer_size) {
-> +		pr_err("MPAM-Fb PCC channel size too small.\n");
-> +
-> +		return -ENOMEM;
-> +	}
-> +
-> +	return 0;
-> +}
-> diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
-> index e5a2804facd2d..314d3b48ca9fd 100644
-> --- a/drivers/resctrl/mpam_internal.h
-> +++ b/drivers/resctrl/mpam_internal.h
-> @@ -538,6 +538,8 @@ static inline void mpam_resctrl_teardown_class(struct mpam_class *class) { }
->  /* MPAM-Fb Firmware-backed protocol wrappers */
->  int mpam_fb_send_read_request(struct mpam_msc *msc, u16 reg, u32 *result);
->  int mpam_fb_send_write_request(struct mpam_msc *msc, u16 reg, u32 value);
-> +int mpam_fb_check_protocol_version(struct mpam_msc *msc);
-> +int mpam_fb_check_shared_buffer_size(struct mpam_msc *msc);
->  
->  /*
->   * MPAM MSCs have the following register layout. See:
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 2db5fd0e72d16..0c19188df3755 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2941,7 +2941,7 @@ STATIC_IFN_KUNIT bool modereset_required(struct drm_c=
+rtc_state *crtc_state)
+ EXPORT_IF_KUNIT(modereset_required);
+=20
+ STATIC_IFN_KUNIT int
+-fill_plane_color_attributes(struct drm_atomic_commit *state,
++fill_plane_color_attributes(const struct drm_atomic_commit *state,
+ 			    const struct drm_plane_state *plane_state,
+ 			    const enum surface_pixel_format format,
+ 			    enum dc_color_space *color_space)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 27753bf50b706..256d2c0e5fba3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -1242,7 +1242,8 @@ bool update_planes_and_stream_adapter(struct dc *dc,
+ 				      struct dc_stream_state *stream,
+ 				      struct dc_stream_update *stream_update,
+ 				      struct dc_surface_update *array_of_surface_update);
+-int fill_plane_color_attributes(const struct drm_plane_state *plane_state,
++int fill_plane_color_attributes(const struct drm_atomic_commit *state,
++				const struct drm_plane_state *plane_state,
+ 				const enum surface_pixel_format format,
+ 				enum dc_color_space *color_space);
+ bool modereset_required(struct drm_crtc_state *crtc_state);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index d3d362a99674e..d76ebf145dfc3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -3666,42 +3666,6 @@ STATIC_IFN_KUNIT bool parse_edid_cea_dmcu(struct amd=
+gpu_display_manager *dm,
+ 		u8 *edid_ext, int len,
+ 		struct amdgpu_hdmi_vsdb_info *vsdb_info)
+ {
+-	int i;
+-
+-	/* send extension block to DMCU for parsing */
+-	for (i =3D 0; i < len; i +=3D 8) {
+-		bool res;
+-		int offset;
+-
+-		/* send 8 bytes a time */
+-		if (!dc_edid_parser_send_cea(dm->dc, i, len, &edid_ext[i], 8))
+-			return false;
+-
+-		if (i+8 =3D=3D len) {
+-			/* EDID block sent completed, expect result */
+-			int version, min_rate, max_rate;
+-
+-			res =3D dc_edid_parser_recv_amd_vsdb(dm->dc, &version, &min_rate, &max_=
+rate);
+-			if (res) {
+-				/* amd vsdb found */
+-				vsdb_info->freesync_supported =3D 1;
+-				vsdb_info->amd_vsdb_version =3D version;
+-				vsdb_info->min_refresh_rate_hz =3D min_rate;
+-				vsdb_info->max_refresh_rate_hz =3D max_rate;
+-				/* Not enabled on DMCU*/
+-				vsdb_info->freesync_mccs_vcp_code =3D 0;
+-				return true;
+-			}
+-			/* not amd vsdb */
+-			return false;
+-		}
+-
+-		/* check for ack*/
+-		res =3D dc_edid_parser_recv_cea_ack(dm->dc, &offset);
+-		if (!res)
+-			return false;
+-	}
+-
+ 	return false;
+ }
+ EXPORT_IF_KUNIT(parse_edid_cea_dmcu);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connecto=
+r_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_=
+test.c
+index 8107be27d324e..19ead11b5e73c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -6140,57 +6140,16 @@ static bool dm_test_dmcu_is_init(struct dmcu *dmcu)
+ 	return true;
+ }
+=20
+-static bool dm_test_dmcu_send_cea(struct dmcu *dmcu, int offset,
+-				  int total_length, u8 *data, int length)
+-{
+-	return true;
+-}
+-
+-static bool dm_test_dmcu_recv_ack_ok(struct dmcu *dmcu, int *offset)
+-{
+-	*offset =3D 0;
+-	return true;
+-}
+-
+-static bool dm_test_dmcu_recv_ack_fail(struct dmcu *dmcu, int *offset)
+-{
+-	return false;
+-}
+-
+-static bool dm_test_dmcu_recv_vsdb_found(struct dmcu *dmcu, int *version,
+-					 int *min_frame_rate, int *max_frame_rate)
+-{
+-	*version =3D 2;
+-	*min_frame_rate =3D 24;
+-	*max_frame_rate =3D 60;
+-	return true;
+-}
+-
+-static bool dm_test_dmcu_recv_vsdb_none(struct dmcu *dmcu, int *version,
+-					int *min_frame_rate, int *max_frame_rate)
+-{
+-	return false;
+-}
+-
+ static const struct dmcu_funcs dm_test_dmcu_funcs_vsdb =3D {
+ 	.is_dmcu_initialized =3D dm_test_dmcu_is_init,
+-	.send_edid_cea =3D dm_test_dmcu_send_cea,
+-	.recv_edid_cea_ack =3D dm_test_dmcu_recv_ack_ok,
+-	.recv_amd_vsdb =3D dm_test_dmcu_recv_vsdb_found,
+ };
+=20
+ static const struct dmcu_funcs dm_test_dmcu_funcs_novsdb =3D {
+ 	.is_dmcu_initialized =3D dm_test_dmcu_is_init,
+-	.send_edid_cea =3D dm_test_dmcu_send_cea,
+-	.recv_edid_cea_ack =3D dm_test_dmcu_recv_ack_ok,
+-	.recv_amd_vsdb =3D dm_test_dmcu_recv_vsdb_none,
+ };
+=20
+ static const struct dmcu_funcs dm_test_dmcu_funcs_ackfail =3D {
+ 	.is_dmcu_initialized =3D dm_test_dmcu_is_init,
+-	.send_edid_cea =3D dm_test_dmcu_send_cea,
+-	.recv_edid_cea_ack =3D dm_test_dmcu_recv_ack_fail,
+-	.recv_amd_vsdb =3D dm_test_dmcu_recv_vsdb_none,
+ };
+=20
+ /*
+@@ -6295,37 +6254,6 @@ static void dm_test_parse_cea_dmcu_empty(struct kuni=
+t *test)
+  */
+ static void dm_test_parse_cea_dmcu_no_dmcu(struct kunit *test)
+ {
+-	struct amdgpu_display_manager *dm =3D dm_test_alloc_dm_dmcu(test, NULL);
+-	struct amdgpu_hdmi_vsdb_info vsdb =3D {0};
+-	u8 ext[DMUB_EDID_CEA_DATA_CHUNK_BYTES] =3D {0};
+-	bool ret;
+-
+-	/* res_pool->dmcu is NULL, so the CEA send returns false. */
+-	ret =3D parse_edid_cea_dmcu(dm, ext, DMUB_EDID_CEA_DATA_CHUNK_BYTES,
+-				  &vsdb);
+-	KUNIT_EXPECT_FALSE(test, ret);
+-}
+-
+-/**
+- * dm_test_parse_cea_dmcu_vsdb_found - Test the DMCU reports an AMD VSDB
+- * @test: KUnit test context
+- */
+-static void dm_test_parse_cea_dmcu_vsdb_found(struct kunit *test)
+-{
+-	struct amdgpu_display_manager *dm =3D
+-		dm_test_alloc_dm_dmcu(test, &dm_test_dmcu_funcs_vsdb);
+-	struct amdgpu_hdmi_vsdb_info vsdb =3D {0};
+-	u8 ext[DMUB_EDID_CEA_DATA_CHUNK_BYTES] =3D {0};
+-	bool ret;
+-
+-	ret =3D parse_edid_cea_dmcu(dm, ext, DMUB_EDID_CEA_DATA_CHUNK_BYTES,
+-				  &vsdb);
+-	KUNIT_EXPECT_TRUE(test, ret);
+-	KUNIT_EXPECT_TRUE(test, vsdb.freesync_supported);
+-	KUNIT_EXPECT_EQ(test, vsdb.amd_vsdb_version, 2);
+-	KUNIT_EXPECT_EQ(test, vsdb.min_refresh_rate_hz, 24);
+-	KUNIT_EXPECT_EQ(test, vsdb.max_refresh_rate_hz, 60);
+-	KUNIT_EXPECT_EQ(test, vsdb.freesync_mccs_vcp_code, 0);
+ }
+=20
+ /**
+@@ -9159,7 +9087,6 @@ static struct kunit_case amdgpu_dm_connector_tests[] =
+=3D {
+ 	KUNIT_CASE(dm_test_send_cea_dmub_unavailable),
+ 	KUNIT_CASE(dm_test_parse_cea_dmcu_empty),
+ 	KUNIT_CASE(dm_test_parse_cea_dmcu_no_dmcu),
+-	KUNIT_CASE(dm_test_parse_cea_dmcu_vsdb_found),
+ 	KUNIT_CASE(dm_test_parse_cea_dmcu_vsdb_none),
+ 	KUNIT_CASE(dm_test_parse_cea_dmcu_multi_chunk),
+ 	KUNIT_CASE(dm_test_parse_cea_dmcu_ack_fail),
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/=
+drm/amd/display/dmub/inc/dmub_cmd.h
+index 45385f9eb8932..58826291827b1 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -1957,6 +1957,10 @@ enum dmub_cmd_type {
+ 	 * Command type used for interfacing with DPIA.
+ 	 */
+ 	DMUB_CMD__DPIA =3D 77,
++        /**
++         * Command type used for EDID CEA parsing
++         */
++        DMUB_CMD__EDID_CEA =3D 79,
+ 	/**
+ 	 * Command type used for getting usbc cable ID
+ 	 */
+@@ -6926,6 +6930,72 @@ struct dmub_rb_cmd_transmitter_set_phy_fsm {
+ 	struct dmub_rb_cmd_transmitter_set_phy_fsm_data data; /**< payload */
+ };
+=20
++/**
++ * Maximum number of bytes a chunk sent to DMUB for parsing
++ */
++#define DMUB_EDID_CEA_DATA_CHUNK_BYTES 8
++
++/**
++ *  Represent a chunk of CEA blocks sent to DMUB for parsing
++ */
++struct dmub_cmd_send_edid_cea {
++        uint16_t offset;        /**< offset into the CEA block */
++        uint8_t length; /**< number of bytes in payload to copy as part of=
+ CEA block */
++        uint16_t cea_total_length;  /**< total length of the CEA block */
++        uint8_t payload[DMUB_EDID_CEA_DATA_CHUNK_BYTES]; /**< data chunk o=
+f the CEA block */
++        uint8_t pad[3]; /**< padding and for future expansion */
++};
++
++/**
++ * Result of VSDB parsing from CEA block
++ */
++struct dmub_cmd_edid_cea_amd_vsdb {
++        uint8_t vsdb_found;             /**< 1 if parsing has found valid =
+AMD VS
++DB */
++        uint8_t freesync_supported;     /**< 1 if Freesync is supported */
++        uint16_t amd_vsdb_version;      /**< AMD VSDB version */
++        uint16_t min_frame_rate;        /**< Maximum frame rate */
++        uint16_t max_frame_rate;        /**< Minimum frame rate */
++        uint8_t freesync_mccs_vcp_code; /**< Freesync MCCS VCP code */
++};
++
++/**
++ * Result of sending a CEA chunk
++ */
++struct dmub_cmd_edid_cea_ack {
++        uint16_t offset;        /**< offset of the chunk into the CEA bloc=
+k */
++        uint8_t success;        /**< 1 if this sending of chunk succeeded =
+*/
++        uint8_t pad;            /**< padding and for future expansion */
++};
++
++/**
++ * Specify whether the result is an ACK/NACK or the parsing has finished
++ */
++enum dmub_cmd_edid_cea_reply_type {
++        DMUB_CMD__EDID_CEA_AMD_VSDB     =3D 1, /**< VSDB parsing has finis=
+hed */
++        DMUB_CMD__EDID_CEA_ACK          =3D 2, /**< acknowledges the CEA s=
+ending i
++s OK or failing */
++};
++
++/**
++ * Definition of a DMUB_CMD__EDID_CEA command.
++ */
++struct dmub_rb_cmd_edid_cea {
++        struct dmub_cmd_header header;  /**< Command header */
++        union dmub_cmd_edid_cea_data {
++                struct dmub_cmd_send_edid_cea input; /**< input to send CE=
+A chun
++ks */
++                struct dmub_cmd_edid_cea_output { /**< output with results=
+ */
++                        uint8_t type;   /**< dmub_cmd_edid_cea_reply_type =
+*/
++                        union {
++                                struct dmub_cmd_edid_cea_amd_vsdb amd_vsdb;
++                                struct dmub_cmd_edid_cea_ack ack;
++                        };
++                } output;       /**< output to retrieve ACK/NACK or VSDB p=
+arsing results */
++        } data; /**< Command data */
++
++};
++
+ /**
+  * struct dmub_cmd_cable_id_input - Defines the input of DMUB_CMD_GET_USBC=
+_CABLE_ID command.
+  */
+@@ -7797,6 +7867,12 @@ union dmub_rb_cmd {
+ 	 * Definition of a DMUB_CMD__DPIA_SET_TPS_NOTIFICATION command.
+ 	 */
+ 	struct dmub_rb_cmd_set_tps_notification set_tps_notification;
++
++        /**
++         * Definition of a DMUB_CMD__EDID_CEA command.
++         */
++        struct dmub_rb_cmd_edid_cea edid_cea;
++
+ 	/**
+ 	 * Definition of a DMUB_CMD_GET_USBC_CABLE_ID command.
+ 	 */
 
+--0mf8J3IckdF05zKY
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqkGcAACgkQJNaLcl1U
+h9CW6gf9GHms+yasklG7FQQzdJducRyDgb1f4HH7nxpZgyUbhJGiDHTkEKvXCPwU
+e0mWbUHFzq8DJg1ZwUKMaf+exp7bmMX7bRDUqMWLKxbRZIx0+Gq8yW/PFOc4/GSc
+jwFwOCbX9nJT7Kcro+jguD7l/P56SSFHxU4LCNtjXvfkRcCbNznzpSk3D11yVedh
+atA2pha5swCG2TGPgf/KKWkg+ISZgbL2p9mfo1LtvueqkrVRjk0DAuhuZzTZtlKi
+lI1vbxaQtJN1x0WHJmaapThL4ONZ3/onawq30qhtgP88ZrmMlmM06K0Bp0VYF7xB
++OHej55NVBSqZ7uijuiHD3QIGt1Lkg==
+=BtXi
+-----END PGP SIGNATURE-----
+
+--0mf8J3IckdF05zKY--
