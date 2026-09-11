@@ -1,65 +1,63 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012004.outbound.protection.outlook.com [40.107.209.4])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010014.outbound.protection.outlook.com [52.101.84.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89494485949;
-	Fri, 11 Sep 2026 16:04:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C29B49B5DE;
+	Fri, 11 Sep 2026 16:05:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.14
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789142696; cv=fail; b=QdmogfMvnV6mjrv1+KsAxKIYBIhdZIPAe7LtpQICCdBcDEz50tgnvAbsSVVNl+bUscsYKh8H4aTpQ6qNi2X55+OIlcuJx7xq6MToHYrvxj0ZRD/GCxCcDJcBggUTH4qcOnRwbsvUhdDx+2nkLzL/JEynkm+XQZcjaMlLW740o5M=
+	t=1789142736; cv=fail; b=X9TgHgsWkTj2GN+mK2/tgw7KkHmYy4L2ut32HUGFOsRToc8SkA3pGc0mvMhGqrgVbxdAduZo/nTmYGu2vjCs+OO4omCwIPSe1uiLhUNvuRNdQxTw49Yy5HuWtScC7JD2ZSyfuxeK+MnQJCcu2mmNICadOlPIxfxAP6DGdbMpOGo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789142696; c=relaxed/simple;
-	bh=+tEG7rObBeWGI5I92ZZxFmjEEXvPX0+vRfxjGgNtYVw=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=NvPAWh0EW+QwEpZGF1mbRA3WBUVUtdw9P1yPHMvsqhq/fDBJgttC6CYa1TzZDSqn+KS/htDUH1VJGLyL0ZlMZywgWDy1szF/vqum4IHJsEmKCV/Bp+vd9TG0nU4xnBMGqcwcJwYWxruiojwom3/djXVIgUJyyc0cv4qD5wuLDB8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=12NxZ5hv; arc=fail smtp.client-ip=40.107.209.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1789142736; c=relaxed/simple;
+	bh=dB72pByCh8zenzFAGynHY32cBAypGYyyCY9bKxrIF+w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=cyFhehlLko5MlxCjemGMLJK8I2q6wQNKUcPY2iSRG3ZhBccEzpwvUATqMMhBKOXp4yRnBgMysPPVNmAiIvLFxeYKKq2hbtKuiq5n6LwcgKdj2cCMpsX8/X5ZhLrBfPfN4JDkDaJrFCv7Vi4kuTo/bK+vXhn9yuyQ9ENfT1+zal4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ala70avI; arc=fail smtp.client-ip=52.101.84.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="12NxZ5hv"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ala70avI"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wj630LoCoVTcridZdRayE+V9oBakDxX0URMKfeOksgg5AMd+HWxTxtv0+BzjxOUufnEfZm/Cto/s0WC/0kRzfXuway90dFtO4IwCEvTqq5pqCYifIZfsSb8TDWK0/+hOkIEnTtp7GD4tjh2rD6msbN6sCZBYACBDAqJ7PTzsu1EpELgAsAvg7Q8RuCTWw1BCKkA0Ss0eH2wlphhVVnh6QDt6pAthPdsY3maklZbtHC2TzJTIrxCo+30DlVquNQ66b5iviaeAqeklW50bj0keYo5XuuAMS7N1oPA1nJHmG40TRmykasiLyw5JoEqY97zaFMM6Hc8G44W2x4TB+NSRNg==
+ b=BB3ZG58xVID5N1RVvsHXsnHn1W5mOl8B5R7ooCEMFm8JE/DEzr09GEe4rx7zGcQUc8JqofQsxhuPq6+b01Syyqi1Hgb3HQL7WZSmJQkNppYWzd8/EslriYPC9I5wLy2zw72gM9hX8ZhFQdYNVloSR4EtzM6u9vLXfwBNWxjB9Y0EuzN+hdK5xm/+DfhEJ7FejdaL3eZRK5dWAJZHOUe43ayfE3G+PWEH8xQQcrC6kTn65CSFR++EduFjJqwuxdj4TcPwWDFju6oI9AOm0YxiniFnR7xZe+nOBQ4NDPBZrv9thXcOTPFaa0xCM7NQhY0FUfiM30lIB/8Fi0ohmy4+QA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3Rd2Bke16N5dThj3QtiRrWX+Jfm80NExMjdKoubMoAA=;
- b=LPneIk3hNkvC652pTSOeqMt3wVq3h1Sgs/ehzR+TvMJFqQ762LFFFgCRF8nu257vlva0qaaKtnHoyhQpjhVLlWz0CEhIoHA3VTfKzWqfkgJ3KCJ1WrELFJFg4qmCMYvC8kGK/UsCyEQy4v8v9uzuuG1jUu2CnjO4vKf6ha2W5w8UE9MrvzkBozJaO2BWVPalXzWIYwYU0cCrBLfkQaqkw74uqVJRn2IJEc1VzOsCDkyxQew19Ej6YB2AS37cpcVCp2wXiyGEZBK8F8YajzPLHjLHhczxzqgNhR9qftH6+iXMhu/hPx2/dZXYz1+hxmqqixmxihuDf+5syXkAnldItg==
+ bh=RH38eReygpTu/JWUVqdfYvDd+tV90x+oWIja5IyKJqQ=;
+ b=sGDFSu3XjVdWIGe/c9owIO1hGzQbAgjmlVDzxnryLRPzwZbxwkWUn1Ycc+kDWQTBokmiuHIZlRafUdA0w0Riq11i/LXLGBnOSaZWfMWliRUjth4pUQh9+E2hF21SI4DxyR1Sk9ulfMZcohrsenHeGIupVwkss5T7FIQw1LzkJ1AtrhOA5fIsPje4c3ef7x29Ay/FYH1qhPHJmpew7GGvcA3b/DKu6cAdFsF3rZcD//Qsxrp5URhqwnsrmZN19Dw3dqJirtR6FOJj9T7+QXSL22nkiI/ehio1DPXgL63Vb+9iKG/3ZYOlYkyhBTkEBKnrkqyO2O4q0iufkixGeLz1kA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3Rd2Bke16N5dThj3QtiRrWX+Jfm80NExMjdKoubMoAA=;
- b=12NxZ5hvzFU8PSNZ2pyE3/PTUpQCIKaRc8SSkmMqMGOxBCbAa2vglbJCarHKVOQ+Ei0BXkkrSVuGWbkXjBRV/9wxd6pScWp9xhPlxqqg3w6VAFMIkgIaq6ZJgSbL8PQ57dk3W3M5xrPzp/JBYHmJT1FfUs+dpLo9XHRjTdPIlHU=
+ bh=RH38eReygpTu/JWUVqdfYvDd+tV90x+oWIja5IyKJqQ=;
+ b=ala70avIjMJNHXSOJRL18JFbH8P/Ct9LYR0ik9V0KdIdxLvHRYAKiIJrO0eq7HAjE+LzyLOk8VXOVUcREJWBqIVClDiJnsaKQU4WxEm0eBwso3RkWmYnFL3L7aUZupxKd2KX6wrsRCNgUwUKAOxkUbxuXqdbFGN1LnZrStdP+J10Vz1+Xrrt9AFEIiIzXj+oDEeZEIROfTI8qQ+9jrDRaBuYMvKsuNK+kV+BaPRZmXsE2agv0NDBP2IDStYbIkLY7FqaRjwRyJFFV4f34gFHMtB9ZTSPRyiCzfC4W+LOvkoE6CdNHhChC6Gts89VtUIdim8qYh2m5hhlmv3dvRxBtg==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB6559.namprd12.prod.outlook.com (2603:10b6:8:d1::6) by
- SAWPR12MB999293.namprd12.prod.outlook.com (2603:10b6:806:560::22) with
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GV2PR04MB12632.eurprd04.prod.outlook.com (2603:10a6:150:369::5) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Fri, 11 Sep
- 2026 16:03:29 +0000
-Received: from DS0PR12MB6559.namprd12.prod.outlook.com
- ([fe80::3f99:f532:cf6b:ea46]) by DS0PR12MB6559.namprd12.prod.outlook.com
- ([fe80::3f99:f532:cf6b:ea46%4]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 16:03:28 +0000
-Message-ID: <7f8690bc-17c7-45e7-bacd-a341b2ef0a4b@amd.com>
-Date: Fri, 11 Sep 2026 21:33:21 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] HID: amd_sfh: Validate PCI BAR size before mapping
-To: syzbot <syzbot@kernel.org>, syzkaller-bugs@googlegroups.com,
- Slawomir Stepien <sst@poczta.fm>,
- Basavaraj Natikar <basavaraj.natikar@amd.com>,
- Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>,
- linux-input@vger.kernel.org, Sandeep Singh <sandeep.singh@amd.com>
-Cc: linux-kernel@vger.kernel.org, syzbot@lists.linux.dev
-References: <94704655-d654-4500-8122-b80bea9bd908@mail.kernel.org>
-Content-Language: en-US
-From: Basavaraj Natikar <bnatikar@amd.com>
-In-Reply-To: <94704655-d654-4500-8122-b80bea9bd908@mail.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PEPF000001A8.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c04::e) To DS0PR12MB6559.namprd12.prod.outlook.com
- (2603:10b6:8:d1::6)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 16:05:31 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 16:05:31 +0000
+Date: Fri, 11 Sep 2026 11:05:23 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: dmaengine@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>, Anatolij Gustschin <agust@denx.de>,
+	Yuri Tikhonov <yur@emcraft.com>, Dan Williams <djbw@kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] dmaengine: ppc4xx: check dma_map_page() errors in probe
+Message-ID: <aqQmw0j8-s5DEv9v@SMW015318>
+References: <20260910214334.86689-1-rosenp@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910214334.86689-1-rosenp@gmail.com>
+X-ClientProxiedBy: PH5P220CA0006.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:34a::7) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -67,164 +65,112 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6559:EE_|SAWPR12MB999293:EE_
-X-MS-Office365-Filtering-Correlation-Id: bf890438-df40-4c09-54aa-08df101e37d1
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV2PR04MB12632:EE_
+X-MS-Office365-Filtering-Correlation-Id: 379d7819-9aa8-48a4-754f-08df101e80ed
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|3023799007|10067099003|56012099006|11063799006|22082099003|18002099003;
+	BCL:0;ARA:13230040|23010399003|376014|366016|19092799006|1800799024|22082099003|18002099003|11063799006|56012099006|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	YUc5CHQQLtJR4vP2rdaPiyojGfafNE8HCSKqV4i5gGJwLhmYUqAE6jVL1604VlhX2GxH6l5wEWA1LI7CwxlH6RPwEteORN3JuUkGLbMo45huJXVDvHojAtxM6d/1yBD3RXpl/SrxZNu6bMGgsqc2EV5jRPI9VJsVv5yz7fYQKhcxMwpGH8A7/EwQruSwga6//WUFewKyr6Z+2Wl6YzN6DhUYJH6GDDI+y3gnTa+U1qQNyC56TZsqlk4mfde0l4NhyS3G/4SUH8B33vF8AjLEXm9sO2DkElJpyVCvrnld9TObZczz6Nd4d4BFTuV1W/hGj9Ghc1oF5LnQGbEVC6EIKG3euhRwVyGGRitFqrZV7aSoGM7ZNUVGhFnKGNzTyThbSdFMeJqK8CV4VrnB1XqkdtiEohTnmOSTL2uTFgr113d++fNOEFo5sEBHwF7tJWkd5SsWhOFp4WQaQtfSZK2KEmWoGoYw2GMtMkEPNhAMl4L4HBF+fAuQh27SD4rudPJn043xQy0zSZt8FhaqMKhD8u5o8tRGdXXQZh7XIxLI0jyE7bGDKllOg7PdfT1X3ZxytNTiW6JBWbkgOEUGsz8+aAVVi3IdNkQYTt9Y/OEEQCE=
+	ROD1uOcSC9+vHWkqQyeHtlm4QmHXZuClU2G4HmoCa2j0DlN9HqAalYI/GcqOReCTdTrdTFs6fP49+17sXwz1AqDNTqyBqJqSu95WCwqPatAtrcBh7Wd8Uxg8sTX1S06Tv2hU+B6yX+8O/ucPKS7JFuVPGNjQvSKmLQyQtwrfmCOvQ1Ty9Dy1yPC6paApTykURyrsCV1TcKvnFn6Gq9UIK3WHMirRUdJaknORZzQNulhrqcjvRsDrDU5WtoJABikDsS8olpFtBbb3f/meOyBDxcwVxI8R5+MGl2m8WnIlwTbOhd3yevB5wAlEykC+ur9Fw1vHYBhrILR2dezIkDXqvqPC4Hvt8SbMB2bbz9dkhOYuhAeegVQD2hyqC8S0TS+ArE71SpuzYq0IqLPDMBFRHURXfUc6AmwZAWOqK0CV/9tEbAocFgx8NvVuH7HAMMXytaskjEWe4CgvsWZbt3CTiNcVqV7cwXqsq54i8EyjRun6qAKB9rT/AUHc9BmAbrI88LI09oegSIf9Cn3pV+denorE9QieAt9INuI+KgX2utjz+IqOUSVi75FrzduVLJjhIY/qhF4Ovj9meRaQfkd9KaEGeTxRfPqrcNSeLV383HbBITNIn32hqdlFRptmkVt9LvMoZipKaN/FX4o0GLuz/iFbktLYGKC7sXyrVrEHUQ4=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6559.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(3023799007)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(19092799006)(1800799024)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TTk3emRRSnNManJ4NGE1YkRYcnVLYlM4UUd0eWIxaXFSc2J2L1FHdGhSbDZ3?=
- =?utf-8?B?TmZNemdxc1ptVGhyNUpyQkJ6eStkSG02d1c5enNwVGQyM1RFWnFCc1J1TVF0?=
- =?utf-8?B?ZEtQQ1J5NVlSbEJFczQ1UlU2c1hsc3VJTVY2K3YzTFE4ZnpNNjlkV1pRZzht?=
- =?utf-8?B?Ky93Q0dqZm5VK2xoejhKNVkwdGlCL0lpenlWV3R6OUVyWmRuNzJTMTdqQkp1?=
- =?utf-8?B?M294Tk56YmlWR2JaT1BzQmVtazlOUVBJTm14UDVOeHRoL3hJV1F2aFIzb2RW?=
- =?utf-8?B?d0E2TXNLSGRsSnhRVXNzYlIreEh3Z0lFcTk4VzJNYktiZGowOFN2aWgxdkcz?=
- =?utf-8?B?RzBHMm9QSlN0c2czNWpOVnVOMXI0RzVLTm1KS2FKVFNXMENhcXZPNHVoeHc3?=
- =?utf-8?B?dWNyd25tQ044ZGFkQTFMeDNLR3hqM1ZaT2wrOHFZcHpvMVR6cVFJOTFRWmFW?=
- =?utf-8?B?NWg5NjRaM2tQS2RtSkhzK1RiZkN2MG1WUnUwSGsrVStzWkVVb2k1UUI3RUpB?=
- =?utf-8?B?L3lab2VJcWsrSUNaMkJyUVl2VjNWUGplcWJhemxSRzZ1dzhUTEwvMWJBeHlW?=
- =?utf-8?B?VHRqbWZFS0NLbU9BNXozK3pwemxSTzMwM3N0NzVHOVFIYUo0V3U0aG1VYzY0?=
- =?utf-8?B?U3p1ZXg4d1ExV283cjIvcU1qWUtmbnVJZDNyS3hjUk9DUXNia3U1cHpCWW9j?=
- =?utf-8?B?L2pHRktRN1NtVVJDZFpVWjN2REJ3aEVXaFppdVVCN3h2NUVveDZ1SUNxb0NS?=
- =?utf-8?B?cExIN3NNTFYxY1lNb3duUytKZTRmdlZ2Zk1qRi9wQ1ErUzNTQTVTQnpuV0FH?=
- =?utf-8?B?VmY4Y0cxODZyVlZBODdwMGVoT1ZXdFpWUGtadW8reXZlbHZkMVlYRGhvU0Vt?=
- =?utf-8?B?anRtT1NXT05IWm1DSjNRbDVFUm8zY0diWnVCM0g0bUlHSFhEMWh2ZFFvQTNT?=
- =?utf-8?B?czllR0NDUE1UajRVSjFrWk4xbjRyK3podmk2ZWxVUTRmZU9GM21FTTk1TUtm?=
- =?utf-8?B?UG9PdHhBNHZ4SzNLNm1tdE5zWk0vdDRwNDBHdDFMT1JCcTJUdFZHdlNYRVRN?=
- =?utf-8?B?bk1xVlpIa1dIRU1XVGtsa2N1ek9qVWZuVWk3Y3c4R0wvUklSZkFYSUhoRVVD?=
- =?utf-8?B?eHBEaGV6NEhJcFR2R0NrRDcySVRnNUNyOHQybnRwL0JxQ0lOTkpYMXpnbWtN?=
- =?utf-8?B?ZStXM1k2Z1JsVDlTT1l4dEFweU85TVNwSUF2cEpUa1BURnBzd1BpOWRSTzRh?=
- =?utf-8?B?TFFqQmxJNTA3bUs0Q0N1QXF1alpTMHpyMWdkMU1Gd254ZDRja3pwQkt2NHZX?=
- =?utf-8?B?UVRxR243Y2lleU5YSnNWaEZrWWxvMEZHc2V5T0pFQmVldnY5dFRqUllRRkJM?=
- =?utf-8?B?VmpTM1g0V3doMkdKS29SdzJqTjVXWEkwcXFtckNjR0ZtVVVTQXVLVHBBN3hF?=
- =?utf-8?B?YnhhdllkTUtSaE9lc2VxcWEwd1ZLZ3Nxelo1UHh4b1V0a3ZCcjBkZ1FQZTAy?=
- =?utf-8?B?Q1luWWZwdnBBZThHT0xpWkQxZnRpOUp3N2oyVkdjZmFkYll4WnA1WU9aTVkr?=
- =?utf-8?B?c2lvU3JZNjc5ZFNWTkg3VjhoaE9GM3J3MVlEeE4wWWFGc1pQbTRaUnI5UlJT?=
- =?utf-8?B?NnZtTm43S2VrSEJLSHFYeS9rYVVSRURicmswaHRVVkd4Um5DcVFYTHF1Y2xx?=
- =?utf-8?B?eUY4UEEvVU9pVW4vWjdhRjVFcktKZFAzQWxEZjJlQnBqdExBM052cnZiYmxE?=
- =?utf-8?B?OXRJWUU2bTJGK3FEcE9xdWtHZVZJV2gzUjEyN2RoeGkrY0pTWFF2NjRMeU5l?=
- =?utf-8?B?bGJyZzBET0JMWWRQRzNQckFtZ1BxeUVQQ2pCT3RhTkxQNzBiMWs3QzRjcnNX?=
- =?utf-8?B?azRmRlorT05UN2tmcE1uV2VXaDU1MjVpQ0dhOUpNejd6bk1oTEozSXkvd29D?=
- =?utf-8?B?UzFTVUdJaW5BYUtNWnZXQ0JGOW5xNzN6d0w2dWE5WHAva0RaQlFjNXBHeHEz?=
- =?utf-8?B?Nm9tdzhDWjVJRFcwR0RkL1ZzaEdBN2hlMzd2ZHdjS2ZVQlYxaHN0VlQ3N0JB?=
- =?utf-8?B?UGVJMytKcmcxck1uSEMyYnJkNitrbXA4S0c5MGROZGtzM0FRVWx4TlR0Uklu?=
- =?utf-8?B?VmRmWWRDMEJHU0c0R1F0Wmg3cGF6bGIwejNrTUxvZzNXbU02cEtHTFNoR0hB?=
- =?utf-8?B?cUZkM3RSNTIyMkN3OWRhQWx2a0FLeTdMQnBFbFpramVHN2Q4cVhMOGdFYll1?=
- =?utf-8?B?ZWx0ZWR5dUk1OHNMUE8wMTJKR0h2ZzYxSjdncHpucEw1SWU3dG1CSHg2R0VB?=
- =?utf-8?B?RkNtQWVUd0wwVW1WdmtXSkc5R1lyVXJwaEdYMmZRaTFJWXIyU3BnUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bf890438-df40-4c09-54aa-08df101e37d1
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6559.namprd12.prod.outlook.com
+	=?us-ascii?Q?jcQhRFJJwwQSkVj+rPgBiKSlAvUAUg4FtRQ8irRISRI5wmA1sJmqnPjGOYMV?=
+ =?us-ascii?Q?N+G0o3AGclTxTdm+qvOGA/IVIaa48IFxanOyHvU5OCDR/Vb5ndjguSlbbdYN?=
+ =?us-ascii?Q?yRmAI8j955Ii21b5PuiNtRJGG8D/80EzEzQXoFuAqnyUhOy/19CCDdeRm0rO?=
+ =?us-ascii?Q?qpdEABWoWmaOhMyGo4pKZCpUu2XCoyHUZnuWzErdWW/K9uRfKnEEH0xbS/jH?=
+ =?us-ascii?Q?wTS2o5/z19QU+euJ6TdDwVf2TAJ/Nh5WXCQoLCin6cLftfb+ShR8WPTz6HkE?=
+ =?us-ascii?Q?XClrfp30v4V0s2c7jkKNTLMbz3WIuiVgKEEphgWz/UVq1xOM4EwrBXsKtBLJ?=
+ =?us-ascii?Q?YwxyFJLrrdR6tMrF7Ai/6w2WIMz2CGD+u/6IakhzLegm/f4EHQh8hrOGT/+O?=
+ =?us-ascii?Q?4dv+zHTy0uQuDXzqqTnIVqP3nfOQO8nmzkCBcaCRIgNCKsit7DnvvEZMUypF?=
+ =?us-ascii?Q?RvQsg0+1Yv1zdzzKGF2p7mZRsWNyDWFu4Q9M0+doc96F5qZs92n5YLvXaZ13?=
+ =?us-ascii?Q?E64/X/w2GlcoT9GwnkY8m9OSdI8Sonhopjco+yKKQbtSboBVw1rZcUl9gN0N?=
+ =?us-ascii?Q?PzBk4FFdtEwFe3EraD+3tehn+Q19Pl5ZOMgWFTH6ZfKaLIuiE58s+U8F2isM?=
+ =?us-ascii?Q?8Ag1S7WhIl1v6GhL+neyQcGGDOzM8qHWa2U9uIDiiFiA140XEnJ6a02zasz3?=
+ =?us-ascii?Q?YGjMPrw0hXnaRk+I/25fM2Wcc/TAqa4kWxTyP5fUoVS1SvxjrrIUiwmAnhQx?=
+ =?us-ascii?Q?CZcZlKfzvllGIkkSh07TvbHTeVvMFxebMrZEiLIcE+WmO01baNCXfbW4mBab?=
+ =?us-ascii?Q?ta+GYH31rZAMJWntk6c274UOgEfOjVGp8N6TMRgmYJvOxsC/LeozEJ4meZUa?=
+ =?us-ascii?Q?5H7WJis0nkgTPAlkUbWB+GEQmMOoeYqcM0rW2QWFVlOVDUjL2wLtFg3wmN7f?=
+ =?us-ascii?Q?TwkGt3QTfG+aujIiA1FCBiSpKf515YACW1ldHhYkmn2RQ03mTsRc/duiXQja?=
+ =?us-ascii?Q?Sm94wOiCPk020DHkBIjZL4pu61znRjxnIftnklfMtRJ0JKrmizHAIghR08aU?=
+ =?us-ascii?Q?V4hkGEmMhYnu/rTLK8tGHpXb4f4/xkGbn2dhmRntAkccatAJXwKeKGnW2vA6?=
+ =?us-ascii?Q?yO7Tnn1zD63BWgcNnFs5IVEgxDcZ6jBhV3cyigWuU4w5QDFLePqnM1vjDPVs?=
+ =?us-ascii?Q?NuICJumWTu29OxuC/y0oYaeGJxXGXMInGS9Azhjjv4AM9iTTIJIJXFM1203J?=
+ =?us-ascii?Q?f2FTyqp7jK259YSqYdungw6/kg7O0rrmEHXs1HI9S3ymss1mDacdUCPvecf+?=
+ =?us-ascii?Q?QZUjSFClm/uFh0UvZUXbs3xg1UEAP7LlDHHNCHOi09tt+7Br/fgYSh2TMX/U?=
+ =?us-ascii?Q?R3hdhGHkwiPwpsyfAwDhuVfYPDdg3F3io6vA8VTcSqI7tRCm8ukYfonJ9l89?=
+ =?us-ascii?Q?oNRpPJFs7nYePQC0C+GNEhrROL7NHIafpnq1QVp7zWB96fMWHWyTI0gvZjtY?=
+ =?us-ascii?Q?P2NV7ykxh/9rBbZqVVxCROm2vDaNpnhLVtWynPvy2ix+73+2x4dZAiKgIjs+?=
+ =?us-ascii?Q?UhIUUHbhHezFw71lcR75tJcOR0P5WVRVk+hAG/4nr76NVpREQ9vXxUjuqmgY?=
+ =?us-ascii?Q?FeOPwOJPgBXIXlhVgxHG8BVJDV7iKK1IdsHxdeI7VNC+xOGdcW+FdAbv0dn3?=
+ =?us-ascii?Q?LQDS8cS+eZ0LWttkx3bwxrKO4qa649JIW7/CXtDN6oT8/yVD+nmmPY0eE0/m?=
+ =?us-ascii?Q?OsC+IV0usSLTnTLD+x0uLB2HDvStT2oj//h9RtzfCI8BTBbt2/oL?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 379d7819-9aa8-48a4-754f-08df101e80ed
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 16:03:28.3711
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 16:05:31.1219
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QmHsmACGgLBLOJyKBettdFZ5xf2eF1scu00ojdzgcOt1+i8WKFBwyerZY6L9+TqMY4z6wjcpWhoQdajTTCm9Og==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999293
+X-MS-Exchange-CrossTenant-UserPrincipalName: +UtD717W3htz10rDX5G4vK/qS4+8/Kjvqv9IdCcRpIscwYm+FxzAa0g8yaQ2dLXxxx+Boo16NKmDS1lfWIivnKDCQTnRsVMpglV5qjjWDX+VJLN/lXfvUIXArACgv+Uu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB12632
 
-
-On 8/27/2026 12:06 PM, syzbot wrote:
-> [You don't often get email from syzbot@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+On Thu, Sep 10, 2026 at 02:43:34PM -0700, Rosen Penev wrote:
+> In ppc440spe_adma_probe() the helper pages are mapped with
+> dma_map_page() but the returned DMA address is never validated with
+> dma_mapping_error(). On 440SPe the mapping goes through the
+> SWIOTLB/direct map, which can fail under memory pressure or with an
+> IOMMU, returning DMA_MAPPING_ERROR. The bogus address would then be
+> programmed into the CDBs used by the async validation and
+> mult/sum_product operations, causing the engine to DMA to or from
+> arbitrary memory and corrupt data.
 >
-> From: Slawomir Stepien <sst@poczta.fm>
+> Fail the probe when either mapping fails, freeing the pages and
+> unmapping the first page if the second mapping fails.
 >
-> The amd_sfh driver maps PCI BAR 2 using pcim_iomap_regions() and
-> subsequently accesses MMIO registers at offsets up to 0x10958 (e.g.,
-> AMD_P2C_MSG3 at 0x1068C). However, the driver never validates that the BAR
-> size is large enough to cover these accesses. If the driver is bound to a
-> device with a smaller BAR 2, this leads to an out-of-bounds memory access
-> and a page fault during the probe function.
->
-> For example, a page fault can occur when reading from privdata->mmio +
-> AMD_P2C_MSG3 in mp2_select_ops():
->
->    BUG: unable to handle page fault for address: ffffc9000390368c
->    PGD 100000067 P4D 100000067 PUD 1012c1067 PMD 105b64067 PTE 0
->    Oops: Oops: 0000 [#1] SMP KASAN NOPTI
->    RIP: 0010:readl arch/x86/include/asm/io.h:59 [inline]
->    RIP: 0010:mp2_select_ops drivers/hid/amd-sfh-hid/amd_sfh_pcie.c:282
->    [inline]
->    RIP: 0010:amd_mp2_pci_probe+0x337/0x5f0
->    drivers/hid/amd-sfh-hid/amd_sfh_pcie.c:487
->    Call Trace:
->     <TASK>
->     local_pci_probe drivers/pci/pci-driver.c:332 [inline]
->     pci_call_probe drivers/pci/pci-driver.c:394 [inline]
->     __pci_device_probe drivers/pci/pci-driver.c:455 [inline]
->     pci_device_probe+0x431/0xc90 drivers/pci/pci-driver.c:489
->
-> Fix this by verifying that the length of BAR 2 is at least 128KB before
-> attempting to map it. Since the maximum accessed offset is 0x10958, and PCI
-> BAR sizes are powers of 2, any legitimate hardware will have a BAR size of
-> at least 128KB.
->
-> Fixes: 4f567b9f8141 ("SFH: PCIe driver to add support of AMD sensor fusion hub")
-> Assisted-by: Gemini:gemini-3.7-flash Gemini:gemini-3.1-pro-preview syzbot
-> Reported-by: syzbot+4eadd4dfe9e66522bae8@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=4eadd4dfe9e66522bae8
-> Link: https://syzkaller.appspot.com/ai_job?id=3bc1c45c-548f-4ab5-8243-d2c8ec321d6c
-> Signed-off-by: Slawomir Stepien <sst@poczta.fm>
->
+> Fixes: 12458ea06efd7 ("ppc440spe-adma: adds updated ppc440spe adma driver")
+> Assisted-by: opencode:big-pickle
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
 > ---
-> diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_common.h b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-> index 78f830c13..c0c324565 100644
-> --- a/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-> +++ b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-> @@ -17,6 +17,8 @@
->   #define PCI_DEVICE_ID_AMD_MP2          0x15E4
->   #define PCI_DEVICE_ID_AMD_MP2_1_1      0x164A
+>  drivers/dma/ppc4xx/adma.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
 >
-> +#define AMD_SFH_MIN_BAR_SIZE           (128 * 1024)
+> diff --git a/drivers/dma/ppc4xx/adma.c b/drivers/dma/ppc4xx/adma.c
+> index 279a431ccae3..89e778896d7a 100644
+> --- a/drivers/dma/ppc4xx/adma.c
+> +++ b/drivers/dma/ppc4xx/adma.c
+> @@ -4156,8 +4156,22 @@ static int ppc440spe_adma_probe(struct platform_device *ofdev)
+>  		}
+>  		chan->pdest = dma_map_page(&ofdev->dev, chan->pdest_page, 0,
+>  					   PAGE_SIZE, DMA_BIDIRECTIONAL);
+> +		if (dma_mapping_error(&ofdev->dev, chan->pdest)) {
+> +			__free_page(chan->pdest_page);
+> +			__free_page(chan->qdest_page);
 
-Please use SZ_128K instead of the open-coded (128 * 1024), A short comment noting the value
-must cover the highest register offset (0x10958) would also help future readers.
+put these to lable out
 
-With that:
-Acked-by: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
+Frank
 
-Thanks,
---
-Basavaraj
-
-> +
->   #define AMD_C2P_MSG(regno) (0x10500 + ((regno) * 4))
->   #define AMD_P2C_MSG(regno) (0x10680 + ((regno) * 4))
+> +			ret = -ENOMEM;
+> +			goto out;
+> +		}
+>  		chan->qdest = dma_map_page(&ofdev->dev, chan->qdest_page, 0,
+>  					   PAGE_SIZE, DMA_BIDIRECTIONAL);
+> +		if (dma_mapping_error(&ofdev->dev, chan->qdest)) {
+> +			dma_unmap_page(&ofdev->dev, chan->pdest,
+> +				       PAGE_SIZE, DMA_BIDIRECTIONAL);
+> +			__free_page(chan->pdest_page);
+> +			__free_page(chan->qdest_page);
+> +			ret = -ENOMEM;
+> +			goto out;
+> +		}
+>  	}
 >
-> diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
-> index 4b81cebdc..039b6ac32 100644
-> --- a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
-> +++ b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
-> @@ -451,6 +451,16 @@ static int amd_mp2_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
->          if (rc)
->                  return rc;
->
-> +       if (!(pci_resource_flags(pdev, 2) & IORESOURCE_MEM)) {
-> +               dev_err(&pdev->dev, "BAR 2 is not IORESOURCE_MEM\n");
-> +               return -ENODEV;
-> +       }
-> +
-> +       if (pci_resource_len(pdev, 2) < AMD_SFH_MIN_BAR_SIZE) {
-> +               dev_err(&pdev->dev, "BAR 2 is too small\n");
-> +               return -EINVAL;
-> +       }
-> +
->          rc = pcim_iomap_regions(pdev, BIT(2), DRIVER_NAME);
->          if (rc)
->                  return rc;
->
->
-> base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+>  	ref = kmalloc_obj(*ref);
 > --
-> See https://goo.gle/syzbot-ai-patches for information about AI-generated patches.
-> The person who has signed off on the patch is responsible for
-> addressing comments.
-> syzbot engineers can be reached at syzkaller@googlegroups.com.
-
+> 2.55.0
+>
