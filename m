@@ -1,65 +1,65 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFF79366057
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:05:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE7D37204D
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:05:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139113; cv=none; b=mwX1X+NJrfc7MfJx0CzRo9DXW3CIZV7Lz/+Ag2/qvCr8AIWRK/e1zvmhdi9EEiBN9dGPCnTDGzQKmhQ1xI4QEKcUbV/dSK7erk0rve8ruU0lOUB6RU7GbPVL4NXEL4Rag92CBeAAAZ9qqPt5yiju9uMaBvuIbOaGAu4dkzzmcuQ=
+	t=1789139114; cv=none; b=u+/4zH7MMbCo9NtkI0mzsZa6Q7wfXVM/6uFcReVn90ICArJuxkRV7ZC0VaiycKY3q3t+CKJUgjDdHZnwmFmAMxqDJ0hZPLKLaugHmuX2mF39y18Pw0GYtNn05dkMTtPbaJ8AfQ7RJ9/tz0kStCev3TkqxTU0WYY1eLeaoiweazo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139113; c=relaxed/simple;
-	bh=6/BdbYqdcZY9dIig5OcHM3ZIkVv9X9lZQVPrP0wQUIk=;
+	s=arc-20240116; t=1789139114; c=relaxed/simple;
+	bh=b5RQb0WbJ1RrTqB8nh+r8QKYRT6EMd81lemOzqrccCw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HwZmRaa4tLAwRXwUDTyDpzCEADza00BDRceRnPgwSBkIsObA2PFWb24Dc2PPFFil5s+tbfSK7vV6Bm7k+F4O1e/uH/8AvVPyqh1ITovEjD17Hqer7H8nfIQa0nnqc4P6uiYvCOwu/vb9g1Y67I7FB1HWaBD6VKNEuvN+33ntVkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=E3yKSxif; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version:Content-Type; b=tfm1WXSAvlHGuVIj1AC+4s97l3mtBC6rvflYzI/5cuoD19l9KHnqp1MJepyi0nohVPTm2/zIwF9GwvrDG/SAllseshA0flweAo5gy58i6D/CCco7gIcSHVBA6OZTD4fu2vaNZVYWROHJpOVtYiqVRT1FUUX4pHUOla3T3XQ8PyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=g2R/ghfw; arc=none smtp.client-ip=209.85.221.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="E3yKSxif"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843cedd129so637846f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:05:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="g2R/ghfw"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-4843f205a5bso743852f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:05:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789139109; x=1789743909; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1789139111; x=1789743911; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=KmDwdyq9Q0uxbSq8SDMOz/Ug4vndqaUQy+VL3xEV3E0=;
-        b=E3yKSxifi0pvQfRdRgC/conJLhso6/AJHcMTItLsGdSMskSELM5uK2fYz9e6exQVKf
-         MWft8Xeo02GFKwFF1J20S9wMB7aoIfSvbf2fLR2xFMx+SWAgWo6uiymrZLkNaSKHGQG7
-         r15l414Bow79sjZNDiDrUjENxonicH3bQf7ox83uGmtNt7FijjI3UsyCX0bGe+Z+quEU
-         Xmp3SGFCgwatniq/9zav6LmQq+OUiGsl7Vsc88cEUAM27e4mZZ4Aj2BF5km1Pqy8SeGN
-         ibSoc2lO21+eMvLhgqVmDiC3iN0b+l4XndHd/9DStRXuRxcJAqUbnM6O1Xu76+wYIHgp
-         BovQ==
+        bh=glNc1H2atyKhB4WSC099onb1QIuZPymRMjgiGWekzpE=;
+        b=g2R/ghfwA9c7FbD3rDBiA2JMYJ3JDnGvXzdJPZ2/N37pWyUiR5fe/jkoM+S8Xj9Osh
+         Td7vi9tajpjbxZnzNHzkS8e+Dle9y/4gEVbukum/7r4YzBBxcJ9RitqsBzYcQQewkuuT
+         62U8XWflFKwu+bc9ImtwgSwK1mGCbgzHFI7iDs6ufxupSQo7ROowYWmEEkzxfPmCgujL
+         PWtxzIs3VJMWlw1d86Ly2VK+aU/U17WO7B0v3vjjrFWp/wxGHYe78Aj0iov3FPgmgvpA
+         cC7KRxN8jXseYdw1Bh1MCEaK5pIOdGK/enujMajEKDEL2DSR+sgdJSlG1X3pYamUW02S
+         GAuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789139109; x=1789743909;
+        d=1e100.net; s=20251104; t=1789139111; x=1789743911;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KmDwdyq9Q0uxbSq8SDMOz/Ug4vndqaUQy+VL3xEV3E0=;
-        b=TKqixHofjbTkrhNtKcoaIwFQdfzYCo3pxuVGl+GYReBzk/z+Qbg3V6hAinuYVvHWQu
-         gFi+2kfdBV8qOi2qKC+QnIJNKev7N2fZMiPFTREI88BiZOp9Mw6K9Bg5i+mIVVUhnhke
-         XmTe8hw4oh3pgiFAxOw9h4s3Yao2qYRtGSiG4jmUtQQHsJAzbnizMnDPKoc/DV4ibtWa
-         ti/bUEjkNhcgZPtRC+Oz1ZRllpvB0GJi5WK7+Jwr7Sd9+12IQCieAvnCAm8OQ8+SUW3k
-         ZKnoYtrCkDGIKRZfpdIIcRkENkIZlqBJHY0BdXbmqRcthjSJfhYJAeOjuTytcYCsIvyr
-         Owfg==
-X-Forwarded-Encrypted: i=1; AKwUvBywKkHMVwAH1wQM0Iw2oB0Vau5KP/zWOkR1yX5zMKoQfTrH36Ue42uU+gEtSqAgiaTkxejJRqlTNXtdPrw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lszwccZU3EzQQGs/p4Viohr5zi1eb+H1GQFuQSrijER/PhPo8U
-	oXVKVPBd0ZANLIw+Fzlim6MKjHMtZlJJ2hbDbI9LoA1s1ItjF5YhbonlXVRtw8+4Kdc=
-X-Gm-Gg: AYBFou3jY76K2Z6ugDal4uFckJdxu2zQ9n8QaXAq3uea5919AYMmO3UzM6jbvAS0EY/
-	AaIVSE5ixLGL02hb7cztRh5qmtdM8ChCI7cp3Nj8OmTOlvc/r2faMjMf1c7kAWYn7nmc08Ozmms
-	okZNCzJ3xKY1aohl9rDdaJvsUaRw2sYOsyWp57C4kYMQXqbwHhfJTwjmLaC8DBWE/q9pTLcZ2c5
-	lVDNRCaSyngLOcnYia/9/zt+6IPt/USk8nICIoLjPEqUeSJKt4NjBdnXnjHbOFgoouH3yQgIpIC
-	A9W4kUIzcf4jULMb1b5kvHyZ46WjVshdXFA2/mJLbEaGku7SuhBSjTA7lDIJyRqWRaHeQV6rg8V
-	Fm4D5tTMkMc14Z6twCijdWT8mMRlU1yWHRyvrlu2VjDo5SU0gULxktZ7IPS6r0tZJl/1Z+qzK4C
-	jgc0Cu5mNlNEwt8GFAeFyIj3A7EsVZxgCI/57TNM2yMpv6CduSlJG28j9fsdyvOQdv7biFTEdRO
-	ugFaw==
-X-Received: by 2002:a05:6000:29d8:b0:486:f4b1:8c4a with SMTP id ffacd0b85a97d-486f4b18d31mr887113f8f.10.1789139109105;
-        Fri, 11 Sep 2026 08:05:09 -0700 (PDT)
+        bh=glNc1H2atyKhB4WSC099onb1QIuZPymRMjgiGWekzpE=;
+        b=C4h9PiIB+lEN1hpEhj2+ZrS89KdSUw0m31qnADL63bj8QVxWe+/YVTtDdYyfXjOpPN
+         AS7OWCjDY6S/7Iebv9bLXNwCb3ll+vr4gsKBZZ1fukcxDAs66Lm8vH5r7st0d6+hIEui
+         RBrRopXh8r4IR6XkvhtBByzu1SzTRAQ8kONloZHFw6pw7YVfVqyrQPW/3aI4jrq3AZRB
+         8fnw/GGoVe01K6UpZGntAFyNMYM/p521SHKvn5LSQfDbL5GADwMaUiBMD/VdrWVL33zS
+         KyvaKFyQAqXhEsZeD7pxJB2jKHlh/ghrIK4S9v3umMyFzcU8EHIMbPCIuelTTTdSeb1C
+         Mkwg==
+X-Forwarded-Encrypted: i=1; AKwUvBzoylTyQTGfok8rMeVf5VzaswQgqQ0HEzT0SxmWgydsIbSgnGzs4gWaBE1pwVPF31y9P1jqTghWOZAM/nU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJR/GLwS1nQt3DCLMInxJlYJ2ER/YryJNbTfclFyWsYDkJVoo5
+	rBkCGv59GADRTfZURSDmwUcU0oDs7XDiTx3WI4Clob42oQSJFCI3juVIu+nuZI2CKJQ=
+X-Gm-Gg: AYBFou0DjB+I26naYGhJzpygNNt6p+VejqE6VR/xTEw6NM8FSSwhq9HP5HG9/HX851w
+	tLmVvOWLSbZpcfzNUodiWEEhNjpO0SctMbXsQf0g8+NElhkPQGoMKQ9WzyguQRDLLDBzA/0YlX5
+	xTQ1Ucy308bP7MJlnEJ5iLiJaTcQjlUUkQtNZUOq/2nR5lxOSb6oSuIQ4vztC6GpnKzCMrD8Ojv
+	4e5B1VQAQbU6p1xg9fR+RjMgjAmmUmh9kHfwEfbvAFNigWnHtaOUfTp9MlcKFQJP2qEZjTKWklG
+	GKvrNvSVRUUOiaPj6RaonCYlSCVr/pNiZj1MA/bn1j90qPFmQiM0fQPTnRhKLL+U2CHCYRCx85s
+	0IC3ebPajOt81HMdtfnXhWfRWxJBWdiXu7BWKx7AN9vI449J4UOI16zdUweCb7eQzsPMCXTIA01
+	MgGuDSGslhRoT4ljT0sTgNhMgHOtTmoKN4O6p2VUpjr+0oALuStmC2EuHA+r7IfJgDbmk5m3V1W
+	Nk9v4BBqwAM9uL2
+X-Received: by 2002:a05:6000:1acf:b0:485:8a46:b3b8 with SMTP id ffacd0b85a97d-486eb32253bmr5503727f8f.32.1789139110499;
+        Fri, 11 Sep 2026 08:05:10 -0700 (PDT)
 Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb350686sm6853579f8f.27.2026.09.11.08.05.07
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb350686sm6853579f8f.27.2026.09.11.08.05.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 08:05:08 -0700 (PDT)
+        Fri, 11 Sep 2026 08:05:10 -0700 (PDT)
 From: Petr Pavlu <petr.pavlu@suse.com>
 To: Jens Axboe <axboe@kernel.dk>,
 	Jakub Kicinski <kuba@kernel.org>,
@@ -90,9 +90,9 @@ Cc: Simon Horman <horms@kernel.org>,
 	dri-devel@lists.freedesktop.org,
 	linux-modules@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/6] block: Include error-injection.h for ALLOW_ERROR_INJECTION()
-Date: Fri, 11 Sep 2026 17:04:01 +0200
-Message-ID: <20260911-module-include-error_injection-v1-1-5da895d8c84d@suse.com>
+Subject: [PATCH 2/6] net: Include error-injection.h for ALLOW_ERROR_INJECTION()
+Date: Fri, 11 Sep 2026 17:04:02 +0200
+Message-ID: <20260911-module-include-error_injection-v1-2-5da895d8c84d@suse.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
 References: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
@@ -105,30 +105,43 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-block/blk-core.c uses ALLOW_ERROR_INJECTION(), which is defined in
-asm-generic/error-injection.h. It currently relies on this header being
-included indirectly through linux/module.h -> linux/error-injection.h.
+drivers/net/netdevsim/tc.c and net/core/skb_fault_injection.c use
+ALLOW_ERROR_INJECTION(), which is defined in asm-generic/error-injection.h.
+They currently rely on this header being included indirectly through
+linux/module.h -> linux/error-injection.h.
 
 Add the missing include in preparation for removing the
 linux/error-injection.h include from linux/module.h.
 
 Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
 ---
- block/blk-core.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/net/netdevsim/tc.c     | 1 +
+ net/core/skb_fault_injection.c | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/block/blk-core.c b/block/blk-core.c
-index 196bccf27f58..324a2d1bb727 100644
---- a/block/blk-core.c
-+++ b/block/blk-core.c
-@@ -40,6 +40,7 @@
- #include <linux/part_stat.h>
- #include <linux/sched/sysctl.h>
- #include <linux/blk-crypto.h>
-+#include <linux/error-injection.h>
+diff --git a/drivers/net/netdevsim/tc.c b/drivers/net/netdevsim/tc.c
+index a415e02a6df1..e2d7d3aba193 100644
+--- a/drivers/net/netdevsim/tc.c
++++ b/drivers/net/netdevsim/tc.c
+@@ -1,5 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0
  
- #define CREATE_TRACE_POINTS
- #include <trace/events/block.h>
++#include <linux/error-injection.h>
+ #include <linux/netdevice.h>
+ #include <net/pkt_sched.h>
+ #include <net/pkt_cls.h>
+diff --git a/net/core/skb_fault_injection.c b/net/core/skb_fault_injection.c
+index 4235db6bdfad..2c7f519bef80 100644
+--- a/net/core/skb_fault_injection.c
++++ b/net/core/skb_fault_injection.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ 
+ #include <linux/debugfs.h>
++#include <linux/error-injection.h>
+ #include <linux/fault-inject.h>
+ #include <linux/netdevice.h>
+ #include <linux/skbuff.h>
 
 -- 
 2.55.0
