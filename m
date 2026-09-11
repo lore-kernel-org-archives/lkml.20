@@ -1,95 +1,131 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1586B4483A4;
-	Fri, 11 Sep 2026 08:21:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6714B451999
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:21:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789114870; cv=none; b=sksWmi7UootbDpXzHdtWEzlS5vMn4wxvV8PySec0nvDA/fHrlqtcgQ4A+U2dppUUGoEVOoi8JncDTBAgG/6Cf8f/0VtKViodFooVYnJhYSYEFQRgEKqWjoYj7nWp8wZRoxpwT/5Qll7Mev1VdHQhHbRuWWrFzGH7QO5HHD/X4n8=
+	t=1789114879; cv=none; b=ea1VVFlmHsSlEpBqSYCQU50bhVe3+wQgC/duQNTWDuYzTUp7o+FV7drWzw9jGbgqGEjRspa5MK74wuQ+bEprWcPM+RpUTjblZBX1hikmMlEKLj2ajgQjNXMOLxh5L/juzJHcQwCNFNRCH7ZlMdTkFkt29ArhKhXRL1DXRn8GD+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789114870; c=relaxed/simple;
-	bh=v3SqCyll3YR89/x8v+GFS6cTW8xU0bcAQpo9tyK7rl8=;
+	s=arc-20240116; t=1789114879; c=relaxed/simple;
+	bh=zJtaryYqa/C9k3EO/Gny1L1VYdmh/q+o7VrPEjvE2I0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RGgPfPpRv9Z+mSnyDwOTU+5uBu0/nX2SLGkKgMQJASKDs8Sp6nlAFrMkbn7OHJjftOULOxWNgV6rnmQZHV7tIluX4e/mv4/mUBTHRC1AJJSNYRDQabCe5AsPp6Tq6Hi4xFrBLQNV3Bt6sAOzR1hIDuN6tCw2gdJvml/PH80KhUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YMNsm5gq; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=bXema5qDQFr3TKIxlV1pjYGW1kSBkVAPzyrmCVN+0Rlds/3w6e9rBd/Y03zHLP2gK5aUQBKmmu6DSVb2ejzyAZxmVBdGSEp0GvCB9Aa1bbRQLz0NAgy14dSqXPEb5trAEBlNCPIRvNMZ/spsmCJ+OKqA+pIu/sYfvPeY8RpE6VQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=QI/EDCo+; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YMNsm5gq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789114868; x=1820650868;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=v3SqCyll3YR89/x8v+GFS6cTW8xU0bcAQpo9tyK7rl8=;
-  b=YMNsm5gq/aoQL1Hgmq4stIN9AnfBJ8HguWp62T10PSC1MC/jzTV6TfQ9
-   qEDufDUsGP5mO31+CtYexik2DJNIvSZwEI7piusWI7NzC2JVm0l9vwl+J
-   lsmhd7MznPI4ZTXiXIxoU9vHs4J5fb1z1pt7lZhXs3T5l8bJjTeYZ8r7H
-   lattlXa7dX4UL1YCidMoi51sOUANUChQUukuXMs0lPyoQtsizKUtM0pDd
-   Ac6dLuzFmtcqQ5CN7M3YSH1d2hEd3sVo//kLEcNa0J00u7T2ARAAQirgc
-   Zhopa9OBPOc9lZ/BVBdQ2ZLd00YvyO7m0wCTUuaxQVkuD6m5iPCTvtLKO
-   Q==;
-X-CSE-ConnectionGUID: Z7QPMbRDS8afqRG/z6j2bA==
-X-CSE-MsgGUID: CL7U6K35TL+BfoUk7Qc1Kw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="89704634"
-X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
-   d="scan'208";a="89704634"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 01:21:06 -0700
-X-CSE-ConnectionGUID: xPowJkcdRhadQuVTg+5xUw==
-X-CSE-MsgGUID: eqJJohaZRKC8Ls6ewOTXrA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
-   d="scan'208";a="265662799"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.80])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 01:21:01 -0700
-Date: Fri, 11 Sep 2026 11:20:59 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Michael Walle <mwalle@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v7 07/17] iio: adc: ad7768: Add power mode helper
-Message-ID: <aqO565DUVzp7b4w5@ashevche-desk.local>
-References: <20260910-ad7768-driver-v7-0-7f70b07627e1@analog.com>
- <20260910-ad7768-driver-v7-7-7f70b07627e1@analog.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="QI/EDCo+"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B61E616A3
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:21:11 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 4AE793F7B4
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:21:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789114875; bh=zJtaryYqa/C9k3EO/Gny1L1VYdmh/q+o7VrPEjvE2I0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=QI/EDCo+WoG6pgyfnjQdlFyS2rrTJoQx3+VzuCiZGOnXjq/QIIKx5R3dEE84/+jmX
+	 t36ySbbl45wlbXEZrYhbu48FhJE2N8s9rwgGpNpx+NKet3g8GeQaz/jZYxJZrbRZJt
+	 gM7PkAZjFDTJgBS/6INpZRsZzGMRTkfiXDIlPrZo=
+Date: Fri, 11 Sep 2026 09:20:56 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Zhenhao Wan <whi4ed0g@gmail.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Grant Likely <grant.likely@linaro.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Alice Ryhl <aliceryhl@google.com>, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org, Lyude Paul <lyude@redhat.com>,
+	nouveau@lists.freedesktop.org, Dave Airlie <airlied@redhat.com>,
+	Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] drm/panthor: Treat a zero-length VM_BIND op as a
+ no-op
+Message-ID: <aqO56GMt4i3bXqk6@e142607>
+References: <20260902-drm-gpuvm-zerorange-v2-v2-0-da63269c6ec4@gmail.com>
+ <20260902-drm-gpuvm-zerorange-v2-v2-1-da63269c6ec4@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260910-ad7768-driver-v7-7-7f70b07627e1@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260902-drm-gpuvm-zerorange-v2-v2-1-da63269c6ec4@gmail.com>
 
-On Thu, Sep 10, 2026 at 07:36:25PM +0200, Janani Sunil wrote:
-> Describe each power mode and its internal master-clock divisor in a
-> table. Replace the open-coded fast-mode setup with a helper that records
-> the active mode, preparing for dynamic mode selection.
+On Wed, Sep 02, 2026 at 08:28:42PM +0800, Zhenhao Wan wrote:
+> panthor_vm_bind_exec_sync_op() short-circuits a zero-length operation: it
+> returns 0 immediately when op->size is 0. The asynchronous VM_BIND path
+> has no equivalent guard.
+> 
+> An async MAP or UNMAP with size == 0 is not rejected: only alignment is
+> checked in panthor_vm_bind_prepare_op_ctx() and IS_ALIGNED(0) is true, so
+> the op is queued and panthor_vm_exec_op() calls drm_gpuvm_sm_map() /
+> drm_gpuvm_sm_unmap() with a zero range. A zero-length map into unmapped
+> space then reaches drm_gpuva_insert(), where the GPUVA interval-tree last
+> key addr + range - 1 underflows to addr - 1 and a malformed node whose end
+> lies below its start can be inserted, corrupting the augmented interval
+> tree.
+> 
+> Mirror the synchronous path and treat a zero-length map or unmap as a no-op
+> in panthor_vm_exec_op(), before any lock is taken or the GPUVA tree is
+> touched. This also keeps the async path robust if the core drm_gpuvm range
+> validation is tightened to reject a zero range, which would otherwise make
+> panthor_vm_bind_run_job() flag the VM unusable on the resulting -EINVAL.
+> 
+> Fixes: 647810ec2476 ("drm/panthor: Add the MMU/VM logical block")
+> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+> Assisted-by: Claude:claude-opus-5
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+
+Best regards,
+Liviu
+
+> ---
+>  drivers/gpu/drm/panthor/panthor_mmu.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index e592a8ebb478..93542f59cb5e 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -2591,6 +2591,15 @@ panthor_vm_exec_op(struct panthor_vm *vm, struct panthor_vm_op_ctx *op,
+>  	if (op_type == DRM_PANTHOR_VM_BIND_OP_TYPE_SYNC_ONLY)
+>  		return 0;
+>  
+> +	/*
+> +	 * A zero-length map or unmap is a no-op. The synchronous bind path
+> +	 * already short-circuits it in panthor_vm_bind_exec_sync_op(); mirror
+> +	 * that here so an asynchronous zero-length op does not fail and flag the
+> +	 * VM as unusable.
+> +	 */
+> +	if (!op->va.range)
+> +		return 0;
+> +
+>  	mutex_lock(&vm->op_lock);
+>  	vm->op_ctx = op;
+>  
+> 
+> -- 
+> 2.34.1
+> 
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
