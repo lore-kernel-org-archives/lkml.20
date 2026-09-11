@@ -1,129 +1,189 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 253A244F56D
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:15:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0E5E63AB285;
+	Fri, 11 Sep 2026 08:17:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789114553; cv=none; b=XtKBzy2aHL3KBR1gV5Z4dMmiRfg/N/5kQXIYEmJOeQER5sN+03XseVNtBeU2bmMNOR9S+fcawOVZDx+N4fKoTUgz+HKqZFuqPg0zrb1RSO8hCIobAvwGyXsMhIrGn5L6rMjJo58qbMbC9ZHYPN7vdbLNMYYRPWPlbwBK8LcTyaM=
+	t=1789114628; cv=none; b=k3ObvtZ+sG5cFiGBKaTbBrW9j5uJ8LgKI3Ax2XVHj9tiHBumccFgX8Qffklw3onXJL8VEhP2vAab3bZgRrFevuCjbwtZLQVelkY5lZw9WQVdTmpnTAoHW+rDnqHnOT3theXmopTmeKzE9gHy5uwwthiXblBaNwbXgM200x8D95g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789114553; c=relaxed/simple;
-	bh=J6q9EHrfbJVo8kVqCaYkGKEF3G1EcWWL4QKywVpxoO0=;
-	h=From:To:Cc:Date:Subject:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=CFe7cmCeyZRwa9kdB1ouklzfv6Dy2q+H0z1oa7gdXXMZCu5+jgFKIKEetbyBsjFWSWJW2XDtG4Oorzzl0cfP4kwQ/XbFIqnzIqQh0LRsDNYuqv2bsxdeZM0m5/+bvvjY04LzXBrX6g56eZZJ+9K2x8i6C7Jqrn8GzuVbqOJgaDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr; spf=pass smtp.mailfrom=khu.ac.kr; dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b=BGyob8YM; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=khu.ac.kr
+	s=arc-20240116; t=1789114628; c=relaxed/simple;
+	bh=TPsGC4LYcFPbDZQDuzzjee885teUbGy2eenjNKg1Wwk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rTLwn7uYU6H1T8LwhnsIyDutckUJrBpKsoTnxL9ylYzPetqlshyyxb6GLVjjKnxkfMqL0QYUQO2nak9Rp8POFPXYwOOUZ6SJ0/Y3/BYt/l6cXaP9Lf3mVRSAsccQpts4z8r0znJdt9Qc8ouArPrkBfFXQphXmK0/t/AHD/EjcMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=NvrLUj+M; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b="BGyob8YM"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc1d57602e8so688991a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:15:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=khu.ac.kr; s=google; t=1789114550; x=1789719350; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:subject:date:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rF31rq5u2Ejrgd2GDHtEaw5FZnwlakbF/ays9ggaUPw=;
-        b=BGyob8YMIxRBck1yY+FVKozfN4OcZ17/rHcdHopvCs41KYlnhvyoocP6u3TZTASJUD
-         9GxB4PcW4qXk8boTLkCsRILDH1HzyMVYw4ZN0Qij5OUr0wiNsngAmhqOGAMo3j7lXXYJ
-         S0UYc7/8yJyfE4/pP0GfsZUYAnTg4J6YyxKtY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789114550; x=1789719350;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:subject:date:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rF31rq5u2Ejrgd2GDHtEaw5FZnwlakbF/ays9ggaUPw=;
-        b=bIBPM8GXl9SNGVlArQF9j+QF487RKiy/6z0rS0vE4ILAHUboKu425CXlknLTRpsX+w
-         LIffr91bkndwKMF7wJdyvS9JkhYQvHzQsGwxJtcVMfEEjkfVsRKIp60SNGgIdpeUSQjM
-         bihXWP9oWR4Z6W/RrmAScT1NGXogfrMmdWhjLygmy9NACvnI8eJ/12M1HtuJrar0cvSV
-         7nzct28jv0+VvDNWwKkuE4+LSaBRbfhQQHegi6h14Nyz+NNJLhitKCTBMD5jtl2P8VeT
-         HbCwYmaeaFQL4tYlzlBa6/9SdHcCg3y5SY+7HG1LsDkGsW8PNWzEIF8zCJtZ3IBp9iil
-         /q5g==
-X-Forwarded-Encrypted: i=1; AKwUvByFfJRoMuZfVC+Pz/fw2VoY/aX1NLA1kVdYzLbuUQ/hMvj1lmHhu5HyKJQiP9h5fprJ1XfYaYDPSu8ztpY=@vger.kernel.org
-X-Gm-Message-State: AFuF++l/gHnoF96ZbAiLWzZ03IM9+0n4AlgInxgFKHQ5zeKDGiSadXon
-	+BHnsUtUGzJzfl+d2HEZ4q3/SG/vTlSN/gfS27HXVM9uLZHxC96dPGhXmWyC/pi9Pxc=
-X-Gm-Gg: AYBFou2NlXVhdtEMswOf9wjK/gagkuJacMdhYgyMUU06P91tDj98Ay4mWaR7oSxobL6
-	Si6egKAaGgUZ+xO9NVV0v2PD5cY4csLFo0ua4TD2hlJ4R89iI72AXQZfAa0D0iQhf/ExV0WGWxn
-	QI6gFMsqvC4hmyqHXuh8OUz4bfwfRMlM3rsEeaSwXKD0OwvzuLQ1IMzw+2/PL4K31g9TGShWPOV
-	S54XvGX1CSUP1MzT4dLqkAM5mG1/OAr04X8A1g0Hiqsx7KWnCyNaq/jFks38HxJnBWUcZI/HzzG
-	SMOPnrG8GQ2sARfKbDYhHBlKC2hsMT62h5XOrJb9Qmmx1lIbZc4E5jPzvbuwR3DVcRf1cDZ6c71
-	tvE6cm/DxdQoXgGMfo9N7tzXYrcm9+1torkhHBMa6srBvgkyYOu0nZQcRt5cZC9wBLHOM2pkgXr
-	TyIRkDQ6GU2OJ6xa1OprgJYNrR/wLWAuLMSnTZoC0hlSu+r/gTNencMSlRuSNO4sRiZkWfcxg1z
-	6nt2Z/m
-X-Received: by 2002:a17:90b:3d87:b0:393:288:29e3 with SMTP id 98e67ed59e1d1-39d9bd951ecmr5459367a91.10.1789114550542;
-        Fri, 11 Sep 2026 01:15:50 -0700 (PDT)
-Received: from localhost ([106.101.10.72])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d994872e0sm3534834a91.8.2026.09.11.01.15.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 01:15:49 -0700 (PDT)
-From: kimwooseok <5mghybrid@khu.ac.kr>
-To: netdev@vger.kernel.org, theo.lebrun@bootlin.com
-Cc: conor.dooley@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- richardcochran@gmail.com, linux-kernel@vger.kernel.org
-Date: Fri, 11 Sep 2026 17:04:46 +0900
-Subject: [PATCH net RESEND 2/2] net: macb: Use all-frame timestamping for
- PTPv1 RX filters
-Message-ID: <178911388671.25348.11008812384009904081.macb-resend-2@khu.ac.kr>
-In-Reply-To:
- <178911388592.25348.177462085059763031.macb-plaintext-resend-cover@khu.ac.kr>
-References:
- <178911388592.25348.177462085059763031.macb-plaintext-resend-cover@khu.ac.kr>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="NvrLUj+M"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6E2BB16A3;
+	Fri, 11 Sep 2026 01:17:00 -0700 (PDT)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 856213F7B4;
+	Fri, 11 Sep 2026 01:16:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789114624; bh=TPsGC4LYcFPbDZQDuzzjee885teUbGy2eenjNKg1Wwk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=NvrLUj+Mtl4RA3Ci+dQCi4Gu3PXOmCVqm7akSjQwrC1/trQKc6gx45SUUy+CNd310
+	 +qNENUqr/roCWCUblLUjNKqP4qjFFk5o9CwjIyqxXUZJek54f9iqQ9P8w0hgZ6YiNk
+	 6CJsKjn5GPbcZlawTAoAOw52b3Bp0nI+y83w+6i4=
+Message-ID: <1cd6fa61-df0d-4743-8f68-84cdf7f8722c@arm.com>
+Date: Fri, 11 Sep 2026 09:16:57 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 02/40] arm_mpam: Reset when feature configuration bit
+ unset
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: amitsinght@marvell.com, baisheng.gao@unisoc.com,
+ baolin.wang@linux.alibaba.com, carl@os.amperecomputing.com,
+ dave.martin@arm.com, david@kernel.org, dfustini@baylibre.com,
+ fenghuay@nvidia.com, gshan@redhat.com, james.morse@arm.com,
+ jonathan.cameron@huawei.com, kobak@nvidia.com, lcherian@marvell.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ peternewman@google.com, punit.agrawal@oss.qualcomm.com,
+ quic_jiles@quicinc.com, reinette.chatre@intel.com, rohit.mathew@arm.com,
+ scott@os.amperecomputing.com, sdonthineni@nvidia.com,
+ tan.shaopeng@fujitsu.com, xhao@linux.alibaba.com, catalin.marinas@arm.com,
+ will@kernel.org, corbet@lwn.net, maz@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, suzuki.poulose@arm.com, kvmarm@lists.linux.dev,
+ zengheng4@huawei.com, linux-doc@vger.kernel.org
+References: <20260313144617.3420416-1-ben.horgan@arm.com>
+ <20260313144617.3420416-3-ben.horgan@arm.com>
+ <7500ec7f-5e65-408c-a4ed-3f7af161219b@huawei.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <7500ec7f-5e65-408c-a4ed-3f7af161219b@huawei.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-gem_set_hwtst() accepts HWTSTAMP_FILTER_PTP_V1_L4_SYNC and
-HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ without changing rx_bd_control from
-TSTAMP_DISABLED. A successful request thus disables receive timestamping
-while reporting the requested nonempty filter to userspace.
+Hi Jinjie,
 
-Handle these two filters through the existing all-frame fallback used
-for HWTSTAMP_FILTER_PTP_V1_L4_EVENT. This enables receive timestamping
-for a superset of the requested packets and returns HWTSTAMP_FILTER_ALL
-to describe the configuration actually selected.
+On 11/09/2026 07:44, Jinjie Ruan wrote:
+> 
+> 
+> 在 2026/3/13 22:45, Ben Horgan 写道:
+>> To indicate that the configuration, of the controls used by resctrl, in a
+>> RIS need resetting to driver defaults the reset flags in mpam_config are
+>> set. However, these flags are only ever set temporarily at RIS scope in
+>> mpam_reset_ris() and hence mpam_cpu_online() will never reset these
+>> controls to default. As the hardware reset is unknown this leads to unknown
+>> configuration when the control values haven't been configured away from the
+>> defaults.
+>>
+>> Use the policy that an unset feature configuration bit means reset. In this
+>> way the mpam_config in the component can encode that it should be in reset
+>> state and mpam_reprogram_msc() will reset controls as needed.
+>>
+>> Fixes: 09b89d2a72f3 ("arm_mpam: Allow configuration to be applied and restored during cpu online")
+>> Signed-off-by: Ben Horgan <ben.horgan@arm.com>
+>> ---
+>> This goes back to the initial feature configuration policy that James
+>> used in the MPAM base driver rfc but I unfortunately
+>> suggested him to change it.
+>> ---
+>>  drivers/resctrl/mpam_devices.c | 40 ++++++++++------------------------
+>>  1 file changed, 12 insertions(+), 28 deletions(-)
+>>
+>> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+>> index 0fd6590a9b5c..ff861291bd4e 100644
+>> --- a/drivers/resctrl/mpam_devices.c
+>> +++ b/drivers/resctrl/mpam_devices.c
+>> @@ -1364,17 +1364,15 @@ static void mpam_reprogram_ris_partid(struct mpam_msc_ris *ris, u16 partid,
+>>  		__mpam_intpart_sel(ris->ris_idx, partid, msc);
+>>  	}
+>>  
+>> -	if (mpam_has_feature(mpam_feat_cpor_part, rprops) &&
+>> -	    mpam_has_feature(mpam_feat_cpor_part, cfg)) {
+>> -		if (cfg->reset_cpbm)
+>> -			mpam_reset_msc_bitmap(msc, MPAMCFG_CPBM, rprops->cpbm_wd);
+>> -		else
+>> +	if (mpam_has_feature(mpam_feat_cpor_part, rprops)) {
+>> +		if (mpam_has_feature(mpam_feat_cpor_part, cfg))
+>>  			mpam_write_partsel_reg(msc, CPBM, cfg->cpbm);
+>> +		else
+>> +			mpam_reset_msc_bitmap(msc, MPAMCFG_CPBM, rprops->cpbm_wd);
+>>  	}
+>>  
+>> -	if (mpam_has_feature(mpam_feat_mbw_part, rprops) &&
+>> -	    mpam_has_feature(mpam_feat_mbw_part, cfg)) {
+>> -		if (cfg->reset_mbw_pbm)
+>> +	if (mpam_has_feature(mpam_feat_mbw_part, rprops)) {
+>> +		if (mpam_has_feature(mpam_feat_mbw_part, cfg))
+>>  			mpam_reset_msc_bitmap(msc, MPAMCFG_MBW_PBM, rprops->mbw_pbm_bits);
+> 
+> This condition is written backwards, but it looks like it has already
+> been fixed later.
+> 
+> Otherwise, LGTM
+> Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-Fixes: ab91f0a9b5f4 ("net: macb: Add hardware PTP support")
-Assisted-by: GPT-6 Astra
-Signed-off-by: kimwooseok <5mghybrid@khu.ac.kr>
----
-Resending as plain text because the previous webmail submission included
-HTML and quoted and rewrapped the patch. No code changes; the Assisted-by
-trailer now names the tool.
 
- drivers/net/ethernet/cadence/macb_ptp.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+Thanks for your reviews. As you hint at this has already been merged and so it's too late to apply
+any tags. Good to know that the code survives being looked at by an extra pair of eyes. :)
 
-diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
-index 51659bb..2ffc46b 100644
---- a/drivers/net/ethernet/cadence/macb_ptp.c
-+++ b/drivers/net/ethernet/cadence/macb_ptp.c
-@@ -430,10 +430,6 @@ int gem_set_hwtst(struct net_device *netdev,
- 	switch (tstamp_config->rx_filter) {
- 	case HWTSTAMP_FILTER_NONE:
- 		break;
--	case HWTSTAMP_FILTER_PTP_V1_L4_SYNC:
--		break;
--	case HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ:
--		break;
- 	case HWTSTAMP_FILTER_PTP_V2_EVENT:
- 	case HWTSTAMP_FILTER_PTP_V2_L2_EVENT:
- 	case HWTSTAMP_FILTER_PTP_V2_L4_EVENT:
-@@ -448,6 +444,8 @@ int gem_set_hwtst(struct net_device *netdev,
- 		regval = macb_readl(bp, NCR);
- 		macb_writel(bp, NCR, (regval | MACB_BIT(SRTSM)));
- 		break;
-+	case HWTSTAMP_FILTER_PTP_V1_L4_SYNC:
-+	case HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ:
- 	case HWTSTAMP_FILTER_PTP_V1_L4_EVENT:
- 	case HWTSTAMP_FILTER_ALL:
- 		rx_bd_control = TSTAMP_ALL_FRAMES;
--- 
-2.53.0.windows.3
+Ben
+
+> 
+>>  		else
+>>  			mpam_write_partsel_reg(msc, MBW_PBM, cfg->mbw_pbm);
+>> @@ -1384,16 +1382,14 @@ static void mpam_reprogram_ris_partid(struct mpam_msc_ris *ris, u16 partid,
+>>  	    mpam_has_feature(mpam_feat_mbw_min, cfg))
+>>  		mpam_write_partsel_reg(msc, MBW_MIN, 0);
+>>  
+>> -	if (mpam_has_feature(mpam_feat_mbw_max, rprops) &&
+>> -	    mpam_has_feature(mpam_feat_mbw_max, cfg)) {
+>> -		if (cfg->reset_mbw_max)
+>> -			mpam_write_partsel_reg(msc, MBW_MAX, MPAMCFG_MBW_MAX_MAX);
+>> -		else
+>> +	if (mpam_has_feature(mpam_feat_mbw_max, rprops)) {
+>> +		if (mpam_has_feature(mpam_feat_mbw_max, cfg))
+>>  			mpam_write_partsel_reg(msc, MBW_MAX, cfg->mbw_max);
+>> +		else
+>> +			mpam_write_partsel_reg(msc, MBW_MAX, MPAMCFG_MBW_MAX_MAX);
+>>  	}
+>>  
+>> -	if (mpam_has_feature(mpam_feat_mbw_prop, rprops) &&
+>> -	    mpam_has_feature(mpam_feat_mbw_prop, cfg))
+>> +	if (mpam_has_feature(mpam_feat_mbw_prop, rprops))
+>>  		mpam_write_partsel_reg(msc, MBW_PROP, 0);
+>>  
+>>  	if (mpam_has_feature(mpam_feat_cmax_cmax, rprops))
+>> @@ -1491,16 +1487,6 @@ static int mpam_save_mbwu_state(void *arg)
+>>  	return 0;
+>>  }
+>>  
+>> -static void mpam_init_reset_cfg(struct mpam_config *reset_cfg)
+>> -{
+>> -	*reset_cfg = (struct mpam_config) {
+>> -		.reset_cpbm = true,
+>> -		.reset_mbw_pbm = true,
+>> -		.reset_mbw_max = true,
+>> -	};
+>> -	bitmap_fill(reset_cfg->features, MPAM_FEATURE_LAST);
+>> -}
+>> -
+>>  /*
+>>   * Called via smp_call_on_cpu() to prevent migration, while still being
+>>   * pre-emptible. Caller must hold mpam_srcu.
+>> @@ -1508,14 +1494,12 @@ static void mpam_init_reset_cfg(struct mpam_config *reset_cfg)
+>>  static int mpam_reset_ris(void *arg)
+>>  {
+>>  	u16 partid, partid_max;
+>> -	struct mpam_config reset_cfg;
+>> +	struct mpam_config reset_cfg = {};
+>>  	struct mpam_msc_ris *ris = arg;
+>>  
+>>  	if (ris->in_reset_state)
+>>  		return 0;
+>>  
+>> -	mpam_init_reset_cfg(&reset_cfg);
+>> -
+>>  	spin_lock(&partid_max_lock);
+>>  	partid_max = mpam_partid_max;
+>>  	spin_unlock(&partid_max_lock);
+> 
 
