@@ -1,191 +1,158 @@
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010002.outbound.protection.outlook.com [52.101.46.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADBA582B98;
-	Fri, 11 Sep 2026 19:56:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FEBD415B8D
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:58:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.2
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789156605; cv=pass; b=gKCqJYzk2mQWJvdFW+ZuW9ZJZe0COvL8sc19q6C8M5am2BUJ3oRVmDEf2Ej4tA/Y6YZuyAEQ112q145zNw/viDKL3Y4NRQYazLOnre0SOH+wuai6ak5WRe36VZYPUoKoFcC2w6uju94wnBbnr3RaRM4cQ57NMnPmneiaZp2CbnA=
+	t=1789156702; cv=fail; b=oknL6TyqqdEfBLKEjhRBQMuc4XyCrZYPIZjeJNyjL3MeYZNVcIqu8CyYJhXct3UmAXOS/yMKxUN+kokmHxQKV8s6wQdUcMOU0OQtbZVVYgs94mhFP9Zgux2fkZnneLOMimH77cLMCx1qI0t/now+/upDMauo8ZaASI753UN6/sE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789156605; c=relaxed/simple;
-	bh=UIdudTzdNH4gipP1faAe+Hnlz/Hi7ayLLCa9/fXfE84=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=sObP59YepN0ktvH/pVlksSUK9T8GZ1SX3UzizbNnBXCYaks3h1WIxjcvXO38PuRrHRC7peSU5UlvI+2VMz73rBMLXufXP/PYewkvz2SA9EbvIHxcPkikDA0q2yw5gjo1VkilDs89LqS+e17cRAjCFUNAFd0Ri2uv1nCOy8+Hu2g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=kUu1r14N; arc=pass smtp.client-ip=185.185.170.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	s=arc-20240116; t=1789156702; c=relaxed/simple;
+	bh=55pA7gLaJ/8LwQwnF7zPw62kC86gNx7nw7ut9BvF+CE=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=b3/qQCp1DozZZkan2BiK6OUjIWC0vdJe/lxvlomCkzU+nB2ja+vNdMgv1Eg9FF8Jc56GulgdwlDcpJyVg7WfzmuUul1SRONoJ0Z+PQlPm9DKMb3bVaJF/IsoHO+EqBX62mfzTAGvPBc/wxASuyFO7PH3INXRxaaIA/7thPANvFA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Ysll+zwi; arc=fail smtp.client-ip=52.101.46.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="kUu1r14N"
-Received: from [192.168.1.195] (unknown [IPv6:2a02:6ea0:1508:9::d001])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: pav@iki.fi)
-	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4hhQKD4JH8z49Q6x;
-	Fri, 11 Sep 2026 22:56:16 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
-	t=1789156577;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=x0MV3Gx0q4t6grnOE1aiY7WQIUKmmgDhyNhU3Q0wrZI=;
-	b=kUu1r14NHPTBsd5ckVhGOKkmsR2IlDdTVfECjS+NXjj0dUsdS1XIjIxmoG3y6ezDIxshsF
-	hY9ChQzdaHejyEKHvDoCxWFhLZOhVDFj6dLuwyT7imORcDrvnFRRLynANHkBDfzoL7kV1a
-	FwMkVL8HJyhILcZDz9SeN1a7ZHkWY95CumK5z+38eNsrvgdEBkgQMFImUPhzmam7kIFQhH
-	1vT00GfSC829zvPPeYxk2mjaCEiXXbcl92dIzX04oXDWuIUlnTiqAJFowjjoF02rqaoRDg
-	SUOMYAk+TZpHgjiwxLSclSNQDXOv4qFiuxFjFP0qLuG3CiLID/4ZkOBL3nWcgw==
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1789156577;
-	b=nMGMqgv1u0Cdpfx/7f/p3qhj/yIoI/sNCzzI29TC81z8k5VQypwAuHto0vWvt0zsNqTDEJ
-	06d9e41FHxk78kZlKShv6ZDiHxsUqd5hIGhPKIgN5HcndzjMcOk8YI+qOXZ7FugUWtrNk+
-	Pqs+YUTvFeEcYPZBq8t89uzg6markwkvL0Rg3/miyr6KlqfIo5+9PFK1m8vuJ2261HUcKr
-	8mp8v5CASYkMA+2VQLq2Cxhyxkp8CycDech8rk1GcHgYGgtrBj9QrHLySIBHcGEFXMTnMJ
-	7jMcfaLh1iIE1WTQBgkIn6ElpekAAja69ghRQHYNSO4uAIDQtEuZpBsAwge/2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=lahtoruutu; t=1789156577;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=x0MV3Gx0q4t6grnOE1aiY7WQIUKmmgDhyNhU3Q0wrZI=;
-	b=J2pz6OnCrDmvJa5duFBOaBFB9wQmOd28K9D74/dcu1z/WN2/awI/t3JWs6H6/6tJM39Zfu
-	phpjy3YpqejtgQLfsXLduTARNMq70VlaKj7YCBiUyNyX6eSk4nwiy4tOPXq++INPq1LWjV
-	6nTfF2zAXAX7per6pE86ETJ63OJD9EgX5/MimxZnDKnX/m9cWR27jAueP+GtrLQ7psREel
-	KJcBkOnxrr5W0lhuq/YawtlB1s4YjDFRZvSX5qurJvIBw6S2Q9tMkCEEdwksrkOIVn4RHv
-	3B0JpUQbgRbJ7IApV96xKzOyx8mxhwdalKUMmqIVLf7egkFtF1Hmw11nmdaDNw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pav@iki.fi smtp.mailfrom=pav@iki.fi
-Message-ID: <7bfc5ec0438b830386ae2899756bb9a7c4b9e123.camel@iki.fi>
-Subject: Re: [PATCH v5 4/4] Bluetooth: btusb: Add support for Qualcomm
- multi-subsystem QCC2072
-From: Pauli Virtanen <pav@iki.fi>
-To: Zijun Hu <zijun.hu@oss.qualcomm.com>, Marcel Holtmann
- <marcel@holtmann.org>,  Luiz Augusto von Dentz	 <luiz.dentz@gmail.com>
-Cc: Zijun Hu <zijun_hu@icloud.com>, linux-bluetooth@vger.kernel.org, 
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Ysll+zwi"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nkBj7aKMy4Saw0Tf6Ov1inkqMiO2vynNR/S0fdYa0UZdlRqKB6pYX8g0Lbjp0SF3a27Y4QpTNQW3aAgyLe3nJ0pxLiC+XiUbnDmVpttL1TkFqxGGqiBIAoKadxPWWJ8voOZ7w/0/jBno8F6GJY2vaV2OQ/mdCZnAkn+h/atmmT5k3JKP37T+8BnGQBsjshUwcIjf+NgA5FWcVp6CtdTsjzByy+qDKQpj1T4q1i657i6jf9ZAEhGu6ZFjm0JEqNy9wUYFCkXQVLyq4o7buDBAMNVcU+juS2wq4JVm7QJRdTZJBKig4mE/4Sh6YGIZEON6iFxp5NZQyysLkmA4ajd0kw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EY+fwNqKQbNtz/me7zHb9Q3yMZ/hY78l/39W8HPru8s=;
+ b=TQ28SgD+LcSQZm/gxlSgFl7fIwuei0z5OM8OLDssk3ooAKESJ9FYTozzvWExJVpKRT5K8Xm7iul79nF+SmD2Bl2Bc6aEl5XBAnoihlDf0D55QYflNoW13bNst4oZay5wPz+mOKi75SHNPP1N/zDI3lyC0ALJFK52CFWxfdrebXiOWng+xwQXR6y/msycltTaH+nvOL7B8wXUSRTEV7o47442SGoQ2qqXUaaS8oSZx8AAOLTeFb1B6eWEZrX+b2SmmNEVyQxJC6efQaaucLpaOcT9QsaozzaITQstScJ73MhVN71+GxAcv4rOZK8IMwemgZYr034cIRk020H2n6LYvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EY+fwNqKQbNtz/me7zHb9Q3yMZ/hY78l/39W8HPru8s=;
+ b=Ysll+zwieAL2/vbYK1L80gr/rdpWlOsHb5SeQX2+XtU4yVGxEsjPMPvOQdsRfnDoNrXmkqqZIHl2mKdXA2GhhOA2D7u06VTM4TdstCq5CU6qYfYUMHMjRhAt+i5SavYplPfcODw3wD+Rhl+/F+yBp2usWVq2VhMB7TzrLeMtXVMPi+3IzAZnZxosX6Vn7Wq5+Yo0BXi2BCPL+oWTdfXmxEfZDgmEvg9XEOW76GWu0ElCYq6JHTZ026UlhxQDTWlQbVZ6A3V76haX4bi3OU5DQ90E7C80GgX93nu1v+0SDf0xxbW4wvO7tF3/wlcTPQszql7aLWcIzMyA/bVbJgoIbA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by SJ0PR12MB6688.namprd12.prod.outlook.com (2603:10b6:a03:47d::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 19:58:11 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%7]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 19:58:11 +0000
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>
+Cc: Emil Tsalapatis <etsal@meta.com>,
+	sched-ext@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Date: Fri, 11 Sep 2026 22:56:14 +0300
-In-Reply-To: <20260911-btusb_qcc2072-v5-4-422754f4e938@oss.qualcomm.com>
-References: <20260911-btusb_qcc2072-v5-0-422754f4e938@oss.qualcomm.com>
-	 <20260911-btusb_qcc2072-v5-4-422754f4e938@oss.qualcomm.com>
-Autocrypt: addr=pav@iki.fi; prefer-encrypt=mutual;
- keydata=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
- bzyGkKh2h8XdrYhtDjw9LmrprPQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+Subject: [PATCHSET sched_ext/for-7.4] sched_ext: Add lazy preemption support
+Date: Fri, 11 Sep 2026 21:56:52 +0200
+Message-ID: <20260911195800.974364-1-arighi@nvidia.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MI3PEPF00004EA5.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:298:1::45b) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|SJ0PR12MB6688:EE_
+X-MS-Office365-Filtering-Correlation-Id: 19c79aee-ebe3-44dc-b505-08df103f0212
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|11063799006|10067099003|56012099006|6133799003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	uFvqvdb6AsCXiLHMVbMB0WM4xIcu2RFdFpfagQfPI2pmNECD3A+OBqiVSqTepH6pT0/no9mJdKp9BfTKtcferdsg4yRHlcoKEpjyifJQoosS7WaaNx6bP2iVIpu/QfK9w1dDPnQ4FqwcPq+4rLkv4wbyrdQFzq5XH7udGMAPaAOkPDJUA8ES0Jkh70RlIASkGujBYtcwXJuXNHUMsepwpuPx/79g9W7W+9fxrD34oljbNk5BUFHrqcA06Lx7dlmtM0f4Xm2oenIvS+EUxzRQP8SJRWdp4Z69Vdn3ZgTK07c975PEOXZudreOyJuaE43cGb0sY4oKTxaJ8fDtqYKoLg0r/2IXdRFqxOEPGIvZbqL4RKaDT7tSMF0EhfOKTRPAd9vx0HSadbvQ821oBalF9jYOJiJef/gVhN+yyj0uQF0OpyRSs26G3Egv4h3wKvxWpG2tW1VzeGxgCx01PQ0iXIpm0D8YmhpcmPZQIm3L4xQ9kzMLCX7d02qvV0PXdgLWjqClYWJ+y4eC56VSycmUflyvgDwpRNqQC+WUzWWm89PEnDEudtgTTaB9pEa3MoOzgM6YHmJDkywxZbpQZeRF2kutiBjMSBEJUdBrCxcBaYjoNvRli4X0rsjDTKKqdKAW9hHHRehJ5i5vnmNMlUgJ8OdIYqWLB35zXN247Qq3PAA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(11063799006)(10067099003)(56012099006)(6133799003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?fxFwjOj8A4rzbAjlnVp3rLW4NQiznZlzimX9RqnVcnfwkjT2QqNEOCqbQ7LL?=
+ =?us-ascii?Q?k9mIxjdqLCmQ99J5MuV8WLQR5BHmXRx80rf11+PbLvbXpt66dr/b5s0zuScB?=
+ =?us-ascii?Q?ww6ylUxMsj81wQ+34HuPaFMoRgPaxkc8dCtQWBPk/rl/ucngqDnQ1gE6/pr/?=
+ =?us-ascii?Q?v2S0ylbpG8tTPDX7eiZ/APLPJ7LTHMcz33UOFRe2P/VNiBWCuc2QCQQrGlTk?=
+ =?us-ascii?Q?PfAihKdlobe2gZkYa5kMax7t8hHWPF8cKfko88Inp2sbs92uBbX5853J7PJo?=
+ =?us-ascii?Q?g/WWkSq27BNtFQFPkkylvHd+RbRVHflPSDip6Jh/GFYD2Uwy72yOpRQC04+J?=
+ =?us-ascii?Q?kW9Qb/83kq92KuWiqz3Ipq3luy0zZhuprw+5pDvF18Z+S/jnfS6aUe5DmR54?=
+ =?us-ascii?Q?M6aBczqLhy0JRH2dUvvYBfR3TvRmxSqKX03B3Jgw//kaGQkvhJjB2+Yd3Za+?=
+ =?us-ascii?Q?ZpiUuEOZDE5OCqEsPO5sEL8OoxWQgm/FoXsqtUAos/Sm7HBxL0g0NWGIr/p9?=
+ =?us-ascii?Q?VccKRMWCOLcl0AIycbCgCbo/vdsgg571s03c/aORiK3Keuk5jXovIRqyywP1?=
+ =?us-ascii?Q?oo7TKhHTHkJ8h+e9wL3GeTAqgnI7mFxCmK2SpJO1LTiFdBv/OKQOOGDAKluT?=
+ =?us-ascii?Q?BrD35IPXiQPGR3lu2UnFCplsWwtiLjYC6FQyTRQPPdcyat+nUtTf+xa0vN/x?=
+ =?us-ascii?Q?KaFDTgd9H6j2e3r4YJhVQV2Drw1BxE5IzDXFoFIIVizEMd1buecw1VA3KGq3?=
+ =?us-ascii?Q?y1j+LiWP+nKJFlLmuHIkU6SG9iumSvGJO5OVyDtuMAVUnZOozQCkHjOqa57L?=
+ =?us-ascii?Q?fzCkbirES0SFsVNB4KMEOHJEnrK3WSlOk+Rc0olzCs45E58jd5rjfW5dXQoP?=
+ =?us-ascii?Q?HQ4ZgeHuQKa83zxVpxIflTv2dHKMMUb3xOAO8oTBHYWeQaO/+Bs50hDFT7KN?=
+ =?us-ascii?Q?PRmgsD54n1Ndr3xa5AIJ8jYMDbYjZNkITzK8J47vs8sqp6D+RTwunp91MOar?=
+ =?us-ascii?Q?rrqgZVlxeaRBLbUEX+SEtqmBD35hlN5p9bVNZuOV+fOq0OYhgOzmjZT97A7X?=
+ =?us-ascii?Q?d8tuZ/LRHczYzRjUJZe+mMwR7E0cjcGwPOIaVL9utbTzTROO5pszThGU6klq?=
+ =?us-ascii?Q?Nj/pYfmxfM+Lq1CHsNu4Ey1Lk02UjfhamLHmHyQUffQTHplNCIM/w/6LfVsq?=
+ =?us-ascii?Q?TIWYnWf4az9pUAgIMDAogF5sw5VsB7TI4s+AJgP1+zdIgoSAZuyoTCiNmfJG?=
+ =?us-ascii?Q?jazj8WZplOntsdLUy1eIJzGgL0YxbFaBpOCxO6a74WMZ3r7LIEjURGuosooc?=
+ =?us-ascii?Q?2ubVrnS08VqWjCljyw/JeXhVcOfLQ09xJFSD+TGgD3AaLsYpBA5YxhOBgA15?=
+ =?us-ascii?Q?E2IPtDrruF4OB6JTTKbOfl7TYRnOmMk8ZqOFe7Mpn1LbycZvjnEWR2RvTXmk?=
+ =?us-ascii?Q?zAqkGO+AD+wQYfKidbuSkCHYgxKCUNbgKuOuCKDF8TqxWp4r7zbAuMa4mKSP?=
+ =?us-ascii?Q?jB8uUIHv8b/WWg+MQXvXsmayTVmRWONx9o9GwghuiQI0Su0azo8h8XCgsquD?=
+ =?us-ascii?Q?IodFQ6AbdbENjSbDei5/DO9wGsLp39n7RgAar3GC0WOWqIKt19W7jGrrgZSy?=
+ =?us-ascii?Q?Gg43LwDHYlCkNQboiYphvzmN80GJDRMQH/ZHIXYK2EKr6bcAOdk+7Ii2+kjw?=
+ =?us-ascii?Q?d4Ef72dSjQa5TGcVPBQrgHUwOSx/JhB+wfcuq6hSVdmfoEhous3PcALSlYUr?=
+ =?us-ascii?Q?ABZ2BNGkwA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19c79aee-ebe3-44dc-b505-08df103f0212
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 19:58:11.5202
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CYwJmRoGkbPLBW+EQdRaRAydHTphF2mS6kSV8XYPZjJYr1gorFYM0ALqZWXWsa07QbGgYNqumy9btsBZyWN1Sg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6688
 
-Hi,
+The fair scheduling class can defer a scheduling boundary through lazy
+rescheduling, but sched_ext currently exposes only immediate preemption to BPF
+schedulers.
 
-pe, 2026-09-11 kello 01:00 -0700, Zijun Hu kirjoitti:
-> QCC2072 has a Peripheral (PERI) subsystem to support the BT function
-> unit, the transport wire is owned by PERI and carries both BT-HCI and
-> PERI-HCI frames, as shown below:
->=20
->                  _______________________________
->        USB I/F	|	   internal link	|
-> BTHOST --------	|---- PERI -------------- BT	|
-> 		|_______________________________|
->                 (other on-chip subsystems omitted)
->=20
-> PERI has its own command/event/ACL traffic, memdump, and firmware
-> (PATCH and NVM), all different from BT's own, and BTHOST needs to
-> interact with PERI directly.
->=20
-> To support multi-subsystem controllers, add btusb_qcom.c/.h as a new
-> transport-specific design:
->=20
-> - Multi-subsystem memdump collection.
-> - Generic PERI event handling, and sending a PERI frame then
->   syncing an event sequence.
-> - Downloading PERI firmware (rampatch and NVM).
-> - Recovery on command timeout or hardware error event.
-[clip]
->=20
-> +/*
-> + * btusb_qcom_send_frame - send a frame for BT or PERI
-> + * @hdev: the HCI device
-> + * @skb: the frame to send
-> + *
-> + * Implements hdev->send().
-> + *
-> + * Return: 0 on success, or a negative errno on failure.
-> + */
-> +int btusb_qcom_send_frame(struct hci_dev *hdev, struct sk_buff *skb)
+The series adds lazy variants of the enqueue and kick preemption flags.  They
+expire the running sched_ext task's slice while allowing the scheduling boundary
+to be deferred until a return to user space or the next scheduler tick.
+Non-local lazy enqueue requests retain the head-insertion semantics of immediate
+preemption.
 
-This one should have __context_unsafe(/* conditional locking */)
-annotation, or no if (need_lock), to avoid warnings on LLVM 23.
+SCX_OPS_LAZY_SLICE_EXPIRY also lets a BPF scheduler request lazy rescheduling
+when a slice expires in task_tick_scx(), matching the choice available to the
+fair scheduling class. Immediate behavior remains the default and is used while
+sched_ext is being disabled.
 
-> +{
-> +	struct btusb_qcom *xport_data =3D btusb_qcom_xport_data(hdev);
-> +	struct btqcom_data *qbt_data =3D hci_get_priv(hdev);
-> +	bool is_vendor;
-> +	bool need_lock;
-> +	u8 pkt_type;
-> +	int ret;
-> +
-> +	if (qbt_data->category !=3D QBTC_CAT_MSUBSYS)
-> +		return xport_data->send_bt_frame(hdev, skb);
-> +
-> +	pkt_type =3D hci_skb_pkt_type(skb);
-> +	is_vendor =3D pkt_type =3D=3D HCI_VENDOR_PKT;
-> +	/* an empty vendor packet has no path to reach here */
-> +	if (is_vendor)
-> +		hci_skb_pkt_type(skb) =3D *(const u8 *)skb_pull_data(skb, 1);
-> +
-> +	pkt_type =3D hci_skb_pkt_type(skb);
-> +	need_lock =3D pkt_type =3D=3D HCI_COMMAND_PKT ||
-> +		    pkt_type =3D=3D QPERI_COMMAND_PKT;
-> +
-> +	if (need_lock)
-> +		mutex_lock(&xport_data->tx_mutex);
-> +
-> +	if (is_vendor)
-> +		ret =3D xport_data->send_vendor_frame(hdev, skb);
-> +	else
-> +		ret =3D xport_data->send_bt_frame(hdev, skb);
-> +
-> +	if (need_lock)
-> +		mutex_unlock(&xport_data->tx_mutex);
-> +
-> +	return ret;
-> +}
+An fexit probe on __resched_curr() records the exact reschedule TIF after the
+running task's slice is expired. Together with the stopping callback, the
+selftests cover immediate and lazy kicks, coalescing in both orders, tick-driven
+slice expiry and invalid flag combinations. Individual modes are skipped when
+the running kernel does not expose the corresponding flag.
 
---=20
-Pauli Virtanen
+Andrea Righi (2):
+      sched_ext: Add lazy preemption support
+      selftests/sched_ext: Add kick selftest
+
+ kernel/sched/ext/ext.c                          | 115 ++++--
+ kernel/sched/ext/internal.h                     |  36 +-
+ kernel/sched/ext/sub.c                          |  15 +-
+ tools/sched_ext/include/scx/enum_defs.autogen.h |   3 +
+ tools/sched_ext/include/scx/enums.autogen.bpf.h |   6 +
+ tools/sched_ext/include/scx/enums.autogen.h     |   2 +
+ tools/sched_ext/include/scx/enums_abi.autogen.h |   5 +-
+ tools/testing/selftests/sched_ext/Makefile      |   1 +
+ tools/testing/selftests/sched_ext/kick.bpf.c    | 144 +++++++
+ tools/testing/selftests/sched_ext/kick.c        | 479 ++++++++++++++++++++++++
+ 10 files changed, 773 insertions(+), 33 deletions(-)
+ create mode 100644 tools/testing/selftests/sched_ext/kick.bpf.c
+ create mode 100644 tools/testing/selftests/sched_ext/kick.c
