@@ -1,125 +1,226 @@
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC063E5EF2
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:11:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC76830C60F;
+	Fri, 11 Sep 2026 03:13:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789096291; cv=none; b=f++DJ3A3gQJjLHhY7aphNHOWIYdYn1nAdDV2BzS8UWHMpaPa9pWQTX7tSwKYiFwVszPwP8fBwO5n/lcttkl9Fj5zEjdmsiQANgaHfriCs+FlGBAVRHUoQ6UAsdnp2u2ezuVJ1N48Gb4SBbdg5nToblr950CvjSLKWvIeF+28pQ4=
+	t=1789096431; cv=none; b=Mq4aZPAubvntOq7xEXBmYZ3/TiEjXYF/SWKnYz7LHGIK0KUmlfkuzbEbKXggmWcfVabRk38c9iRq6ujG8Km6NqirHxSG5ecaKXp4iznV/J+OZJWmwr+cnJViFOR0dxU9DgRUCQ10BZQmulPfoyqzMsEQemIxyIn0ygr3WzmvvXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789096291; c=relaxed/simple;
-	bh=IsH/uiXS6PCMYKUcTa6HJLyo15+CD5yZpyixAyCfD84=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q/d9uf/gXdepHacezuHjD2SWiGx7Fs2LPusYlmK3gmEDETtDdCfRiD7+nui7WrEjmaxUQT8C/9gYoJ3Dq/buNgXtlWeVzU6osUBYrKMwCZLDJc00Lz/E06gJ+1OKLBB3qwoLQxdmFhiTo2LeqHUMtbKdcG0p2Wh2tP3kIoYQzvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dgm6T8Kx; arc=none smtp.client-ip=209.85.222.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789096431; c=relaxed/simple;
+	bh=+rKZjyjIKKEm5l4dYWFCu78qPcIodZQLyiQd9clSk/g=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=TH5asNUaQNFfVeo1YITL8+svrzyPV+fFFIzZq1M/QPMGma0elgl1yc4mywiG11A18dK4Kr8DZwWQr6Cni8sorA7dnGtWzh6aK0DJb3LwjHazAUPGBU13i+mIudkeN9fgDMuTrYFQjX7qSaVlKAJEXd1Laca5CI0Mm+JB5tep0Pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ma3C5FMo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dgm6T8Kx"
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-9377f717879so32327885a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:11:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789096289; x=1789701089; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W+7mpvDw1F56ZPu1ONqje79/4zvVptkv9Mg6Nl0mTjo=;
-        b=dgm6T8KxbyCxESOM4r/q/CFHYw+ksIcv+MUJ3BZwIginVpvVqLvs+KULqtJcreG2o7
-         /UdQXv36CbYJ8MwUmKKUJSOsU35ohzJ5onzRDnK1z6uojOhOWuYal6KhFvSGVIJmMDYn
-         Bbapo5gb0sk05iUt/utI5HQO5Ah/vkZDoTsDbljbwMAvM+LZd/AcNcetPwy64WXgZw6z
-         5ZjXrDI5fdOSEr2/mr9cvcNuD60AO4QvtDMxBB7fFdWRujCWC0xRJ3277xO+vFK1ciMX
-         8KtmCCIcgcP2463cBXEl3ZHoQDutfsAxyFbaU5Vz3lYI/nbyA7Od91GKcmUuagGKfdcl
-         3UGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789096289; x=1789701089;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W+7mpvDw1F56ZPu1ONqje79/4zvVptkv9Mg6Nl0mTjo=;
-        b=UsTXbYOr6YFuknmtcKE+H1pPazlU6YuhtYprkUgaODMAMp/FWXfObyULygi/9G6VrP
-         ziciSPChaWPkIgG1jLPauSs59/+YaP69TSLHsqrtsdmrbbQgoTvW41toAd/I1PPOjbPA
-         udgqb+ZPpa9kXa25mvpIK50G5a1NwEqnrekXTDeDYUyb8LXb9iAaF5q/pgwzCMt7PPub
-         N0c0oXoLQvLQNpx+FAyT1LHY7TnuYPMP12Ne53A/5fLguaFwoZ+1kYhNAtK1/xf/scRU
-         Qjwp1kXaokDBFQGPXUBytBGmVWOvMNhe6mdcW+MJmxVR2zjkpu38rz0T/zQYvz1vIOej
-         8JSw==
-X-Forwarded-Encrypted: i=1; AKwUvByb30JpNc0zusHYm4fDzYx853qO0eDMypv7G9fOQMhvjjPEyVPRXFwSPeOt+T3yd23mKwiYKiXS8vegPo0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kGvVB51wMT5rbH5ma8gb4TVDhkXMHtbT+SD73gxcYdhn7IXDQy
-	XwC1punqOoFlAaNEKGjivvCcHpkcUc8C+AcCt4Oi4nHkeK8W9z0vh39f
-X-Gm-Gg: AYBFou0PB5WJ0il2p9AOm2p+pA3X7oNRiPuW3D3l02bNXrmkD+FheRgV+yuK4IxP3uL
-	IgmuudnHagogOysYqO0dC56tWOlMAYzLSlgsxQSE6bWq3X1d/eu5hTYXtsdYfoumpBn1C1cxWuj
-	hKwCOG0yNZxMTegVH8kC1omU16iM8alSsosi1a0fOOeextzigvIcFIa4dThqMnRoNLBUxVnbHiG
-	LwET/jU3MZ7mw+YcFKWCvEigwD5sU6N7JT7APKMLgLELmE/SNxWwcO1H9UzQqzN7MR/e3zVswb/
-	Bjcpo+PjkW1RTnPaPyOTkLtTGSlpDYOkVcw8EmRbKOdszQV4XXQ7yNXOohN14EvAE+nMG6u4p1J
-	f/rPiyLEQm9FGm9oXSFEeJur+9GCAPhzRXiGAo59jo7jSeCZ0dmWv0/41zFfylwz/IOjSuSiiX9
-	cAXAeDXgfmRC6w9i8whqgTh1Pd1d5OQ2phnENjSN79gE1MUkzWupFjP6gfNVbAYZ5yk0ZYPzqNW
-	HpYoWCRzfE/bWIaZg==
-X-Received: by 2002:a05:620a:1a08:b0:934:970a:beb2 with SMTP id af79cd13be357-939ea22a13cmr252005985a.26.1789096288727;
-        Thu, 10 Sep 2026 20:11:28 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e80bfc90sm136878085a.37.2026.09.10.20.11.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 20:11:28 -0700 (PDT)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: Anton Yakovlev <anton.yakovlev@opensynergy.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: virtualization@lists.linux.dev,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>
-Subject: [PATCH v1] ALSA: virtio: reset device before deleting virtqueues
-Date: Thu, 10 Sep 2026 23:11:21 -0400
-Message-ID: <20260911031121.1542502-1-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ma3C5FMo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36FF21F000FF;
+	Fri, 11 Sep 2026 03:13:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789096429;
+	bh=G1DddBHC5MeyjD1sIZp+I/i8ZYbDbeSOUjgV+XDwDuk=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=Ma3C5FMo+K5F0a0PAr4dYGNGWGzmFcka/UXzgKmG5qFfSFZKfYKL87HYpVug6h7QE
+	 5jdRSffCbGskh7CbQp6kqAbPxp8q8hv6WmW040gXe1wX495wKzLyOzDaXIR9RCeIfQ
+	 u5S2DUXYhLrOILCYfcWNIHrrF7XxqQYQ4WXwEx84SXTLSIzZkBDYU/xG6ioHHlDLgx
+	 aWikRiLrgemgYeF2ELRJ8CIoqMThr416DK/zpJ10EoWxnzPpgWDnrMw7EZN0Zj2ZtC
+	 a0lM+lCczoByjz+RAdSTyjkA4ftoHXVUfQ5ifST4Twcp1UB/p0mENP5QjryWRwJMhY
+	 Ti81SI3Ni+m7Q==
+Content-Type: multipart/mixed; boundary="===============5507926867917437855=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <de930dee4f4a2eba97605a8a651e34398d05dd2340f80a41c1113b2a5f819b0d@mail.kernel.org>
+In-Reply-To: <e00910f328c129fea716e9fd031dada328e60313.1789091855.git.zhuhui@kylinos.cn>
+References: <e00910f328c129fea716e9fd031dada328e60313.1789091855.git.zhuhui@kylinos.cn>
+Subject: Re: [PATCH bpf-next v10 1/2] mm/bpf: Add bpf_proactive_reclaim kfunc
+From: bot+bpf-ci@kernel.org
+To: hui.zhu@linux.dev,roman.gushchin@linux.dev,inwardvessel@gmail.com,shakeel.butt@linux.dev,akpm@linux-foundation.org,andrii@kernel.org,eddyz87@gmail.com,ihor.solodrai@linux.dev,ast@kernel.org,daniel@iogearbox.net,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,shuah@kernel.org,baohua@kernel.org,geliang@kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,linux-mm@kvack.org,linux-kselftest@vger.kernel.org
+Cc: zhuhui@kylinos.cn,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Fri, 11 Sep 2026 03:13:48 +0000 (UTC)
 
-virtsnd_remove() and virtsnd_freeze() delete the virtqueues before
-resetting the device. del_vqs() frees the vring backing, but does not
-provide a generic device quiesce operation. In particular, modern
-virtio-pci keeps enabled queues active until the device is reset.
+--===============5507926867917437855==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Reset the device before deleting the virtqueues so it can no longer
-access the vring memory when that memory is released. This also covers
-probe failures after DRIVER_OK, which unwind through virtsnd_remove().
+> mm/bpf: Add bpf_proactive_reclaim kfunc
+>
+> BPF programs can observe memory pressure on a cgroup (e.g. refault
+> stats via bpf_mem_cgroup_page_state()), but cannot act on it:
+> triggering reclaim on a chosen cgroup requires writing to
+> memory.reclaim, which BPF cannot do. Add bpf_proactive_reclaim(),
+> a sleepable kfunc which performs one proactive reclaim pass on a
+> given memory cgroup, similar to a write to memory.reclaim but
+> without retrying until the target is reached, so that when and how
+> hard to reclaim is BPF policy rather than hard-coded thresholds.
+>
+> Since some bpf program types may be invoked while holding fs locks,
+> limit the kfunc to BPF_PROG_TYPE_SYSCALL only, to avoid deadlocking
+> in filesystem shrinkers on the reclaim path. A SYSCALL program can
+> invoke the kfunc directly, or asynchronously from its bpf_wq or
+> task_work callbacks, which run in process context and keep the
+> SYSCALL program type.
+>
+> The reclaim target of a single call is capped at MEMCG_CHARGE_BATCH,
+> following the precedent of high_work_func(), the memory.high
+> workqueue fallback. Note that only the reclaim target is capped: the
+> actual scanning work and its duration are not bounded. Reclaiming more
+> than one batch is left to the BPF program rather than enforced by the
+> kfunc: with one call per bpf_wq callback and the same work item
+> requeued for the next batch, the program can also stop submitting
+> batches in between, e.g. once the target cgroup is dying.
+>
+> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
 
-Fixes: de3a9980d8c3 ("ALSA: virtio: add virtio sound driver")
-Fixes: 575483e90a32 ("ALSA: virtio: introduce device suspend/resume support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+This isn't a bug, but the commit message doesn't mention the mm/internal.h
+change at all. The patch converts MIN_SWAPPINESS / MAX_SWAPPINESS /
+SWAPPINESS_ANON_ONLY from macros into an anonymous enum, which touches a
+core mm header with ~16 existing use sites. Should the changelog explain
+why this conversion was made? The likely reason is BTF emission so BPF
+programs can access these constants from vmlinux.h, but without that
+explanation a reader can't tell why an mm/vmscan.c-adjacent header was
+modified by a patch titled 'mm/bpf: Add bpf_proactive_reclaim kfunc'.
+
+> diff --git a/mm/bpf_memcontrol.c b/mm/bpf_memcontrol.c
+> index 716df49d7647..d8827bc388ef 100644
+> --- a/mm/bpf_memcontrol.c
+> +++ b/mm/bpf_memcontrol.c
+> @@ -8,6 +8,8 @@
+>  #include <linux/memcontrol.h>
+>  #include <linux/bpf.h>
+>
+> +#include "internal.h"
+> +
+>  __bpf_kfunc_start_defs();
+>
+> [ ... ]
+>
+> +/**
+> + * bpf_proactive_reclaim - proactively reclaim memory from a memory
+> + *                         cgroup
+> + * @memcg: the target memory cgroup to reclaim from
+> + * @size:  the amount of memory to reclaim, in bytes, clamped to
+> + *         MEMCG_CHARGE_BATCH (64 pages)
+> + * @swappiness: the reclaim swappiness, in the range
+> + *         [MIN_SWAPPINESS, SWAPPINESS_ANON_ONLY], where
+> + *         SWAPPINESS_ANON_ONLY means anon-only reclaim, or -1 to use
+> + *         the memcg's own swappiness
+> + *
+> + * Trigger one proactive reclaim pass on @memcg, similar to a write to
+> + * memory.reclaim, but without retrying until @size is reached.
+> + *
+> + * Only the reclaim target is capped: @size is clamped to
+> + * MEMCG_CHARGE_BATCH, following the precedent of high_work_func(),
+> + * the memory.high workqueue fallback, which bounds each reclaim
+> + * request the same way. The actual scanning work and its duration
+> + * are not bounded. To reclaim more, call this kfunc repeatedly
+> + * instead of passing a larger @size.
+> + *
+> + * The kfunc can be called directly from a BPF_PROG_TYPE_SYSCALL
+> + * program, synchronously in the context of the thread running the
+> + * program, or from the bpf_wq and task_work callbacks of a SYSCALL
+> + * program, which run in process context and keep the SYSCALL program
+> + * type. It is registered for BPF_PROG_TYPE_SYSCALL only, because
+> + * generic sleepable programs may run with filesystem locks held or
+> + * in NOFS/NOIO contexts, where the reclaim path could deadlock on
+> + * those locks via filesystem shrinkers.
+> + *
+> + * For asynchronous reclaim of more than one batch, driving the
+> + * reclaim from a bpf_wq callback is recommended: call this kfunc
+> + * once per callback and requeue the same work item for the next
+> + * batch, instead of looping inside the callback and monopolizing a
+> + * workqueue worker, and give each target memcg its own work item,
+> + * as high_work_func() does with one work item per memcg. Whether
+> + * to submit the next batch is up to the BPF program, which can stop
+> + * at any point, e.g. once the target cgroup is dying.
+> + *
+> + * Return: The amount of memory reclaimed, in bytes, or 0 if @size is
+> + * smaller than a page, or (unsigned long)-1 if @swappiness is out of
+> + * range.
+> + */
+
+This isn't a bug, but does the kernel-doc need to be this extensive? It's
+43 lines for a 20-line function, while the other kfuncs in this file have
+6 to 14 lines of documentation. Three paragraphs here restate the commit
+message near-verbatim: the MEMCG_CHARGE_BATCH rationale, the
+BPF_PROG_TYPE_SYSCALL restriction justification, and the bpf_wq usage
+guidance. Would it be clearer to keep the header focused on what the
+arguments mean and what is returned, and leave the design rationale in
+the commit message?
+
+> +__bpf_kfunc unsigned long bpf_proactive_reclaim(struct mem_cgroup *memcg,
+> +						unsigned long size,
+> +						int swappiness)
+
+This isn't a bug, but does this name fit the file's convention? All 8
+pre-existing kfuncs in mm/bpf_memcontrol.c that operate on a memcg are
+named bpf_<verb>_mem_cgroup* or bpf_mem_cgroup_<noun>:
+bpf_get_root_mem_cgroup, bpf_get_mem_cgroup, bpf_put_mem_cgroup,
+bpf_mem_cgroup_vm_events, bpf_mem_cgroup_usage,
+bpf_mem_cgroup_memory_events, bpf_mem_cgroup_page_state,
+bpf_mem_cgroup_flush_stats. This function takes 'struct mem_cgroup *memcg'
+as its first argument and reclaims only from that memcg, yet takes an
+unqualified name that reads as if it were a global-reclaim kfunc. Would
+bpf_mem_cgroup_reclaim() make the scope clearer and match the file
+convention?
+
+> +{
+> +	unsigned long nr_reclaimed;
+> +	unsigned long nr_pages;
+> +
+> +	if (swappiness < -1 || swappiness > SWAPPINESS_ANON_ONLY)
+> +		return (unsigned long)-1;
+> +
+> +	if (size < PAGE_SIZE)
+> +		return 0;
+> +
+> +	nr_pages = min(size / PAGE_SIZE, (unsigned long)MEMCG_CHARGE_BATCH);
+> +
+> +	nr_reclaimed = try_to_free_mem_cgroup_pages(memcg, nr_pages,
+> +						    GFP_KERNEL,
+> +						    MEMCG_RECLAIM_MAY_SWAP |
+> +						    MEMCG_RECLAIM_PROACTIVE,
+> +						    swappiness == -1 ? NULL :
+> +								       &swappiness);
+> +
+> +	return nr_reclaimed * PAGE_SIZE;
+> +}
+> +
+> __bpf_kfunc_end_defs();
+>
+> [ ... ]
+>
+> diff --git a/mm/internal.h b/mm/internal.h
+> index 38b1165212c9..44e95e87e3cd 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -74,11 +74,13 @@ unsigned long lruvec_lru_size(struct lruvec *lruvec, enum lru_list lru,
+>
+>  #define MEMCG_RECLAIM_MAY_SWAP (1 << 1)
+>  #define MEMCG_RECLAIM_PROACTIVE (1 << 2)
+> -#define MIN_SWAPPINESS 0
+> -#define MAX_SWAPPINESS 200
+> +enum {
+> +	MIN_SWAPPINESS = 0,
+> +	MAX_SWAPPINESS = 200,
+>
+> -/* Just reclaim from anon folios in proactive memory reclaim */
+> -#define SWAPPINESS_ANON_ONLY (MAX_SWAPPINESS + 1)
+> +	/* Just reclaim from anon folios in proactive memory reclaim */
+> +	SWAPPINESS_ANON_ONLY = MAX_SWAPPINESS + 1,
+> +};
+>
+>  unsigned long try_to_free_mem_cgroup_pages(struct mem_cgroup *memcg,
+>  					   unsigned long nr_pages,
+
+
 ---
- sound/virtio/virtio_card.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/sound/virtio/virtio_card.c b/sound/virtio/virtio_card.c
-index 647190f4d5afc..6f35276416fed 100644
---- a/sound/virtio/virtio_card.c
-+++ b/sound/virtio/virtio_card.c
-@@ -354,8 +354,8 @@ static void virtsnd_remove(struct virtio_device *vdev)
- 	if (snd->card)
- 		snd_card_free(snd->card);
- 
--	vdev->config->del_vqs(vdev);
- 	virtio_reset_device(vdev);
-+	vdev->config->del_vqs(vdev);
- 
- 	for (i = 0; snd->substreams && i < snd->nsubstreams; ++i) {
- 		struct virtio_pcm_substream *vss = &snd->substreams[i];
-@@ -383,8 +383,8 @@ static int virtsnd_freeze(struct virtio_device *vdev)
- 	virtsnd_disable_event_vq(snd);
- 	virtsnd_ctl_msg_cancel_all(snd);
- 
--	vdev->config->del_vqs(vdev);
- 	virtio_reset_device(vdev);
-+	vdev->config->del_vqs(vdev);
- 
- 	for (i = 0; i < snd->nsubstreams; ++i)
- 		cancel_work_sync(&snd->substreams[i].elapsed_period);
--- 
-2.43.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34555349695
+--===============5507926867917437855==--
