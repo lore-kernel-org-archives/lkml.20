@@ -1,83 +1,67 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2144F4A4EE6;
-	Fri, 11 Sep 2026 21:42:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2654A4F04;
+	Fri, 11 Sep 2026 21:42:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789162943; cv=none; b=uvMcJ6bFU9YginvHXLD9MrVzYTlTtv3Cjl28mrnloR8+8RQEDNlespvaCbEcIGl4/BAOvwAxoo1cMkAqRyUvOQN08OZ7gGPkJ/LBegwktw9AKxem+nYKROWfo8WaLjJJN0o3UvTattZylScJbeH/yK01AYQK0UD0YhUjxjZ7jxM=
+	t=1789162946; cv=none; b=s/yYMF3i0KBe5Re7Y5I6ilmeJsrKaF3mlsyD7hg0oWZ6YFLwhI+GVfBqtykAkylYcXguDRVijdNFqNG+jxZzquui/x9djf9NEKWkLFc+w92sIEP8vySReUvuZnvs+gP/OMN+PuTh6fxJxmnEp1F3NLVQEr99APwRb9nzkRxZ3ps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789162943; c=relaxed/simple;
-	bh=JX9TQ96K33ocxG2yk/VpQX5o1ho8/YkNayFOx7XyMt0=;
+	s=arc-20240116; t=1789162946; c=relaxed/simple;
+	bh=n3pPgtx7j0l4P9cXzwpXYLyMjwAKV21QNPFoCs2i+oM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ysqpo1mxOguQ8HhcfcSjHudYnDivl7QRpBnxU0dpLsJLCVCROULr/rmDbm6s7rQZys4lcVS/kO2DfcciRI3dzzbzRJvRmzE+Ebfjm+tRlNxdyYLTeVpHyr3RtFHgaMQjT1l8vMALKAePmeENIolLo3qufWLeFsy60+oOKTI5cyQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=H3vFhdgt; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 MIME-Version; b=l0nZzUb+c1xw4CDJpBebseDwq1pou0NW/K1z9JGL/nPrGfBFhsEuhYOa4dpxFBeO1sgyyaQAhR25EJOXjHMjHj3ad2BRyyqDSTlon6y8zulurEadtZCIKPeX3nqIgcPbj9GimsTu8aiqwDGHy9JesthFSyPP3tA1l249m+Or8rc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=DBtSyh2T; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="H3vFhdgt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789162942; x=1820698942;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=JX9TQ96K33ocxG2yk/VpQX5o1ho8/YkNayFOx7XyMt0=;
-  b=H3vFhdgtj3oh9XXHjlyfKLzqs1cuM18xlCg+OPrx0F4wJ3ctuvoJVRW8
-   a+jj0KJ/uFMvR8agewLw68NN4yTnIDMmr1cncMC5EyCgpHrBwf+1AbLNZ
-   d0AKYA7rkXVdSEe3zk5XypuAs4lYb3+VqmOFbbyyRfre4eH0j1XAwYwsa
-   9ETh0I+ytlxUn1Refag5uLoumLfbbo8sMHLtyuqMzK9x1a93OBuBMSPW3
-   Pr/mHE2+oP6BFDQZtPKZuEx8gJxJ9BK68mDiYvuGemih62aS9GjnMmXJS
-   1emM+m/m252cW9Tb4h9r7oTJvj8uqGRB5AzO0WE6JAWnrwB/SMKTyAGAe
-   g==;
-X-CSE-ConnectionGUID: h3BYHSXLSrCE4zF5qJbg3Q==
-X-CSE-MsgGUID: x7f0J7nuSeKxE+rHBJ0tKQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="88572751"
-X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
-   d="scan'208";a="88572751"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 14:42:22 -0700
-X-CSE-ConnectionGUID: 1hjsGIMNSk+Fe5+exDuX8A==
-X-CSE-MsgGUID: j35rWwa9RpGbWIUPzK/5+w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
-   d="scan'208";a="272004172"
-Received: from sohilmeh.sc.intel.com ([172.25.103.65])
-  by orviesa007.jf.intel.com with ESMTP; 11 Sep 2026 14:42:20 -0700
-From: Sohil Mehta <sohil.mehta@intel.com>
-To: kvm@vger.kernel.org,
-	x86@kernel.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Xin Li <xin@zytor.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Nikunj A Dadhania <nikunj@amd.com>,
-	Shivansh Dhiman <shivansh.dhiman@amd.com>,
-	David Woodhouse <dwmw@amazon.co.uk>,
-	Chao Gao <chao.gao@intel.com>,
-	Binbin Wu <binbin.wu@linux.intel.com>,
-	Sohil Mehta <sohil.mehta@intel.com>,
-	Zhao Liu <zhao1.liu@intel.com>,
-	Yosry Ahmed <yosry@kernel.org>,
+	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="DBtSyh2T"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+	s=201707; t=1789162930;
+	bh=mP9BImIYMo25bR2U7ro515N53S9BWIjWTdFtXfFoqGc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=DBtSyh2TIcTcReXLFqr0fkMDW+LGSeGiaspIp93+XfoaiRsBo5310iHZRHdGOZr4C
+	 zoTFlyflBd3vm//3rr6DknwQ0Utxtrvu4llkTuNGiqM9v7nMcyHRsMHbllRrRHIN1l
+	 prscVgDz0Xuhk2EZPcJ9X2JWFWHb/2vNqFZQwn2Mg6tqhUXtP/9+tM2WL9OZ0nzyAg
+	 FDULcttYn2bQYANkd0XSl4ZOsyw6JDwIp4/Job4yUIWVkU3gyUoDMtJSKxhJVINpJq
+	 Py0ni2U3IOrtTdb6yzY/iavHmKzfBHWqKXeJvwRj29cI1ZAz43EjriS5zwwbyclTe0
+	 lFo9tPMKXlWmg==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by mail.ozlabs.org (Postfix) with ESMTPSA id 4hhSgP6YHtz4wbr;
+	Sat, 12 Sep 2026 07:42:09 +1000 (AEST)
+From: Matt Evans <matt@ozlabs.org>
+To: Alex Williamson <alex@shazbot.org>,
+	Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Alex Mastro <amastro@fb.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Longfang Liu <liulongfang@huawei.com>
+Cc: Mahmoud Adam <mngyadam@amazon.de>,
 	David Matlack <dmatlack@google.com>,
-	linux-doc@vger.kernel.org,
+	=?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH v10 16/28] KVM: x86: Mark CR4.FRED as not reserved
-Date: Fri, 11 Sep 2026 14:36:46 -0700
-Message-ID: <20260911213659.2025974-17-sohil.mehta@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260911213659.2025974-1-sohil.mehta@intel.com>
-References: <20260911213659.2025974-1-sohil.mehta@intel.com>
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	kvm@vger.kernel.org,
+	linux-pci@vger.kernel.org
+Subject: [PATCH v6 2/9] vfio/pci: Un-revoke DMABUFs in LOW_POWER_ENTRY_WITH_WAKEUP resume
+Date: Fri, 11 Sep 2026 22:41:50 +0100
+Message-ID: <20260911214200.33793-3-matt@ozlabs.org>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260911214200.33793-1-matt@ozlabs.org>
+References: <20260911214200.33793-1-matt@ozlabs.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,68 +70,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Xin Li (Intel)" <xin@zytor.com>
+VFIO_DEVICE_FEATURE_LOW_POWER_ENTRY_WITH_WAKEUP correctly revokes
+DMABUFs on entry and, when paired with a
+VFIO_DEVICE_FEATURE_LOW_POWER_EXIT, vfio_pci_runtime_pm_exit()
+correctly un-revokes them.
 
-The CR4.FRED bit, i.e., CR4[32], is no longer a reserved bit when
-guest cpu cap has FRED, i.e.,
-  1) All of FRED KVM support is in place.
-  2) Guest enumerates FRED.
+However, when vfio_pci_core_runtime_resume() signals the eventfd on
+resume, the bare __vfio_pci_runtime_pm_exit() is used (which does not
+un-revoke).  Add a DMABUF move(false) to the resume path, making it
+similar to vfio_pci_runtime_pm_exit().
 
-Otherwise it is still a reserved bit.
+This also reorders the eventfd signal after the un-revoke and
+__vfio_pci_runtime_pm_exit() to guarantee that woken threads observe
+the new state.
 
-Signed-off-by: Xin Li (Intel) <xin@zytor.com>
-Signed-off-by: Sohil Mehta <sohil.mehta@intel.com>
+Fixes: 5d74781ebc86 ("vfio/pci: Add dma-buf export support for MMIO regions")
+Signed-off-by: Matt Evans <matt@ozlabs.org>
 ---
-v10:
- - Check CR4.FRED against IA-32e mode in kvm_set_cr4() instead of
-   __kvm_is_valid_cr4(), so that KVM_SET_SREGS no longer rejects a CR4
-   and EFER pair that are loaded together (e.g., when restoring a FRED
-   guest)
----
- arch/x86/kvm/regs.c | 7 +++++++
- arch/x86/kvm/regs.h | 4 +++-
- 2 files changed, 10 insertions(+), 1 deletion(-)
+ drivers/vfio/pci/vfio_pci_core.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/kvm/regs.c b/arch/x86/kvm/regs.c
-index 8f66438989e4..ba6c8856b4ff 100644
---- a/arch/x86/kvm/regs.c
-+++ b/arch/x86/kvm/regs.c
-@@ -429,6 +429,13 @@ int kvm_set_cr4(struct kvm_vcpu *vcpu, unsigned long cr4)
- 			return 1;
- 	}
- 
-+	/*
-+	 * FRED can not be enabled when EFER.LMA=0.  Note, MOV to CR4 outside
-+	 * 64-bit mode clears CR4[63:32] so only emulation can get here.
-+	 */
-+	if ((cr4 & X86_CR4_FRED) && !is_long_mode(vcpu))
-+		return 1;
+diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+index 7d090be8c9c1..3428322efa6e 100644
+--- a/drivers/vfio/pci/vfio_pci_core.c
++++ b/drivers/vfio/pci/vfio_pci_core.c
+@@ -526,8 +526,14 @@ static int vfio_pci_core_runtime_resume(struct device *dev)
+ 	 */
+ 	down_write(&vdev->memory_lock);
+ 	if (vdev->pm_wake_eventfd_ctx) {
+-		eventfd_signal(vdev->pm_wake_eventfd_ctx);
++		struct eventfd_ctx *ctx = vdev->pm_wake_eventfd_ctx;
 +
- 	if ((cr4 & X86_CR4_CET) && !kvm_is_cr0_bit_set(vcpu, X86_CR0_WP))
- 		return 1;
- 
-diff --git a/arch/x86/kvm/regs.h b/arch/x86/kvm/regs.h
-index ef46918daf43..5db01693ad07 100644
---- a/arch/x86/kvm/regs.h
-+++ b/arch/x86/kvm/regs.h
-@@ -28,7 +28,7 @@ static_assert(!(KVM_POSSIBLE_CR0_GUEST_BITS & X86_CR0_PDPTR_BITS));
- 			  | X86_CR4_OSXSAVE | X86_CR4_SMEP | X86_CR4_FSGSBASE \
- 			  | X86_CR4_OSXMMEXCPT | X86_CR4_LA57 | X86_CR4_VMXE \
- 			  | X86_CR4_SMAP | X86_CR4_PKE | X86_CR4_UMIP \
--			  | X86_CR4_LAM_SUP | X86_CR4_CET))
-+			  | X86_CR4_LAM_SUP | X86_CR4_CET | X86_CR4_FRED))
- 
- #define CR8_RESERVED_BITS (~(unsigned long)X86_CR8_TPR)
- 
-@@ -423,6 +423,8 @@ static inline bool __kvm_is_valid_cr4(struct kvm_vcpu *vcpu, unsigned long cr4)
- 	if (!__cpu_has(__c, X86_FEATURE_SHSTK) &&       \
- 	    !__cpu_has(__c, X86_FEATURE_IBT))           \
- 		__reserved_bits |= X86_CR4_CET;         \
-+	if (!__cpu_has(__c, X86_FEATURE_FRED))          \
-+		__reserved_bits |= X86_CR4_FRED;        \
- 	__reserved_bits;                                \
- })
++		vdev->pm_wake_eventfd_ctx = NULL;
+ 		__vfio_pci_runtime_pm_exit(vdev);
++		if (__vfio_pci_memory_enabled(vdev))
++			vfio_pci_dma_buf_move(vdev, false);
++		eventfd_signal(ctx);
++		eventfd_ctx_put(ctx);
+ 	}
+ 	up_write(&vdev->memory_lock);
  
 -- 
-2.43.0
+2.50.1 (Apple Git-155)
 
