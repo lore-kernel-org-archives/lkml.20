@@ -1,186 +1,324 @@
-Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90911414DCA
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:20:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 530AF420488
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:21:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789122049; cv=none; b=f7u1hTs32+vN7gXDZQ/KPAnJGRptj6ERBCJhLhvd4fZFilqBtbv2wgodGmHDk6HoDtaTdeIy898PEYw+hMglSbi7u+BM5uMG9ODFHRiMC3hOq9lXI1u6bJSyFGW+lAQ3umBa5B7sQ9yMJXZ5Pyt6xgdEkDCgXXr6ihruPD/0Kko=
+	t=1789122074; cv=none; b=KEFTAJFznYvr0pCgm8v1WwMcETaewwwtIhjL4nsi+Rju5ygNPexTRR+gCSC6srtoKgdAFoLZ+CwEv7r52JHLI4ChT8Jjhgh489AinE2g6p15i20deE3p/gGHx2RVmHhvtyQ5IKAQGBXo0M0/djZ/Px6xScjKTPKTDvm8qQrotPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789122049; c=relaxed/simple;
-	bh=EG6tyVJ75MMj4II9M2H2bcZhXfbp8Yf2mQpmeHHfXBk=;
-	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=ZwGtg0fOGwvtdcUAWhCZSmqvPsaHRK+oWalm8f5aUXXF3m5zACS1qlIGnKjxFIfjw/ZGINEeqfSlETGJKsiroCl/XWPxqlxudd22HQ9XlKfWXexcIZWjt7QaMXF992np5KFlfrxj71RAeN6ZENalZQIQs6Xtv74SsVtrHtlrU2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=ZOXQNwXq; arc=none smtp.client-ip=113.46.200.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1789122074; c=relaxed/simple;
+	bh=FkCvNJqJXXmtGAj46QLbuYrsBVXeQMeFMH3sDZF2BDc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SmSENkkXXCFE/v4DTV10PYUIHRdDJFoVnobXT351uYe7FNDgm4vPLfxqeVYGYu1Fah4OvN65kt4K9BE4AI3ecuQkq3gCHYUSPV5eapBeg6JQX4wGRFfMcYRmyOjQIEGSPIn0CZGSfzpbqQk7yTx4u61fUmqCAG0XXOkQP/homzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A0OrzQ6r; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="ZOXQNwXq"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=+0iHLvtrGLsCy82LCpRsi7SAVSIB7DotMCsSNro0p2Q=;
-	b=ZOXQNwXqyLzJeO2VnqkvL+XYHyaZ7J9kaWWA4ArS72mDEkjv564620Zl/KX6lb5ycR67UMmP5
-	zNoYqAnXggicSRs20I2mFKyErbbKynet+rNmvWT3+cei01H9AgHaNRH6keR66esNJfCkRPoR6ur
-	9dZuLF6V7cwCWVUZChYk5Ws=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hh9JM1t5XzKm6V;
-	Fri, 11 Sep 2026 18:09:39 +0800 (CST)
-Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
-	by mail.maildlp.com (Postfix) with ESMTPS id 8178E4048B;
-	Fri, 11 Sep 2026 18:20:38 +0800 (CST)
-Received: from [10.174.178.46] (10.174.178.46) by
- whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 11 Sep 2026 18:20:37 +0800
-Subject: Re: [PATCH v2 0/2] ubifs: add KUnit tests for scan and key helpers
-To: lichen.wang <wanglichen9110@gmail.com>, Richard Weinberger
-	<richard@nod.at>, <linux-mtd@lists.infradead.org>
-CC: <linux-kernel@vger.kernel.org>
-References: <178910129195.312459.4416253112232222978.p0-of-2@gmail.com>
-From: Zhihao Cheng <chengzhihao1@huawei.com>
-Message-ID: <64e12e82-d53b-f47b-696c-4c1f1e1bcfd2@huawei.com>
-Date: Fri, 11 Sep 2026 18:20:35 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A0OrzQ6r"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24afso540687a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:21:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789122072; x=1789726872; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VO8IwKriiEzsim6wTkrEMStqXoab8WUQmDv+TV1yfBA=;
+        b=A0OrzQ6rLNdzfVBqLn/hCiNtHTbEwL/LwdupTZjqlX1vf7ssrrYWovE5l0v5dIIzjO
+         h3OTibcAM4V79d388Pl+n3GxZ7Jgg6/fI6fQKvzwIyk+A+caSnynneyGn5cvtPeTHGL+
+         NviYSf4OM6NmCIfXBnCKop/EkHEIQLcb6uH0iaQDyX6ufSa8u3hL4MiQTft/1Yyk/ug4
+         fnciKhELhOKaIETRBM8z7X3M9IIA6Geh3pMMf/N/m0RDzU0Nrzf1qciHfk02nM07LDST
+         pONrqtXBnAjpfZyw6HlaKYoiRArsJ/r+uh9Ou8mG71rmLv6auZIhWM18PFYM804QWmn4
+         Fl6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789122072; x=1789726872;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VO8IwKriiEzsim6wTkrEMStqXoab8WUQmDv+TV1yfBA=;
+        b=G+2kknN4muUED59iVGPNerUJNpFjVn2HAmuidY3FIoHMPhvHpUp3YOvq9o9KpkmpKJ
+         qvyYPyV51WlxU3srIng8Duw0saI3eY29WJxFb0XG5OzOqF8EnBlrOnI8raMJmSZc3rUz
+         9ZVMZWL/B29cI20EKGSSzlb+eUKMteeLKp1ci8bQC/V6lNaEUVxqZVpeW9UTLzx/OKUU
+         +4DJIt5A6famJw+2EeqrBDI/djhk/DkYL7osNM2F5Prme+67AS20aJ8geXKm5FBOxzoL
+         H/XVb0y3qYdaMzStIYuQLZcL6xgR2ff49Sug8uz7Txqz3HoVrQIo5TmdgQe24XlDp2gf
+         85Kw==
+X-Forwarded-Encrypted: i=1; AKwUvBzAk2WAR9h8xcjVhC2UwuBm0ybW7qSSgVQa6TiF9dJ9wCiTwtUgQUWPMn8rsZYkK5n5gkd3UHmmdRHPvJc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyAd+tl7GAe938Uf43GTN4MnALNPprUQ4kkJ4LJw0RkzJyIMJk
+	ioSYy0jAjAs0ah/Nu0N370JR+pVgPSizvzRGb3edZPUjBxQJIldNhRrW
+X-Gm-Gg: AYBFou1xumZhErNI3lbWl+1WMjtMHsTYD2n2sy7uNDvfionz+7Apfx1XMV/wDzBbQhO
+	4uMvgYdSCwS5m3CsI6kWKZdeqLLFf7BezfoYUIdZmPUtbZn6yK0eqfLqVWbdxG38jG8ub4Q4BKu
+	+93oeIuCq+QN12qibaMNLYjoLh+ZEZT+MKVXZblGLWmVo1YJ6Ftqplmvm/Yx4QsgNgD8AzSwi0n
+	3oNpKzZ3twk9pSqUVbBK2ppruxhVVV51nugx1PxrjbF3Hkwe5oY2dfBcTjdUtdV68t6c4PjHyX2
+	VnC3XU1BvYTtCsUMSF4C38PKxk9JNCKwSVnwD9RhjtEjQISkKsMwWcLHzLcBEOAXvDyYG/OOOE6
+	cSRvJYNr1NmPZTkHohlAWpph8lrS3eXOd/NWo8POwXWmdVD4Nj0vFUTDsOwHvtbo5wRHs+J02Oo
+	U0zle9ZmibnIJaHagkq+twEcCJ71lA5hC9HUu7DgzJ0FET1ijt3WZszgtj+LTauD/OhXQ5i0kvy
+	tkibHBJwe6MCR7owGqBIO//hg==
+X-Received: by 2002:a17:90b:1651:b0:37f:fdc8:71b4 with SMTP id 98e67ed59e1d1-39d9bbf93c5mr4745006a91.2.1789122071437;
+        Fri, 11 Sep 2026 03:21:11 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b8ead8sm5701294c88.10.2026.09.11.03.21.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 03:21:10 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Shuah Khan <shuah@kernel.org>
+Cc: kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] KVM: selftests: Add a test for nested virtual NMI support
+Date: Fri, 11 Sep 2026 15:51:05 +0530
+Message-ID: <20260911102105.1927773-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <178910129195.312459.4416253112232222978.p0-of-2@gmail.com>
-Content-Type: text/plain; charset="gbk"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- whupemo200011.china.huawei.com (7.152.185.179)
 
-ÔÚ 2026/9/11 11:09, lichen.wang Ð´µÀ:
-> This series adds KUnit tests for fs/ubifs/scan.c and for the helpers in
-> fs/ubifs/key.h, so that the node parsing code can be validated offline
-> without an MTD device, a UBI volume or a development board.
-> 
-> Changes in v2:
->   - Use KUNIT_ASSERT_EQ() instead of KUNIT_EXPECT_EQ() for the
->     ubifs_add_snod() return value checks.  On -ENOMEM the function leaves
->     sleb->nodes empty, and list_first_entry()/list_next_entry() on an empty
->     list yield a pointer before the sleb allocation, so continuing after a
->     failed add would read out of bounds.  This affects expect_snod_keyed(),
->     add_snod_pad_node_gets_invalid_key(), add_snod_trun_node_gets_invalid_key()
->     and add_snod_appends_nodes_in_order().
->   - Assert on sleb->nodes_cnt in add_snod_appends_nodes_in_order() as well,
->     because the following list_next_entry() is only safe when both nodes were
->     really linked.
->   - Value checks that cannot be followed by a crash keep using KUNIT_EXPECT_*()
->     so that a single run still reports every mismatch.
->   - Link to v1: https://lore.kernel.org/all/178909365090.247910.11265261850560199708.p0-of-2@gmail.com/
-> 
-> Baseline:
-> 
->    commit df2908090cda368b01ff43709f51890076c56157 ("Linux 7.3-rc2")
->    git describe --always of that commit: v7.3-rc2
->    (the describe string is that of the base commit itself; the patch
->    commits sit on top of it, so a describe run at their tip reports
->    v7.3-rc2-2-g3bcc6fa04 instead)
-> 
-> Motivation:
-> 
-> UBIFS has no test coverage for its on-flash parsing code: checking a
-> change to scan.c or key.h currently means bringing up a real NAND
-> device, a UBI volume and a board. KUnit makes the same checks run in a
-> plain QEMU boot within seconds, and it is the established in-tree
-> framework for this kind of unit testing, so the tests are reusable by
-> anyone touching this code.
+KVM's virtual NMI support for nested guests has no test coverage; "V_NMI"
+doesn't appear anywhere under tools/testing/selftests/kvm/.
 
-Hi lichen,
-UBIFS testing can be deployed on QEMU with a nandsim or mtdram.
-Current xfstests-dev and mtd-utils/tests/fs-tests could cover scanning 
-and kinds ot processes. I am thinking that the ubifs scan logic(actually 
-  it depends on disk data structure) hasn't been updated for a long 
-time, do we still need to maintain a kunit test to detect issues arising 
-from future code changes in ubifs scan?
-> 
-> Approach:
-> 
->   - The tests are compiled into the ubifs module itself (ubifs-y) so
->     that they can call the non-exported ubifs_scan_a_node(),
->     ubifs_check_node(), ubifs_add_snod() and ubifs_end_scan() directly.
->     No EXPORT_SYMBOL() is added to production code.
->   - kunit_helpers.h builds a minimal fake struct ubifs_info with
->     kunit_kzalloc(); only the fields read by the tested paths are
->     initialised. The node length ranges mirror init_constants_early()
->     in super.c, because a zeroed range means "fixed length" for
->     ubifs_check_node() and would make the length checks pass for the
->     wrong reason.
->   - The node constructor fills the common header and payload first and
->     computes the CRC last with the kernel crc32(), over exactly the
->     bytes that ubifs_check_node() checksums.
-> 
-> Testing:
-> 
-> The whole suite runs with a single command:
-> 
->    ./tools/testing/kunit/kunit.py run --arch=x86_64 --timeout=300 'ubifs*'
-> 
-> kunit.py exits 0 on the final tree and reports 5 suites and 80 cases,
-> all passing:
-> 
->    Testing complete. Ran 80 tests: passed: 80
-> 
-> with zero "not ok" lines in the KTAP output.
-> 
-> The fake ubifs_info environment was additionally checked against the
-> real stack: a nandsim smoke test booted a kernel built from the
-> baseline over a complete MTD -> UBI -> UBIFS stack, attached mtd0,
-> created and mounted the volume and wrote and read back a file
-> successfully.
-> 
-> Known limitations:
-> 
->   - ubifs_scan() and ubifs_start_scan() are not covered by KUnit: the
->     UBI layer is not stubbed, so they would read from a real UBI volume
->     through ubi_leb_read(). They are exercised by the nandsim smoke test
->     instead.
->   - The tests build nodes in memory, so they cannot catch bugs in the
->     on-media layout itself; they only pin down the behaviour of the
->     parsing code for the layouts that UBIFS currently writes.
-> 
-> Notes:
-> 
-> checkpatch.pl --strict reports 0 errors for both patches. Each patch
-> also carries the generic "added, moved or deleted file(s), does
-> MAINTAINERS need updating?" warning; that reminder is emitted for every
-> patch that adds a file, and the new files live under fs/ubifs/, which
-> is already covered by the "UBI FILE SYSTEM (UBIFS)" entry in
-> MAINTAINERS ("F: fs/ubifs/"), so no MAINTAINERS change is needed.
-> 
-> The cover letter itself draws one more warning from checkpatch.pl, a
-> "Prefer a maximum 75 chars per line (possible unwrapped commit
-> description?)" hint for a single line of the Changes in v2 list. That
-> line is left unwrapped so that the four affected test names stay on
-> one line and the list stays easy to scan; it is prose in the cover
-> letter, not code or a changelog entry that a tool will reformat.
-> 
-> Signed-off-by: lichen.wang <wanglichen9110@gmail.com>
-> 
-> lichen.wang (2):
->    ubifs: add KUnit test scaffolding for scan.c
->    ubifs: add KUnit tests for key helpers
-> 
->   fs/ubifs/Kconfig               |  16 +
->   fs/ubifs/Makefile              |   1 +
->   fs/ubifs/tests/key_kunit.c     | 555 ++++++++++++++++++
->   fs/ubifs/tests/kunit_helpers.h | 222 ++++++++
->   fs/ubifs/tests/scan_kunit.c    | 988 +++++++++++++++++++++++++++++++++
->   5 files changed, 1782 insertions(+)
->   create mode 100644 fs/ubifs/tests/key_kunit.c
->   create mode 100644 fs/ubifs/tests/kunit_helpers.h
->   create mode 100644 fs/ubifs/tests/scan_kunit.c
-> 
-> --
-> 2.43.0
-> 
-> 
-> .
-> 
+Add a test that covers the vNMI controls L1 provides in vmcb12:
+
+ - With vNMI enabled but no NMI requested, L2 runs without taking an NMI,
+   and neither V_NMI_PENDING nor V_NMI_BLOCKING is set on exit.
+
+ - With V_NMI_PENDING set, L2 takes the NMI on VMRUN.  Exiting to L1 from
+   the NMI handler, i.e. before its IRET, shows the bits hardware wrote:
+   V_NMI_PENDING cleared and V_NMI_BLOCKING set.  Once the handler IRETs,
+   V_NMI_BLOCKING is cleared.  Repeat to verify NMIs can be delivered
+   back to back.
+
+ - Enabling vNMI without intercepting NMIs fails VMRUN with SVM_EXIT_ERR,
+   per the consistency check in nested_vmcb_check_controls().
+
+Add the V_NMI_{PENDING,BLOCKING,ENABLE} masks and X86_FEATURE_VNMI to the
+selftest headers, which didn't define them.
+
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+
+Tested on an AMD EPYC system with vNMI supported and enabled.  The test
+passes consistently (50 consecutive runs, no failures).
+
+The int_ctl values L1 observes across a delivered virtual NMI are:
+
+  before VMRUN              V_NMI_ENABLE | V_NMI_PENDING
+  exit from the NMI handler V_NMI_ENABLE | V_NMI_BLOCKING
+  after the handler IRETs   V_NMI_ENABLE
+
+To check the assertions aren't vacuous, each was inverted in turn and
+confirmed to fail against actual behaviour:
+
+  - Not requesting V_NMI_PENDING, so no NMI is delivered:
+      nmi_fired == i
+      0x0 != 0x1 (nmi_fired != i)
+
+  - Asserting V_NMI_BLOCKING is clear while the NMI is in service:
+      !(vmcb->control.int_ctl & (1 << 12))
+
+  - Expecting VMRUN to succeed with V_NMI_ENABLE set and INTERCEPT_NMI
+    cleared:
+      vmcb->control.exit_code == SVM_EXIT_VMMCALL
+      0xffffffffffffffff != 0x81
+
+Where vNMI isn't available the test exits KSFT_SKIP rather than failing.
+No regressions in the other nested SVM selftests.
+
+ tools/testing/selftests/kvm/Makefile.kvm      |   1 +
+ .../selftests/kvm/include/x86/processor.h     |   1 +
+ tools/testing/selftests/kvm/include/x86/svm.h |   9 ++
+ .../selftests/kvm/x86/svm_nested_vnmi_test.c  | 129 ++++++++++++++++++
+ 4 files changed, 140 insertions(+)
+ create mode 100644 tools/testing/selftests/kvm/x86/svm_nested_vnmi_test.c
+
+diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
+index 96bab7002d39..92e1018e9c8a 100644
+--- a/tools/testing/selftests/kvm/Makefile.kvm
++++ b/tools/testing/selftests/kvm/Makefile.kvm
+@@ -121,6 +121,7 @@ TEST_GEN_PROGS_x86 += x86/svm_nested_clear_efer_svme
+ TEST_GEN_PROGS_x86 += x86/svm_nested_shutdown_test
+ TEST_GEN_PROGS_x86 += x86/svm_nested_soft_inject_test
+ TEST_GEN_PROGS_x86 += x86/svm_nested_vmcb12_gpa
++TEST_GEN_PROGS_x86 += x86/svm_nested_vnmi_test
+ TEST_GEN_PROGS_x86 += x86/svm_nested_pat_test
+ TEST_GEN_PROGS_x86 += x86/svm_lbr_nested_state
+ TEST_GEN_PROGS_x86 += x86/svm_pmu_host_guest_test
+diff --git a/tools/testing/selftests/kvm/include/x86/processor.h b/tools/testing/selftests/kvm/include/x86/processor.h
+index 6e6f70035508..71697a1d5b86 100644
+--- a/tools/testing/selftests/kvm/include/x86/processor.h
++++ b/tools/testing/selftests/kvm/include/x86/processor.h
+@@ -224,6 +224,7 @@ struct kvm_x86_cpu_feature {
+ #define X86_FEATURE_PFTHRESHOLD         KVM_X86_CPU_FEATURE(0x8000000A, 0, EDX, 12)
+ #define	X86_FEATURE_V_VMSAVE_VMLOAD	KVM_X86_CPU_FEATURE(0x8000000A, 0, EDX, 15)
+ #define	X86_FEATURE_VGIF		KVM_X86_CPU_FEATURE(0x8000000A, 0, EDX, 16)
++#define X86_FEATURE_VNMI		KVM_X86_CPU_FEATURE(0x8000000A, 0, EDX, 25)
+ #define X86_FEATURE_IDLE_HLT		KVM_X86_CPU_FEATURE(0x8000000A, 0, EDX, 30)
+ #define X86_FEATURE_SEV			KVM_X86_CPU_FEATURE(0x8000001F, 0, EAX, 1)
+ #define X86_FEATURE_SEV_ES		KVM_X86_CPU_FEATURE(0x8000001F, 0, EAX, 3)
+diff --git a/tools/testing/selftests/kvm/include/x86/svm.h b/tools/testing/selftests/kvm/include/x86/svm.h
+index c8539166270e..5779fb285d79 100644
+--- a/tools/testing/selftests/kvm/include/x86/svm.h
++++ b/tools/testing/selftests/kvm/include/x86/svm.h
+@@ -140,6 +140,12 @@ struct __attribute__ ((__packed__)) vmcb_control_area {
+ #define V_GIF_SHIFT 9
+ #define V_GIF_MASK (1 << V_GIF_SHIFT)
+ 
++#define V_NMI_PENDING_SHIFT 11
++#define V_NMI_PENDING_MASK (1 << V_NMI_PENDING_SHIFT)
++
++#define V_NMI_BLOCKING_SHIFT 12
++#define V_NMI_BLOCKING_MASK (1 << V_NMI_BLOCKING_SHIFT)
++
+ #define V_INTR_PRIO_SHIFT 16
+ #define V_INTR_PRIO_MASK (0x0f << V_INTR_PRIO_SHIFT)
+ 
+@@ -152,6 +158,9 @@ struct __attribute__ ((__packed__)) vmcb_control_area {
+ #define V_GIF_ENABLE_SHIFT 25
+ #define V_GIF_ENABLE_MASK (1 << V_GIF_ENABLE_SHIFT)
+ 
++#define V_NMI_ENABLE_SHIFT 26
++#define V_NMI_ENABLE_MASK (1 << V_NMI_ENABLE_SHIFT)
++
+ #define AVIC_ENABLE_SHIFT 31
+ #define AVIC_ENABLE_MASK (1 << AVIC_ENABLE_SHIFT)
+ 
+diff --git a/tools/testing/selftests/kvm/x86/svm_nested_vnmi_test.c b/tools/testing/selftests/kvm/x86/svm_nested_vnmi_test.c
+new file mode 100644
+index 000000000000..4e9916a837dd
+--- /dev/null
++++ b/tools/testing/selftests/kvm/x86/svm_nested_vnmi_test.c
+@@ -0,0 +1,129 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Test KVM's virtual NMI (vNMI) support for nested guests: the consistency
++ * check on the vNMI controls in vmcb12, delivery of a virtual NMI to L2, and
++ * the V_NMI_PENDING/V_NMI_BLOCKING state L1 observes across the NMI.
++ *
++ * Copyright (C) 2026 Hemanth Selam <hemanth.selam@gmail.com>
++ */
++#include "kvm_util.h"
++#include "processor.h"
++#include "svm_util.h"
++#include "test_util.h"
++
++/* Number of virtual NMIs to deliver; more than one to prove it's repeatable. */
++#define NR_VNMIS	3
++
++static unsigned int nmi_fired;
++
++static void guest_nmi_handler(struct ex_regs *regs)
++{
++	nmi_fired++;
++
++	/*
++	 * Exit to L1 from NMI context, i.e. before this handler's IRET, so
++	 * that L1 can observe V_NMI_BLOCKING while the NMI is in service.
++	 */
++	vmmcall();
++}
++
++static void l2_guest_code(void)
++{
++	vmmcall();
++}
++
++static void l1_vnmi_setup(struct svm_test_data *svm)
++{
++	struct vmcb *vmcb = svm->vmcb;
++
++	generic_svm_setup(svm, l2_guest_code);
++
++	/* KVM requires L1 to intercept NMIs in order to enable vNMI. */
++	vmcb->control.intercept |= BIT(INTERCEPT_NMI);
++	vmcb->control.int_ctl |= V_NMI_ENABLE_MASK;
++}
++
++static void l1_guest_code(struct svm_test_data *svm)
++{
++	struct vmcb *vmcb = svm->vmcb;
++	unsigned int i;
++
++	/* Without a pending virtual NMI, L2 runs to its VMMCALL untouched. */
++	l1_vnmi_setup(svm);
++
++	run_guest(vmcb, svm->vmcb_gpa);
++	GUEST_ASSERT_EQ(vmcb->control.exit_code, SVM_EXIT_VMMCALL);
++	GUEST_ASSERT_EQ(nmi_fired, 0);
++	GUEST_ASSERT(!(vmcb->control.int_ctl & V_NMI_PENDING_MASK));
++	GUEST_ASSERT(!(vmcb->control.int_ctl & V_NMI_BLOCKING_MASK));
++
++	for (i = 1; i <= NR_VNMIS; i++) {
++		/* Request a virtual NMI; L2 must take it on VMRUN. */
++		l1_vnmi_setup(svm);
++		vmcb->control.int_ctl |= V_NMI_PENDING_MASK;
++
++		run_guest(vmcb, svm->vmcb_gpa);
++
++		/*
++		 * The NMI was delivered and L2 exited from the handler, so
++		 * hardware has consumed the request and blocked further NMIs.
++		 */
++		GUEST_ASSERT_EQ(vmcb->control.exit_code, SVM_EXIT_VMMCALL);
++		GUEST_ASSERT_EQ(nmi_fired, i);
++		GUEST_ASSERT(!(vmcb->control.int_ctl & V_NMI_PENDING_MASK));
++		GUEST_ASSERT(vmcb->control.int_ctl & V_NMI_BLOCKING_MASK);
++
++		/* Resume L2 so the handler can IRET, which unblocks NMIs. */
++		vmcb->save.rip = vmcb->control.next_rip;
++
++		run_guest(vmcb, svm->vmcb_gpa);
++		GUEST_ASSERT_EQ(vmcb->control.exit_code, SVM_EXIT_VMMCALL);
++		GUEST_ASSERT_EQ(nmi_fired, i);
++		GUEST_ASSERT(!(vmcb->control.int_ctl & V_NMI_BLOCKING_MASK));
++	}
++
++	/*
++	 * Enabling vNMI without intercepting NMIs is illegal, as L1 would have
++	 * no way of observing the NMIs it is nominally responsible for.
++	 */
++	vmcb->control.intercept &= ~BIT(INTERCEPT_NMI);
++
++	run_guest(vmcb, svm->vmcb_gpa);
++	GUEST_ASSERT_EQ(vmcb->control.exit_code, SVM_EXIT_ERR);
++
++	GUEST_DONE();
++}
++
++int main(int argc, char *argv[])
++{
++	struct kvm_vcpu *vcpu;
++	struct kvm_vm *vm;
++	struct ucall uc;
++	gva_t svm_gva;
++
++	TEST_REQUIRE(kvm_cpu_has(X86_FEATURE_SVM));
++	TEST_REQUIRE(kvm_cpu_has(X86_FEATURE_VNMI));
++
++	vm = vm_create_with_one_vcpu(&vcpu, l1_guest_code);
++
++	vm_install_exception_handler(vm, NMI_VECTOR, guest_nmi_handler);
++
++	vcpu_alloc_svm(vm, &svm_gva);
++	vcpu_args_set(vcpu, 1, svm_gva);
++
++	vcpu_run(vcpu);
++	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
++
++	switch (get_ucall(vcpu, &uc)) {
++	case UCALL_ABORT:
++		REPORT_GUEST_ASSERT(uc);
++		/* NOT REACHED */
++	case UCALL_DONE:
++		break;
++	default:
++		TEST_FAIL("Unexpected ucall: %lu", uc.cmd);
++	}
++
++	kvm_vm_free(vm);
++	return 0;
++}
+-- 
+2.48.1
 
