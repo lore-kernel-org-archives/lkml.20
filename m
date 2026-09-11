@@ -1,267 +1,221 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 374F3457E55;
-	Fri, 11 Sep 2026 17:10:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88343496D38
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:10:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789146618; cv=none; b=p356PQGYvqEam5Lp4u7QHZpZ8y0sQBa2RKPBgTddGbdwsr6zGmX73LhyaHT/KoKQ8nnIOiEaFobu3ebdrDoUwd8JvXM5edGAN/QqtWa0DX4sYRKpE8nMmARxNV1z8MBs7atSAudqF7S1VgxxxucBGOonA3hvIWpq2PGyGrA8TRI=
+	t=1789146651; cv=none; b=SBc0+BOGck9PSmcmem3ljHIKFbUAd5lAhawrNlnldOYXG04DC7rBCfWAW6hEhKO74yWCWG0UA49lw2HY6EgxeJrtDystoNcTM6fRyLAQ+S5fP3D1Chw9BTY1rpugTD8D+7VZCkpuuzBsK2PJzmdllsT9oAx/e+/kTBnJIjKsvkw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789146618; c=relaxed/simple;
-	bh=70mmmfYxx5aDBfb3A3A64dexxI6qP8wxu39hdOEJ1aE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BvwgrWqQjO0e00cuX07PdfLVFgq5LyjZDm+9ETeFwbRDJ+PvEQ5xx1+Kqe9aEh99Rtj4kncKTcrCsSDVDSyCxdpEOhH/XAfkfa27mW/raBpEX4GVFEG4r3ld+RwVZUGPE22VqIQLiffkNwQHhoJKu34nbI3LoQta0GkE6BUBSIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ijM28yeS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789146651; c=relaxed/simple;
+	bh=1hwayrmSW0iqlDkbTZ+4R/Cn24UtwroEMbSFyV3T3Nw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IVMvqkyHUimRywjr5lJ8bYSeB7YZYMDHPmjQesNSo64Zpf10WvpcvuNtUdGO36JO1e5s3Lii3ynK79cp0A1jluNml5plJv220a7Ey5hcucrANIhbIcCfXA0rEPqOM48xU8F3t9M3Wqh2JgOLvcv+QBxJZrhBbpp1dB1HTTK+HIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FzBEV+AC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=igHUqu4o; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ijM28yeS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF04C1F00893;
-	Fri, 11 Sep 2026 17:10:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789146616;
-	bh=s9/6KbXsN5PKvzZs2esn/AhPtSfdFVVRLNXzVuGAieA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ijM28yeSeyX61csI7of/aYV6Iu23+fQwE2+XMHuORDOd9Q58+YKhljzXl+IBz4Fum
-	 GTMuOS39dD0b/3zG27EdOqjAkusXj6vqwIKDQom13aNYWLtWjARY8yD4Fc6x0WSfAd
-	 5HAYNkwusAIKERa3WHgLnp9dbK4wyC6PAL6LjnODK0XIQGto7t/yd8GJT72smbQhyu
-	 OzZ3q1/AtOHdfG+oKc4RjaNN9Ctxu4fwIB3/CiLYKdFCtFfw3NRb+woAMvc191s+Fq
-	 6WOJgh4F2SXLfO/k1FpUXsN9xExTqEQkHaoouynhFq/HctD3ifs1J/7Tb6gKYO0V6p
-	 uNN1MzB53btqw==
-Message-ID: <0a4fd9e1-3e7d-4910-99ee-6f6f89b5ca93@kernel.org>
-Date: Fri, 11 Sep 2026 19:09:41 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FzBEV+AC";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="igHUqu4o"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BEm2lC442908
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:10:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=43JV2CT34ywMCqvN1NXrOAtO
+	dXSh1XmrnXb+Ch1XFq4=; b=FzBEV+ACGiWF9U3C+hHFMycemyMOgnt8Heo9eeUg
+	Xk1dzhykslO7j3yYf79ye1NNrPoGwkZnCbXssagGG/hb6b3Ikxzsw48UiQfMAP1d
+	VM8HwcnEnKSdO16IIDZR2rhE8c6fTuSenrhs5zFgwrbee7EHmmztL88hcC9pbrVJ
+	tuPsu7g1u440kKLrjWHNLHGpI9TTVNKQFlxRzhaNgEUqWhNJysC7GRf0YZI5gK/w
+	gY33dg5Qd+S6Lb6FlwIJPflwEroZRdMXOLJZqHKC+fYewR8giBbmGfCyQ2gtJMdw
+	ToM77AlpTgeKgVYll6O/OvNShehart6d8M6SEYoTVwwPkA==
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmapg31t8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:10:47 +0000 (GMT)
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-80497c6ec88so1002081a34.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:10:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789146647; x=1789751447; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=43JV2CT34ywMCqvN1NXrOAtOdXSh1XmrnXb+Ch1XFq4=;
+        b=igHUqu4o/y0PX9IrPd60SUrezuMp+w87RGPUej3Q3gwzvWGHH8gdA0xWDIAr9Oyjhw
+         x0t5gw9+tLRfdau2APblbvbLskPOUneP8Q72mIdxH7hspVMZ8YwJ56tLtYY74ZKcMo3Z
+         zxNQLScxSyh48EnKKiy8UBJzQeLmZOh/1Y8uyZSSQlO4fxZl1XeNjudud7Byax3QkxM+
+         eB0Atllc1s8BSxF1TvdQnu5MiSpJKmwEiuabB7enGgmzUyZ5/MNzQGebx3erFXXtQuuy
+         k40dZRgMsMKZWXsbo+HyJ8i8uzFVvsWIx09Gbo5n8PpBlxEKgUlTMZHaF8/48APdPy+p
+         nnoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789146647; x=1789751447;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=43JV2CT34ywMCqvN1NXrOAtOdXSh1XmrnXb+Ch1XFq4=;
+        b=jbRkUVUw9ppnvOhVw63wdgUxNeBZmWt8fr1FOQcHGLcl7IIzen3nINqgb+t6hKJHUQ
+         D/PV0Z0JtyoiyfiWdzu9g0uZyWPLIHPpMGNZkLFaWqPCNImUwJJ8ptwWwnhmYD4YIytD
+         gTReApy8+3yiRkEyPlfjkdtvFJdPIhs8vU/2X5tWV2p7qXNqioGlryePVEU3R6dAS2R8
+         rrfV3g9Y2q0dducpU2HXIqYouCC8avWw4ygzfcKvV0GZELNr4yWwKZkDV3n/45OtmRWm
+         98OTajBwhmUOPAbn8Q09NgcdWLtE8x0mguc4JwXSSuakhp6vNWSV7nb1c35EeGdffj0u
+         GXig==
+X-Gm-Message-State: AFuF++mbZGaG3NXSf1nrlDrr1shmyH8kvLuxv4d7wDvDc3WSKHx2PPhl
+	PhcHU9lE6EJOgl3vLZnjESmkV9YjbUyWu5seTzv0uehSyEys86VvA8vWtJrlp24qY+xiWh4kseI
+	QsUuWBoCNRIfIsxWl8ON14k6UguSqro3u8mLAw7ReTrRQSpUta/nXS9FnpNUu8u7V3FM=
+X-Gm-Gg: AYBFou1Zm6yFuVXU4Qcob9Y7TAX+rs6JHvpYagNdqSwuhc7K+g9rdJ+cs/aOrKFYCfC
+	QUOl4x9Jc4mht0pnKxPn7eeJITYgUTfSt6oCLyVneKib+3JAICfnZSfEeSZ24qfApdnldxgGo97
+	U0EH41wohXEbn/UqnNCJEHKT3DAsoHzRGknTekAxKlD+rcEAeARq4khiBUHixG68UitlH7uvgDy
+	CNjwdoYmaHsmvbeVAW3ADq5vHBPwVVRor1JzHrSLPdY46RpVNmKnDt3x7Em8F0PVbwLv4tDhfG1
+	QTv/Ce5Bdd4Al8G0Kttm36hmTqmRnAcOgk8kmZgpWXs9gTFEQsNGLepnQwDVzlw/516H1cTpp4n
+	n6Niqkuk/4mdWL0YPehqf4imZBEXU1Z5I34j8gaAVwQvAbJBoLg==
+X-Received: by 2002:a05:6830:81cf:b0:7dc:df37:844b with SMTP id 46e09a7af769-803fadd1e9dmr4468523a34.4.1789146647066;
+        Fri, 11 Sep 2026 10:10:47 -0700 (PDT)
+X-Received: by 2002:a05:6830:81cf:b0:7dc:df37:844b with SMTP id 46e09a7af769-803fadd1e9dmr4468492a34.4.1789146646681;
+        Fri, 11 Sep 2026 10:10:46 -0700 (PDT)
+Received: from hu-ashoraj-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-803f59ea2f9sm2763387a34.9.2026.09.11.10.10.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 10:10:46 -0700 (PDT)
+Date: Fri, 11 Sep 2026 10:10:43 -0700
+From: Ashok Raj <ashok.raj@oss.qualcomm.com>
+To: Rik van Riel <riel@surriel.com>
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, joro@8bytes.org,
+        will@kernel.org, robin.murphy@arm.com, iommu@lists.linux.dev,
+        liam@infradead.org, maple-tree@lists.infradead.org, linux-mm@kvack.org,
+        jgg@ziepe.ca, kyle@mcmartin.ca
+Subject: Re: [PATCH v5 0/3] iommu/iova: convert from rbtree to maple tree
+Message-ID: <aqQ2E68lmU3Fbjsk@hu-ashoraj-lv.qualcomm.com>
+References: <20260818152505.1057922-1-riel@surriel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/8] mm: use hw_pte_t for generic PTE table storage
-To: Muhammad Usama Anjum <usama.anjum@arm.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich
- <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- ziy@nvidia.com, pfalcato@suse.de, agordeev@linux.ibm.com,
- ryan.roberts@arm.com
-Cc: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-parisc@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-trace-kernel@vger.kernel.org,
- bpf@vger.kernel.org, linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-References: <20260903103002.1091859-1-usama.anjum@arm.com>
- <20260903103002.1091859-4-usama.anjum@arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260903103002.1091859-4-usama.anjum@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260818152505.1057922-1-riel@surriel.com>
+X-Proofpoint-ORIG-GUID: HatBRPkid2vHtu1Mx5milbJSLfsGYUNj
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDIzOSBTYWx0ZWRfX7Eaa637FfPPX
+ sSZaqYWO+2/SHNvY9+DVC/5HioWMwefBPQL+SLK6cK1ccw1DZR46KnoAOBpQ5j6+Vcte9hTquFw
+ 3uJPRj5ZtsZOfvdvFYZmbl+PVe1g/n0=
+X-Proofpoint-GUID: HatBRPkid2vHtu1Mx5milbJSLfsGYUNj
+X-Authority-Analysis: v=2.4 cv=DLoacCNb c=1 sm=1 tr=0 ts=6aa43617 cx=c_pps
+ a=7uPEO8VhqeOX8vTJ3z8K6Q==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=fwyzoN0nAAAA:8 a=EUspDBNiAAAA:8 a=nI-UuXyqNnj8uUgxqL4A:9
+ a=QEXdDO2ut3YA:10 a=EXS-LbY8YePsIyqnH6vw:22 a=Sc3RvPAMVtkGz6dGeUiH:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDIzOSBTYWx0ZWRfX7lVgHCpUO3x1
+ pruLPrABcdoYFV+b1lcOBUGYjtEtZ3OFHxYTKo8GIyTNJ5tHqEnUMf5pcqH1cAxKYHgOsGCcDVC
+ YLqEbEDEutfAAzCz1EXl8DICigGohTii2Tbh+SMExmWGfDtkSrDk9l9IMEAIq4EYSMcsIKrvSpk
+ QhpuGEJloFhZw3CM8qqpFYKkBd6kUxBQq3urk6sUhvkqnQQ6S98KOtTyxSd+GWSH+q27YTT+6Y8
+ a/zLM0P7BYqtNPfs6knDG6luP1fddB5tCY5sjA2P2e3hg/hZpr4FVVX6y/JXpEz9kiPqBDczElV
+ 83bDOvwmBoL5kL2CHrg3KD+7aZGNDbzJVmRbEhlhAehJ4uAEEoAmek7yawcng18M7521LgLjRMx
+ LU6+S5r/YmeIc2Bmi+pHrNLtvx2hjiekkKcjIgGOBzw9MdpAIO0n+Yo5+890LPA2ihxWfNy2YUr
+ SjLj08H87cEEPpKO7jw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-11_05,2026-09-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 phishscore=0 adultscore=0 suspectscore=0
+ spamscore=0 impostorscore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110239
 
-On 9/3/26 12:29, Muhammad Usama Anjum wrote:
-> Generic page-table interfaces use pte_t * for both pointers to PTE table
-> storage and pointers to software PTE values. Convert the generic
-> declarations and their MM, fs, and kernel users together so parameters,
-> return types, callbacks, and local pointers that designate table storage
-> use hw_pte_t *.
+On Tue, Aug 18, 2026 at 11:25:00AM -0400, Rik van Riel wrote:
+> Occasionally production workloads at Meta run into the linear search in
+> alloc_iova() in ways that cause real issues. For example, when enough
+> CPUs at a time fall into the linear search trap, systems have been known
+> to get stuck for so long that it causes soft lockups.
 > 
-> Include linux/pgtable_types.h from headers that expose the converted
-> interfaces. It continues to provide pgprot_t to vmalloc.h through
-> asm/page.h.
+
+Something odd, except your cover letter rest of the patches are missing
+v5 prefix in your patch? 
+
+> This series indexes the iova ranges in a maple tree instead. Its gap
+> search makes alloc_iova() O(log n).
 > 
-> Keep software PTE values as pte_t and retain pte_t * for value interfaces.
+> struct iova loses its rb_node and shrinks from 40 to 16 bytes.
+> The maple tree keeps its nodes outside the entries, so total memory
+> use ends up about the same as before.
 > 
-> No architecture selects ARCH_HAS_HW_PTE_T at this point, so hw_pte_t
-> remains an alias of pte_t and this changes the interface vocabulary without
-> changing representation or behavior.
+> Patch 2 handles the one thing the maple tree does that an rbtree does
+> not: erasing an entry can result in the need to rebalance a tree, and
+> allocation of maple tree nodes.
 > 
-> Most of this mechanical conversion was generated with the Coccinelle script
-> included in the cover letter. The script deliberately ignores pte_t *
-> pointers named ptentp because they designate software PTE values. The
-> result was then audited, and sites the script could not convert were
-> updated by hand.
+> iovas are freed from atomic context, and GFP_ATOMIC allocations mean
+> the erase can fail. When it does, the entry is marked IOVA_DEFERRED
+> in place and the struct iova is freed. The marker keeps the range
+> reserved until iova_drain_deferred() retries the erase.
 > 
-> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> Ashok Raj asked on v4 whether the marker store can fail in turn, since
+> the WARN_ON_ONCE there reads like error handling for a case the comment
+> claims cannot happen.
+> 
+> Code examination shows that, with the current maple tree code, the
+> IOVA_DEFERRED maple tree store will never result in an allocation,
+> and cannot fail. This series adds a test case which allows us to verify
+> that maple tree property continues to be true.
+> 
+> Only a corrupted tree, one no longer holding the iova at its own range,
+> can reach a store type that allocates. The WARN_ON_ONCE is more of an
+> assertion than a recovery path.
+> 
+> Liam Howlett's "maple_tree: lock checking and clean ups" series adds a
+> WARN_ON_ONCE to mas_nomem() for a GFP_ATOMIC store under an external
+> lock. This series is external-lock and GFP_ATOMIC by construction, so
+> both stores would splat if that lands as posted.
+> 
+> Liam, is the intent to disallow that combination, or to flag callers that
+> cannot tolerate a failed store? The iova code handles failure on both
+> paths.
+> 
+> The code was written with Claude, and nitpicked by myself. Don't be shy
+> if there are more nitpicks remaining.
+> 
+> Tested with the KUnit suite in a VM, including with PROVE_LOCKING,
+> DEBUG_MAPLE_TREE and KASAN enabled, and on an AMD Bergamo system with the
+> IOMMU enabled. I know of no way to reproduce the linear search soft
+> lockups at will, so that scenario stays unverified in practice.
+> 
+>  drivers/iommu/.kunitconfig |   6 +
+>  drivers/iommu/Kconfig      |  16 +
+>  drivers/iommu/Makefile     |   1 +
+>  drivers/iommu/iova-kunit.c | 544 +++++++++++++++++++++++++++++++++
+>  drivers/iommu/iova.c       | 561 ++++++++++++++++++++---------------
+>  include/linux/iova.h       |  21 +-
+>  6 files changed, 901 insertions(+), 248 deletions(-)
+> 
 > ---
-> Changes since v1:
-> - Fold the header includes into their first user instead of keeping a
->   stand-alone preparation patch.
-> - Rebase onto mm-new and rerun the Coccinelle script.
-> - Use software PTE value terminology.
 > 
-> Changes since RFC v1:
-> - Clarify that linux/pgtable_types.h provides both generic hw_pte_t
->   definitions.
-> - Clarify that the distinct generic definition is activated by an
->   architecture opt-in.
-> ---
->  fs/hugetlbfs/inode.c             |  3 +-
->  fs/proc/task_mmu.c               | 33 ++++++-------
->  include/asm-generic/hugetlb.h    | 15 +++---
->  include/asm-generic/pgalloc.h    |  6 +--
->  include/asm-generic/tlb.h        |  5 +-
->  include/linux/hugetlb.h          | 50 +++++++++++---------
->  include/linux/mm.h               | 26 +++++------
->  include/linux/page_table_check.h | 10 ++--
->  include/linux/pagewalk.h         |  8 ++--
->  include/linux/pgtable.h          | 79 +++++++++++++++++---------------
->  include/linux/rmap.h             |  2 +-
->  include/linux/swapops.h          |  6 ++-
->  include/linux/vmalloc.h          |  4 +-
->  include/trace/events/xen.h       | 10 ++--
->  kernel/bpf/arena.c               |  9 ++--
->  kernel/events/core.c             |  3 +-
->  mm/damon/ops-common.c            |  2 +-
->  mm/damon/ops-common.h            |  2 +-
->  mm/damon/vaddr.c                 | 20 ++++----
->  mm/debug_vm_pgtable.c            |  2 +-
->  mm/filemap.c                     |  4 +-
->  mm/gup.c                         |  9 ++--
->  mm/highmem.c                     | 15 +++---
->  mm/hmm.c                         |  6 +--
->  mm/huge_memory.c                 |  4 +-
->  mm/hugetlb.c                     | 60 ++++++++++++------------
->  mm/hugetlb_vmemmap.c             | 13 +++---
->  mm/internal.h                    | 16 +++----
->  mm/kasan/init.c                  | 12 ++---
->  mm/kasan/shadow.c                |  6 +--
->  mm/khugepaged.c                  | 50 ++++++++++++--------
->  mm/ksm.c                         |  7 +--
->  mm/madvise.c                     | 14 +++---
->  mm/mapping_dirty_helpers.c       |  4 +-
->  mm/memory-failure.c              |  6 +--
->  mm/memory.c                      | 78 ++++++++++++++++---------------
->  mm/mempolicy.c                   |  4 +-
->  mm/migrate.c                     |  4 +-
->  mm/migrate_device.c              |  4 +-
->  mm/mincore.c                     |  4 +-
->  mm/mlock.c                       |  4 +-
->  mm/mprotect.c                    | 19 ++++----
->  mm/mremap.c                      |  4 +-
->  mm/page_table_check.c            |  4 +-
->  mm/pagewalk.c                    |  9 ++--
->  mm/percpu.c                      |  2 +-
->  mm/pgtable-generic.c             | 20 ++++----
->  mm/ptdump.c                      |  2 +-
->  mm/rmap.c                        |  6 +--
->  mm/sparse-vmemmap.c              | 22 ++++-----
->  mm/swap_state.c                  |  3 +-
->  mm/swapfile.c                    |  5 +-
->  mm/userfaultfd.c                 | 32 +++++++------
->  mm/util.c                        |  2 +-
->  mm/vmalloc.c                     | 11 +++--
->  mm/vmscan.c                      |  6 +--
->  56 files changed, 410 insertions(+), 356 deletions(-)
+> v4: https://lore.kernel.org/r/20260624030853.2340880-1-riel@surriel.com
 > 
-> diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-> index 7611a8470ea26..ddaab714c3e02 100644
-> --- a/fs/hugetlbfs/inode.c
-> +++ b/fs/hugetlbfs/inode.c
-> @@ -328,7 +328,8 @@ static void hugetlb_delete_from_page_cache(struct folio *folio)
->  static bool hugetlb_vma_maps_pfn(struct vm_area_struct *vma,
->  				unsigned long addr, unsigned long pfn)
->  {
-> -	pte_t *ptep, pte;
-> +	hw_pte_t *ptep;
-> +	pte_t pte;
->  
->  	ptep = hugetlb_walk(vma, addr, huge_page_size(hstate_vma(vma)));
->  	if (!ptep)
-
-This is interesting.
-
-Assuming we'd had a hugetlb_hw_pte_t, we be able tojust naturally catch things
-like using
-
-	ptep_get()
-
-instead of
-
-	huge_ptep_get()
-
-That caused bugs and headakes before.
-
-But I'm not actually proposing that at this point, because it would make messed
-up infrastructure where we hacked in hugetlb, like page_vma_mapped_walk() harder
-to use.
-
-
-Regarding this patch, I guess we'll regenerate it when the time comes. We
-*might* have to do this stepwise.
-
-E.g., merge patch #1 first, to then convert individual MM components. But we can
-discuss that once the time comes.
+> v5:
+>  - subject prefix iommu/iova:, matching the file's history
+>  - put_iova_domain() takes iova_lock across the tree walk and
+>    __mt_destroy(); without it lockdep reports suspicious RCU usage,
+>    since a MT_FLAGS_LOCK_EXTERN tree checks the external lock
+>  - explain why the IOVA_DEFERRED store cannot fail, and check it in
+>    test_marker_store_needs_no_node()
+>  - deferred erase is now patch 2, the test suite patch 3
+>  - rebased onto v7.2-rc8
+> v4:
+>  - reduce the size of struct iova to 16 bytes
+>  - simplify the (hopefully rare) remove_iova GFP_ATOMIC failure path
+>  - test case for the deferred free code
+> v3:
+>  - switch to maple tree (suggested by Robin Murphy)
+> v2:
+>  - clean up selftests (thanks Jason Gunthorpe)
+>  - drop the search-with-alignment, since most iova requests should be
+>    of similar sizes, so the worst case behavior is unlikely to hit
+>    once ranges are excluded by the augmented rbtree
+> 
+> base-commit: ad8d485e665829ecbf3c97b22ce251f8ff5f8037
 
 -- 
-Cheers,
-
-David
+/ashok.raj
+ashok.raj@oss.qualcomm.com
+Qualcomm Inc
