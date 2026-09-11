@@ -1,146 +1,115 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0FBE40DB20
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:35:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F0B3E44F0;
+	Fri, 11 Sep 2026 15:35:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789140915; cv=none; b=ghgdaLGBcZZtRtMM6qmsntEUnxouLJUimR2Ga/XAWd5sBETBihBx5PpzzRmY29P9VYSXwJ9bQoryh/FJow+3J0RI09+if2L2KTFe9EKUFre10cvC5kEFQ3JqApkJDQrL8bWtTiQ59PHw9RADHriMd9jWNqIJ2qJraRAEdwL0gKM=
+	t=1789140937; cv=none; b=OzmiNxVIGkTwAH/qdUnHvBopt71Z7JC92A1G6nmyGeOTYe16Szx2olIGGEbwFX/adLpBgIEI7Qgei4fPlzsO9rS3An/d4sI97/H6gcJ6LqFoVzt/HvuivaMV9YVhi/9KhRQfJcKSrikN2+zSjr+VXtGYeIGGbfsB0Fub7XvKfHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789140915; c=relaxed/simple;
-	bh=+eVTntLT3QqtMFBinH1XAX836tRZHGdYO7FwdM01I4Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ivTb9fpamkjFLCyD1Oo8iMM4iIYKhIPWr0ZjEZ74FaBSkASO9CUgVBrIs8jPuEtdOPROwZGY5ETSRdfi8amSoBHOw/vMj6cry7jvhaS8QGHCs9WwMzR9oTX5LqjvKQ6wVR0RE8za13AFHfEj4yyE4S7Y7KELdNy/lxB89MKM/5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ATdN7VjF; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1789140937; c=relaxed/simple;
+	bh=16gv1d97B2qbvHnYzMYPl/IueBltxo1rOuvqaljDZzE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZupZL6u7yYI/kCzuRhw0OIiC74alQgBCzxzsCoRG2Ft6Zny2G6RKGHhcs+SaWpUS2XgYCp9Q5XCEAoRKQTRAtKxe3XrGlb9HijYU0xuS3iGIDjsnDy4WeT5bM83bGvQ7mSQFnZGzLmDoWEDZJ4WilOME+T+ELwUL0+azrPkIbT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G8vhHNr8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ATdN7VjF"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cda5e048fso3275e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:35:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789140909; x=1789745709; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ukXt4wICo81B+vDlkvqsOUSCqK9dAPsJMwYOIeIlNzs=;
-        b=ATdN7VjFLhiS5vx9CcprLrWzedYeVK+2G12zisTwGwHMfneAp84v8qNi+iTmrFIQw9
-         39Hm2qqdqb9vOJllzG8eH14RGqxOcKmx0GOrvYvb786OWyaq198pbzT+7RvE1lSeLFpO
-         zAZElmzlFEJx5knfJ4f6d2EFjXKi29jpX1ojio9LX3ttS27637owowcOsrsN9PfhvDNh
-         lsb6gf/fvUMjesg+zb7bcGlvap7C8lI67Q+EwLpwsp7cMIg89hrGJaP7agXhdr70wj2q
-         AtwKrlQ1hhnpO8OduOObp8ftBcD5Bmm2+1UFHFrnqE0szzfikPvuuyeL/HE5ZxLukADr
-         MLYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789140909; x=1789745709;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ukXt4wICo81B+vDlkvqsOUSCqK9dAPsJMwYOIeIlNzs=;
-        b=li2ELMqXtX61T3aIYlxheaPcWoMdmlr0XVLLeSfbKcO/rCBAQCuX8+8Z3TXNaqu2JP
-         qG0ATOhmH4NEBFX2os3PK86K8hrrLfa6ytf2zYvHzo21cW+th7G13JEUpkzOIUyngVhF
-         l22cpwneZadXXyRtfh5sVrwMZgdPb4sDej/D3r8PWHbd4zTPUVUeXHQzAy1/VBqfBkK6
-         YxPgiNJNZ1TtgN/r2OXuIGl3PdNSxXJ6dINGYIcW0TEJKiP8XO1+GDB7CmgYIpVMhn+f
-         IoDzRd0an7jg3zW0nTKNzp7G77rSW7hkvuLyiPeY5MiYKSSJ4CqnUXqmqRCIjeoeQY3v
-         QLHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzHLsDO+FvjPBiqGh2EkqPYuur6Z2AlDb7Rt+NHAb7WoyXNozNgxTNr0V9bFuzebyPfpdfjuAN301uMvfo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKfUhetEtknepYorgZ6M167gsfzEpuE/gJmYRXUv8oqd/KDWqF
-	eOoKsWAImTP8XgUEaGW5vTvjxnQ/Kd0KPo+2BOY/vThnlWyVg5VVAHwmXJHdJumHCw==
-X-Gm-Gg: AYBFou1AzdabtdAb71f4B5uBGJAZhiPs1ala0AsAZ5bpYdHWvD88/2DYGG5ImSfGtYZ
-	D/m9sgkJBFeV3En6XqnX/K0AWmwPfxUHs9NMLm4HjZiLdDf9oIaB861qw5OllJVrpEHBDD5y6mQ
-	JkSpZBFSWHPu+eNDdKaanibP16zdt5d1ncd4/LURBkKJQhru8XPinPGkQP7WxvUs9yhkEWjyGT/
-	1jd9EFqbh63XbWcU2p/VkiYqhjwS7hwyJLDXRG1J0MQADyuhgKXkh3Q85JfMHLhY7IJjpTgMstw
-	NXkub3Un9rCFpvULc23G1PGI8CSBNwK5kBhJzOMbxwtHqNSGhRSjOVUOGFHmCgoNgHcVlKPDEqK
-	wbWpObRt85YAQD8sDtV2Fpwlu7TKXLYyu+L/rHI8cmsg90lgpWcKcvUh3QDr0wdzrl8K2YdjM0m
-	y9kYuXCeiNOkg6dgc7gdP840y4BpAftEVFqoCYJojGHrjya3fqljMCgB2v3SANSUilwJ1al5mz/
-	OTmQQrgtNCX1Jk56V1cYclbquB7BScU6rJqv76cgJP5vJQmhgTi6eTTLFg=
-X-Received: by 2002:a05:600c:4f07:b0:49e:65c4:5539 with SMTP id 5b1f17b1804b1-49e65c456e9mr571055e9.6.1789140908788;
-        Fri, 11 Sep 2026 08:35:08 -0700 (PDT)
-Received: from localhost ([2a00:79e0:288a:8:d3e5:e8d0:cdd7:470f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e62cffaa0sm26798965e9.0.2026.09.11.08.35.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 08:35:07 -0700 (PDT)
-From: Jann Horn <jannh@google.com>
-Date: Fri, 11 Sep 2026 17:34:40 +0200
-Subject: [PATCH] io_uring/fdinfo: ignore IORING_CQE_F_32 in last CQ array
- slot
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G8vhHNr8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AA771F000FF;
+	Fri, 11 Sep 2026 15:35:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789140936;
+	bh=8htBhrrS7QJa0BzCT1gDdtND0CWm0Fsl2BMBtjFjmjM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=G8vhHNr8GtxwAZiagsKXcAhnsR/45HrxtPYuUh/1TqNcr6fNSt6bmUiL910FhgmCo
+	 yxWZWx6B8z3+Oo1cFZ2293FRzkaEms49uD1pDZVNta8+wj7YlHcPCPCcEtwWpCyV6D
+	 TYtp/uEorhAmvL5kwQZK8VnHGFYW2lpQOseEbEvvSHO5YiAWHF9P5SwL+ahVr1atu0
+	 HDJ489c9eh7svfdUWlwWIJXS/hj/qO0oBIwSlH3rGmaRjrWbIjvROVGjAvXoRLjvdQ
+	 Vr+Dpl3OirERuF0oRgKNXBZGtL+rK43A0hcJ2TzRu0Jc2ELJARzce2uj4pC68TTHYj
+	 0tJOg2moMTOsg==
+Message-ID: <20de0829-1d74-44d4-a7cd-9c3e99d3caba@kernel.org>
+Date: Fri, 11 Sep 2026 17:35:29 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/7] proc/task_mmu: change proc_get_vma() to stop
+ returning gate VMA at the end
+To: Suren Baghdasaryan <surenb@google.com>, akpm@linux-foundation.org
+Cc: liam@infradead.org, ljs@kernel.org, vbabka@kernel.org,
+ willy@infradead.org, jannh@google.com, paulmck@kernel.org, pfalcato@suse.de,
+ xueyuan.chen21@gmail.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org
+References: <20260910234737.1340642-1-surenb@google.com>
+ <20260910234737.1340642-6-surenb@google.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260910234737.1340642-6-surenb@google.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-uring-fdinfo-tighten-v1-1-47c62a154aca@google.com>
-X-B4-Tracking: v=1; b=H4sIAI8fpGoC/yXMMQ6DMAxA0asgz7UUQ0HQq1QMEJxgBlMlASEh7
- t60jG/4/4TIQTjCqzgh8C5RVs2gRwF2HtQzypQNpSkb05HBLYh6dJOoWzGJnxMr0kiW2u5ZV6a
- GnH4COzn+23d/O27jwjb9XnBdXzbFEbp4AAAA
-X-Change-ID: 20260910-uring-fdinfo-tighten-1b1c18945305
-To: Jens Axboe <axboe@kernel.dk>
-Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Dominik Maier <dmnk+artist@google.com>, stable+noautosel@kernel.org, 
- Jann Horn <jannh@google.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789140900; l=2305;
- i=jannh@google.com; s=20240730; h=from:subject:message-id;
- bh=+eVTntLT3QqtMFBinH1XAX836tRZHGdYO7FwdM01I4Y=;
- b=BO11Wx2rzUqTAqS21PQkjVLo1Co0Nv0ZxshMdUrMDm0VuN13vHliNARkHUFC+YwS7M7t9bAyG
- hyPAfKohDn5CuwXAYAjfC9/Z0CEZr948kP5ABTzP5L0k3DlFAEHnyNe
-X-Developer-Key: i=jannh@google.com; a=ed25519;
- pk=AljNtGOzXeF6khBXDJVVvwSEkVDGnnZZYqfWhP1V+C8=
 
-A cqe32 entry spans two CQ array slots, so the last CQ array slot can't
-contain a cqe32 entry. If the CQ tail points at the last CQ array slot and
-the kernel wants to write a cqe32 entry, it uses io_fill_nop_cqe() to pad
-the last CQ array slot with a dummy entry and make the tail wrap around.
+On 9/11/26 01:47, Suren Baghdasaryan wrote:
+> proc_get_vma() returning gate VMA at the end is desirable for the its
+> current m_start/m_next callers, as they need to report a gate VMA at the
+> end of the address space. This behavior is very specific to these callers
+> and makes proc_get_vma() hard to use for other purposes.
+> 
+> Move this usage-specific behavior into the callers themselves so that
+> proc_get_vma() returns either a valid VMA, an error or a NULL when no
+> more VMAs are available. This makes it more generic, simpler and usable
+> in the later patches.
+> 
+> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> ---
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-However, malicious userspace can directly set IORING_CQE_F_32 on the last
-CQ array slot, causing __io_uring_show_fdinfo() to read the second cqe32
-half from beyond the CQ array. Change __io_uring_show_fdinfo() to
-explicitly ignore the IORING_CQE_F_32 flag in this case.
+-- 
+Cheers,
 
-This is not a real bugfix, just tightening the code a bit, because:
-
-1. the number of CQE slots is always a power of 2, see io_uring_fill_params
-2. the ring_region region consists of:
-    - a 64-byte header
-    - pow(2, N) CQE slots (each 0x10 bytes)
-    - optionally, the SQ array
-3. the ring_region size must be page-aligned because it is shared memory
-
-Together, these properties imply that the last CQE slot can't be close
-before the end of a page, so the "out-of-bounds" data is
-
-Reported-by: Dominik Maier <dmnk+artist@google.com>
-Fixes: 82ceb7fcc5ff ("io_uring/fdinfo: handle mixed sized CQEs")
-Cc: stable+noautosel@kernel.org # no impact due to memory layout
-Signed-off-by: Jann Horn <jannh@google.com>
----
- io_uring/fdinfo.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/io_uring/fdinfo.c b/io_uring/fdinfo.c
-index 3ae4804765b9..0b656a6c8428 100644
---- a/io_uring/fdinfo.c
-+++ b/io_uring/fdinfo.c
-@@ -155,9 +155,11 @@ static void __io_uring_show_fdinfo(struct io_ring_ctx *ctx, struct seq_file *m)
- 	for (i = 0; i < cq_entries; i++) {
- 		struct io_uring_cqe *cqe;
- 		bool cqe32 = false;
-+		bool is_last_cqarray_slot = (cq_head == cq_mask);
- 
- 		cqe = &r->cqes[(cq_head & cq_mask)];
--		if (cqe->flags & IORING_CQE_F_32 || ctx->flags & IORING_SETUP_CQE32)
-+		if ((cqe->flags & IORING_CQE_F_32 || ctx->flags & IORING_SETUP_CQE32) &&
-+		    !is_last_cqarray_slot)
- 			cqe32 = true;
- 		seq_printf(m, "%5u: user_data:%llu, res:%d, flags:%x",
- 			   cq_head & cq_mask, cqe->user_data, cqe->res,
-
----
-base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
-change-id: 20260910-uring-fdinfo-tighten-1b1c18945305
-
-Best regards,
---  
-Jann Horn <jannh@google.com>
-
+David
