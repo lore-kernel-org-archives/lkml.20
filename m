@@ -1,76 +1,86 @@
-Received: from mta0.migadu.com (out-158.mta0.migadu.com [91.218.175.158])
+Received: from mta0.migadu.com (out-179.mta0.migadu.com [91.218.175.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D3A6422E37
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:40:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F3CA3839A0
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:41:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789108840; cv=none; b=VlQJv0Jtz7Mb1C+A+vANa7gopNcGAcNHhWR1k621mpxT/ECIa0i77Qxc2fApSb1krSSjrRyqG4V7kaLUyE9IgVCMOwOUb4zF/tGlBgLxZv1fsJjvag3bnJe4rr6UlN/IpgP2EJvJIgWumfdkzqvHa5+lk5aKt+yBldlYkTJgpso=
+	t=1789108871; cv=none; b=JvTQCKC6KlkoSePSPdGEvUiNCn1xTB2ejf7R+eXsyhhNAgjphR+axF4vvu8ndcDTuswRa3PoHQJzw8ECOaiwIqZIQzIO0Ucr3TbQhKzIOocJiuhl1nebZAnX83asIztyvP+tg2MXhM+lsoToX29267pR5qu4qSrOKQ2yfWP/GSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789108840; c=relaxed/simple;
-	bh=DRgM2sZR9+U2TYq2r7Swte23UdF70NogfAQ1RXcZ558=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ekak+JgKKVF3iHDVPtejKO+GjZSvdo1A4ENzXkdUYszrYz9yfKXeAUEgXr+oCLjOEI02vuCyScsXqipO1wsF+gnWodua8EnnltRfTK9tf3DOzkgxJ6XN1mXNk3+JSA+4oGZAkmfDmfNUEYjVwzQF9yHq0nmtt2a9dvcouTCmkzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nZoD4oLc; arc=none smtp.client-ip=91.218.175.158
+	s=arc-20240116; t=1789108871; c=relaxed/simple;
+	bh=ExOsGl2j4nMlAou7DL7hm0Ih5Hfn8Z4OdLD7D7iXx/g=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=IuCKRQg2oBwCeu8e9MSrRBS5+BwHsV2tCEliSOuC8cHyOP0NyImZoq3na/h8/kRD+UXper8MOIQuBHoSPjCc4j830Qmsk69N3OhgCEGV5c3uKBjSDAoFANZXUde7tboFJxp/EWtB19C2EqGNaBEAQbG2a0lChH9MXwo7jSLbvKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hzhX8wi7; arc=none smtp.client-ip=91.218.175.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nZoD4oLc"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hzhX8wi7"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=DRgM2sZR9+U2TYq2r7Swte23UdF70NogfAQ1RXcZ558=;
+DKIM-Signature: a=rsa-sha256; bh=ExOsGl2j4nMlAou7DL7hm0Ih5Hfn8Z4OdLD7D7iXx/g=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789108827; v=1; x=1789713627;
- b=nZoD4oLcvsANqPqNKA/oDA1QlZOL3GFmLal0c+rd8irqEFchn68lqyEizKVH1ux0PVVajtBO
- lnDBw5p8GM0U0MjHawpWRYszBBSX9qRvzFg1IC5YxSxSsLrsk+YrorPzggFpkIQx/moCWxC4mVV
- g7BlGNAZFpW3s2mhSUqk7onk=
+ t=1789108861; v=1; x=1789713661;
+ b=hzhX8wi7czmdIH7/JaMa0S5TzkjJZY4gwY5uSktT5YYpndJu/sAex8VltPsbJJEScxnhfb1s
+ YYWI4tYYhwgBYSpEHc5rlTR6bSXK1fp5U+Vsqd97r7vAgjogL1L132R6tcMlt5LJjPboyLhUqH3
+ oUCRrRFw84/0NRfPsU84sVwA=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1cdcfac8cafa065e;
-	Fri, 11 Sep 2026 06:40:22 +0000
-X-Mizu-Trace-ID: 1cdcfac8cafa065e
+Received: by smtp.migadu.com with ESMTPS id c00feb8a6972bf63;
+	Fri, 11 Sep 2026 06:41:01 +0000
+X-Mizu-Trace-ID: c00feb8a6972bf63
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <a9099104-3348-4df5-ade6-25d9503bc74d@linux.dev>
-Date: Fri, 11 Sep 2026 14:40:11 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: reject a forward path that loops back to the
- tunnel
-To: Farhad Alemi <farhad.alemi@berkeley.edu>
-Cc: falemi@asu.edu, Simon Horman <horms@kernel.org>,
- Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
- netfilter-devel@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, David Ahern <dsahern@kernel.org>,
- Ido Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>
-References: <CA+0ovCj+Pd5owGH+51rA8-RDu9YFx5oYUv8bV0zOE72QgVfY0A@mail.gmail.com>
-From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-In-Reply-To: <CA+0ovCj+Pd5owGH+51rA8-RDu9YFx5oYUv8bV0zOE72QgVfY0A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 11 Sep 2026 08:41:00 +0200
+Message-Id: <DLCA5RRJUQKI.37EVVUC379JC4@linux.dev>
+Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
+ Straube" <straube.linux@gmail.com>, "Peter Robinson"
+ <pbrobinson@gmail.com>, "Bitterblue Smith" <rtl8821cerfe2@gmail.com>
+Subject: Re: [PATCH v11 4/7] wifi: rtw88: sdio: zero the padding added to a
+ TX transfer
+From: "Luka Gejak" <luka.gejak@linux.dev>
+To: "Ping-Ke Shih" <pkshih@realtek.com>, "Luka Gejak" <luka.gejak@linux.dev>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260909074556.55709-1-luka.gejak@linux.dev>
+ <20260909074556.55709-5-luka.gejak@linux.dev>
+ <d6507fd0447c4c09a9c80bb57dfef35c@realtek.com>
+ <DLBQ2H40DC71.2Z3B32X9JQ17I@linux.dev>
+ <f139980a5614454cac50517a5b602cd5@realtek.com>
+In-Reply-To: <f139980a5614454cac50517a5b602cd5@realtek.com>
 
-> ipip_fill_forward_path() and ip6_tnl_fill_forward_path() assign the outer
-> route's device to ctx->dev without checking that it differs from the tunnel
-> device itself.  When a tunnel's outer route resolves back to that same
-> tunnel, the walk in dev_fill_forward_path() makes no progress and trips its
-> loop check WARN_ON_ONCE(last_dev == ctx->dev). Release the route and
-> return -EOPNOTSUPP when the resolved dst device equals ctx->dev, so the
-> path walk either advances to a different device or fails cleanly.
+On Fri Sep 11, 2026 at 2:30 AM CEST, Ping-Ke Shih wrote:
+> Luka Gejak <luka.gejak@linux.dev>
+>>=20
+>> One thing to decide, though. The commit message says the padding "costs
+>> nothing observable", which is too strong given the numbers in that same
+>> paragraph. Do you think it needs rewording? If so, would you be willing
+>> to amend it yourself when applying? That seems better than a resend of
+>> seven patches for one line.
 >
-> Closes: https://lore.kernel.org/all/CA+0ovCgaRvbd0Udj70b2xxG8Cx3CaCpNhnf1V4RWQuDveZYZhA@mail.gmail.com/
-> Signed-off-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+> I can amend it myself as
+>
+> "... padding the transfer costs about 2% observable over transfer."
+>
+> Or you can help to reword the paragraph. I can copy & paste it.
+>
+> Ping-Ke
 
-Please add the missing Fixes tags. These appear to be the relevant
-commits:
+Please amend it yourself, that is much better than a resend. Here is the
+change:
+ =20
+  "padding the transfer costs nothing observable:" to "padding the transfer=
+=20
+  costs about 2% observable over transfer:"
 
-Fixes: ab427db178858 ("netfilter: flowtable: Add IPIP rx sw acceleration")
-Fixes: d98103575dcdd ("netfilter: flowtable: Add IP6IP6 rx sw acceleration")
+Leave the rest as is, after semicolons there are numbers to explain that 2%=
+.
 
-Thanks,
-Xuanqiang
-
+Best regards,
+Luka Gejak
