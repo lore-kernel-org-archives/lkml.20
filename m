@@ -1,92 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E2C34A3874;
-	Fri, 11 Sep 2026 16:31:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E7B4756D5;
+	Fri, 11 Sep 2026 16:32:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789144267; cv=none; b=TB8nqn4uVe947V79CXP9xbVdm/lx0Bd06MI96PhEh8RTxkcab8OKJGBcCvQ45lDVv7/vVDhvmOJIChFoZXrEzHQVIjZ3OqJdlOqr/e7g+aWz35TFyusxobMLN+ZIMJ2P6h4WqgX42XLvF5pkWCn1+nXEzpFjsXHBYrmIkNSZ/lA=
+	t=1789144338; cv=none; b=A3yP21OqTtZVeYoMCxUNa3/PcRoc41nLPCy85Qd5/5W0jnPsFg0LzAUlGCzUEzp+q9wToy3FHrHuIVo9xaTTX/Rjz+o63M917FRKKLaLTUugI2ZvNfQg6PfXCCMlbz3hymtJkgKy0ypPtDFEP9+kMvCYjJmlJOGw5+wIpA2DqLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789144267; c=relaxed/simple;
-	bh=BlQC9Qcsp3rZ9TzotUw73e4ZVErNEZzbQUuvQP0WSPM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=I/6WipiGVPZ5+WOx2jOzJz4IwQIx+5PalUZX5qORddpMvBr8gxXK8wUlDCce48Oh6bl4yj+TGV+yKE4oBe/BL/Xg1P5dLy8oQq1mX69FbcNo1b8tpDd2XkamJTjRCgNDjZ5bYEj0wX6AtTkiQuEi7kQZkgb2u6ubzvPb0GZpWNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ESBG+YNw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789144338; c=relaxed/simple;
+	bh=qJkCbqia+PyvtsUo7qKbKv2ZL6lFALKHQ+NVremMqJY=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=MqSuvDvbaN9DzhelTi6TZUE++iKQS5/Ft6AStUsBKJ3P/4lIPo+67k5pmKaR8A9EDBwIn+zoQSajPyh4NTBaeE3TOi5ifHzKBDuCKaK3N1zKpxBDEDj/kgfbMimW5tBenWBxIS19llSzdS9APCtbcy8CNMdIFzPErATVKBz6XhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=gy1m7qOG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ESBG+YNw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD9551F000FF;
-	Fri, 11 Sep 2026 16:31:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789144266;
-	bh=TXHjAPO4ki49xaGycG4mlYKTXaKXIGZou8mNbZ9rst0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=ESBG+YNwvBfO6E/s3ggm+M1pmr9KZoiA7kMHNcAbDYVJXQhgHVdGVWJo95oroHAOu
-	 z+z7nfs0Svs0S7L0Nk8sGay4PdnN91SfnadfwXIxN2dI6bd0rjZPBqE3/wlx84cY2R
-	 kVrDZIQ1MK2SSOd1TsX0XKFZLUEvdNf6QlBMPpswOBhxI72yefGIBZ/etsZI7cVcxa
-	 8aYllxfirt99K8VBE/3DhwvqKpaFNSNH5FWIwrNc/4L+ZSPGLN6/a5e8iFhfAnUE8Q
-	 5qJhIRmQjNKrOQdUJfwgLzbrPyrf+AajR4BNPnR9Bqa4/8woTWTFJNED2yqHuD2OaJ
-	 l79M81BrQf/jw==
-Date: Fri, 11 Sep 2026 18:31:03 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Berke Durak <berke.durak@gmail.com>
-cc: Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, 
-    linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] HID: elecom: Add support for ELECOM M-XT4DRBK (018E)
-In-Reply-To: <20260907184719.25042-1-berke.durak@gmail.com>
-Message-ID: <1p66q195-4nr8-606n-221o-20p88psrs1sn@xreary.bet>
-References: <20260907184719.25042-1-berke.durak@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="gy1m7qOG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17C3D1F00893;
+	Fri, 11 Sep 2026 16:32:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789144330;
+	bh=j9rqeVVJkLJL7hyeN+ZhuUze7JPnMyhzvchT9akDlcM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=gy1m7qOGyWRZPMTSfQJX9GQn8OMxswkKp0FjsuSudkheza3eMi6XvIr048H2mPW3M
+	 PL8rI73VtGnov+Hua7Sm836ztsrYcARh0SXYdWOwul2HOk/YsGB76Z9LE6hNVa3jgU
+	 bkeKe0wZLVavneFVz57sps8mALXwElCoNhR6bGFA=
+Date: Fri, 11 Sep 2026 09:32:09 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Salvatore Dipietro <dipiets@amazon.it>
+Cc: <linux-kernel@vger.kernel.org>, <hch@infradead.org>,
+ <abuehaze@amazon.com>, <alisaidi@amazon.com>, <blakgeof@amazon.com>,
+ <brauner@kernel.org>, <dgc@kernel.org>, <dipietro.salvatore@gmail.com>,
+ <djwong@kernel.org>, <hannes@cmpxchg.org>, <jackmanb@google.com>,
+ <linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>,
+ <linux-xfs@vger.kernel.org>, <mhocko@suse.com>, <ritesh.list@gmail.com>,
+ <rvvandan@amazon.com>, <stable@vger.kernel.org>, <surenb@google.com>,
+ <vbabka@kernel.org>, <willy@infradead.org>, <ziy@nvidia.com>, Vlastimil
+ Babka <vbabka@suse.cz>, David Hildenbrand <david@redhat.com>, Christoph
+ Hellwig <hch@lst.de>, Brendan Jackman <brendan.jackman@linux.dev>
+Subject: Re: [PATCH v5] mm/page_alloc: avoid direct compaction for costly 
+ __GFP_NORETRY allocations
+Message-Id: <20260911093209.d9181d5950778897935f6bcb@linux-foundation.org>
+In-Reply-To: <20260911142102.2294202-1-dipiets@amazon.it>
+References: <20260911142102.2294202-1-dipiets@amazon.it>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, 7 Sep 2026, Berke Durak wrote:
+On Fri, 11 Sep 2026 14:21:02 +0000 Salvatore Dipietro <dipiets@amazon.it> wrote:
 
-> The 2025 revision of the left-handed EX-G wireless trackball
-> (M-XT4DRBK-G) reports USB ID 056e:018e instead of 056e:00fd. Its report
-> descriptor declares an 8-bit button field (Report Count 8) but only five
-> usages (Usage Maximum 5), so the sixth (Fn) button ends up as a
-> duplicate of button 5 and is unusable.
+> Commit 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
+> introduced high-order folio allocations in the iomap buffered write
+> path.  When memory is fragmented, each failed costly-order allocation
+> enters __alloc_pages_slowpath() which runs direct compaction and
+> drain_all_pages(), causing a 0.38x throughput drop on PostgreSQL
+> pgbench (simple-update) with 1024 clients on a 96-vCPU arm64 system.
 > 
-> The report descriptor has the same layout as the M-XT3DRBK 018C
-> (button usage maximum at offset 16, button report count at 22, button
-> report size at 24, padding report size at 30), so reuse that fixup.
+> The root issue is that direct compaction is too expensive for hot
+> allocation paths that have fallbacks to smaller allocations.
+> __filemap_get_folio_mpol() already marks higher-order allocations with
+> __GFP_NORETRY | __GFP_NOWARN, signalling that the caller can handle
+> failure.  However, the page allocator still attempts full direct
+> compaction for costly orders with __GFP_NORETRY, which is unnecessarily
+> aggressive when the caller will simply retry at a lower order.
 > 
-> Rename the existing M_XT4DRBK define to M_XT4DRBK_00FD to match the
-> convention used for the other EX-G revisions.
+> For costly-order allocations with __GFP_NORETRY, suppress direct reclaim
+> for the whole slowpath by computing can_direct_reclaim (and hence
+> can_compact) as false.  The !can_direct_reclaim check near the top of
+> the slowpath then short-circuits to nopage: no direct reclaim, no direct
+> compaction and no drain_all_pages() IPI across every CPU.  kswapd (and
+> in turn kcompactd) is still woken further down for background
+> defragmentation, so compaction keeps working for long-term system health
+> while being removed from the latency-critical direct allocation path.
 > 
-> Tested on a Raspberry Pi 5 with the same fixup in an         
-> out-of-tree module on 6.12 (6.12.96+rpt-rpi-2712);
-> all six buttons are reported after the fix, and they
-> work (tested with xev as well).
+> Allocations that also request __GFP_THISNODE are exempted.  That flag
+> pairing identifies the local-node-first THP attempt issued by
+> alloc_pages_mpol() (mempolicy.c), which relies on direct compaction to
+> form transparent huge pages.  __GFP_NOFAIL is exempted as well, so a
+> must-not-fail allocation is never made to fail.
 > 
-> Report descriptor as sent by the device, pre-fix (056e:018e,
-> 215 bytes):
+> Test environment:
+>   Hardware:  AWS EC2 m8g.24xlarge (96 vCPU, arm64)
+>              12x 1TB IO2 32000 IOPS RAID0 XFS
+>   OS:        AL2023
+>   Kernel:    v7.3-rc1
+>   Database:  PostgreSQL 18.4
+>   Workload:  pgbench simple-update, 1024 clients, 96 threads, 1200s
 > 
->  05 01 09 02 A1 01 09 01 A1 00 85 01 05 09 19 01
->  29 05 15 00 25 01 95 08 75 01 81 02 95 01 75 00
->  81 01 05 01 09 30 09 31 16 00 80 26 FF 7F 75 10
->  95 02 81 06 C0 A1 00 05 01 09 38 15 81 25 7F 75
->  08 95 01 81 06 C0 A1 00 05 0C 0A 38 02 95 01 75
->  08 15 81 25 7F 81 06 C0 C0 06 01 FF 09 00 A1 01
->  85 02 09 00 15 00 26 FF 00 75 08 95 07 81 02 C0
->  05 0C 09 01 A1 01 85 05 15 00 26 3C 02 19 00 2A
->  3C 02 75 10 95 01 81 00 C0 05 01 09 80 A1 01 85
->  03 19 81 29 83 15 00 25 01 95 03 75 01 81 02 95
->  01 75 05 81 01 C0 06 BC FF 09 88 A1 01 85 04 95
->  01 75 08 15 00 26 FF 00 19 00 2A FF 00 81 00 C0
->  06 02 FF 09 02 A1 01 85 06 09 02 15 00 26 FF 00
->  75 08 95 07 B1 02 C0
+> Results (average of 3 runs, TPS):
+>   Config                                       Avg TPS   % vs baseline
+>   AL2023 stock 6.1 kernel (pre-5d8edfb900d5)   136,942           n/a
+>   v7.3-rc1 baseline (no patch)                  59,408             -
+>   v7.3-rc1 + this patch                        161,994       +172.7%
 > 
-> Assisted-by: LLM
-> Signed-off-by: Berke Durak <berke.durak@gmail.com>
+> The patch fully recovers the pre-5d8edfb900d5 performance, bringing
+> throughput back above the pre-regression level and well clear of the
+> ~59k baseline.  The AL2023 6.1 row runs a kernel that predates commit
+> 5d8edfb900d5 ("iomap: Copy larger chunks from userspace"), so it is not
+> directly comparable, but it shows the pre-regression level and confirms
+> that the ~59k baseline is the anomaly and not the norm.
 
-Applied, thanks.
+Thanks, I'll update mm.git's mm-hotfixes-unstable branch with this.
 
--- 
-Jiri Kosina
-SUSE Labs
 
+> v5: Derive the decision into a local flag instead of mutating gfp_mask
+
+The acks from vbabka, hannes and hch were dropped.  Fair enough -
+that's always a hard call.
+
+Sashiko is worried:
+	https://sashiko.dev/#/patchset/20260911142102.2294202-1-dipiets@amazon.it
+
+That's different from Sashiko's v4 complaints:
+
+	https://sashiko.dev/#/patchset/20260904115629.3993331-1-dipiets@amazon.it
+
+does any of this look real?
