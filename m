@@ -1,536 +1,823 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A26D7415F17
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:37:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789141063; cv=pass; b=mOnzdcC6LAOPuQDiLWln48S2fKZJb1iis44/N4PAlW2coPkEvQl7wEwf9LXMReG4j32VdEdaHMnvR5V6GUORbImUSg//hWxHh142vffGycU4CvDxO+MtaRTXD5ApjP2NO15DIdRL9CX9TBW/9RHeUgil4SGXoK4+agkmcr+3mj8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789141063; c=relaxed/simple;
-	bh=brfo6pUmtJwywIAx/t9imtyEoqN2n96T5LpDL+aIAVM=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=bHGUnASPCa4NwALulPNjysp2zdxTGv6R7d8yqhVYEvMXDeEpSt0hAl0EzpY1zXsUxp0mew2wayU5nUkJwqyYBvBFOQ8I77KZCUjxd55NI6lnU6sAuIUs8Wc0ypYGlutHQ2CR3CBpP6YLRuJ/7SHoNoL6IqBWQ4PPkMLFrcko/mA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=UEJq9UcZ; arc=pass smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47284433BC5
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:37:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789141065; cv=none; b=HcOIakVAeoJwa3bpWs1b3tafb9jAc6MgwGlj+T41b36PpV7NnmmxGUk4CKmwNhU26bbA8NzuFwTsW/O6s/jOyo6gSNzjN0edgzhCAKFNdtMSvsCsUiX6jq6P41NE7APNb4gsI4roRH8gkt1ZCay2VIxMiScPKJqrYPQbAORUClw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789141065; c=relaxed/simple;
+	bh=4BrZxPPiAew+8lRx+qQ8fVFRUEHoPeOkZaCWHHNKpV8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=pmygiVMHL0QS0McZG440BYSPIzwA7MUE/8hxXzvS1WejUIGPCobRbEBjfGO71HM4F69VYU0uarv+/ByetnwqNGoeGUe3/27AD+mj04wpPSWJxg0YVzDkN39CtK+fKjgyAWeajCYWhf2RVUYTwkcdj8dPTehLs2eCKrp7zp5+5Zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ELa6lTCW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=X2FIfy+y; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="UEJq9UcZ"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d6f9e2f681so12607015ad.3
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ELa6lTCW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X2FIfy+y"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BFA9pE658467
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:37:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	8GZJ7A753K/CrFtJmJIdFmjSh46/p3FmTurk+m907Bo=; b=ELa6lTCWxmfJt68T
+	CZc/dQLJXytuUYT2UmcQuKDxbSDyjRlul/aEtz6VNCArBpew3jtRiPAiB0NaUrrx
+	JAN5yLAvghaH0yR4WSbxeIl4DiFBWc2ViaCaFgC2lg3md+cKUcdDkI+xufVuysBg
+	erm8wTAEUJtxTR6EDK3hCpKNkrZyf52H9ndrOxcDhNb1HuqdS8wqMuakY8yq4MbT
+	jwDul9Qeojzi5yguO6RwAjp5elCJErf+RKWfaBLzWN4SmtR7dYKauJqOK16VAtlP
+	ucuRuDhk5n4GQaXzesPbxauD63IM70Z0DNA38MqW/Pk29nQ+3RscQJgHx4uhaj6p
+	1khwtw==
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com [209.85.160.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmm22r3x8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:37:41 +0000 (GMT)
+Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-46ac13882ccso917441fac.1
         for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:37:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789141061; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oKuVfVENc8gUysCxHCinzOcV9sSTEV631dhj2xMP6eVkORTh7L6bnvRSrhrgyyZqGo
-         FUlcYpOFq/M4IaO4jfe21H3CL4E0APfITwZT2Qp3zNDWbXLw7HQUIWnyWE7S9WSZimAp
-         l4gxHMquM4X0ezsLFfkS/8z3zC59fJlOEFhhGTQvb8c79Ixd5TKetjs1WfMyGG8GSUYT
-         XIgs6H7fOFobm7nOWOFnB+VITNqqDDEeIoBtLLIPFwcVyr63cC1Qfu/rX8UpHtow2VF6
-         HkgLJ6uyQZN6Mvu75bUAPF3TfcJAoCvWauRt1sv1tdjlbgxgQwRmuI0uABoeityDPku0
-         XUfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=NLf4NoMsTIKZRmdlIKtcLBfQ7nGY1iEF8Dodv+UGTRc=;
-        fh=sekstyKQ+NOcdf0Pqu3QimxpPhE+z2QyHCUsMq0Orcs=;
-        b=O9hsvf1f5B4y8SieLA6qnJvID0AFVRiiot/2gcIff65esJkSGcVCXDTg99Sy7UiAda
-         vgsDwCVp/i4NAq1M9ZXNSgkuJ7w9SjczrEP33chxXJ/w9b7nPmuOZRx7+s70TWEn/R/t
-         XwAyFcrMWcjf9ByAXTA2Sg3ocrmGaenlCxnLY3kR5D2/tEEcVPrm6jVgnzxeIrtU6sv3
-         vRBB7OD8f2j06WVy7wCREqk2OwyPDOHQ7Y2H0yk/LClJOeFWjXKjPjE0tgEs4IiPSqNi
-         yaCPCX3Fkd89+Jur01ff0Nv1S1ePyVJF7SzcVleiyw6KPgltupTnAap42VvmiA/S+MMh
-         f4rQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=berkeley.edu; s=google; t=1789141061; x=1789745861; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NLf4NoMsTIKZRmdlIKtcLBfQ7nGY1iEF8Dodv+UGTRc=;
-        b=UEJq9UcZY70GRQHxFrj4LgD4/6Zv7zgDaM5N32zI7bgVeKl64O1hjf2Y75VPpTN7rP
-         dgkJz/XigkO8UquLLVQTK3UXUKCWXUs2IK0lUJDJtPqS3uZOcXLO9E8HsQawmkn/UU8V
-         aLhvIaXJVBXg1eLyyUv81OV9Fu5lLV0kM83ffSnmJR9Tw9QmKKeTt/+891LhEqjMqvKa
-         7Y/pf1+e4WD3BVeWI6Kitink4gfVF6D/Pze3CfwR2d86wDX+CnLJEwzDWM7/YTsX4kcn
-         Q/2bYaGDr0VSOjy5oRQzQRrIJnU29TRUgoAEZEz/sABOmrMopdgppwk472D7ZHRyLxTO
-         1k0A==
+        d=oss.qualcomm.com; s=google; t=1789141061; x=1789745861; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8GZJ7A753K/CrFtJmJIdFmjSh46/p3FmTurk+m907Bo=;
+        b=X2FIfy+yCWS2R2uXrmykCzwkeHbbemsgMiDUUk1vO/NVwn6JTo3YpCmifnqxAup6iP
+         UDFowufgaOyKWUryEBVWWLnmiwCl6lTwrduCwXwlsbJEZMX/NwuXPf/H+Ah+OgqK0aBf
+         yX4G/jwFYI3EsesYgL30Eam8bl/i+DuZHc0CSABiC2IpeB3tpg78zKeq99fW6XZOc8Sh
+         qUaa9z1XMvk7lC6muaz7D5LrwgJiWL5HGjyGqFuawe1tvkihogqpPWVhp2VaThdwkOnI
+         DbD16OIeKHttMZPk+rq5ILeCS6yw04YP4R1VEi2vgkjNAQtqT9heZjZcumrSKdip5bly
+         rPsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1789141061; x=1789745861;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=NLf4NoMsTIKZRmdlIKtcLBfQ7nGY1iEF8Dodv+UGTRc=;
-        b=D48RfBK4doLxc2J7nY90itk9/kRd3GcfoYqlZIphpBrsGottVmsTE2yDUes2s9o8SA
-         HaqwGWncUmQAOAEjpnMYZFYyS+GlPbWnNTvwFkMTe9gEdocnAr9TU7nRKH5EXmNA+ehg
-         nt2aYOT+GaCX/VppHm6oFZAX+T6qa4VI4qddQiqv4xlfREckZSLB5PZXxRoQCHLMsMKb
-         Mki3E3Vl0M9kOg7iBrLlitIDqakV6areW5jgFpcExYQdp2Y5i1XYVTjxW/y/vaKfiT8q
-         9Mr6FxFbix7BX4KXjA9FUSHfMc33ZJKpEzwygolgEegAsskv7b0y0e3m4todELu+TJTV
-         bNHw==
-X-Forwarded-Encrypted: i=1; AKwUvBy09J28ADNu0pTMeEZ86crNfgeLrCTm10ItOJOStZkVRs1/UjhlPwiJl4ifKhNN+F5bcXcqFkbjd9ZNRPQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kcJt88U90in9R24c0zsPc4Ix1Ib4yP5iiKBvOCzFDgR0PcF8kz
-	3XpaL4nktSn32XuJ+NH6ogozBtLjbNofflTaJD8oC958jUaMNZjEMIqFdo1so3pAYVSLgB90aVe
-	QQyhGsNEgc3dEgB0DyUWij5Dg5GWQ1aJJLahissPjS0+ks3uUQpo0CJdI
-X-Gm-Gg: AYBFou25+13eNB8LhYOpY0B3t28BiSqMLpooWMIN656m0Ruoa2Jo+unsyHdgwNWxtAn
-	4YHEHZDs9u5VNL6GCqcyy6n8937lV4OXoLSzGh8IaWjI75r/WwKtfYUOSsBIPlVvpUI22E1fj1h
-	iHAGK0pDdFXLNPJ8eXyAWepszG0lkLRdVfUZwqfgb3SisAT/IgXi4lh5DxNnY4GhdetFOWRLTSX
-	wecWW/w/OgVi0jOVLTle2J8Ejma2aS0Meckb5zamBqZvX7p3GYYFv6KNivhU2cqyvGjmxq9Dvd2
-	XIV0Mwwx8W4U8I4RbEqpQ2uRC4TgJCieMv+zQwNQpm5gxJog2SU5PyExbLH9IDf2f1/y/lE/Dqg
-	d82g6/uLmpKHGtFPHMgkeh+c08GrOJsJYdGGAKY2AcD+xSFnSVEgXpAf3hJQuBCsMpcU6w/sJGj
-	Q=
-X-Received: by 2002:a17:903:98f:b0:2dd:1701:3b6e with SMTP id
- d9443c01a7336-2dd2a357fc6mr92577405ad.16.1789141059852; Fri, 11 Sep 2026
- 08:37:39 -0700 (PDT)
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8GZJ7A753K/CrFtJmJIdFmjSh46/p3FmTurk+m907Bo=;
+        b=RekjHyKxlF/WwPjsLLzCnmkIf2HZUeflFx1SrEvj9nGOCVjHaYnUj+9JrkTE8eToKZ
+         wwNI3GLXbIIdtR5b6ZcgYm96P8YqmCqBpzbLPWzzfUfLbIKCw2mIpzzAd118HG6wCV1R
+         OM+eiu8S6oTw624uFTCHb2qAfT5A5iN3j29NjCLlM4imZt7kZDZl1wGEsDDtLljv8xp0
+         Nvc23W/8cak1v1W8e4x8kWehMg34Ej7fIZfD9V1Q2HHyOdf1T5npHDypip5CCVRV/RU0
+         ldY67GxBbbw3RSGJyL3RgyCURra2XBMIIpzqvTG14wiOZKFqTPovcFmSSUuJbm5C4cs0
+         RV9w==
+X-Forwarded-Encrypted: i=1; AKwUvBz459LB+9lhPIQCt8hqsg12u85E7DkR7MUk+IqwSXTcW04zoXi66Iy3iFpf8VWkQruV/UCmKSHrWJ3iovo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mC/CVh01MUgCAZ1pHjznZJzP2hKHm3dMDsZfwqbXIPECQLVfRT
+	mLyjKKmgKRTXikDgs4usni7wrygM8WG/g/Vw6P10Fw1TcPa2w9nU6ekunfDeVH+f6EgbPSShP7z
+	NDR24MSeyKbWh82MuqMo6zFnY5WHccC5oC6oDQuRDvX8/QFsuVMYRfHKxfsQDKz81SC8=
+X-Gm-Gg: AYBFou0UL6r7z8yHK5KIyo3SAgEhgMhWortcec0trccNH4OcV48++IIOiMS+gmzL2Sa
+	tKP02y783VsPZTIQk8DEjT2sSLaa3YUug5LggGIUVDbIU55XaYm9cWJt+YvQIEs4AGJgGzzRHI9
+	e8PiIHBwPvHvj0Grb+Zz/vlmQ/8Gl2dHjdJLztJQ4bpuqR0mcKuqbKg9K8ikzxj1izpgSOQe0w4
+	vkNx3+iOM6ACLDyUAEsGjKHqLMt/lYegG1Xyb7tzUz5SlbXM+SsLGVw5BIhF4VE/NX1Bf1dULEK
+	cIFeviXEQD5DKb3WEh8Knybu4s1yJikYMQa2uc9xev//4lyToHAwZ2p95oqSYOgyEt9uNZ3WLpH
+	L+Ivm1GCIvvHYNm9S7JDVKdnfYE8=
+X-Received: by 2002:a05:6870:a087:b0:46a:d52a:25c2 with SMTP id 586e51a60fabf-47de8f8f524mr3863233fac.12.1789141060923;
+        Fri, 11 Sep 2026 08:37:40 -0700 (PDT)
+X-Received: by 2002:a05:6870:a087:b0:46a:d52a:25c2 with SMTP id 586e51a60fabf-47de8f8f524mr3863208fac.12.1789141060430;
+        Fri, 11 Sep 2026 08:37:40 -0700 (PDT)
+Received: from hu-naala-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47df90ff148sm1882160fac.14.2026.09.11.08.37.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 08:37:39 -0700 (PDT)
+From: Nabige Aala <nabige.aala@oss.qualcomm.com>
+Date: Fri, 11 Sep 2026 21:06:35 +0530
+Subject: [PATCH 04/17] drm/msm/dpu: Add support for DPU 12.1 on Nord
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Farhad Alemi <farhad.alemi@berkeley.edu>
-Date: Fri, 11 Sep 2026 08:37:28 -0700
-X-Gm-Features: AcwNN1Uhwt0hUKM3RipulwaKU-vlcMfx3AedQ2hr36WgKRfYUaKyPq2P0Alt17M
-Message-ID: <CA+0ovCi_G7yq8QqpP6vTw404cC4L7oRsD-JbOVQUANNAFQw6vA@mail.gmail.com>
-Subject: [BUG] KASAN: slab-use-after-free Write in msp_remove
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: multipart/mixed; boundary="00000000000054344f065b36dd2b"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260911-nord-drv-dt-v1-4-e25c073cf1b6@oss.qualcomm.com>
+References: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
+In-Reply-To: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Kuogee Hsieh <quic_khsieh@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
+        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+        Nabige Aala <nabige.aala@oss.qualcomm.com>
+X-Mailer: b4 0.16-dev-d5d98
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789141012; l=22303;
+ i=nabige.aala@oss.qualcomm.com; s=20260520; h=from:subject:message-id;
+ bh=27UiL1oqipsrfZriFtPHAYUF23LeZ5WIfBapufHTINg=;
+ b=XMeoBUjDop4ETTHZ8oHRHuLgTmRKf2BMjWbwP6mSTNGYO8Sreh4v5Vcn42spVnRVhP1ky5bE8
+ BpW/OYB4Z2MDgTYC5QLMW2EOZ4kkLABrkDYOnfiB/rK9+DtbpnLC3ds
+X-Developer-Key: i=nabige.aala@oss.qualcomm.com; a=ed25519;
+ pk=PYHJom8sPos1IGkrbCCsWiE7XTBQrQZd9jzAo051tgw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDIxOCBTYWx0ZWRfXzQGwuUHMZVkQ
+ /8n3/eesdEOdCanC8ABCdg+FETYiqb/r1OedIDtIiFH7KUKdq3sL1YEHaveTyK1gjGF/nGNswXq
+ Q0b1MXQjRIKKXbQD93LeH5xV1DZ6L2OLe7Hvs/S8/oANteiAOrP+JA3h1Mwd9TatNI7X3kGchTM
+ 3U0wj9dgl78pmmhra2dC0qzdVX9wLIU0xjoEZd0kU2stCRYw4UPFFuDUA9Mzc6XtEkjd+ByKEMq
+ PBJsdPgwiEuDeOUATB+Y/LSH3Q+J2qf5K/UL4dKXhDj226a/eOvgmxLFcyZAr0CHT9VKhSO+UnQ
+ TZavZ72hQ0vn6YDKO2pNUZT7Jyu74J0cTYprTXdrK11wW4uJasuquATRBxhOgWQ06OxQpIz2Q34
+ qq6cr3pIGHqbhQinwxSHv35OV6+veP17+4wB7aGH3h6emPzKz6xZRw3XFvQkLoTnZYCvis0jG9g
+ zV0ZEZTEAgSbX9TO7MQ==
+X-Authority-Analysis: v=2.4 cv=LPDz05W9 c=1 sm=1 tr=0 ts=6aa42046 cx=c_pps
+ a=CWtnpBpaoqyeOyNyJ5EW7Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=UHUnXcDyJmAHMh-HrRcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=vh23qwtRXIYOdz9xvnmn:22
+X-Proofpoint-ORIG-GUID: 3HtCtCT8A233wJiQVtrpdC-NjrXwOiUX
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDIxOCBTYWx0ZWRfX7o4cZFPm5Kd0
+ tU5DxpGbt0G9GMipZ/AkEqL2qjiJFYQOi9yPF8tS/BhwdJ4eHdIcLiV9o5NpOj2UW/c7qvb8WiB
+ PhqxUw3QNCofhkUkhd3+KJhcBIF9FQk=
+X-Proofpoint-GUID: 3HtCtCT8A233wJiQVtrpdC-NjrXwOiUX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-11_05,2026-09-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 clxscore=1015 bulkscore=0 impostorscore=0
+ malwarescore=0 spamscore=0 suspectscore=0 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110218
 
---00000000000054344f065b36dd2b
-Content-Type: text/plain; charset="UTF-8"
+From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
 
-Hello,
+Add the DPU catalog entry for the Qualcomm Nord SoC (MDSS 12.1, DPU
+1499A). Nord is DP-only with no DSI, and provides 8 DSPP blocks, 2
+writeback blocks, 8 interfaces and 2 DP controllers.
 
-We are reporting the following crash (reproducer attached):
-Linux version 7.3.0-rc2 50d05c7c76c96b90462f24debacca971d2e86713
-Build Config: UpstreamAppArmorKASAN (KASAN + UBSAN, panic_on_warn=1)
+Extend enum dpu_intf with INTF_9 and INTF_10, which Nord is the first
+platform to use.
 
-[   47.456977][ T9485] BUG: KASAN: slab-use-after-free in
-kthread_stop+0xb0/0x5b0
-[   47.457064][ T9485] Write of size 4 at addr ffff88802a218028 by
-task repro/9485
-[   47.457092][ T9485]
-[   47.457131][ T9485] CPU: 0 UID: 0 PID: 9485 Comm: repro Not tainted
-7.3.0-rc2-00099-g50d05c7c76c9 #1 PREEMPT(full)
-[   47.457170][ T9485] Hardware name: QEMU Standard PC (Q35 + ICH9,
-2009), BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
-[   47.457203][ T9485] Call Trace:
-[   47.457223][ T9485]  <TASK>
-[   47.457244][ T9485]  dump_stack_lvl+0xe8/0x150
-[   47.457283][ T9485]  print_address_description+0x55/0x1e0
-[   47.457319][ T9485]  ? kthread_stop+0xb0/0x5b0
-[   47.457351][ T9485]  print_report+0x58/0x70
-[   47.457380][ T9485]  kasan_report+0x117/0x150
-[   47.457427][ T9485]  ? kthread_stop+0xb0/0x5b0
-[   47.457465][ T9485]  kasan_check_range+0x264/0x2c0
-[   47.457511][ T9485]  kthread_stop+0xb0/0x5b0
-[   47.457546][ T9485]  msp_remove+0x95/0xd0
-[   47.457590][ T9485]  i2c_device_remove+0x88/0x220
-[   47.457618][ T9485]  ? __pfx_i2c_device_remove+0x10/0x10
-[   47.457648][ T9485]  device_release_driver_internal+0x46f/0x870
-[   47.457702][ T9485]  bus_remove_device+0x455/0x570
-[   47.457749][ T9485]  ? __pfx_bus_remove_device+0x10/0x10
-[   47.457795][ T9485]  ? kernfs_remove_by_name_ns+0x101/0x140
-[   47.457842][ T9485]  device_del+0x527/0x8f0
-[   47.457879][ T9485]  ? __pfx_device_del+0x10/0x10
-[   47.457909][ T9485]  ? __dev_fwnode+0x50/0x80
-[   47.457957][ T9485]  ? device_remove_software_node+0x42/0x160
-[   47.457992][ T9485]  device_unregister+0x21/0xf0
-[   47.458025][ T9485]  delete_device_store+0x43e/0x500
-[   47.458066][ T9485]  ? __pfx_delete_device_store+0x10/0x10
-[   47.458103][ T9485]  ? sysfs_file_kobj+0x1e4/0x230
-[   47.458134][ T9485]  ? sysfs_kf_write+0x166/0x260
-[   47.458168][ T9485]  ? __pfx_sysfs_kf_write+0x10/0x10
-[   47.458200][ T9485]  kernfs_fop_write_iter+0x3af/0x540
-[   47.458249][ T9485]  vfs_write+0x61d/0xb90
-[   47.458289][ T9485]  ? __pfx_vfs_write+0x10/0x10
-[   47.458329][ T9485]  ? __fget_files+0x2a/0x420
-[   47.458365][ T9485]  ksys_write+0x150/0x270
-[   47.458400][ T9485]  ? __pfx_ksys_write+0x10/0x10
-[   47.458441][ T9485]  do_syscall_64+0x155/0x510
-[   47.458487][ T9485]  ? trace_irq_disable+0x3b/0x140
-[   47.458527][ T9485]  ? entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[   47.458560][ T9485]  ? clear_bhb_loop+0x30/0x80
-[   47.458595][ T9485]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[   47.458626][ T9485] RIP: 0033:0x43ca82
-[   47.458669][ T9485] Code: 08 0f 85 41 df ff ff 49 89 fb 48 89 f0 48
-89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89
-5c 24 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 00 f3 0f 1e fa
-55 48 89 e5
-[   47.458703][ T9485] RSP: 002b:00007ffca70bb398 EFLAGS: 00000246
-ORIG_RAX: 0000000000000001
-[   47.458748][ T9485] RAX: ffffffffffffffda RBX: 0000000000000001
-RCX: 000000000043ca82
-[   47.458772][ T9485] RDX: 0000000000000004 RSI: 00000000004a110a
-RDI: 0000000000000004
-[   47.458791][ T9485] RBP: 00007ffca70bb3c0 R08: 0000000000000000
-R09: 0000000000000000
-[   47.458811][ T9485] R10: 0000000000000000 R11: 0000000000000246
-R12: 00007ffca70bb978
-[   47.458832][ T9485] R13: 00007ffca70bb988 R14: 0000000000000002
-R15: 00000000004caa00
-[   47.458865][ T9485]  </TASK>
-[   47.458876][ T9485]
-[   47.458895][ T9485] Allocated by task 2:
-[   47.458910][ T9485]  kasan_save_track+0x3e/0x80
-[   47.458973][ T9485]  __kasan_slab_alloc+0x6c/0x80
-[   47.459011][ T9485]  kmem_cache_alloc_node_noprof+0x358/0x610
-[   47.459045][ T9485]  dup_task_struct+0x52/0xa00
-[   47.459071][ T9485]  copy_process+0x777/0x4330
-[   47.459095][ T9485]  kernel_clone+0x2d7/0x940
-[   47.459122][ T9485]  kernel_thread+0x13f/0x1b0
-[   47.459149][ T9485]  kthreadd+0x4ec/0x6e0
-[   47.459177][ T9485]  ret_from_fork+0x514/0xb70
-[   47.459209][ T9485]  ret_from_fork_asm+0x1a/0x30
-[   47.459243][ T9485]
-[   47.459250][ T9485] Freed by task 0:
-[   47.459264][ T9485]  kasan_save_track+0x3e/0x80
-[   47.459298][ T9485]  kasan_save_free_info+0x46/0x50
-[   47.459334][ T9485]  __kasan_slab_free+0x5c/0x80
-[   47.459370][ T9485]  kmem_cache_free+0x182/0x650
-[   47.459404][ T9485]  rcu_core+0x985/0x1250
-[   47.459442][ T9485]  handle_softirqs+0x22c/0x860
-[   47.459467][ T9485]  __irq_exit_rcu+0xcb/0x220
-[   47.459492][ T9485]  irq_exit_rcu+0x9/0x30
-[   47.459517][ T9485]  sysvec_apic_timer_interrupt+0xa6/0xc0
-[   47.459557][ T9485]  asm_sysvec_apic_timer_interrupt+0x1a/0x20
-[   47.459587][ T9485]
-[   47.459594][ T9485] Last potentially related work creation:
-[   47.459606][ T9485]  kasan_save_stack+0x3e/0x60
-[   47.459640][ T9485]  kasan_record_aux_stack+0xbd/0xd0
-[   47.459669][ T9485]  call_rcu+0xee/0x890
-[   47.459709][ T9485]  rcu_core+0x985/0x1250
-[   47.459745][ T9485]  handle_softirqs+0x22c/0x860
-[   47.459770][ T9485]  __irq_exit_rcu+0xcb/0x220
-[   47.459795][ T9485]  irq_exit_rcu+0x9/0x30
-[   47.459819][ T9485]  sysvec_apic_timer_interrupt+0xa6/0xc0
-[   47.459859][ T9485]  asm_sysvec_apic_timer_interrupt+0x1a/0x20
-[   47.459889][ T9485]
-[   47.459896][ T9485] Second to last potentially related work creation:
-[   47.459908][ T9485]  kasan_save_stack+0x3e/0x60
-[   47.459958][ T9485]  kasan_record_aux_stack+0xbd/0xd0
-[   47.459986][ T9485]  call_rcu+0xee/0x890
-[   47.460026][ T9485]  __schedule+0x187a/0x5930
-[   47.460062][ T9485]  schedule_idle+0x51/0x90
-[   47.460098][ T9485]  do_idle+0x4ad/0x540
-[   47.460128][ T9485]  cpu_startup_entry+0x43/0x60
-[   47.460161][ T9485]  start_secondary+0x101/0x110
-[   47.460193][ T9485]  common_startup_64+0x13e/0x157
-[   47.460235][ T9485]
-[   47.460242][ T9485] The buggy address belongs to the object at
-ffff88802a218000
-[   47.460242][ T9485]  which belongs to the cache task_struct of size 9480
-[   47.460278][ T9485] The buggy address is located 40 bytes inside of
-[   47.460278][ T9485]  freed 9480-byte region [ffff88802a218000,
-ffff88802a21a508)
-[   47.460310][ T9485]
-[   47.460319][ T9485] The buggy address belongs to the physical page:
-[   47.460350][ T9485] page: refcount:0 mapcount:0
-mapping:0000000000000000 index:0x0 pfn:0x2a218
-[   47.460381][ T9485] head: order:3 mapcount:0 entire_mapcount:0
-nr_pages_mapped:0 pincount:0
-[   47.460405][ T9485] memcg:ffff88802a21f2c1
-[   47.460420][ T9485] flags:
-0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
-[   47.460463][ T9485] page_type: f5(slab)
-[   47.460501][ T9485] raw: 00fff00000000040 ffff888100018000
-dead000000000100 dead000000000122
-[   47.460528][ T9485] raw: 0000000000000000 0000000200030003
-00000000f5000000 ffff88802a21f2c1
-[   47.460556][ T9485] head: 00fff00000000040 ffff888100018000
-dead000000000100 dead000000000122
-[   47.460583][ T9485] head: 0000000000000000 0000000200030003
-00000000f5000000 ffff88802a21f2c1
-[   47.460610][ T9485] head: 00fff00000000003 fffffffffffffe01
-00000000ffffffff 00000000ffffffff
-[   47.460636][ T9485] head: ffffffffffffffff 0000000000000000
-00000000ffffffff 0000000000000008
-[   47.460652][ T9485] page dumped because: kasan: bad access detected
-[   47.460674][ T9485] page_owner tracks the page as allocated
-[   47.460686][ T9485] page last allocated via order 3, migratetype
-Unmovable, gfp_mask
-0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC),
-pid 5428, tgid 5428 ((udev-worker)), ts 34366220313
-[   47.460738][ T9485]  post_alloc_hook+0x1f9/0x250
-[   47.460769][ T9485]  get_page_from_freelist+0x235a/0x23e0
-[   47.460807][ T9485]  __alloc_frozen_pages_noprof+0x217/0x5a0
-[   47.460844][ T9485]  allocate_slab+0x7d/0x610
-[   47.460868][ T9485]  refill_objects+0x2d6/0x350
-[   47.460893][ T9485]  __pcs_replace_empty_main+0x2c9/0x6c0
-[   47.460935][ T9485]  kmem_cache_alloc_node_noprof+0x441/0x610
-[   47.460986][ T9485]  dup_task_struct+0x52/0xa00
-[   47.461011][ T9485]  copy_process+0x777/0x4330
-[   47.461034][ T9485]  kernel_clone+0x2d7/0x940
-[   47.461061][ T9485]  __x64_sys_clone+0x1b6/0x230
-[   47.461090][ T9485]  do_syscall_64+0x155/0x510
-[   47.461130][ T9485]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[   47.461159][ T9485] page last free pid 5057 tgid 5057 ts
-33546286148 stack trace:
-[   47.461181][ T9485]  __free_frozen_pages+0xc9f/0xd90
-[   47.461212][ T9485]  __slab_free+0x274/0x2c0
-[   47.461244][ T9485]  qlist_free_all+0x99/0x100
-[   47.461278][ T9485]  kasan_quarantine_reduce+0x148/0x160
-[   47.461313][ T9485]  __kasan_slab_alloc+0x22/0x80
-[   47.461350][ T9485]  kmem_cache_alloc_node_noprof+0x358/0x610
-[   47.461383][ T9485]  __alloc_skb+0x1d4/0x7d0
-[   47.461417][ T9485]  netlink_sendmsg+0x5d4/0xb40
-[   47.461444][ T9485]  sock_sendmsg_nosec+0x13a/0x180
-[   47.461473][ T9485]  ____sys_sendmsg+0x589/0x8c0
-[   47.461511][ T9485]  ___sys_sendmsg+0x2a5/0x360
-[   47.461548][ T9485]  __x64_sys_sendmsg+0x1b1/0x290
-[   47.461587][ T9485]  do_syscall_64+0x155/0x510
-[   47.461628][ T9485]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[   47.461657][ T9485]
-[   47.461664][ T9485] Memory state around the buggy address:
-[   47.461681][ T9485]  ffff88802a217f00: ff ff ff ff ff ff ff ff ff
-ff ff ff ff ff ff ff
-[   47.461701][ T9485]  ffff88802a217f80: ff ff ff ff ff ff ff ff ff
-ff ff ff ff ff ff ff
-[   47.461721][ T9485] >ffff88802a218000: fa fb fb fb fb fb fb fb fb
-fb fb fb fb fb fb fb
-[   47.461737][ T9485]                                   ^
-[   47.461753][ T9485]  ffff88802a218080: fb fb fb fb fb fb fb fb fb
-fb fb fb fb fb fb fb
-[   47.461773][ T9485]  ffff88802a218100: fb fb fb fb fb fb fb fb fb
-fb fb fb fb fb fb fb
-[   47.461788][ T9485]
-==================================================================
-[   47.463486][ T9485] Kernel panic - not syncing: KASAN: panic_on_warn set ...
-[   47.555510][ T9485] CPU: 0 UID: 0 PID: 9485 Comm: repro Not tainted
-7.3.0-rc2-00099-g50d05c7c76c9 #1 PREEMPT(full)
-[   47.556461][ T9485] Hardware name: QEMU Standard PC (Q35 + ICH9,
-2009), BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
-[   47.557450][ T9485] Call Trace:
-[   47.557759][ T9485]  <TASK>
-[   47.558037][ T9485]  vpanic+0x56d/0xa60
-[   47.558412][ T9485]  ? __pfx_vpanic+0x10/0x10
-[   47.558834][ T9485]  panic+0xc5/0xd0
-[   47.559187][ T9485]  ? __pfx_panic+0x10/0x10
-[   47.559598][ T9485]  ? preempt_schedule_thunk+0x16/0x40
-[   47.560096][ T9485]  ? preempt_schedule_thunk+0x16/0x40
-[   47.560589][ T9485]  ? kthread_stop+0xb0/0x5b0
-[   47.561018][ T9485]  check_panic_on_warn+0x89/0xb0
-[   47.561476][ T9485]  ? kthread_stop+0xb0/0x5b0
-[   47.561917][ T9485]  end_report+0x73/0x170
-[   47.562314][ T9485]  ? kthread_stop+0xb0/0x5b0
-[   47.562739][ T9485]  kasan_report+0x128/0x150
-[   47.563163][ T9485]  ? kthread_stop+0xb0/0x5b0
-[   47.563590][ T9485]  kasan_check_range+0x264/0x2c0
-[   47.564052][ T9485]  kthread_stop+0xb0/0x5b0
-[   47.564463][ T9485]  msp_remove+0x95/0xd0
-[   47.564914][ T9485]  i2c_device_remove+0x88/0x220
-[   47.565364][ T9485]  ? __pfx_i2c_device_remove+0x10/0x10
-[   47.565862][ T9485]  device_release_driver_internal+0x46f/0x870
-[   47.566419][ T9485]  bus_remove_device+0x455/0x570
-[   47.566877][ T9485]  ? __pfx_bus_remove_device+0x10/0x10
-[   47.567381][ T9485]  ? kernfs_remove_by_name_ns+0x101/0x140
-[   47.567904][ T9485]  device_del+0x527/0x8f0
-[   47.568308][ T9485]  ? __pfx_device_del+0x10/0x10
-[   47.568757][ T9485]  ? __dev_fwnode+0x50/0x80
-[   47.569180][ T9485]  ? device_remove_software_node+0x42/0x160
-[   47.569718][ T9485]  device_unregister+0x21/0xf0
-[   47.570160][ T9485]  delete_device_store+0x43e/0x500
-[   47.570630][ T9485]  ? __pfx_delete_device_store+0x10/0x10
-[   47.571146][ T9485]  ? sysfs_file_kobj+0x1e4/0x230
-[   47.571617][ T9485]  ? sysfs_kf_write+0x166/0x260
-[   47.572066][ T9485]  ? __pfx_sysfs_kf_write+0x10/0x10
-[   47.572541][ T9485]  kernfs_fop_write_iter+0x3af/0x540
-[   47.573030][ T9485]  vfs_write+0x61d/0xb90
-[   47.573423][ T9485]  ? __pfx_vfs_write+0x10/0x10
-[   47.573865][ T9485]  ? __fget_files+0x2a/0x420
-[   47.574298][ T9485]  ksys_write+0x150/0x270
-[   47.574765][ T9485]  ? __pfx_ksys_write+0x10/0x10
-[   47.575218][ T9485]  do_syscall_64+0x155/0x510
-[   47.575647][ T9485]  ? trace_irq_disable+0x3b/0x140
-[   47.576116][ T9485]  ? entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[   47.576670][ T9485]  ? clear_bhb_loop+0x30/0x80
-[   47.577105][ T9485]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-[   47.577689][ T9485] RIP: 0033:0x43ca82
-[   47.578084][ T9485] Code: 08 0f 85 41 df ff ff 49 89 fb 48 89 f0 48
-89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89
-5c 24 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 00 f3 0f 1e fa
-55 48 89 e5
-[   47.579884][ T9485] RSP: 002b:00007ffca70bb398 EFLAGS: 00000246
-ORIG_RAX: 0000000000000001
-[   47.580695][ T9485] RAX: ffffffffffffffda RBX: 0000000000000001
-RCX: 000000000043ca82
-[   47.581467][ T9485] RDX: 0000000000000004 RSI: 00000000004a110a
-RDI: 0000000000000004
-[   47.582224][ T9485] RBP: 00007ffca70bb3c0 R08: 0000000000000000
-R09: 0000000000000000
-[   47.582980][ T9485] R10: 0000000000000000 R11: 0000000000000246
-R12: 00007ffca70bb978
-[   47.583729][ T9485] R13: 00007ffca70bb988 R14: 0000000000000002
-R15: 00000000004caa00
-[   47.584484][ T9485]  </TASK>
-[   47.585205][ T9485] Kernel Offset: disabled
-[   47.585796][ T9485] Rebooting in 86400 seconds..
+Note: register addresses and xin_id values in the catalog are borrowed
+from sm8750 and precedent platforms and are marked with FIXME(REG_ADDR)
+and FIXME(XIU_MAP); they need verification against a real Nord register
+map before production use.
 
-Regards,
+Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+---
+ .../gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h  | 588 +++++++++++++++++++++
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |   2 +
+ drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
+ 5 files changed, 593 insertions(+)
 
---00000000000054344f065b36dd2b
-Content-Type: application/octet-stream; name="reproducer.c"
-Content-Disposition: attachment; filename="reproducer.c"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mtx4c5l20>
-X-Attachment-Id: f_mtx4c5l20
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h
+new file mode 100644
+index 000000000000..8eb18752f3c4
+--- /dev/null
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h
+@@ -0,0 +1,588 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) 2025 Qualcomm Innovation Center, Inc. All rights reserved.
++ * Copyright (c) 2015-2018, 2020 The Linux Foundation. All rights reserved.
++ */
++
++#ifndef _DPU_12_1_NORD_H
++#define _DPU_12_1_NORD_H
++
++/*
++ * NORD DPU 12.1 catalog header. Generated from hardware summary YAML for
++ * MDSS 12.1 - DPU 1499A (Nordschleife). This is a DP-only chip with no DSI.
++ *
++ * All register addresses and xin_id values below are borrowed from the
++ * reference chip (sm8750, MDSS 12.0) and precedent chips (Lemans, Glymur).
++ * Nord's YAML provides only block counts and feature statements, not addresses.
++ * See FIXME(REG_ADDR) markers throughout for borrowed values requiring
++ * verification against a real Nord register map before production use.
++ *
++ * Key differences vs sm8750:
++ * - 8 DSPP blocks (4 full + 4 lite) vs sm8750's 4
++ * - 2 writeback blocks (WB1, WB2) vs sm8750's 1 (WB2)
++ * - 8 interfaces (INTF_0,3,4,6,7,8,9,10) vs sm8750's 4 (INTF_0,1,2,3)
++ * - 2 DP controllers (DP0, DP1) vs sm8750's 1 (DP0 only)
++ * - No DSI (removed entirely)
++ */
++
++static const struct dpu_caps nord_dpu_caps = {
++	.max_mixer_width = DEFAULT_DPU_OUTPUT_LINE_WIDTH,
++	.max_mixer_blendstages = 0xb,
++	.has_src_split = true,
++	.has_dim_layer = true,
++	.has_idle_pc = true,
++	.has_3d_merge = true,
++	.max_linewidth = 8192,
++	.pixel_ram_size = DEFAULT_PIXEL_RAM_SIZE,
++};
++
++static const struct dpu_mdp_cfg nord_mdp = {
++	.name = "top_0",
++	.base = 0, .len = 0x494,
++	.clk_ctrls = {
++		[DPU_CLK_CTRL_REG_DMA] = { .reg_off = 0x2bc, .bit_off = 20 },
++	},
++};
++
++static const struct dpu_ctl_cfg nord_ctl[] = {
++	{
++		.name = "ctl_0", .id = CTL_0,
++		.base = 0x15000, .len = 0x1000,
++		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 9),
++	}, {
++		.name = "ctl_1", .id = CTL_1,
++		.base = 0x16000, .len = 0x1000,
++		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 10),
++	}, {
++		.name = "ctl_2", .id = CTL_2,
++		.base = 0x17000, .len = 0x1000,
++		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 11),
++	}, {
++		.name = "ctl_3", .id = CTL_3,
++		.base = 0x18000, .len = 0x1000,
++		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 12),
++	}, {
++		.name = "ctl_4", .id = CTL_4,
++		.base = 0x19000, .len = 0x1000,
++		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 13),
++	}, {
++		.name = "ctl_5", .id = CTL_5,
++		.base = 0x1a000, .len = 0x1000,
++		.intr_start = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 23),
++	},
++};
++
++static const struct dpu_sspp_cfg nord_sspp[] = {
++	{
++		.name = "sspp_0", .id = SSPP_VIG0,
++		.base = 0x4000, .len = 0x344,
++		.features = VIG_SDM845_MASK_SDMA,
++		.sblk = &dpu_vig_sblk_qseed3_3_4,
++		.xin_id = 0,
++		.type = SSPP_TYPE_VIG,
++	}, {
++		.name = "sspp_1", .id = SSPP_VIG1,
++		.base = 0x6000, .len = 0x344,
++		.features = VIG_SDM845_MASK_SDMA,
++		.sblk = &dpu_vig_sblk_qseed3_3_4,
++		.xin_id = 4,
++		.type = SSPP_TYPE_VIG,
++	}, {
++		.name = "sspp_2", .id = SSPP_VIG2,
++		.base = 0x8000, .len = 0x344,
++		.features = VIG_SDM845_MASK_SDMA,
++		.sblk = &dpu_vig_sblk_qseed3_3_4,
++		.xin_id = 8,
++		.type = SSPP_TYPE_VIG,
++	}, {
++		.name = "sspp_3", .id = SSPP_VIG3,
++		.base = 0xa000, .len = 0x344,
++		.features = VIG_SDM845_MASK_SDMA,
++		.sblk = &dpu_vig_sblk_qseed3_3_4,
++		.xin_id = 12,
++		.type = SSPP_TYPE_VIG,
++	}, {
++		.name = "sspp_8", .id = SSPP_DMA0,
++		.base = 0x24000, .len = 0x344,
++		.features = DMA_SDM845_MASK_SDMA,
++		.sblk = &dpu_dma_sblk,
++		.xin_id = 1,
++		.type = SSPP_TYPE_DMA,
++	}, {
++		.name = "sspp_9", .id = SSPP_DMA1,
++		.base = 0x26000, .len = 0x344,
++		.features = DMA_SDM845_MASK_SDMA,
++		.sblk = &dpu_dma_sblk,
++		.xin_id = 5,
++		.type = SSPP_TYPE_DMA,
++	}, {
++		.name = "sspp_10", .id = SSPP_DMA2,
++		.base = 0x28000, .len = 0x344,
++		.features = DMA_SDM845_MASK_SDMA,
++		.sblk = &dpu_dma_sblk,
++		.xin_id = 9,
++		.type = SSPP_TYPE_DMA,
++	}, {
++		.name = "sspp_11", .id = SSPP_DMA3,
++		.base = 0x2a000, .len = 0x344,
++		.features = DMA_SDM845_MASK_SDMA,
++		.sblk = &dpu_dma_sblk,
++		.xin_id = 13,
++		.type = SSPP_TYPE_DMA,
++	}, {
++		.name = "sspp_12", .id = SSPP_DMA4,
++		.base = 0x2c000, .len = 0x344,
++		.features = DMA_CURSOR_SDM845_MASK_SDMA,
++		.sblk = &dpu_dma_sblk,
++		.xin_id = 14,
++		.type = SSPP_TYPE_DMA,
++	}, {
++		.name = "sspp_13", .id = SSPP_DMA5,
++		.base = 0x2e000, .len = 0x344,
++		.features = DMA_CURSOR_SDM845_MASK_SDMA,
++		.sblk = &dpu_dma_sblk,
++		.xin_id = 15,
++		.type = SSPP_TYPE_DMA,
++	},
++};
++
++static const struct dpu_lm_cfg nord_lm[] = {
++	{
++		.name = "lm_0", .id = LM_0,
++		.base = 0x44000, .len = 0x400,
++		.features = MIXER_MSM8998_MASK,
++		.sblk = &sm8750_lm_sblk,
++		.lm_pair = LM_1,
++		.pingpong = PINGPONG_0,
++		.dspp = DSPP_0,
++	}, {
++		.name = "lm_1", .id = LM_1,
++		.base = 0x45000, .len = 0x400,
++		.features = MIXER_MSM8998_MASK,
++		.sblk = &sm8750_lm_sblk,
++		.lm_pair = LM_0,
++		.pingpong = PINGPONG_1,
++		.dspp = DSPP_1,
++	}, {
++		.name = "lm_2", .id = LM_2,
++		.base = 0x46000, .len = 0x400,
++		.features = MIXER_MSM8998_MASK,
++		.sblk = &sm8750_lm_sblk,
++		.lm_pair = LM_3,
++		.pingpong = PINGPONG_2,
++		.dspp = DSPP_2,
++	}, {
++		.name = "lm_3", .id = LM_3,
++		.base = 0x47000, .len = 0x400,
++		.features = MIXER_MSM8998_MASK,
++		.sblk = &sm8750_lm_sblk,
++		.lm_pair = LM_2,
++		.pingpong = PINGPONG_3,
++		.dspp = DSPP_3,
++	}, {
++		.name = "lm_4", .id = LM_4,
++		.base = 0x48000, .len = 0x400,
++		.features = MIXER_MSM8998_MASK,
++		.sblk = &sm8750_lm_sblk,
++		.lm_pair = LM_5,
++		.pingpong = PINGPONG_4,
++	}, {
++		.name = "lm_5", .id = LM_5,
++		.base = 0x49000, .len = 0x400,
++		.features = MIXER_MSM8998_MASK,
++		.sblk = &sm8750_lm_sblk,
++		.lm_pair = LM_4,
++		.pingpong = PINGPONG_5,
++	}, {
++		.name = "lm_6", .id = LM_6,
++		.base = 0x4a000, .len = 0x400,
++		.features = MIXER_MSM8998_MASK,
++		.sblk = &sm8750_lm_sblk,
++		.lm_pair = LM_7,
++		.pingpong = PINGPONG_6,
++	}, {
++		.name = "lm_7", .id = LM_7,
++		.base = 0x4b000, .len = 0x400,
++		.features = MIXER_MSM8998_MASK,
++		.sblk = &sm8750_lm_sblk,
++		.lm_pair = LM_6,
++		.pingpong = PINGPONG_7,
++	},
++};
++
++/*
++ * Nord has 8 DSPP blocks: 4 full-featured (DSPP0-3) and 4 lite variants
++ * (DSPP4-7). The driver has no separate lite-DSPP struct, so all 8 are
++ * modeled with the same dpu_dspp_cfg/dpu_dspp_sblk structure. Lite variants
++ * have reduced features, but this is handled at runtime via feature flags,
++ * not via separate catalog entries.
++ * FIXME(REG_ADDR): DSPP4-7 base addresses extended via 0x2000 stride from
++ * sm8750's DSPP3 base (0x5a000). Verify against real Nord register map.
++ */
++static const struct dpu_dspp_cfg nord_dspp[] = {
++	{
++		.name = "dspp_0", .id = DSPP_0,
++		.base = 0x54000, .len = 0x1800,
++		.sblk = &sm8750_dspp_sblk,
++	}, {
++		.name = "dspp_1", .id = DSPP_1,
++		.base = 0x56000, .len = 0x1800,
++		.sblk = &sm8750_dspp_sblk,
++	}, {
++		.name = "dspp_2", .id = DSPP_2,
++		.base = 0x58000, .len = 0x1800,
++		.sblk = &sm8750_dspp_sblk,
++	}, {
++		.name = "dspp_3", .id = DSPP_3,
++		.base = 0x5a000, .len = 0x1800,
++		.sblk = &sm8750_dspp_sblk,
++	}, {
++		.name = "dspp_4", .id = DSPP_4,
++		.base = 0x5c000, .len = 0x1800, /* FIXME(REG_ADDR): lite variant */
++		.sblk = &sm8750_dspp_sblk,
++	}, {
++		.name = "dspp_5", .id = DSPP_5,
++		.base = 0x5e000, .len = 0x1800, /* FIXME(REG_ADDR): lite variant */
++		.sblk = &sm8750_dspp_sblk,
++	}, {
++		.name = "dspp_6", .id = DSPP_6,
++		.base = 0x60000, .len = 0x1800, /* FIXME(REG_ADDR): lite variant */
++		.sblk = &sm8750_dspp_sblk,
++	}, {
++		.name = "dspp_7", .id = DSPP_7,
++		.base = 0x62000, .len = 0x1800, /* FIXME(REG_ADDR): lite variant */
++		.sblk = &sm8750_dspp_sblk,
++	},
++};
++
++static const struct dpu_pingpong_cfg nord_pp[] = {
++	{
++		.name = "pingpong_0", .id = PINGPONG_0,
++		.base = 0x69000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_0,
++		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 8),
++	}, {
++		.name = "pingpong_1", .id = PINGPONG_1,
++		.base = 0x6a000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_0,
++		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 9),
++	}, {
++		.name = "pingpong_2", .id = PINGPONG_2,
++		.base = 0x6b000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_1,
++		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 10),
++	}, {
++		.name = "pingpong_3", .id = PINGPONG_3,
++		.base = 0x6c000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_1,
++		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 11),
++	}, {
++		.name = "pingpong_4", .id = PINGPONG_4,
++		.base = 0x6d000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_2,
++		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 30),
++	}, {
++		.name = "pingpong_5", .id = PINGPONG_5,
++		.base = 0x6e000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_2,
++		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 31),
++	}, {
++		.name = "pingpong_6", .id = PINGPONG_6,
++		.base = 0x6f000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_3,
++		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 20),
++	}, {
++		.name = "pingpong_7", .id = PINGPONG_7,
++		.base = 0x70000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_3,
++		.intr_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 21),
++	}, {
++		.name = "pingpong_cwb_0", .id = PINGPONG_CWB_0,
++		.base = 0x66000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_4,
++	}, {
++		.name = "pingpong_cwb_1", .id = PINGPONG_CWB_1,
++		.base = 0x66400, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_4,
++	}, {
++		.name = "pingpong_cwb_2", .id = PINGPONG_CWB_2,
++		.base = 0x7e000, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_5,
++	}, {
++		.name = "pingpong_cwb_3", .id = PINGPONG_CWB_3,
++		.base = 0x7e400, .len = 0,
++		.sblk = &sc7280_pp_sblk,
++		.merge_3d = MERGE_3D_5,
++	},
++};
++
++static const struct dpu_merge_3d_cfg nord_merge_3d[] = {
++	{
++		.name = "merge_3d_0", .id = MERGE_3D_0,
++		.base = 0x4e000, .len = 0x1c,
++	}, {
++		.name = "merge_3d_1", .id = MERGE_3D_1,
++		.base = 0x4f000, .len = 0x1c,
++	}, {
++		.name = "merge_3d_2", .id = MERGE_3D_2,
++		.base = 0x50000, .len = 0x1c,
++	}, {
++		.name = "merge_3d_3", .id = MERGE_3D_3,
++		.base = 0x51000, .len = 0x1c,
++	}, {
++		.name = "merge_3d_4", .id = MERGE_3D_4,
++		.base = 0x66700, .len = 0x1c,
++	}, {
++		.name = "merge_3d_5", .id = MERGE_3D_5,
++		.base = 0x7e700, .len = 0x1c,
++	},
++};
++
++/*
++ * NOTE: Each display compression engine (DCE) contains dual hard
++ * slice DSC encoders so both share same base address but with
++ * its own different sub block address. Nord retains sm8750's
++ * topology of 8 DSC instances (2 per DCE × 4).
++ */
++static const struct dpu_dsc_cfg nord_dsc[] = {
++	{
++		.name = "dce_0_0", .id = DSC_0,
++		.base = 0x80000, .len = 0x8,
++		.features = BIT(DPU_DSC_NATIVE_42x_EN),
++		.sblk = &sm8750_dsc_sblk_0,
++	}, {
++		.name = "dce_0_1", .id = DSC_1,
++		.base = 0x80000, .len = 0x8,
++		.features = BIT(DPU_DSC_NATIVE_42x_EN),
++		.sblk = &sm8750_dsc_sblk_1,
++	}, {
++		.name = "dce_1_0", .id = DSC_2,
++		.base = 0x81000, .len = 0x8,
++		.features = BIT(DPU_DSC_NATIVE_42x_EN),
++		.sblk = &sm8750_dsc_sblk_0,
++	}, {
++		.name = "dce_1_1", .id = DSC_3,
++		.base = 0x81000, .len = 0x8,
++		.features = BIT(DPU_DSC_NATIVE_42x_EN),
++		.sblk = &sm8750_dsc_sblk_1,
++	}, {
++		.name = "dce_2_0", .id = DSC_4,
++		.base = 0x82000, .len = 0x8,
++		.features = BIT(DPU_DSC_NATIVE_42x_EN),
++		.sblk = &sm8750_dsc_sblk_0,
++	}, {
++		.name = "dce_2_1", .id = DSC_5,
++		.base = 0x82000, .len = 0x8,
++		.features = BIT(DPU_DSC_NATIVE_42x_EN),
++		.sblk = &sm8750_dsc_sblk_1,
++	}, {
++		.name = "dce_3_0", .id = DSC_6,
++		.base = 0x83000, .len = 0x8,
++		.features = BIT(DPU_DSC_NATIVE_42x_EN),
++		.sblk = &sm8750_dsc_sblk_0,
++	}, {
++		.name = "dce_3_1", .id = DSC_7,
++		.base = 0x83000, .len = 0x8,
++		.features = BIT(DPU_DSC_NATIVE_42x_EN),
++		.sblk = &sm8750_dsc_sblk_1,
++	},
++};
++
++/*
++ * Nord has 2 writeback blocks: WB2 (matches sm8750) and WB1 (new).
++ * WB1 base and xin_id are inferred via stride from existing WB pattern.
++ * FIXME(REG_ADDR): WB1 base address inferred as 0x65000 - 0x2c8 stride.
++ * FIXME(XIU_MAP): WB1 xin_id set to 7; verify against real hardware map.
++ */
++static const struct dpu_wb_cfg nord_wb[] = {
++	{
++		.name = "wb_1", .id = WB_1,
++		.base = 0x64800, .len = 0x2c8, /* FIXME(REG_ADDR): inferred */
++		.features = WB_SDM845_MASK,
++		.format_list = wb2_formats_rgb_yuv,
++		.num_formats = ARRAY_SIZE(wb2_formats_rgb_yuv),
++		.xin_id = 7, /* FIXME(XIU_MAP): inferred */
++		.maxlinewidth = 4096,
++		.intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 3),
++	}, {
++		.name = "wb_2", .id = WB_2,
++		.base = 0x65000, .len = 0x2c8,
++		.features = WB_SDM845_MASK,
++		.format_list = wb2_formats_rgb_yuv,
++		.num_formats = ARRAY_SIZE(wb2_formats_rgb_yuv),
++		.xin_id = 6,
++		.maxlinewidth = 4096,
++		.intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 4),
++	},
++};
++
++static const struct dpu_cwb_cfg nord_cwb[] = {
++	{
++		.name = "cwb_0", .id = CWB_0,
++		.base = 0x66200, .len = 0x20,
++	},
++	{
++		.name = "cwb_1", .id = CWB_1,
++		.base = 0x66600, .len = 0x20,
++	},
++	{
++		.name = "cwb_2", .id = CWB_2,
++		.base = 0x7e200, .len = 0x20,
++	},
++	{
++		.name = "cwb_3", .id = CWB_3,
++		.base = 0x7e600, .len = 0x20,
++	},
++};
++
++/*
++ * Nord has 8 active interfaces (INTF_0,3,4,6,7,8,9,10) with no DSI.
++ * DP0 connects to INTF_0, INTF_3, INTF_6, INTF_7 (4 ports for MST).
++ * DP1 connects to INTF_4, INTF_8, INTF_9, INTF_10 (4 ports for MST).
++ * Interfaces 1, 2, 5 are skipped (removed from sm8750).
++ * All interface base addresses extend the stride from sm8750.
++ * FIXME(REG_ADDR): INTF_4,6,7,8,9,10 addresses inferred via 0x1000 stride.
++ */
++static const struct dpu_intf_cfg nord_intf[] = {
++	{
++		.name = "intf_0", .id = INTF_0,
++		.base = 0x34000, .len = 0x4bc,
++		.type = INTF_DP,
++		.controller_id = MSM_DP_CONTROLLER_0,
++		.prog_fetch_lines_worst_case = 24,
++		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 24),
++		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 25),
++	}, {
++		.name = "intf_3", .id = INTF_3,
++		.base = 0x37000, .len = 0x4bc,
++		.type = INTF_DP,
++		.controller_id = MSM_DP_CONTROLLER_0,	/* pair with intf_0 for DP MST */
++		.prog_fetch_lines_worst_case = 24,
++		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 30),
++		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 31),
++	}, {
++		.name = "intf_4", .id = INTF_4,
++		.base = 0x38000, .len = 0x4bc, /* FIXME(REG_ADDR): new, stride +0x1000 */
++		.type = INTF_DP,
++		.controller_id = MSM_DP_CONTROLLER_1,
++		.prog_fetch_lines_worst_case = 24,
++		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 20),
++		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 21),
++	}, {
++		.name = "intf_6", .id = INTF_6,
++		.base = 0x3a000, .len = 0x4bc, /* FIXME(REG_ADDR): new, stride +0x3000 */
++		.type = INTF_DP,
++		.controller_id = MSM_DP_CONTROLLER_0,	/* second pair for DP0 MST */
++		.prog_fetch_lines_worst_case = 24,
++		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 22),
++		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 23),
++	}, {
++		.name = "intf_7", .id = INTF_7,
++		.base = 0x3b000, .len = 0x4bc, /* FIXME(REG_ADDR): new, stride +0x4000 */
++		.type = INTF_DP,
++		.controller_id = MSM_DP_CONTROLLER_0,	/* third pair for DP0 MST */
++		.prog_fetch_lines_worst_case = 24,
++		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 0),
++		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 1),
++	}, {
++		.name = "intf_8", .id = INTF_8,
++		.base = 0x3c000, .len = 0x4bc, /* FIXME(REG_ADDR): new, stride +0x5000 */
++		.type = INTF_DP,
++		.controller_id = MSM_DP_CONTROLLER_1,	/* second pair for DP1 MST */
++		.prog_fetch_lines_worst_case = 24,
++		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 2),
++		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 3),
++	}, {
++		.name = "intf_9", .id = INTF_9,
++		.base = 0x3d000, .len = 0x4bc, /* FIXME(REG_ADDR): new, stride +0x6000 */
++		.type = INTF_DP,
++		.controller_id = MSM_DP_CONTROLLER_1,	/* third pair for DP1 MST */
++		.prog_fetch_lines_worst_case = 24,
++		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 4),
++		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 5),
++	}, {
++		.name = "intf_10", .id = INTF_10,
++		.base = 0x3e000, .len = 0x4bc, /* FIXME(REG_ADDR): new, stride +0x7000 */
++		.type = INTF_DP,
++		.controller_id = MSM_DP_CONTROLLER_1,	/* fourth pair for DP1 MST */
++		.prog_fetch_lines_worst_case = 24,
++		.intr_underrun = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 6),
++		.intr_vsync = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR2, 7),
++	},
++};
++
++static const struct dpu_perf_cfg nord_perf_data = {
++	.max_bw_low = 18900000,
++	.max_bw_high = 28500000,
++	.min_core_ib = 2500000,
++	.min_llcc_ib = 0,
++	.min_dram_ib = 800000,
++	.min_prefill_lines = 35,
++	.danger_lut_tbl = {0x3ffff, 0x3ffff, 0x0},
++	.safe_lut_tbl = {0xfe00, 0xfe00, 0xffff},
++	.qos_lut_tbl = {
++		{.nentry = ARRAY_SIZE(sc7180_qos_linear),
++		.entries = sc7180_qos_linear
++		},
++		{.nentry = ARRAY_SIZE(sc7180_qos_macrotile),
++		.entries = sc7180_qos_macrotile
++		},
++		{.nentry = ARRAY_SIZE(sc7180_qos_nrt),
++		.entries = sc7180_qos_nrt
++		},
++		/* TODO: macrotile-qseed is different from macrotile */
++	},
++	.cdp_cfg = {
++		{.rd_enable = 1, .wr_enable = 1},
++		{.rd_enable = 1, .wr_enable = 0}
++	},
++	.clk_inefficiency_factor = 105,
++	.bw_inefficiency_factor = 120,
++};
++
++static const struct dpu_mdss_version nord_mdss_ver = {
++	.core_major_ver = 12,
++	.core_minor_ver = 1,
++};
++
++const struct dpu_mdss_cfg dpu_nord_cfg = {
++	.mdss_ver = &nord_mdss_ver,
++	.caps = &nord_dpu_caps,
++	.mdp = &nord_mdp,
++	.cdm = &dpu_cdm_5_x,
++	.ctl_count = ARRAY_SIZE(nord_ctl),
++	.ctl = nord_ctl,
++	.sspp_count = ARRAY_SIZE(nord_sspp),
++	.sspp = nord_sspp,
++	.mixer_count = ARRAY_SIZE(nord_lm),
++	.mixer = nord_lm,
++	.dspp_count = ARRAY_SIZE(nord_dspp),
++	.dspp = nord_dspp,
++	.pingpong_count = ARRAY_SIZE(nord_pp),
++	.pingpong = nord_pp,
++	.dsc_count = ARRAY_SIZE(nord_dsc),
++	.dsc = nord_dsc,
++	.merge_3d_count = ARRAY_SIZE(nord_merge_3d),
++	.merge_3d = nord_merge_3d,
++	.wb_count = ARRAY_SIZE(nord_wb),
++	.wb = nord_wb,
++	.cwb_count = ARRAY_SIZE(nord_cwb),
++	.cwb = nord_cwb,
++	.intf_count = ARRAY_SIZE(nord_intf),
++	.intf = nord_intf,
++	.vbif = &sm8650_vbif,
++	.perf = &nord_perf_data,
++};
++
++#endif
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+index 9a993cdfab85..63f3029d09fa 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c
+@@ -796,6 +796,7 @@ static const struct dpu_qos_lut_entry sc7180_qos_nrt[] = {
+ #include "catalog/dpu_10_2_milos.h"
+ 
+ #include "catalog/dpu_12_0_sm8750.h"
++#include "catalog/dpu_12_1_nord.h"
+ #include "catalog/dpu_12_2_glymur.h"
+ #include "catalog/dpu_12_4_eliza.h"
+ #include "catalog/dpu_13_0_kaanapali.h"
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+index f45faf87333e..bfbc8207ad9a 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h
+@@ -772,6 +772,7 @@ extern const struct dpu_mdss_cfg dpu_msm8937_cfg;
+ extern const struct dpu_mdss_cfg dpu_msm8953_cfg;
+ extern const struct dpu_mdss_cfg dpu_msm8996_cfg;
+ extern const struct dpu_mdss_cfg dpu_msm8998_cfg;
++extern const struct dpu_mdss_cfg dpu_nord_cfg;
+ extern const struct dpu_mdss_cfg dpu_sar2130p_cfg;
+ extern const struct dpu_mdss_cfg dpu_sdm630_cfg;
+ extern const struct dpu_mdss_cfg dpu_sdm660_cfg;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+index 0e65bf5ddc4a..7eccb4d2c65e 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+@@ -226,6 +226,8 @@ enum dpu_intf {
+ 	INTF_6,
+ 	INTF_7,
+ 	INTF_8,
++	INTF_9,
++	INTF_10,
+ 	INTF_MAX
+ };
+ 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+index da3556eb6ecc..a91d4a1af94e 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
+@@ -1489,6 +1489,7 @@ static const struct of_device_id dpu_dt_match[] = {
+ 	{ .compatible = "qcom,msm8953-mdp5", .data = &dpu_msm8953_cfg, },
+ 	{ .compatible = "qcom,msm8996-mdp5", .data = &dpu_msm8996_cfg, },
+ 	{ .compatible = "qcom,msm8998-dpu", .data = &dpu_msm8998_cfg, },
++	{ .compatible = "qcom,nord-dpu", .data = &dpu_nord_cfg, },
+ 	{ .compatible = "qcom,qcm2290-dpu", .data = &dpu_qcm2290_cfg, },
+ 	{ .compatible = "qcom,sa8775p-dpu", .data = &dpu_sa8775p_cfg, },
+ 	{ .compatible = "qcom,sar2130p-dpu", .data = &dpu_sar2130p_cfg, },
 
-LyoKICogMjM5LWthc2FuLXNsYWItdXNlLWFmdGVyLWZyZWUtd3JpdGUtaW4tbXNwLXJlbW92ZQog
-Ki8KI2RlZmluZSBfR05VX1NPVVJDRQojaW5jbHVkZSA8ZGlyZW50Lmg+CiNpbmNsdWRlIDxlcnJu
-by5oPgojaW5jbHVkZSA8ZmNudGwuaD4KI2luY2x1ZGUgPHB0aHJlYWQuaD4KI2luY2x1ZGUgPHN0
-ZGludC5oPgojaW5jbHVkZSA8c3RkaW8uaD4KI2luY2x1ZGUgPHN0ZGxpYi5oPgojaW5jbHVkZSA8
-c3RyaW5nLmg+CiNpbmNsdWRlIDxzeXMvaW9jdGwuaD4KI2luY2x1ZGUgPHVuaXN0ZC5oPgoKI2lu
-Y2x1ZGUgPGxpbnV4L3VzYi9jaDkuaD4KI2luY2x1ZGUgPGxpbnV4L3VzYi9yYXdfZ2FkZ2V0Lmg+
-CgojZGVmaW5lIEVQMF9NQVhfVFJBTlNGRVIgMTAyNAovKiBpMmMtdGlueS11c2IgdmVuZG9yIHJl
-cXVlc3RzIChkcml2ZXJzL2kyYy9idXNzZXMvaTJjLXRpbnktdXNiLmMpICovCiNkZWZpbmUgQ01E
-X0dFVF9GVU5DCQkxCiNkZWZpbmUgQ01EX1NFVF9ERUxBWQkJMgojZGVmaW5lIENNRF9HRVRfU1RB
-VFVTCQkzCiNkZWZpbmUgQ01EX0kyQ19JTwkJNAkvKiBsb3cgMiBiaXRzIGNhcnJ5IGJlZ2luL2Vu
-ZCBmbGFncyAqLwoKI2RlZmluZSBTVEFUVVNfQUREUkVTU19BQ0sJMQojZGVmaW5lIFNUQVRVU19B
-RERSRVNTX05BSwkyCgojZGVmaW5lIExFMTYodikgKCh2KSAmIDB4ZmYpLCAoKCh2KSA+PiA4KSAm
-IDB4ZmYpCgpzdGF0aWMgaW50IHJhd19nYWRnZXRfZmQgPSAtMTsKCi8qIGkyYyBlbXVsYXRpb24g
-c3RhdGUsIHRvdWNoZWQgb25seSBieSB0aGUgZ2FkZ2V0IHRocmVhZCAqLwpzdGF0aWMgdW5zaWdu
-ZWQgY2hhciBsYXN0X2kyY193cml0ZV9ieXRlc1sxNl07CnN0YXRpYyBpbnQgbGFzdF9pMmNfd3Jp
-dGVfbGVuZ3RoOwpzdGF0aWMgdm9sYXRpbGUgaW50IG5ha19ldmVyeV90cmFuc2ZlcjsKc3RhdGlj
-IHZvbGF0aWxlIGludCBuYWtfYWZ0ZXJfbmV4dF9zdGF0dXNfcmVhZDsKc3RhdGljIHZvbGF0aWxl
-IGludCBzYXdfYXV0b2RldGVjdF9yZWdpc3Rlcl9yZWFkOwoKc3RhdGljIHN0cnVjdCB1c2JfZGV2
-aWNlX2Rlc2NyaXB0b3IgZGV2aWNlX2Rlc2NyaXB0b3IgPSB7CgkuYkxlbmd0aCA9IHNpemVvZihz
-dHJ1Y3QgdXNiX2RldmljZV9kZXNjcmlwdG9yKSwKCS5iRGVzY3JpcHRvclR5cGUgPSBVU0JfRFRf
-REVWSUNFLAoJLmJjZFVTQiA9IDB4MDIwMCwKCS5iTWF4UGFja2V0U2l6ZTAgPSA2NCwKCS5pZFZl
-bmRvciA9IDB4MDQwMywJLyogaTJjLXRpbnktdXNiICovCgkuaWRQcm9kdWN0ID0gMHhjNjMxLAoJ
-LmJjZERldmljZSA9IDB4MDEwMCwKCS5iTnVtQ29uZmlndXJhdGlvbnMgPSAxLAp9OwoKLyogb25l
-IHZlbmRvci1jbGFzcyBpbnRlcmZhY2UsIG5vIGVuZHBvaW50cyBhdCBhbGwgLS0gaTJjLXRpbnkt
-dXNiIHVzZXMgZXAwIG9ubHkgKi8Kc3RhdGljIGNvbnN0IHVuc2lnbmVkIGNoYXIgY29uZmlndXJh
-dGlvbl9kZXNjcmlwdG9yW10gPSB7Cgk5LCBVU0JfRFRfQ09ORklHLCBMRTE2KDkgKyA5KSwgMSwg
-MSwgMCwgMHhhMCwgMHhmYSwKCTksIFVTQl9EVF9JTlRFUkZBQ0UsIDAsIDAsIDAsIDB4ZmYsIDB4
-ZmYsIDB4ZmYsIDAsCn07CgpzdGF0aWMgaW50IGVwMF93cml0ZShjb25zdCB2b2lkICpkYXRhLCB1
-aW50MzJfdCBsZW5ndGgpCnsKCXVuc2lnbmVkIGNoYXIgYnVmZmVyW3NpemVvZihzdHJ1Y3QgdXNi
-X3Jhd19lcF9pbykgKyBFUDBfTUFYX1RSQU5TRkVSXTsKCXN0cnVjdCB1c2JfcmF3X2VwX2lvICpp
-byA9ICh2b2lkICopYnVmZmVyOwoKCWlmIChsZW5ndGggPiBFUDBfTUFYX1RSQU5TRkVSKQoJCWxl
-bmd0aCA9IEVQMF9NQVhfVFJBTlNGRVI7Cglpby0+ZXAgPSAwOwoJaW8tPmZsYWdzID0gMDsKCWlv
-LT5sZW5ndGggPSBsZW5ndGg7CglpZiAobGVuZ3RoICYmIGRhdGEpCgkJbWVtY3B5KGlvLT5kYXRh
-LCBkYXRhLCBsZW5ndGgpOwoJcmV0dXJuIGlvY3RsKHJhd19nYWRnZXRfZmQsIFVTQl9SQVdfSU9D
-VExfRVAwX1dSSVRFLCBpbyk7Cn0KCnN0YXRpYyBpbnQgZXAwX3JlYWQodm9pZCAqb3V0LCB1aW50
-MzJfdCBsZW5ndGgpCnsKCXVuc2lnbmVkIGNoYXIgYnVmZmVyW3NpemVvZihzdHJ1Y3QgdXNiX3Jh
-d19lcF9pbykgKyBFUDBfTUFYX1RSQU5TRkVSXTsKCXN0cnVjdCB1c2JfcmF3X2VwX2lvICppbyA9
-ICh2b2lkICopYnVmZmVyOwoJaW50IHJ2OwoKCWlmIChsZW5ndGggPiBFUDBfTUFYX1RSQU5TRkVS
-KQoJCWxlbmd0aCA9IEVQMF9NQVhfVFJBTlNGRVI7Cglpby0+ZXAgPSAwOwoJaW8tPmZsYWdzID0g
-MDsKCWlvLT5sZW5ndGggPSBsZW5ndGg7CglydiA9IGlvY3RsKHJhd19nYWRnZXRfZmQsIFVTQl9S
-QVdfSU9DVExfRVAwX1JFQUQsIGlvKTsKCWlmIChydiA+PSAwICYmIG91dCAmJiBsZW5ndGgpCgkJ
-bWVtY3B5KG91dCwgaW8tPmRhdGEsIGxlbmd0aCk7CglyZXR1cm4gcnY7Cn0KCnN0YXRpYyB2b2lk
-IG1zcF9yZWdpc3Rlcl9yZWFkX3JlcGx5KHVuc2lnbmVkIGNoYXIgKmRhdGEsIGludCBsZW5ndGgp
-CnsKCXVuc2lnbmVkIGNoYXIgaGlnaCA9IDAsIGxvdyA9IDA7CgoJaWYgKGxhc3RfaTJjX3dyaXRl
-X2xlbmd0aCA+PSAzICYmIGxhc3RfaTJjX3dyaXRlX2J5dGVzWzFdID09IDB4MDApIHsKCQlpZiAo
-bGFzdF9pMmNfd3JpdGVfYnl0ZXNbMF0gPT0gMHgxMyAmJiBsYXN0X2kyY193cml0ZV9ieXRlc1sy
-XSA9PSAweDFlKSB7CgkJCS8qIERTUCAweDFlID0gcmV2MTogZmFtaWx5IDMsIHJldmlzaW9uICdH
-JyAtPiBtc3AzNHh4Z190aHJlYWQgKi8KCQkJaGlnaCA9IDB4MDA7IGxvdyA9IDB4MDc7CgkJfSBl
-bHNlIGlmIChsYXN0X2kyY193cml0ZV9ieXRlc1swXSA9PSAweDEzICYmIGxhc3RfaTJjX3dyaXRl
-X2J5dGVzWzJdID09IDB4MWYpIHsKCQkJaGlnaCA9IDB4MDQ7IGxvdyA9IDB4MDA7CS8qIERTUCAw
-eDFmID0gcmV2MjogcHJvZHVjdCAwNCAqLwoJCX0gZWxzZSBpZiAobGFzdF9pMmNfd3JpdGVfYnl0
-ZXNbMF0gPT0gMHgxMSAmJiBsYXN0X2kyY193cml0ZV9ieXRlc1syXSA9PSAweDdlKSB7CgkJCS8q
-IERFTSAweDdlOiBhdXRvZGV0ZWN0IGRvbmUsIHN0ZCAhPSAxLCBzbyB0aGUgdGhyZWFkIGZhbGxz
-CgkJCSAqIGludG8gdGhlIHVubXV0ZSBibG9jayBlbmRpbmcgaW4gbXNwX3dyaXRlX2RzcCgweDEz
-LCBhY2IpICovCgkJCWhpZ2ggPSAweDAwOyBsb3cgPSAweDAyOwoJCQlzYXdfYXV0b2RldGVjdF9y
-ZWdpc3Rlcl9yZWFkID0gMTsKCQkJbmFrX2FmdGVyX25leHRfc3RhdHVzX3JlYWQgPSAxOwoJCX0K
-CX0KCWlmIChsZW5ndGggPiAwKSBkYXRhWzBdID0gaGlnaDsKCWlmIChsZW5ndGggPiAxKSBkYXRh
-WzFdID0gbG93Owp9CgpzdGF0aWMgdm9pZCBoYW5kbGVfY29udHJvbF9yZXF1ZXN0KGNvbnN0IHN0
-cnVjdCB1c2JfY3RybHJlcXVlc3QgKmN0cmwpCnsKCXVuc2lnbmVkIGNoYXIgZGF0YVtFUDBfTUFY
-X1RSQU5TRkVSXTsKCWludCB3TGVuZ3RoID0gY3RybC0+d0xlbmd0aDsKCWludCBkZXZpY2VfdG9f
-aG9zdCA9ICEhKGN0cmwtPmJSZXF1ZXN0VHlwZSAmIFVTQl9ESVJfSU4pOwoJaW50IGxlbmd0aCA9
-IC0xOwoJaW50IHZlbmRvcl9jb21tYW5kOwoKCWlmICgoY3RybC0+YlJlcXVlc3RUeXBlICYgVVNC
-X1RZUEVfTUFTSykgPT0gVVNCX1RZUEVfU1RBTkRBUkQpIHsKCQlpZiAoY3RybC0+YlJlcXVlc3Qg
-PT0gVVNCX1JFUV9HRVRfREVTQ1JJUFRPUikgewoJCQlpZiAoKGN0cmwtPndWYWx1ZSA+PiA4KSA9
-PSBVU0JfRFRfREVWSUNFKSB7CgkJCQlsZW5ndGggPSBzaXplb2YoZGV2aWNlX2Rlc2NyaXB0b3Ip
-OwoJCQkJbWVtY3B5KGRhdGEsICZkZXZpY2VfZGVzY3JpcHRvciwgbGVuZ3RoKTsKCQkJfSBlbHNl
-IGlmICgoY3RybC0+d1ZhbHVlID4+IDgpID09IFVTQl9EVF9DT05GSUcpIHsKCQkJCWxlbmd0aCA9
-IHNpemVvZihjb25maWd1cmF0aW9uX2Rlc2NyaXB0b3IpOwoJCQkJbWVtY3B5KGRhdGEsIGNvbmZp
-Z3VyYXRpb25fZGVzY3JpcHRvciwgbGVuZ3RoKTsKCQkJfQoJCX0gZWxzZSBpZiAoY3RybC0+YlJl
-cXVlc3QgPT0gVVNCX1JFUV9TRVRfQ09ORklHVVJBVElPTikgewoJCQlpb2N0bChyYXdfZ2FkZ2V0
-X2ZkLCBVU0JfUkFXX0lPQ1RMX0NPTkZJR1VSRSwgMCk7CgkJCWVwMF9yZWFkKE5VTEwsIDApOwoJ
-CQlyZXR1cm47CgkJfQoJCWlmIChsZW5ndGggPCAwKSB7CgkJCWlvY3RsKHJhd19nYWRnZXRfZmQs
-IFVTQl9SQVdfSU9DVExfRVAwX1NUQUxMLCAwKTsKCQkJcmV0dXJuOwoJCX0KCQllcDBfd3JpdGUo
-ZGF0YSwgbGVuZ3RoID4gd0xlbmd0aCA/IHdMZW5ndGggOiBsZW5ndGgpOwoJCXJldHVybjsKCX0K
-CglpZiAoKGN0cmwtPmJSZXF1ZXN0VHlwZSAmIFVTQl9UWVBFX01BU0spICE9IFVTQl9UWVBFX1ZF
-TkRPUikgewoJCWlvY3RsKHJhd19nYWRnZXRfZmQsIFVTQl9SQVdfSU9DVExfRVAwX1NUQUxMLCAw
-KTsKCQlyZXR1cm47Cgl9CgoJdmVuZG9yX2NvbW1hbmQgPSBjdHJsLT5iUmVxdWVzdDsKCWlmICh2
-ZW5kb3JfY29tbWFuZCA+PSBDTURfSTJDX0lPICYmIHZlbmRvcl9jb21tYW5kIDw9IChDTURfSTJD
-X0lPIHwgMykpCgkJdmVuZG9yX2NvbW1hbmQgPSBDTURfSTJDX0lPOwoKCXN3aXRjaCAodmVuZG9y
-X2NvbW1hbmQpIHsKCWNhc2UgQ01EX0dFVF9GVU5DOgoJCW1lbXNldChkYXRhLCAweGZmLCBzaXpl
-b2YoZGF0YSkpOwkvKiBjbGFpbSBldmVyeSBJMkNfRlVOQ18qICovCgkJZXAwX3dyaXRlKGRhdGEs
-IHdMZW5ndGggPiA0ID8gNCA6IHdMZW5ndGgpOwoJCXJldHVybjsKCWNhc2UgQ01EX1NFVF9ERUxB
-WToKCQllcDBfcmVhZChOVUxMLCB3TGVuZ3RoKTsKCQlyZXR1cm47CgljYXNlIENNRF9HRVRfU1RB
-VFVTOgoJCWRhdGFbMF0gPSBuYWtfZXZlcnlfdHJhbnNmZXIgPyBTVEFUVVNfQUREUkVTU19OQUsg
-OiBTVEFUVVNfQUREUkVTU19BQ0s7CgkJLyogQUNLIHRoZSAweDdlIHJlYWQgaXRzZWxmLCB0aGVu
-IGZhaWwgdGhlIDB4MTMgd3JpdGUgYWZ0ZXIgaXQgKi8KCQlpZiAoIW5ha19ldmVyeV90cmFuc2Zl
-ciAmJiBuYWtfYWZ0ZXJfbmV4dF9zdGF0dXNfcmVhZCkgewoJCQluYWtfYWZ0ZXJfbmV4dF9zdGF0
-dXNfcmVhZCA9IDA7CgkJCW5ha19ldmVyeV90cmFuc2ZlciA9IDE7CgkJfQoJCWVwMF93cml0ZShk
-YXRhLCB3TGVuZ3RoID4gMSA/IDEgOiB3TGVuZ3RoKTsKCQlyZXR1cm47CgljYXNlIENNRF9JMkNf
-SU86CgkJaWYgKGRldmljZV90b19ob3N0KSB7CgkJCW1lbXNldChkYXRhLCAwLCBzaXplb2YoZGF0
-YSkpOwoJCQltc3BfcmVnaXN0ZXJfcmVhZF9yZXBseShkYXRhLCB3TGVuZ3RoKTsKCQkJZXAwX3dy
-aXRlKGRhdGEsIHdMZW5ndGgpOwoJCX0gZWxzZSBpZiAod0xlbmd0aCkgewoJCQlpbnQgbmJ5dGVz
-ID0gd0xlbmd0aCA+IChpbnQpc2l6ZW9mKGxhc3RfaTJjX3dyaXRlX2J5dGVzKQoJCQkJPyAoaW50
-KXNpemVvZihsYXN0X2kyY193cml0ZV9ieXRlcykgOiB3TGVuZ3RoOwoKCQkJbWVtc2V0KGRhdGEs
-IDAsIHNpemVvZihkYXRhKSk7CgkJCWVwMF9yZWFkKGRhdGEsIHdMZW5ndGgpOwoJCQltZW1jcHko
-bGFzdF9pMmNfd3JpdGVfYnl0ZXMsIGRhdGEsIG5ieXRlcyk7CgkJCWxhc3RfaTJjX3dyaXRlX2xl
-bmd0aCA9IG5ieXRlczsKCQl9IGVsc2UgewoJCQllcDBfcmVhZChOVUxMLCAwKTsKCQl9CgkJcmV0
-dXJuOwoJZGVmYXVsdDoKCQlpb2N0bChyYXdfZ2FkZ2V0X2ZkLCBVU0JfUkFXX0lPQ1RMX0VQMF9T
-VEFMTCwgMCk7CgkJcmV0dXJuOwoJfQp9CgpzdGF0aWMgdm9pZCAqZ2FkZ2V0X3RocmVhZCh2b2lk
-ICp1bnVzZWQpCnsKCXVuc2lnbmVkIGNoYXIgYnVmZmVyW3NpemVvZihzdHJ1Y3QgdXNiX3Jhd19l
-dmVudCkgKyBFUDBfTUFYX1RSQU5TRkVSXTsKCXN0cnVjdCB1c2JfcmF3X2V2ZW50ICpldmVudCA9
-ICh2b2lkICopYnVmZmVyOwoKCWZvciAoOzspIHsKCQlldmVudC0+dHlwZSA9IDA7CgkJZXZlbnQt
-Pmxlbmd0aCA9IEVQMF9NQVhfVFJBTlNGRVI7CgkJaWYgKGlvY3RsKHJhd19nYWRnZXRfZmQsIFVT
-Ql9SQVdfSU9DVExfRVZFTlRfRkVUQ0gsIGV2ZW50KSA8IDApIHsKCQkJaWYgKGVycm5vID09IEVJ
-TlRSKQoJCQkJY29udGludWU7CgkJCWJyZWFrOwoJCX0KCQlpZiAoZXZlbnQtPnR5cGUgPT0gVVNC
-X1JBV19FVkVOVF9DT05UUk9MKQoJCQloYW5kbGVfY29udHJvbF9yZXF1ZXN0KChzdHJ1Y3QgdXNi
-X2N0cmxyZXF1ZXN0ICopZXZlbnQtPmRhdGEpOwoJCWVsc2UgaWYgKGV2ZW50LT50eXBlID09IFVT
-Ql9SQVdfRVZFTlRfRElTQ09OTkVDVCkKCQkJYnJlYWs7Cgl9CglyZXR1cm4gTlVMTDsKfQoKc3Rh
-dGljIGludCBmaW5kX3VkYyhjaGFyICpkcml2ZXJfbmFtZSwgc2l6ZV90IGRyaXZlcl9zaXplLAoJ
-CSAgICBjaGFyICpkZXZpY2VfbmFtZSwgc2l6ZV90IGRldmljZV9zaXplKQp7CglESVIgKnVkY19k
-aXIgPSBvcGVuZGlyKCIvc3lzL2NsYXNzL3VkYyIpOwoJc3RydWN0IGRpcmVudCAqdWRjX2VudHJ5
-OwoJY2hhciAqc3VmZml4OwoKCWlmICghdWRjX2RpcikKCQlyZXR1cm4gLTE7Cgl3aGlsZSAoKHVk
-Y19lbnRyeSA9IHJlYWRkaXIodWRjX2RpcikpKSB7CgkJaWYgKHVkY19lbnRyeS0+ZF9uYW1lWzBd
-ID09ICcuJykKCQkJY29udGludWU7CgkJc25wcmludGYoZGV2aWNlX25hbWUsIGRldmljZV9zaXpl
-LCAiJXMiLCB1ZGNfZW50cnktPmRfbmFtZSk7CgkJc25wcmludGYoZHJpdmVyX25hbWUsIGRyaXZl
-cl9zaXplLCAiJXMiLCB1ZGNfZW50cnktPmRfbmFtZSk7CgkJc3VmZml4ID0gc3RycmNocihkcml2
-ZXJfbmFtZSwgJy4nKTsKCQlpZiAoc3VmZml4KQoJCQkqc3VmZml4ID0gMDsKCQljbG9zZWRpcih1
-ZGNfZGlyKTsKCQlyZXR1cm4gMDsKCX0KCWNsb3NlZGlyKHVkY19kaXIpOwoJcmV0dXJuIC0xOwp9
-CgpzdGF0aWMgaW50IHdyaXRlX3N5c2ZzX2ZpbGUoY29uc3QgY2hhciAqcGF0aCwgY29uc3QgY2hh
-ciAqdmFsdWUpCnsKCWludCBmZCA9IG9wZW4ocGF0aCwgT19XUk9OTFkpOwoJaW50IHJ2OwoKCWlm
-IChmZCA8IDApCgkJcmV0dXJuIC0xOwoJcnYgPSB3cml0ZShmZCwgdmFsdWUsIHN0cmxlbih2YWx1
-ZSkpOwoJY2xvc2UoZmQpOwoJcmV0dXJuIHJ2IDwgMCA/IC0xIDogMDsKfQoKLyogRmluZCB0aGUg
-aTJjIGJ1cyBudW1iZXIgb3VyIGVtdWxhdGVkIGFkYXB0ZXIgY3JlYXRlZC4gKi8Kc3RhdGljIGlu
-dCBmaW5kX3RpbnlfdXNiX2kyY19idXModm9pZCkKewoJRElSICppMmNfZGlyID0gb3BlbmRpcigi
-L3N5cy9idXMvaTJjL2RldmljZXMiKTsKCXN0cnVjdCBkaXJlbnQgKmkyY19lbnRyeTsKCWludCBm
-b3VuZF9idXMgPSAtMTsKCglpZiAoIWkyY19kaXIpCgkJcmV0dXJuIC0xOwoJd2hpbGUgKChpMmNf
-ZW50cnkgPSByZWFkZGlyKGkyY19kaXIpKSkgewoJCWNoYXIgcGF0aFs1MTJdLCBuYW1lWzI1Nl07
-CgkJaW50IGZkLCBuYnl0ZXM7CgoJCWlmIChzdHJuY21wKGkyY19lbnRyeS0+ZF9uYW1lLCAiaTJj
-LSIsIDQpKQoJCQljb250aW51ZTsKCQlzbnByaW50ZihwYXRoLCBzaXplb2YocGF0aCksICIvc3lz
-L2J1cy9pMmMvZGV2aWNlcy8lcy9uYW1lIiwKCQkJIGkyY19lbnRyeS0+ZF9uYW1lKTsKCQlmZCA9
-IG9wZW4ocGF0aCwgT19SRE9OTFkpOwoJCWlmIChmZCA8IDApCgkJCWNvbnRpbnVlOwoJCW5ieXRl
-cyA9IHJlYWQoZmQsIG5hbWUsIHNpemVvZihuYW1lKSAtIDEpOwoJCWNsb3NlKGZkKTsKCQlpZiAo
-bmJ5dGVzIDw9IDApCgkJCWNvbnRpbnVlOwoJCW5hbWVbbmJ5dGVzXSA9IDA7CgkJaWYgKHN0cnN0
-cihuYW1lLCAiaTJjLXRpbnktdXNiIikpIHsKCQkJZm91bmRfYnVzID0gYXRvaShpMmNfZW50cnkt
-PmRfbmFtZSArIDQpOwoJCQlicmVhazsKCQl9Cgl9CgljbG9zZWRpcihpMmNfZGlyKTsKCXJldHVy
-biBmb3VuZF9idXM7Cn0KCmludCBtYWluKHZvaWQpCnsKCXN0cnVjdCB1c2JfcmF3X2luaXQgaW5p
-dDsKCXB0aHJlYWRfdCBnYWRnZXRfdGhyZWFkX2lkOwoJY2hhciB1ZGNfZHJpdmVyX25hbWVbVURD
-X05BTUVfTEVOR1RIX01BWF07CgljaGFyIHVkY19kZXZpY2VfbmFtZVtVRENfTkFNRV9MRU5HVEhf
-TUFYXTsKCWNoYXIgcGF0aFs1MTJdOwoJaW50IGkyY19idXNfbnVtYmVyID0gLTEsIGF0dGVtcHQ7
-CgoJaWYgKGZpbmRfdWRjKHVkY19kcml2ZXJfbmFtZSwgc2l6ZW9mKHVkY19kcml2ZXJfbmFtZSks
-CgkJICAgICB1ZGNfZGV2aWNlX25hbWUsIHNpemVvZih1ZGNfZGV2aWNlX25hbWUpKSA8IDApCgkJ
-cmV0dXJuIDE7CgoJcmF3X2dhZGdldF9mZCA9IG9wZW4oIi9kZXYvcmF3LWdhZGdldCIsIE9fUkRX
-Uik7CglpZiAocmF3X2dhZGdldF9mZCA8IDApCgkJcmV0dXJuIDE7CgltZW1zZXQoJmluaXQsIDAs
-IHNpemVvZihpbml0KSk7CglzdHJuY3B5KChjaGFyICopaW5pdC5kcml2ZXJfbmFtZSwgdWRjX2Ry
-aXZlcl9uYW1lLAoJCXNpemVvZihpbml0LmRyaXZlcl9uYW1lKSAtIDEpOwoJc3RybmNweSgoY2hh
-ciAqKWluaXQuZGV2aWNlX25hbWUsIHVkY19kZXZpY2VfbmFtZSwKCQlzaXplb2YoaW5pdC5kZXZp
-Y2VfbmFtZSkgLSAxKTsKCWluaXQuc3BlZWQgPSBVU0JfU1BFRURfSElHSDsKCWlmIChpb2N0bChy
-YXdfZ2FkZ2V0X2ZkLCBVU0JfUkFXX0lPQ1RMX0lOSVQsICZpbml0KSA8IDApCgkJcmV0dXJuIDE7
-CglpZiAoaW9jdGwocmF3X2dhZGdldF9mZCwgVVNCX1JBV19JT0NUTF9SVU4sIDApIDwgMCkKCQly
-ZXR1cm4gMTsKCXB0aHJlYWRfY3JlYXRlKCZnYWRnZXRfdGhyZWFkX2lkLCBOVUxMLCBnYWRnZXRf
-dGhyZWFkLCBOVUxMKTsKCglmb3IgKGF0dGVtcHQgPSAwOyBhdHRlbXB0IDwgMjAwOyBhdHRlbXB0
-KyspIHsKCQlpMmNfYnVzX251bWJlciA9IGZpbmRfdGlueV91c2JfaTJjX2J1cygpOwoJCWlmIChp
-MmNfYnVzX251bWJlciA+PSAwKQoJCQlicmVhazsKCQl1c2xlZXAoNTAwMDApOwoJfQoJaWYgKGky
-Y19idXNfbnVtYmVyIDwgMCkKCQlyZXR1cm4gMTsKCgkvKiBtc3BfcHJvYmUoKSAtPiBrdGhyZWFk
-X3J1bihtc3AzNHh4Z190aHJlYWQpICovCglzbnByaW50ZihwYXRoLCBzaXplb2YocGF0aCksICIv
-c3lzL2J1cy9pMmMvZGV2aWNlcy9pMmMtJWQvbmV3X2RldmljZSIsCgkJIGkyY19idXNfbnVtYmVy
-KTsKCWlmICh3cml0ZV9zeXNmc19maWxlKHBhdGgsICJtc3AzNDAwIDB4NDAiKSA8IDApCgkJcmV0
-dXJuIDE7CgoJLyogTGV0IHRoZSBjb250cm9sIHRocmVhZCBydW4gaW50byBtc3Bfd3JpdGVfZHNw
-KDB4MTMsIGFjYikgYW5kIGRpZS4gKi8KCWZvciAoYXR0ZW1wdCA9IDA7IGF0dGVtcHQgPCAxMDAg
-JiYgIXNhd19hdXRvZGV0ZWN0X3JlZ2lzdGVyX3JlYWQ7IGF0dGVtcHQrKykKCQl1c2xlZXAoNTAw
-MDApOwoJc2xlZXAoMyk7CS8qIHRocmVhZCBleGl0cywgdGFza19zdHJ1Y3QgaXMgUkNVLWZyZWVk
-ICovCgoJLyogbXNwX3JlbW92ZSgpIC0+IGt0aHJlYWRfc3RvcChzdGF0ZS0+a3RocmVhZCkgb24g
-dGhlIGZyZWVkIHRhc2tfc3RydWN0ICovCglzbnByaW50ZihwYXRoLCBzaXplb2YocGF0aCksICIv
-c3lzL2J1cy9pMmMvZGV2aWNlcy9pMmMtJWQvZGVsZXRlX2RldmljZSIsCgkJIGkyY19idXNfbnVt
-YmVyKTsKCXdyaXRlX3N5c2ZzX2ZpbGUocGF0aCwgIjB4NDAiKTsKCXJldHVybiAwOwp9Cg==
---00000000000054344f065b36dd2b--
+-- 
+2.34.1
+
