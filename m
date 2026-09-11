@@ -1,67 +1,67 @@
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02B522EEE7B
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:01:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9B574E1D
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:02:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789088463; cv=none; b=o4Z6ytQ3DgThjIsOkBaDKhxdd0vCFJvtkZgvuhWSFtx8Qrod7KK9rU8Dx9BEKrKeY4/ufn3z9t1lw75+0P3fBnGBB3GsgonqlY9j3RO8WhXlTzuyJBnyHv/SEeZXIJMv0ISrLZx2QRDrYWP/SlckkAxi9g8gAJ0OTLnoKMsoh1o=
+	t=1789088559; cv=none; b=SkPnGSyYXRLKdbLtzJo0qtFr3OUJoOlsIGmxWoriunjh/XmQtyaAfbk+ENK4J9UHsFzQHzd/dspWIFIjmWgdaRPpLD1bxF4FpRrv7xHOofceG4uQh7VxZp0aScvAmjrLEvci2YVdQLnnDigkyIiMLmDuROhCTQDyaMetWhYbDXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789088463; c=relaxed/simple;
-	bh=Hve8OTKMJK2Sw15IWoumCJ3fcui/3UMynRb/vn3eBYU=;
+	s=arc-20240116; t=1789088559; c=relaxed/simple;
+	bh=TiFzUS2aHYLoApSqvwEeB9zLb2sSir/BfO8lZ3oW3tE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DVg1jqcgPMTPDgc1Q2WTpcBI4OL3HWZkskCncpKOXvkRoCVaEAtix4NX6cR78BaMpAK6hBTO7DSg8V0JqHfEPw3JozFRMzymzHWXjeiVZA9Sj8l7bGr0Gl5izPwSOLlt0iJbBm8Ic2J4YkjCbaFpkFB6nHX3/eOpUhaifycF224=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KFKlUubq; arc=none smtp.client-ip=209.85.161.44
+	 Content-Type:Content-Disposition:In-Reply-To; b=k42hSZ3qc4ejVECydu4zDGJLe6VQt/tdDBGKj6XmpirmwSGtDMX2WlKBUAeopBRQq5K+YTq9ynixiWdsmVmP7N0eJPNXc9kODfIuG913KKuKXR7DcxRYV3kzbn3wEu98gvVwXpFFt4luLU3gU9wPYGvO1AbXazTTqSc7KhldoKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QKW7dDZT; arc=none smtp.client-ip=74.125.224.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KFKlUubq"
-Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6b1b766bf01so266406eaf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:01:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QKW7dDZT"
+Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-66c7e3a2332so246256d50.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 18:02:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789088461; x=1789693261; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789088557; x=1789693357; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:sender:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=FX4dycJodbNcgNlbRtvzoO7X64Th34ZYUbHEO8PTdJ8=;
-        b=KFKlUubqgLuu8Z0rBHUwcR55NmuXcSQcT0xPhqIZIVWTtTi/yTycGiNEs/cboRY7xx
-         AOufONlvfHZvHHhCRgQjOn9MgAvZPgN3xHSIXPnNAf6GiA6aLT5g0fkvvI6pvvYaJfKE
-         9nEY7IMU0nhC6gt6waoI9A5YvdT/5ad95Kivq7o3Yrb9P66qTs4+mITqERiwq8P8lj0c
-         Ui6K/31WUwcK08Ml+b+ORbYQPA0M4PFIhyaMpHMV0c+g+cfMSn6jUy/RrRlW0NPfHv5d
-         UhkBdKf+EbpioBgEzU/HCSe55AwR1nZJc0fPFVVdBVg5E2kaVlM38JncVgiAvmSOdcg+
-         1ICg==
+        bh=gU2WF9XqL472gayp+lMBaEHlfREfA6uslBJW7Hl4Whs=;
+        b=QKW7dDZTUEnoo+36DM4WzjJ5RLrqB2Fia6IP9KMuwEerQ2zrjzy0l3gpL6/gfeh5II
+         2L0+Q1zu0FKuwKOqp7Awbd7JsvICfR4oLW3v3zQao25YddawqV4rRAqTSVx1zFBxd4ui
+         RgLrsfuenJn91A11Cw3WRCJVB6uaUlknqkgNAihbnsFaHdqW9V7eBJuu9MDJC65Ork6O
+         9MWv+/RQj4MWy8L4MSB3pbTro4X+4Cmsopu2RxKbnP4S9GAV+bonAbanO5sVcxAU1YZn
+         x9Gyyc+K3jRNvTAWdDL7d+nzycYX5sxIQY3nme0W2OuMgjPhgM2jnAgjPTv7mYt38XCh
+         priw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789088461; x=1789693261;
+        d=1e100.net; s=20251104; t=1789088557; x=1789693357;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FX4dycJodbNcgNlbRtvzoO7X64Th34ZYUbHEO8PTdJ8=;
-        b=q7hsln9caAwRCBNYyONRlvz+LECx/wHR2+o47TFDmtHj4iCHB5zevg80Me8ukWhfG2
-         ezau6yqIS9SEYKJx3bHG5Pf+ycetWt9Kk0MJvc3S3EqrweDkBTnS2sqtf9bL9+rhQR2M
-         8Z58pHuHvflvHWMVo1Sfmmu5o8kgJyjgIvSzY7u+kSNahncs7fbgcpz1RtCKGwPvyMZN
-         JWY4hBHsjQLuv5CHQoTQ/SGozg2PWwvftfomqudaqOrlpcJbg0ZmVp185pzk4+hgj75h
-         GJkVPcT7W4oaTpED54nb8lYRXR4qScgSaljoTJIUCkKOMrnRzQxx5EwD0+ewszYhAuJ+
-         xfvA==
-X-Forwarded-Encrypted: i=1; AKwUvBw1RPC81SF7trByhEax8MCAjoqrLYcrnCDtuoKiIjysMSuOhcx8ZSrNfSsUPZfd7fvMQdNqOlPSQNOM2qk=@vger.kernel.org
-X-Gm-Message-State: AFuF++n4CGHxpv+Kndx91Ws4+TaJUJWV3/Fn6OpNdcMeXNICnPGBQB8c
-	LRea3LbS8u77dED7/L9a58DXhFLJHcZEZSl0i4jr/U7C/WwuBVJS626X
-X-Gm-Gg: AYBFou0ne5SsE2vh7e+R7A4wR8Y94ENH8Ui0w1rnBdnW95imnZZqAKFYyv9TDbVu6Hg
-	Tg893zT9nCGWh6N1eGXNNFC5GZppYUxdJBvoeDd2CHZLl/x8ztOR6euaAOtwTaeGsCgpqtzS6bm
-	9P2NodJFEHIu4734+UI39ilUPM8z9CeAC3K8yXv4vObPlzosJWkndZYV/LVovk5edWNSu+pYVBg
-	RI9qY0Oqzapmo5jIwLcmawA+IhHtph0YYTsZ8ssjZzV+q9SnyuUMGFFPVLhA03gr3rKwvVeWRfh
-	+bwt1ohuYvm2fEnvTwQqHX6qvPziEY8wHEpGaDAKxRgRg1wjA1sclTfGcmv4JKCx/Od4ugeky1j
-	2PiTbW8T5mGU6dalL3xrXPU8wB9nLTAeAWvOW7tSFaC/bgqVYC+CAGXy2izTjbyz3hi+jQlP8Zz
-	E1hh98EppEXheHKe0MgZL8UlqbpsWmi97eI3LidshelxvWBFsyYq15qVDbjj5L7BmutJPgAlAH3
-	rfLMgXt/i2A
-X-Received: by 2002:a05:6820:1c88:b0:6be:7782:5a5e with SMTP id 006d021491bc7-6c0bc9b78aemr1075003eaf.53.1789088459704;
-        Thu, 10 Sep 2026 18:00:59 -0700 (PDT)
+        bh=gU2WF9XqL472gayp+lMBaEHlfREfA6uslBJW7Hl4Whs=;
+        b=FihkF5sPSlfTUFYjJVEZK3kW841mlXc8SKOSQVEILVSkFjrwWDkAWANs7+5UXO40zS
+         dLZoVdTnTzcEFsOF7R21FtwW4Gsql6DJl4xdaqox8gGMiN6lBvttXjvUyfTckhd4za+P
+         W08fIlT1dP/M1JPf5xgrTOf233LPwtQ2nZPRAew+CkrBkPPh3TszEJFv6DMNq+u+SHNU
+         O4kb8Sc6FdTIzqDrFtzsDnQRY3Y06j6hnsToHWuqOfPaqi7wxbnkXESB2qGZY3c5s4dE
+         61JQnbSEPaKpjEbOLUqjO4OrF6RRzFnTvVxmD7bvd1xu99sqq2R5jrAyJfhanQ4cQjOl
+         MiKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw8gIdcKgt38I1vOtSxG7qZJcWFbPF6w3g/6ybI4pGy6fcZ5w0fjKA/RLuxn9spKSurHHTyFMIKNEoxWoo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kM54QEUoRivgiQSwUpshe1n3oKVnLkI2cW62iQtRSBGjD0ctEX
+	y7HhkM+zpkPZAA8UknFUxSVTdpUc/bLXN2q0GXxtEZfT9Dcq2XyjTot8
+X-Gm-Gg: AYBFou0jyPj6sRTjyiWtWjtJI7+S27TeDC6vaVqJoDeSp2EFYjXM4FrwPI3nPAYAOgl
+	pvXx5HUeEnaeaxId4lQS/q+OV04GB6LFZ4/87wOllteun2CzGkhR6G5YUW8GRYeyt8Ff5MHEGFX
+	GfIyRc+s13gU1pwN7X6PovR9Ck0jO3XhxJ3ZpYeYWEK31apRyYsCZU2nkBG/AxK5u+/KU8bpRJA
+	l46HQZbfLvQmj5Awrh+go6LwgMO1wUZGCzLHTDga6cOGJXTRrNsJycsFG4OkUVB9NitKYHzKeSu
+	z83191Y0UaLbWaGwpSmNR5gHVh/wAVA4qXHReFNtMVBsr+ted9eQn1K5yD7miFhIOoXiiMiuAZK
+	2YDRkTosA4MqCUJnzD4+48DUfnAgwiE/2lVeKT0ZgmEW6vKscQPJjkUi8C7lvt2oNAPkw8YyV+D
+	SVuwjYP5xUzuUxB3Vk+MYi7u2UP3Rtz1onehRcrWze6X+fJIGxJoFmSeb8HPHP2cygUOl6QUv2W
+	hc48mgHQ4aj
+X-Received: by 2002:a05:690e:b46:b0:66f:a1e3:9c77 with SMTP id 956f58d0204a3-671245584afmr961357d50.2.1789088556949;
+        Thu, 10 Sep 2026 18:02:36 -0700 (PDT)
 Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b8f1f7sm1928004c88.11.2026.09.10.18.00.58
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4ed64fcsm1826445eec.16.2026.09.10.18.02.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 18:00:59 -0700 (PDT)
+        Thu, 10 Sep 2026 18:02:36 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Thu, 10 Sep 2026 18:00:58 -0700
+Date: Thu, 10 Sep 2026 18:02:35 -0700
 From: Guenter Roeck <linux@roeck-us.net>
 To: Paul Louvel <paul.louvel@bootlin.com>
 Cc: Jonathan Corbet <corbet@lwn.net>,
@@ -70,10 +70,10 @@ Cc: Jonathan Corbet <corbet@lwn.net>,
 	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 	linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] hwmon: (nct6775) Add support for NCT6126D
-Message-ID: <c12d334a-4c95-4a43-b7b0-390e15dd95aa@roeck-us.net>
-References: <20260910-bootlin-hwmon-nct6126-v2-0-ee629ab35e49@bootlin.com>
- <20260910-bootlin-hwmon-nct6126-v2-2-ee629ab35e49@bootlin.com>
+Subject: Re: [PATCH 3/3] hwmon: (nct6775) Add support for NCT6122D
+Message-ID: <0c683a7a-a824-4b68-83d4-3c640d90f876@roeck-us.net>
+References: <20260909-bootlin-hwmon-nct6126-v1-0-4e85615fef10@bootlin.com>
+ <20260909-bootlin-hwmon-nct6126-v1-3-4e85615fef10@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,25 +82,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260910-bootlin-hwmon-nct6126-v2-2-ee629ab35e49@bootlin.com>
+In-Reply-To: <20260909-bootlin-hwmon-nct6126-v1-3-4e85615fef10@bootlin.com>
 
-On Thu, Sep 10, 2026 at 09:02:39AM +0200, Paul Louvel wrote:
-> Add support for the hardware monitoring functionality of the NCT6126D
-> Super-I/O chip.
-> 
-> The NCT6126D hardware monitor is nearly identical to the NCT6116D: the
-> fan, PWM, temperature, TSI, alarm.
-> 
-> The differences are:
-> 
-> - Device IDs 0xd283 (A version) and 0xd284 (B version), which both fall
->   into the NCT6116D ID range (0xd280) when masked with SIO_ID_MASK.
->   Instead, compare the full value to distinguish from NCT6116D.
-> 
-> - One additional VIN: VHIF scaled at 16 mV/LSB.
-> 
-> - The fan count limit registers are documented for all five fans.
->   Also expose fan4_min.
+On Wed, Sep 09, 2026 at 08:25:56PM +0200, Paul Louvel wrote:
+> The NCT6122D hardware monitor is the same as the NCT6126D, the only
+> difference if the number of UARTs: two instead of six.
+> Add it to the driver using the nct6126 chip kind to avoid code
+> duplication.
 > 
 > Assisted-by: opencode:z-ai/glm-5.3-flash
 > Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
