@@ -1,140 +1,181 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CFD742900A
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:43:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB6643F091
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:43:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789123389; cv=none; b=QfxbI1/ghg+17ePDqxIBJDdavixmV9AvQEqerxaeM7qj/IstVx3Tu0T9ilf2pXSOUcKu5dc/ggFyR3wRjrTbsKv0Gsw2nDU4btgB/WSmtpc6DeRNEIM3YCWnEnJuNvqCvgOuWq8WhF1703X4UwUeBHXhULAshUllidPSVlWg4S0=
+	t=1789123399; cv=none; b=Ufew6ghPBqG2/phCufMbZWhX/d5hLLFOTix0EPtBphfmZ9puu08LaKSCowPYafrOjrDOMyouGocNFwolWNadhih2vM5aQsaVSwtiefdPSVYx0U+qoHHSMdVRVYuMoyvshPgwfjhp25bxYXcWff3NVd4YZIkfYSS067Vwkyl6aEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789123389; c=relaxed/simple;
-	bh=WX3YxQ59xuStZk9rvYBlRWaO1d0KdkqnYTYYHluPT8U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=qite9alNEFKKzbhGCb9L2Yut/EGEUvzAesaQHzbLzv882x1lFEy/OWb1YjfAXGqGWgZd5aNacSfgdc/edSJrGXpIonPQbYTYU88KAi/ubytI/NtP4BH9QBnqbVyim6jxyp6c9hU5oAp0W0VWdArgKye7paQP2vwG/GbEr2XUr8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xL52Mhbn; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789123399; c=relaxed/simple;
+	bh=L/lGKMfp42hBWo7w5pZxZLyTlsE3A7O8TBaqBICRHSg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nN3CKZ1W4XGJB+rEWmJwBVoxcmuL5CIYfKrCaQmS7wnIGF0WA5UBzLTyTse1YvDhyBaNb9GX/8VxXhNeJLEMy6zFqkG704ya6ViGM6oMf7U5BjtXJo3QS7Qm/8wWRHAKc14rARbfaZ1XA8Eg6VNKSkKijMIENb2L0v+DaMf+UIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Gt1aVH0Q; arc=none smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xL52Mhbn"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 16F18C653FA;
-	Fri, 11 Sep 2026 10:43:46 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 41FB8601DE;
-	Fri, 11 Sep 2026 10:43:04 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F206E11C7AF8E;
-	Fri, 11 Sep 2026 12:42:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789123383; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=bjHKtRQSF0AlroFIew4ip7HdNfgsUfAOjcAduhZmuKg=;
-	b=xL52MhbnDiTT4Ille3+popcdtCBUl95DW+GSwUdKwrwTSGWP/1zExD+mjwE5IXGQuS9f3d
-	RRaO94zI+RjLJgukDE656KnUoKxYaOg5sWGeIHRAVhRl4sEPzc07yO0XqgIzWSrlY7iVqI
-	+fdTITBkZSbRIFYBo4oj5LhOu4IXa//Ru4Zw98ow0tCasxXCaxRvzB881aGMJKp9NikqvZ
-	iqhVHqoX28bvWAbj6HrRYU9K30VSOtWZE5CQaBpsK9d/rxtlGjw1obCs6rp+zrB1t6iIvw
-	Ujki2Uojx1TpJw9wNhEKpfl6HFovd9wSS5SaJwqehYfnQWMqQIPkwVFf673eZg==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Fri, 11 Sep 2026 12:42:58 +0200
-Subject: [PATCH v2] mtd: spi-nor: Fix quad-enable for flashes with QER bit
- in SR1
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Gt1aVH0Q"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c255c58156bso178611566b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:43:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789123396; x=1789728196; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0OBJZFY4WEPdfeqZOIs4m4qo0tGRehs4CamLBjm99hQ=;
+        b=Gt1aVH0QPyM6P/zjdhKJZLjqHlX29/xTEwcuAeGv6gQC/I8qEzIvN/ijdXhCcJOJkL
+         feB5eHJNKPBMcewpPyGbPoHh/h2y6FtFTyKc6xNrY4+EFj+g1/jjDzkMXHDR9hL6fxrY
+         dcWqoUvnBPnDkrv4eKJrhYVrmcrqJXQ/uEaoEu6Bm5S3+7OsxMK8omO7EW3QAc7vCbtp
+         33ct1WP1FMzD/uRPOSDEXh5fGU4NuOXFhLFcBi6eRRwg5B8COhm0X2wM4bfvdUP/cUz/
+         tcpkhQOos4AETgmBoPKJqrM7drFB0FDJcTFJR8vCbKJk185Jsc5kQmzqmNHUNr4gcmjE
+         8bUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789123396; x=1789728196;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0OBJZFY4WEPdfeqZOIs4m4qo0tGRehs4CamLBjm99hQ=;
+        b=jhhN1A8VxolynxCuFHFSNdqWmBPGhOahWJ2viwZSGHrRU4DgRK1zKqvdJOw/ZB51qD
+         U/Q8ai9XnbJluATJJBd1zduEh9cH8mxHnAAvI6knd6K1tLr3xMc1KwSttpfrAC0OFx23
+         r2ZjbetconABkA6swCWbXWe8WCAFoBH++c8I4PFwz5laFHXr+WxTKVwgVqs37EVsS13h
+         TxsfcVaI4b68XNJe4Wy9SaRNEWOIgC8zC1wyr3csyZpubJcQAS4yYmbqzCWvHay9MJr7
+         vY9IvaO+BrALMflVc0tDk9Opd35UuxH9XpUN5e+lZuoygIBlvt013C+BTh3ysHz8GK+N
+         KrMA==
+X-Forwarded-Encrypted: i=1; AKwUvBzlYWjdJ+U+t2WcSqJrUKNxJlT5teTt/i+pRMkla5KKnwWNsdGPOratJaoq0SQdsmtk4DzJUdtC51hRObI=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8+ad2XSKWKv7pTShwznx0AcVOk2EpkX1eAE2PiMUUxHzoRUzo
+	rcyB8rD0r2kvqGjDu/xOijhgJy/gaRtMAjJD1lhEWVfFx8Q9YitRaA4MHAmCB3C7g/8=
+X-Gm-Gg: AYBFou0StxH5W2o8T4A7JCyj1iAqEyQC2ntc72XNM1hVJqA8VJlk7a8ax7782Mnv0eR
+	IvDhjILUW26DbzbDKW7ii+fzRZlcKXAxilEYGEmTLMXLMILeqNrFXLDNy4y+wTUzzboVM2ABHzt
+	tpjktyn4EkgdivbrncTBfyu6osVKD9yOslw7R65P5+1C8VEfXk7Qrr1+W6qTsSMRhMmfRX0obw2
+	zGQ175osJoeZ2pG4tRwdYJIx/EVbIIWJSecYFyX2tF2hMpp7nNANJSvN/pVvyGBurx480p2EmSi
+	KIXLKmXqMvoc9fM6XOqmRkdqgiyQ91/botnqEU7YMVCXBX0EfLawEABAtT7B/s6R4E9cIqC6yhk
+	55iJlhLD6ZurcCcl83LoubwIuq5/epftc16g7GIZMBc+FkRmlz3iekoYC93OCrPJIsIh7Lzv+yJ
+	ppdue+KX4A/S+0HEFLXU0Tsja6rQl4yIhc6moDGM2ETiBwxEgDFsg70RCmKmCChY3wygTyrmx5C
+	jp/v4ahpGX5
+X-Received: by 2002:a17:907:da6:b0:c26:19de:9ac3 with SMTP id a640c23a62f3a-c296668e2a7mr154495166b.27.1789123395825;
+        Fri, 11 Sep 2026 03:43:15 -0700 (PDT)
+Received: from [192.168.0.167] ([109.76.225.241])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966103984sm67215966b.52.2026.09.11.03.43.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 03:43:14 -0700 (PDT)
+Message-ID: <87e34805-e56c-45b8-a3d8-458ef17b92cc@linaro.org>
+Date: Fri, 11 Sep 2026 11:43:13 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/8] media: qcom: camss: Add streams API hw_ops to CSID
+ interface
+To: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+ Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+References: <20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com>
+ <20260911062213.195007-3-gjorgji.rosikopulos@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20260911062213.195007-3-gjorgji.rosikopulos@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-perso-fix-spi-nor-qe-mxic-v2-1-70c324e9f30e@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NQQ6CMBBFr0Jm7RimVhJceQ/DAulUJpEOtIRgC
- He3cgKX7+f/9zdIHIUT3IoNIi+SREMGcyqg69vwYhSXGUxpqrImwpFjUvSyYhoFg0acGIdVOnT
- llS5ce2sNQd6PkXPtcD+azL2kWePnuFrol/5jXQgJvatcTZaq1rT3p+r8lnDudIBm3/cvPoQYD
- MQAAAA=
-X-Change-ID: 20260911-perso-fix-spi-nor-qe-mxic-d0513e9f4421
-To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
- Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Jon Hunter <jonathanh@nvidia.com>, Steam Lin <STLin2@winbond.com>, 
- linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Miquel Raynal <miquel.raynal@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
 
-Some flashes (eg. from Macronix) do set BFPT_DWORD15_QER_SR1_BIT6, which
-means they do not have an SR2 to read from/write to. The new generic QE
-helper was supposed to accommodate this situation but in the last version
-that got merged, parts of that specific handling has been moved to a
-more contained location, swp.c (which needed most of the extra code),
-yet the Macronix case has been forgotten about in that generic QE
-handling helper. Booting with such flashes will always fail probing.
+On 11/09/2026 07:22, 
+Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com wrote:
+> From: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+> 
+> Add configure_rx/enable_stream/disable_stream to struct csid_hw_ops:
+> per-stream hardware operations needed to support the V4L2 subdev
+> streams API, where the CSID Rx front-end is configured once
+> independently of the per-stream RDI programming.
+> 
+> No functional change: these are new optional hw_ops entries, not yet
+> implemented by any backend or called by any code path.
+> 
+> Signed-off-by: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+> ---
+>   .../media/platform/qcom/camss/camss-csid.h    | 43 +++++++++++++++++++
+>   1 file changed, 43 insertions(+)
+> 
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
+> index 5296b10f6bac..90ee611b9092 100644
+> --- a/drivers/media/platform/qcom/camss/camss-csid.h
+> +++ b/drivers/media/platform/qcom/camss/camss-csid.h
+> @@ -74,6 +74,25 @@ struct csid_phy_config {
+>   
+>   struct csid_device;
+>   
+> +/*
+> + * struct csid_hw_ops - CSID hardware version specific operations
+> + *
+> + * configure_stream() is the legacy (non-streams-API) path and is mutually
+> + * exclusive with enable_stream()/disable_stream() - a given CSID instance
+> + * uses one family or the other, chosen by streams_enable.
+> + *
+> + * stream_id, as passed to enable_stream()/disable_stream(), is a hardware
+> + * RDI/PIX port index in [0, MSM_CSID_MAX_SRC_STREAMS). It is currently
+> + * always equal to pad - MSM_CSID_PAD_FIRST_SRC (multi-pad, 1:1
+> + * pad-to-port mapping).
 
-Fix the situation by making sure SR2 reads just return 0 if
-unsupported. This is safe since there is no chip with a write SR2 path
-but no read SR2 path (which is now enforced in the SFDP parsing step).
+Lets not mix and match names. There has historically been a huge amount 
+of sin and liberty taken, not the good kind unfortunately - with port_id 
+and write-master.
 
-This way, callers still do not have to care about the internal device
-capabilities. Calling sr1_and_sr2 read/write helpers is safe in both
-directions (not risk to get a spurious error). The behavior for SR1-only
-chips is respected, the complexity in the core kept to its minimum.
+port I believe is the misnomer we are currently stuck with - so lets 
+continue to use it until a more crisp naming convention happens.
 
-Reported-by: Jon Hunter <jonathanh@nvidia.com>
-Closes: https://lore.kernel.org/linux-mtd/178876719232.3543902.14451625037676421254.b4-ty@b4/T/#m5bc4ba6776436f2870ced0eb5789d229037ad840
-Fixes: 63489002d397 ("mtd: spi-nor: Refactor Read Status/Write Status support")
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
----
-Changes in v2:
-- Change the approach, see v1 thread below.
-- Link to v1: https://lore.kernel.org/r/20260911-perso-fix-spi-nor-qe-mxic-v1-1-fd6d91416a2a@bootlin.com
----
- drivers/mtd/spi-nor/core.c | 8 ++++++--
- drivers/mtd/spi-nor/sfdp.c | 3 ++-
- 2 files changed, 8 insertions(+), 3 deletions(-)
+> + *
+> + * configure_rx() is called once, on the transition from zero to non-zero
+> + * active sink streams, strictly before the first enable_stream() call.
+> + * enable_stream()/disable_stream() calls are always made under the
+> + * subdev's active-state lock (core-enforced via
+> + * v4l2_subdev_enable_streams()/disable_streams()), so hw_ops
+> + * implementations don't need their own serialization.
+> + */
+>   struct csid_hw_ops {
+>   	/*
+>   	 * configure_stream - Configures and starts CSID input stream
+> @@ -81,6 +100,30 @@ struct csid_hw_ops {
+>   	 */
+>   	void (*configure_stream)(struct csid_device *csid, u8 enable);
+>   
+> +	/*
+> +	 * configure_rx - Configure the CSID Rx front-end
+> +	 * @csid: CSID device
+> +	 *
+> +	 * Called once, when the first stream is enabled.
+> +	 */
+> +	void (*configure_rx)(struct csid_device *csid);
+> +
+> +	/*
+> +	 * enable_stream - Enable a single CSID output stream
+> +	 * @csid: CSID device
+> +	 * @stream_id: stream id to enable
+> +	 * @vc: virtual channel to program
+> +	 * @dt: data type to program
+> +	 */
+> +	void (*enable_stream)(struct csid_device *csid, u32 stream_id, u8 vc, u8 dt);
+> +
+> +	/*
+> +	 * disable_stream - Disable a single CSID output stream
+> +	 * @csid: CSID device
+> +	 * @stream_id: stream id to disable
+> +	 */
+> +	void (*disable_stream)(struct csid_device *csid, u32 stream_id);
+> +
 
-diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
-index e2b6efafdd8d..7bb197df5585 100644
---- a/drivers/mtd/spi-nor/core.c
-+++ b/drivers/mtd/spi-nor/core.c
-@@ -849,7 +849,8 @@ int spi_nor_read_sr2(struct spi_nor *nor, u8 *sr2)
- 
- /**
-  * spi_nor_read_sr1_and_sr2() - Read SR1 then SR2
-- * General purpose helper.
-+ * General purpose helper, always safe to call. Will expectedly ignore
-+ * SR2 on certain chips.
-  *
-  * @nor: the spi_nor structure
-  * @sr: pointer to a valid 2-byte array
-@@ -864,7 +865,10 @@ int spi_nor_read_sr1_and_sr2(struct spi_nor *nor, u8 *sr)
- 	if (ret)
- 		return ret;
- 
--	return spi_nor_read_sr2(nor, &sr[1]);
-+	if (nor->params->opcodes.read_sr2)
-+		ret = spi_nor_read_sr2(nor, &sr[1]);
-+
-+	return ret;
- }
- 
- /**
-diff --git a/drivers/mtd/spi-nor/sfdp.c b/drivers/mtd/spi-nor/sfdp.c
-index c21a6953db96..641f17ad51a0 100644
---- a/drivers/mtd/spi-nor/sfdp.c
-+++ b/drivers/mtd/spi-nor/sfdp.c
-@@ -656,7 +656,8 @@ static int spi_nor_parse_bfpt(struct spi_nor *nor,
- 
- 	/* opcodes sanity check */
- 	WARN_ON(!params->opcodes.read_sr1 ||
--		(!params->opcodes.write_sr1 && !params->opcodes.write_sr1_and_sr2));
-+		(!params->opcodes.write_sr1 && !params->opcodes.write_sr1_and_sr2) ||
-+		(!params->opcodes.read_sr2 && params->opcodes.write_sr2));
- 
- 	dword = bfpt.dwords[SFDP_DWORD(16)] & BFPT_DWORD16_4B_ADDR_MODE_MASK;
- 	if (SFDP_MASK_CHECK(dword, BFPT_DWORD16_4B_ADDR_MODE_BRWR))
+Seems odd that none of these have integer return types to propagate errors.
 
----
-base-commit: 700bf34058ca7cd792236b1ba5caad3770d66208
-change-id: 20260911-perso-fix-spi-nor-qe-mxic-d0513e9f4421
-
-Best regards,
--- 
-Miquel Raynal <miquel.raynal@bootlin.com>
+>   	/*
+>   	 * configure_testgen_pattern - Validates and configures output pattern mode
+>   	 * of test pattern generator
 
