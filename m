@@ -1,114 +1,193 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mta0.migadu.com (out-97.mta0.migadu.com [91.218.175.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B60004119E0
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:28:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 555F93603DB
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:30:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789118927; cv=none; b=KyqWEpix0AkkkcW+TJHyxqthTu1bL1NKhvdpbwiaihsed8N3P/vP26gbIg4rbsgx9VzM0lYzXVMoMm0RJMoAWV/ddXDH9AdVYkH8ifBW/Y9ER2zNyzKtYlvTR/GH8ZK8SskAQvE5o2icVVgIOTfgJz+k7bdaOSvsAfyyrul1fOU=
+	t=1789119025; cv=none; b=c0rLf1R9LiT+wd73T3iAQUlpDkc+9MkV7JStwCuvYnPz3ENfrOwjKaRrtBxt6yz9yjo/BbL+hni+e5Ns0dvn3kkJ95RYl7a99QS3QPKsZJSTbuosUfAnzCkkDxupTWIM91Iiw/6DzGQu98A/mJN0tPHuHbm5p5djfR6Sar7mPuM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789118927; c=relaxed/simple;
-	bh=6SidIVM2VhXxSqtPqbCE9i/tqnPHI8JtRxVo4q8INdY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=IdEXA/HDzpLFRUXw/RjEJqxeJnIL6pB02kT/ehzC5xGq1J8+hqaJkTAhp4mPKf2NQImtT3Vw4GPAxrFltIG9cpynn9DGZg3x/xYIEdyDx3LKLaNmwCGY+bgbQUcKjnHinUf+bDgsyqRa2ITGhd5L3XseF8KF0W2syxeIV/Z8iJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=NWQUDG23; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789119025; c=relaxed/simple;
+	bh=UgDP47cPkmBb/mueTtjUDjQ+T7ZjtzXnEDLcKSfkTG0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=La5EcICMqyWuc7RlN5qsA+z9jEYqZygoi/OalCem9BM9FTNSEthAAEiigzX3SJ9t23qr1m2KINzjsMGhbmCt0Khf7qKA9Sp5LFcHKBosSsgB1gVaFt0Gy1h1koqy8UCRbwgAm1FwUEx2dMc/Z6SO40ReGCWRkYcRORozNvbFuZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YMfmpQu9; arc=none smtp.client-ip=91.218.175.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="NWQUDG23"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d0e19300cso3488955e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:28:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789118923; x=1789723723; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AQwqbXwJzJUEnBnzBsi0ka1PwipDEMcTOXIfYajspX8=;
-        b=NWQUDG23O6WOp9oPryh7MMYkMP92Kiq0A+Z3D3Y/dpQgJ1F2VoPI1FSDmGaRHRcX2a
-         jazybtr0BmRS9q1Xylm0TsW0niyc8LGX5zePgj1JXcaqeL9Lb2AxexfZKRZmNN2w6/Ob
-         AQvrbqLW3QMsugmHeWCWzzXCWYk2SLCNyIU7mmRCyiS25428uFwJ2Nt4IkIcMi7ECq0o
-         crs4IXRjITJz6wPkwogf6dqD2JIlPY6E+rLun3B4mPnr0pQA52dzvoK1MvRz05qz5qTi
-         4HFeLdPSfNyTyqQ9rokoS8qlHSOCB5D5CklHZC3RhdCIFnKzUdlzdvISaf01tPpIbdnO
-         voIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789118923; x=1789723723;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AQwqbXwJzJUEnBnzBsi0ka1PwipDEMcTOXIfYajspX8=;
-        b=lcNqgVoUiAjHziVZf6fMzNKZUoKvi5ciKg4DfoN70w5QGSwwxmZ44zsKUlFqPp+8/F
-         YVj3D/hUA/GnLldvjF45wWhCsd4UJxqGc+Js3cGs/rxAV/LdIgEqckgbsmGUNocQB2Zo
-         fMxvBDcnGoNQSD/8urwvth67Ljopt/m5/5xxRp4BoxGALW8GbiPMcx+6XdFOI7FmxvPf
-         7T3Vj9fccOGqNz4Ru8W/XiaT5/YeiLwYgAWF2/OQ13aSjGcBTyEXJiuOVeDmBWuw+mRP
-         576MSAlNQZv3ln4JSj5+0imfArJNZ/oriPjKoVUDyAD1LfttQ5EoAnOZshzp3kwVPNq4
-         8FDg==
-X-Forwarded-Encrypted: i=1; AKwUvBwNlCPcmAl0/n+i7h76CSiuMDc4kobXIjUzwKWnjkcoQm2mqMhBaOP6zubepnZ90kFo15WsbpYuOn+IOFE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kkNNQqEJ0SbTlH5vixHGbtiiibKkwB/Xrh7XFyaZb9zDAq2MCY
-	2Wspxpk9ktMUcPkdpGnl+Y9YBFc0oI3Y+MMfQRObm1MoIOKBgfiDH8p2xMuAC/Guf0Q=
-X-Gm-Gg: AYBFou1ec9ilv8owImxutlh8Hxwsg0pZ7PA2YB3RZevVRyZoyz7dSrAj6I+YbVokwHw
-	ytk3/Hn+LNkx6sX1kKuDKYx6jhPwoFBfSoFmABhjCOxIZLy4MOgIFgqKXxb1I9WV8Qh9f+SZboD
-	eO8At6W1YQ88uViYdRUbz/qLtu69eULTAf8IeHbJDt0jHDW+Xbs0LtkEoKQAUOvJAZtaCXf3yuu
-	PxMHt0ECwulob5i7svWWx+Tk3aHIS+eDvINtpHzspHq62p3qYYLpx2m8uBo0U7pUbaS4/kBjW2S
-	nKVHWQzSF45QBzAT689mTfW0aDLQSD2L04WAgOtZtVIzyRirqphEpRq+yVVXdQMac3cpEuhtpAR
-	3s1vK4l0PvGHbgf9YPCUUs6hq6gZrNxxjVDsyASbzxZXZAHChxBoRnG9/JYlMc5DyNEn3K0+1gI
-	clGLzERRyO/EunvPVED5nV9HIQKWHYYN6VMGXBNhIU8YKreobQUvEivyCSgMW8qIFU9q/nUC+HM
-	quSDb38YbP0bnR7FbtHgHeDY8Dp
-X-Received: by 2002:a05:600c:3ba9:b0:49c:fa21:e73e with SMTP id 5b1f17b1804b1-49e619c0558mr44117805e9.20.1789118922855;
-        Fri, 11 Sep 2026 02:28:42 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60ababd5sm83052575e9.4.2026.09.11.02.28.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 02:28:42 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Andre Przywara <andre.przywara@arm.com>, Enzo Adriano via B4 Relay
- <devnull+enzo.adriano.code.gmail.com@kernel.org>
-Cc: enzo.adriano.code@gmail.com, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu
- Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel
- Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, Ulf
- Hansson <ulfh@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org
-Subject: Re: [PATCH 3/4] arm64: dts: allwinner: add Allwinner A733 SoC
-In-Reply-To: <20260911001805.0a2e033d@ryzen.lan>
-References: <20260613-a733-dts-v1-public-ready-v1-0-7787c94681db@gmail.com>
- <20260613-a733-dts-v1-public-ready-v1-3-7787c94681db@gmail.com>
- <20260911001805.0a2e033d@ryzen.lan>
-Date: Fri, 11 Sep 2026 11:28:36 +0200
-Message-ID: <1jo6e46ssb.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YMfmpQu9"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=UgDP47cPkmBb/mueTtjUDjQ+T7ZjtzXnEDLcKSfkTG0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789119020; v=1; x=1789723820;
+ b=YMfmpQu9UOHhUSiwGv7ncD+te0xt50UVCoLpbVMSpwkU/VmgzbTVGoR0JD5Bj1uvnbDqySq/
+ GiMGlW6pGZjjF/5DVGRo1W+B0PFDGwfIl4bV6p82rK/KiS8ntNo69It7WfK5eRkMEZyAN9dmIx4
+ zDZD+RQ+Y5IBFWmZjBfy1Vxc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b64bfc29917c1b89;
+	Fri, 11 Sep 2026 09:30:03 +0000
+X-Mizu-Trace-ID: b64bfc29917c1b89
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c0a15bf9-0922-42a7-b2a9-d7eff50669a5@linux.dev>
+Date: Fri, 11 Sep 2026 14:59:57 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next v2 03/13] bpf: track low-32 scalar equality
+ across zero-extending movs
+To: bot+bpf-ci@kernel.org, ast@kernel.org, daniel@iogearbox.net,
+ andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com
+Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ martin.lau@kernel.org, mason@kernel.org
+References: <20260910164635.459558-4-vineet.gupta@linux.dev>
+ <ad011852b5532901853fbc1c16d5a27d50231065dad9b1e4bbfee1c02b4735e5@mail.kernel.org>
+From: Vineet Gupta <vineet.gupta@linux.dev>
+Content-Language: en-US
+In-Reply-To: <ad011852b5532901853fbc1c16d5a27d50231065dad9b1e4bbfee1c02b4735e5@mail.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On ven. 11 sept. 2026 at 00:18, Andre Przywara <andre.przywara@arm.com> wrote:
-
-> And what about I2C? We would need that for the AXP PMIC. Having that in
-> the initial DT is required to keep the DTBs compatible with older/stable
-> kernels later on.
+On 9/10/26 11:22 PM, bot+bpf-ci@kernel.org wrote:
+>> @@ -17115,6 +17126,23 @@ static void collect_linked_regs(struct bpf_verifier_env *env,
+>>   	}
+>>   }
+>>
+>> +/*
+>> + * Set @reg to the zero-extension of @known_reg's low 32 bits: it shares those
+>> + * bits and its high half is zero. Copy the base to keep its precise low-32
+>> + * tnum, then re-apply the zext_32_to_64() the 32-bit mov itself used.
+>> + * @reg->id and ->delta already equal @known_reg's; only ->subreg is its own.
+>> + */
+>> +static void reconstruct_zext32(struct bpf_reg_state *reg,
+>> +			       struct bpf_reg_state *known_reg)
+>> +{
+>> +	enum bpf_subreg subreg = reg->subreg;
+>> +
+>> +	*reg = *known_reg;
+>> +	reg->subreg = subreg;
+>> +	zext_32_to_64(reg);
+>> +	reg_bounds_sync(reg);
+>> +}
+>> +
+>>   /* For all R in linked_regs, copy known_reg range into R
+>>    * if R->id == known_reg->id.
+>>    */
+>> @@ -17134,6 +17162,27 @@ static void sync_linked_regs(struct bpf_verifier_env *env, struct bpf_verifier_s
+>>   			continue;
+>>   		if (reg->id != known_reg->id)
+>>   			continue;
+>> +		/*
+>> +		 * A ->subreg register shares only the base's low 32 bits, so it
+>> +		 * is rebuilt rather than copied. Not modelled together with a
+>> +		 * delta, so skip if either side has one (sound, less precise).
+>> +		 */
+>> +		if (reg->subreg) {
+>> +			if (reg->add_const || known_reg->add_const)
+>> +				continue;
+>> +			reconstruct_zext32(reg, known_reg);
+>> +			if (e->is_reg)
+>> +				mark_reg_scratched(env, e->regno);
+>> +			else
+>> +				mark_stack_slot_scratched(env, e->spi);
+>> +			continue;
+>> +		}
+>> +		/*
+>> +		 * The reverse: known_reg knows only its low 32 bits, which say
+>> +		 * nothing about reg's high half.
+>> +		 */
+>> +		if (known_reg->subreg)
+>> +			continue;
+>>   		/*
+>>   		 * Skip mixed 32/64-bit links: the delta relationship doesn't
+>>   		 * hold across different ALU widths.
+> Can reconstruct_zext32() lose bounds that reg already learned on its own?
 >
-> And it seems like the whole r_ side is missing, even those we should
-> have bindings for those. At least r_pio and r_ccu would be needed, plus
-> r_i2c.
-
-I have sent the i2c binding but it did get picked up.
-
-https://lore.kernel.org/all/20260707-allwinner-a733-i2c-compatible-v1-1-566340542bdd@baylibre.com/
-
-It is a marvell ip and I used b4 to send the change. I did not notice
-until now that the sunxi list was not Cced. I'll re-sent it
-
+> Looking at the code, reconstruct_zext32() does:
 >
-> Cheers,
-> Andre
+>      *reg = *known_reg;
+>      reg->subreg = subreg;
+>      zext_32_to_64(reg);
 >
->> +	};
->> +};
->> 
+> This overwrites reg's state wholesale without intersecting it with what reg
+> already knew.
 >
+> For pre-existing full-64-bit links, sync_linked_regs() propagates changes
+> in both directions, so the base is always at least as narrow as every
+> member and the overwrite can only narrow. But the new low-32 link skips
+> the member->base direction:
+>
+>      if (known_reg->subreg)
+>          continue;
+>
+> so the base can end up strictly wider than the ->subreg member.
+>
+> Consider this sequence:
+>
+>    call bpf_get_prandom_u32;    /* r0 -> 64-bit unknown */
+>    r6 = r0;                     /* r6 is 64-bit unknown */
+>    w7 = w6;                     /* r7->id = r6->id, r7->subreg = SUBREG_ZEXT */
+>    if w7 > 7 goto out;          /* fall-through: r7 u32 range [0,7]
+>                                  * sync_linked_regs(known_reg=r7) skips r6 due
+>                                  * to `if (known_reg->subreg) continue;`
+>                                  * so r6 stays fully unknown */
+>    if r6 > 100 goto out;        /* fall-through: r6 narrows to [0,100]
+>                                  * sync_linked_regs(known_reg=r6) reaches r7
+>                                  * via reconstruct_zext32(r7, r6) which does
+>                                  * *r7 = *r6 then zext_32_to_64() */
+>
+> After the second jump, does r7 become [0,100] instead of staying [0,7]?
 
--- 
-Jerome
+Yes it does and that's a problem.
+
+> If so, a jump on an unrelated wide register would widen the bounds of a
+> narrow copy that the verifier had already proved tighter, on a
+> straight-line path. That would reject programs that narrowed the 32-bit
+> copy first and the wide original second, then relied on the copy's
+> narrower bound for a memory access or helper argument.
+
+Right, sound, but loss of precision.
+
+> The changelog acknowledges the other precision loss this patch introduces
+> ("forming one costs the source its delta ... That loses tracking a wide
+> source used to keep") and the follow-up selftest commit 36b84852a200 pins
+> it down with zext_mov_breaks_add_const_src. But neither the changelog nor
+> reconstruct_zext32()'s comment ("Copy the base to keep its precise low-32
+> tnum"), nor any of the 10 new tests in 36b84852a200, mentions or covers
+> this path. The only test that checks the member's fate is
+> zext_narrow_dst_keeps_base, which verifies the base is not narrowed but
+> does not check what happens to the member afterwards.
+
+Ok. zext_sync_keeps_narrower_member() added and same for sext variant as 
+reconstruct_sext32 gets similar fix.
+
+> Would intersecting the rebuilt state with the member's existing one,
+
+This one.
+
++       cnum64_intersect_with(&reg->r64, prev.r64);
++       cnum32_intersect_with(&reg->r32, prev.r32);
++       reg->var_off = tnum_intersect(reg->var_off, prev.var_off);
+
+> narrowing the base's low half on the member->base direction instead of
+> skipping it, prevent the member from ever being wider than what it already
+> proved?
+
+This is a new propagation path, trying to be conservative here.
+
+Thx,
+-Vineet
+
+> ---
+> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+>
+> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34506184282
+
