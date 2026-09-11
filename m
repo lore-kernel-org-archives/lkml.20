@@ -1,123 +1,54 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF7D3AEF51;
-	Fri, 11 Sep 2026 09:51:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D193839BD;
+	Fri, 11 Sep 2026 09:52:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789120286; cv=none; b=Ja8U//zMjFp5p87lXHgXj0mZJ2cbXYymmDsQlPe7bEzTb5lPTjtW8rkXDlaWnfGk8DLSidLyHikXnS4Srd+jkuXLH4uso/7adwt+LwSEFxYnAUfWvnVlWBQxxuFOAHdg5SyXpTU43JK+dTuaiQsHUi+CxS6L9YF04PXykMEJwok=
+	t=1789120327; cv=none; b=t7NL1DjF2dJ7Pnm73SnSQ7NrnU5rizk/uoY0DVFmgr5CTxccfn99E9nsknpY0VQaaVohJOJDqlo+CSRsm1E2tvbJVxWzrFt6xRUpGbHn7tb+5jFSQiY2XLqY4QpTDt2HaXaEKLjc0+TGVe5iwD8lowjxSiiMfGSwPDLOyXL/iUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789120286; c=relaxed/simple;
-	bh=AB4HvI5yH8f134zmYFHs6P/e97IQEZB73uyMnHjSy84=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=oV64DVG7qF1AqU24EYGUiBdwX3srtD8NxxoQTB2O10ay+jVd+wurYBh2LFsIGwhlxuHGC2iLnnMYZHilw3fsc1CxuFLUYfMWiaDwSj05/O+vIgsB93usVvc5oWRhFFCPOOLZro3fnNOFSS1/3HxMLSXmbXGAiB/2Lju3YFKhRf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=a4AKDLgx; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1789120327; c=relaxed/simple;
+	bh=tM7YVsthjLT/sRLo5quitFBK1dgegfuq0mjyP5R4MWg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kp2nV9CKeIaRAen97OcqZd3y9HdCd/pnfNzxkKPJTECGXFz69HC5AAkMn2ujA9fB5/2mMqZc/0nERJAJ6CTEQqTGVTVUMjBbEIa8SEpeVyQrb1i2YsYHGRVzjHk2CyvalZOfCcAyLLIgcoS2QEpej0HCZan5AWK3G65u6rI809I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jGU7lQXH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="a4AKDLgx"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 13D7CA91E5;
-	Fri, 11 Sep 2026 11:51:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1789120274; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=WxltCiMmZCVVD/wZemNpAc0sPf2VHFiHQIPln3Gt0OI=;
-	b=a4AKDLgxsreyUu28KpBr9dW7kD7JMIMgACDD9QZheDQES1rRbPa2EE1gTsTmdMSAttxFP/
-	zEhGG9autKMP+UG3XXjoWdbsr4SNDNYjxpATCr8atWxzW4y3pnFQxXIKpOqhYdvCPn+Krn
-	+/qBmUBx0X1Lt+X7qOFU616D5Q+HhM8thMv0r9vFpvc3yd5e4BxENusBhVxjoUxndAsWZ6
-	C/DxT2sCU3seS1V7d/nxn2S6NrhM+IayWWHgrtUUbZAGQHvPdwnDPEMqPRYeZhw/EKMQ5i
-	N2c7w1txfJD6m98Htutw38r8qtC3Lr+Z13Eh7FjqOMTWB+e2E48eLEPibSVtGA==
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jGU7lQXH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76B781F00893;
+	Fri, 11 Sep 2026 09:52:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789120324;
+	bh=avFKwm0rNcTlSgtIyUFbPzpfJLuvC9WpoKomTZDOxUk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jGU7lQXHlB8r6lLIDeuFwWpqdkIfyAkQllCumocQYa7QZKhIQevjZMSlf3ja94zrx
+	 nAuN5AB0V/CtQGTrpydFnKyPDSMnRjhCRWPe8FX5G7G1iXsVCPDLi+82BdMaAYQVyo
+	 bo23J9p2ccpgg1NpAmGPilsVpS0eo24aLLMKbuJY=
+Date: Fri, 11 Sep 2026 11:51:54 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Johan Hovold <johan@kernel.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [GIT PULL] USB serial fixes for 7.3-rc3
+Message-ID: <2026091146-sermon-earful-7faa@gregkh>
+References: <aqPMDHBQ8bUm-Ohg@hovoldconsulting.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 11 Sep 2026 11:51:07 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: kimwooseok <5mghybrid@khu.ac.kr>
-Cc: netdev@vger.kernel.org, theo.lebrun@bootlin.com,
- conor.dooley@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- richardcochran@gmail.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net RESEND 1/2] net: macb: Preserve one-step mode on
- rejected timestamp requests
-In-Reply-To: <178911388614.25348.8892025153904636456.macb-resend-1@khu.ac.kr>
-References: <178911388592.25348.177462085059763031.macb-plaintext-resend-cover@khu.ac.kr>
- <178911388614.25348.8892025153904636456.macb-resend-1@khu.ac.kr>
-Message-ID: <6928c282c12e03e4487f75afef4f0080@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqPMDHBQ8bUm-Ohg@hovoldconsulting.com>
 
-Hi Kimwoo
+On Fri, Sep 11, 2026 at 11:38:20AM +0200, Johan Hovold wrote:
+> The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+> 
+>   Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/johan/usb-serial.git tags/usb-serial-7.3-rc3
 
-On 11.9.2026 10:04, kimwooseok wrote:
-> gem_set_hwtst() programs NCR.OSSMODE while processing tx_type, before
-> validating rx_filter. An unsupported receive filter can therefore cause
-> the operation to return -ERANGE after changing the active transmit 
-> mode.
-> The cached configuration is not updated, so a subsequent SIOCGHWTSTAMP
-> reports the previous transmit mode even though the hardware has 
-> changed.
-> 
-> For example, configure HWTSTAMP_TX_ON with HWTSTAMP_FILTER_ALL, then
-> request HWTSTAMP_TX_ONESTEP_SYNC with HWTSTAMP_FILTER_NTP_ALL. The 
-> latter
-> request fails but enables one-step synchronization. The reverse
-> transition can clear one-step mode despite returning the same error.
-> 
-> Defer programming the one-step mode until both the transmit type and
-> receive filter have been validated. Rejected receive filters then leave
-> the active transmit mode unchanged.
-> 
-> Fixes: ab91f0a9b5f4 ("net: macb: Add hardware PTP support")
-> Assisted-by: GPT-6 Astra
-> Signed-off-by: kimwooseok <5mghybrid@khu.ac.kr>
-> ---
-> Resending as plain text because the previous webmail submission 
-> included
-> HTML and quoted and rewrapped the patch. No code changes; the 
-> Assisted-by
-> trailer now names the tool.
-> 
->  drivers/net/ethernet/cadence/macb_ptp.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/cadence/macb_ptp.c 
-> b/drivers/net/ethernet/cadence/macb_ptp.c
-> index e5195d7..51659bb 100644
-> --- a/drivers/net/ethernet/cadence/macb_ptp.c
-> +++ b/drivers/net/ethernet/cadence/macb_ptp.c
-> @@ -418,11 +418,9 @@ int gem_set_hwtst(struct net_device *netdev,
->  	case HWTSTAMP_TX_OFF:
->  		break;
->  	case HWTSTAMP_TX_ONESTEP_SYNC:
-> -		gem_ptp_set_one_step_sync(bp, 1);
->  		tx_bd_control = TSTAMP_ALL_FRAMES;
->  		break;
->  	case HWTSTAMP_TX_ON:
-> -		gem_ptp_set_one_step_sync(bp, 0);
->  		tx_bd_control = TSTAMP_ALL_FRAMES;
->  		break;
->  	default:
-> @@ -460,6 +458,11 @@ int gem_set_hwtst(struct net_device *netdev,
->  		return -ERANGE;
->  	}
-> 
-> +	if (tstamp_config->tx_type == HWTSTAMP_TX_ONESTEP_SYNC)
-> +		gem_ptp_set_one_step_sync(bp, 1);
-> +	else if (tstamp_config->tx_type == HWTSTAMP_TX_ON)
-> +		gem_ptp_set_one_step_sync(bp, 0);
-> +
->  	bp->tstamp_config = *tstamp_config;
-> 
->  	if (gem_ptp_set_ts_mode(bp, tx_bd_control, rx_bd_control) != 0)
+Pulled and pushed out, thanks.
 
-Reviewed-by: Nicolai Buchwitz <nb@tip-net.de>
-Tested-by: Nicolai Buchwitz <nb@tipi-net.de> # Raspberry Pi CM5
-
-Thanks,
-Nicolai
+greg k-h
