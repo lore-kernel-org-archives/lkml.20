@@ -1,242 +1,188 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013062.outbound.protection.outlook.com [40.107.201.62])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54557346E5E
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:49:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.62
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E80E83CB544
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:50:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.226.204
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789152590; cv=fail; b=Q23fmc4H7Tx7W7QOer5gIr6C9pfQPismb4FDmWUsz/TJv+gyMwSjgSw586DTitHViJsW0TDUrjnw/2wmhWrKh6gRD7foGPBlEFoK0TauIcH4nyV03TyK1UW3XFhPOn3mkGvaEqIH3/zRxAE4pxvZw7PVHXFwJluHqMmtCLCHyoc=
+	t=1789152632; cv=pass; b=WyZVssTphqAwG9koO8vUULd26Ao9GZceR8RTpaEUq1U5jDlS8kCbvjuajLv8v37R9blz56AcMAWbNakr8iYnDnvMtfhraAL9WNr450MlfJ8vldd3yrqbjhocTWanzW7M76IBBfjXDuisEN0y/h8G1KFCYqnHSZpT1eMsOLmgIxg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789152590; c=relaxed/simple;
-	bh=05ErBcxee59ktkKHAZ9xwQO59cnjm00S7UKbnbge0PQ=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=H+MHL15uX15JAd81PdgiJIzDHhPF7lXpvV1HJ74kzSVTpRa3B9tgn/O3HtHSb26A6Q5MRNpayXvLOm2V5P11p1zyNOFUpvD6G9VVeiEJ+9WtsPxF1zcKGHrh9A3LjjxEvtJGAD4JT7lgFAgQTZDct/BdWUMCEeSGthHb3lHgFmU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ob8US9L6; arc=fail smtp.client-ip=40.107.201.62
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1789152632; c=relaxed/simple;
+	bh=3KvOhxNm0CE5YxCoN9gJrLaYGWlZurxjm2gpi9Iw+PA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FUD4/8FbNkJeOcluBW+zOK74yNyq/BGS6jDfL9pCrvxxiYNVexo4uOe4s76Or1Wez6NyWR99T8p27LI1cVZkJ04q+yHEfuyjNA3JCHxQm4I7JBhKvqD3TftKyXqHu1FhHPZ/C7LNg2ooCEubc4sbEA991EbgvB9vEAjwLdC4aTY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pZcloMXJ; arc=pass smtp.client-ip=74.125.226.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ob8US9L6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MRJyXr4BfJnZ7qeX8a4o4nXeLK+AYcX4WghyZxmf/SjzlcADjO0txbcVHFRqHe1zMoW/dOBmthUDDTz9vXeLoptFlgPvUHCXl1IRBX1aXPYn6ePidNrymyEpFWHztar9WVs8/ObBXvdEWjUcXPddCRlnRx0lHs2Mg2g/Juj7A+GW6PS5un2SPBsTMs9qNl2uNS8FeBOtC6izwI7QBY2R8bWO1/hvfywfpzijGpQ0t056+l2pj8U/FdjevzzfMgd5ekLPjU26E09eFAj3h4qapkHTi1r7lZ/KqGijsDJ4uiX5+tV7GHlTbGHRPeMoTDitq0qydpJXEvj4mYylnlnLsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2urd8YlFWk2AmcLUkLmCK2OxZz9NbU3l1yn41htywU8=;
- b=u/vGpK6mP9b87w1O0lL2l9SsKCUVZKWQDHdPSLaP/D46qZHT9halJ0jo6xwVabGZjCyOOKj/+5o8Mxt55IQGfu0piOO6Wr2nL+tNx9y+CXDppCdWfn8UVOoK+xpEwdAUN0a2hNcljvBgyKefFc/25/k66z5Gka64oecGdRN12/YIMCgt/UHrux0CVuufXrD+EiSUMl5Qk9XmPbFX/O+ajgzE0uKWq/uGnLArFyyW/pLVsxmtQPfqC3RQrS3DWG4hoBKDe2ySgMXshensY/9qR7cAjpAX6eO176tQvpWIEyBs64UU4HQKTKTRbKSB4V8e/yFXNI9NmK1tKOZ3DC8Ecw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2urd8YlFWk2AmcLUkLmCK2OxZz9NbU3l1yn41htywU8=;
- b=ob8US9L6qnglWKkXT8tt1oTWbNnKbXjrUiDx2RHf+3PCWOH6DQj7nHRqyRNclmsCKsHYVJ/LS4v22zDTwk8l9W8Su6/m4kvOVGCe3xqdt4zQl/R05fJqff1rqYdPzmd6inRrnQiOwmLUyWRvZe78AvAjlrIYkZo6jnXsPtRdIi8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS5PPF18A985A10.namprd12.prod.outlook.com
- (2603:10b6:f:fc00::645) by CH3PR12MB9731.namprd12.prod.outlook.com
- (2603:10b6:610:253::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Fri, 11 Sep
- 2026 18:49:44 +0000
-Received: from DS5PPF18A985A10.namprd12.prod.outlook.com
- ([fe80::2359:d8c:c779:471a]) by DS5PPF18A985A10.namprd12.prod.outlook.com
- ([fe80::2359:d8c:c779:471a%4]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 18:49:44 +0000
-Message-ID: <5ce8f51c-1f91-420a-ab3f-7b10b4c73ae3@amd.com>
-Date: Fri, 11 Sep 2026 14:49:42 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Try RGB before YCbCr 4:4:4 in stream
- validation
-To: Adrian Betschart <adrian.betschart@cinemaone.ch>,
- amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Fangzhi Zuo <jerry.zuo@amd.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Adolfo Rodrigues <adolfotregosa@gmail.com>
-References: <20260911151314.66957-1-adrian.betschart@cinemaone.ch>
-Content-Language: en-US
-From: Ivan Lipski <ivan.lipski@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20260911151314.66957-1-adrian.betschart@cinemaone.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0111.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:83::16) To DS5PPF18A985A10.namprd12.prod.outlook.com
- (2603:10b6:f:fc00::645)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pZcloMXJ"
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e80579b7dso83273241.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:50:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789152630; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SWYhtO5YpCy1qNkD6Ut1V7EaVGUlj8DhtgPfvKB6jwFC+lrMZbYscmpH/3n46/oVtR
+         a11BjXDInh8WaRv6zbs9cCQm43Aq9XB7XASGXQWNKsSURGBlrpY3uXM6GTHWc+dz1Go0
+         74OUsy/By66RNuIyAAAZY1/pu7evSOR/rnFRovOCim/kh77HuIQ02PaWyuPpOkIHMWrC
+         SUlNEEHQNy/C+bgOmLD2h+yp/Y1OzBaQAJpY9Cq/oBIbu5fAG4R02RQqfbIomyQ+rCpr
+         gRfypMnDAHbtd3ik+9e8vfzZaCFz9N3css/CrGs7dCzwoYRsUeesWlvyOoNsTKP3cmzq
+         KNag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=k7Ebif+V/8GnwYOzbevbeoMta8WL2O5tmRjG7YpGVGM=;
+        fh=MikuCCyhqdGn0hyBfSXxfHflSbeD0xYQ0hjhhBPwXFY=;
+        b=npKWq2QKm+SDoWqABT9H+IfDNTXLI8hN3XpGBMVtSj85tQXSHYrUhkBSWR1Nv3z6xn
+         F3KxA0I/TlYIMPlamVCHzfypsRhwPW2bNxqVN4JXTK75fItNQAIvWJm8+07hnTrA6BTt
+         CJnKk/23V0qxTIb7V2B7/Ppg2L7U3nRD9KQ1++ygs1JXvxvYnZyh0ohXNPt5uK86XHWl
+         TnDuX3QqAm0ceS8p5nUgiQ5SGgRHU2N2Fsc0Oor/4KSDNRIWyo2fquQE9WDZlTULTuzu
+         HzUiibuIebXh9iAd6XYyeTTDS6UCSAPCpbWy7EKkOTaCJ9wDOE5lcA5UTKj90i4LNiAR
+         hF6w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789152630; x=1789757430; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=k7Ebif+V/8GnwYOzbevbeoMta8WL2O5tmRjG7YpGVGM=;
+        b=pZcloMXJ5cYBatjZ7UI3RpDFcwmwg/j9oB5lzU+swftc6TNlFcEov+VFfK4BO52FGB
+         ea0TL+hj+TrhIap2vr0AHzjV1UCYIrobL9mzh/UqGlAWxwAkUVtaSwLyJ2fwj9vLcL3i
+         UQ/lvWkSKfYryv8fQvZf4CFIpzNXCgZ0bbCVxT1xOC+2XcKn1K5cRPGXciVb4RAHF3Wo
+         anIqJjnkGdB0c/Mehidmmgko4QPbwip5jGQZDCzdq3x6a0plD3E1O/rr0+Q8VpRGgAXj
+         p7XHn4eh7qikh9Gr7YJOIf9aduOA73ko6yu+NchWjQJn+1Knwazk1PFEqeVtN10++Pf7
+         lfVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789152630; x=1789757430;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=k7Ebif+V/8GnwYOzbevbeoMta8WL2O5tmRjG7YpGVGM=;
+        b=hBxXncUxYWLNWuOWlVGqSuuTj810VVi9BhSBNgpQDAQfGZmY+EklG/1XhOOYGpGDZK
+         vrxXZvlTwRhk0mO5vhBXd6HEUytKm1DtYqxTnsDfJBCCeF8GIXAMLdnSCPdOsETjQXtN
+         QnkdOgsUBNXJm3Ukucm5YS0x1cOt+3uXKjrhPjWmvajbLv94pzbgHVnxGZOifRUw1NfR
+         0x/NnPiw9G5P5tNEL9JUx9MJWkpg/2De+BPTYtI6M7f7ehneAAgn3d/NLkNUM5xB4ufO
+         HAOk+7ZBIVVZIHMItl7E4nyHDgJJ836CQdpAQInOlbDZrceyj1yUmOxxw4DQa31yNTZ/
+         JMNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwNULrVbb13GGC9axNKgpKWyKdC9mkD+q7ZglUraWFZaHXaVT855iVD5yzQO5/7ddvDikyQZsF0ZdFVOl8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mZrPjrtKui7ywQcLee6tMt4JoDbyapAnpspbLorU2WWCY9B8xb
+	7GIVixd0tfy3+vxP9h3/HEdXWv2jok8tQ/JWlNtflGqf4HX2WjPQVs2hmPtlcT2JNvP1X6xuY3n
+	d7pffkVRHi+CF00UQjO4hjmmjiustuDk=
+X-Gm-Gg: AYBFou05R36Tj0SxPceJKo7DcWqYlIDma+jESSbukMj1DeenB4TfT+aTz2zkKuCHOPb
+	ZIVtvGCrPHfovdz5fwpiz/vazKMTzJcWL3GdaA5K05mtnTPccQM5fHaI6FfN1sTA1W1gG3TVrHA
+	RqGhvx26vWfljoV6l9S2d2tlIRFeL6FpUM32ptAH8wN+kkIsxITmqiZTkPKOevXcIZNqOg+esk6
+	llHgFRFB7rRQzQ0+3BBHBdMhinwzvlUY5yO8njb1pGUkiOkrlG3tiN05tAjxtX6Y19/6/owAjcF
+	LHE+dOCxaPPqrPiwYNIHEeAAf+Eno/9E4XLBp2fpbGo0cWzTeGjCmnVFObjyJUwAN6/FeTMX2xM
+	Z7am9Rqc18wNDRwwelljgYE9nvBW7fzEndsVBbCCodYLgFA==
+X-Received: by 2002:a05:6102:330d:b0:783:f3bf:f9aa with SMTP id
+ ada2fe7eead31-792ac9e510amr2037393137.8.1789152629798; Fri, 11 Sep 2026
+ 11:50:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS5PPF18A985A10:EE_|CH3PR12MB9731:EE_
-X-MS-Office365-Filtering-Correlation-Id: 58291fea-f717-4fe2-b0fe-08df103571e4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|3023799007|10067099003|56012099006|11063799006|5023799004|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	j/h5TfPfffDHjRxMr2AxqC9aIZ0uBSw0tIB4/4WasDTe5KjrjcceHZ/ZiXmx797NXy933RU7em43MnWGdYThYAZz3nerx0AznogxB5GK/BUJhMO9K/HBmNVlEKU6RfroTH8ywQ4QNjcyAJrAIj41r4YU0DJcQ2MKojy9VTrbyAHco2Q6nsCMcarAHNTbDTfdjmCd9D4lH8JOb19rHBm755JZbnQWIWbgyMgQTvTA9Nsh9nLxdEPqIIn/u4oo+FfxX2hvYpOCWLmLQosYbW8gvvqbw7IbWy4rQ1C5+A5MDyvFdD+XdNGc49rzYku6oU2cGUOamEfUnXz9RLBe+25Jg/70DgwvZ/hUL9JmniRi6LRCiQJIe9MK5dcNwF8TwhTbq1rZpG2amtxw1MzLj0QmmaUv67GX0/4rwjUhpZxCzVFV1bsIbRX1qlnyuvHN214QSE/jcIm3r+H7IJDDI1ErBlxSMf3gbJpy/PR6/k0gHqdC4Z3m9sZ7WGwm9tqKWVX1Z40sj6qZCEda7mihM2Cyi9ndRqL3iDSZLP/3jHQGd9J8QFpdNFGR4ZKtDOPoHpT4XcXs0uBDtqiSiYzEBtaYbfV4GSW+VHroOIEMAcvTc+m7q+cZa+u0wuqSL2FM6XcEaTbDU5lTMbzN87m6hOuDxNxWDRkoc35jKVEwwf+W174=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS5PPF18A985A10.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(3023799007)(10067099003)(56012099006)(11063799006)(5023799004)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MXlVNzlzZ2xCamd5MSsvZmNZdGxwM1lIcTM4TjBHY2VwSlpoSUdFNmpWKzRk?=
- =?utf-8?B?cUcxN2NsT29VS3JnTlRyY2E3TWVSTkxleEM0WGRETmhZZWNQV0JvaWlXbEth?=
- =?utf-8?B?VzJ2YzRBWUtod0RsYytWWjkyazI4S0djL3Z0Rkc1Z0t0WkpoWFd2WTdxM0dB?=
- =?utf-8?B?Z0FOZTJIdE5IOVBPb2JMTDdPNUQrYVp0RHhZRHhiK1Z6UkdoUDBzYkhqbzlB?=
- =?utf-8?B?c1FJb3ZyYURzQ3MwaDBrYkVvNGljdEhZSzYyOC9rR2tScURHOFd6Sktwc2xZ?=
- =?utf-8?B?V0RKMFJTRVdMVDBLVzdFVFdpM1BGaFlSckJPU3FoZExZZHRqRCt2M3hPdnl3?=
- =?utf-8?B?VlI2eUZqMitRRUl0MDlrdUhaZit2UmtuNzdWWUVwZlN2RG9DNko0ZkZFNUx2?=
- =?utf-8?B?MVdDN2I3REw4a0pRS1pwWUdkazdQdENveW5uaTh6K2F5eDZtQzdBQkNURVVJ?=
- =?utf-8?B?ajU1aWFXLzZrTDRhVnAzTXRmOHE0NzVSZWVhaXJYNXA5UmcrSEpmWnB1a0Js?=
- =?utf-8?B?Nk5JcTVlaWlUNFZlUEJndEtncGw0WTNKVmx0SEE3cElrMndoV3hBMmVqZzRs?=
- =?utf-8?B?REZwZHRsalFqUlpwdGRMUnFkSDJ1bXMxb2JNV0drYTdjMFlkUFNUNmQ3RzVC?=
- =?utf-8?B?aEx3UGRVbXZHbldxaTNKNmZXTlphU0MvQWhxSmFURGZVWWZybDR6aFpvMTRW?=
- =?utf-8?B?a01aeVdIV0dZcVFwejRQUTF2WHlaL05KRCs1Q1VGYUZtNHI3dUUza1dINHlS?=
- =?utf-8?B?MjNMcnZhMDgvN25BZmFYdk1iUEtQdEthaC9qa3pFY0hhL0dWRVlQTU5WbWJv?=
- =?utf-8?B?N1NDM05vRFIzOHoxUzNWMFdUUGk0dUpkZlJCcGp3NjhpRnkwNnBiZDM5cFBa?=
- =?utf-8?B?dE1oLy9jMUhGVHZ5WlBVdmxIa2pGWTlTZnNodkMreklwcnpYd0R3SkcvNitL?=
- =?utf-8?B?bDF5VzZ6dk9WMUduRFhqZngvVjlGSkdVMCs3R21DNHNuNjk3bE1KcHovazZu?=
- =?utf-8?B?ZnNnUEpORmM2TFFORVpsbjJ2Z2xEVGNscjBiRkhVV1J5Vjg2WXNaTzBvTnNs?=
- =?utf-8?B?L2dZc1ZMNEV6ZU92aVZ0ZW1BT2h5YjlTRUYwdVhoci8yT2s3YWY2eHJ3c1Q5?=
- =?utf-8?B?TWtWenhrZHJ0VlFtSkNVaFlJdThXV01IRm03U0JUQXl1RnpKRzVzMWlTSTRB?=
- =?utf-8?B?SmdZaTdhcHBnbFJhL0NQMXc4OStiUjBQMWVZUlBBTWtDRkRxbTdDVVNKdFlC?=
- =?utf-8?B?TkJ2ZUZqTWJBbVJBb240QU9GN2dKUEM2TlI5NU42ZzVMR1dZVmpLdnAvMFBx?=
- =?utf-8?B?QVZWUzNsVFZkVnMyRmVzRVBOT1Q0YlZBSlZiaTlZQ3pCV1FGMXRLN0x5VEV4?=
- =?utf-8?B?aGx6aEZqMUNicEVQbzBpNDlaeEQ1NG5rRzYyZ1dHYUttQW12N3RrQjgxZnJa?=
- =?utf-8?B?WEYzakRxdVRkWjFWWE5nOFhJaTl3amNqRzNKcTduR2kyeG9YMnVkVm9Lc3dU?=
- =?utf-8?B?Y21MWDBoQmZkVFc2SXBHZG5VckZCWGpDSUxaREZDZlU0Ti9MOTRDUkZBUGxF?=
- =?utf-8?B?TjQ2WVpBRWJTZHpycW00UWQ4VFYrT2twLzVlWFVsTW0xNzFoQ3FGNk5wZjdu?=
- =?utf-8?B?cWdLNG1UNVBGeld3RVg3Qm5SMjlmUmh3d2xEUGxtcWQ0d01nOHZ1NXpHV044?=
- =?utf-8?B?QlAySGlZbFZwVGlFQi9TWFRGekFjQUMwZ082T1dYUDgxS3NXYnFSWVV5SFZw?=
- =?utf-8?B?dlVibXVnZGNtU1BVNXFzR1JROXZXUWZnUm85UnhET09rNWt5OWN4ODlzY2sz?=
- =?utf-8?B?d1BJYWxMQmsyMVhHcmlOY0hBQlZPdHp0VTBzck1reUNjSmpmWUIrNWhjL0Zs?=
- =?utf-8?B?eDRjNXUxMVFpV29IeWl0cVp3MEFaVVBnWlFUTDIzVlc0OVI0Rkdrd2pObVV0?=
- =?utf-8?B?Z05NamwvVWM4eDdnZzdIL1l3cXBLTjVLejdYcEp3SU1Ecjh5KzZqaUE3eE52?=
- =?utf-8?B?S0EvMGRQeG4xRHpZbVYrdlFSM2hZSzlSU3dPRFpCNThvR3piK2dpMko2NEM4?=
- =?utf-8?B?RDBlQjh3ck4wT3FXdHAzcUpyOTd0ci96VHZ5citiM0JUVXRLSWhpZ2dxRU41?=
- =?utf-8?B?KzY5TFo2a2hEb21haFJmZGZPL1lyUUtPOXBWVjVKeEw4dGxBZjBWLzcvSExG?=
- =?utf-8?B?N2w1L3NMNXVuQTh2WlVRbnNsS3dDbWRUck04djh6U2RQbTdsNm9TdDF4OVZr?=
- =?utf-8?B?QXkyNVVCNFNnZzlYcWlrODFrRUdXaFU4TjkzTFFaNkgvNDRkZHd5dzRQNWoy?=
- =?utf-8?B?K3FqdHB6RTJ5SitURForUmIzMWJzcCtCSThPa2k0ckRGTXdHQkFFUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58291fea-f717-4fe2-b0fe-08df103571e4
-X-MS-Exchange-CrossTenant-AuthSource: DS5PPF18A985A10.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 18:49:44.2452
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wBDiV3FJWYyb0vktp3wwzTR8bNyUfH1XqQ573I7w02GYuzDdBkaVOlXsEvJIhjpU9MqKOo2OboI3Dc8kf3FWiA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9731
+References: <CAKLYgeL7nrA4nXcewdv9Fqg_s=3GS=vmoypnEiZBKQ7rySZFuQ@mail.gmail.com>
+ <20260909002506.GF9053@twin.jikos.cz> <6a5c2d41-b10b-44cb-969e-b4a56d002ceb@gmx.com>
+ <4c5117f7-1ddd-4596-8917-da47379506fd@leemhuis.info> <20260911182125.GE54722@twin.jikos.cz>
+In-Reply-To: <20260911182125.GE54722@twin.jikos.cz>
+From: Alex Romosan <aromosan@gmail.com>
+Date: Fri, 11 Sep 2026 20:50:18 +0200
+X-Gm-Features: AcwNN1UW1FBEQBXsPkjPpE7JnH1VnJKY_2TIGIr7JWZ82tYw8hH3-PTdsGDmOLw
+Message-ID: <CAKLYgeLAXC5qbNAWnS3KNCijuRT9mF_hz4e1fUexx+D-J5Bs4g@mail.gmail.com>
+Subject: Re: commit 108cc873398932af589c295f78c348513b8d70d9 breaks
+ update-grub on btrfs root filesystem
+To: dsterba@suse.cz
+Cc: Thorsten Leemhuis <regressions@leemhuis.info>, Qu Wenruo <quwenruo.btrfs@gmx.com>, 
+	linux-kernel@vger.kernel.org, linux-btrfs <linux-btrfs@vger.kernel.org>, 
+	Linux kernel regressions list <regressions@lists.linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Ivan Lipski <ivan.lipski@amd.com>
+i agree it's a regression. one question (and i am not very familiar
+with the underlying principles), how do the other filesystems deal
+with this? shouldn't the registering of devices be abstracted out
+since i would assume every fs does it or is this something btrfs
+specific?
 
-On 9/11/26 11:13, Adrian Betschart wrote:
-> amdgpu_dm_create_validate_stream_for_sink() walks encoding_order[] and
-> uses the first encoding that validates. YCbCr 4:4:4 is listed before
-> RGB, so an HDMI sink that advertises 4:4:4 gets YCbCr 4:4:4 whenever the
-> "color format" property is left at AUTO, even though RGB fits the same
-> link.
-> 
-> That contradicts the documented AUTO behaviour for HDMI in enum
-> drm_connector_color_format (RGB, falling back to YCbCr 4:2:0 only when
-> the bandwidth is not available or the mode is 4:2:0-only), which the
-> amdgpu implementation of the property also describes. It also leaves
-> the "Broadcast RGB" property without effect on such sinks, since the
-> quantization range it selects only applies to RGB output.
-> 
-> Try RGB first. The mask still holds every encoding the sink supports,
-> so a mode that cannot carry RGB falls back exactly as before.
-> 
-> For reference, v7.2 picked RGB here unless YCbCr 4:4:4 was forced
-> through debugfs, while earlier kernels picked YCbCr 4:4:4 for any HDMI
-> sink that advertised it.
-> 
-> Fixes: 0b0ff65d3ca1 ("drm/amd/display: Refactor stream validation")
-> Suggested-by: Adolfo Rodrigues <adolfotregosa@gmail.com>
-> Tested-by: Adolfo Rodrigues <adolfotregosa@gmail.com>
-> Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
-> Assisted-by: Claude Code:claude-fable-5-1
-> ---
->   .../display/amdgpu_dm/amdgpu_dm_connector.c   |  2 +-
->   .../tests/amdgpu_dm_connector_test.c          | 34 +++++++++++++++++++
->   2 files changed, 35 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> index 0b446133edd8..98d0b35ed4e4 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> @@ -2226,8 +2226,8 @@ amdgpu_dm_create_validate_stream_for_sink(struct drm_connector *connector,
->   	 * below gate which of these entries are actually attempted.
->   	 */
->   	static const enum dc_pixel_encoding encoding_order[] = {
-> -		PIXEL_ENCODING_YCBCR444,
->   		PIXEL_ENCODING_RGB,
-> +		PIXEL_ENCODING_YCBCR444,
->   		PIXEL_ENCODING_YCBCR422,
->   		PIXEL_ENCODING_YCBCR420,
->   	};
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-> index 6e70d72135dc..c064def8253b 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-> @@ -7175,6 +7175,39 @@ static void dm_test_create_validate_stream_prune_context(struct kunit *test)
->   								    NULL));
->   }
->   
-> +static enum dc_pixel_encoding dm_test_cvs_first_encoding;
-> +
-> +static bool dm_test_cvs_record_first_encoding(struct timing_generator *tg,
-> +					      const struct dc_crtc_timing *timing)
-> +{
-> +	if (dm_test_cvs_first_encoding == PIXEL_ENCODING_UNDEFINED)
-> +		dm_test_cvs_first_encoding = timing->pixel_encoding;
-> +
-> +	return false;
-> +}
-> +
-> +/**
-> + * dm_test_create_validate_stream_hdmi_rgb_first - HDMI tries RGB before YCbCr 4:4:4
-> + * @test: The KUnit test context
-> + */
-> +static void dm_test_create_validate_stream_hdmi_rgb_first(struct kunit *test)
-> +{
-> +	struct dm_test_cvs_dc *c = dm_test_cvs_dc_alloc(test);
-> +
-> +	c->link->connector_signal = SIGNAL_TYPE_HDMI_TYPE_A;
-> +	c->aconnector->base.display_info.color_formats =
-> +		BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444);
-> +	c->tgfuncs->validate_timing = dm_test_cvs_record_first_encoding;
-> +	dm_test_cvs_first_encoding = PIXEL_ENCODING_UNDEFINED;
-> +
-> +	KUNIT_EXPECT_NULL(test,
-> +			  amdgpu_dm_create_validate_stream_for_sink(&c->aconnector->base,
-> +								    c->mode,
-> +								    c->dm_state,
-> +								    NULL));
-> +	KUNIT_EXPECT_EQ(test, (int)dm_test_cvs_first_encoding, (int)PIXEL_ENCODING_RGB);
-> +}
-> +
->   /* Further tests for amdgpu_dm_connector_mode_valid() */
->   
->   /**
-> @@ -9268,6 +9301,7 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
->   	KUNIT_CASE(dm_test_create_validate_stream_force_ycbcr444),
->   	KUNIT_CASE(dm_test_create_validate_stream_prune_timing),
->   	KUNIT_CASE(dm_test_create_validate_stream_prune_context),
-> +	KUNIT_CASE(dm_test_create_validate_stream_hdmi_rgb_first),
->   	/* amdgpu_dm_update_connector_after_detect */
->   	KUNIT_CASE(dm_test_update_after_detect_mst_noop),
->   	KUNIT_CASE(dm_test_update_after_detect_sink_unchanged),
-
--- 
-Thanks,
-Ivan Lipski
-
+On Fri, Sep 11, 2026 at 8:21=E2=80=AFPM David Sterba <dsterba@suse.cz> wrot=
+e:
+>
+> On Thu, Sep 10, 2026 at 12:39:25PM +0200, Thorsten Leemhuis wrote:
+> > On 9/9/26 03:13, Qu Wenruo wrote:
+> > > =E5=9C=A8 2026/9/9 09:55, David Sterba =E5=86=99=E9=81=93:
+> > >> On Tue, Sep 08, 2026 at 11:59:43PM +0200, Alex Romosan wrote:
+> > >>>
+> > >>> [...] Since version 7.3-rc1 i haven't been able to to a grub-update=
+,
+> > >>> instead i get this error:
+> > >>>
+> > >>> /usr/sbin/grub-probe: error: cannot find a device for / (is /dev
+> > >>> mounted?).
+> > >>>
+> > >>> 7.2 is fine. a git-bisect identified commit
+> > >>> 108cc873398932af589c295f78c348513b8d70d9 as being the culprit.
+> > >>> reverting this commit from 7.3-rc2 allowed me to run grub-update
+> > >>> again.
+> > >>>
+> > >>> this is not the first time i reported grub-update being broken on
+> > >>> btrfs. i reported exactly the same problem on jan 8, 2024
+> > >>> (https://lkml.iu.edu/hypermail/linux/kernel/2401.1/00596.html). may=
+be
+> > >>> the discussion that followed would help come up with a fix that wil=
+l
+> > >>> make everybody happy.
+> > >>
+> > >> I remember debugging that one, https://bugzilla.kernel.org/
+> > >> show_bug.cgi?id=3D218353
+> > >> Reverting 108cc8733989 ("btrfs: fix a lockdep caused by path resolut=
+ion
+> > >> during device scan") would bring back the lockdep warning and there =
+is a
+> > >> locking problem.
+> > >>
+> > >> The commit says it's fixing 2e8b6bc0ab41 ("btrfs: avoid unnecessary
+> > >> device path update for the same device"), the difference is in lines
+> > >>
+> > >> (https://bugzilla.suse.com/show_bug.cgi?id=3D1230641)
+> > >>
+> > >> -       } else if (!device->name || strcmp(device->name->str, path))=
+ {
+> > >> +    } else if (!device->name || !is_same_device(device, path)) {
+> > >>
+> > >> Which gets changed to (by 108cc8733989):
+> > >>
+> > >> -       } else if (!device->name || !is_same_device(device, path)) {
+> > >> +       } else if (!device->name || device->devt !=3D path_devt) {
+> > >>
+> > >> Each change is reaction to a bug, I don't see a clear fix which will
+> > >> make it work in all cases.
+> > >
+> > > And I want to add that, the previous path based comparison is also
+> > > problematic for namespaces/weird block device names.
+> > >
+> > > Although not common, it's definitely possible to map weird block file
+> > > name into a namespace.
+> > >
+> > > Thus the path based comparison is not reliable in the first place, no=
+ to
+> > > mention the later lockdep problems.
+> >
+> > Well, but our #1 is "no regressions". And the recent change while fixin=
+g
+> > bugs clearly causes one, as Alex's report is afaics at least the third
+> > about it; the two earlier ones can be found here:
+> >
+> > https://lore.kernel.org/linux-btrfs/dfbe1e27-dab8-4d55-8cf3-0b28eeac5df=
+4@gmail.com/
+> > https://lore.kernel.org/linux-btrfs/018a9738-1d4a-43a0-9352-a56d1e54136=
+4@gmail.com/
+> > Plus a repost of the latter here:
+> > https://lore.kernel.org/linux-btrfs/dfbe1e27-dab8-4d55-8cf3-0b28eeac5df=
+4@gmail.com/
+>
+> I'm going to treat this as a regression. And for the record Qu and me
+> are in disagreement on that. My target is to make the systems boot again
+> first, the fix may leave some problematic case (like mentioned, devices
+> in namespaces), but that is probably a lesser problem.
