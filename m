@@ -1,169 +1,93 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59DC343A80A;
-	Fri, 11 Sep 2026 10:39:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 107B742EEC4
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:40:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789123184; cv=none; b=Q3jaMkdldp++2qtj0lF3wpt/+cvNuprCaPacM0yL3r1cy+LvT5ZlUFvUG0s8swZ6nDOUshqyfwTjs22mi+LipRhQmy3YREIv8psvC575vilvHNn6PD58oPIV5x2MTx0C5DGj70LvVd2zeOsQHSVoQqPD4iFo5EYeuz7oSwJDjiQ=
+	t=1789123231; cv=none; b=JAQfyDkwKDT2GUL1kVIU1qyf5OxLfeXFo+6nZRZd5TLI9bcP2Cnm8g4WWKHk7TdX87pekhXtHEAGjQwodul95xjgxho56DKu+Zlgo0Q1XHV5I7CoMBBed4oVI/sQoW3ZKUbgN/QR9H+MA/Est3SLVKaB8OBxP9uhGI6KWyof9eM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789123184; c=relaxed/simple;
-	bh=fp3FgTWDoYKQx6a7TrODKd/ktlHpd9JRL57sh0xgkS0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Z/vGV7kc+LrPTAEXLSyfgQSFR3xIAOAIvhxZbAGgCJFW2F3I8xrDluuiydM4I/SQVeMv6uPwz9WAn97uLlQNrF/uFC8gKZ9oYZEBj2Lyj71CHT35C5R29n/3/CmerqX2/XmMYxePjRwJO0edbFB/VD+cyqpHNj+iDCCgrplOhsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=Dv7zqhUz; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1789123231; c=relaxed/simple;
+	bh=IiEQ0BKGFmjdBJsAyKSi8ODDvxrbZRR4OCV+oVSjHk0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iGww+EMt3jX52cK3ZEREFrR/wjklvuk1VtzIUMycJnuExeFjh2B0ku3Smlew+rdeqLB7DsdVe60gYPaEU6bmfpYZMhedPWZJ04zEbqga0viran260vE4p0bLGhDH8Vm7GzuDazlM1wHZcRqBec5I//JeS5r5lYo1HTzeOtCXKq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UP52FZqC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="Dv7zqhUz"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0E7E641CF51;
-	Fri, 11 Sep 2026 12:39:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1789123172; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=Bo4UnkSqgoVO/9dO8RXktdnvzNuezQiQb7CLxdoU1PY=;
-	b=Dv7zqhUz6Borsnk3CfuMnJEVlc/bFwo0tGSrdrKkg7BSnJ805GhQar8b2DXuspk5hW1iTm
-	mYFeBGB4hxvR1tbn7sncbekHPLr2I6Vs4jrDP5o/IWVALciaLo7ORQZLPTGaFxOIv+2vQy
-	n9nG1R0c95VYCAuarTPeNLYpnu3odRoXRn5MjigOvOLqRnYx/BPqgW5UJv/Exie9TwLbX/
-	v/Gp75ZVc+ZKYew4HR4+tMzTyo7H5B6/I1ozx08r0BzKy+4ItXlNj2OBdLO0FFsJH2H0Zf
-	EsxlSw1jMpBWgKmfYVwE8J/2Cg0fIJs/486hjq9PFPrjEsYUpgiJZgxyt2Wsxg==
-From: Caleb James DeLisle <cjd@cjdns.fr>
-To: netdev@vger.kernel.org
-Cc: daniel@makrotopia.org,
-	dqfext@gmail.com,
-	SkyLake.Huang@mediatek.com,
-	andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Caleb James DeLisle <cjd@cjdns.fr>,
-	Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-Subject: [PATCH v2 net-next] net: phy: mediatek: support MT7530 PHYs on EN71221 MCM
-Date: Fri, 11 Sep 2026 10:39:10 +0000
-Message-Id: <20260911103910.4123567-1-cjd@cjdns.fr>
-In-Reply-To: <20260909213250.3184238-1-cjd@cjdns.fr>
-References: <20260909213250.3184238-1-cjd@cjdns.fr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UP52FZqC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 186181F00893;
+	Fri, 11 Sep 2026 10:40:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789123228;
+	bh=lUSkqZbTE55uSpACypE/uCyL1WoB3V9bNkFmhvRfym0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UP52FZqCPPB+GNo0sZG6EkVJvqjJ5TR25pguMMmOAbKRAnzCdTxPCEtPbSAVgg1Y2
+	 6J13HP7tqQabJbtSEfDvlc7apHZYwovm3E0uArTbygnGVMNXebLwTC4jps2cVgT6vb
+	 AxuYLlUI63CR3svowEfwPEZaFacNMKdcwgrIHXogpVGladAGK44fasyoZq1r189jdC
+	 vNs9RNEAkWSI18ZnuOl/lYSMyggwsUa6w9PVy+mwf0GhoX2+v/4Xeomxamv2EqsVYU
+	 sH7bz4MOg/1VF/VadD/F2QuwdN1DCVlPIl4IWwBLJBGkvbEhSuokdFOyqhVq7tHkqb
+	 DmCsRA7MbRiWw==
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 9DA911980052;
+	Fri, 11 Sep 2026 06:40:25 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Fri, 11 Sep 2026 06:40:26 -0400
+X-ME-Sender: <xms:mdqjascGLpyQNGTJuoeTwQFB4QvCzkJlEMAH4TZiYERMTdUfLZ-weA>
+    <xme:mdqjalx8tQGp1H3mSDXPVilrLn8jzY0CtcThX830715JOyCWJnDfLEGFFB5iBOz7o
+    l3Sk-YSYzNWFZ5r4szdplcsUG5Uilr_NLIkwK_Hxmgap8im65fbzSWO>
+X-ME-Received: <xmr:mdqjatKle09rojiENpg5Wguhcy41MOWL4dPGUUgpUC6ic_owLdafCh6KiGc>
+X-ME-Proxy-Cause: dmFkZTFKI6Zr9CjzLxLqyJzT3JRY5JwkA1lWfK3TvZqZ9sYlz5wHC7130aDfdqLwTH66Ex
+    tPF/yEmDz2dA0FPJ1n2RuACC17hauHED7q3qO4y6giRHbDoP5gb6SZmDn9TJzu6oVzsEDH
+    7khVCy1vH528X3OwBqLkkIslm5/QS8JnTC+u2xlepeJdAyn4Pc3CbyETy03cO0tD0ENYdw
+    bOM4jmAzdG+/Kbef96dOcG0H6KWamgNHjxeRvijSaBIzeF55YyjBIP4FcB2uCtGbp0Unou
+    1ah7uqHtWFFgeU5fbm3RQquARXXQz4ItKK4pK5pdpBMKXnA1LEsbzW19fk/DFQuX8tD/CH
+    +QbxZBRoDDqoqpw1KwR6zfquXDc26+yUjl/4MK/rQFrf/zaFziEZQnwf0VIt29rKc+2tCV
+    bU20K3hBI1IuXdr34wp3aTfbCjuPk0vKapTEb8PGOkYTckKK8U9ESDkTgtEW4wZasFmXoC
+    wtINEiXnUdYmSdXZg24+uwgNslL2UJs4aOYyUYgXDVYkXFLHtdXI3429w5qSX0LdR+m854
+    zaHQNA3HBgVJCEoSQ9bEurs3be3cHzdo4ecsWo08WzRnkqCcBcFKbeNC+AxlJaOKgL2N4t
+    75P7pKefRhocuHS/yieeL+DCt7rBcLX/DJcUwMd+Y0OwLSsxKFuVJeUPYK4w
+X-ME-Proxy: <xmx:mdqjauul65uDN0qvoKSFL-ipuCNlrl_-urRV4xL-RI7yQjvL6ekzJQ>
+    <xmx:mdqjavROXO2MoJo2HceUwaTbXKkGBXlhcoC6mj3iQgGZOl_ix9uxTg>
+    <xmx:mdqjavQTsz9tjmSG4vAj-sK_UGw4mqtSg67I4opMxKiiI6RyZPZXsQ>
+    <xmx:mdqjarrSGHb4WPsQD5rA598sHBiLrVb2RDD4QkS7ts-q96s6Acrz4w>
+    <xmx:mdqjavAgw_bWZwqlRQMyU3QGIlcj1p9jJ6LVmQQzxJGBar42sBKb4RZi>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 11 Sep 2026 06:40:24 -0400 (EDT)
+Date: Fri, 11 Sep 2026 11:40:23 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Vishal Verma <vishal.l.verma@intel.com>
+Cc: x86@kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, 
+	kvm@vger.kernel.org
+Subject: Re: [PATCH 1/2] x86/tdx: Move port I/O definitions to a shared header
+Message-ID: <aqPabLf9yHwBjBHm@thinkstation>
+References: <20260910-b4-tdx_earlyprintk_tdcalls-v1-0-4b2b1bf9001b@intel.com>
+ <20260910-b4-tdx_earlyprintk_tdcalls-v1-1-4b2b1bf9001b@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910-b4-tdx_earlyprintk_tdcalls-v1-1-4b2b1bf9001b@intel.com>
 
-The EcoNet EN751221 multi-chip module implementation of the MT7530
-requires some additional configuration of the PHYs on startup.
-The reason for this is not known, but it is possible that it has
-to do with the fact that the EN751221 MCM implementation of the
-MT7530 runs at an abnormal PLL frequency (362.5Mhz).
+On Thu, Sep 10, 2026 at 04:34:08PM -0600, Vishal Verma wrote:
+> In preparation for switching early_printk to use direct TDVMCALLs for
+> I/O, factor out the PORT_READ and PORT_WRITE definitions from
+> arch/x86/coco/tdx/tdx.c into arch/x86/include/asm/shared/tdx.h, and
+> namespace them with 'TDVMCALL_'.
+> 
+> The decompressor also used 0/1 literals in its tdx_io_{in,out} helpers -
+> switch those to use the new definitions.
+> 
+> Signed-off-by: Vishal Verma <vishal.l.verma@intel.com>
+> Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>
 
-Detect whether the MT7530 PHY is attached to the MDIO bus of an
-EcoNet EN751221 switch and if so, apply the necessary register
-updates. Additionally, never attempt to configure an MT7530
-identified PHY which does not have gigabit support because the same
-ID is used for another (FE) PHY.
+Nice cleanup!
 
-Of note: MDIO_AN_EEE_ADV must be zero at startup or else link will
-fail to connect. Setting MDIO_AN_EEE_ADV to 6 after link is brought
-up will make EEE work when cable is next plugged in, but link fails
-to downgrade to 100mb if gigabit is not possible, leaving a
-"connected" (nonfunctional) gigabit link.
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-Co-developed-by: Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-Signed-off-by: Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
----
- drivers/net/phy/mediatek/mtk-ge.c | 61 +++++++++++++++++++++++++++++++
- 1 file changed, 61 insertions(+)
-
-diff --git a/drivers/net/phy/mediatek/mtk-ge.c b/drivers/net/phy/mediatek/mtk-ge.c
-index 73d9b72f9d9e..42b06c40d703 100644
---- a/drivers/net/phy/mediatek/mtk-ge.c
-+++ b/drivers/net/phy/mediatek/mtk-ge.c
-@@ -1,4 +1,5 @@
- // SPDX-License-Identifier: GPL-2.0+
-+#include <linux/of.h>
- #include <linux/bitfield.h>
- #include <linux/module.h>
- #include <linux/phy.h>
-@@ -62,8 +63,68 @@ static void mtk_gephy_config_init(struct phy_device *phydev)
- 		       FIELD_PREP(MTK_MCC_NEARECHO_OFFSET_MASK, 0x3));
- }
- 
-+static bool mt7530_phy_is_en751221_companion(struct phy_device *phydev)
-+{
-+	struct device *parent = phydev->mdio.bus->parent;
-+
-+	return parent && parent->of_node &&
-+	       of_device_is_compatible(parent->of_node, "econet,en751221");
-+}
-+
-+/*
-+ * The EcoNet reference implementation applies additional tuning to
-+ * the PHYs of the multi-chip module MT7530.
-+ */
-+static int mt7530_phy_en751221_config_init(struct phy_device *phydev)
-+{
-+	int ret;
-+
-+	ret = genphy_soft_reset(phydev);
-+	if (ret)
-+		return ret;
-+
-+	/* Clause 22 local data. */
-+	ret = phy_write(phydev, MII_CTRL1000, 0x1e00);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = phy_write_paged(phydev, MTK_PHY_PAGE_EXTENDED_1, 0x14, 0x3a04);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Clause 45 global/local data from mt7530GePhyCfgLoad(E3.0). */
-+	ret = phy_write_mmd(phydev, MDIO_MMD_VEND2, 0x0417, 0x7775);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x00a6, 0x0350);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x0012, 0xd210);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Vendor profile disables 100/1000BASE-T EEE advertisement. */
-+	ret = phy_write_mmd(phydev, MDIO_MMD_AN, 0x003c, 0x0000);
-+	if (ret < 0)
-+		return ret;
-+
-+	phydev_info(phydev, "EN751221 companion MT7530 E3.0 PHY profile loaded\n");
-+
-+	return 0;
-+}
-+
- static int mt7530_phy_config_init(struct phy_device *phydev)
- {
-+	int ret;
-+
-+	if (mt7530_phy_is_en751221_companion(phydev)) {
-+		ret = mt7530_phy_en751221_config_init(phydev);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	mtk_gephy_config_init(phydev);
- 
- 	/* Increase post_update_timer */
 -- 
-2.39.5
-
+  Kiryl Shutsemau / Kirill A. Shutemov
