@@ -1,64 +1,64 @@
 Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C71D496D53
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:42:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 179B9496D43
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:42:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789141339; cv=none; b=PUhsYvzL+XXbvcccuw/NzwWNU1bybsUWZdW+Mi61h+iYz/l8iIG2hrDw5eBB+8/Z20mexySuRdCJf5t/EUMGJnq8mmWiMQuEaydnJUyEXLHfMQ2aC6PeDvlkgyazs6qW7NsfU1NrEsLqL/2bbUT5bX+I/dAzIaYERA+jmrWd9ak=
+	t=1789141338; cv=none; b=TTJimV6rtnrqi5g0z82xw4MMqYz8sQHzuDWeRmC0DAZWXa73t1nBVpSHAn3WrerD/SZpHeQZdFkvpmG88WqBGk2CPMmJ4xMnsRDWnjKWAkyDJsR1nxMgg4Gn68l2jH5DTL27nA6f+EezcYQIJnVf6/u9uNzs6B9Ut8OZCpbHIDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789141339; c=relaxed/simple;
-	bh=0IcDUuFgsZRW2mHnNDY7QMSvPwoA7pARp/KcOd2nG6Y=;
+	s=arc-20240116; t=1789141338; c=relaxed/simple;
+	bh=dtEkrDn9TuULG8Rmh0vGe3duGIN/MxnGeLhOxWrexcY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eiiNVtIhoa1PNHDzgUVI9Xhk9P2Edul+bNtvkgKtcsL+0oyf5BXuUCtQS3UFXTF4ZRLb+8rjaIgYXkKX+oRR6JajKsG21svtKkX2XMMeY+qAvTojwSI3LParq6PCRAqzBA0syR7SnYigbs+UlpqJi4MXAZduB5G/HeOXr+m9UwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=KH7mZYIW; arc=none smtp.client-ip=74.125.231.76
+	 MIME-Version; b=uHiZKElP4APMLk3Xy+6bbz9M6P2K0cd1tXQgQElYkbp2wEIKCjGwEoOkFTTBaDlP4djW44S/2d3/iNXOXGk+duO0sPJR8XG6hLF/5MONFllzEfyVY+WKhCresVZHyYwKf3/Pums9/BRBydUP2lQrWqNCSbST0uzI0rvdeA6gD+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=NQ/tanlM; arc=none smtp.client-ip=74.125.231.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="KH7mZYIW"
-Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-47b5043f191so618418fac.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:42:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="NQ/tanlM"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-470417e5b52so805285fac.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:42:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1789141334; x=1789746134; darn=vger.kernel.org;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1789141333; x=1789746133; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=a9YT6ic9x6FyZ148rG7PDLceVb4/eE9JqVTzoSzdUWU=;
-        b=KH7mZYIW+Nd8JN84rRI5On75xjBWNm/NkJDjBUpY67qDqAxL1AxQWDYw2aBMyUPXVg
-         +gMRXEGzQ6yuriNPMSfi8ZYvlQ7oRKDSbAngrjaOIWxKgQJyExCX5EBAae/lc4TD+QpT
-         4xofkkSi6Wpy/k4pzOkyTjYO295G0BfsDopa9b9eYJwxCPn16+K+XRltCTYBgrc8cIbb
-         /wN7hbGWks1yzQmTNtKIxI2Je++T2qdsg4p4feo7Y6zpia4M15j4qbaUnJ0Z/MTGczmd
-         itHISjpA7153hN4jlwqgMQPVDD3MmxfBjIPXEzRWudIPsXAv471tnKRjp5GNTnHu47FX
-         S79A==
+        bh=TNGI4wdJO9MfPQNZHymsObp/iaVWwbU1kTAYKqVGN8A=;
+        b=NQ/tanlMP1DsJz9UozBHS0Jq2qRVnowwWpEXTwqyeBINoXGma4LGYFKL7wJwj0485t
+         AKalzR8B2fquE4dyx2CxKYc+wEWr17kLPxvwyiik+JHKMxAdfJkv0TD7q1c1ptQGVIsd
+         qG+l2SL7iFpO6nWHLldEc3KgLWkOhqNXh17r4+wfCKDWJZimUJSXLOCbj0la4gZj0hT5
+         qZZ9Osbe5twOl/rRHZ9WFc1ycCBLKEaoUoxERVfdues+oXY18UzUPhQEvufC8qMU004I
+         NsWz8Zs9qdQu8qRHucULs37AsMHSC9UrhKhZkmobbiOgxozUExknZYw9yU9ipnaFNyr/
+         vdfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789141334; x=1789746134;
+        d=1e100.net; s=20251104; t=1789141333; x=1789746133;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a9YT6ic9x6FyZ148rG7PDLceVb4/eE9JqVTzoSzdUWU=;
-        b=O/BkGmmFwlnFpzYgD38BYNUJ0j7jygrEgSiG7t0z72mnvA5ZK6PpnEqfjbfpYjl3m8
-         JJx8/D1TEE83M+VDDBDVZs2IvsQgyNkC1UOxKzKAyjBTccy2KPoxEmEhdWkACJPQSkXW
-         Nz9B01N3OEZyyHIat8XU4dx5brnq1dYYcjoMo4rUHu0aNBZDZUY4hjU9o63tOnkOeSV7
-         2GMWLjSHWwzKAWICjJwc3PfMssyu7IM6U/VFqmVx3a/LGFaeWAYh8h0tvIxWkAy4TjOk
-         CXmtdiiiPZMlFJ0sTZpX31TmA9BBj07umWdpfK0A8OUMvuvDMOlphrHiiVIb2uwha6WT
-         Fd0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw3VdTT9PFEhLfUWRPA/5Z6B60CLOPPQs0KPWTR/bcUWX9XzI5OvqSjTz+EeSZ3McUocTQ/sS3cDr/fj50=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMQZro3uybm7t3Mp7Sys4fLfjzfkg+lJGJS1a/WY/f0oEKPJ4z
-	2uEmIouOD5GpIwnA1IDBFL7V68ZHk/1gQiuVJZ0T6vvpFk8k9X6w/jBPzEWxR71Y4A4=
-X-Gm-Gg: AYBFou1YGmBJAwaHh4XfGeXMF0axOxFLmfATBPKtRA7AlovaqkRochW8j6q0NUHQ8Vf
-	BS6aWjB7vlLOcBNATefp8VSTXUP3FPHxdGm+6EUp82AHJmMwa6Ulz32WkoS8xMr5fqkmFw1+cb7
-	t7H/e1kMVXoZmn4f1vIQfsGwrgDgqf1nIIIG1Zav4qmGEVhVuBuEcysE5wRsrjLTDNEIi3b+sO5
-	wqpnqglNvbmFCZamrps7jHRSv24dzPrUqq7lDDVwUpwiD+njRY79vMGAbrJCV+KNXbk5/qgehr0
-	lekPCnij0shzw/M3ifnJ6SXuWw0w1O8e6AwQo5JktQJbfvHO68eWgxr/DZZkHgmrvi+v0Meamnv
-	E/33K7NIctvVMpbsrbxB+/jV0jbAebK4Z+D8TI863r9raMq1BjJCRSxksWHMwuEU0R//IMj+WL/
-	UxVrgl9lV6Q7kC3iry2yvUYprXpAOPGy6LIzwFZT+pkhBds+UnTrtSXEY8PaOrrWZ4e1hlKms3K
-	h2kgbtje7jDOLFz5tRQ0fyE+PJ4ucVlCzQinottJnE=
-X-Received: by 2002:a05:6820:83d2:10b0:6b9:7d9e:5708 with SMTP id 006d021491bc7-6c0b9e5081cmr5077670eaf.3.1789141334570;
-        Fri, 11 Sep 2026 08:42:14 -0700 (PDT)
-Received: from m2max ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c09690af1dsm2802199eaf.1.2026.09.11.08.42.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        bh=TNGI4wdJO9MfPQNZHymsObp/iaVWwbU1kTAYKqVGN8A=;
+        b=YkoSapx4D/ky8K5nFuRRhsCc/W3ivFFa/jTdNRvL9860iJM9S0O/c/gqNR6q4mGC+V
+         4h/YNSI5s6AsKXhR9Z3ZDGbcZ7oYSuW48GnKWUgO70CDQK5xhMt8tcvADQc82/d15Puq
+         evMCa65zRA40GQKkTO01fklm0iAZdxaypE7PRuYeu1N7x4VpPliWeHfZ0R29uBzu55rN
+         J6SLMY/NQJ4l8hFePKaQGznANKyrAGarl/xI3gnTp39sFVa58ZzmmAq2oCss3iDcQp58
+         ZXZn4ulpno5GHHrYgrbYb7JI7q7eRNnONo8YVmePtoEaNeF7vQppFsWqxWEn2pndTq+u
+         8KEA==
+X-Forwarded-Encrypted: i=1; AKwUvBwvY9uOoOfOPTuycsXLOYql1RmLnNNval5U7sXExUO1XT+rGh2qf7YEfHsRbfS5PIUc7DUDcR8RaEfuDF8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kU2l3h/tTKzqJDWg65K32OO7Yt9SUJ9lbEVzu7LFNRJolW3EnI
+	P061+p8JNI167TkpKfGFegtm7fqdx0Po4sBs2zzVRnO+Xa3IqgQAjyOi2aGwPCgfXU4=
+X-Gm-Gg: AYBFou2onGjvGQLnZIkfGaLytovKyH/QjfR5f2tIpPaarGqYjxuw10LMnj2x6Hd84fT
+	HZYJRVckaFD9BsRg/uQUd9UlI85R9VgrY/O1VfafzP3oyovgRtl7FaTX5LX7Pb5A5zAdDabZ6pI
+	DtW7sv+hp7sb35qo85w4hNRREuo/zVkHskuMT3n0yF/L/UcA0eMJfuUqcnAhGOrhvIVbQKH7ehm
+	apusHZLPXxy1SGZA80iznWirZeO5lz/8u5xfmeDvbEBXkeTRWLJSWsP0UCNkBv7wmb1d+yrEV/t
+	aO/i8v6+Jul0iT9nr/klqoNDr+Bz+qzooI67XLD3BWz7mAIavqyaFInCGsU23onuW0SimagXXM6
+	pRx75pmbsdczIaswGnb1QsSUM99J/WzGzRry0YSoKmJK3Zd9GJtWIWV68sjjYdseScFtIgmy1JW
+	XxcPAWqpFh7N62WGrJEHMBao6eivl7Q6DdFZzAloiY2s+vOTO25scwy2ETfnTVFm7to/sLHZaeb
+	bRLP9cudwJQ1/CmlTuZ2GuCe6Bfg+GVSOsiXuMuoSA=
+X-Received: by 2002:a05:6820:a283:20b0:6ac:8e23:3078 with SMTP id 006d021491bc7-6c0b9a5f10cmr2546524eaf.5.1789141333306;
         Fri, 11 Sep 2026 08:42:13 -0700 (PDT)
+Received: from m2max ([96.43.243.2])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c09690af1dsm2802199eaf.1.2026.09.11.08.42.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 08:42:12 -0700 (PDT)
 From: Jens Axboe <axboe@kernel.dk>
 To: io-uring@vger.kernel.org
 Cc: linux-arm-kernel@lists.infradead.org,
@@ -67,9 +67,9 @@ Cc: linux-arm-kernel@lists.infradead.org,
 	mingo@redhat.com,
 	peterz@infradead.org,
 	Jens Axboe <axboe@kernel.dk>
-Subject: [PATCH 14/15] io_uring: add tracepoints for the handoff operation
-Date: Fri, 11 Sep 2026 09:41:04 -0600
-Message-ID: <20260911154148.644489-15-axboe@kernel.dk>
+Subject: [PATCH 13/15] io_uring: issue blockable requests inline in blocking mode
+Date: Fri, 11 Sep 2026 09:41:03 -0600
+Message-ID: <20260911154148.644489-14-axboe@kernel.dk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260911154148.644489-1-axboe@kernel.dk>
 References: <20260911154148.644489-1-axboe@kernel.dk>
@@ -81,254 +81,316 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add tracepoints for a handoff, a handoff that didn't happen with the
-reason, and the promoted task resuming the submission.
+With a handoff available, there's no point in issuing a blockable opcode
+nonblocking first. Clear IO_URING_F_NONBLOCK if io_handoff_begin()
+succeeds, and issue REQ_F_FORCE_ASYNC requests inline rather than
+punting them to io-wq upfront.
+
+Requests with a working nonblocking issue path, like reads and writes
+on FMODE_NOWAIT files, behave as before. The handoff is for requests
+that otherwise would have required an io-wq punt upfront, most of which
+never block. SQEs marked IOSQE_ASYNC keep their explicit io-wq offload.
 
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- include/trace/events/io_uring.h | 114 ++++++++++++++++++++++++++++++++
- io_uring/handoff.c              |  42 +++++++++---
- 2 files changed, 147 insertions(+), 9 deletions(-)
+ include/linux/io_uring_types.h |  6 +++
+ io_uring/handoff.c             | 75 ++++++++++++++++++++++------------
+ io_uring/handoff.h             | 12 +++---
+ io_uring/io_uring.c            | 48 +++++++++++++++++++---
+ io_uring/io_uring.h            |  7 ++++
+ io_uring/splice.c              |  6 +++
+ 6 files changed, 116 insertions(+), 38 deletions(-)
 
-diff --git a/include/trace/events/io_uring.h b/include/trace/events/io_uring.h
-index 34b31a855ea4..6043c5d46dbd 100644
---- a/include/trace/events/io_uring.h
-+++ b/include/trace/events/io_uring.h
-@@ -671,6 +671,120 @@ TRACE_EVENT(io_uring_local_work_run,
- 	TP_printk("ring %p, count %d, loops %u", __entry->ctx, __entry->count, __entry->loops)
- );
+diff --git a/include/linux/io_uring_types.h b/include/linux/io_uring_types.h
+index 6c8fe7232aa2..37c56ad37e05 100644
+--- a/include/linux/io_uring_types.h
++++ b/include/linux/io_uring_types.h
+@@ -651,6 +651,8 @@ enum {
+ 	REQ_F_IMPORT_BUFFER_BIT,
+ 	REQ_F_SQE_COPIED_BIT,
+ 	REQ_F_IOPOLL_BIT,
++	REQ_F_ASYNC_USER_BIT,
++	REQ_F_HANDOFF_BIT,
  
-+/**
-+ * io_uring_handoff - a blocked submitter hands its identity to a worker
-+ *
-+ * @req:	pointer to a submitted request
-+ * @dst:	the idle io-wq worker task taking over
-+ */
-+TRACE_EVENT(io_uring_handoff,
-+
-+	TP_PROTO(struct io_kiocb *req, struct task_struct *dst),
-+
-+	TP_ARGS(req, dst),
-+
-+	TP_STRUCT__entry (
-+		__field(  void *,	ctx		)
-+		__field(  void *,	req		)
-+		__field(  u64,		user_data	)
-+		__field(  u8,		opcode		)
-+		__field(  pid_t,	src_pid		)
-+		__field(  pid_t,	dst_pid		)
-+
-+		__string( op_str, io_uring_get_opcode(req->opcode)	)
-+	),
-+
-+	TP_fast_assign(
-+		__entry->ctx		= req->ctx;
-+		__entry->req		= req;
-+		__entry->user_data	= req->cqe.user_data;
-+		__entry->opcode		= req->opcode;
-+		__entry->src_pid	= task_pid_nr(current);
-+		__entry->dst_pid	= task_pid_nr(dst);
-+
-+		__assign_str(op_str);
-+	),
-+
-+	TP_printk("ring %p, request %p, user_data 0x%llx, opcode %s, identity %d handed to worker %d",
-+		__entry->ctx, __entry->req, __entry->user_data,
-+		__get_str(op_str), __entry->src_pid, __entry->dst_pid)
-+);
-+
-+/**
-+ * io_uring_handoff_fail - a handoff didn't happen for a request
-+ *
-+ * @req:	pointer to the request being issued
-+ * @reason:	why. "lock", "prepare" and "worker" mean the task blocked in
-+ *		place, anything else that it took the io-wq punt path instead.
-+ */
-+TRACE_EVENT(io_uring_handoff_fail,
-+
-+	TP_PROTO(struct io_kiocb *req, const char *reason),
-+
-+	TP_ARGS(req, reason),
-+
-+	TP_STRUCT__entry (
-+		__field(  void *,	ctx		)
-+		__field(  void *,	req		)
-+		__field(  u64,		user_data	)
-+		__field(  u8,		opcode		)
-+
-+		__string( op_str, io_uring_get_opcode(req->opcode)	)
-+		__string( reason, reason			)
-+	),
-+
-+	TP_fast_assign(
-+		__entry->ctx		= req->ctx;
-+		__entry->req		= req;
-+		__entry->user_data	= req->cqe.user_data;
-+		__entry->opcode		= req->opcode;
-+
-+		__assign_str(op_str);
-+		__assign_str(reason);
-+	),
-+
-+	TP_printk("ring %p, request %p, user_data 0x%llx, opcode %s, %s",
-+		__entry->ctx, __entry->req, __entry->user_data,
-+		__get_str(op_str), __get_str(reason))
-+);
-+
-+/**
-+ * io_uring_handoff_resume - a promoted worker continues the submission
-+ *
-+ * @ctx:	pointer to a ring context structure
-+ * @req:	the request that blocked, owned by the demoted task by now
-+ * @worker:	pid the demoted task now runs under
-+ * @consumed:	SQEs consumed by earlier handoffs of this syscall
-+ * @to_submit:	SQE count the syscall asked for
-+ */
-+TRACE_EVENT(io_uring_handoff_resume,
-+
-+	TP_PROTO(void *ctx, void *req, pid_t worker, unsigned int consumed,
-+		 unsigned int to_submit),
-+
-+	TP_ARGS(ctx, req, worker, consumed, to_submit),
-+
-+	TP_STRUCT__entry (
-+		__field(  void *,	ctx		)
-+		__field(  void *,	req		)
-+		__field(  pid_t,	worker		)
-+		__field(  unsigned int,	consumed	)
-+		__field(  unsigned int,	to_submit	)
-+	),
-+
-+	TP_fast_assign(
-+		__entry->ctx		= ctx;
-+		__entry->req		= req;
-+		__entry->worker		= worker;
-+		__entry->consumed	= consumed;
-+		__entry->to_submit	= to_submit;
-+	),
-+
-+	TP_printk("ring %p, request %p now on worker %d, consumed %u, to_submit %u",
-+		__entry->ctx, __entry->req, __entry->worker,
-+		__entry->consumed, __entry->to_submit)
-+);
-+
- #endif /* _TRACE_IO_URING_H */
+ 	/* not a real bit, just to check we're not overflowing the space */
+ 	__REQ_F_LAST_BIT,
+@@ -746,6 +748,10 @@ enum {
+ 	REQ_F_SQE_COPIED	= IO_REQ_FLAG(REQ_F_SQE_COPIED_BIT),
+ 	/* request must be iopolled to completion (set in ->issue()) */
+ 	REQ_F_IOPOLL		= IO_REQ_FLAG(REQ_F_IOPOLL_BIT),
++	/* IOSQE_ASYNC was set on the SQE, not just by prep */
++	REQ_F_ASYNC_USER	= IO_REQ_FLAG(REQ_F_ASYNC_USER_BIT),
++	/* vetted at submit for an inline blocking issue with a handoff */
++	REQ_F_HANDOFF		= IO_REQ_FLAG(REQ_F_HANDOFF_BIT),
+ };
  
- /* This part must be outside protection */
+ struct io_tw_req {
 diff --git a/io_uring/handoff.c b/io_uring/handoff.c
-index 9c9bb7ba99f0..8aefea5d326e 100644
+index ddc3c4d6a4f3..9c9bb7ba99f0 100644
 --- a/io_uring/handoff.c
 +++ b/io_uring/handoff.c
-@@ -20,6 +20,7 @@
- #include <linux/fs.h>
- #include <linux/file.h>
- #include <asm/syscall.h>
-+#include <trace/events/io_uring.h>
+@@ -31,12 +31,58 @@ int sysctl_io_uring_handoff __read_mostly = 1;
  
- #include "io_uring.h"
- #include "io-wq.h"
-@@ -52,28 +53,40 @@ bool io_handoff_possible(struct io_kiocb *req)
- 		return false;
- 	/* IOPOLL/SQPOLL issue differently, SQ_REWIND can't resume mid-batch */
+ static long io_handoff_resume(void);
+ 
++/*
++ * Can @req be issued inline in blocking mode with a handoff ready. Everything
++ * but the spare worker check is static, REQ_F_HANDOFF caches that part.
++ */
++bool io_handoff_possible(struct io_kiocb *req)
++{
++	const struct io_issue_def *def = &io_issue_defs[req->opcode];
++	struct io_ring_ctx *ctx = req->ctx;
++	struct io_uring_task *tctx = current->io_uring;
++
++	if (!sysctl_io_uring_handoff)
++		return false;
++	if (req->flags & REQ_F_HANDOFF)
++		goto check_spare;
++	if (!def->blockable)
++		return false;
++	/* nonblocking semantics were asked for, -EAGAIN is the answer */
++	if (req->flags & REQ_F_NOWAIT)
++		return false;
++	/* IOPOLL/SQPOLL issue differently, SQ_REWIND can't resume mid-batch */
++	if (ctx->flags & (IORING_SETUP_IOPOLL | IORING_SETUP_SQPOLL |
++			  IORING_SETUP_SQ_REWIND))
++		return false;
++	/* pollable files keep the nonblocking issue + poll retry path */
++	if (io_file_can_poll(req))
++		return false;
++	/* FMODE_NOWAIT files have a working nonblocking path, keep using it */
++	if ((def->pollin || def->pollout) && req->file &&
++	    (req->file->f_mode & FMODE_NOWAIT))
++		return false;
++	if (!tctx->io_wq)
++		return false;
++	/* an intermediate task's own user state doesn't matter, it stays */
++	if (!tctx->handoff.src && !thread_handoff_allowed(current))
++		return false;
++	/* the SQ head is published while we may still be running */
++	if (io_req_sqe_copy(req, IO_URING_F_INLINE))
++		return false;
++	req->flags |= REQ_F_HANDOFF;
++check_spare:
++	/* have a worker ready to take over */
++	if (!io_wq_handoff_spare(tctx->io_wq, !io_req_unbound(req), false))
++		return false;
++	return true;
++}
++
+ /* fork a spare worker upfront, so the first blockable issue has a target */
+ void io_handoff_prime(struct io_uring_task *tctx, struct io_ring_ctx *ctx)
+ {
+ 	if (!sysctl_io_uring_handoff || !tctx->io_wq)
+ 		return;
+-	/* handoffs are never done for these, see __io_handoff_begin() */
++	/* handoffs are never done for these, see io_handoff_possible() */
  	if (ctx->flags & (IORING_SETUP_IOPOLL | IORING_SETUP_SQPOLL |
--			  IORING_SETUP_SQ_REWIND))
-+			  IORING_SETUP_SQ_REWIND)) {
-+		trace_io_uring_handoff_fail(req, "ring");
- 		return false;
-+	}
- 	/* pollable files keep the nonblocking issue + poll retry path */
--	if (io_file_can_poll(req))
-+	if (io_file_can_poll(req)) {
-+		trace_io_uring_handoff_fail(req, "poll");
- 		return false;
-+	}
- 	/* FMODE_NOWAIT files have a working nonblocking path, keep using it */
- 	if ((def->pollin || def->pollout) && req->file &&
--	    (req->file->f_mode & FMODE_NOWAIT))
-+	    (req->file->f_mode & FMODE_NOWAIT)) {
-+		trace_io_uring_handoff_fail(req, "nowait-file");
- 		return false;
-+	}
- 	if (!tctx->io_wq)
- 		return false;
- 	/* an intermediate task's own user state doesn't matter, it stays */
--	if (!tctx->handoff.src && !thread_handoff_allowed(current))
-+	if (!tctx->handoff.src && !thread_handoff_allowed(current)) {
-+		trace_io_uring_handoff_fail(req, "task");
- 		return false;
-+	}
- 	/* the SQ head is published while we may still be running */
--	if (io_req_sqe_copy(req, IO_URING_F_INLINE))
-+	if (io_req_sqe_copy(req, IO_URING_F_INLINE)) {
-+		trace_io_uring_handoff_fail(req, "sqe");
- 		return false;
-+	}
- 	req->flags |= REQ_F_HANDOFF;
- check_spare:
- 	/* have a worker ready to take over */
--	if (!io_wq_handoff_spare(tctx->io_wq, !io_req_unbound(req), false))
-+	if (!io_wq_handoff_spare(tctx->io_wq, !io_req_unbound(req), false)) {
-+		trace_io_uring_handoff_fail(req, "spare");
- 		return false;
-+	}
- 	return true;
- }
+ 			  IORING_SETUP_SQ_REWIND))
+ 		return;
+@@ -71,32 +117,9 @@ void __io_handoff_restore_signals(struct io_handoff *ho)
+  */
+ bool __io_handoff_begin(struct io_kiocb *req)
+ {
+-	struct io_ring_ctx *ctx = req->ctx;
+-	struct io_uring_task *tctx = current->io_uring;
+-	struct io_handoff *ho = &tctx->handoff;
++	struct io_handoff *ho = &current->io_uring->handoff;
  
-@@ -122,8 +135,10 @@ bool __io_handoff_begin(struct io_kiocb *req)
- 	if (!io_handoff_possible(req))
+-	if (!sysctl_io_uring_handoff)
+-		return false;
+-	/* nonblocking semantics were asked for, -EAGAIN is the answer */
+-	if (req->flags & REQ_F_NOWAIT)
+-		return false;
+-	/* IOPOLL/SQPOLL issue differently, SQ_REWIND can't resume mid-batch */
+-	if (ctx->flags & (IORING_SETUP_IOPOLL | IORING_SETUP_SQPOLL |
+-			  IORING_SETUP_SQ_REWIND))
+-		return false;
+-	/* pollable files keep the nonblocking issue + poll retry path */
+-	if (io_file_can_poll(req))
+-		return false;
+-	if (!tctx->io_wq)
+-		return false;
+-	/* an intermediate task's own user state doesn't matter, it stays */
+-	if (!tctx->handoff.src && !thread_handoff_allowed(current))
+-		return false;
+-	/* the SQ head is published while we may still be running */
+-	if (io_req_sqe_copy(req, IO_URING_F_INLINE))
+-		return false;
+-	/* have a worker ready to take over */
+-	if (!io_wq_handoff_spare(tctx->io_wq, !io_req_unbound(req), false))
++	if (!io_handoff_possible(req))
  		return false;
  	/* would interrupt the issue right away, and can't be handled here */
--	if (task_sigpending(current))
-+	if (task_sigpending(current)) {
-+		trace_io_uring_handoff_fail(req, "signal");
- 		return false;
+ 	if (task_sigpending(current))
+diff --git a/io_uring/handoff.h b/io_uring/handoff.h
+index b8ded4916606..f315f2ae8d80 100644
+--- a/io_uring/handoff.h
++++ b/io_uring/handoff.h
+@@ -6,16 +6,10 @@
+ #include "opdef.h"
+ #include "tw.h"
+ 
+-/* a blocking issue got interrupted, retry on io-wq rather than restart */
+-static inline bool io_issue_wants_restart(int ret)
+-{
+-	return ret == -ERESTARTSYS || ret == -ERESTARTNOINTR ||
+-	       ret == -ERESTARTNOHAND || ret == -ERESTART_RESTARTBLOCK;
+-}
+-
+ #ifdef CONFIG_THREAD_HANDOFF
+ extern int sysctl_io_uring_handoff;
+ 
++bool io_handoff_possible(struct io_kiocb *req);
+ bool __io_handoff_begin(struct io_kiocb *req);
+ void io_handoff_prime(struct io_uring_task *tctx, struct io_ring_ctx *ctx);
+ bool io_handoff_end(void);
+@@ -77,6 +71,10 @@ static inline bool io_handoff_begin(struct io_kiocb *req,
+ {
+ 	return false;
+ }
++static inline bool io_handoff_possible(struct io_kiocb *req)
++{
++	return false;
++}
+ static inline void io_handoff_submit_end(void)
+ {
+ }
+diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+index 289e9ddc8c24..7c2aa0cfacc8 100644
+--- a/io_uring/io_uring.c
++++ b/io_uring/io_uring.c
+@@ -1424,10 +1424,25 @@ static int io_issue_sqe(struct io_kiocb *req, unsigned int issue_flags)
+ 	if (unlikely(!io_assign_file(req, def, issue_flags)))
+ 		return -EBADF;
+ 
++	/*
++	 * No point in a nonblocking attempt with a handoff armed. A force-async
++	 * request can't do nonblocking at all, punt if no handoff is possible.
++	 */
+ 	handoff = io_handoff_begin(req, def, issue_flags);
++	if (handoff) {
++		issue_flags &= ~IO_URING_F_NONBLOCK;
++	} else if ((issue_flags & IO_URING_F_INLINE) &&
++		   (req->flags & REQ_F_FORCE_ASYNC)) {
++		return -EAGAIN;
++	}
+ 	ret = __io_issue_sqe(req, issue_flags, def);
+-	if (handoff && unlikely(io_handoff_end()))
+-		return io_handoff_complete(req, ret);
++	if (handoff) {
++		if (unlikely(io_handoff_end()))
++			return io_handoff_complete(req, ret);
++		/* interrupted regardless (fatal signal, stop), io-wq retries */
++		if (unlikely(io_issue_wants_restart(ret)))
++			return -EAGAIN;
 +	}
  
- 	ho->req = req;
- 	io_handoff_block_signals(ho);
-@@ -240,10 +255,14 @@ void io_uring_task_sleeping(struct task_struct *tsk)
- 	WARN_ON_ONCE(tsk != current);
+ 	if (ret == IOU_COMPLETE) {
+ 		if (issue_flags & IO_URING_F_COMPLETE_DEFER)
+@@ -1756,6 +1771,8 @@ static int io_init_req(struct io_ring_ctx *ctx, struct io_kiocb *req,
+ 	/* same numerical values with corresponding REQ_F_*, safe to copy */
+ 	sqe_flags = READ_ONCE(sqe->flags);
+ 	req->flags = (__force io_req_flags_t) sqe_flags;
++	if (sqe_flags & IOSQE_ASYNC)
++		req->flags |= REQ_F_ASYNC_USER;
+ 	req->cqe.user_data = READ_ONCE(sqe->user_data);
+ 	req->file = NULL;
+ 	req->tctx = current->io_uring;
+@@ -1895,6 +1912,25 @@ static __cold int io_submit_fail_init(const struct io_uring_sqe *sqe,
+ 	return 0;
+ }
  
- 	/* the issue path is touching state that needs the ring lock held */
--	if (ctx->submit_lock_depth)
-+	if (ctx->submit_lock_depth) {
-+		trace_io_uring_handoff_fail(req, "lock");
- 		return;
--	if (src == tsk && !thread_handoff_prepare(tsk))
-+	}
-+	if (src == tsk && !thread_handoff_prepare(tsk)) {
-+		trace_io_uring_handoff_fail(req, "prepare");
- 		return;
-+	}
++/* a blockable force-async request issued inline beats an io-wq punt */
++static bool io_req_force_async(struct io_kiocb *req)
++{
++	if (req->flags & REQ_F_FAIL)
++		return true;
++	if (!(req->flags & REQ_F_FORCE_ASYNC))
++		return false;
++	/* userspace asked for it, keep the explicit offload */
++	if (req->flags & REQ_F_ASYNC_USER)
++		return true;
++	if (req->ctx->int_flags & IO_RING_F_DRAIN_ACTIVE)
++		return true;
++	/* the file decides on pollability, resolve it now if fixed */
++	if (!io_assign_file(req, &io_issue_defs[req->opcode],
++			    IO_URING_F_INLINE))
++		return true;
++	return !io_handoff_possible(req);
++}
++
+ static inline int io_submit_sqe(struct io_ring_ctx *ctx, struct io_kiocb *req,
+ 			 const struct io_uring_sqe *sqe, unsigned int *left)
+ 	__must_hold(&ctx->uring_lock)
+@@ -1932,7 +1968,7 @@ static inline int io_submit_sqe(struct io_ring_ctx *ctx, struct io_kiocb *req,
+ 		/* last request of the link, flush it */
+ 		req = link->head;
+ 		link->head = NULL;
+-		if (req->flags & (REQ_F_FORCE_ASYNC | REQ_F_FAIL))
++		if (io_req_force_async(req))
+ 			goto fallback;
  
- 	/* don't let the woken worker preempt us before we've committed */
- 	preempt_disable();
-@@ -251,6 +270,7 @@ void io_uring_task_sleeping(struct task_struct *tsk)
- 	dst = io_wq_handoff_claim(tctx->io_wq, bound, io_handoff_resume, src);
- 	if (!dst) {
- 		preempt_enable();
-+		trace_io_uring_handoff_fail(req, "worker");
- 		return;
+ 	} else if (unlikely(req->flags & (IO_REQ_LINK_FLAGS |
+@@ -1940,11 +1976,13 @@ static inline int io_submit_sqe(struct io_ring_ctx *ctx, struct io_kiocb *req,
+ 		if (req->flags & IO_REQ_LINK_FLAGS) {
+ 			link->head = req;
+ 			link->last = req;
+-		} else {
++			return 0;
++		}
++		if (io_req_force_async(req)) {
+ fallback:
+ 			io_queue_sqe_fallback(req);
++			return 0;
+ 		}
+-		return 0;
  	}
  
-@@ -262,6 +282,7 @@ void io_uring_task_sleeping(struct task_struct *tsk)
- 	/* our accounting follows the identity, an intermediate's doesn't */
- 	if (src == tsk)
- 		thread_handoff_stats_take(&ho->stats);
-+	trace_io_uring_handoff(req, dst);
+ 	return io_queue_sqe(req, IO_URING_F_INLINE);
+diff --git a/io_uring/io_uring.h b/io_uring/io_uring.h
+index 79db0a8b9cc8..1f536617b584 100644
+--- a/io_uring/io_uring.h
++++ b/io_uring/io_uring.h
+@@ -421,6 +421,13 @@ static inline bool io_issue_needs_lock(unsigned int issue_flags)
+ 		io_issue_handed_off(issue_flags);
+ }
  
- 	io_handoff_release_ring(ctx, ho);
- 	io_handoff_move_tctx(tctx, tsk, dst);
-@@ -306,6 +327,9 @@ static long io_handoff_resume(void)
- 	bool bound = ho->bound;
- 	long ret;
- 
-+	trace_io_uring_handoff_resume(ctx, ho->req, task_pid_nr(prev),
-+				      ho->consumed, ho->to_submit);
++/* a blocking issue got interrupted, retry on io-wq rather than restart */
++static inline bool io_issue_wants_restart(int ret)
++{
++	return ret == -ERESTARTSYS || ret == -ERESTARTNOINTR ||
++	       ret == -ERESTARTNOHAND || ret == -ERESTART_RESTARTBLOCK;
++}
 +
- 	/* enough of the identity to issue requests on its behalf */
- 	thread_handoff_adopt_creds(src);
- 	put_task_struct_many(prev, ho->prev_refs);
+ static inline void io_ring_submit_unlock(struct io_ring_ctx *ctx,
+ 					 unsigned issue_flags)
+ {
+diff --git a/io_uring/splice.c b/io_uring/splice.c
+index e81ebbb91925..7d464deb0972 100644
+--- a/io_uring/splice.c
++++ b/io_uring/splice.c
+@@ -100,6 +100,9 @@ int io_tee(struct io_kiocb *req, unsigned int issue_flags)
+ 
+ 	if (!(sp->flags & SPLICE_F_FD_IN_FIXED))
+ 		fput(in);
++	/* interrupted before making progress, have the core retry it */
++	if (io_issue_wants_restart(ret))
++		return -EAGAIN;
+ done:
+ 	if (ret != sp->len)
+ 		req_set_fail(req);
+@@ -141,6 +144,9 @@ int io_splice(struct io_kiocb *req, unsigned int issue_flags)
+ 
+ 	if (!(sp->flags & SPLICE_F_FD_IN_FIXED))
+ 		fput(in);
++	/* interrupted before making progress, have the core retry it */
++	if (io_issue_wants_restart(ret))
++		return -EAGAIN;
+ done:
+ 	if (ret != sp->len)
+ 		req_set_fail(req);
 -- 
 2.55.0
 
