@@ -1,190 +1,114 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CD4240F8D8;
-	Fri, 11 Sep 2026 09:27:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B60004119E0
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:28:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789118853; cv=none; b=FMRkTmWn1D7I+b9F0N4659ATauppwFRRviEfFKBlTi2HV4jGjsveCQNxQ5dRfj0E7YhjI2DNQH4gJa1VkWlVKOQjDsI8/WYMPGKlDcXDUj/JvdpODZ9lcpfLPWay1hBvJ3PJcLOvwyhaxgjKPy16DoWJnnXbMYQmXpQexb5OCEw=
+	t=1789118927; cv=none; b=KyqWEpix0AkkkcW+TJHyxqthTu1bL1NKhvdpbwiaihsed8N3P/vP26gbIg4rbsgx9VzM0lYzXVMoMm0RJMoAWV/ddXDH9AdVYkH8ifBW/Y9ER2zNyzKtYlvTR/GH8ZK8SskAQvE5o2icVVgIOTfgJz+k7bdaOSvsAfyyrul1fOU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789118853; c=relaxed/simple;
-	bh=8K+BGYFG3ud53t1n0NdJiEzeFfQGaZzpWgnI21xdFbw=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=ra/pfQ8KT7d2oRrKWsGOtFpz/0DB6NoxRe9W/UMigCutkHyY3JZbYDoQRV6yd85mld7mLyrkvPnSy1iqPQA8C5s0OR2AdMhQEjNvVsKLr+DfY3ZqPmAsRniYD+pjCOoMjL6gu1zjhSNlc7EjTde9q/fm/pchEvKD/7IFDqng46w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jswi0aed; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789118927; c=relaxed/simple;
+	bh=6SidIVM2VhXxSqtPqbCE9i/tqnPHI8JtRxVo4q8INdY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=IdEXA/HDzpLFRUXw/RjEJqxeJnIL6pB02kT/ehzC5xGq1J8+hqaJkTAhp4mPKf2NQImtT3Vw4GPAxrFltIG9cpynn9DGZg3x/xYIEdyDx3LKLaNmwCGY+bgbQUcKjnHinUf+bDgsyqRa2ITGhd5L3XseF8KF0W2syxeIV/Z8iJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=NWQUDG23; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jswi0aed"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789118851; x=1820654851;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version:content-id;
-  bh=8K+BGYFG3ud53t1n0NdJiEzeFfQGaZzpWgnI21xdFbw=;
-  b=jswi0aedPL/hK+v67gmVd9++XjfK7RhjJjoi8KfSA42SfQ/tF+O7f2SY
-   Zyto3MBCoDRY5nDG9r0btYKW8HidHAFN0lSw6B7oVsvpqaRAzjOhSD3aQ
-   yPzXjXweKGw96t78CXFiTa8WpoTPypKapQMbJEWLEZVhu4V17ZwauBCN7
-   1Caxn2RWoDUFfLKefs5gocL4KYXCZh5BYsfi+Cg2fDvtvcVeBZifjQlTr
-   ctbYLVnIXcDIcLhH2T6iVNcTfK9awge/p06InyP+DW5E+8n9B65ZEnWV5
-   dG3cJQXvtOwUixU6dhUHKz/5Ydc677iLzSDBYVEdDvzYdW2fqlwrGwfKk
-   A==;
-X-CSE-ConnectionGUID: DOWkKBBlQb+/l0roAyBLKQ==
-X-CSE-MsgGUID: GI9Z/6MdTmKSPXRyhMlzfg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="89451615"
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="89451615"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 02:27:30 -0700
-X-CSE-ConnectionGUID: eWtNITrFSMqsqxzBMWwPrQ==
-X-CSE-MsgGUID: JhxQOYJBQMmet6UAxYoZXg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="240221"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.158])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 02:27:28 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 11 Sep 2026 12:27:25 +0300 (EEST)
-To: Ard Biesheuvel <ardb@kernel.org>
-cc: Ard Biesheuvel <ardb+git@google.com>, linux-pci@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
-Subject: Re: [RFC PATCH] PCI: Tolerate non-prefetchable 64-bit BARs in
- prefetchable windows
-In-Reply-To: <41345c53-fea4-4f98-8569-b3dc4e84cdcb@app.fastmail.com>
-Message-ID: <2e392b1b-3cbe-5cf8-e190-b1c82d69562f@linux.intel.com>
-References: <20260910143440.3865663-2-ardb+git@google.com> <aa0e034d-fc68-69d6-8d27-8f30d138b9be@linux.intel.com> <41345c53-fea4-4f98-8569-b3dc4e84cdcb@app.fastmail.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="NWQUDG23"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d0e19300cso3488955e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:28:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1789118923; x=1789723723; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AQwqbXwJzJUEnBnzBsi0ka1PwipDEMcTOXIfYajspX8=;
+        b=NWQUDG23O6WOp9oPryh7MMYkMP92Kiq0A+Z3D3Y/dpQgJ1F2VoPI1FSDmGaRHRcX2a
+         jazybtr0BmRS9q1Xylm0TsW0niyc8LGX5zePgj1JXcaqeL9Lb2AxexfZKRZmNN2w6/Ob
+         AQvrbqLW3QMsugmHeWCWzzXCWYk2SLCNyIU7mmRCyiS25428uFwJ2Nt4IkIcMi7ECq0o
+         crs4IXRjITJz6wPkwogf6dqD2JIlPY6E+rLun3B4mPnr0pQA52dzvoK1MvRz05qz5qTi
+         4HFeLdPSfNyTyqQ9rokoS8qlHSOCB5D5CklHZC3RhdCIFnKzUdlzdvISaf01tPpIbdnO
+         voIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789118923; x=1789723723;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AQwqbXwJzJUEnBnzBsi0ka1PwipDEMcTOXIfYajspX8=;
+        b=lcNqgVoUiAjHziVZf6fMzNKZUoKvi5ciKg4DfoN70w5QGSwwxmZ44zsKUlFqPp+8/F
+         YVj3D/hUA/GnLldvjF45wWhCsd4UJxqGc+Js3cGs/rxAV/LdIgEqckgbsmGUNocQB2Zo
+         fMxvBDcnGoNQSD/8urwvth67Ljopt/m5/5xxRp4BoxGALW8GbiPMcx+6XdFOI7FmxvPf
+         7T3Vj9fccOGqNz4Ru8W/XiaT5/YeiLwYgAWF2/OQ13aSjGcBTyEXJiuOVeDmBWuw+mRP
+         576MSAlNQZv3ln4JSj5+0imfArJNZ/oriPjKoVUDyAD1LfttQ5EoAnOZshzp3kwVPNq4
+         8FDg==
+X-Forwarded-Encrypted: i=1; AKwUvBwNlCPcmAl0/n+i7h76CSiuMDc4kobXIjUzwKWnjkcoQm2mqMhBaOP6zubepnZ90kFo15WsbpYuOn+IOFE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kkNNQqEJ0SbTlH5vixHGbtiiibKkwB/Xrh7XFyaZb9zDAq2MCY
+	2Wspxpk9ktMUcPkdpGnl+Y9YBFc0oI3Y+MMfQRObm1MoIOKBgfiDH8p2xMuAC/Guf0Q=
+X-Gm-Gg: AYBFou1ec9ilv8owImxutlh8Hxwsg0pZ7PA2YB3RZevVRyZoyz7dSrAj6I+YbVokwHw
+	ytk3/Hn+LNkx6sX1kKuDKYx6jhPwoFBfSoFmABhjCOxIZLy4MOgIFgqKXxb1I9WV8Qh9f+SZboD
+	eO8At6W1YQ88uViYdRUbz/qLtu69eULTAf8IeHbJDt0jHDW+Xbs0LtkEoKQAUOvJAZtaCXf3yuu
+	PxMHt0ECwulob5i7svWWx+Tk3aHIS+eDvINtpHzspHq62p3qYYLpx2m8uBo0U7pUbaS4/kBjW2S
+	nKVHWQzSF45QBzAT689mTfW0aDLQSD2L04WAgOtZtVIzyRirqphEpRq+yVVXdQMac3cpEuhtpAR
+	3s1vK4l0PvGHbgf9YPCUUs6hq6gZrNxxjVDsyASbzxZXZAHChxBoRnG9/JYlMc5DyNEn3K0+1gI
+	clGLzERRyO/EunvPVED5nV9HIQKWHYYN6VMGXBNhIU8YKreobQUvEivyCSgMW8qIFU9q/nUC+HM
+	quSDb38YbP0bnR7FbtHgHeDY8Dp
+X-Received: by 2002:a05:600c:3ba9:b0:49c:fa21:e73e with SMTP id 5b1f17b1804b1-49e619c0558mr44117805e9.20.1789118922855;
+        Fri, 11 Sep 2026 02:28:42 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60ababd5sm83052575e9.4.2026.09.11.02.28.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 02:28:42 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Andre Przywara <andre.przywara@arm.com>, Enzo Adriano via B4 Relay
+ <devnull+enzo.adriano.code.gmail.com@kernel.org>
+Cc: enzo.adriano.code@gmail.com, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu
+ Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel
+ Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, Ulf
+ Hansson <ulfh@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org
+Subject: Re: [PATCH 3/4] arm64: dts: allwinner: add Allwinner A733 SoC
+In-Reply-To: <20260911001805.0a2e033d@ryzen.lan>
+References: <20260613-a733-dts-v1-public-ready-v1-0-7787c94681db@gmail.com>
+ <20260613-a733-dts-v1-public-ready-v1-3-7787c94681db@gmail.com>
+ <20260911001805.0a2e033d@ryzen.lan>
+Date: Fri, 11 Sep 2026 11:28:36 +0200
+Message-ID: <1jo6e46ssb.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323328-30872173-1789117895=:1171"
-Content-ID: <d5585a69-a9f9-cc9b-2706-c74342859f3b@linux.intel.com>
+Content-Type: text/plain
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On ven. 11 sept. 2026 at 00:18, Andre Przywara <andre.przywara@arm.com> wrote:
 
---8323328-30872173-1789117895=:1171
-Content-Type: text/plain; CHARSET=ISO-8859-15
-Content-Transfer-Encoding: QUOTED-PRINTABLE
-Content-ID: <662fec2e-5c55-858c-09ec-f9a543d6de19@linux.intel.com>
+> And what about I2C? We would need that for the AXP PMIC. Having that in
+> the initial DT is required to keep the DTBs compatible with older/stable
+> kernels later on.
+>
+> And it seems like the whole r_ side is missing, even those we should
+> have bindings for those. At least r_pio and r_ccu would be needed, plus
+> r_i2c.
 
-On Thu, 10 Sep 2026, Ard Biesheuvel wrote:
+I have sent the i2c binding but it did get picked up.
 
->=20
-> On Thu, 10 Sep 2026, at 19:31, Ilpo J=E4rvinen wrote:
-> > On Thu, 10 Sep 2026, Ard Biesheuvel wrote:
-> >
-> >> From: Ard Biesheuvel <ardb@kernel.org>
-> >>=20
-> >> The prefetchable vs. non-prefetchable distinction is a relic of
-> >> conventional PCI, to denote from which regions PCI-PCI bridges were
-> >> permitted to perform speculative readahead.
-> >>=20
-> >> For software compatibility reasons, PCI Express inherited the Type 1
-> >> header and models PCIe root ports as PCI-PCI bridges. However, this
-> >> readahead behavior does not exist in PCIe, and so this distinction has
-> >> mostly become meaningless on the bridge level.
-> >>=20
-> >> As per the PCIe r6.3 ECN "Removing Prefetchable Terminology", the
-> >> 'prefetchable' designation has been removed from the specification
-> >> entirely, on the basis that it is obsolete, and is being abused to
-> >> inform memory mapping attributes and other device/BAR level properties
-> >> that it was never intended for.
-> >>=20
-> >> Given the limited range for non-prefetchable windows in the Type 1
-> >> header, and the fact that the distinction no longer exists for PCIe,
-> >> resource allocation performed by firmware may result in non-prefetchab=
-le
-> >> 64-bit BARs being allocated inside prefetchable bridge windows.
-> >>=20
-> >> Linux rejects such allocations ("can't claim; no compatible bridge
-> >> window") when it encounters them, but will usually fail to produce an
-> >> alternative allocation, given that firmware wouldn't have placed them
-> >> there in the first place if there was sufficient space in the
-> >> non-prefetchable window.
-> >>=20
-> >> So at the very least, let's not reject such allocations when they were
-> >> made by the firmware.
-> >>=20
-> >> Cc: Bjorn Helgaas <bhelgaas@google.com>
-> >> Cc: "Ilpo J=E4rvinen" <ilpo.jarvinen@linux.intel.com>
-> >> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
-> >> ---
-> >> Link: https://github.com/tianocore/edk2/issues/13104
-> >>=20
-> >>  drivers/pci/pci.c   | 3 ++-
-> >>  include/linux/pci.h | 4 ++--
-> >>  2 files changed, 4 insertions(+), 3 deletions(-)
-> >>=20
-> >> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> >> index b2879a6be5f8..e33eb9f3a139 100644
-> >> --- a/drivers/pci/pci.c
-> >> +++ b/drivers/pci/pci.c
-> >> @@ -761,7 +761,8 @@ struct resource *pci_find_parent_resource(const st=
-ruct pci_dev *dev,
-> >>  =09=09=09 * not, the allocator made a mistake.
-> >>  =09=09=09 */
-> >>  =09=09=09if (r->flags & IORESOURCE_PREFETCH &&
-> >> -=09=09=09    !(res->flags & IORESOURCE_PREFETCH))
-> >> +=09=09=09    !(res->flags & IORESOURCE_PREFETCH) &&
-> >> +=09=09=09    !pci_is_pcie(dev))
-> >>  =09=09=09=09return NULL;
-> >> =20
-> >>  =09=09=09/*
-> >
-> > I was more thinking along the lines of always setting IORESOURCE_PREFET=
-CH=20
-> > for 64-bit BARs on PCIe devices but I've not had time to look at that/t=
-est=20
-> > how many things would break as a result. ...It would seem much simpler=
-=20
-> > solution to differentiate PCI from PCIe while keeping the existing logi=
-c=20
-> > without adding similar pci_is_pcie() checks everywhere.
-> >
->=20
-> I agree that the code changes would be much simpler.
->=20
-> However, would this impact the PCI metadata observed by all consumers,
-> including userspace,
+https://lore.kernel.org/all/20260707-allwinner-a733-i2c-compatible-v1-1-566340542bdd@baylibre.com/
 
-Yes, it will impact userspace. But quoting you from above:
+It is a marvell ip and I used b4 to send the change. I did not notice
+until now that the sunxi list was not Cced. I'll re-sent it
 
-"is being abused to inform memory mapping attributes and other device/BAR=
-=20
-level properties that it was never intended for."
+>
+> Cheers,
+> Andre
+>
+>> +	};
+>> +};
+>> 
+>
 
-What does the userspace then do with the information? Does it qualify=20
-under "it was never intended for"?
-
-> and drivers that may expect a certain BAR layout,
-
-??? Would that even be spec compliant??
-
-> and/or base decisions about memory attributes on this?
-
-The point is to consider them 64-bit window eligible so yes, kernel would=
-=20
-definitely be basing decision on that but that's intentional.
-
-> In particular, I am concerned about non-prefetchable BARs that actually
-> have side effects on read, being mapped with WC (or Normal-NC on arm64)
-> semantics, where the interconnect may widen, combine or reorder accesses.
-
-So on a more concrete terms, you're referring to the check in=20
-proc_bus_pci_mmap()? And the one in __pci_resource_attr_is_visible() +=20
-pci_dev_resource_wc_is_visible()? I suppose that wouldn't work then.
-
-So if just setting IORESOURCE_PREFETCH is not workable, how about adding a=
-=20
-getter for res->flags which adds IORESOURCE_PREFETCH into the returned=20
-flags if it's PCIe device and (in the end) use the raw value only in those=
-=20
-places that actually care about wc distinction. What I don't want to see=20
-us adding that pci_is_pcie() everywhere.
-
---=20
- i.
---8323328-30872173-1789117895=:1171--
+-- 
+Jerome
