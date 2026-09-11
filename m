@@ -1,150 +1,116 @@
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84EECB640
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:07:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789085246; cv=pass; b=T8h5OpkAS/aEFIFxA0kUYYBhuXW/8oJ+1CA8iYY8hj+H2YlxzRNhAC2o46ltL4d41vwcEI0EyzDl7qhYm0skTw+9HpbEJ5l46Zcn9vjw5OtI9oY65HvdI7gPZN6B+/aOOCfWTu2s/qD57Sp2erYgTUxrXyigwFI9xg+/CDmWE5w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789085246; c=relaxed/simple;
-	bh=uGmLXEnL+IC40GIG6X/bj6rXYRWJsMtL1CLjCIyygu0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GqCfDeoLXO47r11c5U3kHxnN0V3cVoyAtm+PDAXxmtpzrNxSaPDn+uldVuz9hCjYweEVR84inTDKU0R5WR5zEwQ4jyf830nZ/ejUnp3ePMeLqeqox4z2hYLp5f+OPww3KBOGdMdHOgubKoA58b1jZsfaSX164tIiPuQQ/7ZlrYE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mjmA/4/0; arc=pass smtp.client-ip=209.85.218.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6B028E0
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:08:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789085328; cv=none; b=fP6FgTwGEMX95RKpihUXAXJAJYl5V8Bc8YGAtKEfUI1Tv2h40x88WYzazyPwJt/rgmtWpYJTXmEmXp2MQyOcUNd3L8xmEeFh05AvhDHjc5xp8ezmz+iQ7/FWSsqCG93LJZSJZ0NvDtRaBUbPEj/yg9PJdlAqQ5d+Sve9pdQyeB4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789085328; c=relaxed/simple;
+	bh=v2XJNi/Y29xgo2PM9yU2/1tfHLxfQOc8Xy9oLXfuIbc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZCsJ0p2L7ckslNCRwGgxeU5pGnS4FAN4XYCL/fWgv3a/W4hXkH8pcqjXKlwr/HgqOaMdtYNYG8Z98thtn55jhruSynlSzIfXrV0l+vSCRj30CKzv6SF4mQL7Fgrqz7j0QucjFh6jE9IxT5cE5yAQcAd/QZ4n+O6dUt0yDvqiHYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ton5mef0; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mjmA/4/0"
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c250f28f1cdso70225266b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:07:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789085243; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oU9qRApzK2uWWswyvqwvK80ZDoMsPx5jV8BWmzWtjcdAuN27G6AoyC6kUJk7E7X9u2
-         9IbJLSKd3hYMX0chFKDlaRx6AkDIo+CkbOxbt1PYFB2PvxHIpEFTDTPcQcs44J+sO30L
-         pjj4U3XQQ2pGHlT9f0PbdWLWx3+53Bee4aNIsYhc37zJI5bGPXIP8CxvU4kYIT6bjsO9
-         CcODnVqN5BXRiixmj9qs+HIqwiv0AkYiUbzwJggG+t9MVPgxRxqX0Cx2RmQK5IWVmUsj
-         jaPJRBR0KAG0AuZLPJr6/cP/IRvwKCgwJgoC3scgk0pqDixb+H4h3CsovK0pdqP3tvtX
-         mpdw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=IwwWcBN+tgHNQvnGqgqfng+hX1+EnAWmj1LkksOOo0g=;
-        fh=0etpeRmEXjHNDlLCa7yfRs8TMZfRBbbu7FNIbREfvlE=;
-        b=dDt4d0ClB3C+eDD0jXHAYJQW83gW2mafHSWpowTrWFXdl7Mt9k7S+VFFlQFlJZ8XD8
-         UAdXQPMOhhYzDUuX1gmxksgmfot80Ie2VucrWVK+P7GSsVmaG8YWZINeo+++o0u826Nf
-         XSNyrmR+jDDPoVdz/WHkQYaOafu/h4gH6uli3gDQU25W3wvAAxRRvYNwmrtHPFUGCXny
-         fKdz40vknV5urNquufHebz8UlvFLBtExEOxZgZ9sODj9JI/XRV/T7sl6vtuwh7OAj9Bu
-         fPFJNeZTQPWeJInYM+4U77yHbo9Ds9ay8jwtYQyoq6s3sEsrYiuG7WWnp9sleI8HC5i0
-         Ackw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ton5mef0"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-939109fafd6so32627285a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:08:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789085243; x=1789690043; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IwwWcBN+tgHNQvnGqgqfng+hX1+EnAWmj1LkksOOo0g=;
-        b=mjmA/4/04KERmg+8nWZII241NK/mb4GZLJdFIwG8RWQQn7AL2u5PPqoInHmKxPiEOK
-         wN6jZ9FrlZzx/LXN58s3xXsHtPj7VvTydJbMkgwPPR50cTo1orReS2XAiSw67if9Hn3h
-         zKS5lkJfJiKMegROYEqAb7MvFJGDJL7Gkze8r7xL7XMXwUgjwxcyiB8Rh6tcjbqHsr/Z
-         KjpICAnL/qq7h04+j/eARr2dISwFf7hTAALqIrCK4CYR0ZKxbBok1Xyrb6P9Un8SBV0e
-         7p4ztkX1jael1hadSfg8JskW3Q3kq82uLtxv7u7vVQMpJkoLuGEgYZ9cD2qIeyfqnnfB
-         Ex6g==
+        d=gmail.com; s=20251104; t=1789085326; x=1789690126; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bSaMAuaPgc7+sGFbHWGL+A5HmSLpypXBziPyfL/qmaQ=;
+        b=Ton5mef0H8KvHg31LiINad2ZtLRH8lkVKFPf5kVkXqOQkb5l1LPVyZlVN8T5YRvodd
+         9veLYeMgdO+q/MpTZKyQQF01MBMT18EFFJK1oLtaj8AMQb0RsC2n8zcZiQn5ykBaUVYK
+         GlZWx733ZIttDCqUhG0rcWQmbnUe1ne86BKWl4JyFYACyQkndQloOxl6+pbgh7YiJIAi
+         m1Kkqkj7hH4EOwZfAO4x81PnEHS7C3sbdQ3uvLEXKkMTQShMT1jAYQE4q3LItcmNmBdd
+         Uq9eUUrFH/MJ0AzuF93zGxUhB1ug80nPqITY4OwuzmDYD5km6dYFsBylzOs8HybYGACv
+         NJZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789085243; x=1789690043;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IwwWcBN+tgHNQvnGqgqfng+hX1+EnAWmj1LkksOOo0g=;
-        b=b04P2fO2UzKz6ivjD3cETEjyUmids+1XXfWpYaeKXJYdE1Y6HOvdjL/hfH1O8qiNtJ
-         n2OonQz9Ki0uI3gf4ra9XWSeHfhJ7yM9+oED2nnjr9s6yogTT/hDEQ/n9VVzmoEdFKxz
-         YlwCe4BuTFRUT3mOfv2jlKxqIwa7iDMFqTH69Gg6WTX6y7z4yKQTldF+hkeVB5wp4nV4
-         mDmEnEvHB1Vl/+asMh0G3ql1bKmz90FsJgovyP/aXXEKx+6xYXncVJ/X6lZjUsHwVmOa
-         Aq5jj925N1/UYR+JJ6Cp87jcUNJRiVKxRlM/k5cCaHRyL7JrgxXmjyKvvpqAs+O2O9Tc
-         eRrw==
-X-Forwarded-Encrypted: i=1; AKwUvByTDs4x9y6ydwoRkzmsY4QQ/4MKBHM0lMnDN4BbcEu6iht0wDGj9oc/wRYIUF4Cs2Iv7ApjFQVsqH2qFQA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nnLm3PtdqUeCioq2Rn5C7i5oeRtB2XUOrEfeWXqpva7Ol6E1Y9
-	5TIu1y0OSt3catcniHsJHyKBQpPq1aApTlo/D5ar7BHLFk7ZNZg1qr3TkBOSup404zoDpAwOgZh
-	Oj+lNciYeAzxM6iDxokXGEP0FmNWUXw/Cu6kKT23fge8vaXqOmqORLKQdtoc=
-X-Gm-Gg: AYBFou05od5G1TQ/3nV/s8ly8SOT7JcnztiqqFNB3kGXob2Z4yx2wGdGCL43ZFbgrWi
-	Z4oPwHghal/ncyazelbjSPIg6dJdSewwIZiWpvmCqDt15Qi0yEPWfFYMoVAewS7sxAVa9MjDGmF
-	vAZ5V34267Oc6Fgxig8NwVYj4bn5mIoEzpzAUOUJ5w91mqOeRPiL13TR58d3LvRO0IK1ghjJ50Q
-	x/+PdSZA6piwyMKBGwdrp9mFM7sA2uavwkLJNhgS4AUldgYGgc/5OLkbDVudoBc3TYA71D5kvoq
-	jGEn84se9DpOuBkY2FDnAFTgS2fkxWOyrFC0lau3knByDwMQNjv98ED5ZdmrS30pxRLSEVwoOAJ
-	2VaGCEa29TRa/RMnAVp9jgv1VXwCJjfpHQlT4/CF/MRYcP+mjnwil/60q27vxtwKwPLxJA3CD7o
-	z0h7n+K7mxuuiFO1QIsK84GCE=
-X-Received: by 2002:a17:907:3f1c:b0:c26:19de:9acd with SMTP id
- a640c23a62f3a-c29666d6e67mr44961766b.37.1789085242261; Thu, 10 Sep 2026
- 17:07:22 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789085326; x=1789690126;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bSaMAuaPgc7+sGFbHWGL+A5HmSLpypXBziPyfL/qmaQ=;
+        b=SKGsG442hcKfs29eo1cWipTY0/gOVnWPRBjbi6lFeoXbIhCM8Du8OpKorz1Tv93QWi
+         HuBiPBCmX+Lbb0cMuP6FGUCN4ELkyH5HfsaUfLTK0JNZOwPOJe2jzTKPXw4q1YZxk/NU
+         b0tJIuoQ2vw5vr2jaItvaboB0uFChO/V0ci14qsTFroaplqyWFgG02GRtt/yaxyyOEKx
+         v18uy4ZBeTWVME8qPEe6Qe928j7pblTWjPAZSkBd7WHJqaH8LxOq1CmsW6nyKl/w9lYB
+         VDvxytZBs6xHq4LzXyXagI+DqrpalCQeSxk62/sZlHPNAKzh1fWu1QkX8EcudtVtBy3K
+         rOLA==
+X-Forwarded-Encrypted: i=1; AKwUvBwVVD4Nf6sT6k/NTLfGfRK/qwj9Suf2EBb0QphblW7fzUaDX/ULnhIbhEWSGh9h+e+yByYobmwL2+KF8uE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lnEnzbDmv5c/CzgDVbui153jpd5731M83WsWmdXdqa785U/euB
+	bg40vYMugytC8sCGiZQc/qCFw3MGLFuXF9/9Fz+91hTsI4dzY/bki2y1KQOHRm4=
+X-Gm-Gg: AYBFou0Dr7l66Y+ifzCrFdopdVm1yH+1tO8O89nfnN1IfflPjjPJddUjMeO+z9qRt/z
+	OIlB+C4LL2afjg9GdOuefzRhNJN9lAXkvlc3/rjzWCAXXB4CGk7ucucT6i69uupwX4IT3idT26X
+	mfJLtPiQb18wqceh7u7UvB/L6RAndniOatLOXI0Iz85mOUxP8mxIx3/Jd3Uar8Rz9NjHOvW/Fm3
+	34NO/HAiAHZr5EnYUlbw0QpFQSCKDV+LUvW48/wjuOedSHgVAPdQbbHRTeB4SXFJTBFvjQiezJw
+	QPIlctNABDaIW/pfl0fySrjD/RPsCWr9soKvX/eYOjM8RMuEaAJrV+CNGUmC/UzZ+A/h9T4KAwT
+	pIGLsQCX6wMc8sSnelZmZ1LRP7pdM4i2qBVkCH+ii0yJNbl219kY8MyAqZPMavu6NlZI5Uafr5I
+	zhwvDHNsSyTV+9qvYpU7ufvDw4pIz7u7ses8LoR0TDnsZUpixjYVAU4TnEft/FeLUtPPuXeqepW
+	GE/rtSeK0SgHGWHC/RnIu49X027Bs6c79ei7cXxGK1eS8XNxcwGzsi2O9INfe+NmBFK8/7OUvQp
+	wBTZK7FZhAvGo8KLz9fOcxZ9za0ZKcZSYpM=
+X-Received: by 2002:a05:620a:4409:b0:939:191c:cac7 with SMTP id af79cd13be357-939ea0850abmr180782885a.13.1789085325637;
+        Thu, 10 Sep 2026 17:08:45 -0700 (PDT)
+Received: from localhost.localdomain ([104.39.73.78])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e811cffdsm106263285a.46.2026.09.10.17.08.44
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 10 Sep 2026 17:08:45 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Helge Deller <deller@gmx.de>
+Cc: linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Myeonghun Pak <mhun512@gmail.com>,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] fbdev: sstfb: use managed PCI device enable
+Date: Thu, 10 Sep 2026 20:08:35 -0400
+Message-ID: <20260911000835.88909-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910162411.d3bd211927c10e049c6652b8@linux-foundation.org> <20260911000300.1052582-1-jthoughton@google.com>
-In-Reply-To: <20260911000300.1052582-1-jthoughton@google.com>
-From: James Houghton <jthoughton@google.com>
-Date: Thu, 10 Sep 2026 17:06:45 -0700
-X-Gm-Features: AcwNN1X0dJedX_Oh1493PKimMiAb_MFffFLVsT6i1Q2bbVinjsu48pu3aGeEvKE
-Message-ID: <CADrL8HXtaLLheoY=DchtwxOq=nWRzVA=-1r9zi8=aebi3j1rtw@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] mm/khugepaged: Never install PMDs in
- uffd-minor-registered VMAs
-To: akpm@linux-foundation.org
-Cc: baohua@kernel.org, baolin.wang@linux.alibaba.com, david@kernel.org, 
-	dev.jain@arm.com, hughd@google.com, kas@kernel.org, lance.yang@linux.dev, 
-	liam@infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	ljs@kernel.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
-	shy828301@gmail.com, usama.arif@linux.dev, ziy@nvidia.com, zokeefe@google.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 10, 2026 at 5:03=E2=80=AFPM James Houghton <jthoughton@google.c=
-om> wrote:
->
-> On Thu, Sep 10, 2026 at 4:24=E2=80=AFPM Andrew Morton <akpm@linux-foundat=
-ion.org> wrote:
-> > Sashiko had a stupid niggle about the selftest change and made quite
-> > disturbing claims about the existing try_collapse_pte_mapped_thp() code=
-:
-> >
-> >         https://sashiko.dev/#/patchset/20260910023411.514987-1-jthought=
-on@google.com
->
-> Thanks, it looks like the note it wrote about the selftest is genuine; it=
- is
-> okay for MADV_COLLAPSE to fail. So I shouldn't have changed uffd_test_ski=
-p() to
-> uffd_test_fail().
->
-> Andrew, if you can, please add this diff as part of the patch to queue. (=
-It's
-> a partial revert.) Or I could send the a new version of the patch as a re=
-ply
-> to patch #2 email. Or a whole v4, whatever's easiest.
->
-> diff --git a/tools/testing/selftests/mm/uffd-unit-tests.c b/tools/testing=
-/selftests/mm/uffd-unit-tests.c
-> index 6f2360f9b75d..d8e40b770d88 100644
-> --- a/tools/testing/selftests/mm/uffd-unit-tests.c
-> +++ b/tools/testing/selftests/mm/uffd-unit-tests.c
-> @@ -639,7 +639,8 @@ static void uffd_minor_test_common(uffd_global_test_o=
-pts_t *gopts, bool test_col
->                 /* MADV_COLLAPSE should succeed with userfaultfd unregist=
-ered. */
->                 if (madvise(gopts->area_dst_alias, gopts->nr_pages * gopt=
-s->page_size,
->                             MADV_COLLAPSE)) {
-> -                       uffd_test_fail("MADV_COLLAPSE failed");
-> +                       /* It's fine to fail for this one... */
-> +                       uffd_test_skip("MADV_COLLAPSE failed");
->                         return;
->                 }
+sstfb_probe() enables the PCI device with pci_enable_device(), but
+failure paths after that point return without disabling it. The successful
+probe path has the same imbalance because sstfb_remove() releases the
+framebuffer, mappings and memory regions, but never calls
+pci_disable_device().
 
-Ah, the
+Use pcim_enable_device() so the PCI core disables the device automatically
+after probe failure or driver removal. The driver still releases its
+framebuffer, mappings and memory regions explicitly.
 
-  /* MADV_COLLAPSE should succeed with userfaultfd unregistered. */
+This issue was identified during our ongoing static-analysis research while
+reviewing kernel code.
 
-comment at the top of that hunk should also be removed.
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+ drivers/video/fbdev/sstfb.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/video/fbdev/sstfb.c b/drivers/video/fbdev/sstfb.c
+index 2ea947f57efb..0496b9d5ecc4 100644
+--- a/drivers/video/fbdev/sstfb.c
++++ b/drivers/video/fbdev/sstfb.c
+@@ -1332,7 +1332,8 @@ static int sstfb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 		return err;
+ 
+ 	/* Enable device in PCI config. */
+-	if ((err=pci_enable_device(pdev))) {
++	err = pcim_enable_device(pdev);
++	if (err) {
+ 		printk(KERN_ERR "cannot enable device\n");
+ 		return err;
+ 	}
+-- 
+2.47.1
