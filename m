@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE703DC4D9;
-	Fri, 11 Sep 2026 03:28:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6557B35C1B2;
+	Fri, 11 Sep 2026 03:28:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789097290; cv=none; b=VNCm48e61BapKNN2HHpBgfn7K8SvQqs/U7m57Od3E3UM37xLHok/cbKzjb5EurZe++5cVEF2QW8qCsANJlX+Q+AKBQIW0Yf5t8mwE16C/3XbyryzAklahbMNuWVmZPGluds3IWpUKWtXosJPxVS8TidvZoUbECVVf5aB5upwPl0=
+	t=1789097295; cv=none; b=JB5x4XFRcb41prF3STWWuDuA1Kg0NksEkTzjAzWwKgFGyx4S1/IwdDhZtmExQxxjbRKBrXXAKosAMkffFzyOrkRjiw0fEqT4bfIN5eUBz/fNtGKyO/wvSnmBmg7fIOzjugrOoi1+YqKbCEBb8cfu0YaswmnND6hxMOefgd5MsEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789097290; c=relaxed/simple;
-	bh=tmrKbZe/FQ5ZENJfY5AZXndssTok4+AJnBT6nbKFwc8=;
+	s=arc-20240116; t=1789097295; c=relaxed/simple;
+	bh=OF0sPsDwkbWiDnj/HCiRsQBt4xFUkso8KDZ/YceRohk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rkeMuYfg7EcV4xaRtgsmYYzQtQ5svHLOFem9m7nAL7Wue7xY3+EQRaD8IZTG6VO6WPDRFrRlS4h1H97C+j0Q41Mo6rvHAk8meQc2SuaugWliALmNU18Mr6n5Oapn2Vgt6oeKUl2Kzx3m8I0OnLmfhvxchxa6Ij1191KJNrPYVTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=feUh0UZB; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=iAoBEv7D83nTz+cqGMzZmqMYFmwp5CGPUf+471BaPtFjk98XIposnEnABXTdv1G7I1SilRgsrPGu50nWsN9VH1/MEMkoU2qP2hqvjR6Cb0LIvKl6gLC34csco4KAQPwa9E0jkM1eILnvjirbUDoVkzslaUQJfZvUKIYJM7b4e0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HFNmoNtO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="feUh0UZB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AB181F000FF;
-	Fri, 11 Sep 2026 03:28:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HFNmoNtO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 590191F00893;
+	Fri, 11 Sep 2026 03:28:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789097288;
-	bh=QbMD56baPgM+e8xPeMNNZSCp/t9stBa6OwHW9SFOA28=;
+	s=k20260515; t=1789097294;
+	bh=+YGz+V8i2Tas85KJKYFj/ybAdrkKvSaeyZci6zxQyQQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=feUh0UZBssO51F57kDi2j/ZaL6ovAYwz5gkKITjjKUh0UlXjPERvne8pnMQ/QpT0U
-	 oPsXx4uVqHTmf3eX8kkEtBqAYPgRGiOX8plVLwQLdoE4w2qpWbXd0c3C1FChmKHrzm
-	 upH51A4XT7x2TmOdH623XueCJMkvtDqnf6koNB1scqwAbu1ylwL4RVtQFkC4SV0WcW
-	 qHFD4uE8JKaIwQS5dtHxVGdA8NxRjO0pbWlEpV9PdoQR4E6vNCeUFVLKGGiC6UdJe0
-	 B5Lr268ylvHEGQV1+szYoiLWXi4yPm+cM8SZUXT19AlyAH1ZebLVzplzmC5MrsTiEG
-	 dc84KF0TWuwJQ==
-From: Guo Ren <guoren@kernel.org>
-Date: Fri, 11 Sep 2026 03:27:10 +0000
-Subject: [PATCH v2 2/6] riscv: sbi: Use IPI_MAX for SBI IPI muxing
+	b=HFNmoNtOHiD/49OInUi9e/bZQ1UbPM0ExRcVg9AKDluhZRnAG1dDxIba74yMLwGDS
+	 IX2A4YA3Af+gCFmT60GN5cFBQkX5Ts2SffqmqcPEuS2a1SkwVQ7mRtrzS/wv44sDVS
+	 pmQ1XiHuopOGzAVwhW6g1JWvDrbhQHPqo8rBDtOvJZi9LT8iVK+Ee7/q2b83gKIbLw
+	 BzGzFn8lm05/31D/jwodF6Ef5ZCFD7Uh/w69XLF87atZ5JprmfKRcKE+Q/F/NgZ5jn
+	 veTzZBnvvOkLdoDYuWyX50x1UlJOhTGXQ/t9IQv5vXuKCHsuVl0mXLCtUs8Le1Lkq8
+	 KRehITOdW5YEw==
+From: "GUO Ren (XuanTie)" <guoren@kernel.org>
+Date: Fri, 11 Sep 2026 03:27:11 +0000
+Subject: [PATCH v2 3/6] clocksource: clint: Use IPI_MAX for IPI muxing
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,7 +37,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-ipi_max-v2-2-a77826ff189e@kernel.org>
+Message-Id: <20260911-ipi_max-v2-3-a77826ff189e@kernel.org>
 References: <20260911-ipi_max-v2-0-a77826ff189e@kernel.org>
 In-Reply-To: <20260911-ipi_max-v2-0-a77826ff189e@kernel.org>
 To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
@@ -54,60 +54,39 @@ To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
  linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, 
- "tip-bot2 for GUO Ren (XuanTie)" <tip-bot2@linutronix.de>, 
- "GUO Ren (XuanTie)" <guoren@kernel.org>
+ linux-mediatek@lists.infradead.org, "GUO Ren (XuanTie)" <guoren@kernel.org>
 X-Mailer: b4 0.16.0
 
-From: "tip-bot2 for GUO Ren (XuanTie)" <tip-bot2@linutronix.de>
-
-The following commit has been merged into the irq/drivers branch of tip:
-
-Commit-ID:     2a0d49514f297baee259b19fb5553b538aa67d10
-Gitweb:        https://git.kernel.org/tip/2a0d49514f297baee259b19fb5553b538aa67d10
-Author:        GUO Ren (XuanTie) <guoren@kernel.org>
-AuthorDate:    Sun, 16 Aug 2026 07:00:46
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Fri, 04 Sep 2026 15:34:34 +02:00
-
-riscv: sbi: Use IPI_MAX for SBI IPI muxing
-
-Now that IPI_MAX is visible from <asm/smp.h>, replace the hard-coded
-BITS_PER_BYTE with the proper symbolic constant in the SBI IPI
-extension driver.
-
-No functional change; IPI_MAX is still 8.
+Replace the hard-coded BITS_PER_BYTE with IPI_MAX now that the
+constant is exported from riscv asm/smp.h.
 
 Signed-off-by: GUO Ren (XuanTie) <guoren@kernel.org>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Anup Patel <anup@brainfault.org>
-Link: https://patch.msgid.link/20260816070049.2097442-3-guoren@kernel.org
 ---
- arch/riscv/kernel/sbi-ipi.c | 4 ++--
+ drivers/clocksource/timer-clint.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/riscv/kernel/sbi-ipi.c b/arch/riscv/kernel/sbi-ipi.c
-index 0cc5559c08d8..eeec178a9b95 100644
---- a/arch/riscv/kernel/sbi-ipi.c
-+++ b/arch/riscv/kernel/sbi-ipi.c
-@@ -57,7 +57,7 @@ void __init sbi_ipi_init(void)
- 		return;
+diff --git a/drivers/clocksource/timer-clint.c b/drivers/clocksource/timer-clint.c
+index 0bdd9d7ec545..e56eee7e3781 100644
+--- a/drivers/clocksource/timer-clint.c
++++ b/drivers/clocksource/timer-clint.c
+@@ -243,7 +243,7 @@ static int __init clint_timer_init_dt(struct device_node *np)
  	}
  
--	virq = ipi_mux_create(BITS_PER_BYTE, sbi_send_ipi);
-+	virq = ipi_mux_create(IPI_MAX, sbi_send_ipi);
- 	if (virq <= 0) {
+ #ifdef CONFIG_SMP
+-	rc = ipi_mux_create(BITS_PER_BYTE, clint_send_ipi);
++	rc = ipi_mux_create(IPI_MAX, clint_send_ipi);
+ 	if (rc <= 0) {
  		pr_err("unable to create muxed IPIs\n");
- 		irq_dispose_mapping(sbi_ipi_virq);
-@@ -75,7 +75,7 @@ void __init sbi_ipi_init(void)
- 			  "irqchip/sbi-ipi:starting",
- 			  sbi_ipi_starting_cpu, NULL);
+ 		rc = (rc < 0) ? rc : -ENODEV;
+@@ -251,7 +251,7 @@ static int __init clint_timer_init_dt(struct device_node *np)
+ 	}
  
--	riscv_ipi_set_virq_range(virq, BITS_PER_BYTE);
-+	riscv_ipi_set_virq_range(virq, IPI_MAX);
- 	pr_info("providing IPIs using SBI IPI extension\n");
+ 	irq_set_chained_handler(clint_ipi_irq, clint_ipi_interrupt);
+-	riscv_ipi_set_virq_range(rc, BITS_PER_BYTE);
++	riscv_ipi_set_virq_range(rc, IPI_MAX);
+ 	clint_clear_ipi();
+ #endif
  
- 	/*
 
 -- 
 2.43.0
