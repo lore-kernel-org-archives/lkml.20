@@ -1,208 +1,161 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F63B49F13A
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:20:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789143659; cv=pass; b=nOCLPRCLEZ92g0TKlbj72FF9OR89IyPnJySHGcowLsUB568sUQqCR+0VM/pqu6Djum6sTNHzRstkNCQHm/6RN98E4XSfrqC2cpd1PHGnvdKLZLi4++Iv8wBIOvYYPcqc+thEEbvTRn0PlRT70H/7nS/5xyvLCscnNvjcoQYT1yg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789143659; c=relaxed/simple;
-	bh=D+30lDlcgxH+NCGTyCWjhWPMaOa6aoqrueHB2CoYy+g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Zurdnyl3AmHHQ8Are8Au5zrG7WA2e8dMEd+gaMr2A0S4rHzh7BdwAmTnfSYq/vfeKE7h6YfgfMgBv9+FXov8WL4WxSgLrZzTyOePX1G6J0uWc068AvI+zoe/fE3nj9wfXoyWEFPcooVI6tXZh6iXFAtIV4DWHySX9dWjm2QHezc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rWMLKD1v; arc=pass smtp.client-ip=209.85.218.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF5E24A3D28
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:21:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789143663; cv=none; b=j9QHLvjlh/t1BL3zIDjr0OT/la+sxhJF94vugb4bmXfzjN656wewXLVQwDOQ8wnbu8EQNzA1KFVQfyS5LCGfYYK94p22EsffKYmmPRMAGd1HRvjhBqhowocxX89s5XTmA3t2dgYUpEghT4tyzHZw332j2DyulVX7S1biI5cGgP0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789143663; c=relaxed/simple;
+	bh=Fx/YTBtEiBsiwaKpigFxNiDWpt9TDDyotK/D78aJG+g=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=CSFueK1VLtU3G4ee6y80i8/CyIrB0bonzlI82sNMtp9bAitqNW87jkhg7Pld28cO/Jfkgzbg5ZzTrVONA47TaCvbPMUQYudr+AxtT+fJt6V/SiqvhNnHax5DtWQOQxPBAPrTJVuE7Bpi/S2Caa0SUCYhtiS20VPctfjIEoMzYTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=D1KSxMOi; arc=none smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rWMLKD1v"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c255c58156bso261355266b.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:20:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789143656; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CMsyJVZsIoXlANjI2jspBIpxE1p6ZVNFwVuS0F5tIjD3ulyBUjqghFoF5lvOTnGa3H
-         5NVHRTsk10Np9J3HPQq9PYNcUQFHwIkl7xu3FCvTkMPQuYIn3mIT+M8g0BFv9sM4RMlZ
-         H8WLFzWKxOuBJCQ8shFamRZLieSpYR1aQB02c2esDEA8K5EvxhKdOP+A1gzSK7L12JMl
-         q7axQJl/WH+VFeVvr9aAKAXTtta/cHXbd6k2HOMsxnisE6X/rRUNI4a1nFslGJLfxT+E
-         OL+Y5xV1V2uxDKJCgOBWSV0nHis6xz6lqKj2u2dzUQuN9fXKTJm86OAM+H3LfSy3lr4X
-         YLoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=D+30lDlcgxH+NCGTyCWjhWPMaOa6aoqrueHB2CoYy+g=;
-        fh=zbCP2+CwfyyjU5BgSVfKtixwsHYFJWTFf+UG0XiQWV0=;
-        b=gV24mrJvpaLK3g/V96xZNo3dU8yMEIm6AFwyXX6R0UUE7lOJlbxRDTTqVM8obL7X5b
-         1PaPSQU2CSnYfs9uohq4v8scHRhGp8o9YNLqlNiR9SMxH0FQxag/sD4TTtwzW6LnvP+z
-         6ywHwuE4fiqd3XCpeQN8ioA1Fv2kdnzCP2WKYUDQ7G2X5IzKLhqvx4KQ9UfDU2Cx1GkR
-         ghMuJdycJAsMh425OETwWr3oIvfxw3CgzkYzYcwuovsBUeRE7iwn7wE7gyugl7TIpgdo
-         kKMVMic9InKiC1cWqusHTiXCN0eQ9aarUtQeAA3DS8jUiFOyrrLiDMv313FkdD6HND+X
-         lJgg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="D1KSxMOi"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c259e5c22ffso213597966b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:21:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789143656; x=1789748456; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=D+30lDlcgxH+NCGTyCWjhWPMaOa6aoqrueHB2CoYy+g=;
-        b=rWMLKD1vCNa1MSkFM9EAcQ/BzM+sRbFwc1QFC0icP30QjihsMH0RPDp/Ee9/4AnQCq
-         Sz4S5mfJJS5km9J08lAOM1vrcGIF6tT/lgJ67qGjYxn5u1OkG4TLBXEAZ8eSoD75imsC
-         gHeBZ2StBFaHXq0OHOxC6g7Vv84EHRP6O6Wue1JB7+bNeesfXPelLRRSnkJEVOBWGHwF
-         MVXKZlhKYFm9eS6I/+RUaSuhrPXKJSuw+AtJqcpxehV08+bP74jRNSTRy1bcNDOQjBKi
-         l7MtxA98vwEcjXb9FdY1d6bJx4zoTkqehPMIfu3+m/iYWAKlsHJ9JiAYV00k21t5aqh4
-         3uaQ==
+        d=linaro.org; s=google; t=1789143659; x=1789748459; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=t3Ow0xpp1VPcxg35zy2Gpi2FWcle5fD0sYX/EFmyWr4=;
+        b=D1KSxMOijjQCA7SiPHopfdOWWR0ltqCvRVKinHeFUWlZMFVwxAPpMKQTsgNBTwWZeu
+         NJhAKAyZS01th0/8/DRLaVRYOsC43FEh5vTInFlM7Uhm9ftytIzlReehp+xqzMD5G4EW
+         JTlqdrv4bdvkN5yVll/uO0eBuh4DWZ/KdYdOxkkq9mfuNBH3V4TA3oN2ZJ/lP68ypUjS
+         dQKX7kaXs5QCAok6PEUCVk/a82ferJHK51qkLQ3ZI43NVNfrag/LFONvxF0p/rvrvUDX
+         oqsKL3mGjNFH6gyUi7aOfohIXa/l7Ev+Z6080NM/U6B9DblH8kn32SIGMO+N6f3Dr4jJ
+         wLng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789143656; x=1789748456;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1789143659; x=1789748459;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=D+30lDlcgxH+NCGTyCWjhWPMaOa6aoqrueHB2CoYy+g=;
-        b=WfXqnlgEbaVOf7UM5FlFuHOjHvUPuwcffvii8cCjFCrEBAo6PVMXozu+BuhGYpGwYS
-         totkC6bBurvIvLPmiAzjr4b6Dw8FvAmE8SInz5eOAa+WwUsAWd260EBR1IkaKzOxFs0E
-         lKNYAdnwv2faNysknw9jpGW6vL2VS1X3PHY610jfeYo+eKaMXnXJub/vp9s9v2+p92vT
-         Jyb2K6J1F4g2ULyEhQSK2//Q7k4SNu7KOmTmveUmIcMiINGu5HFCzrDlCLCBZa4hW36U
-         nGn9s/g+93vZpho3QAZeNPYIr7X33eEBiseYCZkWelsOPxSL2pn5f6bVHTigg/EQxM8C
-         bcvw==
-X-Forwarded-Encrypted: i=1; AKwUvBx1KI2lzZwO5SshrbJJNbN4LIPXlz59WYNowED5X1Xt5SKFkR2n7j4P1HRV9eC+R7Zyg5o0ccyAxZppfOY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lv/pwE51QNN6uTDvhZdSsVvVB6O1dmDVZ4SENY2mRMWXW3sS3h
-	i9Re+SP+wsudQb/7wuYJhl1f4Pw1XR6uvSzBmuNUIyQvTp79mN6mRtynL7DnbCuVvgxPcr/O2U/
-	tl7EDLAR3/vN0iBXX0lgDvdNUMBP9V1M=
-X-Gm-Gg: AYBFou3UdyCZgqjzOHnU8Q81ZetTH+/qfAOEnWdpjN5f2eak7izCPLAOa1LlHhE8YYI
-	dwU0ivepT7q0PATa8xwuPZwv5H+Z7YaebrhOpwxhqqNJU50Bu437Mjkd0fpLFjIupEVaM0i5BsJ
-	gquVd8+4Fo2p58xf27PofCyTlfdKljHzGj9DP/BBgSRsyxcCpCFonXyG3QccJ297EjQ8z1HJ/YM
-	bkohM6FB43LyczLx252NPI2sLPItVZpcNmeJc0uXLO3wC+2xab5d+kkpGxTs02xmnnTjEq7AfFj
-	wSA8xMBMD3WxaV34Hpg55aiyV77pB2r5eNCiBVJNjxbjqGvSdlznOewECvdwj5GT1GVB/BcOgxU
-	X/7xRdzeUCL55
-X-Received: by 2002:a17:906:c141:b0:c29:5151:16b8 with SMTP id
- a640c23a62f3a-c2966534d19mr204979866b.2.1789143655518; Fri, 11 Sep 2026
- 09:20:55 -0700 (PDT)
+        bh=t3Ow0xpp1VPcxg35zy2Gpi2FWcle5fD0sYX/EFmyWr4=;
+        b=WkI21VM9zR3M8MspcuFzJk3wTAQrY7E7mY01AkvBpvpOXvIwzXnEETfAqY5Q4pGIcp
+         z9PhiYtPiZquM+MAtErQrScjYX27zA27GPHZIeaT6GhKfoZiapfFlnhMf4JeAwwWEEKg
+         nSYUt0a/6k7tZgRfgQvXvojtH/ZXTAbRYCKhSScJeQKixp8pDfNA/6aPt0pC+Wkk+PVI
+         Y0ZCGzsJFzaIh0ef+a0UK5EZmhd1U/p6h0E/EO63AoKuwQlOsR0YZsQQgTHo1KuOK0Nk
+         FLguTEWqJ6+d93ybG/lwPxAfgahDYSP9lK7lrfzB34mDl6+B3TxrA0jHt91SWgN+Pr3n
+         0LLw==
+X-Forwarded-Encrypted: i=1; AKwUvBzGB0qOG+CB/HVn4hvdt7NF823k2BvkrAg7v2ELe/UCYlfiARaoVRMZPk9P7M+elWGz6KaJ67RaZb9Qu/I=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQhFBHs9gIo0qCEMn9JIvx7ZI+D7UEoHcOkS44/Kq+JkobDLRr
+	hywdsRBzsFGnVRDbUAbQBNobAx2ye0yYzzF7vzDe60if8zosTurF+dikhkpXlWVLZIM=
+X-Gm-Gg: AYBFou20zfrch4wKyD7zRa2+sNBuz2N7nxoHNdjUXwi8vdEjHaDig2cENUQPLs370yt
+	5B8KW5zedvGP5zX+A/XtyRyORRp15cG7Z+96esz4TScX5L0hOjPHgh7LjJhb2hX+KgjRHqJ7sk2
+	hNfdP3/zL4qayI97IK9GKgsBkQagQy/NDEUoUrGPPtDwrJ/qNtb54sxwsbxkCdJG2MFst6QqEmB
+	1PTmwDBCu85/S40lQUu3KhPrNGdeZStN1hjHaDxf8pip7qxnRDIveuagWI4TRloycDQFyoxt6Cj
+	LbuWX9MRxhJWuIAtbd7TJ8ffdYsYuEaEkT7lhcphK12qLumnWJrjFXYdOWCCUF9xBPSjqK7aWRX
+	frsmmS4bz5NhXhC+29hR7WFPE5HfA/1F37Gx1P5K+3A8eOI9wjtAWyiPBzr4V7Fvl8MVFui5riX
+	7KaoLN1m8UVxKMekFWUTZOJNYuJhqdIGgQtVVbZmxonI7po1i4k5TSjw8f5zL4U6yvzrxnUs6QY
+	PLENESGPmRwQfmX2BcavdoXtwX6Ap/5yrb3UmQ+yVvYvXbc0a8mh6IGBvie
+X-Received: by 2002:a17:907:5c9:b0:c26:1691:b36d with SMTP id a640c23a62f3a-c2966a6e21fmr221558666b.38.1789143659129;
+        Fri, 11 Sep 2026 09:20:59 -0700 (PDT)
+Received: from localhost ([94.4.85.166])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4e248sm109763966b.2.2026.09.11.09.20.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 09:20:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org> <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
- <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org> <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
-In-Reply-To: <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Sat, 12 Sep 2026 00:20:18 +0800
-X-Gm-Features: AcwNN1Wybf6FDfg7sUWRjBvgNHNibYe2e1PczxS_TZMQQ3Wr5_VcCDK8f6zS35M
-Message-ID: <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Nhat Pham <nphamcs@gmail.com>, "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Chris Li <chrisl@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
-	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
-	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 11 Sep 2026 17:20:57 +0100
+Message-Id: <DLCMHTJ9SYL0.3HW3W6N3PFYWM@linaro.org>
+Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Alim Akhtar"
+ <alim.akhtar@samsung.com>, "Peter Griffin" <peter.griffin@linaro.org>,
+ "Tudor Ambarus" <tudor.ambarus@linaro.org>,
+ <linux-samsung-soc@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Krzysztof Kozlowski"
+ <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: sram: Document
+ samsung,exynos850-acpm-sram
+From: "Alexey Klimov" <alexey.klimov@linaro.org>
+To: "Sam Protsenko" <semen.protsenko@linaro.org>, "Alexey Klimov"
+ <alexey.klimov@linaro.org>
+X-Mailer: aerc 0.21.0
+References: <20260727-exynos850_sram-v3-0-8627a49188ec@linaro.org>
+ <20260727-exynos850_sram-v3-1-8627a49188ec@linaro.org>
+ <CAPLW+4ntx8qLy9jAYYdT+XwxwKHjvisutqEi04oPEQny8auD-Q@mail.gmail.com>
+In-Reply-To: <CAPLW+4ntx8qLy9jAYYdT+XwxwKHjvisutqEi04oPEQny8auD-Q@mail.gmail.com>
 
-On Fri, Sep 11, 2026 at 12:23=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrot=
-e:
+On Fri Sep 11, 2026 at 1:42 AM BST, Sam Protsenko wrote:
+> On Mon, Jul 27, 2026 at 8:23=E2=80=AFAM Alexey Klimov <alexey.klimov@lina=
+ro.org> wrote:
+>>
+>> Document "samsung,exynos850-acpm-sram" which represents an SRAM region u=
+sed
+>> for ACPM communication on Samsung-based SoCs.
+>>
+>> The SRAM is consumed as a whole, is not split up using child nodes and
+>> properties related to this are not required.
+>>
+>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+>> ---
+>>  Documentation/devicetree/bindings/sram/sram.yaml | 2 ++
+>>  1 file changed, 2 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/sram/sram.yaml b/Document=
+ation/devicetree/bindings/sram/sram.yaml
+>> index b83fc6831947..b9c4d4f3199b 100644
+>> --- a/Documentation/devicetree/bindings/sram/sram.yaml
+>> +++ b/Documentation/devicetree/bindings/sram/sram.yaml
+>> @@ -43,6 +43,7 @@ properties:
+>>          - qcom,rpm-msg-ram
+>>          - qcom,shikra-imem
+>>          - rockchip,rk3288-pmu-sram
+>> +        - samsung,exynos850-acpm-sram
 >
-> On Thu, Sep 10, 2026 at 3:57=E2=80=AFAM David Hildenbrand (Arm)
-> <david@kernel.org> wrote:
-> >
-> > On 9/8/26 18:45, Nhat Pham wrote:
-> > > On Mon, Sep 7, 2026 at 4:30=E2=80=AFAM David Hildenbrand (Arm) <david=
-@kernel.org> wrote:
-> > >>
-> > >> On 9/4/26 23:14, Nhat Pham wrote:
-> > >>
-> > >> Hi,
-> > >>
-> > >>> To Kairui, Johannes, Yosry, Chris, David, Andrew, and other (z)swap=
- folks -
-> > >>> I need some help here.
-> > >>
-> > >> I'll mostly ignore swap-related stuff because (a) -EBUSY and (b) we =
-have quite
-> > >> some swap experts around :)
-> > >>
-> > >> Reading below, I do wonder if the swap subsystem needs some more coo=
-rdination
-> > >> and collaboration?
-> > >>
-> > >> For example, maybe having bi-weekly/monthly meetings to get everybod=
-y aligned
-> > >> and uptodate could be something reasonable?
-> > >>
-> > >> This approach has proven fairly helpful in areas where (1) multiple =
-companies
-> > >> are involved (2) many concurrent development is happening, and (3) p=
-eople have
-> > >> different priorities and requirements.
-> > >>
-> > >> Is there already something like that to organize development? Should=
- we get
-> > >> started with that?
-> > >
-> > > Hi David!
-> >
-> > Hi!
-> >
-> > >
-> > > Thank you for your suggestions :) More collaboration and communicatio=
-n
-> > > is definitely needed here. Conference is a good place for this, but
-> > > it's not something we can do very frequently, and many folks could no=
-t
-> > > attend (visa issues, etc.).
-> >
-> > Right, and conferences usually don't have the capacity to squeeze too m=
-any
-> > swap-related topics in, so it would have to be side discussions or BOFs=
-.
-> >
-> > >
-> > > A bi-weekly/monthly series of meetings sound very appealing. Swap
-> > > contributors are very spread out (China, NorAm, Europe, etc.), so
-> > > coordination will be tricky, but let us figure out something.
-> >
-> > Yes, that's an issue. I'd suggest swap maintainers take care of that if=
- they
-> > agree. I could try as well, but it's rather tricky right now on my end =
-...
-> >
-> > As an alternative, we could also use on/two/ ... slots in the bi-weekly=
- MM
-> > alignment session to talk about swap. (I'd be happy to learn more about=
- all this
-> > as well)
->
-> That's awesome! Thanks for the offer David - I think MM alignment is at 9=
-AM
-> PDT Wednesday, usually right? That works for me of course, but Baoquan
-> and Kairui (and other swap folks) - would this time be convenient for
-> you?
->
+> Is there a reason we can't just use "mmio-sram" for Exynos850 ACPM
+> needs? I can see it's used in the gs101 device tree like this. If
+> there is a reason for this, I think it might be a good idea to
+> document it in the commit message (probably in both patches).
 
-Thanks for setting this up!
+But isn't it already in this commit message?
+"The SRAM is consumed as a whole, is not split up using child nodes and
+properties related to this are not required."
 
-Is 9AM PDT fixed, or can it be adjusted? 9AM PDT is midnight for the
-UTC+8 folks.
+Also: https://lore.kernel.org/all/5797be19-8886-45a2-bfce-eb7d5f0df6c2@lina=
+ro.org/
 
-The time is still fine for me, though, I tend to stay up quite late
-anyway ;) so that time works fine on my end if the slot is fixed.
+Do you want it to be re-phrased smth like this:
+"OSPM ACPM should parse the SRAM and discover essential data (e.g. queue
+offsets) for establishing ACPM communication. At this point it is not
+expected for any software entities apart ACPM to use SRAM so the SRAM is
+consumed as a whole, is not split up using child nodes and properties
+related to this are not required."
 
-Is there a calendar invite or something, please send me one, I'm happy
-to do a swap sync discussion there.
+or
+
+"The OSPM/ACPM IPC should parse the SRAM at runtime to find configuration
+data (e.g., queue offsets). Because this SRAM region is dedicated
+exclusively to ACPM IPC communication and is not shared with other
+software entities, it is represented as a monolithic SRAM block without
+requiring sub-node partitioning."
+
+?
+
+I hope if there will be other software entities then we will be able to
+fix it later.
+
+>Also,
+> should "mmio-sram" be added as a backup option (after comma) in your
+> [PATCH 2/2]?
+
+Sure, I can add "mmio-sram".
+The compatible =3D "rockchip,rk3288-pmu-sram", "mmio-sram"
+and compatible =3D "qcom,rpm-msg-ram", "mmio-sram" are used in such way.
+
+Best regards,
+Alexey
