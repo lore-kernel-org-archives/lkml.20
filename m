@@ -1,68 +1,83 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B3A8F43BDA9;
-	Fri, 11 Sep 2026 11:10:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E6E427A03
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:10:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789125054; cv=none; b=KivXJhGoP5heACERqGETp2Q8KiPvGiBqMXsxLbffd3cCM2iCh/R50zDINNQyZWY1SbXl4/Qh6E2JqVayZtoNlimeWu6TWNobet4kOmHMf2wCLEjz74KsZQy7qCPSX2jF0dSQ+zCckIUfZHDjuyTKfA5PegBVqEkPhr/7budMpDc=
+	t=1789125062; cv=none; b=dory/1p0IeYUvBj8QQvwf/d/42Zg7GYNn5KXhuri/Jg3HtXeJVuxDHZUhldSNFS1dhXfr8g3IWZBctkf/CRHWLzRrrZSa3FwKnUaUICzUjvreufRjaCtFpFabR1zEhlw4UfHkBVbbuBE6Pg1y+FyN/9ThnrmJ4nZtojjGl2PtkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789125054; c=relaxed/simple;
-	bh=S4NDN/vWEtDNDxtlj2MR1Wvgbm9uPPczj9YQF4sMOig=;
+	s=arc-20240116; t=1789125062; c=relaxed/simple;
+	bh=pJ4vj8BCmfF1V31tX/wZS7//jdxk6ExCWx5LYoQItFw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mBQdo/UiNiziwAe6crqn4GmFTJoTGS/28/5rov4joswnPWMmj2gEF/Qh/daljl+3wguuf9aBUbE1UkV/G26DDBvwGx2ILXPJ96mTOk2AePa/LEQj6QjVUk6EeCnwH0hIw0WTkyl1J0Rh0/30zgtCX1VUy7co2FB7ehn0IFQek38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Wa+hUqhQ; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 MIME-Version; b=QkY1q7L7xAe5Rjnrxy9tBFhOsNZD0rzGEQ31MvYIVPyAfhZ7+IAn+c8e3dvwOqtSQsl5MTe7ZKNE7gS3RSBLhKNKSDfDcxJUfe9NPp9GUyg6gbtlpl5nzT0I9L1TEioiF8kkYZIYYViY5zch89HzBrssEYMDIzrDaE7KBAa+XQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=caRQwJYU; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Wa+hUqhQ"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 797CC16F2;
-	Fri, 11 Sep 2026 04:10:36 -0700 (PDT)
-Received: from a081061.blr.arm.com (a081061.arm.com [10.164.19.84])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 809CB3F59E;
-	Fri, 11 Sep 2026 04:10:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789125040; bh=S4NDN/vWEtDNDxtlj2MR1Wvgbm9uPPczj9YQF4sMOig=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Wa+hUqhQnVC86b2vxe5cYtHQWz2saEaQBQiLdhUFknHKk+Gev2OP0IxctevpmUvsO
-	 blHZJWS+IqFmAc/V1vEAb9inokkhQt2eo8RM0YFLJUpJPiIpj+qJlL8RRx2K2D5amg
-	 QzrxIKHS5DZ9yPsWcU5ERPgRDE8O607masK3JMCQ=
-From: Sarthak Sharma <sarthak.sharma@arm.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Peter Xu <peterx@redhat.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <npache@redhat.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Mark Brown <broonie@kernel.org>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-doc@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="caRQwJYU"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49a97714f5dso7192815e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 04:10:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789125049; x=1789729849; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xWttpW5LjqZG6rptcoUTqVDa/t+6fdXdX2MvAK+JxuA=;
+        b=caRQwJYU8TP/h0sqp5TVcK8EWyqETVDBiR+DJYpnFf9pHNpFpg1V3c4TY8IbMfE8IM
+         zeVKPCHP3/jZEKnH2icgkHNqTmeKFv7UWMbrlpHlFaa/iQ28XM9lJZTEYjjw0bjQ7jXS
+         hS9F1LQW1kV/ocjhUdwMbHfkTYyY/fyunl3GvmxIdjcYoi6JPoH/FwaW5Ddp3/iqmIqs
+         dGG6qvHrEaQGOrrlffTE1Te41+9oDY/ePcGnAYuPt/3ikBiFzXE3JP2qaWNcy3vvrM05
+         32hHOV9RJUqvozSnwxIGsIQgzFYq9gBzrpl7u7U16RUj7/i2T3yTWUevkf/zZoZSnnUa
+         dyPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789125049; x=1789729849;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xWttpW5LjqZG6rptcoUTqVDa/t+6fdXdX2MvAK+JxuA=;
+        b=UDi3tIF8AlhJlN5IZoS/wVDC05n3zCHiKV3ZTRTebfFS/wWyeElHY567fEZDAljsOA
+         wqMKCx+wiEsZwbOWlRg1HOXmnp2dpVxXrwhkTWXpfl65hecZ1Lz7IP4QaEjdC9XI6PtO
+         Cj9KghbAy/yKbV+HvxgHVuApJxpNk0d5lmFhgUnfS5KLlyrWIf9HXo2VisCOUHqjydyl
+         976qKzRnHXLSVkdczAEKvPNamDF3ghNd25wppHgyByp29AibTqMo61bDvme1noei9GHF
+         UAshRz7g5ZSnG802f8DulKFZH7Mti7RGANY6BJUTOJuieH98s/e8yeEboNeeCxY1fWv+
+         55bg==
+X-Forwarded-Encrypted: i=1; AKwUvByPOVTQnn4A++bpy7guG0ImJGREMDeT3jLx6rIMat5qP0N2B+HjD+Lg2e0XiOSi+Il9uWxI4gV8Q2MIWQc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mbDx/CHC5CbmX/iNmeXykN2iIFYarHUQeB53tKDF4diovRPiCN
+	uq8zHCFwYu4XpJrm1XwISgrx38s9Cg0Nz2/qrjvXPjQ0MSd35OudFXWgoPGPeA==
+X-Gm-Gg: AYBFou39x3hca1nC91Y4EABdSgu/ehwnsWiEC2NVnJ9q3dY6QjcWO7FxAvO62DLiOEq
+	UNebVyHtUNqp3FrJ4Jzad5twBo2Ojc9y0ZwHZfiMjyST82jCxzcDwUlm5l3EfFi+tLXSoXvEtu4
+	TuwAWwavi+fP210gSoshLqLvzvR3F3B2Z9Iqo2Jh8Ks1iD2Nm6xm+JgDZIVM/Oog/T7py0dFDlo
+	hYH5t6iqOeyuv/d5RhU+DVVZHwBqReByCN4p31yJwnQUiFD0o/p2tGKku7e+KVg7VxmxzHIeNeK
+	Em7nfr0FmdzkFleoxpfiGq+edt93/DpzU/Brir+Y6YdNYiuVo9yez82gNzf/RZteNuZMWoh+02T
+	0+EhCLMt2E+tfZ210T4quouZwVH2pBtFYwu+Ep1vQPXLqpAiK//xeQm6DujF2XzKFqHovKbQ+SO
+	uymYvuxLufRtLIQ682dPzGGxDX/54AXUeUdfsvOh/wnTvk5cV/zZBGtTipOTf5drd72Ci/2OoGK
+	5zzG1lBxY2rAIbZtic=
+X-Received: by 2002:a05:600c:3b07:b0:49c:fa20:cbff with SMTP id 5b1f17b1804b1-49e619c18a3mr42351175e9.22.1789125048251;
+        Fri, 11 Sep 2026 04:10:48 -0700 (PDT)
+Received: from fedora ([154.182.82.204])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60ac411asm66109065e9.8.2026.09.11.04.10.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 04:10:47 -0700 (PDT)
+From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+To: jic23@kernel.org,
+	gregkh@linuxfoundation.org,
+	nuno.sa@analog.com,
+	Michael.Hennerich@analog.com
+Cc: dlechner@baylibre.com,
+	andy@kernel.org,
+	linux@analog.com,
+	linux-iio@vger.kernel.org,
+	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Sarthak Sharma <sarthak.sharma@arm.com>
-Subject: [PATCH v10 4/6] tools/mm: move gup_test from selftests/mm to tools/mm
-Date: Fri, 11 Sep 2026 16:39:48 +0530
-Message-ID: <20260911110950.200240-5-sarthak.sharma@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260911110950.200240-1-sarthak.sharma@arm.com>
-References: <20260911110950.200240-1-sarthak.sharma@arm.com>
+	joshua.crofts1@gmail.com,
+	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Subject: [PATCH v5 2/2] staging: iio: adc: ad7816: Use DMA-safe buffer for SPI read
+Date: Fri, 11 Sep 2026 14:04:56 +0300
+Message-ID: <20260911110456.24873-3-abdelnasserhussein11@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260911110456.24873-1-abdelnasserhussein11@gmail.com>
+References: <20260911110456.24873-1-abdelnasserhussein11@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,220 +86,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Move tools/testing/selftests/mm/gup_test.c to tools/mm/gup_bench.c.
-This is the first step in separating its benchmarking and
-functional testing components. Later patches will make this a
-purely benchmarking tool and introduce a new functional selftest
-under selftests/mm.
+Stack buffers are unsafe for DMA with VMAP_STACK enabled because
+they are not physically contiguous and can share cache lines. This
+causes data corruption.
 
-Include hugepage_settings.h directly instead of vm_util.h and
-use getpagesize() instead of psize().
+Fix this by using a dedicated rx_buf aligned with IIO_DMA_MINALIGN
+in the device state structure to ensure cache coherency.
 
-Adjust the Makefiles in both locations and add gup_bench to
-tools/mm/.gitignore. Remove the gup_test invocations from
-run_vmtests.sh and update MAINTAINERS.
-
-Also remove the gup_test reference from
-Documentation/core-api/pin_user_pages.rst. The selftest
-added later in the series is standalone and does not
-need per command documentation here.
-
-Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
+Fixes: 7024425db64a ("staging: iio: adc: new driver for AD7816 devices")
+Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
 ---
- Documentation/core-api/pin_user_pages.rst     |  9 -----
- MAINTAINERS                                   |  2 +-
- tools/mm/.gitignore                           |  1 +
- tools/mm/Makefile                             | 11 ++++--
- .../mm/gup_test.c => mm/gup_bench.c}          |  8 ++---
- tools/testing/selftests/mm/Makefile           |  1 -
- tools/testing/selftests/mm/run_vmtests.sh     | 36 -------------------
- 7 files changed, 14 insertions(+), 54 deletions(-)
- rename tools/{testing/selftests/mm/gup_test.c => mm/gup_bench.c} (97%)
+ drivers/staging/iio/adc/ad7816.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/core-api/pin_user_pages.rst b/Documentation/core-api/pin_user_pages.rst
-index c16ca163b55e..e0acedbd1d48 100644
---- a/Documentation/core-api/pin_user_pages.rst
-+++ b/Documentation/core-api/pin_user_pages.rst
-@@ -226,15 +226,6 @@ will be pinned longterm, and whose data will be accessed.
+diff --git a/drivers/staging/iio/adc/ad7816.c b/drivers/staging/iio/adc/ad7816.c
+index d0355763aa8f..19da164945c7 100644
+--- a/drivers/staging/iio/adc/ad7816.c
++++ b/drivers/staging/iio/adc/ad7816.c
+@@ -53,6 +53,7 @@ struct ad7816_chip_info {
+ 	u8  channel_id;	/* 0 always be temperature */
+ 	u8  mode;
+ 	struct mutex lock; /* protect device state during SPI transfers */
++	__be16 rx_buf __aligned(IIO_DMA_MINALIGN);
+ };
  
- Unit testing
- ============
--This file::
--
-- tools/testing/selftests/mm/gup_test.c
--
--has the following new calls to exercise the new pin*() wrapper functions:
--
--* PIN_FAST_BENCHMARK (./gup_test -a)
--* PIN_BASIC_TEST (./gup_test -b)
--
- You can monitor how many total dma-pinned pages have been acquired and released
- since the system was booted, via two new /proc/vmstat entries: ::
+ enum ad7816_type {
+@@ -68,7 +69,6 @@ static int ad7816_spi_read(struct ad7816_chip_info *chip, u16 *data)
+ {
+ 	struct spi_device *spi_dev = chip->spi_dev;
+ 	int ret;
+-	__be16 buf;
  
-diff --git a/MAINTAINERS b/MAINTAINERS
-index dd5374a1a3c2..cae3af861a7c 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17187,8 +17187,8 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
- F:	mm/gup.c
- F:	mm/gup_test.c
- F:	mm/gup_test.h
-+F:	tools/mm/gup_bench.c
- F:	tools/testing/selftests/mm/gup_longterm.c
--F:	tools/testing/selftests/mm/gup_test.c
+ 	guard(mutex)(&chip->lock);
  
- MEMORY MANAGEMENT - KSM (Kernel Samepage Merging)
- M:	Andrew Morton <akpm@linux-foundation.org>
-diff --git a/tools/mm/.gitignore b/tools/mm/.gitignore
-index 1446a659e540..154d740be02e 100644
---- a/tools/mm/.gitignore
-+++ b/tools/mm/.gitignore
-@@ -3,3 +3,4 @@ slabinfo
- page-types
- page_owner_sort
- thp_swap_allocator_test
-+gup_bench
-diff --git a/tools/mm/Makefile b/tools/mm/Makefile
-index 858186a6eefd..f20a32d8cc22 100644
---- a/tools/mm/Makefile
-+++ b/tools/mm/Makefile
-@@ -3,13 +3,15 @@
- #
- include ../scripts/Makefile.include
+@@ -96,13 +96,13 @@ static int ad7816_spi_read(struct ad7816_chip_info *chip, u16 *data)
  
--BUILD_TARGETS=page-types slabinfo page_owner_sort page_owner_filter thp_swap_allocator_test
-+BUILD_TARGETS=page-types slabinfo page_owner_sort page_owner_filter
-+BUILD_TARGETS += thp_swap_allocator_test gup_bench
- INSTALL_TARGETS = $(BUILD_TARGETS) thpmaps
+ 	gpiod_set_value(chip->rdwr_pin, 0);
+ 	gpiod_set_value(chip->rdwr_pin, 1);
+-	ret = spi_read(spi_dev, &buf, sizeof(buf));
++	ret = spi_read(spi_dev, &chip->rx_buf, sizeof(chip->rx_buf));
+ 	if (ret < 0) {
+ 		dev_err(&spi_dev->dev, "SPI data read error\n");
+ 		return ret;
+ 	}
  
- LIB_DIR = ../lib/api
- LIBS = $(LIB_DIR)/libapi.a
-+GUP_BENCH_OBJS = gup_bench.c ../lib/mm/hugepage_settings.c ../lib/mm/file_utils.c
+-	*data = be16_to_cpu(buf);
++	*data = be16_to_cpu(chip->rx_buf);
  
--CFLAGS += -Wall -Wextra -I../lib/ -pthread
-+CFLAGS += -Wall -Wextra -I../lib/ -I../.. -pthread
- LDFLAGS += $(LIBS) -pthread
- 
- all: $(BUILD_TARGETS)
-@@ -22,8 +24,11 @@ $(LIBS):
- %: %.c
- 	$(CC) $(CFLAGS) -o $@ $< $(LDFLAGS)
- 
-+gup_bench: $(GUP_BENCH_OBJS) $(LIBS)
-+	$(CC) $(CFLAGS) -o $@ $(GUP_BENCH_OBJS) $(LDFLAGS)
-+
- clean:
--	$(RM) page-types slabinfo page_owner_sort page_owner_filter thp_swap_allocator_test
-+	$(RM) page-types slabinfo page_owner_sort page_owner_filter thp_swap_allocator_test gup_bench
- 	make -C $(LIB_DIR) clean
- 
- sbindir ?= /usr/sbin
-diff --git a/tools/testing/selftests/mm/gup_test.c b/tools/mm/gup_bench.c
-similarity index 97%
-rename from tools/testing/selftests/mm/gup_test.c
-rename to tools/mm/gup_bench.c
-index 5f44761dbec0..da56aa5324d3 100644
---- a/tools/testing/selftests/mm/gup_test.c
-+++ b/tools/mm/gup_bench.c
-@@ -12,8 +12,8 @@
- #include <pthread.h>
- #include <assert.h>
- #include <mm/gup_test.h>
--#include "kselftest.h"
--#include "vm_util.h"
-+#include <mm/hugepage_settings.h>
-+#include "../testing/selftests/kselftest.h"
- 
- #define MB (1UL << 20)
- 
-@@ -140,7 +140,7 @@ int main(int argc, char **argv)
- 		case 'n':
- 			nr_pages = atoi(optarg);
- 			if (nr_pages < 0)
--				nr_pages = size / psize();
-+				nr_pages = size / getpagesize();
- 			break;
- 		case 't':
- 			thp = 1;
-@@ -254,7 +254,7 @@ int main(int argc, char **argv)
- 		madvise(p, size, MADV_NOHUGEPAGE);
- 
- 	/* Fault them in here, from user space. */
--	for (; (unsigned long)p < gup.addr + size; p += psize())
-+	for (; (unsigned long)p < gup.addr + size; p += getpagesize())
- 		p[0] = 0;
- 
- 	tid = malloc(sizeof(pthread_t) * nthreads);
-diff --git a/tools/testing/selftests/mm/Makefile b/tools/testing/selftests/mm/Makefile
-index 7cea3228020d..11ca9b11fef1 100644
---- a/tools/testing/selftests/mm/Makefile
-+++ b/tools/testing/selftests/mm/Makefile
-@@ -59,7 +59,6 @@ endif
- TEST_GEN_FILES = cow
- TEST_GEN_FILES += compaction_test
- TEST_GEN_FILES += gup_longterm
--TEST_GEN_FILES += gup_test
- TEST_GEN_FILES += hmm-tests
- TEST_GEN_FILES += hugetlb-madvise
- TEST_GEN_FILES += hugetlb-mmap
-diff --git a/tools/testing/selftests/mm/run_vmtests.sh b/tools/testing/selftests/mm/run_vmtests.sh
-index d09f9f6a384e..8f1e828e4f39 100755
---- a/tools/testing/selftests/mm/run_vmtests.sh
-+++ b/tools/testing/selftests/mm/run_vmtests.sh
-@@ -130,30 +130,6 @@ test_selected() {
- 	fi
+ 	return ret;
  }
- 
--run_gup_matrix() {
--    # -t: thp=on, -T: thp=off, -H: hugetlb=on
--    local hugetlb_mb=256
--
--    for huge in -t -T "-H -m $hugetlb_mb"; do
--        # -u: gup-fast, -U: gup-basic, -a: pin-fast, -b: pin-basic, -L: pin-longterm
--        for test_cmd in -u -U -a -b -L; do
--            # -w: write=1, -W: write=0
--            for write in -w -W; do
--                # -S: shared
--                for share in -S " "; do
--                    # -n: How many pages to fetch together?  512 is special
--                    # because it's default thp size (or 2M on x86), 123 to
--                    # just test partial gup when hit a huge in whatever form
--                    for num in "-n 1" "-n 512" "-n 123" "-n -1"; do
--                        CATEGORY="gup_test" run_test ./gup_test \
--                                $huge $test_cmd $write $share $num
--                    done
--                done
--            done
--        done
--    done
--}
--
- # filter 64bit architectures
- ARCH64STR="arm64 mips64 parisc64 ppc64 ppc64le riscv64 s390x sparc64 x86_64"
- if [ -z "$ARCH" ]; then
-@@ -275,18 +251,6 @@ fi
- 
- CATEGORY="mmap" run_test ./map_fixed_noreplace
- 
--if $RUN_ALL; then
--    run_gup_matrix
--else
--    # get_user_pages_fast() benchmark
--    CATEGORY="gup_test" run_test ./gup_test -u -n 1
--    CATEGORY="gup_test" run_test ./gup_test -u -n -1
--    # pin_user_pages_fast() benchmark
--    CATEGORY="gup_test" run_test ./gup_test -a -n 1
--    CATEGORY="gup_test" run_test ./gup_test -a -n -1
--fi
--# Dump pages 0, 19, and 4096, using pin_user_pages:
--CATEGORY="gup_test" run_test ./gup_test -ct -F 0x1 0 19 0x1000
- CATEGORY="gup_test" run_test ./gup_longterm
- 
- CATEGORY="userfaultfd" run_test ./uffd-unit-tests
 -- 
-2.53.0
+2.54.0
 
