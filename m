@@ -1,242 +1,359 @@
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 357C83E451B
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:13:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22F023C0A02;
+	Fri, 11 Sep 2026 08:14:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789114426; cv=none; b=ok4e6rpiwVyf0lhi1LQSBhBqNf4JIGRfhXqkeFMcKKmY/9SfpeJEvLt9dXkh0mQZGwebCbbS5BLJdrrONPm9cUgRa3T6ju2rgLLysaRUy/Sh0ww33Hhiy3lwVZ1niWoQgw267ajVTwifSAv0Yd8LuVUbl1tMToZZEIumFQ56gZs=
+	t=1789114487; cv=none; b=CrqgmyJ+Okmfn21vXhNqXWzfdKlwpJntkqEwqBo3Agaur8bvp2JpFSNV4lqCGnsO1EeUonTugQ6rTvqTYZAjG9F+J51C8an+XJlUG6hjHrcdaNrdigae2r239zsEkkqlmSQvzFjM7IIJ478UURZHmpnfeGK0yk1vDbjL+znwAYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789114426; c=relaxed/simple;
-	bh=1gbI2S+X9LJrLiMsBaj+/HyfW8nwdO9zQHB+Lxf+gu4=;
-	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:
-	 Subject:Content-Type; b=f2+bunWT8tX+u2IVp1ldEZY5zxOODa3ov6oCrMMp3SUC5eDoPAxVV1Z6gixvWejwCHX9rPLHY/cHXvc+oP+RF31VbGMayklnJTZ8sf2TYqt8GDSDy07shX5HQKeCq/xDI9p0nltfY665ZFxRksR2/VybqW7A8JQuMoolszLOXV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hh6kZ2hg5z8Xrrb;
-	Fri, 11 Sep 2026 16:13:42 +0800 (CST)
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl2.zte.com.cn with SMTP id 68B8DVsW037964;
-	Fri, 11 Sep 2026 16:13:31 +0800 (+08)
-	(envelope-from xu.xin16@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Fri, 11 Sep 2026 16:13:33 +0800 (CST)
-X-Zmail-TransId: 2afa6aa3b82db48-b5b38
-X-Mailer: Zmail v1.0
-Message-ID: <20260911161333316ISAQaj9yJhmglKT5A9OnK@zte.com.cn>
-In-Reply-To: <20260911160421076_KNXun8Mpp9Xj7fxHG0i7@zte.com.cn>
-References: 20260911160421076_KNXun8Mpp9Xj7fxHG0i7@zte.com.cn
-Date: Fri, 11 Sep 2026 16:13:33 +0800 (CST)
+	s=arc-20240116; t=1789114487; c=relaxed/simple;
+	bh=mZlnIj9gOocKHDaCVSDe4W8UqmwRLsxQZTIQm1y7hLA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=URV1nAoTrZvUjcQaOvYD2BS04PNsu4BDWfRGI1v6MKjiuCHBh4xKfCoqmrMmAflu32q/YtiH2b+b9ePZZqdvhwnUJTdgVotpRcj0Ialb+FItW/Rjx1uNiukNGSGu8RrJ6e9FaDnCr/QXHoZjN4Icq5Lh8/5yZ2xPMKTUCeuJC0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ew/Vk7AU; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ew/Vk7AU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789114486; x=1820650486;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=mZlnIj9gOocKHDaCVSDe4W8UqmwRLsxQZTIQm1y7hLA=;
+  b=Ew/Vk7AUYBq8LNpidxL1dnDOW9VaMtrRRRLaAMf+ksKi5dfGYwsyIbKA
+   Bzk4kDoJ3RfXi+T/NUA/71QcepnfAPUNCzgb5NMuzjWPUpnjwUfdfFURs
+   /oR1ESXB/AVjJfLARQfGTS6ybaJhQmZrasoEGldOe4XpI5eiP+OVfCcZZ
+   +GAmLDma6x4WoN+osGyMNoesH2tXwfUd7AvYAA+Iiy5hn8TYfADvrR9rq
+   zoYhTmV66ZSgRWOHVCYolXace6bnZJI1lDhOV1Qt0UkPCefXwV8RdeiR0
+   DczWXAZfucX6Bf/WCCH2BbOgIZzwnjji8tIKrpPjutMqv6UYkhSr5+7Ot
+   w==;
+X-CSE-ConnectionGUID: Jy0l7rkSS8uCu7YFq87r1A==
+X-CSE-MsgGUID: nLVgXKykSfm9d5i79eSwEA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="100171017"
+X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
+   d="scan'208";a="100171017"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 01:14:45 -0700
+X-CSE-ConnectionGUID: jmRHDAo2TFql/jdrWXmvjw==
+X-CSE-MsgGUID: oEfWFbkRTM6Y2myujI0dsw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
+   d="scan'208";a="158257"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.80])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 01:14:40 -0700
+Date: Fri, 11 Sep 2026 11:14:38 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v7 05/17] iio: adc: Add AD7768 and AD7768-4 core support
+Message-ID: <aqO4bj8L6FDB_-2F@ashevche-desk.local>
+References: <20260910-ad7768-driver-v7-0-7f70b07627e1@analog.com>
+ <20260910-ad7768-driver-v7-5-7f70b07627e1@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <xu.xin16@zte.com.cn>
-To: <akpm@linux-foundation.org>, <david@kernel.org>, <liam@infradead.org>,
-        <surenb@google.com>, <rppt@kernel.org>, <ziy@nvidia.com>,
-        <baolin.wang@linux.alibaba.com>, <nico.pache@linux.dev>,
-        <dev.jain@arm.com>, <baohua@kernel.org>, <lance.yang@linux.dev>,
-        <chengming.zhou@linux.dev>, <usama.arif@linux.dev>,
-        <gourry@gourry.net>, <harry@kernel.org>, <vbabka@kernel.org>,
-        <peterz@infradead.org>, <borntraeger@linux.ibm.com>,
-        <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>
-Subject: =?UTF-8?B?W1BBVENIIDQvNF0gbW0va3NtOiBhZGQgZmluZF9tZXJnZWFibGVfdm1hX2xvY2tlZCgpIHRvIHVzZSBwZXItVk1BIGxvY2tpbmc=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 68B8DVsW037964
-X-TLS: YES
-X-ENVELOPE-SENDER: xu.xin16@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Fri, 11 Sep 2026 16:13:42 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AA3B836.000/4hh6kZ2hg5z8Xrrb
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260910-ad7768-driver-v7-5-7f70b07627e1@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Xu Xin (ZTE) <xu.xin@linux.dev>
+On Thu, Sep 10, 2026 at 07:36:23PM +0200, Janani Sunil wrote:
+> Add core support for the AD7768 and AD7768-4 simultaneous sampling ADCs.
+> Configure supplies, clock and reset, use a custom regmap bus for the SPI
+> protocol, and parse the enabled channels and input buffer settings from
+> devicetree.
+> 
+> Connect the converter to an IIO backend for buffered capture with CRC,
+> provide a fixed safe wideband sampling configuration and add runtime
+> power management.
 
-Purpose
-=======
-Let's add find_mergeable_vma_locked(), which is similar to find_tcp_vma(),
-using the universal per-VMA locking helper, so that we can avoid
-mmap_read_lock() to reduce contention.
+...
 
-To be used in KSM code to replace find_mergeable_vma() with
-mmap_read_lock(), the helper find_mergeable_vma_locked() uses the
-universal per-VMA locking allowing us to lock a struct vm_area_struct
-without taking the process-wide mmap lock in read mode.
+> +static const struct regmap_config ad7768_regmap_config = {
+> +	.reg_bits = 8,
+> +	.val_bits = 8,
+> +	.max_register = AD7768_REG_CHOP_CTRL,
+> +	/*
+> +	 * Regmap bulk transfers use one starting address, while each register
+> +	 * access requires a separate 16-bit SPI frame and reads use an off-frame
+> +	 * response. Split bulk transfers into individual register accesses.
+> +	 */
 
-Performance
-===========
-As a test, I construct a testcase which follows the approach: Create
-one victim and several churner threads sharing one mm_struct; The
-victim registers a 32 MiB anonymous VM_MERGEABLE region containing
-8192 pages totally:churners hammer mmap_lock via mmap/munmap
-repeatedly; ksmd merges the victim's pages; Compare latency baseline
-VS this per-VMA patch.
+Here, or in additional place it might be good to mention why no cache is used.
 
-               Before patched         After Patched
-0 churner:     1.627 seconds          1.426 seconds
-4 churners:    72.45 seconds          36.61 seconds
+> +	.use_single_read = true,
+> +	.use_single_write = true,
+> +	.readable_reg = ad7768_readable_reg,
+> +};
+> +
+> +static const struct regmap_config ad7768_4_regmap_config = {
+> +	.reg_bits = 8,
+> +	.val_bits = 8,
+> +	.max_register = AD7768_REG_CHOP_CTRL,
+> +	/*
+> +	 * Regmap bulk transfers use one starting address, while each register
+> +	 * access requires a separate 16-bit SPI frame and reads use an off-frame
+> +	 * response. Split bulk transfers into individual register accesses.
+> +	 */
 
-In conclusion, when no mmap_lock contention (0 churner), there is little
-difference between the baseline kernel and the per-VMA optimized kernel;
-But under interference from 4 churner threads, the merge time of the
-per-VMA KSM-optimized kernel is significantly reduced by 50%.
+Ditto.
 
-Signed-off-by: Xu Xin (ZTE) <xu.xin@linux.dev>
----
- mm/ksm.c | 64 +++++++++++++++++++++++++++++++++++++-------------------
- 1 file changed, 42 insertions(+), 22 deletions(-)
+> +	.use_single_read = true,
+> +	.use_single_write = true,
+> +	.readable_reg = ad7768_4_readable_reg,
+> +};
 
-diff --git a/mm/ksm.c b/mm/ksm.c
-index dda105681d7f..1d85769ec7db 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -765,15 +765,36 @@ static bool vma_ksm_compatible(struct vm_area_struct *vma)
- 	return ksm_compatible(vma->vm_file, vma->flags);
- }
+...
 
--static struct vm_area_struct *find_mergeable_vma(struct mm_struct *mm,
--		unsigned long addr)
-+/**
-+ * find_mergeable_vma_locked() - Find the VMA covering 'address' which is
-+ * VM_MERGEABLE and read-lock it by per-VMA locks. Please use vma_end_read()
-+ * to unlock vma after finishing reading the VMA (non-NULL).
-+ *
-+ * Return: If a VMA exists which spans @address, return that VMA, read-locked.
-+ * If no VMA is mapped there or, very unlikely, a reference count overflow
-+ * occurred, return NULL, and no read-locked.
-+ *
-+ * IMPORTANT: If a VMA exists but is not VM_MERGEABLE or has no anon_vma,
-+ * this function releases the per-VMA read lock before returning NULL.
-+ * Callers must NOT call vma_end_read() on a NULL return value.
-+ */
-+static struct vm_area_struct *find_mergeable_vma_locked(struct mm_struct *mm,
-+		unsigned long address)
- {
- 	struct vm_area_struct *vma;
-+
- 	if (ksm_test_exit(mm))
- 		return NULL;
--	vma = vma_lookup(mm, addr);
--	if (!vma || !(vma->vm_flags & VM_MERGEABLE) || !vma->anon_vma)
-+
-+	vma = vma_start_read_unlocked(mm, address);
-+	if (!vma)
-+		return NULL;
-+
-+	if (!(vma->vm_flags & VM_MERGEABLE) || !vma->anon_vma) {
-+		vma_end_read(vma);
- 		return NULL;
-+	}
-+
- 	return vma;
- }
+> +	/*
+> +	 * DCLK(min) is ODR * channels per DOUTx * 32. With fast mode
+> +	 * (fMOD = MCLK / 4) and x64 decimation, this gives:
+> +	 * MCLK / DCLK = 8 * data lines / channels.
+> +	 */
+> +	dclk_div = 8 * st->datalines / st->chip_info->num_channels;
+> +	switch (dclk_div) {
+> +	case 1:
+> +		dclk_div_reg = AD7768_INTERFACE_CFG_DCLK_DIV_1;
+> +		break;
+> +	case 2:
+> +		dclk_div_reg = AD7768_INTERFACE_CFG_DCLK_DIV_2;
+> +		break;
+> +	case 4:
+> +		dclk_div_reg = AD7768_INTERFACE_CFG_DCLK_DIV_4;
+> +		break;
+> +	case 8:
+> +		dclk_div_reg = AD7768_INTERFACE_CFG_DCLK_DIV_8;
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
 
-@@ -799,11 +820,12 @@ static void break_cow(struct ksm_rmap_item *rmap_item)
- 	 */
- 	rmap_item->linear_page_index = 0;
+Yep, this is clearer.
 
--	mmap_read_lock(mm);
--	vma = find_mergeable_vma(mm, addr);
--	if (vma)
--		break_ksm(vma, addr, addr + PAGE_SIZE, PGWALK_RDLOCK);
--	mmap_read_unlock(mm);
-+	vma = find_mergeable_vma_locked(mm, addr);
-+	if (!vma)
-+		return;
-+
-+	break_ksm(vma, addr, addr + PAGE_SIZE, PGWALK_VMA_RDLOCK_VERIFY);
-+	vma_end_read(vma);
- }
+...
 
- static struct page *get_mergeable_page(struct ksm_rmap_item *rmap_item)
-@@ -814,13 +836,12 @@ static struct page *get_mergeable_page(struct ksm_rmap_item *rmap_item)
- 	struct page *page = NULL;
- 	struct folio *folio;
- 	struct folio_walk fw = {
--		.walk_lock  = PGWALK_RDLOCK,
-+		.walk_lock  = PGWALK_VMA_RDLOCK_VERIFY,
- 	};
+> +static int ad7768_parse_config(struct iio_dev *indio_dev,
+> +			       struct device *dev)
+> +{
+> +	struct ad7768_precharge_config precharge_cfg[AD7768_MAX_CHANNEL] = { };
+> +	struct ad7768_state *st = iio_priv(indio_dev);
+> +	const unsigned int *available_datalines;
+> +	bool datalines_valid = false;
+> +	struct iio_chan_spec *chan;
+> +	unsigned int num_channels;
+> +	unsigned long standby_mask;
+> +	unsigned int len;
+> +	int chan_idx = 0;
+> +	int ret;
+> +
+> +	num_channels = device_get_named_child_node_count(dev, "channel");
 
--	mmap_read_lock(mm);
--	vma = find_mergeable_vma(mm, addr);
-+	vma = find_mergeable_vma_locked(mm, addr);
- 	if (!vma)
--		goto out;
-+		return NULL;
+> +
 
- 	folio = folio_walk_start(&fw, vma, addr, 0);
- 	if (folio) {
-@@ -831,12 +852,12 @@ static struct page *get_mergeable_page(struct ksm_rmap_item *rmap_item)
- 		}
- 		folio_walk_end(&fw, vma);
- 	}
--out:
-+
- 	if (page) {
- 		flush_anon_page(vma, page, addr);
- 		flush_dcache_page(page);
- 	}
--	mmap_read_unlock(mm);
-+	vma_end_read(vma);
- 	return page;
- }
+Unneeded blank line.
 
-@@ -1568,14 +1589,14 @@ static int try_to_merge_with_zero_page(struct ksm_rmap_item *rmap_item,
- 	if (ksm_use_zero_pages && (rmap_item->oldchecksum == zero_checksum)) {
- 		struct vm_area_struct *vma;
+> +	if (num_channels == 0)
+> +		return dev_err_probe(dev, -ENOENT, "No channel specified\n");
+> +
+> +	if (num_channels > st->chip_info->num_channels)
+> +		return dev_err_probe(dev, -ENOSPC, "Invalid number of channels\n");
+> +
+> +	chan = devm_kcalloc(dev, num_channels, sizeof(*chan), GFP_KERNEL);
+> +	if (!chan)
+> +		return -ENOMEM;
+> +
+> +	indio_dev->channels = chan;
+> +	indio_dev->num_channels = num_channels;
+> +
+> +	standby_mask = ad7768_all_standby_mask(st);
+> +
+> +	/*
+> +	 * Crystal excitation requires channel 4 on AD7768 or channel 2 on
+> +	 * AD7768-4 to remain active.
+> +	 */
+> +	if (st->clock_source == AD7768_CLOCK_SOURCE_XTAL)
+> +		__clear_bit(st->chip_info->num_channels / 2, &standby_mask);
 
--		mmap_read_lock(mm);
--		vma = find_mergeable_vma(mm, rmap_item->address);
-+		vma = find_mergeable_vma_locked(mm, rmap_item->address);
- 		if (vma) {
- 			err = try_to_merge_one_page(vma, page,
- 					ZERO_PAGE(rmap_item->address));
- 			trace_ksm_merge_one_page(
- 				page_to_pfn(ZERO_PAGE(rmap_item->address)),
- 				rmap_item, mm, err);
-+			vma_end_read(vma);
- 		} else {
- 			/*
- 			 * If the vma is out of date, we do not need to
-@@ -1583,7 +1604,6 @@ static int try_to_merge_with_zero_page(struct ksm_rmap_item *rmap_item,
- 			 */
- 			err = 0;
- 		}
--		mmap_read_unlock(mm);
- 	}
+Hmm... I have a déjà vu feeling that I have seen already the same / similar.
+If I'm right, this piece can be moved to a helper.
 
- 	return err;
-@@ -1602,10 +1622,9 @@ static int try_to_merge_with_ksm_page(struct ksm_rmap_item *rmap_item,
- 	struct vm_area_struct *vma;
- 	int err = -EFAULT;
+> +	ret = regmap_write(st->regmap, AD7768_REG_CH_STANDBY, standby_mask);
+> +	if (ret)
+> +		return ret;
+> +
+> +	device_for_each_named_child_node_scoped(dev, child, "channel") {
+> +		u32 channel;
+> +
+> +		ret = fwnode_property_read_u32(child, "reg", &channel);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to parse reg of %pfwP\n",
+> +					     child);
+> +
+> +		if (channel >= st->chip_info->num_channels)
+> +			return dev_err_probe(dev, -ECHRNG,
+> +					     "Invalid channel %u in firmware\n",
+> +					     channel);
+> +
+> +		ret = regmap_clear_bits(st->regmap, AD7768_REG_CH_STANDBY,
+> +					BIT(channel));
+> +		if (ret)
+> +			return ret;
+> +
+> +		precharge_cfg[channel].prebufp_en =
+> +			fwnode_property_read_bool(child,
+> +						  "adi,prechargebuf-pos-enable");
+> +		precharge_cfg[channel].prebufn_en =
+> +			fwnode_property_read_bool(child,
+> +						  "adi,prechargebuf-neg-enable");
+> +		precharge_cfg[channel].refbufp =
+> +			fwnode_property_read_bool(child,
+> +						  "adi,refbuf-pos-enable");
+> +		precharge_cfg[channel].refbufn =
+> +			fwnode_property_read_bool(child,
+> +						  "adi,refbuf-neg-enable");
+> +
+> +		chan[chan_idx] = (struct iio_chan_spec) {
+> +			.type = IIO_VOLTAGE,
+> +			.info_mask_separate = BIT(IIO_CHAN_INFO_SCALE),
+> +			.indexed = 1,
+> +			.channel = channel,
+> +			.scan_index = channel,
+> +			.scan_type = {
+> +				.sign = 's',
+> +				.realbits = 24,
+> +				.storagebits = 32,
+> +			},
+> +		};
+> +		chan_idx++;
+> +	}
+> +
+> +	ret = ad7768_configure_precharge_buffers(indio_dev, precharge_cfg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	available_datalines = st->chip_info->available_datalines;
+> +	len = st->chip_info->num_datalines;
 
--	mmap_read_lock(mm);
--	vma = find_mergeable_vma(mm, rmap_item->address);
-+	vma = find_mergeable_vma_locked(mm, rmap_item->address);
- 	if (!vma)
--		goto out;
-+		goto out_trace;
+You also can
 
- 	err = try_to_merge_one_page(vma, page, kpage);
- 	if (err)
-@@ -1625,7 +1644,8 @@ static int try_to_merge_with_ksm_page(struct ksm_rmap_item *rmap_item,
- 	rmap_item->linear_page_index = linear_anon_page_index(vma, rmap_item->address);
- 	get_anon_vma(vma->anon_vma);
- out:
--	mmap_read_unlock(mm);
-+	vma_end_read(vma);
-+out_trace:
- 	trace_ksm_merge_with_ksm_page(kpage, page_to_pfn(kpage ? kpage : page),
- 				rmap_item, mm, err);
- 	return err;
+	const char *propname;
+	...
+	propname = "adi,data-lines-number";
+
+> +	if (device_property_present(dev, "adi,data-lines-number")) {
+
+	if (device_property_present(dev, propname)) {
+
+> +		ret = device_property_read_u32(dev, "adi,data-lines-number",
+> +					       &st->datalines);
+
+		ret = device_property_read_u32(dev, propname, &st->datalines);
+
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Invalid adi,data-lines-number property\n");
+
+			return dev_err_probe(dev, ret, "Invalid %s property\n", propname);
+
+> +	} else {
+> +		st->datalines = available_datalines[len - 1];
+> +	}
+> +
+> +	for (unsigned int i = 0; i < len; i++) {
+> +		if (available_datalines[i] == st->datalines) {
+> +			datalines_valid = true;
+> +			break;
+> +		}
+> +	}
+> +
+> +	if (!datalines_valid)
+> +		return dev_err_probe(dev, -EINVAL,
+> +				     "Invalid data-lines-number %d for %s\n",
+> +				     st->datalines, st->chip_info->name);
+
+And even here
+
+				     "Invalid %s %d for %s\n", propname,
+				     st->datalines, st->chip_info->name);
+
+> +	return ad7768_configure_capture(st);
+> +}
+
+...
+
+> +static void ad7768_power_off(void *data)
+> +{
+> +	struct ad7768_state *st = data;
+> +	struct device *dev;
+> +	int ret;
+> +
+> +	dev = regmap_get_device(st->regmap);
+
+Can be assigned directly above
+
+	struct device *dev = regmap_get_device(st->regmap);
+
+> +	ret = ad7768_enter_sleep(st);
+> +	if (ret)
+> +		dev_err(dev, "Failed to put device to sleep\n");
+> +}
+
+...
+
+> +	ret = devm_regulator_get_enable_optional(dev, "avss");
+> +	if (ret == -ENODEV) {
+> +		/* AVSS may be tied directly to ground instead of a regulator. */
+
+tied --> wired / connected / ...?
+
+> +	} else if (ret) {
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to enable AVSS supply\n");
+
+Fine to be on a single line.
+
+> +	}
+
+...
+
+> +static const struct spi_device_id ad7768_spi_id[] = {
+> +	{ "ad7768", (kernel_ulong_t)&ad7768_chip_info },
+> +	{ "ad7768-4", (kernel_ulong_t)&ad7768_4_chip_info },
+> +	{ }
+
+C99 initialisers.
+
+> +};
+> +MODULE_DEVICE_TABLE(spi, ad7768_spi_id);
+
 -- 
-2.25.1
+With Best Regards,
+Andy Shevchenko
+
+
