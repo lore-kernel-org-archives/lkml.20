@@ -1,97 +1,132 @@
-Received: from mta0.migadu.com (out-62.mta0.migadu.com [91.218.175.62])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 112523515D9
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:24:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.62
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A6030ACF2;
+	Fri, 11 Sep 2026 14:25:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789136692; cv=none; b=HjdQQlxxl0z9jDkJIJQtmpx+u79w5JU+x26LuJSD67rU3VyLHjvtjvKtX/UjyYnd+9XGSO4h6hUubBnZTlreNF0jDEsbPZEjgjkdgBWwBhiSD9wGuUyrzlTHXI4dDd+XFmXrIiFYxvDJBKEqamZDZOasBGMQIKEJ8TIIhzsDGSI=
+	t=1789136731; cv=none; b=ZXm4KPRAzO2cpPbn1U03lGmzuGpJnfl0DtRtC377FCBvRkkwIzsGkX5dYJattr1r0Z8vK8DcORKSf9aQqhhsUJMVQvrOWk2cJ0KT/OecaSkxpIZO95Eed9U2DpSfA1X6ZC/Y/Gy+tgTRzkNKgrC5TggGFtVfQKBsf2EShdOggj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789136692; c=relaxed/simple;
-	bh=68vbxBHpsZEn00oQLWKRWeOhLCGrb/gn4QRg4kqmr+A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JCCNgwDaMU1OjBc7KpGPja8l4BJYhLmCX7TxomKXCGJ5RUD62rLO5e6a/FHaHuT1XnxAqOTufKmVjBrImoKCM3fWFCUWlO4GFxFDuiRYa5icUM54fSptq3Ysa90wIeFpYh/CbqBD9op6VNhMAcRtiHmUKY+H69n9Ao26YJgg5Zw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=SBs2DxmF; arc=none smtp.client-ip=91.218.175.62
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789136731; c=relaxed/simple;
+	bh=SkahHKFXGt/ZhOVlK8irr1HdYWXacq2DcQ3BGyRJEnQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BA1DaJ1ff/RygGfMT3oJB9yPFWNGYG1cC0u6NF8BgPyXX4CDsuQQq4WStfoHUR/KIdBQUZzBFrVh06qPZ1Ab5pZkcjcubrTjbnCwydR/EoDLsZepqMpRLs8k3EvZGGw/6p4Zdkvs0x4K1L3c08nLiDyiIbk31r+S4bu4swUlZ0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l9HYc2BH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="SBs2DxmF"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=68vbxBHpsZEn00oQLWKRWeOhLCGrb/gn4QRg4kqmr+A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789136685; v=1; x=1789741485;
- b=SBs2DxmF2oXuNwA+NZdRJMsh/CV127mt4FVGSttTjTtJgs9mgTl5LPrjCnAXapPKMv8HJSXO
- sB9WQJsleDlygxxIUWOQEfMi34RuJ9UGSK1uWbNDDGNOYAyxVb+26FRfm62yWL9Th1L/cLeabMG
- jvfcP/pvSmkDFTh25WNSYp3U=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5091ab4b9adc1903;
-	Fri, 11 Sep 2026 14:24:45 +0000
-X-Mizu-Trace-ID: 5091ab4b9adc1903
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <19eca438-012e-4457-803b-cca4e4d12520@linux.dev>
-Date: Fri, 11 Sep 2026 22:24:37 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l9HYc2BH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDBC01F000FF;
+	Fri, 11 Sep 2026 14:25:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789136729;
+	bh=UWnB1+LHCrUWvW0DYQclwKKSDqJPcdee5LBGVppRb50=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=l9HYc2BHkIpkXbRx3zT79clZlV0VQtq0mhtO0jud9OHUaUCKW+LFtATJ0JJCcLmqW
+	 32U0Pjz8d6MvglKVDkLWGy3uljiLOWAhk/Rn/mDTzdAbIzRnXzgq1GSUvOdPjAx0xJ
+	 PY7nU6mVO0s/lZFxK6Zi9MKEQWONuJNh+NI15nfZrEyBfEYb1g6D84ItB2Wp8S5CPy
+	 cfsng1L4wIIEJuKkSYKVgN/TMeK8Oq9BdGc1loa2bh7Y+EmslWSJsWSMKftIUqTjrg
+	 ZLMyJVomRZJwstJ1eG8ZfasXc3rYGoipzquGKR10h705ZSFgh2oxxw9qK6+ULvZRk1
+	 2uKNsxiIxqPFw==
+From: SJ Park <sj@kernel.org>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH v2 1/7] mm/damon/api: introduce DAMOS_FILTER_TYPE_PROBE_HITS_WSUM
+Date: Fri, 11 Sep 2026 07:25:22 -0700
+Message-ID: <20260911142522.98013-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260911135510.96914-2-sj@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf v2] bpf: Fix NULL pointer dereference in
- __bpf_sk_storage_map_seq_show
-To: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
-Cc: Amery Hung <ameryhung@gmail.com>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Fushuai Wang <wangfushuai@baidu.com>,
- Weiming Shi <bestswngs@gmail.com>, Matt Bobrowski
- <mattbobrowski@google.com>, Kees Cook <kees@kernel.org>,
- Menglong Dong <menglong8.dong@gmail.com>, bpf@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- AutonomousCodeSecurity@microsoft.com, xmei5@asu.edu,
- tgopinath@linux.microsoft.com, kys@microsoft.com,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Martin KaFai Lau <martin.lau@kernel.org>
-References: <20260911140308.81560-1-cenzhang@linux.microsoft.com>
-From: luoxuanqiang <xuanqiang.luo@linux.dev>
-In-Reply-To: <20260911140308.81560-1-cenzhang@linux.microsoft.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-在 2026/9/11 22:03, Cen Zhang (Microsoft Security FORGE Labs) 写道:
+On Fri, 11 Sep 2026 06:55:03 -0700 SJ Park <sj@kernel.org> wrote:
 
-> Iterating a sk_storage map is a two-stage operation:
-> bpf_sk_storage_map_seq_find_next() returns a selem, then
-> __bpf_sk_storage_map_seq_show() uses it. The latter re-reads
-> selem->local_storage via rcu_dereference() without checking for NULL.
-> A concurrent socket close can unlink the selem and clear that pointer
-> between the two stages, causing a NULL dereference of sk_storage->owner.
->
-> Oops: general protection fault, probably for non-canonical
->     address 0xdffffc0000000011
->    net/core/bpf_sk_storage.c:809 __bpf_sk_storage_map_seq_show()
->    bpf_seq_read+0x366/0x1120
->    vfs_read+0x174/0xa50
->    ksys_read+0xfc/0x1d0
->
-> Return SEQ_SKIP if the re-read yields NULL. This prevents the dereference
-> and tells bpf_seq_read() that the stale element was skipped, so it does
-> not consume an iterator sequence number without running the BPF program.
->
-> Fixes: 0be08389c7f2 ("bpf: Switch to bpf_selem_unlink_nofail in bpf_local_storage_{map_free, destroy}")
-> Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
-> Closes: https://lore.kernel.org/all/20260827051859.45511-1-blbllhy@gmail.com/
-> Suggested-by: Amery Hung <ameryhung@gmail.com>
-> Suggested-by: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-> Link: https://lore.kernel.org/all/CAMB2axNFOC9G2RwOCnsWDth83REMWnmPE8gxMwbLYoGusw9miA@mail.gmail.com/
-> Link: https://lore.kernel.org/all/c3f2a61d-d5bc-454c-987d-717b5f8c8809@linux.dev/
-> Cc: AutonomousCodeSecurity@microsoft.com
-> Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <cenzhang@linux.microsoft.com>
-> Assisted-by: Copilot (Grok 4.6)
+> Update DAMON kernel API to introduce new DAMOS core filter type,
+> PROBE_HITS_WSUM.  It will allow API callers to describe the DAMOS action
+> target regions based on their probe_hits weighted sum.  For describing
+> the filtering target weighted sum range, add two type-dependent union
+> fields to damos_filter.
+> 
+> Signed-off-by: SJ Park <sj@kernel.org>
+> ---
+>  include/linux/damon.h | 20 ++++++++++++++------
+>  1 file changed, 14 insertions(+), 6 deletions(-)
+> 
+> diff --git a/include/linux/damon.h b/include/linux/damon.h
+> index 16800b3dc379b..9e84bdeb5616d 100644
+> --- a/include/linux/damon.h
+> +++ b/include/linux/damon.h
+> @@ -399,14 +399,15 @@ struct damos_stat {
+>   * @DAMOS_FILTER_TYPE_UNMAPPED:	Unmapped pages.
+>   * @DAMOS_FILTER_TYPE_ADDR:	Address range.
+>   * @DAMOS_FILTER_TYPE_TARGET:	Data Access Monitoring target.
+> + * @DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:	probe_hits weighted sum range.
+>   * @NR_DAMOS_FILTER_TYPES:	Number of filter types.
+>   *
+> - * All types except &DAMOS_FILTER_TYPE_ADDR and &DAMOS_FILTER_TYPE_TARGET
+> - * are handled by the underlying &struct damon_operations as a part of scheme
+> - * action trying, and therefore accounted as 'tried'.  In contrast,
+> - * &DAMOS_FILTER_TYPE_ADDR and &DAMOS_FILTER_TYPE_TARGET filters are handled
+> - * by the core layer before trying of the action, and therefore not accounted
+> - * as 'tried'.
+> + * All types except &DAMOS_FILTER_TYPE_ADDR, &DAMOS_FILTER_TYPE_TARGET and
+> + * &DAMOS_FILTER_TYPE_PROBE_HITS_WSUM are handled by the underlying &struct
+> + * damon_operations as a part of scheme action trying, and therefore accounted
+> + * as 'tried'.  In contrast, &DAMOS_FILTER_TYPE_ADDR and
+> + * &DAMOS_FILTER_TYPE_TARGET filters are handled by the core layer before
+> + * trying of the action, and therefore not accounted as 'tried'.
 
-Reviewed-by: Xuanqiang Luo<luoxuanqiang@kylinos.cn>
+Sashiko found [1] the second sentence is also better to be updated.  Reposting
+this patch only for the trivial change feels too much to me.  Andrew, could you
+please add attaching patch as a fixup?  Please let me know if you prefer
+reposting the series.
+
+[1] https://lore.kernel.org/20260911142049.97838-1-sj@kernel.org
+
 
 Thanks,
-Xuanqiang
+SJ
+
+[...]
+=== >8 ===
+From 8095628debba5ececa0664314ef4a3b777ef0fbf Mon Sep 17 00:00:00 2001
+From: SJ Park <sj@kernel.org>
+Date: Fri, 11 Sep 2026 07:20:01 -0700
+Subject: [PATCH] mm/damon/api: clarify DAMOS_FILTER_TYPE_PROBE_HITS_WSUM
+ behavior
+
+Clarify it's behavior.
+
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ include/linux/damon.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/include/linux/damon.h b/include/linux/damon.h
+index 33929a400aa7a..23df189015198 100644
+--- a/include/linux/damon.h
++++ b/include/linux/damon.h
+@@ -440,9 +440,9 @@ struct damos_stat {
+  * All types except &DAMOS_FILTER_TYPE_ADDR, &DAMOS_FILTER_TYPE_TARGET and
+  * &DAMOS_FILTER_TYPE_PROBE_HITS_WSUM are handled by the underlying &struct
+  * damon_operations as a part of scheme action trying, and therefore accounted
+- * as 'tried'.  In contrast, &DAMOS_FILTER_TYPE_ADDR and
+- * &DAMOS_FILTER_TYPE_TARGET filters are handled by the core layer before
+- * trying of the action, and therefore not accounted as 'tried'.
++ * as 'tried'.  In contrast, &DAMOS_FILTER_TYPE_ADDR, &DAMOS_FILTER_TYPE_TARGET
++ * and &DAMOS_FILTER_TYPE_PROBE_HITS_WSUM filters are handled by the core layer
++ * before trying of the action, and therefore not accounted as 'tried'.
+  *
+  * Support for the operations-handled filters depends on the running
+  * &struct damon_operations.
+--
+2.47.3
+
 
