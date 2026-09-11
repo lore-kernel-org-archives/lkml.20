@@ -1,279 +1,252 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012059.outbound.protection.outlook.com [40.107.200.59])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 911AD43441C;
-	Fri, 11 Sep 2026 17:49:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.59
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789148945; cv=fail; b=GjS03iwyXE6/5swLcrGw28RDAJ6Mi9XpM1GVXP9ylfzBs24JPZ84CvYNNIKdoONKnm8qJK7VFWjMWqLLvgLvaf5wOMyCNN7Knqndhe2Ufb5NmvPCrwzdck5MOigQDkiMbrO7EwNU26pNCIThoARqUc826LEml15D4OTWr9jxTxw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789148945; c=relaxed/simple;
-	bh=oO+n3CEh96PXvNC4mimh2gPV2D2l5YqN8P5WwKUvjZc=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ZCoEfBRPa9soXIEUQQQU6R/IOrxnOD6q40D81G/EBDIiUVagMg1eGfPy78CzShO1XCjfK/r40Juun4+1atLe8mUGFwHkNykHoxMtPOi2zI4bTy3YzhRoakJLJpvF+NBpzVOWIszunyMc70UDcQ3yWK0YxURTtB/YmsFmL30/OJg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=JBPPpPhR; arc=fail smtp.client-ip=40.107.200.59
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45A153B47CB;
+	Fri, 11 Sep 2026 17:49:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789148983; cv=none; b=kqXKSra+vos5id1dL8+kQ/YRDz+blTPrp48W/zpSY686houLO5DoKkS8J7kilNzDR70Xc0EJjFN1TIJ8LcPPmZIp6LP99gAB4o2DM/kTZv3OW5Jl37eg7J9egSEOY4pOK/imxMqzBSd4sFZ/ne74TX8Ertxpl2PD7HFIp3B/cHk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789148983; c=relaxed/simple;
+	bh=ZhSG6K4HP7Q9Fgg7cKBvW83nDt14UjaHbdiU13J9KSw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OAPiMayqK6ncpd4WfKJuwvsEThU0MQncEdzUgMYslwY/XsXcVS1+G+I4fwqPdPE4Sdc54e8WFL0jxFQNwdkI3eM4VLt6rcPHNq+jtMcajb+NYRfJROUURmr1GptgLwQnk1ASq8x2KehkL8dBhZ9sxT7ul83wxFk/VLoUmt9Gjx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M4MufMKH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="JBPPpPhR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oNlVqsod9xErCyaEo/GxXIN/tWJqiQ76rXlSzWlBn8hD1QMUmla/D199YgxbyWYUSZF9PjKURkGZfUEeNJQC1oUNhLAQw8JJ1cAZ3ChrBvFQWQ6qvxP/keqOgJFWN49AdS+f6nGRxho1aMrAOV/nYpsTa5XuSoFYLWjmGHEA+BdRxTJu6L0yWO9t6Aa+0U9Iycv1CIHlbnWyieDD8xJjjPj3+TWlXP4ad2g9N6lJLBfua0IMZ96XpC+kAOFuhK7YjN4Q83PkjcleEfK60up5R8F4O9Vk4hwFCKHuQJd4DXEg4I5V2ahXZpthG+4PMc/yXsBB1sc27kWNFTRaZ3DK3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YpspG6vG3Y3cHgg4GM18u+7P5oi/5kSrhld7KKwxxio=;
- b=HjHg6NZuAto5TLVFsxoLbbTGxV0P1XU66O9eGP3e8XeZcgpg+DQvkM9YEtd1D0kDOS/Utf259cklbIZYvuRqq+jLNIgwBz6Ul6wggxhl9ggYo9z/tXaf/VsEwsqQN1PqloHdmGbaxwHLZXWT5dbm2iExz4cO0rPiCvSy4NxVK+sxwJlyD5qYgVDlkr4xWDXglEimkBGsSPifMctHPeWiNheDUHitzfMh0/U68lFJx72/UkUG8DcdGBD0jAMVVk6HZ37jotk4VwqUltiKxCWUGy23MUfWDvbEjslD9lHnEPzDw/1tJbCqL+8Zu71JHHmFosVZ1cXBXwYpdGxgLGeJuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YpspG6vG3Y3cHgg4GM18u+7P5oi/5kSrhld7KKwxxio=;
- b=JBPPpPhRuH2jGvbdi5MP9CG3+d7fMbCcTXZsGSUVjksnmWkTbSEJ5fN7/968ErLq3KzVcgOHrG6oSq0oOWNjw4UjtjJkQNMEpiZ946xHRB5aqV3l2wn6+Fb4O+wwO6SDBIRrV2O/l08UoTZSAOyqDyWrodzNUnDqQsJbqCe9A+M=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MW4PR12MB6921.namprd12.prod.outlook.com (2603:10b6:303:208::8)
- by DSWPR12MB999152.namprd12.prod.outlook.com (2603:10b6:8:36e::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 17:48:54 +0000
-Received: from MW4PR12MB6921.namprd12.prod.outlook.com
- ([fe80::cbf7:e2db:1d37:c83b]) by MW4PR12MB6921.namprd12.prod.outlook.com
- ([fe80::cbf7:e2db:1d37:c83b%5]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 17:48:53 +0000
-Message-ID: <813fafd9-64fd-4f0c-9aa6-37fba57a1f4a@amd.com>
-Date: Fri, 11 Sep 2026 12:48:51 -0500
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH 1/8] soundwire: amd: fix SDW command timeout return value
- handling
-Content-Language: en-US
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, vkoul@kernel.org
-Cc: yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.dev,
- Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
- venkataprasad.potturu@amd.com, Syed.SabaKareem@amd.com,
- Richard.Gong@amd.com, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260910190240.1604447-1-Vijendar.Mukunda@amd.com>
- <20260910190240.1604447-2-Vijendar.Mukunda@amd.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20260910190240.1604447-2-Vijendar.Mukunda@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH3P220CA0002.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:610:1e8::13) To MW4PR12MB6921.namprd12.prod.outlook.com
- (2603:10b6:303:208::8)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M4MufMKH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B032F1F000FF;
+	Fri, 11 Sep 2026 17:49:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789148980;
+	bh=KhUmfw14OYrCY7IYDxm+oE9osdfjxhnvTL/bmLLDDXs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=M4MufMKHUE993PXmFUa5//tS1MwXXRI6RVYsEHwtGUtRTOmWBIADiF636pIJtIfsS
+	 AWycC7rI/z172W22vhObsiUQCBLTomS5Yzl1uoLb5k30NaKuBd1uuNM2L7qPBtlcZW
+	 DyellxC9QuDTLeV0nfksC+JHQ+Lwh/OkPhdPgroYgGyFQi651C0yFVjx99yaMcQhpu
+	 jDssGCF/o4sMiabHw9KMHtV3bY/VRey1g1NlJR4EG6qrEEJmxTLbvuV9Yw+aKLXHgy
+	 0jem5CyXSLwqujHjWKv0Hn+o7KhRqtWnfJLC70QH59GOABByK8dfkFarH5fzU7HHp7
+	 iQDGeshUWiJaA==
+Date: Fri, 11 Sep 2026 18:49:35 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, 
+	david@redhat.com, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
+	pfalcato@suse.de, xueyuan.chen21@gmail.com, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH v3 4/7] proc/task_mmu: remove special-casing of
+ smap_gather_stats() start parameter
+Message-ID: <aqQ2M5bZv4k43j91@gremlin>
+References: <20260910234737.1340642-1-surenb@google.com>
+ <20260910234737.1340642-5-surenb@google.com>
+ <aqQsWNfrBSp4DY_N@gremlin>
+ <CAJuCfpEEi-9ZqhKR536tJHywprb9RFcx92gK00qp_ecBGH9Fvw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6921:EE_|DSWPR12MB999152:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0305e0c7-5f7e-4f6b-4363-08df102cf21b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|10067099003|11063799006|56012099006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ksxsX9R2pZUsADZ7v9NndZWPGD4ZAOi6pn27ZXt+4xODXVoW481KPW/J6NJb137bvW75K4pyHdOBamzdHB5FFQysPlPDG6LW/OvwT5y331BbwDTwx8rja7RpXEEkPJVX966J2SsvmPN1Sgv8GjpsrlM9tuIlXqip+Tj58izLFUzokARBaS08gwSsomy+ruYjaVi42sCGAnFbYwx8Fe4v/9iO52EffTDdGbhVVzgI1gUnTcTGQ3rRO8CxT1mGISsi/75yR9VoBj76Ha3QAPKdo+Hc7ns+TqhS05TUVbcsDbU5Gz3usiwIiefB0QTXavaaE/8NraPKYR6O/9xh2IHaolq/WZkOYCyuycu8Pcaxb2BBlvwnOyaA7cjb9E7A445ark5XElqlOyCnMu/BXAJRexbt2PXA95zD3EZGJMcUs+faE9EKWR8hemWQa6leaLBrfD27M0MzF6Q8KvBOvXNtCzj09qVSgKPEUUVQzO2VLwVrbAPYDBZQAM6+88bsEf6QIf4v2v5BqTDeuZA0f+3e998IJxU/GfCwppN9p8GSrQednbt/yf5NnHol/dGAfFIv6Ovkp+rIoCEx8a+Y0eVUkKB8Sr8FaKsSDWGoa0Q3fLvKniKEqWCesfM8+y0Wl9Xg5eka2yB2y/mNrFCB0dkZlxwpkcGXyA7TV8BLyN5gTm8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6921.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(10067099003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bW42WjJ3NEZnd1lJLytYZFJEWmppbEEyWFlqb0UySWhpWGJFZUwzbWtSWHB4?=
- =?utf-8?B?RU5HcXR2WlJLL2htUVNWU1FpNzVtaCs2K0ZWa3d2N1duS2ZIczF3dlNhdW5O?=
- =?utf-8?B?Mm5zTDUwTU5xZnJxZythNzhDREp4WktWNXZuQkpLRTN0QmtIcDdWYUhRV3hy?=
- =?utf-8?B?UjJmQTBlTzUwcXNmMEI1OHBmQnl6YndEK1hTSmQxNmp6UkVxanF5YzlJcUtT?=
- =?utf-8?B?eVZNbUJaS2JFYlFQQXV2ZUk3anR4SXc2T0ZOUU1TbVFiVjliVDZNMG9kd2kv?=
- =?utf-8?B?NTBxTG0xYUkxMlNydjJmN3c3OUpHUmRwZ0JqMmpHRXo4TmIycGVUQWoyNXl0?=
- =?utf-8?B?R2tobEhrbzduQVpyWHllUTdUUTFmZ2o3Z25pRDVLUFNXUElrd0xPT0R2RzMz?=
- =?utf-8?B?V0VJSzRTbS9kZkNGZyt1dzJRWkcwblhsc1pNbHVJYWptUHE5KytHZG9NT1o0?=
- =?utf-8?B?M2dlcFhQSHUrUWVsMEJ1T1Z0WXlZZmJrbFdyRU91dHR5ZWpuQ1VrSjRqZGdw?=
- =?utf-8?B?QXBDc3NqU3hRdDNkSWNmSmxBT256ZnFuSnVHbmtKbDl2WkpHRGlzbG1kYjY2?=
- =?utf-8?B?dHZobjAybDVZSVVIR2dxNDlNZXdVWnFFbTdtcXhVQ2NMUkJsRzNGbWpUN3ZP?=
- =?utf-8?B?RGFrclNPc243b0dmVEVScWJVQXkyTmROeThTYk5xbHpQLy9XRVhwR1NOUE0x?=
- =?utf-8?B?NEVnQzI2N0Y3c3FJdndzNzlzZUIvaWdaaldJYlNpaUhjUlFuWFV2N05WLzdI?=
- =?utf-8?B?WVFwLzBpTkU3SlRrelZJaGF6a2NuTnpHVXlINmd6RzRaUW5rOWI0TG1CSDdl?=
- =?utf-8?B?V2dIeGhuWXlXZFE5d09PMWkvdVp1bnQxUm1HdmxMNG9GVDBnYnRvbndkaXV5?=
- =?utf-8?B?VzAvVCtBeCtoQjlZYmtiT0ZBUU9TTm9wVVBiWmtvaHo2S2dSbVA3VUFHTFJz?=
- =?utf-8?B?MmRZVzFTQVNOSlBvOUVJdHlGdFlxTWVyUDNMUm1QY0FQZWR2TENhWHFmTVR2?=
- =?utf-8?B?M1NnK1FRU2UwM1U1c3ZQaUE0b0orbWpPcXZkc2RCVUJ1TWRyUDRKb2Q1NHIv?=
- =?utf-8?B?M3MraC95SmFIcUZ0R3hXb2xGMWw0V0hySWFUWitpeEVHMTAxb1RWRjJwK2x3?=
- =?utf-8?B?Y0NPU1JUVkJ0ODBpQncyQ0NkNVJYaytDNEFIOVI1QWJVNHFEekZYbEpPeDFj?=
- =?utf-8?B?bmlRQldIWElWNUZJWmZZbGxNTXVIOEdzcHg2dW8rN3NmUkNZTkJ3UHowRytu?=
- =?utf-8?B?VHJZZGNCT3hCbHEwbFZoQWw1YUZlaFRBWjBFOVIyV2VEWVMzdTEvVyt6S3BO?=
- =?utf-8?B?ZDA0bHk5a3ZKbW45MTZIQVc4cldyUitiQWhmeTZGRkxXOGRnNGxXU1FFb1ZF?=
- =?utf-8?B?TUVyTnl0RDRhdndreXVUT0JRWlZtbHBNTXJoSmxUS2g0bHZNSnVndnN0d1A5?=
- =?utf-8?B?eTBZMUFzVVcvaEszK09YK29pQmxHamprVytac2s3bU5XSEhOZUNwT2I0UVVj?=
- =?utf-8?B?VSs4aC9YYlp1TXR0dkREM2ZjYXh2S2FNTmE1QWpVY2VKZlZVMjRtQUNrVGVC?=
- =?utf-8?B?YjMvM0FHSUk3QU91bVFBdk9LejJDZjhUa0hvQURDQ3FnbW1uQnM2ZitFVFdB?=
- =?utf-8?B?RVAvS0VNZ0NzaTFhb0pHbzlsaWVxRUVBOUprbVh1ZVVwZWs0enkxelRkUDJR?=
- =?utf-8?B?d0dCOUIvTnZXTlI0K3dsTlpHakxRZm1JWlJSYkpxRk1OZFlaaTB4Y0tlM28x?=
- =?utf-8?B?ajdub3AyY0FBcjdRYkxYTk51Rkd1WU9BYU1nZ1dEQ3E2SGc5NVRNUlkvRGdC?=
- =?utf-8?B?TlVXWTVjR2wwOVN5L3FFYnM0TFNiSVJRM3A4VDM0Z0tsVDk0ZTNFMGc3ejJY?=
- =?utf-8?B?cnlpQTZ2dlBTMnFoSG55OTduempGV1FSUTdlSnlGS1p2OG1vdUc3OTJBNUw0?=
- =?utf-8?B?TERrNFFvZlVUV201aWxHY0tqSURTZmtnMkduQlFqSVE1YnBYcnkyVkNrVW9T?=
- =?utf-8?B?cU5QUk5YREhsN3Vsa0sweXJwU1NQVWNNZ0NmNWFpa1hLT2N1VXRuQXNwWnpK?=
- =?utf-8?B?MkkxcVMrOG9mNXdoTmlnT2dyd1EyY0lnaHhyeFF3c1F1MlVvOC9zbkJoMXgr?=
- =?utf-8?B?TXNJQkQ5Mnd2Uk1aRUY1SVRZTTJRY0ZVOUZxZzIyZzVSSkVzQU1qSEcwbUVM?=
- =?utf-8?B?ang0dkF0Ri8wVHlDd0FqQmR3K0pRcE5WU2hWejQ0OGh2YWxYSkVnMW1aZkxE?=
- =?utf-8?B?UUZTS0tGMjVXS2VialVvcGYxaHdYamRlUlJFV2hLZ2FPWXFmZlJhbXZkRGtE?=
- =?utf-8?B?dllHU3pOZmdXaWdYRHRhK3FsbmE1TnNWbWJtOFk1dHQydlNOanlYQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0305e0c7-5f7e-4f6b-4363-08df102cf21b
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6921.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 17:48:53.7719
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UOyhIP2GM8TBnNsT6HvmL1Jm+rMfapJYIaEyT+iGgPhOkltIKw54t2TPOLCq9tZJm0gokUE5a1v1FmbPqvS2eQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR12MB999152
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJuCfpEEi-9ZqhKR536tJHywprb9RFcx92gK00qp_ecBGH9Fvw@mail.gmail.com>
 
+On Fri, Sep 11, 2026 at 05:07:48PM +0000, Suren Baghdasaryan wrote:
+> On Fri, Sep 11, 2026 at 4:39 PM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+> >
+> > On Thu, Sep 10, 2026 at 04:47:34PM -0700, Suren Baghdasaryan wrote:
+> > > smap_gather_stats() interprets its start parameter to mean vma->vm_start
+> > > when it's set to 0. Eliminate this special interpretation and pass
+> > > vma->vm_start explicitly when needed.
+> > >
+> > > Since smap_gather_stats() operates within a single VMA, we can replace
+> > > walk_page_vma()/walk_page_range() calls with walk_page_range_vma()
+> > > which is simpler and also can be called while holding per-VMA lock.
+> > >
+> > > No functional change intended.
+> > >
+> > > Suggested by: Lorenzo Stoakes <ljs@kernel.org>
+> >
+> > Hmm did I? Where did I suggest this?... I guess a while ago?
+>
+> In [1] on June 9, 2026.
+>
+> [1] https://lore.kernel.org/all/aifO_rCurVhFRTcl@lucifer/
 
+Yup a while ago :)
 
-On 9/10/26 14:00, Vijendar Mukunda wrote:
-> amd_sdw_send_cmd_get_resp() returned u64 but was returning -ETIMEDOUT
-> (a negative int) on readl_poll_timeout() failures, which silently
-> widens to a large u64 value.
-> 
-> Change the return type to int and pass the raw u64 response through an
-> out-parameter. Timeout is detected directly from readl_poll_timeout()
-> return value.
-> 
-> Update all callers: amd_program_scp_addr(), _amd_sdw_xfer_msg(),
-> amd_sdw_read_and_process_ping_status(), and amd_sdw_read_ping_status()
-> to check the return value and handle timeout explicitly. In
-> amd_sdw_read_and_process_ping_status(), the mutex unlock is also moved
-> to after amd_sdw_process_ping_status() so the lock is held across the
-> full status processing step.
-> 
-> Fixes: d8f48fbdfd9a ("soundwire: amd: Add support for AMD Manager driver")
-> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-> ---
->   drivers/soundwire/amd_manager.c | 56 +++++++++++++++++++--------------
->   1 file changed, 33 insertions(+), 23 deletions(-)
-> 
-> diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-> index a3316efdf8ac..fa3f4e797edd 100644
-> --- a/drivers/soundwire/amd_manager.c
-> +++ b/drivers/soundwire/amd_manager.c
-> @@ -250,10 +250,9 @@ static void amd_sdw_ctl_word_prep(u32 *lower_word, u32 *upper_word, struct sdw_m
->   	*lower_word = lower_data;
->   }
->   
-> -static u64 amd_sdw_send_cmd_get_resp(struct amd_sdw_manager *amd_manager, u32 lower_data,
-> -				     u32 upper_data)
-> +static int amd_sdw_send_cmd_get_resp(struct amd_sdw_manager *amd_manager, u32 lower_data,
-> +				     u32 upper_data, u64 *response)
->   {
-> -	u64 resp;
->   	u32 lower_resp, upper_resp;
->   	u32 sts;
->   	int ret;
-> @@ -291,9 +290,8 @@ static u64 amd_sdw_send_cmd_get_resp(struct amd_sdw_manager *amd_manager, u32 lo
->   			amd_manager->instance);
->   		return ret;
->   	}
-> -	resp = upper_resp;
-> -	resp = (resp << 32) | lower_resp;
-> -	return resp;
-> +	*response = ((u64)upper_resp << 32) | lower_resp;
-> +	return 0;
->   }
->   
->   static enum sdw_command_response
-> @@ -309,19 +307,22 @@ amd_program_scp_addr(struct amd_sdw_manager *amd_manager, struct sdw_msg *msg)
->   	scp_msg.buf = &msg->addr_page1;
->   	scp_msg.flags = SDW_MSG_FLAG_WRITE;
->   	amd_sdw_ctl_word_prep(&lower_data, &upper_data, &scp_msg, 0);
-> -	response_buf[0] = amd_sdw_send_cmd_get_resp(amd_manager, lower_data, upper_data);
-> +	if (amd_sdw_send_cmd_get_resp(amd_manager, lower_data, upper_data, &response_buf[0])) {
-> +		dev_err_ratelimited(amd_manager->dev,
-> +				    "SCP_addrpage command timeout for Slave %d\n", msg->dev_num);
-> +		return SDW_CMD_TIMEOUT;
-> +	}
->   	scp_msg.addr = SDW_SCP_ADDRPAGE2;
->   	scp_msg.buf = &msg->addr_page2;
->   	amd_sdw_ctl_word_prep(&lower_data, &upper_data, &scp_msg, 0);
-> -	response_buf[1] = amd_sdw_send_cmd_get_resp(amd_manager, lower_data, upper_data);
-> +	if (amd_sdw_send_cmd_get_resp(amd_manager, lower_data, upper_data, &response_buf[1])) {
-> +		dev_err_ratelimited(amd_manager->dev,
-> +				    "SCP_addrpage command timeout for Slave %d\n", msg->dev_num);
-> +		return SDW_CMD_TIMEOUT;
-> +	}
->   
->   	for (index = 0; index < 2; index++) {
-> -		if (response_buf[index] == -ETIMEDOUT) {
-> -			dev_err_ratelimited(amd_manager->dev,
-> -					    "SCP_addrpage command timeout for Slave %d\n",
-> -					    msg->dev_num);
-> -			return SDW_CMD_TIMEOUT;
-> -		} else if (!(response_buf[index] & AMD_SDW_MCP_RESP_ACK)) {
-> +		if (!(response_buf[index] & AMD_SDW_MCP_RESP_ACK)) {
->   			if (response_buf[index] & AMD_SDW_MCP_RESP_NACK) {
->   				dev_err_ratelimited(amd_manager->dev,
->   						    "SCP_addrpage NACKed for Slave %d\n",
-> @@ -366,11 +367,7 @@ static enum sdw_command_response amd_sdw_fill_msg_resp(struct amd_sdw_manager *a
->   		if (msg->flags == SDW_MSG_FLAG_READ)
->   			msg->buf[offset] = FIELD_GET(AMD_SDW_MCP_RESP_RDATA, response);
->   	} else {
-> -		if (response == -ETIMEDOUT) {
-> -			dev_err_ratelimited(amd_manager->dev, "command timeout for Slave %d\n",
-> -					    msg->dev_num);
-> -			return SDW_CMD_TIMEOUT;
-> -		} else if (response & AMD_SDW_MCP_RESP_NACK) {
-> +		if (response & AMD_SDW_MCP_RESP_NACK) {
->   			dev_err_ratelimited(amd_manager->dev,
->   					    "command response NACK received for Slave %d\n",
->   					    msg->dev_num);
-> @@ -390,7 +387,11 @@ static unsigned int _amd_sdw_xfer_msg(struct amd_sdw_manager *amd_manager, struc
->   	u32 upper_data = 0, lower_data = 0;
->   
->   	amd_sdw_ctl_word_prep(&lower_data, &upper_data, msg, cmd_offset);
-> -	response = amd_sdw_send_cmd_get_resp(amd_manager, lower_data, upper_data);
-> +	if (amd_sdw_send_cmd_get_resp(amd_manager, lower_data, upper_data, &response)) {
-> +		dev_err_ratelimited(amd_manager->dev, "command timeout for Slave %d\n",
-> +				    msg->dev_num);
-> +		return SDW_CMD_TIMEOUT;
-> +	}
->   	return amd_sdw_fill_msg_resp(amd_manager, msg, response, cmd_offset);
->   }
->   
-> @@ -446,9 +447,14 @@ static void amd_sdw_read_and_process_ping_status(struct amd_sdw_manager *amd_man
->   	u64 response;
->   
->   	mutex_lock(&amd_manager->bus.msg_lock);
+>
+> >
+> > I mean I also happen to suggest it in the previous patch review :) but that was
+> > sent after you sent this...
+> >
+> > > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> > > Reviewed-by: Liam R. Howlett (Oracle) <liam@infradead.org>
+> >
+> > I don't love hacking a hack for a patch and then unhack it in the next in a
+> > slightly roundabout way.
+> >
+> > Feels like this should be squashed. And a wrapper function for
+> > start=vma->vm_start should be used rather than duplicating that param
+> > constantly.
+> >
+> > > ---
+> > >  fs/proc/task_mmu.c | 29 ++++++++++++++++-------------
+> > >  1 file changed, 16 insertions(+), 13 deletions(-)
+> > >
+> > > diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+> > > index 3c40c9cbb9c9..ecce7ce116cb 100644
+> > > --- a/fs/proc/task_mmu.c
+> > > +++ b/fs/proc/task_mmu.c
+> > > @@ -1246,21 +1246,27 @@ get_smaps_shmem_walk_ops(struct proc_maps_private *priv)
+> > >       return &smaps_shmem_walk_vma_lock_ops;
+> > >  }
+> > >
+> > > -/*
+> > > - * Gather mem stats from @vma with the indicated beginning
+> > > - * address @start, and keep them in @mss.
+> > > +/**
+> > > + * smap_gather_stats() - Gather mem stats from @vma.
+> > > + * @priv: proc maps private state.
+> > > + * @vma: The VMA to gather stats for.
+> > > + * @mss: The accumulated stats.
+> > > + * @start: The address from which to start.
+> > >   *
+> > > - * Use vm_start of @vma as the beginning address if @start is 0.
+> > > + * This gathers stats for the whole of the VMA unless the lock was dropped
+> > > + * and VMA grew or got merged and we found it again, in which case we only
+> > > + * gather stats for the remainder of the VMA range.
+> >
+> > This seems to be describing what callers do not what the function does unless
+> > I'm missing something? So that's really the wrong place for it.
+> >
+> > I think the description of why it might be a partial walk belongs to the bit of
+> > code that actually tries to do a partial walk.
+> >
+> > Anyway as per below I think separate partial/full functions make sense and there
+> > it can simply be described as walking either the full or part of the VMA.
+>
+> This is verbatim of what you wrote at the end of [1]
 
-guard(mutex) might work better here so you don't need to cover every 
-exit path with a mutex_unlock() manually.
+OK, I guess I disagree with myself of 3 months ago?
 
-> -	response = amd_sdw_send_cmd_get_resp(amd_manager, 0, 0);
-> -	mutex_unlock(&amd_manager->bus.msg_lock);
-> +	if (amd_sdw_send_cmd_get_resp(amd_manager, 0, 0, &response)) {
-> +		mutex_unlock(&amd_manager->bus.msg_lock);
-> +		dev_err_ratelimited(amd_manager->dev, "SDW%x ping status timeout\n",
-> +				    amd_manager->instance);
-> +		return;
-> +	}
->   	amd_sdw_process_ping_status(response, amd_manager);
-> +	mutex_unlock(&amd_manager->bus.msg_lock);
->   }
->   
->   static u32 amd_sdw_read_ping_status(struct sdw_bus *bus)
-> @@ -457,7 +463,11 @@ static u32 amd_sdw_read_ping_status(struct sdw_bus *bus)
->   	u64 response;
->   	u32 slave_stat;
->   
-> -	response = amd_sdw_send_cmd_get_resp(amd_manager, 0, 0);
-> +	if (amd_sdw_send_cmd_get_resp(amd_manager, 0, 0, &response)) {
-> +		dev_err_ratelimited(amd_manager->dev, "SDW%x ping status timeout\n",
-> +				    amd_manager->instance);
-> +		return 0;
-> +	}
->   	/* slave status from ping response */
->   	slave_stat = FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_0_3, response);
->   	slave_stat |= FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_4_11, response) << 8;
+The technical point being made here, which I think is the more constructive one
+to engage with, is that this is a function that can be called with different
+parameters for whatever reason.
 
+Somebody might decide to call it for another reason, putting something in the
+description of the function that assumes what callers will do when that code can
+change is asking for bit rot.
+
+So as I suggested above:
+
+	I think the description of why it might be a partial walk belongs to the
+	bit of code that actually tries to do a partial walk.
+
+I.e. I guess past me's description is apt, but belongs with the partial case.
+
+>
+> >
+> > >   */
+> > >  static void smap_gather_stats(struct proc_maps_private *priv,
+> > >                             struct vm_area_struct *vma,
+> > > -                           struct mem_size_stats *mss, unsigned long start)
+> > > +                           struct mem_size_stats *mss,
+> > > +                           unsigned long start)
+> > >  {
+> > >       const struct mm_walk_ops *ops = get_smaps_walk_ops(priv);
+> > >       const bool is_partial = start > vma->vm_start;
+> > >
+> > >       /* Invalid start */
+> > > -     if (start >= vma->vm_end)
+> > > +     if (start < vma->vm_start || start >= vma->vm_end)
+> > >               return;
+> > >
+> > >       if (vma == get_gate_vma(priv->lock_ctx.mm))
+> > > @@ -1285,10 +1291,7 @@ static void smap_gather_stats(struct proc_maps_private *priv,
+> > >                       mss->swap += shmem_swapped;
+> > >       }
+> > >
+> > > -     if (!start)
+> > > -             walk_page_vma(vma, ops, mss);
+> > > -     else
+> > > -             walk_page_range(vma->vm_mm, start, vma->vm_end, ops, mss);
+> > > +     walk_page_range_vma(vma, start, vma->vm_end, ops, mss);
+> >
+> > I mean obviously am in favour of this as I suggested it in the last patch :)
+> >
+> > >
+> > >       reacquire_rcu(priv);
+> > >  }
+> > > @@ -1343,7 +1346,7 @@ static int show_smap(struct seq_file *m, void *v)
+> > >       struct vm_area_struct *vma = v;
+> > >       struct mem_size_stats mss = {};
+> > >
+> > > -     smap_gather_stats(priv, vma, &mss, 0);
+> > > +     smap_gather_stats(priv, vma, &mss, vma->vm_start);
+> > >
+> > >       show_map_vma(m, vma);
+> > >
+> > > @@ -1396,7 +1399,7 @@ static int show_smaps_rollup(struct seq_file *m, void *v)
+> > >
+> > >       vma_start = vma->vm_start;
+> > >       do {
+> > > -             smap_gather_stats(priv, vma, &mss, 0);
+> > > +             smap_gather_stats(priv, vma, &mss, vma->vm_start);
+> > >               last_vma_end = vma->vm_end;
+> > >
+> > >               /*
+> > > @@ -1455,7 +1458,7 @@ static int show_smaps_rollup(struct seq_file *m, void *v)
+> > >
+> > >                       /* Case 1 and 2 above */
+> > >                       if (vma->vm_start >= last_vma_end) {
+> > > -                             smap_gather_stats(priv, vma, &mss, 0);
+> > > +                             smap_gather_stats(priv, vma, &mss, vma->vm_start);
+> >
+> > I mean this is all horrible, having to pass vma->vm_start explicitly.
+> >
+> > Although better than the hack that gets compounded in patch 3.
+> >
+> > There 4 invocations of smap_gather_stats(), only one of them passes a
+> > non-vma->vm_start start.
+> >
+> > So it'd make more sense to just make smap_gather_stats() lose its 3rd param and
+> > have it call smap_gather_stats_range(), then have 1 invocation of
+> > smaps_gather_stats_range() directly, as per suggestion in last patch.
+> >
+> > Or something similar to that.
+>
+> Hmm. Ok, I'll wait for you to read your previous suggestions in [1]
+> and after that let's discuss what the final version should look like.
+
+I don't really think that's hugely constructive.
+
+I'm sorry I'm (mildly) disagreeing with my past self, I've sent tens of
+thousands of words of review since then so I think it can be forgiven.
+
+In any case, I really do think:
+
+	smap_gather_stats(priv, vma, &mss);
+	smap_gather_stats(priv, vma, &mss);
+	smap_gather_stats(priv, vma, &mss);
+	smap_gather_stats_range(priv, vma, &mss, last_vma_end);
+
+Works better than:
+
+	smap_gather_stats(priv, vma, &mss, vma->vm_start);
+	smap_gather_stats(priv, vma, &mss, vma->vm_start);
+	smap_gather_stats(priv, vma, &mss, vma->vm_start);
+	smap_gather_stats(priv, vma, &mss, last_vma_end);
+
+?
+
+I usually come back on review very quickly so I don't think this series
+will be held up with any such change.
+
+But let me know if you think it's not a good idea technically.
+
+> Thanks,
+> Suren.
+
+--
+Cheers, Lorenzo
