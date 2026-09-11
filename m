@@ -1,201 +1,139 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013003.outbound.protection.outlook.com [40.107.162.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E77903749F2;
-	Fri, 11 Sep 2026 15:21:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A655D4F5E0
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:21:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.53
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789140111; cv=fail; b=TkxN3Z7QwwPVJ+011zXrkKNwWC9LoPV96h4EoYGaxkW7Arhyq+L+vGRw9Rl/PNvXS0jQ0g6ekmHqoijNwx6SmzoTaTawhMWqOD2uwi2vvNd9zMqjRql+1QHJVlL4mWVMAFjiM6CE70Q420UpQeLIMfQt43r3VDDgu5xCElq8xwc=
+	t=1789140113; cv=pass; b=TSW4wDMO4EkG1vLTSZ8JBQVM3/7p25S2sI9SAFUDXxz0+6zIorlwGyTEzwJ5gFU/zeOdpRvdK7W3eIiJ22QAdSxbEGedJP1oJ53KuP1maPXt1uUcXd1rf8NclfDc4NDKX3fKdLYptpLU6dL5C2WjhqPx043pgNnbRdiBiL5M19M=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789140111; c=relaxed/simple;
-	bh=ESd7Z9A5IKhQCWRebC+waNGKDGb623VABo8oUrPe4G4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=h36tIign3Vv0zX36bjXSWgs+P10MsaAwj6S7pb19x/SGC0g1HNvzeEolrFz4IXxtJEP0F40UoAvSEnfLRfOqW1JYnSNrWR5ZwEGaZ/ukOuZfAKgnB4kC1i8G53Uq/dp1VTEvgO3uuR7qJ32QQTgPwYJynMHnCvCONMEa/bLukOM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=xu6GHPUe; arc=fail smtp.client-ip=40.107.162.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1789140113; c=relaxed/simple;
+	bh=cB2sc5yKJ7HmR6/2lG/C7XnsFQ0C5I7Ug2pwrO9CCDM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=J8JUklue2zGHXVyvmIVLAj3Y2rcF7TxXHyGYFBIsclQg2fY/LNUFe/er/RHnG+hUzCQB5+sucstHdm0lAvakU4lofAXLUMqsn/EcSEqlBG4HPVaALr4d3nUiPFltqQ7z+HA8XCiCCOuu7lJpZdnSaEEz8lE+0ibK+6D+grAtr/I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stellman-greene.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=stellman-greene-com.20251104.gappssmtp.com header.i=@stellman-greene-com.20251104.gappssmtp.com header.b=UC7GFrTc; arc=pass smtp.client-ip=209.85.219.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stellman-greene.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="xu6GHPUe"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=es33BrpFc0C+BC3KyQJfilI3BLj8Jw5K0cSt/Kpm51SgIWWEKGQPz4lzMB45GzwYYNB36aqyZVWlp+yOl7+TceQDuFj+KqnlJuOzMePKmvIR0gkHjA1+oU4r/WeFp6a/Ecd6rnd2XrkPrFQODnJvPmCnnOEiwnBbZX4j+Y/2PWzB5pm+D/mTY7yFOe1eogtrlLZiBYMZ0L7qrd8/rWfryWaNmfAAmyI/l53JJBheLLRr47+RuisWfCO6w2wV7dCHK653MDHgx4fku+KRsYY7mIPAuhlCOfkm7Htgf6pVNOZ0vYl4pf1AI+ngplSbvJX1FCWQxklIA8ZvPqabGqbWlA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o6OYE68HGARty1XI9SLzlJN58qPd6S38RBiNJ+Ho32o=;
- b=acj/CZ6y+CfG1oeFUhzduzf253k7uwWRxGdw7aVQlyd0//C6IzHkGGfwThJmL/ysVU1AFAnlrpUd2zoLOOgIeTnX/mFRLrNLDbvzpgkZuowH0VoP4NIEjUd51NiiqiH+FYx+uh0ozQdlQ1FBoHqh1UTD45F65Z4T8JjgsvXBAdCDxeBdg9rMEJYQYO3bZavxvnj/t7MmmOq40Nil5VzO5vJgFb4g5XqmZkoe5dT4SFCobAk4KcBhSW7yPRIjgFfjyB9uNDBOjj53h7/mOZHlZBjXFoDtTbMmGI5SAgKcbwY5e7TsgBs8icgkv9Keelo7Kz3oxLdDk1NGRHKPlObY2g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o6OYE68HGARty1XI9SLzlJN58qPd6S38RBiNJ+Ho32o=;
- b=xu6GHPUev3UryPMZWLhuxYX4F6otam/FjuM3tBAYEvGLG+GJx2eRRBwXmuF0Pb1Wt5rKkaZkQgSKc7bFsyDfVM2/yC3NCJo9LkRx0q2Uit161CjJfS6NuMFA5buPE2AR2By+/URV0hvxTdA83EmoKnLLAL2g0Jhyz/0dq+a04u/GHZmKY+Tp2K9WBkLft0VGwJJIYCdwmmm863/4qO58Fak1ggcjzLOSyzQr3VDm/dSDqNzYl3JhMbuFUmQ5rZCePWDOE1BZY6Alvpl8YuXFNuDVKzBUrG84o2ozKl39tQmSAboIubz4rAPQw64q3U6IFmMSa0XNHxQMvZ+4/UMG2g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PA4PR04MB9224.eurprd04.prod.outlook.com (2603:10a6:102:2a3::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Fri, 11 Sep
- 2026 15:21:44 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 15:21:44 +0000
-Date: Fri, 11 Sep 2026 10:21:36 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: dmaengine@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Xuelin Shi <xuelin.shi@freescale.com>,
-	Harninder Rai <harninder.rai@freescale.com>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCHv4] dmaengine: fsl_raid: check fsl_re_chan_probe() return
- value
-Message-ID: <aqQcgEozbioZ2n-z@SMW015318>
-References: <20260910200637.41512-1-rosenp@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910200637.41512-1-rosenp@gmail.com>
-X-ClientProxiedBy: CY5PR17CA0011.namprd17.prod.outlook.com
- (2603:10b6:930:17::8) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=stellman-greene-com.20251104.gappssmtp.com header.i=@stellman-greene-com.20251104.gappssmtp.com header.b="UC7GFrTc"
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-90cc107c451so6205996d6.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:21:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789140110; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CLKIQgs+lw6EgPGDJlP3DvZ9U6j9/v/sQF8X7YjiHPo0qu8N5jo/xm95dV+2KPDcDH
+         ggR9gDSbNgWUCh0rdNwMguk8peEcx3k8LZDV1nYXtt7HpDbQa1ePv92YBLAkRjerDDdP
+         In4xVpFhMV0Sy+6SOCqQjU4hA93IrdI2EVsq5X71RYx4fdPD8pv5Lb1h7EmVv7yFqsvc
+         RnNF8os1+Ru6e68vm6zG7Giaof8rpBJjjmxUWByQYkFTWxuzw5S+kE7nV9AQ31v34Ov6
+         EQhtj+GsHXW7mKzXEz8vSe9p4lszBW3HgRVsqNM7DV8uVI0vcdZyjLR7PJ4tRpMv3yyS
+         lIag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZQhtgmYJbGnl4jzEgaW57/yVc/C4uVNFXjb6bqrdM/Q=;
+        fh=oF4SPj2AQEgDkERPhUSXSCpEZV5c2hdauIZ81zMi44I=;
+        b=LfQCQrO8Aww6FcX2ieS0G+2M24fH9Z7NLHkRPQ0IFDc1ImjoS6oaanJuoZhmDjgoHS
+         kYn7+8YCMyVsfajC6zV7fjQdB3g/bhCJ65BLDe6pGIYsHN2vZtF1tjYAiBEYtkOC9J6X
+         LCa3k4c3U8nPaWOKjul3i5qZhDfkWDPzVIIwNV5bpQ/tRaXtbP6Kofl901b0nm3mZvD1
+         4nVuUeyBBKYbgQqZx8eUVWH4fRf6I97pItiIHxIODItEPTVgFPUtmdetEYp4PYywPJPM
+         iM02lgjs0KQLFRmAikNn6GvvscYEVfpxjQocTCvur8DOqgf8523YvnQdObk+iJ0/fXb/
+         BkOg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=stellman-greene-com.20251104.gappssmtp.com; s=20251104; t=1789140110; x=1789744910; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZQhtgmYJbGnl4jzEgaW57/yVc/C4uVNFXjb6bqrdM/Q=;
+        b=UC7GFrTcXAx4aIafBdmf9E5kC4NQzkqyfu46id3AAHc6JJzX5+pCBEUEtmY8bBjEkY
+         Ml1YAozXDM01O6JLXSGPfSayiSG6aeYH768Uug2/w7/yTV/XtkPfSqXyjKO+tnEfCIhP
+         +7dO07C/HdQIaPCFnjX6Ia0DEru+ZwyVKJFTH2QSB7KChCTAsV81+O2yluhAHZywyrxR
+         /R3nMxTk9Bwargu929KhDSYGvLJFwG1ArJU2ZB3qvyISFmZi8XHALOVDiH7r2PPpU19P
+         YLnNRVCHQ4q7jW6blAgRBVtCjbJATEKhOXtkhZv78XK0rQubVCA9D81J8PZUN/VYud1f
+         McrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789140110; x=1789744910;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZQhtgmYJbGnl4jzEgaW57/yVc/C4uVNFXjb6bqrdM/Q=;
+        b=MXnc8snK7nWdcmKujq3RqnKRvo3C+HD87ZSXlHtZ29Dk6N41E1jzTUhxZliNPcHmfT
+         u0yfZRzas6EigNUFPyWagiGFK9+BeDxq6AX+XIal4Tr3DTZlq8Yh2iFDfvMtvA/AmqMG
+         N98NYU50sNCP3LIAEyhCXl4L2rUwmlSs885PNSU1WMdq4gL25VFOMyak98dM0EiZutgn
+         asNljDsarQDPDIJyfmO2830RrHhiaizoxYgOXoH5wkTITP0vBw0qUKFaq2lsHD35lj+c
+         C2Q1YWXZwTm8gVarj5PXz+A4gqn0MIB4/HjajBIoV7OzcfBbkz/vDETP7/Ev/Oem+kjW
+         YHpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwvnk70w8ujlM8eYmsYC/oEewR68uiNIhFdlqBCofYc9Qk7cUdMgmH+nWwQCBNJjb43pvTAXdwqo3AN55g=@vger.kernel.org
+X-Gm-Message-State: AFuF++l5Ak8nON42cvytKmptPa9E4Os7DrvxmwkJlYfWI6k97aFGponk
+	KDhFPzkMBEY0OlsF8W56Iedf3xxziizodibchjqUnocv1d0ua056VD0KqjI52/l6j+r/5KfahH+
+	sQjwLAvngmT2nioWdKn6JcEwufZ4P2T0=
+X-Gm-Gg: AYBFou3XoFFb/F+lJEeiWE9ZLba66ZpKYjvbLMQKc60B8Lk9OmT3oYFWtCxj0yIuw7f
+	boVKnKpCzjao45amhXg1HARTXsMnivK+3gW0QeATA8qACNrhO+VNrM7ereHd43EFHdpJCcfycn7
+	jOyMdYKfcvTstWpiHmceuq41cVC+psxLKcR+nOxJ3plc60hAMxTKB15LJYkWa7zB5AAYugpgkS7
+	BZL2DWjK6XjSq+V+Q3UBbxQWj5LYtFwFQGiLuP241Fmj3VBfW6x0dmvTUt/36SsXhtQLh6VC1NG
+	CbNSx0ym+h7MjpkiXt9hHV3wEVvz58gZfNqaD5ifwKyN/EvyQSJhP8x+imH02I5h9ftsiKKbCQ4
+	/bh2drSvkIvtd/CXmh3mnIEsjxRvxR3IBGLf2VqF23JF2Yp7iKigfuqIZ28uXC95oE6XGCBK/Db
+	Sm/clhuQCdL9NYyZMioMVoUu5qHmuHAg==
+X-Received: by 2002:a05:6214:d65:b0:90e:9dea:82f0 with SMTP id
+ 6a1803df08f44-9121208ac38mr58638816d6.15.1789140110377; Fri, 11 Sep 2026
+ 08:21:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA4PR04MB9224:EE_
-X-MS-Office365-Filtering-Correlation-Id: ea11e5ae-f356-4a62-df82-08df10186359
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|19092799006|1800799024|10067099003|11063799006|22082099003|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	3EwKKsXIr1iKR6dscaNH4JwjDTVkivHzG3WnCp1giyU1iwOxsXXRhs8HdScKw2JQMnfOLp2Xhn+xnily6+RNL95DBrYN1MG9b+bFujP2Oe2F1t5Hk71dFQnZCtsmKKtcIQfn14O/JkEBVp11w2yj4/d2yRt477EeUpKxl+n4iQksNjUfR4Tg2QRk+3vQdL8lpk78ymWbryUOcObS/FOXmLFYJgTxGIfPrwtCOsb69cJcuheW1b1sTUhrAEEdEMMEjUFbn7g0dLz3Ccei7ntmUzfIyHLcCilIXAxDphU0O5cWMGlD733XY/PfxHIoQnZsAt4qnZuIgGOFtFSJSNaG79/KMBYuQEdtorDdBlJrRX6Pl8HJpXhCWMU+r67V2odHCO/fEEfYql7sewO7T4hZV1CMIxEwzQqPy+WO1XawqZkydIE12CrCzMzQAm8VV+XxnN+gFsqvXYtBHDF5CowWrEGgMeIEQ/pDA+tOXATTuE6f5k+Xd4x3IQODUzHWV41VkMFhA5CRuKVJV/4scIaA7ubZSyF03uMuVn+OnC06QJ7sgB+/OWEoDV+BI9HaV+gMLhnM45cYUXgI7aNZ3Mx2l8c9dpd5ID9+d1JzaV5SiM7FAY+EggxnX7F+CFlvNQaYtXdJ6QkRk8NmQjiCCbSbyektNb1ZBw/NYQBa5mWQazo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(19092799006)(1800799024)(10067099003)(11063799006)(22082099003)(56012099006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?CqEDXmUfpyLG/w4fabA+IcvTEzp/1RMlfaCggjfRLToqDgwPaJFQ3ZApiFoj?=
- =?us-ascii?Q?Je+QoyQvL+W0yIfar9Hd3pklu6F5esv2G/z8lVQGCYndTJGrET0AsTn27bQu?=
- =?us-ascii?Q?83LF984wRR9JApHGqytd2OPOtmPfYwhqTuwDka8P3jLvbOlgUro1m7R1RZK3?=
- =?us-ascii?Q?VVZitLNI0IAewOM/Ir2aBcy42fgGi1H2PwJUTUbejxZG7VkKioe/9H2bohP0?=
- =?us-ascii?Q?JY5QgAeFpZ61r62CCtkAKnaG19uxeN5i0HgJ/Y1+mrf07MnPrCGRM27TLpcO?=
- =?us-ascii?Q?spo8O7mDcR+hqPffV/Phf6f14qW1egaDK8uyUKBl3vfa3nntN2Mj+Y+83MW3?=
- =?us-ascii?Q?2mMdiJPUckXkHY7FoyoWUViv1TZGxx93kIKHymZoSBcMuIEtWQawXqV6UpP2?=
- =?us-ascii?Q?4s4N8YosaOVsfDrTsFCk5KO1ZXWYiXdWOVBFAIt7Ljh/LdRaUz8LDDrepLpA?=
- =?us-ascii?Q?NFbQ2DA+/o9sQZ+MLQE2N7c3d3O49ySlwh3z8R3jj1kP8qaBq4yuVazf4cYi?=
- =?us-ascii?Q?QwELDFznrwz6mAQM1xe0lVkgVh8M1VwcMrUS2eZxj2mjuB/b5zosk/c1boHo?=
- =?us-ascii?Q?O3Gs0jkH2f2Cq0JOBtucRRXz8SbMzg3ZD5ouM8CxBKh/sK2HiLhqymbgUN2N?=
- =?us-ascii?Q?Z4cQ3sHAyMAGg6vVUMBOdQZ2+AJzdADTC3utSJe/xsKYMjr4pd5n7Lc3GDYK?=
- =?us-ascii?Q?JHOOYbbqlCCrLFJPyvDRcwFQSKu+dvyRanH9OmNY/NmIXd3I2p6e/hFRehmr?=
- =?us-ascii?Q?r6iK2Qk6hDuiUe2fI9Pj7dtTTf9CybiP0A36YhykBCrEeoRY9kQghS4EMIco?=
- =?us-ascii?Q?KVs7jaGxKpGvPVgRM+81G3fAwshirT7MQLGCd28Eu4blXtq6XWqGZQ63URqZ?=
- =?us-ascii?Q?X0y5F6/dGWF3yB2rKwf49vfG1DboNSwK3jeKCOz3I803+kYgiii/KZcL3DK7?=
- =?us-ascii?Q?pZjnNEd1Cp7gt21LouSY1mDe9BepedJXZIdGqVP1ufXHBaKHA2gB2E8g4Kof?=
- =?us-ascii?Q?/CNanBj74UFxJv2R18dLOU2zQQ2R9wruXeSPLYJ5QvoTeIgSzfDfaO2XxTY5?=
- =?us-ascii?Q?GCrUQzyqqNXSbaeCamo2P/CfByP9U1keKvQMHchBI+u1OGqIfGd9HreiTxVD?=
- =?us-ascii?Q?GUrmDOWAvzsYYB5+8iJzRq9cE9d8t6Xt5BqZvvN7EyLNdYbCFTY7ISPsPUnR?=
- =?us-ascii?Q?s86rg6AJmTJpwxkVnIxvfN2ycXwSj/sTR8k0rJxHDTWBNTUClpeBcU5dMONF?=
- =?us-ascii?Q?VhxmkvF4EZACPUgIfgTGv6ur+2aSovznp3damIUB5H4QuPspClHUvp9SkGoK?=
- =?us-ascii?Q?CoDrtHKrjfD8N0kYbDu2t4SS6pVQXeCIu5bH/vwScrG++XgMox8uY6BprYSF?=
- =?us-ascii?Q?PqVje2JJIKen0zd3RqXGftnXxoNFyAN6VFX3AN1JfwQsed03oRlKx0K1QsuF?=
- =?us-ascii?Q?UFRLio4JOinj25Qv3ZNWL4TM5rE+RKbDdmJmB8YITt0bpRKlSz235l6ELDVk?=
- =?us-ascii?Q?ndLlGpg9tJctKNSp1W9dxRpqQaWvNB2Q2VSMw0kGu25KEulgd/WB3O74zCYS?=
- =?us-ascii?Q?r2+8mOrl4obeDQXBLW+McPXeZ+3OPMzsN0+ML5T2fyauwS8OcZoMXCW/SMB0?=
- =?us-ascii?Q?T2i41+zEWytEiJYEydY5FhuYeaYsL7FDaGKFBax54IM/I4U3kNUAgC1EmMNp?=
- =?us-ascii?Q?lC7zR6bMWDKzDayC68LtIwk9AByRCOp2lIGbRB9hOmo1jEZ9q/Rq7s9QjO7t?=
- =?us-ascii?Q?LaouQTFHYfqZys9NPKK7B6lkkZMI4t+pn4grthtFFZS9K99OCUgo?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea11e5ae-f356-4a62-df82-08df10186359
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 15:21:44.5195
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xpmANaRfRE4dbjiCiTYTGod7h2g6C5dsUN2z3Czvc8WYtELSo8ojBgyuaP3CRYgDMsZcUJXbeqoaY/BDKim3i3m/BRlb3jmHhEMSFPLQ5kD6hUD0mCn3PnnkckzuNuZM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9224
+References: <20260910180056.81257-1-astellman@stellman-greene.com> <aqQZQPs7KzBUVbgw@kbusch-mbp>
+In-Reply-To: <aqQZQPs7KzBUVbgw@kbusch-mbp>
+From: Andrew Stellman <astellman@stellman-greene.com>
+Date: Fri, 11 Sep 2026 11:21:39 -0400
+X-Gm-Features: AcwNN1UP2cM_C5j9v0JZaDq3Dx9ytWa2AHbHOso5NtFvykWS7wXXx1m1jj-DEXs
+Message-ID: <CAChPuV_74cky=JBROM7veVqmYTJBv+vPuPVCX6d+OBeL5BS-fg@mail.gmail.com>
+Subject: Re: [PATCH] nvmet: derive the CRTO property from CAP, not CSTS
+To: Keith Busch <kbusch@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, Chaitanya Kulkarni <kch@nvidia.com>, 
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 10, 2026 at 01:06:37PM -0700, Rosen Penev wrote:
-> fsl_re_probe() ignores the return value of fsl_re_chan_probe() and
-> unconditionally increments total_chans. When a channel fails to probe
-> (for example, an IRQ mapping failure) its re_jrs[] slot is left NULL, yet
-> total_chans still advances, so fsl_re_remove_chan() later dereferences the
-> NULL pointer during device removal.
->
-> Check return value and only count successfully probed channels, and guard
-> fsl_re_remove() against NULL entries.
->
-> Fixes: ad80da658bbc ("dmaengine: Driver support for FSL RaidEngine device.")
-> Assisted-by: opencode:hy3-free
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
+Sorry about that. And apologies in advance for my equally long
+explanation on my other patch.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-
->  v4: use break;
->  v3: fix sashiko review
->  v2: fix description
->  drivers/dma/fsl_raid.c | 27 +++++++++++++++++++++------
->  1 file changed, 21 insertions(+), 6 deletions(-)
+On Fri, Sep 11, 2026 at 11:07=E2=80=AFAM Keith Busch <kbusch@kernel.org> wr=
+ote:
 >
-> diff --git a/drivers/dma/fsl_raid.c b/drivers/dma/fsl_raid.c
-> index 9cc289f7129e..6167fa652e96 100644
-> --- a/drivers/dma/fsl_raid.c
-> +++ b/drivers/dma/fsl_raid.c
-> @@ -836,18 +836,32 @@ static int fsl_re_probe(struct platform_device *ofdev)
->  		}
->  		/* Find out the Job Rings present under each JQ */
->  		for_each_child_of_node(np, child) {
-> +			if (ridx >= FSL_RE_MAX_CHANS) {
-> +				dev_warn(dev,
-> +					"too many job rings, max %d\n",
-> +					FSL_RE_MAX_CHANS);
-> +				of_node_put(child);
-> +				break;
-> +			}
-> +
->  			rc = of_device_is_compatible(child,
->  					     "fsl,raideng-v1.0-job-ring");
-> +			if (!rc)
-> +				continue;
-> +
-> +			rc = fsl_re_chan_probe(ofdev, child, ridx, off);
->  			if (rc) {
-> -				fsl_re_chan_probe(ofdev, child, ridx++, off);
-> -				re_priv->total_chans++;
-> +				dev_err(dev,
-> +					"job ring %d probe failed: %d\n",
-> +					ridx, rc);
-> +				continue;
->  			}
-> +			ridx++;
-> +			re_priv->total_chans++;
->  		}
->  	}
+> On Thu, Sep 10, 2026 at 02:00:56PM -0400, Andrew Stellman wrote:
+> > nvmet_execute_prop_get() answers a Property Get of CRTO with
+> > NVME_CAP_TIMEOUT(ctrl->csts).  NVME_CAP_TIMEOUT() extracts bits 31:24,
+> > which is the TO field of CAP.  CSTS defines only bits 6:0 and nvmet
+> > writes only RDY, CFS and SHST into it, so the result is always 0.  The
+> > same controller sets CAP.TO to 15 in nvmet_init_cap().
+> >
+> > NVMe Base Specification 2.4, Figure 36 (CAP), says that when CC.CRIME
+> > is '0' the TO field "shall be set to: a) the value in the Controller
+> > Ready With Media Timeout (CRTO.CRWMT) field; or b) FFh if the value in
+> > the CRTO.CRWMT field is greater than FFh."  nvmet reports 15 in CAP.TO
+> > and 0 in CRTO.CRWMT.
+> >
+> > Take the value from ctrl->cap, where the timeout is actually stored.
+> >
+> > The Linux host reads CRTO only when CAP.CRMS.CRWMS is set, which nvmet
+> > does not advertise, so Linux initiators have not seen the wrong value.
+> > A host that reads the property directly does, for example nvme-cli's
+> > get-property.  Advertising CRWMS is a separate change.
+> >
+> > Tested on 7.3.0-rc1-qpb-cc-crto-base+ (unpatched) and
+> > 7.3.0-rc1-qpb-cc-crto+ (patched) in an arm64 QEMU guest with nvmet over
+> > NVMe/TCP to 127.0.0.1, reading the properties with nvme get-property.
+> > Before: CAP reads 0x8200f0003ff (TO =3D 15) and CRTO reads 0.  After: C=
+AP
+> > is unchanged and CRTO reads 0xf, so CRWMT =3D 15 =3D CAP.TO.
+> >
+> > The issue was found by Claude Opus 5 running Quality Playbook, an
+> > LLM-driven code review tool:
+> > https://github.com/andrewstellman/quality-playbook
 >
-> -	dma_async_device_register(dma_dev);
-> -
-> -	return 0;
-> +	return dma_async_device_register(dma_dev);
->  }
->
->  static void fsl_re_remove_chan(struct fsl_re_chan *chan)
-> @@ -872,7 +886,8 @@ static void fsl_re_remove(struct platform_device *ofdev)
->
->  	/* Cleanup chan related memory areas */
->  	for (i = 0; i < re_priv->total_chans; i++)
-> -		fsl_re_remove_chan(re_priv->re_jrs[i]);
-> +		if (re_priv->re_jrs[i])
-> +			fsl_re_remove_chan(re_priv->re_jrs[i]);
->
->  	/* Unregister the driver */
->  	dma_async_device_unregister(&re_priv->dma_dev);
-> --
-> 2.55.0
->
+> This is a very long explanation for a simple protocol fix. Just say
+> something like "The NVME_CAP_TIMEOUT requires the value from the CAP
+> register, not CSTS." Short and to the point.
