@@ -1,82 +1,317 @@
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1CF3955D6
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:26:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9895C369224;
+	Fri, 11 Sep 2026 15:27:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789140415; cv=none; b=Gab4inCsdp2JOP/LARytfdSjrcoQzfDYVSWoUXpfIPjcPvNQpVn2JfUiRj20sVi9ia/lqxyhqz0VEM+UvUYnyJ3eCY0pGNNx+kAAg8HpjEtmR9Aa0BGijhsBYPMWtwOqODzwPnI7lQ+ny5DPBRKf6QcV6AnkRtU4CqrRlOfy2eA=
+	t=1789140427; cv=none; b=Xk/zAnKiYS0D+yxBWo5Kdx35GivxREsjs3zQ37C/ULvwQZgcb/d5qM0tdozSFO7lGyNSd2lTG1GvXNS0KRKBL8FStD2Yny6VtOh6U+LQfC1BbQM4Y2Rm9G6WYV9ydxqFpv8fFLhoZm6qeySp4KbFBsKDBK9Wnhi3fgASQBhdN80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789140415; c=relaxed/simple;
-	bh=WsJU03bKw4hxUYNUHTQv3ZI0g3UG9Lwvk2vioqHSAOc=;
-	h=MIME-Version:Message-ID:Date:Subject:From:To:Content-Type; b=MDg1s3rtn+7yvgm1XQtVA/EsC/topgvITl9NDDt3jRhcWX2ixcrAcUV6Z9YvDcp62U6h8EXnavSVpdpneezkywF4iiF7+IvMQDIlbfiQ4bPcvk2/FxLN3fyIH13WJjo0yPbPZb9kNVpFEgsLRSgBO7F5XRT7D4qen491M2T7qT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GNsIQOjo; arc=none smtp.client-ip=209.85.221.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789140427; c=relaxed/simple;
+	bh=5wypFqaLIJ3bRjeanmxcnt+OPl9YjifcfeYAa2y/Qy0=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ccKnq2rXvWClubyfDDa9mH0NDHD1GqcPN8ghGDzjX38OjZtlzkDbXtSkyFVLJOOBxth9sJdGqd8rTnpS0CYIDT6dcSqqYWf9zH2dnSKFSK8LAgtlnNv1biE6ipyJz3TuIvmRyQBs4KBh/R5whjFK+xtnnFvTdxl4IrUnlKmCykU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=agMogg7M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GNsIQOjo"
-Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5c7d5444845so1165050e0c.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:26:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789140411; x=1789745211; darn=vger.kernel.org;
-        h=content-type:to:from:subject:date:message-id:mime-version:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=/cGj2ubSNDWnnk8qoBMWrdRqeDwm9XqKs7XZZJafyjg=;
-        b=GNsIQOjob39ZZIijelB7w5irvwIDKsKVx4V100f3gAgkVke3fuYdYZgVUfPWpevZwU
-         TeqlxwdPYgx9jq2dASW2Lz8PpMXPSytfDqjbU/ykWXlZLh72SxV6AjeOVVT9Sajm+2Cj
-         JSk0KoYzFTyIdTzDvPSFkMB68Z2ZQINIA0K6FP2P0jZABrJHz6BH4i1FCNLEyKUs+r18
-         Rt4WapN/HqlTJAegq825WXTC5S+c75ly+SrvPf3AX1UEWxFQiR6BHS5XiUBz6zQQrvgy
-         si97UP0fEUv98/XLlQ954FlkU6NXlzoN7k4sVwlsxG1ugtUPXs2nQXUxH7gCgI7pyw2t
-         ckZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789140411; x=1789745211;
-        h=content-type:to:from:subject:date:message-id:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/cGj2ubSNDWnnk8qoBMWrdRqeDwm9XqKs7XZZJafyjg=;
-        b=INrV4lu2ddggmMbsrJ9Co9g3iWdc9GU4h+9ywvbK63YVeUuAnwDFc08Aqya8Lzxj26
-         XNeAZ+hGJVZCk2alKHEKN08TobQ+ldOvnr/Ri4wzLA3J/uFtNXwhWSpHrTClybcp2bLo
-         ou84/4dnlpciWXTKo4eNNRqLcZNpbpP4kHXcSinK9zXdScB4H3I+etVzaQg8+hBWp9W0
-         /mGBeKpGYzLJ33C4eeKgxtwy1nJ02GGanqm1sMYVSV3AdJP+EkrsUDpV0Lsa3EhKpKEb
-         RtbUEn+gorR79lAZZFW5h72p55CL9rS19BAW+IrHAy1RFmf7tYLw7l9wb7BvosoWdcpL
-         RK4g==
-X-Gm-Message-State: AFuF++mZXF+we3vMaKT1N5/MB/oQLzxjIVPVEFOZgFB0fPcttmxg/0ba
-	pMFUf772iWC6R5c4OQ22hOOj1vax+kPzJDLeCBY7Npgd0ChLxVorwS32zatH9qsN2rQvSex69xN
-	5Y3QlDw==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="agMogg7M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B92A1F000FF;
+	Fri, 11 Sep 2026 15:27:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789140425;
+	bh=dL5SIEsYkL5CFvwQMkla31xLNVufHe8l4HQ4/Pcc7zE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=agMogg7MfwE6qQ+hq1iJshNCB1YrISD9q+Xy8K8HxRCjrJ0szmZjoDYNFODVMnW4+
+	 GMbyqli2WHZJOyRSEiXb6zMLnfw318oPj2C20GU4HuQP9i0KVdc9WYACfa9qfLN8GA
+	 wovSL8neofGZ6d76PawnIDdKHOdlQyMWQA7UFCL4frFJQZ2LGQxpKoofh+ZkgN5+sg
+	 SlhL9ITp/qb3mDs2QrXyx9OHVX6JM/tlmRMZr67pEvvhhTG+04sAdJU45vqiQjKHqd
+	 +GE7M9+x+EL5iTJzZq81pNnu8aPqGBTMqROfNZXnMoolXtRvC2r5yiX8PB2K4y0W67
+	 +SqV6khmMSqeA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x539b-00000007p44-0ROi;
+	Fri, 11 Sep 2026 15:27:03 +0000
+Date: Fri, 11 Sep 2026 16:27:02 +0100
+Message-ID: <86h5jv7qrd.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Wei-Lin Chang <weilin.chang@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <tabba@google.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Itaru Kitayama <itaru.kitayama@fujitsu.com>
+Subject: Re: [PATCH v5 2/6] KVM: arm64: nv: Introduce guest stage-2 tracking structures
+In-Reply-To: <w4kihqs6n7ja7nr4sn3i2r4o2mspwj7k36w2fkh4kheizr6oj3@wfsea5mhnto6>
+References: <20260810205038.118843-1-weilin.chang@arm.com>
+	<20260810205038.118843-3-weilin.chang@arm.com>
+	<87mrtu4c21.wl-maz@kernel.org>
+	<w4kihqs6n7ja7nr4sn3i2r4o2mspwj7k36w2fkh4kheizr6oj3@wfsea5mhnto6>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6122:8711:b0:5c8:46f3:8d26 with SMTP id
- 71dfb90a1353d-5c846f392b2mr6650064e0c.8.1789140411077; Fri, 11 Sep 2026
- 08:26:51 -0700 (PDT)
-Message-ID: <autogen-java-ea219ae5-973b-4adf-8c35-ba1430a0acbc@google.com>
-Date: Fri, 11 Sep 2026 15:26:51 +0000
-Subject: Need 5 star reviews from your city?
-From: johnmalit35@gmail.com
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: weilin.chang@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, oupton@kernel.org, tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, ljs@kernel.org, itaru.kitayama@fujitsu.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Hi,
+On Sun, 06 Sep 2026 20:56:34 +0100,
+Wei-Lin Chang <weilin.chang@arm.com> wrote:
+>=20
+> On Sun, Sep 06, 2026 at 04:47:02PM +0100, Marc Zyngier wrote:
+>=20
+> [...]
+>=20
+> > > +/*
+> > > + * Record of a guest stage-2 mapping, storing canonical and nested I=
+PA
+> > > + * ranges. Both ranges have the same size.
+> > > + */
+> > > +struct kvm_guest_s2_mapping {
+> > > +	struct interval_tree_node canonical;
+> > > +	struct interval_tree_node nested;
+> > > +	struct kvm_s2_mmu *nested_mmu;
+> > > +};
+> > > +
+> >=20
+> > I'm trying hard to find a way to reduce the size of this structure,
+> > because this is IMO the only real problem with this approach.
+> >=20
+> > Obviously, the only thing we could kill is this nested_mmu field, as
+> > everything else is used by the interval trees. I can see two ugly ways
+> > to do that:
+> >=20
+> > - either we iterate over all shadow MMUs to find the corresponding
+> >   'nested' node: really costly if we have a lot of mappings and/or a
+> >   lot of shadow MMUs
+> >=20
+> > - or we steal bits from the interval_tree_node to encode extra
+> >   information. One realisation is that all addresses are PAGE_SIZE
+> >   aligned, meaning that we have at least 12 bits that are always 0. We
+> >   could, for example, encode an index in the bottom bits of the
+> >   nested.start field. Probably easy enough, but may require some
+> >   careful masking (and the addition of an index in the s2_mmu
+> >   structure).
+> >=20
+> > The result would be significant, as we could then use a 96 byte slab,
+> > which means the cost of a 1GB @4k granularity could fall to 24MB.
+>=20
+> One way of meeting in the middle is to keep the nested_mmu pointer, and
+> use a dedicated kmem cache. That cache will then hand out exact 104-byte
+> objects.
+>=20
+> That's 26MB for 1GB @4K.
+>=20
+> This is a nice improvement from the current 128-byte allocations.
+> Although it's not as good as 96-byte allocations, the code logic can
+> remain simple. Would you take this approach?
 
-We specialize in helping businesses like yours thrive by providing  
-authentic 5-star reviews from verified individuals with public profiles.  
-Our reviews are 100% genuine, helping you build trust and establish  
-credibility with your audience.
+I don't think the logic has to be complicated to go all the way to 96
+bytes, see the patch below. I hope we can further trim it over time,
+but this would be a good start.
 
-We offer reviews across a wide range of platforms, including Trustpilot,  
-Reviews.io, Facebook, WhoDoYou.com, ProvenExpert.com, TrustIndex.io,  
-ResellerRatings, Quora, TripAdvisor, and more. Whether it's app stores or  
-social media, we can help increase your engagement, grow your followers,  
-and drive business success.
+Thanks,
 
-Our team is available around the clock to support you.
+	M.
 
-Simply reply to this email.
 
-Best regards,
-Review Providers
+=46rom 39e3bdaa1b02c460a1001a23a20dccca5501eb6d Mon Sep 17 00:00:00 2001
+From: Marc Zyngier <maz@kernel.org>
+Date: Tue, 8 Sep 2026 17:07:50 +0100
+Subject: [PATCH] KVM: arm64: Drop kvm_s2_mmu pointer from kvm_guest_s2_mapp=
+ing
 
-To opt out of future emails, just reply with "No more email." Thank you!
+As it appears that the kvm_guest_s2_mapping structure is quite large,
+and results in a 128 byte slab allocation, there is some insentive
+to shrink a bit.
+
+For this, replace the S2 MMU back-pointer with an index tucked into
+the low bits of the nested.start field. This allows us to shrink
+the structure by 8 bytes, and therefore to fit in a 96 byte slab.
+
+The index is also stored in the S2 MMU structure itself, which
+comes for free as it fits in an existing hole. The structure is
+also repacked to avoid other disgracious holes.
+
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+---
+ arch/arm64/include/asm/kvm_host.h | 16 ++++++-----
+ arch/arm64/kvm/nested.c           | 44 +++++++++++++++++++++++++------
+ 2 files changed, 45 insertions(+), 15 deletions(-)
+
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm=
+_host.h
+index f12883a420817..4b3fc4d4a61f2 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -158,7 +158,6 @@ struct kvm_vmid {
+ struct kvm_guest_s2_mapping {
+ 	struct interval_tree_node canonical;
+ 	struct interval_tree_node nested;
+-	struct kvm_s2_mmu *nested_mmu;
+ };
+=20
+ struct kvm_s2_mmu {
+@@ -222,30 +221,33 @@ struct kvm_s2_mmu {
+ 	u64	tlb_vttbr;
+ 	u64	tlb_vtcr;
+=20
++	/* Guest s2 mapping records indexed in this MMU's IPA space. */
++	struct rb_root_cached guest_s2_mappings;
++
+ 	/*
+ 	 * true when this represents a nested context where virtual
+ 	 * HCR_EL2.VM =3D=3D 1
+ 	 */
+ 	bool	nested_stage2_enabled;
+=20
+-#ifdef CONFIG_PTDUMP_STAGE2_DEBUGFS
+-	struct dentry *shadow_pt_debugfs_dentry;
+-#endif
+-
+ 	/*
+ 	 * true when this MMU needs to be unmapped before being used for a new
+ 	 * purpose.
+ 	 */
+ 	bool	pending_unmap;
+=20
+-	/* Guest s2 mapping records indexed in this MMU's IPA space. */
+-	struct rb_root_cached guest_s2_mappings;
++	/* Index in the S2 MMU array, only valid for a shadow S2 */
++	u16	s2_mmu_idx;
+=20
+ 	/*
+ 	 *  0: Nobody is currently using this, check vttbr for validity
+ 	 * >0: Somebody is actively using this.
+ 	 */
+ 	atomic_t refcnt;
++
++#ifdef CONFIG_PTDUMP_STAGE2_DEBUGFS
++	struct dentry *shadow_pt_debugfs_dentry;
++#endif
+ };
+=20
+ struct kvm_arch_memory_slot {
+diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+index e0941a261787c..540e52db9f180 100644
+--- a/arch/arm64/kvm/nested.c
++++ b/arch/arm64/kvm/nested.c
+@@ -45,11 +45,12 @@ struct vncr_tlb {
+  * will invalidate them more often).
+  */
+ #define S2_MMU_PER_VCPU		2
++#define S2_MMU_PER_VM		(KVM_MAX_VCPUS * S2_MMU_PER_VCPU)
+=20
+ int kvm_init_nested(struct kvm *kvm)
+ {
+ 	kvm->arch.nested_mmus =3D kvmalloc_objs(struct kvm_s2_mmu *,
+-					      KVM_MAX_VCPUS * S2_MMU_PER_VCPU,
++					      S2_MMU_PER_VM,
+ 					      GFP_KERNEL_ACCOUNT);
+ 	kvm->arch.nested_mmus_size =3D 0;
+ 	atomic_set(&kvm->arch.vncr_tlb_count, 0);
+@@ -128,8 +129,10 @@ int kvm_vcpu_init_nested(struct kvm_vcpu *vcpu)
+=20
+ 		guard(write_lock)(&kvm->mmu_lock);
+=20
+-		for (i =3D 0; i < S2_MMU_PER_VCPU; i++)
++		for (i =3D 0; i < S2_MMU_PER_VCPU; i++) {
++			tmp[i].s2_mmu_idx =3D i + kvm->arch.nested_mmus_size;
+ 			kvm->arch.nested_mmus[i + kvm->arch.nested_mmus_size] =3D &tmp[i];
++		}
+=20
+ 		kvm->arch.nested_mmus_size +=3D S2_MMU_PER_VCPU;
+ 	}
+@@ -873,6 +876,27 @@ static struct kvm_s2_mmu *get_s2_mmu_nested(struct kvm=
+_vcpu *vcpu)
+ 	return s2_mmu;
+ }
+=20
++#define S2_MMU_IDX_MASK	GENMASK_ULL(const_ilog2(S2_MMU_PER_VM) - 1, 0)
++
++static void tag_s2_mapping_mmu(struct kvm_guest_s2_mapping *mapping,
++			       struct kvm_s2_mmu *mmu)
++{
++	BUILD_BUG_ON(const_ilog2(S2_MMU_PER_VM) >=3D 12);
++	mapping->nested.start &=3D ~S2_MMU_IDX_MASK;
++	mapping->nested.start |=3D mmu->s2_mmu_idx;
++}
++
++static struct kvm_s2_mmu *s2_mapping_to_mmu(struct kvm *kvm,
++					    struct kvm_guest_s2_mapping *mapping)
++{
++	return kvm->arch.nested_mmus[mapping->nested.start & S2_MMU_IDX_MASK];
++}
++
++static unsigned long s2_mapping_to_nested_start(struct kvm_guest_s2_mappin=
+g *mapping)
++{
++	return mapping->nested.start & ~S2_MMU_IDX_MASK;
++}
++
+ void kvm_record_guest_s2_mapping(struct kvm_s2_mmu *mmu, gpa_t canonical_i=
+pa,
+ 				 gpa_t nested_ipa, size_t map_size,
+ 				 struct kvm_guest_s2_mapping *mapping)
+@@ -890,7 +914,7 @@ void kvm_record_guest_s2_mapping(struct kvm_s2_mmu *mmu=
+, gpa_t canonical_ipa,
+ 	mapping->nested.start    =3D nested_ipa;
+ 	mapping->nested.last     =3D nested_ipa + map_size - 1;
+=20
+-	mapping->nested_mmu      =3D mmu;
++	tag_s2_mapping_mmu(mapping, mmu);
+=20
+ 	guard(spinlock)(&kvm->arch.guest_s2_tracking_lock);
+ 	interval_tree_insert(&mapping->nested, &mmu->guest_s2_mappings);
+@@ -1357,17 +1381,21 @@ void kvm_nested_unmap_cipa_range(struct kvm *kvm, g=
+pa_t cipa, size_t unmap_size,
+=20
+ 	while ((node =3D interval_tree_iter_first(&kvm->arch.mmu.guest_s2_mapping=
+s,
+ 						cipa, cipa_end))) {
++		unsigned long nested_start;
++		struct kvm_s2_mmu *mmu;
++
+ 		mapping =3D container_of(node, struct kvm_guest_s2_mapping,
+ 				       canonical);
+-		mapping_size =3D mapping->nested.last - mapping->nested.start + 1;
++		nested_start =3D s2_mapping_to_nested_start(mapping);
++		mmu =3D s2_mapping_to_mmu(kvm, mapping);
+=20
+-		if (WARN_ON_ONCE(kvm_pgtable_stage2_unmap(mapping->nested_mmu->pgt,
+-							  mapping->nested.start,
+-							  mapping_size)))
++		mapping_size =3D mapping->nested.last - nested_start + 1;
++
++		if (WARN_ON_ONCE(kvm_pgtable_stage2_unmap(mmu->pgt, nested_start, mappin=
+g_size)))
+ 			return;
+=20
+ 		interval_tree_remove(node, &kvm->arch.mmu.guest_s2_mappings);
+-		interval_tree_remove(&mapping->nested, &mapping->nested_mmu->guest_s2_ma=
+ppings);
++		interval_tree_remove(&mapping->nested, &mmu->guest_s2_mappings);
+ 		kfree(mapping);
+=20
+ 		if (may_block)
+--=20
+2.47.3
+
+--=20
+Without deviation from the norm, progress is not possible.
