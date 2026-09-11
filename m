@@ -1,302 +1,194 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011056.outbound.protection.outlook.com [52.101.57.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 619662E7378;
-	Fri, 11 Sep 2026 02:05:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789092302; cv=none; b=pj1ORsCBvPrSF/jimd9pueU7M940qsI2NVMoyFisOdbu2TJ4yzHwc8NRkdANedlZmg2xlPsvM8qRGX7rel03HDKuVZ59HWhIepuluBTwDBfCklMafTULPVTetIfZbL6AZ+uRgPs98Usc3JUt3MzBtCeqfZpfFq3vth3sieKJPGY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789092302; c=relaxed/simple;
-	bh=TYpfiFfDUTuz8CCrKNOzv5uaoVPCzB3XcJABRIO64ZE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GGxhwZ+sA8LID9xHjiczxX1VcuhDq9H7wjo2t8zdXEUADYZPXCPNi4oL9+X5I0VVok9VlBK1Zi6lIMG8RSaPUFxfMyVFsZANO4MsMwV45LihI8YdSh/NlSvqFxX3kOgR/2oXA7fi7Glxt6A2EJOcdtJ5y3xjo78bOU2W/gLg79g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=XpZVwqpO; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B5422E7378
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:06:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.56
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789092396; cv=fail; b=ThFMVyI7dVCfHVI8WwYg/Z6Vwd93hSrhwaSksMsaO4FDX7f78xN6NF/a4qlg24Lcd0qvX3NoO8mVhZyALKSOaYe+akIC3zUHj2m1QzAKySqCKvikRPliQzxYQ62wlj6epTkIlf5xu0nMJmNc0HMl2mxPv/PKEHbEAenj1zwdukY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789092396; c=relaxed/simple;
+	bh=t01QdZI2b53CsbEMv2YPaY0QeOo3qJzjU/OKaAkbfRg=;
+	h=Content-Type:Date:Message-Id:To:From:Subject:Cc:References:
+	 In-Reply-To:MIME-Version; b=mzYx+yBRnxvKr987ExA2BCoErkQ88fW/0iyIzAZbPwc7RWuGvWgfe8VCR1tuJ3iacTTsj6jB6443PvOxxzBc/5ZcbIZi/pn0lGEMNbZhjcX/acjcmvdbp9yVbY7NojcYNyy72u/LiSSp8Xl2iRwHhlw2COLiit8aLBops8JsHCk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=LmdafTtn; arc=fail smtp.client-ip=52.101.57.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="XpZVwqpO"
-Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay04.hostedemail.com (Postfix) with ESMTP id 5675D1A06FF;
-	Fri, 11 Sep 2026 02:04:53 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id 8B0482002B;
-	Fri, 11 Sep 2026 02:04:51 +0000 (UTC)
-Date: Thu, 10 Sep 2026 22:04:50 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: LKML <linux-kernel@vger.kernel.org>, Linux trace kernel
- <linux-trace-kernel@vger.kernel.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>
-Subject: Re: PATCH] tracing: Revert commit 5ad289336148 ("tracing: Use a
- single array to represent tracer options files")
-Message-ID: <20260910220450.25118948@robin>
-In-Reply-To: <20260910214008.4c63211f@robin>
-References: <20260910214008.4c63211f@robin>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="LmdafTtn"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bcWhjDLijNhJu2s6iRWz77FkbSFOpqYnAyLFoV2YFllBdYv3cSzPengJpOMemEXSCsEr/WuGcd/1fksRSFKHsm1xZi+/GNvUSpH510kL4qZ3JZi2OMWAEI3SRWhHj/iInjrJZcETqWqWdX0m8N0jDFLvA08zkgrnZhslwy/H8uMRi9F2ew2ybfVzxVSeuBB+lUdUjtxVsijRJSPmI5Q5YCQwOGBQ+33LMxw4omdzsX6PILFc/EXc4PRv58q8dl+k//VgHGx8Y+N9jSh7G5DSpneig7+ohojUdOpmTutkVv24H1VyA38Co935XZvmKlaZpVnqUK2hdm5M5x3VG/6P7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hUzPei/aaVMv0fOBde+MU0Pe4R8As3p3aUp8AA7JYyU=;
+ b=G2gledzt7d+ALGZRp55poDLjVBnn9rWwbhNvnIRvaLjsEja5Id1f2A2QJ46E+fLQBK8tHUV8jrumk1kN5Vr45YN43nRY3qW5vYMWDbR80IwJLslUvpc9KikN26+fhxMqycpYH+0dWGEc+lyavyYiyFdg65thYYTdyNjNQAmDoVFuZnFftnlEBjQEl+U1kS8f4aziAfbxV2wj23AjUMRlCHLCsojaKYtN+FZ5jezzVq5hUGVp/UN8Sn2iW86Q00Qgg/tC9/hVbJDer9psM9VxWNvSuEz92H8VLtjQdUUQC7AR91aUwKARUIxSRu17k70cNqjDMnSQ56ZWlRZZMimsig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hUzPei/aaVMv0fOBde+MU0Pe4R8As3p3aUp8AA7JYyU=;
+ b=LmdafTtnxuyZI2mHGr7Hmspz8TOYBbiseEWqA+v0VyVNQmGiOiQgs3DzrEu2SnjhQJ5ifK/9ce/k7b+w17Wf9J9v+LV7aMhxdJ9GFjFtu/sdPaaFYPYg/v2XVIwIL6knQmAwlM9x9LixcOvUDfspAnsKiTgnDw4MDFEWntc/57td3+lS/B/X2iJZZJrdjB7V5wMgx5oQCG8bRH4GOZmxqy879//A+elj3TkdkWyGKUiWKUN3+rudbv6UG8is5ZS7GoLjcn7eB+k3ox1V37gdlmdi17V4FAMPdcAdd1ttB7DIF/ADU/u2HS3IDw+jHKQ0ocLpKBEFhB5wNqEBVGhLzg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by CH3PR12MB9456.namprd12.prod.outlook.com (2603:10b6:610:1c2::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 02:06:30 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 02:06:29 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 10 Sep 2026 22:06:28 -0400
+Message-Id: <DLC4BKO9UPN9.2VM6L3Q8KO0NR@nvidia.com>
+To: "Kiryl Shutsemau" <kirill@shutemov.name>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>,
+ "Lorenzo Stoakes" <ljs@kernel.org>, "Baolin Wang"
+ <baolin.wang@linux.alibaba.com>
+From: "Zi Yan" <ziy@nvidia.com>
+Subject: Re: [PATCH v2 05/12] mm/collapse: state what a collapse may do in
+ the policy
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>, <linux-mm@kvack.org>,
+ <linux-kernel@vger.kernel.org>, <kernel-team@meta.com>, "Liam R . Howlett"
+ <liam@infradead.org>, "Nico Pache" <nico.pache@linux.dev>, "Ryan Roberts"
+ <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>, "Barry Song"
+ <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>, "Usama Arif"
+ <usama.arif@linux.dev>, "Vlastimil Babka" <vbabka@kernel.org>, "Jann Horn"
+ <jannh@google.com>
+X-Mailer: aerc 0.22.0
+References: <20260910120238.2529819-1-kirill@shutemov.name>
+ <20260910120238.2529819-6-kirill@shutemov.name>
+In-Reply-To: <20260910120238.2529819-6-kirill@shutemov.name>
+X-ClientProxiedBy: YQBPR0101CA0249.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:66::7) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: uwkwo8xbo976io75izkuwwqh1y14s1xo
-X-Rspamd-Server: rspamout02
-X-Rspamd-Queue-Id: 8B0482002B
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18FdZczie6GhAnoDKYkcW/f0ARaAJtPxa8=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=/qMTGW1WJLI+b/x0TygSOtfQ4D1ZGeZfzzEtkG3t3E0=; b=XpZVwqpOz0YyUzA48sfglJLyiKFPQSeO+NCxzPcEZk7Y6RHPu/+fWdL4Epk8wk1XF3Nxl8qHxstYYdXpTgLKBbTbUd8x7fwYyu5ShVoeBu0s+KrPJa+JnHAFZNTzI5+Twlq+X+GNTSsgWKTvJNIXOWAzhXn/cmU+mARiY1N+gR4=
-X-HE-Tag: 1789092291-404136
-X-HE-Meta: U2FsdGVkX18gRKhFy00eJv+HWzJOhhz2M6jtKU9KN5kqp5/IqtoL82bLcfoQo4utkQoX8n3SLEFGJ7naJE4sR+XYOEbBl+P7ntRU6JNbYhbD5bS1bJeN1bbfUMilcO8FnLRh7J+WWRMvzIRfSjzHQqB55nKgLWVCwwCb7hSkBbcX8lxhw3P+fgjBU0cNDpbTjX9N+NoAxQdLe5uraSkkGpKBSMyLN2Apvy4+5hLKs5/1sFNnU8wtmqsnCxD+bW+yzn5cpbq2gzbcY+WTaKcIUngZHLRdkHHjpTSNtARHACTgNii0ETPiofL2tYsI8qcPLoGo91hr7VDJde9+p8pqGixaJKHecaT7tuoCIDem/ogLTJnnUZOyRB6fvXiJva4tlOgQyln7ZHadCBxknkIWQEupDgyvIOUw
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CH3PR12MB9456:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6530db24-e409-4f45-f05c-08df0fa94b49
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|10067099003|4143699003|22082099003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	nx0YIxUiD192QS884Pm7tVFhyzoELVLrOeyg20QbNLv2PRRUwKYECwPwxLJrMLdld/K9jNV9n2ZyZmHNmEdzjqm3guJmBqgxEmABpcdpPyY8YUXWzJz/UZWo0brVNWuj6JOFiMx87+ZWy/zHe05RDZuae5jYS/7LvBQBVAfT7eg6dbDT7RAKA70zH3jNJzJNAXY7GNIdXdg4uiqY8dT3X0D+DsYEuFImNVAfA6+MgZqHTmFyopAec5zCAI+uCB54Lolh/Nt2ZWTGFULRPL4Q+7zuZ/P3CQETw2bqFbxQyalYrPfWMBp4U4NfXI1sqG2uJ2g5NphCktpYblWvmphz8zWbLVxaIkXLXsxGRY/GwuDKu55+Q6CSbhLBWTuKSQzZAKRk5CnYM6BUygOISrTWdRNgB0rJDYW94hWQJt2T+VWUDouHmaUke2CBU/yygZy79RsBC9wk9BFdn0KzK3J9m4c0iEJbmwZj286SWlZEdm0pIXMTe+LSD1r6A9dwM3MGs2lFBQy5Uu29S3TA1B5n28az2oqe6O98ZWk0iIveDbYcfR3/nea/2+q+OOIHrfDNtS5alwR3I+ZxzCOeS6T50PAcFv0PM/xyQufY2hDrunbUkn+7l/bNMOXTT/CADKGwijq2dbVwI0g8TmXx89frD+Sxw3RCAWJSzr9Q3ZIj9mA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(10067099003)(4143699003)(22082099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dnlPSGxHSXozR1pzSnU4WHBiRHlxMFJqTmF2Y3M0S1djeXV2UGI5UWRmOFB3?=
+ =?utf-8?B?dzVEcWJZSms0Q0V3MDhEVnpyQ2xkTTFEQS9aOU1vQ29TSThwWWpTaDZBQ3dF?=
+ =?utf-8?B?MTNkbmlZUVZWUFlqOXVXOGtCZ1IyaTRiUTd0bklER3p5UFBHVzUxZVhqQUdQ?=
+ =?utf-8?B?azNud2MzQldRYXV2RDRlMFgvTFFxRUcyMkJLYXF3c3VrcENoVnhJa2ZNZG5o?=
+ =?utf-8?B?NGFhSU9kQzZjb3FpUzBVRjFxRkhkNHJKTEVxaGYrMERTS1lxRUVLNWRSR3Y2?=
+ =?utf-8?B?Rk5EZU9CczRZS1kyd3Z4bzZVOHRrSU02MEJqT0txdVdmNmdCdVdYZ2lzRWxh?=
+ =?utf-8?B?NWJabTd6VnA4MEZhZWNNS1BaVWpwTTloTlQzY016VXdoeUhUU29sYnlMcTls?=
+ =?utf-8?B?NHFlOVM0eUx5SDlTNmZyRW5ML1lpRXhBUGNPMk9Wb2dObHFndFNGSVVtc09H?=
+ =?utf-8?B?U2ZqT200N1Y0Z2ZJbG9yUDFPMy85VEk0ejlrYjRYanZ0V2o2TlNWa3VqV28v?=
+ =?utf-8?B?SnpRMUFlYXFZa3RkR2JwbXNEVWpUZnhKMXlpOTkxcUhRK1Q2RUJMWjBXRjJ0?=
+ =?utf-8?B?V3RsQVR1OTVOSnR2S0hZRFJXdTM2SjN6ak1JbFh3a3krUHk0RmVBY2xHSnM2?=
+ =?utf-8?B?MjZYN3A1SzNPcjVyQWdvR1JmdEZ0VmROSTkrZE9Rd2p1YTh0T2FTbnhEWmZM?=
+ =?utf-8?B?UFV3L2dRdCtremlMOUlBbDlkcXhER2lySDZaQ2tlaTN3eDBsRG5hY2hUd2Vk?=
+ =?utf-8?B?bVRmZ1ZDb0EwV3d4TzZiOHVMZVJ5Z05iRlhXdkJDUGVBMzVYSWRnem93QUtQ?=
+ =?utf-8?B?M0hOaWdRd2RzOTVlbFJ6aFJ2aTRqRCt1bmNjZG1ZN1lRd3NpdFJDTEdHUTA5?=
+ =?utf-8?B?aVpHbHBzOEVFN0NQQ0pFOTNHSUlxbUUyOHN6enFBNTY4cnNoMDJGUE9hTE5q?=
+ =?utf-8?B?SitlRlBSeFYvK29kK1loRXVaZWJ5YVJTK29OWlJXZEtLNEVHYUQ0dHpjS0RT?=
+ =?utf-8?B?NW9xR2g5N25vUEFYd0pLL2dyNUhlWnBuVEFSWllvcTlFVEtIK0JHSG5SWmM5?=
+ =?utf-8?B?UHdYQmFncTF2M2ZIUHNveTVZM0RvY1FGSys5ZEt2RUZrakc5ZVRnWlhYNHVo?=
+ =?utf-8?B?Z0xPNXRBbUxSQmpDVXdHcHRyRnluTmExLzhxMHZ4cUFDaTFJZzFhNk9qNHJK?=
+ =?utf-8?B?dEJnNDloUzZQc3RlRlptSGF2NEtUMm0xNW5iNjZObGlMWUhOQSt4M21HV1Zj?=
+ =?utf-8?B?N0xTODRURjJuQncySVZDK2dxNVZFMUVvSkJjTTlpSGRWcFBLVjhpZU5BWmJh?=
+ =?utf-8?B?QmVuSnd4MVhzdGFIeXlsTjUrTEhEQno2Y0ZiR0hxMytwNXkwYnBVa20vUjVO?=
+ =?utf-8?B?ekVRSCt3aTBIZnpYa1pENHBNRU9yS2tZVS9GVVY3QUVqVjVQTjdOUVdpNzQv?=
+ =?utf-8?B?Tng1ekZkUFdYcE5valNYRmxBWlo0WWJVVldTbm13dkJwR0hnMGVweUIvbXN6?=
+ =?utf-8?B?MzBDMU85WWxFb2R2ZTdMRm1YL09TM3hwaW1kKzdOWWFiTjhwck0walY1alFB?=
+ =?utf-8?B?c3B4TnVnUW8yaDZSZG5CYnVZUzEyN3pUdGdPdStBZG1lUythWVUvMmdIMjls?=
+ =?utf-8?B?L0hFK2dmT25LTDZQSEppaWFybWRGSUsrM1FUWlVnSGt4dHRjU1NrWklnTHVS?=
+ =?utf-8?B?MDNmZ21PNlF3V0ErNGlMUGQ1bUd1dFNLU090blhTUFBJREhzMnJzenlJQW8w?=
+ =?utf-8?B?MXczbVFLZXAxaFV1YkQ2N2VXanhrRnUrZjdKOG5nTnFIbmxQT3puK0J1cFdR?=
+ =?utf-8?B?aUo0M1U5U21qelZVdEF3akR1UlNGZnVNUkltZkM1Q2lkbnJWZUlHUjRoY0d5?=
+ =?utf-8?B?aDNZeXo0OGQrZ2JNV1hIUDVSMHdNSzk0RzdFNXExQ0ZCcEl6OFYrdFNadzZ6?=
+ =?utf-8?B?SGlGT3lhMDVYS2JOenJNc01rdDRwVUlQeUV6b0Y0Z3MvYnVJQXVSQ2drU3ZG?=
+ =?utf-8?B?bU90a2NGY1oreGY4RTM3dkRFR1NHaGpnTnIrNStyZWcxazVVUXlOUVpsV1J1?=
+ =?utf-8?B?c2puS1lTcnFtN3RTU251ZEdPb2xvUkdwOWlCSEQ2WUg0UC85L0psSTgySUN2?=
+ =?utf-8?B?RkM2dWJCMXhkTE1pazQ4ZnhZclhpektQUEsrUlZjeUNlbGF5STIyT3VyV1k5?=
+ =?utf-8?B?d0R0WjFvS0xYTjJNdk9zNjJVL3ZRMnZsTklkd3Z4Q0dxK2JkbTdUT1BueVRK?=
+ =?utf-8?B?ZXduUEJocXBpVE1VMlNmc1ZuQ3pTRy9OV2NWRDNwdG41ZmQrekplVjBlamV0?=
+ =?utf-8?Q?s9g4Jm4INxgnPWAyd6?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6530db24-e409-4f45-f05c-08df0fa94b49
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 02:06:29.8171
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QznZgdSMAYqwPYOYqpYU4A5y4SCwTSA/pNn44KcDJWtscaDoG+aNMUKovCbpwuWM
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9456
 
-
-Oh good, this commit was never pushed to Linus, so I can just fold it
-all together. Phew!
-
-[ sorry for the noise ]
-
--- Steve
-
-
-On Thu, 10 Sep 2026 21:40:08 -0400
-Steven Rostedt <rostedt@goodmis.org> wrote:
-
-> From: Steven Rostedt <rostedt@goodmis.org>
-> 
-> The commit 5ad289336148 ("tracing: Use a single array to represent tracer
-> options files") simplified the array that stores the individual tracer
-> options within the trace_array from being a multi array where each tracer
-> had its own array for its options to a single array where all the tracers
-> options were in a single array of the trace_array.
-> 
-> Testing has shown why it was done with multiple arrays in the first place.
-> The single array use krealloc() to increase the size of the array when new
-> tracers are added. A krealloc can change the location of the array if it
-> needs more memory than the current location can provide. The files
-> associated with the arrays passed in the address of these elements, and
-> when the array changed, the elements became stale and no longer pointed to
-> the element that represented the option.
-> 
-> Luckily, the reason this was done was also to check on open if the element
-> still existed or if it was removed when an instance directory was removed.
-> On opening a file with a stale element due to the array moving from a
-> krealloc(), it would not find a corresponding trace_array and the open
-> would return -ENODEV.
-> 
-> Revert the code back to multi-array where only the outer array gets
-> resized and its elements point to the allocated arrays for each tracer.
-> 
-> Update the trace_array_trace_options_get() function to search each tracer
-> array of the main array of the trace_array using a new helper function
-> tr_option_match(). This preserves the logic to find an existing
-> trace_array corresponding to the trace options descriptor and doesn't
-> suffer from krealloc() moving the elements around.
-> 
-> Fixes: e8ea6a874574 ("tracing: Take trace_array reference when opening a tracer options file")
-> Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+On Thu Sep 10, 2026 at 8:02 AM EDT, Kiryl Shutsemau wrote:
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+>
+> Tests scattered through the collapse path decide what a collapse is
+> allowed to do by asking whether khugepaged started it.  Between them they
+> settle:
+>
+>  - which VMAs are eligible, and how hard to try for a folio;
+>  - how many empty, swapped-out or shared PTEs a window may contain, and
+>    whether a sub-PMD window is held to a stricter rule than a PMD;
+>  - whether a range has to look used, and whether a MADV_FREE'd page is
+>    left alone;
+>  - whether the PMD is mapped as part of the request, and whether dirty
+>    pages are worth writing back and retrying.
+>
+> None of those is a fact about khugepaged.  Each is something the caller
+> decided before asking, and the collapse code should not have to look up
+> who called to find out.
+>
+> Add struct collapse_policy for the caller to fill: khugepaged from its
+> own settings, MADV_COLLAPSE from the fact that a user asked explicitly.
+> Every test becomes a read of a field, and cc->is_khugepaged goes, having
+> no reader left.
+>
+> khugepaged fills the policy once per scan pass, MADV_COLLAPSE once per
+> call.  That is the one change in behaviour.  The max_ptes_* limits and th=
+e
+> defrag setting behind the allocation mask are sampled once per pass rathe=
+r
+> than on every table.  A table scanned early in a pass and one scanned lat=
+e
+> are then judged alike.
+>
+> collapse_file() also drops a NULL check on the collapse_control.  It has
+> one call site, reached only from collapse_single_pmd(), which dereference=
+s
+> cc unconditionally, so the check was already dead.
+>
+> Assisted-by: LLM
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 > ---
->  kernel/trace/trace.c | 63 +++++++++++++++++++++++++++++---------------
->  kernel/trace/trace.h | 22 ++++++++++------
->  2 files changed, 56 insertions(+), 29 deletions(-)
-> 
-> diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-> index 7cc3fac70216..e4a490d3d08c 100644
-> --- a/kernel/trace/trace.c
-> +++ b/kernel/trace/trace.c
-> @@ -7678,7 +7678,7 @@ static ssize_t
->  trace_options_read(struct file *filp, char __user *ubuf, size_t cnt,
->  			loff_t *ppos)
->  {
-> -	struct trace_options *topt = filp->private_data;
-> +	struct trace_option_dentry *topt = filp->private_data;
->  	char *buf;
->  
->  	if (topt->flags->val & topt->opt->bit)
-> @@ -7693,7 +7693,7 @@ static ssize_t
->  trace_options_write(struct file *filp, const char __user *ubuf, size_t cnt,
->  			 loff_t *ppos)
->  {
-> -	struct trace_options *topt = filp->private_data;
-> +	struct trace_option_dentry *topt = filp->private_data;
->  	unsigned long val;
->  	int ret;
->  
-> @@ -7717,6 +7717,18 @@ trace_options_write(struct file *filp, const char __user *ubuf, size_t cnt,
->  	return cnt;
->  }
->  
-> +static bool tr_option_match(struct trace_array *tr, void *topt)
-> +{
-> +	for (int i = 0; i < tr->nr_topts; i++) {
-> +		struct trace_options *tr_topts = &tr->topts[i];
-> +
-> +		if (topt >= (void *)&tr_topts->topts[0] &&
-> +		    topt < (void *)&tr_topts->topts[tr_topts->nr_topts])
-> +			return true;
-> +	}
-> +	return false;
-> +}
-> +
->  /*
->   * The topt is the address of a trace_array->topts[] element that holds the
->   * the tracer options descriptor. But since the trace_array reference has not
-> @@ -7742,8 +7754,7 @@ static int trace_array_tracer_options_get(void *topt)
->  
->  	guard(mutex)(&trace_types_lock);
->  	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
-> -		if (topt >= (void *)&tr->topts[0] &&
-> -		    topt < (void *)&tr->topts[tr->nr_topts])
-> +		if (tr_option_match(tr, topt))
->  			return __trace_array_get(tr);
->  	}
->  	return -ENODEV;
-> @@ -7751,7 +7762,7 @@ static int trace_array_tracer_options_get(void *topt)
->  
->  static int tracing_open_options(struct inode *inode, struct file *filp)
->  {
-> -	struct trace_options *topt = inode->i_private;
-> +	struct trace_option_dentry *topt = inode->i_private;
->  	int ret;
->  
->  	ret = trace_array_tracer_options_get(topt);
-> @@ -7764,7 +7775,7 @@ static int tracing_open_options(struct inode *inode, struct file *filp)
->  
->  static int tracing_release_options(struct inode *inode, struct file *file)
->  {
-> -	struct trace_options *topt = file->private_data;
-> +	struct trace_option_dentry *topt = file->private_data;
->  
->  	trace_array_put(topt->tr);
->  	return 0;
-> @@ -7967,9 +7978,8 @@ static struct dentry *trace_options_init_dentry(struct trace_array *tr)
->  
->  static void
->  create_trace_option_file(struct trace_array *tr,
-> -			 struct trace_options *topt,
-> +			 struct trace_option_dentry *topt,
->  			 struct tracer_flags *flags,
-> -			 struct tracer *tracer,
->  			 struct tracer_opt *opt)
->  {
->  	struct dentry *t_options;
-> @@ -7981,7 +7991,6 @@ create_trace_option_file(struct trace_array *tr,
->  	topt->flags = flags;
->  	topt->opt = opt;
->  	topt->tr = tr;
-> -	topt->tracer = tracer;
->  
->  	topt->entry = trace_create_file(opt->name, TRACE_MODE_WRITE,
->  					t_options, topt, &trace_options_fops);
-> @@ -7991,9 +8000,10 @@ static int
->  create_trace_option_files(struct trace_array *tr, struct tracer *tracer,
->  			  struct tracer_flags *flags)
->  {
-> -	struct trace_options *topts;
-> +	struct trace_option_dentry *topts;
-> +	struct trace_options *tr_topts;
->  	struct tracer_opt *opts;
-> -	int i, cnt;
-> +	int cnt;
->  
->  	if (!flags || !flags->opts)
->  		return 0;
-> @@ -8003,22 +8013,30 @@ create_trace_option_files(struct trace_array *tr, struct tracer *tracer,
->  	for (cnt = 0; opts[cnt].name; cnt++)
->  		;
->  
-> -	topts = krealloc_array(tr->topts, tr->nr_topts + cnt, sizeof(*tr->topts),
-> -				  GFP_KERNEL);
-> +	topts = kzalloc_objs(*topts, cnt + 1);
->  	if (!topts)
-> +		return 0;
-> +
-> +	tr_topts = krealloc_array(tr->topts, tr->nr_topts + 1, sizeof(*tr->topts),
-> +				  GFP_KERNEL);
-> +	if (!tr_topts) {
-> +		kfree(topts);
->  		return -ENOMEM;
-> +	}
->  
-> -	tr->topts = topts;
-> +	tr->topts = tr_topts;
-> +	tr->topts[tr->nr_topts].tracer = tracer;
-> +	tr->topts[tr->nr_topts].topts = topts;
-> +	tr->topts[tr->nr_topts].nr_topts = cnt;
-> +	tr->nr_topts++;
->  
-> -	for (topts += tr->nr_topts, i = 0; i < cnt; topts++, i++) {
-> -		create_trace_option_file(tr, topts, flags, tracer,
-> -					 &opts[i]);
-> -		MEM_FAIL(topts->entry == NULL,
-> +	for (cnt = 0; opts[cnt].name; cnt++) {
-> +		create_trace_option_file(tr, &topts[cnt], flags,
-> +					 &opts[cnt]);
-> +		MEM_FAIL(topts[cnt].entry == NULL,
->  			  "Failed to create trace option: %s",
-> -			  opts[i].name);
-> +			  opts[cnt].name);
->  	}
-> -
-> -	tr->nr_topts += cnt;
->  	return 0;
->  }
->  
-> @@ -8880,6 +8898,9 @@ static int __remove_instance(struct trace_array *tr)
->  	if (tr->flags & TRACE_ARRAY_FL_VMALLOC)
->  		vfree((void *)tr->range_addr_start);
->  
-> +	for (i = 0; i < tr->nr_topts; i++) {
-> +		kfree(tr->topts[i].topts);
-> +	}
->  	kfree(tr->topts);
->  
->  	free_cpumask_var(tr->pipe_cpumask);
-> diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
-> index fd0919a2c375..bd3c8f80300f 100644
-> --- a/kernel/trace/trace.h
-> +++ b/kernel/trace/trace.h
-> @@ -224,6 +224,12 @@ struct array_buffer {
->  
->  #define TRACE_FLAGS_MAX_SIZE		64
->  
-> +struct trace_options {
-> +	struct tracer			*tracer;
-> +	struct trace_option_dentry	*topts;
-> +	int				nr_topts;
-> +};
-> +
->  struct trace_pid_list *trace_pid_list_alloc(void);
->  void trace_pid_list_free(struct trace_pid_list *pid_list);
->  bool trace_pid_list_is_set(struct trace_pid_list *pid_list, unsigned int pid);
-> @@ -320,14 +326,6 @@ struct trace_module_delta {
->  	long		delta[];
->  };
->  
-> -struct trace_options {
-> -	struct tracer_opt		*opt;
-> -	struct tracer_flags		*flags;
-> -	struct trace_array		*tr;
-> -	struct tracer			*tracer;
-> -	struct dentry			*entry;
-> -};
-> -
->  /*
->   * The trace array - an array of per-CPU trace arrays. This is the
->   * highest level data structure that individual tracers deal with.
-> @@ -608,6 +606,14 @@ struct tracer_flags {
->  /* Makes more easy to define a tracer opt */
->  #define TRACER_OPT(s, b)	.name = #s, .bit = b
->  
-> +
-> +struct trace_option_dentry {
-> +	struct tracer_opt		*opt;
-> +	struct tracer_flags		*flags;
-> +	struct trace_array		*tr;
-> +	struct dentry			*entry;
-> +};
-> +
->  /**
->   * struct tracer - a specific tracer and its callbacks to interact with tracefs
->   * @name: the name chosen to select it on the available_tracers file
+>  mm/collapse.h   |  31 ++++++++++++-
+>  mm/khugepaged.c | 114 ++++++++++++++++++++++++++----------------------
+>  2 files changed, 93 insertions(+), 52 deletions(-)
+>
+
+Great cleanup! Thanks.
+
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+
+
+--=20
+Best Regards,
+Yan, Zi
 
