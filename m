@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F22B45C719;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F06845C704;
 	Fri, 11 Sep 2026 08:28:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789115332; cv=none; b=lOI5rsuHPxS6XMvy/Mq0vS6NKwwnbuNmUxrbXiIAyq9+hde5mfkwYMTHdpso77Cpe5ckyvgrKM7L4QIERY2APw3nMkdrTUcOQu5ZMw+bQ239YQTiY7DC6Vph3Lpya1HRgMxRX71UwZPE65C9FJaUobmrAPLtbV8kL1cbyQn5PJk=
+	t=1789115332; cv=none; b=t50P69rh6yFapyPYqfLLdICSGRERctWEPN3a22CHB23EGsXedyknKklexZ8RLLmD6YE5O/obqJWarw2LLtjwQgigyJARQUs2utPObDgjpRsZEhscwgvOcwwZmT1d+V8S3beITHuP1Psq3ZjJ4waHDYxIXBU2CDT6n0nIaD0Bag4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789115332; c=relaxed/simple;
-	bh=mLj7YUC9Fm6rKKu4LSYfjTh/ywFy6caKOyKBr+t9m/g=;
+	bh=d9gRokGuXMnRj4EGFfmt+XQXkpFvGjH7tDqGf3GPJhI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=r4u2t4mO+DQmdby2KjTC9lfGG2NYmHSj0RroJjqXafmL5wh6m6t+izUXLhEN2Kmt889QfEI0pxdS/HJudqtJcSiJF+jaLEckuUBJgpwV9cf2yl4VeThu5PrMdVQKmDzYQnUdnIZK96VGFyFY7lRZS/AM5m2EkaqCe/XVJERtgvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BQCf8WHC; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=cZ/i1jxl3XB2007ECo4TXahjyUd+pN85W8MlKQWgJL0WyIT71Xecv0KyoTGmRNRzwOUIi+vQvQF63IRLaoHK89CzcjAWorz/hrLDdUjp7H3G7mJqjcTocVTFl9IuzqmUF5CxuOKJgE1uoQm4NTRBOexGgOsPm6a3SYu1/LYozGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RBAItL4E; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BQCf8WHC"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 21584C32782;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RBAItL4E"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3E1F1C32786;
 	Fri, 11 Sep 2026 08:28:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789115332;
-	bh=mLj7YUC9Fm6rKKu4LSYfjTh/ywFy6caKOyKBr+t9m/g=;
+	bh=d9gRokGuXMnRj4EGFfmt+XQXkpFvGjH7tDqGf3GPJhI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=BQCf8WHCLPPG2RGkrT1lBlKbJOpvqAYedFdAgc1xKUH2ztTvCKCmZZCOqPVNVTSW3
-	 2LejBiw7vel4xHLJOpKPoP5aNb479HNjhkRRg5ShArEftFCntVOc03QDsztDEQavO4
-	 51m+efxdju84tX2mRaleEKUrf5wCk2hboFH1k5526AUMqz/ScoC1b+1Z5f8r/l7fO7
-	 lNft58WH/fpqlUlBzZJX/ivHelCynsPKAUkf5j0c1+1RucOhXdJviGvXxTjj+8Niui
-	 ZYNbTeyN/C3Ph23ABHS76yb9SJrmfb/fZ0TG4FxxtO5UY1WD495xVan8KJJ9ciosqZ
-	 m1/S5IcLx+Lcw==
+	b=RBAItL4EiM2w+F3HGB/si/RZQE/CjCgEQwQ3SvOwEe4+lZ+S4rDCh+1r3C3jYq7sm
+	 lP2pQVWC6pzMMm2vWJphnjwkAOXGWeZ71tR+fBb6PqaPoXJ6FrEnIZvWX3wQul+bKu
+	 R82dwBiY7lJ0I25H2kQTNrLlF8ZVExBTxwAJKAFLRXkfAmoI8XDGHETOTg0q1IX1l/
+	 BArOerJGVEKoZgm4DpbzlQ2LT8wHKmdygjUISKOYyio285JpDEp3wjnqTCRcHNgEJ3
+	 u7EThFobH6SgMBZz4G1U0Fdx0j6Mou34oPNGpCOrHxgK1h0DQjOiEaa5QWjXwNjvmb
+	 u6GhknDgOvuhg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F1BDC88E4D;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D5A6C88E54;
 	Fri, 11 Sep 2026 08:28:52 +0000 (UTC)
 From: Chuan Liu via B4 Relay <devnull+chuan.liu.amlogic.com@kernel.org>
-Date: Fri, 11 Sep 2026 16:28:33 +0800
-Subject: [PATCH 06/10] arm64: dts: amlogic: a4: Add clk-measure controller
+Date: Fri, 11 Sep 2026 16:28:35 +0800
+Subject: [PATCH 08/10] arm64: dts: amlogic: s7d: Add clk-measure controller
  node
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-more-socs-to-support-clk_measure-v1-6-940e269aa52f@amlogic.com>
+Message-Id: <20260911-more-socs-to-support-clk_measure-v1-8-940e269aa52f@amlogic.com>
 References: <20260911-more-socs-to-support-clk_measure-v1-0-940e269aa52f@amlogic.com>
 In-Reply-To: <20260911-more-socs-to-support-clk_measure-v1-0-940e269aa52f@amlogic.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -53,11 +53,11 @@ Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Chuan Liu <chuan.liu@amlogic.com>
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789115329; l=797;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789115329; l=732;
  i=chuan.liu@amlogic.com; s=20240902; h=from:subject:message-id;
- bh=wRifO0cIF3hQCIdhhi4prrj9RKNwhA6uX1mJAaHO3Ik=;
- b=dxkN7FUuyreM7FYjTV0v/C+Gvt+Bo4jl3ToXJg5NNEAaHVCFaZ1oG9La/uhAq8aCP8Jr5SfbG
- G1xgkY7azqEByX3TbJY5Kbmxe8BTAjKk1LMj+073q1HmHAIZ6EvLK/v
+ bh=pLxRAmolmQ/S413sGcYNxtsPZfazg1P2W2c2iMu9cJc=;
+ b=5jEF9+NW5uv6CsNF/LzrnrBni98XNjLVUd3mokEMOltHexGMhim45lH6pshmEUkWDO0hu1wnH
+ UNomb5cyUyKDMFpwdox98lFHyws2wCMmz5QHTXM5dWvVD6B20XWhem6
 X-Developer-Key: i=chuan.liu@amlogic.com; a=ed25519;
  pk=fnKDB+81SoWGKW2GJNFkKy/ULvsDmJZRGBE7pR5Xcpo=
 X-Endpoint-Received: by B4 Relay for chuan.liu@amlogic.com/20240902 with
@@ -67,29 +67,29 @@ Reply-To: chuan.liu@amlogic.com
 
 From: Chuan Liu <chuan.liu@amlogic.com>
 
-Add the clk-measure controller node for A4 SoC family.
+Add the clk-measure controller node for S7D SoC family.
 
 Signed-off-by: Chuan Liu <chuan.liu@amlogic.com>
 ---
- arch/arm64/boot/dts/amlogic/amlogic-a4.dtsi | 5 +++++
+ arch/arm64/boot/dts/amlogic/amlogic-s7d.dtsi | 5 +++++
  1 file changed, 5 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-a4.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-a4.dtsi
-index fce45933fa28..762754b33f23 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-a4.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-a4.dtsi
-@@ -207,6 +207,11 @@ gpio_intc: interrupt-controller@4080 {
- 			<10 11 12 13 14 15 16 17 18 19 20 21>;
- 	};
- 
-+	clk_msr: clock-measure@48000 {
-+		compatible = "amlogic,a4-clk-measure";
-+		reg = <0x0 0x48000 0x0 0x1c>;
-+	};
+diff --git a/arch/arm64/boot/dts/amlogic/amlogic-s7d.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-s7d.dtsi
+index 0c4417bcd682..5593ff9e07eb 100644
+--- a/arch/arm64/boot/dts/amlogic/amlogic-s7d.dtsi
++++ b/arch/arm64/boot/dts/amlogic/amlogic-s7d.dtsi
+@@ -212,6 +212,11 @@ ao-secure@10220 {
+ 				reg = <0x0 0x10220 0x0 0x140>;
+ 				amlogic,has-chip-id;
+ 			};
 +
- 	ao_pinctrl: pinctrl@8e700 {
- 		compatible = "amlogic,pinctrl-a4";
- 		#address-cells = <2>;
++			clk_msr: clock-measure@48000 {
++				compatible = "amlogic,s7d-clk-measure";
++				reg = <0x0 0x48000 0x0 0x1c>;
++			};
+ 		};
+ 	};
+ };
 
 -- 
 2.42.0
