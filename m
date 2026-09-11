@@ -1,172 +1,330 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012044.outbound.protection.outlook.com [52.101.66.44])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD53371860;
-	Fri, 11 Sep 2026 09:31:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789119118; cv=fail; b=sTWOyK6u4IIdlUaC/ZgxDt9e/LSpPKLAoaQTEk/089EY/3WN3nCp22yYIdM0GAsaVoCsW00E9e++MgPgrTCpft/cKyPc7re6963H+UcQFCfXTtAqoGhD51Nd88KBajXvYGdoindfbDqM5EX8NPGZKyu1YNY5KH5ITb1lBg1CCkU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789119118; c=relaxed/simple;
-	bh=dvkRtFiQXHvPhdL/HvpsSGO2y6XAa++TsbporI0BpvI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=nsl4ntnuMDE6KD+Pp/KuA2oLUPypfymDE/EZWizP+lvtzlEG85lGpksHshHxoKvrEZOMgmIHSnqANvEJrrHzB/1KaOISDriqlOjcjMstnI8+Dq6gQTPH9R4aCXgIQdFXilSkRgEVkfSUxbslEG+WCxJ1IugCqKPgACNsqOmtGzo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=DM4a9g7K; arc=fail smtp.client-ip=52.101.66.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65DCF3803C2;
+	Fri, 11 Sep 2026 09:32:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789119147; cv=none; b=qQTnb9jvKu79Q4l0vGuCBCyQJQQoENAIQEKiMKjvwrqiSSWhWNJVbbtykg6Qx48neqT7GFwojHLtk6L6yE6d9DzGXeU8qC5B7wCX0MAbprFhw2DDrogrDsgHduSmTV/dlcSZ/Gf/uUPXENREpA/yxBxpSYliCY934DZ8+p4/LZM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789119147; c=relaxed/simple;
+	bh=Yih7f6/tNVBNBYGkVJA3bfFcNrZN2aPjeDZKrvcepGM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YwIaUWckVM7dktqcALVxfcaakL8erycw/k8wFtg9+EAhAakRSiwLhRumyd5NMaxx/fFxLrHYhGszeFTrLMS5dQ7ReeJePMRY/+9fVQ6elRemqqyTx2C3ujt0Kjui4YXKcwJCJjNWvsQLtA+iNYPybA3+6JT5Sj3FwGdykZ9Kw3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PyVXNLha; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="DM4a9g7K"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hPsSv+zihiu1YDaiJYeuL3bUQ4aZJYW/D021aw6oFiE8iabmy3yJFe4NvgGcK4U3pSt/k8dCBMmWAzbE+Y0IyHAE1u8Z/ChwbyjqOpEKCrWQp7g0Ox+BRgHyOeJsSh0cxFKlEtuaAlPHWMmmbgXKHXGzoFBPpegriAiZfr0XhKP0DhDn49Ndlm43zUIkX72b+d9zhuSDrrFHMQkEWVHm3YAZDK/q6EPVnm+3AnBn3shyOfYkUEPKNd/LZhM1uf3dtFvouu1PElwrZAdAh+IlwyUycgQXdv21TVaVUVXMZn1C7oOoKX/aPw4a9e3qxL3rTL8acJNBWfeP2T86PixD1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dvkRtFiQXHvPhdL/HvpsSGO2y6XAa++TsbporI0BpvI=;
- b=oxlw3EK4vfbFYNHKCvmJnsvTQex2tPOKoT8BaB6nwuVSVgSwm5pUyqK8H45lHs0MfEvZ+n5y1T3GcOIVAbsvu41jSvGQVSWNGgj+lOpNF/vso/4705DRyUi1br2e/Ud70FdhB/G7mqSwqAMLOq0G3Ne/edvW41AF/MDy7srp6gP//OFqD0kIAK6prIfjTv/mApN5I4Whw9kMTRDsDW3qd15WrlEHDbsRoMxYNpaf3ETRvY3kBFZ0SmfWiB9JTEZg79J60oPLZ9s3LbaP35tuMFnJrrPSCjKeucVMyx3lUC5F3W7bCLoFhGh/FrjeQE3el65OwsnzGoDnYTeTHdA6Sw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dvkRtFiQXHvPhdL/HvpsSGO2y6XAa++TsbporI0BpvI=;
- b=DM4a9g7K5MjvcbkNFk6WK6roNHx01/8VFSOcewG1gNLyXuy4uFfYpl+YsmAWTAALVrlGLyLP8CzU+qywOSXI/bx+B5pkqa+mJd4ojddaxOktCt/f7b0/Pi5zejyKZ+XecUXRT6wIfjLod+IvflZmZgJ5nYSM5kRc3Eqq6fNhkHbZzYzl/s19nBxeMpjHhwaTEqbaBM0C9cma9wRBRjPy76RZ1Cf7HwUeyXMb02AUuGBXweTmUA2Kd2CJEu99jYu1vQEqRQFloBHUgetsRElhJRNDbBVn/BAWzTt8dzeE4alOzs9TJK5LG6kbzIXvxMqjOt2TAizvaQrpQVKbd8h5cg==
-Received: from AS4PR04MB9362.eurprd04.prod.outlook.com (2603:10a6:20b:4e7::9)
- by GVXPR04MB11692.eurprd04.prod.outlook.com (2603:10a6:150:2e5::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 09:31:53 +0000
-Received: from AS4PR04MB9362.eurprd04.prod.outlook.com
- ([fe80::abe7:4a6e:a51:baf0]) by AS4PR04MB9362.eurprd04.prod.outlook.com
- ([fe80::abe7:4a6e:a51:baf0%6]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 09:31:53 +0000
-From: Lakshay Piplani <lakshay.piplani@nxp.com>
-To: Lakshay Piplani <lakshay.piplani@nxp.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-i3c@lists.infradead.org"
-	<linux-i3c@lists.infradead.org>, "alexandre.belloni@bootlin.com"
-	<alexandre.belloni@bootlin.com>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"robh@kernel.org" <robh@kernel.org>, "conor+dt@kernel.org"
-	<conor+dt@kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "broonie@kernel.org" <broonie@kernel.org>,
-	"lee@kernel.org" <lee@kernel.org>, Frank Li <frank.li@nxp.com>,
-	"lgirdwood@gmail.com" <lgirdwood@gmail.com>
-CC: Vikash Bansal <vikash.bansal@nxp.com>, Priyanka Jain
-	<priyanka.jain@nxp.com>, Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-Subject: RE: [PATCH v18 4/8] mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c hub
- and on-die regulator
-Thread-Topic: [PATCH v18 4/8] mfd: p3h2x4x: Add driver for NXP P3H2x4x i3c hub
- and on-die regulator
-Thread-Index: AQHdO2x1nNs0fs3RcE60iSGPwiIo0LbJKBqg
-Date: Fri, 11 Sep 2026 09:31:52 +0000
-Message-ID:
- <AS4PR04MB93625052401AF41C2ACC2D66FBBE2@AS4PR04MB9362.eurprd04.prod.outlook.com>
-References: <20260903062108.2712296-1-lakshay.piplani@nxp.com>
- <20260903062108.2712296-5-lakshay.piplani@nxp.com>
-In-Reply-To: <20260903062108.2712296-5-lakshay.piplani@nxp.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_Enabled=True;MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_SiteId=686ea1d3-bc2b-4c6f-a92c-d99c5c301635;MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_SetDate=2026-09-11T09:30:30.0000000Z;MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_Name=NXP
- Public;MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_ContentBits=3;MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AS4PR04MB9362:EE_|GVXPR04MB11692:EE_
-x-ms-office365-filtering-correlation-id: 92d8f615-31f2-4529-4b4e-08df0fe783a7
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|19092799006|921020|6133799003|18002099003|38070700021|4143699003|11063799006|56012099006|22082099003|10067099003;
-x-microsoft-antispam-message-info:
- YaS8BMRSweQ/z5Vhff4uhAHWbYY9EDjN8m/r0MrdaUEYEBX46YM2V4JfH9gWdt74AzlIV5DUmYKEuxLo2n9y2ZzIoCxRcXAaJmfxZR9Ct7qcoKP3GbqOB8ul+q0dtf26ANgJZlk50RVJmPpI2eMsYIdtWeMWQRAs58Q1nfTYvR9sCdXYW9425CT4PQLAdMNw+ZyIdJJciUmxCR1fKNHCgAMbT6wBf6t3WSOz1IxRyj9ulxqFUI2K9ySnTP9+naJEpIf+PHkILFM9RsbiR0mIu6COOrfWtlCSHpPtGNg+eV94a/N2Z0pko5w58hfdxSkGGDj/BAmUuVskGQHBZ5lmF7pmnIZU+cdNGMMNEQBZSjw7UJm0mExIIgAo33ZU0/7KrbsFxsFgMePX16c1eP913f8lOEXvHSXOyc0l0oDj/d/HK7+K04DkT3fa3DuW57F8F+aytX5lQPBBLHt9uSn1HghS7gzjKHMCSQpOU/xfI0rM0KtfhcEYCpv7hMY+Q92qKSqnnWcCi9nPbTz0zei0N+50IhlmRW/q5DWVA/CA9Co4WYSKerJ9I3L4/16CPz27hywFFFmSlrqfArAUKmYccxbH72JzHfPueURtiy49r13KPIc70POwar2WmuCQkjP0S3p835OH3lYQPmJmI9hBa7Uyhomwu99MPChTAejox/L774NajVWxsz4QbyIK3Pkus2CE8z1ID2y/nK2Mr+WULF7vQSO/4PvQf4e2wvTBUDk=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR04MB9362.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(19092799006)(921020)(6133799003)(18002099003)(38070700021)(4143699003)(11063799006)(56012099006)(22082099003)(10067099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?dXZLQ3JLSjhsVy9UbXZKZkFrVk9mcGFYRzJLand1RkRtM0xzZVF0ZlBBUkcx?=
- =?utf-8?B?Z3NYcS8zNTl0NmRrcW0vWWVDVHpDaXZLZS9ZWkJGc0tZbHpTOVhaTW1ua1ZP?=
- =?utf-8?B?Z0pXU2FSZmQ5ZFcxTUZtc3FEL0JiK29qQWszb0hsaGpjRFljZVRrQWg4VWIr?=
- =?utf-8?B?bGpTYnQ0MnBtOFVCR1p4UWZiamVzb3FJUXdJckVUNFZFVlNDaER6QmZKRDQ5?=
- =?utf-8?B?MVVQdVJxOWNUMVMxUHJYYWtXMUpvMDVxUzJLa0RIZEZjUnhJSWEyZEFtQmRl?=
- =?utf-8?B?WEVwOE9uZ3E2SVFESk9nZS8zdTZBeHFUeW5rY3VkL25LaXdtUmtqbm5WWDFu?=
- =?utf-8?B?VXpCQUp2STBJc2paaWlSM3dDQ1EraDl0NDBqZGlTdGozRnJmVGpHa2VBMWxT?=
- =?utf-8?B?Q2UzMlJYd05hMStGbUZSL0ZXWHUrZlhEVG5OUUZBMHo0Zm9MU0pUSWY0U1cy?=
- =?utf-8?B?NWVIZ2lsSWZRWVBhNUNVc1A0MVVMQnQ0ZWlpUjZudTNXYnAzb1lJb0lRSjZa?=
- =?utf-8?B?MDZHMmgwM25kbDFBRDQ0REJpUzl3OXZTSXgxWlkvdkJqTW96L3Fzc3A1clZN?=
- =?utf-8?B?bENrSTJDNEd4YW1vbDlKcGdWakVmS0lZU2NYbUFBd2xwR0VoSXh0c2FHcGx6?=
- =?utf-8?B?NDltb28zVDE3dnE4aHc2b0V6OEF3WkJCZUNISFpkRHBSbW1xUjdaQUVObkpx?=
- =?utf-8?B?TGtBUXg1bkRBTnpTNXBwcjRsN093ZVh6REgwWEZ4QjdJWXBqOExNcnppRFNJ?=
- =?utf-8?B?cVN2SzdwS3ZZUXVnd2JYbEpGaDNZdll0Z0xhdU9CbFNrL2d1NUpUb1orYlhp?=
- =?utf-8?B?dWEzbTY2UkVvZ2RmMXRrMjk5L3NRbU5HakEzRm03Tm1laWtMc0hoQ1Vjb0FC?=
- =?utf-8?B?M1dCT2d4U3FIZmtzeS9CNGpheUZNT3Q0ZlNkYjBIbFJwcjdUeHM0YlA2ZEcz?=
- =?utf-8?B?SVFuMkMvSHJzSnNSN1ErRmcxMVZ2OStaT2JLT2VDdnVvY3d4bGtNeWxqNWdk?=
- =?utf-8?B?blA4K2thWm9qRDQ5cWs0U1g3a2h3YTdqTXljNS8vaXRCRUNzaEpNMzZUOVJn?=
- =?utf-8?B?KzY2aUNQS29BdUhVeFRvOW54ZHNyL0p3QlZlUUt5Z1pWZU84NHRzQTJRVjEr?=
- =?utf-8?B?cnUrS01XT3BOelNnVWQvMEpYejZFVEFMaTM4d09RU0JYajFUdGJyNkxNV1Ri?=
- =?utf-8?B?RUxlRjUxUmJkSjZ3aXcwOUVCczlPVVZDbjJjUEN4bkFNQ2ZnTE1zOGZ1azIz?=
- =?utf-8?B?K042enU3OW9uK1gyKzFFZXdNamVZTDRwNWxaSm83Sm1PV0NxeHVuL0l3aTRv?=
- =?utf-8?B?ZjRqdHhZd3k1UG9lcTFROHoxK1FhMjB4dmtxVHFYZFRPSWxhMHFEMXp0cDFt?=
- =?utf-8?B?V3IyL0lia2NnME9nRHBsalN6UmV4TVdDQ3FBbURrclFCdW9haGVxdUFES0lp?=
- =?utf-8?B?RFpFMDFlUENpWHZxN2wyUllDeTNUdGt0Y0NidU5GQlBjeEJqa2VXRDBtMGpp?=
- =?utf-8?B?bjQzbGpZNFI4MERkSlVWcTljaFlLU2o1QTlqQ1NvODVYTmRzQXNKYzV0M210?=
- =?utf-8?B?OG1TbTg3bjUxSmIwRkVva3lLb2I3dzFoQS9yaXYxOTVidTJ5ZU94RTlldmpo?=
- =?utf-8?B?U0ZBRmhxRS8xUU5wTHNENVhRL3BHbjJhMkp1VGQyWFR6N3ZTTjBncmZBT05k?=
- =?utf-8?B?V2YvQjN2Qm5paWdFR1lnaUp5cS9iajdHT1l5MGRyVUdsV0hIbVpVYmpnakFv?=
- =?utf-8?B?TDlhVExFZWlsdGxiL1JvS01jTlNUWDJ0SzMvQ3FqNUk1bDcwQjVzbmg0Sloz?=
- =?utf-8?B?SllMQlhTWUlEK2p2dGR6MkpGVmdIeExQQ1JOT09vV3dIWEJJY0x5SXkzRkM2?=
- =?utf-8?B?Q1BCQTV3M05sdFdQYi9LWWx5VWltOGhvN0I4c0hMZkFrd24wYU41L3V0S2Vu?=
- =?utf-8?B?RUdTSlU3TDV5bXl6MElhYnY1Q1NZUFlsRmVXUVVBWVFQZWI4b1ZOc1oxaVRq?=
- =?utf-8?B?TTJiMHlQd0V6bW5yeGdrVjJneTJlV1p1RFcyVTdFZ1p3RGc3SWZ4UWVWT25I?=
- =?utf-8?B?TVA3Z2x5KzFoZjYvV2tvUTcrVWc2S2dnWis4Wml1S3IxWkVNT1pTVWNoNHB5?=
- =?utf-8?B?bFg2ZHlVK0RwUStab0tMWWprY1Ywc0FUdTNGcEdrUjZocnNYelJULzZjdzky?=
- =?utf-8?B?TXUzVWFKVDliaVdTcjRqb3FPZmxJMGpHcmlLLzVpdW9xVGZzTytJRU4xY0Ro?=
- =?utf-8?B?dnkwUUdnbllhS1R3SFBlS2RZTVE1amZkamJieC96Y25pQ0JaSXQzVjlsSXdK?=
- =?utf-8?B?SmRyRlNjSFZhVGhtS3ZiRExlN3FISXU4cU1sSk8vL0hiVW9xOUQ1UT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PyVXNLha"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEA7C1F000FF;
+	Fri, 11 Sep 2026 09:32:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789119146;
+	bh=AAnYNMY4qKWEt8VqW/gq+QbhtFwungyZcJ3iIQPiMA8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PyVXNLhamoEGYHMpL3Q4rsa62whZA3bWfw9FqxNQ9ZIkavOuDy970b4hzpf2VW5dg
+	 665PYTj+s7h/ZpnGzvIrO7TazHzP/S34FTp1JgiopifMNbEFVlz8LjHjFudfClI06S
+	 fTx1a+taFDlr6OMVCRlomCP09wbk7mrAuXNG3PuHZNmqmO8PmURwzsInlvjuYwC0MY
+	 kfDOwkFljeuVcpEWeZkbjNn2zn2wGDhTWG/JupNmCyWYIItr98C4LEgrD5I8aUCAui
+	 H4W2AMiROm14Ib7hqF0UXbne1UGnoeMO6gi2gMDXWquReVHt2aM95Kmicp6nwQXife
+	 ZCpaJ+H/2FLyQ==
+Date: Fri, 11 Sep 2026 10:32:17 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Itaru Kitayama <itaru.kitayama@fujitsu.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Fuad Tabba <tabba@google.com>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Jonathan Corbet <corbet@lwn.net>, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, kvm@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	Jack Thomson <jackabt@amazon.com>, Jack Thomson <jackabt.amazon@gmail.com>, 
+	Alexandru Elisei <alexandru.elisei@arm.com>, Vincent Donnefort <vdonnefort@google.com>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Sean Christopherson <seanjc@google.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, Leo Soares Passos <Leo.Bras@arm.com>, 
+	Wei-Lin Chang <weilin.chang@arm.com>
+Subject: Re: [PATCH 8/8] KVM: selftests: Add nested pre-fault test for arm64
+Message-ID: <aqPIUtNTJFwUvJME@gremlin>
+References: <20260825-kvm-arm-prefault-v1-0-befe8947702e@kernel.org>
+ <20260825-kvm-arm-prefault-v1-8-befe8947702e@kernel.org>
+ <aqOgEQKBGH-YqGr3@sm-arm-grace07>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9362.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 92d8f615-31f2-4529-4b4e-08df0fe783a7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Sep 2026 09:31:52.6212
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 2AfotHN/cJybQGHkMwJOw5y1Sp+QLud2hTp0qO/NCJOoTXKVuZdlopF4ehLTzbODl0n8W/HBSBldDqp40VdcQA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB11692
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqOgEQKBGH-YqGr3@sm-arm-grace07>
 
-DQpOWFAgUHVibGljDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IExha3No
-YXkgUGlwbGFuaSA8bGFrc2hheS5waXBsYW5pQG54cC5jb20+DQo+IFNlbnQ6IFRodXJzZGF5LCBT
-ZXB0ZW1iZXIgMywgMjAyNiAxMTo1MSBBTQ0KPiBUbzogbGludXgta2VybmVsQHZnZXIua2VybmVs
-Lm9yZzsgbGludXgtaTNjQGxpc3RzLmluZnJhZGVhZC5vcmc7DQo+IGFsZXhhbmRyZS5iZWxsb25p
-QGJvb3RsaW4uY29tOyBrcnprK2R0QGtlcm5lbC5vcmc7IHJvYmhAa2VybmVsLm9yZzsNCj4gY29u
-b3IrZHRAa2VybmVsLm9yZzsgZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmc7IGJyb29uaWVAa2Vy
-bmVsLm9yZzsNCj4gbGVlQGtlcm5lbC5vcmc7IEZyYW5rIExpIDxmcmFuay5saUBueHAuY29tPjsg
-bGdpcmR3b29kQGdtYWlsLmNvbQ0KPiBDYzogVmlrYXNoIEJhbnNhbCA8dmlrYXNoLmJhbnNhbEBu
-eHAuY29tPjsgUHJpeWFua2EgSmFpbg0KPiA8cHJpeWFua2EuamFpbkBueHAuY29tPjsgQW1hbiBL
-dW1hciBQYW5kZXkNCj4gPGFtYW4ua3VtYXJwYW5kZXlAbnhwLmNvbT47IExha3NoYXkgUGlwbGFu
-aSA8bGFrc2hheS5waXBsYW5pQG54cC5jb20+DQo+IFN1YmplY3Q6IFtQQVRDSCB2MTggNC84XSBt
-ZmQ6IHAzaDJ4NHg6IEFkZCBkcml2ZXIgZm9yIE5YUCBQM0gyeDR4IGkzYyBodWINCj4gYW5kIG9u
-LWRpZSByZWd1bGF0b3INCj4NCj4gRnJvbTogQW1hbiBLdW1hciBQYW5kZXkgPGFtYW4ua3VtYXJw
-YW5kZXlAbnhwLmNvbT4NCj4NCj4gQWRkIGNvcmUgTUZEIHN1cHBvcnQgZm9yIHRoZSBOWFAgUDNI
-Mng0eA0KPiAoUDNIMjQ0MC9QM0gyNDQxL1AzSDI4NDAvUDNIMjg0MSkgZmFtaWx5IG9mIG11bHRp
-cG9ydCBJM0MgaHViIGRldmljZXMuDQo+IFRoZXNlIGRldmljZXMgY29ubmVjdCB0byBhIGhvc3Qg
-dmlhIEkzQy9JMkMvU01CdXMgYW5kIGV4cG9zZSBtdWx0aXBsZQ0KPiBkb3duc3RyZWFtIHRhcmdl
-dCBwb3J0cy4NCj4NCj4gQWxsIHZhcmlhbnRzIHNoYXJlIHRoZSBzYW1lIHJlZ2lzdGVyIGludGVy
-ZmFjZS4gVGhlIGRyaXZlciByZWFkcyB0aGUgdGFyZ2V0LXBvcnQNCj4gY291bnQgZnJvbSBERVZf
-Q0FQQUIgYW5kIGFwcGxpZXMgdGhlIERUIGNvbmZpZ3VyYXRpb24sIHNvIG5vIHBlci1jb21wYXRp
-YmxlDQo+IGRyaXZlciBkYXRhIGlzIHJlcXVpcmVkLg0KPg0KPiBTaWduZWQtb2ZmLWJ5OiBBbWFu
-IEt1bWFyIFBhbmRleSA8YW1hbi5rdW1hcnBhbmRleUBueHAuY29tPg0KPiBTaWduZWQtb2ZmLWJ5
-OiBWaWthc2ggQmFuc2FsIDx2aWthc2guYmFuc2FsQG54cC5jb20+DQo+IFNpZ25lZC1vZmYtYnk6
-IExha3NoYXkgUGlwbGFuaSA8bGFrc2hheS5waXBsYW5pQG54cC5jb20+DQo+IFJldmlld2VkLWJ5
-OiBGcmFuayBMaSA8RnJhbmsuTGlAbnhwLmNvbT4NCg0KSGkgTGVlLA0KDQpBIGdlbnRsZSBmb2xs
-b3ctdXAgb24gdGhpcyBNRkQgcGF0Y2guIENvdWxkIHlvdSBwbGVhc2UgcmV2aWV3IGl0IHdoZW4g
-eW91IGhhdmUgYSBjaGFuY2U/DQoNClJlZ2FyZHMNCkxha3NoYXkNCg==
++cc Wei-Lin
+
+On Fri, Sep 11, 2026 at 03:30:41PM +0900, Itaru Kitayama wrote:
+> Hi Lorenzo,
+>
+> On Tue, Aug 25, 2026 at 05:00:42PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > From: Jack Thomson <jackabt@amazon.com>
+> >
+> > Add an arm64 nested-virt selftest for KVM_PRE_FAULT_MEMORY. The guest
+> > enters vEL1 and exits to userspace with a nested/shadow stage-2 MMU as
+> > the vCPU's last-run context.
+> >
+> > Before prefaulting, userspace enables HCR_EL2.VM and points VTTBR_EL2 at
+> > an empty nested stage-2 root. A prefault implementation that incorrectly
+> > treats the userspace GPA as an L2 IPA will fail the ioctl; the correct
+> > path targets the canonical stage-2 and succeeds.
+> >
+> > Restore the original nested state before resuming the guest, then touch
+> > the prefaulted range to check that vEL1 still runs correctly.
+> >
+> > Signed-off-by: Jack Thomson <jackabt@amazon.com>
+> > [ljs: partial progress, >4 KiB pgsize, commit msg, comment fixups]
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> >  tools/testing/selftests/kvm/Makefile.kvm           |   1 +
+> >  .../selftests/kvm/arm64/nv_pre_fault_memory_test.c | 206 +++++++++++++++++++++
+> >  2 files changed, 207 insertions(+)
+>
+> I wonder whether this selftest can use functions Wei-Lin proposed
+> some time ago [1]: 20260325003620.2214766-1-weilin.chang@arm.com
+> or would you prefer this test as propose, since it is clear as
+> to what needs to be done to enter L2.
+
+I think if these aren't merged yet then that could be a follow up?
+
+>
+> Thanks,
+> Itaru.
+>
+> >
+> > diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
+> > index 66a9a4e62888..1e0edd0f99f7 100644
+> > --- a/tools/testing/selftests/kvm/Makefile.kvm
+> > +++ b/tools/testing/selftests/kvm/Makefile.kvm
+> > @@ -173,6 +173,7 @@ TEST_GEN_PROGS_arm64 += arm64/debug-exceptions
+> >  TEST_GEN_PROGS_arm64 += arm64/hello_el2
+> >  TEST_GEN_PROGS_arm64 += arm64/host_sve
+> >  TEST_GEN_PROGS_arm64 += arm64/hypercalls
+> > +TEST_GEN_PROGS_arm64 += arm64/nv_pre_fault_memory_test
+> >  TEST_GEN_PROGS_arm64 += arm64/external_aborts
+> >  TEST_GEN_PROGS_arm64 += arm64/mmio_sign_ext
+> >  TEST_GEN_PROGS_arm64 += arm64/page_fault_test
+> > diff --git a/tools/testing/selftests/kvm/arm64/nv_pre_fault_memory_test.c b/tools/testing/selftests/kvm/arm64/nv_pre_fault_memory_test.c
+> > new file mode 100644
+> > index 000000000000..b3833aea2a34
+> > --- /dev/null
+> > +++ b/tools/testing/selftests/kvm/arm64/nv_pre_fault_memory_test.c
+> > @@ -0,0 +1,206 @@
+> > +// SPDX-License-Identifier: GPL-2.0-only
+> > +/*
+> > + * nv_pre_fault_memory_test - Test KVM_PRE_FAULT_MEMORY on a vCPU whose
+> > + * last-run context is nested.
+> > + *
+> > + * The guest starts at vEL2, mirrors its EL2 translation regime into the
+> > + * real EL1 registers, drops HCR_EL2.TGE and ERETs to vEL1, then exits to
+> > + * userspace from vEL1 so that the vCPU's last-run context selects a
+> > + * shadow stage-2 MMU. Userspace then enables an empty nested stage-2
+> > + * before prefaulting. Prefaulting must target the canonical stage-2,
+> > + * regardless of the vCPU's nested state.
+> > + */
+> > +#include "kvm_util.h"
+> > +#include "processor.h"
+> > +#include "test_util.h"
+> > +#include "ucall.h"
+> > +
+> > +#include <asm/sysreg.h>
+> > +#include <linux/sizes.h>
+> > +
+> > +#define TEST_MEM_SLOT		10
+> > +#define NESTED_S2_ROOT_SLOT	11
+> > +#define TEST_MEM_SIZE		SZ_2M
+> > +#define TEST_MEM_GPA		SZ_1G
+> > +#define NESTED_S2_ROOT_GPA	(TEST_MEM_GPA + TEST_MEM_SIZE)
+> > +
+> > +struct nested_s2_state {
+> > +	u64 hcr_el2;
+> > +	u64 vttbr_el2;
+> > +};
+> > +
+> > +static void guest_el1_code(void)
+> > +{
+> > +	u64 offset;
+> > +
+> > +	GUEST_ASSERT_EQ(get_current_el(), 1);
+> > +
+> > +	/* Exit to userspace with the vEL1 (nested) context live. */
+> > +	GUEST_SYNC(1);
+> > +
+> > +	/*
+> > +	 * Touch the prefaulted range. vstage-2 is disabled, so the shadow
+> > +	 * stage-2 is a 1:1 view of the canonical IPA space.
+> > +	 */
+> > +	for (offset = 0; offset < TEST_MEM_SIZE; offset += SZ_4K)
+> > +		READ_ONCE(*(u64 *)(TEST_MEM_GPA + offset));
+> > +
+> > +	GUEST_DONE();
+> > +}
+> > +
+> > +static void guest_code(void)
+> > +{
+> > +	u64 sp;
+> > +
+> > +	GUEST_ASSERT_EQ(get_current_el(), 2);
+> > +
+> > +	/*
+> > +	 * Mirror the EL2 translation regime into the real EL1 registers so
+> > +	 * that vEL1 runs on the test's stage-1 page tables. With E2H=1, the
+> > +	 * _EL1 accessors read the EL2 registers, and the _EL12 accessors
+> > +	 * write the real EL1 registers.
+> > +	 */
+> > +	write_sysreg_s(read_sysreg(sctlr_el1), SYS_SCTLR_EL12);
+> > +	write_sysreg_s(read_sysreg(tcr_el1), SYS_TCR_EL12);
+> > +	write_sysreg_s(read_sysreg(ttbr0_el1), SYS_TTBR0_EL12);
+> > +	write_sysreg_s(read_sysreg(mair_el1), SYS_MAIR_EL12);
+> > +	write_sysreg_s(read_sysreg(cpacr_el1), SYS_CPACR_EL12);
+> > +
+> > +	/* Run vEL1 on the same stack. */
+> > +	asm volatile("mov %0, sp" : "=r"(sp));
+> > +	write_sysreg(sp, sp_el1);
+> > +
+> > +	/*
+> > +	 * Drop TGE so that vEL1 is a nested context rather than host EL0.
+> > +	 * KVM backs it with a shadow stage-2 MMU even though vstage-2 is
+> > +	 * disabled (HCR_EL2.VM=0).
+> > +	 */
+> > +	write_sysreg(read_sysreg(hcr_el2) & ~HCR_EL2_TGE, hcr_el2);
+> > +	isb();
+> > +
+> > +	write_sysreg(PSR_MODE_EL1h | PSR_F_BIT | PSR_I_BIT | PSR_A_BIT |
+> > +		     PSR_D_BIT, spsr_el2);
+> > +	write_sysreg((u64)guest_el1_code, elr_el2);
+> > +	asm volatile("eret");
+> > +
+> > +	GUEST_ASSERT(false);
+> > +}
+> > +
+> > +static void pre_fault(struct kvm_vcpu *vcpu, u64 gpa, u64 size)
+> > +{
+> > +	struct kvm_pre_fault_memory range = {
+> > +		.gpa = gpa,
+> > +		.size = size,
+> > +	};
+> > +	int ret;
+> > +
+> > +	do {
+> > +		ret = __vcpu_ioctl(vcpu, KVM_PRE_FAULT_MEMORY, &range);
+> > +	} while ((!ret && range.size) ||
+> > +		 (ret < 0 && (errno == EINTR || errno == EAGAIN)));
+> > +
+> > +	TEST_ASSERT(!ret, "KVM_PRE_FAULT_MEMORY failed, ret: %d errno: %d",
+> > +		    ret, errno);
+> > +	TEST_ASSERT_EQ(range.size, 0);
+> > +}
+> > +
+> > +static struct nested_s2_state enable_empty_nested_s2(struct kvm_vcpu *vcpu)
+> > +{
+> > +	struct nested_s2_state state = {
+> > +		.hcr_el2 = vcpu_get_reg(vcpu, KVM_ARM64_SYS_REG(SYS_HCR_EL2)),
+> > +		.vttbr_el2 = vcpu_get_reg(vcpu,
+> > +					   KVM_ARM64_SYS_REG(SYS_VTTBR_EL2)),
+> > +	};
+> > +
+> > +	TEST_ASSERT(!(state.hcr_el2 & HCR_EL2_TGE),
+> > +		    "vCPU should be in nested/vEL1 context");
+> > +
+> > +	vcpu_set_reg(vcpu, KVM_ARM64_SYS_REG(SYS_VTTBR_EL2),
+> > +		     NESTED_S2_ROOT_GPA);
+> > +	vcpu_set_reg(vcpu, KVM_ARM64_SYS_REG(SYS_HCR_EL2),
+> > +		     state.hcr_el2 | HCR_EL2_VM);
+> > +
+> > +	return state;
+> > +}
+> > +
+> > +static void restore_nested_s2(struct kvm_vcpu *vcpu,
+> > +			      struct nested_s2_state *state)
+> > +{
+> > +	vcpu_set_reg(vcpu, KVM_ARM64_SYS_REG(SYS_HCR_EL2), state->hcr_el2);
+> > +	vcpu_set_reg(vcpu, KVM_ARM64_SYS_REG(SYS_VTTBR_EL2),
+> > +		     state->vttbr_el2);
+> > +}
+> > +
+> > +int main(void)
+> > +{
+> > +	struct nested_s2_state s2;
+> > +	struct kvm_vcpu_init init;
+> > +	struct kvm_vcpu *vcpu;
+> > +	struct kvm_vm *vm;
+> > +	struct ucall uc;
+> > +	u64 npages;
+> > +
+> > +	TEST_REQUIRE(kvm_check_cap(KVM_CAP_ARM_EL2));
+> > +	TEST_REQUIRE(kvm_check_cap(KVM_CAP_PRE_FAULT_MEMORY));
+> > +
+> > +	vm = vm_create(1);
+> > +
+> > +	kvm_get_default_vcpu_target(vm, &init);
+> > +	init.features[0] |= BIT(KVM_ARM_VCPU_HAS_EL2);
+> > +	vcpu = aarch64_vcpu_add(vm, 0, &init, guest_code);
+> > +	kvm_arch_vm_finalize_vcpus(vm);
+> > +
+> > +	npages = TEST_MEM_SIZE / vm->page_size;
+> > +	vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS, TEST_MEM_GPA,
+> > +				    TEST_MEM_SLOT, npages, 0);
+> > +	virt_map(vm, TEST_MEM_GPA, TEST_MEM_GPA, npages);
+> > +
+> > +	vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS,
+> > +				    NESTED_S2_ROOT_GPA, NESTED_S2_ROOT_SLOT,
+> > +				    vm_adjust_num_guest_pages(vm->mode, 1), 0);
+> > +
+> > +	/* Run the guest until it has ERET'd from vEL2 to vEL1. */
+> > +	vcpu_run(vcpu);
+> > +	switch (get_ucall(vcpu, &uc)) {
+> > +	case UCALL_SYNC:
+> > +		TEST_ASSERT_EQ(uc.args[1], 1);
+> > +		break;
+> > +	case UCALL_ABORT:
+> > +		REPORT_GUEST_ASSERT(uc);
+> > +		break;
+> > +	default:
+> > +		TEST_FAIL("Unhandled ucall: %ld", uc.cmd);
+> > +	}
+> > +
+> > +	/*
+> > +	 * The vCPU's last-run context is vEL1, backed by a shadow stage-2
+> > +	 * MMU. Enable nested stage-2 with an empty root so that the ioctl
+> > +	 * fails if it tries to interpret the userspace GPA as an L2 IPA.
+> > +	 *
+> > +	 * Prefault in two halves so that the second ioctl exercises a
+> > +	 * repeated shadow-MMU attach and canonical stage-2 swap.
+> > +	 *
+> > +	 * (Note that an implementation that wrongly populates shadow
+> > +	 * stage-2 page tables would not be caught as userland can't
+> > +	 * inspect these.)
+> > +	 */
+> > +	s2 = enable_empty_nested_s2(vcpu);
+> > +	pre_fault(vcpu, TEST_MEM_GPA, TEST_MEM_SIZE / 2);
+> > +	pre_fault(vcpu, TEST_MEM_GPA + TEST_MEM_SIZE / 2, TEST_MEM_SIZE / 2);
+> > +	restore_nested_s2(vcpu, &s2);
+> > +
+> > +	/* Resume at vEL1 and touch the prefaulted range. */
+> > +	vcpu_run(vcpu);
+> > +	switch (get_ucall(vcpu, &uc)) {
+> > +	case UCALL_DONE:
+> > +		break;
+> > +	case UCALL_ABORT:
+> > +		REPORT_GUEST_ASSERT(uc);
+> > +		break;
+> > +	default:
+> > +		TEST_FAIL("Unhandled ucall: %ld", uc.cmd);
+> > +	}
+> > +
+> > +	kvm_vm_free(vm);
+> > +	return 0;
+> > +}
+> >
+> > --
+> > 2.55.0
+> >
+
+--
+Cheers, Lorenzo
