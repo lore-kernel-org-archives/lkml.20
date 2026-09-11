@@ -1,253 +1,100 @@
-Received: from mta0.migadu.com (out-56.mta0.migadu.com [91.218.175.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.thelounge.net (mail.thelounge.net [91.118.73.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC0F5489FAF
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:57:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B7E4756C1
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:57:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.118.73.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789135078; cv=none; b=lqV7rntl7Q/pQumchr99Fs2ptrWcfBCjsGW36pIxIw6nHE1hmpjazDHYsHXgdn62bCIat7VrlbOecT1qOkNw+nWMCXhsZmxMa0BD7Z6QOkQyCmZ4y8EMKqbwTObvXN6ZekSXZTyo1Fc14Av7p+KK8n0yR8vkykrTVSeomczyw4U=
+	t=1789135080; cv=none; b=chHmRmn45RWLsDUT0zQgDYYBpxK35CIneiFP8WMg1YLYn+mUaR44LgBEjBXr9CdG5f+GPe0HuGNvr5s48T7fSvJFQpoU/RtbIV0+Ig+vCf1MSIvsIKShERyzPdgn045jJtZvfAm+PJqdbHM8Lf7YaOTw5/dbY7mahv6mPKz/qWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789135078; c=relaxed/simple;
-	bh=vnXi2B+daHTrr8d0jD+YCxvt2qRsjGk5xYPqsZdUD00=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kBraNq/AyJ49sx5+NFmP/x/8NTcy+QQd5nSeBSuiwZF1Z9Bm2wB4KcMKj4qPLglamafpMm6ZWpN/S0PptfjWkzSrXjKVCi34wEjGkNXXoSKUHeptG/9O3KfUfZP+ggpCK3O22j44xjpIdW7dPdk+75fmhInrLUfXUwSRleRLxS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xqPzYTNZ; arc=none smtp.client-ip=91.218.175.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xqPzYTNZ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=vnXi2B+daHTrr8d0jD+YCxvt2qRsjGk5xYPqsZdUD00=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789135071; v=1; x=1789739871;
- b=xqPzYTNZuAEu5rRdHiS6DR3nsAs4wZqszkLIMSugKgQDs86jI9+/hapdMjsyGO/pCy64oEIG
- DSaEiLI/qudg+DTzo/F/Mqcee+AbW/Jfuw11JkY+S6aFtWM6gzcVYT9EejKwrOvRuP40PPWonVa
- tNElVuOp3dEOMTRW9BuOpM+Y=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 02f6325c21f55bda;
-	Fri, 11 Sep 2026 13:57:51 +0000
-X-Mizu-Trace-ID: 02f6325c21f55bda
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	syzbot+237bbeed8dfe0699b7f5@syzkaller.appspotmail.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Simon Horman <horms@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Hangbin Liu <liuhangbin@gmail.com>,
-	Martin Karsten <mkarsten@uwaterloo.ca>,
-	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
-	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>,
-	Eelco Chaudron <echaudro@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf v3 1/2] bpf, veth: xdp: fix page_pool page leak on skb-backed XDP
-Date: Fri, 11 Sep 2026 21:56:51 +0800
-Message-ID: <20260911135711.109338-2-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260911135711.109338-1-jiayuan.chen@linux.dev>
-References: <20260911135711.109338-1-jiayuan.chen@linux.dev>
+	s=arc-20240116; t=1789135080; c=relaxed/simple;
+	bh=v0MSZLTJg8/VLfPzzilL4Wbnbbf0+upFkzQ6GNmp020=;
+	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=HRfdtHSGJnpwG8cDD8X8l00o79kQBcQNJkIfcv9YczKN3wN5MI4ch6vIiktQA/cS9qs4rli//zDj28BnlWOXfxSMmza1QAPtBm7jg4nON1+WdRpmxwOgajwVXadK+IZWTYlt9wS4h3Uoo4STxRcyCDUDxCJPOgQfvMomDfS2AnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thelounge.net; spf=pass smtp.mailfrom=thelounge.net; arc=none smtp.client-ip=91.118.73.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thelounge.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thelounge.net
+Received: from [10.10.10.2] (rh.vpn.thelounge.net [10.10.10.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: h.reindl@thelounge.net)
+	by mail.thelounge.net (THELOUNGE MTA) with ESMTPSA id 4hhG1S2XSfzXLK
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:42:04 +0200 (CEST)
+Message-ID: <077dd42e-cbc9-4c23-a5ef-3d20e4fc7757@thelounge.net>
+Date: Fri, 11 Sep 2026 15:42:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+To: linux-kernel@vger.kernel.org
+Content-Language: en-US
+From: Reindl Harald <h.reindl@thelounge.net>
+Subject: Linux 7.2 regression - udev setting scheduler
+Autocrypt: addr=h.reindl@thelounge.net; keydata=
+ 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
+ K4rYsjPimkSIVdrNM//wVKdCTbO+
+Organization: the lounge interactive design
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-bpf_xdp_shrink_data() frees a released frag via __xdp_return() using
-xdp->rxq->mem.type, but that type is wrong for skb-backed XDP: the skb is
-cow'd into page_pool memory while the rxq still says MEM_TYPE_PAGE_SHARED,
-so the page_pool page is freed with page_frag_free() and we hit
-"Bad page state ... page_pool leak".
+the rules are in place since at least 2019 and with 7.2 now fire errors
 
-Both generic XDP and veth are affected. A non-linear skb is cow'd into
-page_pool memory (skb_cow_data_for_xdp() -> skb_pp_cow_data() for generic
-XDP, veth_convert_skb_to_xdp_buff() for veth), so its frags become
-page_pool pages while the rxq keeps MEM_TYPE_PAGE_SHARED.
+Sep 11 15:30:55 testserver (udev-worker)[321]: sdb: 
+/etc/udev/rules.d/80-mq-deadline.rules:1 
+ATTR{queue/scheduler}="mq-deadline": Failed to write "mq-deadline" to 
+sysfs attribute "queue/scheduler", ignoring: Device or resource busy
+Sep 11 15:30:57 testserver (udev-worker)[462]: sdb: 
+/usr/lib/udev/rules.d/60-block-scheduler.rules:3 
+ATTR{queue/scheduler}="bfq": Failed to write "bfq" to sysfs attribute 
+"queue/scheduler", ignoring: Device or resource busy
+Sep 11 15:30:57 testserver (udev-worker)[462]: sdb: 
+/etc/udev/rules.d/80-mq-deadline.rules:1 
+ATTR{queue/scheduler}="mq-deadline": Failed to write "mq-deadline" to 
+sysfs attribute "queue/scheduler", ignoring: Device or resource busy
 
-We can't just fix rxq->mem.type in place:
-- generic XDP: xdp->rxq is dev->_rx[queue].xdp_rxq (see
-  bpf_prog_run_generic_xdp()), a shared rxq that other CPUs may access in
-  parallel, so we must not write to it.
-- veth: rq->xdp_rxq.mem is shared per-queue state that veth resets on XDP
-  teardown, and with GRO that reset runs without stopping in-flight NAPI,
-  so a type stashed there can be clobbered under a packet still in flight.
+[root@testserver:~]$ cat /etc/udev/rules.d/80-mq-deadline.rules
+ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/scheduler}="mq-deadline"
 
-Adding a check in __xdp_return() or bpf_xdp_shrink_data() itself is not an
-option either: without recording it somewhere, both can only guess the
-frag's memory type, which quickly gets confusing.
+[root@testserver:~]$ cat /usr/lib/udev/rules.d/60-block-scheduler.rules
+ACTION=="add", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", \
+   KERNEL=="mmcblk*[0-9]|msblk*[0-9]|mspblk*[0-9]|sd*[!0-9]|sr*", \
+   ATTR{queue/scheduler}="bfq"
 
-So record it in the xdp_buff. A dedicated mem_type field (mirroring
-xdp_frame->mem_type) would read more naturally, but it grows xdp_buff, and
-struct xdp_page_head embeds two of them, which shifts the layout the
-xdp_do_redirect live-frames selftest hard-codes (MAX_PKT_SIZE). So use a
-flag bit: add XDP_FLAGS_FRAGS_PAGE_POOL, the two skb-cow sites set it, and
-bpf_xdp_shrink_data() frees the frag to the page_pool when it is set,
-otherwise it keeps falling back to xdp->rxq->mem.type unchanged.
-
-The flag describes the buff, so the buff <-> frame conversions have to keep
-it consistent:
-- buff -> frame: xdp_update_frame_from_buff() copies xdp->flags into the
-  frame. veth XDP_TX/XDP_REDIRECT hand the frame to the peer, and cpumap
-  and devmap run a second program on it, so the peer would inherit a stale
-  tag; strip it, an xdp_frame describes its memory with ::mem_type.
-- frame -> buff: xdp_convert_frame_to_buff() rebuilds a buff, and veth and
-  devmap then run a program whose rxq says MEM_TYPE_PAGE_SHARED even for a
-  page_pool frame (only cpumap copies mem_type into the rxq). A shrink
-  there leaks the same way (this predates the series: bpf_xdp_adjust_tail()
-  frees frags by rxq->mem.type), so re-derive the flag from the frame's
-  ::mem_type.
-
-Fixes: e6d5dbdd20aa ("xdp: add multi-buff support for xdp running in generic mode")
-Fixes: 0ebab78cbcbf ("net: veth: add page_pool for page recycling")
-Fixes: bf25146a5595 ("bpf: add frags support to the bpf_xdp_adjust_tail() API")
-Reported-by: syzbot+237bbeed8dfe0699b7f5@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=237bbeed8dfe0699b7f5
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
- drivers/net/veth.c |  6 ++++++
- include/net/xdp.h  | 30 +++++++++++++++++++++++++++++-
- net/core/dev.c     |  6 ++++++
- net/core/filter.c  |  7 +++++++
- 4 files changed, 48 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-index 6ed3ee81153fb..a3fdf1959b76c 100644
---- a/drivers/net/veth.c
-+++ b/drivers/net/veth.c
-@@ -775,6 +775,12 @@ static int veth_convert_skb_to_xdp_buff(struct veth_rq *rq,
- 	if (skb_shinfo(skb)->nr_frags) {
- 		skb_shinfo(skb)->xdp_frags_size = skb->data_len;
- 		xdp_buff_set_frags_flag(xdp);
-+		/*
-+		 * A nonlinear skb was cow'd into rq->page_pool above, so the
-+		 * frags must be freed to that pool, not via the rxq's
-+		 * MEM_TYPE_PAGE_SHARED.
-+		 */
-+		xdp_buff_set_frag_pp(xdp);
- 	} else {
- 		xdp_buff_clear_frags_flag(xdp);
- 	}
-diff --git a/include/net/xdp.h b/include/net/xdp.h
-index aa742f413c358..8fd4139e9cbd3 100644
---- a/include/net/xdp.h
-+++ b/include/net/xdp.h
-@@ -81,6 +81,14 @@ enum xdp_buff_flags {
- 	 * XDP program is not attached.
- 	 */
- 	XDP_FLAGS_FRAGS_UNREADABLE	= BIT(2),
-+	/*
-+	 * frags are page_pool memory even though rxq->mem.type is not: a
-+	 * skb-backed XDP buff (generic XDP, veth) is cow'd into a page_pool.
-+	 * xdp_buff only: an xdp_frame describes its memory with ::mem_type, so
-+	 * this is stripped in xdp_update_frame_from_buff() and re-derived from
-+	 * ::mem_type in xdp_convert_frame_to_buff().
-+	 */
-+	XDP_FLAGS_FRAGS_PAGE_POOL	= BIT(3),
- };
- 
- struct xdp_buff {
-@@ -131,6 +139,16 @@ static __always_inline void xdp_buff_set_frag_unreadable(struct xdp_buff *xdp)
- 	xdp->flags |= XDP_FLAGS_FRAGS_UNREADABLE;
- }
- 
-+static __always_inline void xdp_buff_set_frag_pp(struct xdp_buff *xdp)
-+{
-+	xdp->flags |= XDP_FLAGS_FRAGS_PAGE_POOL;
-+}
-+
-+static __always_inline bool xdp_buff_is_frag_pp(const struct xdp_buff *xdp)
-+{
-+	return !!(xdp->flags & XDP_FLAGS_FRAGS_PAGE_POOL);
-+}
-+
- static __always_inline u32 xdp_buff_get_skb_flags(const struct xdp_buff *xdp)
- {
- 	return xdp->flags;
-@@ -394,6 +412,15 @@ void xdp_convert_frame_to_buff(const struct xdp_frame *frame,
- 	xdp->data_meta = frame->data - frame->metasize;
- 	xdp->frame_sz = frame->frame_sz;
- 	xdp->flags = frame->flags;
-+	/*
-+	 * frame->flags never carries XDP_FLAGS_FRAGS_PAGE_POOL (it is stripped
-+	 * in xdp_update_frame_from_buff()); re-derive it from the frame's own
-+	 * memory type. veth and devmap rebuild a buff here and run a program
-+	 * whose rxq says MEM_TYPE_PAGE_SHARED, so without this a shrink would
-+	 * free a page_pool frag through page_frag_free().
-+	 */
-+	if (frame->mem_type == MEM_TYPE_PAGE_POOL)
-+		xdp_buff_set_frag_pp(xdp);
- }
- 
- static inline
-@@ -420,7 +447,8 @@ int xdp_update_frame_from_buff(const struct xdp_buff *xdp,
- 	xdp_frame->headroom = headroom - sizeof(*xdp_frame);
- 	xdp_frame->metasize = metasize;
- 	xdp_frame->frame_sz = xdp->frame_sz;
--	xdp_frame->flags = xdp->flags;
-+	/* XDP_FLAGS_FRAGS_PAGE_POOL is xdp_buff only, don't carry it over */
-+	xdp_frame->flags = xdp->flags & ~XDP_FLAGS_FRAGS_PAGE_POOL;
- 
- 	return 0;
- }
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 290e0f099e6bf..94268f4d3c5f7 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -5532,6 +5532,12 @@ u32 bpf_prog_run_generic_xdp(struct sk_buff *skb, struct xdp_buff *xdp,
- 	if (skb_is_nonlinear(skb)) {
- 		skb_shinfo(skb)->xdp_frags_size = skb->data_len;
- 		xdp_buff_set_frags_flag(xdp);
-+		/*
-+		 * A nonlinear skb was cow'd into page_pool memory by
-+		 * skb_cow_data_for_xdp() before we got here, so the frags must
-+		 * be freed to that pool, not via the rxq's MEM_TYPE_PAGE_SHARED.
-+		 */
-+		xdp_buff_set_frag_pp(xdp);
- 	} else {
- 		xdp_buff_clear_frags_flag(xdp);
- 	}
-diff --git a/net/core/filter.c b/net/core/filter.c
-index 61940e7535523..d34ba56d79d8f 100644
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -4378,6 +4378,13 @@ static bool bpf_xdp_shrink_data(struct xdp_buff *xdp, skb_frag_t *frag,
- 	if (mem_type == MEM_TYPE_XSK_BUFF_POOL) {
- 		netmem = 0;
- 		zc_frag = bpf_xdp_shrink_data_zc(xdp, shrink, tail, release);
-+	} else if (xdp_buff_is_frag_pp(xdp)) {
-+		/*
-+		 * Skb-backed XDP (generic XDP, veth) cow's the frags into a
-+		 * page_pool while the rxq stays MEM_TYPE_PAGE_SHARED, so free
-+		 * the frag to the pool, not via page_frag_free().
-+		 */
-+		mem_type = MEM_TYPE_PAGE_POOL;
- 	}
- 
- 	if (release) {
--- 
-2.43.0
+[root@testserver:~]$ uname -a
+Linux testserver.rhsoft.net 7.2.4-200.fc44.x86_64 #1 SMP PREEMPT_DYNAMIC 
+Mon Sep  7 19:10:19 UTC 2026 x86_64 GNU/Linux
 
