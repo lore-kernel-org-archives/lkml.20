@@ -1,214 +1,165 @@
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com [209.85.221.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B16923DDAF3
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:39:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C8A4A92FE;
+	Fri, 11 Sep 2026 19:40:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789155612; cv=none; b=sTciboykVZNwPjyFxPb3ZKernPNdPGirhK9kR3B0E+sqrq1u4BJpVavaC8wOX3Dza2hwuafl560LyobnXLBq8Y0qcoewBB8CJ5T9i8XbXxCiZLaqkSxn7CoVnuLYfTSrNRf9MVvI97U3txO6WN2ov1i2JjQFdLiokVfO1zSaLo0=
+	t=1789155631; cv=none; b=sTc+YJtY6PY1EBKuknXn3DzT1TyqnVdwmCKRYUgN4rDaqBjRYuldj0x7ORlfvg+HDAPGy2bMSeQHqM3DrufHAKBGTAY2VxpWMj8GfTdiLA6OrT56dA77fAcwL663gW50awxnFa+0eNwat0aWV6k0pmFzoOlrCqZ9cjYP13Pzlxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789155612; c=relaxed/simple;
-	bh=hHw7yRoGhvN7MS5FpP2lX23LuKJXsj+eKlavKiGW0rA=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=jBV+SYmFhpr+66RierraipWDDgdPamgFJeqvI2FMfGyH4CFoloz6bCT5axPQT+fuJo5ZarzqqG0GyHz3Ps6Fzp0Nv4fUIBTZJO5mQAoqEykvUGHs9D/cf/hRy/ThAlhMCemNAkQJfp9fOJpRKCAUmgfm/17P8hUKu0cMfYZ4ohA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=P/S3ST0L; arc=none smtp.client-ip=209.85.221.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
+	s=arc-20240116; t=1789155631; c=relaxed/simple;
+	bh=BvcyYBL/6DvMpTsf26rSU6vpsqM4Qkuzt9TqOJJPzlE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=MtZ5loNlePP/ItiaBAa+WgUN28+4+TMqsdP+og6P7PectexUml4QUjasXJyecpDOql2M+FPNwF7qE0HMerGBBiDLIg82W0H+LSEuQHotkHjPB+OB2Fw4lPNBCkhzzlzxeuJSfXuRGIchVZPZwFYi2KpMS51ZhhjPF2RcNiFoVaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O4xxBZld; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="P/S3ST0L"
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-486f18da958so549505f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:39:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789155595; x=1789760395; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y+HXnPMMIZpskweD6Y6dmHOP8zh8fc/lEgtzHbrvfOQ=;
-        b=P/S3ST0LySyP8FyzSRxlCptHKzPuatNMp4Xx4QWQGxFlAAXFpnAX6gAUiyMzy61ZP0
-         q7FG0R6MuXyQoJth7irrwG2j69KkR/jE/93JmPOmXF7RaNCPcLzoaLaon7lI4etV7kZ4
-         t8UPhypeK7r2yDe6U4KW3/cC13KKxQV7xzasVmoioG1EG1fiFKHaZ6V2zAJoKmqChkf5
-         UOQW/b5ixwoRDuUNxv7/Wd94zoZD4Hc7rQEpG5Upp4MjrWPXHxe4PQ9vpCexcX4xdtFT
-         RroCrXIKTVQ797+3xpSqnFgCpairnxE763/fbG+bqA34KWpndzlAbbhDjGS4GqxOJHB9
-         fXAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789155595; x=1789760395;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=y+HXnPMMIZpskweD6Y6dmHOP8zh8fc/lEgtzHbrvfOQ=;
-        b=OyPG69Qarl2xvArJHcV0adUwiB2+FmH/uZPt92Yqr2QrDjeh//pf7TvtuIVWCcDYR/
-         8fBmkmGwOUyjZRigXcQGpKH1h2SRRXrjeAtsKWfm5i+4gyVLhAjLRx67yg0nZ0p9JpFg
-         UADMGYUFlXdxDOBwNNkstHIq5yOxtvm2Zs+TD+IomV48ZEKhrsA2RGLlBBbHbkt1wnyn
-         gZwD9B3ayA8BGn4bco2Si8NQxwkiKVTGpchdsseprupHVY37YV9nOk0t1SNhbIgUx0ir
-         jJFGnXotIHjcxnkaJdgwM+hJSRzQRpOoxivXi2mUBuFzO/7sEDB/KfPOlzsPS35s9hw1
-         YTBA==
-X-Forwarded-Encrypted: i=1; AKwUvBzqw5/jXFPybXHimQgrqQ+X9nxV4doVDimE+FzgswG1qeVB7FsuNDTJSjB5+8ZRxsrK1+0tXLxRx+Zx+sI=@vger.kernel.org
-X-Gm-Message-State: AFuF++llvEpezjnAoUnn8sGgi5iAl0jpIfkp1YNhzu0JlSqsXzFCzhUS
-	aqIqdKipqrn7Q6BvTBIThb7ieTumAmWov/02YiKB2Osl9aB7d6owV4WwtNUfui1xMx2knV2V9Dj
-	cZH2yLRi+svpRvBZDF0cXLQ==
-X-Received: from wrtl11.prod.google.com ([2002:a5d:4bcb:0:b0:47f:472f:4e85])
- (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:1001:b0:485:8ea0:da8c with SMTP id ffacd0b85a97d-486e987d543mr5838331f8f.16.1789155595237;
- Fri, 11 Sep 2026 12:39:55 -0700 (PDT)
-Date: Fri, 11 Sep 2026 20:39:37 +0100
-In-Reply-To: <20260911193937.602202-1-vdonnefort@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O4xxBZld"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F0C81F00898;
+	Fri, 11 Sep 2026 19:39:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789155616;
+	bh=AAMKCdWX5FPiRKf/xR0S9vZ7DBMPzl1KsARK3tocs/E=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=O4xxBZld+SvGvVkkf4deWTVMWnxPzOcP6ImLdjTW/FNyMpK99+HqRj4exMFfqErD7
+	 GBRImxnWOGwwKKa7jnafs+uetJavVL727WPmWlok+PyeBUYuQsH350TZu9cOozKPhz
+	 0fgAiXlvemQJAGFqxJuFvb6PHuGieiIcQgdi6a+7vZAYqYZARajTh9z+HonDuvoEA6
+	 gOxI/Jdg6ogMLeHs6frXn2Zsn7O3hCdbXng48u2CsukweoU3zU2bhNZorm/sF+B9yl
+	 SJGgQvQF37B0ZKcfEOAEaJwqBL7pzLtZOF3cFyNwIBX9u7OytDhbXDpyVPhbvhQlj0
+	 gA6I25G2i50xw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Fri, 11 Sep 2026 20:36:54 +0100
+Subject: [PATCH v3 07/12] mm: enable MMU_GATHER_RCU_TABLE_FREE for
+ m68k-coldfire
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260911193937.602202-1-vdonnefort@google.com>
-X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
-Message-ID: <20260911193937.602202-4-vdonnefort@google.com>
-Subject: [PATCH v2 3/3] ring-buffer: Unify ring buffer minimum page calculations
-From: Vincent Donnefort <vdonnefort@google.com>
-To: rostedt@goodmis.org, mhiramat@kernel.org, 
-	linux-trace-kernel@vger.kernel.org
-Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
-	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260911-rcu-pagetable-freeing-v3-7-7b8c86103821@kernel.org>
+References: <20260911-rcu-pagetable-freeing-v3-0-7b8c86103821@kernel.org>
+In-Reply-To: <20260911-rcu-pagetable-freeing-v3-0-7b8c86103821@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Guo Ren <guoren@kernel.org>, Brian Cain <bcain@kernel.org>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ Jonas Bonn <jonas@southpole.se>, 
+ Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
+ Stafford Horne <shorne@gmail.com>, 
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Russell King <linux@armlinux.org.uk>, Vineet Gupta <vgupta@kernel.org>, 
+ Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
+ Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Richard Henderson <richard.henderson@linaro.org>, 
+ Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Mark Rutland <mark.rutland@arm.com>, Huacai Chen <chenhuacai@kernel.org>, 
+ WANG Xuerui <kernel@xen0n.name>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
+ Johannes Berg <johannes@sipsolutions.net>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
+ linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, 
+ linux-sh@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-snps-arc@lists.infradead.org, 
+ linux-arch@vger.kernel.org, sparclinux@vger.kernel.org, 
+ linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, 
+ linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org, 
+ linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, 
+ Qi Zheng <qi.zheng@linux.dev>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1893; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=BvcyYBL/6DvMpTsf26rSU6vpsqM4Qkuzt9TqOJJPzlE=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKWRDTd8wriL3x1aNpEyx0ME5fM3n9qpUyPloV78fsWh
+ nKv+1MWd5SyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiF1wZ/llyx18xeN515vYH
+ Db9LJ+2XVIe+Srxx5FyAr2gi44KwexMYGe4Ub/G5vn/6mosL7eU2KydPEZJkd7mSGXU/cPP2t9s
+ tDzIDAA==
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-The codebase scatters hardcoded minimum page limits across multiple
-places. Introduce RING_BUFFER_MIN_NR_PAGES and rb_calculate_nr_pages()
-to formalize the requirement of two pages in a ring buffer.
+Similar to sun3, the coldfire variant of m68k uses 2-level page tables.
 
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+Update its __pte_free_tlb() function to use tlb_remove_ptdesc() in order
+that, with CONFIG_MMU_GATHER_RCU_TABLE_FREE, page tables are freed under
+RCU.
+
+The page tables occupy a page each and have no odd semantics, so this
+change suffices to allow enabling of CONFIG_MMU_GATHER_RCU_TABLE_FREE for
+m68k-coldfire, so do so.
+
+This forms part of an overall effort to switch every architecture to this
+mode.
+
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- include/linux/ring_buffer.h       |  9 ++++++++-
- kernel/trace/ring_buffer.c        | 32 +++++++++++++------------------
- kernel/trace/simple_ring_buffer.c |  4 ++--
- 3 files changed, 23 insertions(+), 22 deletions(-)
+ arch/m68k/Kconfig                   | 2 +-
+ arch/m68k/include/asm/mcf_pgalloc.h | 5 +----
+ 2 files changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/include/linux/ring_buffer.h b/include/linux/ring_buffer.h
-index eac3e9080c3c..e4370064273e 100644
---- a/include/linux/ring_buffer.h
-+++ b/include/linux/ring_buffer.h
-@@ -98,6 +98,13 @@ struct trace_buffer *__ring_buffer_alloc_range(unsigned long size, unsigned flag
- 
- void *ring_buffer_meta_scratch(struct trace_buffer *buffer, unsigned int *size);
- 
-+/*
-+ * A minimum of 2 pages ensures we can always swap a page out of the ring
-+ * buffer. This does not account for the reader page or any other page
-+ * containing meta data used by static ring buffers.
-+ */
-+#define RING_BUFFER_MIN_NR_PAGES 2UL
-+
- /*
-  * Because the ring buffer is generic, if other users of the ring buffer get
-  * traced by ftrace, it can produce lockdep warnings. We need to keep each
-@@ -287,7 +294,7 @@ static inline struct ring_buffer_desc *__first_ring_buffer_desc(struct trace_buf
- static inline unsigned long __calc_nr_pages_ring_buffer_desc(size_t size)
+diff --git a/arch/m68k/Kconfig b/arch/m68k/Kconfig
+index e29610fd1240..6b8ec67c86fd 100644
+--- a/arch/m68k/Kconfig
++++ b/arch/m68k/Kconfig
+@@ -36,7 +36,7 @@ config M68K
+ 	select HAVE_MOD_ARCH_SPECIFIC
+ 	select HAVE_UID16
+ 	select MMU_GATHER_NO_RANGE if MMU
+-	select MMU_GATHER_RCU_TABLE_FREE if MMU && SUN3
++	select MMU_GATHER_RCU_TABLE_FREE if MMU && (SUN3 || COLDFIRE)
+ 	select MODULES_USE_ELF_REL
+ 	select MODULES_USE_ELF_RELA
+ 	select NO_DMA if !MMU && !COLDFIRE
+diff --git a/arch/m68k/include/asm/mcf_pgalloc.h b/arch/m68k/include/asm/mcf_pgalloc.h
+index fc5454d37da3..b53ff0950db2 100644
+--- a/arch/m68k/include/asm/mcf_pgalloc.h
++++ b/arch/m68k/include/asm/mcf_pgalloc.h
+@@ -39,10 +39,7 @@ extern inline pmd_t *pmd_alloc_kernel(pgd_t *pgd, unsigned long address)
+ static inline void __pte_free_tlb(struct mmu_gather *tlb, pgtable_t pgtable,
+ 				  unsigned long address)
  {
- 	/* Takes into account the reader page */
--	return max(DIV_ROUND_UP(size, PAGE_SIZE - BUF_PAGE_HDR_SIZE), 2UL) + 1;
-+	return max(DIV_ROUND_UP(size, PAGE_SIZE - BUF_PAGE_HDR_SIZE), RING_BUFFER_MIN_NR_PAGES) + 1;
+-	struct ptdesc *ptdesc = virt_to_ptdesc(pgtable);
+-
+-	pagetable_dtor(ptdesc);
+-	pagetable_free(ptdesc);
++	tlb_remove_ptdesc(tlb, virt_to_ptdesc(pgtable));
  }
  
- static inline size_t trace_buffer_desc_size(size_t buffer_size, unsigned int nr_cpus)
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 9c03a555a6ba..7137781ab0b8 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -642,6 +642,11 @@ static __always_inline unsigned int rb_subbuf_max_data_size(struct trace_buffer
- 	return rb_subbuf_capacity(buffer) - RB_EVNT_HDR_SIZE - sizeof(event->array[0]);
- }
- 
-+static unsigned long rb_calculate_nr_pages(struct trace_buffer *buffer, unsigned long size)
-+{
-+	return max(DIV_ROUND_UP(size, rb_subbuf_capacity(buffer)), RING_BUFFER_MIN_NR_PAGES);
-+}
-+
- /**
-  * rb_subbuf_start - Get the start address of a subbuffer
-  * @buffer:	A trace buffer
-@@ -2865,7 +2870,7 @@ static struct trace_buffer *alloc_buffer(unsigned long size, unsigned flags,
- 			goto fail_free_buffers;
- 
- 		/* Need at least two pages plus the reader page */
--		if (nr_pages < 3)
-+		if (nr_pages < RING_BUFFER_MIN_NR_PAGES + 1)
- 			goto fail_free_buffers;
- 
-  again:
-@@ -2877,7 +2882,7 @@ static struct trace_buffer *alloc_buffer(unsigned long size, unsigned flags,
- 			ptr += subbuf_size * nr_pages;
- 		}
- 		if (ptr > end) {
--			if (nr_pages <= 3)
-+			if (nr_pages <= RING_BUFFER_MIN_NR_PAGES + 1)
- 				goto fail_free_buffers;
- 			nr_pages--;
- 			goto again;
-@@ -2900,13 +2905,10 @@ static struct trace_buffer *alloc_buffer(unsigned long size, unsigned flags,
- 		if (nr_pages > rb_static_max_pages())
- 			goto fail_free_buffers;
- 
--		if (nr_pages < 2)
-+		if (nr_pages < RING_BUFFER_MIN_NR_PAGES)
- 			goto fail_free_buffers;
- 	} else {
--		/* need at least two pages */
--		nr_pages = DIV_ROUND_UP(size, rb_subbuf_capacity(buffer));
--		if (nr_pages < 2)
--			nr_pages = 2;
-+		nr_pages = rb_calculate_nr_pages(buffer, size);
- 	}
- 
- 	cpumask_set_cpu(cpu, buffer->cpumask);
-@@ -3319,11 +3321,7 @@ int ring_buffer_resize(struct trace_buffer *buffer, unsigned long size,
- 	mutex_lock(&buffer->mutex);
- 	atomic_inc(&buffer->resizing);
- 
--	nr_pages = DIV_ROUND_UP(size, rb_subbuf_capacity(buffer));
--
--	/* we need a minimum of two pages */
--	if (nr_pages < 2)
--		nr_pages = 2;
-+	nr_pages = rb_calculate_nr_pages(buffer, size);
- 
- 	if (cpu_id == RING_BUFFER_ALL_CPUS) {
- 		/*
-@@ -7495,12 +7493,8 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
- 		}
- 
- 		/* Update the number of pages to match the new size */
--		nr_pages = old_capacity * buffer->buffers[cpu]->nr_pages;
--		nr_pages = DIV_ROUND_UP(nr_pages, rb_subbuf_capacity(buffer));
--
--		/* we need a minimum of two pages */
--		if (nr_pages < 2)
--			nr_pages = 2;
-+		nr_pages = rb_calculate_nr_pages(buffer,
-+						 old_capacity * buffer->buffers[cpu]->nr_pages);
- 
- 		cpu_buffer->nr_pages_to_update = nr_pages;
- 
-@@ -8095,7 +8089,7 @@ int trace_rb_cpu_prepare(unsigned int cpu, struct hlist_node *node)
- 	}
- 	/* allocate minimum pages, user can later expand it */
- 	if (!nr_pages_same)
--		nr_pages = 2;
-+		nr_pages = RING_BUFFER_MIN_NR_PAGES;
- 	buffer->buffers[cpu] =
- 		rb_allocate_cpu_buffer(buffer, nr_pages, cpu);
- 	if (!buffer->buffers[cpu]) {
-diff --git a/kernel/trace/simple_ring_buffer.c b/kernel/trace/simple_ring_buffer.c
-index 49913bb0057a..abfaf9bee12e 100644
---- a/kernel/trace/simple_ring_buffer.c
-+++ b/kernel/trace/simple_ring_buffer.c
-@@ -383,8 +383,8 @@ int simple_ring_buffer_init_mm(struct simple_rb_per_cpu *cpu_buffer,
- 	void *page;
- 	int i;
- 
--	/* At least 1 reader page and two pages in the ring-buffer */
--	if (desc->nr_page_va < 3)
-+	/* At least RING_BUFFER_MIN_NR_PAGES and 1 reader page */
-+	if (desc->nr_page_va < RING_BUFFER_MIN_NR_PAGES + 1)
- 		return -EINVAL;
- 
- 	memset(cpu_buffer, 0, sizeof(*cpu_buffer));
+ static inline pgtable_t pte_alloc_one(struct mm_struct *mm)
+
 -- 
-2.55.0.1007.g17ff1f9808-goog
+2.55.0
 
