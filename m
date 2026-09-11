@@ -1,87 +1,33 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1E049B219
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:48:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 432D749DBB6;
+	Fri, 11 Sep 2026 15:48:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789141683; cv=none; b=Ti7icYt551owNZUa+CDXS4lT0EYeLHMtDtMBJoi5m7mPET3zYHX/SiyQFIUd4ICnkwtSeSQ2jOqGY2upMu4VGgydCMSS1wqKGm1ts/lSjQnaqxQUCTGl4r+rGMbsXZnjNH7s5/PSY0MSiOuOzUGB5Cx4ze6cY9Kp388ao6gpqeI=
+	t=1789141710; cv=none; b=tyADllyoc7tFe7ldnx9nQmO+8zt/4l8wAauDGV2KdxYPbGrHxIQUAB6/GEYgGAvacmTSQnmwxoAIXOmxQn5bypRDpdVWfDAsX+dLmfTkmbmpQ5guRHFXr6MpcX5dPb0opow6xBIq1rGLcCDQVgEgaLCcdQzCwFWGlyHcGirzVe0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789141683; c=relaxed/simple;
-	bh=Gf1Q0sTU/UBy5u52sv5kJvv2O4ZJCxnZRcFqED9rhiY=;
+	s=arc-20240116; t=1789141710; c=relaxed/simple;
+	bh=Y+NGrhRQ5CXlNd3IQKDekZLbTEeM9snKTFtrc8dgpKI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JQZxXwxJp7+kX5zU3jVheXozytYHXH67VgdD+MZzdKYJbLX+SajS4g06rybFWBNl1NoZ6pi7G6c07NdNST31oQDK1d+qT5LBOtP7qEgUkPDjKEwBOSwoC8m9gdYf1jayk9+JaytbYheTKsCz/CL3GNjKODD9HGqTAd4CCIu8P7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NCpPo+MJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cBIf8h8d; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=qHdEkAcV3aSvhpgb016LhvwrKdmEXVJ6C0u49LznDiFTDoetYO99O0HXEwO8VsvUNSWw38c1PVLePLFlLR6hIudBBlRcyDoTq7rrdcr1H7Ic7w/ylwDlhPqtrRHHUTL/CAxUrcMsp10dAJVlIfzulAIqDuKikGhr74Lncem4DLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZXJpZCg+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NCpPo+MJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cBIf8h8d"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BEmAil222576
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:48:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	UfwvCJZ18lp93+WPqAxfERzMxNsd00Xm06mrFwnyhZs=; b=NCpPo+MJDgFf29jc
-	jKcs3c7NPOXvzixt1cRi/VTasJ3xtoZZbYy/22fn4N0GiRKcaW4/kTtajBvta1fj
-	bzGVpSwg+dCjMrhUn19SM14/L83MLfmuDpmVJfw6MkLo8drwuJhVNXJKWhfN69b+
-	D9b+AC2fUKo3J6J0mcgSfZL+YUvCoU3gC5WvYzJ0px7mTqh2mm80dxAxLWCFuTte
-	+diXadbQUlcpQT3bxwfD/8+eEkbtFzABNB9Cw8b20Uinr+6S7arO+KVENv8659GD
-	wRaU8ubXpBt9cFkrKoFKZ4VbhxPW06t254skdkxJy9FEkGUIQ6y20sbN83qFAM18
-	ol9atg==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmbdrahjm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:48:00 +0000 (GMT)
-Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5c7f0b92e84so38734e0c.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:48:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789141680; x=1789746480; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UfwvCJZ18lp93+WPqAxfERzMxNsd00Xm06mrFwnyhZs=;
-        b=cBIf8h8dFTycAWsYO3LpCfAChfRgFAR8KoBqSYc5bDInilr48ND/AHtHziQCeihboU
-         czGHIW3qT9spUfd70c5p4veNDDjqw8Hq/Zr9IA61tcUMGE6VPkS82IfkBRlQ2WC9zhf2
-         scdty1mFsNouD80HNmncSG7S5HngMKpXc0/Q15TMD80QqHhoQYob6VYEEpsdhIrmPWmO
-         Xm8iLK0XxZVPS5xJnXmB7SdRjm0NClG147X25MjxA7NLEcL4lfTU/hEIsMOWfgTv/9/u
-         K6+DUo8o12eR53rewtErUGloP4LQdo9FpHTdEXxwBr9uOZ+wAs1KiZzY8oecxUxKqYk4
-         a5DA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789141680; x=1789746480;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UfwvCJZ18lp93+WPqAxfERzMxNsd00Xm06mrFwnyhZs=;
-        b=SHj8Yr6HPgtrDehEJ3xaspgvojp9Fa39MhP21+gTrpHPOYwvIIC4HVCpcxXBlGadJy
-         +fGvrAar+NMiCWm34BKSkMq1iL397quEy1yXG1dbmiacXqgP9cahpvC9gARqArXtgDOG
-         oyaFhJwFiS5bgoMj1I9yL32xcZX/ms78N1Th488XHHBsN+/qDGnF8XoWAmkLZ6rSR/L5
-         otVayU9j++2g+bQgh/ztR1U+x9GdWxN4gVwkx1Udc3CSAhrMr5jq0Kp2wqabw6XH8+DR
-         i6xGGb+sUoLUHSJYrUk3THTVZHo7M4df0LvO8ICRnYOp5k5CIguZBW47VQwDXmVs1Lah
-         6I8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxKtutf2+3I4eCCm5i8Z6/zu1DoZSJCrG1VZrnHKDcddEbeHLBevQMId25jAGIHyiqd1Hxy4fmzwCnIVOg=@vger.kernel.org
-X-Gm-Message-State: AFuF++l/PF9JD7tdFcX1MJkqN+6Ny40PI2GkIefh71+C9Rc/onIijj61
-	jU1fMpRG0oCNtX04YeRlQLMk+YjPrcBuNOzkVqrSNtbMD9FGmmFirNTOHCQXxabcs5AugRIt4Eu
-	T6L5fZt820L7VdSPavBI/RFUklRDhfmLUmyVGu+BFst8s/YrGsP706tISVd1VXh7U0dw=
-X-Gm-Gg: AYBFou3GK2A2mls4VlwBxKEQq2xKoTu0Gv+OUVtb6MlYdAXSks4+7ZnJlnLSVUaOlWF
-	VxvXdiEkra5fmISIfLSzaylXy4zgkEJp6DtnJyPMgmg92SxWcz8gKGj0s9WMYhvwQ/pppp596Pj
-	GKqXmkz9qjPcWhM2rlwwo8VHPYDd1NFZa21CMIoikBwNxyTtsHiDRrlAvY1S4BCUjynRpTKSa2+
-	7FJL1CwVM544aozhg5B6nQH6XiOFORY6MkM2MCEuQPM6QA31UQlliGMlJwMla9gTm1daVtVQkFf
-	RObXPKY6oOzecyAWwU7qbqe/c9A/JuL8pX0zlhPQwT6UhJ5erbx06+XCNIThD/8J/mJBbv8+oqr
-	gNUNXTC9d66Gj3qq5AzI5lQ==
-X-Received: by 2002:a05:6122:4a1b:10b0:5c3:a1f5:7569 with SMTP id 71dfb90a1353d-5c8460814acmr1633992e0c.1.1789141680151;
-        Fri, 11 Sep 2026 08:48:00 -0700 (PDT)
-X-Received: by 2002:a05:6122:4a1b:10b0:5c3:a1f5:7569 with SMTP id 71dfb90a1353d-5c8460814acmr1633976e0c.1.1789141679590;
-        Fri, 11 Sep 2026 08:47:59 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a047fd69sm716054e87.83.2026.09.11.08.47.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 08:47:58 -0700 (PDT)
-Message-ID: <5ab7084b-1bbf-4e1d-a8b6-fa29dd9ba5ea@oss.qualcomm.com>
-Date: Fri, 11 Sep 2026 17:47:55 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZXJpZCg+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B345D1F000FF;
+	Fri, 11 Sep 2026 15:48:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789141706;
+	bh=kSE0RFPcW66QetBMRHN3NYdbRmSwi1ygaMp/uike9ZY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ZXJpZCg+Ka6sQVyvZMjIrT6bir9r5OrfoCjNypIUJsiKw3rmpiJr/dBK1p0h7Iwu7
+	 sQAv+3e4cowP0A1D8qIKRj7Qi7F1x0NTMyuUYQME4Zr5xXRhG3glI476rxTAK05/cJ
+	 4xhnU4imQl9Bd3yjIDZtueffrWuie/DtvHk1WIpOJeBH1ulLzFpVkCu0+2kQg0/TWK
+	 rvEC3zUd9+3bB8gWMOGApGEME1E8UUy7KQ8VpN664AP09xRrVEZ/+h+xOnk94T3ko5
+	 x4uwefjYLsf5zmgGZk9ZfLa4379XjfnvbWCDRrIZP/OUnuwdpcpuRGBPV+nPL77W4z
+	 y0JQ91PEULNlQ==
+Message-ID: <891915e3-3333-45f3-81a8-1ad38fa7ee37@kernel.org>
+Date: Fri, 11 Sep 2026 17:48:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,83 +35,354 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/7] drm/msm/hdmi_phy: Cleanup after
- msm_hdmi_phy_resource_enable() failure
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Archit Taneja <architt@codeaurora.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, stable@vger.kernel.org
-References: <20260911-drm-msm-hdmi-fixes-before-eliza-v4-0-87bdb9f1987f@oss.qualcomm.com>
- <20260911-drm-msm-hdmi-fixes-before-eliza-v4-1-87bdb9f1987f@oss.qualcomm.com>
+Subject: Re: [PATCH v10 6/6] selftests/mm: add a GUP selftest
+To: Sarthak Sharma <sarthak.sharma@arm.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+ Shuah Khan <skhan@linuxfoundation.org>, Jonathan Corbet <corbet@lwn.net>,
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Leon Romanovsky <leon@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Mark Brown <broonie@kernel.org>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Muhammad Usama Anjum <usama.anjum@arm.com>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Rik van Riel <riel@surriel.com>
+References: <20260911110950.200240-1-sarthak.sharma@arm.com>
+ <20260911110950.200240-7-sarthak.sharma@arm.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260911-drm-msm-hdmi-fixes-before-eliza-v4-1-87bdb9f1987f@oss.qualcomm.com>
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260911110950.200240-7-sarthak.sharma@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: T5gdOyqQQM-uW6QDYZioZHV_zl6cH3wx
-X-Authority-Analysis: v=2.4 cv=PLmaavqC c=1 sm=1 tr=0 ts=6aa422b0 cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=5N7f0bWkOQp0pCbeU4sA:9 a=QEXdDO2ut3YA:10
- a=vmgOmaN-Xu0dpDh8OwbV:22
-X-Proofpoint-ORIG-GUID: T5gdOyqQQM-uW6QDYZioZHV_zl6cH3wx
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDIyMCBTYWx0ZWRfX3sBQbXBnS6ue
- eQpMbchumd9JgB+ZE9Sep3+HtZD5mCTSp8IPRjR+EEdsO16VVedO1GGZysxLnRc1DQOPZlFzab4
- Cbo3ELC5v/IMUqqnEzHFfAVUAh8ovbg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDIyMCBTYWx0ZWRfX73FRZz5KDOk+
- le5qzdxAxjUbLR/M4dSYLSYAl/1gT8qw1586ZBXtaj0kJMmtjgHlTh/SLjSQ2aOPcRgaCy6G2hX
- dWpCTh3jkjXFTI0MyP4TWCrsDGhFk/TpnErLteAeUCGtPWeRnDZ6yVzLLCEWC0mMCWguBE7DdE4
- kMWOJgAHrZfNj4pa39WsecTi0fDppCMaZrLCyengsPy0Yv8LYM1y4kZwISp7TnqC3Os8D5qwU9A
- 6xPTbwDmQR0lYBJsqcBsUcPtqscAMnXzUKolsLcFvVNiT7126MiG4LqLtzDakXyjWNG6nDB/QNM
- YhoUfNOOIiirIVOsRTZ68aW7TWfJABPS0lS+Ztt5QTqyKztgn5TWpHP5sQSWh3MLVXT18QI4w5n
- g9pDTN6E2PWj3mR451v0pv0fEI0eyjXc3NK/RyuMnzzu+HIYkexalgOQ4U0jnV8fMhMG0rBU4Aj
- BXyWi+01oFoTfi/9wbg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-11_05,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0 spamscore=0 phishscore=0 adultscore=0
- malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609110220
 
-On 9/11/26 12:29 PM, Krzysztof Kozlowski wrote:
-> If msm_hdmi_phy_resource_enable() fails, e.g. when enabling regulators,
-> it should reverse the state of things already changed.
-> msm_hdmi_phy_resource_enable() is used also in probe path, thus such
-> failure, which could be simple deferred probe, would leave these
-> resources permanently enabled for the rest of the runtime.
+On 9/11/26 13:09, Sarthak Sharma wrote:
+> Add a new GUP selftest which uses kselftest_harness.h. Cover
+> 12 mapping configurations: THP enabled, THP disabled and
+> HugeTLB, each across private/shared mappings and with/without
+> FOLL_WRITE. Run 5 test cases for every variant: get_user_pages,
+> get_user_pages_fast, pin_user_pages, pin_user_pages_fast and
+> pin_user_pages_longterm.
 > 
-> Cc: <stable@vger.kernel.org>
-> Fixes: 15b4a4523859 ("drm/msm/hdmi: Create a separate HDMI PHY driver")
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Use two default hugeTLB pages and derive the mapping size from
+> their size. This exercises GUP both within a single HugeTLB page
+> and across a HugeTLB boundary, without reserving an excessive
+> number of pages.
+> 
+> Sweep four nr_pages_per_call values for each test: 1, 512, 123 and
+> all pages. This preserves the coverage previously provided by
+> run_gup_matrix(): 12 mapping combinations x 5 GUP/PUP operations x 4
+> batch sizes. In total the selftest reports 60 TAP cases and issues
+> 240 ioctls.
+> 
+> Do not carry DUMP_USER_PAGES_TEST into the new selftest because its
+> output is written to the kernel log and the selftest does not verify
+> that output.
+> 
+> Add the new gup binary to the selftests/mm build, run_vmtests.sh and
+> MAINTAINERS. Update mm/Kconfig to describe the benchmark and
+> selftest split.
+> 
+> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
 > ---
+>  MAINTAINERS                               |   1 +
+>  mm/Kconfig                                |  19 +-
+>  tools/testing/selftests/mm/Makefile       |   1 +
+>  tools/testing/selftests/mm/gup.c          | 263 ++++++++++++++++++++++
+>  tools/testing/selftests/mm/run_vmtests.sh |   1 +
+>  5 files changed, 273 insertions(+), 12 deletions(-)
+>  create mode 100644 tools/testing/selftests/mm/gup.c
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index cae3af861a7c..c47e655c4111 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -17188,6 +17188,7 @@ F:	mm/gup.c
+>  F:	mm/gup_test.c
+>  F:	mm/gup_test.h
+>  F:	tools/mm/gup_bench.c
+> +F:	tools/testing/selftests/mm/gup.c
+>  F:	tools/testing/selftests/mm/gup_longterm.c
+>  
+>  MEMORY MANAGEMENT - KSM (Kernel Samepage Merging)
+> diff --git a/mm/Kconfig b/mm/Kconfig
+> index c180d40cd671..61ab1b8a2ebd 100644
+> --- a/mm/Kconfig
+> +++ b/mm/Kconfig
+> @@ -1291,24 +1291,19 @@ config PERCPU_STATS
+>  	  be used to help understand percpu memory usage.
+>  
+>  config GUP_TEST
+> -	bool "Enable infrastructure for get_user_pages()-related unit tests"
+> +	bool "Enable infrastructure for get_user_pages()-related unit tests and benchmarks"
+>  	depends on DEBUG_FS
+>  	help
+>  	  Provides /sys/kernel/debug/gup_test, which in turn provides a way
+> -	  to make ioctl calls that can launch kernel-based unit tests for
+> -	  the get_user_pages*() and pin_user_pages*() family of API calls.
+> +	  to make ioctl calls that can launch kernel-based unit tests and
+> +	  benchmarks for the get_user_pages*() and pin_user_pages*() families
+> +	  of API calls.
+>  
+> -	  These tests include benchmark testing of the _fast variants of
+> -	  get_user_pages*() and pin_user_pages*(), as well as smoke tests of
+> +	  These include benchmark testing of the _fast variants of
+> +	  get_user_pages*() and pin_user_pages*(), as well as tests of
+>  	  the non-_fast variants.
+>  
+> -	  There is also a sub-test that allows running dump_page() on any
+> -	  of up to eight pages (selected by command line args) within the
+> -	  range of user-space addresses. These pages are either pinned via
+> -	  pin_user_pages*(), or pinned via get_user_pages*(), as specified
+> -	  by other command line arguments.
+> -
+> -	  See tools/testing/selftests/mm/gup_test.c
+> +	  See tools/testing/selftests/mm/gup.c and tools/mm/gup_bench.c.
+>  
+>  comment "GUP_TEST needs to have DEBUG_FS enabled"
+>  	depends on !GUP_TEST && !DEBUG_FS
+> diff --git a/tools/testing/selftests/mm/Makefile b/tools/testing/selftests/mm/Makefile
+> index 11ca9b11fef1..9c03624fd293 100644
+> --- a/tools/testing/selftests/mm/Makefile
+> +++ b/tools/testing/selftests/mm/Makefile
+> @@ -58,6 +58,7 @@ endif
+>  
+>  TEST_GEN_FILES = cow
+>  TEST_GEN_FILES += compaction_test
+> +TEST_GEN_FILES += gup
+>  TEST_GEN_FILES += gup_longterm
+>  TEST_GEN_FILES += hmm-tests
+>  TEST_GEN_FILES += hugetlb-madvise
+> diff --git a/tools/testing/selftests/mm/gup.c b/tools/testing/selftests/mm/gup.c
+> new file mode 100644
+> index 000000000000..31ae38e09136
+> --- /dev/null
+> +++ b/tools/testing/selftests/mm/gup.c
+> @@ -0,0 +1,263 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +#define __SANE_USERSPACE_TYPES__ // Use ll64
+> +#include <fcntl.h>
+> +#include <errno.h>
+> +#include <stdbool.h>
+> +#include <string.h>
+> +#include <unistd.h>
+> +#include <dirent.h>
+> +#include <sys/ioctl.h>
+> +#include <sys/mman.h>
+> +#include <mm/gup_test.h>
+> +#include "vm_util.h"
+> +#include "kselftest_harness.h"
+> +
+> +#define MB (1UL << 20)
+> +
+> +/* Just the flags we need, copied from the kernel internals. */
+> +#define FOLL_WRITE	0x01	/* check pte is writable */
+
+BTW, it's odd that we support passing GUP-flags ... we should probably switch at
+some point simpler attributes (bool write) or custom flags (but we don't seem to
+need many ...).
+
+> +
+> +/* Page counts exercising single, THP-batch, partial, and full-mapping GUP. */
+> +static const int nr_pages_list[] = { 1, 512, 123, -1 };
+
+
+Would we want to calculate 512 dynamically at runtime using the PMD pagesize?
+Could be something for a follow-up patch.
+
+> +
+> +#define GUP_TEST_FILE "/sys/kernel/debug/gup_test"
+> +#define NR_HUGE_PAGES 2
+
+I'd call this "NR_HUGETLB_PAGES".
 
 [...]
 
-> +err_clk_unprepare:
-> +	for (; i > 0; i--)
-> +		clk_disable_unprepare(phy->clks[i - 1]);
-> +	regulator_bulk_disable(cfg->num_regs, phy->regs);
 > +
-> +err_pm_put:
-> +	pm_runtime_put_sync(dev);
+> +FIXTURE_SETUP(gup_test)
+> +{
+> +	int mmap_flags = MAP_PRIVATE | MAP_ANONYMOUS;
+> +	char *p;
+> +
+> +	self->size = 128 * MB;
+> +
+> +	if (variant->hugetlb) {
+> +		if (!hp_size)
+> +			SKIP(return, "HugeTLB not available\n");
+> +
+> +		if (hugetlb_free_default_pages() < NR_HUGE_PAGES)
+> +			SKIP(return, "Not enough huge pages\n");
+> +
+> +		self->size = NR_HUGE_PAGES * hp_size;
+> +		mmap_flags |= MAP_HUGETLB;
+> +	}
+> +
+> +	if (variant->shared)
+> +		mmap_flags = (mmap_flags & ~MAP_PRIVATE) | MAP_SHARED;
+> +
+> +	/* gup_fd has to be >= 0. Already checked in main() */
+> +	self->gup_fd = open(GUP_TEST_FILE, O_RDWR);
+> +	ASSERT_GE(self->gup_fd, 0);
+> +
+> +	self->addr = mmap(NULL, self->size, PROT_READ | PROT_WRITE,
+> +			  mmap_flags, -1, 0);
+> +
+> +	ASSERT_NE(self->addr, MAP_FAILED) {
+> +		int err = errno;
+> +
+> +		close(self->gup_fd);
+> +		TH_LOG("mmap failed: %s", strerror(err));
+> +	}
+> +
+> +	if (variant->thp)
+> +		madvise(self->addr, self->size, MADV_HUGEPAGE);
+> +	else if (!variant->hugetlb)
+> +		madvise(self->addr, self->size, MADV_NOHUGEPAGE);
+> +
+> +	for (p = self->addr; (unsigned long)p < (unsigned long)self->addr
+> +			+ self->size; p += psize())
+> +		p[0] = 0;
+> +}
+> +
+> +FIXTURE_TEARDOWN(gup_test)
+> +{
+> +	munmap(self->addr, self->size);
+> +	close(self->gup_fd);
+> +}
+> +
+> +static void run_gup_cmd(struct __test_metadata *_metadata,
+> +			 FIXTURE_DATA(gup_test) *self,
+> +			 const FIXTURE_VARIANT(gup_test) *variant,
+> +			 unsigned long command)
 
-This can apparently fail too.. one more argument for PM_RUNTIME_ACQUIRE_xxx
+We prefer two tab indents.
 
-Konrad
+> +{
+> +	int i;
+> +
+> +	for (i = 0; i < (int)ARRAY_SIZE(nr_pages_list); i++) {
+> +		struct gup_test gup = {
+> +			.addr = (unsigned long)self->addr,
+> +			.size = self->size,
+> +			.nr_pages_per_call = nr_pages_list[i] < 0 ?
+> +				self->size / psize() : nr_pages_list[i],
+> +			.gup_flags = variant->write ? FOLL_WRITE : 0,
+> +		};
+> +
+> +		TH_LOG("nr_pages_per_call=%u", gup.nr_pages_per_call);
+> +		ASSERT_EQ(ioctl(self->gup_fd, command, &gup), 0);
+> +		ASSERT_EQ(gup.size, self->size);
+> +	}
+> +}
+> +
+> +TEST_F(gup_test, get_user_pages)
+> +{
+> +	run_gup_cmd(_metadata, self, variant, GUP_BASIC_TEST);
+> +}
+> +
+> +TEST_F(gup_test, pin_user_pages)
+> +{
+> +	run_gup_cmd(_metadata, self, variant, PIN_BASIC_TEST);
+> +}
+> +
+> +TEST_F(gup_test, get_user_pages_fast)
+> +{
+> +	run_gup_cmd(_metadata, self, variant, GUP_FAST_BENCHMARK);
+> +}
+> +
+> +TEST_F(gup_test, pin_user_pages_fast)
+> +{
+> +	run_gup_cmd(_metadata, self, variant, PIN_FAST_BENCHMARK);
+> +}
+> +
+> +TEST_F(gup_test, pin_user_pages_longterm)
+> +{
+> +	run_gup_cmd(_metadata, self, variant, PIN_LONGTERM_BENCHMARK);
+> +}
+
+Heh, is there actually a reason why these kernel things are called _BENCHMARK?
+
+I think they are really just tests that can be used for benchmarking ... the
+measurement logic is entirely in user space.
+
+We could consider cleaning that up as a follow-up.
+
+> +
+> +int main(int argc, char **argv)
+> +{
+> +	int fd;
+> +
+> +	fd = open(GUP_TEST_FILE, O_RDWR);
+
+Could do
+
+const int fd = open(GUP_TEST_FILE, O_RDWR);
+
+
+Thanks for doing that!
+
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
+
+I think reasonable extensions will be to execute tests on all available mTHP
+sizes and all available hugetlb sizes, similar to what cow.c already does.
+
+Can you look into that as part of some follow-up work? mTHP support will be
+interesting for testing some of the patches Rik has been working on.
+
+-- 
+Cheers,
+
+David
