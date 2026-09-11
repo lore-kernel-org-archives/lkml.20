@@ -1,160 +1,165 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483FB3403E9
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:42:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D8B6364EB0
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:42:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789137760; cv=none; b=ZUh8PuCFZGHitlH/WDh0QXS/IS5JxfG828QbTKPiaKfTrv3v+oYnrYVobb8JwSwg3XK1HO09M2EFxHLza72lMVZssgXAaMwMHEXK8+2OkClWeSPEXHYquqOqqYusfIqVpJOkO0hI7RWZddYFpwIqkfOh0LGwZNghrR4fRY6nz/k=
+	t=1789137766; cv=none; b=eN0pqFwbtb8ILl6KvvKew2mPecKVc7Qr9q1rp6CI5nj0SKL2cUKrKtDB3ejQKFkHc21gkVXR1/hwawFFuA/iXr8rvXaVCZH6vqEIcf2K1PWBwgvx7vN5YjxOhy9mb1oN1HvSRDBAtA2r5ZgjiB7/uxGWBgjv+R+qrRAJZuIFbBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789137760; c=relaxed/simple;
-	bh=5zxX65EsgMSnwA9LaLnXNrbofZqKtF68O7+85+Lb16A=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tY90O1wG7X7BF2bkXuMTMQZ+PWi3z8k6V+Ja6wPRp6KdEy7rbcu4LlvtHejJpNY9CtBwdzj7RdOXmwt5jCmRXXYJ9Ubwj/dKcUNPYkSLmi4CT4icJhrp+/jZMdyWxXfkPjTorehx4PiQgE82S1nJqnhAHBD5JLcZv8Jc6aU7FZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ZViVVoUa; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789137766; c=relaxed/simple;
+	bh=q72VP5n2ZqcEGQgXeUc2xgK/v4cYAsj+QPvCunTuwVY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Z7OdekhaliQvMc0OObTnITuIXJBd1KgdZHWADvjaL0rB+9V+ym84z9fHp4+W/xB53NJF0qP5iweKCndF6lUwzps8bfBnjOlw8TNwSIkwZBBGB/9qe0TGQ7R01BzsarWY8piANKA3qWGKMfVb+TbupTyAzQLkdqfd6GroaAZmToc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Oa3P+L8h; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ZViVVoUa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789137756;
-	bh=5zxX65EsgMSnwA9LaLnXNrbofZqKtF68O7+85+Lb16A=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=ZViVVoUa2WNarXuYtJbvW4e4vgJOH1/kCJWWU8khbVg8kjREWtSXaUZdmaMJ+UqBl
-	 jN/aebZ5HnqlHdiB0+AN2SUH8eddgF9aGuKagiUt+5x4GmAawasvTBH/BxmYUyFwvI
-	 N6zMn1OoSKRckVaZkom4iigDpJ2yeE6OIBypDUC8psSeUnnbSRUKsZ08wI6yBWTQm/
-	 mTe9njz+ThDq5bjh3h9JFoMUmULK0QeS+dw9t3WRw8ybjXGW5vOSi8CvodjR9nPCYs
-	 sLijTgPUy4KcEYimTZkuchYoOa/jDWT7psS5H2J5FIZy/QORfkYDQt7bXhFwTtW7fM
-	 zlCIU64xi1f0A==
-Received: from fedora-21.home (unknown [100.64.0.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id F20E717E093B;
-	Fri, 11 Sep 2026 16:42:35 +0200 (CEST)
-Date: Fri, 11 Sep 2026 16:42:29 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Ketil Johnsen <ketil.johnsen@arm.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Daniel Almeida
- <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 6/6] drm/panthor: Expose protected rendering features
-Message-ID: <20260911164229.6858768c@fedora-21.home>
-In-Reply-To: <20260911114014.79139-7-ketil.johnsen@arm.com>
-References: <20260911114014.79139-1-ketil.johnsen@arm.com>
-	<20260911114014.79139-7-ketil.johnsen@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Oa3P+L8h"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49b965570d7so12480145e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:42:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1789137762; x=1789742562; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jtpnUSLeT4ed4dWoaotfN7ey6FZzLAllCqnmIx1g6CU=;
+        b=Oa3P+L8hS5uNkz4niILTnDU6g1KqJOSl07IepB97cothgdPCtzuCqnHr/Ris3t2ZR8
+         sGkTWTi39H/kGliiNFSxa0pUXav5NACiZBUbIZqFUI13DgVISvAq88kOck1kbYFi11tk
+         s4sImAXrp0+0BrBPFV/bgoXbfYPSQ2U9tgUBOoKcPrjPzdYEpkQ8wEGQ4piPm1CBnpGW
+         R2CENzSyKArysWyQJOek25TAS9jAHzB1dD5oxZNEiOsAc6HGliIqUVV7lpvk0PnnfgQR
+         HmYYuiyKuLCBKsQJkovTAhy31kk/CGgXmHzLt5NI98yDOS9OC9W6h6M8cThDQ67eYvP3
+         dvbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789137762; x=1789742562;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jtpnUSLeT4ed4dWoaotfN7ey6FZzLAllCqnmIx1g6CU=;
+        b=oygbyKHuMtFaRv6BGyN3OZG6+HmYudxDazTYZroFT0hJRwW0Oq8buss3WJ4a5cwT3X
+         5lUT8JCM23rSXna/B/q2TxgKgeMuwn8fSp2reYt17SUJXGxMvtr/m+CZbE0k5IPoXauO
+         Qysr+2CbVFzXSxmm3sCHnjn15mXZlWCZm3sdn13Hk3x2mPRPLV2fjxwlkEi3HWDLXvEz
+         KopIZf2HXUvbphIBxsoDBNPOUtTEtUY0TYfRUTlA+dlDiRRQyUYI7nya4izlCdzCFCd7
+         AanmsEaiR/OAd6hZJurADmRkIXlCq+T/aJUAVx3Gg1unydmsM9i17aY/UgrK9Q1qOF9D
+         LPzw==
+X-Forwarded-Encrypted: i=1; AKwUvBxxbp2/5/NAAAsN++/zOEt9VwWuPyAtE0QnNwWcW5hQwNS08U/97g7AVaCaOwi6fo5b/35k7BquK/XGFTk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kTH9esk1QrTDhxY0L9KtERyka81j3U4AUAWFHD+d/BWlSbkYnn
+	0ARxaDxKm30Vc0tTqAZA8lZuBCebJt2cJccrfaKCONfPy6qvKJC+mkhkjPUaMNHPo5s=
+X-Gm-Gg: AYBFou1ls9uDnZl1nQFbkEYCaQV6Dh7rWkWRouSXvOzz2WPCfb6/zrUc1W5bBrVXSGE
+	iovb+UqqpQPju94HmoRuAzsfK4VLMJ6iqH+G5uK3IYbVS19EMCfpEH4uG4G2erKv+/Yv8GA0izZ
+	AqvIb10iYFOPi5JCh8fJMCHceOTrfw961bv4c4Qj2+UEUPUkpgS4Byn0OiyGCobyM5R7dTkt4TX
+	f68rgSHcKCB0eVBoOJuiDR0VQ2uYoQhnk7n8EzFjix4pBdQdYURbpxo+c9bFuaTQBUSTVHQO9+h
+	Dq9iJiaQMW6i2Gzq3izGHlskvhQSF7dtCxasHV5A8FSeH5pZTtrqALG4b6pb80PcOYDIVdS3fIT
+	HEdskkLbz/+E4TrJfXmHZQ45Q1FNfF/8BajyElNorKtM5GyKtPKqTmcairsfQscCIfEPQTg+tdn
+	jFjJDmoqxjYNjxBr7OnEBvNvtygoB1mt1hrwe3Wjr5bfjtpCbyID5iWLjcj5RNlk1E0NwbkEsu2
+	K6nNw==
+X-Received: by 2002:a05:600c:1f8d:b0:499:be2d:c290 with SMTP id 5b1f17b1804b1-49e6198933cmr55970145e9.9.1789137762240;
+        Fri, 11 Sep 2026 07:42:42 -0700 (PDT)
+Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60ababd5sm107038405e9.4.2026.09.11.07.42.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 07:42:41 -0700 (PDT)
+From: Petr Pavlu <petr.pavlu@suse.com>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Peter Huewe <peterhuewe@gmx.de>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>
+Cc: Xin Li <xin@zytor.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Janosch Frank <frankja@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	David Hildenbrand <david@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	linux-s390@vger.kernel.org,
+	kvm@vger.kernel.org,
+	linux-integrity@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/6] module: Limit ELF includes in linux/module.h to uapi/linux/elf.h
+Date: Fri, 11 Sep 2026 16:40:30 +0200
+Message-ID: <20260911-module-include-elf-v2-0-954c732975fb@suse.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20260816-module-include-elf-a9c10c041867
+Content-Transfer-Encoding: 8bit
 
-On Fri, 11 Sep 2026 13:40:14 +0200
-Ketil Johnsen <ketil.johnsen@arm.com> wrote:
+linux/module.h appears in roughly 15k #include directives across the
+kernel. This makes it a "hot" header, so it should avoid pulling in
+unnecessary definitions.
 
-> From: Boris Brezillon <boris.brezillon@collabora.com>
-> 
-> Extensions to Panthor uAPI:
-> - New IOCTL for user space to provide protected FW memory.
-> - New query for checking protected rendering availability/status
->   and requirements.
-> - Extends group creation to allow user space to provide a protected
->   suspend buffer.
-> 
-> The Mali GPU FW needs some protected memory when executing in protected
-> mode. This FW memory section is assigned a VA during device init.
-> A user space process with the needed privileges (CAP_SYS_MODULE) must
-> provide a suitable memory buffer before the Mali GPU is capable of
-> executing in protected mode.
-> 
-> Processes who want to execute in protected mode must also ensure they
-> pass a protected suspend buffer during group creation.
-> 
-> Added panthor_kernel_bo_import() to allow user provided buffers.
-> Refactor panthor_kernel_bo_create() to allow shared code with the
-> new import variant.
+The header currently includes linux/elf.h but this is largely unnecessary
+because it requires only the base ELF structures, such as Elf_Ehdr and
+Elf_Sym, which are declared in uapi/linux/elf.h.
 
-There's just two many things happening here, so I'd suggest splitting
-this patch into:
+Replace the linux/elf.h include with uapi/linux/elf.h. On x86_64_defconfig,
+including linux/module.h alone results in 2.2 MB of preprocessed data. This
+change reduces that to 1.5 MB.
 
-- Add the section_vm_map_flags() helper
-- Add size/VA to panthor_fw_section
-- s/panthor_gem_debugfs_set_usage_flags/panthor_gem_debugfs_add_usage_flags/
-- support creating kernel BOs from a pre-existing GEM object
-- add support for FW PROTM init (with the new ioctl)
-- add support for PROTM group init
-- bump the driver version to expose the new ioctls
+The first five patches are cleanups to avoid relying on declarations being
+indirectly provided through linux/module.h -> linux/elf.h. These patches
+are mostly independent and can go through their respective trees if
+preferred, except for the cpufeature patch, which depends on the preceding
+s390 cleanup. The final module patch depends on all of these changes.
 
->  /**
-> - * panthor_kernel_bo_create() - Create and map a GEM object to a VM
-> + * panthor_kernel_bo_import() - Create a kernel BO from an existing GEM object
->   * @ptdev: Device.
->   * @vm: VM to map the GEM to.
-> - * @size: Size of the buffer object.
-> - * @bo_flags: Combination of drm_panthor_bo_flags flags.
-> + * @bo: BO to use for our kernel BO.
->   * @vm_map_flags: Combination of drm_panthor_vm_bind_op_flags (only those
->   * that are related to map operations).
->   * @gpu_va: GPU address assigned when mapping to the VM.
->   * If gpu_va == PANTHOR_VM_KERNEL_AUTO_VA, the virtual address will be
->   * automatically allocated.
-> - * @name: Descriptive label of the BO's contents
-> + * @vm_map_size: Size of the BO to map to the VM.
->   *
->   * Return: A valid pointer in case of success, an ERR_PTR() otherwise.
->   */
->  struct panthor_kernel_bo *
-> -panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
-> -			 size_t size, u32 bo_flags, u32 vm_map_flags,
-> -			 u64 gpu_va, const char *name)
-> +panthor_kernel_bo_import(struct panthor_device *ptdev, struct panthor_vm *vm,
+It is hard to identify all files that indirectly reference something only
+through linux/module.h -> linux/elf.h. The changes were build-tested with
+allmodconfig on arm, arm64, m68k, mips, powerpc64, riscv, s390, x86_64.
 
-Not sure I like the name, because the BO we pass is not necessarily
-imported. I think I prefer panthor_kernel_bo_create_{with,from}_bo() or
-_{with,from}_gem().
+---
+Changes in v2:
+- Rebase on top of v7.3-rc2.
+- Add the missing include of linux/slab.h in
+  drivers/virt/coco/arm-cca-guest/arm-cca-guest.c.
+- Remove the asm/mmu_context.h include from asm/elf.h on s390.
+- Add the missing include of linux/elf.h in linux/cpufeature.h, reported by
+  the kernel test robot.
+- Clean up commit descriptions.
+- Link to v1: https://patch.msgid.link/20260707153819.4172541-1-petr.pavlu@suse.com
 
-> +			 struct panthor_gem_object *bo, u32 vm_map_flags,
-> +			 u64 gpu_va, u32 vm_map_size)
->  {
+---
+Petr Pavlu (6):
+      x86: Avoid indirect includes through linux/module.h -> linux/elf.h
+      s390: Avoid indirect includes through linux/module.h -> linux/elf.h
+      drivers: Include linux/slab.h for kmalloc() functions
+      s390: Remove the asm/mmu_context.h include from asm/elf.h
+      cpufeature: Include asm/elf.h for ELF_PLATFORM
+      module: Limit ELF includes in linux/module.h to uapi/linux/elf.h
 
-[..]
-
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index 1fe77e5c41995..d73fc2f6633a6 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -1429,10 +1429,15 @@ cs_slot_process_protm_pending_event_locked(struct panthor_device *ptdev,
->  	if (!group)
->  		return;
->  
-> -	/* Do not allow user space work to switch into protected mode, as we
-> -	 * do not fully support this quite yet.
-> +	/* Do not allow user space work to switch into protected mode if we
-> +	 * do not support protected mode on this device.
-> +	 * User space should query (and init) this support before attempting
-> +	 * to use such GPU instructions.
->  	 */
-> -	atomic_or(BIT(cs_id), &group->fatal_queues);
-> +	if (!(ptdev->protm.info.state & DRM_PANTHOR_PROTM_INITIALIZED))
-
-Should we instead check that the group is initialized for PROTM
-support, and then have a check in group init to reject group PROTM init
-if the device itself is not PROTM-initialized.
-
-> +		atomic_or(BIT(cs_id), &group->fatal_queues);
-> +	else
-> +		atomic_or(BIT(cs_id), &group->protm_pending_queues);
->  
->  	sched_queue_delayed_work(sched, tick, 0);
->  }
-
-
+ arch/s390/include/asm/elf.h                     | 1 -
+ arch/s390/kernel/nospec-branch.c                | 1 +
+ arch/s390/kernel/processor.c                    | 1 +
+ arch/s390/mm/mmap.c                             | 1 +
+ arch/x86/entry/entry_fred.c                     | 1 +
+ arch/x86/entry/syscall_32.c                     | 1 +
+ arch/x86/kernel/cpu/intel.c                     | 1 +
+ arch/x86/kernel/fpu/xstate.c                    | 2 +-
+ arch/x86/kernel/process.c                       | 1 +
+ arch/x86/kernel/signal.c                        | 1 +
+ drivers/char/tpm/tpm_crb_ffa.c                  | 1 +
+ drivers/s390/char/uvdevice.c                    | 2 ++
+ drivers/virt/coco/arm-cca-guest/arm-cca-guest.c | 1 +
+ include/linux/cpufeature.h                      | 1 +
+ include/linux/module.h                          | 4 ++--
+ 15 files changed, 16 insertions(+), 4 deletions(-)
+---
+base-commit: df2908090cda368b01ff43709f51890076c56157
+change-id: 20260816-module-include-elf-a9c10c041867
