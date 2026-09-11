@@ -1,101 +1,104 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E474991B9
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:45:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B46B4BD79C
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:45:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789163118; cv=none; b=HmA8fSslXHeJAFqZXRuBL02lIQud63AwpFkB5yF+nyVetQXZxqdd4jLSCJaMDnQd4z8nyjVhkF7W9mxnlBnigbQm/Y/tW+VGoFOZ3+VLhUXRlix69EPmr+4ydEWXhfQuJwEmHE93jl06Sx2/Ysp0WIDl8xhaU5tXODFn7t8i7CU=
+	t=1789163143; cv=none; b=f4l+1JTI3pZaTQvy0ZgJxo7pMYn/mtFtvFR5B3RP20SFeM2yzFdHvQGv0hnGb2bj7UuHEgCaZO7xxg+4UV4nRptDYy2JHR0rhNMNQFk4bUBCj9v/yaYJAoEiWuS9c2DSMxbi12PF8rkIpiOqIy3NstW5xXBIf/5s+CohtwCg6Cs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789163118; c=relaxed/simple;
-	bh=71K72IULwWn4R1b25sucjqqIwKdh/evaTwDeeawCaxo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=X889uZDU4+722v954T+r5fPRCIiBu3hRD3kZrUBCLMEoS29Hqla5pzAMWQsQvn1OSWzBRS4KnMVhLG92jJw5VLXn+j3DEA1xIDQ4Vt0A70QibzeCS4OZvoBnf7jE2w+ZkNOOe8qfs0wUgNl+LpD3wfrcmWT2S4eQqGgYBN+2jt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lEB0uDJz; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789163143; c=relaxed/simple;
+	bh=EFpnGXFg7Dpc9IAzzJ2AnGl3jwtilY+LHWCkCYpJ57o=;
+	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=khlfUAoRPd3VOiY0m2Dyi53ZlYgjvjvzFnUlVnFL4AubX6Rgs442XyxpYxk0KB6pIAanaAIS0z0ab/C9xkb5GwkiWKBzAhgkHubYwK7bweMzrJK4/ArbEszF8ogmmEgCGI2gyF8f/tQvnA2i+wTX5+P+/R9L4llrVUmRXbNXp0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=n0C4riVQ; arc=none smtp.client-ip=74.125.231.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lEB0uDJz"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e65b1cc29so4344005e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:45:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="n0C4riVQ"
+Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4b37a2ffee6so30343b6e.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:45:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789163115; x=1789767915; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+cBvQuHwe5GCeT0Z0DzRPvSTiAVCj7vg+Qh8CRMXIPE=;
-        b=lEB0uDJzUYFir/r5ouEJTZGtrgmJ1itAIlFuUSN4ZQPZ7KzXbGFKfKX54QTz7VUl6/
-         CtSNk2mtk73+oiK3iQydS8A+1jAxcFH1RXXjAh2fduca4F1f9XVytsea/YhA9wwnribG
-         AjSjrpUTyLRPymu9k2ZZtNTcM2E4hJszqeTfjNiQINHh5DuhhabaObEaWxXNdeVCJU4g
-         VqONOOEW0KZdx6IEwh4GoKWjcK7gzuay7HFyWsGZiJzXFnwKniZ/dhKqWT/tlac56M7X
-         L1s85wbPXqnG/KvDB1W35OBuuB/B7WREo51q9C63JwM2HEWtDaD1Z0gHPWYaWXmG6lMi
-         rkpQ==
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1789163139; x=1789767939; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Djg1kbYc8KAYfIfIL1ACzR48Cmn//kJGwbSqiTyXnMY=;
+        b=n0C4riVQBIo3VnNKDQPDoUBmamsJhRrTNcqCFKLHaXMrLxsv5IHubL35p6mPUVXkBQ
+         bm0XfDGVI93+qLeyj1HXCP+EIGQtH1up3HT0bQaE3rbik2ouW1PsECicgzvzJTdBx2g8
+         gzys0gI47iWqQIAJbGKrJxUDhjvwyNfnH/gSOxv7WNGJmajzDXC1N44Zpb1bKISvOxBc
+         4j+KAto1rJHD0VM4mx61OU9xE12eeIqjtdL4g0FQM3R8Mb759r3joMPF0tYMNLRYwr1P
+         eBPtgFUw7c6kaT8sXW4owvEe683NwG3M/7Mx2LoqTG5OfP+s3ACqYpk77lgShIWhmydi
+         nx6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789163115; x=1789767915;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1789163139; x=1789767939;
+        h=content-transfer-encoding:content-type:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+cBvQuHwe5GCeT0Z0DzRPvSTiAVCj7vg+Qh8CRMXIPE=;
-        b=XxqsOKQAwpXfavYjQTywMzZwXDA0fHoyhk1VGEZu6h3MQKd3fV3GJUXAeeeXdhC5c1
-         QnpxQbuosxC57wGZH2IQWZhLsTawbfDXjI4Fyj21pyOMG0eoFyFppOyx4n1kvJLJZtKj
-         z5GUaba4hKOPR7GshDKFzXu1tProknpZ4xLMPpdi7X6BkbE8LUiV9FWRkq+VwjIuO9h9
-         OrI5ut2ntiAN+mWtwTP1Hm5COpwN7R/6BPAzwF+6YIHuWLvey4Z5sEayfb/XaszCprWp
-         Fjtuqlettb9A47NeUAPLU7z/0lp35iu1KmnsEXv3KRW8fjrEt4RqLXTpei8vb6imX+dX
-         iZ4A==
-X-Forwarded-Encrypted: i=1; AKwUvBxcbuR5fum10MrH7iJI+x4jc60J6itguLfV3bAANNJ38O6eqwA7qe7MIQtFqdydYL8dxt2HRebpACK6Hpo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mk41l03NBy9Y5BZGBe/SeYjuKEs0Jkfd5uAoMbrHfFo6VKcXJ9
-	7Bsbwm3T0q7/cNxVxKbA+WIBdU1qXK7py806p+FvYySyYp/MfgamZQgL
-X-Gm-Gg: AYBFou0NxgV14lpbxZfEy9a2O05e+vexqdgkpOrq+iYRW019rXlUsiT7+oriOtvUJVh
-	gUy0ioF0P9uZK1ELY7w5F+Qo/4k3+Go2mHS01zX+HvRaXdTsSwNAcV3e51XQnyRp2jNrb4keCKc
-	4dovXR4uwdYX0h9s35NLdkSsnPahTYaOrxJX/Z7wZp9JK+kDpAskh0kLLhGvHCMgba7cGugsn4A
-	e847+48ulyQBPOkvaql+eSO2lXfeZQZXpXYkQJsB/RHbfwAybkBuu/+30XU0lqNKTXDrIDZcIdq
-	RVZniwf8NIJIJmWelcJbRWo9opMuiTgudIX5fvdJiPQChLZgDtWTIfjQDW7cFNW717nUx02qaL8
-	rOf5Y2G8lw9XL+LvGHeBBcB3rAe0Gr5UXU87jFTtIc2mmNQuhqKJhmP6gcz+DD65y/B0jysNu0y
-	/fHnuqmgMYZhm62XeymC2UAWPy7xiu2pKVApUx42tRtqgwne332b5qjpJR0/vZsdlxDWSlDmvSL
-	sHdHx7nz45UkMypsKTrGPzQw3tshQjlc121k5kBfOA9BKk=
-X-Received: by 2002:a05:600c:a107:b0:49e:663c:c69f with SMTP id 5b1f17b1804b1-49e663cc929mr88097525e9.15.1789163114788;
-        Fri, 11 Sep 2026 14:45:14 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e62cffaa0sm35777015e9.0.2026.09.11.14.45.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 14:45:14 -0700 (PDT)
-Date: Fri, 11 Sep 2026 22:45:13 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Janis Edvarts Lacis <janislacis06@gmail.com>
-Cc: pabeni@redhat.com, davem@davemloft.net, edumazet@google.com,
- horms@kernel.org, kuba@kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, liuhangbin@kylinos.cn
-Subject: Re: [PATCH net] net: vlan: fix vlan name truncation
-Message-ID: <20260911224513.1fc3f0fc@pumpkin>
-In-Reply-To: <20260911163543.204203-1-janislacis06@gmail.com>
-References: <bb5eeef9-a78d-44c2-a8f5-2cddd274d3ab@redhat.com>
-	<20260911163543.204203-1-janislacis06@gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        bh=Djg1kbYc8KAYfIfIL1ACzR48Cmn//kJGwbSqiTyXnMY=;
+        b=lnZxloAVx5kkO+AL/p6yeoU+sSyIZwGmHSP3btjm8FaPn5mS/jsDLtTbF+bFI5RxsT
+         9a3QoyZ9MjDEctG9hGsuimXNtuLy5IvbPWL6JvfVCuHWseEWLXpP47Ao8cJ6B3mckva+
+         1pL9QVmIFu1RkqmmEVa8yYRAoQB+i3A3XHsrkF4n4Sv7zK3oZYORJegZcseqsBti7SI6
+         yJKSWWkEW8eFR1HBTlYjHosFs2BPceI/tm8PQplq/0T3oMAcFENHdZSn+BhUv69f1eJp
+         MpojVojfzEUxTIK1hu4eh94mtuTxRvG8PS9sgDNjnAmefKsQ0GXG4fz79Uu7njzReV39
+         llHA==
+X-Gm-Message-State: AFuF++l9eW2Ggxva6/z3HFJcyFBXYPqPixWvK4r11porq4l4qljsxBIm
+	fjIGaUm7TAfqymC2YJ2QuyKle9z3UmGsFG+mNwJmckANUVnzka775X3bnfbZFil2mBs=
+X-Gm-Gg: AYBFou3LnlBaBQVzURU0DD/XP1UHQjk6qaaCPJKU1m+vhftxjmSqGc3+6DSBSwU+NIA
+	umjCK6gw1lZw0LU4Efywaj1b771lVlWkgtqhQhH2YHSY6oMBKkvZQTFG+9/ZDb9D1TyxXiFnL67
+	e0McYIaOJcoovj3Ae6ba8LJdxBCQTGZSJJ2Hz2ghZCrxFFI13eUIkl55w0usBrhkiykFPxMlkby
+	9fW1Ng14wDBbGl+w15uzQTMuFXsUjY1rh+Xb63RbJQpbnvyJUKWdPdhJCDnhhj2nWC8YbkdajS4
+	SsQt5wVlGmdql2NCVW6LUBNXALM55wNBnbMVXh0JSY7F4cJsOTBwPUfW22ehWh7DyIhAEAulpux
+	/xboyGpwPc2LbfNiDqVOV+Uo4D5TKf2hPGsi/FWPPcZGy6z13ang3IU+ucXcqyVGDdCmCsUTy0n
+	LtGWjwcrq2ZpXVU3cH+OerMp75SADd/qiutn+vl1CxgHwSOb22jg6/mFWBCAkrQkrn0Hy+EaXWI
+	nCmRsJlvZhbZdIRNn1swKr4eM3KPRIuF7eQhzPx77/K117NHJSsRF/2Vg==
+X-Received: by 2002:a05:6808:2f18:b0:4c3:7695:d76 with SMTP id 5614622812f47-4c4a71e3ab3mr389049b6e.6.1789163139089;
+        Fri, 11 Sep 2026 14:45:39 -0700 (PDT)
+Received: from [192.168.1.102] ([96.43.243.2])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4c32eb4274dsm3260110b6e.1.2026.09.11.14.45.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 14:45:38 -0700 (PDT)
+Message-ID: <fb210ac8-b00b-42ff-8fc1-6f9243302b61@kernel.dk>
+Date: Fri, 11 Sep 2026 15:45:37 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+ io-uring <io-uring@vger.kernel.org>
+From: Jens Axboe <axboe@kernel.dk>
+Subject: [PATCH] mailmap: update entry for Jens Axboe
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Fri, 11 Sep 2026 19:35:43 +0300
-Janis Edvarts Lacis <janislacis06@gmail.com> wrote:
+I recently changed jobs, let's update the .mailmap entry so that patches
+are attributed to the right (current) company.
 
-> On Thu, Sep 10, 2026 at 10:56 AM, Paolo Abeni wrote:
-> > I'm sorry, but I don't think we can accept this patch: this change an
-> > user-space visible behavior: ...  
-> 
-> Okay, I see the issue. How about a 'solution' like this: we use scnprintf() 
-> instead of snprintf() in two branches that can have the name truncated? From 
-> what I see, the only difference between snprintf() and scnprintf() is the 
-> return value so there should be no functional change visible to the user. I 
-> tested the W=1 build, the warning is gone if scnprintf() is used.
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
 
-I think that ought to be considered a bug in the compiler options.
-There is no real justification for snprintf() and scnprintf() being different
-(especially if the result is ignored).
+---
 
-David
+Linus, could you pick this one up directly? Thanks!
+
+diff --git a/.mailmap b/.mailmap
+index 7c02242d4ed7..29c556cf597b 100644
+--- a/.mailmap
++++ b/.mailmap
+@@ -421,6 +421,7 @@ Jens Axboe <axboe@kernel.dk> <axboe@suse.de>
+ Jens Axboe <axboe@kernel.dk> <jens.axboe@oracle.com>
+ Jens Axboe <axboe@kernel.dk> <axboe@fb.com>
+ Jens Axboe <axboe@kernel.dk> <axboe@meta.com>
++Jens Axboe <axboe@kernel.dk> <axboe@anthropic.com>
+ Jens Osterkamp <Jens.Osterkamp@de.ibm.com>
+ Jens Wiklander <jenswi@kernel.org> <jens.wiklander@linaro.org>
+ Jernej Skrabec <jernej.skrabec@gmail.com> <jernej.skrabec@siol.net>
+
+-- 
+Jens Axboe
+
