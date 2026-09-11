@@ -1,72 +1,72 @@
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C9346C4CF
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:44:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FAE546D560;
+	Fri, 11 Sep 2026 08:44:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789116245; cv=none; b=Q3ROcf8BGeZIDgjIwvtIaFSyZVwGRr2kL21GAak6OKHtdpYhneTE9Ph7vfIVZig2NGY04YMv+u801FFCs6IVtEh4AsU3sDbY6KCRN5RDc3mGmQinByV1Yca0o2bhkKs4qRQzxZoM5S+AiL03Wn0qxRWFkPdI9pBC+yki0dCGDyM=
+	t=1789116253; cv=none; b=dxslZydIfkw51X6CDdiSV0hAq6YPRNIWEh9OyHdvHwvvyouUaPEwDXcXOczGPey0hkCo3IlCzpQrr3akr3NdVqkhMsPlLJhpX52fMDu/caixSgysMtBP/WH10Dl5rd/mdDkL8XFyMluiJ+TrIVXoIXwnASsAm9F+zM8iBE9nM6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789116245; c=relaxed/simple;
-	bh=3gunliPgVW4soc1/AUllZCNwihvHpaPxE5s4LoZ/+iI=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=mOl4O2PIO78MtKEMRLu/tMC7Zs+c+rZ5BP+8+GO8D6+teNoQ7g3osXo31yZ/RT/1I5w7xGi2SbUNl8TC09MOgoS3JkDNYyhxvN7tMFgzPI5JjjvtC4O42g8nYOKrsG5vs5umJ6rTTdTsk5NFdoUTKlVBGyXgNsm+dXY2pO4ciVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b85fefb1eeso602475eaf.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:44:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789116243; x=1789721043;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=HhDoaaAx+Kfg1nwDSSnWMu9c2b6obWvtvHloptvoSko=;
-        b=nm8nI9BUClHOAni+gvfRH02v4kZvpzGyCJxlAsehU+y7jLpPbC0mSqUMsdnMyUOAp2
-         1/nKBUQGHXw2cVraUM9dFZ575HRLsE4vQDqh0BODz4Cr3m4uQBHHHwLDwoWn3CM/Q+db
-         Rwnj1Zh2Av3CmoJmF/cqT+PkWxg9VwPOaOb+SyxQGOQ7ngKLCNIdZa7/uMZ1kH+BoKsl
-         XWTHHY1HCYbshuJfFb3quozi8V7e1eDi0wDyPIpV9OjVYjdqr3etxsdeYu+d+0VsNFS4
-         6YU/JxgMvLCo/R6N6OKehlFAwjDKwXs8jnJ7pK0SwWP/tRw3XGrQo+KucZmnis/EXumY
-         yuCw==
-X-Forwarded-Encrypted: i=1; AKwUvBxzhjKduMYIJZjCAJmkQ0WqVT36x/Ra9if0VQ0vz+6BhPNiZn5ethI9pZ4CH0wKdyrFuwvB18O4Wkt3Kfg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nS/jRB4p6xa/6pNkM7v1D03MYA4uqKQbkov+r53cYzb02TnSSq
-	9pdVosr5box2hSKAvNVy+rH0nJmoVrATvmjSsiS6squzlEEBqNm7Wh4YHGv35TPsleRwlrUvheb
-	c/a6bLasAl5MkR+6jwgVUZ9UkAihdWu944SBgeHtZw9VXAHWo3wScnd/s20I=
+	s=arc-20240116; t=1789116253; c=relaxed/simple;
+	bh=vg4F0k6m+4+kzUXRLBavhu3U7lVZddOyXeiUGCg25js=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tJEvfzaLfL1nshbRzGsA4zwj69B6sdU0ai0WSKmDRabQU+mwMC8QorqyZAiuq127wjvYcr5U3T2q1EGij2pv6bhrWGzEKNGGQWPzpFvHiLmE71g1Yqf7bC2re8140FX0yDlN3o10B1ITRdmqSmp5XTd6jCOWs//nkYEMeccyxGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O8LgwFy4; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O8LgwFy4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 493C41F000FF;
+	Fri, 11 Sep 2026 08:44:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789116251;
+	bh=vg4F0k6m+4+kzUXRLBavhu3U7lVZddOyXeiUGCg25js=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=O8LgwFy42EhGdTvVn3EhBaT0y7CkuGzg0ms4nYS/vmCIFDDimi6eIzv4AkEWKgqms
+	 NqGCc+KcmrlqlgNtlz+n2ZAn4mt+1d8Bp4pARgvV6UsRPlOL3iAudNnMeciIWjKC2g
+	 486vaVWTK2vW3Ce1Dm30Xl8nAZ/wEBCEXjyK94T711Dc/0VHsFU/6aSgynNNqRxpf3
+	 jUhoSBJLZ+TLgVKvf4VfidcqsZ5rYg5XPEDJQ+S6G75ShYzOAq41nS1ot45lnbwUV9
+	 hu0hOO4mEzBDl9SIyLCAAQzW4jVsQwHfyNqVmRRU3S1ewkAB5uqLuUA2BaFjAaBLi+
+	 sYgWQPd8DNDsg==
+Date: Fri, 11 Sep 2026 09:44:04 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Jonathan Davies <jonathan.davies@nutanix.com>
+Cc: catalin.marinas@arm.com, christoffer.dall@arm.com, 
+	fuad.tabba@linux.dev, joey.gouly@arm.com, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, maz@kernel.org, oupton@kernel.org, 
+	seiden@linux.ibm.com, stable@vger.kernel.org, suzuki.poulose@arm.com, 
+	weilin.chang@arm.com, will@kernel.org, yaoyuan@linux.alibaba.com, yuzenghui@huawei.com
+Subject: Re: [PATCH v3 2/2] KVM: arm64: nv: Fix null ptr deref on nested
+ wp/unmap, teardown race
+Message-ID: <aqO_SORFOAXDyXw_@gremlin>
+References: <20260901-kvm-arm-nested-virt-fix-v3-2-b154676f7e4c@kernel.org>
+ <9829c704-9592-4235-b97c-dc1f5e4ea795@nutanix.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:c309:b0:6b1:2f12:6c0c with SMTP id
- 006d021491bc7-6c0be3483b3mr2754360eaf.34.1789116243292; Fri, 11 Sep 2026
- 01:44:03 -0700 (PDT)
-Date: Fri, 11 Sep 2026 01:44:03 -0700
-In-Reply-To: <6aa3b8a3.df8406c6.e4681.4ae6SMTPIN_ADDED_BROKEN@gmr-mx.google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa3bf53.6e6c5f9e.28f11f.0042.GAE@google.com>
-Subject: Re: [syzbot] [fs?] KASAN: slab-use-after-free Write in config_item_get
-From: syzbot <syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com>
-To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9829c704-9592-4235-b97c-dc1f5e4ea795@nutanix.com>
 
-Hello,
+On Fri, Sep 11, 2026 at 09:12:20AM +0100, Jonathan Davies wrote:
+> On Tue, 01 Sep 2026, "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+> > This means that stage2_apply_range() can drop the kvm->mmu_lock and
+> > thus concurrent progress can be made in lockstep with
+> > kvm_arch_flush_shadow_all().
+> >
+> > If kvm_arch_flush_shadow_all() advances ahead of stage2_apply_range()
+> > and completes its operation it guarantees a NULL pointer deref.
+>
+> I've reproducibly hit exactly this problem when running nested guests
+> with concurrent memory compaction on the L0 host. This patch fixes it
+> for me perfectly (applied to a 6.18 kernel).
+>
+> So, for what it's worth:
+>
+> Tested-by: Jonathan Davies <jonathan.davies@nutanix.com>
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+Amazing, thanks :)
 
-Reported-by: syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com
-Tested-by: syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com
-
-Tested on:
-
-commit:         a7c1290e configfs: pin the symlink target's dirent ins..
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=140d21f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=6d794b10c2a1184e
-dashboard link: https://syzkaller.appspot.com/bug?extid=6b16e3d085833cbf3e25
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=10782601580000
-
-Note: testing is done by a robot and is best-effort only.
+--
+Cheers, Lorenzo
