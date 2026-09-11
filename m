@@ -1,56 +1,43 @@
-Received: from a14-55.smtp-out.amazonses.com (a14-55.smtp-out.amazonses.com [54.240.14.55])
-	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F2843F4A3
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:14:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.240.14.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C17B3442384;
+	Fri, 11 Sep 2026 19:14:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789154082; cv=none; b=RAn5foydvj+Ffo8MJXen/8IRJ3N2yz6B5i/E2SNvkDp5EzMe3FKzDkMT/MHXo1BEv0U5eBPYd4Fy/LSG5odp3fumI7KGuHO6rrn0LJyUr4YLWFPE9IqradNhux2uOGLNrfLjaKH9SAq+ga4YdLwghxIv2XwV2jIgO4iQTDDcaEw=
+	t=1789154085; cv=none; b=CH5nbEWNFfZl2wQkyqmuAwtwtsPUy6s5lcZQbxFUj9yTf7jnDR6YHUaigRB8ifxcI3IktXwawEqGZwGEFDOeOeGcQp441jZ5uUzGp3sXcEnDmBUXm/xjSyPM+kr99gsbWBbYNeQg2buFUxb1cnXRh5EH75WBShi9L1sqvhCh3UI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789154082; c=relaxed/simple;
-	bh=HUlPAADvidL6hyzJ3tzld68JTISaEtOuMaiBF5qX9jo=;
-	h=In-Reply-To:From:To:Subject:Message-ID:Date:MIME-Version:
-	 Content-Type; b=CInvY1qXe3JqjSyexe/4AUzJAmqxVeyT6+tR2+a/MDgPnsVz8mIH3rgTuQ81jpOi8+A8DU2erJ8vWkI4y9ek0tKvkdYbXlZIIDDtk71YSRDUkVkHwKWqUWXrGsMwIo8AQevsw7hbfTvcqPBtOq4IfVopFB6sYSYFfnRJoi2342o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=send.bugs.sh; dkim=pass (1024-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=A68PQ0us; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=LVaSD6EG; arc=none smtp.client-ip=54.240.14.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.bugs.sh
+	s=arc-20240116; t=1789154085; c=relaxed/simple;
+	bh=dpc7anxfP2ZPPTeVcg35RlsGI7X0Ls2XyqXjTybPouY=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=uJrjWtqzWViyLqSiMklWvdSyFk93Z9wLdGc7wuMpuCpg4oiN8vdV9LkTplUNrWTt42cLqMhMhHh4LBYLxblaUM9s3AnXDeTAAfUgQF0kDfJcRVilJa8IKUcL8Izm/qUuZQ3+bky7qmToq1igewAAklRXxukELk2W+U/z01qfylU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KEalvI/2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="A68PQ0us";
-	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="LVaSD6EG"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=bugs.sh; t=1789154070;
-	h=In-Reply-To:From:To:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=HUlPAADvidL6hyzJ3tzld68JTISaEtOuMaiBF5qX9jo=;
-	b=A68PQ0usWZnGcvPI1u9u2oeE6y7vxSxcaJ32p7ihSDTGpitP9Qrprx+V4WDaI6la
-	ez30jp2ogGjXfDxi68iwA1WfDWOSWjsQhWZzB/o2H2p7N41BzMuRQCrrtltCFMPq90n
-	t4JVSBF5zt0Z5dAAkfRnw8/6/7cKoT9m8kewdf8s=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=224i4yxa5dv7c2xz3womw6peuasteono; d=amazonses.com; t=1789154070;
-	h=In-Reply-To:From:To:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=HUlPAADvidL6hyzJ3tzld68JTISaEtOuMaiBF5qX9jo=;
-	b=LVaSD6EGhP/DfdoaVlQOU1+jkble9zskLJdc19AiTpxtFIGW2/8leh3S4wEAsVoq
-	B12cqo0bHgGlksmdu4Q1VCcFgNMdFr/dtKdrytcNYoyYm1yV4mKyXuakkoDeUEU74JA
-	vee8KywEb8JWfc4lCXYI1kYrM3RSjVZ9uUP8Zi94=
-X-Forwarded-Encrypted: i=1;
- AKwUvBxcX/yrCt+FkUVv1rIQyuVjWf5yeOzKAMhoeY03dzPJAtwtzYtQRhy1mT3kaEinh3toh6tW5gqIZgBkff8=@vger.kernel.org
-X-Gm-Message-State:
- AFuF++l7U9YNqWvqkdAQ32TDLe3veIeOsxqTs2S5wqNgY7fXDK9k0ZrY
- VyEJvVmxeUTnSw7T1vPFuxLbOy0jp23yXBGdJb4wPuExfCd+0cDShRXIgcJE4zdWCWs15nA6EZx
- P3zKTChdDm7Qnht3JUplX7B33EWDAULpAFjLmn7jX
-X-Received: by 2002:a17:903:8c4:b0:2db:2ae9:fab3 with SMTP id
- d9443c01a7336-2dd2a33680fmr105724465ad.11.1789154068854; Fri, 11 Sep 2026
- 12:14:28 -0700 (PDT)
-In-Reply-To: <2r7082oo-1qoo-4r04-6nnn-r193s5n91rns@xreary.bet>
-X-Gmail-Original-Message-ID:
- <CAPpSM+ReEBaJgCAOf=3H6wbKpjbC9SPiYgdMaCnpsWQKiuBQUA@mail.gmail.com>
-X-Gm-Features:
- AcwNN1WdIsIOiR1pO_tErYl77QLKrD7_KPBoD3tNcbkSMT3h5J-XGU5GFiLqkU0
-From: CO <co@bugs.sh>
-To: linux-kernel@vger.kernel.org
-Subject: Re: [BUG] drivers/hid: use-after-free in u2fzero_recv()
-Message-ID: <010001a091e48f5c-0b8528b9-e01d-49e5-9c9b-b755faede189-000000@email.amazonses.com>
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 19:14:30 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KEalvI/2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC5731F000FF;
+	Fri, 11 Sep 2026 19:14:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789154070;
+	bh=6dBTiX4xAO3JV4ryYMi2B6agwtg8EoTxOEevYmBg6jY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=KEalvI/2bEBdkDuKN4fDoYIKLX7rAzEfZt8bke8EBvHnfyzM7P2NknWBSV2RDem7Q
+	 nhaUbLczJcFxoJ2dWu9IENtTm3GibRW0LJjdgS+08etBmUihh9/mu3OrOuss+dmBk8
+	 5ywqAybM2Oes8BjZDd5OendLHvt7KVyTiPdnapbIF1HjYXhC8LMf/lmyuJx3wKgJSz
+	 94NeaGgX75Ry5f+8KjxF/nthw1h2JoGfRDyarbp7DU2eXY4rvxW+Ai+7oVxL22fjW2
+	 zbE261wRJJnNpV/wDW8to41BavEmjVlRTfgeYlESIwNN6TDpN/5HpdiHXEyQVKoou6
+	 8bRA/EtABB+QA==
+Date: Fri, 11 Sep 2026 14:14:29 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Semih Baskan <strst.gs@gmail.com>,
+	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>
+Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
+	robh@kernel.org, bhelgaas@google.com, rjui@broadcom.com,
+	sbranden@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
+	rafal@milecki.pl, florian.fainelli@broadcom.com, arnd@arndb.de,
+	linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, rosenp@gmail.com, rani.hod@gmail.com
+Subject: Re: [PATCH v3] PCI: iproc: Use the EROM outbound window on BCMA
+Message-ID: <20260911191429.GA549927@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,90 +45,130 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Feedback-ID: :1.us-east-1.yL0noGNZdXCKlJHw27bHz8/I7/GZTaYDRe4l4bGvzjPa1Q4S+kzxKgpyYIxfCxOFAjHX6QJhZdsZN1SP8V3NfEiLJ34m58z2/mmJDZ5RtdRTZ06dzneIWyoUkJ1DSaTbU2HlPz+Zb2/NZ41D3j4FLWNy2FyGjUOa4qpft7gzKcs=:1.us-east-1.QSNtDRXSTq9sAuvRl56h5mypgasnQ5yDLNpVzTnziu0=:AmazonSES
-X-SES-Outgoing: 2026.09.11-54.240.14.55
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260807160526.379-1-strst.gs@gmail.com>
 
-On Fri, Sep 11, 2026 at 7:54=E2=80=AFAM Jiri Kosina <jikos@kernel.org> =
-wrote:
->
-> On Thu, 27 Aug 2026, co wrote:
->
-> > We found a bug reachable =
-in:
-> >
-> >     path    drivers/hid
-> >     crash   use-after-free in =
-u2fzero_recv()
-> >     commit  6f232446a629 ("Linux 6.12.77")
-> >
-> > Config, environment, the sanitizer report and a C reproducer follow.
-> >
-> > =3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >     If you patch the bug based on our artifacts, a tag would be
-> >     appreciated:
-> >
-> > Reported-by: co+b240dc164119a46c@bugs.sh
-> >
-> >     Everything in this mail is validated by the reproducer below.
-> >
-> >     We also hold an LLM-generated root-cause analysis and a candidate
-> >     patch. The patch passes an A/B test: the same reproducer panics the
-> >     unpatched kernel and runs clean on the patched one. Neither has had
-> >     human review, so both still require validation before you send or
-> >     apply them. Available on:
-> >
-> >         patch.diff  https://bugs.=
-sh/b/b240dc164119a46c/patch.diff
-> >         report.md   https://bugs.=
-sh/b/b240dc164119a46c/report.md
-> >
-> >     This is an open science project=
-. The code and the full set of PoCs
-> >     are not public at this moment, =
-as we intend to disclose our findings
-> >     in an ethical way.
-> >
-> >     Happy to test patches. Complaints and suggestions about our work
-> >     are welcome at:
-> >
->
-> Could you please submit this as a proper =
-patch [1] so that you can
-> properly creditted for the fix?
->
-Hi Jiri,
+[+to Rafał; probably same as rafal@milecki.pl, but MAINTAINERS lists
+zajec5@gmail.com for BCMA]
 
-Thanks for your suggestions. We are sorry for the misleading report. We
-have updated the report format so that it is correctly stated as a bug
-report, not a patch. We will also state that the provided patch is
-LLM-agent-generated. We do not want to overwhelm the maintainers with
-low-quality patches, so we choose to send the bug report, and we will
-spend our time working with other contributors to close these bug
-reports. This is mainly because our bug discovery is automated, but
-patch verification is hard and cannot be done reliably by an LLM. So we
-decided to report the low-severity bugs like syzbot and ask the
-community for help.
+On Fri, Aug 07, 2026 at 07:05:26PM +0300, Semih Baskan wrote:
+> The PCIe outbound window base on Northstar depends on the PCIe Gen2 core
+> revision. Revision 0x01 uses 0x08000000, 0x40000000 and 0x48000000 for
+> controllers 0 to 2, while revision 0x07 (NS-B0) uses 0x08000000,
+> 0x20000000 and 0x28000000. Broadcom's own driver branches on the core
+> revision for exactly this reason.
+> 
+> bcm-ns.dtsi is shared by every Northstar SoC, so it cannot carry a value
+> that is correct on both. Commit 767012397976 ("ARM: dts: BCM5301X:
+> Describe PCIe controllers fully") gave the controllers a ranges property.
+> The commit shipped in v7.1.
+> 
+> With that property present, two things go wrong with this driver:
+> 
+>  - devm_pci_alloc_host_bridge() parses those ranges and requests them,
+>    then this driver adds its own window and requests the whole list a
+>    second time, so every controller fails to probe with -EBUSY.
+> 
+>  - The DT window itself is only correct on core revision 0x07. On
+>    revision 0x01 it points at an address the hardware does not decode,
+>    and the first MMIO access to a BAR takes an imprecise external
+>    abort.
+> 
+> The enumeration ROM reports the correct base for the revision actually
+> present, and bcma already provides it as addr_s[0]. Drop any memory
+> window that came from the device tree and use that instead, requesting
+> only the window this driver owns. This makes the driver correct whether
+> or not the DT describes a window.
+> 
+> When a dropped window does not match what the EROM reports, print a
+> warning naming both. The mismatch means the devicetree describes a
+> window the hardware does not decode, and that should be fixed in the
+> dts rather than ignored silently.
+> 
+> The same commit also added compatible = "brcm,iproc-pcie", so these
+> nodes now match pcie-iproc-platform. With CONFIG_PCIE_IPROC_PLATFORM
+> enabled, which is the default on ARCH_BCM_IPROC, that driver binds them
+> first and this driver's probe fails inside devm_pci_alloc_host_bridge().
+> This patch fixes the configurations where the BCMA driver is the one in
+> use; OpenWrt builds that way, with PCIE_IPROC_PLATFORM disabled. The
+> platform path takes the DT window as-is and has the same wrong address
+> on core revision 0x01, so that side needs a devicetree fix either way.
+> 
+> Tested on an ASUS RT-N18U (BCM47081) and a Linksys EA9200 (BCM4709),
+> both core revision 0x01.
+> 
+> Fixes: 767012397976 ("ARM: dts: BCM5301X: Describe PCIe controllers fully")
+> Tested-by: Rani Hod <rani.hod@gmail.com>
+> Cc: stable@vger.kernel.org # v7.1+
+> Signed-off-by: Semih Baskan <strst.gs@gmail.com>
+> ---
+> v2 -> v3: format the two problem descriptions as bullet points.
+> Requested by Bjorn Helgaas.
+> 
+> v1 -> v2: print a warning for every devicetree memory window that does
+> not match the EROM window. Requested by Arnd Bergmann:
+> https://lore.kernel.org/all/d05ffeca-f289-42dd-b454-5a7c7741c6d5@app.fastmail.com/
+> 
+> v2: https://lore.kernel.org/all/20260807035726.387-1-strst.gs@gmail.com/
+> v1: https://lore.kernel.org/all/20260727140939.389-1-strst.gs@gmail.com/
+> 
+>  drivers/pci/controller/pcie-iproc-bcma.c | 17 ++++++++++++++++-
+>  1 file changed, 16 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/pci/controller/pcie-iproc-bcma.c b/drivers/pci/controller/pcie-iproc-bcma.c
+> index 593418c2b..06a471f4a 100644
+> --- a/drivers/pci/controller/pcie-iproc-bcma.c
+> +++ b/drivers/pci/controller/pcie-iproc-bcma.c
+> @@ -36,6 +36,7 @@ static int iproc_bcma_pcie_probe(struct bcma_device *bdev)
+>  	struct device *dev = &bdev->dev;
+>  	struct iproc_pcie *pcie;
+>  	struct pci_host_bridge *bridge;
+> +	struct resource_entry *win, *tmp;
+>  	int ret;
+>  
+>  	bridge = devm_pci_alloc_host_bridge(dev, sizeof(*pcie));
+> @@ -59,8 +60,22 @@ static int iproc_bcma_pcie_probe(struct bcma_device *bdev)
+>  	pcie->mem.end = bdev->addr_s[0] + SZ_128M - 1;
+>  	pcie->mem.name = "PCIe MEM space";
+>  	pcie->mem.flags = IORESOURCE_MEM;
+> +
+> +	resource_list_for_each_entry_safe(win, tmp, &bridge->windows) {
+> +		if (resource_type(win->res) != IORESOURCE_MEM)
+> +			continue;
+> +
+> +		if (win->res->start != pcie->mem.start ||
+> +		    win->res->end != pcie->mem.end)
+> +			dev_warn(dev, "DT window %pR does not match EROM window %pR, using EROM\n",
+> +				 win->res, &pcie->mem);
+> +
+> +		devm_release_resource(dev, win->res);
+> +		resource_list_destroy_entry(win);
+> +	}
+> +
+>  	pci_add_resource(&bridge->windows, &pcie->mem);
+> -	ret = devm_request_pci_bus_resources(dev, &bridge->windows);
+> +	ret = devm_request_resource(dev, &iomem_resource, &pcie->mem);
 
-We could provide the patch in ready-to-send format, =
-but we worry about
-people sending it on without review, so we trimmed it =
-and kept only the
-code change.
+If the EROM supplies the information the driver needs, why does this
+BCMA driver use DT at all?
 
-Feel free to tell us if you have any =
-suggestions for our workflow.
+AFAICS, pcie-iproc-bcma.c doesn't use any of the information from DT.
+devm_pci_alloc_host_bridge() *looks* in DT, parses it, and fills in
+bridge->windows, and requests those windows, but I don't think
+iproc-bcma ever uses them.
 
-Xiang
+iproc_bcma_pcie_probe() passes &bridge->windows to iproc_pcie_setup(),
+where I think it's ignored because pcie->need_ob_cfg is never set for
+iproc_bcma.
 
-> Thanks.
->
-> [1] =
-Documentation/process/submitting-patches.rst
->
-> --
-> Jiri Kosina
-> SUSE Labs
->
->
+It looks like iproc_bcma_pcie_probe() should just call
+pci_alloc_host_bridge() directly and skip devm_pci_alloc_host_bridge()
+and the DT things it does.
+
+>  	if (ret)
+>  		return ret;
+>  
+> -- 
+> 2.43.0
+> 
