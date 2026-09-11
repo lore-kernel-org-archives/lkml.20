@@ -1,102 +1,85 @@
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-19.ptr.blmpb.com (va-2-19.ptr.blmpb.com [209.127.231.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 319083E7621;
-	Fri, 11 Sep 2026 03:56:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1922F3CBE69
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:57:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789099005; cv=none; b=IB/l9bHtibKmpv5wZaUbuh8a+ys7VNfYam4aQYFtbTFki0O6aPuTOdGIMSg+XcvsMHsTTYUfD+WvvH2FiRJZpHF9cSI4j/SwiryN0ISRY27IXPiEiKYJZWOBwLhDJRDO+tKwkiUtvyGzL9Nf5ao94bu3yLN1v+eevewGprFb2Tc=
+	t=1789099025; cv=none; b=pOF0TpzRIkITALnJUBLas0GuO+1HoMryuf1M3MT7f3vjNadZ8nU0RMCF6WtiWqtlpcdpWgEcfK93CVGZWTa3fZNsWAR3HFmHTgcnMM9DoUnzfz1Rep/qVhoEG6RpD0XPxZaLE4OH7Tl8Sdh9J4hsSzo5Rky3hJmgR409o0qMI6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789099005; c=relaxed/simple;
-	bh=UJcQGWQ/1A84xZkHLlREoTGPzt57JFMM8lYZ3rvp6eA=;
-	h=Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type; b=B4Zmkd6KwIi0e0QiA0J2N4LTiB82YmeS+fMg4dGTF8c/vXONwxJJHR6zl2/huOIV6D89p/hOVQcepumSl/ahQkDfjpVPWj4D/+5NujdacbLeZfl/wm8i2g+SJHJ11huYXUx8U3OyyWu8WFLocoO5wgMpnrUSz9vwVP4BrS2rV68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hh11z5Gtmz5B12l;
-	Fri, 11 Sep 2026 11:56:39 +0800 (CST)
-Received: from njy2app02.zte.com.cn ([10.40.13.116])
-	by mse-fl1.zte.com.cn with SMTP id 68B3uUl8097774;
-	Fri, 11 Sep 2026 11:56:31 +0800 (+08)
-	(envelope-from han.junyang@zte.com.cn)
-Received: from mapi (njy2app02[null])
-	by mapi (Zmail) with MAPI id mid204;
-	Fri, 11 Sep 2026 11:56:32 +0800 (CST)
-X-Zmail-TransId: 2afa6aa37bf0fbf-69704
-X-Mailer: Zmail v1.0
-Message-ID: <20260911115632342CS2YMSVejTTmnYEU3XbRs@zte.com.cn>
-Date: Fri, 11 Sep 2026 11:56:32 +0800 (CST)
+	s=arc-20240116; t=1789099025; c=relaxed/simple;
+	bh=P3wN9CDEu2RFhQKqAwjw9EZUqAuIA35RB/NpHVyqdy4=;
+	h=Content-Type:To:Cc:From:Date:Message-Id:Subject:Mime-Version; b=HRWpCeNwJ1u+YyogA6jNYiNgYVvD4cGdVZ6OGIuPo9qp/gO9DLWPsJM/5I2jGY8ynJN5TsmDcEprQS4MMOWM9GpvKsMOVurn1lXB2cxI4qp+ki9f0df2nKvoMMm3Pp2y6jVlLo9PQzMMn7CS5vvmyZiwRqjGDhcukO3M8FeKXKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lanxincomputing.com; spf=pass smtp.mailfrom=lanxincomputing.com; dkim=pass (2048-bit key) header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.b=uu8FS7zO; arc=none smtp.client-ip=209.127.231.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lanxincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lanxincomputing.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.b="uu8FS7zO"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=lanxincomputing-com.20200927.dkim.feishu.cn; t=1789099011;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=gFvKIyooDli1jez1sQOWvZyfJBAMmD4w4FTDZhpGNwE=;
+ b=uu8FS7zOJt1KVcRBP63hu9H4sJ6M8NmUc+dBQOSmoOgbI6htGvf6dV7cNb/+eLyldXH9Ye
+ wQz9Ym9GR39GQ8aiwSupafoD1HT33ANnRZkG3FNiHArngbagGs8jGtjFs+0JxYMj6lUKWV
+ e5iu4NvUFR8RcLAegKjVaaukDhXyXUj//QemFM4+T6N9iBxCKL/3i+QcATYti7G49Tz8bI
+ Tbv3vw9PUwUe7sS+upc7WkOqb6dzrR4AA2aRXD8GTHGsIYMKWyg5gheht8XE6Ef/gcc5MX
+ gziyvimxVojdBW8kJlK43h8jHZ9FMuQicLmEhnziMZcxyzI/MPAdTXqmLfTbjw==
+X-Mailer: git-send-email 2.53.0
+Content-Type: text/plain; charset=UTF-8
+To: "Shuah Khan" <shuah@kernel.org>, 
+	"Pablo Neira Ayuso" <pablo@netfilter.org>, 
+	"Florian Westphal" <fw@strlen.de>
+Content-Transfer-Encoding: 7bit
+Cc: <netfilter-devel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, "Jin Li" <jinli@lanxincomputing.com>
+From: "Jin Li" <jinli@lanxincomputing.com>
+Date: Fri, 11 Sep 2026 03:56:32 +0000
+Message-Id: <20260911035632.491163-1-jinli@lanxincomputing.com>
+X-Original-From: Jin Li <jinli@lanxincomputing.com>
+Received: from ubuntu ([123.120.5.129]) by smtp.feishu.cn with ESMTPS; Fri, 11 Sep 2026 11:56:48 +0800
+X-Lms-Return-Path: <lba+26aa37c01+8b5a09+vger.kernel.org+jinli@lanxincomputing.com>
+Subject: [PATCH] selftests: netfilter: fix nft_audit.sh auditd detection
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-From: <han.junyang@zte.com.cn>
-To: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-        <kuba@kernel.org>, <pabeni@redhat.com>, <horms@kernel.org>
-Cc: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
-        <han.junyang@zte.com.cn>, <ran.ming@zte.com.cn>,
-        <han.chengfei@zte.com.cn>, <zhang.yanze@zte.com.cn>
-Subject: =?UTF-8?B?W1BBVENIIG5ldC1uZXh0IHYyIDAvM10gZGluZ2hhaTogZmlybXdhcmUgaGFuZHNoYWtlLCBNU0ktWCBwb29scyBhbmQgYXN5bmMgZXZlbnQgcXVldWVz?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 68B3uUl8097774
-X-TLS: YES
-X-ENVELOPE-SENDER: han.junyang@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Fri, 11 Sep 2026 11:56:39 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AA37BF7.002/4hh11z5Gtmz5B12l
 
-From: Junyang Han <han.junyang@zte.com.cn>
+The auditd PID file location changed from /var/run/auditd.pid to
+/run/audit/auditd.pid in newer audit-userspace versions, causing the
+skip check in nft_audit.sh to fail silently.
 
-This series continues the DingHai (ZXDH) PF driver bring-up: after PCI
-probing, it verifies the firmware version contract, waits for the
-RISC-V management core to become ready, sets up the MSI-X interrupt
-pools, and creates the async event queues through which the firmware
-will report events.
+Replace the PID file check with pgrep, which works regardless of
+where the PID file is located.
 
-Some notes on the IRQ design:
+Signed-off-by: Jin Li <jinli@lanxincomputing.com>
+---
+ tools/testing/selftests/net/netfilter/nft_audit.sh | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
-The vector space is partitioned into per-purpose pools (async, RDMA,
-vq). Event queues share a vector through an atomic notifier chain
-attached to the IRQ, and the sharing degree is governed by pool
-thresholds. The IRQ table hangs off a void *priv in the shared core
-device: the PF, MPF and SF core devices each carry a different pool
-layout behind that pointer, so a type-specific struct in en_pf.c keeps
-the shared header free of PF-only details.
-
-Changes in v2:
-- Convert both firmware readiness polls to readx_poll_timeout()
-  (Andrew Lunn).
-- Read the fw compat block field by field through ioread*() accessors
-  instead of an ioread32_rep() bulk copy, which misplaces the u8/u16
-  fields on big-endian; no __le annotations are needed since each
-  accessor converts from little-endian (Andrew Lunn).
-- Use kref for the IRQ reference count (Andrew Lunn).
-
-Junyang Han (3):
-  dinghai: add firmware version check and RISC-V readiness polling
-  dinghai: add MSI-X interrupt pools
-  dinghai: add async event queue for firmware notifications
-
- drivers/net/ethernet/zte/dinghai/Makefile   |   2 +-
- drivers/net/ethernet/zte/dinghai/en_pf.c    | 225 +++++++++++
- drivers/net/ethernet/zte/dinghai/en_pf.h    |  57 +++
- drivers/net/ethernet/zte/dinghai/zxdh_eq.c  | 145 +++++++
- drivers/net/ethernet/zte/dinghai/zxdh_eq.h  |  61 +++
- drivers/net/ethernet/zte/dinghai/zxdh_irq.c | 412 ++++++++++++++++++++
- drivers/net/ethernet/zte/dinghai/zxdh_irq.h |  72 ++++
- 7 files changed, 973 insertions(+), 1 deletion(-)
- create mode 100644 drivers/net/ethernet/zte/dinghai/zxdh_eq.c
- create mode 100644 drivers/net/ethernet/zte/dinghai/zxdh_eq.h
- create mode 100644 drivers/net/ethernet/zte/dinghai/zxdh_irq.c
- create mode 100644 drivers/net/ethernet/zte/dinghai/zxdh_irq.h
-
+diff --git a/tools/testing/selftests/net/netfilter/nft_audit.sh b/tools/testing/selftests/net/netfilter/nft_audit.sh
+index 87f2b4c725aa..85cc4ce7742a 100755
+--- a/tools/testing/selftests/net/netfilter/nft_audit.sh
++++ b/tools/testing/selftests/net/netfilter/nft_audit.sh
+@@ -6,14 +6,9 @@
+ SKIP_RC=4
+ RC=0
+ 
+-if [ -r /var/run/auditd.pid ];then
+-	read pid < /var/run/auditd.pid
+-	p=$(pgrep ^auditd$)
+-
+-	if [ "$pid" -eq "$p" ]; then
+-		echo "SKIP: auditd is running"
+-		exit $SKIP_RC
+-	fi
++if pgrep -x auditd > /dev/null; then
++	echo "SKIP: auditd is running"
++	exit $SKIP_RC
+ fi
+ 
+ nft --version >/dev/null 2>&1 || {
 -- 
-2.27.0
+2.53.0
