@@ -1,264 +1,247 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012071.outbound.protection.outlook.com [40.93.195.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71683457E64
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:17:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789125497; cv=none; b=umZS6vkuN/0BnYp+2npabfzntYjhI/jI0EQfluIsmnC3ayWGG04KuaSI6x5qMvK/fJRQChlkrUfviMGi8cwkXqZUtmLiqnCfnHVHZtia9s5INCU+/3hEQR0X95D3YT8F6IMLw6eKeFD90/CuZKtCwuBcyc3eSvjFMm0VFuHqbH0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789125497; c=relaxed/simple;
-	bh=7kpJ0HynFt2+Fb9i+/TLOlwncx9aXxoDxSm2N81XzUA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qAounvaZ3XcNGvzi6aF9PBk6AsijaLf28g2hPLx312cx4d8dnYZs1Aq2EVTYdR8bkjpRTKK5+fOB3ZKReRsYkTnvSfO7isaggR8eI9YD2sZSDvmWDPAXDtQMzmza0PgK10JXPl7wEfUSQOYk9keN8VtI7/fSO0/e5APtlRh8N70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T36KFw8o; arc=none smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45119457E45;
+	Fri, 11 Sep 2026 11:18:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789125512; cv=fail; b=o08A21rZyRAFnQ4kVhEMybkie2VrZoDVlgSYCKw5ZsKmrnpC6hG6kI38o/0pnO4plpqHiADWjQmQJjWHj7WfpeqIRsQ6hVWv9q+po26HRDKBgF6gyTGMoIgpWGypcPYTcavh+INnEvuHWO/a6sYpNjc31uSjG3uUAcbP+iqPuxg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789125512; c=relaxed/simple;
+	bh=6HGbU93HwIizUjXVmwjpHN+GIpmykiwFIrUSNONQx9I=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=SYDV9aXZsBuDbErNKpskIYikWlhrF4lzb4BRhWyysGkLwg+7O6YoXQU+5rf8xKgH81ApZa1QXM2oSNQO76eu3laFiKqxKIG2iv4NE1zLwz9US+86KlFeOXtzq6PJPNRLseYXiGvnk1Vx294QdpEVt+cZc29ih1MwE03t2RoeWHU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=pI8eYSHi; arc=fail smtp.client-ip=40.93.195.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T36KFw8o"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-69f7fa1c548so1249973a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 04:17:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789125470; x=1789730270; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fbBV9me3Y/nkvKnsfG5cg/h1HCFDgWHdjYuS8kLRmRY=;
-        b=T36KFw8o8CtHNsvSVpt6A+YN3pK8Ceb9kNsVedh1IZqCHh/IgCkhQo9AVx3oc1nfjV
-         4aNgKcs9wTb2eLki1T+phE+ekXA4INuMFb9EEVZBJ/6cqrdUrSEub2ZMoqF6maeRelnA
-         bu/fANL9zf60yaTwF6RjvIlhdptaVWtNwxnwiTXaeEl7ebHHNi6DEmi2DBtTBPRaKuRW
-         uIK6iEy6siU4tSGjJP8TWX1gnR28w5VbYDAkfFz7Xohlk9lLlbNcdaKH0QY6Hj2Bxvea
-         B9TxT7P7KBiyzQKby0ck2Ukupn7P8GV2Zfr1T94B9SED5l7NstHRKZLA9pgiselGwCW3
-         PvDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789125470; x=1789730270;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fbBV9me3Y/nkvKnsfG5cg/h1HCFDgWHdjYuS8kLRmRY=;
-        b=kwpVzTHH3FNczAhFXlXsb2ieOWKTanVvNifMpurku2RDotWyzJjn5t/oC1VP8rQO8s
-         o1QdFj18371vPeA5t/RBpgbcAjniUKWUVHoLYOPgEXQbk9o2A0eIwBQlM8p4+nPIsiyM
-         4jDDk7P9NzbRjFevHw9hOp3Xd95lJB97rEBHP58sI9qxnZ2gjKbfwgVPizHTx0Cjdw8p
-         q93CiEaM03imxVJq3d/VjQr1Y5AzQjRnWGjlg8Z/9+fvjZZrQXdaLmyxqSnppu0sd9RD
-         1oRkYoKsb1cuPwc0dn2+XF1M1tOQly4PN4HtvR1pnJqcTSLrKhRvC4cePXmtqN+ZcR23
-         8JPw==
-X-Forwarded-Encrypted: i=1; AKwUvBxijO+nFdZiFRcBjGI1QaO7AIXjMTVR6Ff9WMPZOx5d7j9o9uLsm0MwSLwq2FfTY6++uckkv004XDIzEwU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lAg4Pb0YehrIbTUgUJ+/XgW3dRWZ1a9DJNYE7EEekMNlvnGtZd
-	NuMsYfas1UQ4Vkmcm4arGOTKWmMXgC0ATmcrSZcMLt+vSA91QpGxtScH
-X-Gm-Gg: AYBFou0o3x3+8IZQUEjAmkNgu7jx/GWN3W5ZjEnLuGwlO5VLaj+sVvTxFwG4uuLhV7c
-	MZy/jLcwGbggizQrbN2RVYyWO65Csru7ttL65qDIlHMsT75/IT6FK7ja+2ZFOQjvVKDQk06/XB5
-	6+mWztxhm5DXIAYDIng1SMHax7RWjOS6GBWjDolnz3K+UsC/y/wqW28/yMPiKjpui5ykAaM+Rjm
-	uUtm6BzdaXEwxeQbTnumZBrKg3cj3lz49dG0Do7MWJ+K8haMBsTnCWRkxhJyU7fvJnsXidT5TPx
-	zEShNA4AFGCDIijzV1Bks1FRIX9p5+pmbwbA6ZDlAvR2dhSN2tN561qwrVkBMgXBFa+z0Urt1kQ
-	1q0qhkDfNy/qmTUK/P2ru1J4sYvV+Krqzy6IxMh3CY6wpao6O03PdCdrmhzYYUt0RS5FlNWYLSe
-	6X4APvoxXtO8cZbF2PDRAa39u75GKseOIaXcK8yIN3zX81B1rUkW0NAMAzw7tazwcCo2UFuYCKA
-	Ug6GriBaX0VI7AZQr3Fazy4+3fSaeP3ASuAMIcDpMXWaExingrFCuSbhv072KqNqtQkYnx2AfuQ
-	6Nbk0FgcsgD4qaD+OZM=
-X-Received: by 2002:a05:6402:3907:b0:6a9:92f0:76c7 with SMTP id 4fb4d7f45d1cf-6a9b56ae97amr1630629a12.34.1789125469553;
-        Fri, 11 Sep 2026 04:17:49 -0700 (PDT)
-Received: from iku.example.org ([2a06:5906:61b:2d00:3de1:9f21:e874:3931])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb2ecf23sm5438182f8f.5.2026.09.11.04.17.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 04:17:49 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-watchdog@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v5 6/8] watchdog: rzv2h: Add syscon support for WDTDCR
-Date: Fri, 11 Sep 2026 12:17:29 +0100
-Message-ID: <20260911111731.3404308-7-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260911111731.3404308-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260911111731.3404308-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="pI8eYSHi"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=B/pGyHraacd7SvYI6u/GrCv1QtbdBt2QUYhSgaYYNPsp1SLaBpXUbOsjoh/lmQnu537yh4qcnX0nAQlIUnci2bRn3USFfouE8dlyfb0Fz9c6bRBeOEPuv+SNLjTcxwET4s2pe9f4K2ZizVMnZp6IHPV+RrX/PH7U5pm168WCKg3Ozwra9Wh+sH0Hgo08TevpHeWk6osmVt1j4rXyCN1aisoG0Ky+68Bu/nfsKRupINEp266eVmHbuTVebNgiroJxtQ2Icxd5I0bioPMCIT2DERZVK+9q1QsKuqQzIY1XQujLHDABz4z59LV24b3mii8aClnItKvng2ntrDEkPAiWsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hafCoMGT2yi/aNJd3ECDQBlQRBJosGNrkmau4HUUGYE=;
+ b=gmiWE4589Aa5q83DBMGoLP3WB57IE8r6249pmiAhHWTOhIIVlIIMH6m66k/Ig6KHd2hgAFpFmbFvdAELooBJ0VCZ7jZIEV3PuaI1S8MRXwTJas58ek11G8A+9ztAjhM994xRlLCiT1qxV1bN2mEpJ6mkcN2Z8WOPdnZDNmEQ1h9w8q7TpWPdebk+y2kT/3oPhSP04vPmeZkTEdMC8BdHhw393lKlWjlZEaRwxtgbBIQnVxzgkWagMYFci83vY0OhDDhrSB+4dsccHaPtTskRWKR/BRQ+7InVeD0W51v75M8eAIy1D9G1a5MN8/P1UCoNYmoNiuLKgUilgiT2THjQPQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hafCoMGT2yi/aNJd3ECDQBlQRBJosGNrkmau4HUUGYE=;
+ b=pI8eYSHiCQk3Kn0Bvy69FyJOeQbFAyuTbpd/vtr0XLYG15vtxWajsGsd+3I7rNAiFl6cCxzwpMILhCI+SsqmdAl5nqOheKMJgtl7wK1xfCpcGDRcXo3Fy+hviHtCC1+EQxLb2xIbKdDdUMYvua8UZwnerLRIKj3tbxrCbwJ/kr/KW8LLhdDzKUIKrvuTvQT2nqdjHp62roScQoELpG+iU9MI6e3ZRejMnwiWV5Xmp2xrJUw6pCqf9W4g4UYLYMIcqVg2Nb1ZTDYjZneOd7pqW/QdnkdZTOSWgvHsaJnhyF35+1H9uiRlP0h2kgy9zbXADqPnYwzgb7VtR3t3eFyM8Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by IA0PR12MB8975.namprd12.prod.outlook.com (2603:10b6:208:48f::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 11:18:19 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 11:18:19 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 11 Sep 2026 20:18:16 +0900
+Message-Id: <DLCG22C6X96C.3A8EKCQAZ37FD@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
+ <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v2 6/8] gpu: nova-core: add NVKV typed encoding
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+References: <20260827-b4-nvkv-v2-0-0de9d5c8658c@nvidia.com>
+ <20260827-b4-nvkv-v2-6-0de9d5c8658c@nvidia.com>
+ <DLBHFHGH4MEE.1ZELDBMX36IQC@nvidia.com>
+ <DLC8DZY8QM5N.5Q8MS71R0VKQ@nvidia.com>
+ <DLC8MGO86DKV.3IIHPUADV9IRY@nvidia.com>
+In-Reply-To: <DLC8MGO86DKV.3IIHPUADV9IRY@nvidia.com>
+X-ClientProxiedBy: TYCPR01CA0199.jpnprd01.prod.outlook.com
+ (2603:1096:405:7a::13) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA0PR12MB8975:EE_
+X-MS-Office365-Filtering-Correlation-Id: e1d3b4bf-c564-49ad-8602-08df0ff661b1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|7416014|10070799003|1800799024|18002099003|22082099003|3023799007|5023799004|56012099006|11063799006|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	BBpTYrKKc+L9Hf7h6nc5TJpIdY/wJNXTi6L1gOTfbqKAI87UW1z52Zoi+0Ho6wQezEvhrdV6Riexi8OEkRSizYS7H4X6QqDAXwRZy6rO7LkIkrEbn4hdz8KkKrOroN0xpqeOfHPk96L7NfGy39G3UaO4bQDGVkr9l09UYUoHSJsv0zPaFU/rlhWfDve9DMwU+rEEbpBIVpLurR8CJ1EQGKL1lGRNoDqP5ledHiORa7MJocfxd4XGfu+1Gwv80KA2nXwnd5wF9wBqvJf8VC0iqmJtNlcmFYWvfxx9NmibfPq8AjpeRdRBF/SXHlzVGg1hBZFMiQ3XK4d84QaXrPPk9TdEFmjLMaPDg+F3WoqhomgWaz8fgcgfpKz5C1RoUS3wCeYhRWVrVKRTpeG6ehY8MPsIDDzSoZzUmoOMrGh0zUSg077qXV+WRpeIFTsvHAm69ppxdgysMctsUEQv4GIAu7i1ZdRIsXVJV7A4dLf39WlTGLAHqNrp3e9x0aymkacHaSbkqpMR12Wfv/hutX/mmlrjwtF0oBbrzgkwEv9OPw8/OrUNeGW3gIF35+subJCuqhhutvCGAx/1AefnGYGmxcfAb8vrXiMnYYb0CUhDpDVCRCJPCynmfLSu49bjqFhclSIvknAi8xEPyZx3aqDzc+NWRPZeQ4oAs+FL+yRJpCs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(10070799003)(1800799024)(18002099003)(22082099003)(3023799007)(5023799004)(56012099006)(11063799006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TXoxQkU4VGZvOHRlbXd5V040azZaMzExcjlwZlp6R1ZDaGNtN0VXU0NxbFh6?=
+ =?utf-8?B?OTcvMjdJdlpqOXo3TWJreC9UQktCaGRacWcyY3RYVG1qUFJmeWJ2UklLVVpS?=
+ =?utf-8?B?TXdySzBxaHFIT1R3VHcrYS9abXV2R3V6QWZTeDRnbWVSTU4vZ2pIbTdzR2hl?=
+ =?utf-8?B?NDlPYzRHL1VRY1lFRUVCKzhEZVVFMmptZ0o0R1l3OGxXc1lONEsvM0R3UUg4?=
+ =?utf-8?B?Z1ZSakp3K1ZMRXUxTENPVldONU5tMFR2b0J1Q3JNRStmQ0dOWWRZZ05yTDMy?=
+ =?utf-8?B?MVozS1pjN0FVMTJVNkI1MUI1TlkxZEZhbStRQ0M3QzI2VnJCR1F6MUpNQjli?=
+ =?utf-8?B?WG5DeXFQNlhiLzUwZlNYYytBNFVleitBQVJTRWRCelhxRHExSzhRbVU0OTYy?=
+ =?utf-8?B?dEhsR3dueW9wcHpiQS9tcUQ1cmlmM1ViTUlHU1BPai80UFc1N1VBaFZKbEdi?=
+ =?utf-8?B?SVptd0RFTVM5bGdmcUJaWjhxZjRRZ1docWFDc05WR054eS9jUVJsMFRZZlB0?=
+ =?utf-8?B?RU1RQXBCRnorSnNmcjB1eTl3NHNwMXB5K2M2cEhEdCtXU0ZkNTY2aFVYOHJ1?=
+ =?utf-8?B?c2lYNGt0eldLdkRxV01keTNCOXdBdVB4bGM2L3VHMmplUk5rcGtyL0ZsU2k3?=
+ =?utf-8?B?NmE4SFdIUW9uUnhvR2JubUE2STFhUVlsSFZ0NFRoaEFoeEo1TjE4aWdIVjBH?=
+ =?utf-8?B?Y1hlQ0ZEYS9GT3ZJSExTOHRTU2txL0tJUzlCRUNhZi9DZU9CMjNYZFNOOEhY?=
+ =?utf-8?B?b3hyOHZBTkZnQ1dGZlZoMi81MmFCa09DVWhtQ2RWdk9FN2M5bW5JM0FiTEVn?=
+ =?utf-8?B?UlVIeXBERGs5R2RFTDRURU9zWWhaYU1PWmZWNWhTNHNPWno4UGIrTmJTby83?=
+ =?utf-8?B?VU83NmhVMUNxSE8vMXZBWkptVnZENzNUYk9IL0Q5QTcybG41WVdpamYwbTY2?=
+ =?utf-8?B?UVErZ0JFLzBjcVJTb0NjUml3clNmSy9aWGh2SWlHYTQ0dGE2WVVQb1dhVk9x?=
+ =?utf-8?B?dkJiWjhZYVRnQlUwUWg4OEM1bEpJUzBPOEI5ZUd5VVNuZ1VJT1hoZmRwQWpW?=
+ =?utf-8?B?NHh0UDJDYkppS1RZWk5neXVabWJpS3dFbk4xODFLbUJpcDJBTHlKZktuMThF?=
+ =?utf-8?B?TUR2WVV2eEx4eEVibk9NL3kvd1VlcysxNFBVdHBkbkdlUjZlQVJ4ekNmYy85?=
+ =?utf-8?B?R3NMUUpVWTZKbVYrWStNdTFIQ3NFK2FPcU9NTHcxNmxGa2xtZXJGMDlxNmVq?=
+ =?utf-8?B?SFdIM2ZPVUFEbW9hRTRCc1dFWnZPSHVlMkdoR1N5Nkd1QVdoU01Fd2ZPamI1?=
+ =?utf-8?B?KyswOW1Tc3lLSmhMRDh6Ynl2eTlPM0N5NFNuQkdlQ3BoMWErNmtUK0Q4blJn?=
+ =?utf-8?B?ZWk2UWlqOVVKSWUyY0h3ZUR4TzdpcGwwOW83Y2RSY3BSSFk4SGFzcUNNUVNm?=
+ =?utf-8?B?aWFLVGxOSzA1NVFRR3RJSHJQR0pPRzk5SzNVRjkvZVFFNnFPUFFqbnQ0c1lh?=
+ =?utf-8?B?NXNZUE1PbW5tK0o3SEhzV25Cam1LVkxnTVUreGdUZ1lxdmU0VERrV3M5RUZ5?=
+ =?utf-8?B?RTNiMlI5NTRBcTM3dFJrdEF3dGF6KzJhWnRXaGVWemhaZExwV2o3VUJnSGJ2?=
+ =?utf-8?B?UU5WY1lsR0orelpmbVJpWEQxaVdValBXZzd4b1E4TlU2clJCWEF2Q2JSZWx1?=
+ =?utf-8?B?T05qYlFoenRHanhHMWpWQUhvWXJ2eW1QWVFKQ29Mb2Yvak1XajBoSU0vcnZ0?=
+ =?utf-8?B?dUZ0blEycW4vRkRKVTQ2K203WXQvaERvTVZRTnNzNTlnZVQ2NWc2bmtwaTVi?=
+ =?utf-8?B?ajZ2TG85b20vNEoySVQ2NU02MDI4cTI0NFh6RE0rLzQ3aXhiWi96MW5ibWZS?=
+ =?utf-8?B?Wi9qY1Aycm4ybVF0OWNoejBCWkQrbGpJMHBBRG1qU3BOZUtCdC9tcUh0Wk5T?=
+ =?utf-8?B?Vi9vQkRLZnZ6MXhHaDBqeHVzNnZWN0N5ZW1NTWdCbVFmVDdwK0VZY2RPNHpl?=
+ =?utf-8?B?YTRnZkdkMEZiVmxZMXR0UjM2RWpEbVZYY1lVR3h3TVdOSDl5RVNpNUc5Z2pV?=
+ =?utf-8?B?b0R4VEVZcS90MmhaMlVEbExwN3Rxd3FGeFFjdXBQckVvOUdpdFlHZFR5bFFn?=
+ =?utf-8?B?UXplbVJRVEJKRnpRZytlbDRCZ3JtUmg1MHh0WFNrM0o3SWM1MlRTQmpWeG80?=
+ =?utf-8?B?U1YyK3FPbHQ2eTNGNVBxYjk2bnhEVjNFZ1Z3NjY1SFNxSXpvZWwzcXk3eXM3?=
+ =?utf-8?B?cXg3dXo4THlONUhPdU5yN0FGN0dFNHdkSzZPTkpXSk82ZXlybnFBZkZ5MXBU?=
+ =?utf-8?B?MENMZEJXeDBoUDEvVDF0d251VGxyM0VUeHAveTZ2Y2NUSndwVWNyZlVnK1V6?=
+ =?utf-8?Q?61UaA7uPZ+kBzdgcZ5pFQP8O12BxpjH3rZ0gPnZbJKorY?=
+X-MS-Exchange-AntiSpam-MessageData-1: AXXBKRh/UYgj8w==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e1d3b4bf-c564-49ad-8602-08df0ff661b1
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 11:18:18.9283
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fMEgTxkRg3ok7g1okTlLnnBTophYx8OQuoTbASANSYHG2DUiFSlJNBiUxX1ogEd1ZrcVnNP2Sx+zMhudW4ORfw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8975
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On Fri Sep 11, 2026 at 2:28 PM JST, Eliot Courtney wrote:
+> On Fri Sep 11, 2026 at 2:17 PM JST, Alexandre Courbot wrote:
+>> On Thu Sep 10, 2026 at 5:10 PM JST, Alexandre Courbot wrote:
+>>> On Thu Aug 27, 2026 at 11:12 PM JST, Eliot Courtney wrote:
+>>>> For struct-like GMCAPI messages encoding field by field manually is
+>>>> noisy. Add some type machinery and a macro to automate encoding of
+>>>> struct-like messages. The `Encodeable` trait can be implemented by any
+>>>> type to say that it can be encoded into an NVKV `Encoder`. Add a simpl=
+e
+>>>> `nvkv_encode!` macro that works on structs and encodes each field in
+>>>> order. Provide some base types, such as `Key` which statically
+>>>> associates a NVKV key with some value, to avoid having to make a lot o=
+f
+>>>> newtypes and implement `Encodeable` on them.
+>>>>
+>>>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>>>> ---
+>>>>  drivers/gpu/nova-core/gsp/nvkv.rs        |  49 ++++++++-
+>>>>  drivers/gpu/nova-core/gsp/nvkv/encode.rs | 178 ++++++++++++++++++++++=
++++++++++
+>>>>  2 files changed, 226 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/gpu/nova-core/gsp/nvkv.rs b/drivers/gpu/nova-core=
+/gsp/nvkv.rs
+>>>> index cbeee7f376b6..10dcbb9e602c 100644
+>>>> --- a/drivers/gpu/nova-core/gsp/nvkv.rs
+>>>> +++ b/drivers/gpu/nova-core/gsp/nvkv.rs
+>>>> @@ -10,8 +10,13 @@
+>>>>  //! naturally maps to storing a &str with the GPU name.
+>>>> =20
+>>>>  #![expect(unused_imports)]
+>>>> +#![cfg_attr(not(CONFIG_KUNIT), expect(unused_macros))]
+>>>> =20
+>>>> -use core::ops::Deref;
+>>>> +use core::marker::PhantomData;
+>>>> +use core::ops::{
+>>>> +    Deref,
+>>>> +    DerefMut, //
+>>>> +};
+>>>> =20
+>>>>  use kernel::{
+>>>>      alloc::{
+>>>> @@ -92,6 +97,48 @@ fn deref(&self) -> &Self::Target {
+>>>>  /// The index of an NVKV value.
+>>>>  pub(crate) type Index =3D Bounded<u64, 12>;
+>>>> =20
+>>>> +/// A static association between an NVKV key `KEY_ID` and the storage=
+ of its value.
+>>>> +///
+>>>> +/// Use with the encoder or decoder macros `nvkv_encode!` and `nvkv_d=
+ecode!` to let them know how to
+>>>> +/// map the value `Key<T, KEY_ID, As>` to/from encoded data. For brev=
+ity, `As` inserts an additional
+>>>> +/// conversion (`From`) to avoid having to implement [`Encodable`] fo=
+r many types. For example,
+>>>> +/// enums that are easily convertible to a u32 can have `As =3D u32` =
+and rely on the existing encoding
+>>>> +/// for u32.
+>>>> +#[repr(transparent)]
+>>>> +pub(crate) struct Key<T, const KEY_ID: KeyId, As =3D T>(pub(crate) T,=
+ PhantomData<As>);
+>>>
+>>> Does the `T` need to be `pub(crate)`? The series builds fine with it
+>>> being private.
+>>>
+>>> Also the relationship between `Key` and `IndexedKey` is a bit unclear
+>>> with the current type layout. IIUC `Key` is basically a specialization
+>>> of `IndexedKey` with an index of 0. And yet `Key` is declared in the
+>>> root `nvkv` module while `IndexedKey` is in the `encode` submodule...
+>>> I'm also wondering whether it would make sense to make the relationship
+>>> completely explicit by making `Key` a newtype embedding a `IndexedKey`
+>>> with the invariant that the index is `0`, but not sure about that one s=
+o
+>>> your call.
+>>
+>> Ah, I guess that's because `IndexedKey` is local to `encoder`. In this
+>> case keeping it there does indeed make sense. After complaining about
+>> the visibility of other declarations, I should have noticed that one
+>> too. :P
+>>
+>> What worries me more is the fact that no index larger than `0` is ever
+>> created. This looks more and more like a bug to me.
+>
+> We currently don't send anything that wants an index other than zero.
+> But, in the future we will. The way I did this so far is by having
+> 'IndexedKey' which represents the most general thing that can properly
+> encode anything accepted by the NVKV format. Since it's cumbersome to
+> and rare to use, I added Key as a wrapper on top. It would be possible
+> to hard code 0 in the index and only have `Key` but then we'd just have
+> to change it later. Since nothing wants to set a non-zero index
+> currently, it's private to `encoder`.
 
-On RZ/T2H and RZ/N2H SoCs, the WDTDCR (WDT Debug Control Register) resides
-in the second register region of the CPG/MSSR block. Since this
-multi-function block is shared with other peripherals, it is exposed via a
-syscon regmap interface.
+But surely we should be able to test the non-zero path, even if we don't
+have any real-life user at the moment, right? As this is part of the
+NVKV spec, we should ensure this is correct.
 
-Look up the SYSC regmap using the optional "renesas,sysc" property and
-derive the WDTDCR offset from the watchdog instance index.
-
-Retain the existing MMIO-based access method when the "renesas,sysc"
-property is absent to preserve compatibility with existing DT's.
-
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
----
-v4->v5:
-- Code changes due to regmap_lock introduction.
-
-v3->v4:
-- No change
-
-v2->v3:
-- Made use of the new "renesas,sysc" phandle-array property to access the
-  WDTDCR register via the CPG/MSSR syscon node.
-- Updated commit message
-
-v1->v2:
-- No change.
----
- drivers/watchdog/Kconfig     |  1 +
- drivers/watchdog/rzv2h_wdt.c | 64 +++++++++++++++++++++++++++---------
- 2 files changed, 50 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
-index f7d0a0c2c0ef..3c4fc9916d8c 100644
---- a/drivers/watchdog/Kconfig
-+++ b/drivers/watchdog/Kconfig
-@@ -1046,6 +1046,7 @@ config RENESAS_RZV2HWDT
- 	depends on ARCH_RENESAS || COMPILE_TEST
- 	depends on PM || COMPILE_TEST
- 	select WATCHDOG_CORE
-+	select MFD_SYSCON
- 	help
- 	  This driver adds watchdog support for the integrated watchdogs in the
- 	  Renesas RZ/{G3E,V2H(P)} SoCs. These watchdogs can be used to reset a
-diff --git a/drivers/watchdog/rzv2h_wdt.c b/drivers/watchdog/rzv2h_wdt.c
-index 550112446db4..fcd1ff99c0ed 100644
---- a/drivers/watchdog/rzv2h_wdt.c
-+++ b/drivers/watchdog/rzv2h_wdt.c
-@@ -9,6 +9,7 @@
- #include <linux/delay.h>
- #include <linux/io.h>
- #include <linux/kernel.h>
-+#include <linux/mfd/syscon.h>
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
-@@ -46,6 +47,11 @@
- 
- #define WDT_DEFAULT_TIMEOUT	60U
- 
-+#define RZT2H_WDT_MAX_INSTANCES	6
-+
-+#define RZT2H_SYS_BLOCK1(n)	(BIT(16) | (0x5100 + (n) * 4))
-+#define RZT2H_WDTDCR_OFFSET(n)	RZT2H_SYS_BLOCK1(n)
-+
- static bool nowayout = WATCHDOG_NOWAYOUT;
- module_param(nowayout, bool, 0);
- MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (default="
-@@ -66,15 +72,20 @@ struct rzv2h_of_data {
- 	bool wdtdcr;
- };
- 
-+struct rzv2h_sysc_wdtdcr {
-+	struct regmap *regmap;
-+	spinlock_t regmap_lock; /* Protects access to the regmap */
-+	unsigned int offset;
-+};
-+
- struct rzv2h_wdt_priv {
- 	void __iomem *base;
--	struct regmap *wdtdcr_regmap;
--	spinlock_t regmap_lock; /* Protects access to the wdtdcr_regmap */
- 	struct clk *pclk;
- 	struct clk *oscclk;
- 	struct reset_control *rstc;
- 	struct watchdog_device wdev;
- 	const struct rzv2h_of_data *of_data;
-+	struct rzv2h_sysc_wdtdcr sysc;
- };
- 
- static int rzv2h_wdt_ping(struct watchdog_device *wdev)
-@@ -93,18 +104,22 @@ static int rzv2h_wdt_ping(struct watchdog_device *wdev)
- 
- static int rzt2h_wdt_wdtdcr_count_stop(struct rzv2h_wdt_priv *priv)
- {
--	guard(spinlock_irqsave)(&priv->regmap_lock);
--	return regmap_set_bits(priv->wdtdcr_regmap, WDTDCR, WDTDCR_WDTSTOPCTRL);
-+	struct rzv2h_sysc_wdtdcr *sysc = &priv->sysc;
-+
-+	guard(spinlock_irqsave)(&sysc->regmap_lock);
-+	return regmap_set_bits(sysc->regmap, sysc->offset, WDTDCR_WDTSTOPCTRL);
- }
- 
- static inline int rzt2h_wdt_wdtdcr_count_start_nolock(struct rzv2h_wdt_priv *priv)
- {
--	return regmap_clear_bits(priv->wdtdcr_regmap, WDTDCR, WDTDCR_WDTSTOPCTRL);
-+	struct rzv2h_sysc_wdtdcr *sysc = &priv->sysc;
-+
-+	return regmap_clear_bits(sysc->regmap, sysc->offset, WDTDCR_WDTSTOPCTRL);
- }
- 
- static int rzt2h_wdt_wdtdcr_count_start(struct rzv2h_wdt_priv *priv)
- {
--	guard(spinlock_irqsave)(&priv->regmap_lock);
-+	guard(spinlock_irqsave)(&priv->sysc.regmap_lock);
- 	return rzt2h_wdt_wdtdcr_count_start_nolock(priv);
- }
- 
-@@ -274,19 +289,38 @@ static const struct regmap_config rzv2h_wdtdcr_regmap_config = {
- static int rzt2h_wdt_wdtdcr_init(struct platform_device *pdev,
- 				 struct rzv2h_wdt_priv *priv)
- {
--	void __iomem *wdtdcr;
-+	struct device_node *np = pdev->dev.of_node;
-+	bool syscon_present = of_property_present(np, "renesas,sysc");
-+	struct rzv2h_sysc_wdtdcr *sysc = &priv->sysc;
- 	int ret;
- 
--	wdtdcr = devm_platform_ioremap_resource(pdev, 1);
--	if (IS_ERR(wdtdcr))
--		return PTR_ERR(wdtdcr);
-+	spin_lock_init(&sysc->regmap_lock);
- 
--	spin_lock_init(&priv->regmap_lock);
-+	if (syscon_present) {
-+		unsigned int wdt_index;
- 
--	priv->wdtdcr_regmap = devm_regmap_init_mmio(&pdev->dev, wdtdcr,
--						    &rzv2h_wdtdcr_regmap_config);
--	if (IS_ERR(priv->wdtdcr_regmap))
--		return PTR_ERR(priv->wdtdcr_regmap);
-+		sysc->regmap = syscon_regmap_lookup_by_phandle_args(np, "renesas,sysc",
-+								    1, &wdt_index);
-+		if (IS_ERR(sysc->regmap))
-+			return PTR_ERR(sysc->regmap);
-+
-+		if (wdt_index >= RZT2H_WDT_MAX_INSTANCES)
-+			return -EINVAL;
-+
-+		sysc->offset = RZT2H_WDTDCR_OFFSET(wdt_index);
-+	} else {
-+		void __iomem *wdtdcr;
-+
-+		wdtdcr = devm_platform_ioremap_resource(pdev, 1);
-+		if (IS_ERR(wdtdcr))
-+			return PTR_ERR(wdtdcr);
-+
-+		sysc->regmap = devm_regmap_init_mmio(&pdev->dev, wdtdcr,
-+						     &rzv2h_wdtdcr_regmap_config);
-+		if (IS_ERR(sysc->regmap))
-+			return PTR_ERR(sysc->regmap);
-+		sysc->offset = WDTDCR;
-+	}
- 
- 	ret = pm_runtime_resume_and_get(&pdev->dev);
- 	if (ret)
--- 
-2.55.0
-
+If `IndexedKey` is supposed to move down one module when it gains a
+user, I think we should place it in its expected destination from the
+get-go.
