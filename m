@@ -1,188 +1,279 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0899F36196E;
-	Fri, 11 Sep 2026 17:06:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789146414; cv=none; b=hwZsaVbZG08c85zb+MRhl3V2RGUm3hbm6hW087v1tmSK85U+Zw20QEV6tE5F/7h+fZfw+T63Tiwd0zeM8syLsAUkCvawyFL4Q/xipLyb0lZ+sUTqAz+IufE0OxT9FRMQUcJi6rA0TNJQMuVC5ZM3j1uBQDXchlgbboDbG8GVupg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789146414; c=relaxed/simple;
-	bh=iYc224HVLNEwOM+E5VmwftikDmpBHmWPgmQEnoXMLfY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XtlRykljIaAH9+gyfWBirPrrfrMp0y9d/YuiehGGHDbIDW1cfis+5MUF6EJgGYUMJwQMPXb4gOs5EdI6ge5K4KB93+UtpFgr4KijXrinZQ5BWJipNJpSAW3e61JfRL7AEdfddFdfCQnIWUu0xZ4V2ZNEdJszNEbVkJRo20DJ45M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=l4fT04OU; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1620E3A7F52
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:08:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789146483; cv=pass; b=E9lz0wR64WbuKzGQAClLt3+HEpe4cFDhae9Jo9ZsQIyKILsj5d95XBzfjRn3je75TOqFo+Dt256dzrifvvXgXlcooSqDrmGhnLIzEHfeCJjITnY/KxdqnO9sl6MVOWKgkXw5ZXJDLIaaqere4/Dj46R1icyv00XxduK1HW+03kw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789146483; c=relaxed/simple;
+	bh=yvIYGfK0j5RKlarxd15M99WA87HKIWW0hFtuYq8YyW4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HA5Q2KzcCwJ5DZZABQLUDH8P1S0hf/l2iIHAwIbMKTRbIGFfqhxnmiXcbH8YEzFO0Dvvs1ZInsVpEQdDs3Wr0SFSoyEkOx/nIvx3ULOei3hPhRXtwYSfp3Dl3ogiUin6DX9QCoIyst/GTaUTTnQW+nSRZ8GeB5td5qyeDyEknos=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wB+y5zMx; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="l4fT04OU"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B93052BC4;
-	Fri, 11 Sep 2026 10:06:47 -0700 (PDT)
-Received: from [10.0.129.245] (unknown [10.0.129.245])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D76C43F8C6;
-	Fri, 11 Sep 2026 10:06:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789146411; bh=iYc224HVLNEwOM+E5VmwftikDmpBHmWPgmQEnoXMLfY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=l4fT04OUrni6Z4HR+NgfvsLj68HjcJYmApfDq0mAvFgxabFySfElBUH4mCR083sZ2
-	 0nQoOI7JZzc9g8pB/kNVXPDwrBmcOzVtK+EagOc6U6uFozqLOFWXSiow/zF+/TSTeC
-	 pj7KXVu+1evZT8G8fEGH/2Jlg8opz98ZmrVhZIRk=
-Message-ID: <06535dcb-265d-4602-a970-e6c584a01d1a@arm.com>
-Date: Fri, 11 Sep 2026 18:06:46 +0100
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wB+y5zMx"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-530411c7ee1so71061cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:08:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789146481; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iiVDBWsIdn8eeRO4VKZ5uqn9qf0Olfmn6lnerlyvuAW8bvy2auhT70LnRtPdexc2rG
+         eyViHRxbrXN+DA+apK1/xloGKHarYAkwbzKa8c6u+dtzp9chN/SOfqrzWWhbwouQfeTy
+         ljISBMFZpiOk0dFV2tsRJHZPtswcHfb9Nt5cTc11gnBs24gS8tweTbb/Zm7uxOg/gF67
+         g8CN/w7D53v4S6KM1HGZjlG9oH8W+X216xmCRtMu6ZP5sQUUufLzF6gvWPnkDlHXB38S
+         r+fp/T01ebdpc0q9U2cCxnBtoF3cRezY7g6QQ57A5V94yi8E+nQkDMGgRoq+jsaCLbSi
+         MWfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=FfqAnYs9QWvu4t/PRHSywLwXNZCW3SnEDtn5daAsEzM=;
+        fh=288sLg2wDpE4YplgvoAXlcauHtR00fDNcCqxKImub1s=;
+        b=qbGR1ClGBM7lmoMblG5PXVT5t8+prqlcpoWVTrIOw6AY79f8R+TiTynefTgJ4JjqIB
+         veAwOKFdEMF257qIgSTy7GFaT/X0ddNawwh9CQtaYjhQZrhr2lUpH/cD9eEIQKGx/haQ
+         TbmyQNbyhPH6Z7ykBGbGq4w4ZZgNdudSVGhsBD/0AfqcQOq4DVUvw75MchVGxnJCp/3A
+         uYYiPiYFjesBjqMJ+uAYy4h+7dQv+WRbjb1FnO69JdOSUYe8Sp0htAfQEUdzkUr/2cVw
+         g+8ga41moOMwhO4VKJhf3Zh1oK9QUf1w7TBVRlCCSKNvFYxgHsFQgR2XMQgqQlxEEa99
+         OXGg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789146481; x=1789751281; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FfqAnYs9QWvu4t/PRHSywLwXNZCW3SnEDtn5daAsEzM=;
+        b=wB+y5zMxFTnVBd8Q1/vvXTgcxMAAHujFc8iEl8N4MBaPEBMP2mttHQUdLXbjO3I0eL
+         dinqUAwxjwlXQsvKmfI3CQY/FK4nzCtRPJ0LN+XkzZg5nrKsVV5F7WPSfCMZ5ZELpbsB
+         nNXmuUKSXrKIoNoG/RV1Rxn3ygQO9H/0SpZJiQFbx+qqszGRqBMTPAg63heEPBaXbmy0
+         bxGRsR0ctYf/xMYF8ImFtI56tbQtFEMYPrVhTmsxllf3oVJ9icGsAQWrtdYI/pvTgLuK
+         YE0UeIQyc7iTuPoj5zQHqU7ZdbfY9Qm7CJvPai3pQv6i2ft7exkW65mA6IpH2LUmV+99
+         8egw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789146481; x=1789751281;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FfqAnYs9QWvu4t/PRHSywLwXNZCW3SnEDtn5daAsEzM=;
+        b=RcOjs+QUN2YP2fwjHV9VvvG2Jzxa4PbATkcjuTH0/qk/cs+l2YJOIAGS6Mw0gOcGgH
+         8H2R3Ry1/U+VCmWdXfWq4jPvzm9CM/PnlZiA+Wtu+E6X5cukwhYunAdT6yDeKzN27lkL
+         4A4Kng/qe447wVGRW94BvcQbyOvv528+ekZ/aJ9zmGJLmjSV8ikH8twzWRtXX8zucHEB
+         pGqtXXtg3wf9WlZdHMf3StJFB3SzSsneXOmHpmYusKoMSHMojHfD3vTGp4OJ/49rjVul
+         gBDpzr8hqP4baM0dygq6AZ4bo67Q9IzErgBfT27lDRhuePq6pUqyImeDu4DqCyAGQsAz
+         OBxw==
+X-Forwarded-Encrypted: i=1; AKwUvBxSZmIRdKDxcR+rtZHlmbJdkbLEEIXPyqLqITcRQRYBQjBvcZRJ2gPtJxL5nzyUJcE7C27I3yTi8Ywmg4Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGpMoXas5vAW8WhcC+6JDzCIVKUCGWiS0zaGWflXyD4fEMqMUN
+	Z7Kg7SkbW2m3CXTY0+eDYS8ZDgdORKXxzZ/OckK8xeYSYpqBh5hojiwBboHjJiGbcWPpi1doulA
+	Fq3E5CO/KSf4Ungvr291AZGME0V26qtns3ksH8DCN
+X-Gm-Gg: AYBFou1Dm+nWeXxqke1QveFnUmWw+booz8OXmJGxF3uqgrvWvIXL/CvnMpewlWuplL+
+	MKE/CmqZD1Swzyt3UWVD7zS+zOw9fmDo+D/srHLmcQiTPXtBVDG3zx60bdmLuuXQ7zJYbOAiAHn
+	+zUjVRFw/gS8t5ZoVq3jiFRoPyr8TqY98wjDrj4kPMf6dwoy9GRQH2rBnBNhrRSmn0eIyiFFZ/J
+	vBR9u0yMI0iGbRY/diHzVR2H2PIgNrNEwMmZtUqjKFDuFxscEg04PG+czq6rwpgL0LFK9cBzD5c
+	JcYGCYrp9bCNVzm4ht0ALJFMADTUargFeqTMyQj7cvLR+UZclqyFELI1fJuFbwlimJbAUW2PiSI
+	ByrYkE7o=
+X-Received: by 2002:a05:622a:1b07:b0:527:f08f:56a2 with SMTP id
+ d75a77b69052e-530e4652848mr184701cf.8.1789146479942; Fri, 11 Sep 2026
+ 10:07:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 03/20] KVM: arm64: Track the type of VM in kvm_arch
-Content-Language: en-GB
-To: Marc Zyngier <maz@kernel.org>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, will@kernel.org,
- catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260908162223.1683432-1-suzuki.poulose@arm.com>
- <20260908162223.1683432-4-suzuki.poulose@arm.com>
- <86fqzf7okc.wl-maz@kernel.org>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <86fqzf7okc.wl-maz@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260910234737.1340642-1-surenb@google.com> <20260910234737.1340642-5-surenb@google.com>
+ <aqQsWNfrBSp4DY_N@gremlin>
+In-Reply-To: <aqQsWNfrBSp4DY_N@gremlin>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Fri, 11 Sep 2026 17:07:48 +0000
+X-Gm-Features: AcwNN1VmWwBwvdrrzfbSCfPBns6QLN3cVqhymRQ3A0LlyuwTeNE2s_Y0v9LoFOY
+Message-ID: <CAJuCfpEEi-9ZqhKR536tJHywprb9RFcx92gK00qp_ecBGH9Fvw@mail.gmail.com>
+Subject: Re: [PATCH v3 4/7] proc/task_mmu: remove special-casing of
+ smap_gather_stats() start parameter
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, 
+	david@redhat.com, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
+	pfalcato@suse.de, xueyuan.chen21@gmail.com, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Marc,
+On Fri, Sep 11, 2026 at 4:39=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.o=
+rg> wrote:
+>
+> On Thu, Sep 10, 2026 at 04:47:34PM -0700, Suren Baghdasaryan wrote:
+> > smap_gather_stats() interprets its start parameter to mean vma->vm_star=
+t
+> > when it's set to 0. Eliminate this special interpretation and pass
+> > vma->vm_start explicitly when needed.
+> >
+> > Since smap_gather_stats() operates within a single VMA, we can replace
+> > walk_page_vma()/walk_page_range() calls with walk_page_range_vma()
+> > which is simpler and also can be called while holding per-VMA lock.
+> >
+> > No functional change intended.
+> >
+> > Suggested by: Lorenzo Stoakes <ljs@kernel.org>
+>
+> Hmm did I? Where did I suggest this?... I guess a while ago?
 
-On 11/09/2026 17:14, Marc Zyngier wrote:
-> On Tue, 08 Sep 2026 17:22:06 +0100,
-> Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
->>
->> KVM arm64 has different types of VMs with all the different modes in which the
->> hypervisor code can be run. e.g., VHE, nVHE, PKVM etc. Then there is protected
->> VM and normal VMs with PKVM. We might soon add other types, e.g., Arm CCA Realm.
->> So in an effort to make the handling of these different types of VMs a bit more
->> friendlier to the eyes, add a VM flavor to the kvm_arch and we could then add
->> handlers for different operations based on the VM type.
->>
->> Keep the flavor initialisation at the beginning to allow for the detection
->> early enough and fail out on any unsupported requests. (e.g., protected on !PKVM)
->>
->> With that, use the vm_flavor to detect if a VM is protected VM on PKVM.
->>
->> Based on a patch by Marc Zyngier
->>
->> Suggested-by: Marc Zyngier <maz@kernel.org>
->> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->> ---
->>   arch/arm64/include/asm/kvm_host.h | 12 ++++++++++--
->>   arch/arm64/kvm/arm.c              | 27 ++++++++++++++++++++++++---
->>   arch/arm64/kvm/hyp/nvhe/pkvm.c    |  2 +-
->>   arch/arm64/kvm/pkvm.c             |  1 -
->>   4 files changed, 35 insertions(+), 7 deletions(-)
->>
->> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
->> index 27fe0cd5b2d7a..d0dccc9ad6aa8 100644
->> --- a/arch/arm64/include/asm/kvm_host.h
->> +++ b/arch/arm64/include/asm/kvm_host.h
->> @@ -257,7 +257,6 @@ struct kvm_protected_vm {
->>   	pkvm_handle_t handle;
->>   	struct kvm_hyp_memcache teardown_mc;
->>   	struct kvm_hyp_memcache stage2_teardown_mc;
->> -	bool is_protected;
->>   	bool is_created;
->>   
->>   	/*
->> @@ -306,9 +305,18 @@ enum fgt_group_id {
->>   	__NR_FGT_GROUP_IDS__
->>   };
->>   
->> +enum kvm_arm_vm_flavor {
->> +	VM_NVHE,
->> +	VM_VHE,
->> +	VM_PKVM,		/* Normal guests on PKVM */
->> +	VM_PROTECTED_PKVM,	/* Protected VM */
->> +	VM_FLAVOR_MAX,
->> +};
->> +
-> 
-> My original design did introduce classes of VMs, which I definitely
-> want to retain so that we don't pointlessly differentiate CCA VMs from
-> pKVM protected guests when at all possible. Realms are protected VMs,
-> full stop.
-> 
-> With that in mind, this should read:
-> 
-> enum kvm_arm_vm_flavor {
-> 	VM_NVHE,
-> 	VM_VHE,
-> 	VM_PKVM,		/* Normal guests on PKVM */
-> 	MARKER(__VM_FLAVOR_PROTECTED__),
-> 	VM_PROTECTED_PKVM,	/* Protected VM */
-> 	VM_REALM,		/* CCA */
-> 	VM_FLAVOR_MAX,
-> };
+In [1] on June 9, 2026.
 
-There is something similar later in the series, that adds : 
-"Confidential" guests in Patch 8, which makes this :
+[1] https://lore.kernel.org/all/aifO_rCurVhFRTcl@lucifer/
 
-  	VM_NVHE,
-  	VM_VHE,
-  	VM_PKVM,		/* Normal guests on PKVM */
-+	MARKER(__VM_CONFIDENTIAL),
-  	VM_PROTECTED_PKVM,	/* Protected VM */
-  	VM_REALM,		/* CCA */
-  	VM_FLAVOR_MAX,
-@@ -1524,9 +1525,11 @@ struct kvm *kvm_arch_alloc_vm(void);
+>
+> I mean I also happen to suggest it in the previous patch review :) but th=
+at was
+> sent after you sent this...
+>
+> > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> > Reviewed-by: Liam R. Howlett (Oracle) <liam@infradead.org>
+>
+> I don't love hacking a hack for a patch and then unhack it in the next in=
+ a
+> slightly roundabout way.
+>
+> Feels like this should be squashed. And a wrapper function for
+> start=3Dvma->vm_start should be used rather than duplicating that param
+> constantly.
+>
+> > ---
+> >  fs/proc/task_mmu.c | 29 ++++++++++++++++-------------
+> >  1 file changed, 16 insertions(+), 13 deletions(-)
+> >
+> > diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+> > index 3c40c9cbb9c9..ecce7ce116cb 100644
+> > --- a/fs/proc/task_mmu.c
+> > +++ b/fs/proc/task_mmu.c
+> > @@ -1246,21 +1246,27 @@ get_smaps_shmem_walk_ops(struct proc_maps_priva=
+te *priv)
+> >       return &smaps_shmem_walk_vma_lock_ops;
+> >  }
+> >
+> > -/*
+> > - * Gather mem stats from @vma with the indicated beginning
+> > - * address @start, and keep them in @mss.
+> > +/**
+> > + * smap_gather_stats() - Gather mem stats from @vma.
+> > + * @priv: proc maps private state.
+> > + * @vma: The VMA to gather stats for.
+> > + * @mss: The accumulated stats.
+> > + * @start: The address from which to start.
+> >   *
+> > - * Use vm_start of @vma as the beginning address if @start is 0.
+> > + * This gathers stats for the whole of the VMA unless the lock was dro=
+pped
+> > + * and VMA grew or got merged and we found it again, in which case we =
+only
+> > + * gather stats for the remainder of the VMA range.
+>
+> This seems to be describing what callers do not what the function does un=
+less
+> I'm missing something? So that's really the wrong place for it.
+>
+> I think the description of why it might be a partial walk belongs to the =
+bit of
+> code that actually tries to do a partial walk.
+>
+> Anyway as per below I think separate partial/full functions make sense an=
+d there
+> it can simply be described as walking either the full or part of the VMA.
 
-  #define __KVM_HAVE_ARCH_FLUSH_REMOTE_TLBS_RANGE
+This is verbatim of what you wrote at the end of [1]
 
-+#define kvm_vm_is_confidential(kvm)	((kvm)->arch.vm_flavor >= 
-__VM_CONFIDENTIAL)
-  #define kvm_vm_is_protected(kvm)	((kvm)->arch.vm_flavor == 
-VM_PROTECTED_PKVM)
-  #define kvm_vm_is_realm(kvm)		((kvm)->arch.vm_flavor == VM_REALM)
+>
+> >   */
+> >  static void smap_gather_stats(struct proc_maps_private *priv,
+> >                             struct vm_area_struct *vma,
+> > -                           struct mem_size_stats *mss, unsigned long s=
+tart)
+> > +                           struct mem_size_stats *mss,
+> > +                           unsigned long start)
+> >  {
+> >       const struct mm_walk_ops *ops =3D get_smaps_walk_ops(priv);
+> >       const bool is_partial =3D start > vma->vm_start;
+> >
+> >       /* Invalid start */
+> > -     if (start >=3D vma->vm_end)
+> > +     if (start < vma->vm_start || start >=3D vma->vm_end)
+> >               return;
+> >
+> >       if (vma =3D=3D get_gate_vma(priv->lock_ctx.mm))
+> > @@ -1285,10 +1291,7 @@ static void smap_gather_stats(struct proc_maps_p=
+rivate *priv,
+> >                       mss->swap +=3D shmem_swapped;
+> >       }
+> >
+> > -     if (!start)
+> > -             walk_page_vma(vma, ops, mss);
+> > -     else
+> > -             walk_page_range(vma->vm_mm, start, vma->vm_end, ops, mss)=
+;
+> > +     walk_page_range_vma(vma, start, vma->vm_end, ops, mss);
+>
+> I mean obviously am in favour of this as I suggested it in the last patch=
+ :)
+>
+> >
+> >       reacquire_rcu(priv);
+> >  }
+> > @@ -1343,7 +1346,7 @@ static int show_smap(struct seq_file *m, void *v)
+> >       struct vm_area_struct *vma =3D v;
+> >       struct mem_size_stats mss =3D {};
+> >
+> > -     smap_gather_stats(priv, vma, &mss, 0);
+> > +     smap_gather_stats(priv, vma, &mss, vma->vm_start);
+> >
+> >       show_map_vma(m, vma);
+> >
+> > @@ -1396,7 +1399,7 @@ static int show_smaps_rollup(struct seq_file *m, =
+void *v)
+> >
+> >       vma_start =3D vma->vm_start;
+> >       do {
+> > -             smap_gather_stats(priv, vma, &mss, 0);
+> > +             smap_gather_stats(priv, vma, &mss, vma->vm_start);
+> >               last_vma_end =3D vma->vm_end;
+> >
+> >               /*
+> > @@ -1455,7 +1458,7 @@ static int show_smaps_rollup(struct seq_file *m, =
+void *v)
+> >
+> >                       /* Case 1 and 2 above */
+> >                       if (vma->vm_start >=3D last_vma_end) {
+> > -                             smap_gather_stats(priv, vma, &mss, 0);
+> > +                             smap_gather_stats(priv, vma, &mss, vma->v=
+m_start);
+>
+> I mean this is all horrible, having to pass vma->vm_start explicitly.
+>
+> Although better than the hack that gets compounded in patch 3.
+>
+> There 4 invocations of smap_gather_stats(), only one of them passes a
+> non-vma->vm_start start.
+>
+> So it'd make more sense to just make smap_gather_stats() lose its 3rd par=
+am and
+> have it call smap_gather_stats_range(), then have 1 invocation of
+> smaps_gather_stats_range() directly, as per suggestion in last patch.
+>
+> Or something similar to that.
 
-+#define vcpu_is_confidential(vcpu)	kvm_vm_is_confidential((vcpu)->kvm)
-  #define vcpu_is_protected(vcpu)		kvm_vm_is_protected((vcpu)->kvm)
-  #define vcpu_is_rec(vcpu)		kvm_vm_is_realm((vcpu)->kvm)
+Hmm. Ok, I'll wait for you to read your previous suggestions in [1]
+and after that let's discuss what the final version should look like.
+Thanks,
+Suren.
 
-
-
-> 
->>   struct kvm_arch {
->>   	struct kvm_s2_mmu mmu;
->>   
->> +	enum kvm_arm_vm_flavor vm_flavor;
->>   	/*
->>   	 * Fine-Grained UNDEF, mimicking the FGT layout defined by the
->>   	 * architecture. We track them globally, as we present the
->> @@ -1504,7 +1512,7 @@ struct kvm *kvm_arch_alloc_vm(void);
->>   
->>   #define __KVM_HAVE_ARCH_FLUSH_REMOTE_TLBS_RANGE
->>   
->> -#define kvm_vm_is_protected(kvm)	(is_protected_kvm_enabled() && (kvm)->arch.pkvm.is_protected)
->> +#define kvm_vm_is_protected(kvm)	((kvm)->arch.vm_flavor == VM_PROTECTED_PKVM)
-> 
-> and this should read ((kvm)->arch.vm_flavor >= __VM_FLAVOR_PROTECTED__).
-
-Ack.  Didn't want to change "kvm_vm_is_protected()" to broaden the 
-scope, as it is widely used already for "Protected PKVM".  And if we
-need to check Realm vs Protected VM, that might make it tricky.
-  I will see how this is required in the end result (in my integration
-branch), to see if we really need to distinguish Protected PKVM vs REALM
-in any cases.
-
-
-Cheers
-Suzuki
-
-
-> 
-> Thanks,
-> 
-> 	M.
-> 
-
+>
+>
+> >                               last_vma_end =3D vma->vm_end;
+> >                               continue;
+> >                       }
+> > --
+> > 2.55.0.1007.g17ff1f9808-goog
+> >
+>
+> --
+> Cheers, Lorenzo
