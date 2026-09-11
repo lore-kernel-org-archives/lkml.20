@@ -1,205 +1,82 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010008.outbound.protection.outlook.com [52.101.85.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E55F391E4B
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:26:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789140405; cv=fail; b=jVm7EHsKUsZX/h41RXf2h1pqhbyG5bSAi6W/p9m+V+R5YMbC4o3gC9EAAsZFH8NRShMLuoUFEodpFnI0oJ5u6LWM06Cx67l1L6pzT1Jk3NokgY78Qx4NDQn0vfkKW34Bd9CQI/ELF/CVmqQqAxR91LD0FB38jvT6eCQEE2CPz7M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789140405; c=relaxed/simple;
-	bh=jZpbOAKhkdrn5twR7TbJJ9sgAKzwvemW2uHd08tMu74=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=NU48pa17s6OIRYJ7DiMsLRj5XPok5riOjXMz6bZdmzSWhPyse524wjDmFXaaRZ/1HpdOp31+UrlZa/T0bQeTQf5zLWAtRF9LHzvhODczC3a2arUafJfuR53bVVdI1lkLMgI+kPoOcSTrI9Cl6u+bfpYJ/AYa+d7a8edLgs8QTBA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=jmZ/beMa; arc=fail smtp.client-ip=52.101.85.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1CF3955D6
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:26:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.199
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789140415; cv=none; b=Gab4inCsdp2JOP/LARytfdSjrcoQzfDYVSWoUXpfIPjcPvNQpVn2JfUiRj20sVi9ia/lqxyhqz0VEM+UvUYnyJ3eCY0pGNNx+kAAg8HpjEtmR9Aa0BGijhsBYPMWtwOqODzwPnI7lQ+ny5DPBRKf6QcV6AnkRtU4CqrRlOfy2eA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789140415; c=relaxed/simple;
+	bh=WsJU03bKw4hxUYNUHTQv3ZI0g3UG9Lwvk2vioqHSAOc=;
+	h=MIME-Version:Message-ID:Date:Subject:From:To:Content-Type; b=MDg1s3rtn+7yvgm1XQtVA/EsC/topgvITl9NDDt3jRhcWX2ixcrAcUV6Z9YvDcp62U6h8EXnavSVpdpneezkywF4iiF7+IvMQDIlbfiQ4bPcvk2/FxLN3fyIH13WJjo0yPbPZb9kNVpFEgsLRSgBO7F5XRT7D4qen491M2T7qT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GNsIQOjo; arc=none smtp.client-ip=209.85.221.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="jmZ/beMa"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ky23akb3zQyhT5DuT1qRbeoGh53BAcP9aikkzzTx56XbIkstyPT1yWsB5kBtghLw+T3s7ke+L5BS6/87efqSWtp1DJK0Ae1WlF1ErF5LbMK+4pt8Qt3DUD/UYSkuCehdBr9+p3fBS9Ba0Gw6kyuMBH/Ug1yFmnQ4GpiKAuEtclxqTKkeyUELJLAScv4aosJ/N7w/bFG3xJdbjMfWBzeq6MPbDXn6cu9yVNx3/585f7CjgHqazSd7DDN4e0p6B6G+RzE14hbnqD6JTJA2OiiFKi7NhBnhpCbDci27B4ETfxgbt3AnWnHRznAM+qtm8BEGrrIuCdf9nICVOtEDj5FjDg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vZcebxwBwm/CpTEF66jE2VChDK3d8/p2s/e0oZguYYM=;
- b=cxgMi8iFxkhtPuF7qdaf696mQ9DebjgCyUMU/bOA31T5jSmNieJ8XR5XSMpPvvNj9Q6d0NiK2tLHm/oYk3al3e7bOlq7aUNnrOuoMzjeluFgLeiDGIU2hSgT+ZaaDvfO6EzKcWQey1lrrg5BNhArfO7o1MnqAaHjAtZzQ+oM48wdC9Bg+DSGDO0XVpA3XJz0/Q8pFeUWclYt7edmv389vJfGvVXhQqfDI4M5CHpghMSwpCBut7hJ0+p45SWt1V4jrJfnHUAeWECwD8+KrE8W0pz2euLWI02fm4pdfj2ZwiLGth3V1+fepwMMPKZM5ef8FXxbv5v6/n/Oxmze0P3AcQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vZcebxwBwm/CpTEF66jE2VChDK3d8/p2s/e0oZguYYM=;
- b=jmZ/beMa1P8svcWrbciX/1HatM08tZjGC39VQuntxgvpuJ6KhATh0n5DozCv9rg5VS6rYqVkIFnHYaIy+t/Xfv3PJdEUsysF6AUBY4R3ic9Li5SZdQVA0VX5tZ2978oIaqYgCKdDZOO/brMYmaOMbybKvWw1sQoS/3M0N4JDilxVWypm2iJTme9QgWVtrRH2RzOdoX2wnYuhoxqhzXpHvA5xi7us0rPTxdnaXJAPytKTTZv9yPWLuc2I8Qg2SNK8hpOoP5L8YZ9fKzZBIbrZT78QmVVTmf0eOogvz0aEJCuM9mbF4x0u2HdJq0d2u2Fwqrc2cLY4Srj1scXxP90yLA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by SA0PR12MB4349.namprd12.prod.outlook.com (2603:10b6:806:98::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Fri, 11 Sep
- 2026 15:26:37 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 15:26:37 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: Kiryl Shutsemau <kirill@shutemov.name>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kernel-team@meta.com,
- "Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>
-Subject: Re: [PATCH v2 09/12] mm/collapse: open-code collapse_single_pmd() in
- its two callers
-Date: Fri, 11 Sep 2026 11:26:39 -0400
-X-Mailer: MailMate (3.0r7032)
-Message-ID: <EAC13ADA-9B0D-4B16-A731-66062266854A@nvidia.com>
-In-Reply-To: <aqQaxyxQYD_1KHju@thinkstation>
-References: <20260910120238.2529819-1-kirill@shutemov.name>
- <20260910120238.2529819-10-kirill@shutemov.name>
- <DLCKQ4T6VJZA.3KVN87GD21IBI@nvidia.com> <aqQaxyxQYD_1KHju@thinkstation>
-Content-Type: text/plain
-X-MS-Reactions: disallow
-X-ClientProxiedBy: BN9PR03CA0699.namprd03.prod.outlook.com
- (2603:10b6:408:ef::14) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GNsIQOjo"
+Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5c7d5444845so1165050e0c.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:26:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789140411; x=1789745211; darn=vger.kernel.org;
+        h=content-type:to:from:subject:date:message-id:mime-version:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=/cGj2ubSNDWnnk8qoBMWrdRqeDwm9XqKs7XZZJafyjg=;
+        b=GNsIQOjob39ZZIijelB7w5irvwIDKsKVx4V100f3gAgkVke3fuYdYZgVUfPWpevZwU
+         TeqlxwdPYgx9jq2dASW2Lz8PpMXPSytfDqjbU/ykWXlZLh72SxV6AjeOVVT9Sajm+2Cj
+         JSk0KoYzFTyIdTzDvPSFkMB68Z2ZQINIA0K6FP2P0jZABrJHz6BH4i1FCNLEyKUs+r18
+         Rt4WapN/HqlTJAegq825WXTC5S+c75ly+SrvPf3AX1UEWxFQiR6BHS5XiUBz6zQQrvgy
+         si97UP0fEUv98/XLlQ954FlkU6NXlzoN7k4sVwlsxG1ugtUPXs2nQXUxH7gCgI7pyw2t
+         ckZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789140411; x=1789745211;
+        h=content-type:to:from:subject:date:message-id:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/cGj2ubSNDWnnk8qoBMWrdRqeDwm9XqKs7XZZJafyjg=;
+        b=INrV4lu2ddggmMbsrJ9Co9g3iWdc9GU4h+9ywvbK63YVeUuAnwDFc08Aqya8Lzxj26
+         XNeAZ+hGJVZCk2alKHEKN08TobQ+ldOvnr/Ri4wzLA3J/uFtNXwhWSpHrTClybcp2bLo
+         ou84/4dnlpciWXTKo4eNNRqLcZNpbpP4kHXcSinK9zXdScB4H3I+etVzaQg8+hBWp9W0
+         /mGBeKpGYzLJ33C4eeKgxtwy1nJ02GGanqm1sMYVSV3AdJP+EkrsUDpV0Lsa3EhKpKEb
+         RtbUEn+gorR79lAZZFW5h72p55CL9rS19BAW+IrHAy1RFmf7tYLw7l9wb7BvosoWdcpL
+         RK4g==
+X-Gm-Message-State: AFuF++mZXF+we3vMaKT1N5/MB/oQLzxjIVPVEFOZgFB0fPcttmxg/0ba
+	pMFUf772iWC6R5c4OQ22hOOj1vax+kPzJDLeCBY7Npgd0ChLxVorwS32zatH9qsN2rQvSex69xN
+	5Y3QlDw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SA0PR12MB4349:EE_
-X-MS-Office365-Filtering-Correlation-Id: 92cd523e-b971-4cdf-f198-08df101911d2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|4143699003|11063799006|10067099003|18002099003|22082099003|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	0epPkXweWWy/aEL/gRN/8Lk7r33u0qdeLCJ4SnZ3v6dBzbqvlnCj211YtO6YNbEUtogTBZXFh84n8J5RhgWTiX2gRkNHYq65OZzneiuSsEuwgys9AcQn7wGpdl68zU+wukjl+YiRPshJN6EQ+p508NPZ4hN8ebmnu0Y6Yay2+qpBsLY94b1SxuRND3UvAj9CW3LaEAiwuZKi86RfiVNbjc0SK/HBC90B7uRnBrntxeYxfsRrEc2fMJCD6G1JDwmqHg4sBukAjUABLteytb/OsT/Fkvxd5YNzTEiMdmPyoo12il7HgneWfzF+3bH6YLATr9TgiZu63iewbjbbriHsYdlJUCdLZXWIZBj+iJlDxBQd+Q/hQqBhNbJdheDNXyap3y/cpPNMPflLcmQCtDcyAVF3QSwcT3hv/oWsQ8+LAT6Wfxumcur7yeR5PQWyOqyysiWbuJMOfP6ZEhQF1G9LvuC4iPnBe46jUUO9MarRdn6qSmiyfFcx6NKE69TYRXc5i0bG2ywCzbL9QZ6xvhAxavYVUy8AQ0Q2Lad54XytXrIz+/L7wwX61an03+lQ2PgN/9zW5eW1oPtGQrdDJ+Hwfa8NVd82b9G574g2/4ZOZeztU1+9JTTdLaoMpk3NlFz1+zMrAe+Q9FJyW4yhHyjVm1LOOQyWTBuDMZiC+auskO0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(4143699003)(11063799006)(10067099003)(18002099003)(22082099003)(56012099006)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?YZO9ocI3b9SFPdzzgMPhPgzZL0H+JbW0MWqHmaOhEBRu6PNjRTv9Zho5eTgT?=
- =?us-ascii?Q?bYskcTSGKBaMkKsz0ym99h1VoKdu+gdfAGXEYNcl4mKfB53inY+1FcTijyrC?=
- =?us-ascii?Q?zOreWsYssk43jAkMXYOE53+o511hREwqTy5BMmjU6sfAtI54YYwE5qby/OHA?=
- =?us-ascii?Q?6EjxerUlog3+EYbXmEKctEXpLiCPR72+UcsWhAgvwYJVvHbvwfMRTZM0jFva?=
- =?us-ascii?Q?EFJfh1TF3tiBlI8J/QE4J4e8BxiWYSpmeDFMbixg0LQdpluRB7ypVpXPpeiU?=
- =?us-ascii?Q?0kkImufBcq8D50/KmX2ItZyKewT2ZX0Hwpc7YrWCNUAUVazskL82DN2Ke/AR?=
- =?us-ascii?Q?kk0A9W2SUaAj6FWyp81rBt3BaWZyOkue/28qf9PpPFuUieHh2Bnel9EPH5Ig?=
- =?us-ascii?Q?cbrotz9CVio7rG9snTgJpOWewm9eti1kFPpTT2HBJs0izp3OeQ3wfAcxQqAX?=
- =?us-ascii?Q?qNZrxH71hux1XOINR25Ti3NlgkXKACVIWDpBtJ4rdAMaHy2BPy6qVaMrdRrJ?=
- =?us-ascii?Q?/x89uAtNOVUx2Z+yFF5kuPNuuGiTFhX72xQsqWSLCCCLBpWmFQtzTeD4Sb8q?=
- =?us-ascii?Q?93MK2KqBw0Kg3o0Ppiw02b/XppUBEGvQcGx+DnIXoPAvf3sK7KyOrc16fTm4?=
- =?us-ascii?Q?dSXVwd89WtVYUVaRyYc9txl7ULN+PVkLakR/WpJjQUCWpPbFOEfSVYQ8Rbr7?=
- =?us-ascii?Q?WqwETYSplRKnn/BNMYCmNd6w1EwA+YR4zSz3cBlixUK4ln2HzY5qM2+6mxdZ?=
- =?us-ascii?Q?M1lV+e8vf+uSihjlYONpJXqaKeZogziPdAMYQED2dC7mSLrughSXuaEnE9u4?=
- =?us-ascii?Q?0XeMk9T8KKV6FGFamSlhkYulGVD8U5Rk1mNUeYeTPwz8uk9uSJ3oCpZj00s2?=
- =?us-ascii?Q?wRqcjIYBZKwJh/7lf3n6UoEzBm+3aa/8nGErZzL17aVH/bc5hvj39+MkaFdD?=
- =?us-ascii?Q?MrRWKx1C+DuruIswZTGOztt5cI38GyYldFqVG0792XLHSYL2sqFNQPaDAA9X?=
- =?us-ascii?Q?ZUnW8EEy9Pi3hO3gmMv6ku4vQnuZWofvc9M/HwnXVbNhSeVi4Y4X2YcEArr0?=
- =?us-ascii?Q?mjR/X3/Gz4pchwWqQOrD3WQG+2Wj+HqntAXQntnkz0/cd+BioyS7sW0R/3wL?=
- =?us-ascii?Q?9/H1nmtffU/j+u9bWWOoRI2tGgnFcXE8X0iTTeoxdd1v88h7mCAGTY+KUD2L?=
- =?us-ascii?Q?/sdEAxpwOnE8A4yy1+oQqx1AQKF+ibpAvnwd7OFqRVsHyq3i2mv4PSPivSRg?=
- =?us-ascii?Q?bYHiIYZ/0RFDi3z4u34u2pIjfGF0+N41OY9zxP7p7/ClzBL8um9EG7tiTs8p?=
- =?us-ascii?Q?SR+2mCHZc69IzD/KobUd3kVskEZIfViCmn3LQ7p4tGVjWdV47WGUYidwNXbe?=
- =?us-ascii?Q?dVieQB9UsFRop9M/VpiM/OXE21I+PWWqf+U2QjnvLmcbirE72j5x96qqzKoI?=
- =?us-ascii?Q?uTVmd0Yr8j3ycWtmKxlkJX1ferNU67vW0yf/15u+88v5T+myryANAl7xFEXw?=
- =?us-ascii?Q?/OH2hYNeYul63pJCYILHngmUlDzN7k7QMdo1MMM+LWahh0rNCgver426V03R?=
- =?us-ascii?Q?iCuejshiQRE7BSNOWQhUdA5EyTt/d+sXOAy4tst40iJPXUBq+cfgAahK2ayb?=
- =?us-ascii?Q?K4R/xf/W2nU5wIRSmvHS/stNS07amwKUXD1lsWeNOqXScsyG4ofJrLW0Ycs7?=
- =?us-ascii?Q?VNAdx6sTIa9fcC6E3R0spm/YP2pTVTBcjKm4HaBrkQg9qtkW?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 92cd523e-b971-4cdf-f198-08df101911d2
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 15:26:37.0689
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: b6xrQ4xghSt9EtSSD8zq1Y6P1MQ4ILC0o+F/72NQbClv/Ttc2mM+HatvnyqnKb/i
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4349
+X-Received: by 2002:a05:6122:8711:b0:5c8:46f3:8d26 with SMTP id
+ 71dfb90a1353d-5c846f392b2mr6650064e0c.8.1789140411077; Fri, 11 Sep 2026
+ 08:26:51 -0700 (PDT)
+Message-ID: <autogen-java-ea219ae5-973b-4adf-8c35-ba1430a0acbc@google.com>
+Date: Fri, 11 Sep 2026 15:26:51 +0000
+Subject: Need 5 star reviews from your city?
+From: johnmalit35@gmail.com
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
 
-On 11 Sep 2026, at 11:24, Kiryl Shutsemau wrote:
+Hi,
 
-> On Fri, Sep 11, 2026 at 10:57:46AM -0400, Zi Yan wrote:
->> On Thu Sep 10, 2026 at 8:02 AM EDT, Kiryl Shutsemau wrote:
->>> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
->>>
->>> collapse_scan_pmd() and collapse_run_pmd() each have a clear locking
->>> contract.  The scan is called with mmap_lock held for reading and returns
->>> with it still held.  The collapse is called without it.
->>>
->>> collapse_single_pmd() kept that boundary inside itself.  It dropped the
->>> lock on some paths and not others, and reported which by way of a bool its
->>> callers had to carry along and then act on.
->>>
->>> Open-code it in the two callers.  Each scans under the lock it already
->>> holds and, on SCAN_SUCCEED, gives the lock up before running the collapse.
->>> khugepaged's lock_dropped and madvise_collapse()'s mmap_unlocked both go:
->>> the code dropping the lock is now the code that wanted to know.
->>>
->>> khugepaged's walk carries on to the next table while the scan keeps
->>> refusing, and ends once a collapse has taken the lock from under it.
->>> madvise_collapse() re-finds its VMA after a collapse, which it did before,
->>> and now uses a NULL vma to say that it has to.  It still reports the drop
->>> to its own caller, from the line that does it.
->>>
->>> The lock is given up and taken again at the same points as before.  No
->>> functional change.
->>>
->>> Assisted-by: LLM
->>> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
->>> ---
->>>  mm/khugepaged.c | 102 +++++++++++++++++++++++-------------------------
->>>  1 file changed, 49 insertions(+), 53 deletions(-)
->>>
->>
->> LGTM. Thanks.
->>
->> Reviewed-by: Zi Yan <ziy@nvidia.com>
->>
->> One question:
->>
->> What prevents us from doing:
->> while () {
->>     1. mmap_lock
->>     2. scan_pmd
->>     3. mmap_unlock, bail out if needed
->>     4. run_pmd
->> }
->>
->> for both cases? It improves readability. What is the downside of
->> dropping the lock during multiple scans?
->
-> The scan/run ratio.
->
-> Once memory is mostly huge nearly every scan refuses, and a refused
-> table is cheap: one pmd read for SCAN_PMD_MAPPED, one PTE walk under the
-> PTL otherwise.
->
-> In your version of the collapse loop, mmap lock/unlock plus VMA
-> revalidation would dominate the cost. It is not productive.
->
-> Note that scan in khugepaged is bounded by pages_to_scan so we would not
-> hog the lock.
->
->> for madvise_collapse(), I see mmap_read_lock is held when it is called,
->> so it can be dropped at the entry and the code makes sure it is held at
->> the exit.
->
-> That makes every MADV_COLLAPSE report lock_dropped, including one on a
-> range that is already huge, which today never lets the lock go. The same
-> performance consideration as above.
+We specialize in helping businesses like yours thrive by providing  
+authentic 5-star reviews from verified individuals with public profiles.  
+Our reviews are 100% genuine, helping you build trust and establish  
+credibility with your audience.
 
-Got it. Thank you for the explanation.
+We offer reviews across a wide range of platforms, including Trustpilot,  
+Reviews.io, Facebook, WhoDoYou.com, ProvenExpert.com, TrustIndex.io,  
+ResellerRatings, Quora, TripAdvisor, and more. Whether it's app stores or  
+social media, we can help increase your engagement, grow your followers,  
+and drive business success.
 
-Best Regards,
-Yan, Zi
+Our team is available around the clock to support you.
+
+Simply reply to this email.
+
+Best regards,
+Review Providers
+
+To opt out of future emails, just reply with "No more email." Thank you!
