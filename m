@@ -1,47 +1,47 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B904C31B101
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 22:25:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACBA838239A
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 22:25:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789165536; cv=none; b=MRccJkjfG2NbkQ9T7YLMGdDZSAQ09gTPdBVbW6U8+Sb1gRSf1d8VNIUf2HjK5qik3zOX298qGtl9PUEQpOCCOL3qLOA/FNKH1lzNdfOrrsFunLX98OVVrV/ts1RA2aKJwzYtkgJc/Mr2CJxWfpVXWS3LUxlifizR+9qD61YKfp8=
+	t=1789165548; cv=none; b=G8QeBZaaxL/7dO/Puc63sK93A7Nmn+QrMpMD7zkQ6avh8Phr8cs3R7ZH3vqABMvPjY7Vzu/l7NXfbaY25B5UFCe3bkYuuQuNm6saHbdIZ8nuPpZ9GclpL6vHKc8sU7EuBcSZwS//X9tXNLPWgCkF1LRmnYZaf82igBXh5aL5cIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789165536; c=relaxed/simple;
-	bh=Ka4ncRsFGi3FBN2Gn3bGrC06vA97cNCI+BheRZ/6DHk=;
+	s=arc-20240116; t=1789165548; c=relaxed/simple;
+	bh=c7ieFfdjjjsf/kN3h9jBbTvVjoUja0BcjInRFVArZT0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kCTiW1VYyrE1txxrbqWAS26SYwXq80BZAGVF4uPv17b2Yr7MTduHPW5wHfrvs8nTiYJID4rciGA8bHwnMwQgwJnrcXltZ0R3jqX/NjfD9peJuE3m5ippE5Bugg3BWX43GyKcfjbb3eZBuwLFCPBu/GLrV4D5bZVyLl1xMKnCgXM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KJpoOaBD; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version; b=IMpF+Vf98eqMhKfQmBA9r/H9YxVNymqdbSvaruKN1iJo4slkkHIRsBvlTVoTI3QnLOjnGHV0F9QVuG5gHEOvCtDeVclfsa/LyhBbu6Haf+yyedrmjSNRglKtJscnUlacY+1ko7NZONvZU4xVrlErHXOTG4G2Thidx6EL+E+KFlk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aQ5HeDEy; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KJpoOaBD"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aQ5HeDEy"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789165528;
+	s=mimecast20190719; t=1789165538;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=aGzMo8NomGsnKUwcL2kRK8cd3wySjBWhBx42owGJICo=;
-	b=KJpoOaBDaKrFp4Pl8pAjXIlycL9skLP/ihvMPvbhNz+ryz9K+sj2Zay28QDSCpJc5ZVV2Z
-	aflg+lChlCE8e29UW7tPvBs4/1jD9Wr14v81MSuZuEa1DH/nqdft021PJGHTOfM/scAIVL
-	H+k48UeNISLrSdV48beaRru978oMwxw=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+	bh=f3+fc9C5yBhtRiK8DQ9O2dLg3nyT1SI25h/Gj+b5aC4=;
+	b=aQ5HeDEyJJX20Bbqu7gEvcPIn8uFVT2DeYth628y5CWoC0kcQzubH0vcUrEc1FpynLVHVi
+	+AzHnRNfq5nx4vdlyap/vsvd4eC9zkyNzNS/njYEDjanOewvpMywmLxwR452BJ3Mzepvx4
+	Om4zVfj61ikKdlkLNnuB4jcIsKgmNn0=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-248-MNkwkAdJPpq9HbiE-0xsGg-1; Fri,
- 11 Sep 2026 18:25:23 -0400
-X-MC-Unique: MNkwkAdJPpq9HbiE-0xsGg-1
-X-Mimecast-MFC-AGG-ID: MNkwkAdJPpq9HbiE-0xsGg_1789165521
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-211-DFtGMgVxOBWlPx4AY2lQWQ-1; Fri,
+ 11 Sep 2026 18:25:37 -0400
+X-MC-Unique: DFtGMgVxOBWlPx4AY2lQWQ-1
+X-Mimecast-MFC-AGG-ID: DFtGMgVxOBWlPx4AY2lQWQ_1789165535
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 155741954209;
-	Fri, 11 Sep 2026 22:25:21 +0000 (UTC)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1841F19540E6;
+	Fri, 11 Sep 2026 22:25:35 +0000 (UTC)
 Received: from GoldenWind.redhat.com (unknown [10.22.88.4])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 93F6019560AB;
-	Fri, 11 Sep 2026 22:25:18 +0000 (UTC)
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 988E119560AB;
+	Fri, 11 Sep 2026 22:25:32 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: dri-devel@lists.freedesktop.org,
 	nouveau@lists.freedesktop.org,
@@ -60,9 +60,9 @@ Cc: "Dave Airlie" <airlied@redhat.com>,
 	"Hongling Zeng" <zenghongling@kylinos.cn>,
 	"Danilo Krummrich" <dakr@kernel.org>,
 	"Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH 3/5] drm/nouveau/gsp/r570: Add comp mode workaround from issue #3172217
-Date: Fri, 11 Sep 2026 17:49:56 -0400
-Message-ID: <20260911222428.752641-4-lyude@redhat.com>
+Subject: [PATCH 4/5] drm/nouveau/gsp/r570: Start saving comptag backing stores
+Date: Fri, 11 Sep 2026 17:49:57 -0400
+Message-ID: <20260911222428.752641-5-lyude@redhat.com>
 In-Reply-To: <20260911222428.752641-1-lyude@redhat.com>
 References: <20260911222428.752641-1-lyude@redhat.com>
 Precedence: bulk
@@ -74,116 +74,119 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-One of the things that OpenRM does right before initiating fbsr is apply a
-special workaround (nvidia issue #3172217) which temporarily disables raw
-compression mode on the GPU. It is later re-enabled after resuming with
-fbsr completes.
+One of the portions of OpenRM's fbsr process that we never implemented is
+the saving and restoring of comptag backing stores. This isn't strictly
+necessary for fbsr to work (as long as we don't specify bEnteringGcOff =
+1), but implementing it brings us much closer to matching OpenRM's fbsr
+process - which means we can rely on things being well tested on Nvidia's
+side.
 
-Since we don't currently save the compbit backing with fbsr, this shouldn't
-currently make any functional difference in the suspend/resume process. But
-it will be required for implementing support for saving and restoring
-compbit backings from the GPU.
+Now that we have the required driver workarounds in place and fetch the
+required information from GSP's memsys on driver load, let's implement
+support for this by fetching the required space for the compbit backing
+stores and adding it to the amount of memory that we allocate for fbsr.
+
+With this, we should be able to safely enable bEnteringGcOff in fbsr.
 
 Signed-off-by: Lyude Paul <lyude@redhat.com>
 ---
- .../nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c    | 47 +++++++++++++++++++
- .../nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h       |  6 +++
- 2 files changed, 53 insertions(+)
+ .../nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c    | 27 ++++++++++++++++++-
+ .../nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h       | 23 ++++++++++++++++
+ 2 files changed, 49 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-index af5aa5065c3dd..7f5aae0c055b8 100644
+index 7f5aae0c055b8..58f426ba81191 100644
 --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
 +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-@@ -26,6 +26,34 @@ r570_fbsr_suspend_channels(struct nvkm_gsp *gsp, bool suspend)
+@@ -26,6 +26,24 @@ r570_fbsr_suspend_channels(struct nvkm_gsp *gsp, bool suspend)
  	return nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl);
  }
  
-+static int
-+r570_memsys_enable_raw_comp_mode(struct nvkm_gsp *gsp, bool enable)
++static u64
++r570_fb_get_compbit_store_size(struct nvkm_gsp *gsp)
 +{
-+	NV2080_CTRL_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE_PARAMS *ctrl;
-+	int ret;
++	NV0080_CTRL_FB_GET_COMPBIT_STORE_INFO_PARAMS *ctrl;
++	u64 size;
 +
-+	ctrl = nvkm_gsp_rm_ctrl_get(&gsp->internal.device.object,
-+				    NV2080_CTRL_CMD_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE,
-+				    sizeof(*ctrl));
++	ctrl = nvkm_gsp_rm_ctrl_rd(&gsp->internal.device.object,
++				   NV0080_CTRL_CMD_FB_GET_COMPBIT_STORE_INFO,
++				   sizeof(*ctrl));
 +	if (IS_ERR(ctrl))
 +		return PTR_ERR(ctrl);
 +
-+	ctrl->bRawMode = enable;
++	size = ctrl->Size;
 +
-+	ret = nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl);
-+	if (!ret)
-+		nvkm_debug(&gsp->subdev, "Raw compression mode %s\n", str_enabled_disabled(enable));
-+
-+	return ret;
++	nvkm_gsp_rm_ctrl_done(&gsp->internal.device.subdevice, ctrl);
++	return size;
 +}
 +
-+static bool
-+r570_need_raw_comp_war(struct nvkm_gsp *gsp, struct nvkm_device *device)
-+{
-+	return (device->card_type == GA100 || device->card_type == AD100) &&
-+	    gsp->memsys.use_raw_mode_comptagline_alloc;
-+}
-+
- static void
- r570_fbsr_resume(struct nvkm_gsp *gsp)
+ static int
+ r570_memsys_enable_raw_comp_mode(struct nvkm_gsp *gsp, bool enable)
  {
-@@ -33,6 +61,7 @@ r570_fbsr_resume(struct nvkm_gsp *gsp)
+@@ -134,7 +152,7 @@ r570_fbsr_suspend(struct nvkm_gsp *gsp)
+ 	struct nvkm_device *device = subdev->device;
  	struct nvkm_instmem *imem = device->imem;
  	struct nvkm_instobj *iobj;
- 	struct nvkm_vmm *vmm;
-+	int ret;
+-	u64 size;
++	u64 size, cbc_size;
+ 	int ret;
  
- 	/* Restore BAR2 page tables via BAR0 window, and re-enable BAR2. */
- 	list_for_each_entry(iobj, &imem->boot, head) {
-@@ -59,6 +88,13 @@ r570_fbsr_resume(struct nvkm_gsp *gsp)
- 
- 	/* Finish cleaning up. */
- 	r535_fbsr_resume(gsp);
-+
-+	/* Re-enable raw mode if it was previously disabled */
-+	if (r570_need_raw_comp_war(gsp, device)) {
-+		ret = r570_memsys_enable_raw_comp_mode(gsp, true);
-+		if (ret)
-+			nvkm_error(&gsp->subdev, "Failed to re-enable raw comp mode\n");
-+	}
- }
- 
- static int
-@@ -104,6 +140,17 @@ r570_fbsr_suspend(struct nvkm_gsp *gsp)
  	/* Stop channel scheduling. */
- 	r570_fbsr_suspend_channels(gsp, true);
+@@ -151,6 +169,11 @@ r570_fbsr_suspend(struct nvkm_gsp *gsp)
+ 			return ret;
+ 	}
  
-+	/* Temporarily disable raw mode to prevent FBSR restore operations from corrupting
-+	 * compressed surfaces. Required for ampere and ada.
-+	 *
-+	 * Nvidia bug #3172217
-+	 */
-+	if (r570_need_raw_comp_war(gsp, device)) {
-+		ret = r570_memsys_enable_raw_comp_mode(gsp, false);
-+		if (ret)
-+			return ret;
-+	}
++	cbc_size = r570_fb_get_compbit_store_size(gsp);
++	if (cbc_size < 0)
++		return cbc_size;
++	nvkm_debug(&gsp->subdev, "fbsr: Compbit backing store size: 0x%llx bytes\n", cbc_size);
 +
  	/* Save BAR2 allocations to system memory. */
  	list_for_each_entry(iobj, &imem->list, head) {
  		if (iobj->preserve) {
+@@ -173,6 +196,8 @@ r570_fbsr_suspend(struct nvkm_gsp *gsp)
+ 	size  = gsp->fb.heap.size;
+ 	size += gsp->fb.rsvd_size;
+ 	size += gsp->fb.bios.vga_workspace.size;
++	size += cbc_size;
++
+ 	nvkm_debug(subdev, "fbsr: size: 0x%llx bytes\n", size);
+ 
+ 	ret = nvkm_gsp_sg(device, size, &gsp->sr.fbsr);
 diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h
-index 8af432375f7a2..9050a8274b273 100644
+index 9050a8274b273..cb3e448415b42 100644
 --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h
 +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h
-@@ -16,4 +16,10 @@ typedef struct NV2080_CTRL_INTERNAL_FBSR_INIT_PARAMS {
+@@ -16,6 +16,29 @@ typedef struct NV2080_CTRL_INTERNAL_FBSR_INIT_PARAMS {
      NV_DECLARE_ALIGNED(NvU64 sysmemAddrOfSuspendResumeData, 8);
  } NV2080_CTRL_INTERNAL_FBSR_INIT_PARAMS;
  
-+#define NV2080_CTRL_CMD_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE (0x20800a6f) /* finn: Evaluated from "(FINN_NV20_SUBDEVICE_0_INTERNAL_INTERFACE_ID << 8) | NV2080_CTRL_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE_PARAMS_MESSAGE_ID" */
++#define NV0080_CTRL_CMD_FB_GET_COMPBIT_STORE_INFO (0x801306) /* finn: Evaluated from "(FINN_NV01_DEVICE_0_FB_INTERFACE_ID << 8) | NV0080_CTRL_FB_GET_COMPBIT_STORE_INFO_PARAMS_MESSAGE_ID" */
 +
-+typedef struct NV2080_CTRL_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE_PARAMS {
-+    NvBool bRawMode;
-+} NV2080_CTRL_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE_PARAMS;
++typedef struct NV0080_CTRL_FB_GET_COMPBIT_STORE_INFO_PARAMS {
++    NV_DECLARE_ALIGNED(NvU64 Size, 8);
++    NV_DECLARE_ALIGNED(NvU64 Address, 8);
++    NvU32 AddressSpace;
++    NvU32 MaxCompbitLine;
++    NvU32 comptagsPerCacheLine;
++    NvU32 cacheLineSize;
++    NvU32 cacheLineSizePerSlice;
++    NvU32 cacheLineFetchAlignment;
++    NV_DECLARE_ALIGNED(NvU64 backingStoreBase, 8);
++    NvU32 gobsPerComptagPerSlice;
++    NvU32 backingStoreCbcBase;
++    NvU32 comptaglineAllocationPolicy;
++    NV_DECLARE_ALIGNED(NvU64 privRegionStartOffset, 8);
++    NvU32 cbcCoveragePerSlice;
++} NV0080_CTRL_FB_GET_COMPBIT_STORE_INFO_PARAMS;
 +
- #endif
++#define NV0080_CTRL_CMD_FB_GET_COMPBIT_STORE_INFO_ADDRESS_SPACE_UNKNOWN 0 // ADDR_UNKNOWN
++#define NV0080_CTRL_CMD_FB_GET_COMPBIT_STORE_INFO_ADDRESS_SPACE_SYSMEM  1 // ADDR_SYSMEM
++#define NV0080_CTRL_CMD_FB_GET_COMPBIT_STORE_INFO_ADDRESS_SPACE_FBMEM   2 // ADDR_FBMEM
++
+ #define NV2080_CTRL_CMD_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE (0x20800a6f) /* finn: Evaluated from "(FINN_NV20_SUBDEVICE_0_INTERNAL_INTERFACE_ID << 8) | NV2080_CTRL_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE_PARAMS_MESSAGE_ID" */
+ 
+ typedef struct NV2080_CTRL_INTERNAL_MEMSYS_PROGRAM_RAW_COMPRESSION_MODE_PARAMS {
 -- 
 2.55.0
 
