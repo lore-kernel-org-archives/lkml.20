@@ -1,80 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38C53366816
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:07:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0943E298CAF
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:08:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139267; cv=none; b=Zn88h6/1StRJEg9UkqAFIH4v3LYZ5l/l+Xbz/gPJUufWMb0Zmk3i0aFFDYiAHiMZv1v+dHqpT17auQBfUxA4lddce+9BZo8USxW8ry/7xpM5++Ac1KXWmTpGHPqugISniN4L+NQlLMmGnTWYgUuGuTJot/pLnr43TcngZCw++6U=
+	t=1789139287; cv=none; b=mYVl3oGpaVFQYFtcRdcsNVES5a/q6GNwm6YSdKJD+v1MtinDmb2mKDwxeMsBHiu6zeJPe83dhR+lh5F3LfhcPTyNBzl56OU8adLb/rg+eNr1wienaSAEs8E/S/mL+Q0yZu9gS/wVwIkHWTeEL7tr1bqt0ODiddieoOIT93TuoQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139267; c=relaxed/simple;
-	bh=qHl4fIB+ROOU9Q+kP9t0rq1nguMV/c73PCnl9CjNhuw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qJQLqnPKryxChKpFF/3pxt10lY9PsvLLL7lhZdg2PK7biHyT6FQibEtwpOPnpMkg18z7tDTPFOSp/XJplSFOx0UcPmrmuWs/up3Ok8Kfka/3TwwnKji0vT8R8YRmhFzAswDupGFdmsFf8ifql+ZD0gwHI5kz3FdJbWX2PN0WKUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ei/sFMGK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789139287; c=relaxed/simple;
+	bh=N3frbq4Brgq8hgGZUJXVgs2Tedjbb/R+MDXnGu9l10c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=SjrlQdG76fNbU2jw7av06alq804eoOtY9Swr6/yhzf8CQhi2JmCDMqHOjcRTFkp+6UQNpcJ22pS3s6yI24+WbC9ldTnZbP2nZUd9YIOUdV4wgamGbysX17ZPW3IRY1k05+wWyxAToyd6KpAfxyX5ZtpTMMRERCH0Ki8kPUPhiaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=PkieVPPu; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ei/sFMGK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8BC81F000FF;
-	Fri, 11 Sep 2026 15:07:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789139266;
-	bh=kN5VDR9z03jd/obUeKnZsdviPLlwfqOhB0m2w3WOXPY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ei/sFMGKPP0Cqs0z+JFHPh/FDL7fYY6AgSPostXr7NEyO4ZOhoO4m9OhP2+4HUXHb
-	 SnXtQOIa/eiFVCZ27chz5KV/etqOnVZESz4BkzG6FIVSy4mJVqRj0yVwVVV1NggGDq
-	 OskdxKMBshv4Jqc5Vzj4r999BJDN0j9JMAQDmvQ0/C0AqX0TQIRS+mar/eH724ZEqu
-	 IuM75HyM9Z5VuVPiJvzBxUpgAMmw32j2s/eLVDkSHN3cvYhtY9ij8QoYJdifWL+MR2
-	 7ohe8XwpIbaPSmSc1uGsKkkoCZ8+MHJodiVdvPpAN8c0OO7GrjEzCM8eW01fbrozMx
-	 osBIabDrqZ+NQ==
-Date: Fri, 11 Sep 2026 09:07:44 -0600
-From: Keith Busch <kbusch@kernel.org>
-To: Andrew Stellman <astellman@stellman-greene.com>
-Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>, linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] nvmet: derive the CRTO property from CAP, not CSTS
-Message-ID: <aqQZQPs7KzBUVbgw@kbusch-mbp>
-References: <20260910180056.81257-1-astellman@stellman-greene.com>
+	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="PkieVPPu"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so6245785e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:08:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=konsulko.com; s=google; t=1789139284; x=1789744084; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0+9EKefJ9I3t5TWISEhfwAczcNql/LEBcHoCAJliQOk=;
+        b=PkieVPPuORXbFOCU0dD1etnvibwVAuVwocDSuWDQNWFMgvFpUaDP0uCXjmhptPRoCE
+         veCrZp6EOjij2D8DZkqVgiAdJ7HV4skmGAWt63AN7lNBGMI1oClt0YbFU1DAIXFXvuTk
+         6EAd/Cba0Mqs3rshRnThXnAd9KZ7BpnOCG8qU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789139284; x=1789744084;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0+9EKefJ9I3t5TWISEhfwAczcNql/LEBcHoCAJliQOk=;
+        b=HBBeQRUF0GVF4uz33YRcRAGlOlnzW/f1g7DGmLuUebzJlLO8dDVX//JUGV7JbWpU6o
+         pUz98+C8BkOLuPifvcZFD1osRgm7JoiCLetKkhN0wXVmUeAyosMf9nQeYAAhhnZnc4AZ
+         D/4Qr2KZ/d5CM3akm98miWgIjZZgt14SfjK2kc7PJ2iuIx+vqXKnfNiAJxtLiH/fcaas
+         DCCAsapfTR7Z4TzRgRoCMyR++0tx5+YBlQNKrkRwShb/jOWp9u+aC8jfpIR7XekzBlIh
+         9puQ2owU3HhB9fswo9UlVBO3F2GaM4GEPPxfcy8hbZuf3Fv2+1Efysk4EUdRr2usIZho
+         UPxg==
+X-Gm-Message-State: AFuF++klFEPSxpOPNDXX2WQDK3II1GHKAcLX0KfsHRPReT501un529ua
+	FM20xZ9lxZQGPT+DliJcV/Zo8zylJv6UD7dNFaXPXbdwXNN1JqlzOcBje1otDIzGpv0WRkrUvU1
+	IlZWO
+X-Gm-Gg: AYBFou1l8fL/5hVXWHWA2eXzc2PkGzc+rUBGXeDChYzo0pqONmtY9S7xnY9d+/Lu5e/
+	sCjJRSZMPi1AF6Fx0ULKgys/llt95XVGxKYzrIZS2QkFHPj56yxt6p5CU9IojS89OdVTEw2zAbg
+	B5hWknime/VLDCCKhLTfENnQlTWc8aleCgbKPwhReSKUvDRh8nhow9Q+sRZAnFwAWUdnAzrlpuM
+	UkxhCd3fr2YdOj1stPry1PhnEoRytHfm8MdeNCuX6rNp4z6ZPdyXtxjHoN2UvusEgfSkU40K3sO
+	wFVf6l6Ct+oyS6oyv2aepElnZ05ERjSK6Y9b+rz43vsQLiNcA+rkrMD8j2iY3LpUNZB9fvsVe0A
+	NHv604qMX2TV4AB3O8mTEBtrkuhNkJbMNIfK/zkqG1KhF7RzXyWV2/9ExI6QphBYyVS0S5SYfD6
+	ybFOpMWeXxAsDkSsVnXoSt/351kQ5aFRc4n5H1B6DEEdzEO7HS+L1WLIriUZw11izMZkvE+7dd4
+	VxnNUyAHs5Ni9Ud
+X-Received: by 2002:a05:600c:1385:b0:499:a5c8:c6f3 with SMTP id 5b1f17b1804b1-49e61878ab9mr83494395e9.3.1789139284113;
+        Fri, 11 Sep 2026 08:08:04 -0700 (PDT)
+Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60ababd5sm108933095e9.4.2026.09.11.08.08.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 08:08:03 -0700 (PDT)
+From: Petko Manolov <petko.manolov@konsulko.com>
+To: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	dinguyen@kernel.org,
+	Petko Manolov <petko.manolov@konsulko.com>
+Subject: [PATCH v4 0/3] arm: dts: altera: add Draeger M48 CPU Module
+Date: Fri, 11 Sep 2026 18:07:51 +0300
+Message-ID: <20260911150755.2803736-1-petko.manolov@konsulko.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910180056.81257-1-astellman@stellman-greene.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 10, 2026 at 02:00:56PM -0400, Andrew Stellman wrote:
-> nvmet_execute_prop_get() answers a Property Get of CRTO with
-> NVME_CAP_TIMEOUT(ctrl->csts).  NVME_CAP_TIMEOUT() extracts bits 31:24,
-> which is the TO field of CAP.  CSTS defines only bits 6:0 and nvmet
-> writes only RDY, CFS and SHST into it, so the result is always 0.  The
-> same controller sets CAP.TO to 15 in nvmet_init_cap().
-> 
-> NVMe Base Specification 2.4, Figure 36 (CAP), says that when CC.CRIME
-> is '0' the TO field "shall be set to: a) the value in the Controller
-> Ready With Media Timeout (CRTO.CRWMT) field; or b) FFh if the value in
-> the CRTO.CRWMT field is greater than FFh."  nvmet reports 15 in CAP.TO
-> and 0 in CRTO.CRWMT.
-> 
-> Take the value from ctrl->cap, where the timeout is actually stored.
-> 
-> The Linux host reads CRTO only when CAP.CRMS.CRWMS is set, which nvmet
-> does not advertise, so Linux initiators have not seen the wrong value.
-> A host that reads the property directly does, for example nvme-cli's
-> get-property.  Advertising CRWMS is a separate change.
-> 
-> Tested on 7.3.0-rc1-qpb-cc-crto-base+ (unpatched) and
-> 7.3.0-rc1-qpb-cc-crto+ (patched) in an arm64 QEMU guest with nvmet over
-> NVMe/TCP to 127.0.0.1, reading the properties with nvme get-property.
-> Before: CAP reads 0x8200f0003ff (TO = 15) and CRTO reads 0.  After: CAP
-> is unchanged and CRTO reads 0xf, so CRWMT = 15 = CAP.TO.
-> 
-> The issue was found by Claude Opus 5 running Quality Playbook, an
-> LLM-driven code review tool:
-> https://github.com/andrewstellman/quality-playbook
+Adding the device trees for “Dräger M48 on NXP i.MX6 (Q) and Intel/Altera
+SoCFPGA Cyclone V” board variant.  It has both (the SoC and FPGA) on the same
+carrier and they are cross-monitoring each other.
 
-This is a very long explanation for a simple protocol fix. Just say
-something like "The NVME_CAP_TIMEOUT requires the value from the CAP
-register, not CSTS." Short and to the point.
+This is the SoCFPGA devicetree part.
+
+Changes in v4:
+
+  - fix commit messages formatting;
+  - remove stray comment from the .dts;
+  - remove undocumented "bank-name" property;
+
+Changes in v3:
+
+  - add Draeger AG in devicetree/bindings/vendor-prefixes.yaml
+  - separate binding changes from the actual devicetree patch
+  - remove "earlyprintk" from the boot arguments
+
+Petko Manolov (3):
+  dt-bindings: vendor-prefixes: add Draeger AG
+  dt-bindings: arm: altera: add Draeger M48 Module
+  arm: dts: altera: add Draeger M48 CPU Module
+
+ .../devicetree/bindings/arm/altera.yaml       |   1 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
+ .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 123 ++++++++++++++++++
+ 4 files changed, 127 insertions(+)
+ create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+
+-- 
+2.47.3
+
