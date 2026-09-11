@@ -1,104 +1,80 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6434E4A5EA8
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:56:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1D4371885;
+	Fri, 11 Sep 2026 16:56:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789145800; cv=none; b=GAqT7xc2pHY8/Ym0L4uUgfa7lASCGrxpyhlr5lTf4Vmuiq3BVq2tm1cgEP2tx6tkmN5Zr74xVXz338ygfyQ0woMh3npi3/jrP6jRz/p/Irtnx1LW/wD7EHc16fXsI2KYEujPwrvnz3eLRVyVwNbMwz6du3jF3Hh/f4qs8TjiYEA=
+	t=1789145806; cv=none; b=IV04RFl1OHIWRULrNgo085qWPn7qygHft0OwuhL2R3MGxVt5pq93V0ami2+P83n6VUK/d75LTVdNz12gzCtuWkFNrypY0Pq9jhfyDg+DN+TOFAWbBbHg0RhL0E1gRkOD6V1ZyBb92+tINwCYlB5hJyxheXnMWnFk7IQPWCjisaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789145800; c=relaxed/simple;
-	bh=K6uKwxCqsJUgJksWYso7qHsjK5lXDAeKCW7NuDXQn5s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QcWCkFIf7vN0HefMAeSH6RRyHYKwX8bz/CWQIe1ziiicihS6g8SBcRGhh+RZa9GAYRWMe/ii2/romkHDIlVAXYjhOKk2jU/FHWTLZN/EvNSRlcsgqZNaQ5ldM+dzJ98vX+0WXpxCG+ECQRbWGsWQfan1JUdJ3MJIQZZfubnarw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=KtwlYSgl; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1789145806; c=relaxed/simple;
+	bh=k7z4er0JwzR+YuF/5rlsyLW8xGf7sQsjApta0sWIf/w=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=i4FAxLZmEiaOwAKlxi0yGVULzSkIRZ66UiZGeJbtPwJSyn3tyH99h3zWTmMD/DoHmEaP9je31pW9+DD6vp85N5m/gahkvm34bje7IdOpaoEEIB8y2CgNXAcoHik4O6oaquoT6vr0p59B2RKQp/2YYDUoLSH3gWTIiegVzYFrn0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GSfnvcZb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="KtwlYSgl"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591bb18so114693a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:56:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1789145791; x=1789750591; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cPeZSQUTfz20wSkb3gqNeqHVB/Cjwdp6OU88/IJVki0=;
-        b=KtwlYSgl437v66vqiOSdZ2escmfEtrszqpTnqVT62vOqWi+/xLiLnNmgEpqZEA9B7Z
-         t4dcpebnHBiZARyaLMzFfSblHQsYMmS0n22HlEQFiNIft4YTPIFE0xenLiUv37fOaTG+
-         fNd0aezWKJ/ZucvoR/30CR+Fdp/KT87hqWNj8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789145791; x=1789750591;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=cPeZSQUTfz20wSkb3gqNeqHVB/Cjwdp6OU88/IJVki0=;
-        b=BxndQW2B9PhVx9q6lf3Xv8ExwqGhfdCtvyQTizO8FniAlHfWXB90H+l6yf3I02VaWc
-         /mugaAImLvPHq+HIpHA/MOI6XnkNngTQxzJ080P4mrhwdElbdulMCL9Mj9j6FlqSujxy
-         e/3iSrly0YQPTH4lTI/Ae+y32wBLRprO4SIWVfrjlEgQB95GP5/YUA1QznGf9DQWbFAm
-         rzRnmVbxE993Fo0hae273nkJhTA/OWEi0S3eD4eKu1H4/22aj2Gf2A6DkloxpZuqlcxY
-         r8XCPjNpfTVS/+Dxs4aPznAq5GmMj+VEzAKmxO7E6h5uqb6HoxjH/OPaeiryGe7eGZQF
-         myfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz+bKPPK0IrOCutM+pfeJuHPjf8lMaJT+r2PwrmLm+v7OoXlBorwf9kBHIJ7cUenDf6ryBYCm5EANZX8RY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nOTGt5b/H9NBGHWZRVtpz91DPur9hm1Ji432uENl3VVR6N10LV
-	9Yo1thrrcldx5KBlj93jB7uN8bNJ+geFoBsgdYQRZrYUN+e9sWF9bDdBSrq4bOh147JhxsbwgfG
-	K3yeMOtM=
-X-Gm-Gg: AYBFou3G7kjGk4SCKGPTjAAvGC7hIav6dHaSeO2Q8ROKsMxDxJzwTEYG9TXSOx8fgzn
-	WP7WqcdiRCmu/WJDl6/0HkNSf2TFFr4CAbN22bmEocaxrzsVC+Uvum3cVfGCROXikSUNssdq5m4
-	aiB73oysApbDpcaYQmbTB6vGWjEHPRFIgU074SR6I726gvB9MKz7KMHoyJa2JYK8KC0xA+q1mGO
-	TxPBnTA2QFqxwqlpr9QQB57if4eFnv6yOhL1upDUCu52CgiUUAC16ursmUmzPQLHH2w0FQfwhyB
-	Aola21YiahyaBJhp7boBJm4D5kj950ia8yfYq3fx6IaZlplOVmuezSHwFEa0cde7c/R9fXhg0u5
-	1VHXqMaVp+4qe7RfEK5P/dBs+O6P9IpHvF/X4x4ojFD7MsLfSUhelQ/R2DzGRAsw9ySLU2BfOsn
-	spSQ6fBuaob7X84l/TZ31R4AuB1TfeefHcNiGlDKU49V5fHaAjxOqBNnLGvXXZD2iXBlJaDbGIg
-	t4RVFPNOVC9jpRBSeq40sY1/3BxHaGP8WIt4GFjexaiRd1zV2ujQIJsjhM=
-X-Received: by 2002:a17:907:3c86:b0:c25:f7db:4bef with SMTP id a640c23a62f3a-c2962c9944bmr294814866b.21.1789145791317;
-        Fri, 11 Sep 2026 09:56:31 -0700 (PDT)
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com. [209.85.218.41])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966066b75sm107495566b.29.2026.09.11.09.56.30
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 09:56:31 -0700 (PDT)
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c294ad260fdso147444366b.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:56:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwCEzO8J5sdiKV0VM8CeowP6iHo9L0LDRDV9HTnLC5TuyVYdu60+N11WcNrKvPmnVxaZFyFzbJOIKTEDpk=@vger.kernel.org
-X-Received: by 2002:a17:907:d0b:b0:c28:fdcc:901a with SMTP id
- a640c23a62f3a-c2945ece84emr569757966b.16.1789145790391; Fri, 11 Sep 2026
- 09:56:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GSfnvcZb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 139191F00893;
+	Fri, 11 Sep 2026 16:56:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789145803;
+	bh=PeInbayzaYLsQW4IFz/XdJ1TU4uee9RiAssjmpuH2bg=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=GSfnvcZb4ShqmO9x1b6NNyP6aIruAw0NWNXLEnZkZKo8+PcLji/8N+X8Ur+/Z8eVY
+	 3VZIFjsL0J2hWkchxk7YKygekiffDyQmQJ0FDyJDSkJnI1sJ9srtYo1pyNnLz4eXkO
+	 IcyWgGkwBXdsBIT/7pM0Zk5f0DurqSJAG6ZrukVmT7muE3NFxQaJmDZ3s5aoCmY585
+	 HWDnTMGlpADXrxUG4Yl2xlQpHXX211jQsm2PHQtk7ySDRZQeCKb7CDk80DA+LbvRUh
+	 C5AnDPo77uh53DLNKmqG87w+gmrtjT8p1aZ+O4Zg2H/8xSCERMEQADIZqmYTjYrGqF
+	 tkh6595yeAAFQ==
+Date: Fri, 11 Sep 2026 18:56:40 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: Panz Dev <panz.development@gmail.com>
+cc: Benjamin Tissoires <bentiss@kernel.org>, 
+    Denis Benato <denis.benato@linux.dev>, linux-input@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] HID: asus: do not send keyboard init reports to
+ touchpads
+In-Reply-To: <20260818151431.939132-1-panz.development@gmail.com>
+Message-ID: <2965696n-2r93-q045-pn5n-4n72n9p66o89@xreary.bet>
+References: <20260818151431.939132-1-panz.development@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911101757.286dbea9@foz.lan>
-In-Reply-To: <20260911101757.286dbea9@foz.lan>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Fri, 11 Sep 2026 09:56:12 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wgxFsT-aBLvaaWY=rzXKAnsETMGGBYeXnidPMoaEP29wA@mail.gmail.com>
-X-Gm-Features: AcwNN1XMz7nZgWf_yAotYnqXcdS3AjXLSYrStUysBHfg_4lM5kL497I75V2wctM
-Message-ID: <CAHk-=wgxFsT-aBLvaaWY=rzXKAnsETMGGBYeXnidPMoaEP29wA@mail.gmail.com>
-Subject: Re: [GIT PULL for v7.3-rc3] media fixes
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Linux Media Mailing List <linux-media@vger.kernel.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 11 Sept 2026 at 01:18, Mauro Carvalho Chehab
-<mchehab+huawei@kernel.org> wrote:
->
-> - v4l2-core: add bounded tile-count helpers for HEVC stateless decoders
-> - v4l2-core: validate AV1 tile counts fits in array size
-[...]
+On Tue, 18 Aug 2026, Panz Dev wrote:
 
-Please don't just do the shortlog. That's not information - that's
-purely mechanical repetition of what "git pull" will give me in the
-summary anyway.
+> Commit 0919db9f3583 ("HID: asus: always fully initialize devices") added a
+> loop during asus_probe() to send keyboard feature report initializations
+> (asus_kbd_init) to all ASUS HID devices.
+> 
+> On ASUS laptops with I2C/HID touchpads (such as the ASUS E200HA), sending
+> keyboard feature reports (FEATURE_KBD_REPORT_ID) to touchpad endpoints
+> sends invalid feature requests to touchpad hardware, corrupting probe
+> state and causing the touchpad to become unresponsive.
+> 
+> Wrap the asus_report_id_init loop in an `if (!drvdata->tp)` check so
+> keyboard feature initialization only runs for actual keyboards.
+> 
+> Tested on ASUS E200HA (where touchpad functionality is fully restored)
+> and ASUS VivoBook Flip 14 TP401MA (confirming zero regressions).
+> 
+> Fixes: 0919db9f3583 ("HID: asus: always fully initialize devices")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Panz Dev <panz.development@gmail.com>
+> ---
+> v2:
+>  - Keep asus_start_multitouch() inside the HID_CLAIMED_INPUT check to avoid
+>    any UAF risk if input registration fails (as pointed out by Denis Benato
+>    and automated review).
+>  - Focus the fix on skipping keyboard report initialization for touchpads.
 
-I did some minimal grouping to at least make it sensible for human
-consumption. That's basically the *minimal* effort you should put into
-a pull request. It's not great, but it's better - "human consumption"
-is what that part of the merge message is supposed to be about, not
-"mechanical information that isn't adding anything new or useful"
+Applied to hid.git#for-7.4/asus, thanks.
 
-                Linus
+-- 
+Jiri Kosina
+SUSE Labs
+
