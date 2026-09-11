@@ -1,74 +1,51 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7470947013F
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:43:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEFAF470EA9
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:43:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789116220; cv=none; b=YcbEEyCTUPlPFIN1OfZ5YFwV2ewEXL+Pko9+Ing7n5OGZ8pTCz3mqeFp6S9Y0ujaHETGd/roGJmVmRBDV+bJnJRhKmFgQ1BNWoQsfT0a//GjT6tpzuNioC1aS4zSo5gp6B+BVm3OhAyZ0Nhj8WAljj2mgxg27o2XrIji9rvbs3k=
+	t=1789116224; cv=none; b=XhyDRO1D15Li9a/AX9AstzgfFZXI9l2HLEL2hufBb0535fxCoVozxvCEzn+au8JqFjMLJ6iuG0//JUp2gv6gGOQTvZTW+2L3v0Bl03GSPuvvRnZhLtgkyU/UmH4wlxlMe0+s6Y4MoTDqSkk009xNfnNemWJGNcDyNUyZIja1Vtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789116220; c=relaxed/simple;
-	bh=QID5JUFVjeLcGCElBZrjmAbx1JmpyJj1RaIT5Cjh4DQ=;
+	s=arc-20240116; t=1789116224; c=relaxed/simple;
+	bh=bcyAHxAz0I8xy8M6NO6+RcsmZci9/CkmYb7oMZrhOjc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QZOX8aFcM8/DY/UQIwYXP1wC83fIEo2Rt/WDE18NMQf1CRdW3au5oNJWN5vGRJeF2lWfeVcG0xZWMM4yVa2vnLGVJmF+Zp2OqqqsKWSMFJytqEVsRj9Q3Be+k3pYzC2f1yEy6DtP9XZehMy+qbBiISI+NlXx5OhYPluBhREA5p8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=UELRnGPj; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=E9n2zHAI; arc=none smtp.client-ip=195.135.223.131
+	 MIME-Version; b=tkHdhePn09y95BfJ7eYZcNNlLvG5IuK58YJAeZ0SX9dSpypLYG9qJcR8N5jSFMNzNxqpooQlCKYhy/aimx88jGqwS5lTxpJTEOl+doH8xJdU7DAcGZbOvyGloFAVL5H0ez3PZkQqi1r+xwbCW/LtphFDk1/F5qiKKP2/g9fBp1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; arc=none smtp.client-ip=195.135.223.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="UELRnGPj";
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="E9n2zHAI"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 637A11FD9B;
-	Fri, 11 Sep 2026 08:43:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1789116213; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mRK9PK8LC2EPUONi11aOhvP5k36hU3UiD2nZZLLhJl4=;
-	b=UELRnGPjzu0sBDCaduVf9s1bGZjXshKBhZeuSMsc12XwaegIgK48JZHF5onC/+YMhF1drJ
-	UlydivDbgLB+W5BUEeX7ZiGus/TXDsl2grsCwKEHzvVEZpcJpXbSIH1yoQuUdy4fNxQ6kX
-	FO14zi08odWOOC3kgowg8EmXT+5do4U=
-Authentication-Results: smtp-out2.suse.de;
+	by smtp-out1.suse.de (Postfix) with ESMTPS id ED47721B99;
+	Fri, 11 Sep 2026 08:43:40 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
 	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1789116209; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mRK9PK8LC2EPUONi11aOhvP5k36hU3UiD2nZZLLhJl4=;
-	b=E9n2zHAIIg9641dn/fOlAGd4GD8rWGUZUlD6J/ihSr/Tccl24LuTw4T5Vxd2fctlPSMmcZ
-	jxBkvDzDLMZYpFJBeUIythFYUCr64LC5+v7RJwzi8p0CWbVfKFjsDXhe0fYSQ5ypkEgCOD
-	rh/rx6M/LsPYNjQFyEHoUNcyJQ+kETk=
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E86FE13715;
-	Fri, 11 Sep 2026 08:43:28 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 84F33132D3;
+	Fri, 11 Sep 2026 08:43:40 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id M/5mNzC/o2oyFgAAD6G6ig
-	(envelope-from <jgross@suse.com>); Fri, 11 Sep 2026 08:43:28 +0000
+	id RvYTHzy/o2pSFgAAD6G6ig
+	(envelope-from <jgross@suse.com>); Fri, 11 Sep 2026 08:43:40 +0000
 From: Juergen Gross <jgross@suse.com>
 To: linux-kernel@vger.kernel.org,
-	x86@kernel.org,
-	virtualization@lists.linux.dev
+	x86@kernel.org
 Cc: Juergen Gross <jgross@suse.com>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
 	Thomas Gleixner <tglx@kernel.org>,
 	Ingo Molnar <mingo@redhat.com>,
 	Borislav Petkov <bp@alien8.de>,
 	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: [PATCH v5 13/17] x86/paravirt: Prepare support of MSR instruction interfaces
-Date: Fri, 11 Sep 2026 10:42:07 +0200
-Message-ID: <20260911084211.3149957-14-jgross@suse.com>
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v5 15/17] x86/msr: Reduce number of low level MSR access helpers
+Date: Fri, 11 Sep 2026 10:42:09 +0200
+Message-ID: <20260911084211.3149957-16-jgross@suse.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260911084211.3149957-1-jgross@suse.com>
 References: <20260911084211.3149957-1-jgross@suse.com>
@@ -79,149 +56,97 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
 X-Spam-Level: 
-X-Spam-Score: -6.80
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: ED47721B99
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Rspamd-Action: no action
 X-Spam-Flag: NO
-X-Spamd-Result: default: False [-6.80 / 50.00];
-	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.997];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_COUNT_TWO(0.00)[2];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RLfdszjqhz8kzzb9uwpzdm8png)];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.com:mid];
-	RCVD_TLS_ALL(0.00)[]
+X-Spam-Score: -4.00
 
-Make the paravirt callee-save infrastructure more generic by allowing
-arbitrary register interfaces via prologue and epilogue helper macros.
+Some MSR access helpers are redundant now, so remove the no longer
+needed ones.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
-V3:
-- carved out from patch 5 of V1
----
- arch/x86/include/asm/paravirt_types.h     | 43 ++++++++++++++---------
- arch/x86/include/asm/qspinlock_paravirt.h |  4 +--
- 2 files changed, 29 insertions(+), 18 deletions(-)
+ arch/x86/include/asm/msr.h  | 15 ++-------------
+ arch/x86/xen/enlighten_pv.c |  4 ++--
+ 2 files changed, 4 insertions(+), 15 deletions(-)
 
-diff --git a/arch/x86/include/asm/paravirt_types.h b/arch/x86/include/asm/paravirt_types.h
-index 2459163fa196..740ea819bbab 100644
---- a/arch/x86/include/asm/paravirt_types.h
-+++ b/arch/x86/include/asm/paravirt_types.h
-@@ -448,27 +448,38 @@ extern struct paravirt_patch_template pv_ops;
- #define PV_SAVE_ALL_CALLER_REGS		"pushl %ecx;"
- #define PV_RESTORE_ALL_CALLER_REGS	"popl  %ecx;"
+diff --git a/arch/x86/include/asm/msr.h b/arch/x86/include/asm/msr.h
+index f7ad6d25bb65..dbc24550a504 100644
+--- a/arch/x86/include/asm/msr.h
++++ b/arch/x86/include/asm/msr.h
+@@ -269,22 +269,11 @@ static __always_inline void native_wrmsrq(u32 msr, u64 val)
+ 	__wrmsrq(msr, val);
+ }
+ 
+-static inline u64 native_read_msr(u32 msr)
+-{
+-	return native_rdmsrq(msr);
+-}
+-
+ static inline int native_read_msr_safe(u32 msr, u64 *val)
+ {
+ 	return __rdmsr(msr, val, EX_TYPE_RDMSR_SAFE) ? -EIO : 0;
+ }
+ 
+-/* Can be uninlined because referenced by paravirt */
+-static inline void notrace native_write_msr(u32 msr, u64 val)
+-{
+-	native_wrmsrq(msr, val);
+-}
+-
+ /* Can be uninlined because referenced by paravirt */
+ static inline int notrace native_write_msr_safe(u32 msr, u64 val)
+ {
+@@ -327,7 +316,7 @@ static inline u64 native_read_pmc(int counter)
  #else
-+/* Save and restore caller-save registers, except %rax, %rcx and %rdx. */
-+#define PV_SAVE_COMMON_CALLER_REGS	\
-+	"push %rsi;"			\
-+	"push %rdi;"			\
-+	"push %r8;"			\
-+	"push %r9;"			\
-+	"push %r10;"			\
-+	"push %r11;"
-+
-+#define PV_RESTORE_COMMON_CALLER_REGS	\
-+	"pop %r11;"			\
-+	"pop %r10;"			\
-+	"pop %r9;"			\
-+	"pop %r8;"			\
-+	"pop %rdi;"			\
-+	"pop %rsi;"
-+
- /* save and restore all caller-save registers, except return value */
- #define PV_SAVE_ALL_CALLER_REGS						\
- 	"push %rcx;"							\
- 	"push %rdx;"							\
--	"push %rsi;"							\
--	"push %rdi;"							\
--	"push %r8;"							\
--	"push %r9;"							\
--	"push %r10;"							\
--	"push %r11;"
-+	PV_SAVE_COMMON_CALLER_REGS
-+
- #define PV_RESTORE_ALL_CALLER_REGS					\
--	"pop %r11;"							\
--	"pop %r10;"							\
--	"pop %r9;"							\
--	"pop %r8;"							\
--	"pop %rdi;"							\
--	"pop %rsi;"							\
-+	PV_RESTORE_COMMON_CALLER_REGS					\
- 	"pop %rdx;"							\
- 	"pop %rcx;"
- #endif
+ static __always_inline u64 read_msr(u32 msr)
+ {
+-	return native_read_msr(msr);
++	return native_rdmsrq(msr);
+ }
  
-+#define PV_PROLOGUE_ALL(func)	PV_SAVE_ALL_CALLER_REGS
-+#define PV_EPILOGUE_ALL(func)	PV_RESTORE_ALL_CALLER_REGS
-+
- /*
-  * Generate a thunk around a function which saves all caller-save
-  * registers except for the return value.  This allows C functions to
-@@ -482,7 +493,7 @@ extern struct paravirt_patch_template pv_ops;
-  * functions.
-  */
- #define PV_THUNK_NAME(func) "__raw_callee_save_" #func
--#define __PV_CALLEE_SAVE_REGS_THUNK(func, section)			\
-+#define __PV_CALLEE_SAVE_REGS_THUNK(func, section, helper)		\
- 	extern typeof(func) __raw_callee_save_##func;			\
- 									\
- 	asm(".pushsection " section ", \"ax\";"				\
-@@ -492,16 +503,16 @@ extern struct paravirt_patch_template pv_ops;
- 	    PV_THUNK_NAME(func) ":"					\
- 	    ASM_ENDBR							\
- 	    FRAME_BEGIN							\
--	    PV_SAVE_ALL_CALLER_REGS					\
-+	    PV_PROLOGUE_##helper(func)					\
- 	    "call " #func ";"						\
--	    PV_RESTORE_ALL_CALLER_REGS					\
-+	    PV_EPILOGUE_##helper(func)					\
- 	    FRAME_END							\
- 	    ASM_RET							\
- 	    ".size " PV_THUNK_NAME(func) ", .-" PV_THUNK_NAME(func) ";"	\
- 	    ".popsection")
+ static __always_inline int read_msr_safe(u32 msr, u64 *p)
+@@ -337,7 +326,7 @@ static __always_inline int read_msr_safe(u32 msr, u64 *p)
  
- #define PV_CALLEE_SAVE_REGS_THUNK(func)			\
--	__PV_CALLEE_SAVE_REGS_THUNK(func, ".text")
-+	__PV_CALLEE_SAVE_REGS_THUNK(func, ".text", ALL)
+ static __always_inline void write_msr(u32 msr, u64 val)
+ {
+-	native_write_msr(msr, val);
++	native_wrmsrq(msr, val);
+ }
  
- /* Get a reference to a callee-save function */
- #define PV_CALLEE_SAVE(func)						\
-diff --git a/arch/x86/include/asm/qspinlock_paravirt.h b/arch/x86/include/asm/qspinlock_paravirt.h
-index 0a985784be9b..002b17f0735e 100644
---- a/arch/x86/include/asm/qspinlock_paravirt.h
-+++ b/arch/x86/include/asm/qspinlock_paravirt.h
-@@ -14,7 +14,7 @@ void __lockfunc __pv_queued_spin_unlock_slowpath(struct qspinlock *lock, u8 lock
-  */
- #ifdef CONFIG_64BIT
+ static __always_inline int write_msr_safe(u32 msr, u64 val)
+diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
+index 505a85c3869e..bc572ca49a2c 100644
+--- a/arch/x86/xen/enlighten_pv.c
++++ b/arch/x86/xen/enlighten_pv.c
+@@ -1085,7 +1085,7 @@ static u64 xen_do_read_msr(u32 msr, int *err)
+ 	if (err)
+ 		*err = native_read_msr_safe(msr, &val);
+ 	else
+-		val = native_read_msr(msr);
++		val = native_rdmsrq(msr);
  
--__PV_CALLEE_SAVE_REGS_THUNK(__pv_queued_spin_unlock_slowpath, ".spinlock.text");
-+__PV_CALLEE_SAVE_REGS_THUNK(__pv_queued_spin_unlock_slowpath, ".spinlock.text", ALL);
- #define __pv_queued_spin_unlock	__pv_queued_spin_unlock
+ 	switch (msr) {
+ 	case MSR_IA32_APICBASE:
+@@ -1144,7 +1144,7 @@ static void xen_do_write_msr(u32 msr, u64 val, int *err)
+ 		if (err)
+ 			*err = native_write_msr_safe(msr, val);
+ 		else
+-			native_write_msr(msr, val);
++			native_wrmsrq(msr, val);
+ 	}
+ }
  
- /*
-@@ -61,7 +61,7 @@ DEFINE_ASM_FUNC(__raw_callee_save___pv_queued_spin_unlock,
- #else /* CONFIG_64BIT */
- 
- extern void __lockfunc __pv_queued_spin_unlock(struct qspinlock *lock);
--__PV_CALLEE_SAVE_REGS_THUNK(__pv_queued_spin_unlock, ".spinlock.text");
-+__PV_CALLEE_SAVE_REGS_THUNK(__pv_queued_spin_unlock, ".spinlock.text", ALL);
- 
- #endif /* CONFIG_64BIT */
- #endif
 -- 
 2.55.0
 
