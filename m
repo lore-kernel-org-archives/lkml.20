@@ -1,255 +1,165 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012026.outbound.protection.outlook.com [40.107.209.26])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F36A3F6601
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:02:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789153359; cv=fail; b=Q93Thr3p9zcpzdNWT9mjLVBtuVHAFAiOgPqSQVrjpWnUCHOm06HvgJ+NEnaj+yF3CqPrehFAtH6KS87N++x2hC/RoDv7YEjPjp7CyrcrNzAFdBcR49Da9mPzH3zqyUkyUKf17Cm3XPKtZ8kasAcgPe/f2W+C6jf6B1a51/xDhYI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789153359; c=relaxed/simple;
-	bh=/IywGPF68HyV9hVqaKPEiYGu6XmM8V75b/yoQjoOR7k=;
-	h=Content-Type:Date:Message-Id:Cc:To:From:Subject:References:
-	 In-Reply-To:MIME-Version; b=CvTtQb2lnAd77X1BDPJXmQo4UkloJsPCql/WuzjCpUfAnSWEG1mRFMx7QY+rPIiRayw+P8Xw9dzOJyQroAGmWvK2KCr54LjXovRmsFahsdcbxDm6wdJXoe1suQxQwMgJ/rrUaqHd34CA9uUJUOfUQQHxSC4PLSgLDlZs8BBwwq4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=irwF5Xye; arc=fail smtp.client-ip=40.107.209.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D51A1E51E0;
+	Fri, 11 Sep 2026 19:03:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789153387; cv=none; b=CWNRUiayK8EPgEuvOwTfTFmEwtpTy1y2b+PDkZy6lUTyEzp3Kz6Unf4p98+MNROIrnZitr3gZfudicjyA3PvG2jI5IR/91tyUPCod1z9cmmy4AWrzVJgCom1/p+VzRb4JZ5+BpuNi9LsrlBz9XwXKzDkpCFBRKM7JqwGopTVwgQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789153387; c=relaxed/simple;
+	bh=p8UzTsfSG9LrqUKvl+lN3ElAgnXF5Fsi0Y/l5yVbTS8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HEtGSm7VY4+BtABlW2itAr+cazmKNM6HH8HTQcIwUixBOXbyVLoqrDMCw2NzrMAoywYwDywuprEqrXGKfgE39AX9hHOn9yVyVu/VhKcHnFAzLF4ob7BJba++mf6GiddI4UmmUwMiZ8d30sL9i4KK2Z20xi8PKqYONP2/jz0EcO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IhUCYUY3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="irwF5Xye"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IY/69zgWdkviM66F5o8HHwo1+SU56CUehwtGx1+9Ba1TMtyO/pKFlHsJmKweuaLPRAt4aGLb/Uis8FphoFez92PJZuHIRyaIPXgSkarSA4ima8rTL0ZECe4zol9gZwPXjulsNORC4Pu9DC442VIq5sTVSlf8L3a2+XJcmwXpxM8bNpd5KR++zI5zZoizM3OlGHbc4kY5DUcnniTRg+CvoR5n5tFjQVU97B2evkN61SJEd9z+0QJ9n9jd49SXyMH9pwdnYCcC0pCSOQ+ocTpm2DN6M1Y0DfJDt6VZqkT21ZLDThcHvPlr7AxrJrLB+wPF+VO7FWrtIPRJBy7qq9bamg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3Xh1w3YV2hQfhKVSxY3cSeZpqtKum2MvHG4418AeW0E=;
- b=sVYPLp8Mok/sQq5HoAdr7UjFvxuFOmtGlI0LTJXt7Yp22yfHgUDg6NIvHHTZFXQocL7ADjYAKLBffGmmXjnx/dpl6xsm4rNcwvi2X46GvwboQi2l1YmWLyog79doYBkIPb3M2NYMUuG2Qa0oETiIZdnKRgvkrfceyQ2hxU4DLJ/oRXJzKGHUxUNUuRZ/VhwMYM2RRIPxS/eWUF5KVT+6cg1NV+rrYiH9mdFTzZ6NMb779P1B5XQ+TfJkYAYycbAW9AJh3dzt52LePwRQVPA6y7R9owyBZcV6VnkEKrg850E2TQvMZ2wQBCVtXWtaM9OWJpoOxymGso7k1VRMIP0/rA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3Xh1w3YV2hQfhKVSxY3cSeZpqtKum2MvHG4418AeW0E=;
- b=irwF5XyeY0tYiBrOJMRJIHQnrsPLCDaLsgyPX8rul1M1GazgI03SiutX71t9XnBhMz68boIC/zwdpyNtMLn7f6IPYVMJp+IHPnr1NJ6o+G9kV2bicC6icDE15Q1rqbLkgDpWx3swjA2iXSqJdM+SocK7FqTXZZeGnT3fbD5Rb5qXRbNAHmUAKp/qJv/Tdg6hPUrT6m6cXzF3Gjt5WTQNhgIBOTJ9lxMQXxsDpr4j1AwsIeTEWD5Bwb3WKuW5dXN8lV4ArK9dTzaMitab5WgB+9bEFmolSb1BsKHf5YEv87tHxSib+J2E1pzdV5oOc7t/GIG/0eVPoaFOyBWbAnit1Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by IA0PR12MB7532.namprd12.prod.outlook.com (2603:10b6:208:43e::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 19:02:28 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 19:02:26 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 11 Sep 2026 15:02:22 -0400
-Message-Id: <DLCPXEXM5YQ3.GPN2LX0UL19T@nvidia.com>
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>, <linux-mm@kvack.org>,
- <linux-kernel@vger.kernel.org>, <kernel-team@meta.com>, "Liam R . Howlett"
- <liam@infradead.org>, "Nico Pache" <nico.pache@linux.dev>, "Ryan Roberts"
- <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>, "Barry Song"
- <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>, "Usama Arif"
- <usama.arif@linux.dev>, "Vlastimil Babka" <vbabka@kernel.org>, "Jann Horn"
- <jannh@google.com>
-To: "Kiryl Shutsemau" <kirill@shutemov.name>, "Andrew Morton"
- <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>,
- "Lorenzo Stoakes" <ljs@kernel.org>, "Baolin Wang"
- <baolin.wang@linux.alibaba.com>
-From: "Zi Yan" <ziy@nvidia.com>
-Subject: Re: [PATCH v2 11/12] mm/collapse: declare the collapse interface in
- collapse.h
-X-Mailer: aerc 0.22.0
-References: <20260910120238.2529819-1-kirill@shutemov.name>
- <20260910120238.2529819-12-kirill@shutemov.name>
-In-Reply-To: <20260910120238.2529819-12-kirill@shutemov.name>
-X-ClientProxiedBy: CY8P220CA0013.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:930:46::9) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IhUCYUY3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCE641F000FF;
+	Fri, 11 Sep 2026 19:03:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789153386;
+	bh=li/6nS3gbGM5DIuxPpiXbPoHE4FH05B5UjM3kgULeK8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IhUCYUY30J8Exyx9w/d0UNOfjomlG50EDn07gvcqRDTwSvFJnY2gF+bowzT8FxMEF
+	 5cPILEaSujtn/AV3/SVhu98XX1YSQQVY7VlUku+xoBRFFnZwDrYrotgfuUpizi+KAQ
+	 I9mD4wTN3v3aiMrZOf6yhOSJhu0pE1ZtACsC1OaQX6YLrCiHMMqRyvc4sT6nnb1PDt
+	 fy65LGPzykioDTDOzSSrkjjnBOyaE56dXLR+RTwxxImiQrQ0VE+NenXqkHuBxx4NcQ
+	 AWRjI1I4zzW0mdkIz+XV5xeFptSAP35ASzhsBiVAIb7s/J1LQb6NhUwceAU5F2qq8L
+	 lKQ8fAukXOL+A==
+Date: Fri, 11 Sep 2026 20:03:00 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, 
+	david@redhat.com, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
+	pfalcato@suse.de, xueyuan.chen21@gmail.com, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH v3 5/7] proc/task_mmu: change proc_get_vma() to stop
+ returning gate VMA at the end
+Message-ID: <aqRPeZH4yeYXfWgS@gremlin>
+References: <20260910234737.1340642-1-surenb@google.com>
+ <20260910234737.1340642-6-surenb@google.com>
+ <aqRF4YB7Ijk9PmRM@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|IA0PR12MB7532:EE_
-X-MS-Office365-Filtering-Correlation-Id: febe8884-b048-418d-1006-08df1037387e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|366016|11063799006|4143699003|56012099006|5023799004|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	pq8iqTNLvhS7brvSCGfF4JD534byC2wH43g6zzjcTGWrgmwc4xMYihfrvUUBXODm5zfa22P4UBGqKUCMG9DdiMg03BTs6nf2cfIlkLcrnT+0M85+J4LXVy7qz5QR59zG/Sq5thkDadI3gtE75P2prdD1oZpcF6WLioSW7OgSoGKwWw0efxjnS2hBg67HdVfRW9kk71AGWOZ5HrVYLwFugC9WvcivhAbFw2279qFqKzUGWtAVgqcpM0MwQ82a9RG+CBMe6zT03cLAHfyGIP0RP8ue30Mt+SUnYxPe16SwTPxcg1F7ViiJRQ5C4nX6uDSMOfhAMPyRGWYk0WrdL3l52UT91Y6OMf0+L4Ws3kRkxBXgayF72ZmidMnfXdsElM6y/266UAgWZBeaJIVSRtU0erNfQ9X3ex3ZLPUxg2eOlXcIpq07R3OMQpp39tQw9eAFjXaERlBU/Z0VZt6CvJoejJmLN8zhj7pB6xGInMMvYU9i0oM4GtKAMIBQpg2E4wo85ZooQb1VzUu1+5lmkdwXXCtntVhWLJor3DZRSoLvg2HVx7J0i9hmaiMBCbDUaqzXDEMCDnQgLifw7kfg00f5BiKZyucPQLtfqQqPju1aq6s4nfc4205WPtQ14Enlju1LN44tg+y1gHU1mnMlwncQyDdW41xWcbcE4xAUdm++xxM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(366016)(11063799006)(4143699003)(56012099006)(5023799004)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZU10eWlDUXdzWHhVU3dVZ1BxNXBJRmxySU15bUxGd0QrQWRqak8welJjeXZJ?=
- =?utf-8?B?ODhpSTk4YkNHeXZBdVh2QVJXV3JCejNIdWRtMTdWMlMzeC9YUTVPZ0VERDVO?=
- =?utf-8?B?WkNiVEpmSy93ZXBkNndrNG83OGt6all6MWlzK3p3WUhDeHFjc2tkOWc3dDVG?=
- =?utf-8?B?L1M3Zy9TbGY3VmwzREhJOUhHK0tyOTJ3OFJUZnk2M00zMEcwaGpYbTFVNnNl?=
- =?utf-8?B?TThMRnovR2doTkdobWdYanJVOHdBZFRIcE9lWkZqQ3FUZC9LaUdJOElMV2lp?=
- =?utf-8?B?NXZmRm9OTURRQS9kaGx0bi9VZFFxV3RWRU1MdEpocDF5NkFwcHlCT2pjM2hK?=
- =?utf-8?B?bWY2NklteDJsa2t1WGdjbXlyOHZLNUovaktUS2pYZmxCdnh2b3ZpdnFaZ09W?=
- =?utf-8?B?ZGpLYTAvM1pHbE5WNjgyZUpPY09uei9wTkRpWW02Q2p0RTlwS0lFUHpEc0hp?=
- =?utf-8?B?NjAva0tOSVZiV1Y2am1RaDVIeFJoSGZrUm1vUnBIYThqUnk1aVpLRmZmT0N0?=
- =?utf-8?B?ZmcvZGpIeVp5NG9wNi8zaWM2aDdaaUV1SHBGd0RmUjI2QUNUVFRQMUN5N2o1?=
- =?utf-8?B?ZmFOaGlKOUVvdVkvTkJjbEozYjhOcks5ZTkvZ3d1TEZSRlpzK3o1YW9GZm95?=
- =?utf-8?B?RVdRYWoxTjFOeU8wZXNsZndwbWFCa0Y5cDR3TEtaOGVTOFBPOTdjR2c1aVZP?=
- =?utf-8?B?QlllUkJTOERLUnpUdHZHekFyMVpTN21jbFo0dCtRZTkxUlZRclQrM0JDR0Ew?=
- =?utf-8?B?dGNQUjcyMGgwR1hwMzZwUFlVSnBkU0JMZGpnenpZazNWbk5BMklpR1pGSFY3?=
- =?utf-8?B?TjhPeUZ0WjhRMzdDVTczWkdhQi9CSmJLRWdzMEJyajZKejNTVy9JSUFOUEJ4?=
- =?utf-8?B?bzR6ck5IQkpZTUltbGZsQnVpTlJ6SnNjS2ZkZ0tQSFRxT09ZSEtxb1BaTm9G?=
- =?utf-8?B?eXhlVFpxTncxOTZ3RnozTlpJYXl4dURPVnViVjlIejIycldEQWppMDgxUFdG?=
- =?utf-8?B?dlV6VmhzcWRTZ2w0bWx5Z1F0TElrcytZRTBwc2N0M0ZlcDZvU1hsQmhDYmNR?=
- =?utf-8?B?QkU5OWNFRUloWFZPYkdnVTRxWkZObU9oMzdsVHphRHdYUVgrOWVTaHZXbHpk?=
- =?utf-8?B?VjlkaWpHajJ2WXF6OEZWbXdqclF2ckNuaEdGNzJYNzVra3BVYXVIZjVCVFhr?=
- =?utf-8?B?RzdiWWNzRERFMjI4U2d1VFJuSzBuSy9YN0R6Ly9ueDJpVm9Sb2V0eVJORzJz?=
- =?utf-8?B?KzFUVDlBNXNYRmluRWR4Vkw2SzhjUUYvMmxBM3Jwa1hpaW9nRTBBY0Y0dUpp?=
- =?utf-8?B?REd1ZUNGOVZwMG1lSnJZWmJlbUNac0ZPUGkyUmc0TmZHU29pNVRHZ3BwWmZi?=
- =?utf-8?B?K2hoREd3UHdqc01lWkM2R2taT1Z3VU1aUDBDcWdFbHRmK3J1T3NVdCtKMmxF?=
- =?utf-8?B?VjIvRzl2YjMzQlRLTlRlSW8rZXZXaU0wditiUElMbXVQc2NUZGRrczVMcS9S?=
- =?utf-8?B?aUc0TFRCZXB3ZXlRVlBQRmh0VTVoRXIzZXphZlQ2bHpDMmFEeG0ycUFlUDQz?=
- =?utf-8?B?U1Vkb09NNXU0NVRNZDk5bVYySVkyWHh3b1AzczlDY0dIem1naWdsZG8xeU1o?=
- =?utf-8?B?d050UndRVVgrcTlxbnpkM1NNTjg5WEZjRFd1K2h6d2tkemhUUDFLZDg4Tmd2?=
- =?utf-8?B?UVk2UU9ES1hhd1FwWGRSV21QaWlodHJya2lmRFpBejBaOVVnWFU1YmE2dEh0?=
- =?utf-8?B?K0pNT1JxWmU3RHp1NlBvLzJBdDZDeURCVjI3a3pMeFlDL0xrbUUrbmh4VDFK?=
- =?utf-8?B?RzBjdUtSb2dBd0YzcHhZdVhKaFlVcFBBMkFVNWUyeTVDYU9YMXAzZWtiRWRV?=
- =?utf-8?B?Y3YwK1NFbWtWWThnaC9vSHNHaXBvRGNESlI2QTFzSmRjS1lQbWFodytyaXhY?=
- =?utf-8?B?TngxMm5meGxSeE5ZQk5IUFlRcGdRcXV6Y2JVTkpJVXVadWxYMnZyb0xYTkUz?=
- =?utf-8?B?eTBBK0N5S3lRWmlkUHBFdC96UG9SSWxNb1VDSjdWVjVreEpXQW0xbFZqQ3pO?=
- =?utf-8?B?VVo2Rk82VzRvSzZ0UXVkRjlDaWZlME0reURTSEJ5WG1nVDJ2UE9RVlQ1Zmpx?=
- =?utf-8?B?cEJIbFkzTjI5cHV4WFYzWUxLNUVabmNyVC9tWktQa1MzZjcya2U0OUtMOUdY?=
- =?utf-8?B?cDVpaXJNN2N3YkFiNlYwUHY1UU90TjErUnowQUNqc1k2TWxBUHU0Vm5YMk5X?=
- =?utf-8?B?OEhYaFVLR3RVOE9IRWdTTyt4ekdJbnhyTUJMRGRtMTQwU2JVZzdhOVlaVjJ1?=
- =?utf-8?Q?8Qhq92M1NnDjQEPuPX?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: febe8884-b048-418d-1006-08df1037387e
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 19:02:26.8773
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QkEPRKCH+w463WzRArcGdanYdUSeViqV2r3u0mJrn3W/5RiLmfXobvnxEEnc4SjX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7532
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqRF4YB7Ijk9PmRM@gremlin>
 
-On Thu Sep 10, 2026 at 8:02 AM EDT, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+On Fri, Sep 11, 2026 at 07:26:49PM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Thu, Sep 10, 2026 at 04:47:35PM -0700, Suren Baghdasaryan wrote:
+> > proc_get_vma() returning gate VMA at the end is desirable for the its
+> > current m_start/m_next callers, as they need to report a gate VMA at the
+> > end of the address space. This behavior is very specific to these callers
+> > and makes proc_get_vma() hard to use for other purposes.
+> >
+> > Move this usage-specific behavior into the callers themselves so that
+> > proc_get_vma() returns either a valid VMA, an error or a NULL when no
+> > more VMAs are available. This makes it more generic, simpler and usable
+> > in the later patches.
+> >
+> > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
 >
-> A collapse takes four calls:
+> Yes, very good change, thanks!
 >
->   - collapse_control_init() - set up the control a caller carries;
->   - collapse_scan_pmd() - scan one PTE table, under mmap_lock;
->   - collapse_run_pmd() - collapse what the scan found, no mmap_lock;
->   - collapse_control_release() - done with the control.
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 >
-> All four are static in khugepaged.c, as are collapse_possible_orders(),
-> which says what a VMA allows, and the revalidate a caller needs once a
-> collapse has given the mmap_lock up.  No other file can ask for a collaps=
-e
-> without them.
+> > ---
+> >  fs/proc/task_mmu.c | 23 ++++++++++++++++++-----
+> >  1 file changed, 18 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+> > index ecce7ce116cb..9a3c996c1d61 100644
+> > --- a/fs/proc/task_mmu.c
+> > +++ b/fs/proc/task_mmu.c
+> > @@ -236,9 +236,6 @@ static struct vm_area_struct *proc_get_vma(struct seq_file *m, loff_t *ppos)
+> >  		 * found the extended vma with the same vm_start.
+> >  		 */
+> >  		*ppos = vma->vm_end;
+> > -	} else {
+> > -		*ppos = SENTINEL_VMA_GATE;
+> > -		vma = get_gate_vma(priv->lock_ctx.mm);
 >
-> Declare them in collapse.h, with a comment stating the order they are
-> called in and who holds the lock over each step.
+> Yeah this is just so confusing as-was.
 >
-> hugepage_vma_revalidate() becomes collapse_vma_revalidate(): it is part o=
-f
-> what a collapse offers now, not a helper of the daemon.
+> >  	}
+> >
+> >  	return vma;
+> > @@ -248,6 +245,7 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
+> >  {
+> >  	struct proc_maps_private *priv = m->private;
+> >  	struct proc_maps_locking_ctx *lock_ctx;
+> > +	struct vm_area_struct *vma;
+> >  	loff_t last_addr = *ppos;
+> >  	struct mm_struct *mm;
+> >
+> > @@ -280,16 +278,31 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
+> >  	if (last_addr == SENTINEL_VMA_GATE)
+> >  		return get_gate_vma(mm);
+> >
+> > -	return proc_get_vma(m, ppos);
+> > +	vma = proc_get_vma(m, ppos);
+> > +	if (vma)
+> > +		return vma;
+> > +
+> > +	/* Return gate VMA at the end */
+> > +	*ppos = SENTINEL_VMA_GATE;
+> > +	return get_gate_vma(mm);
+> >  }
+> >
+> >  static void *m_next(struct seq_file *m, void *v, loff_t *ppos)
+> >  {
+> > +	struct proc_maps_private *priv = m->private;
+> > +	struct vm_area_struct *vma;
+> > +
+> >  	if (*ppos == SENTINEL_VMA_GATE) {
+> >  		*ppos = SENTINEL_VMA_END;
+> >  		return NULL;
+> >  	}
+> > -	return proc_get_vma(m, ppos);
+> > +	vma = proc_get_vma(m, ppos);
+> > +	if (vma)
+> > +		return vma;
 >
-> Preparation for implementing MADV_COLLAPSE in madvise.c.
->
-> No functional change.
->
-> Assisted-by: LLM
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> ---
->  mm/collapse.h   | 44 ++++++++++++++++++++++++++++++++++++++++++++
->  mm/khugepaged.c | 18 +++++++++---------
->  2 files changed, 53 insertions(+), 9 deletions(-)
->
-> diff --git a/mm/collapse.h b/mm/collapse.h
-> index 346859a2184f..1ebbbf63fb25 100644
-> --- a/mm/collapse.h
-> +++ b/mm/collapse.h
-> @@ -106,4 +106,48 @@ struct collapse_control {
->  	bool scan_retract_only;
->  };
-> =20
-> +/* Which orders a VMA may collapse to, zero when it may not collapse at =
-all */
-> +unsigned long collapse_possible_orders(struct vm_area_struct *vma,
-> +		vm_flags_t vm_flags, enum tva_type tva_flags);
-> +
-> +/*
-> + * A caller states what it allows in cc->policy and then hands over one =
-PTE
-> + * table's worth of a VMA at a time:
-> + *
-> + *     collapse_control_init(cc)         once, before the first table
-> + *     collapse_scan_pmd(vma, addr, ...) per table
-> + *     collapse_run_pmd(mm, addr, cc)    when a scan found work
-> + *     collapse_control_release(cc)      once, when done with the contro=
-l
+> OK so I guess the logic is, iterate through every VMA, then once you run out,
+> report the gate VMA. Makes sense.
 
-This is a good overview of the workflow.
+Hmm one thing on this though - m_start() still has:
 
-> + *
-> + * The caller holds mmap_lock for reading over the scan and passes an ad=
-dress
-> + * within @vma, aligned to the PTE table the scan is to judge.
-> + *
-> + * The scan returns with that lock still held.  It only reads, and almos=
-t every
-> + * table it is offered has nothing to collapse, so a caller walks a whol=
-e VMA
-> + * under the one lock it took to get there.  SCAN_SUCCEED means there is
-> + * something to collapse; anything else is why there is not.
-> + *
-> + * The run is called without the lock and returns without it, taking wha=
-t it
-> + * needs in between: what it does -- allocate, isolate, copy, flush -- i=
-s slow
-> + * enough that a writer would wait behind it.  The caller gives the lock=
- up
-> + * first, and with it @vma and anything derived under it, so a caller ca=
-rrying
-> + * on has to look up again with collapse_vma_revalidate().  The run reva=
-lidates
-> + * for itself rather than trusting what the scan saw.
-> + *
-> + * A scan that found something has to be run: the file side takes a refe=
-rence on
-> + * the file while it still has the VMA to take it from, and the run is w=
-hat
-> + * gives it back.
-> + */
+	if (last_addr == SENTINEL_VMA_GATE)
+		return get_gate_vma(mm);
 
-It might be better to document each function individually about the
-requirements and what each does instead of putting everything above.
+As well as:
 
-> +void collapse_control_init(struct collapse_control *cc);
-> +void collapse_control_release(struct collapse_control *cc);
-> +enum scan_result collapse_scan_pmd(struct vm_area_struct *vma,
-> +		unsigned long addr, struct collapse_control *cc,
-> +		unsigned long orders);
-> +enum scan_result collapse_run_pmd(struct mm_struct *mm, unsigned long ad=
-dr,
-> +		struct collapse_control *cc);
-> +enum scan_result collapse_vma_revalidate(struct mm_struct *mm,
-> +		unsigned long address, bool expect_anon,
-> +		struct vm_area_struct **vmap, struct collapse_control *cc,
-> +		unsigned int order);
-> +
->  #endif	/* __MM_COLLAPSE_H */
+	vma = proc_get_vma(m, ppos);
+	if (vma)
+		return vma;
 
+	/* Return gate VMA at the end */
+	*ppos = SENTINEL_VMA_GATE;
+	return get_gate_vma(mm);
 
-Otherwise, LGTM.
+Now at the end.
 
---=20
-Best Regards,
-Yan, Zi
+Is this correct? Is it maybe duplicated now?
 
+>
+> > +
+> > +	/* Return gate VMA at the end */
+> > +	*ppos = SENTINEL_VMA_GATE;
+> > +	return get_gate_vma(priv->lock_ctx.mm);
+> >  }
+> >
+> >  static void m_stop(struct seq_file *m, void *v)
+> > --
+> > 2.55.0.1007.g17ff1f9808-goog
+> >
+>
+> --
+> Cheers, Lorenzo
+
+--
+Cheers, Lorenzo
