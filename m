@@ -1,148 +1,129 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D3A582B97
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:54:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789156496; cv=pass; b=DSlaR2iTvCUUBDVSKke+tiEdTRSzqCIggOb6tEayxgxd/F3+pwDl1WxfMHuTsOeLIcm75jv0y2XM1ZsIxE4+ihWF+vkQxidKszOafGblPMPH8nCpssmmKfyhXVJaU+FbxZLcQr363yipJ9F9sb5pcBnE6pNSCGe2fwWiGzyHxTs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789156496; c=relaxed/simple;
-	bh=/g5xi9VaXBeIfGF6NMxsdEGjj9+U9ivXLe4wYJ2XRc4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=po8rV0iR30Nhnfy296estmhAqYthHpb46NUfv5VVV0LQKFlbwt9+rKxCP3ztI+67YKXsGjgQOhqkX3PtZSI1Z8vMcuR4ZKCVuYhlP6ETKTsR2ba7nJm9PlubcaNrUXO1bb6paRxtf983JdVtlBcNTQPXd3ooKKwb8TZg7hBDrQQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oR4t8FZe; arc=pass smtp.client-ip=209.85.218.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B89AC584969
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:54:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789156499; cv=none; b=M84Yt73GYdyWMm5Y5tEkWakLHm7ew4TDoQZ1X8v3N8VQrL5NcHsdyuMuNU6CGtswgADCXO/9DHTyT1wBpsiUci8PpBuVHpW3Inm4dQbnp0QSumX8Wk6vmeFMSzmeGLWYbGDRYzZOvskHngdHDZCp1uv6/d68Ne73tjUVM2IaQiQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789156499; c=relaxed/simple;
+	bh=XbeleruLc3fvHSxZ/JCm4Tu9QVL6ipJwYJ10zXJUJTY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=vBXArNOXMBCIydlzVr5MDEFADaij0AedQf28XRooQG6L9o8VHMNyLSoDYxktszCuHdQXTfva+OuKsn7Rh/jIYgVKD+FI3G32jCT66vjJYkFFJu/62rg3GWqROB6fBrUEvKPAuF35+5asmw8FZZ/XD+Uu7tLMutMLUv6VrlssgEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W+ZAwuia; arc=none smtp.client-ip=209.85.221.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oR4t8FZe"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c297931c2a0so92827666b.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:54:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789156483; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PIxOy1bWWRv76GmEcxB608R5cUhdrgMaWKhsbhSXJZUMtghZBefDDXgzeckUWzDPEM
-         0yu4jTKVPw+zM1J9M2yqw+D2epEfQv3V+FnQcbRUR6ajhGYzVcFt6RNm00Ji+wtMebao
-         /aao2ztjK+e79sXDMfEBzXlDknOoIGv0BH+ZPn0CCU8bHbwZgWmknCHiqmCkAK15/QEC
-         ggGJVhFaUVR7l3YD+Tzmo813PzDOz1/OVfFxKrqOMu4VntZ9zw4T9smUd8XDYjArfZzc
-         dHxKBSuy1BP5tVi7s6eY4RUPRor0fMIdxvIu5hHQjPWJeWVU795RNeErD25OtugFGHT2
-         fT9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jFiaBVhBz+qFc4mu8PDMa1Xlvf5B/nyWRrl2nwtY+XA=;
-        fh=whBBJY5aWhKcEZU7Rs1aVS/A1FeCqUgav9Ei/jv0g9s=;
-        b=Z+Cja78GWtGfCZKhbDLZG4srEuws1ZML+LAyA12JUdr8lbwj61ifVQB1TSAe7OheaC
-         d+a0fcwTmoRTkxNcBjORJ2ubEqlihqUll2U6xWzewNJQ7cPrZP7JoXK444sLbjw/akU/
-         8mIBfztE66nA++PchFpFdsxO3RZVOtLzgcB0ENvr87cOGBpDx0H+yEM2+drdigTBftfL
-         lIKjDluSHkPt/6PS3vjc4ZHfBNBDVO9Ci9wOuwPLDwFrO8ZXuzhndFxO9SCmtLgAFgAW
-         gkhiWxqCIZ4WWac+7ZLfNaRZPGW9IHowUzOvgwvQoDsp5P9zLHndECbdgbrWPhrLaOYv
-         nByg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W+ZAwuia"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-486955ae01eso1290449f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:54:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789156483; x=1789761283; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jFiaBVhBz+qFc4mu8PDMa1Xlvf5B/nyWRrl2nwtY+XA=;
-        b=oR4t8FZeYWD1Th5XjoYotVBGkUTfLt7BrDwGd3gCwpgcRdr2KgbAp0ForEuWPLILAX
-         00zPDagzcGGLeAJg50Ev6L2qSQNDdgIhTe93SKaxLPto8ajbNp34TR5EYSiU7o+MX1uu
-         LptcrI9FDeDhrExNIejJORlFn+j8iWUe5FlAORQ6fsUnJmg+3ZJgbp2V0LnWaKLs77hV
-         XIoC29FDwaQseWGdkcmhjvcD9ur3+WkdLTH2wFxirJ9QyqEZ7fzC8cDnJ5A2ydxb1t/l
-         jjCGpFBsJWGV3FnoLw5G0L+Nxz+abbXLKY2OKZGYpkUUoAo2hC4bFb39AvTGmKx7B6SI
-         JaMg==
+        d=gmail.com; s=20251104; t=1789156489; x=1789761289; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+i+YV2SDOJ/fUOjXL4JkdG0lXGyDg3CLUWfYcCyxsKs=;
+        b=W+ZAwuiaQZ2rrjBpWhRhkN+LNzi8o2prkxvqLSXMWkJPl1T9AL7a/6CGtshMKBT/qm
+         d/cQT7Wr7ClL3gUrbHvzedCdIlWNqDG15dDPWQ90z13zWVhrHzoC7qpEzu4GYzf7E3ya
+         kgDzFh7bhG7R9LoGolrfRpzC04vZ0vZzCTtFwvduo1aDFH5Wfm/96maL3iIB8mRL2x9a
+         yYu87njwQDCYCbrkcgg/ZmLJHuYomPnaE03DFwZoI3L5LKC41j8wdEPz41Epo4zHnTCn
+         Z+XIltXnB95wlFPQIIxnGCX++OvZl/5sq0TrpXzp0mj0m+Fpg4dzdz++34M8wC6aizMG
+         c9VQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789156483; x=1789761283;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jFiaBVhBz+qFc4mu8PDMa1Xlvf5B/nyWRrl2nwtY+XA=;
-        b=eNjyczTOxTqLNvLYB+mC7cnzAq2dQ4Fe5pqGkJRPEMWHWfljiVolEIJRnC6mawUrCD
-         lMOXfKyg97gWu8bLQXKZ2VK6gR5E1u5HRQSRjFas6vYoc+Yt0K3RpO8MDGV6kYFJKZYR
-         BGHjxaG2V2BaM87qgm+2jwCG91TO93F2IlDy7dkW7vgEHzymvQtewB+sftgs/kyYHw7/
-         OMLuxzvkD8smMd1SqE+cIM8uhAxjsUslbjccqzAb7ApXmgozYX6YOgjI0fqSd9pimp1/
-         o1D+n5//f/upQUZdAxGgQynFRX8PncPxUuDMQz9aA6UmqwFmATXMOdY++SnZE8Q5Ltoq
-         PQmg==
-X-Forwarded-Encrypted: i=1; AKwUvBwXCuroc5Pba81g3fz1Yyme+W6tK7y2bM8feQ4uEKYsHmjPLZe/KG5zizrIp5ozxB4pF/oXkFv+4WGbepY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lue//9yyFPoE0YfKJ7cdAfbQnygTuwv4j4ODgO7Zi3URLs1O3l
-	E4IIt2Lj5ynPgZnfWowSX8MWfFyKC73Mee4dNXhHhx+39IoOaDvJh0bavyYPxuxz5zl8Pc1Nl0N
-	6RXkJYFvQqIF0NkgJpi6pttiHKGWKzXY=
-X-Gm-Gg: AYBFou12DfpLK6bFRnu+7Vl3QbA69hut4kGgmU9US6UhL+JG2DZgNLlNqtZ1wD7CKIO
-	zEPpw+THwrvSsYZNitGt/GMpqDGw9OJTTV32A5ipc5H6aMdt/x6X8lyVKxH+5/wCfmkIRpD99IV
-	/rP+jUpcsQI98mEhAwt7TBLh9sMrXCnrtzx/b65SWgbmU+3gzPGCtyaabnpASuL8TJmK7CaiSyQ
-	ZVrd77GxT0VEBKTH4glmumFnvuxU4OUczGssAq6HQEtnyNwqy4U4MSPltIk54G2u/tH57QDqq2+
-	sh1jA6jrb1RcZdC5xwrGAUIbI1tP8G1cB1+w00dJwQOkA1ki425pg2HHIVXLfFn1m9OMoxau7WT
-	+k2E31J53F/8Spz8=
-X-Received: by 2002:a17:906:f591:b0:c26:19de:912a with SMTP id
- a640c23a62f3a-c29666bdc3fmr241276266b.29.1789156482793; Fri, 11 Sep 2026
- 12:54:42 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789156489; x=1789761289;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+i+YV2SDOJ/fUOjXL4JkdG0lXGyDg3CLUWfYcCyxsKs=;
+        b=kb0aW6blL5PdgNv/xXsmfDSYMhLBdspqNt2GCPijLdeZuoNcQmag2H4Esv2B1/fIPL
+         oY4ZNvBre3TVQ5D8uiChVWgJLwyvJ4L/DelbJ+2czWPHG2E4H+h1mv0QqChJ9fym36kk
+         kxmHJZyqVi0YNEkepj4GHbvVUF17TdvH4qJ5slWe/Es1DTv+MN5PcRZQZdqWs/8OlB1q
+         3U/gqZczkzj0E3HrAByGmt3M7yCWC3vVts8ifrUXw8Tj/URKqgVY5fVoevR4FHGQFXXZ
+         i2GFmInkOwTlfrQi9to2zaeysM4Crt/iEWsptVaRfUASbsrBpUuNfHcnb2vGRTRYJY5c
+         yeFw==
+X-Forwarded-Encrypted: i=1; AKwUvBxj8lG8Va3j/iXC9Kb1E9qrJZKBrR52IsgpXiGD4vsZmln2OpgkXIfMty1teq/rtnLuWWM2OtszuASR6Ik=@vger.kernel.org
+X-Gm-Message-State: AFuF++laRhdtt+Ax8yJoLON7Z6Qz5aFU4LlAT2l0YxIo4LzLxlXlFKZ5
+	41zhn8lzowUQwN4BeznkP9yqewLGXtBTMOfNpw++DMpyoEQ9X+pJq3cH
+X-Gm-Gg: AYBFou2iC+hs5fIrpQgW2QzazDTcjSVf1KBZthpydGgRpDikoaeeMTbEwARqYfqQjRl
+	xC6KtCA+wk/U2q0UIh4rj8p+mVMKDdQlfbrk7L+F/ZebJ6O4ZW1SVFG4cpMhGbo50mcpykSu/o3
+	pktdoM8cPQY6XEMfkXHvzbk5T5eBor84i3YFZXh7WDao9j01Yf7t8hprA1oL3gsxWku5Yljcl7W
+	qUbqDP/a3s3Gbno0AoNLizujbrnkL8gjD5OiJB1+t5SLSSRiA6Ra2QhFkrLeZcEc8RZaOzXFdjg
+	ZB2ymHwf9mXA4QMVvKlyGy4TgzatFjN/hFGDemBnhtFZ5rsWnQfyhGX29FZsBDabnhUqOhviVBq
+	na1E4gtcNeXu6uup941P82Ey25IWdcbeaQJqXP0xAX7kicEbuQrefCCmXc41aE4tFdHbxuMBqjX
+	nNQqq8ggBxuAimXi8bvMgDzkQm9Z+hlK0+/wNgz59ch17y3N2jQ3m7Aparw2V88ALRS0IOeij/b
+	O4aK8XijFf8Cjp4kGIwjBl3oIR7V1jTk67y2qyVFBrK8hPnieaOCPpGchRO2e4tRkOaus8CWj8I
+	oqPmeb4EOkB/T15PaGfZ5LoVv25wMN7jCI9q
+X-Received: by 2002:a05:600d:6501:20b0:49e:69e3:8848 with SMTP id 5b1f17b1804b1-49e69e3916emr21708305e9.30.1789156488932;
+        Fri, 11 Sep 2026 12:54:48 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-095-114-033-154.95.114.pool.telefonica.de. [95.114.33.154])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6576122bsm92640705e9.2.2026.09.11.12.54.47
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 11 Sep 2026 12:54:48 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Danilo Krummrich <dakr@kernel.org>,
+	Matthew Brost <matthew.brost@intel.com>,
+	=?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Antonino Maniscalco <antomani103@gmail.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org
+Subject: [PATCH] drm/gpuvm: Fix names that do not exist in kernel-doc comments
+Date: Fri, 11 Sep 2026 21:53:28 +0200
+Message-Id: <20260911195328.78529-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <c8efa35aeff7b6ee4f66f1d48d4392976dbde128.1783329551.git.u.kleine-koenig@baylibre.com>
-In-Reply-To: <c8efa35aeff7b6ee4f66f1d48d4392976dbde128.1783329551.git.u.kleine-koenig@baylibre.com>
-From: Ping Cheng <pinglinux@gmail.com>
-Date: Fri, 11 Sep 2026 12:53:29 -0700
-X-Gm-Features: AcwNN1XrgStnWGmxuNQqXKK7nNRse8tmJ4sopCfbZbYwU2VNndHMxH7Co3dO-8k
-Message-ID: <CAF8JNhJa3hOqt06XYNvhRa-QYz1LyzczPCdWbzs0Oin5DN+euw@mail.gmail.com>
-Subject: Re: [PATCH v1] HID: wacom: #include <linux/device-id/hid.h> instead
- of <linux/mod_devicetable.h>
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
-Cc: Ping Cheng <ping.cheng@wacom.com>, Jason Gerecke <jason.gerecke@wacom.com>, 
-	Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 6, 2026 at 4:39=E2=80=AFAM Uwe Kleine-K=C3=B6nig (The Capable H=
-ub)
-<u.kleine-koenig@baylibre.com> wrote:
->
-> The single device-id structure that is used by drivers/hid/wacom.h and
-> its users (drivers/hid/wacom_sys.c + drivers/hid/wacom_wac.c) is struct
-> hid_device_id. So #include the much more lightweight
-> <linux/device-id/hid.h> instead the full <linux/mod_devicetable.h>.
->
-> Signed-off-by: Uwe Kleine-K=C3=B6nig (The Capable Hub) <u.kleine-koenig@b=
-aylibre.com>
-> ---
-> Hello,
->
-> there is no coordination needed, just make sure to apply it to v7.2-rc2 o=
-r
-> later. So please take it via the hid tree for the next merge window.
+The GPUVM documentation refers to drm_resv and
+drm_exec_prepare_object(), but the reservation object type is dma_resv
+and the locking helper is drm_exec_prepare_obj().
 
-What's the status of this patch? I don't see it merged into 7.2 or 7.3-rc.
+Use the existing names in the reservation object and map locking
+documentation.
 
-The patch works,
-Ping
+Fixes: bbe8458037e7 ("drm/gpuvm: add common dma-resv per struct drm_gpuvm")
+Fixes: 471920ce25d5 ("drm/gpuvm: Add locking helpers")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ drivers/gpu/drm/drm_gpuvm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> Best regards
-> Uwe
->
->  drivers/hid/wacom.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/hid/wacom.h b/drivers/hid/wacom.h
-> index 1deacb4568cb..d2398b1cdbb2 100644
-> --- a/drivers/hid/wacom.h
-> +++ b/drivers/hid/wacom.h
-> @@ -82,7 +82,7 @@
->  #include <linux/kernel.h>
->  #include <linux/slab.h>
->  #include <linux/module.h>
-> -#include <linux/mod_devicetable.h>
-> +#include <linux/device-id/hid.h>
->  #include <linux/hid.h>
->  #include <linux/kfifo.h>
->  #include <linux/leds.h>
->
-> base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
-> --
-> 2.55.0.11.g153666a7d9bb
->
->
+diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
+index d1c80ad3deadb7f2e78abf7e50e61ad085391e3f..c43708be348c3659bc7888c1aad25b470ff2cee0 100644
+--- a/drivers/gpu/drm/drm_gpuvm.c
++++ b/drivers/gpu/drm/drm_gpuvm.c
+@@ -1051,7 +1051,7 @@ static const struct drm_gem_object_funcs drm_gpuvm_object_funcs = {
+  * @drm: the drivers &drm_device
+  *
+  * Allocates a dummy &drm_gem_object which can be passed to drm_gpuvm_init() in
+- * order to serve as root GEM object providing the &drm_resv shared across
++ * order to serve as root GEM object providing the &dma_resv shared across
+  * &drm_gem_objects local to a single GPUVM.
+  *
+  * Returns: the &drm_gem_object on success, NULL on failure
+@@ -2718,7 +2718,7 @@ static const struct drm_gpuvm_ops lock_ops = {
+  * @req: ptr to drm_gpuvm_map_req struct
+  *
+  * This function locks (drm_exec_lock_obj()) objects that will be unmapped/
+- * remapped, and locks+prepares (drm_exec_prepare_object()) objects that
++ * remapped, and locks+prepares (drm_exec_prepare_obj()) objects that
+  * will be newly mapped.
+  *
+  * The expected usage is::
