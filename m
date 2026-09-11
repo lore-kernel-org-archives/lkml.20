@@ -1,84 +1,181 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BAD0432306;
-	Fri, 11 Sep 2026 10:25:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D168D43DEAC
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:25:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789122329; cv=none; b=DT4P5/iPtECFGDkoQwrJxRlIFx/aqElQpKmwuNumD6tH64XK6vmLjpuFbsSqtwNomzK9hGQZ5eZ551KTnHevLADFr9KN3Bdq1qbSzrjYOSD7NYBfHg4qj10vPGyh0zyJFWM+9cwo4ZGa2HxKRth7c0hRgiSyZwgr0z2Ozryyj1c=
+	t=1789122333; cv=none; b=BeTqjNfnr37N5IgSbzPWNonOP3dD5IYdgJT/pE+Mos8FnWzKvxbTJ7cn5VzLLT+Qb5UZEHTySKVsv++jDlX8PeF5bB6W56zAf4sNbI1Q8u4C2+upNPgoMEinmwPMEez0bixrAOSEyOe+VpagUUAiWAychWPp0cgLMKBUunIwMr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789122329; c=relaxed/simple;
-	bh=VAHHEi44hWhmgNpPtfdgb5lqlUPNHNRkIiHvEshMy78=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VNvWj5m8dBcbPcKJIJFgLsmBxhubXUywpUseK9Bi8CLnx04ICBW/KvnIwjPHjjm5lmXJpYct2u8J+Qs757RnzGg4RHcm8/+X8CByjZ5/fLMDolu3mb+Qo4mT0uoLI2+KPbAZzm+oZp4nd9tpq71JpMbReD7hbeQe0kqmWm7iHIs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j+wdE86r; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789122333; c=relaxed/simple;
+	bh=BCI3SQ9HU8MK9uLedEhEXlQ0BQwVpJHPndpiy4PqBu4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CuCsKOEfcxhtg8iB7Ei8luyhuqCEQnmw6+WYdWy6M9E9cXpi1qxv0s6gzZi1M8aa9W5WKoFXYTrcKqFBzBET+UWSGZ5Lzhl/tU2DWKrkksMQHKHxV20BaK/TPpkE71tOzpytvuQ6qU7UfA4o+66etnqG+ODNlVxAepxzRVSAIDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ncm+tnV1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j+wdE86r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B5421F000FF;
-	Fri, 11 Sep 2026 10:25:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ncm+tnV1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 750591F00893
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:25:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789122328;
-	bh=PanDWesqwm0V5uWshLOly/oOrpvVr7MVZTr/OZ6PxpI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=j+wdE86rqReZlMfvbO1Hzv/eSVw7BFOd0TFvL7pOVUHvxH5bizZUqz7pAzJ5xslqv
-	 fL9aR0ZUaYkEG5c5Hy4AObD5aqxrXmmz69mQ2oAr2gudPgw9dL7MArOf3tKMZzHsv/
-	 3Cr88AQVL0pBApm2vYr5vPiehkAIXbcwEsolLm3JArdkHht0fUfr3vCznNURMJIKb0
-	 TXMdAmtUynyHDGvT9h1lYQXc/UjXlKuNStiXONNaGwQaidTRJIg0lWf2T8JrPXO3aG
-	 N/FznK5+yDzdJ1qRpRNHf7nqP4WNDzgdRWswnBzIabs4DnevuQ7xR6du464tK+fxQV
-	 XY6kKWiJgYdEw==
-Date: Fri, 11 Sep 2026 12:25:21 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/8] Subject: arm64: dts: qcom: Add t-power-on-us
- property for PCIe root ports
-Message-ID: <u3g3hfxtdmczveh4cb3cxcgwoneniybf2qqduipffvzv2kcu5m@cnygstygdove>
-References: <20260911-t_pwr_on-v1-0-a482d185f1f9@oss.qualcomm.com>
+	s=k20260515; t=1789122331;
+	bh=zQZs21mxPOyUqBF+HZ8/HQlhwXONKQO6BnIrlCQuQtM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ncm+tnV1Ql8G6yQ5tERj9aafmeENdkoE8yPxORrd6cIQNH55frHXGGwuJv/DV2JzL
+	 sIavBbuKRl/72bj9CWM3HOf1U5BBCagYdQItPTYD+8U0uOV27+9rsdxAhsb7Fz/YEK
+	 8gG+etdLkEIWeOFkTZnh0svPSRrc7ToF3vHHSWjjre89S3Ivd98BOuHlfsbt7YBN1V
+	 qGhNUJWxRl549wnBsRUPRpMffU/u3SErZ3r5RG2xHi2btIUW6D6FHH5VgodeujHBAE
+	 duvGoSaB0nRuhsHWpd5nsDNIg6YC1BfubD+chYmlPHQJhzykGFQutCziATB8K2jiSf
+	 tH5UI2GnVGbGQ==
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3a5a64d475eso4563441fa.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:25:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBycc1T57vyl7bGiC0Q6xwS7nIjjpEIh5Uu2onm+Ivm1hnNJ5PmmEb7iO6t/kxx63PM7QgHx3ysNf/4epbE=@vger.kernel.org
+X-Gm-Message-State: AFuF++moqbecbInnAD+CN7hGvdKB/4F19ip+ZlEX6ufwU4fj4H68Dxwo
+	xnlsRoLphU9v4udJsXQi2qokac12cfz2PEaSBwLst2Vta00tt87+iljT9G/VVVHfeF9PRz5zRsj
+	ZMDl/L6U5dSb7OWoQumKZpTSQmKJ5oYU=
+X-Received: by 2002:a05:651c:a202:20b0:3a3:7681:6d74 with SMTP id
+ 38308e7fff4ca-3a5a52abb09mr2504951fa.29.1789122329799; Fri, 11 Sep 2026
+ 03:25:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260911-t_pwr_on-v1-0-a482d185f1f9@oss.qualcomm.com>
+References: <12995802.O9o76ZdvQC@rafael.j.wysocki> <3465482.44csPzL39Z@rafael.j.wysocki>
+ <aqOwUynzp3APwfYS@ashevche-desk.local>
+In-Reply-To: <aqOwUynzp3APwfYS@ashevche-desk.local>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 11 Sep 2026 12:24:16 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jD4KvoBgcR1gysK1g7y48aM+w0=eNt1oq2QkbbS1vv7Q@mail.gmail.com>
+X-Gm-Features: AcwNN1WyiqkHt0l1tukSkkAiOPeIT9X-tiOlzVf1YjANYevP63TLyxB_MkAGtqY
+Message-ID: <CAJZ5v0jD4KvoBgcR1gysK1g7y48aM+w0=eNt1oq2QkbbS1vv7Q@mail.gmail.com>
+Subject: Re: [PATCH v1 2/4] ACPI: glue: Rearrange acpi_bind_one() to avoid breakage
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Linux ACPI <linux-acpi@vger.kernel.org>, 
+	LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 11, 2026 at 12:18:51PM +0530, Krishna Chaitanya Chundru wrote:
-> The Qualcomm PCIe host controller driver added support for parsing the
-> -power-on-us property[1] from each Root Port node and programming it as
-> art of host initialization (PCI: qcom: Program T_POWER_ON) [2]. Prior to
-> this, T_POWER_ON was expected to be programmed correctly in hardware or
-> by the bootloader, but not all targets support this, which can lead to an
-> incorrectly calculated LTR_L1.2_THRESHOLD in aspm.c and improper L1.2 exit
-> behavior.
-> 
-> This series adds the t-power-on-us = <80>; property to the PCIe root
-> port node(s) on the following targets, so the controller programs the
-> correct T_POWER_ON value instead of relying on the (currently incorrect)
-> hardware default:
-> 
-> - kodiak
-> - lemans
-> - monaco
-> - hamoa
-> - glymur
-> - talos
-> - sm8750
-> - kaanapali
-> 
-> [1] https://lore.kernel.org/all/20260205093346.667898-1-krishna.chundru@oss.qualcomm.com/
-> [2] https://lore.kernel.org/all/20260428-t_power_on_fux-v5-0-f1ef926a91ff@oss.qualcomm.com/
-> 
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+On Fri, Sep 11, 2026 at 9:40=E2=80=AFAM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> On Thu, Sep 10, 2026 at 07:56:10PM +0200, Rafael J. Wysocki wrote:
+>
+> > Rearange the code in acpi_bind_one() to avoid situations in which the
+> > existing ACPI companion of the given device would be replaced with NULL
+> > due to a memory allocation error or because somebody tries to bind a
+> > physical device with an ACPI companion to a different ACPI device
+> > erroneously.
+>
+> ...
+>
+> >  int acpi_bind_one(struct device *dev, struct acpi_device *acpi_dev)
+> >  {
+> >       struct acpi_device_physical_node *physical_node, *pn;
+> > +     struct acpi_device *comp_dev =3D ACPI_COMPANION(dev);
+> >       char physical_node_name[PHYSICAL_NODE_NAME_SIZE];
+> >       struct list_head *physnode_list;
+> >       unsigned int node_id;
+> >       int retval =3D -EINVAL;
+> >
+> > -     if (has_acpi_companion(dev)) {
+> > -             if (acpi_dev) {
+> > -                     dev_warn(dev, "ACPI companion already set\n");
+> > +     if (!acpi_dev) {
+> > +             if (!comp_dev)
+> >                       return -EINVAL;
+> > -             } else {
+> > -                     acpi_dev =3D ACPI_COMPANION(dev);
+> > -             }
+> > -     }
+> > -     if (!acpi_dev)
+> > -             return -EINVAL;
+> >
+> > -     acpi_dev_get(acpi_dev);
+> > -     get_device(dev);
+> > -     physical_node =3D kzalloc_obj(*physical_node);
+> > -     if (!physical_node) {
+> > -             retval =3D -ENOMEM;
+> > -             goto err;
+> > +             /* If the companion has been set upfront, pick it up. */
+> > +             acpi_dev =3D comp_dev;
+> > +     }
+> > +     if (comp_dev && comp_dev !=3D acpi_dev) {
+> > +             dev_warn(dev, "ACPI companion already set to %s which is =
+not %s\n",
+> > +                      acpi_dev_name(comp_dev), acpi_dev_name(acpi_dev)=
+);
+> > +             return -EEXIST;
+> >       }
+>
+> I would rewrite the above to look as following (if I got the logic right)
+>
+> int acpi_bind_one(struct device *dev, struct acpi_device *acpi_dev)
+> {
+>         struct acpi_device_physical_node *physical_node, *pn;
+>         char physical_node_name[PHYSICAL_NODE_NAME_SIZE];
+>         struct list_head *physnode_list;
+>         struct acpi_device *comp_dev;
+>         unsigned int node_id;
+>         int retval =3D -EINVAL;
+>
+>         comp_dev =3D ACPI_COMPANION(dev);
+>         if (comp_dev) {
+>                 if (acpi_dev) {
+>                         if (comp_dev !=3D acpi_dev) {
+>                                 dev_warn(dev, "ACPI companion already set=
+ to %s which is not %s\n",
+>                                          acpi_dev_name(comp_dev), acpi_de=
+v_name(acpi_dev));
+>                                 return -EEXIST;
+>                 } else {
+>                         /* If the companion has been set upfront, pick it=
+ up. */
+>                         acpi_dev =3D comp_dev;
+>                 }
+>         } else if (!acpi_dev) {
+>                 return -EINVAL;
+>         }
+>
+> The rationale is to avoid assignment and known-to-be-false test later on.=
+ Also
+> split assignment that is going to be validated and moved it closer to the=
+ user
+> (this helps with maintenance in a long term). Unfortunately double test o=
+f comp_dev
+> against NULL just replaced with a double check of acpi_dev against NULL, =
+no gain
+> here.
+>
+> TL;DR: original and proposed pieces have their pros and cons.
 
-Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+There are reasons why I prefer the original changes.
 
-- Mani
+There's fewer indentation levels and fewer lines of code there and
+!acpi_dev is actually the most common case because acpi_bind_one() is
+called with acpi_dev =3D=3D NULL for every device, so it is better to deal
+with it upfront.
 
--- 
-மணிவண்ணன் சதாசிவம்
+However, it can be observed that the condition in the second "if ()"
+(in the original $subject patch) is obviously false if acpi_dev is
+NULL, so it can be moved to an "else" branch in the first "if ()":
+
+if (!acpi_dev) {
+    if (!comp_dev)
+        return -EINVAL;
+
+    /* If the companion has been set upfront, pick it up. */
+    acpi_dev =3D comp_dev;
+} else if (acpi_dev !=3D comp_dev && comp_dev) {
+    dev_warn(dev, "ACPI companion already set to %s which is not %s\n",
+             acpi_dev_name(comp_dev), acpi_dev_name(acpi_dev));
+    return -EEXIST;
+}
+
+and that avoids a redundant check when acpi_dev is NULL to start with
+(and is one code line less even).
+
+I'll make this change, but I'd rather not send a whole v2 of the
+series for this, so I'll do it when applying the patch.
+
+Thanks!
