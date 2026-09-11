@@ -1,215 +1,302 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net [217.70.183.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 306FE443C31
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:15:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D89E364059;
+	Fri, 11 Sep 2026 12:16:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789128954; cv=none; b=HZZwTxhMhHJdVN7knfYr66uUZh8Yd9A2nTroTQgJwRud8XWPT1ES0SVvCivFUubWn5Hxl/YMj4DWCsrXc+tizZyVT/A0lJYlafcsPHTeWeiRD7sS1UqORHCnPGNi951qDbiRBq9K4pR/XG3wYCF6d9SNgcLrAsuiby5mdXyaxaQ=
+	t=1789128966; cv=none; b=ankrrb1E71J9PDkix/nKpVO0OJ0DFoM5FKqmF1sLanF0L7v12NO6J7EYTvjbjkd9CUhqPeq0e1UMI3SpdLUdbGyIUdHq62ALHEGezp0yLO6BtmK4GerNRGNL34hoJdv/r1WzmPrNQjcK3c07xPm5bQTe/juQhUvz48jUpiF24kg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789128954; c=relaxed/simple;
-	bh=Uupe71rKqVRL9KIaXB//FIQMoxw3iyok3V2rnxr/HZo=;
+	s=arc-20240116; t=1789128966; c=relaxed/simple;
+	bh=490GEyhkTwzzmJ0XnkWlaB6Ze1NRBFNHe3rMrKdQjOc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ELFI1czTD/or+cPrD5TSNY+JsAaMwYT/mJZlKiTMZRqg3nS1YQIedgWH8N+Isvrm19lgcLBnZ1GfF9SVgOPBr0xBE+U2z/jpVatfNRt2+QO8pJylcOkM2o4gi4yeAUfmlmiu57wdBMFMYYzBbuvn3rFlJzqJduvcJbeco7Mc2DU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=JJvxNti8; arc=none smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="JJvxNti8"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc1cf287ef8so812741a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:15:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1789128952; x=1789733752; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LkdiBF2IWGfWcg5OnqET18ZOvzF9PCNRUzrg/Kdn0K8=;
-        b=JJvxNti814i4hLqlfTDAZi1qps6jkDkGVZj4wJ+zcyvUNJKrNa+3mP9id5FEtrYCDl
-         nGdCnDNM4DmJVxFKKKgdv6IyD18d9WkuGdbdwWr3OaEPIRHYaLpeP2vAI43F0eOnmAwX
-         ROAn7MgfGyHWJz5HMQ+RxPaaDaGxlitQughqAqyqtqx/1StRaA5IuVNZrgqPs42ABOB2
-         Duki9Nlr9xaSF/5JWRKt512wqybkJIDaiXcTERv3haA/09Ss2r1UA7RF8S+X+KBNUPnp
-         OiCXxwJ/sBjnDGIC8b/b/kO4+Yv2MaoLTyjq3tfFK/om5yOfar+/8CCHAp3ZE22/NrvP
-         T8Ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789128952; x=1789733752;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LkdiBF2IWGfWcg5OnqET18ZOvzF9PCNRUzrg/Kdn0K8=;
-        b=GP5XZJEO3U6Gqv9NDkYP7FHew3Isz2Rqf3ZCt1jzWurtt1dhrmV62SFDpQAhMm+a0C
-         udlGnonFsjtkKrXQ1zB7b+93PaqIXS170tehpmVtMDNhKAXVAc4BqaA11lpGHk1H0bSl
-         F7EcIM6clDs5bFhftDxZjf1wf8uN6+/gCwi83rt7tKA1+0e6Lk4GTjJn5acjXwodYWHd
-         IbcuolJ2PHgCYGHA7YTDf3fzP5f5jm4TnDDJdt1uMj2w0naHnqjD9Qyv4DxmXHJlYq1y
-         Rf3S42Az/tXHzxqCO+HWCDYS6T1PHZcoftgYdnRrtYk/4UF76+9d4JmEKp9Hi+Vvz5yV
-         TQ4A==
-X-Forwarded-Encrypted: i=1; AKwUvBzZieD+oxzQiADx/zAv4zPYlNiO07MRpIxPlfUsw/b8nbzKcSwK19GLUSk/uqJ2mOpjtGscDDqkdJzxamQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lpjunNwK/nj4uQv5U0LspBSX4wgKgeTbhWQ8QRsi1TUPB0H0YB
-	IYAm7MXAd0xkWB5vqlTbz7mt6XvEwb1GXvJn2nG4SGKcoXXaUFPpOLSWtJH9VJ/+Bjs=
-X-Gm-Gg: AYBFou0dYd9w94YaYPJzMXVXifvR2yPjn2m/NNN3qp9Y+3+O7V8fy5Z8Mbx9aMOtZ4b
-	ghSnMPFQ48O1sgQYZmEkrMKptw7z5lpZ1mzTeJfQLX73ERtloO2IemhM1XcvW7vLE2HmwygRO4Y
-	WPdF+vcXV8Qkq3SUd8t3HhNry7wpqGrlg5tjLizGAOW3i1hcmurqhXtbv8zSaZPJw65xip+dwKg
-	AZMtx+UeoK9F5wXQ/NCpnHQWqmVXw8lmF99yBxW69asVg0aRVk3oD4MRzCZSNcuTuN2s9oRf7Eh
-	3oUai5HDRwkQ5c8oQZiMJuuUG5OQSlLAnCj+Mo6U2S5VzeJZM15AIq1UKIsksBBC8Zm2sH3kJrz
-	Lj/iRKXVvGemRBWblrYaZj+kGP/Dn1Q1i5lae8tmk5XWOdM85MBNszsZTSyQw3kf4qd0PBtCRB+
-	kNzd9gkfV5ezx0koRKUBw2ysFySkMPvj5tKT1wN9RlRqPBbDHUL3bOv1DuDsUBJTM1qmTyA1Otd
-	TWc3rGfM4m7ZAFk0QZSv30DUJNuinXn9CiUHtDNkA==
-X-Received: by 2002:a17:90b:1648:b0:36b:bec8:94c5 with SMTP id 98e67ed59e1d1-39d9bec50b9mr6390301a91.10.1789128952266;
-        Fri, 11 Sep 2026 05:15:52 -0700 (PDT)
-Received: from FJ7FR2JRQ3 ([2409:8a28:f48:3091:908c:b537:572a:4db0])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33baf0ea9a1sm3178278eec.8.2026.09.11.05.15.32
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 11 Sep 2026 05:15:51 -0700 (PDT)
-From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>,
-	Conor Dooley <conor@kernel.org>,
-	Anup Patel <anup@brainfault.org>
-Cc: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <cleger@rivosinc.com>,
-	Yunhui Cui <cuiyunhui@bytedance.com>,
-	Atish Patra <atish.patra@linux.dev>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Will Deacon <will@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Yuanzhu <yuanzhu@bytedance.com>,
-	Yicong Yang <yang.yicong@picoheart.com>,
-	Susheng Yang <yang.susheng@zte.com.cn>,
-	linux-riscv@lists.infradead.org,
+	 MIME-Version; b=LE0JDDTe0s//Of4UXEUGRJcOGoTndm6LKxkINUqiXbpHdldT/YCEJ8/H/Vn6RfK2kHBra9ApVYVNF9Ely7umfFj5vrN0bdZTkT8HDJe42OfiAuSEvWEJvtCSsgh5xlcFlrUS5uQuB6FLR7sEXifFlp7TjcPAvj3gSOd1J/VS2IA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr; spf=pass smtp.mailfrom=ghiti.fr; arc=none smtp.client-ip=217.70.183.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghiti.fr
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 07E7E3EBAD;
+	Fri, 11 Sep 2026 12:15:56 +0000 (UTC)
+From: Alexandre Ghiti <alex@ghiti.fr>
+To: Johannes Weiner <hannes@cmpxchg.org>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>
+Cc: Kairui Song <ryncsn@gmail.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Wei Xu <weixugc@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Kunwu Chan <kunwu.chan@gmail.com>,
+	Tal Zussman <tz2294@columbia.edu>,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-Subject: [PATCH v10 1/9] riscv: add SBI SSE extension definitions
-Date: Fri, 11 Sep 2026 20:14:48 +0800
-Message-ID: <20260911121456.33223-2-zhangzhanpeng.jasper@bytedance.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260911121456.33223-1-zhangzhanpeng.jasper@bytedance.com>
-References: <20260911121456.33223-1-zhangzhanpeng.jasper@bytedance.com>
+	linux-fsdevel@vger.kernel.org,
+	Alexandre Ghiti <alex@ghiti.fr>
+Subject: [PATCH v5 2/3] mm: swap: drop dropbehind swap cache folios on writeback completion
+Date: Fri, 11 Sep 2026 14:13:29 +0200
+Message-ID: <20260911121341.178028-3-alex@ghiti.fr>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260911121341.178028-1-alex@ghiti.fr>
+References: <20260911121341.178028-1-alex@ghiti.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-GND-Sasl: alex@ghiti.fr
+X-GND-Cause: dmFkZTGfAlh9c+pEh1Y00g1ucsY9TXoPvlSpq+kLO/TyS5eegFUhSZk1HWGBEKI2EIGpMjwYV84dXepg2QrFzjdjhJpD6uJ7UOjwxR4tmFH3HJlDtAdZIv/b82CTk0cvtKYnnlQSesrrWi8eaFeV5GPBNEW00Fw38Sew7azh5zrRlSzfWnGj/zBzOo8f54f1hMdr3s25eShLr9Q2E+gJ5nIKtpdbn7VmBtfAShkJZR/VKWYVh9m0eENOkd+/YMjkMt4MJdqVG1j0L+yDgSQOi9ZZkE0CUfSq92WrHbhe1A00cDoD08RJOchvE15pjmEcvjeF9JzmN2OHb/AlwyGI3s7wzPg8PnXvoD9pAIOfCi0mwSxodaEGLbHW1jDUkqzt745Bp0HYIoaIc5WW0VCvRtpYrA4qU1pkGmrhM1XY02MEj7deCOandoFqRVbSSfKnu1LbHA4/N1uBCV7MQfzlK5PgHmRL/Xzs4QHkkBgiSHLOvqwc9WNOvlb7q0vFUIDCLQXFWsHH6Mj7zSfqhFrNWh2p3tj+EKWRiBWRPb1X+UPF3eUJsAb0MWMJPPAJzAkIwKm/tv/Fwea4FXSeGShkyeiWvvj3hM+2On/na6Wor0wKce3QPDICoRIeudagdRsbeNUCjdaCIDHV30bApqUl5mmAfuH50egqlXbeb+64eAeQL/VMQQ
+X-GND-State: clean
+X-GND-Score: -100
 
-From: Clément Léger <cleger@rivosinc.com>
+A PG_dropbehind folio is dropped from its cache once writeback completes
+rather than left for reclaim to find later; this is implemented for file
+folios in folio_end_dropbehind(). Extend it to swap cache folios.
 
-Add definitions for the SBI Supervisor Software Events extension [1].
-This extension enables the SBI to inject events into supervisor software
-much like ARM SDEI.
+The drop takes the folio and swap cluster locks and may sleep, so it
+cannot run in interrupt context. Set BIO_COMPLETE_IN_TASK on the write,
+as the file dropbehind paths do, and drop the folio directly from
+folio_end_writeback().
 
-[1] https://lists.riscv.org/g/tech-prs/message/515
-
-Signed-off-by: Clément Léger <cleger@rivosinc.com>
-Co-developed-by: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
-Signed-off-by: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
-Co-developed-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-Signed-off-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+Suggested-by: Yosry Ahmed <yosry@kernel.org>
+Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
+Suggested-by: Nhat Pham <nphamcs@gmail.com>
+Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
 ---
- arch/riscv/include/asm/sbi.h | 63 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 63 insertions(+)
+ include/linux/swap.h |  6 ++++++
+ mm/filemap.c         | 19 +++++++++++++++++
+ mm/page_io.c         |  9 ++++++++
+ mm/swap_state.c      | 42 +++++++++++++++++++++++++++++++++++++
+ mm/vmscan.c          | 49 +++++++++++++++++++++++++++++++++++---------
+ 5 files changed, 115 insertions(+), 10 deletions(-)
 
-diff --git a/arch/riscv/include/asm/sbi.h b/arch/riscv/include/asm/sbi.h
-index 5725e0ca4dda..4e54d79ba543 100644
---- a/arch/riscv/include/asm/sbi.h
-+++ b/arch/riscv/include/asm/sbi.h
-@@ -38,6 +38,7 @@ enum sbi_ext_id {
- 	SBI_EXT_FWFT = 0x46574654,
- 	SBI_EXT_MPXY = 0x4D505859,
- 	SBI_EXT_DBTR = 0x44425452,
-+	SBI_EXT_SSE = 0x535345,
+diff --git a/include/linux/swap.h b/include/linux/swap.h
+index 5658a1634b85..538b723a276f 100644
+--- a/include/linux/swap.h
++++ b/include/linux/swap.h
+@@ -318,6 +318,9 @@ static inline bool lru_cache_disabled(void)
  
- 	/* Experimentals extensions must lie within this range */
- 	SBI_EXT_EXPERIMENTAL_START = 0x08000000,
-@@ -506,6 +507,68 @@ enum sbi_mpxy_rpmi_attribute_id {
- #define SBI_MPXY_CHAN_CAP_SEND_WITHOUT_RESP	BIT(4)
- #define SBI_MPXY_CHAN_CAP_GET_NOTIFICATIONS	BIT(5)
+ extern unsigned long shrink_all_memory(unsigned long nr_pages);
+ long remove_mapping(struct address_space *mapping, struct folio *folio);
++long remove_mapping_set_shadow(struct address_space *mapping,
++			       struct folio *folio,
++			       struct mem_cgroup *target_memcg);
  
-+enum sbi_ext_sse_fid {
-+	SBI_SSE_EVENT_ATTR_READ = 0,
-+	SBI_SSE_EVENT_ATTR_WRITE,
-+	SBI_SSE_EVENT_REGISTER,
-+	SBI_SSE_EVENT_UNREGISTER,
-+	SBI_SSE_EVENT_ENABLE,
-+	SBI_SSE_EVENT_DISABLE,
-+	SBI_SSE_EVENT_COMPLETE,
-+	SBI_SSE_EVENT_INJECT,
-+	SBI_SSE_HART_UNMASK,
-+	SBI_SSE_HART_MASK,
-+};
+ #if defined(CONFIG_SYSFS) && defined(CONFIG_NUMA)
+ extern int reclaim_register_node(struct node *node);
+@@ -402,6 +405,8 @@ void swap_put_entries_direct(swp_entry_t entry, int nr);
+  */
+ bool folio_free_swap(struct folio *folio);
+ 
++void swap_writeback_dropbehind_folio(struct folio *folio);
 +
-+enum sbi_sse_state {
-+	SBI_SSE_STATE_UNUSED     = 0,
-+	SBI_SSE_STATE_REGISTERED = 1,
-+	SBI_SSE_STATE_ENABLED    = 2,
-+	SBI_SSE_STATE_RUNNING    = 3,
-+};
+ /* Allocate / free (hibernation) exclusive entries */
+ swp_entry_t swap_alloc_hibernation_slot(int type);
+ void swap_free_hibernation_slot(swp_entry_t entry);
+@@ -412,6 +417,7 @@ static inline void put_swap_device(struct swap_info_struct *si)
+ }
+ 
+ #else /* CONFIG_SWAP */
++static inline void swap_writeback_dropbehind_folio(struct folio *folio) {}
+ static inline struct swap_info_struct *get_swap_device(swp_entry_t entry)
+ {
+ 	return NULL;
+diff --git a/mm/filemap.c b/mm/filemap.c
+index 6afec636881f..e1f1bbe943ce 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -1686,6 +1686,8 @@ EXPORT_SYMBOL_GPL(folio_end_writeback_no_dropbehind);
+  */
+ void folio_end_writeback(struct folio *folio)
+ {
++	bool swap_dropbehind;
 +
-+/* SBI SSE Event Attributes. */
-+enum sbi_sse_attr_id {
-+	SBI_SSE_ATTR_STATUS		= 0x00000000,
-+	SBI_SSE_ATTR_PRIO		= 0x00000001,
-+	SBI_SSE_ATTR_CONFIG		= 0x00000002,
-+	SBI_SSE_ATTR_PREFERRED_HART	= 0x00000003,
-+	SBI_SSE_ATTR_ENTRY_PC		= 0x00000004,
-+	SBI_SSE_ATTR_ENTRY_ARG		= 0x00000005,
-+	SBI_SSE_ATTR_INTERRUPTED_SEPC	= 0x00000006,
-+	SBI_SSE_ATTR_INTERRUPTED_FLAGS	= 0x00000007,
-+	SBI_SSE_ATTR_INTERRUPTED_A6	= 0x00000008,
-+	SBI_SSE_ATTR_INTERRUPTED_A7	= 0x00000009,
+ 	VM_BUG_ON_FOLIO(!folio_test_writeback(folio), folio);
+ 
+ 	/*
+@@ -1695,7 +1697,24 @@ void folio_end_writeback(struct folio *folio)
+ 	 * reused before the folio_wake_bit().
+ 	 */
+ 	folio_get(folio);
 +
-+	SBI_SSE_ATTR_MAX		= 0x0000000A
-+};
++	/*
++	 * Sample this before folio_end_writeback_no_dropbehind() clears
++	 * PG_writeback: until then a racing swapin cannot remove the folio from
++	 * the swap cache. Afterwards it can, and the drop below then finds a
++	 * non-swapcache folio and puts it back on the LRU instead. The
++	 * reference taken above keeps the folio alive across that window.
++	 */
++	swap_dropbehind = folio_test_swapcache(folio) &&
++			  folio_test_dropbehind(folio);
 +
-+#define SBI_SSE_ATTR_STATUS_STATE_OFFSET	0
-+#define SBI_SSE_ATTR_STATUS_STATE_MASK		0x3
-+#define SBI_SSE_ATTR_STATUS_PENDING_OFFSET	2
-+#define SBI_SSE_ATTR_STATUS_INJECT_OFFSET	3
+ 	folio_end_writeback_no_dropbehind(folio);
 +
-+#define SBI_SSE_ATTR_CONFIG_ONESHOT	BIT(0)
++	if (swap_dropbehind) {
++		swap_writeback_dropbehind_folio(folio);
++		return;
++	}
 +
-+#define SBI_SSE_ATTR_INTERRUPTED_FLAGS_SSTATUS_SPP	BIT(0)
-+#define SBI_SSE_ATTR_INTERRUPTED_FLAGS_SSTATUS_SPIE	BIT(1)
-+#define SBI_SSE_ATTR_INTERRUPTED_FLAGS_HSTATUS_SPV	BIT(2)
-+#define SBI_SSE_ATTR_INTERRUPTED_FLAGS_HSTATUS_SPVP	BIT(3)
-+#define SBI_SSE_ATTR_INTERRUPTED_FLAGS_SSTATUS_SPELP	BIT(4)
-+#define SBI_SSE_ATTR_INTERRUPTED_FLAGS_SSTATUS_SDT	BIT(5)
+ 	folio_end_dropbehind(folio);
+ 	folio_put(folio);
+ }
+diff --git a/mm/page_io.c b/mm/page_io.c
+index 88962571cb93..52eae99de6e3 100644
+--- a/mm/page_io.c
++++ b/mm/page_io.c
+@@ -602,6 +602,15 @@ static void swap_bdev_submit_write(struct swap_io_ctx *ctx)
+ 		submit_bio_wait(bio);
+ 		end_swap_bio_write(bio);
+ 	} else {
++		int p;
 +
-+#define SBI_SSE_EVENT_LOCAL_HIGH_PRIO_RAS	0x00000000
-+#define SBI_SSE_EVENT_LOCAL_DOUBLE_TRAP		0x00000001
-+#define SBI_SSE_EVENT_GLOBAL_HIGH_PRIO_RAS	0x00008000
-+#define SBI_SSE_EVENT_LOCAL_PMU_OVERFLOW	0x00010000
-+#define SBI_SSE_EVENT_LOCAL_LOW_PRIO_RAS	0x00100000
-+#define SBI_SSE_EVENT_GLOBAL_LOW_PRIO_RAS	0x00108000
-+#define SBI_SSE_EVENT_LOCAL_SOFTWARE_INJECTED	0xffff0000
-+#define SBI_SSE_EVENT_GLOBAL_SOFTWARE_INJECTED	0xffff8000
++		for (p = 0; p < sio->nr_bvecs; p++) {
++			if (folio_test_dropbehind(bvec_folio(&sio->bvecs[p]))) {
++				bio_set_flag(bio, BIO_COMPLETE_IN_TASK);
++				break;
++			}
++		}
 +
-+#define SBI_SSE_EVENT_PLATFORM		BIT(14)
-+#define SBI_SSE_EVENT_GLOBAL		BIT(15)
+ 		bio->bi_end_io = end_swap_bio_write;
+ 		submit_bio(bio);
+ 	}
+diff --git a/mm/swap_state.c b/mm/swap_state.c
+index e5b7fa468ade..b1656e2d5288 100644
+--- a/mm/swap_state.c
++++ b/mm/swap_state.c
+@@ -543,6 +543,48 @@ struct folio *__swap_cache_alloc_folio(swp_entry_t targ_entry, gfp_t gfp,
+ 	return ret;
+ }
+ 
++/**
++ * swap_writeback_dropbehind_folio - drop a dropbehind swap cache folio
++ * @folio: the off-LRU folio whose writeback has completed
++ *
++ * Context: task context, with the reference taken by folio_end_writeback()
++ * donated to us.
++ */
++void swap_writeback_dropbehind_folio(struct folio *folio)
++{
++	struct mem_cgroup *memcg;
 +
- /* SBI debug triggers function IDs */
- enum sbi_ext_dbtr_fid {
- 	SBI_EXT_DBTR_NUM_TRIGGERS = 0,
++	folio_lock(folio);
++
++	/* The folio was allocated off the LRU and nothing re-adds it here. */
++	VM_WARN_ON_ONCE_FOLIO(folio_test_lru(folio), folio);
++
++	rcu_read_lock();
++	memcg = folio_memcg(folio);
++	if (!mem_cgroup_tryget(memcg))
++		memcg = NULL;
++	rcu_read_unlock();
++
++	/*
++	 * Gate remove_mapping_set_shadow() on folio_test_swapcache(): a racing
++	 * swapin may have freed the swap slot (folio_free_swap()) and dropped the
++	 * folio from the cache, and it must not run on a non-swapcache folio (it
++	 * would trip __remove_mapping()'s mapping == folio_mapping() check).
++	 */
++	if (!folio_test_swapcache(folio) || folio_test_writeback(folio) ||
++	    !remove_mapping_set_shadow(swap_address_space(folio->swap), folio,
++				       memcg)) {
++		/* Raced: the folio is now owned by the swapin; put it back. */
++		folio_clear_dropbehind(folio);
++		folio_add_lru(folio);
++	}
++
++	mem_cgroup_put(memcg);
++
++	folio_unlock(folio);
++	folio_put(folio);
++}
++
+ /*
+  * If we are the only user, then try to free up the swap cache.
+  *
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index f11491ee9ed5..a02f942418d3 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -783,6 +783,22 @@ static int __remove_mapping(struct address_space *mapping, struct folio *folio,
+ 	return 0;
+ }
+ 
++static long __remove_mapping_unfreeze(struct address_space *mapping,
++				      struct folio *folio, bool reclaimed,
++				      struct mem_cgroup *target_memcg)
++{
++	if (__remove_mapping(mapping, folio, reclaimed, target_memcg)) {
++		/*
++		 * Unfreezing the refcount with 1 effectively
++		 * drops the pagecache ref for us without requiring another
++		 * atomic operation.
++		 */
++		folio_ref_unfreeze(folio, 1);
++		return folio_nr_pages(folio);
++	}
++	return 0;
++}
++
+ /**
+  * remove_mapping() - Attempt to remove a folio from its mapping.
+  * @mapping: The address space.
+@@ -797,16 +813,29 @@ static int __remove_mapping(struct address_space *mapping, struct folio *folio,
+  */
+ long remove_mapping(struct address_space *mapping, struct folio *folio)
+ {
+-	if (__remove_mapping(mapping, folio, false, NULL)) {
+-		/*
+-		 * Unfreezing the refcount with 1 effectively
+-		 * drops the pagecache ref for us without requiring another
+-		 * atomic operation.
+-		 */
+-		folio_ref_unfreeze(folio, 1);
+-		return folio_nr_pages(folio);
+-	}
+-	return 0;
++	return __remove_mapping_unfreeze(mapping, folio, false, NULL);
++}
++
++/**
++ * remove_mapping_set_shadow() - Remove a folio and record an eviction shadow.
++ * @mapping: The address space.
++ * @folio: The folio to remove.
++ * @target_memcg: The memcg to charge the eviction shadow to; the caller must
++ *                keep it alive across the call.
++ *
++ * Like remove_mapping(), but stores a workingset eviction shadow the way page
++ * reclaim does, so that a later refault can be detected and the folio
++ * re-activated.
++ * Return: The number of pages removed from the mapping.  0 if the folio
++ * could not be removed.
++ * Context: The caller should have a single refcount on the folio and
++ * hold its lock.
++ */
++long remove_mapping_set_shadow(struct address_space *mapping,
++			       struct folio *folio,
++			       struct mem_cgroup *target_memcg)
++{
++	return __remove_mapping_unfreeze(mapping, folio, true, target_memcg);
+ }
+ 
+ /**
 -- 
-2.50.1 (Apple Git-155)
+2.53.0-Meta
 
