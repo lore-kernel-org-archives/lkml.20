@@ -1,115 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C892E3E1D16;
-	Fri, 11 Sep 2026 10:02:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1B5B3FB7F1;
+	Fri, 11 Sep 2026 10:02:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789120973; cv=none; b=hX/H/ID8yNR/P9sc5ik/D9vtdgKpnfqyLry+fykAIzTa2TJQV+JeulS4TXiPdiven9mW1dHBbyL+FZuBVhN6z6qv4xe5SVmoeHTvPdJGUDvVhI9L5ksmO0iNj8vyAfDVH4Y9VjU9RMc8sXIz/Zartlxx1Cm5PApvmhNZTr2qAoc=
+	t=1789120979; cv=none; b=e7gWDKlHzNODQl2fRSNzGJZbaziWkxygyvMNJZIDOMpMwyfWEVgtM2F4hXknwBUr3KguQbjCq2f88lvXO69sYlLmjPas5w3Kz3TwIZwfKWU7oBaExpNVUTbdc+YacqSRIzLp6dMB8hBcPG6lExT2cdEj1N9+sgJtKU7aeINRhBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789120973; c=relaxed/simple;
-	bh=XP+0UXVuy3HThgLWo73ftT3+J8AGmg19bL4ATCVxuzM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tU5EWr+vnsbMdXy7+lmgaaI8JxpkpfcdDgqZcUyGeyy/dIDH3AjWd2ketC1qTzbD6G5GDewGb1LvGNvaUWo8yty+7xMcDbfM57ETqy6ZDUtjaxCK1eeVdI2rIsd/2LkQPWdDz7yPs074FPqyVygsxw+VYNx0zeSfVnXzS9O8Aa8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G7ZtyQqC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789120979; c=relaxed/simple;
+	bh=P0YPesrumASY2chPhCTF+pggK8fjgG4J+tY6vpB+8us=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=VUNz/WRWzMGsUy3sQb50J1BqNtG7PH0yvp5/dmuVXAO8lhR6PYrpPLRo78Ib5dOFZl8j7G//E3c3tE52t6ffuWyYRkfAwRTTkHR71uJIPYPl26+J+EaAe9B3O5Y9yZMGexq9+g7KpUQ+kIehcEeZ55sIjKFiP38uBqUDt36IygE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zh/OEkdJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G7ZtyQqC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C45E41F000FF;
-	Fri, 11 Sep 2026 10:02:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789120971;
-	bh=oUW3aoZgzM6Dx1leS9dg3EYEA4oyuYwJ4wHKO/d+t18=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=G7ZtyQqCAoVvOOu/aN3dBQeaeM9cJeVsd7p92mrX52PBEV6UM09fnMxnVbMCAWfey
-	 Bu+4/nRgxXCB6gwGlkr0wqhyL/O2xc7qbeiK7PYriLz9yGW1R1bv9IJlYZyLB8fK5t
-	 K4A0qCu0KRh760vgo10FL+t8VjACcVm3MRnWJrPg9DjrsJze8T8cX0ZfklEUWMgR8I
-	 23bpvawdy2uesOyl4KpaDlK+2BRqzQtyABYa4JfxwmTcOrtLsHfqbIsmRux1GEb+3c
-	 8CaLXAAP3A+CoZFigGlbcYWN8iEupbBqXHWYcmfijaEGg7Oydpj30Gc7xzKa2W/ASs
-	 E5E5qTzJfERRg==
-Date: Fri, 11 Sep 2026 12:02:44 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, "linux-phy@lists.infradead.org" <linux-phy@lists.infradead.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
-Subject: Re: [PATCH v2] phy: renesas: phy-rzg3e-usb3: Use SYSTEM_SLEEP_PM_OPS
- instead of NOIRQ
-Message-ID: <imzegouvv6rc4qsu6lku6jpiqjo7gterwervbchgux4bc7hwm4@mihjrryhaps7>
-References: <20260527082052.117289-1-ovidiu.panait.rb@renesas.com>
- <hpjrkv3bpbx4rfz2v6bumntiw5k36etktnv4bvxs2dhuv5wr3x@m4estpjcreo3>
- <OSCPR01MB1276930A2DEB5BB5B5EE29932D3BE2@OSCPR01MB12769.jpnprd01.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zh/OEkdJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BBAB0C2BCF5;
+	Fri, 11 Sep 2026 10:02:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789120978;
+	bh=P0YPesrumASY2chPhCTF+pggK8fjgG4J+tY6vpB+8us=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=Zh/OEkdJzRJnTqAU21VfvbSCdAxW4U8GCvkTtBPhh0oVmaot+5VgzGg+RHgxD7tX0
+	 PN7qJRzsQbgoLEVKTo/69KPwsYWidvevdk6kiHxm8Sd08Eqv9gJNxTQYmMckuC1xPT
+	 JAYkrrgXhgV4w/RypwmlVojzkRRh4X11ZSqYqr4SxSfTwvGdpMCyIkNVvHUEtwKzQk
+	 HYWfSpWZR6jIch/NwQ9rfuVJqIMLe8wNPP1BMbIFhqaAnU7d1YHlHkQPsAQij63Hn7
+	 fpjb1DhOTF94LfPiPMMarreS9dSg8dOP1WPBqv6A+RAnJlxJgHa+54QlL+YwQA+uNG
+	 b0br4btkWF0sw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 952C7C88E4C;
+	Fri, 11 Sep 2026 10:02:58 +0000 (UTC)
+From: =?utf-8?q?=E5=AE=89=E5=AE=B9_via_B4_Relay?= <devnull+HystericalDragons.proton.me@kernel.org>
+Date: Fri, 11 Sep 2026 18:02:44 +0800
+Subject: [PATCH v4 1/4] dt-bindings: arm: rockchip: Add FriendlyElec NanoPi
+ R28S
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <OSCPR01MB1276930A2DEB5BB5B5EE29932D3BE2@OSCPR01MB12769.jpnprd01.prod.outlook.com>
+Message-Id: <20260911-r28s-upstream-v4-1-fb6c85f226d4@proton.me>
+References: <20260911-r28s-upstream-v4-0-fb6c85f226d4@proton.me>
+In-Reply-To: <20260911-r28s-upstream-v4-0-fb6c85f226d4@proton.me>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Chukun Pan <amadeus@jmu.edu.cn>, Jonas Karlman <jonas@kwiboo.se>, 
+ jensen <jensenhuang@friendlyarm.com>, 
+ Andrey Korshunov <razor1702@gmail.com>, 
+ Diederik de Haas <diederik@cknow-tech.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=973;
+ i=HystericalDragons@proton.me; h=from:subject:message-id;
+ bh=Al+UNS9q6dX1IoEkQ1GzieWtXOTRL+F7n2qKNKypKz8=;
+ b=owGbwMvMwCUmepz3XUtTHjvjabUkhqzFFy/2aSt11DMdW9JYU80onHpu8j6Jr5K2PzhMbQ3/R
+ y5z85rYUcrCIMbFICumyCK7qTpSaFX0zCIWqeMwc1iZQIYwcHEKwER0oxj+F7Ct0Fp0vkz+3x+f
+ Ky0CjTYmk/weFHHXrZ/0KMD/bEGtAVDFftGNdfkLVBZnH1Ut3JbzInWZ8uKYtZNKPfy3Hsq6qc0
+ AAA==
+X-Developer-Key: i=HystericalDragons@proton.me; a=openpgp;
+ fpr=1DB27B5912AA5B9972041AC715C70DEE84826E07
+X-Endpoint-Received: by B4 Relay for HystericalDragons@proton.me/default
+ with auth_id=1004
+X-Original-From: =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
+Reply-To: HystericalDragons@proton.me
 
-On Fri, Sep 11, 2026 at 08:53:29AM +0000, Ovidiu Panait wrote:
-> Hi Manivannan,
-> 
-> > 
-> > On Wed, May 27, 2026 at 08:20:52AM +0000, Ovidiu Panait wrote:
-> > > On the Renesas RZ/V2H platform, if the xhci driver is unbound and the
-> > > system is suspended afterwards, a PM underflow error will occur:
-> > >
-> > >  # echo 15850000.usb > /sys/bus/platform/drivers/xhci-renesas-hcd/unbind
-> > >  # systemctl suspend
-> > >  15870000.usb-phy: PM: dpm_run_callback(): genpd_resume_noirq returns -
-> > 13
-> > >  15870000.usb-phy: PM: failed to resume noirq: error -13
-> > >  15870000.usb-phy: Runtime PM usage count underflow!
-> > >
-> > > When the xhci driver is unbound, the runtime PM usage count of the PHY
-> > > drops to 0. Since the suspend/resume callbacks are in the noirq phase,
-> > > the pm_runtime_resume_and_get() on resume errors out with -EACCES and
-> > > the usage count stays at 0. The subsequent put in device_complete()
-> > > then underflows the counter.
-> > >
-> > > To fix this, move the suspend/resume callbacks out of the noirq phase by
-> > > switching from NOIRQ_SYSTEM_SLEEP_PM_OPS to SYSTEM_SLEEP_PM_OPS.
-> > >
-> > 
-> > While this patch fixes the runtime PM underflow, it does not necessarily
-> > fix the
-> > underlying issue. The issue here is that the PHY was already suspended due
-> > to
-> > xhci driver unbound and the pm_runtime_resume_and_get() in
-> > rzg3e_phy_usb3_resume() unnecessarily tries to wakes up the PHY.
-> > 
-> > I think what you need is pm_runtime_force_{suspend/resume} to
-> > conditionally
-> > resume the PHY in its rzg3e_phy_usb3_resume() callback.
-> > 
-> 
-> I agree, the PHY should not be resumed if there is no consumer.                            
-> 
-> However, the suspend callback asserts the PHY reset, so its state is
-> always lost across system suspend. Resuming the PHY with
-> pm_runtime_force_resume() in rzg3e_phy_usb3_resume() might leave it
-> uninitialized if it was runtime suspended, and relies on the consumer
-> always calling phy_init() again before using it. I am not sure that is
-> always the case.
-> 
-> The cleanest solution I see is to move the reset assert/deassert and
-> the PHY initialization to runtime PM callbacks, and implement the
-> system sleep as:
-> 
-> NOIRQ_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
-> 
-> This should ensure the PHY is reinitialized whenever it is used and
-> that it stays suspended when it is not used.
-> 
+From: 安容 <HystericalDragons@proton.me>
 
-Sounds good to me.
+The NanoPi R28S is a dual gigabit Ethernet router board based on the
+Rockchip RK3528 SoC.
 
-- Mani
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: 安容 <HystericalDragons@proton.me>
+---
+ Documentation/devicetree/bindings/arm/rockchip.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
+index 81744fbee9..709e2cc44d 100644
+--- a/Documentation/devicetree/bindings/arm/rockchip.yaml
++++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+@@ -347,6 +347,11 @@ properties:
+               - friendlyarm,nanopi-r2s-plus
+           - const: rockchip,rk3328
+ 
++      - description: FriendlyElec NanoPi R28S
++        items:
++          - const: friendlyarm,nanopi-r28s
++          - const: rockchip,rk3528
++
+       - description: FriendlyElec NanoPi R3S
+         items:
+           - const: friendlyarm,nanopi-r3s
 
 -- 
-மணிவண்ணன் சதாசிவம்
+2.55.0
+
+
