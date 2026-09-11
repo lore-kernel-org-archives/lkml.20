@@ -1,234 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 002F118DF80
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:16:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789085769; cv=none; b=P4Tf2IoEjNHE4DzFMUV5ufP83hF/dK+grQK2MTe4E/4JjcwVPNL+OsxyBAp4HDGSU1lVkA3WZrupKjvMlOMwDhGghyqz0VtrJZjfWsPIQDX4MH2UsNsXMicypW3NcJe8HBjvlVA/U2dusKaPILq/akWKmTFPrdR0vJpuXJDQ+/E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789085769; c=relaxed/simple;
-	bh=n9UiKCsaky201FYNcMKgcf7Y8HuroAioEvcZ0z//E9I=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=qt8Czibk0ZgMAPB5yDNND+MSbn4Oa+Jx/0ZCQ0g81Uxjaqfp/qtKy+vsEpNZ9/jHrcb2TMi0JGrbZrFCFONPrjep+xI4Pc1G/JMq5jpPm552FWQB+02+I8+L0nQk/KYXt9YRhd0UTEXgu4hUWPeKKLb1+UshhhiP0i+ZihveMHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f551DYE2; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3CD817DFFA
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:17:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789085832; cv=pass; b=V78+N61mpJ8si7aG4LOLU9WVywRmwyjISyiysbFfsYmUWDavFfRP238lgKAHkGYdBZOgI/qXzjLPjiZwXTmdeZQQm1XXT2eBZv1T2B9yCDlnQH+JEpUi2ctoMfpaj6785OBG/g210Q99J9s081vP+ZU7sUvhiSKYONcVG5lwGa4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789085832; c=relaxed/simple;
+	bh=UhcXak3PP4CSJsJ+2ZmTXWyuXKO/e2C9z0rfeaGezsc=;
+	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=ofrusGr58C4Gg6b5D2vP44XFvx+l/sy/QXfzgxQktoC70pBZ3talng/S6GmQoP/8fPQ+dL6VNiVg3Q4EaJ6g4H6fPdHSpe8RWq1Z5Hg78zab5OeDeRVxAlqOFwhlj4YpIB6ZvDg99WDj5dnFTTZOsUGpFaOa9phYlvcFBjTj8wg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=XGSRsjBU; arc=pass smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f551DYE2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A49CA1F000FF;
-	Fri, 11 Sep 2026 00:16:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789085767;
-	bh=ApjyPaf1plzlokk+wZRCiU0tlnM76V6my9B1CMiV+pM=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=f551DYE2mQy2xGXqFi8BB3c93S/XPOEFG6EMudDtZGTLxLtcFvHkI31OW/3PNfL98
-	 MlmAZXPtO9ql52bPVshx9U50t5dZqS75STjCEPf6pjxIEEBFZUy+CbC1crlmtBIIL6
-	 RKBLPGcPivSTPT4ZrBjH2PSv4XcVN5fTCxTzgWgijSHp3ImpKX3cn7xRz/ylatqi1u
-	 NAYIVlMp4aDhJQpl5LZ2RsKe8jY/xGBCeKbrhyWHh1LcL+c48igWN6yFxDo5CDm7No
-	 pOaVlw7ZenaodBkDXNwW/+LW4HxGSJkDCaK64UJTtjvQTiuEZ0+Dh9Dt5f5c1kRfOr
-	 gLzpCXaq3AM7g==
-Message-ID: <3c1f769e-48b5-4c42-b876-48d1762667a9@kernel.org>
-Date: Fri, 11 Sep 2026 08:16:04 +0800
+	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="XGSRsjBU"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747eb79fbso1445055ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:17:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789085830; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aI59zIaMBiORZxCbpMAhNb6ya4tk4Z4cmhv0qKbBpSMq6HdsbkBGSkP8WMinAENDGi
+         VydZpgaMF7ASBaMlvdpMyWbclXRfecNL50oSXctbaFBHaSmtiCZvlF7ClvVPx7t8Lou6
+         loQVneujIRuYgrF3aAYfFqJludTt0lIcL2IiW/K8R+Z1sTsM2203zszUeybKGStamPmb
+         lNRSzy4YeD1NfTC4d5sySdd4JKe9UTZOWFr1seNa2dfg8vyy1NeDmrkojAkIqj/1hIB+
+         WN2imn8lNmM2G99aTTLKkUqax1JTRlAL/J14gJYG33fg5ZdjF2og+hw/d3tke/EuKE4N
+         rmTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=S44dTWF40G+fGHovL3O3dgYh1dI0740WCQy5o7cAbGo=;
+        fh=Dci+xOmTl5TYWN28iWHkZjTAFFAJycAIgMLTpGy1K2U=;
+        b=YDV5zpM5wE11oNVc6czdVx36Sfe/vDqZW1E/8zPIMhlzmpbnSlLQscHcAK9f7HMl4D
+         ftFOXVWYzu4tf3ollXtEIIpb3tEbSX0StpU8ngpzPFlRYVKjQlUI46I3MOvnZIKXeztd
+         LhYpM0Q/lWaING/X3UhuoXKtythRNtvO1XGT2LVOXJz+23uo14d9IZ8LDceSkpDv9gc2
+         DlPyU+d9jsBinsMvrddJdFPliXXQAnQ3FkAgQNsO/25WIoWGP9GVGkFu+bsdnAHhhJX4
+         6hZGl/sdbjWbqNb1MKU2owsiUROYtvU2RaCB9KnaDFW0nRRbWY1fP6Rabj/nwgn8fyNr
+         DPrw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=berkeley.edu; s=google; t=1789085830; x=1789690630; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=S44dTWF40G+fGHovL3O3dgYh1dI0740WCQy5o7cAbGo=;
+        b=XGSRsjBUp4g76BmBhsyD4RnkmKpW1/+QL08F6ioVnKzv/M7EDTcin4QOOsu0JHX2QZ
+         VNIVemujvk8kAa5UyYxQ48k9oPl4dA0KQqCjXkN+0UepeXO3atV5i2tpfvZTgPAGcwE8
+         g5H5wB7CRNcRk7dWc48nNWf/70rfm8SVMeuVoAEU/biHkzRgslvYlWlxw/N1dqQsNbgX
+         WQU0scJ3/C9BTHZzQvABQnWInCjoz/aZ71rVpEEnu87snffCPNbftdkIac3vCnMY81eI
+         IF3QGDjRmwqLlX1yq3KCL1tP3+WogDKh9JxbMT0cEMu4AnDs1P+5s5OevOsq+ZxzbfsJ
+         M0ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789085830; x=1789690630;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=S44dTWF40G+fGHovL3O3dgYh1dI0740WCQy5o7cAbGo=;
+        b=mYsjmkTa/W3ILvan/J29Ta2LtiGasnJcdtLAHs4FdxWlh2q1IawQgFE7kkDdLJQfnQ
+         dsB1+wZWA2uVw1Dimrmq9O4qgqTCMqQF/Qbk3djjCvGkW6CXXGF9ZAdYbx6HpEeybNlc
+         uaUhzNI1sg5uve0qGa22KNwOKHeRNih4mxh0gQZvyDZwMRIXk1aPiFNIir5zLVD8rnjl
+         WdoQUrWPMzWlFAqfD4wnEId8ZkKpbX8UlCFNbkhzU4pVuAz+l+5E65Mng0PdDeQZFr+A
+         uJLpXKkf48pUK3EdF1eweN1uct48DuvgBihqOI/UW3K52daLhTiTCcPqF6HuvQ/ZF8+b
+         AfZg==
+X-Forwarded-Encrypted: i=1; AKwUvByg3ZwtRluVtRgiITa2hLHMN/sq96MQSJxeevYURid1jIyF+t1E2sNZs7/sKVj0LAARhUcbCkFnFGBI0HU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lR//kbMEn/Pc9WXjHqMbpTVhpZrfO8yEETjLoZ5h0WS97Yvs+p
+	+dsvPlHRR2ogj6u3KDe8yatzM0l58jaT+HT815WsnbBe+pwCVSg1CU0XlH5fDAuaTE75YOl5KC9
+	PJmoLa5FZiWdMlSbmFKcm5r3CertCOK+NBurAPNZn
+X-Gm-Gg: AYBFou0gyC8x9gRERRFJT/E8VryaC1YshGCJVySBR4QWz5NyvR1i2b0+XlaXa67ZrJ+
+	Ol/BaE9qmaLtBPpIAMBvZE/XxthpEBgVH9Hpn0+bohUTdwgbcdTocKNIzHof7z21a33eDnyckpL
+	FusyfzQEmyGxQd7DKZviOszQc8CjU0zoL1HhCcB2nd5GcsRmvO4DDOnrfj/P1q/Mro0fnRirslI
+	LkbCxdwIl0A2eizaGdVV/RnCqjQpHwG0qw66wTlJhkPNvGRVJ5FdKMrHR5IUk5UyqAO2xEUoQyl
+	ixLUA3GqdO+a/bwPHvKJenZeR4Q4PsKBok08hdPDoApE+tLC8MZfEtXJuTc62Gd1/fVO8L0m31q
+	xlbxwlLmHuRW/ez+wYBK5IwXp+CzfBpUTwqjQWon2MN8=
+X-Received: by 2002:a17:903:19cf:b0:2c9:e9db:8167 with SMTP id
+ d9443c01a7336-2dd2a1ea679mr40406725ad.7.1789085829154; Thu, 10 Sep 2026
+ 17:17:09 -0700 (PDT)
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 11 Sep 2026 00:17:08 +0000
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 11 Sep 2026 00:17:08 +0000
+From: Farhad Alemi <farhad.alemi@berkeley.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 00/12] f2fs: introduce metadata cache
-To: Jaegeuk Kim <jaegeuk@kernel.org>
-References: <20260909013611.3418568-1-chao@kernel.org>
- <aqMfy0vzj5lzOyde@google.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <aqMfy0vzj5lzOyde@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Date: Fri, 11 Sep 2026 00:17:08 +0000
+X-Gm-Features: AcwNN1UI0Y2k7NpwvQMDJPRWXKOGhgWR9UD98ZG3_PEz1AwjbPB5B0x8KFFklCw
+Message-ID: <CA+0ovCj+Pd5owGH+51rA8-RDu9YFx5oYUv8bV0zOE72QgVfY0A@mail.gmail.com>
+Subject: [PATCH net] net: reject a forward path that loops back to the tunnel
+To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: falemi@asu.edu, Simon Horman <horms@kernel.org>, 
+	Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>, netfilter-devel@vger.kernel.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/11/26 05:23, Jaegeuk Kim wrote:
-> Chao, can you take a look at these patches?
-> 
-> https://github.com/Sys-AI-Foundation/f2fs/commit/e22a482931fb57d8e093e6cc5617f1f0a35539f5
-> https://github.com/Sys-AI-Foundation/f2fs/commit/902febb3650c6b5d63bc2d1f1e4a0b28b0796757
-> https://github.com/Sys-AI-Foundation/f2fs/commit/4a7dd5420623701c12c814f74a1211a5f86bd89b
-> https://github.com/Sys-AI-Foundation/f2fs/commit/f609f4b93bd68e3caabdfaf7442bd196bfca4d21
+ipip_fill_forward_path() and ip6_tnl_fill_forward_path() assign the outer
+route's device to ctx->dev without checking that it differs from the tunnel
+device itself.  When a tunnel's outer route resolves back to that same
+tunnel, the walk in dev_fill_forward_path() makes no progress and trips its
+loop check WARN_ON_ONCE(last_dev == ctx->dev). Release the route and
+return -EOPNOTSUPP when the resolved dst device equals ctx->dev, so the
+path walk either advances to a different device or fails cleanly.
 
-Jaegeuk, thanks for the cleanup.
+Closes: https://lore.kernel.org/all/CA+0ovCgaRvbd0Udj70b2xxG8Cx3CaCpNhnf1V4RWQuDveZYZhA@mail.gmail.com/
+Signed-off-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+---
+--- a/net/ipv4/ipip.c
++++ b/net/ipv4/ipip.c
+@@ -375,6 +375,12 @@ static int ipip_fill_forward_path(struct
+net_device_path_ctx *ctx,
+ 	if (IS_ERR(rt))
+ 		return PTR_ERR(rt);
 
-Let me take a look, and refactor based on all patches.
++	/* The path walk must advance: a route back into the tunnel is a loop. */
++	if (rt->dst.dev == ctx->dev) {
++		ip_rt_put(rt);
++		return -EOPNOTSUPP;
++	}
++
+ 	path->type = DEV_PATH_TUN;
+ 	path->tun.src_v4.s_addr = tiph->saddr;
+ 	path->tun.dst_v4.s_addr = tiph->daddr;
+--- a/net/ipv6/ip6_tunnel.c
++++ b/net/ipv6/ip6_tunnel.c
+@@ -1863,7 +1863,12 @@ static int ip6_tnl_fill_forward_path(struct
+net_device_path_ctx *ctx,
+ 	fl6.flowi6_proto = 0;
 
-Thanks,
+ 	dst = ip6_route_output(dev_net(ctx->dev), NULL, &fl6);
+-	if (!dst->error) {
++	err = dst->error;
++	/* The path walk must advance: a route back into the tunnel is a loop. */
++	if (!err && dst->dev == ctx->dev)
++		err = -EOPNOTSUPP;
++
++	if (!err) {
+ 		path->type = DEV_PATH_TUN;
+ 		path->tun.src_v6 = fl6.saddr;
+ 		path->tun.dst_v6 = fl6.daddr;
+@@ -1873,7 +1878,6 @@ static int ip6_tnl_fill_forward_path(struct
+net_device_path_ctx *ctx,
+ 		ctx->dev = dst->dev;
+ 	}
 
-> 
-> On 09/09, Chao Yu wrote:
->> This patchset introduces a self-managed metadata block cache in f2fs,
->> decoupling meta blocks, node blocks, and compressed data blocks from
->> the Linux VFS page cache and fake internal inodes.
->>
->> === 1. Background & Motivation ===
->>
->> Currently, F2FS uses fake VFS inodes (meta_inode, node_inode, and
->> compress_inode) to manage internal block caching through the VFS page
->> cache. Because of this implementation, the f2fs block size was
->> historically coupled to the kernel page size.
->>
->> We now want to unbind block size from page size to support configurations
->> where block size <= PAGE_SIZE (e.g., mounting a 4KB-block F2FS image on a
->> 16KB or 64KB page system).
->>
->> One possible approach is to continue using the VFS page cache to store
->> metadata blocks. However, doing so introduces three major architectural
->> issues (illustrated by a 4KB block on a 16KB page system):
->>
->> 1. Memory Overhead:
->>     Metadata access patterns are typically random and sparse. Caching a
->>     single 4KB metadata block inside a page cache folio forces the
->>     allocation of an entire 16KB folio, resulting in 4x memory waste.
->>
->> 2. Folio and Sub-block Conversion Complexity:
->>     Using larger folios requires tracking individual sub-block dirty/uptodate
->>     states within each folio and performing index-to-offset conversions across
->>     function boundaries. Because core metadata structures (e.g., f2fs_checkpoint,
->>     f2fs_sit_block, f2fs_nat_block, f2fs_summary_block, f2fs_node) are accessed
->>     extensively throughout the filesystem, this sub-block management and offset
->>     calculation complexity would spread across the entire F2FS codebase.
->>
->> 3. Lock Contention:
->>     Multiple independent node blocks (e.g., dnode blocks belonging to
->>     different files) can reside within the same folio. Concurrent fsync()
->>     calls on unrelated files would contend on the same folio_lock(),
->>     serializing metadata updates and degrading multi-threaded performance.
->>
->> Decoupling metadata caching from PAGE_SIZE by allocating exact
->> block-sized cache entries is the critical first step toward supporting
->> 4KB-block F2FS images on 16KB/64KB page systems.
->>
->> === 2. Metadata Cache Architecture & Design ===
->>
->> This patchset introduces a dedicated, block-size-aligned caching
->> infrastructure with the following key components:
->>
->> - Block-Size Aligned Allocation:
->>    Allocates memory buffers matching exactly the filesystem block size
->>    (4KB or 16KB) via kzalloc(), fully independent of the host
->>    architecture's PAGE_SIZE.
->>
->> - Radix Tree Indexing with Fast Tag Scanning:
->>    Each cache instance (META_CACHE, NODE_CACHE, COMPRESS_CACHE) indexes
->>    cached blocks via a radix tree (keyed by Physical Block Address for meta/
->>    compress cache, and Node ID for node cache). Radix tree tags
->>    (F2FS_CACHE_TAG_DIRTY, F2FS_CACHE_TAG_WRITEBACK) provide O(1) batch gang
->>    lookups for flushing and writeback without dual-list shuffling.
->>
->> - Lightweight Bit-Locking:
->>    Individual entries use atomic bit locks (F2FS_BLOCK_LOCKED via
->>    wait_on_bit_lock() / clear_and_wake_up_bit()) rather than heavyweight
->>    embedded mutexes/semaphores, minimizing memory footprint per entry.
->>
->> - Direct BIO Read/Write & BIO Merging:
->>    Decouples metadata/node I/O from VFS address spaces by submitting direct
->>    BIOs (f2fs_submit_cache_read / f2fs_submit_cache_write) with chained
->>    adjacent vector merging (entry->next_entry) and dedicated completion
->>    handlers.
->>
->> - Memory Reclamation Shrinker:
->>    Integrates with the kernel shrinker subsystem via a 3-phase isolation
->>    algorithm (isolate unreferenced clean entries -> truncate from radix tree
->>    under lock -> splice un-reclaimed entries back to LRU) to safely reclaim
->>    clean cached blocks under system memory pressure.
->>
->> - Background Writeback Kthread & Checkpoint Integration:
->>    Provides a dedicated background kthread (f2fs_writeback-X:Y) for periodic
->>    dirty cache flushing, combined with synchronous flushing during checkpoint
->>    commit.
->>
->> - Fault Injection, Tracepoints & Debugfs Observability:
->>    Integrates FAULT_KALLOC fault injection, tracepoints for cache state
->>    transitions and batch writeback, and per-cache memory breakdowns in debugfs.
->>
->> === 3. Patchset Organization ===
->>
->> - Patch 01: Implement the core metadata cache infrastructure & direct BIO I/O.
->> - Patch 02: Initialize and teardown META_CACHE in sb_info.
->> - Patch 03: Integrate metadata cache into the memory shrinker subsystem.
->> - Patch 04: Introduce the background writeback kernel thread.
->> - Patch 05: Migrate metadata block caching (SIT, NAT, SSA, CP, recovery, GC)
->>              from meta_inode to META_CACHE.
->> - Patch 06: Initialize and teardown NODE_CACHE in sb_info.
->> - Patch 07: Migrate node and inode block caching from node_inode to NODE_CACHE.
->> - Patch 08: Initialize and teardown COMPRESS_CACHE in sb_info.
->> - Patch 09: Migrate compressed cluster caching from compress_inode to COMPRESS_CACHE.
->> - Patch 10: Add fault injection support for cache allocation paths.
->> - Patch 11: Introduce ftrace tracepoints for cache dirty and writeback events.
->> - Patch 12: Expose per-cache memory usage in debugfs.
->>
->> Changelog:
->>
->> v5->v6:
->> - rebase on last dev-test
->> - rely on ("f2fs: parameterize node helpers and macros")
->> - remove unneeded f2fs_cache_test_dirty() check in f2fs_mark_cache_dirty()
->> - drop f2fs_force_clear_cache_dirty()
->> - avoid unnecessary type cast before cache_address() in checkpoint.c
->> - fix to init cache_wb_interval in prior create f2fs_writeback kthread
->> - fix to goto restore_wb label if f2fs_sync_fs() failed in f2fs_remount()
->> - fix to avoid race condition when access entry->ino in between
->>    f2fs_cache_compressed_page() and f2fs_invalidate_compress_pages()
->> - rebase on decoupling patchset from Kelvin
->> - fix to access IS_INODE() and ino_of_inode() under cache lock
->>
->> Chao Yu (12):
->>    f2fs: cache: implement metadata cache
->>    f2fs: cache: initialize meta cache
->>    f2fs: cache: introduce shrinker
->>    f2fs: cache: introduce writeback thread
->>    f2fs: cache: use meta cache
->>    f2fs: cache: initialize node cache
->>    f2fs: cache: use node cache
->>    f2fs: cache: initialize compress cache
->>    f2fs: cache: use compress cache
->>    f2fs: cache: support fault injection
->>    f2fs: cache: introduce tracepoints
->>    f2fs: cache: show per-cache usage in debugfs
->>
->>   Documentation/ABI/testing/sysfs-fs-f2fs |    6 +
->>   fs/f2fs/Makefile                        |    2 +-
->>   fs/f2fs/acl.c                           |   26 +-
->>   fs/f2fs/acl.h                           |    8 +-
->>   fs/f2fs/cache.c                         |  704 ++++++++++++++++
->>   fs/f2fs/cache.h                         |  242 ++++++
->>   fs/f2fs/checkpoint.c                    |  397 ++++-----
->>   fs/f2fs/compress.c                      |  163 ++--
->>   fs/f2fs/data.c                          |  520 ++++++++----
->>   fs/f2fs/debug.c                         |   70 +-
->>   fs/f2fs/dir.c                           |  170 ++--
->>   fs/f2fs/extent_cache.c                  |   14 +-
->>   fs/f2fs/f2fs.h                          |  361 ++++----
->>   fs/f2fs/file.c                          |   78 +-
->>   fs/f2fs/gc.c                            |  185 ++--
->>   fs/f2fs/inline.c                        |  284 +++----
->>   fs/f2fs/inode.c                         |  205 ++---
->>   fs/f2fs/iostat.h                        |   11 +
->>   fs/f2fs/namei.c                         |  114 +--
->>   fs/f2fs/node.c                          | 1023 +++++++++++------------
->>   fs/f2fs/node.h                          |  104 +--
->>   fs/f2fs/recovery.c                      |  251 +++---
->>   fs/f2fs/segment.c                       |  261 +++---
->>   fs/f2fs/segment.h                       |   37 +-
->>   fs/f2fs/shrinker.c                      |   14 +
->>   fs/f2fs/super.c                         |  145 ++--
->>   fs/f2fs/sysfs.c                         |   13 +-
->>   fs/f2fs/xattr.c                         |  123 ++-
->>   fs/f2fs/xattr.h                         |   12 +-
->>   include/linux/f2fs_fs.h                 |    3 -
->>   include/trace/events/f2fs.h             |   71 ++
->>   31 files changed, 3401 insertions(+), 2216 deletions(-)
->>   create mode 100644 fs/f2fs/cache.c
->>   create mode 100644 fs/f2fs/cache.h
->>
->> -- 
->> 2.49.0
->>
-
+-	err = dst->error;
+ 	if (err)
+ 		dst_release(dst);
