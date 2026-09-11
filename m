@@ -1,171 +1,147 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EFAB757EA
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:11:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 054CB14BF92;
+	Fri, 11 Sep 2026 00:14:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789085519; cv=none; b=mjzlGiR4CrBtY5yNz2g4NwBJvP21uo/sqc06PuEr5Ii0FKY3lwLzTgVhmEMxlQLpLHw6RYZ494vHXSINOpWguciTx3t49RfS5IApDKOZt5lIFyk/iYGAnWJGAf2IKYrxlGsmGqigDRnwig75PntjQ1m35QTFFRBcRFAs3mnTF1k=
+	t=1789085669; cv=none; b=px04wGbARBGJJgRYMINHPazd8JMrnm0FGVhc0qVajRq19aX3I0s4Dt+qZzadS5AW0AdWl66aISeMTo55jps///PnarCs0rLYh74GJDeAEwYTFmy0epl0suSl7RvfPf7hy/nLq3l39l2PbbSn53GiU3t7EOrd2v76UljbNDHe6yA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789085519; c=relaxed/simple;
-	bh=9yRqVCfzrThFpGKyi64B1I2+WAjltvBvnqANVP0OPds=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mfuAGq2FSWEUyP1B1N4SsHK6JHxrRnY6dwDIH5CtSHqNn56o8VAlJtHauyfK334+7CuZshV6Ks+6ZUpBi4Cs52hHE5ogj9Ap2ST9RNmSrqI8BZMllqNpCJ9zi08jZFe1ocOQRvN/3lqPXbsvX3I1WBTH95E/SG2U0OJoCysQLyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hCZGgYsJ; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789085669; c=relaxed/simple;
+	bh=+t/syTYEzLWUjcuaQdxqawBBW8k2hFhZbEocqa1Cmrg=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=cEjhyg7Pd99LVbmpWkupdwGexzYOXMJzVu0M6zlMMQUA9Vu4/vaIvTi1UIk+hWV0z3PrJdpJWVfjxDdx5cFWnEN1rbefpWm0z0XG0wXBPU8X5QKq6r78f3v8DubeWFKU8eTLcN31Qkaq+H6EvwPedOFjMWMauFzOhfxc/Xcg5jQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aD3rI2mN; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hCZGgYsJ"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b2522so233858f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:11:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789085514; x=1789690314; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KTJNu1YPX2vLCmrNs6jfWs/CRP8DPC+3PSAyWrgC+k8=;
-        b=hCZGgYsJ/V0CpMUr7SzpYeLFR7sHiPLaBi7rM8DZtHzMPQsWhO1ROgZPgYJ90LnCD7
-         K+GKN88jW2ywYZXy1bwjL92tx4r+XAQxcCHO7x1rEcGml/rV9GkNUQnTYt9R/4y6ywm2
-         2um5letJD+yr4eunmdKF3K+ExeiUV3IVJWXD7z8g8mSQfgtwZ0WiCIO9tl7JLPM1F+N/
-         6oAqbu6ZmSv8E7XCJNQzXpBTXOoLVrub12ACwEe7eflqMia5Sjx4vPUvmK00pblKbXag
-         IlW80WmsZrUGYPGMacjFxMbwP7Fg568x/UPs88pmjuKx5AOWuUQmmNq+7KdRFOQjmBzP
-         8vqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789085514; x=1789690314;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KTJNu1YPX2vLCmrNs6jfWs/CRP8DPC+3PSAyWrgC+k8=;
-        b=GQHdUQGO0De0fkAor8Eri4QzraQij2r0XBu4WviB9optTiWOTWAtDfYVMLJLNm52Av
-         +f2Xz4+qbdgbUxLI/XI+HktVdeWSkWAbfhSdkf4zx1y52MCl3Q9Vm3SqEFN74dJMEMUF
-         Pa9y6o2LDytBlSG1bdxsW/88iuANRDa/K61Z1PWF9PH2AQv58RVlDENZquiIp6vpIiYM
-         QIlnDIbYVy93nz/irwzCupv7P9ugMbgNd8EcRCxP9ufmuLH2EptjOsxHW9TBAWRhP/Z3
-         heo4DDnNToBTExCz8TYzQ4IhP1Y31vC1NBEB+kI69pgX+WzWezVeqCKEArfr67TI1S6E
-         hFOA==
-X-Forwarded-Encrypted: i=1; AKwUvByewqb1xdbn7MtsdeGHy/76ZFR5htyEwMSprqrPTQBSFeuwifDsub/dXuhdYFQIib7OedlMYn1uu6t9Kn8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmfCH707lXjker0oraqY7CmiIxAut7wukZCfbBJ4oV7gaaaRis
-	iC/02SXGrvIu72APa6eGMrCfqBykkBr45nRTWRB3eClSVQTcNWiDsguSvjX4epd3
-X-Gm-Gg: AYBFou1NV1x5iMTHqrblUS1sl9TBEs5mHKJF2nRUeinqYLotM1qgX8pJeaFSlaNJyZS
-	PTyI3cjjlsRYhBARo8MSv+XNb16OBFWLIR/noaj4Na8KZpy/V7GC0c3HyICc4YUl4FZgBd0+6x9
-	T+hlg/GvvQBz+ht0vLeFqRgz8YNAMfUqGrNH3Ikvt7IdhBRvucW/nejtVmI4kVw+jALSNdAiyAM
-	UkKOP67LtEklPFF4pu4TuhGwXvd/+PIZ/LiKmfm235Z3b2B1y/qAH6ONyHe9bFmh92VbbozRIWq
-	UyCvme7xDVQNYVjoIM6DZopT+T3GTQdlQU4Ot3Ytje6JEC6qlH9I6DDL5GmZJT9Ay3Wbds9Odph
-	B/Ak4gOb1qIo6YYd9jEsGwFPbWkMZjszqJmJnUfI7lGMOOYYXLn8MXBRdikEiZ4I6MWREnegpm6
-	SI5UoeYiOE6LTrvvASubJM4QeUkYrmw4dnh2rs8+kLT6SXPtYRClH3CZANTfAshBxgaKizGM4M2
-	98CyMIw63/Hbxf2rwakw27547Adlw==
-X-Received: by 2002:adf:fe90:0:b0:485:ac96:7272 with SMTP id ffacd0b85a97d-486eb32b0e5mr2462369f8f.19.1789085514192;
-        Thu, 10 Sep 2026 17:11:54 -0700 (PDT)
-Received: from gkaran.home ([2a02:587:4e00:af00:4405:590b:435f:6c05])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33fc02sm1779641f8f.16.2026.09.10.17.11.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 17:11:53 -0700 (PDT)
-From: Georgios Karantzas <gck.kara@gmail.com>
-To: toke@toke.dk
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Georgios Karantzas <gck.kara@gmail.com>
-Subject: [PATCH v3] wifi: ath9k_htc: bound TX aggregation to MAX_TX_BUF_SIZE
-Date: Fri, 11 Sep 2026 03:11:43 +0300
-Message-ID: <20260911001143.4507-1-gck.kara@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260831173931.1672-1-gck.kara@gmail.com>
-References: <20260831173931.1672-1-gck.kara@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aD3rI2mN"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ALULN8973405;
+	Fri, 11 Sep 2026 00:14:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	P/grFDF/E0YgDVEuey0dP1cPJx+sI2Xli3pWuRteO6Q=; b=aD3rI2mNmSZc5SXr
+	mbR1rG+fi+dTN5Aa0S1Q5NnO8yWWbFWVf9LiBd5bpUjp/kIWzfOW8jo3+d1sbC+y
+	BgkM7Vl5761+Tyj2oAi4WSbpKEHH5azd5OmCqrTdn3NeOnRNHtzwGlrEMRbBXZ5E
+	oMagj34TKMjkDRx0Vler/aTHSIGHxSv+NflYaX66vUJeMBGg390szzr4Is9mxDgU
+	ZHOhHmamFdvM9y32ga7kzM5RKATLe5hDlyRdMu3N+e3A6Qk+/JXAmMmk4xq5Fzna
+	xLtfBmF1q/eKphnaIyf7qJHS1nKbwm7+FlkT/6SR8WYDfNAOvfKPILGCRBrNh/GS
+	Mc86vw==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gksh8ur47-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 11 Sep 2026 00:14:09 +0000 (GMT)
+Received: from pps.filterd (nalasppmta04.qualcomm.com [127.0.0.1])
+	by NALASPPMTA04.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 68B0E9WX2625512;
+	Fri, 11 Sep 2026 00:14:09 GMT
+Received: from hu-devc-lv-u24-a.qualcomm.com (hu-jcameron-lv.qualcomm.com [10.81.84.69])
+	by NALASPPMTA04.qualcomm.com (PPS) with ESMTPS id 68B0E84K2625417
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 11 Sep 2026 00:14:08 +0000 (GMT)
+Received: from hu-jcameron-lv.qualcomm.com (localhost [127.0.0.1])
+	by hu-devc-lv-u24-a.qualcomm.com (Postfix) with ESMTP id 3456F24D76;
+	Thu, 10 Sep 2026 17:14:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 15/15] iommu/arm-smmu-v3: Enable PRI for PCI device
+ in arm_smmu_probe_device()
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Nicolin Chen <nicolinc@nvidia.com>
+Cc: will@kernel.org, robin.murphy@arm.com, jgg@nvidia.com,
+        Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, joro@8bytes.org,
+        bhelgaas@google.com, praan@google.com, kevin.tian@intel.com,
+        kees@kernel.org, smostafa@google.com, baolu.lu@linux.intel.com,
+        Jean-Philippe Brucker <jpb@kernel.org>,
+        Eric Auger <eric.auger@redhat.com>,
+        linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+        linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+        skaestle@nvidia.com, mmarrid@nvidia.com, skolothumtho@nvidia.com,
+        bbiber@nvidia.com, harsha.v@oss.qualcomm.com
+In-Reply-To: <7bab940a52ba306f7199108987fbcc165db92c81.1789081084.git.nicolinc@nvidia.com>
+References: <cover.1789081084.git.nicolinc@nvidia.com>
+ <7bab940a52ba306f7199108987fbcc165db92c81.1789081084.git.nicolinc@nvidia.com>
+Date: Thu, 10 Sep 2026 17:14:05 -0700
+Message-Id: <178908564508.2841562.1611618783813647686.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: ueBoQK1VcF9bVtKYhy1IR4Z6hi2Ioaog
+X-Proofpoint-ORIG-GUID: ueBoQK1VcF9bVtKYhy1IR4Z6hi2Ioaog
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDAwMSBTYWx0ZWRfX2/MUlciSEo3s
+ 8Ca6reAKyGHGpfMLwH5IWYK36mmXj3sRbSnc2XJHzsLkFYxHZqgBC8hErLWh0d950fwUQ4Mj6WH
+ g+OG3NoCkDr9Bl9APqjeukUzi5y5j2HZBX2yHbTUGCtArEVQzOb3Q4EhjR3aNxeXENHXOXlb2N7
+ VYLAWq4XCDspp74u4gf8XKztk6iiVOf4MtjtjVxvtH4fWyqI2h86QaiAJrd3l1kiOZqtAP+RO0x
+ jZM7/BUAFZ/0P7twDYtqDzmNX7GRxu39nfj4wQqDK2rBbdCdS/q9O3DTzGPoNCeCseVgLH7zOUd
+ PP6bZpswJTU9Pn8TngnJUb+1urIZJoXnJTKUEHE5hhcYYXcqsrFNxKmzbPmW/lrfOQhYCvCOnuV
+ ylO7+ZIFgQxQbPEnj1zvOsp8G1aoCgQOlzWRRGKTfWyC5jol2el30vuzEPFqWuCxG/YcnAXGzBv
+ ISYrYlFfS2QLQ+H/rUA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDAwMSBTYWx0ZWRfXw1qZ21/rpbAk
+ KoXqeXB9Xl4QWSNvK/k+izJ4UAHokz/CYWzCZH09fRJTXHHjshl/s685ywvAA93iesqpA98BeBR
+ q6QOslcz45Vs6VZ6cWNTSnm+cH2o1ZU=
+X-Authority-Analysis: v=2.4 cv=a56lZkSF c=1 sm=1 tr=0 ts=6aa347d1 cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=Ikd4Dj_1AAAA:8
+ a=EUspDBNiAAAA:8 a=FIfcXtglR4HY9Oc7seAA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_07,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 priorityscore=1501 spamscore=0
+ adultscore=0 malwarescore=0 phishscore=0 bulkscore=0 clxscore=1011
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609110001
 
-__hif_usb_tx() dequeues up to MAX_TX_AGGR_NUM (20) frames into a
-single tx_buf of MAX_TX_BUF_SIZE (32768) bytes, limiting the batch
-by record count but never by cumulative byte length.
+> PRI handling is now ready. Enable PRI when probing a PCI device, and drain
+> the PRIQ with the EVTQ when an IOPF-enabled attachment ends. Queued fault
+> work may still refer to the old domain when the detach call returns.
+> 
+> Note that PRI is enabled at the probe time, while ATS gets toggled by the
+> attach/detach routines, so a master could have PRI enabled when its ATS is
+> disabled. PCIe (Base 6.3, Table 10-14) sets no ATS precondition on the PRI
+> Enable bit. Its only ordering rule is that the interface must have gotten
+> successfully Stopped prior to an enabling, which pci_enable_pri() already
+> checks using PCI_PRI_STATUS_STOPPED. Also, a PRI-enabled device would not
+> issue a page request until it starts to use ATS.
+> 
+> Set the per-device outstanding request budget to the full priq depth, same
+> as intel-iommu's per-device PRQ_DEPTH choice. A fixed per-device cap won't
+> prevent multiple PRI-capable devices from potentially exceeding the priq's
+> capacity; priq overflow is recoverable per the SMMUv3 spec, and it is rare
+> in practice.
+I'm faintly amused to see in the ARM spec
+"Note. The PRI queue does not overflow with correct software usage and
+ endpoint credit management ..."
 
-With large frames (MTU 2304), 20 aggregated frames of 2292 bytes
-each exceed the allocation (20 * 2296 = 45920 bytes), so the
-memcpy() in the loop writes up to 13152 bytes past tx_buf->buf
-before usb_submit_urb().
+Ah well.
 
-Peek the queue head and stop before copying any record that would
-cross MAX_TX_BUF_SIZE, then dispatch the current batch. Leftover
-skbs remain queued and are drained on the next URB completion.
+> 
+> Select PCI_PRI in Kconfig like other IOMMUs, gated on PCI so the build can
+> stay clean for non-PCI ARM SMMUv3 configurations.
+> 
+> A stalling master resolves its faults synchronously, so it has no reason at
+> all to issue a page request. Refuse to enable PRI on such a master, so that
+> page_response() can keep dispatching on the master state unambiguously.
+> 
+> Refuse to enable PRI as well on any master reporting num_streams != 1, as
+> arm_smmu_enable_iopf() rejects multi-stream masters, so IOPF cannot be set
+> up for them; keeping PRI enabled would let a PRI request arrive on an alias
+> StreamID and get a PRI_RESP_DENY issued against streams[0] by the driver's
+> error-response path.
+> 
+> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
 
-The byte bound changes the loop's exit semantics: it can now exit
-before i == tx_skb_cnt - 1. Stock only finalized tx_buf->len on
-that last index (len += offset), so an early break would submit a
-URB holding only the last record's length while every dequeued skb
-is freed on completion, silently dropping frames. Make tx_buf->len
-a running total and advance tx_buf->offset per record instead; the
-stride round_up(nskb->len + 4, 4) is identical to the stock stride
-when the loop runs to completion.
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-Tested on hardware with an MTU 2304 flood: the loop stops at
-record 15 (len = 32144, offset = 32144, within 32768), no
-oversized URB is submitted, and MTU 1500 pings pass 20/20.
-
-Fixes: fb9987d0f748c983 ("ath9k_htc: Support for AR9271 chipset.")
-Signed-off-by: Georgios Karantzas <gck.kara@gmail.com>
----
-v3:
-- Restore the full v1 commit message, wrapped at 72 columns.
-- Explain the per-record len/offset accounting in the commit log.
-- Use round_up() for the record stride and include <linux/math.h>.
-v2:
-- Add Fixes: tag.
-- Keep immediate len/offset accounting (stock deferred
-  len += offset never executes when the loop breaks early).
-- Drop the buf/memcpy reshuffle and the (!i) guard.
-
- drivers/net/wireless/ath/ath9k/hif_usb.c | 19 +++++++++----------
- 1 file changed, 9 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/net/wireless/ath/ath9k/hif_usb.c b/drivers/net/wireless/ath/ath9k/hif_usb.c
-index 0a3d2190b..a398c9b2d 100644
---- a/drivers/net/wireless/ath/ath9k/hif_usb.c
-+++ b/drivers/net/wireless/ath/ath9k/hif_usb.c
-@@ -14,6 +14,7 @@
-  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-  */
- 
-+#include <linux/math.h>
- #include <linux/unaligned.h>
- #include "htc.h"
- 
-@@ -328,11 +329,14 @@ static int __hif_usb_tx(struct hif_device_usb *hif_dev)
- 	tx_skb_cnt = min_t(u16, hif_dev->tx.tx_skb_cnt, MAX_TX_AGGR_NUM);
- 
- 	for (i = 0; i < tx_skb_cnt; i++) {
--		nskb = __skb_dequeue(&hif_dev->tx.tx_skb_queue);
-+		nskb = skb_peek(&hif_dev->tx.tx_skb_queue);
-+		if (!nskb)
-+			break;
- 
--		/* Should never be NULL */
--		BUG_ON(!nskb);
-+		if (tx_buf->offset + nskb->len + 4 > MAX_TX_BUF_SIZE)
-+			break;
- 
-+		nskb = __skb_dequeue(&hif_dev->tx.tx_skb_queue);
- 		hif_dev->tx.tx_skb_cnt--;
- 
- 		buf = tx_buf->buf;
-@@ -342,13 +346,8 @@ static int __hif_usb_tx(struct hif_device_usb *hif_dev)
- 		*hdr++ = cpu_to_le16(ATH_USB_TX_STREAM_MODE_TAG);
- 		buf += 4;
- 		memcpy(buf, nskb->data, nskb->len);
--		tx_buf->len = nskb->len + 4;
--
--		if (i < (tx_skb_cnt - 1))
--			tx_buf->offset += (((tx_buf->len - 1) / 4) + 1) * 4;
--
--		if (i == (tx_skb_cnt - 1))
--			tx_buf->len += tx_buf->offset;
-+		tx_buf->len = tx_buf->offset + nskb->len + 4;
-+		tx_buf->offset += round_up(nskb->len + 4, 4);
- 
- 		__skb_queue_tail(&tx_buf->skb_queue, nskb);
- 		TX_STAT_INC(hif_dev, skb_queued);
 -- 
-2.47.3
-
+Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
