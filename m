@@ -1,111 +1,100 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30AC42E7F39;
-	Fri, 11 Sep 2026 16:36:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 26C772E7F39;
+	Fri, 11 Sep 2026 16:36:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789144571; cv=none; b=HPf8O0BtqBoN6ISWRJSjfFqehUJVl9ZisfL6hvce7CaIFUdjAOb/fBg0gdEu4lyMmh5iC9wdVraQ2TWiggf040EIvtHZgxEnTxjUDISDn0j1QPTLJgR3M/kluP+D51iLuvubihDG4f5bT95HCaKdlihRqAwEDlM5I1KC+0EhX6k=
+	t=1789144587; cv=none; b=hicGG2wLd3fDl9jokpL8TioU9h/zy9N7UtQ75aGhlUkdUKINNDanMqGaEnJMst4xgUqdJCiKDcQYnMT5yEBmTMYnBvU4HE+54dGZo8C1OiRwiBs8XKHaIzjwIf3eOWIIo6R8Gc36HnrzNeLDaMVmBTZmhI/FvozL/CwIH/XXMUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789144571; c=relaxed/simple;
-	bh=yz7jG0GQg2lxTBzG1jVrT2PvynMTR9zaPhSYUZPrHUg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MKOW3Y5KxKsEYIFos1tUOGPv/qivIYuHbSMTUmMPhJl4Mkrlhyn15QVqFnYWEU8VDk9S70J9IVE2VY3DJSwwMnnLu4RADl9vJ2Z3pVYDuMj+XrPtKGDkBq3GnEpn30U8nOjspuneYO6QwOdFs80IBzCVahzleaeBtBUDt5R8Cdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eyfL15dd; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789144587; c=relaxed/simple;
+	bh=D4N2CYpqGur60EJ1BjNnNqN5DBpOGqb3/wXKxHx+xQ0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EDScN8/QmVpr3LzpAX1ekx+E/gkOHW5/nyPAfe+D+kb8iM16HA4DzF+pnx7U4rUncNim/PGroutwcYTRJXLvN6iuywy9MzRrTBS7jlQ5Bptxa/mIHCxWZ92/FOTqjUPFqWtbhzYFh+ElzJwL3EezcHO0uGVqOpjIzjuYJbLySrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=kZ9mqL+9; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eyfL15dd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789144569; x=1820680569;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=yz7jG0GQg2lxTBzG1jVrT2PvynMTR9zaPhSYUZPrHUg=;
-  b=eyfL15dduASf6C/R3sK+xDUQA0GjVbIRcXjPpXZIIzggshc57V9IfE8o
-   80BpyWCBtluYH4fQ0+7bXDFq1Zhkx9kYRsZKHu5xG5XXVXs0qcOx9RFfK
-   cubDrGRDWlJRlR7dtX1NAHqb2q+3lUIvMeG3pet5zFf3jEL06mUIbpdSn
-   X5hISQdTCE0JGOvfxmNVU1lTQ+0L04HwcO4d7sA9pIEcq+FTPo2JVM1j6
-   VvUlYWmjndsGsK2f/+bTplCu2qHdqhsfi5rHsvT6Y6kxTShC1+tCG7+OE
-   Uet9al5NiF1/ErwvZqzG7+j9h5Z5mPDHbhYDrll5HfJpAtKi6B0Tp2NV+
-   g==;
-X-CSE-ConnectionGUID: 7JhOpUmcQJmzbXY3tYPzkw==
-X-CSE-MsgGUID: pGmimFhrRYiNGhJLMHoUDw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="93478928"
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="93478928"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:36:08 -0700
-X-CSE-ConnectionGUID: NxnlvRXQT7qrMwjZhXEZRw==
-X-CSE-MsgGUID: ga2lvyo+ScyIWwNg0IeyIA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="301873179"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.80])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:36:06 -0700
-Date: Fri, 11 Sep 2026 19:36:03 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Linux ACPI <linux-acpi@vger.kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Linux PM <linux-pm@vger.kernel.org>,
-	Lukasz Luba <lukasz.luba@arm.com>, Armin Wolf <w_armin@gmx.de>
-Subject: Re: [PATCH v1 07/10] ACPI: thermal: Use cooling device parent for
- thermal zone binding
-Message-ID: <aqQt8-MlG3fiFw2-@ashevche-desk.local>
-References: <1965933.tdWV9SEqCh@rafael.j.wysocki>
- <9672996.CDJkKcVGEf@rafael.j.wysocki>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="kZ9mqL+9"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D572B16F2;
+	Fri, 11 Sep 2026 09:36:20 -0700 (PDT)
+Received: from e134344.cambridge.arm.com (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id BE6143F7B4;
+	Fri, 11 Sep 2026 09:36:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789144584; bh=D4N2CYpqGur60EJ1BjNnNqN5DBpOGqb3/wXKxHx+xQ0=;
+	h=From:To:Cc:Subject:Date:From;
+	b=kZ9mqL+9GLLtVycu6xZF9AIp3+Fog/4VSLxTviBivJQuKDEZiWAu7H3HTyE72AKvT
+	 ooXeRwaSZ+i5DlfIsCpRDUZRMokU72uchgIi89zkPR33SdTQlPgcpS1l6XcMNeQR7t
+	 2ewIZKQ8NJ/EXAEUght7EvzDq3e1kkilBMC603dQ=
+From: Ben Horgan <ben.horgan@arm.com>
+To: ben.horgan@arm.com
+Cc: james.morse@arm.com,
+	reinette.chatre@intel.com,
+	fenghuay@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	tglx@linutronix.de,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	hpa@zytor.com,
+	corbet@lwn.net,
+	x86@kernel.org,
+	linux-doc@vger.kernel.org,
+	dave.martin@arm.com
+Subject: [PATCH v6 0/3] x86,fs/resctrl,arm_mpam: Factor MBA parse-time conversion to be per-arch
+Date: Fri, 11 Sep 2026 17:36:10 +0100
+Message-ID: <20260911163613.1131447-1-ben.horgan@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9672996.CDJkKcVGEf@rafael.j.wysocki>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 03:05:07PM +0200, Rafael J. Wysocki wrote:
+Just a small documentation change found by sashiko since v5.
 
-> The ACPI thermal zone .should_bind() callback function,
-> acpi_thermal_should_bind_cdev(), expects the given cooling device's
-> devdata to point to an ACPI device object whose ACPI handle should be
-> compared with ACPI handles in a list associated with the given trip
-> point.  That is not particularly straightforward and it effectively
-> requires the drivers of ACPI cooling devices to populate the devdata
-> with addresses of the ACPI companions of the devices they bind to.
-> Consequently, the devdata cannot be used by the driver for its own
-> needs which is its intended purpose.
-> 
-> That can be overcome with the help of the observation that the
-> ACPI device objects to be matched against the lists of ACPI handles
-> associated with trip points are in fact the ACPI companions of the
-> parents of cooling devices.  Thus instead of using the given cooling
-> device's devdata, it is sufficient to obtain the ACPI handle of its
-> parent and compare that ACPI handle with the ones in the list
-> associated with the given trip point.
+The patches should stay together so please could this all go via tip.
 
-...
+Changelogs in patches.
 
-> +	parent_handle = ACPI_HANDLE(parent);
->  
-> -		if (acpi_fetch_acpi_dev(handle) == cdev_adev)
-> +	for (i = 0; i < acpi_trip->devices.count; i++) {
-> +		if (acpi_trip->devices.handles[i] == parent_handle)
+From cover letter of v3:
 
-device_match_acpi_handle() ?
+This is a new version of Dave Martin's patch [1] to delegate rounding of
+bandwidth control user values to the arch code. As there is now more than one
+architecture using resctrl, I split the original patch into two, a core resctrl
+patch and an x86 patch, and added an MPAM patch. Please let me know if the patch
+break down and ordering is sensible and whether the pattern should be followed
+for any future similar changes.
 
-		if (device_match_acpi_handle(parent, acpi_trip->devices.handles[i]))
+This does have a user visible effect on MB schema when using MPAM hardware
+with 'bandwidth_gran' greater than 1. I'm not sure if MPAM hardware with such
+coarse controls exists in the wild but it is spec compliant and I've tested it
+on a model.
 
->  			return true;
->  	}
+[1] https://lore.kernel.org/lkml/20251031154225.14799-1-Dave.Martin@arm.com/
+
+v3: https://lore.kernel.org/lkml/20260515140612.1205251-1-ben.horgan@arm.com/
+v4: https://lore.kernel.org/lkml/20260706160639.2136674-1-ben.horgan@arm.com/
+v5: https://lore.kernel.org/lkml/a2a7d988-339c-45f6-b910-5d7dd893b45c@arm.com/
+
+Based on v7.3-rc2
+
+Ben Horgan (1):
+  arm_mpam: resctrl: Add pass-through resctrl_arch_preconvert_bw()
+
+Dave Martin (2):
+  x86,fs/resctrl: Add resctrl_arch_preconvert_bw()
+  fs/resctrl: Factor MBA parse-time conversion to be per-arch
+
+ Documentation/filesystems/resctrl.rst     | 17 +++++++++--------
+ arch/x86/kernel/cpu/resctrl/ctrlmondata.c |  6 ++++++
+ drivers/resctrl/mpam_resctrl.c            |  5 +++++
+ fs/resctrl/ctrlmondata.c                  |  6 +++---
+ include/linux/resctrl.h                   | 19 +++++++++++++++++++
+ 5 files changed, 42 insertions(+), 11 deletions(-)
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
