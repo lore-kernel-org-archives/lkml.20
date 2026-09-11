@@ -1,143 +1,216 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12EF55AEC61
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:20:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F1C530E1D
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:21:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789161660; cv=none; b=lyq3zO1NLj8CpcZYfud3c2tL3x8ziYXIEJHizhlIiT8XFD50Fn+nw9Q51PN6zkbnee9velBsiwDN0fk6mN+XoC6LD5lHX8B/pd1YYnMrj7tnTCnAhqveXvdBeKh2gEPE/lHa9x4KCOeYGOkSOTPcrHsiBtRc1P3RtLqLx9dR2iM=
+	t=1789161670; cv=none; b=fAJmrftd/CWF0mPa2B7kHyraJN6UgDfAQaAQFFIUldHoTWhEpdBlxCcPvLLhPZDzNTIyExT/CUhwYqHlkjEMdhuL4Mx5MYqJKBox1KAJIRZA0suwJhVC+TiWL+J2hC9GNGUPmULlWUF8T8eSxLWe61nuRzGus9Z+laaB4D9HYVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789161660; c=relaxed/simple;
-	bh=1XT7Ndf17FSIWj8aS7sC43q1scDyv8QK36IlTruSUEA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=g4k9er7+qBwZ8rxNNoIwP6LkYiNyjlJT5rUG3nxNeq5M2w3Cjx7yIJHN8VAlIs8haEV4pRr08zqJhqZWn7J4kPKO47Xb0ydNQGy9WVS98leGkVZj6ZXqiW7T1hry3DBWpQdVVGGFCe2XkCTgDNKBO7eO7nKSTNon7SL9uoTSq5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dtNc2rHQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789161670; c=relaxed/simple;
+	bh=RK38IZFLPu4ZNdz36EQmVTuMw3HAUKeLk91jdfgK/Lo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LHprtwQB/CyPPtGoGGY0mDCbGw9JSPflP7lRlIsjew6qjmWiiNufxtUgCkle7X2mb8nXkKTqTGg9f6VU2fM+3/28HTz2z/yBC2ym4gMSgOvfZKTYbvdzNrJ3JHxwAJewSWoGPq8KD/iovPy6J7dKdU+Qgz1zyXnH7z0TsB58cgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=k7okRelX; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dtNc2rHQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 924B51F0089D
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:20:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789161657;
-	bh=bYi+BLcDxpGEvH8TRFhgsxjlizIH3+JRxRD7LLGvT8g=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=dtNc2rHQtWIObd/DI/ApVeqzSQNXUd5s6VPhj4i/TV6agec3+bbNqYhrNOPh4K8fg
-	 BIrklNUVaLk+sAVnauNPFcw6npJGzDGiJ76UfZKi4DyEBNOIowrc0b92AcJaMiAPlc
-	 gQwo9UXhkKIasdqcLaN0toFekM0+KsTDfKc2ReccbxNBUYkyEBbmcsfGmvH5NgzSn9
-	 n09EToGNkcYL6LN0XwQbFi1UzKAvcos3XzAmjlfom6VQJmLz3bMyhT4+ftDXM3AQ9t
-	 b297P9sNrDqqJDHY14KoInNCQxoGn3vRu8i/YJ/FzI+ODxI737ZWMsixwY7+acirZW
-	 5GiB2PhdWFaVg==
-Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910c3d02aso12986085a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:20:57 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzQmABC3YyyeEv+vmo20N0QuprMIu8e/Dx/Uhsk7w0XI+9BB4O12RMsBXM71bhPWULAvGKy51KLYZv7HyY=@vger.kernel.org
-X-Gm-Message-State: AFuF++l14Czf/hM0dNPcwQeCqc9W72Ae6nVkwOwvOWPcsbGx1vIM8kVT
-	6GqP24jwU1A3tzbQ2nqw2QuiApFSr7olGLQ7G/TMZcJaPAs5hVC7WqF4sORUBnSpr5A0Xo6bVWW
-	Th+T3MkW2EGVRobMXuEdTZFCS69tD0f4=
-X-Received: by 2002:a05:620a:880c:b0:939:83c1:d8c6 with SMTP id
- af79cd13be357-939e8b079e4mr730453685a.8.1789161656904; Fri, 11 Sep 2026
- 14:20:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="k7okRelX"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 512844E4026D;
+	Fri, 11 Sep 2026 21:21:06 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1BBCA601A3;
+	Fri, 11 Sep 2026 21:21:06 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3BABE11C7A23F;
+	Fri, 11 Sep 2026 23:20:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789161660; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=E53E+laYN2V9OrwunsngYOX3sgSFNZRroU2RxbAo3+g=;
+	b=k7okRelX+F97+CgvB8hxPWdgZCN4Jcuo8AECXrt0Gz9P09JJEpFqGrDueFYp4y62XEU12r
+	YV2Zh3+Tf0znV3ECJOUDxnSsveZrcchnwQc8EadD98uWcm4Eu1UgMS5sf9g5wfSNQ8kAsO
+	WYmkOBn0BiayzPy7EdgP6DPYtp++/4y+xYGkEAghxrqMMRlu83AKtP+z1bKFMdLV3ie8lA
+	w+ZmXL200BZXHZJ42lW3M/aIo/MS0yAbE0DLJ2nzjz0TMpxkfpFJSvT+RBNzG0a782p0Mi
+	e/Oc6YwjZsCLYGLP4vZIs0EYLuHGvmR148t7tRPqdC0FbWxZL6gLCaRTJPgyEQ==
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Minda Chen <minda.chen@starfivetech.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Jan Petrous <jan.petrous@oss.nxp.com>,
+	Ovidiu Panait <ovidiu.panait.rb@renesas.com>,
+	Jose.Abreu@synopsys.com,
+	Nicolai Buchwitz <nb@tipi-net.de>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	thomas.petazzoni@bootlin.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	PKneuper@dspace.de,
+	David Laight <david.laight.linux@gmail.com>
+Subject: [PATCH net v3 2/6] net: stmmac: selftests: Validate EEE based on the actual LPI timer value
+Date: Fri, 11 Sep 2026 23:20:22 +0200
+Message-ID: <20260911212028.1497613-3-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260911212028.1497613-1-maxime.chevallier@bootlin.com>
+References: <20260911212028.1497613-1-maxime.chevallier@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260818225904.55236-1-baohua@kernel.org> <08f63301a58f0e0c38480553295ad9af95928da6.camel@amd.com>
-In-Reply-To: <08f63301a58f0e0c38480553295ad9af95928da6.camel@amd.com>
-From: Barry Song <baohua@kernel.org>
-Date: Sat, 12 Sep 2026 05:20:45 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4yjHqSFtmHrRKgE1JrJpQKw5oBs1cuX1_mQ_r0wKdMdYw@mail.gmail.com>
-X-Gm-Features: AcwNN1Wj6o7DDMeN04SnJ_ORbzq-MZuYZLrVkODVnbcFIGbkDcBF9Yh9yxqPI28
-Message-ID: <CAGsJ_4yjHqSFtmHrRKgE1JrJpQKw5oBs1cuX1_mQ_r0wKdMdYw@mail.gmail.com>
-Subject: Re: [RFC PATCH v3 0/4] mm: enable lru cache for smaller large folios
-To: "Garg, Shivank" <shivankg@amd.com>
-Cc: "linux-mm@kvack.org" <linux-mm@kvack.org>, 
-	"akpm@linux-foundation.org" <akpm@linux-foundation.org>, "hughd@google.com" <hughd@google.com>, 
-	"npache@redhat.com" <npache@redhat.com>, "rppt@kernel.org" <rppt@kernel.org>, 
-	"vbabka@kernel.org" <vbabka@kernel.org>, "david@kernel.org" <david@kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "dev.jain@arm.com" <dev.jain@arm.com>, 
-	"surenb@google.com" <surenb@google.com>, "ackerleytng@google.com" <ackerleytng@google.com>, 
-	"usama.arif@linux.dev" <usama.arif@linux.dev>, "ziy@nvidia.com" <ziy@nvidia.com>, 
-	"ryan.roberts@arm.com" <ryan.roberts@arm.com>, 
-	"baolin.wang@linux.alibaba.com" <baolin.wang@linux.alibaba.com>, "liam@infradead.org" <liam@infradead.org>, 
-	"joannelkoong@gmail.com" <joannelkoong@gmail.com>, "mhocko@suse.com" <mhocko@suse.com>, 
-	"ljs@kernel.org" <ljs@kernel.org>, "lance.yang@linux.dev" <lance.yang@linux.dev>, 
-	"hannes@cmpxchg.org" <hannes@cmpxchg.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Sep 11, 2026 at 11:39=E2=80=AFPM Garg, Shivank <shivankg@amd.com> w=
-rote:
-[...]
->
-> Thanks for this series.
-> I tested this against a Graph500 regression with 16K mTHP.
-> The series removes the regression and reduces folio_lruvec_lock_irqsave c=
-ontention to approximately the 4K rate.
->
->
-> Tested-by: Shivank Garg <shivankg@amd.com>
->
+The EEE selftest is a 2-step test :
+ - It validates that we enter in LPI mode with the
+   irq_tx_path_in_lpi_mode_n counter
+ - It then validates that we exit LPI when sending a frame, with the
+   irq_tx_path_exit_lpi_mode_n counter.
 
-Thanks very much, Shivank. I=E2=80=99m very happy to see that
-mTHP LRUCACHE not only resolves your regression but also
-improves the performance of your case.
+The current state of the test lacks 2 main things :
 
-As discussed with David, this series will be respun after Hugh=E2=80=99s
-work[1] is merged.
+ - We don't know exactly when was the previous frame sent (it's from the
+   previous selftest)
 
-In the meantime, I=E2=80=99d really appreciate it if you could test an
-updated version that I haven=E2=80=99t sent out before:
+ - The timeout is hardcoded, while the LPI is entered after a
+   user-configurable delay. On top of that, the timeout loop uses a
+   pre-decrement iterator (--retries) that actually only iterate nine
+   times, so 900ms while the default LPI value is 1 second.
 
-https://git.kernel.org/pub/scm/linux/kernel/git/baohua/linux.git/log/?h=3Dm=
-thp_lrucache
+Let's therefore make it more deterministic :
 
-It includes some modifications based on Sashiko=E2=80=99s review comments
-on the version you tested. I=E2=80=99d like to know whether it still provid=
-es
-the same performance gains you saw with that version.
+ - Send a frame at the beginning of the test
+ - Wait for more than the lpi timer value, we timeout after about twice
+   the value,
+ - Then send another frame, and verify that we do go out of LPI, also
+   with a timeout.
 
-[1] https://lore.kernel.org/linux-mm/e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@g=
-oogle.com/
+As LPI timer can get pretty high, bail out if LPI timer is over 5
+seconds.
 
->
-> System and Workload
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->
-> AMD EPYC Zen 5 System, 2 sockets, 160 cores/socket,
-> SMT on -> 320 cores / 640 threads
-> 2 NUMA nodes, ~512 GB/node
-> node 0 CPUs: 0-159,320-479
->
-> Base: v7.3-rc2+ (50d05c7c76c9)
-> Runtime: performance governor, preempt=3Dfull (lazy)
->
-> Workload: Graph500, Scale 27, edgefactor 16
-> Metric: median_time in ms (lower is better)
->
-> Bind to node 0 with numactl -C 0-159,320-479 -m 0
->
->
-> Performance
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->
->                   Base       Patched    delta
-> 4K                109.60     109.11     -0.4%
-> mTHP-16K          144.10      99.00    -31.3%
-> mTHP-64K          104.75     104.25     -0.5%
->
-> mTHP-16K was ~31% slower than THP-never, due to lock contentions.
-> With your series, mTHP-16 performs ~9% faster than THP-never.
->
->
-> The dominant folio_lruvec_lock_irqsave entries were:
->
->                    Base                  Patched
->                contended  wait         contended  wait
-> 4K               834603   2.41 m         844193   2.61 m
-> mTHP-16K        7008834   28.88 m        840695   4.87 m
-> mTHP-64K         188144   752 ms         40874    93.46 ms
->
->
+Note that the test's goal isn't to validate the LPI timer value itself,
+only that we enter/leave LPI mode.
 
-Best Regards
-Barry
+Fixes: 091810dbded9 ("net: stmmac: Introduce selftests support")
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+---
+ .../stmicro/stmmac/stmmac_selftests.c         | 44 ++++++++++++++++---
+ 1 file changed, 37 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
+index 6503678b646e..df28741abf2b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
+@@ -30,6 +30,7 @@ struct stmmachdr {
+ 			      sizeof(struct stmmachdr))
+ #define STMMAC_TEST_PKT_MAGIC	0xdeadcafecafedeadULL
+ #define STMMAC_LB_TIMEOUT	msecs_to_jiffies(200)
++#define STMMAC_SFT_MAX_LPI	(5 * USEC_PER_SEC)
+ 
+ struct stmmac_packet_attrs {
+ 	int vlan;
+@@ -462,12 +463,16 @@ static int stmmac_test_mmc(struct stmmac_priv *priv)
+ static int stmmac_test_eee(struct stmmac_priv *priv)
+ {
+ 	struct stmmac_extra_stats *initial, *final;
+-	int retries = 10;
++	unsigned long timeout, max_duration;
+ 	int ret;
+ 
+ 	if (!priv->dma_cap.eee || !priv->eee_active)
+ 		return -EOPNOTSUPP;
+ 
++	/* Bail out if the configured LPI timer is too long */
++	if (priv->tx_lpi_timer > STMMAC_SFT_MAX_LPI)
++		return -EOPNOTSUPP;
++
+ 	initial = kzalloc_obj(*initial);
+ 	if (!initial)
+ 		return -ENOMEM;
+@@ -478,14 +483,21 @@ static int stmmac_test_eee(struct stmmac_priv *priv)
+ 		goto out_free_initial;
+ 	}
+ 
++	/* Snapshot stats, we want to count the in_lpi events. We may enter
++	 * LPI just after the packet was sent.
++	 */
+ 	memcpy(initial, &priv->xstats, sizeof(*initial));
+ 
++	/* Send a frame, then wait to enter LPI */
+ 	ret = stmmac_test_mac_loopback(priv);
+ 	if (ret)
+ 		goto out_free_final;
+ 
++	max_duration = usecs_to_jiffies(2 * priv->tx_lpi_timer);
++
+ 	/* We have no traffic in the line so, sooner or later it will go LPI */
+-	while (--retries) {
++	timeout = jiffies + max_duration;
++	while (!time_after(jiffies, timeout)) {
+ 		memcpy(final, &priv->xstats, sizeof(*final));
+ 
+ 		if (final->irq_tx_path_in_lpi_mode_n >
+@@ -494,20 +506,38 @@ static int stmmac_test_eee(struct stmmac_priv *priv)
+ 		msleep(100);
+ 	}
+ 
+-	if (!retries) {
++	memcpy(final, &priv->xstats, sizeof(*final));
++	if (final->irq_tx_path_in_lpi_mode_n <=
++	    initial->irq_tx_path_in_lpi_mode_n) {
+ 		ret = -ETIMEDOUT;
+ 		goto out_free_final;
+ 	}
+ 
+-	if (final->irq_tx_path_in_lpi_mode_n <=
+-	    initial->irq_tx_path_in_lpi_mode_n) {
+-		ret = -EINVAL;
++	/* Re-snapshot, as we want to measure exit_lpi events. We should be
++	 * in LPI right now.
++	 */
++	memcpy(initial, &priv->xstats, sizeof(*initial));
++
++	/* TX something so we go out of LPI */
++	ret = stmmac_test_mac_loopback(priv);
++	if (ret)
+ 		goto out_free_final;
++
++	/* Wait for the exit LPI interrupt */
++	timeout = jiffies + max_duration;
++	while (!time_after(jiffies, timeout)) {
++		memcpy(final, &priv->xstats, sizeof(*final));
++
++		if (final->irq_tx_path_exit_lpi_mode_n >
++		    initial->irq_tx_path_exit_lpi_mode_n)
++			break;
++		msleep(100);
+ 	}
+ 
++	memcpy(final, &priv->xstats, sizeof(*final));
+ 	if (final->irq_tx_path_exit_lpi_mode_n <=
+ 	    initial->irq_tx_path_exit_lpi_mode_n) {
+-		ret = -EINVAL;
++		ret = -ETIMEDOUT;
+ 		goto out_free_final;
+ 	}
+ 
+-- 
+2.55.0
+
