@@ -1,126 +1,141 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-69.mta0.migadu.com [91.218.175.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B3C41E6DB;
-	Fri, 11 Sep 2026 07:18:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2171C41A903
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:19:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789111125; cv=none; b=bcBp/frcmzNh9T1LQV2xgYVz+8lDtn2ynqf/7EUnoIeCS+VV/5jBrAsF2Rdxu/pnpq6q59nn6H0eCiD8mo79cv80WavbA4bnJPkQ0i6Lhv3TXWGTInN5cMYoxs3ETMzEc7+/53+/9C5A0CK6B9gLHCUIqt/akWY+4mbz2db25pc=
+	t=1789111170; cv=none; b=pL6d42xZc3iXod5JhIAOMhhLN9qJ9Ad91CIt5UqNTYENGZ3UlHUytd0QnnFaQtq5YaYUjd/zz2yKG4S+Imh0NWwyunKCkB90CQUiChsjByP9HVTzB7Job4fs99tVfR8ph0eE/UicYPgxcHBYwXdaKUcQTyk13WyAxvpASVMOfD8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789111125; c=relaxed/simple;
-	bh=jnC/IR/erjL3B1oXtS+b5W5Yw4vcpnoRVI8BCWHSzD0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FDVQrf9CUkdxqfVY3G0aur/9fUZyHaHukLY13XlMDSEaJmz9YpUVN6hm9rUKWM9vDLs/ELVKJHP0IMbT8A4EB6dheHCtDjz1f0UWXvX5NHhobnT+2CTgLNzcgxio6gdTH9BgiEYvYm3pTAdrdP+2j+91nyE/mbUomx/bwHnATOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=AEUYaqTf; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
+	s=arc-20240116; t=1789111170; c=relaxed/simple;
+	bh=A653kvWvlUjyjxOaQ/MsWghyBz85Z0vOENYbiQUJbys=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aCONyXt04Ew77vzyi2Wm8BM/GXfB8v3eLMeMeRqgcfbkzIOmrViRoY+Zgz6PZdhpQG3o1VgxeDdXs/PBIt5NqtM4mhi3ZXntjYP5jzKJlQ8ySuJOnf9Je+Kluu91e5pjI/6vs4fXA6t0HRWqdhWqqN+EJCcnDiS+N7y16WM4o7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sVCh83y7; arc=none smtp.client-ip=91.218.175.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="AEUYaqTf"
-Received: from tju.edu.cn (gy-adaptive-ssl-proxy-3-entmail-virt135.gy.ntes [183.242.150.9])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4d658659f;
-	Fri, 11 Sep 2026 15:18:26 +0800 (GMT+08:00)
-From: Yibo Tan <lhfff@tju.edu.cn>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Paul Barker <pbarker@konsulko.com>,
-	linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1] hwmon: (pwm-fan) Stop RPM timer before freeing tach data
-Date: Fri, 11 Sep 2026 15:18:09 +0800
-Message-Id: <20260911071809.130151-1-lhfff@tju.edu.cn>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sVCh83y7"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=A653kvWvlUjyjxOaQ/MsWghyBz85Z0vOENYbiQUJbys=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789111163; v=1; x=1789715963;
+ b=sVCh83y7h9XQNWMBpWMFPQ045CVg/bN7cd5ea56cGGGIyPzkBqqNjSXBGNEY357xakT5W+Gg
+ 6Bi4LeTxK4fRnOkFT5/39vOH0rmYIRgYcq0p183BPYGqcxjocsL2gua0JzmxkkwGGofeiQFgO2z
+ b6zD352LGZ8uhjSr2hWWrMsE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id dcfcdc42e6d32e93;
+	Fri, 11 Sep 2026 07:19:23 +0000
+X-Mizu-Trace-ID: dcfcdc42e6d32e93
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 11 Sep 2026 15:19:14 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Nikolay Aleksandrov <razor@blackwall.org>
+Cc: jv@jvosburgh.net, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	daniel@iogearbox.net, linux-kernel@vger.kernel.org,
+	liuhangbin@kylinos.cn
+Subject: Re: [PATCH net v3] bonding: fix slave_cnt leak on XDP error paths
+Message-ID: <aqOrcoqnRMsvpS_5@fedora>
+References: <20260907-bond_slave_cnt-v3-1-57df3b3cf2cb@kylinos.cn>
+ <178889459114.219967.6984751596437332187@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa08f54f8d903a1kunm4dcaa7a21caa32
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSU1PVkseSUkdHkxDH08YGVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKQ0hVSU9JVUpOS1VCWVdZFhoPEhUdFFlBWUtVS1VLVUtZBg
-	++
-DKIM-Signature: a=rsa-sha256;
-	b=AEUYaqTf9iFJBmVR4eTvnqsuZL+pgU4e0ZlceXFlfORhKCkA7W+fBnV4iQGDvpF/iJdasVW23Iu1zGbAp9ce91k1vrEYqO3Q14i31H1ImhY+Rq1DsIXRkVIflhXpxVhCerdgijJ3y6loE4jaF7XscKu+cEWqFkkkwaZZSeaWCLQ=; c=relaxed/relaxed; s=default; d=tju.edu.cn; v=1;
-	bh=BHw1Xz4Il79ijZFVbhzm026y/ge7oLeTxMH+jMArwhw=;
-	h=date:mime-version:subject:message-id:from;
+In-Reply-To: <178889459114.219967.6984751596437332187@kernel.org>
 
-sample_timer() rearms the RPM timer and accesses the devm-managed
-ctx->tachs and ctx->pulses_per_revolution arrays. The cleanup action
-which stops the timer is registered before those arrays are allocated.
+On Tue, Sep 08, 2026 at 07:09:51PM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider:
+> 
+> Critical: 1 · High: 0 · Medium: 0 (1) · Low: 0
+> 
+> - [Critical] Newly introduced slab out-of-bounds write in
+>   bond_update_slave_arr(): moving `WRITE_ONCE(bond->slave_cnt,…
+> 
+> Pre-existing issues:
+> - [Medium] This problem wasn't introduced by this patch, but the XDP
+>   error paths the patch touches are still incompletely unwound: the…
+> 
+> --
+> 
+> bonding: fix slave_cnt leak on XDP error paths
+> 
+> This moves the WRITE_ONCE(bond->slave_cnt, bond->slave_cnt + 1) in
+> bond_enslave() from just above netdev_compute_master_upper_features() down
+> to after the XDP setup block, so that the three XDP failure exits which
+> "goto err_sysfs_del" no longer leave slave_cnt incremented.  The increment
+> is placed just before the bond_update_slave_arr() call.
+> 
+> Link to v2: https://lore.kernel.org/r/20260903-bond_slave_cnt-v2-1-02e27304ca36@kylinos.cn
+> Link to v1: https://lore.kernel.org/r/20260902-bond_slave_cnt-v1-1-36e95bf4a6ff@kylinos.cn
+> 
+> > diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+> > index a9bff7663eeca..1514a8ba0888d 100644
+> > --- a/drivers/net/bonding/bond_main.c
+> > +++ b/drivers/net/bonding/bond_main.c
+> > @@ -2284,7 +2284,6 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
+> >  		}
+> >  	}
+> >  
+> > -	WRITE_ONCE(bond->slave_cnt, bond->slave_cnt + 1);
+>        ^^^^
+> 
+> [Severity: Critical]
+> Can removing the increment from here overflow all_slaves->arr[] in
+> bond_update_slave_arr()?
+> 
+> By the time control reaches this point, bond_master_upper_dev_link() has
+> already linked the new slave into bond->dev->adj_list.lower, so
+> bond_for_each_slave() now walks N+1 slaves while bond->slave_cnt is still N.
+> bond_update_slave_arr() sizes its arrays from slave_cnt and then fills them
+> with an unchecked store:
+> 
+> drivers/net/bonding/bond_main.c:bond_update_slave_arr() {
+> 	...
+> 	usable_slaves = kzalloc_flex(*usable_slaves, arr, bond->slave_cnt);
+> 	all_slaves = kzalloc_flex(*all_slaves, arr, bond->slave_cnt);
+> 	...
+> 		all_slaves->arr[all_slaves->count++] = slave;
+> 	...
+> }
+> 
+> The window that now runs with the stale count includes
+> bond_select_active_slave(), which is a few lines below:
+> 
+> 	if (bond_uses_primary(bond)) {
+> 		block_netpoll_tx();
+> 		bond_select_active_slave(bond);
+> 		unblock_netpoll_tx();
+> 	}
+> 
+> and that reaches bond_update_slave_arr() for balance-tlb/balance-alb:
+> 
+> bond_select_active_slave()
+>   bond_find_best_slave()        /* returns a slave in BOND_LINK_BACK */
+>   bond_change_active_slave()    /* BOND_LINK_BACK branch */
+>     bond_alb_handle_link_change()
+>       if (bond_is_nondyn_tlb(bond))
+>               bond_update_slave_arr(bond, NULL);
 
-Since devres releases entries in reverse order, driver detach can free
-the arrays before pwm_fan_cleanup() shuts down the timer. A timer expiry
-in that window accesses the freed tach data.
+Oh, hold one. I miss read the comment. It's not about the
+bond_update_slave_arr() at bond_enslave() we moved to.
 
-With a KASAN kernel, a test-only kprobe delayed entry to
-pwm_fan_cleanup() while normal sysfs unbind ran. Each of three runs
-reported three four-byte reads and two four-byte writes in sample_timer()
-after its backing devm allocations had been freed. The helper did not
-invoke the timer callback, cleanup actions or free functions.
+This is the bond_update_slave_arr() called by bond_uses_primary(), which
+is before the ndo_bpf ops. We need to either also move the
+if (bond_uses_primary(bond)) block after bond_update_slave_arr().
+Or just use my patch v1 version, that add a new err out.
 
-With the fix, three matching unbind runs completed without KASAN, BUG,
-WARNING, Oops or panic. Instrumentation confirmed that timer retirement
-completed before the first timer backing allocation was released.
+Nikolay, what do you think?
 
-Split timer retirement from the power cleanup and register its devres
-action after the timer backing data and IRQ actions are installed. This
-preserves the early power rollback action while ensuring the timer is
-retired before its backing data is released. Use timer_shutdown_sync()
-because the callback can rearm itself.
+pw-bot: changes-requested
 
-Fixes: 01695410d452 ("hwmon: (pwm-fan) Store tach data separately")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
----
- drivers/hwmon/pwm-fan.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/hwmon/pwm-fan.c b/drivers/hwmon/pwm-fan.c
-index 3b87f65bae05..c633d7f6464c 100644
---- a/drivers/hwmon/pwm-fan.c
-+++ b/drivers/hwmon/pwm-fan.c
-@@ -483,7 +483,6 @@ static void pwm_fan_cleanup(void *__ctx)
- {
- 	struct pwm_fan_ctx *ctx = __ctx;
- 
--	timer_delete_sync(&ctx->rpm_timer);
- 	if (ctx->pwm_shutdown) {
- 		ctx->enable_mode = pwm_enable_reg_enable;
- 		__set_pwm(ctx, ctx->pwm_shutdown);
-@@ -494,6 +493,13 @@ static void pwm_fan_cleanup(void *__ctx)
- 	}
- }
- 
-+static void pwm_fan_timer_cleanup(void *__ctx)
-+{
-+	struct pwm_fan_ctx *ctx = __ctx;
-+
-+	timer_shutdown_sync(&ctx->rpm_timer);
-+}
-+
- static int pwm_fan_probe(struct platform_device *pdev)
- {
- 	struct thermal_cooling_device *cdev;
-@@ -644,6 +650,10 @@ static int pwm_fan_probe(struct platform_device *pdev)
- 	}
- 
- 	if (ctx->tach_count > 0) {
-+		ret = devm_add_action_or_reset(dev, pwm_fan_timer_cleanup, ctx);
-+		if (ret)
-+			return ret;
-+
- 		ctx->sample_start = ktime_get();
- 		mod_timer(&ctx->rpm_timer, jiffies + HZ);
- 
-@@ -700,6 +710,7 @@ static void pwm_fan_shutdown(struct platform_device *pdev)
- {
- 	struct pwm_fan_ctx *ctx = platform_get_drvdata(pdev);
- 
-+	pwm_fan_timer_cleanup(ctx);
- 	pwm_fan_cleanup(ctx);
- }
- 
--- 
-2.39.5
-
+Thanks
+Hangbin
