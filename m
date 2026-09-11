@@ -1,106 +1,231 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642DF44E649
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:15:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7355A435A8B;
+	Fri, 11 Sep 2026 11:17:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789125333; cv=none; b=kY1wIHfAHeCR8OpC/pCZ/lBkhmiEFflE8UVFZ8inWa+FuN765OHiEqfEbXCethUIrsPW9VNYIT+PAQPk634iDan1edGNg2IxUoLyHF+rx/6R3Zp6L5b6pUsO1CvCgVjXgmIktbtIrH7t+MA21RWu2VcPvusMUffgHTLhUQcAEKs=
+	t=1789125468; cv=none; b=Ww9LZZXWmx5TVMHOGuqxTlUvqv286am4aeVrPIX2GhGztqAUyFU+SanUs+sv39/vkkrYocaN7mojKRnorjSZ4KQxODagahk64D19IdJ2Z2GPxdt2TPAOfDLtbhyK9LQdEZLXbNZkWrUljFg4DDBmAG/D8aIf4Uar3OZmhkhaOco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789125333; c=relaxed/simple;
-	bh=Iz+Cr6Z0loakD/erjIMAsYt7hdgC2FopSJGK1uDAkvY=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=pLqUMgzTOc/GFpBe2u5xqspRXuJnw5r4NdP1nxA8L2uriQy4X9K9OM7Hut4lZmDmJkaTuWK0cvEOfXCR2Hd6SHQxI4/AAMUiXmOxkxzUiQeQh4ennyNzA6AdhQVMCHi/vIwwrZ1hp4L+D5zUlCxN9vlDQ6qvzxGSptrlZrOuinE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nYN7yboU; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789125468; c=relaxed/simple;
+	bh=POnShUs6XlJ9aFI4Ltfx5xi814FdeTic37YCGBgByeI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=LoOafbdARTNsCk/c965kwx10bBAO6XAlxUqIPfcObMxuGepgsAo/oAru0B14KYQpcKdVuflz9v0WVR17jbAmsv0lzY55yFZdimoCcuGM7+8tyjdQo11pLuv3jgJLZGRtP2u7/yedvim2cyZcXLeReR319QmbzZsOBUIOlssJkFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B9CSfLqB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nYN7yboU"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso9778295e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 04:15:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789125323; x=1789730123; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Iz+Cr6Z0loakD/erjIMAsYt7hdgC2FopSJGK1uDAkvY=;
-        b=nYN7yboUsoHcEc5nUsQJYuoDyEQomyfsb8Tmq/BkIeMnhsjnfGI5/HFz8r/AkTM3Wk
-         fMb3iSNIdFWfFdih2MN+3IZwOqYCChkJgR7x2qVu41AHaRHp+HbuG6w2uZCfWSyVLP12
-         Wm4B8Bs7UiZ5ga6mA8l7PJK0SZYVGPRsF+qvizWJohI8bXzpKbsHZ8PCGd7QhI7Iam53
-         TpHP7p4Vv1QDl1AF6PNX9SetufiY9Tg7RhmcVieIPB+cq0nNySHFBH29t0rsjlmA+qMh
-         ralwjmDFLS80fJ1XBeougI+7nia07lOrH96GP8WKTO5jrLFP4ReEhNzi39J1VQeuACyd
-         frdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789125323; x=1789730123;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Iz+Cr6Z0loakD/erjIMAsYt7hdgC2FopSJGK1uDAkvY=;
-        b=jfr1hu/DgLyuHsZdU6QfB1a81n7AhpuVubRggtOdGf2S/S68p2pbBjvDlRov6vcHeq
-         2MDw+dAbGLzE7kFz1UhFVEl4C4AWitTpzxceFjvOYEvqIc1tCiNcuXJ9H+CcZR6nqWDZ
-         txd0XCQekaFE0pUZMaO/lwSvch16JdESNzUpqZmSdkPXsXS0t5N2vTsbutPNM/HBRANG
-         Vq5Y1zwNgWV7/FZXejHbz45pUTBOX+rkhL0ypoAXSsL0+fviEM+6iH6t9/BeSQwsQRnW
-         kX/GhqdVGtWSKgy1SaiODeFYjoQlwgJDGRTRuyKJzGmcIz81o/9L1Bkn6A/IQXmgPZ+T
-         h5zQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwIbf4kaVabuGmTqW93VzTOHgFi4+8Ji9bvd2VS1YtSip/Uq9wq1rykRji1sr428mvC+0CxPLJjU4jmIak=@vger.kernel.org
-X-Gm-Message-State: AFuF++nAINrOlapwNUPdHfG4J+//N4p5NHMcgb1aniUJNwwu15SUG1d9
-	xh65UV21jlIxz0Vl1O5YQvVJvyt2hbCsVHehvEtzbLr8zRQFXMM0wHc=
-X-Gm-Gg: AYBFou1m+OAshVIL/mmahRablBrwYgdS1MXZkMFMuJITGywFp0u+wkrMnG9fNXDxy0z
-	2vr+lPur7fIymeuDHPd84uykX7r/I4xkh1tEtdkbf8UqJGsRngYD4GJOQDiz1zoKXn018qtds9J
-	tmUkeR3yc5bMcYFkhCg180+TS4KCksiQNsDoAAgMNYgCrUWf2sEp+wHcrhHtWX1spR7x9f82ygw
-	yXLPN9JYc0wYTRV/fyaICd0RU8miUqbOLLsKDXNzEYZ02k2MAUOI54cTC0ZklT6KdYO7DfHReLD
-	+Hkem0nGCnr7uIRuDBWv3O0da7U5E0t74t/1ZjsYNnYNh9YeUp/c46AgfGR51q1nC7gRYtAwWun
-	ptlIrGS5Y3uF8GG+LJu/Nn4wEXgWW7rb5QQZYX81YOVntTD0KslEwPqGhVIZZK0a/3IHoKBeLPZ
-	RFRoizV8iJ4OsWB+SiPgtN4pigc8ay/v0lgDQITcu6nU9PqhNzgDDNmxdcrQm7x8TBq7S0VvKJ5
-	5S1xNvDJete/nzV/i6clUnIF23Lipsslqq/c7fkvyTGz+Q0dLFQk6uQFmfRLcrBSEI7Uj3/xYY/
-	yl2vWHgbuWrd5vPsd9Paodies1KPT3wJhJ1ZOmSUsEPK8aSPmLEw93n3p0xEv6RTsU6zZEt2
-X-Received: by 2002:a05:600c:4693:b0:498:943:ccc0 with SMTP id 5b1f17b1804b1-49e619bec89mr78139215e9.6.1789125322522;
-        Fri, 11 Sep 2026 04:15:22 -0700 (PDT)
-Received: from localhost (92-242-249-81.broadband.mtnet.hr. [92.242.249.81])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb2ecfc3sm5062381f8f.4.2026.09.11.04.15.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 04:15:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B9CSfLqB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBA341F000FF;
+	Fri, 11 Sep 2026 11:17:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789125457;
+	bh=O+HlISK15Z3GQgQDAzFaXu34aBMcWzGjWdr6eLyJosE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=B9CSfLqB+mxju02C7ZVaZD2UA91p7XbhAGE7S9YlAIaYqv2YARanBgzq5n05pQ8Gs
+	 26TD0dHwaf80noxxUASEMc1f/s/lurdZEw6GaN8Dt+/DjlivFLUJ+AsDdQX1W4+erm
+	 igmBSyOXqrN2x1HFttyIu8AEzOHxn0t44L1EcN8LRIxXIoqomrJVx65TEU/MkjO5vu
+	 z0pgTsw7GX0lkwcphiSiqKXK0BpHeqScVjgLy3o4xmlrNfIYN2NDF9nHTNuN/EidCV
+	 63Iu4hk3Qw8/z1q/g4hcI14u3s+zQRccUWu2gLA6Utq2Ac88rIugwgulaDvAGzePiX
+	 AMVxzCBQdtpUQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 3/8] coresight: etm3x: change drvdata->spinlock type
+ to raw_spin_lock_t
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yeoreum Yun" <yeoreum.yun@arm.com>
+Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20260911-separate_etm_cfg_v2-v10-3-1b715d95927a@arm.com>
+References: <20260911-separate_etm_cfg_v2-v10-0-1b715d95927a@arm.com>
+ <20260911-separate_etm_cfg_v2-v10-3-1b715d95927a@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 11 Sep 2026 11:17:35 +0000
+Message-Id: <20260911111736.EBA341F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 11 Sep 2026 13:14:20 +0200
-Message-Id: <DLCFZ1Z5FV92.3JAXNVQWJZGN8@gmail.com>
-Cc: "Geert Uytterhoeven" <geert@linux-m68k.org>, "Ulf Hansson"
- <ulfh@kernel.org>, "Jakov Novak" <jakovnovak30@gmail.com>,
- <linux-mmc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-kernel-mentees@lists.linux.dev>, "Guangshuo Li"
- <lgs201920130244@gmail.com>, "Runyu Xiao" <runyu.xiao@seu.edu.cn>, "Shuah
- Khan" <skhan@linuxfoundation.org>,
- <syzbot+1ee4f3b9228e35f14677@syzkaller.appspotmail.com>
-Subject: Re: [PATCH] mmc: vub300: fix sleeping function call from invalid
- context in vub300_inactivity_timer_expired
-From: "Jakov Novak" <jakovnovak30@gmail.com>
-To: "Johan Hovold" <johan@kernel.org>, "Wolfram Sang"
- <wsa+renesas@sang-engineering.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260816153809.7067-1-jakovnovak30@gmail.com>
- <aoLCr8JEYaYxcJcQ@hovoldconsulting.com>
- <CAMuHMdU_Rx4ZGi9SsNxKUDyYmV-GbD8rD9NMVzYginBMXdZDMg@mail.gmail.com>
- <ap7CaVj82BJZgjf6@hovoldconsulting.com>
- <CAMuHMdX6JfqpLMGDQJSQ8E8XNobRwr16LOzuphPt3Afs-OZdJA@mail.gmail.com>
- <aqEDb0THnCM-Q_Vy@hovoldconsulting.com> <aqGWWhvL5CKH2mgx@shikoro>
- <aqOoBwBav8JZhMQ9@hovoldconsulting.com>
-In-Reply-To: <aqOoBwBav8JZhMQ9@hovoldconsulting.com>
 
-Hi Johan,
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
-> Thanks for taking a look. I guess we should fix this inconsistency in
-> MMC core eventually, but that the vub300 needs to be reworked to handle
-> this quirk in the mean time.
+New issues:
+- [Medium] Unwarranted conversion to raw_spinlock_t degrades PREEMPT_RT lat=
+ency based on a false premise.
 
-Should I send a v2 based on my first patch with the Reported-by,
-Tested-by and Fixes tags fixed or is there something else I missed?=20
+Pre-existing issues:
+- [High] Ignored return value from pm_runtime_get_sync() in sysfs handlers =
+can lead to synchronous external aborts.
+- [High] Concurrent sysfs read can lock CoreSight registers during hardware=
+ enablement, causing silent configuration failures.
+- [High] Trace ID use-after-free and stream corruption via sysfs reset whil=
+e tracing.
+- [High] TOCTOU race in `cntr_val_show` leads to reading from powered-off h=
+ardware.
+--
 
-Best,
-Jakov
+commit 7ed6c9cd3b008064253e2672ab61ffedfc528361
+Author: Yeoreum Yun <yeoreum.yun@arm.com>
+Date:   Fri Sep 11 10:56:02 2026 +0000
+
+coresight: etm3x: change drvdata->spinlock type to raw_spin_lock_t
+
+This commit converts the etm3x driver's spinlock to a raw_spinlock_t to
+avoid issues with sleepable contexts in PREEMPT_RT. It updates the spinlock
+initialization and all usages across the core and sysfs code.
+
+> coresight: etm3x: change drvdata->spinlock type to raw_spin_lock_t
+>=20
+> etm_starting_cpu()/etm_dying_cpu() are called in not sleepable context.
+> This poses an issue in PREEMPT_RT kernel where spinlock_t is sleepable.
+
+[Severity: Medium]
+Does the etm3x driver actually use these hotplug callbacks?
+
+The etm3x driver does not appear to implement etm_starting_cpu() or
+etm_dying_cpu(). Its only CPU hotplug callback is etm_online_cpu, which is
+registered at CPUHP_AP_ONLINE_DYN and runs in the sleepable cpuhp/%u kthrea=
+d.
+
+Since drvdata->spinlock is primarily used to protect sysfs configurations
+that run in process context, converting to raw_spinlock_t forces sysfs
+operations to run with preemption disabled. Can this degrade PREEMPT_RT
+latency unnecessarily?
+
+> diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/driver=
+s/hwtracing/coresight/coresight-etm3x-sysfs.c
+> index b3c67e96a82a4..0701edc094581 100644
+> --- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+> +++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+> @@ -49,13 +49,13 @@ static ssize_t etmsr_show(struct device *dev,
+>  	struct etm_drvdata *drvdata =3D dev_get_drvdata(dev->parent);
+> =20
+>  	pm_runtime_get_sync(dev->parent);
+> -	spin_lock_irqsave(&drvdata->spinlock, flags);
+> +	raw_spin_lock_irqsave(&drvdata->spinlock, flags);
+>  	CS_UNLOCK(drvdata->csa.base);
+> =20
+>  	val =3D etm_readl(drvdata, ETMSR);
+
+[Severity: High]
+This is a pre-existing issue, but could this code cause a synchronous
+external abort if the device fails to resume?
+
+If pm_runtime_get_sync() returns a negative error code (e.g., if the device
+is suspended and its clocks or power domains remain gated), the code procee=
+ds
+unconditionally to dereference drvdata->csa.base in etm_readl().=20
+
+Accessing unclocked or unpowered CoreSight registers on ARM can result in a
+kernel panic. Should the return value of pm_runtime_get_sync() be checked
+before accessing the hardware?
+
+[Severity: High]
+This is another pre-existing issue, but can this sysfs read silently break
+concurrent hardware enablement?
+
+Concurrent sysfs readers like etmsr_show() use drvdata->spinlock to seriali=
+ze
+their own hardware accesses, issuing CS_UNLOCK and CS_LOCK. However,
+etm_enable_hw() executes via smp_call_function_single() and does not hold
+drvdata->spinlock while issuing its own register writes and CS_LOCK.
+
+If a sysfs read occurs concurrently with etm_enable_hw():
+
+Sysfs thread                           etm_enable_hw()
+etmsr_show()
+  raw_spin_lock_irqsave()
+  CS_UNLOCK()
+                                       CS_UNLOCK()
+                                       write to registers...
+  CS_LOCK()                           =20
+                                       write to more registers... (ignored)
+                                       CS_LOCK()
+
+Will the sysfs read's CS_LOCK lock the CoreSight Lock Access Register (LAR)
+in the middle of etm_enable_hw()'s configuration sequence, causing
+subsequent register writes in etm_enable_hw() to be silently ignored?
+
+[ ... ]
+
+> @@ -76,7 +76,7 @@ static ssize_t reset_store(struct device *dev,
+>  		return ret;
+> =20
+>  	if (val) {
+> -		spin_lock(&drvdata->spinlock);
+> +		raw_spin_lock(&drvdata->spinlock);
+>  		memset(config, 0, sizeof(struct etm_config));
+>  		config->mode =3D ETM_MODE_EXCLUDE;
+>  		config->trigger_event =3D ETM_DEFAULT_EVENT_VAL;
+> @@ -86,7 +86,7 @@ static ssize_t reset_store(struct device *dev,
+> =20
+>  		etm_set_default(config);
+>  		etm_release_trace_id(drvdata);
+> -		spin_unlock(&drvdata->spinlock);
+> +		raw_spin_unlock(&drvdata->spinlock);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but can this cause a trace ID
+use-after-free and corrupt the trace stream?
+
+This resets the staging configuration and unconditionally calls
+etm_release_trace_id() without checking if the tracer is currently active
+(e.g., via coresight_get_mode()).=20
+
+If writing to this reset attribute happens while a tracing session is runni=
+ng,
+the trace ID is returned to the pool and can be reallocated to another
+CoreSight component while this device continues to emit hardware packets us=
+ing
+the freed ID.
+
+[ ... ]
+
+> @@ -722,9 +722,9 @@ static ssize_t cntr_val_show(struct device *dev,
+>  	struct etm_config *config =3D &drvdata->config;
+> =20
+>  	if (!coresight_get_mode(drvdata->csdev)) {
+> -		spin_lock(&drvdata->spinlock);
+> +		raw_spin_lock(&drvdata->spinlock);
+>  		val =3D config->cntr_val[config->cntr_idx];
+> -		spin_unlock(&drvdata->spinlock);
+> +		raw_spin_unlock(&drvdata->spinlock);
+>  	} else {
+>  		val =3D etm_readl(drvdata, ETMCNTVRn(config->cntr_idx));
+
+[Severity: High]
+This is a pre-existing issue, but can this race with a concurrent power down
+and cause a synchronous external abort?
+
+The check for coresight_get_mode() bypasses both the spinlock and
+pm_runtime_get_sync(). If the device is active during the check, it jumps
+to the else branch to read the hardware register.=20
+
+If another thread disables the device (which calls pm_runtime_put() and
+powers down the hardware) concurrently, this will read from powered-off
+hardware.
+
+Additionally, is it safe to read config->cntr_idx here without a lock?
+
+[ ... ]
+
+> @@ -940,13 +940,13 @@ static ssize_t seq_curr_state_show(struct device *d=
+ev,
+>  	}
+> =20
+>  	pm_runtime_get_sync(dev->parent);
+> -	spin_lock_irqsave(&drvdata->spinlock, flags);
+> +	raw_spin_lock_irqsave(&drvdata->spinlock, flags);
+> =20
+>  	CS_UNLOCK(drvdata->csa.base);
+>  	val =3D (etm_readl(drvdata, ETMSQR) & ETM_SQR_MASK);
+
+[Severity: High]
+This is a pre-existing issue, but as with etmsr_show() earlier, could this
+cause a synchronous external abort if the device fails to resume?
+
+If pm_runtime_get_sync() returns a negative error, accessing the unclocked
+hardware register will cause a kernel panic.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-separate_e=
+tm_cfg_v2-v10-0-1b715d95927a@arm.com?part=3D3
