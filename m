@@ -1,90 +1,137 @@
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AFDC4A3F0E
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:54:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82FD6423EAE
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:55:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789142063; cv=none; b=E6BU4EbCum6GMmvH8r3OlFdUYFc8MzXkkDwMz/IggZa1QVF4SRQmh3SrTAY47wk10Dxvqgl5dQVkCfJu3V6PFifm6xITujFZEL5O6bxx5AVtXxdzSv0JfQU4Nh5Ys++fv1kaPsSFs4f1Fji8HYe39EpwFnA0XQdiTIuKO2OADqc=
+	t=1789142118; cv=none; b=LVLhUoGccxxtu4BE4hkgP2IuXhn8L7bU/jBUS/rDEk29xUKQmf6JgroVGQ1V+kXvtDc0YZeuw9+nyJop2A/PyUalpQjLxVOjTitsWarjGCw7B4jbX0ci5BloXPBApVnnkvSUgaYuqQj/NbglwVgEMhaJK8a5yq0uI07YmuuvaiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789142063; c=relaxed/simple;
-	bh=MlSu2nJlbYyfxk7BMx8+WDtlqdis/YNMIYzk49A7XOI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=razOAe4O+S2g0X3Um5PY+ROgSg5Ljhpt63Mo+MXWp6T1v1Lj/U2wxFHY7g4XE/bErvhn3b/KarukUhEsKVU+tONMkIe5CsIpEP2K42b+2rE5oSwZhmyap3/qm8LpWUHX+gchBUVp7bWjmUNpldTHaHF0CFe6PkVqzv1Bt5U5lGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=GcCPlHa+; arc=none smtp.client-ip=199.89.1.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1789142118; c=relaxed/simple;
+	bh=grkEIWkrYwr93bNbtIkgFN8aezqY3LPouLt4mIOwZic=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DUoKipYPz0xltvEA3nx1Nf8y8Cph+vljiYcqmmF9lNjQoxX/yi234WYbMmttjd2gn/XUzm2mfqS2ZHQ//1fVrlMBwj8/ie7fIAXZqtoN7UZy4obauoIQ1t0BdP7OqpkZ2eTNQR+D7TzcStQXgGTN5RsQbYtbgiWlXLlKq7Gi70I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bimbnIIQ; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="GcCPlHa+"
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4hhJxx5t3Sz1XM6JR;
-	Fri, 11 Sep 2026 15:54:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1789142049; x=1791734050; bh=UL4rz3Dp1dxdqh5XlRLxO2w8
-	KZdpSKIZ/ir0ogZ9gEU=; b=GcCPlHa++r6ZGY3y4uEJ3VW6xi2qlN/q3p6meP2C
-	ggiQHvRwSByHzXkbEM2Ia81pSU4fwGWUK/lGrFn5dLbu4fDXeSpOOcHO7M16K51q
-	s4FdxfUyeMKqXqROk4Xhik9UBGHRftvuGTHS23RpB1SFTFxGyUuvBcYGz7EFKMW3
-	OECqGsFmbZuNkt95VI4CgagKP+X87yhxwhSQ3KOQ34V3jqbSydpXHcuqMvJZEVTP
-	gFPHKnc+Zo3IY9cu7BFpucLEmDe4rAj2pI+jaTZYlKTUUENdNqLQZ7iyscL5ygVd
-	KKdGGl/rQZwaZ9fiuzD0iSBfGQ7/p8pvUv7iDTi0ZVMfHw==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id CqqiMtyO1ZuN; Fri, 11 Sep 2026 15:54:09 +0000 (UTC)
-Received: from [IPV6:2a00:79e0:2ed2:d:b591:e5fc:52e3:a430] (unknown [104.135.182.40])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4hhJxn2Nc0z1XM4Sx;
-	Fri, 11 Sep 2026 15:54:04 +0000 (UTC)
-Message-ID: <b99d5e6d-0233-469e-873e-64fcbe02df6c@acm.org>
-Date: Fri, 11 Sep 2026 08:54:04 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bimbnIIQ"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd82be878so56705e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:55:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789142115; x=1789746915; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IDMhYh34IjoMccK7nculbt09zuX0V0q8M7HVDKmq9FU=;
+        b=bimbnIIQd2eJPUoUu3yHZj0YhLuUk+8EMFtRFws9oh4V4zq0l33YLj1nIG1gQWR9Uc
+         1grQGM0M1qCNXN9WaSvXmY9uRhzIlH2LUNACHOrn01C+i54BDacJEtapk1QLo68H/Exf
+         c4upaB10ilTIH54Aro//zf6Ixh587Nl6TNGmRV+v7S/kmJi33mPlQXJIkHDiUCBO2M2E
+         /eOZ7gLI93R+QHHF9eSAbheZYoaLKBIUkpvWMJQWyZIDqELf+xvGI0t9+qhWeWuR42HD
+         srhk+yQkP3prXVl4+XgLKUNEgqgh7WC9AbxbWW4VyZWXPuyppgF6ZQIlKosSbVpe6lva
+         4L6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789142115; x=1789746915;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IDMhYh34IjoMccK7nculbt09zuX0V0q8M7HVDKmq9FU=;
+        b=XXOSu85f1ILpze0eUeRCgDNl0H9oy+w9QNylBww+YOJBC7EhRAkTzlZp2Mn80HJ/Aw
+         yIxOfickWGL1o/EAQW85QWvN6kxfzxBEvqPNSTU2Fwf0ui82xq3gxM0VIQbNWdXUcchf
+         wCoJ90mZ3axVN6GNBLSHtRHLwI1BYG76wbPpo4DVR4yFlIoC0Wwsq+f/s9rx77ZuY7AW
+         f+en0rv9X8L4IutWcujYmA+I3cTOpIJD63l5femeTa/AXbQafQHPpbm5W+ctUB6z9dtA
+         W/X6yT/dfP9JnO2EPUfHJidajCVSmlqos3iBjbFuyLoUMPpohitYpB+BM37t4Zf2t97x
+         a7nA==
+X-Forwarded-Encrypted: i=1; AKwUvBxd7JuGlgxa8G7Ukb6l5QZDgbuQWafJQutyk1W9GBPwoJF6zju3OBKYLV2nTSgFx1dk32hKhRBOm3qmyII=@vger.kernel.org
+X-Gm-Message-State: AFuF++kILy5huHuGT4tdI//9SULIRQeMxqELjBrz9SIWhLr4mC6KmAmn
+	6BEMkF+9Po6ccRNqv3n6XgBqnynLt2+JKS1Lse33NxhQuEn372poBXZr
+X-Gm-Gg: AYBFou1tfaTwV9Uq6Q/UONSIxBiMX1CtUyWG7utp/XvZonVNP0mqrggFdks8frVnEOd
+	3Gb2HY8XQxrHJS7VO4OYM5YgZRs1qZI5SRGBuRQrz2WFjpCugpPo3+YzsKtunhVUXbbwM5hjOrt
+	MNn80ziK1qjCZtG2hf8JsuP+OFaj8pqoEY7TsuBzbkPkdRpmjQB4sCpVA2d0ISEYC2WpY3J0/si
+	4qKgcfGITW56D1VpdUgVF0dcSDw3NJogFDU81rUFfiwHHYDTikNbZKGautujQAJpikRd/UzLtmA
+	YnU0BpGF1UOAiUK9LYCSnAztdKmAo/OdGFA51HVS2MKBaYbGdLALyean0IhdsffoN/aiaPEcRhT
+	EW+9LcX1sYPu5r4CJamkyHX0xWAASILv3Z0R6I0LRPM+LdHXjVC+BCd/wzj/DAg/02Uk9rCAQ5F
+	FlznBfFcJjlZoE8siqGAEyttVAmBKuPPFKDoRmVoijMicndRKAqFqFIrsIAtPAFSD0M4kSbq774
+	P3I0/X+/Ccw3LFzP5Wo5w==
+X-Received: by 2002:a05:600c:4712:b0:499:d95a:41f with SMTP id 5b1f17b1804b1-49e61643939mr47918835e9.0.1789142114438;
+        Fri, 11 Sep 2026 08:55:14 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c39086sm148768425e9.10.2026.09.11.08.55.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 08:55:13 -0700 (PDT)
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: Kayra Cizmeci <kayracizmeci@gmail.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] sched/fair: remove dead code on enqueue_task_fair()
+Date: Fri, 11 Sep 2026 18:54:48 +0300
+Message-ID: <20260911155449.1249726-1-kayracizmeci@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/8] mm: introduce for_each_process_rcu and
- for_each_thread_rcu
-To: Steven Rostedt <rostedt@goodmis.org>,
- Peter Zijlstra <peterz@infradead.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ye Liu <ye.liu@linux.dev>,
- Marco Elver <elver@google.com>, Ye Liu <liuye@kylinos.cn>,
- Yi Tao <escape@linux.alibaba.com>, Tejun Heo <tj@kernel.org>,
- Christian Brauner <brauner@kernel.org>, linux-kernel@vger.kernel.org
-References: <20260904083001.553587-1-ye.liu@linux.dev>
- <20260904083001.553587-2-ye.liu@linux.dev>
- <20260904122536.1079b279@gandalf.local.home> <87ecf87m31.ffs@fw13>
- <20260904190742.7231d56e@gandalf.local.home> <8733vo6tui.ffs@fw13>
- <20260908083817.GN4121339@noisy.programming.kicks-ass.net>
- <20260911085456.171fd087@gandalf.local.home>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20260911085456.171fd087@gandalf.local.home>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/11/26 5:54 AM, Steven Rostedt wrote:
-> On Tue, 8 Sep 2026 10:38:17 +0200
-> Peter Zijlstra <peterz@infradead.org> wrote:
-> 
->> Right, so GCC will accept and miscompile jumps into a scope. Clang will
->> warn/error about this, so this should never happen.
->>
->> Aside from the ASM GOTO issue, there is also an issue with computed
->> goto, those don't work either.
-> 
-> So should we have Sashiko stop complaining about it?
+cfs_rq->curr == se path on enqueue_task_fair() seems to be unachievable.
 
-Yes please. I don't like it that Sashiko complains about regular goto
-statements inside scope-based cleanup code.
+Remove the code that depends on this cfs_rq->curr == se case on
+enqueue_task_fair() and bool curr too since there are two possibilities
+and one has been removed, we can proceed directly with the other.
 
-Thanks,
+Signed-off-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+---
+ kernel/sched/fair.c | 16 +++-------------
+ 1 file changed, 3 insertions(+), 13 deletions(-)
 
-Bart.
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index ade1eceb39b8..440e4fdebe2f 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -7985,7 +7985,6 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
+ 	struct sched_entity *se = &p->se;
+ 	struct cfs_rq *cfs_rq = &rq->cfs;
+ 	unsigned long weight;
+-	bool curr;
+ 
+ 	if (task_is_throttled(p) && enqueue_throttled_task(p))
+ 		return;
+@@ -8014,23 +8013,14 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
+ 	if (p->in_iowait)
+ 		cpufreq_update_util(rq, SCHED_CPUFREQ_IOWAIT);
+ 
+-	/*
+-	 * XXX comment on the curr thing
+-	 */
+-	curr = (cfs_rq->curr == se);
+-	if (curr)
+-		place_entity(cfs_rq, se, flags);
+ 
+ 	if (se->on_rq && se->sched_delayed)
+ 		requeue_delayed_entity(cfs_rq, se);
+ 
+ 	weight = enqueue_hierarchy(p, flags);
+-
+-	if (!curr) {
+-		reweight_eevdf(cfs_rq, se, weight, false);
+-		place_entity(cfs_rq, se, flags | ENQUEUE_QUEUED);
+-		__enqueue_entity(cfs_rq, se);
+-	}
++	reweight_eevdf(cfs_rq, se, weight, false);
++	place_entity(cfs_rq, se, flags | ENQUEUE_QUEUED);
++	__enqueue_entity(cfs_rq, se);
+ 
+ 	if (!rq_h_nr_queued && rq->cfs.h_nr_queued)
+ 		dl_server_start(&rq->fair_server);
+-- 
+2.53.0
+
