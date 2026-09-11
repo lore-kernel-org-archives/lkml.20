@@ -1,147 +1,91 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A892443C2B
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:57:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E4A443C0B
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:57:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789124229; cv=none; b=X6qyh8e5lfMzfxMjye0FZvYjx0zeBOgW40v9BOgxqwm1KZFirE6m4uC9qaOoEgoPrgv5vodBMz0YqEhIzMM3ZGPT8xRqyz/W8B9iG8IB/fQrWqaw/WvW1mbVsXq/jwqfwLyIf4dq/gpDF57h8JFeGCtM6PWE2jTRs+quxR5JkYM=
+	t=1789124231; cv=none; b=VYuRmxjg6M/caPquUQ0TxN1jVlGikOik90rV9+fUQfbMcwBAEGVIZqqVBYpfwmt8W+npLBPwO+lgLZ7enrRvWiBZXTSPAoJ3CAmcj8pxNXwjDLEOk6Ew6Z1U5JH23lUHQUORifv4onKi+OpeA+yyevXxsCvqOGO7h44pnmL1H+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789124229; c=relaxed/simple;
-	bh=ujhajdxsDtMtcxp5FbkMYUT3/SFZiAv/3XqaRDnCtSE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=caUbSjzPvn79kJuE5pSLBtKOf92DERssQeavMIJqEsp3sQcMeTBuajS3fcPSjMVlBZg1aH4CU8HXTp/BqhUaz37aHpqS0thuh2DIjlME2CDhrPeOOIeIUo9FNwH0u1aLyseYLmYAlxxbAPqdZwR8QkvL/n5tqx3vbRiJRhZl82o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XC0PfUe/; arc=none smtp.client-ip=74.125.230.140
+	s=arc-20240116; t=1789124231; c=relaxed/simple;
+	bh=CNk5Zt63QFGf1xTboVD/YEzHzmeTbVLuxljGB3UGrx8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=l347f299e+1TlQcLNff+r4kwl8oBLSQmpVCe5T7LhJa3KPVu+vVUf1YcaB/2n5BP28GMdNkWy93RBJoF0fYlvOaZtHXL5C8wPM4vT8xqZVC2aw/VgZv4xDUVGYqbEP6VjrWm5JJOkVrLfCRLrBhqoiBHta2Tvq8Qie8jOvUU+RQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X0qugSNv; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XC0PfUe/"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfbd148cso7361256d6.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:57:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X0qugSNv"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-499de29beb7so412695e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:57:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789124227; x=1789729027; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3rQKPjczWN0Jvqf2b9cJEEAba6rDBL2mDgyS8mK50Vs=;
-        b=XC0PfUe/dzSmZiOJUoiWadjsgOKdiu7B5tx4Em2SXzzg3u8h+zw0DSOE5iQu2cQ7A5
-         ySf6Ymr0csJ9qZBHWj1gkj/+LRonv94C3KMHvuGyHI+dldYzdCl3+RmRH0j9lfQpHanb
-         pg8f7EQIleh+9tjyRQtKPuOzTNfPekGW+y9SCdZ84ZLxI67BLvLh2637zQjZOWF/W//Z
-         KklU2rAvVGBF5S38OfrTnf2gjOdkoZKYb+O9U+iIHlzP1HphhGHBWBSdGoFXCi3ujUqC
-         x8FaBgfbgKX83sndFeKdz51RhHKaXCOLNf13M90JFUH4ix/XSp6bMyn7qqJKWtdCwkxx
-         2DNw==
+        d=gmail.com; s=20251104; t=1789124228; x=1789729028; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CNk5Zt63QFGf1xTboVD/YEzHzmeTbVLuxljGB3UGrx8=;
+        b=X0qugSNvi+Q54/y3C5ot11yt84LgDsrQsF/wOg4+7AGCwUR6t+3+VCfCzK/NDvEw4r
+         5Tubctgf65DcbbDBGFUsFMNuQNYwuLhF0fdmL+XThvW2TpQI2zsaXuj9DO5tH0R8F+J1
+         V1VarETlz/q1xvx+yq18UwyiDTLxM42qdWmoggpEntlMzTbXEMIQ7OVX59zExy9fI6j9
+         Nvyuta7MBGdnp7E5jCbjm23HhUmTaP9I1LMSyv+Q8Qq1H8tQy7zF12oNW28cDgUe0gXD
+         o7+MrRrzQ/zKaWPDR3NKUOmooycGAaTgJmOnPyJ+5IpYeKV+cD1IumJLR6fDPWX2rP9b
+         OYmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789124227; x=1789729027;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3rQKPjczWN0Jvqf2b9cJEEAba6rDBL2mDgyS8mK50Vs=;
-        b=AI/0Rmo2/Z4W4oXj63FY164cpkhZEAyzg+L0eWX0HWJXQ7Uctje9nMMouaMvLcv+5/
-         FHFjfpad8ehYgl62sPDMGmh5cE7a8JspviMXtJVdUTj9g2Brc+G9cIICYUQzn8xhZQqH
-         X/Bjah9Iu6XMKo0SxgKy5OrsygyPKZTxHu6ERXlvMnSwNIQUOnagWU/8/6aUAhdWndL6
-         NGTpCE3itmt6zttKsAAXCt3uk/RJW+uWKobyrbgOv5Icie13tihQ6WcSdk/ABUPGgVUg
-         UEFHMK8RiNjbB9O59dhco37mAeQuI75jpiZnxs3e+BOwgVzTwlzxj7JUYgLiQR5okf5g
-         gNIA==
-X-Forwarded-Encrypted: i=1; AKwUvBy72x4rT7FBdoLTEavaIOIePMeWlQ6njvTneCoV05YyQp5116VA3qAgKAoQ7o6Phi9UQiVBJN//m9CiBuA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mLxrHFH5dle6rMZFh8meLBh0SR3aaETRHfOVN+kdf6ScvDWEl3
-	eDy5YpD9deJweGTEwmbzaMDruhrgJp25Jp7oH1Hi3bJEw1Q4XE5/h9JS
-X-Gm-Gg: AYBFou1VuweBHZixcjHyBS49CVvsITTJjA6vObzBEZFEx9qJtNAyKdmZ2i2f2uCj+2P
-	xJX8LOprVJXgMDT5Xq4XCnpptFVIMGVzhUVo5tuGFe4eXGHt2xeguW/Uz44wdONsMmjOZ7G5ymj
-	+Z4mP5LmfEnts2VuX+lNuaR3fwxWkE9nqsUil5NDRx09+MwY8jZWjbnoC6yhG/OpNp3gEO/M0ha
-	eOTSfzeuyrS7fPkgWNo+ndK+5Pc0boNR4rcDr2eOzfGDgzV0DFJZQS08GwBEjiAGhzkXrM3f5rv
-	YCtcQ7KQhxPtpbdvi8puzlF5JTtlsU/21GrxqR4rHxQihACFvlnYBZyrf9mATyVtIf3fqW99vZt
-	S19A5kRDre3K+2bWHY5DvWQXuwlJHSk8/tnCKbKKDZXTiFVrYpNbu2/yxfF4JWOUwFR5tGtUdJi
-	aVj2VXnbiy+IV3F9IG7yg0lXQfOMdLrBSp95AmvjpPCO1peQ+fUDzQJGNtZwBiSqZ9eLc/E53iQ
-	DAJ
-X-Received: by 2002:a05:6214:ca1:b0:910:6ad9:d6a9 with SMTP id 6a1803df08f44-912120dc4bamr49465616d6.24.1789124227059;
+        d=1e100.net; s=20251104; t=1789124228; x=1789729028;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CNk5Zt63QFGf1xTboVD/YEzHzmeTbVLuxljGB3UGrx8=;
+        b=df7S9A3YKUokoAzp2BvFS0fbUYsNnFFQkTQTXUEZwNtSroavY+gKagpPlY9hy/zBOR
+         nCP5igsaroO4Nwuqviyk8zOlDV1diRLXv+gdGpvAitS7uLZv5sao+ip+1834/fIYU+bB
+         slPPpiHbY8IKVKujzJpMYzNq9tzF4ibTOJnGOdAHA1tqK1Fm53Sroye/uIkqHhkRiu1F
+         HpvhBuHcILy2TVlUke4DmTfLAJ4J25iyXuvNOA/dxBAUi8mdw+aPpm6MVftAXtq9vnbt
+         tvf7a18e5HqKdle1ZYOLGoU4vk3W+rKxOeE6gijxCtAM9m51rq89i789Zx38DUM6yKUR
+         Rt7A==
+X-Forwarded-Encrypted: i=1; AKwUvBxaFZao3OHMNlJ4Hqr6lcHR6hQncYy9r38PewVCz1QoxeTDsuzKGGND3ia7LztkxVHEErolxbXfPTHw1ww=@vger.kernel.org
+X-Gm-Message-State: AFuF++mC9nM/A/9GmiVmzltEoFo3Kj5mqFmUMEzFFj3Pftn+CA0C+6iL
+	UDH7CeW5HuPvxUNY4W5bTiNyzbogHeN+KQp+5MI6NjDMlXLwcaFzCCbN
+X-Gm-Gg: AYBFou0HJfgbhqw12ZiueHRim9incrsttcMFUMdhx04gavMhkL0nChbOqnylCQUcxH0
+	JMJiBqUdwJ8sWw+UHh58T7mwyPc7I5HGwuP7IpoF6XXBF1QN5lEn1d8+8kwi+OoHNcXRkAfeNox
+	I3Gug6pAIArjQVoW/Av2DhyTkd8AoVRrDChK54/WE60wBq5lSmpDMf+qcWMtd2zLHaPxuCo6U2y
+	sjbgLAmk1t/6fcfyYkNm7t2NCSlsgSbqFsz1i5uTC8Uie5CVugYqSu5CLPFdE2VmuVsv2KVA3Zy
+	QAOaTnrpx5NyWFp+p71zIXkO2TFqWe6vp483w6QQxMeC5XbF5Lz0sAPfn0uKk2iKJitGN92kg7H
+	JUUaU+QZ1OD/4E6VbavwrIQsKbrr/wqjNEQQRpr9qdM6ygI36Y8FmtADQZ1xmUvmHXraS+23Qgb
+	W75PNHA+lUj5y7U8wboo56YVlkvHAMTsEHdiXUlOn/kUcMYx5a/Osp9gvWZb0JfhAmdD4JLc+8n
+	HWrDVQWs67fVJNXQ/+A7w==
+X-Received: by 2002:a05:600c:4688:b0:49c:cbf4:572b with SMTP id 5b1f17b1804b1-49e619ec129mr39509475e9.2.1789124227890;
         Fri, 11 Sep 2026 03:57:07 -0700 (PDT)
-Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f47a239sm18167066d6.26.2026.09.11.03.57.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 03:57:06 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e61a81943sm39874535e9.1.2026.09.11.03.57.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 03:57:07 -0700 (PDT)
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: kayracizmeci@gmail.com
+Cc: bsegall@google.com,
+	dietmar.eggemann@arm.com,
+	juri.lelli@redhat.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	mgorman@suse.de,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	rostedt@goodmis.org,
+	vincent.guittot@linaro.org,
+	vschneid@redhat.com
+Subject: Re: [PATCH v2 2/2] sched/fair: avoid recalculating curr status in place_entity() and requeue_delayed_entity()
+Date: Fri, 11 Sep 2026 13:57:04 +0300
+Message-ID: <20260911105704.1220164-1-kayracizmeci@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <60fd4fc5d17b706766a428b63760d1f69e6d11bb.1787737648.git.kayracizmeci@gmail.com>
+References: <60fd4fc5d17b706766a428b63760d1f69e6d11bb.1787737648.git.kayracizmeci@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 11 Sep 2026 06:57:05 -0400
-Message-Id: <DLCFLUP26J73.FNVCZ4ALAUHC@gmail.com>
-Cc: "Willem de Bruijn" <willemb@google.com>, <netdev@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
-Subject: Re: [PATCH net 2/2] selftests: drv-net: psp: test PSP and TCP ULP
- mutual exclusion
-From: "Daniel Zahka" <daniel.zahka@gmail.com>
-To: "Daniel Zahka" <daniel.zahka@gmail.com>, "Eric Dumazet"
- <edumazet@google.com>, "Neal Cardwell" <ncardwell@google.com>, "Kuniyuki
- Iwashima" <kuniyu@google.com>, "David S. Miller" <davem@davemloft.net>,
- "Jakub Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>,
- "Simon Horman" <horms@kernel.org>, "Willem de Bruijn"
- <willemdebruijn.kernel@gmail.com>, "Andrew Lunn" <andrew+netdev@lunn.ch>,
- "Shuah Khan" <shuah@kernel.org>
-X-Mailer: aerc 0.21.0-threadmapfix
-References: <20260910-psp-ktls-fix-v1-0-e3f30aaeca4e@gmail.com>
- <20260910-psp-ktls-fix-v1-2-e3f30aaeca4e@gmail.com>
-In-Reply-To: <20260910-psp-ktls-fix-v1-2-e3f30aaeca4e@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu Sep 10, 2026 at 7:46 PM EDT, Daniel Zahka wrote:
-> Test both setting PSP after TLS ULP, and TLS ULP after PSP.
->
-> Add CONFIG_TLS=3Dy to the drivers/net/config.
->
-> Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
-> ---
->  tools/testing/selftests/drivers/net/config |  1 +
->  tools/testing/selftests/drivers/net/psp.py | 46 ++++++++++++++++++++++++=
-++++++
->  2 files changed, 47 insertions(+)
->
-> diff --git a/tools/testing/selftests/drivers/net/config b/tools/testing/s=
-elftests/drivers/net/config
-> index b6989c7d3d9d..4838adf27fa1 100644
-> --- a/tools/testing/selftests/drivers/net/config
-> +++ b/tools/testing/selftests/drivers/net/config
-> @@ -21,5 +21,6 @@ CONFIG_NET_SCH_INGRESS=3Dy
->  CONFIG_NET_SCH_PRIO=3Dm
->  CONFIG_PPP=3Dy
->  CONFIG_PPPOE=3Dy
-> +CONFIG_TLS=3Dy
->  CONFIG_VLAN_8021Q=3Dm
->  CONFIG_XDP_SOCKETS=3Dy
-> diff --git a/tools/testing/selftests/drivers/net/psp.py b/tools/testing/s=
-elftests/drivers/net/psp.py
-> index 315648a770d0..12b27f2a3fa1 100755
-> --- a/tools/testing/selftests/drivers/net/psp.py
-> +++ b/tools/testing/selftests/drivers/net/psp.py
-> @@ -23,6 +23,8 @@ from lib.py import NetNSEnter
->  from lib.py import bkg, rand_port, wait_port_listen
->  from lib.py import ip
-> =20
-> +TCP_ULP =3D 31
-> +
-> =20
->  def _get_outq(s):
->      one =3D b'\0' * 4
-> @@ -333,6 +335,50 @@ def assoc_version_mismatch(cfg):
->              ksft_eq(the_exception.nl_msg.error, -errno.EINVAL)
-> =20
-> =20
-> +def _require_tls_ulp():
-> +    with socket.create_server(("localhost", 0)) as srv:
-> +        with socket.create_connection(srv.getsockname()) as s:
+Gentle Ping on this patch, :_:
 
-ruff is complaining about the nested 'with' statements. I ran ruff
-locally via nipa, but did not get the same result. It seems nipa doesn't
-use a ruff config file, and the discrepancy is because I have a
-different ruff version. I was able to reproduce by upgrading the
-version.
 
-> +            try:
-> +                s.setsockopt(socket.SOL_TCP, TCP_ULP, b"tls")
-> +            except OSError as exc:
-> +                raise KsftSkipEx("kTLS not available") from exc
-> +
-> +
