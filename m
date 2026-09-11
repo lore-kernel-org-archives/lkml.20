@@ -1,181 +1,144 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB6643F091
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:43:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09AD53E2ADB
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:43:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789123399; cv=none; b=Ufew6ghPBqG2/phCufMbZWhX/d5hLLFOTix0EPtBphfmZ9puu08LaKSCowPYafrOjrDOMyouGocNFwolWNadhih2vM5aQsaVSwtiefdPSVYx0U+qoHHSMdVRVYuMoyvshPgwfjhp25bxYXcWff3NVd4YZIkfYSS067Vwkyl6aEk=
+	t=1789123428; cv=none; b=fxWpDvy/3xWLtaa02SU6aWqTLbRtCqyvHWw4m2myTnhNP48B4emdQ5DnlNvLSp4jyFFdQcUMJGAuGtIG66LeJEDV+GO52sh9BlIRNTM2Hlql5w6GDMu3j6z6uOVhb4zTYQuh+C7LzB5h1qm7Wh7p9tgvUCOzMYE/27Zn/c9yJEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789123399; c=relaxed/simple;
-	bh=L/lGKMfp42hBWo7w5pZxZLyTlsE3A7O8TBaqBICRHSg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nN3CKZ1W4XGJB+rEWmJwBVoxcmuL5CIYfKrCaQmS7wnIGF0WA5UBzLTyTse1YvDhyBaNb9GX/8VxXhNeJLEMy6zFqkG704ya6ViGM6oMf7U5BjtXJo3QS7Qm/8wWRHAKc14rARbfaZ1XA8Eg6VNKSkKijMIENb2L0v+DaMf+UIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Gt1aVH0Q; arc=none smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789123428; c=relaxed/simple;
+	bh=0pdRR57Gm5FGB3dMJai6xetKqLutt84Wx52Zjq0nnG0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=J7iwj8Vyc8n6F6BvOe6YTbtdHqk2b+DDC5UNbd/+9UurEqszKoVRL7DsrvELxGUdn3JpoGm/f/l1dE8OgJaHC0F5s3mviD5HokWD4+76yNMU1n1nMJ99wJvaj3QVKqmIfQK8JVYvaTcq4wCIAXVdb+S0leI7pVeTVZVn1iT7sQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xo/1BQbI; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Gt1aVH0Q"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c255c58156bso178611566b.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:43:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789123396; x=1789728196; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0OBJZFY4WEPdfeqZOIs4m4qo0tGRehs4CamLBjm99hQ=;
-        b=Gt1aVH0QPyM6P/zjdhKJZLjqHlX29/xTEwcuAeGv6gQC/I8qEzIvN/ijdXhCcJOJkL
-         feB5eHJNKPBMcewpPyGbPoHh/h2y6FtFTyKc6xNrY4+EFj+g1/jjDzkMXHDR9hL6fxrY
-         dcWqoUvnBPnDkrv4eKJrhYVrmcrqJXQ/uEaoEu6Bm5S3+7OsxMK8omO7EW3QAc7vCbtp
-         33ct1WP1FMzD/uRPOSDEXh5fGU4NuOXFhLFcBi6eRRwg5B8COhm0X2wM4bfvdUP/cUz/
-         tcpkhQOos4AETgmBoPKJqrM7drFB0FDJcTFJR8vCbKJk185Jsc5kQmzqmNHUNr4gcmjE
-         8bUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789123396; x=1789728196;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0OBJZFY4WEPdfeqZOIs4m4qo0tGRehs4CamLBjm99hQ=;
-        b=jhhN1A8VxolynxCuFHFSNdqWmBPGhOahWJ2viwZSGHrRU4DgRK1zKqvdJOw/ZB51qD
-         U/Q8ai9XnbJluATJJBd1zduEh9cH8mxHnAAvI6knd6K1tLr3xMc1KwSttpfrAC0OFx23
-         r2ZjbetconABkA6swCWbXWe8WCAFoBH++c8I4PFwz5laFHXr+WxTKVwgVqs37EVsS13h
-         TxsfcVaI4b68XNJe4Wy9SaRNEWOIgC8zC1wyr3csyZpubJcQAS4yYmbqzCWvHay9MJr7
-         vY9IvaO+BrALMflVc0tDk9Opd35UuxH9XpUN5e+lZuoygIBlvt013C+BTh3ysHz8GK+N
-         KrMA==
-X-Forwarded-Encrypted: i=1; AKwUvBzlYWjdJ+U+t2WcSqJrUKNxJlT5teTt/i+pRMkla5KKnwWNsdGPOratJaoq0SQdsmtk4DzJUdtC51hRObI=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8+ad2XSKWKv7pTShwznx0AcVOk2EpkX1eAE2PiMUUxHzoRUzo
-	rcyB8rD0r2kvqGjDu/xOijhgJy/gaRtMAjJD1lhEWVfFx8Q9YitRaA4MHAmCB3C7g/8=
-X-Gm-Gg: AYBFou0StxH5W2o8T4A7JCyj1iAqEyQC2ntc72XNM1hVJqA8VJlk7a8ax7782Mnv0eR
-	IvDhjILUW26DbzbDKW7ii+fzRZlcKXAxilEYGEmTLMXLMILeqNrFXLDNy4y+wTUzzboVM2ABHzt
-	tpjktyn4EkgdivbrncTBfyu6osVKD9yOslw7R65P5+1C8VEfXk7Qrr1+W6qTsSMRhMmfRX0obw2
-	zGQ175osJoeZ2pG4tRwdYJIx/EVbIIWJSecYFyX2tF2hMpp7nNANJSvN/pVvyGBurx480p2EmSi
-	KIXLKmXqMvoc9fM6XOqmRkdqgiyQ91/botnqEU7YMVCXBX0EfLawEABAtT7B/s6R4E9cIqC6yhk
-	55iJlhLD6ZurcCcl83LoubwIuq5/epftc16g7GIZMBc+FkRmlz3iekoYC93OCrPJIsIh7Lzv+yJ
-	ppdue+KX4A/S+0HEFLXU0Tsja6rQl4yIhc6moDGM2ETiBwxEgDFsg70RCmKmCChY3wygTyrmx5C
-	jp/v4ahpGX5
-X-Received: by 2002:a17:907:da6:b0:c26:19de:9ac3 with SMTP id a640c23a62f3a-c296668e2a7mr154495166b.27.1789123395825;
-        Fri, 11 Sep 2026 03:43:15 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.225.241])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966103984sm67215966b.52.2026.09.11.03.43.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 03:43:14 -0700 (PDT)
-Message-ID: <87e34805-e56c-45b8-a3d8-458ef17b92cc@linaro.org>
-Date: Fri, 11 Sep 2026 11:43:13 +0100
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xo/1BQbI"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 60ED11A01B2
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:43:45 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2963D601DE;
+	Fri, 11 Sep 2026 10:43:45 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BCFD511C7AF8E;
+	Fri, 11 Sep 2026 12:43:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789123424; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=boUfY/RM5+3Ru1aDcdiU0te7jtZsjz+i4xhWWiIY8F8=;
+	b=xo/1BQbIyCrbhI5Juu969ZJ9jEcCF95ynlFlyD/RmC7bVFVnAMAmbI9S1FW1fWclidOwkB
+	r+1Fk/lxSpCcuvOT5zqg/Lz1Y3rMML5lsOz8kKvVMiMHtvz5WWO3sHtYxBdy/5eJXPv7hM
+	Mhabcu/ktw7t2gN9Fel7K0hiOTpWu1d9O0JNjwVqTwvqO41BZcq/AXtqM95ZiFuSa+HNFw
+	Ar2BYxWGe6X8AF7Rq+iXvvsUBVi8tvw+rHJdkA56Wd6d1Hy+zYkMk6G+jE7xLfr8Wbgo8a
+	bXrS6dK5RzGRJeVkRr3xcKq0HHXWB0ay1Kszplsk6OFilAPGLWAWuFHfvR7rlw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: "Michael Walle" <mwalle@kernel.org>
+Cc: "Pratyush Yadav" <pratyush@kernel.org>,  "Takahiro Kuwano"
+ <takahiro.kuwano@infineon.com>,  "Richard Weinberger" <richard@nod.at>,
+  "Vignesh Raghavendra" <vigneshr@ti.com>,  "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>,  "Jon Hunter" <jonathanh@nvidia.com>,
+  "Steam Lin" <STLin2@winbond.com>,  <linux-mtd@lists.infradead.org>,
+  <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] mtd: spi-nor: Fix quad-enable for flashes with QER bit
+ in SR1
+In-Reply-To: <DLCEE908FEIF.380PG73T1SQXV@kernel.org> (Michael Walle's message
+	of "Fri, 11 Sep 2026 12:00:08 +0200")
+References: <20260911-perso-fix-spi-nor-qe-mxic-v1-1-fd6d91416a2a@bootlin.com>
+	<DLCD7NN2IW82.33ISZCKO1E7UY@kernel.org> <87o6e4qh5g.fsf@bootlin.com>
+	<87ik4cqgha.fsf@bootlin.com> <DLCEE908FEIF.380PG73T1SQXV@kernel.org>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Fri, 11 Sep 2026 12:43:42 +0200
+Message-ID: <87cxukqd9d.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/8] media: qcom: camss: Add streams API hw_ops to CSID
- interface
-To: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
- Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
-References: <20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com>
- <20260911062213.195007-3-gjorgji.rosikopulos@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260911062213.195007-3-gjorgji.rosikopulos@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 11/09/2026 07:22, 
-Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com wrote:
-> From: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
-> 
-> Add configure_rx/enable_stream/disable_stream to struct csid_hw_ops:
-> per-stream hardware operations needed to support the V4L2 subdev
-> streams API, where the CSID Rx front-end is configured once
-> independently of the per-stream RDI programming.
-> 
-> No functional change: these are new optional hw_ops entries, not yet
-> implemented by any backend or called by any code path.
-> 
-> Signed-off-by: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
-> ---
->   .../media/platform/qcom/camss/camss-csid.h    | 43 +++++++++++++++++++
->   1 file changed, 43 insertions(+)
-> 
-> diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
-> index 5296b10f6bac..90ee611b9092 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csid.h
-> +++ b/drivers/media/platform/qcom/camss/camss-csid.h
-> @@ -74,6 +74,25 @@ struct csid_phy_config {
->   
->   struct csid_device;
->   
-> +/*
-> + * struct csid_hw_ops - CSID hardware version specific operations
-> + *
-> + * configure_stream() is the legacy (non-streams-API) path and is mutually
-> + * exclusive with enable_stream()/disable_stream() - a given CSID instance
-> + * uses one family or the other, chosen by streams_enable.
-> + *
-> + * stream_id, as passed to enable_stream()/disable_stream(), is a hardware
-> + * RDI/PIX port index in [0, MSM_CSID_MAX_SRC_STREAMS). It is currently
-> + * always equal to pad - MSM_CSID_PAD_FIRST_SRC (multi-pad, 1:1
-> + * pad-to-port mapping).
+On 11/09/2026 at 12:00:08 +02, "Michael Walle" <mwalle@kernel.org> wrote:
 
-Lets not mix and match names. There has historically been a huge amount 
-of sin and liberty taken, not the good kind unfortunately - with port_id 
-and write-master.
+> On Fri Sep 11, 2026 at 11:34 AM CEST, Miquel Raynal wrote:
+>> On 11/09/2026 at 11:19:39 +02, Miquel Raynal <miquel.raynal@bootlin.com>=
+ wrote:
+>>
+>>>>> -	ret =3D spi_nor_read_sr1_and_sr2(nor, sr);
+>>>>> +	if (qe_mask[0])
+>>>>> +		ret =3D spi_nor_read_sr1(nor, sr);
+>>>>> +	else
+>>>>> +		ret =3D spi_nor_read_sr1_and_sr2(nor, sr);
+>>>>
+>>>> Shouldn't that be the other way around?
+>>>>
+>>>> +	if (qe_mask[1])
+>>>> +		ret =3D spi_nor_read_sr1_and_sr2(nor, sr);
+>>>> +	else
+>>>> +		ret =3D spi_nor_read_sr1(nor, sr);
+>>>>
+>>>> I know qe_mask won't be spread across two SRs. Just to be
+>>>> correct and make it easier to grok.
+>>>
+>>> Why is the second version easier to parse? First version is maybe more
+>>> future proof since we are treating a specific case. Because either it is
+>>> a specific chip (Mxic) or we end up in the more common case. There is
+>>> only one QER entry for qe_mask[0], many for qe_mask[1], and chances are
+>>> that in the future we will mostly see new chips only using a qe_mask[1]
+>>> mask. So having this in the else doesn't sound so strange to me? I also
+>>> don't think we will ever see masks spanning the two registers.
+>>
+>> The problem still persists because there is the check which also fails
+>> reading SR2.
+>
+> I don't get it. Why would you read SR2 if bit6 is set in qe_mask[0]?
+> Or do you mean in the spi_nor_write_sr1_and_sr2_and_check(). Yeah
+> that should also probably only write SR1 if qe_mask[1] =3D=3D 0, no?
 
-port I believe is the misnomer we are currently stuck with - so lets 
-continue to use it until a more crisp naming convention happens.
+Yes, probably. My problem is that I initially thought the big
+refactoring in a way that would make the users of those helpers no
+longer aware of the subtleties. But since you insisted on moving some
+parts to swp.c, it broke my assumptions and also the kernel doc comments
+which are no longer relevant. And now we are back to the initial
+situation, where awareness is needed from the callers and the API is no
+longer balanced:
+- spi_nor_read_sr1_and_sr2 is not safe
+- spi_nor_write_sr1_and_sr2 is safe
+- spi_nor_write_sr1_and_sr2_and_check is no longer safe
+I dislike this kind of lack of uniformity. One of my initial
+motivations was to get rid of them.
 
-> + *
-> + * configure_rx() is called once, on the transition from zero to non-zero
-> + * active sink streams, strictly before the first enable_stream() call.
-> + * enable_stream()/disable_stream() calls are always made under the
-> + * subdev's active-state lock (core-enforced via
-> + * v4l2_subdev_enable_streams()/disable_streams()), so hw_ops
-> + * implementations don't need their own serialization.
-> + */
->   struct csid_hw_ops {
->   	/*
->   	 * configure_stream - Configures and starts CSID input stream
-> @@ -81,6 +100,30 @@ struct csid_hw_ops {
->   	 */
->   	void (*configure_stream)(struct csid_device *csid, u8 enable);
->   
-> +	/*
-> +	 * configure_rx - Configure the CSID Rx front-end
-> +	 * @csid: CSID device
-> +	 *
-> +	 * Called once, when the first stream is enabled.
-> +	 */
-> +	void (*configure_rx)(struct csid_device *csid);
-> +
-> +	/*
-> +	 * enable_stream - Enable a single CSID output stream
-> +	 * @csid: CSID device
-> +	 * @stream_id: stream id to enable
-> +	 * @vc: virtual channel to program
-> +	 * @dt: data type to program
-> +	 */
-> +	void (*enable_stream)(struct csid_device *csid, u32 stream_id, u8 vc, u8 dt);
-> +
-> +	/*
-> +	 * disable_stream - Disable a single CSID output stream
-> +	 * @csid: CSID device
-> +	 * @stream_id: stream id to disable
-> +	 */
-> +	void (*disable_stream)(struct csid_device *csid, u32 stream_id);
-> +
+>> Possible steps forward:
+>> 1- Add extra logic in the "and_check" helper, kind of duplicating what
+>>    is in the swp.c file (not my favourite)
+>> 2- Move the "careful" handling (which does not return errors when a
+>>    register read is absent) back from swp.c into core.c.
+>>
+>> What do you prefer?
+>
+> 3- make the generic_quad_enable differentiate between "qe bit is in
+> SR1" or "qe bit is in SR2". If it's in SR1, just use
+> spi_nor_{read,write}_sr1. if it's in SR2, keep the current handling.
+>
+> Do I miss something?
 
-Seems odd that none of these have integer return types to propagate errors.
+Well, no, but this is backwards. We reintroduce complexity in a path
+which does not need this complexity.
 
->   	/*
->   	 * configure_testgen_pattern - Validates and configures output pattern mode
->   	 * of test pattern generator
+I drafted another proposal:
 
+4- Make spi_nor_read_sr1_and_sr2() immune to the SR2 absence. swp.c
+still uses its _careful() version. Guard the fact that we cannot have
+write_sr2 but no read_sr2. This way the API is even on the SR2 handling,
+the code in the core stays very simple, we do not leak the awful swp
+handling in the generic path and the SR1-only case is perfectly handled
+in the generic helper without more care (which was my initial intent).
+
+Link: https://lore.kernel.org/linux-mtd/20260911-perso-fix-spi-nor-qe-mxic-=
+v2-1-70c324e9f30e@bootlin.com/T/#u # v2
+
+Thanks,
+Miqu=C3=A8l
