@@ -1,146 +1,96 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E98386578
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:19:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B503B434983;
+	Fri, 11 Sep 2026 08:19:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789114761; cv=none; b=TrkXTEZwnSmwPYvOtqjzfQeAWZN2P78mtgNwR/4fMBAhy0CNs16Bt1VQ5h7M4cTHd9lyjb7qa6GEMh+DJ1mk27LqgQivZWTfmKmUEgzv44ekOZGjSiK8sO7BXXzgXUMkU/+9hvqxWDhV8R4mM9zDssB9IZoVzWlm1GFKWF/S5wI=
+	t=1789114771; cv=none; b=u2PXLtGjDPXtARcvvmtlbKhiTgzch3Y/mkD7XIsOf+zRF414U2Lq6KXSVYvX7s+UDeCNuDPFHBPjToFCwYK6PHh3iuS9sACrHWmRhTJgkFTCCSF/vuav82mWQTr8C80ny1ejaXo4xSNNVByxoOhkpYuo1RWbUwtY0wW3y/xPihc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789114761; c=relaxed/simple;
-	bh=NR5PEJeqZcHRlJQteP402Uf1pvQNvzrW3tZ7WBIIroo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lk3axc9ZmI8z8HxpGzP07DAdMMFR4U3q35rxCAFnPIh3Pz5siY++uPBb+eX8p9tJOYbxPkQQP8xT3r8LslwRUHR8YwtQXToroC4CQn4BIdH2zy6UkeY/011kRsC8mmObqPYROlk5QtBQBLlaYwQz2Hj9uKfDDbkFSrJCam3Low8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net; spf=pass smtp.mailfrom=ursulin.net; dkim=pass (2048-bit key) header.d=ursulin.net header.i=@ursulin.net header.b=fR3YVaAs; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ursulin.net
+	s=arc-20240116; t=1789114771; c=relaxed/simple;
+	bh=ePVUWYy1WmpEjDl6lK+lvTdr9681C/JJnc/TLu9nOSY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ADaoIOxv1xAUkQH4yVsTZ6irWyoe1Cjt28GMvlucXWpqDcOtJPomAfudXld4SZVckc7oEJpVJ2vvLnY8jhHurt0lIzjMiP2LZekQwMj8uLwonjoXEzMKjaP6g6YL9xtX8c1UmDzjlJS4tTPuC7WTbpzjSRTwpPX3r3g6EEGzTCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UxtrHbyI; arc=none smtp.client-ip=192.198.163.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ursulin.net header.i=@ursulin.net header.b="fR3YVaAs"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49e668491f3so468275e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:19:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ursulin.net; s=google; t=1789114758; x=1789719558; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3VSH3uim0qHfCyk3GNDzVd8qd6vMAbK7ziEAl5hIbw8=;
-        b=fR3YVaAszrefpDn0tUGB4zscBqg3rRtaBnxh5sY12/k9HaZxc34sciyjjellGurtm6
-         Jf4P1nBGWeMJ4w/HppXBcx3EcCjTWIZFZH/BEdWiJiarhZr6yG+jVBI1tg8Uuk+nWUa6
-         vrOI9Gz6jQJlm3ClISxFKCeDIaOgEczQMh5JRoK+xmUiHIg9Syhu+R0ga548KMWH/W9J
-         KFN5JqjFVx9fA4kRIYlglBEpQzKg69BKlt01/UOs3NZRfO80cFgivlo0vjhszu7TU3D4
-         SlHzvHUWaesJII33DvlfBJIHkbvJFGcgO0VUA19Ya4Z87p2mI9ps+5gnSgiCbShBLEin
-         EA1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789114758; x=1789719558;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3VSH3uim0qHfCyk3GNDzVd8qd6vMAbK7ziEAl5hIbw8=;
-        b=IjBLIFu4oLm1GvkBB9LuGfSCmWlhASxAyoTBmk36P7scI7cBanUCZgNmfbvQGjFEKq
-         ArwQoeg57cwCAUX9AOfhSfCi6Wu++0aWkXxYKK6IHrWQ2gCJIrpNd0SLyjxhEUJCQ/wi
-         6PsP9NuG6p4IpHOwrpZ5UzKnSZk5zUihvvya68i6E9UBET1b1QgiApjdswMxk0XcBXRA
-         OPiLJm8cbNjNnoI/H05Is5LRsAlr+xLwjCpwQ0JM6aBpXv6TNkFg05e6TcZL4VMt9rMF
-         wxYuYcJZFNBwEba6N2RE8mZA42hRUFMxxIrN+aKhdsrjNX1SPCjuFablZ2qFSjFwg2n8
-         Qsvg==
-X-Forwarded-Encrypted: i=1; AKwUvBwjES4+CGlMERg8qxnQPf7eHyIxPCXluA0sdAhy4A9SSlGVuwHyTe967Ax64+gMViJJ/V8DHAF/s28V9rY=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6k8ZiLxs/G8Bi05VqzGdZdZmvwKEte6eU9ChRlEgigEwL5u0J
-	QEpiwRD4rs7jPhJDPR78+vkpf3V/DeagD2zfNIuELk/Q1tCX6TUGlLTCTe+Wk9wPTeY=
-X-Gm-Gg: AYBFou3RQNT4pR9lW6vHyrqiv2saoVIJeRdKIL5WarPv9NO1fGQgyWqD+HeM1x+YHEm
-	a5DD2DG4/I+iGGeMCQNpNayW9pBg3McL3NAYSeIQZjya214DqEg5/c53FwNQktob8ldrYotPCDS
-	Q6NFrDo9IHtHMDNtmcaR09pYnEF9+CmHtWCIeoqXKRGxnQ1KOHEszVh0moB0Fj8gzb89HktQXUb
-	agM8ejlQWBKczB/iArU/+DFUb4oYnQsNSsJ/MrDnM8Y7ioDS11o8/TUfTAhybI087hsvbUWflq7
-	c6/o20T8VSsTROMWwVAwj8JknR+YrDqa9isyUd7GHdi2K5H1iTsp+LZnmDU2S+igsz84DeMtZBu
-	E4Y7VH2ZB0mA3KkhfGd+z0dGXkk8gwIWztH2Kchz8AKiwdFa7NM9C+hdFMGjp2Tf9iAbs80gxeg
-	MzZIwQrEd10xqBYrjms/oTz4b4x89Ux8H5EEpTpJR9Nd/4YTcV4D8CSKI7h8BtXidtrv53flCb6
-	TqOqmTKNQjDFAg=
-X-Received: by 2002:a05:600c:e547:20b0:49c:dc14:d681 with SMTP id 5b1f17b1804b1-49e6198377cmr22396795e9.3.1789114758269;
-        Fri, 11 Sep 2026 01:19:18 -0700 (PDT)
-Received: from [192.168.0.116] ([81.79.79.1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26d4e3f3sm151236265e9.15.2026.09.11.01.19.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 01:19:17 -0700 (PDT)
-Message-ID: <23c88f50-1998-4de9-bbdb-3d15fd06d642@ursulin.net>
-Date: Fri, 11 Sep 2026 09:19:16 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UxtrHbyI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789114770; x=1820650770;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ePVUWYy1WmpEjDl6lK+lvTdr9681C/JJnc/TLu9nOSY=;
+  b=UxtrHbyI9WOuNew7RSBGkRsPn358RbdFZ4/EByR3gEYcTzXvdGVoYccR
+   kV9U8l3MuTAn+eRR+AJ0lMh67KmINm+AUEIPkXC3wKy4izEmZk+dySK90
+   EoJiP5N17NkE7ZQcDiiooHeewv+ypQ94xX4DX+BFVR8a2BGivlfjdgNEZ
+   H1C62QVrkeL89slb5fL+72/Oh1VLScfZsiv67VxjPnC0uWiMK5gOJAjK5
+   A9ALcLz4PoW1zLO89QNY0Q51O4R7cU7zZL3RaX+wrDEfArxVsrFJ8FdV5
+   Ga8kVRJxwDhXOLP3gjdyJAxVkeXNlPMMa6cnFuTj1EoXda30phTSmxWyU
+   w==;
+X-CSE-ConnectionGUID: 3b9HGguHTxG66jGoS3csGw==
+X-CSE-MsgGUID: sRLQkicBRc2e3CZphbnyaA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="85832"
+X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
+   d="scan'208";a="85832"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 01:19:22 -0700
+X-CSE-ConnectionGUID: YtiXrPu5RpKImt1K5sLzFQ==
+X-CSE-MsgGUID: KkU2ZgFSS5WnRiBieYr5jA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
+   d="scan'208";a="301758984"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.80])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 01:19:11 -0700
+Date: Fri, 11 Sep 2026 11:19:06 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v7 04/17] iio: adc: adi-axi-adc: Add support for CRC
+Message-ID: <aqO5el6eRuMW7NuK@ashevche-desk.local>
+References: <20260910-ad7768-driver-v7-0-7f70b07627e1@analog.com>
+ <20260910-ad7768-driver-v7-4-7f70b07627e1@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] drm/sched: Introduce more locking to entity
-To: Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260910075942.2000338-2-phasta@kernel.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20260910075942.2000338-2-phasta@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910-ad7768-driver-v7-4-7f70b07627e1@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
+On Thu, Sep 10, 2026 at 07:36:22PM +0200, Janani Sunil wrote:
+> Add support for enabling and disabling Cyclic Redundancy Check (CRC)
+> processing in the AXI ADC backend. CRC provides data integrity verification
+> for high-speed ADC data streams, ensuring reliable data transfer between
+> the ADC frontend and backend processing systems.
 
-On 10/09/2026 08:59, Philipp Stanner wrote:
-> Changes since v2:
->    - Fix ordering bug between spsc_queue_pop() and
->      drm_sched_rq_pop_entity().
-> 
-> Changes since v1:
->    - Remove a bunch of patches; make this series only about locking
->      entity->last_scheduled. The rest shall be done in separate patches
->      and series. Consequently, also do not lock spsc_queue, yet.
->    - Move lock-cycle patch to first position. (Tvrtko)
-> 
-> 
-> Both Tvrtko [1] and I [2] have recently proposed some improvals for
-> drm_sched.
-> 
-> While taking Tvrtko's feedback into account for my patch, I realized
-> that both his and my patch can be fully replaced with a bigger and far
-> more beautiful series.
-> 
-> If I am not mistaken, it turns out that the entire entity->entity_idle
-> completion is also nothing but a workaround around the grave mistake of
-> not using the greatest helper with parallel programming that exists in
-> computer science: Locking.
-> 
-> This series adds locking to the last_scheduled field and all checks
-> related to detect the idleness of the entity. As before, the
-> job_scheduled event queue causes the periodic checks.
-> 
-> This way, we can get rid of memory barriers, RCU, a few lines of code,
-> make things more readable, understandable...
-> 
-> Greetings,
-> Philipp
-> 
-> [1] https://lore.kernel.org/dri-devel/20260611123423.39819-1-tvrtko.ursulin@igalia.com/
-> [2] https://lore.kernel.org/dri-devel/20260626081942.2122144-2-phasta@kernel.org/
-> 
-> Philipp Stanner (3):
->    drm/sched: Lock drm_sched_rq_pop_entity() externally
->    drm/sched: Lock spsc_queue_pop() in drm_sched_entity_pop_job()
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-FWIW if you could review 
-https://lore.kernel.org/dri-devel/20260907130527.52530-1-tvrtko.ursulin@igalia.com/ 
-you could drop the first two patches from your series. Extra benefit is 
-that patch fixes a bug and has been tested by the user.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Regards,
-
-Tvrtko
-
->    drm/sched: Protect entity->last_scheduled with spinlock
-> 
->   drivers/gpu/drm/scheduler/sched_entity.c | 53 ++++++++++--------------
->   drivers/gpu/drm/scheduler/sched_rq.c     |  4 +-
->   include/drm/gpu_scheduler.h              | 10 ++---
->   3 files changed, 28 insertions(+), 39 deletions(-)
-> 
 
