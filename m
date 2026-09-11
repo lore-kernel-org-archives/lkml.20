@@ -1,412 +1,92 @@
-Received: from YT3PR01CU008.outbound.protection.outlook.com (mail-canadacentralazon11020125.outbound.protection.outlook.com [52.101.189.125])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5456048EC8B
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:30:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.189.125
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789144209; cv=fail; b=LKfJoiRfckjnbBqO71jCqZMeEsHYrG3SiXhw9MogfbznuR7drUWWUpZUDsyTzF3IisNX+0TVgTMtVKEBnEhIdAJI2PCEF7Fz03wi4tg2bzh0blJaBkPalESC/1O9wgz7iFF+z2vFIo2wZwv7/y3Rt78GT+aXkxabGKmL/URcv6M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789144209; c=relaxed/simple;
-	bh=nKUyXyauVudqT3xXAeGpIPvPlBSOipH/7me3jtgE+pc=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=OYV7FNRkyz2zbp3wmVtobfXMaHnw8nnYVf4qq5mqC07ypTjPlzHM/azTe/b6TaktPNhr7darU9/aMMyEI6iuqWsvqPnmGUcxl21qoBUIPafmTJ4AvFa/oEkjt8hxBijFhZQVvkaujt60YnuRmDC1CuhfZTXsI9U9i94zi/iQfEk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=UaJ3HZ5p; arc=fail smtp.client-ip=52.101.189.125
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E2C34A3874;
+	Fri, 11 Sep 2026 16:31:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789144267; cv=none; b=TB8nqn4uVe947V79CXP9xbVdm/lx0Bd06MI96PhEh8RTxkcab8OKJGBcCvQ45lDVv7/vVDhvmOJIChFoZXrEzHQVIjZ3OqJdlOqr/e7g+aWz35TFyusxobMLN+ZIMJ2P6h4WqgX42XLvF5pkWCn1+nXEzpFjsXHBYrmIkNSZ/lA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789144267; c=relaxed/simple;
+	bh=BlQC9Qcsp3rZ9TzotUw73e4ZVErNEZzbQUuvQP0WSPM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=I/6WipiGVPZ5+WOx2jOzJz4IwQIx+5PalUZX5qORddpMvBr8gxXK8wUlDCce48Oh6bl4yj+TGV+yKE4oBe/BL/Xg1P5dLy8oQq1mX69FbcNo1b8tpDd2XkamJTjRCgNDjZ5bYEj0wX6AtTkiQuEi7kQZkgb2u6ubzvPb0GZpWNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ESBG+YNw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="UaJ3HZ5p"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hrX7zHAQ/I0NRGDCdCIs/D2j4r1e7cw2IUK5N1j068CSDuak2INhuh6+xTL6q4/6vhxoGPCMa93tV9Jnbeh89wyR/mgoh7q4vztlCLqEWuxJVwMiNs5/ee473KFWULbXxBxq8u4ZcG63fa2wry65+C11NohtyB9ySwmsp7+3j0zpeyUUMZuszXz5hMsZPcX5Tiy+jSbq/1I5/m9JKu9kuvaY3yBAYWgvp+3OCLp5t7VzJsWbHhBKVFSl+AE2/Ls36hfyzJ96VWfmAsNW7j2vNQcK/Y9xyAmD1goaatMP7RrPAhad056DC7QS2MDgYLLq79Gy872HA5KQ7YzuzWsOeg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=shtp49dbgB7YekIiLqSxk9tNQF9HIMjuEvjP0S+aDKQ=;
- b=aBIJ52fxvDfVtPHtr+3mRKFMkq8mJMVihsgcb9XL5ITRU7u0ovrLIXh8AG3jx9WnqBM3WfA2HqxGzDPk7ZRbeLlVPrkFfePnvN8jK8pWCE03TMWyMH6StHzYfF6Ci3UMxeXLkE39F625BEklDPBE6/J5FhkKC1JTQWl4PAGAEDnuIevC4XqnW3Zl6EZsSVfmnM8/6WFSwOlEAmFPkt9OGypfw74Rkhh8gnzXPW/l0XoFzO9Xu82X/At4DCu88DQBoouAhlXGxcx5yL9Nx3XPIjo8yO9F/98Kj8LYDj3JK2wiJo41w+0a26mpVQD80MLmfWRVl3fK6ry206aa+wGGlA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
- dkim=pass header.d=efficios.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=shtp49dbgB7YekIiLqSxk9tNQF9HIMjuEvjP0S+aDKQ=;
- b=UaJ3HZ5pMr2UA70x0fAwTYH/e1DCpbHeA5lzqlcS61UlGYrYP55v2ioRJfVnbHQiIF9D2PLW/PLixOaVDIUOQb7eT/9X2gSSKxgqDyaUw7CMTNeEHtFUjhjfWcDG5bMzOvN8wGoLJDURCtMK2ylCg770oZVN/WQUY6aaBNJCmximMGTNvJDHfI1GVC842aZmA6JcsMkOHUjpK8GLDcSU3Y6RcspdUdR7VWBXlbZBsapsF7Tej+t0e4TjmV75y58L08zkYMIOn9m6YrWVzFV020A+zNiOg35nMCEbSP8pnl9xFR1m4INPC8oliIT4sRsevjmI8C87F2nzIWy44x/nFw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=efficios.com;
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10) by YQXPR01MB5540.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:2f::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Fri, 11 Sep
- 2026 16:30:01 +0000
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 16:30:01 +0000
-Message-ID: <f576b7d8-d8d5-4ecf-8663-015c159e6146@efficios.com>
-Date: Fri, 11 Sep 2026 12:30:00 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v21 1/6] lib: introduce hierarchical per-cpu counters
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, "Paul E. McKenney" <paulmck@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@linux.com>,
- Martin Liu <liumartin@google.com>, David Rientjes <rientjes@google.com>,
- christian.koenig@amd.com, Shakeel Butt <shakeel.butt@linux.dev>,
- SeongJae Park <sj@kernel.org>, Michal Hocko <mhocko@suse.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Sweet Tea Dorminy <sweettea-kernel@dorminy.me>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Vlastimil Babka <vbabka@kernel.org>, Christian Brauner <brauner@kernel.org>,
- Wei Yang <richard.weiyang@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Al Viro <viro@zeniv.linux.org.uk>, Yu Zhao <yuzhao@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>, Mateusz Guzik
- <mjguzik@gmail.com>, Matthew Wilcox <willy@infradead.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Aboorva Devarajan <aboorvad@linux.ibm.com>,
- David Carlier <devnexen@gmail.com>, linux-mm@kvack.org
-References: <20260901182857.26690-1-mathieu.desnoyers@efficios.com>
- <20260901182857.26690-2-mathieu.desnoyers@efficios.com>
- <9c4a267c-921a-482a-91d1-6e84f611e7d5@kernel.org>
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Content-Language: en-US
-In-Reply-To: <9c4a267c-921a-482a-91d1-6e84f611e7d5@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT3PR01CA0078.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:84::9) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ESBG+YNw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD9551F000FF;
+	Fri, 11 Sep 2026 16:31:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789144266;
+	bh=TXHjAPO4ki49xaGycG4mlYKTXaKXIGZou8mNbZ9rst0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=ESBG+YNwvBfO6E/s3ggm+M1pmr9KZoiA7kMHNcAbDYVJXQhgHVdGVWJo95oroHAOu
+	 z+z7nfs0Svs0S7L0Nk8sGay4PdnN91SfnadfwXIxN2dI6bd0rjZPBqE3/wlx84cY2R
+	 kVrDZIQ1MK2SSOd1TsX0XKFZLUEvdNf6QlBMPpswOBhxI72yefGIBZ/etsZI7cVcxa
+	 8aYllxfirt99K8VBE/3DhwvqKpaFNSNH5FWIwrNc/4L+ZSPGLN6/a5e8iFhfAnUE8Q
+	 5qJhIRmQjNKrOQdUJfwgLzbrPyrf+AajR4BNPnR9Bqa4/8woTWTFJNED2yqHuD2OaJ
+	 l79M81BrQf/jw==
+Date: Fri, 11 Sep 2026 18:31:03 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: Berke Durak <berke.durak@gmail.com>
+cc: Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, 
+    linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] HID: elecom: Add support for ELECOM M-XT4DRBK (018E)
+In-Reply-To: <20260907184719.25042-1-berke.durak@gmail.com>
+Message-ID: <1p66q195-4nr8-606n-221o-20p88psrs1sn@xreary.bet>
+References: <20260907184719.25042-1-berke.durak@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YQXPR01MB5540:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68310353-8e0d-4202-c721-08df1021ed69
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|10067099003|56012099006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	vNAG1P/0hbUvmmyjsVyV3cHEULt5lUwOj9QNoslD9TcTfGU9oTrajEWlBXiLQkV58GprqJ5HIwFnJrNSOUc+BN+ZNtvi47Vgg0IzE+javirHPm+7g64tCfRNKNGw3AsAMkDiSDmfjfirATDw9w5dJm4BxCDbXPJAclEB9nLZ2Dc2AtSAO/+p5aLC8JNpo3gUwy1A94qgIpS01RtNlghS6w72CYHWxWKfqUhmWtU0dJ7d5eWAwUgC1i6qbRkwYm+i9KVJx/QFAtJ6ZOZtrdJgnA6nqBrhr6CFstqPSRFET/ndQSLTzvSeSGMPt1EwsOzFtEqrEQdNWH3hYPN4AUW1XBVSv3lUckah7avx0SrALBhwRehNTt9qzEpjzsG84mYX4Q0rU+hBV2ABEH05R4smf1oHfQ3i9i7/UH2kcTKNGNzvMtdFD97KXwyGR/f8ZOcOKKeWLnIobvopDFxdRHM90Jfx4ju6mrbBQuEB0SgEOVjbTLLPL9MAxHlAkz9x8Y1K1itFpaXiNV/pTWW/WNJHB4sKvA51C39tgzArB/Sv6iibastslTaomzybJVJBgHGll5Y0rzDMT9JfQUcrqQ7L7PhgiNoXFXeQcFY2700kT5E=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?a1hkazFicGRPbXorUXRkbzk3SHVWZ1BQVEt1M00zYjJoZmgrSWhDVEVxUzM4?=
- =?utf-8?B?MDljVDQvcFdKSWRPS0toOVJGdG1Za012dlYvaFRNR0M5elF6UDBWc3l1YXJV?=
- =?utf-8?B?dmZpZjJJSXY2cWgrRnQrTTVIcGVPQnFwd1pUUWhWYUxQdklvcGVMMGRNUGFI?=
- =?utf-8?B?cUlFMG5RUk1BM2QySXA2Uy9sV0N1OTNwM3l2NTZ5aytLQVZ0VW1qQlIvNDlr?=
- =?utf-8?B?QlRQem5XaGJiSEFlNEQzTEQvZVgySzZoVVl2T1N4Z2pWWVZ6d3NKVWNKb3VK?=
- =?utf-8?B?a3JhSW1yaUtGSFNJK204YnFwdmZ2UDhaWWJ3Y0U0d3NCSE1jMlAyamlUajlD?=
- =?utf-8?B?dCtxTlQxSVpsQnpKb01Rek9ONGNaaFRnb0hmcHA2a2wyQVhvMnRBSDI3Y3lz?=
- =?utf-8?B?eTJGRnVoUnNJMGVYQnJ2b2JpdURiWURqL0k2TWZqbkYvMlVvaks5RktFMmUw?=
- =?utf-8?B?NGFsWVVZVDk4MGgvRjJ2cDlCU3IyQTJIUnl2T0M4UHZHNXlpcWZqTGlDVUFl?=
- =?utf-8?B?TDhUbUJlUGdNSFlZak1PdnBsY3B6YS9wblJtSUZwQUZoNzRvMU41UVR6Vk55?=
- =?utf-8?B?dGw1dTByUTczZFZhUk81RlNyVjVUMGN1bnpGRGpKcFlBUTZyTnM1Y3ZrUVV4?=
- =?utf-8?B?cjR1amszU1d2VDhhUFBTWEM3VFY3UlMrL21Ea2V6R0hodmw4c1VPNjBTWEdO?=
- =?utf-8?B?UmN3QTVjeUp0aHZuOFdPQ2pnSi9KV0pTSWp1M2s0NmVPZXRxc1JqMTkrbzQw?=
- =?utf-8?B?WnhkVDdrbDFYei96aVVnWXZrL0lsd1E0QjBLK0p0UjY5MENjZi9OSUlwNkNa?=
- =?utf-8?B?ZDRmM0gwT2prSlplclVqaFFJZCt2ZmpjQWRocjROSDA5YXZzU21WUjU1VlFt?=
- =?utf-8?B?ME81NjJOamlOb1RCS0dYenNyUUUxMmEzcG5pQUdPQ0NpNk5OaFUxdE04Q0N2?=
- =?utf-8?B?c3llNGdyaVRLNFdGN1pFY2ZWNHdVY0N1cDBCMHI3dDBZKzU5K0E0ZElWdnR1?=
- =?utf-8?B?N2l5RFNNY2xlbFB6NG03bk5yaFhtY2duYzQxQ3U4Y0E1QXJXUzNuK0lDS2lK?=
- =?utf-8?B?RWM4RkRpV0NvQXd2RnBXTEkvYVRFV0tnT1Y3TFBjOUlIYy9EVEJKeUI1OG9y?=
- =?utf-8?B?U3REeUZaSEZZVC9UMklvMmVudUx2WXJVU1JxVnlLQnpDZTNPV1dEa2I5M2Nu?=
- =?utf-8?B?ZUZMenlBRnpkalBXaVRHdUladW5HTlZzVjh4b3M3Z243cGtlczNUU1hON3lZ?=
- =?utf-8?B?NHduN2FxQnlESUJDdzFVVFN6ZGt2SHRoTGlLdU03M012amJhWXJOMU9TWCtE?=
- =?utf-8?B?TExSV2pCZjUwNm9NczNCbnBoMGpnUjg1NHFuWTYzY1BmY29sRVdYQ3ZrTWp0?=
- =?utf-8?B?U3NKcjM5VVNBUDc4Z0dWNTVMdDVPQitGWXhvcWgxcUROYzRWdjJrdUZMZDBJ?=
- =?utf-8?B?LzVpZW1DVkNQeGRUVHROSEZ0Sm5Da1FxdHhkRGdGc1NNODdrV1NDeG9ZS1By?=
- =?utf-8?B?bWxQeHNMZ2d3TGQvZTF4TFEyd3Iza2pqTko4bFA3T1VManE1aSs1MGpVSVNJ?=
- =?utf-8?B?d0VlVTRic3ZxK0h2OXFiZS9lekVRRjNpMTBIeHdpTW9NcUNZb1hDM1ZBSG9S?=
- =?utf-8?B?RDZ6NDhqTVhmVnZXVUVMZXpxRVpLZEhJdlpXTTROS0k2NUt0ODNmQ2pWeXl1?=
- =?utf-8?B?eUpkSjBWcGJORWppK3hoVlEveDVXajJlL2FlWFFSSHprMVpzZ3I3SWxUWUFV?=
- =?utf-8?B?OFpmb0daV3NmbWZUS2tHNXNmamt6Vm4wcjNhMHd5TWRZTWRJbllDMmRpQlZW?=
- =?utf-8?B?RVQ5TVAyVmFDVzhsMGhHS0kwZm9MVWtmZ282VGpEQlFsa2p0T3ozSjU5ZExm?=
- =?utf-8?B?NitUZlhPTWpKQ0pqenpSV2VvYlFkWUZ3VS91a20zMXBMTTVFRVBJMHh2aUVP?=
- =?utf-8?B?YUZGcGhWSEZ6T1dhTzFVNDNCQ1BlTXhacGVKQmUyaldOaG84MmF2L3pueXR6?=
- =?utf-8?B?T3dJUlZCemZudHlTalpZN3ZZa0JyMHNvSDFGWWc3QnBDbVNRK1JleXkycW81?=
- =?utf-8?B?cnBZTytxMnpEK3YrT3pGRmZEQ0ppTVV0SnNoWWVZaUZMbmZ3WW1VdGZhVkJI?=
- =?utf-8?B?ajMvdU5QNXZpYlg4L1dRWXhYZ09EdnF0blR1c2Y5TFU5UUgxWU9KTHpyb3BG?=
- =?utf-8?B?L0V2ZmZZcTR4aE1LUGV5RCtzVkU3WVVJM3lMQTE3dXBCVlZhRndJSHg2UHI0?=
- =?utf-8?B?b0xpKzQ1YXdDZ2kyS1VMS3QrbnQ3WGxYcUVjekVMSXNwWkp6b3ZSbnIrem1H?=
- =?utf-8?B?b0x5VllMQXdrWUhQRDU4MDBQUS9aSzFTSUNyYmxmUTVEVGZrMFNKN3dtVXRO?=
- =?utf-8?Q?ZWlqnyVhi7vaVmEk=3D?=
-X-OriginatorOrg: efficios.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68310353-8e0d-4202-c721-08df1021ed69
-X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 16:30:01.4427
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8L9UxOg9zYiYL5Xn+qcsWtUV9qk3mX09qKe+24xbdjXYYe/FAT57qZAZz3LfNoqSg/nPjDblsCUr0yM3aIdhjTr4x+z8PI1GuBG/zpLdPHA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: YQXPR01MB5540
+Content-Type: text/plain; charset=US-ASCII
 
-On 2026-09-10 08:24, David Hildenbrand (Arm) wrote:
-[...]
->> diff --git a/include/linux/percpu_counter_tree.h b/include/linux/percpu_counter_tree.h
->> new file mode 100644
->> index 000000000000..828c763edd4a
->> --- /dev/null
->> +++ b/include/linux/percpu_counter_tree.h
->> @@ -0,0 +1,367 @@
->> +/* SPDX-License-Identifier: GPL-2.0+ OR MIT */
->> +/* SPDX-FileCopyrightText: 2025 Mathieu Desnoyers <mathieu.desnoyers@efficios.com> */
->> +
->> +#ifndef _PERCPU_COUNTER_TREE_H
->> +#define _PERCPU_COUNTER_TREE_H
->> +
->> +#include <linux/preempt.h>
->> +#include <linux/atomic.h>
->> +#include <linux/percpu.h>
->> +
->> +#ifdef CONFIG_SMP
->> +
+On Mon, 7 Sep 2026, Berke Durak wrote:
+
+> The 2025 revision of the left-handed EX-G wireless trackball
+> (M-XT4DRBK-G) reports USB ID 056e:018e instead of 056e:00fd. Its report
+> descriptor declares an 8-bit button field (Report Count 8) but only five
+> usages (Usage Maximum 5), so the sixth (Fn) button ends up as a
+> duplicate of button 5 and is unusable.
 > 
-> Would it be possible to document here how these values are determined?
-
-Those come from lib/percpu_counter_tree.c:
-
-static const struct counter_config per_nr_cpu_order_config[] = {
-         [0] =   { .nr_items = 0,        .nr_levels = 0,         .n_arity_order = { 0 } },
-         [1] =   { .nr_items = 1,        .nr_levels = 1,         .n_arity_order = { 1 } },
-         [2] =   { .nr_items = 3,        .nr_levels = 2,         .n_arity_order = { 1, 1 } },
-         [3] =   { .nr_items = 7,        .nr_levels = 3,         .n_arity_order = { 1, 1, 1 } },
-         [4] =   { .nr_items = 7,        .nr_levels = 3,         .n_arity_order = { 2, 1, 1 } },
-         [5] =   { .nr_items = 11,       .nr_levels = 3,         .n_arity_order = { 2, 2, 1 } },
-         [6] =   { .nr_items = 21,       .nr_levels = 3,         .n_arity_order = { 2, 2, 2 } },
-         [7] =   { .nr_items = 21,       .nr_levels = 3,         .n_arity_order = { 3, 2, 2 } },
-         [8] =   { .nr_items = 37,       .nr_levels = 3,         .n_arity_order = { 3, 3, 2 } },
-         [9] =   { .nr_items = 73,       .nr_levels = 3,         .n_arity_order = { 3, 3, 3 } },
-         [10] =  { .nr_items = 149,      .nr_levels = 4,         .n_arity_order = { 3, 3, 2, 2 } },
-         [11] =  { .nr_items = 293,      .nr_levels = 4,         .n_arity_order = { 3, 3, 3, 2 } },
-         [12] =  { .nr_items = 585,      .nr_levels = 4,         .n_arity_order = { 3, 3, 3, 3 } },
-         [13] =  { .nr_items = 1173,     .nr_levels = 5,         .n_arity_order = { 3, 3, 3, 2, 2 } },
-         [14] =  { .nr_items = 2341,     .nr_levels = 5,         .n_arity_order = { 3, 3, 3, 3, 2 } },
-         [15] =  { .nr_items = 4681,     .nr_levels = 5,         .n_arity_order = { 3, 3, 3, 3, 3 } },
-         [16] =  { .nr_items = 4681,     .nr_levels = 5,         .n_arity_order = { 4, 3, 3, 3, 3 } },
-         [17] =  { .nr_items = 8777,     .nr_levels = 5,         .n_arity_order = { 4, 4, 3, 3, 3 } },
-         [18] =  { .nr_items = 17481,    .nr_levels = 5,         .n_arity_order = { 4, 4, 4, 3, 3 } },
-         [19] =  { .nr_items = 34953,    .nr_levels = 5,         .n_arity_order = { 4, 4, 4, 4, 3 } },
-         [20] =  { .nr_items = 69905,    .nr_levels = 5,         .n_arity_order = { 4, 4, 4, 4, 4 } },
-};
-
-Currently they need to be kept in sync manually between the public header
-and the implementation, which is error prone. I should do something about that.
-
-Note that the nr_levels and n_arity_order are only used within the implementation,
-so ideally we would only have the nr_items values in the public header, not the
-rest.
-
-Those values are calculated by calculating the number of items needed for the tree
-hierarchy of a given topology, excluding level 0. For instance with 8 (2^3) CPUs:
-
-  * Level 0:  0    1    2    3    4    5    6    7
-  *           |   /     |   /     |   /     |   /
-  *           |  /      |  /      |  /      |  /
-  *           | /       | /       | /       | /
-  * Level 1:  0         1         2         3
-  *           |       /           |       /
-  *           |    /              |    /
-  *           | /                 | /
-  * Level 2:  0                   1
-  *           |               /
-  *           |         /
-  *           |   /
-  * Level 3:  0
-
-we need 4 items at level 1, 2 at level 2, and 1 at level 3, for a total of 7.
-
+> The report descriptor has the same layout as the M-XT3DRBK 018C
+> (button usage maximum at offset 16, button report count at 22, button
+> report size at 24, padding report size at 30), so reuse that fixup.
 > 
-> Without that, ...
+> Rename the existing M_XT4DRBK define to M_XT4DRBK_00FD to match the
+> convention used for the other EX-G revisions.
 > 
->> +#if NR_CPUS == (1U << 0)
->> +# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	0
->> +#elif NR_CPUS <= (1U << 1)
->> +# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	1
->> +#elif NR_CPUS <= (1U << 2)
->> +# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	3
->> +#elif NR_CPUS <= (1U << 3)
->> +# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	7
->> +#elif NR_CPUS <= (1U << 4)
->> +# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	7
+> Tested on a Raspberry Pi 5 with the same fixup in an         
+> out-of-tree module on 6.12 (6.12.96+rpt-rpi-2712);
+> all six buttons are reported after the fix, and they
+> work (tested with xev as well).
 > 
-> ... I'm confused why two separate statements share the same number.
+> Report descriptor as sent by the device, pre-fix (056e:018e,
+> 215 bytes):
+> 
+>  05 01 09 02 A1 01 09 01 A1 00 85 01 05 09 19 01
+>  29 05 15 00 25 01 95 08 75 01 81 02 95 01 75 00
+>  81 01 05 01 09 30 09 31 16 00 80 26 FF 7F 75 10
+>  95 02 81 06 C0 A1 00 05 01 09 38 15 81 25 7F 75
+>  08 95 01 81 06 C0 A1 00 05 0C 0A 38 02 95 01 75
+>  08 15 81 25 7F 81 06 C0 C0 06 01 FF 09 00 A1 01
+>  85 02 09 00 15 00 26 FF 00 75 08 95 07 81 02 C0
+>  05 0C 09 01 A1 01 85 05 15 00 26 3C 02 19 00 2A
+>  3C 02 75 10 95 01 81 00 C0 05 01 09 80 A1 01 85
+>  03 19 81 29 83 15 00 25 01 95 03 75 01 81 02 95
+>  01 75 05 81 01 C0 06 BC FF 09 88 A1 01 85 04 95
+>  01 75 08 15 00 26 FF 00 19 00 2A FF 00 81 00 C0
+>  06 02 FF 09 02 A1 01 85 06 09 02 15 00 26 FF 00
+>  75 08 95 07 B1 02 C0
+> 
+> Assisted-by: LLM
+> Signed-off-by: Berke Durak <berke.durak@gmail.com>
 
-This is because both 2^3 and 2^4 have 3 levels, but the fan-out changes. We go from:
-
-{ 1, 1, 1 }
-to
-{ 2, 1, 1 }
-
-so even though we have twice the number of CPUs, the number of items is the same
-because the fan-out of level 0 went from 2^1=2 to 2^2=4 (it doubled as well).
-
-> (should we simply drop the "elif NR_CPUS <= (1U << 3)" in that case?)
-
-We should, it's indeed redundant. I kept it to have a 1 to 1 mapping with the
-static const table, but if we introduce a compile-time check that they match
-dropping it is not an issue.
-
-> I do wonder whether there is an (easy) way to encode this into a formula. I
-> assume you tried and it got too hairy :)
-
-generating it with a formula gets quickly complex in a way that makes it
-tricky to review.
-
-Something like the trick below would allow us to make sure the values match
-between the public header and the implementation, which where I think we'd
-really need validation:
-
-* Public header:
-
-/* Number of inner nodes for a tree covering @nr_cpus CPUs, -1 if unsupported. */
-#define __PERCPU_COUNTER_TREE_NR_ITEMS(nr_cpus)		\
-	((nr_cpus) <= (1U << 0)  ? 0     :		\
-	 (nr_cpus) <= (1U << 1)  ? 1     :		\
-	 (nr_cpus) <= (1U << 2)  ? 3     :		\
-	 (nr_cpus) <= (1U << 4)  ? 7     :		\
-	 (nr_cpus) <= (1U << 5)  ? 11    :		\
-	 (nr_cpus) <= (1U << 7)  ? 21    :		\
-	 (nr_cpus) <= (1U << 8)  ? 37    :		\
-	 (nr_cpus) <= (1U << 9)  ? 73    :		\
-	 (nr_cpus) <= (1U << 10) ? 149   :		\
-	 (nr_cpus) <= (1U << 11) ? 293   :		\
-	 (nr_cpus) <= (1U << 12) ? 585   :		\
-	 (nr_cpus) <= (1U << 13) ? 1173  :		\
-	 (nr_cpus) <= (1U << 14) ? 2341  :		\
-	 (nr_cpus) <= (1U << 16) ? 4681  :		\
-	 (nr_cpus) <= (1U << 17) ? 8777  :		\
-	 (nr_cpus) <= (1U << 18) ? 17481 :		\
-	 (nr_cpus) <= (1U << 19) ? 34953 :		\
-	 (nr_cpus) <= (1U << 20) ? 69905 : -1)
-
-#define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS		\
-	__PERCPU_COUNTER_TREE_NR_ITEMS(NR_CPUS)
-
-#if PERCPU_COUNTER_TREE_STATIC_NR_ITEMS < 0
-# error "Unsupported number of CPUs."
-#endif
-
-* Implementation:
-
-/*
-  * X(order, nr_levels, ARITY(arity order per level, leaf level first))
-  * Row "order" covers nr_cpus <= 2^order. nr_items comes from the public
-  * header and is checked against nr_levels and ARITY() below.
-  */
-#define PERCPU_COUNTER_TREE_CONFIGS(X)			\
-	X( 0, 0, ARITY())				\
-	X( 1, 1, ARITY(1))				\
-	X( 2, 2, ARITY(1, 1))				\
-	X( 3, 3, ARITY(1, 1, 1))			\
-	X( 4, 3, ARITY(2, 1, 1))			\
-	X( 5, 3, ARITY(2, 2, 1))			\
-	X( 6, 3, ARITY(2, 2, 2))			\
-	X( 7, 3, ARITY(3, 2, 2))			\
-	X( 8, 3, ARITY(3, 3, 2))			\
-	X( 9, 3, ARITY(3, 3, 3))			\
-	X(10, 4, ARITY(3, 3, 2, 2))			\
-	X(11, 4, ARITY(3, 3, 3, 2))			\
-	X(12, 4, ARITY(3, 3, 3, 3))			\
-	X(13, 5, ARITY(3, 3, 3, 2, 2))			\
-	X(14, 5, ARITY(3, 3, 3, 3, 2))			\
-	X(15, 5, ARITY(3, 3, 3, 3, 3))			\
-	X(16, 5, ARITY(4, 3, 3, 3, 3))			\
-	X(17, 5, ARITY(4, 4, 3, 3, 3))			\
-	X(18, 5, ARITY(4, 4, 4, 3, 3))			\
-	X(19, 5, ARITY(4, 4, 4, 4, 3))			\
-	X(20, 5, ARITY(4, 4, 4, 4, 4))
-
-/*
-  * ARITY() is never defined: consumers paste a prefix onto it, so that
-  * __PCT_LIST_##arity turns ARITY(3, 2, 2) into __PCT_LIST_ARITY(3, 2, 2).
-  */
-#define __PCT_LIST_ARITY(...)	__VA_ARGS__
-/* Pad to COUNTER_TREE_MAX_LEVELS (5) entries; "+ 0" keeps ARITY() valid. */
-#define __PCT_PAD_ARITY(...)	__PCT_PAD_(__VA_ARGS__ + 0, 0, 0, 0, 0, 0)
-#define __PCT_PAD_(a0, a1, a2, a3, a4, ...)	a0, a1, a2, a3, a4
-
-#define __PCT_NR_ITEMS(order)	__PERCPU_COUNTER_TREE_NR_ITEMS(1U << (order))
-
-#define __PCT_CONFIG(order, levels, arity)				\
-	[order] = { .nr_items = __PCT_NR_ITEMS(order),			\
-		    .nr_levels = (levels),				\
-		    .n_arity_order = { __PCT_LIST_##arity } },
-
-static const struct counter_config per_nr_cpu_order_config[] = {
-	PERCPU_COUNTER_TREE_CONFIGS(__PCT_CONFIG)
-};
-
-#define __PCT_CALL(m, ...)	m(__VA_ARGS__)
-#define __PCT_SUM(a0, a1, a2, a3, a4)	(a0 + a1 + a2 + a3 + a4)
-
-/* Inner nodes at level @j (1 = parents of the per-CPU counters). */
-#define __PCT_LVL(j, order, levels, sum)			\
-	((j) <= (levels) ? 1U << ((order) - (sum)) : 0U)
-
-#define __PCT_ITEMS(order, levels, a0, a1, a2, a3, a4)		\
-	(__PCT_LVL(1, order, levels, a0) +			\
-	 __PCT_LVL(2, order, levels, a0 + a1) +			\
-	 __PCT_LVL(3, order, levels, a0 + a1 + a2) +		\
-	 __PCT_LVL(4, order, levels, a0 + a1 + a2 + a3) +	\
-	 __PCT_LVL(5, order, levels, a0 + a1 + a2 + a3 + a4))
-
-#define __PCT_CHECK_ROW(order, levels, arity)					\
-	static_assert((levels) <= COUNTER_TREE_MAX_LEVELS,			\
-		"percpu_counter_tree: order " #order ": too many levels");	\
-	static_assert(__PCT_CALL(__PCT_SUM, __PCT_PAD_##arity) == (order),	\
-		"percpu_counter_tree: order " #order ": arity orders do not sum to order"); \
-	static_assert(__PCT_CALL(__PCT_ITEMS, order, levels,			\
-				 __PCT_PAD_##arity) == __PCT_NR_ITEMS(order),	\
-		"percpu_counter_tree: order " #order ": nr_items does not match levels/arities"); \
-	static_assert(__PERCPU_COUNTER_TREE_NR_ITEMS((1U << (order)) / 2) <=	\
-		      __PCT_NR_ITEMS(order),					\
-		"percpu_counter_tree: order " #order ": nr_items not monotonic");
-
-PERCPU_COUNTER_TREE_CONFIGS(__PCT_CHECK_ROW)
-
-One alternative would be to derive the public header nr items from a formula, e.g.:
-
-enum {
-	__PCT_ORDER  = order_base_2(NR_CPUS),
-	/* at most 8-ary per level while that fits in 3..5 levels */
-	__PCT_LEVELS = MIN(5, MAX(MIN(__PCT_ORDER, 3),
-				  DIV_ROUND_UP(__PCT_ORDER, 3))),
-	__PCT_DIV    = MAX(__PCT_LEVELS, 1),		/* avoid /0 for 1 CPU */
-	__PCT_BASE   = __PCT_ORDER / __PCT_DIV,		/* arity order per level */
-	__PCT_EXTRA  = __PCT_ORDER % __PCT_DIV,		/* leaf-side levels with +1 */
-};
-
-/* Number of inner nodes at depth @k (root is depth 0). */
-#define __PCT_NODES(k)							\
-	((k) < __PCT_LEVELS ?						\
-	 1U << ((k) * __PCT_BASE +					\
-		MAX(0, (k) - (__PCT_LEVELS - __PCT_EXTRA))) : 0)
-
-#define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS				\
-	(__PCT_NODES(0) + __PCT_NODES(1) + __PCT_NODES(2) +		\
-	 __PCT_NODES(3) + __PCT_NODES(4))
-
-static_assert(NR_CPUS <= (1U << 20), "Unsupported number of CPUs.");
-
-It's more compact, but it's also less straightforward to understand how many
-items we end up with for a given order.
-
-Any preference ?
-
-Thanks,
-
-Mathieu
+Applied, thanks.
 
 -- 
-Mathieu Desnoyers
-EfficiOS Inc.
-https://www.efficios.com
+Jiri Kosina
+SUSE Labs
+
