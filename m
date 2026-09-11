@@ -1,107 +1,110 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 320BF40E8D6;
-	Fri, 11 Sep 2026 13:50:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E19BE46D547;
+	Fri, 11 Sep 2026 13:51:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789134620; cv=none; b=bWdc/ZvLkBSIUMCEjs9Q0BjPYylYtcC+7vU3EQwkyPkUXsMbzRRTXpI/nc8mggl8USXK/14P5S5AL+YHhVOl27gfgTkron5qRo08ngKCOG4Hntzx9s38GKlK6QAk5RsKmzHnBo/lYo2mlOqliJM6b5XIUPw2PffFdb30EsQVqd0=
+	t=1789134676; cv=none; b=df4YuN6adu/acvYVXMNEJnKEQPGuBpXTGNme0RBvXP56wa5b1crd5dMTDvBP2Ixu6y2yLBmI3qER8N/rJ5N7AGbXnsuXBvRhtXwIyeKKjjpD2wvYfaqJjsKKGfz/ovj+9BjMPSTK1ukwxgj+Jg0yk4wVkLBr4Nh7KvYizQVnh+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789134620; c=relaxed/simple;
-	bh=cuIAEQFe9YfTBQZx01ANX5jmaVryZ8zhbwRp/JdAoqM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TuvVa+EPi/GPtGjAgsS0a8qgDCgccf7S6Kr2rr1twKNg3J4R/mf19u8vls0QCthK3sm4bxXIK4FyEgCxT0OPhCbBimaH6WiYkS9wsPFAqRWTGU4wCYBmAx5M8olF93vWSMJHrV6CSFWIZENnOaoIZqvw5Te1+grsPUbRU0CZe4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=oKP79ioi; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
+	s=arc-20240116; t=1789134676; c=relaxed/simple;
+	bh=O8AiVgv+7ZnNDH5DozKhDd6mASEQNTU+oE4OIbRt9Jg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OgnBsHR3fJcphN+70fkHeUfaQFux4V1FN5Mi5M5QKhoIq4ZPWzJa/G5i3QTT+aEt/oNKzDuUlEyLZeXiPBW0iMSe7yNLBcrz2umlhVsTgIvMxfdbMuBy2v4OjnaiDdaDAs3bZmpkSm8zlSOtcYUFeDwQkoXR9zB19pVBDmp2UzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JK6EuNJm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="oKP79ioi"
-Received: from tju.edu.cn (gy-adaptive-ssl-proxy-4-entmail-virt151.gy.ntes [183.242.150.9])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4d7226c34;
-	Fri, 11 Sep 2026 21:50:04 +0800 (GMT+08:00)
-From: Yibo Tan <lhfff@tju.edu.cn>
-To: Rodolfo Giometti <giometti@enneenne.com>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1] pps: generators: Pin dummy provider while a file is open
-Date: Fri, 11 Sep 2026 21:49:52 +0800
-Message-Id: <20260911134952.648064-1-lhfff@tju.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JK6EuNJm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7E561F000FF;
+	Fri, 11 Sep 2026 13:51:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789134674;
+	bh=fvaClzPibMX8sDId7DsBxokq538mDXT63zj8aRNKY7M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JK6EuNJmEr0lM0l1PtHdk05vdILf1KZ3cHgK0LH1/k3ct3M/29gKSqzM5MLwZbHAe
+	 1gUFS6ovwrEcu/B9ZWAcXtG9bvRJHVAH5z4f0Yd6I42s3f5SbhyIbGxJoewuXr6FDB
+	 dFducW2cgv4lQDDhHwDWxedcTAtQNfEsaMek6YQEPExnKaYpOgoxx7dyd2M/vAG1A5
+	 a/mlov04vWmIQ+nWhSaCYLqCOYyiF/6ZwcsuSz3nwv5d9tECM0gUPedD4kvHGFwE9f
+	 Zwt60k8LPtqiGwoWswLdjb5wD6pPNvcA+eF4Or99UGjoWpnMO+GnHyhkiL42dlYKpq
+	 wtWxeBy/4zWvA==
+Date: Fri, 11 Sep 2026 14:51:09 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, akpm@linux-foundation.org, david@kernel.org, liam@infradead.org, 
+	vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com
+Subject: Re: [PATCH] kselftest: mm: fix potential failure for merged VMA in
+ guard-regions
+Message-ID: <aqQG5LgqXnrmY1_l@gremlin>
+References: <20260911123534.1181501-1-yeoreum.yun@arm.com>
+ <aqP29-H0iKl-2CVH@gremlin>
+ <aqQDbfMOVasuejA3@e129823.arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa090bb863803a1kunm423d710f1df1cc
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQxofVh4fSU1NSE5LGEIZS1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKQ0hVSU9JVUpOS1VCWVdZFhoPEhUdFFlBWU9LSFVKS0hKTk
-	xOVUpLS1VKQktLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=oKP79ioihPAIs98Tt5QlAoEjLiAoB2BzUg1v+Nzms8UiqpAClLMyLWTb7TuuRdGIzSV3psNjt8E5hDoX4zptc1y7Zn0qzXLHvnhmJS+DwgQViqhnsawLGmQzA8beK3woMqLllfzk0raoYVwCYkmEstoZVBLwxs4J51w3nfkmvZw=; c=relaxed/relaxed; s=default; d=tju.edu.cn; v=1;
-	bh=cExZDgHOjTvpPQx1lVAEHRgDVoPv0zocD9YK+/lelZY=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqQDbfMOVasuejA3@e129823.arm.com>
 
-pps_gen_register_cdev() copies pps_gen_source_info.owner to cdev.owner so
-an open file pins the module that owns provider metadata and callbacks. The
-dummy generator leaves owner unset, allowing pps_gen_dummy to unload while
-an old file remains usable through pps_gen_core.
+On Fri, Sep 11, 2026 at 02:34:37PM +0100, Yeoreum Yun wrote:
+> On Fri, Sep 11, 2026 at 01:59:31PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > On Fri, Sep 11, 2026 at 01:35:34PM +0100, Yeoreum Yun wrote:
+> > > check_vmflag_guard() uses /proc/self/smaps to retrieve the VMA flags,
+> > > but this can fail if the mapping is merged with an adjacent VMA.
+> > >
+> > > To avoid this potential failure, first allocate a temporary region with
+> > > extra pages at both ends, unmap it, and then map the test region within
+> > > the temporary address range, leaving an unmapped page on each side to
+> > > prevent VMA merging.
+> > >
+> > > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> > > ---
+> > >  tools/testing/selftests/mm/guard-regions.c | 14 ++++++++++++--
+> > >  1 file changed, 12 insertions(+), 2 deletions(-)
+> > >
+> > > diff --git a/tools/testing/selftests/mm/guard-regions.c b/tools/testing/selftests/mm/guard-regions.c
+> > > index 5c8ec3ca75d7..a28a57d34e97 100644
+> > > --- a/tools/testing/selftests/mm/guard-regions.c
+> > > +++ b/tools/testing/selftests/mm/guard-regions.c
+> > > @@ -2257,8 +2257,18 @@ TEST_F(guard_regions, smaps)
+> > >  	char *ptr, *ptr2;
+> > >  	int i;
+> > >
+> > > -	/* Map a region. */
+> > > -	ptr = mmap_(self, variant, NULL, 10 * page_size, PROT_READ | PROT_WRITE, 0, 0);
+> > > +	/* Try to Map a region. */
+> >
+> > Map -> map
+> >
+> > > +	ptr = mmap_(self, variant, NULL, 12 * page_size, PROT_READ | PROT_WRITE, 0, 0);
+> >
+> > Should be PROT_NONE otherwise it'll merge with the below.
+>
+> It doesn't matter. since this memory is unmapped and then second map
+> at ptr + page_size.
+>
+> IOW, though the first one is merged, it unammped and then
+> the second is allocated at ptr + page_size, it wouldn't be merged:
+>
+>   after unmap:
+>    [existing VMA][ 12 pages ][existing VMA]
+>
+>   second:
+>    [exiting VMA] [hole (page)] [ 10 pages (for test)] [hole (page)] [existing VMA]
+>
+> Am I missing something?
 
-The old file retains the core-owned pps_gen_device, whose info pointer then
-refers to unloaded pps_gen_dummy rodata. PPS_GEN_SETENABLE dereferences the
-stale info->enable member and may call through memory reused by another
-module.
+Yeah, unmapped (unfaulted) VMAs can be merged with mapped (faulted) VMAs.
 
-In three KASAN runs, a uid-65534 process with no capabilities held the old
-file while a separate root process unloaded the dummy provider. The later
-ioctl faulted in pps_gen_cdev_ioctl(). A stock-module follow-up also
-reproduced three kernel panics after the same uid-65534 process naturally
-autoloaded can-bcm.ko into the retired rodata page and reached a NULL call.
-The administrator-performed provider unload remains a prerequisite.
+In general it's also better to be explicit by specifying distinct attributes
+anyway to spell out clearly that the VMAs are intended to perform that task.
 
-Set owner to THIS_MODULE and update the documentation example. In three
-owner-only fixed runs, the open file raised the provider refcount, unload
-failed with EAGAIN, and the ioctl, close, and subsequent unload completed
-without a kernel diagnostic.
+>
+> --
+> Sincerely,
+> Yeoreum Yun
 
-Fixes: 580afe4acbd4 ("drivers pps/generators: add dummy PPS generator")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
----
- Documentation/driver-api/pps.rst       | 1 +
- drivers/pps/generators/pps_gen-dummy.c | 1 +
- 2 files changed, 2 insertions(+)
-
-diff --git a/Documentation/driver-api/pps.rst b/Documentation/driver-api/pps.rst
-index 598729f9c..89a473be7 100644
---- a/Documentation/driver-api/pps.rst
-+++ b/Documentation/driver-api/pps.rst
-@@ -207,6 +207,7 @@ registered in the kernel by defining a struct pps_gen_source_info as
- follows::
- 
-     static const struct pps_gen_source_info pps_gen_dummy_info = {
-+            .owner                  = THIS_MODULE,
-             .use_system_clock       = true,
-             .get_time               = pps_gen_dummy_get_time,
-             .enable                 = pps_gen_dummy_enable,
-diff --git a/drivers/pps/generators/pps_gen-dummy.c b/drivers/pps/generators/pps_gen-dummy.c
-index a4395543c..393c44246 100644
---- a/drivers/pps/generators/pps_gen-dummy.c
-+++ b/drivers/pps/generators/pps_gen-dummy.c
-@@ -58,6 +58,7 @@ static int pps_gen_dummy_enable(struct pps_gen_device *pps_gen, bool enable)
-  */
- 
- static const struct pps_gen_source_info pps_gen_dummy_info = {
-+	.owner			= THIS_MODULE,
- 	.use_system_clock	= true,
- 	.get_time		= pps_gen_dummy_get_time,
- 	.enable			= pps_gen_dummy_enable,
--- 
-2.39.5
-
+--
+Cheers, Lorenzo
