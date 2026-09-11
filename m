@@ -1,170 +1,244 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CF591D7E5C
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:40:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EBE863A4F2F
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:40:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789126824; cv=none; b=mhhofJDYGWrMA8ho3XCTY5fj8/RjM+/EmO93+DSDhLnlYEcFKeB6bK9gvm3VSNb2eKPMvaNLhMFa2Xnh8+ZnB8lUseFsk1QIt1Oc3fGIalNwbcg7gagWXZUyUcdUjNrngFHbeKIi9LcC57C+HPDSUMP+lj9h5KXB2K5WFwyuVXM=
+	t=1789126829; cv=none; b=D6WEKDE4mnQKBu9yRSKZYF2zr96Vfimx7kgG3cG9rp+M0ZLXjBpaNpMx1PoaBKiApVIZMRewgmUR8ndHWZG1oIzYVqg2mFTtQAWjqRolMMa5f37lB0IRrGQ36UxEF2pA2inC/6PgSyFiysWutLo05LggBStCnpz/4zUFbcUV5mU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789126824; c=relaxed/simple;
-	bh=AiFZxVxb4uPFuB6epvfZYhvtU1oHMpSADyh0bZhRhLU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IZNKsbyfJsSW3UWrNPE1qpgBdkv9FYHWxG813e0YBcBuJNXXHkV1NWtiUli0d09Wahq2m8/7opf7Vn9FCuuBH/tX+7sZm7U+paIjcn7R+xVdCpVZn3ES1GEb4ruveTuSB9JEbKz1W4vyBqZeI7FR55qP7EnQqSDZxcH6powDurE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=K9V4kjb7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GR68RKuZ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789126829; c=relaxed/simple;
+	bh=y4Y8gWkVV/nPSXn6MMWRiSH8kJFJ9j4ufvHdYDsdIUM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l7Oz+yKNK36o6XtoRtgxELR5pvMzbuedZL/OyfMC9wKCgCTwYPyhAL9Zp+6OU1IoutMxxp3vnv8/KMB2CGonvrVgywHmYca1kPqANYxaAmKMihk/ZUMC+L8J+cipFEpGRJvj1VdimKp1mzNwsbZDqSuzJpB3VFGI4XzkOwQh/i8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=dZ+dw9Hx; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="K9V4kjb7";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GR68RKuZ"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BAqLxq3220235
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:40:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	L3Wnep3ucQT0IwQfa+r8v+NvhklcvjC9W+oJ9otiAag=; b=K9V4kjb7SQeHdbk+
-	BQMo9NMTrDLO78f2+xH2BQ6KW3qMZHJEqBIiHCohKkU+edfFGLfPn6yTfePW0g7Z
-	WCfQSJ+STQbnQCh8oJ7kH8zFnIugyOjt5SoFsvmePuObEHkEOCwAF5mr2XYgjq1c
-	yLP3PYzQzgdw56cGFwUO38f6RMwsAzC7cHDCU6971B82yu1IcUIipNE3WeAlVF2v
-	hFJaX93I6wc+3GloOuJVPKga+TPcYbDZ0yNUMhlIdDOtcblT3eRXtVPTCkH1qQeb
-	7eZ33+V+VXB0lxjnmCBn3vKIJkeSHglHnq9gJiEMfi2fUDliqDYPKMJZTGMgBDsH
-	N+ElPQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gm729jedc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:40:22 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3968dfff779so1264778a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 04:40:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789126822; x=1789731622; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=L3Wnep3ucQT0IwQfa+r8v+NvhklcvjC9W+oJ9otiAag=;
-        b=GR68RKuZNoRcc4TK2tUyu2zrxIahyXQs8s6DczYxAhycK7hqDMyxMn9xGuy1JnDeux
-         00eJg5/tajlB7LwkC06043WzNTo95VtUh/PpOsRFjQkLWZaZkcIpw/6DAahJShc9hc96
-         XgniL4/kx6S+fsOwiEDY5zmqrqEwr0YwLd3pV629ck5v/8jRSu8YTuD9IBMZcivblt5D
-         Gf+GNiHAmlOZgrePKwNci5YV/Wd8CVcUIzWNKTngy+X8YpN5eWhRzRMxoJLv8Iqk820G
-         P0xZpOBikPNLTxZlehPtf5u5pAIunBDP/o/LLX02ASVNrmHxzNnH/SqsGabWnL/6eJ8u
-         4JhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789126822; x=1789731622;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=L3Wnep3ucQT0IwQfa+r8v+NvhklcvjC9W+oJ9otiAag=;
-        b=DMZkd7NNO32VfuRQU/CpjXeIUvJ+qrX4/XOS2S8iw0d+SyhQsWO4jwM83fwx79ly8k
-         48uRCl2JgOEopHt5MdnsP/wze1IGYbtxmYqxkXeurKdW9jSanCr5H2DDn7hZA8p4GJWU
-         6ZakWKK+XYuo3Cix4Z1L6kEGh1ehXGvbYkYnsAoM2WPk31uXtPiyP/Gim59h9ms3rm8h
-         UBZqLLOgzEbo2jvoRu26u5Y+lZNO1b2pHSZF80ayI6YgVLZgsHMMZv7mt9JPGrmfs3vv
-         KJZnK8E4yQjV4lPEtbG81q3l/jdV8Fw7UUSZaoFtkNZ4NKZp7KvpE1Vsup0Z5w+52d79
-         Optw==
-X-Forwarded-Encrypted: i=1; AKwUvByX/BEc2FxrTVuSKNecf9vyhvdf2CkbDzewr1hygiZwFsE//Ll4NvRe1Rpir7x3Ld4swe2qo42zHEopIU8=@vger.kernel.org
-X-Gm-Message-State: AFuF++l3ia9N+zmHnjYrI36vSyEdqlQpdkKnD1XyYgMaRKQLBvIntail
-	62DpSbydscFhK3KoGCVSbLKIIdEapJHww3oMuF33uZuulsTX9hANkzWT4pNkSxjG0XG/SALO0bt
-	JXmpqA1f2mstj473CSeQA9M0XIvOCfRHtb5psQXyFcIbsHllgTkWA9yyfmHfv9LWcRQ0=
-X-Gm-Gg: AYBFou0HV98p0+UDsNrjRkGVcucrwoiIa5HlNWQi9djb6UonAQz5SGROmlI1ayIZ4QM
-	PK3Eeig4u06U7eVkz4JahwHaZqFRE8g6vTRm4i91YGgeLG5ntcZOmbPjEhz9REdLAQa6j369mvT
-	3fIxQh+OByW/f0RMUoEhm1qOH8DvQF50JqpBxzwJvOxfVaRzolAsLq/xdZ2H9Oqvyu9qvp0xxBR
-	M7cXXvZ+0w+RvvRDvLH3wY6ZwY+Ql1Ezw5fiDAGajR5azLJ7quahLcTCXNAJOJrbvZ66aB00VhP
-	PXr8+0yf9vJzJw1Azp4SveAPZIB8uQ+ZAfPArHJaXSrRfvD4f4dPg1rFwNV8/eJLq73ggEbYshs
-	xeD2f3KuK6RGvcaWF+Tw+C4WtnTOW7AzD
-X-Received: by 2002:a17:90b:3fcc:b0:38e:a52e:a3c9 with SMTP id 98e67ed59e1d1-39d7795b9aemr12122459a91.8.1789126821950;
-        Fri, 11 Sep 2026 04:40:21 -0700 (PDT)
-X-Received: by 2002:a17:90b:3fcc:b0:38e:a52e:a3c9 with SMTP id 98e67ed59e1d1-39d7795b9aemr12122402a91.8.1789126821413;
-        Fri, 11 Sep 2026 04:40:21 -0700 (PDT)
-Received: from [10.206.103.83] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4fa50efsm6705009eec.28.2026.09.11.04.40.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 04:40:20 -0700 (PDT)
-Message-ID: <9a6b7238-11d1-45ac-ac0b-ed34c6109424@oss.qualcomm.com>
-Date: Fri, 11 Sep 2026 17:10:14 +0530
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="dZ+dw9Hx"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A3D351655;
+	Fri, 11 Sep 2026 04:40:23 -0700 (PDT)
+Received: from e120398-lin.trondheim.arm.com (e120398-lin.trondheim.arm.com [10.42.46.160])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5B8473F59E;
+	Fri, 11 Sep 2026 04:40:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789126827; bh=y4Y8gWkVV/nPSXn6MMWRiSH8kJFJ9j4ufvHdYDsdIUM=;
+	h=From:To:Cc:Subject:Date:From;
+	b=dZ+dw9Hx6GvSXpNwd4/tBgswYE6lZiraGKCdA+o6BmLppWPpRfty50GXiuDedWg8u
+	 n9FT7+RZNMH2a9o5LTU2NIqwSUXda+rYksh3hXpwNMM2oD83NkbPdLiGXxqybvkGzj
+	 OIu4yUvtdx2EWAOuufNwiKqParnNKY4F3wOog/I8=
+From: Ketil Johnsen <ketil.johnsen@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Alice Ryhl <aliceryhl@google.com>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Ketil Johnsen <ketil.johnsen@arm.com>
+Subject: [PATCH v3 0/6] drm/panthor: Protected mode support for Mali CSF GPUs
+Date: Fri, 11 Sep 2026 13:40:08 +0200
+Message-ID: <20260911114014.79139-1-ketil.johnsen@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: iris: Fix bus_info prefix in VIDIOC_QUERYCAP
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-References: <20260818-v4l2-compliance-fix-v1-1-77f8076d5ca3@oss.qualcomm.com>
-Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <20260818-v4l2-compliance-fix-v1-1-77f8076d5ca3@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDE2MyBTYWx0ZWRfXxjMuoKvMTfZo
- bSoyDkKXMdfe8Obvmfn3ZorEqZMh2T1GUnjP2i1yM153hhdkhpzDy5Icn7N2KVZPB28u7vpdVBm
- zYNpl5jUTcflPuDMCMPtNuNL/+QCOrk=
-X-Proofpoint-GUID: TnJLL1THd00KyjU3rmD5JpG0Qq3gumBa
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDE2MyBTYWx0ZWRfXwIUas0ntuyAk
- WLjmKt4WwqppGrIGLYYZgrJgZFtlnSGXYz9tY8MkdrYMIh4vfLM2AlawgGRENCIRk7d4nvKU8I7
- TihrrXZFyU/u2dDLXoCL8loar3rZJmZbcSYm+3O8IjSenfCfbaaIwHVDNAXZQ6EtJhqavX+fUoN
- paDWk/zeKljRwocJ/6ppnW4jalbmIaGlTc2n6GBgjwMn64Me9trL6cXFCHaJDT8WXZBZDl4Ue2s
- o55LV0tr58C7ZBMWN/ZsC+PA41iKHmnZM5WyhwRxX1SQR7KX9761h9femzn/D8WkKSUWyXlF7gx
- RaIxsQmCSVcj/yHZ9nQTin7eW0T58cpQFcp+E2yIIeaPvvaoR3mXM0ZRfUiBxkc1kpHo9d/0mIC
- y3FjRwZa+jRHkAMnIa6IQZXiPABnL554SoSPfAQ52pauRqE//1zkv1YCL75WlDr4NY3PQWgj5tL
- SZk0ZIVtl6vO8Q8fWHQ==
-X-Proofpoint-ORIG-GUID: TnJLL1THd00KyjU3rmD5JpG0Qq3gumBa
-X-Authority-Analysis: v=2.4 cv=AfwkjHXG c=1 sm=1 tr=0 ts=6aa3e8a6 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=j3-kLYPpZ4N4r97w07IA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-11_04,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 impostorscore=0 bulkscore=0 spamscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110163
+Content-Transfer-Encoding: 8bit
+
+Hi,
+
+This is a patch series covering the support for protected mode execution in
+Mali Panthor CSF kernel driver.
+
+It builds on the initial RFC posted by Florent Tomasin back in January of 2025.
+
+The initial RFC can be found here:
+https://lore.kernel.org/lkml/cover.1738228114.git.florent.tomasin@arm.com/
+
+The Mali CSF GPUs come with the support for protected mode execution at the
+HW level. This feature requires two main changes in the kernel driver:
+
+1) Configure the GPU with a protected buffer. The system must provide a DMA
+   heap from which the driver can get protected buffers.
+   It can be a carved-out memory or dynamically allocated protected memory region.
+   Some system includes a trusted FW which is in charge of the protected memory.
+   This problem is integration specific and the responsibility to allocate the
+   required protected memory from the correct and system specific DMA heap is
+   left to user space (Mesa). Panthor CSF driver must be handed the needed
+   buffers via new IOCTLs.
+
+2) Handle enter and exit of the GPU HW from normal to protected mode of execution.
+   FW sends a request for protected mode entry to the kernel driver.
+   The acknowledgment of that request is a scheduling decision. Effectively,
+   protected mode execution should not overrule normal mode of execution.
+   A fair distribution of execution time will guaranty the overall performance
+   of the device, including the UI (usually executing in normal mode),
+   will not regress when a protected mode job is submitted by an application.
 
 
-On 8/18/2026 9:43 PM, Vishnu Reddy wrote:
-> The bus_info field returned by VIDIOC_QUERYCAP used the abbreviated
-> prefix "plat:" instead of the standard "platform:" prefix expected
-> for platform devices. v4l2-compliance validates that bus_info for
-> platform devices starts with "platform:", and fails otherwise:
-> 
-> fail: ../utils/v4l2-compliance/v4l2-compliance.cpp(671):
-> missing bus_info prefix ('plat:aa00000.video-codec:dec')
-> 
-> Update the format string in iris_querycap() to use "platform:" so
-> that v4l2-compliance bus_info check passes.
-> 
-> Fixes: 94ef75095d5e ("media: iris: Enumerate cap->bus_info to differentiate between encoder and decoder")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> ---
->   drivers/media/platform/qcom/iris/iris_vidc.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media/platform/qcom/iris/iris_vidc.c
-> index fcbc60016bee..d39ac71a25aa 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vidc.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vidc.c
-> @@ -466,7 +466,7 @@ static int iris_querycap(struct file *filp, void *fh, struct v4l2_capability *ca
->   		info = "enc";
->   	}
->   	snprintf(cap->bus_info, sizeof(cap->bus_info),
-> -		 "plat:%s:%s", dev_name(core->dev), info);
-> +		 "platform:%s:%s", dev_name(core->dev), info);
->   
->   	return 0;
->   }
-> 
-Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Background
+----------
+
+Current Mali Panthor CSF driver does not allow a user space application to
+execute protected jobs on the GPU. This use case is quite common on end-user-device.
+A user may want to watch a video or render content that is under a "Digital Right
+Management" protection, or launch an application with user private data.
+
+1) User-space:
+
+   In order for an application to execute protected jobs on a Mali CSF GPU the
+   user space application must submit jobs to the GPU within a "protected regions"
+   (range of commands to execute in protected mode).
+
+   Find here an example of a command buffer that contains protected commands:
+
+```
+          <--- Normal mode ---><--- Protected mode ---><--- Normal mode --->
+   +-------------------------------------------------------------------------+
+   | ... | CMD_0 | ... | CMD_N | PROT_REGION | CMD_N+1 | ... | CMD_N+M | ... |
+   +-------------------------------------------------------------------------+
+```
+
+   The PROT_REGION command acts as a barrier to notify the HW of upcoming
+   protected jobs. It also defines the number of commands to execute in protected
+   mode.
+
+   The Mesa definition of the opcode can be found here:
+
+     https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/panfrost/lib/genxml/v10.xml?ref_type=heads#L763
+
+2) Kernel-space:
+
+   When loading the FW image, the Kernel driver must also load the data section
+   of CSF FW that comes from the protected memory, in order to allow FW to
+   execute in protected mode.
+
+   The FW uses the same protected memory buffer to execute protected jobs from
+   all processes on the system. Note: This buffer must be provided by a user
+   space process with CAP_SYS_MODULE though.
+
+   In addition, when a CSG (group) is created, it must have a protected suspend
+   buffer. User space must provide this buffer on group creation if it want to
+   execute protected jobs.
+
+   The required size of both these buffer types can be queried. See
+   query type DRM_PANTHOR_DEV_QUERY_PROTM_INFO.
+
+Design decisions
+----------------
+
+The earlier versions (RFC and v1) relied on in-kernel allocation of protected
+DMA-bufs, both for the required FW memory (system wide), and per group
+suspend buffers (per process). This is no longer needed.
+Starting with v2, this is now changed and it is user space which is responsible
+for supplying these buffers.
+Only a user space processes with elevated privileges (CAP_SYS_MODULE) is trusted
+to provide the system wide protected FW memory. This only needs to happen once
+per boot, and is needed before any non-privileged processes can make use of
+protected rendering.
+
+The Mali Panthor CSF kernel driver will handle enter/exit of protected
+mode with a fair consideration of the job scheduling.
+
+If the system integrator does not provide a protected DMA heap, the driver
+will not allow any protected mode execution.
+
+Patch series
+------------
+
+[PATCHES 1-4]:
+  These are refactoring to aid the implementation of the protected rendering
+  feature itself.
+
+  * drm/panthor: De-duplicate FW memory section sync
+  * drm/panthor: Minor scheduler refactoring
+  * drm/panthor: Pass drm_file instead of panthor_file
+  * drm/panthor: Don't allocate protm_suspend_buf
+
+[PATCH 5]:
+  This patch implements the logic to handle enter/exit of the GPU protected
+  mode in Panthor CSF driver.
+
+  Note: To ease the handling of faults from protected mode, only a single CSG is
+        allowed to execute in protected mode. It must be the top priority one.
+
+  * drm/panthor: Add support for entering and exiting protected mode
+
+[PATCH 7]:
+  The final patch exposes this feature via the uAPI and adds the necessary
+  handling/use of user space provided protected memory.
+
+  * drm/panthor: Expose protected rendering features
+
+Testing
+-------
+
+1) Platform and development environment
+
+   Any platform containing a Mali CSF type of GPU and a protected memory allocator
+   that is based on DMA Heap can be used. For example, it can be a physical platform
+   or a simulator such as Arm Total Compute FVPs platforms. Reference to the latter:
+
+     https://developer.arm.com/Tools%20and%20Software/Fixed%20Virtual%20Platforms/Total%20Compute%20FVPs
+
+2) Mesa:
+
+PanVK support can be found here:
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/40044
+
+
+Previous versions
+-----------------
+v2: https://lkml.org/lkml/2026/7/12/369
+v1: https://lkml.org/lkml/2026/5/5/1523
+
+
+Highlevel changes
+-----------------
+
+Changes in v3:
+- Dropped patch "drm/panthor: Explicit expansion of locked VM region"
+- See each patch for detailed changes
+
+Changes in v2:
+- Conceptually similar to v1, but heavily reworked to address fault handling
+- User space provides all protected memory buffers (no in-kernel dmabuf alloc)
+
+
+Boris Brezillon (2):
+  drm/panthor: Pass drm_file instead of panthor_file
+  drm/panthor: Expose protected rendering features
+
+Florent Tomasin (2):
+  drm/panthor: Minor scheduler refactoring
+  drm/panthor: Add support for entering and exiting protected mode
+
+Ketil Johnsen (2):
+  drm/panthor: De-duplicate FW memory section sync
+  drm/panthor: Don't allocate protm_suspend_buf
+
+ drivers/gpu/drm/panthor/panthor_device.c |   1 +
+ drivers/gpu/drm/panthor/panthor_device.h |  34 ++
+ drivers/gpu/drm/panthor/panthor_drv.c    |  61 ++-
+ drivers/gpu/drm/panthor/panthor_fw.c     | 274 +++++++++--
+ drivers/gpu/drm/panthor/panthor_fw.h     |   6 +
+ drivers/gpu/drm/panthor/panthor_gem.c    | 106 +++--
+ drivers/gpu/drm/panthor/panthor_gem.h    |   7 +-
+ drivers/gpu/drm/panthor/panthor_gpu.c    |  47 +-
+ drivers/gpu/drm/panthor/panthor_gpu.h    |   4 +
+ drivers/gpu/drm/panthor/panthor_mmu.c    |  35 +-
+ drivers/gpu/drm/panthor/panthor_mmu.h    |   6 +-
+ drivers/gpu/drm/panthor/panthor_sched.c  | 567 +++++++++++++++++++----
+ drivers/gpu/drm/panthor/panthor_sched.h  |  27 +-
+ include/uapi/drm/panthor_drm.h           |  85 +++-
+ 14 files changed, 1033 insertions(+), 227 deletions(-)
+
+-- 
+2.43.0
+
