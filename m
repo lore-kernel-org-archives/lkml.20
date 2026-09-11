@@ -1,290 +1,110 @@
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1938645D906
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:23:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A063C456291
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:24:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789114989; cv=none; b=jgh+pFgt4h9+n6TwdHSkiDgMw/uBXZ58LKqyRizijpEPFq/y8y3EhlSiEtYE/H3E2ud6yXRTJgwkHfjXbOG2OmiFrpby5Ch0qAf52FiV+KwhsmUx79dZVkp8hv0k76WOiB2wR7iY8ap8zJOTAToaljSv4Co4ejuKQzIK5ZH76Ok=
+	t=1789115074; cv=none; b=rsGB3Lt6lD21nK27NpIdVbGhI0UQcO4odRgRCKezFjCBROE3V2uW/+4S9j4t3OAsQxK9RHWcgBdctHkCSbUr1r0oS7hA/Iyru5eiIDmddU3h2iDt67JURHdd8FOFs0mBqpgScZeFojGsxT94VfYdBALY6KIWFrFHAXkmRPlOWto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789114989; c=relaxed/simple;
-	bh=QiuypabxUjS4vfF/8UCunp08BvBL6+9cN+D9CRGa6mk=;
-	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type; b=G+3ND5SRqouyzqw8igw3VHz8+YDQiNxlkP7p9DqP2sVEV76aJSe6f8Dd5xdawfrA9VtHsajEF+NkW/70Ger4jvqKK7qgf1FOAdLsb0nLQMvXpKb5qVxLCquRvE1oqIrgiA+2dFweJQF0e3E+I6uP8NhNluD+BuWb7hx2HE+FJwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hh6xC4KX9z5B0p0;
-	Fri, 11 Sep 2026 16:22:55 +0800 (CST)
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl2.zte.com.cn with SMTP id 68B8MeHY053487;
-	Fri, 11 Sep 2026 16:22:40 +0800 (+08)
-	(envelope-from xu.xin16@zte.com.cn)
-Received: from mapi (xaxapp05[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Fri, 11 Sep 2026 16:22:42 +0800 (CST)
-X-Zmail-TransId: 2afc6aa3ba52b0e-b6afd
-X-Mailer: Zmail v1.0
-Message-ID: <20260911162242418ODBbr9wspxxIXDS8uvpeZ@zte.com.cn>
-In-Reply-To: <20260911161333316ISAQaj9yJhmglKT5A9OnK@zte.com.cn>
-References: 20260911160421076_KNXun8Mpp9Xj7fxHG0i7@zte.com.cn,20260911161333316ISAQaj9yJhmglKT5A9OnK@zte.com.cn
-Date: Fri, 11 Sep 2026 16:22:42 +0800 (CST)
+	s=arc-20240116; t=1789115074; c=relaxed/simple;
+	bh=Iq+fpSyK4ILX+urSkwlTvDb34gQ3oxCb6Di9PgY+GDw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bDuZDKlGVm+44DxlCZQWR5nB/1ZxMuU0I7AEso6fsm/C2/wVGfyaXONw/lEu93EVTD+uUDd0TqPXGnVg/IBYfYb/BGkyNkn0+Q1NVl8zLIBgMkLFoVM2VZ2/i6AMYhQIT19ZwnZL6l5/NyvhqkWyClfal5JBVO8uqf0sGPBBNRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=EWe1pMFa; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="EWe1pMFa"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49e63568bfbso3477125e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:24:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1789115071; x=1789719871; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2WWeljkn3dRICBmDHnyIQXWg+zBlpnH6+buSyxyqyJI=;
+        b=EWe1pMFaSKyW/8ATBOV5NHQWw3u0iT+K2cBTZgw6KRUmD2/eK+ZpJu09FrYfvHGecu
+         C+slkZKWbZGEjHBH04S79zZmYe2ew/ekpBAjw46gn0tqbyc7KhYKX4vyV24zgdUmaK/N
+         cR54sITVTPvw0z2AAknDL6y0+e+UpZ+Xr2hJrAARFj/s0Ks8y1pGwCCsn+G2OloxW2QW
+         1cN7rC1tHiHb5RZPXpW7w2zrEL8EfSrGy/umJoTiq/khRNvfMentO1+kaGTxvNzWH86K
+         9YIo3sfjvnWUZWcPc2tVbnyZVcAC62iEYKSLqNIFMj9laOgdHttXHqpDHJovIvbQCp2W
+         SEgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789115071; x=1789719871;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2WWeljkn3dRICBmDHnyIQXWg+zBlpnH6+buSyxyqyJI=;
+        b=YZ4F3LH94NksvgrKf1AO+Y48o44E9H+OMtuumEqDfPfW9Cy02uHpgjwcBBbmbuxm03
+         aIPTTyDUIid8p6C9kb5WWgQssgc7yeBCaCRNweQfkHUBCZC/rHoFpQrNdmiuNOrPqQ2e
+         fgacHxzIDMYoUdnrYH4rWF7JhqhVNlk/1DnQ4qkZ2Ma1DW+RJq3ITcVHHd812arb/DIr
+         +n17ZwU9nxMl+3KbWClpfQuaP76qcoY5qJHfb7c402PrKnfzPRePPwHE3kKxwJ7Eqtwt
+         eKrDI2PcVu7BJKF85Wd8f64hdcCHOrWRKqAe+Uuve6c/gcX8wolyj3mohryDu9E3iZhZ
+         QU5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwlo1vDqOBT/XnK8la7HdrMXdPHvU1MBTMn/CY4fkKVl1T7/IYm6Sm3+0I21fiY55lcetRlt7P8yjB3nis=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGFJitGOkX7zB0fidQpyh2cKaCiQOWyvGdNwpuaQwOI1J5OLQ2
+	RsmZlBVcjHuyp5MGrF52lg8GbgInMpiWFrw2IM7TgC1ivXYO/Vj+Dlg=
+X-Gm-Gg: AYBFou3kXqv5Lm8jGCPTVh3VksQrR1zhvUqiw01QKiT146k0AuLbwcfFa29VZr/0kHB
+	WSe3GGX/S5j0Ju/ptmany1oH6EyLyFmH7fVY6dp7un/hwny6m3PjYMuiHFxE2glM4mSdB5iJR83
+	9H/R+yDW//UD3UUSq8rvAan8gAWqfu/EB4bOGiBwjR+K2l+CdEV9QGTguKXtPmNo8J2Q5Jmnfdu
+	eecrhLU3Z5Z+cY9OcHAm7fKy5UUTrnNRc1EP7ZOFrIwBLLeVShn0ie55nsmwrspM8rUh9XiyBxW
+	WZTzkGKcTkOvtxx5WsAAPX7YQoZUYGtaQWyLs7xDFxaR14m4DPINfGbKg3Ig2F2ww9wK+nIRfWL
+	EZvCS5EJYWnsxo0l8R4cefEHknTnQSzBx/yx/GcWaLDwSIMY2Bf54DmnF+h7hs4xNy9AqVk+puu
+	2TpwyJtqzbOhoT9PJXWCzc0peJrqHTFJfR4AMsoe+Hd5MXjaiVhXfFGIiYUOI2nVAzKduXP6Cls
+	Q8WpVClYmOWKHPvelcI8N+IcpmBB61ISzEzfZPRbq2ttvDi1EQ=
+X-Received: by 2002:a05:600d:4453:20b0:49c:fed6:cd3f with SMTP id 5b1f17b1804b1-49e619c4d59mr22948105e9.23.1789115070582;
+        Fri, 11 Sep 2026 01:24:30 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2ace69.dip0.t-ipconnect.de. [91.42.206.105])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e5765152asm88890415e9.11.2026.09.11.01.24.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 01:24:30 -0700 (PDT)
+Message-ID: <4a5a443d-28b3-4da5-8749-447ea5b009f2@googlemail.com>
+Date: Fri, 11 Sep 2026 10:24:29 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <xu.xin16@zte.com.cn>
-To: <xu.xin16@zte.com.cn>
-Cc: <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>
-Subject: =?UTF-8?B?VGVzdCBDYXNlIENvZGUgUmU6IFtQQVRDSCA0LzRdIG1tL2tzbTogYWRkIGZpbmRfbWVyZ2VhYmxlX3ZtYV9sb2NrZWQoKSB0byB1c2UgcGVyLVZNQSBsb2NraW5n?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 68B8MeHY053487
-X-TLS: YES
-X-ENVELOPE-SENDER: xu.xin16@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Fri, 11 Sep 2026 16:22:55 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AA3BA5F.000/4hh6xC4KX9z5B0p0
+MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 7.2 000/556] 7.2.5-rc1 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260909134230.441546314@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20260909134230.441546314@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-/*
- * ksm_merge_latency.c - Measure KSM victim merge latency under
- *                       mmap_lock contention from churner threads
- *                       in the SAME process.
- *
- * Build:  gcc -O2 -pthread -o ksm_merge_latency ksm_merge_latency.c
- * Run:    sudo ./ksm_merge_latency [nr_churners]   (default: 4)
- *
- * The victim region and the churner threads share one mm_struct, hence
- * one mmap_lock.  ksmd must scan this mm to merge the victim; on a
- * baseline kernel that requires mmap_read_lock(mm), which contends with
- * the churners' mmap()/munmap() write-side mmap_lock.  On a kernel with
- * per-VMA locking in mm/ksm.c, ksmd only takes a per-VMA read lock on
- * the victim VMA, which the churners never touch, so the contention
- * disappears.
- */
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <time.h>
-#include <pthread.h>
-#include <sys/mman.h>
+Am 09.09.2026 um 15:34 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 7.2.5 release.
+> There are 556 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-#define PAGE_SIZE      4096UL
-#define VICTIM_SIZE    (32UL * 1024 * 1024)     /* 32 MiB              */
-#define UNIQUE_PAGES   2048                     /* distinct contents    */
-#define DUPLICATES     4                        /* copies per content   */
-#define CHURN_SIZE     (256UL * 1024 * 1024)    /* 256 MiB churn region */
-#define TIMEOUT_SEC    180
-#define POLL_INTERVAL  200000                   /* 200 ms               */
-#define STABLE_TICKS   5                        /* 1 sec of stability   */
-#define MAX_CHURNERS   64
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
 
-static volatile int stop_churn = 0;
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
-static long sysfs_read_long(const char *path)
-{
-    char buf[64];
-    int fd = open(path, O_RDONLY);
-    ssize_t n;
 
-    if (fd < 0)
-        return -1;
-    n = read(fd, buf, sizeof(buf) - 1);
-    close(fd);
-    if (n <= 0)
-        return -1;
-    buf[n] = '\0';
-    return atol(buf);
-}
+Beste Grüße,
+Peter Schneider
 
-static void sysfs_write_str(const char *path, const char *val)
-{
-    int fd = open(path, O_WRONLY);
-    if (fd < 0) {
-        fprintf(stderr, "open %s: %s\n", path, strerror(errno));
-        exit(1);
-    }
-    if (write(fd, val, strlen(val)) < 0) {
-        fprintf(stderr, "write %s: %s\n", path, strerror(errno));
-        close(fd);
-        exit(1);
-    }
-    close(fd);
-}
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
-static double monotonic_sec(void)
-{
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
-    return ts.tv_sec + ts.tv_nsec / 1e9;
-}
-
-/*
- * Churner thread: repeatedly mmap()/munmap() a large anonymous region.
- * Each iteration takes mmap_lock in write mode on the shared mm_struct.
- * This is what creates contention with ksmd's mmap_read_lock on the
- * baseline kernel.
- */
-static void *churn_thread(void *arg)
-{
-    (void)arg;
-    while (!stop_churn) {
-        void *p = mmap(NULL, CHURN_SIZE, PROT_READ | PROT_WRITE,
-                       MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-        if (p == MAP_FAILED)
-            continue;
-        *(volatile char *)p = 1;   /* fault in first page */
-        munmap(p, CHURN_SIZE);
-    }
-    return NULL;
-}
-
-static void ksm_prepare(void)
-{
-    sysfs_write_str("/sys/kernel/mm/ksm/run", "0");
-    sysfs_write_str("/sys/kernel/mm/ksm/run", "2");   /* unmerge + reset */
-    sysfs_write_str("/sys/kernel/mm/ksm/pages_to_scan", "100000");
-    sysfs_write_str("/sys/kernel/mm/ksm/sleep_millisecs", "0");
-}
-
-/*
- * Allocate and register the victim region in the CURRENT process.
- * Must be called from the main thread before starting ksmd.
- */
-static void *setup_victim(void)
-{
-    size_t npages = VICTIM_SIZE / PAGE_SIZE;
-    unsigned char *p;
-    size_t i;
-    int j;
-
-    p = mmap(NULL, VICTIM_SIZE, PROT_READ | PROT_WRITE,
-             MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    if (p == MAP_FAILED) {
-        perror("victim mmap");
-        exit(1);
-    }
-
-    /*
-     * Fill with UNIQUE_PAGES distinct patterns, each repeated DUPLICATES
-     * times.  KSM will eventually collapse each group of DUPLICATES
-     * identical pages into a single shared page.
-     */
-    for (i = 0; i < npages; i++) {
-        unsigned int idx = (unsigned int)(i % UNIQUE_PAGES);
-        unsigned int *page = (unsigned int *)(p + i * PAGE_SIZE);
-        for (j = 0; j < (int)(PAGE_SIZE / sizeof(unsigned int)); j++)
-            page[j] = idx * 2654435761u + (unsigned int)j;
-    }
-
-    if (madvise(p, VICTIM_SIZE, MADV_MERGEABLE) != 0) {
-        perror("madvise(MADV_MERGEABLE)");
-        exit(1);
-    }
-    return p;
-}
-
-int main(int argc, char **argv)
-{
-    int n_churn = (argc > 1) ? atoi(argv[1]) : 4;
-    pthread_t threads[MAX_CHURNERS];
-    long baseline_shared, baseline_scans;
-    long cur_shared, cur_scans;
-    double t_start, t_end;
-    void *victim;
-    long last = -1;
-    int  stable = 0;
-    double deadline;
-    int i;
-
-    if (n_churn < 0) n_churn = 0;
-    if (n_churn > MAX_CHURNERS) n_churn = MAX_CHURNERS;
-
-    ksm_prepare();
-
-    /*
-     * Set up the victim region while we still hold mmap_lock
-     * uncontended.  It will be in the same mm as the churners.
-     */
-    fprintf(stderr, "setting up victim region (%lu MiB, %d unique pages)...\n",
-            VICTIM_SIZE / (1024 * 1024), UNIQUE_PAGES);
-    victim = setup_victim();
-
-    fprintf(stderr, "starting %d churner thread(s) in the same process...\n",
-            n_churn);
-    for (i = 0; i < n_churn; i++) {
-        if (pthread_create(&threads[i], NULL, churn_thread, NULL) != 0) {
-            perror("pthread_create");
-            exit(1);
-        }
-    }
-
-    /* Give churners time to start hammering mmap_lock. */
-    usleep(500 * 1000);
-
-    baseline_shared = sysfs_read_long("/sys/kernel/mm/ksm/pages_shared");
-    baseline_scans  = sysfs_read_long("/sys/kernel/mm/ksm/full_scans");
-    if (baseline_shared < 0 || baseline_scans < 0) {
-        fprintf(stderr, "cannot read KSM counters (run as root?)\n");
-        return 1;
-    }
-    fprintf(stderr, "baseline: pages_shared=%ld full_scans=%ld\n",
-            baseline_shared, baseline_scans);
-
-    /* Start ksmd and mark t_start. */
-    fprintf(stderr, "starting ksmd...\n");
-    t_start = monotonic_sec();
-    sysfs_write_str("/sys/kernel/mm/ksm/run", "1");
-
-    /*
-     * Wait until the victim's pages are merged: require at least two
-     * full ksmd scans (to confirm the pages are stable) and then require
-     * pages_shared to be unchanged for STABLE_TICKS * POLL_INTERVAL.
-     */
-    deadline = t_start + TIMEOUT_SEC;
-    while (monotonic_sec() < deadline) {
-        usleep(POLL_INTERVAL);
-        cur_shared = sysfs_read_long("/sys/kernel/mm/ksm/pages_shared");
-        cur_scans  = sysfs_read_long("/sys/kernel/mm/ksm/full_scans");
-        if (cur_shared < 0)
-            break;
-        if (cur_scans - baseline_scans < 2)
-            continue;
-        if (cur_shared == last) {
-            if (++stable >= STABLE_TICKS)
-                break;
-        } else {
-            stable = 0;
-            last = cur_shared;
-        }
-    }
-
-    t_end = monotonic_sec();
-    cur_shared = sysfs_read_long("/sys/kernel/mm/ksm/pages_shared");
-    cur_scans  = sysfs_read_long("/sys/kernel/mm/ksm/full_scans");
-
-    printf("=== result ===\n");
-    printf("merge_time_sec : %.3f\n", t_end - t_start);
-    printf("pages_shared   : %ld -> %ld (delta %ld)\n",
-           baseline_shared, cur_shared, cur_shared - baseline_shared);
-    printf("full_scans     : %ld -> %ld (delta %ld)\n",
-           baseline_scans, cur_scans, cur_scans - baseline_scans);
-
-    stop_churn = 1;
-    for (i = 0; i < n_churn; i++)
-        pthread_join(threads[i], NULL);
-
-    munmap(victim, VICTIM_SIZE);
-    return 0;
-}
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
