@@ -1,235 +1,223 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013043.outbound.protection.outlook.com [40.107.162.43])
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11021120.outbound.protection.outlook.com [40.107.74.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E82493D2E;
-	Fri, 11 Sep 2026 15:47:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7CFF495527;
+	Fri, 11 Sep 2026 15:47:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.120
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789141654; cv=fail; b=W6jYNSlqomiNfw5QCMNH7S2Ezp5P5IMTKf/kTbHEdgRalc+1PFzsp2EyIMUU5/oRC/ZL1Ws7cax6NIm+M6XRDxgCErGDrChiju7ktzaecO0+CwPC2efa79h4WjvQPRS0O5lGZr5MfWshQYdrXwVvnswKycOQKKMycbDlXhTUdvg=
+	t=1789141657; cv=fail; b=tb8TO2cdutMkgRhCXs21Soe7wBz2T8gIxFXrsUhUwv7/yOsJEc1ijjW/9w5qFIzpcG4rVoQKVhcfgm32drr1deRHUmoyFXr8+7jnN4EfyTI/gvbMQHVVGL2brH31PAZsGfGj518hPT4IYq6VwY8f1/xrQKVtbz2Mh5qUDgK5qzE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789141654; c=relaxed/simple;
-	bh=brdE7ZhsMWRD1TzB0eznvuTn1K2X5TaCXPkPX7akyMQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=VYeqlKMTkBZKMikJ9jbfKikE3zizitVzDZLmydXVlvoaSB3srKyPzKFW5UijR11680hp+M+FsDx8gI3X3nQFYAX8XGNAwO2c6DwVdf7i6pb5ZkX73BVHyBqKu/YUkEVFbcrAkQgrspjzaQhhNg+ZkipMxRJ5cyZ8t/v65Q28IYw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=Cjy8KZXl; arc=fail smtp.client-ip=40.107.162.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	s=arc-20240116; t=1789141657; c=relaxed/simple;
+	bh=5GOo1JvOMt9So10r6xBCuyr/6xe14QpDINL+KScS4k4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=H14vnD17pX8aeIa6q91NzX0ls7J+DIvpCv224vEjqNVGzLhpShiX6Ro2VjKbmLu08e7y+CQFy42FXg8T7lMBySoRwtQuuRNDp/FQJ6nKlxPl9INvdx0bmJn7FnNkNySn5N1AEcU0gsZPf999SD1B/uz1vvVC1NiwizyzBD0igGA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=i6MPAf8p; arc=fail smtp.client-ip=40.107.74.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="Cjy8KZXl"
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="i6MPAf8p"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AvgHwMRAy+jT9+G/KXsq2toexNEE9onK4w1AiiH+6HtEyLP6luLeRLav9DslVFatWwvmhCxDilAAVCPI7Enrz/bEF+MfHvH7JFydM3ZyIvnMbzRSRpJCM7lKmxMG7jSF+YL6G2vaQ8XhyBnOwODEglu6VRt9vSzRcMYWNq73ClymelzOnkCoPmlQ1/e9VuoKjHfJsLuERV+C7pTwqC3TibjDz6YtNF6cIzMijVTWFqDUpaupjglGSFLd5dKEq5IzxQBgCdeQI0XfIvzJUozgpr8tCynroCk3HWOIhIG/QGGUjbNNcJaLFPMcZR8toyeL140gXlet6y+3AvzWY/CHUg==
+ b=gmWgAYlJClExBs2VABMbBxl6xGmrWRR75+fbB1AW7fAIDr4FhXG76aaqnYCequCcWVBE1YbLnngk7oPugSNPzLKbSpFaRkoZo9Fj46j/LAzBGqekeYyMMyIHZNeeZAABvxXL7IkPxqygnAOWsPG9BNHrC4mexbKXosLfsbmcpVmXGCcLWdN+kJXMk5XCK/b6DvtT0rz07VhnSObRR47+BlKlwTcw3KICPLR+nfBSd6HW8zPSOKcGOrOvvkwQvDdk3OnRGKxcADIMOMFxe4VuFqDSWQc5HezQnJwFz13x/beGAXUuu3VnbsP9dHDgzO2oDeuN9QzkW9m3GvCuU8xqKw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2u9/ITUVxtMTvUDcBFfcR9iA3t9lqeXHZ3mC/OQF5NQ=;
- b=MuqTsdlKcvSWKIhAK4Z9YH28L57gN5IHKJE/qOVjPlgyJTujzevOAdYViwmwHOW8RUK17moniZ2blZy5KSGPDQnxKwqvGuqkf+0zymT03+p0qZ9EN8BT+nJUbtoCSdBvN2tAN1q9obdPDsB/7wOyN3dInbGCmqECZwlri3XDajBcCaqOGaS2oPbBR+uuNo4VibjXtEqQmvNBdh6m/OkYtQ1S1QSFeV+6BSNwOidgzjf4M5u92uDhrd47UU2ZabC+To9SQtSrybt16MkSvzSksb9/1U2VJqLJIP7VRbMGHbCb/nP5MBHV3QOMVSyof7CoMvuVRtwkENiEcyEE7y47Lw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
+ bh=W9+C9B1Uc7Y2hWTkWSMsKaJGqIWQ5j/XisEJdNG6GVY=;
+ b=XWAlEF2E5PUbOyt6MtQ2LQKcGYYXcfxS8bKGls+ivq7kHAfcAdhsQbozQDNvxqPqyJLeEN3x23x6sHIelpcdUay9Sv0FBU3rfT06FktZcSuXCBeIiDdNOqRy/fyjO40Y5D9ygAZmhYmlCFZDauKOsz6tQpsQ9zlmrUUW/y6ZvqHLkJjglA1wod8R+Y8S/6jHTd/ErNMPRjLAkCPWqIDK4ZgxlGcCC6WXLRErGM4xUFtFHy8mFV7RmFHLTUNid8vYsTbXF0iQ3zMpmJsCb87UITUxHP/dGcM0tSsVavyB4nYGACS7qGf05kqLKbFKeqn8YrzkY9qDj8oaTD1jb0fpbg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2u9/ITUVxtMTvUDcBFfcR9iA3t9lqeXHZ3mC/OQF5NQ=;
- b=Cjy8KZXlkXnCet05JnPsa+G5uXAtDBhShZTeDdmKsXsUiBHk1LjZmP9NuQx2p8BBe7K/gytBSTPZdnRkahK6/WRpjGnp4dY8+CAu0CJvWV/rl4DrYMyhE1kmW+aKIc1Q7UYocyo4PuITM/A0nPyiWycITT5XtK7I6R+9/R6jghnK0FFG6orX/nagYjTR1Sh7w4fGXyohqobosMayELT1jTe09uGMpYs9DMAQpuck03+FzMkBhObQpup+F9YIsPhqT4dSoNJMCm1akDvD8mLE3Mzrkwkc882Qvw85KRcVP+7OPWWfQVl2eNo5h/q/9gl2/+0RW+qmVtXd9QXYEEb7hA==
-Received: from DU6P191CA0029.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:53f::28)
- by PRAPR10MB5251.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:291::15) with
+ bh=W9+C9B1Uc7Y2hWTkWSMsKaJGqIWQ5j/XisEJdNG6GVY=;
+ b=i6MPAf8pGFLtXimyX/dbPL7cLR1J2PlTovdwvX2ENcWcDwMKocxg1558AGlUzgGhSkq7VmAVgl5GeCnktSTF4/jBSF21R4XQCpA8BZ1YE54aCq1Bj68Qw5kWVH0p3nP89pKeDsTg0nvLsHcCCVLkS0qQYBG1y4SgBuKdCzvFaRo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
+ by OS7P286MB7116.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:42f::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 15:47:25 +0000
-Received: from DU2PEPF00028D10.eurprd03.prod.outlook.com
- (2603:10a6:10:53f:cafe::25) by DU6P191CA0029.outlook.office365.com
- (2603:10a6:10:53f::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Fri, 11
- Sep 2026 15:47:25 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DU2PEPF00028D10.mail.protection.outlook.com (10.167.242.24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Fri, 11 Sep 2026 15:47:25 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 11 Sep
- 2026 17:51:40 +0200
-Received: from [10.48.86.79] (10.48.86.79) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 11 Sep
- 2026 17:46:09 +0200
-Message-ID: <cf9c29bd-7e44-445b-b493-fb120898e706@foss.st.com>
-Date: Fri, 11 Sep 2026 17:46:08 +0200
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Fri, 11 Sep
+ 2026 15:47:31 +0000
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32%4]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 15:47:31 +0000
+Date: Sat, 12 Sep 2026 00:47:30 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Marek Vasut <marek.vasut@mailbox.org>, linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Palash Kambar <palash.kambar@oss.qualcomm.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Shawn Lin <shawn.lin@rock-chips.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <mkp@kernel.org>, scsi <linux-scsi@vger.kernel.org>, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+Subject: Re: [PATCH] arm64: dts: renesas: r8a779f0: Set UFS lane count
+Message-ID: <icpudsh34smrdxe5w2olbdvdsmzsvtkl4vmxwbjrzrzkef72cr@ieg3r4ufvcko>
+References: <20260911073058.253000-1-den@valinux.co.jp>
+ <CAMuHMdVAFq4izexG=Sf2i9dZdMMNLnb85AVgBazAFMtTA2jwxg@mail.gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdVAFq4izexG=Sf2i9dZdMMNLnb85AVgBazAFMtTA2jwxg@mail.gmail.com>
+X-ClientProxiedBy: TY4PR01CA0097.jpnprd01.prod.outlook.com
+ (2603:1096:405:37d::10) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:38f::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/13] ARM: stm32: remove stm32f4/f7/h7 MCU support
-To: Arnd Bergmann <arnd@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Linus Walleij
-	<linusw@kernel.org>, Russell King <linux@armlinux.org.uk>
-CC: Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>, "Rob
- Herring" <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Liviu Dudau
-	<liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, "Lorenzo
- Pieralisi" <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>, Sascha Hauer
-	<s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>,
-	"Stefan Agner" <stefan@agner.ch>, Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>, "Aaro Koskinen" <aaro.koskinen@iki.fi>, Andreas
- Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, Roger
- Quadros <rogerq@kernel.org>, "Tony Lindgren" <tony@atomide.com>, Nicolas
- Ferre <nicolas.ferre@microchip.com>, Claudiu Beznea
-	<claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>, Sebastian
- Hesselbarth <sebastian.hesselbarth@gmail.com>, Gregory Clement
-	<gregory.clement@bootlin.com>, Robert Jarzmik <robert.jarzmik@free.fr>,
-	Kristoffer Ericson <kristoffer.ericson@gmail.com>, Ethan Nelson-Moore
-	<enelsonmoore@gmail.com>, Geert Uytterhoeven <geert@linux-m68k.org>,
-	Alexander Sverdlin <alexander.sverdlin@siemens.com>, Shawn Guo
-	<shawnguo@kernel.org>, Karl Mehltretter <kmehltretter@gmail.com>, "David
- Hildenbrand (Arm)" <david@kernel.org>, Nicolas Pitre <npitre@baylibre.com>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<imx@lists.linux.dev>, <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-omap@vger.kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Christophe Parant <c.parant@phytec.fr>, Benjamin Gaignard
-	<benjamin.gaignard@collabora.com>, Dario Binacchi
-	<dario.binacchi@amarulasolutions.com>
-References: <20260908152808.3928630-1-arnd@kernel.org>
- <20260908152808.3928630-11-arnd@kernel.org>
-Content-Language: en-US
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20260908152808.3928630-11-arnd@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF00028D10:EE_|PRAPR10MB5251:EE_
-X-MS-Office365-Filtering-Correlation-Id: 17775c1d-c7d6-4ec2-8441-08df101bfa07
-X-LD-Processed: 75e027c9-20d5-47d5-b82f-77d7cd041e8f,ExtAddr
+X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|OS7P286MB7116:EE_
+X-MS-Office365-Filtering-Correlation-Id: 20d8562a-28c8-4241-553e-08df101bfd9a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
- BCL:0;ARA:13230040|376014|7416014|82310400026|23010399003|1800799024|36860700016|56012099006|10067099003|11063799006|4143699003|22082099003|18002099003|41080700001;
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|10070799003|4143699003|6133799003|10067099003|56012099006|22082099003|18002099003|3023799007;
 X-Microsoft-Antispam-Message-Info:
- imajK4QF5klaq03WdR/S+NJ7NNvxoXUvkBY5RWAVJLylQplErPggEU0auLmsFr/C6RHythvTPwpK0e9UrcFIL7srCo7kzlGeVyR3esOabRGdjJNm9nJ3nQP0iSurYKV8H3VIp3tYWKv21ffzM+uCmWlZYnrE8zmfWUKUHoIB8RMYzreL4e6UdvgE0GmcDuPIVdJ9sg/Iet/U54ozMaEmAX7XNBqJ8ssmNqnjZCIA90x0tniVS8PFGhb6AHVtnXGIbDG5iEmaApWESFZJAW6OhfdhUNx6kzkMZAvLM5+Xgqj5F4k0W5ZNj7ZMi04o4vYVAXkMB4X/34MiQuVEdoRbO/8owL4J6y3791Fujkf3DBtF+h3OvpxPVyGWeHDhMG1So3UlceLFkwUgCNRkEqo6xwYEmwCH2Kzw0FqjsjqLK3odh42BhUIX0Ruwr3a0N1A88JMJpQVSsiZlVqX9k/dNOTJoGp4tGoiXamxdA4bZTDZCjOc8YPio/F1ZSToqtVstmd12FqhqGLflc5Liznwdxf3YacRbm4moOEESurtYzVgUDigNpxV8SROa4rFsPVjXi3QqZVuXxhMCJV5VaPLJ8IYX3RH1Gn7u3ka3ncSvfVLl8YZP63PQv+b+JLaqcpTmc4SfsAUCHNQ+Zn1S3e0oxhb+rlYoWvGLYmPDPB5SipSBbJ7d/oFmFqrXQb0261aazDJ2GG9GA0CO7C1fCt7Die+f406rNE+emouIlWugwMxpO01kjZsV7zxv6BEqKEefGl/GW3sv3nhQvPQ4G+3rYA==
+	CX4xvIflkV5BA2ZK5/PoTNPZB9sduQmVGn3D0a7mKVZSHHfPwiF2GnVnTFH7+nivBUpHovxzHQo+tiUYT2w/g4r+Zj7jsLEBST8xEJG62NrfgAMir/+wboNwvjePfDbYjOIhaVGS/owZRAEebMX9SN+6ouwsgrlQ5gzv6BTSEyJLkNQEHAv9c10x4AUPgCcVPzV+Ze6G1FrjvY07+82hJUZm8be/rdHzMHvTXjzuVyWRDUzzoG4dkNRSaOwU3TlKFHl4C8GjvDiIt5idDqCbVcrCMNxN2K/Y+H0sbJvWq5w/PQUKtjTPHdZWroLxUr4d9LCA5e9Nk7YAH6TgUNzcf9y5N9W0mlMryywLFPzKggTW50f42af65g9NmtNwnPIri07Hz0PiKDmOZ+cBWngFYmbns33tcPhSBiWENSnfBQdkVJkYENg2YrD1IFrIwfL4nmUWfLmMez+mY+1LNIGOJDHdQIfuoyb7I/xu83VsbXptPamvQCN3BUlrveYMckPzY909VFTLDbwU1jjR5mSaB6VkGDw7XrmZqyh86fMjA386CJCWdWRruF4cyOar7K1/MHeFdmHWYmu/pnLUG97DqOkvMQ2qqaiZECZrlnOqT5ykNhXrkHldXkPCTJaoI8hy7BnpNvCG+11gLbhQoNE3Yn9fis2RSjiwwsNTXtE10lc=
 X-Forefront-Antispam-Report:
- CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(82310400026)(23010399003)(1800799024)(36860700016)(56012099006)(10067099003)(11063799006)(4143699003)(22082099003)(18002099003)(41080700001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(10070799003)(4143699003)(6133799003)(10067099003)(56012099006)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
- //Efo6JpJHlKdtxE0rhW2Sn6nfy7+D1TLhVolKmg+cRE4F5KVMVVOJ/V5r4RZBGEglEj0iFK0paEqjljMYjZ28IPixRPNs3GRQ5daFrXFczvkAGZav1UjnhBSpiCC75vjzSdhpDfVAGqGZSphTtle6rR6JSP828qH+3JyGExejwnAjX237WGWy3qi4aG5jImgzg2NgYkspTCAqpaje/hB1ZXd21JdmNhm0GREEmMNvvlx1TJzpY+gVk917KzBC37PLagXX7vKFmDM5pgZClmM3ZGHegeyd0ftz/KMBcStk2LCsDbvo3v70owsYtkx+IjJVPfOPAcLa68ER2lcBRnwYukoK4sLKSUv59jd9TYKR7ULOLnDHnTILnKqAA4uDOhaeng0uYavScCsiMDf7UKq7ws5LKhKD6dOijjCTgl9QHU0oe8yOUg+LBQmkk+C3eT
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 15:47:25.4060
+	=?us-ascii?Q?cjvZrcxDP34P65aD19uiK37gpGOlEAalMp7tCda0pxiPG9ON+DNkpMC976Fl?=
+ =?us-ascii?Q?iFOdWLayEf2lN1t/1Zpe2li4f0JLFHF+bkTtLlscmP52nVOxRzMx+eHhhzA2?=
+ =?us-ascii?Q?AGoJ0xQk91V10K/l+FNTabIaUKcP1HCd3vDOdikk0PmRe34PfW+L2edLguo6?=
+ =?us-ascii?Q?rkEHU1Yp4IMZZgE4QPJRqZ/v9y2vgmF+zUqSK4AJAKogNpH+W2H+uaqTVdtL?=
+ =?us-ascii?Q?yXfFxue200JjCfz9MIUcdTeLjt3Mx9uajOQz9xaCCp9m5yZKMJjBzDWWAvDQ?=
+ =?us-ascii?Q?rdOlrLOKRQZkJChHm32JXZpjOGf5+ik3mhoYL0PxDJ1wlFalXSubV1V+nGSC?=
+ =?us-ascii?Q?wj0tF0+1neIemhdCUSVHi0Q4KEsREUC9sRIH/7QRibhpuspGK2EW69srJxql?=
+ =?us-ascii?Q?+xpAJLrdhsWmbHWGFJtS/0CHgeL7LE1nNvaoaglF/BQtB+HJaU7uHxihvl6x?=
+ =?us-ascii?Q?uxP2oPUAKFYSWkwJB9sQPYfj7u6S+bmqpqCT+SNueDt05EtrsE5krVeOUGwy?=
+ =?us-ascii?Q?R3k1cwAb4etaLgBtJBwqOsZqtoHXw+XGfQ4VvDDnystdKTw1zYS4U4V+GSgr?=
+ =?us-ascii?Q?EhoJDNpWYwFRVA2u8NAPxMUFj887NHtMHEUw7FXIxLsdEyu83ObzuDNl9abB?=
+ =?us-ascii?Q?68WbbGEY1DHJvQqeWo4cTnkD4ve0uhUSs9HX4HrA6AuiPT6d3OXh0VHupTc+?=
+ =?us-ascii?Q?u8sATDYne6dMBcrnv+oMphBpZqXQigs7xgdvP+cpAkakKBCZIxyYpkfHZ97o?=
+ =?us-ascii?Q?hGUUeHZ/9ICB/Ok2v6vm+hJnYrIY76i4PfYbBsmeVDskOPfP/FclFOXHw6K+?=
+ =?us-ascii?Q?GaJElQXR+/op3jqoUrsxzr3SEmOTGMUij3srrp2QpZcmA93J5HDbYgPe73T+?=
+ =?us-ascii?Q?Zgnyr0PmlB2S89zWxnx19FwTMgmXUSuebfmbejFP//x6QoV9HijFbmDVn6dV?=
+ =?us-ascii?Q?7Utt+jvG4x0aCBmUxtOrnIQYhJv7ZJ5wXyZ6ocWUN5Ya/V61/nHsQV24HqIh?=
+ =?us-ascii?Q?smfPFS99h0WJcRxJpdr1ccO88guUKiCus004IgDVGR7oh11PAUsJ/QvI3WD4?=
+ =?us-ascii?Q?3nlbcTGCwsfxPrkOlu8zQeDCiypcITBRUiGfGisnTuY0AOdi5EgEOmwG2pKc?=
+ =?us-ascii?Q?TvjTTfkzIKKMen1oE0kpPwjbJADAOpNGmTzn0BVruk3nuM9Vgsek46mdYbWf?=
+ =?us-ascii?Q?HIoVzbIvmWE/nf7qyauy7c2Art25s4nQRH4/YFT3gArZm1JJUSHE2XulUuql?=
+ =?us-ascii?Q?ztfbocbabBEQCwOM3cC3ix/L0bZ3vvUbnvVmy+PxJcwTZ8w1Oz5f6VaW4QcZ?=
+ =?us-ascii?Q?DHY/vaEc5N9fq4ho8PgIQhAd9ZCX6gL/9M0nJxBIAHTaToao3iVVQP44Yh/q?=
+ =?us-ascii?Q?L4dWUYfvo1bEUR9DwC9aurphWLwfqqx8TScb/FUch7BMD2gfsw8Yiq38SbzJ?=
+ =?us-ascii?Q?raVxEJZZEA+hwDd2IMWkW+1viTR1eEzk+dTrMQZdpbA1FYhOJ680IGAnqYQd?=
+ =?us-ascii?Q?pW8FnQPGybWwy1MUpI2Ig2l2iDNbnHouU+9qieJEovRiWMcqzGGx57J5oSvU?=
+ =?us-ascii?Q?HYXxa5rRHhhTxtEA7E1ZRdT6k4+3Weyri5MbVI7PPHfSImaua5rcYBgwFFO1?=
+ =?us-ascii?Q?OpQZdmx5imOKGXcpS6KD3IocZvNVq/7PWtbzsczIi/PGLG8ucAc6TLaxyOeb?=
+ =?us-ascii?Q?ID0c3ckDzCSTjVo928Wgn42JzHZCkXX7fzbI/fL1iww509vtvX4XCvTn5K76?=
+ =?us-ascii?Q?HTOHDffeWZjHGlEZ67vb7ffeuCqMns+7ezJ4/M9ZwYJ3mFaStGcS?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20d8562a-28c8-4241-553e-08df101bfd9a
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 15:47:31.5690
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 17775c1d-c7d6-4ec2-8441-08df101bfa07
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: DU2PEPF00028D10.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PRAPR10MB5251
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pOFRLHPv9WqKDtohIPSd7A5IlULI7Hd+1KlDEyzOaspWpvuBRtnOJwbmxaDx7Rq9bLiRG3XV/sCgDC6mEkqVIg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7P286MB7116
 
-Hi Arnd
+On Fri, Sep 11, 2026 at 10:44:56AM +0200, Geert Uytterhoeven wrote:
+> Hi Den-san,
+> 
+> CC ufs
+> 
+> Thanks for your patch!
+> 
+> On Fri, 11 Sept 2026 at 09:31, Koichiro Den <den@valinux.co.jp> wrote:
+> > Since commit e72323f3b09f ("scsi: ufs: core: Configure only active lanes
+> > during link"), the following error is observed on R-Car S4:
+> >
+> > ufshcd-renesas e6860000.ufs: Tx lane mismatch [config,reported] [2,1]
+> > ufshcd-renesas e6860000.ufs: link startup failed -67
+> > ufshcd-renesas e6860000.ufs: error -ENOLINK: Initialization failed with error -67
+> > ufshcd-renesas e6860000.ufs: probe with driver ufshcd-renesas failed with error -67
+> 
+> This is very unfortunate...
+> 
+> > R-Car S4 has one UFS lane per direction, as described in section 152.1
+> > of its hardware manual. Without lanes-per-direction, the UFS platform
+> > driver defaults to two lanes.
+> >
+> > Previously, the core used PA_CONNECTEDRXDATALANES and
+> > PA_CONNECTEDTXDATALANES to configure the link without checking them
+> > against lanes-per-direction, so the missing property did not prevent
+> > initialization.
+> >
+> > Explicitly set lanes-per-direction to 1, now that the validation is in
+> > place.
+> 
+> Given this breaks backwards compatibility with existing DTBs, I think
+> this new check should be relaxed iff the DT property "lanes-per-direction" is
+> not present. Are any other platforms affected?
 
-On 9/8/26 17:28, Arnd Bergmann wrote:
- > From: Arnd Bergmann <arnd@arndb.de>
- >
- > The stm32 platform started out as a Cortex-M based microcontoller
- > platform in 2007, with a few of the older products gaining Linux kernel
- > support in 2016. These days, the only relevant chips for Linux are the
- > stm32mp1 (Cortex-A7) and stm32mp2 (Cortex-A35) product lines, with the
- > microcontrollers running smaller RTOSs on new products.
- >
- > The microcontrollers were marked as deprecated in the linux-7.3LTS
- > release, which will remain supported for a few more years and
- > is expected to be sufficient for any of the remaining original users.
- >
- > Remove the MCU support now, leaving only the stm32mp SoCs in the platform.
- >
- > Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
- > Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
- > Cc: Rob Herring <robh@kernel.org>
- > Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
- > Cc: Conor Dooley <conor+dt@kernel.org>
- > Cc: Christophe Parant <c.parant@phytec.fr>
- > Cc: Benjamin Gaignard <benjamin.gaignard@collabora.com>
- > Cc: Dario Binacchi <dario.binacchi@amarulasolutions.com>
- > Cc: devicetree@vger.kernel.org
- > Cc: linux-stm32@st-md-mailman.stormreply.com
- > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
- > ---
- >   Documentation/arch/arm/index.rst              |   5 -
- >   Documentation/arch/arm/stm32/overview.rst     |   8 +-
- >   .../arch/arm/stm32/stm32f429-overview.rst     |  25 -
- >   .../arch/arm/stm32/stm32f746-overview.rst     |  32 -
- >   .../arch/arm/stm32/stm32f769-overview.rst     |  34 -
- >   .../arch/arm/stm32/stm32h743-overview.rst     |  33 -
- >   .../arch/arm/stm32/stm32h750-overview.rst     |  34 -
- >   arch/arm/Kconfig.debug                        |  38 -
- >   arch/arm/boot/dts/st/Makefile                 |  11 -
- >   arch/arm/boot/dts/st/stm32429i-eval.dts       | 349 --------
- >   arch/arm/boot/dts/st/stm32746g-eval.dts       | 236 ------
- >   arch/arm/boot/dts/st/stm32f4-pinctrl.dtsi     | 482 -----------
- >   arch/arm/boot/dts/st/stm32f429-disco.dts      | 243 ------
- >   arch/arm/boot/dts/st/stm32f429-pinctrl.dtsi   |  91 --
- >   arch/arm/boot/dts/st/stm32f429.dtsi           | 800 ------------------
- >   arch/arm/boot/dts/st/stm32f469-disco.dts      | 260 ------
- >   arch/arm/boot/dts/st/stm32f469-pinctrl.dtsi   |  92 --
- >   arch/arm/boot/dts/st/stm32f469.dtsi           |  18 -
- >   arch/arm/boot/dts/st/stm32f7-pinctrl.dtsi     | 436 ----------
- >   arch/arm/boot/dts/st/stm32f746-disco.dts      | 234 -----
- >   arch/arm/boot/dts/st/stm32f746-pinctrl.dtsi   |  55 --
- >   arch/arm/boot/dts/st/stm32f746.dtsi           | 727 ----------------
- >   .../dts/st/stm32f769-disco-mb1166-reva09.dts  |  13 -
- >   arch/arm/boot/dts/st/stm32f769-disco.dts      | 243 ------
- >   arch/arm/boot/dts/st/stm32f769-pinctrl.dtsi   |  55 --
- >   arch/arm/boot/dts/st/stm32f769.dtsi           |  37 -
- >   arch/arm/boot/dts/st/stm32h7-pinctrl.dtsi     | 301 -------
- >   arch/arm/boot/dts/st/stm32h743.dtsi           | 738 ----------------
- >   arch/arm/boot/dts/st/stm32h743i-disco.dts     | 145 ----
- >   arch/arm/boot/dts/st/stm32h743i-eval.dts      | 185 ----
- >   arch/arm/boot/dts/st/stm32h747i-disco.dts     | 149 ----
- >   arch/arm/boot/dts/st/stm32h750.dtsi           |   6 -
- >   arch/arm/boot/dts/st/stm32h750i-art-pi.dts    | 229 -----
- >   arch/arm/configs/stm32_defconfig              |  80 --
- >   arch/arm/mach-stm32/Kconfig                   |  38 +-
- >   arch/arm/mach-stm32/board-dt.c                |   7 -
- >   36 files changed, 7 insertions(+), 6462 deletions(-)
- >   delete mode 100644 Documentation/arch/arm/stm32/stm32f429-overview.rst
- >   delete mode 100644 Documentation/arch/arm/stm32/stm32f746-overview.rst
- >   delete mode 100644 Documentation/arch/arm/stm32/stm32f769-overview.rst
- >   delete mode 100644 Documentation/arch/arm/stm32/stm32h743-overview.rst
- >   delete mode 100644 Documentation/arch/arm/stm32/stm32h750-overview.rst
- >   delete mode 100644 arch/arm/boot/dts/st/stm32429i-eval.dts
- >   delete mode 100644 arch/arm/boot/dts/st/stm32746g-eval.dts
- >   delete mode 100644 arch/arm/boot/dts/st/stm32f4-pinctrl.dtsi
- >   delete mode 100644 arch/arm/boot/dts/st/stm32f429-disco.dts
- >   delete mode 100644 arch/arm/boot/dts/st/stm32f429-pinctrl.dtsi
- >   delete mode 100644 arch/arm/boot/dts/st/stm32f429.dtsi
- >   delete mode 100644 arch/arm/boot/dts/st/stm32f469-disco.dts
- >   delete mode 100644 arch/arm/boot/dts/st/stm32f469-pinctrl.dtsi
- >   delete mode 100644 arch/arm/boot/dts/st/stm32f469.dtsi
- >   delete mode 100644 arch/arm/boot/dts/st/stm32f7-pinctrl.dtsi
- >   delete mode 100644 arch/arm/boot/dts/st/stm32f746-disco.dts
- >   delete mode 100644 arch/arm/boot/dts/st/stm32f746-pinctrl.dtsi
- >   delete mode 100644 arch/arm/boot/dts/st/stm32f746.dtsi
- >   delete mode 100644 arch/arm/boot/dts/st/stm32f769-disco-mb1166-reva09.dts
- >   delete mode 100644 arch/arm/boot/dts/st/stm32f769-disco.dts
- >   delete mode 100644 arch/arm/boot/dts/st/stm32f769-pinctrl.dtsi
- >   delete mode 100644 arch/arm/boot/dts/st/stm32f769.dtsi
- >   delete mode 100644 arch/arm/boot/dts/st/stm32h7-pinctrl.dtsi
- >   delete mode 100644 arch/arm/boot/dts/st/stm32h743.dtsi
- >   delete mode 100644 arch/arm/boot/dts/st/stm32h743i-disco.dts
- >   delete mode 100644 arch/arm/boot/dts/st/stm32h743i-eval.dts
- >   delete mode 100644 arch/arm/boot/dts/st/stm32h747i-disco.dts
- >   delete mode 100644 arch/arm/boot/dts/st/stm32h750.dtsi
- >   delete mode 100644 arch/arm/boot/dts/st/stm32h750i-art-pi.dts
+I don't know yet. I see some other platforms omit the property, for which I'm
+not sure whether they report two connected lanes. I haven't seen any other
+reports so far unless I'm missing something.
 
-Acked-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Possible solutions I see are:
+>   1. Skip the check completely, like commit 06a34d9c1f47b923 ("scsi:
+>      ufs: core: Skip link param validation when lanes_per_direction is
+>      unset") does for ufshcd-pci?
+>   2. Correct hba->lanes_per_direction based on the actual values of
+>      PA_CONNECTED[RT]XDATALANES?
+> 
+> Alternatively, ufshcd_init_lanes_per_dir() could override
+> hba->lanes_per_direction to one if "lanes-per-direction" is missing
+> and the device is compatible with renesas,r8a779f0-ufs.  Or perhaps
+> hba->lanes_per_direction could be preset in ufs-renesas.c, and not
+> overwritten by UFSHCD_DEFAULT_LANES_PER_DIRECTION when non-zero?
 
+The binding has stated from the beginning that "If not specified, default is 2
+lanes per direction". That is why I thought it made sense to explicitly specify
+one lane in the DT. For compatibility with existing DTBs, handling the missing
+property in ufs_renesas_init() sounds reasonable, in addition to this DT patch,
+as you suggested.
+I'm not very familiar with this area, though, so just my two cents. Sorry.
+
+> 
+> > Fixes: 5235d551779d ("arm64: dts: renesas: r8a779f0: Add UFS node")
+> > Cc: stable@vger.kernel.org # 7.2+
+> > Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> 
+> > --- a/arch/arm64/boot/dts/renesas/r8a779f0.dtsi
+> > +++ b/arch/arm64/boot/dts/renesas/r8a779f0.dtsi
+> > @@ -901,6 +901,7 @@ ufs: ufs@e6860000 {
+> >                         clocks = <&cpg CPG_MOD 1514>, <&ufs30_clk>;
+> >                         clock-names = "fck", "ref_clk";
+> >                         freq-table-hz = <200000000 200000000>, <38400000 38400000>;
+> > +                       lanes-per-direction = <1>;
+> >                         power-domains = <&sysc R8A779F0_PD_ALWAYS_ON>;
+> >                         resets = <&cpg 1514>;
+> >                         status = "disabled";
+> >
+> 
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Works fine on S4SK, so
+> Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Will queue in renesas-fixes for v7.3.
+
+Thanks for the review and testing!
+
+Best regards,
+Koichiro
+
+> 
+> Gr{oetje,eeting}s,
+> 
+>                         Geert
+> 
+> 
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> 
+> In personal conversations with technical people, I call myself a hacker. But
+> when I'm talking to journalists I just say "programmer" or something like that.
+>                                 -- Linus Torvalds
