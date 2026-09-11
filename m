@@ -1,176 +1,472 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011009.outbound.protection.outlook.com [52.101.65.9])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3611145B27;
-	Fri, 11 Sep 2026 14:56:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789138610; cv=fail; b=mCr1eYBB/IghqKd7tBRbnKN9mNsVWr4XXJsQuWX06E9IcYCFtaBCNp8Y8gTlC+igyLv0m3cjYvOmAeJleWQ2i8G0LjvSR4VOrt4ctkzPq+yNJ73FAC5saL8ZRRBPkwapsvulseX/34MfBGb6Qo+srMDmPDc5rvI6WCh6lZd+WPs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789138610; c=relaxed/simple;
-	bh=0hjdb0SBOEOgxMgFw+bkm4scTiK75momA7YnyIV+I7A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=HvZIRepcm5++6dpqEypvY4DgXf1FsVxBAwixKCSrJToyMx+/7hdmXPfx2CxloChk6rbIYD9cU4oM0Y6J0lD9FARFn65R8ea/Q0IfdQkZN7qdnvWNPFesnDtCvfgkzEmAXcP/S6hvf7vdu8R2bTcN6C8toKsUH5P1pIU7AQJEkz0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=pZAXWvbg; arc=fail smtp.client-ip=52.101.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F8B33F8C4
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:57:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789138668; cv=none; b=cH57c3qkjtmrky1HtMcWbg6FnMohcRofL5/uMIYKB+mGaKsDBS/y432RMtXtd4ijwda0shXyAkxHPWQGXRNbGiH+gz4V6NatZj8rO6jT7hLWJ+O+1xKKVLjArjSFxFUQvaV49O04p08gmlAxwupkuRfLHuu8cNSU8qBL7NkHL6E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789138668; c=relaxed/simple;
+	bh=8w0/XgbsZHCJEAgoMotxRhuUHXmVwjWByI9b9pscAls=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZhT6epftwzV8YEWkLIgVcFJ3UTotT1VIfB0TU8cq8OZh4MPDGJ7yoEwk5yYnwUok64pRO2/mAAaFUkmFb3lftJtH9/fmF66oockZMKU0C1DcCVQEvRwxHZtv6fUt3CeQZmqjh5xW/9VIjUkDnMJWsqeqHoHL6Gi6JuFiKELGWFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fL0QSfZ6; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="pZAXWvbg"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ho9uKuoiO8e1/U2zamkIrbGaGJJCPlrX5Lhq8LFue+2Lcg1yo5s1aka7MP/8LN6cwpjLnmAABJ9yE0l/DseoorzJ6Zk7mWvVcyxp7L7ceo9Q/h8+tCPfpafo1d69fllVABrMOcd9rsTkwJ+ssWl9ND9AM8NViRiER7MorR097wDfh3mKAz6eb3MYk8ylzGEb9yz8qwca+nXIItF58Fs4fP7cMjWRor0T7x1fHYbnDodyeIhyG6+xsasj6QPj7iCfmnFYZsawNKl/C1Ybvwlp+nFSbZ1Jy0ffZsG2jb0IOIMMGurqM4b505KGbJTg74nMPAoOqF64r7SY2nueF/g7kw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yi85cTHZAVUKFIlkMjNGInUWoVZnevaAuXpsPgRoq+w=;
- b=xnm+bYcJeojzL1egnV76QdJ4UFTydXt3BId8nNXC/3haslZfDzVcHJ0ODpE7TQ5Xa9iLAPWDPeNlIAk31BH9+b8A9p/4F0ubgUiRm04ASSJE+x2oY+J+wIsunFXyjMQFEB+FWVVQNbwTBZx/+4k1pptdy6xBhRje1RK15pdNfQzKAAaCqj37ki0pK+UTxbnvWF3UPkogNifyEjVV2G+Nzy/AGr09DKq7yYF6mCDfNMXgqERe2jNzd3tdP4FyBUKXF3pEM6Y8Lq6BDqYqrrGfdllzqASzv0jAzTR2Io3r6iWOuao9GZ03yD3O0EfeMLh5mPgEVWAY8+jqj+5xQkH3FA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yi85cTHZAVUKFIlkMjNGInUWoVZnevaAuXpsPgRoq+w=;
- b=pZAXWvbgr1i9Ntfwu4N5S02QBUg+DjfW+9GFqhP7Ggs9lkvKJI0LzekMvquSWWyOfcP16SC1LoUB9WEFEeorfEOO7pyJfx7hX+e8C2pJK2NpxVdXUvuDKbzwW6yUwEzI43ZPlwMjXyXTmjDbVor568nVNzuDSQu+BXf6mn2DUrdr6MDoyQG5G8Y9kPNQriiXoM81sF9ozXe211rjD8v0r9268LF7uLXMlGL0L5zjlDZzEIFzeYqlpH82pasr7vHtF1dELmfFsygEgGTA1Az/osAzKBfaaeFiyVZUHJo0dmGVomuofef1sLi98X6nGVCpUV14HlQWja0asBUa+RLaVw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DB9PR04MB8480.eurprd04.prod.outlook.com (2603:10a6:10:2c6::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Fri, 11 Sep
- 2026 14:56:46 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 14:56:46 +0000
-Date: Fri, 11 Sep 2026 09:56:38 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Slavin Liu <bolin.liu@seu.edu.cn>, Joy Zou <joy.zou@nxp.com>
-Cc: frank.li@nxp.com, vkoul@kernel.org, imx@lists.linux.dev,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC] dmaengine: fsl-edma: check channel acquisition
- before use
-Message-ID: <aqQWpnGmv1NxUGcr@SMW015318>
-References: <20260911060902.94153-1-bolin.liu@seu.edu.cn>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911060902.94153-1-bolin.liu@seu.edu.cn>
-X-ClientProxiedBy: PH8PR02CA0017.namprd02.prod.outlook.com
- (2603:10b6:510:2d0::20) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fL0QSfZ6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789138664;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KD0eOrBEbb+VrFVYh6f5jiyQlHzKdjClS157J0LrQqs=;
+	b=fL0QSfZ6vAv/fuYnAbo/gsn554T6pBvUd9XkkwdL3A/JoDShlCjgbs3ss0wi7+F1gj0h8W
+	18u4CcUgPfIli60g0AtuxaGH4fJW9pTxWzeJdkBIeqHeZgHxK6cy58kmRmWHYnKKuFDtta
+	TE3AYPZTRdnOC9cDIaIGJf8viTRmCFE=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-564-j3YMwKy9NZqDPtU3kn2kDQ-1; Fri,
+ 11 Sep 2026 10:57:40 -0400
+X-MC-Unique: j3YMwKy9NZqDPtU3kn2kDQ-1
+X-Mimecast-MFC-AGG-ID: j3YMwKy9NZqDPtU3kn2kDQ_1789138657
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9C4A51953964;
+	Fri, 11 Sep 2026 14:57:36 +0000 (UTC)
+Received: from bfoster (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6684D18002B1;
+	Fri, 11 Sep 2026 14:57:31 +0000 (UTC)
+Date: Fri, 11 Sep 2026 10:57:29 -0400
+From: Brian Foster <bfoster@redhat.com>
+To: Zhang Yi <yi.zhang@huaweicloud.com>
+Cc: linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org,
+	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
+	surenb@google.com, mhocko@suse.com, hughd@google.com,
+	baolin.wang@linux.alibaba.com, willy@infradead.org, jack@suse.cz,
+	ziy@nvidia.com, joannelkoong@gmail.com, djwong@kernel.org,
+	yi.zhang@huawei.com, yizhang089@gmail.com, yangerkun@huawei.com,
+	chengzhihao1@huawei.com, wangkefeng.wang@huawei.com,
+	yukuai@fnnas.com
+Subject: Re: [PATCH v2] mm/truncate: fix data loss when truncating straddling
+ large folios
+Message-ID: <aqQW2ezVl5bPs0u6@bfoster>
+References: <20260909062339.473816-1-yi.zhang@huaweicloud.com>
+ <aqLaQcZvaFIrAz0e@bfoster>
+ <5796c4ea-fd8f-48aa-8c9b-f1cc8ec1dde1@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DB9PR04MB8480:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68742226-cd99-4daa-1020-08df1014e63a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|19092799006|10067099003|3023799007|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	roeOnoANYe/CT5y6zFCS9HUvH76d5fRG5vukRMRjEdDnerMD6CCx49ORN1XzVT4+BR2Z2zBPKKFVT9RmokDwJWUpx0XiCBrF2r7Mke6HvIaRJtUJNw83ovcek8EpGHGhTML1N7rc5j11dHeonN8yc0/4sw7kL/YuJsInk41eTMoZQVzfkpaL+qratCCcal79g/NPmN9onRz32nhhRsqiaOhADmd5A5g7K2lOHYpxZ8X5qbnxV66675AoRpNEDulnb7RftBc8HbWouLz+9qppGtDcXwQr7TCFqjX5dY5X21DPy2OOyKLtDAdZ8t2UVg82Qg/e39LezLmtJFVWbuSE2YaMaiz+vfm4oGZcQMGPvPdRX65BJ3WeL7n1IxCrZB8OFs/enueupLNaNHZTvgx1OQN0sekE49gzkSRoSdAXofL+SCDEg4rI+vj20AOTyqf6MmkUUbpLc4CCU0p2RfVAJWzxDeXGNoeRtahzA8nN4Pz930v8U6unqFZuoZNvo5uSgt+AxEBB4lNSGU6MLIHfAjBOuE/7CO4wGHzOJ47ckb4wv4vgI5A+XtVbJxGMGWNHzQ1LTqlgfxwxigFDE+nIovo+uB29EY/KqJJcJxNWPFYorrbg+gXYJGGxiHwTewTNrP2eBD8o1bZvUunBPg5NWf6dm9oG6xIdm6wGkawDVLI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(19092799006)(10067099003)(3023799007)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?PvPciiFhuXqEN0l/eTi/ctR/UCFV7RSvhbNRh/74tfEelkZtykorAEGYIBld?=
- =?us-ascii?Q?6vZYJcriVbK3elfPb9u8U1pCnzFyckcViyMQmiE2tyKo6BNVXMkB9bWm9UOr?=
- =?us-ascii?Q?BTxxTYY/jQ6j0FVbKHMb7X4pU9Ru+7J65lEiurID36Mgv4AvElIaRs5nHB11?=
- =?us-ascii?Q?2KqzJqULJTWZt+j9oFZ+5QQc5JofkQjOT+PKpboWU5KCQQtg1TZXKy7xGnns?=
- =?us-ascii?Q?Z9py31nJ61xAHL5nA3GLneCkoCHMIg4/B1yzTYQw1/ROzcDUlvJAIgKnw1aN?=
- =?us-ascii?Q?pUGKqayZphrkZbW5d7950g7iWwXEQE/+0XPAfQUIzw/LtDd45LX6gZ9FZ+hW?=
- =?us-ascii?Q?30A43vZmJ90EWoIzFO/O9hrYY1Kssx0RXQgORi702tTYYyX+ETg7oCmVDMsV?=
- =?us-ascii?Q?b4ULCA7o+kCgHhgOaBBYNp68ctIQyC5H0nWxdrm+mgItKODOjzUfbUa93qbS?=
- =?us-ascii?Q?KANOnb05yFixY066bzRgB0zGoTIXYLNZVCtpz0bd+tdB1/1yzPShozzzuruN?=
- =?us-ascii?Q?c7Ko14DyqaxwCW7M9lHJaQeNJG7V/OS0fA32zapgk9PnkLrVD8UojNAzCCJr?=
- =?us-ascii?Q?ty4fP+5gIN/bDadHIF/1gbKCqv6LU0X2ukaVvn6u1+xwuT2VN+uNyqClTSWa?=
- =?us-ascii?Q?JYhebzZOBfsu8/g3PAjNISiD7mq1/wGbzcAAVX95IMCo2GaPz9NUSXQ440yL?=
- =?us-ascii?Q?9MwaggQWbuD2z3PgU5LQVbRUhtvMf5hXTxzuGOVhJe74ZvjVruz02Esebcm8?=
- =?us-ascii?Q?jgAmwYb9tb0ZY3L689aJVVRoUOOH61HV2mCXED/85qYp1+rCs2GBfyL5Sca/?=
- =?us-ascii?Q?5EuLkm3YO4I1+7y3Du2TGqMYJ/aXyaDRohQXQo03oTp177rPJKy0dJLf8Lxr?=
- =?us-ascii?Q?LUlBD4Yrm/MmSUAxq/oc/lbFm1JjvqTMWznPoYN0cnPG8clEcjDw46lw7I1+?=
- =?us-ascii?Q?QcHdVeoAm/8AJY4deBc0DDNLMtuDPj43xZmmS+FjHNpbo+lgH3rrG5iJsmlL?=
- =?us-ascii?Q?l3bZFGDOrK6kSCjoYqBagFreDsMchSxvnldunDyecYh7SmEej70aQXp5Utl4?=
- =?us-ascii?Q?WoH80tymolv9ihRlvSytql4tuk7pbkbO8ej0QdtSjbNAjr36QLNwAkMeX/Vd?=
- =?us-ascii?Q?GV21/Re9QleTJXfek5Kq3EFtJ4rgjgdxdXd0rGLsKGnp0ysC8nsk4rBh7YV0?=
- =?us-ascii?Q?sgt4iz772CZnm0D+0i6wtP7DH49t6VN1o8LNbcXcOIA9pDBd3FH0bVP3FYcC?=
- =?us-ascii?Q?0WNLdyNoqoTwhm0Xmy4vlzSAsriVK5ZFtlz4nh3ONDaOT1ZPrE8kLH3lS9kc?=
- =?us-ascii?Q?A3DwVQDNeqdqw1Vy5fKGLesw0aTnnEwBnChsK14oYM/I+2mhzcpn2RvJpeV7?=
- =?us-ascii?Q?JRJHIeVzMWQyl+6TQkqIp7ZcUnkhzigB3fTRywZ7+6pbF0iNbyDSQwFzOD3v?=
- =?us-ascii?Q?Wj1jJR6cmPIiVL0HATqekLI7GqbLNH1FIKxNxkNcVJIR228VOAjtBajpAij3?=
- =?us-ascii?Q?HEyH5e7mVwelkoIDOrzlS92NQGgR4VWIwhbJ2VZTc7gl05qK+UDvMOy9Vugp?=
- =?us-ascii?Q?Af1pACkCpfi+z7peLcydA8T7SpVxsNJZeYry9B9YSihf9kjDaN5ztDYL/Mln?=
- =?us-ascii?Q?s6pvbzdNN6yq9f9aEZ20PAmUc63+K8/miPQncLC9b1B739LU51bLdH0tzgPo?=
- =?us-ascii?Q?ElzFbeiA1al/y0IkOqyiNJ3q9uJgw1C+yrQgbOSvUpRiVxtKOC+39r6dmKh7?=
- =?us-ascii?Q?AggJAL8VUzSDDIdlOicUNp98ljjAED1j/aIFdNOYNgWcGGcZbmbp?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68742226-cd99-4daa-1020-08df1014e63a
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 14:56:46.0920
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3LiGc/Vk1YOV5s9Unkp0S/Zsqx6cO89CrUHYY/irvamRNdwhcTaOBku20xqzkDQNRbaIlbs59BhKgMqomePulSRIoEUW3FlhggjZzYaXmvWHQDyRJm6ij4MJKsEm8q/J
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8480
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5796c4ea-fd8f-48aa-8c9b-f1cc8ec1dde1@huaweicloud.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On Fri, Sep 11, 2026 at 02:09:02PM +0800, Slavin Liu wrote:
+On Fri, Sep 11, 2026 at 03:34:48PM +0800, Zhang Yi wrote:
+> On 9/11/2026 12:26 AM, Brian Foster wrote:
+> > On Wed, Sep 09, 2026 at 02:23:39PM +0800, Zhang Yi wrote:
+> >> From: Zhang Yi <yi.zhang@huawei.com>
+> >>
+> >> truncate_inode_partial_folio() splits a large folio so that the caller's
+> >> truncate loop can drop the in-range sub-folios while keeping the
+> >> out-of-range tail. The first split at the punch start edge is
+> >> non-uniform, which leaves the sub-folio at the truncation end edge as
+> >> large as possible, this means it may still straddle the range, holding
+> >> both zeroed in-range and valid out-of-range data. The function then
+> >> attempts a second split at offset + length to isolate that tail.
+> >>
+> >> If the second split fails the straddling sub-folio stays merged. The
+> >> function returned true unconditionally on all exit paths of the success
+> >> block, telling the caller it was fully handled. The caller kept its
+> >> default end and the truncate loop truncated every sub-folio below it,
+> >> including the merged straddler, discarding the valid out-of-range tail.
+> >>
+> >> For example, a 4-page order-2 folio punched from offset 0 to the middle
+> >> of the last page:
+> >>
+> >>   truncate_inode_pages_range()
+> >>     truncate_inode_partial_folio()      # same_folio == true
+> >>       1st split at page0 -> [p0, p1, p2-3]   # non-uniform, success
+> >>       folio2 = p2-3 # straddles: p2 zeroed, p3 tail valid
+> >>       2nd split of folio2 fails / cannot lock
+> >>       return true                       # BUG: caller keeps default end
+> >>     end = 3
+> >>     loop truncates p0, p1, p2-3        # p3's valid tail is lost
+> >>
+> >> This became reachable after commit 7460b470a131 ("mm/truncate: use
+> >> folio_split() in truncate operation") replaced the atomic split_folio()
+> >> with folio_split(), whose non-uniform split can partially split a folio
+> >> and leave the end edge merged.
+> >>
+> >> It has gone unnoticed because a dirty large folio normally carries the
+> >> filesystem's private data, for example buffer_head, so
+> >> filemap_release_folio() -> iomap_release_folio() returns false on a
+> >> dirty folio and folio_split() aborts with -EBUSY before any split,
+> >> leaving the straddler safely unsplit. The bug is only reachable on paths
+> >> that produce dirty large folios without filesystem private data, and it
+> >> was caught on the upcoming ext4 iomap buffered I/O path when no ifs is
+> >> attached.
+> >>
+> >> In addition, even when both splits succeed, data can still be lost when
+> >> the mapping's minimum folio order (min_order) is non-zero. folio_split()
+> >> stops at min_order instead of order 0, so the sub-folio containing a
+> >> split point stays aligned to 1 << min_order rather than to a page. The
+> >> original success path left start at the page-aligned head of the range
+> >> and set end to the exact page index of the end edge, neither of which is
+> >> a folio boundary in general. Either one could land inside the large
+> >> folio at its edge, and the truncate loop would drop that straddling
+> >> folio together with its valid out-of-range tail.
+> >>
+> >> For example, a 64K (order-4) folio with min_order = 2 punched from
+> >> offset 0 to 36K:
+> >>
+> >>   truncate_inode_pages_range()
+> >>     truncate_inode_partial_folio()        # same_folio == true
+> >>       1st split at p0 -> [p0-p3, p4-p7, p8-p15]  # non-uniform, min_order
+> >>       folio2 = p8-p15 # straddles: p8 in range, p9-p15 tail valid
+> >>       2nd split of folio2 -> [p8-p11, p12-p15]   # success
+> >>       end = p9                           # BUG: p9 inside [p8-p11]
+> >>     loop truncates ... p8-p11           # p9-p11's valid tail is lost
+> >>
+> >> Rework the contract so the caller is told the page range to discard:
+> >>
+> >>   - Return true only when a split occurred, false otherwise. This
+> >>     clarifies the existing confusing return value semantics.
+> >>
+> >>   - Add pgoff_t *pstart and *pend out-parameters that receive the page
+> >>     range fully covered by [lstart, lend] after any split (or none),
+> >>     i.e. the pages wholly within the range and safe to discard. They are
+> >>     aligned up (pstart) and down (pend) to the mapping's minimum folio
+> >>     order so they always fall on a folio boundary.
+> >>
+> >>   - Rename the byte-range parameters start/end to lstart/lend to avoid
+> >>     clashing with the new outputs and to separate byte offsets from
+> >>     folio indices.
+> >>
+> >> Callers in truncate_inode_pages_range() and shmem_undo_range() pass
+> >> &pstart for the folio at the start edge and &pend for the folio at the
+> >> end edge, so the truncate loop drops exactly the fully covered pages and
+> >> never touches a straddling folio that still holds valid out-of-range
+> >> data.
+> >>
+> >> Suggested-by: Brian Foster <bfoster@redhat.com>
+> >> Link: https://lore.kernel.org/linux-fsdevel/anH-WKA1coW6wtfG@bfoster/
+> >> Fixes: 7460b470a131 ("mm/truncate: use folio_split() in truncate operation")
+> >> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+> >> ---
+> >> v1->v2:
+> >>  - Export pstart as a new parameter so that the generic and shmem
+> >>    truncate paths don't need to recompute the start value from the
+> >>    return value. (Brian)
+> >>  - When min_order is nonzero, align [pstart, pend] to the inner
+> >>    boundaries of the folio to ensure they do not point into the middle
+> >>    of a large folio, which could otherwise cause valid data within the
+> >>    folio to be incorrectly cleared. (Joanne)
+> >>
+> >> v1: https://lore.kernel.org/linux-mm/20260903115018.2034541-1-yi.zhang@huaweicloud.com/
+> >>
+> > 
+> > Hi Zhang,
+> > 
+> > Thanks for the tweaks. I still found some of the logic circuitous as I
+> > read through it so I spent some time playing with this just to
+> > experiment with cleaning it up a bit. I ended up removing a couple of
+> > the labels, lifting the pstart/pend assignment to a default init/case,
+> > and reshuffling the split case pstart/pend assignments in a way that I
+> > think also elides the need for the boolean or using folio2. (I'm curious
+> > if this happens to address the Sashiko feedback as well..?)
+> > 
+> > Note that this is completely untested and needs further review. Since
+> > the current patch looked mostly Ok to me functionally (though I do agree
+> > with the comment about possibly splitting up into smaller changes) and
+> > has other reviews, I'm just posting this as an FYI. Here's a diff of the
+> > changes I made on top of this patch (Assisted-by: LLM, fwiw). Feel free
+> > to use some, all or none of it. Thanks!
+> > 
+> > Brian
+> 
+> Hi Brian,
+> 
+> Thanks a lot for spending time on this, and for posting the diff. I
+> agree with most of it.
+> 
+> Lifting the default pstart/pend assignment to the top and turning the
+> early exits into plain returns removed the need for the no_split: /
+> split: labels and the tail_isolated boolean, which does make the
+> function easier to follow.
+> 
+> One thing I was wondering about: in your diff, when setting pend while
+> trying to split folio2, you completely dropped the use of folio2->index.
+> With folio2->index gone, an unaligned end means any failed split falls
+> back to folio->index. I assume that is mainly because its value is not
+> reliable under concurrency, which is exactly what sashiko pointed out.
+> However, it does mean we lose a bit of precision though, I mean the
+> sub-folios that were successfully split off at the pstart edge end up
+> left behind in the page cache. Please see a small example below.
+> 
 
-Remove RFC
+Yeah, it's possible this went a little too far on the simplification
+side. I was thinking of just being conservative and saying it's probably
+safer to err on the side of leaving folios around in the failure case
+vs. being too aggressive and losing data like the issue this is trying
+to fix.
 
-dmaengine: fsl-edma: check channel acquisition before mark it used.
+I won't be able to take a closer look at this until next week, but on a
+quick glance what you describe below sounds reasonable to me. Thanks!
 
->
-> dma_get_slave_channel() can return NULL when acquiring a channel fails,
-> for example if fsl_edma_alloc_chan_resources() cannot request an IRQ.
-> fsl_edma3_xlate() dereferences that return value to update privatecnt.
->
-> Acquire and check the channel before publishing its source ID and
-> request parameters. A NULL-only check after the existing source-ID
-> assignment would leave the failed request marked as in use, causing
-> fsl_edma_srcid_in_use() to reject a subsequent request for that source.
-> The channel resource-allocation callback does not consume these request
-> parameters, so set them only after acquisition succeeds. The existing
-> scoped mutex release and successful-channel return are preserved.
->
-> Detected by static analysis and reviewed with AI-assisted source auditing.
+Brian
 
-Add Joy Zou, who change this logic recently
-
-Frank
-
->
-> Fixes: 72f5801a4e2b ("dmaengine: fsl-edma: integrate v3 support")
-> Assisted-by: LLM
-> Signed-off-by: Slavin Liu <bolin.liu@seu.edu.cn>
-> ---
->  drivers/dma/fsl-edma-main.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/dma/fsl-edma-main.c b/drivers/dma/fsl-edma-main.c
-> index d9fb717b5b53..6934ac882697 100644
-> --- a/drivers/dma/fsl-edma-main.c
-> +++ b/drivers/dma/fsl-edma-main.c
-> @@ -326,13 +326,16 @@ static struct dma_chan *fsl_edma3_xlate(struct of_phandle_args *dma_spec,
->                 if ((dma_spec->args[2] & FSL_EDMA_ODD_CH) && !(i & 0x1))
->                         continue;
->
-> +               chan = dma_get_slave_channel(chan);
-> +               if (!chan)
-> +                       return NULL;
+> > 
+> > --- 8< ---
+> > 
+> > diff --git a/mm/truncate.c b/mm/truncate.c
+> > index d88a1b159084..8da16d7e6763 100644
+> > --- a/mm/truncate.c
+> > +++ b/mm/truncate.c
+> > @@ -237,10 +237,16 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
+> >  	else
+> >  		length = lend + 1 - pos - offset;
+> >  
+> > +	if (pstart)
+> > +		*pstart = offset ? folio_next_index(folio) : folio->index;
+> > +	if (pend)
+> > +		*pend = (pos + size > (u64)lend) ? folio->index :
+> > +						   folio_next_index(folio);
+> > +
+> >  	folio_wait_writeback(folio);
+> >  	if (length == size) {
+> >  		truncate_inode_folio(folio->mapping, folio);
+> > -		goto no_split;
+> > +		return false;
+> >  	}
+> >  
+> >  	/*
+> > @@ -254,7 +260,7 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
+> >  	if (folio_needs_release(folio))
+> >  		folio_invalidate(folio, offset, length);
+> >  	if (!folio_test_large(folio))
+> > -		goto no_split;
+> > +		return false;
+> >  
+> >  	min_order = mapping_min_folio_order(folio->mapping);
+> >  	min_nrbytes = mapping_min_folio_nrbytes(folio->mapping);
+> > @@ -266,29 +272,30 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
+> >  		 * for shmem truncate
+> >  		 */
+> >  		struct folio *folio2;
+> > -		bool tail_isolated = true;
+> >  
+> > -		if (pend)
+> > -			*pend = round_down(pos + offset + length,
+> > +		if (pstart)
+> > +			*pstart = round_up(pos + offset,
+> >  					   min_nrbytes) >> PAGE_SHIFT;
+> >  
+> > -		if (offset + length == size)
+> > -			goto split;
+> > +		if (offset + length == size) {
+> > +			if (pend)
+> > +				*pend = round_down(pos + offset + length,
+> > +						   min_nrbytes) >> PAGE_SHIFT;
+> > +			return true;
+> > +		}
+> >  retry:
+> >  		split_at2 = folio_page(folio,
+> >  				PAGE_ALIGN_DOWN(offset + length) / PAGE_SIZE);
+> >  		folio2 = page_folio(split_at2);
+> >  
+> >  		if (!folio_try_get(folio2))
+> > -			goto split;
+> > +			return true;
+> >  
+> >  		if (!folio_test_large(folio2))
+> >  			goto out;
+> >  
+> > -		if (!folio_trylock(folio2)) {
+> > -			tail_isolated = false;
+> > +		if (!folio_trylock(folio2))
+> >  			goto out;
+> > -		}
+> >  
+> >  		/*
+> >  		 * split_at2 may no longer belong to folio2 due to concurrent
+> > @@ -304,28 +311,18 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
+> >  		/* make sure folio2 is large and does not change its mapping */
+> >  		if (folio_test_large(folio2) &&
+> >  		    folio2->mapping == folio->mapping &&
+> > -		    folio_split_or_unmap(folio2, split_at2, min_order))
+> > -			tail_isolated = false;
+> > +		    !folio_split_or_unmap(folio2, split_at2, min_order) &&
+> > +		    pend)
+> > +			*pend = round_down(pos + offset + length,
+> > +					   min_nrbytes) >> PAGE_SHIFT;
+> 
+> [...]
+> 
+> Assume a 4-page order-2 folio [p0 p1 p2 p3], punched from offset 0 into
+> the middle of p3, with min_order == 0.:
+> 
+>    [p0 p1 p2 p3]  --1st split @p0-->  [p0] [p1] [p2-p3]
+>    folio now points to [p0]
+>    folio2 = [p2-p3]            # p2 zeroed, p3 tail valid
+>    2nd split of [p2-p3] fails  # folio_split_or_unmap() returns failure.
+> 		
+> As a result, both pstart and pend are p0, so the sub-folios p0 and p1
+> are left behind.
+> 
+> I agree that under concurrency we really can't get a valid end position
+> since folio2 is not trustworthy(e,g., failed to get the folio2 or failed
+> to lock the folio2...). But once we have successfully got a reference to
+> and locked folio2, its index should be valid. So I've ended up with
+> something like the below (This hasn't been tested yet, just wanted to see
+> everyone's opinions), let me know what you and the other reviewers think.
+> 
+> 
+> diff --git a/mm/truncate.c b/mm/truncate.c
+> index d88a1b159084..b551e8253de7 100644
+> --- a/mm/truncate.c
+> +++ b/mm/truncate.c
+> @@ -237,10 +237,16 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
+>  	else
+>  		length = lend + 1 - pos - offset;
+> 
+> +	if (pstart)
+> +		*pstart = offset ? folio_next_index(folio) : folio->index;
+> +	if (pend)
+> +		*pend = (pos + size > (u64)lend) ? folio->index :
+> +						   folio_next_index(folio);
 > +
->                 fsl_chan->srcid = dma_spec->args[0];
->                 fsl_chan->priority = dma_spec->args[1];
->                 fsl_chan->is_rxchan = dma_spec->args[2] & FSL_EDMA_RX;
->                 fsl_chan->is_remote = dma_spec->args[2] & FSL_EDMA_REMOTE;
->                 fsl_chan->is_multi_fifo = dma_spec->args[2] & FSL_EDMA_MULTI_FIFO;
->
-> -               chan = dma_get_slave_channel(chan);
->                 chan->device->privatecnt++;
->                 return chan;
->         }
->
+>  	folio_wait_writeback(folio);
+>  	if (length == size) {
+>  		truncate_inode_folio(folio->mapping, folio);
+> -		goto no_split;
+> +		return false;
+>  	}
+> 
+>  	/*
+> @@ -254,7 +260,7 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
+>  	if (folio_needs_release(folio))
+>  		folio_invalidate(folio, offset, length);
+>  	if (!folio_test_large(folio))
+> -		goto no_split;
+> +		return false;
+> 
+>  	min_order = mapping_min_folio_order(folio->mapping);
+>  	min_nrbytes = mapping_min_folio_nrbytes(folio->mapping);
+> @@ -266,66 +272,65 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
+>  		 * for shmem truncate
+>  		 */
+>  		struct folio *folio2;
+> -		bool tail_isolated = true;
+> +		pgoff_t end, aligned_end = round_down(pos + offset + length,
+> +						min_nrbytes) >> PAGE_SHIFT;
+> 
+> -		if (pend)
+> -			*pend = round_down(pos + offset + length,
+> +		if (pstart)
+> +			*pstart = round_up(pos + offset,
+>  					   min_nrbytes) >> PAGE_SHIFT;
+> 
+> -		if (offset + length == size)
+> -			goto split;
+> -retry:
+> +		if (offset + length == size) {
+> +			end = aligned_end;
+> +			goto out;
+> +		}
+> +
+>  		split_at2 = folio_page(folio,
+>  				PAGE_ALIGN_DOWN(offset + length) / PAGE_SIZE);
+>  		folio2 = page_folio(split_at2);
+> 
+> -		if (!folio_try_get(folio2))
+> -			goto split;
+> -
+> -		if (!folio_test_large(folio2))
+> -			goto out;
+> -
+> -		if (!folio_trylock(folio2)) {
+> -			tail_isolated = false;
+> -			goto out;
+> -		}
+> -
+>  		/*
+> -		 * split_at2 may no longer belong to folio2 due to concurrent
+> -		 * split. Retry to find the correct folio in case it's still
+> -		 * large.
+> +		 * folio2 may become stale due to a concurrent split or
+> +		 * freeing, so validate it before and after taking its lock.
+> +		 * If it fails, we can't get an accurate end position and fall
+> +		 * back to folio->index, which may leave sub-folios split off
+> +		 * at the offset edge in the page cache this round.
+>  		 */
+> +		end = folio->index;
+> +		if (!folio_try_get(folio2))
+> +			goto out;
+> +		if (folio2->mapping != folio->mapping ||
+> +		    !folio_test_large(folio2))
+> +			goto out_put;
+> +
+> +		if (!folio_trylock(folio2))
+> +			goto out_put;
+> +
+>  		if (page_folio(split_at2) != folio2) {
+>  			folio_unlock(folio2);
+> -			folio_put(folio2);
+> -			goto retry;
+> +			goto out_put;
+> +		}
+> +		if (!folio_test_large(folio2)) {
+> +			end = aligned_end;
+> +			folio_unlock(folio2);
+> +			goto out_put;
+>  		}
+> 
+> -		/* make sure folio2 is large and does not change its mapping */
+> -		if (folio_test_large(folio2) &&
+> -		    folio2->mapping == folio->mapping &&
+> -		    folio_split_or_unmap(folio2, split_at2, min_order))
+> -			tail_isolated = false;
+> +		/* Split failed: back off to the head of the straddler */
+> +		if (folio_split_or_unmap(folio2, split_at2, min_order))
+> +			end = folio2->index;
+> +		else
+> +			end = aligned_end;
+> 
+>  		folio_unlock(folio2);
+> -out:
+> -		if (!tail_isolated && pend)
+> -			*pend = folio2->index;
+> +out_put:
+>  		folio_put(folio2);
+> -split:
+> -		if (pstart)
+> -			*pstart = round_up(pos + offset,
+> -					   min_nrbytes) >> PAGE_SHIFT;
+> +out:
+> +		if (pend)
+> +			*pend = end;
+>  		return true;
+>  	}
+>  	if (!folio_test_dirty(folio))
+>  		truncate_inode_folio(folio->mapping, folio);
+> -no_split:
+> -	if (pstart)
+> -		*pstart = offset ? folio_next_index(folio) : folio->index;
+> -	if (pend)
+> -		*pend = (pos + size > (u64)lend) ? folio->index :
+> -						   folio_next_index(folio);
+>  	return false;
+>  }
+> 
+> 
+
