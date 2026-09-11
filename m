@@ -1,184 +1,127 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63BE847ECD8;
-	Fri, 11 Sep 2026 13:10:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E2E643304B
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:11:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789132213; cv=none; b=OKazKJQbM9o2abwGiuoU+JiZv3Sh7cTqkPo/+Un0vcuI778V2FHtA2ioUFZmCUHXrx6MNRKi5CpD9MI+O6cpdGoo+RUkkKC9TqXF/sXSoqUUxIo5lkwN3p0cpoC2J1NE/N/Bb2AqrVwmV0w/kEy9SELBEh9ET1g/nd1QponuaNU=
+	t=1789132264; cv=none; b=rETZtZY1AjcLZe7kImV+t3zClJcRKmCPOKAPl4cEOjkWccAxWvMkgi8Ucv4G/t8fH1FPKMhNI29BU3MEYSKqhtozUpR1/iZ3iREnychtUpIRKnNleuNp4C0ONoXbTC8YJCkbVZheu1iQl0qM8qUPzAVF4k7hkUar2c+snaes1HA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789132213; c=relaxed/simple;
-	bh=RDsh0/RkU1LRBCdyggweRnW5LdD/lsWbDH9O0Yk+1UI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iRAzKw8hMGG0vWPAkUZSXf2KolwGi4EbewB8mlOJ0G3uhgjYKefABll+AH7C8RNLqRU0HsFPYsOVIUG4Y8KNIrl9IQBmOuvBj+FS4uxII+p5FHHqp+f6H/tuFZheRIPcE9ylTpSxQ+VYiY4W8NhcGZKkfa75AgJq1UvEf99XycY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RC6Z8NlS; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789132264; c=relaxed/simple;
+	bh=aNb/93JkMkYr2/it43yUUuddoPGr4o2M9M8aEvZ1eUU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sFtljxstVqTA1ILEFf2AqmsdpwR4vFfhYjKVXEVWD4gKUDRFQWBmaQKo2V94zlYjp3C/3j4Y3qgQcam8O1PiL2ZouHhjr/sCw5fwR3AmUl5w4fpAqoPcbZAgeHy2o0Kn6tZSBMO1s7KysDTtzHr2zEH1DKorYFfDz7yvmEL9cxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H3injYx7; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RC6Z8NlS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789132212; x=1820668212;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=RDsh0/RkU1LRBCdyggweRnW5LdD/lsWbDH9O0Yk+1UI=;
-  b=RC6Z8NlSEyz57i53bip88zZEJjyjJnZGWK1apC1d3z7sf9gzHpS1WTd7
-   EwKUcXe9geVnCmeg18AeHUyu15Bd3rqYCoe/zp/jpSmpUBPw+ojHOL0jB
-   SOeWfoGKFdkzjmZiLep8zahIHVR3Tk8JlGlQYi1nVYPa16M6PyuIFfAt0
-   JdswlUZFtP9GDalJGCEqjylMWb/r4LQJWE7y0rGo0tn8F00f8DjjpsTAg
-   1Q2lGz0U9GUKihMqkP2ex0SwpCucSot3Ht/9MhCtG7XOEfFkFHcuyJgRE
-   kqZtEjH/KFabr83iRQtqGoEW3cctKE1rPx9RtrPeqYmhnp6rzc6e02snk
-   w==;
-X-CSE-ConnectionGUID: E+fBN89JQum2rbPHB3CBaw==
-X-CSE-MsgGUID: yfKDxF/4Sr+eJ+s+FhOGyg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="89805599"
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="89805599"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 06:10:11 -0700
-X-CSE-ConnectionGUID: cjIHxHfLQRik0mbu7DuvIw==
-X-CSE-MsgGUID: LDG+R1U1TWWN0ensOXUbsQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="194005"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.244.154]) ([10.245.244.154])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 06:10:08 -0700
-Message-ID: <191ee5d5-d93d-4fa3-9654-b3735d344118@linux.intel.com>
-Date: Fri, 11 Sep 2026 16:10:04 +0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H3injYx7"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49c5a927a1fso499825e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:11:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789132261; x=1789737061; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y4Kqn2LiNZ71slPyyfQJOhMKb7P/lIIdxU755roLRjo=;
+        b=H3injYx7ALrRDfg9/oHhjJCvUAKvNUwZLDnIUJ0igqdy7LyrX8iqjvYoPDBTDBmsNB
+         c/qiyrjjJjRoCZkgpkNh501YTQZ4BmqNd5hHx/KEAHjKimrSfQQpGoiIVDQuIfWrtC5K
+         uqw4rTgq55ivmReHHfyfEaGBf+SCXYrUNJOw9NUOtmheewEmFSs4lfgpbGaT/NnzzGBw
+         ediQKvWKtjvef89y4U/3mdPOXG7XyTyGAgTijzZaG6R8lGbNxG5xXLtTP7z7iguMK3hI
+         hd/QECpWzzFizuAwp6KQacH4gtMms5EfgaB+iZD1W7/eP0/z4dev9wQnZRuYspzPaxHc
+         e6ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789132261; x=1789737061;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Y4Kqn2LiNZ71slPyyfQJOhMKb7P/lIIdxU755roLRjo=;
+        b=dhT5GSLs73P1Iacob6h0VcjNDf/ZVUKnG7q5qVvt6yxGFIqIsygatO+ULPmz0TX2DQ
+         W0eN2aabK48Blh5I52aaWXQTq4R2QfeGNXmAxPNCLEiT/cJV7lifHStcI0Wo9j2m+I/x
+         wtAFiwlIG3IT/oP5VbV3PLsuhvOW8m6TddiZQBYG8NNzplYSMuNQlJBNI6rQRRNVqDI9
+         QOSMwfGodIQisdgT49AO70MGFj/hCX9ED4vCKakva1Jd9Y0CC3Z2/uGoqd+nFw1I8mXs
+         uFNR0m6mnFdpgioqbHZwn3eq/YZPV+zBgjwAWv6LzR9lXsL4fBVvHWGqWZGY4BrA4kSl
+         jZ+g==
+X-Forwarded-Encrypted: i=1; AKwUvBzDO+cOtiFBIalPrfbg58pXw73f0qGBZM50hHoOdNFCSiTkYfDAyembk6AmWTainvKYMPY87Y+QjcWGKv8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mcHaGXPjgQ9a7IvYiiRudfOVifVefgaKsaVrTPbc1dp6trjQQz
+	3zwZkwtvmcUAYOeIC9Udb/AbDOUaoWFttxF8D345jQXWiVIzug5PVEUT
+X-Gm-Gg: AYBFou0amoKXaV9i2xIeXSQmJpbtIe0NLjivQZJ155M2rQ2I9dooMkKz3MpJoAbQh51
+	8W98p+de+yHHEBdsI42Hi6fi6+ImZB9j7f3nWDMAwiBh3XznvndgV+cUGt45bOc10ckR0ZzhIEb
+	/o/la4qaE+pqSFi9MyXKVaDDr5cGFa7ZHK1bKg83cF2t2nOtBRozHc7tMeNTOpHcZLbzLQ2Ss+l
+	l7WSvGewlZgP61h1FNw7/6/DFRoB4w259rl2cQnV+VTfSp5qJxHzO4HBPe2bokCg03uzgz85rJz
+	lytrRjnnVxS/y2/5Fiut+4+f5faJnDtQEZVRPWqW7vOifjI2AjHoL3bW/ysp+yMsuzljPsJhefG
+	MySD3+yoBGZzA1UmD1joV16k4hoBvZHlvfd6Ip18kcV+onc6MIjZaMNZ5Q4+jSFLFXuANClV4Vs
+	EeFHCtZLdQmc3jvI105Fh2YJjGf72jYZuTY3dbRqp/8Y5ZKpFGO7nuZhIpY4mx2ZfPsesiDcaBW
+	0WkmugUICslnqB5DKtfcg==
+X-Received: by 2002:a05:600c:4712:b0:499:d95a:41f with SMTP id 5b1f17b1804b1-49e61643939mr39473045e9.0.1789132261166;
+        Fri, 11 Sep 2026 06:11:01 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6576122bsm56488965e9.2.2026.09.11.06.10.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 06:11:00 -0700 (PDT)
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: vincent.guittot@linaro.org
+Cc: bsegall@google.com,
+	dietmar.eggemann@arm.com,
+	juri.lelli@redhat.com,
+	kayracizmeci@gmail.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	mgorman@suse.de,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	rostedt@goodmis.org,
+	vschneid@redhat.com
+Subject: Re: [PATCH v2 2/2] sched/fair: avoid recalculating curr status in place_entity() and requeue_delayed_entity()
+Date: Fri, 11 Sep 2026 16:10:58 +0300
+Message-ID: <20260911131058.1220717-1-kayracizmeci@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <CAKfTPtBEKaYoEmkWRvsDWXsQxtnHnOFQiA6U_4PzQTJw0xtEEw@mail.gmail.com>
+References: <CAKfTPtBEKaYoEmkWRvsDWXsQxtnHnOFQiA6U_4PzQTJw0xtEEw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: =?UTF-8?B?UmU6IOetlOWkjTog562U5aSNOiBbUEFUQ0hdIHhoY2k6IHNpZGViYW5k?=
- =?UTF-8?Q?=3A_check_vdev_liveness_before_removing_endpoints_on_unregister?=
-To: Selvarasu Ganesan <selvarasu.g@samsung.com>, =?UTF-8?B?6IOh6L+e5Yuk?=
- <hulianqin@vivo.com>, Mathias Nyman <mathias.nyman@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "quic_wcheng@quicinc.com" <quic_wcheng@quicinc.com>,
- "broonie@kernel.org" <broonie@kernel.org>
-Cc: "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "cpgs@samsung.com" <cpgs@samsung.com>,
- "alim.akhtar@samsung.com" <alim.akhtar@samsung.com>,
- "thiagu.r@samsung.com" <thiagu.r@samsung.com>
-References: <TYUPR06MB6217000B59003EDF233D7246D2B22@TYUPR06MB6217.apcprd06.prod.outlook.com>
- <CGME20260910101324epcas5p1faf6f82de85c9468f42f6f9b2f13e99b@epcas5p1.samsung.com>
- <c17e0351-d390-4a40-89c4-51d4be9f0123@linux.intel.com>
- <360067785.01789039502721.JavaMail.epsvc@epcpadp1new>
- <TYUPR06MB62172308C897F81F7DAFF557D2BF2@TYUPR06MB6217.apcprd06.prod.outlook.com>
- <750468423.101789103583573.JavaMail.epsvc@epcpadp2new>
- <TYUPR06MB6217F0788C14DD89D237C807D2BE2@TYUPR06MB6217.apcprd06.prod.outlook.com>
- <937773018.41789116303608.JavaMail.epsvc@epcpadp1new>
-Content-Language: en-US
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-In-Reply-To: <937773018.41789116303608.JavaMail.epsvc@epcpadp1new>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 9/11/26 11:41, Selvarasu Ganesan wrote:
-> 
-> On 9/11/2026 12:59 PM, 胡连勤 wrote:
->> Hi Selva,
->>
->>>>     drivers/usb/host/xhci-mem.c      |  8 ++++++++
->>>>     drivers/usb/host/xhci-sideband.c | 25 ++++++++++++++++++-------
->>>>     2 files changed, 26 insertions(+), 7 deletions(-)
->>>>
->>>> diff --git a/drivers/usb/host/xhci-mem.c b/drivers/usb/host/xhci-mem.c
->>>> index af8d4b74c4ba..afdcfb38b35f 100644
->>>> --- a/drivers/usb/host/xhci-mem.c
->>>> +++ b/drivers/usb/host/xhci-mem.c
->>>> @@ -922,6 +922,14 @@ void xhci_free_virt_device(struct xhci_hcd *xhci, struct xhci_virt_device *dev,
->>>>     		dev->rhub_port->slot_id = 0;
->>>>     	if (xhci->devs[slot_id] == dev)
->>>>     		xhci->devs[slot_id] = NULL;
->>>> +
->>>> +	if (dev->sideband) {
->>>> +		xhci_dbg(xhci, "vdev for slot %d has sideband still set at free, clearing dangling pointer\n",
->>>> +			  slot_id);
->>>> +		dev->sideband->vdev = NULL;
->>> Thanks for your updated patch.
->>>
->>> Dont forget to add #include <linux/usb/xhci-sideband.h> in this
->>> xhci-mem.c file otherwise getting below error,
->>>
->>> drivers/usb/host/xhci-mem.c:928:30: error: invalid use of undefined type
->>> ‘struct xhci_sideband’
->>>        928 |                 dev->sideband->vdev = NULL;
->>>
->> Include the corresponding header file
->> #include <linux/dmapool.h>
->>    #include <linux/dma-mapping.h>
->>    #include <linux/bitfield.h>
->> +#include <linux/usb/xhci-sideband.h>
->>    
->>
->>>> +		dev->sideband = NULL;
->>>> +	}
->>>> +
->>>>     	kfree(dev);
->>>>     }
->>>>
->>>> diff --git a/drivers/usb/host/xhci-sideband.c b/drivers/usb/host/xhci-sideband.c
->>>> index a5deeee4d5dc..6312c9e3af65 100644
->>>> --- a/drivers/usb/host/xhci-sideband.c
->>>> +++ b/drivers/usb/host/xhci-sideband.c
->>>> @@ -472,12 +472,22 @@ xhci_sideband_unregister(struct xhci_sideband *sb)
->>>>
->>>>     	scoped_guard(mutex, &sb->mutex) {
->>>>     		vdev = sb->vdev;
->>>> -		if (!vdev)
->>>> -			return;
->>>> -
->>>> -		for (i = 0; i < EP_CTX_PER_DEV; i++)
->>>> -			if (sb->eps[i])
->>>> -				__xhci_sideband_remove_endpoint(sb, sb->eps[i]);
->>>> +		/*
->>>> +		 * If vdev is NULL, xhci_free_virt_device() has already
->>>> +		 * cleared sb->vdev and freed vdev (e.g. on
->>>> +		 * COMP_USB_TRANSACTION_ERROR during address device
->>>> +		 * recovery). Skip endpoint cleanup as the xHC has already
->>>> +		 * disabled the slot.
->>>> +		 *
->>>> +		 * The interrupter and sideband instance are host-level
->>>> +		 * resources independent of vdev, so still remove and free
->>>> +		 * them to avoid leaks.
->>>> +		 */
->>>> +		if (vdev) {
->>>> +			for (i = 0; i < EP_CTX_PER_DEV; i++)
->>>> +				if (sb->eps[i])
->>>> +					__xhci_sideband_remove_endpoint(sb, sb->eps[i]);
->>> I have one query on  skip endpoint cleanup due to  vdev is NULL, in this
->>> case the pointers in sb->eps are not cleared. Since these pointers point
->>> into the virtual device eps, any subsequent call to sideband API
->>> functions like xhci_sideband_get_endpoint_buffer() that dereference
->>> sb->eps could result in a use after free if the virtual device has been
->>> freed. Is it possible?
+Hello Vincent,
 
-Good point, endpoint use after free is a much bigger and earlier issue here.
+>> @@ -6256,10 +6256,17 @@ place_entity(struct cfs_rq *cfs_rq, struct sched_entity *se, int flags)
+>>                  *   vl_i = (W + w_i)*vl'_i / W
+>>                  */
+>>                 load = cfs_rq->sum_weight;
+>> -               if (curr && curr->on_rq)
+>> -                       load += avg_vruntime_weight(cfs_rq, curr->h_load.weight);
+>> +               if (curr && (curr->on_rq || is_curr)) {
+>> +                       curr_weight = avg_vruntime_weight(cfs_rq, curr->h_load.weight);
+>> +                       if (curr->on_rq)
+>> +                               load += curr_weight;
+>> +               }
+>> +
+>> +               if (is_curr)
+>> +                       weight = curr_weight;
+>> +               else
+>> +                       weight = avg_vruntime_weight(cfs_rq, se->h_load.weight);
 
-The endpoint rings that audio driver is accessing via sideband are freed and
-reallocated much earlier. Audio driver is unaware of this reset, and may still
-try to access the freed ring buffers.
-This is an issue long before xhci_sideband_unregister() is called.
+> This makes the code less readable and I don't think it gives any
+> measurable benefit.
 
-usb_reset_and_verify_device()
-   hub_port_init()  // resets port
-   usb_hcd_alloc_bandwidth(udev, udev->actconfig, NULL, NULL);
-     hcd->driver->drop_endpoint()  // for all endpoints, xhci tags ep to be dropped
-     hcd->driver->add_endpoint()   // for active endpoints. xhci allocs new ring for ep
-     hcd->driver->check_bandwidth(hcd, udev) // xhci frees old ring and takes new ring into use
-     
-So turns out setting vdev->sideband->vdev to NULL in xhci_free_virt_dev(), and
-reacting to it in xhci_sideband_unregister() is too little too late.
+Well, yeah. 1 avg_vruntime_weight() less or much is not measurable
+in any means. 
 
-I think wee need to look at using drv->pre_reset and drv->post_reset
-to unregister and re-register sideband, or optionally to unbind and rebind
-the whole interface.
+The main thing I wanted was to handle curr == se case
+on here.
 
-Thanks
-Mathias
+Maybe we could remove this is_curr bool and look se == curr
+in function, and remove this curr weight and let the curr use weight
+instead. So, the curr_weightnbecomes weight, we could be done
+with the if (is_curr) block since we don't need to set weight to curr_weight.
 
+Well if you think handling curr == se separately is wrong, then I'll drop the patch.
+
+Please let me know what you're thinking :-).
+
+Thanks,
+Kayra :_:
