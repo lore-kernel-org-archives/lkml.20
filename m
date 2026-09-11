@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB8A30568B;
-	Fri, 11 Sep 2026 05:38:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A66EA3E171B;
+	Fri, 11 Sep 2026 05:39:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789105113; cv=none; b=JBoo1wBT1Cy1ZRrYXDxxBTN+6pYZBxsNgHBPHJMFx0Bp3EhcdlEy0yqaSb88DNDMaE7mBbvITgHFfo2eevVtGyI01NlIWTtR+1wHK/MSDf/fJ1CeBzFxIn4Aepa/Viro9PtLye3K3tyavUqXl+1iZ7pLOXCHxdmoadV4JteKHSU=
+	t=1789105161; cv=none; b=Bq8TbjBKmhHwWxOXmIpkP9jXFlacUIYdeP5Od3gvb8Vetm1yihwgknZIeLqcWQqTHGFsDUXKxfVPvHwPKdWeuHvdB2oWT3Mao3XQb17bBVuARP+Nlf52EZgvnbeZ5CkCQnjK4ZHj2zhZyvzcRBEMWnNtI8L/sudIhVxtkbLKUBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789105113; c=relaxed/simple;
-	bh=IEs+rpwobwtcxO60zbMsuUVV9vxXzvUlCMmCfcDMa00=;
+	s=arc-20240116; t=1789105161; c=relaxed/simple;
+	bh=ovYANnVI+M7edwI/fB9fLiv10vxwz+uAV7p+z5N+I1k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CF28muOj3yxbP3bP/1TJM0W/7LHvSBvIz3ARZTWiFGrXRpS3fCYlf8XwBJ5URCDF67vW0Z88LSyKLGIZrb9UQDE79ipgMdEBESw8CKLcasocoGpyY97ixJsY+3cN1vZ26+T3g5aZsHr7myvvZFXNd+vbMrM1v0OhMAqzNbms7rs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AGgiNDCr; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xm6zJOOZ5FChzuQ01ilJq6/ilIuDaAf/XsGWcsHm96rqNJBukR4oFaTRm8GorU5iW4Sub6XIp12Q1I1ZJ9idfRQ/EpEe7Fh6Hg7C69KzSoX9dIO9Yg4INygsRdLyonvr9zq6XUobBOP5GS9wpZqV9G1sbkArwVQaulWm3iQIsNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DusSIJc0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AGgiNDCr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C43EE1F000FF;
-	Fri, 11 Sep 2026 05:38:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DusSIJc0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E56B11F000FF;
+	Fri, 11 Sep 2026 05:39:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789105112;
-	bh=hi/sAfcZebnb6L2iDczSy+R8ulaoBQH7kOjtfHM4/pA=;
+	s=k20260515; t=1789105158;
+	bh=O8ONJipxGHTu0R8c/Grz0xo9ahF6qMivmSfFqfS4fUY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AGgiNDCraZXyIAz8C/b/bklo9OffRBsyFB1OuLCpdtQ3nLuDPxvHEIVeaZNQmb5F2
-	 qyaFh1SxR9kv8fiyFdEWL+GnEvHSlEZPvqTrcqRFBPpLRvYC9CCcNnW1L6ye/2QD9w
-	 lqZCZ86XSsmUNWzcNi3hbavISVU2taS6lEln5oRNMgREf5rHzW6zxi7WsaLC8sAX9+
-	 4XGpLb8JfeZoVLWIYQq3UVFOHiO5nq51+gD1gOiC6YmMbXq1ZQPVN4xE6HLI/jRm0V
-	 HJgz1B7yroHlT1DrS20LnD9lF8BneT6h4JkSVOyBs1wWeSBYrXtLKIg8sPcAKe7lPl
-	 Bn2/ImwIgyPIg==
-Date: Fri, 11 Sep 2026 07:38:25 +0200
+	b=DusSIJc064NNLBF+WWfg2lr3ztsalS0ns16iCsnVV5pWEw72ch0zfnswhElCMLcIU
+	 Sr/hG5w1oaxR5b2pJKECg8BMR/4kpv6xLx5eq3/WHA6tMGpKJ9e4Bipu8wPWn7T9dV
+	 bJ3/LVxr4rqfg3LldpC71b/zk3FtCfw52IGtCB62taOZ4/BJOPU46+EaZRGVs4keWG
+	 w1El4lS2ipSzZ5Y5F8VfmiFFHeix50IoNXD0ylzJoVjb/zD7mxH6+hSwpUV8p5IFK/
+	 0i/OhO1FPpwT7eOLCYUzT7zwPR4Ff04glReK0oMeiY1YR6ZBgoQmW63wMpW87mNZPj
+	 K2w8s0/J2NTCw==
+Date: Fri, 11 Sep 2026 07:39:12 +0200
 From: Manivannan Sadhasivam <mani@kernel.org>
 To: Nabige Aala <nabige.aala@oss.qualcomm.com>
 Cc: Vinod Koul <vkoul@kernel.org>, 
 	Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
 	linux-kernel@vger.kernel.org, Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>, 
 	Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Subject: Re: [PATCH v4 8/9] phy: qualcomm: qmp-combo: Fix Glymur v8 DP PHY
- init and configure sequences
-Message-ID: <4pqee6uuymjb5ek65a4uhtfgr2dm3jpwv5j6gj4s44qokjx2r5@kqlbwljmahw6>
+Subject: Re: [PATCH v4 9/9] phy: qualcomm: qmp-combo: Fix error propagation
+ in qmp_combo_dp_power_on()
+Message-ID: <z5ufkalh5jlornxfjhosnb5he37trrliyfyl4qs6hug5ju23rp@g3o5h4bqrtj7>
 References: <20260908-glymur-phy-v3-v4-0-ff22e5150538@oss.qualcomm.com>
- <20260908-glymur-phy-v3-v4-8-ff22e5150538@oss.qualcomm.com>
+ <20260908-glymur-phy-v3-v4-9-ff22e5150538@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,32 +47,18 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260908-glymur-phy-v3-v4-8-ff22e5150538@oss.qualcomm.com>
+In-Reply-To: <20260908-glymur-phy-v3-v4-9-ff22e5150538@oss.qualcomm.com>
 
-On Tue, Sep 08, 2026 at 07:31:01PM +0530, Nabige Aala wrote:
-> From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+On Tue, Sep 08, 2026 at 07:31:02PM +0530, Nabige Aala wrote:
+> The configure_dp_phy() callback can return an error (e.g. -ETIMEDOUT on
+> PLL lock failure), but qmp_combo_dp_power_on() was ignoring the return
+> value and always returning 0.
 > 
-> Update qmp_v8_dp_aux_init():
-> - Add CLK_FWD_CONFIG_1 initialization (0x3f) before power-down control
-> - Replace PSR_PWRDN with LANE_0_1_PWRDN and LANE_2_3_PWRDN in PD_CTL
->   to correctly power down the data lanes
-> - Correct BIAS_EN_CLKBUFLR_EN value from 0x1c to 0x17
-> 
-> Update qmp_v4_configure_dp_tx():
-> - Correct default TX_EMP_POST1_LVL value from 0x20 to 0x2b
-> 
-> Update qmp_v8_configure_dp_phy():
-> - Correct 2-lane and 4-lane driver enable values to 0x30 (was 0x10/0x34)
-> - Add CLKBUF_ENABLE (0x87) programming for both TX lanes before driver
->   enable writes
-> - Add TSYNC_OVRD sequence (0x03 -> 0x23 -> 0x22 -> 0x3e) and
->   LALB_RESET_TSYNC_EN_CTRL (0x0a) programming for proper TSYNC handling
-> - Fix QPHY_DP_PHY_STATUS poll to check BIT(0) instead of BIT(1)
-> - Replace post-lock TX_DRV_LVL/TX_EMP writes with two COM_CMN_STATUS
->   polls (BIT(0) and BIT(1)) to properly verify PLL lock completion
+> Capture the return value, skip setting dp_powered_on on failure, and
+> propagate the error to the caller.
 > 
 
-Same comment as other patches. What issue does this patch fix? Any error log?
+Missing Fixes tag.
 
 - Mani
 
