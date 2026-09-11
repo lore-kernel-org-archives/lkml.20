@@ -1,72 +1,95 @@
-Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9275A299920
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:16:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.69
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 39AEF38E8A3
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:16:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789132566; cv=none; b=hVmVgzSzgqbSbIyTt9S4tAbcQwydUbZrjZcE7bWmnjX7Fmv//K6woO738UiDBykvsXyzstsg4y5BwCfYFoa/DeBdP7v8Oa4nBKTAFCcLUDOUwL+jmEfXqa3w7fFIOVzUcuqdgLDlgXulwc7vyuyViaU2/IaDCX1eM8Pl2GEsfOk=
+	t=1789132590; cv=none; b=Lgkrom0eX1Hyd/kI6WDRE4wtVDHkrNg/v6RuL/djPmvcTRnOVGqcQUX8I7wuRcxWRmPQj3Znlu2j6zhRiQyspo7SXXLFkc3p6R0cfPXh8S1iEDfwvj4E1WzcgiDgzTWt7AcItrNo3SD1xrYnP6hmrwHJ8R+8D+BpPkgenSw/a/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789132566; c=relaxed/simple;
-	bh=jQfsFxxR5mTtUbZs0jiUPn8X93RNyddXKgH44kS9Kh8=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=iEuE9pyaLdzY8jXzUIGrEbDg4ns3dLw6SekX7cJw2EDKXAcsWM/gOw/07kfMqQBSVS5+irpKzg7Ap5SSnVOj4pzlgxe6K6R96sGhADMpoY3O6wZ3clo+ONDHDU7Z20Npau0kFFCsi7fYSwX/hJiSgz6mkk99FPVaWIJWOnXl+yY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6b139665345so792370eaf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:16:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789132563; x=1789737363;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=tvRN+cR0UmHQsbYr+a597Kb8wEfbzvb7Yii8yQaqX+s=;
-        b=EFwu/O0uqT6FrvwI536wViEXUxlZ/OfbsAa0K1CfxesILj2ivWei56kFCTd8XKjUqG
-         fFhZIIZG5pvBOhSNI9hhqpdY9RyR9uwCjvaOh2+/qK2eRjvbJfF/2kvL0eta+zYZqn10
-         DzrB2oyDu4bp2kHd9DpeswVjcYITqsSEezvokMg+U/tNHlgaxav4HhNqWkGVFU6LL2WR
-         uwNtaiRqfBx0VxDL7Mam7N0ZjaOGdnm9dtv/WxW6YLZb/NkcUfI8rXmDSH+x062XOdK0
-         xwAP7D0vm5VPwvv8L+P/jvgpoGHTT6czgEYI/olIeMuCL5SWzmveVyPGZRgfufzbqHxf
-         Cmlw==
-X-Forwarded-Encrypted: i=1; AKwUvBx5kVCLEj1MXoJWmFogWx0cL3ouT/gmKE7LWREqBrOIFCXKqjNZ2gSC1b4qwmt1u4BG2e9Xi6v78I5wgng=@vger.kernel.org
-X-Gm-Message-State: AFuF++mO2kX62Z58HarPQg7BSIcIWIF6Fwc8ktN5zZg8Wpa1hz+P/S/a
-	vwNhU4uAfK2gxBok3HGzXnbhXNC+P3U2+Fkop6eQp+PpJVhGrKoVQ3kp08fYmdvtfXZwfmxEUz/
-	AHtR2mlwWkbyDaJTWcIad59lp4JDYjauc7ua/h7oOFlVUlxbK5CkS5zKWAKc=
+	s=arc-20240116; t=1789132590; c=relaxed/simple;
+	bh=rAPjrIWKifje2rtdcSgWJSLMEJH9EivwHOgVHlZZ3dE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LuvWo9RCmaZ4GWjnvts5b4wyHcwtr35jdk4x74CLCcweq4J0HmvhwuwzM2kMBzNcK8HnTF8ly2Zd+CuX05tu5XjiU4BR+qZ6kA3Atj5441R1HpbrG4lpwvwOoZhAJbGeJSGhQhijX8hu6hVzT3zTlI2xCX8piUjg62xTy6VfrjA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=r0tu6ZAf; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="r0tu6ZAf"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E92EF1655;
+	Fri, 11 Sep 2026 06:16:23 -0700 (PDT)
+Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DB89C3F59E;
+	Fri, 11 Sep 2026 06:16:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789132587; bh=rAPjrIWKifje2rtdcSgWJSLMEJH9EivwHOgVHlZZ3dE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=r0tu6ZAf4lq5MRFWS31tTOfRDtHvinmOQ29Vtb1/B0tftDLqhhW9HxUovv78dAyTZ
+	 HTwUhytsEIBHJGdWEgSNtLuAg6dikEXWnoGt77bmZGNluHbmTQHaLcOfbz4uZgX7+5
+	 D3tOkF0c+Au2ERScqBpcT3/fF96wVnhS+IuQXLTg=
+Date: Fri, 11 Sep 2026 14:16:18 +0100
+From: Wei-Lin Chang <weilin.chang@arm.com>
+To: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Fuad Tabba <tabba@google.com>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Itaru Kitayama <itaru.kitayama@fujitsu.com>
+Subject: Re: [PATCH v5 0/6] KVM: arm64: nv: Implement nested stage-2 reverse
+ map (new data structure)
+Message-ID: <gerjpm62a2gszzggc6vuai22bf3prfquvfsp7ueumps7vz2ev3@odlmovaklg2b>
+References: <20260810205038.118843-1-weilin.chang@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:8591:20b0:6b3:4a6e:adf8 with SMTP id
- 006d021491bc7-6c0ba72a200mr2106504eaf.18.1789132562952; Fri, 11 Sep 2026
- 06:16:02 -0700 (PDT)
-Date: Fri, 11 Sep 2026 06:16:02 -0700
-In-Reply-To: <6aa3ec49.faa14f7e.2f7ba7.7c6fSMTPIN_ADDED_BROKEN@gmr-mx.google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa3ff12.f2639fcc.29487d.002d.GAE@google.com>
-Subject: Re: [syzbot] [fs?] KASAN: slab-use-after-free Write in config_item_get
-From: syzbot <syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com>
-To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260810205038.118843-1-weilin.chang@arm.com>
 
-Hello,
+On Mon, Aug 10, 2026 at 09:50:32PM +0100, Wei-Lin Chang wrote:
+> Hi,
+> 
+> This is v5 of optimizing the shadow s2 mmu unmapping during MMU
+> notifiers.
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+I did a more targetted test of this series in a (ad-hoc) way similar to
+pkvm_ownership_selftest(). I allocated and initialized an in kernel VM,
+its locks, 2 nested_mmus, and a memcache.
 
-Reported-by: syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com
-Tested-by: syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com
+By calling kvm_pgtable_stage2_map(), kvm_record_guest_s2_mapping()
+together I create mappings and track them, then
+kvm_nested_unmap_cipa_range() simulates mmu notifier unmaps, and
+kvm_stage2_unmap_range() simulates L1 TLBIs.
 
-Tested on:
+Combining these I tried a few scenarios:
 
-commit:         a7c1290e configfs: pin the symlink target's dirent ins..
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=1288c925580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=6d794b10c2a1184e
-dashboard link: https://syzkaller.appspot.com/bug?extid=6b16e3d085833cbf3e25
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=177f4925580000
+1. Mapping the same CIPA in two nested mmus, and checked that
+   unmapping the CIPA it removes both mappings, but keeps unrelated
+   mappings.
 
-Note: testing is done by a robot and is best-effort only.
+2. Mapping a block and a page to an overlapping CIPA region, checked
+   that unmapping the overlapping CIPA regions removes both mappings.
+
+3. Unmapping CIPA of the last page of a block, checking that the block
+   is removed, but keeps unrelated mappings.
+
+4. Unmapping a CIPA range that starts in an empty region, checking that
+   it finds and removes the mappings inside the range, keeps unrelated
+   mappings.
+
+5. First map NIPA -> CIPA1, unmap that NIPA, then create NIPA -> CIPA2,
+   and check that unmapping the CIPA1 leaves the new mapping alone.
+
+6. Creating multiple identical mappings, and checked unmapping the
+   CIPA once removes the mapping.
+
+The dumped shadow page tables all contain the expected mappings.
+
+Thanks,
+Wei-Lin Chang
+
+[...]
