@@ -1,208 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CCC135F170;
-	Fri, 11 Sep 2026 11:57:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF21455185
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:57:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789127822; cv=none; b=oWC5uKokKIh0Ub5QKGrpS0tqSHxqesd0yH7ltgJg1QNCcAPLG11zRlL0JWaMUi8kUKJ08vtwJou1aecgn6A9xrmSQDzLcvGzXEqAb/tR8jjRyobxzmd6LMjwEEnTM+123s9+9hoWcK4CmGI7QgoTMwTmZOzByV5wVd/1GD549oA=
+	t=1789127860; cv=none; b=k/KMFatk910FNb5E354KbxJ9JAfXOwjWZhWzb+FQjVuDvGlf/9J7god9+U++gCAqGqQHmaRx/mdyX8alC2CbTozZu2RXay1EbTtde1iF7cPwf7Ne+j8nGnZJcw2QiAzkAUt41lXaK8P9ztCA6zwhBgdS/YfxqaG/xrYJQnSTHYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789127822; c=relaxed/simple;
-	bh=w9StJE+nn0gkG1gomyMgGNCH6NI28semBIPVleJDVGs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FGSFcZGaKk5lkHdlb1s81ISx0SoOZgVQgX/tvQWw92uxhPoDtpM/Np6u0DlCii6uyoBU8FgcLudzgtaeZ0c2mYnx3zPzsimgP5Jq7QBW1YD/56oDg7VKx9toonLwiuOZgB24ahqjTQ1zZeIYPuVyXokyfbQ1qV9101lUevLqHpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K11BV0Q0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789127860; c=relaxed/simple;
+	bh=1lRC8ZGjaJk1CFMMkFB+zwt0ch81ggJd9O2XFlK/4VY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=V3T6JyUhl1123WWWhhVSYVIwWzUYvDjbEoVoeRqzPjFQLHcnRRePqixi9nqaIH3SW73NNH6+MlBbd/hpcUPlh/suTX8jUTWGJVdLgBg0zeN/jAsMyIZ0wwCzD7gjvtSG9A2fzX0TF64TanTymD+kQbmvxmSWry00YYQd2S3GObA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=cUBzSOOU; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K11BV0Q0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10FD01F000FF;
-	Fri, 11 Sep 2026 11:56:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789127820;
-	bh=L1OeiMMiUuX2c3YfVw5XAKf2PuPZvV9E0osxi7XkgcM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=K11BV0Q0GfXgRWBY9hWvTQTZUx1Y/DXSo9d5Lsn/KBpbt7Fweoopm7LTE6t7xgAUP
-	 NShNd5sxVrhUs74tL8AyqYIc3l62PRAwMsYrWuiQT0AOYotHhdpOIOmjs9XckKD5Ai
-	 mioUp6silLKJgXoQsE7Y9nAWcZ83QyJ3DN4NcRuNyDpCGaVbbI4f2PIOtazYVI3jGl
-	 N/TpPN5b9boXVr9/DwwHPOGvh2VpTWaDWieU1lspaJLR1Hvajkq3FQHbiufN3HqWtw
-	 Ia6UuoUw69iWxKJcz2v4457+ig63Hgy8+Azvrq4n8/Dh/w6BAMbXFm/8JyGQpJyaFU
-	 fFWBr2lbIGglg==
-Date: Fri, 11 Sep 2026 13:56:55 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Andrey Albershteyn <aalbersh@kernel.org>
-Cc: linux-man@vger.kernel.org, linux-xfs@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, Christoph Hellwig <hch@lst.de>, djwong@kernel.org, 
-	linux-api@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] man/man2: introduce man page for
- file_getattr/file_setattr syscalls
-Message-ID: <aqPrI5F-IE6_lmK7@devuan>
-References: <20260910104120.3964799-1-aalbersh@kernel.org>
- <aqKgTGHh3nDnM3eh@devuan>
- <aqPg20OSbTsxRd6-@aalbersh-thinkpadx1carbongen13.rmtcz.csb>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="cUBzSOOU"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-4843f205a5bso549105f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 04:57:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1789127856; x=1789732656; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wr7n2cO3L1gr9+vq7aPZsfQwfFiNJgEahYqoxuJotBY=;
+        b=cUBzSOOUwzzqxDC+vpZBsvPZyne0rSo5Iv2fNaVmgBjouOyMtE6UfB8G9bsZefMktB
+         dKs9pIMO+8B2F/GdHaOaMo+0h27j493jL7A9DkGlrh+J4/dzg7ykHEZC3tk9SY/s+s/I
+         PU7xVdgEwQl+Eub1RVsJ6h7b40tYHFZ348G5S6M87Y7vJtLwcIIMWc0xJPEnLSZqE5iA
+         pdnpef71I1Yn3dDf8LEQJ62R/6BKeuzVwbDmgxAlkDnt6eF0//hs6KPBH1FRNCgaNXRc
+         pHzjD/fabk+Jsz7S5C+O491YMjAc9M6HMloUkXdPBUWgTiodBv+UX9UObFCTEW7lv2vt
+         nkXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789127856; x=1789732656;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wr7n2cO3L1gr9+vq7aPZsfQwfFiNJgEahYqoxuJotBY=;
+        b=JK0cwEG/r/bkmcG78q0Fyw8wuCiW7PR5KJFWR9+Hzym33e85wtka0vvzMdjwrUPsft
+         hRdT6FMLwGJor9HmjG+57HsuEaibt6DSlAgT8XI3ejgeyNH/ofzBBKdeeJyhGUY21CRN
+         smGUlT6waftT5Nz8auf9ID7oEkErajC4P081lnK79Bd4blLF+9wIgZ0vVOVgRQXmYhxJ
+         QGrX+GlCPmZVfOGyNkLQCW+sJ75x/oAc1WSDWBYZGaxVBQxfv8BIU7VVLy47fzvqy6OJ
+         TI56vJzfYrlRdMIPPv1qmtN8r1L335g3B9qNiCbA5ZgR90wSktTqhmPW9Ve0i6Yo0VB4
+         DwHA==
+X-Forwarded-Encrypted: i=1; AKwUvBw0h56uWTntQ+ESALYpwD3hBVWWOumaslAEEEnSFNUy+/JRU9zzdXfSkmPc/aw63KjahujOTp1CWuQ8ZDI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kS+SeNs93bFbwdWfMb4k1DQdZPHb3pXmhHl7HL4wf83mJN7yyJ
+	9Eb6krg5qKXLOOhEEAQqA0Z+HPrZ9HLFqzh0bGEulf1FaOcB/wP6XG3i5DocS2QnP0I=
+X-Gm-Gg: AYBFou0rEtU6mk3HodB41UPsQ1sii+ws+WgsSmXnwrw/WDyrt0ejeb6/k+v+3Mi6xPi
+	a8me1x5qOh6/pIa/N5C+rsKk89rcu42wFGo1j1rKLZkz7wFP4iF9kRLSxw5yY+oyxrrhx4RGl8T
+	z8aMB1XyrNFMKJPJhPpc91J94rHjkeRrjlJBBYWmrLjKppJSddOB52aHXA9iDU7Omf+59n5N8sN
+	/3z/BEbV/DlNR9KW20nbvJ6bXWr5Jz7yYkFwMs3syDsMAMlLf9pqmWWq9KeN+rKzcD/szqfjJfK
+	9iuTzxiIprBGIgYrknVYVt1G6BKgRJiPQGbkHCjCCOYQp40GLUU9X+TWwAaZ1BQ09N352QsVeW0
+	xRUY0oT9xdXvwKsNEtQdKv5PtvZ9QxMDHfRoAItl8AAi6+8A3C6eSu3+izUZJntZUemY5gpRssp
+	yYsEPEd0c8dQaZtT4fbZC6CgIMXvf27HJq6k4u0m6oVjr+/BEPJXYQBjHmNZx5DuMolFXJwL8h1
+	v5sc1vHmhEg50zY9nOnf356jqieb96LTBjg
+X-Received: by 2002:a05:600d:8496:20b0:499:8aff:59b6 with SMTP id 5b1f17b1804b1-49e6199234amr30006585e9.14.1789127856324;
+        Fri, 11 Sep 2026 04:57:36 -0700 (PDT)
+Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53? ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c300e2sm164777985e9.8.2026.09.11.04.57.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 04:57:35 -0700 (PDT)
+Message-ID: <f24ddba6-b7fa-434a-8a2c-9f04af6969e6@suse.com>
+Date: Fri, 11 Sep 2026 13:57:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="szfb7nu3rmkucoyg"
-Content-Disposition: inline
-In-Reply-To: <aqPg20OSbTsxRd6-@aalbersh-thinkpadx1carbongen13.rmtcz.csb>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 13/23] modpost: hash module source per-file, not per-byte
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Ard Biesheuvel <ardb@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>,
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+ llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
+ linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
+References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
+ <20260908-build-speedup-v1-13-5dc1ac01672d@kernel.org>
+ <434a7a10-d83e-4402-be91-816bbbc15bb7@suse.com> <aqPYvKR_eRsFlEd-@gremlin>
+Content-Language: en-US
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <aqPYvKR_eRsFlEd-@gremlin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 9/11/26 12:41 PM, Lorenzo Stoakes (ARM) wrote:
+> On Thu, Sep 10, 2026 at 02:52:50PM +0200, Petr Pavlu wrote:
+>> On 9/8/26 10:55 PM, Lorenzo Stoakes (ARM) wrote:
+>>> modpost spends a long time md4 hashing module source at a per-byte
+>>> granularity.
+>>>
+>>> Fix this by doing this hashing per-file instead by accumulating a per-file
+>>> buffer in parse_file().
+>>>
+>>> All 11,189 .mod.c files and Module.symvers were confirmed to be identical
+>>> with this change applied.
+>>>
+>>> This is especially impactful for allmodconfig incremental builds (where
+>>> CONFIG_MODULE_SRCVERSION_ALL is set).
+>>>
+>>> Whole build, 128-thread Threadripper 9980X, best of N runs:
+>>>
+>>>                                          before   after     delta
+>>>                                          -------------------------------
+>>>   x86 allmodconfig, touch mm/vma.c, gcc    40.6s    38.2s     -2.4s (-6%)
+>>>   x86 allmodconfig, touch mm/vma.c, clang  36.2s    35.0s     -1.2s (-3%)
+>>>
+>>> Assisted-by: LLM
+>>> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>>> ---
+>>>  scripts/mod/sumversion.c | 56 +++++++++++++++++++++++++++++++++++++-----------
+>>>  1 file changed, 44 insertions(+), 12 deletions(-)
+>>
+>> Support for the module srcversion is being removed in "module: remove
+>> MODULE_VERSION() and srcversion" [1] and scripts/mod/sumversion.c should
+>> be gone completely.
+> 
+> Hmm, that series doesn't remove the script though, is that planned as a follow up?
 
---szfb7nu3rmkucoyg
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Andrey Albershteyn <aalbersh@kernel.org>
-Cc: linux-man@vger.kernel.org, linux-xfs@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, Christoph Hellwig <hch@lst.de>, djwong@kernel.org, 
-	linux-api@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] man/man2: introduce man page for
- file_getattr/file_setattr syscalls
-Message-ID: <aqPrI5F-IE6_lmK7@devuan>
-References: <20260910104120.3964799-1-aalbersh@kernel.org>
- <aqKgTGHh3nDnM3eh@devuan>
- <aqPg20OSbTsxRd6-@aalbersh-thinkpadx1carbongen13.rmtcz.csb>
-MIME-Version: 1.0
-In-Reply-To: <aqPg20OSbTsxRd6-@aalbersh-thinkpadx1carbongen13.rmtcz.csb>
+My reply to that series [1] notes that it should also remove
+scripts/mod/sumversion.c. It should be done in the next version.
 
-[CC +=3D PERFORMANCE EVENTS SUBSYSTEM maintainers]
+> 
+> I guess I can drop this patch from the series then :) Also patch 17 I think?
 
-Hi Andrey,
+I agree. The module srcversion is no longer needed since build IDs are
+nowadays the standard mechanism for providing effectively the same
+functionality. While I'm not sure when the mentioned removal will land,
+reviewing and polishing this patch and patch 17 would IMO be wasteful at
+this point.
 
-> Date: 2026-09-11 13:17:12+0200
-> From: Andrey Albershteyn <aalbersh@kernel.org>
->
-> Hi Alejandro,
->=20
-> Thanks for the review, I will apply your suggestions, responses to
-> some of the questions below:
->=20
-[...]
-> > > +The
-> > > +.I flags
-> > > +argument is a bit mask, available flags are:
-> >=20
-> > The usual language we use for this is:
-> >=20
-> > 	The
-> > 	.I flags
-> > 	argument contains
-> > 	a bitwise OR of zero or more of the following constants:
-> >=20
-> > See for example readv(2).
->=20
-> I will use "constants" then (the readv uses "following flags")
+[1] https://lore.kernel.org/linux-modules/4e321525-708c-4964-9937-d94ea27e8d85@suse.com/
 
-Ok.
-
-> > There are some minor variations of this in other pages, and I should
-> > make them more uniform.
-> >=20
-[...]
-> > > +.TP
-> > > +.B EBADF
-> > > +.I pathname
-> > > +is relative but
-> > > +.I dirfd
-> > > +is neither
-> > > +.B AT_FDCWD
-> > > +nor a valid file descriptor.
-> > > +.TP
-> > > +.B EBADF
-> > > +.I pathname
-> > > +is an empty string,
-> > > +.B AT_EMPTY_PATH
-> > > +was specified,
-> > > +but
-> > > +.I dirfd
-> > > +is an invalid file descriptor.
-> >=20
-> > I was wondering: is it valid to specify AT_EMPTY_PATH, use an empty
-> > string, and use AT_FDCWD as the dirfd?  That should act on the current
-> > working directory itself, right?  Or is that not supported?
->=20
-> Yes, this is valid combination. I can describe this case.
-
-Thanks!  I think using wording similar to the one above would be enough:
-
-	but
-	.I dirfd
-	is neither
-	.B AT_FDCWD
-	nor a valid file descriptor.
-
-[...]
-> > > +.TP
-> > > +.B EINVAL
-> > > +.I size
-> > > +is smaller than
-> > > +.BR FILE_ATTR_SIZE_VER0 .
-> >=20
-> > perf_event_open(2) reports E2BIG for a size smaller than
-> > PERF_ATTR_SIZE_VER0.  This seems unnecessarily inconsistent.  I'm not
-> > sure which I'd say is more appropriate, but I'd expect them to be
-> > consistent.  I mentioned perf_event_open(2) because that's the only page
-> > that has a *_VER0 constant and documents an error if a size is smaller
-> > than it.  There's also mount_setattr(2) which documents
-> > MOUNT_ATTR_SIZE_VER0, but it's not documented in ERRORS.
-> >=20
-> > I think kernel maintainers should have a look at the different APIs that
-> > have such a value, and discuss whether the error codes should be made
-> > uniform retroactively, or whether we should accept the existing
-> > divergence but decide on an error code for new APIs.
-> >=20
-> > I've CCed linux-api@.
->=20
-> The MOUNT_ATTR_SIZE_VER0 also returns an EINVAL
-
-Thanks!  I'll document that.
-
-> I'm in favor of EINVAL as E2BIG is probably a more confusing naming
-> for the too small argument.
-
-I think I agree.
-
-I've CCd the maintainers of perf_event_open(2).  Can perf_event_open(2)
-be changed to report EINVAL?  Or is that mistake set in stone?
-
-
-Have a lovely day!
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-
---szfb7nu3rmkucoyg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmqj7IEACgkQ64mZXMKQ
-wqlezg//RLQAo0BxssEGu8xfo6SW+0W2DNb3gXUM9X7eVQuUNVndRL3KWcRf0lSD
-bdpX9Z4eK9TfgvYM6U6QLI1qkJMdc76zQKhgU2OwTgJECziYSDaPWeDdTXEU4XTe
-seSFHNg/PKr/FWZaSII4AtH8XIeJt7vMoJcr958fHUnflFb87oXOoyYxQzQ/f69k
-fvLN7IlIJj7ARdJOEHnVinv45b1VSoNNSo2vo6Z9iO6DdIfd8fiROQgz7TG2MhRo
-C38uQapJ77W4V4uF5ui0MMq7AXcN8Ire1+4tZrmWevUYehOJYujROuhxwjfA5VeL
-v9lteYeeyiv4sQIpLgUmI5HmhRyoER43J1N5iXrTbAQhsMxFoslnoruw33lnJ79L
-AVTz2qEm23M9QFHwrxstuv0m2OnH28DIMdu7v439Cpso9NGTtVuPF016gwIapNge
-P7E6g4qgb85H5qZy5JumNB/0OdBBYfYz5CVOsW+0m3D0XwjJYmlw42MMOh5TRDrF
-o5brnzgbdtwJuZaLTZVbB/8HGil5xHQMt8szE6FgKxbWm7aAUNto+MQrhq0TuaRD
-+wzhCILjvWNSbueJ/r9gN9PHqU7ura6s1OOnJi6mJ3/YAIueKN0ZCjIwtKBzdugH
-HTkCNhYUgB4udiV9O/+EI8xtDsihKRJbSBm/joWWFV0A08A32n4=
-=pDVG
------END PGP SIGNATURE-----
-
---szfb7nu3rmkucoyg--
+-- 
+Thanks,
+Petr
