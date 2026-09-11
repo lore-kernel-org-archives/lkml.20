@@ -1,65 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F4B13C1D6A;
-	Fri, 11 Sep 2026 06:02:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7A825B084
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:03:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789106545; cv=none; b=lXhY0eLvRB1UlClnt+bRHLBBUA1rzEAriXQslKAlCIRSwH/svmi6JWeRqh7gJ7XOR6jWIH+T90z1JEZVePXWOQzCmqOT/NvQIU3Dk/GaGxDlwQ+ZgUY0a7m0gFKP5xzU43AWssjSjmH/tszetXlsOCfUh4H8kQIP6mOzcbM45TA=
+	t=1789106616; cv=none; b=nIUyvbDas3u8bJDoQv7lhVgvVz+DuWLLR6vKE/XEmOcAm5h169azE7noLev1CYjhIyuHiJ/YX1VcW4yQ35r1XJz4wSbTv5wSboLMtIvidJie4hcnQhrC5MG49zvv3cI0ECSsGb2XZ5QUkbVJmRcVo9pvQM0XHUcz23J+cStHMKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789106545; c=relaxed/simple;
-	bh=5VDZeViSqzK8Fu9n4jxhh9yOff54U7Ehj50D82xJcuA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lViPI4yfBvrWpP8DVNZ2Xf8Zs5nTWLXxiUxyP7F/WMr+AhTVF6VRm0L8KqFVMUXZBCuO7Jz56PF4FWpcrxmjmf7NY1HDymvy3DkdNFxLFPXHdIBsaWkaF4oBh5n6kU4Slav3jobdnIbzdCaPGiAtbPWmICZKw1mAv38TttyU0NQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tqvpZISf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789106616; c=relaxed/simple;
+	bh=f7QPvMTT9b9wXpDl9a7IsqJk222Pi1TGuQ32NsZvNfo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RmALfzvKNajs0fjKDqdV6jhFjzAWyjTExiaZCvf3dA1MrgFkL0qGxygshQvIv0hCK2kTe08aMyYats6VgH8DjLsIVLv/XQVsTg/IP1P4gIdmtfSmfEv+L1u8s8hqVICbgzdaeZxqmO/CEijaRlnYwE232azRG4bfwzfioBZ5fZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai; spf=pass smtp.mailfrom=crusoe.ai; dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b=ZBvoZlrR; arc=none smtp.client-ip=209.85.161.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tqvpZISf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EB5F1F000FF;
-	Fri, 11 Sep 2026 06:02:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789106544;
-	bh=q++EVy/8oOAQSwq1tgfxkXr09cak9GNilyco3DCsB8g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=tqvpZISfeZZ/Gr438ZqvhHSOK15N1mvblCj3JvKc5PwBy9MgYpGX+CICQICpY5Wkp
-	 TIkfsNC782uz09spFjKN5mPY5PQsADOKbB+AURLNSsvZzquirwTwHgFYIwF15qkH15
-	 MHxD1w/pHFdYHNyX9XkyUzBY88ZpDQZARVswC+3o=
-Date: Fri, 11 Sep 2026 08:00:28 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Changyul Lee <lcy8047@gmail.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, linux-sound@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b="ZBvoZlrR"
+Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6b1c75f0049so555964eaf.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 23:03:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=crusoe.ai; s=google; t=1789106614; x=1789711414; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+BjoqHo0QynWJyv+c8A4+PUEN5brhXPIQlpmzw83mcU=;
+        b=ZBvoZlrRf62M2DrlBCQfPtUdqpvRn1LjpgXG68kk5mRx1JKy8xlwzKfLM8fk/1yKzo
+         sTIMJn8BFw8dJs++Wsazek9guQiJjUOLTGwzW1ZaieHFNwi0Nnv4O4VH7q2zZfHculgy
+         UCdWzw39eNk6RowhP+a/uJn7pyUlnIHDEpZh6ADFnn0KmRoHuUZrkMhBVjo1WVq4RmOK
+         qDNMUWGq7Vpa3TUIPt0zW47oUoD/RdyJzxkIjqAixVkNU/2cfICZ6AoB5g0VET/149VS
+         T918RoxMbiYeFSvRndVmdM/upadwfaco/fiHTy1g0ZaRWAl38I6BclmK9zMcZ6He2yPd
+         DI4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789106614; x=1789711414;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+BjoqHo0QynWJyv+c8A4+PUEN5brhXPIQlpmzw83mcU=;
+        b=Rf0omVNLMCLNFZ7B2uMLXI1TeS0rMRm5LG7MgKias7OkaJtIaGbmjmW9peb9821i3Y
+         S8RlQilw9MOVwwbws55TLY7O1iMHzAfnHus+UsS6vkrumsZEiipz7dbkBI2/XXIhHj1D
+         TS/Y7BJR+8rRu6PI5l8NcRT33fXG5frBws85QrLIWMa/YUmPjWaEr6WmarPp3B7nNGma
+         npuYgdqDZKg6+s1n+gf8JRf+Y8I6zh0FlNGZLkAx+oh5JPfmyll0bYkGjTkgDsANQRBQ
+         x5hG+2JPA/8ZRnXr9garUplpG8LuoQEsQWrlLhNq+V6/Dshaumfga40yfvbmIuQXyjJk
+         BfGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwLnb57+QPH/sY1tWGEGMLUYP2MlepfL9mEuwdU6ShIH0kSMJ8ZlHV/JGw6Iu7N/RGkGtO0PCx3MLCoqMw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lHZfCrLlmM3iQ2dMXPNRFAoOWzrUikttkdzZNpSRI4VIODJVCI
+	99bfv+jHZeWpHZ0IdjDl4OhCGVqQxV2YnfvcVA2OYHMQtqbG+hTIrNBa0Pc1/bwIoDU=
+X-Gm-Gg: AYBFou1HxRycXomA1qude9zIl9zxQocD+3w6heqMUvNId83sc6dc1QLPEtgIggS0k91
+	xEktfri+tfqYY7z3AuukYmJZJyntsHQQs0zd0PWa7Miym7iXiisFB3rrORfCKTPnRtdTJzzKJVV
+	CV1haoEekJeN+TATpEnIM18zyZTu7xqouA8tdo1XF9TvzhLD0CB5vjhbMGeSa3sd6OKFavVQTeb
+	cDTmurGQFwFqLDEwmVeimtVErofoBchHZNoegFjP5Rb1LQ/NQIzgM6wGb+lZFAkBu6CHAyU3TrZ
+	SVznBJNQaNrq0nhnV/NMawpQe5qOMKI+vZhQ7oy+WWDrhnwCe7US76UOHaaWwvlfUAmtgiMXHe4
+	bSb50m1y22dEVvzA1r/H2AXv+iol+MABUkFWt+DH/E55ES2viMUTeNEc+BDmIeG1LqWE5NIJCo/
+	3B4blnrlyvdRqA495zQ6qn+IhRgLPWcVMf0NDqe1M6PSZbkhhLukfYdabckb7GNaHQdO6mlSVbH
+	RwEiTBUMtYX5YamcLKop+xRYnZOpHyFuDdYxMi8m6Xe74XZAwQsHQ==
+X-Received: by 2002:a05:6820:c3c8:b0:6b1:535a:eb8 with SMTP id 006d021491bc7-6c0ba245822mr1214669eaf.2.1789106613729;
+        Thu, 10 Sep 2026 23:03:33 -0700 (PDT)
+Received: from MBP-Saravanan-D.civet-hops.ts.net ([2601:647:4380:3400:61fa:b5a6:b380:6ce0])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4fb3ddasm2965890eec.30.2026.09.10.23.03.32
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 10 Sep 2026 23:03:33 -0700 (PDT)
+From: Saravanan D <saravanand@crusoe.ai>
+To: Nilay Shroff <nilay@linux.ibm.com>
+Cc: Saravanan D <saravanand@crusoe.ai>,
+	linux-nvme@lists.infradead.org,
+	Keith Busch <kbusch@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Jens Axboe <axboe@kernel.dk>,
+	Daniel Wagner <dwagner@suse.de>,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] slimbus: messaging: hold lock until transaction is
- completed
-Message-ID: <2026091111-appear-stopper-6fd6@gregkh>
-References: <20260911045911.1327413-1-lcy8047@gmail.com>
+Subject: Re: [PATCH v3] nvme-tcp: allow setting per-queue io_cpu through sysfs
+Date: Thu, 10 Sep 2026 23:03:28 -0700
+Message-ID: <20260911060330.59998-1-saravanand@crusoe.ai>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <8dfee10f-89f3-463b-8d16-587873c3394c@linux.ibm.com>
+References: <20260909211432.6741-1-saravanand@crusoe.ai> <8dfee10f-89f3-463b-8d16-587873c3394c@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911045911.1327413-1-lcy8047@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 12:59:11AM -0400, Changyul Lee wrote:
-> slim_msg_response() drops lock after idr_find() and dereferences txn.
-> If the requester times out in the meantime, it frees the TID and
-> returns, so the handler writes the reply into msg->rbuf and calls
-> complete() on txn->comp, both of which have already benn freed.
-> 
-> Keep lock held until complete(txn->comp) finishes, so a requester
-> in slim_free_txn_tid() and cannot return while txn is still in use.
-> Call idr_remove() because slim_free_txn_tid() takes the same lock.
-> 
-> Fixes: afbdcc7c384b ("slimbus: Add messaging APIs to slimbus framework")
-> 
-> Signed-off-by: Changyul Lee <lcy8047@gmail.com>
+On Thu, 10 Sep 2026 13:55:59 +0530 Nilay Shroff <nilay@linux.ibm.com> wrote:
+> I wonder if we should avoid introducing a transport-specific tcp_queues
+> hierarchy here. io_cpu describes CPU placement of an NVMe I/O queue
+> rather than something inherently specific to TCP, and other transports
+> may have similar queue-level attributes in the future. Could we instead
+> introduce a generic "queues/<qid>/" hierarchy under each NVMe
+> controller, e.g.
+>
+>       /sys/class/nvme/nvmeX/queues/<qid>/
+>
+> and have transports expose queue-specific attributes there?
 
-No blank line between these please.
+Thanks for your review.
 
-And how was this found and tested?
+A controller is backed by exactly one transport, so we can adopt the
+transport-neutral /sys/class/nvme/nvmeX/queues/<qid>/ path with the
+creation staying outside of core in nvme-tcp, which owns the queue
+lifecycle. The core only knows ctrl->queue_count and never sees
+individual queue lifecycle.
 
-thanks,
+No other transport has queue attributes today, so a controller backed
+by rdma will have no queues directory at all. The path appears only
+where a transport populates it, and if another transport grows queue
+attributes later, the creation can move into the core without any
+ABI change.
 
-greg k-h
+> So could we expose this state through an additional read-only
+> attribute alongside io_cpu, for example:
+>
+>      /sys/class/nvme/nvmeX/queues/<qid>/io_cpu
+>      /sys/class/nvme/nvmeX/queues/<qid>/managed
+>
+> where "managed" indicates who currently owns the CPU placement. For
+> example, "1" could indicate that io_cpu is driver-managed and "0"
+> indicates it is managed by the control plane or user.
+
+Agreed, I can add the read-only managed attribute, 1 when the io_cpu is
+driver managed and 0 when the user assigned it in the next version.
+
+Both suggestions look good to me. I will wait for Sagi or Keith to
+weigh in before spinning v4.
+
+Saravanan D.
