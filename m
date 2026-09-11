@@ -1,277 +1,167 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C489C47CA62
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:56:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 068A247DF90
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:56:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789131395; cv=none; b=fng2vY6webCj6EUIhQzM6addsh4TyQD+nlJbtsXlylMIwbyiutuevqpbCYGWhOyOIEx6qqNkPtRik+bID2khZYFiLpasO/bziLb2u2II3agN14prRmKIAjsq4yxgByO9SR1MpyymCfDNiGZkFsJgBwm3eh6ydAeKbi/e6ywzIDg=
+	t=1789131430; cv=none; b=stIYi2aFdIJIovnW2+AgSmDI9HeJrvOFpgGPFhG7/gnMpttKKiGhcIr0zseH4FUvnxrffv2SEimNgMrLNbvKL4RNznbYfhZRoPGWaGb95I8xq5AjDzfJrFu1jtu6bcK1C9OGu+T37lOyNECNrBjDehnM8hXVj6NbT3NvjEJWpAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789131395; c=relaxed/simple;
-	bh=l36KCOXutmscMWmypnkDyAoya11zbx6yPfIcoidonDY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WRnS70g8Zl9Yy4PuJ6p9cqaEcGxFuTXNVHfmehYA6WSfIPX4O2VaBOkuGTjJXHmCTsMNDaRy//becQaNUHAPpTEEZ6SWVcy6tsEvRSjJatbUQKkX2d6yXsb+hd9ph4FAsQkz6OiomDUF8PPLicq5QwXv1VPd+TJkpBRVADWBFyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=GR1t8r6U; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789131430; c=relaxed/simple;
+	bh=X/OH0zK8JtY2c/VLGUiRv7XUSxwfqhS8cnSrX/7nDh4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=X+y/CxG+ZJXl6wbOI8OpeF0lPOEiaCk5acTrvITAJVm/POX9pGzvfh1EnxkM5KcVdixSqa22Iy91B5Jz8z0GSix8Bpmq6ftY2DQ/5G9h+qd+7VRhfd6Rt3z+FLUXkt90Q5nXxRXYBn/yw3o+0Kw5eCkyxrYF2WAf2++kgL8GUrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fT92RkC+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="GR1t8r6U"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BB1pgl1460590;
-	Fri, 11 Sep 2026 12:56:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=8mLdXX
-	tYOLbU2LNLcwLfYPs4HhYEoNhpXum+MalzHXI=; b=GR1t8r6UDAbMnaWagmD7Op
-	GUY0E/q/pHoVczOU5ndD6Fs2iaxzcmfwnHU13ilUG2ZNt7Wth0o1LTgZUE+HcKY1
-	rog/nT9yCWhOc4cWHxS6bQBuvaPsNwVAMQ5eyjEj1HSoqBoAXeeBXTg78G/LbXas
-	otsXKoK6TLIG4FgtSU97xblZATjV18Vw8OiO2iOZM7t/MEG6QrjSANj9RncvtBlD
-	S4NZSXUnx977/C/Xm1PQX0XPyKfE3EOUYqAPnAvpljtQlimTZE+vexgU7mzR0hsI
-	bVVK2iZXKduKNQYXANoA6/5cH9vxqaeKNnzIyI/WiHXLF3dBxAnHt8FW7UGvAXUQ
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gkd8sbeqa-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 11 Sep 2026 12:56:19 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68BCo3B01676368;
-	Fri, 11 Sep 2026 12:56:19 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gkvmhpdkm-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 11 Sep 2026 12:56:18 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68BCuFxF48038210
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 11 Sep 2026 12:56:15 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1E7182004D;
-	Fri, 11 Sep 2026 12:56:15 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 55D8420043;
-	Fri, 11 Sep 2026 12:56:13 +0000 (GMT)
-Received: from [9.43.53.28] (unknown [9.43.53.28])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 11 Sep 2026 12:56:13 +0000 (GMT)
-Message-ID: <17f3fd18-835a-4b83-81bb-2b4046ed37f7@linux.ibm.com>
-Date: Fri, 11 Sep 2026 18:26:12 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fT92RkC+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 788291F000FF;
+	Fri, 11 Sep 2026 12:56:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789131415;
+	bh=26RWSptk/C63igaxaf9XNA+m7yprosJiCw82r9jduVA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fT92RkC+ibTCcn9cCVhyDl4u/8y0VNLIm9tYZNJL9HCP9aOe52WAqpLSRJpgxO7FA
+	 IK9GVZqYgru/xUYeIPop5kiDiMW8xzZ2kGNTsHHChcPhuIdo90bT/0XQI4x7o1L4K9
+	 aGi0EBWUz7jFwrpYP6gW2KJqZKDOa9h8zcSy3bl6RIjsQ0dnHPHIzbvZ3A6Ot/+A5U
+	 spvnwG0EWVVnszLQc1NCzEr/di7vRDdxQmlD/Sc09MmLZpUJmXfpL+9YKyGqWqphAS
+	 QlCK7UBhXCNSYwZUFL+dtP4dmhrFA73nM+zAv5OpWBqYNF2sRMSuqKpss3EFOypyKg
+	 HUeR7MwIWbc+w==
+Date: Fri, 11 Sep 2026 13:56:50 +0100
+From: Will Deacon <will@kernel.org>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Thomas Gleixner <tglx@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	David Woodhouse <dwmw@amazon.co.uk>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Marc Zyngier <maz@kernel.org>
+Subject: Re: [PATCH 18/19] arm64: smp: Use generic HOTPLUG_PARALLEL machinery
+ for CPU onlining
+Message-ID: <aqP6kv9ZfNRWmngj@willie-the-truck>
+References: <20260907164024.17164-1-will@kernel.org>
+ <20260907164024.17164-19-will@kernel.org>
+ <23be2187-4618-400d-b817-023e6bc8f4bc@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [mainline]ppc64le: NULL pointer dereference in
- sparse_init_subsection_map when crash is triggered with FADUMP enabled
-To: Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Ritesh Harjani <riteshh@linux.ibm.com>,
-        Hari Bathini <hbathini@linux.ibm.com>
-Cc: LKML <linux-kernel@vger.kernel.org>,
-        linuxppc-dev <linuxppc-dev@lists.ozlabs.org>
-References: <d352c3fa-e584-461d-ac95-1ac6dfb4b589@linux.ibm.com>
-Content-Language: en-US
-From: Sourabh Jain <sourabhjain@linux.ibm.com>
-In-Reply-To: <d352c3fa-e584-461d-ac95-1ac6dfb4b589@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: Vdu-Mf0jQmjk8VhcSOIs28MnfLYn8BAW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDE3NiBTYWx0ZWRfXwiFX73mDSfOJ
- Q9rA90ZDlOoqdMeniy0V+SwA4lrmkcwi4hRox3VdtKHYhvpd7q8Y+rlTdx4Qnhe4xMU5QUcUqlx
- ewWyOV2cnc/PZYB2XbMgypINWNrL3ejrrlity6hjVpDT52EX4/k4IHdqSOVWW0VHU4fw54ncBl3
- Ix2RkITIWfbsMP8dd+Mawr1lWm9dOqcnq4U/v7Q7m4ch8wr30qu/FU8UuW0J4WG9p/80OH5z6PA
- 8Dwq6fHF2aylH7dHGGjCl1ptYgNZIkDlzokrSidU9CO65/O3j8sK6OOfYTMXq0Fvg51URa/m6tV
- FHLBeybxgAtjtM9bROzCqi31I5xKEDRysi3cltxP47ero6XQiOFqubTIWavjxuwkeXFKju0+cKS
- Xw6rOl/lcKNNoUfGVW2RucBwSV13Sla25ReXPC5njpthYgrOvMWxOlb7mKdYjCQXk7QJgPqnaER
- 7qhcL60Uc04XBMUAG4A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDE3NiBTYWx0ZWRfX3ruOC80VlEpA
- y70yH5R+H+yaJn2SyvPM2S0rJHuKXZwk9iU49VMQ3DuTTdSR+7/CqAhMMjdCpOpPAp3AC45Z1JX
- sxn2buKdIJrvvG1PgKGZbyuKP6E8PtY=
-X-Authority-Analysis: v=2.4 cv=MpXHeGae c=1 sm=1 tr=0 ts=6aa3fa73 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8
- a=L0S9ROj4nagv5cYX7DEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: Vdu-Mf0jQmjk8VhcSOIs28MnfLYn8BAW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-11_04,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
- adultscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110176
+In-Reply-To: <23be2187-4618-400d-b817-023e6bc8f4bc@huawei.com>
 
-Hello,
+On Tue, Sep 08, 2026 at 09:05:18PM +0800, Jinjie Ruan wrote:
+> 在 2026/9/8 0:40, Will Deacon 写道:
+> > diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
+> > index 17868b497d7c..bec4bc1b12db 100644
+> > --- a/arch/arm64/kernel/head.S
+> > +++ b/arch/arm64/kernel/head.S
+> > @@ -393,7 +393,6 @@ SYM_FUNC_START_LOCAL(__secondary_switched)
+> >  	mov	x0, x20
+> >  	bl	finalise_el2
+> >  
+> > -	str_l	xzr, __early_cpu_boot_status, x3
+> >  	adr_l	x5, vectors
+> >  	msr	vbar_el1, x5
+> >  	isb
+> > @@ -439,15 +438,15 @@ SYM_FUNC_END(set_cpu_boot_mode_flag)
+> >   * with MMU turned off.
+> >   *
+> >   * update_early_cpu_boot_status tmp, status
+> > - *  - Corrupts tmp1, tmp2
+> > - *  - Writes 'status' to __early_cpu_boot_status and makes sure
+> > + *  - Corrupts tmp1
+> 
+> Corrupts tmp1, tmp2 ?
 
-Here is the root cause analysis of this issue:
+Well spotted, thanks.
 
-The issue is caused by the FADump kernel running out of memory (OOM)
-during early boot. Since the OOM occurs very early, the corresponding
-OOM trace is not printed or observed. The kernel then hits a NULL pointer
-dereference because the component whose memory allocation failed does not
-handle the allocation failure correctly and allows the kernel to continue
-booting. When the kernel later accesses the memory assuming the allocation
-succeeded, it results in a NULL pointer dereference.
+> > @@ -125,45 +135,42 @@ int arch_cpuhp_kick_ap_alive(unsigned int cpu, struct task_struct *idle)
+> >  
+> >  void arch_cpuhp_cleanup_kick_cpu(unsigned int cpu, bool is_alive)
+> >  {
+> > -	long status;
+> > +	union secondary_status status;
+> >  
+> >  	if (is_alive)
+> >  		return;
+> >  
+> > -	secondary_data.task = NULL;
+> > -	status = READ_ONCE(secondary_data.status);
+> > -	if (status == CPU_MMU_OFF)
+> > -		status = READ_ONCE(__early_cpu_boot_status);
+> > -
+> >  	/* A CPU has failed to boot. Try to figure out what happened. */
+> > -	switch (status & CPU_BOOT_STATUS_MASK) {
+> > -	default:
+> > -		pr_err("CPU%u: failed in unknown state : 0x%lx\n",
+> > -		       cpu, status);
+> > -		cpus_stuck_in_kernel++;
+> > -		break;
+> > -	case CPU_KILL_ME:
+> > -		if (cpumask_test_cpu(cpu, &secondary_data.cpu_died_early_mask))
+> > -			set_cpu_present(cpu, false);
+> > +	if (smp_parallel_bringup)
+> > +		pr_warn_once("Parallel CPU bringup failed; consider passing \"cpuhp.parallel=off\" for a more accurate diagnosis.\n");
+> 
+> For some production systems, restarting to reproduce the issue may be
+> troublesome.
 
-The component whose allocation failed due to OOM is sparse:
+These errors _really_ shouldn't happen with production systems. They are
+caused by critical, deterministic errors such as the secondary CPU not
+supporting the system page size. If you can't reboot in that situation,
+then you have no system!
 
-[    0.000000] sparse_init_nid: node[0] memory map backing failed. Some 
-memory will not be available.  <--- allocation failed
-<snip...>
-[    0.000000] Early memory node ranges
-[    0.000000]   node   0: [mem 0x0000000000000000-0x0000000effffffff]
-[    0.000000] BUG: Kernel NULL pointer dereference on read at 
-0x00000010                              <----- kernel hitting error
+The parallel bringup code will detect the issue, it just won't be able
+to tell you which CPU caused which issue.
 
-This gap - where the kernel continues booting even after a memory allocation
-for a critical data structure fails in the sparse component - has already
-been identified and fixed upstream:
+> > +	if (cpumask_test_cpu(cpu, &secondary_data.cpu_died_early_mask)) {
+> > +		set_cpu_present(cpu, false);
+> >  		if (!op_cpu_kill(cpu)) {
+> >  			pr_crit("CPU%u: died during early boot\n", cpu);
+> > -			break;
+> > +			return;
+> >  		}
+> > -		pr_crit("CPU%u: may not have shut down cleanly\n", cpu);
+> > -		fallthrough;
+> > -	case CPU_STUCK_IN_KERNEL:
+> > -		pr_crit("CPU%u: is stuck in kernel\n", cpu);
+> > -		if (status & CPU_STUCK_REASON_52_BIT_VA)
+> > -			pr_crit("CPU%u: does not support 52-bit VAs\n", cpu);
+> > -		if (status & CPU_STUCK_REASON_NO_GRAN) {
+> > -			pr_crit("CPU%u: does not support %luK granule\n",
+> > -				cpu, PAGE_SIZE / SZ_1K);
+> > -		}
+> > -		cpus_stuck_in_kernel++;
+> > -		break;
+> > -	case CPU_PANIC_KERNEL:
+> > -		panic("CPU%u detected unsupported configuration\n", cpu);
+> >  	}
+> > +
+> > +	pr_crit_once("CPUs may be stuck in kernel\n");
+> 
+> Need we print the "cpu"
 
-commit b3ef855262928c5e80e881895694891164c13fc8
-Author: Muchun Song <muchun.song@linux.dev>
-Date:   Fri Jun 12 11:58:50 2026 +0800
+You should already get something like:
 
-     mm/sparse: panic on memmap and usemap allocation failure
+  CPUn: will not boot
 
+so I don't think we need anything extra (as, as above, we don't know
+exactly which CPUs are stuck).
 
-If you reproduce the same scenario with this commit included, you'll instead
-hit the following panic:
+> >  static void init_gic_priority_masking(void)
+> > @@ -407,12 +414,8 @@ void __noreturn cpu_die_early(void)
+> >  
+> >  	cpumask_set_cpu(cpu, &secondary_data.cpu_died_early_mask);
+> 
+> It seems unsafe for multiple secondary CPUs to update
+> cpu_died_early_mask concurrently.
 
-[    0.000000] Initmem setup node 0 [mem 
-0x0000000000000000-0x00000063ffffffff]
-[    0.000000] Kernel panic - not syncing: Failed to allocate memmap for 
-section 15619
-[    0.000000] CPU: 0 UID: 0 PID: 0 Comm: swapper Not tainted 7.3.0-rc1+ 
-#1 PREEMPT(undef)
-[    0.000000] Hardware name: IBM,9105-22A Power11 (architected) 
-0x820200 0xf000007 of:IBM,FW1110.00 (RB1110_048) hv:phyp pSeries
-[    0.000000] Call Trace:
-[    0.000000] [c000000002d4fd50] [c0000000012b56f8] 
-dump_stack_lvl+0xd8/0xf0 (unreliable)
-[    0.000000] [c000000002d4fd80] [c000000000212d58] vpanic+0x50c/0x550
-[    0.000000] [c000000002d4fe20] [c000000000212dd8] 
-do_panic_on_target_cpu+0x0/0x28
-[    0.000000] [c000000002d4fe40] [c00000000206d83c] 
-sparse_init_nid+0x274/0x278
-[    0.000000] [c000000002d4fed0] [c00000000206da08] sparse_init+0x1c8/0x290
-[    0.000000] [c000000002d4ff20] [c000000002061c5c] 
-mm_core_init_early+0x30/0x44
-[    0.000000] [c000000002d4ff40] [c000000002005f90] start_kernel+0x90/0x608
-[    0.000000] [c000000002d4ffe0] [c00000000000e788] 
-start_here_common+0x1c/0x20
-[    0.000000] Rebooting in 10 seconds..
+Why? cpumask_set_cpu() is atomic and each CPU only sets their own bit.
 
-The above commit does not resolve the reported issue; it only makes the
-failure easier to understand.
-
-Increasing the crashkernel reservation should resolve the issue for this
-configuration. I recommend increasing it by 2G or more.
-
-The configured crashkernel value follows the recommendation, but the
-recommended value is not sufficient for this particular configuration
-because it uses a 4K page size. With 4K pages, the sparse and similar
-per-page/per-section allocations require more memory than with 64K pages.
-This is why the issue is not observed with the same configuration using a
-64K page size.
-
-I’m exploring ways to reduce FADump’s memory footprint by limiting
-per-page/per-section allocations to memory actually used by FADump.
-Until then, please increase the crashkernel size to avoid this issue.
-
-- Sourabh Jain
-
-On 23/04/26 17:53, Venkat Rao Bagalkote wrote:
-> Hello,
->
-> IBM CI has observed a kernel crash when testing FADUMP on ppc64le.
-> i.e., when a crash is explicitly triggered while FADUMP is active.
->
-> System details:
-> --------------
-> Architecture      : ppc64le
-> Platform          : IBM Power11 (pSeries)
-> Machine           : 9080-HEX
-> Firmware          : FW1110.01 (NH1110_069)
-> MMU               : Radix
-> Kernel            : 7.0.0+
-> Boot mode         : FADUMP enabled
->
-> Upstream kernel version: 7.0.0+
-> Upstream kernel commit-id: 2e68039281932e6dc37718a1ea7cbb8e2cda42e6
->
-> kexec-tools 2.0.32.git
-> makedumpfile: version 1.7.9 (released on 20 Apr 2026)
->
->
-> Attached is the .config file.
->
-> Crash Logs:
->
-> [    0.000000] BUG: Kernel NULL pointer dereference on read at 0x00000010
-> [    0.000000] Faulting instruction address: 0xc000000000aba3d0
-> [    0.000000] Oops: Kernel access of bad area, sig: 7 [#1]
-> [    0.000000] LE PAGE_SIZE=4K MMU=Radix  SMP NR_CPUS=8192 NUMA pSeries
-> [    0.000000] Modules linked in:
-> [    0.000000] CPU: 0 UID: 0 PID: 0 Comm: swapper Not tainted 7.0.0+ 
-> #1 PREEMPT(undef)
-> [    0.000000] Hardware name: IBM,9080-HEX Power11 (architected) 
-> 0x820200 0xf000007 of:IBM,FW1110.01 (NH1110_069) hv:phyp pSeries
-> [    0.000000] NIP:  c000000000aba3d0 LR: c000000000708c38 CTR: 
-> 0000000000000000
-> [    0.000000] REGS: c000000002d6fb10 TRAP: 0300   Not tainted (7.0.0+)
-> [    0.000000] MSR:  8000000000001033 <SF,ME,IR,DR,RI,LE> CR: 
-> 44000248  XER: 20040001
-> [    0.000000] CFAR: c000000000aba41c DAR: 0000000000000010 DSISR: 
-> 00080000 IRQMASK: 1
-> [    0.000000] GPR00: c0000000020548b8 c000000002d6fdb0 
-> c000000001a9a100 0000000000000010
-> [    0.000000] GPR04: 0000000000000000 0000000000000008 
-> c000000002d6fcc8 0000000000000000
-> [    0.000000] GPR08: ffffffffffffffff ffffffffffffffff 
-> 0000000000000008 ffffffffffffffc8
-> [    0.000000] GPR12: c000000002b30cd0 c00000000307a000 
-> 0000000000000000 0000000000000000
-> [    0.000000] GPR16: 0000000000000000 0000000000000000 
-> 0000000000000000 0000000000000000
-> [    0.000000] GPR20: 0000000000c00000 0000000000000008 
-> 0000000000000000 0000000000306000
-> [    0.000000] GPR24: 0000000000000eff 0000000000000bfa 
-> c000000001461398 c000000001891c58
-> [    0.000000] GPR28: c000000002d44230 c000000002d44268 
-> 0000000000bfa000 0000000000001000
-> [    0.000000] NIP [c000000000aba3d0] __bitmap_set+0x90/0xe0
-> [    0.000000] LR [c000000000708c38] subsection_mask_set+0x38/0x50
-> [    0.000000] Call Trace:
-> [    0.000000] [c000000002d6fdb0] [c000000002744280] 
-> init_task+0x0/0x1d80 (unreliable)
-> [    0.000000] [c000000002d6fdd0] [c0000000020548b8] 
-> sparse_init_subsection_map+0xac/0x138
-> [    0.000000] [c000000002d6fe80] [c00000000204aa8c] 
-> free_area_init+0x258/0x4f4
-> [    0.000000] [c000000002d6ff50] [c000000002004f5c] 
-> start_kernel+0x98/0x5fc
-> [    0.000000] [c000000002d6ffe0] [c00000000000e998] 
-> start_here_common+0x1c/0x20
-> [    0.000000] Code: f92afff8 4200ffe4 55893032 38630008 798c18e8 
-> 7d295850 7c636214 7d2907b4 2c290000 4d820020 7d452214 3920ffff 
-> <e8e30000> 7d4a00d0 554a06be 7d295436
-> [    0.000000] ---[ end trace 0000000000000000 ]---
-> [    0.000000]
-> [    0.000000] Kernel panic - not syncing: Fatal exception
->
->
-> If you happen to fix this, please add below tag.
->
->
-> Reported-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
->
->
-> Regards,
->
-> Venkat.
->
->
-
+Will
