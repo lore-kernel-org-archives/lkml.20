@@ -1,103 +1,60 @@
-Received: from mta0.migadu.com (out-239.mta0.migadu.com [91.218.175.239])
+Received: from mta0.migadu.com (out-2.mta0.migadu.com [91.218.175.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A15423EAE
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:01:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0C642AFA2
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:01:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789113701; cv=none; b=n29sgNF7U/fdwnlTDYHaSp50ELdGvje00rU1m85LQJM4q8ljGewQOExk3g4q6EU+7P5+1sueaXby9H63H7LfLKBnio/DmZnt4Q9ETybPIFuXjUSZmVqNtNgBEKxC0Zm1zM0w0HXcPkwMRuXOL+XqY7TNRrj2J0jeXMI/Uj1wJ/k=
+	t=1789113710; cv=none; b=q82ogPCuhPIHQtWLWo0C0i060N6F8tm0oQtVEc/7ompS+PnToXzmUrzvEv6ZPOkDdGcXN1GLWWuXLRZgtEVMzqgnt7PdYV4FE5YVTm3DA8UZtY2bevw9eSlwb76MnR+Ui9s7rL6v7IaubLrkJ4OsM09eLsfQzaCLg6tN/as6HXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789113701; c=relaxed/simple;
-	bh=IUi1QxJJO9OkJwG+5y62kZo0PP6tS0vKjCkbB/pQE7o=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=GhJ9UaeDiOiheIPVVScEy8MpxMQLFk59jQlGnSxMSN7S9/VoDdgTqdpE8qblW9o96yLZvHah7iPqQO5GYhBBWWJNhmnsGhfN2/TCSJa2G/tjaWY+GcFHjN6hhsKysR0HR6kxaZxufP2IymZ9AqMYc9f3WZ8o/RdFl2lWjekJ1B8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ITKbw41G; arc=none smtp.client-ip=91.218.175.239
+	s=arc-20240116; t=1789113710; c=relaxed/simple;
+	bh=fjfBBGmsJJ56y0JVyIG84X0Pp//85lfIIw3IuGHXEuw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UWSQXYtO+r5qHFZsd9mpha0Dy3j8BeabK5ukvJHcsEYxBBbgpThUYSBIkCyy/VrwyQy67H/9vZvZ5H6X/yOfjv90FSmFVAf88UPYEGelmn/exizsxYtJ9WzMKxzLQ7/ZCNkOfDKipTd8hE1ZiTfbcabt27gWJI7VEivf4nDT8xg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Gx060nBe; arc=none smtp.client-ip=91.218.175.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ITKbw41G"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Gx060nBe"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=IUi1QxJJO9OkJwG+5y62kZo0PP6tS0vKjCkbB/pQE7o=;
+DKIM-Signature: a=rsa-sha256; bh=fjfBBGmsJJ56y0JVyIG84X0Pp//85lfIIw3IuGHXEuw=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789113696; v=1; x=1789718496;
- b=ITKbw41GIqoryyNdtt8qpmC83viNLQyMmuoZW8dWz8JcJc0unVQ8J/nZdm9KxTFgnButgmGJ
- wiCYmtwrdxbb97eNtf9+weSiTGw+PYTAPRWcmIxdXGmrRf7AdeO2fEl1oddISNtk4J+GRgfSs0j
- TvtyaW+rSUFOPeoVoko6zkWc=
+ t=1789113707; v=1; x=1789718507;
+ b=Gx060nBeVY1D62r9dKfL9BMU0V0CMYMZUncAc5m9CHjz1sagu5U9bVjq0u4T/tawn1Ndmgg9
+ ivKZt4cQZfl9dWtxUnSIuOKYRDbJ82DnlRm4as2mWvQPHKUtLWUJpL9zgivmT7qmlSZnhjIwFsw
+ ZvAUZXRiFoJCWVtWnS6qRafc=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e9627d939de7aa3b;
-	Fri, 11 Sep 2026 08:01:34 +0000
-X-Mizu-Trace-ID: e9627d939de7aa3b
+Received: by mta12.migadu.com with ESMTPS id 243d01929788e07c;
+	Fri, 11 Sep 2026 08:01:46 +0000
+X-Mizu-Trace-ID: 243d01929788e07c
 X-Migadu-Flow: FLOW_OUT
-From: Ye Liu <ye.liu@linux.dev>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Ye Liu <liuye@kylinos.cn>,
-	Michal Hocko <mhocko@suse.com>,
-	SJ Park <sj@kernel.org>,
+From: Hui Zhu <hui.zhu@linux.dev>
+To: Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
 	Lorenzo Stoakes <ljs@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>,
-	peterz@infradead.org,
-	paulmck@kernel.org,
-	mingo@redhat.com,
-	jpoimboe@kernel.org,
-	mic@digikod.net,
-	tglx@kernel.org,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	linmiaohe@huawei.com,
-	nao.horiguchi@gmail.com,
-	rafael@kernel.org,
-	gnoack3000@gmail.com,
-	gourry@gourry.net,
-	rientjes@google.com,
-	shakeel.butt@linux.dev,
-	xu.xin16@zte.com.cn,
-	chengming.zhou@linux.dev,
-	will@kernel.org,
-	boqun@kernel.org,
-	frederic@kernel.org,
-	neeraj.upadhyay@kernel.org,
-	joelagnelf@nvidia.com,
-	josh@joshtriplett.org,
-	urezki@gmail.com,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	tony.luck@intel.com,
-	reinette.chatre@intel.com,
-	x86@kernel.org,
-	paul@paul-moore.com,
-	jmorris@namei.org,
-	serge@hallyn.com,
-	pavel@kernel.org,
-	lance.yang@linux.dev,
-	pmladek@suse.com,
-	longman@redhat.com,
-	mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev,
-	dietmar.eggemann@arm.com,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	mark.rutland@arm.com,
-	Dave.Martin@arm.com,
-	james.morse@arm.com,
-	babu.moger@amd.com,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	cgroups@vger.kernel.org,
 	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	rcu@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-security-module@vger.kernel.org
-Subject: [PATCH v3 11/15] tracing/fgraph: convert process/thread iterator to for_each_process_thread_rculock
-Date: Fri, 11 Sep 2026 15:57:56 +0800
-Message-Id: <20260911075800.491472-12-ye.liu@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260911075800.491472-1-ye.liu@linux.dev>
-References: <20260911075800.491472-1-ye.liu@linux.dev>
+	linux-kernel@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v5 3/4] mm: memcg: skip the RCU lock when the memcg is not dying
+Date: Fri, 11 Sep 2026 16:00:50 +0800
+Message-ID: <9ffdbdfc96312e3e13cb8f056bfe26649492d949.1789096175.git.zhuhui@kylinos.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1789096175.git.zhuhui@kylinos.cn>
+References: <cover.1789096175.git.zhuhui@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -106,57 +63,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ye Liu <liuye@kylinos.cn>
+From: Hui Zhu <zhuhui@kylinos.cn>
 
-Replace the manual rcu_read_lock()/rcu_read_unlock() pair combined
-with for_each_process_thread() loop in kernel/trace/fgraph.c with
-for_each_process_thread_rculock(), which scopes the RCU read lock
-to the loop body via scoped_guard(rcu).
+get_non_dying_memcg_start() takes rcu_read_lock() on every stat update, but
+the lock only protects the upward walk to a non-dying ancestor, which
+happens solely while a memcg is being offlined.  The dying check itself
+reads the CSS_DYING flag of a memcg the caller already holds a reference
+to, so it is safe without the lock.
 
-No functional change.
+Check memcg_is_dying() first and return immediately when the memcg is
+alive, taking the RCU lock only on the rare dying path.  On an anon
+fault/charge churn workload in a memcg this recovers the ~0.6% overhead
+added by the previous patch (4368077 vs 4343159 pages/s before, back to
+~4377000 pages/s after).
 
-Signed-off-by: Ye Liu <liuye@kylinos.cn>
-Acked-by: Michal Hocko <mhocko@suse.com>
-Reviewed-by: SJ Park <sj@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+Fixes: 7404bd37cfbe ("mm: workingset: use lruvec_lru_size() to get the number of lru pages")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
 ---
-Changes in v3:
-  - Split from kernel/ patch in v2 (Peter Zijlstra, Steven Rostedt)
+ mm/memcontrol.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-Changes in v2:
-  - Rename *_rcu to *_rculock
- kernel/trace/fgraph.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
-
-diff --git a/kernel/trace/fgraph.c b/kernel/trace/fgraph.c
-index 40d373d65f9b..f797ce119223 100644
---- a/kernel/trace/fgraph.c
-+++ b/kernel/trace/fgraph.c
-@@ -1057,11 +1057,10 @@ static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
- 		}
- 	}
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index ace9fe2b46084..9995f3d2aae1b 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -853,6 +853,17 @@ static long memcg_state_val_in_pages(int idx, long val)
+ static inline struct mem_cgroup *
+ get_non_dying_memcg_start(struct mem_cgroup *memcg, bool *rcu_locked)
+ {
++	/*
++	 * Fast path: the caller holds a reference to @memcg, so reading
++	 * its CSS_DYING flag without the RCU lock is safe.  The RCU lock
++	 * is only needed to walk up to a non-dying ancestor, which
++	 * happens only while a memcg is actually being offlined.
++	 */
++	if (!memcg_is_dying(memcg)) {
++		*rcu_locked = false;
++		return memcg;
++	}
++
+ 	rcu_read_lock();
+ 	*rcu_locked = true;
  
--	rcu_read_lock();
--	for_each_process_thread(g, t) {
-+	for_each_process_thread_rculock(g, t) {
- 		if (start == end) {
- 			ret = -EAGAIN;
--			goto unlock;
-+			goto free;
- 		}
+@@ -864,6 +875,9 @@ get_non_dying_memcg_start(struct mem_cgroup *memcg, bool *rcu_locked)
  
- 		if (t->ret_stack == NULL) {
-@@ -1074,9 +1073,6 @@ static int alloc_retstack_tasklist(unsigned long **ret_stack_list)
- 			t->ret_stack = ret_stack_list[start++];
- 		}
- 	}
--
--unlock:
--	rcu_read_unlock();
- free:
- 	for (i = start; i < end; i++)
- 		kmem_cache_free(fgraph_stack_cachep, ret_stack_list[i]);
+ static inline void get_non_dying_memcg_end(bool rcu_locked)
+ {
++	if (!rcu_locked)
++		return;
++
+ 	rcu_read_unlock();
+ }
+ 
 -- 
-2.25.1
+2.43.0
 
