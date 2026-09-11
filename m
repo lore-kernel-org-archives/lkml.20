@@ -1,22 +1,22 @@
-Received: from mail-pf1-f228.google.com (mail-pf1-f228.google.com [209.85.210.228])
+Received: from mail-pg1-f225.google.com (mail-pg1-f225.google.com [209.85.215.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7085440E8CD
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7268642901F
 	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:35:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789169760; cv=none; b=RMgiHSkl6iph0QLSXQ/3NdZWLylGT3Wpb6j8umVgOSWmIRt3+vITeis+S8yx/spwWZkTR4KxFnfFwDbkrJTUtK2dtwKfGdtSu0LFm7ifyyLQJJ9+/GEZbCK9J55lhmRMRY3mjMWGCtqjp2tpaI/yRz3NlZStokHH5ooRaC+NjRw=
+	t=1789169760; cv=none; b=IjbbFjH2dADyzYv4OMdCEpTZ/g+4iiZVbWagRPw3B39xP5g1CvMIHbcDMDe3xu2A0DB4D4ZayldVqE0+9eRXDaFBzsjt4YDiQQaSj2K5WR0YvcfhcKOUpl6tIteFgGgZc5u8xuNGVvpxBrkuSD/PeQY+RTXigR/vkLKadCguynA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789169760; c=relaxed/simple;
-	bh=13qbqAzryTLcOBJ/NrIGKEz5d3AP9UnaGQRUX5OGeo0=;
+	bh=T48SFl0hfG/hIeHA+WLTxN4W6zR+AqfTEym/r11qGfU=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=qwC1ZuqwnqifveCFnAan5RhHeTzaPItXTEGhPEgZwyXKopxPQkB76ozvYmhWHoHcVyw11gmn5bGf4FPy9stAN+IiZXekIC+BwdWoQOapi0vGz8EuwygiN58Uv4Awx7f7fHYSMbOCL+kbiqFTpDsSHc3EftruOvmlX6K97z+PpFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=dCvy9JHN; arc=none smtp.client-ip=209.85.210.228
+	 MIME-Version; b=X7ffmu5LVgYoBVQ0rnnLLm80M1OLj03aCrwTnfRORGBaxf0t72+cgf+PwsDMomtt+GuF+H3sv5YDEZBalfVr1MFmjqU/b/2Ku6Jhs39Ap/Eo8KtgFEw7f35tT3Bi/IHVJDrdPo6/wGtJhHEpNbLI7fYKdS6K1qOiAJwBYVDsc44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=N4hHzScj; arc=none smtp.client-ip=209.85.215.225
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="dCvy9JHN"
-Received: by mail-pf1-f228.google.com with SMTP id d2e1a72fcca58-868b3248b2cso356506b3a.1
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="N4hHzScj"
+Received: by mail-pg1-f225.google.com with SMTP id 41be03b00d2f7-cc147d86bebso1772879a12.0
         for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:35:58 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1789169758; x=1789774558;
@@ -24,55 +24,55 @@ X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
          :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ArH91frdffOdQcxWygxWviJhRnyFFFtxyckVO+/C0bo=;
-        b=qutL7fIqUXK527CCZLKqkES7q8F/olmprENNO+vW/nvXJmVT5CbVW4yUSYqTrkh8O1
-         AkamW84aYqiqTdPlWcxQi78wCxXtUeNk9DvlsbYDhx6KxygmYddt+gF6H/W3W7S9+mQt
-         uqUHfiJ8bmouu49yN4ttC/XwJC66nJej0Fq6hZaXDrCi6ggmfDXmryrpMI/msj8iMfyk
-         rA3ARrKWFufwL1jYNb4ihD9xHZc5Fw1yX01DMF3fJKLYC2vH1dCb3ZOywBAWt/orL+g+
-         d99iU+Kp05AujWwfWzB9U0oDrnRlv9bLQA2HHZc5Y3B80LuxQlr+h3hr9ib8F++CXS9k
-         8DPA==
-X-Forwarded-Encrypted: i=1; AKwUvBxLstajjhI7j/xgGOpQwKBEY828bn8kMPacoGTk1ac5roLA/+RE1szV6n+EeQDoW8Kj7S/6t+5IDGB5Swc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kyCvKQO35zbMIMedsIGYvpWtxrdvcGuXlauTHqmj8fuokCuSYy
-	v+HO+kZoL5CLuK9DsHpQyOYbjstwAZUP7Ylbx75Pt88Oi/wDnK4g3dvjKBq8ftvLwHI8YnoK4CQ
-	sxRh4289AQG05WabWkT7AWE7XdRzG9REYZF+ZFwmCPrTcpUM0yM96VnCG5IVr5b7Edj8xbl8c+s
-	tPMpf+OzhxyIi+p/dC7EQYgllrPrroFIBFKzMndOZMUdqibLz9UdxF/QH2m4g9DvcF2GKlOhdy3
-	QUfRZycX1AUkowzsYD3
-X-Gm-Gg: AYBFou1BU66S58qdosbgkB2d61j2zSUW1PR0qscQ8SZMuEE90gg6WEolDYY29Sjkki2
-	5sCiqVLEMwmrKdlP6DGxYH8nuY+4EsFC/9WQqVm1AiQiaxO672DJZDakzu89bn5+XV/41acswQB
-	Kgkd9/KHtZNX/1QPK0b5PMWhIYSVXXcBMAaU20kv9JdyoUHap3nRq1nrPbZyB3sCAzJ3XySBs6n
-	Rx0oQ8FyZhstW44Vk4Q5cgPD1oo3yupQdK8IU180sFZq/xmMDDdXE1Idy8UuoF8CXxIWyRgTzls
-	jif8uRbUQeHnSw46rzlc+47DaFqVBIpDlrrGv6uNLvb98hzKXUCZg0OF/WNM1h484lE99BKRb2m
-	IdXBkxYyoudoy4hCQ8Q1OKVuWD52ZKdY+qytwJs6fnsbKjfAPKwCSJNtsLDYjCD1iOdC0cmt3Io
-	LIcV8jyY7KFeitI1mpaYZDhhHuev4vrR4qeOaG
-X-Received: by 2002:a05:6a00:1822:b0:868:ce09:7c4e with SMTP id d2e1a72fcca58-86b342f54e9mr10157935b3a.23.1789169757697;
+        bh=VUDYRA+elxh8m3+YuX4zLBX8SlbUvqG/ZGp7B+YZHjQ=;
+        b=ERoD8jdmDbqiLmVlSchLxsWq86QUQ1t6Vb9Gu+RtHv5T/+7CRa7Xxw0WtK/yOJBkGl
+         3f0U0AKBIX57pyHDJFfHHte1aMorCl7L8XH52HXGDgmEyBHB6ZQHdFBvBmT1jq7DmUvw
+         9eycpjviId7kGM47tkvMxFU7Rgld5RLdoQWEIFdTTapvVQe5OVsf/OieQPGWwxrm7Wim
+         VGtAK4siyhNAvt7yVTC7iDVjQdufNgDix4zh8LtTsgvgP9ecQTmzHnHZe+8lx67kaJVx
+         Y+KU/coE8HbQ6o+mENw8FnQ14WsiljEPw6Qqlf2jRWjCD430NGS0vjYltPCgTmDlQh2j
+         REOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBykpQhlkbUngNpFWGLvx+rxm3yOD/5NTpIBbLbKJPz50JL8KvbZFqx7f8E1LPdbSBXjyPlaCXta+3c1RNc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lL3FiVvev5aPGa/XTXWKD6ARpP3unJafCSMdoWm41VF4HQ5qPS
+	xiENCT3Gd0/iJRlBVzlHpJEA7ktd+neQpZVWq9AQFEkUVRnCocKOwGb2Jk8PNbZlJcdEloou+Uu
+	tpdaUxHkYpnL9w8anD5LP2ToREsQ7Ik7+vx35zVnPOXUVr8BnNIoK3R0IfhM3r83V6glZRxREVp
+	1FLlgl0hiScBr2qsdg5lK0uTVzMY9aA2E/4sAi10rU9v9Oqw+M1IjopUrDvW36wNaEei95+0laQ
+	LGVN/suicRQfU6qxuig
+X-Gm-Gg: AYBFou3rE42AkTLDkVxzoJrvs294lptBIbgE5GzIdxFGJNnA6HPEiQUUU2KPkpPDSEe
+	A+rCpBXcmVrimgeis1eK077CkmJOHWGsJ8J+5d6yl715F9IxcCNivpJXAf1Ju0a9A7EpgAdit05
+	WnR7hHc7r8/t6/Aev39cNX5PU7lCX08oPOS72XwqnX2VRk6qlsuLYWDE1SEffpdSOvgIFaesc5n
+	0Cax0s6VR/Zp2WxKBSwOsteZ6fuWH+edTAXvRAEiwU4Tpgn1iYSzgi110O3N5ZNhKeMrc5tgGbM
+	QYbCl2HM8hF84hUewcjRd6SqnDdIwAAPM7Kp+1IA6gLpORH+J2xmIUavU/q9nVKjsKuM04QHvJp
+	JeRJb4UILQzu3qYxH53SGyhbaSjtt9eHD2bT5gYi8kUUNesTDqqUtpLq/mgy+ErBvCqL763zE1s
+	hrMAQRzHFgcIlH3/NDBp/UACbsn3NVQbImo9QT
+X-Received: by 2002:a05:6a21:2989:b0:3db:710:5ca4 with SMTP id adf61e73a8af0-3db07106006mr2291529637.3.1789169757714;
         Fri, 11 Sep 2026 16:35:57 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
-        by smtp-relay.gmail.com with ESMTPS id d2e1a72fcca58-86b27dc0f73sm1001319b3a.5.2026.09.11.16.35.57
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-14.dlp.protect.broadcom.com. [144.49.247.14])
+        by smtp-relay.gmail.com with ESMTPS id 41be03b00d2f7-cc4c62a4114sm1417010a12.1.2026.09.11.16.35.57
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
         Fri, 11 Sep 2026 16:35:57 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-939d6c515deso258070385a.3
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91054f537f9so36982726d6.0
         for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:35:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=broadcom.com; s=google; t=1789169756; x=1789774556; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ArH91frdffOdQcxWygxWviJhRnyFFFtxyckVO+/C0bo=;
-        b=dCvy9JHNCgDuDdq2QGRIzPDZha80q+mHVC58ZUudGIHMCwZvGhZ/fIFdSJWnyzlNBf
-         06Io73X97Q0b7N+n6ckzg1/s1CBq/VRJlSpI7Zf6OHiP72kQnmv6FqMCayvgeSCFv/Fa
-         sZKMwd7uhXvRqQ6Qi8PrluT/D/QI9F/VrFtow=
-X-Forwarded-Encrypted: i=1; AKwUvBwJKGo+inoaauFOZC9s63xeLEZmxSTDR2fiFwCKPH8dpK5w34A0yMCMEelElwuTUHppbmclp7Nf9dvLeTc=@vger.kernel.org
-X-Received: by 2002:a05:622a:164b:b0:530:b2e2:9038 with SMTP id d75a77b69052e-530c87b2e6amr91266261cf.56.1789169756363;
+        bh=VUDYRA+elxh8m3+YuX4zLBX8SlbUvqG/ZGp7B+YZHjQ=;
+        b=N4hHzScjuki7aapQCdjclzeyqCcdPamMy5TmK5lkZur8ahKA1BnQGyipfFGx38/+cJ
+         Hfo9Hkl3vDT1P6TV/zObHZ2jLc1jk1byQk31FG0FcuirVuX3qZebcfPpgGHu6xxp3wB/
+         YIIdErnPSJWn8CtB6JGPHFKb4jFESwXPcQXrs=
+X-Forwarded-Encrypted: i=1; AKwUvBxY6mH1SOUKyBE1z1/sP96l+3HRJsIptvMtKTZDr0EI/sLxxLnNclUkY/W0xfqW5t/Dmb7/iyYxvrJsvMY=@vger.kernel.org
+X-Received: by 2002:a05:6214:2b09:b0:8e9:51b7:2d49 with SMTP id 6a1803df08f44-912028a08bdmr150317586d6.2.1789169756309;
         Fri, 11 Sep 2026 16:35:56 -0700 (PDT)
-X-Received: by 2002:a05:622a:164b:b0:530:b2e2:9038 with SMTP id d75a77b69052e-530c87b2e6amr91262541cf.56.1789169751039;
-        Fri, 11 Sep 2026 16:35:51 -0700 (PDT)
+X-Received: by 2002:a05:6214:2b09:b0:8e9:51b7:2d49 with SMTP id 6a1803df08f44-912028a08bdmr150317256d6.2.1789169755927;
+        Fri, 11 Sep 2026 16:35:55 -0700 (PDT)
 Received: from stband-bld-1.and.broadcom.net ([192.19.144.250])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f45ab71sm31717326d6.12.2026.09.11.16.35.49
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f45ab71sm31717326d6.12.2026.09.11.16.35.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 16:35:50 -0700 (PDT)
+        Fri, 11 Sep 2026 16:35:54 -0700 (PDT)
 From: Jim Quinlan <james.quinlan@broadcom.com>
 To: linux-pci@vger.kernel.org,
 	Nicolas Saenz Julienne <nsaenz@kernel.org>,
@@ -89,9 +89,9 @@ Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
 	linux-rpi-kernel@lists.infradead.org (moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE),
 	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE),
 	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH 03/13] PCI: brcmstb: Add Broadcom quirks macro
-Date: Fri, 11 Sep 2026 19:35:28 -0400
-Message-Id: <20260911233541.1650895-4-james.quinlan@broadcom.com>
+Subject: [PATCH 05/13] PCI: brcmstb: Declare and assign quirk OB_WIN_MAXSZ_128MB
+Date: Fri, 11 Sep 2026 19:35:30 -0400
+Message-Id: <20260911233541.1650895-6-james.quinlan@broadcom.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260911233541.1650895-1-james.quinlan@broadcom.com>
 References: <20260911233541.1650895-1-james.quinlan@broadcom.com>
@@ -104,37 +104,62 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Introduce a 'BQUIRK()' macro to shorten the calculation of a specific
-quirk's value.
+Even though only BMIPs chips have this quirk, it is more uniform and
+readable to define this specific quirk where each outbound window is must
+be <= SZ_128M.
 
 Signed-off-by: Jim Quinlan <james.quinlan@broadcom.com>
 ---
- drivers/pci/controller/pcie-brcmstb.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/pci/controller/pcie-brcmstb.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/pci/controller/pcie-brcmstb.c b/drivers/pci/controller/pcie-brcmstb.c
-index 47862569937e..bf002bcf6bd5 100644
+index 71ddd8a760af..401898d04d52 100644
 --- a/drivers/pci/controller/pcie-brcmstb.c
 +++ b/drivers/pci/controller/pcie-brcmstb.c
-@@ -277,6 +277,9 @@ struct inbound_win {
- 	u64 cpu_addr;
+@@ -290,6 +290,8 @@ struct inbound_win {
+ #define CFG_QUIRK_AVOID_BRIDGE_SHUTDOWN		BIT(0)
+ /* The outbound windows must be within the 0-4GB region */
+ #define CFG_QUIRK_OB_WIN_32BIT_ADDR		BIT(1)
++/* Each of the outbound windows size must be <= SZ_128M */
++#define CFG_QUIRK_OB_WIN_MAXSZ_128MB		BIT(2)
+ 
+ /* FLAGS */
+ #define BFLAG(pcie, flag)			((pcie)->cfg->flags & CFG_FLG_ ## flag)
+@@ -1294,11 +1296,11 @@ static int brcm_pcie_setup(struct brcm_pcie *pcie)
+ 			return -EINVAL;
+ 		}
+ 
+-		if (is_bmips(pcie)) {
++		if (BQUIRK(pcie, OB_WIN_MAXSZ_128MB)) {
+ 			u64 start = res->start;
+ 			unsigned int j, nwins = resource_size(res) / SZ_128M;
+ 
+-			/* bmips PCIe outbound windows have a 128MB max size */
++			/* PCIe outbound windows have a 128MB max size */
+ 			if (nwins > BRCM_NUM_PCIE_OUT_WINS)
+ 				nwins = BRCM_NUM_PCIE_OUT_WINS;
+ 			for (j = 0; j < nwins; j++, start += SZ_128M)
+@@ -1997,7 +1999,8 @@ static const struct pcie_cfg_data bcm7425_cfg = {
+ 	.perst_set	= brcm_pcie_perst_set_generic,
+ 	.bridge_sw_init_set = brcm_pcie_bridge_sw_init_set_generic,
+ 	.num_inbound_wins = 3,
+-	.quirks		= CFG_QUIRK_OB_WIN_32BIT_ADDR,
++	.quirks		= CFG_QUIRK_OB_WIN_32BIT_ADDR
++		| CFG_QUIRK_OB_WIN_MAXSZ_128MB,
  };
  
-+/* QUIRKS */
-+#define BQUIRK(pcie, quirk)			((pcie)->cfg->quirks & CFG_QUIRK_ ## quirk)
-+
- /*
-  * The RESCAL block is tied to PCIe controller #1, regardless of the number of
-  * controllers, and turning off PCIe controller #1 prevents access to the RESCAL
-@@ -1627,7 +1630,7 @@ static int brcm_pcie_turn_off(struct brcm_pcie *pcie)
- 	u32p_replace_bits(&tmp, 1, PCIE_MISC_HARD_PCIE_HARD_DEBUG_SERDES_IDDQ_MASK);
- 	writel(tmp, base + HARD_DEBUG(pcie));
+ static const struct pcie_cfg_data bcm7435_cfg = {
+@@ -2006,7 +2009,8 @@ static const struct pcie_cfg_data bcm7435_cfg = {
+ 	.perst_set	= brcm_pcie_perst_set_generic,
+ 	.bridge_sw_init_set = brcm_pcie_bridge_sw_init_set_generic,
+ 	.num_inbound_wins = 3,
+-	.quirks		= CFG_QUIRK_OB_WIN_32BIT_ADDR,
++	.quirks		= CFG_QUIRK_OB_WIN_32BIT_ADDR
++		| CFG_QUIRK_OB_WIN_MAXSZ_128MB,
+ };
  
--	if (!(pcie->cfg->quirks & CFG_QUIRK_AVOID_BRIDGE_SHUTDOWN))
-+	if (!(BQUIRK(pcie, AVOID_BRIDGE_SHUTDOWN)))
- 		/* Shutdown PCIe bridge */
- 		ret = brcm_pcie_bridge_sw_init_set(pcie, 1);
- 
+ static const struct pcie_cfg_data bcm7216_cfg = {
 -- 
 2.34.1
 
