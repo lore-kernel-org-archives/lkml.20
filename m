@@ -1,110 +1,123 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E978495501
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:10:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60E6149DBB6
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:11:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789143052; cv=none; b=jpSvZey5INLl9Qq3Ab8zzMDznmjveZd9iMOf+x8ibHJIqCOouiGF4hqGnCKLru6eIPzfhjHOrMkPbrDFHF3rSiRhz79sEv6poByB5H+TWoeUskGwDQ+SknSQtG1LQhexmk/wNv9qQbF60JOCLVMKh9rmDvjSLR7zyxc8rxqNTvg=
+	t=1789143108; cv=none; b=SgXrsg5ZQbIr/5jyPYAY0HfxEhLrXMxsFvRK7djrhWJdeON9meabghkLXHQmSkyvzG4JCXUVkpIK4VMUAbdN1O0GEOAfwCjS5iPLdZFteo5kWG5IcXFapv/qRmsehmIazlRjMxx+uwnAX0xYV1NIJeeEdveVX7EhcSqgwL4HQQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789143052; c=relaxed/simple;
-	bh=vIUJ6WCC40ZhDzscPwqF9HgcJE/QKSKO2ELm3aI9oE4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r0q5AAnLiZmHvD39g8gEarFZLjKgTNQ9QbZjNcimNim+FmLkMQgtHOY1TCfgxU4MsWKX7NqSyepAYptykQYFpkttPp3JdEL4h0C2t3XzOkqCWWqPH3kcsBdOZcLIEtdgNFBEtLD0yCio8r69f4T3ofSBe6N/Y8qzy7PObPwk24g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RYcCZJ7R; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789143108; c=relaxed/simple;
+	bh=9KC+h19QeQ0ZAIjwroejZmCB0hItZuK8z4JXahZWHzE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u4LRp76kBYwuPj58sNkoldgTLVgFrHlajNziIKjz3m75xIBqCxhf+CtA6VuCB3wO08x/pYxhScHMT9Ioc1/eg/8f4nPZGkeDZcuUiNW02gyo0sAC3Ows4Tr5Kh+UCKbFbdP3IfK4Omfy5Lz/NkKPQ6MMexHyFpU2+W6KDPMdpJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=WuWkToDm; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RYcCZJ7R"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccc02279so1097191a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:10:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="WuWkToDm"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49ccfbe062eso12620705e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:11:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789143050; x=1789747850; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8qHku/lkcMyCUoex8XaxjopWRu7Z+oJaV2o4dRNVD6k=;
-        b=RYcCZJ7RkRuP7ETlxBZjxrRzZhe0uotpInOEdm+VB5R//Qk+8b+h77ujKKMKTxx8GU
-         U2gPVnlvQrWrtxa63BCo1F44H4mgwz0lZcoY+1c2huwjQs0MeVZdNcT4fi/rYBzu/iqz
-         0MseUkwe0ezWQk7JP6Z1kDozfWpIbXXIpxA4JCvGRAldj4TF/PLfWFqLBpQmgwtjcnJK
-         6ztFO2vo4d6wSHyFkG1esul85aZh2akFGWqrkzCAHwRzYoiI9mAfIXZ2bwZHbagWBAJM
-         1F1b7hUBpieBjzFOHAy+lGIxtlZ2LkUN24777YJGZDkMPX+vjqRY3x+gbUdMif/2H7sV
-         WbZQ==
+        d=suse.com; s=google; t=1789143104; x=1789747904; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9KC+h19QeQ0ZAIjwroejZmCB0hItZuK8z4JXahZWHzE=;
+        b=WuWkToDm+Tgtab3HmqyL+TuySviu3lJ2ykp/qRvVUOtqFHW4CebAqQT4V1hSa6u2LY
+         5CreKmfv9iv9xPaWFnH0siWe77SEisvOO7oLGTNpwiWw81mfRQkdPAeRiq7LVKS2Ml07
+         3aM/E0MvLtuhE0fgE6Yb7ondVR83+QLgHqUzbFFcVIyJiBSRP6Ky5Jc6fEOzQQ+0FsbQ
+         JW4/P33Cp02I32IRRHuTNPqy24pcHkLmF3KtlTwRL1whTwc5vaQ+9m1Kgldox2aEzMNH
+         dIVP36VA4Q7bowUDCuXVLeSw5f6qiBtvGWdrEpFFL+SvCeoj4q4gVaH5Q2+WQx4gcywV
+         VgOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789143050; x=1789747850;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8qHku/lkcMyCUoex8XaxjopWRu7Z+oJaV2o4dRNVD6k=;
-        b=iD/8ydAFVizQxfISK2QsUlGyP0lqgKBf4AE2nrM7JEUHdjrnJLgzRPIeWAWKKO7YRS
-         Ji+RFTaVF3Kal01wtQW5zs5WjUEajNnOOxWSB0L+0P35/UeM2rPUE67W+ko94MnjL5WP
-         +qyITzyBZV7RPh8m1GgJv7V1t46PtT62B4oSKUKdxwO46bNmZcDqo23zyBo9wAhs7a7P
-         d1CEYSN8lFlm1niEDXJIL0yroN2VkkQFlC+ARjrglM8U4LPji9+dFJTQoXhWRVEzyGPp
-         rmnw1uo9siMT0blLjygz1PBN5G5+uBaXisWpb0+ObsXfmj6+i9JyarhL6RzzP3YLaSgV
-         94KA==
-X-Forwarded-Encrypted: i=1; AKwUvByoSxj8fUP2lLydACtjYf4fEDrJUAbDv9y8c86AOtjM3oAtAhfcFNJ2vfp1sbVYXasJ5mGDifsDzXr052c=@vger.kernel.org
-X-Gm-Message-State: AFuF++kA9HCGAvw41Q8WOBuwU1dOxdiu67PwQIzP9TGu7V9Y1Vcg5xc5
-	ZcNamHOoL73ZyDPZhzKJUmCnpGED6mYDX8Z63eOli4H2FudXXEaujL/b
-X-Gm-Gg: AYBFou1PGd4F12jpNkQPGGZ0V1ZvjdKyiahsFiGgzLgmbIs+1roRK/ZdaUph3e+YyW3
-	DIdd4XYsck+18CiLi8qiTCeWFnNvJR9yQbNXkLMVo0TvPF5vvUNpUS1QZY4SNpoOsYAg8CFDycZ
-	4po/iLe62zd9ztSi0UQjZhRhHHUhDrcYYiytxfnyhSjS7wxsFwACyRJJGGQG8HYHu11a2ddJ4Ki
-	st/C4DNgH6HJwlpSh8q9370VtlRFHqE/KEOb+1xLBJZrF5DCOsxWScyBtzHhIRY5G7gacusV+o6
-	+rrOeX8zVBi5i57LSMfS59kgMrAicxJtuL0nkOXH4EPTvh4+ILGjU4Oqj30UdFW+JD5/xQllTzv
-	A4oPAzMJ4+ORv+vkTVNUdydgbo20ZXiAelL9muL/4myNMcQES3tQHgdVDLRv9FRRAtjWHGkKQjv
-	E36ekqm+oe9ZpobkHOSX65GD6hzk+Y+QX09Un+3N13/9B+izPThYVk8wVgaB9TwxlHTK9WG6/zK
-	JpB83mUuyWvM3ZY5kY=
-X-Received: by 2002:a17:90b:1d44:b0:38e:57a3:f218 with SMTP id 98e67ed59e1d1-39d9c234a8emr8446766a91.13.1789143050047;
-        Fri, 11 Sep 2026 09:10:50 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([185.220.238.35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d951d6b08sm5966320a91.8.2026.09.11.09.10.46
+        d=1e100.net; s=20251104; t=1789143104; x=1789747904;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9KC+h19QeQ0ZAIjwroejZmCB0hItZuK8z4JXahZWHzE=;
+        b=U/ALlOIVfASbnHsHCPD0K1n9Vkq/l0HcVpqsRV3Pdi8L5kMPyTNWzMNzjr6jNvPg8l
+         M5uZm8S6q4y0CDxHq9XUaEPzcpSHAt7S89byPjXFuvCpo1E6P9LLthfE8J81tbhYlq/d
+         8eGJpKVwxHnQKNf4Z9Cqb5U1sKOi0DhS11vIJxGNzcf077UJEwfasf7euDSlUZUEUDSV
+         Enza2dc550CNx3uE279hdQMI+EzvzcpvQtfkbCjjKN6TeCTNY4unAWCGFceXX2cR2kp8
+         DjwNfH792V779fujcqlthq0vg817aQCnIinXtGHyuBcYIhOC6nnaiq16vO2TK8+YfR6X
+         ni0w==
+X-Forwarded-Encrypted: i=1; AKwUvBy9hiMvxOi6fsaDymROEXaydJGR63oSyTOT5W4WlNvpiABlkFcKsksiBy6r+natN+wMniGkD19n1exH570=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGLsVYpMOXFm6Qcrj/KdIlpqOZlKg30QBoKbfB/f9jYPDic/IX
+	PT0OkkZd94oxT+nbSxD3VF7klA0b/8UQmvy55xaLkrGXRhfmlK63NJvPOW7ZLYggUeM=
+X-Gm-Gg: AYBFou3oSd9oHD1C1ZfaR0pYG17KnvnOGaIERYj17OQKw9Y5XbRFZ23RlmrISeuA8TI
+	//+nGOmaiqtT5vnvo2XByUrSng1JS/SKCVSZhho/0m3j3+anM2p/lMAN3I+xY+iurx9r8EPkBNm
+	xsrUIg2PtlEFyK3mxElrXWgxNIWy3B9kQ4PfunqKaDrU5YXtGG454cEhsPVXOIUZLpM1YNP5BLM
+	6CzaqT5//BS7z4DBDo5VDOt7S4b0AoK8QV81hKS/L2rCr7wXYk1LnKI+iB92rhp+gbe51HJYWWW
+	/VkQ3ZeWNib8s+o10iGlr+VyK9b0JmrnJITkYLlO9qjT9QyRHiABRUB1lb/ZCoqNt/h31hBkmx2
+	u+f99Av1FXeXjGdhyBDD8o+9NXEWDPDow2QTUsRqyWxAaYLqoC7W2oxsE8bCfJvGy+pFlWbfrek
+	rk9lNN8tPrPmvML7h1Rrr2rL0Zyr6amY1odU4TlNmcvk0HkP/8fcBFYyvUNIUWSdKGvLpBaL/WT
+	w==
+X-Received: by 2002:a05:600c:45d5:b0:49c:fa20:cbfc with SMTP id 5b1f17b1804b1-49e619c18c1mr59656705e9.19.1789143104418;
+        Fri, 11 Sep 2026 09:11:44 -0700 (PDT)
+Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c1bc5fsm159143865e9.3.2026.09.11.09.11.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 09:10:49 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: paulmck@kernel.org,
-	jiangshanlai@gmail.com,
-	josh@joshtriplett.org
-Cc: rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com,
-	rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>
-Subject: [PATCH] srcutiny: Add lockdep and early-boot checks to synchronize_srcu_atomic()
-Date: Sat, 12 Sep 2026 00:09:13 +0800
-Message-ID: <20260911160913.2859713-1-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Fri, 11 Sep 2026 09:11:44 -0700 (PDT)
+Date: Fri, 11 Sep 2026 18:11:42 +0200
+From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
+To: Noah Feldt <noah@feldt.systems>
+Cc: Tejun Heo <tj@kernel.org>, cgroups@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, N.Feldt@mittwald.de, carnil@debian.org, dschatzberg@meta.com, 
+	hannes@cmpxchg.org, peterz@infradead.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] cgroup: Avoid iteration of dying tasks with zero
+ refcount
+Message-ID: <aqQlowpkYrTaVmid@localhost.localdomain>
+References: <20260907192723.72167-1-noah@feldt.systems>
+ <aqAtv3WVn51LN3E8@localhost.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vqaqn3dazvpkwhgu"
+Content-Disposition: inline
+In-Reply-To: <aqAtv3WVn51LN3E8@localhost.localdomain>
 
-Add the RCU_LOCKDEP_WARN and early-boot check that the Tree version
-gained, srcu_lock_sync() was already present.
 
-Suggested-by: Zqiang <qiang.zhang@linux.dev>
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
----
- kernel/rcu/srcutiny.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+--vqaqn3dazvpkwhgu
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2] cgroup: Avoid iteration of dying tasks with zero
+ refcount
+MIME-Version: 1.0
 
-diff --git a/kernel/rcu/srcutiny.c b/kernel/rcu/srcutiny.c
-index 99f8bfd98b04..76411562366f 100644
---- a/kernel/rcu/srcutiny.c
-+++ b/kernel/rcu/srcutiny.c
-@@ -361,6 +361,12 @@ void synchronize_srcu_atomic(struct srcu_struct *ssp)
- 
- 	srcu_lock_sync(&ssp->dep_map);
- 
-+	RCU_LOCKDEP_WARN(lockdep_is_held(ssp),
-+			 "Illegal synchronize_srcu_atomic() in same-type SRCU read-side critical section");
-+
-+	if (rcu_scheduler_active == RCU_SCHEDULER_INACTIVE)
-+		return;
-+
- 	if (IS_ENABLED(CONFIG_PREEMPTION))
- 		synchronize_rcu(); // Needed for RCU Tasks Trace to imply RCU grace period.
- 				   // And in Tiny RCU, it is near zero cost and doesn't block.
--- 
-2.43.0
+On Tue, Sep 08, 2026 at 05:55:45PM +0200, Michal Koutn=FD <mkoutny@suse.com=
+> wrote:
+> Though, the fix loses a bit of elegance. Hm, thinking...
 
+So, it occurs to me that the ->live based predicate from v2 might break
+CSS_TASK_ITER_WITH_DEAD callers (zombies they asked for would be
+skipped).
+We need to distinguish between (both on dying_tasks list):
+- regular zombies waiting to be reaped and
+- RCU remnant tasks that are going to be free'd.
+IIUC these two are split on the ->usage count. (Correct me if I'm
+wrong.)
+
+I'm starting to like the tryget_task_struct() approach from v1 again.
+
+Michal
+
+--vqaqn3dazvpkwhgu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCaqQoOhsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+Ai4DQEAgpiBFl5EmgRYQ2x8tv4Y
+gyHzyg0fU1nthPmlt+skLTkA/0HFH/C6Bws9kXraWbS2BO4rZ6+N2FJFygphH/o9
+QkYI
+=7ubW
+-----END PGP SIGNATURE-----
+
+--vqaqn3dazvpkwhgu--
