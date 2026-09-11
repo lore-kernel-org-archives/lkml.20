@@ -1,273 +1,235 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012033.outbound.protection.outlook.com [52.101.66.33])
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBE5035E1AD;
-	Fri, 11 Sep 2026 20:56:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.33
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789160207; cv=fail; b=laQohqQzMt+uUZ9GldvK5/aPhMstJgAjQEJOicyATmqrHKIKrszVdAz2O+SzhIDetGBXbY85NuBz/tEtiwTt2UozQyRT/Ly1VWLtQse19nzXjV3uzK23ysXoCSTHwdYqDlupbYqobQbUt3oggHTAlooEuygVZSM8PCdprpHrb94=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789160207; c=relaxed/simple;
-	bh=1pCzwJZVXQQr81glOc72o6tR8Cj6K1vz9EQdX+fWu/0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=riojnexGM+1Am8moLXAiNMYfQZPLiHxkarPti5O8Q2fX9fiz7FVZ5SkSKBkjZxxAZzl6vmVcV5Ft6OpMotKqB2q6a1zJ2N//jwu7NL/u4LL60Hb6y2rMhNA6K0SLKWkfUPdiGuR0tyGHsCYonz1qltVYducnM6bxkWxPFuCfAbQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ERhMxtU+; arc=fail smtp.client-ip=52.101.66.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC4B5A0AC8;
+	Fri, 11 Sep 2026 20:57:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.15
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789160269; cv=none; b=KN8g6zhXGiNAnG25TJ12G9/ZhpNN5F2UDU3AVHw5msPt8nNcs0Dh0Br+PBhxab4oBlGK1j7SddGAI6Vs29a/cU+xZmB8Q6Qi30l0cPJMHbzDV4RkXW8fQf/XGFI+XFm2YKDjPOyXFEKslSHrvhBBh6pVOvCZ/yW93U87+uX/f7U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789160269; c=relaxed/simple;
+	bh=sZK7CbjdlSUgEkXgIfxnNweOVZmftjHUNEeTCUYTEUs=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Br+DyEMxOWIInBOdo/a5nQ8th/7WPQ1juq2ata4q/0yAJdkEjnxJkWP0b/kqUwgi4jZjTtaA6S5iL6nMpMM3r8x+gbH6idYvY9Xpc9fTAYrEISjDuJflMawxmfH6v08AQ0Rksjp4NuHiuzUK5Vu97kQQ1bQvHKI05w73LsT6RAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b=ARaHvgr5; arc=none smtp.client-ip=212.227.15.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ERhMxtU+"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T/Aa6qNHB2NCLpaD2P4pP3uej6KqdM5bxD++MeZo82oyjk064bBoVc3jkh35gmqWNi+R6IIBOu3n9Mmn67N6ozzbybGfVIPqs2YC7dgmk3jLWVbQ+uQr0nynH14disjAkMbx8GTOvok8wrszZYWapDKVolsbcs5BoIjIKs/BJD+BAWm04CHuZlNCRQv9u8L714hG+D6pBdv96RcL264OOaEjQbtaqKYTd6d2LqVUzYwVfIi9nGbLvW3LSwtSgTV69GW8kGrmJMVE8jeHUMWk+ZGYGe4u10rvxOWIKwzcUNV8COVO1ebz7qI65gZH3iSELaqsE7w7pRk9k7B2BAaoGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZsvxhL5QHRNg2DznB+jC/fE2X+6cscSUNYndryGnZqM=;
- b=Q9Wl7J0/jb6PAFZk4QkHPVs4H3Ggfy2rDi8pZs+/ziZZCyLcIE+lBiBdjNkBsngI6WQ+dSyKoNJ26cQ/e4IeKLvEsHv6z+Q5abCodSNzczBZ+2wXUJWDY6hPvPnFdCcSsLoUb0yYlmJvULXzslyfUzUGizxgJhkauBXj0vKMaX+kYkzKs0j6UDNFv/1k4xeLOy9DpDY+hIKYiBw6Xo/YBk9zwbyJPe2/XB559om3VY2a+SS/virVuTapCzuN2gWZXvzVLKK99LW9BRU52JXCUIjsD+ZVr/HRiI6ewhFhiN610VJdB9mP2xPB6NOKvqwxchuu75vatmkEkQoPK25jhA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZsvxhL5QHRNg2DznB+jC/fE2X+6cscSUNYndryGnZqM=;
- b=ERhMxtU+rimng2HsAPFJza0z4CG9l5DjkrEr1dMXMpP5TK8Zu432Th/IJMq8EW2pc3FS0CVAd81o9Avm13+xOmr1moXVJVIYkGZ+Um8ir27gIOkV6dXuwB0durFYN2Ccg0SYejKUWov9T+YVEj7Srsd9DAKoEmhIrwDaNDD75yzZI5pOdWjKF4/lNJB7W1t2S5th75uR+aWoOztgdXeo75P9DoSxQRS1sGNZnJs0hJHjOU3IlVVcrRQvIquIia5FVn6zpkrlCRSIaZtBhV1ncToXyBvZbLaO+C89hRrOrQ1fiYd2/NZ57X26Aa570bPmHO26759fJVC972f3vRiAxQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI2PR04MB10884.eurprd04.prod.outlook.com (2603:10a6:800:270::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 20:56:39 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 20:56:39 +0000
-Date: Fri, 11 Sep 2026 16:56:27 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
-	Todor Tomov <todor.too@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Felipe Balbi <balbi@ti.com>, linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Krzysztof Kozlowski <krzk@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v16 1/5] phy: core: Fix use-after-free in phy_get paths
-Message-ID: <aqRq-xZRIDL1apdI@lizhi-Precision-Tower-5810>
-References: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-0-f7bd68b5369f@linaro.org>
- <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-1-f7bd68b5369f@linaro.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-1-f7bd68b5369f@linaro.org>
-X-ClientProxiedBy: PH0PR07CA0093.namprd07.prod.outlook.com
- (2603:10b6:510:4::8) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b="ARaHvgr5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1789160255; x=1789765055; i=w_armin@gmx.de;
+	bh=sZK7CbjdlSUgEkXgIfxnNweOVZmftjHUNEeTCUYTEUs=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:From:To:
+	 Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=ARaHvgr5/6PSf1EJeLXnhFQwKSpDVEk5iKs7gvb60lf9/h6ddFjLiI7DYfMgNced
+	 Pim5wcum6sxZLDsXJqn0szXv3Rt2GzDAH6PC9d3Dk5cxEKyDWY64Lbt3YMbtV8a2L
+	 pDeIKeaBT2FWIXUNME2Esf7CQNSx/suQFI5TAc1inXUa2jDhk/F3YPe36Gis7Dhcv
+	 krJqnfFT3pJbl1qBaRB30X3RsGkczk0PCyFXbJHH+wGvXqGT+g9uR49xzPqFRwbGD
+	 IqKJJRCLCFaoS2jUwHi+0ICw482NYtBmW8JiRtcd2aQQKFDsU9CMvq1XedendooyJ
+	 8SX8+T0H/mXaci9GdA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MwQXH-1wmmXz3aQ1-00r1lY; Fri, 11
+ Sep 2026 22:57:34 +0200
+Message-ID: <ee20cde5-a1f9-4f59-a651-a406952f3e78@gmx.de>
+Date: Fri, 11 Sep 2026 22:57:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI2PR04MB10884:EE_
-X-MS-Office365-Filtering-Correlation-Id: 083a9423-951f-44e0-2c1d-08df10472cc5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|19092799006|376014|7416014|18002099003|22082099003|10067099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	W+R981X1KHJ8wIx8j9kWemXLr3rBMI/TaFCmrIQWFkvXxK9LvQZsW0dWEDFZLSxEAkH1paztb/RqlCOjp7aOzhtNRVfhA801Ou33/N90r9BM10urdQo0H30JW3bKhcM9ohmRs+TcQQRyIEP1q2n6++oT3RyYw7YeGh058Be4NGqE0MPDj5eRmWdDjHT+h3+dpkgTittEJWd6LJI0SxdI1TdyUWjfx+PYo5wnYQwnIefkoqmmzsL03Cqg6QTPzwI5zT+ci4tPBfwbsCnMFcBAI1I09k8036/70+AiwHBSUkXPte2HceS5XwITbhYXJGaDaB/hN4e+G0QD5snC2L9XgSes76aYzOEYw7yquy4JD4ZoEHs+qZnyYJnIXoYXhpSmmn4U9AsfIREtgrr2zs2CYbeHuWgxVMqkTmdV/kGbv+g7UBiLzPwMYN2MerkXCBaGVChvy2ftUKOJNwq5I95SkVjPTS12m8203z+TxoLWqgjyR315Sjf8L541g+r4qCpvMO6ka1WfgV7p1a+mLXXzJfWgiHlYI8Uk97RomZb+xY2UxC0GTGnSxtMXRTXCchjOz4jNz/e23X6CD4Wh+IahR8zqa2VDo83xKOZkIPSXepd+rC5Ql7oNBJJB9xfVrDlIELLGTbjZUtwSA64AyAuROZbozm2NHiTMCfESlU6gw9E=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(19092799006)(376014)(7416014)(18002099003)(22082099003)(10067099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?UAPVGsKJEh/7r6Rz0Fy5A+4KVuTk+pSeVsgIHWfKMnrX40QjZvHS//a8k8zu?=
- =?us-ascii?Q?ebldOy+G5aimxphhgQvoNaKcxVgYJv4Aoxavb/nb5GPzZmOfNSOLWOrwUJEx?=
- =?us-ascii?Q?0MxlfEaE38YK8o0ob4woic8ZArIroKVQo5u8m2SO4b3CraluNLURBpN52rmj?=
- =?us-ascii?Q?BTdnI0JfoiVV65JBlbh4Tjpw+r9b83Gq5WR/BgT2S5jRslkwR5uLnPgaVEx8?=
- =?us-ascii?Q?RrZ7FOopWBvxr5nGnxBoCQScStBFr9C8+Y5N8W8hqLchtQ2tJCEgnA4gJOUn?=
- =?us-ascii?Q?vEEz4EMTxrinIvp5SAnzJMuMpDoT3xKPalvvKgMEPwNEC5b6c8O2PuR2dkwa?=
- =?us-ascii?Q?O0o1CznHQngr4e+nNAh66VLmYP8cpu2K8CMc1/JJa3Pagg6+VnkmdmMfvBoL?=
- =?us-ascii?Q?2UODtKwm+R5Ad1IrKkchj0m0lU+V55EYrwfD6xFl0017BcRWGDfmVJxtwusq?=
- =?us-ascii?Q?8PY8iOgjcCz/+nOAwUPbDG0d2Xt1eIepA76jA6XYnmPvBxAgPuIDKrH/ZxoY?=
- =?us-ascii?Q?IJkOE78g3L70TbEm4ZQk5OwAjLwlzlTSucFUZuz1F5rvKWr5YEsUc9+GuTGK?=
- =?us-ascii?Q?hvoSAz2rZ3Hr4b6K1+T9qlTtlPyjGsct+zL3khjPnOWSXZNp+ctFof3LTsXI?=
- =?us-ascii?Q?z95IwsFmLDXckZiyG54aoag6/sK7YmrhfjxbfZQGi3QBirX9m6zUMFjs02WH?=
- =?us-ascii?Q?BJ//vZLSphnwPPtofUu039dfJbtT074RzdOReRJi9xM8lMynViaJQTpfW4wr?=
- =?us-ascii?Q?w7HD7jGXAdHHkp53XJnTUw/3FliH7Q/zAVfhjztCG0mZhxNxWDPKpefplQ98?=
- =?us-ascii?Q?ZygqUX6VyLDd+/REOV31fQBf45QaErwfGAeiOgIMebDOvTsPn1xB1wDWqhQl?=
- =?us-ascii?Q?D6EROCkeeFgVmn9UVVdyb0ht7zfKd/lR/Hp4bu3b3E4+1cvPR7BLbya6NOtG?=
- =?us-ascii?Q?NXqrf/Rpwpds+OY+dkOlFSKECcXqDTmpz0Ner/KKcfoZ+N3Ar6XmrNERHg7q?=
- =?us-ascii?Q?n52mmnSo4sEjkJns82MzbdGC9O/Oja93BjZvQrNgSBkKWQIi0C2UuPFw0fKy?=
- =?us-ascii?Q?y+7enasDWFMD8LKwDIY2+lRndVSiLFKvc/lCsGkbLOCECcupMr+enw16ipkD?=
- =?us-ascii?Q?d3WrvP8Upr5Qs2PvJMFPWzeRR30FZlP9Ob9holIpr+xBcZOilHoso68czK5o?=
- =?us-ascii?Q?r1QtQGAMTUqITGeRaE7RlAb70UWWeXXtGA8u7fislpij6SpUaKmO1GPLzcYV?=
- =?us-ascii?Q?Jc6+NF20bc3jjaOoFYbpFvsHLfdmJ4L864INrM4zjw1Yjtst0yHJclugymY0?=
- =?us-ascii?Q?L/L2Qv38aQWw7B3Ts/zlEbCtay0SM2vgle5BWcabPxoZPPEoULwGOYG8LaY6?=
- =?us-ascii?Q?zwtHjVsN+1v34yKUDRKkFULKACDw0wGsRmLohxyQTMP6sXELR2ydFgXZMVAc?=
- =?us-ascii?Q?RsNkDKzsnwEEO3M4aGcaknfFfP+PF2gufgCwF8AhY1YvuSe7mxDcmAsPD476?=
- =?us-ascii?Q?gyEnia8UKiJyFFAzxakNOUzns5cezMJfC1+zhK20BQg36VKm69C//VGiZt8H?=
- =?us-ascii?Q?Fkwx3Mu2p86Wj3jrCkdkNna2Ixc5GWeJrOuajrl3t0f5djKeQbFFMs9AF0Ss?=
- =?us-ascii?Q?PR5vpYegxSUHyiSJknN2nA6EHO2y0AaBsEi/NHgV9ptgVtMvfAtx0lrI6v+0?=
- =?us-ascii?Q?P5sJxPwk5m6zxCctxHxlvYLs7yjfe07xtMVSorbCKitTXs8UMQspj/bjmpXg?=
- =?us-ascii?Q?tNryzj0W70cl3AerII3E9Aj9/1u52uIFmKmusEV3fr6FxxfOBDxe?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 083a9423-951f-44e0-2c1d-08df10472cc5
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 20:56:39.1595
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gr8yV+jjF5ScTAbC6fplsEgULBiQ6d9wYncIOtV+AkhDGkhd/YWWoy1GSeWGYzOSmw/73kf4tk7YXJTcJM4O9f57gPnmaReYqu1VY+KBsjiAuNdWKvNzXyO4YT5nx3Dy
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10884
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] platform/x86: uniwill-laptop: Fix brightness
+ notify for 3 level keyboards
+From: Armin Wolf <W_Armin@gmx.de>
+To: Werner Sembach <wse@tuxedocomputers.com>, Hans de Goede
+ <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
+ <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260822003012.851574-1-wse@tuxedocomputers.com>
+ <c84328eb-0126-4558-8241-a41e641f9681@gmx.de>
+Content-Language: en-US
+In-Reply-To: <c84328eb-0126-4558-8241-a41e641f9681@gmx.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:rTTft4mD9KhtmgPlYpja0XAfOHl+C89N+U6sSuo2CiLwZyOBRAf
+ 5z32a3/cPNWp/gyS24vwFUlIzufNkP8mxE090HadyCok4xcRoQGDEgOPY9k1ca7uO+tUeLk
+ ztaA3TF/ItTPloLxVKh3TO0Bqi1cenhNUq6qg00gmK4lhdZMfDYa6uok4Dj+O7A5b9pMkaC
+ XweoEEz1VDPDlJa+HnTYg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:z7NnzfALCf0=;cig9D97FuiQpg3D5Y2qedpNuH+6
+ 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
+ 7+EC8VICq1UVepP1eW9MxyxV6i9hLYqDnOA==
 
-On Sun, Sep 06, 2026 at 12:52:02PM +0100, Bryan O'Donoghue wrote:
+Am 26.08.26 um 23:37 schrieb Armin Wolf:
 
-suggested subject:
+> Am 22.08.26 um 02:28 schrieb Werner Sembach:
+>
+>> The devices with 3 brightness level keyboards send
+>> UNIWILL_OSD_KB_LED_LEVEL0, UNIWILL_OSD_KB_LED_LEVEL2, and
+>> UNIWILL_OSD_KB_LED_LEVEL4 and not UNIWILL_OSD_KB_LED_LEVEL0,
+>> UNIWILL_OSD_KB_LED_LEVEL1, and UNIWILL_OSD_KB_LED_LEVEL2.
+>>
+>> This patch maps the events correctly to brightness levels 0, 1, and 2.
+>
+> Reviewed-by: Armin Wolf <W_Armin@gmx.de>
+>
+What is the status of this series?
 
-phy: core: use phy_provider_mutex protect between _of_phy_get and try_module_get()
+Thanks,
+Armin Wolf
 
-> Sashiko asked during a patch review if the existing usage pattern had a
-> race condition; specifically in of_phy_get() if it was possible between
-> returning from _of_phy_get() and running try_module_get() that a module
-> might be unbound leading to use-after-free.
->
-> Looking at the code this appears to be so, there is no linkage between the
-> phy and module under a synchronisation primitive.
->
-> Using the phy_provider_mutex in phy_get() will ensure there is a link between
-> the returned phy pointer and the module_get() bumping the module reference
-> count.
->
-> Amend phy_get(), of_phy_get() and devm_of_phy_get_by_index() to fix the
-> same usage pattern.
->
-> phy_provider_unregister() must take the phy_provider_mutex so amending
-> phy_get()/of_phy_get() to take that same mutex guarantees there is no
-> use-after-free.
->
-> Fixes: ff764963479a1 ("drivers: phy: add generic PHY framework")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> ---
-...
->
-> @@ -678,15 +677,21 @@ struct phy *of_phy_get(struct device_node *np, const char *con_id)
->  	if (con_id)
->  		index = of_property_match_string(np, "phy-names", con_id);
->
-> +	mutex_lock(&phy_provider_mutex);
-> +
->  	phy = _of_phy_get(np, index);
->  	if (IS_ERR(phy))
-> -		return phy;
-> +		goto out_unlock;
->
-> -	if (!try_module_get(phy->ops->owner))
-> -		return ERR_PTR(-EPROBE_DEFER);
-> +	if (!try_module_get(phy->ops->owner)) {
-> +		phy = ERR_PTR(-EPROBE_DEFER);
-> +		goto out_unlock;
-> +	}
-
-why no use auto cleanup guard() for mutex lock?
-
-Frank
-
->
->  	get_device(&phy->dev);
->
-> +out_unlock:
-> +	mutex_unlock(&phy_provider_mutex);
->  	return phy;
->  }
->  EXPORT_SYMBOL_GPL(of_phy_get);
-> @@ -786,6 +791,7 @@ struct phy *phy_get(struct device *dev, const char *string)
->  	struct phy *phy;
->  	struct device_link *link;
->
-> +	mutex_lock(&phy_provider_mutex);
->  	if (dev->of_node) {
->  		if (string)
->  			index = of_property_match_string(dev->of_node, "phy-names",
-> @@ -796,15 +802,18 @@ struct phy *phy_get(struct device *dev, const char *string)
->  	} else {
->  		if (string == NULL) {
->  			dev_WARN(dev, "missing string\n");
-> -			return ERR_PTR(-EINVAL);
-> +			phy = ERR_PTR(-EINVAL);
-> +			goto out_unlock;
->  		}
->  		phy = phy_find(dev, string);
->  	}
->  	if (IS_ERR(phy))
-> -		return phy;
-> +		goto out_unlock;
->
-> -	if (!try_module_get(phy->ops->owner))
-> -		return ERR_PTR(-EPROBE_DEFER);
-> +	if (!try_module_get(phy->ops->owner)) {
-> +		phy = ERR_PTR(-EPROBE_DEFER);
-> +		goto out_unlock;
-> +	}
->
->  	get_device(&phy->dev);
->
-> @@ -813,6 +822,8 @@ struct phy *phy_get(struct device *dev, const char *string)
->  		dev_dbg(dev, "failed to create device link to %s\n",
->  			dev_name(phy->dev.parent));
->
-> +out_unlock:
-> +	mutex_unlock(&phy_provider_mutex);
->  	return phy;
->  }
->  EXPORT_SYMBOL_GPL(phy_get);
-> @@ -961,15 +972,17 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
->  	if (!ptr)
->  		return ERR_PTR(-ENOMEM);
->
-> +	mutex_lock(&phy_provider_mutex);
->  	phy = _of_phy_get(np, index);
->  	if (IS_ERR(phy)) {
->  		devres_free(ptr);
-> -		return phy;
-> +		goto out_unlock;
->  	}
->
->  	if (!try_module_get(phy->ops->owner)) {
->  		devres_free(ptr);
-> -		return ERR_PTR(-EPROBE_DEFER);
-> +		phy = ERR_PTR(-EPROBE_DEFER);
-> +		goto out_unlock;
->  	}
->
->  	get_device(&phy->dev);
-> @@ -982,6 +995,8 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
->  		dev_dbg(dev, "failed to create device link to %s\n",
->  			dev_name(phy->dev.parent));
->
-> +out_unlock:
-> +	mutex_unlock(&phy_provider_mutex);
->  	return phy;
->  }
->  EXPORT_SYMBOL_GPL(devm_of_phy_get_by_index);
->
-> --
-> 2.55.0
+>> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+>> ---
+>> V1->V2: Use the events as source of truth for brightness_hw_changed=20
+>> value
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 again to avoid a race =
+condition as Armin had pointed out.
+>> V2->V3: Return error for unexpected brightness level count.
+>>
+>> =C2=A0 drivers/platform/x86/uniwill/uniwill-acpi.c | 26 +++++++++++++++=
+++++++
+>> =C2=A0 1 file changed, 26 insertions(+)
+>>
+>> diff --git a/drivers/platform/x86/uniwill/uniwill-acpi.c=20
+>> b/drivers/platform/x86/uniwill/uniwill-acpi.c
+>> index 7a2eeaec4c961..5df3611919ce3 100644
+>> --- a/drivers/platform/x86/uniwill/uniwill-acpi.c
+>> +++ b/drivers/platform/x86/uniwill/uniwill-acpi.c
+>> @@ -1631,6 +1631,32 @@ static int uniwill_notify_kbd_led(struct=20
+>> uniwill_data *data, int brightness)
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct led_classdev *led_cdev;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int ret;
+>> =C2=A0 +=C2=A0=C2=A0=C2=A0 /*
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * The devices with 3 brightness level keyboar=
+ds send
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * UNIWILL_OSD_KB_LED_LEVEL0, UNIWILL_OSD_KB_L=
+ED_LEVEL2, and
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 * UNIWILL_OSD_KB_LED_LEVEL4 which need to be =
+mapped to 0, 1,=20
+>> and 2.
+>> +=C2=A0=C2=A0=C2=A0=C2=A0 */
+>> +=C2=A0=C2=A0=C2=A0 switch (data->kbd_led_max_brightness) {
+>> +=C2=A0=C2=A0=C2=A0 case 4:
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
+>> +=C2=A0=C2=A0=C2=A0 case 2:
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 switch (brightness) {
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 case 0:
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bre=
+ak;
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 case 2:
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bri=
+ghtness =3D 1;
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bre=
+ak;
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 case 4:
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bri=
+ghtness =3D 2;
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bre=
+ak;
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 default:
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret=
+urn -EINVAL;
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
+>> +=C2=A0=C2=A0=C2=A0 default:
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EINVAL;
+>> +=C2=A0=C2=A0=C2=A0 }
+>> +
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (data->kbd_led_single_color)
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 led_cdev =3D &da=
+ta->kbd_led_cdev;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else
+>>
+>> base-commit: 54745d563114b74f6fecebce68cd020d06c1772b
 >
