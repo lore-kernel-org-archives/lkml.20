@@ -1,199 +1,221 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7059A4A8FEC;
-	Fri, 11 Sep 2026 17:54:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48114AA3F4
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:55:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789149284; cv=none; b=aKtg2rgat9HzkwiE8jha72lJSaC6NVuFk80iGZUBJQxVP1GRdMaX6QQtR9m0Gy5UgrWzv/iVr0+79KgFDPNA7ZkHWNZeIAvRO5boYJkdDoBAV15pQQkHo7NnleJqSkNhVkYffFYcV3QDRpuc6d11FTQhOJaiT1+9LlAyqKYD0xE=
+	t=1789149311; cv=none; b=U0knDXtloIxOXYHwBW1s8MzmYj9MzGms00p9KXUgcllKtrcjRG9uKuQ8qOtPVXo0CbvrJlWIALeNGIptWMBT1+5nAr3cBZvuiz8HLJRB/D8oLdNsl5Ahb+C2AT+V588ExLNymDwz8Q/MEUXKahEHJIaBobIvh4gwqtf6EjKVUxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789149284; c=relaxed/simple;
-	bh=oT2HAQRYlBxYWXZEJgDhIx6sNDjZsCE9IaHCPNajnNI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gMGV6YWZF2aFmna3PGzcIZN+DzjlO9t+JSuAex66A6+rQRicnrPQRFwtmwRBhLA8tMw78HbaZuoCmNA97Hmv9AJuuqH+D6jHHEA6aAjNwNUFGcaOqR+5YoTgmpgP+n6xQKDhkuJFP44fGgDojbUQWXZiMHBHAGMasQ+NbOt10x8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R/PEF628; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789149311; c=relaxed/simple;
+	bh=+lD7hVRgQL1Tu8emqytEtYbEefJjxRqmXoUu/ovVuxY=;
+	h=Date:From:To:cc:Subject:Message-ID:MIME-Version:Content-Type; b=ph6kv9XVOcOkFaJyaBSK6KF6I/0O+oByDjixsxlUQOVbUuwsRaUUZZM+j5yjCTM706nESbRXnkiJzh33oc7CNWeu64qTpB/L/jSKp8nB2xZhwGDrijf4V1DdvE5B1VBfuxp/dh06ySC/6MPUE726Zyd/HF2FJoPKW2w+LeezLm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NvYqL2z5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R/PEF628"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45E7A1F000FF;
-	Fri, 11 Sep 2026 17:54:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NvYqL2z5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 425FA1F000FF;
+	Fri, 11 Sep 2026 17:55:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789149283;
-	bh=4FwTYwpGmaK+5ispCEK7HH92jJqAfeRrVmWamTSNnqs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=R/PEF628C82R18CCBiTVgSxDDQxOmmbSQCnHAqmpckaTKvXRHHjbFndk35q0VJwbm
-	 kb2jEKyMa0SLgFgUCZjypSy8TU4f91YFYaL79LnYDkmD5YZ7AL7XoikZdUl97oCh3x
-	 QlUxYbS81ijVUF5fVhlk944TP7D2LmZtxTQuDrzP5dxAVnzOZPYc7bhPn+cxm0sUWh
-	 B4hxxUT5Cc5n6F5+/wjf5RtfTI0VG6FXcU6ZU4ZIB3MMKn1qFBNrVgDZdCZnR5hRoj
-	 ktqkGCSA0q7dC/KO31sDOWJ1h+hudAjLc0nPKfhMCyskclXeDI5VaQY7ZPVta2w4Q2
-	 g7mHI+jtqwWgA==
-Date: Fri, 11 Sep 2026 12:54:37 -0500
-From: Serge Hallyn <sergeh@kernel.org>
-To: =?iso-8859-1?Q?J=F6rg_R=F6del?= <joro@8bytes.org>
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>, ashish.kalra@amd.com,
-	michael.roth@amd.com, nsaenz@amazon.com, anelkz@amazon.de,
-	James.Bottomley@hansenpartnership.com,
-	Melody Wang <huibo.wang@amd.com>, kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev,
-	loongarch@lists.linux.dev, linux-mips@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, kvm-riscv@lists.infradead.org,
-	x86@kernel.org, coconut-svsm@lists.linux.dev, joerg.roedel@amd.com
-Subject: Re: [PATCH 29/60] kvm: Implement KVM_CREATE_PLANE ioctl
-Message-ID: <aqRAXTdtUY_Yt8zJ@shallyn-amd>
-References: <20260608144252.351443-1-joro@8bytes.org>
- <20260608144252.351443-30-joro@8bytes.org>
+	s=k20260515; t=1789149309;
+	bh=mx1VD96zTqT0AQiq7dvnFqx6ZSHKVSEUXQ2om8YbJ1w=;
+	h=Date:From:To:cc:Subject;
+	b=NvYqL2z5Suz4N31t/rXfTf9J7Dppgh/KezmYN61YLHO0jfhv+zeQ51XpksZf2pvgx
+	 unciZHYVeZk+820/LRYzirG3I6ziv9OlkthedGeLX+CeXp5Pmir6v95Gyze+SnCAUq
+	 lgkKE779nFB1onz1HVY/dHy74/JrBivfVGw3t0jnPG+D9QBWQn9HQEfiiBi+TO2Ij6
+	 56Wa9/9XTG38ORGwvYRWpvfBxyPepkUFXuUeOiRZASpKQJNgp0zUYxUu5Vvlzz55L+
+	 cIV/pamiE+daQAf8UbdP2Ez0RZ4SH6IlDQGkqfDVALwp6NFXpEdZc+FWfYEh+NYIbD
+	 H5MEGNNHoyv1w==
+Date: Fri, 11 Sep 2026 11:55:00 -0600 (MDT)
+From: Paul Walmsley <pjw@kernel.org>
+To: torvalds@linux-foundation.org
+cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [GIT PULL] RISC-V updates for v7.3-rc3
+Message-ID: <bca66c44-faf3-27b1-daec-1fe594804354@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260608144252.351443-30-joro@8bytes.org>
+Content-Type: text/plain; charset=US-ASCII
 
-On Mon, Jun 08, 2026 at 04:42:21PM +0200, Jörg Rödel wrote:
-> From: Paolo Bonzini <pbonzini@redhat.com>
-> 
-> Add a new VM ioctl to create a new plane. It returns a new file
-> descriptor which supports per-plane ioctls.
-> 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> Co-developed-by: Joerg Roedel <joerg.roedel@amd.com>
-> Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
-> ---
->  include/uapi/linux/kvm.h |  2 ++
->  virt/kvm/kvm_main.c      | 75 ++++++++++++++++++++++++++++++++++++++++
->  2 files changed, 77 insertions(+)
-> 
-> diff --git a/include/uapi/linux/kvm.h b/include/uapi/linux/kvm.h
-> index 813f964a6dc1..24e34b8e4819 100644
-> --- a/include/uapi/linux/kvm.h
-> +++ b/include/uapi/linux/kvm.h
-> @@ -1355,6 +1355,8 @@ struct kvm_s390_keyop {
->  #define KVM_GET_DEVICE_ATTR	  _IOW(KVMIO,  0xe2, struct kvm_device_attr)
->  #define KVM_HAS_DEVICE_ATTR	  _IOW(KVMIO,  0xe3, struct kvm_device_attr)
->  
-> +#define KVM_CREATE_PLANE	  _IO(KVMIO, 0xe4)
-> +
->  /*
->   * ioctls for vcpu fds
->   */
-> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> index 5a0277e2ac7c..03a44ff62f0f 100644
-> --- a/virt/kvm/kvm_main.c
-> +++ b/virt/kvm/kvm_main.c
-> @@ -4843,6 +4843,34 @@ static long kvm_vcpu_compat_ioctl(struct file *filp,
->  }
->  #endif
->  
-> +static long kvm_plane_ioctl(struct file *filp, unsigned int ioctl,
-> +			    unsigned long arg)
-> +{
-> +	struct kvm_plane *plane = filp->private_data;
-> +
-> +	if (plane->kvm->mm != current->mm || plane->kvm->vm_dead)
-> +		return -EIO;
-> +
-> +	switch (ioctl) {
-> +	default:
-> +		return -ENOTTY;
-> +	}
-> +}
-> +
-> +static int kvm_plane_release(struct inode *inode, struct file *filp)
-> +{
-> +	struct kvm_plane *plane = filp->private_data;
-> +
-> +	kvm_put_kvm(plane->kvm);
-> +	return 0;
-> +}
-> +
-> +static struct file_operations kvm_plane_fops = {
-> +	.unlocked_ioctl = kvm_plane_ioctl,
-> +	.release = kvm_plane_release,
-> +	KVM_COMPAT(kvm_plane_ioctl),
-> +};
-> +
->  static int kvm_device_mmap(struct file *filp, struct vm_area_struct *vma)
->  {
->  	struct kvm_device *dev = filp->private_data;
-> @@ -5288,6 +5316,49 @@ static int kvm_vm_ioctl_get_stats_fd(struct kvm *kvm)
->  	return fd;
->  }
->  
-> +static int kvm_vm_ioctl_create_plane(struct kvm *kvm, unsigned id)
-> +{
-> +	struct kvm_plane *plane;
-> +	struct file *file;
-> +	int r, fd;
-> +
-> +	if (id >= kvm_arch_max_planes(kvm) ||
-> +	    WARN_ON_ONCE(id >= KVM_MAX_PLANES))
-> +		return -EINVAL;
-> +
-> +	guard(mutex)(&kvm->lock);
-> +	if (kvm->planes[id])
-> +		return -EEXIST;
-> +
-> +	fd = get_unused_fd_flags(O_CLOEXEC);
-> +	if (fd < 0)
-> +		return fd;
-> +
-> +	plane = kvm_create_plane(kvm, id);
-> +	if (!plane) {
-> +		r = -ENOMEM;
-> +		goto put_fd;
-> +	}
-> +
-> +	kvm_get_kvm(kvm);
-> +	file = anon_inode_getfile("kvm-plane", &kvm_plane_fops, plane, O_RDWR);
-> +	if (IS_ERR(file)) {
-> +		r = PTR_ERR(file);
-> +		goto put_kvm;
-> +	}
-> +
-> +	fd_install(fd, file);
-> +	return fd;
-> +
-> +put_kvm:
-> +	kvm_put_kvm(kvm);
-> +	kvm_destroy_one_plane(plane);
+Linus,
 
-I believe shashiko is right here, and I don't see it changed in a later
-patch:  kvm->planes[id] will still point to the now-freed plane.
-Probably best if kvm_destroy_one_plane(plane) sets that to NULL itself
-after freeing the plane.
+Please pull these RISC-V updates for v7.3-rc3.  From a RISC-V point of 
+view, there's one notable fix here, reverting an earlier bogus fix to the 
+pointer masking code.  Fortunately the practical impact appears to be 
+small.
 
-> +put_fd:
-> +	put_unused_fd(fd);
-> +	return r;
-> +}
-> +
-> +
->  #define SANITY_CHECK_MEM_REGION_FIELD(field)					\
->  do {										\
->  	BUILD_BUG_ON(offsetof(struct kvm_userspace_memory_region, field) !=		\
-> @@ -5306,6 +5377,9 @@ static long kvm_vm_ioctl(struct file *filp,
->  	if (kvm->mm != current->mm || kvm->vm_dead)
->  		return -EIO;
->  	switch (ioctl) {
-> +	case KVM_CREATE_PLANE:
-> +		r = kvm_vm_ioctl_create_plane(kvm, arg);
-> +		break;
->  	case KVM_CREATE_VCPU:
->  		r = kvm_vm_ioctl_create_vcpu(kvm, arg);
->  		break;
-> @@ -6676,6 +6750,7 @@ int kvm_init(unsigned vcpu_size, unsigned vcpu_align, struct module *module)
->  	kvm_chardev_ops.owner = module;
->  	kvm_vm_fops.owner = module;
->  	kvm_vcpu_fops.owner = module;
-> +	kvm_plane_fops.owner = module;
->  	kvm_device_fops.owner = module;
->  
->  	kvm_preempt_ops.sched_in = kvm_sched_in;
-> -- 
-> 2.53.0
-> 
+
+- Paul
+
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/riscv/linux tags/riscv-for-linus-7.3-rc3
+
+for you to fetch changes up to b94cec5761d22624d109d859467d7d4ce0a1b88b:
+
+  riscv: skip software algning code for HAVE_EFFICIENT_UNALIGNED_ACCESS (2026-09-02 11:47:08 -0600)
+
+----------------------------------------------------------------
+RISC-V updates for v7.3-rc3
+
+- Revert a bad fix, likely LLM-generated, in the pointer masking code
+  that confused the RISC-V hardware pointer masking implementation
+  with the Linux kernel tagged address feature
+
+- Fix unexpected faults caused by kprobe instruction slot writes when
+  !CONFIG_STRICT_MODULE_RWX
+
+- Fix unexpected faults on minimal configurations during runtime code
+  patching on !CONFIG_STRICT_MODULE_RWX systems
+
+- Fix a misplaced variable clear causing incorrect reuse of previous
+  values in the RISC-V hardware feature probing code
+
+- Fix two bugs in the PMU SBI perf code on rv32: use BIT_ULL rather
+  than BIT on 64-bit masks; and use a bitmap rather than an unsigned
+  long on a quantity that can exceed 32 bits
+
+And a few miscellaneous cleanups:
+
+- Avoid a potential dereference-before-NULL-pointer-check bug in the
+  PMU SBI perf driver
+
+- Simplify the rv32 bug table code by using
+  CONFIG_GENERIC_BUG_RELATIVE_POINTERS (following x86 and PPC)
+
+- Report the RISC-V standard ISA extensions Z[v]fhmin when support is
+  claimed for the superset RISC-V standard ISA extensions Z[v]fh; and
+  simplify our FPU test code to only check for the presence of the D
+  extension
+
+- Use an existing kernel string helper in place of some open-coded
+  code in kernel/usercfi.c
+
+- Fix some yamllint issues in the RISC-V DT bindings for CPUs
+
+- Convert one use of __ASSEMBLY__ to __ASSEMBLER__ that snuck into the
+  RISC-V CFI selftest code
+
+- Update the translation for the simplified Chinese translation of the
+  RISC-V kernel patch acceptance policy
+
+----------------------------------------------------------------
+Andy Chiu (2):
+      riscv: hwprobe: initialize pair->value in hwprobe_one_pair()
+      riscv: skip software algning code for HAVE_EFFICIENT_UNALIGNED_ACCESS
+
+Dmitry Antipov (1):
+      riscv: use string helper in setup_global_riscv_enable()
+
+Ivy Lopez (1):
+      riscv: hwprobe: simplify has_fpu() to check D extension only
+
+Jia Wang (1):
+      dt-bindings: riscv: cpus: Fix yamllint style issues
+
+JinRui (1):
+      riscv: report Zfhmin/Zvfhmin when Zfh/Zvfh are present
+
+Jisheng Zhang (1):
+      riscv: bug: Make RV32 use GENERIC_BUG_RELATIVE_POINTERS
+
+Samuel Holland (1):
+      Revert "riscv: Reset pmm when PR_TAGGED_ADDR_ENABLE is not set"
+
+Thomas Huth (1):
+      kselftest/riscv: Replace __ASSEMBLY__ with __ASSEMBLER__
+
+Xiaofeng Yuan (2):
+      riscv: mm: make EXECMEM_KPROBES writable without CONFIG_STRICT_MODULE_RWX
+      riscv: patch: skip fixmap mapping when kernel text is already writable
+
+Xixin Liu (3):
+      perf: RISC-V: use BIT_ULL for u64 overflow masks
+      perf: RISC-V: store available counter mask as bitmap
+      perf: RISC-V: check cpu_hw_evt before dereference in overflow IRQ
+
+Yukai Wu (1):
+      docs/zh_CN: Update arch/riscv/patch-acceptance.rst translation
+
+ Documentation/arch/riscv/hwprobe.rst               |  8 +-
+ Documentation/devicetree/bindings/riscv/cpus.yaml  |  8 +-
+ .../zh_CN/arch/riscv/patch-acceptance.rst          | 46 +++++++---
+ arch/riscv/Kconfig                                 |  2 +-
+ arch/riscv/include/asm/bug.h                       |  5 --
+ arch/riscv/include/asm/switch_to.h                 |  4 +-
+ arch/riscv/kernel/cpufeature.c                     | 20 ++++-
+ arch/riscv/kernel/patch.c                          |  2 +
+ arch/riscv/kernel/process.c                        |  4 +-
+ arch/riscv/kernel/sys_hwprobe.c                    |  5 +-
+ arch/riscv/kernel/usercfi.c                        |  5 +-
+ arch/riscv/lib/uaccess.S                           |  5 +-
+ arch/riscv/mm/init.c                               |  4 +-
+ drivers/perf/riscv_pmu_legacy.c                    |  5 +-
+ drivers/perf/riscv_pmu_sbi.c                       | 98 +++++++++++++++-------
+ include/linux/perf/riscv_pmu.h                     |  2 +-
+ tools/testing/selftests/riscv/cfi/cfi_rv_test.h    |  2 +-
+ tools/testing/selftests/riscv/hwprobe/hwprobe.c    | 20 ++++-
+ 18 files changed, 170 insertions(+), 75 deletions(-)
+
+vmlinux size differences in bytes (from cee9395acd80):
+   text  data   bss      dec     hex  filename                             
+   -496   +96     .     -400    -190  vmlinux.defconfig.gcc-16             
+   +260   +64     .     +324    +144  vmlinux.nosmp_defconfig.gcc-16       
+   +148   +64     .     +212     +d4  vmlinux.rv32_defconfig.gcc-16        
+   +448   +64     .     +512    +200  vmlinux.rv32_nosmp_defconfig.gcc-16  
+    -84     .     .      -84     -54  vmlinux.nommu_virt_defconfig.gcc-16  
+   -204   +64     .     -140     -8c  vmlinux.defconfig.clang-20           
+   -196   +96     .     -100     -64  vmlinux.nosmp_defconfig.clang-20     
+   +288   +96   +64     +448    +1c0  vmlinux.rv32_defconfig.clang-20      
+   +312   +96     .     +408    +198  vmlinux.rv32_nosmp_defconfig.clang-20
+    -72   +64     .       -8      -8  vmlinux.nommu_virt_defconfig.clang-20
+   -460   +96     .     -364    -16c  vmlinux.defconfig.gcc-15             
+   -156   +96     .      -60     -3c  vmlinux.nosmp_defconfig.gcc-15       
+   +132   +96     .     +228     +e4  vmlinux.rv32_defconfig.gcc-15        
+   +168   +96     .     +264    +108  vmlinux.rv32_nosmp_defconfig.gcc-15  
+    -76   +64     .      -12      -c  vmlinux.nommu_virt_defconfig.gcc-15  
+   -556   +64     .     -492    -1ec  vmlinux.defconfig.gcc-14             
+   +224   +96     .     +320    +140  vmlinux.nosmp_defconfig.gcc-14       
+   +132   +64     .     +196     +c4  vmlinux.rv32_defconfig.gcc-14        
+   +112   +64     .     +176     +b0  vmlinux.rv32_nosmp_defconfig.gcc-14  
+    -76   +64     .      -12      -c  vmlinux.nommu_virt_defconfig.gcc-14  
+   -144   +96     .      -48     -30  vmlinux.defconfig.clang-19           
+   -148   +64     .      -84     -54  vmlinux.nosmp_defconfig.clang-19     
+   +360   +96    +8     +464    +1d0  vmlinux.rv32_defconfig.clang-19      
+   +356   +96    +8     +460    +1cc  vmlinux.rv32_nosmp_defconfig.clang-19
+    -76   +64     .      -12      -c  vmlinux.nommu_virt_defconfig.clang-19
+   -524   +96     .     -428    -1ac  vmlinux.defconfig.gcc-13             
+   +184   +96     .     +280    +118  vmlinux.nosmp_defconfig.gcc-13       
+   +196   +96     .     +292    +124  vmlinux.rv32_defconfig.gcc-13        
+   +164   +96     .     +260    +104  vmlinux.rv32_nosmp_defconfig.gcc-13  
+    -76     .     .      -76     -4c  vmlinux.nommu_virt_defconfig.gcc-13  
+   -180   +96     .      -84     -54  vmlinux.defconfig.clang-18           
+   -168   +64     .     -104     -68  vmlinux.nosmp_defconfig.clang-18     
+   +324   +96    +8     +428    +1ac  vmlinux.rv32_defconfig.clang-18      
+   +344   +96    +8     +448    +1c0  vmlinux.rv32_nosmp_defconfig.clang-18
+    -68     .     .      -68     -44  vmlinux.nommu_virt_defconfig.clang-18
+   -588   +96     .     -492    -1ec  vmlinux.defconfig.gcc-12             
+   -148   +96     .      -52     -34  vmlinux.nosmp_defconfig.gcc-12       
+   +120   +64     .     +184     +b8  vmlinux.rv32_defconfig.gcc-12        
+    +96   +64     .     +160     +a0  vmlinux.rv32_nosmp_defconfig.gcc-12  
+    -60     .     .      -60     -3c  vmlinux.nommu_virt_defconfig.gcc-12  
+   -164   +96     .      -68     -44  vmlinux.defconfig.clang-17           
+   -160   +96     .      -64     -40  vmlinux.nosmp_defconfig.clang-17     
+   +340  +128    +8     +476    +1dc  vmlinux.rv32_defconfig.clang-17      
+   +296   +96    +8     +400    +190  vmlinux.rv32_nosmp_defconfig.clang-17
+    -76     .     .      -76     -4c  vmlinux.nommu_virt_defconfig.clang-17
+   -204   +96     .     -108     -6c  vmlinux.defconfig.gcc-11             
+   -184   +96     .      -88     -58  vmlinux.nosmp_defconfig.gcc-11       
+   +168   +64     .     +232     +e8  vmlinux.rv32_defconfig.gcc-11        
+   +176   +64     .     +240     +f0  vmlinux.rv32_nosmp_defconfig.gcc-11  
+    -72   +64     .       -8      -8  vmlinux.nommu_virt_defconfig.gcc-11  
+   -900     .     .     -900    -384  vmlinux.allnoconfig.gcc-15           
+-131064  +548  +128  -130388  -1fd54  vmlinux.allmodconfig.gcc-15          
+   -908     .     .     -908    -38c  vmlinux.allnoconfig.clang-19         
+ -57552  +144   -64   -57472   -e080  vmlinux.allmodconfig.clang-19        
