@@ -1,63 +1,67 @@
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1183E5A0B
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:43:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 545273DDDA1
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:43:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789094604; cv=none; b=D5n3mKHIwGzWCXyXQngoyTjTNAFOEhq1sUZQ9EPsm2aeW9/z8yj8VkBMrhsurB/kVnKIPIDbkvmR3Ju6ykK+f9TK9vZIZkhxDJ8eI3e82WR4ilUXW1byso5KXlBaywgqd6/xjnmfBhWn0Kz3Kq0/KRRlw7rR2dywIcsco/1S2Ic=
+	t=1789094605; cv=none; b=i3ekkJGUZ4JjTthDCpQIDeEpw66iUUaGpxz9QIqC4OimfU/9Pf7CG9he42Ejq1o9t5v940iOP85ycHp0JgNBnRw7uSIGYa5KNfPDlp8ut7wFSWu6lsOrpNU57sqMN+vzWCVNFqsVU2XIxEsIfksMMPzpS0KgAiAfYgCHW8kQKLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789094604; c=relaxed/simple;
-	bh=/j8zxAOgXfwVIkihoKCWYxsy6SGLDEogI8QwPoIgXAM=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Xa7nKR7YJzS4F2hBXZxnG+khzSR5ltt8ekeLd4Z7tG0fLGj1vau5oQWUEkEPHvZBGRuoJq07/pLCUZtoEHVX4FpRRR5waU4UChulz0JUjxNSj0XdcmoSKQM2sPOZJ/7TIJlBf0VfrmLCpWkmvOm9Vb1VXFtvkFHfuuOBt0K+lZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pmpxDsGM; arc=none smtp.client-ip=209.85.210.198
+	s=arc-20240116; t=1789094605; c=relaxed/simple;
+	bh=/cObwhUGxRYT81pWRaz2+xTY8TN+IfT3Lgkepn5EkFM=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=eNLe+tBs0WvKTGJUMxTdCebT1PZELSHhZ8sptW6D6AUsG1Ev+IjvWbK90i5/25x5zTEUZuooY9cuVNJjWBLw3Ks7Gb97zbj6HRcls/oY26yPppmOSbkPk9zgCbJMtWOJzHWWrcAc5uNT3W64kyGmBuW/iBr/hjpmm0k3+HrD8gQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kJGIlNaL; arc=none smtp.client-ip=209.85.216.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pmpxDsGM"
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-869c40637faso416441b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:43:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kJGIlNaL"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38dbf293831so905325a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:43:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789094602; x=1789699402; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VIFobB/49RKC10K8JbhHdKLcDdcT1zlJJkKF9fMl4pE=;
-        b=pmpxDsGMsOqSpB4xZ/25bkVMQ9O4vIfjCF2z/uuxGjU5KfZ4kdXlzLaipDvpl3Izec
-         57agIqWu4NLIjU/MjVBMNWkX21eSz+qklIKEaiZpwqTPxLFcfR//0jIcfPetImZqTaIS
-         R5Y5LAzqx41foOvFwcR0/Q4PgxYOaLOWoFYZ5bIa9WMqEdoQAV281zGPUsTai44EIK2G
-         88OZGejnb3io7WS/umarHrO/5PZZYHSHVPO6FdLCoLkczRG+JiuOvtWl0VzmxO9kSJEx
-         dI9eyeFD2omU54XoW08lMTs8zsnZHxc/mTxlPpicOD16X2SEFP7cSmT5sR/Neg9fxSMX
-         VJ2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789094602; x=1789699402;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1789094604; x=1789699404; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VIFobB/49RKC10K8JbhHdKLcDdcT1zlJJkKF9fMl4pE=;
-        b=roei1H6nIb++cs4ppJauMM8UCoBhA83PWIxm3k6tkcIHGwaFY6rqjMlQxIHjS5XFD0
-         BDlom92ZiTB+U/RWFEE99yvorh7LRSnE7KxJUcfl8pHkH2yw9zcP5Xh9TiiDP3uqCij1
-         bMau6UFFCpIz865yng2//TDdH/wdn2zn2ll/+PfvtyoC8Ah7uNG5nKUa57y2VLYpSNIN
-         6VwkCsoH1Tng4iyU/rgpE9p91xvcyqvch1XaPNrGUB8ICbo8NWU4TQby90XHVHfOt/Wh
-         VrOKENVYmLAQsfc+wAWgayna7bOWe0AU1THTaqe6lwu7w3J9HEXp/LVNvikQI6a22I1F
-         LWIw==
-X-Forwarded-Encrypted: i=1; AKwUvBxVKVgv5HYlFFajquMv7YMfpA1PmcIvaKqWjszYsZh7eacuiHkarEY4X5mXGy0gm2J5CZewFIensJUYpu0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lO4AiTBFmIkMT2hdRPKbhKiJ3dC/2NL91C6aIp7FgUyvguMPD/
-	Kz+Qxtyw3poaT0VSrmLT9zKTl83ktALqv4eUIQjVCTD6jJCVpLTRQTD1ri2EIA+v+LW0HbTHYZC
-	SZKrcHEi68kf/IVPH6EErdg==
-X-Received: from pfbdr7.prod.google.com ([2002:a05:6a00:4a87:b0:863:66b8:b7d])
+        bh=n65nahpXmxrqssgUn61577EijG7naLtO5boPcffg92w=;
+        b=kJGIlNaLYJrtxnNI6l9GtpLzYonuEueleiK/48zjQcPEvq6DgxyoNb7g3kaLH0crna
+         avPb1OQjfmagqjlLnPJ4OLbqBOlf6lXCA888hunBb2YvcqQLMQ7ZclM3GeAZO76S950x
+         KEFWpSHCm5P3k5W6FXsTP4BrHkWbtsKijB29fQ3xMg+Hwny0xaoIqv4QRYd1O/D7eMF1
+         W8QF80U+WU5s1ahXRPNohdPnhxCN6MbIK0VkyhUpIYHDpZCR0OBHOWazliWD0eCC8y1l
+         cwMlEmGAI9QxL6ZHRRsNVB5x4mN6d1OqhAdGJmUapz0hwIqYlWG1MUBoKhaOwsTF/KP5
+         Xjqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789094604; x=1789699404;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=n65nahpXmxrqssgUn61577EijG7naLtO5boPcffg92w=;
+        b=lAMSmPnJ75w0ymqW+wTuknFiVVWc1SX9dabu3YaO9O58VrDOTewCFOc2YCXyWODN/M
+         h8DzqQdI5Xd8UjGtDlwjibJFSw0JU78g6d1Z55N2hSr6oCGQbabBy5Wmh9glblXZivKn
+         pEqtQ560lVl0DjfRd7eGYTZNUdIOe7lGHn2Ob94PabOIjZ+AkBkUoJAynraR408+pgZi
+         DjfDYDe2cpYl9cFsINs0CQu+qXJ6JRfqlIW84iLHwrmF/JUi6xl3o4SZXrg5/SkQLuNh
+         uIQx1Jh/Vek6HBEDGdsmOYCIGg0SkUyVjIAbVpI/7yj86MZNAmHJHquoNMUzJCnTr2PC
+         VvcA==
+X-Forwarded-Encrypted: i=1; AKwUvBxOYykgmyn0yC6j6puh4TeG8qZx0ilMyXasSyoSLZY6znQ8VTrLnZboQpd9SJvNThqk82T7zAz5kJXpIHA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kPsMv5TJnyNM3+sKlza9CWyTnOurapZc3wqHFeFpoHxQFz/KX7
+	ymDJNvbobJquG60NFqvzz/oDGOdL5qaIPdEPtp5t6dwOzHuaRhPzIG55lLarx/TzOxuZG/PdNmi
+	q3OyQ32eZr2ZaIXspgoCZMg==
+X-Received: from pjzb21.prod.google.com ([2002:a17:90a:e395:b0:39d:8c1c:1e2f])
  (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:aa7:8882:0:b0:847:9aa8:d3ce with SMTP id d2e1a72fcca58-86b2dd00270mr3038046b3a.2.1789094601474;
- Thu, 10 Sep 2026 19:43:21 -0700 (PDT)
-Date: Fri, 11 Sep 2026 10:43:17 +0800
+ 2002:a17:90b:35d2:b0:39d:8d38:8b04 with SMTP id 98e67ed59e1d1-39d9bbea1d3mr3240325a91.1.1789094603515;
+ Thu, 10 Sep 2026 19:43:23 -0700 (PDT)
+Date: Fri, 11 Sep 2026 10:43:18 +0800
+In-Reply-To: <20260911024319.1346706-1-stanleyjhu@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+References: <20260911024319.1346706-1-stanleyjhu@google.com>
 X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
-Message-ID: <20260911024319.1346706-1-stanleyjhu@google.com>
-Subject: [PATCH 0/2] scsi: ufs: core: Handle devices declining optional Query IDNs
+Message-ID: <20260911024319.1346706-2-stanleyjhu@google.com>
+Subject: [PATCH 1/2] scsi: ufs: core: Fast-abort unsupported Query IDNs
 From: Stanley Jhu <stanleyjhu@google.com>
 To: mkp@kernel.org, James.Bottomley@HansenPartnership.com
 Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -65,35 +69,130 @@ Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Stanley Jhu <stanleyjhu@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-JEDEC JESD220F specifies that a device which does not support an
-optional Query IDN returns QUERY_RESULT_INVALID_IDN (0xFD) in the
-Query Response UPIU.
+JEDEC JESD220F specifies that devices not supporting an optional
+Query IDN return QUERY_RESULT_INVALID_IDN (0xFD) in the Query Response
+UPIU.
 
-The driver maps every non-zero Query response to -EINVAL and logs
-dev_err(). A device declining an optional IDN is spec-compliant, so
-this reports a failure that did not happen and keeps the retry loops
-resending a request the device will never accept. On UFS 4.0 parts
-that omit the Timestamp attribute it repeats on every boot and every
-resume.
+ufshcd_dev_cmd_completion() maps all non-zero Query responses to
+-EINVAL and logs dev_err(). A device declining an optional IDN is
+spec-compliant, so this reports an error that did not occur and leaves
+the retry loops resending a request the device will never accept.
 
-A third model was recently proposed for
-UFS_DEVICE_QUIRK_NO_TIMESTAMP_SUPPORT; recognising the rejection at
-runtime avoids growing that table further.
+Decode 0xFD as -EOPNOTSUPP, terminate the query retry loops on it, and
+drop the dev_err() in the query wrappers and descriptor readers for
+that case. Other errors are logged and retried as before.
 
-Patch 1 decodes 0xFD as -EOPNOTSUPP across the query layer. Patch 2
-uses that to stop reissuing the Timestamp write on devices that
-reject it.
+The suppressed dev_err() calls carried the opcode and IDN; log them
+with dev_dbg() where the response is decoded.
 
-Compile tested on arm64 (defconfig + SCSI_UFSHCD).
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+---
+ drivers/ufs/core/ufshcd.c | 29 +++++++++++++++++++++++------
+ 1 file changed, 23 insertions(+), 6 deletions(-)
 
-Stanley Jhu (2):
-  scsi: ufs: core: Fast-abort unsupported Query IDNs
-  scsi: ufs: core: Dynamically disable timestamp on unsupported devices
-
- drivers/ufs/core/ufshcd.c | 39 ++++++++++++++++++++++++++++++---------
- include/ufs/ufs.h         |  1 +
- 2 files changed, 31 insertions(+), 9 deletions(-)
-
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index 1ca731675ad1..f01703c3825f 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -3284,6 +3284,11 @@ ufshcd_dev_cmd_completion(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+ 
+ 		if (response == 0) {
+ 			err = ufshcd_copy_query_response(hba, lrbp);
++		} else if (response == QUERY_RESULT_INVALID_IDN) {
++			err = -EOPNOTSUPP;
++			dev_dbg(hba->dev, "%s: unsupported opcode 0x%x idn 0x%x\n",
++				__func__, lrbp->ucd_req_ptr->qr.opcode,
++				lrbp->ucd_req_ptr->qr.idn);
+ 		} else {
+ 			err = -EINVAL;
+ 			dev_err(hba->dev, "%s: unexpected response in Query RSP: %x\n",
+@@ -3446,6 +3451,8 @@ static int ufshcd_query_flag_retry(struct ufs_hba *hba,
+ 
+ 	for (retries = 0; retries < QUERY_REQ_RETRIES; retries++) {
+ 		ret = ufshcd_query_flag(hba, opcode, idn, index, flag_res);
++		if (ret == -EOPNOTSUPP)
++			return ret;
+ 		if (ret)
+ 			dev_dbg(hba->dev,
+ 				"%s: failed with error %d, retries %d\n",
+@@ -3512,7 +3519,8 @@ int ufshcd_query_flag(struct ufs_hba *hba, enum query_opcode opcode,
+ 	}
+ 
+ 	err = ufshcd_exec_dev_cmd(hba, DEV_CMD_TYPE_QUERY, timeout);
+-
++	if (err == -EOPNOTSUPP)
++		goto out_unlock;
+ 	if (err) {
+ 		dev_err(hba->dev,
+ 			"%s: Sending flag query for idn %d failed, err = %d\n",
+@@ -3577,7 +3585,8 @@ int ufshcd_query_attr(struct ufs_hba *hba, enum query_opcode opcode,
+ 	}
+ 
+ 	err = ufshcd_exec_dev_cmd(hba, DEV_CMD_TYPE_QUERY, dev_cmd_timeout);
+-
++	if (err == -EOPNOTSUPP)
++		goto out_unlock;
+ 	if (err) {
+ 		dev_err(hba->dev, "%s: opcode 0x%.2x for idn %d failed, index %d, err = %d\n",
+ 				__func__, opcode, idn, index, err);
+@@ -3615,6 +3624,8 @@ int ufshcd_query_attr_retry(struct ufs_hba *hba,
+ 	for (retries = QUERY_REQ_RETRIES; retries > 0; retries--) {
+ 		ret = ufshcd_query_attr(hba, opcode, idn, index,
+ 						selector, attr_val);
++		if (ret == -EOPNOTSUPP)
++			return ret;
+ 		if (ret)
+ 			dev_dbg(hba->dev, "%s: failed with error %d, retries %d\n",
+ 				__func__, ret, retries);
+@@ -3676,6 +3687,8 @@ int ufshcd_query_attr_qword(struct ufs_hba *hba, enum query_opcode opcode,
+ 	}
+ 
+ 	err = ufshcd_exec_dev_cmd(hba, DEV_CMD_TYPE_QUERY, dev_cmd_timeout);
++	if (err == -EOPNOTSUPP)
++		goto out_unlock;
+ 	if (err) {
+ 		dev_err(hba->dev, "%s: opcode 0x%.2x for idn %d failed, index %d, selector %d, err = %d\n",
+ 			__func__, opcode, idn, index, sel, err);
+@@ -3739,7 +3752,8 @@ static int __ufshcd_query_descriptor(struct ufs_hba *hba,
+ 	}
+ 
+ 	err = ufshcd_exec_dev_cmd(hba, DEV_CMD_TYPE_QUERY, dev_cmd_timeout);
+-
++	if (err == -EOPNOTSUPP)
++		goto out_unlock;
+ 	if (err) {
+ 		dev_err(hba->dev, "%s: opcode 0x%.2x for idn %d failed, index %d, err = %d\n",
+ 				__func__, opcode, idn, index, err);
+@@ -3782,7 +3796,7 @@ int ufshcd_query_descriptor_retry(struct ufs_hba *hba,
+ 	for (retries = QUERY_REQ_RETRIES; retries > 0; retries--) {
+ 		err = __ufshcd_query_descriptor(hba, opcode, idn, index,
+ 						selector, desc_buf, buf_len);
+-		if (!err || err == -EINVAL)
++		if (!err || err == -EINVAL || err == -EOPNOTSUPP)
+ 			break;
+ 	}
+ 
+@@ -3831,6 +3845,8 @@ int ufshcd_read_desc_param(struct ufs_hba *hba,
+ 	ret = ufshcd_query_descriptor_retry(hba, UPIU_QUERY_OPCODE_READ_DESC,
+ 					    desc_id, desc_index, 0,
+ 					    desc_buf, &buff_len);
++	if (ret == -EOPNOTSUPP)
++		goto out;
+ 	if (ret) {
+ 		dev_err(hba->dev, "%s: Failed reading descriptor. desc_id %d, desc_index %d, param_offset %d, ret %d\n",
+ 			__func__, desc_id, desc_index, param_offset, ret);
+@@ -3917,8 +3933,9 @@ int ufshcd_read_string_desc(struct ufs_hba *hba, u8 desc_index, u8 **buf, enum u
+ 	ret = ufshcd_read_desc_param(hba, QUERY_DESC_IDN_STRING, desc_index, 0,
+ 				     (u8 *)uc_str, QUERY_DESC_MAX_SIZE);
+ 	if (ret < 0) {
+-		dev_err(hba->dev, "Reading String Desc failed after %d retries. err = %d\n",
+-			QUERY_REQ_RETRIES, ret);
++		if (ret != -EOPNOTSUPP)
++			dev_err(hba->dev, "Reading String Desc failed after %d retries. err = %d\n",
++				QUERY_REQ_RETRIES, ret);
+ 		str = NULL;
+ 		goto out;
+ 	}
 -- 
 2.55.0.1007.g17ff1f9808-goog
 
