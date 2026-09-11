@@ -1,48 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD5B3F105B;
-	Fri, 11 Sep 2026 02:26:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0EBF3F3262;
+	Fri, 11 Sep 2026 02:26:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789093564; cv=none; b=q2+BRR+mVfd6H7ImpaIzaCsI3RtFJE5MHrqYYGxdPfLrqVEpRv5bwXrAfUIIhMHgg0ep0gQVsLTKaGxoEAuLsyIcEZtrG5yql7QsygyRwbRU/TSfU6Ueoa7tg6fsRYY1kIxDmRqg2zM/6oOdhsv13hmLy70dsS6XuzHKnszcFjY=
+	t=1789093565; cv=none; b=E9fYjPg+9fpHVSjrRR+lEd7Ro8kFxfeB9Me8eobBZYRH426T6IeTmGvP/fORuKqjRvuA2CZKbks2/aMluvAo2BQ/XA27hh+at/WcIUqQn6cic3wh6Rtxz/y3sPozzuvuIxmx5ID11++EN01axdUKO4yurDe3L8L+UOmygSRRvy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789093564; c=relaxed/simple;
-	bh=aEnyVZ503oKK0GclRjfd0ZbVHxTBe5mGbzG095GM/rc=;
+	s=arc-20240116; t=1789093565; c=relaxed/simple;
+	bh=bjJU9Z44PVUCvG8pMcP/6V4IFB0tGC6BdvqUumYtqw4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oz2YKS1MerkMWZd0X54YNbzxS/6vdjD8MDpaUVjRv+O2h4NE1gOHIh9M1Jn7RhSXNXzUEOIhd8w7xW0k0AHp+sZnhvmiNj/ElVogEAmw3xaGnnRab0Jo6ii6rABlk+va41ld3Tf19BzWqFhriCB3vAA+RJwqT3Irg8nkG/Cic+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=frtR3+Cu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=gkfDaR07+e+ro+B3/1ZxpY+w7X3Nir9FYQ8ZYUtl4EF8svlkKJWoYtONT84zM7KsZtLqPptcxlmhPHS+O205pCmEgSsQ0PK80WtjI1P2BHzspcG1N+TIaf2llvxSyfwjpG6l7FhGVHhQ3t0ruwFu8m+ncAofd7gGnzTixsYomTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wu/e5k/6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="frtR3+Cu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 150F31F00898;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wu/e5k/6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08D871F00899;
 	Fri, 11 Sep 2026 02:26:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789093562;
-	bh=G+7tbsW8GhE8Dl3WQ6Y24WskdmuX6RT7fYcuY2w71k4=;
+	s=k20260515; t=1789093563;
+	bh=HNIzeR8GVk5pXPZw5/ct6bVdaLu6p1p4DPsLEAsyheU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=frtR3+CuF+2CyZjh0ovDxpsb0yeESoUcaVrx14ZbvfOKDatMksLU1VI98WD4FoLc7
-	 eljQYTGnBavAQs6zP5QCNzPjLZyBtFI0FfZpbGYiFUTEmLQV4esYIAzpCS5HAuVwKA
-	 js1SttPVw5Colna9PH2c9HXNWFA5MCeGqidMXbsBOQONN2N/geuCe4OOiNZCfxwm+T
-	 di5bnETLtre0RsCWD7TE9uTVT/XoxKNesPLd4bwT86CXuaxjcojLziyXvPrm3/7/oK
-	 KXeAFxg5tdy60yVfM3v8nTrNkzUan0GJDyU5kORw79lbyKCwUyS0Fua+qy1mmE0Ny3
-	 W8j0X0ngyCY9Q==
+	b=Wu/e5k/64fF1wZG5fIrW5AEmr9H5w7LRKqAjgheO99Wpkybo2tAMwgKAZ6Yfe9DCu
+	 beiABgarQubnwXoB3uNzqs3HrzGHTMoI8FOAYr5kVgg3BCRAEsj7vA2evGzoxBDDZ2
+	 1ZvWr06lfjGFxqJsASC181s0SoZOwoVHarfAvI4D6ea2VKGXjDuHa98G+XNB5YJxDj
+	 hmxxF6cLUG+g8JYdUpU+tUdSKlw5TiR/BG5tEjLLebA2OqKaJivoacpOuuh6Z+HgEF
+	 C0PiLw+4nvDzq1k0GdahMLyy+CA4iF2sMzn1C2jnoI9eUNRCTjPpD/pwjsMI+ZlIry
+	 UL8feDZJuX0jw==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Luca Weiss <luca.weiss@fairphone.com>
-Cc: ~postmarketos/upstreaming@lists.sr.ht,
-	phone-devel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
+	Qiang Yu <qiang.yu@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: sm7225-fairphone-fp4: Disable PMK8350 PON
-Date: Thu, 10 Sep 2026 21:25:39 -0500
-Message-ID: <178909353851.920241.10380182243705071206.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v10 0/5] Add QMP PCIe Multi-PHY support
+Date: Thu, 10 Sep 2026 21:25:40 -0500
+Message-ID: <178909353853.920241.13935433536779204149.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260901-fp4-pmk8350-pon-v1-1-e05937e9c860@fairphone.com>
-References: <20260901-fp4-pmk8350-pon-v1-1-e05937e9c860@fairphone.com>
+In-Reply-To: <20260825-glymur_linkmode_0826-v10-0-56ab597d77e4@oss.qualcomm.com>
+References: <20260825-glymur_linkmode_0826-v10-0-56ab597d77e4@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,17 +54,23 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 01 Sep 2026 11:06:13 +0200, Luca Weiss wrote:
-> Two PMICs on this phone have a PON block, the PM6350 and PMK8350. Only
-> one should be enabled at one time, so disable PMK8350 PON and keep the
-> PM6350 PON.
+On Tue, 25 Aug 2026 19:59:19 -0700, Qiang Yu wrote:
+> Some QMP PCIe PHY hardware blocks can be configured through a link-mode
+> register into different link topologies, such as a single wide link, or
+> multiple independent narrower links (e.g. x8 or x4+x4 mode on the Glymur
+> PCIe3 PHY).
 > 
+> Earlier revisions tried to extend the existing single-instance
+> phy-qcom-qmp-pcie.c driver to cover this hardware. That added a large
+> amount of conditional, multi-PHY logic to a driver whose data model
+> assumes one PHY per node.
 > 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: sm7225-fairphone-fp4: Disable PMK8350 PON
-      commit: 5c088a33e3a9bb236c475b7230df275fc1e51eda
+[5/5] arm64: defconfig: Enable QMP PCIe Multi-PHY driver
+      commit: 6708289cc13812cebedcc396a42f62d3f92b2dbd
 
 Best regards,
 -- 
