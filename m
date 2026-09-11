@@ -1,31 +1,33 @@
 Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98D73E4C7A;
-	Fri, 11 Sep 2026 06:09:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E523EA967;
+	Fri, 11 Sep 2026 06:09:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789106965; cv=none; b=jT3BIBKzYTUakfmdD+EeAn94xZmr/ncvO9LF16452/Z3QCXMJnMHTsqmizfgIRLIt5JbX0+ByFtEOV1uByuyaq/5mq1FRY/FMviKNhDEl/mOSX79zZOdu2RQGjvhDTGmmMj2s0cpnEPsJ9LHSXnDrlDgidSah0b2xtCsdD6Fj7s=
+	t=1789106970; cv=none; b=FmUOvyaDXM1/U1XPve9yYvtRQJfReqn1Uo+8BhlA/4D1zxrWTqYDz4jV2hpw2QKJ9coyo9+ob8VmMA7kvq8BEsvFXcp8JA+jJbuAO0CVNbo0L9GgM2HphyMFC4o78IH5EQOxyS9IFGEsxVCjO8lQ2xhvU139rcHh+GCYTp+jjsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789106965; c=relaxed/simple;
-	bh=D8Kv4v2gyrj4qUT2U68/sdAzWRgC/88CDk1gFkP+4pY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OmeraWpi+4iVQUsMQehPfDPTzwp+4sZ4NL7EokPZoMonv7wXfIUiVBLoea5VGjeZBGGEuLNTadWrbWNr2rCFqxrbqb8TLKfUyln2RDxO/iRdtanNueQRwkSq9shHbw7/tyeD+UZCtLkkFCr4RayqRm5LLjVC3K98dhdU2Ly4F78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=M+ONjhaW; arc=none smtp.client-ip=101.71.155.101
+	s=arc-20240116; t=1789106970; c=relaxed/simple;
+	bh=YUdpZszFTWkioRDlRd3pCO6922f+pcUGEYSKqXwb+nI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DRhbpBvD+2H6FvWDXYtiyJLEbCWQ1IlMGH8kY02kDJwpOECmh4qgQZlEC7kFgzGvYTtgfCsgSdwVYpR22Hp2QaK9AwQ7DD3QZKhQbnjo4lo3hR59+u/4HhWEtYUlY36/lb2SrOoJFu9w2mI2R54Afn4rrmT9x6zuftSCmuGK5G4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=CrtOijhS; arc=none smtp.client-ip=101.71.155.101
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="M+ONjhaW"
-Received: from seu.edu.cn (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4d62c4fb0;
-	Fri, 11 Sep 2026 14:09:16 +0800 (GMT+08:00)
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="CrtOijhS"
+Received: from seu.edu.cn (unknown [221.228.238.82])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4d62c4fb6;
+	Fri, 11 Sep 2026 14:09:21 +0800 (GMT+08:00)
 From: Slavin Liu <bolin.liu@seu.edu.cn>
-To: mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
+To: andersson@kernel.org,
+	mathieu.poirier@linaro.org
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-remoteproc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	bolin.liu@seu.edu.cn
-Subject: [PATCH RFC] media: cx23885: check MPEG video-device allocation
-Date: Fri, 11 Sep 2026 14:09:15 +0800
-Message-Id: <20260911060915.94287-1-bolin.liu@seu.edu.cn>
+Subject: [PATCH RFC] rpmsg: qcom_smd: reject interrupted channel waits
+Date: Fri, 11 Sep 2026 14:09:20 +0800
+Message-Id: <20260911060920.94363-1-bolin.liu@seu.edu.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -34,56 +36,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa08f15a74403a1kunmc4d17def1c7338
+X-HM-Tid: 0aa08f15bb3203a1kunmd78637c71c734c
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZQ0JKVk4fThhLTBofTxhPS1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	hOQ0NVSktLVUtZBg++
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSB0dVh5PSBkYQhpCHhkaGFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUpVSUlDVUlIQ1VDSVlXWRYaDxIVHRRZQVlPS0hVSktJQk
+	NDTFVKS0tVS1kG
 DKIM-Signature: a=rsa-sha256;
-	b=M+ONjhaWz9A70c1wRUaXNas5B1Sg9WVrs8Tc+V+AZJY/5yuZs005ku1tH24re5eTY81rdQUPyeWJcq9N6CR7oPrkgePVqwwcLrgQ9fnSaDx0q3q/WtBkTx4Y5N/17OKnYr+Oj4V2CmxmA7nlGlwmbYZW+FnFHd/CihUUICdlS5M=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=Q5PPTqnx2e1jDma+Moaaw2+wOjKGefe51JBY9I2F1ug=;
+	b=CrtOijhSBdA4a4uscJHjWW0tH1RyFtavJLQWiGfhWsIKkMo1joWopIZHiZOi4v4n9Uvi1eAxQffenfdV7A+PwT2x+edpSRV9/DoQDidRVLegaw7/4daTjbyzjdG6EBIm6cDEi1W6uJoaJ1CuPd7UW/Fv9XeYk+ujcypPuTRQNm4=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=Dza5ixR1woqehY7UwxEtCkc1+9nTff5+Lpetly829Mg=;
 	h=date:mime-version:subject:message-id:from;
 
-cx23885_video_dev_alloc() returns NULL when allocation fails.
-cx23885_417_register() subsequently passes that pointer to
-video_set_drvdata() and accesses its fields.
+qcom_smd_create_ept() waits for a channel using
+wait_event_interruptible_timeout(). If a signal interrupts the wait
+before the named channel appears, the wait returns -ERESTARTSYS and
+channel is still NULL. The current zero-only test treats the negative
+return as success and then dereferences channel->state.
 
-Check the allocation and release the initialized CX2341x control
-handler on failure. Import its controls into the parent handler only
-after the allocation succeeds: the parent retains borrowed control
-references and survives a failed MPEG registration, so freeing an
-already imported handler would leave dangling references. The successful
-registration path keeps the same controls and video device.
+Require a positive wait result before using the channel. Return NULL for
+interruption as for a timeout, following the endpoint creation API's
+existing failure convention. No endpoint or channel resources have been
+acquired at this point, and the successful wait path is unchanged.
 
 Detected by static analysis and reviewed with AI-assisted source auditing.
 
-Fixes: b1b81f1db73f ("V4L/DVB (7725): cx23885: Add generic cx23417 hardware encoder support")
+Fixes: 53e2822e56c7 ("rpmsg: Introduce Qualcomm SMD backend")
 Assisted-by: LLM
 Signed-off-by: Slavin Liu <bolin.liu@seu.edu.cn>
 ---
- drivers/media/pci/cx23885/cx23885-417.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/rpmsg/qcom_smd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/pci/cx23885/cx23885-417.c b/drivers/media/pci/cx23885/cx23885-417.c
-index 219937a153b3..13fbb1588e5c 100644
---- a/drivers/media/pci/cx23885/cx23885-417.c
-+++ b/drivers/media/pci/cx23885/cx23885-417.c
-@@ -1514,11 +1514,16 @@ int cx23885_417_register(struct cx23885_dev *dev)
- 	dev->cxhdl.priv = dev;
- 	dev->cxhdl.func = cx23885_api_func;
- 	cx2341x_handler_set_50hz(&dev->cxhdl, tsport->height == 576);
--	v4l2_ctrl_add_handler(&dev->ctrl_handler, &dev->cxhdl.hdl, NULL, false);
+diff --git a/drivers/rpmsg/qcom_smd.c b/drivers/rpmsg/qcom_smd.c
+index 7dbe1c6efe41..7bbd29707f78 100644
+--- a/drivers/rpmsg/qcom_smd.c
++++ b/drivers/rpmsg/qcom_smd.c
+@@ -914,7 +914,7 @@ static struct rpmsg_endpoint *qcom_smd_create_ept(struct rpmsg_device *rpdev,
+ 	ret = wait_event_interruptible_timeout(edge->new_channel_event,
+ 			(channel = qcom_smd_find_channel(edge, name)) != NULL,
+ 			HZ);
+-	if (!ret)
++	if (ret <= 0)
+ 		return NULL;
  
- 	/* Allocate and initialize V4L video device */
- 	dev->v4l_device = cx23885_video_dev_alloc(tsport,
- 		dev->pci, &cx23885_mpeg_template, "mpeg");
-+	if (!dev->v4l_device) {
-+		v4l2_ctrl_handler_free(&dev->cxhdl.hdl);
-+		return -ENOMEM;
-+	}
-+	v4l2_ctrl_add_handler(&dev->ctrl_handler, &dev->cxhdl.hdl, NULL, false);
-+
- 	q = &dev->vb2_mpegq;
- 	q->type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
- 	q->io_modes = VB2_MMAP | VB2_USERPTR | VB2_DMABUF | VB2_READ;
+ 	if (channel->state != SMD_CHANNEL_CLOSED) {
