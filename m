@@ -1,80 +1,48 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF7F83E4C7A
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:29:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+Received: from mx1.zhaoxin.com (MX1.ZHAOXIN.COM [210.0.225.12])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6F8391A9F83;
+	Fri, 11 Sep 2026 03:31:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.0.225.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789097385; cv=none; b=dZM7kEmRC4l9NSpm5UJg90I4Tn75FRZ6ELCyVI7+RybN+IUqPxXgLPo6UtZlFbj1Y67VNghR+3IZuSIvDtTTxgYeNzMM0x0Z3YQtHEpR0r8R8ylLnp09kIsrxJcjNeG9FF7c6WcWiIzlppy43dHJt0KJc/6c2BaEulrZVEqcifo=
+	t=1789097495; cv=none; b=QWoEpfAk/qsdJH9KeUODbVrZskjNQ1jPfbehsrl/tU7ah8kV4QsuqkZ4VLvYB9tO6EpQtV8o6micJG7WW3iQxSI/sCP/HIXarAqWjabFwWdr+LSjcnTESFxkG5lhoUzmqZtwIYkAvlFxJGuW+eWjfsDxN+aDFpNjBzo4BKtB6sk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789097385; c=relaxed/simple;
-	bh=UsjXmoEjbBzqbhLO/TEnWeg/LcRkT8bmjI3edxRMtz0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hIf54L7+Vj1nbNihDIC1ztTPYNrhFgaLY+rSAe1xhqSOXU14QBzf1XjvGK7N0wHaOr5TSaMqmfXuGeA0cISsInxjzgnKyb9bNnDeJvBIhejsgQAcPsMzcoyCXyjIilzWgOno4EH0oE8AiH/6gDB7mBIvLwTTwgPcqH1AR//WqgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=shopee.com; spf=pass smtp.mailfrom=shopee.com; dkim=pass (2048-bit key) header.d=shopee.com header.i=@shopee.com header.b=ccvYQL7y; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=shopee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shopee.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shopee.com header.i=@shopee.com header.b="ccvYQL7y"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-398b3c37877so437003a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:29:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=shopee.com; s=shopee.com; t=1789097383; x=1789702183; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i0Kt7XnkPOmENiinuVzqr2b19eJklmr7Bc9jhStDXZA=;
-        b=ccvYQL7yR5zWV/cH4Ca1v6Wp6KXvKghh7/vyD+d3asfHk/UpCrFK99kCOvWgHFARA5
-         ZvDilRDWVy70gbHsT5ntIbGzcPUMcmegbmZXmWKbFiVsp4QyBKvCK7Yk0oN/jujxbUmS
-         Lk4jSB2SR8wzYkzM/CZl3b7lUIvp9T4HSvUrYbM0eTcQmp7uEOsTTsxiL1hvVFFIGjmz
-         5daUROP8uCl5VvW9qwRaS6FlwhKDLmmDWDNA3DSQu2KcVSsbs4M5KOMl5dAdONZKqix9
-         rVqJZUjLXK1WeZIy9AS/Y2lm1t3jJqxnTWPjIEulPKHrU62sB8KOYHGkniIJcA9UrOaL
-         5uaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789097383; x=1789702183;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=i0Kt7XnkPOmENiinuVzqr2b19eJklmr7Bc9jhStDXZA=;
-        b=qmQycXK/hhbA+ziNqj6psoYln+iBAo1E15MlkAyejnoMT6/JWq4seImfcYPxqW3VnV
-         UZM06XhjPbZp/MrTUqPMzqJkLILZafSDlxozCu0secnTlS8KkoR2EdFaz33XBOfqiULw
-         r+MgbPPZIr9mq+WLi5bOQvYr3AgwtjJigzrLRVRUy0QpShOzcf9ezmzKWrBk/0UbIyR8
-         Z/sc2VBkfWK0n5ABUQCMyghgsvZB7o1wt7pGdnW+D4bfByxX13DW+dHMkk4DfUGleqOb
-         vc58m4bdAAv6XPo2DuUiNqOmzQJkMnM1eI4ep8MrA+ZPi2ixfBLotOZ2GQaT/F23O+J2
-         oftw==
-X-Forwarded-Encrypted: i=1; AKwUvByP0sjcCeuMlL6xzUq2N/emMhh/f1aKuY0YdMT6n8ZnrZpBnnnZuEWiQjMZ9hV7mUALDwd58Vbrqofq5cY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nmfThLtP2P7nR+6lowwehwV5vyWf0DWWzU6YyYM35ig723SmkP
-	aNQDSr8FBW5Ebqaqi9i/TJT1R9jK5PCjLLZafvI3Nsh0JmRGfFSvQ5EXW/d+jKcvG90=
-X-Gm-Gg: AYBFou1IL35hncTHgduEe4yko/zV4rKrFx4YhZtvqJqcDtgaF+bbXELviNX02CuGR08
-	FHRwnCjCbXtNiTu+MWl/S0t+kZHcsPCEoceO5vPEDnOG222ewiN6W2VtDDRioUcfWI9cmqjKYn6
-	X0k9ny33aWeXz+hVcsFNhq0yX27XqsHrQg88ZGUTqnzgHiyGkl7lNINakEx3cyZGuZlwr/FbX+1
-	M+ZFjy+tyFQy69JgFqEkO6NvKM2Wxi3RpQiJxsBt8XcDxHjYHjX2GWoo3esbS0eT2n5frGoi0Ya
-	RKvWYgEbFJAxzJ31A9bPskKgEyfEKcCj2KJ7pUZ1DSjlcY84BmG5tnIsBWdnOyOB+0RV/6Jbayo
-	FK45geXDqyay2LhrqrHkvVtYD/SOEVNZpuHLiH1yUvI1p2tsPxIlBUed5u6f7kvzV1zok6qXcNt
-	Ky9jO6nBqSSehFoihNApdIT45dqvf5WBOCGo3rai2Amu4Ega3+j80/Hg/ySUcZO/qoPFvAwbMEH
-	KLTj7WP58ayAnMA7dF5qAP8yHhqhN24SEQTDfbxzAEDp9aVlSuMoT70AWTwP210JlUH2u30tA1z
-	T2kpTVc=
-X-Received: by 2002:a17:90b:3a44:b0:381:cef1:11ac with SMTP id 98e67ed59e1d1-39d9bd923aamr3589455a91.10.1789097383267;
-        Thu, 10 Sep 2026 20:29:43 -0700 (PDT)
-Received: from LPMV6FJ9FM.cn.corp.seagroup.com (static-ip-254-9-104-152.rev.dyxnet.com. [152.104.9.254])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9b2ae3adsm523859a91.1.2026.09.10.20.29.39
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 10 Sep 2026 20:29:42 -0700 (PDT)
-From: Runli <mingyu.he@shopee.com>
-To: Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	linux-mm@kvack.org
-Cc: Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Yosry Ahmed <yosry@kernel.org>,
-	cgroups@vger.kernel.org,
+	s=arc-20240116; t=1789097495; c=relaxed/simple;
+	bh=Ft2SFu4NoMEvgsy+ZPKRWgUrkZATMlh7uqCA6lPK47E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Yw81Xv+7EFe09ISX02zUmKMgvf7l5BEyMAT8GliIKS2Yy8wRlYFrUHJE+kSzO00+HBMuEH+XAoZBKfRCNXUHD01iBaHJAtclVP9TYXZfbl0yHwqM7uUq6H70UkZuF/BCTqW7+4ttBh8aa5uWuDF7C0lRfoMbODs1ooxycIK837w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com; spf=pass smtp.mailfrom=zhaoxin.com; arc=none smtp.client-ip=210.0.225.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zhaoxin.com
+Received: from zhaoxin.com (unknown [127.0.0.1])
+	by mx1.zhaoxin.com (MTA) with ESMTP id 4hh0Ss5lmvzbKSss;
+	Fri, 11 Sep 2026 11:31:25 +0800 (CST)
+Received: from zhaoxin.com (unknown [10.28.208.166])
+	by mx1.zhaoxin.com (MTA) with ESMTP id 4hh0Ss0ngDzbKSsF;
+	Fri, 11 Sep 2026 11:31:25 +0800 (CST)
+Received: from zjh-os.zhaoxin.com (zjh-os.zhaoxin.com [10.28.24.13])
+	by zhaoxin.com (8.30) with ESMTP9aef44ab773e7a3b17ddf712549750e3
+	Fri, 11 Sep 2026 11:31:25 +0800
+X-Eyou-Smtpauth: jonaszhou-oc@zhaoxin.com
+X-Eyou-EnvelopeSender: jonaszhou-oc@zhaoxin.com
+X-Eyou-From: JonasZhou <jonaszhou-oc@zhaoxin.com>
+From: "=?UTF-8?B?Sm9uYXNaaG91LW9j?=" <jonaszhou-oc@zhaoxin.com>
+To: linux-ext4@vger.kernel.org
+Cc: Jonas Zhou <jonaszhou@zhaoxin.com>,
+	tytso@mit.edu,
+	adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
 	linux-kernel@vger.kernel.org,
-	littleswimmingwhale@gmail.com,
-	Runli <mingyu.he@shopee.com>
-Subject: [PATCH] memcg: keep propagating stats updates to ancestors
-Date: Fri, 11 Sep 2026 11:29:05 +0800
-Message-Id: <20260911032905.63683-1-mingyu.he@shopee.com>
-X-Mailer: git-send-email 2.39.2 (Apple Git-143)
+	louisqi@zhaoxin.com,
+	jianhuizzzzz@gmail.com
+Subject: [PATCH v3] ext4: move orphan tracking away from journal state
+Date: Fri, 11 Sep 2026 11:31:13 +0800
+Message-ID: <67ae57ef2ee3ac27ab844c22594351c83142d86f.1789097450.git.jonaszhou@zhaoxin.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <575wyoks3ldokhrg6v43rxwsegaecod4bgrpbii6jeczy7czbi@a3yq26u52orp>
+References: <575wyoks3ldokhrg6v43rxwsegaecod4bgrpbii6jeczy7czbi@a3yq26u52orp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,79 +50,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Eyou-Sender: <jonaszhou-oc@zhaoxin.com>
 
-memcg_rstat_updated() stops walking the ancestors when a memcg exceeds
-the flush threshold. A concurrent flush can leave an ancestor below the
-threshold, so the early exit prevents it from receiving further updates.
+From: Jonas Zhou <jonaszhou@zhaoxin.com>
 
-Consider root and leaf on a 4-CPU system, with a threshold of 256.
-CPU 0 is flushing another CPU's stats after CPU 1's stats have already
-been flushed. The counts below are shared stats_updates counters:
+In the tested x86-64 layout, s_journal and s_ext4_flags share a cache
+line with s_orphan_lock and s_orphan. Legacy orphan-list updates
+invalidate the same line used by unrelated journal and inode paths.
 
-  CPU 0 (root flush)                CPU 1 (leaf updates)
-  ------------------               --------------------
-  clear leaf->stats_updates
-                                   add 64 to leaf and root
-  clear root->stats_updates
-  finish flush
-                                   leaf = 64, root = 0
-                                   4 more batches of 64:
-                                     leaf = 320, root = 256
-                                   next update:
-                                     leaf > threshold
-                                     break; root is not updated
+Move s_orphan_lock, s_orphan and s_orphan_info together below
+s_journal_triggers. This separates orphan-list writes from journal
+and flag readers while keeping the related fields in logical groups.
+Add a comment identifying the orphan tracking group and preserve the
+existing member comments.
 
-Root remains at the threshold, which is insufficient to trigger a flush,
-while further leaf updates keep taking the early exit. The periodic
-forced flush restores progress, but until then the root's aggregated
-statistics can fall far behind. For example, page cache grows at rate of
-1 GiB/s, a two-second wait can leave the reported usage about 2 GiB below
-the actual usage.
+On a system with two Xeon Silver 4208 processors and a filesystem
+without orphan_file enabled, repeated tests against v7.3-rc2 recorded
+mean throughput increases of 11.06% for stress-ng dnotify and 35.93%
+for unlink.
 
-Skip only the flushable node and continue walking its ancestors, so each
-ancestor can accumulate updates until it exceeds the flush threshold.
+Tests with orphan_file enabled showed no clear throughput change
+within the observed boot-to-boot variation.
 
-Fixes: 60cada258dfe ("memcg: optimize memcg_rstat_updated")
-Signed-off-by: Runli <mingyu.he@shopee.com>
+perf c2c shows remote HITM samples on the original shared line, but
+none on the separate journal line after the change. Local HITM samples
+and orphan-lock contention remain.
+
+Suggested-by: Jan Kara <jack@suse.cz>
+Link: https://lore.kernel.org/all/575wyoks3ldokhrg6v43rxwsegaecod4bgrpbii6jeczy7czbi@a3yq26u52orp/
+Signed-off-by: Jonas Zhou <jonaszhou@zhaoxin.com>
 ---
-Testing:
-Based on commit 893e11787f78, with and without this patch,
-  using 32 concurrent instances of:
-  netperf -H 127.0.0.1 -p 12875 -t TCP_STREAM -l 60 \
-          -T <client_cpu>,<server_cpu> -P 0 -v 0 -f m -- -m 1024
+Changes since v2:
+- Follow Jan's suggestion to move the orphan tracking fields together
+  below s_journal_triggers, instead of exchanging journal state with
+  the error-reporting and lazy-init fields.
+- Add an Orphan inode tracking comment.
+- Rebase and retest against v7.3-rc2.
 
-Both netperf and netserver ran in the same leaf memcg, directly below
-root (root -> leaf), with memory bound to NUMA node 0.
-Each kernel was tested for five 60-second runs after a 10-second warmup.
+v2:
+https://lore.kernel.org/all/a33183c1c24ea47a98afdd4756b49365593a2762.1788779199.git.jonaszhou@zhaoxin.com/
+v1:
+https://lore.kernel.org/all/20260903021836.962624-1-jonaszhou-oc@zhaoxin.com/
 
-Median aggregate throughput decreased from 107.26 to 105.23 Gbit/s
-(1.9%) with this change.
+ fs/ext4/ext4.h | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-I think fixing the correctness issue is worth the roughly 2% throughput
-cost.
-
- mm/memcontrol.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
-
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 1271d390b617..4600d9c9244e 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -729,12 +729,11 @@ static inline void memcg_rstat_updated(struct mem_cgroup *memcg, long val,
- 	for (; statc_pcpu; statc_pcpu = statc->parent_pcpu) {
- 		statc = this_cpu_ptr(statc_pcpu);
- 		/*
--		 * If @memcg is already flushable then all its ancestors are
--		 * flushable as well and also there is no need to increase
--		 * stats_updates.
-+		 * A concurrent flush may have reset an ancestor's counter.
-+		 * Skip this node if flushable, but keep walking the ancestors.
- 		 */
- 		if (memcg_vmstats_needs_flush(statc->vmstats))
--			break;
-+			continue;
+diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
+index 724a27e8be61..166910914973 100644
+--- a/fs/ext4/ext4.h
++++ b/fs/ext4/ext4.h
+@@ -1644,10 +1644,6 @@ struct ext4_sb_info {
+ 	/* Journaling */
+ 	struct journal_s *s_journal;
+ 	unsigned long s_ext4_flags;		/* Ext4 superblock flags */
+-	struct mutex s_orphan_lock;	/* Protects on disk list changes */
+-	struct list_head s_orphan;	/* List of orphaned inodes in on disk
+-					   list */
+-	struct ext4_orphan_info s_orphan_info;
+ 	unsigned long s_commit_interval;
+ 	u32 s_max_batch_time;
+ 	u32 s_min_batch_time;
+@@ -1786,6 +1782,12 @@ struct ext4_sb_info {
+ 	/* Journal triggers for checksum computation */
+ 	struct ext4_journal_trigger s_journal_triggers[EXT4_JOURNAL_TRIGGER_COUNT];
  
- 		stats_updates = this_cpu_add_return(statc_pcpu->stats_updates,
- 						    abs(val));
++	/* Orphan inode tracking */
++	struct mutex s_orphan_lock;	/* Protects on disk list changes */
++	struct list_head s_orphan;	/* List of orphaned inodes in on disk
++					   list */
++	struct ext4_orphan_info s_orphan_info;
++
+ 	/* Ratelimit ext4 messages. */
+ 	struct ratelimit_state s_err_ratelimit_state;
+ 	struct ratelimit_state s_warning_ratelimit_state;
+
+base-commit: df2908090cda368b01ff43709f51890076c56157
 -- 
 2.43.0
+
+
