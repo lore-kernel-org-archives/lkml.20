@@ -1,168 +1,291 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010039.outbound.protection.outlook.com [52.101.201.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A92F33BBAF
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:34:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789137279; cv=fail; b=B2i/2dGGuGLVTzARF+ygRNX0e9K5kMKe2wVPV30qkks9GyFRONu22XFJoK0quUQ2GoF9uustfNCAOLL+nW1KEXxm2WedzeQ3JNrN2ufjrjAhaCMZoVw/xStk1Py3Ng9VqhEMhOBd9Q2qkPmjuBCRBXojrgsa0aSE3nXDHVr5k2w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789137279; c=relaxed/simple;
-	bh=+kt5G7uU7jAk9888q4PMp9Wle7UITsUj66ZeBygTHes=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=YyTVk/MBsRM26KtS8048ZeGxZY28LWlzr84+s+ejtpHZy4tKJ95JB/3xqsz+cBCcoZ2Zu8EGIubvZTPRt5fVd0FSXSPoiqNGK/ISHpdSe4OKuIt1nQ3oyYw4Uta7v9HJEr7YP8iRkTANeq8v5raedIYD8VeekjUQGa3kDACrsfo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=WCPv7Vck; arc=fail smtp.client-ip=52.101.201.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F123515F8;
+	Fri, 11 Sep 2026 14:34:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789137295; cv=none; b=iKPHny9tojiMQseEPPw9jeTlKdT33QsjJSqrNTK8G6sId35lGrDCMV2SJxs2LIsSIQNyKN/o8tM5rn3iZZu/63pSUXrPbzSBbQVr+MuQqkCM+qVC5xeejIohJ7Xkirdzg/wc1oiaeNbaFzG33MUNyjHJPkXhzE8gXnkMh5l4BbI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789137295; c=relaxed/simple;
+	bh=NbwnIJaw5TsxNZ0hippwe11dzo7vdGEQQ129xqgyEMI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ek7ylnwBq86t4RWuz5X75WYu2hQfYvygDtRPumqxi9b48jktnvflwwci7VLdr3B9oA3SrD5BsMX2BSuaminpeKam73lELhWeAm/TfJmYrpeOU516bRGzw5IpdeSq4CDWR0WZnPu3jgta8V3rk9w7MxMDCWVJVKT5GK+NmKU7oGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=HXFIWjuc; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=R9lSYyEB; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ARUVZPV5; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=2alSWU6i; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="WCPv7Vck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bUSh6w+YYZwd8H/EodBdjhz75UStckdwzpm6vpezvbyKrMxRg//hJZQ6vhl7ywnpvd9SDuupezCdMz2BBaVL+OKlLog4ukcmQ6D4mXyqfkjxhW9RdZfwtH4Rs6X7kKUVrT9NWezRfuNDZQ471lwdO7BHF1dar/VQV2D2U/imnoWWfycnDZQFZwI6b0nobg4OdOStWnE7YdTAAm8MUYj0LRNwBuc3ejjmvlfxuQxtV6PPnJKt4ONTRUfputjuWec56JMekNU8gN1HsfAZFgXrGzWdgmrIggBhAIab/m3Dh92F07x3NNvanAoWQv/IZA0u2brL4hs2zgov34M6K3nm9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3cx825lV1m5kDyC9LW1BOghhObtj4WdsGxcZSYm7X3I=;
- b=qTvWBtMK1j/qgJRvt9y/YfLJJ/9Jk1prL8SFDIvfZyNYtrKZwJC4K+cEOt+4KjCsItxX1Sp0+YhNQw92fOCcsb8Gq6QbxTi9shMHFgPZMYyN4PX4GFZGkZ3pCq1Jcp6r5N3lpZOZoTRDii97WGQnxywqnGGkRwUqDbSsulq1y2i7dLrB/wB5cZdTqdchHdXAD2326hhtsWAG5q4f936gEN2oYrsi2vCGALzKyW7aBXCfRnxy++6fpqRLm8un3hsBRLOEGBBHsGMIEm5JB2kDu1mcWpGUIpRO6AnssAKwJhkwbW3mWBOeptb9XGbQL0oxdiePUjd+LBnyZ5X1MwNo9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3cx825lV1m5kDyC9LW1BOghhObtj4WdsGxcZSYm7X3I=;
- b=WCPv7Vck4e/lVHRHKZ/u3jkil7PfjOxUuuuR66bzTUlVnT7NY5O+xQPjbIwpL+/VSaHzMDIWt+iuupYAgLMRuBdg8aaqVC99EGe4+vuWPTYBgPKPfIDFQX9roRoGghJTF+5ZKyVr9YVAuPCL0NyCamD6QKGEt+SKjr2ZxLLSt0rRPew30CbMXqVnKIr2wxdOy5uQAbqQ+T1LD7T12nK55fohBPF24ScFZn18fqTLFqHAr1paMr63o6/XX6WFCBknKRBV8N7ZqvrAqBRFnmS4IV/dQw3c7Xn/4PTydUnDSLxNQrHnUA8hz1sDENMMfyboffScfTcKg0sWHD1osw/e7w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by IA0PPF4D923B935.namprd12.prod.outlook.com (2603:10b6:20f:fc04::bcd) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Fri, 11 Sep
- 2026 14:34:34 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 14:34:34 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: akpm@linux-foundation.org, hughd@google.com, david@kernel.org,
- liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com,
- dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev,
- usama.arif@linux.dev, kas@kernel.org, ljs@kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm: shmem: ignore sysfs configs for shmem forced collapse
-Date: Fri, 11 Sep 2026 10:34:36 -0400
-X-Mailer: MailMate (3.0r7032)
-Message-ID: <05182431-A4BB-4842-86CC-68B2E14A4F33@nvidia.com>
-In-Reply-To:
- <b1829ac0d3f38217f031854ff0f40abef614ac0d.1789098446.git.baolin.wang@linux.alibaba.com>
-References:
- <b1829ac0d3f38217f031854ff0f40abef614ac0d.1789098446.git.baolin.wang@linux.alibaba.com>
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
-X-MS-Reactions: disallow
-X-ClientProxiedBy: BN9PR03CA0639.namprd03.prod.outlook.com
- (2603:10b6:408:13b::14) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="HXFIWjuc";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="R9lSYyEB";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ARUVZPV5";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="2alSWU6i"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 3081B21A48;
+	Fri, 11 Sep 2026 14:34:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789137287; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pvOVwoMAlKQxJHdoUy2h3E9P+IV+f/7KjLpphQ9ExO4=;
+	b=HXFIWjucysw33YLbNJdb6l3blTxtMefa/C4scBkAZMuyl3/kZzRA8jaLbNt2f1w61tCY8i
+	fL95zeqco6ixIDs41wxWPh3Wak9xQiGSwvesDhCf+lEuEYaJ+Ls/JjDGJ9EVT/5njb+2KW
+	hjBSgp1mYwwx1IqV4Dw1svWsSkh79Os=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789137287;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pvOVwoMAlKQxJHdoUy2h3E9P+IV+f/7KjLpphQ9ExO4=;
+	b=R9lSYyEBCdNn9epUU1cMES9bJipsPgbuEofNmaDR4o/yfik4UeRNS5gWXGXpiC115dDEym
+	E6tL9mKAR33O1dBw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=ARUVZPV5;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=2alSWU6i
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789137283; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pvOVwoMAlKQxJHdoUy2h3E9P+IV+f/7KjLpphQ9ExO4=;
+	b=ARUVZPV5g0LNrNtERf5g64BnOwGRxAqAuxF29o4XB9rhskhEYbR4lt2fZBLfhUUxFAmjHh
+	Q4dGV8Feln04ZSNekF38RZyqxTZC7DEb655xK6/AT3cbtU8TKDimgZVCI7Jg6KMO9Q8K/t
+	1I24ZQ71UdlR6X9fXdlDJ7sHyZYljSo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789137283;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pvOVwoMAlKQxJHdoUy2h3E9P+IV+f/7KjLpphQ9ExO4=;
+	b=2alSWU6iUA3hOPB/wJLN1UWxlPtvMq/9H7n5G9wqnzlrfwcvUEPWfCVAK7DsnWvzN9FKyi
+	To293GqIUbk7d7CQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EF99A132D3;
+	Fri, 11 Sep 2026 14:34:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Cwh2OoIRpGr0fgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Fri, 11 Sep 2026 14:34:42 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 8AA7DA08F7; Fri, 11 Sep 2026 16:34:38 +0200 (CEST)
+Date: Fri, 11 Sep 2026 16:34:38 +0200
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Bill Wendling <morbo@google.com>, 
+	Bradley Morgan <brads@mainlining.org>, 
+	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Aleksa Sarai <cyphar@cyphar.com>, Jan Kara <jack@suse.cz>, 
+	Nathan Chancellor <nathan@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Nicolas Schier <nsc@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	Alice Ryhl <aliceryhl@google.com>, Douglas Anderson <dianders@chromium.org>, 
+	Anand Moon <linux.amoon@gmail.com>, Oleg Nesterov <oleg@redhat.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, kernel test robot <lkp@intel.com>, 
+	codemender-patching+linux@google.com, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH 1/2] userns: rename insert_extent() and sort_idmaps()
+Message-ID: <eljc2ywnvvpdyi25pev576ytapntb7h2ccmfqyjnqaizx2xszs@l3soxhqtovdh>
+References: <20260911-deftig-geprahlt-gesehen-16310bdf51f5@brauner>
+ <20260911-suggerieren-suchaktion-fliehen-87b9cdf1d169@brauner>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|IA0PPF4D923B935:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5faacaf2-9caa-45f6-11f2-08df1011cc4a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|366016|18002099003|22082099003|10067099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	Dg5lQskHk0HJL2BLooB1chMcgFRDMEUooG2rf43pgO7DgmY3M2EhGy2/IU/0bAAh2OyosUsKd92qafJph6eIoajPBxvzVKHLoMHf/KuY2VpbRnQRnBv80/Ly576A7Jn/00aA/c7g7lKLZu612isMz1esFAIc28u68wkB3DFZ86xP/q9zey5Tp5LAgX+/nNe9NMuurDlN0Ho8mEfAdlbHerJJZTyi2ziJOq23OFTAyWdLSosOOiUL/tRZkRI31DCWg06Nr9y1cGCH1s1+/pZgYTejWQJhUvxnr2H5LGdnX4rotN9KgZ/uPYSv7cazMXnFDXrBEFuaXqXCDzTTdx/BoaMciCXRdLQ+2nHwOIJWdw0yslinDDpMK+1dhD0kc5AIBLKaEnvzzDhF6+oLui98LX3a4HgHU69MRiwaU4ZeUsVNE7uO6hbO2PaIMerNNRUIw+BbanQZ/413CEh8QuCldvs0Vv/evxt26eyUbnATbWESEgRLIXuFfxZcSKJg0B+aHCVrbthcQa7JwnoygxYb6fGPm++6NDzYJgPvP7U4nzKscp8K5a2PeNcft9PLPLHHTeFcOK3ZbXiA5W0mbxdta7jIFgH+23qAeHJwv37QVCRIp4xRlDnu+Xb5ejggcQyqwiXQQ/y6UA18LHy219uaJGRxKARgYDFaG0661I6w+PM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(18002099003)(22082099003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?x2Ne+bILIuEu4dngwBgQhRzjiAaVCVaEmH3jFuxMqsWbdTQb6fTbKf0FFJc5?=
- =?us-ascii?Q?Fv+KSzm7TE0YZV9eCP6spmV4AmllIcMtKeT9Q2GFBVJuQooK0nNf9N+b61xq?=
- =?us-ascii?Q?T5LOHCCBSm7VAhXM6Nf0WAmhYSrfsfbubo6RI7Ttnoog0Rjk2EqYs76fLtSp?=
- =?us-ascii?Q?z/9Nyiwc7prgQ8Zyr0ceE9ZHrbJD1Jc75o9SWk2Az0+HX4SpX0XN7G5thuKD?=
- =?us-ascii?Q?O2p38Q+rxaQzLca8PXWcOXuQmABJisFfeS9JSC8FoT/Vd9MzobkfJQG/N9Oq?=
- =?us-ascii?Q?uae37a7wpP/C2xhaSrcvpgcTKM/0MaoqJK/QHJL0IdiAOm2BvdVyQPynJpgI?=
- =?us-ascii?Q?lhVRRNLumn6W+tiro2W8rORkiEOkWiUhbLnacqZlpkwdsNX0ZoXaCHSS19IX?=
- =?us-ascii?Q?I4p21CSUzHFDgRERENwSV39ZNcQg4Nd8LdU47EfGgjGAYAXqpIYd65qh9SVv?=
- =?us-ascii?Q?sJ3q+PEng7pgrcrAuzrTsocEYxeO+e1XW6VbnoJDCRqg2rffOhLfej/gdmg1?=
- =?us-ascii?Q?+4DJHFtKEnN0dM8QtXcO8oUR8o0I1o0DJLeDuuANJ1p1Tnkd+Id5ZeEa7AhY?=
- =?us-ascii?Q?RfGr5FegGfqBQCIhnCn6PxAIPfevO/Rmk0G6O+Q5lHbaF9mDqjH1i6nY7XHq?=
- =?us-ascii?Q?O25vCP/ohSNhaZG+eyw/GD9/Db1tkQtzADDSl4+wovJ/K929Sr2+PXwGqKRz?=
- =?us-ascii?Q?tz0hqlYiVPczRnFAAgOGP/5H4XwpWNByxP3wD/Nx5IaRrMKpPfzn/dScPKev?=
- =?us-ascii?Q?7l3PcWw2gT9JQLF6eg+AxqB4rGu6/pBU7l2Ypk2Fdn0xuGw8mB/ytbIr0Lc+?=
- =?us-ascii?Q?WCoygHdIk9CXPYlgEerwfNvDUI3CbK9gAN9a3xIfzK7Mmc+Mzx57oje6gntS?=
- =?us-ascii?Q?kzc9+t8tiNxlFD/JmSLfJoXZTe+Nry9kHL/A654IlVqa0X35u7VY3FJpyBe4?=
- =?us-ascii?Q?tBkTH2cHrAT9PW84F3Nq8lKbWbmWxiA18oc8bMohCoPPUgkwe1iAq5cXUXzp?=
- =?us-ascii?Q?gJJ7y5n5Kau2l7x80Yattb3zrN0SJItX2MCXlJrNVju5UtrfVLtjbSfSD/4m?=
- =?us-ascii?Q?BtEpPcc1yr10rSEDubJKq3+MLrhcBNnBgp08gSXgK68LzB6bb0XoHnPFLXtg?=
- =?us-ascii?Q?ZZtCKmA/ABTTMJ/byrUqk8iQDjbKp7xh4RukcrSKLhk1UdJHzh3kH2uRnI4k?=
- =?us-ascii?Q?tdt8CW8hSZ++pwJlYlPN6u+Aq96lcrXwSS629gwUewOP+LZK0GCKoq/fER2m?=
- =?us-ascii?Q?SQ5VvAv0LpsbOdoVr+4SstM0dd6C+WhEPihjcFEW5ZdjcF0zUjnbNiuL6VXe?=
- =?us-ascii?Q?QrsEd3NR+73vzde7s4mYCOu2+sAmEyKZ4Eidqufv+ZO3tygXB5AI3AzDuN5I?=
- =?us-ascii?Q?F5hARQc2Qz1CBc84WvuPa1FARpHfKJ2G+ootW3wbbHNNDAEkFEccpjLOBoqa?=
- =?us-ascii?Q?ouLvwSmSupL1AJQlOcnR3Kvwz0SIU0CXE6Ub6Y5MbZO1LKs2YNyNtUQbOU0U?=
- =?us-ascii?Q?1dmsoQMfKRE1u4178h5CYHAhunZ8Ke86zn0ROOxDGpKXD/UriLcijQasNtil?=
- =?us-ascii?Q?eAF9OkzKnNBSZXzbE+c0rfu6O5+wJnTfj6epIciGiwzKxJQZN61zV0yUE3+9?=
- =?us-ascii?Q?XCxkT0Zta1HTOLnHfjVHv3gDZoCxKcFXK1kRIrzGO89ElIU/+c/1dOGooKx0?=
- =?us-ascii?Q?1C14JMGJEOV9fQFsbL4/wRfbkqZxkyZp/Lj91IuBFd+LBV3/?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5faacaf2-9caa-45f6-11f2-08df1011cc4a
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 14:34:34.0022
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BZiipEPDe0hkiyylbmuDzxtCcv34pung/5a2Vmf6WiHVWb6rSIIAPxw2DQvPfF/Z
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF4D923B935
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260911-suggerieren-suchaktion-fliehen-87b9cdf1d169@brauner>
+X-Spam-Score: -2.51
+X-Rspamd-Queue-Id: 3081B21A48
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[23];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[linux];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_CC(0.00)[google.com,mainlining.org,linutronix.de,kernel.org,cyphar.com,suse.cz,garyguo.net,chromium.org,gmail.com,redhat.com,zeniv.linux.org.uk,intel.com,vger.kernel.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,intel.com:email,suse.cz:dkim,suse.cz:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
+X-Spam-Flag: NO
 
-On 11 Sep 2026, at 0:04, Baolin Wang wrote:
+On Fri 11-09-26 14:58:39, Christian Brauner wrote:
+> The KUnit test suite turned insert_extent() and sort_idmaps() into global
+> symbols and declared them in include/linux/user_namespace.h. That header
+> is pulled in nearly everywhere through linux/cgroup.h and the btrfs
+> self-tests carry a static insert_extent() of their own, so any config
+> with both test suites enabled fails to build:
+> 
+>   fs/btrfs/tests/inode-tests.c:16:13: error: conflicting types for 'insert_extent'
+>   include/linux/user_namespace.h:212:12: note: previous declaration of 'insert_extent'
+> 
+> A global symbol needs a prefix. Rename them to
+> uid_gid_map_insert_extent() and uid_gid_map_sort(). It's the better name
+> anyway.
+> 
+> No functional changes.
+> 
+> Fixes: f6f1a2496ba5 ("userns: Add KUnit test suite for uid_gid_map")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202609110843.okbPe7GM-lkp@intel.com/
+> Closes: https://lore.kernel.org/oe-kbuild-all/202609110937.zHKPPXJk-lkp@intel.com/
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-> According to Documentation/mm/transhuge.rst, MADV_COLLAPSE is expected =
-to
-> ignore any THP or mTHP interface settings.
->
-> However, after commit 6beeab870e70 ("mm: shmem: move shmem_huge_global_=
-enabled()
-> into shmem_allowable_huge_orders()"), performing MADV_COLLAPSE on shmem=
+Sure. Feel free to add:
 
-> will depend on /sys/.../hugepages-2048kB/shmem_enabled being set to "in=
-herit"
-> (although that is the default), which can cause MADV_COLLAPSE to fail
-> unexpectedly.
->
-> Fix this by returning the result of shmem_huge_global_enabled() directl=
-y
-> when MADV_COLLAPSE is requested, allowing PMD-order collapse while igno=
-ring
-> shmem THP/mTHP settings.
->
-> Fixes: 6beeab870e70 ("mm: shmem: move shmem_huge_global_enabled() into =
-shmem_allowable_huge_orders()")
-> Reported-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Closes: https://lore.kernel.org/all/20260908125105.1510704-7-kirill@shu=
-temov.name/
-> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
 > ---
-> Hi Kiryl,
->
-> I did not update the selftests, as I hope this fix will be merged first=
-=2E
-> After this fix has landed, I can send a patch to update the selftests.
-> ---
->  mm/shmem.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
->
-Makes sense.
-
-Acked-by: Zi Yan <ziy@nvidia.com>
-
-Best Regards,
-Yan, Zi
+>  include/linux/user_namespace.h   |  5 +++--
+>  kernel/tests/user_ns_map_kunit.c |  6 +++---
+>  kernel/user_namespace.c          | 19 ++++++++++---------
+>  3 files changed, 16 insertions(+), 14 deletions(-)
+> 
+> diff --git a/include/linux/user_namespace.h b/include/linux/user_namespace.h
+> index 633157781edc..637cd7e91a45 100644
+> --- a/include/linux/user_namespace.h
+> +++ b/include/linux/user_namespace.h
+> @@ -209,8 +209,9 @@ extern bool current_in_userns(const struct user_namespace *target_ns);
+>  struct ns_common *ns_get_owner(struct ns_common *ns);
+>  
+>  #if IS_ENABLED(CONFIG_USER_NS_MAP_KUNIT_TEST)
+> -extern int insert_extent(struct uid_gid_map *map, struct uid_gid_extent *extent);
+> -extern int sort_idmaps(struct uid_gid_map *map);
+> +extern int uid_gid_map_insert_extent(struct uid_gid_map *map,
+> +				     struct uid_gid_extent *extent);
+> +extern int uid_gid_map_sort(struct uid_gid_map *map);
+>  #endif /* CONFIG_USER_NS_MAP_KUNIT_TEST */
+>  
+>  #else
+> diff --git a/kernel/tests/user_ns_map_kunit.c b/kernel/tests/user_ns_map_kunit.c
+> index 24c21e43a36c..033dccc6a535 100644
+> --- a/kernel/tests/user_ns_map_kunit.c
+> +++ b/kernel/tests/user_ns_map_kunit.c
+> @@ -24,7 +24,7 @@ static void user_ns_map_insert(struct kunit *test)
+>  		extent.lower_first = i * 100;
+>  		extent.count = 5;
+>  
+> -		ret = insert_extent(&map, &extent);
+> +		ret = uid_gid_map_insert_extent(&map, &extent);
+>  		KUNIT_ASSERT_EQ(test, ret, 0);
+>  	}
+>  
+> @@ -54,14 +54,14 @@ static void user_ns_map_insert_extended(struct kunit *test)
+>  		extent.lower_first = value * 100;
+>  		extent.count = 5;
+>  
+> -		ret = insert_extent(&map, &extent);
+> +		ret = uid_gid_map_insert_extent(&map, &extent);
+>  		KUNIT_ASSERT_EQ(test, ret, 0);
+>  	}
+>  
+>  	KUNIT_EXPECT_EQ(test, map.nr_extents, NR_EXTENTS);
+>  
+>  	/* Now sort the map to set up reverse mapping */
+> -	ret = sort_idmaps(&map);
+> +	ret = uid_gid_map_sort(&map);
+>  	KUNIT_ASSERT_EQ(test, ret, 0);
+>  	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, map.reverse);
+>  
+> diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
+> index f9cbb4b92b48..98b0279b6cc6 100644
+> --- a/kernel/user_namespace.c
+> +++ b/kernel/user_namespace.c
+> @@ -780,12 +780,13 @@ static bool mappings_overlap(struct uid_gid_map *new_map,
+>  }
+>  
+>  /*
+> - * insert_extent - Safely insert a new idmap extent into struct uid_gid_map.
+> + * uid_gid_map_insert_extent - Safely insert a new idmap extent into
+> + * struct uid_gid_map.
+>   * Takes care to allocate a 4K block of memory if the number of mappings exceeds
+>   * UID_GID_MAP_MAX_BASE_EXTENTS.
+>   */
+> -VISIBLE_IF_KUNIT int insert_extent(struct uid_gid_map *map,
+> -				   struct uid_gid_extent *extent)
+> +VISIBLE_IF_KUNIT int uid_gid_map_insert_extent(struct uid_gid_map *map,
+> +					       struct uid_gid_extent *extent)
+>  {
+>  	struct uid_gid_extent *dest;
+>  
+> @@ -821,7 +822,7 @@ VISIBLE_IF_KUNIT int insert_extent(struct uid_gid_map *map,
+>  	*dest = *extent;
+>  	return 0;
+>  }
+> -EXPORT_SYMBOL_IF_KUNIT(insert_extent);
+> +EXPORT_SYMBOL_IF_KUNIT(uid_gid_map_insert_extent);
+>  
+>  /* cmp function to sort() forward mappings */
+>  static int cmp_extents_forward(const void *a, const void *b)
+> @@ -854,10 +855,10 @@ static int cmp_extents_reverse(const void *a, const void *b)
+>  }
+>  
+>  /*
+> - * sort_idmaps - Sorts an array of idmap entries.
+> + * uid_gid_map_sort - Sorts an array of idmap entries.
+>   * Can only be called if number of mappings exceeds UID_GID_MAP_MAX_BASE_EXTENTS.
+>   */
+> -VISIBLE_IF_KUNIT int sort_idmaps(struct uid_gid_map *map)
+> +VISIBLE_IF_KUNIT int uid_gid_map_sort(struct uid_gid_map *map)
+>  {
+>  	if (map->nr_extents <= UID_GID_MAP_MAX_BASE_EXTENTS)
+>  		return 0;
+> @@ -878,7 +879,7 @@ VISIBLE_IF_KUNIT int sort_idmaps(struct uid_gid_map *map)
+>  
+>  	return 0;
+>  }
+> -EXPORT_SYMBOL_IF_KUNIT(sort_idmaps);
+> +EXPORT_SYMBOL_IF_KUNIT(uid_gid_map_sort);
+>  
+>  /**
+>   * verify_root_map() - check the uid 0 mapping
+> @@ -1047,7 +1048,7 @@ static ssize_t map_write(struct file *file, const char __user *buf,
+>  		    (next_line != NULL))
+>  			goto out;
+>  
+> -		ret = insert_extent(&new_map, &extent);
+> +		ret = uid_gid_map_insert_extent(&new_map, &extent);
+>  		if (ret < 0)
+>  			goto out;
+>  		ret = -EINVAL;
+> @@ -1091,7 +1092,7 @@ static ssize_t map_write(struct file *file, const char __user *buf,
+>  	 * If we want to use binary search for lookup, this clones the extent
+>  	 * array and sorts both copies.
+>  	 */
+> -	ret = sort_idmaps(&new_map);
+> +	ret = uid_gid_map_sort(&new_map);
+>  	if (ret < 0)
+>  		goto out;
+>  
+> -- 
+> 2.53.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
