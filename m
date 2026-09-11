@@ -1,48 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F663E558A;
-	Fri, 11 Sep 2026 02:25:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA6A3E5A20;
+	Fri, 11 Sep 2026 02:25:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789093557; cv=none; b=PI4nsWs2jS02ReVP4I/vQc9Yg8ers5sScE8OJHV1OogUCnRZEaZhthI+dNqqFxFmYtJ4jpk1ub5cn+V3JUZUbnRyLZVjfZHo38Me5sLa3TRlR0WSUZUuWcKCqm1wnZH+UoFarwOZHeG7bgZlI/U7Khr8F9jQEuZ2Nw/sNAJsbzM=
+	t=1789093558; cv=none; b=DA2Ip+cLmkeoxg7o1UZ4m8OazGvwLp5NHaQitC1HzcDIax0S2MOtiDe8lHDKgHR5eZDe0XpJlDeZvXLQngUoY2WtrAI/dLHHT+nS1pw0L+Ee+Z85V0YZv6afm6/FuuXIImH0WsJjdhlDtr/3liiUWz9VPCG3Pgis9JS4NE5Yi4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789093557; c=relaxed/simple;
-	bh=hp6OodtAUynjdx2g2HrN246zD4YtZ7S4F50wKUCVXQ0=;
+	s=arc-20240116; t=1789093558; c=relaxed/simple;
+	bh=1WHJc2vBfbhN1u8S6jXwy1X7nOLX10IRUi8veykyYo4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=r9iLv/pN105WQwCUmuZSkC8sJlxgiPC31e6Pj1RkeNPsfQcGzMy5XET6jvSO54a1U6l0O0jEFKQs53+V3zx/aPcvOXoJ5RrKuXS0sABs6+UiA8hZCrXnxqzUZyIi4tOZAIE+yCXdBBj6byOM4SupGN0pcLr9UgKyPuT9AAyWBjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JNqwHD5f; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=GA0QK2Qj9mTgGcahHHvN4k+8zGL9/UW+y4ddL02p7D1CrPH1uSyjLvELhMM71hAbxLNCUgU+fZy/Kn9c1miDaNNeS2t95z6jwlrFO42t8Df3MJj29YHG/AG+oFAsacyn6vTZlUctDlLMqRdn4KBLyn1k73QxdgiPHRixXbNQy2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UGNiU1My; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JNqwHD5f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7AA01F000FF;
-	Fri, 11 Sep 2026 02:25:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UGNiU1My"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C91661F0089A;
+	Fri, 11 Sep 2026 02:25:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789093555;
-	bh=TnzuPTd+YESZsW0yH9tFq86T6YmiGggM3uEO1KMk/dk=;
+	s=k20260515; t=1789093556;
+	bh=gsrQP+FKX7ACjXnioTe1PG7XirWH9x4PyAmk/UhDN6s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JNqwHD5fASycc4OzcI+Y21zu53QCUt1b0WaqpmM331doh/2pEhT+uD75fnFsMTavf
-	 KH9AF6HIrbMF0HcLNtxurYiDz6bbcOscz1nKNYTYrW18nWCoHzum3pjXq6jmhG7j8Q
-	 +C6XYLZ/+AMSgrOlaieQb3Tt8zbpeoyUIleii+0g1Cqj5yW5rxOWi6hWqujylpGTTO
-	 ZEtOyu8xH/y029ds/QFTn7CWKpBrpGoOmpWcD5iQHeOywZkCHiMEwzbAfq1CxU0+cL
-	 6iKho8zPp1RSYxOzcbj0esghW2t60s5XSJpx4065C6uPUsUA5UlHCU2+fJN/mx56p+
-	 8BiffHulhOz/w==
+	b=UGNiU1Myu3dLWOe3jlEypuiaVcN/rK8Gel2dEmf+zsSRFkaf/23qZz9othH7DtSZB
+	 lJRqFrkyB3FKEqnG4y1zLAAlhLBSqXFMrml+81epQaaNzKdMwNZshbGGzCVRqN4k8K
+	 4WTyC91TWsTj6+LMJ828U3YiOyBUirQaUSB8NTa+B5xcjUzK73MOKbtPvrYvXBCfcU
+	 IW5gMM5LmU7lWhScRk+3fNXFL8cHOoAmb7TIaydOXPy1dMpQDZJjR+iQY5m6G77iZZ
+	 PrgukZphQ1zkcrbuVAjf1b80Y/3WosaT2KYlPvhkMlnvix7BJ4nSsh+iwBsjjSvL7F
+	 u7xBlVY0CM8LA==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Sumit Garg <sumit.garg@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>
 Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v6 0/3] arm64: dts: qcom: eliza: Add CDSP support and enable it on MTP and CQS SoM
-Date: Thu, 10 Sep 2026 21:25:33 -0500
-Message-ID: <178909353845.920241.40613868733771348.b4-ty@kernel.org>
+	linux-wireless@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] firmware: QCOM interfaces should depend on ARCH_QCOM
+Date: Thu, 10 Sep 2026 21:25:34 -0500
+Message-ID: <178909353836.920241.11751783764687425864.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904-dts-qcom-eliza-add-cdsp-v6-0-d4f38936902e@oss.qualcomm.com>
-References: <20260904-dts-qcom-eliza-add-cdsp-v6-0-d4f38936902e@oss.qualcomm.com>
+In-Reply-To: <888efe8e63b6a18fae4acd5a90a1e0e69dcdf2ca.1786012495.git.geert+renesas@glider.be>
+References: <888efe8e63b6a18fae4acd5a90a1e0e69dcdf2ca.1786012495.git.geert+renesas@glider.be>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,24 +55,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 04 Sep 2026 15:21:39 +0300, Abel Vesa wrote:
-> Describe the CDSP node, the glink-edge and the related SMP2P, then enable
-> the CDSP on both the MTP and CQS SoM.
+On Thu, 06 Aug 2026 12:35:15 +0200, Geert Uytterhoeven wrote:
+> The various Qualcomm firmware interfaces are only present on Qualcomm
+> systems.  Hence add dependencies on ARCH_QCOM, to prevent asking the
+> user about them when configuring a kernel without Qualcomm SoC support.
+> Make QCOM_PAS invisible instead, as it is already selected by its users
+> when needed.
 > 
-> FastRPC node will be sent later on, along with the ADSP related one.
-> 
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 > 
 > [...]
 
 Applied, thanks!
 
-[1/3] arm64: dts: qcom: eliza: Describe the CDSP remoteproc
-      commit: 2f8e44a9360f20b2f0442f5d001b14c3acdd796b
-[2/3] arm64: dts: qcom: eliza-mtp: Enable CDSP remoteproc
-      commit: 43c3561193b39e8b13aeabf459376631045c31ae
-[3/3] arm64: dts: qcom: eliza-cqs-som: Enable CDSP remoteproc
-      commit: e3ad048765a681a3ac97e8aae92398e678475cdf
+[1/1] firmware: QCOM interfaces should depend on ARCH_QCOM
+      commit: 8fecd3194de338bdc0c57597be61fdcf33e1832d
 
 Best regards,
 -- 
