@@ -1,131 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B043D43304B;
-	Fri, 11 Sep 2026 13:18:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E0E4718C7;
+	Fri, 11 Sep 2026 13:18:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789132706; cv=none; b=X54FKp6GeKctP8/vffDEwgSZEIA+asRPGPuyQsQ+HXNlv19H3s5TWiOcR8cx7Qm5g9UFR40ZxaS2CZEbog0WfiXty2EXgOPbQE9L7aH1wBPV+hFVEqPWtULptaerR82PjR96/sIr2ZaOlZ83pa5eVbJ4gO2Sl/Xa+ELj6wg0hdw=
+	t=1789132738; cv=none; b=q7bJOGIagSsr68OCFN+KiM1NvjqrG9yBgkbbx8tKJyKyPyhQbvaKULUDCzhWloDOWIoDd+/EeveMB1Puu8ihev1RxLVHV2V7dh36CQrWxNzbueLMfJAl9dCr4mGYu1hti1NimeSPQkjS782rtQ5CUMNjRZDgQlcpPDHGelpuTFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789132706; c=relaxed/simple;
-	bh=21jQM9d+27pLB+0dGjFBohg0Nthg1DSEVV8j2w8lQBM=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
-	 References:In-Reply-To; b=Rq2JYl7uwWJFEbRfh0X+cbcrQpli5AC3OUVePlM4prcsd4NDMceSWPUDfsL1a4VDm6Wnr1x+AWquJ/VRvwa8pDY4/1igL2SOR0GbMit/awsdp8vu+sy6y2MfGOWpVrML+gfhD06ndXk2mzxt00N9Ke4gtJrcMTG5FWlLCTYb9Qg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E6eFZVZe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789132738; c=relaxed/simple;
+	bh=ORjLkEMAmq6RUQNyxk7AlOhfj9MJ7dSVXcsdNHwE9HA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=X5FxSE/IVc1IZJfxU9CBzFcZXCTkD+7WO9x6qsf4BJdxXuTIjvr2M7Sc+ydBcwROzVvegZnpQt3DRMWgWwBGBn1kkEQTTsg26HBg7dkFcifI6d5BKmsVBfUmx2UpmwiV5WX3X6gNjQr+ZU9Ajb0Kodezv4SjzhNXae5IkptJFBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b04UNup/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E6eFZVZe"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id C00871F000FF;
-	Fri, 11 Sep 2026 13:18:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b04UNup/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A6621F000FF;
+	Fri, 11 Sep 2026 13:18:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789132705;
-	bh=c2YxdGYQdAbBw/pBKfb1UnHuGGtzKtVFqsJvIXT1fJc=;
-	h=Date:Subject:Cc:From:To:References:In-Reply-To;
-	b=E6eFZVZeSo8ddd8exUojW5PjEvEbRIVFkZACRu8A37xpu6NoN2F0WlLZH/mZ7FZ77
-	 RrcC02E2mOi6S/OwMfIgTPlgV9ioZu0+a9Q7TIqWCveLB+NKrT8kp7lU9Lf65YOQrX
-	 xvsCWMfWW4/AmjlCVeHVBekoPHMX/PgcEMByfmkiUe6i0AVwzJNNrnzarrpfHysDMt
-	 sXOSQE8Ev95Aq5qLhb9q6qaf4JlFTD27mfYg12Bsui2O+mNo/xSMFFBgNB+y96MQaW
-	 G5KpUrFCRJ6cX0V6/fFPBeo7ZFrcxTMMgQFYQ2vjEfj8v9fD3/eLzh4LqKStysMK/r
-	 3Mji00gIFj9/g==
+	s=k20260515; t=1789132737;
+	bh=dZdRu2CSEZY9QFD3HDV8mXzCwNFi5Z7CBlM1UouuH1s=;
+	h=From:Subject:Date:To:Cc;
+	b=b04UNup/sPk0TL2fbzX5FSk2tWWaaJDbetaZciK78BsdY/hYMYz4A9t8D+rD58TaZ
+	 HBTd4j0PThSvJHXjzCuc3XFWu/VtvoiRgsXzuy1HP7epbrspNSA+BtdhsKsgfhGhYO
+	 Z2h369yIpVRIWEG5wXZFhhSHEnvlmlWRmKJpHOVvntDVzpLn7NZG63hCVvN9+N2SRT
+	 zPgzQvgqoqJgu82LUW7TZy37LCPMfOrf53bQ1qL5TfvbXEUH8HBk04k1EkAyThCfrv
+	 duu0z2ErojJelp+td+WQ4SsUq35I32gQrceRNVPbbjD3R2qgQkONvr/14MN1m5c0UA
+	 PUX5rJ/5cnklA==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Subject: [PATCH 0/3] drm_panel_follower support for RMI4
+Date: Fri, 11 Sep 2026 15:18:26 +0200
+Message-Id: <20260911-topic-rmi4_panel_follower-v1-0-c1b2cf1cdb62@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=05ca4617a609102e41e2f8a19ed24f6da5ffee14ab6152b3011ff73f21bf;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Fri, 11 Sep 2026 15:18:21 +0200
-Message-Id: <DLCIM0AHZ1B0.3ECV7Z6MDHQXH@kernel.org>
-Subject: Re: [PATCH v2] mtd: spi-nor: Fix quad-enable for flashes with QER
- bit in SR1
-Cc: "Vignesh Raghavendra" <vigneshr@ti.com>, "Pratyush Yadav"
- <pratyush@kernel.org>, "Takahiro Kuwano" <takahiro.kuwano@infineon.com>,
- "Richard Weinberger" <richard@nod.at>, <sashiko-reviews@lists.linux.dev>,
- "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>,
- <linux-kernel@vger.kernel.org>, "Steam Lin" <STLin2@winbond.com>,
- <linux-mtd@lists.infradead.org>, "Jon Hunter" <jonathanh@nvidia.com>
-From: "Michael Walle" <mwalle@kernel.org>
-To: "Miquel Raynal" <miquel.raynal@bootlin.com>, <sashiko-bot@kernel.org>
-X-Mailer: aerc 0.20.0
-References: <20260911-perso-fix-spi-nor-qe-mxic-v2-1-70c324e9f30e@bootlin.com> <20260911105245.408171F00893@smtp.kernel.org> <877bksq7mo.fsf@bootlin.com>
-In-Reply-To: <877bksq7mo.fsf@bootlin.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCMBBA0auUWRuY1BKsVxEpaZzUkZiESdVC6
+ d0bdfkW/69QSJgKnJsVhN5cOMUKfWjA3W2cSPGtGlpsDfZaqzlldkqe3A3ZRgqDTyGkD4ky9nT
+ 0IyL21kDts5Dn5fe+XP8ur/FBbv4OYdt2+lfZHX0AAAA=
+X-Change-ID: 20260911-topic-rmi4_panel_follower-6a83fb0009a6
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, "Jason A. Donenfeld" <Jason@zx2c4.com>, 
+ Matthias Schiffer <matthias.schiffer@ew.tq-group.com>, 
+ Vincent Huang <vincent.huang@tw.synaptics.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789132733; l=1109;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=ORjLkEMAmq6RUQNyxk7AlOhfj9MJ7dSVXcsdNHwE9HA=;
+ b=p8Lfsk7mdNyRCao62okwtmKiaKw+3fIT6aniIHe6aPlBhSLDIuBxFKuXrgtPEIyA0XZLtjzcL
+ p8IhPe0XKHcACy7Zo3A9tegsCsyi7l78bPYUWzX1AScwyBOgz3gF/Kz
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
---05ca4617a609102e41e2f8a19ed24f6da5ffee14ab6152b3011ff73f21bf
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+RMI4 is often implemented on in-cell panels which require tight power
+seqeuncing. The kernel way to approach that is the panel_follower API.
 
-On Fri Sep 11, 2026 at 2:45 PM CEST, Miquel Raynal wrote:
-> Hello Michael,
->
-> On 11/09/2026 at 10:52:44 GMT, sashiko-bot@kernel.org wrote:
->
->> Thank you for your contribution! Sashiko AI review found 1 potential iss=
-ue(s) to consider:
->> - [High] spi_nor_read_sr1_and_sr2() leaves sr[1] uninitialized when
->> read_sr2 is unsupported, leading to uninitialized stack memory use in
->> callers and spurious -EIO errors.
->
-> The annoyingly right Sashiko robot is correct :-)
+This series adds that in the RMI4 driver and wires it up on a
+Snapdragon 845-based Sony Xperia XZ2, also resolving the DT warnings
+stemming from the current hack.
 
-I actually had the same feedback, but then discarded it, because of
-your comment in the function doc.
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+Konrad Dybcio (3):
+      dt-bindings: input: syna,rmi4: Allow 'panel' property
+      Input: synaptics-rmi4: Support drm_panel_follower
+      arm64: dts: qcom: sdm845-tama: Declare touchscreen as a panel follower
 
-Here's what I wrote:
+ .../devicetree/bindings/input/syna,rmi4.yaml       |   4 +
+ .../boot/dts/qcom/sdm845-sony-xperia-tama.dtsi     |   8 +-
+ drivers/input/rmi4/Kconfig                         |   1 +
+ drivers/input/rmi4/rmi_i2c.c                       | 170 ++++++++++++++++++---
+ 4 files changed, 153 insertions(+), 30 deletions(-)
+---
+base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
+change-id: 20260911-topic-rmi4_panel_follower-6a83fb0009a6
 
-  But now we are lying to the user of spi_nor_read_sr1_and_sr2()
-  because we might actually not read sr2 at all and just return 0 -
-  or even worse any garbage the sr[1] was initialized with. And the
-  user cannot even know if sr2 was actually read or not.
+Best regards,
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-But can this actually happen somewhere? Except for the WIP bit,
-otp.c and swp.c I don't see where we actually check for a bit in
-the SRs. Everything else is for RMW and that shouldn't be writing
-garbage as the expectation is that there is no flash with !read_sr2
-&& write_sr2.=20
-I agree, that it might be uninitialized, but if that uninitialized
-value is actually used somewhere, we'd have a bigger problem, as
-that new value is now just made up by us.
-
-> The best way I see to make sure this does not appear, is to just add
-> this fallback to make sure when we read both registers we just get zero
-> instead of random data in the buffer. Again, the idea is to make sure
-> callers do not need to be "QER aware".
->
-> --- a/drivers/mtd/spi-nor/core.c
-> +++ b/drivers/mtd/spi-nor/core.c
-> @@ -867,6 +867,8 @@ int spi_nor_read_sr1_and_sr2(struct spi_nor *nor, u8 =
-*sr)
-> =20
->         if (nor->params->opcodes.read_sr2)
->                 ret =3D spi_nor_read_sr2(nor, &sr[1]);
-> +       else
-> +               sr[1] =3D 0;
-
-Almost back to the original one :) At this point, I'm fine with
-either.
-
--michael
-
->         return ret;
->  }
->
-> What do you think?
->
-> Thanks,
-> Miqu=C3=A8l
-
-
---05ca4617a609102e41e2f8a19ed24f6da5ffee14ab6152b3011ff73f21bf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCaqP/nRIcbXdhbGxlQGtl
-cm5lbC5vcmcACgkQEic87j4CH/gQ8wGA0tpUeHcnKU4YeLCb1EmyzVZpcBRBhWeQ
-K5CF9p10m/03QoGTMMg/E1Ev4fYYqo+fAYDk86SvmnfpEadncfsV1cnLrS8ldq1n
-TAz0HqmAtw55gUyxNSDPwsbYMHZW/h508hY=
-=qKRq
------END PGP SIGNATURE-----
-
---05ca4617a609102e41e2f8a19ed24f6da5ffee14ab6152b3011ff73f21bf--
