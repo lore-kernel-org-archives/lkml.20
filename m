@@ -1,118 +1,112 @@
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CAF34334C9;
-	Fri, 11 Sep 2026 10:42:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC2B43DECF;
+	Fri, 11 Sep 2026 10:42:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789123371; cv=none; b=eBrG7hAAavkIWy1bWiY2EtN8elTPwKvNzzR2gplevDWzYHhUkDQ4Qa9htfDIIVMGdYp05dBSNtNZGxv8npspIIrCcqndEE/pgHjkdRALf0ylO6xnYczSAFWfdDCP0/tbo7O1kpG1E+uUiQ0ajaLK4hpeTYa7k7ZMRDHZb71eU2M=
+	t=1789123375; cv=none; b=FuDeyZVEWBMz1R7NFMpoza/69ltSDQcI6GS45KF8cdU/n7DxL4v5miGzEKwfDWiIeY/zs0gtuvuZPaQyZMfy9/ZVlrbp+h26hSkUAq4/vj1xwZhD3ExCLK2lZvhAA+wdgT6JJtXTUOyLK5aNYwl3aTA+LgNkS5IB0y5SgPkJN5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789123371; c=relaxed/simple;
-	bh=A2UUjumpJALQwB3PV73WqgCwkzFiejNqyd4nz7tZNDY=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=V3yFyJsovPiRaGIgoewJjBdTJfiSz/cYa7g6DyV9THfnFi0aVuaDacGpt4jd4OQWOD/ZznO8SvPZJq4HWGndMrK2ZtZIHQg4WLbFLweJJRnU404Wwt0IvQOSyrA3qCEJKlJ8keYMiqCVHYnXfBrH/riagyYa44mEswJqsr9JPhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=Esfr6rOY; arc=none smtp.client-ip=60.244.123.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1789123375; c=relaxed/simple;
+	bh=4nVA4SAKjBOLpO7ge2wl4wOd7oOi00DVj8Gl0oC1Amo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ICwHOix8RHHiGTzP6/0pmk/TOhuOkBDZe7zS3+4oL2Ww8Ugv3/xuc4DHwHOHI2Oc1RKzezrasRT874YWDSEIPfj8pBW1zA8cGxgZ0UePsV+VGUUuqWclVy7A7dYuUN6j8Ve0cFcsgsdAwZfFpITvlJo5BOoloCc2Xn99MeyveXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=uqIErwTC; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="Esfr6rOY"
-X-UUID: 81d5e89cadcd11f1b1788b6acf885367-20260911
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=r+chzdE/1S/BzIaN/qocSSODG0oKFICuJeWiAt1OqGY=;
-	b=Esfr6rOYvH7yzpKZPv1kPycCgNBjiRtuIYtpP2P0iNqr8Lr+16HyhsEG3kDARqDQCitdEdFsxqdcDcvlnoJkH1VVkcAbd2HBaYcQSHZqdtBspgYt3YuXlffU5djQjKuapd/KEMnXBt4r6X/lF+mSw8zF8splRfaO7bfjfbW34Jk=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:34227e5c-7f12-4257-9976-2cd13a823daa,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:7c5964e3-ea51-4dda-a022-9ba6608a11d1,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
-	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,
-	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 81d5e89cadcd11f1b1788b6acf885367-20260911
-Received: from mtkmbs14n2.mediatek.inc [(172.21.101.76)] by mailgw01.mediatek.com
-	(envelope-from <chris.lu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1287144272; Fri, 11 Sep 2026 18:42:38 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Fri, 11 Sep 2026 18:42:37 +0800
-Received: from mtksitap99.mediatek.inc (10.233.130.16) by
- mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Fri, 11 Sep 2026 18:42:37 +0800
-From: Chris Lu <chris.lu@mediatek.com>
-To: Marcel Holtmann <marcel@holtmann.org>, Johan Hedberg
-	<johan.hedberg@gmail.com>, Luiz Von Dentz <luiz.dentz@gmail.com>
-CC: Sean Wang <sean.wang@mediatek.com>, Will Lee <will-cy.Lee@mediatek.com>,
-	SS Wu <ss.wu@mediatek.com>, linux-bluetooth
-	<linux-bluetooth@vger.kernel.org>, linux-kernel
-	<linux-kernel@vger.kernel.org>, linux-mediatek
-	<linux-mediatek@lists.infradead.org>, Chris Lu <chris.lu@mediatek.com>
-Subject: [PATCH 1/3] Bluetooth: btmtk: Route firmware debug event to the diag channel
-Date: Fri, 11 Sep 2026 18:42:32 +0800
-Message-ID: <20260911104234.2276126-2-chris.lu@mediatek.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260911104234.2276126-1-chris.lu@mediatek.com>
-References: <20260911104234.2276126-1-chris.lu@mediatek.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="uqIErwTC"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id CA9BE1A01B2;
+	Fri, 11 Sep 2026 10:42:49 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 97069601DE;
+	Fri, 11 Sep 2026 10:42:49 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8654911C7AFA8;
+	Fri, 11 Sep 2026 12:42:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789123368; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=HBvc3mFZJ9sFbHfrO7MHgqSVuCslWxTn7cxWKQ2gLck=;
+	b=uqIErwTC2aelOjApGjFPN8Wh0r4SJp3m0Nf3WUy3Ogy23qLcr7rWM4uCi/ZsFBP4/V+Ef5
+	DS0YrY9DjxI9hPTVwct+EV22eh+OpiObtUgnu8646Eoev2QVdp0ObQXIxc7sv6luOdkc/T
+	SJp1vUkIZjFxmKohLWCojciz3f8il2aUJsXnzXmQ4yW7OztZ3Ym7lJ6W8KiwkOGu0Va8ot
+	SiEMPHRspw9+0xx5jEzOr6+0By4efsUC67qRiDPFZd76/QgmmDuRuRspXRPoIzhmm4ECfE
+	FmjiJDPgwJo0A8sz8x20CqcXVqMyhw+qN41/UDKnCCTH2WTZ7i9CB/zqhd3ISA==
+From: =?utf-8?q?Alexis_Lothor=C3=A9_=28eBPF_Foundation=29?= <alexis.lothore@bootlin.com>
+Date: Fri, 11 Sep 2026 12:42:33 +0200
+Subject: [PATCH] kbuild: drop dependency on .config for tools/
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Message-Id: <20260911-tools-build-output-v1-1-4f9938a4f83c@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywqEMAxA0V+RrCdgiq+ZXxlc+IiaQaw0rQjiv
+ 1vH5Vnce4CyE1b4JAc43kTFLhH0SqCbmmVklD4aTGqK9E2E3tpZsQ0y92iDX4NHqigvOTcZUQY
+ xXB0Psv+n3/qxhvbHnb9PcJ4XY+RbfXYAAAA=
+X-Change-ID: 20260911-tools-build-output-18157e524114
+To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>
+Cc: ebpf@linuxfoundation.org, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Masahiro Yamada <masahiroy@kernel.org>, linux-kbuild@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Bastien Curutchet <bastien.curutchet@bootlin.com>, 
+ =?utf-8?q?Alexis_Lothor=C3=A9_=28eBPF_Foundation=29?= <alexis.lothore@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 
-MediaTek controllers may emit a firmware debug event on the ACL channel
-using the reserved handle 0x0efd, which shows up in the ACL header as
-0x2efd once the start fragment flag is included.
+When trying to build some tooling from tools/ in an unconfigured kernel
+tree, the build fails to start because of missing .config:
 
-Neither btmtk_usb_recv_acl() nor btmtksdio_recv_acl() recognizes it, so
-the packet is passed to the HCI core, which has no connection with that
-handle and complains:
+  $ make tools/bpf
+  ***
+  *** Configuration file ".config" not found!
+  ***
+  *** Please run some configurator (e.g. "make oldconfig" or
+  *** "make menuconfig" or "make xconfig").
+  ***
+  /home/alexis/src/linux/Makefile:810: include/config/auto.conf: No such file or directory
+  make[1]: *** [/home/alexis/src/linux/Makefile:892: .config] Error 1
+  make: *** [Makefile:248: __sub-make] Error 2
 
-  Bluetooth: hci0: ACL packet for unknown connection handle 3837
+The failure is due to the tools/<foo> targets having need-config=1 set.
+With a proper .config present, a standard `make tools/bpf` works, but:
+  - those tools don't need a .config to build and run, they are built
+    independently of the kernel configuration
+  - when trying to build some tools in a specific output directory
+    (O=foo), we still end up having to configure a kernel first in this
+    directory
 
-Handle it the same way as the existing firmware debug logging packets and
-forward it to the diagnostic channel instead.
+Rather than having to systematically configure the kernel to only build
+those tools, add the tools/% pattern to the no-dot-config-targets listing.
 
-Verified on MT7922: under the condition that triggers this firmware
-debug event, it is now routed to the diag channel instead of reaching
-the host as an unknown ACL packet.
-
-Signed-off-by: Chris Lu <chris.lu@mediatek.com>
+Signed-off-by: Alexis Lothoré (eBPF Foundation) <alexis.lothore@bootlin.com>
 ---
- drivers/bluetooth/btmtk.c     | 1 +
- drivers/bluetooth/btmtksdio.c | 1 +
- 2 files changed, 2 insertions(+)
+ Makefile | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/bluetooth/btmtk.c b/drivers/bluetooth/btmtk.c
-index 660ed5b02841..5b0a131bc9d2 100644
---- a/drivers/bluetooth/btmtk.c
-+++ b/drivers/bluetooth/btmtk.c
-@@ -1076,6 +1076,7 @@ int btmtk_usb_recv_acl(struct hci_dev *hdev, struct sk_buff *skb)
- 		fallthrough;
- 	case 0x05ff:		/* Firmware debug logging 1 */
- 	case 0x05fe:		/* Firmware debug logging 2 */
-+	case 0x2efd:		/* Firmware debug event */
- 		return hci_recv_diag(hdev, skb);
- 	}
+diff --git a/Makefile b/Makefile
+index 570f0c68aadd..eb4bdf4a52cc 100644
+--- a/Makefile
++++ b/Makefile
+@@ -298,7 +298,8 @@ no-dot-config-targets := $(clean-targets) \
+ 			 %asm-generic kernelversion %src-pkg dt_binding_check \
+ 			 dt_style_selftest \
+ 			 outputmakefile rustavailable rustfmt rustfmtcheck \
+-			 run-command
++			 run-command \
++			 tools/%
+ no-sync-config-targets := $(no-dot-config-targets) %install modules_sign kernelrelease \
+ 			  image_name
+ single-targets := %.a %.i %.ko %.lds %.ll %.lst %.mod %.o %.rsi %.s %/
 
-diff --git a/drivers/bluetooth/btmtksdio.c b/drivers/bluetooth/btmtksdio.c
-index fe4ca9395aa3..9a1b6f9b0872 100644
---- a/drivers/bluetooth/btmtksdio.c
-+++ b/drivers/bluetooth/btmtksdio.c
-@@ -460,6 +460,7 @@ static int btmtksdio_recv_acl(struct hci_dev *hdev, struct sk_buff *skb)
- 		fallthrough;
- 	case 0x05ff:
- 	case 0x05fe:
-+	case 0x2efd:		/* Firmware debug event */
- 		/* Firmware debug logging */
- 		return hci_recv_diag(hdev, skb);
- 	}
---
-2.45.2
+---
+base-commit: 51794b107d54b3c9a8ebbe12a3b81d8495bd482c
+change-id: 20260911-tools-build-output-18157e524114
+
+Best regards,
+--  
+Alexis Lothoré (eBPF Foundation) <alexis.lothore@bootlin.com>
+
