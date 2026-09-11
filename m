@@ -1,75 +1,112 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 991D842AFA2;
-	Fri, 11 Sep 2026 08:04:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E61538A702
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:04:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789113858; cv=none; b=ZenS74j3OcGKBRq2xmrXr+ClKJ26VSmXRYhVo+1kzs8/dktKQlHV9dMu1KY01FbhxWzYulgOciAVE5P6J20kUs+z9TgP4T3oVoAqtof+0npFRjrQYu3q/zAfXbL+iW14a8u/wF2PCe/dsVrNx/gL8uAioCPaPS4Utn4opxOQQdE=
+	t=1789113881; cv=none; b=jZ3AjfmwgtLQ2oNqTokDkrNqGuzPYuhmatUoqfxzpQNfnJduVFAjkTC14Uoo/qwiJdgUxqb/lDoquVWKKOLRUrdyRvYqRbK/wHQVl/w3L87ffvAmIlXVFYV6UBn+rX8zBqNxvXfZ1rBPLFGpYRNKJ/k1LoIfQMgNUZl+J6PA+FY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789113858; c=relaxed/simple;
-	bh=8GaiVg6s4uQWj1gggoVsaf4ZLAPqVyr2yymvwbDBnaw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eAGmlnG247AiYpZ0IiW17EmxN9BCe1VREiLMjyLKLRYx1EqG0XY/BaMjmbaaVoqH17lgyWAV8p+zmZaj+sFSrtnGe8uvyYLscsVAbj03bDCMamQzZ/TlH6xw0SVTE6NY0BW0DXt77YdSokrssGBtOq8z1ogt0pkBGRQ7z1m77Qc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.102])
-	by gateway (Coremail) with SMTP id _____8BxW_D3taNqzuIKAA--.31869S3;
-	Fri, 11 Sep 2026 16:04:07 +0800 (CST)
-Received: from [10.20.42.102] (unknown [10.20.42.102])
-	by front1 (Coremail) with SMTP id qMiowJDxBc30taNqsjkfAA--.39557S2;
-	Fri, 11 Sep 2026 16:04:07 +0800 (CST)
-Message-ID: <889faf03-1883-45ce-86f5-756940bf1bb6@loongson.cn>
-Date: Fri, 11 Sep 2026 16:01:24 +0800
+	s=arc-20240116; t=1789113881; c=relaxed/simple;
+	bh=8KSZ4Ns9Lw0fDoF4mbOWzzHnSr8NxHZw+VL33NFbCN0=;
+	h=Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type; b=tapCEznBrJ2r+VMkK77SDTMffiO8YmrlOyCBY0b4HvT3Z29eEIalezOcCzZUAyf+bWjiyJ7E04c+PMU0UkqHeNX2R0z16NfGqSseri596RDC5D7wjqiFgptC1Poksu1lnN4tF5hwRsP+JS71QtjAZwLEB5McbLW/8xtIpowZQ7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hh6Wy6T6vz8Xrrb;
+	Fri, 11 Sep 2026 16:04:30 +0800 (CST)
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl2.zte.com.cn with SMTP id 68B84Jf9021542;
+	Fri, 11 Sep 2026 16:04:19 +0800 (+08)
+	(envelope-from xu.xin16@zte.com.cn)
+Received: from mapi (xaxapp02[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Fri, 11 Sep 2026 16:04:21 +0800 (CST)
+X-Zmail-TransId: 2afa6aa3b605ff5-a4ff6
+X-Mailer: Zmail v1.0
+Message-ID: <20260911160421076_KNXun8Mpp9Xj7fxHG0i7@zte.com.cn>
+Date: Fri, 11 Sep 2026 16:04:21 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] edac: use named initializers for acpi_device_id
-To: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>,
- Shravan Kumar Ramani <shravankr@nvidia.com>,
- David Thompson <davthompson@nvidia.com>, Borislav Petkov <bp@alien8.de>,
- Tony Luck <tony.luck@intel.com>
-Cc: linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260904-acpi-edac-v1-1-ef93d60bbda4@thegoodpenguin.co.uk>
-Content-Language: en-US
-From: Qunqin Zhao <zhaoqunqin@loongson.cn>
-In-Reply-To: <20260904-acpi-edac-v1-1-ef93d60bbda4@thegoodpenguin.co.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxBc30taNqsjkfAA--.39557S2
-X-CM-SenderInfo: 52kd01pxqtx0o6or00hjvr0hdfq/
-X-Coremail-Antispam: 1Uk129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7
-	ZEXasCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29K
-	BjDU0xBIdaVrnRJUUUyEb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26c
-	xKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vE
-	j48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxV
-	AFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E
-	14v26r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44
-	I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2
-	jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCF04k20xvY0x
-	0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E
-	7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcV
-	C0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF
-	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7
-	CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8zwZ7UUUUU==
+Mime-Version: 1.0
+From: <xu.xin16@zte.com.cn>
+To: <akpm@linux-foundation.org>, <david@kernel.org>, <liam@infradead.org>,
+        <surenb@google.com>, <rppt@kernel.org>, <ziy@nvidia.com>,
+        <baolin.wang@linux.alibaba.com>, <nico.pache@linux.dev>,
+        <dev.jain@arm.com>, <baohua@kernel.org>, <lance.yang@linux.dev>,
+        <chengming.zhou@linux.dev>, <usama.arif@linux.dev>,
+        <gourry@gourry.net>, <harry@kernel.org>, <vbabka@kernel.org>,
+        <peterz@infradead.org>, <borntraeger@linux.ibm.com>
+Cc: <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>
+Subject: =?UTF-8?B?W1BBVENIIDAvNF0gbW0va3NtOiB1c2UgcGVyLVZNQSBsb2NraW5nIGZvciBmaW5kX21lcmdlYWJsZV92bWEoKQ==?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 68B84Jf9021542
+X-TLS: YES
+X-ENVELOPE-SENDER: xu.xin16@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Fri, 11 Sep 2026 16:04:30 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AA3B60E.002/4hh6Wy6T6vz8Xrrb
 
+From: Xu Xin (ZTE) <xu.xin@linux.dev>
 
-在 2026/9/4 22:41, Pawel Zalewski 写道:
-> Use a named initializer for the acpi_device_id fields which
-> makes the code more readable and consistent with how lists
-> are initialized in the rest of the kernel code base. Also
-> drop explicitly setting fields to 0 where it is redundant.
->
-> While we are at it - unify the list terminator to have
-> a single space between the brackets and no trailing
-> comma.
->
-> Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+KSM scans VM_MERGEABLE VMAs and currently protects each scan with
+mmap_read_lock(). Per-VMA locking allows KSM to read-lock only the VMA
+it is actually interested in, so that unrelated mmap()/munmap() activity
+in the same mm no longer blocks ksmd.
 
-Acked-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
+This series is organized as follows:
 
-Thanks.
+  Patch 1 removes an unused 'vma' member from struct folio_walk.  It has
+  never been used since its introduction and is pure cleanup.
 
+  Patch 2 adds a 'walk_lock' member to struct folio_walk and extends
+  folio_walk_start() to assert the required locking mode.  Existing
+  callers are converted to pass PGWALK_RDLOCK, so there is no functional
+  change.  This prepares folio_walk_start() for callers that hold a
+  per-VMA read lock instead of mmap_read_lock(), which is needed by the
+  Patch 4. No functional change.
+
+  Patch 3 tranforms the boolean 'lock_vma' into the enum 'page_walk_lock'
+  without any behavior changed, which is prepared for the Patch 4 to use
+  per-VMA locking. No functional change.
+
+  Patch 4 introduces find_mergeable_vma_locked(), which uses the
+  universal per-VMA locking helper vma_start_read_unlocked() to look up
+  and read-lock a VM_MERGEABLE VMA without taking mmap_read_lock().  All
+  KSM call sites that previously used find_mergeable_vma() under
+  mmap_read_lock() are converted to the new helper, and the locking in
+  get_mergeable_page() is switched to PGWALK_VMA_RDLOCK_VERIFY so that
+  folio_walk_start() can verify the per-VMA lock is held.
+
+A microbenchmark was run to measure the time KSM takes to merge a
+victim region under mmap_lock contention. Under interference from 4 churner
+threads, the merge time of the per-VMA KSM-optimized kernel is
+significantly reduced by 50%.
+
+Xu Xin (4):
+  mm/pagewalk: delete the unused member
+  mm: make folio_walk_start()'s locking asserts scalable
+  mm/ksm: make break_ksm() more scalable
+  mm/ksm: add find_mergeable_vma_locked() to use per-VMA locking
+
+ arch/s390/mm/fault.c     |  4 +-
+ include/linux/pagewalk.h |  2 +-
+ kernel/events/uprobes.c  |  4 +-
+ mm/huge_memory.c         |  4 +-
+ mm/ksm.c                 | 85 ++++++++++++++++++++++++----------------
+ mm/migrate.c             |  8 +++-
+ mm/pagewalk.c            | 10 ++++-
+ mm/rmap.c                |  4 +-
+ 8 files changed, 79 insertions(+), 42 deletions(-)
+
+-- 
+2.25.1
