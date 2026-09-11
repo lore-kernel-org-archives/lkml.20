@@ -1,76 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mr3.vodafonemail.de (mr3.vodafonemail.de [145.253.228.163])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF2B43CE56;
-	Fri, 11 Sep 2026 10:54:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF4F41C6A
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:54:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=145.253.228.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789124044; cv=none; b=Wez/MuA8d/GgpjxAUMaK45z50iFhoLn/5HxnQoYBt3JFGmnxVz0NZM1YJqywMk/d6O2pfRGWFzQ0YHBCfCGqtKaxZVHSLY+RzSbgQ6kkbc5ZVgBTDsEu6iFhxS0O8Y7y7Aj+cszhmVPhJe/k2mbPt2v5q+clXoEh3Xu0+jteUC8=
+	t=1789124054; cv=none; b=SPyvYm/mBifPNsq2WXG+5zJCIINHvzhlyq/bhYz0Chl7Z+bubQGYx1tSyWm4HN1F1VMRhWrFlXg/MK7+rQC0y8GE8ILcF7L+95zRQwHvoC5T6yZTSwlTQj013VJt7fr7qKl6/V0ynzSvxmUfYvHfYrirrEvxU4Ha/qtMoeffIo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789124044; c=relaxed/simple;
-	bh=QB+9HG3aMo7t4aNhrrRHbnFlXTuSwPs0aOR9EayEbLs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Zt7nim8BRPglTqobsRFD0I3v/C7+PJOO4Y6VJyHJj9Hs5l/2MZCyzeqFL3gGpeylIJ3O6L1nCg/Y7hhgkN4pJWNYbVtrtcEdYss6/qmx3+zs5bXlWd9CGIL2FSlCwkMST6BYgXvHX0my3wCV67jMBSW+484Os9Xw1SqfiUnQOaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I2HF9zFQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789124054; c=relaxed/simple;
+	bh=3VfhdoUDK2fZtoyf9zPl96OWvCAWmSXYHS0zpfeHKJo=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=NyYCqcKLT28LZpYNFosVvvWSzd/5qyP/mv01yErsNLG8yjXcrFuwLmkViS68IhZ6ZarKzL+hAHkrgn9m3XqTDqujlzwkdXwW5+TjH7kRCTKkw/C+tPOM7W0cnKwM7c3shDaomT+JrxWHg/ZvMUPmL81l0gzdAcWefKPbjKujPu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vodafonemail.de; spf=pass smtp.mailfrom=vodafonemail.de; dkim=pass (1024-bit key) header.d=vodafonemail.de header.i=@vodafonemail.de header.b=urG2pa2Z; arc=none smtp.client-ip=145.253.228.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vodafonemail.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vodafonemail.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I2HF9zFQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD6D91F000FF;
-	Fri, 11 Sep 2026 10:54:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789124043;
-	bh=nlFiPjgIYaXefonnpKUDARfjcawn8SLbfllvFr0tO/0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=I2HF9zFQKicAZjed9rwYN+JTEbVb/bv2yG5kyYDTMfFfjHjqYzDbYqp804t66fF0A
-	 vL5VOgbw91B6Q1U50fweYg/c2+IkLjCd/Wq1GjcXuojI+0vPLHn8L9k61GWVkoRA+m
-	 WkjomVDC0LeVk00USoOv6qyW9085av5XbfslUMAXkAegHBBUK5+6KcQS5D9Dd75u6g
-	 XAgN9nVm6rc7MaOmA70Rdoym5L2jg9SRaoynkmGANe15+8FlWpRktBGOdqYfIrAsPY
-	 DsVXcH2VCxpQtZZiJ7gNKRtI30BXWsKMTK80McSi6QAfLe1twtc8AyWAZh/iMc/DZ8
-	 1nhtKQsVyAJtg==
-Date: Fri, 11 Sep 2026 11:53:58 +0100
-From: Simon Horman <horms@kernel.org>
-To: Jiangshan Yi <yijiangshan@kylinos.cn>
-Cc: sgoutham@marvell.com, rkannoth@marvell.com, gakula@marvell.com,
-	sbhatta@marvell.com, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	13667453960@163.com
-Subject: Re: [PATCH net-next v2] octeontx2-af: consolidate RVU AFVF device id
- definitions
-Message-ID: <20260911105358.GD48209@horms.kernel.org>
-References: <20260910104102.590989-1-yijiangshan@kylinos.cn>
+	dkim=pass (1024-bit key) header.d=vodafonemail.de header.i=@vodafonemail.de header.b="urG2pa2Z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vodafonemail.de;
+	s=vfde-mb-mr2-23sep; t=1789124048;
+	bh=WZwsAz3BYZk7m4w3I6i6HHrzLZtKUQ0T0ts/scR9iWY=;
+	h=Date:From:To:Subject:Message-ID:Content-Type:From;
+	b=urG2pa2ZpugscI+7CE6mRfK9SdTcvflsF68hjY5a/H14bskzqcxT9Y4h9hJREsAaS
+	 HgPVgXyb2JcVtM3EgR4anTeu52QwbaK4ULk+gB8mT7A+sTPWS4x0dacL7D9qw1Y4tG
+	 eBJhea/mupzd7QLG9crRKCdXlR8EamGZhMLho/eA=
+Received: from smtp.vodafone.de (unknown [10.5.0.37])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested)
+	by mr3.vodafonemail.de (Postfix) with ESMTPS id 4hhBHf6Rsnz3sHpq;
+	Fri, 11 Sep 2026 10:54:06 +0000 (UTC)
+Received: from tachyon.qsoe.net (ipservice-092-208-226-177.092.208.pools.vodafone-ip.de [92.208.226.177])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.vodafone.de (Postfix) with ESMTPSA id 4hhBH54JhHz8sXh;
+	Fri, 11 Sep 2026 10:53:34 +0000 (UTC)
+Received: by tachyon.qsoe.net (Postfix, from userid 516)
+	id E77C42E018A; Fri, 11 Sep 2026 12:53:33 +0200 (CEST)
+Date: Fri, 11 Sep 2026 12:53:33 +0200
+From: Yuri Zaporozhets <yuriz@vodafonemail.de>
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org
+Cc: "H. Peter Anvin" <hpa@zytor.com>, Fei Li <fei1.li@intel.com>,
+	acrn-dev@lists.projectacrn.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] x86/acrn: Set the LAPIC timer period from CPUID leaf
+ 0x40000010 EBX
+Message-ID: <aqPdrVJjJFBmC1m1@tachyon.qsoe.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260910104102.590989-1-yijiangshan@kylinos.cn>
+X-purgate-server: smtpa06
+X-purgate-type: clean
+X-purgate: clean
+X-purgate-size: 3043
+X-purgate-ID: 155817::1789124042-AFCF0C80-06ADB81C/0/0
 
-On Thu, Sep 10, 2026 at 06:41:02PM +0800, Jiangshan Yi wrote:
-> commit f695390ea639 ("octeontx2-af: Fix limiting SRIOV VF count logic")
-> added a local PCI_DEVID_OCTEONTX2_RVU_AFVF define in rvu.c, although
-> the same value was already defined twice elsewhere: as RVU_LBK_VF_DEVID
-> in af/rvu.h and as PCI_DEVID_OCTEONTX2_RVU_AFVF in nic/otx2_common.h.
-> 
-> Move the definition into the "PCI device IDs" block in af/rvu.h, rename
-> RVU_LBK_VF_DEVID to match the PCI_DEVID_* naming convention of its
-> peers, and drop the redundant copies in rvu.c and nic/otx2_common.h,
-> the latter already including <rvu.h> through the af include path.
-> 
-> No functional change.
-> 
-> Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
-> Acked-by: Ratheesh Kannoth <rkannoth@marvell.com>
-> ---
-> Changes in v2:
-> - also drop the duplicate PCI_DEVID_OCTEONTX2_RVU_AFVF define in
->   nic/otx2_common.h, which already includes <rvu.h>, so that all three
->   definitions of this device id are consolidated into af/rvu.h
->   (suggested by the Sashiko netdev review).
-> 
-> Link: https://lore.kernel.org/r/20260908094051.666769-1-yijiangshan@kylinos.cn
+ACRN guests without a TSC-deadline timer currently always need the PIT:
+apic_needs_pit() returns true because lapic_timer_period is never set,
+even though the hypervisor knows the LAPIC bus frequency and could
+provide it, in the same way it already provides the TSC frequency.
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+The ACRN timing information leaf 0x40000010 only defines EAX (TSC
+frequency in kHz); EBX, ECX and EDX are reserved and return zero.
+Define EBX as the LAPIC bus frequency in kHz and use it to preset
+lapic_timer_period, so that the kernel skips both the PIT and the LAPIC
+timer calibration. This mirrors what Hyper-V (HV_X64_MSR_APIC_FREQUENCY)
+and VMware (VMWARE_CMD_GETHZ) already do, and matches the register layout
+VMware defines for its own timing information leaf, which also lives at
+0x40000010.
 
+Hypervisors which do not implement this return zero in EBX, in which
+case the current behaviour is kept.
+
+Signed-off-by: Yuri Zaporozhets <yuriz@vodafonemail.de>
+---
+ arch/x86/include/asm/acrn.h | 10 ++++++++--
+ arch/x86/kernel/cpu/acrn.c  | 15 +++++++++++++++
+ 2 files changed, 23 insertions(+), 2 deletions(-)
+
+diff --git a/arch/x86/include/asm/acrn.h b/arch/x86/include/asm/acrn.h
+index fab11192c60a..5db1b6e17f7c 100644
+--- a/arch/x86/include/asm/acrn.h
++++ b/arch/x86/include/asm/acrn.h
+@@ -12,10 +12,11 @@
+ 
+ /*
+  * Timing Information.
+- * This leaf returns the current TSC frequency in kHz.
++ * This leaf returns the current TSC and LAPIC bus frequencies in kHz.
+  *
+  * EAX: (Virtual) TSC frequency in kHz.
+- * EBX, ECX, EDX: RESERVED (reserved fields are set to zero).
++ * EBX: LAPIC bus frequency in kHz (0 if not provided by hypervisor).
++ * ECX, EDX: RESERVED (reserved fields are set to zero).
+  */
+ #define ACRN_CPUID_TIMING_INFO		0x40000010
+ 
+@@ -35,6 +36,11 @@ static inline unsigned long acrn_get_tsc_khz(void)
+ 	return cpuid_eax(ACRN_CPUID_TIMING_INFO);
+ }
+ 
++static inline unsigned long acrn_get_lapic_khz(void)
++{
++	return cpuid_ebx(ACRN_CPUID_TIMING_INFO);
++}
++
+ /*
+  * Hypercalls for ACRN
+  *
+diff --git a/arch/x86/kernel/cpu/acrn.c b/arch/x86/kernel/cpu/acrn.c
+index 2c5b51aad91a..23b6d895cccd 100644
+--- a/arch/x86/kernel/cpu/acrn.c
++++ b/arch/x86/kernel/cpu/acrn.c
+@@ -31,6 +31,21 @@ static void __init acrn_init_platform(void)
+ 
+ 	x86_platform.calibrate_tsc = acrn_get_tsc_khz;
+ 	x86_platform.calibrate_cpu = acrn_get_tsc_khz;
++
++	/*
++	 * Set the LAPIC bus frequency if provided by the hypervisor (EBX of
++	 * leaf 0x40000010). Hypervisors which do not implement this return 0,
++	 * which has no effect. When set, apic_needs_pit() returns false and
++	 * the kernel skips PIT initialization entirely.
++	 */
++	if (boot_cpu_has(X86_FEATURE_APIC)) {
++		unsigned long lapic_khz = acrn_get_lapic_khz();
++
++		if (lapic_khz) {
++			lapic_timer_period = lapic_khz * (1000 / HZ);
++			pr_info("ACRN: LAPIC bus frequency: %lu kHz\n", lapic_khz);
++		}
++	}
+ }
+ 
+ static bool acrn_x2apic_available(void)
+
+base-commit: 028ef9c96e96197026887c0f092424679298aae8
+-- 
+2.55.0
