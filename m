@@ -1,228 +1,230 @@
-Received: from pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.68.102])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7876A47A87C;
-	Fri, 11 Sep 2026 17:43:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.68.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103A24A99C6
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:44:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789148631; cv=none; b=sDHONEcFRHog/GVdm8ve56CoikQKWo7nPMHlfIretEzNAMqEOE+0Wb4J1piZ7K1REwgVyg+jwJe0b3+q4orDSt7C6RfMwmjjTE8hhtTRhDnXwYehX6huLRKplnF2Tpoy/Vaf0PM/zEOlaYo8KecLi/urYzteDcyMdRoUmzSg7K4=
+	t=1789148650; cv=none; b=TRzoUcqz5d29ok6Z5Wq5K9XoQ95es2+E1ep/k89vcGD/IryWk+kfa6uF0EWlnegx+p52DLRUsYtQEN4teRW+dAzlRhKtkMG4RMvn6CM4r+aXkHigrIQFA9d8DTwnSbVrzFgO2WuvRjG+pZZ62avlHuWBxE1jGeDhJiDmj44QimI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789148631; c=relaxed/simple;
-	bh=7clnLXdEIuFpN7LTxituD33Y5fqNsaN2TTZBJ8XeuHQ=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=IFY6/GQsNnkpxc3IreSeg2ew+x4LHyFxZtiIXshR5NkGC11lAUO6YTpIwLEs5HjxXL78RFkfaVyMt1AsJp3pop2WcC89bYmvMzA2FnHaSULxM6ys1RkkOiBoTZw2O8XbZtrgyC9M/0R8fQTWdVQ0/ZxLawTl1Ez2L/cUuxiNmOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=Axk3husz; arc=none smtp.client-ip=44.246.68.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1789148650; c=relaxed/simple;
+	bh=iSPOqrPEqNzouRgsfdtXLZvJztzijYXXcFDpMwJ0MLA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oCrIRnDw/kq+np0jX2zS7FvTnbHWkBtG4A55zKhirgyWi3GLkZ4FuAgJZ9uleOiGP5Ge6hdr4pt0LG+jPLJ+fTutlX8JeG9XB6JzB/c21z7XFEJafiz3HZbGp0mOp5PEPyTZiOLZ1thPGIdXaUKuYW03Ox5tvFIXLhuyc6HU7gU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=n4IDtP6q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=M2UM6Q2R; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="Axk3husz"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="n4IDtP6q";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="M2UM6Q2R"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BHWWVb972063
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:44:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	DgHv3EdPhIoOXyHYgFVg1PHeH4W7/S2tlAAVOYQ4qy8=; b=n4IDtP6qSCRsrs5Q
+	Ci4u+5w6+EkIJ71oFw1Y1zQstpX89A/BA76Y5fXofq8whvtRYA60+EDh++ODP6je
+	093MTlj0PZIJ9QWlFP+CTD4uZZMyeiGMunBt7EcTEScrl+C01OLfh7GHre4s12y1
+	p1emmt65w4qtjfhKGdQ0ybxnk3ASvHxEWv4UMubu4tDmyIPnDgj9gYU53c/dwkf2
+	FvTwmMILkTRQLxInIObPo6sbKMLwJc3pzEHDkZlbI1ur/FbH7M7BQO++fEB6M6AC
+	1K4lQ4UInF8h8uKQJHH7mm5sHbSuXVZkUgL19Gd7LkJbRFxbUT0AZfrhu4yu0VMT
+	UWsiCQ==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmm22rkr9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:44:04 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38f283baf1fso1438365a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:44:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1789148628; x=1820684628;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=jhtWmKJe4+1aWN9w6ZaOQx0/ok/ilrwKiyY3ZBnEbgU=;
-  b=Axk3husz+x1hd3U6rShexgD+pOQFWDBa8zaJL2xBIn4EYpj0ITtDEiNc
-   lyqG3ChxXt3Jxl/frr6ReSefWq2SZY+wu00OqMmWHeU9OJ0iz0Fi9jtBy
-   JKQ7bPNVc3AyHR49Y9rqmcY7bXC4rp7ed2Z5pR8FR23qhWvnqJS0FgE2h
-   0fchQGPOIc8V/AHjlmMTpWOPoUp/tDQAoh15XsctL2HIyqBsuJFu5x4sq
-   Z7n/d/RERv6WBxcQMsPeVOcOFteBvSLwz6kNimUV3WMq/av69hprWml7q
-   Hg8wqEEj3pqRKTu3+c0OOnP+GqWOS+vAS4yZkCnuJxQ+QvXuvqpND6/MP
-   g==;
-X-CSE-ConnectionGUID: 0apJ6hH4RbuksreetJYz1g==
-X-CSE-MsgGUID: smBKYmIARwORn27Fw/LWEQ==
-X-IronPort-AV: E=Sophos;i="6.27,97,1787011200"; 
-   d="scan'208";a="28356981"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 17:43:44 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.234:27167]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.43.236:2525] with esmtp (Farcaster)
- id 93dcf805-6571-49c8-90e1-c5c85668cc7f; Fri, 11 Sep 2026 17:43:44 +0000 (UTC)
-X-Farcaster-Flow-ID: 93dcf805-6571-49c8-90e1-c5c85668cc7f
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Fri, 11 Sep 2026 17:43:44 +0000
-Received: from dev-dsk-sakacpav-1a-480d1124.eu-west-1.amazon.com
- (172.19.96.155) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Fri, 11 Sep 2026
- 17:43:41 +0000
-From: Pavol Sakac <sakacpav@amazon.de>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Tejun Heo
-	<tj@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, Danilo Krummrich
-	<dakr@kernel.org>
-CC: <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>, "Andy
- Shevchenko" <andriy.shevchenko@linux.intel.com>, Xu Yang <xu.yang_2@nxp.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Bjorn Helgaas
-	<bhelgaas@google.com>, <linux-pci@vger.kernel.org>, Alex Williamson
-	<alex@shazbot.org>, <kvm@vger.kernel.org>, <nh-open-source@amazon.com>
-Subject: [RFC PATCH 0/8] kernfs, driver core: staged sysfs registration
-Date: Fri, 11 Sep 2026 19:43:32 +0200
-Message-ID: <20260911-vfopt-s5-v1-0-fa4cacdb6ca8@amazon.de>
-X-Mailer: git-send-email 2.47.3
+        d=oss.qualcomm.com; s=google; t=1789148644; x=1789753444; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DgHv3EdPhIoOXyHYgFVg1PHeH4W7/S2tlAAVOYQ4qy8=;
+        b=M2UM6Q2RpbLz9XEG32Hh7mBTLecw0PAyI7RHivV9LWBslUSTZK6lEyfA2AE+s4EdqX
+         47WEI8GgtTDy7s2Sryt3hkQhoVz6TGmWm7taa7QmlGKNaynwhHY+RkicKxq0PhJd+lk0
+         2qakA0Gpj6eJhDx8m4H53Y6TN7+va78k/1WOPtIsWeVoOc6ZSv3KMNpxR8GBUD7imCS/
+         Ierw0Pv+jRo58RfCVxCsdZNRn7LNdM+kjbjzqAMu+W97fYwQtxM8fBPjwtgpeG5eGjIK
+         5soquehSo7gDSIaHk2oyc9O4TvDo4HoiwCqISbXArfmISiovupHJsFg3APO9qiLHwUgA
+         +6gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789148644; x=1789753444;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DgHv3EdPhIoOXyHYgFVg1PHeH4W7/S2tlAAVOYQ4qy8=;
+        b=PWev7zN5BxPB3C7D3dGwCUdb4ZFmczd0vbpK5RL7uDEN8Mow+Hr7Wu9CYor+74Guim
+         NX1HGrHiLDBiVZBC6IUyLtjYL3BEBx6PE88scIjr7v8Eql5zDxONaUVQHnMbe98l4o5x
+         uZadBWlI/SYI/WGHxWnRwtlF89mWtjg8W2awlxedwPXN8GaVKp0BAoN5Y+7bB+jH3YP+
+         OU2VnSUpKs9sf8c1dCQctZlyeA7mwuFKDwLPzL9PT5VAQqGThaJ7ZiFKHGKJ+KHunMS2
+         TWfwwfeuAFfHAFw8DL8UV4EVpSSK6GRCrVC6q8TfuSPwFWuFDouJCOxeZs8INPkHDd0J
+         to+Q==
+X-Forwarded-Encrypted: i=1; AKwUvByIE8+V8RP1lnbMxwf5iktLGHv7rqdtH98G5AevGwuLL2Knvf9DhwrCPBEv+qWYhDs5vWTp6DFR2/uk5uI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lFArShx7ALSAa/lVFf2KnvH66z+TdaDTINKPG/surHIPDsb+CX
+	dLQS99RitEvyU6WMP5KVO9dCtOiD9Jx7IxgMOURpxYPV2VqeNXJ5RZGzUjkzRYsPaHt0VyNB9DR
+	lpu5+lu1jtyI0V2AftGubWdD/B6Pd2G9+/n0Z4Zomayu9TbwbEtEb6jsAqBye4TiNhuc=
+X-Gm-Gg: AYBFou0JkdK/eQ1gKnti9I6hVnSfDYvM3i5AYC1ZL9BWXI4kFCTbb5NsEqen+HesV5D
+	WoHZL3P1tfmldZr3XaSgVVMBvyOS0Qt9nIBjyS6ewfi83ygiTmFzv6aJN3utayh9bkNrcQs/O2g
+	SJ3Tkg3u5T/8ERbHb+68m9pM35zRm93LLlatNkmOMz0NNnE/CQ762RavrGsX4KRQ44PUGScXU3c
+	UVmxjuAkrXsI16sMqAg7K8BVl+/m2PJ5eHhM0t9ayLPOq5CD/Qq9l7JS7cVesDIZlExY8xwuf5x
+	ffMPcF8Bof4dGUa3fPJ5LNhqHTYvYQrTXaH+ojDHJiKMF1rFjnYED2nnT5gLElq5ml5z84FIDxS
+	DwW3hYbfVMQovZ3FJu6lwTf/2uISFGmwJZHE=
+X-Received: by 2002:a17:90b:2689:b0:38d:ddc2:7ccb with SMTP id 98e67ed59e1d1-39d9bbc81damr9099612a91.1.1789148643588;
+        Fri, 11 Sep 2026 10:44:03 -0700 (PDT)
+X-Received: by 2002:a17:90b:2689:b0:38d:ddc2:7ccb with SMTP id 98e67ed59e1d1-39d9bbc81damr9099566a91.1.1789148643138;
+        Fri, 11 Sep 2026 10:44:03 -0700 (PDT)
+Received: from [192.168.0.172] ([183.83.137.104])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b78d59sm7652016c88.8.2026.09.11.10.43.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 10:44:02 -0700 (PDT)
+Message-ID: <ccd42f9e-935a-438e-b5c8-2643cd5cedf9@oss.qualcomm.com>
+Date: Fri, 11 Sep 2026 23:13:53 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D035UWB003.ant.amazon.com (10.13.138.85) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
-
-Once SR-IOV enablement becomes part of a kexec-based live update
-(LUO), 100-1000s of VFs would perform initialization in parallel [1],
-each VF adding ~60-80 kernfs nodes to sysfs, each node acquiring the
-kernfs_rwsem write lock once (after [2]). Acquiring one global lock to
-add a single node, potentially hundreds of thousands of times per
-enable - a reality on datacenter-level HW - does not scale. The
-eventual goal, not built in this set, is enabling SR-IOV on all PFs in
-parallel; with PFs on different NUMA nodes, cores on different nodes
-then compete for the same global lock. We need some way of reducing
-its use.
-
-When performing device_add() on a VF, the device's sysfs nodes do not
-need to be visible while being built: publish them once fully built,
-taking the global lock once.
-
-This series implements that as an opt-in staged registration mode. The
-device's subtree is created fully initialized, but not linked into its
-parent's children rbtree and not activated, so no name lookup can reach
-it; its creator reaches it through kobj->sd. While staged, the kernfs
-add, lookup and remove entry points - kernfs_add_one(),
-kernfs_find_and_get_ns() and the two kernfs_remove() paths - serialize
-on a mutex hashed by the staged-top node, a second NR_KERNFS_LOCKS-entry
-array alongside the existing node_mutex, instead of the root's
-kernfs_rwsem; unrelated staged subtrees serialize only when they hash to
-the same slot. The staged paths bump the parent's timestamps under the
-subtree mutex, not kernfs_iattr_rwsem, so a kernfs_setattr() there can
-skew ctime/mtime on a node that is not yet visible; no opt-in path does
-it. kernfs_publish() then links and activates the whole subtree in one
-kernfs_rwsem write hold - one write hold per staged subtree instead of
-one write acquisition per node. Attributes added after publication pay
-per node as before. The device announces itself only after publication,
-and struct kernfs_node does not grow: KERNFS_STAGED takes its last free
-flag bit and the staged-top marker aliases the FILE-only KERNFS_HAS_MMAP
-under a DIR-only rule, rather than widening the field. In this series,
-PCI SR-IOV VFs and VFIO's group chardev and vfio-dev class devices opt
-in.
-
-Lock statistics and SR-IOV init time for 4x PF (NVMe, 255 VFs each), on
-the reproducer from the parallel VF initialization cover letter [1]:
-
-  lock_stat:
-  Lock                     wait: Before     After   contentions: Before   After
-  iommu_probe_device_lock      12367 ms   9612 ms                   990     838
-  &root->kernfs_rwsem           2189 ms    843 ms                 62799   16466
-  gdp_mutex                      314 ms    410 ms                   191     153
-
-  Stage                 SR-IOV init time:
-  S0 (baseline)         3027 ms
-  S1                     999 ms
-  S2                     995 ms
-  S3                     991 ms
-  S4                     943 ms
-  S5 (this series)       944 ms
-
-Reproducer disclaimer:
-I lean primarily on lock_stat numbers to defend the improvements. In
-the reproducer, the residual iommu_probe_device_lock dominates the
-window and masks the later series' wall-time gains; reducing that lock
-further is out of scope for this set, but the dominant residual is
-named in the iommu series [4].
-
-On real hardware - a large dual-socket arm64 Neoverse V2 server with
-thousands of VFs - iommu_probe_device_lock is nowhere near the top
-due to other optimizations on that path, and kernfs_rwsem is the top
-waited lock, which is what this series improves.
-The five series together cut SR-IOV initialization by 65%; parallel
-initialization [1] alone accounts for less than 5% of that, so the
-reduction comes from the lock work in this and the preceding series.
-
-Two transients are new: a symlink from a published directory into the
-staged subtree resolves -ENOENT until publication, and a child device
-registered inside the window is fully registered and bindable before its
-sysfs tree is visible - its uevents are suppressed, and its addition is
-replayed once the window closes (KOBJ_ADD, then KOBJ_BIND if it bound
-meanwhile). Not fully addressed: an in-window KOBJ_CHANGE is dropped
-rather than reconstructed, and if the opted-in registration fails the
-queued children stay suppressed, so userspace sees neither their
-addition nor their removal. A device should opt in only when its
-children, if any, tolerate that. Non-opted devices are behaviorally
-unchanged.
-
-Patch 6, which defers those uevents, has no trigger from either opt-in
-here - it exists for wakeup-source registration that an opted-in caller
-does not control - and can be dropped in favour of stating the
-restriction as an opt-in condition.
-
-The existing KERNFS_ROOT_CREATE_DEACTIVATED does not help here: it
-batches only activation - each node is still linked under the root write
-lock.
-
-RFC question: Is an opt-in staged mode an acceptable direction for
-kernfs and the driver core, or should we pursue another direction? For
-the creation window only, this splits the global lock from one
-acquisition per node to one per device_add(), with the staged subtree
-serialized on a hashed mutex instead for as long as it is staged.
-
-This replaces the previously attempted optimization with lazy-sysfs [3].
-
-Testing:
-This series adds a KUnit suite. The lock_stat and timing figures come
-from the public reproducer. The full series has also been tested on
-current datacenter server hardware with thousands of VFs.
-
-[1] https://lore.kernel.org/r/20260911-vfopt-s1-v1-0-693271dc0226@amazon.de
-[2] https://lore.kernel.org/r/20260911-vfopt-s3-v1-0-66e3602f76f7@amazon.de
-[3] https://lore.kernel.org/lkml/20260702174033.32116-1-sakacpav@amazon.de/
-[4] https://lore.kernel.org/r/20260911-vfopt-s2-v1-0-fff3db7e01c2@amazon.de
-
-Pavol Sakac (8):
-  kernfs: factor out reusable directory helpers
-  kernfs: add staged directory creation and publication
-  sysfs: add opt-in staged directory creation and publication
-  driver core: Register opted-in devices through the staged sysfs path
-  drivers: base: test: Add KUnit suite for staged sysfs registration
-  driver core: Defer uevents for devices registered in a staged window
-  PCI/IOV: Register virtual functions through the staged sysfs path
-  vfio: Opt the group and vfio-dev class devices into staged sysfs
-
- drivers/base/base.h                    |    1 +
- drivers/base/bus.c                     |   29 +-
- drivers/base/core.c                    |  193 ++++
- drivers/base/test/.kunitconfig         |    1 +
- drivers/base/test/Kconfig              |   12 +
- drivers/base/test/Makefile             |    1 +
- drivers/base/test/staged-device-test.c | 1406 ++++++++++++++++++++++++
- drivers/pci/iov.c                      |    2 +
- drivers/vfio/group.c                   |    7 +
- drivers/vfio/vfio_main.c               |    3 +
- fs/kernfs/dir.c                        |  573 ++++++++--
- fs/kernfs/mount.c                      |    4 +-
- fs/sysfs/dir.c                         |   78 +-
- include/linux/device.h                 |   26 +
- include/linux/kernfs.h                 |   46 +
- include/linux/kobject.h                |   25 +
- include/linux/sysfs.h                  |   12 +
- 17 files changed, 2352 insertions(+), 67 deletions(-)
- create mode 100644 drivers/base/test/staged-device-test.c
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 01/13] dt-bindings: media: qcom,venus: Add context bank
+ subnodes to common schema
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Stephan Gerhold <stephan.gerhold@linaro.org>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Konrad Dybcio
+ <konrad.dybcio@oss.qualcomm.com>, iommu@lists.linux.dev,
+        Daniel J Blueman <daniel@quora.org>
+References: <20260909-vpu_iommu_iova_handling-v3-0-2fe43ae45495@oss.qualcomm.com>
+ <20260909-vpu_iommu_iova_handling-v3-1-2fe43ae45495@oss.qualcomm.com>
+ <20260910-careful-finch-of-fame-eeeac7@quoll>
+Content-Language: en-US
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <20260910-careful-finch-of-fame-eeeac7@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDI0OCBTYWx0ZWRfXxb+nALwpkett
+ qac1gBy19pi3UWqkcjXTQnQtBr1T3b4htqQ+jiRGvQ4xy3Xf6jdMnJvlrgbXb8a5lxHIezeABxR
+ /sEZ9M9VH6KxuIZntQQSQsLs12oX7YoTc/NAfPTfrfJeTkqeNULv0jd4cEFedF17vn5MOLnLi+0
+ s1EqojNaYmzBYX0DPbhaABsg851OdWmEPr3GQqDb36G/HEPpFQl3AZYGKvBrOIBGs9JWH82G3td
+ Gxq0eg0KuQ25Y5o9Emg//9b1kB9IVA5tTkepPwA9SZN7gSe39xfLa2VvfZn3s3gjSADNVrC9xLy
+ J4Wt2bTJSK0X3HJVeA8yYrwgPgU49RXB6zZxORtbtZDkgYR4Wc11v8Bw30kSsvgVWzFxeXRhsyM
+ gEJz7X3DozqbOC2+yAPtiMd2MqCK7bDWqet602j/61QLXunQ9qylTcwzY177IZ5veMiAqWto2wV
+ F6zVxBfKPunSarpYiDQ==
+X-Authority-Analysis: v=2.4 cv=LPDz05W9 c=1 sm=1 tr=0 ts=6aa43de4 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=TwCXObd+TJU0JWB7kQOUgw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=NEAV23lmAAAA:8 a=t9ty7G3lAAAA:8
+ a=EUspDBNiAAAA:8 a=gweAf5VaqOsLJRT3hzwA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22 a=Vxmtnl_E_bksehYqCbjh:22 a=CsAS6f0m0zARWR-uHzm3:22
+X-Proofpoint-ORIG-GUID: kAZMysQP6ZrvsDGU-8v7MvAFGZRRzgpT
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDI0OCBTYWx0ZWRfX5ZOBd4dDklxC
+ +xKfJTDEjufDCQXAqk1hwRB+ivmiZmXhLT3PisrISGehtCjUYKSYxBFmNaYxLtFY46dVu0dJCD4
+ x3ci4kiSaBGOZRIyk7TmmEr1xJQiqUs=
+X-Proofpoint-GUID: kAZMysQP6ZrvsDGU-8v7MvAFGZRRzgpT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-11_06,2026-09-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 clxscore=1015 bulkscore=0 impostorscore=0
+ malwarescore=0 spamscore=0 suspectscore=0 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110248
 
 
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-prerequisite-patch-id: 999e5d0fa76c26a057422f88454b1fefbb9b3822
-prerequisite-patch-id: 40e7a6b4269c49235c297e1e8907cc85f39ec7bb
-prerequisite-patch-id: 2de5f9198a49c3b10381455c3eb05a1445faaf9a
-prerequisite-patch-id: 0bbae0313618b47cfedf5109565d41268cd6a48c
-prerequisite-patch-id: 25f377891ba4b2c3915ccf6ac908074d0b427391
-prerequisite-patch-id: 05867d594d1c5402821ee7f2172dd450b6e17659
-prerequisite-patch-id: 99fc0938e1512adfaaa311f08a0ed1d7d0a4dc92
-prerequisite-patch-id: 8898e957c193dcad8b70a534043a5e73ca3b8afe
-prerequisite-patch-id: b5e8437666e8dd2a8cb5bcd4605665b3fab9556d
-prerequisite-patch-id: d4e1d35cf3614bfbe325e03ab00d4882f222d599
-prerequisite-patch-id: 747f6bb8326988a36f206a3a87ac8403dd616e3d
-prerequisite-patch-id: e8d4a978122173cf6c708e4b730e1fa33bc1be57
--- 
-2.47.3
+
+On 9/10/2026 12:29 PM, Krzysztof Kozlowski wrote:
+> On Wed, Sep 09, 2026 at 08:27:08PM +0530, Vikash Garodia wrote:
+>> The VPU issues DMA through several SMMU streams, and the hardware does
+>> not give every stream the same addressable range. The non-pixel stream
+>> cannot address the low 600MB of IOVA space, while the pixel stream can
+>> address the full range:
+>>      +-----------------------------------------------------------+
+>>      | non-pixel stream addressable range (600 MB - 3.5 GB)      |
+>>      | 0x25800000 - 0xe0000000                                   |
+>>      +-----------------------------------------------------------+
+>>      | pixel stream addressable range (0 - 3.5 GB)               |
+>>      | 0x00000000 - 0xe0000000                                   |
+>>      +-----------------------------------------------------------+
+>> A single "iommus" property on the video-codec node puts every stream in
+>> one IOMMU domain sharing one IOVA allocator, so nothing restricts a
+>> non-pixel buffer to avoid 0 to 600MB. Once an allocation lands below
+>> that boundary the hardware faults, which shows up as unhandled SMMU page
+>> faults and spontaneous reboots:
+>> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
+>>
+>> Given that the address range restriction is for specific VPU stream, it
+>> should be ideally be moved to that stream. To achieve the same, a subset
+>> of streams is now represented as subnodes, so that each can be
+>> associated with its respective addressable range. The design was
+>> discussed and agreed by mainatiners here
+>> https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org
+>>
+>> In the past, this limitation was addressed with an iommu-map approach,
+>> with the iris driver dynamically creating the devices. That approach was
+>> later concluded to be a hack to avoid having subnodes, and was NAKed by
+>> the iommu maintainers. It was discussed in detail here:
+>> https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
+>>
+>> "iommu-ranges" on the subnode describes the *allowed* IOVA range that
+>> stream is allowed to use, so the IOVA is allocated from the specified
+>> range only. Define all the possible subnodes so as to describe all the
+>> VPU hardware iommu interfaces, both secure as well as non secure.
+>>
+>> address-cells, size-cells and dma-ranges declares the 1:1 DMA
+>> translation into the parent.
+>>
+>> The parent "iommus" is kept as an alternative via "oneOf", so platforms
+>> that have not been converted to subnodes still validate. New platforms
+>> should use the subnode form.
+>>
+>> This patch depends-on:
+>> https://github.com/devicetree-org/dt-schema/pull/207
+> 
+> Please drop, not suitable for commit, keep it in the changelog
+> 
+
+Sure, will add this to changelog.
+
+>>
+>>   Tested-by: Daniel J Blueman <daniel@quora.org>
+> 
+> Plese drop, not true here
+> 
+
+ok, got picked in b4 trailers, will drop.
+
+> 
+>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+>> ---
+>>   .../bindings/media/qcom,sc7180-venus.yaml          | 15 ----
+>>   .../bindings/media/qcom,venus-common.yaml          | 97 ++++++++++++++++++++++
+>>   2 files changed, 97 insertions(+), 15 deletions(-)
+>>
+> 
+> I see this causes DT checks failures but I don't see the report, so
+> probably it was because of schema dependency.
+> 
+> Best regards,
+> Krzysztof
 
