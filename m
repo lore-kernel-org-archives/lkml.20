@@ -1,163 +1,76 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF21455185
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:57:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3CBD3F9F26;
+	Fri, 11 Sep 2026 11:59:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789127860; cv=none; b=k/KMFatk910FNb5E354KbxJ9JAfXOwjWZhWzb+FQjVuDvGlf/9J7god9+U++gCAqGqQHmaRx/mdyX8alC2CbTozZu2RXay1EbTtde1iF7cPwf7Ne+j8nGnZJcw2QiAzkAUt41lXaK8P9ztCA6zwhBgdS/YfxqaG/xrYJQnSTHYY=
+	t=1789127959; cv=none; b=u6kO8nbizPN5rPE1C4V9VX/0Uqfr5yO8T3J6xwpFgX/vQJ+Gpu+w9XfyzgTSxIc4jVv7ghrKr9M18RJ+KHSWi2CVxPliZyYSGaZwuhgFvWh2BKA14b6UNt3wx/0IsCYB6poxoWQU/jqihL9QKdaezewRQDfGW9a0a50lVYlz/zI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789127860; c=relaxed/simple;
-	bh=1lRC8ZGjaJk1CFMMkFB+zwt0ch81ggJd9O2XFlK/4VY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=V3T6JyUhl1123WWWhhVSYVIwWzUYvDjbEoVoeRqzPjFQLHcnRRePqixi9nqaIH3SW73NNH6+MlBbd/hpcUPlh/suTX8jUTWGJVdLgBg0zeN/jAsMyIZ0wwCzD7gjvtSG9A2fzX0TF64TanTymD+kQbmvxmSWry00YYQd2S3GObA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=cUBzSOOU; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1789127959; c=relaxed/simple;
+	bh=uF3FKeS2JNFmSu18cVTe8HrTelad3+e2GFJwuwfT5/U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sMTlhfnV+ifBsTMO64c9VOj6jMJN1DsMT9uEHghpawkrC5/h3KiRyXPe/b2xCRNC8ziGZl4qorENFSEMM+InCLWEvm2jn8/h5i2n0NIKtWTfuAIkT/ubotz5bufsdE1jcKHLLbaXEQguplEx1iTR8c2IK9L6m90iqDOa4jy4Wsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=LJWkaAIS; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="cUBzSOOU"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-4843f205a5bso549105f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 04:57:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789127856; x=1789732656; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wr7n2cO3L1gr9+vq7aPZsfQwfFiNJgEahYqoxuJotBY=;
-        b=cUBzSOOUwzzqxDC+vpZBsvPZyne0rSo5Iv2fNaVmgBjouOyMtE6UfB8G9bsZefMktB
-         dKs9pIMO+8B2F/GdHaOaMo+0h27j493jL7A9DkGlrh+J4/dzg7ykHEZC3tk9SY/s+s/I
-         PU7xVdgEwQl+Eub1RVsJ6h7b40tYHFZ348G5S6M87Y7vJtLwcIIMWc0xJPEnLSZqE5iA
-         pdnpef71I1Yn3dDf8LEQJ62R/6BKeuzVwbDmgxAlkDnt6eF0//hs6KPBH1FRNCgaNXRc
-         pHzjD/fabk+Jsz7S5C+O491YMjAc9M6HMloUkXdPBUWgTiodBv+UX9UObFCTEW7lv2vt
-         nkXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789127856; x=1789732656;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wr7n2cO3L1gr9+vq7aPZsfQwfFiNJgEahYqoxuJotBY=;
-        b=JK0cwEG/r/bkmcG78q0Fyw8wuCiW7PR5KJFWR9+Hzym33e85wtka0vvzMdjwrUPsft
-         hRdT6FMLwGJor9HmjG+57HsuEaibt6DSlAgT8XI3ejgeyNH/ofzBBKdeeJyhGUY21CRN
-         smGUlT6waftT5Nz8auf9ID7oEkErajC4P081lnK79Bd4blLF+9wIgZ0vVOVgRQXmYhxJ
-         QGrX+GlCPmZVfOGyNkLQCW+sJ75x/oAc1WSDWBYZGaxVBQxfv8BIU7VVLy47fzvqy6OJ
-         TI56vJzfYrlRdMIPPv1qmtN8r1L335g3B9qNiCbA5ZgR90wSktTqhmPW9Ve0i6Yo0VB4
-         DwHA==
-X-Forwarded-Encrypted: i=1; AKwUvBw0h56uWTntQ+ESALYpwD3hBVWWOumaslAEEEnSFNUy+/JRU9zzdXfSkmPc/aw63KjahujOTp1CWuQ8ZDI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kS+SeNs93bFbwdWfMb4k1DQdZPHb3pXmhHl7HL4wf83mJN7yyJ
-	9Eb6krg5qKXLOOhEEAQqA0Z+HPrZ9HLFqzh0bGEulf1FaOcB/wP6XG3i5DocS2QnP0I=
-X-Gm-Gg: AYBFou0rEtU6mk3HodB41UPsQ1sii+ws+WgsSmXnwrw/WDyrt0ejeb6/k+v+3Mi6xPi
-	a8me1x5qOh6/pIa/N5C+rsKk89rcu42wFGo1j1rKLZkz7wFP4iF9kRLSxw5yY+oyxrrhx4RGl8T
-	z8aMB1XyrNFMKJPJhPpc91J94rHjkeRrjlJBBYWmrLjKppJSddOB52aHXA9iDU7Omf+59n5N8sN
-	/3z/BEbV/DlNR9KW20nbvJ6bXWr5Jz7yYkFwMs3syDsMAMlLf9pqmWWq9KeN+rKzcD/szqfjJfK
-	9iuTzxiIprBGIgYrknVYVt1G6BKgRJiPQGbkHCjCCOYQp40GLUU9X+TWwAaZ1BQ09N352QsVeW0
-	xRUY0oT9xdXvwKsNEtQdKv5PtvZ9QxMDHfRoAItl8AAi6+8A3C6eSu3+izUZJntZUemY5gpRssp
-	yYsEPEd0c8dQaZtT4fbZC6CgIMXvf27HJq6k4u0m6oVjr+/BEPJXYQBjHmNZx5DuMolFXJwL8h1
-	v5sc1vHmhEg50zY9nOnf356jqieb96LTBjg
-X-Received: by 2002:a05:600d:8496:20b0:499:8aff:59b6 with SMTP id 5b1f17b1804b1-49e6199234amr30006585e9.14.1789127856324;
-        Fri, 11 Sep 2026 04:57:36 -0700 (PDT)
-Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53? ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c300e2sm164777985e9.8.2026.09.11.04.57.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 04:57:35 -0700 (PDT)
-Message-ID: <f24ddba6-b7fa-434a-8a2c-9f04af6969e6@suse.com>
-Date: Fri, 11 Sep 2026 13:57:34 +0200
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="LJWkaAIS"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=Kohi64dQ4DmaEMK+ZD5A/ULUjFhzKM3yV198CkL0Eeo=; b=LJWkaAISz58qWqwN3J5USwTBy0
+	nDqz9tMtZPPWdDv+LNbrzfhJylQzHihUh3HHb7tR7Vt3HWLVor+DQa1CmlhdqLtKLV9T3fvw8DUMQ
+	qkeNdc05QS9115NWIPVLpEPp/Au8Hgs6+uho90r7lWTapEEht0LE+Uozb9d1CxZBZuCU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x4zuC-004gRj-Iw; Fri, 11 Sep 2026 13:58:56 +0200
+Date: Fri, 11 Sep 2026 13:58:56 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Caleb James DeLisle <cjd@cjdns.fr>
+Cc: netdev@vger.kernel.org, daniel@makrotopia.org, dqfext@gmail.com,
+	SkyLake.Huang@mediatek.com, hkallweit1@gmail.com,
+	linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Matheus Sampaio Queiroga <srherobrine20@gmail.com>
+Subject: Re: [PATCH v2 net-next] net: phy: mediatek: support MT7530 PHYs on
+ EN71221 MCM
+Message-ID: <8396aeb6-c43e-453e-a7d3-52349b93c528@lunn.ch>
+References: <20260909213250.3184238-1-cjd@cjdns.fr>
+ <20260911103910.4123567-1-cjd@cjdns.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 13/23] modpost: hash module source per-file, not per-byte
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Ard Biesheuvel <ardb@kernel.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
- <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>,
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
- linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
-References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
- <20260908-build-speedup-v1-13-5dc1ac01672d@kernel.org>
- <434a7a10-d83e-4402-be91-816bbbc15bb7@suse.com> <aqPYvKR_eRsFlEd-@gremlin>
-Content-Language: en-US
-From: Petr Pavlu <petr.pavlu@suse.com>
-In-Reply-To: <aqPYvKR_eRsFlEd-@gremlin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260911103910.4123567-1-cjd@cjdns.fr>
 
-On 9/11/26 12:41 PM, Lorenzo Stoakes (ARM) wrote:
-> On Thu, Sep 10, 2026 at 02:52:50PM +0200, Petr Pavlu wrote:
->> On 9/8/26 10:55 PM, Lorenzo Stoakes (ARM) wrote:
->>> modpost spends a long time md4 hashing module source at a per-byte
->>> granularity.
->>>
->>> Fix this by doing this hashing per-file instead by accumulating a per-file
->>> buffer in parse_file().
->>>
->>> All 11,189 .mod.c files and Module.symvers were confirmed to be identical
->>> with this change applied.
->>>
->>> This is especially impactful for allmodconfig incremental builds (where
->>> CONFIG_MODULE_SRCVERSION_ALL is set).
->>>
->>> Whole build, 128-thread Threadripper 9980X, best of N runs:
->>>
->>>                                          before   after     delta
->>>                                          -------------------------------
->>>   x86 allmodconfig, touch mm/vma.c, gcc    40.6s    38.2s     -2.4s (-6%)
->>>   x86 allmodconfig, touch mm/vma.c, clang  36.2s    35.0s     -1.2s (-3%)
->>>
->>> Assisted-by: LLM
->>> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->>> ---
->>>  scripts/mod/sumversion.c | 56 +++++++++++++++++++++++++++++++++++++-----------
->>>  1 file changed, 44 insertions(+), 12 deletions(-)
->>
->> Support for the module srcversion is being removed in "module: remove
->> MODULE_VERSION() and srcversion" [1] and scripts/mod/sumversion.c should
->> be gone completely.
-> 
-> Hmm, that series doesn't remove the script though, is that planned as a follow up?
+> +	/* Clause 22 local data. */
+> +	ret = phy_write(phydev, MII_CTRL1000, 0x1e00);
 
-My reply to that series [1] notes that it should also remove
-scripts/mod/sumversion.c. It should be done in the next version.
+Didn't i ask for 0x1e00 to be replaced with standard macros?
 
-> 
-> I guess I can drop this patch from the series then :) Also patch 17 I think?
+> +	/* Vendor profile disables 100/1000BASE-T EEE advertisement. */
+> +	ret = phy_write_mmd(phydev, MDIO_MMD_AN, 0x003c, 0x0000);
+> +	if (ret < 0)
+> +		return ret;
 
-I agree. The module srcversion is no longer needed since build IDs are
-nowadays the standard mechanism for providing effectively the same
-functionality. While I'm not sure when the mentioned removal will land,
-reviewing and polishing this patch and patch 17 would IMO be wasteful at
-this point.
+And didn't i ask if EEE is broken? We have infrastructure for that,
+please use it.
 
-[1] https://lore.kernel.org/linux-modules/4e321525-708c-4964-9937-d94ea27e8d85@suse.com/
+Also, please start a new thread for every version of a patch
+series. The CI tools don't always pick up replies to previous patch
+versions, it thinks it is just ongoing discussion.
 
--- 
-Thanks,
-Petr
+    Andrew
+
+---
+pw-bot: cr
