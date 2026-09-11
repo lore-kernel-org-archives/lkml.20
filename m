@@ -1,102 +1,409 @@
-Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB323D6673
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 04:04:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6357239AD49;
+	Fri, 11 Sep 2026 04:05:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789099490; cv=none; b=X946v2YR5FahQ884eNqRfBzCETDtCih1VDiLenA4nSzG1HiddSeknfPApWG1KSqF+wkDn0cqphC5OAJS6MDW36GR5xkD1Ek/LNrWTH9lt0O0cvfyO0UWP3vkYKAGI/hpwh45abH5rUvnVnhiXh8DYhZl2ZKPu2BsQmlrqgLu4GM=
+	t=1789099520; cv=none; b=LLJzEN//wm2jDGrrQy6yz+aqor6Hwo/GbsC6rWjLHKsjV6veb05s0CSa6kriDi/PE2EbFf7HYtsm9L9iFfnTvFoOO68PKizEKDJ6hB+KLwkK4z74vxYJctIbNTNB4pKYip4sO4d1CgV9zX10j64/eo6zH5TKL2zn88SSyeikgNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789099490; c=relaxed/simple;
-	bh=DtMYe9mZ+/SlmprZCY/J2tmg4c0JTQ1OxKUEGVgtSJc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kixMZHTZPiI7AvPXn7/c1VwGaNV82Mr0JgxY5UFTJQhoZpqfucgg17cUEAbttic24jZ5bNKJ4fzeRjjF4hGkJa5Pv+KdpcqNjbciQgyv0l0OVeZQmgKWh64GNPbcZd0AGlHKrj3aDV3GdTPP5G7c4srLUEjKerG5nnLe3nqIRcY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=rqPv8Y6P; arc=none smtp.client-ip=115.124.30.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="rqPv8Y6P"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1789099484; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=WxGjPVKwOym3MlqJVMtkM10psiQ4ZkXMSmP8hxUXTp4=;
-	b=rqPv8Y6PwevoDufsdcDqgD2Jsi2rNtjjfXR00iAJJRgJ6IAiKACxVvdtNiw4j+wWo41YRtmepq9pBvzw50fbr6Ho9FKNf7ky2Ij9TAcpnzFM1I3nd4JIzlq8RDAo5Rz2LLL/P037WfdRSEeNP/EzwQnZTwHJFl0daU/7dLLDYTs=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R571e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XAj7wOz_1789099483;
-Received: from localhost(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAj7wOz_1789099483 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 11 Sep 2026 12:04:43 +0800
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-To: akpm@linux-foundation.org,
-	hughd@google.com,
-	david@kernel.org
-Cc: ziy@nvidia.com,
-	liam@infradead.org,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	ljs@kernel.org,
-	baolin.wang@linux.alibaba.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] mm: shmem: ignore sysfs configs for shmem forced collapse
-Date: Fri, 11 Sep 2026 12:04:33 +0800
-Message-ID: <b1829ac0d3f38217f031854ff0f40abef614ac0d.1789098446.git.baolin.wang@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.5
+	s=arc-20240116; t=1789099520; c=relaxed/simple;
+	bh=8PgIwnsUajSsYRe27gUB89PEddfPYsVJUcQy4j/nKQs=;
+	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type; b=I68I8r8LfdsP39UH6YRQYOYMKwEj+9kGZu+Rijix7hMSe6DyoqKQzn5esq/phJAoSg169/94a99zNiYsM5iMVkH6aPeIQ6+eZiL8iIVdsD9sz9wx4SVFPIRWbMYh92vgOEWj58lk8M6JM2jF9RgexMk8uuL90yIpAZA4wrhBtbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hh1Cv520dz5BNRf;
+	Fri, 11 Sep 2026 12:05:15 +0800 (CST)
+Received: from njb2app07.zte.com.cn ([10.55.22.95])
+	by mse-fl2.zte.com.cn with SMTP id 68B455jQ033884;
+	Fri, 11 Sep 2026 12:05:06 +0800 (+08)
+	(envelope-from han.junyang@zte.com.cn)
+Received: from mapi (njy2app08[null])
+	by mapi (Zmail) with MAPI id mid204;
+	Fri, 11 Sep 2026 12:05:07 +0800 (CST)
+X-Zmail-TransId: 2b006aa37df31ba-758f2
+X-Mailer: Zmail v1.0
+Message-ID: <20260911120507276-LIb4JGajTovY-mjFYhKq@zte.com.cn>
+In-Reply-To: <20260911115632342CS2YMSVejTTmnYEU3XbRs@zte.com.cn>
+References: 20260911115632342CS2YMSVejTTmnYEU3XbRs@zte.com.cn
+Date: Fri, 11 Sep 2026 12:05:07 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+From: <han.junyang@zte.com.cn>
+To: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+        <kuba@kernel.org>, <pabeni@redhat.com>, <horms@kernel.org>
+Cc: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+        <han.junyang@zte.com.cn>, <ran.ming@zte.com.cn>,
+        <han.chengfei@zte.com.cn>, <zhang.yanze@zte.com.cn>
+Subject: =?UTF-8?B?W1BBVENIIG5ldC1uZXh0IHYyIDMvM10gZGluZ2hhaTogYWRkIGFzeW5jIGV2ZW50IHF1ZXVlIGZvciBmaXJtd2FyZcKgbm90aWZpY2F0aW9ucw==?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 68B455jQ033884
+X-TLS: YES
+X-ENVELOPE-SENDER: han.junyang@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Fri, 11 Sep 2026 12:05:15 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AA37DFB.000/4hh1Cv520dz5BNRf
 
-According to Documentation/mm/transhuge.rst, MADV_COLLAPSE is expected to
-ignore any THP or mTHP interface settings.
+From: Junyang Han <han.junyang@zte.com.cn>
 
-However, after commit 6beeab870e70 ("mm: shmem: move shmem_huge_global_enabled()
-into shmem_allowable_huge_orders()"), performing MADV_COLLAPSE on shmem
-will depend on /sys/.../hugepages-2048kB/shmem_enabled being set to "inherit"
-(although that is the default), which can cause MADV_COLLAPSE to fail
-unexpectedly.
+Add the event queue table and the first async event queue, fed by the
+RISC-V management core of the firmware. The queue owns one MSI-X
+vector taken from the async pool and, on interrupt, reads the event_id
+from the PF receive sub-channel of the BAR message area, maps it to
+an event type and fans it out through the per-event-type notifier
+chains of the table. The PF probe creates and tears down the queue
+through the existing IRQ pool interfaces.
 
-Fix this by returning the result of shmem_huge_global_enabled() directly
-when MADV_COLLAPSE is requested, allowing PMD-order collapse while ignoring
-shmem THP/mTHP settings.
+The BAR message channel handshake that tells the firmware which
+vectors to signal comes with the BAR message subsystem in a later
+series; the PF side wired here is live as soon as that channel is
+enabled. Subscribers for the RISCV_READY event register on the
+notifier chains in later series as well.
 
-Fixes: 6beeab870e70 ("mm: shmem: move shmem_huge_global_enabled() into shmem_allowable_huge_orders()")
-Reported-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Closes: https://lore.kernel.org/all/20260908125105.1510704-7-kirill@shutemov.name/
-Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Signed-off-by: Junyang Han <han.junyang@zte.com.cn>
 ---
-Hi Kiryl,
+ drivers/net/ethernet/zte/dinghai/Makefile  |   2 +-
+ drivers/net/ethernet/zte/dinghai/en_pf.c   |  31 +++--
+ drivers/net/ethernet/zte/dinghai/en_pf.h   |   2 +
+ drivers/net/ethernet/zte/dinghai/zxdh_eq.c | 145 +++++++++++++++++++++
+ drivers/net/ethernet/zte/dinghai/zxdh_eq.h |  61 +++++++++
+ 5 files changed, 232 insertions(+), 9 deletions(-)
+ create mode 100644 drivers/net/ethernet/zte/dinghai/zxdh_eq.c
+ create mode 100644 drivers/net/ethernet/zte/dinghai/zxdh_eq.h
 
-I did not update the selftests, as I hope this fix will be merged first.
-After this fix has landed, I can send a patch to update the selftests.
----
- mm/shmem.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+diff --git a/drivers/net/ethernet/zte/dinghai/Makefile b/drivers/net/ethernet/zte/dinghai/Makefile
+index f4a8f9480291..2dc6d68cc0e1 100644
+--- a/drivers/net/ethernet/zte/dinghai/Makefile
++++ b/drivers/net/ethernet/zte/dinghai/Makefile
+@@ -4,4 +4,4 @@
+ #
 
-diff --git a/mm/shmem.c b/mm/shmem.c
-index c92ed17dbc4a..b572c60f2af8 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -2049,8 +2049,11 @@ unsigned long shmem_allowable_huge_orders(struct inode *inode,
- 
- 	global_orders = shmem_huge_global_enabled(inode, index, write_end,
- 						  shmem_huge_force, vma, vm_flags);
--	/* Tmpfs huge pages allocation */
--	if (!vma || !vma_is_anon_shmem(vma))
-+	/*
-+	 * Tmpfs huge pages allocation or forced collapse ignores
-+	 * sysfs configs.
+ obj-$(CONFIG_DINGHAI_PF) += dinghai10e.o
+-dinghai10e-y := en_pf.o zxdh_irq.o
++dinghai10e-y := en_pf.o zxdh_irq.o zxdh_eq.o
+diff --git a/drivers/net/ethernet/zte/dinghai/en_pf.c b/drivers/net/ethernet/zte/dinghai/en_pf.c
+index 923d688e7ec5..fe3924b890d1 100644
+--- a/drivers/net/ethernet/zte/dinghai/en_pf.c
++++ b/drivers/net/ethernet/zte/dinghai/en_pf.c
+@@ -492,7 +492,8 @@ static int zxdh_pf_irq_pools_init(struct zxdh_core_dev *zxdh_dev)
+
+ static void zxdh_pf_irq_pools_destroy(struct zxdh_pf_irq_table *pf_irq_table)
+ {
+-	zxdh_irq_pool_free(pf_irq_table->async_pool);
++	if (pf_irq_table->async_pool)
++		zxdh_irq_pool_free(pf_irq_table->async_pool);
+ }
+
+ int zxdh_pf_irq_table_init(struct zxdh_core_dev *zxdh_dev)
+@@ -536,18 +537,17 @@ void zxdh_pf_irq_table_destroy(struct zxdh_core_dev *zxdh_dev)
+ {
+ 	struct zxdh_irq_table *table = &zxdh_dev->irq_table;
+
+-	zxdh_pf_irq_pools_destroy(table->priv);
++	if (table->priv)
++		zxdh_pf_irq_pools_destroy(table->priv);
+ 	kvfree(table->priv);
++	table->priv = NULL;
+ 	pci_free_irq_vectors(zxdh_dev->pdev);
+ }
+
++/* Fetch a vector from the async pool for one async event queue. */
+ struct zxdh_irq *zxdh_pf_async_irq_request(struct zxdh_core_dev *zxdh_dev)
+ {
+-	struct zxdh_irq_table *table = &zxdh_dev->irq_table;
+-	struct zxdh_pf_irq_table *pf_irq_table = table->priv;
+-
+-	if (!pf_irq_table->async_pool)
+-		return NULL;
++	struct zxdh_pf_irq_table *pf_irq_table = zxdh_dev->irq_table.priv;
+
+ 	return zxdh_get_irq_of_pool(pf_irq_table->async_pool);
+ }
+@@ -612,12 +612,26 @@ static int zxdh_pf_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 		goto err_irq_table;
+ 	}
+
++	ret = zxdh_pf_eq_table_init(zxdh_dev);
++	if (ret) {
++		dev_err(&pdev->dev, "zxdh_pf_eq_table_init failed: %d\n", ret);
++		goto err_eq_table;
++	}
++
++	ret = zxdh_pf_eq_table_create(zxdh_dev);
++	if (ret) {
++		dev_err(&pdev->dev, "zxdh_pf_eq_table_create failed: %d\n", ret);
++		goto err_eq_table;
++	}
++
+ 	devlink_register(devlink);
+
+ 	return 0;
+
++err_eq_table:
++	zxdh_pf_eq_table_destroy(zxdh_dev);
+ err_irq_table:
+-	kvfree(zxdh_dev->irq_table.priv);
++	zxdh_pf_irq_table_destroy(zxdh_dev);
+ err_cfg_init:
+ 	zxdh_pf_pci_close(zxdh_dev);
+ err_pci_init:
+@@ -633,6 +647,7 @@ static void zxdh_pf_remove(struct pci_dev *pdev)
+ 	struct devlink *devlink = priv_to_devlink(zxdh_dev);
+
+ 	devlink_unregister(devlink);
++	zxdh_pf_eq_table_destroy(zxdh_dev);
+ 	zxdh_pf_irq_table_destroy(zxdh_dev);
+ 	zxdh_pf_modern_cfg_uninit(zxdh_dev);
+ 	zxdh_pf_pci_close(zxdh_dev);
+diff --git a/drivers/net/ethernet/zte/dinghai/en_pf.h b/drivers/net/ethernet/zte/dinghai/en_pf.h
+index f60a237c61c4..894a05a09d96 100644
+--- a/drivers/net/ethernet/zte/dinghai/en_pf.h
++++ b/drivers/net/ethernet/zte/dinghai/en_pf.h
+@@ -9,6 +9,7 @@
+
+ #include <linux/types.h>
+
++#include "zxdh_eq.h"
+ #include "zxdh_irq.h"
+
+ #define ZXDH_PF_VENDOR_ID	0x1cf2
+@@ -81,6 +82,7 @@ struct zxdh_core_dev {
+ 	struct pci_dev *pdev;
+ 	struct devlink *devlink;
+ 	struct zxdh_irq_table irq_table;
++	struct zxdh_eq_table eq_table;
+ 	void *priv;
+ };
+
+diff --git a/drivers/net/ethernet/zte/dinghai/zxdh_eq.c b/drivers/net/ethernet/zte/dinghai/zxdh_eq.c
+new file mode 100644
+index 000000000000..f1d7eeec1ae4
+--- /dev/null
++++ b/drivers/net/ethernet/zte/dinghai/zxdh_eq.c
+@@ -0,0 +1,145 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * ZTE DingHai Ethernet driver - event queue plumbing
++ * Copyright (c) 2022-2026, ZTE Corporation.
++ *
++ * Async event queues are the delivery path for firmware notifications:
++ * a queue owns one MSI-X vector of the async pool and fans interrupts
++ * out to the per-event-type notifier chains of the event queue table.
++ * The BAR message channel handshake that tells the firmware which
++ * vectors to signal comes with the BAR message subsystem in a later
++ * series; the PF side wired here is live as soon as that channel is
++ * enabled.
++ */
++
++#include <linux/io.h>
++#include <linux/kernel.h>
++#include <linux/mutex.h>
++#include <linux/notifier.h>
++#include <linux/slab.h>
++
++#include "en_pf.h"
++#include "zxdh_eq.h"
++#include "zxdh_irq.h"
++
++/* PF side of the event queue table: one async EQ fed by the RISC-V
++ * management core.
++ */
++struct zxdh_pf_eq_table {
++	struct zxdh_eq_async riscv_eq;
++};
++
++/* Fetch the event_id the RISC-V core posted in the PF receive
++ * sub-channel of the BAR message area. The field lives at byte offset
++ * 2 of the 12-byte message header, so a single 32-bit read of the
++ * sub-channel start covers it.
++ */
++static u16 zxdh_eq_event_id_get(struct zxdh_core_dev *zxdh_dev)
++{
++	struct zxdh_pf_dev *pf_dev = zxdh_dev->priv;
++	void __iomem *subchan;
++
++	subchan = pf_dev->pci_ioremap_addr[0] + ZXDH_BAR_MSG_SUBCHAN_RECV;
++
++	return ioread32(subchan) >> 16;
++}
++
++static enum zxdh_eq_event_type zxdh_eq_event_type_get(u16 event_id)
++{
++	if (event_id == ZXDH_MSG_MODULE_RISC_READY)
++		return ZXDH_EQ_EVENT_TYPE_RISCV_READY;
++
++	/* Only the RISC-V ready notification is dispatched in this
++	 * series; the remaining firmware events arrive with the BAR
++	 * message subsystem.
 +	 */
-+	if (!vma || !vma_is_anon_shmem(vma) || shmem_huge_force)
- 		return global_orders;
- 
- 	/*
++	return ZXDH_EQ_EVENT_TYPE_MAX;
++}
++
++static int zxdh_eq_async_riscv_int(struct notifier_block *nb,
++				   unsigned long action, void *data)
++{
++	struct zxdh_eq_async *eq = container_of(nb, struct zxdh_eq_async, irq_nb);
++	struct zxdh_core_dev *zxdh_dev = eq->priv;
++	enum zxdh_eq_event_type event_type;
++
++	event_type = zxdh_eq_event_type_get(zxdh_eq_event_id_get(zxdh_dev));
++	if (event_type == ZXDH_EQ_EVENT_TYPE_MAX)
++		return NOTIFY_DONE;
++
++	atomic_notifier_call_chain(&zxdh_dev->eq_table.nh[event_type],
++				   event_type, NULL);
++
++	return NOTIFY_OK;
++}
++
++int zxdh_pf_eq_table_init(struct zxdh_core_dev *zxdh_dev)
++{
++	struct zxdh_eq_table *table = &zxdh_dev->eq_table;
++	struct zxdh_pf_eq_table *priv;
++	int i;
++
++	priv = kvzalloc_obj(*priv, GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++	table->priv = priv;
++
++	mutex_init(&table->lock);
++	for (i = 0; i < ZXDH_EQ_EVENT_TYPE_MAX; i++)
++		ATOMIC_INIT_NOTIFIER_HEAD(&table->nh[i]);
++
++	return 0;
++}
++
++int zxdh_pf_eq_table_create(struct zxdh_core_dev *zxdh_dev)
++{
++	struct zxdh_pf_eq_table *pf_eq_table = zxdh_dev->eq_table.priv;
++	struct zxdh_eq_table *table = &zxdh_dev->eq_table;
++	struct zxdh_eq_async *eq = &pf_eq_table->riscv_eq;
++	int err;
++
++	mutex_lock(&table->lock);
++
++	eq->priv = zxdh_dev;
++	eq->irq = zxdh_pf_async_irq_request(zxdh_dev);
++	if (IS_ERR(eq->irq)) {
++		err = PTR_ERR(eq->irq);
++		goto unlock;
++	}
++
++	eq->irq_nb.notifier_call = zxdh_eq_async_riscv_int;
++	err = zxdh_irq_attach_nb(eq->irq, &eq->irq_nb);
++	if (err) {
++		zxdh_irqs_release_vectors(&eq->irq, 1);
++		eq->irq = NULL;
++	}
++
++unlock:
++	mutex_unlock(&table->lock);
++
++	return err;
++}
++
++void zxdh_pf_eq_table_destroy(struct zxdh_core_dev *zxdh_dev)
++{
++	struct zxdh_pf_eq_table *pf_eq_table = zxdh_dev->eq_table.priv;
++	struct zxdh_eq_table *table = &zxdh_dev->eq_table;
++	struct zxdh_eq_async *eq;
++
++	if (!pf_eq_table)
++		return;
++
++	eq = &pf_eq_table->riscv_eq;
++
++	mutex_lock(&table->lock);
++	if (eq->irq) {
++		zxdh_irq_detach_nb(eq->irq, &eq->irq_nb);
++		zxdh_irqs_release_vectors(&eq->irq, 1);
++		eq->irq = NULL;
++	}
++	mutex_unlock(&table->lock);
++
++	mutex_destroy(&table->lock);
++	kvfree(table->priv);
++	table->priv = NULL;
++}
+diff --git a/drivers/net/ethernet/zte/dinghai/zxdh_eq.h b/drivers/net/ethernet/zte/dinghai/zxdh_eq.h
+new file mode 100644
+index 000000000000..4965ca15912a
+--- /dev/null
++++ b/drivers/net/ethernet/zte/dinghai/zxdh_eq.h
+@@ -0,0 +1,61 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * ZTE DingHai Ethernet driver - event queue abstraction
++ * Copyright (c) 2022-2026, ZTE Corporation.
++ */
++
++#ifndef __ZXDH_EQ_H__
++#define __ZXDH_EQ_H__
++
++#include <linux/mutex.h>
++#include <linux/notifier.h>
++
++struct zxdh_core_dev;
++struct zxdh_irq;
++
++/* BAR message area: shared-memory mailbox between the driver and the
++ * firmware, split into sub-channels of 2048 bytes. Notifications from
++ * the RISC-V management core are posted to the PF receive sub-channel,
++ * one interval above the area base.
++ */
++#define ZXDH_BAR_MSG_OFFSET		0x2000
++#define ZXDH_BAR_MSG_SUBCHAN_INTERVAL	2048
++#define ZXDH_BAR_MSG_SUBCHAN_RECV	(ZXDH_BAR_MSG_OFFSET +	\
++					 ZXDH_BAR_MSG_SUBCHAN_INTERVAL)
++
++/* event_id of the "RISC-V core ready" firmware notification, carried
++ * at byte offset 2 of the BAR message header.
++ */
++#define ZXDH_MSG_MODULE_RISC_READY	13
++
++/* Event types the upper layers can subscribe to over the per-type
++ * notifier chains of the event queue table. The full catalogue lives
++ * in the firmware; only the ones dispatched in this series are named.
++ */
++enum zxdh_eq_event_type {
++	ZXDH_EQ_EVENT_TYPE_RISCV_READY = 0,
++	ZXDH_EQ_EVENT_TYPE_MAX,
++};
++
++/* Asynchronous event queue delivering firmware notifications to the
++ * driver without a request/reply handshake.
++ */
++struct zxdh_eq_async {
++	struct zxdh_irq *irq;
++	struct notifier_block irq_nb;
++	void *priv;
++};
++
++struct zxdh_eq_table {
++	/* Notifier chains fanned out by event type. */
++	struct atomic_notifier_head nh[ZXDH_EQ_EVENT_TYPE_MAX];
++	/* Serializes async EQ create/destroy. */
++	struct mutex lock;
++	void *priv;
++};
++
++int zxdh_pf_eq_table_init(struct zxdh_core_dev *zxdh_dev);
++int zxdh_pf_eq_table_create(struct zxdh_core_dev *zxdh_dev);
++void zxdh_pf_eq_table_destroy(struct zxdh_core_dev *zxdh_dev);
++
++#endif /* __ZXDH_EQ_H__ */
 -- 
-2.47.3
-
+2.27.0
