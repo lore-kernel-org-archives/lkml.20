@@ -1,170 +1,357 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010059.outbound.protection.outlook.com [52.101.85.59])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8200826299;
-	Fri, 11 Sep 2026 22:25:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.59
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789165505; cv=fail; b=UAURXeKqseesc6O3nbD/DSBpkdoLBGaOMAbdzLpclo2lRptD7cUaYrQBOwjC3pNCWq3J0Bq11DttutsHhhjlKCSXm3Iby7+d2tMVtoq2EezA5QnnWPYFcxXnV0Cn9X6FRtYlSR7WaTA4U8V5d6TIBL22auaptTFJBQSn5zEXEHI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D92E387346
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 22:25:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789165505; cv=none; b=GJ4KubEUCwfdePOiH394oweTAMlryHgfUKuwgRwshlaCZBm+GlPYyzGlGVxhlUt315Sy3ggBTg9J23sFJ8q2641yXOL58iJ1jJ+PWg+aktQLF43UeeMvPmmrbiDsO7BwZT2k0N7+zy9wtj0RL/AMxvqFD1F04k6Cgq7SZBIFVfc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789165505; c=relaxed/simple;
-	bh=wD4Kgx7Z0d2GwIZSUVvbcnhGEqfAYELSb3xDSOuUYHU=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IGEygLDDyWd7vJbY1A6R4sdYcU4kPjFzHLGm317Gve+Yf3APPwMieGcmbJOUYbo9MRbhomyQzRpYNP5M8VJeErpp/si0w7Mlta/+xDhvMVrvkhb9BF/NI8Z7El58S/Wul0xvLZ1Bgz7Jffp0gy00kcTHCiS/zIKBJnpn0EQC9Io=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=pGx+G4aC; arc=fail smtp.client-ip=52.101.85.59
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	bh=c6sV3mVM6vZd+vOrsWNX8LfOMla/NvOty7+9tRY/IZo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uWN1s/PUF9d2nia9IChN2CfVX11O5t7xdqWonz8fvEe7bN3DmHWcn7k8XWHxaUiXsuwEg+wVgV5EyuhiLatnoHm9MKaPEpNNRsajIutvBhwtBuCMdlc6l7vHfmX1JNUyuWHzbYUFxmvXdqBTghqZKH/5HrcrgPVYrbtuL2c8KQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=A/5sbuTH; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="pGx+G4aC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AqKs0c07H+J8pSlTjDiWf5c0K2AW8SIrPt/9DxXGI4jxWqwhGkLK3Zn/5rS0T26mSt/bQMu+xLAHleq/1lw1Z0RxCv9ePA/Jrl7FRA7mtGWIrNHULSP0uP9Y3/y+UUd6gDwMfGeu8NrL6JE1lYTvNrPWYG8wsdl9j1DBT5Iufwltz90GDGDXt7bWSnfUIcmEPVK7wUTkZuxZaHS3KQd2DJIujTcjVrPdLWz8VkesoKKxs3A0sdyc/DZNcts3iebxY7ook2QrI8C1oZm0kCYy9IFxfXQFm4cVoYj5TElOaGbIQFhfLFNX2yXnVTSR8YJBu0evjH3lapX7nlYKOXGsBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hIDOEICOt4x5hTo9wOxCSTq4RJfWI5CvqmdehNQoNPk=;
- b=ckQ+I3h9+rLC74G8BkNIA+hztJSxN5TxRIx4olA7jfk/wWb+Kv/MGQ6HAGDqCHRajUAc53oRG5RC2cnSKKN0qJHLuUvegnqEn37sfKvr/FkYrYPsM+qMEq2Khg277nXjfXTf9zlFh3XtNunUyClv1X2pe25e+8bhnx67MmUFGY1PoCPx4xtla7JAJCta62DMrPjr/+XKzXcywySGQxcfbPlir+Sp80xiYtIDmNldHj4xV2Aw8oKpWDtfNJXeGDoqCIOZRDTgj6FaRgvJxNAi8V13ucQZHdotYaE9akYD92cp+eSpLSvi8e+cPl0NUDrWg0o2Neb5vaRSe+rGaeGL9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=uniontech.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hIDOEICOt4x5hTo9wOxCSTq4RJfWI5CvqmdehNQoNPk=;
- b=pGx+G4aC0jprbrsZRCQCeTlvONygUrYG3ykJoyZKoJaEDDpDoolwVg4mwjBcNis4Wc5iAjVVsehRdOFOV/jT5YsUrRnv2MK3HZ8s8ySl+XDGX6buwiD5jO9VKLzgy6y2PcfLY9VT1ghCfb46wxcUAeevM1Iv+AUNg23GGHh4cfRV+favPZ4GxvzdRiZ6G87xrDmmjwMiOEf6yAK1wWLPW4It9EULYrqj0dDuFFTc9TyYSpRMc0vBTnzoeoCNYtUU7hodqNf5UeOup8zyiwwhwHU3jqcWhzsSFxAkeci3LJ2vEwFJej/Xg2h/QWgnao8Alag4uCX9YRpMtM9B2bBopw==
-Received: from BN9PR03CA0253.namprd03.prod.outlook.com (2603:10b6:408:ff::18)
- by DM4PR12MB5748.namprd12.prod.outlook.com (2603:10b6:8:5f::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 22:24:55 +0000
-Received: from BN3PEPF00022BBD.namprd04.prod.outlook.com
- (2603:10b6:408:ff:cafe::19) by BN9PR03CA0253.outlook.office365.com
- (2603:10b6:408:ff::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.8 via Frontend Transport; Fri, 11
- Sep 2026 22:24:55 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BN3PEPF00022BBD.mail.protection.outlook.com (10.167.248.117) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Fri, 11 Sep 2026 22:24:55 +0000
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 11 Sep
- 2026 15:24:36 -0700
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail205.nvidia.com
- (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 11 Sep
- 2026 15:24:35 -0700
-Received: from nvidia.com (10.127.8.13) by mail.nvidia.com (10.129.68.9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46 via Frontend
- Transport; Fri, 11 Sep 2026 15:24:34 -0700
-Date: Fri, 11 Sep 2026 15:24:31 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Wentao Guan <guanwentao@uniontech.com>
-CC: <sashal@kernel.org>, <jgg@nvidia.com>, <will@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
-	<stable@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<skolothumtho@nvidia.com>
-Subject: Re: [PATCH 7.2.y] iommu/arm-smmu-v3: Disable implementations during
- devm teardown
-Message-ID: <aqR/n+VtlgpjJrAV@nvidia.com>
-References: <20260910065429.1703706-1-guanwentao@uniontech.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="A/5sbuTH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789165499;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9A4k9uvhSjB1bn/Qmm66aX7Slnjo2bWqZcI/rVlwx/s=;
+	b=A/5sbuTH/8Z7nvabV3VRD10nGnDPw2BQ4w8j29Qf1KJpb8j8B2ZceLuv0rxVrPdUOhQNIx
+	lNGzHSylY05v86yrNV1gS2jlglFsrKt6XuG9MIgqpR1bxRwy0w/ThqfkfTDcr9u1NT561O
+	0ao68A2l9U8Gm6YhqpTxHVcvt0+4Y1g=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-1-45oaGiEzPCSWsE1-j4eBEA-1; Fri,
+ 11 Sep 2026 18:24:56 -0400
+X-MC-Unique: 45oaGiEzPCSWsE1-j4eBEA-1
+X-Mimecast-MFC-AGG-ID: 45oaGiEzPCSWsE1-j4eBEA_1789165494
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 539DE19539B7;
+	Fri, 11 Sep 2026 22:24:53 +0000 (UTC)
+Received: from GoldenWind.redhat.com (unknown [10.22.88.4])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1A6B119560AB;
+	Fri, 11 Sep 2026 22:24:49 +0000 (UTC)
+From: Lyude Paul <lyude@redhat.com>
+To: dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Cc: "Dave Airlie" <airlied@redhat.com>,
+	"Timur Tabi" <ttabi@nvidia.com>,
+	"Mohamed Ahmed" <mohamedahmedegypt2001@gmail.com>,
+	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+	"Kees Cook" <kees@kernel.org>,
+	"Simona Vetter" <simona@ffwll.ch>,
+	"David Airlie" <airlied@gmail.com>,
+	"Thomas Zimmermann" <tzimmermann@suse.de>,
+	"Maxime Ripard" <mripard@kernel.org>,
+	"Mel Henning" <mhenning@darkrefraction.com>,
+	"Hongling Zeng" <zenghongling@kylinos.cn>,
+	"Danilo Krummrich" <dakr@kernel.org>,
+	"Lyude Paul" <lyude@redhat.com>
+Subject: [PATCH 1/5] drm/nouveau/gsp/r535: Add support for INTERNAL_GCX_ENTRY_PREREQUISITE
+Date: Fri, 11 Sep 2026 17:49:54 -0400
+Message-ID: <20260911222428.752641-2-lyude@redhat.com>
+In-Reply-To: <20260911222428.752641-1-lyude@redhat.com>
+References: <20260911222428.752641-1-lyude@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260910065429.1703706-1-guanwentao@uniontech.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BBD:EE_|DM4PR12MB5748:EE_
-X-MS-Office365-Filtering-Correlation-Id: c1446d86-e23c-4572-8bd0-08df105381bd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|23010399003|1800799024|36860700016|376014|10067099003|6133799003|18002099003|22082099003|56012099006|11063799006|5023799004;
-X-Microsoft-Antispam-Message-Info:
-	DClE4X4qXMNVE2R1X4cETnRrslVMjraL39BpzUR11SaAafXnbBykMVsWRmB2+BImluS2oTcTnjw90+pa0YdH5iClN++ps0/pKW/bzRtAFU+VW+fYjVdsvCzT+8kFDE30yBctmzjiCNc/5O0mWovgIkdayZsGeYAowrnnzcw+QfrgKXiSYKvfBPN6vJSp5kqUPji79ZUm8CzPkqont3ttQtxUpQMGzaJVKncKv7C9CNpcLwyoJML+s4kkw2Jcnm+XYa1iLkdHx0VDaDVd4P+jA5kWHuIgn/ouIG+epIzY1rltBieg8M0iovqDeVpVY3IOKnTDPHMW2VNQ99cIrlaJbnImTauD6/QWIMkhS7VoFvJFheKp/yEJRX7R2xhG9N9bTEqm1camPkRCnKUQyahDwpF7pmi1qxLwOZo4ubDSPu4qAQPuKGgO7bqvbfexkgfmjyu3nLCgnZ41RWHU+W8u9i1gV0cQlTYopsVxHJ3byCNyNzB8no9DgCavWTI3OFZ/cvY6xIoSRYo9GC3MRF4Hvr0K8Cwi8ncc0WsceyJfoUvLIgwHtRHhH4PxOQd/UEJ/ER3d2G3yOj7o4RdsP85ra4x83IfNesMf344CAKu0NAiTaFAlLsa+PaKSLC9Crw+iVh685JV3i5vYS/hQ5prOKT6baBt1XxshLz0wTIhWtV2QaVqrpKORsxqpSmWdfjv0NrC+EiOD/mdypWcqXnOKMw==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(1800799024)(36860700016)(376014)(10067099003)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(5023799004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	f/8eI8K7Sl3tIBj1hCC2PQcGOeI2x26p3eXID4jOWJpCx8wXnhiOjbbdyXNYT0XoM0U/to7BcpnUV3TPsESuGZJlmJYfyqCTfSxTavqk6Yg4OQYcANqwK7kuHVyLv+ksUX+db1YmY1W7OiOB6hADebNt+d6mFkLO8Hq6hYhqRoL2cIM5do11TceQ0OdFlKzBCWEbtgtH1Q6gzWMPgBl/M+CeSvUlf7uw0LUNhu0Vh+OVJi1hCKWZ9RgaE0wiFnFl/tlZCfugQEHY9BZIO01QdDMleAOwP82ZbuZMzpSgFDo2e0I+E1dmuruMcWmbZ3UGjdLyU33ThEToFf+ei1LEPoSXTI3zkh43sVZ5ruZWtpouwakWet7K8+tYbYawENturxza9R0XsdI0VV+guaPDdk/SLOmrSe6MlMpkmZuOrNTpzw6EB06FgepPkPaCy8fY
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 22:24:55.3097
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1446d86-e23c-4572-8bd0-08df105381bd
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BBD.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5748
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-On Thu, Sep 10, 2026 at 02:54:29PM +0800, Wentao Guan wrote:
-> The Tegra241 CMDQV teardown fix moved VINTF hardware deinitialization
-> into the implementation device_disable() callback. However, its stable
-> backport preceded the conversion to devm teardown and could only invoke
-> the callback from the shutdown path.
+OpenRM's runtime PM handling looks a bit different then nouveau's, one part
+in particular that differs from us: OpenRM actually consults GSP to ask
+whether the GPU should be allowed to enter Gc6 and/or GcOff before runtime
+suspending the GPU. In the event the card isn't ready, runtime suspend is
+simply delayed for a few seconds before retrying.
 
-Hmm, it did...
+Implement the command used for querying GSP about this,
+NV2080_CTRL_CMD_INTERNAL_GCX_ENTRY_PREREQUISITE, and check to ensure that
+the GPU is ready for runtime suspend in nouveau_pmops_runtime_suspend()
+using this query. If the GPU can't be runtime suspended, update the last
+busy counter of the device and then return -EBUSY from
+nouveau_pmops_runtime_suspend() - essentially delaying the runtime suspend
+process by whatever autosuspend_delay_ms is set to.
 
-[correct in mainline]
-git log --oneline v7.3-rc1 drivers/iommu/arm/arm-smmu-v3/
-...
-9ff145a25c5c8 iommu/tegra241-cmdqv: Fix CMD_SYNC use-after-free on teardown
-2bd22a0d40503 iommu/arm-smmu-v3: Manage teardown with devm
-...
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+---
+ drivers/gpu/drm/nouveau/include/nvif/cl0080.h | 10 ++++++
+ drivers/gpu/drm/nouveau/include/nvif/device.h |  1 +
+ .../gpu/drm/nouveau/include/nvkm/subdev/gsp.h |  3 ++
+ drivers/gpu/drm/nouveau/nouveau_drm.c         |  9 +++++
+ drivers/gpu/drm/nouveau/nvif/device.c         | 13 +++++++
+ .../gpu/drm/nouveau/nvkm/engine/device/user.c | 36 +++++++++++++++++++
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/priv.h    |  1 +
+ .../drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c | 26 ++++++++++++++
+ .../nvkm/subdev/gsp/rm/r535/nvrm/gsp.h        |  7 ++++
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h   |  1 +
+ 10 files changed, 107 insertions(+)
 
-[inverted in two trees]
-git log --oneline v7.2.5 drivers/iommu/arm/arm-smmu-v3/
-...
-78fd5a2d65f35 iommu/arm-smmu-v3: Manage teardown with devm
-f9b7375db3b36 iommu/arm-smmu-v3: Add HAFT support for SVA
-5994617e09ee6 iommu/tegra241-cmdqv: Fix CMD_SYNC use-after-free on teardown
-...
+diff --git a/drivers/gpu/drm/nouveau/include/nvif/cl0080.h b/drivers/gpu/drm/nouveau/include/nvif/cl0080.h
+index ea8267e0d8da2..9e639df1da467 100644
+--- a/drivers/gpu/drm/nouveau/include/nvif/cl0080.h
++++ b/drivers/gpu/drm/nouveau/include/nvif/cl0080.h
+@@ -4,6 +4,7 @@
+ 
+ #define NV_DEVICE_V0_INFO                                                  0x00
+ #define NV_DEVICE_V0_TIME                                                  0x01
++#define NV_DEVICE_V0_GCX_READY						   0x02
+ 
+ struct nv_device_info_v0 {
+ 	__u8  version;
+@@ -55,6 +56,15 @@ struct nv_device_time_v0 {
+ 	__u64 time;
+ };
+ 
++#define NV_DEVICE_GC6_READY	BIT(0)
++#define NV_DEVICE_GCOFF_READY	BIT(1)
++
++struct nv_device_gcx_ready_v0 {
++	__u8 version;
++	__u8 pad01[6];
++	__u8 ready;
++};
++
+ #define NV_DEVICE_INFO_UNIT                               (0xffffffffULL << 32)
+ #define NV_DEVICE_INFO(n)                          ((n) | (0x00000000ULL << 32))
+ #define NV_DEVICE_HOST(n)                          ((n) | (0x00000001ULL << 32))
+diff --git a/drivers/gpu/drm/nouveau/include/nvif/device.h b/drivers/gpu/drm/nouveau/include/nvif/device.h
+index 7877a2a79da9b..ce2fadcb05d9e 100644
+--- a/drivers/gpu/drm/nouveau/include/nvif/device.h
++++ b/drivers/gpu/drm/nouveau/include/nvif/device.h
+@@ -22,4 +22,5 @@ int  nvif_device_ctor(struct nvif_client *, const char *name, struct nvif_device
+ void nvif_device_dtor(struct nvif_device *);
+ int  nvif_device_map(struct nvif_device *);
+ u64  nvif_device_time(struct nvif_device *);
++int  nvif_device_gcx_ready(struct nvif_device *);
+ #endif
+diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
+index 64fed208e4cf8..2bccf58f0f53c 100644
+--- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
++++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
+@@ -10,6 +10,9 @@
+ #define GSP_PAGE_SHIFT 12
+ #define GSP_PAGE_SIZE  BIT(GSP_PAGE_SHIFT)
+ 
++#define GSP_GCX_ENTRY_GC6_READY		BIT(0)
++#define GSP_GCX_ENTRY_GCOFF_READY	BIT(1)
++
+ struct nvkm_gsp_mem {
+ 	struct device *dev;
+ 	size_t size;
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+index b0f9fb10a74dd..12300700d331f 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+@@ -1157,6 +1157,7 @@ nouveau_pmops_runtime_suspend(struct device *dev)
+ {
+ 	struct pci_dev *pdev = to_pci_dev(dev);
+ 	struct nouveau_drm *drm = pci_get_drvdata(pdev);
++	struct nvif_device *nvif = &drm->client.device;
+ 	int ret;
+ 
+ 	if (!nouveau_pmops_runtime()) {
+@@ -1164,6 +1165,14 @@ nouveau_pmops_runtime_suspend(struct device *dev)
+ 		return -EBUSY;
+ 	}
+ 
++	// Check if the GPU itself is ready for runtime suspend, otherwise mark as busy and check
++	// again in a bit.
++	if (!(nvif_device_gcx_ready(nvif) & NV_DEVICE_GCOFF_READY)) {
++		NV_DEBUG(drm, "GPU isn't ready for suspend yet, delaying...\n");
++		pm_runtime_mark_last_busy(dev);
++		return -EBUSY;
++	}
++
+ 	nouveau_switcheroo_optimus_dsm();
+ 	ret = nouveau_do_suspend(drm, true);
+ 	pci_save_state(pdev);
+diff --git a/drivers/gpu/drm/nouveau/nvif/device.c b/drivers/gpu/drm/nouveau/nvif/device.c
+index 24880931039f6..1be9fbe6cb703 100644
+--- a/drivers/gpu/drm/nouveau/nvif/device.c
++++ b/drivers/gpu/drm/nouveau/nvif/device.c
+@@ -38,6 +38,19 @@ nvif_device_time(struct nvif_device *device)
+ 	return device->user.func->time(&device->user);
+ }
+ 
++int
++nvif_device_gcx_ready(struct nvif_device *device)
++{
++	struct nv_device_gcx_ready_v0 args = {};
++	int ret;
++
++	ret = nvif_object_mthd(&device->object, NV_DEVICE_V0_GCX_READY, &args, sizeof(args));
++	if (ret)
++		return ret;
++
++	return args.ready;
++}
++
+ int
+ nvif_device_map(struct nvif_device *device)
+ {
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
+index 23d11d8221cb6..f602e4a07fbb0 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
+@@ -27,6 +27,8 @@
+ 
+ #include <core/client.h>
+ #include <subdev/fb.h>
++#include <subdev/gsp.h>
++#include <subdev/gsp/priv.h>
+ #include <subdev/instmem.h>
+ #include <subdev/timer.h>
+ 
+@@ -189,6 +191,38 @@ nvkm_udevice_time(struct nvkm_udevice *udev, void *data, u32 size)
+ 	return ret;
+ }
+ 
++static int
++nvkm_udevice_gcx_ready(struct nvkm_udevice *udev, void *data, u32 size)
++{
++	struct nvkm_object *object = &udev->object;
++	struct nvkm_device *device = udev->device;
++	struct nvkm_gsp *gsp = device->gsp;
++	union {
++		struct nv_device_gcx_ready_v0 v0;
++	} *args = data;
++	int ret = -ENOSYS;
++
++	/* XXX: We don't know any way of performing this check outside of GSP, so just assume
++	 * things are ready for non-GSP clients.
++	 */
++	if (!device->gsp)
++		return NV_DEVICE_GC6_READY | NV_DEVICE_GCOFF_READY;
++
++	nvif_ioctl(object, "device gcx ready size %d\n", size);
++	if (!(ret = nvif_unpack(ret, &data, &size, args->v0, 0, 0, false))) {
++		nvif_ioctl(object, "device gcx ready vers %d\n", args->v0.version);
++
++		ret = r535_gsp_gcx_ready(gsp);
++		if (ret < 0)
++			return ret;
++
++		args->v0.ready = ret;
++		ret = 0;
++	}
++
++	return ret;
++}
++
+ static int
+ nvkm_udevice_mthd(struct nvkm_object *object, u32 mthd, void *data, u32 size)
+ {
+@@ -199,6 +233,8 @@ nvkm_udevice_mthd(struct nvkm_object *object, u32 mthd, void *data, u32 size)
+ 		return nvkm_udevice_info(udev, data, size);
+ 	case NV_DEVICE_V0_TIME:
+ 		return nvkm_udevice_time(udev, data, size);
++	case NV_DEVICE_V0_GCX_READY:
++		return nvkm_udevice_gcx_ready(udev, data, size);
+ 	default:
+ 		break;
+ 	}
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/priv.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/priv.h
+index 71b7203bef507..b07797813b049 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/priv.h
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/priv.h
+@@ -93,6 +93,7 @@ void r535_gsp_dtor(struct nvkm_gsp *);
+ int r535_gsp_oneinit(struct nvkm_gsp *);
+ int r535_gsp_init(struct nvkm_gsp *);
+ int r535_gsp_fini(struct nvkm_gsp *, enum nvkm_suspend_state suspend);
++int r535_gsp_gcx_ready(struct nvkm_gsp *gsp);
+ 
+ int nvkm_gsp_new_(const struct nvkm_gsp_fwif *, struct nvkm_device *, enum nvkm_subdev_type, int,
+ 		  struct nvkm_gsp **);
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
+index 94925f1590ea4..09b17b85dc1ac 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
+@@ -30,6 +30,7 @@
+ #include <engine/fifo/chan.h>
+ #include <engine/sec2.h>
+ #include <nvif/log.h>
++#include <nvif/cl0080.h>
+ 
+ #include <nvfw/fw.h>
+ 
+@@ -1721,6 +1722,31 @@ r535_gsp_sr_data_size(struct nvkm_gsp *gsp)
+ 	return meta->gspFwWprEnd - meta->gspFwWprStart;
+ }
+ 
++int
++r535_gsp_gcx_ready(struct nvkm_gsp *gsp)
++{
++	NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS *ctrl;
++	int ret = 0;
++
++	ctrl = nvkm_gsp_rm_ctrl_rd(&gsp->internal.device.subdevice,
++				   NV2080_CTRL_CMD_INTERNAL_GCX_ENTRY_PREREQUISITE,
++				   sizeof(*ctrl));
++	if (IS_ERR(ctrl))
++		return PTR_ERR(ctrl);
++
++	if (ctrl->bIsGC6Satisfied)
++		ret |= NV_DEVICE_GC6_READY;
++	if (ctrl->bIsGCOFFSatisfied)
++		ret |= NV_DEVICE_GCOFF_READY;
++
++	nvkm_debug(&gsp->subdev,
++		   "GCX ready status: GC6=%s GCOFF=%s\n",
++		   str_yes_no(ctrl->bIsGC6Satisfied), str_yes_no(ctrl->bIsGCOFFSatisfied));
++
++	nvkm_gsp_rm_ctrl_done(&gsp->internal.client.object, ctrl);
++	return ret;
++}
++
+ int
+ r535_gsp_fini(struct nvkm_gsp *gsp, enum nvkm_suspend_state suspend)
+ {
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
+index b6683a5bf870c..fd1170037c030 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/nvrm/gsp.h
+@@ -782,6 +782,13 @@ typedef struct NV2080_CTRL_INTERNAL_INTR_GET_KERNEL_TABLE_PARAMS {
+ 
+ #define GSP_FW_HEAP_PARAM_CLIENT_ALLOC_SIZE      ((48 << 10) * 2048)   // Support 2048 channels
+ 
++#define NV2080_CTRL_CMD_INTERNAL_GCX_ENTRY_PREREQUISITE (0x2080a7d7)
++
++typedef struct NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS {
++    NvBool bIsGC6Satisfied;
++    NvBool bIsGCOFFSatisfied;
++} NV2080_CTRL_INTERNAL_GCX_ENTRY_PREREQUISITE_PARAMS;
++
+ typedef union rpc_message_rpc_union_field_v03_00
+ {
+     NvU32      spare;
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
+index e9ac47d86b69a..3de7871e22934 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
+@@ -174,6 +174,7 @@ int r535_gr_chan_new(struct nvkm_gr *, struct nvkm_chan *, const struct nvkm_ocl
+ int r535_gr_promote_ctx(struct r535_gr *, bool golden, struct nvkm_vmm *,
+ 			struct nvkm_memory **pctxbuf_mem, struct nvkm_vma **pctxbuf_vma,
+ 			struct nvkm_gsp_object *chan);
++int r535_gsp_gcx_ready(struct nvkm_gsp *gsp);
+ extern const struct nvkm_rm_api_engine r535_nvdec;
+ extern const struct nvkm_rm_api_engine r535_nvenc;
+ extern const struct nvkm_rm_api_engine r535_nvjpg;
+-- 
+2.55.0
 
-git log --oneline v6.18.51 drivers/iommu/arm/arm-smmu-v3/
-...
-2235eafda9b3d iommu/arm-smmu-v3: Manage teardown with devm
-d903d99ffd22b iommu/tegra241-cmdqv: Reject a vSID wider than the SID_MATCH field
-d2ab08437e913 iommu/tegra241-cmdqv: Fix CMD_SYNC use-after-free on teardown
-...
-
-[missing cmdqv fix]
-git log --oneline v6.12.109 -33 drivers/iommu/arm/arm-smmu-v3/
-...
-981686f413776 iommu/arm-smmu-v3: Manage teardown with devm
-...
-
-Patch itself looks good to me for v7.2 stable and v6.8 longterm.
-
-But v6.12 longterm might need some extra fix, Sasha?
-
-> Now that arm_smmu_disable_action() manages normal teardown, invoke the
-> implementation callback there while the command queue is still alive.
-> This prevents the subsequent implementation remove action from releasing
-> resources while the CMDQV hardware remains active.
-> 
-> After ("iommu/arm-smmu-v3: Manage teardown with devm") merged in stable,
-> now keep the shutdown path consistent with mainline, where disabling
-> the base SMMU is sufficient.
-> 
-> It is a fix for stable tree commit to aligned with mainline, so no
-> upstream commit id here.
->
-> Fixes: 5994617e09ee ("iommu/tegra241-cmdqv: Fix CMD_SYNC use-after-free on teardown")
-> Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
-
-Acked-by: Nicolin Chen <nicolinc@nvidia.com>
