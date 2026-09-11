@@ -1,130 +1,86 @@
-Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B4CE3D5640
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:33:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789129993; cv=pass; b=rVOHs57tgtXQVYZJwaxAZaRfzeXZ79vX9HretDiXkEPMEoBRE8HAgHS4fNTRgnFMplYfzm0ExIL0tPJw8PIGEWrYClKsOuoZDjHIZZL4axn8ZuDvpeJ6pInGKdq9gwECLSWSRS4Y4Hoet97Frn4xbxKpIaIDSE6snB+lYdkz2W0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789129993; c=relaxed/simple;
-	bh=03tI8r4SjmrucNW3FxoNW8oLP/SeEOOAqBM5N79UCug=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WbUjurmBAPq9RuF6m/2+vQCDm6z7jwOiGT/Xy5RGZzX659VmX+HPYpME97jt/SN0E6AqlA+O41xKsFtrBw27CF36N8VfG4dg48jdDht4X/YXCRo+pt3/VIVJNsaI0eohNC4aYQ2rHx6M+SYD56R7HPnr/6k6In3HM4+eL6/oq4Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BOTfdwmq; arc=pass smtp.client-ip=209.85.160.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BOTfdwmq"
-Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-467f09c00c2so259166fac.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:33:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789129990; cv=none;
-        d=google.com; s=arc-20260327;
-        b=UwWoNhf6uUQfwaRF1A1lp6wKeKH/vrrP4K0a3nBBrDlk3r6tvaVw8wbsGS2gQmru7e
-         2uQsSWsS4K1YRHapoS9xM9QqWAUApvG3W8d/hPe/MfKrf53qQndERET5xdl0g5Kgw1z/
-         QhBDH2vXhBJAN6I/CE00JHPxboM43fJejbaaG/0K/cNCp2CRR12rEbHMAOdTJaxz+ZBz
-         KmdqPFQ61K9ddcd1a6DMv0CtU4v6ju6zNaDdyoGtZNz6er98H1UBfOgkZFl1im8kopAP
-         y4uZUf9jey85sqLmAaJv1vAkAU5uv7lGxPRfuAXX7E4rm9PVB+hwejfqrND0PMxlxh1h
-         uQ2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=mSeczAilR4RJwTk/ZWwyqudf5JxWuEGG8/sw7pvO2zA=;
-        fh=4shIC0Cor4KDqDPjOMxxWXtgvSjwnQY3Gwa2eu3bLr0=;
-        b=EG9dsDXwtbqApKDUsyrpp1WkTwmMpm16xBZDRrp/N/YsCEf6+tb/gK9jJp5QNlmki2
-         NNwgPBesk/WjiMXHtQx59XUsE9fPmbdhIIszpySWzsYQ8IcZKaZd4N0Kp/HAr5NCI41Y
-         XURl5seSaUJd095GMO0BhFu70+WMNRdYjH0sJ24G0cChkokTs1QmdAWeNTfki2t4IEqP
-         4JmzP/gQtrk8fhnzpzek077HfbAWEQe4IsXXW8uOhdAskTcCbgYAlpS+ffL1+jSADaBO
-         v+7S7a9xWhWTGSeevPIqbt3PiaZ+orWKyKNdOXSes1RZZtnF6lRsygV1jtAI4j5h55aQ
-         993w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789129990; x=1789734790; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mSeczAilR4RJwTk/ZWwyqudf5JxWuEGG8/sw7pvO2zA=;
-        b=BOTfdwmqJF6f6zbJcWrGKiD0VJxo2Ea+him7H1v/HOhEewN7VSSMxlfH1LMLr3vTgY
-         hhvVSgiJrhzb5v4hdaWgn7BxQ7lVYRCgfr/81oVtl67senvOkVpmt034qQ7amPvmKvF+
-         q1BUkpx7n/0iGdQKQ8VtyBkmer/uI6zpLLABSknI2e0JnMjQQ7rHO2ghffUJ46D30cjA
-         /576vb2Pm7y/tj2Yq8/03UgEnYsidxSvVN3PBmte9fnnEsq+btC2EhJLw3gou784cT60
-         LDPiwenUXgZ6tRgdhxllp8qn++rULUDkUR/tdBw2Uq1Q646KKIBkZbi84r2BdK0xIJfj
-         HaMw==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C9747532D
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:33:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789130014; cv=none; b=JLnQDcGTGTq+PGZgdUWJixtNCpxry0zLOuN2vFBvs7Dn5ejiKNqvwFBCkVVrzdqhxzNlNaza6cDCLIJsZgbY1ieZzXD2ciLkdlgpfbpQKwlemp1wD1rnmY6uwehuIsVoi9nEbSxwIralzq4gu+lQfGGzglbP5WOtIATk/vIxl5M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789130014; c=relaxed/simple;
+	bh=kKz45Rz+TbY4xP0ZvWLeP7lric0X5GSiYO8tZVkWIzw=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=GD0uE6tS9dB+IIhLJD/il6jNkp6odH6/J2uLA02HJVSk9wV/H6JBRSPqQIiLYbYWWMB3pe+XILfIQEa7FaJOHvELb0Gqf9nBMGaXo9SPFZnKmrM1EGXNSgukuu4u0c0m1nzZLX1hEuJkQRgxLiRN5iWGYoOXVUnvREA8sil1zgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7e9dc0f5900so3383793a34.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:33:30 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789129990; x=1789734790;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1789130008; x=1789734808;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mSeczAilR4RJwTk/ZWwyqudf5JxWuEGG8/sw7pvO2zA=;
-        b=iJS1fpDzkuowdiJskQyUabLPXRrm0ZZgUqhQyfQ0KQ1ajBVNNyn8LVwUbW6H4iEt6c
-         R9bRznxnUwVVgn8mP/afuogPkEYP1RjAUz8HAHKOHt20zEr2E0ezcd1Hl2YVkQ1MJVnJ
-         pCBdhROF1KWUO9sgbfNR7qS2cN7oxNiycpRco4tfBoH7M7eI54VjuO+gQb31bzxhfzYQ
-         mJXfJYKNlh5YDDdOWKRYlhaXBzHtCgeS5Lb/85+P6jsQvdqPOxEk3uXBL02cDpSp3Rd3
-         1C8KVZLRV/RNX2m2S0XL7P3Y4VXAM12pVA8tj3SOJcWHAQM29wA5Mr6WHN8Ks0CkkGo7
-         7LhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwOHi282v4QwtJ957JWnYP24A005KZQf4ISIe1UJ3/w7YgZaBVWYblkUkKRoxNAvapl6t1bb0ehdkg6/oY=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5nQBt6Ikh9tlOXi9atV6aWwpXXDTvuzRmO3chWaLh96dMWfiQ
-	cK0c63dj8dM0FCUxcuPZHHTp6Ktn74GmVmQ2TL6cqPS+uhtkJ/LQ8HV/SA+icw99MdUm/6Ylll7
-	r8+VESMuXDCGk7YFYKwiBdIsI+3q8fuw=
-X-Gm-Gg: AYBFou1LUB1JGAuOLsHBSdrvbu7sl7bePMxH7ybU318O7lbVfsiCkYycN6r2YvPlyGA
-	Cah4YGD477CBw9JykA7ZYPhYTGARhc4IiKnNr7g7y1WZK/unD69D6xrGtx0kRGtmNy24ViAxKpx
-	wm0fCAiQAVXfybPtHLnEZlLj7yMyLmh31mVuY6iNHqyf26MpIfDDHU6T3k7G3VPpnAAprJQiORq
-	DLM7VpfejcBGOYhckcayOFJ0OvvTqXDO9AbqBYMI44/wUmMWldQ7l34YOgOHHaSu5G7VoO07jiU
-	Kelg625lYIQF/y5kl/+nD31oEWP1g6gXRRP2WEQGlYAhdWHEKNrDHbG5HUCSrxpQDcsbWCu9ROz
-	2JAdyVXNzfVy6Ho0eXkodPwfj6DsgzA==
-X-Received: by 2002:a05:6820:c446:20b0:69d:a4f0:4191 with SMTP id
- 006d021491bc7-6c0b9a57494mr1869587eaf.12.1789129990178; Fri, 11 Sep 2026
- 05:33:10 -0700 (PDT)
+        bh=DdtJlR6Fec/YoXlyYI0faEBLW4IkQd167d+YUVIlYTY=;
+        b=EjLY/SEIhgtaqnzWOHbEz6TxDqbYM1ayn57My1Ko/P/J0MQ+L+DoNzPNhEIabMgRiS
+         T21Jv+xfRWn+UBlLSfVAsxAQP46vnVZ+wxWh6eyx2grMSbYpSwYeVb6ZWZNo9lz8sgb8
+         TAuBaNgjG1wsYSVv/u2i2m1DJ8rRBYYinxClNMfzb1SfEC2v23dIBMwfDUXdLZN1aX6Z
+         Sofw8hL/AJZvK8h3Mift7zw864i3KyGTjE4f9WrQnSPXC7dmvihQF3rf3G2R8SGGLb2U
+         3/lHKWisciFn09QrgHoi6OaLdfCDYkVYncJKJE4UyQHhjbR5xz9oXaa37jggWeNo56bR
+         Zk/w==
+X-Forwarded-Encrypted: i=1; AKwUvBziO4Pvbu/ItN8ugyLlhPcArstQ5pRusoPRv9aK6qyQy57wdI2fTDZKW4rkvEDCxzfRnwW/U2P5eHpHBmc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kh7MzLYrRx/I0TZks2XAZts+1LlgHIqHjY1JrA3wCogVm0V8KD
+	tbE6BUdsLjX13YVUvoJKLnPZmB80P8LWyLw8ubsI9IBSuOoomYrmIGtIGaw0VZxnhfNtk1FS6Ho
+	ysFo1TED5zo5MOMAapW3cwKgBq3lini5/Ubjvs0TFGhX7krNSUkfPRl92wLs=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909190541.466476-1-mmyangfl@gmail.com> <20260909190541.466476-2-mmyangfl@gmail.com>
- <40e425e2-7d0b-4e20-9880-41e46ff340c6@lunn.ch> <CAAXyoMPG6s_z3g8fZ5CAF8BJa0OY7uzzO5PccaR6amfmYrYYHg@mail.gmail.com>
- <39ddc2cb-46c9-4754-99c1-0011a4cfdb7f@lunn.ch>
-In-Reply-To: <39ddc2cb-46c9-4754-99c1-0011a4cfdb7f@lunn.ch>
-From: David Yang <mmyangfl@gmail.com>
-Date: Fri, 11 Sep 2026 20:32:34 +0800
-X-Gm-Features: AcwNN1XrdIHW7rGAYpHzilNP49ei_5I8KTagB7CK3QwEYAPqeS2TUQtky4XcYJI
-Message-ID: <CAAXyoMMoX2rhjKKeWtxuid9tMSs956eubA1YXdpZ7AeP8Z=9ug@mail.gmail.com>
-Subject: Re: [PATCH net-next 1/7] net: dsa: motorcomm: Split xMII and SERDES
- port masks
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: netdev@vger.kernel.org, Vladimir Oltean <olteanv@gmail.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Russell King <linux@armlinux.org.uk>, linux-kernel@vger.kernel.org
+X-Received: by 2002:a05:6820:1889:b0:6b5:ec2f:356f with SMTP id
+ 006d021491bc7-6bf46bb2c16mr4771584eaf.32.1789130008248; Fri, 11 Sep 2026
+ 05:33:28 -0700 (PDT)
+Date: Fri, 11 Sep 2026 05:33:28 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa3f518.f2639fcc.29487d.002a.GAE@google.com>
+Subject: [syzbot] Monthly f2fs report (Sep 2026)
+From: syzbot <syzbot+list07391065a6a4e29b292d@syzkaller.appspotmail.com>
+To: chao@kernel.org, jaegeuk@kernel.org, 
+	linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 11, 2026 at 7:46=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wrote:
->
-> On Fri, Sep 11, 2026 at 05:37:45AM +0800, David Yang wrote:
-> > On Fri, Sep 11, 2026 at 4:59=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wr=
-ote:
-> > >
-> > > >  #define YT921X_PORT_MASK_INTn(port)  BIT(port)
-> > > >  #define YT921X_PORT_MASK_INT0_n(n)   GENMASK((n) - 1, 0)
-> > > >  #define YT921X_PORT_MASK_EXT0                BIT(8)
-> > >
-> > > I'm i right in says YT921X_PORT_MASK_EXT0 refers to port 8, because o=
-f
-> > > BIT(8)? And YT921X_PORT_MASK_EXT1 BIT(9) means port 9?
-> > >
-> > >         Andrew
-> >
-> > Yes.
->
-> Can we give these better names then, YT921X_PORT_MASK_EXT8, or
-> YT921X_PORT_8_MASK_EXT.
->
->         Andrew
+Hello f2fs maintainers/developers,
 
-These indexes are used in the vendor reference.
+This is a 31-day syzbot report for the f2fs subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/f2fs
 
-Or maybe just BIT(8)? Since they are not used anywhere else and kind
-of leftovers.
+During the period, 3 new issues were detected and 0 were fixed.
+In total, 12 issues are still open and 82 have already been fixed.
+
+Some of the still happening issues:
+
+Ref Crashes Repro Title
+<1> 2461    Yes   kernel BUG in f2fs_evict_inode (4)
+                  https://syzkaller.appspot.com/bug?extid=5c81eb8c0a380fa578b5
+<2> 1367    Yes   INFO: task hung in f2fs_balance_fs
+                  https://syzkaller.appspot.com/bug?extid=8b85865808c8908a0d8c
+<3> 300     Yes   INFO: task hung in f2fs_issue_checkpoint (2)
+                  https://syzkaller.appspot.com/bug?extid=8a7eea50810efde15b0a
+<4> 186     No    general protection fault in new_curseg
+                  https://syzkaller.appspot.com/bug?extid=ae5b8eb92ed40411ce16
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
