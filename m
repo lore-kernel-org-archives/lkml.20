@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E839838CFE1;
-	Fri, 11 Sep 2026 12:39:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E47CB475340;
+	Fri, 11 Sep 2026 12:39:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789130359; cv=none; b=c2Ci938JrEDI3Elwzo1DC/QTcnxH4UvutazXxMlcn9X64OU2L60iyQA8yW+Yw23GFqG/hZ1FCpIGLIj6utw7rNKsCdFxJHFKR4+roTy/EkqigZPb8rB0jcQgVRPwduT8om6KiPKnCiAl3DIUkIRGaOYFc7myKPAAVMg6CyfajnU=
+	t=1789130363; cv=none; b=C6V8bKRrrNyqMNrtRB/XJaxD73vn2FI6t/3/o+1Q6T6c/uUTweJVY7cNCmzqCZizlutmKnEoJR3VXeuGMDyHCkgwDWK8bbC8eq3JmCtNCs3RQxVbzokSJZt4SDWHYxVpRwfO3zaF8EVNL+8JFlVIC+Q8eHSh/blihDbsrgIYVx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789130359; c=relaxed/simple;
-	bh=owpyveLHT0E2gZ6qfHvuYVlsGGwb7yQYbmIDzyIRqiE=;
+	s=arc-20240116; t=1789130363; c=relaxed/simple;
+	bh=V52LrPSJYBCG0ZBPvLo88XzMhmjeTj74iqiNXlUGvik=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UcVml2gvAMS8uyX4pnjt5ZYHhW/WJQI2IrRsiUTEVnzGziH+dKzxRqte8z05q1Y+YRxkKE1RO7SawFxJgPHdfSKnJg+Og1gFNzFo2reTifLtTmb+56Y1zOkb5xBROG7jMRIRbiyFOoaWP7ebdtql+a2b0bJOuOoCgh5xuaILjoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QWgxCm6f; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=Rc54p+wqcTcMJCuLd98XksRCC1ZaUPvTT9hqjvO6+wj/q5LgYedc0klNQqp7q09aViCB7v8Hlymr83d4iSS99wDIGvFYHzNZwOASwq2cIiersJyCBn9yihKd1ABfGR85x84EDWKsnztpZ3dvDd8V3OxaiIWThU5CG4gu8mCTAD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jreIqzr7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QWgxCm6f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B20FB1F0089C;
-	Fri, 11 Sep 2026 12:39:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jreIqzr7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CE1B1F00898;
+	Fri, 11 Sep 2026 12:39:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789130354;
-	bh=gAxYXCi3F1z9vDbU8UKdtio2EkghuEvjVX57djuNuiw=;
+	s=k20260515; t=1789130358;
+	bh=K1U2uLTe8xKS3R6i/dNx58RNdM91azUJqPcLbv1tcnM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=QWgxCm6fmoZn4vyt/x4gzeUzH8KVrhKV/JUeleAPPZbe1m05tS3CD6mCZeTouNP9q
-	 xoufNAeq0TPHZ3skqNETmw4xiCGZ7E9tsrN9xAt72oipKsFhJYsEvv8nA+DcklBIhC
-	 wQib1ZLsQbwC66NV+A9FppXwSEhjZLRT1cnL1odGXCR5EkLUUY6xUrA9oretMOFCoN
-	 rhi0wT11/zV47zkL5fV860cncFOnAfF1KdIt3n76epEwP5itNr4YsVxtx2mayd/XOZ
-	 XLUHvl1LCsaqIcVaX2ulb+KU/S39uesw/t3k5CXXJ7z6adFn56/TtDBlbZVnAbiXo5
-	 UbXiKM28EXVmA==
+	b=jreIqzr7E1gcx+u3Oiql/PfB3Ccwi5IJl/ue9KQwcdfuxlR0Bk3s6kmlkI6wtjKgS
+	 nLXGKbWt19P3idQ71IFGfS0ZOk1Snd20sKv6k+e+6/9OBBtiQ3CkdrkLtAZSut87dq
+	 Tco8aN2EQoUXj96+WPw2FDVANEv+KQiaA+mVlly3ewm5JusiK6f1WCYp/LiZw2J3Mt
+	 a7ZPHzQ3cHWutjBHCpUQV5HbHv4MGFCSzKQ5QlBX3HbqK1nfZGimHJpDp3Vf9dLpsk
+	 VMSqZsCSGzwiwAIj1OitO4qBLMU+wirwzJJrsWYcoBBMeicvFlDptA9k0bOJj3ZS9N
+	 zhILaCYlPkJmg==
 From: Sumit Garg <sumit.garg@kernel.org>
-Date: Fri, 11 Sep 2026 18:08:56 +0530
-Subject: [PATCH 2/3] media: iris: Skip SCM call for non-SCM PAS backend
+Date: Fri, 11 Sep 2026 18:08:57 +0530
+Subject: [PATCH 3/3] media: venus: Skip SCM call for non-SCM PAS backend
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,7 +37,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-video-optee-pas-v1-v1-2-7bbddaaac5ba@kernel.org>
+Message-Id: <20260911-video-optee-pas-v1-v1-3-7bbddaaac5ba@kernel.org>
 References: <20260911-video-optee-pas-v1-v1-0-7bbddaaac5ba@kernel.org>
 In-Reply-To: <20260911-video-optee-pas-v1-v1-0-7bbddaaac5ba@kernel.org>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -47,61 +47,56 @@ To: Bjorn Andersson <andersson@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>, 
- Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>, 
- Jorge Ramirez-Ortiz <jorge.ramirez.ortiz@gmail.com>
+ linux-media@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
 
-From: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
+From: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
 qcom_scm_mem_protect_video_var() is only serviced by the SCM backend;
 with OP-TEE the TEE owns secure memory protection. Use
 qcom_pas_get_backend() to issue the SCM call only for the SCM backend.
 
 Assisted-by: Copilot:claude-opus-4.8
-Signed-off-by: Jorge Ramirez-Ortiz <jorge.ramirez.ortiz@gmail.com>
-Co-developed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
 Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
 ---
- drivers/media/platform/qcom/iris/iris_firmware.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ drivers/media/platform/qcom/venus/firmware.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
-index 21cdf1c39835..7fbe71e21bcb 100644
---- a/drivers/media/platform/qcom/iris/iris_firmware.c
-+++ b/drivers/media/platform/qcom/iris/iris_firmware.c
-@@ -9,6 +9,7 @@
- #include <linux/of_address.h>
- #include <linux/of_reserved_mem.h>
+diff --git a/drivers/media/platform/qcom/venus/firmware.c b/drivers/media/platform/qcom/venus/firmware.c
+index 3a38ff985822..719dda290606 100644
+--- a/drivers/media/platform/qcom/venus/firmware.c
++++ b/drivers/media/platform/qcom/venus/firmware.c
+@@ -16,6 +16,7 @@
+ #include <linux/firmware/qcom/qcom_scm.h>
+ #include <linux/sizes.h>
  #include <linux/soc/qcom/mdt_loader.h>
 +#include <linux/string.h>
  
- #include "iris_core.h"
- #include "iris_firmware.h"
-@@ -158,6 +159,7 @@ static int iris_load_fw_to_memory(struct iris_core *core)
- int iris_fw_load(struct iris_core *core)
- {
- 	const struct tz_cp_config *cp_config;
+ #include "core.h"
+ #include "firmware.h"
+@@ -214,6 +215,7 @@ int venus_boot(struct venus_core *core)
+ 	struct device *dev = core->dev;
+ 	const struct venus_resources *res = core->res;
+ 	const char *fwpath = NULL;
 +	const char *pas_backend;
- 	int i, ret;
- 
- 	ret = iris_load_fw_to_memory(core);
-@@ -172,6 +174,15 @@ int iris_fw_load(struct iris_core *core)
+ 	phys_addr_t mem_phys;
+ 	size_t mem_size;
+ 	int ret;
+@@ -245,6 +247,14 @@ int venus_boot(struct venus_core *core)
  		return ret;
- 	}
  
-+	/*
-+	 * qcom_scm_mem_protect_video_var() only applies to the SCM backend;
-+	 * other backends (e.g. OP-TEE) own secure memory protection and do
-+	 * not service this call.
-+	 */
-+	pas_backend = qcom_pas_get_backend();
-+	if (!pas_backend || strcmp(pas_backend, QCOM_PAS_BACKEND_SCM))
-+		return 0;
-+
- 	for (i = 0; i < core->iris_platform_data->tz_cp_config_data_size; i++) {
- 		cp_config = &core->iris_platform_data->tz_cp_config_data[i];
- 		ret = qcom_scm_mem_protect_video_var(cp_config->cp_start,
+ 	if (core->use_tz && res->cp_size) {
++		/*
++		 * qcom_scm_mem_protect_video_var() only applies to the SCM
++		 * backend; other backends (e.g. OP-TEE) own secure memory
++		 * protection and do not service this call.
++		 */
++		pas_backend = qcom_pas_get_backend();
++		if (!pas_backend || strcmp(pas_backend, QCOM_PAS_BACKEND_SCM))
++			return ret;
+ 		/*
+ 		 * Clues for porting using downstream data:
+ 		 * cp_start = 0
 
 -- 
 2.53.0
