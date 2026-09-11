@@ -1,83 +1,122 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com [209.85.208.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6760048A8D1
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:58:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789135119; cv=none; b=XrOff0N39dhi+M4P4vzfI4ibrxhtqAvuJNoyWOyKDoKXQ1GeP7fl0UsISVGek+MgiT6MzxSpcY+6xyww/hrQjknOQteVxD9cjT2HIsNJVwasWB/6pgN9Wixl1V2AzO7OE9BAoXQPRy6+0C72RntPbnk7a3PCcKiQT9XnmAXOYkY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789135119; c=relaxed/simple;
-	bh=Ucrjzxqpfp4X0RxFQhavX9EKz22vJZq2UKMEPIe6f9g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EHLXFJf4wYGZOVnabF2ZwgRs2axfeV+ED/p6mPy8kLsiHuZ/gfS7opLmYM4iw3gJIy6hRcMQ+0ZFtzoBnxr8GDrFCCkgr32MGpNXbV2vEMFX2xU6aA3T1ewfkAZ2s+jJ6e4b/we7wroSWB6KCPfFmvY8omjMT8FAj2xQqtCNRII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NfVzDPxa; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA05B48F006
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:58:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789135122; cv=pass; b=VJ5ZfP79BTRB1HExX1JqQvwK5LM5Ad0nyLZcGusc1MqZZ0fYTE6iYBH5zX39EmgaI1D6WbO01Dl+a32KwyH/1E19X5YyYt4liBMyHC/52VHEf1T9oC57+U0WmR3tiAx2bJfFqp844Ornt1Mm2k4nYsjmWkc5bnGtwJseSCwIHrQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789135122; c=relaxed/simple;
+	bh=xDEHxvbeRV+H+3ZnrTLb1ZOhWNi2risnbOgmdwBS5bk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ALMUkc5os7eM89SxYX/5I0nKp3E7bF1tK5z8EI8Gi0wF7Ahxoy6F7Q3XE7z43XNAlYB/GIQD9qKm8OY7caddo5Cch8FJeEPvXqpNM/Kpf2hchiGEmw57IZoFNX2JWGGwChaZyiokN67PC29fALQAaUVz/Ep9IXTpqBNxYDVUu6c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xc0mAi9M; arc=pass smtp.client-ip=209.85.208.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NfVzDPxa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789135117;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ucrjzxqpfp4X0RxFQhavX9EKz22vJZq2UKMEPIe6f9g=;
-	b=NfVzDPxa+2HaxN4dz35Xxk7mxLj7UQWxHFVqSAowZUjc0wBO3Z2bFi5eA34gwsInAmi2iy
-	gi+wdOoDtVH/mtl31GjtQx0F0bCcxRhAekDlr8+7QdgeyV5t7lA2DWANdsrSNbqNj2Z/+I
-	OCaID5qiyRelzDniwsCr9/lLnVfCqLk=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-459-rGFpYru0OHeSWaW6ofrK4A-1; Fri,
- 11 Sep 2026 09:58:31 -0400
-X-MC-Unique: rGFpYru0OHeSWaW6ofrK4A-1
-X-Mimecast-MFC-AGG-ID: rGFpYru0OHeSWaW6ofrK4A_1789135109
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A999918009C8;
-	Fri, 11 Sep 2026 13:58:28 +0000 (UTC)
-Received: from fedora (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 97AAA1800351;
-	Fri, 11 Sep 2026 13:58:24 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Fri, 11 Sep 2026 15:58:28 +0200 (CEST)
-Date: Fri, 11 Sep 2026 15:58:23 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, Hyunwoo Kim <imv4bel@gmail.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>,
-	Alan Stern <stern@rowland.harvard.edu>
-Subject: Re: [patch V3 3/8] posix-timers: Move posixtimer_exec_cleanup() out
- of exec.c
-Message-ID: <aqQI_7mxOJ-CluTj@redhat.com>
-References: <20260911090341.949101445@kernel.org>
- <20260911090541.680668094@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xc0mAi9M"
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3a5921f2a66so8089721fa.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:58:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789135119; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iPdMt0MgsNIhlPIZ4UGwZzDNeFc/sz4D7UchIDELO0KlGOYs/n7XrfHMkcBJnXs3ff
+         8BRAqEE6ejcLY+kLssx1CfLnq95ILcHabocc5NHxFlcHzXWv3QiZsM5JfftoxTuhmXAa
+         c6q93EMbdssuZO/n3Wdcj6s2EMnKr5xaUQKZDRaqXBDw/n+oRPDXfXWxdh61k1Vhbutf
+         7n4YG0NwyOQC5Y4QAqIlHrTpM9Hr35klMbGL/9dXZS//oEt/e8hZFyb5HjTxsPmBfqdt
+         dPFrtDEvBHui+eX/tQjgLIXsGBk3VDlWOM+yGb8cCGTDSVzBekWpYYX8Cv6Nm1DYEPuB
+         buig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qy+0mFYaryQ+eScYF7uiBLvncEmqva9qKNca69Pe4l8=;
+        fh=rMvVVY03m+CtLfl5/KZNaLbl+W4M0Gd/kmWTFGN+2k4=;
+        b=kQTtnZxOHhJfT5mezPq+lY7TS0xodrVNdp/BN3ZtHidE+ylhOuAQqxfR6PfTRvsNfp
+         ocVDql32yLoVgpUrDOEY6wMFp6gbbCb4nybleKXRpoU0ptj624CjfEZfyoTuw/J0nlqr
+         /alSRq4wwtEcbtvPQ0C/RXJFgXaMbFxz6Mw8AnOpYJVsAfQOXTuFI4etQqBuKszdjBSu
+         R04L7wI39WbNn+0dZnEBTdoysx+RkFDEyc5CDL1MQ49RzaY0J/EBCytYUIupT3TIYK51
+         uEm5AzImuGHtgsLTNWNRIZZysUE3Nl8WQyQfJ6qVr+8j6dwve6qEUPsVruFCWCIh1q9v
+         DDtg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789135119; x=1789739919; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qy+0mFYaryQ+eScYF7uiBLvncEmqva9qKNca69Pe4l8=;
+        b=Xc0mAi9M7OOJ1D+QjwjD6pnDoHqBQK0299xq6Umf436oZe+bvTEQYAJ0IgK8W7vqgN
+         IsPtSdNuvH3Xx2ehVwLola7q7y3wF8pBNnhAMu8Ua/0hgBT8SxIpC1tTHsoyMmB3F1mV
+         V45kFYDsmr9Q9wC6KCaKCUhfgTGLCiEXAmZEwRx8Sidp7jVEcvFdlXohWnu03Kg6RGXP
+         BcyP2Hsk2saEbASBDep9R9LUwEu+cNr0OMliKKMcjdaAZYF+6qA8NVYHdu2oywrN2jh3
+         2k6JnB8G3wkD9qAB09ymXq07ZvVAe4CGL4rbk6za+bEh79rCNzJROzN6USmw+Z/j2Gsh
+         7WqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789135119; x=1789739919;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qy+0mFYaryQ+eScYF7uiBLvncEmqva9qKNca69Pe4l8=;
+        b=XxUAIVpThwsG1uU9PBVB4dlDbTBP7YBYQ6Br84trqAUDNQTtGcteRK1ySIMn7uG1XG
+         yQSYYWODpALmgw1ks2wMGn0DFzTr8VxY6wMQhMQoEXqF3vnYHoLBhpbMPe2+WDF5e+hY
+         HVPGSC1SajnvwG5wTMGEOVMLplrt9Qju6MwrZM+WSJ2Mdn8pr2O6EVutw6SOwur+Wtgb
+         hr1fQsygKiKekzrl3FOX4LOlDQv/GxwtvK7juWHx2OGzSz12Zta9WYxxEs3JDA5nxJt1
+         0TNXpyJZm9D6bpnGogHH94uKIWOi3AdtNz3eTb4I4JDsf651G0NrsWULJo+5VXIO/fce
+         dX5A==
+X-Forwarded-Encrypted: i=1; AKwUvBz6nv9wHA3nL0kJcEv6rE5T40Wq1666TCpawids48FAj+2M3ysP1uApvPr4F5LCTn9KvF748TKXSvPU6Ms=@vger.kernel.org
+X-Gm-Message-State: AFuF++mdCLGCkCBECL3Rkwa+tzCCD1MjcOgwHMbNxt8WMdvPu2HW9UFU
+	FUl0jhw9CvwORXOpC8LyZBq6hucOqO7/hSfQZqJyO2TbZoKODA3dJaKjgHQ4o2MHV+OOV8eWk+Q
+	xqcirfEmNJZ/dbhqawHNM4W5szzOIUGg=
+X-Gm-Gg: AYBFou3swGsZ3aFW7lds0SsAp1JMJ9gxg0azueASCahsBxtO9eNeRwH/wHgz8yewACL
+	z7/2RlY6AUBgHBfitvBmauoT9rRRN/fCE4/XBrkJTNMvZdGplzcxybqbWkmR1FVQDKOkr2z+INh
+	0C8Zkqf34d+800icZr3IdEhiXFNwvEZ7RksecBx8kaFE3hgpLVz+fKCdcQZ+35Vw4wcgU1nBkWw
+	v6BSoV1ELByodc4sRVlbMmUGXq2zyH9F8b+PU7HG8bjkrdRmo+WomgxgDxDQibKnDazVaGi2HcT
+	AOcIhUM1ZoGbkmp0HzWZ/wXvPmL/OY/yXUAqF94Ug1gjYNw9RRqLXBn3LTz5EMJsdbkV5b5emZm
+	uhGQvH1fhRUG+hWs4ZYuCJCBqFSV39wC2S9EgfTPV4VfsXDY8x4K9ykU=
+X-Received: by 2002:a2e:a54d:0:b0:3a3:74b9:8a77 with SMTP id
+ 38308e7fff4ca-3a5a51d1316mr5420091fa.16.1789135118445; Fri, 11 Sep 2026
+ 06:58:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911090541.680668094@kernel.org>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+References: <20260909125842.528340-1-festevam@gmail.com> <20260909125842.528340-3-festevam@gmail.com>
+ <20260909164339.7252469b.michal.pecio@gmail.com>
+In-Reply-To: <20260909164339.7252469b.michal.pecio@gmail.com>
+From: Fabio Estevam <festevam@gmail.com>
+Date: Fri, 11 Sep 2026 10:58:27 -0300
+X-Gm-Features: AcwNN1Xun7EaOLsaQG84F5_Fc8OiEmhbwXmVCCU5E7N0Id-pN0oZLYQbqB7PQyA
+Message-ID: <CAOMZO5DfPToSOqi4CW8ETAVkU0RXTr=eyyOqLwkFC8CjhKkoeA@mail.gmail.com>
+Subject: Re: [PATCH 3/3] usb: xhci-pci: Put PWRON_POLARITY on a defined state
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: gregkh@linuxfoundation.org, mathias.nyman@intel.com, 
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	parth.pancholi@toradex.com, francesco.dolcini@toradex.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 09/11, Thomas Gleixner wrote:
->
-> From: Thomas Gleixner <tglx@kernel.org>
->
-> Move it to the POSIX timer code and provide a proper stub when POSIX timers
-> are disabled in Kconfig.
->
-> No functional change.
+Hi Michal,
 
-Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+On Wed, Sep 9, 2026 at 11:43=E2=80=AFAM Michal Pecio <michal.pecio@gmail.co=
+m> wrote:
+>
+> On Wed,  9 Sep 2026 09:58:42 -0300, Fabio Estevam wrote:
+> > Currently, TUSB73X0_PWRON_POLARITY is set when the
+> > "ti,pwron-active-high" is present.
+> >
+> > However, when "ti,pwron-active-high" is absent, its status could have
+> > been set previously by a bootloader or by a previous running kernel.
+>
+> or by EEPROM.
+>
+> Do they bother to put the chip in a wrong, non-default state at boot?
 
+I was working on a hardware bring-up with the TUSB7320, and I never
+saw it happen.
+
+Since this is more theoretical, let's discard patches 2 and 3 for now.
+
+I'll resend only the first patch of this series.
