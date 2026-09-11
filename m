@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D0E4AE8B9;
-	Fri, 11 Sep 2026 18:16:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 237A14AEBC7;
+	Fri, 11 Sep 2026 18:16:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150578; cv=none; b=UIZbMqzSutT2aLT4YPJ2kJPTTg+7QrJtBIvTJmCZr0BLBOhbpn+oruM12sE2SKVgSwN/uViySHzrSIsN/dIIeJIRLKefYp2+SAhpTR5s8z9ddCpt5d9tcsqcI9t9xCh5G04JQx0cXbd4SAk3Eq3smeJcAfuR9eUvfzOQx/yKoOY=
+	t=1789150581; cv=none; b=GNgUHIZ+OhO+QmssRap+1gD5FjjarBKD0+od/ZiIpsNDlS5p3NEwT50Sm0/SsA4mRhFX08xFaRB8jhfPCLTYMbXFv0lO9LF69d6SXoEnv18CkQ+cUEiv9jfLcfBhWb/H+BmYHn2RJ6s0O0Tfe1I2bMUuEuuUzUVzSMe4iTwjf8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789150578; c=relaxed/simple;
-	bh=GRy30mPrKsmZqYHkolwR0BH5LGcF8NucrorcdLX3O0U=;
+	s=arc-20240116; t=1789150581; c=relaxed/simple;
+	bh=17r2nWJ5mCq+EFjYU2BJ5Lxcj5QjpWB7Y/ORj51hwCo=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=QSe5MI1QysgnQQn4n0O7VI6NcuOYiq/avrnzv4SbR6mtU3jt27PAJnMTX+aZFyOlgeuPnGyo4FeKmyjbbK0bB9SKJIHnxVMsOHIfeNpC6KfUW1D5CEEsj2JH+hHxo9uFyuY85QVEANNQvuj7R1duCbSJuI0gmyncAE/LaLuj6e0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OXSREkg0; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=NRZdbK0N9wuXzHO5GlbvEdz2lTAsdzFh8GvBHa6y+p7xtehiGrZFliWnu3wZ5k1/6NxkL1XYZ0FODzxMp+uQfKKsXpgPw+A/mglap6zBkXrEVS9sOy7RJAInkPoCTeaHsjisdbKa6VZM03wJATz/uz1K1V2De39GzKrn2J+e90o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JSFKPLhk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OXSREkg0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3AAD1F00899;
-	Fri, 11 Sep 2026 18:16:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JSFKPLhk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FCAD1F008A1;
+	Fri, 11 Sep 2026 18:16:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789150567;
-	bh=7CZ9L8vKur9/k1BJWSUjY4fdFdddK3Rscatnfc5pQ8I=;
+	s=k20260515; t=1789150568;
+	bh=BWMk4V8JLtyQmWkVA48S35Mwq6afgptAi/twnA8Jxz4=;
 	h=Date:From:To:Cc:Subject:References;
-	b=OXSREkg0AZI0Kl/nnS6/ciSvNz6KMtLxndFov6cJHpsnIGDjDzWOUGvDWd7NxpJbl
-	 /50o5ydviGLeeoARrXaZYoAoH/tbwLyUpB+1rulpFsBtE80sr+PCMxt1MdiGWTQI4B
-	 oTMXQAbZDRwXbAmfMWTrf7Rk7VyYCfisbc50svz4XyZ2xpAtfE20HWMwuwn/OoECSs
-	 TgBaA1CYU7syIUUc2HWlTFoVfYTVajWN/GgzkSda6xCvnbJUpw0o3FtREnOd6q5o3r
-	 enii5JB6EOVBTPX45Ph5qA8zCxz6x4AKjC4/HYQw2KauWN7qOrmlSkHLmsUyL7kcDl
-	 s2n1ZhHD4zNHg==
+	b=JSFKPLhkBB0r37eFZZGUgSyuyzBa86OvECJQDaWSujNS1+gsNzYXLpKHM9nfHOvzM
+	 3O+UyPXqW3+5ZhSWg9iQnG8nvcudctHWB+Zqrt50jr8fKX+uceKLF0IpCbTTZOIdJl
+	 tGDZ5PxeyddlEaB7MxMWZcEVoL6Uv66GzGlT2D0x9jKHvgVSTzXm5snC/92dpWFFe+
+	 kNSqvXZ6j/0K3ZYQBMcn5zF9GiSXKeZhPVM2Gql0D3pEmKr+d+iXL04Hq2KFQjGCdH
+	 2EQKP2rTwH8uT9z9d7OwtV/IEo7+4ZxeJ6aqVcK5sI2sZI6+7Hw8xllLBz26EzPj94
+	 8ERuY5lWJravg==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1x55oX-000000094xE-1gnj;
-	Fri, 11 Sep 2026 14:17:29 -0400
-Message-ID: <20260911181729.202464280@kernel.org>
+	id 1x55oY-000000094zU-0s6e;
+	Fri, 11 Sep 2026 14:17:30 -0400
+Message-ID: <20260911181730.028349834@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 11 Sep 2026 14:16:41 -0400
+Date: Fri, 11 Sep 2026 14:16:45 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -41,8 +41,7 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
  Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Subject: [for-linus][PATCH 05/20] tracing: Free histogram var refs regardless of how often they are
- referenced
+Subject: [for-linus][PATCH 09/20] tracing: Let histogram values keep the percent and graph modifiers
 References: <20260911181636.485043797@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -54,93 +53,68 @@ Content-Type: text/plain; charset=UTF-8
 
 From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-Using the same variable three or more times in one hist trigger leaks the
-variable reference and its strings when the trigger is removed.
+The .percent and .graph modifiers exist only for histogram values, but a
+value carrying either of them has been rejected since v6.3. The example
+in Documentation/trace/histogram.rst,
 
-commit 656fe2ba85e8 ("tracing: Use hist trigger's var_ref array to destroy
-var_refs") made a trigger's var_refs[] array the only owner of a var ref:
-destroy_hist_field() returns early for HIST_FIELD_FL_VAR_REF, so the field
-expressions never destroy one. One entry, freed once, no count needed.
+  # echo 'hist:keys=prev_comm:vals=hitcount.percent:nohitcount' > \
+	 events/sched/sched_switch/trigger
 
-commit 8bcebc77e85f ("tracing: Fix histogram code when expression has same
-var as value") then made repeated references share one object and added a
-count of them. Only the increment side exists, since those expressions
-still return early and never drop a reference, so __destroy_hist_field()
-sees how many references were created rather than how many are left. It
-frees when the decremented count is 0 or 1, so two references work and
-three or more leak.
+returns -EINVAL.
 
-Sharing kept one array entry per object, and create_var_ref() searches and
-appends within a single trigger, so nothing outside it holds the object.
-Removing a trigger whose variables are still referenced is already refused
-by check_var_refs() with -EBUSY. Drop the count and free unconditionally.
+parse_field() sets the two flags only when the field is neither a key nor
+a variable, that is, only on a value:
+
+	} else if (strncmp(modifier, "percent", 7) == 0) {
+		if (*flags & (HIST_FIELD_FL_VAR | HIST_FIELD_FL_KEY))
+			goto error;
+		*flags |= HIST_FIELD_FL_PERCENT;
+
+__create_val_field() then rejects a value for carrying them, so no field
+can reach hist_trigger_print_val(), where both are implemented.
+
+commit e0213434fe3e ("tracing: Do not let histogram values have some
+modifiers") added the check after a value with .buckets oopsed in
+hist_field_name(). That happens because .buckets and .log2 make
+create_hist_field() build a nested field in operands[0] which
+hist_field_name() then walks into. The percent and graph flags do not
+create an operand and are not read by hist_field_name(); they are only
+used when printing a value.
+
+Stop rejecting the two flags on a value. The check for variables is left
+alone, where they are unreachable anyway because parse_field() rejects a
+variable carrying them first.
+
+With the two flags removed, the trigger above installs and prints as
+documented:
+
+  { prev_comm: rcu_preempt  }  hitcount (%):   0.00
+  { prev_comm: init         }  hitcount (%):  99.98
+  Totals:
+      Hits: 237896
 
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260906124025.3550596-1-donggeunyoo.kernel@gmail.com
-Fixes: 8bcebc77e85f ("tracing: Fix histogram code when expression has same var as value")
+Fixes: e0213434fe3e ("tracing: Do not let histogram values have some modifiers")
+Link: https://patch.msgid.link/20260907052113.430818-1-donggeunyoo.kernel@gmail.com
 Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_events_hist.c | 16 +---------------
- 1 file changed, 1 insertion(+), 15 deletions(-)
+ kernel/trace/trace_events_hist.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 963e0d6b61fd..f90680b33a37 100644
+index 8d80562fb502..5e00da2d5b1a 100644
 --- a/kernel/trace/trace_events_hist.c
 +++ b/kernel/trace/trace_events_hist.c
-@@ -169,7 +169,6 @@ struct hist_field {
- 	struct hist_field		*operands[HIST_FIELD_OPERANDS_MAX];
- 	struct hist_trigger_data	*hist_data;
- 	enum hist_field_fn		fn_num;
--	unsigned int			ref;
- 	unsigned int			size;
- 	unsigned int			offset;
- 	unsigned int                    is_signed;
-@@ -1913,16 +1912,8 @@ static int contains_operator(char *str, char **sep)
- 	return field_op;
- }
- 
--static void get_hist_field(struct hist_field *hist_field)
--{
--	hist_field->ref++;
--}
--
- static void __destroy_hist_field(struct hist_field *hist_field)
- {
--	if (--hist_field->ref > 1)
--		return;
--
- 	kfree(hist_field->var.name);
- 	kfree(hist_field->name);
- 
-@@ -1969,8 +1960,6 @@ static struct hist_field *create_hist_field(struct hist_trigger_data *hist_data,
- 	if (!hist_field)
- 		return NULL;
- 
--	hist_field->ref = 1;
--
- 	hist_field->hist_data = hist_data;
- 
- 	if (flags & HIST_FIELD_FL_EXPR || flags & HIST_FIELD_FL_ALIAS)
-@@ -2223,10 +2212,8 @@ static struct hist_field *create_var_ref(struct hist_trigger_data *hist_data,
- 	for (i = 0; i < hist_data->n_var_refs; i++) {
- 		ref_field = hist_data->var_refs[i];
- 		if (ref_field->var.idx == var_field->var.idx &&
--		    ref_field->var.hist_data == var_field->hist_data) {
--			get_hist_field(ref_field);
-+		    ref_field->var.hist_data == var_field->hist_data)
- 			return ref_field;
--		}
- 	}
- 	/* Sanity check to avoid out-of-bound write on 'hist_data->var_refs' */
- 	if (hist_data->n_var_refs >= TRACING_MAP_VARS_MAX)
-@@ -3276,7 +3263,6 @@ static struct hist_field *create_var(struct hist_trigger_data *hist_data,
- 		goto out;
- 	}
- 
--	var->ref = 1;
- 	var->flags = HIST_FIELD_FL_VAR;
- 	var->var.idx = idx;
- 	var->var.hist_data = var->hist_data = hist_data;
+@@ -4299,8 +4299,7 @@ static int __create_val_field(struct hist_trigger_data *hist_data,
+ 			goto err;
+ 	} else {
+ 		/* Value */
+-		if (hist_field->flags & (HIST_FIELD_FL_GRAPH | HIST_FIELD_FL_PERCENT |
+-					 HIST_FIELD_FL_BUCKET | HIST_FIELD_FL_LOG2 |
++		if (hist_field->flags & (HIST_FIELD_FL_BUCKET | HIST_FIELD_FL_LOG2 |
+ 					 HIST_FIELD_FL_SYM | HIST_FIELD_FL_SYM_OFFSET |
+ 					 HIST_FIELD_FL_SYSCALL | HIST_FIELD_FL_STACKTRACE))
+ 			goto err;
 -- 
 2.53.0
