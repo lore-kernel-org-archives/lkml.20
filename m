@@ -1,170 +1,145 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011016.outbound.protection.outlook.com [40.93.194.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F0483EC2E3
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:42:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96C8B3AC0D9
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:43:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789134146; cv=fail; b=i4ctYeQrBoKzLAgQLI1V+nesZEVsxAuYonG9/sySfEhWeoY9kT15p6MdYF4ZhExYSEdWBpXAycqZnUHcorFkYnst4UezD2ebEvNEHfL3R8EwI2lSylOUN9c4qHXNz0B3bWZrfj1AuQUhN/IGFJwsbMglRsPEwCAjYKqtHg6Q6EY=
+	t=1789134213; cv=pass; b=OkR4Y5TjomvJbZDYeIh97BRn3SU5pWTYa56g97cLKfTb4tIdbvlIfErdzIGOtaYgFP+r4QaGMoKt0ir9p/gwtwESOVW92gJgl7yZ7kYN/3dPbZElP9tq0LACRDGG4VdIVGgGAG1s4GnJpAkB5XZdRCA0u1Q/8AYjMTFZGG7jmwk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789134146; c=relaxed/simple;
-	bh=zcohdgCwN+pELBQwUdNsK9a6Hxi5Y60y35eHrTZswYo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Wy3i5YQLGTjlr2VTSGcZtB5rFFW+AwG/aLHjrcvsyhVOj8NI2mn5YlmsL2FS6EvYGioGBc33FKhGBjshvPPo8UW8ir9jpxVF7CmyTwvqYr5ItJg5Jg846VfBTtqei8jkXvzo+pyYDNOlEWHTrt/SYgcHtrBUVXuIxyMTHsssbgc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=QidJTSJt; arc=fail smtp.client-ip=40.93.194.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1789134213; c=relaxed/simple;
+	bh=qqONGiVmU3Y+JSEn4qygivSbxUuzyWx0IT02Btj63eI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iTKzp99AJBvLVC5U3WuPWhm9K27gfT4+rwSM7lSrJdwc/11vToIc+44MfOfopEgmtHhYfoPQW9mR5r37rMze4P9u1tGe7a78QYe9Be0DaK2PD5guPgyMIcxj9EyzI1oZ3ayNJFIr6imgBhOSoNWhhkloz2p0DYj8uF45v1VxtK0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ehf9dS9K; arc=pass smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="QidJTSJt"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sRIGKa6C5ZNrv/CzJ4isUtKj1aKqep75smLIvaVx2vI0Q80ZOmf0BGXnMU9u+tylSKpM/f+WVhWUMLoogLIKbrCYZ3Sur8tYplwwx0/FZsz28gZSuXk4YTdvGOWM+0FBySt/HryvWauH9lQowZKIHrOmhAMJHj6s7jEFwsKz15QFgIJwn9vP72mcfzTGKPfKyF2ODj4IONsuZKpRSw1XUqhxyRG12+zFZEvX4ipbx3pcFndLhkvV+HO6KU2DMQHR8MDIdaPGhnRmA/Or/gtfsEc8B7zlnI7BQPKy33gxp1RTuN49KC+ucnB+hcFAG86nHN8B/Hm31BXOejyP1LFHEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bMAI+SbYDx6ovxIjWeKokhwtii2FEZCj0WbJDczSE2g=;
- b=vDaPLzsXdJNnTDh/DcCSRDApNtoBOHkSFPoo5wdMjl6jT73dZ6ePyv0fdwJaJ++/MX23zT4GeJpW10nqcs21GLpYxKdCURErTh7QeaYeGfQkr+4wwpz7Rk1mKi3PlG1oKjBpCwRpfeSvSU++YtLhBp+SnM/4XRr6dzfyti2dM89Gio9AueZr51g8Qfcp9u6m1DdMb6cYS55HajyyOaM3AtniSGchE5T41gnEQ4szosR4kP1+OV5pNHWtnFELy/6xVJGn3Qzifso4bQM00A8BeWPVo6w6pCX6Tr4UYtu7jE8zp+oG89KVKjuhNS0SKqFUltpH1oHvWs3VSiQDftXbNQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bMAI+SbYDx6ovxIjWeKokhwtii2FEZCj0WbJDczSE2g=;
- b=QidJTSJtCiAG/weQJB9kqbh/m+agpjA5cRsOERow/hqDp99mEwsR+byJ/bA41q9uGEKINv8c0i8AsquMtaFrppA7JJJmhvcg4SqpF20ozgS/UH1aNUDHiFXiJSTwWzElJbCmPiE30NxzvyeYtJP0JgIMOGO35gdeF+qEsROtqdk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
- MW4PR12MB6849.namprd12.prod.outlook.com (2603:10b6:303:20d::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.10; Fri, 11 Sep 2026 13:42:17 +0000
-Received: from DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
- ([fe80::af35:a7a6:6ca:7fcf%3]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 13:42:17 +0000
-Date: Fri, 11 Sep 2026 09:42:09 -0400
-From: Yazen Ghannam <yazen.ghannam@amd.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: "Serge Hallyn (AMD)" <sergeh@kernel.org>, x86@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] x86/amd_node: Fix PCI device reference counting in
- amd_smn_init()
-Message-ID: <20260911134209.GA2018031@yaz-khff2.amd.com>
-References: <20260903154325.74343-1-yazen.ghannam@amd.com>
- <apnMZINAYLpwkcS2@shallyn-amd>
- <20260911030303.GCaqNvZ3QRcCLSmzja@fat_crate.local>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911030303.GCaqNvZ3QRcCLSmzja@fat_crate.local>
-X-ClientProxiedBy: BLAPR05CA0020.namprd05.prod.outlook.com
- (2603:10b6:208:36e::23) To DM4PR12MB6374.namprd12.prod.outlook.com
- (2603:10b6:8:a3::18)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ehf9dS9K"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49b965570d7so11607355e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:43:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789134210; cv=none;
+        d=google.com; s=arc-20260327;
+        b=auue1a1YGsRvy6y29gmdRKR6ndv+LwLLzguQ9H1F1Prm+/3xR7Io7dwIYHRCOh/Rw7
+         Ky5BjIIv17tXNOTYXTiJ4lsgBtgn2t7+1Fh5QYaX7uLS4c2BpFCxT3zb1Aj+OElcgvLY
+         3zQ7L1M/8YfOXqwURhs6HLmLwKsTQuEfzAmmlDKjQnXsyE285gJulsk0H9TFGG5ecuDA
+         0ge21+6vjSro0L1OI7mmunrs6OrnNNjSOYYoIgR3RHnBGe88zCwjAp5CRAOuCXV4tqPq
+         NC/Pr0Bw5TlojhliRjCBws86zq7N5sUnk+zrbZmO90cT5ZOl4CyrYR5/UM3LtTnfEmm7
+         YK7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qqONGiVmU3Y+JSEn4qygivSbxUuzyWx0IT02Btj63eI=;
+        fh=oNZan264vw6aJ4TVt9AnuDlGsNfFBvHsP1qEnzXCfRg=;
+        b=GQ/IgtI71Xkj/EKVG80grPAYaObuxLN2Kmpm4gxZFJLo6ooQJWajp7rXx/+Mv201Yh
+         +UcwkJwWl78rzo1xAamkuZiVdgHRMmkeMPVfeZmfSLF1q7h5WfDvpvgkXKeGSZ+1NR/x
+         ovGfBvixs48f+02dUYG1DJzTn+Y9kCLYsa9WvDKDmewkP/HyQL4gv3MzBaTlXT7NYDgs
+         rB7dtgiXjeVZ+TOkFFcBHWRvqe9pQI7zgiKJF2UPoXFURibXmHPV+ROgGq2PjnJdbKBq
+         +9NYd7BT8Faus5WsIdqMMpSFHPA3S3jDWXaqkp0SbEb/LCrjuSr24lfdJCsSs2BGOX2k
+         xoRw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789134210; x=1789739010; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qqONGiVmU3Y+JSEn4qygivSbxUuzyWx0IT02Btj63eI=;
+        b=ehf9dS9KBtz8dLPV1eOtxc8kmJv+fOyIVW2ZdO06596kBMMRx/tyUK2lDgVQgI5M/c
+         SSpBMb7uUs4G1u34797nfCD7P+9zLvxXZxAHnuR56Buv7tbMHFhU+KXC31bwb8LxfuHW
+         8rSFo0UCiOxET6/EGYFoQmdn13E7BSnpGDUmtBh5eTd4sQzXsa+4KMiX2L2pwFInQmBd
+         XbtYZ8PflSCvO08pB5VAXZaYQ3wTj5HZ2Hp+yRGmtaYxRkpKM8QUHwvM09P+tJQDQK9v
+         QG0xK00MrU/0875Gy+xMQiBhNe3qdsPJOLSKMbDDhT7ODGKOfLVFvcBzJ0WilrEwQq0E
+         IdaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789134210; x=1789739010;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qqONGiVmU3Y+JSEn4qygivSbxUuzyWx0IT02Btj63eI=;
+        b=Z8ljdySSUTHpG1MFH5rVYCVYUppnDVbIP2LKJOBTKHKXxHBnBzrIUai46gsymjrIdv
+         fQMOJM3XRv5zyNngX75oBL8LFMS/5XgaSceJ9PL0gwPjf+i15x3Vy437OTmp2p1iSu+8
+         +OOMam+rspA/sXISRtoJSGtSE9y1mgK2W4ls4tEvLQVHAehu991jM/LvlbrBTlXdz2zN
+         VMAxQ8srJ0mhIG4KaFDpCQ8gWwsnkxmhPCLM3An0qnuQNfGbWD/konO/FG7IKg6nxlT2
+         eRgfMQQHAgwXvsl6bjY/FKPMlXGC5JJ7LPfZCZcmJP9blo0vjiYTS7N8zQEYrCvdGG7T
+         8VFw==
+X-Forwarded-Encrypted: i=1; AKwUvBwNpfP45ByRPZNpAtswto5e/qgO1rrPGIWvOpOPnGubF30bnFLsflXIfnRjV5n41bTfNxN42pLpKyo7VDQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nEtp+rOkl0iOfZiSQD+5PXhvn7gUeDKZpeZcHjsvWpF9aby+bd
+	eAj6L8DUHEKCOv8hxq51jwzcjNXOHnGPMtG2JchA2SKchC1NP8pbW3Pr/dRMt3v5oE6fYYZnfw/
+	V52sDCt1w4TVZCBeIHd364b+/sCe6XvkKgIXrdCnp
+X-Gm-Gg: AYBFou3lgGDRCGKlXFn3zBD7ke2TQDNxXyNQJpn6mSXBPY2Drfn3vghvZkoGRe+wR/I
+	cw73J7YYkt1U4HxvuXTjhlCMfpHmc1ggGYUIKEabvQpATzqtmwmFcU7QP1pvWgqmtwRnA3Y1VKF
+	lU1XNYB163U3fzfiHtpw8xpbeSFi60Pc4na5EWFM3ExNDu2LcJ7wsQZVKdSuI+RxLWjPuENpYvC
+	cWEae+flQJtZOW6Y5Q/t8CVLHYhB+6CoWvrqFuJyh7J51OeGPpCXPGyBUmwrebwBAHuTukHWacE
+	U1d4acPnMg3WfinQtka1hsCAWNCACsuDaaGpBomGkiMUJUfTtzNh8DW1AZaYlgxM9uWuZU+eJB7
+	ASTdLOFSZ6Cdplhu77LY3cPvrW64ks+ZMAvOAXCpJg3o0chdEdKyy
+X-Received: by 2002:a05:600d:8445:10b0:49c:cf18:494e with SMTP id
+ 5b1f17b1804b1-49e6198a3b2mr36939915e9.12.1789134209249; Fri, 11 Sep 2026
+ 06:43:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|MW4PR12MB6849:EE_
-X-MS-Office365-Filtering-Correlation-Id: cbaf8d7e-2ac4-45e0-c594-08df100a7eba
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|22082099003|18002099003|4143699003|10067099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	yyazC7T712XwOQBm6t9XViLAhmpR73lqi9MaZrMIMVGrfyqYF/2IeI+x1HgHEypYTXkvaPcVACkJrbMugKgzUs2N8vUMuwQq9BTciGPGr4CVkBAirv2U6kOaR4t4PLtSkwsYdsRk+gwrR/uy+clTggcOdBDt1BFrkKeHtuRbX6btSHlDGGiaYVDDbZVPWVjCrYXyKR1dkIdXa/HP5dAGZPrBI+Ii01DHP7/uahziz1dCBautqvS87MQoiq5Z4ybaxieXmm2z6vmF0mUUZIRGqza7/uKzUMP45YRCSbJXqbuMMxKIE/nYR1WqyFN4rIIWzKa5F7da8J4/BoQOXBdcTHIb49KTamu7DZEYmqoF72QQ8cxOrDHvgsqpHTiehhqVYWU0RsKODltj8Fy6nOqwumZUnnYr3lfESNgGYN+Ghd0oE3SinXL9Q5EreEs9XEqc+HGm3CG6DvMRHSMw3T36MezTl2M0cMF58KX5fBUY6Zk1TVOFy4rdNlmICV3XCXAEmxvORmVrMdsUZnlRmqMM/26Wtv222ZXdH7SQFD0qbTwSiZqWEElyf4+LdpNIjz/WxlIjZ1CvX1jEYr0U+yazafxvqN5xavmmJmH8PJsSrew=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(22082099003)(18002099003)(4143699003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?o+Bcl0kGgipqe5IgOvGIpQqDVpMDJoKW7bDJJ5d4qK3FXZG+cujTEJ6gDOc1?=
- =?us-ascii?Q?W64Rh2O5pYyfiosTAg/6lMk+0BtaG4qm9PfvoE6bAa5l/gpgtq18TOB35wqR?=
- =?us-ascii?Q?TdhEpVF2UbZz20kd4Xpa1ApARP6MiXfIk7ptdrCq+K20KXNxzpZ+7KPzo+6+?=
- =?us-ascii?Q?5QgkBJV6JI35512eNsjAOUrsDeXGicE+dj15IJN36vNhvTLI0SwOtjhlh4uL?=
- =?us-ascii?Q?VaSRebpDa3EdvXA6Q3Le2MJwaPYanUdx9FI/r3pOr5ZH/mXwyz44+7B4rv/h?=
- =?us-ascii?Q?7Sm/nx1QTwxpIFh96ej6V33il2T4y5RMbTw0iT8Frng5yHrUu7l7MP1qXctZ?=
- =?us-ascii?Q?BTZxMgQOFvlUy+Y3crswPZ0czGuTV2ZWIQLDMJUO28tI7u4/yDdOfl0JwPjd?=
- =?us-ascii?Q?U3mmObScBuO+WgBh0SxVV5p/YJ9lFzEKOLf2aWrlkNuQEGdkN+Y3V0E25+Yy?=
- =?us-ascii?Q?1Hr36btkr3FjKzj9rQISgwyAA76mbsIrtQTIBcnHbydQ5+YtAqWnKDA/fQP7?=
- =?us-ascii?Q?iLezzp8m1dqX9JDH7cRd8/5vxLhObDGkrjxyQUB/U/ZrgX9AUaUQLVsmHgRG?=
- =?us-ascii?Q?LeA2X+jiDTuD0x+c7/ygVqXYQftyGYw5k2ptI0aZFH0KXXxbtMY4y1vCs5wH?=
- =?us-ascii?Q?g5yIL6rDgpXSklgalUpPG6k8CV39OACgJ1QjpNS5ip4PrQTqXzpMHb0nucNL?=
- =?us-ascii?Q?sGcFvZijisCZ46DqYPiB2dTYyibaKrr4OlM5p9KXGhAxbPIzIedp0FgmvdRq?=
- =?us-ascii?Q?u0jLnOF4j5AX4Z9H3YxxqhvGzig6cf6TfbnxCI/dJAvme0GPxeFFOx8HIbMS?=
- =?us-ascii?Q?4zsNJ7AOrHnTqrupSqWUgwCo/+Z2DbCoA+HCMJH8kJI5Est3eknq3raLJswJ?=
- =?us-ascii?Q?a/xLjJWiwk0FiYdWlL15e0l//1OWvdRqfeycpCr+kiRgJpj5sMb2s9+23ZRV?=
- =?us-ascii?Q?UgEpD25ea8FH4uv8cx2ACNgMkwepSc1Qz7SOUh6jQSLBPXoAYJHjS4PW20VO?=
- =?us-ascii?Q?O3H+9Shl5G1v+YQZPy6xYMdVk9uvEdzh8PDQ3jJfQ6bx6JeVzq1mXH4dW+cF?=
- =?us-ascii?Q?lnrDo8LetpZnocfO8UsndLvZ9gzFsFN0BA69UYuqPWrQq9URw/b+VqmRwsmn?=
- =?us-ascii?Q?txJW5+vos5s3gOtOnqn/5CMaIWd4rbPj7c5Z30GgH3YouT8FsvMOqwKoNd/3?=
- =?us-ascii?Q?wmoR1D3RAgzxGLMt9BZO9azSxUtbVNHB/32jKO32i5ipOqWEWeZZouKQQCK0?=
- =?us-ascii?Q?Vf9kc16D6AcH1InsT4zbmjq9CDUGShAZWROlvsgWNe+w1b54sWiu06sjzAVf?=
- =?us-ascii?Q?lT1n+zhb/UqSMm99wPVtjRUPpQMwQfuAocWwHPQeYdA11TulGXgL8oyVqoU1?=
- =?us-ascii?Q?EF5W0xcKG9TIeoAzhkwoD/aqK9xqF1P1BEh+u48G9RSoRdHPufQVeuYaDLBX?=
- =?us-ascii?Q?X2fX5eVNxvGNQ6SnaYyPavZIXZPtQJsJ7Gw2+b7Fnn3xEJ+uP2knoEWL9sJZ?=
- =?us-ascii?Q?2TJvSYph5WEyU92GwERNdhg1i2qGCnK4BCjLQBz8JeD339kideWD75z6+Mny?=
- =?us-ascii?Q?08OTXdqIJCT+IDEV/205yh6N7xTDGeKGBbTcdebzhqFHYFIlTqglJioYMgtM?=
- =?us-ascii?Q?+gee9cCsH1dwfYOsQKEiNrUc9ONN0I9aDfooD+PLBkH/vwaLIGCKPuJOVh5V?=
- =?us-ascii?Q?7sKrqz3EmMCtYSOStRHBDG50W4z18Tr9voVOKTPoK1X609yb?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cbaf8d7e-2ac4-45e0-c594-08df100a7eba
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 13:42:17.3260
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JCzjzvirBsbM7Sat6RbzW4QsQFEi359vnRA9F6DNtJM/qWcPVmkbmAOyINwW9Osw7S289sKgs3qcmpYXeiAC2g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6849
+References: <20260910-unique-ref-v21-0-e83257373062@kernel.org> <20260910-unique-ref-v21-7-e83257373062@kernel.org>
+In-Reply-To: <20260910-unique-ref-v21-7-e83257373062@kernel.org>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Fri, 11 Sep 2026 15:43:16 +0200
+X-Gm-Features: AcwNN1UlYe5vy_4Ph8n7W5xph6nzuuUOW4o-tvYKznIiNAx0UgbfO_rFNfVUhuY
+Message-ID: <CAH5fLghC2qRh8qNmMHMWQXiWW9FAPdd-O4z-O-17FFDB3hy=+A@mail.gmail.com>
+Subject: Re: [PATCH v21 7/9] rust: page: convert to `AlwaysRefCounted`
+To: Andreas Hindborg <a.hindborg@kernel.org>
+Cc: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Lyude Paul <lyude@redhat.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	=?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+	Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
+	Carlos Llamas <cmllamas@google.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
+	Paul Moore <paul@paul-moore.com>, Serge Hallyn <sergeh@kernel.org>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+	Igor Korotin <igor.korotin@linux.dev>, Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, Michal Wilczynski <m.wilczynski@samsung.com>, 
+	Ira Weiny <iweiny@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	=?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+	Philipp Stanner <phasta@kernel.org>, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, driver-core@lists.linux.dev, 
+	linux-block@vger.kernel.org, linux-security-module@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-pci@vger.kernel.org, 
+	linux-pwm@vger.kernel.org, linux-usb@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 10, 2026 at 08:03:03PM -0700, Borislav Petkov wrote:
-> On Thu, Sep 03, 2026 at 02:37:08PM -0500, Serge Hallyn (AMD) wrote:
-> > On Thu, Sep 03, 2026 at 10:43:25AM -0500, Yazen Ghannam wrote:
-> > > The local "root" pointer is a temporary variable used during the device
-> > > search. Therefore, refcount related to the search iterators should be
-> > > cleaned up after the search is complete.
-> 
-> Ontop of this:
-> 
-> From: "Borislav Petkov (AMD)" <bp@alien8.de>
-> Date: Thu, 10 Sep 2026 18:43:33 -0700
-> Subject: [PATCH] x86/topo: Initialize AMD nodes per package
-> 
-> Sashiko reports that
-> 
->   If amd_num_nodes() evaluates to 0, kzalloc_objs(*amd_roots, 0) returns the
->   truthy ZERO_SIZE_PTR (typically (void *)16).
-> 
->   Because ZERO_SIZE_PTR is not NULL, the subsequent check for !amd_roots will
->   fail to catch it, resulting in a divide-by-zero kernel panic on the very
->   next line during the __init boot phase.
-> 
-> Make sure topology_amd_nodes_per_pkg() doesn't return 0 - the AMD nodes per
-> package count can be trivially 1 if detection fails just like the rest
-> of the max* and num* packages topology attributes.
-> 
-> Closes: https://sashiko.dev/#/patchset/20260903154325.74343-1-yazen.ghannam%40amd.com
-> Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-> ---
->  arch/x86/kernel/cpu/topology_common.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/x86/kernel/cpu/topology_common.c b/arch/x86/kernel/cpu/topology_common.c
-> index 6845e3c63fbb..7a7442981594 100644
-> --- a/arch/x86/kernel/cpu/topology_common.c
-> +++ b/arch/x86/kernel/cpu/topology_common.c
-> @@ -14,7 +14,7 @@
->  struct x86_topology_system x86_topo_system __ro_after_init;
->  EXPORT_SYMBOL_GPL(x86_topo_system);
->  
-> -unsigned int __amd_nodes_per_pkg __ro_after_init;
-> +unsigned int __amd_nodes_per_pkg __ro_after_init = 1;
->  EXPORT_SYMBOL_GPL(__amd_nodes_per_pkg);
->  
->  /* CPUs which are the primary SMT threads */
-> -- 
+On Thu, Sep 10, 2026 at 11:01=E2=80=AFAM Andreas Hindborg <a.hindborg@kerne=
+l.org> wrote:
+>
+> `struct page` is managed by a native reference count, and kernel C
+> code routinely takes its own references to pages, for example when a
+> page is inserted into a VMA with `vm_insert_page()`.
+>
+> Thus, implement `RefCounted` for `Page`, backed by `get_page()` and
+> `put_page()`, mark it `AlwaysRefCounted`, and return `ARef<Page>` from
+> `Page::alloc_page()`. The page is freed when the last reference to it is
+> dropped; for the order-0 pages allocated here, this is equivalent to
+> `__free_pages()`.
+>
+> This also allows `Page` references to be returned as borrowed
+> references without owning the `struct page`. Remove `BorrowedPage`
+> and update users to use `&Page` and `ARef<Page>`.
+>
+> Assisted-by: LLM
+> Suggested-by: Alice Ryhl <aliceryhl@google.com>
+> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
 
-Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
-
-Thanks,
-Yazen
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
