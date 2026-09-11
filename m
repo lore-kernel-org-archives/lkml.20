@@ -1,63 +1,63 @@
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED75632C8B
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:18:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D901A6809
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:18:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789085917; cv=none; b=AZTLyLYBiSSnTlM6xa9DttB4aAqPXeuTSFJpqpMoQ90WurIxwvrhLKUCxSNFL/H0Qgti1Rlxc77FbmeIUTmABvlk2vTPWxaOdD4t0tbqa7Ary/cyaGmAfGt5wSBkfUrf/l/yJpUHn5qkD+OLtjwhs3SA+H2aVD+YQOqV7iFITbk=
+	t=1789085919; cv=none; b=Pl7lWcEBaCrEX6GIQGWO9cVJ9CwuEfPSlWWyR0UNu1M+J0pbg8hPb7NScOuNsDilu3GFzFZZFXCHgFDRgQaCkgvOU50Uc7l8vM5yDeX64IfObxwk+dSDYay+XmDyH28FTgq6E9zZznica/ODK5yFLhrm6kUQLhnciqhVDCLTI7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789085917; c=relaxed/simple;
-	bh=Jljp3ztDhFP6O+PAfvk83+8GLPXNCVYLh8IZWY/KNiw=;
+	s=arc-20240116; t=1789085919; c=relaxed/simple;
+	bh=tJeL+TtL8fcQ3ySRpIEsJeq0/SmJ3J8dhXSj75dUeBQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dtHpwTsqkq6n+Ba76xOavZXrJ0hLfqbWbiNvV78j+pA2muecr7fcIcL1kJ0g18L67iw5bNxjGFx1bHBTSab+UaQ1NrHI/7SJwvwon88y10d6SdOPXKIXW/SzYmuMyW7Y2GQvvdqyz7ms9+WOrnmY5ijQpVID++X55QqFfqXy1vM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=s2N61fim; arc=none smtp.client-ip=209.85.222.181
+	 MIME-Version; b=Z6Eq6xmDd6Rmp00rAYA8gjjA5LpyM2dDZKxYxs6Gw5qLHwrai1WUj2b2R4QDszhrx8FGEuI8vqMZcqeoLsKWgZJowKAOraV1r17gj+TB5pVw13QBKz9SQQ9chdJRAeXU/BIUe0WdIT23qQxU7FjxocBzvfBaFyEm2kGGNWGiE/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=XXe2jlVm; arc=none smtp.client-ip=74.125.230.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="s2N61fim"
-Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-9309d4ea213so34380985a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:18:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="XXe2jlVm"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910cadeb4so40201085a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:18:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789085915; x=1789690715; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1789085916; x=1789690716; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XlfoGyQgrNSRVIxWxP7qSy7UsF5M3AH+3KUxqb60W44=;
-        b=s2N61fim4h9Hyo1KG80u1cKEqeKti0m5D1U0+FTkwcCoc7rOkZzPPx6Pty7Jjojqkf
-         xmzAC1oIaD/AvxQJQI5isg6B2kBJ7OhwYUiDyzjq/NtY5z8LghxbWKFg2lZUQsF+3dHX
-         noFPRbxcoFRvL5jmnafdtrWxWG/eK/JYj7bSWnLWfixKDAotQyoK0PebTZxqnI9Ll/fv
-         /8wTWgTHzPv7zyDfhFcZWXoxHYsnAwCyR3wYgUsq95SIVJYKb7EzOBJ0wWAV4CszNCi4
-         rIjJZwMbZToZdUjNRm8Tzi60Ws2RkTB899x5fSbHd4KE+iBiG/loyAsu24eSV/hNwvjB
-         byQA==
+        bh=LhZIogGFAKBWcn9TqaxnEfdXlwBjbgcMrXypWpyrcPc=;
+        b=XXe2jlVmMcsR0HgFbWr2jUgdv0ECoWc0g6YBEu5SzUZPWVdW2gq3GbroxvD7PYi1g9
+         3V0Y7L34PO11TNXPE2Pz8ov/dw72LudE2YD3x3ln3I7uN1chHCjzPsZAEHjvT+evKXh2
+         9EhpcwOhIVQ7kn5xQKTDBe0ESua9ZugAJ07ojvoYfOhEyi+FdZ1A4eWDWFuCHbMcG1e2
+         uLT0roITZsOoaLkqneQlGVRiFCXO98+5exGSR1bfbE2ikHXEimjmw2VRo+oZ3K8Cr2dG
+         jkMN8o+DLaTvo45gNj84oN1/z5MonsT0Pv5RWQOEJEbd0OE5ns413zH6bZiJt3jO+O6W
+         DNUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789085915; x=1789690715;
+        d=1e100.net; s=20251104; t=1789085916; x=1789690716;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XlfoGyQgrNSRVIxWxP7qSy7UsF5M3AH+3KUxqb60W44=;
-        b=DsNs3ugazU4lLVRi907NjzwLKG7M0FUuF98r9fWaLvhU9SZsCPUNEquZzm/SaeSNO7
-         wqsGxf4bLyo7P0GZqBBLWrIjfp6SCefZmayBmSgG8OBlhvYjCX0q7gI9GGHnBdNYUlf1
-         PTXe/gCd3RFlbjnEI52s4D/olv3rrtpoXvTrjBHh7bGP8UKkCsCZvTiSZHbWlxNn4/7v
-         MZjm8OCFoZHDEHksqEgMoHTmuCHVeKx9kwedhAmCdi/jouEltHH2asDxOaCe8MLy70LY
-         oY9SdMmT3USBRPFQfiiqXhJrFf5KcB510A2H1lFVysKdRDHQPE2hbWxyHiohZUcAhrNc
-         xpGA==
-X-Gm-Message-State: AFuF++kQERwp3JtV5z7RqdOvA/ewnBNUdm20925WvpPhSb4eYaU9O9hG
-	nypdt2P+S0i2negjmR4taQkfWm0f4cDJAxOHWHc0wzb8uwzEobzEntHL/N4XgO6n2tc=
-X-Gm-Gg: AYBFou1TZX2HSqT9u3X7kngsaW/WRpMh5iZ2S5+OKMU+A+rwP3S8FnkZC8W0+eM8UGP
-	nhrEiGRzLOWZP/qnNZPJIYHZWWYl7i/bqnfN9E74Bx9WsQUWTeF0JxV5OLmHAvIVQGpM15nQ7U6
-	71abl3lfvpRMPT885bQEwFR6wbxbdWMV4VQH78mzEparo359ZnZvvl6ILdyx2k80jFfSxah6b5O
-	ryOGm7xNRoaJ0tNsJvtfwhZg6Kk6pa7H1boivXAUDyJ+sJxZ3ujjg0BuZ0OX7fDK+aI0ZL9g8dp
-	m1WzEAtgB2/MBinswmWdJPCzIuRSOis4uHKcfrrtKvvl5h0Q6BOC0RS0PDK/IMOLssCsBcDeRRB
-	g4CgzrGB20lzAhOaBEuIkuUTfGQU3oGI0ShGnGf84+sk0H76zaO6mDY32BtQ00odKCGMpNd1/QZ
-	7kfcb/SuyV/gLCmRsnMstkGPO7bFpPZa8iKz5w8aw+FrLJ4rIR1y9nG6Dde93ccbL+Xb+y2+0qS
-	1RZcbnzGx0fRhDb1STAqV4BAf3suwd8H2IMORKEXFTRhAx6KP2pb8MbHuQibA==
-X-Received: by 2002:a05:620a:2989:b0:939:7f2f:b17e with SMTP id af79cd13be357-939e9efcaf8mr205827185a.30.1789085914637;
-        Thu, 10 Sep 2026 17:18:34 -0700 (PDT)
+        bh=LhZIogGFAKBWcn9TqaxnEfdXlwBjbgcMrXypWpyrcPc=;
+        b=SGoTikQuTfTEuQto2dpmxNuA8VGvDEXZUtA+ilqSbNG9n1c8shj55Cn0RVt/QQAyKS
+         jPPDV86X1lT0XnkYMzNKpJpQNFASMnJTBO0Cu5p7Qz7GxioUuOFlpBkEKIduA/Gz830Y
+         bjm5628nEAJEK3nMfKYSGlDWyu4tRcrdwrRtuNUgoK/JkgW7f62ih3BwSZ+ByVQ9VCce
+         w3njle7zKVEzG3l8xeTa9oETWMi4ePIhfj60yZTsRzIS+HmsnmBxBolczbvtReJGpOqU
+         +R60DiePo2j4EnkZ3o/T65Y5hpKhti6guI9M2cWAt2OeLGXzRRPy2dUoTXcEuGZAhJOJ
+         tPUg==
+X-Gm-Message-State: AFuF++nKuR2iHyeKl4qaJX4SkmXpr+c7tNbprsvM/JzbidodNx3T1bhk
+	5XAvcSx8Pr7oKwgqeDekckIswqPxZnQUr3dfviv1kIrenDk47tDHfxe0AFp6Vcw23RM=
+X-Gm-Gg: AYBFou0XXRM3bZEeqV6heQrb3AXTETzaMxmI6kqjQe+eomVziLo8onpxP3Tx8PyNWRB
+	5odZMzF6WqSWQ/meHH7eCRBUE0UNR3lvs0k0bZ34VR3a+R0hIf4F5iO/qyETvUQKK/N40iHbsGk
+	8uObnm0di51BkQXZ8PZ9CIV6b/I1cIOIpZynTdwLYeAczaycA9Jc/J9NNgjKFvaChbhL15zCM6a
+	CSP66Dm6IGi7VNlmj3r0qNxIu80TJhcHFPPQDgim74dCMXzDD5iViYCuTYOe2x+o1YSJr45oV9N
+	vURtItv/5slY+znlrrqHrpYqAf6r0bOOb8eVJkMfMlES2Y/ISc5+81+D12k6dkaLE2fuMUc8wr+
+	voTxI6hu2aWqhV3ecd6gFvoSV/R5ov/zRqmbwfbA+a3Shngp8KojLvdKMwvh8CWRYW8k/J0p/N0
+	pAeMfZs8llZOZwDTlazzIwtOe7+sr19fHbRlzUoLvDtajV+DtJ0kivQe00vBZOo2/gM3CFKYmnd
+	j9f3fidiIkrXwtMVDnKo8ca8cnX5yjNzeclTMD8RSmnTUgdlelTdGp8+C6jmnd2liivCVI=
+X-Received: by 2002:a05:620a:4109:b0:938:fd60:4f9 with SMTP id af79cd13be357-939ea16a07dmr234110685a.27.1789085916408;
+        Thu, 10 Sep 2026 17:18:36 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e80e4c36sm108896485a.40.2026.09.10.17.18.33
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e80e4c36sm108896485a.40.2026.09.10.17.18.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 17:18:34 -0700 (PDT)
+        Thu, 10 Sep 2026 17:18:36 -0700 (PDT)
 From: Gregory Price <gourry@gourry.net>
 To: linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org,
@@ -102,9 +102,9 @@ Cc: linux-kernel@vger.kernel.org,
 	hannes@cmpxchg.org,
 	raghavendra.kt@amd.com,
 	stable@vger.kernel.org
-Subject: [PATCH v2 1/4] mm: support promotion-only NUMA hinting scans
-Date: Thu, 10 Sep 2026 20:18:23 -0400
-Message-ID: <20260911001826.2109390-2-gourry@gourry.net>
+Subject: [PATCH v2 2/4] mm: allow shared folios to be promoted to a fast tier
+Date: Thu, 10 Sep 2026 20:18:24 -0400
+Message-ID: <20260911001826.2109390-3-gourry@gourry.net>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260911001826.2109390-1-gourry@gourry.net>
 References: <20260911001826.2109390-1-gourry@gourry.net>
@@ -118,203 +118,62 @@ Content-Transfer-Encoding: 8bit
 
 From: "Gregory Price (Meta)" <gourry@gourry.net>
 
-folio_can_map_prot_numa() derives the eligible memory from the global
-balancing mode. Combined mode needs the scanner to distinguish placement
-scans from promotion-only scans.
+NUMA balancing rejects shared copy-on-write folios and executable
+file folios mapped by multiple processes to avoid placement bouncing.
+These checks also block promotion from slow memory.
 
-Add MM_CP_PROT_NUMA_PROMO_ONLY and let change_prot_numa() callers request
-a promotion-only protection walk. Carry the choice with each walk so the
-PTE and PMD paths use the same decision.
-
-Initially derive the value from the normal balancing mode, preserving the
-existing behavior for the following fixes.
+Allow such folios to participate when moving from a slow tier to a fast
+tier. Keep the existing restrictions for ordinary placement.
 
 Fixes: c574bbe91703 ("NUMA balancing: optimize page placement for memory tiering system")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
- include/linux/mm.h  |  4 +++-
- kernel/sched/fair.c |  7 ++++++-
- mm/huge_memory.c    |  3 ++-
- mm/internal.h       |  5 +++--
- mm/mempolicy.c      | 22 +++++++++++++---------
- mm/mprotect.c       |  4 +++-
- 6 files changed, 30 insertions(+), 15 deletions(-)
+ mm/mempolicy.c | 8 ++++++--
+ mm/migrate.c   | 6 ++++--
+ 2 files changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 969594074fd2..2d1b59a27629 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -3408,6 +3408,8 @@ int get_cmdline(struct task_struct *task, char *buffer, int buflen);
- #define  MM_CP_UFFD_RWP_RESOLVE            (1UL << 5) /* resolve rwp */
- #define  MM_CP_UFFD_RWP_ALL                (MM_CP_UFFD_RWP | \
- 					    MM_CP_UFFD_RWP_RESOLVE)
-+/* Whether a MM_CP_PROT_NUMA change is for promotion only */
-+#define  MM_CP_PROT_NUMA_PROMO_ONLY        (1UL << 6)
- 
- bool can_change_pte_writable(struct vm_area_struct *vma, unsigned long addr,
- 			     pte_t pte);
-@@ -4736,7 +4738,7 @@ void vma_set_file(struct vm_area_struct *vma, struct file *file);
- 
- #ifdef CONFIG_NUMA_BALANCING
- unsigned long change_prot_numa(struct vm_area_struct *vma,
--			unsigned long start, unsigned long end);
-+			unsigned long start, unsigned long end, bool promo_only);
- #endif
- 
- struct vm_area_struct *find_extend_vma_locked(struct mm_struct *,
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 8dff37059faf..81359b414947 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -4129,8 +4129,10 @@ static void task_numa_work(struct callback_head *work)
- 	unsigned long nr_pte_updates = 0;
- 	long pages, virtpages;
- 	struct vma_iterator vmi;
-+	unsigned int numab_mode = READ_ONCE(sysctl_numa_balancing_mode);
- 	bool vma_pids_skipped;
- 	bool vma_pids_forced = false;
-+	bool promo_only;
- 
- 	WARN_ON_ONCE(p != container_of(work, struct task_struct, numa_work));
- 
-@@ -4304,11 +4306,14 @@ static void task_numa_work(struct callback_head *work)
- 			continue;
- 		}
- 
-+		promo_only = !(numab_mode & NUMA_BALANCING_NORMAL);
-+
- 		do {
- 			start = max(start, vma->vm_start);
- 			end = ALIGN(start + (pages << PAGE_SHIFT), HPAGE_SIZE);
- 			end = min(end, vma->vm_end);
--			nr_pte_updates = change_prot_numa(vma, start, end);
-+			nr_pte_updates = change_prot_numa(vma, start, end,
-+							  promo_only);
- 
- 			/*
- 			 * Try to scan sysctl_numa_balancing_size worth of
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 30b7c63b0e35..2f9ada1bbcfc 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -2784,7 +2784,8 @@ int change_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
- 			goto unlock;
- 
- 		if (!folio_can_map_prot_numa(pmd_folio(*pmd), vma,
--					     vma_is_single_threaded_private(vma)))
-+					     vma_is_single_threaded_private(vma),
-+					     cp_flags & MM_CP_PROT_NUMA_PROMO_ONLY))
- 			goto unlock;
- 	}
- 	/*
-diff --git a/mm/internal.h b/mm/internal.h
-index 0dca33db068f..f3e093168f84 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -1237,11 +1237,12 @@ static inline bool vma_is_single_threaded_private(struct vm_area_struct *vma)
- 
- #ifdef CONFIG_NUMA_BALANCING
- bool folio_can_map_prot_numa(struct folio *folio, struct vm_area_struct *vma,
--		bool is_private_single_threaded);
-+		bool is_private_single_threaded, bool promo_only);
- 
- #else
- static inline bool folio_can_map_prot_numa(struct folio *folio,
--		struct vm_area_struct *vma, bool is_private_single_threaded)
-+		struct vm_area_struct *vma, bool is_private_single_threaded,
-+		bool promo_only)
- {
- 	return false;
- }
 diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 2ad0a5f18280..a082ccfa09ec 100644
+index a082ccfa09ec..19b599bc2dd1 100644
 --- a/mm/mempolicy.c
 +++ b/mm/mempolicy.c
-@@ -846,6 +846,7 @@ static int queue_folios_hugetlb(pte_t *pte, unsigned long hmask,
-  * @folio: The folio whose mapping considered for being made NUMA hintable
-  * @vma: The VMA that the folio belongs to.
-  * @is_private_single_threaded: Is this a single-threaded private VMA or not
-+ * @promo_only: Whether this scan should only collect promotion candidates
-  *
-  * This function checks to see if the folio actually indicates that
-  * we need to make the mapping one which causes a NUMA hinting fault,
-@@ -855,7 +856,7 @@ static int queue_folios_hugetlb(pte_t *pte, unsigned long hmask,
-  * Return: True if the mapping of the folio needs to be changed, false otherwise.
-  */
- bool folio_can_map_prot_numa(struct folio *folio, struct vm_area_struct *vma,
--		bool is_private_single_threaded)
-+		bool is_private_single_threaded, bool promo_only)
- {
- 	int nid;
- 
-@@ -886,12 +887,8 @@ bool folio_can_map_prot_numa(struct folio *folio, struct vm_area_struct *vma,
- 	if (is_private_single_threaded && (nid == numa_node_id()))
+@@ -863,8 +863,12 @@ bool folio_can_map_prot_numa(struct folio *folio, struct vm_area_struct *vma,
+ 	if (!folio || folio_is_zone_device(folio) || folio_test_ksm(folio))
  		return false;
  
--	/*
--	 * Skip scanning top tier node if normal numa
--	 * balancing is disabled
--	 */
--	if (!(sysctl_numa_balancing_mode & NUMA_BALANCING_NORMAL) &&
--	    node_is_toptier(nid))
-+	/* Promotion-only scans do not collect NUMA placement samples */
-+	if (promo_only && node_is_toptier(nid))
+-	/* Also skip shared copy-on-write folios */
+-	if (vma_is_cow_mapping(vma) && folio_maybe_mapped_shared(folio))
++	/*
++	 * Shared copy-on-write folios are poor NUMA placement candidates, but
++	 * a hot folio on a slow tier still needs a hint fault for promotion.
++	 */
++	if (vma_is_cow_mapping(vma) && folio_maybe_mapped_shared(folio) &&
++	    !folio_use_access_time(folio))
  		return false;
  
- 	if (folio_use_access_time(folio))
-@@ -905,19 +902,26 @@ bool folio_can_map_prot_numa(struct folio *folio, struct vm_area_struct *vma,
-  * These are later cleared by a NUMA hinting fault. Depending on these
-  * faults, pages may be migrated for better NUMA placement.
-  *
-+ * With @promo_only only folios eligible for promotion are made
-+ * hint-faultable, without also sampling for task placement.
-+ *
-  * This is assuming that NUMA faults are handled using PROT_NONE. If
-  * an architecture makes a different choice, it will need further
-  * changes to the core.
-  */
- unsigned long change_prot_numa(struct vm_area_struct *vma,
--			unsigned long addr, unsigned long end)
-+			unsigned long addr, unsigned long end, bool promo_only)
- {
-+	unsigned long cp_flags = MM_CP_PROT_NUMA;
- 	struct mmu_gather tlb;
- 	long nr_updated;
+ 	/* Folios are pinned and can't be migrated */
+diff --git a/mm/migrate.c b/mm/migrate.c
+index a369d0c95c38..afd9c97d2389 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -2697,12 +2697,14 @@ int migrate_misplaced_folio_prepare(struct folio *folio,
+ 		/*
+ 		 * Do not migrate file folios that are mapped in multiple
+ 		 * processes with execute permissions as they are probably
+-		 * shared libraries.
++		 * shared libraries, unless this is a promotion from a slow tier.
+ 		 *
+ 		 * See folio_maybe_mapped_shared() on possible imprecision
+ 		 * when we cannot easily detect if a folio is shared.
+ 		 */
+-		if ((vma->vm_flags & VM_EXEC) && folio_maybe_mapped_shared(folio))
++		if ((vma->vm_flags & VM_EXEC) &&
++		    folio_maybe_mapped_shared(folio) &&
++		    (!folio_use_access_time(folio) || !node_is_toptier(node)))
+ 			return -EACCES;
  
-+	if (promo_only)
-+		cp_flags |= MM_CP_PROT_NUMA_PROMO_ONLY;
-+
- 	tlb_gather_mmu(&tlb, vma->vm_mm);
- 
--	nr_updated = change_protection(&tlb, vma, addr, end, MM_CP_PROT_NUMA);
-+	nr_updated = change_protection(&tlb, vma, addr, end, cp_flags);
- 	if (nr_updated > 0) {
- 		count_vm_numa_events(NUMA_PTE_UPDATES, nr_updated);
- 		count_memcg_events_mm(vma->vm_mm, NUMA_PTE_UPDATES, nr_updated);
-diff --git a/mm/mprotect.c b/mm/mprotect.c
-index 2888ee638d87..4e66e4c7665b 100644
---- a/mm/mprotect.c
-+++ b/mm/mprotect.c
-@@ -337,6 +337,7 @@ static long change_pte_range(struct mmu_gather *tlb,
- 	long pages = 0;
- 	bool is_private_single_threaded;
- 	bool prot_numa = cp_flags & MM_CP_PROT_NUMA;
-+	bool numa_promo_only = cp_flags & MM_CP_PROT_NUMA_PROMO_ONLY;
- 	bool uffd_rwp = cp_flags & MM_CP_UFFD_RWP;
- 	bool uffd_wp = cp_flags & MM_CP_UFFD_WP;
- 	int nr_ptes;
-@@ -384,7 +385,8 @@ static long change_pte_range(struct mmu_gather *tlb,
- 			 */
- 			if (prot_numa &&
- 			    !folio_can_map_prot_numa(folio, vma,
--						is_private_single_threaded)) {
-+						is_private_single_threaded,
-+						numa_promo_only)) {
- 
- 				/* determine batch to skip */
- 				nr_ptes = mprotect_folio_pte_batch(folio,
+ 		/*
 -- 
 2.55.0
 
