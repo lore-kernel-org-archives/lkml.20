@@ -1,259 +1,231 @@
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11020112.outbound.protection.outlook.com [52.101.228.112])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8EF336B924
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:21:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E76A3472091
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:21:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.112
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150867; cv=pass; b=gZKgpCUaqzA7CrC1TbJtmkSDuVQ6CrFxm4SQT73nAhwXlTK4UMdZDEP5CTfsR42Big4uRX0pmMRDHP/EBf/6IYuEQJFLnkEv4HL5amYkiMUNCvaSQPYwOQKwds67ZjqGzjK4F0NhiOVwzC4mUt1ko82hnsPRdnICJo+SfKdfJNM=
+	t=1789150879; cv=fail; b=kjOBl+QF3Idmxpsn356pamG413y7YionQMh0heu7KcBMtHbQTC/J6SLJ5Ip+tzId+GOOzT7GWW9zjM9esKIY9eZ2J6L4KDgN/c6HwUZfjkR+xNJy+ZHP/eeB0xqLObTm028+HWaOjKPgwK6/JtJBQ3ZeJHE2KkL/Mu7Yq7ILX80=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789150867; c=relaxed/simple;
-	bh=ospiNi4mvJbHDyKvltQYpdK+X0l90zSr5sr0fKih89Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rD2jZmBpLzRInP2O0jWyHFhRPPSLrizF9ANL4SBSKCTUziJtB9cXdm9An/ddkEg4iALQJU2y4Tht+PV0QHWEXufnpYTE9jcAtUYjDaQxk/ffYIcuPCCfC4A0zLbNxCqADIqf6l3QTERi7TMpZpoMK6fvDN4nRIoI+Mo4Px6PMT8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fZy1O7nY; arc=pass smtp.client-ip=74.125.224.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789150879; c=relaxed/simple;
+	bh=2kV8URj9QCBE69jBkeD3yFQHAAchokcJztrVNLxorAY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=bocqxi2QjJ60ha5kqFTdPcUYDrO9y5twOGp/MyqbIOouZootFI6d9j5+dthNDuD8ie9o47eSNAzIbJah/YN54tZXK5CwIGu1czHTM+kjJGq0N7alj2XgU/aGsSkkbyMyrtFG1X9gn4AHgg1GbR+zxmUGBim4mV1t85P8uKnBJoA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=iQuZKJq+; arc=fail smtp.client-ip=52.101.228.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fZy1O7nY"
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-671061b015eso1382043d50.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:21:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789150865; cv=none;
-        d=google.com; s=arc-20260327;
-        b=M1pp2qI35YlJ88s8qQbNrHG89crLre9V6Umd5/enJYjQPxGwbl3808LGU/T8+JXHuP
-         0BM4A3G9zyKII4thKLRHJKirEUhkx/F44VXbgBqB8rmyTjMtnAUqmoL+xIp5XhZxVLr8
-         XYJM+DQ3xbWyzotMqegyRR+p7XeImugs0envAHZRD/lGaXKjsv44DlLhJxjDUSGcTeHL
-         USldBNIVXbi1zNHenCL2K9pyILt+gOm8rFbbQxGQSgatlYVRXylSHAYbDW3xOISCPjHl
-         mtG8Pitl8MbCeCratEzWZYbYrE8HYrtzhpeI2Fee88pmekzflUH0rWzrRXe7hdiTTSa5
-         ICUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0PfkoOh/05AN64bzT3WIDHrUSVJxMax1VSqub7HGYzA=;
-        fh=r5Qj5UsElPJKl4wB7gKeP2gaXMmcjkF3L/MtLmKl6R0=;
-        b=oMh2FOu1pgTva4ha4GD07mctblWuMgQxrCwLEn+DDBxA84bUXUqOIHa3ZwS7MM01xW
-         mZpQBtWcmc6yA4eOGwdH6j8VrQ+XQ7PDrv1QU3cz00duhHgHdCZ6KCa9aA7Za5Gn56Ye
-         aUk9dgz875W+AtONv23AROVm7EpisbsfHhcpofmDIVFWToyXzVghqrMqjOX/76tL8g/x
-         PRBzAtYwyQ8WNvmCxY9euUd3BWKhQtItE6N5tAkEnhdZQYjW5GBU8EiDnyNnPYJWDW0W
-         ARHuL198iAPabSeYJlDg9nnpm/uHRBmh3foSRXssX4xJ+b3rNAlYFDSg5fBWq/G1zpqk
-         3/PA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789150865; x=1789755665; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0PfkoOh/05AN64bzT3WIDHrUSVJxMax1VSqub7HGYzA=;
-        b=fZy1O7nYX4F8RpCBL719cejwO2JBZBHCsQ4M29xWe4J1TICgnhFF4vaFKW0LcVXdmJ
-         7JdqsQw8HdHi3qOgLEDUvZWJMdsBhJvjcwAlk7s4SAP6Ge1bQDyq7QlkphqhoqP2sjxu
-         hlvtKZOtj97s5AEkAIFBG6SfqtoFA9gozAIKE/u7v19trAtrqTj1kwsXEWMxfPpYViU1
-         A6r7wP8ya52+HMgnFwqsiTQib+gLaQKrY4yT8f7y2bOXz5s2XRFZO4o9qvbLDU28U4sZ
-         lUNz9mwfWNtI+Bz1r1H2qcuU/MZANI+qNPsIsj2VRtTm7dbTNkjPC+WsuM/oSxn58NcQ
-         vk5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789150865; x=1789755665;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0PfkoOh/05AN64bzT3WIDHrUSVJxMax1VSqub7HGYzA=;
-        b=FHHCqCtEQSpRc9SZyWIr5kbWEaV7rASESjQzZQa0z8Z4RqGigYyQO4oOOZ1B4YLDLC
-         NXx0PZop4oSPgS5uPXBZOsm15P4Y5tdv8DqzV6G9gjPxI6KCV0sDBcf+EMt1CWJZhj6i
-         sTGLHb7OKZ3JNbtiD1Hdbf5wxuGDxGpXRdx0bx+UH9Mt8g4+ukFgryLu6AMlvJfMJvP3
-         fh3kmOqPrAtXVRjaGU8bbiTZxGPLSqPPUdN2jTSlFMvdm1EhlvvpEE4TRQuDfN4dHL88
-         gTcf0frZRqti9Lsh3gYz7RhMs34c1gjzWX8ksh0ACA2jj6PmhyrBVCzzzw9mwvXMgrA/
-         jl7g==
-X-Forwarded-Encrypted: i=1; AKwUvByjsrQxq3/ByD2NT4kRqr36tWFbJMGhbXpiv/RwylGB39YK9Z4BeDze44+r0LCdHfMcqR3ziY9/J1A09VE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mW1Vi8M3JxOmoZvu281SRNG8AbRa0orbbqHs9NbMVF0/5raFcZ
-	93NhvPIG/C7+bj8fniU5ENFPAIIFFp4pMys5mB6r4lgXwNlf6OBKGi1HmPDjcJEUy43kJLuXXhE
-	7LQTxB/y5qxKPVkF0M+10ecj4wmPWDcM=
-X-Gm-Gg: AYBFou3UVbjMDCCSI3P+II+4K+TZjDLACDQfgvCqH711ZzzanOY/8lkIz5PNA+QuFuY
-	bp9B3sPhRjoeZzAi6FexF9CBRKW5GR6gxbVOAIeqsvMmdMeKKj9yy5Hl+uLWbxF+oWAKl65FBED
-	2X1pKLuFyUMOVOx32YvjSa1FtPFGggcAzovjWhzwb4CjRkpnbxHNtjp7H8hYXVoDfYJQy/KIWkx
-	Jbfw16a1l65qpd3Y/VdFqHTDKAbEadaPJSSjJYtQ35ca/LVxgc9xSbG8aGpFCD1P9xWevtFfgRR
-	kdzD4Ytc/zRLMIXsOz6vZ8mbMVH4bCEDdIe+TmUmyTARkeeR8iWh/sYxJOerM/KDHvRfIAPsgOx
-	hXT6/5MSH1dA+f72Axi0i8nO2+LpQsh/JcA==
-X-Received: by 2002:a05:690e:450f:20b0:66f:c1bc:c072 with SMTP id
- 956f58d0204a3-671246c1531mr1637688d50.58.1789150864802; Fri, 11 Sep 2026
- 11:21:04 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="iQuZKJq+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AlRxZRzBvwgIbKpvk5QJkdiunEjNjXSjAwXKWg83abaYQGNPH5grfRifiI1ONt8xnwlv4ArnYvDqncuPEF+Rqs4hGMM+GKWRtNT15FXKU2GFa7oloLqB1YhGxL2/lZwmupKFhRl22CaenhnSKCLbWQDZ8VohsERj2EyQFVxFSpG0UcZYvH9mD+w1JJlzdqJuqqCpiXLFCti4QZ4FKM90jl3Gjlp/do2XJxlnqyyC0baBfs1X4l+ruvb+c5Eec5yy0WfEZU1iTJNXQfjwkHhOOT5KJxE0YUUBGcXLe8CGVHJ6I47zkZmPEz7v4F/zBErMDm9MvLvxWlQISV3xkVpLEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=F5+6APPXwEF1cc7bN56iKBXxtVI5ObeXACn3R7LKsxI=;
+ b=Dub6RuJKJWonn9v7kZQMW5Po4z2EdPMKXWJU/YxEF7vmwDlUBcMkj8mAxwnggphEu1DiZ+utzyTr15llqRkfYYvs2/hlWDY/EeIvNEONaKtwqcLpTe4DZIDSBsOpsxrgm7Ox9PpXVlN6FJ3xVl8uLlpmuTgO8Huuta61W1uAuov3mRhePUcowXnHtZvM7zo3Gn14tIBodoAfwG7I3mMXEGZoiFLYxh3oaANPD0JflhpTlazoiUjrGmeQoj/6zmxC6glbxjwRMBMzYwMEjoWoCN4f44GDccilkyQ2nWom6V/tbpQyKUkno3W3nG3EwnZgMpPgYtPGf24U5tnYLmxWpQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=F5+6APPXwEF1cc7bN56iKBXxtVI5ObeXACn3R7LKsxI=;
+ b=iQuZKJq+x0+IYuL92cMCq2ZgA3FKYnONzY0YYwYY4HTl96aqvNFfFxrsF+rse7TvKpyvQQCY82aaO7kAipaEEB9t26tLUvFToHfhmu1FokKkDbwlrQOU+gOaw5riSgfWqdFv1Rh4tIMUSGRe8tvfx0zsTntnWv0eOpGbxIZIUzE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
+ by TYYP286MB4715.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:193::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 18:21:10 +0000
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32%4]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 18:21:10 +0000
+Date: Sat, 12 Sep 2026 03:21:08 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>, 
+	Allen Hubbe <allenbh@gmail.com>, Frank Li <Frank.Li@kernel.org>, 
+	Logan Gunthorpe <logang@deltatee.com>, fuyuanli <fuyuanli0722@gmail.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Nicholas Bellinger <nab@linux-iscsi.org>, 
+	Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 05/14] NTB: ntb_transport: Avoid losing QP link-up
+ requests
+Message-ID: <l5xf2iuwxgfa4xmtm2l3wn6nce5onfjxxkzfsj627k5xp3snmp@er6fkwlb3sgs>
+References: <20260910040836.3792333-1-den@valinux.co.jp>
+ <20260910040836.3792333-6-den@valinux.co.jp>
+ <aqQyEbLbABhhvFTO@SMW015318>
+ <ciucjqvb7qbendlxqdya2wigyivgj4bvqbxtc4cidulr4knq6j@xbwucjdsiayy>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ciucjqvb7qbendlxqdya2wigyivgj4bvqbxtc4cidulr4knq6j@xbwucjdsiayy>
+X-ClientProxiedBy: TYCP286CA0165.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:383::11) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:38f::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908-dd-cmap-part2-clean-v9-0-3a3f621f4a10@gmail.com>
- <20260908-dd-cmap-part2-clean-v9-15-3a3f621f4a10@gmail.com> <20260909-primitive-nano-hound-8ee2aa@l-nschier-aarch64>
-In-Reply-To: <20260909-primitive-nano-hound-8ee2aa@l-nschier-aarch64>
-From: jim.cromie@gmail.com
-Date: Fri, 11 Sep 2026 12:20:38 -0600
-X-Gm-Features: AcwNN1UJu3AgSAwYav9ulJp2R_HPP-fzpsFCD13LL3sQevEBQ_irSbDy0UqSCw8
-Message-ID: <CAJfuBxx0VFCS820JLqawLdcpb49Nj-=xnSYdg6ytOub6NidM4A@mail.gmail.com>
-Subject: Re: [PATCH v9 15/39] kbuild, dyndbg: Clean up builtin module-name ambiguities
-To: Nicolas Schier <n.schier@fritz.com>
-Cc: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Arnd Bergmann <arnd@arndb.de>, Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
-	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
-	Aaron Tomlin <atomlin@atomlin.com>, Jonathan Corbet <corbet@net.net>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Nathan Chancellor <nathan@kernel.org>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
-	linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|TYYP286MB4715:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7f195c1d-8353-43e0-4c16-08df1031747c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|10070799003|10067099003|4143699003|56012099006|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	tsIdtCcm7LSjv4X7tViJmXsNrE00WNVEGk1m0ci22U3zcpwDEPZPql0O3/QPduqY+v6n6CmMQVwWN5L8YdS5/szLOqEMQsHULLUb3W5/PKDrAHUjUQd6s8L4hY1h7j0BmDV2VhLh0a5CiBnFN94+C/E4GOfjiCRh/lkD67APW2liLlK6uVbOIcw1M7p716XEI4PjuudDR4yYs49HGYwQMmiELq1XzFvXIYyEKnVEZr4NrKXxtV44xl4e2qJdqzy+BpFrD3EkglkyA4TJukAb0ola8CLPFjsaJQgM/KKHzS2lFufzeKre1Gjl3FAz99j66uRHSLqzKVgbUuQGqJuN3zLMuT9v8hQ/+CzniMb4PPP4Onj2bCjzhietULTm2udJmrIAe7Q5HgzX5J1X7dwYcNLtT/WNlGan4AVUkBkTSGlu5F5k76oYlCV27HBlrDGK8pOFAmVbzcrNyuEsty72TH1/AbBMIAaSbCNB1s3rZB5QTNWdRxG8k/DEoxNFDG1Wm48vX5ZzD0SW40lbkzGf3PAzOYJdRJB+RtfujQzXd6UQAt3ErtVHdNGx8lOOMdkqEbiC8tKhfqxQlMWlOlZpLOvo7y6XW98gLvD8Dfbeh+5B/h/7YhVlHVisJxXE36TL
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(10070799003)(10067099003)(4143699003)(56012099006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?O5EQ0i66eBjd4ZPnNtqtF9sH3u/VKJLSmHnQt+E1h0rtAa8Rw0eMyw3OuD93?=
+ =?us-ascii?Q?1FPySBdRwqo2fOvDguvLS2BNkxAT4YSDvW/0bhS+sCeo85svhbKZPE5WYu/6?=
+ =?us-ascii?Q?D2Bbo2epMmbu10aaB95s3+qbYdb0MHrmF/njom1W35t7KYWi9vzlWG9au+5X?=
+ =?us-ascii?Q?BzJ5Wovk25EyADtGc4z98lZYVZtFEOXPZULvFG3MehqUwTUl6ev/Bsq/C1Iw?=
+ =?us-ascii?Q?wCY+5wmutxwxhJN8tibHwnrfhDUY2s44X9ElS04F/o/oLRbTMAz+l84ncHb5?=
+ =?us-ascii?Q?HCWEecq0F0kTY8l1+gAXaKcXKxC/ePu4znf7BUaEb3V6ktnVNnHwg4O88FOV?=
+ =?us-ascii?Q?rBphyPgQjvINkWV0tLD3WNXkSc5sCRp+pr7KahDsJSYPF4/VDmjr2CMn2H00?=
+ =?us-ascii?Q?2M7cdZxfQ1r6wfZqlUT4mpx26YFXPH0agOM3mpg5C3ffxProoHBk532TLRx5?=
+ =?us-ascii?Q?BnSkywadnc2qxEGvOhEl6mKeNmcSMrTaB8zqNf3+fkm45rGBG8UWj/CERO68?=
+ =?us-ascii?Q?EG4R3nzgYQDdtQMLMYPcQdmOo46B6O1FKv8O43D1szA0cMuU46/co5tgR9nF?=
+ =?us-ascii?Q?7tLIKRm7hawhWU3PxAqSw5iBjki0YBzWoGTqFHK3yCb7Mgt8dWTWgDjyCYYN?=
+ =?us-ascii?Q?UpIRvsWWCWVAmTxf1hbGVsBdsaqftQCE7jnppxuz0son3T8abo8ClDKmrXfL?=
+ =?us-ascii?Q?27Z9G0scc8RhAM5uAAh6UopmT6FHRNgdiQPwzYPBbC6lCDEu+ssvUVK+ed9k?=
+ =?us-ascii?Q?WCxiizuOTUf1ZXbCFmtoxQUWt11wsBeYv0CEh4bY680XF0W0z+q/14VR4mYD?=
+ =?us-ascii?Q?4Zl16uqwI1/IxAXpEIJ/JiHAOo7PJ3k7Ak1+jXTmmctn0mSluaOtRU6FC/vH?=
+ =?us-ascii?Q?pjShLg2BKzKywMt6alJLejYzW+CHoPnjtsx6GDsvcGmiI9JC65tat6HlB50F?=
+ =?us-ascii?Q?EZIlP+Pd88JIEtfv2KDbQO8jfCnznZcYdnqgNHEBOqYERDWquFVGVUEaNx2V?=
+ =?us-ascii?Q?vLXAKgrJkGJ3fyUOwoaWMn494U6agHpCwYuk1Y7dmpxZb44iKtbsTqAEIP2A?=
+ =?us-ascii?Q?49vRrMQKTip20EYnby7fOGKeVn4970z7qhLGWk8RTZyAAmSYYXNLpUwmplZI?=
+ =?us-ascii?Q?EJVo3gLYz08uVaXNzGd7tT7oM2RUNot17iEVEZA32fMq+oGOjtk0En2ep3kF?=
+ =?us-ascii?Q?nUGwcFDrol2J+caajkmOjJJ9hPNhHqmcg8cPuIQKnv91pCSLvpV55rZTdn+D?=
+ =?us-ascii?Q?mGd1C+WEkGOxS/ruOi07K97OnrI4PQnpwGW/h7YwuZ3Zy3VrWAYxrSKCyA+e?=
+ =?us-ascii?Q?n9Xt/O1iIKV2bt+zAfZL+AUHXtShnqfOeQOaRLVimrkO9NFa5JMMVIZf8VSj?=
+ =?us-ascii?Q?CiVt2QNLb33QocTrgBVshDDg/FZ8UEjSQNQaAMKxXro+6I7WKs5wBJyzjkqa?=
+ =?us-ascii?Q?A75T9WkqvYZNC2l9ipA/WKK9UHXFUuAb0dZC6hA4tPIwhnlM5SBgj6Bw0lR1?=
+ =?us-ascii?Q?l5xdHkoM2ycezFBTJvl36uE8/gLNOzPqeU8gxcTyzjHF1A0JtgCj5gUWDxyi?=
+ =?us-ascii?Q?GNcAYLyA+XW7KeprYwCtcN/8vv5NE3w3W7GpwEYWqiTdiPYux9CjgwsLHfGZ?=
+ =?us-ascii?Q?VG26ezyJTv3dTWbvVfwZ07/vKBwQCo1zNwl6zfEsBWPNq1M3RPSc67QqkbGT?=
+ =?us-ascii?Q?0aSuoN5tMBZWkiMxd8F/FMFHQNz1ptUr0scW2Qc/fi2cq75Z/RbY3NW7xapN?=
+ =?us-ascii?Q?1H+BGLL1y5ROwLEozBxA75caJG5eK92j7WEgHsvuI5bPoASGexrY?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f195c1d-8353-43e0-4c16-08df1031747c
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 18:21:10.4140
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: v+18Y/7vuokjHm3Kr93EF6EhDoMHnGR2mOOH3MeBPggip9QtdY34iFOlJAoEeunWDO7+iDjj3VS2gYQF5KwVEQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYP286MB4715
 
-On Wed, Sep 9, 2026 at 9:50=E2=80=AFAM Nicolas Schier <n.schier@fritz.com> =
-wrote:
->
-> On Tue, Sep 08, 2026 at 06:55:11PM -0600, Jim Cromie via B4 Relay wrote:
-> [...]
->
-> > diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Docume=
-ntation/admin-guide/dynamic-debug-howto.rst
-> > index 9c2f096ed1d8..99bbae37d34e 100644
-> > --- a/Documentation/admin-guide/dynamic-debug-howto.rst
-> > +++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-> [...]
-> > @@ -161,17 +161,21 @@ file
-> >       file kernel/freezer.c   # ie column 1 of control file
-> >       file drivers/usb/*      # all callsites under it
-> >       file inode.c:start_*    # parse :tail as a func (above)
-> > -     file inode.c:1-100      # parse :tail as a line-range (above)
-> > +     file inode.c:1-100      # parse :tail as a line-range (below)
-> >
-> >  module
-> > -    The given string is compared against the module name
-> > -    of each callsite.  The module name is the string as
-> > -    seen in ``lsmod``, i.e. without the directory or the ``.ko``
-> > -    suffix and with ``-`` changed to ``_``.  Examples::
-> > -
-> > -     module sunrpc
-> > -     module nfsd
-> > -     module drm*     # both drm, drm_kms_helper
-> > +    The query string is compared against the subsystem module name of
-> > +    each callsite, as shown in the control file, or its simple name.
-> > +    The simple module name is the string as seen in ``lsmod``,
-> > +    i.e. without the directory or the ``.ko`` suffix and with ``-``
-> > +    changed to ``_``.
-> > +    Examples::
-> > +
-> > +        module nfsd        # simple modname (as from lsmod)
-> > +     module init/main   # subsystem modname (as in control file)
-> > +     module */main      # any subsystem ending in main
-> > +        module main     # simple modname, selects same as above
-> > +     module drm*        # both drm, drm_kms_helper
->
-> The five lines above have mixed indentation, please switch them all to
-> one tab (no spaces).
->
+On Sat, Sep 12, 2026 at 03:04:21AM +0900, Koichiro Den wrote:
+> On Fri, Sep 11, 2026 at 11:53:37AM -0500, Frank Li wrote:
+> > On Thu, Sep 10, 2026 at 01:08:27PM +0900, Koichiro Den wrote:
+> > > ntb_netdev_open() can call ntb_transport_link_up() while the transport
+> > > worker is completing setup on another CPU. Concurrent transport setup
+> > > and a client link-up request can both read the other's flag as false and
+> > > leave QP link work unqueued. The QP then stays down until another link
+> > > event or client link-up request.
+> > >
+> > > This is the store-buffering pattern described in
+> > > tools/memory-model/Documentation/recipes.txt ("Store buffering").
+> > >
+> > > Add a full barrier between the store and load on each side, and
+> > > mark the client_ready accesses with READ_ONCE()/WRITE_ONCE().
+> > >
+> > > Fixes: fce8a7bb5b4b ("PCI-Express Non-Transparent Bridge Support")
+> > > Cc: stable@vger.kernel.org
+> > > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > > Link: https://lore.kernel.org/r/20260907144701.702E41F00A3A@smtp.kernel.org/
+> > > Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> > > ---
+> > > Changes in v2:
+> > >   - New patch (Sashiko)
+> > >
+> > >  drivers/ntb/ntb_transport.c | 13 +++++++++++--
+> > >  1 file changed, 11 insertions(+), 2 deletions(-)
+> > >
+> > > diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
+> > > index 75d4a2e021f4..1332d53bcfe7 100644
+> > > --- a/drivers/ntb/ntb_transport.c
+> > > +++ b/drivers/ntb/ntb_transport.c
+> > > @@ -1104,10 +1104,16 @@ static void ntb_transport_link_work(struct work_struct *work)
+> > >  	/* Publish the link only after every QP has been set up. */
+> > >  	smp_store_release(&nt->link_is_up, true);
+> > >
+> > > +	/*
+> > > +	 * Prevent both sides from missing each other's flag. Pairs with
+> > > +	 * the barrier in ntb_transport_link_up().
+> > > +	 */
+> > > +	smp_mb();
+> > > +
+> > >  	for (i = 0; i < nt->qp_count; i++) {
+> > >  		struct ntb_transport_qp *qp = &nt->qp_vec[i];
+> > >
+> > > -		if (qp->client_ready)
+> > > +		if (READ_ONCE(qp->client_ready))
+> > 
+> > I think it'd better change to use atomic variable for client_ready to avoid
+> > manual handle smp sync.
+> 
+> AFAICT converting client_ready to atomic_t and using atomic_set()/atomic_read()
+> instead of WRITE_ONCE()/READ_ONCE() would not free us from the smp sync, as
+> those operations are unordered.
+> So to illustrate this in litmus test like form:
+> 
+>    # L = nt->link_is_up
+>    # R = qp->client_ready
+>    # Both initially false
+> 
+>    Transport setup                  Client link-up
+>    ---------------                  --------------
+>     smp_store_release(&L, true);     WRITE_ONCE(R, true);
+>     smp_mb(); /* added */            smp_mb(); /* added */
+>     r0 = READ_ONCE(R);               r1 = smp_load_acquire(&L);
+> 
+>    Both reads return false?
+>     Before: allowed
+>     After:  forbidden
+> 
+> I might be misunderstanding your suggestion though. If you have something
+> different in mind, please let me know.
 
-thanks, will fix.
+Just for the record, smp_store_release/smp_load_acquire depicted above, instead
+of WRITE_ONCE()/READ_ONCE(), is intentional. They are for MP ordering to publish
+the QP setup, which is needed by an earlier patch:
+https://lore.kernel.org/r/20260910040836.3792333-5-den@valinux.co.jp/
 
->
-> [...]
-> > diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
-> > index 0a4fdd8bd975..e129c4d10ed8 100644
-> > --- a/scripts/Makefile.lib
-> > +++ b/scripts/Makefile.lib
-> > @@ -23,6 +23,32 @@ modname_flags  =3D -DKBUILD_MODNAME=3D$(call name-fi=
-x,$(modname)) \
-> >                -D__KBUILD_MODNAME=3D$(call name-fix-token,$(modname))
-> >  modfile_flags  =3D -DKBUILD_MODFILE=3D$(call stringify,$(modfile))
-> >
-> > +# Dynamic debug subsystem modname with clean heuristic and override su=
-pport
-> > +dd_modname_override =3D $(strip $(firstword $(DD_MODNAME_$(target-stem=
-).o) \
-> > +                                       $(DD_MODNAME)))
-> > +dd_obj :=3D $(strip $(filter-out .,\
-> > +             $(patsubst drivers/%,%,\
-> > +             $(patsubst arch/$(SRCARCH)/%,%,\
-> > +             $(patsubst arch/%/,%,$(obj))))))
->
-> May it become problematic if there is a conflict with
->
->   arch/sh/drivers/dma/*
->   arch/sh/drivers/pci/*
->
-> vs.
->
->   drivers/dma/*
->   drivers/pci/*
->
-> ?
+Best regards,
+Koichiro
 
-2 questions here really -
-- what should happen ?   strip arch/sh/ and then also drivers ?
-- what will happen - I will play with the expressions to find out.
-
-
->
->
-> > +dd_modname_default =3D $(strip $(if $(filter $(notdir $(obj)),$(__modn=
-ame)),\
-> > +                      $(__modname),\
-> > +                      $(if $(filter main core common util init snapsho=
-t \
-> > +                                    process,$(__modname)),\
-> > +                          $(dd_obj),\
-> > +                          $(if $(word 2,$(__modname)),\
-> > +                              $(dd_obj),\
-> > +                              $(if $(dd_obj),$(dd_obj),$(__modname))))=
-))
->
-> This looks quite complex.  I _think_ this should be equivalent, but
-> perhaps a bit more simple to maintenance:
->
-> dd_modname_default =3D \
->     $(or \
->         $(filter $(notdir obj), $(__modname)), \
->         $(filter-out main core common util init snapshot process, $(__mod=
-name)), \
->         $(dd_obj)))
->
-> (Removed $(strip) and the last $(__modname) fallback as both are already
-> in definition of 'dd_modname'.)
->
-> What do you think?
-
-it does read better.  I will try it too.
-
-
-
-
-
-> > +dd_modname =3D $(strip $(or $(dd_modname_override),\
-> > +                       $(dd_modname_default),\
-> > +                       $(__modname)))
-> > +dd-name-subst =3D $(subst $(comma),_,$(subst -,_,$(strip $1)))
-> > +dd-name-fix-token =3D $(subst $(space),_,$(call dd-name-subst,$1))
-> > +dd_tok =3D $(call dd-name-fix-token,$(dd_modname))
-> > +dd_modname_flags =3D $(if $(dd_modname),\
-> > +     -DKBUILD_DD_MODNAME=3D$(call stringify,$(dd_tok)))
-> > +
-> > +modfile_flags +=3D $(dd_modname_flags)
->
-> dd-name-subst and dd-name-fix-token are not needed, dd_modname_flags is
-> used only once and can be folded:
->
->
-> dd_tok =3D $(call name-fix,$(subst $(space),_,$(dd_modname)))
->
-> modfile_flags +=3D $(if (dd_modname), -DKBUILD_DD_MODNAME=3D$(dd_tok))
->
-
-yes, this all looks cleaner and more comprehensible. thanks.
-
->
-
->
->
-> --
-> Nicolas
+> 
+> Thanks for the review.
+> Koichiro
+> 
+> > 
+> > Frank
+> > 
+> > >  			ntb_transport_schedule_qp_link(qp, 0);
+> > >  	}
+> > >
+> > > @@ -2401,7 +2407,10 @@ void ntb_transport_link_up(struct ntb_transport_qp *qp)
+> > >  	if (!qp)
+> > >  		return;
+> > >
+> > > -	qp->client_ready = true;
+> > > +	WRITE_ONCE(qp->client_ready, true);
+> > > +
+> > > +	/* Pairs with the barrier in ntb_transport_link_work(). */
+> > > +	smp_mb();
+> > >
+> > >  	ntb_transport_schedule_qp_link(qp, 0);
+> > >  }
+> > > --
+> > > 2.51.0
+> > >
