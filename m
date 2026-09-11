@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB9D4ADD92;
-	Fri, 11 Sep 2026 18:16:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA904A9D7C;
+	Fri, 11 Sep 2026 18:16:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150575; cv=none; b=iiDYafn+XTSAYtv5ZGINO0UlAn3kdegLuE+TK0QMjS95lJAz683u3XA+xRdCH1a+hsI6xu2Y+Sfr+hYmkQud9Uc2a1rUK0wJh5+h2rGUt3JMpjyMHPhJUctNL48Oauha5/cXOvcM3zOcbc0ma+Ep/ggLxKZ4pjR3NFiutcffHfo=
+	t=1789150578; cv=none; b=gACfYXwL4ZRP/yoxvXAoGll4b/KCry2O+4P6gba8giPjhNEmLzAqH/qmHEFDTjMKYOGbR0dUftGIlztW611GkVDN/UqamZeW1AZcOZ9TyGsMNFrdmm7rs0q/Ugb6ynWQTfiFPBj6rnP7773jiGkZE4dvhSlfqlM4uXl/ONa+9fk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789150575; c=relaxed/simple;
-	bh=pu7x1XTrqqwnrBHe1bktobDFHaD4drtP5XdJGehu0ZY=;
+	s=arc-20240116; t=1789150578; c=relaxed/simple;
+	bh=vIFLuivCeQ5Xw5/AowTYuazWOvl3GwU4HZGEW5vQMmw=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=CcbXzpqygPvHa4hVuQNebPYHYjhouH2bYyM27//hqhFZ6P12tHqKFLMgsGSVMrrlhFW0S4Ppe8B7mtILiw2BRmjL+FdQA3iRLRHb313KKcvP83Tij1YxSmG+KBFj+6ewApSu36O2j61Pl2healdxo5u9s4qDTkWyaH/L4JWRrrs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DMV1Rlgf; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=CMb238kXpGeOQdUcZdlQoNPUr4hihr5HTyS1MuFovzt1qzlIUMQE6NQSZ177Pkc4kKmsyWTgjzJiXWkE7gJdkfOT/ng1NOgpji9pZAZ+Z9BbuR22yJe7sBlJ/ZrIHZrFEdqXkXF5VN4hLV4RZUk7hfMbbPbrda0KnZ5Uo+Pfk6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MlAz6xK1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DMV1Rlgf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D04C1F0089B;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MlAz6xK1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E53C71F0089D;
 	Fri, 11 Sep 2026 18:16:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789150567;
-	bh=yKOQItjO/28zKn73DW1wyeZAtLYzsp22WZJIlvBneeQ=;
+	bh=lTmwD2rLpAi7kXIGGvh7B7Act95huXSlJg38wH9ougM=;
 	h=Date:From:To:Cc:Subject:References;
-	b=DMV1RlgfnQQQDqFszgGmcoMAxYifI06AwEMC4xfXYGp0PKNO3xv2/Wj/Wcqh/q0/T
-	 i7mt7RPx0phpsiv6xDIjX5agGpxGQOzNIYqhnraaHYGAZxCwYb1Lw5OYZAJPmd4MRx
-	 QgLDNQ9QMzI3hqHroXa01WQZEMJj3ZlT/Ql02U1L9WLnOaVXABtdZ4RqOVN5Dpj14M
-	 iJiB6nvJGU6hZF6zDDyhWTNqCfRipVj3NAN09PjF3pEGzRMwRBe5zgMYGAU1S8ld4I
-	 aYboM/5Iy14x6fR7dTHK+duxe0MLuwhODjBWO0sea4dJvbNOBQDd3ATRqsNrFeCyA4
-	 aT/oYVUvdnY6A==
+	b=MlAz6xK16bI9tf/mfS2d2yF9XYw4pqeLAQgY+AWxzfudptxWZv0VRNo9pskQ7iylu
+	 VPjsmAnHmcA0L+XxEeiV76aCP3lQ8ivJG1vTF51DcpiCkpvxA605WLHqQ/L1dBMzR9
+	 6wjEHlT4krDDxe9kAl7loGPKIZRv072gGFo4td1Y8VlkuQjhm1fTUSRX6CvVxO+GvM
+	 Rhsp050x4RwoSS8drPkf6bzjilUgTQu6cuFqlPYURLrQ7jFiYoDNGV+72UjCTBTwZU
+	 F3Rb8f8MVrHC1MrUialvq8T2KGzbMX9H4tMGGftI+OTu6fvqAInKmz1KkIQ3Ml56Y6
+	 f5kLwrkkf4GFA==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1x55oX-000000094wf-0lon;
+	id 1x55oX-000000094xo-2XBO;
 	Fri, 11 Sep 2026 14:17:29 -0400
-Message-ID: <20260911181728.983943214@kernel.org>
+Message-ID: <20260911181729.421437849@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 11 Sep 2026 14:16:40 -0400
+Date: Fri, 11 Sep 2026 14:16:42 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -41,7 +41,7 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  stable@vger.kernel.org,
  Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Subject: [for-linus][PATCH 04/20] function_graph: Use the saved entrys size when reprinting it
+Subject: [for-linus][PATCH 06/20] tracing: Free histogram the var ref when its initialization fails
 References: <20260911181636.485043797@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -53,55 +53,46 @@ Content-Type: text/plain; charset=UTF-8
 
 From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-When a graph entry does not fit in the trace_seq, print_graph_entry()
-saves it in the iterator's fgraph_data and reprints it on the next read.
-The entry has already been consumed from the ring buffer by then, so the
-copy is all that is left of it.
+create_var_ref() allocates a VAR_REF hist_field and then calls
+init_var_ref() to fill it in. When that fails the field is leaked.
 
-The copy is sized with iter->ent_size, which no longer describes the
-saved entry but whatever entry the iterator has moved on to. The
-argument count is derived from the same field, so a 72 byte entry saved
-and then reprinted ahead of a 48 byte return entry loses its arguments.
+commit 656fe2ba85e8 ("tracing: Use hist trigger's var_ref array to destroy
+var_refs") made destroy_hist_field() return early for
+HIST_FIELD_FL_VAR_REF, since var refs are freed by walking the trigger's
+var_refs[] array instead. create_var_ref() adds the field to that array
+only after init_var_ref() has succeeded, so on this path the field is in
+neither place and nothing frees it. The call was correct when it was
+written, before var refs were taken out of destroy_hist_field().
 
-Record the size next to the failure flag, so that the two are always set
-together, and restore it before reprinting.
+init_var_ref() cannot free it either. The caller owns the field, so
+init_var_ref() undoes only its own string allocations and leaves the
+field alone. Freeing it there would leave create_var_ref() passing freed
+memory to destroy_hist_field(), which reads its flags.
+
+Call __destroy_hist_field(), which frees the field without consulting
+the flag.
 
 Cc: stable@vger.kernel.org
-Fixes: ff5c9c576e75 ("ftrace: Add support for function argument to graph tracer")
-Link: https://patch.msgid.link/20260906034406.1335316-1-donggeunyoo.kernel@gmail.com
+Link: https://patch.msgid.link/20260906133352.3815019-1-donggeunyoo.kernel@gmail.com
+Fixes: 656fe2ba85e8 ("tracing: Use hist trigger's var_ref array to destroy var_refs")
 Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_functions_graph.c | 3 +++
- 1 file changed, 3 insertions(+)
+ kernel/trace/trace_events_hist.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/trace/trace_functions_graph.c b/kernel/trace/trace_functions_graph.c
-index ff7cb1a76b95..c5befd0c5b9a 100644
---- a/kernel/trace/trace_functions_graph.c
-+++ b/kernel/trace/trace_functions_graph.c
-@@ -52,6 +52,7 @@ struct fgraph_data {
- 	};
- 	struct ftrace_graph_ret_entry	ret;
- 	int				failed;
-+	int				ent_size;
- 	int				cpu;
- };
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index f90680b33a37..bbdd56208eff 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -2221,7 +2221,7 @@ static struct hist_field *create_var_ref(struct hist_trigger_data *hist_data,
+ 	ref_field = create_hist_field(var_field->hist_data, NULL, flags, NULL);
+ 	if (ref_field) {
+ 		if (init_var_ref(ref_field, var_field, system, event_name)) {
+-			destroy_hist_field(ref_field, 0);
++			__destroy_hist_field(ref_field);
+ 			return NULL;
+ 		}
  
-@@ -1274,6 +1275,7 @@ print_graph_entry(struct ftrace_graph_ent_entry *field, struct trace_seq *s,
- 		if (s->full) {
- 			data->failed = 1;
- 			data->cpu = cpu;
-+			data->ent_size = iter->ent_size;
- 		} else
- 			data->failed = 0;
- 	}
-@@ -1457,6 +1459,7 @@ print_graph_function_flags(struct trace_iterator *iter, u32 flags)
- 	if (data && data->failed) {
- 		field = &data->ent.ent;
- 		iter->cpu = data->cpu;
-+		iter->ent_size = data->ent_size;
- 		ret = print_graph_entry(field, s, iter, flags);
- 		if (ret == TRACE_TYPE_HANDLED && iter->cpu != cpu) {
- 			per_cpu_ptr(data->cpu_data, iter->cpu)->ignore = 1;
 -- 
 2.53.0
