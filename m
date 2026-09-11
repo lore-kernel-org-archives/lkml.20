@@ -1,33 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7673637B3F7
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:36:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DECC4BB279
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:36:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789151776; cv=none; b=nF2/4XfnZwN00yWc4GNsGafjBBJjAuVSlBz+YZtjVJLgrCBo4uKGhaIe8eqrvUZkRCK6H4u3vMCejcmophG+P7AWlpVL7kqedc5o9TUPaudBiVEJUJEfC4j/fbWloJLDMAbZwte21gkkUbJxv1WU9ia+KD3YT2tZZBy+9gOi5pY=
+	t=1789151777; cv=none; b=gJi3AANW981pDmoM1fX9feya01xafF65IU32VVBhte5hMt8H9WtRdqb/Vo8oaf8IrvAhEOiAm0tYkR9n+q8hJ7syLul2xxFZSrq6Yg15VzQPkIiaAJzRrGxmP7sFfnNKAEoHVemoQqVg9tWCbOpoFDGDGmH6I1AHl4f49iwzjjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789151776; c=relaxed/simple;
-	bh=S+vxi8Q6ZSgj1uuqsBsFHTjovSR/pn5dA5JB/2JQpnU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HKiC9EkeY99APabkq2CgJYhqFfVzk8wvvIffoyFjGJbZyZ1fial9Ph/oN1AI8olzUGJWHkAfdk7uJgAsxYCx2D6httacYcY8JehSdORXT8H7Y0i9fNgAfF/0TWnn/855cNb3RHZndJpsdKA43Y8CU7XGWVxUq1nGQUH7L1UC5T8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WFU+6C09; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789151777; c=relaxed/simple;
+	bh=lb/Hv/vqEZyIorfE/AOb+//fnEmSJFGFf+2xZzLtrZw=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=bNYC8PhLl8jl3TkrIULt2FNLCMPYgidyMWPus2uXmAhaBRw3YBLIQ0PqpVtNp6NNP282Q0B7cpvlHrj677V7V3W3v72TpAIP1QNr++7nsfHY7DnfuhLuqUw6ZVCNLwjRWhmWuYUrRZb4OGhsLIOTWPFuT1Daxy/vfuTWegwdens=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ok3D9HET; arc=none smtp.client-ip=209.85.128.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WFU+6C09"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4396F1F000FF;
-	Fri, 11 Sep 2026 18:35:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789151764;
-	bh=18g5sLAF7nSxm6nZmjffovZ5kQJJB+eSmE+3wi/6upw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=WFU+6C09Ll9KN6W/MYsq5Lpe1+McoistwpeIdC9zJhAajXY77frVc9EveTcqKQNZn
-	 AtsPQ5+VXGeHjZ4G3hhMZu8riMuhD4FbFpOkhkIbo3lrvCf4KwTKM5uZSw/uFbitGR
-	 PifRZJqShvJ5lFmS1qJECuah8hqp7nppxV906dpPcNvkKaOGwZPCf8WJ8onjI5Ri73
-	 17fBuRFPwV/N2FHh6//xhVIwCJ4ZEzLxnLIyNr8P8OhiWlD3cgB7e5K/57vEDCQS1l
-	 bVzCVFzx2d996DZIumDz6pLwQ/eDSBg8kfzMCM7Taq6/5c8pc9IcrN/YtKlf0R1wZG
-	 Fan38NZjIeqxg==
-Message-ID: <33d05dbb-9f99-4887-a4c1-415a27baf306@kernel.org>
-Date: Fri, 11 Sep 2026 20:35:55 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ok3D9HET"
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-836c8bde2dcso11792847b3.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:36:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789151762; x=1789756562; darn=vger.kernel.org;
+        h=content-type:autocrypt:in-reply-to:content-language:references:cc
+         :to:subject:from:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PQUFlReksbLvMHzOhaRbAImsyhNtxAatqnZZuEpJRhA=;
+        b=Ok3D9HETB00LZJjbTP2QGMb1ptro0pPN8aAAjVCA2fBG1Fg0gtGTEX/WE6XfeJuzBs
+         4clY52MucBPwLuKtfU81nee/V3LtJGrg1xZh3oHUxCX+c0qG7irf7djKtdsplESOjTPX
+         jEAnBJnNF3NganAv2YaX12hG+sbtqiDyd69xjs9UHMIx9708GLilzxVIGbICfysn0rgF
+         rf63IOF8wbQHjro6Sl86XCOscOg2RbOqXIbTJ2aFD92h4qkRtgs0GvZHJYu8GQhM1cmX
+         z7MjQF2XeHW9QhBdfDbeJMIIfdl8IoExDKNSKOtNMuOXG26VUvZrsISTYJwBVO8TuL6u
+         gYSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789151762; x=1789756562;
+        h=content-type:autocrypt:in-reply-to:content-language:references:cc
+         :to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PQUFlReksbLvMHzOhaRbAImsyhNtxAatqnZZuEpJRhA=;
+        b=c69TPtl3oEtTtC8xJkKlaARDlcZnjW9GCIHj9eLeH+pC+3sypiGhkbzQRgVK401qmc
+         ihX0u20Xhg4MEDfWEiiwhL7QcuQPVe/ZRB01J7bnpgyV1FU9E2r0c3ecPsx5dbkWKIni
+         YB3hCpgaZGXXDV/ECelTBD8GQDVu/tY03JU8WVizVn46hMuI8fPhRtGTu2vMWSs8f5Ad
+         tOKqmh3t4fbtKZ6D0a5/Wybl2bgb7dH0TIqndKZfPDVdmiGkPH+cMpAEPxb9ppTeUfhU
+         H8LU/B8EMqD00ABMwe2gHivPBCDcKRGrQDFCdP43wmCeYkBghsCmpmLht7cZ7cIW4KHe
+         Lbtw==
+X-Forwarded-Encrypted: i=1; AKwUvBwUMG7D1U7TGbRYp52nDL30V1fr5I95MfSk2m7ozRMI7uwBEzMGFX1J/dwKS4tAVrjohgAUXTqj8yN7fDw=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4TkbDgNU0vPuIrNrjwPRDXKVJfj1T56sz4uvIV2Tf87XMX0Hq
+	5LJwwa/7IqJQLvxDPwGLSv4T4UqW66+bIN1XM5KF4Js++zaeyEMoaSPO
+X-Gm-Gg: AYBFou1DhruttfNpvaJcFD+rLxU/rkTWO5Z/x8Tmyo49WN49UAcrjlYO1X7GcT3gI6x
+	Ey7iV9q5PN6PrZIbDwAsYWTWfp6VOWpQxoCm4PZkx6WsnRyHVU3unLR9sEaHIyEcLSS7rM1Aaz0
+	7hXscOsbla+OWUIum8xhPf24Tq9Z2XTrc9ykfxNjWdRjIggHhyYOZzOp1DKoHBDekwBQCScTDb9
+	Nh6h/YgdWwc7BpitbfDGDrwkfOyTzAwY0iHgBG3uzMNH/fcRCD4lmKh5FmekFrunpC702wwisBb
+	wVt/Gj1NuJvSrtUtj6Dag1AelAiHiodCnwRseDHSO4GwQxOE0ysmACyUB10Bqx8CmUSMPlhTSka
+	v0GLwFqNv/wBN7p0P0bNU03jhwugWifFQUDJIrmj7rKV9AO4NOfBt83HTgvO3s3esbfIRsYF0U3
+	ZCNkbwfnB/cRn8R6sXaViq+Xq43N2RujgfPb/o4eInOT9aJpMXD3573xjoNQaX5Obi90U89Ol2g
+	w==
+X-Received: by 2002:a05:690e:dc6:b0:671:3261:b0ab with SMTP id 956f58d0204a3-6713261b143mr303786d50.96.1789151762005;
+        Fri, 11 Sep 2026 11:36:02 -0700 (PDT)
+Received: from [10.138.10.6] ([185.98.168.14])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67125db747esm1396460d50.3.2026.09.11.11.36.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 11:36:01 -0700 (PDT)
+Message-ID: <c08519bb-b912-4d34-a164-5a9d65162716@gmail.com>
+Date: Fri, 11 Sep 2026 14:35:58 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,175 +69,215 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/12] mm/collapse: separate a collapse from its
- callers
-To: Kiryl Shutsemau <kirill@shutemov.name>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kernel-team@meta.com,
- "Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>
-References: <20260910120238.2529819-1-kirill@shutemov.name>
- <8170ef17-0de3-45dc-8c8c-de15f088214d@kernel.org>
- <aqQf9hSy0iNjnL6t@thinkstation>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Subject: Re: [PATCH v7 09/12] crypto: qce - remove the BROKEN label
+To: Bartosz Golaszewski <brgl@kernel.org>, Eric Biggers <ebiggers@kernel.org>
+Cc: Thara Gopinath <thara.gopinath@gmail.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>,
+ Stanimir Varbanov <svarbanov@mm-sol.com>,
+ Eneas U de Queiroz <cotequeiroz@gmail.com>,
+ Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-crypto@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+References: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
+ <20260910-qce-fix-self-tests-v7-9-cdbd2718af14@oss.qualcomm.com>
+ <20260910143140.GA5719@quark>
+ <CAMRc=McDHXWRfYTwRasdBCXMnoVkXK9T7RB+gBNgCsGof-euyg@mail.gmail.com>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <aqQf9hSy0iNjnL6t@thinkstation>
+In-Reply-To: <CAMRc=McDHXWRfYTwRasdBCXMnoVkXK9T7RB+gBNgCsGof-euyg@mail.gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ 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
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------wVAkQh0BYR9c4IMoAzf71N0A"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------wVAkQh0BYR9c4IMoAzf71N0A
+Content-Type: multipart/mixed; boundary="------------0OOUWZtcuQBwgLiyOlj8YQdY";
+ protected-headers="v1"; hp="clear"
+Message-ID: <c08519bb-b912-4d34-a164-5a9d65162716@gmail.com>
+Date: Fri, 11 Sep 2026 14:35:58 -0400
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Subject: Re: [PATCH v7 09/12] crypto: qce - remove the BROKEN label
+To: Bartosz Golaszewski <brgl@kernel.org>, Eric Biggers <ebiggers@kernel.org>
+Cc: Thara Gopinath <thara.gopinath@gmail.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>,
+ Stanimir Varbanov <svarbanov@mm-sol.com>,
+ Eneas U de Queiroz <cotequeiroz@gmail.com>,
+ Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-crypto@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+References: <20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com>
+ <20260910-qce-fix-self-tests-v7-9-cdbd2718af14@oss.qualcomm.com>
+ <20260910143140.GA5719@quark>
+ <CAMRc=McDHXWRfYTwRasdBCXMnoVkXK9T7RB+gBNgCsGof-euyg@mail.gmail.com>
+Content-Language: en-US
+In-Reply-To: <CAMRc=McDHXWRfYTwRasdBCXMnoVkXK9T7RB+gBNgCsGof-euyg@mail.gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ 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
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+
+--------------0OOUWZtcuQBwgLiyOlj8YQdY
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-On 9/11/26 17:56, Kiryl Shutsemau wrote:
-> On Fri, Sep 11, 2026 at 05:06:58PM +0200, David Hildenbrand (Arm) wrote:
->> On 9/10/26 14:02, Kiryl Shutsemau wrote:
->>> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
->>>
->>> [ This is the first of the cleanups I said I would front-load ]
->>>
->>> There is no line between the collapse engine and the callers that ask for
->>> a collapse.  khugepaged.c holds both, and they reach into each other.
->>>
->>>  - Sixteen tests through the collapse path read cc->is_khugepaged to work
->>>    out what they are allowed to do, when every one of those decisions was
->>>    made by the caller before it asked.
->>>
->>>  - collapse_single_pmd() does both halves of a collapse behind one call and
->>>    drops mmap_lock somewhere in the middle.  Which of its paths dropped it
->>>    is not something a caller can see, so it hands back a bool and the
->>>    caller keeps track.
->>>
->>>  - MADV_COLLAPSE's implementation -- the walk over the user's range, the
->>>    per-PMD loop, the errno translation -- sits in khugepaged.c, which is
->>>    the daemon's file.
->>>
->>> So: draw the line.  State what a caller allows in a policy, split the call
->>> in two with the lock as the boundary, and move the syscall to madvise.c.
->>> What the engine offers is then four calls, with the lock state written
->>> down against each, and a policy the caller fills for itself:
->>>
->>>     collapse_control_init(cc)         once, before the first table
->>>     collapse_policy_*(&cc->policy)    what this caller allows
->>>     collapse_scan_pmd(vma, addr, ...) per table, under mmap_lock
->>>     collapse_run_pmd(mm, addr, cc)    when a scan found work, no mmap_lock
->>>     collapse_control_release(cc)      once, when done
->>>
->>> The engine stays in khugepaged.c for now; what changes is that it has an
->>> interface, and that neither half has to ask about the other.  madvise.c
->>> gains the operation it should have had all along.
->>>
->>> Changes since v1
->>> ================
->>>
->>>   https://lore.kernel.org/all/cover.1788533997.git.kas@kernel.org/
->>>
->>>  - Rebased onto mm-new with Vernon Yang's tracepoint fixes in it.  Patch 8
->>>    no longer merges the two calls to each scan tracepoint, since the base
->>>    already has one; its changelog now says what the status field reports.
->>>
->>>  - Patch 3: nr_occupied_ptes is nr_eligible_ptes, and the mthp_collapse()
->>>    comment counts eligible PTEs too (Zi, Baolin).
->>>
->>>  - Patch 4: no comments on the two constants (Baolin).
->>>
->>>  - Patch 5: one line per policy field (Baolin).
->>>
->>>  - Patch 8: the file side is split like the anonymous one (Zi).
->>>    collapse_scan_file() runs under mmap_lock in the scan and only judges;
->>>    collapse_file() runs in the run.  See Behaviour below.
->>>
->>>  - Reviewed-by from Zi Yan and Baolin Wang on 1-4, 6 and 7.
->>>
+On 9/11/26 07:14, Bartosz Golaszewski wrote:
+> On Thu, 10 Sep 2026 16:31:40 +0200, Eric Biggers <ebiggers@kernel.org> =
+said:
+>> On Thu, Sep 10, 2026 at 03:00:50PM +0200, Bartosz Golaszewski wrote:
+>>> All self-tests now pass.
 >>
->> I'll hopefully get too look at this soon (after digging through older stuff in
->> my queue).
+>> Have the other bugs that were reported been fixed?  For example:
+>> https://lore.kernel.org/linux-crypto/20260723202704.GB110634@quark/
+>> https://lore.kernel.org/linux-crypto/20260723183438.GB93534@quark/
+>> https://lore.kernel.org/linux-crypto/20260723205342.GC110634@quark/
 >>
->> Skimming over some patches,  a note that we should not be undoing recent
->> cleanups without a very good reason.
-> 
-> I don't think we undo it.
+>=20
+> I will get to these too. For now, the series allows the self-tests to p=
+ass,
+> I assume it it's enough to not keep the BROKEN label.
 
-Good, I only skimmed it and read "[PATCH v2 09/12] mm/collapse: open-code
-collapse_single_pmd() in its two callers".
+Personally, I think the driver should stay BROKEN until all the
+known bugs have been fixed.  The self-tests aren't enough for HW
+crypto drivers.
+
+>>>  	help
+>>>  	  This driver supports Qualcomm crypto engine accelerator
+>>
+>> As this patch would make the kconfig option visible again and would
+>> result in everyone running "make oldconfig" being asked about it, it
+>=20
+> I don't mind changing the symbol if you prefer it to avoid any accident=
+al
+> `make oldconfig` carry-overs.
+>=20
+>> needs to be fixed to accurately document why anyone would want to enab=
+le
+>> this option.  As you've stated, it's actually just for "testing".  The=
+
+>> false claim that it's an "accelerator" also needs to go.
+>>
+>=20
+> "Offloader" for lack of a better word?
+Could it be called a "decelerator"?  That would give users an idea
+of what to expect from the driver.  Maybe explicitly mention that
+you will take at least a 50x performance hit?
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
 
 
+--------------0OOUWZtcuQBwgLiyOlj8YQdY--
 
-> 
-> Both madvise and khugepaged use the same interface to the collapse
-> engine. Anon and file paths are handled internally in the engine. What
-> changed is that we have two calls into the engine instead of one.
-> 
-> Collapse consists of two phases: finding what to collapse and collapsing
-> the found range. These two phases have vastly different locking
-> expectations.
-> 
-> The scan reads a PTE table under mmap_lock, fails often and doesn't drop
-> the lock to move to next range.
-> 
-> The collapse allocates, may sleep in writeback and takes mmap_lock for
-> write itself. So the lock inherited from scan is no good.
-> 
-> collapse_single_pmd() hid that boundary inside one call. It had to drop
-> the lock somewhere in the middle, on some paths and not others, and the
-> only way for the caller to find out was the lock_dropped bool.
-> 
-> With scan and run as separate calls each has one lock rule: scan is
-> called locked and returns locked, run is called unlocked. There is
-> nothing left to report, so the ugly lock_dropped goes away.
-> 
-> It is the same move as Nico's da98790891a4 ("require collapse_huge_page
-> to enter/exit with the lock dropped"), one level up.
-> 
+--------------wVAkQh0BYR9c4IMoAzf71N0A
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-Makes sense. I'll get to this next week!
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Cheers,
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmqkSg4ACgkQszaHOrMp
+8lOJcw//ZYv8AEBDFni13+DfWwnPh1wU47dii3Cvw4PPVNbr2gUyKxFsCRgqib1D
+9NtqoDZYnVN5wgO1m1ON/FzOAzwXz2SnTySdSKiz3t9ycF5vjXFw7gFHFgpmnyCf
+Kf6mYLxy8ot4i+ztZlucGTyQwwbqkGONrPQIwcDIBvTvOmr2kyQ6nAn7xYlmK1uW
+ch0vUXjWCpXqkWThuEYhPOCEYkM9Y3hsFVVwrBQDZ2n1gpF6LvrJHdZ2zukPIRWH
+Jo6hHRXk6JUn+SOTT1EHLxzfgQB0aWmT/8oWiQFySyYKeI5GgyfTOCPXV9Rz84Xz
+MSaLDzYpHc96r1UWjLE5tmm8DIAjmHsDI8GeImxsjm3PCX2EjPiX2iVhjYdmtEsD
+ZrD30/i+7/6RLlBvrrv0KVD5tQIJ9qhnkbk6BIBjWH+wfmIwSk31txLWUIv2ZbhY
+CltiKKaZeC1aylgkePOSqPchiyIbSifKCjbi9XC1jcCmlIwOi+i0Z2349/ja8Kfj
+bpb+pF5MsqbVf6CZ18Z+04nn9Ym4UsK0uexdDxEwy+oJEroGL5HJcEDQZ16NKY/x
+hWXVvFMYYxX6NNVIMqgiqNzFnFF0iL09ib+ujMhGbs+2GaedN8TGZCYkJHl6J3nI
+QCbvoNl1bFlb2IVbJy8jafma0JplLC37IMKDlu2u8cgkhXE8iKY=
+=GS2j
+-----END PGP SIGNATURE-----
 
-David
+--------------wVAkQh0BYR9c4IMoAzf71N0A--
