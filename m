@@ -1,326 +1,153 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11022081.outbound.protection.outlook.com [40.107.209.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 912E94BA1E0
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:27:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789162072; cv=none; b=o4sJEf4vig6HybM/MgoRZ2sNhaHM1cPw0r3pMToD9KopZCmgpFYPtd2HBbNF7AWc7lUQiJ9SLz5YDjmzOGQA07PkNFyXQaN+8OWA0Qd7qRSZhqgL/pA/X0eGoY7Wox5uPgs6BdC7BQkJ44RtgWVMe25ke/I1Nwd7zekK7eD6bak=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789162072; c=relaxed/simple;
-	bh=lpPkIMwZ4nZE74cycdwPy94UWA17jHouybB8HYBYfzk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EsLuPMtZZ2Tt/Xkm7XAlW9Aq28Z+bkJSv0BSBzHyyNJ1J3PciVnMZR0mbOwk1baACkxOl6JV6i1e7DR8Gwup36e+13dr+xFaUuULes0Lvb89qmuQ4SkWBHrrC/UXJPEHqITzf/zzHiC7BVSbhoKrq6MGrabEHrS+Gz9Obm/2Pi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-484366874b0so161081f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:27:50 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789162068; x=1789766868;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9clTUYcfoxEDLNFpVDjj8fuFA9Sb6BYXsCWxbrtAK80=;
-        b=XQwO6IuoLkBLgNOxMc1J3neD73sZSULhStOoOc6WCLdaBYcyBlIhVh6D/5LCmLYrYq
-         lfC4dEkOjO/Z3dSGoh3nACTvz7k1ilW0hqH0SlbtP9KKTX8SH5iSR9TMWDZZ1B1sHxbk
-         b/PpWQQHLU10fFyZmwG3eXi+puW0WXmxpJ7ss6K9fzEnHOEX+mz1q5cBk5AcZ+1nYvum
-         ClyZZohkURjQFQTxK/fx0L6oMiRszU1goy1hny383wtSORurE6TVhmgti7EdIy5dO7hn
-         0K5zc6WzMDpBoiUfDUeLCK9jPYw3/5PDd+llO5+fl14jEpx56Bbbp0AOrm3kXEHgd+l3
-         XnbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxF0hMS+nsfrj6NxxLS+zMt5cnzvjXnukZ3Q1jv9q31z4jhCIeOEJUkKeNmnBKz/T3pYaBU3x0P13etYJY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kN5pSmwPbrrI+FToHyaeGwVQ3jyVX/eI3GWELoxpZsvdVzHbo8
-	Hy5H0QmeD1ZYOJR/HFLJrZC4gd5oryuwrx+YM6WcJ5FVdNdzUnjZKTGc8OLy3DN0
-X-Gm-Gg: AYBFou0q3nH6IiQsPl6a7LNqMhvJXo1SY3zghSaI05xhZas+sTqlu8WK8nzIzdmz86+
-	Q46swAqmyToXU+yn4LWMxXbeY/kcodDPZ2xGXahfkjhs+DPLypR+KxnI7t4gYbsXgLVMEJ4rDBD
-	VqjUtvN3g42P7tzRRRSXkGElSlmZwXefAG07bMQau8xbwFkQLjP/jYMNfpapeTYTb7TbQdVGNov
-	R44VDi60QHIfQHw3LTKrD5gFhgvUSkcwjonywhtLg2v5zCY6O8DJJvPjOZzeGL6KzdVExIzEuG4
-	uYMHBuAPgPbkzbLeJfme+Q4ftEagPuYwr44z00DuYH3AOi2cww2ijzordXBEK0h97GaQfLnlH48
-	YADzEl2vI5lFqxThz5RTHva8VdU4dJBwJOkPwuElPLpTWo5gHGmSbSqTyh0Pr+X0D/gvUyyWOnu
-	Lfy8bn9ozjCArABsq/BDDoQveHUZMa02Ln11VrpJTYMspdX5AC+Xv2X7krXocENGaquhlu4+YRX
-	6Qp9kIQVVnmo/+lBVATpfjeKbf6N2K+
-X-Received: by 2002:a05:6000:616:b0:485:b104:6e61 with SMTP id ffacd0b85a97d-486eb339548mr12616545f8f.20.1789162068490;
-        Fri, 11 Sep 2026 14:27:48 -0700 (PDT)
-Received: from [10.100.102.74] (89-138-77-243.bb.netvision.net.il. [89.138.77.243])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33ea4fsm8713644f8f.21.2026.09.11.14.27.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 14:27:47 -0700 (PDT)
-Message-ID: <bec91f99-4498-4be9-bf96-f3021c79f3f1@grimberg.me>
-Date: Sat, 12 Sep 2026 00:27:46 +0300
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75274BA1F4;
+	Fri, 11 Sep 2026 21:29:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.81
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789162151; cv=fail; b=txw/WP2Md0Bqkm/yvG9Z/dlPAIh/9CmKFICBxX6HFns3SQBHBTRS0HKhXcih8Zm16hlyAJ5b6YYrz5QJaK6GwgAM3WUTun5YulRsAG784YqnMeGgt35G+LBGu4EprlIEcSOfAq+3i0wop2xpr9+oQc0NTqL39d5q7h2d6xXRia4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789162151; c=relaxed/simple;
+	bh=zxxiHFeoTFgxoc0spEtnWDt7lbs3P+gGcOlYkyel8+I=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=NS4jQ96R2er264idXeLCwZleuZRTyPXARLI4iGtkKGCDd5ztESPIrkhfWGpOF5slepJhWAd5iE0HQPjeeN13vwppE+F2h+GwXL6pUvcqCz9RC35Wxl3a7xM1TkfZlYAEO+eUao81+o/aK28m41/WD4VXThpd0ewMW3icjAhOBog=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com; spf=fail smtp.mailfrom=rambus.com; dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b=JSm1wBdy; arc=fail smtp.client-ip=40.107.209.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=rambus.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b="JSm1wBdy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JwTEebsCniZ2ROnBBac5lsh+Cd1e3GMzVooq4AwS/fpVEwJkkEFL9yuSHNe6XCh3lDhwXTxHm4WFFM8JcdjKizqXZUhWRJ3E0nv4ZMYs4fT24QCSe3XIj21/g6qoMoEqyFDExBAy+4ywYoYysS9VMzDsYG9z5gxrW0KtezE2GmSoL9OPV/v1HhRLEtEFMgvqB5SY+r+KzkqLUjnytcmOapi1PlKFk4KxRJEH9FhJeVfSj6uTWj7uG5+isdtUIvpgeLbXGt1pPogtUsRXUE605iXVyCrLGoOwW0eN5r/35mBIluOEzFtznbkFb84cLfUVYKKI9ToXlA+wL9sIs4untw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QVB56YhnglpNFEROeYGpD4J4uZsyLLIQMC7gA4CtWCU=;
+ b=J3FiXjlVdvbBXZcfKpuTyJjOt4sOCQ75QK8mCiTUpTtNfFEp4hYuhTO1laUWCSo2zbJHuEr5bPLNKpvKrGPeg7E6kLPE0bZEHQVoGzqH4pBvPnXlM6R0pIYmFOF/NfLtFdutgKN9/eJeyNDyRKI210jMGNkAvT5CfYJyHg770Qc7agm5KQl1l5IN4KSIxFDWZZy0kTwXyNqr0yLtFcZ8JSdBUGNiRi2FR2vpWdMek/zigUPA6thsq34ZnCe4HinlcWZ1bQ2TQZzu+F5+aF4nsRtJO93jcnlF/HB1VWvsziHU9A3DoEnvpWr8NerdFPmzYRHT+maphQ/7wFH2Le3aHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=rambus.com; dmarc=pass action=none header.from=rambus.com;
+ dkim=pass header.d=rambus.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rambus.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QVB56YhnglpNFEROeYGpD4J4uZsyLLIQMC7gA4CtWCU=;
+ b=JSm1wBdyTJ0aV55Qlm2W45gpYT0fgTDYGlg6O0VdPXG3O1DMUFv83DnzV4KVtT+6RkQvys9SWzzVbayobcz0jLzYusGSPmdEu0U8bgaTiw6k0h1uKXq2u/fIBiAYcD5wkUtfoJ75NfzOqHx35M70KOLY1RHywT07YH1TqLOhb2UYc+9+AJuCzWAMXYGhDZ9zmNtPnpAL74EOz//3vlITd6JqMNLsTCYLIZxMZjfVCRiOuw5LEXgiUcSrzxQH0LYknD8YZgmMsKJTJoLf8S2uXePVvKBvz0Wu95Bkbj5iTF0nX3brkm6/4RBcXSZMqf9eFL7LQGST33m2rw9GHampgQ==
+Received: from SA3PR04MB9001.namprd04.prod.outlook.com (2603:10b6:806:398::17)
+ by BY5PR04MB6836.namprd04.prod.outlook.com (2603:10b6:a03:21b::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Fri, 11 Sep
+ 2026 21:29:06 +0000
+Received: from SA3PR04MB9001.namprd04.prod.outlook.com
+ ([fe80::3da3:45d7:8860:e196]) by SA3PR04MB9001.namprd04.prod.outlook.com
+ ([fe80::3da3:45d7:8860:e196%4]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 21:29:06 +0000
+From: "Ousherovitch, Alex" <aousherovitch@rambus.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>
+CC: Albert Ou <aou@eecs.berkeley.edu>, Conor Dooley <conor+dt@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>, Jonathan Corbet <corbet@lwn.net>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Palmer Dabbelt
+	<palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>, Rob Herring
+	<robh@kernel.org>, "Krishnamoorthy, Saravanakrishnan"
+	<skrishnamoorthy@rambus.com>, Shuah Khan <shuah@kernel.org>, Alexandre Ghiti
+	<alex@ghiti.fr>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"Wittenauer, Joel" <Joel.Wittenauer@cryptography.com>,
+	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
+	"linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>, Shuah
+ Khan <skhan@linuxfoundation.org>, "Nguyen, Thi" <thin@rambus.com>
+Subject: RE: [PATCH v4 04/19] crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
+Thread-Topic: [PATCH v4 04/19] crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
+Thread-Index: AQHdNN9iaUPmaZ+DjEW1WtISsJVxD7bI4yWAgAEbzvA=
+Date: Fri, 11 Sep 2026 21:29:06 +0000
+Message-ID:
+ <SA3PR04MB900105B881F46FD7B90F7E3BD7BE2@SA3PR04MB9001.namprd04.prod.outlook.com>
+References: <20260825221539.255951-1-aousherovitch@rambus.com>
+ <20260825221539.255951-5-aousherovitch@rambus.com>
+ <aqOEL-YUVFuThcmf@gondor.apana.org.au>
+In-Reply-To: <aqOEL-YUVFuThcmf@gondor.apana.org.au>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=rambus.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA3PR04MB9001:EE_|BY5PR04MB6836:EE_
+x-ms-office365-filtering-correlation-id: ec3da269-a28c-4916-f681-08df104bb573
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|10067099003|4143699003|11063799006|56012099006|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info:
+ K62nuIPoWtqRidPJAkIkPf1vKJPKZrr8zvO7O5qmhpMEcNIsURiMSC4IselObxhka3JAWnHwSPaFjeWVKBK9z3AaDAH/vH9PWwu8kpZydsKweS5i8ZU833oUQQnuye0I6lG0IwyYAaOJV8noX4YH4Q+3EVcmJD6i0HSV34KXUWoZF0p2LrTbaPU1iTN00FxEFmcBRwLPHTu+sKOp4PtYEFHD1gC2XNFtgkKKLb79e/IRfc6isg8PXR1HZR7z6stFjPPDNaK9y+lTepWuERo1D82KvIrSqjqkVcD39OGdlOcY9E8eb2JngVm+SAKbuc0WA47NWt+ZlnJzRaD4IfFr9wYi7Q4Y0o9VLwhtdInJgoKvfHU0s2gDDazKWjZM1GEdAf26T9SR/AadRql2NYPnw1dYsB0blWf875R45h9Lbe75gH3ul8odxfIjLX9JA1WCX+laQZFQONpb5KAx9Sv/Bt8FNKSU+S1KvoUV0EUKJazygckdqXrzUj7n+Zxsr9crSGcpMsi2tSDDpSS0lBfdtpr4m3N7OOH9fpOrCBQ9HpZS5RzQLGBpdePtXfygv8DUoMS26iSkmCAP02v+s+lBrnxaJykPCTowqH8Ku1u7Ta/R+GOipUSrCfNOYH86uYSXZKF2uwEEuCVdOQrfvBe6+f5oNG+7+XFRwyAefhZitujNosT3v+sbV2nCVBdeKEtCicGXJO/pQ2Ku0etV6w1FKpdhXAsqayLztR5rK+9km94=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA3PR04MB9001.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?bBhwwm/bI6NcnbMZwkGILQFqR/cwZYge3EBtrSZ1Z8HwEz79YlXDXAd8PdSZ?=
+ =?us-ascii?Q?hnXQQw1ytS2C75xWXklZnkmi+C6PBL/fRsY9PuP5NtowT5MRe8wWI6mTtGx5?=
+ =?us-ascii?Q?9zux4TM9aqFZlFCMoNJR6q5JwgFpZo6WlxYfZ/r+e2XkHpux96M95mvjFBzq?=
+ =?us-ascii?Q?x8B+No5WKQPBhByJ2JObfsoejGUFd7NZuTFq8/gTPlgp59ZnI3CrvXgFB8Nx?=
+ =?us-ascii?Q?kNIQQVwg0JrVbLmBHF9Iuj2Un+cmcicaZdffkISMHeQ2iVpODw31JsQ+m7sO?=
+ =?us-ascii?Q?OHCnX5yGBKJRUmSeiim4sr7g3uLpeFa7uJ4G9GxfY1tY6GWCOUtIgPJrq2dG?=
+ =?us-ascii?Q?JQZC9wU3heVRUSYcH8qVZP/Bx/Rr3KWUqiKW/6YCtUr6Qshn7HbAYdklEInD?=
+ =?us-ascii?Q?f9WP7thkLHDHkKF8zbWICtVAg2RofkEJrpQAAjaX1Me0H2GTsno0wqwxqE+Y?=
+ =?us-ascii?Q?2SjBQR3L9wJvbrIe6Zzo5Y1SPM6/IhD8piOHRvKvT07zJn8K/hoxxJ2ajduT?=
+ =?us-ascii?Q?98ej7hjW1tdThiM/N4NG32EX6BtLzFOve9bainvr4w4YkJ5xw4KeStvo2B9+?=
+ =?us-ascii?Q?uzPznL815vQsUKo4mYxulhi3Pt+gnDm8PBzVdlsP7x31aMppG68287J7SqzA?=
+ =?us-ascii?Q?V5PSarZAiN7t6qChswRkQfaz6ILQzbkLajCZs8H7m2jUEb4Ozol8yGSkt+Cy?=
+ =?us-ascii?Q?MEcuwJSHYqzK+boJ1/Ra43zVJA70ikEGEx1kYC5Pqsqxu1CLzWUfck2z8m3w?=
+ =?us-ascii?Q?h19fN3IRtnWkS/oyOoBs5dDg9IYQEjd4vv/CQN/vZiX7fqRbLf5o3kHOM2un?=
+ =?us-ascii?Q?2KDCPPxs8V84MUcoWNPdTA3mWFuuidDPntwz7SH8LfFK3uekiPer1dmaz13V?=
+ =?us-ascii?Q?C/Z5XRkN1j67Ptf1pYSZNuu7RyVwHsdwKcLHzwWFkOkLAJ4q75owyDkzS67F?=
+ =?us-ascii?Q?NHucn0oFp2KuP2H+MjDeQztO6sjl1JU09oL2PrmDOQkrF4RGZaEWnYrVttAx?=
+ =?us-ascii?Q?G4cZnHNu0ycLwORuSfRS6HCq4y9Ke+JorNUxW21y56LNG+dQ+wyDl1ygy2Mx?=
+ =?us-ascii?Q?Vm5O06O5gshAYNmHFTTu/WWAzErUw3+fmSWPIbou4b/v3KgbZyM2YQwzOUeS?=
+ =?us-ascii?Q?N/C+u66Tk7IIxtDOc/gW8/vWaON6TwNnDfaOMJGa7oim9iwukUIBfFEE5Rmo?=
+ =?us-ascii?Q?7bbjBaZNSiT+EohnI/xk8EQPQCI8vgDxduJDfD4lCZSLXShVaQUnCJx1wcr8?=
+ =?us-ascii?Q?206onyq90oacmam2TDD/3jxymS9y/uLyzg/u6uXLy6NBa06879qRY/VMjjJR?=
+ =?us-ascii?Q?DlpuXUUS5o/eykdc/y5/VL1tP8o0JAMu/hz3+boJuGLtNke89ly4uRwUMyxL?=
+ =?us-ascii?Q?z5AYZenl1iy4AKcpvFT+lmaX6qhqrVnxXcLuYAecK1QwESi9I41RoFjnsrZq?=
+ =?us-ascii?Q?sQxmX5IbhjSI/t6MKGAH4ylAmvqg8E4IHUgfYmuuY2QSwglZIWVuSgi5kAM8?=
+ =?us-ascii?Q?/lZTOy8857q7IFybyV+kHDsVyEUX7NBT3glvfd8wHBI4VABbPDgYVENb2flS?=
+ =?us-ascii?Q?JRA6C8NhON/veiiAjHxzaa3Xjyttcy8ObwDxLbkHGfOgG1mHZ9I0g964yH0i?=
+ =?us-ascii?Q?UABbDGR1BiGOy0fVhSaYTWoYNbtkD/CJ8MzHJgQr+kQpDwBPiRXuYXQ3N3g0?=
+ =?us-ascii?Q?r551MDeDD/1ZjgIhwLyQ1uql1qBKNGs0nVmxPlfNFP+viVcUBWdbWgCyU6+7?=
+ =?us-ascii?Q?PpLnnUf7nA=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] nvme-tcp: parallelize I/O queue allocation and
- startup
-To: Surabhi Gogte <sgogte@purestorage.com>, Keith Busch <kbusch@kernel.org>,
- Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>
-Cc: Solganik Alexander <sashas@lightbitslabs.com>,
- Roy Shterman <roys@lightbitslabs.com>, linux-nvme@lists.infradead.org,
- linux-kernel@vger.kernel.org, mkhalfella@purestorage.com,
- randyj@purestorage.com, adailey@purestorage.com
-References: <20260910202812.1642832-1-sgogte@purestorage.com>
- <20260910202812.1642832-4-sgogte@purestorage.com>
-Content-Language: en-US
-From: Sagi Grimberg <sagi@grimberg.me>
-In-Reply-To: <20260910202812.1642832-4-sgogte@purestorage.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: rambus.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR04MB9001.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ec3da269-a28c-4916-f681-08df104bb573
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Sep 2026 21:29:06.2137
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: bd0ba799-c2b9-413c-9c56-5d1731c4827c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: utTWSI8OSUGXLBt894sZh2rit7D8lJbLq7CqLyuEREJ9CGGIsR/R72EAoMfT4DR8pchHYyn3R9hvIzWDJ9NmIXRSUWhe+792Ni7n9GdltS4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR04MB6836
 
+On Fri, Sep 11, 2026 at 02:31:43PM +1000, Herbert Xu wrote:
+> Please drop block buffering in new drivers.  The Crypto API handles
+> this for you.  Take a look at the aspeed driver for an example.
 
+Done for v5.  The SHA-2/SHA-3/SHAKE, SM3 and cSHAKE ahash drivers now
+set CRYPTO_AHASH_ALG_BLOCK_ONLY and let the Crypto API buffer partial
+blocks (modelled on drivers/crypto/aspeed).  The hand-rolled holdback
+is gone.
+Since BLOCK_ONLY's buffering is scatterlist-based, these drivers also
+drop CRYPTO_ALG_REQ_VIRT.
+cSHAKE stays cra_blocksize 1 as an XOF, so the HC core buffers the
+sub-rate remainder across its context save/restore.
 
-On 10/09/2026 23:28, Surabhi Gogte wrote:
-> Similar to commit 2a8513091d2f ("nvme-rdma: parallelize I/O queue
-> allocation and startup"), refactor nvme tcp I/O queue setup to use async
-> API, combining allocation and startup into a single parallel operation
-> per queue. This reduces connection and reconnection setup time when
-> there are delays in establishing connections, which is especially
-> important for high-core-count hosts.
->
-> Key changes:
-> - Use async API to facilitate parallel calls for io queue setup.
-> - Add nvme_tcp_queue_setup_ctx for propagating errors from async
->    workers.
-> - Remove nvme_tcp_start_io_queues() and __nvme_tcp_alloc_io_queues();
->    their logic is folded into nvme_tcp_setup_io_queues() and
->    nvme_tcp_configure_io_queues().
-> - Allocate the io tag set before the queues so that the queue range is
->    known, and only set up the reconnect grow case if the queue count
->    actually increased.
-> - Serialize the cpu scan and claim in nvme_tcp_set_queue_io_cpu() with a
->    spinlock, as concurrent callers would otherwise select the same cpu.
->    The per-cpu counters no longer need to be atomics.
->
-> Testing on a 64-core host with 64 IO-queues shows nvme-tcp connection
-> time reduced from 61ms to 11ms.
->
-> Signed-off-by: Surabhi Gogte <sgogte@purestorage.com>
-> ---
->   drivers/nvme/host/tcp.c | 124 +++++++++++++++++++++++++---------------
->   1 file changed, 79 insertions(+), 45 deletions(-)
->
-> diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-> index fe0e581608b4..0fc244e676f9 100644
-> --- a/drivers/nvme/host/tcp.c
-> +++ b/drivers/nvme/host/tcp.c
-> @@ -7,6 +7,7 @@
->   #include <linux/module.h>
->   #include <linux/init.h>
->   #include <linux/slab.h>
-> +#include <linux/async.h>
->   #include <linux/err.h>
->   #include <linux/crc32.h>
->   #include <linux/nvme-tcp.h>
-> @@ -54,7 +55,8 @@ MODULE_PARM_DESC(tls_handshake_timeout,
->   		 "nvme TLS handshake timeout in seconds (default 10)");
->   #endif
->   
-> -static atomic_t nvme_tcp_cpu_queues[NR_CPUS];
-> +static int nvme_tcp_cpu_queues[NR_CPUS];
-> +static DEFINE_SPINLOCK(nvme_tcp_cpu_queues_lock);
->   
->   enum nvme_tcp_send_state {
->   	NVME_TCP_SEND_CMD_PDU = 0,
-> @@ -154,6 +156,12 @@ struct nvme_tcp_queue {
->   static DEFINE_MUTEX(nvme_tcp_ctrl_mutex);
->   static LIST_HEAD_GUARDED(nvme_tcp_ctrl_list, nvme_tcp_ctrl_mutex);
->   
-> +struct nvme_tcp_queue_setup_ctx {
-> +	struct nvme_ctrl	*ctrl;
-> +	int			qid;
-> +	int			*err;
-> +};
-> +
->   struct nvme_tcp_ctrl {
->   	/* read only in the hot path */
->   	struct nvme_tcp_queue	*queues;
-> @@ -1719,9 +1727,10 @@ static void nvme_tcp_set_queue_io_cpu(struct nvme_tcp_queue *queue)
->   		goto out;
->   
->   	/* Search for the least used cpu from the mq_map */
-> +	spin_lock(&nvme_tcp_cpu_queues_lock);
->   	io_cpu = WORK_CPU_UNBOUND;
->   	for_each_online_cpu(cpu) {
-> -		int num_queues = atomic_read(&nvme_tcp_cpu_queues[cpu]);
-> +		int num_queues = nvme_tcp_cpu_queues[cpu];
->   
->   		if (mq_map[cpu] != qid)
->   			continue;
-> @@ -1732,9 +1741,10 @@ static void nvme_tcp_set_queue_io_cpu(struct nvme_tcp_queue *queue)
->   	}
->   	if (io_cpu != WORK_CPU_UNBOUND) {
->   		queue->io_cpu = io_cpu;
-> -		atomic_inc(&nvme_tcp_cpu_queues[io_cpu]);
-> +		nvme_tcp_cpu_queues[io_cpu]++;
->   		set_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags);
->   	}
-> +	spin_unlock(&nvme_tcp_cpu_queues_lock);
->   out:
->   	dev_dbg(ctrl->ctrl.device, "queue %d: using cpu %d\n",
->   		qid, queue->io_cpu);
-> @@ -2011,8 +2021,11 @@ static void nvme_tcp_stop_queue_nowait(struct nvme_ctrl *nctrl, int qid)
->   	if (!test_bit(NVME_TCP_Q_ALLOCATED, &queue->flags))
->   		return;
->   
-> -	if (test_and_clear_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags))
-> -		atomic_dec(&nvme_tcp_cpu_queues[queue->io_cpu]);
-> +	if (test_and_clear_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags)) {
-> +		spin_lock(&nvme_tcp_cpu_queues_lock);
-> +		nvme_tcp_cpu_queues[queue->io_cpu]--;
-> +		spin_unlock(&nvme_tcp_cpu_queues_lock);
-> +	}
->   
->   	mutex_lock(&queue->queue_lock);
->   	if (test_and_clear_bit(NVME_TCP_Q_LIVE, &queue->flags))
-> @@ -2119,25 +2132,6 @@ static void nvme_tcp_stop_io_queues(struct nvme_ctrl *ctrl)
->   		nvme_tcp_wait_queue(ctrl, i);
->   }
->   
-> -static int nvme_tcp_start_io_queues(struct nvme_ctrl *ctrl,
-> -				    int first, int last)
-> -{
-> -	int i, ret;
-> -
-> -	for (i = first; i < last; i++) {
-> -		ret = nvme_tcp_start_queue(ctrl, i);
-> -		if (ret)
-> -			goto out_stop_queues;
-> -	}
-> -
-> -	return 0;
-> -
-> -out_stop_queues:
-> -	for (i--; i >= first; i--)
-> -		nvme_tcp_stop_queue(ctrl, i);
-> -	return ret;
-> -}
-> -
->   static int nvme_tcp_alloc_admin_queue(struct nvme_ctrl *ctrl)
->   {
->   	int ret;
-> @@ -2198,22 +2192,64 @@ static int nvme_tcp_tls_check_psk(struct nvme_ctrl *ctrl)
->   	return 0;
->   }
->   
-> -static int __nvme_tcp_alloc_io_queues(struct nvme_ctrl *ctrl)
-> +static void nvme_tcp_setup_queue_async(void *data, async_cookie_t cookie)
->   {
-> -	int i, ret;
-> +	struct nvme_tcp_queue_setup_ctx *ctx = data;
-> +	struct nvme_ctrl *ctrl = ctx->ctrl;
-> +	int ret;
->   
-> -	for (i = 1; i < ctrl->queue_count; i++) {
-> -		ret = nvme_tcp_alloc_queue(ctrl, i,
-> -				ctrl->tls_pskid);
-> -		if (ret)
-> -			goto out_free_queues;
-> +	ret = nvme_tcp_alloc_queue(ctrl, ctx->qid, ctrl->tls_pskid);
-> +	if (ret)
-> +		goto out_err;
-> +
-> +	ret = nvme_tcp_start_queue(ctrl, ctx->qid);
-> +	if (ret)
-> +		goto out_err;
-> +
-> +	return;
-> +
-> +out_err:
-> +	WRITE_ONCE(*ctx->err, ret);
-> +}
-> +
-> +static int nvme_tcp_setup_io_queues(struct nvme_ctrl *ctrl, unsigned int first,
-> +		unsigned int last)
-> +{
-> +	ASYNC_DOMAIN_EXCLUSIVE(queue_domain);
-> +	struct nvme_tcp_queue_setup_ctx *ctxs;
-> +	int nr_queues = last - first;
-> +	int err = 0, i, ret;
-> +
-> +	ctxs = kmalloc_objs(*ctxs, nr_queues);
-> +	if (!ctxs)
-> +		return -ENOMEM;
-> +
-> +	for (i = 0; i < nr_queues; i++) {
-> +		ctxs[i].ctrl = ctrl;
-> +		ctxs[i].qid = first + i;
-> +		ctxs[i].err = &err;
-> +		async_schedule_domain(nvme_tcp_setup_queue_async, &ctxs[i],
-> +				&queue_domain);
->   	}
->   
-> +	async_synchronize_full_domain(&queue_domain);
-> +	kfree(ctxs);
-> +
-> +	ret = READ_ONCE(err);
-> +	if (ret)
-> +		goto out_free_queues;
-> +
->   	return 0;
->   
->   out_free_queues:
-> -	for (i--; i >= 1; i--)
-> -		nvme_tcp_free_queue(ctrl, i);
-> +	for (i = first; i < last; i++) {
-> +		struct nvme_tcp_queue *queue = &to_tcp_ctrl(ctrl)->queues[i];
-> +
-> +		if (test_bit(NVME_TCP_Q_LIVE, &queue->flags))
-> +			nvme_tcp_stop_queue(ctrl, i);
-> +		if (test_bit(NVME_TCP_Q_ALLOCATED, &queue->flags))
-> +			nvme_tcp_free_queue(ctrl, i);
-> +	}
->   
->   	return ret;
->   }
-> @@ -2255,10 +2291,6 @@ static int nvme_tcp_configure_io_queues(struct nvme_ctrl *ctrl, bool new)
->   	if (ret)
->   		return ret;
->   
-> -	ret = __nvme_tcp_alloc_io_queues(ctrl);
-> -	if (ret)
-> -		return ret;
-> -
->   	if (new) {
->   		ret = nvme_alloc_io_tag_set(ctrl, &to_tcp_ctrl(ctrl)->tag_set,
->   				&nvme_tcp_mq_ops,
-> @@ -2269,12 +2301,12 @@ static int nvme_tcp_configure_io_queues(struct nvme_ctrl *ctrl, bool new)
->   	}
->   
->   	/*
-> -	 * Only start IO queues for which we have allocated the tagset
-> +	 * Only setup IO queues for which we have allocated the tagset
->   	 * and limited it to the available queues. On reconnects, the
->   	 * queue number might have changed.
->   	 */
->   	nr_queues = min(ctrl->tagset->nr_hw_queues + 1, ctrl->queue_count);
-> -	ret = nvme_tcp_start_io_queues(ctrl, 1, nr_queues);
-> +	ret = nvme_tcp_setup_io_queues(ctrl, 1, nr_queues);
->   	if (ret)
->   		goto out_cleanup_connect_q;
->   
-> @@ -2298,12 +2330,14 @@ static int nvme_tcp_configure_io_queues(struct nvme_ctrl *ctrl, bool new)
->   
->   	/*
->   	 * If the number of queues has increased (reconnect case)
-> -	 * start all new queues now.
-> +	 * setup all new queues now.
->   	 */
-> -	ret = nvme_tcp_start_io_queues(ctrl, nr_queues,
-> -				       ctrl->tagset->nr_hw_queues + 1);
-> -	if (ret)
-> -		goto out_wait_freeze_timed_out;
-> +	if (ctrl->tagset->nr_hw_queues + 1 > nr_queues) {
-> +		ret = nvme_tcp_setup_io_queues(ctrl, nr_queues,
-> +				ctrl->tagset->nr_hw_queues + 1);
-> +		if (ret)
-> +			goto out_wait_freeze_timed_out;
-> +	}
-
-This if condition can probably move into nvme_tcp_setup_io_queues() and 
-exit early if both are the same. Other than that, patch looks solid. Can 
-you please also run blktests to see that nothing broke. There may be 
-some tests that have subtle race conditions. rdma and tcp btw.
+Thanks,
+Alex
