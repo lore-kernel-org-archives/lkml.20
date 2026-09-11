@@ -1,138 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA738364EB0;
-	Fri, 11 Sep 2026 14:58:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 593D82882AB
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:58:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789138687; cv=none; b=slrs2GFzKzbc+PH3iZW1qU597bSKImtILkdFVjdxRGcsZQvgRjt0SGntAoJcv8D9gblrzG0s/msVC1hNAiSNSU486B5Npg0V/T3qcgwCwlwNI/iIfIneyXzoByUqPOUEUJLkN5GvrfClefzs6fAXJX0xFC+Bs+05OaVp9Pa3ocQ=
+	t=1789138724; cv=none; b=uVVW8/irp9QedVZNPdZyTMsvSTDosop0UpIq0blaFtE1/acgU5BYK3lkHvyTzbe4qQq6XE2ZLMZVo/5oGd8vl07ejKcTDAG767P/z9n5f1OWOwF3A67lnxG3vVxf5s2hzIoOgx29UEggsGPxjRwEloEr+mw4fY1uDDLMH7SvyjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789138687; c=relaxed/simple;
-	bh=9PhjzyuGs5Vkz+uLYCbaq9Mj4blcIapiyYqyexdc1k4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iVpv4FFWJD+LFkQ04RVP4NuX9nGy/urAITcYSKkV5jqQBDkAFSivrhdNtDD05CYbOX1Xw03564izU5PSaodWvPnqH36w6CYOXi/YOZEmUnYaPvruU6TXPpQ6E8B47jRFOnO71eWVPp1rJpe92l7MSlWCgoRfxsFwGTS4N9WhlKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fqQr8piC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789138724; c=relaxed/simple;
+	bh=zIF97xRDmxkrD7RZY7qKo2721jxUukhbQbBdSokpQrQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dqKVqo9OYK0IH+t8lAbjG28C9poHHfpB+4sbZLj1is3zGwInIguIhzRip5761slQyyghRQ5gvbkxUHa2BHffJhC26gtqRIATUOBE1caie/LRJB2P5ka1KTeR2XhAegvjBAI9AslhZ4ZTdHVTOvQPiRvsRuQjp8JKA1iFCXRHATQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io; spf=pass smtp.mailfrom=bynar.io; dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b=K4hhc/jD; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bynar.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fqQr8piC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E08671F0089A;
-	Fri, 11 Sep 2026 14:58:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789138685;
-	bh=9kzqbt4ZRRllUtqOm4M2xLyawNqCHTN1qUIQJ4avLvE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fqQr8piCsl3GNslha/u2I8VaiGLQ4meIaSUM1Bj7ZRrr7BfqPFr5IS+c/2/OX7lwa
-	 r3F+IRshot2hAk8el+GtORycJo2NDoBl16m44ZkRIMmVrFTv7PmeY6nKEHsKlRchIQ
-	 AgUq6v/nVYfYgqRu34EJLIgJpLYAnMnPTOFaHuXhLmiqJEKE+896y0tNtb2Q7WfEU9
-	 TX1EYy+Iz3KrGMrthh7WMZWxQ+h/Scp8g+Sx9H7djIvmTo9/EZwe6KnA59J3Hafylo
-	 bZgpI8hyfbhghcKcbWVXw5nMvs7NZ4eahZ+bQKiMU1mK++VS2BG3uUlBOQpO/Wcq7X
-	 BPnSG4YzBCv3A==
-Message-ID: <88838d36-ea5b-4c76-b785-cf2bb71e34a5@kernel.org>
-Date: Fri, 11 Sep 2026 16:57:58 +0200
+	dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b="K4hhc/jD"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49d036e0e99so6441125e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:58:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bynar.io; s=google; t=1789138718; x=1789743518; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/Tb7W5kgVkqc6kpeWvHH9IYSVovfvNchO4WGzcDWuCo=;
+        b=K4hhc/jDzZIO5QyGsO9brAwG+QgEI/tlq2jcQLnZXorv1DXZoWpkoDzoQMmYgi6jom
+         mlvvb/eaFX1qSoqxlxwiW1ecJkiGvTGspIwO6RhywsKZyNZB7HVl/15aatuLhW4foR/2
+         UdRkqwJVemLnybuzsG9+cAquLiaSeFuyDQvRmCxWr42LIE1mYsawdi0DfQksAb1sf0if
+         ly904pnQUjw/4aeM2FI/6qmnokXtJ5bN+XxtH0qApw/LqI+0Cc2V6A102rNLTC2P8tHD
+         RPTBJ/BFSskf3KptmxdY21b5eFW1Kzj79aFZWAXeVAQ7Rq3Zo5tyKH5XSvryqrbuMiAx
+         U2jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789138718; x=1789743518;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/Tb7W5kgVkqc6kpeWvHH9IYSVovfvNchO4WGzcDWuCo=;
+        b=KgOIZ6iZfJZ3PezCdE3zoobE0PlBxuqpXBYxXahsYWyh6u5xiPLEACW6a5oB2CCGom
+         9DXLLphxMTwu0GzO/mzfwwXu7JBAKdrmnBUhT+/jUz7XcbUcdnceqKQjY7ozsFMcDikh
+         BU4EWqLaxOm6M2CgWnkd33TB8lEROvyU61pjSlbuApClk1nHPeFyXr7j0RzmBq6Gk8kO
+         sRrdjGDvBA/7xiCphO/Vun+OFOpYlURurIKvcblzGsp8SPo6tZkXjOgabdGRrFKELK7I
+         A69Q3ZQZTv7S0m+5O2L2aS1m9270abHh3IEp/DeAL6odV1BMx/7AYQOdoBwHTCCkatOt
+         xPZg==
+X-Forwarded-Encrypted: i=1; AKwUvBweLIn/pUqPICeAdlSTYIkh+F30szFBTEHKjIqIdG6FGqowICyDa5jKX4umQKbKHELD5X7sCUnkj03W2gQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lyhYjNWAKGld3G71OMbUlzSC8QJ0U5vLthRu4+FhDsaQxSaZDQ
+	4XvawLcA8Twm7wjr1o1fCiI9cm/aFl6tXM8Ckt9+2RI7QvpyuZfNKS8aRq1GbPL+rwkr
+X-Gm-Gg: AYBFou1v0nyJqWQ5i3c2ZRCWSt+H7SJ53eDDgr9p8bi6ItlOIEt15GT/0JkoFIe7gDy
+	BCvHckdKgZRGCzdGTPlfe2FGIcxx2NGokre9ZlvfMhTpa0u7eOHPj0E0JQzcgFQ3tC0dgMJiy5y
+	gV0Bp1qp5VzK//HvzPgo7UVZXQ/BSz6GVj2UaSWEwSOVUF39TFmLVewTEXXX5urOYwXKtEHZ9cb
+	/6gZzxIyQ8Y/AlrMRbsK8CONCaIP/SIOxyMi/mlwRXqGaLXND/S/J+5n3lOf6n9r+JwFAeQT30I
+	pCMAhAQ4okll9eMgJs0dtaMaEok+ne7DIWnGBQizyMPv+jxk18acMcHKJibyVIMehhlTXa7pcTC
+	NUcStnxipBIk85DtmS5466RMCuZjkqhOWrZCjbPGZojCo2NefKePSB8ASiQVKIG5ZEY38CUkmus
+	YI+namY6PuuxIz89e8fyXtZB8E/RbvD1B2r9wXRv8aQ5iJHHHm8cqC1kkIG2ztgPHyOTR1Vn3LK
+	3qdC0hl+n587pNQs271IBJvPmx5wIabq6aBShw=
+X-Received: by 2002:a05:600c:1d08:b0:49b:8f18:714a with SMTP id 5b1f17b1804b1-49e619acfe0mr57704205e9.12.1789138718643;
+        Fri, 11 Sep 2026 07:58:38 -0700 (PDT)
+Received: from debian12.ucl.ac.uk (eduroam-int-pat-8-79.ucl.ac.uk. [144.82.8.79])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e61a81943sm50432915e9.1.2026.09.11.07.58.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 07:58:37 -0700 (PDT)
+From: Diego Oliva <diego@bynar.io>
+To: Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	linux-cifs@vger.kernel.org
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	David Howells <dhowells@redhat.com>,
+	Jeff Layton <jlayton@kernel.org>,
+	samba-technical@lists.samba.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] smb: client: validate SMB1 write and query response lengths
+Date: Fri, 11 Sep 2026 15:57:55 +0100
+Message-Id: <20260911145758.3833254-1-diego@bynar.io>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/7] proc/task_mmu: remove unnecessary helpers
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org,
- vbabka@kernel.org, willy@infradead.org, jannh@google.com,
- paulmck@kernel.org, pfalcato@suse.de, xueyuan.chen21@gmail.com,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, Usama Arif <usama.arif@linux.dev>
-References: <20260910234737.1340642-1-surenb@google.com>
- <20260910234737.1340642-2-surenb@google.com>
- <008dcaa3-2068-46e5-9e58-afb590d90584@kernel.org>
- <CAJuCfpF5CBrCxZWm+Luopf2gq_hHxsbw0QptNhfRT=+KjyWbJQ@mail.gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <CAJuCfpF5CBrCxZWm+Luopf2gq_hHxsbw0QptNhfRT=+KjyWbJQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 9/11/26 16:28, Suren Baghdasaryan wrote:
-> On Fri, Sep 11, 2026 at 3:52 AM David Hildenbrand (Arm)
-> <david@kernel.org> wrote:
->>
->> On 9/11/26 01:47, Suren Baghdasaryan wrote:
->>> When per-vma locks were behind a config option, a number of helper
->>> functions were needed to simplify the locking code. Now that these
->>> locks are universally available, we can do a little cleanup.
->>> Remove lock_vma_range(), unlock_vma_range(), query_vma_setup(),
->>> query_vma_teardown() helpers.
->>>
->>> No functional change intended.
->>>
->>> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
->>> Reviewed-by: Liam R. Howlett (Oracle) <liam@infradead.org>
->>> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->>> Acked-by: Usama Arif <usama.arif@linux.dev>
->>> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
->>> ---
->>
->> I think you CCed me only on this mail correctly (the other ones went to my old
->> RH address, I thought that one would bounce)
-> 
-> Oh, man! I used an old list of recipients :/
-> Should I resend to avoid bounces? So far I haven't seen any bounces
-> even from the previous version which also used the RH address.
+Three fixes for SMB1 reply parsers that dereference a response struct
+without first establishing that the response was long enough to hold
+it. They are the same class of defect as the recent "smb: client:
+reject short READ responses in CIFSSMBRead()", generalised to the
+write and legacy query paths.
 
-Odd, I thought it bounced for a while (maybe it has a new proud owner, who
-knows, haha).
+checkSMB() only requires the RFC1002 length to agree with WordCount
+and the byte count; it does not check either against what the command
+in question requires. Every fixed-layout SMB1 response struct is
+therefore unguarded unless its own parser checks: a reply carrying a
+smaller WordCount than the command expects is accepted and handed to
+the parser with rc == 0, and the smallest such reply is 35 bytes, a
+header with WordCount and ByteCount both zero.
 
-I changed Monday my mail filters to not catch to/bc to the RH address when also
-CCing a mailing list ... assuming everybody got annoyed of the bounces.
+Patch 1 adds the missing minimum-length check to the three WRITE_RSP
+parsers, and patch 3 does the same for SMBQueryInformation(). In each
+case the size required is exactly the smallest reply a conforming
+server can send for the word count the response is documented to
+carry, so no legitimate server can be rejected:
 
-I just reverted that change, so I'll just fish the mails out of the mailing list
-folder and should also get replies to the other mails into my inbox.
+  sizeof(WRITE_RSP)              wct = 6    33 + 2*6  + 2 = 47
+  sizeof(QUERY_INFORMATION_RSP)  wct = 10   33 + 2*10 + 2 = 55
 
+where 33 is sizeof(struct smb_hdr) and the trailing 2 is ByteCount.
+
+Patch 2 is a different bug in one of the same parsers.
+cifs_writev_callback() accepts a byte count larger than the length it
+asked to write - the existing OS/2 workaround only masks off the high
+16 bits - and hands it to netfs, which answers with a WARN() from
+netfs_write_subrequest_terminated(). Before netfs clamps the value,
+cifs_write_subrequest_terminated() has already used it to grow the
+client's idea of the file size. Reject the reply instead.
+
+All three use smb_EIO2(), introduced in v6.19, so they do not apply to
+older stable trees as-is, and substituting plain -EIO is not enough on
+its own: older trees shape struct smb_hdr and struct mid_q_entry
+differently, so both the sizeof() bounds these patches test against and
+the response length patch 1 reads out of the mid need reworking.
+
+Diego Oliva (3):
+  smb: client: reject short WRITE responses in the SMB1 write paths
+  smb: client: reject over-long write counts in cifs_writev_callback()
+  smb: client: reject short responses in SMBQueryInformation()
+
+ fs/smb/client/cifssmb.c | 36 ++++++++++++++++++++++++++++++++++++
+ fs/smb/client/trace.h   |  3 +++
+ 2 files changed, 39 insertions(+)
+
+
+base-commit: 0a96d0d726cd380423ac38e2c28f538db2940a1d
 -- 
-Cheers,
+2.39.5
 
-David
