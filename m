@@ -1,172 +1,187 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013049.outbound.protection.outlook.com [52.101.83.49])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012036.outbound.protection.outlook.com [40.93.195.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD1B496D48;
-	Fri, 11 Sep 2026 15:52:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB53423EAE
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:52:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.36
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789141929; cv=fail; b=XQDH8BffHGg0yKn5D2uDyDIb13yY41AwVCoyH443QzcWGvjUmqsCYPY1tycnYoS7BPXbKjlgvXNRZz/7WckBnTj7BcZZqpAs/7/hQtH5hlVmiwRNbfKy3Glagcj+NApkJXZa/3D3pdV4KxMXfMc+AqEdTST664D7ao5ED0SKAVg=
+	t=1789141950; cv=fail; b=kvfq/M88PzT6ZjgDY1BSiH6Sgr89KtfXQA4/UCFi7gtg9ACVbwo/+qwpqG5xy3+ar74zjUYHlhXBdzz5nGn84CA5Gz4BYq+oORjb0mnJ83jW2qKFiiap5NGdJ0WnVbxcUGe2PtmMoH5yK7JJchVhXeArklxmMDOF+IEOb2069Kg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789141929; c=relaxed/simple;
-	bh=1y+wMn/S/KB51enzuLlNCE/x5Lo81TOUnEmUOEzV05E=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=HAYu2RgsVMqG1KhAH4ydSIxFGMwzf/c9d+ecp5QZlu/OxNQ/F+r0FL0Gugx0vxT/b2k8KTAqGuY1mMHJcbycyKWDcimhDM1I0YEO/6oAsO5OCOFGgpbDt6pSxeGelCpiKq+2ers+iZARr6Qqbxj/+04nZh79W7/U80Qpl4tKqhE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=T4anUUnO; arc=fail smtp.client-ip=52.101.83.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	s=arc-20240116; t=1789141950; c=relaxed/simple;
+	bh=XG2kQF26/kTWYZ5BkQ3U4I+AHCFaWb8ccIvenSXkvjE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=eGr+ZmrdSZsS9LIVgyaq2HQBT7ffOMZvNhPcpFah4OMsq1YNgD2hBSiPRrb1hfmg/qw/r6pFv/jxolkJ7UR2drE2N6mocMZmdKUn9BH4yYdwi/gJMr5KgSKnJDBcwwPf0jfZt7m7kVAuZucupl8QQ4aoifeB0vc5UlMNwG1CaZA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=mPA0xKU4; arc=fail smtp.client-ip=40.93.195.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="T4anUUnO"
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="mPA0xKU4"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EedkHNf+2uZtYuQ8NvqG4Q+F1F9+5FO8ySoDU7hFrr3JzcmwyyWVCX/ISTQIDSSbGW5jYH34daqvZdivLzWXBkUP/EXRSUNN/sqCP7S54IZfZgE5A9cXxK8xaCN2vKT4n1BWNRFQSX4PD+4z0oHG//8GSEqSZ62OpMObS1YR3V1p/NkXs340fw8ItSyfCo4AkxGDtfUvK6yChCzQk8+C315JJb6Y1jEdIZ1Yfk39QNSH3Qn2SHzsPzUa+FeowT7aOOrixJs3oIpeq2BrD5UoNNrNNXMNBCb1LgL/b85gh9meG9uoHFp7qCgmOXoIQVybVsngZCWVhraNPE3QaJK/aw==
+ b=o6xWB3tVB35kHcLP46nrvEoGW/mcCvdYeXJLObmI5gqxqHXELlvQm0sPNAODszOOKv9gVZu8LbfMJCHNC01B5+gTcKNOid3wyOnMeSWhIAT5DJtn/gE/iYm1esU1UTNHASqScpN1XrYnSy7LPL78JPrqWeX+Ay/onFz4YgdYXL+mNIlz6ZvUGadHdpBJBPVG3VEreLDZvD+QpUNqDpxEHUmN1hc7rtjVfnanzbNo6Ca0Zb0erXj2XJAPpbxKOJi9oyiTq9i6IfcaNF4TtUFu3IpYWclISW5HdHpiOHETakBm2s+HLfMkfkLlRs2AVGtz+QmDIhOhxc+Y6v2qjkmkAQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OYaDweuQgQBTdUArpjX7XKC0IRrVZckG1t1WSNHNrl4=;
- b=ICug0a4Gr1k/kT/fjmO6rY2xoNfEohMyKVpl5kOr3j0PESPSU07ooRcbzBTYvP35gwAIs6B2lV2kY5HJ/tF/BwRPNb8gfwOr8stfvi9Kr3nLw+y9NdJF+Ee+csI8VFvjI4HdGfLbM1Me4MhLOOc6OJBQEfCBquufr22eTjU/jTTxFKgPSUGCs9fsvAy43IkPdsZiOCymisbh9hf4lGAoAv1Kw88Qc7bXq2nPA4SiiTicmBpK9k53z2/exj32121rBG04fOUsdZ+m5qMj8gpg2ztk9/KZo3FjGpBnh4Q9Lv6WoKVJHC21YaD2C3byXLt4n//i8mRSss4vfhDn+FVo4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ bh=WNdl1+OXRj9bSeI4ZOUJ/uIOUq+KYZUFdeodiX2dJL0=;
+ b=nZ8ce0IjZS2E3LMWpli4om9UDjIGkshweDLVqh6JOS0o6lPWF5A2BdDBOXGAlRIQmlvsTZEg9C1WfXcJn0oI5PqvYg4lxPIPFL3GofBu0PuO72soczwEcQJqrPL/pRbyEke89n25SAaE9BOH8tyKq8mUABwJYrMKiAqzcjSp52ZdW5fMESI3ljraOuSQo5xzrbcABntaJ8EGsyLJpzka6nWSr4EVqIb13PnZdF/tOoN/Qjwo/LVU/HCqkLxJ2klUlfoJknkWWoD+jFWtsDNzh9oQqpUN6/eiofYVfJwJFf/MuH6ELVAyCnxeF72Ai/fsPSiKHgL0xk5I/LmpPqoeKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OYaDweuQgQBTdUArpjX7XKC0IRrVZckG1t1WSNHNrl4=;
- b=T4anUUnOnzSNlgkjeju9Ux4O1iXSiI4Nl7ZrBAT2lfoNv34VAzxaS+Vus2MqEaAMJGp/aJ/TyheBxUxlrPFIiGp//OI0YVyIaZxZRhykW2qVg1iejJent/wXYaKI3ZnVATnxz3ZHFrQa4yM1sBMisIjWeWI1U3rmCXtVjXNXu0dZuZOywj/BETvjgutJlkpsNrDS0hiE7VjJqrp72nZCjDC+ImA8d/QYcs/dpB1jFNhpXFXNqwOm4yu/LesPPyBFAWNUfzKDohxDFH7k9P7MJZnVyyL2Nkg00WxZSfz+ywuA2s6LQNAAu+HDLvjPd+ALLleyg2cP7g3LalnZFMIYnw==
-Received: from VI6PEPF00000216.AUTP296.PROD.OUTLOOK.COM (2603:10a6:808:1::8ce)
- by GV2PR10MB7560.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:dc::7) with
+ bh=WNdl1+OXRj9bSeI4ZOUJ/uIOUq+KYZUFdeodiX2dJL0=;
+ b=mPA0xKU4Ma+p7MOQsg97l/J9E8jTXphdLn41jpLIzTfrLtnWWI6ZGAruX9zAwEulrSCKNBBCZuNNZwt5h0X94HjGrNIx4Gg4M89D9zlRPZNVtARt93cokoC20QUafIKTzBxU69FnOFkePF2AhlXE0RvxtAy+BhRoFKSFblsFXVf8JGPtIm6GwJ9bEP0Nbdpd4vKxGhphCpS+XbgqzI3H5RZb6LS9+qocB+NE52w0KDPBWoRzevd2rfU4gd8nrCbmMRNATaLXAmUnccASOoLwYO6C7mX7PKnuaKws+lztMz1cjAJKk6Bfztk/GIy+vIiEjklhGnkiynMAbS0UJCyXLQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from DM8PR03MB6230.namprd03.prod.outlook.com (2603:10b6:8:3c::13) by
+ SA6PR03MB7878.namprd03.prod.outlook.com (2603:10b6:806:42e::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Fri, 11 Sep
- 2026 15:52:01 +0000
-Received: from MI3PEPF00008484.eurprd02.prod.outlook.com (2603:10a6:298:1::6b)
- by VI6PEPF00000216.outlook.office365.com (2603:10a6:808:1::8ce) with
- Microsoft SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id
- 15.21.406.10 via Frontend Transport; Fri, 11 Sep 2026 15:52:01 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- MI3PEPF00008484.mail.protection.outlook.com (10.167.240.171) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Fri, 11 Sep 2026 15:52:01 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 11 Sep
- 2026 17:57:50 +0200
-Received: from localhost (10.48.86.251) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 11 Sep
- 2026 17:51:48 +0200
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Date: Fri, 11 Sep 2026 17:51:30 +0200
-Subject: [PATCH 8/8] arm64: dts: st: add ADC support on stm32mp257f-ev1
- board
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 15:52:25 +0000
+Received: from DM8PR03MB6230.namprd03.prod.outlook.com
+ ([fe80::abad:9d80:7a13:9542]) by DM8PR03MB6230.namprd03.prod.outlook.com
+ ([fe80::abad:9d80:7a13:9542%3]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 15:52:25 +0000
+From: adrian.ho.yin.ng@altera.com
+To: Dinh Nguyen <dinguyen@kernel.org>,
+	linux-kernel@vger.kernel.org
+Cc: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+Subject: [PATCH v4 0/2] firmware: stratix10-svc: Agilex5 SMMU DMA coherent support
+Date: Fri, 11 Sep 2026 23:52:06 +0800
+Message-ID: <cover.1789141361.git.adrian.ho.yin.ng@altera.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <cover.v3.git.adrian.ho.yin.ng@altera.com>
+References: <cover.v3.git.adrian.ho.yin.ng@altera.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI1PR02CA0009.apcprd02.prod.outlook.com
+ (2603:1096:4:1f7::10) To DM8PR03MB6230.namprd03.prod.outlook.com
+ (2603:10b6:8:3c::13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260911-adc-stm32mp25-v1-v1-8-cef26eecdef2@foss.st.com>
-References: <20260911-adc-stm32mp25-v1-v1-0-cef26eecdef2@foss.st.com>
-In-Reply-To: <20260911-adc-stm32mp25-v1-v1-0-cef26eecdef2@foss.st.com>
-To: Jonathan Cameron <jic23@kernel.org>, David Lechner
-	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
- Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Maxime
- Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
-	<alexandre.torgue@foss.st.com>
-CC: Marek Vasut <marex@nabladev.com>, <linux-iio@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PEPF00008484:EE_|GV2PR10MB7560:EE_
-X-MS-Office365-Filtering-Correlation-Id: 935d381a-8896-438d-15f2-08df101c9e83
+X-MS-TrafficTypeDiagnostic: DM8PR03MB6230:EE_|SA6PR03MB7878:EE_
+X-MS-Office365-Filtering-Correlation-Id: d83262d5-2419-40f3-4692-08df101cac6e
+X-MS-Exchange-AtpMessageProperties: SA
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|7416014|1800799024|376014|6133799003|3023799007|10067099003|11063799006|56012099006|22082099003|18002099003;
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|18002099003|22082099003|55112099003|10067099003|11063799006|56012099006|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	SP1dElc66O5eSYXug0rInsSW8dj9Y13BiqwbOoJMhv8DJx546fLImR5BjbRjFmU8pr0LxRtngcq2uNLWDKqKy3cURQ7ycXJ4/k2WiSjuUUXsrYELnIdQkPXgPr8voEbF4hatKzqxl2Y/jVmn40tAmP3Dh7JUppRoB+py2u1QUUEbKe6HS4c71z0v5YDengO4yxo5sALupVcYVuwWJx23FhF5p43Z+ntY7SYV4/NSDZmSBsDLsAeB1r9ZM6W3cAqxa8i9tGXj/CMIB3B60+Zs4R1XZTaeYwDmTFWyoqNTSLmy/pKqgUapb4J0aw1AICQkR+xKODvcdjh5TNbmRgdFTtE9e4jBK6RfFjCHQ52gq5+CuoZOZcEngmjrvXeEO21BHJj8VXuhbiNlHCyVrSjBqG3g6uJ6tD5T7AAsjil4Y7hXhGtk9zCca87LjisLH6rfk9C6VBwXLlBk1lKyjLyuSsF/neeOkNRPRuvfhU6WPHITwFyOLWmQ94VJ0r/a6Yy0AQ5e8nN/9pa02WjJzIGZwlZ386D87gu5FTlTuyy5zwdPEg5A01oZgPwXe7nScoMIctarQv86NzOr8+cSpg0LC+QoQC2nZRoZg/06UOz9wzAQtAeaTZN79I+p97AJl5ernNbffMihE3HkEqi86z3rz1VAgg5em/FAQigYJyeRVrt8ONxdhD8Y8NV7X3XweKXpTnQig6puoIu8UN+sv4Tp5Q==
+	5pw+yChx6kjWfxBrTGUXjm5Br3lYNDUvrP/zgnsYg+cxOEhU/lb1oeulY24r4ahHLxpo7QiVftQ2wa0Erd9A4iwcIim3bNeA/QfzeF97vXZOWULXsym57MK4yCK2PP+vOEtiLGcC1wm11hydm9kpsmaEK0gnfTvimYtr0PzIMX0Vv6tBByAuhkkPzeG93ehXI3uJJFEItEvlBtzNo55ICEXP69unALQySxsiZpD9oWeCfbjW4wdnxped7JJmYshWAf1bRarg/EtpDQeBTlDBtC532KBiq6aTMrOzP2IdxYzcq/BUf1kE/bo6zq7Wd5pIH89LTqLjmuzVJcOOqB5Elp19BdoD2HnoySbwVN+FCzm1GJWjQvilmKJvx78qlS5bB2lMUQA9GhPz6ZQDCe2f+r1cPTGHunnD8DUmzY2wrkemioqorXUzvOSAlq2hRRxerpEtlXxt5xtRFNjm4T0PIRxLLgZrXo4i4QWJFfxXQ2YCsJ8YU09vV6Y3ZD93wNprnYPQTk31LySkjWmxkNtQAVF6xhOZCSxQrh0tEhfmjmhlA0Aq340Yd7/481PMOedhKPfZOJY6n0XIGRgKLVIcb5Kd2P7v+q7PgePUukY+s9obaat2OlC7qiCq1Nud/Bcp65MIhC8oMbFmw7LuyEBBxspobS3XZ3QNdgb6Kxld/MU=
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(7416014)(1800799024)(376014)(6133799003)(3023799007)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM8PR03MB6230.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(18002099003)(22082099003)(55112099003)(10067099003)(11063799006)(56012099006)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	Dq0WOD5bdcwf4tvyOCKps9pxUWQkrVig1QbEjepBOtJ4VtO2rXz/+2lKcrdGNacO/sxJJVJlnDRxwnpOQpL0kZHihWxB7NXbTVjZ+fzSLEO5DVVua6FSoDxUrldvafl+MZxIJLPH983prdDVZ9z/BwBaWJEaHg1j12Yx3h/vlhU9NLuV9SvX+PbxJ1XlVvrjYL8+Phwp1dfkz5QsWMQkoSDmRvxXjq+/tr0/arOOunUr0Z//CByemQcJPJQvDPtbbZCstbs64QIUjFyEAeEku7zpIRXwU+dnAyJnH8iDwFb71fkjUVkVj6oHQHy/OjXnFjx/yaZLm+y00yNWIFGFC//hWmcAFHEFsuZg4P/MPMYMVkr+yWJHrLVZmeudXXP9o4rwQoOj8OsclP1JI7tmgrKCLQYwfWlecxlFDtAltzjXPhacbE0mUiWfLMbuHOWI
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 15:52:01.3669
+	=?us-ascii?Q?FKWa5GRMC1fNvm9Pdc/f6pMfQWHjlpYArWCzAYFlzD92zwSdnEPvWMEz+svg?=
+ =?us-ascii?Q?RouIcis2gKxmibncpTTDzmbrBOFhgPkgrik627w+mucN28KX9/+pC1nnS34V?=
+ =?us-ascii?Q?BPT677DvsCbyJQpqgVH4KQbdbalI8zwOJcaCGq7XpzM6KcFKtjmY33QOQdEU?=
+ =?us-ascii?Q?rp7Uomfzxo51/sDZOILISMzGLVyjtgrkg8geyEn/40/6FCJxUsUprdRzBQBf?=
+ =?us-ascii?Q?AjhUHYywBM+i/Yysp+ZB4TRX4BZ3dEe1ZUQeHpEc3aIchGCR1LBkznMclQl4?=
+ =?us-ascii?Q?MRTEvv2wkIP08Odg/aDahWCS/jsomQP3BZXp0HWwHGGK8/k4RDGRZu5BXBD8?=
+ =?us-ascii?Q?drGI+tz9uZr6CZYisDskliLgTZrBkIkHhuQWjOqo5lM/bloWTawwETx5qm2S?=
+ =?us-ascii?Q?HbmCNKoc9uB7vgYhhvnAc67VKKAleeKPDPnNpQxXMFxX73ZD9Gozrx9wezlf?=
+ =?us-ascii?Q?2RgkMt2GJ1L1Ww2m6NJvlmf5wjbYl5eCKOYOYBomVgn/iX92rPVf57ZIMbPE?=
+ =?us-ascii?Q?Xrp7KFNCJUk2cGPIZC8Kq8ft2vimgTAcLL3g+BMn9t5TnA5ITBbRk+s27mRl?=
+ =?us-ascii?Q?0Ks2q9iIQnisIyGUK9cHSqpKsSs2yuut39mwmZt5Yh+gu9MqqDIsE1gpYWuc?=
+ =?us-ascii?Q?PMkkiSL7mfNQk/PpMfsJMS/yEex4qBJDFR3W2t1+WYhCJ2dO+VCPu13hjuNi?=
+ =?us-ascii?Q?cbW4NL0wpGse8we2qTv205LEsl0m1vLRH2Se+9ejU9LfSdJ84XtklvAog+60?=
+ =?us-ascii?Q?r2hdMHjSKgp0SKqo2s8EO0GDk+aYaDC/Gz6P6/0f+f2O81RBtLZhX+h1eCAg?=
+ =?us-ascii?Q?KweUiuph6jZUVTQmX+6+hWpvOoaHNZrUiSp3hVcqguuJo6/8JV1HxpJfbZZs?=
+ =?us-ascii?Q?a+3XT8O097lmF9rM+F9wdfQZE7KsznkTYWvIvACQhX6IPIrktVKJ0fdJEyMH?=
+ =?us-ascii?Q?USHjvRK3q7uPEba9Yjx++Ly2nYBzX6ABm/lQ+4u5g1ynyC2eeyPf1xAIDdJR?=
+ =?us-ascii?Q?RnpSDv4W+FBQRPS5rPuBWJAyvFY+7k+1wfclgbeNAr5mtzUDnnYlDOITZtvX?=
+ =?us-ascii?Q?JI3DPbbUcHKvzz9DxKZuwr/0/E3csamF9Wbq1+yPLqM5YeMOG2hAzP7cNze5?=
+ =?us-ascii?Q?gebeQwWM/WXvoRaNt3n8koLMXEgITyFp9yWWX1pMneu8MlG42buRpg6l7xbd?=
+ =?us-ascii?Q?lMbii5BrNbEMjKX56hC8Ab+7pxuWez7+DgV4zDRkbS+MCKGHaj76GuX61fYd?=
+ =?us-ascii?Q?WnQy23bV/gTj13/H7xjurMaSh6UCT9+4JblDDUKEOCSzTPaa82XaqO2GKLIJ?=
+ =?us-ascii?Q?hOeabBGuy+xWZb1Y7/Zwjw6d0wsQxsnuCexdutZrSVeuJ9lifHBVqUEszqpP?=
+ =?us-ascii?Q?NQvPM6+g2ZpYbz/4hOpvJvw563oqf+VWh1iBzEHYnoXGOJLIiVCrNeRkC2AI?=
+ =?us-ascii?Q?h01zLKoUXTGlG7NzzWpVBWwIawX0FtyfYLVDX1e1tXDGS41dHhryw8vfysE+?=
+ =?us-ascii?Q?gQKNEXmj7mxrSLRHyGAo/oNszr6k8TM9IsG8WFqzvg6558zLbVU+SxTPQcsh?=
+ =?us-ascii?Q?SBmo0wFMgUQND0OGqmh8TagYz/ikQ/+f2HWD2jFqOi91CdrVzkjEpT+/4a82?=
+ =?us-ascii?Q?6pG23/aU6883njwsWEvMt6cdPOmsxJLPE+4W7/sQCipEoTJJwqVezh2I7c9e?=
+ =?us-ascii?Q?KCnf2fxJGn8AEz5sCu4Qcbk+RJeRLlW77d8Pyb0cJGCeMOZnaWmP0wQvAh3F?=
+ =?us-ascii?Q?RorLw+KR5ml4CXxuPrge6EilEIPc+a0=3D?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d83262d5-2419-40f3-4692-08df101cac6e
+X-MS-Exchange-CrossTenant-AuthSource: DM8PR03MB6230.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 15:52:25.0104
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 935d381a-8896-438d-15f2-08df101c9e83
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MI3PEPF00008484.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR10MB7560
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: B8/49BJpcJ01lSPv+fhBri0fjCKgNLa/eL8MR69YGQv4Pzjh8m6nSVGfazp4WAtKeMd1OxWfhl9Krc7ELcKoFExbyNajabw0wtD5h0GlXB4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA6PR03MB7878
 
-Add ADC support on stm32mp257f-ev1 board. ANA0 dedicated pin is wired on
-mikroBUS connector, through a resistor divided and operational amplifier.
-Configure adc1 channel0, and voltage divider in the DT. Keep it disabled
-by default, to allow ADC to be used freely for other purpose.
+From: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
 
---> | 470K | -+-- > | OpAmp (gain = 1) | --> ANA0 (to ADC1, ADC2 or ADC3)
-              |
-              v
-           | 560K |
-              |
-              v
-             ---
-             GND
+This series adds Agilex5 SMMU DMA coherent support in the stratix10-svc
+driver.
 
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+On Agilex5 the DDR base address starts at 0x8000_0000, which is
+outside the addressable range of the SDM. When SMMU is active, the
+driver must allocate DMA-coherent buffers and pass IOVAs within the
+SDM-accessible 0-512MB window to ATF. Agilex5 REV B introduced a
+hardware SDM address remapper, but it must be bypassed so no additional
+offset is applied to the IOVA, keeping the implementation consistent
+across all Agilex5 revisions.
+
+Patch 1 reports unmatched frees in stratix10_svc_free_memory() with
+dev_warn() and cleans up related coding style in svc_pa_to_va(). The
+list-head corruption from list_del(&svc_data_mem) was already fixed by
+commit 9119ceb76e98 ("firmware: stratix10-svc: fix memory leaks and list
+corruption bugs").
+
+Patch 2 adds the DMA coherent allocation path and wires Agilex5
+enablement in probe: require an IOMMU domain for intel,agilex5-svc,
+bypass the SDM address remapper via INTEL_SIP_SMC_SDM_REMAPPER_CONFIG,
+set the 29-bit DMA mask, select the DMA path through
+stratix10_svc_pdata, register a devm cleanup for leaked buffers, and
+guard err_destroy_pool against a NULL genpool.
+
 ---
- arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+changelog:
+v3 -> v4:
+- Squash the DMA-allocation and Agilex5 probe enablement patches into
+  one commit. Building the former alone triggered -Wunused-function on
+  svc_setup_dma_memory() and left use_dma_mem false (inert).
+- Drop the arm64 DTS patch from this series; resend firmware patches
+  only.
+- Drop Signed-off-by: Dinh Nguyen from patch 1; resending with author
+  Signed-off-by only.
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-index 14e033f365e3..f66eccee2139 100644
---- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-@@ -160,6 +160,28 @@ mm_ospi1: mm-ospi@60000000 {
- 			no-map;
- 		};
- 	};
-+
-+	vdiv_ana0: voltage-divider-ana0 {
-+		compatible = "voltage-divider";
-+		io-channels = <&adc1 0>;
-+		output-ohms = <560000>;
-+		full-ohms = <1030000>;
-+		status = "disabled";
-+	};
-+};
-+
-+&adc_12 {
-+	/* Don't need a pinctrl for ANA0 dedicated pin e.g. Channel@0 */
-+	vdda-supply = <&scmi_vdda18adc>;
-+	vref-supply = <&scmi_v1v8>;
-+	status = "disabled";
-+	adc1: adc@0 {
-+		status = "okay";
-+		channel@0 {
-+			reg = <0>;
-+			st,min-sample-time-ns = <400>;
-+		};
-+	};
- };
- 
- &arm_wdt {
+v2 -> v3:
+- Squash former patch 2 (SMC remapper defines) into the probe enablement
+  patch so the defines land with their first usage.
+- Rebase on socfpga_firmware_for_v7.4.
+- Drop the list_del(&svc_data_mem) fix already present in 9119ceb76e98;
+  keep the unmatched-free warning and style cleanup.
+- Adapt of_device_id.data usage to extend stratix10_svc_pdata (shared with
+  needs_psci_cpu_off) instead of casting BIT flags into .data.
+- Keep kzalloc_obj()/kfree() lifetime for pmem on both gen_pool and DMA
+  paths after 9119ceb76e98.
+
+v1 -> v2:
+- split original patch into smaller patches for easier review and backporting.
+- Fixed the Fixes: tag in patch 3 referencing 5a0793ac66ac
+- Replaced of_device_is_compatible() with of_device_id.data + of_device_get_match_data()
+- Various commit message improvements
+---
+
+Adrian Ng Ho Yin (2):
+  firmware: stratix10-svc: warn on unmatched free in
+    stratix10_svc_free_memory
+  firmware: stratix10-svc: add Agilex5 SMMU DMA coherent support
+
+ drivers/firmware/stratix10-svc.c             | 250 +++++++++++++++----
+ include/linux/firmware/intel/stratix10-smc.h |  23 ++
+ 2 files changed, 228 insertions(+), 45 deletions(-)
 
 -- 
-2.43.0
-
+2.49.GIT
