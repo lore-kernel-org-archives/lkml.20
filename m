@@ -1,454 +1,259 @@
-Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A0B443DEA9
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:37:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.144
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789133847; cv=none; b=Qf8JpwoRitEdp+Q2EKfKpf9W5TFeGHbQ6ILQUeJOCBEWL3cs60wuaGDRygoSo8NBvfOocFwQ8RVmeBh9BXKZWVC7DlvLB/0TrUnnQrqKYfH8VglHzHMHN6BLLOcRyZNlUttZ67GRrZPEKxE8GLHIz9OXzP6lRMx2fDSPVM0od6k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789133847; c=relaxed/simple;
-	bh=t61n5yEwG8BXi94EOj25vgw+Y8jAX7hFBTlrK3elFvU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IAd/RmsIMyQC2+hmCKkYrhILk1bU8GK/M023NSA54VBP4Yf1ORfzvmGKYcAPdwl7g9TVHo6435MPet6cUrikUVIqJtdNkgvIDLW2nd8Bwx6vb5pJNpf7i9XQTrU8g16CIv48Ar0itETIaTeVkb798UWmvorBCAORDmUzJeYV7bo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=jcnyyqAm; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=sx6bioQk; arc=none smtp.client-ip=103.168.172.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D4DF488D8D;
+	Fri, 11 Sep 2026 13:37:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789133857; cv=fail; b=s31I6W+jIQ56+Cq3Nf/2O0hzQy0yHgiUDErs5MOCDVAX2G2iL1PGKVLd4p0xaeT0bwjyisWx3QX222OuKOswEVwLgu/hqCgUb3N7t3DNfeQR1/NrOg2DIE0WcgN1erB0b7slJjiQXcVwP7Vj1kv1deI5REZfZWlzOqV7Llgei0w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789133857; c=relaxed/simple;
+	bh=N1v7ZTzBS5y1iKpV7r0P4RYul/V9n1ONTE6hHl/2wn0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=VuoS9pxeWOSh9ASkwqRBDa9CY2PN++LKtfyec53R9AGiMrC+6p5DcRWu/FZZV4JV7F1vKiXxGEA8TThTkp8kveYa2RbepYuxuuSVUvmHmDtg12UfXQl6MWCjP6ui+I92kfS40Di5en5g7Uwe3leMWUNE22xzd4wlqNdZX/rbe7Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=VWi7CepU; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=A1Y3y4rP; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="jcnyyqAm";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="sx6bioQk"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id 1EB19EC0122;
-	Fri, 11 Sep 2026 09:37:24 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Fri, 11 Sep 2026 09:37:24 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1789133844; x=
-	1789220244; bh=aUWzMrE2fH9LXIQGLIziweUqtGBoGNfxi6Eez8lfaUQ=; b=j
-	cnyyqAm5z5hYcS9EF5wPFJ91ryMRF1o0pBnsP1g9oDZ9RhK/XNksIG0q3aCMFsTl
-	GTwytC36pB1+nEtJ4VbSVnojglqNbHbelFs5Uy0uuogLlL8i348HN/DNbd/cxM4c
-	viqx/pXNn4unC9MfWQyvwEOZaMolWqnyu4knMHOcAGv06xI5IuporlnoDywGUshq
-	wWl7o3cX6EKKfiTfHLOo05aWuHcjOxmsdUZtnBZmLfeSd+SL/XL9jpqhNykzes7o
-	wKAhsXhmcZJQnZk5C6RA6GitekMg7AyyLO5bYIdXUf1tyAUk97mHzGX79YHIHqvu
-	7WcWwzspFiDPhahH/RCVw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1789133844; x=1789220244; bh=aUWzMrE2fH9LXIQGLIziweUqtGBoGNfxi6E
-	ez8lfaUQ=; b=sx6bioQkfUcTv0/wGsHO2Hl+nm3vXaVrJGcN47yEFzB8aagBrww
-	oSCoaL+sSr0f5ZXTN2sWO6zR2I+My08NW4sJ+RjpuJuRFygQ1PRJXZjgju20PgyZ
-	/R8aL70MiQwKGs37FsRrTSRPappBXw86aKZD7jDXow6pPlbQDSyR+avIMWD3YUMt
-	k2FXTUSuLkyzV4bXJY0CQJuABUP23ouy4fYYMqSuB/zJ+a/lNzOsNGqN6BorTlKa
-	yFCue/rUtYtmofdR2OqZky6DCTprquCgb5vx/F+o4uWqKiPGPFWh2+jX2uUAfLDa
-	xNVsHu8zWedas+mt2Ukrro835XyvPrVUMwg==
-X-ME-Sender: <xms:EgSkalB4yY7PYkVPpMQb2RbsqkUs3NeviPYfa3devhcgSbnvj_dZUw>
-    <xme:EgSkahLVP2VCf-elNXk-vWvDYModNj6_OQx__TbJCIfAZV7I5mWpIdPEQYK6SdFwS
-    0MElHEFuBRSXtW7D1P0bSwnAE6mg61NjXiZ-ZwSLEnnzInTxKSSwtE>
-X-ME-Received: <xmr:EgSkan92bE1cG5Bb9BqiEFeb8CVQ3NKndJAJm9u0aeW6wH7PGbaxjaW07Bc>
-X-ME-Proxy-Cause: dmFkZTGtvDHsb+qUAX7tZtZeNaOt2S42aKxlWnOf8rlaoToQxTORQxeghJ5FOVDYBzmBE1
-    wTQ2aW/jirFdR2RPvngs4WABQCuuwtU81nrBld4BPNEVYqIvuqw2yZCHJnaDzhQEXabWgU
-    285/5Ct4ATd95wIfxynF/cOhribMHqfUFdSqY9IALX14wfQ22sWr/mBUr03ef1wsciRQ7n
-    yGmPKwXKXKqgZ3Nu/k4GLxqEjg2QS6C/3Ve98h8e08R9NsAqklrhQUZzVohRTTy07Izfj8
-    t4gfD6LzUGzNFHtN4grJ6EWwzvD6Znq/Orv5v4rnIf4X5dl0JBistOS9KP1bkYJj2AsijW
-    VycF2xemCLmigDZiRVPsRjrQZRbvDl0IK2AaBLz5sP7frPxKxfpwDD874h2V0bAV5r7KYy
-    UjgtJUWOvA/uKw4bou0GJNsHf9+oKVjd/ScRUCo0qHa7FVH8cdpjURmJLX+GGJQFN1d9Nh
-    MNwI7hD70YpEjaUNTKjlgMuK/yLvjOAzhrAYwTnlgynPd03OdfbrXm5Xdii7n9HBE6zdCZ
-    ocxNhXR/vr9oAYzchV9+NqPtxQDIHN3sQSIKarMP2aN8ycqzEVQl86ZQvQT0DnAFcPXhBr
-    DGbbr9AkMj7R4MsVb+z0prqoIwusVMseCO0pNmOIicFfFyFp0Rk58i2MQpyQ
-X-ME-Proxy: <xmx:EgSkan9a4JpKi75iOw12dwqxjhJJ4IgJfrpC03yRhy9pNEuehpyi0A>
-    <xmx:EwSkah9a0BttA8UBU55S6lRSEmUDxbmW6wWNdRxKbUpB7vTUpgqzEg>
-    <xmx:EwSkaiK60eLFfJgq5My86GXMA9HKRZWjydMTFngTkRV7Xl0NK1FqiQ>
-    <xmx:EwSkamQXvR4dkBbbs5iYbe2btMFOxz29ILK6f48NQgl8cIfdxMrewQ>
-    <xmx:FASkaiEiIg2AQ_3jOgO4gs9zb3WngTuQcxMiq-ztas96HEmDuRM84WuB>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 11 Sep 2026 09:37:22 -0400 (EDT)
-Date: Fri, 11 Sep 2026 14:37:20 +0100
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: Zi Yan <ziy@nvidia.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	kernel-team@meta.com, "Liam R . Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>
-Subject: Re: [PATCH v2 08/12] mm/collapse: separate scanning a PTE table from
- collapsing it
-Message-ID: <aqQDKTzLLvj-_Iw9@thinkstation>
-References: <20260910120238.2529819-1-kirill@shutemov.name>
- <20260910120238.2529819-9-kirill@shutemov.name>
- <DLC4ZVU8JXFG.3SS0W4STZKWBA@nvidia.com>
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="VWi7CepU";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="A1Y3y4rP"
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68BCihxj3861772;
+	Fri, 11 Sep 2026 08:37:27 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=EvosqubK7295LIfMXZEw5cQr9NFx+FmkfcK/HokhX
+	cA=; b=VWi7CepULlL9Wz/aQchz/iAcMBo4bFr+9Swa9+8LKdiaeYmhpzpq0qdbu
+	AsyI6SZFAdvT/SnITx7LkLwH/yTlLUpRqYF5iX35HiV1OFa8lUQDhKh9ctRq/qSa
+	aPmVb6jkoUB4lRo65tEuvV8w0g8ZcrJartwG4Ocw1rFJIHRRIMVSdVlK1seyKGYs
+	bAP+D9ZPG4icXZ+08RpYPPdBRtKLFtmVjzBQG0rMavvxaWiIwxk0st7zFnkK/1Hl
+	oHtDbmVnZqfVKHU3oUoUelA/hHOW7oHqOIjEvCJ0Sjw6toT8GRBuiPN5YLeNbM4b
+	5cSfPimLEv+lm6L5v686/FKI0isUA==
+Received: from cy3pr05cu001.outbound.protection.outlook.com (mail-westcentralusazon11013021.outbound.protection.outlook.com [40.93.201.21])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4gm3yyvrj9-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 11 Sep 2026 08:37:27 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SeBfoT2Pwd6YejFfN4H5ImV/DLOtCB+qnXcxjPmX47f+0c6NZ5cWi2Cyd4ikx9/QySVZe8LGt9gZoMSR2qQKAeEgsLxnfEIlINfHiXdzoPg3dQSxw6pIwUdykOHdovcn5y2XQUjYnpvTjY1ywznHegK0d+zmw1XtaXKjpz74J8c1pXpNJNqrn1ucrQ1YrhBI1J5Bf1vfNLF+btGeZhAUlYfcvQvSBddY/tjL//EptYiBHyohEVP40tCRmvzNJkBumO20RGLt1Aev+RDHuw1Hz6dwEcztmkHcsM/7i80Tosdc0h0HaLKvAMGxCjTZZUHl9Gom0TTTFviaM0GaAg32Og==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EvosqubK7295LIfMXZEw5cQr9NFx+FmkfcK/HokhXcA=;
+ b=q4jk8vQ+TS6GwXMQRnYhfZ1Hj7BbUeWukauH0M+tpzslT8GFQd2dDYbE7+26TwGS78F7HLbli2rKZvl1AeFB6rBFbWpbQVJXqnJiMgkCuc6Uf/m/HqZ/pZEzV1yzn+nry6KJB8R7JrbQ2SJtiS5ZyYpJRwQvtJLNjrOL9bc8N5kRFMAZyt034QqGbddgDm23QcP2HTKDJZK19LZ+3+B3nmyoYtEkLLmjK1e2+00pUkMIg0qBBj4bX0OqOVHX3y+6u0JduKAwltPTbsbf6mI4ETe4YM+WltIfnyzpcZXcz3WCcZ8RRYf32o9zsCYcKTq9v6XbIvuM7FqDwBSPVOhVtQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EvosqubK7295LIfMXZEw5cQr9NFx+FmkfcK/HokhXcA=;
+ b=A1Y3y4rP9S+v/gt9EJE6hAiADnGk9M4s6dRIdSJ8iII6ZRPdjPH5tnyhQhBG8/AAQhQBqqojbUCjkUxBGv7QcLkEyPhzuZirODjvZ7RGry0qQcTmn0wORrxm/c4dNksB4iTYE2wtxAcoFglxtlM+fW0DGN3deZ+n1BTRTFuSRFQ=
+Received: from SJ0PR13CA0064.namprd13.prod.outlook.com (2603:10b6:a03:2c4::9)
+ by BY5PR10MB4178.namprd10.prod.outlook.com (2603:10b6:a03:210::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.6; Fri, 11 Sep
+ 2026 13:37:23 +0000
+Received: from SJ1PEPF000037B9.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c4:cafe::d8) by SJ0PR13CA0064.outlook.office365.com
+ (2603:10b6:a03:2c4::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.6 via Frontend Transport; Fri, 11
+ Sep 2026 13:37:23 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ SJ1PEPF000037B9.mail.protection.outlook.com (10.167.244.198) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Fri, 11 Sep 2026 13:37:23 +0000
+Received: from DLEE213.ent.ti.com (157.170.170.116) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 11 Sep
+ 2026 08:37:03 -0500
+Received: from DLEE212.ent.ti.com (157.170.170.114) by DLEE213.ent.ti.com
+ (157.170.170.116) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 11 Sep
+ 2026 08:37:03 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE212.ent.ti.com
+ (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Fri, 11 Sep 2026 08:37:03 -0500
+Received: from [10.249.32.11] ([10.249.32.11])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68BDb25K204763;
+	Fri, 11 Sep 2026 08:37:02 -0500
+Message-ID: <6c45cfd5-ac37-4f8e-bde3-0391512df982@ti.com>
+Date: Fri, 11 Sep 2026 08:37:02 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DLC4ZVU8JXFG.3SS0W4STZKWBA@nvidia.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sdm845-oneplus: use generic fuel
+ gauge compatible
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+        Rinat Muhamedgaliev
+	<rinat.muhamedgaliev@gmail.com>
+CC: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio
+	<konradybcio@kernel.org>,
+        Sebastian Reichel <sre@kernel.org>,
+        "David
+ Heidelberg" <david@ixit.cz>, Rob Herring <robh@kernel.org>,
+        "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
+        <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-pm@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20260829205258.26955-1-rinat.muhamedgaliev@gmail.com>
+ <20260909234744.1177153-1-rinat.muhamedgaliev@gmail.com>
+ <20260909234744.1177153-4-rinat.muhamedgaliev@gmail.com>
+ <20260911-relaxed-dexterous-hummingbird-72dfbe@quoll>
+Content-Language: en-US
+From: Andrew Davis <afd@ti.com>
+In-Reply-To: <20260911-relaxed-dexterous-hummingbird-72dfbe@quoll>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037B9:EE_|BY5PR10MB4178:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4ec198e4-545c-4ab2-3a55-08df1009cfdd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700016|1800799024|82310400026|23010399003|7416014|4143699003|10067099003|56012099006|5023799004|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	hX3FC7h6I2TmYGm0VEiKw3St/P5ZyWjMqDgvJmVurqyyScqL3TZX7oMFTYT+wbCD3Y/KNPb8OFXiUDQWwpHOCHzDGcH4wD5oMsYsO7AwN7RfT2Bq62mKZLG4lSZ1qNSvwe1Il/aeNfE/iF95OBwI/ViV4tl4EgAwQDulI2VDjmU+s4ILeEttrSdBB9VpbIcrec7nd0PnY6W5ouq/HnXHTA9Bp2PXidqVfxpw74ZMc7p7BpYYISkNW2CuThvVtOkah3ZCFmAaiU49Tbnrk9GJQqfKc0FojZcFC+D7867JQPjm4z15s26afEp2Sih23qLnQ2wqX+w3DiPuIgksI7Pe6ZOdkhItkPCnDBPv0iRsHEUV2WjuKaaDpVk7S22B1ln/iAEd6Sxb7Q5LFdnbmW/eqB23G9hhgqFJVhW4Wd035ExxYHfaFKE1uM5u+8rJiamQp4xYXA8Xz/kJSkTt+PCwwpcpJsA5eetbThQRvWWYEsJjzVbQXaRB8TjVG/ExhxQSjb2xcdc3yMXZy20OCN8gfdeQiAARzQb5F7saE331XBD4C4JqzzG0CT6J+m1w8tb4UGbm745c8M0HUPYcUUVWtgqYEKCkBIxoggQ1ehRixgOz1P8Zddsx1jKo70TBo5VmleylRDdTNSnrqmrVP5m6qdeGIBKWfnpeOMCXlDTZpkcD2WBkI+J1P99FMjZfBpD2QOuVYEZba4HnlR5XXN0W8w==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(23010399003)(7416014)(4143699003)(10067099003)(56012099006)(5023799004)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	1+X6rVUofWOIUdYQGi6lJW0SIxZY6ejV90wWHpIRan3NeOdF+9eCnpmOiOaFM0UpekTHU864IN4F+BrUHbGI7V3tn7BbVvbV+eZATPY2yB5oBpXtoo9uWG+Ez2OWxUk0IzEM2sc9foPYDHI8Rau8sYGFF83eKIVniBGA9o/de9FgN25PSHN18hb+/A3WJxb6MZVDeZSsYIXWouG6rMH+JC+coeLylXsVwHUyKqMk8W17L1uZsdYjBGd/EFtTw0JOTualvrlgLkdYX7koVopi0kxh8UdPu2YPo3KWm4F5wE17F9j2e3kyC807+lqG6fx/8PElSKc5Ph9pY2sHAYQIjlJ8VYe+rZ7AZOChYWyYgHGXw1GEcTHCuqwBnY22/kVJ737hp3w+4aKURstFhlmlD13kkEvFY5auodkYekANOdyUOdalUUKoJVXu0Nf4cDgf
+X-Exchange-RoutingPolicyChecked:
+	wfsnqRKedUOe7KtCO0JF5hcMxqceNNc5QR0X9lLHLHwkdmidTDQtFkyCma5ddxnuANteePpHoliQaj7gQOguY2A5TN4j160+3s5vonbOABQe6TMmXqJ4nMEy7SZ5UslYJwikg7S9jVEo0I+t4VnTMR402jMYJxT69Yp4YT3SF5c761bKC12ctoX0lxnCXxXo7oqJZURP/LiOfTAGu20nJwn+IwAq+tPMin2Oqb0+eV6AQSS4DzGYguElG1FV8pqJqt94nTvRHd6auaPNxWC/11GBeNcIfa7dTCgVjAJ+UBQrdH8b1RXFjkPUPgoX6LjjDjOOyHxATBpJjIkLHRHrzw==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 13:37:23.6662
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ec198e4-545c-4ab2-3a55-08df1009cfdd
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000037B9.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR10MB4178
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDE5MCBTYWx0ZWRfX7SQmoK/aVsRZ
+ 1oyi30/EhLwHj0VW7VsDI5wW6qpbKPfKvEb7Zlcy4lCMJ6VLsg/rHIqtBfdIJiZ27NS1MRmzEoJ
+ ZaObwR/9QXlmLw7N1vzQ4t/8fyQ5CEY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDE5MCBTYWx0ZWRfX5M6QGi6LK08X
+ VGx9g5cxdLVevfyyDB/F9IEMPEVQBQcZOGirONaP1FC2j20aq6sacfatXx1qvoYT6uumxyBLskg
+ rO7tJHtObl8zve0BvkuipXDGFyKILchc/mSC4dm3DO1g/xXth1Nmx02gd2LNWEOGlliY6+RO0gs
+ Kq4xzluKD6NFRIXGI9k1GOFP/XutsaWvf0rfuPhvkPxZXfAg9sedgSJsYafxLx9j7B/sdCCph8U
+ QRuUnNqTYi9VvrYxqzYvqqHmmbbAQ9D+cJ9BWDWyGKie2CHqPm4pL2slyVid5lu092NFKX9puQi
+ +JzIGDCCWnSqiGX52bTgIrzWx8wpYOFuVp8BVCLSENWW4gQK2dFbBBUeTUtyyI6byPdu6UFlpIi
+ s6v9GpOPkQgR0q/O4DcnZXhFqtTK91/zDmCENgL0kadwPmhUU9l3XRATGQq4vHBRpALPFYBnhFr
+ 1+2EswjsWsB99o8PoSg==
+X-Authority-Analysis: v=2.4 cv=Y8FtIReN c=1 sm=1 tr=0 ts=6aa40417 cx=c_pps
+ a=j8DUK8/cuCuEDQ3LLq2Aww==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22 a=pGLkceISAAAA:8
+ a=TG_rDHHoWYbZdx3MxvYA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: IsXwHxM-12uuxBygZNJayK43b9tfGku7
+X-Proofpoint-ORIG-GUID: IsXwHxM-12uuxBygZNJayK43b9tfGku7
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-11_04,2026-09-11_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 impostorscore=0 phishscore=0 bulkscore=0
+ priorityscore=1501 spamscore=0 lowpriorityscore=0 clxscore=1011 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110190
 
-On Thu, Sep 10, 2026 at 10:38:13PM -0400, Zi Yan wrote:
-> On Thu Sep 10, 2026 at 8:02 AM EDT, Kiryl Shutsemau wrote:
-> > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> >
-> > A collapse is two jobs.  One reads a PTE table under mmap_lock and decides
-> > whether the range is worth collapsing.  The other allocates, isolates,
-> > copies and flushes, and wants the lock given up first.
-> >
-> > collapse_single_pmd() did both, so the boundary between them was somewhere
-> > in the middle of a function.
-> >
-> > Give each half its own function:
-> >
-> >   - collapse_scan_pmd() scans one table and only reads.  The anonymous
-> >     scan that used to carry that name keeps its body as
-> >     collapse_scan_anon_pmd(), and collapse_scan_pmd() is now the entry
-> >     that picks the anonymous or the file side.
-> >
-> >   - collapse_run_pmd() does the collapse the scan asked for.
-> >     SCAN_SUCCEED from the scan means there is something to run; anything
-> >     else is why there is not.
-> >
-> > collapse_single_pmd() is now the two of them with the mmap_lock drop in
-> > between, so its callers see what they saw before.
-> >
-> > What the scan found and the run needs travels in collapse_control.  For
-> > an anonymous table that is the orders and the referenced and swapped-out
-> > counts.  For a file it is the file itself, the offset in it, and whether
-> > the PMD folio is already in the page cache.
-> >
-> > The file side moves with the anonymous one.  collapse_scan_file() used to
-> > run with mmap_lock already given up, and called collapse_file() itself
-> > when the page cache looked worth it.  It now runs under the lock like the
-> > anonymous scan and only judges; the run does the collapse.  A file
-> > collapse works on the page cache and never sees a VMA, so the scan takes
-> > the file reference while it still has one and the run gives it back.
-> >
-> > That changes what a refused file table costs khugepaged.  Every file
-> > table it scanned used to end its pass over that mm, because the lock had
-> > been dropped to scan it; now only a table it goes on to collapse does.
-> >
-> > Two things on the file side stop being rescanned.  When the page cache
-> > already holds the PMD folio, the scan says so and the run goes straight
-> > to retracting the PTE table.  A run that refuses dirty pages and may
-> > write them back retries collapse_file() alone.  The checks the scan makes
-> > ahead of it are ones collapse_file() repeats under the page cache lock.
-> >
-> > Tracing changes with it.  mm_khugepaged_scan_pmd and
-> > mm_khugepaged_scan_file used to fire after the collapse, so for an
-> > accepted table their status field carried what the collapse made of it.
-> > They now fire before it and read SCAN_SUCCEED for an accepted table.  What
-> > the collapse then made of it is for mm_collapse_huge_page and
-> > mm_khugepaged_collapse_file to report.
-> >
-> > Assisted-by: LLM
-> > Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> > ---
-> >  mm/collapse.h   |  16 ++++++
-> >  mm/khugepaged.c | 147 ++++++++++++++++++++++++++++++++++++------------
-> >  2 files changed, 128 insertions(+), 35 deletions(-)
-> >
-> > diff --git a/mm/collapse.h b/mm/collapse.h
-> > index 7044dc71c7c2..346859a2184f 100644
-> > --- a/mm/collapse.h
-> > +++ b/mm/collapse.h
-> > @@ -88,6 +88,22 @@ struct collapse_control {
-> >  
-> >  	/* Each bit marks a PTE the scan accepted as a collapse source */
-> >  	DECLARE_BITMAP(eligible_ptes, MAX_PTRS_PER_PTE);
-> > +
-> > +	/*
-> > +	 * What a scan found and the run after it needs.  Live only between the
-> > +	 * two, and read by nobody else.
-> > +	 *
-> > +	 * The file side takes a reference while it still has the VMA, since a
-> > +	 * file collapse works on the page cache and never sees one; the run is
-> > +	 * what gives it back.  A scan that found the PMD folio already in the
-> > +	 * cache leaves only the PTE table to retract.
-> > +	 */
-> > +	unsigned long scan_orders;
-> > +	int scan_referenced;
-> > +	int scan_unmapped;
-> > +	struct file *scan_file;
-> > +	pgoff_t scan_pgoff;
-> > +	bool scan_retract_only;
+On 9/11/26 3:21 AM, Krzysztof Kozlowski wrote:
+> On Thu, Sep 10, 2026 at 02:47:44AM +0300, Rinat Muhamedgaliev wrote:
+>> OnePlus 6 and OnePlus 6T battery packs may contain either a TI
+>> bq27411 or bq27541 fuel gauge. Use the generic ti,bq27xxx compatible
+>> so the driver can select the register map from DeviceType at probe
+>> time.
+>>
+>> Tested on OnePlus 6T (fajita) with a bq27541 (DeviceType 0x0541):
+>> after booting the new kernel, the battery reported 4.360 V, 100% state
+>> of charge, 27.8 C, and Full status.
+>>
+>> Fixes: 12dfb002ca01 ("arm64: dts: qcom: sdm845-oneplus-*: add fuel gauge")
 > 
-> scan_retract_pte_only ?
-
-It is the PTE table that gets retracted, not a PTE, and
-scan_retract_pte_table_only is too long for a field read in one place.
-
-But with your suggestion below the field goes away, so the name does
-too.
-
-> > -	mmap_assert_locked(mm);
-> > +	mmap_assert_locked(vma->vm_mm);
-> > +	/* Whatever the last scan found has to have been run by now */
-> > +	if (WARN_ON_ONCE(cc->scan_file)) {
-> > +		fput(cc->scan_file);
-> > +		cc->scan_file = NULL;
-> > +	}
+> What is the bug here? Your commit msg should be specific about it.
 > 
-> scan_file should be set to NULL by collapse_control_init(). Anyway, the
-> code is duplicated here and in collapse_control_release(), maybe add a
-> helper.
 
+Commit msg seems pretty clear about the bug (to me at least), the DT
+says the fuel gauge is a BQ27411 but that isn't the case, some shipped
+with a BQ27541 fuel gauge.
 
-collapse_control_init() does set it to NULL. This check is for a scan
-that found work and was never run, which no caller does today but the
-engine on top of this will scan many tables before it runs any.
+(I do agree though this shouldn't have a fixes tag as back-porting this
+without also back-porting the driver-side change would break users)
 
-Both copies become one helper in the diff below.
+Since these fuel gauges often live on the battery pack and not the
+device itself, folks changing their batteries might end up with
+different fuel gauges, so having some detection method is going to
+be helpful.
 
-> > +retract:
-> >  	fput(file);
-> >  
-> > +	/*
-> > +	 * A PMD folio is in the page cache, whether the collapse just put it
-> > +	 * there or found it: retract the PTE table, and map the PMD if asked.
-> > +	 */
-> >  	if (result == SCAN_PTE_MAPPED_HUGEPAGE) {
-> >  		mmap_read_lock(mm);
-> >  		if (collapse_test_exit_or_disable(mm))
+Rinat,
+
+I'm not familiar with the bootflow on these devices, but is this something
+you could detect in the bootloader and fixup the DT before it is passed
+to kernel? That way the kernel gets a DT with the correct and specific
+compatible to start with?
+
+Andrew
+
+>>
+>> Signed-off-by: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+>> ---
+>>   arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi   | 4 ++--
+>>   arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts | 2 +-
+>>   arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts    | 2 +-
+>>   3 files changed, 4 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+>> index 948a0dd..8c5cd94 100644
+>> --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+>> @@ -790,8 +790,8 @@ &i2c10 {
+>>   	status = "okay";
+>>   	clock-frequency = <100000>;
+>>   
+>> -	bq27441_fg: bq27441-battery@55 {
+>> -		compatible = "ti,bq27411";
+>> +	bq27xxx_fg: fuel-gauge@55 {
+>> +		compatible = "ti,bq27xxx";
 > 
-> result is changed from SCAN_PTE_MAPPED_HUGEPAGE to SCAN_SUCCEED to
-> SCAN_PTE_MAPPED_HUGEPAGE to get here. Is there a way of avoiding this
-> result churn?
+> And this is just breaking all users without any explanation.
 > 
 > 
-> > @@ -2805,6 +2857,28 @@ static enum scan_result collapse_single_pmd(unsigned long addr,
-> >  	return result;
-> >  }
-> >  
-> > +/*
-> > + * Try to collapse a single PMD starting at a PMD aligned addr, and return
-> > + * the results.
-> > + */
-> > +static enum scan_result collapse_single_pmd(unsigned long addr,
-> > +		struct vm_area_struct *vma, bool *lock_dropped,
-> > +		struct collapse_control *cc)
-> > +{
-> > +	struct mm_struct *mm = vma->vm_mm;
-> > +	enum scan_result result;
-> > +
-> > +	result = collapse_scan_pmd(vma, addr, cc);
-> > +	if (result != SCAN_SUCCEED)
-> > +		return result;
 > 
-> Can it be changed to?
+>>   		status = "okay";
+>>   		reg = <0x55>;
+>>   	};
+>> diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+>> index 5f01115..cf40842 100644
+>> --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+>> +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+>> @@ -44,7 +44,7 @@ main_cam_ois: main-cam-ois-regulator {
+>>   	};
+>>   };
+>>   
+>> -&bq27441_fg {
+>> +&bq27xxx_fg {
 > 
-> if (result != SCAN_SUCCEED && result != SCAN_PTE_MAPPED_HUGEPAGE)
-> 	return result;
+> No, irrelevant to the supposed bug here.
+> 
+> Best regards,
+> Krzysztof
+> 
 
-Yes. The scan returns SCAN_PTE_MAPPED_HUGEPAGE as it is, both callers
-treat it as work for the run, and collapse_run_pmd() takes the scan's
-result as an argument and goes straight to the retract when it sees it.
-That removes the flag and the round trip in one go.
-
-The diff below is against the whole series; for v3 it gets folded into
-the patches that introduced each piece.
-
-Looks good?
-
-diff --git a/mm/collapse.h b/mm/collapse.h
-index 1ebbbf63fb25..69bbd1f30e68 100644
---- a/mm/collapse.h
-+++ b/mm/collapse.h
-@@ -95,15 +95,13 @@ struct collapse_control {
- 	 *
- 	 * The file side takes a reference while it still has the VMA, since a
- 	 * file collapse works on the page cache and never sees one; the run is
--	 * what gives it back.  A scan that found the PMD folio already in the
--	 * cache leaves only the PTE table to retract.
-+	 * what gives it back.
- 	 */
- 	unsigned long scan_orders;
- 	int scan_referenced;
- 	int scan_unmapped;
- 	struct file *scan_file;
- 	pgoff_t scan_pgoff;
--	bool scan_retract_only;
- };
- 
- /* Which orders a VMA may collapse to, zero when it may not collapse at all */
-@@ -114,10 +112,10 @@ unsigned long collapse_possible_orders(struct vm_area_struct *vma,
-  * A caller states what it allows in cc->policy and then hands over one PTE
-  * table's worth of a VMA at a time:
-  *
-- *     collapse_control_init(cc)         once, before the first table
-- *     collapse_scan_pmd(vma, addr, ...) per table
-- *     collapse_run_pmd(mm, addr, cc)    when a scan found work
-- *     collapse_control_release(cc)      once, when done with the control
-+ *     collapse_control_init(cc)              once, before the first table
-+ *     collapse_scan_pmd(vma, addr, ...)      per table
-+ *     collapse_run_pmd(mm, addr, result, cc) when a scan found work
-+ *     collapse_control_release(cc)           once, when done with the control
-  *
-  * The caller holds mmap_lock for reading over the scan and passes an address
-  * within @vma, aligned to the PTE table the scan is to judge.
-@@ -125,7 +123,10 @@ unsigned long collapse_possible_orders(struct vm_area_struct *vma,
-  * The scan returns with that lock still held.  It only reads, and almost every
-  * table it is offered has nothing to collapse, so a caller walks a whole VMA
-  * under the one lock it took to get there.  SCAN_SUCCEED means there is
-- * something to collapse; anything else is why there is not.
-+ * something to collapse.  SCAN_PTE_MAPPED_HUGEPAGE means the page cache
-+ * already holds the PMD folio and only the PTE table is left to retract.
-+ * Both are work for the run, which is handed what the scan returned; anything
-+ * else is why there is nothing to do.
-  *
-  * The run is called without the lock and returns without it, taking what it
-  * needs in between: what it does -- allocate, isolate, copy, flush -- is slow
-@@ -144,7 +145,7 @@ enum scan_result collapse_scan_pmd(struct vm_area_struct *vma,
- 		unsigned long addr, struct collapse_control *cc,
- 		unsigned long orders);
- enum scan_result collapse_run_pmd(struct mm_struct *mm, unsigned long addr,
--		struct collapse_control *cc);
-+		enum scan_result result, struct collapse_control *cc);
- enum scan_result collapse_vma_revalidate(struct mm_struct *mm,
- 		unsigned long address, bool expect_anon,
- 		struct vm_area_struct **vmap, struct collapse_control *cc,
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 1deb74cf28af..e257faee0717 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -2734,15 +2734,20 @@ void collapse_control_init(struct collapse_control *cc)
- 	cc->scan_file = NULL;
- }
- 
--void collapse_control_release(struct collapse_control *cc)
-+/* A scan that took a file reference should have been run */
-+static void collapse_put_scan_file(struct collapse_control *cc)
- {
--	/* A scan that took a file reference should have been run */
- 	if (WARN_ON_ONCE(cc->scan_file)) {
- 		fput(cc->scan_file);
- 		cc->scan_file = NULL;
- 	}
- }
- 
-+void collapse_control_release(struct collapse_control *cc)
-+{
-+	collapse_put_scan_file(cc);
-+}
-+
- enum scan_result collapse_scan_pmd(struct vm_area_struct *vma,
- 		unsigned long addr, struct collapse_control *cc,
- 		unsigned long orders)
-@@ -2752,31 +2757,19 @@ enum scan_result collapse_scan_pmd(struct vm_area_struct *vma,
- 
- 	mmap_assert_locked(vma->vm_mm);
- 	/* Whatever the last scan found has to have been run by now */
--	if (WARN_ON_ONCE(cc->scan_file)) {
--		fput(cc->scan_file);
--		cc->scan_file = NULL;
--	}
-+	collapse_put_scan_file(cc);
- 
- 	if (vma_is_anonymous(vma))
- 		return collapse_scan_anon_pmd(vma, addr, cc, orders);
- 
- 	pgoff = linear_page_index(vma, addr);
- 	result = collapse_scan_file(vma->vm_mm, addr, vma->vm_file, pgoff, cc);
--	switch (result) {
--	case SCAN_SUCCEED:
--		cc->scan_retract_only = false;
--		break;
--	case SCAN_PTE_MAPPED_HUGEPAGE:
--		/*
--		 * The page cache already holds the PMD folio; what is left is
--		 * to retract the PTE table, which is the run's job.
--		 */
--		cc->scan_retract_only = true;
--		result = SCAN_SUCCEED;
--		break;
--	default:
-+	/*
-+	 * SCAN_PTE_MAPPED_HUGEPAGE is work too: the page cache already holds
-+	 * the PMD folio, and retracting the PTE table is the run's job.
-+	 */
-+	if (result != SCAN_SUCCEED && result != SCAN_PTE_MAPPED_HUGEPAGE)
- 		return result;
--	}
- 
- 	/*
- 	 * A file collapse works on the page cache and never sees a VMA, so take
-@@ -2788,11 +2781,10 @@ enum scan_result collapse_scan_pmd(struct vm_area_struct *vma,
- }
- 
- enum scan_result collapse_run_pmd(struct mm_struct *mm, unsigned long addr,
--		struct collapse_control *cc)
-+		enum scan_result result, struct collapse_control *cc)
- {
- 	struct file *file = cc->scan_file;
- 	bool triggered_wb = false;
--	enum scan_result result;
- 	pgoff_t pgoff;
- 
- 	if (!file)
-@@ -2802,10 +2794,9 @@ enum scan_result collapse_run_pmd(struct mm_struct *mm, unsigned long addr,
- 	cc->scan_file = NULL;
- 	pgoff = cc->scan_pgoff;
- 
--	if (cc->scan_retract_only) {
--		result = SCAN_PTE_MAPPED_HUGEPAGE;
-+	/* The scan found the PMD folio in place: nothing to collapse */
-+	if (result == SCAN_PTE_MAPPED_HUGEPAGE)
- 		goto retract;
--	}
- retry:
- 	result = collapse_file(mm, addr, file, pgoff, cc);
- 
-@@ -2919,8 +2910,9 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
- 			khugepaged_scan.address += HPAGE_PMD_SIZE;
- 
- 			*result = collapse_scan_pmd(vma, addr, cc, orders);
--			/* Nothing to collapse here, and the lock is still ours */
--			if (*result != SCAN_SUCCEED) {
-+			/* Nothing to do here, and the lock is still ours */
-+			if (*result != SCAN_SUCCEED &&
-+			    *result != SCAN_PTE_MAPPED_HUGEPAGE) {
- 				if (cc->progress >= progress_max)
- 					goto breakouterloop;
- 				continue;
-@@ -2933,7 +2925,7 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
- 			 * whatever the collapse leaves them.
- 			 */
- 			mmap_read_unlock(mm);
--			*result = collapse_run_pmd(mm, addr, cc);
-+			*result = collapse_run_pmd(mm, addr, *result, cc);
- 			if (*result == SCAN_SUCCEED)
- 				khugepaged_pages_collapsed++;
- 			goto breakouterloop_mmap_lock;
-diff --git a/mm/madvise.c b/mm/madvise.c
-index f75a9d139980..33bcd390ce43 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -1014,8 +1014,8 @@ static int madvise_collapse(struct madvise_behavior *madv_behavior)
- 		}
- 
- 		result = collapse_scan_pmd(vma, addr, cc, orders);
--		/* Nothing to collapse here, and the lock is still ours */
--		if (result != SCAN_SUCCEED)
-+		/* Nothing to do here, and the lock is still ours */
-+		if (result != SCAN_SUCCEED && result != SCAN_PTE_MAPPED_HUGEPAGE)
- 			goto tally;
- 
- 		/* The collapse takes its own locks, so give this up */
-@@ -1023,7 +1023,7 @@ static int madvise_collapse(struct madvise_behavior *madv_behavior)
- 		mark_mmap_lock_dropped(madv_behavior);
- 		vma = NULL;
- 
--		result = collapse_run_pmd(mm, addr, cc);
-+		result = collapse_run_pmd(mm, addr, result, cc);
- tally:
- 		switch (result) {
- 		case SCAN_SUCCEED:
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
