@@ -1,94 +1,205 @@
-Received: from nova.nubenode.com (nova.nubenode.com [46.4.179.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D163F38C40E;
-	Fri, 11 Sep 2026 17:39:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.4.179.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 083B34AB1DA
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:40:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789148394; cv=none; b=G7ciHC9IFrs1ljJ3YGPm2H0w6SECR2WvbvokrZ0xhbtsBQ7r3CzKwy4+DZ3vmu1lug39sxdCuwWa4YkCEXG/mkMVshHMaYjpRcqm+udu68H5JHqmmHxo/6R8B5Wk+HZuI/YEWR+vztQ3SEtg+uE/m6i8x5ErwrC118cvVQDVk2U=
+	t=1789148408; cv=none; b=PoHbg3HbkJIKbxyo0RmpHDhXsnAdlODDiW41FgzhBGY659c+RxGS4IhTZJ3cX44pleXSXRHEZj878ikGITZdv0opvjRnlkFCpBGKN9AMVrz2Hg9t2Vzc6Lz9IisMcW+M9BpVVzKtnQuVXgD/HVfez0DS3we3/aPcuvW6BYSxFfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789148394; c=relaxed/simple;
-	bh=j4CUhv1QLcEu0+ak7TLFO32/Pf38l/f42ONd5EExPvs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
-	 In-Reply-To:References; b=roPYF2qv5wjtmhudrQIR3YDd+A4bGWYJrRTlHNqu9cH31TqEefG8gh37x8ccRIvws6xi+qBW9ujs/9546oVLb3Zna3hM0jib0QfelwXM82PRsrIVSQ1z/EPUUUgMlQdIZuwJXTT2IaBNUQIurmuwoA9Qt8xsa2KhF3WIas2i9gg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cristiandeluxe.dev; spf=pass smtp.mailfrom=cristiandeluxe.dev; dkim=pass (2048-bit key) header.d=cristiandeluxe.dev header.i=@cristiandeluxe.dev header.b=b/SCbX6g; arc=none smtp.client-ip=46.4.179.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cristiandeluxe.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cristiandeluxe.dev
+	s=arc-20240116; t=1789148408; c=relaxed/simple;
+	bh=EZahxDDGmgltKd5bOAMzwsyPw10S4QBBNVqGiejnavY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Yd5IvEJ9XOshcq/nTqpHDL9XktXiaCiIBIgZyU2eaUcy2rsDbC5Wrp0KLnfRal7V6tYhsjho/Rxwc/Pi75zj8hKD8GLHoZTOmmqcdsVYZjmMbb3YHJFJNeZM6cp0RyO2U3vsRApw/IY+WnoZw54IDw2LGanCSyXNKyohWzRJ2p0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kUxxZEn/; arc=none smtp.client-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cristiandeluxe.dev header.i=@cristiandeluxe.dev header.b="b/SCbX6g"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=cristiandeluxe.dev; s=default; h=References:In-Reply-To:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:Date:Subject:
-	Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=2XPjYYHQB59xTSnxAKCR9wFwi40L5z7iGdr3RaF0B94=; b=b/SCbX6g/Ek0rUAouQG4n22DVB
-	tYcuD3WwqTAjhEfmkRofhaDDZci4EVcGW7zWNGHN22yCtR/Dyu+7wNqghKJvBhBsTGny2c1GCXAaz
-	wTjCchtS6PYbRxUr5OvfgGb24YGlR9iYYU9SSBuIvnQIIXxTdkWaCxOWe/4JQeUkYZGnit+qNoJ6l
-	TCwXEDKVGuroQ2r8KldS5x59sC4sqKevoSX3VFccpypz/oyGmO7BD+UgNM2e9iS19kdoRxBAw3UiJ
-	1WCKclZySV9CuuhNs/QmV2DtoSerkU8EWi5gnORZBeKFFH58AUKZhP3jyezFtlxWMXSIMnaVKgeRc
-	ryqB5xVA==;
-Received: from cristiandev by nova.nubenode.com with local (Exim 4.99.5)
-	(envelope-from <me@cristiandeluxe.dev>)
-	id 1x55E5-00000000RSS-0i7P;
-	Fri, 11 Sep 2026 19:39:49 +0200
-From: Cristian Deluxe <me@cristiandeluxe.dev>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] wifi: rtw88: 8703b: stop the PCIe DMA write reaching SDIO
-Date: Fri, 11 Sep 2026 17:38:12 +0200
-Message-ID: <178914109042.64584.11316164845616306056@cristiandeluxe.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kUxxZEn/"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8534d507f59so1414563b3a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:40:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789148400; x=1789753200; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wl3IKortcFpGKddT3RAr007iJEhPfwcrwYUS/tqDJm4=;
+        b=kUxxZEn/Ef8EkoRNzk5Z2YdaGcXQU1rxTbkkImdQmN1IpSluq1Ie1ulA3snABdxKy4
+         Oo1fXhxRvqirvmKTWxDJ5xzrXcbfx706olRk356EzwjSLfAbdrqLndwfzpw2jaxa6bXr
+         5PQxLWjyXaqn1ZdA/oxK6Wuhgo/P7CD20vuMgl2ow3bRXVAOaoJ1gFtAX+1jKtr8FVm3
+         dzqbJDQ6+Egpx6EX/jyKjA9Ij2XeVKc1VxlPo5xgX7gX1IkRRwmSSYaC+jiXoy1dozKw
+         tA2T8y1GfhTD+9DA+gIWTOANPeNwhIzzdA8N4IrGjPacBQ2jKndgJykuu7VxJiGA0ko5
+         02Dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789148400; x=1789753200;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=wl3IKortcFpGKddT3RAr007iJEhPfwcrwYUS/tqDJm4=;
+        b=i0qGuqWwePz2DzOHcnZ3q7PoJhfcpgAljkeDlESRLPcU1MRAM0/TNf6ME7mOetic1V
+         4cSxWgfmAHIbmtNJGj/0UDffz+TU9HZaonLhvh74Q0yZLUtyi5NonNE16ytc6WpZrN9q
+         CBNxb0iZrv1MqiRLjSiGDQiP1wsmktY+4ityfSMGmbT0zXoYcmHH/IZeVk6xPX1A9ArA
+         EXVE0202ySJ18/E2yCB4mXaFJ0TmO6PaEuMyrQFZ7k+5vQ4fRMgBHLb+LpINF6ptbCu5
+         +nX6+/5m01UIwnUGWt6Lds1OESY+FxxqRELsqSL96FhWnnDLg54o4+LrX1xbPOpvQfzC
+         aTaw==
+X-Forwarded-Encrypted: i=1; AKwUvBz7wFJOmNn7+fJgk40zBa6cRsmIFyd7hGvQwIyfLO/SUHCJ4xLz56eJpXoOxX1xGTYH/HeBl3aGGTSXWGE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nntCiutId/NKbFBVuRgJiFvIR2JKXEFLFYxnVW3FA6Ic/sTWDe
+	MqnFwudTDqXK+Fkm8zzzdhxBqT4uwd4i0TTnAL0i0wvKDU7Bu8sdPXMG
+X-Gm-Gg: AYBFou1SlK3k24R+/dgUfPlLNWdKHAqp5o54VXTDl/f9VdVBwYsyS+E605ASjvUuY27
+	jdCF0l6lJyeYCHzuNQgWVsQwn3nc/34v/LFPimMjQz6vAyvtMVlUTal32RMcA1GoOBuY//eZaQv
+	mjG7VkqtKcFq74nG9Sq3ZLnNLhBi07EEWlr/WOYzQNkEf8wb5qTWoz2xvQKI0g9Q59WYW4b/NSb
+	clhPkJx7dwKF2ubLH2nZh2uWxxFXE2VVgfQczWByZB8mj48jd6y6klajR4DXX6mDXl4mITDOUX4
+	rBEONgdF86qPQfvAhOyzs2D5LHxNWtPOoKR2nZswPXi3Hu4tptN2Zf9yPloIWq2ZkchRs2wiq3B
+	uGYTFfXhLJnAMNSRDLYMlHzwJsX+27X6vXozvg2/4uG/c+Fg2DHr+DU7iiO7UZvA582fwKyYmMR
+	mp2dPfiSpBfUANfF1VSc1AIbvESv0tUZIjLP9lSamH1+j2tB8xwOGRLfB+HGSQZGu1aJCYCTm/v
+	WJ3l9TG/1qMW5TIvNftxaGCmrHSkOr4RGWANK7PvQEQcA==
+X-Received: by 2002:a05:6a00:28c3:b0:848:62ab:7b7 with SMTP id d2e1a72fcca58-86b3011a6efmr8754763b3a.16.1789148399726;
+        Fri, 11 Sep 2026 10:39:59 -0700 (PDT)
+Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([106.51.165.23])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b29bb9ecesm1428361b3a.43.2026.09.11.10.39.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 10:39:59 -0700 (PDT)
+Date: Fri, 11 Sep 2026 23:09:48 +0530
+From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
+To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, 
+	ryabinin.a.a@gmail.com, glider@google.com, andreyknvl@gmail.com, dvyukov@google.com, 
+	vincenzo.frascino@arm.com, pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, 
+	alex@ghiti.fr, kees@kernel.org, amachhiw@linux.ibm.com, ritesh.list@gmail.com, 
+	robh@kernel.org, sayalip@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, linux-riscv@lists.infradead.org, 
+	linux-hardening@vger.kernel.org, Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+Subject: Re: [PATCH] powerpc/kasan: require memintrinsic prefix support for
+ KASAN
+Message-ID: <aqOrCdvUB5lFjNsS@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+References: <20260908064948.999530-1-mkchauras@gmail.com>
+ <b3b1fa5a-c836-447f-a658-ad66183c23c5@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Mailer: sendmail (hand-assembled, git-email unavailable on host)
-In-Reply-To: <178914109042.64584.1681714272474754544@cristiandeluxe.dev>
-References: <178914109042.64584.1681714272474754544@cristiandeluxe.dev>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - nova.nubenode.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [1103 978] / [47 12]
-X-AntiAbuse: Sender Address Domain - cristiandeluxe.dev
-X-Get-Message-Sender-Via: nova.nubenode.com: authenticated_id: cristiandev/from_h
-X-Authenticated-Sender: nova.nubenode.com: me@cristiandeluxe.dev
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: /root
+In-Reply-To: <b3b1fa5a-c836-447f-a658-ad66183c23c5@kernel.org>
 
-The first entry of trans_act_to_lps_8703b writes 0xff to MAC register
-0x301 on every interface. That register is the PCIe DMA control, and
-both trans_act_to_lps_8723d and Realtek's own 8703b sequence header
-restrict the same entry to PCI, where it is commented "PCIe DMA stop".
+On Tue, Sep 08, 2026 at 11:59:14AM +0200, Christophe Leroy (CS GROUP) wrote:
+> 
+>
+[...]
+> > --- a/arch/powerpc/include/asm/kasan.h
+> > +++ b/arch/powerpc/include/asm/kasan.h
+> > @@ -2,20 +2,17 @@
+> >   #ifndef __ASM_KASAN_H
+> >   #define __ASM_KASAN_H
+> > -#if defined(CONFIG_KASAN) && !defined(CONFIG_CC_HAS_KASAN_MEMINTRINSIC_PREFIX)
+> > -#define _GLOBAL_KASAN(fn)			\
+> > -	_GLOBAL(fn);				\
+> > -	_GLOBAL(__##fn)
+> > -#define _GLOBAL_TOC_KASAN(fn)			\
+> > -	_GLOBAL_TOC(fn);			\
+> > -	_GLOBAL_TOC(__##fn)
+> > -#define EXPORT_SYMBOL_KASAN(fn)			\
+> > -	EXPORT_SYMBOL(__##fn)
+> > -#else /* CONFIG_KASAN && !CONFIG_CC_HAS_KASAN_MEMINTRINSIC_PREFIX */
+> > +/*
+> > + * powerpc requires CC_HAS_KASAN_MEMINTRINSIC_PREFIX whenever KASAN is
+> > + * enabled (see PPC_CC_HAS_KASAN_MEMINTRINSIC_PREFIX in arch/powerpc/Kconfig),
+> > + * so the compiler always emits __asan_mem*() at instrumented call sites and
+> > + * bare mem*() inside __no_sanitize_address / noinstr code.  The old dual
+> > + * entry-point trick (_GLOBAL_KASAN emitting both memset and __memset) is
+> > + * therefore never needed.
+> > + */
+> 
+> This explanation belongs to the commit message not to the source code.
+> 
+Hey Christophe,
 
-So on an RTL8723CS, which is SDIO only, every transition into low power
-poked a PCIe register for no reason. Restrict it the way the sibling
-chip and the vendor both do.
+Sure i'll move this and rest ahead.
 
-Tested on an RTL8723CS over SDIO: the interface goes down and back up,
-reassociates and takes an address, and a warm reboot brings Wi-Fi back
-with no change in behaviour.
+[...]
+> > diff --git a/arch/powerpc/kernel/cputable.c b/arch/powerpc/kernel/cputable.c
+> > index 6f6801da9dc1..44115f904c2c 100644
+> > --- a/arch/powerpc/kernel/cputable.c
+> > +++ b/arch/powerpc/kernel/cputable.c
+> > @@ -36,8 +36,8 @@ void __init set_cur_cpu_spec(struct cpu_spec *s)
+> >   	t = PTRRELOC(t);
+> >   	/*
+> > -	 * use memcpy() instead of *t = *s so that GCC replaces it
+> > -	 * by __memcpy() when KASAN is active
+> > +	 * use memcpy() instead of *t = *s so that the compiler replaces it
+> > +	 * by __asan_memcpy() when KASAN is active
+> >   	 */
+> 
+> Does the initial problem still exist with the new __asan_memcpy() approach ?
+> If not the comment should be removed.
+> 
+Hey Christophe,
 
-Signed-off-by: Cristian Deluxe <me@cristiandeluxe.dev>
----
- drivers/net/wireless/realtek/rtw88/rtw8703b.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks for pointing it out, i took a deeper look into this, here's my
+understanding on it.
 
-diff --git a/drivers/net/wireless/realtek/rtw88/rtw8703b.c b/drivers/net/wireless/realtek/rtw88/rtw8703b.c
---- a/drivers/net/wireless/realtek/rtw88/rtw8703b.c
-+++ b/drivers/net/wireless/realtek/rtw88/rtw8703b.c
-@@ -412,7 +412,7 @@ static const struct rtw_pwr_seq_cmd trans_act_to_reset_mcu_8703b[] = {
- static const struct rtw_pwr_seq_cmd trans_act_to_lps_8703b[] = {
- 	{0x0301,
- 	 RTW_PWR_CUT_ALL_MSK,
--	 RTW_PWR_INTF_ALL_MSK,
-+	 RTW_PWR_INTF_PCI_MSK,
- 	 RTW_PWR_ADDR_MAC,
- 	 RTW_PWR_CMD_WRITE, 0xff, 0xff},
- 	{0x0522,
--- 
-2.51.0
+On PowerPC during very early boot the kernel is loaded by the
+bootloader/firmware at some physical address, but the kernel was linked
+expecting it to run at KERNELBASE(virtual address like
+0xc000000000000000). The MMU mapping that makes that virtual address
+valid hasn't been set up yet. So far for a window of early boot, code is
+executing at the physical load address while all symbol addresses in the
+binary refer to the virtual linked address. reloc_offset() computes the
+gap between these two and PTRRELOC applies it to any pointer.
+
+So PTRRELOC(&the_cpu_spec) gives the physical address where the struct
+actually lives in memory right now, not where the linker thinks it lives.
+
+Why *t = *s would be wrong?
+
+In set_cur_cpu_spec:
+
+struct cpu_spec *t = &the_cpu_spec;  // linked (virtual) address
+t = PTRRELOC(t);                     // physical address — where it actually is
+memcpy(t, s, sizeof(*t));            // copy into the right place
+
+If you wrote *t = *s instead, the compiler generates a struct assignment.
+For a large struct like cpu_spec, GCC is free to implement that however
+it likes — including emitting a call to memcpy(). But crucially, a 
+compiler-generated memcpy call resolves through the GOT/PLT or direct
+symbol — which points to the linked virtual address of memcpy, not the
+physical address. At this point in boot, calling through the wrong
+address would jump to garbage or an unmapped page.
+
+memcpy(t, s, sizeof(*t)) written explicitly is different: t is already
+the corrected physical address, s points into the cpu_specs table which
+has also been PTRRELOC'd. The explicit call goes through the normal
+early-boot call mechanism which is safe.
+
+The original comment said:
+
+"use memcpy() instead of *t = *s so that GCC replaces it by __memcpy()
+when KASAN is active"
+
+This was added because under the old KASAN scheme
+(!CC_HAS_KASAN_MEMINTRINSIC_PREFIX), KASAN overrode the memset/memcpy
+linker symbols globally with C wrappers that called kasan_check_range().
+If the compiler turned *t = *s into an implicit memcpy(), that would hit
+the KASAN wrapper — calling kasan_check_range() at a point in early boot
+where the KASAN shadow isn't mapped yet, causing a crash.
+
+Writing memcpy(t, s, sizeof(*t)) explicitly made GCC emit __memcpy()
+(the raw assembly alias exposed by _GLOBAL_KASAN) instead of the
+KASAN-wrapped memcpy(), bypassing the shadow check.
+
+That was the secondary reason. The primary reason that t is a
+PTRRELOC-adjusted physical pointer and the copy must go through it
+correctly was never stated.
+
+So the KASAN comment is not required but i think we still need to state
+why memcpy is required. For PTRRELOC adjustment, comment should reflect
+that.
+
+I'll update the comment and commit message and send out a new version.
+
+Regards,
+Mukesh
