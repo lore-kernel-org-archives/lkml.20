@@ -1,100 +1,108 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B42F3E8C74;
-	Fri, 11 Sep 2026 10:05:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70689265629
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:08:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789121142; cv=none; b=Tai2B3MoOrIwa1L2G8wfrYYf5uOWTLl/6jMnDalRX9ICW/qP/C9+nVd5uHMFHNBHEzgK4ybfBUmdXsc4wFspHyEM7qSa9e8OwrBMXAu1VrPV1VzddfUA5ZiV/3bqHq4gEvzLMctrnHT0+llaTKvClovyfGiEbR9y/EFpCGGQSto=
+	t=1789121320; cv=none; b=Py7Lsr3rsl+rbt0gk+dOIBqPvEXyP/Xy5VKAzFUWQAsO4KLsjVsCqtLkmx71sPslvNNFEITPLkalWjcxkw1brut+oIViapSwE1HeM/KWiluJa3DPjd0M9SxzRVhUjt7NqZp9SLfSRHNl6ktqN/K0ikF0v412GEOCUZ6HqNfm3MA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789121142; c=relaxed/simple;
-	bh=s9sEJ6VkNy4LnIwySs6hZhG87RYcsS59KQwQRuWZs4I=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=OgMOH2tTbmeofSqyRLeVSqmJv0AuNcNnausL70oxSV+8FqH5/l7DkSWCJuNYRLS1g4c/Iw3s7fQbSZ4U5NuJSzWlxDWyJ8ObLFnFWP8rFogdVuMjetsgkJD1QU33+gJadLuLH+CWxyX2W6ld8zFHlknaJ788jc/qmdCNw8nspok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=wwYzeqDe; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1789121320; c=relaxed/simple;
+	bh=7lapMK+ICofvcNyuBgdGPlAYgWGY5O2Q6OavTKNf+fE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MwTw5j6GvO9eRsh51/O2FjtySP65FS1VCQTM38AIIcss6byXp8ZNbTwDOsL03AA1fzRrNmCV0poR4Ttvv3ChIlUfyt2UQUNmZXMIo5/hsDsNVo7S7QZLL8LJ41Kxum9rfI8rHVzmEIGjqUfNFGAoPVc7Fv3RSHa8tDw005/fVvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R9W1nO0c; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="wwYzeqDe"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6D2B0A0580;
-	Fri, 11 Sep 2026 12:05:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1789121137; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=5iICex6txoAZiaKXW04b4lDCW3h8pJjsouZmJMQWVY4=;
-	b=wwYzeqDe4/TknzC1RYnb6Fk67FzTFvZHK+NVRyz7bZCRosBC8MjrtOuj26wjlq7O27zDHd
-	gyTUi9peAIxblrpNdo8RTmFCh52aDPBfEX3KeDkA5OY2/4trXokBn1J/c4w4+Qm1eG7WGG
-	h6BdLxFQ7ITJQi1xHj0a3Y/uy9cMlKhqwBngTZAUwlxs0/iJcH6IY0bwdXddYR8V6e0Vc/
-	GQ13B/um8QKUOVTOsredpQKg6mKSOUr5ZOc79FsBhX/2qbvuxx0L0mrKQx0OqBCSPo5Owe
-	2fPeltWI9UmP/5kFAX5wzNfJ8nhnUMa4m+BT/RkJjNv8eslCQFcqIXS9s9T4ug==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R9W1nO0c"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso9666645e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:08:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789121318; x=1789726118; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7lapMK+ICofvcNyuBgdGPlAYgWGY5O2Q6OavTKNf+fE=;
+        b=R9W1nO0cv6pINtjvrxaI7+UeTvJpZEbo7TYeDjfc70N3sV3nEb6lGmDEFV0kvZVl5J
+         0Tp/831Bbe/McRZckIZsfD1bc1DhARbcUEInvtdQawag19NcQVyZb1wTjaSX4foimRNR
+         MXMKWE1tJHq/49mbND1p0QshgHeVFGxv2ZAyQ05T7WqDqxCbvrQqhXC8fHaRIXF0/Qym
+         yrIIXNSyvU+VjceFanK6IrC16cRRKgaVoRdnAeCCj4nuxWvBOWl07DJ/9PIDS8Mh4VzE
+         6hODI4RdfdEBgdoWmX8s5FXISMnWkGESvkq0YBvjCExP/grL7JtWVRCY6aHGME3JEPDE
+         IJ5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789121318; x=1789726118;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7lapMK+ICofvcNyuBgdGPlAYgWGY5O2Q6OavTKNf+fE=;
+        b=EnHfp8D7F4xFbksR0+iNrKrXMW8/3axv0z6q+4AOEBv3bgTAvag/yqU7DhocVai+th
+         raj5K12ehg/nhFfyeCJKCvsM6QZ4fwfFYswT+J74jeicFRgE42gpDYklR34xnYEIA+dC
+         z9/l+XEdVXF3OxndZ3Fa6HTG5oYMqIz0eRJcCjEvWtUBrvtNqYTD+bjk98j4FCFiys10
+         yPnzbd4Q3hjz1q3yzRTLGc8aC4FMrWGC2OdcDxl6yDvOGnHnRCzAgVhyOboUw1YeoNTS
+         fIcAnK4DpgGOv/zeasaegTzLDbsCUrqimZqjq2alfpx/aEA76+QpLX3uGJ+puZRyus1k
+         zN5g==
+X-Forwarded-Encrypted: i=1; AKwUvBw/m6iEJKWcmaB0c+PJfkWQ9WiLKfZj7w1wP1K1ystoqc/+/kZ8GG0iKPfCr1Ehas6SakkDpghEmZs7tpg=@vger.kernel.org
+X-Gm-Message-State: AFuF++k2Qa3tyTFlnxYQCt/GnJJVUBhkeU2e1DlqyIDEON6r7lbRUwQD
+	E0D81d7VhOoCowuLxBmP3v3mzMZoRbgbIa88hPFbcznNPGpgTKRZp/53
+X-Gm-Gg: AYBFou2o3IpnvvQh3H/i7M4iHJ6KkFI+zq4Uw2mAtNFRtwRt+om41GtAjfjSWfBGvi9
+	NGKHZooUgfrOBPexKfCg1G6Yuvx1W9sTG11LrkzGgNp6Y2j0fhFbEA2fnNz2ekjwxSZl1vc8kGt
+	EaK316J2RMOjttTQl89EB0e0gbHMRH7Bh1gmupWGVhx+Y8uYn1GUqgdSQBzWfcQkLG24ZDfoGFK
+	txQDzW/bEHPO9LlwcKKZ/1qCrXHoqH/CHaiUGB7C696X4DknamlCG3aEFfZ08y7UGnyK3Rq7Pzo
+	+Owa6wXyti7aSNapywDNsRTDY+L6wiyo5jPjqi8FK0ejOUszYqKbC6Ko4Q/muhGvZeXgUlZXcCI
+	wNohH9jI/7TI8mja4nKTGtcq5I8y2bSl0g1jDsQp4LOH6txEvmqf8elo5uzUN9R1X2MArK8Pug8
+	4Aci/4QwZXHw7YLNqOlJCRKBKtQKZAVfiReNKtgvoa3BFNySEik0pZPYH1wDjPHw1pJyOBFkfEh
+	iyq+A1jsTaoItf9Y8zsT5kX2iMvah7vzLwf
+X-Received: by 2002:a05:600c:4fd4:b0:49d:462:6eda with SMTP id 5b1f17b1804b1-49e619d1ff0mr34081255e9.28.1789121312936;
+        Fri, 11 Sep 2026 03:08:32 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32d3c7sm4672568f8f.10.2026.09.11.03.08.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 03:08:32 -0700 (PDT)
+Date: Fri, 11 Sep 2026 11:08:31 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Haakon Bugge <haakon.bugge@oracle.com>
+Cc: Waiman Long <longman@redhat.com>, Linus Torvalds
+ <torvalds@linux-foundation.org>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>, Boqun Feng
+ <boqun@kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, Yafang Shao <laoar.shao@gmail.com>, Steven
+ Rostedt <rostedt@goodmis.org>
+Subject: Re: [PATCH v4 next 0/9] locking/osq_lock: Optimisations to osq_lock
+ code
+Message-ID: <20260911110831.5e53cb57@pumpkin>
+In-Reply-To: <C81B298B-E8FF-4F96-8216-CFC21D167EC8@oracle.com>
+References: <20260907084133.3696-1-david.laight.linux@gmail.com>
+	<CAHk-=wget=mgjpkPJ+3-tueqo7AK1m4MR_Jqht6bj3-w+FhQHg@mail.gmail.com>
+	<20260907182705.54585f73@pumpkin>
+	<89F7CD08-2BDD-424D-AA2F-77D72647D93E@oracle.com>
+	<44bdfc4b-4729-4dc3-b7b0-53c671c5ee34@redhat.com>
+	<dd6a7873-7d23-42e2-adbd-b59c43141d96@redhat.com>
+	<0ADD6DCD-6EF1-469D-ACB8-EC7D6A94CC2F@oracle.com>
+	<20260910120016.04ba8ae1@pumpkin>
+	<C81B298B-E8FF-4F96-8216-CFC21D167EC8@oracle.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 11 Sep 2026 12:05:34 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: javen <javen_xu@realsil.com.cn>
-Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, freddy_gu@realsil.com.cn, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, daniel@makrotopia.org,
- vladimir.oltean@nxp.com
-Subject: Re: [PATCH net-next v2] net: phy: realtek: improve firmware write
- speed
-In-Reply-To: <20260911094527.1928-1-javen_xu@realsil.com.cn>
-References: <20260911094527.1928-1-javen_xu@realsil.com.cn>
-Message-ID: <9a85b0151eb87df26c69c507bdccbae7@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 11.9.2026 11:45, javen wrote:
-> From: Javen Xu <javen_xu@realsil.com.cn>
-> 
-> Firmware execution routine unconditionally uses phy_modify_mmd() for
-> all OP_WRITE entries which introduces an unnecessary read transaction
-> when updating an entire 16-bit register. So we optimize this by
-> checking bitmask boundaries. Use phy_write_mmd() directly to speed up
-> firmware loading process.
-> 
-> Benchmark number from tracing MDC/MDIO hardware transactions during
-> firmware loading process:
->  - Unpatched: about 28,000 MDIO transactions
->  - Patched: about 9,600 MDIO transactions
-> This results in an approx 65% reduction in MDIO traffic.
-> 
-> Signed-off-by: Javen Xu <javen_xu@realsil.com.cn>
-> ---
->  drivers/net/phy/realtek/realtek_main.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/phy/realtek/realtek_main.c 
-> b/drivers/net/phy/realtek/realtek_main.c
-> index 27e31a799e2c..97b0b67b9900 100644
-> --- a/drivers/net/phy/realtek/realtek_main.c
-> +++ b/drivers/net/phy/realtek/realtek_main.c
-> @@ -548,8 +548,12 @@ static int rtl8261x_fw_execute_entry(struct 
-> phy_device *phydev,
-> 
->  	switch (entry->type) {
->  	case OP_WRITE:
-> -		ret = phy_modify_mmd(phydev, dev, addr,
-> -				     GENMASK(msb, lsb), (value << lsb) & GENMASK(msb, lsb));
-> +		if (msb != 15 || lsb != 0)
-> +			ret = phy_modify_mmd(phydev, dev, addr, GENMASK(msb, lsb),
-> +					     (value << lsb) & GENMASK(msb, lsb));
-> +		else
-> +			ret = phy_write_mmd(phydev, dev, addr, value);
-> +
->  		if (ret)
->  			return ret;
->  		break;
+On Thu, 10 Sep 2026 11:31:19 +0000
+Haakon Bugge <haakon.bugge@oracle.com> wrote:
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+...
+> What concerns me is that I am unable to observe this bug testing
+> mutexes or rwlocks.
 
-Thanks,
-Nicolai
+That might be because there is only one osq_lock so you always get
+contention - whereas the other cases have separate locks.
+You do still need to hit the same array element for it to matter.
+
+I'm not sure is makes much sense to have a lot of locks/counters.
+
+David
