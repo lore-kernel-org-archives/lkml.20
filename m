@@ -1,222 +1,388 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649B643847E
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:41:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A2842CB0D
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:41:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789108892; cv=none; b=psvoMJ64Mhe47VV4NcK1h9xtjdDDqFEMZZrEcABhARRpNaPDuhZmY7M637y5OyouvL/4fTUyAp22/UNj4gTW6X7ahUGbxD/96bPQLQsrqTLJaL0d9/z2GaqKSuUm/qCSuNyyXkTMjEtr8fdvQ7Wc4O19T6pT4EqIouxUbIkbEAU=
+	t=1789108904; cv=none; b=sQZiY0ZfBvfFUEfkUjTUOX/mScBSQTlm8TwfURY9942sYF05rqFMIMOOUpAlbmay2jqCApBkM8BIrrpKL4VKQouAA1sweOW/rsNx4U5RxMmZArjYidnbiY4eMvZZGDEI7uB/2l6btbY/gv/XVhGibvs+ZaMz8l306cgvJtyJ42U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789108892; c=relaxed/simple;
-	bh=cBSJ7IpgdZG9WZqNT7t64eRfTKJAWfYRAikJYu7cyIk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YBmtVnAnJuuSpaJZOIfqn9fVZ57ocQ/TpYQ4dMqGWeLb0QlcIV9dUp9OYqAJ4jofoFfHdsGx30d7SiC7KOsbb3KoK9ULI3ZgXF9frncBnqyhsv6h4EV6mw9rYl2EypvpiZSQTgex8Abl1i0J1UyrXL8+6p1jro0oMfzIIVAZC18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VDfipXJk; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789108904; c=relaxed/simple;
+	bh=dx2/BySP9Nled5R+xStHYm3QUYIGdUJO0Hd8+9/Ra2s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gNQDrSDZqojMuf3eWaacAffJs0KBEzzAaL9tMCyQ+O91+0yRX5wf1t5vTR7lFG8uILoLNXE7qFodBVlCKY/TNrwtDWQFin5AqTtQcmr7aMKtj5z/jwletlL/zGziQECy04tkuhjmAu+Y0Be/eh3haNHnOXhDuvCsWtYkOBYhJV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=CrqGhoLK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=SAVgbt3N; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=geT7RK51; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=G3AvYMlT; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VDfipXJk"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea4bfb6so305319a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 23:41:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789108879; x=1789713679; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uqnrRH3JnuYg9d568dJH6IC4tGq2CueKpd9gXMr6rl0=;
-        b=VDfipXJkDvtkxfKuO0C44HmEGaOpOByFp1vj86wshVbwK0Ykz0vwIvXcfFsqNsiRmO
-         xoJb5qwwHJ0JHlWa6zx1x66cnVcLH5/mojTIdn9kRsBapHnghW1H8QBnLSfUJ2vxR/Vu
-         x/mpxdkXgK/ROCUbZAhzOmXFNf1+kGDkT8n+XmSKgRlcs7pnbhoPYn9kxfbqpvWWBJlo
-         Occa+TWjPx5ptXi0PewqqJBq5SiwQI+3x+5WAdQuC+b6WEzRq07dHrTEcTGR4Gk4QMp7
-         vWGrVRStu/Bik+QKLxlrN1BZIYZAa3jWvPNz8ZwSQOGqQo1/Ps43V+sQL6rEdry54+Ao
-         Q3iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789108879; x=1789713679;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uqnrRH3JnuYg9d568dJH6IC4tGq2CueKpd9gXMr6rl0=;
-        b=f6HyS2lBfrST5UeUYPW+9WlMjaAW90zhTkrVimGrR2hzhrP2lU0Qd1OhlI6PgU0U1d
-         OOeVBvEHiVDtKcvGHpSr242j8+Mop0K+K5O8EFPzuA7p0IaV8cBWtq6enpQBdidUWDCr
-         IDHnuPGJWFUrHFCFfxFbIS128jdjbEjeaWAt/ygltKvbSQfK37Sq9P2Bw7czoPC6Gp5S
-         A2ODQaR11xtQUdHYL95ptIVeUsx6TLBLmDmLXePoiZpGdqlxKsmY0XqaI48QZDxVOsKT
-         xXg3i1HEi2PdRCVrFnsjf2JfvQD4py4AUW4y3zpn6udykRdvzUkTDwoQoAptSC/AWL6v
-         q1aA==
-X-Forwarded-Encrypted: i=1; AKwUvBxYii82SOFR3DvvNc5pZCKy5Jt2jj9QQX/JEHeDyhunPc96va+xZWFxFP295TTbfGp5IpFgyTCyPxl1QXw=@vger.kernel.org
-X-Gm-Message-State: AFuF++m4KuZSTVdaTGooN/SB9kSc8enVQr8ZXzOsCfGofdjBPiQnfcSt
-	OI40aLmW7ODjyq6tKpQaolwjnwE3Db7EIuVoZf/GxL1kj1GLfZl6ZYCt
-X-Gm-Gg: AYBFou09rCzKHWmL66FgaUEvgEuWCXzVTNvbktM9JmYOuDMfqmstEQJ8OE7p/r6yrcu
-	AGPRDnllU7AqNZvRxu8qaFM7CslY1G79wJF/GDmhQjkaz18ABYtqylv37X4qCe5QUNKirzET9sz
-	EjGCMw+nrIrVA6tnlC4iF7KHqt72ZbhuC1fu/3IdYgeE6xmzsY38hvSXxzQt3DlWGIXJGraSFcn
-	ME5AWnfSX3j3f+Pv7o66nu27pnQW8gM+tOegWUA/n+jluyyfanWVoJk/kM6q21B8STBX0+8TITm
-	k9nK6k0227mNE9BKdYih5UHR7ccz4UEfb1Zx5gFhAvUkkiqmPMmsiFT6iNR6QlDgAYRBhms0N/E
-	/yaN/5K7J/ufJS2hz8EG3EEqKNAM38gdYwIWLbaXHnLzjLpOme8TnWDhLpMRa9XoloIHtJYot0P
-	/bSevQ+55VHwT8pyoDJwfiXgLHZkM7EqMSqd17e3CPdqmxPfUUEyJlxHbd/QHnWTEWtIBQxNh8F
-	BT0pwvZrN+J1xbGBGxl2W7jP5N/U7PSTA==
-X-Received: by 2002:a05:6a21:a95:b0:3da:6bdd:2c74 with SMTP id adf61e73a8af0-3daed306372mr6132777637.10.1789108878903;
-        Thu, 10 Sep 2026 23:41:18 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2039:4:e7d0:6323:1ab1:99bf])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c615a84bsm674786a12.1.2026.09.10.23.41.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 23:41:18 -0700 (PDT)
-Date: Fri, 11 Sep 2026 14:41:14 +0800
-From: Kuan-Wei Chiu <visitorckw@gmail.com>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: kernel test robot <lkp@intel.com>, llvm@lists.linux.dev,
-	oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Guan-Chun Wu <409411716@gms.tku.edu.tw>,
-	David Laight <david.laight.linux@gmail.com>
-Subject: Re: lib/base64.c:58:18: warning: implicit conversion from 'int' to
- 's8' (aka 'signed char') changes value from 131 to -125
-Message-ID: <aqOiihm0Mz0zCnw0@google.com>
-References: <202609110514.S0a0FD6a-lkp@intel.com>
- <20260910223520.GA3375179@ax162>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="CrqGhoLK";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="SAVgbt3N";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="geT7RK51";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="G3AvYMlT"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 8023F21BF9;
+	Fri, 11 Sep 2026 06:41:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789108888; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=FLnvEMqVHLVo/izCkctcIG3kEzi0YsCcX8UXgC3El4k=;
+	b=CrqGhoLK7oOtYFt1SX9AJuw4DyQduDPPsyYIhLxN+R/Ou7kA3Okb57v8nIWXWh8N98+2j4
+	jREgPk/WuLZoYqI9mzfGqqLTuX0HewLokgNhIcAqVlPrhvNRmao2se7Z7UR9oyetn4nznU
+	btEDkaMkcA0dXrDYgjW2MXGWccRFoU0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789108888;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=FLnvEMqVHLVo/izCkctcIG3kEzi0YsCcX8UXgC3El4k=;
+	b=SAVgbt3NRSBzG4NuI2lWxdBG5hgrri++vaLyGnNRxj5Lbj8HEA4raLBjT5mahsLHS+TlGo
+	1iJMopWj+sIc4ZCw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=geT7RK51;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=G3AvYMlT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789108884; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=FLnvEMqVHLVo/izCkctcIG3kEzi0YsCcX8UXgC3El4k=;
+	b=geT7RK515tgdNyLeBhuNzrrhw3oIAIb0lubroYjb6qIwneCd06hw2a39PVTcuExQdbRPQU
+	0WV8RWH7VOdkDhoesKe9Fi8G4ecOietQStVp6CJ041XpYO8+xGO2tNWzvVSmsSVAn/DjVv
+	/3o6B0j+Q8gGMyYlYKudhdlsTOd1V1Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789108884;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=FLnvEMqVHLVo/izCkctcIG3kEzi0YsCcX8UXgC3El4k=;
+	b=G3AvYMlT6B+zdCJiUFEIP+wFwHXQsOF2vEYpsqg0+/Te1cnwyoD4682OUk8Fi98eU+e1Q4
+	fiBOWnwIixcS+2AA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 15340132D3;
+	Fri, 11 Sep 2026 06:41:23 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id uUMFO5Oio2pFGQAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Fri, 11 Sep 2026 06:41:23 +0000
+Message-ID: <90cfb3e0-ae5f-40ae-813a-db702837c3d0@suse.de>
+Date: Fri, 11 Sep 2026 08:41:23 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910223520.GA3375179@ax162>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/pl111: drop alpha formats the hardware cannot scan
+ out
+To: Roshan Kumar <roshaen09@gmail.com>, linusw@kernel.org,
+ dri-devel@lists.freedesktop.org
+Cc: leandro.ribeiro@collabora.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch, pimyn@google.com,
+ linux-kernel@vger.kernel.org
+References: <20260825105427.686619-1-roshaen09@gmail.com>
+ <20260910192526.137057-1-roshaen09@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260910192526.137057-1-roshaen09@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -4.51
+X-Rspamd-Queue-Id: 8023F21BF9
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com,kernel.org,lists.freedesktop.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[collabora.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,google.com,vger.kernel.org];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:email,suse.de:mid];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
 
-On Thu, Sep 10, 2026 at 03:35:20PM -0700, Nathan Chancellor wrote:
-> On Fri, Sep 11, 2026 at 06:07:30AM +0800, kernel test robot wrote:
-> > tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-> > head:   50d05c7c76c96b90462f24debacca971d2e86713
-> > commit: c4eb7ad32eab13ba64cc452c6f43d518b63f5e03 lib/base64: optimize base64_decode() with reverse lookup tables
-> > date:   10 months ago
-> > config: hexagon-allnoconfig (https://download.01.org/0day-ci/archive/20260911/202609110514.S0a0FD6a-lkp@intel.com/config)
-> > compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project d3db069999553568848400c84cbf815c03f5470f)
-> > reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260911/202609110514.S0a0FD6a-lkp@intel.com/reproduce)
-> > 
-> > If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> > the same patch/commit), kindly add following tags
-> > | Fixes: c4eb7ad32eab ("lib/base64: optimize base64_decode() with reverse lookup tables")
-> > | Reported-by: kernel test robot <lkp@intel.com>
-> > | Closes: https://lore.kernel.org/oe-kbuild-all/202609110514.S0a0FD6a-lkp@intel.com/
-> > 
-> > All warnings (new ones prefixed by >>):
-> > 
-> > >> lib/base64.c:58:18: warning: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 131 to -125 [-Wconstant-conversion]
-> >       58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
-> >          |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
-> >    lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
-> >       48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
-> >          |                                       ~
-> >       49 |         [0 ... 0x1f] = -1, \
-> >       50 |         INIT_32(0x20, ch_62, ch_63), \
-> >       51 |         INIT_32(0x40, ch_62, ch_63), \
-> >       52 |         INIT_32(0x60, ch_62, ch_63), \
-> >          |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >    lib/base64.c:46:50: note: expanded from macro 'INIT_32'
-> >       46 | #define INIT_32(v, ...) INIT_16(v, __VA_ARGS__), INIT_16((v) + 16, __VA_ARGS__)
-> >          |                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >    lib/base64.c:45:49: note: expanded from macro 'INIT_16'
-> >       45 | #define INIT_16(v, ...) INIT_8(v, __VA_ARGS__), INIT_8((v) + 8, __VA_ARGS__)
-> >          |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >    note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-> >    lib/base64.c:43:48: note: expanded from macro 'INIT_4'
-> >       43 | #define INIT_4(v, ...) INIT_2(v, __VA_ARGS__), INIT_2((v) + 2, __VA_ARGS__)
-> >          |                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >    lib/base64.c:42:48: note: expanded from macro 'INIT_2'
-> >       42 | #define INIT_2(v, ...) INIT_1(v, __VA_ARGS__), INIT_1((v) + 1, __VA_ARGS__)
-> >          |                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >    lib/base64.c:34:42: note: expanded from macro 'INIT_1'
-> >       34 |                 : (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
-> >          |                                              ~~~~~~~~~~^~~~
-> >    lib/base64.c:58:18: warning: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 130 to -126 [-Wconstant-conversion]
-> >       58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
-> >          |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
-> >    lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
-> >       48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
-> >          |                                       ~
-> >       49 |         [0 ... 0x1f] = -1, \
-> >       50 |         INIT_32(0x20, ch_62, ch_63), \
-> >       51 |         INIT_32(0x40, ch_62, ch_63), \
-> >       52 |         INIT_32(0x60, ch_62, ch_63), \
-> >          |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >    lib/base64.c:46:50: note: expanded from macro 'INIT_32'
-> >       46 | #define INIT_32(v, ...) INIT_16(v, __VA_ARGS__), INIT_16((v) + 16, __VA_ARGS__)
-> >          |                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >    lib/base64.c:45:49: note: expanded from macro 'INIT_16'
-> >       45 | #define INIT_16(v, ...) INIT_8(v, __VA_ARGS__), INIT_8((v) + 8, __VA_ARGS__)
-> >          |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >    note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-> >    lib/base64.c:43:48: note: expanded from macro 'INIT_4'
-> >       43 | #define INIT_4(v, ...) INIT_2(v, __VA_ARGS__), INIT_2((v) + 2, __VA_ARGS__)
-> >          |                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >    lib/base64.c:42:24: note: expanded from macro 'INIT_2'
-> >       42 | #define INIT_2(v, ...) INIT_1(v, __VA_ARGS__), INIT_1((v) + 1, __VA_ARGS__)
-> >          |                        ^~~~~~~~~~~~~~~~~~~~~~
-> >    lib/base64.c:34:42: note: expanded from macro 'INIT_1'
-> >       34 |                 : (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
-> >          |                                              ~~~~~~~~~~^~~~
-> >    lib/base64.c:58:18: warning: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 129 to -127 [-Wconstant-conversion]
-> >       58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
-> >          |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
-> >    lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
-> >       48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
-> >          |                                       ~
-> >       49 |         [0 ... 0x1f] = -1, \
-> >       50 |         INIT_32(0x20, ch_62, ch_63), \
-> >       51 |         INIT_32(0x40, ch_62, ch_63), \
-> >       52 |         INIT_32(0x60, ch_62, ch_63), \
-> >          |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >    lib/base64.c:46:50: note: expanded from macro 'INIT_32'
-> >       46 | #define INIT_32(v, ...) INIT_16(v, __VA_ARGS__), INIT_16((v) + 16, __VA_ARGS__)
-> >          |                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >    lib/base64.c:45:49: note: expanded from macro 'INIT_16'
-> >       45 | #define INIT_16(v, ...) INIT_8(v, __VA_ARGS__), INIT_8((v) + 8, __VA_ARGS__)
-> >          |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >    note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-> >    lib/base64.c:43:24: note: expanded from macro 'INIT_4'
-> >       43 | #define INIT_4(v, ...) INIT_2(v, __VA_ARGS__), INIT_2((v) + 2, __VA_ARGS__)
-> >          |                        ^~~~~~~~~~~~~~~~~~~~~~
-> >    lib/base64.c:42:48: note: expanded from macro 'INIT_2'
-> >       42 | #define INIT_2(v, ...) INIT_1(v, __VA_ARGS__), INIT_1((v) + 1, __VA_ARGS__)
-> >          |                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >    lib/base64.c:34:42: note: expanded from macro 'INIT_1'
-> >       34 |                 : (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
-> >          |                                              ~~~~~~~~~~^~~~
-> >    lib/base64.c:58:18: warning: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 128 to -128 [-Wconstant-conversion]
-> >       58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
-> >          |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
-> >    lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
-> >       48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
-> >          |                                       ~
-> >       49 |         [0 ... 0x1f] = -1, \
-> >       50 |         INIT_32(0x20, ch_62, ch_63), \
-> >       51 |         INIT_32(0x40, ch_62, ch_63), \
-> >       52 |         INIT_32(0x60, ch_62, ch_63), \
-> >          |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >    lib/base64.c:46:50: note: expanded from macro 'INIT_32'
-> >       46 | #define INIT_32(v, ...) INIT_16(v, __VA_ARGS__), INIT_16((v) + 16, __VA_ARGS__)
-> >          |                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >    lib/base64.c:45:49: note: expanded from macro 'INIT_16'
-> >       45 | #define INIT_16(v, ...) INIT_8(v, __VA_ARGS__), INIT_8((v) + 8, __VA_ARGS__)
-> >          |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> >    note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
-> >    lib/base64.c:43:24: note: expanded from macro 'INIT_4'
-> >       43 | #define INIT_4(v, ...) INIT_2(v, __VA_ARGS__), INIT_2((v) + 2, __VA_ARGS__)
-> 
-> I have not looked into the legitimacy of this warning yet but it comes
-> about from a recent change to fix -Wconstant-conversion in clang:
-> 
->   https://github.com/llvm/llvm-project/commit/a5ef934a8d295dc03be3960f2b3744ec2e53238e
-> 
-This looks like a false positive rather than a real bug in the C code.
-The warning triggers because (v) - '0' + 52 evaluates to >= 128 during
-macro expansion which overflows s8.
 
-However, that branch is guarded by (v) >= '0' && (v) <= '9', which is a
-compile time constant false for those values, so the branch is never
-taken. It seems clang is diagnosing constant conversions in
-unreachable branches of compile time conditional expressions.
 
-Regards,
-Kuan-Wei
+Am 10.09.26 um 21:25 schrieb Roshan Kumar:
+> The PL110/PL111 controller scans out a single framebuffer and never
+> blends its alpha channel with anything. In every pixel-format table
+> each alpha-carrying entry (ARGB/ABGR in 8888, 1555 and 4444) maps to
+> exactly the same register configuration as its XRGB/XBGR counterpart,
+> so the alpha byte was never used by the hardware.
+>
+> Commit 860e748bddcc ("drm: ensure blend mode supported if pixel format
+> with alpha exposed") added validation that warns when a plane exposes
+> alpha formats without a pixel blend mode property, and PL111 does exactly
+> that. With panic_on_warn enabled the warning prevents the syzkaller
+> vexpress-a15 manager from booting.
+>
+> Drivers should not report formats they do not support, so remove the
+> alpha formats from all variant tables: the generic PL110, PL111 and
+> Nomadik tables in pl111_drv.c and the board-specific Integrator, IM-PD1,
+> Versatile and RealView/Versatile-Express tables in pl111_versatile.c,
+> plus the now dead case labels in the display setup and the Versatile
+> syscon connector switch, instead of advertising a blend mode property.
+> Behavior is unchanged for userspace that picks an XRGB/XBGR/RGB format;
+> alpha-picking clients fall back to the identical X variant.
+>
+> Link: https://github.com/google/syzkaller/issues/7805
+> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
+> Signed-off-by: Roshan Kumar <roshaen09@gmail.com>
+
+The tags always go last, but we can fix this when we merge the patch. 
+Thanks for fixing the issue.
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+>
+> Changes in v2: drop the alpha formats entirely instead of advertising a
+> DRM_MODE_BLEND_PIXEL_NONE property, per review feedback from Thomas
+> Zimmermann. Leandro's Reviewed-by from v1 is not carried as the
+> approach changed.
+>
+> Changes in v3: v2 missed the board-specific variant tables in
+> pl111_versatile.c (Integrator, IM-PD1, Versatile, RealView and
+> Versatile Express), which still exposed alpha formats and would fall
+> through to the WARN_ONCE default in pl111_display_enable() on those
+> boards. Pointed out by the sashiko AI reviewer.
+> ---
+>   drivers/gpu/drm/pl111/pl111_display.c   |  6 ------
+>   drivers/gpu/drm/pl111/pl111_drv.c       | 16 ----------------
+>   drivers/gpu/drm/pl111/pl111_versatile.c | 18 ------------------
+>   3 files changed, 40 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/pl111/pl111_display.c b/drivers/gpu/drm/pl111/pl111_display.c
+> index 5d10bc5fdf1f..e1b513d36c27 100644
+> --- a/drivers/gpu/drm/pl111/pl111_display.c
+> +++ b/drivers/gpu/drm/pl111/pl111_display.c
+> @@ -267,14 +267,12 @@ static void pl111_display_enable(struct drm_simple_display_pipe *pipe,
+>   		if (priv->variant->st_bitmux_control)
+>   			cntl |= CNTL_ST_LCDBPP24_PACKED;
+>   		break;
+> -	case DRM_FORMAT_ABGR8888:
+>   	case DRM_FORMAT_XBGR8888:
+>   		if (priv->variant->st_bitmux_control)
+>   			cntl |= CNTL_LCDBPP24 | CNTL_BGR;
+>   		else
+>   			cntl |= CNTL_LCDBPP24;
+>   		break;
+> -	case DRM_FORMAT_ARGB8888:
+>   	case DRM_FORMAT_XRGB8888:
+>   		if (priv->variant->st_bitmux_control)
+>   			cntl |= CNTL_LCDBPP24;
+> @@ -297,13 +295,11 @@ static void pl111_display_enable(struct drm_simple_display_pipe *pipe,
+>   		else
+>   			cntl |= CNTL_LCDBPP16_565 | CNTL_BGR;
+>   		break;
+> -	case DRM_FORMAT_ABGR1555:
+>   	case DRM_FORMAT_XBGR1555:
+>   		cntl |= CNTL_LCDBPP16;
+>   		if (priv->variant->st_bitmux_control)
+>   			cntl |= CNTL_ST_1XBPP_5551 | CNTL_BGR;
+>   		break;
+> -	case DRM_FORMAT_ARGB1555:
+>   	case DRM_FORMAT_XRGB1555:
+>   		cntl |= CNTL_LCDBPP16;
+>   		if (priv->variant->st_bitmux_control)
+> @@ -311,13 +307,11 @@ static void pl111_display_enable(struct drm_simple_display_pipe *pipe,
+>   		else
+>   			cntl |= CNTL_BGR;
+>   		break;
+> -	case DRM_FORMAT_ABGR4444:
+>   	case DRM_FORMAT_XBGR4444:
+>   		cntl |= CNTL_LCDBPP16_444;
+>   		if (priv->variant->st_bitmux_control)
+>   			cntl |= CNTL_ST_1XBPP_444 | CNTL_BGR;
+>   		break;
+> -	case DRM_FORMAT_ARGB4444:
+>   	case DRM_FORMAT_XRGB4444:
+>   		cntl |= CNTL_LCDBPP16_444;
+>   		if (priv->variant->st_bitmux_control)
+> diff --git a/drivers/gpu/drm/pl111/pl111_drv.c b/drivers/gpu/drm/pl111/pl111_drv.c
+> index ac7b1d12a0f5..2175ac953795 100644
+> --- a/drivers/gpu/drm/pl111/pl111_drv.c
+> +++ b/drivers/gpu/drm/pl111/pl111_drv.c
+> @@ -341,13 +341,9 @@ static void pl111_amba_shutdown(struct amba_device *amba_dev)
+>    * This early variant lacks the 565 and 444 pixel formats.
+>    */
+>   static const u32 pl110_pixel_formats[] = {
+> -	DRM_FORMAT_ABGR8888,
+>   	DRM_FORMAT_XBGR8888,
+> -	DRM_FORMAT_ARGB8888,
+>   	DRM_FORMAT_XRGB8888,
+> -	DRM_FORMAT_ABGR1555,
+>   	DRM_FORMAT_XBGR1555,
+> -	DRM_FORMAT_ARGB1555,
+>   	DRM_FORMAT_XRGB1555,
+>   };
+>   
+> @@ -361,19 +357,13 @@ static const struct pl111_variant_data pl110_variant = {
+>   
+>   /* RealView, Versatile Express etc use this modern variant */
+>   static const u32 pl111_pixel_formats[] = {
+> -	DRM_FORMAT_ABGR8888,
+>   	DRM_FORMAT_XBGR8888,
+> -	DRM_FORMAT_ARGB8888,
+>   	DRM_FORMAT_XRGB8888,
+>   	DRM_FORMAT_BGR565,
+>   	DRM_FORMAT_RGB565,
+> -	DRM_FORMAT_ABGR1555,
+>   	DRM_FORMAT_XBGR1555,
+> -	DRM_FORMAT_ARGB1555,
+>   	DRM_FORMAT_XRGB1555,
+> -	DRM_FORMAT_ABGR4444,
+>   	DRM_FORMAT_XBGR4444,
+> -	DRM_FORMAT_ARGB4444,
+>   	DRM_FORMAT_XRGB4444,
+>   };
+>   
+> @@ -387,19 +377,13 @@ static const struct pl111_variant_data pl111_variant = {
+>   static const u32 pl110_nomadik_pixel_formats[] = {
+>   	DRM_FORMAT_RGB888,
+>   	DRM_FORMAT_BGR888,
+> -	DRM_FORMAT_ABGR8888,
+>   	DRM_FORMAT_XBGR8888,
+> -	DRM_FORMAT_ARGB8888,
+>   	DRM_FORMAT_XRGB8888,
+>   	DRM_FORMAT_BGR565,
+>   	DRM_FORMAT_RGB565,
+> -	DRM_FORMAT_ABGR1555,
+>   	DRM_FORMAT_XBGR1555,
+> -	DRM_FORMAT_ARGB1555,
+>   	DRM_FORMAT_XRGB1555,
+> -	DRM_FORMAT_ABGR4444,
+>   	DRM_FORMAT_XBGR4444,
+> -	DRM_FORMAT_ARGB4444,
+>   	DRM_FORMAT_XRGB4444,
+>   };
+>   
+> diff --git a/drivers/gpu/drm/pl111/pl111_versatile.c b/drivers/gpu/drm/pl111/pl111_versatile.c
+> index 0d8331a3909f..9a60f10231b1 100644
+> --- a/drivers/gpu/drm/pl111/pl111_versatile.c
+> +++ b/drivers/gpu/drm/pl111/pl111_versatile.c
+> @@ -209,9 +209,7 @@ static void pl111_versatile_enable(struct drm_device *drm, u32 format)
+>   	drm_info(drm, "enable Versatile CLCD connectors\n");
+>   
+>   	switch (format) {
+> -	case DRM_FORMAT_ABGR8888:
+>   	case DRM_FORMAT_XBGR8888:
+> -	case DRM_FORMAT_ARGB8888:
+>   	case DRM_FORMAT_XRGB8888:
+>   		val |= SYS_CLCD_MODE_888;
+>   		break;
+> @@ -221,9 +219,7 @@ static void pl111_versatile_enable(struct drm_device *drm, u32 format)
+>   	case DRM_FORMAT_RGB565:
+>   		val |= SYS_CLCD_MODE_565_B_LSB;
+>   		break;
+> -	case DRM_FORMAT_ABGR1555:
+>   	case DRM_FORMAT_XBGR1555:
+> -	case DRM_FORMAT_ARGB1555:
+>   	case DRM_FORMAT_XRGB1555:
+>   		val |= SYS_CLCD_MODE_5551;
+>   		break;
+> @@ -266,44 +262,30 @@ static void pl111_realview_clcd_enable(struct drm_device *drm, u32 format)
+>   
+>   /* PL110 pixel formats for Integrator, vanilla PL110 */
+>   static const u32 pl110_integrator_pixel_formats[] = {
+> -	DRM_FORMAT_ABGR8888,
+>   	DRM_FORMAT_XBGR8888,
+> -	DRM_FORMAT_ARGB8888,
+>   	DRM_FORMAT_XRGB8888,
+> -	DRM_FORMAT_ABGR1555,
+>   	DRM_FORMAT_XBGR1555,
+> -	DRM_FORMAT_ARGB1555,
+>   	DRM_FORMAT_XRGB1555,
+>   };
+>   
+>   /* Extended PL110 pixel formats for Integrator and Versatile */
+>   static const u32 pl110_versatile_pixel_formats[] = {
+> -	DRM_FORMAT_ABGR8888,
+>   	DRM_FORMAT_XBGR8888,
+> -	DRM_FORMAT_ARGB8888,
+>   	DRM_FORMAT_XRGB8888,
+>   	DRM_FORMAT_BGR565, /* Uses external PLD */
+>   	DRM_FORMAT_RGB565, /* Uses external PLD */
+> -	DRM_FORMAT_ABGR1555,
+>   	DRM_FORMAT_XBGR1555,
+> -	DRM_FORMAT_ARGB1555,
+>   	DRM_FORMAT_XRGB1555,
+>   };
+>   
+>   static const u32 pl111_realview_pixel_formats[] = {
+> -	DRM_FORMAT_ABGR8888,
+>   	DRM_FORMAT_XBGR8888,
+> -	DRM_FORMAT_ARGB8888,
+>   	DRM_FORMAT_XRGB8888,
+>   	DRM_FORMAT_BGR565,
+>   	DRM_FORMAT_RGB565,
+> -	DRM_FORMAT_ABGR1555,
+>   	DRM_FORMAT_XBGR1555,
+> -	DRM_FORMAT_ARGB1555,
+>   	DRM_FORMAT_XRGB1555,
+> -	DRM_FORMAT_ABGR4444,
+>   	DRM_FORMAT_XBGR4444,
+> -	DRM_FORMAT_ARGB4444,
+>   	DRM_FORMAT_XRGB4444,
+>   };
+>   
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
+
