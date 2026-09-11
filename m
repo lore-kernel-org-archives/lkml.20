@@ -1,122 +1,95 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D948246BCD
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:17:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211F0235BE2;
+	Fri, 11 Sep 2026 03:19:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789096675; cv=none; b=X7Ri+97otgf/Kq7/zEaDC4gfqmcpMtmL4onBe/vW8KXjDReyMrDBG0mqD9nmnGo3GTb1Ya153xDAei97x7O+dea1xqE0nAAlbVyupgWC6CXsRH/9RaIkFFN4QRzLFG8OlVPd2+njvxtMenZuP2JuQoGuYRTODRUakCZBYmydtKw=
+	t=1789096773; cv=none; b=kuWkr0wBLWD2nZfr73pCQEKd2hdWD4/5ssbfbgu6JcozQ07vnaAQLiqNS/Vonc6w4gB9rBLog3FIEMZkwou0uiV1DVcTEmRg4TEKi0JrFxnxcjb0fRkx1SdV8OZgxqfpmcuKMS1qkugkixl6Thrbsa3EUi1c58Gr2yXwaX84uJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789096675; c=relaxed/simple;
-	bh=RGyinIeQbH1SXwu8QSJD/G3OsD3YwwPsVELCds+SjXE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XHg2GOJ7f2C9MG2oHepV91ix76WTJ957U8lJ2JRYDsCZyGeuFgkRTfghvJfyqfemfbNfMf9ugEJ8fJW4hyxohMncRcdPwLHQMZR2QPwKFsAoChwSidOFff8P+hkba/hWUk0GFbMrwIDw4Umnd63kQgvX+6vM6fvsBzUYox20OsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oKocfXsr; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789096773; c=relaxed/simple;
+	bh=dzgN+X5DGPRIiE/+fRHu+sZLC7g+kAlktEOlXZPYDRc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dQI458YO84hUWC8ohNTcCkkDxOOfqgOV6Spi6STuKLBkQUs/uIHh0a1aiiS3BO2LdTW128egd9VhBB+Vcb+SSmh6YvW4Bsydh48XTXxGDun3TmFKd5PqlZcb0sSecuzPBxW2nkRVAnuCuwDPWtau20Cx4ypUYRuZCbZe0m9az+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=TsOzOO6g; arc=none smtp.client-ip=115.124.30.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oKocfXsr"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-939695b5741so46046985a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:17:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789096672; x=1789701472; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=guOvZvhnofpuciLtaF8WyaHhY6OyItiA42hCWdF3Kac=;
-        b=oKocfXsroPKBbfln27+llpG1E/SzPpLhR9Sy5RkLGgsPXzKYmg9z+D/3OSIuWQtElv
-         OKbg1TAP8Zmed2nPkBw0onQ7kVf6I6XVlFpOZU3uwud9iRGpbxWxt+MLm2ASjULgyudM
-         SW8kw8U9CLAVUqS5zS/E1RYWLEvQVM1qRm+HsrcGAlfOi5Ft//wCJrEzo1Jhy5JQQt+N
-         cQARGQIhkNC6Np2/PLXJNWYHWv2/r9OVwXCG2W23gFTOnZpyDCWHxPaev3NEbX7qehba
-         yL+Ca5JmiFCDqPFKRA6XCxNJL5LCMr9CtVObD3IM9XtHMPwbKJpYvouPWvJ2hjuriJov
-         hbYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789096672; x=1789701472;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=guOvZvhnofpuciLtaF8WyaHhY6OyItiA42hCWdF3Kac=;
-        b=O0Si5B1ydwFF3U/VT6cjssTUd1l/OCAk2WSPyl0hPMUmIc6a7leNQtJlTnb6i3n0XF
-         Ya9XnSmv04xyEW4/eM3xTdyiMg4l8ow9thtqMtH2yhmkF++wb9Vixfxtf09tq/V4ri3Q
-         lG7k6nG/GvSEh507T5lUqqNDStZOyYfrENqQPJTMX5RlTj1b/n0PCtVweuZhGfgSB9BH
-         2yicr8yKctn0hiXvsVgZhqHN+Ira3Z0fVgncB23D9REFvjNEwW80/UPnA3tGylGySRiA
-         mOGgfcj7M/NjAsZs/sICe/BTJXvxYdZmY8ezxu9n6Omfb+xYWszMFKjycX4IWvB+1Ae4
-         rlXA==
-X-Forwarded-Encrypted: i=1; AKwUvBzKWRgUtnfROQwaTvMbXA8B/iU408QxYGD+Qknv6PEhRRNKSb7DnrKQxkJw/7MqQWGL00NdkRHRpsbgg6c=@vger.kernel.org
-X-Gm-Message-State: AFuF++nPdjWgAXrjG9gy6xRg8ytIdmrHHVGj8XFyAnUhUpkwcTvhPVQp
-	+w6Q365FUjO0H3UPqt/NFq99LsmaacaTvT78rcKLIhEKCa+clmIh9rM=
-X-Gm-Gg: AYBFou1AiQsBZsX8GGqtaXbNeNP8eklAtPoI7y0fu8L6M6paAb+AnXthBZ79yKIiaWd
-	defW1QAuc5rvHOSBcA3i6gjCORqlFmyeb6c5Zc+EzpAr3sBQUosnvP1/6WjecvCb7QlcGcZLk2M
-	KAY3hDX+ikIrg4ZanCw6rpyosi3WRpZhAgQIbP+mhdYN+G13tyDBW86RwhWt0IE0/lsYvZc+bx+
-	CS0n84QDxcbqasF/PLXN92Ih5MLFgSgu9egMXtNDCIpJsT+yM0oueiOkCvU0gNTCoRcjetLus4K
-	fltitPSS3j4lOcSEUfpclT8KjFTzUdBYfWCmeYdTJHMra0+rjhD+iTDrTxwc0zpyjFZby1dhUz9
-	U5qwiiwaFM35XWTitylN8KZGUttpbSEfavKg8qi19hKPYGOVXmGC4QN6iK5FAg1rq5pSwNVroLg
-	/TwcJiD9CRzWc91reomS5BeKBpsLI15fXYubgfTCTyXenZZ6AAOjx1LnGHkK1hRaSXqYNU68Yqt
-	f/0yK079prJOpAsjw2NAjRw7ityMcMiU7r1bTR9hPXYpsDKuoStoiBzoXUVpom+qf1RITO2LTAW
-	U7ZMSax30RlV/OZHYps2Grm9A+DEbz8S0ng=
-X-Received: by 2002:a05:620a:890d:b0:936:2fa5:387a with SMTP id af79cd13be357-939ea1dcc91mr265058185a.43.1789096672159;
-        Thu, 10 Sep 2026 20:17:52 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f47e800sm11211576d6.27.2026.09.10.20.17.50
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 10 Sep 2026 20:17:51 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: s.nawrocki@samsung.com,
-	a.swigon@samsung.com,
-	djakov@kernel.org
-Cc: krzk@kernel.org,
-	peter.griffin@linaro.org,
-	alim.akhtar@samsung.com,
-	linux-samsung-soc@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] interconnect: exynos: Remove the PM QoS request on unbind
-Date: Thu, 10 Sep 2026 23:17:50 -0400
-Message-ID: <20260911031750.8182-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="TsOzOO6g"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1789096761; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=lHye6fXV6O0BwmOSmMkNW8tisA69YmRVUOPP9SEpvNM=;
+	b=TsOzOO6g1o3cbXVRFCH+nDpNjrJT9fzsKuQ0xzluO8j4DTuF1G/62LLdX4GcIGfStujdoWmElrDwqvL1PoYFYCJ483zAMAjPDAQ7ApdC2BiF4dboo5xUfN5bQ5Efti2TAJOKqYGmcZQ9aVJ0wgckC8q1yokqZPZQQ1w6kW4L6QM=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=28;SR=0;TI=SMTPD_---0XAj1PlA_1789096757;
+Received: from 30.178.68.86(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XAj1PlA_1789096757 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 11 Sep 2026 11:19:19 +0800
+Message-ID: <0b1ddfea-4c1b-4726-8a63-abe44edbea66@linux.alibaba.com>
+Date: Fri, 11 Sep 2026 11:19:16 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm: memcg: settle memory.high debt after THP faults
+ with non-blocking gfp
+To: Zi Yan <ziy@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@suse.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Xunlei Pang <xlpang@linux.alibaba.com>, "Liam R . Howlett"
+ <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Chris Down <chris@chrisdown.name>, Chuanhua Han <hanchuanhua@oppo.com>,
+ Kairui Song <kasong@tencent.com>, linux-mm@kvack.org,
+ cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260904035407.4098627-1-qinyuntan@linux.alibaba.com>
+ <20260904035407.4098627-2-qinyuntan@linux.alibaba.com>
+ <6B46E8DF-679B-4254-A4AF-7B992B0F6460@nvidia.com>
+From: Qinyun Tan <qinyuntan@linux.alibaba.com>
+In-Reply-To: <6B46E8DF-679B-4254-A4AF-7B992B0F6460@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The Exynos interconnect provider adds a minimum-frequency PM QoS request
-to its parent devfreq device. The request is embedded in the provider's
-device-managed private data.
+On 9/4/26 11:10 PM, Zi Yan wrote:
+> On 3 Sep 2026, at 23:54, Qinyun Tan wrote:
+> 
+>> Anonymous THP faults happening in a kernel loop that does not return
+>> to userspace -- the populate loop of a single mlock() call, or any
+>> GUP-driven population -- can drive a memcg's usage from memory.high
+>> all the way up to memory.max with zero reclaim and zero penalty
+>> sleep.
+>>
+>> This defeats the containment memory.high is supposed to provide:
+>> above high, the documented promise is that "the processes of the
+>> cgroup are throttled and put under heavy reclaim pressure", and
+>> userspace OOM handlers (oomd, Kubernetes) rely on the high..max
+>> buffer as their reaction window.  Only after hitting memory.max does
+>> the non-blocking charge fail, THP fall back to 4K, and
+> 
+> Why not force THP to fall back to 4KB when memory.high is reached?
+> If reaching memory.high means the processes are under heavy reclaim
+> pressure, I do not think it is reasonable to give any more THP.
+> 
 
-The probe error path removes the request, but the remove callback does
-not. Unbinding the provider while the parent device remains registered
-therefore frees the private data with the request still on the parent's
-QoS list. The child's device cleanup does not remove requests registered
-against its parent.
+Hi Zi Yan,
 
-Remove the request after deregistering the provider, before the private
-data is released.
+Thanks for the review.
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+I think you're right that this is a policy question. Falling back
+to 4K at memory.high is also workable -- it would even be simpler,
+and the existing fallback machinery would take care of the rest.
+I picked settling the debt mainly to keep memory.high a soft limit
+for all folio sizes, but I don't feel strongly about it. 
 
-Fixes: 2f95b9d5cf0b ("interconnect: Add generic interconnect driver for Exynos SoCs")
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/interconnect/samsung/exynos.c | 1 +
- 1 file changed, 1 insertion(+)
-diff --git a/drivers/interconnect/samsung/exynos.c b/drivers/interconnect/samsung/exynos.c
-index 8e8f56186a3669ee834c21bb73e13eabf2cf68fa..9a4789fadac2ea5ecd017db12e2cc226eeba4f17 100644
---- a/drivers/interconnect/samsung/exynos.c
-+++ b/drivers/interconnect/samsung/exynos.c
-@@ -98,6 +98,7 @@ static void exynos_generic_icc_remove(struct platform_device *pdev)
- 	struct exynos_icc_priv *priv = platform_get_drvdata(pdev);
- 
- 	icc_provider_deregister(&priv->provider);
-+	dev_pm_qos_remove_request(&priv->qos_req);
- 	icc_nodes_remove(&priv->provider);
- }
- 
--- 
-2.53.0
-
+I'd be curious to hear what others think here -- happy to rework the
+series either way.
