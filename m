@@ -1,31 +1,37 @@
 Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 476EF3F44EC
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:09:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 475D83F412B;
+	Fri, 11 Sep 2026 06:09:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789106975; cv=none; b=BNBMQtJbEpzbDW1dv8PyYgCeBGYNVtWniwisrVpj48EwjTUKVtsK/9B+Z/1QK7cOxlxf0Pa4rL//cYU6kEJqpvrPAlCg1E3dtjpOtItXIP0ZVs/v+JOX8hMwYNZdFuOdQYEQnTOijyw5PLCPC9TrnsLl0yWu4ZcLNHAXwhu9P9A=
+	t=1789106975; cv=none; b=pRZWY8b/BNpVVYH9YGhPAUB0h07hwCVNqbRbOoqnPU1DfpnRjbjl7IG17EK8u+WA5NqgnwaAw+vmbO3XhrxrcKLgPlLOPRiHzcUg365q5izel6Ve5XoepLriOVnDFsGed4EyF1xiVDoqJAZiE7kTYpkT3eIws01qTme/cc75gFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789106975; c=relaxed/simple;
-	bh=2OstD2KgN10ZVUaRhS3ZKqMOOytJWXhaPI28fRHfwck=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jBbhzYjSNWkZXuUDGiGZ634tECWv3bOoLhzjqh3OMtyx9RmhO957SlevNJzP4WH54m30J446ZtBHj4tluH2j/OlORbHeD2Oykt1kel363CIy6VmsGotPWpCURDq/aGXuDb8vJYbVW6ts5kirMGYkeSyOkyZlsk1qle0q3wsPvyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=ZKRSq79p; arc=none smtp.client-ip=101.71.155.101
+	bh=ADkggTW8RH6T2yTzoHu9/jk42cW3Kw5gtDzEFKW4+3I=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oobNewa0sNIse84iDJk2JazkXsYvZw3WR5SLNjC3863SfaJ/FNaT+/ET39yNCGMBRd8zJF2duAklG6W/vS96bq3SQEpDSZCkxym3nRU+CFHAClOE3Gn5kvIg62GvlfXKi6Z9IjoKrnrswlYc+1KTULRCG3wkAHybSwHQQNbiTFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=j930sFoJ; arc=none smtp.client-ip=101.71.155.101
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="ZKRSq79p"
-Received: from seu.edu.cn (unknown [221.228.238.82])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4d62c4fc0;
-	Fri, 11 Sep 2026 14:09:28 +0800 (GMT+08:00)
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="j930sFoJ"
+Received: from seu.edu.cn (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4d62c4fc2;
+	Fri, 11 Sep 2026 14:09:30 +0800 (GMT+08:00)
 From: Slavin Liu <bolin.liu@seu.edu.cn>
-To: dpenkler@gmail.com,
-	gregkh@linuxfoundation.org
-Cc: linux-kernel@vger.kernel.org,
+To: ulfh@kernel.org,
+	frank.li@nxp.com,
+	s.hauer@pengutronix.de
+Cc: kernel@pengutronix.de,
+	festevam@gmail.com,
+	linux-pm@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
 	bolin.liu@seu.edu.cn
-Subject: [PATCH RFC] gpib: hp82335: check the register mapping before requesting IRQ
-Date: Fri, 11 Sep 2026 14:09:27 +0800
-Message-Id: <20260911060927.94461-1-bolin.liu@seu.edu.cn>
+Subject: [PATCH RFC] pmdomain: imx: reject a missing bus power domain
+Date: Fri, 11 Sep 2026 14:09:29 +0800
+Message-Id: <20260911060929.94481-1-bolin.liu@seu.edu.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -34,39 +40,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa08f15d63b03a1kunm7b13e27d1c7373
+X-HM-Tid: 0aa08f15dceb03a1kunm8126a0a81c7377
 X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTksfVh9IThpLThpDT0kYTlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUpVSUlDVUlIQ1VDSVlXWRYaDxIVHRRZQVlLVUtVS1VLWQ
-	Y+
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZS01NVhlDSUpPGRpISk4eTFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	hOQ0NVSktLVUtZBg++
 DKIM-Signature: a=rsa-sha256;
-	b=ZKRSq79pkVa8qv4JeDOwe+XwpwQaGqOSmKmLmDIh7Qx7El4NEJJuEgLBj7AornwqC9f9lgOgx/4cyAHUa3HaMuZDEHZtY9cvX54l8VLoIoeLtDcjD7M68S4tjhMc6/7b+uIdm0+3Enk/KfVVn75J0OuziLOa1ZSbE8SKA7tZTG8=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=R2W5g1VuDXI9ptj4cLOneuF56/zpuUz+vcLKGX9Am2Y=;
+	b=j930sFoJBSDlrQKg5hhUbpgFngB5t6l/UFcdtdQtZ4DttF9DdBRdN8GcPFX+xlwHvGz1gEmpkkJAIVosHU3dDF6yE+mY7Zj+eUoVmCjseS7mtUufsXJki71slHoqavXBfrGQOQSQKymp91UflSBQJBmoe61S81PhhHamLtKGd18=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=Q/gVuEgQ+O1MlxzayRMNUxUrBsV8eHwDdB0w2KFHMt4=;
 	h=date:mime-version:subject:message-id:from;
 
-Stop attach on mapping failure before board reset or register access.
-The existing detach path handles the reserved region and private state.
+The named-domain attach API may return NULL for an absent name.
+Treat that as -ENODEV before publishing bus_power_dev to later unwind
+paths, without changing the handling of existing error pointers.
 
 Detected by static analysis and reviewed with AI-assisted source auditing.
 
-Fixes: 76319a9d234f ("staging: gpib: Add hp82335x GPIB driver")
+Fixes: 2684ac05a8c4 ("soc: imx: add i.MX8M blk-ctrl driver")
+Fixes: 556f5cf9568a ("soc: imx: add i.MX8MP HSIO blk-ctrl")
 Assisted-by: LLM
 Signed-off-by: Slavin Liu <bolin.liu@seu.edu.cn>
 ---
- drivers/gpib/hp_82335/hp82335.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/pmdomain/imx/imx8m-blk-ctrl.c  | 2 ++
+ drivers/pmdomain/imx/imx8mp-blk-ctrl.c | 2 ++
+ 2 files changed, 4 insertions(+)
 
-diff --git a/drivers/gpib/hp_82335/hp82335.c b/drivers/gpib/hp_82335/hp82335.c
-index b7544b3c15c6..b1ef3dbdcdab 100644
---- a/drivers/gpib/hp_82335/hp82335.c
-+++ b/drivers/gpib/hp_82335/hp82335.c
-@@ -290,6 +290,8 @@ static int hp82335_attach(struct gpib_board *board, const struct gpib_board_conf
- 	}
- 	hp_priv->raw_iobase = upper_iomem_base;
- 	tms_priv->mmiobase = ioremap(upper_iomem_base, hp82335_upper_iomem_size);
-+	if (!tms_priv->mmiobase)
-+		return -ENOMEM;
+diff --git a/drivers/pmdomain/imx/imx8m-blk-ctrl.c b/drivers/pmdomain/imx/imx8m-blk-ctrl.c
+index 479789009c7f..9653a8ac9a6e 100644
+--- a/drivers/pmdomain/imx/imx8m-blk-ctrl.c
++++ b/drivers/pmdomain/imx/imx8m-blk-ctrl.c
+@@ -228,6 +228,8 @@ static int imx8m_blk_ctrl_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
  
- 	retval = request_irq(config->ibirq, hp82335_interrupt, 0, DRV_NAME, board);
- 	if (retval) {
+ 	bc->bus_power_dev = dev_pm_domain_attach_by_name(dev, "bus");
++	if (!bc->bus_power_dev)
++		return dev_err_probe(dev, -ENODEV, "missing bus power domain\n");
+ 	if (IS_ERR(bc->bus_power_dev)) {
+ 		if (PTR_ERR(bc->bus_power_dev) == -ENODEV)
+ 			return dev_err_probe(dev, -EPROBE_DEFER,
+diff --git a/drivers/pmdomain/imx/imx8mp-blk-ctrl.c b/drivers/pmdomain/imx/imx8mp-blk-ctrl.c
+index d255c20f58e2..e952b4ee75c0 100644
+--- a/drivers/pmdomain/imx/imx8mp-blk-ctrl.c
++++ b/drivers/pmdomain/imx/imx8mp-blk-ctrl.c
+@@ -655,6 +655,8 @@ static int imx8mp_blk_ctrl_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 
+ 	bc->bus_power_dev = dev_pm_domain_attach_by_name(dev, "bus");
++	if (!bc->bus_power_dev)
++		return dev_err_probe(dev, -ENODEV, "missing bus power domain\n");
+ 	if (IS_ERR(bc->bus_power_dev))
+ 		return dev_err_probe(dev, PTR_ERR(bc->bus_power_dev),
+ 				     "failed to attach bus power domain\n");
