@@ -1,129 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25E6C2BDC0E;
-	Fri, 11 Sep 2026 16:07:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C993939B5
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:08:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789142835; cv=none; b=fW0Fn3DTv22TmKdtFRiXFP+rBa0gpHqiMYeSKubo2w4CNZhhbMIY5W4t4GhDgGym41j8ZczRQWjJKXQfm9JkqTY1sgnVlSTqqdNnpTZCSkE9AGRdykb4iNgiYGttpnQajDqz3cRBe7rAUrw0YxNnGXY5JCB4hD/rUn+ew5KBOFw=
+	t=1789142892; cv=none; b=RLjhZqfPR1cQjYB5sw8amRZJvbf1+g5RYvcxnIPvpgBN+0AQ4jmSTf5YSLt+St+fzVrshJFCay5+hEo/HRrcz6xX7s0GO2ejDRitWZOw8kBtMEMmDHG5wcujBR/zb2fP2HS5qIz4FY+rAdpHh2ovgU/tZ3uIgLaW4GsjlFh1rEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789142835; c=relaxed/simple;
-	bh=nuPrr44xoLc5kroY0NPcpA+oexmOZCCdbxfk5MsRnDo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NTTQDr9wQ8HZpUpZlx1B1tdUAhVTj4QGRA3PzkpIpiHzMrZ2YnF/sBeRpibuXmfsOgHqdXY+T662UCJBGwNn4bm5fCpGxt2mRAva3WyogxpIEoEXNnXej/5mgNIvBsy5zFY2T9mjAYFe46BvBIww1Ishk0wJdjjVSltLQEYMHm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PiGWeHLH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789142892; c=relaxed/simple;
+	bh=Qk8yNt3dIw9MmiYHBJfZI8dXlL65XA8tjJbeaLoEjKw=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=de+6Py0qNPkPlR4m1Nr7iu3fYw45eKFM3TNV9Gf2wiJueylxT9/WFTWyIkXzg1ZJ0TWNK6zkRFGUCUxlIbVVjafDKDy52Q9hqhyOUmLtuIsvKFnxzQa0ypN4jwu1HAM/cp3pQuBe3CNvhi4wkCRHAsCxGzEbjimkaSyCkQggYC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ZkKLvWwh; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PiGWeHLH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B65861F00893;
-	Fri, 11 Sep 2026 16:07:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789142833;
-	bh=7yntamAm4HFt+Ol6oW5LWlb7ORis3DGYSxiR5vOlA6o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PiGWeHLHijq0oj8loday66evISa5m/DyZA71+lGPHf+m15EJCKkIVpd/QaGLjEVmD
-	 qmPV4uAHENRGCR9KNHzLimClSEBfxnp2aBdNZNA/gJoHzshIoHTry9xUEKs/uTQofm
-	 WFS3WgU3NNV3/4+YsNZv+gI0SOKyCHMSxlBUFW0ISrf6nZn/lHi0nwLPR0KR7KmYKQ
-	 dsfAYVUuLMooN8xtQBQF+fxL/ucmRjXBxFfyAQJGOm+1cqoknaPWw/VYm3zXV1Pzad
-	 g/R25P+pW+6Dh+xlosDY/toMQhblGNHT2YSqcDeDUJQ2MvJcLtemhv3QyuF0KkWG1E
-	 wZhFsf9cLkjWQ==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.ams.internal (Postfix) with ESMTP id E7BBD1980058;
-	Fri, 11 Sep 2026 12:07:09 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Fri, 11 Sep 2026 12:07:11 -0400
-X-ME-Sender: <xms:LSekaqfOOgdUAUHe_Opc04lUpxM9CYQD3_5SMMzprsELWwjlVCcD6g>
-    <xme:LSekas-i0NrLNxBRElPMwbVM3wSO-veTVfYOkoZdSO_llr8f0EZTTepuAs4Faudmq
-    tO8UdVJPljEysJNGzvTF281-NYSjZUhVLSWWeG2nQls5IOkUrrqnzt6>
-X-ME-Received: <xmr:LSekaqNrjoB7WzL3ERPr30A-IjMV-AsPRuKwQDYQhgnnaAqpCPDNNYy3ac4>
-X-ME-Proxy-Cause: dmFkZTEPuk0FYyYX5UeRrgeA9QObt28HeMOiTkxCK5r8Pm5mtPalFZB2LAGwFWc2RIJttg
-    GIcbMwkaDwxinkh4hr4VhDlnc6+H9gUFMNlvck0zocxFnTQz5FA88BLQeTtC0tYarXx7vr
-    wNyJZoxXwbuzvbPWn4Qiwuf2zUU5hY6CrDN3KkYSvA0X0NqWnXeHVFRPGiVYaT9U/C7Tev
-    jICeUzM5dF7TbpWScaOI0GjVbKlIHKF7FfaFBLH5pdHh1hGEf3vv+h216Ez6rHJNjYnYbg
-    JPMqYvHkB13D5O52II8d6N9iaz1fWTuHrXsQ2TDjTdsePreSFlYF+kVfg99EdRC9HkCWiV
-    jR42Ipdw8wUtH4pgw+3yhbUjaFw76Bk0d/vX1LPebwNCHcBz+o6zSGmgCSkl7q+2iLg3xm
-    YzTdSyt98+K8pZaLNjPvL3SpMTZ8YiwB14zkDAEUF3g9Z4d2ntTQWzz0CW/6+THclx6g66
-    4nz3xNO97fggwr3cOybpFpP1lmKxjQwdNbv640T+dslVM00pyNv/uQAoalwvYeuDtjEMvZ
-    6SOISttLdcJg7rXq2vhoGkGWXt9PdT08LX0OivX+eSYl5pwRqgUFBMa0KRbSxqlgu5ZNL1
-    t9K36ACvCXjSU/oDttzTy9mr5SXM8+kwLMN5NvbKmmCfQ6dj4c1rE/+2HTXQ
-X-ME-Proxy: <xmx:LSekaqXdtqfWZr0DzYbXei2R6Kh-pnG78pYw_dvVZchKAtoY3mTH8A>
-    <xmx:LSekaqhc0bnkamGSsjh7bPhlyWeQ819kuMQGP-DunJqF_bqbnLzNPA>
-    <xmx:LSekai8aOlbB4KsglDjECC6TJH2GurieEY8lcnGS4n55ossZNwH9BQ>
-    <xmx:LSekapRpPeUkLs_Mr43uRsFQlrOWX5gX4sygGyynwBEO6u2J-XtYNg>
-    <xmx:LSekaptJVIl1nSekvmisoraIM91RUe-yf7AM-zVgR0lYWKjRMMAgUpiQ>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 11 Sep 2026 12:07:08 -0400 (EDT)
-Date: Fri, 11 Sep 2026 17:07:07 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "kvm@vger.kernel.org" <kvm@vger.kernel.org>, 
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>, "Verma, Vishal L" <vishal.l.verma@intel.com>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "ak@linux.intel.com" <ak@linux.intel.com>, 
-	"x86@kernel.org" <x86@kernel.org>, "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>
-Subject: Re: [PATCH] x86/tdx: Remove the early #VE handler
-Message-ID: <aqQmNeXQv05SK86g@thinkstation>
-References: <20260910-b4-tdx_remove_early_ve_handler-v1-1-bf47a4d360c5@intel.com>
- <b41da075607d1eaa9d96eddbf3acc24502edd604.camel@intel.com>
- <aqPTIyi--7f2Fzxm@thinkstation>
- <93b41dce8d7a9b4f28bfed2a51f919eebec9b7f5.camel@intel.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ZkKLvWwh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Message-ID:MIME-Version:
+	Content-Type; bh=MfL9H/fohvo4ifqEg/LeDNsotyf7q1p0FbmL7Ufgp78=;
+	b=ZkKLvWwhcmHInno6dlbPvWHVyGP5WEii4Mxq1bHeWtUxcye9bKsJdvdnF2tH8f
+	RCmkAw/k47IqZobLi8njrrjXe4IOhZ6arssdXFEGb/cPU/VN4zDaZAWayROWol8z
+	3D+OH+s9QtKXEZnHV/kVlvI/HssrO408OSv1z3AkdP8fw=
+Received: from localhost (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgA36GFFJ6RqZNzfOg--.56920S2;
+	Sat, 12 Sep 2026 00:07:33 +0800 (CST)
+Date: Sat, 12 Sep 2026 00:07:33 +0800
+From: Hao Zhang <hao_zhang_kdev@163.com>
+To: dm-devel@lists.linux.dev
+Cc: agk@redhat.com, snitzer@kernel.org, mpatocka@redhat.com,
+	bmarzins@redhat.com, linux-kernel@vger.kernel.org
+Subject: [PATCH] dm thin: Remove unnecessary locking from pool_map()
+Message-ID: <aqQnRRAJkEBNw6Vp@192.168.1.215>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <93b41dce8d7a9b4f28bfed2a51f919eebec9b7f5.camel@intel.com>
+X-CM-TRANSID:PCgvCgA36GFFJ6RqZNzfOg--.56920S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CF1fGF13KFy3XFyxXr4Utwb_yoW8Jw4UpF
+	ZFga9xZ34UWrW2gF1DX3yv9F45X3ZYg3y2kry7Ga4Sqrn5WFyfZFy7tFWavF9YgF9xGryY
+	vFWjyr98ZF45t3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j0g4fUUUUU=
+X-CM-SenderInfo: pkdrs65kdqwshngh4qqrwthudrp/xtbC3QWekWqkJ0XYmQAA36
 
-On Fri, Sep 11, 2026 at 03:24:34PM +0000, Edgecombe, Rick P wrote:
-> On Fri, 2026-09-11 at 11:37 +0100, Kiryl Shutsemau wrote:
-> > > Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
-> > 
-> > Rick, could you actually test it?
-> 
-> I didn't test it myself, but discussed with Vishal his testing.
-> 
-> > 
-> > Are we sure there's no other port I/O in before idt_setup_early_traps()?
-> 
-> It was a concern that some other feature besides early printk might use port io.
-> But none were found. Andi's recollection was that he hit something that needed
-> this, but this may have been with some older changed early printk behavior.
-> 
-> > 
-> > I don't see anything direct, but exception path is different story.
-> > 
-> > native_machine_emergency_restart() does port I/O for BOOT_KBD which
-> > seems to be reachable and leads to #VE with the patch:
-> > 
-> > machine_emergency_restart()
-> >   __machine_emergency_restart(1)
-> >     machine_ops.emergency_restart()
-> >       native_machine_emergency_restart()
-> >         reboot_type == BOOT_ACPI (default)
-> > 	acpi_reboot()
-> > 	reboot_type = BOOT_KBD
-> >   	  kb_wait()
-> >             inb(0x64) --> #VE
-> 
-> Is BOOT_KBD something that you think could be hit from a TDX guest?
+From: Hao Zhang <zhanghao1@kylinos.cn>
 
-It is the first fallback from default BOOT_ACPI failure. But it is just
-an example of port I/O I found.
+pool_map() takes pool->lock only while setting the bio's data device.
 
-> > Could you check if the patch changes panic() behaviour in the window
-> > before idt_setup_early_traps()?
-> 
-> Can you describe more what you are imagining? panic() doing early printk or some
-> other port io? Wondering if you have some more specific hunch.
+The pool target's data_dev is initialized when the target is
+constructed and is not changed afterwards.  The device-mapper target
+remains alive while its map callback is running, so pool->lock is not
+needed to protect data_dev.
 
-I don't see panic() triggering early printk, but I see potential path to
-other port I/O as pointed above.
+Remove the unnecessary locking.  This also avoids holding pool->lock
+across bio_set_dev(), which may perform a blkcg lookup and acquire the
+request queue's queue_lock.
 
-I have vague recollection that I tried to remove it before, but
-something stopped me.
+Signed-off-by: Hao Zhang <zhanghao1@kylinos.cn>
+---
+ drivers/md/dm-thin.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
+diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
+index 59392de7a477..358ed77ffb2b 100644
+--- a/drivers/md/dm-thin.c
++++ b/drivers/md/dm-thin.c
+@@ -3438,14 +3438,11 @@ static int pool_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ static int pool_map(struct dm_target *ti, struct bio *bio)
+ {
+ 	struct pool_c *pt = ti->private;
+-	struct pool *pool = pt->pool;
+ 
+ 	/*
+ 	 * As this is a singleton target, ti->begin is always zero.
+ 	 */
+-	spin_lock_irq(&pool->lock);
+ 	bio_set_dev(bio, pt->data_dev->bdev);
+-	spin_unlock_irq(&pool->lock);
+ 
+ 	return DM_MAPIO_REMAPPED;
+ }
+
+base-commit: 08df884136f1c1197bab2a27814404fd329d9aac
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.15.0
+
