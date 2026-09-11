@@ -1,360 +1,349 @@
-Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022091.outbound.protection.outlook.com [52.101.96.91])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011031.outbound.protection.outlook.com [52.101.65.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A023F23C368
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:28:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.91
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3793C4B79;
+	Fri, 11 Sep 2026 02:29:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.31
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789093734; cv=fail; b=brspwd2MQgxz+rkgJN0xIwT9f5Rxfpa5V6GOpX+h6Ck+5DHkT5H3o5p2t9HneNlGKXOlvMFS/CZXdelQRGXa+sNbnkWb5Q+pItXCHi6LR2/iSqkZFjr0evsFALCEVuiOfngd/34w69so2LcLB188O2ZC8lvzqWX+2hpouxQK+WI=
+	t=1789093753; cv=fail; b=cWVIbXQvFiZIoVlOuH322SNiL82aQohoQqQDCH0OMpbJNIOqHrdXpWWqVBMA3vXoC8MRU51Edjjn5IPYj4UpKI1FMjz2B4Lo3+Ubb5xXq/lmZytYpotglsKA/OEdip0pQoMgd5hLOy00Shc95GH3/WhvcDt52WxGk1sbsYHF4VU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789093734; c=relaxed/simple;
-	bh=OyMNltLyfUvTgFphP0GBgLHf69+Z/2WB80vapS4fH0o=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=YfA1YyB9fHScHZi2fX4CRU4U3IGfXz7X4lZM1mA4tRkjc/csVun+ELMwA2Ow4SQLcFu4akF8yzllrdP5Giom8nr3pcKM4QVZ1pucI0ptISqLr14LE7hxhqsQZUVYkw4hZWX1htB1uOMXU1ibQUgMEeyfLBpf0fzvz0rfBtMbLsg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.96.91
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+	s=arc-20240116; t=1789093753; c=relaxed/simple;
+	bh=8BGs2Fbv1MNPtZ9Bag4q1K2bU/8FbGSh71p8DYmCbSM=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=JFyRLKXFDtFAeo9mMuKMx6nbrwwk3XElDNSNjk2DPzno51tusE5SnkHzF9e1OzaFVMp2/c9STfeDl71RlpyxvZOHIbLtxuGPsCz4sm9FCAG5NQBsEhXvUW6JmLEcJ+vowLBL6awhns7CxG5WYdIAND5cCQPxPiNMlt6o5aMOU1c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=n1qreHNG; arc=fail smtp.client-ip=52.101.65.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="n1qreHNG"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gRNFlYQghyShmKn/DkTV5e+k/hJHLV7bXHengNUAog8YU3aB1O0sQ/m0EDjfAIu4bSRb0j2IUpkOR0KgN0LkV2oCDn4+qvpxEb0cC2KnXO1tvmP4+2hvg+mrahyJqpzZyet7Mw+42HTCGe/lwXBznhqwNa6I0Z0rrv/tSpP+ZcFIK9tPoXZSO7If7342LwiXfnFUKTafhHCPFOlclX6fcFuqPxpMywddU5SBOqmzZBOQX9pe2u2BI86wLnCH+D5wTQwV4M95hzV0PF0dcJVSKn5NGOnSvqmTI00D2Mguq0uYK/fuwZJBQIjENokalsJfB4+vsZHkFuVKAa1HCQ9+WA==
+ b=yIrXEbvPQ39gdunZ7vIf5I0hYIC05iFkvYpfI44IwmsXOP7kqZbuH4G931P2FBM5gquWeQdLo/6XIUkGxQl+0bfT4HlXHHgi2IEygbdNvJAH/7KFpedfgo73op1Thcjqu0E7rKoT3nB6tNF/8Nfz8N+gJzsVo3LVDXX2ZW0/btT3I8CCmoKo3eS4mRdbvx3vBk2psyZqo0wSSWkZrPe6ojFmq9ndu9GO1dVtsOGa4BeDS+rFQLWSOyGNNL5YdDD6tfYSFwIdV4nj9P4eBfC3zfbBrg7I/BKA88d6YXEu6PoDJ5mjZBmdxvrtE70jv10rSSO606o9uJQES+AIIc0tKQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=7x/cfAaXxI6lKjaDXyjqU2jCZhFrnkVLkyy9g8GWW2E=;
- b=aTkDnZEEBK7M3D1go4KpC2pr70Cgt4A91YJu/X/JRSZhDPXzDjBNPO3aEmLeEWe9U0HbIZf369pLyKVbpuFJBeP+h9FZYWwGF5Lp0FVFUu+aMCSEt18micRUTk5a2M0O/xFpeYrhnqSxdaEy1aZWf7rk7owIp4djdeeljrvt6jXATi+CCUIGHUjcVd+yEDGqo06vNh79OLMLW+OXNssfpt+oq004Iwwi0TdpwHt35bo6jSB70ZnrM7s77GmsyOfT0sjJ9nTFo5al8dL+9IFnkxtd20HWqCxWc5jCdtUs+QruEvDB2uKQHVs/l/HK+53G7rhHF+P5VvUMVXwgOp37Lw==
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6udfd7DTRfMEj7Ytgc/BNAewHJ7mLlPpeq66DjNgk9U=;
+ b=E/LZEAamATrzQQp0HWGTn93QXp0ThxTRHHl4QI1T0XmBTlR3DB5F6JZLsiDrqbZVVk7fvMI8fXRodBP1iIgNZKuuMocV5gQS4+ApXpGVZpZMtZ8fsCkL+wemDlY4ya34Q/LPRVHjd2RpNvlufq/dCcMd/CLZDn2daGcV318dh2n9w/uc0la3cfubcJ2tUOTftl2iVjopUz9o+Toi4bFXC+a+qMTIT33rX35HvPhncf384QmNsEg9X0jyj3tMioUFQrEYem6eQa/igHfuMHglgRanAaFJB+F8VAjcu2ypNPFlM+i32BFiz5HI+mTFqg7VV9jz4GwOLLlpXEf0kI2eGw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by LO6P123MB7456.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:2de::13) with
- Microsoft SMTP Server (version=TLS1_2,
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6udfd7DTRfMEj7Ytgc/BNAewHJ7mLlPpeq66DjNgk9U=;
+ b=n1qreHNGmK1pDjwigEtZnDTkS+xrt8BirEZTRxZmWD4chIDWp741Ltja7KYcajgG9kFcUd6N8eUFZzXGFVDb1fxhmuxqq6mOeDcPJbrKxNsQQfukb5q7duTAc4PdeGmA8ga/d3ojBshkqIMckn9ZzTw3SPzCBqHatCDgwTHGOVNvOAMKVt3WxPeLDei8pZ3vYvMT3DwtXEwBhB5OK4ovEKfsMVVgNK0A1o6CciCFijrLtsrTjz4bj3CQZH4qqRggnjN1x6AgNnaE4mzeKn/umIaYtqIRLXXxOTQ+Gn6JH93UDXu8nqqttCCpjW2uhZGeCH8m/IWG6rwR2Tq83pQYxw==
+Received: from GV2PR04MB11739.eurprd04.prod.outlook.com
+ (2603:10a6:150:2fc::18) by PA4PR04MB9295.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a6::22) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 02:28:48 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 02:28:48 +0000
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: akpm@linux-foundation.org,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org
-Cc: dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	feng.tang@linux.alibaba.com,
-	pmladek@suse.com,
-	kprateek.nayak@amd.com,
-	atomlin@atomlin.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] sched/debug, sys_info: Introduce SYS_INFO_CPU_RUNQUEUES
-Date: Thu, 10 Sep 2026 22:28:44 -0400
-Message-ID: <20260911022844.521413-1-atomlin@atomlin.com>
-X-Mailer: git-send-email 2.55.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BN0PR02CA0044.namprd02.prod.outlook.com
- (2603:10b6:408:e5::19) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+ 2026 02:29:06 +0000
+Received: from GV2PR04MB11739.eurprd04.prod.outlook.com
+ ([fe80::71c2:937b:d466:174a]) by GV2PR04MB11739.eurprd04.prod.outlook.com
+ ([fe80::71c2:937b:d466:174a%5]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 02:29:06 +0000
+From: Wei Fang <wei.fang@nxp.com>
+To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>, "Wei Fang
+ (OSS)" <wei.fang@oss.nxp.com>
+CC: Claudiu Manoil <claudiu.manoil@nxp.com>, Vladimir Oltean
+	<vladimir.oltean@nxp.com>, Clark Wang <xiaoning.wang@nxp.com>,
+	"andrew@lunn.ch" <andrew@lunn.ch>, "olteanv@gmail.com" <olteanv@gmail.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
+	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
+	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"linux@armlinux.org.uk" <linux@armlinux.org.uk>, "imx@lists.linux.dev"
+	<imx@lists.linux.dev>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v4 net-next 01/15] net: enetc: add trusted VF support
+Thread-Topic: [PATCH v4 net-next 01/15] net: enetc: add trusted VF support
+Thread-Index: AQHdQEbzOtxqREnqqkSgZxhP+/EdmbbHrFaAgAD4iPA=
+Date: Fri, 11 Sep 2026 02:29:06 +0000
+Message-ID:
+ <GV2PR04MB11739DD052A1E514B40A6E4F888BE2@GV2PR04MB11739.eurprd04.prod.outlook.com>
+References: <20260909100733.1139689-2-wei.fang@oss.nxp.com>
+ <178903925585.219967.18067064676940135635@kernel.org>
+In-Reply-To: <178903925585.219967.18067064676940135635@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV2PR04MB11739:EE_|PA4PR04MB9295:EE_
+x-ms-office365-filtering-correlation-id: 74c3568c-b024-4b56-7e11-08df0fac7431
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|23010399003|19092799006|1800799024|376014|7416014|4143699003|10067099003|6133799003|3023799007|22082099003|18002099003|11063799006|56012099006|38070700021;
+x-microsoft-antispam-message-info:
+ BTnMEdFQrOevBt4ZhR3s6+yaC3Kd9m4hMKQCCLXp+DOLExYdLdcSwOuTpegV4aJo8AMByVkmzZ0WFwTrCj5wGVSS84SebebMXMGIjjk+6aaUKywi0a2s8toI7ocej2jRom+HfeWJzMJSiVJSFKKCEhn3CjJrRvp16P/c8o0BstwEKsZaPnPxRyC6w4f72mZRTcwxFL6vC9/l2X4jGLzYWrgw0ZOANhNTKt+t40FSM9DoyXRGaVWnew1JZQvTITs89pRu4uFya4UcMLtbjHMsog2BsJlLNaoDPIDeKdB6wxYqbSPbSTpeNneA/vrjrNa43tR2AAv5SDWoWj8Hg9sv4x+SRtEzDCFedZZHtQx7qrO9vvuxQEk3jovnVB2Qt9jebng7LO2WGKI7nghnh451wtH94mcomC6nC+88KA7iLXZOAc0SmImS3ilhlkqPhhYsO29kTLm2sNcUuLFNE/YUr1N9J7O6n3htb8J3OV5kHVHftZX/2GJgYVPKhs/wBMlh6joYW59VAlHFrWJm8pjoBkZfPoagLLtnLtGiq/FrVxNWHu2e4QJbtF359sV5I/ucMQJqnKs8CGJYRfkxjUY4EOT+etQr/1QD2xbI8sxV+mM+fA3RQM4LerhuuHUKRfTRUYsvEMlQSowqMvGPTWXFrrkCUfcEQL8D9ucuhi2FTztfdF+vkZNiv3Ipxq1t5IoD6ZR9uZSg2XjNK582jgA888i0C02TCvhs3xouxlADeEA=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11739.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(19092799006)(1800799024)(376014)(7416014)(4143699003)(10067099003)(6133799003)(3023799007)(22082099003)(18002099003)(11063799006)(56012099006)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?zTyehUGx1ClRLR0C+VrmBhH2NrcRXOA8CzhhQBKE3LHqwqOAlVEHbqwF/K0o?=
+ =?us-ascii?Q?NbX5u6m/0vN53J1++ae5OL+2dotzrDJhTuu0nQ/cdcKDtROnwKLzO02R+ZxC?=
+ =?us-ascii?Q?SVoBgOOdKkcsz6xdHIh01V3jciHR95bC4NRuyuvy1RRhARV+I5odU3/fWfkT?=
+ =?us-ascii?Q?68ACqp7DHGA90Pfvazg5weoL5ZCalM+di84UdYJaX7ALQvfQUr/Xk0AASzHm?=
+ =?us-ascii?Q?C4mM4gcotcH7JkwI0Qu7yTjtvRfGXGI7fxS2ly/bB+29eowHnDPjXE2kDKJ/?=
+ =?us-ascii?Q?VtbkrDCmvXGPpZ6EFAmYucyqRMRSpg6BnCAU3zOCBI8q4rmywHWVR6cNML9s?=
+ =?us-ascii?Q?z3cN+VpEz4JzA6Gl6YIdM8bPMWxnYUmJVr7NBh5c6ePOQBofFGpGHyJ7w/f0?=
+ =?us-ascii?Q?8dKaYZhgrVr7nAgOQqq2nZtMuDRP9qhrQn+sltUjohdapNi/7xVPEtmIxLHb?=
+ =?us-ascii?Q?kTHmXbwRCWYuW1OwT3z/0JxIrslER56Vg9Jqj0ID7mp2zeqZiWKhq1SzBVTN?=
+ =?us-ascii?Q?dLc4X3LuJVT/Dwp7fMU5hQj5AV+7YePyl0fZFbPDKlsc9WiZAB3GxgH9N5sw?=
+ =?us-ascii?Q?6HdARUnz+jAMAUKa15OxQLczMLGOcSzdepHABX4RkKZTqCYsPFM9Top4EG3n?=
+ =?us-ascii?Q?H0/RwDHCujFZD+Hp2Oycmyze2gGvSrbp+mlTivzTr4TptweG66Mu7/Ug3gAh?=
+ =?us-ascii?Q?pwdVlwv3lkSlNjATr7Dbtd0g687Qk7xjFTBgcXsAa0TlWwYc9mfRZBhYOkQP?=
+ =?us-ascii?Q?rkd4bXZU/YsjBnntW8SAq35qYf3yl4LW0JpLYxJQbpGvjajrYhKpY/a90IH5?=
+ =?us-ascii?Q?72/5U3+o3sdW6bRo3B+jDbU3YN74Z0F84IIYFKdoGg0SUF0GRiomIBa7PoUw?=
+ =?us-ascii?Q?Ip752HClGBi+ODhm0CQbZ5gi6R4Of6OLs7T5/Sj5it1TUBO4vkUB5N3yLl8b?=
+ =?us-ascii?Q?9bCUN8e+TpcdzeD0cAC2JarzSyV3ZFRQ1Yv/v48PDExtsvd/aAG6qOjCiDz6?=
+ =?us-ascii?Q?g9LOldBXQYgOvtzAZ5q8oJPublOLqZVkstXySOht/fuLjCpdrCemXbzrxSCT?=
+ =?us-ascii?Q?kta7B4KOP4g5Cbc/E4Rf03hJMOuLtJTjqYR112FK1FC076lYLvTaClWXPIvr?=
+ =?us-ascii?Q?4XcHc3FFvOuHsKc1uB05C2ars80yc/df7kMLVv85N3bwKt+wVqzpu7fzGy6e?=
+ =?us-ascii?Q?SvN1izpRJV14LtI34F/p7FtJRqh+7h8ajoxzTa7XoV0NLnc2/2ig7HkNwOmM?=
+ =?us-ascii?Q?oZId5eFp2U/ZErkLMqIBoq//tnTmDJi9qog3C8N/UT5vbG2+vgpPRMx6pE78?=
+ =?us-ascii?Q?jIddBO3QsOYIZ9mabl5Fe1+phT6Ll9VzIWoEjwmdNvOBGYj0jBrb/YOxxCll?=
+ =?us-ascii?Q?CzfwLO/9h7RMa402izWXdEtgzIh+rUfM3qiNRtV+yEDagjatumsBpBfgqxRL?=
+ =?us-ascii?Q?/hr+n3e4EHYfuK1wdIkxHnnosIVCdz2jSoMtqHRfhL+vLzbV+siOtl7hs5Pp?=
+ =?us-ascii?Q?ogUCLWLLuJis85NdUuZ/qgFjHNTYRFBhSdnr0NQUPABlKwLC7t2oBFrR9GDu?=
+ =?us-ascii?Q?Toni8drf4zxpp/5ojZqvn/M+s6iDzXnLxW/1UPsoLqJ0icjV9Cq33AazCB62?=
+ =?us-ascii?Q?G3FXENrTFAge0t461qt5ennJ8qM2gsJ1viuWYDIb9Lnl/KVNfY47JYYfJOlJ?=
+ =?us-ascii?Q?XeZPKY2G43C3ZPjsqWirPRqshC+qSCnT8ZsgwYngItyakom0?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO6P123MB7456:EE_
-X-MS-Office365-Filtering-Correlation-Id: 928f5f56-9647-4264-3140-08df0fac68e0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|10067099003|6133799003|3023799007|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	EcJ6dqIgt3UovdsU1B8fGeUJbInYAKcwXsu9QfQGAR7KvTqydzBMeHPc80jSvBCvdyk2UJwObE6NI5CoC9h5BETW8T/a8zhFOvwmoQ1TpPEv8bhYvLQR2Hwzq7H5bvQ9xTTiRiSLamk7kCMsEYdO533NXEfhGRwwkh7As0nxSXLZzqge7BBbikBQX4pih89rUdEEuCoVd1Mv3JNZAg6ipoXnMWf1d6P0jYK5QM99lEhaFgMJeaHapITjezO/omXNC1qXtTiwfBYAOOdZiucDidd6jkupig2gMiT/zamCRScHQcT5rZQ0jWzWrBSOeyBr3VI+2vguU/NqIUP+eK98kz88JvJDRmhqj73LBr2eMVF0kHpQgfbK/PlD55l83SvPxf1Fm2tYLg9B2kKuuM05kQtL/KTYPCF6gdsCUpgWrqllEuCxvZgwhhUQgd96fhclap5M+GOXB0os850v+hhtWefFavZtLMM/LmTeMGO+PLlvQkE6Vc9fjVhSkd2Kl+WKHBtJJ1rDMxjkRp9AbLEZhkbQUR6Mgx/5hKaBOY+R0y/3YwaPGLOwwh+1ZgMQv8yquDKzebxAE+Lj925aCwm4J/sNyQc90A7OYDlewd2SUm20IbJq9OfHT6mJsQcnaht7mbHsrWIB6iLOJ9aHr5uTVpDXgna7et3dk7xFZxAnDSQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(10067099003)(6133799003)(3023799007)(18002099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?xXsPoao/BiUIsgXCFi0GmxSojRPz+OQ64vraf2nYiNlK1/5h9WAIR8puMupc?=
- =?us-ascii?Q?X67uFf+Gi1oxfiWYfA/7GUJV5DTBBkPAT5btCn7Q28zNwNFIQpGdxAC7qxJM?=
- =?us-ascii?Q?hcdASA3oVW4QCAmtpzV6RoT9DcZ7NKjAyQul0ZC+pkWyuJjPSPOJMsAnDGAt?=
- =?us-ascii?Q?Bm3Irtu8FL63WwL5I3dp0hSuN8ixZyI76dw/mAIpAEmm72CLeDVXn4MQaQ8/?=
- =?us-ascii?Q?nlbMsT10epcDwkWmShNF9b0o4oow7PkEKcwY1Sxe6dwCthxEpNIZQ8TNiLoZ?=
- =?us-ascii?Q?Oyoipl6pFQj/FPZeqzmxHL07F6CZ6wn5SoZA1l5bgz582buqaa2ecb0ILayL?=
- =?us-ascii?Q?qappAf4ttzUPuNAANdwZyO+X5//Eh6GY9HRdMqNfX2oafK9N4cmKufQNEYZD?=
- =?us-ascii?Q?OIhyRMKD5KRaiScI5hsmmb9nJVhUPsRIQe1GAeTVMyZfh82qr+4mvCI+m3TD?=
- =?us-ascii?Q?bWZEfZlVOs+DG4X/Xz4ZBy1eESFdAsixzsss3Xn9UXyEULFjFRf2iaZ20s+s?=
- =?us-ascii?Q?kmoy+0ccZLdAA64B0fp5rcQ+IAqqyRgqxzDGFyyBQLd/NgyFbt740g8gIB1L?=
- =?us-ascii?Q?mrLEmeWmq8a4B62tyfUyfbuHjAYFjAtkvOBYOoQpzL59NP3hvRNxAaoV4OUW?=
- =?us-ascii?Q?8QxcRpENBb+2jT2/2kZ8M+OkrzPBZz7ru+lqmNb3SbLpgHLTxpoxU4fw8F0B?=
- =?us-ascii?Q?EbdoJZ6Zf5JocXJh0KbFnXClU5s9ZAVi+y0wAlMWAI3rHZ5/4hsRC4ubv/U8?=
- =?us-ascii?Q?IA+g385LLqnUEiJdVa+LjJIg2JInnCM+dnY0aPkh7MAeKPGwXznbtzPMyNiD?=
- =?us-ascii?Q?0l/oJFkGq6SvW+nSMc/OHV66EXxoww1Ghsmrf3ODqfXxjqynfSoRBbH0ddGY?=
- =?us-ascii?Q?QHNvrAxB8NfDwvxCEt3AUCxiiKUqhM2v9l8J8UKNfk16xuu0mAlyef0GnEOF?=
- =?us-ascii?Q?YgwIC+E6EvxJTMhNmV6rx8yV08NwM0UZ8uDypSTrD3GR/vfQdzb4zVNETd8o?=
- =?us-ascii?Q?7wVRsVX7D9/pcuGheB79eJVYMj70vo82eImifnE94WVr1q7LE4gDPmCx7fi7?=
- =?us-ascii?Q?iZ7r/KKtqcr4gbxc4T8OJFpzoAwX7n5oidK2SAyhodoKf86Q2+wMS9YhUtyG?=
- =?us-ascii?Q?QGosrCbJl1gqu/xuZkQAjB0LWB7likCO6ew4hAsngxFBieO6YoRtwoTXNRCw?=
- =?us-ascii?Q?WdaQ87P9AvbI4umt4R8rqXkyrANNrRUsMkPDm1M+KTSyp5Xzb/uEYQGw4T3d?=
- =?us-ascii?Q?uGc2ogwgqt7K/3C5Y/c+gHVzCXpTszFWV3G9QwM4qcce9cFFQiQCG/bVGDi1?=
- =?us-ascii?Q?1qlLNBsQ/kh3TWo0QyY2esv8R7dNtHaEofeMhZXGDe3QRa79Om273oXgGwn8?=
- =?us-ascii?Q?YE7va63HLq5V4D5W/JggN7yKOqd+97Kccl1aRZisnxfHbuxBgGPd4qeP1GeE?=
- =?us-ascii?Q?FaEJOG+GZVptFjXhm/u15glYPgmikVa7bTmHoeBF9hR1kIeWbppttXGxQ4Ng?=
- =?us-ascii?Q?SNW7K2eppYsCduxtJmJZGoY+1YB/lQ+BMXiYufgkXMBninYvIIH+yzYWmiKW?=
- =?us-ascii?Q?r7TAyh7rLg5ZLh5HUBXpM0gcjcpDJGBpCJI+ZR65D29EV82pDSHceS7KHxNZ?=
- =?us-ascii?Q?lGv0mNJ3XSfkey/stpHHgF9kXx3NGuzFXd7LsrHKTDB4vyVRKHOc/bWheqRy?=
- =?us-ascii?Q?kGS9DdWJHivdLu+lIbvlNc7VWyQM9l23M27xKPycw4wHCg3AicASXQIm7LPe?=
- =?us-ascii?Q?N6MKdKkuLg=3D=3D?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 928f5f56-9647-4264-3140-08df0fac68e0
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-OriginatorOrg: nxp.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 02:28:48.1223
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11739.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 74c3568c-b024-4b56-7e11-08df0fac7431
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Sep 2026 02:29:06.7515
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lr7u+bQ1lFGz8CWO07cRwH/hj/+eFas611USGk8ZZaEJCWPnMm9QeK9hMJqPmwz3Sn4nffCtvE82tYtB3fChAQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P123MB7456
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: VL5djw8cdQT6AuGC6tkbE7gVr+TMZjvjFhGknposG5lbXYKeWi+w8V5mXDOqkkJ6e2cukx4y+YRXQ/7RBka9Ew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9295
 
-When investigating kernel panics, inspectability of per-CPU runqueues
-and runnable task states is valuable for diagnosing CPU starvation
-priority inversion, etc.
+> > @@ -574,6 +578,7 @@ static const struct net_device_ops enetc4_ndev_ops
+> =3D {
+> >  	.ndo_eth_ioctl		=3D enetc_ioctl,
+> >  	.ndo_hwtstamp_get	=3D enetc_hwtstamp_get,
+> >  	.ndo_hwtstamp_set	=3D enetc_hwtstamp_set,
+> > +	.ndo_set_vf_trust	=3D enetc_pf_set_vf_trust,
+> >  };
+>=20
+> [Severity: Low]
+> At this commit enetc4_pf_driver has no .sriov_configure member and enetc4
+> never calls enetc_msg_psi_init(), so VFs cannot be instantiated on ENETC =
+v4
+> and the mailbox worker is never armed.
+>=20
+> The only reader of ENETC_VF_FLAG_TRUSTED is
+> enetc_msg_set_vf_primary_mac_addr(), reached via enetc_msg_task() which i=
+s
+> only set up by enetc_sriov_configure().  Does that mean
+>=20
+>   ip link set <enetc4 pf> vf N trust on
+>=20
+> returns 0 here with no observable effect, and that the new
+> enetc_init_sriov_resources() call allocates rxmsg/vf_state plus total_vfs
+> mutexes for slots that cannot exist yet?
+>=20
+> This is resolved later in the same series: the patch adding VF support fo=
+r
+> i.MX94 and i.MX95 adds .sriov_configure =3D enetc_sriov_configure to
+> enetc4_pf_driver, and enetc_msg.c then gates several ENETC v4 mailbox
+> operations on the trust flag.  Noting it only because the knob is adverti=
+sed
+> one patch before it can do anything.
 
-While debugfs (/sys/kernel/debug/sched/debug) exposes runqueue metrics
-to userspace, these details are not captured during an automated kernel
-panic or crash dump. Capturing per-CPU runqueue state directly into
-log_buf fills this diagnostic gap for post-mortem crash analysis.
+No need fix, this patch is a preparatory step for ENETC v4 VF to support
+MAC filters.
 
-Introduce SYS_INFO_CPU_RUNQUEUES and its corresponding string token
-"cpu_runqueues" to panic_sys_info. Add sched_show_runqueues(), modelled
-on print_rq(), to emit per-CPU scheduler diagnostics to the kernel log.
+>=20
+> > diff --git a/drivers/net/ethernet/freescale/enetc/enetc_msg.c
+> b/drivers/net/ethernet/freescale/enetc/enetc_msg.c
+> > index edc1277bb586..78114ab3e482 100644
+> > --- a/drivers/net/ethernet/freescale/enetc/enetc_msg.c
+> > +++ b/drivers/net/ethernet/freescale/enetc/enetc_msg.c
+> > @@ -61,31 +63,49 @@ static u16
+> enetc_msg_set_vf_primary_mac_addr(struct enetc_pf *pf, int vf_id,
+> >  	struct enetc_vf_state *vf_state =3D &pf->vf_state[vf_id];
+> >  	struct enetc_msg_mac_exact_filter *msg =3D vf_msg;
+> >  	struct device *dev =3D &pf->si->pdev->dev;
+> > +	u16 pf_msg =3D ENETC_PF_MSG_SUCCESS;
+> >  	char *addr =3D msg->mac[0].addr;
+> >
+> > +	mutex_lock(&vf_state->lock);
+> > +
+> > +	/* Untrusted VFs cannot set their MAC addresses by the mailbox
+> > +	 * messages.
+> > +	 */
+> > +	if (!(vf_state->flags & ENETC_VF_FLAG_TRUSTED)) {
+> > +		pf_msg =3D ENETC_PF_MSG_PERM_DENY;
+> > +		goto vf_state_unlock;
+> > +	}
+> > +
+>=20
+> [Severity: Medium]
+> Is this a user-visible behaviour change for existing SR-IOV deployments?
 
-Unlike /sys/kernel/debug/sched/debug which dumps all threads assigned to
-a CPU, sched_show_runqueues() only emits threads that are actively
-running or queued on the runqueue (via task_on_rq_queued() and
-task_current()). This keeps the panic log concise, reflects the true
-runqueue depth, and prevents overflowing the printk ring buffer on
-systems with high thread counts.
+The VF will return error code when it has no privilege.
 
-Additionally, to guarantee deadlock and memory safety in panic context:
-    - Acquire the runqueue lock using raw_spin_rq_trylock() with
-      READ_ONCE() fallback, marking contended queues with
-      " (contended)"
+>=20
+> ENETC_VF_FLAG_TRUSTED is zero for every slot, since vf_state is
+> devm_kcalloc()'d in enetc_init_sriov_resources() and only
+> "ip link set <pf> vf N trust on" sets the bit.  On the VF side
+> enetc_msg_vsi_send() maps the new response to an errno:
+>=20
+>   case ENETC_MSG_CLASS_ID_PERMISSION_DENY:
+> 	return -EACCES;
+>=20
+> So after this patch enetc_vf_set_mac_addr() -> enetc_msg_vsi_send() fails
+> with -EACCES, and an in-guest "ip link set <vf> address ..." or enslaving
+> the VF into a bond/macvlan stops working after a kernel upgrade with no
+> configuration change.
+>=20
+> The commit message says:
+>=20
+>     This does not regress VF bring-up. The PF programs a valid
+>     primary MAC into every VF slot at probe, and the VF loads it from its
+>     own SIPMAR0/1 registers.
+>=20
+> Bring-up is indeed unaffected, but could the message also state that gues=
+ts
+> which previously changed their own VF MAC now need the host to mark the s=
+lot
+> trusted first?
+>=20
+> Related question on tags: the message describes this as preventing a
+> malicious VM from eavesdropping on other SIs and from spoofing MAC
+> addresses, and the VF-set-MAC path has existed since commit beb74ac878c8
+> ("enetc: Add vf to pf messaging support").  Should this carry a Fixes: ta=
+g
+> or stable guidance for backporters?
 
-    - Wrap the per-CPU inspection in rcu_read_lock() to protect the
-      sampled current task (comm and PID) against premature release
-      during pr_info() across other callers
+This is a new feature for both ENETC v1 and v4, I do not think we need a
+Fixes tag for new feature.
 
-    - Omit cgroup group-path printing in print_rq() to avoid acquiring
-      cgroup_mutex and traversing kernfs dentries
+> > diff --git a/drivers/net/ethernet/freescale/enetc/enetc_pf.c
+> b/drivers/net/ethernet/freescale/enetc/enetc_pf.c
+> > index 55c07c528f22..a7bf4bfc25b7 100644
+> > --- a/drivers/net/ethernet/freescale/enetc/enetc_pf.c
+> > +++ b/drivers/net/ethernet/freescale/enetc/enetc_pf.c
+> > @@ -488,6 +488,7 @@ static const struct net_device_ops enetc_ndev_ops =
+=3D
+> {
+> >  	.ndo_set_rx_mode	=3D enetc_pf_set_rx_mode,
+> >  	.ndo_vlan_rx_add_vid	=3D enetc_vlan_rx_add_vid,
+> >  	.ndo_vlan_rx_kill_vid	=3D enetc_vlan_rx_del_vid,
+> > +	.ndo_set_vf_trust	=3D enetc_pf_set_vf_trust,
+> >  	.ndo_set_vf_mac		=3D enetc_pf_set_vf_mac,
+> >  	.ndo_set_vf_vlan	=3D enetc_pf_set_vf_vlan,
+> >  	.ndo_set_vf_spoofchk	=3D enetc_pf_set_vf_spoofchk,
+>=20
+> [Severity: Low]
+> At this commit neither enetc_ndev_ops nor enetc4_ndev_ops implements
+> .ndo_get_vf_config, and rtnl_fill_vf() returns early when
+> ndo_get_vf_config is NULL, so IFLA_VF_TRUST is never emitted and
+> "ip link show <pf>" prints no VF block.
+>=20
+> Since the remediation the commit message recommends is
+> "ip link set <dev> vf <N> trust off", would it be worth making the trust
+> state readable in the same patch that makes it settable?
+>=20
+> This is closed later in the series by the patch adding ndo_get_vf_config(=
+)
+> support, which reports ivi->trusted from the same flag.
 
-Suggested-by: Rishil Sandip Shah <rishil1999@outlook.com>
-Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
----
- Documentation/admin-guide/sysctl/kernel.rst |  1 +
- include/linux/sched/debug.h                 |  1 +
- include/linux/sys_info.h                    |  1 +
- kernel/sched/debug.c                        | 76 +++++++++++++++++----
- lib/sys_info.c                              |  4 ++
- 5 files changed, 70 insertions(+), 13 deletions(-)
+No need fix, the subsequent patch in this series adds ndo_get_vf_config()
+support.
 
-diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/admin-guide/sysctl/kernel.rst
-index b6328cd0f43e..0962b031e035 100644
---- a/Documentation/admin-guide/sysctl/kernel.rst
-+++ b/Documentation/admin-guide/sysctl/kernel.rst
-@@ -939,6 +939,7 @@ locks           print locks info if CONFIG_LOCKDEP is on
- ftrace          print ftrace buffer
- all_bt          print all CPUs backtrace (if available in the arch)
- blocked_tasks   print only tasks in uninterruptible (blocked) state
-+cpu_runqueues   print per-CPU runqueue depth and runnable tasks
- =============   ===================================================
- 
- 
-diff --git a/include/linux/sched/debug.h b/include/linux/sched/debug.h
-index 35ed4577a6cc..d4276d8ead29 100644
---- a/include/linux/sched/debug.h
-+++ b/include/linux/sched/debug.h
-@@ -39,6 +39,7 @@ struct seq_file;
- extern void proc_sched_show_task(struct task_struct *p,
- 				 struct pid_namespace *ns, struct seq_file *m);
- extern void proc_sched_set_task(struct task_struct *p);
-+extern void sched_show_runqueues(void);
- 
- /* Attach to any functions which should be ignored in wchan output. */
- #define __sched		__section(".sched.text")
-diff --git a/include/linux/sys_info.h b/include/linux/sys_info.h
-index a5bc3ea3d44b..c571aad1e178 100644
---- a/include/linux/sys_info.h
-+++ b/include/linux/sys_info.h
-@@ -16,6 +16,7 @@
- #define SYS_INFO_PANIC_CONSOLE_REPLAY	0x00000020
- #define SYS_INFO_ALL_BT			0x00000040
- #define SYS_INFO_BLOCKED_TASKS		0x00000080
-+#define SYS_INFO_CPU_RUNQUEUES		0x00000100
- 
- void sys_info(unsigned long si_mask);
- unsigned long sys_info_parse_param(char *str);
-diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
-index 72236db67983..d510a23b625d 100644
---- a/kernel/sched/debug.c
-+++ b/kernel/sched/debug.c
-@@ -968,7 +968,8 @@ static void task_group_path(struct task_group *tg, char *path, int plen)
- #endif
- 
- static void
--print_task(struct seq_file *m, struct rq *rq, struct task_struct *p)
-+print_task(struct seq_file *m, struct rq *rq, struct task_struct *p,
-+	   bool show_cgroup_path)
- {
- 	if (task_current(rq, p))
- 		SEQ_printf(m, ">R");
-@@ -996,13 +997,15 @@ print_task(struct seq_file *m, struct rq *rq, struct task_struct *p)
- 	SEQ_printf(m, "   %d      %d", task_node(p), task_numa_group_id(p));
- #endif
- #ifdef CONFIG_CGROUP_SCHED
--	SEQ_printf_task_group_path(m, task_group(p), "        %s")
-+	if (show_cgroup_path)
-+		SEQ_printf_task_group_path(m, task_group(p), "        %s")
- #endif
- 
- 	SEQ_printf(m, "\n");
- }
- 
--static void print_rq(struct seq_file *m, struct rq *rq, int rq_cpu)
-+static void print_rq(struct seq_file *m, struct rq *rq, int rq_cpu,
-+		     bool show_cgroup_path, bool queued_only)
- {
- 	struct task_struct *g, *p;
- 
-@@ -1010,31 +1013,36 @@ static void print_rq(struct seq_file *m, struct rq *rq, int rq_cpu)
- 	SEQ_printf(m, "runnable tasks:\n");
- 	SEQ_printf(m, " S            task   PID     weight       vruntime   eligible    "
- 		   "deadline             slice          sum-exec      switches  "
--		   "prio         wait-time        sum-sleep       sum-block"
-+		   "prio         wait-time        sum-sleep       sum-block");
- #ifdef CONFIG_NUMA_BALANCING
--		   "  node   group-id"
-+	SEQ_printf(m, "  node   group-id");
- #endif
- #ifdef CONFIG_CGROUP_SCHED
--		   "  group-path"
-+	if (show_cgroup_path)
-+		SEQ_printf(m, "  group-path");
- #endif
--		   "\n");
-+	SEQ_printf(m, "\n");
- 	SEQ_printf(m, "-------------------------------------------------------"
- 		   "------------------------------------------------------"
--		   "------------------------------------------------------"
-+		   "------------------------------------------------------");
- #ifdef CONFIG_NUMA_BALANCING
--		   "--------------"
-+	SEQ_printf(m, "--------------");
- #endif
- #ifdef CONFIG_CGROUP_SCHED
--		   "--------------"
-+	if (show_cgroup_path)
-+		SEQ_printf(m, "--------------");
- #endif
--		   "\n");
-+	SEQ_printf(m, "\n");
- 
- 	rcu_read_lock();
- 	for_each_process_thread(g, p) {
- 		if (task_cpu(p) != rq_cpu)
- 			continue;
- 
--		print_task(m, rq, p);
-+		if (queued_only && !task_current(rq, p) && !task_on_rq_queued(p))
-+			continue;
-+
-+		print_task(m, rq, p, show_cgroup_path);
- 	}
- 	rcu_read_unlock();
- }
-@@ -1234,7 +1242,7 @@ do {									\
- 	print_rt_stats(m, cpu);
- 	print_dl_stats(m, cpu);
- 
--	print_rq(m, rq, cpu);
-+	print_rq(m, rq, cpu, true, false);
- 	SEQ_printf(m, "\n");
- }
- 
-@@ -1322,6 +1330,48 @@ void sysrq_sched_debug_show(void)
- 	}
- }
- 
-+void sched_show_runqueues(void)
-+{
-+	int cpu;
-+
-+	pr_info("CPU Runqueues:\n");
-+	for_each_online_cpu(cpu) {
-+		struct rq *rq = cpu_rq(cpu);
-+		struct task_struct *curr;
-+		unsigned int nr_running;
-+		u64 nr_switches;
-+		unsigned long flags;
-+		bool locked;
-+
-+		touch_nmi_watchdog();
-+		touch_all_softlockup_watchdogs();
-+
-+		rcu_read_lock();
-+		local_irq_save(flags);
-+		locked = raw_spin_rq_trylock(rq);
-+		if (locked) {
-+			nr_running = rq->nr_running;
-+			nr_switches = rq->nr_switches;
-+			curr = rq->curr;
-+			raw_spin_rq_unlock(rq);
-+		} else {
-+			nr_running = READ_ONCE(rq->nr_running);
-+			nr_switches = READ_ONCE(rq->nr_switches);
-+			curr = READ_ONCE(rq->curr);
-+		}
-+		local_irq_restore(flags);
-+
-+		pr_info("cpu#%d: nr_running:%u switches:%llu curr:%s[%d]%s\n",
-+			cpu, nr_running, nr_switches,
-+			curr ? curr->comm : "<none>",
-+			curr ? task_pid_nr(curr) : -1,
-+			locked ? "" : " (contended)");
-+
-+		print_rq(NULL, rq, cpu, false, true);
-+		rcu_read_unlock();
-+	}
-+}
-+
- /*
-  * This iterator needs some explanation.
-  * It returns 1 for the header position.
-diff --git a/lib/sys_info.c b/lib/sys_info.c
-index f32a06ec9ed4..fc5bfcc121de 100644
---- a/lib/sys_info.c
-+++ b/lib/sys_info.c
-@@ -22,6 +22,7 @@ static const char * const si_names[] = {
- 	[ilog2(SYS_INFO_PANIC_CONSOLE_REPLAY)]	= "",
- 	[ilog2(SYS_INFO_ALL_BT)]		= "all_bt",
- 	[ilog2(SYS_INFO_BLOCKED_TASKS)]		= "blocked_tasks",
-+	[ilog2(SYS_INFO_CPU_RUNQUEUES)]		= "cpu_runqueues",
- };
- 
- /*
-@@ -158,6 +159,9 @@ static void __sys_info(unsigned long si_mask)
- 
- 	if (si_mask & SYS_INFO_BLOCKED_TASKS)
- 		show_state_filter(TASK_UNINTERRUPTIBLE);
-+
-+	if (si_mask & SYS_INFO_CPU_RUNQUEUES)
-+		sched_show_runqueues();
- }
- 
- void sys_info(unsigned long si_mask)
--- 
-2.55.0
+> > +	vf_state =3D &pf->vf_state[vf];
+> > +	mutex_lock(&vf_state->lock);
+> > +
+> > +	if (setting)
+> > +		vf_state->flags |=3D ENETC_VF_FLAG_TRUSTED;
+> > +	else
+> > +		vf_state->flags &=3D ~ENETC_VF_FLAG_TRUSTED;
+>=20
+> [Severity: High]
+> Does clearing trust here leave the hardware MAC filter that the VF
+> programmed while it was trusted?
+>=20
+> While trusted, the guest can put any valid unicast address into the SI
+> primary MAC registers, including the PF's or another VF's:
+
+A trusted host means it should not change its MAC address to a PF or other
+VF address. If it needs to sniff traffic from other VFs or PFs, it can enab=
+le
+promiscuous mode. So this is not an expected behavior of a trusted VF.
+
+>=20
+> drivers/net/ethernet/freescale/enetc/enetc_msg.c:enetc_msg_set_vf_primary
+> _mac_addr() {
+> 	...
+> 	enetc_set_si_hw_addr(pf, vf_id + 1, addr);
+> 	...
+> }
+>=20
+> The trust-off branch above only clears the software bit, so ENETC_PSIPMAR=
+0/1
+> (ENETC4_PSIPMAR0/1 on v4) for that SI keep the guest-chosen address.
+>=20
+> The other paths that could restore it do not.  enetc_setup_mac_addresses(=
+)
+> is the only place a PF-chosen MAC is written into every VF slot, and it r=
+uns
+> at probe:
+>=20
+> drivers/net/ethernet/freescale/enetc/enetc_pf_common.c:enetc_setup_mac_
+> addresses() {
+> 	...
+> 	for (i =3D 0; i < pf->total_vfs; i++) {
+> 		err =3D enetc_setup_mac_address(NULL, pf, i + 1);
+> 	...
+> }
+>=20
+> enetc4_pf_vf_flr_handler() re-applies only promiscuous state, so the addr=
+ess
+> also survives a VF FLR (guest reboot or driver reload), and the SR-IOV
+> disable path does not touch it either.
+>=20
+> So after the documented "ip link set <dev> vf <N> trust off", frames for =
+the
+> spoofed address still hit that SI's exact-match filter, and a slot later
+> reassigned to a different guest inherits the address, because the VF driv=
+er
+> reads its MAC out of SIPMAR0/1.
+>=20
+> At the end of the series the trust-off branch grows scrubbing of
+> promiscuous mode and of the UC/MC hash filters, but still does not restor=
+e
+> the SI primary MAC.  Should this branch reprogram the PF-assigned primary
+> MAC for the slot as well?
+
+This follows the same intentional model as the trust gate itself.
+
+Once a VF is set to untrusted, it can no longer change its MAC at all - any
+subsequent ndo_set_mac_address from the VF is immediately rejected with
+PERM_DENY. So the MAC left in the SI primary filter is simply the address t=
+he
+host authorized while the VF was trusted; it is not something the now-untru=
+sted
+VF can keep modifying.
+
+The host also retains a definitive way to reclaim or reset that address:
+ip link set ... vf N mac <addr> (ndo_set_vf_mac) reprograms PSIPMAR0/1 and
+sets ENETC_VF_FLAG_PF_SET_MAC, after which even a trusted VF can no longer
+override it. So there is no need to save the probe-time address or to force=
+ a VF
+reset - the host can deterministically take over the primary MAC through th=
+e
+existing PF interface.
 
