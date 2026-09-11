@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDFE446AF10
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:09:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5723B466B01
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:09:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789117770; cv=none; b=O87ryf6Eov7bDh5ag2qOHAjm8lD31nb1ttbRs2g8cW+GJlA6L8ZJ5sUi+LNEwkpuEL5tPhgcLuP7UAjajPQQqMKj/nilNO99hFGaah4EdqbHR2yBI56d1EtuYu4g6h3yyKq03FvWLPAiuyKU9uc2EZwA9Njo4W3tr5cPS39vfI0=
+	t=1789117775; cv=none; b=E2BgSw9VEVAsz12dRUebUjArI5v6nXnLUoPaMQraNW5u2CbTy23KhFOiBkGNUZokVmWSi40MoqQdEb6UB24DkDjkqnAWYpyPaifW3PER5Hku8TrEXl0WOeU/98H+JGWffiWb0eXJN/EIOpxGZ5+yzMfW5IYxtuPlcBhmOedageE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789117770; c=relaxed/simple;
-	bh=QcPT1O5udzEAHQAmOkNNZGnR4Yeb5MhJJrpiMVo0GQE=;
+	s=arc-20240116; t=1789117775; c=relaxed/simple;
+	bh=auNF5ZAwigJWxcTq9+9rQwCUSJTmyJg+oUb42yt5uYc=;
 	h=Date:Message-ID:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=sMYpT+vKXg2AoW+/pKZzJkdGUkS6fgDEnfVTTfMP566Xgwhk+SZ1mdE8N108Qky6us/93+uZuiFiil8r7bdD5tOyJoGuo2a+enu4ImRwb8APvDaU4KJH/cX7314GKoMrXZgykX1q7oAe3fAt7V+7W4r7HL0MCteMUnzBojOYRRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e9mzOQDY; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=Xl3pRYDAZiDUJj4hYVdu+O+OaGuHAgr+b8wzKe+dLG21nhvS6el+y1e1+SL6C1ScjTGNUpOFJwvEN1lcw2dx23ltnKIytNXB2PxuVBUbZTVNnlia6vupcNPyRRGWhChR+/pml5A5bkYAHgpdyhvLD0kNDob0xxidZKV2ivBFaAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IBy1ScLm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e9mzOQDY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFECC1F000FF;
-	Fri, 11 Sep 2026 09:09:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IBy1ScLm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34C001F000FF;
+	Fri, 11 Sep 2026 09:09:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789117769;
-	bh=4INRM/YFXOw3QS2Rbcs8f2iICDzucWZWY3PKQdTudD0=;
+	s=k20260515; t=1789117774;
+	bh=JRZ8BBMudhq1Q8x9ccrDWF+8TmIKlrUIqw0uwbr+vn0=;
 	h=Date:From:To:Cc:Subject:References;
-	b=e9mzOQDYV4QwlL/YIRdXw4EqI+ySCVp1r5a0N+ijY90+NLikW7Ktw9vR2cIaCvPmT
-	 2Sifs1UL/UvyebxjHpl9aD8RTGPKCVrv0T4nGfaxs8k0zrus+VN4sSESwwzxyDZZ6A
-	 fvxx2h0n0U+dCOTP0469BCooUc24EjRTBxNVioExYA0sIciUiX4lKqHn+nmF16LVeC
-	 tFXcDEfmj2kD1GjQU9JCp//v7c6e3TjjDVGpXmhB/ml46VAxPkb0SUWzGXViOXRhic
-	 YKzrTQ3m6HZjGTLJ5vGS23o7m8JN04vC28qpveAb3+5hmQg+vrVEY0+Cye459XWLZp
-	 lBdmN4UejlKyQ==
-Date: Fri, 11 Sep 2026 11:09:26 +0200
-Message-ID: <20260911090541.733966325@kernel.org>
+	b=IBy1ScLmcG/IWsq5LouuzTvai3kYw5MscgdlITVIPVKhwqHlavKGp2z1J3ys4ZDw5
+	 78dTp/5omzpTEMcEiKtJ8mMDZ3QSJir6aTfS6yQIIoZyLKfLiwOJh4RclQu4mObkVx
+	 ORFZclSt/IWOQ0/MTnz01QGfgdefu54MOalqU+zVEs047iZ5N79L2kOkuf9mXxKF3w
+	 gU1HstQdAbg9l7/0bZulMw1tRSPm74bPWbGtKyBhq/ewisFwgamBw709eC9GRNhJ36
+	 95EAdioBBBkSLbhBbd8yqBIpr0x0ZCJh9L/K8KfByQWdJt2EOV/CJ3qygr9b27dHZn
+	 5TazFHRYq9VWQ==
+Date: Fri, 11 Sep 2026 11:09:31 +0200
+Message-ID: <20260911090541.785749315@kernel.org>
 User-Agent: quilt/0.69
 From: Thomas Gleixner <tglx@kernel.org>
 To: LKML <linux-kernel@vger.kernel.org>
@@ -41,8 +41,7 @@ Cc: Hyunwoo Kim <imv4bel@gmail.com>,
  Alexander Viro <viro@zeniv.linux.org.uk>,
  "Eric W. Biederman" <ebiederm@xmission.com>,
  Alan Stern <stern@rowland.harvard.edu>
-Subject: [patch V3 4/8] posix-timers: Move POSIX timer group exit related code
- out of do_exit()
+Subject: [patch V3 5/8] posix-cpu-timers: Move inlines out of public header
 References: <20260911090341.949101445@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -54,105 +53,98 @@ Content-Type: text/plain; charset=UTF-8
 
 From: Thomas Gleixner <tglx@kernel.org>
 
-Move the POSIX timer group exit handling into the posix timer code and
-provide a proper stub when POSIX timers are disabled in Kconfig.
-
-No functional change.
+They are only used in the POSIX CPU timer code. No point in exposing them
+globally and parsing them for nothing.
 
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
 Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
 
 ---
- include/linux/posix-timers.h |    2 ++
- include/linux/sched/task.h   |    1 -
- kernel/exit.c                |    7 +++----
- kernel/time/posix-timers.c   |   16 +++++++++-------
- 4 files changed, 14 insertions(+), 12 deletions(-)
+ include/linux/posix-timers.h   |   32 --------------------------------
+ kernel/time/posix-cpu-timers.c |   32 ++++++++++++++++++++++++++++++++
+ 2 files changed, 32 insertions(+), 32 deletions(-)
 --- a/include/linux/posix-timers.h
 +++ b/include/linux/posix-timers.h
-@@ -233,6 +233,7 @@ int update_rlimit_cpu(struct task_struct
+@@ -66,38 +66,6 @@ struct cpu_timer {
+ 	struct task_struct __rcu	*handling;
+ };
  
- #ifdef CONFIG_POSIX_TIMERS
- void posixtimer_exec(void);
-+void posixtimer_exit(void);
- 
- static inline void posixtimer_putref(struct k_itimer *tmr)
+-static inline bool cpu_timer_enqueue(struct timerqueue_head *head,
+-				     struct cpu_timer *ctmr)
+-{
+-	ctmr->head = head;
+-	return timerqueue_add(head, &ctmr->node);
+-}
+-
+-static inline bool cpu_timer_queued(struct cpu_timer *ctmr)
+-{
+-	return !!ctmr->head;
+-}
+-
+-static inline bool cpu_timer_dequeue(struct cpu_timer *ctmr)
+-{
+-	if (cpu_timer_queued(ctmr)) {
+-		timerqueue_del(ctmr->head, &ctmr->node);
+-		ctmr->head = NULL;
+-		return true;
+-	}
+-	return false;
+-}
+-
+-static inline u64 cpu_timer_getexpires(struct cpu_timer *ctmr)
+-{
+-	return ctmr->node.expires;
+-}
+-
+-static inline void cpu_timer_setexpires(struct cpu_timer *ctmr, u64 exp)
+-{
+-	ctmr->node.expires = exp;
+-}
+-
+ static inline void posix_cputimers_init(struct posix_cputimers *pct)
  {
-@@ -262,6 +263,7 @@ static inline bool posixtimer_valid(cons
- }
- #else  /* CONFIG_POSIX_TIMERS */
- static inline void posixtimer_exec(void) { }
-+static inline void posixtimer_exit(void) { }
- static inline void posixtimer_sigqueue_getref(struct sigqueue *q) { }
- static inline void posixtimer_sigqueue_putref(struct sigqueue *q) { }
- #endif /* !CONFIG_POSIX_TIMERS */
---- a/include/linux/sched/task.h
-+++ b/include/linux/sched/task.h
-@@ -94,7 +94,6 @@ static inline void exit_thread(struct ta
- extern __noreturn void do_group_exit(int);
- 
- extern void exit_files(struct task_struct *);
--extern void exit_itimers(struct task_struct *);
- 
- extern pid_t kernel_clone(struct kernel_clone_args *kargs);
- struct task_struct *copy_process(struct pid *pid, int trace, int node,
---- a/kernel/exit.c
-+++ b/kernel/exit.c
-@@ -963,13 +963,12 @@ void __noreturn do_exit(long code)
- 			panic("Attempted to kill init! exitcode=0x%08x\n",
- 				tsk->signal->group_exit_code ?: (int)code);
- 
--#ifdef CONFIG_POSIX_TIMERS
--		hrtimer_cancel(&tsk->signal->real_timer);
--		exit_itimers(tsk);
--#endif
-+		posixtimer_exit();
-+
- 		if (tsk->mm)
- 			setmax_mm_hiwater_rss(&tsk->signal->maxrss, tsk->mm);
- 	}
-+
- 	acct_collect(code, group_dead);
- 	if (group_dead)
- 		tty_audit_exit();
---- a/kernel/time/posix-timers.c
-+++ b/kernel/time/posix-timers.c
-@@ -1077,13 +1077,9 @@ SYSCALL_DEFINE1(timer_delete, timer_t, t
- 	return 0;
+ 	memset(pct, 0, sizeof(*pct));
+--- a/kernel/time/posix-cpu-timers.c
++++ b/kernel/time/posix-cpu-timers.c
+@@ -438,6 +438,38 @@ static void trigger_base_recalc_expires(
+ 	base->nextevt = 0;
  }
  
--/*
-- * Invoked from do_exit() when the last thread of a thread group exits.
-- * At that point no other task can access the timers of the dying
-- * task anymore.
-- */
--void exit_itimers(struct task_struct *tsk)
-+static void posixtimer_delete_timers(void)
- {
-+	struct task_struct *tsk = current;
- 	struct hlist_head timers;
- 	struct hlist_node *next;
- 	struct k_itimer *timer;
-@@ -1120,12 +1116,18 @@ void exit_itimers(struct task_struct *ts
- 	}
- }
- 
-+void posixtimer_exit(void)
++static inline bool cpu_timer_enqueue(struct timerqueue_head *head,
++				     struct cpu_timer *ctmr)
 +{
-+	hrtimer_cancel(&current->signal->real_timer);
-+	posixtimer_delete_timers();
++	ctmr->head = head;
++	return timerqueue_add(head, &ctmr->node);
 +}
 +
- void posixtimer_exec(void)
- {
- 	scoped_guard(spinlock_irq, &current->sighand->siglock)
- 		posix_cpu_timers_exit(current);
- 
--	exit_itimers(current);
-+	posixtimer_delete_timers();
- 	flush_itimer_signals();
- }
- 
++static inline bool cpu_timer_queued(struct cpu_timer *ctmr)
++{
++	return !!ctmr->head;
++}
++
++static inline bool cpu_timer_dequeue(struct cpu_timer *ctmr)
++{
++	if (cpu_timer_queued(ctmr)) {
++		timerqueue_del(ctmr->head, &ctmr->node);
++		ctmr->head = NULL;
++		return true;
++	}
++	return false;
++}
++
++static inline u64 cpu_timer_getexpires(struct cpu_timer *ctmr)
++{
++	return ctmr->node.expires;
++}
++
++static inline void cpu_timer_setexpires(struct cpu_timer *ctmr, u64 exp)
++{
++	ctmr->node.expires = exp;
++}
++
+ /*
+  * Dequeue the timer and reset the base if it was its earliest expiration.
+  * It makes sure the next tick recalculates the base next expiration so we
 
 
 
