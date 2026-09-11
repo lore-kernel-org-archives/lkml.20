@@ -1,146 +1,324 @@
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D274B53FB
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:44:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B068390603;
+	Fri, 11 Sep 2026 18:45:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789152297; cv=none; b=iUQwMrigd8K7ut8TKMUIZrbaKYFtnzQybET2E9KJRjEPNLkeyt9oEh6EDNtnMvL0PPLhjGC8fGVq0KneZK9gM/QInLw/3X4XIBQHQ3YC9EkW3a82bOEwJ82HjYpqH3Fpu19x2mwKSkrAFZDpfsrepkjk11v3wnyOyzcH+bhm+WU=
+	t=1789152339; cv=none; b=HpHOKmBeDPEW0BXSyh04XSmZ6VTfbtJVNE0REeIaiTs/9BGwgZqG7iEwGB99LiRxOL2rhIphsZ1sQBspd7/FfYIK9NMe4LZx1zPSHgpBC7XUd3net11bjb3XIAKZ6jxcNdJI/sxvlpbRYe8E6ZT9anmz17sh0jpMMfS89ztEK5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789152297; c=relaxed/simple;
-	bh=OdyIaFHTfKbXWj6XRC6rk9Un0vCTcVZlLONiQQ35BAk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IOVq+8+W8wHkinj9+y1k1Dx8TgOSHnq1eXi1K/0AUsgRnmB5a12hxYD2fHiyUZ2/NfZvBfL1CKmfsPTU/YuV9ZoHuY2bwxokpyvDnmMjnjpCfIt7ThqiHOX3MB4jXDtHvXUoktNmlXwuFV/dp5mtOTXunI8cIvVzlQ/ci0E0ptA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=c127.dev; spf=pass smtp.mailfrom=c127.dev; dkim=pass (2048-bit key) header.d=c127.dev header.i=@c127.dev header.b=fu24JMu2; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=mB02m2EH; arc=none smtp.client-ip=34.202.193.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=c127.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=c127.dev
+	s=arc-20240116; t=1789152339; c=relaxed/simple;
+	bh=bB6zZ/r9t4Hco1hdmHS5Vd6WCuAFrO94Y8zdwuxSwbs=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=FuACRacwq/AQ93070C7dpgdzrkTMEZPqZu5Xv40aU+J/boSva/sB3WNT6IUfz2EHRFn2tQ4NHZ5vRfXnMr4F2tUGMP+99oC/4NctvWnJjHQ9WnCeV6y8QIcUoNTmRqQnlJ1ACUXmyDRFTod1wxZolOaED1nv4lIS/CqzR3Dd/zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XTzaCIhA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=c127.dev header.i=@c127.dev header.b="fu24JMu2";
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="mB02m2EH"
-DKIM-Signature: a=rsa-sha256; b=fu24JMu2LMFoXk897ztzdTR8oGDiO9ShsCIYIcrA7O8us1CEVIy8+8v4f8nFE17tZMHMA6ARJywOj3/k7WJfk9gakGG4BIOlUp/zn2N+4bj8cErE2Z2YDs6G2UR4fa7vi4sVRxDe7l6t5h41zC6puBCLNBTOgCTm2+X0O1knSgXpgJUr6jM0i+1a64RCmUkrFyUIvtdXKCR4J4TSPCW5O7MbW6F+vZpnYftARjXgRFCb1HYki4aW85I6uRHD1tqi3hrr9ecJORcLhnVkzhzB9MA0igMYCeyieAzTEvN0cWBzLxBnz1UZ3kmR7dOWEqLQItkUSC5AJE4pTRoolnie9A==; s=purelymail1; d=c127.dev; v=1; bh=OdyIaFHTfKbXWj6XRC6rk9Un0vCTcVZlLONiQQ35BAk=; h=Received:From:To:Subject:Date;
-DKIM-Signature: a=rsa-sha256; b=mB02m2EH728+49IdiolSZCE4m+rrnEqTmoxFjva7xhjSTyrIfBF12YAw/WHwXpmQwjiSYB3M+gfwijn5d2O2deQIRdJEXe/EGeUWz5ejGhqXU+3BMqwMcZ1DPUArS2BmC8D12Nh5QlY43VWSP0AwkiXK9Tkb3sL/lK2LrmD+AzZHUPKx541UBtM2v4Hb/HDd24HOdrCfDmjAdPFEC+4fPHN1QbiKlrnsNea1calnNh+/72YOMgb3+t4eYog15ndEwxJ/reEwmdXXojh+Vh2ouy6ZNDIEpLov2dqVKq0cjoEVsF5RIhplrSO9eZizIv+ISnLh7/ZVmglJmwpWh/iPnQ==; s=purelymail1; d=purelymail.com; v=1; bh=OdyIaFHTfKbXWj6XRC6rk9Un0vCTcVZlLONiQQ35BAk=; h=Feedback-ID:Received:From:To:Subject:Date;
-Feedback-ID: 1017243:43747:null:purelymail
-X-Pm-Original-To: linux-kernel@vger.kernel.org
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -1066090597;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Fri, 11 Sep 2026 18:44:22 +0000 (UTC)
-From: Johan Alvarado <contact@c127.dev>
-To: broonie@kernel.org,
-	md.alam@oss.qualcomm.com
-Cc: konradybcio@kernel.org,
-	pengpeng@iscas.ac.cn,
-	miquel.raynal@bootlin.com,
-	j4g8y7@gmail.com,
-	quic_varada@quicinc.com,
-	quic_srichara@quicinc.com,
-	linux-spi@vger.kernel.org,
-	linux-mtd@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Johan Alvarado <contact@c127.dev>
-Subject: [PATCH v2 1/2] spi: spi-qpic-snand: publish the ECC context to snandc->qspi
-Date: Fri, 11 Sep 2026 13:44:15 -0500
-Message-ID: <20260911184416.109790-2-contact@c127.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260911184416.109790-1-contact@c127.dev>
-References: <20260911184416.109790-1-contact@c127.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XTzaCIhA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72D4A1F00893;
+	Fri, 11 Sep 2026 18:45:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789152334;
+	bh=Gj7dgaAw30zvtgszk2wXMwbDtA8UOklsz0Rf5Gwa+20=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=XTzaCIhA57ZbFv8SyKcQjSZIaSpZMPo58Yu6KCKtYn/HTD+2zF35TrfVXLrcB9Lvm
+	 VVDKBZS+f1VgCHH/8eqSPWkyX8CtbQxOF0DENGMMVThiXlMrPBuncNlUwYaPc36x4V
+	 lpbuR74wuOixbmqkt0+oMhjL3BTuyyYgqe/eTxNJ1vyWObJP65qFQhoMge8DLdu9SS
+	 pJaYEVVSrkW6WRPqDLKAsdEwQwXKb9IdGOCUgA+TgzSur/AZ/gr+nwll/e9OItyTRp
+	 FyCdf6JmWMRz0Ad/TVWoSgBqfSx7USdrMwMljzYLAVR2AjoDktI0KpZE6qWPx2DA2v
+	 pbsUxq8DnlHyQ==
+Subject:
+ Re: [PATCH] net: ipa: validate QMI sender for modem-only server requests
+From: netdev-bot+sashiko@kernel.org
+To: kennethkabogo2@gmail.com
+Cc: elder@kernel.org, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org
+Date: Fri, 11 Sep 2026 18:45:34 +0000
+Message-ID: <178915233401.219967.3094305844336909787@kernel.org>
+In-Reply-To: <20260910181737.55570-1-kennethkabogo2@gmail.com>
+References: <20260910181737.55570-1-kennethkabogo2@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
-Content-Type: text/plain; charset=UTF-8
 
-qcom_spi_ooblayout_ecc() and qcom_spi_ooblayout_free() read the ECC
-configuration through snandc->qspi->ecc. qcom_spi_probe() points it at a
-zeroed scratch struct and only qcom_spi_ecc_prepare_io_req_pipelined(),
-which runs on page I/O, ever updates it. qcom_spi_ecc_init_ctx_pipelined()
-installs the ooblayout but does not publish the context it just
-allocated, and qcom_spi_ecc_cleanup_ctx_pipelined() frees that context
-without clearing the pointer.
+Thank you for your contribution! Sashiko AI review found 7 potential
+issue(s) to consider:
 
-spinand_init() calls mtd_ooblayout_count_freebytes() right after the ECC
-context is created and before any page I/O, so the ooblayout always runs
-against a pointer that does not describe the current context:
+Critical: 0 · High: 3 · Medium: 4 · Low: 0
 
-  - On a first probe it reads the zeroed struct from qcom_spi_probe(),
-    so steps, bytes and bbm_size are 0. The count then returns 0 rather
-    than an error, so the probe continues with mtd->oobavail set to 0.
+- [High] The patch guards the two readiness flags set from the server
+  handle (indication_requested at ipa_qmi.c:210, uc_ready at :246) but…
+- [High] The new sender check anchors trust in ipa_qmi->modem_sq, but
+  modem_sq is itself learned from an unauthenticated QRTR name-service…
+- [High] The new gate rejects every request whenever modem_sq is zero or
+  stale, and two structurally reachable paths put it there while the…
+- [Medium] ipa_server_from_modem() (drivers/net/ipa/ipa_qmi.c:172-177)
+  requires sq->sq_port == ipa_qmi->modem_sq.sq_port, but modem_sq is the…
+- [Medium] The commit message states that a local non-modem process "can
+  spoof both signals and drive ipa_qmi_ready() to completion before the…
+- [Medium] The new gate ipa_server_from_modem() (ipa_qmi.c:172-177) reads
+  ipa_qmi->modem_sq.sq_node and .sq_port from the *server* QMI handle's…
+- [Medium] The commit message relies on ipa_server_bye() zeroing modem_sq
+  to make teardown-window requests fail the new check, but…
 
-  - On a probe retry it reads the ecc_cfg the previous attempt freed.
+--
 
-A retry is easy to hit. On IPQ5018 with the qcom,smem-part parser the
-partition parse returns -EPROBE_DEFER until SMEM has probed, so the
-first spi-nand probe defers. It defers inside
-mtd_device_parse_register(), after mtd_otp_nvmem_add() has already read
-the factory OTP - that read goes through prepare_io_req and leaves
-snandc->qspi->ecc pointing at the context that spinand_cleanup() then
-frees. The second probe allocates a new context, never publishes it, and
-computes the OOB layout from the freed one. Once the slab has been
-reused, qecc->steps holds garbage and
+net: ipa: validate QMI sender for modem-only server requests
 
-  oobregion->length =3D qecc->steps * 4;
+This adds a helper ipa_server_from_modem() and uses it in
+ipa_server_indication_register() and ipa_server_driver_init_complete()
+to drop QMI requests whose sender does not match the cached
+ipa_qmi->modem_sq.  Requests from any other sender are logged and
+discarded.
 
-goes negative. qcom_spi_ooblayout_free() only reports -ERANGE for
-section 1 and later, so mtd_ooblayout_count_bytes() sums the regions and
-returns that negative length as the byte count. The -512 below is
-steps * 4 with steps =3D=3D -128. It is a byte count that happens to
-collide with -ERESTARTSYS, not an error the driver returned.
-spinand_init() takes it as an error, and because it is not
--EPROBE_DEFER the driver core never retries and the NAND never appears:
+A few questions on the commit message and the new check below.
 
-  spi-nand spi0.0: ESMT SPI NAND was found.
-  spi-nand spi0.0: probe with driver spi-nand failed with error -512
-  UBI error: cannot open mtd rootfs, error -2
-  Waiting for root device /dev/ubiblock0_1...
+The commit message says:
 
-On a Mercusys MR80X (IPQ5018, ESMT F50D1G41LB) about half of the boots
-failed to mount the rootfs, the outcome depending on whether the freed
-memory had been overwritten yet.
+  "A local process able to send QMI messages on the qrtr socket, other
+  than the modem, can spoof both signals and drive ipa_qmi_ready() to
+  completion before the modem has confirmed its endpoint configuration"
 
-Publish the context when it is created and clear the pointer when it is
-destroyed. Clearing leaves snandc->qspi->ecc NULL after cleanup, which
-is safe: the mtd is unregistered before cleanup_ctx runs, so no
-ooblayout callback can follow.
+[Severity: Medium]
+Is that mechanism description accurate for the two handlers being changed?
 
-Fixes: 7304d1909080 ("spi: spi-qpic: add driver for QCOM SPI NAND flash Int=
-erface")
-Cc: stable@vger.kernel.org
-Tested-by: Gabor Juhos <j4g8y7@gmail.com>
-Signed-off-by: Johan Alvarado <contact@c127.dev>
----
-Unchanged from v1. Both hunks are untouched by 44d39535cd4f, so this
-applies to v7.3-rc2 and to spi/for-next alike.
+ipa_qmi_ready() has a third gate that neither patched handler touches:
 
- drivers/spi/spi-qpic-snand.c | 3 +++
- 1 file changed, 3 insertions(+)
+drivers/net/ipa/ipa_qmi.c:ipa_qmi_ready() {
+	/* We aren't ready until the modem and microcontroller are */
+	if (!ipa_qmi->modem_ready || !ipa_qmi->uc_ready)
+		return;
+	...
+}
 
-diff --git a/drivers/spi/spi-qpic-snand.c b/drivers/spi/spi-qpic-snand.c
-index 9eafaea74f6b..20045d4a46fa 100644
---- a/drivers/spi/spi-qpic-snand.c
-+++ b/drivers/spi/spi-qpic-snand.c
-@@ -411,6 +411,8 @@ static int qcom_spi_ecc_init_ctx_pipelined(struct nand_=
-device *nand)
- =09dev_dbg(snandc->dev, "ECC strength: %u bits per %u bytes\n",
- =09=09ecc_cfg->strength, ecc_cfg->step_size);
-=20
-+=09snandc->qspi->ecc =3D ecc_cfg;
-+
- =09return 0;
-=20
- err_free_ecc_cfg:
-@@ -427,6 +429,7 @@ static void qcom_spi_ecc_cleanup_ctx_pipelined(struct n=
-and_device *nand)
-=20
- =09kfree(snandc->qspi->oob_buf);
- =09snandc->qspi->oob_buf =3D NULL;
-+=09snandc->qspi->ecc =3D NULL;
- =09kfree(ecc_cfg);
- }
-=20
---=20
-2.55.0
+and modem_ready is only set after the AP's own INIT_DRIVER transaction
+completes successfully in ipa_client_init_driver_work():
 
+	if (!ret) {
+		ipa_qmi->modem_ready = true;
+		ipa_qmi_ready(ipa_qmi);		/* We might be ready now */
+
+So spoofing only INDICATION_REGISTER and DRIVER_INIT_COMPLETE cannot reach
+ipa_modem_start() "before the modem has confirmed its endpoint
+configuration" — modem_ready is that confirmation.  The effect appears to
+be bring-up after INIT_DRIVER succeeds but before the genuine
+DRIVER_INIT_COMPLETE, unless the sender also supplies the client-side
+response or supplants the cached service.
+
+Could the message be reworded to describe what the two patched handlers can
+actually do, and mention the client-handle path?
+
+> diff --git a/drivers/net/ipa/ipa_qmi.c b/drivers/net/ipa/ipa_qmi.c
+> index d771f3a71f94f..a7cc98b27e33c 100644
+> --- a/drivers/net/ipa/ipa_qmi.c
+> +++ b/drivers/net/ipa/ipa_qmi.c
+> @@ -168,6 +168,14 @@ static const struct qmi_ops ipa_server_ops = {
+>  	.bye		= ipa_server_bye,
+>  };
+>  
+> +/* True if a QMI request arrived from the modem we are paired with */
+> +static bool ipa_server_from_modem(const struct ipa_qmi *ipa_qmi,
+> +				  const struct sockaddr_qrtr *sq)
+> +{
+> +	return sq->sq_node == ipa_qmi->modem_sq.sq_node &&
+> +	       sq->sq_port == ipa_qmi->modem_sq.sq_port;
+> +}
+> +
+
+[Severity: Medium]
+Is the sq_port term correct here?  modem_sq is written only in
+ipa_client_new_server(), from the modem's advertised service address:
+
+	ipa_qmi->modem_sq.sq_family = AF_QIPCRTR;
+	ipa_qmi->modem_sq.sq_node = svc->node;
+	ipa_qmi->modem_sq.sq_port = svc->port;
+
+That is the port the AP's client handle sends INIT_DRIVER to.  The sq
+passed to the two patched handlers is the source address of a request that
+arrived on the AP's server handle, i.e. the modem's QMI client endpoint.
+
+Is a peer's client port guaranteed to equal its advertised service port?
+This driver itself is a counterexample: ipa_qmi_setup() creates two
+qmi_handles, each bound to its own qrtr port, so a symmetric modem
+implementation would send from a port other than the one its service is
+registered on.
+
+If those two ports differ on real firmware, every legitimate request fails
+the check, indication_requested and uc_ready are never set, and
+ipa_modem_start() is never called.  DRIVER_INIT_COMPLETE is one-shot per
+initial boot, so there is no retry.  Has this been confirmed on hardware?
+
+[Severity: High]
+Does anchoring trust in modem_sq close the described hole, given how
+modem_sq is learned?  ipa_client_new_server() stores whatever node and port
+were announced for service 0x31 instance 2, with no check that the
+announcing node is the modem's remote qrtr node.
+
+For a local sender, the name service rewrites the announced address to the
+sender's own:
+
+net/qrtr/ns.c:ctrl_cmd_new_server() {
+	/* Ignore specified node and port for local servers */
+	if (from->sq_node == qrtr_ns.local_node) {
+		node_id = from->sq_node;
+		port = from->sq_port;
+	}
+	...
+}
+
+and binding an ephemeral port needs no capability:
+
+net/qrtr/af_qrtr.c:qrtr_port_assign() {
+	} else if (*port < QRTR_MIN_EPH_SOCKET && !capable(CAP_NET_ADMIN)) {
+		rc = -EACCES;
+	...
+}
+
+So the same actor the commit message describes can register a fake IPA
+modem service, become the cached modem_sq, receive the AP's INIT_DRIVER
+request, answer it, and then send INDICATION_REGISTER and
+DRIVER_INIT_COMPLETE from that same port — satisfying
+ipa_server_from_modem() exactly.
+
+Would validating the peer's qrtr node against the modem remoteproc or
+DT-derived node (or rejecting services announced on the local node) be the
+check that actually holds?
+
+[Severity: High]
+Is the modem_ready path left unguarded on purpose?  modem_ready is set when
+the INIT_DRIVER response is matched on the client handle, and the QMI core
+matches responses by transaction id alone:
+
+drivers/soc/qcom/qmi_interface.c:qmi_handle_message() {
+	...
+		txn = idr_find(&qmi->txns, le16_to_cpu(hdr->txn_id));
+	...
+}
+
+The sender address is never compared against the address the request was
+sent to, and ipa_client_init_driver() ignores both sq and the decoded
+result:
+
+	txn->result = 0;	/* IPA_QMI_INIT_DRIVER request was successful */
+	complete(&txn->completion);
+
+ipa_server_bye() deliberately preserves uc_ready and leaves initial_boot
+false across modem restarts, so on any non-initial boot modem_ready is the
+only remaining gate and a single forged INIT_DRIVER response reaches
+ipa_modem_start() by itself.  Does the bug class the commit message
+describes remain reachable through this sibling path?
+
+[Severity: Medium]
+Can these two loads race with the writer?  modem_sq is read here from the
+server handle's worker, while ipa_client_new_server() writes sq_family,
+sq_node and sq_port as three plain stores from the client handle's worker.
+Each handle gets its own workqueue:
+
+drivers/soc/qcom/qmi_interface.c:qmi_handle_init() {
+	qmi->wq = alloc_ordered_workqueue("qmi_msg_handler", 0);
+	...
+}
+
+There is no lock, no READ_ONCE()/WRITE_ONCE() and no release/acquire
+pairing, so a reader on the server worker can see sq_node updated while
+sq_port is still zero.  The gate then returns false and the request is
+dropped with no QMI response sent.
+
+[Severity: Medium]
+Related to the same unserialized field: the commit message relies on
+
+  "is zeroed in ipa_server_bye(); a zeroed modem_sq does not match any real
+  sender's address"
+
+but ipa_server_bye() runs on the server handle's worker and
+ipa_client_new_server() on the client handle's, with nothing ordering BYE
+for the dying modem instance against NEW_SERVER for the new one.  If the
+server worker is delayed across the restart, its
+
+	memset(&ipa_qmi->modem_sq, 0, sizeof(ipa_qmi->modem_sq));
+
+lands after modem_sq was re-populated for the new modem, leaving it
+all-zero while a real modem is present.  Before this patch that only
+mis-addressed the optional INIT_COMPLETE indication; now it rejects every
+real modem request for the rest of the boot.  Is that inversion prevented
+somewhere?
+
+>  /* Callback function to handle an INDICATION_REGISTER request message from the
+>   * modem.  This informs the AP that the modem is now ready to receive the
+>   * INIT_COMPLETE indication message.
+> @@ -185,6 +193,13 @@ static void ipa_server_indication_register(struct qmi_handle *qmi,
+>  	ipa_qmi = container_of(qmi, struct ipa_qmi, server_handle);
+>  	ipa = container_of(ipa_qmi, struct ipa, qmi);
+>  
+> +	if (!ipa_server_from_modem(ipa_qmi, sq)) {
+> +		dev_warn_ratelimited(ipa->dev,
+> +				     "ignoring QMI request from non-modem sender %u:%u\n",
+> +				     sq->sq_node, sq->sq_port);
+> +		return;
+> +	}
+> +
+
+[Severity: High]
+Can a legitimate modem request be dropped here whenever modem_sq is zero or
+stale?  Two paths put it in that state while the modem is alive.
+
+First, an unrelated subsystem restart.  ipa_server_bye() zeroes modem_sq and
+ignores its node argument:
+
+drivers/net/ipa/ipa_qmi.c:ipa_server_bye() {
+	/* The modem client and server go away at the same time */
+	memset(&ipa_qmi->modem_sq, 0, sizeof(ipa_qmi->modem_sq));
+	...
+}
+
+while the name service fans a BYE for any dying remote node out to every
+local server port:
+
+net/qrtr/ns.c:ctrl_cmd_bye() {
+	xa_for_each(&local_node->servers, index, srv) {
+		sq.sq_family = AF_QIPCRTR;
+		sq.sq_node = srv->node;
+		sq.sq_port = srv->port;
+	...
+}
+
+and the QMI core passes that node straight through:
+
+drivers/soc/qcom/qmi_interface.c:qmi_recv_bye() {
+	qmi_recv_del_server(qmi, node, -1);
+
+	if (ops->bye)
+		ops->bye(qmi, node);
+}
+
+So an ADSP or CDSP restart zeroes modem_sq with the modem still up, and
+nothing repopulates it until the modem itself re-registers.
+
+Second, ordering at boot.  ipa_qmi_setup() advertises the AP server with
+qmi_add_server() before qmi_add_lookup() for the modem service, and
+modem_sq is only populated from the asynchronous NEW_SERVER message
+processed on the client handle's separate socket and workqueue.  Nothing
+ties the modem's INDICATION_REGISTER or DRIVER_INIT_COMPLETE to the AP
+having already observed the modem's service registration — this is the
+ordering concern raised in the cover note.
+
+In both cases the return happens before qmi_send_response(), so the modem's
+transaction is never answered, indication_requested and uc_ready stay
+false, and there is no retry or re-arm path back into ipa_qmi_ready().
+Would explicitly testing whether modem_sq has been populated, and only then
+enforcing the match, avoid this?
+
+Also, should ipa_server_bye() compare its node argument against
+modem_sq.sq_node before zeroing, now that the zeroed value denies all
+requests?
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260910181737.55570-1-kennethkabogo2%40gmail.com
