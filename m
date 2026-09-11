@@ -1,68 +1,87 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1529549F108
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:48:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7EB4A0F06
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:48:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789141719; cv=none; b=pxaElsts0g5WammD/T0fvjZL3+qkNLleEpd4AABGoSZIqU2GHYluHfIdUQyULCv0MPOdocVzGhOdk4gnX+yc4TZmHh2PtmBXqBuBW1ETLMLMEi8EnLJ18t+Mcjrija96MrZSFU7l82QOJeu0aalGhftgcl9E1tsMkr2JzL/T3gA=
+	t=1789141740; cv=none; b=JsPLVVyQvzr/t0sqXRxb+xB5EBiT4YnHFeveqdM1iJGvaQMzJDc4EnHnhwfvJuLfbMSeJusrmLhGoKlEU/jn4OktUJHRPz/PIwJRHWemEmxSjaRIesHN3bl58aLHpqwtz+C+z27NldnY3ZeZsdd/n+n4HUZPA5zOGK8BGPNmy70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789141719; c=relaxed/simple;
-	bh=coqt+w5I95EUW0QDTkx+JS5InZ9evmeQaO462+T+Peo=;
+	s=arc-20240116; t=1789141740; c=relaxed/simple;
+	bh=lzTiCMfXmBBMNBYrGo7n0+U0h3AodXshHBSUkETHf9o=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fHBTTGKdHWCjL1W26z2cAJjj84gAzsV2xx6Csgs3KIUoFA4E+OmQeI1CLBFYpJnGPmqC+PAQqljT+Bip9GC6n3B/fYPRGG+DlMSX/1nlYLMJU8Kf45HhrFcS/PpcIF7D89vYusuCk3umm+qIwr0qSXWvYQYjZoZUZNtVYGWjdeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com; spf=pass smtp.mailfrom=6wind.com; dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.b=TNs+v4+F; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=6wind.com
+	 In-Reply-To:Content-Type; b=osta8hVFmyYwcUsArp4/eGHXzSEjK80VBS9fc/3ognN0T1mRx5boe5iYlPHJgiutlfKcdgxQMHa7PU8MBICrIMEl2hNT1ZrXVBmby46rRmLfI1TVxGnEtZL9cqFafiNFwbb5wVORzKkcY61uxRnRroe6QeD/Awen1wldAJ964bA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Dqyk7Z5o; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HQoa+HGq; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.b="TNs+v4+F"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-499db17b40eso36905e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:48:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Dqyk7Z5o";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HQoa+HGq"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BEmEeh3780628
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:48:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	+D114KpAsx+agyqYsIr5jY5EYt36qFLcj/ka8IKdRy8=; b=Dqyk7Z5ovAa7SRGT
+	K1HzDG9VtyHfDZdfKyJvpISk62nPxNK89BrrA5MMKUTxZ2q46OGLN73UhptCNvYd
+	JARnUbS9+RzSxN9DHJSx1gpF74BEy9wwOuzIpG9CAgJaxakI+kU9Ep07/9waNjAn
+	NEj+IoUrYNGrYfU1WB1oIDmT4vkwsvseXzpjPklkLCg4ulAtnaNT175/grQFbb+q
+	JrhstgCzXUA+QDxN7T9Uz12asMRaxRpNyh89VBlUq0fezg49KDltwOKGPz7orOyU
+	4m00yTdDS6/1UOh0Mg7ewkceiTurr1OtXH92qQYBWTGY9ohH3bKEJ1nHj+8cUCcn
+	xAQCew==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmcgfj94g-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:48:56 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5c66ec39d8cso73450e0c.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:48:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=6wind.com; s=google; t=1789141716; x=1789746516; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=peYwW1i7KqZv9dHnFVZzcAAAiTdfB8U1dCo82QTWVsw=;
-        b=TNs+v4+FjTdJPRl5CxDWGEM74SsZpTJ6QB4C3w+hTqCvDjoniuZOt+76f9MK8yz7uz
-         rxB2BSLBH2nLFs/k5iU4WkIfXDHhl1SAIVM66tZFqBuS+sQGqregc0ePtyyr5igaMPfs
-         Oq6EymrlFMsL5CgXLtNe1wFrRuC9HsBbDK2Qp5o7dUMKXBQRi55CIR+unxzwB79nyLWB
-         LYPHS2iXI9c16JP5ULteH/k2UuwMRz1R1FVg7qdj9VnBemcIx8O6PTq/mY3md+4Bs4Lg
-         5XM+HsBc/V4TA7IU/p4QVd2VgkkVpCazpEikkSWRm1BXa4Xq0MAucgy4TjBaD8V3OFfn
-         a1qQ==
+        d=oss.qualcomm.com; s=google; t=1789141736; x=1789746536; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+D114KpAsx+agyqYsIr5jY5EYt36qFLcj/ka8IKdRy8=;
+        b=HQoa+HGqXb8sOnsCVNPAcm2pKV5sg8pcwnY8ERH4m2Nh3sYUhBjupR09H9i3hKWqPZ
+         eTvNs7Ah+aTrxUvcvkAqqyzq5XZimBedifLE3oa0w/j7AT8AwNeICCZ/cZfTXLd08Qcj
+         x9RSNMKLt26C+1vNPHRB4xGROVNcV8Ldz3ja0HEAn5Ey4Dwnn0KD8aiwYzpVzFwyLYcV
+         b5au8Jjq2bzGXNWeB4EOjwjFd3l7aLTsUscX3172ZteU0DoNV2maXZzKwdPV/lTTqBtE
+         5D9ZM8T9N/rPJAXEuKZrdy1D8jAgHrPLLkO3K9Yk+IfHrBctoHbsX7bMcD01FADgEuCZ
+         VFHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789141716; x=1789746516;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=peYwW1i7KqZv9dHnFVZzcAAAiTdfB8U1dCo82QTWVsw=;
-        b=EzBUi6hzAAtmGG6BEbWrqLyHTfmWLRGax5+2KySUKGyQZ8Eo00rHbaKTgvLus4CSZZ
-         NBUjLNLGe0d0YeOF1RCieXoorpBiftVhLzNEcGVFa/KzOrjWfrBVEksAqVNyPE2oqeZ2
-         9yPT0xrXs9Vq4UIf5yRLxT8DQm9Afh6cDIbX2fDFc5urkLmpVl9TTfJd/tyqdwaZwcN3
-         dmYR1+jW9S6yqhCZpIsHOq9P4kfe9/+AtujXP3SZ2xt5EOVRZVdo55d2EiRb6pu0v5sT
-         wPaad0u4Ch9drprSCankVRMd3dnWwlE5Z72LiO2otGN8VbUs+OBZ8JaXS5JMoREmHz3u
-         H9UQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzyop++fQ6lPKHnuva1X73RomKKbHpeM2cO61Er0p+XJj9Sv0YLzyObhKpUBRHOooBgQyXMneET6NaS1Hk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfoTgfyP/UUqSi0YYNGq4PfdbwAkOCAXkandtlxGI2dTvzktoi
-	UteRO90JjB1gKCFTtflKd5rdm/fYpJqnnU34j5sei+FDlKQ5xNuyuGr5r8Vz6tKtiNM=
-X-Gm-Gg: AYBFou38Bipx5e/qtpvesZhEmsPJLJ6z1QW3DII/sIxBi188CuuA5z/amNywlyItDcL
-	HZyVxunm1GCsYm0FUw3+06C46G6WW3KEBSZzciX/4JiHPhn03hD37g+HMy0wEjZ/9qUfpEHl7lK
-	Y48RXrTJufNnV8U8lvFMVoTkDumaapJHfOc4QF5ROQGa90dvyLsd++g6xtcNsnvgbRDu64SuWHQ
-	qZOSclPx3Hjr1eLPv4F6Pvy95UOQScs6HuJ8kNj+945RrswGOu3l6OfIPp+IWTEyqeCukADVkuv
-	w8dE4d5CX2nxP0JnLJVFzIpG2R511lMiMVivDscdqqUMvlzWbf4oZOGmK24a1EqGAjJbR0/NHJA
-	9CrFUqfq9y2ZoZQBF/3tbQo6KoZwoKir2Du6qWSsZwOKApq+DXNoKHwvLxp8ddAyRz8Ncg7Tq82
-	SCy+jE7eVtCGzt9m7QLG6UMx0uuV0yqwC6BR8iAkdNC+8hh3qjceY1+sVW0lIIFTxQ+0mie1jl+
-	f7P1VqMBYqsvveA/gdLRxS4sHO2f5lZPGHPta3ZdKISMZMAFPYI9jnza3bF0Aor
-X-Received: by 2002:a05:600c:1c29:b0:49b:9241:7ff0 with SMTP id 5b1f17b1804b1-49e61d2e5b7mr48659495e9.0.1789141716242;
-        Fri, 11 Sep 2026 08:48:36 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:ab7:2110:6a1d:efff:fe52:1959? ([2a01:e0a:ab7:2110:6a1d:efff:fe52:1959])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6af095d7sm3509035e9.0.2026.09.11.08.48.34
+        d=1e100.net; s=20251104; t=1789141736; x=1789746536;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+D114KpAsx+agyqYsIr5jY5EYt36qFLcj/ka8IKdRy8=;
+        b=Mk6cN0k8DRdnVtgR3Co5/+EkuIQNjNZVvMSmftacG681itjftwt5r8xbjBnBLT6qzd
+         pGTo2m3nRFU7uqgFkA679BjwKPP4VFsc5OCmuObwQzGJapZ1o5h2WlXYs3x5ADRkz+9r
+         0VZ5u3zac6FuDSvBS4NeAkM/dfokLpdoKrprjFOP1k9mg4Ma0AsJ3hcAkJWONoqIxw2K
+         KeuENAV+81goayGXUSNkFxUVCrfcY45xCRZzMYT7yLo0rsAiuYGNX0weegdmMEtYXB4S
+         QsJvIFHr5Tb20b5wQF8w09+JxBs8PTil0fegURHF4Si8lc2KPqf+cfhIESbEMQV6PnXM
+         mBBg==
+X-Forwarded-Encrypted: i=1; AKwUvBwwiijGFeaLCijrc7wXkC9wWzHJ068C78dx50xQn7TpBErK1/GoGN4bDiBYVXIpkTZk2GNkAeOoYD+g2Ks=@vger.kernel.org
+X-Gm-Message-State: AFuF++miYSInkHod7Nvvh74RmL6Ge2JY4cWMqROuN3punsECEMiTOOJ+
+	7D968vk0y4VRh0tV4FUCL93yUXH/A1ttktqMyPX6A8+2kZLe9OdNZluv5NKX5GelSV3UOySQ/Gc
+	G/BMTd8+6FdC0cWUUJZGhVlipfmkxt3ZRj6N5QJYBNq/HpOplRGpnDUblYTRc8NvSZuk=
+X-Gm-Gg: AYBFou1iLaIUqDqV0uwfo9DzhcYf+DylRcK8DPFBBOgypIG8KJW3S305/+L+SOd9N9l
+	tTDApmXND31LWeuMS+jmqKSl1w90h+Yr5P0+4iQYEWR19qtb00MIYoM/4naTDlzyWGTlhG11/kg
+	9iPvSM6aF8/vp/9uWdnbk2ZCEGd4ZQ55YQ1Xuq1FwN21dPyzzS6nLBVtrEfEkbhhhl2Aoxh5617
+	tmY51QpVoWnmaoXHh93M1EvyTbBoaaldBhOU9PtlmlA5rN9uPTSVikarQ0BgH25gpwxsz31fDyL
+	c1FY1BQ85K7MohEZFbwzz56u3+VrT2Y5jxIRX8Rtn7hqIS/5xTWmd6ykFRDMYi+3wbPjiOwr0lM
+	h6/zqubw=
+X-Received: by 2002:ac5:c5ba:0:b0:5c3:b339:7b19 with SMTP id 71dfb90a1353d-5c845f4547dmr1731509e0c.1.1789141735817;
+        Fri, 11 Sep 2026 08:48:55 -0700 (PDT)
+X-Received: by 2002:ac5:c5ba:0:b0:5c3:b339:7b19 with SMTP id 71dfb90a1353d-5c845f4547dmr1731461e0c.1.1789141735422;
+        Fri, 11 Sep 2026 08:48:55 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b594f0fasm1042819a12.25.2026.09.11.08.48.51
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 08:48:35 -0700 (PDT)
-Message-ID: <15c10d97-6b05-4ff7-81a2-02e9846a1d64@6wind.com>
-Date: Fri, 11 Sep 2026 17:48:34 +0200
+        Fri, 11 Sep 2026 08:48:54 -0700 (PDT)
+Message-ID: <dc49be3b-5b8e-420a-be34-09bb27fc65f3@oss.qualcomm.com>
+Date: Fri, 11 Sep 2026 17:48:51 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,34 +89,99 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Reply-To: nicolas.dichtel@6wind.com
-Subject: Re: [PATCH net-next v4 3/4] netlink: specs: rt-addr: document
- AF_PACKET multicast dumps
-To: Yuyang Huang <sigefriedhyy@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, David Ahern <dsahern@kernel.org>,
- Donald Hunter <donald.hunter@gmail.com>, Eric Dumazet <edumazet@google.com>,
- Ido Schimmel <idosch@nvidia.com>, Jacob Keller <jacob.e.keller@intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>,
- Nikolaos Gkarlis <nickgarlis@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
- Sabrina Dubroca <sd@queasysnail.net>, Shuah Khan <shuah@kernel.org>,
- Simon Horman <horms@kernel.org>, Stanislav Fomichev <sdf.kernel@gmail.com>,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- netdev@vger.kernel.org
-References: <20260911105103.7771-1-sigefriedhyy@gmail.com>
- <20260911105103.7771-4-sigefriedhyy@gmail.com>
-From: Nicolas Dichtel <nicolas.dichtel@6wind.com>
+Subject: Re: [PATCH v4 2/7] drm/msm/hdmi: Handle msm_hdmi_power_on() errors
+ during .atomic_pre_enable()
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov
+ <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Archit Taneja <architt@codeaurora.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, stable@vger.kernel.org
+References: <20260911-drm-msm-hdmi-fixes-before-eliza-v4-0-87bdb9f1987f@oss.qualcomm.com>
+ <20260911-drm-msm-hdmi-fixes-before-eliza-v4-2-87bdb9f1987f@oss.qualcomm.com>
 Content-Language: en-US
-Organization: 6WIND
-In-Reply-To: <20260911105103.7771-4-sigefriedhyy@gmail.com>
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260911-drm-msm-hdmi-fixes-before-eliza-v4-2-87bdb9f1987f@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDIyMCBTYWx0ZWRfX25Gmt0j3fu6C
+ s+GEgavUWW4hcJxN1Pui+0j6aOr9XBfAARnAscdpdx9uyBb6onLhidxLLiQDpYrKQ7TLhaKb4ce
+ s0Ht801vWuImU5+YHsOTxl+ef8LtKpH/RsBJBut+ipcI1+BslPaegwgY7sZSdivCMu+R3tYW+HG
+ Y14UV6fg7Ulh100DroSp3Pk8ikjBfk6bzgehNgqXNawhKfAhyVLmv79Cl+El12/UyHzXQa3RDp5
+ cU+EzSSJed54HtbmEgPlKsBXJacj7EGKoRTzA2BKLviBLkECbRr8HYv0lI+I7qON+Jl60Lkpvjp
+ AKbIrYxPdmjZ0k9f3PkBZmgddN4wX8X/XCGKS6NO70KQDnZmohX0Mm7M/C9dgZ2brlBpcWieLgB
+ TQh8nP43lzoKoHhU3M2g7THC3wrOp9T76Me88NcOIIntw6QO2Ae0V8vhqt7lz+/e+rhihqs6Dd0
+ EMbTWrG2rx+kRAWauGQ==
+X-Proofpoint-GUID: mU16cU2lZKd5hvkxe6S683aSfVdSIr8b
+X-Proofpoint-ORIG-GUID: mU16cU2lZKd5hvkxe6S683aSfVdSIr8b
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDIyMCBTYWx0ZWRfX8Tf9hnKZAUSd
+ SO3TtBbhMFSQRFt0TMpZanL2T01z1CsIMJjYryjXO3LbF/6GuIeFDKjbp4p6qG3z1zLF6tPtQp1
+ IvP2IEUUDopFGjW3qWzqsEyJzskP8Os=
+X-Authority-Analysis: v=2.4 cv=ULtIjyfy c=1 sm=1 tr=0 ts=6aa422e8 cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Gvqx0daIpy4NcrUZJzkA:9 a=QEXdDO2ut3YA:10
+ a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-11_05,2026-09-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 phishscore=0 bulkscore=0 clxscore=1015
+ malwarescore=0 suspectscore=0 spamscore=0 lowpriorityscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110220
 
-Le 11/09/2026 à 12:51, Yuyang Huang a écrit :
-> Add the global flag, list the attributes the AF_PACKET dump uses and
-> describe how ifa-family selects IPv4, IPv6 or link-layer output for
-> RTM_GETMULTICAST.
+On 9/11/26 12:29 PM, Krzysztof Kozlowski wrote:
+> Properly handle power up failures during .atomic_pre_enable() by
+> aborting the .atomic_pre_enable() to avoid accessing registers why
+> blocks did not bring up.  Otherwise this could lead to imprecise aborts
+> when accessing MMIO while entire power domain is off.
 > 
-> Signed-off-by: Yuyang Huang <sigefriedhyy@gmail.com>
+> Cc: <stable@vger.kernel.org>
+> Fixes: ba3d7bf3a7ab ("drm/msm/hdmi: Convert PHY files according to new design")
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 30 +++++++++++++++++++++---------
+>  1 file changed, 21 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+> index 157f19bd90b4..db85400e574e 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+> @@ -13,14 +13,16 @@
+>  #include "msm_kms.h"
+>  #include "hdmi.h"
+>  
+> -static void msm_hdmi_power_on(struct drm_bridge *bridge)
+> +static int msm_hdmi_power_on(struct drm_bridge *bridge)
+>  {
+>  	struct drm_device *dev = bridge->dev;
+>  	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
+>  	struct hdmi *hdmi = hdmi_bridge->hdmi;
+>  	int ret;
+>  
+> -	pm_runtime_resume_and_get(&hdmi->pdev->dev);
+> +	ret = pm_runtime_resume_and_get(&hdmi->pdev->dev);
+> +	if (ret)
+> +		return ret;
+>  
+>  	if (hdmi->extp_clk) {
+>  		DBG("pixclock: %lu", hdmi->pixclock);
+> @@ -29,9 +31,14 @@ static void msm_hdmi_power_on(struct drm_bridge *bridge)
+>  			DRM_DEV_ERROR(dev->dev, "failed to set extp clk rate: %d\n", ret);
 
-Reviewed-by: Nicolas Dichtel <nicolas.dichtel@6wind.com>
+^ should fail too
+
+Konrad
