@@ -1,85 +1,105 @@
-Received: from va-2-19.ptr.blmpb.com (va-2-19.ptr.blmpb.com [209.127.231.19])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1922F3CBE69
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:57:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C8F231832
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:59:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789099025; cv=none; b=pOF0TpzRIkITALnJUBLas0GuO+1HoMryuf1M3MT7f3vjNadZ8nU0RMCF6WtiWqtlpcdpWgEcfK93CVGZWTa3fZNsWAR3HFmHTgcnMM9DoUnzfz1Rep/qVhoEG6RpD0XPxZaLE4OH7Tl8Sdh9J4hsSzo5Rky3hJmgR409o0qMI6o=
+	t=1789099186; cv=none; b=Ec7tf1sg58Va+tRMad6SCBdnHe+sKjqtzSDr2ql4Uxp+KFaL5+9IozAY1mpNyfSlV4gkbpbkJUfRvxIK9BL9lUlNN2cMq6mU+Ee6sOvhZNx/pv0EjCKn9pHXegmIBDJpJmwUanVslZ+lXufEC1Zp9S9TwhML6SRKWsu6WUJi8K4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789099025; c=relaxed/simple;
-	bh=P3wN9CDEu2RFhQKqAwjw9EZUqAuIA35RB/NpHVyqdy4=;
-	h=Content-Type:To:Cc:From:Date:Message-Id:Subject:Mime-Version; b=HRWpCeNwJ1u+YyogA6jNYiNgYVvD4cGdVZ6OGIuPo9qp/gO9DLWPsJM/5I2jGY8ynJN5TsmDcEprQS4MMOWM9GpvKsMOVurn1lXB2cxI4qp+ki9f0df2nKvoMMm3Pp2y6jVlLo9PQzMMn7CS5vvmyZiwRqjGDhcukO3M8FeKXKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lanxincomputing.com; spf=pass smtp.mailfrom=lanxincomputing.com; dkim=pass (2048-bit key) header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.b=uu8FS7zO; arc=none smtp.client-ip=209.127.231.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lanxincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lanxincomputing.com
+	s=arc-20240116; t=1789099186; c=relaxed/simple;
+	bh=Tnjz936ULNEiExwe2yVHG0/SP0xwnDfpHmoyp43AF9k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FkQBLg6XJ+vqgFCntkjxPTrO0Bc8Wao9Sodx3IeNyedghumW5xJB137HYye87kFVlxjoz96G/+oXUQBuQX7EhQSME7RqxYFxT9vkVgMKRy4EsXoEJ1mEQgBDSABpddVetJGtNmMaGgX2yCB+Cb/cRGA2HOJElv/VgT8yr80gPcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mm1gX4tN; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.b="uu8FS7zO"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=lanxincomputing-com.20200927.dkim.feishu.cn; t=1789099011;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=gFvKIyooDli1jez1sQOWvZyfJBAMmD4w4FTDZhpGNwE=;
- b=uu8FS7zOJt1KVcRBP63hu9H4sJ6M8NmUc+dBQOSmoOgbI6htGvf6dV7cNb/+eLyldXH9Ye
- wQz9Ym9GR39GQ8aiwSupafoD1HT33ANnRZkG3FNiHArngbagGs8jGtjFs+0JxYMj6lUKWV
- e5iu4NvUFR8RcLAegKjVaaukDhXyXUj//QemFM4+T6N9iBxCKL/3i+QcATYti7G49Tz8bI
- Tbv3vw9PUwUe7sS+upc7WkOqb6dzrR4AA2aRXD8GTHGsIYMKWyg5gheht8XE6Ef/gcc5MX
- gziyvimxVojdBW8kJlK43h8jHZ9FMuQicLmEhnziMZcxyzI/MPAdTXqmLfTbjw==
-X-Mailer: git-send-email 2.53.0
-Content-Type: text/plain; charset=UTF-8
-To: "Shuah Khan" <shuah@kernel.org>, 
-	"Pablo Neira Ayuso" <pablo@netfilter.org>, 
-	"Florian Westphal" <fw@strlen.de>
-Content-Transfer-Encoding: 7bit
-Cc: <netfilter-devel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, "Jin Li" <jinli@lanxincomputing.com>
-From: "Jin Li" <jinli@lanxincomputing.com>
-Date: Fri, 11 Sep 2026 03:56:32 +0000
-Message-Id: <20260911035632.491163-1-jinli@lanxincomputing.com>
-X-Original-From: Jin Li <jinli@lanxincomputing.com>
-Received: from ubuntu ([123.120.5.129]) by smtp.feishu.cn with ESMTPS; Fri, 11 Sep 2026 11:56:48 +0800
-X-Lms-Return-Path: <lba+26aa37c01+8b5a09+vger.kernel.org+jinli@lanxincomputing.com>
-Subject: [PATCH] selftests: netfilter: fix nft_audit.sh auditd detection
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mm1gX4tN"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb751so385371a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:59:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789099184; x=1789703984; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MYkeC3Ia5PgGmEW30KH3F64q/RW3NflSOmAA4kLBPVs=;
+        b=Mm1gX4tN6IAiSKm7bS2NaadTmJOB5HkmIyRv/ibieLIa6RXyE/csTWGM3SfKMinkfx
+         33En3lQ34KstBM7oIKynj4nZy/ZPomgeKF8h0QEIx08QVqBEea8qR1OKLoWcohozWqC0
+         OhHINJeqceiMlFbsQBgR+xpvd+tI5Ev2bw+sd2oqtGd/wfcIx6LI+5uBtq6sYL7w39zk
+         HdRLiBILZLO61G9Q/a5gvKn8PoXD4m8Qo6t1j9w3Hahaghq5wjaYM4r+XaoQWDvO7KE9
+         Z7m6NHj0KLql4+GVhSQRVzHq6/oNm4b+wzB/UVxV8k4XF5KHEv4rOD+xTS4pi/nI3BLb
+         bsFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789099184; x=1789703984;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MYkeC3Ia5PgGmEW30KH3F64q/RW3NflSOmAA4kLBPVs=;
+        b=jEFiuU+Offg0DGp8GymhZNNV5HRh4MyjkVTJ3QZV4/9VRfSF0aMTIkN3OA+dx+KWFj
+         UgsNmRBFG+hmKz75CSE78/wolehELWILe48N9RqQgM4kjUnAqdJweg+pv29tmZg6JDgk
+         l8qlyapSZwNdd0CPysZ36tgKzJdwiNRGO0jyr5DiuxTcyS+iW2R2V6HjWqElMWyrjXDA
+         0HbLjhKtgDdjMWQtCta3zvnSKJ6vl2ql9YOrFh/3VtsXfGD0Qz5x2vjyqXdMDIaDDsZA
+         +zqg9ueSsnOnyka4164wnh1Ug9eLVIJSeIfnN2yQFCFcqvy/ZrzhSz045rHqBR0PZFPN
+         rjJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy5dnRD4jWOX7Qm9pLBz6JIlgQSm3j+sp/C1nNlawd35xIbZnvnX8J1RTN0hmRaSlSLFYCLgBYeYJzdxWc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDDoA28iVjggmb5+u3vCQFMamPe6qx5/fYWH24/rY4ZjGAaTjv
+	nav+0zsDZe9RWHqzWF7ZzMLYEnDdXTxJlUqgRH4bflb5RNbULvYq4muK
+X-Gm-Gg: AYBFou1pA31XyTTeg+Cpg9TaxXlqymEUEfR93cwI7F7s1auptXQArFcLH2Nw0yjwqzQ
+	xxcqYIy8uZhTzywTPjFkFIcro5gVLvvaDyQvezuiLpuBSOm1u1IjWvGGGIRSqr4lT+u9ZWI0ZEQ
+	ueBF6Crn/D9DM4DCFltFCTXTc7EycUkV7FQIwiePPBSSnhDevP9os9KiFs55qyqwJmVyfWIbLYW
+	aaA9pmX2pAdOwTzo13SxYdk+xMGMqhTdXzKPAETxIqz5Lv6uy2dXQoHPexqLDrBd5eW7rKnoJV2
+	yFh0PDCfo+vId2A4AapIfCqHFdmBW0v5JZjqyR9tFpnVe6vEf/knZ4Gh3/v2+VXQrV7fj4QuWC+
+	rJ7qWFqcjJuDeehDtao1q0Uu2kklRXpHn2v4RYo6avRPhsbuc/EF/D6h+RM7ODSyJ/U6L5NTirO
+	0TnYQ7ZhIO/j7Q13QI1kiOXRty6Fmt+G2CkRJf6O7zXVj69utrUDv7gKLT5ClZ0BI5kyQXwWlPL
+	KNVJjvC35NQ6EgCVn+pXGRwzWR1NEBztXbRJ+h2QkrTZSYD3LQam3g+BguteCZhkrzvxNxIZeGq
+	mU/cms47y7D2JrlFCU7R57Zt9muNzjlO4HTRt+dEjrcP/kJo
+X-Received: by 2002:a17:90b:548f:b0:392:b509:b1a5 with SMTP id 98e67ed59e1d1-39d9c1db3d4mr3930172a91.14.1789099184008;
+        Thu, 10 Sep 2026 20:59:44 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9587c157sm2558603a91.16.2026.09.10.20.59.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 20:59:43 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: dmaengine@vger.kernel.org
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Yuri Tikhonov <yur@emcraft.com>,
+	Dan Williams <djbw@kernel.org>,
+	Anatolij Gustschin <agust@denx.de>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] dmaengine: ppc4xx: use assigned variable for dma_free_coherent()
+Date: Thu, 10 Sep 2026 20:59:41 -0700
+Message-ID: <20260911035941.200551-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-The auditd PID file location changed from /var/run/auditd.pid to
-/run/audit/auditd.pid in newer audit-userspace versions, causing the
-skip check in nft_audit.sh to fail silently.
+In some goto paths, adev->dev is unassigned. Use &ofdev->dev to cover
+those cases.
 
-Replace the PID file check with pgrep, which works regardless of
-where the PID file is located.
-
-Signed-off-by: Jin Li <jinli@lanxincomputing.com>
+Fixes: 12458ea06efd7b44281e68fe59c950ec7d59c649 ("ppc440spe-adma: adds updated ppc440spe adma driver")
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- tools/testing/selftests/net/netfilter/nft_audit.sh | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
+ drivers/dma/ppc4xx/adma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/net/netfilter/nft_audit.sh b/tools/testing/selftests/net/netfilter/nft_audit.sh
-index 87f2b4c725aa..85cc4ce7742a 100755
---- a/tools/testing/selftests/net/netfilter/nft_audit.sh
-+++ b/tools/testing/selftests/net/netfilter/nft_audit.sh
-@@ -6,14 +6,9 @@
- SKIP_RC=4
- RC=0
- 
--if [ -r /var/run/auditd.pid ];then
--	read pid < /var/run/auditd.pid
--	p=$(pgrep ^auditd$)
--
--	if [ "$pid" -eq "$p" ]; then
--		echo "SKIP: auditd is running"
--		exit $SKIP_RC
--	fi
-+if pgrep -x auditd > /dev/null; then
-+	echo "SKIP: auditd is running"
-+	exit $SKIP_RC
- fi
- 
- nft --version >/dev/null 2>&1 || {
+diff --git a/drivers/dma/ppc4xx/adma.c b/drivers/dma/ppc4xx/adma.c
+index 279a431ccae3..d0863394c723 100644
+--- a/drivers/dma/ppc4xx/adma.c
++++ b/drivers/dma/ppc4xx/adma.c
+@@ -4212,7 +4212,7 @@ static int ppc440spe_adma_probe(struct platform_device *ofdev)
+ 	else
+ 		iounmap(adev->dma_reg);
+ err_regs_alloc:
+-	dma_free_coherent(adev->dev, adev->pool_size,
++	dma_free_coherent(&ofdev->dev, adev->pool_size,
+ 			  adev->dma_desc_pool_virt,
+ 			  adev->dma_desc_pool);
+ err_dma_alloc:
 -- 
-2.53.0
+2.55.0
+
