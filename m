@@ -1,112 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED214363C43;
-	Fri, 11 Sep 2026 15:02:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 390C036212C;
+	Fri, 11 Sep 2026 15:03:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789138947; cv=none; b=JHfHQsh+Jgslrh1dl90RejAhXQC3TnWSteQ/jNFmkuXMEhyHax9DcLjX3vHa0QpTXpRBWA8vKjWxg556XV1o1my21woKj0GASDBnOMklXO/9qBb+FuGidG/LeWXlGadWJnbxs1KieeTIzEh/sU1HpsiReiXkRCzHA833RaPPE5c=
+	t=1789138988; cv=none; b=obsrCfmJedrBvcreIwNAoa2nhib5N1YaoUvmvz/Fdbu8nhbq1oeP+Y8g+K/OfUAouAxcaLz+XwhLtwfiZS7pzJ5xYCxUcOla3QzAE41GoUkJ2CUQNSYukOGJX4HflbOQ7wrInBqkIJa8JCHPg5hEM3IUPFAf5jFg9KcbvIvPb+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789138947; c=relaxed/simple;
-	bh=mvK0XzUvFQt90JZXu3FumK2Xs8BGJgqQg63kn1EarA0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=opwTL/SgoM5ogtG9BW4zzydS1AXGLPCgkTODh/iI/JdE7uDaD+cK/PN9bSH4Vks2wcNq7tV/+FrX+D4+WvvFr+veRU95MAcKSzYwpKDg1i7rVyfecf0vxrVLpLzancf3s+I2s85R8bE7RxTg7Jut5XgMYFIa3PX116PlhLml8sQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VZh6a5er; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789138988; c=relaxed/simple;
+	bh=T9fvsRnommmEv40Ny88ZihFmD7htCm6BZ1gR8iyNfWc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=Wrr8hYuEd3DRMgAh3Umo0YVKYcPWdyJQEHqnbY+Mi6uAP9QQdg9fGh1duVUVUUosywb25fO6qQF/AT4gYNCp+SMfdeAd322Q69zv5F/5N3rBbctkjVeQvgD9NoLVMj4QBgarzGYh6KPeZHRFv7xi43fZixDTCl8WwcXW/jw7eig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SFT7s6dE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VZh6a5er"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 138301F000FF;
-	Fri, 11 Sep 2026 15:02:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SFT7s6dE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 484D31F000FF;
+	Fri, 11 Sep 2026 15:03:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789138945;
-	bh=1PTWyg4n3qpD4y/aa8UvIgM/ayJsqmzhh3ejIEE3QXI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VZh6a5erCAhSab9ROCtz8BS6g7MI1jzhVXl1TxFBYM68Z+fltaZm1xEx6OLItP15Z
-	 nZmBVnNP1V+0/DmEZx6SzFV84s9DU1Cqc3gJdZgKEuLrXE8ZBhvx4UTF2zsQJmzQrU
-	 1ESbS6pHuZFLaLsWPyN7kq3K9C94jNU3KLadDp0qGGPb0YqI8SxZOaAh8rd/J0rPK5
-	 N7z3J3PXvkWkYOSJwSDPZrWHYbCcf4HyZ5juLbh027S7qlmCWyKCaa/zsagr+fkbEo
-	 rjY7sSzeoe/K7U4vNDmzPmvaXdunSPEXnnKxmE3D1cRrG2OGu0oUCAh5OqIXCJVYCC
-	 jemxJj67wfX/Q==
-Message-ID: <62160d6e-5409-4249-814b-cdc33b7d29df@kernel.org>
-Date: Fri, 11 Sep 2026 17:02:20 +0200
+	s=k20260515; t=1789138986;
+	bh=6Z5sI2tMP2r1wyjFSRn9tBULjseiSpfAaPBZIS6hV14=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=SFT7s6dEZwTwiahH1LMJSuQiwDi5useSKHDG+W/uZCSp7dZKaOE6Y5cOt5oDQ+8T1
+	 HNNqn2Mcm5khwsCvT4FC2hoc24WfFSacigHH9ZL1FdFZdgUH4rbLXZ6VPnHV7hSlww
+	 29zDP278cC82czgU+ygKXFCM+BW4Z/BAeRVi4sM6cqgmSFovc4x+HSGF/ty0wliVLA
+	 qQJnfeTQX4+2Iy4Iy3MXJJmzaJCGIPo/iJZRhG6a441c3Rfoy3TBMkpCwug7xOFz4Z
+	 FFLqczJrZHs1nNrUFuOZlm1945KWuVV91IxSfi+fVGE9u/Sywe78VebBlkOM94kdga
+	 eFFXDfyswsEkw==
+Date: Fri, 11 Sep 2026 17:03:04 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: Yousef Alhouseen <alhouseenyousef@gmail.com>
+cc: Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, 
+    linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+    stable@vger.kernel.org, 
+    syzbot+563191a4939ddbfe73d4@syzkaller.appspotmail.com
+Subject: Re: [PATCH v2] HID: hiddev: keep state alive through disconnect
+ unlock
+In-Reply-To: <20260629152947.13821-1-alhouseenyousef@gmail.com>
+Message-ID: <r5s40r6n-o5o2-p8n0-8n36-0n66r1521121@xreary.bet>
+References: <20260629152947.13821-1-alhouseenyousef@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] kselftest: mm: fix potential failure for merged VMA in
- guard-regions
-To: Yeoreum Yun <yeoreum.yun@arm.com>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
- vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com
-References: <20260911142904.1825452-1-yeoreum.yun@arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260911142904.1825452-1-yeoreum.yun@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 9/11/26 16:29, Yeoreum Yun wrote:
-> check_vmflag_guard() uses /proc/self/smaps to retrieve the VMA flags,
-> but this can fail if the mapping is merged with an adjacent VMA.
+On Mon, 29 Jun 2026, Yousef Alhouseen wrote:
+
+> mutex_unlock() clears the mutex owner before taking its wait lock. A
+> thread spinning in the final hiddev file release can acquire
+> existancelock after hiddev_disconnect() clears the owner, then free
+> hiddev before the disconnecting thread reaches the mutex wait lock. This
+> causes a use-after-free in the mutex slow unlock path.
 > 
-> To avoid this potential failure, first allocate a temporary region with
-> extra pages at both ends, unmap it, and then map the test region within
-> the temporary address range, leaving an unmapped page on each side to
-> prevent VMA merging.
+> Give the connection and each open file an explicit reference. Drop each
+> reference only after its existancelock critical section has completed,
+> so neither unlock path can free the mutex while the other is still using
+> it.
 > 
-> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> Fixes: 079034073faf ("HID: hiddev cleanup -- handle all error conditions properly")
+> Reported-by: syzbot+563191a4939ddbfe73d4@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=563191a4939ddbfe73d4
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
 > ---
+> Changes in v2:
+> - Explain the mutex owner-clear/spinning-contender race in the commit log.
+> - No code changes.
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Sorry for the long delay on this.
+
+Thanks for fixing it, now applied.
 
 -- 
-Cheers,
+Jiri Kosina
+SUSE Labs
 
-David
