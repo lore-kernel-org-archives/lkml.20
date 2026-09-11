@@ -1,92 +1,93 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B44B31714B;
-	Fri, 11 Sep 2026 16:47:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C89409114;
+	Fri, 11 Sep 2026 16:47:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789145223; cv=none; b=q57F7W/RyIXyk7u7WfRs+ZMFPFqZhwS1zdYk9AB46f/RR4yzM3aWKTrQoAMhZD1SmJhisI6+QjisDDxyXjGQAjR2FYfShjtSLsF+qeErnFhAu2scqlGELvdAB+QIchiwZc7DiAviOhsh/CZ90/EqsRqlLcVCxLQtIYA3CiTpNOw=
+	t=1789145241; cv=none; b=FzONl/UyRYaUV72MsH1qVnpd5enjHRSCJgDyzrB1AL9tvB292RSGnBPLoJ6fGKzeczWC08wMZNA3mKhZ5pUoVFpD2BpmxN9QyvJCLCgbnndFPNYtu9uqqSBcBda3RIt1i8rXj95iR2qbCDpBQHojydETySBRNCfUF7H++6Fbkmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789145223; c=relaxed/simple;
-	bh=iH20cSjE1fWTpvYdC8EyISA7flwjJKpSj+QQr7/M1bE=;
+	s=arc-20240116; t=1789145241; c=relaxed/simple;
+	bh=voWdrvM/LYp5hHaXOElkpjdoJ5lFxMk2nrH2By134rQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E4vl449ArF7yT+3T3rdRp0CG1bUALsYtVQBhPn5JNdiXJ020rS6WpjZh2H3DqZ/jHZDe4mFtkFObwQHq1D3hNOHNN+Cna+lXsMpRM/YiKVHhHu/T5P2/GODfrAxQRlGvyp5jB9WV43q4BUlaVgzKunY3r27VDmD2MHuqMJ94szA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=G21JjmaR; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=FK3tQOIPsvX/yMTLCGbNr4VeN9xFlPQbfhtxbGOcoMOwlgH9CoBrDsTRnvcmUKUMV0QBLkSM3eXIqruQS6F03JTqxYxpavZoSmUGLljH2NuXQHMXPlYPbSJpET8TOvFO8/m3ZS1YxwBAlRrorEEDB1xETPa+LPvIW6W6jRitqLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZKYEB+L6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="G21JjmaR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789145222; x=1820681222;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=iH20cSjE1fWTpvYdC8EyISA7flwjJKpSj+QQr7/M1bE=;
-  b=G21JjmaRzVU2uThpfo1XB8sJZK2VpyW+a3EyuDACBDIKCYCia9GftQLX
-   TEZJQyDzYOGJQrhwa3AdpDS5Q83qjV2c0MDkWO4VARrfw/SnAYcGj5Jxo
-   5tEkF0CTn3JHxfcXin6hFCwsB7LZxXeacSxRLPEBRP7dzqbTKF5h8G7hS
-   kMDCXfWSQf3JvON3+lw9RZbWrn054KWvt34UhggPzQBVraLN8P7SMtnj3
-   VsM+5aGdhHq5KEUFvvj/8xMyptXLkxapLq9le8Z2yeUTHN1EbJvcaTekn
-   VOyYm9xLiw/WI9WB9YcZ3cRwtVGsjHNYjUxaUW0pYD6f245AVx5RHsJ3m
-   w==;
-X-CSE-ConnectionGUID: hb84ba8wQk6UbADLlUFEAg==
-X-CSE-MsgGUID: 9FlDjO1ySQGkFxDfuR7iMQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="100772499"
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="100772499"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:47:01 -0700
-X-CSE-ConnectionGUID: vWfIzKSqTKSl6oQA/Gdz4Q==
-X-CSE-MsgGUID: bhCNUBfoThOhVTvLRGNwog==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="275722256"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.80])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:46:59 -0700
-Date: Fri, 11 Sep 2026 19:46:55 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Linux ACPI <linux-acpi@vger.kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Linux PM <linux-pm@vger.kernel.org>,
-	Lukasz Luba <lukasz.luba@arm.com>, Armin Wolf <w_armin@gmx.de>
-Subject: Re: [PATCH v1 04/10] ACPI: processor: thermal: Use
- thermal_cooling_device_create()
-Message-ID: <aqQwf3y66lPhTTyf@ashevche-desk.local>
-References: <1965933.tdWV9SEqCh@rafael.j.wysocki>
- <2362345.iZASKD2KPV@rafael.j.wysocki>
- <aqQtIMm-gdJoZAsq@ashevche-desk.local>
- <CAJZ5v0j5B4LFbrhSuw0j=fLcY+cFFTEMvyt_ED-+9j1dvQEqLw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZKYEB+L6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C91451F000FF;
+	Fri, 11 Sep 2026 16:47:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789145239;
+	bh=av0409fTTGSs5Ag4uYjjV1dx8L7s5AjNobnmggEroqE=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=ZKYEB+L6vK8prUY2zQoT8sqcvlfQWfROMhD9d3Ll7RwcFrrwUCwBiPaRBfiO/e3iL
+	 eINLgiNA0kLNdarzZNe7NEgFJ7BwZMt5VWNimBkr7KdGI1Kd6Cf/fRD+EHJVHMb9p2
+	 UQIKrfG9iu346jm1vJO59CvwEWeNiHkmOZ/TXgdw01211lzDSQQwl3S767sOpC2P53
+	 MIiO7+HNLgJI9jYUGsPeQK6HBUJJwoLP4FATzq6tp1PhnN5Th8qUTyjXJGrIFfuqc5
+	 hai2BIv8rjI5dz/jOQyvrzKcBvi9Ls727hc6VguuUIIb4QluMnMHh6y9rrWvhuHdTq
+	 tyP0OO/jztQPA==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 8FD68CE1902; Fri, 11 Sep 2026 09:47:19 -0700 (PDT)
+Date: Fri, 11 Sep 2026 09:47:19 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Kunwu Chan <kunwu.chan@gmail.com>
+Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Zqiang <qiang.zhang@linux.dev>
+Subject: Re: [PATCH] srcutree: Add lockdep and early-boot checks to
+ synchronize_srcu_atomic()
+Message-ID: <0cf7b133-d2fd-4298-adba-70a2b86d1892@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260911093515.2802551-1-kunwu.chan@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJZ5v0j5B4LFbrhSuw0j=fLcY+cFFTEMvyt_ED-+9j1dvQEqLw@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260911093515.2802551-1-kunwu.chan@gmail.com>
 
-On Fri, Sep 11, 2026 at 06:36:28PM +0200, Rafael J. Wysocki (Intel) wrote:
-> On Fri, Sep 11, 2026 at 6:32 PM Andy Shevchenko
-> <andriy.shevchenko@linux.intel.com> wrote:
-> > On Fri, Sep 11, 2026 at 03:02:53PM +0200, Rafael J. Wysocki wrote:
-
-...
-
-> > Is any user space ABI breakage expected as an outcome of this change?
+On Fri, Sep 11, 2026 at 05:35:15PM +0800, Kunwu Chan wrote:
+> Add the lockdep annotation, same-type SRCU nesting warning, and
+> early-boot check used by __synchronize_srcu().
 > 
-> Not really.
+> Suggested-by: Zqiang <qiang.zhang@linux.dev>
+> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 
-Maybe makes sense to state this clearly in the cover letter?
+Queued for review and testing, thank you both!
 
--- 
-With Best Regards,
-Andy Shevchenko
+Interestingly enough, it is now the case that there is a grace-period
+wait that can be placed in a normal RCU read-side critical section.
+Does this mean that we should also adjust the --do-srcu-lockdep testing
+in tools/testing/selftests/rcutorture/bin/torture.sh?
 
+							Thanx, Paul
 
+> ---
+>  kernel/rcu/srcutree.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
+> index 6a9c432a3bd0..6c729e805fb3 100644
+> --- a/kernel/rcu/srcutree.c
+> +++ b/kernel/rcu/srcutree.c
+> @@ -2123,6 +2123,14 @@ void synchronize_srcu_atomic(struct srcu_struct *ssp)
+>  	unsigned long rdm0, rdm1;
+>  	unsigned long unlocks0, unlocks1;
+>  
+> +	srcu_lock_sync(&ssp->dep_map);
+> +
+> +	RCU_LOCKDEP_WARN(lockdep_is_held(ssp),
+> +			 "Illegal synchronize_srcu_atomic() in same-type SRCU read-side critical section");
+> +
+> +	if (rcu_scheduler_active == RCU_SCHEDULER_INACTIVE)
+> +		return;
+> +
+>  	// Initialize.	Either init_srcu_struct() was invoked or
+>  	// DEFINE_SRCU() or similar was used.  Therefore, no allocation
+>  	// will be done here.
+> -- 
+> 2.43.0
+> 
