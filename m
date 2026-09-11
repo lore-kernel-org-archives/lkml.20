@@ -1,59 +1,49 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8293B46D570
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:43:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 158D046EC96
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:43:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789116184; cv=none; b=Xx4+LaSJwM/OMguUoSBkWrp1cKB1ASSJIiRvijTC3CyQkr/u3CuLfb/jLYgcJ49Oka6ObjE7RbPS3pzU6F1YxKSsa8Ecs4YfEcUO2Av8z7g0nkhC8DUuSsXWWh5XoARSGpqy3W23AfhM/qw9SUpTibYbXgx+s1Ym1NxcHN2lG1A=
+	t=1789116189; cv=none; b=drTl+l8TKEYaGjFM8f6ZhQ6Zwc10nfdgRwtmNlEqyANKubj5GFp8jRzUcf2AsC3MkRSB8/L7fzAEVlqmsRHzQl/9jAfKKtRMOTeYi5zZMUYIsXnbo/u655SLLTNKpkyNfbkjJGEg6FXfnh/Fo1t/yVUUmVttIRfy2llEGQxaJGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789116184; c=relaxed/simple;
-	bh=NUatUGDFRr2+0R3HlrCtcLPFSaDw/rXXCW3PUt4m5D4=;
+	s=arc-20240116; t=1789116189; c=relaxed/simple;
+	bh=HCONgzhemd2Szyz15WSt/f+fVF6I/v9uEhenMnKK7uQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jOdHNyb3rfiWnmk2lP24bfXyGg5/pFPmWZ2unAeGoLXpYGzeVd8q2YdGhW/QmLusmbvElZGhO2C3EKmbySQT6vVy9qKHmOjVqG4IjygfuZ+QLAFg5z08Mcwv67c6XjabVxI/Br2yRYDF38Zlw2NPQNIo6HSx5YZVU1xURVWKrq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; arc=none smtp.client-ip=195.135.223.131
+	 MIME-Version; b=PWAxYHvjrrq2TvcK0Q++5CQUYfuLQolKaISJ89Y655tqiqLpSqCCvvARYEWbtg/icz9Rt+JkuWTDNlmWUunN5NLgyo1lRaLyQkDQHqouA0VgMBMcZ9SbKt4PL9sAic7H8V+xVwbUDYhpaq/YdCfElwZ84p8SgUTKiz0ZUHbr2hs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; arc=none smtp.client-ip=195.135.223.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A18731F79D;
-	Fri, 11 Sep 2026 08:43:00 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 5333921B8B;
+	Fri, 11 Sep 2026 08:43:06 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0BCAC132D3;
-	Fri, 11 Sep 2026 08:43:00 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EC3BF132D3;
+	Fri, 11 Sep 2026 08:43:05 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ziZnARS/o2oAFgAAD6G6ig
-	(envelope-from <jgross@suse.com>); Fri, 11 Sep 2026 08:43:00 +0000
+	id LIM/OBm/o2oJFgAAD6G6ig
+	(envelope-from <jgross@suse.com>); Fri, 11 Sep 2026 08:43:05 +0000
 From: Juergen Gross <jgross@suse.com>
 To: linux-kernel@vger.kernel.org,
-	x86@kernel.org,
-	virtualization@lists.linux.dev,
-	llvm@lists.linux.dev
+	x86@kernel.org
 Cc: Juergen Gross <jgross@suse.com>,
-	Xin Li <xin@zytor.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
 	Thomas Gleixner <tglx@kernel.org>,
 	Ingo Molnar <mingo@redhat.com>,
 	Borislav Petkov <bp@alien8.de>,
 	Dave Hansen <dave.hansen@linux.intel.com>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>
-Subject: [PATCH v5 08/17] x86/msr: Make wrmsrns() a first class citizen
-Date: Fri, 11 Sep 2026 10:42:02 +0200
-Message-ID: <20260911084211.3149957-9-jgross@suse.com>
+	"H. Peter Anvin" <hpa@zytor.com>
+Subject: [PATCH v5 09/17] x86/msr: Introduce sync_cpu_after_wrmsrns()
+Date: Fri, 11 Sep 2026 10:42:03 +0200
+Message-ID: <20260911084211.3149957-10-jgross@suse.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260911084211.3149957-1-jgross@suse.com>
 References: <20260911084211.3149957-1-jgross@suse.com>
@@ -67,304 +57,58 @@ Content-Transfer-Encoding: 8bit
 X-Rspamd-Pre-Result: action=no action;
 	module=replies;
 	Message is reply to one we originated
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: A18731F79D
+X-Rspamd-Queue-Id: 5333921B8B
 X-Rspamd-Pre-Result: action=no action;
 	module=replies;
 	Message is reply to one we originated
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
 X-Rspamd-Action: no action
 X-Spam-Flag: NO
 X-Spam-Score: -4.00
+X-Spam-Level: 
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
 
-Today wrmsrns() is - apart from the potential use of the wrmsrns
-instruction - equivalent to __wrmsrq(). Change that by supporting
-MSR write trace entries and a safe variant.
+In order to allow using wrmsrns() for multiple MSR register writes
+introduce sync_cpu_after_wrmsrns() which will then do a CPU serialize
+operation, if the hardware does support the WRMSRNS instruction. In
+case the hardware doesn't support WRMSRNS, sync_cpu_after_wrmsrns()
+will be a NOP.
 
-wrmsrns() and wrmsrns_safe() will be the "normal" interfaces like
-wrmsrq() and wrmsrq_safe(). They will call write_msrns[_safe]() and
-conditionally create trace entries via do_trace_write_msr().
-
-write_msrns[_safe]() are different between paravirt and non-paravirt
-cases. For the paravirt case they will (for now) only use the wrmsr
-paravirt functions, while for non-paravirt they call native_wrmsrns()
-and native_wrmsrns_safe().
-
-native_wrmsrns() is like wrmsrns() today, native_wrmsrns_safe() is just
-the safe variant of it. The both rely on __wrmsrns(), which will use
-the ALTERNATIVE*() macros for selecting WRMSR or WRMSRNS (with or
-without an immediate operand specifying the MSR register) depending on
-availability.
-
-Switch the wrmsrns() call in fred_update_rsp0() to native_wrmsrns() in
-order to avoid a change of functionality. The wrmsrns() call in
-vmx_write_guest_host_msr() can be kept, as it has replaced a wrmsrq()
-call, so eventually creating a trace entry is obviously fine here.
-
-Originally-by: Xin Li (Intel) <xin@zytor.com>
+Suggested-by: H. Peter Anvin <hpa@zytor.com>
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
-V2:
-- new patch, partially taken from "[RFC PATCH v2 21/34] x86/msr: Utilize
-  the alternatives mechanism to write MSR" by Xin Li.
 V4:
-- don't modify __wrmsrq(), but create __wrmsrns().
+- new patch
 ---
- arch/x86/include/asm/fred.h     |   2 +-
- arch/x86/include/asm/msr.h      | 150 +++++++++++++++++++++++++++++---
- arch/x86/include/asm/paravirt.h |  10 +++
- 3 files changed, 148 insertions(+), 14 deletions(-)
+ arch/x86/include/asm/msr.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/arch/x86/include/asm/fred.h b/arch/x86/include/asm/fred.h
-index 18a2f811c358..0a6773b76968 100644
---- a/arch/x86/include/asm/fred.h
-+++ b/arch/x86/include/asm/fred.h
-@@ -101,7 +101,7 @@ static __always_inline void fred_update_rsp0(void)
- 	unsigned long rsp0 = (unsigned long) task_stack_page(current) + THREAD_SIZE;
- 
- 	if (cpu_feature_enabled(X86_FEATURE_FRED) && (__this_cpu_read(fred_rsp0) != rsp0)) {
--		wrmsrns(MSR_IA32_FRED_RSP0, rsp0);
-+		native_wrmsrns(MSR_IA32_FRED_RSP0, rsp0);
- 		__this_cpu_write(fred_rsp0, rsp0);
- 	}
- }
 diff --git a/arch/x86/include/asm/msr.h b/arch/x86/include/asm/msr.h
-index 266298b3d201..91d6f481732b 100644
+index 91d6f481732b..6ae8a49f9c07 100644
 --- a/arch/x86/include/asm/msr.h
 +++ b/arch/x86/include/asm/msr.h
-@@ -7,11 +7,11 @@
- #ifndef __ASSEMBLER__
- 
- #include <asm/asm.h>
--#include <asm/errno.h>
- #include <asm/cpumask.h>
- #include <uapi/asm/msr.h>
- #include <asm/shared/msr.h>
- 
-+#include <linux/errno.h>
+@@ -14,6 +14,7 @@
+ #include <linux/errno.h>
  #include <linux/types.h>
  #include <linux/percpu.h>
++#include <asm/special_insns.h>
  
-@@ -56,6 +56,36 @@ static inline void do_trace_read_msr(u32 msr, u64 val, int failed) {}
- static inline void do_trace_rdpmc(u32 msr, u64 val, int failed) {}
- #endif
- 
-+/* The GNU Assembler (Gas) with Binutils 2.40 adds WRMSRNS support */
-+#if defined(CONFIG_AS_IS_GNU) && CONFIG_AS_VERSION >= 24000
-+#define ASM_WRMSRNS		"wrmsrns\n\t"
-+#else
-+#define ASM_WRMSRNS		_ASM_BYTES(0x0f,0x01,0xc6)
-+#endif
-+
-+/* The GNU Assembler (Gas) with Binutils 2.41 adds the .insn directive support */
-+#if defined(CONFIG_AS_IS_GNU) && CONFIG_AS_VERSION >= 24100
-+#define ASM_WRMSRNS_IMM				\
-+	" .insn VEX.128.F3.M7.W0 0xf6 /0, %[val], %[msr]%{:u32}\n\t"
-+#else
-+/*
-+ * Note, clang also doesn't support the .insn directive.
-+ *
-+ * The register operand is encoded as %rax because all uses of the immediate
-+ * form MSR access instructions reference %rax as the register operand.
-+ */
-+#define ASM_WRMSRNS_IMM				\
-+	" .byte 0xc4,0xe7,0x7a,0xf6,0xc0; .long %c[msr]"
-+#endif
-+
-+#define PREPARE_RDX_FOR_WRMSR			\
-+	"mov %%rax, %%rdx\n\t"			\
-+	"shr $0x20, %%rdx\n\t"
-+
-+#define PREPARE_RCX_RDX_FOR_WRMSR		\
-+	"mov %[msr], %%ecx\n\t"			\
-+	PREPARE_RDX_FOR_WRMSR
-+
- /*
-  * __rdmsr() and __wrmsr() are the two primitives which are the bare minimum MSR
-  * accessors and should not have any tracing or other functionality piggybacking
-@@ -83,6 +113,78 @@ static __always_inline void __wrmsrq(u32 msr, u64 val)
- 		     : : "c" (msr), "a" ((u32)val), "d" ((u32)(val >> 32)) : "memory");
- }
- 
-+static __always_inline bool __wrmsrns_variable(u32 msr, u64 val, int type)
-+{
-+#ifdef CONFIG_X86_64
-+	BUILD_BUG_ON(__builtin_constant_p(msr));
-+#endif
-+
-+	/*
-+	 * WRMSR is 2 bytes.  WRMSRNS is 3 bytes.  Pad WRMSR with a redundant
-+	 * DS prefix to avoid a trailing NOP.
-+	 */
-+	asm_inline volatile goto(
-+		"1:\n"
-+		ALTERNATIVE("ds wrmsr",
-+			    ASM_WRMSRNS,
-+			    X86_FEATURE_WRMSRNS)
-+		_ASM_EXTABLE_TYPE(1b, %l[badmsr], %c[type])
-+
-+		:
-+		: "c" (msr), "a" ((u32)val), "d" ((u32)(val >> 32)), [type] "i" (type)
-+		: "memory"
-+		: badmsr);
-+
-+	return false;
-+
-+badmsr:
-+	return true;
-+}
-+
-+#ifdef CONFIG_X86_64
-+/*
-+ * Non-serializing WRMSR or its immediate form, when available.
-+ *
-+ * Otherwise, it falls back to a serializing WRMSR.
-+ */
-+static __always_inline bool __wrmsrns_constant(u32 msr, u64 val, int type)
-+{
-+	BUILD_BUG_ON(!__builtin_constant_p(msr));
-+
-+	asm_inline volatile goto(
-+		"1:\n"
-+		ALTERNATIVE_2(PREPARE_RCX_RDX_FOR_WRMSR
-+			      "2: ds wrmsr",
-+			      PREPARE_RCX_RDX_FOR_WRMSR
-+			      ASM_WRMSRNS,
-+			      X86_FEATURE_WRMSRNS,
-+			      ASM_WRMSRNS_IMM,
-+			      X86_FEATURE_MSR_IMM)
-+		_ASM_EXTABLE_TYPE(1b, %l[badmsr], %c[type])	/* For WRMSRNS immediate */
-+		_ASM_EXTABLE_TYPE(2b, %l[badmsr], %c[type])	/* For WRMSR(NS) */
-+
-+		:
-+		: [val] "a" (val), [msr] "i" (msr), [type] "i" (type)
-+		: "memory", "ecx", "rdx"
-+		: badmsr);
-+
-+	return false;
-+
-+badmsr:
-+	return true;
-+}
-+#endif
-+
-+static __always_inline bool __wrmsrns(u32 msr, u64 val, int type)
-+{
-+#ifdef CONFIG_X86_64
-+	if (__builtin_constant_p(msr))
-+		return __wrmsrns_constant(msr, val, type);
-+#endif
-+
-+	return __wrmsrns_variable(msr, val, type);
-+}
-+
- static __always_inline u64 native_rdmsrq(u32 msr)
- {
- 	return __rdmsr(msr);
-@@ -134,6 +236,16 @@ static inline int notrace native_write_msr_safe(u32 msr, u64 val)
+ struct msr_info {
+ 	u32			msr_no;
+@@ -362,6 +363,12 @@ static __always_inline int wrmsrns_safe(u32 msr, u64 val)
  	return err;
  }
  
-+static __always_inline void native_wrmsrns(u32 msr, u64 val)
++static __always_inline void sync_cpu_after_wrmsrns(void)
 +{
-+	 __wrmsrns(msr, val, EX_TYPE_WRMSR);
++	if (cpu_feature_enabled(X86_FEATURE_WRMSRNS))
++		serialize();
 +}
 +
-+static __always_inline int native_wrmsrns_safe(u32 msr, u64 val)
-+{
-+	return __wrmsrns(msr, val, EX_TYPE_WRMSR_SAFE) ? -EIO : 0;
-+}
-+
- extern int rdmsr_safe_regs(u32 regs[8]);
- extern int wrmsr_safe_regs(u32 regs[8]);
- 
-@@ -150,7 +262,6 @@ static inline u64 native_read_pmc(int counter)
- #ifdef CONFIG_PARAVIRT_XXL
- #include <asm/paravirt.h>
- #else
--#include <linux/errno.h>
- static __always_inline u64 read_msr(u32 msr)
- {
- 	return native_read_msr(msr);
-@@ -171,6 +282,16 @@ static __always_inline int write_msr_safe(u32 msr, u64 val)
- 	return native_write_msr_safe(msr, val);
- }
- 
-+static __always_inline void write_msrns(u32 msr, u64 val)
-+{
-+	native_wrmsrns(msr, val);
-+}
-+
-+static __always_inline int write_msrns_safe(u32 msr, u64 val)
-+{
-+	return native_wrmsrns_safe(msr, val);
-+}
-+
- static __always_inline u64 rdpmc(int counter)
- {
- 	return native_read_pmc(counter);
-@@ -223,19 +344,22 @@ static inline int wrmsrq_safe(u32 msr, u64 val)
- 	return err;
- }
- 
--/* Instruction opcode for WRMSRNS supported in binutils >= 2.40 */
--#define ASM_WRMSRNS _ASM_BYTES(0x0f,0x01,0xc6)
--
--/* Non-serializing WRMSR, when available.  Falls back to a serializing WRMSR. */
- static __always_inline void wrmsrns(u32 msr, u64 val)
- {
--	/*
--	 * WRMSR is 2 bytes.  WRMSRNS is 3 bytes.  Pad WRMSR with a redundant
--	 * DS prefix to avoid a trailing NOP.
--	 */
--	asm volatile("1: " ALTERNATIVE("ds wrmsr", ASM_WRMSRNS, X86_FEATURE_WRMSRNS)
--		     "2: " _ASM_EXTABLE_TYPE(1b, 2b, EX_TYPE_WRMSR)
--		     : : "c" (msr), "a" ((u32)val), "d" ((u32)(val >> 32)));
-+	write_msrns(msr, val);
-+
-+	if (tracepoint_enabled(write_msr))
-+		do_trace_write_msr(msr, val, 0);
-+}
-+
-+static __always_inline int wrmsrns_safe(u32 msr, u64 val)
-+{
-+	int err = write_msrns_safe(msr, val);
-+
-+	if (tracepoint_enabled(write_msr))
-+		do_trace_write_msr(msr, val, err);
-+
-+	return err;
- }
- 
  struct msr __percpu *msrs_alloc(void);
-diff --git a/arch/x86/include/asm/paravirt.h b/arch/x86/include/asm/paravirt.h
-index a5a1fc4c88d1..b0c740316cf7 100644
---- a/arch/x86/include/asm/paravirt.h
-+++ b/arch/x86/include/asm/paravirt.h
-@@ -160,11 +160,21 @@ static inline void write_msr(u32 msr, u64 val)
- 	paravirt_write_msr(msr, val);
- }
- 
-+static __always_inline void write_msrns(u32 msr, u64 val)
-+{
-+	paravirt_write_msr(msr, val);
-+}
-+
- static inline int write_msr_safe(u32 msr, u64 val)
- {
- 	return paravirt_write_msr_safe(msr, val);
- }
- 
-+static __always_inline int write_msrns_safe(u32 msr, u64 val)
-+{
-+	return paravirt_write_msr_safe(msr, val);
-+}
-+
- static __always_inline int read_msr_safe(u32 msr, u64 *p)
- {
- 	return paravirt_read_msr_safe(msr, p);
+ void msrs_free(struct msr __percpu *msrs);
+ int msr_set_bit(u32 msr, u8 bit);
 -- 
 2.55.0
 
