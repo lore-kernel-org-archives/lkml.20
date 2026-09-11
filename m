@@ -1,120 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-129.mta0.migadu.com [91.218.175.129])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9631443CEF3;
-	Fri, 11 Sep 2026 10:30:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 166C546D2BA
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:30:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789122628; cv=none; b=o7D6dh/L6yz7SYbgbvQnUcLsmt/FBE+h9Io+FAZPUXc7mOmIZcHET4WoLx8qdbBRfOwJxameO2VrudbtjzHLAbaHTDZNhaY5pY7BM+fqGgxt2l2Ao/ndTLcb0vEMFvj61475WFiAK/WaicCWWGQz6EI/ln3mRzhiqvSrBGrG0GE=
+	t=1789122632; cv=none; b=YOYQ45HQ4Ok0jWf2EQOC6KxKYdp4RS7X7Uaz39VYKtYQ7gR7aUumZPbSMb7fGzqEuPGtvI1VJmG/PtwUDxXZFENamBEBuvzB6rG56nu65vDr84wpVsC2ZUKghvt+WL9ZOM58aT3LDCwMR2lb4OGkAWfC77qB/cR7gZkjhtE9fIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789122628; c=relaxed/simple;
-	bh=fJLjHJ4Zesn9ZGCkyFCEtE1u8yd+UsBqa01I0/KBdbc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PadOpuUSiNZVvQ4OF7IT1EKZ5hyLbInk0q++rKCEe8ZnqbB7x/KCoMsPcGUluwdwk9BtPAlv0l1XnpSczKa4GaQ8KpZMf9V+m2vvRj7uhJC/DzNsfcPEcPK+S4BfSYt6ACE1M0hJgPqKQW21Dg3gguG5YJw0nGl5a4xR7B84Koc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JZS/pO7H; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789122632; c=relaxed/simple;
+	bh=g5xNOknu84CKDZN5IQmWT85FT3qL1QmesKNb79arhdM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=qQ5mDLiHYu1MHCvs9XrFVo4ig1qdbjD2kqpeFZCLBQ0aA+Lse0Co3PPh0RqwUv6+nWldHj9PntxTBo+jpfrCl5AXT9s3dpUqChsnwQqP6HwP0MfBMfXcI1rFXKhlx0JAat4UDSDhTjCQwErGnfEof9PhsEq/W0BEnIbkgR8ZsBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Aef1eTjV; arc=none smtp.client-ip=91.218.175.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JZS/pO7H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D4EE1F00893;
-	Fri, 11 Sep 2026 10:30:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789122626;
-	bh=HvFCGCANaLFVV/N2IK8KH4LaOjgAeqgCzbjmvYneKXY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JZS/pO7H1pqAZlMiQfD69ngRhDMlBggb2cf7WXqq35hVdt6EJaURUBtmC4djm7YlO
-	 xyjg+nnrOjmg2UqBoa2RhbyP0vDv4NP7gutpfcXXNf8+8Jb7DARVGX5NbEmBeqrkhL
-	 J6WFa/UqRcOepTtPh7h7pANQKHrW3T9qJbQmAr+uJbt8OZbzEiWD4+lu0YVWY2Y7Vc
-	 ybOd5FOj4FYTQ20nMKw8qnkWY/MsN/C3euDfdcLLm0itz4z6/liMd1loce9nvjp4nb
-	 on/xsdRR27N/vMX5OG+ddPelyz4EOT6o95KJVuDyPXA1MiXZ9sjuF6rqvoqse3QloP
-	 7P4oppuiKyBBw==
-Date: Fri, 11 Sep 2026 11:30:12 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Nicolas Schier <n.schier@fritz.com>
-Cc: Nathan Chancellor <nathan@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	llvm@lists.linux.dev, linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
-Subject: Re: [PATCH 12/23] kbuild: avoid re-running compiler and linker probes
-Message-ID: <aqPXj1nDQ06KRhf4@gremlin>
-References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
- <20260908-build-speedup-v1-12-5dc1ac01672d@kernel.org>
- <178901395292.3971858.13236774094648272066.b4-review@b4>
- <20260910-translucent-sweet-sidewinder-7acacb@l-nschier-aarch64>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Aef1eTjV"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=g5xNOknu84CKDZN5IQmWT85FT3qL1QmesKNb79arhdM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789122627; v=1; x=1789727427;
+ b=Aef1eTjVrm46A0vgLyFjNEkDfapE3r9tTcoesUBPRE4ALnx1byFWfxRUlT0Z7idyD0MRGNlu
+ VBW/7RXTMySamhx9fqttL+wN2l8lZdOMxMIn7j+shOWWoAIZVgu1Pmp1eAzfHuznCyr/sVpuBi4
+ wrr0I1CRlX663oDU+kaSWWbI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f4fa41675c0fe4c3;
+	Fri, 11 Sep 2026 10:30:04 +0000
+X-Mizu-Trace-ID: f4fa41675c0fe4c3
+X-Migadu-Flow: FLOW_OUT
+From: Ridong Chen <ridong.chen@linux.dev>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Kairui Song <kasong@tencent.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-mm@kvack.org (open list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)),
+	Ridong Chen <ridong.chen@linux.dev>,
+	Ridong Chen <chenridong@xiaomi.com>
+Subject: [PATCH v2 1/3] mm/mglru: factor out lru_gen_seq_nr_pages()
+Date: Fri, 11 Sep 2026 18:29:37 +0800
+Message-Id: <20260911102939.2485750-2-ridong.chen@linux.dev>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260911102939.2485750-1-ridong.chen@linux.dev>
+References: <20260911102939.2485750-1-ridong.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910-translucent-sweet-sidewinder-7acacb@l-nschier-aarch64>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 10, 2026 at 05:42:35PM +0200, Nicolas Schier wrote:
-> On Wed, Sep 09, 2026 at 09:19:12PM -0700, Nathan Chancellor wrote:
-> > > diff --git a/init/Kconfig b/init/Kconfig
-> > > index 8583d9f06c52..3c92c87254a3 100644
-> > > --- a/init/Kconfig
-> > > +++ b/init/Kconfig
-> > > @@ -144,6 +144,44 @@ config CC_HAS_ASSUME
-> > >  config CC_HAS_NO_PROFILE_FN_ATTR
-> > >  	def_bool $(success,echo '__attribute__((no_profile_instrument_function)) int x();' | $(CC) -x c - -c -o /dev/null -Werror)
-> > >
-> > > +config CC_HAS_ZERO_INIT_PADDING_BITS
-> > > +	def_bool $(cc-option,-fzero-init-padding-bits=all)
-> > > +
-> > > +config CC_HAS_NO_STACK_CLASH_PROTECTION
-> > > +	def_bool $(cc-option,-fno-stack-clash-protection)
-> > > +
-> > > +config CC_HAS_NO_ADDRSIG
-> > > +	def_bool $(cc-option,-fno-addrsig)
-> >
-> > I am generally in favor of this proposal since I think these checks
-> > should be cached by Kconfig where possible to clear up running them
-> > twice. That said, I wonder if we should pick a better dumping ground for
-> > these checks other than init/Kconfig. Maybe init/Kconfig.tools or
-> > scripts/Kconfig.tools or something?
->
+From: Ridong Chen <chenridong@xiaomi.com>
 
-(Sorry hadn't seen you'd replied also!)
+Both lruvec_evictable_size() and the debugfs lru_gen_seq_show() compute
+the number of pages in a generation the same way: sum lrugen->nr_pages
+over all zones for a given (gen, type) and clamp each term to >= 0.
 
-> Yes, skimming through the patch, I thought about that, too.  Moving more
-> cc option checks to Kconfig will make building out-of-tree kmods with a
-> different compiler more dangerous.  Maybe we will have to make the
-> warning in Makefile's prepare (external kmods) target a bit louder.
+Factor that out into lru_gen_seq_nr_pages() so the open-coded zone loop
+lives in one place. No functional change.
 
-I guess this bit can be a follow up potentially?
+A follow-up patch adds a tracepoint that needs the same per-generation
+page count, and will reuse this helper instead of open-coding it again.
 
->
-> > I also worry about backsliding and growing cc-option checks. Should we
-> > update the documentation to state that it is preferrable for these
-> > checks to live in Kconfig so that they can be properly cached?
->
-> Sounds good, yes.
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+---
+ mm/vmscan.c | 24 ++++++++++++++++--------
+ 1 file changed, 16 insertions(+), 8 deletions(-)
 
-I can add a doc update as part of this series, unless you guys want to handle
-separately?
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 40d3f1b48a74..2554a6513aa8 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -2813,6 +2813,18 @@ static int get_nr_gens(struct lruvec *lruvec, int type)
+ 	return lruvec->lrugen.max_seq - lruvec->lrugen.min_seq[type] + 1;
+ }
+ 
++/* the number of pages in a generation, summed over zones and clamped to >= 0 */
++static unsigned long lru_gen_seq_nr_pages(struct lru_gen_folio *lrugen, int gen, int type)
++{
++	int zone;
++	unsigned long size = 0;
++
++	for (zone = 0; zone < MAX_NR_ZONES; zone++)
++		size += max(READ_ONCE(lrugen->nr_pages[gen][type][zone]), 0L);
++
++	return size;
++}
++
+ static bool __maybe_unused seq_is_valid(struct lruvec *lruvec)
+ {
+ 	int type;
+@@ -4239,7 +4251,7 @@ static void set_initial_priority(struct pglist_data *pgdat, struct scan_control
+ 
+ static unsigned long lruvec_evictable_size(struct lruvec *lruvec, int swappiness)
+ {
+-	int gen, type, zone;
++	int gen, type;
+ 	unsigned long seq, total = 0;
+ 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
+ 	DEFINE_MAX_SEQ(lruvec);
+@@ -4248,8 +4260,7 @@ static unsigned long lruvec_evictable_size(struct lruvec *lruvec, int swappiness
+ 	for_each_evictable_type(type, swappiness) {
+ 		for (seq = min_seq[type]; seq <= max_seq; seq++) {
+ 			gen = lru_gen_from_seq(seq);
+-			for (zone = 0; zone < MAX_NR_ZONES; zone++)
+-				total += max(READ_ONCE(lrugen->nr_pages[gen][type][zone]), 0L);
++			total += lru_gen_seq_nr_pages(lrugen, gen, type);
+ 		}
+ 	}
+ 
+@@ -5738,19 +5749,16 @@ static int lru_gen_seq_show(struct seq_file *m, void *v)
+ 		seq = 0;
+ 
+ 	for (; seq <= max_seq; seq++) {
+-		int type, zone;
++		int type;
+ 		int gen = lru_gen_from_seq(seq);
+ 		unsigned long birth = READ_ONCE(lruvec->lrugen.timestamps[gen]);
+ 
+ 		seq_printf(m, " %10lu %10u", seq, jiffies_to_msecs(jiffies - birth));
+ 
+ 		for (type = 0; type < ANON_AND_FILE; type++) {
+-			unsigned long size = 0;
++			unsigned long size = lru_gen_seq_nr_pages(lrugen, gen, type);
+ 			char mark = full && seq < min_seq[type] ? 'x' : ' ';
+ 
+-			for (zone = 0; zone < MAX_NR_ZONES; zone++)
+-				size += max(READ_ONCE(lrugen->nr_pages[gen][type][zone]), 0L);
+-
+ 			seq_printf(m, " %10lu%c", size, mark);
+ 		}
+ 
+-- 
+2.34.1
 
->
-> --
-> Nicolas
-
---
-Cheers, Lorenzo
