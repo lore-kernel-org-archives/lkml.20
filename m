@@ -1,96 +1,96 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DDB0403B11
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:24:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3986130566A
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:24:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789111480; cv=pass; b=oTVT5VV0FoAyzJMOMMBJB1QmASAMn+Hy8odMz9Y38xU3J9BL/htGezJ9xx5rBxaNtHGI/lfHac4OZDPIaS8NzISsl38mNuiUEKCRK6o4e8pja6ObLMQBGWZJ3TZ7I0CLDqdMQJLW1328DSLbTebEK1q7MYAayQb1U6UewljUOrA=
+	t=1789111484; cv=pass; b=bNI4M2uXFkroHzWmf33z679Shj6BGRX6Ispji6DuAKyp8PDQrJZM4ILMy5JwM6Z7ScoLKkut7oom0aTooFtdarYAwpXhvyUbEsVDROYPExqnKM7tP0Ba55H+wcZGoSyaT6aP6Oev/Puv0WNQMsHN/+1C/Uy3OGQ/SWNQz/WxLkA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789111480; c=relaxed/simple;
-	bh=TNb5YfolWFz/KzCtpoOSTFh7E8/Z2BMjU6+AO4iMnDU=;
+	s=arc-20240116; t=1789111484; c=relaxed/simple;
+	bh=+8tTBn8vkpHIXmkwGk2okXiTKep6AzUHo71M/p9GXbY=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=brfQTDcP6HzlgEYHBWjZ29wIx4imasVc7uE3rXqoYCyQgd4TOsQ69yRxiZfE2FaS0n3jKwq/TNS9QD6YjpKKNt/hSc7hAic60AOPubZfyeIrOMWV+9fzA1lBXZwgeQyq0OcVkPqPA0y1GqUJ8rwSb/UcydGuve5fYlp8bx9xxCc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=dfxfX0Ic; arc=pass smtp.client-ip=209.85.221.45
+	 To:Cc:Content-Type; b=DZzRFV58IXGCCWbC1zfL15p87R6ubLdgnaifTLjBkUD/aQJoVfzu3lJVmMsHUfJRg946O1NcjleVGA8zOjTjrmjOcwb2h72sHUjeMkB+4+OOtV41+hwcWBSu1/0A0xpCcIjyWsDv+G0xfXI3L/SH3igGvy7WhiM2JcYtGDQCzZA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=CGTri4GC; arc=pass smtp.client-ip=209.85.221.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="dfxfX0Ic"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48436216a98so336483f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:24:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789111474; cv=none;
+	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="CGTri4GC"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-486e934b0c9so134917f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:24:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789111478; cv=none;
         d=google.com; s=arc-20260327;
-        b=fDxueAIm7uAWBurRzBFQ79VezepMV6EY/Mu/gd8psLkgMh39oncF3BH0qEH6ffNaUI
-         Zey6kWsSRm8j1/21rqcHEatpm9eXCQWYt5EzDzYKARWPym5runqs28rTpdw9PZI5Gg33
-         PeH/0E/XJfgjItKiFAio9N4l/8bsVsibYRqWyHlsgec9jgwWU8YfkD373+pb/0fPI0mJ
-         tay4uNkYRx8owRyy3EjNlKjw5CA+kfRJACgxSVHRoSO8DLtp8Jm6Y/AyeXQ6IV1Dv6hR
-         LtyhiwpComj7s5M4MJw9raaDCFuPto7jDph+PxkdN95Hxp9s76eWpcoyagyVyd4F7jyP
-         avKA==
+        b=OaqnNJpUyVYMvFhjkbL4ZcqGJBKUTMkyS7VQv5CaKmTDZ0jA+7iMShNECL4KT98enF
+         UaP4kcfugYJgZUlBRHWAvfdBB1LM/5Sr0rI872CBxkV8g0FcqLONUeSOaKKVGkDFGkAs
+         klsAau5NbVbj5qis2t5ZxGjj4gr198nddMEJ55QQwmXEYWPvl+nc6OLFZ5Rg0wfRGnWR
+         iqXGXMhaN7ieBIlgkYSNGW4HnevdiwH11rfIAXiQkPqbKTjN4a0mfi1Awu4Db7q58l9+
+         4ePjWEXU1VO4qHIzkuTAqS5bfwIlazgSzdqV3r7GBaItwYl+z7iJhO5UehChp2cKMpBg
+         E0TA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=fGXL6SW2PjuwJeBInmK3rjKWbFZ1WqS2BCjkSdFQSww=;
-        fh=SBbH+/n1PVIcZg9sOXC2AY0xEOE3VCujX0XkuYkSsIg=;
-        b=rYyha+WFOy5R6UFvasH5uzrnkj5quAree76IdEAAxRWpqaPIOrpPn7WDc/dQYvzOQJ
-         qi5p4aYhNlp2JoZ6xDpxPk0Q1rd3SlDLBPk3VkzQRsKFfIkM+AwcP7QbnCf4QihkwX4X
-         xqoTdBW+Z/jIkYLjk7JWL6m6sIOvdn5zYNhlfGo2vqGnYyyQsWwFtfejmk68FCW4xp55
-         llyjdwtPgEMrgJCrSZNvZ+vM28PR9YNMJuh7YeazdGyBKzfwZFM3TSgEKdHSV+XMbWPw
-         3CCT5BpJWalg8s5xBhwleqepXtGegSbu8z47RoUEaX4rb6QSDBFF4U2v0uC0mN2asCYT
-         ps7Q==;
+        bh=7ZBw3ZTwOIgY959yo8ebXtIDcCXQztOd/7/v3zr0SCc=;
+        fh=lqXeSD2o3JowX4gElUk0KFho+V7Eu+jaDNTUStc2ZGQ=;
+        b=syrAV3c6SbeNJfHLjj/n++N3o4o3HeyrrqdJG077iYmZtGbk3hxEQZPJ99HbgQg9QZ
+         xS7Na2aE3z9MkwwmyNaiiB7o3OabjZiPXoZl5KIJJjQg729VtsIcyqLEXbQAV2XZYu5U
+         ecQzepFPzH1buE7+kqxq3ra1cr0vVp+0uQ8wgix0wXvVo2tp2cBb6iUd0Qf6j28pet8z
+         Zk1ylD8pmUmHxP2hreMJ35c/7VLE8Enrp8PfV1PeFvJpRmP9Q9TtKBW0Z/sCq6wiaC4e
+         Pg2V5C2t5ID0joyuWcZQKG5b2M4MuaEe5pkmrcT4Bs9GWknFffwv+zvIUmKIHM/2GZVq
+         YLVA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1789111474; x=1789716274; darn=vger.kernel.org;
+        d=brainfault.org; s=google; t=1789111478; x=1789716278; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=fGXL6SW2PjuwJeBInmK3rjKWbFZ1WqS2BCjkSdFQSww=;
-        b=dfxfX0IcuFdIvk9FoFjZYAokF6XmCG5j3qAsP8xMOiTdbKH/Dz8d9Mg5lqt0/cOzRK
-         MsYMsLhvhZqSLmcnJ0v1qgxUGVb+t8EltjLPWSNaCyAsc8jHXjoYswBiBuS7hgJaeaIe
-         /6fyzBlZylB8d08mQZjwD2mqcJwILxdDyLntw3P2XwOu7JiYBPt54MHPWonv+Wj7TZlk
-         KFCL7Sg1GPoU4UKaP43bmmifb8mN5IBkgjP2cRfMunXK1INaV4ipyk55zQ3cPro1cccM
-         PfLrQhZ+vrJRaMsfWJOQa6EgfkLC/n+5JcmoPdq96ZKQ91lVeFuwiba9FntxNcFPp3cA
-         QJNQ==
+        bh=7ZBw3ZTwOIgY959yo8ebXtIDcCXQztOd/7/v3zr0SCc=;
+        b=CGTri4GCS+YdFymUSllkltgWEgqm9YkGQKXeum7qZPkalrilIYeskMf3Ict6CDbhI5
+         Yp8hAIbSawRnSlWzBxIoUqLPPiVQOG1pYv6+6eBZxA0xyZ9T9UKbGQMipzF+lm5SsDN8
+         rjZdCMimOTBMWvzftIfS9DSm3YErHoGeftVdaLUcBIxLG2eAfwGhCcvE1CWrDVi3l//m
+         MIARRwlLNz9SnCnNhHe6IvRKxqdbDYH1iYrSpCQSeATvkMiuFqILlI33uNQwav8SbtM2
+         8jNaQhvMcewvjCFC3+DuB3bhMTY4iy3dq/XC0e4DpZKQGTF9zon9kWJiGgNefN0CSCjX
+         C7Cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789111474; x=1789716274;
+        d=1e100.net; s=20251104; t=1789111478; x=1789716278;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fGXL6SW2PjuwJeBInmK3rjKWbFZ1WqS2BCjkSdFQSww=;
-        b=BwJxijfpr9b2FpfBMmHQLDQkU61a8GHtQ6FTnhf0jv2NwLBeSv8tAeZqun6G3S1TAc
-         Ic5gSFtxF2EG9MdV2QJc+SG4wS8FeYjemBQtQfg1pDPOlB0BBMLp3bgt8hB7XOp3LNN+
-         N6XXxW5AHONZ3eUtxPDZVpYite2Ju8Ohzr8KpTgquqsXX83WSktmAxBR0nTg7xjiOwXR
-         qiRyJeucYlNoKVVCVOCsKyOkyx6qsnn9a8viYqUAYwBDGDJthcKizjgKDeHMj6fNiQxL
-         6EBntpxn5/0m9+IEA86C6Nm/04Kt9DZDwYEWOLFFaL56o9yHhZw3wnqNIwewORRhK5c4
-         b3Rw==
-X-Forwarded-Encrypted: i=1; AKwUvBxuDOIck+cl6RjA9xZY0wp86EKxFqUOzVY30CsIjK4BCSzeCL/4hxXSc+S5yQHd5quif8eBj6qSUVoBOek=@vger.kernel.org
-X-Gm-Message-State: AFuF++kHzasdVWjzHOxjeSDLhWjV6cCWazyKo0ZHHtRmkzonyTJtkFyp
-	936v9cmp8C6Ie8VGOVRsarP08CXZFSIN0JKpJcpRpqf+utSQtGaJMxb4L3pT/LDfkqA+7TbO+qx
-	hsjkQ5BjSxy+ghjSM48auaqaAnn3xAH59at9kJcV4Mg==
-X-Gm-Gg: AYBFou2crPiD3/yRVIUYDevu956MdtlZNV3M5TKT6VhCd0BE21aqgDRWtIPUFJ8mMCj
-	wL6/C4p5T6Lzs7v0F+Yg3dD3ifM+ZAR5I56TWRwn8p2nwPAKN7aWVmPS/hIfJ8KhRuRAoUNXXSf
-	v6JSORnN8mwvsL5Td1Ocs+4wYmza+Q72LRpMMycW8/RMZGHjDHa3gVJPLdwvZ/rz0mLvVOmIkmh
-	HuN4ivIyUozKKp7eCuiqFSvX3JKdTvl1WvbH+JksosY9Rxm0vec7H7DUXI9kmdl4oQx9iL0v30A
-	1FhdJC6y+kZpvOQ1GkPNyl6NWec8eyhQ4CuwUimGCk/6ZnHnStmyg0dXJf5Jwis4Y7bv7zoKDs1
-	/XZoGD214uTrdD+QyubEgQH297kg71smKOB7HXm2PM8bOopHdLpSsHynqN8jF9CNgN/KLjhQXuw
+        bh=7ZBw3ZTwOIgY959yo8ebXtIDcCXQztOd/7/v3zr0SCc=;
+        b=RpdH0fzF7wusJoAJQ534lBEhfPAvZOl1Igr+8gPOTKYDFdCIVNy0JB59gdbfMxX5zq
+         e2eKAxKQv/hcj5JfTe+OYX2E+wv/I1DbMOBTGHrPuVhslZxpV/AkVHU69zWt/EFjEn7e
+         ggL4Yei8pXsvUai4i7vPAw7g2uq+YBi2Wwm8HdtmQWifbLbmaO4l0vAUqJ8TzmVZr2KS
+         iwPsQm5aWGCmbjMSltVC+glY9C0kne8xTlz5uHvKJhRFzxOTwvn2NvAzvIcLB9+D2hiz
+         EXJi7060nwyk82f4PtuOOsdPOsF9Uos5WVx+qxMZq4u5Cdp6RsJy4QlAGSee1bwMb5ZD
+         sLuw==
+X-Forwarded-Encrypted: i=1; AKwUvBxnGQao6tVfdKZpYJfVu19ZFC6OZlRFdxVNID6AuD8i2x9tjR6KCmVd0kI4oSbbV0pEhD8wDqnWv+uZhMQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kkeInAPsRQ8AS/5vr4Ibem2VaztAeNTbIlCm4BOCeueOvqCFe2
+	UDp+xWtI3/4ipuR0ifRYLaDxekLjdrJF6QZpwE/8BXewC/S0A3gkCuz0xudYZkoH1rzQkOVC5wW
+	6aodOemvSJWeqnfhENY2ndZfnv9QZEWTEYMB73eieuA==
+X-Gm-Gg: AYBFou1z4gLCEeU2guLbrJ73h4ZdakZCJX6OSYLcjian0MO/84TreqUnlF0VutXmp+f
+	8yf9AteOGsPrCTMufwaDb0P8LY/W1NoVCJdiXANmBWiS80l/SqJX/03+v6iUx1TUPZvZcpj8iFs
+	LZuJeu7+XGhOWaGrD8egJKhZfFTPGhZurHbjqCSxpFxakjEu3BeGF67jnzUPn8TMKViJcqq4DsT
+	E9GRd878CswjUOvjke/cdw1ZmydZd9lwmk89eY9ygHEJSuJBIpREUDjCCTWgytiOSOec5r7qk8b
+	gibhduQO0TxWJuQ0fkrHO4tsB60/xGJhGGXrTzsSdG+VnXFDf2LlBvd0EdfX27YQlxfhOObsYAv
+	xkBk0W080aV7lDP3p/MuPJcRoDtokRanTLFmiTJc5D+ttVsp3uBKj06gHkLcx0Zah/k+zRD6EhQ
 	==
-X-Received: by 2002:a05:6000:2c10:b0:486:e8ec:f999 with SMTP id
- ffacd0b85a97d-486eafd5fbdmr3215110f8f.6.1789111474165; Fri, 11 Sep 2026
- 00:24:34 -0700 (PDT)
+X-Received: by 2002:a05:6000:2005:b0:485:9233:a5ae with SMTP id
+ ffacd0b85a97d-486eafd5eb0mr3126572f8f.3.1789111478364; Fri, 11 Sep 2026
+ 00:24:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1786512671.git.pengpeng@iscas.ac.cn> <38f87205419f328693bc6ab25ae78f021c2dd003.1786512671.git.pengpeng@iscas.ac.cn>
-In-Reply-To: <38f87205419f328693bc6ab25ae78f021c2dd003.1786512671.git.pengpeng@iscas.ac.cn>
+References: <cover.1786512671.git.pengpeng@iscas.ac.cn> <4852f3b8985c353811fa065e4701d76dc9a7f086.1786512671.git.pengpeng@iscas.ac.cn>
+In-Reply-To: <4852f3b8985c353811fa065e4701d76dc9a7f086.1786512671.git.pengpeng@iscas.ac.cn>
 From: Anup Patel <anup@brainfault.org>
-Date: Fri, 11 Sep 2026 12:54:22 +0530
-X-Gm-Features: AcwNN1Ui109i9ET6WVNBUkTgCCDwwsHevBU9WciGYkKXECocq96-TkdibME6zPA
-Message-ID: <CAAhSdy1vDFrNQAT4vfDrfAVmztt0qvKhL3SeTOab3DBHmxC4-w@mail.gmail.com>
-Subject: Re: [PATCH 1/2] RISC-V: KVM: Validate AIA MMIO address ranges
+Date: Fri, 11 Sep 2026 12:54:26 +0530
+X-Gm-Features: AcwNN1UilFvQBMBFE1D37iU-TcFZA6Ymj5ixovFg4tSLMmtpRh77_3nZieaFccc
+Message-ID: <CAAhSdy2gxgY6yjQRVhgwV2kLB8ZGwsuseOVPWF6KJsjPOLeP_g@mail.gmail.com>
+Subject: Re: [PATCH 2/2] RISC-V: KVM: Disallow GPA-width changes after AIA init
 To: Pengpeng Hou <pengpeng@iscas.ac.cn>
 Cc: Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
 	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
@@ -104,193 +104,51 @@ Content-Transfer-Encoding: quoted-printable
 On Wed, Aug 12, 2026 at 11:09=E2=80=AFAM Pengpeng Hou <pengpeng@iscas.ac.cn=
 > wrote:
 >
-> Userspace supplies the APLIC and per-vCPU IMSIC base addresses through
-> the AIA device API.  The address setters currently reject only
-> misaligned addresses.
+> KVM_ENABLE_CAP(KVM_CAP_VM_GPA_BITS) allows userspace to reduce the
+> stage-2 GPA width while a VM has no vCPUs or memory slots.
 >
-> The regions are later registered on KVM's MMIO bus with fixed sizes.  An
-> aligned base near U64_MAX can therefore wrap when the range end is
-> formed.  A lower base can still place the range beyond the selected
-> guest stage-2 physical address space.  kvm_io_bus_cmp() assumes that
-> registered ranges do not wrap.
+> AIA initialization can still complete with an APLIC and no vCPUs or
+> memory slots.  In that state, the APLIC MMIO device has already been
+> registered, but the existing checks allow userspace to shrink the GPA
+> width below its address.
 >
-> Validate the complete interval when an address is stored.  Since
-> KVM_CAP_VM_GPA_BITS can change the selected GPA width before AIA
-> initialization, validate every address again before registering the
-> first MMIO device.
+> Reject GPA-width changes after AIA initialization.  Both paths hold
+> kvm->lock, so the check also closes the race between final AIA address
+> validation and publication.
 >
-> Return -EINVAL for misalignment or arithmetic overflow and -E2BIG when
-> the end exceeds the stage-2 GPA limit, following the arm64 VGIC
-> address-validation convention.
->
-> Fixes: 89d01306e34d ("RISC-V: KVM: Implement device interface for AIA irq=
-chip")
+> Fixes: 7263b4fdb0b2 ("RISC-V: KVM: Reuse KVM_CAP_VM_GPA_BITS to select HG=
+ATP.MODE")
 > Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+
+LGTM.
+
+Reviewed-by: Anup Patel <anup@brainfault.org>
+
+Thanks,
+Anup
+
+
 > ---
->  arch/riscv/kvm/aia_device.c | 79 +++++++++++++++++++++++++++++++------
->  1 file changed, 66 insertions(+), 13 deletions(-)
+>  arch/riscv/kvm/vm.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 >
-> diff --git a/arch/riscv/kvm/aia_device.c b/arch/riscv/kvm/aia_device.c
-> index efc7c0bcfba9..e969dbdc4b97 100644
-> --- a/arch/riscv/kvm/aia_device.c
-> +++ b/arch/riscv/kvm/aia_device.c
-> @@ -10,7 +10,9 @@
->  #include <linux/bits.h>
->  #include <linux/irqchip/riscv-imsic.h>
->  #include <linux/kvm_host.h>
-> +#include <linux/overflow.h>
->  #include <linux/uaccess.h>
-> +#include <asm/kvm_gstage.h>
->  #include <asm/kvm_isa.h>
+> diff --git a/arch/riscv/kvm/vm.c b/arch/riscv/kvm/vm.c
+> index a9f083feeb76..66edfaa86243 100644
+> --- a/arch/riscv/kvm/vm.c
+> +++ b/arch/riscv/kvm/vm.c
+> @@ -250,7 +250,8 @@ int kvm_vm_ioctl_enable_cap(struct kvm *kvm, struct k=
+vm_enable_cap *cap)
+>                 mutex_lock(&kvm->lock);
+>                 mutex_lock(&kvm->slots_lock);
 >
->  static int aia_create(struct kvm_device *dev, u32 type)
-> @@ -142,17 +144,37 @@ static int aia_config(struct kvm *kvm, unsigned lon=
-g type,
->         return 0;
->  }
->
-> +static int aia_check_addr_range(struct kvm *kvm, u64 addr, u64 alignment=
-,
-> +                               u64 size)
-> +{
-> +       u64 end;
-> +
-> +       if (!IS_ALIGNED(addr, alignment))
-> +               return -EINVAL;
-> +
-> +       if (check_add_overflow(addr, size, &end))
-> +               return -EINVAL;
-> +
-> +       if (end > kvm_riscv_gstage_gpa_size(kvm->arch.pgd_levels))
-> +               return -E2BIG;
-> +
-> +       return 0;
-> +}
-> +
->  static int aia_aplic_addr(struct kvm *kvm, u64 *addr, bool write)
->  {
->         struct kvm_aia *aia =3D &kvm->arch.aia;
-> +       int ret;
->
->         if (write) {
->                 /* Writes can only be done before irqchip is initialized =
-*/
->                 if (kvm_riscv_aia_initialized(kvm))
->                         return -EBUSY;
->
-> -               if (*addr & (KVM_DEV_RISCV_APLIC_ALIGN - 1))
-> -                       return -EINVAL;
-> +               ret =3D aia_check_addr_range(kvm, *addr, KVM_DEV_RISCV_AP=
-LIC_ALIGN,
-> +                                          KVM_DEV_RISCV_APLIC_SIZE);
-> +               if (ret)
-> +                       return ret;
->
->                 aia->aplic_addr =3D *addr;
->         } else
-> @@ -166,6 +188,7 @@ static int aia_imsic_addr(struct kvm *kvm, u64 *addr,
->  {
->         struct kvm_vcpu *vcpu;
->         struct kvm_vcpu_aia *vcpu_aia;
-> +       int ret;
->
->         vcpu =3D kvm_get_vcpu(kvm, vcpu_idx);
->         if (!vcpu)
-> @@ -177,8 +200,10 @@ static int aia_imsic_addr(struct kvm *kvm, u64 *addr=
-,
->                 if (kvm_riscv_aia_initialized(kvm))
->                         return -EBUSY;
->
-> -               if (*addr & (KVM_DEV_RISCV_IMSIC_ALIGN - 1))
-> -                       return -EINVAL;
-> +               ret =3D aia_check_addr_range(kvm, *addr, KVM_DEV_RISCV_IM=
-SIC_ALIGN,
-> +                                          KVM_DEV_RISCV_IMSIC_SIZE);
-> +               if (ret)
-> +                       return ret;
->         }
->
->         mutex_lock(&vcpu->mutex);
-> @@ -191,6 +216,40 @@ static int aia_imsic_addr(struct kvm *kvm, u64 *addr=
-,
->         return 0;
->  }
->
-> +static int aia_validate_addr_ranges(struct kvm *kvm)
-> +{
-> +       struct kvm_aia *aia =3D &kvm->arch.aia;
-> +       struct kvm_vcpu_aia *vaia;
-> +       struct kvm_vcpu *vcpu;
-> +       unsigned long idx;
-> +       int ret;
-> +
-> +       if (aia->nr_sources) {
-> +               if (aia->aplic_addr =3D=3D KVM_RISCV_AIA_UNDEF_ADDR)
-> +                       return -EINVAL;
-> +
-> +               ret =3D aia_check_addr_range(kvm, aia->aplic_addr,
-> +                                          KVM_DEV_RISCV_APLIC_ALIGN,
-> +                                          KVM_DEV_RISCV_APLIC_SIZE);
-> +               if (ret)
-> +                       return ret;
-> +       }
-> +
-> +       kvm_for_each_vcpu(idx, vcpu, kvm) {
-> +               vaia =3D &vcpu->arch.aia_context;
-> +               if (vaia->imsic_addr =3D=3D KVM_RISCV_AIA_UNDEF_ADDR)
-> +                       return -EINVAL;
-> +
-> +               ret =3D aia_check_addr_range(kvm, vaia->imsic_addr,
-> +                                          KVM_DEV_RISCV_IMSIC_ALIGN,
-> +                                          KVM_DEV_RISCV_IMSIC_SIZE);
-> +               if (ret)
-> +                       return ret;
-> +       }
-> +
-> +       return 0;
-> +}
-> +
->  static gpa_t aia_imsic_ppn(struct kvm_aia *aia, gpa_t addr)
->  {
->         u32 h, l;
-> @@ -244,9 +303,9 @@ static int aia_init(struct kvm *kvm)
->         if (aia->nr_ids < aia->nr_sources)
->                 return -EINVAL;
->
-> -       /* APLIC base is required for non-zero number of sources */
-> -       if (aia->nr_sources && aia->aplic_addr =3D=3D KVM_RISCV_AIA_UNDEF=
-_ADDR)
-> -               return -EINVAL;
-> +       ret =3D aia_validate_addr_ranges(kvm);
-> +       if (ret)
-> +               return ret;
-
-No need for this change.
-
->
->         /* Group index bits must not overlap guest and HART index bits. *=
-/
->         if (aia->nr_group_bits &&
-> @@ -263,12 +322,6 @@ static int aia_init(struct kvm *kvm)
->         kvm_for_each_vcpu(idx, vcpu, kvm) {
->                 vaia =3D &vcpu->arch.aia_context;
->
-> -               /* IMSIC base is required */
-> -               if (vaia->imsic_addr =3D=3D KVM_RISCV_AIA_UNDEF_ADDR) {
-> -                       ret =3D -EINVAL;
-> -                       goto fail_cleanup_imsics;
-> -               }
-> -
-
-Don't drop this check.
-
->                 /* All IMSICs should have matching base PPN */
->                 if (base_ppn =3D=3D KVM_RISCV_AIA_UNDEF_ADDR)
->                         base_ppn =3D aia_imsic_ppn(aia, vaia->imsic_addr)=
-;
+> -               if (kvm->created_vcpus || !kvm_are_all_memslots_empty(kvm=
+))
+> +               if (kvm->created_vcpus || !kvm_are_all_memslots_empty(kvm=
+) ||
+> +                   kvm_riscv_aia_initialized(kvm))
+>                         r =3D -EBUSY;
+>                 else
+>                         kvm->arch.pgd_levels =3D new_levels;
 > --
 > 2.50.1 (Apple Git-155)
 >
-
-Regards,
-Anup
