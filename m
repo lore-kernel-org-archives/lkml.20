@@ -1,175 +1,190 @@
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DB53EBF23;
-	Fri, 11 Sep 2026 09:26:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CD4240F8D8;
+	Fri, 11 Sep 2026 09:27:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789118805; cv=none; b=fLoOQAvjBusMuiiVJEUok+Z2cXWMItWN5np1TH64kfYo3ssb3B2CtBnYLu9tYZbC18YA3DZ97XJ1RvNO2maG67m8ytXkt3PqNT205tlpvhBeV2HK6S6M9kYxYkmGpoCAaHwM9fTC/JZvwK+GR29OWaENABTEHaaTb4xCPHtBrEc=
+	t=1789118853; cv=none; b=FMRkTmWn1D7I+b9F0N4659ATauppwFRRviEfFKBlTi2HV4jGjsveCQNxQ5dRfj0E7YhjI2DNQH4gJa1VkWlVKOQjDsI8/WYMPGKlDcXDUj/JvdpODZ9lcpfLPWay1hBvJ3PJcLOvwyhaxgjKPy16DoWJnnXbMYQmXpQexb5OCEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789118805; c=relaxed/simple;
-	bh=2Zv+f4bhelSrSTphUvrw1UdkuGT+p2+5YSknl/De/dQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ErCYeh/L1v5p8K5RMvxaHxCcV7BL1w//xRWmh3BHPWRKX1l9gGu7F3zvgsoYlfTK9Uz4wQttOEBPv5NIMyWulUUtffR0KfZW2+oQlSBVXJaNHjU5Vu5UifKFH9C4uDrX0BTeU48rvptRIyQ2vEB/yrZLkfOl18msa9bJg7qcaqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hh8KW19gCzYQtpM;
-	Fri, 11 Sep 2026 17:25:35 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.112])
-	by mail.maildlp.com (Postfix) with ESMTP id 8DD5340574;
-	Fri, 11 Sep 2026 17:26:31 +0800 (CST)
-Received: from [10.174.178.253] (unknown [10.174.178.253])
-	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgBnUAtFyaNqHzI8Bg--.45614S3;
-	Fri, 11 Sep 2026 17:26:31 +0800 (CST)
-Message-ID: <4fe4a9df-7e1f-4dc5-a3db-8d2ccc4b924f@huaweicloud.com>
-Date: Fri, 11 Sep 2026 17:26:28 +0800
+	s=arc-20240116; t=1789118853; c=relaxed/simple;
+	bh=8K+BGYFG3ud53t1n0NdJiEzeFfQGaZzpWgnI21xdFbw=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=ra/pfQ8KT7d2oRrKWsGOtFpz/0DB6NoxRe9W/UMigCutkHyY3JZbYDoQRV6yd85mld7mLyrkvPnSy1iqPQA8C5s0OR2AdMhQEjNvVsKLr+DfY3ZqPmAsRniYD+pjCOoMjL6gu1zjhSNlc7EjTde9q/fm/pchEvKD/7IFDqng46w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jswi0aed; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jswi0aed"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789118851; x=1820654851;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version:content-id;
+  bh=8K+BGYFG3ud53t1n0NdJiEzeFfQGaZzpWgnI21xdFbw=;
+  b=jswi0aedPL/hK+v67gmVd9++XjfK7RhjJjoi8KfSA42SfQ/tF+O7f2SY
+   Zyto3MBCoDRY5nDG9r0btYKW8HidHAFN0lSw6B7oVsvpqaRAzjOhSD3aQ
+   yPzXjXweKGw96t78CXFiTa8WpoTPypKapQMbJEWLEZVhu4V17ZwauBCN7
+   1Caxn2RWoDUFfLKefs5gocL4KYXCZh5BYsfi+Cg2fDvtvcVeBZifjQlTr
+   ctbYLVnIXcDIcLhH2T6iVNcTfK9awge/p06InyP+DW5E+8n9B65ZEnWV5
+   dG3cJQXvtOwUixU6dhUHKz/5Ydc677iLzSDBYVEdDvzYdW2fqlwrGwfKk
+   A==;
+X-CSE-ConnectionGUID: DOWkKBBlQb+/l0roAyBLKQ==
+X-CSE-MsgGUID: GI9Z/6MdTmKSPXRyhMlzfg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="89451615"
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="89451615"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 02:27:30 -0700
+X-CSE-ConnectionGUID: eWtNITrFSMqsqxzBMWwPrQ==
+X-CSE-MsgGUID: JhxQOYJBQMmet6UAxYoZXg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="240221"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.158])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 02:27:28 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 11 Sep 2026 12:27:25 +0300 (EEST)
+To: Ard Biesheuvel <ardb@kernel.org>
+cc: Ard Biesheuvel <ardb+git@google.com>, linux-pci@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
+Subject: Re: [RFC PATCH] PCI: Tolerate non-prefetchable 64-bit BARs in
+ prefetchable windows
+In-Reply-To: <41345c53-fea4-4f98-8569-b3dc4e84cdcb@app.fastmail.com>
+Message-ID: <2e392b1b-3cbe-5cf8-e190-b1c82d69562f@linux.intel.com>
+References: <20260910143440.3865663-2-ardb+git@google.com> <aa0e034d-fc68-69d6-8d27-8f30d138b9be@linux.intel.com> <41345c53-fea4-4f98-8569-b3dc4e84cdcb@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/truncate: fix data loss when truncating straddling
- large folios
-To: Zi Yan <ziy@nvidia.com>
-Cc: linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org,
- akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
- liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
- mhocko@suse.com, hughd@google.com, baolin.wang@linux.alibaba.com,
- willy@infradead.org, jack@suse.cz, bfoster@redhat.com,
- joannelkoong@gmail.com, djwong@kernel.org, yi.zhang@huawei.com,
- yizhang089@gmail.com, yangerkun@huawei.com, chengzhihao1@huawei.com,
- wangkefeng.wang@huawei.com, yukuai@fnnas.com
-References: <20260909062339.473816-1-yi.zhang@huaweicloud.com>
- <6F18C9FE-3599-4C6E-99F9-767BD7AC8E3B@nvidia.com>
-Content-Language: en-US
-From: Zhang Yi <yi.zhang@huaweicloud.com>
-In-Reply-To: <6F18C9FE-3599-4C6E-99F9-767BD7AC8E3B@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:cCh0CgBnUAtFyaNqHzI8Bg--.45614S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxWFyrZw4xKFW5GFW5Ww1xXwb_yoWrur43pF
-	W2gasIyFZ7J3yvkr4vva18Xw1Fqay7Xa1UAF93G392k3Z0qr1IkFy7t3W8u398Krn7Jw10
-	q3WjvFWDW3WDAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x
-	0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
-	6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
-	Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
-	14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
-	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWr
-	XwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
-	0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
-	Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0
-	4xRDUUUUU==
-X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
+Content-Type: multipart/mixed; BOUNDARY="8323328-30872173-1789117895=:1171"
+Content-ID: <d5585a69-a9f9-cc9b-2706-c74342859f3b@linux.intel.com>
 
-On 9/10/2026 3:18 AM, Zi Yan wrote:
-> On 9 Sep 2026, at 2:23, Zhang Yi wrote:
-> 
->> From: Zhang Yi <yi.zhang@huawei.com>
->>
->> truncate_inode_partial_folio() splits a large folio so that the caller's
->> truncate loop can drop the in-range sub-folios while keeping the
->> out-of-range tail. The first split at the punch start edge is
->> non-uniform, which leaves the sub-folio at the truncation end edge as
->> large as possible, this means it may still straddle the range, holding
->> both zeroed in-range and valid out-of-range data. The function then
->> attempts a second split at offset + length to isolate that tail.
->>
->> If the second split fails the straddling sub-folio stays merged. The
->> function returned true unconditionally on all exit paths of the success
->> block, telling the caller it was fully handled. The caller kept its
->> default end and the truncate loop truncated every sub-folio below it,
->> including the merged straddler, discarding the valid out-of-range tail.
->>
->> For example, a 4-page order-2 folio punched from offset 0 to the middle
->> of the last page:
->>
->>   truncate_inode_pages_range()
->>     truncate_inode_partial_folio()      # same_folio == true
->>       1st split at page0 -> [p0, p1, p2-3]   # non-uniform, success
->>       folio2 = p2-3 # straddles: p2 zeroed, p3 tail valid
->>       2nd split of folio2 fails / cannot lock
->>       return true                       # BUG: caller keeps default end
->>     end = 3
->>     loop truncates p0, p1, p2-3        # p3's valid tail is lost
->>
->> This became reachable after commit 7460b470a131 ("mm/truncate: use
->> folio_split() in truncate operation") replaced the atomic split_folio()
->> with folio_split(), whose non-uniform split can partially split a folio
->> and leave the end edge merged.
->>
->> It has gone unnoticed because a dirty large folio normally carries the
->> filesystem's private data, for example buffer_head, so
->> filemap_release_folio() -> iomap_release_folio() returns false on a
->> dirty folio and folio_split() aborts with -EBUSY before any split,
->> leaving the straddler safely unsplit. The bug is only reachable on paths
->> that produce dirty large folios without filesystem private data, and it
->> was caught on the upcoming ext4 iomap buffered I/O path when no ifs is
->> attached.
-> 
-> Thank you for fixing it.
-> 
->>
->> In addition, even when both splits succeed, data can still be lost when
->> the mapping's minimum folio order (min_order) is non-zero. folio_split()
->> stops at min_order instead of order 0, so the sub-folio containing a
->> split point stays aligned to 1 << min_order rather than to a page. The
->> original success path left start at the page-aligned head of the range
->> and set end to the exact page index of the end edge, neither of which is
->> a folio boundary in general. Either one could land inside the large
->> folio at its edge, and the truncate loop would drop that straddling
->> folio together with its valid out-of-range tail.
->>
->> For example, a 64K (order-4) folio with min_order = 2 punched from
->> offset 0 to 36K:
->>
->>   truncate_inode_pages_range()
->>     truncate_inode_partial_folio()        # same_folio == true
->>       1st split at p0 -> [p0-p3, p4-p7, p8-p15]  # non-uniform, min_order
->>       folio2 = p8-p15 # straddles: p8 in range, p9-p15 tail valid
->>       2nd split of folio2 -> [p8-p11, p12-p15]   # success
->>       end = p9                           # BUG: p9 inside [p8-p11]
->>     loop truncates ... p8-p11           # p9-p11's valid tail is lost
-> 
-> Should min_order > 0 fix come as a separate patch first? min_order>0
-> was introduced by commit e220917fa5077 ("mm: split a folio in minimum
-> folio order chunks") and it is before folio_split(). The old
-> split_huge_page_to_list_to_order() can cause a similar issue?
-> 
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Indeed, the min_order issue is a separate problem, and we should fix
-it in a separate patch.
+--8323328-30872173-1789117895=:1171
+Content-Type: text/plain; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-ID: <662fec2e-5c55-858c-09ec-f9a543d6de19@linux.intel.com>
 
-> 
-> <snip>
-> 
->>     i.e. the pages wholly within the range and safe to discard. They are
->>     aligned up (pstart) and down (pend) to the mapping's minimum folio
->>     order so they always fall on a folio boundary.
-> 
-> Basically, to fix min_order issue alone, truncate_inode_partial_folio()
-> needs to align pstart and pend to 1UL << min_order?
-> 
-> 
+On Thu, 10 Sep 2026, Ard Biesheuvel wrote:
 
-Yes, fixing the min_order issue separately amounts to aligning pstart
-and pend to 1UL << min_order, so they need to be exported first.
-Otherwise the same alignment would have to be done in the two callers,
-truncate_inode_pages_range() / shmem_undo_range(). I can rework
-truncate_inode_partial_folio() to export these two parameters first, and
-then split out a separate patch for the min_order fix.
+>=20
+> On Thu, 10 Sep 2026, at 19:31, Ilpo J=E4rvinen wrote:
+> > On Thu, 10 Sep 2026, Ard Biesheuvel wrote:
+> >
+> >> From: Ard Biesheuvel <ardb@kernel.org>
+> >>=20
+> >> The prefetchable vs. non-prefetchable distinction is a relic of
+> >> conventional PCI, to denote from which regions PCI-PCI bridges were
+> >> permitted to perform speculative readahead.
+> >>=20
+> >> For software compatibility reasons, PCI Express inherited the Type 1
+> >> header and models PCIe root ports as PCI-PCI bridges. However, this
+> >> readahead behavior does not exist in PCIe, and so this distinction has
+> >> mostly become meaningless on the bridge level.
+> >>=20
+> >> As per the PCIe r6.3 ECN "Removing Prefetchable Terminology", the
+> >> 'prefetchable' designation has been removed from the specification
+> >> entirely, on the basis that it is obsolete, and is being abused to
+> >> inform memory mapping attributes and other device/BAR level properties
+> >> that it was never intended for.
+> >>=20
+> >> Given the limited range for non-prefetchable windows in the Type 1
+> >> header, and the fact that the distinction no longer exists for PCIe,
+> >> resource allocation performed by firmware may result in non-prefetchab=
+le
+> >> 64-bit BARs being allocated inside prefetchable bridge windows.
+> >>=20
+> >> Linux rejects such allocations ("can't claim; no compatible bridge
+> >> window") when it encounters them, but will usually fail to produce an
+> >> alternative allocation, given that firmware wouldn't have placed them
+> >> there in the first place if there was sufficient space in the
+> >> non-prefetchable window.
+> >>=20
+> >> So at the very least, let's not reject such allocations when they were
+> >> made by the firmware.
+> >>=20
+> >> Cc: Bjorn Helgaas <bhelgaas@google.com>
+> >> Cc: "Ilpo J=E4rvinen" <ilpo.jarvinen@linux.intel.com>
+> >> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+> >> ---
+> >> Link: https://github.com/tianocore/edk2/issues/13104
+> >>=20
+> >>  drivers/pci/pci.c   | 3 ++-
+> >>  include/linux/pci.h | 4 ++--
+> >>  2 files changed, 4 insertions(+), 3 deletions(-)
+> >>=20
+> >> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> >> index b2879a6be5f8..e33eb9f3a139 100644
+> >> --- a/drivers/pci/pci.c
+> >> +++ b/drivers/pci/pci.c
+> >> @@ -761,7 +761,8 @@ struct resource *pci_find_parent_resource(const st=
+ruct pci_dev *dev,
+> >>  =09=09=09 * not, the allocator made a mistake.
+> >>  =09=09=09 */
+> >>  =09=09=09if (r->flags & IORESOURCE_PREFETCH &&
+> >> -=09=09=09    !(res->flags & IORESOURCE_PREFETCH))
+> >> +=09=09=09    !(res->flags & IORESOURCE_PREFETCH) &&
+> >> +=09=09=09    !pci_is_pcie(dev))
+> >>  =09=09=09=09return NULL;
+> >> =20
+> >>  =09=09=09/*
+> >
+> > I was more thinking along the lines of always setting IORESOURCE_PREFET=
+CH=20
+> > for 64-bit BARs on PCIe devices but I've not had time to look at that/t=
+est=20
+> > how many things would break as a result. ...It would seem much simpler=
+=20
+> > solution to differentiate PCI from PCIe while keeping the existing logi=
+c=20
+> > without adding similar pci_is_pcie() checks everywhere.
+> >
+>=20
+> I agree that the code changes would be much simpler.
+>=20
+> However, would this impact the PCI metadata observed by all consumers,
+> including userspace,
 
-Thanks,
-Yi.
+Yes, it will impact userspace. But quoting you from above:
 
+"is being abused to inform memory mapping attributes and other device/BAR=
+=20
+level properties that it was never intended for."
 
+What does the userspace then do with the information? Does it qualify=20
+under "it was never intended for"?
 
+> and drivers that may expect a certain BAR layout,
 
+??? Would that even be spec compliant??
+
+> and/or base decisions about memory attributes on this?
+
+The point is to consider them 64-bit window eligible so yes, kernel would=
+=20
+definitely be basing decision on that but that's intentional.
+
+> In particular, I am concerned about non-prefetchable BARs that actually
+> have side effects on read, being mapped with WC (or Normal-NC on arm64)
+> semantics, where the interconnect may widen, combine or reorder accesses.
+
+So on a more concrete terms, you're referring to the check in=20
+proc_bus_pci_mmap()? And the one in __pci_resource_attr_is_visible() +=20
+pci_dev_resource_wc_is_visible()? I suppose that wouldn't work then.
+
+So if just setting IORESOURCE_PREFETCH is not workable, how about adding a=
+=20
+getter for res->flags which adds IORESOURCE_PREFETCH into the returned=20
+flags if it's PCIe device and (in the end) use the raw value only in those=
+=20
+places that actually care about wc distinction. What I don't want to see=20
+us adding that pci_is_pcie() everywhere.
+
+--=20
+ i.
+--8323328-30872173-1789117895=:1171--
