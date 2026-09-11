@@ -1,75 +1,126 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 493D44AD4C0;
-	Fri, 11 Sep 2026 18:42:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D75EB4BB284
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:43:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789152145; cv=none; b=u9mR0XRhrZ43Ag5vddnx2R0s+lorHpfLDRr2oNrKACfl6s4AS1Ge16NBl9TZoM9bHFwQi6rZD2QKIRPzcB5ISBMqleavuliL1fdvWI2CDKJ/OXiMmnHBFKID6w72GkBvs3e7+0O3PfeG1rWpmxINdP5yXqrmL1FP74RozC1QsCY=
+	t=1789152210; cv=none; b=umWRoXOPj3q1Fg+2zlABh/M7Ud2GYUdIAohVnWrjfFkOHJ88D3fK0BHqBvoHr/grydq/lw0taXqk7HSFQx/3mXO/xb37EpM5ArHQepVV5vcfH6o6Q1MX6utbNNsKa2lcvCTIIfrbAIWYQVvGBdvRCXwGsOThcI5T+sxqgYn8bDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789152145; c=relaxed/simple;
-	bh=ihMGyu4AKoqzx1q+d8q8sRKA2C3Bt1JO/lZiwOwSlxs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NdhpGnaG8GMl0cmo7qDDRRtyrXKPrZseZx7KEZA1zesWxqL3boUf4qjGzAN78GwIXNQc5AdrKtiKMIWDvomzkLJA5ZErc9robEoogSStx382ozSoWUafpBRT5DczQhSEtEfDltmhrPg8ooOdFqbkRZ20z47QVla7HL2xAkBRkVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=E8DtdF6s; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1789152210; c=relaxed/simple;
+	bh=Vo/Zbo4FmIJeIV5z2fixRdEtyG30qlGNFYOjHoNYkqE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZOdp1dRWgDRuk39CMjv2xlANNikaHUX3Mnm5VHqr/Ag8q/kB9bS42nBxla7H/9Y0bUjqx10sB8f738RcYU8K65boeoqgsrpVVlLRwAUfoV278JG2GOnFLMCDotAW8VG6gfyhxHBSOsfvi4XCQZmGD3fkrQDp+pQDvZrIgDEPWKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hkmGIJbB; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="E8DtdF6s"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
-	Content-ID:Content-Description:In-Reply-To:References;
-	bh=YcpAc6qqPwuEax92VboOZd9C/1of2wC3v5yJo0jnMgk=; b=E8DtdF6sz6Czq70dT3y8USEYAe
-	HnoHcnAggpFVhAiGh5vS+eMU6qRoFJ1r99kkXa99gVVObj5AQGSsT26du49WKcrWw3xaQ/ONfK8Lq
-	Re/dZTOCkY9WPKYJHAQcNBHUmTsKY4/+0ehW+BA8BaevKNWO4V2KNBML59WW3Ndvxc5KRIwf96Ywb
-	7NeAXzgtX1RIB2gtu+BfFyxPppql9BbtLH1dmhZFADJb4l0rvxtt3TAn9ee6ZTXfnN10AjN5Jj733
-	udiuwC1BfmvdAQ/yq5K7EdydIWwldUzzYzRrFJ0VpYZxRoYt2bHsxbSxAwyEYvIEI3wonk7wEhX5E
-	fOYd2cUA==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x56CV-0000000HSiG-44wj;
-	Fri, 11 Sep 2026 18:42:16 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-doc@vger.kernel.org
-Subject: [PATCH] docs: kernel-doc: inform that '@' applies to other fields
-Date: Fri, 11 Sep 2026 11:42:13 -0700
-Message-ID: <20260911184213.4143776-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hkmGIJbB"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843cedd129so95779f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:43:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789152201; x=1789757001; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WEMRrWkwvFIDZfKdDi5vmlHb7sgj26/s86919xqFCGg=;
+        b=hkmGIJbBp4EQG8Uj6bpqrQLLIx6687IoycAymJGV+AQbiulxMddwk/XjuxgBdaOgRh
+         vjlGnpEswovnh80F9t8tbcEwpHnU7ilhSJSoW0LTmXGNZMYdKZcQBLvAHXrDgJBDeok7
+         ZqmJfVVT1Y2C7Yk7vcFHuRPXWxQ6+IWNvElRuinPE86yblBvn8Wnq2azuUCCa5QWd3bf
+         qK4b/vMq22GGwsDShePmi7WSgExb5FsepmNmXsf5rbELNjDZ37OVZnFrpjXxcBMNVauO
+         btSHH3MjcKO15Zq7kM/kfsFWwG6wlO9FmPwkucU75k99FIABnvOlg7eQK01Vvw9l03n6
+         F2lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789152201; x=1789757001;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WEMRrWkwvFIDZfKdDi5vmlHb7sgj26/s86919xqFCGg=;
+        b=L9ibi0q2Tmzz99wiWq73IGsbrwsypW9BU5KnNdNDRPG0w5if1hB5L5NUGvaxUmve6i
+         ex5KpOkG+I6VnUC6Ti7EqeViht+udG20Dr1V86IA5Mux151d5LxCgCVFN39UYcogZQQN
+         DvOtKPD7xpDES/k0MckkDe82zyltH6Oyoh18gpQ0MMWkrrWY/elMQ3p2/yiMu1Ah4M0F
+         fwAZFd5Xm8Bot2NMxXyQWj0OsWfiLrl17l69lsyVrv00vfpUjgpjraf/8+bjtH+75aq4
+         ZTtQY9P851PJnrIORjmAESc0alhq/FsQov278v7YNPBYrgaTsuKp+WFLoag9HiE5Ay6y
+         +/fg==
+X-Forwarded-Encrypted: i=1; AKwUvByGLGmQ1fKUbaTII70+f59GYqm6EIaDhliotZl/5llVQxy3JRuGEaH9GzFp984eitBCmPMpE7u42PJ+ovo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nHm5bDVP9kbWFHNgpG8lrNM4koI8kFYY2EBu79oytiPxbUk6Y1
+	yr/nfJtuE0sQjxyGiFFNgHAg+2VMMEOKpGkp+FL47LU6JWbyLOHtd0G4
+X-Gm-Gg: AYBFou3+37X+2FeB1poj1H6EgBjX9PluequlZE3G76evD+Z7Cuw7DT+hkqJvHvqZ5kb
+	CZaqMNPa3wT6TQpNgsq2rFr5/P8pkVjSr1r5OO2pHyGjyLuScemJE+nlBb1Zx9RkE0w3JqEegfe
+	cSFH1gv6X5V5aXpR72VVfbbEoi4OedCRsZu1TZdVXYlIlDeozaiKjivwqJfT6cDh3dMapMUXMsi
+	kdoIVgq1execPZ/QikOrDd8hf7SPygvHWa3IRSG3pOlA53i+k/dJEh+RAbgn4ra2MJANVTWBZV5
+	XNfju627MHR90YZlghLq7brepLAWsgIvBbvfpliXtEXvQBocnelp+CpO3ikEQOXgXBEXc28UlYb
+	hbV9hRXqz324eYgD4df06ZsvldaIZJ5c4i4DmrUl7KuzyXMnLgih3KF68OpqJ/3d75U9i8QQP4Q
+	xITwyR1m6+M+iwrDuCaLOVZbQrI5511WBkW7zU4SLn64yVvvq6NQEHGhmTunF7Ru6kad9XqUc6/
+	0XzWlNgD2LX6N8g6uclEuA5Y28JJZFjAiU+dKWAEsS8unM+q+BjapMh1BKYbTwVkUtQk3zzI+qQ
+	po1PTCmU05kg3NG73aEne2YyAoOHTaN/e1ipLq8qOn9wZmk3BA==
+X-Received: by 2002:a05:6000:4605:b0:485:ac39:36ef with SMTP id ffacd0b85a97d-486eb1d3781mr14290458f8f.5.1789152200719;
+        Fri, 11 Sep 2026 11:43:20 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-095-114-033-154.95.114.pool.telefonica.de. [95.114.33.154])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486f0403125sm5446009f8f.8.2026.09.11.11.43.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 11:43:20 -0700 (PDT)
+Date: Fri, 11 Sep 2026 20:42:46 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+Cc: Arnd Bergmann <arnd@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Linus Walleij <linusw@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, 
+	Stefan Agner <stefan@agner.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
+	Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+	Nicolas Ferre <nicolas.ferre@microchip.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+	Andrew Lunn <andrew@lunn.ch>, Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+	Gregory Clement <gregory.clement@bootlin.com>, Robert Jarzmik <robert.jarzmik@free.fr>, 
+	Kristoffer Ericson <kristoffer.ericson@gmail.com>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Alexander Sverdlin <alexander.sverdlin@siemens.com>, Shawn Guo <shawnguo@kernel.org>, 
+	"David Hildenbrand (Arm)" <david@kernel.org>, Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	imx@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-omap@vger.kernel.org, Ian Molton <spyro@f2s.com>, Jens Axboe <axboe@kernel.dk>, 
+	Helge Deller <deller@gmx.de>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	"Paul E. McKenney" <paulmck@kernel.org>, linux-block@vger.kernel.org, linux-serial@vger.kernel.org, 
+	linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH 03/13] ARM: remove riscpc
+Message-ID: <aqRI3N5FPX1dpIlk@gmail.com>
+References: <20260908152808.3928630-1-arnd@kernel.org>
+ <20260908152808.3928630-4-arnd@kernel.org>
+ <CADkSEUjYhRk-ezaXZkHzFTFQnySFSisKtZfEP-_NtLnQF+6-1Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CADkSEUjYhRk-ezaXZkHzFTFQnySFSisKtZfEP-_NtLnQF+6-1Q@mail.gmail.com>
 
-The '@' sign applies to struct members, union members, and enum
-values as well as function parameters. Document that.
+On Thu, Sep 10, 2026 at 08:44:34PM +0100, Ethan Nelson-Moore wrote:
+> 
+> Because I think it's cool that the kernel still supports actual Acorn
+> hardware, I patched gcc 16.2 to restore ARMv3m support:
+> https://github.com/EthanNelson-Moore/gcc-arm-retro
+> 
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
----
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-doc@vger.kernel.org
+Nice.
 
- Documentation/doc-guide/kernel-doc.rst |    3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+I've made a RiscPC emulator in the browser using QEMU and WASM. It boots
+Linux kernels and currently emulates a StrongARM RiscPC:
 
---- linux-next-20260911.orig/Documentation/doc-guide/kernel-doc.rst
-+++ linux-next-20260911/Documentation/doc-guide/kernel-doc.rst
-@@ -422,7 +422,8 @@ Domain`_ references.
-   Function reference.
- 
- ``@parameter``
--  Name of a function parameter. (No cross-referencing, just formatting.)
-+  Name of a function parameter, struct member, union member, or
-+  enum value. (No cross-referencing, just formatting.)
- 
- ``%CONST``
-   Name of a constant. (No cross-referencing, just formatting.)
+https://github.com/kmehltretter82/risc_pc_linux_emu
+
+I used LLMs a lot while building it.
+
+Your GCC work looks useful for this. I will look at building the RiscPC
+Linux kernel with it, and at emulating the original ARMv3 CPU too.
+
+Thanks,
+Karl
