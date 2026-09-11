@@ -1,139 +1,240 @@
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com [209.85.218.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07A695616DE
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:39:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 172434AB1A3;
+	Fri, 11 Sep 2026 19:39:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789155604; cv=none; b=oXI5adlO1fRoHotUGV6kVqX/vUNAue6BqcL9jb0znIdd4T6W9YqgeCBd6T4HDFThzVL7eUXV3SblhbrilaRYf6nVoqpcmH5noRGGqaJc09aaujko3/4zltQMjakqJqC0MOALXvRAWzM5iZ9SFr4laSnx8sbRU/ba8uQlp9V/4hI=
+	t=1789155609; cv=none; b=F/pRXRgJpPLSzRJDM/U89dxZ1zPZjFSuv8AvLhtbQxqdqMl5tDTuIIdjMPihtiNL9Zv0Qe7boygKK5vM6HnutqIcJXeIKizs1HQBxaTIc56uWD3JDg/wS1EHCv5nau0BEUlpeRE0YNHzPC1qKm2nGu2QZ+g2AVNQcGF5UEThpr8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789155604; c=relaxed/simple;
-	bh=p/PNA9lb1ujgnjktgM201CRXtbHR6ZSSOZ1hHyPZfg4=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Ru0iKNuZmC6x9EoqM1tlEL/Ssq3UAn3UGh75Io3gnOtSR8ug/BR2znBbYflQSTyXUr4LH1QMOzn4h/Wg1yLaGeTthRqvBta+9lhkP/suI61OENO81gH1JfYhlIA5EuUNzk3ZxlTxCX+XMCUlpOnTuxNq7pg4QkO02/PVYiBqDmw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UoDyFOQj; arc=none smtp.client-ip=209.85.218.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
+	s=arc-20240116; t=1789155609; c=relaxed/simple;
+	bh=uQXm1gV0hImCHIW2c39SJsX9YEkAV3QIf8B4ruAyqy0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=X3tLUlricRN/OhPPWsfZBbzyLwwWurE6JIe5x/8rtFtnZpWldyBbd6GyEq+THGeOAubLKUkmjU1C7Uq5yi6urHLn7knvL3CpwrvICBhWdESRSnD5hFZp44awajMcHzzTFlF5q7uyLBbPcHHrwNfbPIiuPG0VsKWWZ+YYyYVbkEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BJAVqof/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UoDyFOQj"
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c2939e341f7so156193766b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:39:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789155593; x=1789760393; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WeMy/DaNVJkSXZ0N2fL3KCM+KXX4amcR67/b0vTZpco=;
-        b=UoDyFOQjNmHA1HUmVNlBfCpdLI4VuGA2MJEe62TAs68xZyToe4JdePa2HKFpXbwH54
-         eu502RxzOqqpJTzbHHlNr4jdXh0wZfHTgdQRxSRSLv0YHsa4JEl4pfYAYALAWHJ/cVN2
-         xOy97sOmVOe1oqT32+SItDHs/OMcSWHIV2HOiHPzE+tqleRwABNU45tySQo73yGmb/qi
-         uKyd0oWswPRD+Bbi1qgdV5lE443FrEr+uKqAzT8JW4YTPnNobrvdql5DwcTZOdQxosPb
-         ccxkZcU1hKWYYEjyHwSaR5C/wZbLiraaBGmpao6zPR+PSk46iK7v2Vr/C/WPUu6ps7cn
-         MaAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789155593; x=1789760393;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WeMy/DaNVJkSXZ0N2fL3KCM+KXX4amcR67/b0vTZpco=;
-        b=QTBtMcoMzJ29akZW79wSrvQAgKq9l4tQdyUyBAP/4YzgilHkSzr2JkSQupXAUxOj3X
-         +dMkpITtInPgRHB8Ufu4pFPdRie/IaXsydpI+ImoNOk9YBvXT1A1QwiDADG0TCqM5fo9
-         OrrN11KRQ4tGiz/Zw8NqocM0n913/S35tvvEJlaortRzq9b0Pc6rsjbJyYSvOGwYLdEz
-         QaF+wLsYIiAIOFQp/7HzfTjJRk9ZPaWLJL3Mw40oqM0c+ayH2TsdM+lro5ZCgljgmnMW
-         Zex3dOOww9IEO6JXh4ZTRW2Bf/muq0lHOMwUtlngdCGY5X7hRAq1XAko4ScIdD7l/QFF
-         T4Hg==
-X-Forwarded-Encrypted: i=1; AKwUvBzKrf7aQOfii1B/nNVWyXlBDg+IGl5PXX1ok6UUKWoqV2y60gNbhb3HF9A+LahoIEWxq6U/ICqNzYmMsdc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nlh43nfaWiNVOfjTyJiquGrxp7e7eZJs78G0BX1cT/e5FLegoy
-	vY91SqvTIEM0+DyBlf0a6C7yRwmGGopnZZNh5p2zGRe+sB7YzNgQJyCWcW051KNQZsbwvRqf7uG
-	voBznpFkzaoEdCovzqxLe7A==
-X-Received: from ejbox4.prod.google.com ([2002:a17:907:1004:b0:c29:6e48:1427])
- (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:906:c14f:b0:c29:4d53:787f with SMTP id a640c23a62f3a-c2966737ef4mr240602566b.41.1789155592434;
- Fri, 11 Sep 2026 12:39:52 -0700 (PDT)
-Date: Fri, 11 Sep 2026 20:39:35 +0100
-In-Reply-To: <20260911193937.602202-1-vdonnefort@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BJAVqof/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46D6C1F000FF;
+	Fri, 11 Sep 2026 19:39:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789155577;
+	bh=BckCZCGc4vzG9wqcN+JQhNHkdFRqc5QwTzQVV8XEoLM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=BJAVqof/u/c7FIQI+5GzXn0KRuBxmgx8LDVa6WdBTPdDoifqdZXYU3fm6FWLhq6Qu
+	 p2UsfJ3gwHrWEIuKPcrixgQ53ybvhteksMpqWrDWuEn+bJw6SIktwWSfMeowmW2D/D
+	 i96BHR/dCFivr9bHt21UMZc25tYenv7qpiuo52Hbw0iLWfcze7ZSE4qr4YYFaii1bd
+	 TW+Xgkk3Vm8xiEMP4MQfICKAaMGvOqUIrBf8yUu+aDD5JTq3JeBTWN+Gp1CL4MFQoV
+	 elR+MHxTcQu+bW1lVd3L+Qc7BDrvTWPKsaFHAH4Nim99M0KIodLPGu+HjPE0ETgO0w
+	 a/3KIwLmuYhRg==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Fri, 11 Sep 2026 20:36:52 +0100
+Subject: [PATCH v3 05/12] mm: enable MMU_GATHER_RCU_TABLE_FREE for arc,
+ microblaze, xtensa
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260911193937.602202-1-vdonnefort@google.com>
-X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
-Message-ID: <20260911193937.602202-2-vdonnefort@google.com>
-Subject: [PATCH v2 1/3] tracing/remotes: Account for ring buffer page header
- in size calculation
-From: Vincent Donnefort <vdonnefort@google.com>
-To: rostedt@goodmis.org, mhiramat@kernel.org, 
-	linux-trace-kernel@vger.kernel.org
-Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
-	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260911-rcu-pagetable-freeing-v3-5-7b8c86103821@kernel.org>
+References: <20260911-rcu-pagetable-freeing-v3-0-7b8c86103821@kernel.org>
+In-Reply-To: <20260911-rcu-pagetable-freeing-v3-0-7b8c86103821@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Guo Ren <guoren@kernel.org>, Brian Cain <bcain@kernel.org>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ Jonas Bonn <jonas@southpole.se>, 
+ Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
+ Stafford Horne <shorne@gmail.com>, 
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Russell King <linux@armlinux.org.uk>, Vineet Gupta <vgupta@kernel.org>, 
+ Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
+ Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Richard Henderson <richard.henderson@linaro.org>, 
+ Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Mark Rutland <mark.rutland@arm.com>, Huacai Chen <chenhuacai@kernel.org>, 
+ WANG Xuerui <kernel@xen0n.name>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
+ Johannes Berg <johannes@sipsolutions.net>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
+ linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, 
+ linux-sh@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-snps-arc@lists.infradead.org, 
+ linux-arch@vger.kernel.org, sparclinux@vger.kernel.org, 
+ linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, 
+ linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org, 
+ linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, 
+ Qi Zheng <qi.zheng@linux.dev>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4685; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=uQXm1gV0hImCHIW2c39SJsX9YEkAV3QIf8B4ruAyqy0=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKWRDTFd3T1rHzcr3inrOyDlm2bXeqvHQ6dM9fbHReL2
+ bpTwPh/RwkLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACayfSsjQ+MG9ob0eY/W3FiS
+ w7fNxajzofBG+8p/OXYsiSd3uTLMTWP48Y4j9R93F6PPoVc9QfNszu3oXP5WTH1yXM2CV94vU5s
+ ZAA==
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-trace_buffer_desc_size() and trace_remote_alloc_buffer undercount the
-required pages because every ring buffer page contains a header
-(BUF_PAGE_HDR_SIZE). Account for that header to ensure allocated remote
-ring buffers aren't smaller than requested by the user.
+Each of these architectures directly free page tables without routing these
+changes through tlb_remove_ptdesc().
 
-The newly introduced helper __calc_nr_pages_ring_buffer_desc() can
-return a value that overflows the descriptor nr_pages field (32 bits).
+The use of tlb_remove_ptdesc() is required for
+CONFIG_MMU_GATHER_RCU_TABLE_FREE to correctly free page tables under RCU,
+so simply update these architectures to use these functions.
 
-Fixes: 2e67fabd8b77 ("ring-buffer: Introduce ring-buffer remotes")
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+Since none of the architectures share page tables or do anything unusual,
+nothing complicated is required here.
+
+Therefore this is simply a mechanical change - convert __pud_free_tlb(),
+__pmd_free_tlb() and __pte_free_tlb() to use tlb_remove_ptdesc() as
+required.
+
+At the point this is in place, all mmu_gather page table freeing is
+performed under RCU, and thus MMU_GATHER_RCU_TABLE_FREE is selected for
+each architecture.
+
+Note that CONFIG_MMU_GATHER_RCU_TABLE_FREE is dependent on CONFIG_MMU for
+xtensa to reflect the fact that nommu does not implement page table
+gathering.
+
+This forms part of an overall effort to switch every architecture to this
+mode.
+
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- include/linux/ring_buffer.h | 15 +++++++++++++--
- kernel/trace/trace_remote.c |  2 +-
- 2 files changed, 14 insertions(+), 3 deletions(-)
+ arch/arc/Kconfig                      | 1 +
+ arch/arc/include/asm/pgalloc.h        | 6 +++---
+ arch/microblaze/Kconfig               | 1 +
+ arch/microblaze/include/asm/pgalloc.h | 2 +-
+ arch/xtensa/Kconfig                   | 1 +
+ arch/xtensa/include/asm/tlb.h         | 2 +-
+ 6 files changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/include/linux/ring_buffer.h b/include/linux/ring_buffer.h
-index afc7daa6ee7d..11bffb6a142d 100644
---- a/include/linux/ring_buffer.h
-+++ b/include/linux/ring_buffer.h
-@@ -3,8 +3,9 @@
- #define _LINUX_RING_BUFFER_H
- 
- #include <linux/mm.h>
--#include <linux/seq_file.h>
- #include <linux/poll.h>
-+#include <linux/ring_buffer_types.h>
-+#include <linux/seq_file.h>
- 
- #include <uapi/linux/trace_mmap.h>
- 
-@@ -279,9 +280,19 @@ static inline struct ring_buffer_desc *__first_ring_buffer_desc(struct trace_buf
- 	return (struct ring_buffer_desc *)(&desc->__data[0]);
+diff --git a/arch/arc/Kconfig b/arch/arc/Kconfig
+index 2ed7186c81c5..7a7542b61823 100644
+--- a/arch/arc/Kconfig
++++ b/arch/arc/Kconfig
+@@ -47,6 +47,7 @@ config ARC
+ 	select HAVE_SYSCALL_TRACEPOINTS
+ 	select IRQ_DOMAIN
+ 	select LOCK_MM_AND_FIND_VMA
++	select MMU_GATHER_RCU_TABLE_FREE
+ 	select MODULES_USE_ELF_RELA
+ 	select OF
+ 	select OF_EARLY_FLATTREE
+diff --git a/arch/arc/include/asm/pgalloc.h b/arch/arc/include/asm/pgalloc.h
+index dfae070fe8d5..9b6c37f92e97 100644
+--- a/arch/arc/include/asm/pgalloc.h
++++ b/arch/arc/include/asm/pgalloc.h
+@@ -72,7 +72,7 @@ static inline void p4d_populate(struct mm_struct *mm, p4d_t *p4dp, pud_t *pudp)
+ 	set_p4d(p4dp, __p4d((unsigned long)pudp));
  }
  
-+/*
-+ * Returns the number of pages for a ring_buffer_desc. The caller must ensure it
-+ * does not overflow ring_buffer_desc::nr_page_va.
-+ */
-+static inline unsigned long __calc_nr_pages_ring_buffer_desc(size_t size)
-+{
-+	/* Takes into account the reader page */
-+	return max(DIV_ROUND_UP(size, PAGE_SIZE - BUF_PAGE_HDR_SIZE), 2UL) + 1;
-+}
-+
- static inline size_t trace_buffer_desc_size(size_t buffer_size, unsigned int nr_cpus)
- {
--	unsigned int nr_pages = max(DIV_ROUND_UP(buffer_size, PAGE_SIZE), 2UL) + 1;
-+	unsigned long nr_pages = __calc_nr_pages_ring_buffer_desc(buffer_size);
- 	struct ring_buffer_desc *rbdesc;
+-#define __pud_free_tlb(tlb, pmd, addr)  pud_free((tlb)->mm, pmd)
++#define __pud_free_tlb(tlb, pmd, addr)  tlb_remove_ptdesc((tlb), virt_to_ptdesc(pmd))
  
- 	return size_add(offsetof(struct trace_buffer_desc, __data),
-diff --git a/kernel/trace/trace_remote.c b/kernel/trace/trace_remote.c
-index 75fa1ffc4c96..c17902e42ef1 100644
---- a/kernel/trace/trace_remote.c
-+++ b/kernel/trace/trace_remote.c
-@@ -980,7 +980,7 @@ int trace_remote_alloc_buffer(struct trace_buffer_desc *desc, size_t desc_size,
- 			      const struct cpumask *cpumask)
- {
- 	size_t min_desc_size = trace_buffer_desc_size(buffer_size, cpumask_weight(cpumask));
--	unsigned int nr_pages = max(DIV_ROUND_UP(buffer_size, PAGE_SIZE), 2UL) + 1;
-+	unsigned int nr_pages = __calc_nr_pages_ring_buffer_desc(buffer_size);
- 	struct ring_buffer_desc *rb_desc;
- 	int cpu, ret = -ENOMEM;
+ #endif
  
+@@ -83,10 +83,10 @@ static inline void pud_populate(struct mm_struct *mm, pud_t *pudp, pmd_t *pmdp)
+ 	set_pud(pudp, __pud((unsigned long)pmdp));
+ }
+ 
+-#define __pmd_free_tlb(tlb, pmd, addr)  pmd_free((tlb)->mm, pmd)
++#define __pmd_free_tlb(tlb, pmd, addr)  tlb_remove_ptdesc((tlb), virt_to_ptdesc(pmd))
+ 
+ #endif
+ 
+-#define __pte_free_tlb(tlb, pte, addr)  pte_free((tlb)->mm, pte)
++#define __pte_free_tlb(tlb, pte, addr)  tlb_remove_ptdesc((tlb), page_ptdesc(pte))
+ 
+ #endif /* _ASM_ARC_PGALLOC_H */
+diff --git a/arch/microblaze/Kconfig b/arch/microblaze/Kconfig
+index 484ebb3baedf..af7e821e96c1 100644
+--- a/arch/microblaze/Kconfig
++++ b/arch/microblaze/Kconfig
+@@ -41,6 +41,7 @@ config MICROBLAZE
+ 	select PCI_SYSCALL if PCI
+ 	select CPU_NO_EFFICIENT_FFS
+ 	select MMU_GATHER_NO_RANGE
++	select MMU_GATHER_RCU_TABLE_FREE
+ 	select SPARSE_IRQ
+ 	select ZONE_DMA
+ 	select TRACE_IRQFLAGS_SUPPORT
+diff --git a/arch/microblaze/include/asm/pgalloc.h b/arch/microblaze/include/asm/pgalloc.h
+index 084a8a0dc239..ffee6a009219 100644
+--- a/arch/microblaze/include/asm/pgalloc.h
++++ b/arch/microblaze/include/asm/pgalloc.h
+@@ -25,7 +25,7 @@ extern void __bad_pte(pmd_t *pmd);
+ 
+ extern pte_t *pte_alloc_one_kernel(struct mm_struct *mm);
+ 
+-#define __pte_free_tlb(tlb, pte, addr)	pte_free((tlb)->mm, (pte))
++#define __pte_free_tlb(tlb, pte, addr)	tlb_remove_ptdesc((tlb), page_ptdesc(pte))
+ 
+ #define pmd_populate(mm, pmd, pte) \
+ 			(pmd_val(*(pmd)) = (unsigned long)page_address(pte))
+diff --git a/arch/xtensa/Kconfig b/arch/xtensa/Kconfig
+index f2f9cd9cde50..33c4caee30e2 100644
+--- a/arch/xtensa/Kconfig
++++ b/arch/xtensa/Kconfig
+@@ -55,6 +55,7 @@ config XTENSA
+ 	select HAVE_VIRT_CPU_ACCOUNTING_GEN
+ 	select IRQ_DOMAIN
+ 	select LOCK_MM_AND_FIND_VMA
++	select MMU_GATHER_RCU_TABLE_FREE if MMU
+ 	select MODULES_USE_ELF_RELA
+ 	select PERF_USE_VMALLOC
+ 	select TRACE_IRQFLAGS_SUPPORT
+diff --git a/arch/xtensa/include/asm/tlb.h b/arch/xtensa/include/asm/tlb.h
+index 8c3ceb427018..6fb7b78154f6 100644
+--- a/arch/xtensa/include/asm/tlb.h
++++ b/arch/xtensa/include/asm/tlb.h
+@@ -16,7 +16,7 @@
+ 
+ #include <asm-generic/tlb.h>
+ 
+-#define __pte_free_tlb(tlb, pte, address)	pte_free((tlb)->mm, pte)
++#define __pte_free_tlb(tlb, pte, address)	tlb_remove_ptdesc((tlb), page_ptdesc(pte))
+ 
+ void check_tlb_sanity(void);
+ 
+
 -- 
-2.55.0.1007.g17ff1f9808-goog
+2.55.0
 
