@@ -1,459 +1,197 @@
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 718B0485928
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:34:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 382E7457E49;
+	Fri, 11 Sep 2026 21:35:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789162444; cv=none; b=svdoY3C1DE9XZsZVIfWoqxoZh36zSj6D0QwVLbpidgSm8CrfLZKPvq4HcEyrW+YgE0Bupti/CMsqEdcnqtBk+8HS9E+/VpIoRM5Zp4paH3KycFhO/mG2uSzEXdGvmVJOGFg2UNsIDzNkcZ2QfRf8wOmkNkZEeMXXttnn8j4ZNb8=
+	t=1789162548; cv=none; b=T8WfqFeKEYkGuyVsEpQbu/DDARMJ9x/R0NVfjpFk6lfpgNv1LJqXK/vvHwMUmZV2EEd3ucoxwjhU6hy5pqHgeWNQC95Knjrou63M1P9TQG24uArHPfyv0YUem5BKpH8h4KeIJCuYNMBFF/ZkHW7P6kFiWDWykVBjEpBNoAIUedA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789162444; c=relaxed/simple;
-	bh=uA0ykF/9XLZdNv217gEJhJFeitz39AccivE1H/bor60=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=obZEHlEnb1bWOM/RIKujT3p1QeoIE3r3L5nrTmRo2d4fQGDAEE5Uvbj9nXrSkreaXyx+fhCF8i1tsewI+x7u89MevQNeRxXgGwyHBFqoZXGP89c/DPw8YIJFCUqj6btS+jWwFved+HvaY3/dGGolQfzsRjlJvjECy/HnyCT+qMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q7LS1QUz; arc=none smtp.client-ip=209.85.219.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789162548; c=relaxed/simple;
+	bh=W4KXX3fdBQTx7RvNGHdkgjdGwoOaGmGgFAMr7ryNdI4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qRGGLn8t1Ql9HfiQ6F+wsQuMDKK9szijsv/c1uhMsIZWDfyiYUK8Je+i/wRfcOF3Nnd1iAdN8P9sheT0BaFzqGoUdiz+EkWc2z4wWgcCRA/5kU87HJCetb9Sp/aL/9QBGACC3L4BNpD6sJKruWY9VZjX8SgGTgzqyQok0HQqqwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b=Jqqjj5Nj; arc=none smtp.client-ip=212.227.15.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q7LS1QUz"
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-9120eda2195so14992716d6.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:34:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789162441; x=1789767241; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eUgjt9sq7z3DvWbwF3U4aS6WwCN2ZGW8QdNmOZJwJVc=;
-        b=q7LS1QUzxuQU9DAahKwpa3D6pNaef94voTKx+Y+Q0f0cnQA9j54ZQ0c5r4qOw4mAra
-         a6kPtm3AcDaWHoQNHgLOhx4uf5WvKAoQMXp2nlRs5pYZQ42Iovb8SRiZPaczb+cnPIIG
-         /VZEXDv5Mnq1ymgpshCLZZjDjjEaatakT1KLz7VJCUn3OvyrUZGi+KO8CYGRJUjaA0I1
-         3K0WddIr2ANG30yvx2PgqAfXNRKXrIDLQO2hubrhk/okxL96q4xMmQnWqD4XmJ68ORwT
-         zdHdiwim6vmfhBcbxiPN8dql3WRjnaN1PaElihk3ZEMiUPphhoOnYtVBW/iqAox2aK0H
-         dDdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789162441; x=1789767241;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eUgjt9sq7z3DvWbwF3U4aS6WwCN2ZGW8QdNmOZJwJVc=;
-        b=pHb+pMpRbzqtZr3aae+dEhbJW2H2Ktttd8Vwc6cK5D91xDYdLBI745NE7HUIpuag3i
-         DOWKfFqL8u+lyqAgaXdR7IKt5TxgRKL3zAx925LFmhTXl91yiLhql1nhKTeQG1u9cofw
-         YUipMCM8Qavs6fgMBwRzkm+g5KPsmeogp68gLsVYR1Ad5QBjxlH3GcYkeAj7KcMHDI3K
-         XB8VUca4rW3bZ3ktDuV/1V1piYQ5LA/Z92J9GPgB6mbBTgUjR259Wg7uZ6+Xwj2O1KQl
-         I5lVb2vCmVobqcEABfRvA4D13Wg9/fjZNUiKVVjN02nwrx8SIQUsfESkyB4XdAdZG/D0
-         igpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzF7RGKf6UDUW2RhMksOmAmgZWLSZlEK5X+CQdWX07Bb9UdP4gEJ3+bGFbhDaVfHzU5Pq6mQchqZA3Zkfs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kw/jsuyi1WhcyuFvtv8ZbtIpNwGClq2yJzuvUWxHD1uwp5Vx3k
-	P1rYWJE0AE7qulW6XjfRmwR1tBORuYtST8hsc58pApD2KpOJt3v4RYyI
-X-Gm-Gg: AYBFou16pJEBYju9iQ1ydHgMhXHvbNAnEknEgxnvggyz2QxzF0WnqYnzi4z2V8/WaJE
-	ifbB9GIPrQPqHVXUuBFdmKvSGNU7EfgtMbO5OPCcrrZxdXsqJNS8c38JLZRq+xmz3qD6Vvo80c7
-	+AuPBWMHFKdfQnaYxWBEMUzp0rttz3zHo9AWfnmubkygFM2FHjp72tqh7p8lqKkrO7hGqNpYMlQ
-	4C3yfbR5AOJpHQX5JTq72hD9lgnUekMMmvHHc3JssZiuQOy/ENrZR/er81BrdXCqM3fUeqzbz8R
-	UktH+kbfyyMb/2kbBPoXSf2BWXScPVeF+IbXYzRV1k8e54Xh5BaxjF7zFbiZqHBCkGJsx/aGUv8
-	e6qyO0SnqWxxAVI8a5sEHcGMGbx3foMbftGRthjULq6m93pNhItiTd7/kgHAHemJo5+fp7x0nb1
-	N4nigT0QGrAaN16GZ7KbJM6jy4tZb4piA0DqOz5nHNl3DL3iniQIDfDhSOxu6TbU5tiQ==
-X-Received: by 2002:a05:6214:460b:b0:910:3b67:b793 with SMTP id 6a1803df08f44-91202981ce7mr138281966d6.24.1789162441098;
-        Fri, 11 Sep 2026 14:34:01 -0700 (PDT)
-Received: from Turin ([187.15.143.6])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f496598sm30170196d6.35.2026.09.11.14.33.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 14:34:00 -0700 (PDT)
-From: Nicholas Dudar <main.kalliope@gmail.com>
-To: tsbogend@alpha.franken.de,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	johan.almbladh@anyfinetworks.com,
-	paulburton@kernel.org
-Cc: martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	philmd@oss.qualcomm.com
-Subject: [PATCH bpf-next v4 3/3] bpf, mips: Add support for BPF_SDIV and BPF_SMOD
-Date: Fri, 11 Sep 2026 17:33:40 -0400
-Message-ID: <20260911213340.3767930-4-main.kalliope@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260911213340.3767930-1-main.kalliope@gmail.com>
-References: <20260911213340.3767930-1-main.kalliope@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b="Jqqjj5Nj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1789162543; x=1789767343; i=w_armin@gmx.de;
+	bh=BIEGw86T9NUN38jdMJyVdZ/p86qzcsXITFSxC4HAI34=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=Jqqjj5Nj0l+DqELlw/XYi1a7xgy021SwjfMfllk9CCadh45Vfmi3Y6U8UwP3CS4F
+	 YDtffW20j9vQm6TRVgRAhKqyk1Ksw84q/Nh2yx3e9feb135exz2+ZW3mFxIH8G+Ok
+	 OaIM/XTYkck1hwnOg53LArFAOPPowywICbZsOP3cH4sfv8lFYbQzo/i9FbOkCWfTq
+	 bZqwihWem6iEnAMHnlLKUU7K8TpAzhd64nVZpnVrxEdiowIid8RGpHjmBWGmLVqU0
+	 kRIioCIis/L1tQcqob6NwLdH17+kC6sEWqDMpItNKPOEqcZBVrm3yenpm1kT6T0jd
+	 RujrEczAsjw9hTfXag==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1N7zFZ-1wjzS93r99-015tPE; Fri, 11
+ Sep 2026 23:35:43 +0200
+Message-ID: <951189ad-71b6-4776-8484-a207f1efe415@gmx.de>
+Date: Fri, 11 Sep 2026 23:35:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 00/10] ACPI: thermal: Register thermal class cooling
+ devices under parents
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Linux ACPI <linux-acpi@vger.kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Hans de Goede
+ <hansg@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+ Linux PM <linux-pm@vger.kernel.org>, Lukasz Luba <lukasz.luba@arm.com>
+References: <1965933.tdWV9SEqCh@rafael.j.wysocki>
+Content-Language: en-US
+From: Armin Wolf <W_Armin@gmx.de>
+In-Reply-To: <1965933.tdWV9SEqCh@rafael.j.wysocki>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:jfVmfGfQaUtM1gI6jesHtLv/k0QzjGK4nVbslQ6e4kM1gH+LTwr
+ 031Z6kpvfK7OOhby7q/JfO22epIqF+x4dwP2ljlctNd6/9qpFHu755Hxk5rc+31SuFw7gCI
+ 2fkb2CrYh9rTOgrUCVmWlmpOxQiMP5kk/98Wt6GeWGQLtqGFiFIHFoca/6daNwitWSLBVyx
+ R8MJy7zcOEYi+PCsNJ4mw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:IsDA9Wu49N4=;830N6SR6Vq/ZRFWcaSa80NYU+OK
+ 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
+ aZmPEKW2eXOeqCsZMkVYqxUHVD3br4E
 
-The MIPS JITs handle BPF_DIV and BPF_MOD without inspecting insn->off,
-which distinguishes BPF_SDIV and BPF_SMOD. Signed operations therefore
-use unsigned instructions, or unsigned helpers for ALU64 on 32-bit
-MIPS, and produce unsigned results for negative operands.
+Am 11.09.26 um 15:00 schrieb Rafael J. Wysocki:
 
-Pass insn->off unchanged through immediate validation and register
-emission, and interpret it only in div/mod-specific paths. Use signed
-DIV/DDIV for pre-R6 and DIV/MOD/DDIV/DMOD for R6. On 32-bit MIPS, use
-div64_s64() and a signed remainder helper for ALU64. Keep the signed
-quotient signed while computing that remainder, and keep signed
-immediates out of the unsigned power-of-two shift/mask rewrite.
+> Hi All,
+>
+> This series generally changes the way in which thermal class cooling devices
+> are used by ACPI device drivers registering them (ACPI processor, ACPI fan,
+> and ACPI video) and by the ACPI thermal zone device driver.
+>
+> First, it causes the thermal class cooling devices to be registered under
+> parents in specific locations within the device hierarchy which allows
+> their relationships with other devices to be recognized more easily.  It
+> also drops custom sysfs attributes registered by the users of the thermal
+> class cooling devices because they are not particularly useful any more
+> when those devices get proper parents.
+>
+> Second, it modifies the ACPI thermal zone device driver to use thermal class
+> cooling device parent information for binding cooling devices to trip points
+> in thermal zones, which was previously done with the help of the devdata
+> pointers of the cooling devices and effectively prevented drivers from using
+> the devdata pointers for their own purposes as originally intended.
+>
+> Finally, it updates the ACPI processor and ACPI fan drivers to use the
+> devdata pointers of thermal class cooling devices in a bit more efficient
+> way.
+>
+> The first two patches in the series are preliminary fixes preventing
+> Sashiko from reporting "pre-existing issues" in the subsequent patches.
+>
+> The third patch is a thermal core update allowing thermal class cooling
+> devices to be registered under proper parents.
+>
+> The other patches update the ACPI processor, ACPI video, and ACPI fan
+> drivers as per the above.
+>
+> The details are covered by individual patch changelogs.
+>
+> Thanks!
 
-check_alu_op() rejects immediate zero divisors. bpf_do_misc_fixups()
-rewrites signed immediate -1 and guards register divisors that are zero
-or, for signed operations, -1 before JIT compilation. The ALU32 paths
-continue to zero-extend their results.
+Nice patch series, it looks mostly good to me. Do you plan something similar for
+thermal zones?
 
-Found while auditing BPF JIT handling of signed div/mod.
+Thanks,
+Armin Wolf
 
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Nicholas Dudar <main.kalliope@gmail.com>
-Link: https://lore.kernel.org/bpf/CAM1=_QS79dDBfaaNQXnWd61AqHd1M4o9aDMMiftnoJveNr=FZg@mail.gmail.com/
-Link: https://lore.kernel.org/bpf/CAM1=_QQ7XiJEozaetLt_+kVn91YAXWpJK_pyfT9=paXseW=wwA@mail.gmail.com/
----
- arch/mips/net/bpf_jit_comp.c   | 35 ++++++++++++++++-------
- arch/mips/net/bpf_jit_comp.h   |  4 +--
- arch/mips/net/bpf_jit_comp32.c | 29 ++++++++++++-------
- arch/mips/net/bpf_jit_comp64.c | 51 +++++++++++++++++++++-------------
- 4 files changed, 78 insertions(+), 41 deletions(-)
-
-diff --git a/arch/mips/net/bpf_jit_comp.c b/arch/mips/net/bpf_jit_comp.c
-index 320180330fb..f14de6d7312 100644
---- a/arch/mips/net/bpf_jit_comp.c
-+++ b/arch/mips/net/bpf_jit_comp.c
-@@ -208,7 +208,7 @@ void emit_mov_r(struct jit_context *ctx, u8 dst, u8 src)
- }
- 
- /* Validate ALU immediate range */
--bool valid_alu_i(u8 op, s32 imm)
-+bool valid_alu_i(u8 op, s32 imm, s16 off)
- {
- 	switch (BPF_OP(op)) {
- 	case BPF_NEG:
-@@ -237,6 +237,9 @@ bool valid_alu_i(u8 op, s32 imm)
- 		return imm == 0 || (imm > 0 && is_power_of_2(imm));
- 	case BPF_DIV:
- 	case BPF_MOD:
-+		/* Do not use unsigned shift/mask rewrites for signed div/mod. */
-+		if (off == 1)
-+			return false;
- 		/* imm must be an 17-bit power of two */
- 		return (u32)imm <= 0x10000 && is_power_of_2((u32)imm);
- 	}
-@@ -339,29 +342,41 @@ void emit_alu_i(struct jit_context *ctx, u8 dst, s32 imm, u8 op)
- }
- 
- /* ALU division operation (32-bit) */
--static void emit_div(struct jit_context *ctx, u8 dst, u8 src)
-+static void emit_div(struct jit_context *ctx, u8 dst, u8 src, s16 off)
- {
- 	if (cpu_has_mips32r6) {
--		emit(ctx, divu_r6, dst, dst, src);
-+		if (off == 1)
-+			emit(ctx, div_r6, dst, dst, src);
-+		else
-+			emit(ctx, divu_r6, dst, dst, src);
- 	} else {
--		emit(ctx, divu, dst, src);
-+		if (off == 1)
-+			emit(ctx, div, dst, src);
-+		else
-+			emit(ctx, divu, dst, src);
- 		emit(ctx, mflo, dst);
- 	}
- }
- 
- /* ALU modulo operation (32-bit) */
--static void emit_mod(struct jit_context *ctx, u8 dst, u8 src)
-+static void emit_mod(struct jit_context *ctx, u8 dst, u8 src, s16 off)
- {
- 	if (cpu_has_mips32r6) {
--		emit(ctx, modu, dst, dst, src);
-+		if (off == 1)
-+			emit(ctx, mod, dst, dst, src);
-+		else
-+			emit(ctx, modu, dst, dst, src);
- 	} else {
--		emit(ctx, divu, dst, src);
-+		if (off == 1)
-+			emit(ctx, div, dst, src);
-+		else
-+			emit(ctx, divu, dst, src);
- 		emit(ctx, mfhi, dst);
- 	}
- }
- 
- /* ALU register operation (32-bit) */
--void emit_alu_r(struct jit_context *ctx, u8 dst, u8 src, u8 op)
-+void emit_alu_r(struct jit_context *ctx, u8 dst, u8 src, u8 op, s16 off)
- {
- 	switch (BPF_OP(op)) {
- 	/* dst = dst & src */
-@@ -407,11 +422,11 @@ void emit_alu_r(struct jit_context *ctx, u8 dst, u8 src, u8 op)
- 		break;
- 	/* dst = dst / src */
- 	case BPF_DIV:
--		emit_div(ctx, dst, src);
-+		emit_div(ctx, dst, src, off);
- 		break;
- 	/* dst = dst % src */
- 	case BPF_MOD:
--		emit_mod(ctx, dst, src);
-+		emit_mod(ctx, dst, src, off);
- 		break;
- 	}
- 	clobber_reg(ctx, dst);
-diff --git a/arch/mips/net/bpf_jit_comp.h b/arch/mips/net/bpf_jit_comp.h
-index a37fe20818e..0ddedb733dd 100644
---- a/arch/mips/net/bpf_jit_comp.h
-+++ b/arch/mips/net/bpf_jit_comp.h
-@@ -163,7 +163,7 @@ void emit_mov_i(struct jit_context *ctx, u8 dst, s32 imm);
- void emit_mov_r(struct jit_context *ctx, u8 dst, u8 src);
- 
- /* Validate ALU/ALU64 immediate range */
--bool valid_alu_i(u8 op, s32 imm);
-+bool valid_alu_i(u8 op, s32 imm, s16 off);
- 
- /* Rewrite ALU/ALU64 immediate operation */
- bool rewrite_alu_i(u8 op, s32 imm, u8 *alu, s32 *val);
-@@ -172,7 +172,7 @@ bool rewrite_alu_i(u8 op, s32 imm, u8 *alu, s32 *val);
- void emit_alu_i(struct jit_context *ctx, u8 dst, s32 imm, u8 op);
- 
- /* ALU register operation (32-bit) */
--void emit_alu_r(struct jit_context *ctx, u8 dst, u8 src, u8 op);
-+void emit_alu_r(struct jit_context *ctx, u8 dst, u8 src, u8 op, s16 off);
- 
- /* Atomic read-modify-write (32-bit) */
- void emit_atomic_r(struct jit_context *ctx, u8 dst, u8 src, s16 off, u8 code);
-diff --git a/arch/mips/net/bpf_jit_comp32.c b/arch/mips/net/bpf_jit_comp32.c
-index 40a878b672f..6619182b5ef 100644
---- a/arch/mips/net/bpf_jit_comp32.c
-+++ b/arch/mips/net/bpf_jit_comp32.c
-@@ -512,7 +512,7 @@ static void emit_mul_r64(struct jit_context *ctx,
- 	clobber_reg64(ctx, dst);
- }
- 
--/* Helper function for 64-bit modulo */
-+/* Helper function for unsigned 64-bit modulo */
- static u64 jit_mod64(u64 a, u64 b)
- {
- 	u64 rem;
-@@ -521,13 +521,22 @@ static u64 jit_mod64(u64 a, u64 b)
- 	return rem;
- }
- 
-+/* Helper function for signed 64-bit modulo */
-+static s64 jit_smod64(s64 a, s64 b)
-+{
-+	s64 quot = div64_s64(a, b);
-+
-+	return a - quot * b;
-+}
-+
- /* ALU div/mod register (64-bit) */
--static void emit_divmod_r64(struct jit_context *ctx,
--			    const u8 dst[], const u8 src[], u8 op)
-+static void emit_divmod_r64(struct jit_context *ctx, const u8 dst[],
-+			    const u8 src[], u8 op, s16 off)
- {
- 	const u8 *r0 = bpf2mips32[BPF_REG_0]; /* Mapped to v0-v1 */
- 	const u8 *r1 = bpf2mips32[BPF_REG_1]; /* Mapped to a0-a1 */
- 	const u8 *r2 = bpf2mips32[BPF_REG_2]; /* Mapped to a2-a3 */
-+	bool is_signed = off == 1;
- 	int exclude, k;
- 	u32 addr = 0;
- 
-@@ -546,11 +555,11 @@ static void emit_divmod_r64(struct jit_context *ctx,
- 	switch (BPF_OP(op)) {
- 	/* dst = dst / src */
- 	case BPF_DIV:
--		addr = (u32)&div64_u64;
-+		addr = is_signed ? (u32)&div64_s64 : (u32)&div64_u64;
- 		break;
- 	/* dst = dst % src */
- 	case BPF_MOD:
--		addr = (u32)&jit_mod64;
-+		addr = is_signed ? (u32)&jit_smod64 : (u32)&jit_mod64;
- 		break;
- 	}
- 	emit_mov_i(ctx, MIPS_R_T9, addr);
-@@ -1516,9 +1525,9 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
- 	case BPF_ALU | BPF_MUL | BPF_K:
- 	case BPF_ALU | BPF_DIV | BPF_K:
- 	case BPF_ALU | BPF_MOD | BPF_K:
--		if (!valid_alu_i(BPF_OP(code), imm)) {
-+		if (!valid_alu_i(BPF_OP(code), imm, off)) {
- 			emit_mov_i(ctx, MIPS_R_T6, imm);
--			emit_alu_r(ctx, lo(dst), MIPS_R_T6, BPF_OP(code));
-+			emit_alu_r(ctx, lo(dst), MIPS_R_T6, BPF_OP(code), off);
- 		} else if (rewrite_alu_i(BPF_OP(code), imm, &alu, &val)) {
- 			emit_alu_i(ctx, lo(dst), val, alu);
- 		}
-@@ -1546,7 +1555,7 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
- 	case BPF_ALU | BPF_MUL | BPF_X:
- 	case BPF_ALU | BPF_DIV | BPF_X:
- 	case BPF_ALU | BPF_MOD | BPF_X:
--		emit_alu_r(ctx, lo(dst), lo(src), BPF_OP(code));
-+		emit_alu_r(ctx, lo(dst), lo(src), BPF_OP(code), off);
- 		emit_zext_ver(ctx, dst);
- 		break;
- 	/* dst = imm (64-bit) */
-@@ -1599,7 +1608,7 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
- 		 * and then do the operation on this register.
- 		 */
- 		emit_mov_se_i64(ctx, tmp, imm);
--		emit_divmod_r64(ctx, dst, tmp, BPF_OP(code));
-+		emit_divmod_r64(ctx, dst, tmp, BPF_OP(code), off);
- 		break;
- 	/* dst = dst & src (64-bit) */
- 	/* dst = dst | src (64-bit) */
-@@ -1629,7 +1638,7 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
- 	/* dst = dst % src (64-bit) */
- 	case BPF_ALU64 | BPF_DIV | BPF_X:
- 	case BPF_ALU64 | BPF_MOD | BPF_X:
--		emit_divmod_r64(ctx, dst, src, BPF_OP(code));
-+		emit_divmod_r64(ctx, dst, src, BPF_OP(code), off);
- 		break;
- 	/* dst = htole(dst) */
- 	/* dst = htobe(dst) */
-diff --git a/arch/mips/net/bpf_jit_comp64.c b/arch/mips/net/bpf_jit_comp64.c
-index 2520e1db7ab..db027c2d922 100644
---- a/arch/mips/net/bpf_jit_comp64.c
-+++ b/arch/mips/net/bpf_jit_comp64.c
-@@ -198,29 +198,42 @@ static void emit_alu_i64(struct jit_context *ctx, u8 dst, s32 imm, u8 op)
- }
- 
- /* ALU division operation (64-bit) */
--static void emit_div64(struct jit_context *ctx, u8 dst, u8 src)
-+static void emit_div64(struct jit_context *ctx, u8 dst, u8 src, s16 off)
- {
- 	if (cpu_has_mips64r6) {
--		emit(ctx, ddivu_r6, dst, dst, src);
-+		if (off == 1)
-+			emit(ctx, ddiv_r6, dst, dst, src);
-+		else
-+			emit(ctx, ddivu_r6, dst, dst, src);
- 	} else {
--		emit(ctx, ddivu, dst, src);
-+		if (off == 1)
-+			emit(ctx, ddiv, dst, src);
-+		else
-+			emit(ctx, ddivu, dst, src);
- 		emit(ctx, mflo, dst);
- 	}
- }
- 
- /* ALU modulo operation (64-bit) */
--static void emit_mod64(struct jit_context *ctx, u8 dst, u8 src)
-+static void emit_mod64(struct jit_context *ctx, u8 dst, u8 src, s16 off)
- {
- 	if (cpu_has_mips64r6) {
--		emit(ctx, dmodu, dst, dst, src);
-+		if (off == 1)
-+			emit(ctx, dmod, dst, dst, src);
-+		else
-+			emit(ctx, dmodu, dst, dst, src);
- 	} else {
--		emit(ctx, ddivu, dst, src);
-+		if (off == 1)
-+			emit(ctx, ddiv, dst, src);
-+		else
-+			emit(ctx, ddivu, dst, src);
- 		emit(ctx, mfhi, dst);
- 	}
- }
- 
- /* ALU register operation (64-bit) */
--static void emit_alu_r64(struct jit_context *ctx, u8 dst, u8 src, u8 op)
-+static void emit_alu_r64(struct jit_context *ctx, u8 dst, u8 src, u8 op,
-+			 s16 off)
- {
- 	switch (BPF_OP(op)) {
- 	/* dst = dst << src */
-@@ -257,15 +270,15 @@ static void emit_alu_r64(struct jit_context *ctx, u8 dst, u8 src, u8 op)
- 		break;
- 	/* dst = dst / src */
- 	case BPF_DIV:
--		emit_div64(ctx, dst, src);
-+		emit_div64(ctx, dst, src, off);
- 		break;
- 	/* dst = dst % src */
- 	case BPF_MOD:
--		emit_mod64(ctx, dst, src);
-+		emit_mod64(ctx, dst, src, off);
- 		break;
- 	default:
- 		/* Width-generic operations */
--		emit_alu_r(ctx, dst, src, op);
-+		emit_alu_r(ctx, dst, src, op, off);
- 	}
- 	clobber_reg(ctx, dst);
- }
-@@ -686,9 +699,9 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
- 	case BPF_ALU | BPF_AND | BPF_K:
- 	case BPF_ALU | BPF_XOR | BPF_K:
- 	case BPF_ALU | BPF_LSH | BPF_K:
--		if (!valid_alu_i(BPF_OP(code), imm)) {
-+		if (!valid_alu_i(BPF_OP(code), imm, off)) {
- 			emit_mov_i(ctx, MIPS_R_T4, imm);
--			emit_alu_r(ctx, dst, MIPS_R_T4, BPF_OP(code));
-+			emit_alu_r(ctx, dst, MIPS_R_T4, BPF_OP(code), off);
- 		} else if (rewrite_alu_i(BPF_OP(code), imm, &alu, &val)) {
- 			emit_alu_i(ctx, dst, val, alu);
- 		}
-@@ -708,10 +721,10 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
- 	case BPF_ALU | BPF_MUL | BPF_K:
- 	case BPF_ALU | BPF_DIV | BPF_K:
- 	case BPF_ALU | BPF_MOD | BPF_K:
--		if (!valid_alu_i(BPF_OP(code), imm)) {
-+		if (!valid_alu_i(BPF_OP(code), imm, off)) {
- 			emit_sext(ctx, dst, dst);
- 			emit_mov_i(ctx, MIPS_R_T4, imm);
--			emit_alu_r(ctx, dst, MIPS_R_T4, BPF_OP(code));
-+			emit_alu_r(ctx, dst, MIPS_R_T4, BPF_OP(code), off);
- 		} else if (rewrite_alu_i(BPF_OP(code), imm, &alu, &val)) {
- 			emit_sext(ctx, dst, dst);
- 			emit_alu_i(ctx, dst, val, alu);
-@@ -726,7 +739,7 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
- 	case BPF_ALU | BPF_OR | BPF_X:
- 	case BPF_ALU | BPF_XOR | BPF_X:
- 	case BPF_ALU | BPF_LSH | BPF_X:
--		emit_alu_r(ctx, dst, src, BPF_OP(code));
-+		emit_alu_r(ctx, dst, src, BPF_OP(code), off);
- 		emit_zext_ver(ctx, dst);
- 		break;
- 	/* dst = dst >> src */
-@@ -745,7 +758,7 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
- 	case BPF_ALU | BPF_MOD | BPF_X:
- 		emit_sext(ctx, dst, dst);
- 		emit_sext(ctx, MIPS_R_T4, src);
--		emit_alu_r(ctx, dst, MIPS_R_T4, BPF_OP(code));
-+		emit_alu_r(ctx, dst, MIPS_R_T4, BPF_OP(code), off);
- 		emit_zext_ver(ctx, dst);
- 		break;
- 	/* dst = imm (64-bit) */
-@@ -782,9 +795,9 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
- 	case BPF_ALU64 | BPF_MUL | BPF_K:
- 	case BPF_ALU64 | BPF_DIV | BPF_K:
- 	case BPF_ALU64 | BPF_MOD | BPF_K:
--		if (!valid_alu_i(BPF_OP(code), imm)) {
-+		if (!valid_alu_i(BPF_OP(code), imm, off)) {
- 			emit_mov_i(ctx, MIPS_R_T4, imm);
--			emit_alu_r64(ctx, dst, MIPS_R_T4, BPF_OP(code));
-+			emit_alu_r64(ctx, dst, MIPS_R_T4, BPF_OP(code), off);
- 		} else if (rewrite_alu_i(BPF_OP(code), imm, &alu, &val)) {
- 			emit_alu_i64(ctx, dst, val, alu);
- 		}
-@@ -811,7 +824,7 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
- 	case BPF_ALU64 | BPF_MUL | BPF_X:
- 	case BPF_ALU64 | BPF_DIV | BPF_X:
- 	case BPF_ALU64 | BPF_MOD | BPF_X:
--		emit_alu_r64(ctx, dst, src, BPF_OP(code));
-+		emit_alu_r64(ctx, dst, src, BPF_OP(code), off);
- 		break;
- 	/* dst = htole(dst) */
- 	/* dst = htobe(dst) */
