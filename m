@@ -1,153 +1,277 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB5C33B71BC
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:29:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789169372; cv=pass; b=FoItrjlOuteL+4PXpjiCb7K82+BESH5uy1gklYVcF2xEuu0AEXaoSCRX0u4ioah0SRJXpUetPUXXqSySqoQ9gShka0bJavzTkadJLGWFiU2loY/oQNatiliFCboo8iWcTEPwbqlAzjWwzPNTjgLetzmkkPZ5von5Egf37lFEJuw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789169372; c=relaxed/simple;
-	bh=hcCH1dUFIcWdgiK2n6o4P3fKlgwCx3OuIk7x9WnwwYE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IbuGGENIKo08B8q2i9GUWTWZr84bikKK7G2KYGzCRzWVsG/t8B7ziHXo/z9mSDw+2cyumoiQ1ff0eOgGC5haKFMoUYf2NNlrrH87u0XJawJYLY0oQBbKlpSw7yjiaRlx7nDymZ73juoL4uOdZv4vP0vMbQMm05XRVXdKH68i3QE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=AyPHsufY; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F133246ED;
+	Fri, 11 Sep 2026 23:29:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789169376; cv=none; b=feWdW11ctLoxf2Z9/4O681Uziq+r44PP0Ss+qPithqG2ecpzSLB6tg6hpjfzO5dSXFmsgDqSzmPbe4jtX19hL2gvtbzmneXbxBDB6kRVHOiGinvaC2JU4J4sdYS4JSs5+C5QyNaFQtMu5JWC7vnHx8PE8c20R/cls/bRTktyF6U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789169376; c=relaxed/simple;
+	bh=7lwcmw3oOfQJEkgyBkIMGhKBHj1UPW1+VFZ59Qe3eQI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Gh32qZnAvwnZL3egO9UYi2d22ok1gommVNp4oupNqTNXjih7ar2937J2pMpyp4hdStJ41kBHVMgZwuENdLlyd5hq4p13023PRposT1zCyFFmBgMfxOooqfsSy4b410k+scnmKIxWuIIjuJVxSVax9CWp9Tyq0pcyNtFh0+MC7j8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=X0L5iUHT; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="AyPHsufY"
-ARC-Seal: i=1; a=rsa-sha256; t=1789169339; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=efPMK4quvfhbCzx0O2n9+ppnit44nj5esCP+cCzcjxut5KdUh878ZusLhKyBsqJnB4B0a1nGCb63q4QdDQOJxoDcBYASuBoIzvcRxh9PWJ57TG9oioBxqBacpXdphGkoHyq4/CLu6Ki4QxcgVsP6zkvtGS7Ex9kfcqorIrIgVig=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789169339; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=41ds9z6Rh7JtHM6jQPfhK3863L5musGeQLMv9a5jCE0=; 
-	b=b+cRgpy5/XXibvSZFdwBcx6wJ4MDRAKik9SMicHMIVwKpvg3b7COJqJRy3qH7bLirIt5hGLpoKOVdTH7fQhp5+wUY9NY889cuzg484r1JsXP70YslxJuXTcHEkmrMrnH2F7KGPVNGLrEhgARat6VK0inzxU7v4KJHBJ8i+4FW8A=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789169339;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=41ds9z6Rh7JtHM6jQPfhK3863L5musGeQLMv9a5jCE0=;
-	b=AyPHsufYaOqPqlMt+c/jYiJwy2Ui8z1uY/4vibLbQtmKW93v2e5ghFE0YcyZBfle
-	+kw6OjA8dxVZD82FRrty5MXc69/I+BQgT8xJYGGeQdRy+Do6kJq6Xv5O9D5/xRb8CdG
-	TV7E4ICV76ewU5aZdfEfk/7vf4204/UIFnqB3TA4=
-Received: by mx.zohomail.com with SMTPS id 1789169339761719.0250863890261;
-	Fri, 11 Sep 2026 16:28:59 -0700 (PDT)
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Sat, 12 Sep 2026 00:28:11 +0100
-Subject: [PATCH v9 10/16] drm/panfrost: Add debugfs knob for manually
- triggering a GPU reset
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="X0L5iUHT"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=tlQQvF1b+LoQVB9XRaUbbPD8hANIsVjq3TZJg8ASnTw=; b=X0L5iUHTRwYhwkzF16rcwqBBKs
+	1qga73wtg/r0iRou6O98urcmLPTKRa4esBDCXGEsnaoaxFHwdYHK4FFWaBlZM9s45MvloNU6NUNlO
+	hRUW73Vrv9bvBNYeqmD2D/O0JyKULSo1zLhtm4ih+xlHcRc5JDB8s0jaKdy7cLyqdliYHZQhxKbA9
+	cEEVhBIGuTY9h3nTuZ24zHvzQbZDPEhI/w6qOBIKBU/kFuw+M95M6qF9BY1GLYlubBeJnoqtrO0Nw
+	rPj6irzpQXFvbqdsaeOHociOw0IJvOkyLnYPyJ7N9Vyzz9NOhb25FeGl9SsoWCMriFD+11SkWccur
+	Rqli2UEw==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x5AgH-00000000MHz-1aVp;
+	Fri, 11 Sep 2026 23:29:17 +0000
+Message-ID: <5cd22376-6921-4a2b-acba-371bcbbfa00f@infradead.org>
+Date: Fri, 11 Sep 2026 16:29:15 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260912-claude-fixes-v9-10-e588feaa61ef@collabora.com>
-References: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
-In-Reply-To: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, 
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2042;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=hcCH1dUFIcWdgiK2n6o4P3fKlgwCx3OuIk7x9WnwwYE=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqpI6DerKG9p30du1LfAACMFlmyrqfXZ69gSrIt
- TkvlCYkmqCJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCaqSOgwAKCRAOJn5M7lND
- PWhuC/9+IFlUqggMzcN3ZAfXz2W0aju5muI9FfQVhytV2kp9hWe09YUtrdBzdxuhExfPBP0Tgg+
- b0bYT0paoJqQiM7lGVQfMur+yF5SuKwpNpvcmHRwE2D7A9zZs+6A8pX8RRzt5AAsLYdnevjCrTi
- rToTG5uS5IUGhR+jNcw6CXQhfGTchtyHvBH5vO/WYQ7XjsFI7Xoc2g3OEj/8dVxDgATcwgmmxc8
- nOuGRWBllmq7uSnK7TUynVeii+69uZHqn/zzfcUyjoYs1TfuGKEVa0BULrZCS4dZVY/XE2S5Pgj
- 0PljRBpz4BcQxBIdQpwHOSe9jKg0upWVKSqwgZzIhYALpshDvBrry988CUGrmXwC1+SJMYCgdH/
- up282zG6qpyhVSXlNV3O+09qRMUErCKz3HoW5856ftlK+V2wn/Y0ghF9n/U5HUCY/ugNcpGRTfB
- ijuU6MSZddmch+xj5+XcWKmgBy0rARZJvrxEG2L15zOdFxpZR4Nf4yy1dRe5e9VmEGtP8=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] i3c: add i3cdev character device module for
+ user-space access
+To: Meagan Lloyd <meaganlloyd@linux.microsoft.com>,
+ linux-i3c@lists.infradead.org
+Cc: alexandre.belloni@bootlin.com, vitor.soares@toradex.com,
+ samagazaryan@google.com, gregkh@linuxfoundation.org, arnd@arndb.de,
+ boris.brezillon@collabora.com, oleksandr.shulzhenko.viktorovych@intel.com,
+ tgopinath@linux.microsoft.com, corbet@lwn.net, skhan@linuxfoundation.org,
+ linux@roeck-us.net, Frank.Li@nxp.com, jorge.marques@analog.com,
+ pgaj@cadence.com, wsa+renesas@sang-engineering.com,
+ tommaso.merciai.xr@bp.renesas.com, nuno.sa@analog.com,
+ Michael.Hennerich@analog.com, jic23@kernel.org, dlechner@baylibre.com,
+ andy@kernel.org, lorenzo@kernel.org, enelsonmoore@gmail.com,
+ rppt@kernel.org, pratyush@kernel.org, giovanni.cabiddu@intel.com,
+ gabewhigham@gmail.com, haren@linux.ibm.com, pasha.tatashin@soleen.com,
+ jirislaby@kernel.org, adrian.ho.yin.ng@altera.com, ustc.gu@gmail.com,
+ jszhang@kernel.org, adrian.hunter@intel.com, akhilrajeev@nvidia.com,
+ tze.yee.ng@altera.com, manikanta.guntupalli@amd.com,
+ shubhrajyoti.datta@amd.com, jarkko.nikula@linux.intel.com,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux@analog.com, linux-iio@vger.kernel.org
+References: <20260911210935.1353126-1-meaganlloyd@linux.microsoft.com>
+ <20260911210935.1353126-4-meaganlloyd@linux.microsoft.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260911210935.1353126-4-meaganlloyd@linux.microsoft.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This will be of great help when testing potential races between the GPU
-reset sequence and other parts of the code accessing HW registers.
 
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
----
- drivers/gpu/drm/panfrost/panfrost_device.c | 37 ++++++++++++++++++++++++++++++
- 1 file changed, 37 insertions(+)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-index d75566a45392..0aee1d87a7ab 100644
---- a/drivers/gpu/drm/panfrost/panfrost_device.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-@@ -2,6 +2,7 @@
- /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
- /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
- 
-+#include <linux/debugfs.h>
- #include <linux/clk.h>
- #include <linux/reset.h>
- #include <linux/platform_device.h>
-@@ -583,9 +584,45 @@ EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) = {
- };
- 
- #ifdef CONFIG_DEBUG_FS
-+static int reset_get(void *data, u64 *val)
-+{
-+	struct panfrost_device *pfdev =
-+		container_of(data, struct panfrost_device, base);
-+
-+	*val = atomic_read(&pfdev->reset.pending);
-+	return 0;
-+}
-+
-+static int reset_set(void *data, u64 val)
-+{
-+	struct panfrost_device *pfdev =
-+		container_of(data, struct panfrost_device, base);
-+	int ret = pm_runtime_get_if_active(pfdev->base.dev);
-+
-+	if (ret) {
-+		panfrost_device_schedule_reset(pfdev);
-+		flush_work(&pfdev->reset.work);
-+		if (ret > 0)
-+			pm_runtime_put(pfdev->base.dev);
-+	}
-+
-+	return 0;
-+}
-+
-+DEFINE_DEBUGFS_ATTRIBUTE(panfrost_reset_debugfs_fops,
-+			 reset_get, reset_set,
-+			 "0x%08llx\n");
-+
-+static void panfrost_reset_debugfs_init(struct drm_minor *minor)
-+{
-+	debugfs_create_file("reset", 0600, minor->debugfs_root,
-+			    minor->dev, &panfrost_reset_debugfs_fops);
-+}
-+
- void panfrost_device_debugfs_init(struct drm_minor *minor)
- {
- 	panfrost_gem_debugfs_init(minor);
- 	panfrost_sched_debugfs_init(minor);
-+	panfrost_reset_debugfs_init(minor);
- }
- #endif // CONFIG_DEBUG_FS
+On 9/11/26 2:09 PM, Meagan Lloyd wrote:
+> The i3cdev driver is a character device driver that allows user-space
+> to control and interact with I3C devices.
+> 
+> Currently, it has the ability to perform Single Data Rate (SDR)
+> transfers - basic reads/writes.
+> 
+> With the addition of sysfs driver_override, there is now a
+> straightforward and direct way to match the i3cdev driver to any i3c
+> device without stepping on the toes of more specialized drivers that are
+> loaded automatically.
+> 
+> This is accomplished by the i3cdev driver not having any entries in the
+> i3c_device_id table. After boot, simply set the driver_override to
+> "i3cdev" and bind the device manually via the sysfs bind knob. This can
+> also be automated with udev rules as well.
+> 
+> The character device interface will be exposed at:
+> /dev/bus/i3c/<bus id>-<Provisional ID>
+> 
+> Signed-off-by: Meagan Lloyd <meaganlloyd@linux.microsoft.com>
+> Assisted-by: Claude:claude-opus-4.8 copilot
+> ---
+>  Documentation/userspace-api/i3c/i3cdev.rst    | 152 ++++
+>  .../userspace-api/ioctl/ioctl-number.rst      |   1 +
+>  MAINTAINERS                                   |   7 +
+>  drivers/i3c/Kconfig                           |  12 +
+>  drivers/i3c/Makefile                          |   1 +
+>  drivers/i3c/i3cdev.c                          | 730 ++++++++++++++++++
+>  include/uapi/linux/i3c/i3cdev.h               |  70 ++
+>  7 files changed, 973 insertions(+)
+>  create mode 100644 Documentation/userspace-api/i3c/i3cdev.rst
+>  create mode 100644 drivers/i3c/i3cdev.c
+>  create mode 100644 include/uapi/linux/i3c/i3cdev.h
+> 
+> diff --git a/Documentation/userspace-api/i3c/i3cdev.rst b/Documentation/userspace-api/i3c/i3cdev.rst
+> new file mode 100644
+> index 000000000000..ad246bf28919
+> --- /dev/null
+> +++ b/Documentation/userspace-api/i3c/i3cdev.rst
+> @@ -0,0 +1,152 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+> +====================
+> +I3C Device Interface
+> +====================
+> +
+> +This interface allows access to I3C devices from userspace.
+> +
+> +As I3C devices adhere to the I3C protocol, simple transfers can be accomplished
+> +using a generic driver. Currently, this interface supports private Single Data
+> +Rate (SDR) read and write transfers.
+> +
+> +The i3cdev module will not auto-bind to devices. Userspace needs to explicitly
+> +bind the device to the driver. This is to avoid interfering with the binding of
+> +specialized drivers.
+> +
+> +Once bound, a character device interface will be created at:
+> +/dev/bus/i3c/<bus id>-<Provisional ID>.
+> +
+> +====================
+> +Usage
+> +====================
+> +
+> +Any discovered I3C devices by the I3C subsystem will have device folders under /sys/bus/i3c/devices/<bus id>-<Provisional ID>.
+> +To allow binding of a device with i3cdev driver, set the driver_override:
+> +
+> +::
+> +
+> +    # echo "i3cdev" > /sys/bus/i3c/devices/<bus id>-<Provisional ID>/driver_override
+> +
+> +If the i3cdev driver is not yet loaded, load it and it will cause the driver to bind
+> +to any devices with the override in place.
+> +
+> +If the i3cdev driver is already loaded, go ahead and perform a manual bind:
+> +
+> +::
+> +
+> +    # echo "<bus id>-<Provisional ID>" > /sys/bus/i3c/drivers/i3cdev/bind
+> +
+> +Set driver override
+> +::
+> +
+> +    # echo "i3cdev" > /sys/bus/i3c/devices/0-deadbeef001/driver_override
+> +    # echo "i3cdev" > /sys/bus/i3c/devices/0-deadbeef002/driver_override
+> +
+> +Bind the device to the driver
+> +::
+> +
+> +    # echo "0-deadbeef001" > /sys/bus/i3c/drivers/i3cdev/bind
+> +    # echo "0-deadbeef002" > /sys/bus/i3c/drivers/i3cdev/bind
+> +
+> +Observe the resulting character device files under /dev/bus/i3c/
+> +::
+> +
+> +    # ls -ltr /dev/bus/i3c/
+> +    crw-------    1 root     root      235,   1 Jun 30 17:49 0-deadbeef002
+> +    crw-------    1 root     root      235,   0 Jun 30 17:49 0-deadbeef001
+> +
+> +BASIC CHARACTER DEVICE API
+> +===============================
+> +The API supports private Single Data Rate (SDR) read and write transfers.
+> +Those transaction can be achieved by the following:
+> +
+> +``read(file, buffer, sizeof(buffer))``
+> +  The standard read() operation will work as a simple transaction of private
+> +  SDR read data followed a stop.
+> +  Return the number of bytes read on success, and a negative error otherwise.
+> +
+> +``write(file, buffer, sizeof(buffer))``
+> +  The standard write() operation will work as a simple transaction of private
+> +  SDR write data followed a stop.
+> +  Return the number of bytes written on success, and a negative error otherwise.
+> +
+> +``ioctl(file, I3CDEV_XFER, struct i3cdev_xfers *xfers)``
+> +  It combines read/write transactions without a stop in between.
+> +  Return 0 on success, and a negative error otherwise.
+> +
+> +C EXAMPLE (PSEUDO CODE)
+> +=======================
+> +You need to open (and get a file descriptor) to /dev/bus/i3c/<bus id>-<Provisional ID>,
+> +do your operations (read, write, ioctl), and then close it.
+> +
+> +The following header files should be included in an I3C program::
+> +
+> +#include <fcntl.h>
+> +#include <unistd.h>
+> +#include <sys/ioctl.h>
+> +#include <i3c/i3cdev.h>
+> +#include <stdint.h>
+> +
+> +These additionally are used by this example::
+> +
+> +#include <stdlib.h>
+> +#include <assert.h>
+> +
+> +To work with an I3C device, one must call open and get a file descriptor::
+> +
+> +	int fd;
+> +
+> +	fd = open("/dev/bus/i3c/0-deadbeef001", O_RDWR);
+> +	if (fd < 0)
+> +		exit(EXIT_FAILURE);
+> +
+> +Now that the file is open, we can do some operations::
+> +
+> +	int ret;
+> +
+> +	/* Write function */
+> +	uint8_t  buf[] = {0x00, 0xde, 0xad, 0xbe, 0xef};
+> +	ret = write(fd, buf, 5);
+> +	if (ret != 5) {
+> +		/* ERROR HANDLING: I3C transaction failed */
+> +	}
+> +
+> +	/*  Read function */
+> +	ret = read(fd, buf, 4);
+> +	if (ret < 0) {
+> +		/* ERROR HANDLING: I3C transaction failed */
+> +	} else {
+> +		/* Iterate over buf[] to get the read data */
+> +	}
+> +
+> +	/* IOCTL function */
+> +	struct i3cdev_xfer xfers[2] = {0}; /* Must zero out for compatibility */
+> +	struct i3cdev_xfers xfers_metadata = { .nxfers = 2,
+> +					       .xfers = (uintptr_t) xfers,
+> +					       .xfer_size = sizeof(struct i3cdev_xfer)
+> +					     };
+> +
+> +	uint8_t tx_buf[] = {0x00, 0xde, 0xad, 0xbe, 0xef};
+> +	uint8_t rx_buf[10];
+> +
+> +	xfers[0].data = (uintptr_t) tx_buf;
+> +	xfers[0].len = 5;
+> +	xfers[0].rnw = 0;
+> +	xfers[1].data = (uintptr_t) rx_buf;
+> +	xfers[1].len = 10;
+> +	xfers[1].rnw = 1;
+> +
+> +	ret = ioctl(fd, I3CDEV_XFER, (uintptr_t) &xfers_metadata);
+> +	if (ret < 0) {
+> +		/* ERROR HANDLING: I3C transaction failed */
+> +	} else {
+> +		/* For reads, optionally verify that the response matches expectations */
+> +		assert(xfers[1].len == xfers[1].actual_len);
+> +
+> +		/* For reads, iterate through response data using xfers[i].actual_len */
+> +	}
+> +
+> +The device can be closed when the open file descriptor is no longer required::
+> +
+> +	close(fd);
+> \ No newline at end of file
 
+Fix the warning above, please.
+Also:
+Documentation/userspace-api/i3c/i3cdev.rst: WARNING: document isn't included in any toctree [toc.not_included]
+
+add that file to the table of contents (somewhere).
+
+thanks.
 -- 
-2.55.0
+~Randy
 
