@@ -1,264 +1,380 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E1F64266AE;
-	Fri, 11 Sep 2026 20:45:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1185130EF92
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 20:46:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789159510; cv=none; b=SgcXxnWCNNDiqNndPSnItcB10Rd1T5vTQHStq4TxB6zlTJGlcjmVjai+W7OapDxmSQF9+EBqZ8/IIefsM4j/c769z2BWcb/vwGQGKucAFhsUgo2ddIRzH6++sd53vn8eqSrv+QndwW6+nlAJrDAdu9EXsfLYuigog8nFt7P1Fr0=
+	t=1789159573; cv=none; b=DFAOZzg6biY7RqO21DXtL/jw+PSYPgl4kzD4s4ovw9QRNPRfV65Mj3gtZdNMJw4Ny+RY/irMHtZgcQgRv9ZYMKfGF2BrzHwQ6+dIl7jQwi1SNgN0BuFnfBjGf575NpLNGZ2yNMINyFIBS7SxWW509FjAKRGGk278ykWkQ6+Uduw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789159510; c=relaxed/simple;
-	bh=xF+oq6oJxQHpoxxPvzaT47kloXMmUw+UiG3lA/tDFBw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qrDlbZ1OPx9b14m4/x61yluPRZ6S8He7aO4sVwyvrBCbDJ+BzTqz+IvAqXcZE+FOrAYkZWOcasK5stpF5zZpZHIu/tKMcRNB2dxRawhZJrUOxTipHpmh8ZUI6BNTNebHtsIFCjHtnBiAhSPWymVA/q58bUccjzOVb7UiNP1x+vk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b=hwdVCksI; arc=none smtp.client-ip=212.227.15.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	s=arc-20240116; t=1789159573; c=relaxed/simple;
+	bh=TT31i/fvUvTxHsWhpTQxj3jthDXVh6uvrE98k1zovWs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IEILBZZzc3g8WN8qJ5g43ngRPdrucLW91A45JR8TK1L8SrmlLGt4k0Jd8MlrgKKcTllqcxQmAtsJ8Vq6x7q9GyWV7xdBvm5XT+RVKML1dxTBcHS2Qzq5ZjSxZbZF3PquxhXwdO3k+rCbTOWV9+UzFd7gD8iGSW3P6+aNyUPqZVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hYvmOzL3; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b="hwdVCksI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1789159497; x=1789764297; i=w_armin@gmx.de;
-	bh=W3J1Afr710NH/lVRDi7/w9XoM73/On1sn95NXzQ2uD8=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=hwdVCksIIkMhZnTS+bkb1x4/Vr7C0/IlYcJ8DyGg/aus+pQrrCtnM8ABdlILh+C8
-	 rRiet9/UD++xpqVgrg6qpm77/h1vGMWRACQ0aRSJIAYEtMdJ0a7eIhyjY7naEJK9V
-	 ZIijLxRm7qszFM5hZH8VPH+xFRGQ/Ns1TJB+vU1DMF3W6hdQ0ISUXn/TewUX25pRN
-	 nuwASiRwnyYQw6qMC65CTxTbQdmMn64YWrjk/slPG3WmPBygmPdKpIP1XLPTh+xgY
-	 0hW7oEFgb6MgoNoW1JlUjMSTQlLweFlXI3EWUPOWRIdejrPyCEek9IknygvVZEYlA
-	 JLmqJnghIanjGJBpPQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MUXpK-1xDpHM2ia8-00Rtdo; Fri, 11
- Sep 2026 22:44:57 +0200
-Message-ID: <de81ce50-a55d-4a02-85dc-419bb219cdf1@gmx.de>
-Date: Fri, 11 Sep 2026 22:44:51 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hYvmOzL3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789159571; x=1820695571;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=TT31i/fvUvTxHsWhpTQxj3jthDXVh6uvrE98k1zovWs=;
+  b=hYvmOzL3+qM3hRuSKCxr6RTJ+g/wt8JAGtxHzB9l10aF4efdBRkmXp/z
+   BwuVEFZma0IpO1RHWJu1Bpf6u6qZRRWY1ez4ptcEoenK4YhIyIIyBvY3H
+   kE6rieIVaX9puN70rudcABEMr8HVFS5CHedPKEeBmBHGs2iRNm9mCY6Oc
+   dfDnsd0tCM/oWBpbC8+KkjkyqYACI8KMaJGJ3LAq5Z2inhxtmk49stx/H
+   i9m+B+5ZBqOdmSMgE5VYTnojS8RZEmoYxhxl1PWGKfRrbM8c4r2L8myYS
+   HdxbE0blTWiZl28AKiHAy4cVI4ISZIaLWjuEONggBJj/5ZihCEsmAxVgh
+   Q==;
+X-CSE-ConnectionGUID: voniGWSmRBWN889taJ+gOA==
+X-CSE-MsgGUID: dA0IKub3QWCRqPv2AJmuKQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="88767537"
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="88767537"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 13:46:10 -0700
+X-CSE-ConnectionGUID: QGr2N0ITQXydgeip/Nh1/A==
+X-CSE-MsgGUID: cdp0ojVbTHObEi/ZhFv5nQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="295510660"
+Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
+  by fmviesa002.fm.intel.com with ESMTP; 11 Sep 2026 13:46:05 -0700
+Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x588I-0000000029J-1mH8;
+	Fri, 11 Sep 2026 20:46:02 +0000
+Date: Sat, 12 Sep 2026 04:45:18 +0800
+From: kernel test robot <lkp@intel.com>
+To: Aaron Tomlin <atomlin@atomlin.com>, akpm@linux-foundation.org,
+	mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
+	vincent.guittot@linaro.org
+Cc: oe-kbuild-all@lists.linux.dev, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, feng.tang@linux.alibaba.com, pmladek@suse.com,
+	kprateek.nayak@amd.com, atomlin@atomlin.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] sched/debug, sys_info: Introduce SYS_INFO_CPU_RUNQUEUES
+Message-ID: <202609120421.J3jtss6v-lkp@intel.com>
+References: <20260911022844.521413-1-atomlin@atomlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] platform/x86: bitland-mifs-wmi: Don't abort suspend when
- platform profile access fails
-To: Chris Taraszka <chris@miget.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
- Mingyou Chen <qby140326@gmail.com>, stable@vger.kernel.org
-References: <20260911182131.461415-1-chris@miget.com>
-Content-Language: en-US
-From: Armin Wolf <W_Armin@gmx.de>
-In-Reply-To: <20260911182131.461415-1-chris@miget.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:ht/OV5Z6jzFVtc2EKfqbFsYRMZMJH8Lv+XqGV6V91llXn2DS1We
- NtWjUaEW1OxEVdpBtwDoFWeZMoOaLcpGE+T/iqzOXt1E1ZiMVhsiQKEp1e9h/3GNUASqoTn
- sMg/OoqbQ2wh5kZsieZVz3lwqWfEb/TsVaMniZ3OnlmbJY/ylD4W0DfMOO5ut7uA6cWCov7
- s0f2sve94bhgFNQATQRXw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:h0L6VAZjK48=;cuIypHuy8utZQ3dOw5hxzoKNvwK
- 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
- YNKU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260911022844.521413-1-atomlin@atomlin.com>
 
-Am 11.09.26 um 20:21 schrieb Chris Taraszka:
+Hi Aaron,
 
-> On a Xiaomi Book Pro 14 (BIOS XMAPT4B0P0909), bitland_mifs_wmi_suspend()
-> intermittently fails to read the platform profile and returns -EINVAL to
-> the PM core, which aborts the entire system suspend:
->
->    bitland-mifs-wmi B60BFB48-...-4: PM: dpm_run_callback():
->      bitland_mifs_wmi_suspend [bitland_mifs_wmi] returns -22
->    bitland-mifs-wmi B60BFB48-...-4: PM: failed to suspend: error -22
->    PM: Some devices failed to suspend, or early wake event detected
->
-> The WMI method call itself succeeds. The WMI core reports its own
-> failures as -EIO, -ENOMSG, -ENODATA or -EPROTO, so the -EINVAL comes fro=
-m
-> laptop_profile_get() when the SystemPerMode value returned by the
-> firmware is not one of the four documented modes.
->
-> How often this happens depends on firmware state. On a v7.2.2 boot the
-> query failed persistently on battery: /sys/power/suspend_stats reported
-> 4628 failures against 2 successes, both of those on AC. Because logind
-> re-issues the suspend while the lid stays closed, the machine looped
-> awake and drained half the battery over one 8h42m lid-closed period at
-> ~7-8 W. On v7.3-rc2, whose driver, WMI core and platform_profile code ar=
-e
-> unchanged from v7.2, the query has so far failed only right after boot,
-> when power-profiles-daemon first reads the profile.
->
-> Commit d3666875c75e ("platform/x86: bitland-mifs-wmi: Fix NULL pointer
-> dereference during suspend/resume") added a !data->pp_dev guard, but
-> that only covers the event device. On the control device pp_dev is
-> valid, so the guard does not apply and the error is returned verbatim.
->
-> Saving the platform profile is best-effort. Failing to read it should
-> not keep the system awake, so warn and continue instead, in line with
-> that commit skipping profile operations rather than failing the
-> transition. Do the same on resume: laptop_profile_set() returns
-> -EOPNOTSUPP for the performance and full-speed modes without DC power
-> (see Documentation/wmi/devices/bitland-mifs-wmi.rst), so a profile saved
-> on DC power cannot be restored after unplugging during suspend, which
-> would otherwise mark the resume as failed.
+kernel test robot noticed the following build warnings:
 
-Hi,
+[auto build test WARNING on akpm-mm/mm-everything]
+[also build test WARNING on tip/sched/core akpm-mm/mm-nonmm-unstable linus/master v7.3-rc2 next-20260909]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-i think the root cause for this is that your device uses a different set o=
-f platform profiles.
-Can you share the output of "acpidump"?
+url:    https://github.com/intel-lab-lkp/linux/commits/Aaron-Tomlin/sched-debug-sys_info-Introduce-SYS_INFO_CPU_RUNQUEUES/20260910-222844
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
+patch link:    https://lore.kernel.org/r/20260911022844.521413-1-atomlin%40atomlin.com
+patch subject: [PATCH] sched/debug, sys_info: Introduce SYS_INFO_CPU_RUNQUEUES
+config: microblaze-randconfig-r132-20260911 (https://download.01.org/0day-ci/archive/20260912/202609120421.J3jtss6v-lkp@intel.com/config)
+compiler: microblaze-linux-gcc (GCC) 8.5.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260912/202609120421.J3jtss6v-lkp@intel.com/reproduce)
 
-Thanks,
-Armin Wolf
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609120421.J3jtss6v-lkp@intel.com/
 
-> Fixes: dc1ec4fa86b2 ("platform/x86: bitland-mifs-wmi: Add new Bitland MI=
-FS WMI driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chris Taraszka <chris@miget.com>
-> ---
-> Tested on the same machine with v7.3-rc2 plus this patch: 11 s2idle
-> suspend cycles, including lid-closed suspends on battery of 7h42m, 4.9h
-> and 75.8h, and repeated pm_test=3Ddevices cycles on battery all complete=
-d
-> without errors. The failing firmware state could not be reproduced on
-> demand on v7.3-rc2, so the new warnings have not been observed firing
-> during a suspend; the failures described above were recorded on v7.2.2
-> without this patch.
->
->   drivers/platform/x86/bitland-mifs-wmi.c | 17 +++++++++++++----
->   1 file changed, 13 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/=
-x86/bitland-mifs-wmi.c
-> index 3a37318..788ef14 100644
-> --- a/drivers/platform/x86/bitland-mifs-wmi.c
-> +++ b/drivers/platform/x86/bitland-mifs-wmi.c
-> @@ -305,22 +305,31 @@ static int bitland_mifs_wmi_suspend(struct device =
-*dev)
->   		return 0;
->  =20
->   	ret =3D laptop_profile_get(data->pp_dev, &profile);
-> -	if (ret =3D=3D 0)
-> -		data->saved_profile =3D profile;
-> +	if (ret) {
-> +		dev_warn(dev, "Failed to save platform profile: %d\n", ret);
-> +		return 0;
-> +	}
->  =20
-> -	return ret;
-> +	data->saved_profile =3D profile;
-> +
-> +	return 0;
->   }
->  =20
->   static int bitland_mifs_wmi_resume(struct device *dev)
->   {
->   	struct bitland_mifs_wmi_data *data =3D dev_get_drvdata(dev);
-> +	int ret;
->  =20
->   	/* Skip event device */
->   	if (!data->pp_dev)
->   		return 0;
->  =20
->   	dev_dbg(dev, "Resuming, restoring profile %d\n", data->saved_profile)=
-;
-> -	return laptop_profile_set(dev, data->saved_profile);
-> +	ret =3D laptop_profile_set(dev, data->saved_profile);
-> +	if (ret)
-> +		dev_warn(dev, "Failed to restore platform profile: %d\n", ret);
-> +
-> +	return 0;
->   }
->  =20
->   static DEFINE_SIMPLE_DEV_PM_OPS(bitland_mifs_wmi_pm_ops,
+sparse warnings: (new ones prefixed by >>)
+   kernel/sched/build_utility.c: note: in included file:
+   kernel/sched/debug.c:868:17: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd @@     got struct sched_domain [noderef] __rcu *parent @@
+   kernel/sched/debug.c:868:17: sparse:     expected struct sched_domain *[assigned] sd
+   kernel/sched/debug.c:868:17: sparse:     got struct sched_domain [noderef] __rcu *parent
+   kernel/sched/debug.c:1220:9: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct task_struct *tsk @@     got struct task_struct [noderef] __rcu *curr @@
+   kernel/sched/debug.c:1220:9: sparse:     expected struct task_struct *tsk
+   kernel/sched/debug.c:1220:9: sparse:     got struct task_struct [noderef] __rcu *curr
+   kernel/sched/debug.c:1220:9: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct task_struct *tsk @@     got struct task_struct [noderef] __rcu *curr @@
+   kernel/sched/debug.c:1220:9: sparse:     expected struct task_struct *tsk
+   kernel/sched/debug.c:1220:9: sparse:     got struct task_struct [noderef] __rcu *curr
+>> kernel/sched/debug.c:1355:30: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct task_struct *curr @@     got struct task_struct [noderef] __rcu *curr @@
+   kernel/sched/debug.c:1355:30: sparse:     expected struct task_struct *curr
+   kernel/sched/debug.c:1355:30: sparse:     got struct task_struct [noderef] __rcu *curr
+>> kernel/sched/debug.c:1360:30: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct task_struct *curr @@     got struct task_struct [noderef] __rcu * @@
+   kernel/sched/debug.c:1360:30: sparse:     expected struct task_struct *curr
+   kernel/sched/debug.c:1360:30: sparse:     got struct task_struct [noderef] __rcu *
+   kernel/sched/build_utility.c: note: in included file:
+   kernel/sched/topology.c:118:56: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *child @@
+   kernel/sched/topology.c:118:56: sparse:     expected struct sched_domain *sd
+   kernel/sched/topology.c:118:56: sparse:     got struct sched_domain [noderef] __rcu *child
+   kernel/sched/topology.c:137:60: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *parent @@
+   kernel/sched/topology.c:137:60: sparse:     expected struct sched_domain *sd
+   kernel/sched/topology.c:137:60: sparse:     got struct sched_domain [noderef] __rcu *parent
+   kernel/sched/topology.c:160:20: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *parent @@
+   kernel/sched/topology.c:160:20: sparse:     expected struct sched_domain *sd
+   kernel/sched/topology.c:160:20: sparse:     got struct sched_domain [noderef] __rcu *parent
+   kernel/sched/topology.c:470:19: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct perf_domain *pd @@     got struct perf_domain [noderef] __rcu *pd @@
+   kernel/sched/topology.c:470:19: sparse:     expected struct perf_domain *pd
+   kernel/sched/topology.c:470:19: sparse:     got struct perf_domain [noderef] __rcu *pd
+   kernel/sched/topology.c:654:49: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct sched_domain *parent @@     got struct sched_domain [noderef] __rcu *parent @@
+   kernel/sched/topology.c:654:49: sparse:     expected struct sched_domain *parent
+   kernel/sched/topology.c:654:49: sparse:     got struct sched_domain [noderef] __rcu *parent
+   kernel/sched/topology.c:753:50: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct sched_domain *parent @@     got struct sched_domain [noderef] __rcu *parent @@
+   kernel/sched/topology.c:753:50: sparse:     expected struct sched_domain *parent
+   kernel/sched/topology.c:753:50: sparse:     got struct sched_domain [noderef] __rcu *parent
+   kernel/sched/topology.c:775:55: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain [noderef] __rcu *[noderef] __rcu child @@     got struct sched_domain *[assigned] tmp @@
+   kernel/sched/topology.c:775:55: sparse:     expected struct sched_domain [noderef] __rcu *[noderef] __rcu child
+   kernel/sched/topology.c:775:55: sparse:     got struct sched_domain *[assigned] tmp
+   kernel/sched/topology.c:788:29: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] tmp @@     got struct sched_domain [noderef] __rcu *parent @@
+   kernel/sched/topology.c:788:29: sparse:     expected struct sched_domain *[assigned] tmp
+   kernel/sched/topology.c:788:29: sparse:     got struct sched_domain [noderef] __rcu *parent
+   kernel/sched/topology.c:793:20: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *parent @@
+   kernel/sched/topology.c:793:20: sparse:     expected struct sched_domain *sd
+   kernel/sched/topology.c:793:20: sparse:     got struct sched_domain [noderef] __rcu *parent
+   kernel/sched/topology.c:826:13: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] tmp @@     got struct sched_domain [noderef] __rcu *sd @@
+   kernel/sched/topology.c:826:13: sparse:     expected struct sched_domain *[assigned] tmp
+   kernel/sched/topology.c:826:13: sparse:     got struct sched_domain [noderef] __rcu *sd
+   kernel/sched/topology.c:1069:38: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct sched_domain *sdp @@     got struct sched_domain [noderef] __rcu *parent @@
+   kernel/sched/topology.c:1069:38: sparse:     expected struct sched_domain *sdp
+   kernel/sched/topology.c:1069:38: sparse:     got struct sched_domain [noderef] __rcu *parent
+   kernel/sched/topology.c:1076:21: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *sdp @@     got struct sched_domain [noderef] __rcu *parent @@
+   kernel/sched/topology.c:1076:21: sparse:     expected struct sched_domain *sdp
+   kernel/sched/topology.c:1076:21: sparse:     got struct sched_domain [noderef] __rcu *parent
+   kernel/sched/topology.c:1223:70: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *child @@
+   kernel/sched/topology.c:1223:70: sparse:     expected struct sched_domain *sd
+   kernel/sched/topology.c:1223:70: sparse:     got struct sched_domain [noderef] __rcu *child
+   kernel/sched/topology.c:1252:59: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *child @@
+   kernel/sched/topology.c:1252:59: sparse:     expected struct sched_domain *sd
+   kernel/sched/topology.c:1252:59: sparse:     got struct sched_domain [noderef] __rcu *child
+   kernel/sched/topology.c:1298:57: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *child @@
+   kernel/sched/topology.c:1298:57: sparse:     expected struct sched_domain *sd
+   kernel/sched/topology.c:1298:57: sparse:     got struct sched_domain [noderef] __rcu *child
+   kernel/sched/topology.c:1300:25: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *sibling @@     got struct sched_domain [noderef] __rcu *child @@
+   kernel/sched/topology.c:1300:25: sparse:     expected struct sched_domain *sibling
+   kernel/sched/topology.c:1300:25: sparse:     got struct sched_domain [noderef] __rcu *child
+   kernel/sched/topology.c:1308:55: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *child @@
+   kernel/sched/topology.c:1308:55: sparse:     expected struct sched_domain *sd
+   kernel/sched/topology.c:1308:55: sparse:     got struct sched_domain [noderef] __rcu *child
+   kernel/sched/topology.c:1310:25: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *sibling @@     got struct sched_domain [noderef] __rcu *child @@
+   kernel/sched/topology.c:1310:25: sparse:     expected struct sched_domain *sibling
+   kernel/sched/topology.c:1310:25: sparse:     got struct sched_domain [noderef] __rcu *child
+   kernel/sched/topology.c:1380:62: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *child @@
+   kernel/sched/topology.c:1380:62: sparse:     expected struct sched_domain *sd
+   kernel/sched/topology.c:1380:62: sparse:     got struct sched_domain [noderef] __rcu *child
+   kernel/sched/topology.c:1484:40: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct sched_domain *child @@     got struct sched_domain [noderef] __rcu *child @@
+   kernel/sched/topology.c:1484:40: sparse:     expected struct sched_domain *child
+   kernel/sched/topology.c:1484:40: sparse:     got struct sched_domain [noderef] __rcu *child
+   kernel/sched/topology.c:1620:9: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd @@     got struct sched_domain [noderef] __rcu *parent @@
+   kernel/sched/topology.c:1620:9: sparse:     expected struct sched_domain *[assigned] sd
+   kernel/sched/topology.c:1620:9: sparse:     got struct sched_domain [noderef] __rcu *parent
+   kernel/sched/topology.c:1877:52: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd @@     got struct sched_domain [noderef] __rcu *parent @@
+   kernel/sched/topology.c:1877:52: sparse:     expected struct sched_domain *[assigned] sd
+   kernel/sched/topology.c:1877:52: sparse:     got struct sched_domain [noderef] __rcu *parent
+   kernel/sched/topology.c:1987:43: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct sched_domain [noderef] __rcu *child @@     got struct sched_domain *child @@
+   kernel/sched/topology.c:1987:43: sparse:     expected struct sched_domain [noderef] __rcu *child
+   kernel/sched/topology.c:1987:43: sparse:     got struct sched_domain *child
+   kernel/sched/topology.c:2791:31: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain [noderef] __rcu *parent @@     got struct sched_domain *sd @@
+   kernel/sched/topology.c:2791:31: sparse:     expected struct sched_domain [noderef] __rcu *parent
+   kernel/sched/topology.c:2791:31: sparse:     got struct sched_domain *sd
+   kernel/sched/topology.c:2919:16: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *parent @@     got struct sched_domain [noderef] __rcu *[noderef] __rcu parent @@
+   kernel/sched/topology.c:2919:16: sparse:     expected struct sched_domain *parent
+   kernel/sched/topology.c:2919:16: sparse:     got struct sched_domain [noderef] __rcu *[noderef] __rcu parent
+   kernel/sched/topology.c:2921:24: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *parent @@     got struct sched_domain [noderef] __rcu *parent @@
+   kernel/sched/topology.c:2921:24: sparse:     expected struct sched_domain *parent
+   kernel/sched/topology.c:2921:24: sparse:     got struct sched_domain [noderef] __rcu *parent
+   kernel/sched/topology.c:2926:16: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *parent @@     got struct sched_domain [noderef] __rcu *parent @@
+   kernel/sched/topology.c:2926:16: sparse:     expected struct sched_domain *parent
+   kernel/sched/topology.c:2926:16: sparse:     got struct sched_domain [noderef] __rcu *parent
+   kernel/sched/topology.c:2931:24: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *parent @@     got struct sched_domain [noderef] __rcu *parent @@
+   kernel/sched/topology.c:2931:24: sparse:     expected struct sched_domain *parent
+   kernel/sched/topology.c:2931:24: sparse:     got struct sched_domain [noderef] __rcu *parent
+   kernel/sched/topology.c:3008:25: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd_asym @@     got struct sched_domain [noderef] __rcu *parent @@
+   kernel/sched/topology.c:3008:25: sparse:     expected struct sched_domain *[assigned] sd_asym
+   kernel/sched/topology.c:3008:25: sparse:     got struct sched_domain [noderef] __rcu *parent
+   kernel/sched/topology.c:3143:57: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd @@     got struct sched_domain [noderef] __rcu *parent @@
+   kernel/sched/topology.c:3143:57: sparse:     expected struct sched_domain *[assigned] sd
+   kernel/sched/topology.c:3143:57: sparse:     got struct sched_domain [noderef] __rcu *parent
+   kernel/sched/topology.c:3165:28: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd @@     got struct sched_domain [noderef] __rcu *parent @@
+   kernel/sched/topology.c:3165:28: sparse:     expected struct sched_domain *[assigned] sd
+   kernel/sched/topology.c:3165:28: sparse:     got struct sched_domain [noderef] __rcu *parent
+   kernel/sched/topology.c:3191:57: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd @@     got struct sched_domain [noderef] __rcu *parent @@
+   kernel/sched/topology.c:3191:57: sparse:     expected struct sched_domain *[assigned] sd
+   kernel/sched/topology.c:3191:57: sparse:     got struct sched_domain [noderef] __rcu *parent
+
+vim +1355 kernel/sched/debug.c
+
+  1212	
+  1213	#define PN(x) \
+  1214		SEQ_printf(m, "  .%-30s: %Ld.%06ld\n", #x, SPLIT_NS(rq->x))
+  1215	
+  1216		P(nr_running);
+  1217		P(nr_switches);
+  1218		P(nr_uninterruptible);
+  1219		PN(next_balance);
+> 1220		SEQ_printf(m, "  .%-30s: %ld\n", "curr->pid", (long)(task_pid_nr(rq->curr)));
+  1221		PN(clock);
+  1222		PN(clock_task);
+  1223	#undef P
+  1224	#undef PN
+  1225	
+  1226	#define P64(n) SEQ_printf(m, "  .%-30s: %Ld\n", #n, rq->n);
+  1227		P64(avg_idle);
+  1228		P64(max_idle_balance_cost);
+  1229	#undef P64
+  1230	
+  1231	#define P(n) SEQ_printf(m, "  .%-30s: %d\n", #n, schedstat_val(rq->n));
+  1232		if (schedstat_enabled()) {
+  1233			P(yld_count);
+  1234			P(sched_count);
+  1235			P(sched_goidle);
+  1236			P(ttwu_count);
+  1237			P(ttwu_local);
+  1238		}
+  1239	#undef P
+  1240	
+  1241		print_cfs_stats(m, cpu);
+  1242		print_rt_stats(m, cpu);
+  1243		print_dl_stats(m, cpu);
+  1244	
+  1245		print_rq(m, rq, cpu, true, false);
+  1246		SEQ_printf(m, "\n");
+  1247	}
+  1248	
+  1249	static const char *sched_tunable_scaling_names[] = {
+  1250		"none",
+  1251		"logarithmic",
+  1252		"linear"
+  1253	};
+  1254	
+  1255	static void sched_debug_header(struct seq_file *m)
+  1256	{
+  1257		u64 ktime, sched_clk, cpu_clk;
+  1258		unsigned long flags;
+  1259	
+  1260		local_irq_save(flags);
+  1261		ktime = ktime_to_ns(ktime_get());
+  1262		sched_clk = sched_clock();
+  1263		cpu_clk = local_clock();
+  1264		local_irq_restore(flags);
+  1265	
+  1266		SEQ_printf(m, "Sched Debug Version: v0.11, %s %.*s\n",
+  1267			init_utsname()->release,
+  1268			(int)strcspn(init_utsname()->version, " "),
+  1269			init_utsname()->version);
+  1270	
+  1271	#define P(x) \
+  1272		SEQ_printf(m, "%-40s: %Ld\n", #x, (long long)(x))
+  1273	#define PN(x) \
+  1274		SEQ_printf(m, "%-40s: %Ld.%06ld\n", #x, SPLIT_NS(x))
+  1275		PN(ktime);
+  1276		PN(sched_clk);
+  1277		PN(cpu_clk);
+  1278		P(jiffies);
+  1279	#ifdef CONFIG_HAVE_UNSTABLE_SCHED_CLOCK
+  1280		P(sched_clock_stable());
+  1281	#endif
+  1282	#undef PN
+  1283	#undef P
+  1284	
+  1285		SEQ_printf(m, "\n");
+  1286		SEQ_printf(m, "sysctl_sched\n");
+  1287	
+  1288	#define P(x) \
+  1289		SEQ_printf(m, "  .%-40s: %Ld\n", #x, (long long)(x))
+  1290	#define PN(x) \
+  1291		SEQ_printf(m, "  .%-40s: %Ld.%06ld\n", #x, SPLIT_NS(x))
+  1292		PN(sysctl_sched_base_slice);
+  1293		P(sysctl_sched_features);
+  1294	#undef PN
+  1295	#undef P
+  1296	
+  1297		SEQ_printf(m, "  .%-40s: %d (%s)\n",
+  1298			"sysctl_sched_tunable_scaling",
+  1299			sysctl_sched_tunable_scaling,
+  1300			sched_tunable_scaling_names[sysctl_sched_tunable_scaling]);
+  1301		SEQ_printf(m, "\n");
+  1302	}
+  1303	
+  1304	static int sched_debug_show(struct seq_file *m, void *v)
+  1305	{
+  1306		int cpu = (unsigned long)(v - 2);
+  1307	
+  1308		if (cpu != -1)
+  1309			print_cpu(m, cpu);
+  1310		else
+  1311			sched_debug_header(m);
+  1312	
+  1313		return 0;
+  1314	}
+  1315	
+  1316	void sysrq_sched_debug_show(void)
+  1317	{
+  1318		int cpu;
+  1319	
+  1320		sched_debug_header(NULL);
+  1321		for_each_online_cpu(cpu) {
+  1322			/*
+  1323			 * Need to reset softlockup watchdogs on all CPUs, because
+  1324			 * another CPU might be blocked waiting for us to process
+  1325			 * an IPI or stop_machine.
+  1326			 */
+  1327			touch_nmi_watchdog();
+  1328			touch_all_softlockup_watchdogs();
+  1329			print_cpu(NULL, cpu);
+  1330		}
+  1331	}
+  1332	
+  1333	void sched_show_runqueues(void)
+  1334	{
+  1335		int cpu;
+  1336	
+  1337		pr_info("CPU Runqueues:\n");
+  1338		for_each_online_cpu(cpu) {
+  1339			struct rq *rq = cpu_rq(cpu);
+  1340			struct task_struct *curr;
+  1341			unsigned int nr_running;
+  1342			u64 nr_switches;
+  1343			unsigned long flags;
+  1344			bool locked;
+  1345	
+  1346			touch_nmi_watchdog();
+  1347			touch_all_softlockup_watchdogs();
+  1348	
+  1349			rcu_read_lock();
+  1350			local_irq_save(flags);
+  1351			locked = raw_spin_rq_trylock(rq);
+  1352			if (locked) {
+  1353				nr_running = rq->nr_running;
+  1354				nr_switches = rq->nr_switches;
+> 1355				curr = rq->curr;
+  1356				raw_spin_rq_unlock(rq);
+  1357			} else {
+  1358				nr_running = READ_ONCE(rq->nr_running);
+  1359				nr_switches = READ_ONCE(rq->nr_switches);
+> 1360				curr = READ_ONCE(rq->curr);
+  1361			}
+  1362			local_irq_restore(flags);
+  1363	
+  1364			pr_info("cpu#%d: nr_running:%u switches:%llu curr:%s[%d]%s\n",
+  1365				cpu, nr_running, nr_switches,
+  1366				curr ? curr->comm : "<none>",
+  1367				curr ? task_pid_nr(curr) : -1,
+  1368				locked ? "" : " (contended)");
+  1369	
+  1370			print_rq(NULL, rq, cpu, false, true);
+  1371			rcu_read_unlock();
+  1372		}
+  1373	}
+  1374	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
