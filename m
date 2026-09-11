@@ -1,128 +1,138 @@
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F91B3C4B79
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 04:59:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B86920ED;
+	Fri, 11 Sep 2026 05:01:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789102761; cv=none; b=aPaS+qidmsnpuhZLrmwvvNpytoLW2DaKdP1bC1bTjcBkUezvjfGLWxYzqcPqpPcdxVfK9aRPe4RKuhrVeoyg6e+9l2xiRfaf5Ov9Sp4vlbptFrzTpe1g+W/eNgjr/XlKhEBhCnpotaAg2mNqU7rwDix2dp49OTBohE7YKFRsD2U=
+	t=1789102871; cv=none; b=mwG3DnmnkLGLjYfK00gfUbsoRvJ7IY4mm2VSbccGFgBcRJc3UUo5JSTv9qmGc+hTRI3mIvUykXufhjsF3aV7u7tSHkCwFddmi54/LcnT5Uyyc8gP81VluyoJrbegOm7omtspCY6hepHPxyofnSdA091wT8+UJUXeBX5hn8Cjic8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789102761; c=relaxed/simple;
-	bh=x6e1VD6DAjwkYHlAuCKFBq9VSgMnvVwyyuhPVCgAQkc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y0ppfkxRuhyw6b9O1jay56JoTNq5KLqZY1UDWETXMjpy908WeKZvB2wlnW4faZXXbbg3rOjPf6tdGQ0N6cnq1CgZeaAkSwe+WEXJ4U5FrFT1h9cf4D/Isk+OTjle23tYuqL46WwzaOoeUUdhfjmPecC0dC1F1SLJimELxVkyRU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aFxgpp8B; arc=none smtp.client-ip=209.85.160.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789102871; c=relaxed/simple;
+	bh=EWCFZyqZRFXrUzy1urkQlPkhhfvHVAN1sWXFOm/cKPo=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=noy9Xy9n4IcWygA46mwAktrZpP4Jdpj8OVsA+OZKbBNk7lwEtfysqxussTGVAgXHDIK1flQ6Av25kGbR1ca3ilwBqUVD+rcy1XXQqlneuXQDCp8qgknv/p3CNSr6a4XM6Brb3dJm0JrQ6jktVgTNKEIwREIGPL3c0VKzDbPo/LY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alistair23.me; spf=pass smtp.mailfrom=alistair23.me; dkim=pass (2048-bit key) header.d=alistair23.me header.i=@alistair23.me header.b=lrmF4eHq; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=fLeVGZ7E; arc=none smtp.client-ip=202.12.124.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alistair23.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alistair23.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aFxgpp8B"
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-53031a57d7fso6587831cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 21:59:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789102759; x=1789707559; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wCXPH5qyN+T/QDXSJDvMi96nm7B2ecJ31ViCwFmjhuA=;
-        b=aFxgpp8BETKWpi7Mh3et0QFvJZABV1LQ7TaKJFiCdtXF1agyoVDOw1atnPCLr5JIc+
-         OapJh/XhG2eFWnLtlHHjHT/LcYHfbYvd0bLvPPMR3QWDGuq2Sw4gBA7ThuG40ihj+7Aj
-         7LFSDBYEwNBJL8swnZtEgvQ6CMgT791bP4jwG+6ouKrtpgOWfnYSxGMBCUwcYNfrYXEP
-         Eslow3bspTpk1xjF8IjZFBnTffw2Fy2JFMlAn3Xs2bCv+/xVilKTwKUu4vtwP4jnaDUw
-         KdYifSRaZfXEz9bf2sL6vq4yjE3zAk92RCydurJN7aUCmfu36X28F6XCyjd0+zBkgUfm
-         67cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789102759; x=1789707559;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wCXPH5qyN+T/QDXSJDvMi96nm7B2ecJ31ViCwFmjhuA=;
-        b=mi/HCJ7AN/uS/az2SH6JrgP16q/mBvrKul+c7IU/dG1FL9zWKiqdUXga+MKCZzqS6K
-         zH34tkgphxxlB5RIpZGCWJ1OHdbhqh2VjIsceLUZlgm2irKbW9Kskh2Q7+rS34Q6q7uO
-         8gaMh5to3wcPBa0AXmVmw7XtKCqOn/1X8Ls4mkr5CGm4iegnmCfWva8BQjJzhl+m5MEa
-         SUOjOPLSpWimJz+Via7zffaqDl9y2UJlG4f/3wHHFUEjA5Tah38nkDgn5UmPCvfDbGDI
-         oszgewO9KqfoH+6GhcJY13xij8DPw9tAYGoSk3TEv4WlhBCvtahhrhgCyqI9g687dXy5
-         eCfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwiigZ/kQcf9DHeVcBeXJi7nnOtQF1iDE+D7HZCGPCwBRSuG8dd8RezGcfOgfVZUdR1ui6MXzLuBg0vVYI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lCX4liyWiwZX1xNVW1/1yuiNsA22BLS8+KmvVSj0OboaCjXYZV
-	FRBzKFL3PoYJj2gZFgxdAnJBLHf/tJPkPIWDY6ECa2gRcDW20hmC01oE
-X-Gm-Gg: AYBFou0KIiJ8IjEu2SxMk+l+0oR4PsA8SBikhW1bJLDAYlY+065qTgsCbVE+4idKSiu
-	nw7ebJrusmerZyins6u7tj8BBt0s8POtyu+DCAKkmzJVws9HLiGKECg3jO8dQf0tx5awPaN9zlJ
-	Vtj9unoa/gANQNbyDEXMx4Maf6fqw4/Qk4Ow6XL9WHXVN1Ggn/4/2WU5DbpB4mEBAis1jVlpfnv
-	pG7Og/NKXQQAJjlWzWQ7YfqlxQDFRExa/Jk64AW+MWWSHfqZriAsZiy0ifZyxVeTarDTsD66d45
-	04qkbdcfpYpQQAZuEi1m/bKccb8hRKULflDGuvogGO6dKCTZSj1+7oLLaa1Y34IM7r2BiUIeCD8
-	C1oWqXPP1mdXiWqvXagOBK1tCTwUKyjvJQlTdRrr/orHI4DpVXBIVlf/QiSIVwhJvcIyQdCQUFz
-	U4RaNgKYM6dWCmtblbkYpLrCYYqrlEiM8UBx1AA6srkUiLAEailhr5ZqLzDWuz
-X-Received: by 2002:a05:622a:453:b0:530:b2e1:2f46 with SMTP id d75a77b69052e-530c879db6cmr40766121cf.61.1789102758964;
-        Thu, 10 Sep 2026 21:59:18 -0700 (PDT)
-Received: from linux.. ([8.34.174.240])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca4b9a97sm11586281cf.18.2026.09.10.21.59.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 21:59:17 -0700 (PDT)
-From: Changyul Lee <lcy8047@gmail.com>
-To: Srinivas Kandagatla <srini@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Changyul Lee <lcy8047@gmail.com>
-Subject: [PATCH] slimbus: messaging: hold lock until transaction is completed
-Date: Fri, 11 Sep 2026 00:59:11 -0400
-Message-ID: <20260911045911.1327413-1-lcy8047@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=alistair23.me header.i=@alistair23.me header.b="lrmF4eHq";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="fLeVGZ7E"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.stl.internal (Postfix) with ESMTP id 567061D000E5;
+	Fri, 11 Sep 2026 01:01:08 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Fri, 11 Sep 2026 01:01:08 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alistair23.me;
+	 h=cc:cc:content-transfer-encoding:content-type:content-type
+	:date:date:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=fm1;
+	 t=1789102868; x=1789189268; bh=EWCFZyqZRFXrUzy1urkQlPkhhfvHVAN1
+	sWXFOm/cKPo=; b=lrmF4eHqJNzq9TcQUvTdjD+CcRZTCe1g0EKd4t6p4L0lhn5l
+	V5+jGNIfk+3xdjW6yvW2ICaQJsKR2Ec1LYZD5k6ce+qiHI71ldEOvtYoF6az5AI5
+	L42SrHFcc9/c0zoMdLldHMjYMEH2rMi1qzkbvCjR7Z3S4H5TpfjK2Z11p7dEiAJv
+	Su9U9zdBrFpsXLqTq8GhgJgZFJNL6uQMKcbfaUNsfGkRUdpn9CuJZnFlAhBm5IJi
+	Blo9naMm2SHlGx8e4MjtUzXIz8LBVAyDSx0JH+C4FLZDff2N/Ygv3xD9EIYYJKwN
+	JjOSdCglAEiECVjnsHmWyAvchPOf4MEJ5tmrzw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789102868; x=
+	1789189268; bh=EWCFZyqZRFXrUzy1urkQlPkhhfvHVAN1sWXFOm/cKPo=; b=f
+	LeVGZ7EKU/jNThi422s2VFpRtRWSgciZs/mdGPB4wRbrjcvp1rk4GxUJxmH5/Pr4
+	j+zX1NLAwBmUa83tA+CGmTmrPcAEoPNBguW3ItvVLhSjHoEsspyLmj8cwVyTrwZS
+	ej7sr0ETXhqPyxa363cBWT6NS0TugWgJSDCyBeIV6RKaCkrQYmQ5Vor/2GAkgsVi
+	vd/7ecP+/QtBSMwZOU47lIYCmVEF1+OM7gZ0QJSox7ydkcmbb+sjnAjmVEzxCGg1
+	rq0JgE0vfZMAfuSEThhY2jCiTQbIUdabqEuXgTQqQj3wgFOEv54Uw6IxpjtrvUgq
+	ClcOQp+x+ZRipoWH3rMiA==
+X-ME-Sender: <xms:E4ujavIWgcR_lllY5svcvTmFQ6Yc_BLGHifHcKCSFJSDVh2okE2B5g>
+    <xme:E4ujajjlunK63SMeAZxWnKcEsY3hujXg0SCx-F6cEmnB8H7UmzxBdsH7r23sR37uy
+    _tlKC8U3pWp4-FUKFeGBXcSzfVawsL5bg5dNQluoUBkchxCTikhdOfy>
+X-ME-Received: <xmr:E4ujao323SEXyL9whwrjKf1WKe1h0YJgUvZKBClYqeoKrROFHyHr-Cys4Hn7RaeqTNFSwq9TnEZRXfy9W4YaIc3WOxE>
+X-ME-Proxy-Cause: dmFkZTF7hgcu7GHxYYmGlxiI8fB69kQzj15ESgtg0KpvjpId2fB0RPjCxNjA/ebMyR7dep
+    GzE+QzUZ4XMLNdHGLHa/y+x0O5hxU3UotjKqi+zis/7KeVFho2+TOtbIpPAEYANhrwUgsd
+    RRftb7kSu8TJJ66ePZmi42okx4iNJGXHvJy2W+rVBvDknwJITQYWS/47UPn1tRa3StH0o3
+    riEXqgBWIp5rDhNW59xvSgmGsb+h+apy89nBJPxLZTCP2lPdaCjSyJtqALMlCvlfDybKV0
+    cj/yl0BeLAb8m8B/H6unSOdPNH5aR0p9MAJIwNw/kc5hZV8Ja6xuxP4TLTY4bZf544ZpC+
+    Z+1LMlYa3tuU/sBivs8WeFSTiG1vnSBkU/t6D0LVOuOhxe/WWtZxB0Ga1mCwDL6f8PdkdL
+    6h7/fgXB9w0Cj5TOHvOMvltUAfctgs99AWnZhlcarq4LbcGFBt7K+8O4dz1TNlWgWXsHZk
+    6endl5nIBj5JjM6+l6MgZjUk0c5C8AfaIu1QaFs32lB+XRpjANSWWiOaB6uSEZnGF2N4kE
+    Oz6eO7IUqfYsTmem44FLWYGZicV+PjoYiKsay1YI+jx6kiuhVMNtox4X7PAfoZmxXFPuDv
+    gc/y/qAjEUE7oie/NSTHFaKf8WBnHp/KE58i57ZXvGAE0MgeauuqU1MEn+sA
+X-ME-Proxy: <xmx:E4ujakZZ0gSNIBDhTTv1eBAZmtzksIoQFas7Rz5HCfMCVabI8rNHFQ>
+    <xmx:E4ujaljre6U1cGQqAFyRqdqYrJ69ojtB3C79cFwTDaWP85_iX2G2rg>
+    <xmx:E4ujakjsD7urDD1KEmGkwscEm7sX2g7UxbPc4Arno9f76_7v3_4VMg>
+    <xmx:E4ujaiDolXyPCjQ8YtLsLctzU0OJq9KJ6DAhuvTNJIPDgGEXewpeEg>
+    <xmx:FIujaoI1qyHxwhgq88ZWnU7WIuOUxC7XimjncSiuHdcuVrcGdGYQdw1S>
+Feedback-ID: ifd214418:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 11 Sep 2026 01:01:01 -0400 (EDT)
+Message-ID: <f9b1c0410e622f7ac1e6feacaa3eae98951bcd79.camel@alistair23.me>
+Subject: Re: [PATCH v3 10/21] PCI/TSM: Rename pf0 to host
+From: Alistair <alistair@alistair23.me>
+To: Jonathan Cameron <jic23@kernel.org>, alistair23@gmail.com
+Cc: linux-pci@vger.kernel.org, Jonathan.Cameron@huawei.com, djbw@kernel.org,
+ 	rust-for-linux@vger.kernel.org, lukas@wunner.de,
+ linux-cxl@vger.kernel.org, 	bhelgaas@google.com, akpm@linux-foundation.org,
+ linux-kernel@vger.kernel.org, 	gary@garyguo.net, ojeda@kernel.org,
+ benno.lossin@proton.me, a.hindborg@kernel.org, 	wilfred.mallawa@wdc.com,
+ tmgross@umich.edu, boqun.feng@gmail.com, 	bjorn3_gh@protonmail.com,
+ alex.gaynor@gmail.com, aliceryhl@google.com
+Date: Fri, 11 Sep 2026 15:00:59 +1000
+In-Reply-To: <20260909000158.78ffa790@jic23-huawei>
+References: <20260901010347.2614656-1-alistair.francis@wdc.com>
+		<20260901010347.2614656-11-alistair.francis@wdc.com>
+	 <20260909000158.78ffa790@jic23-huawei>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-slim_msg_response() drops lock after idr_find() and dereferences txn.
-If the requester times out in the meantime, it frees the TID and
-returns, so the handler writes the reply into msg->rbuf and calls
-complete() on txn->comp, both of which have already benn freed.
+On Wed, 2026-09-09 at 00:01 +0100, Jonathan Cameron wrote:
+> On Tue,=C2=A0 1 Sep 2026 11:03:36 +1000
+> alistair23@gmail.com=C2=A0wrote:
+>=20
+> > From: Alistair Francis <alistair.francis@wdc.com>
+> >=20
+> > Rename pci_tsm_pf0 to pci_tsm_host (and rename variables and
+> > function
+> > names from pf0 to host) as part of converting pci_tsm_host
+> > to be any device that knows how to speak any of CMA, IDE, or
+> > TDISP.
+>=20
+> I'm not against the change, but I would like at least one example of
+> 'what' other type of device you plan to use this for.
+>=20
+> vf or something else?
 
-Keep lock held until complete(txn->comp) finishes, so a requester
-in slim_free_txn_tid() and cannot return while txn is still in use.
-Call idr_remove() because slim_free_txn_tid() takes the same lock.
+It's based on the reply here: https://lkml.org/lkml/2026/6/18/1741
 
-Fixes: afbdcc7c384b ("slimbus: Add messaging APIs to slimbus framework")
+I don't know PCIe that well, so honestly I'm not sure.
 
-Signed-off-by: Changyul Lee <lcy8047@gmail.com>
----
- drivers/slimbus/messaging.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+My use case is a root complex integrated endpoint
 
-diff --git a/drivers/slimbus/messaging.c b/drivers/slimbus/messaging.c
-index e2dbe4a66b70..aa98f5480ba4 100644
---- a/drivers/slimbus/messaging.c
-+++ b/drivers/slimbus/messaging.c
-@@ -29,22 +29,24 @@ void slim_msg_response(struct slim_controller *ctrl, u8 *reply, u8 tid, u8 len)
- 
- 	spin_lock_irqsave(&ctrl->txn_lock, flags);
- 	txn = idr_find(&ctrl->tid_idr, tid);
--	spin_unlock_irqrestore(&ctrl->txn_lock, flags);
+Alistair
+
+>=20
+> >=20
+> > This commit just renames the functions and provides no functional
+> > change. That will happen in the next commit.
+> >=20
+> > Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
+> > ---
+> > =C2=A0drivers/crypto/ccp/sev-dev-tio.h |=C2=A0 4 +-
+> > =C2=A0drivers/crypto/ccp/sev-dev-tsm.c | 12 ++---
+> > =C2=A0drivers/pci/tsm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 84 ++++++++++++++++-----------=
 -
--	if (txn == NULL)
-+	if (txn == NULL) {
-+		spin_unlock_irqrestore(&ctrl->txn_lock, flags);
- 		return;
-+	}
- 
- 	msg = txn->msg;
- 	if (msg == NULL || msg->rbuf == NULL) {
-+		spin_unlock_irqrestore(&ctrl->txn_lock, flags);
- 		dev_err(ctrl->dev, "Got response to invalid TID:%d, len:%d\n",
- 				tid, len);
- 		return;
- 	}
- 
--	slim_free_txn_tid(ctrl, txn);
-+	idr_remove(&ctrl->tid_idr, txn->tid);
- 	memcpy(msg->rbuf, reply, len);
- 	if (txn->comp)
- 		complete(txn->comp);
-+	spin_unlock_irqrestore(&ctrl->txn_lock, flags);
- 
- 	/* Remove runtime-pm vote now that response was received for TID txn */
- 	pm_runtime_mark_last_busy(ctrl->dev);
--- 
-2.43.0
-
+> > ----
+> > =C2=A0include/linux/pci-tsm.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 | 18 ++++---
+> > =C2=A04 files changed, 61 insertions(+), 57 deletions(-)
+> >=20
