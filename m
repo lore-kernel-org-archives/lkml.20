@@ -1,122 +1,399 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 635CA47606D
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:22:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC983CB2F6;
+	Fri, 11 Sep 2026 16:22:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789143726; cv=none; b=t5yLug8HHnMoEo9MvadJNpExIWsE3REQsHWI3NO1eBUZEgsPoj3ScCTujcA9gkulekOtlS8MIkeqKnnOMWQS/4gBV1XDYf328WZOjStimtx9s+53pcRou9IVBDfELi/o2IfYpLIKYdXd6mAiFEsfnPOFoGAp4gG+TJKFUn1nRk4=
+	t=1789143767; cv=none; b=F4LyGv4rASqpq+U8MBjMfds2V8cJhcZJpkHsec6YfXH9DlSNWP3CW/M24u+YDO1oqp1Pgcaf08rTArlwO2dSsB7bP8GjhdiVIqIhqEmko1+nIisok00JVx+Xtb6NeJIfuULNfdtqDBG7KuG74+XL+7Bakz9KvS2XrYQJ15NT9nY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789143726; c=relaxed/simple;
-	bh=GxfLvy1lNLqnB7cOHn1e+wG0w1lu+LJsHvlm3Jjb4j0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=Awplz5IGkUK0KnX0V/1Trc1rnRiEj+6/rP+jZ4XWz2EDnhS5utUkiBHQk3byoP1uiv3bav9OUYFTxvmGJEo/qa4Mzmif9JxmMNQrC/tbidS88LxxzdbjGX89l7KUs1uzUl0tiS5b/M2MZosRpdfDQ+6uP71MnQFb7KpCRIw6EV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ZwQ0qhGa; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1789143767; c=relaxed/simple;
+	bh=o9cs/wE3R289YwEA9DDNeHuwXImTS8/zocoRSd5/fX0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d9nHoYa/a1hTRbwKuCxujNDEJjcQsG9XJqAI1FtEw8GgrXDlx+z8+T526rP93LMOyCpncsC8tMdJOrjlO2AfKEtKlWlcFEM4lbF+ZfBKbnLL7/0iKhFN4ekUtB8T1CIQLl0h1I2y+kkwxqZHdIZVduJciuQj4qWT6lUX7khhPzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nx6eVHHY; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ZwQ0qhGa"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so12287905e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:22:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1789143722; x=1789748522; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2u8iyN3q0EUKLYr5pleadR3LYPKgReYhURZxG75dAWM=;
-        b=ZwQ0qhGaV6/PT65RDyP2g6qHmcWxAiCLfwzjGYgsaASBEHR8L8x5HdunFDG5OZbNpB
-         78yGcMELWwm7PB6xD8CsIzzDKlaUZUYTXeT3VLBsaab0am0mlb+PR65D7IuaVSgETA2u
-         jOKpYVLsfO+ZD0hHUpj8AD+FpElOyIVAoZJKmeLqN8qTuIYDvMeAdbcuD9yC1ILYMbyB
-         G5dMJwLhJ26rumxuZwI+wh9Y8kiyFk4Pmc8R5mTbI1c4bMHGfCDYXC1Ni8uxObLxE48S
-         vGX+cyHIrZEwSs0QXKqy6s+IxOst3rkYnR4DQlcFWrLZnM5+xa6sHjkMTcPW/QSncVN6
-         Ociw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789143722; x=1789748522;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2u8iyN3q0EUKLYr5pleadR3LYPKgReYhURZxG75dAWM=;
-        b=doCFEtXVt/3Hke08bk+PYWc5g32RLy33sQ5L1aqGLOlMIfD0M4DAdFoBMfDWd1jFWK
-         MpmFKZ/rmJfsHyll1SWM03cKrZ72opHub4eFFttxPET7R5aNTZLH7H7QrwM04pu0ypnd
-         cqS5vOxNX7IBUA3HUWfMbvqrxuynDvMIIbMb4UQTkd02PFdMwhJVGNrSz2bntIIR7j32
-         a2GZaN/h64Nx4HR3Y1Zh0vbNk3gacTB/GzwE0kC/IGBCYlFvPwieTfde5Qw368YvEt0Z
-         gKS0BSjO1Sj/kaoZ2q5beo9Xx94SR4iRXmnt5/XXxjMYkzDBfN0VLq1/CmIiSOaXfsHu
-         SGpw==
-X-Forwarded-Encrypted: i=1; AKwUvBz6q5c73MYkSl1SU2CVgeleR3qWWYTu1MTrkIZOhH85C7eCfbfa9yKNpZwJ+vgaBh4LLxYQWyDejm3otTM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lcHkdt/qIZhg9+/4iyKDdwQcGgVAff/68U3kSGZTZ2w3prr1V5
-	34RM55XaziPFr+C/559YbxtMIW7Ay9SiFzOEX3W1DLg75NdG2Ql/mp+W+VB0BZU0L+A=
-X-Gm-Gg: AYBFou14vvzqp4CUDKDZk+hKtNr7fzE+lhjI92t/aAeFWduSorhnRQz0ucIHhX32b7u
-	qFM9TVfNAusC3GqmabiiQKPxjjTAbTB/Qgnx3wyWfpIGwewQOVXo1tv2DTaA0h21eEjTLk1UITB
-	prxjSw6RphWwFvNvBueP6iKPGNmUgslRmeV4EzKG2fnFebhzxflf8s5bUktUOgWTwJNj9Mp6Mn1
-	xgRIpAT3B3sTxtAB/JDaetbrc8Rj0EjsM0Vwruhjqx5kIAFuAVGhQvvabfUxfOV2ivm0HIYXZel
-	MWUXEPfIEKmU6GtR3AZQ5esqHqAkHJ5XG2GNjDdAuzjcCPTHLjNfVMvP9yMcsGgfZveAaS61zXx
-	GEPdiLpKgAmZJYMdjpjok/wE5SQQp0SQJSmvJDqfrHPI9yZaYmlpgRSkfvrbYxXE6ArS/UtYj79
-	Yx7oOm80yy/S9W9cBsH1uVy7xg/mvueX5rVvbILH0DiTlB+D5zfCi+bs2cwfRmum5/JT/6wcdTC
-	zhLErueGrxllFJUG7l4EkDiCSNXed3pAIWbMY5CJbkn/jBYKYSKshqOLp31Ipj4Xi5mb9kK
-X-Received: by 2002:a05:600d:6414:10b0:49c:fc6c:be16 with SMTP id 5b1f17b1804b1-49e619c64cfmr43100325e9.28.1789143722456;
-        Fri, 11 Sep 2026 09:22:02 -0700 (PDT)
-Received: from localhost ([94.4.85.166])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6576122bsm75330195e9.2.2026.09.11.09.22.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 09:22:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nx6eVHHY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789143766; x=1820679766;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=o9cs/wE3R289YwEA9DDNeHuwXImTS8/zocoRSd5/fX0=;
+  b=nx6eVHHY9RVJcB9+nLnjeekK3dB3Dg2kxP0LKRUtc2P/xFpMhEACRGgp
+   7FAKwKr8s9HF/VOe8BmAPrqTHx5gHeSKQNPTE7MrgmBT/cR/cek8IUMDK
+   C+8h5KVg0L6MZT+rbTsApUm3NmtE+07XZtXsI7qxtdwTY0jmpeODTgzlb
+   XR/hOtslwdddkmB5/lutw77mE7WuZ7tb/khSIXQ0bQOxAaxCLsZLtVuV5
+   9f5Qc2YlEsAluX64/swy5EF8QGpv2yx7itxdnCp6p8eCFPNKw/GPr5/Vz
+   mzyv0EdaR7KAXNnphU6SJ+mC91aZ1qFyJJsz3y/SlTKkRRUfMJDQQmTo/
+   A==;
+X-CSE-ConnectionGUID: VIvzp3OGScSFh7JWepNIwQ==
+X-CSE-MsgGUID: f8dHqcAoRKeUHpBikqfjeA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="89482085"
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="89482085"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:22:45 -0700
+X-CSE-ConnectionGUID: uB5pMXjMSYmJGKekOYsmsQ==
+X-CSE-MsgGUID: ilnl7nyQQFGqvjr83fwUUg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="270197998"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.80])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:22:41 -0700
+Date: Fri, 11 Sep 2026 19:22:38 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Marek Vasut <marex@nabladev.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Cheick Traore <cheick.traore-ext@st.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>
+Subject: Re: [PATCH 3/8] iio: adc: stm32-adc: add support for stm32mp23 and
+ stm32mp25
+Message-ID: <aqQqzl-3TBR0yNZl@ashevche-desk.local>
+References: <20260911-adc-stm32mp25-v1-v1-0-cef26eecdef2@foss.st.com>
+ <20260911-adc-stm32mp25-v1-v1-3-cef26eecdef2@foss.st.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 11 Sep 2026 17:22:01 +0100
-Message-Id: <DLCMIMOI4D23.1YB1F2148RZE4@linaro.org>
-Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Alim Akhtar"
- <alim.akhtar@samsung.com>, "Peter Griffin" <peter.griffin@linaro.org>,
- "Tudor Ambarus" <tudor.ambarus@linaro.org>,
- <linux-samsung-soc@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 2/2] arm64: dts: exynos850: Add acpm SRAM node
-From: "Alexey Klimov" <alexey.klimov@linaro.org>
-To: "Sam Protsenko" <semen.protsenko@linaro.org>
-X-Mailer: aerc 0.21.0
-References: <20260727-exynos850_sram-v3-0-8627a49188ec@linaro.org>
- <20260727-exynos850_sram-v3-2-8627a49188ec@linaro.org>
- <CAPLW+4kBHV=pcK1WyEerQ=yg-_XcR+FMXe1W7OmrMX3hxcXo_Q@mail.gmail.com>
-In-Reply-To: <CAPLW+4kBHV=pcK1WyEerQ=yg-_XcR+FMXe1W7OmrMX3hxcXo_Q@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260911-adc-stm32mp25-v1-v1-3-cef26eecdef2@foss.st.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri Sep 11, 2026 at 1:28 AM BST, Sam Protsenko wrote:
-> On Mon, Jul 27, 2026 at 8:23=E2=80=AFAM Alexey Klimov <alexey.klimov@lina=
-ro.org> wrote:
->>
->> SRAM is used by the ACPM protocol to retrieve the ACPM channels
->> information and configuration data. Add the SRAM node.
->>
->> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
->> ---
->>  arch/arm64/boot/dts/exynos/exynos850.dtsi | 5 +++++
->>  1 file changed, 5 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot=
-/dts/exynos/exynos850.dtsi
->> index 3881f573ec08..0b614caa411c 100644
->> --- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
->> +++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
->> @@ -163,6 +163,11 @@ soc: soc@0 {
->>                 #size-cells =3D <1>;
->>                 ranges =3D <0x0 0x0 0x0 0x20000000>;
->>
->> +               apm_sram: sram@2039000 {
->> +                       compatible =3D "samsung,exynos850-acpm-sram";
->> +                       reg =3D <0x2039000 0x40000>;
->
-> Why it's 0x40000? I checked the TRM, and it says iRAM APM area is from
-> 0x02039000 to 0x02069000, which is 0x30000 (192 KiB). The downstream
-> kernel (v4.14) also say the APM SRAM size is 0x30000.
+On Fri, Sep 11, 2026 at 05:51:25PM +0200, Fabrice Gasnier wrote:
+> Add support for STM32MP23 STM32MP25 SoCs. They have 3 ADCs, split into
+> two blocks:
+> - ADC12 (ADC1 & ADC2) are tightly coupled.
+> - ADC3 is managed independently.
+> Trigger list slightly changes between STM32MP23 and STM32MP25.
+> 
+> Each ADC is a 12-bits successive approximation analog-to-digital converter,
+> with up to 20 multiplexed channels that can be configured as single ended
+> or differential. ADC resolution ranges from 6 to 12 bits.
+> 
+> It introduces diversity regarding IRQs, clocks, software calibration
+> procedure, internal voltage channels, sampling time (prescaler) and
+> trigger list. Most of the architecture, and the driver engine remains
+> similar. So, handle the differences w.r.t. other STM32 ADCs family with
+> a dedicated compatible and compatible data.
+> 
+> Trigger list depends on ADC instance, retrieved with "st,adc-trigger-sel"
+> property.
+> 
+> Add support for vddcpu and vddgpu internal channels on stm32mp25.
+> These channels are enabled by using ADC option register.
+> Add VDDGPU to the list of supported channels in this driver and made
+> available on stm32mp25. So update sampling information for all variants
+> (with zero'ed data when it's not available).
 
-Good catch. That's my bad.
+...
 
-Thanks,
-Alexey
+> + * @presc:	clock prescaler array
+> + * @num_presc:	number of clock prescalers in presc array
+
+> +	int *presc;
+> +	int num_presc;
+
+Why are they signed? I do not see any justification in the kernel doc.
+
+...
+
+>  static const struct stm32_adc_priv_cfg stm32f4_adc_priv_cfg = {
+>  	.regs = &stm32f4_adc_common_regs,
+> -	.clk_sel = stm32f4_adc_clk_sel,
+> +	.clk_sel = stm32_adc_clk_sel,
+> +	.presc = stm32f4_pclk_div,
+> +	.num_presc = ARRAY_SIZE(stm32f4_pclk_div),
+>  	.max_clk_rate_hz = 36000000,
+>  	.num_irqs = 1,
+>  	.num_adcs = 3,
+
+>  };
+
+> +static const struct stm32_adc_priv_cfg stm32mp25_adc_priv_cfg = {
+> +	.regs = &stm32mp25_adc_common_regs,
+> +	.clk_sel = stm32_adc_clk_sel,
+> +	.presc = stm32mp25_presc_div,
+> +	.num_presc = ARRAY_SIZE(stm32mp25_presc_div),
+> +	.max_clk_rate_hz = 70000000,
+> +	.ipid = STM32MP25_IPIDR_NUMBER,
+> +	.num_irqs = 2, /* 2 IRQs for ADC12, 1 irq for ADC3 */
+> +};
+
+Split this patch to two. One prepares the infrastructure for prescaller, and
+the other adds a new HW support.
+
+>  static const struct of_device_id stm32_adc_of_match[] = {
+>  	{
+>  		.compatible = "st,stm32f4-adc-core",
+> @@ -895,6 +948,12 @@ static const struct of_device_id stm32_adc_of_match[] = {
+>  	}, {
+>  		.compatible = "st,stm32mp13-adc-core",
+>  		.data = (void *)&stm32mp13_adc_priv_cfg
+> +	}, {
+> +		.compatible = "st,stm32mp23-adc-core",
+> +		.data = (void *)&stm32mp25_adc_priv_cfg
+> +	}, {
+> +		.compatible = "st,stm32mp25-adc-core",
+> +		.data = (void *)&stm32mp25_adc_priv_cfg
+>  	}, {
+>  	},
+>  };
+
+...
+
+>  struct stm32_adc_cfg {
+>  	const struct stm32_adc_regspec	*regs;
+>  	const struct stm32_adc_info	*adc_info;
+
+> -	const struct stm32_adc_trig_info *trigs;
+> +	const struct stm32_adc_trig_info	*trigs[2];
+
+Indentation looks suspicious. I would use just a single space.
+
+>  	bool clk_required;
+>  	bool has_vregready;
+>  	bool has_boostmode;
+>  	bool has_linearcal;
+>  	bool has_presel;
+>  	bool has_oversampling;
+> +	bool has_vregen;
+>  	int (*prepare)(struct iio_dev *);
+>  	void (*start_conv)(struct iio_dev *, bool dma);
+>  	void (*stop_conv)(struct iio_dev *);
+
+...
+
+> struct stm32_adc {
+
+>  	int			int_ch[STM32_ADC_INT_CH_NB];
+>  	int			nsmps;
+>  	int			ovs_idx;
+> +	const struct stm32_adc_trig_info	*trigs;
+
+Ditto. And this shows exactly why the tab formatting is not good. Just a single
+space makes it consistent independently on the future development.
+
+>  };
+
+...
+
+> +/* STM32MP23 external trigger sources for ADC12 */
+> +static struct stm32_adc_trig_info stm32mp23_adc12_trigs[] = {
+> +	{ TIM1_TRGO, STM32_EXT0 },
+> +	{ TIM1_TRGO2, STM32_EXT1 },
+> +	{ TIM8_TRGO, STM32_EXT2 },
+> +	{ TIM8_TRGO2, STM32_EXT3 },
+> +	{ TIM2_TRGO, STM32_EXT6 },
+> +	{ TIM3_TRGO, STM32_EXT7 },
+> +	{ TIM4_TRGO, STM32_EXT8 },
+> +	{ TIM5_TRGO, STM32_EXT9 },
+> +	{ TIM6_TRGO, STM32_EXT10 },
+> +	{ TIM15_TRGO, STM32_EXT11 },
+> +	{ TIM1_CH1, STM32_EXT12 },
+> +	{ TIM1_CH2, STM32_EXT13 },
+> +	{ TIM1_CH3, STM32_EXT14 },
+> +	{ TIM2_CH2, STM32_EXT18 },
+> +	{ TIM3_CH4, STM32_EXT19 },
+> +	{ TIM4_CH4, STM32_EXT20 },
+> +	{ TIM5_CH1, STM32_EXT21 },
+> +	{ TIM12_CH1, STM32_EXT22 },
+> +	{ LPTIM1_CH1, STM32_EXT24 },
+> +	{ LPTIM2_CH1, STM32_EXT25 },
+> +	{ LPTIM3_CH1, STM32_EXT26 },
+> +	{ LPTIM4_CH1, STM32_EXT27 },
+> +	{ LPTIM5_OUT, STM32_EXT28 },
+> +	{},
+
+The style of the terminator entry is no comma and likely a space inside, but
+the latter is optional for custom arrays (the requirement is strong for the ID
+tables in IIO).
+
+Ditto for other similar cases. Looking at which I would recommend split the
+second patch mentioned above on per-compatible basis, so make it 1 preparatory,
+1 with a new HW with some possible additional modifications, and 1 per each
+additional compatible line.
+
+> +};
+
+...
+
+> +/*
+> + * STM32MP25 offset calibration software procedure. Basically the calibration routine is
+> + * expected to average (for example) 8 samples in calibration mode, for single-ended  and
+> + * differential channels, to calibrate the zero offset. In case offset is "negative", an
+> + * additional offset can be added, to determine calibration factor. It must be kept later
+> + * for all conversions.
+> + */
+> +static int stm32mp25_adc_calib_get_average_data(struct iio_dev *indio_dev, u32 *average)
+> +{
+> +	struct stm32_adc *adc = iio_priv(indio_dev);
+> +	const struct stm32_adc_regspec *regs = adc->cfg->regs;
+> +	u32 val, avg = 0;
+> +	int i, ret;
+
+Why is 'i' signed?
+
+> +
+> +	/* Repeat several conversions in calibration mode, average the results */
+> +	for (i = 0; i < STM32MP25_CALIB_LOOP; i++) {
+
+Also I don't see the problem with
+
+	for (unsigned int i = 0; i < STM32MP25_CALIB_LOOP; i++) {
+
+> +		stm32_adc_set_bits(adc, STM32H7_ADC_CR, STM32H7_ADSTART);
+> +		ret = stm32_adc_readl_poll_timeout(STM32H7_ADC_CR, val,
+> +						   !(val & (STM32H7_ADSTART)),
+> +						   100, STM32_ADC_TIMEOUT_US);
+> +		if (ret) {
+> +			dev_err(&indio_dev->dev, "calibration average error %d\n", ret);
+> +			return ret;
+> +		}
+> +
+> +		val = stm32_adc_readl(adc, regs->dr);
+> +		dev_vdbg(&indio_dev->dev, "dr[%d]=0x%08x\n", i, val);
+> +		avg += val;
+> +	}
+> +
+> +	*average = DIV_ROUND_CLOSEST(avg, STM32MP25_CALIB_LOOP);
+> +	dev_vdbg(&indio_dev->dev, "average=0x%08x\n", *average);
+> +
+> +	return 0;
+> +}
+
+...
+
+> +static int stm32mp25_adc_calib(struct iio_dev *indio_dev)
+> +{
+> +	struct stm32_adc *adc = iio_priv(indio_dev);
+> +	u32 calfact = 0, average;
+> +	int ret;
+> +
+> +	stm32_adc_set_bits(adc, STM32H7_ADC_CR, STM32H7_ADCAL);
+> +	/* Clears CALADDOS (and old calibration data if any) */
+> +	stm32_adc_writel(adc, STM32MP25_ADC_CALFACT, 0);
+> +	/* Select single ended input calibration */
+> +	stm32_adc_clr_bits(adc, STM32H7_ADC_CR, STM32H7_ADCALDIF);
+> +	/* Use default resolution (e.g. 12 bits) */
+> +	stm32_adc_clr_bits(adc, STM32H7_ADC_CFGR, STM32MP25_RES_MASK);
+> +
+> +retry:
+> +	ret = stm32mp25_adc_calib_get_average_data(indio_dev, &average);
+> +	if (ret)
+> +		goto out;
+> +
+> +	/* If the averaged data is zero, retry with additional offset (set CALADDOS) */
+> +	if (!average) {
+> +		if (!calfact) {
+> +			/* Averaged data is zero, retry with additional offset */
+> +			calfact = STM32MP25_CALFACT_CALADDOS;
+> +			stm32_adc_writel(adc, STM32MP25_ADC_CALFACT, calfact);
+> +			goto retry;
+> +		}
+> +		/* Averaged data is still zero with additional offset, just warn about it */
+> +		dev_warn(&indio_dev->dev, "Single-ended calibration average: 0\n");
+> +	}
+
+OMG, try to refactor this to avoid this twisted goto chain.
+
+> +	calfact |= FIELD_PREP(STM32MP25_CALFACT_S_MASK, average);
+> +
+> +	/* Select differential input calibration (keep previous CALADDOS value) */
+> +	stm32_adc_set_bits(adc, STM32H7_ADC_CR, STM32H7_ADCALDIF);
+> +	ret = stm32mp25_adc_calib_get_average_data(indio_dev, &average);
+> +	if (ret)
+> +		goto out;
+> +
+> +	/*
+> +	 * If the averaged data is below 0x800 (half value in 12-bits mode),
+> +	 * retry with additional offset
+> +	 */
+> +	if (average < BIT(adc->cfg->adc_info->resolutions[0] - 1)) {
+> +		if (!(calfact & STM32MP25_CALFACT_CALADDOS)) {
+> +			/* Retry the whole calibration with additional offset */
+> +			stm32_adc_clr_bits(adc, STM32H7_ADC_CR, STM32H7_ADCALDIF);
+> +			calfact = STM32MP25_CALFACT_CALADDOS;
+> +			stm32_adc_writel(adc, STM32MP25_ADC_CALFACT, calfact);
+> +			goto retry;
+> +		}
+> +		/*
+> +		 * Averaged data is still below center value. It needs to be clamped to zero,
+> +		 * so don't use the result here, warn about it.
+> +		 */
+> +		dev_warn(&indio_dev->dev, "Differential calibration clamped(0): 0x%x\n", average);
+> +	} else {
+> +		calfact |= FIELD_PREP(STM32MP25_CALFACT_D_MASK, average);
+> +	}
+> +
+> +	stm32_adc_writel(adc, STM32MP25_ADC_CALFACT, calfact);
+> +
+> +	dev_dbg(&indio_dev->dev, "set calfact_s=0x%03lx, calfact_d=0x%03lx, calados=%ld\n",
+> +		FIELD_GET(STM32MP25_CALFACT_S_MASK, calfact),
+> +		FIELD_GET(STM32MP25_CALFACT_D_MASK, calfact),
+> +		FIELD_GET(STM32MP25_CALFACT_CALADDOS, calfact));
+> +out:
+> +	stm32_adc_clr_bits(adc, STM32H7_ADC_CR, STM32H7_ADCAL);
+> +	stm32_adc_set_res(adc);
+> +
+> +	return ret;
+> +}
+
+...
+
+> +	if (device_property_present(&pdev->dev, "st,adc-trigger-sel")) {
+> +		ret = device_property_read_u32(dev, "st,adc-trigger-sel", &trig_id);
+
+Why the first parameter is inconsistent in two device property API calls?
+
+> +		if (ret)
+> +			return ret;
+
+No 'else' for the default?
+
+> +	}
+
+...
+
+>  static const struct stm32_adc_cfg stm32f4_adc_cfg = {
+>  	.regs = &stm32f4_adc_regspec,
+>  	.adc_info = &stm32f4_adc_info,
+> -	.trigs = stm32f4_adc_trigs,
+> +	.trigs = { stm32f4_adc_trigs, },
+
+When a single line the inner trailing comma is not needed.
+
+>  	.clk_required = true,
+>  	.start_conv = stm32f4_adc_start_conv,
+>  	.stop_conv = stm32f4_adc_stop_conv,
+
+>  	.vref_charac = 3300,
+>  };
+
+...
+
+Overall feeling that this patch is cumbersome of several changes. Please,
+split.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
