@@ -1,201 +1,143 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E6F9381E97;
-	Fri, 11 Sep 2026 12:07:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85FB243DEB9
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:09:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789128444; cv=none; b=g++144c7u9VVoKfrvVb4dHwLuBoh6OCrZFO+ZbF+Sn+touIuR2dE0w1Ht+lpIxS7U2H+3rx9fUQcBT1E9tuvuOKbDKSGVcA20NtmNJTPWsFfGokI2XyMNt7TdRKFZyrB5NQc+yBdLiSasXS0rkRQo4OZlng/8ZmEmhY2FCXBQYo=
+	t=1789128553; cv=none; b=PwqyoYMJZFGgE6464FukDe/rhXjh+vQsG/+MyTOVm4YbOa5IWSuq0pcaPnMNn1Tk/Q1CeaKjEFgVSJn9wAoCFT0RUH0pWoh3oWSwY95vWIdO4tqqsdfwLfIA29ay5ALX4HOJrlW5QTt2XqwTaxwcDozIF/svaHwDlfllBpsFl8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789128444; c=relaxed/simple;
-	bh=8UAU1R/Rkig82G/2Kdo7qoIMFng0sVg4Ig/9uaxQXK8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mQQXT1nNHV7SfiAMdRLahxBtCncbZN17iHBS2hqmyYXuVvkaV/V89VkE1l/s7ewzI5yCYNuI7X/xh723Qa+kR+BhUDUDt1O73ysPubB3lZU/O0kzpR/kGVrVgPqG1vNXe9uG7yalDjrybaaRcNYNWufjru7D+iGyNHAtCT8Pz/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=FmXk65KL; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1789128553; c=relaxed/simple;
+	bh=8xFWvWnbbxNtSScIWZyOyOwoPgT3OidLM+h8HVaJUFA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R83Ly7mQUQYGK2dJ9gJaFvyPIty6MdC4ALsURNokckCmJVvEaqWGnrMByrsZGmutpc0LoHtJLoqPQCWxy2WH/sxhSXPTm2fSe4HUOBKJU7ITflY11ezlQ+cffYzQXocyDhgH0vMZygIJKBncZAATwpFExwyc8knzxhAY1cAMhr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hEYRq08u; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="FmXk65KL"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A2DA54226B1;
-	Fri, 11 Sep 2026 14:06:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1789128429; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=p8SY5RIKlDVTHUzXb43/DvNCM+PcOoc/HUdXfnhxDpY=;
-	b=FmXk65KLUWgBN+mEea6wz3cYRAMHR/2G9tqJPKyylhRWgC+yZ5ga8mv8DTRTs2SeaxDkhU
-	elTaQPTyH1+OL96K3i4xXpCYj0QuvIOe1iC8H+RLOR/x6Qv1rbyxsvmM8qekch8axawJjn
-	412R+EVWIc6eY5sfzE0b8Qph8JKh7jyM5tiFxplx/lxTh0RrMcawRsVv3sAcQ+SmDiDAOd
-	0SsU6Xxp40uHYxqOuEk4OYXKJ1HmZ7+nitnNPlTAQK/Sko6zHhE1lTUyQ9vvL3vUoNbMmR
-	z9W90oUvnd8MUlICMUoUK2GEVa33jqsQoZjfsNJ6tlanYH/sKb/D2hcOJz3v2g==
-From: Caleb James DeLisle <cjd@cjdns.fr>
-To: netdev@vger.kernel.org
-Cc: daniel@makrotopia.org,
-	dqfext@gmail.com,
-	SkyLake.Huang@mediatek.com,
-	andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Caleb James DeLisle <cjd@cjdns.fr>,
-	Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-Subject: [PATCH v3 net-next] net: phy: mediatek: support MT7530 PHYs on EN71221 MCM
-Date: Fri, 11 Sep 2026 12:06:46 +0000
-Message-Id: <20260911120646.4123877-1-cjd@cjdns.fr>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hEYRq08u"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789128552; x=1820664552;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=8xFWvWnbbxNtSScIWZyOyOwoPgT3OidLM+h8HVaJUFA=;
+  b=hEYRq08uwQT1er9BbDpUD9GUhHdgIZU9Dxsuo7CQQTtxaTNk+2s8M1X3
+   KGUKWR6+/UaeE1M25To+dsYsngl/Fuc+ZuGblXFyx7LMb3gdhwKIaQzsV
+   AM6u0pQHT7/Io1RDtR4BCqnzsoN63v/HeMl0kiZ4EioDJt03uhardMxNH
+   Z7JWIv8UoRg0yXT9A/JHUC4oITiB4pJXoEdyKga+vAHlVdiZbHdk8/sxA
+   TMfvdK3y6SwsVbPKB8kFIUuGYvIqb6YwJ3FIsOMRontXB2qeX30V4Uv/M
+   faV9JD/9FxqKczN9JS4Q1HglXPn8ucSLmmvS8CdPjWF/xv6x9wwVZlf1Y
+   g==;
+X-CSE-ConnectionGUID: YEhED2uxSua3xD/bE3vxtw==
+X-CSE-MsgGUID: rGSkqJMJTHmo5S/rnibZ0g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="92099596"
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="92099596"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 05:09:11 -0700
+X-CSE-ConnectionGUID: ciNHh1x4S2qZz+hvQtA+VQ==
+X-CSE-MsgGUID: 3mOiteiKSlqRl4rKs8o73A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="268226892"
+Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
+  by fmviesa010.fm.intel.com with ESMTP; 11 Sep 2026 05:09:08 -0700
+Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x503s-000000001VB-2MFa;
+	Fri, 11 Sep 2026 12:09:00 +0000
+Date: Fri, 11 Sep 2026 20:08:19 +0800
+From: kernel test robot <lkp@intel.com>
+To: Ho Jie Feng <hjf3108@gmail.com>, dri-devel@lists.freedesktop.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, cyrozap@gmail.com,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/trigger5: Add MCT Trigger 5 USB display driver
+Message-ID: <202609111951.Hco6MgXH-lkp@intel.com>
+References: <20260910171709.396071-1-hjf3108@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910171709.396071-1-hjf3108@gmail.com>
 
-The EcoNet EN751221 multi-chip module implementation of the MT7530
-requires some additional configuration of the PHYs on startup.
-The reason for this is not known, but it is possible that it has
-to do with the fact that the EN751221 MCM implementation of the
-MT7530 runs at an abnormal PLL frequency (362.5Mhz).
+Hi Ho,
 
-Detect whether the MT7530 PHY is attached to the MDIO bus of an
-EcoNet EN751221 switch and if so, apply the necessary register
-updates. Additionally, never attempt to configure an MT7530
-identified PHY which does not have gigabit support because the same
-ID is used for another (FE) PHY.
+kernel test robot noticed the following build warnings:
 
-Of note: MDIO_AN_EEE_ADV must be zero at startup or else link will
-fail to connect. Setting MDIO_AN_EEE_ADV to 6 after link is brought
-up will make EEE work when cable is next plugged in, but link fails
-to downgrade to 100mb if gigabit is not possible, leaving a
-"connected" (nonfunctional) gigabit link.
+[auto build test WARNING on 3ab04dcce43cd4fdaed94f08f4e6289be4921ea4]
 
-Co-developed-by: Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-Signed-off-by: Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
----
- drivers/net/phy/mediatek/mtk-ge.c | 92 +++++++++++++++++++++++++++++++
- 1 file changed, 92 insertions(+)
+url:    https://github.com/intel-lab-lkp/linux/commits/Ho-Jie-Feng/drm-trigger5-Add-MCT-Trigger-5-USB-display-driver/20260911-011705
+base:   3ab04dcce43cd4fdaed94f08f4e6289be4921ea4
+patch link:    https://lore.kernel.org/r/20260910171709.396071-1-hjf3108%40gmail.com
+patch subject: [PATCH] drm/trigger5: Add MCT Trigger 5 USB display driver
+config: sparc64-allmodconfig (https://download.01.org/0day-ci/archive/20260911/202609111951.Hco6MgXH-lkp@intel.com/config)
+compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260911/202609111951.Hco6MgXH-lkp@intel.com/reproduce)
 
-diff --git a/drivers/net/phy/mediatek/mtk-ge.c b/drivers/net/phy/mediatek/mtk-ge.c
-index 73d9b72f9d9e..587227d0f05c 100644
---- a/drivers/net/phy/mediatek/mtk-ge.c
-+++ b/drivers/net/phy/mediatek/mtk-ge.c
-@@ -1,4 +1,5 @@
- // SPDX-License-Identifier: GPL-2.0+
-+#include <linux/of.h>
- #include <linux/bitfield.h>
- #include <linux/module.h>
- #include <linux/phy.h>
-@@ -73,6 +74,81 @@ static int mt7530_phy_config_init(struct phy_device *phydev)
- 	return 0;
- }
- 
-+/*
-+ * The EcoNet EN751221 "G" multi-chip module MT7530 requires additional PHY
-+ * configuration.
-+ */
-+static int en751221_mcm_phy_config_init(struct phy_device *phydev)
-+{
-+	int ret;
-+
-+	ret = genphy_soft_reset(phydev);
-+	if (ret)
-+		return ret;
-+
-+	/* Master/Slave negotiation does not work reliably */
-+	ret = phy_write(phydev, MII_CTRL1000, ADVERTISE_1000FULL |
-+			CTL1000_ENABLE_MASTER | CTL1000_PREFER_MASTER |
-+			CTL1000_AS_MASTER);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = phy_write_paged(phydev, MTK_PHY_PAGE_EXTENDED_1,
-+			      MTK_PHY_AUX_CTRL_AND_STATUS, 0x3a04);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Clause 45 global/local data from mt7530GePhyCfgLoad(E3.0). */
-+	ret = phy_write_mmd(phydev, MDIO_MMD_VEND2, 0x0417, 0x7775);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x00a6, 0x0350);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x0012, 0xd210);
-+	if (ret < 0)
-+		return ret;
-+
-+	/*
-+	 * MDIO_AN_EEE_ADV must be explicitly zeroed at initialization time or
-+	 * the link will fail to establish - even if EEE is disabled later.
-+	 */
-+	phy_disable_eee(phydev);
-+	ret = phy_write_mmd(phydev, MDIO_MMD_AN, MDIO_AN_EEE_ADV, 0);
-+	if (ret < 0)
-+		return ret;
-+
-+	return mt7530_phy_config_init(phydev);
-+}
-+
-+static bool en751221_is_mcm_phy(struct phy_device *phydev)
-+{
-+	struct device *parent = phydev->mdio.bus->parent;
-+
-+	return parent && parent->of_node &&
-+	       of_device_is_compatible(parent->of_node, "econet,en751221");
-+}
-+
-+/*
-+ * MTK_GPHY_ID_MT7530 ID is also used for an EcoNet SoC FE phy, but that PHY
-+ * does not advertise ESTATUS_1000_TFULL.
-+ */
-+static int mt7530_phy_match(struct phy_device *phydev,
-+			    const struct phy_driver *phydrv)
-+{
-+	return (phy_read(phydev, MII_ESTATUS) & ESTATUS_1000_TFULL) != 0 &&
-+		!en751221_is_mcm_phy(phydev);
-+}
-+
-+static int en751221_phy_match(struct phy_device *phydev,
-+			      const struct phy_driver *phydrv)
-+{
-+	return (phy_read(phydev, MII_ESTATUS) & ESTATUS_1000_TFULL) != 0 &&
-+		en751221_is_mcm_phy(phydev);
-+}
-+
- static int mt7531_phy_config_init(struct phy_device *phydev)
- {
- 	mtk_gephy_config_init(phydev);
-@@ -106,6 +182,22 @@ static struct phy_driver mtk_gephy_driver[] = {
- 		 */
- 		.config_intr	= genphy_no_config_intr,
- 		.handle_interrupt = genphy_handle_interrupt_no_ack,
-+		.match_phy_device = mt7530_phy_match,
-+		.suspend	= genphy_suspend,
-+		.resume		= genphy_resume,
-+		.read_page	= mtk_phy_read_page,
-+		.write_page	= mtk_phy_write_page,
-+	},
-+	{
-+		PHY_ID_MATCH_EXACT(MTK_GPHY_ID_MT7530),
-+		.name		= "EcoNet EN751221 MCM PHY",
-+		.config_init	= en751221_mcm_phy_config_init,
-+		/* Interrupts are handled by the switch, not the PHY
-+		 * itself.
-+		 */
-+		.config_intr	= genphy_no_config_intr,
-+		.handle_interrupt = genphy_handle_interrupt_no_ack,
-+		.match_phy_device = en751221_phy_match,
- 		.suspend	= genphy_suspend,
- 		.resume		= genphy_resume,
- 		.read_page	= mtk_phy_read_page,
--- 
-2.39.5
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609111951.Hco6MgXH-lkp@intel.com/
 
+All warnings (new ones prefixed by >>):
+
+>> drivers/gpu/drm/trigger5/trigger5_drv.c:435:19: warning: result of comparison of constant 65536 with expression of type 'const u16' (aka 'const unsigned short') is always false [-Wtautological-constant-out-of-range-compare]
+     435 |             mode->htotal > U16_MAX + 1)
+         |             ~~~~~~~~~~~~ ^ ~~~~~~~~~~~
+   drivers/gpu/drm/trigger5/trigger5_drv.c:440:19: warning: result of comparison of constant 65536 with expression of type 'const u16' (aka 'const unsigned short') is always false [-Wtautological-constant-out-of-range-compare]
+     440 |             mode->vtotal > U16_MAX + 1)
+         |             ~~~~~~~~~~~~ ^ ~~~~~~~~~~~
+   2 warnings generated.
+
+
+vim +435 drivers/gpu/drm/trigger5/trigger5_drv.c
+
+   420	
+   421	static enum drm_mode_status
+   422	trigger5_crtc_mode_valid(struct drm_crtc *crtc,
+   423				 const struct drm_display_mode *mode)
+   424	{
+   425		struct trigger5_pll pll;
+   426		size_t frame_len, payload_len;
+   427		u64 err, ppm;
+   428	
+   429		/*
+   430		 * The protocol stores totals, sync pulses, and back porches minus one
+   431		 * in 16-bit fields.
+   432		 */
+   433		if (mode->hsync_end <= mode->hsync_start ||
+   434		    mode->htotal <= mode->hsync_end ||
+ > 435		    mode->htotal > U16_MAX + 1)
+   436			return MODE_H_ILLEGAL;
+   437	
+   438		if (mode->vsync_end <= mode->vsync_start ||
+   439		    mode->vtotal <= mode->vsync_end ||
+   440		    mode->vtotal > U16_MAX + 1)
+   441			return MODE_V_ILLEGAL;
+   442	
+   443		payload_len = array3_size(mode->hdisplay, mode->vdisplay, 3);
+   444		frame_len = size_add(payload_len, sizeof(struct trigger5_bulk_header));
+   445		if (frame_len > SZ_16M)
+   446			return MODE_MEM;
+   447	
+   448		err = trigger5_calculate_pll(&pll, mode->clock);
+   449		ppm = div64_u64(err * 1000, mode->clock);
+   450		if (ppm > 10000)
+   451			return MODE_CLOCK_RANGE;
+   452	
+   453		return MODE_OK;
+   454	}
+   455	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
