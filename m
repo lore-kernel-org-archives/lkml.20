@@ -1,121 +1,112 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8478E21A457
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:48:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789105716; cv=pass; b=PAEyuuGWF50jvEZ1RIkWE4YTU4Ifqh2ZpmG6ZglMEtkuyIsN3depgIlpcczChLCv+yfD7KSYCZq6qRWxNXMd3jtKE6F+3xtE7PJP+bzFIcT6/uJ6Tdp6z6OsWe/583K2hTzKVCa9ljlD3fGn4LhmbXfAk8EOBwYppzQNj2BkhAA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789105716; c=relaxed/simple;
-	bh=TJnrL6d0hKJDGb4rqpDMjSoPYzhglbMdJOCHJvyEPCE=;
-	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=hU+LvMeJTpxlNKqOqqdNNZylMJnrDxK5HqAr8RkP1gQFPm1lx+sr9b7NH2LdXbAacHhmYwvaiOSiNhD/Z+27SVeqkzmwRC/+HLqiqtG2UbYv8YumNKH5i93JsNpJodPJ7igGWleyzBj1PllhyZzs40AmdRJHNh3ZtOaDwTWcniM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=hM+Pbo4U; arc=pass smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5751949E14F;
+	Fri, 11 Sep 2026 05:48:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789105724; cv=none; b=FjR68LJ5anML0mh2MJaeH298oSEdtspNeGUpNom9QzYTfNCeI5TyYCbj7wxzAON+nn4wGzFr+TYRs5ZZpA+78v4NO6R351uIHjMM3iNMoGAJfwdb0K75IqUYbxuG4vJ8j7LiMwNvRGp06kmzrc6kZ5dp8BIdMsKt6pIMeT4DB0M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789105724; c=relaxed/simple;
+	bh=jcMOyec8Bz6tWsyLWroUzHbUPOg0GXNA/06fZb8KQpI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F5ScUbNTsJX8HeVA2f29uO1h4kQkKdxE6FTL4t+Rnh5AMsA0NCloQ+fLfup7oKdkb0eifi71JHM9jjZY9Yn23aR0iDZOmc+aUvEedsK3hgHCO9KR4MRjCET014yHESQbe5naHgB7pLtY4rHj4fHGU5jzoS1gcQGB1snAfFK/3nA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=k8wHSF1F; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="hM+Pbo4U"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469d28035so167094b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 22:48:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789105713; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZV3yibtetbLZFokH0i+9L4FxhCZJHYscOcj+JAzkIHZqZVofSQVGW3vhd5NvRxuB7I
-         +U5DEB5ygPQfRscEsk6rXJ8MkqK6rphOI+cApe/iALIcH1Ob7FSIuPaLKSzpzw2yOufV
-         02HiU9g/E81ZMKA0r6rHEgQzlKu1eDwtwdtUJEJOOot5R9oR7ZbwUkfh5J7nPD2UbsGh
-         UqIERac4NWrT+XmPimHL6W+TPV+Y6Vt1l/onl2Zf4OrdTIokoHT4mFYSNvzmlFx26+i7
-         ll+JQ0uGhrJB414nkuEV+klw0QarUqLJ6qEPgT4CZ3wCvc2PoPukuKU7ieccbI7lHnQZ
-         EGxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
-        bh=B/obf48ZGyrDi31Af1lwyeU1ecLj+i6UYByj6PNdSZQ=;
-        fh=1iYkMsRTpUxH6qn+3geGsoiDqhb9E/FQnpDoK5zMwHg=;
-        b=O6ZuDhQ8B9UmWVsUYRi4lU+MtWULkvtiVaenaeUQ4myOyHeMSWRUKUfcw8mapYRL1v
-         wF/V4CcwFzXbI/T9aG+oK6KKXGnltFqSP/FMSqyg09Q1E3avXJzuLHh/adMnqB6jLWg+
-         6XWDW9zE5b3bLVuK2vdXj4ojJBXrfPI5sPYoBcMSWLlPjsBckvrytcNGEQrdihLc+tT5
-         ZdEIL4puFEwhBHSkDbgEIC2UH7t69Lsa4Mbsf2r6H/3FtlotreicSSBJ34Kh6f+JqQBr
-         eJcqaa0x7vJBHXaUAqna7vMhUbY4jTGZA4eWbYpmot1OTkbW3ZS+W3hu28Rk7eUHiJkG
-         NbtQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=berkeley.edu; s=google; t=1789105713; x=1789710513; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B/obf48ZGyrDi31Af1lwyeU1ecLj+i6UYByj6PNdSZQ=;
-        b=hM+Pbo4UeVdShI3H9ZiszxRDnVrmasPPmJTe/z0kizDS2nAvqIPHr3C7tIEbGYCF1h
-         55+J/PJZ664p0+ZPK7W/RQYsjoz+tVK/tnnW7fuXayn5+yQ9UZ6vVYmdlBH/iqRaLBGY
-         IYfkkE7fIX0HFvhmtrfLElcfFGJZJwJHJCU/WPLsbdHz+jzdmY2YHkLIyEEtbQEv80aj
-         GdoPk9HURZNjeKQqY6Pns6u2eIgOqWAK5fdIu1yL0Qtjj+QvECICkS8q2OvXvzYnJYiH
-         ws2v+5lcZv19brELxjTxg/+U+RJaI0IBNg3KyU7QS6w8if4OHT6x6WC7qpofDIaN5nQt
-         wRSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789105713; x=1789710513;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=B/obf48ZGyrDi31Af1lwyeU1ecLj+i6UYByj6PNdSZQ=;
-        b=QrE75DbANUxgvMamngsJqG9QpYm50vckO0lOFC+j+GrH0sdxYK6rhRjLdOzrzXBUfk
-         rhHEam5/YvFij02DPhvMMwMhufhxtKaosUIZnZ9cI5JCLgm+OC3OYRkldwVKKxuMAh6h
-         iNGEJ5Z+C9x3E7wIxqmSsiYi/OXY4pt8urd/uc4Ban1GMq7qGTEFnAh1nrf+fV/IbHEQ
-         C66C2SlsYG6mKj5mBpGHYjS+iwjv5O79HFbuS/2xtTCMxkbY7ij+dnj6Q7QOEGmk99m2
-         cabMsOjbJai5fKhGbRuAdtIEKI2DB4O+VGIZf+8Ntae1H2wJANJNANikxjuRwjWrmsvV
-         IGOg==
-X-Forwarded-Encrypted: i=1; AKwUvBy+OM2jnSa3t9DNAUYSdg8zTB8Z/1Mt9rQgkrM9z3MnhHZLmq/7dCGa2Yx2LBHgb7Bg1BU8VVgeb1ZO15E=@vger.kernel.org
-X-Gm-Message-State: AFuF++njprSQpp3FF0tZAJ8cAe/8LwFfI8MM8qK4CO0yxw7ZihYDgPMH
-	wZasAMLRYQBhO5f8czdoOw0iyLs882cj8XdLq48O5r8kJ9mC0jc/OgwzIgjOIPp7t1XOa8igF01
-	FfsTtSph0x2RxAnIl0qziugZLsq4SMUa9kq1DkrTV
-X-Gm-Gg: AYBFou3Z5bAdyNrLnoqC0xjHvsrM0mHcKenYXQ0SwEfCvaaSoabDDWqMDvyHYWWrCKE
-	VlmFQKdUZytccIrWrzn7n64LsBQQDv2pfyKKNoaDauYmnk6kLbC7arlJmJ77eVw5Hi0qe6jIIAO
-	GbR+PbfmNdvHfjE8xULlYxGo38EN1+MJoAyUKq5dRRgzwoGhIMSKr1RkM50Qg46C9uGq1ASzwh+
-	qFj6DwL89W05nvnNdkq9HtiqjHWMlxFpVxSk7itLePnCRAidv+W1TKml48a1I44axz36H748VEI
-	tHXkzYZWO7hQaVrH1ItAOZqkreLBSDldddcK3I9FXioMoqt3cLe5Ieciw/bH+K3Zvi1OJhwQRje
-	XJRbM+TDehkJOWYc7t++b0k0gZc97WYwYnHt6sJjPGRo=
-X-Received: by 2002:a05:6a00:2e20:b0:869:44c3:c24b with SMTP id
- d2e1a72fcca58-86b0d065277mr3199091b3a.0.1789105711800; Thu, 10 Sep 2026
- 22:48:31 -0700 (PDT)
-Received: from 474444807712 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 11 Sep 2026 05:48:31 +0000
-Received: from 474444807712 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 11 Sep 2026 05:48:31 +0000
-From: Farhad Alemi <farhad.alemi@berkeley.edu>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="k8wHSF1F"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789105722; x=1820641722;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=jcMOyec8Bz6tWsyLWroUzHbUPOg0GXNA/06fZb8KQpI=;
+  b=k8wHSF1FY8CdXhEXW90oKZ/RotEJYvbo8xiIRAPreNuUyP2LfCfNeka8
+   lwBeEV6c+WALzS3IjsL2YPX5DGg/PaQt7DJipjHvC2Bdf0UlsEOxdh5zo
+   qGXFDJv6xRSJ2HAvTyGHk4YRG/7NOFIMRWGxWWNwcHqcvOsmMCU06tQkY
+   09kIMhhxK9IV+TxEGNHkP1FdS+X4lThI2f6GmtH3Ra1l+RCMAqKR2WZRD
+   2PE3xJL7SSaIJROPRxDaNXOlGQvlZ/N92UIDytHpmkLWvYOzyfF3tuGVB
+   MNmcLqoV5TKdmtc0MOJixIL3eugqnYXmxBpZ+yYvMsfdwAqnVavhNbaWT
+   Q==;
+X-CSE-ConnectionGUID: oUtFHxpvTi2dFof5WZCHhg==
+X-CSE-MsgGUID: dFxgE6PJRmOYmDSoURK5aQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="93256962"
+X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
+   d="scan'208";a="93256962"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 22:48:42 -0700
+X-CSE-ConnectionGUID: UzDlqS48Tq64bgHfHI5JyA==
+X-CSE-MsgGUID: Mruj16DSQKygugToBk+B8g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
+   d="scan'208";a="136805"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.80])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 22:48:39 -0700
+Date: Fri, 11 Sep 2026 08:48:36 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Chang Yu <marcus.yu.56@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Shi Hao <i.shihao.999@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Subject: Re: [PATCH v3 2/2] iio: light: add AS7343 multi-spectral sensor
+ driver
+Message-ID: <aqOWNJhnBRNQfexD@ashevche-desk.local>
+References: <20260910063813.56419-1-marcus.yu.56@gmail.com>
+ <20260910063813.56419-3-marcus.yu.56@gmail.com>
+ <aqJzXvxHEWi2Ny1g@ashevche-desk.local>
+ <aqMDWRRKMW7uYoGa@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 11 Sep 2026 05:48:31 +0000
-X-Gm-Features: AcwNN1XJiM_-mKtor9wgRc0cKID8IrHW-RYw1kk88Sw8zQDxuASJ1G3ckAlh4HE
-Message-ID: <CA+0ovChNv1=1dfdKxSXnBN0KVC6eO6kZqTFTsozOoJYCvT8T4g@mail.gmail.com>
-Subject: [PATCH] media: cx231xx: don't free the media device on err_analog
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: falemi@asu.edu, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqMDWRRKMW7uYoGa@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-When cx231xx_register_analog_devices() fails, cx231xx_init_dev() jumps to
-err_analog and calls cx231xx_unregister_media_device(), which frees
-dev->media_dev while dev->v4l2_dev.mdev still aliases it. The next line,
-cx231xx_release_analog_resources(), releases the video device, so
-v4l2_device_release() takes the freed media device's graph_mutex in
-media_devnode_remove(). Remove that free from err_analog and leave it to
-cx231xx_usb_probe(), which frees the media device at err_v4l2, after
-cx231xx_release_analog_resources() has released the video devices and
-v4l2_device_unregister() has dropped the subdevs.
+On Thu, Sep 10, 2026 at 12:22:01PM -0700, Chang Yu wrote:
+> On Thu, Sep 10, 2026 at 12:07:42PM +0300, Andy Shevchenko wrote:
+> > On Wed, Sep 09, 2026 at 11:38:13PM -0700, Chang Yu wrote:
 
-Signed-off-by: Farhad Alemi <farhad.alemi@berkeley.edu>
----
-The device was emulated.
+...
 
---- a/drivers/media/usb/cx231xx/cx231xx-cards.c
-+++ b/drivers/media/usb/cx231xx/cx231xx-cards.c
-@@ -1505,7 +1505,7 @@ static int cx231xx_init_dev(struct cx231xx *dev,
-struct usb_device *udev,
+> > > +	name = as7343_channel_label(chan);
+> > > +	if (!name)
+> > > +		return -EINVAL;
+> > 
+> > Why? Can't it be taken from DT?
+> 
+> These channel labels correspond to the physical optical channel
+> names defined by the datasheet. Each name corresponds to a
+> pre-defined range of wavelengths. They are fixed internal properties
+> of the chip, so IMO hardcoding them in the driver is more
+> approriate.
 
- 	return 0;
- err_analog:
--	cx231xx_unregister_media_device(dev);
-+	/* dev->v4l2_dev.mdev aliases media_dev until probe's err_v4l2 frees it. */
- 	cx231xx_release_analog_resources(dev);
- 	cx231xx_remove_from_devlist(dev);
- err_dev_init:
+Please, make a comment on top of the string array, with probably citing the
+datasheet table with the wavelength ranges.
+
+/*
+ * Channel names as defined in the datasheet:
+ * // hypothetical example // ... - 200-300 nm
+ * ...
+ */
+static const char * const ..._names[] = {
+	...names...
+};
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
