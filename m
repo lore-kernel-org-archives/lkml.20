@@ -1,65 +1,65 @@
-Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C5C489FC1
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:56:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8EFD49B202
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:56:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789142204; cv=none; b=dOkunJOn6VnGXWoYi1KXjb3tMK2ejtLPAIoHownTJrMABCHjCi0nzERwXr6V40ar9GQliHGqs5CgcYpNq65IGl+iO7bNNTheG4aP2e4E6CdhNggBWkSYHylz3ywGo8SP4AyGncJPovLYHa5HS58LN+eFMwlAKB6sE+9QkDZmTSU=
+	t=1789142204; cv=none; b=Cti7LRN/wxYdyjMqvWyG8JHoCbanb2UitQMNPxHlsuOjqoCaFC8ouKv1TFBCKv/cFUF72yJ+pomJ4mH60nEpCea1kANSjrhhj9OdGJSsLTZpnDCf+NM6zbhOpXt41sSEEn0a3BXcHEE0EVOVG5YU6zNqyyNWOgj1ham64xUpqzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789142204; c=relaxed/simple;
-	bh=z7V/g1g0y9+9R0BptqO0kSLqVcR+bETnnnZCPJ7Ec7s=;
+	bh=mjbvHbioGHY7urkc7ALAd6QAqb6mSR2JpyegfZB+S/Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uawSclIfkQsQnlSwPfxH/3zftojVbDyKkOWXTFK5FpL7HEOjiJ4HpqbLt1lr2DWUZk/gNwe4DBdFUDv+nizo1pqELOb5Hx9dllBePD+aT9SFQuhbW7U0qJG26C7iutUsxL+NF6oeL6JeHrEgxYMSH6zs6wmTK5hImQbCmk+3n6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OnSLvA8g; arc=none smtp.client-ip=74.125.227.129
+	 Content-Type:Content-Disposition:In-Reply-To; b=alnOHlkZiAMC+tAF4XkQKWEVuE+GEN/+ZJ3rVH0Ut806ZpgKpNEgXz2L66CNL8YoqwTu+B60JOFMi1CMCsIr4Fr0fp4BaK57CHQ+ceSyG3NhGU/BnpqZWhBbLiWxa8IRLhqkrxnlBXGCL3gqfCT86xepQvMQf6gVM7Ym+CwnNCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J/9PFcH+; arc=none smtp.client-ip=74.125.227.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OnSLvA8g"
-Received: by mail-pj2-f1.google.com with SMTP id 98e67ed59e1d1-398e10200a6so565943a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:56:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J/9PFcH+"
+Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-398a0a87595so853470a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:56:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789142202; x=1789747002; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789142201; x=1789747001; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=xdPDE+ElPkzxctjwVXaTUQqhszvTbAvyW6hsARO8f1Q=;
-        b=OnSLvA8gceT1AsuvnrJZKK6/1KyAt5PdsA6M0wrmaHMdC9vHTXCDYjO8bl0+fkNwEB
-         M0p9InB+UWCB8CCqMByS13bOokXX5CN0NdcwTKSB/fLDiy5T/WGu9yZSeJQzy59m66AN
-         Gulgx6XqyFcCoaynfO7ZTU2az6TYJ8C+fXGTbF4vtqt5wuK6y0H1L6AsL87ULiwGMEP/
-         QWk/jierG+Sz7KDJ/lvVUXMUuByx/p81RN1XLbuLe94NvfS222G6BYV4/HeyB0g6caRy
-         z6ngg9eDKwF/+KetMtnF3uo8IeCm1px6YT5Uq35Y7e21vpkRMQ5t5ObGdP+cRXHtiofI
-         wanA==
+        bh=i93HR/ZVRY5iecDHt3F7Fd0n7rJ1kE9Xq94CpGBbTOY=;
+        b=J/9PFcH+8RwW0AkuX99NZ6ZFXSkbTfBOveZZPXyIjM9Ul5GctCK0d1KzloNnICvb6q
+         YCAepxnGbOSSHPl/RsCdR3pXUhDAqNeXhJ6CrhnoAiu0su26wL60oK82gdy6EAGf0Zi/
+         Qs+8kRdZH1TcCqpSeTbFmrb5K8mNRmnxsKtYllWLL8tQnudAErNVcxkeX0Dvv8L3/H3W
+         MumWVAAWhSxkzP+N6ngNp7k9hr49pwgTQgMMO6uVEWdnpXQ6kbFSlgf7zhRFcpOqOiJz
+         KGGZSMGGzxITvHnWu5ZFSvjSfa/8nhFD2wgUKDTfKvsh2nm4VwJBvWdlC1T2OpBWBRzS
+         ZDbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789142202; x=1789747002;
+        d=1e100.net; s=20251104; t=1789142201; x=1789747001;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xdPDE+ElPkzxctjwVXaTUQqhszvTbAvyW6hsARO8f1Q=;
-        b=LBepG81/YiuCZEPsWc4UPBvzgfi36t7POT61umUcXwzr1WXi31Ai7E85jyJq+5rpNP
-         9swIrY0VQRtvBR/CZrEMNT59n6KBf+ZqAHCKdLEwp4cCymZ2XCIHqwgW/Ul1IIAOrEV2
-         Mmm1QAT0DcIvStW1JaUY+sKWDxILf8XHa+GAFxpEXf9o/mb21knw/j/ENMJFlBR+SwkU
-         pyh8kMAK3Aa6o/twQoCcoqIt60N4OkcKSMRel4ORqNz8XAHcfrsXAxKLBivkaGTWqjt3
-         C4wi5WWbPtu2vljUDxGQvImUuTME6dpa4IYAE5eevFl96wzrHV9SAYLLly2wIUnkN/n0
-         Ch3w==
-X-Forwarded-Encrypted: i=1; AKwUvBwjdWKkPvaWRb87zOoX8SURczk9dN1pmlKC9hhnoMfqruwTW6jhWJrQ9eOkytyh+zIZ4jD+bWUPOZKGVj4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mspQP7dQYmHMtist70KZ71T4VqZ6El/x3XOKZC9svzdTyroPpQ
-	oE/ZCnsyVr1RlygJa5iNkJXB/WPa/7e/M0/e7sm/sdu2t9YepfebumuF
-X-Gm-Gg: AYBFou2QHtbjZ/fmCO3y2I9REJiVjdSL6cW9YBTT8aYRHx8xNZcRKO4+gdlCw5brtzG
-	gKNaLNkt+a3CUdY0dWDt2ZFDeRlYdpRmrlrh9P14S5oSZRIjjbd69Qn38V4EQhZDiLCrmUbCt+r
-	O2EU+IJ08UIPKNinDkwFje+3oiWurahLonX9q3kLz3ACcv5BIsbNdMQFiyPiEFV/zsm/MsDCh7X
-	+jHewG1cbJr1YCQyzd/iyvBvg+Bu19B+3bK1WRxByticqdEf6BGEDXNEdI1Zs2PQVs+Ni2GJeya
-	fS4KJmcV2FS5x+8e/Fnb8agGNf6gV7xfJlwgLttXhXGGMquIj+v9x4+Br82TY+7zZ+H6Sm//xkw
-	kA8S+WnXhvMHc47J/qYwKc9aAq5GRPJY3B78js1mcxaOcZl8hitaLwVDq+cxQh/wQMmQB/Wztcf
-	NOtMqEKYYV5GB8TGYPLAab/h6S5rKxVE+u9Ty4qnJwuU48C/aQtd7PuNS5c/mhPYLL
-X-Received: by 2002:a17:90b:2d03:b0:38e:67e1:15b with SMTP id 98e67ed59e1d1-39d9bc3f8c8mr7928696a91.6.1789142202047;
-        Fri, 11 Sep 2026 08:56:42 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:5c::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39da6016718sm3225865a91.15.2026.09.11.08.56.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        bh=i93HR/ZVRY5iecDHt3F7Fd0n7rJ1kE9Xq94CpGBbTOY=;
+        b=s0j1O6id/djXK6g98anJB9pQFBZnuRmy3BOov5OHxxvT4+983VX+ACnvlPPKofua47
+         q1jpX+JzXVt+D1uy8SVLy5fLPA/lfw+rPIDUcnifCuqoonW017SA/DeoP8YzDKCqqtB9
+         wBTo2jJoTDjCgLqNIrXzb7cv8Xn2AGp5GRuJUlTYxjXW5vIKnClFlf9bskoT65a6ZXEC
+         M1195y9xHEswMLWndSAUAklhBX4xq6Rd32w2DXu5tKHgd1cp65Ndt6Whd7GEzvki6z4T
+         m0KNK4UReZJkN1t5/vIHtGuJzRokYfl9Vuw/f+D7Gmbs9bsbDM18juLouxcr1cTuLrNk
+         OYUA==
+X-Forwarded-Encrypted: i=1; AKwUvBxleLPNMO1a8JI86vjmWQ7md5d9VP6ERTvn1m5AMSCjH3zppS7TXXvM3SGNe3M/mCtdLPJAcKuzCxVpIP8=@vger.kernel.org
+X-Gm-Message-State: AFuF++ne1CQOB3qsLdznbh7enAg2sjBVpglHtrkf6fXBzU6d4qFdwBUN
+	JBP/cCn9aaCSkmHewxCwI0PUm0ShgTJcn2NR8jfJhAD3MwwKEy3fFdwW
+X-Gm-Gg: AYBFou1NoYZmejvY2JkojhDI5jCHixbXVFVTDUlhnDKsY/1guOIdXbND6gPDWr/y8tT
+	dD9z8xDn0XRqnBnXZdF+AL38YrXXB2yMhxUIBzfs/FOQ7zq+8BmdFS7XtSbmG55sfS0vki9d7Vc
+	wb9fFMicak7j5MsGKCLr5ZX2/4XCYIqCjpnuhM338YRXvsJ/RzXh0s1StkqRQe3IY+zvxL66HFK
+	v9PeQlT4c+T6c12D/0vjOpLswK++WpVA2e8r6NLsMxXAs2gyKjPoz2fKkgmZCx+mvkz7ZE4dlua
+	pHMHD1h2us0Q5RwVTwVQ+2ko3l8ITyRtjSJ/NWpKYZEyB8ZWUKGoIZUQYl8Xmnu+QC8LQC8G2Ge
+	5DSYGG3VGS3ZwCaUdkKnAIpp3IARKZrjTn59a+9KaxWnGmanTDUaftLosMSe3xoN5piI7g2x107
+	Ftuo7pUj35PTUqGmx27B2cFoe3BYOxz4GiRLyb7jafp6OH/nr2tma14j2IOS34u1jB
+X-Received: by 2002:a05:6a20:d508:b0:3cc:ebeb:3efe with SMTP id adf61e73a8af0-3daed59e465mr8842930637.9.1789142201223;
         Fri, 11 Sep 2026 08:56:41 -0700 (PDT)
-Date: Fri, 11 Sep 2026 08:56:35 -0700
+Received: from localhost ([2a03:2880:2ff:4b::])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c65b1a63sm1435313a12.31.2026.09.11.08.56.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 08:56:40 -0700 (PDT)
+Date: Fri, 11 Sep 2026 08:56:23 -0700
 From: Stanislav Fomichev <sdf.kernel@gmail.com>
 To: Breno Leitao <leitao@debian.org>
 Cc: "David S. Miller" <davem@davemloft.net>, 
@@ -68,11 +68,10 @@ Cc: "David S. Miller" <davem@davemloft.net>,
 	Kuniyuki Iwashima <kuniyu@google.com>, Willem de Bruijn <willemb@google.com>, 
 	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, netdev@vger.kernel.org, 
 	linux-kernel@vger.kernel.org, david.laight.linux@gmail.com, kernel-team@meta.com
-Subject: Re: [PATCH net-next 2/2] ipv4: igmp: convert ip_mc_msfget() to
- sockopt_t
-Message-ID: <aqQkqzkIuHTNS-gW@devvm7509.cco0.facebook.com>
+Subject: Re: [PATCH net-next 1/2] net: add sockopt_expand_out()
+Message-ID: <aqQkImqiHPorszOY@devvm7509.cco0.facebook.com>
 References: <20260910-getsockopt_phase6-v1-0-e681e102d5b8@debian.org>
- <20260910-getsockopt_phase6-v1-2-e681e102d5b8@debian.org>
+ <20260910-getsockopt_phase6-v1-1-e681e102d5b8@debian.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,27 +80,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260910-getsockopt_phase6-v1-2-e681e102d5b8@debian.org>
+In-Reply-To: <20260910-getsockopt_phase6-v1-1-e681e102d5b8@debian.org>
 
 On 09/10, Breno Leitao wrote:
-> IP_MSFILTER reads its reply through ip_mc_msfget(), reached from
-> do_ip_getsockopt() and from nowhere else. Convert it, and build the
-> sockopt_t at the call site for as long as the caller still carries a
-> sockptr_t pair.
+> Add sockopt_expand_out() to grow opt->iter_out mid-air.
 > 
-> This is a special case, where optlen might only point
-> to the header, and the real structure size is inside the header.
+> It is a no-op unless the proper size outruns optlen (i.e, some
+> not-well-behaved userspace program calling it).
 > 
-> This is nasty, but, in order to avoid breaking userspace, we need to
-> preserve the same mechanism, by:
+> In this case, only a user buffer can be longer than optlen says, so
+> a kernel-backed optval keeps the bounded iterator and the callback gets
+> -EINVAL if it asks to grow.
 > 
-> 1) Only applying it for userspace address, otherwise it is too risky
-> 2) Assume there is room to support the new size (in userspace)
+> This whole quirk is added to:
 > 
-> The source list also moves from copy_to_sockptr_offset() to a sequential
-> copy_to_iter(). IP_MSFILTER_SIZE(0) and offsetof(struct ip_msfilter,
-> imsf_slist_flex) are both 16, so the bytes land where they did.
+>   1) Avoid breaking userspace
+>   2) Making the quirk explict
+>      * Instead of protocol doing implict assumping like this.
 > 
 > Signed-off-by: Breno Leitao <leitao@debian.org>
+> ---
+>  include/linux/net.h | 25 +++++++++++++++++++++++++
+>  net/socket.c        |  4 ++--
+>  2 files changed, 27 insertions(+), 2 deletions(-)
+> 
+> diff --git a/include/linux/net.h b/include/linux/net.h
+> index 470100ae710773..de0ed362b37794 100644
+> --- a/include/linux/net.h
+> +++ b/include/linux/net.h
+> @@ -70,6 +70,31 @@ static inline int sockopt_init_user(sockopt_t *opt, char __user *optval,
+>  	return 0;
+>  }
+>  
+> +/*
+> + * Grow optval to @size, for the options whose reply is sized by a count the
+> + * caller left in optval rather than by optlen. Those write past optlen today
+> + * and userspace relies on it.
+> + *
+> + * Call it before writing through opt->iter_out: it re-anchors the iterator at
+> + * the head of optval. Only a user buffer can be longer than the optlen the
+> + * caller declared, so a kernel-backed optval is refused with -EINVAL.
+> + */
+> +static inline int sockopt_expand_out(sockopt_t *opt, size_t size)
+> +{
+
+[..]
+
+> +	if (size <= iov_iter_count(&opt->iter_out))
+> +		return 0;
+> +
+> +	if (WARN_ON_ONCE(!iter_is_ubuf(&opt->iter_out)))
+> +		return -EINVAL;
+
+nit: if you end up re-spinning for some reason, maybe swap these two?
+I always get confused by the count vs len of iov (iov_iter_count vs
+iter_iov_len). Because I think count for ubuf is len because of the
+aliasing? (and then, if !iter_is_ubuf check is first, at least iov_iter_count
+will 100% be ubuf specific)
 
 Acked-by: Stanislav Fomichev <sdf@fomichev.me>
