@@ -1,60 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B68DA5A5132;
-	Fri, 11 Sep 2026 20:25:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11F4F59E33F
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 20:25:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789158357; cv=none; b=BIU4JQUUdpK2bw4mcPihbqekl/9KetxzO+ZEMSqZc+gaiqAwAgmbO5wCk0Qgg5xG+KFcgD+epPFoIKxKIOBIm1AN42M1be0kSXDFVjboL6tr9SQfUIrKKaC6IxCt6aZVHja3gjD6H+UGYsOqmNcfugzMJzRLOvkxwL99N8t9Jg4=
+	t=1789158359; cv=none; b=mpGM3OQqEvS5P9h2yqZTVN6/s4xQNPdQVx6WME9kZ2jasmONGW60KgHsrIGxitPhh45TepRO4td0//pFcwVhb77UQNll5SQi7ikctTUEm9wTBHdSE9eXEffhOwdMpz65DFLqkpLb2teexmBvCOmVycoGDrw8+GQf6EWxJyw/W7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789158357; c=relaxed/simple;
-	bh=6TwWv2XO8LyJXmGntkz0wNUrSJPv+7uE+G5a8NWsOVw=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=hSsxGZU4muL+bUTqlS9+DGrd3nIgTs7BrLlM1+foWioRGPwEKEsjGxXdJHMvAv66PSxKl7FRFUw3EeW7KGaqO2bWc4LaU/ms8yfTMrvTNJgBWrFKLLpXh52EVy6PHyMTGHLNLjtp8ZIRo+dmTMnzB7RK83UalFqj7bAsjLQ2BqA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dgagxFJL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789158359; c=relaxed/simple;
+	bh=q3d2l7yD3Ldd6dRPxZj+wofyB1bwgMOa4hVjnAQdsWc=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=k/YYzPEDWEj7+C7boKuKc294azKtymTxBr6pHse+iETCBF78OrQkgXF70DyrPYN9kEZfnZO5ShpOgsH1rqEFfxRnFKx6kYC1fqNHFehAhLXRY+Q0vLsue3SmaaWEt5gz1zevnsexFWWISi/ST/jPuGmdKpwipZCtkRWpseVea9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YAfYmrlE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dgagxFJL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8D0E1F000FF;
-	Fri, 11 Sep 2026 20:25:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YAfYmrlE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8A7D1F00898;
+	Fri, 11 Sep 2026 20:25:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789158347;
-	bh=3faQ76qNn7O6GnDutYwY3kYS1Pky1nKc9G2sWj2jD1o=;
+	s=k20260515; t=1789158350;
+	bh=zs6IpTeCkOFuPIwx2qA8uFPMR9hOsbr1wK0dg4OkG6I=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=dgagxFJLZqxniMLswUHC5IQtF+CtSA8H0ragCIgSzEKRH3MuZ2X6+D7RMRpWaZ+1l
-	 hTWXTthzWUB6p7FIEad2h5N7WonFsF8dAChZ/gnYiM+ZvsgPMFxgWCf1RJLJGlKPVo
-	 cuLpSoBzvGzfqiL9olg4N3HXbL7xedjwMtTuxMzjF9/UryQqfPdq3E9hY7kMO+CaNY
-	 ftYFXS+395p1sZ8QMx6Z/0xy44aQuRNG1s/RwVyyFyMKpzAhzvJhtRIybf9seG0H0m
-	 kLbo4k6o/416vtcJWWWX9y3Ch8b8XUPhR88b6EOnJSpCawxmqArS5c1B1SAJOlahRR
-	 /BldhG9epNDuA==
+	b=YAfYmrlEp0dpeLYk+BTMudVIqg4WCZZQuelaq49bcFx+2sbNzy8QK3OUQ4p9aPEtK
+	 TUY7fQbr895JLqi8IlMg6wnFVk10LMGvsE4CegR6/uux9n47Kp7ed4a7vNPkYOVJOh
+	 bUj0DhyRF/VH0GR30sQSxEc6olvMpF2yEyTyFdmq91kPNQSe/K3Tmd7mv6zG0hPmO+
+	 uxUvUmYJ3TzkH8mV0Tg3CuOruE71puRweG+a4jT23j1XyGSHwZZS45N/eoPh6+S4po
+	 aLhxCrw1jcYYjY4//7Ex3YEbA99RjS8NoLZu+MvKTM52exviFckjEPtPACJrDbztte
+	 MCZDx8oHmDWiQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0C4C3924451;
-	Fri, 11 Sep 2026 20:24:45 +0000 (UTC)
-Subject: Re: [GIT PULL] platform-drivers-x86 for v7.3-2
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0B183924451;
+	Fri, 11 Sep 2026 20:24:48 +0000 (UTC)
+Subject: Re: [GIT PULL] RISC-V updates for v7.3-rc3
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <pdx86-pr-20260911130248-2488210644@linux.intel.com>
-References: <pdx86-pr-20260911130248-2488210644@linux.intel.com>
-X-PR-Tracked-List-Id: <platform-driver-x86.vger.kernel.org>
-X-PR-Tracked-Message-Id: <pdx86-pr-20260911130248-2488210644@linux.intel.com>
-X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86.git tags/platform-drivers-x86-v7.3-2
-X-PR-Tracked-Commit-Id: d144a494d81fcf2d1c5cf58b01c655bb8bafc701
+In-Reply-To: <bca66c44-faf3-27b1-daec-1fe594804354@kernel.org>
+References: <bca66c44-faf3-27b1-daec-1fe594804354@kernel.org>
+X-PR-Tracked-List-Id: <linux-riscv.lists.infradead.org>
+X-PR-Tracked-Message-Id: <bca66c44-faf3-27b1-daec-1fe594804354@kernel.org>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/riscv/linux tags/riscv-for-linus-7.3-rc3
+X-PR-Tracked-Commit-Id: b94cec5761d22624d109d859467d7d4ce0a1b88b
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 1235ff329981ecde9ccbf49b83bd4d71e827d541
-Message-Id: <178915828442.3095760.14319678150047728174.pr-tracker-bot@kernel.org>
-Date: Fri, 11 Sep 2026 20:24:44 +0000
-To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, LKML <linux-kernel@vger.kernel.org>, PDx86 <platform-driver-x86@vger.kernel.org>, Hans de Goede <hansg@kernel.org>, Andy Shevchenko <andy@kernel.org>
+X-PR-Merge-Commit-Id: 827751b699b79a6e569983359c02dce67f81b94c
+Message-Id: <178915828749.3095760.8641038885777827919.pr-tracker-bot@kernel.org>
+Date: Fri, 11 Sep 2026 20:24:47 +0000
+To: Paul Walmsley <pjw@kernel.org>
+Cc: torvalds@linux-foundation.org, linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
-The pull request you sent on Fri, 11 Sep 2026 13:02:48 +0300:
+The pull request you sent on Fri, 11 Sep 2026 11:55:00 -0600 (MDT):
 
-> https://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86.git tags/platform-drivers-x86-v7.3-2
+> git://git.kernel.org/pub/scm/linux/kernel/git/riscv/linux tags/riscv-for-linus-7.3-rc3
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/1235ff329981ecde9ccbf49b83bd4d71e827d541
+https://git.kernel.org/torvalds/c/827751b699b79a6e569983359c02dce67f81b94c
 
 Thank you!
 
