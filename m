@@ -1,73 +1,78 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE6C93537E5;
-	Fri, 11 Sep 2026 04:46:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F01D356744;
+	Fri, 11 Sep 2026 04:48:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789101980; cv=none; b=hIzemdx3O2YBqLv7Mr6gaBeOXbLm3zFAdp23rSK6GWDfovUkVYy2WZjcm9QV9mLy4/W+kHo1L/KInifBNUACFGOO6/6AjUj1VgZQ7NMEs9uwkmz9/t1WNKmnBxu3jk1qnRQNMA3mVAgrj6sDEOH2igDYYMEEyvvB0KsZJnpBWK8=
+	t=1789102123; cv=none; b=kmwVd4k35CZ5KObYqafJH2MHPYmABVa7F6AYZ7UjTHOKFZCuIGS/WPSn8rbin5ZLGDHDjHzrYVTNVfx53dc6UESocZmZzPZcvfewmiRU9BJ6N3tDYejZ6biEAmxVLJNB27nFzY+mrFDagQwixy1G5gZAQlyLjomHXuFokmwAJwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789101980; c=relaxed/simple;
-	bh=ipcLaD8MKdmQXC/QLjg8ecHAuYJyPwlpFQRl4T8CrH4=;
+	s=arc-20240116; t=1789102123; c=relaxed/simple;
+	bh=xpNWKFpSH5VCnkaKxbI2BsnUqQtG/D5zDfXSE9IQ23Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WxV1DTDUfQqu56K9v8fVK/D6WzW0j1GxSGyX0l7NLttJZuMmmXg2HMHvb/60MKtlTbENcVubuypOdYP+9c3I30OgFffvIruQg3DTvHqZ23LBkwS+jyyJZkqkj/b8OFwDokvTMe4CIZzF9aFLsPFbHq+gapouNya8vZLTryHKrFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=cB3F7/V3; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	 Content-Type:Content-Disposition:In-Reply-To; b=svzTsizZlAebPF+AYz2lsWQHeCC/KZvt+0TVhuDRz91NQJgx/B/DrDrYhNjVPVras7H05HvoqBMXBy1jMi1Tz69Lg9RkanCdBVMrLgNnuFusikrqqolwbkolH/GPMsOneLIJB8PAh0lFLr/urQEc2UmYdidPDzay2hCyoYFEEoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NI349AAc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="cB3F7/V3"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=cf5NGoxDu/IJpFOZEULswgGz/EeFrCyL55ZL43yhOkE=; 
-	b=cB3F7/V306Dsu5f8nU5itXCl1s4vGQD7TsNdZekuhqBlVOr68Av4r43c9HixbhevKInErjDf33n
-	k78QPH0EGZN0gjuSRm2dq/rj1P1jRvE/nFyVsNLSf/CjDqWOYmNrL/Cl5zXTtWCLB6oZdd1iUK8O1
-	onAqrysjdYHKkt9YoVHuvQ3QQcxJUUiBxjdcE1qXWh4GocoxGFDA2NuEXujA3OcQLemZZ+KmjvxwT
-	RQ+8i0GhkJK0vaU13KENEf9XMYq2d6kipXfQAfRxIHFmot4wyKWi5JTCqOAQuBe79HON1pd5H6AAu
-	/tm47oAZq6M2JfmFhz7dPRZiR+hQpTiFwOmQ==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x4t9O-0000000CtXn-3hqg;
-	Fri, 11 Sep 2026 12:46:11 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 11 Sep 2026 14:46:10 +1000
-Date: Fri, 11 Sep 2026 14:46:10 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Chenghai Huang <huangchenghai2@huawei.com>
-Cc: davem@davemloft.net, linux-kernel@vger.kernel.org,
-	linux-crypto@vger.kernel.org, liulongfang@huawei.com,
-	qianweili@huawei.com, wangzhou1@hisilicon.com, lizhi206@huawei.com
-Subject: Re: [PATCH] crypto: hisilicon/zip - enable auto clock gating for DAE
-Message-ID: <aqOHkkEoXOJ8N5Lf@gondor.apana.org.au>
-References: <20260829094924.2191402-1-huangchenghai2@huawei.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NI349AAc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DEFD1F000FF;
+	Fri, 11 Sep 2026 04:48:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789102121;
+	bh=RaXFWVIpvAkOv1rcgY9dD8QXcM4oemFc0hyj3zavRUA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NI349AAc/ODtnuILo5pX58UGJTDu1tN53uvlC/rIvS+tAkKqxzP34A2l+WGFi1QAL
+	 pwmrad245PjqAVsTM7A1UmFgvpmloSc0oBAoPo+hDmmZixO+OWEt5yrgR7cK/+3DDP
+	 QZXDAoWqVk+esncXCVqHD2QmyyrCtoe8EHSzGn9ggbcgG14BJgy1cZqivZvdkFycW2
+	 gVOpanlG2hvH+ocO1OZ3v3ruWemtYk7jzQMkXOAT2ZtrzkJvyD4I76Q9yC6ZH3nAaE
+	 JbkxJxXpFdcQtX9dyHUp98ge7ThUUmmHXQ1tcVeAGQvqOjgRuTYTpMwXZJX0cDcAkB
+	 EbZHkZeauoF/g==
+Date: Fri, 11 Sep 2026 06:48:34 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v4 1/2] dt-bindings: remoteproc: qcom,sm8550-pas: make
+ qcom,hawi-cdsp-pas standalone
+Message-ID: <nfhfmzqpdvv5uebpt32yjsg3tmdkvgn3awpmjg7bafx5vbyju4@7rvn6e5rzsp5>
+References: <20260910150638.3270162-1-mukesh.ojha@oss.qualcomm.com>
+ <20260910150638.3270162-2-mukesh.ojha@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260829094924.2191402-1-huangchenghai2@huawei.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260910150638.3270162-2-mukesh.ojha@oss.qualcomm.com>
 
-On Sat, Aug 29, 2026 at 05:49:24PM +0800, Chenghai Huang wrote:
-> From: lizhi <lizhi206@huawei.com>
+On Thu, Sep 10, 2026 at 08:36:37PM +0530, Mukesh Ojha wrote:
+> qcom,hawi-cdsp-pas was initially grouped as a fallback to
+> qcom,sm8550-cdsp-pas on the assumption of hardware-level compatibility.
+> Bringup revealed that the NSP proxy power domain on Hawi requires a
+> specific RPMH performance level that the sm8550 driver data does not
+> provide, breaking the compatibility contract the fallback string implies.
+> Maili CDSP shares the same NSP power domain topology as Hawi and must
+> fall back to qcom,hawi-cdsp-pas rather than qcom,sm8550-cdsp-pas to
+> inherit the correct cx/mxc/nsp power-domain constraint.
 > 
-> Enable auto clock gating for the DAE module. The clock gating
-> is enabled after DAE initialization is completed, so the device
-> can reduce power consumption when idle.
+> Remove qcom,hawi-cdsp-pas from the sm8550-cdsp-pas fallback items block,
+> add it to the standalone compatible enum, and extend the existing
+> cx/mxc/nsp power-domain constraint to cover it explicitly. Move
+> qcom,maili-cdsp-pas from the sm8550-cdsp-pas fallback to a new
+> hawi-cdsp-pas fallback items block; it is covered by the hawi
+> cx/mxc/nsp constraint implicitly via the contains check.
 > 
-> Signed-off-by: lizhi <lizhi206@huawei.com>
-> Signed-off-by: Chenghai Huang <huangchenghai2@huawei.com>
-> ---
->  drivers/crypto/hisilicon/zip/dae_main.c | 23 +++++++++++++++++++++--
->  1 file changed, 21 insertions(+), 2 deletions(-)
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-Please review the Sashiko comments:
+Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-https://sashiko.dev/#/patchset/20260829094924.2191402-1-huangchenghai2%40huawei.com
+- Mani
 
-Thanks,
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+மணிவண்ணன் சதாசிவம்
