@@ -1,187 +1,169 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A118D33D4E4
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:38:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59DC343A80A;
+	Fri, 11 Sep 2026 10:39:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789123118; cv=none; b=ZLxMHUa0q6uFW2bsZFvqr1GYPjO4j6mvUwK6SCUg5vVIPT8ZT02iVC/bBxY4yCwUcjPbRlHP/z2BWumsohzsnHzbrFJFNJ86T9fqJiVoyrUah/fpQjoSLEjw6hXKszWfEMY5RBtuKAy8VARNSmT6N5OPvMh9IOL5nfqyjlRZjec=
+	t=1789123184; cv=none; b=Q3jaMkdldp++2qtj0lF3wpt/+cvNuprCaPacM0yL3r1cy+LvT5ZlUFvUG0s8swZ6nDOUshqyfwTjs22mi+LipRhQmy3YREIv8psvC575vilvHNn6PD58oPIV5x2MTx0C5DGj70LvVd2zeOsQHSVoQqPD4iFo5EYeuz7oSwJDjiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789123118; c=relaxed/simple;
-	bh=LAVns05l0shqrv5YXGXh/bL+VhXFccFoSCZrEkFyw48=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=i2BTaFx1Gn4ybA8LtSGo+ZBNj2xEyvwP9s1NVqBDvXZYYV1NmTcIo0jw1jgqCdfoGikj+d1Wb5vEu0bcGUHw/jfXDhBJoVYbD74FmZr9onnIRTBLVqvSfUSPjfsf1KfU5/Yo8iewZYxk1Tv54Y5Z9eol2E57vmkO2qBM09vcJ6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=DpC9czYd; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=SRiqxNo/; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1789123184; c=relaxed/simple;
+	bh=fp3FgTWDoYKQx6a7TrODKd/ktlHpd9JRL57sh0xgkS0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Z/vGV7kc+LrPTAEXLSyfgQSFR3xIAOAIvhxZbAGgCJFW2F3I8xrDluuiydM4I/SQVeMv6uPwz9WAn97uLlQNrF/uFC8gKZ9oYZEBj2Lyj71CHT35C5R29n/3/CmerqX2/XmMYxePjRwJO0edbFB/VD+cyqpHNj+iDCCgrplOhsc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=Dv7zqhUz; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="DpC9czYd";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="SRiqxNo/"
-Date: Fri, 11 Sep 2026 12:38:32 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789123113;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=klimaypujjhwn2JmyARJOlvTLh93pB/Nr4Z2Yd7Xgvk=;
-	b=DpC9czYdHTYibndZhw8I7b6cuvGog3q7RpTyygH3KCQyXJ3nPnL8M5aQlsST5c9IUtbZYy
-	c7qfKNzGnzsfE6f3mfjMOdNYP+nQ6lQvALumRvUWjrDhwyxwpvKD8RVbmUHaDccqr0uKRu
-	VA6TFcBvAJmworr6gHyrtuqflupGwWNJt7hwIEsvo+k6nVtphSiZdYjfXlmrzNxK81q1Z+
-	XL2+IeVD39ulXCRzl6of4AMfU1ITVpsozrKnarFbQTXTrggBCzJPThMUJKaxqhuvNfm5X+
-	/O3turqbg0e4zW0KENEg3OMWaGGfgRFu+/Z6wx0etUNLCY9ZzK+wt3BPdu1Szw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789123113;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=klimaypujjhwn2JmyARJOlvTLh93pB/Nr4Z2Yd7Xgvk=;
-	b=SRiqxNo/78g6ZXbhBmtUc+Y8meryYguAb+QxLAjWF6zfK46Am9CAbJUPEbm2LEKwkcdC5d
-	cvujQGXr+8XYVuDw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: linux-kernel@vger.kernel.org
-Cc: Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>,
-	John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>
-Subject: [PATCH] printk: Use two irq_works instead per-CPU
-Message-ID: <20260911103832.w6C8cT4L@linutronix.de>
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="Dv7zqhUz"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0E7E641CF51;
+	Fri, 11 Sep 2026 12:39:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1789123172; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Bo4UnkSqgoVO/9dO8RXktdnvzNuezQiQb7CLxdoU1PY=;
+	b=Dv7zqhUz6Borsnk3CfuMnJEVlc/bFwo0tGSrdrKkg7BSnJ805GhQar8b2DXuspk5hW1iTm
+	mYFeBGB4hxvR1tbn7sncbekHPLr2I6Vs4jrDP5o/IWVALciaLo7ORQZLPTGaFxOIv+2vQy
+	n9nG1R0c95VYCAuarTPeNLYpnu3odRoXRn5MjigOvOLqRnYx/BPqgW5UJv/Exie9TwLbX/
+	v/Gp75ZVc+ZKYew4HR4+tMzTyo7H5B6/I1ozx08r0BzKy+4ItXlNj2OBdLO0FFsJH2H0Zf
+	EsxlSw1jMpBWgKmfYVwE8J/2Cg0fIJs/486hjq9PFPrjEsYUpgiJZgxyt2Wsxg==
+From: Caleb James DeLisle <cjd@cjdns.fr>
+To: netdev@vger.kernel.org
+Cc: daniel@makrotopia.org,
+	dqfext@gmail.com,
+	SkyLake.Huang@mediatek.com,
+	andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Caleb James DeLisle <cjd@cjdns.fr>,
+	Matheus Sampaio Queiroga <srherobrine20@gmail.com>
+Subject: [PATCH v2 net-next] net: phy: mediatek: support MT7530 PHYs on EN71221 MCM
+Date: Fri, 11 Sep 2026 10:39:10 +0000
+Message-Id: <20260911103910.4123567-1-cjd@cjdns.fr>
+In-Reply-To: <20260909213250.3184238-1-cjd@cjdns.fr>
+References: <20260909213250.3184238-1-cjd@cjdns.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-In commit b845b517b5e37 ("printk: robustify printk") initially got its
-delayed wake up which is today implemented via the irq_work. Back then
-it was a variable which was assigned to 1 if a pending wake up was
-waiting. This variable was checked on each timer tick. Therefore it
-makes sense to assign a per-CPU variable with this task to avoid cache
-line bouncing when each CPU reads the variable on each timer tick
-simultaneously.
+The EcoNet EN751221 multi-chip module implementation of the MT7530
+requires some additional configuration of the PHYs on startup.
+The reason for this is not known, but it is possible that it has
+to do with the fact that the EN751221 MCM implementation of the
+MT7530 runs at an abnormal PLL frequency (362.5Mhz).
 
-Today we have a irq_work which is enqueued onto a list and handled if it
-has work items assigned. This list is already per-CPU.
+Detect whether the MT7530 PHY is attached to the MDIO bus of an
+EcoNet EN751221 switch and if so, apply the necessary register
+updates. Additionally, never attempt to configure an MT7530
+identified PHY which does not have gigabit support because the same
+ID is used for another (FE) PHY.
 
-We could replace the per-CPU irq_work and the per-CPU printk_pending with
-two irq_work structs: One for PRINTK_PENDING_WAKEUP and the other for
-PRINTK_PENDING_OUTPUT.
-While unrolling the conditions in __wake_up_klogd() it becomes obvious
-that PRINTK_PENDING_WAKEUP is always passed as an argument but never
-checked. The return value wq_has_sleeper() of does not really matter
-it's sole purpose is to enforce the needed memory barrier.
+Of note: MDIO_AN_EEE_ADV must be zero at startup or else link will
+fail to connect. Setting MDIO_AN_EEE_ADV to 6 after link is brought
+up will make EEE work when cable is next plugged in, but link fails
+to downgrade to 100mb if gigabit is not possible, leaving a
+"connected" (nonfunctional) gigabit link.
 
-Redo the irq_work by:
-- use one irq_work (pending_wakeup_work) for klogd wakes. Schedule it
-  only if there is a sleeper waiting.
-- use one irq_work (&pending_output_work) for output printing. Schedule
-  it only if PRINTK_PENDING_OUTPUT passed.
-- Drop unused PRINTK_PENDING_WAKEUP.
-- Remove the printk_percpu_data_ready() check because per-CPU data is no
-  longer used by __wake_up_klogd().
-
-Worst case is defer_console_output() where two irq_work are scheduled but
-those get processed one after the other during the HZ tick so it
-shouldn't get worse.
-
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Co-developed-by: Matheus Sampaio Queiroga <srherobrine20@gmail.com>
+Signed-off-by: Matheus Sampaio Queiroga <srherobrine20@gmail.com>
+Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
 ---
- kernel/printk/printk.c | 55 ++++++++++++++++++------------------------
- 1 file changed, 24 insertions(+), 31 deletions(-)
+ drivers/net/phy/mediatek/mtk-ge.c | 61 +++++++++++++++++++++++++++++++
+ 1 file changed, 61 insertions(+)
 
-diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
-index 3fcdf4b4e2e53..7c5a220e84323 100644
---- a/kernel/printk/printk.c
-+++ b/kernel/printk/printk.c
-@@ -4593,37 +4593,29 @@ bool pr_flush(int timeout_ms, bool reset_on_progress)
- /*
-  * Delayed printk version, for scheduler-internal messages:
-  */
--#define PRINTK_PENDING_WAKEUP	0x01
--#define PRINTK_PENDING_OUTPUT	0x02
-+#define PRINTK_PENDING_OUTPUT	0x01
- 
--static DEFINE_PER_CPU(int, printk_pending);
--
--static void wake_up_klogd_work_func(struct irq_work *irq_work)
-+static void pending_wake_fn(struct irq_work *irq_work)
- {
--	int pending = this_cpu_xchg(printk_pending, 0);
--
--	if (pending & PRINTK_PENDING_OUTPUT) {
--		if (force_legacy_kthread()) {
--			if (printk_legacy_kthread)
--				wake_up_interruptible(&legacy_wait);
--		} else {
--			if (console_trylock())
--				console_unlock();
--		}
--	}
--
--	if (pending & PRINTK_PENDING_WAKEUP)
--		wake_up_interruptible(&log_wait);
-+	wake_up_interruptible(&log_wait);
+diff --git a/drivers/net/phy/mediatek/mtk-ge.c b/drivers/net/phy/mediatek/mtk-ge.c
+index 73d9b72f9d9e..42b06c40d703 100644
+--- a/drivers/net/phy/mediatek/mtk-ge.c
++++ b/drivers/net/phy/mediatek/mtk-ge.c
+@@ -1,4 +1,5 @@
+ // SPDX-License-Identifier: GPL-2.0+
++#include <linux/of.h>
+ #include <linux/bitfield.h>
+ #include <linux/module.h>
+ #include <linux/phy.h>
+@@ -62,8 +63,68 @@ static void mtk_gephy_config_init(struct phy_device *phydev)
+ 		       FIELD_PREP(MTK_MCC_NEARECHO_OFFSET_MASK, 0x3));
  }
  
--static DEFINE_PER_CPU(struct irq_work, wake_up_klogd_work) =
--	IRQ_WORK_INIT_LAZY(wake_up_klogd_work_func);
-+static void pending_output_fn(struct irq_work *irq_work)
++static bool mt7530_phy_is_en751221_companion(struct phy_device *phydev)
 +{
-+	if (force_legacy_kthread()) {
-+		if (printk_legacy_kthread)
-+			wake_up_interruptible(&legacy_wait);
-+	} else {
-+		if (console_trylock())
-+			console_unlock();
-+	}
++	struct device *parent = phydev->mdio.bus->parent;
++
++	return parent && parent->of_node &&
++	       of_device_is_compatible(parent->of_node, "econet,en751221");
 +}
 +
-+struct irq_work pending_wakeup_work = IRQ_WORK_INIT_LAZY(pending_wake_fn);
-+struct irq_work pending_output_work = IRQ_WORK_INIT_LAZY(pending_output_fn);
- 
- static void __wake_up_klogd(int val)
- {
--	if (!printk_percpu_data_ready())
--		return;
--
- 	/*
- 	 * It is not allowed to call this function when console irq_work
- 	 * is blocked.
-@@ -4643,11 +4635,12 @@ static void __wake_up_klogd(int val)
- 	 *
- 	 * This pairs with devkmsg_read:A and syslog_print:A.
- 	 */
--	if (wq_has_sleeper(&log_wait) || /* LMM(__wake_up_klogd:A) */
--	    (val & PRINTK_PENDING_OUTPUT)) {
--		this_cpu_or(printk_pending, val);
--		irq_work_queue(this_cpu_ptr(&wake_up_klogd_work));
--	}
-+	if (wq_has_sleeper(&log_wait)) /* LMM(__wake_up_klogd:A) */
-+		irq_work_queue(&pending_wakeup_work);
++/*
++ * The EcoNet reference implementation applies additional tuning to
++ * the PHYs of the multi-chip module MT7530.
++ */
++static int mt7530_phy_en751221_config_init(struct phy_device *phydev)
++{
++	int ret;
 +
-+	if (val & PRINTK_PENDING_OUTPUT)
-+		irq_work_queue(&pending_output_work);
++	ret = genphy_soft_reset(phydev);
++	if (ret)
++		return ret;
 +
- 	preempt_enable();
- }
- 
-@@ -4663,7 +4656,7 @@ static void __wake_up_klogd(int val)
-  */
- void wake_up_klogd(void)
++	/* Clause 22 local data. */
++	ret = phy_write(phydev, MII_CTRL1000, 0x1e00);
++	if (ret < 0)
++		return ret;
++
++	ret = phy_write_paged(phydev, MTK_PHY_PAGE_EXTENDED_1, 0x14, 0x3a04);
++	if (ret < 0)
++		return ret;
++
++	/* Clause 45 global/local data from mt7530GePhyCfgLoad(E3.0). */
++	ret = phy_write_mmd(phydev, MDIO_MMD_VEND2, 0x0417, 0x7775);
++	if (ret < 0)
++		return ret;
++
++	ret = phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x00a6, 0x0350);
++	if (ret < 0)
++		return ret;
++
++	ret = phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x0012, 0xd210);
++	if (ret < 0)
++		return ret;
++
++	/* Vendor profile disables 100/1000BASE-T EEE advertisement. */
++	ret = phy_write_mmd(phydev, MDIO_MMD_AN, 0x003c, 0x0000);
++	if (ret < 0)
++		return ret;
++
++	phydev_info(phydev, "EN751221 companion MT7530 E3.0 PHY profile loaded\n");
++
++	return 0;
++}
++
+ static int mt7530_phy_config_init(struct phy_device *phydev)
  {
--	__wake_up_klogd(PRINTK_PENDING_WAKEUP);
-+	__wake_up_klogd(0);
- }
++	int ret;
++
++	if (mt7530_phy_is_en751221_companion(phydev)) {
++		ret = mt7530_phy_en751221_config_init(phydev);
++		if (ret)
++			return ret;
++	}
++
+ 	mtk_gephy_config_init(phydev);
  
- /**
-@@ -4684,7 +4677,7 @@ void defer_console_output(void)
- 	 * New messages may have been added directly to the ringbuffer
- 	 * using vprintk_store(), so wake any waiters as well.
- 	 */
--	__wake_up_klogd(PRINTK_PENDING_WAKEUP | PRINTK_PENDING_OUTPUT);
-+	__wake_up_klogd(PRINTK_PENDING_OUTPUT);
- }
- 
- /**
+ 	/* Increase post_update_timer */
 -- 
-2.55.0
+2.39.5
 
