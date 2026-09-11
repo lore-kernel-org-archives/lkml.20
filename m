@@ -1,37 +1,40 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C657456291;
-	Fri, 11 Sep 2026 08:28:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 428CB457E7F;
+	Fri, 11 Sep 2026 08:29:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789115332; cv=none; b=EaiXGNK6Ew0qPCntPPIe0bsctTnGNyGzcrXFwWf+eDvKgiUu20wLOheRCt/PEjYZhd70867Jd23B3Bm7ERbqlKXA7E4QB6qSxCH02SAiS9VuQqJAJX3TWScHG5L0YBJOrdinDuwoI0WAc9butkiS1BVJN79rfQy8l29YNnlICwg=
+	t=1789115370; cv=none; b=kHz1h8WPqnw0PWkoxNttinlS4f80XsjSpUWPjciPLjBISf+Iijsnms4BJjaBKmlzPjmTkpsiLh2RSvkAJ6gNtUsXful1mwJcaZi4HJP1+rF1IQ2o9WZ+CejkO1pZTxxflzTSNvWhNNBwnwlwJnWxSHsestBrNaBFhe5QIhbzNZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789115332; c=relaxed/simple;
-	bh=eJkqtBGQ/7TKhSCuMCycIghkCs+WlIRU8wV/kylkqvQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=EKZmlo9qFrYsThZ/81txnI2dwlI/o9yUOrMZUx4PYxZuj++YVD/0mHwV2vdAAk6e6HL3bzqT5+pTaa+hpYtgp77WG8ARsCmXod8LEgyBaSZx4PS2/LJa7jqL5jeJYk4uaCNUwYCxfYgyakRP2whahIvBuWxUKVqnQSiSYd6yRoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aAI6BryJ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789115370; c=relaxed/simple;
+	bh=6CVP5GcFXHi3ZgM72VAnSfBOMr620cKsdYkpdMtypmM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=LIIu/0TfxFC0KIR+rlWYKFoHt3/PP3lE73je0eUFxlfe9svOrpPrH7+EDdlM1W7ao6+KQiZniEFvfglnMRFd0eJMjInbo1X5TJafhd9o1yrUhHp4xYPbevnaT27TsErT+SP1cnit84R9J3g6WgflnY4MwMsz4mJr9B4oH0esv5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=pbh5wuar; arc=none smtp.client-ip=54.207.19.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aAI6BryJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id EF9BDC2BCFC;
-	Fri, 11 Sep 2026 08:28:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789115332;
-	bh=eJkqtBGQ/7TKhSCuMCycIghkCs+WlIRU8wV/kylkqvQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=aAI6BryJUPIiv6kE6FVtm6r/i/6vRBD+9/E/SI+03QFxi3Jyy5jkPuhbbvDBRQvzz
-	 PwwRSqzRId00PBdVEQ0v4far5MGe8LAu32XIWmZS2Xdw7iHZfP+r7/aD5hIXD2L8f3
-	 DrOGW+Os/y/G/DCe5p3M9ShL+QJISLVgbSMpwEMRr0FX6OzrFyhBo9H+Mql3qW/krp
-	 9sRwA9lRX02fUH78A7kZ3MEclf/WmSWlNosCRQnGqCeH6SJ4b++jwWpQFUM6cg2G7P
-	 230djhcyKYLFTWZ1/xuMLozusZVAKc3M+ueswxp6JIbxK6MIh8zoRoH5n3keoVme9V
-	 vPdKA3QmbQ2hw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D56A5C88E53;
-	Fri, 11 Sep 2026 08:28:51 +0000 (UTC)
-From: Chuan Liu via B4 Relay <devnull+chuan.liu.amlogic.com@kernel.org>
-Date: Fri, 11 Sep 2026 16:28:30 +0800
-Subject: [PATCH 03/10] soc: amlogic: clk-measure: Add support for more SoCs
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="pbh5wuar"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1789115345;
+	bh=RL//GKIUhW/6C2BRjPuDBhhaE0pi+YpAlPAK2RaLvCE=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To;
+	b=pbh5wuarFa98h+S4YyRlzvSU9GajI/uuzuVZF3nbKnxp91Q2qAjSxzSljM3JIJIz1
+	 5zkVjmMkbMIPWK4AeGz2BhD41qq+/yJa2BkKTm6VB5MBpBI4RipBYMXTCpUzMxJ45I
+	 YXkpfyZqzyTV61cb4zscUJhMdzF+TVdDn/TCijOU=
+X-QQ-mid: zesmtpsz3t1789115340tc43675da
+X-QQ-Originating-IP: /hI0ol1iPIE9XVEfypdu4CfwXTtVb49TTBdhq2EL5Tg=
+Received: from [10.10.7.69] ( [1.202.39.170])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 11 Sep 2026 16:28:50 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 13687663228813789641
+EX-QQ-RecipientCnt: 14
+From: ZhaoJinming <zhaojinming@uniontech.com>
+Date: Fri, 11 Sep 2026 16:28:48 +0800
+Subject: [PATCH net v2] net: stmmac: fix stale descriptors and DMA mapping
+ leak on Tx map failure
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,964 +43,226 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-more-socs-to-support-clk_measure-v1-3-940e269aa52f@amlogic.com>
-References: <20260911-more-socs-to-support-clk_measure-v1-0-940e269aa52f@amlogic.com>
-In-Reply-To: <20260911-more-socs-to-support-clk_measure-v1-0-940e269aa52f@amlogic.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Chuan Liu <chuan.liu@amlogic.com>
-X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789115329; l=33166;
- i=chuan.liu@amlogic.com; s=20240902; h=from:subject:message-id;
- bh=yR422cl1cnn4YUORmCTCPG3/1J3UWU66a190i6ETbFo=;
- b=qvv3xJlKqnUfyVGvxIVxiUu6RuMXe01x5zmTD8PrlcIkfOthn5iq+xjM9PRFMe+V5giqUSuPL
- iHc5qsIR+c/BmYC8alsYUXuPX8wC/cpu7GrmrgQ0oxDD4V/YEG+dadW
-X-Developer-Key: i=chuan.liu@amlogic.com; a=ed25519;
- pk=fnKDB+81SoWGKW2GJNFkKy/ULvsDmJZRGBE7pR5Xcpo=
-X-Endpoint-Received: by B4 Relay for chuan.liu@amlogic.com/20240902 with
- auth_id=203
-X-Original-From: Chuan Liu <chuan.liu@amlogic.com>
-Reply-To: chuan.liu@amlogic.com
+Message-Id: <20260911-stmmac-fix-vlan-desc-leak-v2-1-817a8a4d4a76@uniontech.com>
+X-B4-Tracking: v=1; b=H4sIAL+7o2oC/32OwQ6CMAyGX4X0bE1HAogn38NwKFuRRRhkm4uG8
+ O4uePf4tf//tRsE8VYCXIsNvCQb7OIylKcC9MjuIWhNZiiprKmlFkOcZ9Y42DemiR0aCRon4Sc
+ OVDV9T7UyzJD7q5ecOtx3cBKhy8PRhrj4z3EvqWP1Uyv6o04KFdY9NUZzJZVcbi+XH42ix7NeZ
+ uj2ff8CdyfpT8sAAAA=
+X-Change-ID: 20260909-stmmac-fix-vlan-desc-leak-f057bb061daa
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Jose Abreu <Jose.Abreu@synopsys.com>
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ ZhaoJinming <zhaojinming@uniontech.com>
+X-Mailer: b4 0.14.2
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: NJJwj9KsLFdtFrs3fxzT+mQAXCoUrCtOrhDGz4Y07aBG0M//w20xbSQ3
+	Lt/hnAPe4FRyqZLhDPmXhE0sKFAIGXaoGO7DUGJt1VIrDeEFgf3+WiPMVXFseyKx6L96WIu
+	oFtR4ZX3tiS6QgtfScouN3ekc860iWc5ISrcVED0UzAgaUPkLeiK//WrIptmWW9M8Kx8j+e
+	pFq1OupB3FLIMEYJmAfyM3xB3ilXS5IJtqivN9zjckNJqcOAZmIKocmYSy6WyJpG32G8i9w
+	yqU/ge3RewJG/3vi+20uczI/X6Zhm+anb4jbyFheDgBRW01QWyipXZ+R5ZP3JhDXRE8p8JO
+	8ErIK3c91wL+2I/NVo+O/xQmxWUE++cVmZyUmrTFxaK4yTINkHxNBKmD0WWD1JJHhv6lIVd
+	n4T71n6MqqYWsthQbv/taNqbZkNOMF7Yuq7MDUM5yM/mPn9+kB03cHFok6jDw0r74UuDFtZ
+	aPVaSQuc6E5fmVPIZ9oAJ1CtcfdE4zy9IeRuzWRQ6u818Bgmm94vL/uxjmcR1xu2XZSh/lS
+	AAtQgzt4YPZAAPNQO1jXX5yNZyqCJXUd+55LTmnKALGp2Z1uJ/o1ln/1khcd+b5YzrKY0Rm
+	QTdA2RTXQSSneMPEmQldI0rlSZ4uL+5rHhgRYv6ioDEFSMwL6MxNDOvly+bsAXKk9rsyKmY
+	kXuGztEoITfAzC7vqvXCRRQ3Wqh6ykmcv1pnkHNVrhHpBt9HaYVO2iymmxdnreAfANNWTkw
+	snHkv0NZ67x1NbJbKzajQAq0lsevG+bNG9kCCldy0IVXp49pzZmhcibLWG0DM6ZR49e8mJK
+	kGs85uaCAfVgHtplM+/oEWUul3GvLY6/HaDqkLVlMlc2VkCuKpWU7a4cuvaFcgCNpdLuDfm
+	ahjGKz++1fukQhNg1cZZVlpWbpUjt+cwmT8+YDTpbI4pW11WtPtATjHmJprXMsWJZsG6lda
+	BgWe8Dr4D5MyICoUoZPERVob5hXZAmMj3WNLkG3KHMdr08sdHfS6v6XnMbwrlLCqGdcfVhT
+	dsczEfMwtZOIgeBbtKkKjU7f2CCva6ls5NvUjYHO2MRiIkOFm3
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
-From: Chuan Liu <chuan.liu@amlogic.com>
+In stmmac_xmit(), when the DMA mapping of the linear part or of a
+fragment fails, the error path only frees the skb.  This leaves behind
+the DMA mappings already created for the linear part and for the
+fragments mapped before the failure, which are never unmapped.
 
-Add clk-measure driver support for Amlogic A5, A4, S7, S7D, S6 and A9
-SoCs.
+The VLAN context descriptor programmed by stmmac_vlan_insert() is also
+left behind with its OWN bit set while tx_q->cur_tx has been advanced
+past it, so the DMA engine later consumes the orphaned descriptor and
+applies its stale VLAN tag to an unrelated frame.
 
-Signed-off-by: Chuan Liu <chuan.liu@amlogic.com>
+Release the descriptors and their DMA mappings in the dma_map_err path
+with stmmac_release_tx_desc() and stmmac_free_tx_buffer(), walking from
+first_entry to entry, then roll back tx_q->cur_tx and release the VLAN
+context descriptor.
+
+jumbo_frm() has the same issue: when the DMA mapping of a subsequent
+jumbo buffer fails, the buffers already mapped are never unmapped.
+Unmap them before returning an error in both ring and chain modes.
+
+Fixes: 30d932279dc2 ("net: stmmac: Add support for VLAN Insertion Offload")
+Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
 ---
- drivers/soc/amlogic/meson-clk-measure.c | 897 ++++++++++++++++++++++++++++++++
- 1 file changed, 897 insertions(+)
+Changes in v2:
+- Reorder stmmac_xmit() variable declarations in reverse xmas tree
+  order.
+- Unmap partially-mapped buffers in jumbo_frm() when a subsequent
+  buffer mapping fails (ring and chain modes).
+- Link to v1: https://lore.kernel.org/r/20260910-stmmac-fix-vlan-desc-leak-v1-1-6b07dca5e5e8@uniontech.com
+---
+ drivers/net/ethernet/stmicro/stmmac/chain_mode.c  | 19 +++++++++++++--
+ drivers/net/ethernet/stmicro/stmmac/ring_mode.c   | 10 +++++++-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 29 +++++++++++++++++++----
+ 3 files changed, 51 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/soc/amlogic/meson-clk-measure.c b/drivers/soc/amlogic/meson-clk-measure.c
-index 0d4ba2555d17..671e0c3753de 100644
---- a/drivers/soc/amlogic/meson-clk-measure.c
-+++ b/drivers/soc/amlogic/meson-clk-measure.c
-@@ -1041,6 +1041,843 @@ static const struct meson_msr_id clk_msr_t7[] = {
- 	CLK_MSR_ID(222, "enc0")
- };
+diff --git a/drivers/net/ethernet/stmicro/stmmac/chain_mode.c b/drivers/net/ethernet/stmicro/stmmac/chain_mode.c
+index 66025e2509e91f863571041f5b148d04e3708832..8415c740ee9eee32cd8b4c3e9b61517690b58f9d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/chain_mode.c
++++ b/drivers/net/ethernet/stmicro/stmmac/chain_mode.c
+@@ -20,6 +20,7 @@ static int jumbo_frm(struct stmmac_tx_queue *tx_q, struct sk_buff *skb,
+ 	unsigned int nopaged_len = skb_headlen(skb);
+ 	struct stmmac_priv *priv = tx_q->priv_data;
+ 	unsigned int entry = tx_q->cur_tx;
++	unsigned int first_entry = entry;
+ 	unsigned int bmax, buf_len;
+ 	unsigned int i = 1, len;
+ 	struct dma_desc *desc;
+@@ -57,7 +58,7 @@ static int jumbo_frm(struct stmmac_tx_queue *tx_q, struct sk_buff *skb,
+ 					      bmax, DMA_TO_DEVICE);
+ 			desc->des2 = cpu_to_le32(lower_32_bits(des2));
+ 			if (dma_mapping_error(priv->device, des2))
+-				return -1;
++				goto err_unmap;
+ 			tx_q->tx_skbuff_dma[entry].buf = des2;
+ 			tx_q->tx_skbuff_dma[entry].len = bmax;
+ 			stmmac_prepare_tx_desc(priv, desc, 0, bmax, csum,
+@@ -70,7 +71,7 @@ static int jumbo_frm(struct stmmac_tx_queue *tx_q, struct sk_buff *skb,
+ 					      DMA_TO_DEVICE);
+ 			desc->des2 = cpu_to_le32(lower_32_bits(des2));
+ 			if (dma_mapping_error(priv->device, des2))
+-				return -1;
++				goto err_unmap;
+ 			tx_q->tx_skbuff_dma[entry].buf = des2;
+ 			tx_q->tx_skbuff_dma[entry].len = len;
+ 			/* last descriptor can be set now */
+@@ -83,6 +84,20 @@ static int jumbo_frm(struct stmmac_tx_queue *tx_q, struct sk_buff *skb,
+ 	tx_q->cur_tx = entry;
  
-+static const struct meson_msr_id clk_msr_a5[] = {
-+	CLK_MSR_ID(0, "sys_clk"),
-+	CLK_MSR_ID(1, "axi_clk"),
-+	CLK_MSR_ID(2, "rtc_clk"),
-+	CLK_MSR_ID(3, "dspa"),
-+	CLK_MSR_ID(6, "cpu_clk_div16"),
-+	CLK_MSR_ID(10, "fclk_div5"),
-+	CLK_MSR_ID(11, "mpll0"),
-+	CLK_MSR_ID(12, "mpll1"),
-+	CLK_MSR_ID(13, "mpll2"),
-+	CLK_MSR_ID(14, "mpll3"),
-+	CLK_MSR_ID(15, "fclk_50m"),
-+	CLK_MSR_ID(16, "sys_oscin32k_i"),
-+	CLK_MSR_ID(17, "rtc_pll"),
-+	CLK_MSR_ID(18, "mpll_clk_test_out"),
-+	CLK_MSR_ID(19, "hifi_pll"),
-+	CLK_MSR_ID(20, "gp0_pll"),
-+	CLK_MSR_ID(21, "gp1_pll"),
-+	CLK_MSR_ID(23, "sys_pll_div16"),
-+	CLK_MSR_ID(24, "ddr_dpll_pt_clk"),
-+	CLK_MSR_ID(25, "nna_axi"),
-+	CLK_MSR_ID(26, "nna_core"),
-+	CLK_MSR_ID(27, "rtc_sec_pulse_out"),
-+	CLK_MSR_ID(28, "rtc_osc_clk_out"),
-+	CLK_MSR_ID(30, "mod_eth_phy_ref_clk"),
-+	CLK_MSR_ID(31, "mod_eth_tx_clk"),
-+	CLK_MSR_ID(35, "mod_eth_rx_clk_rmii"),
-+	CLK_MSR_ID(79, "rama_clk"),
-+	CLK_MSR_ID(106, "deskew_pll_clk_div32_out"),
-+	CLK_MSR_ID(111, "sar_adc"),
-+	CLK_MSR_ID(112, "ts"),
-+	CLK_MSR_ID(113, "sd_emmc_c"),
-+	CLK_MSR_ID(115, "sd_emmc_a"),
-+	CLK_MSR_ID(116, "gpio_msr_clk"),
-+	CLK_MSR_ID(117, "spicc1"),
-+	CLK_MSR_ID(118, "spicc0"),
-+	CLK_MSR_ID(119, "o_mst_sclk_vad"),
-+	CLK_MSR_ID(120, "o_mst_mclk_vad"),
-+	CLK_MSR_ID(121, "o_pdm_sysclk"),
-+	CLK_MSR_ID(122, "mod_audio_pdm_dclk_o"),
-+	CLK_MSR_ID(123, "o_vad_clk"),
-+	CLK_MSR_ID(124, "earcrx_dmac_clk"),
-+	CLK_MSR_ID(125, "earcrx_cmdc_clk"),
-+	CLK_MSR_ID(126, "earctx_dmac_clk"),
-+	CLK_MSR_ID(127, "earctx_cmdc_clk"),
-+	CLK_MSR_ID(128, "tohdmitx_bclk"),
-+	CLK_MSR_ID(129, "tohdmitx_mclk"),
-+	CLK_MSR_ID(130, "tohdmitx_spdif_clk"),
-+	CLK_MSR_ID(131, "toacodec_bclk"),
-+	CLK_MSR_ID(132, "toacodec_mclk"),
-+	CLK_MSR_ID(133, "spdifout_b_mst_clk"),
-+	CLK_MSR_ID(134, "spdifout_mst_clk"),
-+	CLK_MSR_ID(135, "spdifin_mst_clk"),
-+	CLK_MSR_ID(136, "audio_mclk"),
-+	CLK_MSR_ID(137, "vad_clk"),
-+	CLK_MSR_ID(138, "tdmout_d_sclk"),
-+	CLK_MSR_ID(139, "tdmout_c_sclk"),
-+	CLK_MSR_ID(140, "tdmout_b_sclk"),
-+	CLK_MSR_ID(141, "tdmout_a_sclk"),
-+	CLK_MSR_ID(142, "tdminb_lb_sclk"),
-+	CLK_MSR_ID(143, "tdmin_lb_sclk"),
-+	CLK_MSR_ID(144, "tdmin_d_sclk"),
-+	CLK_MSR_ID(145, "tdmin_c_sclk"),
-+	CLK_MSR_ID(146, "tdmin_b_sclk"),
-+	CLK_MSR_ID(147, "tdmin_a_sclk"),
-+	CLK_MSR_ID(148, "resampleb_clk"),
-+	CLK_MSR_ID(149, "resamplea_clk"),
-+	CLK_MSR_ID(150, "pdmb_sysclk"),
-+	CLK_MSR_ID(151, "pdmb_dclk"),
-+	CLK_MSR_ID(152, "pdm_sysclk"),
-+	CLK_MSR_ID(153, "pdm_dclk"),
-+	CLK_MSR_ID(154, "alockerb_out_clk"),
-+	CLK_MSR_ID(155, "alockerb_in_clk"),
-+	CLK_MSR_ID(156, "alocker_out_clk"),
-+	CLK_MSR_ID(157, "alocker_in_clk"),
-+	CLK_MSR_ID(158, "audio_mst_clk[34]"),
-+	CLK_MSR_ID(159, "audio_mst_clk[35]"),
-+	CLK_MSR_ID(162, "pwm_h"),
-+	CLK_MSR_ID(163, "pwm_g"),
-+	CLK_MSR_ID(164, "pwm_f"),
-+	CLK_MSR_ID(165, "pwm_e"),
-+	CLK_MSR_ID(166, "pwm_d"),
-+	CLK_MSR_ID(167, "pwm_c"),
-+	CLK_MSR_ID(168, "pwm_b"),
-+	CLK_MSR_ID(169, "pwm_a"),
-+	CLK_MSR_ID(176, "rng_ring_osc_clk[0]"),
-+	CLK_MSR_ID(177, "rng_ring_osc_clk[1]"),
-+	CLK_MSR_ID(178, "rng_ring_osc_clk[2]"),
-+	CLK_MSR_ID(179, "rng_ring_osc_clk[3]"),
-+	CLK_MSR_ID(180, "dmc_osc_ring(LVT16)"),
-+	CLK_MSR_ID(181, "dsp_osc_ring(SVT16)"),
-+	CLK_MSR_ID(182, "axi_srama_osc_ring(SVT16)"),
-+	CLK_MSR_ID(183, "nna_osc_ring[0](ULVT20)"),
-+	CLK_MSR_ID(184, "nna_osc_ring[1](LVT16)"),
-+	CLK_MSR_ID(185, "sys_cpu_osc_ring[0](ULVT16)"),
-+	CLK_MSR_ID(186, "sys_cpu_osc_ring[1](ULVT20)"),
-+	CLK_MSR_ID(187, "sys_cpu_osc_ring[2](ULVT16)"),
-+	CLK_MSR_ID(188, "sys_cpu_osc_ring[3](LVT16)"),
-+	CLK_MSR_ID(189, "axi_sramb_osc_ring(SVT16)"),
-+};
+ 	return entry;
 +
-+static const struct meson_msr_id clk_msr_a4[] = {
-+	CLK_MSR_ID(0, "sys_clk"),
-+	CLK_MSR_ID(1, "axi_clk"),
-+	CLK_MSR_ID(2, "rtc_clk"),
-+	CLK_MSR_ID(3, "p22_usb2_ckout"),
-+	CLK_MSR_ID(4, "p21_usb2_ckout"),
-+	CLK_MSR_ID(5, "p20_usb2_ckout"),
-+	CLK_MSR_ID(6, "cpu_clk_div16"),
-+	CLK_MSR_ID(8, "eth_mpll_test"),
-+	CLK_MSR_ID(10, "fclk_div5"),
-+	CLK_MSR_ID(15, "fclk_50m"),
-+	CLK_MSR_ID(16, "sys_oscin32k_i"),
-+	CLK_MSR_ID(17, "rtc_pll"),
-+	CLK_MSR_ID(19, "hifi_pll"),
-+	CLK_MSR_ID(20, "gp0_pll"),
-+	CLK_MSR_ID(21, "gp1_pll"),
-+	CLK_MSR_ID(22, "eth_mppll_50m_ckout"),
-+	CLK_MSR_ID(23, "sys_pll_div16"),
-+	CLK_MSR_ID(24, "ddr_dpll_pt_clk"),
-+	CLK_MSR_ID(27, "rtc_sec_pulse_out"),
-+	CLK_MSR_ID(28, "rtc_osc_clk_out"),
-+	CLK_MSR_ID(30, "mod_eth_phy_ref_clk"),
-+	CLK_MSR_ID(31, "mod_eth_tx_clk"),
-+	CLK_MSR_ID(32, "eth_125m"),
-+	CLK_MSR_ID(33, "eth_rmii"),
-+	CLK_MSR_ID(34, "co_clkin_to_mac"),
-+	CLK_MSR_ID(35, "mod_eth_rx_clk_rmii"),
-+	CLK_MSR_ID(36, "co_rx_clk"),
-+	CLK_MSR_ID(37, "co_tx_clk"),
-+	CLK_MSR_ID(38, "eth_phy_rxclk"),
-+	CLK_MSR_ID(39, "eth_phy_plltxclk"),
-+	CLK_MSR_ID(40, "ephy_test_clk"),
-+	CLK_MSR_ID(41, "audio_core"),
-+	CLK_MSR_ID(51, "cts_vout_venc_clk_ph"),
-+	CLK_MSR_ID(52, "cts_vout_venc_clk"),
-+	CLK_MSR_ID(106, "deskew_pll_test_clk"),
-+	CLK_MSR_ID(111, "sar_adc"),
-+	CLK_MSR_ID(112, "ts"),
-+	CLK_MSR_ID(113, "sd_emmc_c"),
-+	CLK_MSR_ID(115, "sd_emmc_a"),
-+	CLK_MSR_ID(116, "gpio_msr_clk"),
-+	CLK_MSR_ID(117, "spicc1"),
-+	CLK_MSR_ID(118, "spicc0"),
-+	CLK_MSR_ID(119, "o_mst_sclk_vad"),
-+	CLK_MSR_ID(120, "o_mst_mclk_vad"),
-+	CLK_MSR_ID(121, "o_pdm_sysclk"),
-+	CLK_MSR_ID(122, "mod_audio_pdm_dclk_o"),
-+	CLK_MSR_ID(123, "o_vad_clk"),
-+	CLK_MSR_ID(124, "earcrx_dmac_clk"),
-+	CLK_MSR_ID(125, "earcrx_cmdc_clk"),
-+	CLK_MSR_ID(126, "earctx_dmac_clk"),
-+	CLK_MSR_ID(127, "earctx_cmdc_clk"),
-+	CLK_MSR_ID(128, "tohdmitx_bclk"),
-+	CLK_MSR_ID(129, "tohdmitx_mclk"),
-+	CLK_MSR_ID(130, "tohdmitx_spdif_clk"),
-+	CLK_MSR_ID(131, "toacodec_bclk"),
-+	CLK_MSR_ID(132, "toacodec_mclk"),
-+	CLK_MSR_ID(133, "spdifout_b_mst_clk"),
-+	CLK_MSR_ID(134, "spdifout_mst_clk"),
-+	CLK_MSR_ID(135, "spdifin_mst_clk"),
-+	CLK_MSR_ID(136, "audio_mclk"),
-+	CLK_MSR_ID(137, "vad_clk"),
-+	CLK_MSR_ID(138, "tdmout_d_sclk"),
-+	CLK_MSR_ID(139, "tdmout_c_sclk"),
-+	CLK_MSR_ID(140, "tdmout_b_sclk"),
-+	CLK_MSR_ID(141, "tdmout_a_sclk"),
-+	CLK_MSR_ID(142, "tdminb_lb_sclk"),
-+	CLK_MSR_ID(143, "tdmin_lb_sclk"),
-+	CLK_MSR_ID(144, "tdmin_d_sclk"),
-+	CLK_MSR_ID(145, "tdmin_c_sclk"),
-+	CLK_MSR_ID(146, "tdmin_b_sclk"),
-+	CLK_MSR_ID(147, "tdmin_a_sclk"),
-+	CLK_MSR_ID(148, "resampleb_clk"),
-+	CLK_MSR_ID(149, "resamplea_clk"),
-+	CLK_MSR_ID(150, "pdmb_sysclk"),
-+	CLK_MSR_ID(151, "pdmb_dclk"),
-+	CLK_MSR_ID(152, "pdm_sysclk"),
-+	CLK_MSR_ID(153, "pdm_dclk"),
-+	CLK_MSR_ID(154, "alockerb_out_clk"),
-+	CLK_MSR_ID(155, "alockerb_in_clk"),
-+	CLK_MSR_ID(156, "alocker_out_clk"),
-+	CLK_MSR_ID(157, "alocker_in_clk"),
-+	CLK_MSR_ID(158, "audio_mst_clk[34]"),
-+	CLK_MSR_ID(159, "audio_mst_clk[35]"),
-+	CLK_MSR_ID(162, "pwm_h"),
-+	CLK_MSR_ID(163, "pwm_g"),
-+	CLK_MSR_ID(164, "pwm_f"),
-+	CLK_MSR_ID(165, "pwm_e"),
-+	CLK_MSR_ID(166, "pwm_d"),
-+	CLK_MSR_ID(167, "pwm_c"),
-+	CLK_MSR_ID(168, "pwm_b"),
-+	CLK_MSR_ID(169, "pwm_a"),
-+	CLK_MSR_ID(170, "AU_ADC_CLK_G128X"),
-+	CLK_MSR_ID(171, "AU_ADC_CLK_TO_GPIO"),
-+	CLK_MSR_ID(172, "AU_DAC1_CLK_G128X"),
-+	CLK_MSR_ID(173, "AU_DAC1_CLK_TO_GPIO"),
-+	CLK_MSR_ID(176, "rng_ring_osc_clk[0]"),
-+	CLK_MSR_ID(177, "rng_ring_osc_clk[1]"),
-+	CLK_MSR_ID(178, "rng_ring_osc_clk[2]"),
-+	CLK_MSR_ID(179, "rng_ring_osc_clk[3]"),
-+	CLK_MSR_ID(180, "sys_cpu_osc_ring[0](ULVT16)"),
-+	CLK_MSR_ID(181, "sys_cpu_osc_ring[1](ULVT20)"),
-+	CLK_MSR_ID(182, "sys_cpu_osc_ring[2](ULVT16)"),
-+	CLK_MSR_ID(183, "sys_cpu_osc_ring[3](ULVT16)"),
-+	CLK_MSR_ID(184, "sys_cpu_osc_ring[4](ULVT16)"),
-+	CLK_MSR_ID(185, "am_ring_osc_clk_out_top[0](SVT16)"),
-+	CLK_MSR_ID(186, "am_ring_osc_clk_out_top[1](LVT20)"),
-+};
++err_unmap:
++	while (first_entry != entry) {
++		dma_unmap_single(priv->device,
++				 tx_q->tx_skbuff_dma[first_entry].buf,
++				 tx_q->tx_skbuff_dma[first_entry].len,
++				 DMA_TO_DEVICE);
++		tx_q->tx_skbuff_dma[first_entry].buf = 0;
++		tx_q->tx_skbuff_dma[first_entry].len = 0;
++		first_entry = STMMAC_NEXT_ENTRY(first_entry,
++						priv->dma_conf.dma_tx_size);
++	}
 +
-+static const struct meson_msr_id clk_msr_s7[] = {
-+	CLK_MSR_ID(0, "sys_clk"),
-+	CLK_MSR_ID(1, "axi_clk"),
-+	CLK_MSR_ID(2, "rtc_clk"),
-+	CLK_MSR_ID(5, "mali"),
-+	CLK_MSR_ID(6, "cpu_clk_div16"),
-+	CLK_MSR_ID(8, "cecb"),
-+	CLK_MSR_ID(10, "fclk_div5"),
-+	CLK_MSR_ID(11, "p21_usb2_ckout"),
-+	CLK_MSR_ID(12, "p20_usb2_ckout"),
-+	CLK_MSR_ID(13, "eth_mpll_test"),
-+	CLK_MSR_ID(15, "fclk_50m"),
-+	CLK_MSR_ID(18, "gp1_pll"),
-+	CLK_MSR_ID(19, "hifi_pll"),
-+	CLK_MSR_ID(20, "gp0_pll"),
-+	CLK_MSR_ID(21, "hifi1_pll"),
-+	CLK_MSR_ID(22, "eth_mppll_50m_ckout"),
-+	CLK_MSR_ID(23, "sys_pll_div16"),
-+	CLK_MSR_ID(24, "ddr_dpll_pt_clk"),
-+	CLK_MSR_ID(25, "mod_Tsin_A_CLK_IN"),
-+	CLK_MSR_ID(32, "eth_125m"),
-+	CLK_MSR_ID(33, "eth_rmii"),
-+	CLK_MSR_ID(34, "co_clkin_to_mac"),
-+	CLK_MSR_ID(36, "co_rx_clk"),
-+	CLK_MSR_ID(37, "co_tx_clk"),
-+	CLK_MSR_ID(38, "eth_phy_rxclk"),
-+	CLK_MSR_ID(39, "eth_phy_plltxclk"),
-+	CLK_MSR_ID(40, "ephy_test_clk"),
-+	CLK_MSR_ID(49, "hdmi_vx1_pix_clk"),
-+	CLK_MSR_ID(50, "vid_pll"),
-+	CLK_MSR_ID(51, "enci"),
-+	CLK_MSR_ID(52, "encp"),
-+	CLK_MSR_ID(53, "encl"),
-+	CLK_MSR_ID(54, "vdac"),
-+	CLK_MSR_ID(55, "cdac"),
-+	CLK_MSR_ID(57, "lcd_an_clk_ph2"),
-+	CLK_MSR_ID(58, "lcd_an_clk_ph3"),
-+	CLK_MSR_ID(59, "hdmitx_pixel"),
-+	CLK_MSR_ID(60, "vdin_meas"),
-+	CLK_MSR_ID(61, "vpu"),
-+	CLK_MSR_ID(62, "vpu_clkb"),
-+	CLK_MSR_ID(63, "vpu_clkb_tmp"),
-+	CLK_MSR_ID(64, "vpu_clkc"),
-+	CLK_MSR_ID(65, "vid_lock"),
-+	CLK_MSR_ID(66, "vapb"),
-+	CLK_MSR_ID(67, "ge2d"),
-+	CLK_MSR_ID(76, "hdmitx_tmds"),
-+	CLK_MSR_ID(77, "hdmitx_sys"),
-+	CLK_MSR_ID(78, "hdmitx_fe"),
-+	CLK_MSR_ID(80, "hdmitx_prif"),
-+	CLK_MSR_ID(81, "hdmitx_200m"),
-+	CLK_MSR_ID(82, "hdmitx_aud"),
-+	CLK_MSR_ID(84, "audio_tohdmitx_mclk"),
-+	CLK_MSR_ID(85, "audio_tohdmitx_bclk"),
-+	CLK_MSR_ID(86, "audio_tohdmitx_lrclk"),
-+	CLK_MSR_ID(87, "audio_tohdmitx_spdif_clk"),
-+	CLK_MSR_ID(88, "htx_aes_clk"),
-+	CLK_MSR_ID(93, "vdec"),
-+	CLK_MSR_ID(99, "hevcf"),
-+	CLK_MSR_ID(106, "deskew_pll_clk_div32_out"),
-+	CLK_MSR_ID(110, "sc"),
-+	CLK_MSR_ID(111, "sar_adc"),
-+	CLK_MSR_ID(113, "sd_emmc_c"),
-+	CLK_MSR_ID(114, "sd_emmc_b"),
-+	CLK_MSR_ID(115, "sd_emmc_a"),
-+	CLK_MSR_ID(116, "gpio_msr_clk"),
-+	CLK_MSR_ID(118, "spicc"),
-+	CLK_MSR_ID(121, "ts"),
-+	CLK_MSR_ID(130, "o_vad_clk"),
-+	CLK_MSR_ID(131, "au_dac_clk_x128"),
-+	CLK_MSR_ID(132, "audio_locker_in_clk"),
-+	CLK_MSR_ID(133, "audio_locker_out_clk"),
-+	CLK_MSR_ID(134, "audio_tdmout_c_sclk"),
-+	CLK_MSR_ID(135, "audio_tdmout_b_sclk"),
-+	CLK_MSR_ID(136, "audio_tdmout_a_sclk"),
-+	CLK_MSR_ID(137, "audio_tdmin_lb_sclk"),
-+	CLK_MSR_ID(138, "audio_tdmin_c_sclk"),
-+	CLK_MSR_ID(139, "audio_tdmin_b_sclk"),
-+	CLK_MSR_ID(140, "audio_tdmin_a_sclk"),
-+	CLK_MSR_ID(141, "audio_resamplea_clk"),
-+	CLK_MSR_ID(142, "audio_pdm_sysclk"),
-+	CLK_MSR_ID(143, "audio_spdifout_b_mst_clk"),
-+	CLK_MSR_ID(144, "audio_spdifout_mst_clk"),
-+	CLK_MSR_ID(145, "audio_spdifin_mst_clk"),
-+	CLK_MSR_ID(147, "audio_resampleb_clk"),
-+	CLK_MSR_ID(160, "pwm_j"),
-+	CLK_MSR_ID(161, "pwm_i"),
-+	CLK_MSR_ID(162, "pwm_h"),
-+	CLK_MSR_ID(163, "pwm_g"),
-+	CLK_MSR_ID(164, "pwm_f"),
-+	CLK_MSR_ID(165, "pwm_e"),
-+	CLK_MSR_ID(166, "pwm_d"),
-+	CLK_MSR_ID(167, "pwm_c"),
-+	CLK_MSR_ID(168, "pwm_b"),
-+	CLK_MSR_ID(169, "pwm_a"),
-+	CLK_MSR_ID(176, "rng_ring_clk[0]"),
-+	CLK_MSR_ID(177, "rng_ring_clk[1]"),
-+	CLK_MSR_ID(178, "rng_ring_clk[2]"),
-+	CLK_MSR_ID(179, "rng_ring_clk[3]"),
-+	CLK_MSR_ID(180, "osc_ring_clk[0](a55 core0 14_slvt)"),
-+	CLK_MSR_ID(181, "osc_ring_clk[1](a55 core1 14_slvt)"),
-+	CLK_MSR_ID(182, "osc_ring_clk[2](a55 core2 14_slvt)"),
-+	CLK_MSR_ID(183, "osc_ring_clk[3](a55 core3 14_slvt)"),
-+	CLK_MSR_ID(184, "osc_ring_clk[4](a55_pwr[0] 16_slvt)"),
-+	CLK_MSR_ID(185, "osc_ring_clk[5](a55_pwr[1] 14_lvt)"),
-+	CLK_MSR_ID(186, "osc_ring_clk[6](a55_pwr[2] 14_rvt)"),
-+	CLK_MSR_ID(187, "osc_ring_clk[7](mali[1] 14_lvt)"),
-+	CLK_MSR_ID(188, "osc_ring_clk[8](mali[1] 14_rvt)"),
-+	CLK_MSR_ID(189, "osc_ring_clk[9](dos[0] 16_lvt)"),
-+	CLK_MSR_ID(190, "osc_ring_clk[10](dos[1] 14_rvt)"),
-+	CLK_MSR_ID(191, "osc_ring_clk[11](ddr[0] 9t_14_lvt)"),
-+	CLK_MSR_ID(192, "osc_ring_clk[12](top[0] 16_rvt)"),
-+};
-+
-+static const struct meson_msr_id clk_msr_s7d[] = {
-+	CLK_MSR_ID(0, "sys_clk"),
-+	CLK_MSR_ID(1, "axi_clk"),
-+	CLK_MSR_ID(2, "rtc_clk"),
-+	CLK_MSR_ID(4, "mali_stack"),
-+	CLK_MSR_ID(5, "mali"),
-+	CLK_MSR_ID(6, "cpu_clk_div16"),
-+	CLK_MSR_ID(8, "cecb"),
-+	CLK_MSR_ID(9, "mali_aclkm"),
-+	CLK_MSR_ID(10, "fclk_div5"),
-+	CLK_MSR_ID(11, "p21_usb2_ckout"),
-+	CLK_MSR_ID(12, "p20_usb2_ckout"),
-+	CLK_MSR_ID(13, "eth_mpll_test"),
-+	CLK_MSR_ID(15, "fclk_50m"),
-+	CLK_MSR_ID(18, "gp1_pll"),
-+	CLK_MSR_ID(19, "hifi_pll"),
-+	CLK_MSR_ID(20, "gp0_pll"),
-+	CLK_MSR_ID(21, "hifi1_pll"),
-+	CLK_MSR_ID(22, "eth_mppll_50m_ckout"),
-+	CLK_MSR_ID(23, "sys_pll_div16"),
-+	CLK_MSR_ID(24, "ddr_dpll_pt_clk"),
-+	CLK_MSR_ID(25, "mod_Tsin_A_CLK_IN"),
-+	CLK_MSR_ID(26, "mod_Tsin_B_CLK_IN"),
-+	CLK_MSR_ID(31, "earcrx_pll_clk_out"),
-+	CLK_MSR_ID(32, "eth_125m"),
-+	CLK_MSR_ID(33, "eth_rmii"),
-+	CLK_MSR_ID(34, "co_clkin_to_mac"),
-+	CLK_MSR_ID(36, "co_rx_clk"),
-+	CLK_MSR_ID(37, "co_tx_clk"),
-+	CLK_MSR_ID(38, "eth_phy_rxclk"),
-+	CLK_MSR_ID(39, "eth_phy_plltxclk"),
-+	CLK_MSR_ID(40, "ephy_test_clk"),
-+	CLK_MSR_ID(49, "hdmi_vx1_pix_clk"),
-+	CLK_MSR_ID(50, "vid_pll"),
-+	CLK_MSR_ID(51, "enci"),
-+	CLK_MSR_ID(52, "encp"),
-+	CLK_MSR_ID(53, "encl"),
-+	CLK_MSR_ID(54, "vdac"),
-+	CLK_MSR_ID(55, "cdac"),
-+	CLK_MSR_ID(57, "lcd_an_clk_ph2"),
-+	CLK_MSR_ID(58, "lcd_an_clk_ph3"),
-+	CLK_MSR_ID(59, "hdmitx_pixel"),
-+	CLK_MSR_ID(60, "vdin_meas"),
-+	CLK_MSR_ID(61, "vpu"),
-+	CLK_MSR_ID(62, "vpu_clkb"),
-+	CLK_MSR_ID(63, "vpu_clkb_tmp"),
-+	CLK_MSR_ID(64, "vpu_clkc"),
-+	CLK_MSR_ID(65, "vid_lock"),
-+	CLK_MSR_ID(66, "vapb"),
-+	CLK_MSR_ID(67, "ge2d"),
-+	CLK_MSR_ID(76, "hdmitx_tmds"),
-+	CLK_MSR_ID(77, "hdmitx_sys"),
-+	CLK_MSR_ID(78, "hdmitx_fe"),
-+	CLK_MSR_ID(80, "hdmitx_prif"),
-+	CLK_MSR_ID(81, "hdmitx_200m"),
-+	CLK_MSR_ID(82, "hdmitx_aud"),
-+	CLK_MSR_ID(84, "audio_tohdmitx_mclk"),
-+	CLK_MSR_ID(85, "audio_tohdmitx_bclk"),
-+	CLK_MSR_ID(86, "audio_tohdmitx_lrclk"),
-+	CLK_MSR_ID(87, "audio_tohdmitx_spdif_clk"),
-+	CLK_MSR_ID(88, "htx_aes_clk"),
-+	CLK_MSR_ID(89, "amfc"),
-+	CLK_MSR_ID(93, "vdec"),
-+	CLK_MSR_ID(97, "hcodec"),
-+	CLK_MSR_ID(99, "hevcf"),
-+	CLK_MSR_ID(106, "deskew_pll_clk_div32_out"),
-+	CLK_MSR_ID(110, "sc"),
-+	CLK_MSR_ID(111, "sar_adc"),
-+	CLK_MSR_ID(112, "aux_adc_clk_to_gpio"),
-+	CLK_MSR_ID(113, "sd_emmc_c"),
-+	CLK_MSR_ID(114, "sd_emmc_b"),
-+	CLK_MSR_ID(115, "sd_emmc_a"),
-+	CLK_MSR_ID(116, "gpio_msr_clk"),
-+	CLK_MSR_ID(117, "aux_clk_o"),
-+	CLK_MSR_ID(118, "spicc"),
-+	CLK_MSR_ID(121, "ts"),
-+	CLK_MSR_ID(130, "o_vad_clk"),
-+	CLK_MSR_ID(131, "au_dac_clk_x128"),
-+	CLK_MSR_ID(132, "audio_locker_in_clk"),
-+	CLK_MSR_ID(133, "audio_locker_out_clk"),
-+	CLK_MSR_ID(134, "audio_tdmout_c_sclk"),
-+	CLK_MSR_ID(135, "audio_tdmout_b_sclk"),
-+	CLK_MSR_ID(136, "audio_tdmout_a_sclk"),
-+	CLK_MSR_ID(137, "audio_tdmin_lb_sclk"),
-+	CLK_MSR_ID(138, "audio_tdmin_c_sclk"),
-+	CLK_MSR_ID(139, "audio_tdmin_b_sclk"),
-+	CLK_MSR_ID(140, "audio_tdmin_a_sclk"),
-+	CLK_MSR_ID(141, "audio_resamplea_clk"),
-+	CLK_MSR_ID(142, "audio_pdm_sysclk"),
-+	CLK_MSR_ID(143, "audio_spdifout_b_mst_clk"),
-+	CLK_MSR_ID(144, "audio_spdifout_mst_clk"),
-+	CLK_MSR_ID(145, "audio_spdifin_mst_clk"),
-+	CLK_MSR_ID(146, "mod_audio_pdm_dclk_o"),
-+	CLK_MSR_ID(147, "audio_resampleb_clk"),
-+	CLK_MSR_ID(160, "pwm_j"),
-+	CLK_MSR_ID(161, "pwm_i"),
-+	CLK_MSR_ID(162, "pwm_h"),
-+	CLK_MSR_ID(163, "pwm_g"),
-+	CLK_MSR_ID(164, "pwm_f"),
-+	CLK_MSR_ID(165, "pwm_e"),
-+	CLK_MSR_ID(166, "pwm_d"),
-+	CLK_MSR_ID(167, "pwm_c"),
-+	CLK_MSR_ID(168, "pwm_b"),
-+	CLK_MSR_ID(169, "pwm_a"),
-+	CLK_MSR_ID(176, "rng_ring_clk[0]"),
-+	CLK_MSR_ID(177, "rng_ring_clk[1]"),
-+	CLK_MSR_ID(178, "rng_ring_clk[2]"),
-+	CLK_MSR_ID(179, "rng_ring_clk[3]"),
-+	CLK_MSR_ID(180, "osc_ring_clk[0](a55 core0 14_slvt)"),
-+	CLK_MSR_ID(181, "osc_ring_clk[1](a55 core1 14_slvt)"),
-+	CLK_MSR_ID(182, "osc_ring_clk[2](a55 core2 14_slvt)"),
-+	CLK_MSR_ID(183, "osc_ring_clk[3](a55 core3 14_slvt)"),
-+	CLK_MSR_ID(184, "osc_ring_clk[4](a55_pwr[0] 16_slvt)"),
-+	CLK_MSR_ID(185, "osc_ring_clk[5](a55_pwr[1] 14_lvt)"),
-+	CLK_MSR_ID(186, "osc_ring_clk[6](a55_pwr[2] 14_rvt)"),
-+	CLK_MSR_ID(187, "osc_ring_clk[7](mali[1] 14_lvt)"),
-+	CLK_MSR_ID(188, "osc_ring_clk[8](mali[1] 14_rvt)"),
-+	CLK_MSR_ID(189, "osc_ring_clk[9](dos[0] 16_lvt)"),
-+	CLK_MSR_ID(190, "osc_ring_clk[10](dos[1] 14_rvt)"),
-+	CLK_MSR_ID(191, "osc_ring_clk[11](ddr[0] 9t_14_lvt)"),
-+	CLK_MSR_ID(192, "osc_ring_clk[12](top[0] 16_rvt)"),
-+};
-+
-+static const struct meson_msr_id clk_msr_s6[] = {
-+	CLK_MSR_ID(0, "sys_clk"),
-+	CLK_MSR_ID(1, "axi_clk"),
-+	CLK_MSR_ID(2, "rtc_clk"),
-+	CLK_MSR_ID(3, "dspa"),
-+	CLK_MSR_ID(4, "mali_stack"),
-+	CLK_MSR_ID(5, "mali"),
-+	CLK_MSR_ID(6, "cpu_clk_div16"),
-+	CLK_MSR_ID(7, "mali_aclkm"),
-+	CLK_MSR_ID(8, "cecb"),
-+	CLK_MSR_ID(9, "gp2_pll"),
-+	CLK_MSR_ID(10, "fclk_div5"),
-+	CLK_MSR_ID(11, "p21_usb2_ckout"),
-+	CLK_MSR_ID(12, "p20_usb2_ckout"),
-+	CLK_MSR_ID(13, "eth_mpll_test"),
-+	CLK_MSR_ID(15, "fclk_50m"),
-+	CLK_MSR_ID(18, "gp1_pll"),
-+	CLK_MSR_ID(19, "hifi_pll"),
-+	CLK_MSR_ID(20, "gp0_pll"),
-+	CLK_MSR_ID(21, "hifi1_pll"),
-+	CLK_MSR_ID(22, "eth_mppll_50m_ckout"),
-+	CLK_MSR_ID(23, "sys_pll_div16"),
-+	CLK_MSR_ID(24, "ddr_dpll_pt_clk"),
-+	CLK_MSR_ID(25, "mod_Tsin_A_CLK_IN"),
-+	CLK_MSR_ID(26, "ext_Tsin_B_CLK_IN"),
-+	CLK_MSR_ID(27, "mod_Tsin_C_CLK_IN"),
-+	CLK_MSR_ID(28, "mod_Tsin_D_CLK_IN"),
-+	CLK_MSR_ID(29, "dsi_pll_div_clk_out"),
-+	CLK_MSR_ID(30, "dsi_pll_clk"),
-+	CLK_MSR_ID(32, "eth_125m"),
-+	CLK_MSR_ID(33, "eth_rmii"),
-+	CLK_MSR_ID(34, "co_clkin_to_mac"),
-+	CLK_MSR_ID(36, "co_rx_clk"),
-+	CLK_MSR_ID(37, "co_tx_clk"),
-+	CLK_MSR_ID(38, "eth_phy_rxclk"),
-+	CLK_MSR_ID(39, "eth_phy_plltxclk"),
-+	CLK_MSR_ID(40, "ephy_test_clk"),
-+	CLK_MSR_ID(49, "hdmi_vx1_pix_clk"),
-+	CLK_MSR_ID(50, "vid_pll"),
-+	CLK_MSR_ID(51, "enci"),
-+	CLK_MSR_ID(52, "encp"),
-+	CLK_MSR_ID(53, "encl"),
-+	CLK_MSR_ID(54, "vdac"),
-+	CLK_MSR_ID(55, "cdac"),
-+	CLK_MSR_ID(57, "lcd_an_clk_ph2"),
-+	CLK_MSR_ID(58, "lcd_an_clk_ph3"),
-+	CLK_MSR_ID(59, "hdmitx_pixel"),
-+	CLK_MSR_ID(60, "vdin_meas"),
-+	CLK_MSR_ID(61, "vpu"),
-+	CLK_MSR_ID(62, "vpu_clkb"),
-+	CLK_MSR_ID(63, "vpu_clkb_tmp"),
-+	CLK_MSR_ID(64, "vpu_clkc"),
-+	CLK_MSR_ID(65, "vid_lock"),
-+	CLK_MSR_ID(66, "vapb"),
-+	CLK_MSR_ID(67, "ge2d"),
-+	CLK_MSR_ID(70, "mipi_dsi_meas"),
-+	CLK_MSR_ID(71, "mipi_dsi_phy"),
-+	CLK_MSR_ID(72, "mipi_csi_phy"),
-+	CLK_MSR_ID(73, "csi2_adapt"),
-+	CLK_MSR_ID(74, "cts_csi2_data"),
-+	CLK_MSR_ID(75, "mipi_csi_phy_out"),
-+	CLK_MSR_ID(76, "hdmitx_tmds"),
-+	CLK_MSR_ID(77, "hdmitx_sys"),
-+	CLK_MSR_ID(78, "hdmitx_fe"),
-+	CLK_MSR_ID(79, "rama_clk"),
-+	CLK_MSR_ID(80, "hdmitx_prif"),
-+	CLK_MSR_ID(81, "hdmitx_200m"),
-+	CLK_MSR_ID(82, "hdmitx_aud"),
-+	CLK_MSR_ID(84, "audio_tohdmitx_mclk"),
-+	CLK_MSR_ID(85, "audio_tohdmitx_bclk"),
-+	CLK_MSR_ID(86, "audio_tohdmitx_lrclk"),
-+	CLK_MSR_ID(87, "audio_tohdmitx_spdif_clk"),
-+	CLK_MSR_ID(88, "htx_aes_clk"),
-+	CLK_MSR_ID(89, "amfc"),
-+	CLK_MSR_ID(93, "vdec"),
-+	CLK_MSR_ID(99, "hevcf"),
-+	CLK_MSR_ID(106, "deskew_pll_clk_div32_out"),
-+	CLK_MSR_ID(108, "cmpr"),
-+	CLK_MSR_ID(109, "dewarpa"),
-+	CLK_MSR_ID(110, "sc"),
-+	CLK_MSR_ID(111, "sar_adc"),
-+	CLK_MSR_ID(113, "sd_emmc_c"),
-+	CLK_MSR_ID(114, "sd_emmc_b"),
-+	CLK_MSR_ID(115, "sd_emmc_a"),
-+	CLK_MSR_ID(116, "gpio_msr_clk"),
-+	CLK_MSR_ID(117, "aux_clk_o"),
-+	CLK_MSR_ID(118, "spicc"),
-+	CLK_MSR_ID(121, "ts"),
-+	CLK_MSR_ID(130, "o_vad_clk"),
-+	CLK_MSR_ID(132, "audio_locker_in_clk"),
-+	CLK_MSR_ID(133, "audio_locker_out_clk"),
-+	CLK_MSR_ID(134, "audio_tdmout_c_sclk"),
-+	CLK_MSR_ID(135, "audio_tdmout_b_sclk"),
-+	CLK_MSR_ID(136, "audio_tdmout_a_sclk"),
-+	CLK_MSR_ID(137, "audio_tdmin_lb_sclk"),
-+	CLK_MSR_ID(138, "audio_tdmin_c_sclk"),
-+	CLK_MSR_ID(139, "audio_tdmin_b_sclk"),
-+	CLK_MSR_ID(140, "audio_tdmin_a_sclk"),
-+	CLK_MSR_ID(141, "audio_resamplea_clk"),
-+	CLK_MSR_ID(142, "audio_pdm_sysclk"),
-+	CLK_MSR_ID(143, "audio_spdifout_b_mst_clk"),
-+	CLK_MSR_ID(144, "audio_spdifout_mst_clk"),
-+	CLK_MSR_ID(145, "audio_spdifin_mst_clk"),
-+	CLK_MSR_ID(147, "audio_resampleb_clk"),
-+	CLK_MSR_ID(148, "pcie_pipe_clk"),
-+	CLK_MSR_ID(149, "pcie_ref_clk"),
-+	CLK_MSR_ID(150, "pcie_upcrx_cdrclk"),
-+	CLK_MSR_ID(151, "pcie_upcrx_clk_sync_b20"),
-+	CLK_MSR_ID(152, "pcie_u3p2pll1_clk_div16"),
-+	CLK_MSR_ID(153, "pcie_u3p2pll0_clkout"),
-+	CLK_MSR_ID(154, "pcie_ref_clk_p"),
-+	CLK_MSR_ID(160, "pwm_j"),
-+	CLK_MSR_ID(161, "pwm_i"),
-+	CLK_MSR_ID(162, "pwm_h"),
-+	CLK_MSR_ID(163, "pwm_g"),
-+	CLK_MSR_ID(164, "pwm_f"),
-+	CLK_MSR_ID(165, "pwm_e"),
-+	CLK_MSR_ID(166, "pwm_d"),
-+	CLK_MSR_ID(167, "pwm_c"),
-+	CLK_MSR_ID(168, "pwm_b"),
-+	CLK_MSR_ID(169, "pwm_a"),
-+	CLK_MSR_ID(175, "rng_ring_clk[0]"),
-+	CLK_MSR_ID(176, "rng_ring_clk[1]"),
-+	CLK_MSR_ID(177, "rng_ring_clk[2]"),
-+	CLK_MSR_ID(178, "rng_ring_clk[3]"),
-+	CLK_MSR_ID(179, "rng_ring_clk[4]"),
-+	CLK_MSR_ID(180, "am_ring_osc_clk_out[0]"),
-+	CLK_MSR_ID(181, "am_ring_osc_clk_out[1]"),
-+	CLK_MSR_ID(182, "am_ring_osc_clk_out[2]"),
-+	CLK_MSR_ID(183, "am_ring_osc_clk_out[3]"),
-+	CLK_MSR_ID(184, "am_ring_osc_clk_out[4]"),
-+	CLK_MSR_ID(185, "am_ring_osc_clk_out[5]"),
-+	CLK_MSR_ID(186, "am_ring_osc_clk_out[6]"),
-+	CLK_MSR_ID(187, "am_ring_osc_clk_out[7]"),
-+	CLK_MSR_ID(188, "am_ring_osc_clk_out[8]"),
-+	CLK_MSR_ID(189, "am_ring_osc_clk_out[9]"),
-+	CLK_MSR_ID(190, "am_ring_osc_clk_out[10]"),
-+	CLK_MSR_ID(191, "am_ring_osc_clk_out[11]"),
-+	CLK_MSR_ID(192, "am_ring_osc_clk_out[12]"),
-+	CLK_MSR_ID(193, "am_ring_osc_clk_out[13]"),
-+	CLK_MSR_ID(194, "am_ring_osc_clk_out[14]"),
-+	CLK_MSR_ID(195, "am_ring_osc_clk_out[15]"),
-+	CLK_MSR_ID(196, "am_ring_osc_clk_out[16]"),
-+	CLK_MSR_ID(197, "nna"),
-+	CLK_MSR_ID(198, "vc9000e_axi"),
-+	CLK_MSR_ID(199, "vc9000e_core"),
-+	CLK_MSR_ID(201, "pcie_tl"),
-+	CLK_MSR_ID(204, "u3p2pll1_clk_div16"),
-+	CLK_MSR_ID(205, "u3p2pll0_clkout"),
-+	CLK_MSR_ID(206, "upctx_clk_sync_b20"),
-+	CLK_MSR_ID(207, "upcrx_carclk"),
-+	CLK_MSR_ID(208, "usb_pipe_clk"),
-+	CLK_MSR_ID(209, "earcrx_pll_out"),
-+	CLK_MSR_ID(210, "mclk_pll_clk")
-+};
-+
-+static struct meson_msr_id clk_msr_a9[] = {
-+	CLK_MSR_ID(0,  "sys_clk"),
-+	CLK_MSR_ID(1,  "axi_clk"),
-+	CLK_MSR_ID(2,  "rtc_clk"),
-+	CLK_MSR_ID(3,  "dspa"),
-+	CLK_MSR_ID(4,  "mali_stack"),
-+	CLK_MSR_ID(5,  "mali"),
-+	CLK_MSR_ID(6,  "cpu_clk_div16"),
-+	CLK_MSR_ID(7,  "a78_clk_div16"),
-+	CLK_MSR_ID(8,  "dsu_clk_div16"),
-+	CLK_MSR_ID(9,  "isp"),
-+	CLK_MSR_ID(10, "gp2_pll"),
-+	CLK_MSR_ID(11, "fclk_div5"),
-+	CLK_MSR_ID(12, "u2drd_usb2_ckout"),
-+	CLK_MSR_ID(13, "pre0_hdmirx_aud_pll_clk"),
-+	CLK_MSR_ID(14, "hrx20_pll_clk_test"),
-+	CLK_MSR_ID(15, "u2h_usb2_ckout"),
-+	CLK_MSR_ID(16, "fclk_50m"),
-+	CLK_MSR_ID(17, "u3drd_b_usb2_ckout"),
-+	CLK_MSR_ID(18, "gp1_pll"),
-+	CLK_MSR_ID(19, "hifi_pll"),
-+	CLK_MSR_ID(20, "gp0_pll"),
-+	CLK_MSR_ID(21, "hifi1_pll"),
-+	CLK_MSR_ID(22, "csi_phy"),
-+	CLK_MSR_ID(23, "sys_pll_div16"),
-+	CLK_MSR_ID(24, "ddr_dpll_pt_clk"),
-+	CLK_MSR_ID(25, "mod_Tsin_A_CLK_IN"),
-+	CLK_MSR_ID(26, "exit_Tsin_B_CLK_IN"),
-+	CLK_MSR_ID(27, "u3p2pll1_0_clk_div16"),
-+	CLK_MSR_ID(28, "u3p2pll1_1_clk_div16"),
-+	CLK_MSR_ID(29, "upcrx0_cdrclk"),
-+	CLK_MSR_ID(30, "upcrx1_cdrclk"),
-+	CLK_MSR_ID(31, "hdmirx_aud_sck"),
-+	CLK_MSR_ID(32, "uptx0_clk_sync_b20"),
-+	CLK_MSR_ID(33, "uptx1_clk_sync_b20"),
-+	CLK_MSR_ID(34, "lp_pll_clk0"),
-+	CLK_MSR_ID(35, "lp_pll_clk1"),
-+	CLK_MSR_ID(36, "u3hsg_PCIE_PIPE_PCLK"),
-+	CLK_MSR_ID(37, "u3hsg_upcrx_cdrclk"),
-+	CLK_MSR_ID(38, "u3hsg_upctx_clk_sync_b20"),
-+	CLK_MSR_ID(39, "u3hsg_upcrxpll_clk_test"),
-+	CLK_MSR_ID(40, "hdmirx_acr_lclk"),
-+	CLK_MSR_ID(41, "i3c"),
-+	CLK_MSR_ID(42, "hdmirx_aud_pll"),
-+	CLK_MSR_ID(43, "hdmirx_acr_ref"),
-+	CLK_MSR_ID(44, "hdmirx_meter"),
-+	CLK_MSR_ID(45, "hdmirx_hdcp2x"),
-+	CLK_MSR_ID(46, "hdmirx_5m"),
-+	CLK_MSR_ID(47, "hdmirx_2m"),
-+	CLK_MSR_ID(48, "hdmirx_cfg"),
-+	CLK_MSR_ID(49, "hdmi_vx1_pix_clk"),
-+	CLK_MSR_ID(50, "vid_pll"),
-+	CLK_MSR_ID(51, "encoder0_if_clk"),
-+	CLK_MSR_ID(52, "encoder1"),
-+	CLK_MSR_ID(53, "encoder0"),
-+	CLK_MSR_ID(54, "vdac"),
-+	CLK_MSR_ID(55, "mali_aclkm"),
-+	CLK_MSR_ID(56, "vid1_pll"),
-+	CLK_MSR_ID(57, "lcd_an_ph2"),
-+	CLK_MSR_ID(58, "lcd_an_ph3"),
-+	CLK_MSR_ID(59, "hdmitx_pixel"),
-+	CLK_MSR_ID(60, "vdin_meas"),
-+	CLK_MSR_ID(61, "vpu"),
-+	CLK_MSR_ID(62, "vpu_clkb"),
-+	CLK_MSR_ID(63, "vpu_clkb_tmp"),
-+	CLK_MSR_ID(64, "u3p2_upcrxpll_fst_pll_clk"),
-+	CLK_MSR_ID(65, "vid_lock"),
-+	CLK_MSR_ID(66, "vapb"),
-+	CLK_MSR_ID(67, "ge2d"),
-+	CLK_MSR_ID(68, "cve"),
-+	CLK_MSR_ID(69, "vge"),
-+	CLK_MSR_ID(70, "dsi0_meas"),
-+	CLK_MSR_ID(71, "dsi1_meas"),
-+	CLK_MSR_ID(72, "mipi_csi_phy_clk_out[0]"),
-+	CLK_MSR_ID(73, "mipi_csi_phy_clk_out[1]"),
-+	CLK_MSR_ID(74, "mipi_csi_phy_clk_out[2]"),
-+	CLK_MSR_ID(75, "mipi_csi_phy_clk_out[3]"),
-+	CLK_MSR_ID(76, "hdmitx_tmds"),
-+	CLK_MSR_ID(77, "hdmitx_sys"),
-+	CLK_MSR_ID(78, "hdmitx_fe"),
-+	CLK_MSR_ID(80, "hdmitx_prif"),
-+	CLK_MSR_ID(81, "hdmitx_200m"),
-+	CLK_MSR_ID(82, "hdmitx_aud"),
-+	CLK_MSR_ID(83, "hdmitx1_pixel"),
-+	CLK_MSR_ID(84, "hdmitx1_fe"),
-+	CLK_MSR_ID(85, "gic"),
-+	CLK_MSR_ID(86, "lvds0_fifo_clk"),
-+	CLK_MSR_ID(87, "lvds1_fifo_clk"),
-+	CLK_MSR_ID(88, "htx_aes_clk"),
-+	CLK_MSR_ID(89, "amfc"),
-+	CLK_MSR_ID(90, "a_clk_sync_dig"),
-+	CLK_MSR_ID(91, "b_clk_sync_dig"),
-+	CLK_MSR_ID(92, "u3dp_upcrx_cdrclk"),
-+	CLK_MSR_ID(93, "u3dp_upctx_clk_sync_b20"),
-+	CLK_MSR_ID(94, "u3dp_upcrxpll_clk_test"),
-+	CLK_MSR_ID(95, "u3dp_upcrpll_fst_pll_clk"),
-+	CLK_MSR_ID(96, "u3dp_usb2_ckout"),
-+	CLK_MSR_ID(97, "hcodec"),
-+	CLK_MSR_ID(99, "hevcf"),
-+	CLK_MSR_ID(104, "spisg2"),
-+	CLK_MSR_ID(105, "spisg1"),
-+	CLK_MSR_ID(106, "deskew_pll_clk_div32_out"),
-+	CLK_MSR_ID(108, "cmpr"),
-+	CLK_MSR_ID(109, "dewarpa"),
-+	CLK_MSR_ID(110, "sc"),
-+	CLK_MSR_ID(111, "sar_adc"),
-+	CLK_MSR_ID(112, "glb"),
-+	CLK_MSR_ID(113, "sd_emmc_c"),
-+	CLK_MSR_ID(114, "sd_emmc_b"),
-+	CLK_MSR_ID(115, "sd_emmc_a"),
-+	CLK_MSR_ID(116, "gpio_msr_clk"),
-+	CLK_MSR_ID(117, "aux_clk_o"),
-+	CLK_MSR_ID(118, "spisg0"),
-+	CLK_MSR_ID(121, "ts"),
-+	CLK_MSR_ID(122, "usb_48m"),
-+	CLK_MSR_ID(123, "usb_250m"),
-+	CLK_MSR_ID(124, "eth_125m"),
-+	CLK_MSR_ID(125, "eth_rmii"),
-+	CLK_MSR_ID(126, "hrx20_tmds20_clk"),
-+	CLK_MSR_ID(127, "hrx20_cable_clk"),
-+	CLK_MSR_ID(128, "hdmirx_vid_clk"),
-+	CLK_MSR_ID(129, "hdmirx_aud_clk"),
-+	CLK_MSR_ID(130, "dptx_apb2"),
-+	CLK_MSR_ID(131, "dptx_aud"),
-+	CLK_MSR_ID(132, "audio_todptx_bclk"),
-+	CLK_MSR_ID(133, "audio_txhdmitx_bclk"),
-+	CLK_MSR_ID(134, "audio_txhdmitx_mclk"),
-+	CLK_MSR_ID(135, "audio_txhdmitx_spdif_clk"),
-+	CLK_MSR_ID(136, "mclk_0_pre"),
-+	CLK_MSR_ID(137, "mclk1_0_pre"),
-+	CLK_MSR_ID(138, "pixel0_pll_clkout"),
-+	CLK_MSR_ID(139, "pixel1_pll_clkout"),
-+	CLK_MSR_ID(140, "tcon_clk_out0"),
-+	CLK_MSR_ID(141, "tcon_clk_out1"),
-+	CLK_MSR_ID(142, "audio_todptx_spdif_clk"),
-+	CLK_MSR_ID(143, "audio_todptx_mclk"),
-+	CLK_MSR_ID(144, "dptx_lnk_clk"),
-+	CLK_MSR_ID(145, "edptx_lnk_clk_tx"),
-+	CLK_MSR_ID(146, "mod_audio_pdm_dclk_o_ao"),
-+	CLK_MSR_ID(147, "vid2_pll"),
-+	CLK_MSR_ID(151, "can1_filter"),
-+	CLK_MSR_ID(152, "can0_filter"),
-+	CLK_MSR_ID(153, "can1_pe"),
-+	CLK_MSR_ID(154, "can0_pe"),
-+	CLK_MSR_ID(155, "o_sed_clk"),
-+	CLK_MSR_ID(156, "pwm_n"),
-+	CLK_MSR_ID(157, "pwm_m"),
-+	CLK_MSR_ID(158, "pwm_l"),
-+	CLK_MSR_ID(159, "pwm_k"),
-+	CLK_MSR_ID(160, "pwm_j"),
-+	CLK_MSR_ID(161, "pwm_i"),
-+	CLK_MSR_ID(162, "pwm_h"),
-+	CLK_MSR_ID(170, "rng_ring_osc_clk[0]"),
-+	CLK_MSR_ID(171, "rng_ring_osc_clk[1]"),
-+	CLK_MSR_ID(172, "rng_ring_osc_clk[2]"),
-+	CLK_MSR_ID(173, "rng_ring_osc_clk[3]"),
-+	CLK_MSR_ID(174, "rng_ring_osc_clk[4]"),
-+	CLK_MSR_ID(175, "sys_cpu_osc_ring_clk[0]"),
-+	CLK_MSR_ID(176, "sys_cpu_osc_ring_clk[1]"),
-+	CLK_MSR_ID(177, "sys_cpu_osc_ring_clk[2]"),
-+	CLK_MSR_ID(178, "sys_cpu_osc_ring_clk[3]"),
-+	CLK_MSR_ID(179, "sys_cpu_osc_ring_clk[4]"),
-+	CLK_MSR_ID(180, "sys_cpu_osc_ring_clk[5]"),
-+	CLK_MSR_ID(181, "sys_cpu_osc_ring_clk[6]"),
-+	CLK_MSR_ID(182, "sys_cpu_osc_ring_clk[7]"),
-+	CLK_MSR_ID(183, "sys_cpu_osc_ring_clk[8]"),
-+	CLK_MSR_ID(184, "sys_cpu_osc_ring_clk[9]"),
-+	CLK_MSR_ID(185, "osc_ring_clk_gpu[0]"),
-+	CLK_MSR_ID(186, "osc_ring_clk_gpu[1]"),
-+	CLK_MSR_ID(187, "osc_ring_clk_vpu"),
-+	CLK_MSR_ID(188, "osc_ring_clk_dos[0]"),
-+	CLK_MSR_ID(189, "osc_ring_clk_dos[1]"),
-+	CLK_MSR_ID(190, "osc_ring_clk_vge"),
-+	CLK_MSR_ID(191, "osc_ring_clk_nna[0]"),
-+	CLK_MSR_ID(192, "osc_ring_clk_nna[1]"),
-+	CLK_MSR_ID(193, "osc_ring_clk_top[0]"),
-+	CLK_MSR_ID(194, "osc_ring_clk_top[1]"),
-+	CLK_MSR_ID(195, "nna"),
-+	CLK_MSR_ID(200, "pcie1_tl"),
-+	CLK_MSR_ID(201, "pcie0_tl"),
-+	CLK_MSR_ID(202, "pp"),
-+	CLK_MSR_ID(203, "pwm_a(ao)"),
-+	CLK_MSR_ID(204, "pwm_b(ao)"),
-+	CLK_MSR_ID(205, "pwm_c(ao)"),
-+	CLK_MSR_ID(206, "pwm_d(ao)"),
-+	CLK_MSR_ID(207, "pwm_e(ao)"),
-+	CLK_MSR_ID(208, "pwm_f(ao)"),
-+	CLK_MSR_ID(209, "pwm_g(ao)"),
-+	CLK_MSR_ID(210, "ao_cec"),
-+	CLK_MSR_ID(211, "sec_pulse_out"),
-+	CLK_MSR_ID(212, "osc_clk_out"),
-+	CLK_MSR_ID(213, "earcrx_pll_clk_out"),
-+	CLK_MSR_ID(215, "o_pd_sysclk"),
-+	CLK_MSR_ID(216, "o_earcrx_dmac_clk"),
-+	CLK_MSR_ID(217, "o_earcrx_cmdc_clk"),
-+	CLK_MSR_ID(218, "o_earctx_dmac_clk"),
-+	CLK_MSR_ID(219, "o_earctx_cmdc_clk"),
-+	CLK_MSR_ID(220, "o_earctx_ana_dmac_clk_a2d"),
-+	CLK_MSR_ID(221, "o_tohdmi_dp_tx_a_bclk"),
-+	CLK_MSR_ID(222, "o_tohdmi_dp_tx_a_mclk"),
-+	CLK_MSR_ID(223, "o_tohdmi_dp_tx_a_spdif_clk"),
-+	CLK_MSR_ID(224, "o_tohdmi_dp_tx_b_bclk"),
-+	CLK_MSR_ID(225, "o_tohdmi_dp_tx_b_mclk"),
-+	CLK_MSR_ID(226, "o_tohdmi_dp_tx_b_spdif_clk"),
-+	CLK_MSR_ID(227, "o_toacodec_dac_bclk"),
-+	CLK_MSR_ID(228, "o_toacodec_dac_mclk"),
-+	CLK_MSR_ID(229, "o_spdifout_b_mst_clk"),
-+	CLK_MSR_ID(230, "o_spdifout_mst_clk"),
-+	CLK_MSR_ID(231, "o_spdifin_mst_clk"),
-+	CLK_MSR_ID(232, "o_audio_mclk"),
-+	CLK_MSR_ID(233, "o_vad_clk"),
-+	CLK_MSR_ID(234, "o_tdmout_d_sclk"),
-+	CLK_MSR_ID(235, "o_tdmout_c_sclk"),
-+	CLK_MSR_ID(236, "o_tdmout_b_sclk"),
-+	CLK_MSR_ID(237, "o_tdmout_a_sclk"),
-+	CLK_MSR_ID(238, "o_tdminb_lb_sclk"),
-+	CLK_MSR_ID(239, "o_tdmin_lb_sclk"),
-+	CLK_MSR_ID(240, "o_tdmin_d_sclk"),
-+	CLK_MSR_ID(241, "o_tdmin_c_sclk"),
-+	CLK_MSR_ID(242, "o_tdmin_b_sclk"),
-+	CLK_MSR_ID(243, "o_tdmin_a_sclk"),
-+	CLK_MSR_ID(244, "o_resampleb_clk"),
-+	CLK_MSR_ID(245, "o_resamplea_clk"),
-+	CLK_MSR_ID(246, "o_pdmb_sysclk"),
-+	CLK_MSR_ID(247, "o_pdmb_dclk"),
-+	CLK_MSR_ID(248, "o_pdm_sysclk"),
-+	CLK_MSR_ID(249, "o_pdm_dclk"),
-+	CLK_MSR_ID(250, "c_alockerb_out_clk"),
-+	CLK_MSR_ID(251, "c_alockerb_in_clk"),
-+	CLK_MSR_ID(252, "c_alocker_out_clk"),
-+	CLK_MSR_ID(253, "c_alocker_in_clk"),
-+	CLK_MSR_ID(254, "o_resample_c_clk")
-+};
-+
- static int meson_measure_id(struct meson_msr_id *clk_msr_id,
- 			    unsigned int duration)
- {
-@@ -1303,6 +2140,42 @@ static const struct meson_msr_data clk_msr_t7_data = {
- 	.reg = &msr_reg_offset_v2,
- };
++	return -1;
+ }
  
-+static const struct meson_msr_data clk_msr_a5_data = {
-+	.msr_table = (void *)clk_msr_a5,
-+	.msr_count = ARRAY_SIZE(clk_msr_a5),
-+	.reg = &msr_reg_offset_v2,
-+};
+ static bool is_jumbo_frm(unsigned int len, bool enh_desc)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/ring_mode.c b/drivers/net/ethernet/stmicro/stmmac/ring_mode.c
+index f7949419eb9fdca891a50ad0956f40e17f9b0967..4170c897bd1a8b5b757b576250e82e5407cfa325 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/ring_mode.c
++++ b/drivers/net/ethernet/stmicro/stmmac/ring_mode.c
+@@ -37,6 +37,7 @@ static int jumbo_frm(struct stmmac_tx_queue *tx_q, struct sk_buff *skb,
+ 	len = nopaged_len - bmax;
+ 
+ 	if (nopaged_len > BUF_SIZE_8KiB) {
++		unsigned int first_entry = entry;
+ 
+ 		des2 = dma_map_single(priv->device, skb->data, bmax,
+ 				      DMA_TO_DEVICE);
+@@ -62,8 +63,15 @@ static int jumbo_frm(struct stmmac_tx_queue *tx_q, struct sk_buff *skb,
+ 		des2 = dma_map_single(priv->device, skb->data + bmax, len,
+ 				      DMA_TO_DEVICE);
+ 		desc->des2 = cpu_to_le32(lower_32_bits(des2));
+-		if (dma_mapping_error(priv->device, des2))
++		if (dma_mapping_error(priv->device, des2)) {
++			dma_unmap_single(priv->device,
++					 tx_q->tx_skbuff_dma[first_entry].buf,
++					 bmax, DMA_TO_DEVICE);
++			tx_q->tx_skbuff_dma[first_entry].buf = 0;
++			tx_q->tx_skbuff_dma[first_entry].len = 0;
++			tx_q->tx_skbuff_dma[first_entry].is_jumbo = false;
+ 			return -1;
++		}
+ 		tx_q->tx_skbuff_dma[entry].buf = des2;
+ 		tx_q->tx_skbuff_dma[entry].len = len;
+ 		tx_q->tx_skbuff_dma[entry].is_jumbo = true;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 24656b35350b14454fb10deced6516eb89e2c0c9..9050611862108065dfa19c1a80961bd78073df9a 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -4767,15 +4767,15 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	bool enh_desc, has_vlan, set_ic, is_jumbo = false;
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 	unsigned int nopaged_len = skb_headlen(skb);
++	unsigned int first_entry, entry, tx_packets;
+ 	u32 queue = skb_get_queue_mapping(skb);
+ 	int nfrags = skb_shinfo(skb)->nr_frags;
+-	unsigned int first_entry, tx_packets;
+ 	struct stmmac_txq_stats *txq_stats;
+ 	struct dma_desc *desc, *first_desc;
+ 	struct stmmac_tx_queue *tx_q;
+ 	int i, csum_insertion = 0;
+-	int entry, first_tx;
+ 	dma_addr_t dma_addr;
++	int first_tx, ret;
+ 	u32 sdu_len;
+ 
+ 	if (priv->tx_path_in_lpi_mode && priv->eee_sw_timer_en)
+@@ -4832,9 +4832,10 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	csum_insertion = skb->ip_summed == CHECKSUM_PARTIAL;
+ 
+ 	if (unlikely(is_jumbo)) {
+-		entry = stmmac_jumbo_frm(priv, tx_q, skb, csum_insertion);
+-		if (unlikely(entry < 0) && (entry != -EINVAL))
++		ret = stmmac_jumbo_frm(priv, tx_q, skb, csum_insertion);
++		if (unlikely(ret < 0) && (ret != -EINVAL))
+ 			goto dma_map_err;
++		entry = ret;
+ 	} else {
+ 		bool last_segment = (nfrags == 0);
+ 
+@@ -4984,6 +4985,26 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
+ 
+ dma_map_err:
+ 	netdev_err(priv->dev, "Tx DMA map failed\n");
 +
-+static const struct meson_msr_data clk_msr_a4_data = {
-+	.msr_table = (void *)clk_msr_a4,
-+	.msr_count = ARRAY_SIZE(clk_msr_a4),
-+	.reg = &msr_reg_offset_v2,
-+};
++	/* entry points one past the last descriptor written for this frame:
++	 * on failure it is the descriptor whose DMA mapping failed, so walk
++	 * from first_entry up to, but not including, entry.  Reset cur_tx
++	 * unconditionally as both stmmac_vlan_insert() and stmmac_jumbo_frm()
++	 * may have advanced it, and release the VLAN context descriptor.
++	 */
++	while (first_entry != entry) {
++		desc = stmmac_get_tx_desc(priv, tx_q, first_entry);
++		stmmac_release_tx_desc(priv, desc, priv->descriptor_mode);
++		stmmac_free_tx_buffer(priv, &priv->dma_conf, queue, first_entry);
++		first_entry = STMMAC_NEXT_ENTRY(first_entry,
++						priv->dma_conf.dma_tx_size);
++	}
 +
-+static const struct meson_msr_data clk_msr_s7_data = {
-+	.msr_table = (void *)clk_msr_s7,
-+	.msr_count = ARRAY_SIZE(clk_msr_s7),
-+	.reg = &msr_reg_offset_v2,
-+};
-+
-+static const struct meson_msr_data clk_msr_s7d_data = {
-+	.msr_table = (void *)clk_msr_s7d,
-+	.msr_count = ARRAY_SIZE(clk_msr_s7d),
-+	.reg = &msr_reg_offset_v2,
-+};
-+
-+static const struct meson_msr_data clk_msr_s6_data = {
-+	.msr_table = (void *)clk_msr_s6,
-+	.msr_count = ARRAY_SIZE(clk_msr_s6),
-+	.reg = &msr_reg_offset_v2,
-+};
-+
-+static const struct meson_msr_data clk_msr_a9_data = {
-+	.msr_table = (void *)clk_msr_a9,
-+	.msr_count = ARRAY_SIZE(clk_msr_a9),
-+	.reg = &msr_reg_offset_v2,
-+};
-+
- static const struct of_device_id meson_msr_match_table[] = {
- 	{
- 		.compatible = "amlogic,meson-gx-clk-measure",
-@@ -1344,6 +2217,30 @@ static const struct of_device_id meson_msr_match_table[] = {
- 		.compatible = "amlogic,t7-clk-measure",
- 		.data = &clk_msr_t7_data,
- 	},
-+	{
-+		.compatible = "amlogic,a5-clk-measure",
-+		.data = &clk_msr_a5_data,
-+	},
-+	{
-+		.compatible = "amlogic,a4-clk-measure",
-+		.data = &clk_msr_a4_data,
-+	},
-+	{
-+		.compatible = "amlogic,s7-clk-measure",
-+		.data = &clk_msr_s7_data,
-+	},
-+	{
-+		.compatible = "amlogic,s7d-clk-measure",
-+		.data = &clk_msr_s7d_data,
-+	},
-+	{
-+		.compatible = "amlogic,s6-clk-measure",
-+		.data = &clk_msr_s6_data,
-+	},
-+	{
-+		.compatible = "amlogic,a9-clk-measure",
-+		.data = &clk_msr_a9_data,
-+	},
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, meson_msr_match_table);
++	tx_q->cur_tx = first_tx;
++	if (has_vlan) {
++		desc = stmmac_get_tx_desc(priv, tx_q, first_tx);
++		stmmac_release_tx_desc(priv, desc, priv->descriptor_mode);
++	}
+ max_sdu_err:
+ 	dev_kfree_skb(skb);
+ 	priv->xstats.tx_dropped++;
 
+---
+base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
+change-id: 20260909-stmmac-fix-vlan-desc-leak-f057bb061daa
+
+Best regards,
 -- 
-2.42.0
-
+ZhaoJinming <zhaojinming@uniontech.com>
 
