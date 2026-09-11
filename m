@@ -1,163 +1,253 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+Received: from mta0.migadu.com (out-56.mta0.migadu.com [91.218.175.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 569F3488741
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC0F5489FAF
 	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:57:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789135075; cv=none; b=IwCIRrUaBv+5ytuR3K/45JFjfJyWzDIe7UH/Ku9mWKjUcEyJAyrV4jYq4b20EUCiIISqPIZVpHWcUYWf/ZyIOvpxCO8n0VGwoIuHjbgqOYecrWnYUFKl1Mu323s2q+6KKucm0n9LmF+3KY4N50lCUiuGguzqrtdyQDNSW3PEIlc=
+	t=1789135078; cv=none; b=lqV7rntl7Q/pQumchr99Fs2ptrWcfBCjsGW36pIxIw6nHE1hmpjazDHYsHXgdn62bCIat7VrlbOecT1qOkNw+nWMCXhsZmxMa0BD7Z6QOkQyCmZ4y8EMKqbwTObvXN6ZekSXZTyo1Fc14Av7p+KK8n0yR8vkykrTVSeomczyw4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789135075; c=relaxed/simple;
-	bh=9eBuKjDz3ny53uBf6WqQdXwuOegweo9jZQOeUFrlVok=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tJmNMsUhaH4bbQTJc7245RG00JZ/xK7+52I1BYFA1ndtOfyEUGRyE59Wkx4ZFU52VU/w1b8mIYcMR0UWhbbtAUefbLQSBGS8aypZhSeoo+kVnPY7PncZ9VeWvl9j5zpNhwF7e5BZHy4QeAclr8L1oo2ngka5lrZN42hwusppvtA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m1qhPjKu; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789135078; c=relaxed/simple;
+	bh=vnXi2B+daHTrr8d0jD+YCxvt2qRsjGk5xYPqsZdUD00=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kBraNq/AyJ49sx5+NFmP/x/8NTcy+QQd5nSeBSuiwZF1Z9Bm2wB4KcMKj4qPLglamafpMm6ZWpN/S0PptfjWkzSrXjKVCi34wEjGkNXXoSKUHeptG/9O3KfUfZP+ggpCK3O22j44xjpIdW7dPdk+75fmhInrLUfXUwSRleRLxS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xqPzYTNZ; arc=none smtp.client-ip=91.218.175.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m1qhPjKu"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-395cf2535acso989944a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:57:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789135072; x=1789739872; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qKIOM3kpSjMhFc76Q4cEA0mjbhU13/mUJ6uhz3Hv6NY=;
-        b=m1qhPjKuBNjeoueWgBxxJabysTKalNhYf0wedS/vH/xjv9jyMRdFnan0BZHIFTYbIn
-         GghZh1SSJ3fD7oDY0fktAsBdwdcIF5j+7zY37tdZPLRvYunKxdVx6irdKI7kUixcT1W0
-         qRnWJGOMpeRgo5dAZZIf86oQHRiHWPZC2kmeJWFbht+KFCs+dRQ2SAjZghppC0wuhjNc
-         tEMPuX7Aw8HAQIWnAGo/75J2a2Qhu3YBki12yPRTqGTODVgGbe3BOQmGAWvKI9CEcTY1
-         +VHXWlLDFUsw1+qz0AN0JDMcm5MGFh8CGxjdou+3C3v9UHZ7NX1MwnVb6nsbkxa9FaEi
-         UklA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789135072; x=1789739872;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=qKIOM3kpSjMhFc76Q4cEA0mjbhU13/mUJ6uhz3Hv6NY=;
-        b=MjRQ4uY7Ye9uSRYvyl6eCDAA3dKGOxWPD9u5q/EiUCbTzH8z8P51D+W0tABOOo/ZQN
-         6eJSj7LEnsRSGGCmC36phSoRJTJXu9vSv72IQsx9bVGRMGrDo9hH0sUE4381bMlCjWJt
-         WP8SjjdmoDJVPl9As07Tc4dqxHNfoAwsWQZ5Zt8lzazu4hJzUJ2f5dOLca5SoBi/joqF
-         trXuqR4KFTZ5zNwFuTFFtfsMYld/sIhbVq6c8PPCr5ea3avTpGrcYoo2qD0OspAp+6vI
-         fLQzRsGWNo1UKfglF2uKknsNHRNGl+Oh97yDZwTn+mfMTcBXVMo/Tl7qwOUt/WSMEP/n
-         yzeA==
-X-Forwarded-Encrypted: i=1; AKwUvBysnj4T+jQ5nt+nHXHsDUtJKqCCsxey6l5RIMz/hofQp0j+rGZgqOgjbZIm7A2GC8H+wRvT9dvtwXW6l2c=@vger.kernel.org
-X-Gm-Message-State: AFuF++kP9C3T//anCUCWjDTPCuN+RiG2V/zNYhccp1x60MkRRxhbaApz
-	r/iBz1SGRJVnmtn5zOsDOM1D1YDIna7oloQLTwPiBT/Ch32nCAVCBgiB
-X-Gm-Gg: AYBFou1N95JD8x1Uc0+BqJxe7XdbQCJA//7RyvAyUU3XxZmYP9hbOVcIWMWscGu7+u7
-	VjSP9hxJmNsPNdye2tJlBqrysMMuR5wztbo7AijP+PFOoC8ksLN/FfycjfMFzdam+ny1N79vylA
-	lfyKO6ONAc9BKdSW6SdaRePXcADl/mLcIv/CjPYBIMagRvBlt3U2h+LngO0v7/bKWSp5CQpj1SB
-	6H/9FVWF8LODs/kqP3BoehdY4rIhYjb0M+jcXqXlEWa1XK2+swDtO+DmISF288jlf/cxb5mWSn2
-	TOPXGzy0597UAfa5iubCSAjks9IdO5RRVs5UHZza6scAXzG+UcyxJKx14C0Ju4t1wNwFbWXtsQI
-	14mPWfLAvDmHUsw5uAY73Sf102x9Ud/dQVEPYcSkSNTILEuU/9siVbM0pudcRvkktU8KNYfrNfw
-	/dvjEfNVGQo+grFcZN0yPsrh6IwVYRY8PELX31Q3jlSIHdeYzKu45JCJfWoT0iUsyLiAfrU1so0
-	L1dPCcsgUr1IHgPpHMJPswLVCP66bSKnDxo72G790rpTIi8MDxOpdzBVrI=
-X-Received: by 2002:a17:90b:5291:b0:396:7c01:553f with SMTP id 98e67ed59e1d1-39d77b1d014mr11751578a91.21.1789135072379;
-        Fri, 11 Sep 2026 06:57:52 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365ba729dsm10784182c88.14.2026.09.11.06.57.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 06:57:51 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <af677e7d-a605-4e63-8fad-6bf491dade07@roeck-us.net>
-Date: Fri, 11 Sep 2026 06:57:49 -0700
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xqPzYTNZ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=vnXi2B+daHTrr8d0jD+YCxvt2qRsjGk5xYPqsZdUD00=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789135071; v=1; x=1789739871;
+ b=xqPzYTNZuAEu5rRdHiS6DR3nsAs4wZqszkLIMSugKgQDs86jI9+/hapdMjsyGO/pCy64oEIG
+ DSaEiLI/qudg+DTzo/F/Mqcee+AbW/Jfuw11JkY+S6aFtWM6gzcVYT9EejKwrOvRuP40PPWonVa
+ tNElVuOp3dEOMTRW9BuOpM+Y=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 02f6325c21f55bda;
+	Fri, 11 Sep 2026 13:57:51 +0000
+X-Mizu-Trace-ID: 02f6325c21f55bda
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: bpf@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	syzbot+237bbeed8dfe0699b7f5@syzkaller.appspotmail.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Simon Horman <horms@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Shuah Khan <shuah@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Hangbin Liu <liuhangbin@gmail.com>,
+	Martin Karsten <mkarsten@uwaterloo.ca>,
+	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>,
+	Eelco Chaudron <echaudro@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH bpf v3 1/2] bpf, veth: xdp: fix page_pool page leak on skb-backed XDP
+Date: Fri, 11 Sep 2026 21:56:51 +0800
+Message-ID: <20260911135711.109338-2-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260911135711.109338-1-jiayuan.chen@linux.dev>
+References: <20260911135711.109338-1-jiayuan.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] hwmon: (cgbc-hwmon): Fix current sensors ID lookup
-To: Thomas Richard <thomas.richard@bootlin.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Werner Gartner <Werner.Gartner@congatec.com>, linux-hwmon@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, stable@kernel.org
-References: <20260910-cgbc-hwmon-fix-and-new-sensors-v1-0-ef13ae2fa147@bootlin.com>
- <20260910-cgbc-hwmon-fix-and-new-sensors-v1-1-ef13ae2fa147@bootlin.com>
- <b7a59fe6-f8a9-49ae-bbff-c3785dc19ecd@roeck-us.net>
- <21dbb615-25c0-457e-821d-6cfd6945a3c5@bootlin.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <21dbb615-25c0-457e-821d-6cfd6945a3c5@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/11/26 00:23, Thomas Richard wrote:
-> On 9/11/26 2:58 AM, Guenter Roeck wrote:
->> On Thu, Sep 10, 2026 at 03:28:21PM +0200, Thomas Richard (congatec GmbH) wrote:
->>> Current sensors on the Congatec Board Controller don't use consecutive IDs,
->>> unlike other sensor types (voltage, temperature, fan). The driver assumed
->>> consecutive IDs and performed a simple lookup, which caused an unknown
->>> sensor warning. Define current sensor IDs explicitly.
->>>
->>> Changes the warning on conga-SA7 (type and channel are correct now).
->>> Before:
->>>    Board Controller returned an unknown sensor (type=2, channel=17), ignore it
->>> After:
->>>    Board Controller returned an unknown sensor (bc_type=1, bc_id=11), ignore it
->>>
->>> Cc: stable@kernel.org
->>> Fixes: 08ebc9def79f ("hwmon: Add Congatec Board Controller monitoring driver")
->>> Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
->>
->> Applied.
->>
-> 
-> You pointed me that Sashiko reported a missing cgbc_hwmon_info array but
-> you applied the patch. Should I send a v2 or an other patch to fix it?
-> 
-Sorry, too much going on. Either way is fine.
+bpf_xdp_shrink_data() frees a released frag via __xdp_return() using
+xdp->rxq->mem.type, but that type is wrong for skb-backed XDP: the skb is
+cow'd into page_pool memory while the rxq still says MEM_TYPE_PAGE_SHARED,
+so the page_pool page is freed with page_frag_free() and we hit
+"Bad page state ... page_pool leak".
 
-Thanks for the reminder.
+Both generic XDP and veth are affected. A non-linear skb is cow'd into
+page_pool memory (skb_cow_data_for_xdp() -> skb_pp_cow_data() for generic
+XDP, veth_convert_skb_to_xdp_buff() for veth), so its frags become
+page_pool pages while the rxq keeps MEM_TYPE_PAGE_SHARED.
 
-Guenter
+We can't just fix rxq->mem.type in place:
+- generic XDP: xdp->rxq is dev->_rx[queue].xdp_rxq (see
+  bpf_prog_run_generic_xdp()), a shared rxq that other CPUs may access in
+  parallel, so we must not write to it.
+- veth: rq->xdp_rxq.mem is shared per-queue state that veth resets on XDP
+  teardown, and with GRO that reset runs without stopping in-flight NAPI,
+  so a type stashed there can be clobbered under a packet still in flight.
+
+Adding a check in __xdp_return() or bpf_xdp_shrink_data() itself is not an
+option either: without recording it somewhere, both can only guess the
+frag's memory type, which quickly gets confusing.
+
+So record it in the xdp_buff. A dedicated mem_type field (mirroring
+xdp_frame->mem_type) would read more naturally, but it grows xdp_buff, and
+struct xdp_page_head embeds two of them, which shifts the layout the
+xdp_do_redirect live-frames selftest hard-codes (MAX_PKT_SIZE). So use a
+flag bit: add XDP_FLAGS_FRAGS_PAGE_POOL, the two skb-cow sites set it, and
+bpf_xdp_shrink_data() frees the frag to the page_pool when it is set,
+otherwise it keeps falling back to xdp->rxq->mem.type unchanged.
+
+The flag describes the buff, so the buff <-> frame conversions have to keep
+it consistent:
+- buff -> frame: xdp_update_frame_from_buff() copies xdp->flags into the
+  frame. veth XDP_TX/XDP_REDIRECT hand the frame to the peer, and cpumap
+  and devmap run a second program on it, so the peer would inherit a stale
+  tag; strip it, an xdp_frame describes its memory with ::mem_type.
+- frame -> buff: xdp_convert_frame_to_buff() rebuilds a buff, and veth and
+  devmap then run a program whose rxq says MEM_TYPE_PAGE_SHARED even for a
+  page_pool frame (only cpumap copies mem_type into the rxq). A shrink
+  there leaks the same way (this predates the series: bpf_xdp_adjust_tail()
+  frees frags by rxq->mem.type), so re-derive the flag from the frame's
+  ::mem_type.
+
+Fixes: e6d5dbdd20aa ("xdp: add multi-buff support for xdp running in generic mode")
+Fixes: 0ebab78cbcbf ("net: veth: add page_pool for page recycling")
+Fixes: bf25146a5595 ("bpf: add frags support to the bpf_xdp_adjust_tail() API")
+Reported-by: syzbot+237bbeed8dfe0699b7f5@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=237bbeed8dfe0699b7f5
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
+ drivers/net/veth.c |  6 ++++++
+ include/net/xdp.h  | 30 +++++++++++++++++++++++++++++-
+ net/core/dev.c     |  6 ++++++
+ net/core/filter.c  |  7 +++++++
+ 4 files changed, 48 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/veth.c b/drivers/net/veth.c
+index 6ed3ee81153fb..a3fdf1959b76c 100644
+--- a/drivers/net/veth.c
++++ b/drivers/net/veth.c
+@@ -775,6 +775,12 @@ static int veth_convert_skb_to_xdp_buff(struct veth_rq *rq,
+ 	if (skb_shinfo(skb)->nr_frags) {
+ 		skb_shinfo(skb)->xdp_frags_size = skb->data_len;
+ 		xdp_buff_set_frags_flag(xdp);
++		/*
++		 * A nonlinear skb was cow'd into rq->page_pool above, so the
++		 * frags must be freed to that pool, not via the rxq's
++		 * MEM_TYPE_PAGE_SHARED.
++		 */
++		xdp_buff_set_frag_pp(xdp);
+ 	} else {
+ 		xdp_buff_clear_frags_flag(xdp);
+ 	}
+diff --git a/include/net/xdp.h b/include/net/xdp.h
+index aa742f413c358..8fd4139e9cbd3 100644
+--- a/include/net/xdp.h
++++ b/include/net/xdp.h
+@@ -81,6 +81,14 @@ enum xdp_buff_flags {
+ 	 * XDP program is not attached.
+ 	 */
+ 	XDP_FLAGS_FRAGS_UNREADABLE	= BIT(2),
++	/*
++	 * frags are page_pool memory even though rxq->mem.type is not: a
++	 * skb-backed XDP buff (generic XDP, veth) is cow'd into a page_pool.
++	 * xdp_buff only: an xdp_frame describes its memory with ::mem_type, so
++	 * this is stripped in xdp_update_frame_from_buff() and re-derived from
++	 * ::mem_type in xdp_convert_frame_to_buff().
++	 */
++	XDP_FLAGS_FRAGS_PAGE_POOL	= BIT(3),
+ };
+ 
+ struct xdp_buff {
+@@ -131,6 +139,16 @@ static __always_inline void xdp_buff_set_frag_unreadable(struct xdp_buff *xdp)
+ 	xdp->flags |= XDP_FLAGS_FRAGS_UNREADABLE;
+ }
+ 
++static __always_inline void xdp_buff_set_frag_pp(struct xdp_buff *xdp)
++{
++	xdp->flags |= XDP_FLAGS_FRAGS_PAGE_POOL;
++}
++
++static __always_inline bool xdp_buff_is_frag_pp(const struct xdp_buff *xdp)
++{
++	return !!(xdp->flags & XDP_FLAGS_FRAGS_PAGE_POOL);
++}
++
+ static __always_inline u32 xdp_buff_get_skb_flags(const struct xdp_buff *xdp)
+ {
+ 	return xdp->flags;
+@@ -394,6 +412,15 @@ void xdp_convert_frame_to_buff(const struct xdp_frame *frame,
+ 	xdp->data_meta = frame->data - frame->metasize;
+ 	xdp->frame_sz = frame->frame_sz;
+ 	xdp->flags = frame->flags;
++	/*
++	 * frame->flags never carries XDP_FLAGS_FRAGS_PAGE_POOL (it is stripped
++	 * in xdp_update_frame_from_buff()); re-derive it from the frame's own
++	 * memory type. veth and devmap rebuild a buff here and run a program
++	 * whose rxq says MEM_TYPE_PAGE_SHARED, so without this a shrink would
++	 * free a page_pool frag through page_frag_free().
++	 */
++	if (frame->mem_type == MEM_TYPE_PAGE_POOL)
++		xdp_buff_set_frag_pp(xdp);
+ }
+ 
+ static inline
+@@ -420,7 +447,8 @@ int xdp_update_frame_from_buff(const struct xdp_buff *xdp,
+ 	xdp_frame->headroom = headroom - sizeof(*xdp_frame);
+ 	xdp_frame->metasize = metasize;
+ 	xdp_frame->frame_sz = xdp->frame_sz;
+-	xdp_frame->flags = xdp->flags;
++	/* XDP_FLAGS_FRAGS_PAGE_POOL is xdp_buff only, don't carry it over */
++	xdp_frame->flags = xdp->flags & ~XDP_FLAGS_FRAGS_PAGE_POOL;
+ 
+ 	return 0;
+ }
+diff --git a/net/core/dev.c b/net/core/dev.c
+index 290e0f099e6bf..94268f4d3c5f7 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -5532,6 +5532,12 @@ u32 bpf_prog_run_generic_xdp(struct sk_buff *skb, struct xdp_buff *xdp,
+ 	if (skb_is_nonlinear(skb)) {
+ 		skb_shinfo(skb)->xdp_frags_size = skb->data_len;
+ 		xdp_buff_set_frags_flag(xdp);
++		/*
++		 * A nonlinear skb was cow'd into page_pool memory by
++		 * skb_cow_data_for_xdp() before we got here, so the frags must
++		 * be freed to that pool, not via the rxq's MEM_TYPE_PAGE_SHARED.
++		 */
++		xdp_buff_set_frag_pp(xdp);
+ 	} else {
+ 		xdp_buff_clear_frags_flag(xdp);
+ 	}
+diff --git a/net/core/filter.c b/net/core/filter.c
+index 61940e7535523..d34ba56d79d8f 100644
+--- a/net/core/filter.c
++++ b/net/core/filter.c
+@@ -4378,6 +4378,13 @@ static bool bpf_xdp_shrink_data(struct xdp_buff *xdp, skb_frag_t *frag,
+ 	if (mem_type == MEM_TYPE_XSK_BUFF_POOL) {
+ 		netmem = 0;
+ 		zc_frag = bpf_xdp_shrink_data_zc(xdp, shrink, tail, release);
++	} else if (xdp_buff_is_frag_pp(xdp)) {
++		/*
++		 * Skb-backed XDP (generic XDP, veth) cow's the frags into a
++		 * page_pool while the rxq stays MEM_TYPE_PAGE_SHARED, so free
++		 * the frag to the pool, not via page_frag_free().
++		 */
++		mem_type = MEM_TYPE_PAGE_POOL;
+ 	}
+ 
+ 	if (release) {
+-- 
+2.43.0
 
