@@ -1,119 +1,108 @@
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483194A3D5D
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:32:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F85B4A4839;
+	Fri, 11 Sep 2026 16:32:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789144350; cv=none; b=HhixsgT0x7qwjvUJfuQKb1jxw5d1NKKD4KTnb489TL10CnoPhr90aKEVsFThP7saNLzz3IWTOcmOLpop38Agrs/726fkajG9dHJF0KSiwPBT4xyVYkGM/CF+dmQvMajQxU2CCXK/wAOeg0QXVzJKUZQANT581URQ2yDKmmAHaAQ=
+	t=1789144364; cv=none; b=JFuVZt5Gzyuxsz4YQjqWNY3xtljJkFMjaV86kiHHzPRWBWJgNLRL63DMPKVDWs4MBfWZ+tGmDQL21Nray1dP7ClE2yVkz/qd6w4ggq5h3XRSd5U9u3NtvcXPqMaZseQmUkX9iAVLI5k7Gf+oc0XZjRgdrWeWut67S8ll7t8nS2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789144350; c=relaxed/simple;
-	bh=LmLURsucfjs32AbOYiyZoOtbcqUK///GisZHcJZVReA=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=DZU5Zu9lK7S3IvitjWs+8dtRjH9LltcMLMs9E/WAi0bM/KJtvdALwj/IbppGjJd65x5bvKvlz8pa0LuqzqVUYuDAApPU0wOoU0bVmVqC+Hg5312oR9nEYIGOEa6I2i+mb+YlxnzcRANBuAk0KppI97iQxcSd0kep1bX3NAMLUfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=CNKmtWIE; arc=none smtp.client-ip=209.85.210.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1789144364; c=relaxed/simple;
+	bh=vWlL7Yc7fRS8E4xC9N90Lwyz026gOKY3bS2GTgygApM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o3cqvhQ8EE9R5x9NLP46n/Io/Yk/k9UvzQsVHjUnA8mZI0LHa+1VdbwxWAUyduVf0PUMScMbv/YHq3rUBuA7cvPKfXiGuKlt6BzWSLfp8r2VCe7Ko58yI1AEtDUCfoW/refoGxzyUjZprfz1CxqS6ctnLgLvZfd4nPuYljgsXkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cHAyED/5; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="CNKmtWIE"
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-86a74698972so1297814b3a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:32:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789144341; x=1789749141; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZUA0SlbNNCb5gpe+rn2BHKxNgOo4ftcmt0Vnmc/8Eb4=;
-        b=CNKmtWIE6BSf2CJuvn9loIypaD8fl4/w/jzHOdVaYB360qvDxIOtBvGND1OC3+0vzq
-         mFCYeB5NqMau8mJcCMuSMkVRyFMNY5ZyD4F/5JX6JSPGg4nV7GfL1MxIwJe6XKdmQpFL
-         DxnabQzySwl8Clur7h6EGm+s/c94iXCLbNty2pNdMW2gfqMCoTc3hJ+OibeISrDEAHCo
-         wAukYRfvmOLtwpOu6feczY5g69yqoH0Qdczl+qcJezPBY2zMIHUtijmfHG3x+x1V2bd/
-         PxJDbLevTfIgRwbo37UihfbmSmWxCzNJ5AEw7wUWNVC4TEpC+DDK/5qiTutm30uFLepl
-         3z7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789144341; x=1789749141;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZUA0SlbNNCb5gpe+rn2BHKxNgOo4ftcmt0Vnmc/8Eb4=;
-        b=ZNMnn603EYG4nmhenK/pTfxjGvZrrnEID96/UbqX8IUIssmr3d0M7wiD23VsN7PigQ
-         njz+krzKJs5NUKH7fL26BxpOY4l2RPP5m0khvDlF638aiR9oOK94dklvPWOp+YYittJw
-         2AXIZXfjR1Oqx9xV2yqU48rCulzqaYzNCYMgvplPsY1uh+cL2LKCXfnHI1W5RrBmgN3u
-         i0ufK7b7d6DW1fir+MLHtrJK2BIo7+Gx2l+ZXtdkxf8mnKOl2ItkSOZWMdG8kQdTaGot
-         Gv+SdCfCVYpYKjBomPbwmbBgg/QooT7tdwTuHCumrLDCo44xRmitUOULCUr/fgkIq/Op
-         5xoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxuR48ijGz45sXR12CzxAb6YTfrPp3mbDKG9v6+xromm1JBlXVRKMYJH+8XkhmbQpaaRWD7CfMko57OVrE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mexsej99vEFZ8444sJ2/cfqYIl4rtfeZWn7y7xiZtfwCNOqqEZ
-	fM+yX3QKxS8zt90LaM22GiC4KLjPllaY/poY45RZgP5S0TK1+LxhjW2vmy4MF1wqUYcFhlADATX
-	cFrKpJA==
-X-Received: from pffl16-n2.prod.google.com ([2002:a05:6a00:c350:20b0:847:b24a:75d2])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:3a1c:b0:847:7f3c:b5f5
- with SMTP id d2e1a72fcca58-86b30413312mr7137606b3a.11.1789144340903; Fri, 11
- Sep 2026 09:32:20 -0700 (PDT)
-Date: Fri, 11 Sep 2026 09:32:20 -0700
-In-Reply-To: <20260910115414.3015260-10-ewanhai-oc@zhaoxin.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cHAyED/5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789144361; x=1820680361;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=vWlL7Yc7fRS8E4xC9N90Lwyz026gOKY3bS2GTgygApM=;
+  b=cHAyED/5FtSP3qS7n22EZAUl6jdiw9wDPdmE1rrj0BXAKysEAip8/CD/
+   Qy5FyYLWd4WRnhy2odLb5M0h3N3S+NEupk7vCJrfKfsmKtCIeXs9M5zCy
+   QQM5oC+7C9t/9tg0I46xb5ZwYBsldVkBl35ibZL99u7zC3tyKCTBhS4VH
+   w8RVYOu26sb4uS+iLWeeKaXCvHZoWzGdOpKJlqHkukWb4crThs/YT6MCc
+   Fw23YCVwicfDP4lpgi5z07Zx++j5lDrxJpRDBb8fhkwfUqKA6ZkMTdDkF
+   5wq4No7VvPjnga8rXvV0R/V3TFafO18HYl2hyOHfPHY/YxFRm4MAAn+8a
+   w==;
+X-CSE-ConnectionGUID: m1sy8DUaSPWIp2RLYDJ/rg==
+X-CSE-MsgGUID: Bf62T6UMTgCpT2/Z++TbgQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="115147958"
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="115147958"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:32:36 -0700
+X-CSE-ConnectionGUID: h2rd0FdhTBOEnW0a6D8xXA==
+X-CSE-MsgGUID: 3E7sRbJfQ7ep6+lphOwUpg==
+X-ExtLoop1: 1
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.80])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:32:34 -0700
+Date: Fri, 11 Sep 2026 19:32:32 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Linux ACPI <linux-acpi@vger.kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	Linux PM <linux-pm@vger.kernel.org>,
+	Lukasz Luba <lukasz.luba@arm.com>, Armin Wolf <w_armin@gmx.de>
+Subject: Re: [PATCH v1 04/10] ACPI: processor: thermal: Use
+ thermal_cooling_device_create()
+Message-ID: <aqQtIMm-gdJoZAsq@ashevche-desk.local>
+References: <1965933.tdWV9SEqCh@rafael.j.wysocki>
+ <2362345.iZASKD2KPV@rafael.j.wysocki>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260910115414.3015260-1-ewanhai-oc@zhaoxin.com> <20260910115414.3015260-10-ewanhai-oc@zhaoxin.com>
-Message-ID: <aqQtFOzx35CVqfDK@google.com>
-Subject: Re: [PATCH v2 9/9] KVM: selftests: vmx_apic_access_test: Check APIC
- virtualization support
-From: Sean Christopherson <seanjc@google.com>
-To: Ewan Hai-oc <ewanhai-oc@zhaoxin.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>, 
-	Frank Zhu <frankzhu@zhaoxin.com>, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, ewanhai@zhaoxin.com, cobechen@zhaoxin.com
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2362345.iZASKD2KPV@rafael.j.wysocki>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Sep 10, 2026, Ewan Hai-oc wrote:
-> diff --git a/tools/testing/selftests/kvm/lib/x86/vmx.c b/tools/testing/selftests/kvm/lib/x86/vmx.c
-> index 089e1a8af..e512191f1 100644
-> --- a/tools/testing/selftests/kvm/lib/x86/vmx.c
-> +++ b/tools/testing/selftests/kvm/lib/x86/vmx.c
-> @@ -390,6 +390,21 @@ bool kvm_cpu_has_ept(void)
->  	return ctrl & SECONDARY_EXEC_ENABLE_EPT;
->  }
->  
-> +bool kvm_cpu_has_vmx_apic_access_virt(void)
+On Fri, Sep 11, 2026 at 03:02:53PM +0200, Rafael J. Wysocki wrote:
 
-This should be kvm_cpu_has_vmx_virtualize_apic_accesses() to match the macro, and
-to match what KVM itself uses.
+> Instead of using thermal_cooling_device_register() for registering
+> a cooling device in the ACPI processor driver, make it use
+> thermal_cooling_device_create() and pass a pointer to the processor
+> device representing the given CPU to that function as the cooling
+> device's parent.  That will cause the cooling device's sysfs directory
+> to be created under the parent's sysfs directory (among other things).
+> 
+> Since creating a class device under a parent causes a "device" symbolic
+> link from the sysfs directory of the class device to the sysfs directory
+> of the parent to appear automatically, remove the code creating the
+> "device" symbolic link from the sysfs directory of the cooling device
+> in question to the sysfs directory of the parent's companion ACPI
+> device.  That ACPI device is reachable through the "firmware_node"
+> symbolic link in the parent's sysfs directory regardless.
+> 
+> Moreover, since the cooling device is now located in sysfs under its
+> parent and it can be easily identified as a cooling device, there is
+> no need to create a "thermal_cooling" symbolic link from its parent's
+> ACPI companion to it.  Accordingly, also remove the code creating that
+> symbolic link.
+> 
+> While at it, check for error pointer values in addition to checking
+> for NULL in acpi_processor_thermal_exit() to avoid dereferncing them
 
-> +{
-> +	u64 ctrl;
-> +
-> +	if (!kvm_cpu_has(X86_FEATURE_VMX))
-> +		return false;
-> +
-> +	ctrl = kvm_get_feature_msr(MSR_IA32_VMX_TRUE_PROCBASED_CTLS) >> 32;
-> +	if (!(ctrl & CPU_BASED_ACTIVATE_SECONDARY_CONTROLS))
-> +		return false;
-> +
-> +	ctrl = kvm_get_feature_msr(MSR_IA32_VMX_PROCBASED_CTLS2) >> 32;
-> +	return ctrl & SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES;
+Typo: dereferencing
 
-Carve out the guts of kvm_cpu_has_ept() into a helper isntead of copy+pasting.
+> mistakenly.
 
-> +}
-> +
->  void prepare_virtualize_apic_accesses(struct vmx_pages *vmx, struct kvm_vm *vm)
->  {
->  	vmx->apic_access = (void *)vm_alloc_page(vm);
-> diff --git a/tools/testing/selftests/kvm/x86/vmx_apic_access_test.c b/tools/testing/selftests/kvm/x86/vmx_apic_access_test.c
-> index 463f73aa9..a1b6da4c0 100644
-> --- a/tools/testing/selftests/kvm/x86/vmx_apic_access_test.c
-> +++ b/tools/testing/selftests/kvm/x86/vmx_apic_access_test.c
-> @@ -78,6 +78,7 @@ int main(int argc, char *argv[])
->  	struct kvm_vm *vm;
->  
->  	TEST_REQUIRE(kvm_cpu_has(X86_FEATURE_VMX));
-> +	TEST_REQUIRE(kvm_cpu_has_vmx_apic_access_virt());
+...
 
-This can replace the X86_FEATURE_VMX check, since KVM shouldn't report support
-for virtualizing APIC accesses without VMX.
+Is any user space ABI breakage expected as an outcome of this change?
 
-No need for a new version, I'll fixup everything when applying.
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
