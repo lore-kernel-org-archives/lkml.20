@@ -1,107 +1,58 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [217.70.183.193])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E4A944F55E
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:16:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AFF046D548;
+	Fri, 11 Sep 2026 12:17:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789128997; cv=none; b=lTVz5OZ22ch47GWNrpeBamq856XwLUUMrexsY2KA4hLYPg7Tz+f1uWirC4MBPp237OMUJVGmN9TEvy+9I3zEPumIKP/bY6+eYXrjunnVuEnALWd+k6CQOxNTpJIBA7yoLaC6z2uHFVgHuzy1OnimuhoVVernevnxAexVhYXtOBI=
+	t=1789129036; cv=none; b=TrVD8DgRID5tUJ2aTz9XLaP/BzS1/SolUYF3R0e2xrauP7NMA65Ia/SHIMjWbVsdwPm7zsz77RymMvvv/n0hmvgih54KrDprskq/tHNp4uMwIOjQeujUuuhJvoaIcfZqVPpzDzpMOqv6dFjkZJUfgKLZw6OkLqOhl5/1OVR4IcU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789128997; c=relaxed/simple;
-	bh=6j/r9yvub7FH1ktXyNHoVKCJiNGlNg0k7LU+GyyCF9o=;
+	s=arc-20240116; t=1789129036; c=relaxed/simple;
+	bh=hgG4ex11E74cUjRpihO9PAt9otkIlr4zzhbWOYoUoiY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CaCHGM9510IKwhBG2xmNr2nFEWeU1KTLHJ4HUhlSGTDjAL9r88kbU+QI5wm09eGyRUm5XwoA8i1GTNl+75HgKiNFn2jD2kPbykYElo+3S3IuLBMk+z1C8zhwGGZBD4ZT+hB7GrZq89rjE5sG3iOGihgjcnqM6QkfVlA5+HNw6xM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=HM/oPo8X; arc=none smtp.client-ip=209.85.210.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="HM/oPo8X"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-852c481415fso1043619b3a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:16:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1789128992; x=1789733792; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=slvqYs+iaXZQUFiWP3raPQ3MYOooTUinSrFApU/wWdw=;
-        b=HM/oPo8Xdk/qMi6VRFVI47jnAyu9aq4wBlkdpNtamCOaN4TLKbVatV/LYX5KsHvFor
-         vvUGj534/K417Xa9z9Vyeot+gQmkCuoZHmdibpE0ciiEfZhe6cVKQLF5yVP4tn6EiviR
-         G93iMsieFkGyvX7z55rV3ZR9i0+HgSHIfYAkB+0x2bWXbi24qkQjO1zTfU32mqu8EGhw
-         ElLFWIwS+Mm23aFeivF4gFhDaNu++wPiNCy+1qLc3EknUy2B8COD66cCs+Dg60r76zjk
-         L4IenKIEr7b3gJPEthbwVwd/ym56rRnwhChlV/DbpWEQdUQb6G4TgEepOW5o1Aq8uhji
-         wGEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789128992; x=1789733792;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=slvqYs+iaXZQUFiWP3raPQ3MYOooTUinSrFApU/wWdw=;
-        b=UXPaqFU0WB45ha6oj5A/iFr2br8ueMU4KYv2TL5jLtqPbjW3X7PnpEvEMjK7O+omA/
-         nQrZahXVW+dno8YGzzfErrK9+pKo4WipLL8bndpj0GeXD7rKnTBE3tD2QDbpRcckOfv4
-         iMk1wqjTO2koFvRpuRcv5kDIBg2uKIluIxDMjw7lxpzyr1SQqqTxjD3q/6Rhyp3Hpfmj
-         iEXCFuOjnvrsgf5PY7LclbmYmWqkUgb8gR0aoX9R0/IF6RzcWz1CIIQAZ8+Oi1dQrAEZ
-         0RNiskKySkCTxBXASaY0A2YUg/IZYGzAvUB+rsehgPQgEXkl828agHS3L08+t8HtnBFb
-         N5aA==
-X-Forwarded-Encrypted: i=1; AKwUvBy6vbn/azKe6XsKUKNBoMDUbtCUwxjSzY+jiCPyH4jeyXo1FQ6Qxc695MQXFwUh04VnMjYuJyo0Uu7XSRc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mk2Y0no3rkOEx6HiuOjPh6QS1KrCYdX8h3OAVQW0KG6GrfFKi7
-	gfllREScEbB4zsVFYNvMZPn02g7fRyAqWpao99RuLKxqA1TnAs+585Nr8hT2U5CdZ00=
-X-Gm-Gg: AYBFou0zJ7Q2JK1tmKqzrggJJcPQwIKuXJa4SzaLKGjKSVKP7K5mISxzB10jXpOYvA1
-	gbfwE/1opGr7lUTEKBpEO+Qp3tGgHQ7VtrD06MsWXexaPbFT1+fx5aXNMDtstLdrhm1mbdNiRLx
-	8Uj1jxJQNYou+AYWeGZmTIpn9UtTGBzCWDDqZ25EcLvPYcL5CR+vzpTTh+Ng1ISmmUCZtTvyfyo
-	ogcMwVrcu4qudeW2wW/bTAkGg+6t10n/lGLZHRsSsjaRjoXEkEicxIpoIG0YNmX/t8PaGqsp5ao
-	K7pT3W/5253mXH5IluOqSZgXHD84ATc2mp49KyLvnTo8Au+YJU1T0q7rn2khWpxB45/lgDGIbpM
-	RT4YCvpw2eeSpOFc1NXRQKGG0yHFVThlveiFyTNG+e20yJxz3uf7zTDLvi/kvgo0oZ3fnmRwwDZ
-	0aOrTd3+uK+I9oYSfP+AYxqKqtICoL54DsJCQIYgX1asWPC9C6kvkIaVLwWPv5/4DnWr1veRCbh
-	5qZ67P39YALAjH5kHF5+ZnILcyLNUZ1V8f0zSdLRXT4gSFaOkK+
-X-Received: by 2002:a05:6a21:6f88:b0:3c3:6f6c:aa21 with SMTP id adf61e73a8af0-3daed20aeabmr8176798637.11.1789128992272;
-        Fri, 11 Sep 2026 05:16:32 -0700 (PDT)
-Received: from FJ7FR2JRQ3 ([2409:8a28:f48:3091:908c:b537:572a:4db0])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33baf0ea9a1sm3178278eec.8.2026.09.11.05.16.12
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 11 Sep 2026 05:16:31 -0700 (PDT)
-From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>,
-	Conor Dooley <conor@kernel.org>,
-	Anup Patel <anup@brainfault.org>
-Cc: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <cleger@rivosinc.com>,
-	Yunhui Cui <cuiyunhui@bytedance.com>,
-	Atish Patra <atish.patra@linux.dev>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Will Deacon <will@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Yuanzhu <yuanzhu@bytedance.com>,
-	Yicong Yang <yang.yicong@picoheart.com>,
-	Susheng Yang <yang.susheng@zte.com.cn>,
-	linux-riscv@lists.infradead.org,
+	 MIME-Version; b=idaZjo0ucuV2m9hOjO7Ezj8aI0/iapRYKV6EOk4v2cxrIIvShfUraP/IqetudE1E8kV7VRsV8Vcf6dH4jfXcQ72hsTczwcjONkC9k8iNYHQ7ZGizft1f61TogTQWrERb1wnwWJb9cYVzCu4XIXEwb9QLT5CnC8c8ufJYac3q8lM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr; spf=pass smtp.mailfrom=ghiti.fr; arc=none smtp.client-ip=217.70.183.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghiti.fr
+Received: by mail.gandi.net (Postfix) with ESMTPSA id F311F3EE2F;
+	Fri, 11 Sep 2026 12:17:02 +0000 (UTC)
+From: Alexandre Ghiti <alex@ghiti.fr>
+To: Johannes Weiner <hannes@cmpxchg.org>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>
+Cc: Kairui Song <ryncsn@gmail.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Wei Xu <weixugc@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Kunwu Chan <kunwu.chan@gmail.com>,
+	Tal Zussman <tz2294@columbia.edu>,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-Subject: [PATCH v10 3/9] riscv: sse: mask events during shutdown and kexec
-Date: Fri, 11 Sep 2026 20:14:50 +0800
-Message-ID: <20260911121456.33223-4-zhangzhanpeng.jasper@bytedance.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260911121456.33223-1-zhangzhanpeng.jasper@bytedance.com>
-References: <20260911121456.33223-1-zhangzhanpeng.jasper@bytedance.com>
+	linux-fsdevel@vger.kernel.org,
+	Alexandre Ghiti <alex@ghiti.fr>
+Subject: [PATCH v5 3/3] mm: zswap: drop cold writeback folios via swap dropbehind
+Date: Fri, 11 Sep 2026 14:13:30 +0200
+Message-ID: <20260911121341.178028-4-alex@ghiti.fr>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260911121341.178028-1-alex@ghiti.fr>
+References: <20260911121341.178028-1-alex@ghiti.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -109,180 +60,106 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-GND-Sasl: alex@ghiti.fr
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: dmFkZTGjfH5CE7EP1PUuoeu/l2HFd6FdF++hpOgW9bG6M/BTM9F3kapSlk9U7ADtn6kKTISwel0dj9XMJHazyTDJbuCGf1+V6dtQFmMVDsz/j6U8zJS5UWFxlLhlncEBXEX9YRxi/C/PDeW/pyF/LEG1lC35hb8/T6rd2drmQXNcsrOJKh3DWo1SZ4dO8uSsp8GEYnEzEJX5QWflCLS80+j+zqwa+6xD+CuZg9bY1SF9yIU/qkfoyyWDW3JGDJ+aEoJjjp0rdWhKxA6l0J4myGoeFOAENCEQex0bOWMMxHXz5RPKc2sXHCvtKxjhZn7rZZwnhvVGcaI9kZTf2hXpEZopWDbcmhuI+lkgO1VZkGtngqreNfPmyf09XQyJBcekrXeysSX6w+3lqnF8NI/Sss5Y9CLV3j4zFIVtAvlLtHyzjI01JS4lDYoffcBQM7HP0VdS8IKursJsgKwnxu844P8/eGsX7PaeaSHiuGSsUeJrNPKAHUlC5OIcapVTLWGKEdCVdnt4Poaya2cUHRSJJfNVtdy8HPTF8ZTFiplDr9GK5+OWkhuRKiGPKtsY5bCnmQ65H5rYfs2ZF82vh/9baR+n6C7HASFm0sLmnUyyJsJbrU2U6AtoFd2H8ZiO43+6SsmE/N8qdn+EU909sSEeMIJHFlxk/nhu4blmsYlbO56LUzZtDw
 
-SSE delivery is independent of normal S-mode interrupts. Firmware may also
-retain an event registration until Linux explicitly unregisters it. A hart
-must therefore stop accepting SSE events before Linux stops servicing the
-registered handler.
+zswap writeback decompresses an entry into a fresh swap cache folio and
+writes it back. The folio is cold by construction, yet it is left on the
+LRU for reclaim to find and free later, wasting a reclaim scan and keeping
+cold memory resident longer than necessary.
 
-Mask SSE on the local hart before panic stop, CPU stop, restart, poweroff,
-and crash shutdown paths. This prevents firmware from entering Linux-owned
-handler state after the corresponding CPU or kernel context is no longer
-valid.
+Allocate the folio off the LRU and mark it PG_dropbehind so the swap
+dropbehind path frees it from the swap cache once writeback completes.
 
-A crash kernel cannot identify or take ownership of registrations
-inherited from the crashed kernel. Reject a later normal kexec while such
-SSE state may still exist, rather than transferring unknown firmware state
-to another kernel.
+__swap_cache_alloc_folio() evaluates a refault on the new folio, and
+workingset_refault() sets PG_active when it looks recent. Until now
+folio_add_lru() consumed that flag and __page_cache_release() cleared it
+once the folio left the LRU. This folio never reaches the LRU, so nothing
+would clear PG_active and the folio would be freed with a
+PAGE_FLAGS_CHECK_AT_FREE flag set, tripping bad_page() under
+CONFIG_DEBUG_VM. Clear it after allocation.
 
-Signed-off-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+That is a workaround: the refault should not be evaluated on a writeback
+buffer at all. A fix for that is on the mailing list [1].
+
+Link: https://lore.kernel.org/linux-mm/20260911092012.92399-1-alex@ghiti.fr/ [1]
+Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
+Suggested-by: Nhat Pham <nphamcs@gmail.com>
+Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
 ---
- arch/riscv/kernel/machine_kexec.c | 11 +++++++++++
- arch/riscv/kernel/reset.c         | 18 ++++++++++++++++++
- arch/riscv/kernel/smp.c           | 17 +++++++++++++++++
- 3 files changed, 46 insertions(+)
+ mm/zswap.c | 33 +++++++++++++++++++++++----------
+ 1 file changed, 23 insertions(+), 10 deletions(-)
 
-diff --git a/arch/riscv/kernel/machine_kexec.c b/arch/riscv/kernel/machine_kexec.c
-index 738df176ff6f..24e7affae70b 100644
---- a/arch/riscv/kernel/machine_kexec.c
-+++ b/arch/riscv/kernel/machine_kexec.c
-@@ -14,10 +14,13 @@
- #include <asm/set_memory.h>	/* For set_memory_x() */
- #include <linux/compiler.h>	/* For unreachable() */
- #include <linux/cpu.h>		/* For cpu_down() */
-+#include <linux/crash_dump.h>
- #include <linux/reboot.h>
- #include <linux/interrupt.h>
- #include <linux/irq.h>
- 
-+#include <asm/sse.h>
-+
- /*
-  * machine_kexec_prepare - Initialize kexec
-  *
-@@ -36,6 +39,13 @@ machine_kexec_prepare(struct kimage *image)
- 	unsigned int control_code_buffer_sz = 0;
- 	int i = 0;
- 
-+	/* A crash kernel cannot tear down registrations inherited from firmware. */
-+	if (is_kdump_kernel() && image->type != KEXEC_TYPE_CRASH &&
-+	    riscv_sse_available()) {
-+		pr_err("Normal kexec from a crash kernel is unsupported with SSE\n");
-+		return -EOPNOTSUPP;
-+	}
-+
- 	/* Find the Flattened Device Tree and save its physical address */
- 	for (i = 0; i < image->nr_segments; i++) {
- 		if (image->segment[i].memsz <= sizeof(fdt))
-@@ -127,6 +137,7 @@ void
- machine_crash_shutdown(struct pt_regs *regs)
- {
- 	local_irq_disable();
-+	riscv_sse_mask_current_hart();
- 
- 	/* shutdown non-crashing cpus */
- 	crash_smp_send_stop();
-diff --git a/arch/riscv/kernel/reset.c b/arch/riscv/kernel/reset.c
-index 14eb08a6db85..fdab37e7ae52 100644
---- a/arch/riscv/kernel/reset.c
-+++ b/arch/riscv/kernel/reset.c
-@@ -6,6 +6,20 @@
- #include <linux/efi.h>
- #include <linux/reboot.h>
- #include <linux/pm.h>
-+#include <linux/smp.h>
-+
-+#include <asm/sse.h>
-+
-+#ifndef CONFIG_SMP
-+void __noreturn panic_smp_self_stop(void)
-+{
-+	riscv_sse_mask_current_hart();
-+	local_irq_disable();
-+
-+	for (;;)
-+		cpu_relax();
-+}
-+#endif
- 
- static void __noreturn default_power_off(void)
- {
-@@ -18,6 +32,8 @@ EXPORT_SYMBOL(pm_power_off);
- 
- void machine_restart(char *cmd)
- {
-+	riscv_sse_mask_current_hart();
-+
- 	/*
- 	 * UpdateCapsule() depends on the system being reset via ResetSystem().
+diff --git a/mm/zswap.c b/mm/zswap.c
+index 0d2efe21f18a..dc8425d6b21e 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -1014,7 +1014,8 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
  	 */
-@@ -30,12 +46,14 @@ void machine_restart(char *cmd)
- 
- void machine_halt(void)
- {
-+	riscv_sse_mask_current_hart();
- 	do_kernel_power_off();
- 	default_power_off();
- }
- 
- void machine_power_off(void)
- {
-+	riscv_sse_mask_current_hart();
- 	do_kernel_power_off();
- 	default_power_off();
- }
-diff --git a/arch/riscv/kernel/smp.c b/arch/riscv/kernel/smp.c
-index fa66f9c97d74..7f0d4e7332f1 100644
---- a/arch/riscv/kernel/smp.c
-+++ b/arch/riscv/kernel/smp.c
-@@ -23,10 +23,13 @@
- #include <linux/irq.h>
- #include <linux/irq_work.h>
- #include <linux/nmi.h>
-+#include <linux/panic.h>
- 
- #include <asm/tlbflush.h>
- #include <asm/cacheflush.h>
- #include <asm/cpu_ops.h>
-+#include <asm/sbi.h>
-+#include <asm/sse.h>
- 
- enum ipi_message_type {
- 	IPI_RESCHEDULE,
-@@ -79,8 +82,18 @@ int riscv_hartid_to_cpuid(unsigned long hartid)
- 	return -ENOENT;
- }
- 
-+void __noreturn panic_smp_self_stop(void)
-+{
-+	riscv_sse_mask_current_hart();
-+	local_irq_disable();
+ 	if (IS_ERR(folio))
+ 		return PTR_ERR(folio);
+-	folio_add_lru(folio);
 +
-+	for (;;)
-+		cpu_relax();
-+}
-+
- static void ipi_stop(void)
- {
-+	riscv_sse_mask_current_hart();
- 	set_cpu_online(smp_processor_id(), false);
- 	while (1)
- 		wait_for_interrupt();
-@@ -91,6 +104,7 @@ static atomic_t waiting_for_crash_ipi = ATOMIC_INIT(0);
- 
- static inline void ipi_cpu_crash_stop(unsigned int cpu, struct pt_regs *regs)
- {
-+	riscv_sse_mask_current_hart();
- 	crash_save_cpu(regs, cpu);
- 
- 	atomic_dec(&waiting_for_crash_ipi);
-@@ -254,6 +268,8 @@ void smp_send_stop(void)
- {
- 	unsigned long timeout;
- 
-+	riscv_sse_mask_current_hart();
-+
- 	if (num_online_cpus() > 1) {
- 		cpumask_t mask;
- 
-@@ -301,6 +317,7 @@ void crash_smp_send_stop(void)
- 		return;
- 
- 	cpus_stopped = 1;
-+	riscv_sse_mask_current_hart();
++	folio_clear_active(folio);
  
  	/*
- 	 * If this cpu is the only one alive at this point in time, online or
+ 	 * folio is locked, and the swapcache is now secured against
+@@ -1028,12 +1029,12 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
+ 	tree = swap_zswap_tree(swpentry);
+ 	if (entry != xa_load(tree, offset)) {
+ 		ret = -ENOMEM;
+-		goto out;
++		goto err;
+ 	}
+ 
+ 	if (!zswap_decompress(entry, folio)) {
+ 		ret = -EIO;
+-		goto out;
++		goto err;
+ 	}
+ 
+ 	xa_erase(tree, offset);
+@@ -1047,18 +1048,30 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
+ 	/* folio is up to date */
+ 	folio_mark_uptodate(folio);
+ 
+-	/* move it to the tail of the inactive list after end_writeback */
+-	folio_set_reclaim(folio);
++	folio_set_dropbehind(folio);
++
++	/*
++	 * Drop our reference before starting writeback so the swap cache holds
++	 * the only one: the drop in folio_end_writeback() needs that for
++	 * remove_mapping_set_shadow() to succeed, otherwise the folio is
++	 * handed back to reclaim instead.
++	 *
++	 * Nothing can free the folio in the meantime: we hold the folio lock
++	 * until writeback starts, PG_writeback then blocks swap cache removal,
++	 * and folio_end_writeback() takes its own reference before clearing
++	 * PG_writeback and donates it to the drop.
++	 */
++	folio_put(folio);
+ 
+ 	/* start writeback */
+ 	__swap_writepage(&ctx, folio);
+ 	swap_write_submit(&ctx);
+ 
+-out:
+-	if (ret) {
+-		swap_cache_del_folio(folio);
+-		folio_unlock(folio);
+-	}
++	return 0;
++
++err:
++	swap_cache_del_folio(folio);
++	folio_unlock(folio);
+ 	folio_put(folio);
+ 	return ret;
+ }
 -- 
-2.50.1 (Apple Git-155)
+2.53.0-Meta
 
