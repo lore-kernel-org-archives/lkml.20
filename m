@@ -1,145 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 606E12F7EE4;
-	Fri, 11 Sep 2026 05:30:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C2DD2F7EE4;
+	Fri, 11 Sep 2026 05:30:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789104619; cv=none; b=rroZ25zuWzmlkNgbAzkwLtQd1jGuQoDysxUfwjHdtxGv/Ip7jPYyDFVCIaWTjMBL3D5woAVI7OdWe744/vtS4qgVNxxOCXLPzF/cKGDvj1bMgfdmxWBcBDKeUWR4rqFG8yiHRGtS+QUElTugW8efINbzYJHRNef2CIr08EJhdHA=
+	t=1789104635; cv=none; b=E1S2TlM20ewpubWvHuWiTOdktwoSJNZQVChiXzQ40MG1598gFwOpm/N48KXACJPYP1eH8bbda4o3G3WK7k+ynlFJvhGadruTDtjB5SUdlEMHrjzzdDUSn8Mi6K5yIT3yH4aQJmDh+s3l0MKVGGqegdGIaLY+2xi8lB7GINcHogE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789104619; c=relaxed/simple;
-	bh=4LFLaPw7O5MpjhkCuraYK7DIvSTP5ruMTj1dpkq3oeA=;
+	s=arc-20240116; t=1789104635; c=relaxed/simple;
+	bh=GsGvfKxthiVNiuG1NADvZGbB3p76Gla8qJMlP7MKaDI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XgHfneobdRzSJwlifh+eDj8RY1JQC8/+WwznZoucc8Aw8UgE19fz9JEnDNGTS+VC/Z7bJxqKWSCleCn5O5iLaw+LzxPW4VSY9r0mY6MKzD1hkIaTrDBSq1W00cUyzIKyLxo9c25PbvsbIpeFMmYYvvc1/55A87FaFd5TBiL/89E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lbFWDbIi; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=BxxCfAeZNaM0/GjnUvbuUPdm8ciwRaVNlOUCZ1uFgAaLmebAwvb6fd0JfHo9VspzzPF0eqDZfX/FPiwPd1Ii2S8Fwn17HqiUDFtFc+jFLmUezRzqKxj4VKwgHT4vdYmi6+WDuUwmklwTcY8G1BGHmzuo10ehWGPMOWSxZrFKIjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=cbYbsAR6; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lbFWDbIi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3458D1F000FF;
-	Fri, 11 Sep 2026 05:30:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789104618;
-	bh=aAEQkMu/TV7j/670viXKSJtglxVTRR7CotfrQlJUCTw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lbFWDbIisbjRFiHlu2iZqaRYMWR/Kyv8BYPftCIsnwEpJoHj0JgP3U7BMlJGAaG6a
-	 n/NIdbfzbCkgQ9rqcgDq3bJwXU+ueoinu+6Ty2tgSLNrs8I78AqESEZBXNGhN63JTP
-	 o+HEL5HF2hzQCqm1+hlcc4FqavuyLmYqXwiCoWrz+2R+PXjvaz0lhvjqeWSvb3tbn3
-	 pv4s1d8O+YEY6H9MV82riiqDaHJ27WkzO46dg7ly+yeJjojWY72TjlZ8Jw+c23p+Ao
-	 ytqCKLmtNMgzq29nFKA+xIpwwn3Xyt0p14vZrKH1b/zVaElidPbFsUnhJrCxS7fVQl
-	 93oAC20F5oVmQ==
-Date: Fri, 11 Sep 2026 07:30:11 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>, 
-	Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Subject: Re: [PATCH v4 6/9] phy: qualcomm: qmp-combo: Extract common DP PHY
- init sequence
-Message-ID: <rtpmf4gfixtn3ka44reaurodo7fgsaj4amajklef22ersizweg@a2drblb654bv>
-References: <20260908-glymur-phy-v3-v4-0-ff22e5150538@oss.qualcomm.com>
- <20260908-glymur-phy-v3-v4-6-ff22e5150538@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="cbYbsAR6"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=/Qc9W48ajHUaDYex3wbtF0VK8EtF1Jd5f/13/VkTqAA=; 
+	b=cbYbsAR6kv84UBtTq+RC8A1nKGRqQXr3bttPltSs11P3qyepcWm96t2DY9GvFryQF8kFlNHWC41
+	1eefaUrHh02APbnfPehyEsbvdgJdu32nu8k2XedKJS8wszjTjmXaJ6Whep6wQ+aeZbrxmHa55Sy88
+	wQ/4zu7JtEKJjbwLFZonjlRy+C+bYUZo4wlOJ1+FQm1lAwprnn8Ry7cYL7oyiB+22aEikanTWyKY0
+	qlo48b9+yKvOACcafN6iNV2scykk0czzMyk9mCHO6N70to+xzyGzFLWWlVksISrhkD65jk7Bmrfw/
+	ByGYDCfsoytOzXHhw1ON3l5haFFN1gKXxUaw==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x4tqA-0000000CuAl-0cKb;
+	Fri, 11 Sep 2026 13:30:23 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 11 Sep 2026 15:30:22 +1000
+Date: Fri, 11 Sep 2026 15:30:22 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Pramod Gurav <pramod.gurav@smartplayin.com>,
+	linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] crypto: atmel-tdes - zero-initialize device state
+Message-ID: <aqOR7pH5LB5b0Rjn@gondor.apana.org.au>
+References: <20260829035821.67220-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260908-glymur-phy-v3-v4-6-ff22e5150538@oss.qualcomm.com>
+In-Reply-To: <20260829035821.67220-1-kmehltretter@gmail.com>
 
-On Tue, Sep 08, 2026 at 07:30:59PM +0530, Nabige Aala wrote:
-> From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+On Sat, Aug 29, 2026 at 05:58:21AM +0200, Karl Mehltretter wrote:
+> Commit c659d07f11a3 ("crypto: atmel-tdes - Switch to managed version of
+> kzalloc") accidentally replaced kzalloc() with devm_kmalloc(), so the
+> device state is no longer zeroed.
 > 
-> Extract the common DP PHY initialization sequence shared between
-> qmp_v456_configure_dp_phy() and qmp_v8_configure_dp_phy() into a new
-> qmp_combo_configure_dp_phy_common() function.
+> atmel_tdes_hw_init() tests dd->flags during probe: a stale TDES_FLAGS_INIT
+> skips the hardware reset, and a stale TDES_FLAGS_BUSY makes
+> atmel_tdes_handle_queue() treat the engine as permanently busy, leaving
+> every request queued and never dispatched.
 > 
-> The common sequence covers:
-> - Validation that dp_aux_cfg2 is configured for the platform
-> - Writing dp_phy_cfg1 and dp_aux_cfg2 hardware-specific register values
-> - Calling configure_dp_mode() for TypeC lane orientation
-> - Programming AUX_CFG1, TX lane control registers
-> - Invoking configure_dp_clocks() callback
-> - PHY_CFG reset/enable sequence
-> - Polling COM_C_READY_STATUS and COM_CMN_STATUS for PLL lock
+> Seen on a SAM9X75 Curiosity: the first TDES request after boot never
+> completes and the TDES interrupt count stays at zero, while the AES and
+> SHA engines on the same SoC work normally.
 > 
-> Refactor qmp_v456_configure_dp_phy() to call the common function,
-> removing the duplicated initialization code. Update
-> qmp_v8_configure_dp_phy() to call qmp_combo_configure_dp_phy_common()
-> directly instead of going through qmp_v456_configure_dp_phy().
+> Switch to devm_kzalloc(), matching the Atmel AES and SHA drivers.
 > 
-> Signed-off-by: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
-> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
-
-One comment below. With that addressed,
-
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-
+> Fixes: c659d07f11a3 ("crypto: atmel-tdes - Switch to managed version of kzalloc")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 > ---
->  drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 99 ++++++++++++++++++-------------
->  1 file changed, 59 insertions(+), 40 deletions(-)
-> 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-> index 0ec382aebe2b..79006469f3d4 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-> @@ -3459,6 +3459,7 @@ static const struct qmp_phy_cfg glymur_usb3dpphy_cfg = {
->  	.configure_dp_tx	= qmp_v4_configure_dp_tx,
->  	.configure_dp_clocks	= qmp_v8_configure_dp_clocks,
->  	.configure_dp_phy	= qmp_v8_configure_dp_phy,
-> +
->  	.dp_aux_cfg2		= QSERDES_DP_PHY_AUX_CFG2_V8,
->  	.dp_phy_cfg1		= QSERDES_DP_PHY_CFG1_V8,
->  	.dp_mode_ignore_reverse	= true,
-> @@ -3766,6 +3767,62 @@ static void qmp_v4_dp_aux_init(struct qmp_combo *qmp)
->  	       qmp->dp_dp_phy + QSERDES_V4_DP_PHY_AUX_INTERRUPT_MASK);
->  }
->  
-> +static int qmp_combo_configure_dp_phy_common(struct qmp_combo *qmp)
-> +{
-> +	const struct qmp_phy_cfg *cfg = qmp->cfg;
-> +	u32 status;
-> +	int ret;
-> +
-> +	if (!cfg->dp_aux_cfg2) {
-> +		dev_err(qmp->dev, "DP AUX CFG2 value not configured\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	writel(cfg->dp_phy_cfg1, qmp->dp_dp_phy + QSERDES_DP_PHY_CFG_1);
-> +
-> +	qmp_combo_configure_dp_mode(qmp);
-> +
-> +	writel(0x13, qmp->dp_dp_phy + QSERDES_DP_PHY_AUX_CFG1);
-> +	writel(cfg->dp_aux_cfg2, qmp->dp_dp_phy + QSERDES_DP_PHY_AUX_CFG2);
-> +
-> +	writel(0x05, qmp->dp_dp_phy + QSERDES_V4_DP_PHY_TX0_TX1_LANE_CTL);
-> +	writel(0x05, qmp->dp_dp_phy + QSERDES_V4_DP_PHY_TX2_TX3_LANE_CTL);
-> +
-> +	ret = qmp->cfg->configure_dp_clocks(qmp);
-> +	if (ret)
-> +		return ret;
-> +
-> +	writel(0x01, qmp->dp_dp_phy + QSERDES_DP_PHY_CFG);
-> +	writel(0x05, qmp->dp_dp_phy + QSERDES_DP_PHY_CFG);
-> +	writel(0x01, qmp->dp_dp_phy + QSERDES_DP_PHY_CFG);
-> +	writel(0x09, qmp->dp_dp_phy + QSERDES_DP_PHY_CFG);
-> +
-> +	writel(0x20, qmp->dp_serdes + cfg->regs[QPHY_COM_RESETSM_CNTRL]);
-> +
-> +	if (readl_poll_timeout(qmp->dp_serdes + cfg->regs[QPHY_COM_C_READY_STATUS],
-> +			status,
-> +			((status & BIT(0)) > 0),
-> +			500,
-> +			10000))
-> +		return -ETIMEDOUT;
+>  drivers/crypto/atmel-tdes.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Didn't I suggest that you should just return what readl_poll_timeout() returns? 
-
-- Mani
-
+Patch applied.  Thanks.
 -- 
-மணிவண்ணன் சதாசிவம்
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
