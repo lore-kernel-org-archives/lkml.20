@@ -1,105 +1,121 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D0D7379C38;
-	Fri, 11 Sep 2026 05:44:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789105466; cv=none; b=m5C/dtheYEZtzQEWvR+iFM5zAJH7UJceMpLx26u3TGELaBGZnCp0UJY64twLxSxbKT6/2GxCXJ8RsCgrIt8wE7UB5kBqN15HkyINF/hElC1lZe70FebcuT26AFWByppDvyG0dQkq4FdSAqVTWYvPZolvg+UFTbQk0yptfmljNIM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789105466; c=relaxed/simple;
-	bh=2APTfQIXTRATtbvOuCVlvk8TWKSwryDPNPcG+OH8Sis=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gMOHizwObGEcME1Cckb58mjhmOXvOMyEXMHQ5B1II1E+oq3SPQlrzNuuTCoj1JteLl4mrpWoFdZJWjuuBvyni0WDFjjLxOGZwLFrU6pWGfkATY+goPhHrnaJK1VHG8nuw4XGjw3OAHb6T6o5gKnaH6XQnpCZGifYB1fgPlmOsQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=k+5uwGbT; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8478E21A457
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:48:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789105716; cv=pass; b=PAEyuuGWF50jvEZ1RIkWE4YTU4Ifqh2ZpmG6ZglMEtkuyIsN3depgIlpcczChLCv+yfD7KSYCZq6qRWxNXMd3jtKE6F+3xtE7PJP+bzFIcT6/uJ6Tdp6z6OsWe/583K2hTzKVCa9ljlD3fGn4LhmbXfAk8EOBwYppzQNj2BkhAA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789105716; c=relaxed/simple;
+	bh=TJnrL6d0hKJDGb4rqpDMjSoPYzhglbMdJOCHJvyEPCE=;
+	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=hU+LvMeJTpxlNKqOqqdNNZylMJnrDxK5HqAr8RkP1gQFPm1lx+sr9b7NH2LdXbAacHhmYwvaiOSiNhD/Z+27SVeqkzmwRC/+HLqiqtG2UbYv8YumNKH5i93JsNpJodPJ7igGWleyzBj1PllhyZzs40AmdRJHNh3ZtOaDwTWcniM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=hM+Pbo4U; arc=pass smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="k+5uwGbT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789105465; x=1820641465;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=2APTfQIXTRATtbvOuCVlvk8TWKSwryDPNPcG+OH8Sis=;
-  b=k+5uwGbTvCXeCiJDATlKfxwltGa7v3zJQSDI0dCPb6PwbvdPmPNWGOao
-   iweiU+9kJ7X6a5eLqC7CYibgTVRDtFhwrLO5cZcnuw1Yq/ORS8RrDHs9+
-   ndkSIMIa1i01b4Nmfjxs2UjqRKCdshAzSrKeu6kzXrLI9gD2Wk0+29fMw
-   Qx3MoeZG4yOLFxLmdbMgjPZ6ZL3XaMWGvnbNtyYKwS5io0m9whiy1XfZ5
-   S5+/zJoKm4s9AtiOYAjuoafgAzZmDwCsVeqrUWFNuGdCLc/vT31apZdOm
-   Hv/C/ZpNxvb1r55miWsV2OcD15oKqFR/f+HycicuqhM02YcYfUy0ti/C0
-   w==;
-X-CSE-ConnectionGUID: L8qmaXgQQ8WxPBzR1WJv+A==
-X-CSE-MsgGUID: H9ZFo2gGQ2ugULkJH0izyg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="93393855"
-X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
-   d="scan'208";a="93393855"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 22:44:25 -0700
-X-CSE-ConnectionGUID: EM65ARTMRkSFeJtaRtCkcw==
-X-CSE-MsgGUID: IYXwuMZRQkqnB/483Ew1CA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
-   d="scan'208";a="269234916"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.80])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 22:44:22 -0700
-Date: Fri, 11 Sep 2026 08:44:20 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Michael Walle <mwalle@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Janani Sunil <jananisunil.dev@gmail.com>
-Subject: Re: [PATCH v8 2/3] gpio: regmap: Add optional runtime PM support
-Message-ID: <aqOVNP6S0efi3XY9@ashevche-desk.local>
-References: <20260910-ad7768-gpio-v8-0-6aaaa15adeb3@analog.com>
- <20260910-ad7768-gpio-v8-2-6aaaa15adeb3@analog.com>
- <aqOUoEsxHXPH_Yzy@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="hM+Pbo4U"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469d28035so167094b3a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 22:48:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789105713; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZV3yibtetbLZFokH0i+9L4FxhCZJHYscOcj+JAzkIHZqZVofSQVGW3vhd5NvRxuB7I
+         +U5DEB5ygPQfRscEsk6rXJ8MkqK6rphOI+cApe/iALIcH1Ob7FSIuPaLKSzpzw2yOufV
+         02HiU9g/E81ZMKA0r6rHEgQzlKu1eDwtwdtUJEJOOot5R9oR7ZbwUkfh5J7nPD2UbsGh
+         UqIERac4NWrT+XmPimHL6W+TPV+Y6Vt1l/onl2Zf4OrdTIokoHT4mFYSNvzmlFx26+i7
+         ll+JQ0uGhrJB414nkuEV+klw0QarUqLJ6qEPgT4CZ3wCvc2PoPukuKU7ieccbI7lHnQZ
+         EGxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=B/obf48ZGyrDi31Af1lwyeU1ecLj+i6UYByj6PNdSZQ=;
+        fh=1iYkMsRTpUxH6qn+3geGsoiDqhb9E/FQnpDoK5zMwHg=;
+        b=O6ZuDhQ8B9UmWVsUYRi4lU+MtWULkvtiVaenaeUQ4myOyHeMSWRUKUfcw8mapYRL1v
+         wF/V4CcwFzXbI/T9aG+oK6KKXGnltFqSP/FMSqyg09Q1E3avXJzuLHh/adMnqB6jLWg+
+         6XWDW9zE5b3bLVuK2vdXj4ojJBXrfPI5sPYoBcMSWLlPjsBckvrytcNGEQrdihLc+tT5
+         ZdEIL4puFEwhBHSkDbgEIC2UH7t69Lsa4Mbsf2r6H/3FtlotreicSSBJ34Kh6f+JqQBr
+         eJcqaa0x7vJBHXaUAqna7vMhUbY4jTGZA4eWbYpmot1OTkbW3ZS+W3hu28Rk7eUHiJkG
+         NbtQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=berkeley.edu; s=google; t=1789105713; x=1789710513; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=B/obf48ZGyrDi31Af1lwyeU1ecLj+i6UYByj6PNdSZQ=;
+        b=hM+Pbo4UeVdShI3H9ZiszxRDnVrmasPPmJTe/z0kizDS2nAvqIPHr3C7tIEbGYCF1h
+         55+J/PJZ664p0+ZPK7W/RQYsjoz+tVK/tnnW7fuXayn5+yQ9UZ6vVYmdlBH/iqRaLBGY
+         IYfkkE7fIX0HFvhmtrfLElcfFGJZJwJHJCU/WPLsbdHz+jzdmY2YHkLIyEEtbQEv80aj
+         GdoPk9HURZNjeKQqY6Pns6u2eIgOqWAK5fdIu1yL0Qtjj+QvECICkS8q2OvXvzYnJYiH
+         ws2v+5lcZv19brELxjTxg/+U+RJaI0IBNg3KyU7QS6w8if4OHT6x6WC7qpofDIaN5nQt
+         wRSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789105713; x=1789710513;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=B/obf48ZGyrDi31Af1lwyeU1ecLj+i6UYByj6PNdSZQ=;
+        b=QrE75DbANUxgvMamngsJqG9QpYm50vckO0lOFC+j+GrH0sdxYK6rhRjLdOzrzXBUfk
+         rhHEam5/YvFij02DPhvMMwMhufhxtKaosUIZnZ9cI5JCLgm+OC3OYRkldwVKKxuMAh6h
+         iNGEJ5Z+C9x3E7wIxqmSsiYi/OXY4pt8urd/uc4Ban1GMq7qGTEFnAh1nrf+fV/IbHEQ
+         C66C2SlsYG6mKj5mBpGHYjS+iwjv5O79HFbuS/2xtTCMxkbY7ij+dnj6Q7QOEGmk99m2
+         cabMsOjbJai5fKhGbRuAdtIEKI2DB4O+VGIZf+8Ntae1H2wJANJNANikxjuRwjWrmsvV
+         IGOg==
+X-Forwarded-Encrypted: i=1; AKwUvBy+OM2jnSa3t9DNAUYSdg8zTB8Z/1Mt9rQgkrM9z3MnhHZLmq/7dCGa2Yx2LBHgb7Bg1BU8VVgeb1ZO15E=@vger.kernel.org
+X-Gm-Message-State: AFuF++njprSQpp3FF0tZAJ8cAe/8LwFfI8MM8qK4CO0yxw7ZihYDgPMH
+	wZasAMLRYQBhO5f8czdoOw0iyLs882cj8XdLq48O5r8kJ9mC0jc/OgwzIgjOIPp7t1XOa8igF01
+	FfsTtSph0x2RxAnIl0qziugZLsq4SMUa9kq1DkrTV
+X-Gm-Gg: AYBFou3Z5bAdyNrLnoqC0xjHvsrM0mHcKenYXQ0SwEfCvaaSoabDDWqMDvyHYWWrCKE
+	VlmFQKdUZytccIrWrzn7n64LsBQQDv2pfyKKNoaDauYmnk6kLbC7arlJmJ77eVw5Hi0qe6jIIAO
+	GbR+PbfmNdvHfjE8xULlYxGo38EN1+MJoAyUKq5dRRgzwoGhIMSKr1RkM50Qg46C9uGq1ASzwh+
+	qFj6DwL89W05nvnNdkq9HtiqjHWMlxFpVxSk7itLePnCRAidv+W1TKml48a1I44axz36H748VEI
+	tHXkzYZWO7hQaVrH1ItAOZqkreLBSDldddcK3I9FXioMoqt3cLe5Ieciw/bH+K3Zvi1OJhwQRje
+	XJRbM+TDehkJOWYc7t++b0k0gZc97WYwYnHt6sJjPGRo=
+X-Received: by 2002:a05:6a00:2e20:b0:869:44c3:c24b with SMTP id
+ d2e1a72fcca58-86b0d065277mr3199091b3a.0.1789105711800; Thu, 10 Sep 2026
+ 22:48:31 -0700 (PDT)
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 11 Sep 2026 05:48:31 +0000
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 11 Sep 2026 05:48:31 +0000
+From: Farhad Alemi <farhad.alemi@berkeley.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqOUoEsxHXPH_Yzy@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Date: Fri, 11 Sep 2026 05:48:31 +0000
+X-Gm-Features: AcwNN1XJiM_-mKtor9wgRc0cKID8IrHW-RYw1kk88Sw8zQDxuASJ1G3ckAlh4HE
+Message-ID: <CA+0ovChNv1=1dfdKxSXnBN0KVC6eO6kZqTFTsozOoJYCvT8T4g@mail.gmail.com>
+Subject: [PATCH] media: cx231xx: don't free the media device on err_analog
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: falemi@asu.edu, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Sep 11, 2026 at 08:41:57AM +0300, Andy Shevchenko wrote:
-> On Thu, Sep 10, 2026 at 07:29:11PM +0200, Janani Sunil wrote:
+When cx231xx_register_analog_devices() fails, cx231xx_init_dev() jumps to
+err_analog and calls cx231xx_unregister_media_device(), which frees
+dev->media_dev while dev->v4l2_dev.mdev still aliases it. The next line,
+cx231xx_release_analog_resources(), releases the video device, so
+v4l2_device_release() takes the freed media device's graph_mutex in
+media_devnode_remove(). Remove that free from err_analog and leave it to
+cx231xx_usb_probe(), which frees the media device at err_v4l2, after
+cx231xx_release_analog_resources() has released the video devices and
+v4l2_device_unregister() has dropped the subdevs.
 
-...
+Signed-off-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+---
+The device was emulated.
 
-> > -	ret = gpio->reg_mask_xlate(gpio, GPIO_REGMAP_GET_OP, base, offset, &reg, &mask);
-> 
-> Hmm... As far as I understand the xlate function should not touch the hardware.
-> Is it not the case?
+--- a/drivers/media/usb/cx231xx/cx231xx-cards.c
++++ b/drivers/media/usb/cx231xx/cx231xx-cards.c
+@@ -1505,7 +1505,7 @@ static int cx231xx_init_dev(struct cx231xx *dev,
+struct usb_device *udev,
 
-Answering to myself:
-Yeah, it's not the case as the new driver in the follow up accesses HW.
-
-> > +	GPIO_REGMAP_RUNTIME_ACQUIRE(gpio, pm);
-> > +	ret = GPIO_REGMAP_RUNTIME_ACQUIRE_ERR(&pm);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	ret = gpio->reg_mask_xlate(gpio, GPIO_REGMAP_GET_OP, base, offset,
-> > +				   &reg, &mask);
-> >  	if (ret)
-> >  		return ret;
-> 
-> Otherwise runtime PM may be handled after that call.
-> 
-> ...
-> 
-> Ditto for the rest.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+ 	return 0;
+ err_analog:
+-	cx231xx_unregister_media_device(dev);
++	/* dev->v4l2_dev.mdev aliases media_dev until probe's err_v4l2 frees it. */
+ 	cx231xx_release_analog_resources(dev);
+ 	cx231xx_remove_from_devlist(dev);
+ err_dev_init:
