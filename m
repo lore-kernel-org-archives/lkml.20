@@ -1,112 +1,229 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 860DA39EF27
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:35:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 394292E92BA;
+	Fri, 11 Sep 2026 09:35:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789119330; cv=none; b=jdU9A0HhdM3RUGpYEtcXqA5yB8ieanZ90JTY7aMIQNHVYYniW6ML/R1/W1n5Wng77Y85x4UxP4chvP5re3ad91q5c/awlcIhtouQu33vbRHHGgBoSG2E/ut4jsZYBbS6Axcb37uXJWmccImnDfXNomZmpRWivHVinhDG5iS+R+Q=
+	t=1789119343; cv=none; b=NWL4FHox2tnDtpgmDnjRixXxKh1qSa8TYEprTMzX4DPWy12CY8kYk15c8szU1CxxoQXJoKaUD6hiFZoCVtGhgTg9u8wqBmgqe6Gsak3T1cipZubqTQ4zbn6Py2fZs5JLw7V/yVdPkBW7btQBkrkRhEMTyUyYcuPIq84arkpvmC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789119330; c=relaxed/simple;
-	bh=kqWs3gslUippxzNOyNWeD+9l2TgXs+ueYRgqDLPCDfQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r8G0NhVelEY7/qPdbAy/E1yy2ZIJMbnvdxcS92WfNoDQeiSrxYYja2lf6Wv5JD2LM2gS5HY/o+UtsxhpLNGr7gJkWFdXvgwfnfJItqmbw8ojjloIcOAP78CCsnddqJLcCLQlwM3GFR4nEaFnnd50NrKmR9ESdmAN4Wk4KTAUYjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g2gmZUvU; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789119343; c=relaxed/simple;
+	bh=5ilCdKcqCwxjYRqo4FSYfH9Cm2vVzU9QtahGdbQcnhE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tqDkuzSoMwolud8rMLYmsIwkJEcMtmjoSou2H3/1PJHy5XU7/Dk7zKwZXYjWqJw3Ht1xxmMAbv53jAE1pHb01RZErKjOVcKksfXSRyEYL/MABXEN/FWJ0JX7sFLEiIOwhW40RAEGGAJOhCFIcCkvy9qmQLgTibPUZXFg4/sUatc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=xIGNt+l8; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=ZKVNvNPz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=qgEvyuQI; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=gifg9d9E; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g2gmZUvU"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b31b4281eso705521a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:35:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789119329; x=1789724129; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RPaVl76vMKtxyEaYdRMge2DXsMWSeY/qgY/dx2nMKuA=;
-        b=g2gmZUvUowKzWsTtoRx8chvMFZgN9ye8ys5OVuZVoStX1enw3wKZV7dQecCk7UkGLd
-         6xLl9/lJ8XD5KxY8jgQiVY2KA+aDwGQeVRmiRkrA1ihmFxFdDhwNPUh728/TEzNMipXd
-         q/a6f+hfO3jnv9e/u0HqWdW1OxQzrr+qrQfezbQArQX88HLIgDBoHR3wb3tzayIRy9j8
-         rD94c0n83K/t1LPI2mEqDe5ofO1jw4QmxvceZUE+nae3+mc6/9LYACNcfPkM5KWvXLQZ
-         cdrsqoz1c+BR9Hb+Mf39rLw+k5YbvN8SMtLrWkKj0W+4EfVAFGjjBJFI6UvVXsJZ1xpr
-         7eHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789119329; x=1789724129;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RPaVl76vMKtxyEaYdRMge2DXsMWSeY/qgY/dx2nMKuA=;
-        b=pNsaiOqPwJdwMmoIwduZ0TAXPQIH9mZmSk+RVx8/IMGxJqi+1qAvf0mDjIms1ALRHq
-         keLCsejfXuNrkHF4EabwFpJhUAneJxBZpZC2cokOM5jmvPyxcH2JzZ7JEX0RnJfcnpdQ
-         k9yb9hURdGWFlpTUy5rWQIPFns/+6DGcRBq+3ALdQrdDXB1yu2hIgW6A6Av4Okf9Uzl7
-         zL6KuDnHNbl0YM1ZF1ROgXIJA9MWow10Wa1qUeZbIeyGcHfCicvXqMo5z842+OwZs0B0
-         jj2S9lAD6VpSgetLlMzSBFdyl1SkInVbZX61WJZWvuaEr/wuqz/BhvewJ4+Z06WQ466Y
-         R8lA==
-X-Forwarded-Encrypted: i=1; AKwUvBz9H4G6XR4pU4IUbQta6B580tu6soTX73GmCu6+JvaP9ysxGALdbqVVszDw5SunwhrkyFyzw2bH/7vXz+k=@vger.kernel.org
-X-Gm-Message-State: AFuF++m5O3tlJyj+t7UtIYYMOultLj8QKZA/fb7wFsVfLhs+N+UdI7wn
-	9rxlqmTmST0ymIKUTyJIfwPpO4+G+ZaC+uqKpvsyvDUMr1dBrVzg2hXU
-X-Gm-Gg: AYBFou1vP11k/cRontGemggUcA4veAd4AsFf7wCMVhnZ4JMXkcRrPBHuYHQlQCHKLoW
-	iQDkjL8kWw6QfdZHRxWcg0uKl8t2SQB7R1KULKGRK8bxo+6abKZmcviuXVTblWHifaFB8C60Tpm
-	fyfXedOk8TkH17aCBYrXFqCi8evaNcsoTfNUY2WEA2h9IWBaFQUDpJkedvlKWhG+p/YmxhlCCan
-	B/h1ToNQW7Drn1iQlHpItLFtpfKgkewSS6PwT3oIakdfVeOhbPDowq3gMHsm1FpOca6Ql+DAT7g
-	xPCXOmHx7V+QAv2k5lZxC+26ynB3sf9hKBioiyBwHutOfAJdOCIZnWBcjwBRzeoWv26hCns/jZK
-	gnzsYgQlF7A2fxPofHmeBexQLjjO56k5Txux1e4ppZTNBYP/A7L+89HyLQQGgeRWNQou3FRFdzK
-	6HwXogHAUmKGTRUc8h1aI3y3m0c49LfFcHYlnzUyhnZIlrcds6z56CioorkV0kms/nw+H47+DTy
-	5qof4oXPafwmkDUkw==
-X-Received: by 2002:a17:90a:ec8c:b0:396:635a:9b10 with SMTP id 98e67ed59e1d1-39d9bf0af3fmr6071321a91.11.1789119328350;
-        Fri, 11 Sep 2026 02:35:28 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([185.220.238.35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95713602sm4240809a91.11.2026.09.11.02.35.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 02:35:27 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: jiangshanlai@gmail.com,
-	paulmck@kernel.org
-Cc: josh@joshtriplett.org,
-	rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com,
-	rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>
-Subject: [PATCH] srcutree: Add lockdep and early-boot checks to synchronize_srcu_atomic()
-Date: Fri, 11 Sep 2026 17:35:15 +0800
-Message-ID: <20260911093515.2802551-1-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="xIGNt+l8";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="ZKVNvNPz";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="qgEvyuQI";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="gifg9d9E"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id B28B321D2B;
+	Fri, 11 Sep 2026 09:35:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789119334; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wE8iaWly/EkLPx8G/L2Hp0WSTnhziRsEW8T9oadhB7o=;
+	b=xIGNt+l8jOYVNSIX7ujdNAJ1iW2XTiRGd9o0QOutyKQFtqYhlRk8Ln6Zj8M85EdjaqMVkM
+	mxmUNjlFVY8/WrxpH1v+mdxlpH+I3xAf6zN5j0lQr5Yi0OGpLfwHTTji11TmtJG9bv0XYf
+	Voqt5G5GoUCkxlvbZ2UwLBWZZM19URg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789119334;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wE8iaWly/EkLPx8G/L2Hp0WSTnhziRsEW8T9oadhB7o=;
+	b=ZKVNvNPz5qWa4w8sVHqBKpx6WsNPpKs08O41aAs5ed0wVyPAo7RrDbUamJvJ0hv01si4ud
+	JUF1OHVk4WrvXVCg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=qgEvyuQI;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=gifg9d9E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789119330; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wE8iaWly/EkLPx8G/L2Hp0WSTnhziRsEW8T9oadhB7o=;
+	b=qgEvyuQItOS7u/bdUozwj1bNWb7OG5ekxdo4V4NPGbk5ruGgWMhGs/5TAqICwjcs+lMFEb
+	V2DxeCmtmFN3wCSzHFlVp1rgL3MPBsJ3O06awTZC/HWqRIXk776qRYc19f3Ydl574sfnbZ
+	1duejhtKAT1YEj+V12QKZhFQL/7J/HQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789119330;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wE8iaWly/EkLPx8G/L2Hp0WSTnhziRsEW8T9oadhB7o=;
+	b=gifg9d9Ea0zwtw+0PzXVfC8+1NX8ADLaPtx9Iss8SqiAbPxBOBdspM/7hXlho1yrmj+QI9
+	skypO+UFmhJCd+Ag==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 89305136ED;
+	Fri, 11 Sep 2026 09:35:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id jEl4IWLLo2pPSwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Fri, 11 Sep 2026 09:35:30 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 1A278A1342; Fri, 11 Sep 2026 11:35:30 +0200 (CEST)
+Date: Fri, 11 Sep 2026 11:35:30 +0200
+From: Jan Kara <jack@suse.cz>
+To: "Patrick Lu (Anthropic)" <perf.patrick.lu@gmail.com>
+Cc: Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Tejun Heo <tj@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Dennis Zhou <dennis@kernel.org>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] writeback: bound cleanup_offline_cgwb() rescans by
+ rotating b_attached
+Message-ID: <5onojwm73shl2c3ddwboijarrefjw4gmkfcvnwdvow2wybhu5u@wu37jhkboemj>
+References: <20260909-wb-cgwb-rotate-v1-1-f2eb994d2a46@gmail.com>
+ <vciagp74qvys2zdbsfcr2brhbv4uyabvm67czm255ascytesjz@n6q775zxxwvb>
+ <3ebd03824f0df04947ffca7f25c96c30.perf.patrick.lu@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3ebd03824f0df04947ffca7f25c96c30.perf.patrick.lu@gmail.com>
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: B28B321D2B
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
+X-Spam-Score: -2.51
 
-Add the lockdep annotation, same-type SRCU nesting warning, and
-early-boot check used by __synchronize_srcu().
+On Thu 10-09-26 23:47:44, Patrick Lu (Anthropic) wrote:
+> On Thu, Sep 10, 2026 at 01:24:52PM +0200, Jan Kara wrote:
+> > On Wed 09-09-26 18:50:27, Patrick Lu (Anthropic) wrote:
+> > > Move every scanned inode to the tail of b_attached, so the next pass
+> > > starts where the previous one stopped and the drain becomes linear.
+> > > b_attached is unordered and isw_prepare_wbs_switch() is its only
+> > > walker, so nobody else sees the reorder. b_dirty_time is ordered by
+> > > expiry for move_expired_inodes() and keeps its current scan.
+> >
+> > OK, but isn't there the very same quadratic behavior problem with
+> > b_dirty_time scan which you don't touch (and where your trick cannot work)?
+> 
+> Yes, the same thing happens there. We never saw it because none of our
+> filesystems are mounted with lazytime, so b_dirty_time was always empty
+> on the hosts we looked at.
+> 
+> We realized the rotation works for b_dirty_time too if the walk starts
+> from the oldest end instead of the newest. sync takes the whole list no
+> matter the order, and move_expired_inodes() picks from the oldest end,
+> so walking with list_for_each_entry_safe_reverse() and moving scanned
+> inodes to the newest end keeps the oldest unscanned inode right where
+> the expiry looks. Prepared inodes leave the list as soon as the switch
+> work runs and get a new dirtied_time_when on the new wb anyway
+> (9a6ebbdbd412), so the only inodes left out of order are the ones that
+> can never switch (DAX), and only on the dying wb.
+> 
+> I tried it in qemu with 100k lazytime inodes on a dying cgwb. With v1
+> the b_dirty_time scan under list_lock still grows from 11 to 115 ms per
+> pass across the drain, same as unpatched. Walking both lists from the
+> oldest end keeps b_attached and b_dirty_time flat at ~0.6 ms per pass,
+> with one loop and no flag. Does that make sense? Something like this,
+> which I can send as v2:
 
-Suggested-by: Zqiang <qiang.zhang@linux.dev>
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
----
- kernel/rcu/srcutree.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Yes, I was also thinking that since we are going to clobber
+dirtied_time_when anyway, we can as well do it a bit earlier to ease
+iteration.
 
-diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-index 6a9c432a3bd0..6c729e805fb3 100644
---- a/kernel/rcu/srcutree.c
-+++ b/kernel/rcu/srcutree.c
-@@ -2123,6 +2123,14 @@ void synchronize_srcu_atomic(struct srcu_struct *ssp)
- 	unsigned long rdm0, rdm1;
- 	unsigned long unlocks0, unlocks1;
- 
-+	srcu_lock_sync(&ssp->dep_map);
-+
-+	RCU_LOCKDEP_WARN(lockdep_is_held(ssp),
-+			 "Illegal synchronize_srcu_atomic() in same-type SRCU read-side critical section");
-+
-+	if (rcu_scheduler_active == RCU_SCHEDULER_INACTIVE)
-+		return;
-+
- 	// Initialize.	Either init_srcu_struct() was invoked or
- 	// DEFINE_SRCU() or similar was used.  Therefore, no allocation
- 	// will be done here.
+I can see in your patch you don't touch dirtied_time_when at all which will
+make the b_dirtied_time list not ordered by the timestamps. That makes me a
+bit uneasy but since we are going to move everything out from that list
+eventually I think that is fine.
+
+								Honza
+
+
+> diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
+> index e744f9f9d43f..ea3eb40bf828 100644
+> --- a/fs/fs-writeback.c
+> +++ b/fs/fs-writeback.c
+> @@ -727,19 +727,34 @@ static bool isw_prepare_wbs_switch(struct bdi_writeback *new_wb,
+>  				   struct inode_switch_wbs_context *isw,
+>  				   struct list_head *list, int *nr)
+>  {
+> -	struct inode *inode;
+> +	struct inode *inode, *tmp;
+> +	LIST_HEAD(scanned);
+> +	bool full = false;
+> +
+> +	/*
+> +	 * Walk from the oldest end and move scanned inodes to the newest
+> +	 * end, so the next scan resumes at unscanned inodes instead of
+> +	 * re-walking an ever-growing run of prepared and skipped ones.
+> +	 * For b_dirty_time this keeps the oldest unscanned inode at the
+> +	 * end move_expired_inodes() picks from; b_attached is unordered.
+> +	 */
+> +	list_for_each_entry_safe_reverse(inode, tmp, list, i_io_list) {
+> +		list_move(&inode->i_io_list, &scanned);
+>  
+> -	list_for_each_entry(inode, list, i_io_list) {
+>  		if (!inode_prepare_wbs_switch(inode, new_wb))
+>  			continue;
+>  
+>  		isw->inodes[*nr] = inode;
+>  		(*nr)++;
+>  
+> -		if (*nr >= WB_MAX_INODES_PER_ISW - 1)
+> -			return true;
+> +		if (*nr >= WB_MAX_INODES_PER_ISW - 1) {
+> +			full = true;
+> +			break;
+> +		}
+>  	}
+> -	return false;
+> +	list_splice(&scanned, list);
+> +
+> +	return full;
+>  }
+>  
+>  /**
+> 
+> Thanks,
+> Patrick
 -- 
-2.43.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
