@@ -1,327 +1,257 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.165])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C68E4A4F0D;
-	Fri, 11 Sep 2026 21:48:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.165
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789163296; cv=pass; b=CC5Z+TzJxVIs7dpBkmODd7Jq7jHtyNdCSryg5A4q0s7sDIRF4izxSl/WMudMp5G94NPUgedyPLT/wwXxJEEcXTzBh25Ygx52y0vo3eZlEvRDIsv8z9GNn9jwhgvUpWaGJs43a5xZwCyuwHsYK6Ly0wAoceqC60+alV8MozBdgqY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789163296; c=relaxed/simple;
-	bh=ycUmqjr+j15i5WMteAkNalLy0jHrNrq78m43VLmnzVg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=THEjQpq3aFFiDgokvxYrTfBKygo3U9pt+9iLVWVL7a0er+JNUG1prmCkmmHOFEtKlB+hjOaTNPeyHpnQ7JMxm0flL1mXlWr5hMBIYymDe8YcsPd+ujuS2RJsfL+4hLXrpegseMohip0jQbHZXWjfv8tFiFaE3ITF1wsuVVbjS/Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=f5RgMYTq; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=AajCHCLF; arc=pass smtp.client-ip=81.169.146.165
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B824BEE42
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:52:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789163543; cv=none; b=elyi+Q7jvd9vZiEiv5q2+0nt/+Njg7W6r9IYUjHaz5GDOfGnFjeA/uKNZo4g8rm1DdM0/KSQn7jKcQ6aAv62GjUSk71B0JO1LKMhbFCwtIaOZ6Zdsgvg+BThRLxJqvfpo/lmGObvGvCDMNEjB8ELiJ6E4efzn8OPnfppocMw14Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789163543; c=relaxed/simple;
+	bh=8fizyRXRwZWA30/x0S5/rc5j+e9AYRKrUbag3/LipDw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fyReVv6SJMk6WWR0X5HzOSgFBJenXLfTTN86r6ox8T81tdft1KiQ9uk4/iXZHx/MryiKg9QqvR/r9d7UnAMH+IkiRHpQ5nJ4FGCILJT3oF8Eg2/yrok8NlHzBxAgLQqgsq2dttgaRU5nB0RdYLyZDpOXxKt1+Je/2K9W1P6IsBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pJZMqffW; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="f5RgMYTq";
-	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="AajCHCLF"
-ARC-Seal: i=1; a=rsa-sha256; t=1789163098; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=f/5NYhka1D7iIUgBsnzzokn7zcC5XX4OFWKtWeZQmvWMZ9mSYCBnUEFDBA+nvPp1Iy
-    FnHvB89ahbQdAcfN2tfWU5R+h8edEL6S0lv7OWKPj/utArCf5bR28PVyJFsGC7l0w1ua
-    gnYsdlDFqtcsG4cBAWVVSNmgnoKBb3SRmhg6V3E579DqwZxHSQVuzjZJt7mN3AsExXPA
-    rZZUshijnSNpgyC85x9C2ByLWGg/xoPEltO6EW9Xvp4/HC+9qkMGFbfizexbzngXowBx
-    WGf/OfsMFA5Z2Khbejy6jVFNTpXBGxHs+4tvdKfBk8XA1NToPWmWmBSNeZzDzRih8rGi
-    Iswg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1789163098;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=ycUmqjr+j15i5WMteAkNalLy0jHrNrq78m43VLmnzVg=;
-    b=cth0f/wtacQmjLvvl8syxe9R967N+tYhGYAYzNrWWXErlT/ARXXGLPLqeWxJ9LFYQg
-    vWOxIAVTimZFAhqhinCQZuTtPwRLyR7Klt7FHaGLhtnO0VVW5T31czcjn0ynOk2a5M4l
-    OozL/0FenauxH/88DWbq4/Z31rku6O5VCxQPDQe9bknFcN9tDr5FPsOnaKoTiZYCUWIW
-    bkCzT648Qy7hlOGtUGdQYcbIl2vQ5gRpFxyU8u6lyNMb4okVisc15e0UIwXNL3cniwMn
-    1MPn99Tl6gqEYyeRH87R7W+ap0Nefph6jcRYMxn5ZgzsrKF2u3HzKXaeiIeV/n+WamsD
-    UBYg==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1789163098;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=ycUmqjr+j15i5WMteAkNalLy0jHrNrq78m43VLmnzVg=;
-    b=f5RgMYTqJfMquxhwtGA1DA8ll+WRybZZYXiUoW24vkwa75QjnUmbUvbvUzptfrMXPd
-    jKVqeQ0mcQ0B9bIlA72euuDYnwkJ+LIlAFE4yrirLgnA6IVjuSkd/0sMm7yqvgMaVeAi
-    2A4IzVVnYfbPGil13A0VqfYMzlPF8lwbDELAICK7XCu9Xug1zXeT5dHap/pPjeAqL6/N
-    lsShedLC77xvgfp5pBizkJcafoe9FLBb4jYuFW70RODHTI5BfB98Ay2h2pqyDq3OEdAB
-    KA9Mes98YQ1aMS5LlJJojjrJIxAonlOcLmCaLD71o6cmYjwHG3Ukd4XmP5DlhXOyMIVo
-    +Wdg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1789163098;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=ycUmqjr+j15i5WMteAkNalLy0jHrNrq78m43VLmnzVg=;
-    b=AajCHCLFEu4bkgKHsBEN/GFCkWfWeG372Q42FB3qM+VArRk9jvVqzlSSDdsJqepvyO
-    tfbGFyMz9PXCnliZ/uDQ==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0zNriHg+YfT0rGaZpI+/63exJG3nKe+1cCDsnKpsYY+u4Ll0RlE="
-Received: from p200300c58729681c3f3e4b76edf8c1cb.dip0.t-ipconnect.de
-    by smtp.strato.de (RZmta 55.6.2 AUTH)
-    with ESMTPSA id ze37e128BLivUx1
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Fri, 11 Sep 2026 23:44:57 +0200 (CEST)
-Message-ID: <4c38f13af8f75020fefc35827463e9bc643b99f4.camel@iokpp.de>
-Subject: Re: [PATCH RFC] drivers/rufs: add Rust UFS host controller driver
-From: Bean Huo <beanhuo@iokpp.de>
-To: jaemyung.lee@samsung.com, Andreas Hindborg <a.hindborg@kernel.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>,  =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich
- <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir
- Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>
-Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-block@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org
-Date: Fri, 11 Sep 2026 23:44:57 +0200
-In-Reply-To: <20260912-rufs-private-v1-1-716db733e655@samsung.com>
-References: <20260912-rufs-private-v1-1-716db733e655@samsung.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pJZMqffW"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49d05d51553so13701805e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:52:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789163539; x=1789768339; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YPdkLtNhMgfXo64yGcGD4Px98Z89kU0OqiOuJ6Ovxxk=;
+        b=pJZMqffWPY4jqWhBvkEBwCkiKj/osrGIorH+a0KYmvm6iLC6BQIGknS7iEKvJxHkWD
+         d+6cQ6J5jsnW/vLJWfwM3Y+5eg/oZiPMcF4DIe2VfHl8fT+EReEpnOW1MXRrWgZOWvPX
+         debaPPZpXc5SZjGUblsLjwXtR9fTlCRVvZjazMs1DbP2OlDyoFdyvRQMlJmuizbNfCwI
+         9K/+mShGwWR1tiKT6jeX9EqpO+PTzU0HKg6AClyBHNsLtXynJ+qRKVPYiEMaa/Gd+ilx
+         5zw1zDuUcc8fmZHcE0kNEnq4ISaAV0MFLLxxhZHZDehbaKfEj9mBSqehSvaiHFCrfXy4
+         qqkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789163539; x=1789768339;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YPdkLtNhMgfXo64yGcGD4Px98Z89kU0OqiOuJ6Ovxxk=;
+        b=RSD7t6Gwe3Dd1DHFmy+DmSBn5txXHtbHRbDs9odHz92e9TWsSAMf4w0wuUJ74UbE7u
+         5io0v5GquZjj7kfXeZYOMrVqHbQEC1FyZXcy/DzkA/fUeB+h1iBkgPPODlvw6YrTrWU6
+         atkYgL1PNTIbLYq0gODgn3vrgl/Ok7Fj6pkTHiI77rGSzfXU04ZH1qHRuuSSPZTpuPjd
+         I1pmJ+rjWSQ2GOXB4/PJ7R7B+3IhC1u7CkOLtjye/WhhPQ5sLGfnm8iZnX6Vtjqekif0
+         ob3GS7bkPKa+yRRatIchQdxzlCzznQ90mLA8KX5fQQfErldw+IdINF5ChDmbEEk8Xstc
+         wH0w==
+X-Forwarded-Encrypted: i=1; AKwUvBzHOkif7/CcW8XtLVom+xVx4U52uhG54lRQKe77zTqKVpQgH/h+eKvH/U/2Bil4uI/56BmKUC+n9tMveSE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mOeaU16gFXEIh7Ay3f1g0VB8drSxRnm0YlfHfj9VxpEniRKKcA
+	9XIbtwmiLXD99pxpRSF/rxdzn+DfawnTFPKbXnGonYYZF+L3u0ClUc047bhY5qpZBVs=
+X-Gm-Gg: AYBFou2QhR38vUPZCZ84uTj7M+jv9b8UmzpbUGWWuImjZwZw1WfOU5cDzmD/Z/BXtBo
+	FrTpr3hO61OPvWQ0Le4cGqV9xU/R2YJoZqgXr0Ad3vUDas6N3oYaAO/vBf0aOVEFdFGnJuInAyY
+	ewx8c1ZPd+q3gO4QN7h4qu02oMifGQd9VoyCMPIJAKpCpDmNVLUF8NilBi5dxmpxIbdfDuyTjbP
+	3DrALQ0I+Hz1/kyaFXq89oHTPKF4mcc6XJ+VO7O+2FqzTOoW+dMKgBK++MMcUg30D2XZe++8vX1
+	ixUX4Er/uDCjVXg/cWnYwC3Poc2UK5NnQuAoZm743oMAfJx0mK10xGrOZCriV6iBgbvTuM994g0
+	9hebgsSQnxgAgkcuP64AMnS59lfpu8Jn2Cb7N3OLcSRYQWVhJGmD6LVQ3HD/3BDGDV6NQxVoRyj
+	t1p58keRmFBJZwdesWNFrqC9ZBpK76cEaafW4Fc9R9R0hLalbb32znAcBGjWOJgf99niLyrldv3
+	dG5TEMqfx+VKu7LcCBtfkQ+
+X-Received: by 2002:a05:600c:3b1f:b0:49c:fc89:59cb with SMTP id 5b1f17b1804b1-49e61983468mr75782205e9.5.1789163539317;
+        Fri, 11 Sep 2026 14:52:19 -0700 (PDT)
+Received: from kali ([169.224.126.247])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c1bc5fsm177081345e9.3.2026.09.11.14.52.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 14:52:18 -0700 (PDT)
+From: Ali Firas <alishmery18@gmail.com>
+To: netdev@vger.kernel.org,
+	idosch@nvidia.com
+Cc: kuba@kernel.org,
+	pabeni@redhat.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	andrew+netdev@lunn.ch,
+	razor@blackwall.org,
+	roopa@nvidia.com,
+	bestswngs@gmail.com,
+	xmei5@asu.edu,
+	linux-kernel@vger.kernel.org,
+	Ali Firas <alishmery18@gmail.com>
+Subject: [PATCH net v2 1/2] vxlan: report whether vxlan_fdb_update() created the remote
+Date: Sat, 12 Sep 2026 00:52:02 +0300
+Message-ID: <20260911215203.3054653-1-alishmery18@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat, 2026-09-12 at 00:52 +0900, Jaemyung Lee via B4 Relay wrote:
-> From: Jaemyung Lee <jaemyung.lee@samsung.com>
->=20
-> Add a Rust UFS host controller driver that exposes UFS logical units as
-> native blk-mq block devices without depending on the SCSI midlayer.
->=20
-> Implement host controller setup, UIC link startup and power-mode
-> configuration, device and unit descriptor discovery, query operations, an=
-d
-> SCSI protocol command construction. Support normal read, write, flush, an=
-d
-> discard I/O with coherent UTP descriptors and owned streaming DMA mapping=
-s.
->=20
-> Provide both single-doorbell and multi-circular-queue transfer backends.
-> Map shared blk-mq tags directly to UFS task tags, retain request ownershi=
-p
-> while commands are in flight, dispatch completion per MCQ completion queu=
-e,
-> and return polled completions through the blk-mq completion batch.
->=20
-> Add PCI and Qualcomm platform frontends. The PCI frontend supports the QE=
-MU
-> UFS controller and existing Intel and Samsung IDs. The Qualcomm frontend
-> provides the clocks, PHY, reset, interconnect, power-domain, OPP, GPIO, a=
-nd
-> controller-specific initialization needed by supported SoCs.
->=20
-> This establishes normal-I/O support for UFSHCI single-doorbell and MCQ
-> controllers. Full timeout recovery, error handling, and power management
-> are left for follow-up work.
->=20
-> Signed-off-by: Jaemyung Lee <jaemyung.lee@samsung.com>
-> ---
-> This RFC introduces RUFS, a UFS host controller driver that sits directly
-> on the block layer and does not use the SCSI midlayer. UFS logical units
-> are exposed as native blk-mq block devices, the same way NVMe namespaces
-> are. The driver is written in Rust.
->=20
-> Why decouple UFS from SCSI
-> --------------------------
->=20
-> The existing UFS driver is built on the SCSI subsystem. That made sense
-> historically: UFS adopted the SCSI Architecture Model as its application
-> layer, so reusing the SCSI midlayer's command queuing, error handling,
-> power management, and logical-unit addressing let UFS reach Linux quickly
-> and reliably. ufshcd bridges the SCSI midlayer to UFS Protocol Informatio=
-n
-> Units.
->=20
-> That foundation has become a source of friction. The evolution of UFS is
-> governed by JEDEC and increasingly includes UFS-specific features outside
-> the SCSI command set standardized by T10. These features must still be
-> expressed through, and constrained by, a SCSI-shaped driver. Features tha=
-t
-> are meaningful only to UFS are difficult to land in a subsystem whose
-> maintainers reasonably want to keep SCSI focused on SCSI, and block layer
-> or shared infrastructure changes that UFS needs end up mediated through
-> SCSI's priorities. In practice UFS is treated as an add-on to SCSI rather
-> than as a first-class storage interface, and a significant amount of UFS
-> functionality lives off-tree as a result, with the back- and forward-
-> porting cost that implies.
->=20
-> We propose to decouple UFS from SCSI with a standalone driver that sits
-> directly on the block layer, alongside drivers like NVMe. This lets
-> JEDEC-specific features evolve independently of T10, gives UFS
-> its own dedicated review surface, and removes the impedance mismatch
-> between the UFS data model and the SCSI command model. UFS uses a subset =
-of
-> the SCSI command set within command UPIUs, so the driver can construct th=
-e
-> required CDBs directly without depending on the SCSI midlayer.
->=20
-> The driver is designed around the UFS and UFSHCI specifications rather th=
-an
-> as a line-by-line translation of ufshcd. Its target is JEDEC UFS 4.1 and
-> UFSHCI 4.1.
->=20
-> Why Rust
-> --------
->=20
-> The architectural question above would be the same for a C driver. We cho=
-se
-> Rust because UFS features arrive at a high pace, and turning new
-> specification features into stable, validated code on tight timelines is
-> where memory- and concurrency-safety guarantees pay off: fewer classes of
-> bugs reach production, and iteration is faster. Rust's growing acceptance
-> in the kernel makes a block-layer-native UFS driver a realistic
-> architecture to evaluate.
->=20
-> Initial feature set
-> --------------------
->=20
-> The new driver supports single-doorbell and multi-circular-queue operatio=
-n,
-> PCI and Qualcomm platform frontends, logical-unit discovery, and normal
-> read, write, flush, and discard I/O. It uses shared blk-mq tags as UFS ta=
-sk
-> tags, keeps request ownership through completion, and uses owned DMA
-> mappings for the complete I/O lifetime.
->=20
-> Full timeout recovery, error handling, and power management remain
-> follow-up work.
->=20
-> Patch layout and dependencies
-> -----------------------------
->=20
-> The single patch contains the complete driver. This keeps review focused =
-on
-> the RUFS architecture and the SCSI-independent blk-mq model.
->=20
-> The driver depends on Rust block, DMA, IRQ, and platform abstractions tha=
-t
-> are intentionally excluded from this posting. Some of these abstractions
-> have already been posted to the list, most notably in the Rust null block
-> driver v2 series, the Ownable/OwnableRefCounted page series, and the
-> impl_flags extensions. The remaining abstractions are new and will be
-> posted as separate series before the first non-RFC version of this driver=
-.
->=20
-> A buildable tree based on v7.3-rc2 with all dependencies and this patch i=
-s
-> at:
->=20
-> https://github.com/SamsungDS/rufs/tree/rfc/rufs-public
->=20
-> Testing
-> -------
->=20
-> The v7.2 development version has been exercised with SDB and MCQ on the
-> QEMU UFS model, including ext4 fio workloads and module load/unload cycle=
-s.
-> SDB probe and normal I/O have also been exercised on Intel PCI and Qualco=
-mm
-> UFS hardware. The current port has been compile-tested independently with
-> PCI-only and Qualcomm-platform-only configurations.
->=20
-> The exact v7.2 tree used for the hardware measurements is available at:
->=20
-> https://github.com/SamsungDS/rufs/tree/rufs-7.2
->=20
-> On Intel UFS 2.1 hardware, 4 KiB direct io_uring at QD32/job gave
-> these optimized-mode ranges over 1/2/4 jobs (three samples):
->=20
-> =C2=A0 Workload=C2=A0 Op=C2=A0=C2=A0=C2=A0=C2=A0 RUFS kIOPS=C2=A0=C2=A0 C=
- kIOPS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Difference
-> =C2=A0 --------=C2=A0 -----=C2=A0 -----------=C2=A0 -----------=C2=A0 ---=
-------------
-> =C2=A0 randread=C2=A0 read=C2=A0=C2=A0 48.91-61.26=C2=A0 41.56-41.60=C2=
-=A0 +17.6% to +47.4%
-> =C2=A0 randwrite write=C2=A0 8.19-8.30=C2=A0=C2=A0=C2=A0 8.21-8.22=C2=A0=
-=C2=A0=C2=A0 -0.4% to +1.1%
-> =C2=A0 randrw=C2=A0=C2=A0=C2=A0 read=C2=A0=C2=A0 5.26-5.34=C2=A0=C2=A0=C2=
-=A0 5.28-5.38=C2=A0=C2=A0=C2=A0 -0.9% to -0.4%
-> =C2=A0 randrw=C2=A0=C2=A0=C2=A0 write=C2=A0 5.27-5.34=C2=A0=C2=A0=C2=A0 5=
-.29-5.37=C2=A0=C2=A0=C2=A0 -0.8% to -0.5%
->=20
-> The coefficient of variation (CV), calculated as the sample standard
-> deviation divided by the sample mean, measures run-to-run variability
-> relative to the mean. CV is a descriptive statistic; no normal or other
-> distribution was fitted to model the variation. The accompanying
-> two-sided 95% confidence intervals for the mean used Student's
-> t-distribution because each point contains only three samples. Those
-> intervals assume independent, approximately normally distributed sample
-> means and should be interpreted cautiously at this sample count.
->=20
-> RUFS randread had a CV of 28-57%, versus below 0.8% for C. Its apparent
-> gain therefore has low confidence and should be treated as preliminary.
-> Both drivers also logged platform UIC errors. Stable write and mixed
-> points differed by no more than 1.1%.
->=20
-> Feedback
-> --------
->=20
-> Comments on the decision to bypass the SCSI midlayer, the blk-mq model us=
-ed
-> in its place, and the proposed prerequisite API boundaries would be
-> especially welcome.
+This is plumbing only and changes no behaviour on its own.
 
-Jaemyung,
+The rollback added in the next patch has to tell an FDB entry that the
+failing request created from one that was already there, and today it
+cannot: vxlan_fdb_update() returns 0 in both cases.
+vxlan_fdb_append() does return 1 when it links a new remote, but
+vxlan_fdb_update_existing() folds that into its local notify flag and
+returns 0 regardless, and vxlan_fdb_update_create() returns 0 as well.
 
-thanks sharing.
+Add an optional bool *created out-parameter and set it in both paths.
+All six existing callers pass NULL, so nothing observable changes.
 
-You still use scsi everywhere in your implementation protocol/scsi.rs build=
-s
-READ_10/16, WRITE_10/16, SYNCHRONIZE_CACHE and UNMAP CDB, so "decouple UFS =
-from
-SCSI" really means "copy a small part of sd and the SCSI error handling int=
-o a
-UFS driver." while JEDEC defines the UFS application layer as SCSI, the SCS=
-I
-work doesn't go away, you just move somewhere else, and it has to be writte=
-n
-again.
+Every statement added here is either a signature or argument change or
+is guarded by the new flag. tools/testing/selftests/net/
+test_vxlan_vnifiltering.sh gives 27 passed and 0 failed with this patch
+alone, identical to the base it applies to.
 
-The "friction" claim is weak. SCSI has already been changed to fit UFS. Two
-examples: UFS now uses SCSI simple copy, group number in scsi write command=
-.
+Assisted-by: LLM
+Signed-off-by: Ali Firas <alishmery18@gmail.com>
+---
+ drivers/net/vxlan/vxlan_core.c      | 29 +++++++++++++++++++----------
+ drivers/net/vxlan/vxlan_private.h   |  3 ++-
+ drivers/net/vxlan/vxlan_vnifilter.c |  2 +-
+ 3 files changed, 22 insertions(+), 12 deletions(-)
 
-I doubt how far this can go. do we really need to pay effort for a new RUST=
- UFS
-driver, I am not very confident, unless SCSI is removed from the UFS spec a=
-nd
-JEDEC defines native UFS commands, or we talk to the device directly with U=
-PIU.
-please name the JEDEC feature that the SCSI midlayer really blocked, or tha=
-t was
-historial issue which has been fixed.
-
-
-I would also like to see the heavy and hard parts, because they are the par=
-ts
-that decide if this design worrks:
-
-1, error handling: abort, LU reset, retries with limits, sense decoding, th=
-is is
-the very hard part of UFS driver.
-
-2, user-space tools interface: SG_IO and bsg (sg3_utils, ufs-utils, FFU wit=
-h
-WRITE BUFFER), and the UFS sysfs tree..
-
-
-Did any AI tool help write this code? If so, please add the Assisted-by: ta=
-g.
-
-kind regards,=20
-Bean
-
-
-
-
+diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
+index be95af64a1f5..0652dc471dca 100644
+--- a/drivers/net/vxlan/vxlan_core.c
++++ b/drivers/net/vxlan/vxlan_core.c
+@@ -974,7 +974,7 @@ static int vxlan_fdb_update_existing(struct vxlan_dev *vxlan,
+ 				     __be16 port, __be32 vni,
+ 				     __u32 ifindex, __u16 ndm_flags,
+ 				     struct vxlan_fdb *f, u32 nhid,
+-				     bool swdev_notify,
++				     bool swdev_notify, bool *created,
+ 				     struct netlink_ext_ack *extack)
+ {
+ 	__u16 fdb_flags = (ndm_flags & ~NTF_USE);
+@@ -1042,6 +1042,8 @@ static int vxlan_fdb_update_existing(struct vxlan_dev *vxlan,
+ 
+ 		if (rc < 0)
+ 			return rc;
++		if (rc && created)
++			*created = true;
+ 		notify |= rc;
+ 	}
+ 
+@@ -1078,7 +1080,7 @@ static int vxlan_fdb_update_create(struct vxlan_dev *vxlan,
+ 				   __u16 state, __u16 flags,
+ 				   __be16 port, __be32 src_vni, __be32 vni,
+ 				   __u32 ifindex, __u16 ndm_flags, u32 nhid,
+-				   bool swdev_notify,
++				   bool swdev_notify, bool *created,
+ 				   struct netlink_ext_ack *extack)
+ {
+ 	__u16 fdb_flags = (ndm_flags & ~NTF_USE);
+@@ -1101,6 +1103,9 @@ static int vxlan_fdb_update_create(struct vxlan_dev *vxlan,
+ 	if (rc)
+ 		goto err_notify;
+ 
++	if (created)
++		*created = true;
++
+ 	return 0;
+ 
+ err_notify:
+@@ -1114,7 +1119,7 @@ int vxlan_fdb_update(struct vxlan_dev *vxlan,
+ 		     __u16 state, __u16 flags,
+ 		     __be16 port, __be32 src_vni, __be32 vni,
+ 		     __u32 ifindex, __u16 ndm_flags, u32 nhid,
+-		     bool swdev_notify,
++		     bool swdev_notify, bool *created,
+ 		     struct netlink_ext_ack *extack)
+ {
+ 	struct vxlan_fdb *f;
+@@ -1129,7 +1134,8 @@ int vxlan_fdb_update(struct vxlan_dev *vxlan,
+ 
+ 		return vxlan_fdb_update_existing(vxlan, ip, state, flags, port,
+ 						 vni, ifindex, ndm_flags, f,
+-						 nhid, swdev_notify, extack);
++						 nhid, swdev_notify, created,
++						 extack);
+ 	} else {
+ 		if (!(flags & NLM_F_CREATE))
+ 			return -ENOENT;
+@@ -1137,7 +1143,7 @@ int vxlan_fdb_update(struct vxlan_dev *vxlan,
+ 		return vxlan_fdb_update_create(vxlan, mac, ip, state, flags,
+ 					       port, src_vni, vni, ifindex,
+ 					       ndm_flags, nhid, swdev_notify,
+-					       extack);
++					       created, extack);
+ 	}
+ }
+ 
+@@ -1275,7 +1281,7 @@ static int vxlan_fdb_add(struct ndmsg *ndm, struct nlattr *tb[],
+ 	err = vxlan_fdb_update(vxlan, addr, &ip, ndm->ndm_state, flags,
+ 			       port, src_vni, vni, ifindex,
+ 			       ndm->ndm_flags | NTF_VXLAN_ADDED_BY_USER,
+-			       nhid, true, extack);
++			       nhid, true, NULL, extack);
+ 	spin_unlock_bh(&vxlan->hash_lock);
+ 
+ 	if (!err)
+@@ -1491,7 +1497,8 @@ static enum skb_drop_reason vxlan_snoop(struct net_device *dev,
+ 					 vxlan->cfg.dst_port,
+ 					 vni,
+ 					 vxlan->default_dst.remote_vni,
+-					 ifindex, NTF_SELF, 0, true, NULL);
++					 ifindex, NTF_SELF, 0, true, NULL,
++					 NULL);
+ 		spin_unlock(&vxlan->hash_lock);
+ 	}
+ 
+@@ -4034,7 +4041,8 @@ static int vxlan_dev_create(struct net *net, struct net_device *dev,
+ 				       dst->remote_vni,
+ 				       dst->remote_vni,
+ 				       dst->remote_ifindex,
+-				       NTF_SELF, 0, true, extack);
++				       NTF_SELF, 0, true, NULL,
++				       extack);
+ 		spin_unlock_bh(&vxlan->hash_lock);
+ 		if (err)
+ 			goto unlink;
+@@ -4485,7 +4493,8 @@ static int vxlan_changelink(struct net_device *dev, struct nlattr *tb[],
+ 					       vxlan->cfg.dst_port,
+ 					       conf.vni, conf.vni,
+ 					       conf.remote_ifindex,
+-					       NTF_SELF, 0, true, extack);
++					       NTF_SELF, 0, true, NULL,
++					       extack);
+ 			if (err) {
+ 				spin_unlock_bh(&vxlan->hash_lock);
+ 				netdev_adjacent_change_abort(dst->remote_dev,
+@@ -4806,7 +4815,7 @@ vxlan_fdb_external_learn_add(struct net_device *dev,
+ 			       fdb_info->remote_vni,
+ 			       fdb_info->remote_ifindex,
+ 			       NTF_USE | NTF_SELF | NTF_EXT_LEARNED,
+-			       0, false, extack);
++			       0, false, NULL, extack);
+ 	spin_unlock_bh(&vxlan->hash_lock);
+ 
+ 	return err;
+diff --git a/drivers/net/vxlan/vxlan_private.h b/drivers/net/vxlan/vxlan_private.h
+index b1eec2216360..e52755923c31 100644
+--- a/drivers/net/vxlan/vxlan_private.h
++++ b/drivers/net/vxlan/vxlan_private.h
+@@ -193,7 +193,8 @@ int vxlan_fdb_update(struct vxlan_dev *vxlan,
+ 		     __u16 state, __u16 flags,
+ 		     __be16 port, __be32 src_vni, __be32 vni,
+ 		     __u32 ifindex, __u16 ndm_flags, u32 nhid,
+-		     bool swdev_notify, struct netlink_ext_ack *extack);
++		     bool swdev_notify, bool *created,
++		     struct netlink_ext_ack *extack);
+ void vxlan_xmit_one(struct sk_buff *skb, struct net_device *dev,
+ 		    __be32 default_vni, struct vxlan_rdst *rdst, bool did_rsc);
+ int vxlan_vni_in_use(struct net *src_net, struct vxlan_dev *vxlan,
+diff --git a/drivers/net/vxlan/vxlan_vnifilter.c b/drivers/net/vxlan/vxlan_vnifilter.c
+index dd94085e0886..7e8abc55ef53 100644
+--- a/drivers/net/vxlan/vxlan_vnifilter.c
++++ b/drivers/net/vxlan/vxlan_vnifilter.c
+@@ -488,7 +488,7 @@ static int vxlan_update_default_fdb_entry(struct vxlan_dev *vxlan, __be32 vni,
+ 				       vni,
+ 				       vni,
+ 				       dst->remote_ifindex,
+-				       NTF_SELF, 0, true, extack);
++				       NTF_SELF, 0, true, NULL, extack);
+ 		if (err) {
+ 			spin_unlock_bh(&vxlan->hash_lock);
+ 			return err;
+-- 
+2.53.0
 
