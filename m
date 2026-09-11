@@ -1,81 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A0C357CEC;
-	Fri, 11 Sep 2026 16:45:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 144BC357CEC
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:45:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789145138; cv=none; b=I4ERPIu/EV5nhDG17JV61d5oVMgQ2cWXhhR9heuGTbq256q1Dae1DLYPki07z9wrC0p4leIjOqUMEIiscTIergNsvboAe3jHrZNIBP+anjNgIjFDty/mF6SuAh9PolNdz5Mc4V9UmEsHaXybvWDmkrTQ8KyK7okaLDzHJ6oi/yU=
+	t=1789145156; cv=none; b=MUDQJoQrfgMlYeLuGycmVCu1GcNoHRoV6EIVLdxjpTq5ui9CWLOQfVxd2zRAhY/NY4uXtZjWHDHiWddAKcE1ptFl2Vcst8ipMensM2cQO7mqykYwN5pqXQWCeVOKKsCySZLmPCoYbvnyek8zOkg5B6dMcIkuZpDUdiRa5pQQHok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789145138; c=relaxed/simple;
-	bh=m8uoNNrt+Dm8NpcA9Z/eGfox+DbN2jnefFupKJtAhtM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=G9tl9Jeou8AmxSFINoj0jUwFMXG40iWsEU0X/+zBVv8V6YfrRhR1AOqixp3n4Jkn0nqfLkKhMrHxZDldGzJKIjB/thlEgnNzm7GBbRQobW0fpQlKt3FvBIlLnxV5cucYkRp8b2HIom7yFJ08MwL5seRznd0iaLmaC4FIZD557Vs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h5Dec26m; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789145156; c=relaxed/simple;
+	bh=jhZ8WhdxOZfx0MQfMBGA+WGi7i3w3FCXHl1lH7WqOE4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WfrYyKpdoXird2dX3fXg0S5S9R8S6gDzqn+asQoyXbsWRaKLd2jWjZB88mK6rsQbvCqDheWXCbSeyPn03zBR5baYYvI+HrmkiJMt8jSZ/+70GGqyhuahtONXXnqBMcd3PK998Prum7qgWDtuVg3MTtGkcr+PeAGJ7PGGvn92H4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Rvo5AzN3; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h5Dec26m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C35D11F000FF;
-	Fri, 11 Sep 2026 16:45:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789145137;
-	bh=ZwM/MvepTWPwju4uEY6gRB6//NK30WodpXwAjUG4iQE=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=h5Dec26mL8sO1uLvcXCHJEpgfU+8e2G7nsW9Hj8lrDpopYSxZVdTIqODnqV7TKlaQ
-	 SmxNn0Fx1X60PfQ1LS8vkjjK66eu2Ym6YbNqYJxtikmFHLLCPWEgV62DOvcCKc97RQ
-	 fAVNjfuyF25aktr/evXYlAk1enAKviGCyNFImiO7Bw7Y0KAjF8o5VffRIUL546eTLw
-	 oG4kVdMWIps3VYzgrrHPMblzzX7wRl5JLm7bgLgZEmap5vWyhf92P/csOLCOQzLxpS
-	 Iw4/N44Ncamb2Ywuv71SuESZb4wQqiSD+PAAbPDpoG3fYrJ40OwwKzqhPhugXRiljK
-	 HcjDq8OSy3GWw==
-Date: Fri, 11 Sep 2026 18:45:34 +0200 (CEST)
-From: Jiri Kosina <jikos@kernel.org>
-To: Aditya Garg <aditya.garg@linux.dev>
-cc: Benjamin Tissoires <bentiss@kernel.org>, 
-    Linux Input Mailing List <linux-input@vger.kernel.org>, 
-    Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
-    Andre Eikmeyer <dev@deq.rocks>
-Subject: Re: [PATCH v4] HID: appletb-kbd: support layer switching on Fn double
- press
-In-Reply-To: <cf9ff462-1a77-44c7-92fd-2b11518aeb69@linux.dev>
-Message-ID: <4s5p7s1n-87n6-2833-s73r-s82s45862srs@xreary.bet>
-References: <20260905143733.17819-1-aditya.garg@linux.dev> <cf9ff462-1a77-44c7-92fd-2b11518aeb69@linux.dev>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Rvo5AzN3"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469b2e1d7so130704b3a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:45:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789145154; x=1789749954; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=atdgksBYk103iq7faoi4jk9ATkMw9i3avFodOi108iA=;
+        b=Rvo5AzN3CZ3SXe637+eGMHys9fYzjo5iJKHoTC7Pfh9vnbsiJMPWr2XNXMakwEMchn
+         Mdg4uSWE8aqu5CUh3oZCMEgfc45idjaPiEHXYqLEXHNMbse+r7hoCIyFgoG6A7mftWAd
+         AgPPvNWkBWcXUDP+Jm8L1m2sYydebkFHfCEt2OX3QaZ7tUEDO8WA3n6va0Ke67c3g80t
+         6XgNUgIvigkfDwMiDnApfO7xPmMgPsqTFuB1xcb52Jc0cZN3FN/GbhbDLqf+VN4uSmHy
+         nxFHbCgyeUZ1e6h1M7StIWzxQsNrtnlZEYxoFplaqXPxUKviLnQoDpDycw0JGhEhS/Jf
+         NqpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789145154; x=1789749954;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=atdgksBYk103iq7faoi4jk9ATkMw9i3avFodOi108iA=;
+        b=GXZ23EyKeHAS446gsHY2IJtMZLwuIn5+Lqb/ToMSQiBLvbkMi0LpaFa7um2XHgA9tV
+         uENLPrse1KMlpWTj3mcHnI3xFCADT9PYf1gUDpuZcZY51HgkRxhrDn7y3sSxrxkm48NR
+         Bc7w7pElTO+G5WMCDY6XHODlUO3q9jvbTGHli/3g0WcgNUSqNg6bn1Pw+mYyEcdUBw0n
+         VYGiZgYQ5OKXesx/dPIayy66Xmh+6oeYA52dp7AqvpadoPukh7mwtKBbUcmsRFqi9+Ff
+         tOd1fnQswh2PjIcivPmel+3DbHo9PWfA7wA+jdnGfdi28zMM0MIQ98cByy7OvQ37UGBy
+         n9Zw==
+X-Forwarded-Encrypted: i=1; AKwUvByDSp1AEc5/rXne8quMUYAkverQg6fqMEmtrMWXJghORxTSR+grFdx8TF8VLnfo2jGDxvo38IKjmdBpWuI=@vger.kernel.org
+X-Gm-Message-State: AFuF++krDpaImx74kxAFXDZi6YGX7y2KAHdarq6sidLo680y/Jmpla4c
+	zjN6Q5XfwQJ/YZV9cCLL3+CXFkzWyo7oltQClGJXKeILEjEWwRUhCUT5/IIi89Kk1w==
+X-Gm-Gg: AYBFou0K8ALdRzTrXkztuEG3pFfrV0FRi3Iuzax9jkUChC7witYyyy07HeX6lxq4srV
+	8itzVTwd1bBUoJnhuHQSK1EAJA0a2sIBLrnz5mG2cZxBO8EezGZ0IY1c4NP/bHsbcojb248hc18
+	m4tps/ucpJSiDopU8pOF33uk3JaOJW2aaVPCJHltPUuJNAMRipXernia+wUixOuLWcBjlFNV+Mv
+	iUC5qODN4ggNChfsJ7gS+BgFB6sz644wzAdwEmNYANc1H/KHPk5G+SY006TfHeYZPUKECa5rqBD
+	5YRgXAGI1licFIhdy8A6JtaxecgcSA1LhV1GsizA8jPUSxVXhh/naJejS3xL9dEUwj0Izb+p66t
+	C22iVb6/P2djZHC/tmXXXiCS64bttTYmXzGrsqgS5UgFr2oBGfMdlbMEP/kN74QzwOxqaDRqECe
+	DQ8d5rKmFGCGE5rAN7F5NJzV8ovllJEqIGUGAZLJz4B8ghLo0oICwl42r8+788ZnizoeKMLRfOS
+	c9Kn2s6/rIjZdIJQiOTn4nIO5AoImwFCqRfgTQ7
+X-Received: by 2002:a05:6a00:4c9b:b0:857:72ba:ff0e with SMTP id d2e1a72fcca58-86b347ebbe6mr9035236b3a.22.1789145153852;
+        Fri, 11 Sep 2026 09:45:53 -0700 (PDT)
+Received: from google.com (192.150.203.35.bc.googleusercontent.com. [35.203.150.192])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b286c3f5asm1472296b3a.12.2026.09.11.09.45.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 09:45:52 -0700 (PDT)
+Date: Fri, 11 Sep 2026 16:45:50 +0000
+From: David Matlack <dmatlack@google.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-pci@vger.kernel.org,
+	Adithya Jayachandran <ajayachandra@nvidia.com>,
+	Alexander Graf <graf@amazon.com>,
+	Alex Williamson <alex@shazbot.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, Chris Li <chrisl@kernel.org>,
+	David Rientjes <rientjes@google.com>,
+	Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Jason Gunthorpe <jgg@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Josh Hilke <jrhilke@google.com>,
+	Leon Romanovsky <leonro@nvidia.com>, Lukas Wunner <lukas@wunner.de>,
+	Mike Rapoport <rppt@kernel.org>, Parav Pandit <parav@nvidia.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Saeed Mahameed <saeedm@nvidia.com>,
+	Samiullah Khawaja <skhawaja@google.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Vipin Sharma <vipinsh@google.com>, William Tu <witu@nvidia.com>,
+	Yi Liu <yi.l.liu@intel.com>
+Subject: Re: [PATCH v8 03/12] PCI: liveupdate: Track incoming preserved PCI
+ devices
+Message-ID: <aqQwPn4XOxC58vU3@google.com>
+References: <20260728221007.2098560-4-dmatlack@google.com>
+ <20260910234956.GA367108@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910234956.GA367108@bhelgaas>
 
-On Sat, 5 Sep 2026, Aditya Garg wrote:
-
-> > Holding Fn temporarily switches the Touch Bar between media controls and
-> > function keys. Users who want to keep the alternate layer currently need
-> > to change the mode through sysfs.
+On 2026-09-10 06:49 PM, Bjorn Helgaas wrote:
+> On Tue, Jul 28, 2026 at 10:09:57PM +0000, David Matlack wrote:
+> > During PCI enumeration, the previous kernel might have passed state about
+> > devices that were preserved across kexec. The PCI core needs to fetch
+> > this state to identify which devices are "incoming" and require special
+> > handling.
 > > 
-> > An optional double_press_switch_time module parameter makes a double press
-> > persistently switch the default layer. Its value specifies the double-press
-> > interval in milliseconds, while zero leaves the behavior disabled.
-> > 
-> > Signed-off-by: Aditya Garg <aditya.garg@linux.dev>
-> > Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
-> > ---
-> > Changes in v2:
-> > - Added a check to ensure negative fn switch times are ignored.
-> > 
-> > Changes in v3:
-> > - Renamed the backing variable to match the module parameter.
-> > - Fixed the reported code style issues.
-> > 
-> > Changes in v4:
-> > - Added missing "break;" in case statements.
-> > - Change author's email to aditya.garg@linux.dev
+> > Add pci_liveupdate_setup_device() which is called during device setup
+> > to fetch the serialized state (struct pci_ser) from the Live Update
+> > Orchestrator. The first time this happens, pci_flb_retrieve() will run
+> > and convert the array of pci_dev_ser structs into an xarray so that it
+> > can be looked up efficiently.
 > 
-> Now that I see it, the case statements were ending in return. break was 
-> not needed. Sorry for the brainfart.
+> > + * The PCI core does not enforce any ordering of ``pci_liveupdate_finish()`` and
+> > + * ``pci_liveupdate_preserve()``. i.e. A PCI device can be **outgoing**
+> > + * (preserved for next kernel) and **incoming** (preserved by previous kernel)
+> 
+> Thinking about how this will be rendered in the formatted doc, I think
+> "i.e." is really part of the sentence, so in U.S. usage this would be:
+> 
+>   ``pci_liveupdate_preserve()``, i.e., a PCI device can be ...
+> 
+> I understand British usage generally omits the comma after, so that's
+> OK too, but IIUC the first part of the sentence shouldn't be
+> terminated with a period, and the "A" shouldn't be capitalized as if
+> it's a new sentence.
+> 
+> Similar issue in "PCI: liveupdate: Document driver binding
+> responsibilities" later:
+> 
+>   bound to the correct driver. i.e. The PCI core does not protect ...
 
-Please send v5 and I will apply it.
+Ack I will fix up the use of "i.e." across the series.
 
--- 
-Jiri Kosina
-SUSE Labs
-
+> 
+> > +static unsigned long pci_ser_xa_key(u32 domain, u16 bdf)
+> > +{
+> > +	return (unsigned long)domain << 16 | bdf;
+> > +}
+> 
+> Add blank line.
+> 
+> >  static int pci_flb_preserve(struct liveupdate_flb_op_args *args)
+> >  {
