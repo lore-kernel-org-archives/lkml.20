@@ -1,140 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31ACB4AEBE5;
-	Fri, 11 Sep 2026 18:26:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789151216; cv=none; b=psTUDSL9AvcrL93MgBO6IyXS3LoxuWzi5qe3bGMi7lmaHt6gXfo/G+bvKDU4yCL/v4rxHYle5ZMr6iKnMxj+CrkDMor/MHRw0tAMkEL+QdTZPwFjFqSCL6N/nmn+DfWjiHYJesjYKg9cpGGj3vCluEAXQHsGQ0zWmuIdcImztZE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789151216; c=relaxed/simple;
-	bh=vkhyf6ZBPu9hq+BJ9KILIffSpoP6g4+ZP39pvN9mtTA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=STEV0LUkvPBZtv+USPSulzi33ajl9cb/YswsCl6LIUfKdt5YSQ59hvfyQ7IyD61Zz51UfwiHJURnz+JBWcjt2nV9h5hAc/Cqfm6YsH1z5DKdMWQMMedOiYlBN0OPfNXa363t+uBJN++dDPDN/0VIRocSfv0yFjB0Ur9djnLJjT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RZbb/QQN; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB961366054
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:28:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789151291; cv=pass; b=LJ6aX55lf141XaD6LkmNwr7e5V1C/XGHI1j4aQXf16t0NWgrrRCvUDIvpNRkhDGFLC9HIzu84VHnum4PvEXulMcgy91MGl9NaT0jhh+JaxoKCcAqt9a9D9YsP6/2wN7JcmKfDbIeGhH2HvWKU3uZAvNfG6UVvSMEDbnHqxqN6BI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789151291; c=relaxed/simple;
+	bh=y9nTbIjY2+t5cR0URENpGmSTYgd1reBZmat/Eu9yGBo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WWJcsSIJgFubalP8VAZHUcW+WdFJbsLYJae77NFcqxDCwNIfIWRQukd8AENFA2zGHFQHp6gd/Q8r1DfFTxt2LD4YjPC9/xGUxY5+hLTtqBZOvDxW756Nn3IhiJfq4qdtcclmU/rGvRtBI51FRYitW6oaFVmndyThBiG8GGxd47s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jRnft8B5; arc=pass smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RZbb/QQN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A29791F000FF;
-	Fri, 11 Sep 2026 18:26:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789151214;
-	bh=YJ0O0JaLtVP+XxR8QGsN0vFEwgtrJIgdHqxaxpf//gs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RZbb/QQNX947GjiHM/rvFaywRPpzDljnISz8So1ljEZ/W8YoDwh9lmfhKxMaOMllH
-	 f1jlg/Wwwwt18W5lDeTYH/n3A7Gd7uFOvx+37M0qlmGQOxoW72W9dV4EcO5YSCnhdy
-	 fsphlPKbsHtFVb1lVgLvymKWotj/WXeBweyF9/lEiTnKySR/AgEFuvA/JSYOr2fwYJ
-	 8L1X8UJhd0OxFGuB1KiOr+6TIYDYA7FdE6cTZTIwZl92pXwKfiL7cjlLcLhpJuzfkO
-	 LzHutFm+dtFAQ0Db8AKfLt35gLgngcMPJisdPRfBWmsDj598nFYBxdENzGOtasOwYc
-	 upxzEE+ORsLrQ==
-Date: Fri, 11 Sep 2026 19:26:49 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, 
-	david@redhat.com, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
-	pfalcato@suse.de, xueyuan.chen21@gmail.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH v3 5/7] proc/task_mmu: change proc_get_vma() to stop
- returning gate VMA at the end
-Message-ID: <aqRF4YB7Ijk9PmRM@gremlin>
-References: <20260910234737.1340642-1-surenb@google.com>
- <20260910234737.1340642-6-surenb@google.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jRnft8B5"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6351832so68693f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:28:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789151288; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RgoIps3UzMB4i4EmDFyUreiBOOnu/zzJzZCkFOcMvfB10GKaOZRJvueyh9+veAqROw
+         PO/bwiZpLT0A46rKWIx2CKkkCIBu4d9P+Xsq+fH+DPwMhu0e7d+CqDf+eYd/KXUpaxua
+         nv0x4WUWBM4H2QSLeOsYZ76trKy2mVTwK3x1b0n3bAA9TfbCrWsjFwWBHquW/mPI64mZ
+         3k3vDpqQlGYJkzuSlHIiSt+pG0k3jwz6/qKUGHX12ucszP51go0YMqrWZrH6y0nTIs10
+         sZpOBRomLc4UpLyY6Nw7jCysff/fXl0oihgi8XJ3G+Vtax8vJE3+t2mbqbpmp3rDyUTR
+         fEig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=y9nTbIjY2+t5cR0URENpGmSTYgd1reBZmat/Eu9yGBo=;
+        fh=5SkVI6SrRMNJSFcFXiRit1vXwg7t4GR5Q1v+cVJsarE=;
+        b=LYNPhki5cW2Q4eMTvuAQ0L+n7xDJD3UWuNNPBInQdjVKARj4nKzHODO4rPXO3CSj87
+         RZOPSHXhyvBhvwTFI9VJgNPgAg314Xb7oDuCPdEb6eZ/EL0jzyjFGnZFVV2Nyp9AkwkM
+         RTDR2xPyWCAXh1xWPb87TnJ7c5TOp5v8nMDe9awjs0IybUhazAiBvMRo8v0NA3oQwo7m
+         ioG/TF0h4lw74mk1jF9ITCab3TSPrgavLmVIfgPLlIihGUx2K7M8R8gU1Hfqhfkx2bi8
+         aSbuX+HIOxsrBNOy9ZIO3IgwYcD6boBGe7MSTYW+E6stkxYAjyxK/6u+lQuKI5PD/nPj
+         O/jA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789151288; x=1789756088; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=y9nTbIjY2+t5cR0URENpGmSTYgd1reBZmat/Eu9yGBo=;
+        b=jRnft8B5UGDOkTwcFD420fwte2Et9asVQD9na48sP31wLIrhJfZqpNw6aKvO5Zm/5S
+         3d0n2jordDICmvg0OjV30YeSiyCiiaKYB+uehjbc/wpzE/WlFJOi5AJdG1J46b6J139b
+         wZ7QEOMtFemVOh6nnbNnFlfoxjc/UuAKYslNgOHjM+aSSNeR8g0rib7sLhMkLAntPoFb
+         /+jMBJX+1qL50lOBMHjHXa9p0Y7lxLdXyLjTQW5uXf2yPb6l5H8iH8pRKGYOjEIhMXrU
+         lkKETvhYWiQrmVWyv+FwuUZn4rFrObZVBY0R5XkDZQw7JMK4K7SEz0+gDg8sNLYckPZE
+         Jw6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789151288; x=1789756088;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=y9nTbIjY2+t5cR0URENpGmSTYgd1reBZmat/Eu9yGBo=;
+        b=d1M8rD00j7ebepCp3cXsuvMLVSErM5fSc10k8MACqeMAFjzZwtRPC1u1WbpVO1tmhS
+         ODwpPMnZfnsFzchexew/oshxEQWM8vrRRWUQD5w0/rlP9jTvLcL8GpX9EFdcpJYMU2Pr
+         YghmXPeQp+EK4lWKxvhWpy2AAMOvimkm1yn7Mi9TJnDZw/MsMug0fuexlA7gY+u/AhCk
+         WxtlToBTZCWkf+Xa1azh6sMz0qXkNzHt1mXvsVHpDhYREvoPM//blXUubPyjrA88BhsI
+         1Ixx/WtzVT/gnYMdFDF51BPblNaN+yWhrt550qqK23OIlkR6K48nDiqNDigOWuzafZzA
+         bQxA==
+X-Forwarded-Encrypted: i=1; AKwUvBytL1lL8Ts54j11ZXXYy6P0vVE8Or5DOheApe5/WsmA9kihVB2gwBogxamYtW1RUCp3oSXSJggI2dASfTs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLhAAZEP3g8+bUAr/GLZMOIFcMPLlbuJqrMEQ5WWzk0pHO/b0I
+	s1QRhmBQC/lw4MeGuYZG4Ss3c7gRWFUEJ6Ae86is1ZoHmwT5WsrwKXEehd8EWDSfSLqmDqRm3sf
+	3adiSmgAdOqNWgZYb/GSnuMapcHIA0NeOgcAh2gNM
+X-Gm-Gg: AYBFou3Ayk8ezSgyT7X5jdriBA1J2ppaNc8qbOShap9ZWYxdINmj6k7yHE47JdaCtEf
+	kdLHgdlX3xG+JUUx/bEKyXoyDplP/9T5cAprjcKaPhIAihzFjYmLm9YXpTCcnCWDETXv2TVbuET
+	k7gUp+9y3izRdMlCI76F4UlzOQRFNOp5bGbAwodqpPAcI1MZyON3Rd0F4hZc+rxtvqc7sqF8+ip
+	A62wo8wGxhNiuJL5VjBJviKooCELXLfXguKo8Jg3Se21Xic3MXYkD2KIwPD5RwG+KlwnB7aJsx5
+	UN4c6kPB2hWLo9rAQhAc0ZN9uZ7Vme9Hx4mek60wZJ1lNjyXmZ6YYH5EYmsx7zGzbTuxufqvNBz
+	wNA14QePwtQ==
+X-Received: by 2002:a5d:5887:0:b0:485:ae8d:1e07 with SMTP id
+ ffacd0b85a97d-486eb3543c0mr6951383f8f.56.1789151287712; Fri, 11 Sep 2026
+ 11:28:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910234737.1340642-6-surenb@google.com>
+References: <20260904234401.2339633-1-jthies@google.com> <2026091023-numeric-husband-1b03@gregkh>
+ <CAMFSARfnRpkq21j7WZYqdthy4aC7VSPjQAKm1eHvbYxhM6pOnQ@mail.gmail.com> <2026091139-spindle-zodiac-2342@gregkh>
+In-Reply-To: <2026091139-spindle-zodiac-2342@gregkh>
+From: Jameson Thies <jthies@google.com>
+Date: Fri, 11 Sep 2026 11:27:55 -0700
+X-Gm-Features: AcwNN1WsFlTMBvEiNMDzIzZo5OmwjBJhmGTnyMtJQR0FexDEekyndWgnFLMhtM4
+Message-ID: <CAMFSARdSyB9m72r0gpujZmknN_aDVUnyOzKHfdksKhemfzcUhg@mail.gmail.com>
+Subject: Re: [PATCH v2] usb: typec: ucsi: displayport: Fix OOB altmode array index
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: heikki.krogerus@linux.intel.com, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bleung@chromium.org, akuchynski@chromium.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 10, 2026 at 04:47:35PM -0700, Suren Baghdasaryan wrote:
-> proc_get_vma() returning gate VMA at the end is desirable for the its
-> current m_start/m_next callers, as they need to report a gate VMA at the
-> end of the address space. This behavior is very specific to these callers
-> and makes proc_get_vma() hard to use for other purposes.
->
-> Move this usage-specific behavior into the callers themselves so that
-> proc_get_vma() returns either a valid VMA, an error or a NULL when no
-> more VMAs are available. This makes it more generic, simpler and usable
-> in the later patches.
->
-> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+On Thu, Sep 10, 2026 at 10:56=E2=80=AFPM Greg KH <gregkh@linuxfoundation.or=
+g> wrote:
 
-Yes, very good change, thanks!
+> Why not just a fixup patch instead?
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-> ---
->  fs/proc/task_mmu.c | 23 ++++++++++++++++++-----
->  1 file changed, 18 insertions(+), 5 deletions(-)
->
-> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> index ecce7ce116cb..9a3c996c1d61 100644
-> --- a/fs/proc/task_mmu.c
-> +++ b/fs/proc/task_mmu.c
-> @@ -236,9 +236,6 @@ static struct vm_area_struct *proc_get_vma(struct seq_file *m, loff_t *ppos)
->  		 * found the extended vma with the same vm_start.
->  		 */
->  		*ppos = vma->vm_end;
-> -	} else {
-> -		*ppos = SENTINEL_VMA_GATE;
-> -		vma = get_gate_vma(priv->lock_ctx.mm);
-
-Yeah this is just so confusing as-was.
-
->  	}
->
->  	return vma;
-> @@ -248,6 +245,7 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
->  {
->  	struct proc_maps_private *priv = m->private;
->  	struct proc_maps_locking_ctx *lock_ctx;
-> +	struct vm_area_struct *vma;
->  	loff_t last_addr = *ppos;
->  	struct mm_struct *mm;
->
-> @@ -280,16 +278,31 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
->  	if (last_addr == SENTINEL_VMA_GATE)
->  		return get_gate_vma(mm);
->
-> -	return proc_get_vma(m, ppos);
-> +	vma = proc_get_vma(m, ppos);
-> +	if (vma)
-> +		return vma;
-> +
-> +	/* Return gate VMA at the end */
-> +	*ppos = SENTINEL_VMA_GATE;
-> +	return get_gate_vma(mm);
->  }
->
->  static void *m_next(struct seq_file *m, void *v, loff_t *ppos)
->  {
-> +	struct proc_maps_private *priv = m->private;
-> +	struct vm_area_struct *vma;
-> +
->  	if (*ppos == SENTINEL_VMA_GATE) {
->  		*ppos = SENTINEL_VMA_END;
->  		return NULL;
->  	}
-> -	return proc_get_vma(m, ppos);
-> +	vma = proc_get_vma(m, ppos);
-> +	if (vma)
-> +		return vma;
-
-OK so I guess the logic is, iterate through every VMA, then once you run out,
-report the gate VMA. Makes sense.
-
-> +
-> +	/* Return gate VMA at the end */
-> +	*ppos = SENTINEL_VMA_GATE;
-> +	return get_gate_vma(priv->lock_ctx.mm);
->  }
->
->  static void m_stop(struct seq_file *m, void *v)
-> --
-> 2.55.0.1007.g17ff1f9808-goog
->
-
---
-Cheers, Lorenzo
+Sorry, wasn't aware this was an option. I'll send a fixup patch to address =
+this.
