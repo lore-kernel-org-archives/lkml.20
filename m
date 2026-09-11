@@ -1,163 +1,172 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0271B4A3842
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:21:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150902; cv=fail; b=WNB/oNb/+AnACFSVNyC9qEgnKnc/PIokouefwLyXW8tIJdFsGQEdcE8mX62qgmFF8ZyvJxDnp5MIOzz4TzQo/NNH0D/fPvEkHlZEF4H3HwMgD3xAGz7YOzXOVuGIl9fuACDYXJS0P/Ke78Ba11MS/X8z5gK/+CVHED/tx4QJL3w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789150902; c=relaxed/simple;
-	bh=w7psfYFtq+4CQKfkrQamoDMFVWRtsMsKqo9/zyDVAZE=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=UzhlKagdYveGdrCg2wsh4uc1b4KalpoqSG1c5LmjeCRzmMDHRTsz9W/YXJcaHP3XCO9UdvyAYKUOb/WL00cZRdtIZ+MBvV7+Ckguc9XIOTJT5X2ieJDoSMuyBq9PsB+d+jLbDPuHDC5rKaBtFGiLoaMXka0Ez2i+0tWGJe5XfhI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BCK9iXOD; arc=fail smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B001E4A99C6
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:21:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789150915; cv=none; b=WmAGlS0NGxevGyhEFFaisWiNXsdLF5Zy65Mkoj8CiOZs17IsT9VW98YvqJvfonutufYDz41eQfCPfYJDDLLXDAYBuptxyzU612V3ol84JGizZuvsESE7YSB6yGnrb71lrWIMlJHBtSPrCFTX1m2nc/9ncinRUOmi6VngUa4K2Jc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789150915; c=relaxed/simple;
+	bh=kvFVf3Ybxs86CamvPsLjfp9ad3i/ysaCDWmsGWOSHoM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PxDG7IWjoJ4FaCo0XeU7FHVTWV/MRz7AHwEegFOCKXYO/9Ew0ktiwbCbS6xsElRJzrnBQ13GSfjlMn9nxCxMeINH2BpZ6dSh3mqXbOZ++tfhK+LsPJc0RJxgEQJaSCmnlS/qemgtUyN+VMTuj/AFjDDAr4AXl+4A9WhHVacgX3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=miget.com; spf=pass smtp.mailfrom=miget.com; dkim=pass (1024-bit key) header.d=miget.com header.i=@miget.com header.b=GFqPhqeZ; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=miget.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=miget.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BCK9iXOD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789150902; x=1820686902;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=w7psfYFtq+4CQKfkrQamoDMFVWRtsMsKqo9/zyDVAZE=;
-  b=BCK9iXODaUC8h4jZOQ1Dk7lhtAGiUr+xU3vAEw9rGKyKBCpPhLmktPuC
-   06NiDtDZeICQcIZvfG0HC+Hwvu/DWMtyuP5Gc/tWUWLc/gW9Yz+icM75C
-   5z+KFrRcP9QvhG6Put4QWgwEPv0mASozAF9GwATiUWHYy9kZUhIl+kw3q
-   smQ9sOkDAy3EsS7ITu8S052dDBp78LsJxissAWAqwM4mYuhrMICH3J2WU
-   TGQQTx5cKEye/b1Z9U0sIFbFYVHCXK/ojSmsk7YrLDJeUj2GopqBYJM/Q
-   +duTC8lDlmbInklKmhBjaNtf0guB1qKZ+r2U75ZKNEvMAZgCPOXywlJoT
-   w==;
-X-CSE-ConnectionGUID: wDp4PKAIRvu22fBCO540cA==
-X-CSE-MsgGUID: dAXukgXcTdSPsJ+D78xnyQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="93315963"
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="93315963"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 11:21:41 -0700
-X-CSE-ConnectionGUID: xKz3UU3IRpuHvpklDZjfZw==
-X-CSE-MsgGUID: LiM7EJ4YSriCEuP+gUWVGQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="310254768"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 11:21:40 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 11 Sep 2026 11:21:39 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Fri, 11 Sep 2026 11:21:39 -0700
-Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.8) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 11 Sep 2026 11:21:38 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n2t9ARLwteBvf0ZnRm5onxEuvWKy9iNxqLaNHy8AcAR906sDZyn7BURt209LqhY+8YnTfldLKMhtnr2NwsV1I/rSMRqfFOrrV7Je4bL0me2y4nDgwLsySLfflMTVSYSZlzm7jbQ+PHCa21YgP3/G6YJk7Roz0hxb7q41Ni5noG4WgNEt2Tn6S9JzLlt9uvaH5IQXuj2Ffi2dF6EDU8LtRpabIRShfZAcY+9WZz8ZRXMVD1lxxq/CHwu0zksKEwrIGJQs6QqXGHIEeOVkWAO1P0xQ2zDRFQaaw/EJtJTF0rEFDEw1GFNAeTG1EXSzyGFetL2JMZFpAOhi8Rl9wQwZdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w7psfYFtq+4CQKfkrQamoDMFVWRtsMsKqo9/zyDVAZE=;
- b=i6cQcp0A13l3iz+wHX98sxjMwp86n1xc0pkGPI3Rc909sK6WzIvkxycqXv27zmxT1sQc/DGx77ahTt1kxNw7SJsW0tr4ZlWl1S46o77fVtkh0g2P7dYpLHYFe/m4UwSZylLc869JalUfQ0jP3U7s7ZOY95zvjMJ7H/Jhenu5bXnxxctDz0gy3V/euhKY3f+8ZtWM8yeCCXRH+Zn6kV7J27jHyvhdpkmiyLah40iovEnls6CR51+Iq4ZwgePXSaA6erwFgDSOtMn/V6L5FsVyXdItT+loS0CLXlyg9BaIN2fNeSdEZKriAc025MPThCkCmiOEA3oHJs4woTpUx6FogA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ1PR11MB6083.namprd11.prod.outlook.com (2603:10b6:a03:48a::9)
- by BL1PR11MB5301.namprd11.prod.outlook.com (2603:10b6:208:309::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Fri, 11 Sep
- 2026 18:21:36 +0000
-Received: from SJ1PR11MB6083.namprd11.prod.outlook.com
- ([fe80::3454:2577:75f2:60a6]) by SJ1PR11MB6083.namprd11.prod.outlook.com
- ([fe80::3454:2577:75f2:60a6%4]) with mapi id 15.21.0382.014; Fri, 11 Sep 2026
- 18:21:34 +0000
-Date: Fri, 11 Sep 2026 11:21:33 -0700
-From: "Luck, Tony" <tony.luck@intel.com>
-To: Reinette Chatre <reinette.chatre@intel.com>
-CC: Fenghua Yu <fenghuay@nvidia.com>, Maciej Wieczor-Retman
-	<maciej.wieczor-retman@intel.com>, Peter Newman <peternewman@google.com>,
-	James Morse <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>, "Drew
- Fustini" <dfustini@baylibre.com>, Dave Martin <Dave.Martin@arm.com>, Chen Yu
-	<yu.c.chen@intel.com>, David E Box <david.e.box@intel.com>, <x86@kernel.org>,
-	Christoph Hellwig <hch@infradead.org>, <linux-kernel@vger.kernel.org>,
-	<patches@lists.linux.dev>
-Subject: Re: [PATCH v11 01/23] x86/resctrl: Give better names to X86_FEATURE
- flags for monitoring
-Message-ID: <aqRGre8eEhxycLel@agluck-desk3>
-References: <20260831174421.13921-1-tony.luck@intel.com>
- <20260831174421.13921-2-tony.luck@intel.com>
- <2a814a14-2717-4363-838a-6585557baf1a@intel.com>
- <aqNGFA6JtddxEn54@agluck-desk3>
- <6cd4a7d4-6f93-4970-82de-be483fe45267@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <6cd4a7d4-6f93-4970-82de-be483fe45267@intel.com>
-X-ClientProxiedBy: BY1P220CA0002.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:a03:59d::6) To SJ1PR11MB6083.namprd11.prod.outlook.com
- (2603:10b6:a03:48a::9)
+	dkim=pass (1024-bit key) header.d=miget.com header.i=@miget.com header.b="GFqPhqeZ"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591bb18so170312a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:21:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=miget.com; s=google; t=1789150912; x=1789755712; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6vMZxd59EhYB9mHQG4h0mooWgrTvfO7t/x+y7pEl0dQ=;
+        b=GFqPhqeZdZeipDHoBja1YcI+VUKj2WKGBeRVQzI3scA6YF4+qg17TySrf5YuPWW7Ew
+         5lY1j2INmhWer/nMkET7qxkhBZyY12Jf/KqYgOu/eflY/eEoaiKhJjVfEgMR/KnqGCYg
+         8zruIWVqcE5CBqkZxgO2ruYvQepUZF2RWbzlg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789150912; x=1789755712;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6vMZxd59EhYB9mHQG4h0mooWgrTvfO7t/x+y7pEl0dQ=;
+        b=AEG6qQmkO6A2zNZqyFSLEI5SdyHbBliJqLv51AA5fhFxq+SkHW98Upzcsbwt+Xd70+
+         61n4tOjwqto7r0GHwI1+tSti48rZTtCzz9eD2U8OuiP/7t6BDaakW81jAIw+9wspvpIr
+         jKWlKE4xNGkmFTWi8ssKemALnmiBRV4cSG9OFIADdxfGpFh/W7K1jzhACXOrqXP1srZQ
+         HcUBsi7N/7UAUfYjJcsW7eGglh6B5QQVhvRiL3PIzD6OZEaqnXW5b6VoS1lBzshPzMMt
+         BFJRaI2Ohx9l9sj+wm8Y/DSt9CyvQNMDpGROKovAyDfjJxLioQoCenYdFsfhH4T1Ewyr
+         BcDg==
+X-Forwarded-Encrypted: i=1; AKwUvBxWpCyeihB1IRhyh31bpkvsoNMBdanBziZESA51ONenL42QZTSHgYbQCHp3dqQ+NgJXwBQbFn6MFxtquNw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lDElneOChyjzRc4MT/PhcL2lSQhb5zaFifrIe9KvgXKi3oI9RQ
+	peQyhGRMRTlZV2H/qZZMX1c8B7fjywLGTRbWtepBsYuUqB7Z5rLqhTqBq5ZYbxedWK4=
+X-Gm-Gg: AYBFou3F8eHPLCLw7ilxcLg0RL4JE93VtLNQLIb3QbGBPr1Fe0VMf5cCmig6lGgREal
+	uNUev0GDteMDzf6pVBn5KySCMx/cFtRG2K5xzbJx2M2GauDtvtun71iUSKsX+BRMcmOSqREKI6k
+	OgUDv4fx+91ZSZMnJbUI2CSbI2z5biIEuCNNpB3Gy97EGFGGBDwZfUY4GHmFuu8UKDmoHSnuGDO
+	6BW3FCvluZz6HyWKdVab9Cr0XhdIfWTfDA5835b9UiVLpq2o0FhWa0JqRE2KfzccdLM7G4mdAPf
+	CsVaBrxEBDnwg7XRtuxwhYrSJrGe/v1aT/LNB4IghMjaYKxEdt7AcVMgXlmt+cQbvcZujRU+EAD
+	MxlcRt7cXFLW700fwWDquQBb2y00kHX7k6g3wIHolf9r5wBTPZHuCkqSovwt+k3HuBCnOO/OMqi
+	M4uPnr6CWBAUnzkmonC4TFRFYzyk/Zz1Gw2ZCzOJMXfrL+x0OUhiKMdekcP17Kk2jYA2c36WMoX
+	Do5HgBPz98fKwC1WA==
+X-Received: by 2002:a17:907:c308:b0:c08:580e:899a with SMTP id a640c23a62f3a-c2962ae852dmr283346666b.10.1789150911829;
+        Fri, 11 Sep 2026 11:21:51 -0700 (PDT)
+Received: from xia (user-46-112-84-99.play-internet.pl. [46.112.84.99])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c296608aee3sm114233666b.37.2026.09.11.11.21.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 11:21:51 -0700 (PDT)
+From: Chris Taraszka <chris@miget.com>
+To: Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mingyou Chen <qby140326@gmail.com>,
+	Armin Wolf <W_Armin@gmx.de>,
+	Chris Taraszka <chris@miget.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] platform/x86: bitland-mifs-wmi: Don't abort suspend when platform profile access fails
+Date: Fri, 11 Sep 2026 20:21:31 +0200
+Message-ID: <20260911182131.461415-1-chris@miget.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PR11MB6083:EE_|BL1PR11MB5301:EE_
-X-MS-Office365-Filtering-Correlation-Id: 01c4cabc-8d42-44b7-54b9-08df103182e2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|4143699003|56012099006|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: NY4VzP9sEPYkHSgvx2lzNOg/v4yCjjZZrUi5ITjl4HvTW62OGY9N+trjGwJDf1PZ99WihbAe7ZCXmVc8AHCZ/Iv5FhbIn6dK6tneb2WlmRtzoOKycJLdJEXs7o5p8vunkxaM/6z+l0EVtVnmNYMeI9As7UjqSyY+GF6yb8wJMT4iY++vs72wYLWnElDZrKeiOdKHZ0+Cjqa4c8U6212g1baxQMYGJylOB0/w+Ut8a0zKPicD2Wvwv0/Y6UNrBbSoORzHgX4YhbsRXH4IJUI4TI3pG4/06zgwnLcfk5iMr5YOF4MplVKCr+wRdp7VFnyWH4A10lyna/D+K+eWPURyYS585F+CNtWqB/lLnM2n+Yf3qb4qdUnGWpIJvIr7/0b7jpssZAQq9nNwI6IMJORWZ23M8WZvpEeca/uuq8vUQy4kn1lzmtKi53mNnAIWyrV6gHdIGE3gCj38KvHz4MEg+tIMZTRLMvwwCXrpRR187vnReAWY7Yr5gBUQDwr8jLIW/lnTbuvNZ1wFEO1Me0oTEWtDmDgx8shg5Jryqyax1FWKccqSi7cGXNL7XZUDABIN/5VfXjFAPS/A+e1TNt2r2jWLMefnc4vfzjGouoGHadugeWDO8cEMTT+rd7j9LMsMwygUyraD5G/SnQTMPg4JSsjibcme2YVUGYSW6qOlLEI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ1PR11MB6083.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(4143699003)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?cC5p9Znuv620Ratu+A/WPl/9YDrviq4n73qXlRkgmzf2lzkfn9GENPH8L+mr?=
- =?us-ascii?Q?rJe4P/jg5r/PDEamT4f/7Wo0Ksa2o4H2kX4Q2TvnzPlaJN6w28wJOWt0Jbiy?=
- =?us-ascii?Q?bjnM/A5chRZsRgwHrczWrbP7tRQbHM34d7G5fthrMIoQNLEmZXyKL5YlThzd?=
- =?us-ascii?Q?Rkc2vRb/2a4/CDeYBvoK4tlH7Ohj+DP1IhDFCImQl0LU8J+9pst4yhDT50b7?=
- =?us-ascii?Q?Ey29Rbf3+W5rrEHv8OAk92gHrg6d2BxEjzTzQLSdy/T/M0roXSYrWpPxFhGW?=
- =?us-ascii?Q?wHkr/70L5FMF8K0FL82Pz+ZQV1WD1FY7qK8SSDdUVpvpmql4+tL7eg9FQ6Yj?=
- =?us-ascii?Q?/45bWY5Lvlz3XDya8hqy/QQc0mtSGVktfQV0zWo+oBmz9dLSOmSUA/92puMu?=
- =?us-ascii?Q?RMi/Ez94OzfgVC8++nYyio3Zpmmd7kcAAuEUtsTr1rJTov9y26w02ozQw4vt?=
- =?us-ascii?Q?0Fzr+7XQ+KjxEKzY8Ul80RxrVUXcFVJdfGJcV8hRbWf2xWpHttbUhuOUpXR1?=
- =?us-ascii?Q?GSHHVg1C0YIlQIf3cPU1NC1gPiMAuTMbpfDYcAx9PLFIJAQUi//2OsHZSDnE?=
- =?us-ascii?Q?BcEDa+ud6VUzr3webau07dYwoqPI1O2/+jbDPsqFRMVdiSRm24ff4XLphtbe?=
- =?us-ascii?Q?nbd03boUOTJpqGZ32i5ttT+8ZS4yz8KfYuqDsavSOv8zSl2A6inVeF6XNMoy?=
- =?us-ascii?Q?lNiRNvpZpmtPNHPEWju2C5ZdjK48/JDm2/h0H/DPf6UYskosOrtmrfebFYUL?=
- =?us-ascii?Q?syiyKROGcHBGNYku9KjbdUQTtRIaj1SK0xcmJEXf/vBgJnJXUbas77kZfZvJ?=
- =?us-ascii?Q?+2RBy7pX4YAiFUzCtZZFZmlLtpM3JJSyDjRSGW8sqbCx9MC6Ds2Qw9jpBJ+Z?=
- =?us-ascii?Q?UU1k2B7cFF+l5TXskDqV8F/H0Kk4n5w3rISIgEifye4cInWt+IaRAUzIijbk?=
- =?us-ascii?Q?hpRPFPGoRJbnzC5yli6suhIOoDTqXHrMyMuC8PWQucXX1rZ/uyXOCJgLT+0C?=
- =?us-ascii?Q?InEaG+lckn5ceSIe55vF4dcBGEArzFDI/h6vP1ivLjPu4xW6Gfo3KFueAfRR?=
- =?us-ascii?Q?ogJXWR1PxB0NmXT96ke5+OGyMWhedFSsiQsTHWvdyQGp8kns0U77sR9WcGCP?=
- =?us-ascii?Q?DN//r7JIJYk8Xfhl1RJTJPT8LfwaxaIxF2UKJzV0CVeYW0yCLXHcoeyxayXs?=
- =?us-ascii?Q?9ARTLmg3koXE//dEOSwcWh+ZzbiSUqZq1gcS1PP/ObnQ/sfKpdEeuCx/jBbx?=
- =?us-ascii?Q?a7kabzSHgOEbquFK4dj2F38zKvzqVTKJ7RV+/q6voyxnQajj0Un8Vrm0wWdo?=
- =?us-ascii?Q?AiZ6DEvIUn7/mDH7RefvttMI4/sHpSQfkegmVsJS3LsWIr+8a5IcoMKHHjVq?=
- =?us-ascii?Q?2HqJ+tUKM/PHTuYM+BCKIcluqLonoQoXSjxstYxQ+GA4MKjdt9siUhV6Zzz0?=
- =?us-ascii?Q?rtfWDPDEHLqwEjp96kx+9fewJrZaTmf7QZn+1luO5letqRprYdQoR7+evvS+?=
- =?us-ascii?Q?qu4AfDcysBZTIGfDN0XLMNUHvq1cInIV/MkzR+l6n1Dcu6gJS2w64GMbojtr?=
- =?us-ascii?Q?vnkz4qihyHrUSXhowY+mXLJP+AwVKBnEFwBIVTNRi+38m6bQ1pOULz3V+nhV?=
- =?us-ascii?Q?Sncwe6YT+1nXcos+TpGQFYyUEgV9yrGN8t3ZjpozlqlBuS7/LXvKZUMHFamF?=
- =?us-ascii?Q?/XYHKXmTF6JehPXiqW56kJu/sAI5RXrook0wChC00Qm2FJA6OPbTwgcQeDNN?=
- =?us-ascii?Q?nHzwxlBF5A=3D=3D?=
-X-Exchange-RoutingPolicyChecked: vg2rXtj6z+ZB3J+7pYXtXdnCoI2v04/LEzmZkb3t8FnbnWHM7TDBW0oXljXU6olgU9zGGFIJH8bH97puSOPaNAt/QRnzwIROc4G3vAv+y406BHZ0LmSOGXQaELqfF+ukHP2SGRUp4xnPZVNTIg+fl6em/XwMcNsqLmbToh0W0bYrSXvkGvPJ0Kl6GCF7vG2ZksfQ62VOEufQLFakZXTa4YmxDufCtE0JbZKl7w2zZw+Rs1MkDppOSP52U8sEnnpwUzi+7tP+paA0vY7m1HA2vetQVEzW6a1UVAIMAIy3CFVwBiYQPniF5oXS2Mk/EATi5Z0Td1MnQHSlX02UA03vuA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01c4cabc-8d42-44b7-54b9-08df103182e2
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6083.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 18:21:34.6632
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PNYopmIxP0Kl5q8ZunY0gVLhO97Zwth9Z8Mdg9CZ0/8J+hoChVWa0FVhm3sMCK8RssRgd8hPshza4RIUmwFlxw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR11MB5301
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-I'll drop the #define name changes.
+On a Xiaomi Book Pro 14 (BIOS XMAPT4B0P0909), bitland_mifs_wmi_suspend()
+intermittently fails to read the platform profile and returns -EINVAL to
+the PM core, which aborts the entire system suspend:
 
--Tony
+  bitland-mifs-wmi B60BFB48-...-4: PM: dpm_run_callback():
+    bitland_mifs_wmi_suspend [bitland_mifs_wmi] returns -22
+  bitland-mifs-wmi B60BFB48-...-4: PM: failed to suspend: error -22
+  PM: Some devices failed to suspend, or early wake event detected
+
+The WMI method call itself succeeds. The WMI core reports its own
+failures as -EIO, -ENOMSG, -ENODATA or -EPROTO, so the -EINVAL comes from
+laptop_profile_get() when the SystemPerMode value returned by the
+firmware is not one of the four documented modes.
+
+How often this happens depends on firmware state. On a v7.2.2 boot the
+query failed persistently on battery: /sys/power/suspend_stats reported
+4628 failures against 2 successes, both of those on AC. Because logind
+re-issues the suspend while the lid stays closed, the machine looped
+awake and drained half the battery over one 8h42m lid-closed period at
+~7-8 W. On v7.3-rc2, whose driver, WMI core and platform_profile code are
+unchanged from v7.2, the query has so far failed only right after boot,
+when power-profiles-daemon first reads the profile.
+
+Commit d3666875c75e ("platform/x86: bitland-mifs-wmi: Fix NULL pointer
+dereference during suspend/resume") added a !data->pp_dev guard, but
+that only covers the event device. On the control device pp_dev is
+valid, so the guard does not apply and the error is returned verbatim.
+
+Saving the platform profile is best-effort. Failing to read it should
+not keep the system awake, so warn and continue instead, in line with
+that commit skipping profile operations rather than failing the
+transition. Do the same on resume: laptop_profile_set() returns
+-EOPNOTSUPP for the performance and full-speed modes without DC power
+(see Documentation/wmi/devices/bitland-mifs-wmi.rst), so a profile saved
+on DC power cannot be restored after unplugging during suspend, which
+would otherwise mark the resume as failed.
+
+Fixes: dc1ec4fa86b2 ("platform/x86: bitland-mifs-wmi: Add new Bitland MIFS WMI driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chris Taraszka <chris@miget.com>
+---
+Tested on the same machine with v7.3-rc2 plus this patch: 11 s2idle
+suspend cycles, including lid-closed suspends on battery of 7h42m, 4.9h
+and 75.8h, and repeated pm_test=devices cycles on battery all completed
+without errors. The failing firmware state could not be reproduced on
+demand on v7.3-rc2, so the new warnings have not been observed firing
+during a suspend; the failures described above were recorded on v7.2.2
+without this patch.
+
+ drivers/platform/x86/bitland-mifs-wmi.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86/bitland-mifs-wmi.c
+index 3a37318..788ef14 100644
+--- a/drivers/platform/x86/bitland-mifs-wmi.c
++++ b/drivers/platform/x86/bitland-mifs-wmi.c
+@@ -305,22 +305,31 @@ static int bitland_mifs_wmi_suspend(struct device *dev)
+ 		return 0;
+ 
+ 	ret = laptop_profile_get(data->pp_dev, &profile);
+-	if (ret == 0)
+-		data->saved_profile = profile;
++	if (ret) {
++		dev_warn(dev, "Failed to save platform profile: %d\n", ret);
++		return 0;
++	}
+ 
+-	return ret;
++	data->saved_profile = profile;
++
++	return 0;
+ }
+ 
+ static int bitland_mifs_wmi_resume(struct device *dev)
+ {
+ 	struct bitland_mifs_wmi_data *data = dev_get_drvdata(dev);
++	int ret;
+ 
+ 	/* Skip event device */
+ 	if (!data->pp_dev)
+ 		return 0;
+ 
+ 	dev_dbg(dev, "Resuming, restoring profile %d\n", data->saved_profile);
+-	return laptop_profile_set(dev, data->saved_profile);
++	ret = laptop_profile_set(dev, data->saved_profile);
++	if (ret)
++		dev_warn(dev, "Failed to restore platform profile: %d\n", ret);
++
++	return 0;
+ }
+ 
+ static DEFINE_SIMPLE_DEV_PM_OPS(bitland_mifs_wmi_pm_ops,
+-- 
+2.55.0
+
