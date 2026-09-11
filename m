@@ -1,154 +1,145 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010029.outbound.protection.outlook.com [52.101.46.29])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2951466B01;
-	Fri, 11 Sep 2026 09:05:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.29
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789117554; cv=fail; b=QR2M3bPwlfW0aj5V99eML6plig9DTLyqUeQ4Vna9y1w8XERBFnNioMFEORmCPM/PzDtfraIGOAQg2TtNLR5K8zRSqSM0Wc6T1sPTH7O0p7xL6zU6MuXAx8ed2UZY3Mzor1MjpnoCe67Q151YX5OL9jP2DVh0fLkcotGmq86Cpps=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789117554; c=relaxed/simple;
-	bh=SelO8Vwnwp+VLht81Hq0QbVNHgLZEqjupD2cP2nc/dY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Grb8tN409zViwu96L8tJz6G69aeEa7cZO41X6R9lTBecWOK7uujw/AYDzp3JFKKknQJ4NnmZ3mGa7jHO1TfvYqxb6IU8PcoeniZILy/qDolD6vW33KMKN8MDMtLmZXo6GEfwO/ePj+0YEkfzcRdWHhm/kCYdvA3jo1a+q977tqI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=tg/M7Od4; arc=fail smtp.client-ip=52.101.46.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7923746AA73;
+	Fri, 11 Sep 2026 09:06:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789117582; cv=none; b=TucBq0KHfQIsrxrXWTIpxKH2TruLygOqxwN3Cjlz8ensrU7sxJKdUPCqZfpw4u+WrukysVXsuH3nsIrlk0xl2mjmkZaiXwnue0o/LZSu1MHrfw6nXiAbS2+col9BP6PfvEJGRnr8HUWczqiKcnTL2MgnLjn0HkMQ+k8wJCKHaQA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789117582; c=relaxed/simple;
+	bh=lhga+Weuy8JTzpn00mh5e2wdFlQK7ezFMNk65Apg3sI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bPMA8VkdsMIdwUDz+yxoOTdlsFYXRXZoc/wxnoe2/aQNgJ2ah92RW70ZaGYhX0MYhq90KCBnsTevpXIMmPDV4J+csikkEcU2hEaQ+PEa/Rhtuwi/5HBTAl64KgDESeFq+U6xV9rQKJezroh1GKyNjmMpP2FPfhznDfjgidgNpK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fChbx+Es; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="tg/M7Od4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q8uvdHtEorCBJlPmQiRc3WmKoLm+zY2HOv9yyAadQFNZ9CcfMaMU6EOV2a0tf68bpBH7cEMJcImh+50Yfql5s/jxLRo8cLlbeDVVCLUolxIQ8/BMtXD0LgH+IuxAJ9/79Xsuz2VXeFFi6AkDXT71F72xcS9T2I4Nr2j/qa4x0i/NbsiCzz9R9cUcbsFaxinYYBoItjkqWQKKhCFkP5Ch5TWVgJU04BsxkqkdBDANzyD+ZpEoBCTR2za9yGChQffX3aE3gOyOuJgU7ILgvHzWx6JYDSrwCl5AVGLjcujadRlWCahcD7WJpJ+A8J1rv8aWZmTvDF87hP8yjZgdldonFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TpLVCjbftZqX6j5Uvx2Mmuajrsgx0daZYrVW1SI7ZH8=;
- b=viTxxSqmnbMpFE+0KK7U2g6l9WPjzVTd5VK/xi5XRtkBi2o2AwK0NYBLaoVCss96k4HHS+hmq1ef+RFSf/B4efWaY2JjxNY8eIg4VtIyrg3d/2u98jY7pezVO5verHyCJJSO2Cu4cWRg5xnbCyA7V9ZBKHW/b09UFudKHdXQj7c8eF6kkqqnqtxFN89jTZV+AOG47/w3ojOkC/BwwgyPlxHiX51E/WCugNfNAofADSJhB8na3FdMqyB1iqu5D87QfI7DtsZWjdDpfLtD20ZG2LD6nGcv1Sp8GdqflpMCR0jiS8yzWddG5jf+BCTJMeALEQbNokGiPZGb31yYo0YGgQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TpLVCjbftZqX6j5Uvx2Mmuajrsgx0daZYrVW1SI7ZH8=;
- b=tg/M7Od4vcNBUtd+Gr5XfJ46xU39v+aqp7Q7nbiPYhlsq2qUYjleeHXKdqtB3IJUh92K74TbKXUrMAxTQx6OnNd3Czg7sumCXWlRfn5hczrUX4TPhju/uSiRLFw19htIucNABgyY98ryVDQEdJ5I6S3mnCEhCFfFhI+qPM7Hw36ODb+KeZi16tmElTDGpTY3IKFNe1p6hivk4xjp0dGz0Os6fMHXEEq7c6ofBXw59RkjLlNM0BigRIIQ8HL29l2izgoDTs6w+Co4H7hDTmuME5/VUjhHjwz0tVNTZO+iSzzRlk71EQN+8hXw4Hwg2/EFqtRKJy7+VBlWXYwhvM3MfA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from DM8PR03MB6230.namprd03.prod.outlook.com (2603:10b6:8:3c::13) by
- SJ0PR03MB6326.namprd03.prod.outlook.com (2603:10b6:a03:390::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Fri, 11 Sep
- 2026 09:05:51 +0000
-Received: from DM8PR03MB6230.namprd03.prod.outlook.com
- ([fe80::abad:9d80:7a13:9542]) by DM8PR03MB6230.namprd03.prod.outlook.com
- ([fe80::abad:9d80:7a13:9542%3]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 09:05:51 +0000
-From: adrian.ho.yin.ng@altera.com
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-Subject: [PATCH v7 2/2] usb: dwc3: add Altera Agilex5 support to generic platform driver
-Date: Fri, 11 Sep 2026 17:04:53 +0800
-Message-ID: <8eb26a0c7f3724b748a07fa016efad937d2a0a56.1789114385.git.adrian.ho.yin.ng@altera.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <cover.1789114385.git.adrian.ho.yin.ng@altera.com>
-References: <cover.1788886615.git.adrian.ho.yin.ng@altera.com> <cover.1789114385.git.adrian.ho.yin.ng@altera.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2P153CA0009.APCP153.PROD.OUTLOOK.COM
- (2603:1096:4:140::18) To DM8PR03MB6230.namprd03.prod.outlook.com
- (2603:10b6:8:3c::13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fChbx+Es"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB3C91F000FF;
+	Fri, 11 Sep 2026 09:06:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789117580;
+	bh=kinXsJ+URPBbp7XR5+VZT6QQgES4hyVW0D7lJiMNVIw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fChbx+Es/EQZDBom8HzjAqsQnYXng0pabKZrsb/D5uYF7GcXcIeD4eU82dmB6Wz+X
+	 mXHBGsdf+QkGZsbq0U2ImzhHnC6TSWPXphgUbkQ/q7afFTPv6l/vjj4Jt5TtgtYnXj
+	 /slvW7cBwDjlfYZaNACWS5OLojYa/6YL5iNL/u8kba9QW057726051wqkJNRXxki5h
+	 ea51WIogrD4y+80+gOgHEf1Kz+U2gDdYzZzD9d3yk5SyoAxTHSecbXLhsCJqn0m8JL
+	 rfzdjo1lspS4bd0m0w+PLaScCB6Q0FsoWMsQFK+SYtKg+E+L4MX2IEQRqmXCyIsntM
+	 RsL33XvkMibVg==
+Message-ID: <5cd0cb7c-f540-4369-a55e-8eaaa400e289@kernel.org>
+Date: Fri, 11 Sep 2026 11:06:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM8PR03MB6230:EE_|SJ0PR03MB6326:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1e254796-9ef2-43af-d6f2-08df0fe3e061
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|10067099003|6133799003|22082099003|18002099003|55112099003|11063799006|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	hKM1OUwOKZ7q2QTWuiV7xsa1gBAWjJ7egmfu9dmIRzo0LjhY0a3+Z+Op2/DuXXjTFexVzv2ZdHdMPGE2TCT8wa6ss9bq1QTpm4sbmnF0s17XHMrug9ZLf3GHgjU5YGCdeAvTNBU+DJMA+Gy1BFAvxdEF6JFxpk1QeWtM+ZQuYLf7zB0oF+5K7itEfOOsYDbGl+LaUHW1obb6NWt3iPljiB1BDFBsVLMQWohpSp9ONJxz13bnPiu1z82vSOBWvHSTYgiJnaBT9TTJ3qr9q1FWZMSwHKgcgR+dkQeOgd4cRYDHa4lynkMLfQcpQUo3lzwyDt6lxOnFnWquk6W6ws5xLVbld4dCJxHQ3wELHMiDENiEz/3Mx7jt1lNx/5Gs+XYRREnwcsOXdLK+k/U59bMRK5nfkiA8OqsdE25VY/f2On2rLuKIsBZnvlxZ+oFM8wYv2CPLXQ0HvZHjZ8e9vOI7T+CF4+2btMP5Y+XI7SNFgm1tlsQ2/14Npx6j5iR/i3MSbavFpL1zX4pMun3FY8hK9WYtOXh7kJ30fLhfyuEULrZy9Jarh80hASduBhNIYvO5BAGAdc5OPXvZoFW1fFg08QA0rtAXkY9HD8V7Q68YN36Py8kG9rTeOgl4DJ6VEfMe273mohTcnRSBQ1qb9szyVJF6tXUTOTl7A5TPXkBZ8OI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM8PR03MB6230.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(10067099003)(6133799003)(22082099003)(18002099003)(55112099003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Y8i9CoIEqLZWwcQ+eYgj1TkZYcOpysS1XUBAfEJpc2J2BI9GIOgILBASHnvU?=
- =?us-ascii?Q?mw2S8xX1TzuZvsVXofHVsbsVOe/rfNC6VHlHC0qHD7RHtXAwBKF0LVmUxUxa?=
- =?us-ascii?Q?rHdcDYp1XTeUvyz0SAiUgV/TOdA8Sod2Pr26IXQtU3sogJ6JVfQuCX+2njPC?=
- =?us-ascii?Q?UaMfxHo3FPZDdU8mZ74kPjWHwn4GNqNA6kX4h8IZdAC8xFHDIMD7JSqL4RYJ?=
- =?us-ascii?Q?M/W08zMPGaRb/qiEJ6kbo2o0OwaA4DjQqyU+XeCUMGIp2NgYOvsfXGQW1igm?=
- =?us-ascii?Q?Yr04hGiCjwt+uAtjNwmMTx6LuFYqHk4ChGlZeZh2N0WT19xqX5X73z+Qa6v7?=
- =?us-ascii?Q?5W/JL9BM3MNpsR7jpm4fem9xmenjqHNX+mwClP0sCRqEN3mtvBEXKnR7Wsh0?=
- =?us-ascii?Q?TYsMiPdUd1VBk0voUkEPcK0jgMci54TcS1us+/I+TfzXVki5ZNyq2exVIX0I?=
- =?us-ascii?Q?F6P7fvQJxXWYU+nUyFywCTVoKQWn56Sqvf9YYFcGPQieJLUzjwjhZBHn3C6w?=
- =?us-ascii?Q?f57TlAlfDhViEyTBcUIfXDeUqf8bGwFK4vJllVQA0FL+F/2Y5o8zwAaTXzvr?=
- =?us-ascii?Q?yHVRDsdG3O5swQa/M4rEkAxGuXPmKKgHwd9UhbDlM5nrzCSOQXaNP6sDzlYN?=
- =?us-ascii?Q?s+vIBF1jpd1c3Vea+LomDsPa5eeAsVxYtcRMOHzNnh+NWoAE/GxbPWs4ok/n?=
- =?us-ascii?Q?kjiJeclkufTN1y1dWpgSGyd1nQVPucV1GsrI2rwUlak6K5pCCCwZH/sRjgy6?=
- =?us-ascii?Q?PBgZ2WvZFNdg/9Mbaj/DkKsXbTV26o05AqQIijNeBlp8tntHRys3KhgNtmXQ?=
- =?us-ascii?Q?APlk/kGZzyjyVWrDM2JHeG3/h7QSP5mgO94M2OSNzYt8UlnuoDcZQwLNQJUa?=
- =?us-ascii?Q?wSSdNI5oAt/bfzD8eRzESTxhGJZ38duz655MG1OEgPyS5mCiMOnuieDmGcPf?=
- =?us-ascii?Q?1F68hOLIigKU1Vs+SOZ4XSZBa78YtnttYqh+XtFJBZSGiHed+VWVrbbMYSuB?=
- =?us-ascii?Q?ss0JCt17CqBUK+mpQx+Hd8oiVAFWHi5UuoXj0kzhIL5NSMjaRsuNSzqrR2zW?=
- =?us-ascii?Q?oyA4yJ5xjI0yFQhoTnax840LcpZMcM/ELHyxNpCyo7V/CwnLPIiEKexGZao4?=
- =?us-ascii?Q?ie9j8DRaVmk1qI++lipvtME7aivW/kNkVNWI0BW2sFwEAWsG+7CmLVJ9BbyB?=
- =?us-ascii?Q?BV7Oqlrrq7nM6pkel+geaO5eZvM8F7MHYGVzSbsa2GPrLRXxP7P6jVqp4OVd?=
- =?us-ascii?Q?4gN66+/uSRCsNpAJ2BHQx5VBZSclKI5qqQgQPqrfxoGSmDvX7X1yBp4Ify5e?=
- =?us-ascii?Q?JszLLMyn2O6lTSBMSTrMIe5zqo+76K31nNAEKPHIIGwsfRpYEXBJsUxF+zYz?=
- =?us-ascii?Q?aXh+mLqPpgve9XTWHrTzlfaHh4U5CzOoSZkLkIn8wVqwKbctrsb0M9LaRr+w?=
- =?us-ascii?Q?CdoAYbkNL6ObOtSGC+Qa21G2HW3VUSvNLG4tYpqvVQPYilSTNZ8zUK6bVNh9?=
- =?us-ascii?Q?17U+qtZCoW6p7z+s2pwNBM+6SVx6YQ27DTMATttoHkt6tehaNZ9hOxRQlrDy?=
- =?us-ascii?Q?1qds4XsUhFrIhg7gk3JrmTesYjmJVLQsZL0TH4l/ddpH4P716+dJiJ6CDz3t?=
- =?us-ascii?Q?ODuEZWc0NKdQcGOsc4twFNjxX/t0clpvdWv7z5aS++lLgjzaTod6EdCNsBCt?=
- =?us-ascii?Q?78Yu+l+fPWZFBKMgoN6UO7O/Ly+owrjX9v8rh7cMwoPpjkanxLHbyqLnRn/m?=
- =?us-ascii?Q?lOOKviRkoQzFxYpEnJlN35LfQMBs+Fo=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e254796-9ef2-43af-d6f2-08df0fe3e061
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR03MB6230.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 09:05:50.9976
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4+mUxHFZZPYi728p0ZuuT+lXSWYlGWhW+qVgOZQn/NycsQRosEe2TeVEJehj5X7l7AJfrrVHfoJY3+pPg+JFtLSLHlpY7ZxTiiYV00x+IKg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6326
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] tty: amiserial: fix broken TIOCMIWAIT
+To: Johan Hovold <johan@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
+ sashiko-bot@kernel.org, stable@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>
+References: <20260911090132.723531-1-johan@kernel.org>
+Content-Language: en-US
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ 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
+In-Reply-To: <20260911090132.723531-1-johan@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+On 11. 09. 26, 11:01, Johan Hovold wrote:
+> A change replacing interruptible_sleep_on() inadvertently broke the
+> TIOCMIWAIT implementation which now immediately returns -EIO (unless
+> there is a racing modem status update).
+> 
+> Replace the old hangup (and signal) detection with a check for the
+> TTY_IO_ERROR flag which is set on hangup.
 
-Add the "altr,agilex5-dwc3" compatible string to dwc3-generic-plat so the
-Agilex5 USB3.1 DWC3 controller can probe through the generic DWC3 platform
-glue.
+You seem you opened a can of worms.
 
-Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
----
- drivers/usb/dwc3/dwc3-generic-plat.c | 1 +
- 1 file changed, 1 insertion(+)
+Reviewed-by: Jiri Slaby <jirislaby@kernel.org>
 
-diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3-generic-plat.c
-index ca69ac0eb07c..8781d7ec6b9e 100644
---- a/drivers/usb/dwc3/dwc3-generic-plat.c
-+++ b/drivers/usb/dwc3/dwc3-generic-plat.c
-@@ -232,6 +232,7 @@ static const struct dwc3_generic_config eic7700_dwc3 =  {
- };
- 
- static const struct of_device_id dwc3_generic_of_match[] = {
-+	{ .compatible = "altr,agilex5-dwc3", },
- 	{ .compatible = "spacemit,k1-dwc3", &spacemit_k1_dwc3},
- 	{ .compatible = "spacemit,k3-dwc3", },
- 	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
+> Fixes: 591cee0a3563 ("tty/amiserial: avoid interruptible_sleep_on")
+> Reported-by: sashiko-bot@kernel.org
+> Link: https://lore.kernel.org/20260910132029.D80801F00898@smtp.kernel.org
+> Cc: stable@vger.kernel.org	# 3.14
+> Cc: Arnd Bergmann <arnd@arndb.de>
+> Signed-off-by: Johan Hovold <johan@kernel.org>
+> ---
+>   drivers/tty/amiserial.c | 9 ++++-----
+>   1 file changed, 4 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/tty/amiserial.c b/drivers/tty/amiserial.c
+> index 28af0fd98181..60f6060b893d 100644
+> --- a/drivers/tty/amiserial.c
+> +++ b/drivers/tty/amiserial.c
+> @@ -1138,11 +1138,6 @@ static int rs_ioctl(struct tty_struct *tty,
+>   				local_irq_save(flags);
+>   				cnow = info->icount; /* atomic copy */
+>   				local_irq_restore(flags);
+> -				if (cnow.rng == cprev.rng && cnow.dsr == cprev.dsr &&
+> -				    cnow.dcd == cprev.dcd && cnow.cts == cprev.cts) {
+> -					ret = -EIO; /* no change => error */
+> -					break;
+> -				}
+>   				if ( ((arg & TIOCM_RNG) && (cnow.rng != cprev.rng)) ||
+>   				     ((arg & TIOCM_DSR) && (cnow.dsr != cprev.dsr)) ||
+>   				     ((arg & TIOCM_CD)  && (cnow.dcd != cprev.dcd)) ||
+> @@ -1150,6 +1145,10 @@ static int rs_ioctl(struct tty_struct *tty,
+>   					ret = 0;
+>   					break;
+>   				}
+> +				if (tty_io_error(tty)) {
+> +					ret = -EIO;
+> +					break;
+> +				}
+>   				schedule();
+>   				/* see if a signal did it */
+>   				if (signal_pending(current)) {
+
+
 -- 
-2.49.GIT
-
+js
+suse labs
