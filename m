@@ -1,194 +1,132 @@
-Received: from mail-06.mail-europe.com (mail-06.mail-europe.com [85.9.210.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C704D3C0633
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:01:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.210.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11F0F255E43
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:02:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789167717; cv=none; b=dhD6XJh+6KzMmQyduMYFHemn/PT+QmCZS84U7ZgTxzMIf3fGI6yhTcb/ss9wCUQEbpZxBGh9V3Tgb72V+fL/fHKP1HJof+uZ0ZOZ9Vm9JrS6kGe+I4Lppai//EJARFsTs/4XSDjaBvDwJlUlsmnboUJv7bB4z0UpexfV2chf/K8=
+	t=1789167763; cv=none; b=XZQXLB6gXF3rZuLAAMIBIpkpOMLU8z8aC9hTaHzwhiUzjhWpxntKHpaUoLBB4hhSvxiYtpCpnotjIH9AHFn1eUUP5SMbqE6OAi3R0jb/Jq5cvmTNpnjaUQP/K8g2MBOHcM6AqhFs2Ux3RodmKbJjBx/eRYZtxiFJaNyw5cffLdQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789167717; c=relaxed/simple;
-	bh=GDWpdlWBvWQt3dhuKeKibH1Tjl0SGYwcHArgbQuxBAs=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eHXRWGlXGnTCQZrBrre/fu0J4hPkUUc5r0yyxXO1VJ0HjSDlOfr7CP0sMoQT2QyUsTz498s9Ge1XRU/anZaXFHWTlw/xelGsvgj/Yftb3Nr3Z0qRvhoDhG2r8Yr3hJMLFE0XST4r8mq5/pzlJzXuRoxpA77EvMmsgn5d7SuX1dQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev; spf=pass smtp.mailfrom=httpd.dev; dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b=r/1NWGdP; arc=none smtp.client-ip=85.9.210.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=httpd.dev
+	s=arc-20240116; t=1789167763; c=relaxed/simple;
+	bh=pVbTlLoDm+S9jN7eKvEDSV5CsESkIuH1mUkM1lAGMtU=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=lNd3n6lp+oqh05qBsgD5URJpqsJpfpv3H8ICbKumjuH4vE++jIdwOu2YGGyW8UuNeMc4P+/9RpE68v47DqgrhLdmi+brm1NL51HwwjmYfwVeg8IZT15mHbWSO+2mqs494nbgfO71TIBCiHpGyucLMQuoXT+nylRnk42jVYdKeUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NB6TdAyn; arc=none smtp.client-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b="r/1NWGdP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=httpd.dev;
-	s=protonmail3; t=1789167701; x=1789426901;
-	bh=svNifJx/ssGLp8arNI7ZY0FJrahK16lXJGPKGD+vP4w=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=r/1NWGdPchEZbBl26e4NC9V6mD2SZDu0PFIJ9f+Aah6f0Mgt5PMT+8uMniIdkI5Td
-	 +hEOdsLGiP1pODfTr4CMXGObRDzb/zMcc9cNSQaYf6afWhHsV/R6/tooGJ6/HARNTP
-	 l+KQMlqUAaCz2Yc/b3YtHfacM34jMgvUcCCM3R1z+u5zr9QXcm2+vR+aJ8kRDQunAJ
-	 DEZdu+rdPTceCxW10Qi/wx7cKo4V0vrPvC8Qu+XqbOVxQQWxKb2pgWsPjEU605GqfW
-	 Jw6if3Z+G8Z2XWk0AnF7nG+ok/JcTzAtSBaSBoJt0uXHZvXImVTPbztF5tV0W3+bYy
-	 3rHknZxRCgbkA==
-Date: Fri, 11 Sep 2026 23:01:38 +0000
-To: "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
-From: Angel J <iamanaws@httpd.dev>
-Cc: "regressions@lists.linux.dev" <regressions@lists.linux.dev>, "stable@vger.kernel.org" <stable@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-rpi-kernel@lists.infradead.org" <linux-rpi-kernel@lists.infradead.org>, "helgaas@kernel.org" <helgaas@kernel.org>, "robh@kernel.org" <robh@kernel.org>, "andrea.porta@suse.com" <andrea.porta@suse.com>, "florian.fainelli@broadcom.com" <florian.fainelli@broadcom.com>
-Subject: Re: [REGRESSION] PCI: Dynamic OF node creation hangs on invalid bridge configuration
-Message-ID: <cFJoUZ6c5g5YbFCrwUnx6RlitHRl-0cS2fadDSFJNf9SgLreKutrmZj1r56hFh8ZUAbzvuCqBG4w9ZYAE8xAWP9HnLwbjMOBzac-iMnMMZc=@httpd.dev>
-In-Reply-To: <GXe6anuewkS4bLNwca3cYOmUxN9csc0TxLYGSBc1qNRmfrmvFlcmD62wEM23TxfzfuXAv4P3yvUv7pyraleARrL1Na-aN8w-t9uc1Igu8DA=@httpd.dev>
-References: <GXe6anuewkS4bLNwca3cYOmUxN9csc0TxLYGSBc1qNRmfrmvFlcmD62wEM23TxfzfuXAv4P3yvUv7pyraleARrL1Na-aN8w-t9uc1Igu8DA=@httpd.dev>
-Feedback-ID: 163474212:user:proton
-X-Pm-Message-ID: a0b45507d5eac067fa00aa047aa0fedcad9d25b7
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NB6TdAyn"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3823dcc1647so1872375a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:02:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789167761; x=1789772561; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4sGUTYvoDW2MVTsbs//H54y6wfcBW71MO9hfW0DoGV0=;
+        b=NB6TdAynkei95/K13zLvDOlzlNG0eLnoWBB/iuYM7QgbcpLJMqCo4+U/+mGJ7DsnUT
+         Rjh+zXzCAPxa9n6SRBV0YibYcXE9PQiaFYO1/YK63lWwUVqRemSEYAB3Vs0MjBaRSXSk
+         LtTqR+1eX1OmAVm7KcOriJr9qwIN/wwIepp+EB6FlFng6EjpI967rDeCJEYeO9hG+Vbu
+         wrcRegkNyd1MEzsv1vK5Q9oOU913NIX6lauQ+9KlvO5Sl3ytYdnrCEf9Ss4HdXwIWo38
+         TLfimxYK43Ut/85Z1+IBAOVUPPUfbGXR0CCvOfpCW0dkujfD5WcDQTTtVFvScOS0tws1
+         zJGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789167761; x=1789772561;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4sGUTYvoDW2MVTsbs//H54y6wfcBW71MO9hfW0DoGV0=;
+        b=ikdMFwHrme7VkfP8gAjB9FCbwv15NT0uk6APPXZ9PUdaiLZRF99VM/BNP0pBsedVqq
+         /acSlT0XYMbPSGgNViWqdQdSzfHeuC28jObwvY1ltBn17Ws4PBoJkAsuPdVkZ89v8qmR
+         aXgcsCWgI09RNPqUjMeYd/3ODZ7XWVLL4+v3f/g3IfDtdw4vhiqyW8TbheAOAHuB/y8J
+         28cZFW340HrjLpf/wjcHrnLfY0ZE5kKVzHVloHuJG3kI0U8JcNEaP6rIXwv8Rf9lqOz7
+         5kFAtm/tjmj6ga4sds+6yQxYnSWWP4L3hbrQMjJqW9QoxJ3FYPlqu1klNLPdS3oQia8c
+         7rxw==
+X-Forwarded-Encrypted: i=1; AKwUvBySwd4y3yqI76OJ/0+Xm+3zcVdjkPeKm4Fk3BemFW/1h4j1Lqgo/xWs8YbfergyCC/EzAvXMYQZ7cZY6CY=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/vav+gTKXrHg/F+aPM96iybF9WFKcC27JaurCmtFPJMwmhb84
+	SJ4AaZLK1ALafqJe7OF17mZThnDcV9Hkjm8tq9s1QjvA5xXRj8C13Pk/BhpJFr0dToR4TFD31oz
+	VjGGvtw==
+X-Received: from pjc7.prod.google.com ([2002:a17:90b:2f47:b0:38f:dec2:2549])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1f91:b0:398:9bd5:4910
+ with SMTP id 98e67ed59e1d1-39dbc7205aemr573686a91.23.1789167761268; Fri, 11
+ Sep 2026 16:02:41 -0700 (PDT)
+Date: Fri, 11 Sep 2026 16:02:40 -0700
+In-Reply-To: <6aa42297.f2639fcc.29487d.002f.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------584d05c12d919d8b9959a7be2db6ff9738f85cff09fbdb5a0c245caa7bd7149b"; charset=utf-8
+Mime-Version: 1.0
+References: <6aa42297.f2639fcc.29487d.002f.GAE@google.com>
+Message-ID: <aqSIkEt-GqCIJh9w@google.com>
+Subject: Re: [syzbot] [kvm?] INFO: task hung in kvm_gmem_release (2)
+From: Sean Christopherson <seanjc@google.com>
+To: syzbot <syzbot+ab6273c58262b9de56d9@syzkaller.appspotmail.com>
+Cc: david@kernel.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	pbonzini@redhat.com, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="us-ascii"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------584d05c12d919d8b9959a7be2db6ff9738f85cff09fbdb5a0c245caa7bd7149b
-Content-Type: multipart/mixed;boundary=---------------------5847a96ded5969a4c792075b9c3489f2
+On Fri, Sep 11, 2026, syzbot wrote:
+> syzbot found the following issue on:
+> 
+> HEAD commit:    50d05c7c76c9 Merge tag 'landlock-7.3-rc3' of git://git.ker..
+> git tree:       upstream
+> console output: https://syzkaller.appspot.com/x/log.txt?x=13db5ef9580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+> dashboard link: https://syzkaller.appspot.com/bug?extid=ab6273c58262b9de56d9
+> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+> userspace arch: i386
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=143121f9580000
 
------------------------5847a96ded5969a4c792075b9c3489f2
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;charset=utf-8
+The reproducer is "only" setting memory attributes on a 16MiB range.  I was
+expecting a much, much larger range.  I suspect this one may be due to a problem
+with the underlying GCE host?  Though it did spit out a reproducer...
 
-Hi Andrea, Herv=C3=A9, Bjorn, Thorsten,
+> CPU: 1 UID: 0 PID: 6083 Comm: syz.4.24 Not tainted syzkaller #0 PREEMPT(full) 
+> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+> RIP: 0010:__this_cpu_preempt_check+0x0/0x20 lib/smp_processor_id.c:63
+> Code: f5 48 8b 74 24 20 48 c7 c7 00 9b 6d 8c e8 88 ac 42 f5 e8 23 ab 4d f5 eb ae 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 <f3> 0f 1e fa 48 89 fe 48 c7 c7 80 9a 6d 8c e9 0d ff ff ff cc cc cc
+> RSP: 0018:ffffc90003d27460 EFLAGS: 00000046
+> RAX: 0000000000000001 RBX: 0000000000000001 RCX: 8000000000000001
+> RDX: 0000000000000000 RSI: ffff88807ea4a3d0 RDI: ffffffff8e6fe7fc
+> RBP: 00000000ffffffff R08: ffffc90003d2755f R09: 0000000000000000
+> R10: ffffc90003d27548 R11: fffff520007a4eac R12: 0000000000000246
+> R13: ffff8880314c5dc0 R14: ffff88807ea4a3d0 R15: 0000000000000001
+> FS:  0000000000000000(0000) GS:ffff888124dd2000(0063) knlGS:00000000f6834b40
+> CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+> CR2: 00000000f71e8c10 CR3: 0000000073d5a000 CR4: 00000000003526f0
+> Call Trace:
+>  <TASK>
+>  lockdep_recursion_finish kernel/locking/lockdep.c:470 [inline]
+>  lock_is_held_type+0xdf/0x150 kernel/locking/lockdep.c:6017
+>  lock_is_held include/linux/lockdep.h:249 [inline]
+>  xa_entry include/linux/xarray.h:1227 [inline]
+>  xas_descend lib/xarray.c:208 [inline]
+>  xas_load+0x198/0x5a0 lib/xarray.c:246
+>  __xa_cmpxchg_raw lib/xarray.c:1783 [inline]
+>  __xa_cmpxchg+0xc3/0x1f0 lib/xarray.c:1769
+>  xa_cmpxchg include/linux/xarray.h:699 [inline]
+>  xa_reserve include/linux/xarray.h:1088 [inline]
+>  kvm_vm_set_mem_attributes virt/kvm/kvm_main.c:2577 [inline]
+>  kvm_vm_ioctl_set_mem_attributes+0x429/0x1600 virt/kvm/kvm_main.c:2625
+>  kvm_vm_ioctl+0xb33/0xd30 virt/kvm/kvm_main.c:5356
+>  kvm_vm_compat_ioctl+0x2b1/0x3a0 virt/kvm/kvm_main.c:5480
+>  __do_compat_sys_ioctl fs/ioctl.c:695 [inline]
+>  __se_compat_sys_ioctl fs/ioctl.c:638 [inline]
+>  __ia32_compat_sys_ioctl+0x5ea/0x950 fs/ioctl.c:638
+>  do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+>  __do_fast_syscall_32+0x27a/0x6a0 arch/x86/entry/syscall_32.c:291
+>  do_fast_syscall_32+0x33/0x70 arch/x86/entry/syscall_32.c:316
+>  entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+> RIP: 0023:0xf705f0ec
+> Code: 90 85 d2 74 0a 89 ce 81 e6 ff 0f 00 00 89 32 85 c0 74 05 c1 e9 0c 89 08 31 c0 5e 5d c3 90 0f 1f 00 51 52 55 89 e5 0f 34 cd 80 <5d> 5a 59 c3 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 58 b8
+> RSP: 002b:00000000f683450c EFLAGS: 00000206 ORIG_RAX: 0000000000000036
+> RAX: ffffffffffffffda RBX: 0000000000000007 RCX: 000000004020aed2
+> RDX: 0000000080000200 RSI: 0000000000000000 RDI: 0000000000000000
+> RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+> R10: 0000000000000000 R11: 0000000000000206 R12: 0000000000000000
+> R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+>  </TASK>
 
-Thanks for the guidance, it was very useful. I went back through the tests
-and got some more insight into the hang.
-
-Andrea wrote:
-> Angel, could you please provide the following output:
->
-> lspci -nn
-> setpci -s 00:00.0 HEADER_TYPE
->
-> from a running (i.e. with CONFIG_PCI_DYNAMIC_OF_NODES=3Dn) system?
-
-On Linux 6.12.109, with CONFIG_PCI_DYNAMIC_OF_NODES disabled, the relevant
-output is:
-
-  $ lspci -nn
-  00:00.0 PCI bridge [0604]: Intel Corporation Device [8086:4c43] (rev 01)
-
-  $ setpci -s 00:00.0 HEADER_TYPE
-  01
-
-  $ setpci -s 00:00.0 PRIMARY_BUS SECONDARY_BUS SUBORDINATE_BUS
-  ff
-  ff
-  ff
-
-The device is bound to icl_uncore. I get the same values on the patched
-kernel with CONFIG_PCI_DYNAMIC_OF_NODES=3Dy.
-
-Herv=C3=A9 wrote:
-> Is this PCI logs reported with PCI_DYNAMIC_OF_NODES=3Dy or PCI_DYNAMIC_O=
-F_NODES=3Dn
-> or always whatever the PCI_DYNAMIC_OF_NODES Kconfig value ?
-
-The messages appear on successful boots with either setting:
-
-  pci 0000:00:00.0: [8086:4c43] type 01 class 0x060400 conventional PCI br=
-idge
-  pci 0000:00:00.0: bridge configuration invalid ([bus ff-ff]), reconfigur=
-ing
-
-I confirmed this on 6.12.107 with the option disabled and 6.12.108 with it
-enabled. They also appear on the patched 6.18.44 kernel.
-
-Bjorn wrote:
-> I don't think 49d63971f963 ("misc: rp1: RaspberryPi RP1 misc driver")
-> is a likely culprit by itself because there's just nothing there that
-> looks like it would relate to a Dell XPS 8940.
-
-That change exposed the problem by enabling PCI_DYNAMIC_OF_NODES in my
-configuration. I bisected again with the option enabled throughout and
-found an earlier boundary:
-
-  3dc8adeeefa0  PCI: of_property: Constify parameter in of_pci_get_addr_fl=
-ags()
-  1f340724419e  PCI: of: Create device tree PCI host bridge node
-
-The first is the direct parent of the second. I boot-tested both without
-any guard, changing only the source commit; their generated kernel
-configurations are identical.
-
-All of these tests have CONFIG_PCI_DYNAMIC_OF_NODES=3Dy:
-
-  Source         Change             Result
-  3dc8adeeefa0    None               Boots
-  1f340724419e    None               Hangs
-  1f340724419e    Subordinate guard  Boots
-  6.18.44        None               Hangs
-  6.18.44        Subordinate guard  Boots
-
-Herv=C3=A9 wrote:
-> Maybe the test done at [1] should be improved to detect those wrong brid=
-ges.
-> and skip the of_pci_make_dev_node() call when a wrong bridge is detected=
-.
-
-I added logging to the first bad commit to check the bridge scan. It shows
-that 00:00.0 has no subordinate bus after either pass, despite satisfying
-pci_is_bridge():
-
-  pci 0000:00:00.0: PCI OF debug: scan pass 0, buses ff/ff/ff
-  pci 0000:00:00.0: PCI OF debug: scan pass 0 done, subordinate bus absent
-  pci 0000:00:00.0: PCI OF debug: scan pass 1, buses ff/ff/ff
-  pci 0000:00:00.0: PCI OF debug: scan pass 1 done, subordinate bus absent
-
-of_pci_prop_bus_range() dereferences pdev->subordinate without checking it=
-.
-of_pci_prop_intr_map() also uses that pointer. Before 1f340724419e,
-of_pci_make_dev_node() returns because the parent OF node is missing on
-this ACPI system. That commit creates the parent node, allowing property
-generation to reach the unchecked access.
-
-My earlier report overstated the device_type=3D"pci" result. The minimal-n=
-ode
-test that hung added device_type, bus-range and interrupt-map together;
-I haven't confirmed a hang with device_type alone.
-
-I tested this guard in of_pci_make_dev_node(), before node creation:
-
-  if (pci_is_bridge(pdev) && !pdev->subordinate)
-          return;
-
-Both the first bad commit and 6.18.44 boot with it. The 6.18.44 test uses
-only the guard, without diagnostic logging. The host OF node and the nodes
-for bridges 00:01.0 and 00:1c.0 are still created; 00:00.0 is skipped.
-
-This points to the NULL subordinate pointer as the cause of the hang,
-although I still don't have a crash trace from an unguarded boot. I'll
-send the patch as a reply to this email. Is of_pci_make_dev_node() the
-right place for this check?
-
-#regzbot introduced: 1f340724419eda8ab07a20edcaf5ec8f70134231
-
-Thanks,
-Angel J
-
------------------------5847a96ded5969a4c792075b9c3489f2--
-
---------584d05c12d919d8b9959a7be2db6ff9738f85cff09fbdb5a0c245caa7bd7149b
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: ProtonMail
-
-wrsEARYKAG0FgmqkiEMJEBoBbwppzUxnRRQAAAAAABwAIHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcmegSr5JAKTKbLgmkCFNkhGukr6dbSbs2YiqV+yU
-jqBBgBYhBEAFf9htFyVnqZzmVhoBbwppzUxnAACUBAEA+Vrv4qecaflgoNqE
-krZ5Pt2A+D2ZHLPlXo7tpk7HjFQA/Am4TUPLoTW5RVSeYbATvytA/Gnbz89i
-DW2hzZv5IxwL
-=it4L
------END PGP SIGNATURE-----
-
-
---------584d05c12d919d8b9959a7be2db6ff9738f85cff09fbdb5a0c245caa7bd7149b--
 
