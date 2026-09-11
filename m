@@ -1,185 +1,120 @@
-Received: from mta0.migadu.com (out-158.mta0.migadu.com [91.218.175.158])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08AC4448B82
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:30:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19DDF46D572
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:30:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789122648; cv=none; b=Ri+OwBMfBZytqRgmtdUdpD+TcoACjLwkNOJLqR0x87YvuTag5jb8GXsA/NFWEqHn9Lycz89Dqv9xLwpdO8YxuoGnKP9vQtVLeTPuKEn+ry6dLDXkqiW9cZy/P3y4AwF+M5mUkBJBoTZ44PjtwmYb+diV1eI9njNaZ6DtzlGYyuA=
+	t=1789122649; cv=none; b=VU6q2vVvdraDdVec/qidZJDIDeu/ANqQHYh0CvdXBRUKnFg/rMXosVQEsY/y7DIEWsPbBBJxiGjVDpizM7sV/bd5+6/G/W5MLAOVBs+boqlouUokO5Xwz1whDAlp7x8USFHPCi+Yl17fBQ8rOD/9krSjgeiCd8g/UqQToMjIlIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789122648; c=relaxed/simple;
-	bh=g+Mf/kGaBSRXqlRStbFxv9nvRzYBpUgfPbFtW3GN2lM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=fNTd3VUaoifpBhO8xmmPCSrvkXilbtIvfPh4d6XmwKV0dRfmQSNfyCqFbfxs14Jd7xinysUyyyb8UISp+BHsNbNrHIK0g3Y409gkEDwG7IHpey2V1Zi2GSAgM5JKVhvwLoPLhHLpp/gJLgoZb9zDbbPht85OXKiRB+oIKft8GoY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BzEEi9MF; arc=none smtp.client-ip=91.218.175.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789122649; c=relaxed/simple;
+	bh=4rTcP8+UgLBMGKegWTDcIxrsqGEZaPZudzA6ouxcHXg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=eYd7stDzAfo+gO8FPAG6qwFcqQ9vu8jFBXzfoWdjchNeVknwLFIy465JXnVssv3pdcamG0J8knkwhlAF/oU1mtyCNf62xl6d6eQq0V5lHVTKcUs46Y2CagkZCrL30+KEqlkDB2+1IzhOhYGKKIWY/f8VmDXn2JpRGFKdtWsdXGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=JouC1oqI; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BzEEi9MF"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=g+Mf/kGaBSRXqlRStbFxv9nvRzYBpUgfPbFtW3GN2lM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789122643; v=1; x=1789727443;
- b=BzEEi9MFIx2W5/R4L8onsD37pl0LiBvCvmUbhg0dhfrids0Qo7MXMe2CcZuwoed//NL0I3kV
- /jckL3QZvm+TWpsQyu+ZOwEF6nmYLh0HD8wSbAHs1nfiLZ7Uj6GcrNTpbjxMQuO5CKS1S2YEiZ8
- gIqrNZjQK5YLbQB0rbSDr1pQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4018faa0ac020977;
-	Fri, 11 Sep 2026 10:30:43 +0000
-X-Mizu-Trace-ID: 4018faa0ac020977
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Kairui Song <kasong@tencent.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	David Hildenbrand <david@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-mm@kvack.org (open list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)),
-	Ridong Chen <ridong.chen@linux.dev>,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: [PATCH v2 3/3] mm/mglru: add tracepoint for inc_max_seq()
-Date: Fri, 11 Sep 2026 18:29:39 +0800
-Message-Id: <20260911102939.2485750-4-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260911102939.2485750-1-ridong.chen@linux.dev>
-References: <20260911102939.2485750-1-ridong.chen@linux.dev>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="JouC1oqI"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=SXtNA177EaxUe1pCfpdcWJYpJ0qgTjwrK2zCDmLSJ/4=; b=JouC1oqIKqdhe82qomR2hEEDcR
+	Be1a7n9WWWjtd2Xu7+ujJPFrFnzhS+SNhVbGp6y9iwVX7jDVHygUtFNLi1nyoNBVPP4eVXAo+oaNO
+	MlcnKQFrn/ePBzU9lVF0jqCU6PrPsvH0MfKNJm1SkMsloov9Q4n+U6G96nHaNzMF5o5aMEMIwdg1i
+	5oDFJkaDGJOCwdGlJmtwulEU29pFZdF4MvnN5PvbfzffAKBH5AObXkOp3u5kasjgu1fE8PiZ/sP4/
+	3eBmhaOcLFcfJYi0VOYAHiDl65c2Hnhjpa8QS/4zwXkJ9KwItQ+YTss3u8JF4k9RMvQFfT7xJRKjK
+	IN3W/aVw==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1x4yWe-001E3M-0e;
+	Fri, 11 Sep 2026 10:30:32 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Fri, 11 Sep 2026 03:26:28 -0700
+Subject: [PATCH wq/for-7.4] workqueue: BUG_ON() a pwq release before
+ workqueue_init()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260911-tejun_bug_on-v1-1-8ee9083f7a7e@debian.org>
+X-B4-Tracking: v=1; b=H4sIAFTXo2oC/x3MQQ6CMBAF0KtM/ppqZ6ISehVjiJUBx0UrragJ4
+ e4mvgO8FVWLaUWgFUXfVi0nBOKGcLtf06TOBgSCeDn5jtm99LGkPi5Tn5M7xlaGzrNEFjSEZ9H
+ Rvv/ujM+8H3Nx7e6Ay7b9ADEPcgtqAAAA
+X-Change-ID: 20260911-tejun_bug_on-5b72d9012b12
+To: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+ Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.16-dev-f8e9d
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1685; i=leitao@debian.org;
+ h=from:subject:message-id; bh=4rTcP8+UgLBMGKegWTDcIxrsqGEZaPZudzA6ouxcHXg=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqo9hEGX3qe0ZMyMh/ri69ZSrE7dIhBu6fv2bE4
+ 3/ooOJCepuJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaqPYRAAKCRA1o5Of/Hh3
+ bX3oEACfK99Rojig75MIVUpVQICvkjQxkt3Ogy4JJP6P5w2i8gIFn4KngEo7AppY2aZhAI3rv7E
+ i6jCXDFRumc6RqfE3z+HccZp+6cigqDwmMJAmzIoB+hQj8kLAfFSWg2UfYcejdrgDORdOqE7k+n
+ kj0X0v34afkGz80ZZMfgUE1fBcYWdpGqTn2THk3IaSNRRE8tczgShMKxWNttM12gRYHhRDeSsrM
+ BO6HGX5SSzlBqrmHSppGCBEDqMFmu+UmnkAugaCw09par55X+wD9VFl9BGQSEl/tdAe6reOg0dZ
+ FhpuOsvPtErLFxctnQL8q/Rpf+PLZb8M/khhEmAUZUYc7esjh56wTf965dJGtpSaLBbepiqEfr6
+ nEr9qew0VMvep4v1ch06Jq5tq0LqxMW2VrMDEs9IOSblih2KoY0HL6I8F1nNCVdf9HEMfLdjfB/
+ jWOG/YbFO3ESt+sge0OOpzKxVqoNve7yc8S2JzKL8Ofu5cMUmDpgA/DodVf314tickP8i0CnIkx
+ 7JTMp3bNdwMT4QeDMG3eBTI0Tw+k8WvKPgEImQEjvm2FjZDQmZmhu6hFMeyWV+eGMBFMh8Jhllr
+ tybnXpSn7jTNVRf8sOn7q5gKIMN4lFjBTgksRxWC0X5vXiO4+ajf5fuFxmW2QAPhxT0HGX7LVi+
+ UzfdZI6qCYMWunw==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-From: Ridong Chen <chenridong@xiaomi.com>
+put_pwq() bounces the release to pwq_release_worker to get out from
+under pool->lock. workqueue_init() creates that kthread_worker well
+after workqueue_init_early() has built the system workqueues, so a pwq
+allocation failing partway through apply_wqattrs_prepare() unwinds
+through apply_wqattrs_cleanup() and dereferences a NULL worker.
 
-Aging in MGLRU advances max_seq via inc_max_seq(), creating a new
-youngest generation. There is currently no tracepoint on this path, so
-the moment a new generation is created, and how the min_seq of each type
-trails behind it, cannot be observed as it happens.
+There is no way back from that. Running the release inline is not an
+option, that is what the bounce exists for, and workqueue_init_early()
+already BUG_ON()s a system workqueue it failed to allocate.
 
-Add mm_mglru_inc_max_seq, emitted right after max_seq is bumped, with
-the memcg id, the new max_seq, the anon and file min_seq, and the number
-of pages in each generation for both types, summed over zones the same
-way the debugfs lru_gen file reports them. The nr_anon/nr_file arrays are
-indexed by generation slot, so the emitted max_seq/min_seq say which slot
-holds which seq. They are printed with __print_array(), so the output is
-hex and its length follows MAX_NR_GENS automatically. Paired with the
-mm_mglru_scan_folios tracepoint it makes the full aging-to-eviction
-window observable per memcg.
+BUG_ON() the missing worker instead of oopsing inside
+kthread_queue_work().
 
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+Suggested-by: Tejun Heo <tj@kernel.org>
+Link: https://lore.kernel.org/all/144b3dc986135ebe34f671cdd02bd8aa@kernel.org/
+Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
- include/trace/events/vmscan.h | 38 +++++++++++++++++++++++++++++++++++
- mm/vmscan.c                   | 23 +++++++++++++++++++++
- 2 files changed, 61 insertions(+)
+ kernel/workqueue.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/include/trace/events/vmscan.h b/include/trace/events/vmscan.h
-index 5defa8f6719c..a20c6b2e062f 100644
---- a/include/trace/events/vmscan.h
-+++ b/include/trace/events/vmscan.h
-@@ -455,6 +455,44 @@ TRACE_EVENT(mm_mglru_scan_folios,
- 		__entry->min_seq)
- );
- 
-+TRACE_EVENT(mm_mglru_inc_max_seq,
+diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+index 39187f424c34e7..e618108c6127da 100644
+--- a/kernel/workqueue.c
++++ b/kernel/workqueue.c
+@@ -1771,6 +1771,14 @@ static void put_pwq(struct pool_workqueue *pwq)
+ 	lockdep_assert_held(&pwq->pool->lock);
+ 	if (likely(--pwq->refcnt))
+ 		return;
 +
-+	TP_PROTO(struct lruvec *lruvec,
-+		unsigned long max_seq,
-+		unsigned long anon_min_seq,
-+		unsigned long file_min_seq,
-+		unsigned long *nr_anon,
-+		unsigned long *nr_file),
++	/*
++	 * pwq_release_worker is only created in workqueue_init(). Getting
++	 * here before that means an early workqueue allocation failed, which
++	 * is fatal anyway.
++	 */
++	BUG_ON(!pwq_release_worker);
 +
-+	TP_ARGS(lruvec, max_seq, anon_min_seq, file_min_seq, nr_anon, nr_file),
-+
-+	TP_STRUCT__entry(
-+		__field(u64, memcg_id)
-+		__field(unsigned long, max_seq)
-+		__field(unsigned long, anon_min_seq)
-+		__field(unsigned long, file_min_seq)
-+		__array(unsigned long, nr_anon, MAX_NR_GENS)
-+		__array(unsigned long, nr_file, MAX_NR_GENS)
-+	),
-+
-+	TP_fast_assign(
-+		__entry->memcg_id = mem_cgroup_id(lruvec_memcg(lruvec));
-+		__entry->max_seq = max_seq;
-+		__entry->anon_min_seq = anon_min_seq;
-+		__entry->file_min_seq = file_min_seq;
-+		memcpy(__entry->nr_anon, nr_anon, sizeof(__entry->nr_anon));
-+		memcpy(__entry->nr_file, nr_file, sizeof(__entry->nr_file));
-+	),
-+
-+	TP_printk("memcg_id=%llu max_seq=%lu anon_min_seq=%lu file_min_seq=%lu nr_anon=%s nr_file=%s",
-+		__entry->memcg_id,
-+		__entry->max_seq,
-+		__entry->anon_min_seq,
-+		__entry->file_min_seq,
-+		__print_array(__entry->nr_anon, MAX_NR_GENS, sizeof(unsigned long)),
-+		__print_array(__entry->nr_file, MAX_NR_GENS, sizeof(unsigned long)))
-+);
-+
- TRACE_EVENT(mm_vmscan_write_folio,
- 
- 	TP_PROTO(struct folio *folio),
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 67f59aa73fb9..d1495a7d469d 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4100,6 +4100,27 @@ static void try_to_inc_min_seq(struct lruvec *lruvec, int swappiness)
- 	}
- }
- 
-+static void trace_inc_max_seq(struct lruvec *lruvec)
-+{
-+	int type, gen;
-+	unsigned long nr[ANON_AND_FILE][MAX_NR_GENS];
-+	struct lru_gen_folio *lrugen;
-+
-+	if (!trace_mm_mglru_inc_max_seq_enabled())
-+		return;
-+
-+	lrugen = &lruvec->lrugen;
-+	for (type = 0; type < ANON_AND_FILE; type++)
-+		for (gen = 0; gen < MAX_NR_GENS; gen++)
-+			nr[type][gen] = lru_gen_seq_nr_pages(lrugen, gen, type);
-+
-+	trace_mm_mglru_inc_max_seq(lruvec,
-+				   lrugen->max_seq,
-+				   lrugen->min_seq[LRU_GEN_ANON],
-+				   lrugen->min_seq[LRU_GEN_FILE],
-+				   nr[LRU_GEN_ANON], nr[LRU_GEN_FILE]);
-+}
-+
- static bool inc_max_seq(struct lruvec *lruvec, unsigned long seq, int swappiness)
- {
- 	bool success;
-@@ -4159,6 +4180,8 @@ static bool inc_max_seq(struct lruvec *lruvec, unsigned long seq, int swappiness
- 	WRITE_ONCE(lrugen->timestamps[next], jiffies);
- 	/* make sure preceding modifications appear */
- 	smp_store_release(&lrugen->max_seq, lrugen->max_seq + 1);
-+
-+	trace_inc_max_seq(lruvec);
- unlock:
- 	lruvec_unlock_irq(lruvec);
- 
--- 
-2.34.1
+ 	/*
+ 	 * @pwq can't be released under pool->lock, bounce to a dedicated
+ 	 * kthread_worker to avoid A-A deadlocks.
+
+---
+base-commit: d8c2ce77cd09077ec57c4bed5678f76425157ccd
+change-id: 20260911-tejun_bug_on-5b72d9012b12
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
 
