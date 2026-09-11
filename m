@@ -1,119 +1,98 @@
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C538416124;
-	Fri, 11 Sep 2026 13:26:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB2B46A608;
+	Fri, 11 Sep 2026 13:27:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789133180; cv=none; b=RDJQ5M3+xj/92AURsecJ4y9mJ5+oQ7n5cHAIr0ZaOSu6FK8/ZqRbehCOQgnztIhTaPuzFYnUkXR9jyVQwGTGnZ3bcRVD3s3S8yWNARMS41G3OdDGgeGWFKOt1JZ+yjOqizeXkcQA8KDt3nCMObKYQ9tzqD5CCiQzR5YmVliWNnY=
+	t=1789133233; cv=none; b=iZNBtAUcT1lp6IeXmc7WQC8P1QL+lsoe4HFYESwukKMl+FSwd+2+BMJePRQvdiXXxz5pnAb0QkdZY3KZstqvXRCuZggN4MDnu4RbHUkFk4fpD246B25pFE/o7IUelh9pRua5m5jBRxzw62oozc904fyEB5HlVhiFZVR2XhQvZ50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789133180; c=relaxed/simple;
-	bh=5SNgYt0Og5PizNXuj2seGZx1s9j3Gc+sbup7rqOyQtc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EcD6A7SrOL68GX+aHkFW/SoPV+M/PAHGR/5TY3AIvUuo1acC6ahLFapULurpkwdhHwHyAOUnqh+CZRfrz4s8t1tqEh1MQWRtr4TNZQDvw9WkoqISho9muMOkXUw9v6ECfIJP9q+6TVK6OTRHhlOeCCA0ezrzIqp+x+7lqkI1/oQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=o7fnp2xz; arc=none smtp.client-ip=199.89.1.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1789133233; c=relaxed/simple;
+	bh=cW6PKn+6+4e7/lSR61GmFodOnPolMv/AkFrVOlhTUnE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=K4rLwTJn7AjatWoTVp8AGXHResmpVUv559hYEAhhqUPodpPcd7ExzwBPillRNWFQCILbDZ/LeWpaIYgW5nq+/h4AXNaITuEUFY1sO9WS2WzDNP7GLPguICiUQZHoB4KurJWod+vCr9cypHvHrbXqrexfw+laf2DMjv9a5Yn7I2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nufB1YKe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="o7fnp2xz"
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4hhFgG4t41zlfwJB;
-	Fri, 11 Sep 2026 13:26:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1789133176; x=1791725177; bh=oyAYQmUekWykInIy8DJFeLF8
-	1/4M/B/awGBINpSMfs4=; b=o7fnp2xz7xwkD8pZPjEN2Asr9z8OubvJFObqqbvG
-	gNbmquFtIR+b8ItfO3kMkF4t3SxvZj+7I17D51SU++WhrAbomuTdns2NzLQIwv7q
-	hWB5j8FiRRkdwVsTVbqcAY7ZV8VuVmwKhUxVck1aC0sA73n6mtDJ11TH2bsSWnZA
-	pr2S7Im5UuXCW67C8fTAesQvoJmQ83SLvTA8oU0+vYmxnYhHOd5PMrDgBVxShnsC
-	0Fy4C/an9pFV/C/Uy6HGSBfCnkVkodJFrw+GsfMbAcYxOy5pIbtZDNY+1wX++ish
-	9ZEq5PmtxVYMXPIjefT7ZvkO8WmY4z5yPk5W98vh/2HG/w==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id fPowWimQpx3i; Fri, 11 Sep 2026 13:26:16 +0000 (UTC)
-Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4hhFfp1RLbzlfvqM;
-	Fri, 11 Sep 2026 13:25:53 +0000 (UTC)
-Message-ID: <2144051c-268c-40b1-8c22-4be49f0edd17@acm.org>
-Date: Fri, 11 Sep 2026 06:25:52 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nufB1YKe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D8461F000FF;
+	Fri, 11 Sep 2026 13:27:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789133232;
+	bh=Kk+Jgg2uXnvP7keYH4LDRdrvoJhsl3CdguN650y+ouQ=;
+	h=From:Date:Subject:To:Cc;
+	b=nufB1YKePIOX6Avm7I8fn8kblBc6cNy4wpuSpNRXHyuoFTMqHkGg1eO1xln3rY/Pq
+	 963DpyPCqdyhi6X2H6buY9nWAd/67RDLwMd+xsH1BuaGuPjyXV9tpkoa3Tu4KQ5Ai2
+	 Q3/663qn2IcxpZSdmu0vc9DXeedb4y8yWRDRE//xi/vLQhlx2fkw/csUg3luRj5/d7
+	 +5PPQIyD7sWzg4NingmWv/aYTtKZitA27KO/iBV2CUsVW4ar2PsuVYzu8yfZSGtTgp
+	 ZydIVwdlzVa0ilzVEpY7lDWITsYKH0eO/fijbPSrjIMxjCl/pg3/yMui8Vg2ziXXWT
+	 8LGUDrKL+e12Q==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Date: Fri, 11 Sep 2026 15:27:03 +0200
+Subject: [PATCH] arm64: dts: qcom: glymur-asus-zenbook-a16: Remove
+ RTC-through-EFIvars
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/13] ARM: remove riscpc
-To: Linus Walleij <linusw@kernel.org>,
- Ethan Nelson-Moore <enelsonmoore@gmail.com>,
- Russell King <linux@armlinux.org.uk>
-Cc: Arnd Bergmann <arnd@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>,
- Stefan Agner <stefan@agner.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade
- <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Gregory Clement <gregory.clement@bootlin.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>,
- Kristoffer Ericson <kristoffer.ericson@gmail.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Alexander Sverdlin <alexander.sverdlin@siemens.com>,
- Shawn Guo <shawnguo@kernel.org>, Karl Mehltretter <kmehltretter@gmail.com>,
- "David Hildenbrand (Arm)" <david@kernel.org>,
- Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org,
- Ian Molton <spyro@f2s.com>, Jens Axboe <axboe@kernel.dk>,
- Helge Deller <deller@gmx.de>, Thomas Zimmermann <tzimmermann@suse.de>,
- "Paul E. McKenney" <paulmck@kernel.org>, linux-block@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-fbdev@vger.kernel.org
-References: <20260908152808.3928630-1-arnd@kernel.org>
- <20260908152808.3928630-4-arnd@kernel.org>
- <CADkSEUjYhRk-ezaXZkHzFTFQnySFSisKtZfEP-_NtLnQF+6-1Q@mail.gmail.com>
- <CAD++jL=ysmPgs8yKH5KBobuv-eeCHHgZwvo1kvHOFuTwhkaOew@mail.gmail.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <CAD++jL=ysmPgs8yKH5KBobuv-eeCHHgZwvo1kvHOFuTwhkaOew@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260911-topic-remove_uefivar_rtc_a16-v1-1-0967d8d4b3a6@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCMBBA0auUWRtIYqnRq0gJ6WTUEWzKJA1C6
+ d2Nunzw+RtkEqYMl24DocqZ09xgDh3gI8x3UhybwWo76LMxqqSFUQm9UiW/0o1rEC8FfTCDckc
+ X4wltb5yGtlikBe/f/jr+ndfpSVi+T9j3DwbL20OAAAAA
+X-Change-ID: 20260911-topic-remove_uefivar_rtc_a16-838dd7c24180
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Greg Ociepka <greg@ferrisoft.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789133228; l=1192;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=2B9T8QtBzpmUol37jsog1kgKNP3vTSpNz3HhR+qMRP4=;
+ b=z8bXE8jEx7KRO/PgYr+rrjGE0v+3/dRcBF9yFVbnBBU4IHFfrtnl/Uv2XbGTj0ZTT1YEjQzAT
+ IfXaGhPpBa/DveMLU0XHBPGU2NmZvoWE+ANk3075vkPxCQBRy4UIBOr
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-On 9/11/26 2:07 AM, Linus Walleij wrote:
-> The community has a built in tension around this:
-> 
-> - One camp that are enthusiast like yourself. That kind of people
->    are running the show inside arch/m68k on Amigas and Ataris.
-> 
-> - One camp who get their paycheck from present day companies
->    and constantly on top of the latest technology. As can be
->    seen Qualcomm just taped out a brand new ARMv7 SoC
->    named Kuno, for example.
-> 
-> As you can see this leads to a bit of tension.
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-That summary looks incomplete to me. Every time a kernel API is modified 
-that is used by the RiscPC code, the RiscPC code has to be modified too.
-Removing the RiscPC code makes modifying kernel APIs easier. A recent
-example is available here: "[PATCH v5] scsi: core: Drop
-Scsi_Host.default_lock"
-(https://lore.kernel.org/linux-scsi/20260831095821.3486994-1-john.g.garry@oracle.com/).
+This machine, unlike older Snapdragon laptops, doesn't feature an EFI
+variable to denote the system time. Remove the property that suggests
+it does.
 
-Bart.
+Fixes: e8fbbca94db7 ("arm64: dts: qcom: glymur: Add Asus Zenbook A16 (UX3607OA)")
+Reported-by: Greg Ociepka <greg@ferrisoft.com>
+Closes: https://lore.kernel.org/linux-arm-msm/20260821181148.1642208-1-greg@ferrisoft.com/
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
+index 939e1a927a79..82b9fb237c6a 100644
+--- a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
++++ b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
+@@ -861,7 +861,6 @@ nvme_reg_en: nvme-reg-en-state {
+ };
+ 
+ &pmk8850_rtc {
+-	qcom,uefi-rtc-info;
+ 	qcom,no-alarm;
+ };
+ 
+
+---
+base-commit: f2bfbc3554ca6919484030729424b9dee2942d24
+change-id: 20260911-topic-remove_uefivar_rtc_a16-838dd7c24180
+
+Best regards,
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
