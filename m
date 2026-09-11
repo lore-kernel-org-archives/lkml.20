@@ -1,145 +1,173 @@
-Received: from mail-oo1-f80.google.com (mail-oo1-f80.google.com [209.85.161.80])
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C4044746DD
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:45:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2EE744F55F
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:46:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789127126; cv=none; b=oE9CFba3dM19pR0FcT2F+3cvQFV4aN7AgizrQ98EHxsjPrYmPiYA3Ycp5BCD104MrBVsXatrMkYSA9F+kR3tHfkksA+DgU72tyeLJ+/4hUQP16NMdKHqrW8D8dBhfIUbGHxhueC7l0Y36/PAE9ZvbSJq0yn/sHeeS/9JEA1tdeA=
+	t=1789127197; cv=none; b=YMubj4FvDc8+cXEfaOjwmfG3wylX+vmlFYYJB6/HRmsRlBJnZhsYNF3wpVMHRFZWxPUrVNx4bxcuZpTfhpKBsy1NuT9BTYJLbL0ISiDYtn2Qyr86Ja0SZEk3KDIKOxmxihKMw1v5sYHhu2NITycdJxk1xXtV8RMAXJMuTgei4RU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789127126; c=relaxed/simple;
-	bh=XhJtIOc3u2hLLNzWnkH5OWfmH7YYPxIQ2OCmKVrFqrM=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=OoONCXMDtVqC4CfpC7K3Jd+KqnX2JUe18OuA98kEVRuj8+slHbTpeQo2Nfnv8RcuwtG6qWU/+3EQjiRheYR1SJaC0i2n2pPqmBAQS1K1I1B8dCHnbpOWd8XaubMNN7LeysQocY8hQuTJIm2ImBSBvHoEEqArVteuYZCtQXyVPeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f80.google.com with SMTP id 006d021491bc7-6beffd68e4bso1898623eaf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 04:45:24 -0700 (PDT)
+	s=arc-20240116; t=1789127197; c=relaxed/simple;
+	bh=DqmJQsgUpf4KBnCVC/WyqGYQ2UH9L00dFVSrd0E5b+E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OD9yBDOa/1dyrVTYBnTXG5KOz3QiXM4Wr7Y9+2fhBJbHdnA//2ZfnNfGZuFWQaL/Hl0gEqPouVX6Bh8uAPu7L8X3gqXZ52GRGeVYP6N3hPuCCBZywA/yZ9rgaTKTjIMKEJxMhKEhNkTyjYLT7RaH/p/1OFPHmrOTHq3gL1JkGjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cIZiFMOX; arc=none smtp.client-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cIZiFMOX"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-869ac301739so586802b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 04:46:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789127195; x=1789731995; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P0d2aRvLBFsZ2DWV9mXwS41WTqPgM5PBo/dZ4iSn2uA=;
+        b=cIZiFMOX8WGsaTjkxAc+eXStHK5765l0tF2Oa8IgJo7jVUyCaPcd5IlEN7BgC8f3pa
+         VpMxjeJvpIyBQXyyNBA3FPXxHaR80P6G7FVOeBn+e0D1wUcWy+x4OfqNdrtHSBne/PIB
+         SnCaTlvpNeOzD/4vLe3AaBXtofYK0sA2CEujygpfkL9QfFwCScsn0g1BhV7vZoV7U6Xz
+         DXp6zIdmpOsLctPdgonNCSGjJLjRdf5fExAhui60WW+SrEkuUMHnGTgrD47h1kpBOOTz
+         F5Vir3iwDjJHqGESGKOinAVM85bcfhbvuQXyxNeq6S1riXoMh+RjOuD0A8frnuakF7ya
+         mpRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789127123; x=1789731923;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DixrXJooAk+5iJDF/dnwtd5cfPxBUrdvO4OX36Wx9tA=;
-        b=lwqAZ08HS29fuxUbCKEreDClWiXOotPPPykdw4j0G+Dd9+b+yi16uQ60fuGAeQ8vRS
-         LID1jZhuVV2T1OmHXSw1Oi9Sr97Kjuy8T23QvszFBhXw/JJdFCQCzBPDMPwgxdiiQOHV
-         3lPYwpjwRJmN/IH5EibtJL5bCVo3jbBcc1G3pO67nfz1DzpHUewLQJK3nowIhQCDnK8Y
-         5EZB4WgssZpJlKASNh0GUWT9kzCRqW1o6ZoiBzKxTc8VCAIFPtuCFKVyxJJBrFAMey+c
-         //aQoNMRc1Hdp33TIHvIa82rPe8IW1rAYuwvoK54IMzas371aLK5jCRwPilgRQzPy667
-         nmCg==
-X-Forwarded-Encrypted: i=1; AKwUvBwlakZbbztV1dmER/1ugJJSZnBP7/ibYZjZYyCQxfnlKU49c3+vrn5HqtBArBfo8uOaBkFxGTuKYsFT69A=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLzyeuP3KEgCxHkva5knS5lXHbO5PP6IqwHD89h2csGI2uWO8l
-	lbgAgCJ/0rVYIpYabOuR5M59nOhxGfR2aa9lusLvaEXDxYxUTAj7mlAxpWMh5jh5D27tbmvnjrk
-	AhruwNQv4UsaVghQaAl+2SikXBUdZsffCcYSGk7HGIJHMa8EdfFG6a1+UiJc=
+        d=1e100.net; s=20251104; t=1789127195; x=1789731995;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P0d2aRvLBFsZ2DWV9mXwS41WTqPgM5PBo/dZ4iSn2uA=;
+        b=NrG7dIhSMsMoFLFNgufOug/ZjlgC+rQqem0K9MYb2IC7nqoV5yWvbpyQf4b2mgvRuq
+         bTQvst754IvhsklE5y/6axo/4ljAbGU9nO9K2KykZ43orksmW/d94wD49ej4bT8Wlxq3
+         6vi++3x6qFdhGiFcemwfsqDdphv4Ozywgi3e5V5YeYbv6Vy17TsgAXbisfTSKpyIFbbz
+         q03bqDYXohYYo207a2g8EDVqWVRfTpjIh6JftHRAGIu2QUU84VPoGB2bh9LqOlrnd+7y
+         EAfx39kOvcslFl15TOi1cGuwgerHYck2GMWtL7DQAKa06edTe+mi7D3VtO7jtYgIsz1+
+         faVg==
+X-Forwarded-Encrypted: i=1; AKwUvBx4EjFPJ6Apvlw0E+2EeD5wd+cQEMB2QsJu/DuaiUcelTARNYnWi8rrKGjmw1CfaAWfyU7HwbFvW1PW8yo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lQ/LWisfjHBU6aG/SGrGd0e+eVOgYjUBvPGApCNdiMQCLgTWWp
+	a6EM30ZROFOOl0JQGnyHhRY2TumF6jiS8sFRuwsCwM5heTjYY6k+O1MXGL4zmA==
+X-Gm-Gg: AYBFou0guHZuG5EuHvwRARDatU2tD4Kd5TC5v/TEkZ7Y2N+VB7hWxpwD8A804NJzLcQ
+	N89DbQS+K0e86H6NIbkERXJ/+GlwxoIi+lYVHWL9iP2gKQu+9qCdS9oMsaAEmxqGv4RiUiAMGVl
+	OM/kYd/jpqvpbzjwT1n8oTwL+y3g94MJtD1e1Tcq8b8g9/mFwb7ha2l1oQtwBUfgAxZim+nJLuz
+	gmQVvzwOgufFyCJazIR63KnMPyWCyQn4NQmBS2kUY6i4QRqlhUh734Fep1C4+cNl+eWII2U93B0
+	Nc95e86gbyOYgUt2K6Z1QxtLafITSGSBWEZwuianmzvon0AQvK9GcOS5zYlxDpA+wnVNT7iVP78
+	ahvZPTA/VAXQmldjmN84j5jMzx+xv1ZiV7XQ8qV0WtdxYmBFhxjub/jFG4G5Wm/qNbSmProV9wx
+	EdmuUr7ytHIL14C4WUK1w3RH1G6BqudD7KSQVikejQ6Uhm6Gu+x1iR1+Uoe5Uip5ddC6AxX0fEE
+	d3OOxVOXaGS+9w22FQ=
+X-Received: by 2002:a05:6a00:190f:b0:847:9267:2104 with SMTP id d2e1a72fcca58-86b2fb16751mr6046446b3a.12.1789127194737;
+        Fri, 11 Sep 2026 04:46:34 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d38:5c70:b928:dcab:35a4:adf0])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b29ebc712sm971495b3a.49.2026.09.11.04.46.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 04:46:33 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Yangtao Li <frank.li@vivo.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com
+Subject: Re: [PATCH] hfsplus: fix recursive tree_lock in hfsplus_file_extend()
+Date: Fri, 11 Sep 2026 18:46:28 +0700
+Message-ID: <20260911114628.10349-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <28f33649277ca654e66c36aea1bd4f2bfd6abbf6.camel@dubeyko.com>
+References: <28f33649277ca654e66c36aea1bd4f2bfd6abbf6.camel@dubeyko.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1889:b0:6b5:ec2f:356f with SMTP id
- 006d021491bc7-6bf46bb2c16mr4634956eaf.32.1789127123419; Fri, 11 Sep 2026
- 04:45:23 -0700 (PDT)
-Date: Fri, 11 Sep 2026 04:45:23 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa3e9d3.f2639fcc.29487d.0028.GAE@google.com>
-Subject: [syzbot] [net?] kernel BUG in net_dm_packet_work (2)
-From: syzbot <syzbot+586af68eb819833c2d91@syzkaller.appspotmail.com>
-To: davem@davemloft.net, edumazet@google.com, horms@kernel.org, 
-	kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	nhorman@tuxdriver.com, pabeni@redhat.com, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+Hi Slava,
 
-syzbot found the following issue on:
+> I assume that if we are here, then we already allocated the blocks
+> for the extent. And if we simply return the error here, then we've
+> lost these allocated blocks from the free space. Am I right? I
+> think we need to prevent the blocks allocation, then.
 
-HEAD commit:    08df884136f1 Merge tag 'thermal-7.3-rc3' of git://git.kern..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=14cd4925580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=586af68eb819833c2d91
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+You're right, that was a real bug -- hfsplus_block_allocate() already
+ran by the time we reach insert_extent, so returning straight from
+there leaked start..start+len from the free space permanently. Fixed
+by freeing them back before returning:
 
-Unfortunately, I don't have any reproducer for this issue yet.
+--- a/fs/hfsplus/extents.c
++++ b/fs/hfsplus/extents.c
+@@ -537,6 +537,15 @@ int hfsplus_file_extend(struct inode *inode, bool zeroout)
+ 	return res;
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-08df8841.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/21cf9eeaddab/vmlinux-08df8841.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/a041f1e01a69/bzImage-08df8841.xz
+ insert_extent:
++	/*
++	 * Getting here means the fork's eight extents are exhausted (see
++	 * hfsplus_add_extent()). The extents overflow file can't record
++	 * an overflow extent of its own, so it cannot grow any further;
++	 * give back the blocks just allocated for it above.
++	 */
++	if (inode->i_ino == HFSPLUS_EXT_CNID) {
++		if (hfsplus_block_free(sb, start, len))
++			pr_err("can't free extent: start %u, count %u\n",
++				start, len);
++		res = -ENOSPC;
++		goto out;
++	}
++
+ 	hfs_dbg("insert new extent\n");
+ 	res = hfsplus_ext_write_extent_locked(inode);
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+586af68eb819833c2d91@syzkaller.appspotmail.com
+> I think your logic here that if we try to read the extent from the
+> Extents Overflow file's content for the file itself, then something
+> is going wrong. In this case, we need to place this check into
+> hfsplus_ext_read_extent().
 
-skb frag:     00000100: 44 d2 0a a2 e2 47 a7 df 6f 97 84 d1 f7 fb c3 2a
-skb frag:     00000110: 21 54 9f 61 2b aa b4 19 63 72 89 80 f0 62 f3 61
-skb frag:     00000120: 9f 89 a0 49 03 f5 e7 66 b6 4b 34 44 cd b9 03 b5
-------------[ cut here ]------------
-kernel BUG at ./include/linux/skbuff.h:2847!
-Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-CPU: 1 UID: 0 PID: 5877 Comm: kworker/1:7 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: events net_dm_packet_work
-RIP: 0010:__skb_pull include/linux/skbuff.h:2847 [inline]
-RIP: 0010:skb_pull_inline include/linux/skbuff.h:2854 [inline]
-RIP: 0010:skb_pull.cold+0x29/0x2b net/core/skbuff.c:2677
-Code: 0b e8 6b b3 9c 00 44 89 65 70 89 de 48 c7 c7 60 cc 38 8d e8 b9 e6 b2 ff 31 d2 48 89 ee 48 c7 c7 a0 cc 38 8d e8 e8 30 26 08 90 <0f> 0b e8 40 b3 9c 00 4c 89 e2 be 01 00 00 00 48 c7 c7 00 ff ca 90
-RSP: 0018:ffffc900044df9f0 EFLAGS: 00010286
-RAX: 0000000000000000 RBX: 00000000000000ea RCX: 0000000000000000
-RDX: ffff88802461a580 RSI: ffffffff816f5ede RDI: ffff88802461a580
-RBP: ffff88802c76ca00 R08: 0000000000000001 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000001 R12: 0000000000001b38
-R13: 0000000000001a4e R14: 0000000000001b38 R15: ffff88802c76ca00
-FS:  0000000000000000(0000) GS:ffff8880d5c5c000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fa64e227dac CR3: 00000000647d3000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- net_dm_packet_report net/core/drop_monitor.c:700 [inline]
- net_dm_packet_work+0xafd/0x1290 net/core/drop_monitor.c:739
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:__skb_pull include/linux/skbuff.h:2847 [inline]
-RIP: 0010:skb_pull_inline include/linux/skbuff.h:2854 [inline]
-RIP: 0010:skb_pull.cold+0x29/0x2b net/core/skbuff.c:2677
-Code: 0b e8 6b b3 9c 00 44 89 65 70 89 de 48 c7 c7 60 cc 38 8d e8 b9 e6 b2 ff 31 d2 48 89 ee 48 c7 c7 a0 cc 38 8d e8 e8 30 26 08 90 <0f> 0b e8 40 b3 9c 00 4c 89 e2 be 01 00 00 00 48 c7 c7 00 ff ca 90
-RSP: 0018:ffffc900044df9f0 EFLAGS: 00010286
-RAX: 0000000000000000 RBX: 00000000000000ea RCX: 0000000000000000
-RDX: ffff88802461a580 RSI: ffffffff816f5ede RDI: ffff88802461a580
-RBP: ffff88802c76ca00 R08: 0000000000000001 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000001 R12: 0000000000001b38
-R13: 0000000000001a4e R14: 0000000000001b38 R15: ffff88802c76ca00
-FS:  0000000000000000(0000) GS:ffff8880d5c5c000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fa64e227dac CR3: 000000000eb96000 CR4: 0000000000352ef0
+Agreed, moved it there -- it's the one place that actually calls
+hfs_find_init() again, so this is now the single point enforcing the
+invariant instead of duplicating it at each caller:
 
+--- a/fs/hfsplus/extents.c
++++ b/fs/hfsplus/extents.c
+@@ -216,6 +216,14 @@ static int hfsplus_ext_read_extent(struct inode *inode, u32 block)
+ 	    block < hip->cached_start + hip->cached_blocks)
+ 		return 0;
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
++	/*
++	 * The extents overflow file is fully described by its own fork
++	 * extents; looking up an overflow extent for it would re-enter
++	 * hfs_find_init() on the extents tree, whose tree_lock may already
++	 * be held by the caller.
++	 */
++	if (inode->i_ino == HFSPLUS_EXT_CNID)
++		return -ENOSPC;
++
+ 	res = hfs_find_init(HFSPLUS_SB(inode->i_sb)->ext_tree, &fd);
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+This retires the guard I'd put in hfsplus_file_extend()'s else branch
+(same check, called from the one place that mattered) -- v3 is net
+smaller than v2. hfsplus_get_block()'s existing check at extents.c:261
+(-EIO, before extents_lock is even taken) stays as-is; different
+errno, different purpose -- fast rejection of a read, not an
+allocation failure -- not an oversight.
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+> But I still don't see how we will check the fork itself because it
+> could be corrupted even without be completely full? And how could
+> we check the forks of other b-trees?
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+Fair, you've asked this three times now and I keep pushing it to
+"follow-up" without saying what's in it, so concretely: a
+hfsplus_check_fork(sb, fork, cnid) called from hfsplus_fill_super()
+for ext_file/cat_file/attr_file, rejecting a fork where, for any of
+the eight extents, block_count == 0 but start_block != 0 (garbage
+in a slot that should be blank -- exactly what's in the syzbot image,
+slots 3 and 6), or start_block + block_count > sbi->total_blocks
+(extent points outside the volume), or a non-zero extent follows a
+zero one (a hole in the middle of the used range). Wired into your
+severity split: first extent fails those checks -> hfs_btree_open()
+returns an error, mount fails; only later extents fail -> open the
+tree, mark it inconsistent, force read-only. I'll send that as a
+separate patch once this one lands, since it touches mount-time
+behavior for all three trees and deserves review on its own.
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+Both hunks above build cleanly here.
 
-If you want to undo deduplication, reply with:
-#syz undup
+Thanks,
+Thang
