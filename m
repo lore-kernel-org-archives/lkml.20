@@ -1,85 +1,166 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D8A36A033
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:21:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F9782D7DF1
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:23:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789147307; cv=none; b=ky4Rn9vmasJ76EHN5W7tAW0gWNpilY/ge1fPsk7IkzRG3p/y+Jt6A7GoB3QEYL3pjQBfNHhVaUn1tkKYkybJ7Zj1pwked5lp1djrTqLIYKP5tSvnNE+wHblOfZ9VH0wRopGhxYz8ZrCemDk/d8yn3NyzHWrQVCdxlCYRfgkOtZs=
+	t=1789147384; cv=none; b=VJrhjYhnN+0HfqEC2ZnhdyeST+l3iBXZMPaCGmLZwORcQNiy2YhY/Pu4qosdpita9y9W9W6weL+GAtysdvsr0AFCoqPiBPgEhMBHZcbdq6afdx9RPS16aZVFSPi37X6Qg8j4FNEhhF+56EK+D2ht0gRxYOIzx8+HvLTtM2Cfw+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789147307; c=relaxed/simple;
-	bh=4I1uM8nGxWZmYlPL6SkGhp0JtxGijtKVdld5zOukXwc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MPQvmb6+8ElbMWi75SxW0hLNZLvSMLvFV0yRVgmQznL7OGze7q7DbYHzex+t6NLNGBc/Uv8H/eXJULyGFyNaV2RpkXsZjZxQuSychlFyT6eM+x2IfpDY/ygNr/5SowjeBLcRNk1r8GudIEGmmka2IQBP1U+ARFwFkqLDat0INf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=Na2Wx0aI; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1789147384; c=relaxed/simple;
+	bh=tZQ582J8+F1fmBTIE3l7ea0idw1JicLZTbpK9TOzd78=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=K57CiDfkPkpJRloeHUCA/ngx7wjliRBiLiE058jd36OEUJElLy9EN3tpvLZw4OZdXARf9e7xWj6TpRgCuA/IBUrpf7qIIwBI4oQWbXl4coAiTy4lPHCjXRe9RWD3W2pBEeHCkRNuTiSH16K7EAx1xJXc9Xp5zBG840hYf4cFx/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=g+ZuitOr; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="Na2Wx0aI"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 54E2040E00E8;
-	Fri, 11 Sep 2026 17:21:41 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id 7WRZNeZNnJYT; Fri, 11 Sep 2026 17:21:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1789147291; bh=QJp+ap3TVTLVGfau/kTo1ba0JD+xXmCdnnWaUZ1Q0mQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Na2Wx0aIpjjqATNEOalYlApLaieztxXxlyojyPPpW6MVScbb/EkxVISUt+2WO/v8H
-	 mrubJdA6EUyCVnCcA5ZYMGmHOUpU//hvhXlqcgTQDGsts9vzZh5wfBmoe2TItBBrqU
-	 k/oy8RpvIwWJHlYjD7YbY781GCXaYKOOLGjbemwC487hv4qDHp8Gyof0R6f9dOoGzv
-	 d5srun35oTRXipNUh+VZJWKNUPY/6eq4h0M2KROwq3qzb+apMp+eNNVs5fxqyLgNBf
-	 CKuM0ILnhQplXzVLVc2e0rCudLC3YVd0dft+Teo4R9gupR5boU5tUfeZycSPx1m50F
-	 ZV9lQ+EXxKQUeG7NxWZ/0ukNVbbMmsrQwBb2CZz140HhPUkFWQOGHV/WjfjsPCJ0f/
-	 JoNYfdhZio2JFRyrPwGEoWBjsxAnWkJlWA6tXstPLQ0hG61WDk9c5rVZ8z2u/scNAs
-	 4HIRwwjUTaSufBaqtKS2fJSEjvwrUwVE0PjZX6h1XYmFbtshYbfPI2wGsV93TWTz/x
-	 6YURQ4x5DjbKWH2FHq4/cOO3PkEHpFdPrKMrAAYO+eYBdDLj8+wJC7cwIdw7zwI6/J
-	 8G3BsVdcOFCL0Fu6VJRcLR8T7kVFoj53mIv0+bJ1Im2ZCwXO5z7dZAApoGXuUDn3tT
-	 TkfGp/DPn6d1icMgf5T7Vpxw=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::1a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id C6C2F40E00B8;
-	Fri, 11 Sep 2026 17:21:26 +0000 (UTC)
-Date: Fri, 11 Sep 2026 10:21:23 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Serge Hallyn <sergeh@kernel.org>
-Cc: Yazen Ghannam <yazen.ghannam@amd.com>, x86@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] x86/amd_node: Fix PCI device reference counting in
- amd_smn_init()
-Message-ID: <20260911172123.GAaqQ4kzWKJILg-UBE@fat_crate.local>
-References: <20260903154325.74343-1-yazen.ghannam@amd.com>
- <apnMZINAYLpwkcS2@shallyn-amd>
- <20260911030303.GCaqNvZ3QRcCLSmzja@fat_crate.local>
- <aqQtdHUN3NVQI9yu@shallyn-amd>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="g+ZuitOr"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id A46001A01EF;
+	Fri, 11 Sep 2026 17:22:58 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 673C4601A3;
+	Fri, 11 Sep 2026 17:22:58 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0473111C7A9DC;
+	Fri, 11 Sep 2026 19:22:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789147373; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=nVEQywkHWgTFcB5dj1gTRbzq3fF/jQKEVnEtk7cJTT0=;
+	b=g+ZuitOrIEL6URmzye3fJ9qvLvulzMeaFsDq+x3XT2Bc1JBvC7YCwugIDptkX/KFThUAeg
+	BZ9Onvf78saOiTR5PO9x/2Y5f7wR+vGQAK1vvS7wXUoi1jnBsdQFx0C8ZDaHk1cG5zyHZe
+	BFLCIKYicYJMgtKPAJwaGNOPxEgVktSjr//yCRw/RTOBg9SVOgPBRY3AX7jWcL3fRVsW3A
+	gcIIfs5x0P/1ktb6+dQC47ztMkkmbSvYGaBj18yN7EqRE+adbPwfhV9q2T1Xm8ZiB/4WxG
+	QitJOmyzd6TBCfrOSMpvk2CJWNNIJr03PGkr6Jxx55pE6RuBL3CvOWMBPQR7CQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Date: Fri, 11 Sep 2026 19:22:45 +0200
+Subject: [PATCH v4] mtd: spi-nor: Fix quad-enable for flashes with QER bit
+ in SR1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aqQtdHUN3NVQI9yu@shallyn-amd>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260911-perso-fix-spi-nor-qe-mxic-v4-1-5da8a25b9579@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43OwQ6CMAwG4FcxO1uzdhODJ9/DeIDRSRNhuBmiI
+ by7g5vxwvFv+n/tpBJH4aTOu0lFHiVJ6HOw+51ybdXfGaTJWZGmQpeIMHBMAby8IQ0CfYjwZOj
+ e4qDRRzRcemsJVe4PkfPaal9vObeSXiF+1lMjLtMt6oiA4JuiKdFiUVF1qUN4PaQ/uNCpxR1ps
+ 0XZOmlnyOY/jeZ/y2y2TLaIXcW+Jvbkfq15nr+/IWiVXAEAAA==
+X-Change-ID: 20260911-perso-fix-spi-nor-qe-mxic-d0513e9f4421
+To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+ Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Jon Hunter <jonathanh@nvidia.com>, Steam Lin <STLin2@winbond.com>, 
+ linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Miquel Raynal <miquel.raynal@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Sep 11, 2026 at 11:33:56AM -0500, Serge Hallyn wrote:
-> May not be worth it, but should we also add a num_nodes == 0 or
-> ZERO_OR_NULL_PTR(amd_roots) check, in case as code churns we
-> end up with another way for amd_num_nodes() to return 0?
+Some flashes (eg. from Macronix) do set BFPT_DWORD15_QER_SR1_BIT6, which
+means they do not have an SR2 to read from/write to. The new generic QE
+helper was supposed to accommodate this situation but in the last version
+that got merged, parts of that specific handling has been moved to a
+more contained location, swp.c (which needed most of the extra code),
+yet the Macronix case has been forgotten about in that generic QE
+handling helper. Booting with such flashes will always fail probing.
 
-Thought about it... then looked at all kzalloc_objs() callers and how they're
-not protecting against that. So yeah, before this turns into a whack-a-mole
-game I'd say let's remain conservative and see what happens first...
+Fix the situation by making sure SR2 reads just return 0 if
+unsupported. This is safe since there is no chip with a write SR2 path
+but no read SR2 path (which is now enforced in the SFDP parsing step).
 
-Thx.
+This way, callers still do not have to care about the internal device
+capabilities. Calling sr1_and_sr2 read/write helpers is safe in both
+directions (not risk to get a spurious error). The behavior for SR1-only
+chips is respected, the complexity in the core kept to its minimum.
 
+Reported-by: Jon Hunter <jonathanh@nvidia.com>
+Closes: https://lore.kernel.org/linux-mtd/178876719232.3543902.14451625037676421254.b4-ty@b4/T/#m5bc4ba6776436f2870ced0eb5789d229037ad840
+Fixes: 63489002d397 ("mtd: spi-nor: Refactor Read Status/Write Status support")
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+---
+Changes in v4:
+- Make sure we perfom the "_and_check" over SR2 only if SR2 can be read
+  back, otherwise it does not make much sense to do it.
+- Link to v3: https://lore.kernel.org/r/20260911-perso-fix-spi-nor-qe-mxic-v3-1-2ecaefb2ef2c@bootlin.com
+
+Changes in v3:
+- Make sure the read helper returns a "valid" SR2 in the sense that it
+  cannot be random data by returning 0 for chips that do not feature a
+  read_sr2 opcode. The major thread was to get a wrong comparison
+  (against the tmp variable) in the _and_check() helper.
+- Link to v2: https://lore.kernel.org/r/20260911-perso-fix-spi-nor-qe-mxic-v2-1-70c324e9f30e@bootlin.com
+
+Changes in v2:
+- Change the approach, see v1 thread below.
+- Link to v1: https://lore.kernel.org/r/20260911-perso-fix-spi-nor-qe-mxic-v1-1-fd6d91416a2a@bootlin.com
+---
+ drivers/mtd/spi-nor/core.c | 15 ++++++++++++---
+ drivers/mtd/spi-nor/sfdp.c |  3 ++-
+ 2 files changed, 14 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+index e2b6efafdd8d..4377b73e57fb 100644
+--- a/drivers/mtd/spi-nor/core.c
++++ b/drivers/mtd/spi-nor/core.c
+@@ -849,7 +849,8 @@ int spi_nor_read_sr2(struct spi_nor *nor, u8 *sr2)
+ 
+ /**
+  * spi_nor_read_sr1_and_sr2() - Read SR1 then SR2
+- * General purpose helper.
++ * General purpose helper, always safe to call. Will expectedly ignore
++ * SR2 on certain chips.
+  *
+  * @nor: the spi_nor structure
+  * @sr: pointer to a valid 2-byte array
+@@ -864,7 +865,12 @@ int spi_nor_read_sr1_and_sr2(struct spi_nor *nor, u8 *sr)
+ 	if (ret)
+ 		return ret;
+ 
+-	return spi_nor_read_sr2(nor, &sr[1]);
++	if (nor->params->opcodes.read_sr2)
++		ret = spi_nor_read_sr2(nor, &sr[1]);
++	else
++		sr[1] = 0;
++
++	return ret;
+ }
+ 
+ /**
+@@ -960,7 +966,10 @@ int spi_nor_write_sr1_and_sr2_and_check(struct spi_nor *nor, const u8 *sr)
+ 	if (ret)
+ 		return ret;
+ 
+-	if (sr[0] != tmp[0] || sr[1] != tmp[1])
++	if (sr[0] != tmp[0])
++		return -EIO;
++
++	if (nor->params->opcodes.read_sr2 && sr[1] != tmp[1])
+ 		return -EIO;
+ 
+ 	return 0;
+diff --git a/drivers/mtd/spi-nor/sfdp.c b/drivers/mtd/spi-nor/sfdp.c
+index c21a6953db96..641f17ad51a0 100644
+--- a/drivers/mtd/spi-nor/sfdp.c
++++ b/drivers/mtd/spi-nor/sfdp.c
+@@ -656,7 +656,8 @@ static int spi_nor_parse_bfpt(struct spi_nor *nor,
+ 
+ 	/* opcodes sanity check */
+ 	WARN_ON(!params->opcodes.read_sr1 ||
+-		(!params->opcodes.write_sr1 && !params->opcodes.write_sr1_and_sr2));
++		(!params->opcodes.write_sr1 && !params->opcodes.write_sr1_and_sr2) ||
++		(!params->opcodes.read_sr2 && params->opcodes.write_sr2));
+ 
+ 	dword = bfpt.dwords[SFDP_DWORD(16)] & BFPT_DWORD16_4B_ADDR_MODE_MASK;
+ 	if (SFDP_MASK_CHECK(dword, BFPT_DWORD16_4B_ADDR_MODE_BRWR))
+
+---
+base-commit: 700bf34058ca7cd792236b1ba5caad3770d66208
+change-id: 20260911-perso-fix-spi-nor-qe-mxic-d0513e9f4421
+
+Best regards,
 -- 
-Regards/Gruss,
-    Boris.
+Miquel Raynal <miquel.raynal@bootlin.com>
 
-https://people.kernel.org/tglx/notes-about-netiquette
