@@ -1,197 +1,120 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 382E7457E49;
-	Fri, 11 Sep 2026 21:35:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1244BA1D1
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:36:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789162548; cv=none; b=T8WfqFeKEYkGuyVsEpQbu/DDARMJ9x/R0NVfjpFk6lfpgNv1LJqXK/vvHwMUmZV2EEd3ucoxwjhU6hy5pqHgeWNQC95Knjrou63M1P9TQG24uArHPfyv0YUem5BKpH8h4KeIJCuYNMBFF/ZkHW7P6kFiWDWykVBjEpBNoAIUedA=
+	t=1789162597; cv=none; b=sNcRwOivB6+rg6IQy0jHyiRoMSdV+9XWl6kfPC6e/ut6nWFg1vI67tDmcWm0A5/LZAbUs2wQYlCdeT5h8ctHBtPg1Psr5bJed/EdlkC0dv+bLLhNulBDABzIzrZ39ibtTIFQPb9k1+b30kyTtTLsSHC+Emmd0NWyCfnGa9EuxNg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789162548; c=relaxed/simple;
-	bh=W4KXX3fdBQTx7RvNGHdkgjdGwoOaGmGgFAMr7ryNdI4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qRGGLn8t1Ql9HfiQ6F+wsQuMDKK9szijsv/c1uhMsIZWDfyiYUK8Je+i/wRfcOF3Nnd1iAdN8P9sheT0BaFzqGoUdiz+EkWc2z4wWgcCRA/5kU87HJCetb9Sp/aL/9QBGACC3L4BNpD6sJKruWY9VZjX8SgGTgzqyQok0HQqqwQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b=Jqqjj5Nj; arc=none smtp.client-ip=212.227.15.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	s=arc-20240116; t=1789162597; c=relaxed/simple;
+	bh=SUiTHckpupA2Vw6P+vJ70ESxWaG0bfUVp4jLYBx9i3Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qnGC3GzDBjtucySZu4HadKalvpJvCyVHXkTJxQ4lWdkFM3CmqjLFTG4nj9Pv7OmZIOASSQL4+8d3F9pW6UPw1Oi3b/JUplSBYdeAs+GRAJfXzsF6b3pH2VeS6Xvk/cznh7XFqztCobTscWqUnJsBswHIU9tADg/YJUGpEkggRFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CP7b68Lw; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b="Jqqjj5Nj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1789162543; x=1789767343; i=w_armin@gmx.de;
-	bh=BIEGw86T9NUN38jdMJyVdZ/p86qzcsXITFSxC4HAI34=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=Jqqjj5Nj0l+DqELlw/XYi1a7xgy021SwjfMfllk9CCadh45Vfmi3Y6U8UwP3CS4F
-	 YDtffW20j9vQm6TRVgRAhKqyk1Ksw84q/Nh2yx3e9feb135exz2+ZW3mFxIH8G+Ok
-	 OaIM/XTYkck1hwnOg53LArFAOPPowywICbZsOP3cH4sfv8lFYbQzo/i9FbOkCWfTq
-	 bZqwihWem6iEnAMHnlLKUU7K8TpAzhd64nVZpnVrxEdiowIid8RGpHjmBWGmLVqU0
-	 kRIioCIis/L1tQcqob6NwLdH17+kC6sEWqDMpItNKPOEqcZBVrm3yenpm1kT6T0jd
-	 RujrEczAsjw9hTfXag==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1N7zFZ-1wjzS93r99-015tPE; Fri, 11
- Sep 2026 23:35:43 +0200
-Message-ID: <951189ad-71b6-4776-8484-a207f1efe415@gmx.de>
-Date: Fri, 11 Sep 2026 23:35:42 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CP7b68Lw"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-381b831d535so2518990a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:36:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789162593; x=1789767393; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=pAQK5OeklF/DWV0T96iTwyf4EXdJqbJCKpAuQ260Jy8=;
+        b=CP7b68Lwz0lZMiJCKXojOECPwsid+PDrcCgP31nW95CaQB5XMMIZGrL+WiRjMFUtXR
+         C1gMDtj+lqVM074ZA0iUrgCPmFydNGJDFFUrNztS4lbGyjthP/P74PysMRUY1ukwzxCM
+         +1Dg5oOQ0qURCwZLeZ6Vj/X3GZ4Z8W2VgWFo8r0o79y1MvOnLKOxp0kvkfM8pv439hHh
+         ts3MXePzZDKruG5SO9FpI/hYmIGi1GVBs51iKsVqztsplR5ODJuG5/HS62dbs/lKkTBQ
+         W2oEjJoR6X0Uns0xyRM3xMQShpvrS4o5jGqCg87yndNnvQsCprR3GnbWKph26T8YtFNr
+         JyeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789162593; x=1789767393;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pAQK5OeklF/DWV0T96iTwyf4EXdJqbJCKpAuQ260Jy8=;
+        b=clD2s2Sfs/UTiRahaTQQQrtHr5gZNaAuK80Jb0CCDHjAuz0PwPSEq9cw5BcvQKjxVR
+         +/feOvXGjg0IonNU8OdckzQVJOqqkEf7tMR7OYKz4x313l2vNVfBFB1hiZSThNoowSdJ
+         sZYInZbsoGnjepf3yRsef0cMY7VussgaBlNPBZT+jARmedYke+385wXum+pwhoQxgO7b
+         IR2gpuIaArJ66C94C+wI+wgHymTcSi+C6FWRutKORROGxjCZIpBcVELXekltNF8wcazm
+         oYJ2+i3HTEMLnW7dIQT+GCiXD5AuE4g6BRNSl0l3QdfVGIjBIFPfA7w7ABjaUxP+eT+9
+         bLdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz91ckkXUtpoFheCUI86iCde69x6ZNDQ4d1o+5DzAU3wH16QaKV8jJJ1eZSwRuQrsVkqD9rOz3znyz0glc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQdj7IGfIJAbPJHiD2bwESfoadhI9uLPOrYVSC+w+rcXXF/7Hz
+	smy2AG4XZ6gMCCgn5TW/prtUhubxiQXNUZLAmmhsyVnhn3x6tJl1rDKA
+X-Gm-Gg: AYBFou2mmJ/1XTgMqMJOk74XaZUIcqo0NNnelV8OEwW75n9ADqfxu720k/jqSFeHh64
+	jEOQA1ZJiN5MeKzrjYf5kWSk4gyMumSKKmHgOLZQr4C7vacYxDcOmrOXkI4Kr3VKQh4fyuzolnx
+	jzgcOos4xAoVv2SOEl3r0cKdL2D9M2z8FGoYCKMTJNROAXr58K9VaLpmHNg6T9+B0ALNCtErF+p
+	LRWkIXcEEboSlAKpnp6vRpb7st41mdEMeWSaq/KlS/oOmSS16xDgfJNWJuAkuuMxh3WAWzMzO56
+	MKNYQk96JsykTgZUaiiWJa4z8eYc6szh6alIQsP6iUbPTVn5aB3dVl5Whz5xf1TavpyETYL5Iml
+	y37tqz25DreL3Jdm5+HbQUhhggl2VnGHsjRDPWnIHNjIm52JlJjBaONRP49/pxm80UJ1CUsHYAF
+	yfItGVEzDYIrpsPFwgXYT0Nu0k0YyRS3pduN9HM2Ek5Zgawd6on9VD2QVIiYj3PInJ4TqPxgfdh
+	507UpYVowqL
+X-Received: by 2002:a17:90b:384d:b0:398:e1f4:bda1 with SMTP id 98e67ed59e1d1-39d9c22ccc1mr761107a91.21.1789162593165;
+        Fri, 11 Sep 2026 14:36:33 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9959ac65sm6442721a91.16.2026.09.11.14.36.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 14:36:32 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Fri, 11 Sep 2026 14:36:30 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Meagan Lloyd <meaganlloyd@linux.microsoft.com>
+Cc: linux-i3c@lists.infradead.org, alexandre.belloni@bootlin.com,
+	vitor.soares@toradex.com, samagazaryan@google.com,
+	gregkh@linuxfoundation.org, arnd@arndb.de,
+	boris.brezillon@collabora.com,
+	oleksandr.shulzhenko.viktorovych@intel.com,
+	tgopinath@linux.microsoft.com, corbet@lwn.net,
+	skhan@linuxfoundation.org, Frank.Li@nxp.com,
+	jorge.marques@analog.com, pgaj@cadence.com,
+	wsa+renesas@sang-engineering.com, tommaso.merciai.xr@bp.renesas.com,
+	nuno.sa@analog.com, Michael.Hennerich@analog.com, jic23@kernel.org,
+	dlechner@baylibre.com, andy@kernel.org, lorenzo@kernel.org,
+	enelsonmoore@gmail.com, rppt@kernel.org, pratyush@kernel.org,
+	giovanni.cabiddu@intel.com, gabewhigham@gmail.com,
+	haren@linux.ibm.com, pasha.tatashin@soleen.com,
+	jirislaby@kernel.org, adrian.ho.yin.ng@altera.com,
+	ustc.gu@gmail.com, jszhang@kernel.org, adrian.hunter@intel.com,
+	akhilrajeev@nvidia.com, tze.yee.ng@altera.com,
+	manikanta.guntupalli@amd.com, shubhrajyoti.datta@amd.com,
+	jarkko.nikula@linux.intel.com, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux@analog.com, linux-iio@vger.kernel.org
+Subject: Re: [PATCH 1/3] i3c: master: enable driver_override for I3C
+Message-ID: <342236b8-11f0-44bc-b0f3-2f167a6f521b@roeck-us.net>
+References: <20260911210935.1353126-1-meaganlloyd@linux.microsoft.com>
+ <20260911210935.1353126-2-meaganlloyd@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 00/10] ACPI: thermal: Register thermal class cooling
- devices under parents
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
- Linux ACPI <linux-acpi@vger.kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Hans de Goede
- <hansg@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
- Linux PM <linux-pm@vger.kernel.org>, Lukasz Luba <lukasz.luba@arm.com>
-References: <1965933.tdWV9SEqCh@rafael.j.wysocki>
-Content-Language: en-US
-From: Armin Wolf <W_Armin@gmx.de>
-In-Reply-To: <1965933.tdWV9SEqCh@rafael.j.wysocki>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:jfVmfGfQaUtM1gI6jesHtLv/k0QzjGK4nVbslQ6e4kM1gH+LTwr
- 031Z6kpvfK7OOhby7q/JfO22epIqF+x4dwP2ljlctNd6/9qpFHu755Hxk5rc+31SuFw7gCI
- 2fkb2CrYh9rTOgrUCVmWlmpOxQiMP5kk/98Wt6GeWGQLtqGFiFIHFoca/6daNwitWSLBVyx
- R8MJy7zcOEYi+PCsNJ4mw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:IsDA9Wu49N4=;830N6SR6Vq/ZRFWcaSa80NYU+OK
- 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
- aZmPEKW2eXOeqCsZMkVYqxUHVD3br4E
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260911210935.1353126-2-meaganlloyd@linux.microsoft.com>
 
-Am 11.09.26 um 15:00 schrieb Rafael J. Wysocki:
+On Fri, Sep 11, 2026 at 02:09:33PM -0700, Meagan Lloyd wrote:
+> Opt-in to driver_override sysfs functionality for I3C subsystem.
+> 
+> Update some I3C drivers that are assuming that if their .probe is
+> invoked that the bus match function already checked the ID table. Go
+> ahead and verify in .probe that i3c_device_match_id() returns a valid
+> match before using the i3c_device_id pointer.
+> 
+> Signed-off-by: Meagan Lloyd <meaganlloyd@linux.microsoft.com>
+> Assisted-by: Claude:claude-opus-4.8 copilot
+> ---
+>  drivers/hwmon/lm75.c                        |  7 ++++++-
+>  drivers/hwmon/tmp108.c                      |  2 ++
 
-> Hi All,
->
-> This series generally changes the way in which thermal class cooling devices
-> are used by ACPI device drivers registering them (ACPI processor, ACPI fan,
-> and ACPI video) and by the ACPI thermal zone device driver.
->
-> First, it causes the thermal class cooling devices to be registered under
-> parents in specific locations within the device hierarchy which allows
-> their relationships with other devices to be recognized more easily.  It
-> also drops custom sysfs attributes registered by the users of the thermal
-> class cooling devices because they are not particularly useful any more
-> when those devices get proper parents.
->
-> Second, it modifies the ACPI thermal zone device driver to use thermal class
-> cooling device parent information for binding cooling devices to trip points
-> in thermal zones, which was previously done with the help of the devdata
-> pointers of the cooling devices and effectively prevented drivers from using
-> the devdata pointers for their own purposes as originally intended.
->
-> Finally, it updates the ACPI processor and ACPI fan drivers to use the
-> devdata pointers of thermal class cooling devices in a bit more efficient
-> way.
->
-> The first two patches in the series are preliminary fixes preventing
-> Sashiko from reporting "pre-existing issues" in the subsequent patches.
->
-> The third patch is a thermal core update allowing thermal class cooling
-> devices to be registered under proper parents.
->
-> The other patches update the ACPI processor, ACPI video, and ACPI fan
-> drivers as per the above.
->
-> The details are covered by individual patch changelogs.
->
-> Thanks!
-
-Nice patch series, it looks mostly good to me. Do you plan something similar for
-thermal zones?
+Separate patches for each hwmon driver, please. Each patch should use the
+standard prefix used in hwmon drivers.
 
 Thanks,
-Armin Wolf
-
+Guenter
