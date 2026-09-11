@@ -1,126 +1,159 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 09C0A33B6D6;
-	Fri, 11 Sep 2026 14:18:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0BE22580F2
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:18:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789136293; cv=none; b=F/qVM5MkboKLkXQWJ7YwQsWVq4rSKlrd8PO5VQ7Vdg7KgXpAEh6UMEPtPigIUTulFJ1xfVlmaPnXyw9l8u9363KzEJPw7BrFpFMp0NNOQbZjC9XuKoQHHkp/EYUcD7afa0ty+gEC3MFQo6fmURw+z5xo97R4EkB5rmXx32sjxNc=
+	t=1789136301; cv=none; b=NSGkxqRWeYEn2mAJ7PP1CHZ9mf4G90Fc0HPQBvE0BP5bnk4SJxYLT6SXdH+3IayaHtywdM6UWSKtFmkb7wORSmbNIpHJMZ/06/UwtosGrPzSaC47iXLsRn35b4u572rECtcYpGdBufkzIAMfl85Hf3UtTrpxfYmSC0u3vT7GWIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789136293; c=relaxed/simple;
-	bh=SMWTVWYkHCdUnE1Ea2H43xOdc3TkjyJelBC5ssmIAow=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IFobbTjV+cBesZGn5dhiciS9jKHjfJMNuZOySqIuCy68ffRsUOgcbBB762Zja1KrAjQCRsWNKK1aKM2pP5rV7hbntf6FWZhfouAOTwqqwWCkokebXjA033w7CW5vd5r6DZDeBykx3mGrk1DupSCr2UzVAASIY2WuFytbtqf1YcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Bbhpiekw; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789136301; c=relaxed/simple;
+	bh=/jlOxmorn01P0oqnM8wboBQgCXBXKTHnzrbb14CijwE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DF1wWwtYunMFAh4weJhlEY3enYJDESsmjIemalfx3S7xhjAQDYVk3X+Jb7HIV2yhdFF7foYv2IGBo0nyxDMxRZsadngIbHZl8S+EO/Onv3Ud7joEI9riHM5kADogsbGoq9Q66FWSMYKIlZkgMvPMod2HlAwi3Mlb8OP3lIJaCxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Jh/PFFnn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g3Dud7Gz; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Bbhpiekw"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9AD9316A3;
-	Fri, 11 Sep 2026 07:18:06 -0700 (PDT)
-Received: from e129823.arm.com (unknown [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 535DE3F7B4;
-	Fri, 11 Sep 2026 07:18:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789136290; bh=SMWTVWYkHCdUnE1Ea2H43xOdc3TkjyJelBC5ssmIAow=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Bbhpiekw4vPtMuSsZQAsZFKlWtlBiNZqWOGJYa2TIZ7tf2EDzfoA4yJdja9s9TwSC
-	 aqPhmIMiLGxUG3I8yFttZOXdPfb5XYZmn5G0AD0U1IgwHhCMWc2scpQNxBeJ9pr5g/
-	 t3+tyW6g4se59IaKlJahdDLa4IbzqgPavRxnjBxA=
-Date: Fri, 11 Sep 2026 15:18:05 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org, david@kernel.org, liam@infradead.org,
-	vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
-	mhocko@suse.com
-Subject: Re: [PATCH] kselftest: mm: fix potential failure for merged VMA in
- guard-regions
-Message-ID: <aqQNnTe3TGkyzjqA@e129823.arm.com>
-References: <20260911123534.1181501-1-yeoreum.yun@arm.com>
- <aqP29-H0iKl-2CVH@gremlin>
- <aqQDbfMOVasuejA3@e129823.arm.com>
- <aqQG5LgqXnrmY1_l@gremlin>
- <aqQMKAjwpvf9dMfa@gremlin>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Jh/PFFnn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g3Dud7Gz"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BCim9f328256
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:18:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	widYuhmWJa7lLm+8qgyJ46Hz07J1TePISepd47Ws5Ug=; b=Jh/PFFnnxHIQiPti
+	5e5vZVDCBa5hwi049UU58DsJnO1RMYYRkwqZtJRNq2HGU6yg4TtYNO3sSTXpuGj9
+	rIhwhPpHEsE6upgC4K08NWJz7b/ly8NEAhzD29d8DvN10H1rC9oLzyj5/uQRq2Qm
+	JeFra98j9iVS6Pn9mx1FLRiDGkDaccCb7QzAmmSi18N10AICK31ir2hMT/8G3wxi
+	ZTKiy+ymCHFU3wYInFupQKmBL+Xa/xJwpFCdOfWjdTImnd4Ow0uhornNjk5i5Mgt
+	KCmhjBCyeYyH7uwhsQCTYykZYbOa7V/sB2WpF2LJVnQbc8Pv/hlxo9hUG9OhcK42
+	cthU2A==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gm5q43brk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:18:18 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-86b70a52946so1168842b3a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:18:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789136297; x=1789741097; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=widYuhmWJa7lLm+8qgyJ46Hz07J1TePISepd47Ws5Ug=;
+        b=g3Dud7GzknPZHzEJMJpZ5eDmcTAwx0V+DRinFVgx/7HOsuqFV/6ijMUddKAP6pqhyn
+         Rkos5lvsPu6VnehpSlGUON7T9QKVx5o3ID7kSMr0SiEN5Eu8Wn0DLHNK946NFQ6rJRx6
+         2/z2Myp7iYr2OTMuqZUPmQJrsWYXoMDkCvWkO9e4wGj7lELQP9G8IB/y7lCwXWE9OJCv
+         uaL/nmktI5YTrtXN6mautHFT2yrj52bPcNjuTQd3yO8d9woqNTeaVRSR+SmXax2+dbG1
+         GuV765Az8WFHgqvvB3j5Il7iWxkgott9/JTPVOxDjjlMlrYIvVcL5OmKH9NDyj20vdVP
+         6UjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789136297; x=1789741097;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=widYuhmWJa7lLm+8qgyJ46Hz07J1TePISepd47Ws5Ug=;
+        b=q8Lqon7dDwyGx6yiDcpi3ac4q+c7Bclb1niwfFIqn7DwVJHnNDBuKbzEDYPsegvKN+
+         dv58kjVmFoz+EqekvjmSS5yR2zmpmBGt1qrDTXwUYZSyWQjp5Wp/MKJ4SWfHqFMHtAuV
+         +kZa5FslwD3zchAkWZBnDcOMkmiPUnE5axZjMYRc9NZjrSV//VPPXt4MFwbD3kaYSdbp
+         ytjIMyWnIDBh+fdr0otNBx0AnAozRiXajxZenb8IHCpRtkRJbCQGmru9jxzMJTEQtdYQ
+         z+0wV7FdMa6ld4c5nNsTkaE4OoBvqBhzxwJl/F5YFftv+sIYVxd76gkfjs4vVMtmbDyO
+         9IhA==
+X-Forwarded-Encrypted: i=1; AKwUvByzWa5BFflZEQpxKQb2ZLyRvtIYGvizRFpMIKQXLZUcXbjGIt+RjbRpLjDo1Jfx/+c5i3EFPU9dC6ooaQc=@vger.kernel.org
+X-Gm-Message-State: AFuF++liF5TvyWW2dBj+QrqRdPBE3aADkbMplxrTsAyXcwsFaUqonV0H
+	1J2kTcxDxUmlOJP4t2RJTKSfRnINRUA7q7nEKtZqe9AKZRaAISDwnYfS5cXl5lt63ogYgWwYL9d
+	aicF3TNjQsGOZjeOxjg/LqXsC3/9I4rZjPFBy3Lh5mXz5ljti51A78VQctusAgsdAO7k=
+X-Gm-Gg: AYBFou1CmDnP/N+lBoXu2tR4BYP68Jg8Z6CvVGkVf7cOzolzqYUPmwu+WNYtZogaCQ8
+	Km+E77CCa4AlXy2K3EbJI1QL3Gu+vrYBbmvyBk6qKVeCKbAcEp6L3TxwKAHh4E4yTtL6GrvuRK8
+	ZbFPcoFy1FSE6aEPD677WWcnM3JWk7crJVq/QSJ+Kxq4/Cewn5ZzEXF1G9UN/kBL1gf7GVZU7gt
+	Tky/nSqPoUlVFKjZZH097wBW8iOhhq3yqkf3d3xrkk6GTBWRSWP4OT5UM1G9zRvL9IXiNHUvMJ9
+	lBhZ1mc9UUjymC1fEQgAqAlxkPKD4/CZ4fpk8w++xAYhBrJs9dcvmTEd5VANO5Wgus7y5tUVuLY
+	rdlyQM6wZsjQqMOBe24Nq5evFTh/L5cyBfZU65fWtBWn9bMi/JLCvSwsOz7hacxc=
+X-Received: by 2002:a05:6a00:c1c1:10b0:86b:4519:49d8 with SMTP id d2e1a72fcca58-86b45194b40mr5036333b3a.13.1789136297497;
+        Fri, 11 Sep 2026 07:18:17 -0700 (PDT)
+X-Received: by 2002:a05:6a00:c1c1:10b0:86b:4519:49d8 with SMTP id d2e1a72fcca58-86b45194b40mr5036295b3a.13.1789136297116;
+        Fri, 11 Sep 2026 07:18:17 -0700 (PDT)
+Received: from [10.133.33.95] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b29cbb933sm1183630b3a.41.2026.09.11.07.18.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 07:18:16 -0700 (PDT)
+Message-ID: <623490b3-d370-4ca9-80d5-44bb79cafaad@oss.qualcomm.com>
+Date: Fri, 11 Sep 2026 22:18:11 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqQMKAjwpvf9dMfa@gremlin>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] clk: qcom: ipq-cmn-pll: keep the CMN block bus clocks
+ enabled
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Stanislaw Pal <kuncy7@gmail.com>,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: Mieczyslaw Nalewaj <namiltd@yahoo.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Georg Seema <georgseema@gmail.com>, Brian Masney <bmasney@redhat.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <b58e3f64-1a5c-4db4-a51b-7138fb3609da@oss.qualcomm.com>
+ <20260909132049.37611-1-kuncy7@gmail.com>
+ <fcd7eb6b-95ab-43eb-91f7-f9a0ffe18ead@oss.qualcomm.com>
+Content-Language: en-US
+From: Jie Luo <jie.luo@oss.qualcomm.com>
+In-Reply-To: <fcd7eb6b-95ab-43eb-91f7-f9a0ffe18ead@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: rMfgcPBwg64gE5OxhA5T4ZnimqQkoiie
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDIwMCBTYWx0ZWRfX8AAeMQalzFr5
+ 5iPTuj8RSLbipkHwRNuIBuWtKSYM513QzBf1NwSi/n92VMqDuhuDZz/4wBjMYJsqB6dFG6HJ9td
+ Uexfy9k5H1L+B43stV1USs4K1QKCV04=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDIwMCBTYWx0ZWRfX0IM4zzm49ov3
+ 3+Ty/mRWjvEWUH4orJJzOMIQlIZPmfHtfjiBNW91IsxBTk0SLEid2Hap7YAAAGxkIJHIUCAXkLQ
+ oiBtA4cjW9H4eu1gs33DLrIjaDZEh3Qynf1bn5sJ5kJk8hOB6pjwt4aA+/HjnJxZqk7P+S+vCr0
+ Cy9iLDcFXsnkREP7U40o13ByVSlFkUhvAlbaUKri058JvDvaNnRIt8UI+KhLjcy9uvMubxWYJHS
+ q0iOEogt2AocCVOVY3IJFtjReeiKjBmdby3EzOJmGJ6V9XJAEaIxA9nQITOBVoxTRt3tRC1pej7
+ OzdGi2q4iETevJzFJXoWB9Akfiwcn6f1QOMK9myHcqNRNs7U2m/jvq1hpHG9XCZRdV2rZkJBzmU
+ gP2zbyNRLi4kHOhNcSEzJx7mFKCWmNZU6NESGlagcYC3WPB1hPvss5nF1c7kRwkG5s20lznN41t
+ 2KARjHbFRsQkMYpEuGQ==
+X-Proofpoint-ORIG-GUID: rMfgcPBwg64gE5OxhA5T4ZnimqQkoiie
+X-Authority-Analysis: v=2.4 cv=Wsa+otfv c=1 sm=1 tr=0 ts=6aa40daa cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=4Itt5vdypME_K62fSIsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=zZCYzV9kfG8A:10 a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-11_04,2026-09-11_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0
+ spamscore=0 bulkscore=0 impostorscore=0 clxscore=1015 adultscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609110200
 
-> On Fri, Sep 11, 2026 at 02:51:09PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > On Fri, Sep 11, 2026 at 02:34:37PM +0100, Yeoreum Yun wrote:
-> > > On Fri, Sep 11, 2026 at 01:59:31PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > > > On Fri, Sep 11, 2026 at 01:35:34PM +0100, Yeoreum Yun wrote:
-> > > > > check_vmflag_guard() uses /proc/self/smaps to retrieve the VMA flags,
-> > > > > but this can fail if the mapping is merged with an adjacent VMA.
-> > > > >
-> > > > > To avoid this potential failure, first allocate a temporary region with
-> > > > > extra pages at both ends, unmap it, and then map the test region within
-> > > > > the temporary address range, leaving an unmapped page on each side to
-> > > > > prevent VMA merging.
-> > > > >
-> > > > > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> > > > > ---
-> > > > >  tools/testing/selftests/mm/guard-regions.c | 14 ++++++++++++--
-> > > > >  1 file changed, 12 insertions(+), 2 deletions(-)
-> > > > >
-> > > > > diff --git a/tools/testing/selftests/mm/guard-regions.c b/tools/testing/selftests/mm/guard-regions.c
-> > > > > index 5c8ec3ca75d7..a28a57d34e97 100644
-> > > > > --- a/tools/testing/selftests/mm/guard-regions.c
-> > > > > +++ b/tools/testing/selftests/mm/guard-regions.c
-> > > > > @@ -2257,8 +2257,18 @@ TEST_F(guard_regions, smaps)
-> > > > >  	char *ptr, *ptr2;
-> > > > >  	int i;
-> > > > >
-> > > > > -	/* Map a region. */
-> > > > > -	ptr = mmap_(self, variant, NULL, 10 * page_size, PROT_READ | PROT_WRITE, 0, 0);
-> > > > > +	/* Try to Map a region. */
-> > > >
-> > > > Map -> map
-> > > >
-> > > > > +	ptr = mmap_(self, variant, NULL, 12 * page_size, PROT_READ | PROT_WRITE, 0, 0);
-> > > >
-> > > > Should be PROT_NONE otherwise it'll merge with the below.
-> > >
-> > > It doesn't matter. since this memory is unmapped and then second map
-> > > at ptr + page_size.
-> > >
-> > > IOW, though the first one is merged, it unammped and then
-> > > the second is allocated at ptr + page_size, it wouldn't be merged:
-> > >
-> > >   after unmap:
-> > >    [existing VMA][ 12 pages ][existing VMA]
-> > >
-> > >   second:
-> > >    [exiting VMA] [hole (page)] [ 10 pages (for test)] [hole (page)] [existing VMA]
-> > >
-> > > Am I missing something?
-> >
-> > Yeah, unmapped (unfaulted) VMAs can be merged with mapped (faulted) VMAs.
-> >
-> > In general it's also better to be explicit by specifying distinct attributes
-> > anyway to spell out clearly that the VMAs are intended to perform that task.
+
+
+On 9/9/2026 9:37 PM, Konrad Dybcio wrote:
+>> On 9/9/26 2:12 PM, Konrad Dybcio wrote:
+>>> Is it only the UNIPHY consuming the 50 MHz one?
+>>>
+>>> What consumes the XO clock? What consumes the sleep clock?
+>> Nothing in Linux consumes any of the three today.
+> Yes, that's more than clear 🙂
 > 
-> Oops, I missed that you immediately unmapped the VMA too :)
+> I'm trying to ask Jie about the platform details, to which I
+> unfortunately don't have access at the moment..
 > 
-> In that case it's fine but I'd still prefer it PROT_NONE to clearly single it
-> out as a placeholder.
+> or maybe +Kathiravan?
 > 
-> Also a comment above it like:
-> 
-> 	/* Map then unmap placeholder to avoid adjacent merges */
+> [...]
 
-Might the ASSERT() made you miss the unmap :).
-
-I'll post soon again.
-
-Thanks!
-
--- 
-Sincerely,
-Yeoreum Yun
+The XO and sleep clocks should be supplied to the GCC. We could try
+adding the GCC as a consumer to verify whether this resolves the issue.
