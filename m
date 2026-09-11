@@ -1,193 +1,214 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3C1F583AA6
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:59:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.14
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789156762; cv=fail; b=QFmoBxtwAlDya+p2BMZU59XY4RBg0ZNiUExEEbfLfwjkwTpyyoJiob3XA1oVmumNzPuJYUy6GzXEr5vhM/tL3k1OOdnAZ69u0OCAZVZ9gH6w6H3G57QyB926ykly3aq9DgDn08+jNz7GYehrXyNbX4kj1KUCWvMplEpxmAKApIc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789156762; c=relaxed/simple;
-	bh=FzFRUIz+2Sl7EyrqMsrjbpacgCq8vSu9Akk4Dz7R038=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=t/2arfnG5L/7+gJPfWgmGJlFY+cFn5qBIIivJHyLBJqzU4CIMHaZGdYEeNhV+6KuBOxflzl3mJqNZf2F5J9gG26jfx3le0GkKC4rE0uWXt15jePBzkCztTdE7bhm6l1BM8iEZBdEUUpwIJPOxe6n3afKEVLCp8SyHXTWjdqXzjg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hFI3ghhv; arc=fail smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 680C45867D4;
+	Fri, 11 Sep 2026 20:00:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789156824; cv=none; b=k6+nZVb8zK4tgHvdHusoWyWQ7La0CDZnIwJv0Kg8H9Wg2MhAqqXFb1ohCMG6smjn9n52FGImx24ML/OUJcJctW3p90Zn4ylr6+HoiPMFEI9Y4i3mAh0rlQQSBc4NEqcPh/m4T7J8gBzAAzqpECpm8jJ88fsQ5COyfBwpOkM0NEg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789156824; c=relaxed/simple;
+	bh=rECwwr5MXHKaAAu4Xm/MT/O2bAAImWhJ2GQb9tEFs1Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=vGcCkOD7MFyT2mR0cwgNHH5w2L7A/M4MUS2SmYYZ1POsFxJFBk8hf48j2LRLuTK1XaJLDIN3whD2wo5y428VLAqlWSoTqKvijP1NCL1XZ6YdY1W/GGiqNjrh1PBLLXYUq4ux02F5/77vRm4KeixHmrNqSZayhYnndsukWvwZlUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=yrm7Efo2; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hFI3ghhv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789156754; x=1820692754;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=FzFRUIz+2Sl7EyrqMsrjbpacgCq8vSu9Akk4Dz7R038=;
-  b=hFI3ghhv1cZrSr5V1ORxMm9luozopKA8C3h128t9PYTsUrHSgSUin6Vk
-   lXryStYehZI4G0MjAWnX1QvSevk6pacsomb8rw2dx73O8JQCcbGHStPuH
-   M/KQ3MGMiN4DcGlkhdvzz8E9GXzKyf4Kz7i8xeC7BCwi0rMnFIj1qwxeo
-   lkFrvReOQ9y1ll1PR2O/xEWT6gtjTK4lulUnMdosXdfMBca7Xo4Rljvlv
-   c3RJFqMmvuHQorQo5fbXkFpLe7AaWPct6/7+W0ngqij759dxH/6MVTXAb
-   NZ+KSfRiJAj9qg6HVLK7yymDhTTEK7b1HkkTiluCDWLYCF0ncUWwBxEKV
-   w==;
-X-CSE-ConnectionGUID: 0Iv8Uk9IQhWhXeXy6bh6mA==
-X-CSE-MsgGUID: Oz+35HWdQkuSRnI6CVruXw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="93495102"
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="93495102"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 12:59:08 -0700
-X-CSE-ConnectionGUID: 9hYTHprESKu63JkrI9pwoQ==
-X-CSE-MsgGUID: LoH5M0PFQH6hpf3D+N27HQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="271984705"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 12:59:07 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 11 Sep 2026 12:59:06 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Fri, 11 Sep 2026 12:59:06 -0700
-Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.1) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Fri, 11 Sep 2026 12:59:03 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uno/yC/TdzT80ZZaJtoSCCj0OIQdENFl5kfEdhIQm3dW0Z8aOWvtPwv5bi25J7S7B74yHhRw0BeNIn5mstRZ1+t/Fpk4Eqr/eDFdzR/uW+Hm71N4+/Bix0k44d46OIE+HAVje+AvdHaxhtcNLJR2aT3yZbbWn0Bm/zZyCWjoV3YxbuRe5+61k2RiFyA+9oz8bKxx/g/QoFDRcoKibTPYjZrsaVmye56YRw7Laref3sBZLm2Sl6VT1cbVspX9wd3w7N+CJ17EGV1RqnSqE/oCSyZV62DzbNr+SOmyJ96Gd+czezzsUzPr8HXH/Yz/CYtsxsSWjhL2LC35LDUTX7LVDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yuA96EKUqisrZ+th56as0kiX12HlR1vrYx2DL1YOhpo=;
- b=Fl6DHXx0ax49uCnR8lK4tJdElxvaOkj3gsJHeifiNn9Ih2JNf2/p8z7iIaqsWHA5LZ81gIg9zk3JTFzV+MZra9kHW6k1Inqk8vxQOvGrgv3TpntuO0yYQtokioOUK+E8fqkTDBz6jouFQzn487Ly+rEcu1CcCxEHm8QuJW5LUeyDDlMo/uvv6Kw8nisHw6+gg//rSz0SpK8hKeMC1XH6DZ8SoZ8yT27ctEkpmwH7Xt1iygy9mpNnsCb9D+KU7vicbB8bb+J2oMMXjVuzWUisLMFmu9atXaZo89HNLhNaCCMVpTx8gYDumUZ7OW+yqZforsNv+0tdn6t7CO0Gi/ALtw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB8050.namprd11.prod.outlook.com (2603:10b6:8:117::5) by
- CO1PR11MB5011.namprd11.prod.outlook.com (2603:10b6:303:6d::21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.10; Fri, 11 Sep 2026 19:59:01 +0000
-Received: from DS0PR11MB8050.namprd11.prod.outlook.com
- ([fe80::f099:a504:2ad6:1d12]) by DS0PR11MB8050.namprd11.prod.outlook.com
- ([fe80::f099:a504:2ad6:1d12%5]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 19:59:01 +0000
-Message-ID: <a9eb5e96-1e2f-4662-9863-61317c163800@intel.com>
-Date: Fri, 11 Sep 2026 12:58:58 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] x86/virt/tdx: Formalize SEAMCALL version encoding
- support
-To: Xu Yilun <yilun.xu@linux.intel.com>, <x86@kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <kas@kernel.org>, <rick.p.edgecombe@intel.com>, <dave.hansen@intel.com>,
-	<dave.hansen@linux.intel.com>, <yilun.xu@intel.com>, <djbw@kernel.org>,
-	<linux-coco@lists.linux.dev>, <chao.gao@intel.com>, <peter.fang@intel.com>,
-	<xiaoyao.li@intel.com>
-References: <20260722084634.131020-1-yilun.xu@linux.intel.com>
-Content-Language: en-US
-From: Kishen Maloor <kishen.maloor@intel.com>
-In-Reply-To: <20260722084634.131020-1-yilun.xu@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0174.namprd04.prod.outlook.com
- (2603:10b6:303:85::29) To DS0PR11MB8050.namprd11.prod.outlook.com
- (2603:10b6:8:117::5)
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="yrm7Efo2"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id A204B5341057;
+	Fri, 11 Sep 2026 22:00:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1789156812;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=6lIj0wihb2vxUd4EDj1/K0TDCkWxUQEoZDfJjbMQzdg=;
+	b=yrm7Efo2D2GjHRvHVmd+F0NKsJsr15M/6xv/1ztrPx9z6TOJ5Y8MNmyKlCngBtF37E5gfs
+	OpZdbpFdnLJyTZVS1MBjTeO3zykDmWmCqtPKj/bbhcbZQjZk2Jvtw5KwZjjsN5lsa0M+BU
+	9e1WOKkwlRVIvaGDwA7n8TrZP6VdzAc=
+Message-ID: <f5f6e231-ff11-45cf-af30-9db346ba5f97@ixit.cz>
+Date: Fri, 11 Sep 2026 22:00:12 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB8050:EE_|CO1PR11MB5011:EE_
-X-MS-Office365-Filtering-Correlation-Id: 260f8894-a2b3-4265-7a70-08df103f1fbd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|11063799006|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: YuN/k6vasPvrkomCXdBVXJ95Y0DEvk6qCj0J6ej1JIg/19IQ7rfrGzSul32JZ6vnDE0Z4FEJKuBPV7dmSTkXJPzTHh2UdP4zdHYuOof8n5kyZmKMaRkDcRbv/F7e6LdaHATpdmb0D+eDrDYizaAGXZwHSZa5uLviZPgcO/w4bNEkQK46tiye3CRouhB+rezLj0pU9MuXt2YjK6GN92iQgKAHc+yhPFnoQfUsdWnv7BP7jgrEdJf9NdFHLaCgoyomqwXn7ckoBg2NRuomrKD9mZtKbGmXEYoL0FY13K3nI9VVMBCK9Q/f80kzsGyf6F46N9+st84oPOrmNVeMIQSxUxyOvg+tjNprRBf9dh0aynojlXfRtBmXtU0X55XA+ViUnBPNveqfjlTlewFVSDxmE6VEQ9/CQJD6l9izzQmVzeE3ciFQD0UIsV0NKfNh3YuuNPMmH4s0EzA52P3l2exu3oONED10nSOFyrKDZHvPX/BiRZ/A9twauQO510N6yV7RvHfNeS2nZQowBc91wF6l6szuaIGsFRFjNSk/+qiS7GkZTp8VD9uuW4yZiWj2nh7l7zQY1PohqsZBwYz+AG5fR/fDHGcD5qjYI//qltYulP6txdiFIth09VpUfI7n9NYNm/DHGPMoKAVW0WbDD2SXRGpnEP5UePQDFhTL7VsuTrE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB8050.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NEJMTmR5SkdRclN1L3hQZHJpTldnRTUreEFGeHI1dFBoc0pYYjZGcUR2RE5Z?=
- =?utf-8?B?d2NLMWU2Yk5iZlZoOHlwODAzUExJNW5rRm14ekQ5NGJSS0lKVmllWGl0MDNK?=
- =?utf-8?B?SFcycE8vaFBvRi9uZkt6d3U2RU93dG5rdjl0YldGcG1zWURzdURxRm9xMFli?=
- =?utf-8?B?U0xZOTJLM3RPanpVZWFaU2JwL1ltR2JFaFJaQnI2dkNQTW0xQVNBZjZzNzJ1?=
- =?utf-8?B?T3RWem1iLzUxSTd5elFxeUhzT2xyMEJrNldMOWtaMnBHY2VZZzBWcFpZdnla?=
- =?utf-8?B?dHdDR3BYL0JHYnVUeWNGZHkxQ1VTWTZocVdKazdhMzFES2k4VlhSR2Zvc0Qr?=
- =?utf-8?B?UWM1WXVTZ2dxTmcwcUtNS3UxTEhJRXdXb1RWbGh1bzRiaFJmNU1yRUpDNENr?=
- =?utf-8?B?d0FHMXFqSXkwdCtHV2tER29JWnhDeEdiRC91d0N4dzd2ZTMyL1grYW92SjFN?=
- =?utf-8?B?VFpWZDZhdUgxaEdqcjU4TEI3V3JOT1VWOFFZRG5va0g1L1NyWHZKVTQzVnNI?=
- =?utf-8?B?L05sMVkveW5aaWFFc0N1eGdySVdZSlk4S2szRHV4MmVHa2QyMXBFM1pPanNF?=
- =?utf-8?B?UTJuUkhrQk1lWCtheXVoZVZQTVp2bm5vZEN4Zzl4Sm5JT3hRNTRnR3U2RUxX?=
- =?utf-8?B?VDVZN0NMUDVYK25CREdMV09XRVBGa1J5Y0RaRzB5WkxZbEtCRzROQVpQL2NX?=
- =?utf-8?B?Z2t0SmFDcndaTnR6aS94eitPRHNaL3dhMVhuK3gxS1dFMHk3NFF2dTBra0Np?=
- =?utf-8?B?M21LVUdOSWEvVU1laHdZNGhQUlhIUDMwYjMrNUVZUE1McStuS283T0ZTanE1?=
- =?utf-8?B?Y1hmZHk3aHBQT2dRekJIVzRRS3h4ZEg3TWo2TUNYTTFyYlNWWTVOUk9kM2xn?=
- =?utf-8?B?TUhQWHFUQzJkMis3QlYrMEZTQzJHODNjUkI4aFMrWGNVNmtWR2dTa2srQkxK?=
- =?utf-8?B?RWVvT21TSVk5d0Ryb1F0NGJyYVRjUnI0bFRpakQ0UjdZMXJoS3h6d2phVHMv?=
- =?utf-8?B?UkVPUEpwSzdCdm1kSjJDK3kyUkF4WjRldm5BclBiWldadzg2ekN4RmhCRC96?=
- =?utf-8?B?RGJqSWtuT2NqamdvU3MxMkNuRGg0dkVCeXBMcW9reUtkWEVvQ1RMOW5BQ2RS?=
- =?utf-8?B?VHFuV0xqVkl4dks0MzU5U0NzdlI5dEQwdkp5Y05ML2NiM28xN3FHNExiNUwx?=
- =?utf-8?B?V0N4QkVPZlNPeUdmelp3cUNWWlA0ZWtBVmZ3eTYzU2x1dk8yWE9SZXJZWWIv?=
- =?utf-8?B?NnF4Z051VVViSm1TMUx1ZjhKcHdyT2k5Sk5HR0dMOGtNUjNERlEvT0hPLzBk?=
- =?utf-8?B?UHFoRWxiNXEyNnMra3dlOGlOV25laVRlQStjNFhqZmVnSjhnTVNoQXd5OEhF?=
- =?utf-8?B?OHp0bFc3RGtzUHhmK0VmejRhR2QxQ0JGUnNEZFFDa2pJL2lOVERaelBwVmJK?=
- =?utf-8?B?djhXOGRObHViRENTNE9naUpodWhvTjVLZUNpSEpBQm1KTkFYL3lnQXRoQ0J4?=
- =?utf-8?B?aUZXcElnaDNuSXBEYWplOTh6NFoyWjVsb05KMXNaNTdlL1cxWEJ2SlgzUHRI?=
- =?utf-8?B?ejluYms5N0pjb2FvYlNUcldTTWxXQ3phYlY3M3RybXM2b01EVW1YUm5BSVMr?=
- =?utf-8?B?eVl6U3BUTm9ZWlNaTzZTVzV4RkpEMWRESVk1VHVJMm9KSzBhRkVzb1lXZTJV?=
- =?utf-8?B?UlgrNVNuYy9FMTlmZzB0QlZhdXdoTERyMW9EUkYrL1hhWi80NTlld2ZOTUts?=
- =?utf-8?B?RVgxamdZRFRpSjlhSGtXWEp1ZzBUd0dtQnZPclBjNmpxZ1IvcHl4cFRpUnpk?=
- =?utf-8?B?WS9mamhaMDM3SFZidlRkYVRmRFNtR1o3YVZmQXdQbUh0L1lUaVR2cVh1Y3Nw?=
- =?utf-8?B?RkVuTEE4UEFJaFE2dCtSa0g2M0FnR09JWkJtZ2x1ajh1YXZMbXRZdjdpUnRj?=
- =?utf-8?B?NmJRd1ZERjIxS3ovcUVuZThqQ3lSOGFaRTJQeGVGTVBNVnZuTGVYVE1UK0pI?=
- =?utf-8?B?VTh0NzdHUHlqbEZjWDBEZ1EzSTlES2dsaXpLd0JCMGJ3dERmSzNhT2hyY1RD?=
- =?utf-8?B?VlVJU3dNTlNmU2hSL1VpQUt5bVhjVDI5OXpwR0V2ZlNsMEkrY2xUNmFPbnlq?=
- =?utf-8?B?cjgyWGllQ242YVJMUnVuS25uS09FdmFDQzFJQ3NZeld6cFR0ZmhmNklKUXd2?=
- =?utf-8?B?dCtkUEFHdlBFZFJUREhLemZqN1IzT3N2RHltT1pyczhDanZmc1VBcVdsWEg1?=
- =?utf-8?B?VVUzcHE3STE0T002NmlEMFUwR0RobWFJOW9YVjJ0NmNDNGh5cTlUYXRnWWMr?=
- =?utf-8?B?ZnN2UEVjL280WTFWMzV5VjZsR0hubjNaaGRvRFRSSjUvL1ZtSTdMQT09?=
-X-Exchange-RoutingPolicyChecked: 3n+RGKnpTc5aFTEcXY5yaS+DHg71mP3WslivQbB3YWkESsEn8rTcHz6hB7fz7MvGukJlOFxA01InAGE+EWZJSivA9jQ1T9cy+YiUD7HwGrGvYOoghsHPMqELWJk+DBiBQpxVqsWhscUqdRXDgpZEVAOK7CupeJa8p2P3RpG6EpmiSW+jHv4K4Bq0vRTwlnGkEhY9jUdm4YJRyx8ybKeOJ67O7NQ8L8zUoDHsxh8Ca+PK7OoAWZjfw0iB8FBFEmbr0GhAnCZ2DUQVEOFyvnBCQQJwIjpCo7UqL5/2qB4nyliKmMcJxlOjkKvwEt2wPrp0GUsuM5rDwKe0BD2NDP5DhQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 260f8894-a2b3-4265-7a70-08df103f1fbd
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8050.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 19:59:01.4189
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rZTRqa6f+S61lhnLKjZ7k0yvGtlp4ZxvndCL4CAXczCQltfgbIaNNtcXF7esqZLWV2g0OQqnABU0efatxpI8qw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB5011
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sdm845-oneplus: use generic fuel
+ gauge compatible
+To: Andrew Davis <afd@ti.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Pali_Roh=C3=A1r?=
+ <pali@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260829205258.26955-1-rinat.muhamedgaliev@gmail.com>
+ <20260909234744.1177153-1-rinat.muhamedgaliev@gmail.com>
+ <20260909234744.1177153-4-rinat.muhamedgaliev@gmail.com>
+ <20260911-relaxed-dexterous-hummingbird-72dfbe@quoll>
+ <6c45cfd5-ac37-4f8e-bde3-0391512df982@ti.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <6c45cfd5-ac37-4f8e-bde3-0391512df982@ti.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 7/22/26 1:46 AM, Xu Yilun wrote:
-> ...
-> +/*
-> + * SEAMCALL leaf:
-> + *
-> + * Bit 15:0	Leaf number
-> + * Bit 23:16	Leaf ABI version number
-> + * Bit 24	Pending interrupts detection mode
-> + * Bit 63	1 for P-SEAMLDR leaf, 0 for TDX module leaf
-> + */
-> +#define SEAMCALL_LEAF_MASK		GENMASK_U64(15, 0)
-> +#define SEAMCALL_SEAMLDR_MASK		BIT_U64(63)
-> +
->  static __always_inline u64 __seamcall_dirty_cache(sc_func_t func, u64 fn,
->  						  struct tdx_module_args *args)
->  {
-> +	/*
-> +	 * fn contains base leaf number for TDX module calls and P-SEAMLDR
-> +	 * calls. Other fields in SEAMCALL leaf like leaf ABI version number
-> +	 * are in struct tdx_module_args.
-> +	 */
-> +	BUILD_BUG_ON(fn & ~(SEAMCALL_LEAF_MASK | SEAMCALL_SEAMLDR_MASK));
-The changelog lists the SEAMLDR flag among the RAX fields that are not a good fit
-for the function number definition, but 'fn' still carries it. Why does 'version'
-get a field in struct tdx_module_args while the SEAMLDR flag stays in 'fn'?
 
-Otherwise, looks fine.
 
-Reviewed-by: Kishen Maloor <kishen.maloor@intel.com>
+On 11/09/2026 15:37, Andrew Davis wrote:
+> On 9/11/26 3:21 AM, Krzysztof Kozlowski wrote:
+>> On Thu, Sep 10, 2026 at 02:47:44AM +0300, Rinat Muhamedgaliev wrote:
+>>> OnePlus 6 and OnePlus 6T battery packs may contain either a TI
+>>> bq27411 or bq27541 fuel gauge. Use the generic ti,bq27xxx compatible
+>>> so the driver can select the register map from DeviceType at probe
+>>> time.
+>>>
+>>> Tested on OnePlus 6T (fajita) with a bq27541 (DeviceType 0x0541):
+>>> after booting the new kernel, the battery reported 4.360 V, 100% state
+>>> of charge, 27.8 C, and Full status.
+>>>
+>>> Fixes: 12dfb002ca01 ("arm64: dts: qcom: sdm845-oneplus-*: add fuel gauge")
+>>
+>> What is the bug here? Your commit msg should be specific about it.
+>>
+> 
+> Commit msg seems pretty clear about the bug (to me at least), the DT
+> says the fuel gauge is a BQ27411 but that isn't the case, some shipped
+> with a BQ27541 fuel gauge.
+> 
+> (I do agree though this shouldn't have a fixes tag as back-porting this
+> without also back-porting the driver-side change would break users)
+> 
+> Since these fuel gauges often live on the battery pack and not the
+> device itself, folks changing their batteries might end up with
+> different fuel gauges, so having some detection method is going to
+> be helpful.
+> 
+> Rinat,
+> 
+> I'm not familiar with the bootflow on these devices, but is this something
+> you could detect in the bootloader and fixup the DT before it is passed
+> to kernel? That way the kernel gets a DT with the correct and specific
+> compatible to start with?
+
+Hello Andrew:
+
+There are two possible bootflows:
+a) from fastboot (we can't do anything)
+b) from intermediate u-boot (we could do this)
+
+While your suggestion seems to be the most correct, I'm not sure the 
+"complexity" here outweighs the pros of simply reporting
+
+deb_warn your phones has different charging chip
+
+and switching the behavior to the "replacement part" here.
+
+In the future we'll need to add u-boot logic because of camera focus, where the 
+focus in some phones is on different i2c addr + from different vendor, where we 
+cannot do it so simply as here.
+
+What do you think?
+
+David>
+> Andrew
+> 
+>>>
+>>> Signed-off-by: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+>>> ---
+>>>   arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi   | 4 ++--
+>>>   arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts | 2 +-
+>>>   arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts    | 2 +-
+>>>   3 files changed, 4 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/ 
+>>> arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+>>> index 948a0dd..8c5cd94 100644
+>>> --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+>>> +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+>>> @@ -790,8 +790,8 @@ &i2c10 {
+>>>       status = "okay";
+>>>       clock-frequency = <100000>;
+>>> -    bq27441_fg: bq27441-battery@55 {
+>>> -        compatible = "ti,bq27411";
+>>> +    bq27xxx_fg: fuel-gauge@55 {
+>>> +        compatible = "ti,bq27xxx";
+>>
+>> And this is just breaking all users without any explanation.
+>>
+>>
+>>
+>>>           status = "okay";
+>>>           reg = <0x55>;
+>>>       };
+>>> diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts b/arch/ 
+>>> arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+>>> index 5f01115..cf40842 100644
+>>> --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+>>> +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+>>> @@ -44,7 +44,7 @@ main_cam_ois: main-cam-ois-regulator {
+>>>       };
+>>>   };
+>>> -&bq27441_fg {
+>>> +&bq27xxx_fg {
+>>
+>> No, irrelevant to the supposed bug here.
+>>
+>> Best regards,
+>> Krzysztof
+>>
+> 
+
