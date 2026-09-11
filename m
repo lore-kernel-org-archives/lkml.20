@@ -1,617 +1,125 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6051659D635
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 20:31:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789158713; cv=pass; b=KUs2uQAvS8cmKPPUDL9TllqaIWJmBAv5nL3L75QieFbxwtADjG99NfyJxORx74Fkb6cY5Pzl8cnyTNzR8dW0WvIc0yloh2uVS+RvkfjyfNlyTgJgifid1XtrEGNrWjfdu1WAPTyeILEbrTuJGaW3EwStWU0w623vbcoO5dt6NcI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789158713; c=relaxed/simple;
-	bh=WckXGz3Qec+zm1CBv72tUM3tCEAFIcvi0BYp7o6dr3A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tajeZbbxvY2WNGMupRDwkvsOjSB1ZxZGt6fWw+1qOW62HoKNVA5SZBtSlbF1VJ8mi/ocqIPMOgmGaW72wD51FSsGRR5/SDIbpheyV+OuFqqiRyNBRDcvypWag6yhlL6+cyPALlFznCm2bJPU179Xw7K8wu+/undZUonQDe10WpY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=V8aB4jtb; arc=pass smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06704AA57E
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 20:33:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789158812; cv=none; b=Yo/9F6sU27JABIWIRknbPn3fbtnL1GDwr4e1MmDhOfBIRuwFp69Y7xVaojyYLDVhMNWQeBa+48yBKTsUgopuj3InZgg7oRK6TEp2Xd5bzgZqpoeSSqoHBpUPit8c/G03vZImIdYCGHVQ7CWM9YX3K3b1YVxRghrse+fVP91iS6I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789158812; c=relaxed/simple;
+	bh=Ek4lxIShcSyB0pd0h/GUygXqYS185zwM+r1cAebpYe0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=a0vuHLBDGj9eiQ/icTtkstTBsLxY0kwqRAuXiB5icSOQExb99T7520rMi5fFVTL1VERNGl1KTQH2covh9EG7k+we0v+kMQ3ZoCLV/c+Fi9011Tt1GzTXdwZ9crQ6YnQ7OS8mLRkKzn21dm9Nc7CrtA+7AQwhDmPRjXAp/WDPy7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q7X/9bzc; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="V8aB4jtb"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2940ef15d3so48705466b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:31:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789158708; cv=none;
-        d=google.com; s=arc-20260327;
-        b=V63MVA22nXYAmIy90pZ5MlDjyVGersGfdpnkP9uX8dcxJ/NJgmtAy52x3hMNKE75MH
-         NKXLt4sSkNLszv5QJQc1TaSnx0uqe/rxQ33m9SmM/Ihk+74RVlUxFP9aRc0Hqn+17XZw
-         9UMgMtpSJkPuckPA63lvznyVuxEmxtPguoPu32VSJhfVIOZQB3MOKTU3n6wQoRCleLHJ
-         Fg7qDYKUsiziifkmdLR62L9igl75e7KshmIrrWX3euL/Q/kPzMfj4RMW+4QOFEVcH2HV
-         JRLgE2Ua4RO3hzl+3KtErcQXxjpgfbl1muaSVOx9qscjsTkp4vLtV49sZVII3LxQNBlL
-         +UpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=pV2QG1WoCjLuqD0DRqRY8SOqVOiCMZinny9u6qmNbV0=;
-        fh=GZT9m5Kxav+bJonI+TqKXE9cHs+NRHJPoc5RyHyHTwc=;
-        b=NMCWpOhyBzwjc/QPAJ8rptO0A3Pa7n86H0ZoRWedyvXb2qPhfZy5ir1TW1wHupfgHZ
-         TxqxDnekm64MbM/l97oD+a9OlpfPoYDyZFQw81t3ei3A37QMQ7LNadjuoBwpnnrBIfTI
-         wwsQMrXApDyWW+vj36vcEg05x5coLMFFpRMnxWm4LLq9vLQ1JeFHb3vluSlMhRLX1tSO
-         OJtzGjzjnnhcImlx6RNtFw/Co1nipYvq7loDlnV3t3cdZnaMm+ajOdVbRniZjG3BWi6Q
-         jlkO/MKirci+AykZ33XOs/VGxgpzLcV7JGGUJMi5zmSAQ8WS22+sq33vAjek+sNFX/8p
-         SoSw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q7X/9bzc"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2db18e5cb56so16303685ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:33:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789158708; x=1789763508; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pV2QG1WoCjLuqD0DRqRY8SOqVOiCMZinny9u6qmNbV0=;
-        b=V8aB4jtb2+rTUNyqE7YQsLFBzOOYreWRjJzViFe5IuuRmmjxEQftzLel1wAcTRvqsg
-         GhgBFc4yNcghOugmxQpfvEH4dc6WmntktZkeoaeFdTGoO7eULYUBIeaFVwLnB70NX4dk
-         aohVA7WyXgO7mJ6Ph0kRYtks0tv1lMdrD4iommCzbFGac5Owj2+GYyqKdjrWzXTJNiR6
-         M/HJ1ok1oHeTFM7YbcbpFfA+yfA+1y7ZX+JNlxpoJUqACNCswY3vWhrxeqSr2pqLYM+o
-         LvQLr1IcrTNmMT2QgmA7qQR3heyQbZ3tnNjSSAw8DRezY3uulFkpgtZ3K2T4Nc3P7cVW
-         zejQ==
+        d=gmail.com; s=20251104; t=1789158807; x=1789763607; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bcoCt3NplqcRzScaFBaJvGWmYj7kzQK/tDyE+wQSVG8=;
+        b=Q7X/9bzc8RS5dS7OpsMpqittsnkdtYFD52qkpPOFqKMjgw9hB6XP25ESHARcld5VWB
+         DRL4QDxVmrtMwlZs/w+ccbkG8ggItkpYD2wI3fj8lt9kkvkkcv9P2oXlDYseVy58JHhB
+         dDxyMFy3W0xwenSv3e2T6MqetXO61e7jJDjSvEAs0BmpnnMlMEh/xY2Q+Qg1YYds3FV2
+         uCcsisJntcQmo6FsMJMFdpBb2twyCn8Q4hIcS0oItlw38RZDpm5mS3wJSWKYq6ImeJhC
+         RJEeck8AbXedTrB4EconuHNSAY0x3U0QqVJ92At9NJBI/7MttFOKd9ovXHMLrhFZpoQA
+         baAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789158708; x=1789763508;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pV2QG1WoCjLuqD0DRqRY8SOqVOiCMZinny9u6qmNbV0=;
-        b=JYxBrAIkE5lO2HbSE1ebfXvq4m+OnIZYGMeR+XNyolDN+mPT5CHCVlIfxYPvkpZdgr
-         SnZZQD+d4m7h9JNNtoyVfF/e1l9JlA3B8YcqEZEzMrp3rTPbSlihFe424J6t+lISZVG0
-         jB8CwQBEi0WmMXGNW7bdAPcG0P9Y5/cXBfUU2k+VBkfONQzHSGCkLiyl6EjATH6hUQI0
-         JZ4A/CyF9vtVAdRpztwgMk2Sxzk2bETSmfIf5AxgDiHRxNtNIun4JEy7lWjAVqxbZgLs
-         1XhomC2DOToHMyawjbQ5E6NZEWCX3F+dGiBMt/PHxDzIpt96U/9LOWzdbLmay8oAZNFn
-         X6iw==
-X-Forwarded-Encrypted: i=1; AKwUvBx+VkwlwRcx7h5SJTAouNq41fv/D9G9stu7JtRzijuWtw1DAKu324lxo857xoZ1qwPgFPsfU7QDQqe6G5g=@vger.kernel.org
-X-Gm-Message-State: AFuF++moDjTfFnFwp0N/uAS1AL4nMRTLSkhPiXtxUoOe35uq72FD6Y7D
-	qG031DX2T+PEFLzfCa8iW35ZpAFuvy4VJZe5gu3yEx/a1h9sKcKOSlWh9/LmE8qYtRtjTOIYa21
-	TgCV7YyDbIv0+rVdm5YH4zPKlj7j13207Td5D8nYl
-X-Gm-Gg: AYBFou2gsW8MLIkNT1SAqWUDCotR8XB56HjsxyT3mPYiUoXqX7N/amaJ/4I3f9GhWLX
-	I5gR1Q3dDEXuHXahjEHWEAOLT4wq9zEsGwe3x8V6XrsFirT/wxIbu1yoqaZE+ilifoVmJVvqfNn
-	mfRumm96Vd1H0xWAtTP8WL0CpT32tYrgohkJok7GAyZ+gxvlIoviTTUhdwAMZZY4+0VZo+mPunW
-	igRrttoAB7xQ+l++UrSBE+yeVvNhpgmsBj6Lzh3xJ2/onKH+k9rgd3oelRGwfIpupV7kglKsLHY
-	X1iiTLl8DKFmbJz6DaFhrdgj3LnnP5kTHDOv0iDC/jECErDUa8G/dXX0mIGP7FurIDdNx37GErF
-	HgD2b3BBCvw==
-X-Received: by 2002:a17:907:971a:b0:c29:5215:b2d8 with SMTP id
- a640c23a62f3a-c2966694db6mr503582266b.14.1789158707987; Fri, 11 Sep 2026
- 13:31:47 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789158807; x=1789763607;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bcoCt3NplqcRzScaFBaJvGWmYj7kzQK/tDyE+wQSVG8=;
+        b=OOxS1Er6xCehM0yUlIg9dhWoDVIj8InUy82G7VwbTgjHb67U58GI/DaUG9hvkiUYb7
+         n8zvfVoHhaRlDCqfxLzDKkrmxOW9y+0vixv828xY6PdE/7YphIbmJ8ZbrFS8kJMZi3As
+         amKlIUUmM1aRYtFg5ADJ7toXyUHaubMFx3Qj+ZSgaS8YA/WwWgUMCi4/vl7YtcKg0/Ae
+         UkGi3ipffPaZkEM2v9AaDeMFCv0WNIXI66qzB7dZw7ctpnTcmLyGxP1K72htBLmITIZS
+         1GHCHhnVCizvpjD/8ZPXYFPQQhEUqRpHZj1R9RNn5dxw6HgOFbEDtS8Vi0aYsKBZkavi
+         eBLg==
+X-Forwarded-Encrypted: i=1; AKwUvBwE/pi+G7/TJmBC67Nzy4LV2s/9j5zU5M//fsJE+06F3OUJeS3PY32vhhabhvz/0HuE7BQy6nHrzxsOrhI=@vger.kernel.org
+X-Gm-Message-State: AFuF++k5zc1yKvtBj+k487Yu0Nrx9ENKvDwd9nutTGNfS/eHgVjet2kj
+	E0TpVcIhrA7n0zsteEgJiuFhH/p/HyxvieBJHIuEpQZNtksQIblM2P86
+X-Gm-Gg: AYBFou04HSjf9WlLUbhFTffH+MK/1Zee3DNyUcF0ay3VoT+WWqxyZmqWp/7tM4AHRQ0
+	OqtSXO8mIpPGXW8yYykdBhJXHusLCiCj96YLNj2WvtrPxxw9chkgbFjnb28Ki3wwOBN4CDANIHv
+	o6FFJ7mPboyxnA+wc1dYbEJmTz6Usr/XwhFJr8rLVhK6C6tINpCJwDtb+FCOoOUK5i0/W76w1WV
+	VK0x2bKQ4QaJEwKkdckilY/csVvtEivnl5vNPUEqHRVY4BcuY6zKRA3ux+XOsPlBUxPppKSj83R
+	+PYf2smXq/RwbgtxH+oMJNogsVrvngtJgdQqBl45H0726tzo2FS1ZOOpt8guvPVWEoN/zd2BS2r
+	bCj9T1xdsdPrnBkriGhB4gGEZyNP9DScN3Jl7+T67mjrl/v0QilP5b19xkUf1yiPjozq+3651Qx
+	CPgodatNhmux7zS0buL9XBhTxl2A0pBPrkUv8lANIwZGGClWDHvpgKMJFjOabV8LG27Q6c9p181
+	1YNb53bgsfEpRWUQfuC0HZvV0BJWVTClrFEvSCgYUxhHxDvoX6ljGwdJbJCtF9rJSp8cJ+qzWzO
+	qBiXi8HOk9oFwXSJcmE/YcwuQYpDM3GBNkMXulRIATFWmw89
+X-Received: by 2002:a17:90b:3c8d:b0:38f:de97:b06 with SMTP id 98e67ed59e1d1-39d9bbdbac7mr10334495a91.5.1789158806647;
+        Fri, 11 Sep 2026 13:33:26 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9b2a8076sm1879699a91.1.2026.09.11.13.33.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 13:33:26 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Hauke Mehrtens <hauke@hauke-m.de>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM BCM5301X ARM ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] ARM: dts: BCM5301X: N18U: add nvram node
+Date: Fri, 11 Sep 2026 13:33:24 -0700
+Message-ID: <20260911203324.104422-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909191136.3811892-7-hramamurthy@google.com> <178907843486.219967.15219569295959777862@kernel.org>
-In-Reply-To: <178907843486.219967.15219569295959777862@kernel.org>
-From: Joshua Washington <joshwash@google.com>
-Date: Fri, 11 Sep 2026 13:31:35 -0700
-X-Gm-Features: AcwNN1XMpsz8oY2xtsGwwnJpZtQPEmpAmpBbz4es88ABVunuSKuvd8RKgqh8xPg
-Message-ID: <CALuQH+V2=Cy7BGux-5M50Z+tqiUQfO8q5_oF6sxV--n+26y8ng@mail.gmail.com>
-Subject: Re: [PATCH net-next v6 06/12] gve: simplify reset logic
-To: netdev-bot+sashiko@kernel.org
-Cc: hramamurthy@google.com, netdev@vger.kernel.org, andrew+netdev@lunn.ch, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org, 
-	john.fastabend@gmail.com, sdf@fomichev.me, jordanrhee@google.com, 
-	willemb@google.com, nktgrg@google.com, maolson@google.com, thostet@google.com, 
-	jacob.e.keller@intel.com, debarghyak@google.com, kees@kernel.org, 
-	bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	przemyslaw.kitszel@intel.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 10, 2026 at 3:13=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
-te:
->
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider:
->
-> Critical: 0 =C2=B7 High: 2 (1) =C2=B7 Medium: 1 =C2=B7 Low: 0
->
-> - [High] Inconsistent work quiescing across the new gve_teardown_device()
->   call sites leaves priv->stats_report_task able to run after=E2=80=A6
-> - [High] The new reset/close flow releases data-plane DMA before the
->   hardware reset that revokes the device's access to it.
-> - [Medium] gve_mgmnt_intr() now returns IRQ_NONE without queueing
->   priv->service_task whenever GVE_PRIV_FLAGS_DEVICE_RESOURCES_OK is=E2=80=
-=A6
->
-> Pre-existing issues:
-> - [High] After gve_reset() fails to recover (gve_recover() ->
->   teardown_device), the netdev is left administratively UP (nothing=E2=80=
-=A6
->
-> --
->
-> Here is the report.
->
-> gve: simplify reset logic
->
-> This reworks the gve reset path: recursive resets and resets during
-> teardown are removed, allocation is split from device setup, and a single
-> gve_teardown_device() / gve_recover() pair replaces the old
-> gve_reset_and_teardown() / gve_reset_recovery() helpers.
->
-> A few questions on the new teardown ordering and work-item quiescing
-> below.
->
-> > diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/e=
-thernet/google/gve/gve_main.c
-> > index 2fe280cf7e680..87388856ff6c5 100644
-> > --- a/drivers/net/ethernet/google/gve/gve_main.c
-> > +++ b/drivers/net/ethernet/google/gve/gve_main.c
-> > @@ -270,6 +270,10 @@ static irqreturn_t gve_mgmnt_intr(int irq, void *a=
-rg)
-> >  {
-> >       struct gve_priv *priv =3D arg;
-> >
-> > +     /* Device resources are not okay; consider the interrupt spurious=
-. */
-> > +     if (!gve_get_device_resources_ok(priv))
-> > +             return IRQ_NONE;
-> > +
-> >       queue_work(priv->gve_wq, &priv->service_task);
-> >       return IRQ_HANDLED;
-> >  }
->
-> [Severity: Medium]
-> Can this drop a management notification instead of latching it?
->
-> The mgmt vector is live from gve_alloc_notify_blocks()/setup_mgmt_irq()
-> until it is released, but device_resources_ok is only set at the end of
-> gve_setup_control_plane_resources() and is cleared at the very start of
-> gve_teardown_control_plane_resources(). So for the whole teardown window
-> inside gve_teardown_device(), and for gve_recover()'s
-> adminq_init/verify/setup_device phase, this returns IRQ_NONE without
-> queueing the service task.
->
-> gve_service_task() is the only reader of reg_bar0->device_status (it feed=
-s
-> gve_handle_status() for the device-requested-reset bit and the link
-> handling), and the only other re-sample point is the
-> queue_work(priv->gve_wq, &priv->service_task) at the end of
-> gve_queues_start(). When gve_recover() runs with setup_queues =3D=3D fals=
-e
-> (was_up false, or gve_reset(priv, true) from gve_close()'s reset path),
-> gve_open() is never called:
->
->         if (setup_queues) {
->                 err =3D gve_open(priv->dev);
->
-> Is a device reset request or link transition asserted in that window
-> recovered anywhere, or is it lost until the next unrelated open?
->
-> Since gve_reset() already brackets the teardown with
-> disable_work()/enable_work(&priv->service_task), would keeping the
-> unconditional queue_work() here be equivalent for exclusion purposes
-> without discarding the notification? Also, for a dedicated (non-shared)
-> MSI-X vector, repeatedly returning IRQ_NONE feeds the core spurious
-> interrupt detector.
->
-> [ ... ]
+Add it and set MAC for gmac2, to avoid having to handle in userspaace.
 
-The management IRQ should not be enabled until after device resources
-are okay. Any interrupt that comes in before the control plane
-resources are set up and the management IRQ is enabled should be
-considered spurious, and ignored. However, IRQ_NONE is not the correct
-return value here, as this is not a situation in which shared
-interrupts are returned. Will convert to IRQ_HANDLED.
+nvram size found from a random bootlog online.
 
->
-> > -static void gve_trigger_reset(struct gve_priv *priv);
-> > -
-> > -static void gve_teardown_device_resources(struct gve_priv *priv)
-> > +/**
-> > + * gve_teardown_control_plane_resources() - Request the device to rele=
-ase any
-> > + * shared allocated resources.
->
-> [ ... ]
->
-> > +static void gve_teardown_device(struct gve_priv *priv)
-> > +{
-> > +     gve_teardown_control_plane_resources(priv);
-> > +     gve_adminq_free(priv);
-> > +     /*
-> > +      * Free any resources shared with the device only after we have a
-> > +      * guarantee that the device will not try to access such resource=
-s.
-> > +      * Device commands in gve_teardown_control_plane_resources can fa=
-il, in
-> > +      * which case, device resources won't be relinquished until
-> > +      * gve_adminq_free is called to trigger a device reset.
-> > +      */
-> > +     gve_free_control_plane_resources(priv);
-> > +}
-> > +
->
-> [Severity: High]
-> Is priv->stats_report_task guaranteed to be quiesced by the time
-> gve_free_control_plane_resources() -> gve_free_stats_report() frees the
-> coherent buffer?
->
-> gve_free_stats_report() only stops the timer and frees:
->
->         if (!priv->stats_report)
->                 return;
->
->         timer_delete_sync(&priv->stats_report_timer);
->         dma_free_coherent(&priv->pdev->dev, priv->stats_report_len,
->                           priv->stats_report, priv->stats_report_bus);
->         priv->stats_report =3D NULL;
->
-> The only cancel_work_sync(&priv->stats_report_task) added by this patch i=
-s
-> in gve_queues_stop(), which the teardown paths only reach when the
-> interface was up (gve_reset() calls it under if (was_up); gve_remove(),
-> gve_shutdown() and gve_suspend() reach it only via gve_close()).
->
-> gve_set_priv_flags() in gve_ethtool.c arms the timer with no
-> netif_running() check:
->
->         if (flags & BIT(0)) {
->                 mod_timer(&priv->stats_report_timer,
->                           round_jiffies(jiffies +
->                                         msecs_to_jiffies(priv->stats_repo=
-rt_timer_period)));
->         }
->
-> so with report-stats enabled on a down interface the chain
-> gve_stats_report_timer() -> gve_stats_report_schedule() ->
-> queue_work(priv->gve_wq, &priv->stats_report_task) can leave the work
-> pending across gve_teardown_device(). gve_handle_report_stats() then does=
-:
->
->         struct stats *stats =3D priv->stats_report->stats;
->         ...
->         be64_add_cpu(&priv->stats_report->written_count, 1);
->
-> which is either a write into the just-freed DMA coherent buffer or a NULL
-> dereference once priv->stats_report has been set to NULL. In gve_remove()
-> the pending item is only drained by destroy_workqueue(), i.e. after
-> gve_teardown_device() has already freed it.
->
-> Would it be simpler to do the cancel_work_sync(&priv->stats_report_task)
-> inside gve_free_stats_report() (or in gve_teardown_device()) so every cal=
-l
-> site is covered regardless of whether the interface was up?
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v2: set gmac2 instead.
+ .../boot/dts/broadcom/bcm47081-asus-rt-n18u.dts    | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-Ack. Will do this in v7.
+diff --git a/arch/arm/boot/dts/broadcom/bcm47081-asus-rt-n18u.dts b/arch/arm/boot/dts/broadcom/bcm47081-asus-rt-n18u.dts
+index 3854db0118a9..5874e6b606de 100644
+--- a/arch/arm/boot/dts/broadcom/bcm47081-asus-rt-n18u.dts
++++ b/arch/arm/boot/dts/broadcom/bcm47081-asus-rt-n18u.dts
+@@ -25,6 +25,15 @@ memory@0 {
+ 		      <0x88000000 0x08000000>;
+ 	};
+ 
++	nvram@1c080000 {
++		compatible = "brcm,nvram";
++		reg = <0x1c080000 0x180000>;
++
++		et0macaddr: et0macaddr {
++			#nvmem-cell-cells = <1>;
++		};
++	};
++
+ 	leds {
+ 		compatible = "gpio-leds";
+ 
+@@ -77,3 +86,8 @@ button-wps {
+ &usb3_phy {
+ 	status = "okay";
+ };
++
++&gmac2 {
++	nvmem-cells = <&et0macaddr 0>;
++	nvmem-cell-names = "mac-address";
++};
+-- 
+2.55.0
 
->
-> [ ... ]
->
-> > @@ -1435,6 +1472,12 @@ static int gve_open(struct net_device *dev)
-> >       struct gve_priv *priv =3D netdev_priv(dev);
-> >       int err;
-> >
-> > +     if (!gve_get_device_resources_ok(priv)) {
-> > +             dev_err(&priv->pdev->dev,
-> > +                     "Attempting to open netdev without resources. Dev=
-ice must be reset.");
-> > +             return -ENODEV;
-> > +     }
-> > +
->
-> [Severity: High]
-> This isn't a bug introduced by this patch (the baseline
-> gve_reset_recovery() error path also left the interface up with
-> priv->xsk_pools =3D=3D NULL after gve_teardown_priv_resources()), but sin=
-ce
-> this patch restructures exactly that path and adds the resources_ok gate
-> here, should the other user-reachable entry points get the same gate?
->
-> After gve_recover() takes its teardown_device label, the netdev is still
-> administratively up (nothing calls dev_close()), while
-> gve_teardown_device() has set priv->xsk_pools =3D NULL,
-> priv->ptype_lut_dqo =3D NULL, priv->tx/priv->rx =3D NULL, freed the notif=
-y
-> blocks, and dma_pool_free()d the adminq buffer while priv->adminq keeps
-> its stale pointer.
->
-> gve_xsk_pool_disable() only bounds-checks the queue id:
->
->         if (qid >=3D priv->rx_cfg.num_queues)
->                 return -EINVAL;
->
->         clear_bit(qid, priv->xsk_pools);
->
-> and closing an AF_XDP zero-copy socket reaches ndo_bpf(XDP_SETUP_XSK_POOL=
-,
-> pool =3D=3D NULL) without any netif_running() test (xp_clear_dev() /
-> xp_disable_drv_zc()), so this is a clear_bit() on a NULL bitmap.
-> gve_set_priv_flags() likewise memsets priv->stats_report->stats when
-> report-stats is turned off, and gve_adjust_queues()/gve_adjust_config()
-> issue adminq commands through the freed priv->adminq while netif_running(=
-)
-> is true.
->
-> The failed-recovery precondition is easy to reach now that
-> gve_add_flow_rule()/gve_del_flow_rule() call gve_reset(priv, false) on
-> -ETIME, and gve_recover() bails out to teardown_device when e.g.
-> gve_adminq_verify_driver_compatibility() times out.
->
-> > @@ -1451,41 +1494,16 @@ static int gve_open(struct net_device *dev)
-> >       return 0;
-> >  }
-> >
-> > -static int gve_queues_stop(struct gve_priv *priv)
-> > +static void gve_queues_stop(struct gve_priv *priv)
-> >  {
-> > -     int err;
-> > +     gve_unreg_xdp_info(priv);
-> > +     gve_drain_page_cache(priv);
-> >
-> > -     netif_carrier_off(priv->dev);
-> > -     if (gve_get_device_rings_ok(priv)) {
-> > -             gve_turndown(priv);
-> > -             gve_drain_page_cache(priv);
-> > -             err =3D gve_destroy_rings(priv);
-> > -             if (err)
-> > -                     goto err;
-> > -             err =3D gve_unregister_qpls(priv);
-> > -             if (err)
-> > -                     goto err;
-> > -             gve_clear_device_rings_ok(priv);
-> > -     }
-> >       timer_delete_sync(&priv->stats_report_timer);
-> > -
-> > -     gve_unreg_xdp_info(priv);
-> > +     cancel_work_sync(&priv->stats_report_task);
-> >
-> >       gve_tx_stop_rings(priv, gve_num_tx_queues(priv));
-> >       gve_rx_stop_rings(priv, priv->rx_cfg.num_queues);
-> > -
-> > -     priv->interface_down_cnt++;
-> > -     return 0;
-> > -
-> > -err:
-> > -     /* This must have been called from a reset due to the rtnl lock
-> > -      * so just return at this point.
-> > -      */
-> > -     if (gve_get_reset_in_progress(priv))
-> > -             return err;
-> > -     /* Otherwise reset before returning */
-> > -     gve_reset_and_teardown(priv, true);
-> > -     return gve_reset_recovery(priv, false);
-> >  }
-> >
-> >  static int gve_close(struct net_device *dev)
-> > @@ -1493,12 +1511,30 @@ static int gve_close(struct net_device *dev)
-> >       struct gve_priv *priv =3D netdev_priv(dev);
-> >       int err;
-> >
-> > -     err =3D gve_queues_stop(priv);
-> > -     if (err)
-> > -             return err;
-> > +     gve_turndown(priv);
-> > +
-> > +     /* Surrender to reset if the queue destroying adminq cmds fail. R=
-eset
-> > +      * will not re-enable the interface.
-> > +      */
-> > +     if (gve_get_device_rings_ok(priv)) {
-> > +             gve_clear_device_rings_ok(priv);
-> > +             err =3D gve_destroy_rings(priv);
-> > +             if (err)
-> > +                     goto reset;
-> > +             err =3D gve_unregister_qpls(priv);
-> > +             if (err)
-> > +                     goto reset;
-> > +     }
-> >
-> > +     gve_queues_stop(priv);
-> >       gve_queues_mem_remove(priv);
-> > +     priv->interface_down_cnt++;
-> >       return 0;
-> > +
-> > +reset:
-> > +     gve_queues_stop(priv);
-> > +     err =3D gve_reset(priv, true);
-> > +     return err;
-> >  }
->
-> [Severity: High]
-> On this new reset: label, is it safe to release the ring buffers before
-> the hardware reset?
->
-> gve_destroy_rings() or gve_unregister_qpls() failing (typically -ETIME
-> from gve_adminq_kick_and_wait() -> gve_adminq_wait_for_cmd()) means the
-> NIC never acknowledged that it stopped using those queues. gve_queues_sto=
-p()
-> then does:
->
->         gve_tx_stop_rings(priv, gve_num_tx_queues(priv));
->         gve_rx_stop_rings(priv, priv->rx_cfg.num_queues);
->
-> which for DQO returns RX buffer pages via gve_free_to_page_pool()/
-> gve_free_qpl_page_dqo(), dma_unmaps pending TX buffers
-> (gve_tx_clean_pending_packets() -> gve_unmap_packet()) and memsets the
-> descriptor/completion rings and q_resources.
->
-> The point at which the device is guaranteed to have stopped touching that
-> memory only comes later, in gve_reset() -> gve_teardown_device() ->
-> gve_adminq_free() -> gve_adminq_release():
->
->         iowrite32be(GVE_DRIVER_STATUS_RESET_MASK, &priv->reg_bar0->driver=
-_status);
->         while (!(ioread32be(&priv->reg_bar0->device_status)
->                         & GVE_DEVICE_STATUS_DEVICE_IS_RESET)) { ... }
->
-> The pre-patch code returned from gve_queues_stop() before stopping the
-> rings on a destroy failure, and gve_reset_and_teardown() called
-> gve_trigger_reset() (which blocks until DEVICE_IS_RESET) first. Should th=
-e
-> hardware reset happen before gve_queues_stop() here?
->
-> The commit message applies exactly this reasoning to the control plane:
->
->     With the new reset functionality, shared resources between the device
->     and driver are not freed until after the hardware reset has completed
->
-> Does the same invariant hold for the data-plane rings and buffers on this
-> path?
->
-
-This is a good catch. Will remove the gve_queues_stop() from
-gve_queues_start(). Because netif_running() is guaranteed to be true
-when calling gve_queues_start(), was_up will be true in gve_reset().
-Rely on this, reorder the teardown operations to do
-
-```
-gve_teardown_device()
-if (was_up) { gve_queues_stop() }
-gve_queues_mem_remove()
-```
-
-To ensure that the device is not holding onto reseources when
-gve_queues_stop() is performed.
-
-> [ ... ]
->
-> > -int gve_reset(struct gve_priv *priv, bool attempt_teardown)
-> > +int gve_reset(struct gve_priv *priv, bool skip_queue_setup)
-> >  {
-> >       bool was_up =3D netif_running(priv->dev);
-> >       int err;
-> >
-> > +     if (gve_get_reset_in_progress(priv))
-> > +             return 0;
-> > +
-> >       dev_info(&priv->pdev->dev, "Performing reset\n");
-> >       gve_clear_do_reset(priv);
-> >       gve_set_reset_in_progress(priv);
-> > -     /* If we aren't attempting to teardown normally, just go turndown=
- and
-> > -      * reset right away.
-> > -      */
-> > -     if (!attempt_teardown) {
-> > +
-> > +     if (was_up) {
-> >               gve_turndown(priv);
-> > -             gve_reset_and_teardown(priv, was_up);
-> > -     } else {
-> > -             /* Otherwise attempt to close normally */
-> > -             if (was_up) {
-> > -                     err =3D gve_close(priv->dev);
-> > -                     /* If that fails reset as we did above */
-> > -                     if (err)
-> > -                             gve_reset_and_teardown(priv, was_up);
-> > +             if (gve_get_device_rings_ok(priv)) {
-> > +                     gve_clear_device_rings_ok(priv);
-> > +                     gve_destroy_rings(priv);
-> > +                     gve_unregister_qpls(priv);
-> >               }
-> > -             /* Clean up any remaining resources */
-> > -             gve_teardown_priv_resources(priv);
-> > +             gve_queues_stop(priv);
-> >       }
->
-> [Severity: High]
-> Same ordering question here, with the added detail that the return values
-> of gve_destroy_rings() and gve_unregister_qpls() are not inspected at all=
-,
-> so gve_queues_stop() unmaps/recycles the ring memory unconditionally,
-> including for a device whose adminq is not responding.
->
-> There is a mirror of this on the recovery side: with RESET_IN_PROGRESS
-> set, a create-rings failure makes gve_queues_start() take
-> stop_and_free_rings:
->
->         stop_and_free_rings:
->                 gve_tx_stop_rings(priv, gve_num_tx_queues(priv));
->                 gve_rx_stop_rings(priv, priv->rx_cfg.num_queues);
->                 gve_queues_mem_remove(priv);
->
-> which frees the coherent rings and QPL pages even though some TX queues
-> may already have been created in hardware, with the reset handshake only
-> happening later when gve_recover() calls gve_teardown_device(). Can the
-> NIC still be writing into those pages at that point?
-
-Addressed above.
-
-
->
-> >
-> > -     /* Set it all back up */
-> > -     err =3D gve_reset_recovery(priv, was_up);
-> > +     disable_work(&priv->service_task);
-> > +     gve_teardown_device(priv);
-> > +     gve_queues_mem_remove(priv);
-> > +
-> > +     enable_work(&priv->service_task);
-> > +     err =3D gve_recover(priv, was_up && !skip_queue_setup);
-> > +     if (err)
-> > +             dev_info(&priv->pdev->dev,
-> > +                      "Failed to recover in reset: %d\n", err);
-> > +
->
-> [Severity: High]
-> Only priv->service_task is disabled around gve_teardown_device() here.
-> When was_up is false, gve_queues_stop() (the sole
-> cancel_work_sync(&priv->stats_report_task) call site) is skipped, so a
-> stats work item queued by the timer can run concurrently with
-> gve_free_stats_report(). Should priv->stats_report_task be quiesced here
-> too?
-
-Fixed by canceling the work as part of freeing stats report.
-
->
-> [ ... ]
->
-> > @@ -2943,8 +2952,9 @@ static int gve_probe(struct pci_dev *pdev, const =
-struct pci_device_id *ent)
-> >       queue_work(priv->gve_wq, &priv->service_task);
-> >       return 0;
-> >
-> > -abort_with_gve_init:
-> > -     gve_teardown_priv_resources(priv);
-> > +abort_teardown_device:
-> > +     disable_work(&priv->stats_report_task);
-> > +     gve_teardown_device(priv);
->
-> [Severity: High]
-> Is this disabling the intended work item? During probe, the stats work ha=
-s
-> no producer yet (its only producer is the timer armed by
-> gve_queues_start() or by ethtool on a registered netdev), while
-> priv->service_task is queueable at this point because gve_setup_device()
-> already set device_resources_ok and the mgmt IRQ is requested. Every othe=
-r
-> teardown site in this patch uses disable_work_sync(&priv->service_task).
->
-> Should this be disable_work_sync(&priv->service_task) instead, or in
-> addition?
-
-Yes, this should be the service task being disabled.
-
->
-> > @@ -2976,7 +2986,8 @@ static void gve_remove(struct pci_dev *pdev)
-> >       void __iomem *reg_bar =3D priv->reg_bar0;
-> >
-> >       unregister_netdev(netdev);
-> > -     gve_teardown_priv_resources(priv);
-> > +     disable_work_sync(&priv->service_task);
-> > +     gve_teardown_device(priv);
-> >       destroy_workqueue(priv->gve_wq);
->
-> [Severity: High]
-> For an interface that was already down, unregister_netdev() does not call
-> gve_close(), so nothing cancels priv->stats_report_task before
-> gve_teardown_device() frees priv->stats_report. destroy_workqueue() then
-> drains the pending stats work after the free. Does the ordering here need
-> a disable_work_sync(&priv->stats_report_task) as well?
->
-
-As mentioned above, when freeing the stats report, the timer will be
-deleted, and the work will be canceled. With those fixes, the stats
-report task won't have any queued work.
-
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20260909191136.3811892-1-hramamurthy%40google.com
-
-
--- Josh
