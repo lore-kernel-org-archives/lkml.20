@@ -1,103 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A316B262FD0
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:32:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65DC26ED37;
+	Fri, 11 Sep 2026 07:32:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789111936; cv=none; b=NeQawXRltPP0RIMwv8HuxtccE33yQhjbEHUXc/x+7RrGv18pnUoFDGBqnlLQIkiDErIA3gEKcZg+8g9MjktFttV/DM6XnP9fV4n/A7vvoX222TNmOFwcSP+QpGVp8Efn45U1CNTffOdm3hWQ+Iut1K4mvmuOEOfX4bxT3vRy8+s=
+	t=1789111942; cv=none; b=caoB6GhDHxk2gexJDwFRnDVjgzX9q/y1eXi1HYkq65y50F5HbfcJH13JXcYFu9TPVfQew7O4lkw+NVlMdoJb5mLcm62m2SpwhR143EWh3xsbia7xWw7AQhlrfi35X681Uj48aCBFoc+vgfVoEfUTzoqX0/sBCE9l5VMr40VGmNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789111936; c=relaxed/simple;
-	bh=9JQWLFNh6J1FspffOcNZkL0d1Bovf1abC/QXqLTL+cc=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Subject:Cc:From:
-	 References:In-Reply-To; b=BtlgavA0ogDWDBe4scxz0dGkHdvWbLf7Ixr2W8jw2A5JrSgdBA71jUgtTKrikDfgLOp+awSvTw/txjk8ulaxPBF9/NHfP5S8pyEhsZBeNfGUS8F75MKGU3KeVw0lSv+TlEbZo5K8vpcGhVtqdUmNCnjdl4UakDeG1HZv+b+lvYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OwmiAGF/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789111942; c=relaxed/simple;
+	bh=aPn2V09iW2RqcLu8Hup1c5t8+ndZdGeYIGgvVAoAQ7k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YKmOjVNlTeUu04SLrHPmGQdY5xgbKzYGvDur8MfLiPeKM2zlpiabPsutYWHgGNmZx3jMG6gwgB7OLUwx4CqG6vEuKgcSF3EUTF1U8COHSujRsCzlpukIM3v55z5RqtAb5r3ZnOU5YmSXZJimKHEQvYjAc3rhiyMjGCJVPrTr1sc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=isZHds3R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OwmiAGF/"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id B797E1F000FF;
-	Fri, 11 Sep 2026 07:32:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="isZHds3R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78A9B1F000FF;
+	Fri, 11 Sep 2026 07:32:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789111935;
-	bh=ZzDLyjy/8rt4GojjG6IKZ6vwVdI0G4dwLRnaYESoj7U=;
-	h=Date:To:Subject:Cc:From:References:In-Reply-To;
-	b=OwmiAGF/ad83I6IjbAzG1vAD6cQUdDUj8l/2v1CypFl21VraST4jSWqBbU71BUpTJ
-	 1rHYHd9cUHtoNZbCfC0xJSQ7IdpkyqvhhZA/PuhK+cR7CLoPBxvHtUZwJq28w3BUm3
-	 29T7NggqeOzV7UAssltSib4HDRb1KCAsgfd89fAR5hx+jvA/G+WD+c2e8ylZwidaqK
-	 9+OpxR6NDrraGVjRHRxbrcJXGWM0fTWszuRSyfMVTjBKL+7Um4c9gtZdlJIQmBviAw
-	 N/CVmQDaNAp5uqDlbT+xe/xMnzOW6c4zCDu2s8DxZpMDr0OAz1xr3M2hi4jKTFdv/E
-	 gPViIZ9HAozuQ==
+	s=k20260515; t=1789111941;
+	bh=8NRZUbtUucUhw0WkqpcYIAzHqGYCykdJeiO5IvMZwJk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=isZHds3RVUgkbzYmuIAs026IhkzEJjYNTCq2AR0SisNdLX5luwLSdo7hMZH1vZ7BK
+	 S7Zv/7lj58eB4kRjCf5HQ+bEhViwArNhumUpObc6wDHv5JnYU2kxZhVNp3lRbuWsyv
+	 pYwvHz5ZHk+EL9KGDBkCVNE4b1WL0OA7mJnuaBTU14yqMFS81WYOQi3vGQyQdqmrcb
+	 /GUoxsu9j1vW4g/S9U9IHnJEiMlJJJZetc/hXbHTSjMRPkQFK7LYvz8Ss8qEQ6sDPE
+	 7hQ1khoSdYUA8bAibBuCkGVvs66XfD4EQkBhRY/bwbhU24f3188rURADagzGszCnXY
+	 cJ7NRveh+gkHA==
+Date: Fri, 11 Sep 2026 09:32:17 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-arm-kernel@lists.infradead.org, 
+	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Michal Simek <michal.simek@amd.com>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] arm64: zynqmp: Add ifm ZynqMP VHIP6 EvalBoard
+Message-ID: <20260911-sweet-industrious-stallion-b7a727@quoll>
+References: <20260909182641.165383-1-marex@nabladev.com>
+ <20260909182641.165383-2-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=4411212e04818fb73d29c77707a3998c98d48509491f0db3f0c7977b0839;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Fri, 11 Sep 2026 09:32:11 +0200
-Message-Id: <DLCB8YQF6G49.1YQJBPWBMZ6IE@kernel.org>
-To: "Chen Minqiang" <ptpt52@gmail.com>, "Pratyush Yadav"
- <pratyush@kernel.org>, "Miquel Raynal" <miquel.raynal@bootlin.com>,
- "Richard Weinberger" <richard@nod.at>, "Vignesh Raghavendra"
- <vigneshr@ti.com>
-Subject: Re: [PATCH v2] mtd: spi-nor: allow force unlocking via DT property
-Cc: "Takahiro Kuwano" <takahiro.kuwano@infineon.com>,
- <linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-From: "Michael Walle" <mwalle@kernel.org>
-X-Mailer: aerc 0.20.0
-References: <2026-08-05171214.2934-1-ptpt52@gmail.com>
- <20260806113733.31042-1-ptpt52@gmail.com>
-In-Reply-To: <20260806113733.31042-1-ptpt52@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260909182641.165383-2-marex@nabladev.com>
 
---4411212e04818fb73d29c77707a3998c98d48509491f0db3f0c7977b0839
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+On Wed, Sep 09, 2026 at 08:26:05PM +0200, Marek Vasut wrote:
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/interrupt-controller/irq.h>
+> +#include <dt-bindings/phy/phy.h>
+> +
+> +#include "zynqmp.dtsi"
+> +#include "zynqmp-clk-ccf.dtsi"
+> +
+> +/ {
+> +	model = "ifm ZynqMP VHIP6 Evaluation Board";
+> +	compatible = "ifm,zynqmp-vhip6-evalboard", "ifm,zynqmp-vhip6", "xlnx,zynqmp";
+> +
+> +	aliases {
+> +		ethernet0 = &gem0;
+> +		ethernet1 = &gem1;
+> +		ethernet2 = &gem2;
+> +		ethernet3 = &gem3;
+> +		gpio0 = &gpio;
+> +		i2c0 = &i2c0;
+> +		i2c1 = &i2c1;
+> +		rtc0 = &i2crtc;
+> +		serial0 = &uart0;
+> +		spi0 = &qspi;
+> +		usb0 = &usb0;
+> +		usb1 = &usb1;
+> +	};
+> +
+> +	chosen {
+> +		bootargs = "clk_ignore_unused";
 
-On Thu Aug 6, 2026 at 1:37 PM CEST, Chen Minqiang wrote:
-> Some SPI NOR flash chips (such as generic or unlisted chips used in vendo=
-r
-> devices like Tenda AX12L Pro) have Block Protection (BP) bits set in the
-> Status Register by bootloaders or factory settings, locking flash blocks.
->
-> Because vendors frequently switch between various generic SPI NOR flash
-> chips ("Flash Lottery"), it is impractical to upstream explicit chip ID
-> flags (SNOR_F_HAS_LOCK) for every possible generic chip variant.
->
-> This patch introduces support for the "linux,force-sr-unlock" Device Tree
-> property:
-> 1. In spi_nor_init_flags(), set the SNOR_F_HAS_LOCK flag on the flash
->    instance if "linux,force-sr-unlock" is present in the flash DT node. T=
-his
->    allows spi_nor_late_init_params() to automatically populate default
->    locking_ops without altering swp.c.
-> 2. In spi_nor_init(), trigger spi_nor_try_unlock_all() if "linux,force-sr=
--unlock"
->    is set, invoking Linux kernel's native spi_nor_unlock() mechanism.
->
-> Signed-off-by: Chen Minqiang <ptpt52@gmail.com>
-> ---
-> v1 -> v2:
-> - Set SNOR_F_HAS_LOCK in spi_nor_init_flags() when "linux,force-sr-unlock=
-"
->   is present in DT, allowing spi_nor_late_init_params() to set default
->   locking_ops automatically without modifying swp.c.
+You should not have such bootargs in mainline DTS. It ties DTS to
+currecnt Linux driver implementation, not mentioning that it is
+subjective choice. And once such bootargs appear, then they are tricky
+to remove because users of DTS might rely on them.
 
-I've given you feedback on the v1, there was no reply, so I'm going
-to ignore this.
 
--michael
+Best regards,
+Krzysztof
 
---4411212e04818fb73d29c77707a3998c98d48509491f0db3f0c7977b0839
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCaqOuexIcbXdhbGxlQGtl
-cm5lbC5vcmcACgkQEic87j4CH/hrUgGAukRRdtCACr9LIqwoWtJi1CwUZH+C0qZN
-ZYxM3iKH8SYDHGn6eF7W1my5ebpLbiiiAX4rBV7ScNtHNztqk82pK2whLVWl31/B
-qHDS9PKkFncD5+GPwAWjVU8MyZnG2WEbC9c=
-=M7iX
------END PGP SIGNATURE-----
-
---4411212e04818fb73d29c77707a3998c98d48509491f0db3f0c7977b0839--
