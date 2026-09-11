@@ -1,198 +1,123 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EAE01A6813
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:14:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150496; cv=pass; b=WWk46mVeWNTUjBuelLfrVBde7dxhamCkJ1eMgp8pwhz0p6ceXHyXc+KXy8eSrRSXDScusP3RrooER7w22BOhmKDSC881ZeawuUQZ9nFn95420xGGtb49azoSiGLQ2U00mKOnxfNTb47GRSZhtphCzx4hVjCTq8N1MLHsgBqYJK8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789150496; c=relaxed/simple;
-	bh=GBuxWMSsg4wZZ3OpOH0+odAqCmKuZujhQPqIzTdn0Yk=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D2C4AE115
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:15:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789150513; cv=none; b=Tk3UluM6OPMl9+JeRgEbzlj+1wFfKImxflPaXOIXGDwXYMDLXUl5y3zr+u+uVAdnM92PEH9nFKJTgq3E7W/q5TPh3ZDy4IsFsF3LESq25OsXh4jC4UzVwocptK6LacoFiMkzx+XaJqkG6ARgQ5V0jvuwIjNk9y4qq15p+de4ltU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789150513; c=relaxed/simple;
+	bh=Mgahn01sS5gczturDy/G4PNaMknNPNwtvnNftWb1g/A=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Q2Ihen9JNVvdGe5doMVALuxd1dXiiM0/jAS56SevskCbcqNoY3b5rSsA2HgiD8/sdrQ1Thshl7jKz0LNXtC9Ym8cu8w+JMJlZ0gfQnJd0IxXKCU2vlxmczH9wKUsc96tokJ4vjLzm1BEHvlGEVIgqdlnYrluG5n1JIBp4tqPB8Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VX0N/ICf; arc=pass smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=HZUPvmH2vQHj/FVqYxo9lP7SX67nDKYJK16JVaUFoYFKPCPHatY6hgDxHfUBID2zOJCXuo0ONw+LYrfYL3eQVpzrBs4/YDlUfcdoG6MmcOyB+cG+WJR2/IaSgs8Ltd3EHdwO926XBegABXmsy1TvPqhmX5qew8xidRcd7omwJN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U6dcLPin; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VX0N/ICf"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c253425b253so201471866b.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:14:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789150492; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dyjxFz/DiAcAEJLGE1nVoykCx6N5FISiBHw2TKJKPHK6NoAZGlg/KMAxQl+mvawUm+
-         vilzKjmtmiWArf63AQE5x/bL/Teu4zMMJFmUeT0vMKqU2cbD9L7WiOxfXh4Ryly1GQlD
-         W21NhYKXJsEctCTQZ4NvJAqyPJLj16xBQrEuaw72E24B2xUigvfVLbwsnPcjJWZjQCnq
-         dsOrqpdPGXAqR/Hml8Jqhj48s3uhgiJ7yCVL01iMBF7sSOa8Br7I5e9Wyb6C1VbVTh5R
-         3mhynifrrYC5Zghw74XsxqxTQvl3Uxs70NEnMkvmYT6k4Eslf6WerBFGc25mc6KnPWN7
-         B2cQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=sgMffH9c4Ut5GzZRUzz1jul/MtsWXNFvANxlyz2Cqvc=;
-        fh=7IDIv+7r6EkFZFWrjfcqKKk6zqPOEzHQIK/hA66HIz8=;
-        b=F/mnz87OviF6Q2CbTK30r8re/HHxbL2ahW8L5W4aisPTkCZzM+YihK2XSpyp/MJHNw
-         eyMjcWaat568WYP+KoJs+oq3nD+Z7cpt7yvrthq9BkWAybLwtYfwQXQC3M7BFBrRcatt
-         W89hXYQLCn9oSWv2eMZAkkiT/kFB3p8rcVfLm3vWxQf0CjjMP7OWlh2tuF5Adm52kEC0
-         RlGgM1XvBCvn/tIXOwdL3YSOOEy0DouZDBiUUZ492igEstvokFdGMdfps8EZAHOUJU5A
-         1oE1a+L6utJ33bf65ISF9y3GJRM4l9bHlzJZfudQzj/XDO6qeO1vzaoijdFXMlvxcjRf
-         kaUw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789150492; x=1789755292; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sgMffH9c4Ut5GzZRUzz1jul/MtsWXNFvANxlyz2Cqvc=;
-        b=VX0N/ICfu6nRhxaCAHv2F/9u4G0ce6Yvyyj9kYf6yKwcgmh4mGHhVrKRzUUGrUe82e
-         dBSCR9VM4bbbucXmQuVRNwen9qIBQbUC5lhp/BJhA6uozTYw3JJ6C3hY61Bc8V2N0oMH
-         OsenC7xrPsCNjt4k17SfnYGAnwLGIXuWASqa3KcopYNNdixArZx47YK8Wn6LzSXzvDJX
-         x1NsCnbmPvYJES2RR+9eDOEqUPc0DMcZd2UUzDR+6XBPvO+0zHxNEKNqw1xrCN+LHBha
-         tcZ3NcfQQ/VmrXX0AlN2GTuAzmN1CX+k2fKbafpWss5W//1XDE4S+Nyi3zOpUrriKaLu
-         wWKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789150492; x=1789755292;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sgMffH9c4Ut5GzZRUzz1jul/MtsWXNFvANxlyz2Cqvc=;
-        b=sDKOQrHFi0vrqBdxjQp53TpjmSQiRgx8AhskN068gGrBZFle1NjeFgnwOpfk47JjA2
-         BCDjzqitPz310uzbg6AWfPZ8CEh4of9LvpUkGK2kaRtZoh0vin0j8t2FFB07y9pa6izJ
-         LpC+v037dwK5FN1ABKNbiQoO2kPDB6LeRAvF6ihs003oo4H2b8V1nD8HHfVVDozsB/Qm
-         iWG4T7PBBGTqPOllx8OofNm/HTh3opscrrIrzQIGt/kkTXr2XdyF72odAKlc4JhDiMtW
-         EagcZQJYmyO1wcg9Z5irJJlr1Me/sAJhJkaMytUUFTSLnFR0UFuTqzt8C9zs2vJ8kd4r
-         zQVw==
-X-Forwarded-Encrypted: i=1; AKwUvByjmBKcg/ChgmyTcq2vqsNc1duCeWBfDzvyFspdLZVt5hQItpOPFq5qL0jJxfljDfHjfTJ+w5Fczp0tb7E=@vger.kernel.org
-X-Gm-Message-State: AFuF++n4P6yBPPuXFZulcti0yo87o+tkcOiSjTwjCIFR5TiqtoCt95Bv
-	3Eo3u+Qvqm7rqekd1qUHUCet5RZrQq6UqQbaQidwomroHGSRtJ1/smFk4152sbffRanFcv0SlDV
-	9qhaoQit0WcPjk3GttwcgV/A148g68Gg=
-X-Gm-Gg: AYBFou2osilEOwt0XrDEoN8ok9D1+L4xuyszh9miX7bSGBQG2gllaHeqlhUSiGZ5cOl
-	wwmZEPzD1xcbj1c76PG1t6lqHkWVy0pLM/x5uRzjyWV37ISAetcyL6iF2/KJn7sM7rkb7eJnhGz
-	rdLvV/kd7ziZMWRNAF3swqlWIoiYVSfKc7kJqPCr5fLJxSalmwRrnC6lf9Z/ctmY+8Jy7DPxbAm
-	wAtXt1WpV9U175Dl4zR2b8OA3udIc7E7HfHDs0IhCo833xEPGyr/uyt0opJd7bnAD8iQTy5YqJQ
-	YVbI3QIjVt2T/0Gt79WnOhbKeFr+8tf7B1Ob6h20HpFodzHk37aF0xiW7I/cMBNQVANNX3IxNuo
-	8orF5LDXQHwJz
-X-Received: by 2002:a17:907:1c10:b0:c29:286e:2e3e with SMTP id
- a640c23a62f3a-c29666d5f9dmr241723566b.38.1789150491872; Fri, 11 Sep 2026
- 11:14:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U6dcLPin"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D149A1F0089C
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:15:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789150510;
+	bh=6+jUOnuRGVnXKnZ3KWqfUO9v4zUR2jeqpm+66XJzwFQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=U6dcLPinpaKlwlRALrFH4RPaWbGAHDSK/SLwpMlzm/w5iG3i8NNdsnbyhZrHSdLKy
+	 awwaN4tpz59egQpc/0FaXrxMN2dbDBZWlDNLr0HbcQZoK+DUMe4j1EvLT95qzJvJsf
+	 ji48B6gC+cswel50BzsT/YqnhjE3T/rrX3IDZ5DITGs/xUw9cb00akcnFjgqlUQAQB
+	 PqQsS4sJAaLi/yR73kgZNZR0jSp/bDeqvAHtuUfeCLc3ZEwh9BMk5A6n9IPvOzcYpQ
+	 PW0cEHcJh3uCODO5ez78rt9j3ZmPVEk59DU5shcGBzlIAgVTJMBYAO2cxRBdXl9z+N
+	 NTjSRYD1CId4A==
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5b4af730f8aso1406582e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:15:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz6MuFxANKy6MB6N8Y9WvIOBVwt82wrOIfROrWgi19OZ2fsdShjUvCPaUWrD6fzoHieeCHVvz2FB0Ls6h4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mXDhbcHUS/i9+4105SSJwTxm1SvKuhEfXcyqHuhxlFEmtL4XEg
+	0f8MTYmUjsMbtXu29xgzi033WRvrhqxghzyBL14M2LwoXc8En8kGPX4aU7sARcoasX1jYaUcnB7
+	Bxh/KFKMrgbBPaqHXkqtKoWyxODIJDMs=
+X-Received: by 2002:a05:6512:618c:b0:5b6:183c:5c8b with SMTP id
+ 2adb3069b0e04-5b8a0311474mr1248761e87.41.1789150508682; Fri, 11 Sep 2026
+ 11:15:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <CAMgjq7AHRzBsbmGOx0s=TQFBwcn=DEU1naR443sO6x+pJd6hAg@mail.gmail.com>
- <CAKEwX=O8i+OsP6BJXNZNk07hveN9HDT+PoyMTAU6gOc-xp0Ppg@mail.gmail.com>
- <CAMgjq7BQeQQOZMDPFJ+8LS2N4t3x53r6Nm+9o0_pi92oVUgjgQ@mail.gmail.com> <CAKEwX=MS-7C96i4tzBijHN=-xuZgny_wQEa_0YjfHzhoNysdYQ@mail.gmail.com>
-In-Reply-To: <CAKEwX=MS-7C96i4tzBijHN=-xuZgny_wQEa_0YjfHzhoNysdYQ@mail.gmail.com>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Sat, 12 Sep 2026 02:14:13 +0800
-X-Gm-Features: AcwNN1X_Mr5nGygMYASuHxKAbKSbuoEdUvrKDUVcI7Vk1_FQ39e_c44cG1FLDGc
-Message-ID: <CAMgjq7B7Mc7vpQN0gBknsSrfZWXdif5L7nU29YskG9mzS-_jsA@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Nhat Pham <nphamcs@gmail.com>, YoungJun Park <youngjun.park@lge.com>
-Cc: Chris Li <chrisl@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Barry Song <baohua@kernel.org>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
-	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
+References: <20260908152808.3928630-1-arnd@kernel.org> <20260908152808.3928630-4-arnd@kernel.org>
+ <CADkSEUjYhRk-ezaXZkHzFTFQnySFSisKtZfEP-_NtLnQF+6-1Q@mail.gmail.com>
+ <CAD++jL=ysmPgs8yKH5KBobuv-eeCHHgZwvo1kvHOFuTwhkaOew@mail.gmail.com> <CAFr9PX=_FmMdR4TeP+tqURZdZCTjw8UYxAxeszs_vcpTbX+_aw@mail.gmail.com>
+In-Reply-To: <CAFr9PX=_FmMdR4TeP+tqURZdZCTjw8UYxAxeszs_vcpTbX+_aw@mail.gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 11 Sep 2026 20:14:56 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=zaF1zcTv6Mta5Xw69WeLC30NRcH0_pkSkLJJ0UtnZHQ@mail.gmail.com>
+X-Gm-Features: AcwNN1WjZ27WNa2xIf0xCkX2Q7TecAH1yvD-cA-Z7rRTMeFdlwjxtS93LAQhgdg
+Message-ID: <CAD++jL=zaF1zcTv6Mta5Xw69WeLC30NRcH0_pkSkLJJ0UtnZHQ@mail.gmail.com>
+Subject: Re: [PATCH 03/13] ARM: remove riscpc
+To: daniel@0x0f.com
+Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	Arnd Bergmann <arnd@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Drew Fustini <fustini@kernel.org>, 
+	Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
+	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
+	Tony Lindgren <tony@atomide.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>, 
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+	Gregory Clement <gregory.clement@bootlin.com>, Robert Jarzmik <robert.jarzmik@free.fr>, 
+	Kristoffer Ericson <kristoffer.ericson@gmail.com>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Alexander Sverdlin <alexander.sverdlin@siemens.com>, Shawn Guo <shawnguo@kernel.org>, 
+	Karl Mehltretter <kmehltretter@gmail.com>, "David Hildenbrand (Arm)" <david@kernel.org>, 
+	Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org, 
+	Ian Molton <spyro@f2s.com>, Jens Axboe <axboe@kernel.dk>, Helge Deller <deller@gmx.de>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, "Paul E. McKenney" <paulmck@kernel.org>, linux-block@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-fbdev@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 12, 2026 at 12:57=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrot=
-e:
->
-> On Fri, Sep 11, 2026 at 9:10=E2=80=AFAM Kairui Song <ryncsn@gmail.com> wr=
-ote:
-> >
-> > A boot time bool will cause real trouble for us, at least. We have
-> > many VMs with fixed boot images and fixed cmdlines. However, the VM
-> > itself is used by different customers, some are ZRAM only users, and
-> > quite a lot don't want any kind of compression (e.g. their data is
-> > dense compression is just waste of CPU) and prefer plain swap. So I do
-> > hope we can have a runtime tunable instead of modifying the cmdline
-> > and rebooting or rebuilding the base image for different cases, and we
-> > have already seen that a runtime toggle isn't hard at all.
->
-> Ah yeah I see. But before moving back to runtime parameter, do you
-> think we can come up with a heuristics for this that have does not
-> require userspace input? In v4, I'm doing this at folio_alloc_swap()
-> time:
->
-> a. If the cgroup enables zswap, then always go vswap.
->
-> b. If zswap is not available for the cgroup, then bypass vswap, and go
-> straight for physical swap entries. My intuition is that we are not
-> buying anything for these zram users, as we need a physical swap slot
-> anyway. Thanks to your design, both can co-exist in the system now -
-> that's something I actually did not envision possible in the original
-> version of vswap. Pretty cool eh :)
+On Fri, Sep 11, 2026 at 4:38=E2=80=AFPM Daniel Palmer <daniel@0x0f.com> wro=
+te:
+> On Fri, 11 Sept 2026 at 18:11, Linus Walleij <linusw@kernel.org> wrote:
 
-Thanks for the test and idea! Yeah, I always hoped we could do this
-because there are some very promising use cases for raw and plain
-swap, not just ZRAM.
-
-> Would something like this fix it for you? ZRAM users will not get
-> vswap indirection overhead at all, because it would bypass vswap :)
-> Down the line we can revisit this decision - for e.g, if there is a
-> use case for vswap-on-top-of-swapfile. There might be other interface
-> that makes more sense.
-
-Hmm, this interface looks confusing though. you mean tangles vswap
-with zswap through the cgroup's zswap limit? I originally expected
-this to be a problem solved by tiering, skipping certain tiers seems
-much more intuitive. Maybe Youngjun have some idea here?
-
-> > > > doesn't conflict with what vswap is trying to do. Some other of the=
-se
-> > > > differences involve design decisions rather than just surface knobs=
-,
-> > > > and those are the parts we're stuck with once they ship.
-> > > >
-> > > > So a few current interface difference of vswap and xswap I've notic=
-ed are:
-> > > >
-> > > >  - default size: somehow also tangled with VM_SPARSE, which
-> > > > needs an initial virtual value. It's super cheap if not zero cost
-> > > > (the only cost is occupying some vmalloc area, which is fine
-> > > > I guess?). But we still have to pick a number, could be large
-> > > > enough to satisfy everyone?
-> > >
-> > > 8PB? ;)
-> >
-> > Right I saw that at V1 :).
-> >
-> > I'm not sure if this is the reason that is in conflict with VM_SPARSE
-> > in your mind? Techically, at least for 64 bit, we can just apply the
-> > same limit to VM_SPARSE, for 64 bit machines we have a lot of virtual
-> > space to consume and that should be fine (VM_SPARSE is just the
-> > cluster map, which is much smaller compared to swap space).
-> >
-> > And another thing is do we really need that much in any case? Will
-> > things like, e.g. 64 times the physical memory (max pfn) be enough? I
-> > know Baoquan suggest just use the physical memory size. So that could
-> > be tunable, it's really easy to tune, just a number.
+> > - One camp that are enthusiast like yourself. That kind of people
+> >   are running the show inside arch/m68k on Amigas and Ataris.
 >
-> Potentially, but we have many users at Meta. There's a huge diversity
-> of machine types, workingset size, access patterns (both frequency and
-> file:anon split), compressibility, etc.
+> I have SMP working on m68k (dual 68040, real hardware) among other
+> oddities. I think some people would get a kick out of seeing it but
+> also I think some people would also ask why we can't just delete
+> everything that isn't arm64/amd64/riscv. I'm putting off sending
+> patches like that to avoid everything getting deleted. :)
 
-You can just set the number as 8PB? :)
+I have actually thought about SMP on m68k from time to time,
+because there is Swedish hardware with enough memory to run
+Linux with SMP like that (DIAB SMP m68k Unix computers).
+
+I would say using generic entry would be a prerequisite for
+doing m68k SMP so we don't introduce *more* entry
+oddities, but after that I'm game.
+
+With generic entry in front I think it should just be merged,
+but that is me personally.
+
+As SoC maintainer I see that m68k has a lot of technical debt
+like drivers under arch/m68k and no proper hardware description
+(such as device tree) nor is it migrated to the actually standard
+board file structure (fwnode) which we use when we have no
+other description style.
+
+There are things like
+amiints.c, cia.c, ataints.c, q40ints.c etc that should be in
+drivers/irqchip. So many time.c that should be in
+drivers/clocksource/* and many other unmodern things.
+
+Albeit I think actually going and fixing that can't be super-hard
+in the age of LLMs. So listing things like this likely will just make
+someone go and do it. :D
+
+Yours,
+Linus Walleij
