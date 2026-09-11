@@ -1,78 +1,145 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E06F3148CF;
-	Fri, 11 Sep 2026 05:29:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 606E12F7EE4;
+	Fri, 11 Sep 2026 05:30:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789104586; cv=none; b=uKr3R1qvPNhJOSMYt9e1Gyk6wMQD2T1QdZ0Vm4EerRt7I85Kl5lGzSYeAfLpP10Vdu0P/YI+gW0kGQLsEUy/XRoVugXRfoh35/9r0rVdeViEhSF13nNc4SRCdfjjAbzCVQDUES1nirwpyTW/LqfDCA4hu1icjJGtXq/iYK4+DNU=
+	t=1789104619; cv=none; b=rroZ25zuWzmlkNgbAzkwLtQd1jGuQoDysxUfwjHdtxGv/Ip7jPYyDFVCIaWTjMBL3D5woAVI7OdWe744/vtS4qgVNxxOCXLPzF/cKGDvj1bMgfdmxWBcBDKeUWR4rqFG8yiHRGtS+QUElTugW8efINbzYJHRNef2CIr08EJhdHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789104586; c=relaxed/simple;
-	bh=UVm3UijNZnei1xaCdiJpBw7KE0glJ7jNnfs5WbGloeg=;
+	s=arc-20240116; t=1789104619; c=relaxed/simple;
+	bh=4LFLaPw7O5MpjhkCuraYK7DIvSTP5ruMTj1dpkq3oeA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GhZm07oJGMIM4RrN7CSszQA8bYnupnOzFhelHNx/VmNgrW3BpgA6xBJS6XV6K866AxwUe8+rIc5wUzn3xctRRmrD/dCwi0oL1EVJcPPucabtSFVpULrDsSqxHMaP80ea4V13xOxtoawUq+3vRl09q0tJDF2dcJkHi/5QnlcL/TU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=ONLiLJSp; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	 Content-Type:Content-Disposition:In-Reply-To; b=XgHfneobdRzSJwlifh+eDj8RY1JQC8/+WwznZoucc8Aw8UgE19fz9JEnDNGTS+VC/Z7bJxqKWSCleCn5O5iLaw+LzxPW4VSY9r0mY6MKzD1hkIaTrDBSq1W00cUyzIKyLxo9c25PbvsbIpeFMmYYvvc1/55A87FaFd5TBiL/89E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lbFWDbIi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="ONLiLJSp"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=eAkmSFxEapr/OWEzeHTZRFq6RfOULXKfw/VYTwth8bI=; 
-	b=ONLiLJSpewQtgDqGoRdoeaEzn8YVSOLdeighfjbG+T89vBc31mRvWLbfFIZPAzRFoHBUXfB8Zyf
-	UlPhyM+XKIDWd/J5vHH32HZIsxSmPgec5qsA51QPtmAXmbt+Xb9SZv4LLbu5u88+FS90O5y+Pz3UH
-	1L+vdRr32OIIPfHu7XDnIx9R76ySqMgLSFUyQnldk8j7VLZWpRSYv5bteaIdDBj8P49stHCwRHmD7
-	uQXEzr98lb3CvYCDElxaBX34f65ehze2za4z834EAN241Y+O0t1uY4r+fpWEAticm4tqMYyx+YwZ1
-	YMt7lAziwlfIzLtDV55CaUeP6KRsnVqhES4A==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x4tpP-0000000Cu8A-2TFC;
-	Fri, 11 Sep 2026 13:29:36 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 11 Sep 2026 15:29:35 +1000
-Date: Fri, 11 Sep 2026 15:29:35 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Linmao Li <lilinmao@kylinos.cn>
-Cc: "David S. Miller" <davem@davemloft.net>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Leonard Crestez <cdleonard@gmail.com>,
-	Radu Solea <radu.solea@nxp.com>,
-	Franck LENORMAND <franck.lenormand@nxp.com>,
-	linux-crypto@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] crypto: mxs-dcp: handle zero-length skcipher requests
-Message-ID: <aqORv0iyPUE2qKep@gondor.apana.org.au>
-References: <20260828093209.3179074-1-lilinmao@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lbFWDbIi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3458D1F000FF;
+	Fri, 11 Sep 2026 05:30:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789104618;
+	bh=aAEQkMu/TV7j/670viXKSJtglxVTRR7CotfrQlJUCTw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lbFWDbIisbjRFiHlu2iZqaRYMWR/Kyv8BYPftCIsnwEpJoHj0JgP3U7BMlJGAaG6a
+	 n/NIdbfzbCkgQ9rqcgDq3bJwXU+ueoinu+6Ty2tgSLNrs8I78AqESEZBXNGhN63JTP
+	 o+HEL5HF2hzQCqm1+hlcc4FqavuyLmYqXwiCoWrz+2R+PXjvaz0lhvjqeWSvb3tbn3
+	 pv4s1d8O+YEY6H9MV82riiqDaHJ27WkzO46dg7ly+yeJjojWY72TjlZ8Jw+c23p+Ao
+	 ytqCKLmtNMgzq29nFKA+xIpwwn3Xyt0p14vZrKH1b/zVaElidPbFsUnhJrCxS7fVQl
+	 93oAC20F5oVmQ==
+Date: Fri, 11 Sep 2026 07:30:11 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Nabige Aala <nabige.aala@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>, 
+	Mahadevan P <mahadevan.p@oss.qualcomm.com>
+Subject: Re: [PATCH v4 6/9] phy: qualcomm: qmp-combo: Extract common DP PHY
+ init sequence
+Message-ID: <rtpmf4gfixtn3ka44reaurodo7fgsaj4amajklef22ersizweg@a2drblb654bv>
+References: <20260908-glymur-phy-v3-v4-0-ff22e5150538@oss.qualcomm.com>
+ <20260908-glymur-phy-v3-v4-6-ff22e5150538@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260828093209.3179074-1-lilinmao@kylinos.cn>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260908-glymur-phy-v3-v4-6-ff22e5150538@oss.qualcomm.com>
 
-On Fri, Aug 28, 2026 at 05:32:09PM +0800, Linmao Li wrote:
-> Zero-length skcipher requests are valid no-ops, but MXS-DCP queues them.
-> When such a request reaches the worker, last_out_len remains zero. The
-> CBC completion path then subtracts AES_BLOCK_SIZE from this unsigned
-> value when updating the IV, causing the offset to underflow. On
-> decryption, the resulting source address precedes aes_in_buf.
+On Tue, Sep 08, 2026 at 07:30:59PM +0530, Nabige Aala wrote:
+> From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
 > 
-> Return success before enqueueing zero-length requests. This avoids the
-> invalid source access and leaves the IV unchanged for a no-op.
+> Extract the common DP PHY initialization sequence shared between
+> qmp_v456_configure_dp_phy() and qmp_v8_configure_dp_phy() into a new
+> qmp_combo_configure_dp_phy_common() function.
 > 
-> Fixes: fadd7a6e616b ("crypto: mxs-dcp - Fix AES issues")
-> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+> The common sequence covers:
+> - Validation that dp_aux_cfg2 is configured for the platform
+> - Writing dp_phy_cfg1 and dp_aux_cfg2 hardware-specific register values
+> - Calling configure_dp_mode() for TypeC lane orientation
+> - Programming AUX_CFG1, TX lane control registers
+> - Invoking configure_dp_clocks() callback
+> - PHY_CFG reset/enable sequence
+> - Polling COM_C_READY_STATUS and COM_CMN_STATUS for PLL lock
+> 
+> Refactor qmp_v456_configure_dp_phy() to call the common function,
+> removing the duplicated initialization code. Update
+> qmp_v8_configure_dp_phy() to call qmp_combo_configure_dp_phy_common()
+> directly instead of going through qmp_v456_configure_dp_phy().
+> 
+> Signed-off-by: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+
+One comment below. With that addressed,
+
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+
 > ---
->  drivers/crypto/mxs-dcp.c | 3 +++
->  1 file changed, 3 insertions(+)
+>  drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 99 ++++++++++++++++++-------------
+>  1 file changed, 59 insertions(+), 40 deletions(-)
+> 
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> index 0ec382aebe2b..79006469f3d4 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+> @@ -3459,6 +3459,7 @@ static const struct qmp_phy_cfg glymur_usb3dpphy_cfg = {
+>  	.configure_dp_tx	= qmp_v4_configure_dp_tx,
+>  	.configure_dp_clocks	= qmp_v8_configure_dp_clocks,
+>  	.configure_dp_phy	= qmp_v8_configure_dp_phy,
+> +
+>  	.dp_aux_cfg2		= QSERDES_DP_PHY_AUX_CFG2_V8,
+>  	.dp_phy_cfg1		= QSERDES_DP_PHY_CFG1_V8,
+>  	.dp_mode_ignore_reverse	= true,
+> @@ -3766,6 +3767,62 @@ static void qmp_v4_dp_aux_init(struct qmp_combo *qmp)
+>  	       qmp->dp_dp_phy + QSERDES_V4_DP_PHY_AUX_INTERRUPT_MASK);
+>  }
+>  
+> +static int qmp_combo_configure_dp_phy_common(struct qmp_combo *qmp)
+> +{
+> +	const struct qmp_phy_cfg *cfg = qmp->cfg;
+> +	u32 status;
+> +	int ret;
+> +
+> +	if (!cfg->dp_aux_cfg2) {
+> +		dev_err(qmp->dev, "DP AUX CFG2 value not configured\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	writel(cfg->dp_phy_cfg1, qmp->dp_dp_phy + QSERDES_DP_PHY_CFG_1);
+> +
+> +	qmp_combo_configure_dp_mode(qmp);
+> +
+> +	writel(0x13, qmp->dp_dp_phy + QSERDES_DP_PHY_AUX_CFG1);
+> +	writel(cfg->dp_aux_cfg2, qmp->dp_dp_phy + QSERDES_DP_PHY_AUX_CFG2);
+> +
+> +	writel(0x05, qmp->dp_dp_phy + QSERDES_V4_DP_PHY_TX0_TX1_LANE_CTL);
+> +	writel(0x05, qmp->dp_dp_phy + QSERDES_V4_DP_PHY_TX2_TX3_LANE_CTL);
+> +
+> +	ret = qmp->cfg->configure_dp_clocks(qmp);
+> +	if (ret)
+> +		return ret;
+> +
+> +	writel(0x01, qmp->dp_dp_phy + QSERDES_DP_PHY_CFG);
+> +	writel(0x05, qmp->dp_dp_phy + QSERDES_DP_PHY_CFG);
+> +	writel(0x01, qmp->dp_dp_phy + QSERDES_DP_PHY_CFG);
+> +	writel(0x09, qmp->dp_dp_phy + QSERDES_DP_PHY_CFG);
+> +
+> +	writel(0x20, qmp->dp_serdes + cfg->regs[QPHY_COM_RESETSM_CNTRL]);
+> +
+> +	if (readl_poll_timeout(qmp->dp_serdes + cfg->regs[QPHY_COM_C_READY_STATUS],
+> +			status,
+> +			((status & BIT(0)) > 0),
+> +			500,
+> +			10000))
+> +		return -ETIMEDOUT;
 
-Patch applied.  Thanks.
+Didn't I suggest that you should just return what readl_poll_timeout() returns? 
+
+- Mani
+
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+மணிவண்ணன் சதாசிவம்
