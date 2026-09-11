@@ -1,132 +1,105 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11F0F255E43
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:02:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5415735F184
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:03:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789167763; cv=none; b=XZQXLB6gXF3rZuLAAMIBIpkpOMLU8z8aC9hTaHzwhiUzjhWpxntKHpaUoLBB4hhSvxiYtpCpnotjIH9AHFn1eUUP5SMbqE6OAi3R0jb/Jq5cvmTNpnjaUQP/K8g2MBOHcM6AqhFs2Ux3RodmKbJjBx/eRYZtxiFJaNyw5cffLdQ=
+	t=1789167817; cv=none; b=hh6NCVjAcQoWuqsTVOGxS+tIZCLu4Ru5ulgfDoF0zURFoebubV94ygsQ0plYYguuqmE0/EiClzLqPIPzsLBU53YRvBrGBuXh4xBmX82PxPae1OUr2910D7wI3GkQgqQ457dks04+Hyv5XaGP0PHcaLgFRc5KFFwTwPmLhDTzMC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789167763; c=relaxed/simple;
-	bh=pVbTlLoDm+S9jN7eKvEDSV5CsESkIuH1mUkM1lAGMtU=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=lNd3n6lp+oqh05qBsgD5URJpqsJpfpv3H8ICbKumjuH4vE++jIdwOu2YGGyW8UuNeMc4P+/9RpE68v47DqgrhLdmi+brm1NL51HwwjmYfwVeg8IZT15mHbWSO+2mqs494nbgfO71TIBCiHpGyucLMQuoXT+nylRnk42jVYdKeUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NB6TdAyn; arc=none smtp.client-ip=209.85.216.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1789167817; c=relaxed/simple;
+	bh=2DcKrTh6Fa5xsizeNBedkFyjjEAWZcTil7Z8r+RgvAI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZYTQdUBTH04pnxpi5BIPslX5CPjLor0nucS1IyV7jqKn7lwZBJ1g+aOGx0phHB+hwKcYoIJAysd4spPnc4Db1bacH/lGySOEIHq54Ow3fncHRKX5rEDPzpgF4ADu5Cd9ORaUcaDoUzadKIfOUz5WbgJmszCNE/3AwKbGJEVt/wo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TgCtPHsa; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NB6TdAyn"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3823dcc1647so1872375a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:02:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TgCtPHsa"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843172bff4so141640f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:03:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789167761; x=1789772561; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4sGUTYvoDW2MVTsbs//H54y6wfcBW71MO9hfW0DoGV0=;
-        b=NB6TdAynkei95/K13zLvDOlzlNG0eLnoWBB/iuYM7QgbcpLJMqCo4+U/+mGJ7DsnUT
-         Rjh+zXzCAPxa9n6SRBV0YibYcXE9PQiaFYO1/YK63lWwUVqRemSEYAB3Vs0MjBaRSXSk
-         LtTqR+1eX1OmAVm7KcOriJr9qwIN/wwIepp+EB6FlFng6EjpI967rDeCJEYeO9hG+Vbu
-         wrcRegkNyd1MEzsv1vK5Q9oOU913NIX6lauQ+9KlvO5Sl3ytYdnrCEf9Ss4HdXwIWo38
-         TLfimxYK43Ut/85Z1+IBAOVUPPUfbGXR0CCvOfpCW0dkujfD5WcDQTTtVFvScOS0tws1
-         zJGQ==
+        d=gmail.com; s=20251104; t=1789167814; x=1789772614; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R29YYAgyVJQX97ebL5rl2w0MZtUio8U35ZN1MB/U3Fs=;
+        b=TgCtPHsaUHLA0FJtO1QBmiAcHLcKRoN5IRyuqMBwie7f6j/3tpy30LkBBPvsLew945
+         ShitSxlfuFPJdlPzPB8bSylg2VHRL6iE0BfQ6/a3Copc7EeH8fG9cLNVcuvs1AJvuk1t
+         rKBT3w1nW3J0YM9rIlwtei885nWZBb/wm9++xXkUgR4NS5pg5zUGW4OkAbLH6hkkcU5c
+         Drfnq6klfom7cGTsAG9QnA7ejz6VoQup08O+LRBL55vTiC20dSegR7UUtr9ERNoNVD97
+         +mcRBgj50Fgkx3mp2UCJNUQbDqDLtJKuY8qkCJmJdE3xNnLbauKfi1XpKLs9Bt7sUjA+
+         lVAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789167761; x=1789772561;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1789167814; x=1789772614;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4sGUTYvoDW2MVTsbs//H54y6wfcBW71MO9hfW0DoGV0=;
-        b=ikdMFwHrme7VkfP8gAjB9FCbwv15NT0uk6APPXZ9PUdaiLZRF99VM/BNP0pBsedVqq
-         /acSlT0XYMbPSGgNViWqdQdSzfHeuC28jObwvY1ltBn17Ws4PBoJkAsuPdVkZ89v8qmR
-         aXgcsCWgI09RNPqUjMeYd/3ODZ7XWVLL4+v3f/g3IfDtdw4vhiqyW8TbheAOAHuB/y8J
-         28cZFW340HrjLpf/wjcHrnLfY0ZE5kKVzHVloHuJG3kI0U8JcNEaP6rIXwv8Rf9lqOz7
-         5kFAtm/tjmj6ga4sds+6yQxYnSWWP4L3hbrQMjJqW9QoxJ3FYPlqu1klNLPdS3oQia8c
-         7rxw==
-X-Forwarded-Encrypted: i=1; AKwUvBySwd4y3yqI76OJ/0+Xm+3zcVdjkPeKm4Fk3BemFW/1h4j1Lqgo/xWs8YbfergyCC/EzAvXMYQZ7cZY6CY=@vger.kernel.org
-X-Gm-Message-State: AFuF++l/vav+gTKXrHg/F+aPM96iybF9WFKcC27JaurCmtFPJMwmhb84
-	SJ4AaZLK1ALafqJe7OF17mZThnDcV9Hkjm8tq9s1QjvA5xXRj8C13Pk/BhpJFr0dToR4TFD31oz
-	VjGGvtw==
-X-Received: from pjc7.prod.google.com ([2002:a17:90b:2f47:b0:38f:dec2:2549])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1f91:b0:398:9bd5:4910
- with SMTP id 98e67ed59e1d1-39dbc7205aemr573686a91.23.1789167761268; Fri, 11
- Sep 2026 16:02:41 -0700 (PDT)
-Date: Fri, 11 Sep 2026 16:02:40 -0700
-In-Reply-To: <6aa42297.f2639fcc.29487d.002f.GAE@google.com>
+        bh=R29YYAgyVJQX97ebL5rl2w0MZtUio8U35ZN1MB/U3Fs=;
+        b=TZwqfTWwoTjF/A7TxMkw9u3B8UqvuetgB01R/8ItgGSXDGBb8kO6Q+ECTlN4Ha0G/p
+         0qstxPT+kozPVV6gJbOPoMB3xM/qa1AmnCXytz4iWFhvMIe3MuNErC86Dpscdta799l+
+         wCwkQn9TfH1BcbZVgNlMBt3kz/ZosFDhhFC45EolNRzN8V2OBqgQnxIca0WiEv3R4aR+
+         HoxnNIQeVcmI+JuelUK4XdRMEAPsVV8MBAX/VT1qFlVSfRgUl9bpNAHCBWSuSfMJZQvJ
+         HCqPFD7+17CudRtW+CtzDDHkO/lDit0WNrRcGQRnOGlCPzQ5DTWLjuBQGbo4qaudPMpI
+         osew==
+X-Forwarded-Encrypted: i=1; AKwUvBx1tnxalg2ZCup/aay8/fLqOI0GcqRknr7JiEY1DO0MK0hl/joABBPptJB8+66wiqFx23Yzxvht4HhrAgc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kU54THZudDedp0s8tBtKe/fXQbCbiI4CPyFm8/1SZs3pnw/OAU
+	XqjdsfaSwkA2hh6E1GMvkmt66sFdTeNl5JEIUx3rwqcn/oQdUdbxZcbZ
+X-Gm-Gg: AYBFou1kM8mrCzphvXn6ndpCtZFK1LYiXXHilQebrMeg2qmsBECPzUPNN6nE6Oz4mcK
+	Gpn7T9RszBhy1X4fQQytB5K3EagVeO9DPm+Jvwf4OlazOYAsLtRgUUhY3ILq/Q+z4beQjanOPfM
+	LRS/An8cjKZsXZ52zL5Li8HvGbDOrNCWWBEkIpjLkQRiQbSfaaq7QNUuvGBV2iZrbUrH1GlVIRb
+	FcYrheGv4+neGCZhbH/bHjy0SlZVcPGlBXBO6VjpKu9kPM3o8jdYzbIN4msr1rbBzZ8WXdb4kMb
+	1I6jTrZWerArJZtxr0BzcsvuKGSgLqTujb59WzUJl1QzK/LJxjc76vksfyxIQqMNBhzkyXIwbrs
+	BgqM3VvmrgqVMWOC5ZZE51Atq5VrMK23LFB3+uY6E7nutMRII59ZRtWHMgQQEMwc5yJT1ydZ6G3
+	2kJlkNRpCv/A1V3H4e0+BnmiHMhirHIiv5UQXLHYmmhl5c7AnMFP4DLGTmn0e1iyedLpdX3aJJC
+	6DUaLZQ9aGe+76Xbdhfvxr+d0fW+p7fmKCGtFxRdOFPgBmqcgrf7nXmuWAzgTpu/VO2mKNozSj2
+	6qUBkSP46DK5xGhGEUzPvDV0eGu0yTaEONG0
+X-Received: by 2002:adf:f80a:0:b0:485:8a47:5b9a with SMTP id ffacd0b85a97d-486eb3524ccmr5422244f8f.55.1789167814312;
+        Fri, 11 Sep 2026 16:03:34 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-095-114-033-154.95.114.pool.telefonica.de. [95.114.33.154])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486f0403125sm6534861f8f.8.2026.09.11.16.03.33
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 11 Sep 2026 16:03:33 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] spi: Fix the return value in spi_new_ancillary_device() kernel-doc
+Date: Sat, 12 Sep 2026 01:02:11 +0200
+Message-Id: <20260911230211.11755-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <6aa42297.f2639fcc.29487d.002f.GAE@google.com>
-Message-ID: <aqSIkEt-GqCIJh9w@google.com>
-Subject: Re: [syzbot] [kvm?] INFO: task hung in kvm_gmem_release (2)
-From: Sean Christopherson <seanjc@google.com>
-To: syzbot <syzbot+ab6273c58262b9de56d9@syzkaller.appspotmail.com>
-Cc: david@kernel.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	pbonzini@redhat.com, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026, syzbot wrote:
-> syzbot found the following issue on:
-> 
-> HEAD commit:    50d05c7c76c9 Merge tag 'landlock-7.3-rc3' of git://git.ker..
-> git tree:       upstream
-> console output: https://syzkaller.appspot.com/x/log.txt?x=13db5ef9580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
-> dashboard link: https://syzkaller.appspot.com/bug?extid=ab6273c58262b9de56d9
-> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-> userspace arch: i386
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=143121f9580000
+spi_new_ancillary_device() returns the new struct spi_device, or an
+ERR_PTR() on failure, but its kernel-doc says "0 on success; negative
+errno on failure", which was never true. Describe the pointer.
 
-The reproducer is "only" setting memory attributes on a 16MiB range.  I was
-expecting a much, much larger range.  I suspect this one may be due to a problem
-with the underlying GCE host?  Though it did spit out a reproducer...
+Fixes: 0c79378c0199 ("spi: add ancillary device support")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ drivers/spi/spi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> CPU: 1 UID: 0 PID: 6083 Comm: syz.4.24 Not tainted syzkaller #0 PREEMPT(full) 
-> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-> RIP: 0010:__this_cpu_preempt_check+0x0/0x20 lib/smp_processor_id.c:63
-> Code: f5 48 8b 74 24 20 48 c7 c7 00 9b 6d 8c e8 88 ac 42 f5 e8 23 ab 4d f5 eb ae 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 <f3> 0f 1e fa 48 89 fe 48 c7 c7 80 9a 6d 8c e9 0d ff ff ff cc cc cc
-> RSP: 0018:ffffc90003d27460 EFLAGS: 00000046
-> RAX: 0000000000000001 RBX: 0000000000000001 RCX: 8000000000000001
-> RDX: 0000000000000000 RSI: ffff88807ea4a3d0 RDI: ffffffff8e6fe7fc
-> RBP: 00000000ffffffff R08: ffffc90003d2755f R09: 0000000000000000
-> R10: ffffc90003d27548 R11: fffff520007a4eac R12: 0000000000000246
-> R13: ffff8880314c5dc0 R14: ffff88807ea4a3d0 R15: 0000000000000001
-> FS:  0000000000000000(0000) GS:ffff888124dd2000(0063) knlGS:00000000f6834b40
-> CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
-> CR2: 00000000f71e8c10 CR3: 0000000073d5a000 CR4: 00000000003526f0
-> Call Trace:
->  <TASK>
->  lockdep_recursion_finish kernel/locking/lockdep.c:470 [inline]
->  lock_is_held_type+0xdf/0x150 kernel/locking/lockdep.c:6017
->  lock_is_held include/linux/lockdep.h:249 [inline]
->  xa_entry include/linux/xarray.h:1227 [inline]
->  xas_descend lib/xarray.c:208 [inline]
->  xas_load+0x198/0x5a0 lib/xarray.c:246
->  __xa_cmpxchg_raw lib/xarray.c:1783 [inline]
->  __xa_cmpxchg+0xc3/0x1f0 lib/xarray.c:1769
->  xa_cmpxchg include/linux/xarray.h:699 [inline]
->  xa_reserve include/linux/xarray.h:1088 [inline]
->  kvm_vm_set_mem_attributes virt/kvm/kvm_main.c:2577 [inline]
->  kvm_vm_ioctl_set_mem_attributes+0x429/0x1600 virt/kvm/kvm_main.c:2625
->  kvm_vm_ioctl+0xb33/0xd30 virt/kvm/kvm_main.c:5356
->  kvm_vm_compat_ioctl+0x2b1/0x3a0 virt/kvm/kvm_main.c:5480
->  __do_compat_sys_ioctl fs/ioctl.c:695 [inline]
->  __se_compat_sys_ioctl fs/ioctl.c:638 [inline]
->  __ia32_compat_sys_ioctl+0x5ea/0x950 fs/ioctl.c:638
->  do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
->  __do_fast_syscall_32+0x27a/0x6a0 arch/x86/entry/syscall_32.c:291
->  do_fast_syscall_32+0x33/0x70 arch/x86/entry/syscall_32.c:316
->  entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-> RIP: 0023:0xf705f0ec
-> Code: 90 85 d2 74 0a 89 ce 81 e6 ff 0f 00 00 89 32 85 c0 74 05 c1 e9 0c 89 08 31 c0 5e 5d c3 90 0f 1f 00 51 52 55 89 e5 0f 34 cd 80 <5d> 5a 59 c3 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 58 b8
-> RSP: 002b:00000000f683450c EFLAGS: 00000206 ORIG_RAX: 0000000000000036
-> RAX: ffffffffffffffda RBX: 0000000000000007 RCX: 000000004020aed2
-> RDX: 0000000080000200 RSI: 0000000000000000 RDI: 0000000000000000
-> RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-> R10: 0000000000000000 R11: 0000000000000206 R12: 0000000000000000
-> R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
->  </TASK>
-
+diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+index 5b5b3bc5f0d8cf8ba60a1785acc695710865edad..172141650b648694d4163d0ba00746ed2948ccfa 100644
+--- a/drivers/spi/spi.c
++++ b/drivers/spi/spi.c
+@@ -2893,7 +2893,7 @@ static void of_register_spi_devices(struct spi_controller *ctlr) { }
+  *
+  * This may only be called from main SPI device's probe routine.
+  *
+- * Return: 0 on success; negative errno on failure
++ * Return: the new device on success; an ERR_PTR() on failure
+  */
+ struct spi_device *spi_new_ancillary_device(struct spi_device *spi,
+ 					     u8 chip_select)
+-- 
+2.39.5 (Apple Git-154)
 
