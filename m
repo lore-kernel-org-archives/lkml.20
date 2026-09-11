@@ -1,100 +1,126 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D580471D02;
-	Fri, 11 Sep 2026 08:45:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 997B2468C3A;
+	Fri, 11 Sep 2026 08:46:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789116324; cv=none; b=rq5/vuzB+zAE39GDSsVahOGLZ8dv+gEv0Welj6qGfwK4CWOmKneCk7QRlaPXKzq4JGjXifIRjQqolYB9WwhwVMGH2jGEt2SUXACskf7HAXVlMSuQufRswXCZZGHorJQqPb90K7PSUFLreX58cqz9Z4QIOJsKoBUgDmn96t3uxq8=
+	t=1789116366; cv=none; b=gtQsN8dHD3bgkknXwcz7Ikdk6H5uSUbv+LhgWws0dpJPSJ87MU1HN01YdwnY9dAcq/0WN/E6GbZk1bOj0lLlApXAb1LTs90/UY5Yd4XyGT/MC4aL55aexB0Zqsp5spodmmzHPt/+d9IxaNXKvc1QXGm63vxqL2L60QlGr5veAy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789116324; c=relaxed/simple;
-	bh=FVOn9eVfExPih1H3h9rhcV07hrmPKdVvx1JUdO6nt+w=;
+	s=arc-20240116; t=1789116366; c=relaxed/simple;
+	bh=qRZzlgdMJCpg5Htq/j+6uLKj7py8gemOhfvTlq0seLw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xc075Vl1g0vp4XaaWZ13KY+JY3zU3fbHdQtOjYAm6UOZWL/IRLCfRS7nLjsuMPmvSCShHmFKzHGtM5jm9Ww5gs2vjSi9Mva9NzKvnJ6WcjgHmpyG+rPB/3bscn/nmaPdJAKdtOjPoVjgiI+qGCjurUKnyof0g4dGjnfIsrOQ/D0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=EMovzk/G; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=dam2KOcIvKskT6XKyv0vhM6OyIcoQHSYZtkSMl54hKmZtpU9/XLCpCijKBvbzm+EodEwY4HiedAtHaIhdziv8Q6J63Yq4P7rJlOcNlLpTGPLV6q3lsQIqZPMlfBLugvNExqQNSOyEBiPtCtUw289BlI5C/fdFWjjwd+nUOsvuTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M1ZvhnSn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="EMovzk/G"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1789116316; bh=FVOn9eVfExPih1H3h9rhcV07hrmPKdVvx1JUdO6nt+w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=EMovzk/GPMARYZT55zqB0h151zATgKRoNilkMVULMebzQHoNBQ7dG06rAzQLU4Zp0
-	 YdD3/dUaI1yAy3c83QUjSx1IRtsVlLNNXTOT7uc45GPbUO7JDdBS6nP9cQJzKspFLF
-	 PEpcIAzmeqR0/xp1O1And5+OPNSxOAjZffl0ZBKfyM3DVhCiyAp2DLcvkXFyEs9qwo
-	 aAyp9yRJSricEPFLrW6Zg48aDFSkGcBy61378kkWF6ewIT5Zhw+roNjrZPAb1aox7S
-	 rUYZcx9u1T6nLNvA00GbN+VZ2AaXLzm7WbNT0sL5cRbTJ+BwzMH4CDt6C/CI+gRKrq
-	 j53i7v2673ksw==
-Received: by extorris.mess.org (Postfix, from userid 1001)
-	id E962341444; Fri, 11 Sep 2026 09:45:16 +0100 (BST)
-Date: Fri, 11 Sep 2026 09:45:16 +0100
-From: Sean Young <sean@mess.org>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
-	Rik van Riel <riel@surriel.com>, stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 01/19] media: rc: Ensure registered is cleared in
- error path
-Message-ID: <aqO_nP1-YLQgJpLq@extorris.mess.org>
-References: <cover.1788882189.git.sean@mess.org>
- <abfff8cffac8899a26cb258150b5c17b7a2009bc.1788882189.git.sean@mess.org>
- <10c85f87-85db-4ee9-ab80-edbd30f3c95e@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M1ZvhnSn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78E121F000FF;
+	Fri, 11 Sep 2026 08:45:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789116360;
+	bh=CWURi/OAjUySGGOpW3UuHtRxYUZ6xZ7M+UQy5dsFeQ4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=M1ZvhnSnPCYnIbKiz//1LTYVpGYRTCG0ldTO8J01KAz3bcCWF+OdZvvVHclSZHMsN
+	 9Qb0IAHVsI6wA2aFzjm3/ZwWpvJl6mxcMmtHCc3anBlfHAuufDwK+1DN5w1qPN2tcv
+	 TpAcApWYaPAN1xDWhrMK/FDFvggzU/WMcaQaGfs9mB7cj6kenI6JjX6no/y9qvlWxS
+	 FI7ZwqlBpR1pqsayHyd3PxgO+cdgvGr1pETtwbGQyJY5eFeMHzmAQ1DBiYHjK6Yswo
+	 NnzF+v1P2u1bZs4i8sINpu+p0tBOw5NqlfNC0ttMnTUyqVqLXesbmLIF6GH7Fr+3O9
+	 teHHlr6QF8JyQ==
+Date: Fri, 11 Sep 2026 10:45:56 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Cc: Saravanan Sekar <sravanhome@gmail.com>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/2] regulator: dt-bindings: Add MPS MPQ4210
+Message-ID: <20260911-gaur-of-satisfying-action-1a3b0f@quoll>
+References: <20260910-mpq4210-regulator-v1-0-d37e208dfc8d@vaisala.com>
+ <20260910-mpq4210-regulator-v1-1-d37e208dfc8d@vaisala.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <10c85f87-85db-4ee9-ab80-edbd30f3c95e@kernel.org>
+In-Reply-To: <20260910-mpq4210-regulator-v1-1-d37e208dfc8d@vaisala.com>
 
-On Fri, Sep 11, 2026 at 09:53:10AM +0200, Hans Verkuil wrote:
-> On 08/09/2026 17:51, Sean Young wrote:
-> > If rc_register_device() fails, ensure that registered is not set to true.
-> > If lirc_register() succeeded, then userspace could have an open file
-> > descriptor open. This leads to a use-after-free.
-> > 
-> > Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
-> > Signed-off-by: Sean Young <sean@mess.org>
-> > Cc: stable@vger.kernel.org
-> > ---
-> >  drivers/media/rc/rc-main.c | 5 ++++-
-> >  1 file changed, 4 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-> > index d93e98189c1a..1f99540456f1 100644
-> > --- a/drivers/media/rc/rc-main.c
-> > +++ b/drivers/media/rc/rc-main.c
-> > @@ -1934,7 +1934,8 @@ int rc_register_device(struct rc_dev *dev)
-> >  			goto out_raw;
-> >  	}
-> >  
-> > -	dev->registered = true;
-> > +	scoped_guard(mutex, &dev->lock)
-> > +		dev->registered = true;
+On Thu, Sep 10, 2026 at 08:51:41AM +0000, Tapio Reijonen wrote:
+> The MPQ4210 is a 40V synchronous four-switch buck-boost controller with
+> an I2C interface. Its output voltage is programmed through an 11-bit
+> feedback reference DAC covering 0 to 2.047V in 1mV steps, and is then
+> scaled by an external feedback resistor divider, so the divider ratio
+> has to be described in the device tree for the driver to translate
+> reference voltages into output voltages.
 > 
-> Is the guard actually needed?
-
-Yes, we read registered under lock in e.g. in lirc_open(). It s
-racey without.
-
-> >  	rc = device_add(&dev->dev);
-> >  	if (rc)
-> > @@ -1982,6 +1983,8 @@ int rc_register_device(struct rc_dev *dev)
-> >  out_dev:
-> >  	device_del(&dev->dev);
-> >  out_rx_free:
-> > +	scoped_guard(mutex, &dev->lock)
-> > +		dev->registered = false;
+> The divider is given in ohms rather than the kilo ohms used by
+> mps,mp886x.yaml because the bottom resistor is not necessarily a whole
+> number of kilo ohms.
 > 
-> Same question here. I think the real fix is setting dev->registered to
-> false, but I'm not sure the guard makes a difference.
+> The same divider scales the reference ramp rate, so unlike the other
+> bindings that scale by a feedback divider there is no portable value a
+> board can copy into regulator-ramp-delay. Describe how the selectable
+> rates are derived from the four reference slew rates, and show the
+> calculation in the example.
 > 
-> The commit log mentions nothing about that change either.
+> Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
+> ---
+>  .../devicetree/bindings/regulator/mps,mpq4210.yaml | 69 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  5 ++
+>  2 files changed, 74 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/regulator/mps,mpq4210.yaml b/Documentation/devicetree/bindings/regulator/mps,mpq4210.yaml
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..e9e7a87e7533d0948927a459e9af711d1e07e572
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/regulator/mps,mpq4210.yaml
+> @@ -0,0 +1,69 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/regulator/mps,mpq4210.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Monolithic Power Systems MPQ4210 buck-boost regulator
+> +
+> +maintainers:
+> +  - Tapio Reijonen <tapio.reijonen@vaisala.com>
+> +
+> +description:
+> +  The MPQ4210 is a synchronous four-switch buck-boost controller with an I2C
+> +  interface. The output voltage is programmed through an 11-bit feedback
+> +  reference DAC and scaled by an external feedback resistor divider.
+> +
+> +  The controller ramps the feedback reference at 38, 50, 75 or 150 mV/ms.
+> +  The divider scales the ramp rate along with the voltage, so the output
+> +  ramp rates that regulator-ramp-delay can select are those values
+> +  multiplied by (R1 + R2) / R2.
+> +
+> +allOf:
+> +  - $ref: regulator.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: mps,mpq4210
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  enable-gpios:
+> +    description: GPIO connected to the EN pin. If absent, EN is assumed to
+> +      be permanently asserted.
+> +    maxItems: 1
+> +
+> +  mps,fb-voltage-divider:
+> +    description: An array of two integers containing the resistor values R1
+> +      and R2 of the output feedback voltage divider in ohms.
 
-You are right, the commit message needs to mention this.
+Nope, use common property suffix - ohms.
 
+If this was applied, please send a fixup now.
 
-Sean
+Best regards,
+Krzysztof
+
