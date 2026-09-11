@@ -1,61 +1,65 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F0036212C;
-	Fri, 11 Sep 2026 15:03:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4351321CA02;
+	Fri, 11 Sep 2026 15:04:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789138996; cv=none; b=oRXUyx7yTNhODVU8btDB51g4wSsyZbf6Z3wPoYOOMwdAz74nci5LZ3MHuGUg41gz5Um8oiHfDOP5PvNphr/fUzGfO8yxZkmsY6jLgYdHFHn1PrByZoT8rJwbI93pysxikQ4cBWg4V+iO2MSUjJjzf7ruwlZdLo+t/KyIFn0It+E=
+	t=1789139075; cv=none; b=SFUnoSlvAdYs70DhZYGURH68uMI7rz5v6XPyid3SkqJWsEslPyYDpg+jWYQYuePqsiVgDHoCj+u9miS/RcPfxe5UtoAquBOjYVVDSJPw9AdFfG0Jud4Bm9fVOvWFk6WQFfaExNDPPQrfvVRmmuxnpXD4dxU9aBL9rm/AKNMSzwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789138996; c=relaxed/simple;
-	bh=NtWTVquGIF6A3jVgsjHgY3Sb9j0F5MYubIQ9/EHOvQ4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G6h0LOPiSePB24g4eNA/CH1AC8968IeqwxFeS8NCWmFScKD6bJZNQkRASn89qoLiLGF6PB1dpfQIR2qIIQJM2zEj/c7hFa0gxqrwTeanvNY/B1EDdK+mWVHGLokoeOEfD/vkz2vNjKZQPu/1GGskfPsiAq6JJbRjG0N88ZOECPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LbeM/JGD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789139075; c=relaxed/simple;
+	bh=6TPDwydXLX3ctw8DB2fq8hIOIpyZvEWEQKhPlFJC72M=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=G5mMKCyL/0IaRdu3EvogK12aFlPM0Hxou5Zbc5Z4kL8mnZWSewcm9ev82UTVZYCDRlhcz71VsrauL8H4ny7eNrQSDTMuJg+akFGa1cwXzmZhCHyO3dX6vFJP8TjR7lH4xAsXfdhDHFStfYeccLoYMetyrkHQTTlrbAEF5r2ZxBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gSGFJ8aa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LbeM/JGD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E05841F000FF;
-	Fri, 11 Sep 2026 15:03:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gSGFJ8aa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B6BA1F000FF;
+	Fri, 11 Sep 2026 15:04:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789138995;
-	bh=NtWTVquGIF6A3jVgsjHgY3Sb9j0F5MYubIQ9/EHOvQ4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LbeM/JGDab4DkMoCpxVqado8u3MP6yLSvHpLbQ4FUMItpdQcRqigTnx8wo6TiVOZd
-	 ThLZCyAvqZ3luvs/fQjZ2d91xu1grVyRt06tGtKGGnM0DGmNMW7Cucdl2mMse3ZprU
-	 AO7BrUZ3/cl5ZIJ2ZT6amT3b5eWeV7CbuB2EamKsPAtMxSmKUPYDFebRTlupM3q4GN
-	 ZF0dPrA4RRdB27/PhV0QsAxoEdq2NIcEuLqf1PBM+iPQ9k81nf+pRfPIvLQSMThdiJ
-	 CyTi0jFugvJnKME8Ia1W1T1QeFvr+9U86Co11at3jOQfyl2ZiOn7U+yeqtCyZeRtG4
-	 2qj8UZPVIMtlA==
-Date: Fri, 11 Sep 2026 09:03:13 -0600
-From: Keith Busch <kbusch@kernel.org>
-To: Bean Huo <beanhuo@iokpp.de>
-Cc: linux-nvme@lists.infradead.org, hch@lst.de, axboe@kernel.dk,
-	sagi@grimberg.me, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, bob.beckett@collabora.com,
-	Bean Huo <beanhuo@micron.com>, Gaurav Sinha <gsinha@micron.com>
-Subject: Re: [PATCH] nvme-pci: add NVME_QUIRK_DMAPOOL_ALIGN_512 for Micron
- 4100AT
-Message-ID: <aqQYMR2uaKcHosYD@kbusch-mbp>
-References: <20260904105155.1402065-1-beanhuo@iokpp.de>
+	s=k20260515; t=1789139073;
+	bh=K55J/2l57dkiAkmFZiE1t6cdnggbKHGVqGgrNHeXvWY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=gSGFJ8aaj1l5ODhOq36vt7LREJ6KXqvl64hyk1hfHthFwq7MpMlBLXog1WdiZ8c9m
+	 jpXVVb4APaKW3/tZ2ncEM9j2oEoPM0B3ic03tvQZr7nIsNkKyQDJdGWLUowmASSzVB
+	 hpohb1N+VekYq/O/vYaIIncPy8/R47lWzPMQh7+pNM35Od5gvdbVZVeH4XSjeyFTpN
+	 ENL2n6upsm5RAtu5Mjp6kQ7qDP1mrIFq+ErgDrvPY+mrmBNilLvseBZTblRtB1kA2Q
+	 CJCR83r3/dRC/CgZF5/dGp7WY7ZiLdCKH08NBENtmA7zbRUUQOuDXTXkvK0x19Mwv5
+	 0rba27dSyGLRw==
+Date: Fri, 11 Sep 2026 17:04:31 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: Yousef Alhouseen <alhouseenyousef@gmail.com>
+cc: Benjamin Tissoires <bentiss@kernel.org>, linux-usb@vger.kernel.org, 
+    linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] HID: hiddev: set report-init policy before device
+ registration
+In-Reply-To: <20260630211845.50511-1-alhouseenyousef@gmail.com>
+Message-ID: <53ono0oq-6s62-850s-rpop-1n529q6p63or@xreary.bet>
+References: <20260630211845.50511-1-alhouseenyousef@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904105155.1402065-1-beanhuo@iokpp.de>
+Content-Type: text/plain; charset=US-ASCII
 
-On Fri, Sep 04, 2026 at 12:51:55PM +0200, Bean Huo wrote:
-> From: Bean Huo <beanhuo@micron.com>
+On Tue, 30 Jun 2026, Yousef Alhouseen wrote:
 
-...
+> usb_register_dev() publishes the hiddev character device before
+> hiddev_connect() initializes the report policy. A process that opens the
+> new node immediately can issue a usage ioctl while initialized is still
+> false and trigger usbhid_init_reports(), bypassing
+> HID_QUIRK_NO_INIT_REPORTS.
+> 
+> Set initialized before registering the character device so every opener
+> observes the quirk-selected policy.
+> 
+> Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
 
-> Signed-off-by: Gaurav Sinha <gsinha@micron.com>
-> Signed-off-by: Bean Huo <beanhuo@micron.com>
+Same as before -- sorry for the delay, thanks for the fix, applied.
 
-I've applied the patch as-is, however usually the first "Signed-off-by"
-is who the patch is attributed to as being "from".
+-- 
+Jiri Kosina
+SUSE Labs
 
-Thanks, applied to nvme-7.3.
