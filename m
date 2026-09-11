@@ -1,130 +1,135 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7103C3AE718
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:32:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61BC43EA967
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:33:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789115577; cv=none; b=l75Isjrx5k0YFUu3HgCjMBZudneKJjdacJqosdgdfYnOGnrHeVvPw45UJCJ9DS/rODPnK7xsiWdczUy4tT3nRbThgznBSlrllliWvVVT5oa9OZetrouecupr0+0KAuhg6sVFu39sSXmn2i+1XxdwRi7ul0iHyaMF5N71s/w1UN0=
+	t=1789115612; cv=none; b=P0I3FSJinlX2d6vbmgPBN/Id3tmNuqsF1R/XTm9AMGeLIVBLTqYn9lxGUWaMlCItuYxsUVwEG8OYXgnkeZL2ygDqzWxGdg2IDhq91jAC9y7nIt4oIb11aL4RIHpuT2pCReYT7fq+ln40YA9NjHlUVT444f/CPUDGUEJo8soXxHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789115577; c=relaxed/simple;
-	bh=GVLKW0vKobSOXvpuvhQauC/VvSKIhC1Mz1xz3trkgdo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=LHKP/YxiqXWA/jJ0WtAPtaAuMCw+fRdu+Gr/Ni2CJ2z3ZRQvPxF1EO06MTlJgpqCTxc0VPIZrfuvOnv2nSrnXaHvwt/K0nqGpsC9wx3qWzdqyOGjttP/1ozpR+Smfn4tyA5XSKzLb4RPOYjMIECh47G/YKYydkdQZsWPX5StauM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=fi/jM3v8; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1789115612; c=relaxed/simple;
+	bh=Rm9r2xnsIZFc8ybJEi5S3AB68AbzmoxRMB7qTrAikGw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
+	 References:In-Reply-To; b=YMXAbUjUWv/XEqW5fSynEduXuXSDDa2LXnb5oXUR9SDRLT8g8leqDIBn2uEKjN865Qi6HhlqduKSHzuWKR8UUx5fBiA7KKjgPpIV1ZjSlDKjY4SogNSvt+88ba9Y9iTVdrWlt8e2Iv1KbGPdGvD3TniGctdMOV2jQ4jfLfmR/Ow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=qvSKB7B7; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="fi/jM3v8"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260911083253euoutp01eb7d45570e904df99d9d83a3b2c75a0e~UNyKHWDYz0704207042euoutp01r
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:32:53 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260911083253euoutp01eb7d45570e904df99d9d83a3b2c75a0e~UNyKHWDYz0704207042euoutp01r
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1789115573;
-	bh=sNLKrty9gaK1VitGi35rk08EQYY+sWubFpVgHUlu1LQ=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=fi/jM3v89yqk6GwsG4euBYEk/cIOnahokg3DB+M5Iy5DStJrWRrtk3QTSq2ghKztF
-	 oEFKEVrtWrxgakkbZ9sOIl6LVb+TMvS4PXWlhWDgrVky0U1FcU3upmcWdK1IFmNZma
-	 Dv6sx6u1fQpozAP8LriR9v6vZaBp9RM37iHIh4so=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260911083253eucas1p22fdb3209f93c33757fca07e398ce7484~UNyJ1LQDq0665006650eucas1p2M;
-	Fri, 11 Sep 2026 08:32:53 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260911083251eusmtip13723878e9b36c836de28df75315bdc3a~UNyID60TI0126101261eusmtip1b;
-	Fri, 11 Sep 2026 08:32:51 +0000 (GMT)
-Message-ID: <a23182fa-74ed-44f0-a613-ad8d3c19fb18@samsung.com>
-Date: Fri, 11 Sep 2026 10:32:50 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="qvSKB7B7"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 9786E1A0150;
+	Fri, 11 Sep 2026 08:33:23 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 69066601DE;
+	Fri, 11 Sep 2026 08:33:23 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5120F11C7AF99;
+	Fri, 11 Sep 2026 10:33:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789115602; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=ftOn2N8WubB1YE40TT5Rd8Tsd8oKLrVJQ4FJ+h3aPZ0=;
+	b=qvSKB7B7iBQ2SnufSPvm3YZ05RpvcV/H/IW3bz2GpfGMKegHQTusUErcvUV2DxETJ87xDZ
+	3qED2aXk1afyKC21OhPAsFMLvGdd3+nSQWwADUMwcX3aRcuikkuR5qhvPzFOlpNPJj8/H5
+	O+I5LAB447ToyOyFWqDS/SF9jdAvKo+VASWGlWW3R02zm92HypRmymZqVb5ZsCAmRhRXQF
+	ixD4f4oTXGKldwKZLdszkaA53rUz8SyqWxzLRl1HlaqO5J0G/Ml+/5c099Ll+6NG97WjT3
+	wVAvwei+UC7rKGeTA33WIdGdCqtJNzOq0bWAMC7DS0qWFf3QAi2wKT9PcQUP7w==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH] x86/mm: Don't force unencrypted DMA for IOMMU-backed
- devices
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>, x86@kernel.org,
-	linux-kernel@vger.kernel.org, iommu@lists.linux.dev
-Cc: Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski
-	<luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner
-	<tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
-	<bp@alien8.de>, "H . Peter Anvin" <hpa@zytor.com>, Mostafa Saleh
-	<smostafa@google.com>, Alexander.Deucher@amd.com, Thomas.Lendacky@amd.com,
-	Vasant.Hegde@amd.com, Timo Witte <timo.witte@gmail.com>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20260908113232.247457-1-aneesh.kumar@kernel.org>
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260911083253eucas1p22fdb3209f93c33757fca07e398ce7484
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260908113247eucas1p12e67fcdf50573da0c0fac36cee4b06e9
-X-EPHeader: CA
-X-CMS-RootMailID: 20260908113247eucas1p12e67fcdf50573da0c0fac36cee4b06e9
-References: <CGME20260908113247eucas1p12e67fcdf50573da0c0fac36cee4b06e9@eucas1p1.samsung.com>
-	<20260908113232.247457-1-aneesh.kumar@kernel.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 11 Sep 2026 10:33:14 +0200
+Message-Id: <DLCCJPHEM8VD.1527J6FT7I4MQ@bootlin.com>
+To: =?utf-8?b?4oCN6rmA7Jqw7ISdW+2VmeyDnV0o7KCE7J6Q7KCV67O064yA7ZWZIOyghA==?=
+ =?utf-8?b?7J6Q6rO17ZWZ6rO8KQ==?= <5mghybrid@khu.ac.kr>,
+ <netdev@vger.kernel.org>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+Subject: Re: [PATCH net 0/2] net: macb: Fix PTP timestamp configuration
+ handling
+Cc: <conor.dooley@microchip.com>, <andrew+netdev@lunn.ch>,
+ <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+ <pabeni@redhat.com>, <richardcochran@gmail.com>,
+ <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <CAH1Bc_weSzwLzY4nWbcqz3pRjzyh-W4P45bijWN9EdQzV-SFjg@mail.gmail.com>
+In-Reply-To: <CAH1Bc_weSzwLzY4nWbcqz3pRjzyh-W4P45bijWN9EdQzV-SFjg@mail.gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 08.09.2026 13:32, Aneesh Kumar K.V (Arm) wrote:
-> Commit 8277a12d0d60 ("dma-pool: track decrypted atomic pools and select
-> them via attrs") exposed an issue with force_dma_unencrypted() on
-> systems using host memory encryption.
->
-> force_dma_unencrypted() checks whether the device DMA mask can address
-> the encryption bit and, if not, requires DMA allocations to use
-> unencrypted memory. However, this check is not applicable when the
-> device is using the IOMMU. In that case, the device DMA mask constrains
-> the IOVA seen by the device, not the backing physical address, so it
-> does not need to cover the C-bit.
->
-> This currently causes dma_alloc_attrs() to set
-> __DMA_ATTR_ALLOC_CC_SHARED for such devices. iommu_dma_alloc() does not
-> support that attribute and rejects the allocation, causing DMA
-> allocations to fail.
->
-> Do not force DMA allocations to be unencrypted when the device is using
-> the IOMMU. This allows the IOMMU to map the encrypted physical pages as
-> before and avoids incorrectly requesting CC_SHARED allocations.
->
-> Fixes: 8277a12d0d60 ("dma-pool: track decrypted atomic pools and select them via attrs")
-> Reported-by: Timo Witte <timo.witte@gmail.com>
-> Link: https://lore.kernel.org/all/CANB4YXR7h8V5Xp=MXVZeSdvw9UiriSagp=E+ju5RRDNghoPHLQ@mail.gmail.com
-> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+Hello kimwooseok,
 
-
-Applied to dma-mapping-fixes with adjusted url and changed 'link' tag to
-the 'closes' one, thanks!
-
-> ---
->  arch/x86/mm/mem_encrypt.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+On Fri Sep 11, 2026 at 9:47 AM CEST, kimwooseok wrote:
+> This series fixes two timestamp configuration problems in gem_set_hwtst()=
+.
+> A rejected RX-filter request can change the active TX one-step mode
+> while leaving the cached configuration unchanged. Patch 1 defers the
+> one-step mode update until both TX type and RX filter are validated.
 >
-> diff --git a/arch/x86/mm/mem_encrypt.c b/arch/x86/mm/mem_encrypt.c
-> index 912f22ca838f..a349d8d21569 100644
-> --- a/arch/x86/mm/mem_encrypt.c
-> +++ b/arch/x86/mm/mem_encrypt.c
-> @@ -13,6 +13,7 @@
->  #include <linux/cc_platform.h>
->  #include <linux/mem_encrypt.h>
->  #include <linux/virtio_anchor.h>
-> +#include <linux/iommu-dma.h>
->  
->  #include <asm/sev.h>
->  
-> @@ -30,7 +31,7 @@ bool force_dma_unencrypted(struct device *dev)
->  	 * device does not support DMA to addresses that include the
->  	 * encryption mask.
->  	 */
-> -	if (cc_platform_has(CC_ATTR_HOST_MEM_ENCRYPT)) {
-> +	if (cc_platform_has(CC_ATTR_HOST_MEM_ENCRYPT) && !use_dma_iommu(dev)) {
->  		u64 dma_enc_mask = DMA_BIT_MASK(__ffs64(sme_me_mask));
->  		u64 dma_dev_mask = min_not_zero(dev->coherent_dma_mask,
->  						dev->bus_dma_limit);
+> The two specific PTPv1 RX filters currently succeed with RX timestamping
+> disabled. Patch 2 routes HWTSTAMP_FILTER_PTP_V1_L4_SYNC and
+> HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ through the existing all-frame
+> fallback and reports HWTSTAMP_FILTER_ALL to userspace. Both defects
+> originate in ab91f0a9b5f4 ("net: macb: Add hardware PTP support").
+>
+> Both defects were reproduced on a Raspberry Pi 5 Model B Rev 1.1 with
+> macb eth0. Before the fixes, rejected requests changed OSSMODE in both
+> directions; each specific PTPv1 filter produced zero hardware timestamps
+> for 61 packets of its requested type. On 6.18.46-macb-ptp-functional-rt+,
+> both rejected requests preserved cached settings and the full NCR, and
+> each PTPv1 filter returned ALL and timestamped 60/60 Sync and 60/60
+> Delay_Req fixtures. ALL/NONE controls and all nine configuration cases
+> passed. The board was subsequently returned to its original kernel.
+>
+> Additional validation:
+> - net 7f26a5e8040b: ARM64 allmodconfig and allyesconfig full targets
+>   passed with GCC 14.2.0, W=3D1 and CONFIG_WERROR=3Dn. After applying the
+>   series, incremental builds of the same full targets passed with
+>   identical configurations and no new warnings. Both rebuilt macb_ptp.o.
+> - Pi board configuration: Image.gz, modules and dtbs built with W=3D1;
+>   the resulting kernel booted and passed the hardware tests above.
+> - Both final patches passed strict checkpatch including sign-off checks,
+>   and standalone/series application checks on the net base.
+>
+> The RX tests check raw hardware timestamp presence, not absolute
+> timestamp accuracy or PHC synchronization.
+>
+> An LLM assisted with source analysis, preparation of the fixes and test
+> helpers, and drafting the descriptions. Results are from the recorded
+> board tests and build logs.
+>
+> Assisted-by: GPT-6 Astra
+>
+> kimwooseok (2):
+>   net: macb: Preserve one-step mode on rejected timestamp requests
+>   net: macb: Use all-frame timestamping for PTPv1 RX filters
+>
+> base-commit: 7f26a5e8040b4957ef4dbdfcde6cc7ba2db53937
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+Your emails are quoted so patch emails are invalid. Please use git
+send-email [0] or b4 [1] for sending patches. Both allow previewing the
+messages before they are sent to the mailing lists.
+For example `b4 send --no-sign --reflect` [2].
+
+Also I much prefer cover letters and commit messages to be under the
+human voice rather than their bot machine! Here at least it looks
+somewhat sensible from a quick pass.
+
+b4 even has a relay service for people with broken email servers which
+might be your issue, see [3].
+
+[0]: https://git-scm.com/docs/git-send-email
+[1]: https://b4.docs.kernel.org/en/latest/
+[2]: https://b4.docs.kernel.org/en/latest/contributor/send.html#checking-th=
+ings-over-with-reflect
+[3]: https://b4.docs.kernel.org/en/latest/contributor/send.html#configuring=
+-the-web-endpoint
+
+Thanks,
+
+--
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
