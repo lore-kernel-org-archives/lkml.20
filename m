@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B186026982C;
-	Fri, 11 Sep 2026 04:54:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31C429CB52;
+	Fri, 11 Sep 2026 04:56:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789102483; cv=none; b=S5WYP4ZxlAWi1cwYmRo8jyADcmOMiBxCeR6jnddECdieEgKyGbFORcslqTm5DsiMscwTw7RpkcYaJnlVrzF8eOJnuq+Fc/fi+IHUQCNB/T8CiiR3Rp733ew4OiXexhkMFT+goJKKVqagO41g+Bmdr7YhebuDhgHHc0oaJxKZNOU=
+	t=1789102604; cv=none; b=XQwQEtmdEZte7O/289eJgAjDGvIGUW4uyRYZiVM9oCTJvRVsxdTCBnu/TrR2jXNGEpSYIJq+l7rQs6smOQ09LKZAAzGAqIIyZOghgXvN0oQtlXWCJsc8+p5Y3QnKdW0CMGbSGZLVBryjMJ8oOxKvdNYuudq+oeFgy9+X1XloNy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789102483; c=relaxed/simple;
-	bh=DFFPQXQg/a68RNokho3+n0iB4hxfQnbCsoxoCERf/ws=;
+	s=arc-20240116; t=1789102604; c=relaxed/simple;
+	bh=5wUT9/yVzaXzqnptBTsbIQrOCupjDg0CdAE0/AjMBUs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oIP1TfU3taO3c+De0bd2LMlRlUQ/Pc2DxKCscH7yP3UJ2O/tshnb9mOv5Ykkx+gYIOGfE5GBg1gUiCcFofHnnLmVjw8IVu+ah9l+rm27DD9R1cctJxjF0igvFuUjEARU1gqNHi0r25jz6IY5OhbhlH3s/l+rVCwh2QpJP9ufukQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sxx5jSsK; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=qre8hG6wF3YNsNdz230MJ13jV83iQQ4oYG/aQwJUFCQchV0teLd3LWHJagiHyg57HH9Z9J+rfAPh3/rGB9L4puE2ZQZpgcwvGYwgkNN8CbketjdjgimcydChwtL9xkdKuTYYAlsIZQY8zeSryyqQsGXpSekE+3X/UGbpRNOmtiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a4ynQ1f+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sxx5jSsK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BA701F000FF;
-	Fri, 11 Sep 2026 04:54:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a4ynQ1f+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A7991F000FF;
+	Fri, 11 Sep 2026 04:56:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789102482;
-	bh=2ueqj9XUr/1wFT/ZN8IJsH3FZLpI0sndp9XuB5il2R4=;
+	s=k20260515; t=1789102603;
+	bh=lj6aVxoJqLc06NcA5pIhaMgG7TQ1dAPLKwXjdyvmoRQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Sxx5jSsKaIDWB9r1LfwlJ9EZ6RI3ym86X82J75mcEQuuUoaowTepynJdgeHsv3sCR
-	 +WLRUOWBeHbHolYE8chT9Qkj4iMNp+l8UG2ilz/dmf4UwlTHfKzBvXFEOv9kfc5Y/m
-	 2NhntwuJESmyZGugVFpymR0ivRkWjevyOCIeA2pcVIJ/y5kNGpFNvq9i6vl2Pi9FKv
-	 5NPgA91C8/VqbdmET57fGlNygGSuJHqo05o8wlFiHSBrGPm6RHlXAFaYh+TcA9n7dZ
-	 507YagnklPrnnaDTYlISJve0lUjp0R2EYjcIDCv8/NGryWBaaInZZtYTcYTwKbli+O
-	 GZbydzfsQ73Yw==
-Date: Fri, 11 Sep 2026 06:54:34 +0200
+	b=a4ynQ1f+NBZB+/x5fIFn0JhStv2FNKuVRvxxN89UnSLHuXbh3z+p7YLdk2f7oSVNN
+	 QtYPhEcrGhKHLJVFeYBkqWbn9AGZM4I5BGcxHfKT9arPcCCPESU4sS9CFrniRVPhni
+	 pxa1HLnclRoJ9FLpLhzPSbQLK4OJOWoFD7omGy19QWG6RbzUaqLwkeUyeY4v/PGEIU
+	 8Gj42ftabL94aDj/2G0265fmSbZmkd7JKM1zUW+f3IWReJR3Dez5ZyI/H0FVBe81we
+	 e1NGlyDbCMvowdYId1WQWBXMZUIUs5HpkO/enUUXEn1f+p6BtYTvTEGhCDjlZ7dVJH
+	 HmGJXaVjnbYwQ==
+Date: Fri, 11 Sep 2026 06:56:36 +0200
 From: Manivannan Sadhasivam <mani@kernel.org>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
-	Yijie Yang <yijie.yang@oss.qualcomm.com>
-Subject: Re: [PATCH v4 2/2] remoteproc: qcom_q6v5_pas: add per-PD proxy
- performance states for Hawi CDSP
-Message-ID: <7ki5lpyd7uswvb7q7pc6rv2irmiej5e5ibgko34xkyvw2kpoc6@pejyfg7vky46>
-References: <20260910150638.3270162-1-mukesh.ojha@oss.qualcomm.com>
- <20260910150638.3270162-3-mukesh.ojha@oss.qualcomm.com>
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	konrad.dybcio@oss.qualcomm.com
+Subject: Re: [PATCH 00/34] arm64: dts: qcom: Move PCIe phy/GPIOs to root port
+ nodes and fix wake-gpios polarity
+Message-ID: <3ebciwlwpjfidjgbep6rmle4m65zyn4tkbvfbxd2xabhe64bzx@ac3mkmtoatem>
+References: <20260910-root_port-v1-0-90a252ddbbfa@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,93 +47,30 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260910150638.3270162-3-mukesh.ojha@oss.qualcomm.com>
+In-Reply-To: <20260910-root_port-v1-0-90a252ddbbfa@oss.qualcomm.com>
 
-On Thu, Sep 10, 2026 at 08:36:38PM +0530, Mukesh Ojha wrote:
-> The proxy power domain enable path requests INT_MAX performance
-> state for every proxy PD. On Hawi, the NSP proxy power domain's
-> RPMH power domain has no OPP at INT_MAX, while CX and MXC accept
-> INT_MAX, mapping to their maximum supported level.
+On Thu, Sep 10, 2026 at 06:58:49PM +0530, Krishna Chaitanya Chundru wrote:
+> PCIe wake is active low signal as per the PCIe base spec, Several Qualcomm
+> platform devicetrees incorrectly describe wake-gpios as GPIO_ACTIVE_HIGH.
 > 
-> Introduce a proxy_pd_performance_states array in qcom_pas_data
-> to allow per-PD RPMH levels to be declared explicitly. Platforms
-> that omit this field retain the existing INT_MAX behaviour.
+> The PCIe PHY references and PERST/WAKE GPIO properties are defined on a
+> per-root-port basis and do not belong to the PCIe controller (RC)
+> node. Keeping these properties at the controller level makes the
+> description less accurate and prevents clean per-port customization.
 > 
-> Add Hawi CDSP remoteproc support with the following proxy PD
-> performance states:
+> This series moves the PHY references (phys, phy-names) from the PCIe
+> controller node to the corresponding root port nodes (pcie@0), namely
+> pcie0_port0, pcie1_port0, and pcie2_port0. Labels are added to these
+> port nodes to enable board-level overrides where required.
 > 
->   CX:  RPMH_REGULATOR_LEVEL_TURBO
->   MXC: RPMH_REGULATOR_LEVEL_TURBO
->   NSP: RPMH_REGULATOR_LEVEL_NOM
+> Additionally, the PERST and WAKE GPIO properties are relocated from
+> controller-level board overrides to their respective root port nodes
+> in the board DTS files. As part of this change, 'perst-gpios' is renamed
+> to 'reset-gpios' to align with the binding used in the PCIe root port
+> context.
 > 
-> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> Tested-by: Yijie Yang <yijie.yang@oss.qualcomm.com>
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> ---
->  drivers/remoteproc/qcom_q6v5_pas.c | 48 +++++++++++++++++++++++++++++-
->  1 file changed, 47 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-> index a005546c265d..96a2436b777d 100644
-> --- a/drivers/remoteproc/qcom_q6v5_pas.c
-> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
-> @@ -28,6 +28,7 @@
->  #include <linux/soc/qcom/mdt_loader.h>
->  #include <linux/soc/qcom/smem.h>
->  #include <linux/soc/qcom/smem_state.h>
-> +#include <dt-bindings/power/qcom,rpmhpd.h>
->  
->  #include "qcom_common.h"
->  #include "qcom_pil_info.h"
-> @@ -51,6 +52,8 @@ struct qcom_pas_data {
->  	bool decrypt_shutdown;
->  
->  	char **proxy_pd_names;
-> +	const unsigned int *proxy_pd_performance_states;
-> +	unsigned int num_proxy_pd_performance_states;
->  
->  	const char *load_state;
->  	const char *ssr_name;
-> @@ -79,6 +82,7 @@ struct qcom_pas {
->  	struct regulator *px_supply;
->  
->  	struct device *proxy_pds[3];
-> +	const unsigned int *proxy_pd_performance_states;
->  
->  	int proxy_pd_count;
->  
-> @@ -167,7 +171,12 @@ static int qcom_pas_pds_enable(struct qcom_pas *pas, struct device **pds,
->  	int i;
->  
->  	for (i = 0; i < pd_count; i++) {
-> -		dev_pm_genpd_set_performance_state(pds[i], INT_MAX);
-> +		unsigned int state = INT_MAX;
-> +
-> +		if (pas->proxy_pd_performance_states)
-> +			state = pas->proxy_pd_performance_states[i];
-> +
-> +		dev_pm_genpd_set_performance_state(pds[i], state);
->  		ret = pm_runtime_get_sync(pds[i]);
->  		if (ret < 0) {
->  			pm_runtime_put_noidle(pds[i]);
-> @@ -873,6 +882,7 @@ static int qcom_pas_probe(struct platform_device *pdev)
->  	pas->info_name = desc->sysmon_name;
->  	pas->smem_host_id = desc->smem_host_id;
->  	pas->decrypt_shutdown = desc->decrypt_shutdown;
-> +	pas->proxy_pd_performance_states = desc->proxy_pd_performance_states;
->  	pas->region_assign_idx = desc->region_assign_idx;
->  	pas->region_assign_count = min_t(int, MAX_ASSIGN_COUNT, desc->region_assign_count);
->  	pas->region_assign_vmid = desc->region_assign_vmid;
-> @@ -908,6 +918,14 @@ static int qcom_pas_probe(struct platform_device *pdev)
->  		goto unassign_mem;
->  	pas->proxy_pd_count = ret;
->  
-> +	if (WARN(desc->proxy_pd_performance_states &&
 
-Do you really need WARN() here, and not dev_warn()? WARN() may cause panic on
-systems that use 'panic_on_warn' cmdline param. In mobile/IoT world, use of this
-cmdline params is not common, but I strongly suggest we scrutinize the use of
-WARN*() macros in new code.
+Please split Root Port binding rework and WAKE# polarity fix to separate series.
 
 - Mani
 
