@@ -1,191 +1,157 @@
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A6F946EF70
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:45:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FAAA4718D1
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:45:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789116308; cv=none; b=pVl/rNF0MLtSjdwsAno0DtQjrGRPBJOf2LVWruSai7hpjcMTJ/sqBEOF3r490VjOvnS1ymG6ROmwfTrlyZzUi22sN3iCgQUoyIHISu/fi8Lvi6A5q7bBwU7WqDYUajL4kgo9Cgty7Ib6s3Pb//eYLFsi4csdSu0+Nu0pP04mtQk=
+	t=1789116318; cv=none; b=pOgnhdumLETzL1FhoNbhnzobwgFqDLy97I+6urG86wEsNxLmPuOCM5vGrEyn/yzkRrnJNXPX9II2fQCD5g1onhTz5EroWR0vNC0PsmveJrRZSAbYHJW8oU1OUXaLyn+XYpL6R7mlBZ2HVH5ZfAA1TyZAjaB6AI7iIY7+t1unDXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789116308; c=relaxed/simple;
-	bh=lyLGPIeBLaSJhVQs+7mhuHWsNiQr8T3LUidlmX16haI=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=uWN06ksDOWtAA9pGkHcyiq0tTgU1KZd4emwKTzLq0wneD2+qQkk9JOoekjEzqFoSnPEL7hkYVKhkLsAz0YF1liXNoT66kvuK3xtsAgipWooZ6iOk0NcbfaW4zSYVtNbRCbTUTIcq7aruxvCfyK0amhRpeguLWNZsxkWpDfv8n34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7f653940ba4so970374a34.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:45:03 -0700 (PDT)
+	s=arc-20240116; t=1789116318; c=relaxed/simple;
+	bh=h5QtskLdwN0aOposRJmsMlXcFaOCxlrGFlXawJuLUoE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ksbpmOhKbxlUD4MFRIqioeOiOLsP65KYDWgz9Mv1wedTI5ugNJjN6J0Df4MnWfO/RsMmpvjH3+oEpCIKi0EQYlfvw87CFLgbxgQxwzMOP4mtE/5kI9g4NbqQF32fwDSfbc5AwG1mUq+FaQd9Y2NRG1xMkwgsbFi0GD9cHnUudlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e5292faso293391e0c.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:45:11 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789116302; x=1789721102;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=pNZDJs4WrvpU/0VeM+HaPedq/Arxn/eGOa9ZM/mqOUg=;
-        b=gke+TVrXcWG78FVS0EWrLaQ7B1ZTYHImeA00HqaBJXAZyMnhFCt+xmhRXjOHQ10ks5
-         O9E/u9dRZAM2+GCcm4K6CSt7vwCfH43TkUtMEd2Y7xz3XKThlLy7HdEiYImNRkcFUG+H
-         oi2qNadVBbeYoZBKRfyc+teT4WShBs6QdZ7suPEhZCQxHwyNMvrnPqIjlx8uDoWZyog1
-         KCqfKQUBTTDVT/eKww4BaheF4Yeue8I9DnhLwbBFu5RFL3HhtBLd71SvU3LfDy9XGket
-         ysoKvHvFywzCzqdNuPAJfojYufWD9K3NqmtKe49x09sBtcbHv+El5zrTGUl+cB6JXkyF
-         3e4g==
-X-Forwarded-Encrypted: i=1; AKwUvByDnHzPpiJncMkWOG4oQG3X7a0FPx5vcfPdLWO+pO4zcQV07CdatoagxVUFncUSiPaU8pym2BmKoQwtauc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mcbRTIyVg+Gbyxcg5UaISsWUuXx+8BMijxujcMikQpdHRhZC3e
-	kHMMOhTtyKddaJuTNfP4M6ugXybtWI/DUHDu5jogR0pfKFlqyYc9yNqqZ+MWiMNS64Krt+lV0Eg
-	/AuhY6DbevYS6KBGDuEh+6vecd4a7ke+LrkLBxbCuka+ELD+Q6pSknrU36d8=
+        d=1e100.net; s=20251104; t=1789116310; x=1789721110;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=dFqCzfESKQLEVO0Bv6rt70nL97v3lPj6zjiKBmAFaxk=;
+        b=aEfK8wO/EyDvcRynZZ0YTzp2ZrpZGu0JwPTCfKia9AV4+v+JKkhWo4Pu9VzS9kBhxq
+         gG9U3QF2bkb0S50Fzv6nu7euH6ratnldmWIjr5sP3q42nTim9JNQJKxkB3oeTLPTh4x3
+         0uQm7cp1DPrphe40dJjYNSbvgJhlWnNp3F0uCQUwuPIgF2QBfIOoIe/4VuBhF/2PAh6c
+         CYcu3r4ZgAN2OsUoffL1kIW7DZ54kdv9kEtpDrRAZgUpGNN4IukiIjDqhTjjEjwClJLj
+         jWQxkL0oz0YiwrHqpL8ZOVgBzqXyqQvTMLdWrshwJuj3hT9vOUkTcVDHAyv+DsI8fUlQ
+         qNHg==
+X-Forwarded-Encrypted: i=1; AKwUvBwkqYinGyf1TIf6Wn9RZ3dy0FOp4ZBwghu2Hk3q107ujrMTrgYLHgqXaOZsZn2xa1fAjIrobaX9AuHzVN8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nFTM3NaI+bCQfbvsczWc2IjS2eOb/FNxGrrKR5lUmwIniaj2wh
+	65hrYAYGq92UvhaGwtbbGjo/2aqoGw8f04UsZW3OEN/wZM4WV4bcdSz0s338gMRJ
+X-Gm-Gg: AYBFou0LC9mQqP+FcmVr3bsTGLhbaEClB+NaQItTciu/RSNS8o79PyeF8WTJYNXBjCg
+	qJDiciuK6+k8OlZ0pNIzIFC7uLA7IH32gp/VZgmy1Fav2cGq/HNBDQM7tpoprMLFCNU0PUhi4a3
+	OsPvaofBUohiQA9SlTZYdiZQ3tVEcXDyoqY1f3Fb8/4BzrU0aPJqWWI7W86D5m3ZTvpzcgnG/Ng
+	zycP26506o9DcHgfYcK5Le4D9pzPzpRxDjppkT2GAHc3ZSba8SNCjIDsadTutpC8XiYJtflEaDT
+	xHDiQ5xzIAnc/QGuZiPouBBIytn1JH59W83BJVmsUpI0feJLfjD0g/7/1jp2wpbnYjiZU4rVrU6
+	1aIni6Lldkksk8NClkSDnDo5vdEnErp4rAo1rY1ypDAPquWg7JCNAuwCymzayEIvBsweXbm1J4r
+	ReW/3QXG7G2UwOgtpYZIPGVd/gbhvU7J1ykQu48lDH/9lDmLuSYrAwaD0jw2P3ok9d+/csImxdW
+	x6aRxBjtMFH7eok2TxuWMYyHXBg986q0sr+
+X-Received: by 2002:a05:6122:8c2:b0:5bd:b2e1:e1f5 with SMTP id 71dfb90a1353d-5c846073f75mr1999893e0c.2.1789116309699;
+        Fri, 11 Sep 2026 01:45:09 -0700 (PDT)
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com. [74.125.227.12])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c846f77dedsm2000570e0c.1.2026.09.11.01.45.08
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 01:45:08 -0700 (PDT)
+Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-78a6c77d255so153932137.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:45:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxGJmZvEOulMveIxlg20hD9EiVBgfWgrdmWgnUaFtPumPbEW6zlEF7cR9eHWxVWJXYz9uxRwEJQEd9ldq0=@vger.kernel.org
+X-Received: by 2002:a05:6102:2907:b0:789:3f43:645b with SMTP id
+ ada2fe7eead31-792a83eee14mr1339655137.2.1789116307687; Fri, 11 Sep 2026
+ 01:45:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:813:b0:6ba:3635:800b with SMTP id
- 006d021491bc7-6c0bd19ad9amr2034348eaf.68.1789116302063; Fri, 11 Sep 2026
- 01:45:02 -0700 (PDT)
-Date: Fri, 11 Sep 2026 01:45:02 -0700
-In-Reply-To: <20260911082838.850442-1-eadavis@sina.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa3bf8e.f2639fcc.29487d.0026.GAE@google.com>
-Subject: Re: [syzbot] [jffs2?] possible deadlock in jffs2_do_clear_inode (2)
-From: syzbot <syzbot+743079a09058321247d8@syzkaller.appspotmail.com>
-To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
+References: <20260911073058.253000-1-den@valinux.co.jp>
+In-Reply-To: <20260911073058.253000-1-den@valinux.co.jp>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 11 Sep 2026 10:44:56 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVAFq4izexG=Sf2i9dZdMMNLnb85AVgBazAFMtTA2jwxg@mail.gmail.com>
+X-Gm-Features: AcwNN1U9x2Dw0_q7aq6BSLyw8iIHJUaRM391u6KpE8PvZrGWtybbNLMNuLVxPdU
+Message-ID: <CAMuHMdVAFq4izexG=Sf2i9dZdMMNLnb85AVgBazAFMtTA2jwxg@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: renesas: r8a779f0: Set UFS lane count
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Marek Vasut <marek.vasut@mailbox.org>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Palash Kambar <palash.kambar@oss.qualcomm.com>, Bart Van Assche <bvanassche@acm.org>, 
+	Shawn Lin <shawn.lin@rock-chips.com>, Manivannan Sadhasivam <mani@kernel.org>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <mkp@kernel.org>, scsi <linux-scsi@vger.kernel.org>, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+Hi Den-san,
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-possible deadlock in jffs2_do_clear_inode
+CC ufs
 
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Not tainted
-------------------------------------------------------
-kswapd0/113 is trying to acquire lock:
-ffff8880142105e0 (&f->sem){+.+.}-{4:4}, at: jffs2_do_clear_inode+0x5a/0x470 fs/jffs2/readinode.c:1419
+Thanks for your patch!
 
-but task is already holding lock:
-ffffffff8efc9a20 (fs_reclaim){+.+.}-{0:0}, at: balance_pgdat+0xbce/0x1f00 mm/vmscan.c:7292
+On Fri, 11 Sept 2026 at 09:31, Koichiro Den <den@valinux.co.jp> wrote:
+> Since commit e72323f3b09f ("scsi: ufs: core: Configure only active lanes
+> during link"), the following error is observed on R-Car S4:
+>
+> ufshcd-renesas e6860000.ufs: Tx lane mismatch [config,reported] [2,1]
+> ufshcd-renesas e6860000.ufs: link startup failed -67
+> ufshcd-renesas e6860000.ufs: error -ENOLINK: Initialization failed with error -67
+> ufshcd-renesas e6860000.ufs: probe with driver ufshcd-renesas failed with error -67
 
-which lock already depends on the new lock.
+This is very unfortunate...
 
+> R-Car S4 has one UFS lane per direction, as described in section 152.1
+> of its hardware manual. Without lanes-per-direction, the UFS platform
+> driver defaults to two lanes.
+>
+> Previously, the core used PA_CONNECTEDRXDATALANES and
+> PA_CONNECTEDTXDATALANES to configure the link without checking them
+> against lanes-per-direction, so the missing property did not prevent
+> initialization.
+>
+> Explicitly set lanes-per-direction to 1, now that the validation is in
+> place.
 
-the existing dependency chain (in reverse order) is:
+Given this breaks backwards compatibility with existing DTBs, I think
+this new check should be relaxed iff the DT property "lanes-per-direction" is
+not present. Are any other platforms affected?
+Possible solutions I see are:
+  1. Skip the check completely, like commit 06a34d9c1f47b923 ("scsi:
+     ufs: core: Skip link param validation when lanes_per_direction is
+     unset") does for ufshcd-pci?
+  2. Correct hba->lanes_per_direction based on the actual values of
+     PA_CONNECTED[RT]XDATALANES?
 
--> #1 (fs_reclaim){+.+.}-{0:0}:
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __fs_reclaim_acquire mm/page_alloc.c:4375 [inline]
-       fs_reclaim_acquire+0xc4/0x100 mm/page_alloc.c:4389
-       might_alloc include/linux/sched/mm.h:316 [inline]
-       slab_pre_alloc_hook mm/slub.c:4636 [inline]
-       slab_alloc_node mm/slub.c:4974 [inline]
-       kmem_cache_alloc_noprof+0x63/0x6a0 mm/slub.c:5010
-       jffs2_do_new_inode+0x24/0x520 fs/jffs2/write.c:28
-       jffs2_new_inode+0x581/0xcf0 fs/jffs2/fs.c:469
-       jffs2_create+0x94/0x390 fs/jffs2/dir.c:182
-       vfs_create+0x2fb/0x6c0 fs/namei.c:4197
-       filename_mknodat+0x2de/0x7f0 fs/namei.c:5319
-       __do_sys_mknodat fs/namei.c:5350 [inline]
-       __se_sys_mknodat fs/namei.c:5346 [inline]
-       __ia32_sys_mknodat+0xb4/0xf0 fs/namei.c:5346
-       do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
-       __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
-       do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
-       entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+Alternatively, ufshcd_init_lanes_per_dir() could override
+hba->lanes_per_direction to one if "lanes-per-direction" is missing
+and the device is compatible with renesas,r8a779f0-ufs.  Or perhaps
+hba->lanes_per_direction could be preset in ufs-renesas.c, and not
+overwritten by UFSHCD_DEFAULT_LANES_PER_DIRECTION when non-zero?
 
--> #0 (&f->sem){+.+.}-{4:4}:
-       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
-       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
-       validate_chain kernel/locking/lockdep.c:3952 [inline]
-       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
-       lock_acquire kernel/locking/lockdep.c:5942 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
-       jffs2_do_clear_inode+0x5a/0x470 fs/jffs2/readinode.c:1419
-       evict+0x3c2/0xad0 fs/inode.c:822
-       dispose_list+0x117/0x1e0 fs/inode.c:864
-       prune_icache_sb+0xea/0x150 fs/inode.c:1011
-       super_cache_scan+0x3ac/0x5c0 fs/super.c:240
-       do_shrink_slab+0x416/0x1200 mm/shrinker.c:443
-       shrink_slab_memcg mm/shrinker.c:560 [inline]
-       shrink_slab+0xa82/0x12e0 mm/shrinker.c:638
-       shrink_one+0x398/0x850 mm/vmscan.c:5119
-       shrink_many mm/vmscan.c:5180 [inline]
-       lru_gen_shrink_node mm/vmscan.c:5258 [inline]
-       shrink_node+0x2b20/0x4320 mm/vmscan.c:6247
-       kswapd_shrink_node mm/vmscan.c:7101 [inline]
-       balance_pgdat+0xb20/0x1f00 mm/vmscan.c:7279
-       kswapd+0x556/0xb50 mm/vmscan.c:7555
-       kthread+0x373/0x450 kernel/kthread.c:436
-       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+> Fixes: 5235d551779d ("arm64: dts: renesas: r8a779f0: Add UFS node")
+> Cc: stable@vger.kernel.org # 7.2+
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
 
-other info that might help us debug this:
+> --- a/arch/arm64/boot/dts/renesas/r8a779f0.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r8a779f0.dtsi
+> @@ -901,6 +901,7 @@ ufs: ufs@e6860000 {
+>                         clocks = <&cpg CPG_MOD 1514>, <&ufs30_clk>;
+>                         clock-names = "fck", "ref_clk";
+>                         freq-table-hz = <200000000 200000000>, <38400000 38400000>;
+> +                       lanes-per-direction = <1>;
+>                         power-domains = <&sysc R8A779F0_PD_ALWAYS_ON>;
+>                         resets = <&cpg 1514>;
+>                         status = "disabled";
+>
 
- Possible unsafe locking scenario:
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Works fine on S4SK, so
+Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Will queue in renesas-fixes for v7.3.
 
-       CPU0                    CPU1
-       ----                    ----
-  lock(fs_reclaim);
-                               lock(&f->sem);
-                               lock(fs_reclaim);
-  lock(&f->sem);
+Gr{oetje,eeting}s,
 
- *** DEADLOCK ***
-
-locks held by kswapd0/113: 2, last CPU#1:
- #0: ffffffff8efc9a20 (fs_reclaim){+.+.}-{0:0}, at: balance_pgdat+0xbce/0x1f00 mm/vmscan.c:7292
- #1: ffff88805c6760e8 (&type->s_umount_key#57){++++}-{4:4}, at: super_trylock_shared fs/super.c:688 [inline]
- #1: ffff88805c6760e8 (&type->s_umount_key#57){++++}-{4:4}, at: super_cache_scan+0x9b/0x5c0 fs/super.c:213
-
-stack backtrace:
-CPU: 1 UID: 0 PID: 113 Comm: kswapd0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
- check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
- check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
- check_prevs_add kernel/locking/lockdep.c:3328 [inline]
- validate_chain kernel/locking/lockdep.c:3952 [inline]
- __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
- lock_acquire kernel/locking/lockdep.c:5942 [inline]
- lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
- __mutex_lock_common kernel/locking/mutex.c:646 [inline]
- __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
- jffs2_do_clear_inode+0x5a/0x470 fs/jffs2/readinode.c:1419
- evict+0x3c2/0xad0 fs/inode.c:822
- dispose_list+0x117/0x1e0 fs/inode.c:864
- prune_icache_sb+0xea/0x150 fs/inode.c:1011
- super_cache_scan+0x3ac/0x5c0 fs/super.c:240
- do_shrink_slab+0x416/0x1200 mm/shrinker.c:443
- shrink_slab_memcg mm/shrinker.c:560 [inline]
- shrink_slab+0xa82/0x12e0 mm/shrinker.c:638
- shrink_one+0x398/0x850 mm/vmscan.c:5119
- shrink_many mm/vmscan.c:5180 [inline]
- lru_gen_shrink_node mm/vmscan.c:5258 [inline]
- shrink_node+0x2b20/0x4320 mm/vmscan.c:6247
- kswapd_shrink_node mm/vmscan.c:7101 [inline]
- balance_pgdat+0xb20/0x1f00 mm/vmscan.c:7279
- kswapd+0x556/0xb50 mm/vmscan.c:7555
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
+                        Geert
 
 
-Tested on:
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-commit:         50d05c7c Merge tag 'landlock-7.3-rc3' of git://git.ker..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=16842601580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
-dashboard link: https://syzkaller.appspot.com/bug?extid=743079a09058321247d8
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=13a68905580000
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
