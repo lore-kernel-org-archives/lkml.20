@@ -1,71 +1,71 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB02443A86
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:15:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 253A244F56D
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:15:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789114549; cv=none; b=BNzqyt8vGelLSUa3q07OoxMeBgzF98cBys53wc/xS1ER9d2U2T4YGReKspfuG0elFWLjB+wa0lurGFX6Z8OrrddB9q+yYmDeksh9DwhaD3Zus+RZIJab0XQZxs/1sfmSPs3BaNwUc70IsgsW8G+T4xkF0+BASCibWLhb9PmWmf0=
+	t=1789114553; cv=none; b=XtKBzy2aHL3KBR1gV5Z4dMmiRfg/N/5kQXIYEmJOeQER5sN+03XseVNtBeU2bmMNOR9S+fcawOVZDx+N4fKoTUgz+HKqZFuqPg0zrb1RSO8hCIobAvwGyXsMhIrGn5L6rMjJo58qbMbC9ZHYPN7vdbLNMYYRPWPlbwBK8LcTyaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789114549; c=relaxed/simple;
-	bh=FJVnMpFahWnvr/TrIq6oKej9mRKZ7QHxinDF+MV22So=;
+	s=arc-20240116; t=1789114553; c=relaxed/simple;
+	bh=J6q9EHrfbJVo8kVqCaYkGKEF3G1EcWWL4QKywVpxoO0=;
 	h=From:To:Cc:Date:Subject:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=U+JwmvfUb1SWqQ3Tjcj/uZMOeboiT9DNWbj11g0r6ueYdmymlj6ZgJC0BZwynP68HErGlihESvr/vsSvLy3tVCGktAFPPXPPG76xD25xJbYVEE+xK+OHzzWWJr8jOYAnKs3ezMBgWzxxypYJsS2D+hyvSLG7uh6Bh/sx7YH47Qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr; spf=pass smtp.mailfrom=khu.ac.kr; dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b=kqz8NXL7; arc=none smtp.client-ip=209.85.216.44
+	 Content-Type:MIME-Version; b=CFe7cmCeyZRwa9kdB1ouklzfv6Dy2q+H0z1oa7gdXXMZCu5+jgFKIKEetbyBsjFWSWJW2XDtG4Oorzzl0cfP4kwQ/XbFIqnzIqQh0LRsDNYuqv2bsxdeZM0m5/+bvvjY04LzXBrX6g56eZZJ+9K2x8i6C7Jqrn8GzuVbqOJgaDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr; spf=pass smtp.mailfrom=khu.ac.kr; dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b=BGyob8YM; arc=none smtp.client-ip=209.85.215.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=khu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b="kqz8NXL7"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-39b24d114d4so783704a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:15:46 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b="BGyob8YM"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc1d57602e8so688991a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:15:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=khu.ac.kr; s=google; t=1789114546; x=1789719346; darn=vger.kernel.org;
+        d=khu.ac.kr; s=google; t=1789114550; x=1789719350; darn=vger.kernel.org;
         h=mime-version:content-transfer-encoding:content-type:references
          :in-reply-to:message-id:subject:date:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=t0iUfkOuA3ojMqhIpEsjDXiaM0I81VSZfab8pVnkc+o=;
-        b=kqz8NXL7KRUG0IKbWVpcSZZkxkN0FsTBVwCdkobWr3OabzXw4/Ejh8SPM4ewCKgvjI
-         rkXJOM3+uNDbQxF5KES07W5bp90r56dR5Z3JclhL+uszV1shInRfZr++54nACODB7BmF
-         PY9axNeanphAKlPbFpOWo5jmuKzdEi5NHoMjo=
+        bh=rF31rq5u2Ejrgd2GDHtEaw5FZnwlakbF/ays9ggaUPw=;
+        b=BGyob8YMIxRBck1yY+FVKozfN4OcZ17/rHcdHopvCs41KYlnhvyoocP6u3TZTASJUD
+         9GxB4PcW4qXk8boTLkCsRILDH1HzyMVYw4ZN0Qij5OUr0wiNsngAmhqOGAMo3j7lXXYJ
+         S0UYc7/8yJyfE4/pP0GfsZUYAnTg4J6YyxKtY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789114546; x=1789719346;
+        d=1e100.net; s=20251104; t=1789114550; x=1789719350;
         h=mime-version:content-transfer-encoding:content-type:references
          :in-reply-to:message-id:subject:date:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=t0iUfkOuA3ojMqhIpEsjDXiaM0I81VSZfab8pVnkc+o=;
-        b=FXQd3+lYXZH+SzxjKgKzBP9LpFuAzmyi/uZSFzS3aJ5CAq5ottS43YJq0OxYRgoQXL
-         JRo8bxZRoSHo2GrQcWp4T4vpijbYu+7sWI4Gpp8g55GdGgQQHHcKx/6P9uCs8o/ebO84
-         cCoSPiJLV/qX/r9bxvIQN6j6r9FJo+xQ1EbOq4YwglQihDRYVkGxer1CW1g1yIr0xcB2
-         CNrBXDg93DZKMIRfqNeeBlRsIMtbW3tKFulKfMaPTMsvyWMGZD/dUnxKf/wuSQb4mjzY
-         YUv5yIgbmvBEUcnRF9Os69sjF/hvvq4KBitk9o3cViNhiByc6H5RrXBOpzL2GVPwjrQ0
-         gzIA==
-X-Forwarded-Encrypted: i=1; AKwUvBzdikJQXZPQttjEeWq7wA82w3ZB3P4vEL0Q2ZoRzfBj9wpamsbi7hVTyOqXB7C6XYZ2ysLKRFtGBgF38OE=@vger.kernel.org
-X-Gm-Message-State: AFuF++n1W/exyBOLtpiR6rXiCCjeOHFPP+m5RyKPEvw+Lhigs2HpUt9n
-	NCdoBVLVP3y2aLQK/YnHfyyGRjaMM6HlNlPaYHZA+4vDpkXEISz5SZ2mwWLUXKzzlB8=
-X-Gm-Gg: AYBFou2mv9hg6ZufYVh5Usp6iZSVm/FirdX6pSb/FQ9hKLPoTYoaOvSiK66UDZeaIXh
-	b50v8sffehWsIwxpVwt77ah7X8Kqx0SDcxOQgGpb1N548CLPxOTU1fA2hxkVof7Dc1Tm0734yOA
-	pyts5w01jXpJJFceYVBv8ogUmQz/w+IxewA+UEORMJbNrkajBd3EU0fDU5rQYjjkE/jT2nFscuI
-	MZ/Zc7HzHoZXfkSb8+wg7VqkENNkP7fcFrTYJ+okIv7x3QVLZFbu+22ljtrYlo9p/cxVGWBgQUm
-	66/4DYwCkCkpz8wvrYaev3mtLCMMRN7n8dcwe5KwdCATf9rwSdzZUMMRZUqFFVDtVNH6gCAz9Ch
-	i0mKnb/GduDbXsMm4Y6pmbSqOwQckdWaaq9hcBmzcmO/MusC3g34tq+r3H9EWzFenR9QIx5OLSf
-	7ZFujIMFCgD08Ljls9+AJfQO5L9aIxBER1hu24HoQxBcen04QvQsEn9Q4gnNgLlquuvAKSCwKuB
-	9tNOzDklpNnuFlFPls=
-X-Received: by 2002:a17:90b:560e:b0:398:9c00:29ed with SMTP id 98e67ed59e1d1-39d9c34a6femr4850840a91.21.1789114546224;
-        Fri, 11 Sep 2026 01:15:46 -0700 (PDT)
+        bh=rF31rq5u2Ejrgd2GDHtEaw5FZnwlakbF/ays9ggaUPw=;
+        b=bIBPM8GXl9SNGVlArQF9j+QF487RKiy/6z0rS0vE4ILAHUboKu425CXlknLTRpsX+w
+         LIffr91bkndwKMF7wJdyvS9JkhYQvHzQsGwxJtcVMfEEjkfVsRKIp60SNGgIdpeUSQjM
+         bihXWP9oWR4Z6W/RrmAScT1NGXogfrMmdWhjLygmy9NACvnI8eJ/12M1HtuJrar0cvSV
+         7nzct28jv0+VvDNWwKkuE4+LSaBRbfhQQHegi6h14Nyz+NNJLhitKCTBMD5jtl2P8VeT
+         HbCwYmaeaFQL4tYlzlBa6/9SdHcCg3y5SY+7HG1LsDkGsW8PNWzEIF8zCJtZ3IBp9iil
+         /q5g==
+X-Forwarded-Encrypted: i=1; AKwUvByFfJRoMuZfVC+Pz/fw2VoY/aX1NLA1kVdYzLbuUQ/hMvj1lmHhu5HyKJQiP9h5fprJ1XfYaYDPSu8ztpY=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/gHnoF96ZbAiLWzZ03IM9+0n4AlgInxgFKHQ5zeKDGiSadXon
+	+BHnsUtUGzJzfl+d2HEZ4q3/SG/vTlSN/gfS27HXVM9uLZHxC96dPGhXmWyC/pi9Pxc=
+X-Gm-Gg: AYBFou2NlXVhdtEMswOf9wjK/gagkuJacMdhYgyMUU06P91tDj98Ay4mWaR7oSxobL6
+	Si6egKAaGgUZ+xO9NVV0v2PD5cY4csLFo0ua4TD2hlJ4R89iI72AXQZfAa0D0iQhf/ExV0WGWxn
+	QI6gFMsqvC4hmyqHXuh8OUz4bfwfRMlM3rsEeaSwXKD0OwvzuLQ1IMzw+2/PL4K31g9TGShWPOV
+	S54XvGX1CSUP1MzT4dLqkAM5mG1/OAr04X8A1g0Hiqsx7KWnCyNaq/jFks38HxJnBWUcZI/HzzG
+	SMOPnrG8GQ2sARfKbDYhHBlKC2hsMT62h5XOrJb9Qmmx1lIbZc4E5jPzvbuwR3DVcRf1cDZ6c71
+	tvE6cm/DxdQoXgGMfo9N7tzXYrcm9+1torkhHBMa6srBvgkyYOu0nZQcRt5cZC9wBLHOM2pkgXr
+	TyIRkDQ6GU2OJ6xa1OprgJYNrR/wLWAuLMSnTZoC0hlSu+r/gTNencMSlRuSNO4sRiZkWfcxg1z
+	6nt2Z/m
+X-Received: by 2002:a17:90b:3d87:b0:393:288:29e3 with SMTP id 98e67ed59e1d1-39d9bd951ecmr5459367a91.10.1789114550542;
+        Fri, 11 Sep 2026 01:15:50 -0700 (PDT)
 Received: from localhost ([106.101.10.72])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d994872e0sm3534834a91.8.2026.09.11.01.15.42
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d994872e0sm3534834a91.8.2026.09.11.01.15.46
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 01:15:45 -0700 (PDT)
+        Fri, 11 Sep 2026 01:15:49 -0700 (PDT)
 From: kimwooseok <5mghybrid@khu.ac.kr>
 To: netdev@vger.kernel.org, theo.lebrun@bootlin.com
 Cc: conor.dooley@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
  edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
  richardcochran@gmail.com, linux-kernel@vger.kernel.org
 Date: Fri, 11 Sep 2026 17:04:46 +0900
-Subject: [PATCH net RESEND 1/2] net: macb: Preserve one-step mode on rejected
- timestamp requests
-Message-ID: <178911388614.25348.8892025153904636456.macb-resend-1@khu.ac.kr>
+Subject: [PATCH net RESEND 2/2] net: macb: Use all-frame timestamping for
+ PTPv1 RX filters
+Message-ID: <178911388671.25348.11008812384009904081.macb-resend-2@khu.ac.kr>
 In-Reply-To:
  <178911388592.25348.177462085059763031.macb-plaintext-resend-cover@khu.ac.kr>
 References:
@@ -79,20 +79,15 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-gem_set_hwtst() programs NCR.OSSMODE while processing tx_type, before
-validating rx_filter. An unsupported receive filter can therefore cause
-the operation to return -ERANGE after changing the active transmit mode.
-The cached configuration is not updated, so a subsequent SIOCGHWTSTAMP
-reports the previous transmit mode even though the hardware has changed.
+gem_set_hwtst() accepts HWTSTAMP_FILTER_PTP_V1_L4_SYNC and
+HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ without changing rx_bd_control from
+TSTAMP_DISABLED. A successful request thus disables receive timestamping
+while reporting the requested nonempty filter to userspace.
 
-For example, configure HWTSTAMP_TX_ON with HWTSTAMP_FILTER_ALL, then
-request HWTSTAMP_TX_ONESTEP_SYNC with HWTSTAMP_FILTER_NTP_ALL. The latter
-request fails but enables one-step synchronization. The reverse
-transition can clear one-step mode despite returning the same error.
-
-Defer programming the one-step mode until both the transmit type and
-receive filter have been validated. Rejected receive filters then leave
-the active transmit mode unchanged.
+Handle these two filters through the existing all-frame fallback used
+for HWTSTAMP_FILTER_PTP_V1_L4_EVENT. This enables receive timestamping
+for a superset of the requested packets and returns HWTSTAMP_FILTER_ALL
+to describe the configuration actually selected.
 
 Fixes: ab91f0a9b5f4 ("net: macb: Add hardware PTP support")
 Assisted-by: GPT-6 Astra
@@ -102,37 +97,33 @@ Resending as plain text because the previous webmail submission included
 HTML and quoted and rewrapped the patch. No code changes; the Assisted-by
 trailer now names the tool.
 
- drivers/net/ethernet/cadence/macb_ptp.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/cadence/macb_ptp.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
-index e5195d7..51659bb 100644
+index 51659bb..2ffc46b 100644
 --- a/drivers/net/ethernet/cadence/macb_ptp.c
 +++ b/drivers/net/ethernet/cadence/macb_ptp.c
-@@ -418,11 +418,9 @@ int gem_set_hwtst(struct net_device *netdev,
- 	case HWTSTAMP_TX_OFF:
+@@ -430,10 +430,6 @@ int gem_set_hwtst(struct net_device *netdev,
+ 	switch (tstamp_config->rx_filter) {
+ 	case HWTSTAMP_FILTER_NONE:
  		break;
- 	case HWTSTAMP_TX_ONESTEP_SYNC:
--		gem_ptp_set_one_step_sync(bp, 1);
- 		tx_bd_control = TSTAMP_ALL_FRAMES;
+-	case HWTSTAMP_FILTER_PTP_V1_L4_SYNC:
+-		break;
+-	case HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ:
+-		break;
+ 	case HWTSTAMP_FILTER_PTP_V2_EVENT:
+ 	case HWTSTAMP_FILTER_PTP_V2_L2_EVENT:
+ 	case HWTSTAMP_FILTER_PTP_V2_L4_EVENT:
+@@ -448,6 +444,8 @@ int gem_set_hwtst(struct net_device *netdev,
+ 		regval = macb_readl(bp, NCR);
+ 		macb_writel(bp, NCR, (regval | MACB_BIT(SRTSM)));
  		break;
- 	case HWTSTAMP_TX_ON:
--		gem_ptp_set_one_step_sync(bp, 0);
- 		tx_bd_control = TSTAMP_ALL_FRAMES;
- 		break;
- 	default:
-@@ -460,6 +458,11 @@ int gem_set_hwtst(struct net_device *netdev,
- 		return -ERANGE;
- 	}
- 
-+	if (tstamp_config->tx_type == HWTSTAMP_TX_ONESTEP_SYNC)
-+		gem_ptp_set_one_step_sync(bp, 1);
-+	else if (tstamp_config->tx_type == HWTSTAMP_TX_ON)
-+		gem_ptp_set_one_step_sync(bp, 0);
-+
- 	bp->tstamp_config = *tstamp_config;
- 
- 	if (gem_ptp_set_ts_mode(bp, tx_bd_control, rx_bd_control) != 0)
++	case HWTSTAMP_FILTER_PTP_V1_L4_SYNC:
++	case HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ:
+ 	case HWTSTAMP_FILTER_PTP_V1_L4_EVENT:
+ 	case HWTSTAMP_FILTER_ALL:
+ 		rx_bd_control = TSTAMP_ALL_FRAMES;
 -- 
 2.53.0.windows.3
 
