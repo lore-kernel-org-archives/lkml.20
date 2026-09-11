@@ -1,34 +1,55 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB2B46A608;
-	Fri, 11 Sep 2026 13:27:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A554756B6
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:27:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789133233; cv=none; b=iZNBtAUcT1lp6IeXmc7WQC8P1QL+lsoe4HFYESwukKMl+FSwd+2+BMJePRQvdiXXxz5pnAb0QkdZY3KZstqvXRCuZggN4MDnu4RbHUkFk4fpD246B25pFE/o7IUelh9pRua5m5jBRxzw62oozc904fyEB5HlVhiFZVR2XhQvZ50=
+	t=1789133239; cv=none; b=MZaFvALO/bPZ1XS9/6yNdamx6c4aoMGyaJgcCjr7H5Z8uKhQMzSefHGXiythQJxlICYboC/7GYgKm+yuQKUZ1Kk3xHBrG2gdf3tpnpQkOqlAe1E9CFa3jVW0/hsKrZgHcs66CScjTEd1nK1EAHyZkbV+aon8fG0h+4j6ZOcRXJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789133233; c=relaxed/simple;
-	bh=cW6PKn+6+4e7/lSR61GmFodOnPolMv/AkFrVOlhTUnE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=K4rLwTJn7AjatWoTVp8AGXHResmpVUv559hYEAhhqUPodpPcd7ExzwBPillRNWFQCILbDZ/LeWpaIYgW5nq+/h4AXNaITuEUFY1sO9WS2WzDNP7GLPguICiUQZHoB4KurJWod+vCr9cypHvHrbXqrexfw+laf2DMjv9a5Yn7I2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nufB1YKe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789133239; c=relaxed/simple;
+	bh=2G0ncwUnsuyMrUpbTd9HqnlTm2Jjb3BkFYKmzOObzU8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=s8z2+Fq4HbGYb5lIpPjypNIHWDEhDFthwRLDyEKecSZXOug4pfLQkv/37BVYf7Gs/nu53wDobC6/1xA6Hr+JJxMM62oxnTNTsiJX9FHYXQ4SCMee3/WQXqhO5HXs93ZSLib8tskAci1kvS0sedu7gw7ACXJiSe9RSKrzWP/9OIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SN9g5fmF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nufB1YKe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D8461F000FF;
-	Fri, 11 Sep 2026 13:27:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SN9g5fmF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E17211F000FF;
+	Fri, 11 Sep 2026 13:27:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789133232;
-	bh=Kk+Jgg2uXnvP7keYH4LDRdrvoJhsl3CdguN650y+ouQ=;
-	h=From:Date:Subject:To:Cc;
-	b=nufB1YKePIOX6Avm7I8fn8kblBc6cNy4wpuSpNRXHyuoFTMqHkGg1eO1xln3rY/Pq
-	 963DpyPCqdyhi6X2H6buY9nWAd/67RDLwMd+xsH1BuaGuPjyXV9tpkoa3Tu4KQ5Ai2
-	 Q3/663qn2IcxpZSdmu0vc9DXeedb4y8yWRDRE//xi/vLQhlx2fkw/csUg3luRj5/d7
-	 +5PPQIyD7sWzg4NingmWv/aYTtKZitA27KO/iBV2CUsVW4ar2PsuVYzu8yfZSGtTgp
-	 ZydIVwdlzVa0ilzVEpY7lDWITsYKH0eO/fijbPSrjIMxjCl/pg3/yMui8Vg2ziXXWT
-	 8LGUDrKL+e12Q==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Fri, 11 Sep 2026 15:27:03 +0200
-Subject: [PATCH] arm64: dts: qcom: glymur-asus-zenbook-a16: Remove
- RTC-through-EFIvars
+	s=k20260515; t=1789133237;
+	bh=yydFd4PxC6CTpgwU6zo56XL2ozb1aEzdrei6ipT4o7k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SN9g5fmFonZPAS+WJr7n5lMHR3PMuOcURsQD7K7pjfRc1AOJ2y1P2zbDsgKN9Ui6v
+	 fhSjRz+NJXw2gNyxHAx1S1ZDvEvFCS5y39PgircgjBvFkOgSam2bseZ9XAHgyQIq0S
+	 W8gBBfV720hyCpMnvQESSVxOk8fl020L5GZtiolzLd8b14PMX30JEgRJR/Mkp9LtOW
+	 23bwlkcV9mjElSsS6ZLQpzvxS6nHMADAwGFzX5t6SdnZ7fWyra2sMHyaatAIfmbte0
+	 TFAIaYLxZtxA5gsAGExGIWIZVHo7a6hN3E4QrblOoNAPYOrCo+cBoDFXUmHENo4deS
+	 iwlrj03DHQQ+A==
+From: Maxime Ripard <mripard@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maxime Ripard <mripard@kernel.org>
+Cc: Daniel Stone <daniels@collabora.com>,
+	Harry Wentland <harry.wentland@amd.com>,
+	Jocelyn Falempe <jfalempe@redhat.com>,
+	=?UTF-8?q?Jonas=20=C3=85dahl?= <jadahl@redhat.com>,
+	=?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>,
+	Pekka Paalanen <pekka.paalanen@collabora.com>,
+	Sebastian Wick <sebastian.wick@redhat.com>,
+	Simon Ser <contact@emersion.fr>,
+	Victoria Brekenfeld <victoria@system76.com>,
+	Xaver Hugl <xaver.hugl@kde.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: (subset) [PATCH v3 01/11] drm/atomic: colorop: Rename state to state_to_destroy
+Date: Fri, 11 Sep 2026 15:27:11 +0200
+Message-ID: <178913320918.645786.2219525906683909165.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260908-drm-reset-state-flag-v3-1-905570f387a4@kernel.org>
+References: <20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org> <20260908-drm-reset-state-flag-v3-1-905570f387a4@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -36,63 +57,25 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-topic-remove_uefivar_rtc_a16-v1-1-0967d8d4b3a6@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCMBBA0auUWRtIYqnRq0gJ6WTUEWzKJA1C6
- d2Nunzw+RtkEqYMl24DocqZ09xgDh3gI8x3UhybwWo76LMxqqSFUQm9UiW/0o1rEC8FfTCDckc
- X4wltb5yGtlikBe/f/jr+ndfpSVi+T9j3DwbL20OAAAAA
-X-Change-ID: 20260911-topic-remove_uefivar_rtc_a16-838dd7c24180
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Greg Ociepka <greg@ferrisoft.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789133228; l=1192;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=2B9T8QtBzpmUol37jsog1kgKNP3vTSpNz3HhR+qMRP4=;
- b=z8bXE8jEx7KRO/PgYr+rrjGE0v+3/dRcBF9yFVbnBBU4IHFfrtnl/Uv2XbGTj0ZTT1YEjQzAT
- IfXaGhPpBa/DveMLU0XHBPGU2NmZvoWE+ANk3075vkPxCQBRy4UIBOr
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
+Content-Transfer-Encoding: 8bit
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Tue, 08 Sep 2026 16:35:02 +0200, Maxime Ripard wrote:
+> The atomic state tracking structures used to have a generic state
+> field to track the state to free when tearing down the
+> drm_atomic_commit. It has since been renamed to state_to_destroy in
+> __drm_planes_state, __drm_crtcs_state, __drm_connnectors_state, and
+> __drm_private_objs_state to better describe its purpose.
+> 
+> The colorop support has been added after that rename, but
+> __drm_colorops_state still uses the old state name. Rename it to
+> state_to_destroy for consistency, and add the matching kerneldoc.
+> 
+> [...]
 
-This machine, unlike older Snapdragon laptops, doesn't feature an EFI
-variable to denote the system time. Remove the property that suggests
-it does.
+Applied to misc/kernel.git (drm-misc-next)
 
-Fixes: e8fbbca94db7 ("arm64: dts: qcom: glymur: Add Asus Zenbook A16 (UX3607OA)")
-Reported-by: Greg Ociepka <greg@ferrisoft.com>
-Closes: https://lore.kernel.org/linux-arm-msm/20260821181148.1642208-1-greg@ferrisoft.com/
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts | 1 -
- 1 file changed, 1 deletion(-)
+[01/11] drm/atomic: colorop: Rename state to state_to_destroy
+        commit: 38d8b5a35367246dee147d48ea6d5cd6644de5d5
 
-diff --git a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-index 939e1a927a79..82b9fb237c6a 100644
---- a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-+++ b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-@@ -861,7 +861,6 @@ nvme_reg_en: nvme-reg-en-state {
- };
- 
- &pmk8850_rtc {
--	qcom,uefi-rtc-info;
- 	qcom,no-alarm;
- };
- 
-
----
-base-commit: f2bfbc3554ca6919484030729424b9dee2942d24
-change-id: 20260911-topic-remove_uefivar_rtc_a16-838dd7c24180
-
-Best regards,
---  
-Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
+Thanks!
+Maxime
