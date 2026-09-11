@@ -1,108 +1,73 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D274BEE52
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 22:06:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 74A2A4BEE25
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 22:06:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789164367; cv=none; b=ewnCtvKNr0uyHjxxvx8/HkznW6o7iNtszepFAJPtOlNICs3bbHuv/+1BWXQFH4IkLfqUWmwwxOKTlEPDpmtHpgqzxhCsV8EiF45641KScRopZMqn79tiFUDixCiPeQLO8oOjCgUbot3hxgElDHQW1AmywJYovs0skuwTxje5Qtw=
+	t=1789164399; cv=none; b=r+ITx1KAjITLAP6w17qBSrPswnSoO7opH9kTjxc4k55tfLwP1YbOsV8pQryxvXfQg4h/rQFs3N/ZF5jyb7R0xaChP+k15Da79RHZ5TLge3X4wdZkRE9V35cF1/FIDplNUbiz4BTqnmTMo9IY4UE7Pmy6/IuQ5VX4/Y1ej6MRYGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789164367; c=relaxed/simple;
-	bh=+Nta8YPZVefYEO1aRFgF/H7PuUinfGQhnelVspNKxQA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=SXh7UPhszK4DBgmxdrt+EobIN7RdpItV8SZzicB2jqvSh0bSBgEvZCsVkghGzs9ai04tUgkF2dBmabH3YmRjcWyZRAq9/lexOw23WZBjUPkSmmPqczpTKeFBn/ExXoZzEwE4JmyShtrCg+JxLRkU2CvKd8fZGAAuXEpkUj9mzg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Sp/mD6Jw; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789164399; c=relaxed/simple;
+	bh=QfmiSG1WNXdPQTUBmk7di0RFlVWN/duAEE6OzJ0NA00=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jcPFDOP0w2zuNlFukW5daogtNj0W07+dgze4Th3XIsyER/s8QRKeRuFAY1Muty64Xd3mq8aX2CoGNhtzjJ6r2fRgIBdlrIPKuNOPSb4PRFlhckAlnJS9h4P6nGUeUZUZ28eeBoR5YV1ynUUzKyyeW/N7JP3l63yfLxefgGG5OWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=gPfOnRfZ; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Sp/mD6Jw"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843378fb37so31573f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:06:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789164364; x=1789769164; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U3zc1ebSvTigefNAfZt7P8fRxfSxR3IvYrqoRzdTcdY=;
-        b=Sp/mD6JwPZCB2a7/84sfoz6gnJk9EbTrKtHJd00pz70QK1hTJL5HDwR6SJFmGfRSqf
-         buVW3/RLEk3TqDQw9x5hV8+lFR56zV7AiW0irSVuHVT+HlWzVgCFyomdcXWc6+/JDK1D
-         YuHlDq6wMNdkpxdaMdA8ef0UX/4GbxIDJXO//XSrbFtOP45a8IEx11XUy2kacusHz2DW
-         QnOE0Ti5lYCp81Dcnvyz9QY0hLU+8Apn7spYno9lksg+b1QN4iFTuN8vfqO2MK6/0VBr
-         5URXc1t5pH/ONPLHKi++aPSbIgLAZfcoDfm93iwb3V9Ign8Okm3rxgzX/sEh18MGRPV/
-         pl5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789164364; x=1789769164;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U3zc1ebSvTigefNAfZt7P8fRxfSxR3IvYrqoRzdTcdY=;
-        b=YaLt3Cj+q8WzjBBcE8C5YCBPLnCw1MqzcuVU8wH4w+Km71ojO+7WB7myoNoNKRSdPn
-         8lCovFWUW7mkjurWSKo04XKC8Bpy7sUlrPy+nSLhyu6oO8fI61ZiqyQIX0qdrky8YPIW
-         z79zSIODQdzGzOgKg1IpuDVXXyGAKd/ziAk1J5FynYFIA/A4IeWpuYRJUuiVvHgGoBzC
-         N2485Xxfykog1OEjabBkdxcfPKTbG6XGPvuWP1qvRwe36og5K8x5BNQ6G4SjkpSa1GfN
-         3IzcmU9Rn7DK8Ezbt/kTWCRK3wzmrD9BeSGP9JNnEAaMyZj5j/89XDFpZfc+HARPNfRo
-         bIQw==
-X-Forwarded-Encrypted: i=1; AKwUvBzBRG4kDXf+zz7Ss7UR8QBIJeen4A5As2VrR3q310Ir2MiGVvZKsaiGREq1PWWV1O7tXp97jHnt0bfLjks=@vger.kernel.org
-X-Gm-Message-State: AFuF++me1U1cLiISnsfpO3prBb1bfji16CWYvEPyP+sKQPpV2baKXdli
-	bHnib+BEEMCIXi6kp9a+PQ4GlOtnzHWLHcEVUrwy1vKh8pEOjCh7LKnJ
-X-Gm-Gg: AYBFou3rEo2LZyizDrorywZBnaEfBxrfU4Pl9ZvsoI5pk/o4eKHDX9+8wiUxyFrMgpQ
-	n4Mq1adbOTv9d9SPD5ep2ulNVOQfsOSuDiewbowS7QWw1GOgB6idpJFXF+LSp7BCp8CgDZP76VD
-	4CmBu2Hy99cjwJcgLhaHnUhVSWdIr5YIiILzSdIvigXCTsujhE3sNcHA1As6xXAcIuOtOHa6AC3
-	7wqp0Jhlff0N7HTOiQICThQfKXN7PbUaCwvAEeONBvj5r1xPABwupCVxuqUk8TLz3Y7ATNmRvws
-	IxjYbp5tblKDy393lfWexvZr00fGKzsFrV5dAeA9ZFIj5xo423uCWwzVd/VuVvVWpAbyPShznwv
-	wDX4oZHmW/UBJo4Wnt4k2J18oQ/bYkutVkpwKacH0O4hAieuA3h0PW1FfxZ+c9mpnmhQrSz6FIY
-	O77lqy/NtzPxIyTknKYU6mvDZTZ978EF0PfAuVOuwbseOttcv8FpvZVU4jRHRD56IvIuafdNpsM
-	xsS1/8PrPua4BZknsKWcVCGgsy99NqlTeTfjroMD9kobVfkwmaJRSl7kBk6MNHlwOSDkNCLrPv6
-	wIT9ItIkVSMGlI2gqA9ImdrvYcPLcOFe5e0Jj9a/KwUNQYw=
-X-Received: by 2002:a05:600c:6219:b0:49d:39:90ba with SMTP id 5b1f17b1804b1-49e6caacf0dmr1036035e9.3.1789164363937;
-        Fri, 11 Sep 2026 15:06:03 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-095-114-033-154.95.114.pool.telefonica.de. [95.114.33.154])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60adaee4sm153244765e9.14.2026.09.11.15.06.01
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 11 Sep 2026 15:06:02 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	x86@kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Kai Huang <kai.huang@intel.com>,
-	linux-sgx@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] x86/sgx: Fix the return value in __sgx_alloc_epc_page() kernel-doc
-Date: Sat, 12 Sep 2026 00:04:42 +0200
-Message-Id: <20260911220442.6815-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="gPfOnRfZ"
+Received: by linux.microsoft.com (Postfix, from userid 1223)
+	id 77CBE20B7166; Fri, 11 Sep 2026 15:05:56 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 77CBE20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1789164356;
+	bh=QfmiSG1WNXdPQTUBmk7di0RFlVWN/duAEE6OzJ0NA00=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=gPfOnRfZAYQ295IrYtL6HCccKUA9Ojc+i341UL7OjmY0dtpSXiBq8da9GrrWzq/F1
+	 ZMTttVsdlmytiqI/Er9opXjW6TOrIikVwQ8qu8MjqKOuhd9DSb9IEypdE3RwnzTojd
+	 27rGqQHNvQK1/jfQBCp/mwEXRM0lenBAOuOYvbus=
+Date: Fri, 11 Sep 2026 15:05:56 -0700
+From: Meagan Lloyd <meaganlloyd@linux.microsoft.com>
+To: Sam Agazaryan <samagazaryan@google.com>
+Cc: linux-i3c@lists.infradead.org,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Vitor Soares <vitor.soares@toradex.com>,
+	Oleksandr Shulzhenko <oleksandr.shulzhenko.viktorovych@intel.com>,
+	linux-kernel@vger.kernel.org, tgopinath@linux.microsoft.com,
+	boris.brezillon@collabora.com
+Subject: Re: [PATCH v4 3/3] i3c: add i3cdev module to expose i3c dev in /dev
+Message-ID: <20260911-d0e2d97df458cbf24fa42089@linux.microsoft.com>
+References: <20260906202747.4041389-1-samagazaryan@google.com>
+ <20260906202747.4041389-4-samagazaryan@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260906202747.4041389-4-samagazaryan@google.com>
 
-__sgx_alloc_epc_page() returns ERR_PTR(-ENOMEM) when no EPC page is
-available, but its kernel-doc says that this case returns NULL. Document
-the error pointer returned when the node search is exhausted.
+FYI, I have an alternative design option that's worth reviewing:
+https://lore.kernel.org/linux-i3c/20260911210935.1353126-1-meaganlloyd@linux.microsoft.com/T/#mcec3e06c911d331d5cd2b2d0a7f7169b5f9f044b
 
-Fixes: 901ddbb9ecf5 ("x86/sgx: Add a basic NUMA allocation scheme to sgx_alloc_epc_page()")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- arch/x86/kernel/cpu/sgx/main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+It follows in the direction Boris was going in the 2020 thread:
+https://lore.kernel.org/linux-i3c/20200222093844.2f5ed538@collabora.com/
 
-diff --git a/arch/x86/kernel/cpu/sgx/main.c b/arch/x86/kernel/cpu/sgx/main.c
-index 4505f808af5e5f248d89f47006fcd38de3968cf3..f6b24f362e4155a5bf4d27a84622a1cf03c6320c 100644
---- a/arch/x86/kernel/cpu/sgx/main.c
-+++ b/arch/x86/kernel/cpu/sgx/main.c
-@@ -475,7 +475,7 @@ static struct sgx_epc_page *__sgx_alloc_epc_page_from_node(int nid)
-  *
-  * Return:
-  * - an EPC page:	A borrowed EPC pages were available.
-- * - NULL:		Out of EPC pages.
-+ * - ERR_PTR(-ENOMEM):	Out of EPC pages.
-  */
- struct sgx_epc_page *__sgx_alloc_epc_page(void)
- {
+The alternate binding solution is:
+
+If i3cdev match id table is empty, the generic i3cdev driver can't bind
+during the auto-loading that happens on boot. This means we won't step
+on the toes of more specialized drivers. Once user-space sets
+driver_override sysfs knob to 'i3cdev' and binds the device to i3cdev,
+it behaves the same as any other typical driver model-based driver. We
+can also use udev rules to automate setting the driver_override & doing
+the bind for any i3c devices found by the core.
+
+My series also implements actual_len in the controller drivers and uses
+it as an output for user-space to consume for reads. It also accounts for
+maintaining compatibility if i3cdev_xfer struct expands for HDR modes.
+
+- Meagan
