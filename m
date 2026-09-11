@@ -1,120 +1,111 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1244BA1D1
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:36:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 832384BA1E8
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:37:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789162597; cv=none; b=sNcRwOivB6+rg6IQy0jHyiRoMSdV+9XWl6kfPC6e/ut6nWFg1vI67tDmcWm0A5/LZAbUs2wQYlCdeT5h8ctHBtPg1Psr5bJed/EdlkC0dv+bLLhNulBDABzIzrZ39ibtTIFQPb9k1+b30kyTtTLsSHC+Emmd0NWyCfnGa9EuxNg=
+	t=1789162670; cv=none; b=O4NuqWmU95ehGsfPK0bfShukuBwlXpTrkuOQ2B/PnauCXVM++Ak/lK7AftUF/YJfp88WIz8eVUGEFAu7B9AEZnc5Mb+wYWor7yHGqSf/CYHjWi/k9gqchhekzBJ/QhVUKxhfv86aAEtPsJNu2mw1AViqr1K/SNvQBsQEaWjsh5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789162597; c=relaxed/simple;
-	bh=SUiTHckpupA2Vw6P+vJ70ESxWaG0bfUVp4jLYBx9i3Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qnGC3GzDBjtucySZu4HadKalvpJvCyVHXkTJxQ4lWdkFM3CmqjLFTG4nj9Pv7OmZIOASSQL4+8d3F9pW6UPw1Oi3b/JUplSBYdeAs+GRAJfXzsF6b3pH2VeS6Xvk/cznh7XFqztCobTscWqUnJsBswHIU9tADg/YJUGpEkggRFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CP7b68Lw; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1789162670; c=relaxed/simple;
+	bh=ZNfztZEU2//GyAOqq8S1u26/zwtbl0TRO3BJboKeccc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pI4NQG0tWpUOikpaw8bUJsNAG5iMls/K3TJjc1WrmifT8NVRPizLcsZ30+7ZDmGjb2AV0ulg5oQXWo9MtgMxEeuPebfX2+GwdXiuSbyq/EkOYqsEgUCUUMjD+CYd7qAM63J6o2q4BaZn4papiQLv6wgQU7uyLkihjW1NTmv6yaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qKBIxxjr; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CP7b68Lw"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-381b831d535so2518990a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:36:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qKBIxxjr"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed1368so236645ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:37:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789162593; x=1789767393; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=pAQK5OeklF/DWV0T96iTwyf4EXdJqbJCKpAuQ260Jy8=;
-        b=CP7b68Lwz0lZMiJCKXojOECPwsid+PDrcCgP31nW95CaQB5XMMIZGrL+WiRjMFUtXR
-         C1gMDtj+lqVM074ZA0iUrgCPmFydNGJDFFUrNztS4lbGyjthP/P74PysMRUY1ukwzxCM
-         +1Dg5oOQ0qURCwZLeZ6Vj/X3GZ4Z8W2VgWFo8r0o79y1MvOnLKOxp0kvkfM8pv439hHh
-         ts3MXePzZDKruG5SO9FpI/hYmIGi1GVBs51iKsVqztsplR5ODJuG5/HS62dbs/lKkTBQ
-         W2oEjJoR6X0Uns0xyRM3xMQShpvrS4o5jGqCg87yndNnvQsCprR3GnbWKph26T8YtFNr
-         JyeQ==
+        d=gmail.com; s=20251104; t=1789162669; x=1789767469; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JDhrzRcwD2NTK4SBVgRtYy5vlPhq+NtyxLlDZpytljs=;
+        b=qKBIxxjrCQvcLcYjd/oX1N6htNLGuWU9Bz1jDtNAfvNVDYK2KGz/GI4fZvJNqsntf8
+         nzWFPTijDA82Q7Rz4kx0CRjhNzSa0sDUxUnmb4zZAYRqCztHaVAZFIovyN1f63la9XKv
+         o5ESCAIMOv+4Hu96bMaW2icdXfXJuItWjVeGiYZidUhqNl3PbGJSPjdJ4hZvaM85ZIM6
+         Qz3t5kMLaBmk7LgAxNHLcoNCAZiwLofjW56yWr3pgwwdnimPtrcPX1bCWc3/bT/TE1jk
+         Fo0plTBkOP6Ibag7jAItdahoaR0ZikTS7akN6/p+sPw2ChdsU2x3DmHb2+VYrrMJzg+X
+         enIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789162593; x=1789767393;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pAQK5OeklF/DWV0T96iTwyf4EXdJqbJCKpAuQ260Jy8=;
-        b=clD2s2Sfs/UTiRahaTQQQrtHr5gZNaAuK80Jb0CCDHjAuz0PwPSEq9cw5BcvQKjxVR
-         +/feOvXGjg0IonNU8OdckzQVJOqqkEf7tMR7OYKz4x313l2vNVfBFB1hiZSThNoowSdJ
-         sZYInZbsoGnjepf3yRsef0cMY7VussgaBlNPBZT+jARmedYke+385wXum+pwhoQxgO7b
-         IR2gpuIaArJ66C94C+wI+wgHymTcSi+C6FWRutKORROGxjCZIpBcVELXekltNF8wcazm
-         oYJ2+i3HTEMLnW7dIQT+GCiXD5AuE4g6BRNSl0l3QdfVGIjBIFPfA7w7ABjaUxP+eT+9
-         bLdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz91ckkXUtpoFheCUI86iCde69x6ZNDQ4d1o+5DzAU3wH16QaKV8jJJ1eZSwRuQrsVkqD9rOz3znyz0glc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mQdj7IGfIJAbPJHiD2bwESfoadhI9uLPOrYVSC+w+rcXXF/7Hz
-	smy2AG4XZ6gMCCgn5TW/prtUhubxiQXNUZLAmmhsyVnhn3x6tJl1rDKA
-X-Gm-Gg: AYBFou2mmJ/1XTgMqMJOk74XaZUIcqo0NNnelV8OEwW75n9ADqfxu720k/jqSFeHh64
-	jEOQA1ZJiN5MeKzrjYf5kWSk4gyMumSKKmHgOLZQr4C7vacYxDcOmrOXkI4Kr3VKQh4fyuzolnx
-	jzgcOos4xAoVv2SOEl3r0cKdL2D9M2z8FGoYCKMTJNROAXr58K9VaLpmHNg6T9+B0ALNCtErF+p
-	LRWkIXcEEboSlAKpnp6vRpb7st41mdEMeWSaq/KlS/oOmSS16xDgfJNWJuAkuuMxh3WAWzMzO56
-	MKNYQk96JsykTgZUaiiWJa4z8eYc6szh6alIQsP6iUbPTVn5aB3dVl5Whz5xf1TavpyETYL5Iml
-	y37tqz25DreL3Jdm5+HbQUhhggl2VnGHsjRDPWnIHNjIm52JlJjBaONRP49/pxm80UJ1CUsHYAF
-	yfItGVEzDYIrpsPFwgXYT0Nu0k0YyRS3pduN9HM2Ek5Zgawd6on9VD2QVIiYj3PInJ4TqPxgfdh
-	507UpYVowqL
-X-Received: by 2002:a17:90b:384d:b0:398:e1f4:bda1 with SMTP id 98e67ed59e1d1-39d9c22ccc1mr761107a91.21.1789162593165;
-        Fri, 11 Sep 2026 14:36:33 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9959ac65sm6442721a91.16.2026.09.11.14.36.31
+        d=1e100.net; s=20251104; t=1789162669; x=1789767469;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JDhrzRcwD2NTK4SBVgRtYy5vlPhq+NtyxLlDZpytljs=;
+        b=b+9RXqFGx6hUiojjRZu+2fkSRpm3ByojCHWa7uIP8SmOTHQA8hZxYzupG9u+30u3d7
+         29j0fuXzHlfb4TrtSbDXNQHHUsSvp7ahOk6a4H6YcVdiJdNFX/7dMlfOkh9bvYHycWzZ
+         7FTuLBNXpuc/i0/GWIBZnDWAPNLrPhXuiVz3Taop9KSlQ0a5R4H2LnKzDuyWTGLOmmsF
+         5yVGJcbfsbRPtQdI0d3Db473iSiy+RUHTeic4B+bv3fmBxCWC2rzu7RuPGdZsuBXw9qy
+         RKhKdXYFl7Nl3x1ZJiFTtE3772mIGl4vDNbWa7QT8h23G/cmk4y3duwF/TGHPqRSnCFI
+         wGzw==
+X-Forwarded-Encrypted: i=1; AKwUvBybffSjsuWiOShGxOk5Cvqf8cJVCkqDD4L1XSaWmTdrrs7AbENl9C++4AqtMVQL7Du1YAw4gWi0Ha2Fr7o=@vger.kernel.org
+X-Gm-Message-State: AFuF++n7D5x5sldEniBleE2ZA8FB5PbEZZNqm/JWU22FuAiF2LZHKEac
+	hW2Ming0QSVeDB9TWV5RzwqiB5aiQdw2K2v2zFkB9sq2XjhPskNQROCA
+X-Gm-Gg: AYBFou3WFXBou+qxKiHLIxmBnBTHDmnLMUQO528AiMZHoG6BzY816EDV7zvG94LiPXg
+	6VJ5T3phuR5Y+EwaxRMKAr62rRTZq51+Hkoz7K5pqfFEv38cGt1VP3NJ3nPeqlBRX5iw+T2OOOR
+	l8imBA7/J+66vzoHjGq3ltZz7kCrdvehTUiov9m56LzbBLX1kE9G7Mp32B8fiQUskIuNiaPHDzW
+	gYDwEquqkCTXQbtEyy1jSUMXkaeCrKxF9ydJXUNwHfgQNS2piF28rQEskmrzf3ARPKTMO9eHzBS
+	IoFYbKrIY8vpHd5+vrD59ykAnN8QGyQZBEULSunOHAbL2TEBYLIpYlFnwObtDxlkzt5p0HzcHtN
+	DW2eVIY8JzIbVRtM7kgV+RRxNNJDDvShfC1KLveUnNUs+Yyi/wMNRSPAYqmpKuMQ6ZKlnK4V1u8
+	BdYRSff184BEXAudXvUq0/pX+CEJ24xgMQSeBhKV0waUJNHPlwh0+zsG11OVMAtlo8frlNBdPov
+	P6pf3Ic1Km829b1GjWBQaYQsDEWVSehyJBEzSLtJEgynHK2EcOUNbYVhexGUkqnGxkOXC3ojXVL
+	qXTzXtUrNElZQHwiK1oDLywn4bDhL9Xu8iQza1IxvhKDM1bm
+X-Received: by 2002:a17:90b:2588:b0:36a:5d1f:7b6 with SMTP id 98e67ed59e1d1-39dbbe87b09mr238752a91.2.1789162668775;
+        Fri, 11 Sep 2026 14:37:48 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95864b4fsm7194468a91.15.2026.09.11.14.37.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 14:36:32 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Fri, 11 Sep 2026 14:36:30 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Meagan Lloyd <meaganlloyd@linux.microsoft.com>
-Cc: linux-i3c@lists.infradead.org, alexandre.belloni@bootlin.com,
-	vitor.soares@toradex.com, samagazaryan@google.com,
-	gregkh@linuxfoundation.org, arnd@arndb.de,
-	boris.brezillon@collabora.com,
-	oleksandr.shulzhenko.viktorovych@intel.com,
-	tgopinath@linux.microsoft.com, corbet@lwn.net,
-	skhan@linuxfoundation.org, Frank.Li@nxp.com,
-	jorge.marques@analog.com, pgaj@cadence.com,
-	wsa+renesas@sang-engineering.com, tommaso.merciai.xr@bp.renesas.com,
-	nuno.sa@analog.com, Michael.Hennerich@analog.com, jic23@kernel.org,
-	dlechner@baylibre.com, andy@kernel.org, lorenzo@kernel.org,
-	enelsonmoore@gmail.com, rppt@kernel.org, pratyush@kernel.org,
-	giovanni.cabiddu@intel.com, gabewhigham@gmail.com,
-	haren@linux.ibm.com, pasha.tatashin@soleen.com,
-	jirislaby@kernel.org, adrian.ho.yin.ng@altera.com,
-	ustc.gu@gmail.com, jszhang@kernel.org, adrian.hunter@intel.com,
-	akhilrajeev@nvidia.com, tze.yee.ng@altera.com,
-	manikanta.guntupalli@amd.com, shubhrajyoti.datta@amd.com,
-	jarkko.nikula@linux.intel.com, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	linux@analog.com, linux-iio@vger.kernel.org
-Subject: Re: [PATCH 1/3] i3c: master: enable driver_override for I3C
-Message-ID: <342236b8-11f0-44bc-b0f3-2f167a6f521b@roeck-us.net>
-References: <20260911210935.1353126-1-meaganlloyd@linux.microsoft.com>
- <20260911210935.1353126-2-meaganlloyd@linux.microsoft.com>
+        Fri, 11 Sep 2026 14:37:48 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: dmaengine@vger.kernel.org
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCHv3] dmaengine: bestcomm: gen_bd: fix out-of-bounds access in PSC parameter lookup
+Date: Fri, 11 Sep 2026 14:37:47 -0700
+Message-ID: <20260911213747.132694-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911210935.1353126-2-meaganlloyd@linux.microsoft.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 02:09:33PM -0700, Meagan Lloyd wrote:
-> Opt-in to driver_override sysfs functionality for I3C subsystem.
-> 
-> Update some I3C drivers that are assuming that if their .probe is
-> invoked that the bus match function already checked the ID table. Go
-> ahead and verify in .probe that i3c_device_match_id() returns a valid
-> match before using the i3c_device_id pointer.
-> 
-> Signed-off-by: Meagan Lloyd <meaganlloyd@linux.microsoft.com>
-> Assisted-by: Claude:claude-opus-4.8 copilot
-> ---
->  drivers/hwmon/lm75.c                        |  7 ++++++-
->  drivers/hwmon/tmp108.c                      |  2 ++
+The bcom_psc_params[] array has 6 entries (indices 0-5), but
+bcom_psc_gen_bd_rx_init() checked against MPC52xx_PSC_MAXNUM which can
+be 12 when CONFIG_PPC_MPC512x is set, allowing indices 6-11 to pass
+and read past the array.
 
-Separate patches for each hwmon driver, please. Each patch should use the
-standard prefix used in hwmon drivers.
+A malformed device tree with a large cell-index could therefore trigger
+an out-of-bounds read. The garbage initiator and ipr values would then
+be used for MMIO writes via out_8(&bcom_eng->regs->ipr[...], ...),
+potentially causing out-of-bounds MMIO accesses.
 
-Thanks,
-Guenter
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v3: reduce bounds check to single function. It's not used anywhere anyway.
+ v2: fix title
+ drivers/dma/bestcomm/gen_bd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/dma/bestcomm/gen_bd.c b/drivers/dma/bestcomm/gen_bd.c
+index 61b5746e1a97..208340ecd2b7 100644
+--- a/drivers/dma/bestcomm/gen_bd.c
++++ b/drivers/dma/bestcomm/gen_bd.c
+@@ -321,7 +321,7 @@ static const struct bcom_psc_params bcom_psc_params[] = {
+ struct bcom_task * bcom_psc_gen_bd_rx_init(unsigned psc_num, int queue_len,
+ 					   phys_addr_t fifo, int maxbufsize)
+ {
+-	if (psc_num >= MPC52xx_PSC_MAXNUM)
++	if (psc_num >= ARRAY_SIZE(bcom_psc_params))
+ 		return NULL;
+ 
+ 	return bcom_gen_bd_rx_init(queue_len, fifo,
+-- 
+2.55.0
+
