@@ -1,283 +1,265 @@
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08516331EA8
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:09:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B559D331EAE
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:09:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789135786; cv=none; b=u3bMLFs+o0Hx+k5o1I99oD93QKfmh7ZY/wVBqnfGH60yDFuOtl9esFZa5AbuhlD051zt+aQh98Y37H8Bn/oS1UrxypmgAW6MP354NshcpxwiRvbBrqjG0dJPmBuS98u3Leac/WY80lEweP3xCNmojSAvoPenq0qoY7FQVHnpXOw=
+	t=1789135790; cv=none; b=PWo9fH6+6yo19tNK8o/QJnQ7DUpu7jnTmvm+JMbnVYo4zRPruNOZ3/OgJ22410liUEMG3j0Zco0kIAWKtSFOW+xMp0nSkPpumZanElim2/0evjEC6ZYNikTRww3nab1qv8s8pn6yOOAr3RnPaPJbIGq3sZBMfRQJXyaR3YqVfFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789135786; c=relaxed/simple;
-	bh=ciq/+qqHqSRSh7FRYtq3aWelW6Wh5G33c0OaJbqUUSk=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=O+6wTuhQSTOF2U8KPw2tUfm3eEUa1BB8PMALW5s4QDJ7836KMrg84DufqyN1WEPUAXf7IzfOkRvJs8T3R43kIlOwNYnoQx2sBh+M6nsMNJQHOEUp5qM4Vou3wlhPjxTqdatnSV0gfIKmMjC+4snW0qybbZn+I0Ta6RDJNaJaYTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=DFGJgU7t; arc=none smtp.client-ip=209.85.128.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	s=arc-20240116; t=1789135790; c=relaxed/simple;
+	bh=8fwE/CKkLQBqwDNOvHotNuwhswsPeK5f4jYmO9oFJbY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZRvD/CpdxEms2Plerb82GR4c9i+cDzz+Aj05PdJHydKtS5WqTrTH2ElMoORkQOGb3cL7jFE5TMbV2OH78tUnxw8XXBV+ZanuZQnJCHygkHAVll7E6iuPI/7FRWUGLjzfDFvXQBoMqyeWd9SY13daBUACiC8JhmzJtbB+ishEJrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FzBtSN2P; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A0lX0P5G; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="DFGJgU7t"
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-87f4e914a45so8399557b3.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:09:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FzBtSN2P";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A0lX0P5G"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BCjUKF4041200
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:09:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	iskblvIV/JjBo66wrPr3qOCymToWNOakKQIIxBq4R+g=; b=FzBtSN2Pbpd7xhPl
+	ztd+31jDyrmQLUSpTio+l8WW0Il9GFKeJ/KPTXbDm0XiP5zWLL3IE5+Z0fkNF97K
+	pmWDon7KMVKdphptMAG8D3htcV9/BU1/JGrVFoT1qkE6ufgyM9Y63vg90hKKfT1A
+	cb1ZNeISaQoEVsxJIHd4KFYAXih9pvav5ooxWPu++IafhmEPJ3I3zOFm3aBtyBBi
+	1eZq+yHf6Luw0CXbuF6TxaaXQU47urFcQvdQ6uWi1bzuGZ4G6MhB2cU9E2oaJPrA
+	bvSTpnhw8rldBo21MzZ1MOeOYKBlHtSATunkUKeS4bea4OAHxwHBmnMeRYcvnJKi
+	kTYZ1A==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gm1k2c8et-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:09:45 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-9104417215aso18977346d6.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:09:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1789135784; x=1789740584; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=HYwKQGYnNu1I2ntnnDPNcKeVNgWeStLdN/CP2LgAeVM=;
-        b=DFGJgU7tetnlOWunNDJ7nxnwE03Gae7pMcCYJQRLH02qHnZzFhLC0KvqcYSOgicXGK
-         vvB66QBgC1MrfUPP2GmgGpdQ2sqds+jDUj7bE5inVXUS+F2S5DkpvtPoIAkl2dP2L7Ea
-         yT6tYnslpn64YZDZbLDGamhk/VOAtyDIYFSr8XiIuWxDi14b/SQzENnCavQ07fr1UvL7
-         oQri8GfXOKJxqYYctq3rbcsbgJPEBh/7lBDkIsr+BFync+plECVYazCnoovtBNpF0gmM
-         FCB/TDalkKwxBw1ofWz0h8kcxosqconDkQlTDo61CufE45Plmnt1TxavNJsLqyMYBI9a
-         Evhg==
+        d=oss.qualcomm.com; s=google; t=1789135785; x=1789740585; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iskblvIV/JjBo66wrPr3qOCymToWNOakKQIIxBq4R+g=;
+        b=A0lX0P5GOIPTQWeJQULeY1nmd8t7sY1H7AqVWahF6vFbQniHdgm1Vx8Ve0gzo+ndT+
+         dpJ2/VXmZrgMwOYqW0HSG67Kg1QWcKXhWkR7MDU9HnCqeT4+X5ti9RqsBfJTJHYHxN66
+         gBSG9QYi/u5yGlRYwk7Pb11953S5Ik+IqXJmxHxwW0gCP+tjsyR8zYniZ+yfpyNDSnnb
+         5AzNX85jNnzzlgKkXf0zfZtA6oP8TTj3mtxVQN3c8a2Qq/UtquytE+oloSQLimJP37N5
+         mQWn2BwW8vP4qD6/yb4uFLuoLAYC9ujMQbm3H3jUBMc6csqhWYWFp96nims7mmNvEM1y
+         mqwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789135784; x=1789740584;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=HYwKQGYnNu1I2ntnnDPNcKeVNgWeStLdN/CP2LgAeVM=;
-        b=gf7/WDTi88wC7Dp0IQLYs+9lhHGTIeeGzEoD2BECnVftFVx3l4ZJ5XjXrnG//vS9nQ
-         +/n3TQD4fKGRSIJhmOppbWo9sQfNYxK6Tn7jc5xoiKqhis431Krkx0uTCT2PYvL5X2N+
-         G/pp8OEwFsd2QKNEw2r+bzysbKzvQVTysDFIh2V2F3dg7jllHm6PCVwRDBDXPjVvG0ZA
-         JMyfG/uf+60Mr1C8SSZj748tgc4kEm/hrxXYek+udBinNc6lm3yTm6ndxO9Wr9qQG7ZA
-         dHxUZDA1Rp1yzUAht45eHmPR9yNey4Uoh2OAdjccg2zbARUi9GxankSuCdpz13KAa9KX
-         rUjw==
-X-Forwarded-Encrypted: i=1; AKwUvBxsWGSLsqwlzPEq5MBVcTUkwzctijRbDyGr7g8VZuAMq3wDHEsnqVFkW/v489c9jLlJXE0mCREZFgTFMO8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nlNAN3bFk6szEXqcbQZfV4edPBqrd7zqP9LXBsl20iK6VtGn52
-	r5+s612JIwMdDgf9Vync8nqjUs+x8zvx9pQLAlKu+B8hdJ9hRQJ1wqKQ+pETL0toSKI=
-X-Gm-Gg: AYBFou2d9/3zGNoX9BtRgGFOSNCdyXUDLjDfcMc7WgFGPtIqTzQ+rNGDle98yn7sDJq
-	9brqktWNkQM+x/yhmQhYAsXvYRcMHXDjB2o/xkO6gkpdI6UosgQP8K0AyprcAT70ph4pqM4bfBy
-	kuZF6rwinYMlG12idAuoRv+qC4Jba9kpylgpcjeIh5I7eJ13JZOuiBUGVq6zaNvpXbVgnbw1BKe
-	b3QleIHn0hILVKzig7wCpemejNKyX8dMoVJ+lCV3Wn9bgxCHEryOhPtJ0izhumO7rCGr72s3Bwb
-	LkIi+SS3h4yqyqrf8h6JYz1Vfw0VCCth1+SaNSZGwvYGjwebdUfaAIwCRdvzqk4Z08DiNsTSrf4
-	cb/X+FnVo5pnOofC2MOmtK7FGXxVbTJaLPNLW3mqkl15+DSURXnC683alBlGJ87aTs6rx5p+/je
-	737qx75aTaKO/AJLtsIotdIzdII0mMIwBf7DeOZMSvcOnnner0OqOu2K62EgQhJAt12QeJIjmPz
-	Nwj5gMK1vevXFn35x14iTWcDdF2c4JsJf7U5CPL69tDC3DsE/hSpfwH
-X-Received: by 2002:a05:690c:397:b0:869:1ab2:33aa with SMTP id 00721157ae682-884afd12eb1mr15658867b3.20.1789135783644;
-        Fri, 11 Sep 2026 07:09:43 -0700 (PDT)
-Received: from toxicpanda.com (ec2-34-228-114-98.compute-1.amazonaws.com. [34.228.114.98])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939ecc38105sm175654485a.4.2026.09.11.07.09.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 07:09:42 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-Subject: [PATCH RFC v2 00/15] rcu-tasks: let preemption outside trampolines
- be a quiescent state
-Date: Fri, 11 Sep 2026 14:08:38 +0000
-Message-Id: <20260911-b4-rcu-tasks-preempt-qs-v2-0-eaaa61ed2da4@toxicpanda.com>
+        d=1e100.net; s=20251104; t=1789135785; x=1789740585;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iskblvIV/JjBo66wrPr3qOCymToWNOakKQIIxBq4R+g=;
+        b=dSwsfOJUX1lqsRoEPW/6NF86jfeYhrvF+Eh6juyJc4qmrIOpScWtSmn4Jh8fEAtsWQ
+         birEwC4+G1Bin0h8C4syL7ciGLMCRXWZhTnQQVeW/knMciGpRfN4dC6cX3xV+tSNpO44
+         5F0NdDNZ++fa4CF0KRxGegxBTLHUW4NwX2OmeEpX3T7aN3UDg9AFaku1plDy+i3I5AWc
+         AB56h/ZzwWvXbMS6vU9Y7lQ+EWXs9+2xvpIkyqZ/+1RSDDVMlofjdcOrymVWRn4jM0Rb
+         gnCxEwycoUM1f4CVutoI12JJALlTmuRhDmywfD4cqCOCJPWKpcqkP5JAYj0BH8nskXjF
+         mghg==
+X-Forwarded-Encrypted: i=1; AKwUvBxiZw5xp+6E4yTPKqwYNgI4UpVrY5rA5oZjkXvSA3Zi44xwsdmJ43sEz731MIF3cLwuW4E1stVqtRfhIBU=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9umJLjYhoh8dMjIPUic+3DEyEIhVVEE7Z3BO9rSime9mantgG
+	nCZRHvEEirS+8D1U9LBxovTWZSo6dDYFnLeELoWu6zbpyxhtYty9c+xXo/n5Gn4heqgiWejkwH4
+	KA99de1GvjMMFQRPLI925cMg4RsKEPdahsJyyK5cL1dI7LcVfbA+rcADceEw/Y54D9MA+7hyYbA
+	E2xw==
+X-Gm-Gg: AYBFou1GrS9wD3mxUOGw7E4oks4ZQdz7vuVn4GAxn9mnubAtEPVTVrxnx4amun0MDxA
+	2AUy2YNVXNj1G+fiySx2EpJwEeup4PMaEgPRzsnPzbs1gK9JWjrk4PLOtpBPHCsL8wcS7gVdtmE
+	e88efpK80FdbV3Oa2Wf5G/N2/8JGzP553mOsItPQlZQvFrN8aI31qyOkg85DU+72gSxiDNtCgCG
+	A0gSiqrp/ze5qgXFVVDenkOonjcOH+uG6qksw2IbebREUx2eTQaYBqrv61qMEivu0JlrUp8o0pK
+	XDCVAMIW0OCMByZKEI4fGaBqShzcrQRywp+Afn307UT1YDU/hIQSacWngu/698YBLvsLVD1jq8t
+	i3eowIMxa/rz89xuR2uXAJ4yUpHbqTCIG3xcdkunK
+X-Received: by 2002:a05:6214:8510:20b0:912:122b:b97e with SMTP id 6a1803df08f44-912122bcfb7mr42132046d6.27.1789135785336;
+        Fri, 11 Sep 2026 07:09:45 -0700 (PDT)
+X-Received: by 2002:a05:6122:390b:b0:5bb:eebe:7ffd with SMTP id 71dfb90a1353d-5c846307c10mr5360849e0c.8.1789135720634;
+        Fri, 11 Sep 2026 07:08:40 -0700 (PDT)
+Received: from [192.168.1.31] ([85.196.172.179])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34e608sm6426044f8f.23.2026.09.11.07.08.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 07:08:37 -0700 (PDT)
+Message-ID: <684d02bf-e575-4229-add6-a0e45186f59b@oss.qualcomm.com>
+Date: Fri, 11 Sep 2026 17:08:34 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/8] media: qcom: camss: Implement CSID streams API hw_ops
+ for gen2
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+        Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com>
+ <20260911062213.195007-4-gjorgji.rosikopulos@oss.qualcomm.com>
+ <e3000a66-3fa9-48d6-a82b-b4ff52558e5a@linaro.org>
+Content-Language: en-US
+From: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>
+In-Reply-To: <e3000a66-3fa9-48d6-a82b-b4ff52558e5a@linaro.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGgLpGoC/4WOzQ6CMBCEX8Xs2ZWWFAyeTEx8AK+GQ7sUqT+A3
- UowhHcX8GricWZnvp0B2HpnGXarAbztHLumnkS8XgFVur5YdMWkIRZxKjIp0Cj09MKg+cbYems
- fbcAnoxKyLFWi0oS2MLWnU+n6hXyG0/EA+dfkl7laCjNzjhnNFo3XNVWzdW8jo6LF/PVlblSOQ
- +Pfy+JOLvi/4zqJAgul0qxURFLIfWh6R62uC72h5gH5OI4f1jKPpQwBAAA=
-X-Change-ID: 20260910-b4-rcu-tasks-preempt-qs-401ff45465c7
-To: "Paul E. McKenney" <paulmck@kernel.org>, 
- Frederic Weisbecker <frederic@kernel.org>, 
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
- Joel Fernandes <joelagnelf@nvidia.com>, Boqun Feng <boqun@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Jiri Olsa <jolsa@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- x86@kernel.org, Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>, 
- Xu Kuohai <xukuohai@huaweicloud.com>
-Cc: Andy Lutomirski <luto@kernel.org>, 
- Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, 
- Juergen Gross <jgross@suse.com>, Luis Chamberlain <mcgrof@kernel.org>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, linux-kernel@vger.kernel.org, 
- rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
- bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- xen-devel@lists.xenproject.org, Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1789135736; l=9888;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=ciq/+qqHqSRSh7FRYtq3aWelW6Wh5G33c0OaJbqUUSk=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QAo5VaRxmnCLTA74sHK3/IXlJk4maBdHJ/o8BcYQaWxLTsL0V/6t0pY/lmq70yYasPVK7mviH+F
- JmwKt5LbXdQw=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+X-Authority-Analysis: v=2.4 cv=cM11IVeN c=1 sm=1 tr=0 ts=6aa40ba9 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=iEnAxMS8pMPacfR5st8A:9 a=QEXdDO2ut3YA:10
+ a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-GUID: INiNw9NEiSxDY6U6XGtTy_EoLax6ydHH
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDE5NiBTYWx0ZWRfX8I4Bn+KGZ8ZJ
+ 3Wn6bUu6xy8P6bYvAhq7dHM6K6CPzm/wL+zlULgo+wVPy2wZ+ZITWH6AIpeOVPg4OExA4qutDWN
+ JBQGtQM+ZaYDCkijbRVKbOcShsuzyZw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDE5NiBTYWx0ZWRfXzvjCkH4VEivV
+ +crWs5jZYPlcps9y1gy75UB5sQTKg5D9OPNbIuuGaZ7ihh4kfFD8rDb7GZYukhYj50AeLNL+ZNe
+ M6YzkyKlJieUnuEu28d+n6kclEb5rTpmK0qllW+XMFK22PhEmY33tD+y6riNgwNf+PWbSuT0J8h
+ 2bQ1vr4ZXx24GoEua7a2NEFIx43ku9zAhbdqc6YrTFNlyWTxUwjFoeOr+mAsyReve1f6Q8JrENn
+ Z1ig1JC6yyrHQMvWEXU/EmdexJoaMtV8s1V4ZByvo/ABxPg8NaBIl99P024Oyjpm4ExH38fieE8
+ JmqkwiWXepSbc20z9dKuMIMc5WV+NCm8MkFxd1cYi8v1MYrdFzfgseIW0kouac+e5VSIRdGQaZl
+ VgmeVYJDqEEU1dBGPoea46jPmcqVIEAs4qCT5zqmWCxwaXEnr9KitrqELlIfJ9QxppVxRIGl+k7
+ o3ZN2oSA/vq/5mjDUcw==
+X-Proofpoint-ORIG-GUID: INiNw9NEiSxDY6U6XGtTy_EoLax6ydHH
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-11_04,2026-09-11_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0 bulkscore=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110196
 
-v1: https://lore.kernel.org/all/20260910-b4-rcu-tasks-preempt-qs-v1-0-d4469f4cc101@toxicpanda.com/
+Hi Bryan,
 
-v1->v2:
-- Only walk the kprobe hash while the optimizer is actually waiting (Sashiko).
-- Re-check the kprobe jump window at every QS decision instead of once at
-  preemption time (AI review).
-- Updated Documentation/RCU for the new rule (AI review).
-- Added 14/15 and 15/15 to address Paul's comments.
-- Added a comment in trace_recursion.h per Steve.
-- No change for the arm64 ftrace_static_tramp_end report, the Kconfig
-  dependency already covers it (Sashiko).
-- Re-ran the x86-64 QEMU tests, still 0.2-0.3s and clean.
+Thanks for the review,
 
---- Original email ---
+On 9/11/2026 1:46 PM, Bryan O'Donoghue wrote:
+> On 11/09/2026 07:22, 
+> Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com wrote:
+>> From: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+>>
+>> Implement the configure_rx/enable_stream/disable_stream hw_ops added to
+>> struct csid_hw_ops, for the gen2 CSID hardware backend used by SM8250.
+>>
+>> __csid_configure_rdi_stream() now takes an explicit data type parameter
+>> instead of deriving it from the CSID source pad's format, since the
+>> streams API keys each stream by stream_id rather than by pad. The
+>> existing configure_stream() path is updated to pass its per-port format
+>> lookup through to this parameter, preserving current behavior.
+>>
+>> Signed-off-by: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+>> ---
+>>   .../platform/qcom/camss/camss-csid-gen2.c     | 59 ++++++++++++++++---
+>>   1 file changed, 51 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen2.c b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
+>> index eadcb2f7e3aa..2512cdb16d94 100644
+>> --- a/drivers/media/platform/qcom/camss/camss-csid-gen2.c
+>> +++ b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
+>> @@ -253,13 +253,8 @@ static void __csid_configure_testgen(struct csid_device *csid, u8 enable, u8 por
+>>   	writel_relaxed(val, csid->base + CSID_TPG_CTRL);
+>>   }
+>>   
+>> -static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8 port, u8 vc)
+>> +static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8 port, u8 vc, u8 dt)
+>>   {
+>> -	/* Source pads matching RDI channels on hardware. Pad 1 -> RDI0, Pad 2 -> RDI1, etc. */
+>> -	struct v4l2_mbus_framefmt *input_format = &csid->fmt[MSM_CSID_PAD_FIRST_SRC + port];
+>> -	const struct csid_format_info *format = csid_get_fmt_entry(csid->res->formats->formats,
+>> -								   csid->res->formats->nformats,
+>> -								   input_format->code);
+>>   	u32 val;
+>>   
+>>   	/*
+>> @@ -281,7 +276,7 @@ static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8
+>>   	val |= 1 << RDI_CFG0_TIMESTAMP_EN;
+>>   	/* note: for non-RDI path, this should be format->decode_format */
+>>   	val |= DECODE_FORMAT_PAYLOAD_ONLY << RDI_CFG0_DECODE_FORMAT;
+>> -	val |= format->data_type << RDI_CFG0_DATA_TYPE;
+>> +	val |= dt << RDI_CFG0_DATA_TYPE;
+>>   	val |= vc << RDI_CFG0_VIRTUAL_CHANNEL;
+>>   	val |= dt_id << RDI_CFG0_DT_ID;
+>>   	writel_relaxed(val, csid->base + CSID_RDI_CFG0(port));
+>> @@ -330,15 +325,60 @@ static void csid_configure_stream(struct csid_device *csid, u8 enable)
+>>   	/* Loop through all enabled ports and configure a stream for each */
+>>   	for (i = 0; i < MSM_CSID_MAX_SRC_STREAMS; i++)
+>>   		if (csid->phy.en_vc & BIT(i)) {
+>> +			/* Source pads match RDI channels: pad 1 -> RDI0, pad 2 -> RDI1, etc. */
+>> +			struct v4l2_mbus_framefmt *input_format =
+>> +				&csid->fmt[MSM_CSID_PAD_FIRST_SRC + i];
+>> +			const struct csid_format_info *format =
+>> +				csid_get_fmt_entry(csid->res->formats->formats,
+>> +						   csid->res->formats->nformats,
+>> +						   input_format->code);
+>> +			u8 vc = 0;
+>> +
+>>   			if (tg->enabled)
+>>   				__csid_configure_testgen(csid, enable, i, 0);
+>>   
+>> -			__csid_configure_rdi_stream(csid, enable, i, 0);
+>> +			__csid_configure_rdi_stream(csid, enable, i, vc, format->data_type);
+>>   			__csid_configure_rx(csid, &csid->phy, 0);
+>>   			__csid_ctrl_rdi(csid, enable, i);
+>>   		}
+>>   }
+>>   
+>> +/*
+>> + * configure_rx - Configure the CSID Rx front-end
+>> + */
+>> +static void csid_configure_rx(struct csid_device *csid)
+>> +{
+>> +	__csid_configure_rx(csid, &csid->phy, 0);
+>> +}
+>> +
+>> +/*
+>> + * stream_id is used directly as the hardware RDI port index below. This
+>> + * assumes a 1:1 stream-to-port mapping and should be revisited once
+>> + * per-platform src_streams data (stream id -> hw pipe) is added.
+>> + */
+>> +static void csid_enable_stream(struct csid_device *csid, u32 stream_id, u8 vc, u8 dt)
+>> +{
+>> +	struct csid_testgen_config *tg = &csid->testgen;
+>> +
+>> +	if (tg->enabled)
+>> +		__csid_configure_testgen(csid, 1, stream_id, vc);
+>> +
+>> +	__csid_configure_rdi_stream(csid, 1, stream_id, vc, dt);
+>> +	__csid_ctrl_rdi(csid, 1, stream_id);
+>> +}
+>> +
+>> +static void csid_disable_stream(struct csid_device *csid, u32 stream_id)
+>> +{
+>> +	struct csid_testgen_config *tg = &csid->testgen;
+>> +
+>> +	__csid_ctrl_rdi(csid, 0, stream_id);
+>> +
+>> +	if (tg->enabled)
+>> +		__csid_configure_testgen(csid, 0, stream_id, 0);
+>> +
+>> +	__csid_configure_rdi_stream(csid, 0, stream_id, 0, 0);
+>> +}
+>> +
+>>   static int csid_configure_testgen_pattern(struct csid_device *csid, s32 val)
+>>   {
+>>   	if (val > 0 && val <= csid->testgen.nmodes)
+>> @@ -425,6 +465,9 @@ static void csid_subdev_init(struct csid_device *csid)
+>>   const struct csid_hw_ops csid_ops_gen2 = {
+>>   	.configure_stream = csid_configure_stream,
+>>   	.configure_testgen_pattern = csid_configure_testgen_pattern,
+>> +	.configure_rx = csid_configure_rx,
+> 
+> Keep the namespace consistent and include _stream somewhere in this name
 
-Tasks RCU only treats a voluntary context switch, usermode or idle as a
-quiescent state, because a preempted task may be sitting in a trampoline
-that is about to be freed. That was a fine trade when PREEMPT_NONE
-servers compiled Tasks RCU away and PREEMPT desktops rarely ran
-long-lived in-kernel loops. PREEMPT_LAZY changes both halves at once:
-Tasks RCU is now real on server configs, and cond_resched() is a no-op,
-so a CPU-bound kthread or kworker only ever loses the CPU by being
-preempted, which is exactly the event Tasks RCU refuses to count.
+I agree it will be added in next patchset.
 
-The way this showed up for us was a cgroup writeback worker draining a
-very large cgwb for around eleven minutes on an arm64 box. Nothing wrong
-with that on its own, but a BPF program detach on another CPU went
-bpf_trampoline_update() -> ftrace_shutdown() -> synchronize_rcu_tasks()
-while holding trampoline_mutex, forty-odd tasks piled up behind the
-mutex, and the hung task detector panicked the machine. The kprobe jump
-optimizer is worse in principle: it does synchronize_rcu_tasks() under
-kprobe_mutex, text_mutex and cpus_read_lock(), so one long-running
-kthread can stall static key updates and CPU hotplug for its whole run.
-The current answer is to find each such loop and add
-cond_resched_tasks_rcu_qs() to it, which is the kind of annotation
-PREEMPT_LAZY was supposed to let us stop writing.
-
-This series tries the other direction: have the trampolines say when a
-task is inside them, so that a preemption anywhere else can be a
-quiescent state.
-
- - task_struct grows an int, rcu_tramp_nesting. Every trampoline whose
-   lifetime Tasks RCU guards increments it before calling out and
-   decrements it before returning: ftrace_caller and its dynamic copies,
-   the BPF trampoline (which drops it again around the call to the
-   original function, since im->pcref covers that), the x86 optprobe
-   template, and out-of-line register_ftrace_direct() trampolines. Only
-   current writes it and nested users are balanced, so it is a plain
-   non-atomic inc/dec, one load of current plus one RMW per entry/exit.
-
- - The inc/dec are inside the trampoline, so there is a window of a few
-   instructions on each side where the count is zero but the task is in
-   (or on its way into) trampoline text. Nothing there can be preempted
-   synchronously, only from an interrupt, so the irq-exit preemption path
-   looks at regs->ip and holds the count across preempt_schedule_irq()
-   when the IP is somewhere the counter cannot cover: outside core and
-   module text (all the dynamically allocated trampolines and slots), in
-   the static ftrace stubs or the x86 return thunks that still hold a
-   direct-call target, in a module that hosts its own direct trampoline,
-   or inside the bytes after a kprobe that the jump optimizer may be
-   about to rewrite (the one synchronize_rcu_tasks() user that is not
-   about trampolines at all).
-
- - With those in place, rcu_tasks_classic_qs() also clears the holdout
-   flag on a preemption when the count is zero, on architectures that
-   opt in. x86-64 and arm64 do so here. Everyone else keeps the
-   voluntary-only rule and is untouched apart from the (unused) field.
-
-A running holdout already gets poked via rcu_request_urgent_qs_task(),
-which makes the next tick set NEED_RESCHED, so with this the resulting
-preemption retires it and a Tasks RCU grace period is bounded by roughly
-a tick plus the longest preempt-off section rather than by the longest
-stretch without a voluntary schedule().
-
-Patches 1-12 are scaffolding and change no behaviour on their own; patch
-13 flips the rule and selects the option for the two architectures.
-
-Testing so far is QEMU only: x86-64, PREEMPT_LAZY with PREEMPT_RCU=n,
-PROVE_RCU and lockdep, with and without PREEMPT_DYNAMIC. A kthread
-spinning in-kernel for 30s with the function tracer, an ftrace kprobe,
-an optimized kprobe and fentry/fexit programs attached:
-synchronize_rcu_tasks() goes from 29.7s to 0.1-0.3s, tearing down a
-DYNAMIC ftrace_ops (tracefs instance function -> nop) from 27s to
-0.2-0.8s, and the ftrace-direct sample modules load, fire and unload in
-about 2.5s each while the spinner runs, with no warnings and the new
-return-to-user assertion quiet. arm64 is build-tested only at this
-point; real hardware numbers for both are the obvious next step and I
-did not want to sit on the idea waiting for them.
-
-Things I would particularly like opinions on:
-
- - Whether hooking rcu_tasks_classic_qs() is the right place, or whether
-   Paul would rather see this expressed differently inside Tasks RCU.
- - return_to_handler and the rethook/kretprobe trampolines are not
-   instrumented. Their C callees take the ftrace recursion lock before
-   touching any ops and the trampolines themselves are static text, so I
-   believe they do not need it, but I would like Steven and Masami to
-   confirm.
- - The register_ftrace_direct() contract change: out-of-line direct
-   trampolines now have to maintain the count themselves (the samples
-   are converted). I do not know of out-of-tree users beyond BPF, but
-   this is the one place an existing user could be silently weakened.
- - Whether arm64 folks are comfortable with the ldr/add/str in
-   ftrace_caller and the BPF trampoline, and with treating all of
-   ftrace_caller as trampoline text for the IP check.
- - If this holds up, cond_resched_tasks_rcu_qs() and
-   rcu_softirq_qs_periodic() become unnecessary on the opted-in
-   architectures; I have not touched them here.
-
-Based on v7.3-rc2+ (893e11787f78).
-
----
-Josef Bacik (15):
-      rcu-tasks: Add per-task trampoline nesting count
-      entry: Pass pt_regs to irqentry_exit_cond_resched()
-      rcu-tasks: Hold trampoline nesting across irq-exit preemption in trampoline text
-      kprobes: Let Tasks RCU recognise tasks preempted in an optprobe jump window
-      ftrace: Mark modules hosting direct-call trampolines for Tasks RCU
-      x86/ftrace: Maintain Tasks RCU trampoline nesting in ftrace_caller
-      x86/kprobes: Maintain Tasks RCU trampoline nesting in the optprobe template
-      bpf, x86: Maintain Tasks RCU trampoline nesting in the BPF trampoline
-      arm64: ftrace: Maintain Tasks RCU trampoline nesting in ftrace_caller
-      bpf, arm64: Maintain Tasks RCU trampoline nesting in the BPF trampoline
-      samples: ftrace: Maintain Tasks RCU trampoline nesting in direct-call trampolines
-      rcutorture: Bracket Tasks RCU readers with trampoline nesting
-      rcu-tasks: Treat preemption outside trampolines as a quiescent state
-      rcu-tasks: Retire switched-out tasks with no trampoline nesting at scan time
-      rcu-tasks: Kick running holdouts through the scheduler
-
- .../RCU/Design/Requirements/Requirements.rst       |  28 +++-
- Documentation/RCU/checklist.rst                    |   8 +-
- arch/arm64/Kconfig                                 |   1 +
- arch/arm64/kernel/asm-offsets.c                    |   3 +
- arch/arm64/kernel/entry-ftrace.S                   |  35 +++++
- arch/arm64/kernel/ftrace.c                         |  16 +++
- arch/arm64/net/bpf_jit_comp.c                      |  46 +++++++
- arch/x86/Kconfig                                   |   1 +
- arch/x86/kernel/asm-offsets.c                      |   3 +
- arch/x86/kernel/ftrace.c                           |  37 ++++++
- arch/x86/kernel/ftrace_64.S                        |  43 +++++++
- arch/x86/kernel/kprobes/opt.c                      |  20 +++
- arch/x86/kernel/vmlinux.lds.S                      |   4 +
- arch/x86/net/bpf_jit_comp.c                        |  43 +++++++
- arch/x86/xen/enlighten_pv.c                        |   2 +-
- include/linux/irq-entry-common.h                   |  14 +-
- include/linux/kprobes.h                            |   8 +-
- include/linux/module.h                             |   7 +
- include/linux/rcupdate.h                           |  86 ++++++++++++-
- include/linux/sched.h                              |   2 +
- include/linux/trace_recursion.h                    |  11 ++
- kernel/entry/common.c                              |  38 +++++-
- kernel/fork.c                                      |   2 +
- kernel/kprobes.c                                   |  46 +++++++
- kernel/rcu/Kconfig                                 |  17 ++-
- kernel/rcu/rcutorture.c                            |   6 +
- kernel/rcu/tasks.h                                 | 141 ++++++++++++++++++++-
- kernel/rcu/update.c                                |   2 +
- kernel/trace/ftrace.c                              |  39 ++++++
- samples/ftrace/ftrace-direct-modify.c              |   9 ++
- samples/ftrace/ftrace-direct-multi-modify.c        |   9 ++
- samples/ftrace/ftrace-direct-multi.c               |   5 +
- samples/ftrace/ftrace-direct-too.c                 |   5 +
- samples/ftrace/ftrace-direct.c                     |   5 +
- samples/ftrace/ftrace-direct.h                     |  64 ++++++++++
- 35 files changed, 776 insertions(+), 30 deletions(-)
----
-base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
-change-id: 20260910-b4-rcu-tasks-preempt-qs-401ff45465c7
-
-Best regards,
---  
-Josef Bacik <josef@toxicpanda.com>
-
+~Gjorgji
