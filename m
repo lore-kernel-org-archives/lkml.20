@@ -1,154 +1,170 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C448649E129
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:20:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06EC735F602
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:21:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789140016; cv=pass; b=ttOyo0ec6kX0TWTF9SeG+ydlJxhl82gs0nypbepqRRoCFfqdCxC31Zy0g5+WLOZCtR7ej2mMJPj+ydmXUjqYcFwjZM18JXjCvMLTCWvqwn6JgqrOq1L3xYEnDG2HkmPuceS0Ts/RF5b5IQydxFkLhFmDgCFupBXSsdioFfodPEA=
+	t=1789140101; cv=pass; b=jdv9DGVKNaJFYgmT1gn/+KQ44AiJEsogREBHAj+Hc7UJaG4Y9ZO/8F99cpu2lZd60zcWtVjSMXhK7GyEgBpsGFwwbswA+SFVaHU17zpoYuQ8368oYQ65yUT7IxCJM3KXPoNbH+M0RSP5Z5JQ8BGQVXSC0xHG7fZuOvb9MUMi23E=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789140016; c=relaxed/simple;
-	bh=Yk13UDKhHBWrmRCnNILsAJ9pW2ZdOFTsJD8wrftx0/0=;
+	s=arc-20240116; t=1789140101; c=relaxed/simple;
+	bh=X73qWbgasVwFRCsdt41DwsiJOL71A/gEluZDRHMXGw8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OdOpBa7KEJF9/RLu6hyamLcIOFXokQ+KnutXUs5MwVc/0dP3Gx3Gd2EQXEkIs/cquIZRJVubjf9RSQHNrPjqO/LHW3Sk0hSrvmrMpCxPwLGL96TZ80/WuQ8HIqR0QE+vUHAbyHKY4SwL259jVDtc6jnJsZgMoswQAkRWZbv89JE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fBP6UMJz; arc=pass smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 To:Cc:Content-Type; b=e3fTWIVKVomcCyVR7eGvus6+9+4g2lSZZvidO5AIMZS2FjVLC1M/VEXNupuwaxIphXcNf1pPjK9o3iILl6RNBs9jRe8IaP3o1zSjZnzHdFrhMTjfV/PLy5yt6lrdnzr6aevtIuFmIZeFa2TyECjGz8jZtcZBbUML16H2xYpr3Xo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=CoBm5puH; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fBP6UMJz"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-530411c7ee1so24481cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:20:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789140014; cv=none;
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="CoBm5puH"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4aae314aso822695d50.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:21:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789140099; cv=none;
         d=google.com; s=arc-20260327;
-        b=F3wurjhtt20Vfwwi8Yx1pEyhk09DAIRSl/R7avPUbYTX4XHx6Ih6DYF5EyOTtgi8iW
-         Ikk1jcqNYQVJJmRosQsUht+By8Aw95fJBsEN49VgUwLzfi9rTYwenTLnI8nVj/GYqV4n
-         Z5TQGZVg/PXXYtxGcZIwjUE0oqvVFc5jzgJj6kJ9YTSWZUw7ksBVWA5YFD/MJ3JkVyjk
-         MymmPzEgkYqLcJQgJ5oTiWk3VpyCQFOSQfPS++pP54l5QY058nXU38f+9St6wfibXDEl
-         WcnrfRF65LfAWuNkEyftzNU56DAGQfR3JiqILbpUgxTpSoykKSYcN0jRbGB+TXM9Fruc
-         t/5g==
+        b=RXZIjgGMaoBqgUxP0n2mMZcFl72+J0L1tHmvCyP1S0InnBObja19D9ycebR3DJ30W/
+         uI4lMlw56GxaS51xovWpViNltpZ4go9LxoH5bAnftA7/pZnxmBnjS7DH0MPKSdKJ5GWs
+         X3fDfKtT6xnk8xXId6CeyzSFws3IXoQ4AR0zwGqfPp5pz8avJLDQNd8QPmfFhluNzfYm
+         ptgX1K/MDHog1fG7bMjyoD8wmbqUJQZHvhP2fYxU3cVnAXHEW8Ca2dFe+09XLADnqB4C
+         vTWTJ2HsEclglZEB6je+5h2RE9ADlKLIwjauDayAhjWqB5bvUPsxhuWjB0wyqx9zqAXr
+         Vkdw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=Yk13UDKhHBWrmRCnNILsAJ9pW2ZdOFTsJD8wrftx0/0=;
-        fh=XlJgTGFehI7zIlPJFDY7+l0E56Txg8AsYObBMqih3ok=;
-        b=WL7683xs27ANmH1MUcJ7xNdqtbI3uO5opcJnEsTMCluwQTVgDmkoExoIrzw60jSwXk
-         Sg4RItshwCfn1xhwsb1AgOluVtIZ48CwarPiWI9OWEiX9GIh0EG6tJVGRajNZzdR4tkz
-         R14oJYPmrkCk3eXoOGOzt5NW1F5+y4Jhz401+bpMBIpVnrFwCri9jogog7OxXYg4kNAe
-         r+0i7HkF4ded0Gm0vKyVBPWAjdr96qGCDO36QU89UI8nAaI8dwfIXsSMSOZe/M7ey0Vm
-         EsBU0fLqQygE9gjRFhK10Q+sh4wdNDemRasoRUeo5WHxalhzWTlbn/F8Q/rClH+ANwLB
-         nNAg==;
+        bh=FkkSMxc0+XLFGXfcobgYJWMCi6rudZ0wwsjRC0+wmrk=;
+        fh=ohGG87yPm30PFqReiHQ/dftmijcLWLIDAbVUtP7hhfc=;
+        b=CQ08vxoG0lpiGNPgocAXSyrCtVv1Lkk/m1Yn9x7/BGRLnnHqfz6GsnsrDiTBq6ODae
+         9wLoZE2ww7+2glQbR/unCevYvpxDpVaAKejFne9AfQKgHjmFyHvcCCPudTmDltfevfdi
+         KnDU++z754Pl1aR+MajPViaAfVEMmIeVpNspdWpTmELEQsDeHLZ6tHYdOcK12G/ikuqx
+         6+MfIuuavUMzk/mhpiuAxmzrjnigAI2/v3HCBmFb0Lr1q0X4oWshboJkblIicvHYzgGl
+         ip+knUDgYK1enQs/yUlAvR0xOZHo5DLSMs7pGZCQTq4nIm1LPtnN2R7Wc8TBDaZTWSeD
+         S+8w==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789140014; x=1789744814; darn=vger.kernel.org;
+        d=amarulasolutions.com; s=google; t=1789140099; x=1789744899; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Yk13UDKhHBWrmRCnNILsAJ9pW2ZdOFTsJD8wrftx0/0=;
-        b=fBP6UMJzPJ0KW/juIyKGox20dnrREJZIML5qBY7yeL/B/DZs5pFuhz0lAEXHBycPBL
-         XyM94F/zx2KDpAW85sb0nleo/l+eyI7K2+bfK1LfcF4KAn16DfFF7SBzymDVhwohDA0N
-         xZ7YAX9tAQdRFmUVTpB7Z2Z/dRQQrQk5vNjfA0gWLRI3drg3x8ntsurgXtNln+DLHPXF
-         O0HK21flAY4PErWVsB+IJjMeUBBeiZsE1C8oAS+igJjSGzUhZ5Wv31s0AT3eBNHFoWPG
-         t0yLrMHoJMMxKXicwe68gZgXkK/nTUlTVHTY+ekUZQ7hHI5KyD0w7NI+NpN5yG3EaZqg
-         Yylw==
+        bh=FkkSMxc0+XLFGXfcobgYJWMCi6rudZ0wwsjRC0+wmrk=;
+        b=CoBm5puHJ6qxzoETT8/f+7HxgqqC9zi1VI7IyPTQ5Z2iiWlVhWl8311sVr2qckRCDB
+         2BvWKTu11gNOMRVm6kNgcX6kDnGMtz19MR6Yr1K7LXQMuws7TBZxpoHC9Pi3SKMFM+at
+         oV5Ny5R/wi42XLoh7Wk+OTbAiUHV5dK17f0yY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789140014; x=1789744814;
+        d=1e100.net; s=20251104; t=1789140099; x=1789744899;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Yk13UDKhHBWrmRCnNILsAJ9pW2ZdOFTsJD8wrftx0/0=;
-        b=Nio071nXVYicOp22xpX2xhq3dZ1Q+QUVXNPoNBdgK6MY/WrmNFyhxk4oEmYNkd7SuO
-         yAfKWT8rtwBa8fNvsiWHhTLYptaXmoQmfWGmJw+F8hzXMbuYY8NS+1ObbGUsN/GQ9QuI
-         l/GIK34faa+5Ks/ETj+PtPlVKw4p6Swz00X8nWet7GlLfFJdMZ4aRVopKyR07dabN6Vo
-         ZOgHhsTEEY9dvc7QNs32YC4RWwZKfTPYA9k4pD8NMD4U0myUNNCmEkZ1CB6OYuFYUS5M
-         giEEiUMFgv/iQzlJhUS6AX3yyS95bAnQpu3e5tl+NOWJIE0pieT4PfzrDeQZW4Z22OWM
-         BKnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxYCp6awgYprrag24miQMh2TMG6Gu2es87jz/aggDdp78MHKJWPAvCBoXOWaYEKdt0QiWZzTq7memL3gm8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kvfKGS4AfORuVewfyFGYIF5SY17x9gtvzy1HR7bh6Zps/AyXM/
-	GCfwgwMZTn17QBJw7joMheQdvN5mTVLpHfu7MDBgSpR/YdqTpLvZTGyYhVN8fQZrSQq0PDjzW51
-	VtF5uck1YsZHvD+6mL6vJlZFFn5olZtR/lLKLdzhI
-X-Gm-Gg: AYBFou01tOvYd7Cr1RbvFBrHdYhhHsKcAXABpMuuf+EVP0WAC2OjRfRD1q2YectT+5k
-	XN9NQIsu8YhuFDAioZkaF3oADFTBuMCRJTAR23UYnk0X6G6YwbFmBhONZP6G7ZDWbSxLNarJAd7
-	3SMQkEKK7jAa5at7PvCvoWC1E9mCvOwfXOBg+wvs/dSnB5WU+i3oKPugH213aByeBD3YQuqSg+V
-	1OZWyeHX4kgajhoNLfa7qpnOT4tVk8DpFMV7WUJs/ugqHUVRMLgWrRGIC4KOZ72+oFfkS7S6H5Z
-	AAEBawYqGAaq+RRriV9d71zjkfGMhoM5wKZo30obvP8Na7EdpmfMj8fd21IKPR0yjF9YYhe6ewp
-	JE++/Ml0=
-X-Received: by 2002:ac8:5d11:0:b0:530:39d7:ef48 with SMTP id
- d75a77b69052e-530cb49695fmr15549621cf.3.1789140012704; Fri, 11 Sep 2026
- 08:20:12 -0700 (PDT)
+        bh=FkkSMxc0+XLFGXfcobgYJWMCi6rudZ0wwsjRC0+wmrk=;
+        b=pB09FfeKIc/cV7dwu5+vs8RjIiVH1C+073XRDzboaO6HSa5H2t9vkijwOdShUCzLY+
+         87wIOJQLFPBNINfB+9fxlzjnnJa62a5uhj5gF8mzqmxs0vS9sJ16MNN0OpZ2vf8Tia7f
+         bU3Wl+ucG9uSsJ2gjj9+Q0NFUnbZjjQAu1urN1XIZZtSEhbK2n7xBK4Rxf/9i/8Aiz21
+         lWFPHHSUuKEARPoemDGaMjZvHe+TVXPiD6VT+Gtmqit3lyIa+ezjT1slwcdkdBn1YYeE
+         w1GInbIQO9S6vkmmLNUPQgtaXA5UZwaP2v+FAXER5TMxW3o6Q6hXZC+tuRcCYlrYvOw/
+         f1Qg==
+X-Gm-Message-State: AFuF++ldEZXUcnjGitH+h0qNe8Ywl/Jh5XYuocYMjbJvLAa5Sjlni8NZ
+	EOVurUBrrOWEitmtfV9P5lkvuBGsCvQ/2IoI8iZklX67o2FA2jn2ybNQuYOihUON0PrbGGk3Xcw
+	zo4likvHRyijM5FRbM5eZAnokGw05iAz2yxgIWQ9rzQ==
+X-Gm-Gg: AYBFou0YZjlsTnL9nA/r6uI87u7yepEgPaEeXhK1P7TORQ6tdXduMp5fMm2g6ygX+Kf
+	zov5ZGYUE0r0Mr7cSYZSIFK25PwlkfVl9mrHo5OSuIYQakFArcCMhARIcUzJIRQRv0o2ujLEeVJ
+	MbKjGWRTJ2wEk+/MADh35WhdkMoaUtcKnQ3wfcdgJq19SxpWOtnh9OxTH3taPYfmxM12+I/55M9
+	ixL1JwHxIaUNwyarqcJPMqtxJhW6+J1DCTMJ3BHXtdNdozL+l9vzdfQPix/1lcE8fvf377K8dvL
+	9MlD22ExXmx6eIeQFUo7KnyYsqwub+1CtdgLo6blXM3rbGZS1WlZZtiwUGYYZOCsalllelI6xQI
+	fjd08xQMbUQ==
+X-Received: by 2002:a05:690e:4549:20b0:66c:ba49:1316 with SMTP id
+ 956f58d0204a3-671245483c7mr1612948d50.10.1789140098875; Fri, 11 Sep 2026
+ 08:21:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910234737.1340642-1-surenb@google.com> <20260910234737.1340642-2-surenb@google.com>
- <008dcaa3-2068-46e5-9e58-afb590d90584@kernel.org> <CAJuCfpF5CBrCxZWm+Luopf2gq_hHxsbw0QptNhfRT=+KjyWbJQ@mail.gmail.com>
- <88838d36-ea5b-4c76-b785-cf2bb71e34a5@kernel.org>
-In-Reply-To: <88838d36-ea5b-4c76-b785-cf2bb71e34a5@kernel.org>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Fri, 11 Sep 2026 15:20:01 +0000
-X-Gm-Features: AcwNN1Xk5ADz_rJe0NJkhhPYuxax2hrdjw3AnJOLY-8G8UUIe8p-ZF3eb2mA0Kc
-Message-ID: <CAJuCfpEvyfR1K2ZjM2-AnrfQtVwHiD7zDvHLqfcSCUyfteYzkg@mail.gmail.com>
-Subject: Re: [PATCH v3 1/7] proc/task_mmu: remove unnecessary helpers
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org, 
-	vbabka@kernel.org, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
-	pfalcato@suse.de, xueyuan.chen21@gmail.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	Usama Arif <usama.arif@linux.dev>
+References: <20260820092143.44829-1-dario.binacchi@amarulasolutions.com> <adc7f285-6269-487e-bbcf-d157da49f379@foss.st.com>
+In-Reply-To: <adc7f285-6269-487e-bbcf-d157da49f379@foss.st.com>
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Date: Fri, 11 Sep 2026 17:21:27 +0200
+X-Gm-Features: AcwNN1Ulqxcrv_HW3Dh6aPwZRfGOKMd7-GxKs7PSgQjZfT6GRUC-E4KDQ90Z2_Q
+Message-ID: <CABGWkvpBT5xg3BKXAn01rxcpc8E4r238JQxx0YsYOG7Xvg5_LA@mail.gmail.com>
+Subject: Re: [RESEND PATCH 1/3] ARM: dts: stm32: add missed
+ arm,num-irq-priority-bits for stm32f429
+To: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+Cc: linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, 
+	linux-stm32@st-md-mailman.stormreply.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 11, 2026 at 2:58=E2=80=AFPM David Hildenbrand (Arm)
-<david@kernel.org> wrote:
+Hi Alexandre,
+
+On Fri, Sep 11, 2026 at 4:32=E2=80=AFPM Alexandre TORGUE
+<alexandre.torgue@foss.st.com> wrote:
 >
-> On 9/11/26 16:28, Suren Baghdasaryan wrote:
-> > On Fri, Sep 11, 2026 at 3:52=E2=80=AFAM David Hildenbrand (Arm)
-> > <david@kernel.org> wrote:
-> >>
-> >> On 9/11/26 01:47, Suren Baghdasaryan wrote:
-> >>> When per-vma locks were behind a config option, a number of helper
-> >>> functions were needed to simplify the locking code. Now that these
-> >>> locks are universally available, we can do a little cleanup.
-> >>> Remove lock_vma_range(), unlock_vma_range(), query_vma_setup(),
-> >>> query_vma_teardown() helpers.
-> >>>
-> >>> No functional change intended.
-> >>>
-> >>> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
-> >>> Reviewed-by: Liam R. Howlett (Oracle) <liam@infradead.org>
-> >>> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> >>> Acked-by: Usama Arif <usama.arif@linux.dev>
-> >>> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> >>> ---
-> >>
-> >> I think you CCed me only on this mail correctly (the other ones went t=
-o my old
-> >> RH address, I thought that one would bounce)
+> Hi Dario,
+>
+> On 8/20/26 11:21, Dario Binacchi wrote:
+> > Add missed arm,num-irq-priority-bits to fix below CHECK_DTBS warning:
 > >
-> > Oh, man! I used an old list of recipients :/
-> > Should I resend to avoid bounces? So far I haven't seen any bounces
-> > even from the previous version which also used the RH address.
+> > arch/arm/boot/dts/st/stm32f429-disco.dtb: interrupt-controller@e000e100=
+ (arm,armv7m-nvic): 'arm,num-irq-priority-bits' is a required property
+> >       from schema $id: http://devicetree.org/schemas/interrupt-controll=
+er/arm,nvic.yaml
+> >
+> > Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+> > ---
+> >
+> >   arch/arm/boot/dts/st/stm32f429.dtsi | 4 ++++
+> >   1 file changed, 4 insertions(+)
+> >
+> > diff --git a/arch/arm/boot/dts/st/stm32f429.dtsi b/arch/arm/boot/dts/st=
+/stm32f429.dtsi
+> > index ad91b74ddd0d..f94500cd90cc 100644
+> > --- a/arch/arm/boot/dts/st/stm32f429.dtsi
+> > +++ b/arch/arm/boot/dts/st/stm32f429.dtsi
+> > @@ -794,6 +794,10 @@ rng: rng@50060800 {
+> >       };
+> >   };
+> >
+> > +&nvic {
+> > +     arm,num-irq-priority-bits =3D <4>;
+> > +};
+> > +
+> >   &systick {
+> >       clocks =3D <&rcc 1 SYSTICK>;
+> >       status =3D "okay";
+> > ---
+> > base-commit: a4ff2be345d0abc943da8dd8da98151843b750dc
+> > branch: stm32-nvic-irq-priority-bits
+> >
 >
-> Odd, I thought it bounced for a while (maybe it has a new proud owner, wh=
-o
-> knows, haha).
->
-> I changed Monday my mail filters to not catch to/bc to the RH address whe=
-n also
-> CCing a mailing list ... assuming everybody got annoyed of the bounces.
->
-> I just reverted that change, so I'll just fish the mails out of the maili=
-ng list
-> folder and should also get replies to the other mails into my inbox.
+> Do you really want this patch ? MCU boards are deprecated.
 
-Sorry about that. I updated all my old recipient lists now. I thought
-I did that before but apparently only for Lorenzo :)
+You are right. I agree that this series is no longer needed.
+
+I wasn't aware that the STM32 MCU boards were deprecated.
+I noticed Arnd Bergmann's series, "[PATCH 10/13] ARM: stm32: remove
+stm32f4/f7/h7 MCU support", after sending the patch.
+
+Sorry for the noise.
+
+Thanks and regards,
+Dario
 
 >
-> --
-> Cheers,
->
-> David
+> Regards
+> Alex
+
+
+
+--=20
+Dario Binacchi
+Senior Embedded Software Engineer
+M. +39 328 0625246
+dario.binacchi@amarulasolutions.com
+=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=
+=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95=E2=80=95
+Amarula Solutions SRL
+ Via Felice Cavallotti 25D, 41012 Carpi, MO, IT
+info@amarulasolutions.com
+www.amarulasolutions.com
