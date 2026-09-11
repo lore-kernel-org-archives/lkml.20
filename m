@@ -1,294 +1,213 @@
-Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 792C647D466;
-	Fri, 11 Sep 2026 12:59:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.218.115.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BF2547F3D6;
+	Fri, 11 Sep 2026 12:59:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789131573; cv=none; b=lAK94cBrXNAIDYI/u+fFL4+9vqHvIFVPtOz7uDbUFTfnhENM9UWcIuFAv/N5anT0limGZSFnjP835YgWSOegt1fAJLM57i+GxqnD/8wn182M5P3EaimJEOqgbtNWDw5kdMwRbEjdynTYayju5UzuWR57JQ5jqaTiEIp+Fg5UuOY=
+	t=1789131571; cv=none; b=RNX3mZQyy+JWceHPvNAxAaa8YmNu+IEyEPspaw8gWhqAATE+N0sTGJPbfwPvL1rkoG9hUbamr1qz+sGFnO5StYPWKVx9NFsfhoh8bN2xCMCkC3pFBx77v1dWMN9pPuYrKgtw4L9okUnbZwmd+yqdqdyM2lcPdzueiNIdy8bpvew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789131573; c=relaxed/simple;
-	bh=CboY5wvVpRytI8cl2m3ayTAWBXACTQ8PugRCHjW4z7w=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=C5XyMrzRybtiVZIR8cImMuTWi/HhlUGurHFFhizxJcS1WA+auJS8xOCgqdPU23b99hZcqtv5g3YxwAsWHQoejek2MOp2IP/6AGrZnpbUa9z88dGCE83YmNPk1fJLowxFX2MJsp/2CT0bMa6mkhiRTXYqGPv9WokOQLTVdc0VH+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=lzXKxTJc; arc=none smtp.client-ip=34.218.115.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1789131571; c=relaxed/simple;
+	bh=xEn+1KmHvgwcvwLDp55o8qGNQ+pzBN9FzuJ9r3Qg5hs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hwCMLOQ1thuES7ZUrOW+gsUqSRg0fvwJy5M+2aPlpJ1ncyNE+iW7Qr2iybKaNe3i2sTZESMFyTFw+QF0YdgUQk+2sUcpLf+7UwQArWALTb6y8XXgfsD1Q3Zd769yrCaSY+1Nh2uIdpvfSPoPCJF6f6DibkehWYxuFxsp5g4chqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T5xKRBZW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="lzXKxTJc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1789131560; x=1820667560;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=0j7orxQTtOZt3x4KoixyDnG0kz3UItRqwWiC4q3s8g4=;
-  b=lzXKxTJc8rG/iGZC858s+f40OBoa6WV2dGzaYi5b19KbJpzrkSV1LEmZ
-   21vonmjM/aBtE57qC5ylt3Lu/v1FHan9IwKzG7cfZ03WoyLLAaCPltnBm
-   j3Z/I0xH2ZXFBz2xBaBHouSEgowA+hzcrwyhFsvnzmqFLLLCdHkq4BDCt
-   hHoffD7D6dYo2ghFVlQe6l41enOaWx3GkAS2sZqDVbZuvQ78bK7+6Buzd
-   mhir3prI6lquUma3rJRA161yLVl8OEBkRf8Sanunu7FmhCF6lR9HMx4Po
-   zwLuEifq0oPCecDRjwmNcyaU2HK+4R4XynYjDeNEbQ4D6nhbF+oGt2nbt
-   w==;
-X-CSE-ConnectionGUID: d22A1/TuR0S1FmMpnqCYMA==
-X-CSE-MsgGUID: 5sbjRQTwQ5aZ3caN2MbuCw==
-X-IronPort-AV: E=Sophos;i="6.27,97,1787011200"; 
-   d="scan'208";a="28213593"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 12:59:11 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:5640]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.62.198:2525] with esmtp (Farcaster)
- id 575257ac-a3ea-49b7-8157-9228a933ad10; Fri, 11 Sep 2026 12:59:11 +0000 (UTC)
-X-Farcaster-Flow-ID: 575257ac-a3ea-49b7-8157-9228a933ad10
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.217) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Fri, 11 Sep 2026 12:59:10 +0000
-Received: from dev-dsk-sakacpav-1a-480d1124.eu-west-1.amazon.com
- (172.19.96.155) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Fri, 11 Sep 2026
- 12:59:09 +0000
-From: Pavol Sakac <sakacpav@amazon.de>
-To: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>
-CC: Robin Murphy <robin.murphy@arm.com>, <iommu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	<linux-pci@vger.kernel.org>, <nh-open-source@amazon.com>
-Subject: [RFC PATCH 1/3] iommu: split sysfs link publication out of iommu_group_alloc_device()
-Date: Fri, 11 Sep 2026 14:58:32 +0200
-Message-ID: <20260911125907.67105-1-sakacpav@amazon.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260911-vfopt-s2-v1-0-fff3db7e01c2@amazon.de>
-References: <20260911-vfopt-s2-v1-0-fff3db7e01c2@amazon.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T5xKRBZW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A6E91F00893;
+	Fri, 11 Sep 2026 12:59:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789131551;
+	bh=NYCIHeh5DhnGPPEq065Nh6RT+JRkS3Mi9MtQkuCoF4w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=T5xKRBZWn66moZ2pVyq6ejSQ80jnfylmmKq1j4YBdyagKAmZBtCQJLZYIz3S3AfYL
+	 7FBkwPzt2i/TmOSikWEEyabKrYn8GsivwT2FidhhSHayABbDG4e5S0KHnBJx+zvfvV
+	 ZVGYURqrfGRCfE+sBFOTS6SbxgGYOSajeCoVBNBB6ECCuspFdOTHvAXEvqaghSy6Wt
+	 xAEvv7VUKYAhX/gdHxdo/KiDIbRZ3z0LdlUDxVulYIgxozrKDEcOLcTwP7CvZT8KOA
+	 URieKVixaHE7m1STnwjpVnnkoHgtfvvhnZa4W4rGvF6HxUX/enN5taCmNsjdBKFmvu
+	 htQ8+szXEFaaA==
+From: Christian Brauner <brauner@kernel.org>
+To: Bill Wendling <morbo@google.com>
+Cc: Bradley Morgan <brads@mainlining.org>,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Aleksa Sarai <cyphar@cyphar.com>,
+	Jan Kara <jack@suse.cz>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Douglas Anderson <dianders@chromium.org>,
+	Anand Moon <linux.amoon@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	kernel test robot <lkp@intel.com>,
+	codemender-patching+linux@google.com,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	Christian Brauner <brauner@kernel.org>
+Subject: [PATCH 1/2] userns: rename insert_extent() and sort_idmaps()
+Date: Fri, 11 Sep 2026 14:58:39 +0200
+Message-ID: <20260911-suggerieren-suchaktion-fliehen-87b9cdf1d169@brauner>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260911-deftig-geprahlt-gesehen-16310bdf51f5@brauner>
+References: <20260911-deftig-geprahlt-gesehen-16310bdf51f5@brauner>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5478; i=brauner@kernel.org; h=from:subject:message-id; bh=xEn+1KmHvgwcvwLDp55o8qGNQ+pzBN9FzuJ9r3Qg5hs=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQt/s2q2jzp2zubs5pa06eFCd4XkrdN0Wb9WSxka+Xx7 6+K6RzejlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgIl4KDP897/NsSNdosc0cctC 9yNWxbaVEnO/PbFpZA3+JCXjc06/lJFhzeENh27Xet4L79xq/G15wL4pmvN3S9tZVtefODkj4fw xDgA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D036UWC001.ant.amazon.com (10.13.139.233) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-iommu_group_alloc_device() both allocates a group_device and publishes
-it in sysfs (the "iommu_group" link and the group "devices/" member
-link with its .%d rename loop), while the iommu instance links are
-published separately in iommu_init_device() and removed in
-iommu_deinit_device().
+The KUnit test suite turned insert_extent() and sort_idmaps() into global
+symbols and declared them in include/linux/user_namespace.h. That header
+is pulled in nearly everywhere through linux/cgroup.h and the btrfs
+self-tests carry a static insert_extent() of their own, so any config
+with both test suites enabled fails to build:
 
-Gather all per-member publication into one helper,
-iommu_group_link_device(), run under group->mutex, and record success
-in a new group_device::linked flag. Teardown moves next to the member
-link removal in __iommu_group_free_device(), which consults the flag so
-an unpublished member skips sysfs.
+  fs/btrfs/tests/inode-tests.c:16:13: error: conflicting types for 'insert_extent'
+  include/linux/user_namespace.h:212:12: note: previous declaration of 'insert_extent'
 
-No functional change intended; this gives publication a single seam so
-a later commit can move it out of iommu_probe_device_lock.
+A global symbol needs a prefix. Rename them to
+uid_gid_map_insert_extent() and uid_gid_map_sort(). It's the better name
+anyway.
 
-Assisted-by: LLM
-Signed-off-by: Pavol Sakac <sakacpav@amazon.de>
+No functional changes.
+
+Fixes: f6f1a2496ba5 ("userns: Add KUnit test suite for uid_gid_map")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202609110843.okbPe7GM-lkp@intel.com/
+Closes: https://lore.kernel.org/oe-kbuild-all/202609110937.zHKPPXJk-lkp@intel.com/
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/iommu/iommu.c | 91 +++++++++++++++++++++++++++++++------------
- 1 file changed, 67 insertions(+), 24 deletions(-)
+ include/linux/user_namespace.h   |  5 +++--
+ kernel/tests/user_ns_map_kunit.c |  6 +++---
+ kernel/user_namespace.c          | 19 ++++++++++---------
+ 3 files changed, 16 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index cd1bca7ede9a..5f92981d9f34 100644
---- a/drivers/iommu/iommu.c
-+++ b/drivers/iommu/iommu.c
-@@ -77,6 +77,8 @@ struct group_device {
- 	struct list_head list;
- 	struct device *dev;
- 	char *name;
-+	/* Membership published in sysfs; set under group->mutex */
-+	bool linked;
- 	/*
- 	 * Device is blocked for a pending recovery while its group->domain is
- 	 * retained. This can happen when:
-@@ -166,6 +168,8 @@ static ssize_t iommu_group_store_type(struct iommu_group *group,
- 				      const char *buf, size_t count);
- static struct group_device *iommu_group_alloc_device(struct iommu_group *group,
- 						     struct device *dev);
-+static int iommu_group_link_device(struct iommu_group *group,
-+				   struct group_device *device);
- static void __iommu_group_free_device(struct iommu_group *group,
- 				      struct group_device *grp_dev);
- static void iommu_domain_init(struct iommu_domain *domain, unsigned int type,
-@@ -515,16 +519,12 @@ static int iommu_init_device(struct device *dev)
- 	}
- 	dev->iommu->iommu_dev = iommu_dev;
+diff --git a/include/linux/user_namespace.h b/include/linux/user_namespace.h
+index 633157781edc..637cd7e91a45 100644
+--- a/include/linux/user_namespace.h
++++ b/include/linux/user_namespace.h
+@@ -209,8 +209,9 @@ extern bool current_in_userns(const struct user_namespace *target_ns);
+ struct ns_common *ns_get_owner(struct ns_common *ns);
  
--	ret = iommu_device_link(iommu_dev, dev);
--	if (ret)
--		goto err_release;
--
- 	group = ops->device_group(dev);
- 	if (WARN_ON_ONCE(group == NULL))
- 		group = ERR_PTR(-EINVAL);
- 	if (IS_ERR(group)) {
- 		ret = PTR_ERR(group);
--		goto err_unlink;
-+		goto err_release;
- 	}
- 	dev->iommu_group = group;
+ #if IS_ENABLED(CONFIG_USER_NS_MAP_KUNIT_TEST)
+-extern int insert_extent(struct uid_gid_map *map, struct uid_gid_extent *extent);
+-extern int sort_idmaps(struct uid_gid_map *map);
++extern int uid_gid_map_insert_extent(struct uid_gid_map *map,
++				     struct uid_gid_extent *extent);
++extern int uid_gid_map_sort(struct uid_gid_map *map);
+ #endif /* CONFIG_USER_NS_MAP_KUNIT_TEST */
  
-@@ -533,8 +533,6 @@ static int iommu_init_device(struct device *dev)
- 		dev->iommu->attach_deferred = ops->is_attach_deferred(dev);
- 	return 0;
+ #else
+diff --git a/kernel/tests/user_ns_map_kunit.c b/kernel/tests/user_ns_map_kunit.c
+index 24c21e43a36c..033dccc6a535 100644
+--- a/kernel/tests/user_ns_map_kunit.c
++++ b/kernel/tests/user_ns_map_kunit.c
+@@ -24,7 +24,7 @@ static void user_ns_map_insert(struct kunit *test)
+ 		extent.lower_first = i * 100;
+ 		extent.count = 5;
  
--err_unlink:
--	iommu_device_unlink(iommu_dev, dev);
- err_release:
- 	if (ops->release_device)
- 		ops->release_device(dev);
-@@ -553,8 +551,6 @@ static void iommu_deinit_device(struct device *dev)
- 
- 	lockdep_assert_held(&group->mutex);
- 
--	iommu_device_unlink(dev->iommu->iommu_dev, dev);
--
- 	/*
- 	 * release_device() must stop using any attached domain on the device.
- 	 * If there are still other devices in the group, they are not affected
-@@ -667,6 +663,11 @@ static int __iommu_probe_device(struct device *dev, struct list_head *group_list
- 	 */
- 	list_add_tail(&gdev->list, &group->devices);
- 	WARN_ON(group->default_domain && !group->domain);
-+
-+	ret = iommu_group_link_device(group, gdev);
-+	if (ret)
-+		goto err_remove_gdev;
-+
- 	if (group->default_domain)
- 		iommu_create_device_direct_mappings(group->default_domain, dev);
- 	if (group->domain) {
-@@ -729,10 +730,14 @@ static void __iommu_group_free_device(struct iommu_group *group,
- {
- 	struct device *dev = grp_dev->dev;
- 
--	sysfs_remove_link(group->devices_kobj, grp_dev->name);
--	sysfs_remove_link(&dev->kobj, "iommu_group");
-+	if (grp_dev->linked) {
-+		if (dev_has_iommu(dev))
-+			iommu_device_unlink(dev->iommu->iommu_dev, dev);
-+		sysfs_remove_link(group->devices_kobj, grp_dev->name);
-+		sysfs_remove_link(&dev->kobj, "iommu_group");
- 
--	trace_remove_device_from_group(group->id, dev);
-+		trace_remove_device_from_group(group->id, dev);
-+	}
- 
- 	/*
- 	 * If the group has become empty then ownership must have been
-@@ -1266,7 +1271,6 @@ static int iommu_create_device_direct_mappings(struct iommu_domain *domain,
- static struct group_device *iommu_group_alloc_device(struct iommu_group *group,
- 						     struct device *dev)
- {
--	int ret, i = 0;
- 	struct group_device *device;
- 
- 	device = kzalloc_obj(*device);
-@@ -1275,11 +1279,40 @@ static struct group_device *iommu_group_alloc_device(struct iommu_group *group,
- 
- 	device->dev = dev;
- 
-+	device->name = kasprintf(GFP_KERNEL, "%s", kobject_name(&dev->kobj));
-+	if (!device->name) {
-+		kfree(device);
-+		dev_err(dev, "Failed to add to iommu group %d: %d\n",
-+			group->id, -ENOMEM);
-+		return ERR_PTR(-ENOMEM);
-+	}
-+
-+	return device;
-+}
-+
-+/*
-+ * Publish a member's sysfs links under group->mutex.  All-or-nothing:
-+ * on failure nothing is left behind and gdev->linked stays false, so
-+ * __iommu_group_free_device() removes only what was published.
-+ */
-+static int iommu_group_link_device(struct iommu_group *group,
-+				   struct group_device *device)
-+{
-+	struct device *dev = device->dev;
-+	int ret, i = 0;
-+
-+	lockdep_assert_held(&group->mutex);
-+
-+	if (dev_has_iommu(dev)) {
-+		ret = iommu_device_link(dev->iommu->iommu_dev, dev);
-+		if (ret)
-+			goto err_out;
-+	}
-+
- 	ret = sysfs_create_link(&dev->kobj, &group->kobj, "iommu_group");
- 	if (ret)
--		goto err_free_device;
-+		goto err_unlink_iommu;
- 
--	device->name = kasprintf(GFP_KERNEL, "%s", kobject_name(&dev->kobj));
- rename:
- 	if (!device->name) {
- 		ret = -ENOMEM;
-@@ -1299,23 +1332,25 @@ static struct group_device *iommu_group_alloc_device(struct iommu_group *group,
- 						 kobject_name(&dev->kobj), i++);
- 			goto rename;
- 		}
--		goto err_free_name;
-+		goto err_remove_link;
+-		ret = insert_extent(&map, &extent);
++		ret = uid_gid_map_insert_extent(&map, &extent);
+ 		KUNIT_ASSERT_EQ(test, ret, 0);
  	}
  
-+	device->linked = true;
-+
- 	trace_add_device_to_group(group->id, dev);
+@@ -54,14 +54,14 @@ static void user_ns_map_insert_extended(struct kunit *test)
+ 		extent.lower_first = value * 100;
+ 		extent.count = 5;
  
- 	dev_info(dev, "Adding to iommu group %d\n", group->id);
+-		ret = insert_extent(&map, &extent);
++		ret = uid_gid_map_insert_extent(&map, &extent);
+ 		KUNIT_ASSERT_EQ(test, ret, 0);
+ 	}
  
--	return device;
-+	return 0;
+ 	KUNIT_EXPECT_EQ(test, map.nr_extents, NR_EXTENTS);
  
--err_free_name:
--	kfree(device->name);
- err_remove_link:
- 	sysfs_remove_link(&dev->kobj, "iommu_group");
--err_free_device:
--	kfree(device);
-+err_unlink_iommu:
-+	if (dev_has_iommu(dev))
-+		iommu_device_unlink(dev->iommu->iommu_dev, dev);
-+err_out:
- 	dev_err(dev, "Failed to add to iommu group %d: %d\n", group->id, ret);
--	return ERR_PTR(ret);
-+	return ret;
+ 	/* Now sort the map to set up reverse mapping */
+-	ret = sort_idmaps(&map);
++	ret = uid_gid_map_sort(&map);
+ 	KUNIT_ASSERT_EQ(test, ret, 0);
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, map.reverse);
+ 
+diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
+index f9cbb4b92b48..98b0279b6cc6 100644
+--- a/kernel/user_namespace.c
++++ b/kernel/user_namespace.c
+@@ -780,12 +780,13 @@ static bool mappings_overlap(struct uid_gid_map *new_map,
  }
  
- /**
-@@ -1329,15 +1364,23 @@ static struct group_device *iommu_group_alloc_device(struct iommu_group *group,
- int iommu_group_add_device(struct iommu_group *group, struct device *dev)
+ /*
+- * insert_extent - Safely insert a new idmap extent into struct uid_gid_map.
++ * uid_gid_map_insert_extent - Safely insert a new idmap extent into
++ * struct uid_gid_map.
+  * Takes care to allocate a 4K block of memory if the number of mappings exceeds
+  * UID_GID_MAP_MAX_BASE_EXTENTS.
+  */
+-VISIBLE_IF_KUNIT int insert_extent(struct uid_gid_map *map,
+-				   struct uid_gid_extent *extent)
++VISIBLE_IF_KUNIT int uid_gid_map_insert_extent(struct uid_gid_map *map,
++					       struct uid_gid_extent *extent)
  {
- 	struct group_device *gdev;
-+	int ret;
+ 	struct uid_gid_extent *dest;
  
- 	gdev = iommu_group_alloc_device(group, dev);
- 	if (IS_ERR(gdev))
- 		return PTR_ERR(gdev);
- 
-+	mutex_lock(&group->mutex);
-+	ret = iommu_group_link_device(group, gdev);
-+	if (ret) {
-+		mutex_unlock(&group->mutex);
-+		kfree(gdev->name);
-+		kfree(gdev);
-+		return ret;
-+	}
-+
- 	iommu_group_ref_get(group);
- 	dev->iommu_group = group;
--
--	mutex_lock(&group->mutex);
- 	list_add_tail(&gdev->list, &group->devices);
- 	mutex_unlock(&group->mutex);
+@@ -821,7 +822,7 @@ VISIBLE_IF_KUNIT int insert_extent(struct uid_gid_map *map,
+ 	*dest = *extent;
  	return 0;
+ }
+-EXPORT_SYMBOL_IF_KUNIT(insert_extent);
++EXPORT_SYMBOL_IF_KUNIT(uid_gid_map_insert_extent);
+ 
+ /* cmp function to sort() forward mappings */
+ static int cmp_extents_forward(const void *a, const void *b)
+@@ -854,10 +855,10 @@ static int cmp_extents_reverse(const void *a, const void *b)
+ }
+ 
+ /*
+- * sort_idmaps - Sorts an array of idmap entries.
++ * uid_gid_map_sort - Sorts an array of idmap entries.
+  * Can only be called if number of mappings exceeds UID_GID_MAP_MAX_BASE_EXTENTS.
+  */
+-VISIBLE_IF_KUNIT int sort_idmaps(struct uid_gid_map *map)
++VISIBLE_IF_KUNIT int uid_gid_map_sort(struct uid_gid_map *map)
+ {
+ 	if (map->nr_extents <= UID_GID_MAP_MAX_BASE_EXTENTS)
+ 		return 0;
+@@ -878,7 +879,7 @@ VISIBLE_IF_KUNIT int sort_idmaps(struct uid_gid_map *map)
+ 
+ 	return 0;
+ }
+-EXPORT_SYMBOL_IF_KUNIT(sort_idmaps);
++EXPORT_SYMBOL_IF_KUNIT(uid_gid_map_sort);
+ 
+ /**
+  * verify_root_map() - check the uid 0 mapping
+@@ -1047,7 +1048,7 @@ static ssize_t map_write(struct file *file, const char __user *buf,
+ 		    (next_line != NULL))
+ 			goto out;
+ 
+-		ret = insert_extent(&new_map, &extent);
++		ret = uid_gid_map_insert_extent(&new_map, &extent);
+ 		if (ret < 0)
+ 			goto out;
+ 		ret = -EINVAL;
+@@ -1091,7 +1092,7 @@ static ssize_t map_write(struct file *file, const char __user *buf,
+ 	 * If we want to use binary search for lookup, this clones the extent
+ 	 * array and sorts both copies.
+ 	 */
+-	ret = sort_idmaps(&new_map);
++	ret = uid_gid_map_sort(&new_map);
+ 	if (ret < 0)
+ 		goto out;
+ 
 -- 
-2.47.3
+2.53.0
 
