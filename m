@@ -1,199 +1,109 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C6A7424679
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:50:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789123814; cv=none; b=bjdLgP4sQ7jdq1JmsChy006NFHu/KNKoAdYp2+GDe37D36U2joP0JrKfbhpEvJExGMVswAdgxnvWLpSBIe6LpmMswG8xBp8msy1bcJfqTWwonZE17bISVb/1oArHaDU7ojTRaS7ZmoCvRikqaL+wXR0DM0L3VzF3u/+zqqRnvDw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789123814; c=relaxed/simple;
-	bh=FhuV4VngtUPdEMsxkmWPbg4ZZoKzo68a1q9cqNNVxT0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=cYJmqprVczsRdu/o/UEsccNprN1dBcHq/SUKOhPX9LfLzxsP2j1C3FrkHsV9AD7wUiG3KKZyIc5SR2Zv/b+wzfObnMzUBOZUvHFHCACFWuUY165BhYk2YzsxC4ZJBAKvbkJpWHmhb5yK020qHd1S0qOtRnNEEQ6xT2rWc01nXCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sL3MNBkg; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7087406261
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:50:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789123822; cv=pass; b=h4qDzLfmpXzsiDB1jS4eAk0sZ9Bdg8k+xu4hVkko5N1sQJE3D2WqwQq2mShaOE344gt/t1oJSBS8V+ueBK2WAboKbgk8FRP550CAlmL2VQZqoN8hcppzpoGdVUcoD477FRuJqXQgH0QASexBu8GcrkTWwLX8snIATjHFFSMMQnE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789123822; c=relaxed/simple;
+	bh=4pQW45rq8ce0SljkYL8YbelDyzZQu1ML/gJZFCwHnPQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qoTxxXlVhTf5AYZ25jcRjvKhfrZCjXbaajMeYTgrGADYlkAMppLyPfy01rqB3OM+/SD/596DRBZOZ3uF186I0ojWa54z9Zqyh7Df/KBkZWDbU4s9fQD/3XtM00hy4TLs15J018GZFNEiBzBcz9TL6ZGi03mUfNf0pPc1F32fJow=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r02GL1gi; arc=pass smtp.client-ip=209.85.167.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sL3MNBkg"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so2576775e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:50:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r02GL1gi"
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5b6031cbc6bso784616e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:50:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789123816; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rrVUFzF98jwn2l8dAsgjopfrWbeeRaZwqxM64ks7853lkMBCj4uEBIbJIddyaBaeZN
+         qIEKwmPbid+IgrIN5jjEnEOFkBwjqi+CiTec9cDMNcEgVbf1AKuc6ZPhP4MFOwg08eWd
+         eA280tZbt4zC7bfxVxbdEm2dM1wDCvHME0vBOElkE8QohUjGdoRfGUSBrQ/hAVMEYqNE
+         ODSvxo0LjHDK8puxdeRXWQy5svuhLUuf64QTCF2uEkmUniCbfS1MPSvFcbfgWh87wMp0
+         5/whBilheQjWBsFr2G2yABYxf8PK1t8vxlcL+4dH08HM4qnoW+L7E1E9E0zic0EZ3Igz
+         aXsg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4pQW45rq8ce0SljkYL8YbelDyzZQu1ML/gJZFCwHnPQ=;
+        fh=0PwwBdHEHwDYd08/y/75oASmW1GlJTWIVLJmn0CLMIg=;
+        b=descyOAX6D1n46bHfvu6ahrwwwfLuOKILUwJT0r4kh3848WOuHDCd35AUvnEAO/0Tc
+         xr9MRHW3JjH9XWsoZHSag9D77u/ILlh4yMFhxA6/wzCNVBxQlfqVXaWt6W0KjQSbcOdC
+         qt/uMs/EBJsTHWWjmtTVYycLcTXtiYMiC4+5FkS7skGRAASHoCRe7ENky8WX7s0ERyU4
+         zSSmd+RgOZH2p/3zesJWLhsf9LWJ/3Ffk5vSobp19ZyvVJkxtPvefVODrguGv47bDvp3
+         Qlz0dKaViHDhaFJLzr7NcqeoJ5Z5JDTP608Mf3JWVhgqu88DhLM1yZlk3mbxOAynKZFP
+         JNIQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789123811; x=1789728611; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=W07kJ3p6qzFM1kDya7o2HF3cIvPn0BxyCJFGBFTKDFg=;
-        b=sL3MNBkgqhssWly3IbJxqbX7jjp5lGmXQWn1ZlvzPoUOilmCWADm0PJbQQDzKcClyB
-         XB2uXDqxDkC+jpnjeQ4zb72KTZVRJ2TmQet8KFV24WjU4zD0pyEP6kr+gESi8rMRfXQs
-         +SzEkmkpewTDJZhmxp7p7Tj5kK6AKBA/ynR80j/kcrCUxr4lLOHByo5FjS5/KHAQ8PdJ
-         RO4sjcgLLxdhGvd3UuTVtoPkSL5eVA9zCBxiRDUNIPWzNici4smjUu+kPbmpNiivM55N
-         GoGPH1DjJQ6cJDSwNhCxP6LRsx8tZkf+EY3FCViRwkgb5ntvjzcprzZuIm1pwkROqRt2
-         s8ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789123811; x=1789728611;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1789123816; x=1789728616; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=W07kJ3p6qzFM1kDya7o2HF3cIvPn0BxyCJFGBFTKDFg=;
-        b=sqSk9dkRcFam3rkLoRYojHpr/Dg5v/YsimqwV9HBypMH/QwurUqhbv9T15sSFOJLiS
-         RqL/uEIY/4SvC0o0Yuff8SIgCrMBdBy+51zK+OmPPoHLGSueUgy4VDGXbE5M4mTrT3rO
-         ZSR77IGaUQPJfVMLCfKpNfPwwVOBXnXG74Bkk4r4hnITl4KtqkQqdVnrgjc5pCOBC9CO
-         mkdCJ3LtPM8o2g41J3zawiZ4XTjkSqQ01VNRmVrAfT4JA+Eri97F77NY4WaJtgzV4JEq
-         JtXOfHgxy1hJxnze4SAFGzwzh9GHIpnkXmpXUqinvsFTbBWS8lkTnqL/Cr+vNuk7duIY
-         LzIw==
-X-Forwarded-Encrypted: i=1; AKwUvBx3JSwWu+UWpwxCJVMtnxJryro5SFO5k7SY80jeniQrwsHdePsmtXK6cAyYIUs9hpARbWtQ2N4367vpB2s=@vger.kernel.org
-X-Gm-Message-State: AFuF++mLFuI57ydtjL7Aw+LaoqBFfNe7aarj9atE1el6z6NLWCrceIas
-	zLuMJtyj0cf68xOedX24lOfafb0gEff8qGa/XpZT0jN9o004do6NUyGUyiSTULFZrds=
-X-Gm-Gg: AYBFou0mC5xdlzY1QyuJgN6GqbWHgLD31pk0TszxXeme6C3TqsRoDBeVv0tVZf09yPv
-	vccsG9ddza+e+3Eg/LFhJw71DeeYbBHLGfbaApyYgu/vUknfYUZ+iTF4/1fal+iN0LmRd2CRlem
-	9qpSAozHapsojun9M10FwYhCtAg+388mtDWny/bCcNVxflIL5o27MXmysvy1PkwiqV/C2RVC5x9
-	xqIKCdPRTLT8YgRC5RQ9xFfDOmtRFOUhGPNllZh1REwNlrv3ZjBiY7P+HftBRdHOKjwW5nSxkiA
-	kp9ke0li8WxUxlogmw1qclgS7B9IRCrY/f4MYBYTwM/zqcxdsLRisTFHofhLTF0Ta1/PrWlJ++d
-	KkE5YI3CtMqY0HQk5DmT/UoDyFaoS3lLXGzg3to69kFK9hg913kG7GKfUCHkkFOEx4WWerhGuQH
-	TOpG+6bcRZXPdWeDzrKPlo+el40HDSg3Fhd/o0j4KC7uwTf76LxyBYPJ4FeCGaATdAwvSP+8Nfy
-	A947FYhH2GtVpw6P0qdGIO+hW0R3bQUOyQiGidcmbbU4VqkhR1KDQ6fHxgRTLy3
-X-Received: by 2002:a05:600c:4ece:b0:49c:f13e:e4c with SMTP id 5b1f17b1804b1-49e610829b5mr43022575e9.9.1789123811015;
-        Fri, 11 Sep 2026 03:50:11 -0700 (PDT)
-Received: from tachyon.internal ([194.220.152.228])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e668aca6csm13863965e9.7.2026.09.11.03.50.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 03:50:10 -0700 (PDT)
-From: =?UTF-8?q?Enrique=20Hern=C3=A1ndez=20Bello?= <ehbello@gmail.com>
-To: shawn.lin@rock-chips.com,
-	lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	mani@kernel.org,
-	bhelgaas@google.com
-Cc: robh@kernel.org,
-	heiko@sntech.de,
-	dlemoal@kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	=?UTF-8?q?Enrique=20Hern=C3=A1ndez=20Bello?= <ehbello@gmail.com>
-Subject: [PATCH] PCI: rockchip: Skip the Tpvperl wait when power is already valid
-Date: Fri, 11 Sep 2026 11:49:52 +0100
-Message-ID: <20260911104952.4190994-1-ehbello@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        bh=4pQW45rq8ce0SljkYL8YbelDyzZQu1ML/gJZFCwHnPQ=;
+        b=r02GL1gi3d79MIsNIxPtM6SHwb1mURzmrq4j+qSDDxO4qVEespU6hCNfZv8YJf23T2
+         +Qbam0m1rVJDKUWE8SnGM4GMchL9FdoBpSIzlzxWQUKJlttIF0Kc6fQXkhk6S29CrkDb
+         QUUFKUXeBsb8xTFZCPM/nTFRjL4MrhdJiCmhLEVZpfTWJHYCA0S9gYtC5TLDT4EMs7hQ
+         uArHR8iQGxBBra7faG8koeprHsTy8jAtZcVMuJGZuv0oJzWjn7ptjLNPbFeDgRoQW+cT
+         xIQJbxEX6NHnuD1lBt2uWiXf3mI8np984uavfbnqmypIQpFg5Cd3akXnCksFxPCNfiHI
+         LY9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789123816; x=1789728616;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4pQW45rq8ce0SljkYL8YbelDyzZQu1ML/gJZFCwHnPQ=;
+        b=n7m6AN0iuUHQIfw38509hCE4Tdbq9MkKTnoxwyMTwAOKPffhDlMFusJvMxHVpk+Azn
+         NaOIeP2hod2W/ckV4HNpEarlpt98TCe8e9zvhwFxyD6ieYsDzEhA/Yca1G61mDCz8mIV
+         AJaUl42rJZAPdlKlhKTqS/YCO+iQBFuqP2wCyAyHiJm+O5G6xBQ13t4GbLNWI89nrGe7
+         I77j1SPIaOv2XsYlfbuoEMnjkSK1OJGjsRq+mSuQApj/F/dvD/E4sSwyhdogkfIrQvy/
+         TC3r07wk0+4Ju7AesO8XE5T+wXQx/1w2EwwnGHw3rwLXjoYDRR2pNCaGkwVKltws873C
+         NHSw==
+X-Forwarded-Encrypted: i=1; AKwUvBzaugcSuw7cCvnO6ej+PB18LrXTUwrenPGmXe68ZOPHpgF9mg56X64X4C9xi5eP/Xqsl9lsaAG/3T27dmM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfai/fJRHZOsmbF6TNcICJENZW6SyD6NTM+9/NjM9CiFxwjShi
+	vdyE4KDaIvnCiXNaE5keKzWVwCqlGy+pWbyN8dpMXiS2Rk/PJDtAhyZu8my5Bs0+8bg24BIYvUG
+	3ueLfNfEnln1ZeEQ7Qg01HDdVlAfwvSQ=
+X-Gm-Gg: AYBFou0KvK39J2Nyy3X/8uYM1IteMmWo/sK//3WruPQevZIsfpQi68DeGNzpPDFZS/c
+	IznoUkU4tqRjsAMrPnMHvI+BlMc9XciZxX7isWg0/pf7AjvKqfOoOOZPofRtpOHeQWCWgmJEZGo
+	tlQhKQdM9ViuEzCvwo0GeZTICGK0qURX5Ac4ZQB1KYVwkv02DAQl3GiTQl3lMlsUNFr/JopCzBa
+	fY9wwHa6Foikce6cNOateQHnRkBvtM/nIAhittPucCijDaVbY4hblqrnUMUfAs89GJSGsRmODJ7
+	fOezyXhily82OeE6oSgCQjqO59RImLFQfuNP4eKqZ3rSJm8BZrvhZbamDREh+l3Fwvycg3RFVLx
+	9Jaeo7AqARb1HWgFReANafA==
+X-Received: by 2002:a05:6512:1052:b0:5b6:1a7c:59d1 with SMTP id
+ 2adb3069b0e04-5b8a030478cmr770802e87.43.1789123815958; Fri, 11 Sep 2026
+ 03:50:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260909133247.113923-5-sigefriedhyy@gmail.com> <178904820373.219967.782013244688408761@kernel.org>
+In-Reply-To: <178904820373.219967.782013244688408761@kernel.org>
+From: Yuyang Huang <sigefriedhyy@gmail.com>
+Date: Fri, 11 Sep 2026 19:50:04 +0900
+X-Gm-Features: AcwNN1Ww5UgMVw4xzqsqwXvhT3lHEUGGRDbRe6Df1222qEUmMtSjFyZfIiHQZt4
+Message-ID: <CA+7S2vJpy8Y7rqBYDdbW-T_2yaBrdb+Bye0wbCRAUhmrvt7NWw@mail.gmail.com>
+Subject: Re: [PATCH net-next v3 4/4] selftests: net: test AF_PACKET multicast dumps
+To: netdev-bot+sashiko@kernel.org
+Cc: davem@davemloft.net, dsahern@kernel.org, donald.hunter@gmail.com, 
+	edumazet@google.com, idosch@nvidia.com, kuba@kernel.org, kuniyu@google.com, 
+	nicolas.dichtel@6wind.com, nickgarlis@gmail.com, pabeni@redhat.com, 
+	sd@queasysnail.net, shuah@kernel.org, horms@kernel.org, sdf.kernel@gmail.com, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Since commit c47f90be4c89 ("PCI: rockchip-host: Fix
-rockchip_pcie_host_init_port() PERST# handling"), a JMicron JMB585
-behind an rk3399 root port almost never becomes usable: the link trains
-normally, but the endpoint's configuration space never answers, so the
-device is not enumerated. On this controller a configuration read that
-gets no usable completion is reported as an external abort rather than
-as an all-ones response, which on arm64 brings the machine down.
+On Thu, Sep 10, 2026 at 10:50=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wr=
+ote:
 
-The change added an unconditional 100 ms sleep so that PERST# stays
-asserted for at least Tpvperl after power becomes valid. The wait is
-performed while PERST# is asserted, so it also extends the reset by
-100 ms, and this endpoint does not tolerate the longer assertion.
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20260909133247.113923-1-sigefriedhyy%40gmail.com
 
-Tpvperl is counted from the supplies becoming valid (PCIe CEM r5.1,
-sec 2.9.2). On boards whose PCIe supplies are always-on -- vcc3v3_pcie
-on ROCK Pi 4 is regulator-always-on and regulator-boot-on -- power has
-been valid since boot, seconds before the driver probes, so the
-requirement is already met and the sleep only lengthens the reset.
-
-Record whether the supplies were already enabled before the driver
-enabled them, and skip the wait in that case. A supply that is already
-on at probe was brought up either by the bootloader or by the regulator
-core at boot, both of which precede a PCIe probe by far more than
-Tpvperl. When the driver really does bring the rails up, or on resume
-where vpcie0v9 has just been re-enabled, the full wait still happens,
-as it does if regulator_is_enabled() cannot tell.
-
-Measured on a ROCK Pi 4C with a Radxa Penta SATA HAT (JMB585) by
-booting repeatedly and counting how often the endpoint enumerated:
-
-  unmodified ....................................  0 out of 84 boots
-  with this patch ...............................  3 out of 3 boots
-  other ways of dropping the same wait ..........  16 out of 16 boots
-
-Fisher's exact test, pooling the last two rows against the first, gives
-p = 4.1e-21. With the patch the endpoint enumerated on every boot and all
-four disks behind it came up.
-
-Each of the three PERST#-related changes that landed together in
-v6.11-rc1 was also reverted individually; only removing this wait made
-any difference. Moving the wait to before link training is enabled,
-rather than removing it, did not help (0 out of 15 boots), which is
-what identified the length of the PERST# assertion rather than any
-interaction with link training as the cause.
-
-The measurements were taken on 6.18, but the code in question is
-unchanged between v6.11 and v7.2.
-
-Fixes: c47f90be4c89 ("PCI: rockchip-host: Fix rockchip_pcie_host_init_port() PERST# handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Enrique Hernández Bello <ehbello@gmail.com>
----
---- a/drivers/pci/controller/pcie-rockchip.h
-+++ b/drivers/pci/controller/pcie-rockchip.h
-@@ -318,6 +318,7 @@
- 	struct	regulator *vpcie1v8; /* 1.8V power supply */
- 	struct	regulator *vpcie0v9; /* 0.9V power supply */
- 	struct	gpio_desc *perst_gpio;
-+	bool	supplies_pre_enabled;
- 	u32	lanes;
- 	u8      lanes_map;
- 	int	link_gen;
---- a/drivers/pci/controller/pcie-rockchip-host.c
-+++ b/drivers/pci/controller/pcie-rockchip-host.c
-@@ -314,7 +314,9 @@
- 	rockchip_pcie_write(rockchip, PCIE_CLIENT_LINK_TRAIN_ENABLE,
- 			    PCIE_CLIENT_CONFIG);
- 
--	msleep(PCIE_T_PVPERL_MS);
-+	if (!rockchip->supplies_pre_enabled)
-+		msleep(PCIE_T_PVPERL_MS);
-+
- 	gpiod_set_value_cansleep(rockchip->perst_gpio, 1);
- 
- 	msleep(PCIE_RESET_CONFIG_WAIT_MS);
-@@ -614,6 +616,23 @@
- 	struct device *dev = rockchip->dev;
- 	int err;
- 
-+	/*
-+	 * Tpvperl is counted from the supplies becoming valid, and the wait
-+	 * for it happens with PERST# asserted, so it also lengthens the reset.
-+	 * A supply that is already enabled before this driver enables it was
-+	 * brought up either by the bootloader or by the regulator core at boot,
-+	 * both of which precede this probe by far more than Tpvperl, so the
-+	 * requirement is already met and the wait can be skipped. Treat an
-+	 * error from regulator_is_enabled() as "not known to be on" and wait.
-+	 */
-+	rockchip->supplies_pre_enabled =
-+		(IS_ERR(rockchip->vpcie12v) ||
-+		 regulator_is_enabled(rockchip->vpcie12v) > 0) &&
-+		(IS_ERR(rockchip->vpcie3v3) ||
-+		 regulator_is_enabled(rockchip->vpcie3v3) > 0) &&
-+		regulator_is_enabled(rockchip->vpcie1v8) > 0 &&
-+		regulator_is_enabled(rockchip->vpcie0v9) > 0;
-+
- 	if (!IS_ERR(rockchip->vpcie12v)) {
- 		err = regulator_enable(rockchip->vpcie12v);
- 		if (err) {
-@@ -890,6 +909,9 @@
- 	struct rockchip_pcie *rockchip = dev_get_drvdata(dev);
- 	int err;
- 
-+	/* The 0.9V supply was turned off on suspend, so Tpvperl applies. */
-+	rockchip->supplies_pre_enabled = false;
-+
- 	err = regulator_enable(rockchip->vpcie0v9);
- 	if (err) {
- 		dev_err(dev, "fail to enable vpcie0v9 regulator\n");
--- 
-2.43.0
+Duplicated comment as well.
