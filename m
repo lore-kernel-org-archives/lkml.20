@@ -1,66 +1,74 @@
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D984456E1A
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:46:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB6F457E46
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:46:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789112798; cv=none; b=PhRjTr2JaIvjUvOQmIzLPxeDglRF3jo+qKyDIHf5vPijOqpkln8v6bVRY3gHEg627TfS4U53d5Y+rICs7HL9She5qadmpvVt7AB6s4fBzfk8wPsToC1G9d9pf07w4MMG5vUT9OUG0t+++yP0Iveunu8ghB2FyJuLqV3oZEcELiw=
+	t=1789112810; cv=none; b=ZCo7QIR12921dtyf7pPt8bgJ80y3CGedvzhNBQ8A6XVIQa/xN/NazYgg+a9mq3pC6lqCiHTtofRxxGNZwT7CtSTbU6RXzeKZw94DTtlKxKBJYAmpLWCl+fuX5lThY4c1laOh0DyPIS+FXmBhLX3gpK/GpxlTG02rK3jOKYhhJFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789112798; c=relaxed/simple;
-	bh=604OtLtGo8WzuttyUq3KfWIsN5zmCdMCXYETZ3KesMQ=;
+	s=arc-20240116; t=1789112810; c=relaxed/simple;
+	bh=rzLwArAda9EFnuuP3t+Y981C2O1OrmodTAiCAeP5NPA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Fdi9TnkCgJ+UMUDFQRXmHhshQPMdbbYFVS8rAotpg1hmAzkLaD2bVqjxmzbaio8n8SeCW2JWGmB+YUvFw7eNQg3httJBZ2cow19H2ytxfXqMbsysdLPj7iFGhtzWs4VpPCF1ILwnhgNZphqaEzZGcgIcvoopybJfubjeyDNPyPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=NFrSbSZJ; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=ay88uBCL; arc=none smtp.client-ip=195.135.223.131
+	 MIME-Version; b=U3Frbtyz6XrPAgtMr6XIlJZGDIpKkIgQ0UmTa/QZRwvPKzCpvF2ErHYaEpkk50UwcrA0TfXjOOxz/Udm7OmHLnwTLQTOOWPm7DRIk0MpcXiodxZtfArroYt1YbiSbiZ3i+x2zUxCVYWAy2gUlCOwV6OYoh5FlkVI8By8aVhQpOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=m8t7E/hM; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=sisoI7hE; arc=none smtp.client-ip=195.135.223.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="NFrSbSZJ";
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="ay88uBCL"
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="m8t7E/hM";
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="sisoI7hE"
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 11A1B1FD9B;
-	Fri, 11 Sep 2026 07:46:27 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 971D71FDA8;
+	Fri, 11 Sep 2026 07:46:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1789112791; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1789112802; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=G7mZMTjGnPHtcBZi7OBSQGA9D//3qwcln6QeXExW9WU=;
-	b=NFrSbSZJmWVNgWLEcRzheoyl4TeMd8uru6LRFFuNt1twMWTD42jtW65uyZHtEx6MnpdTzR
-	O+mZcVkol+gSF4oubaKno+AHXSviWIpor5BYIFlZH770WDoacRr41M1gZ4iJcbkK5mrMpq
-	MChlq0LP4Ni6D2jP7xLE+9Zq+0QTU7M=
+	bh=DtSBOhbPSYfOorSkQqHi63N9+clGucYRe7dUwXwwSqA=;
+	b=m8t7E/hMl7CLejAP/U0B9YNsx6aOw+mBds45cNoU+2wDINOZzmGBxSrj0nu7+6UKU7ikss
+	e+jAyDOOuX2KngBmsTaXKSb6A7jATAoifurHdxkpEmybJxuVubcvjxCCSwdZzKYRpq/ROq
+	imkRKzJl3WkAngNM1LRHPfLa6rKOI6g=
 Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1789112787; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1789112798; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=G7mZMTjGnPHtcBZi7OBSQGA9D//3qwcln6QeXExW9WU=;
-	b=ay88uBCLsDcszhe3pjo2/EBLLAer9+ntFSaR4sOtWdcNv8gyLEE/CzW/hrDunbzL9e4k/z
-	nxDfg0IK+brMKdSgC9M0jDkY92fvWTAw6Hs9hK4pZNEaHUcVVoendEHongFUSr1y2o5dwX
-	r3M1ZiWdIE1NJL3ageC9y4f240JzwC0=
+	bh=DtSBOhbPSYfOorSkQqHi63N9+clGucYRe7dUwXwwSqA=;
+	b=sisoI7hEPtq829r05JKMiBpwSTxNNq4KQxXstqFj4cN2a+uZl4nYGtachGkNdmIUrK4C4U
+	U1ASPYS6RUrDMC7lFqvwa1xo5we3oh/GSEbtw2DYMurTLuTH6DDTYdRhjxW5oKrcKFqf9p
+	pfrMdEPo1dcnnp0+P6G1AU6VgxwP8po=
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C0FE9137CA;
-	Fri, 11 Sep 2026 07:46:26 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2400413770;
+	Fri, 11 Sep 2026 07:46:38 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id FlvGLdKxo2rLWQAAD6G6ig
-	(envelope-from <jgross@suse.com>); Fri, 11 Sep 2026 07:46:26 +0000
+	id K0Z8B96xo2roWQAAD6G6ig
+	(envelope-from <jgross@suse.com>); Fri, 11 Sep 2026 07:46:38 +0000
 From: Juergen Gross <jgross@suse.com>
-To: linux-kernel@vger.kernel.org
+To: linux-kernel@vger.kernel.org,
+	x86@kernel.org,
+	virtualization@lists.linux.dev
 Cc: Juergen Gross <jgross@suse.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH v3 09/13] drivers/misc: Stop using 32-bit MSR interfaces
-Date: Fri, 11 Sep 2026 09:45:26 +0200
-Message-ID: <20260911074530.3140830-10-jgross@suse.com>
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Subject: [PATCH v3 11/13] x86/msr: Remove rdmsr()
+Date: Fri, 11 Sep 2026 09:45:28 +0200
+Message-ID: <20260911074530.3140830-12-jgross@suse.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260911074530.3140830-1-jgross@suse.com>
 References: <20260911074530.3140830-1-jgross@suse.com>
@@ -81,122 +89,65 @@ X-Spamd-Result: default: False [-6.80 / 50.00];
 	R_MISSING_CHARSET(0.50)[];
 	NEURAL_HAM_SHORT(-0.20)[-0.997];
 	MIME_GOOD(-0.10)[text/plain];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
 	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:mid,suse.com:email];
-	FROM_EQ_ENVFROM(0.00)[];
 	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	RCPT_COUNT_THREE(0.00)[4];
-	RCVD_TLS_ALL(0.00)[]
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	R_RATELIMIT(0.00)[to_ip_from(RLfdszjqhz8kzzb9uwpzdm8png)];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:email,imap1.dmz-prg2.suse.org:helo]
 X-Spam-Flag: NO
 
-The 32-bit MSR interfaces rdmsr() and wrmsr() are planned to be
-removed. Use the related 64-bit variants instead.
+rdmsr() has no users left. Delete it.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- drivers/misc/cs5535-mfgpt.c | 33 ++++++++++++++++-----------------
- 1 file changed, 16 insertions(+), 17 deletions(-)
+ arch/x86/include/asm/msr.h      | 7 -------
+ arch/x86/include/asm/paravirt.h | 7 -------
+ 2 files changed, 14 deletions(-)
 
-diff --git a/drivers/misc/cs5535-mfgpt.c b/drivers/misc/cs5535-mfgpt.c
-index cdd0e7bda68d..9abfc44f70f4 100644
---- a/drivers/misc/cs5535-mfgpt.c
-+++ b/drivers/misc/cs5535-mfgpt.c
-@@ -45,7 +45,8 @@ static struct cs5535_mfgpt_chip {
- int cs5535_mfgpt_toggle_event(struct cs5535_mfgpt_timer *timer, int cmp,
- 		int event, int enable)
- {
--	uint32_t msr, mask, value, dummy;
-+	uint32_t msr, mask;
-+	struct msr val;
- 	int shift = (cmp == MFGPT_CMP1) ? 0 : 8;
- 
- 	if (!timer) {
-@@ -82,14 +83,14 @@ int cs5535_mfgpt_toggle_event(struct cs5535_mfgpt_timer *timer, int cmp,
- 		return -EIO;
- 	}
- 
--	rdmsr(msr, value, dummy);
-+	rdmsrq(msr, val.q);
- 
- 	if (enable)
--		value |= mask;
-+		val.l |= mask;
- 	else
--		value &= ~mask;
-+		val.l &= ~mask;
- 
--	wrmsr(msr, value, dummy);
-+	wrmsrq(msr, val.q);
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(cs5535_mfgpt_toggle_event);
-@@ -97,7 +98,7 @@ EXPORT_SYMBOL_GPL(cs5535_mfgpt_toggle_event);
- int cs5535_mfgpt_set_irq(struct cs5535_mfgpt_timer *timer, int cmp, int *irq,
- 		int enable)
- {
--	uint32_t zsel, lpc, dummy;
-+	struct msr zsel, lpc;
- 	int shift;
- 
- 	if (!timer) {
-@@ -113,30 +114,31 @@ int cs5535_mfgpt_set_irq(struct cs5535_mfgpt_timer *timer, int cmp, int *irq,
- 	 * IRQ of the 1st. This can only happen if forcing an IRQ, calling this
- 	 * with *irq==0 is safe. Currently there _are_ no 2 drivers.
- 	 */
--	rdmsr(MSR_PIC_ZSEL_LOW, zsel, dummy);
-+	rdmsrq(MSR_PIC_ZSEL_LOW, zsel.q);
- 	shift = ((cmp == MFGPT_CMP1 ? 0 : 4) + timer->nr % 4) * 4;
--	if (((zsel >> shift) & 0xF) == 2)
-+	if (((zsel.l >> shift) & 0xF) == 2)
- 		return -EIO;
- 
- 	/* Choose IRQ: if none supplied, keep IRQ already set or use default */
- 	if (!*irq)
--		*irq = (zsel >> shift) & 0xF;
-+		*irq = (zsel.l >> shift) & 0xF;
- 	if (!*irq)
- 		*irq = CONFIG_CS5535_MFGPT_DEFAULT_IRQ;
- 
- 	/* Can't use IRQ if it's 0 (=disabled), 2, or routed to LPC */
- 	if (*irq < 1 || *irq == 2 || *irq > 15)
- 		return -EIO;
--	rdmsr(MSR_PIC_IRQM_LPC, lpc, dummy);
--	if (lpc & (1 << *irq))
-+	rdmsrq(MSR_PIC_IRQM_LPC, lpc.q);
-+	if (lpc.l & (1 << *irq))
- 		return -EIO;
- 
- 	/* All chosen and checked - go for it */
- 	if (cs5535_mfgpt_toggle_event(timer, cmp, MFGPT_EVENT_IRQ, enable))
- 		return -EIO;
- 	if (enable) {
--		zsel = (zsel & ~(0xF << shift)) | (*irq << shift);
--		wrmsr(MSR_PIC_ZSEL_LOW, zsel, dummy);
-+		zsel.l = (zsel.l & ~(0xF << shift)) | (*irq << shift);
-+		zsel.h = lpc.h;
-+		wrmsrq(MSR_PIC_ZSEL_LOW, zsel.q);
- 	}
- 
- 	return 0;
-@@ -249,11 +251,8 @@ EXPORT_SYMBOL_GPL(cs5535_mfgpt_write);
+diff --git a/arch/x86/include/asm/msr.h b/arch/x86/include/asm/msr.h
+index badab5762f3a..6d7bab33af71 100644
+--- a/arch/x86/include/asm/msr.h
++++ b/arch/x86/include/asm/msr.h
+@@ -179,13 +179,6 @@ static inline u64 native_read_pmc(int counter)
+  * pointer indirection), this allows gcc to optimize better
   */
- static void reset_all_timers(void)
- {
--	uint32_t val, dummy;
+ 
+-#define rdmsr(msr, low, high)					\
+-do {								\
+-	u64 __val = native_read_msr((msr));			\
+-	(void)((low) = (u32)__val);				\
+-	(void)((high) = (u32)(__val >> 32));			\
+-} while (0)
 -
- 	/* The following undocumented bit resets the MFGPT timers */
--	val = 0xFF; dummy = 0;
--	wrmsr(MSR_MFGPT_SETUP, val, dummy);
-+	wrmsrq(MSR_MFGPT_SETUP, 0xff);
+ #define rdmsrq(msr, val)			\
+ 	((val) = native_read_msr((msr)))
+ 
+diff --git a/arch/x86/include/asm/paravirt.h b/arch/x86/include/asm/paravirt.h
+index 47d4e36d14cb..93754aa60d5e 100644
+--- a/arch/x86/include/asm/paravirt.h
++++ b/arch/x86/include/asm/paravirt.h
+@@ -150,13 +150,6 @@ static inline int paravirt_write_msr_safe(u32 msr, u64 val)
+ 	return PVOP_CALL2(int, pv_ops, cpu.write_msr_safe, msr, val);
  }
  
- /*
+-#define rdmsr(msr, val1, val2)			\
+-do {						\
+-	u64 _l = paravirt_read_msr(msr);	\
+-	val1 = (u32)_l;				\
+-	val2 = _l >> 32;			\
+-} while (0)
+-
+ #define rdmsrq(msr, val)			\
+ do {						\
+ 	val = paravirt_read_msr(msr);		\
 -- 
 2.55.0
 
