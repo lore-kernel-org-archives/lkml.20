@@ -1,138 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31691F91E3;
-	Fri, 11 Sep 2026 09:45:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC1503B6347;
+	Fri, 11 Sep 2026 09:46:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789119922; cv=none; b=uCiKmq0T1IlvSzIkrvfoxmxSagdRJEjyaG6Hewq55RvcWno1QlS9mKWwT7ZR5lU56YU8Zk65Tp65ezAclt1ui2uAZjgDBPbuDfXXrp/K70st34ewyKEeXRxvwpRA8hEMS12wZ1OolUZaufu6QDIId/d/QOsMGR/MUkh7xw70VrY=
+	t=1789119984; cv=none; b=C58yEh3Iawwu8lB0PboOFea+uP04gc2SXMSShl4Khb8k0nV0bcqTByUx9twY0L2SNhBBo78GciJzqfzfrUwTvyyNHiVsh9LM42otbeeWqoyxkiPwt6ZWXYGVZ8KIDZk3aLFXyxDWhWKFUsIPwg8qj6EgVRbLHQj1F2t6BndrcUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789119922; c=relaxed/simple;
-	bh=AQjnisJP24hyrCD9AxpdLLMafK7ZjlxORRjMfAqen48=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=DugcvRqNdil3z91nAf8aW4IhGDP2OvPkQzDoU6nZXoAPax2SXsbATplGYi1+SrJNTIvdRWZJzoPhHWdGZ+xazmsahey8ZtACAWWYd195DFgzb7PFnvgRCCW1H3556vTz6ySSeqwHwn75B/Ymxn4G77XOvJPYIuCACHKGSUtfjq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bTp5ZVbv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789119984; c=relaxed/simple;
+	bh=/g2RqwbdR1NRxF3RcvknAG0kcbst2SkXfi+Cset1UQE=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hMBXTOBs8dm3pSWGsVKSZZdJ0YJue2s33uGlVIM4AmNmBgzemtJMz/dMdCPhFLd12FA6wTyOSFTqvXPdn764nMR6qfiOgauav4M6kGM47c/PiGtwYdj+4cSr2guL7TlRm1ZXaA2NYPJAC9eiFaVkz++Fh1V7xVSVQNfU5n/1uz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn; spf=pass smtp.mailfrom=realsil.com.cn; dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b=KKOsLotT; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realsil.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bTp5ZVbv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5CB41F000FF;
-	Fri, 11 Sep 2026 09:45:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789119921;
-	bh=kK9cfd+AD/dt67wv8V2sR5uRACb7SCGAIFjPlX0iQ/g=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=bTp5ZVbvHgfrig6nkdLIfz1EtqgdZYJ49sVQMOTblspvSa9ZcyKBpM7LsPVUXmKQA
-	 Rvrs89KqM2bx5gpYHX92lh/qUtydMtzuVLyh89SMm2ryJmkW6ahZRFTStaM5/hiTXY
-	 bwxCh6zp7JmZDoI22WYKHL/XpaMb1TTg+CK6S88Qo5hPrsMddTVp5Mey9owFLQeWqC
-	 KdT8Fcu8IXBQILlzoJFJfQEknZ0FLDgVrztQO/COWNKmwSOE+i9UotJVwmSrNT8IE/
-	 Vy9EkIk7bCC9bz4Th9aLuDDkQc/HLU0mCCccoVadK1RaLdCpz7o1OSFGKM65tOGWo4
-	 pmr9s0XY1v+8Q==
-Message-ID: <7055515a-8892-4fc2-ab5c-81283e40e054@kernel.org>
-Date: Fri, 11 Sep 2026 04:45:19 -0500
+	dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b="KKOsLotT"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68B9jT1412289443, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realsil.com.cn;
+	s=dkim; t=1789119930;
+	bh=Js7XufGh0qtkKbkYdUlm5LCmrkcB96Lng1sN8Q3WcNg=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type;
+	b=KKOsLotT1vYOxuytZbgn67doRvm+ScEUayxq0xDn8ZBuaRkdcTjVTAD1IIFrgYVt0
+	 9t91v5DLN+KmCh6AJxF5GKHq76r4yvp7hkZugBDTbdVhjckvug5K7H+dk/ep9rZxcw
+	 IcTJqLAGdb1osns/r6Zi72W7a6pVOqUqn9JYBVxr/uAmTmKjJdCXOKE8mkFYCshG0p
+	 oHxivx/+8C3egwskekyGGX4S03XRUXlLBCSRcenzB2A0+MkD7i+yuydmboau4MIJlE
+	 zuyaZ3TEMSva/MjIFxvbuAXGwcF1J4jkG+zAFclmcOw9E0fAo5KHrYecb4f32pVCwz
+	 8AnlnRzW2cHJA==
+Received: from RS-EX-MBS2.realsil.com.cn ([172.29.17.102])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68B9jT1412289443
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 11 Sep 2026 17:45:29 +0800
+Received: from RS-EX-MBS2.realsil.com.cn (172.29.17.102) by
+ RS-EX-MBS2.realsil.com.cn (172.29.17.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 11 Sep 2026 17:45:29 +0800
+Received: from 172.29.37.154 (172.29.37.152) by RS-EX-MBS2.realsil.com.cn
+ (172.29.17.102) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Fri, 11 Sep 2026 17:45:29 +0800
+From: javen <javen_xu@realsil.com.cn>
+To: <andrew@lunn.ch>, <hkallweit1@gmail.com>, <linux@armlinux.org.uk>,
+	<davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+	<pabeni@redhat.com>, <freddy_gu@realsil.com.cn>, <nb@tipi-net.de>,
+	<maxime.chevallier@bootlin.com>
+CC: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<daniel@makrotopia.org>, <vladimir.oltean@nxp.com>, Javen Xu
+	<javen_xu@realsil.com.cn>
+Subject: [PATCH net-next v2] net: phy: realtek: improve firmware write speed
+Date: Fri, 11 Sep 2026 17:45:27 +0800
+Message-ID: <20260911094527.1928-1-javen_xu@realsil.com.cn>
+X-Mailer: git-send-email 2.50.1.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v3] arm64: dts: altera: Move all SoCFPGA files to
- dts/altera
-Content-Language: en-US
-To: evon.chiam@altera.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <47719884b157863b2253b415daa447b417cd3419.1789048358.git.evon.chiam@altera.com>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <47719884b157863b2253b415daa447b417cd3419.1789048358.git.evon.chiam@altera.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
+From: Javen Xu <javen_xu@realsil.com.cn>
 
+Firmware execution routine unconditionally uses phy_modify_mmd() for
+all OP_WRITE entries which introduces an unnecessary read transaction
+when updating an entire 16-bit register. So we optimize this by
+checking bitmask boundaries. Use phy_write_mmd() directly to speed up
+firmware loading process.
 
-On 9/10/26 09:16, evon.chiam@altera.com wrote:
-> From: "Chiam, Evon" <evon.chiam@altera.com>
-> 
-> The dts/intel/ directory contains two distinct families:
-> - Altera SoCFPGA platforms (Stratix 10, Agilex, Agilex5, Agilex72,
->    Agilex7M, N5X)
-> - Intel Keembay
-> 
-> All Altera SoCFPGA device trees already have a home in dts/altera/
-> (Stratix 10 has been there since the directory was introduced). Move
-> the remaining SoCFPGA DTS/DTSI files from dts/intel/ to dts/altera/
-> to consolidate all Altera SoCFPGA device trees under a single
-> directory. Only the Keembay files remain in dts/intel/.
-> 
-> Also drop the stale SoCFPGA MAINTAINERS path for
-> arch/arm64/boot/dts/intel/. Keembay DT files there remain covered
-> by ARM/INTEL KEEMBAY ARCHITECTURE
-> 
-> All inter-file includes are relative so no include paths need to
-> change. The set of DTBs produced by dtbs_install is unchanged; they
-> are simply built from dts/altera/ instead of dts/intel/.
-> 
-> No compatible strings or DTS/DTSI contents are modified; the device
-> tree move is rename-only.
-> 
-> Link: https://lore.kernel.org/all/cd16fb78-551e-4630-83d6-a44a68e2e411@kernel.org/
-> Signed-off-by: Chiam, Evon <evon.chiam@altera.com>
-> ---
-> Changes in v3:
-> - Drop stale SoCFPGA MAINTAINERS F: entry for arch/arm64/boot/dts/intel/
-> 
-> Changes in v2:
-> - Reworded commit subject to drop redundant "device trees" and phrase
->    the move as "to dts/altera"
-> 
-> v1 patch link:
-> https://lore.kernel.org/all/802bf0d27fbff9b1ddb6b9fc323a1a9f8f050f74.1788512748.git.evon.chiam@altera.com/
-> 
->   MAINTAINERS                                        |  1 -
->   arch/arm64/boot/dts/altera/Makefile                | 14 +++++++++++++-
->   .../boot/dts/{intel => altera}/socfpga_agilex.dtsi |  0
->   .../{intel => altera}/socfpga_agilex3_socdk.dts    |  0
->   .../dts/{intel => altera}/socfpga_agilex5.dtsi     |  0
->   .../{intel => altera}/socfpga_agilex5_socdk.dts    |  0
->   .../socfpga_agilex5_socdk_013b.dts                 |  0
->   .../socfpga_agilex5_socdk_modular.dts              |  0
->   .../socfpga_agilex5_socdk_nand.dts                 |  0
->   .../dts/{intel => altera}/socfpga_agilex72.dtsi    |  0
->   .../{intel => altera}/socfpga_agilex72_socdk.dts   |  0
->   .../{intel => altera}/socfpga_agilex7m_socdk.dts   |  0
->   .../dts/{intel => altera}/socfpga_agilex_n6000.dts |  0
->   .../dts/{intel => altera}/socfpga_agilex_socdk.dts |  0
->   .../socfpga_agilex_socdk_emmc.dts                  |  0
->   .../socfpga_agilex_socdk_nand.dts                  |  0
->   .../dts/{intel => altera}/socfpga_n5x_socdk.dts    |  0
->   arch/arm64/boot/dts/intel/Makefile                 | 12 ------------
->   18 files changed, 13 insertions(+), 14 deletions(-)
->   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex.dtsi (100%)
->   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex3_socdk.dts (100%)
->   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex5.dtsi (100%)
->   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex5_socdk.dts (100%)
->   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex5_socdk_013b.dts (100%)
->   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex5_socdk_modular.dts (100%)
->   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex5_socdk_nand.dts (100%)
->   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex72.dtsi (100%)
->   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex72_socdk.dts (100%)
->   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex7m_socdk.dts (100%)
->   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex_n6000.dts (100%)
->   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex_socdk.dts (100%)
->   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex_socdk_emmc.dts (100%)
->   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex_socdk_nand.dts (100%)
->   rename arch/arm64/boot/dts/{intel => altera}/socfpga_n5x_socdk.dts (100%)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 15011f5752a9..98f374ae7586 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -3590,7 +3590,6 @@ F:	arch/arm/boot/dts/intel/socfpga/
->   F:	arch/arm/configs/socfpga_defconfig
->   F:	arch/arm/mach-socfpga/
->   F:	arch/arm64/boot/dts/altera/
-> -F:	arch/arm64/boot/dts/intel/
->   
-Please separate this change into a separate patch. Otherwise, LGTM.
+Benchmark number from tracing MDC/MDIO hardware transactions during
+firmware loading process:
+ - Unpatched: about 28,000 MDIO transactions
+ - Patched: about 9,600 MDIO transactions
+This results in an approx 65% reduction in MDIO traffic.
 
-Dinh
+Signed-off-by: Javen Xu <javen_xu@realsil.com.cn>
+---
+ drivers/net/phy/realtek/realtek_main.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/phy/realtek/realtek_main.c b/drivers/net/phy/realtek/realtek_main.c
+index 27e31a799e2c..97b0b67b9900 100644
+--- a/drivers/net/phy/realtek/realtek_main.c
++++ b/drivers/net/phy/realtek/realtek_main.c
+@@ -548,8 +548,12 @@ static int rtl8261x_fw_execute_entry(struct phy_device *phydev,
+ 
+ 	switch (entry->type) {
+ 	case OP_WRITE:
+-		ret = phy_modify_mmd(phydev, dev, addr,
+-				     GENMASK(msb, lsb), (value << lsb) & GENMASK(msb, lsb));
++		if (msb != 15 || lsb != 0)
++			ret = phy_modify_mmd(phydev, dev, addr, GENMASK(msb, lsb),
++					     (value << lsb) & GENMASK(msb, lsb));
++		else
++			ret = phy_write_mmd(phydev, dev, addr, value);
++
+ 		if (ret)
+ 			return ret;
+ 		break;
+-- 
+2.43.0
+
