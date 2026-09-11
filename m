@@ -1,125 +1,221 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E76811E5B9A
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 20:35:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3537A49C4DA
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 20:36:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789158926; cv=none; b=DTzffcbH3Hc4XztesZ51ibMZvBUgU8SAphDlpGb38xi7urDIpIB/bTmG7O2lPIZvozlyWUlos8VySwcOA8qvKBbk9gbbDBcAeaW7baNhlADhAkj9ezMDhqI0WarVvG4rkIhk2m/op8RN3Cl4Fu21X2VKdpI3F5xR/uX5DM9x3ss=
+	t=1789159012; cv=none; b=PrYcoyaWUfjLa83x1395h2ZMzAOnnqep2aR9KGHvXTZJBPAZ+MGrwodyj7nxk7yFOWseF6cQCkjowfasI7SuMZk2iQnVdyk1OVfzZgtRbJ8siPHw5zo+SaCXe3+Xb2oyWc1zOfBYlWH02lA+so0yFSbs9t52Yv/CdZrLMaQsG0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789158926; c=relaxed/simple;
-	bh=JSzgZhVL1qDlrIcLzUkxaB2XJecqxdWMVW5p7bya/MI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oujDTrsU1C3eoRv7nhM6/GR51G3VjFBQIgFlujuF2ojNzVVU6hjSknNTr/5LGj1Diipf4jVQtzAJu9HHXoreUoHMntDi8IsnkMJNPXzvzj5KXox2OWyaDRjdmVWmIkDxueY3JSw/Hv6xhjatHbECkw0ETSgYxXQ6LsqyxQ9/fuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rYbYgtjD; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789159012; c=relaxed/simple;
+	bh=G02IjyeZdh/wMIaX4/Yji+q4SDSBzhDUKdBuo/Z8Ij0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=S46XGDKNBmkL3pnwS27/Ajus62uBomIZwVR+CaeO3Te/6nZnxYhmUv55wmhbKQpyyN/vvMXJ3OOMP4WcXyGPkr17fIOI6mZ6xsTXvr/jzi5Qp7x8KVv7jIQFqPZKzRfKKZhpITTxq2hIJhD2lZyoVxJPEwM7YHHv3M9mLEzzd+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MIl3+R9x; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cVz823N1; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rYbYgtjD"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747f066d8so697465ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:35:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MIl3+R9x";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cVz823N1"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BHWjPR3622050
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 20:36:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	B2f1tyPzUGJPWgoXHlJFI5ih3kMGH8+HrYXagtLin9c=; b=MIl3+R9x4hdboPZU
+	GpFHWznV/UTHnFtP7HroGlPgBWhQ3Dk7vRpJnWL98rC7xyvAKdf+cKKHTpug7hT3
+	7espi+uVOvvtuLWpMRMLBA1T6DustWR9cpRmrIfamLI/BDL4SCxroMNbKa0kovrB
+	f2vJsSoLqynl1tZhuVZ8N14oN5XmWi0QBlkaSssmYOpQWsnKO5pwD7iZj0xAheNi
+	6CcP+XunN6g7xY+0B7AqF+EPkrLnT2fNk21UuwN4SCEbaWl22elUo9itSknsqcWn
+	6eP2rD+NgrYvfniqs0ASWVC8B4S1bEV+83T2tVkIMBes3/5E+EQZvMPmN2GqYQ67
+	kBUjHw==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmmubs0u4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 20:36:50 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cbe77d6864dso1850982a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:36:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789158924; x=1789763724; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kHBzfgquaXRWdYlhp+0HjCKIr2/nM/SVVPzQiQe/cr0=;
-        b=rYbYgtjDzS9fJpbxIy/1VtA/Yvcr+TlrBsAHzTiOT5qDglgX6rst0TsxRFw6oGuEF7
-         e6Cxgx34BHBYxpwVqtdNKKSq27IV+vN4iDaEhNrcRMe0+ipPVyJlfccGkrq5mvPfe0M4
-         4DfUjTEkQ7QXZ+5SnUHvKIcfcONkSPYQrGnrHpunhlFRjYIk33mgYOhYczEZXbvOXbuV
-         SHSr4pF91D+x9es7dQVHoFUwXVz3qLtXTgOdkSbd7WrVyiB/3oemAR+TMLl/QSQjWZhb
-         rb3kRPJ2p7UD0+cEMAlj581rnld6WAeHzj7ohxSAMi24njAYYWCpK0Zfe83ge+cUoN2X
-         TMAg==
+        d=oss.qualcomm.com; s=google; t=1789159010; x=1789763810; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=B2f1tyPzUGJPWgoXHlJFI5ih3kMGH8+HrYXagtLin9c=;
+        b=cVz823N1MlGbaYnIujrSVQywEc+8xzm1S7GTylhCCR9FumNs6uJxkn157Co4OGS+Er
+         6k5OLQfaR83jve57yTpl2lgLDRRt3hvW0bSx1nOUoXwyIOpZ7Wdj+m4Jx2PBBGL6JnZ/
+         3qqAFZ0FtsDN0fXt6sCF2gzdRwjp/eaGifrkoM/RwAWYQotXD3wBxPHlTjeIiif+T3JP
+         Db/mwRLUO+8IwL1BfUk0GnOETtIxa1BwNO0r7he9dNcP6SDzqvWsRCHG4bs/oHBbQJya
+         9eKGIZp0dtj2j8YszPTrwHFyvxJ6CqWzlA1DaskSux5ShJPk25JYSm62UxQPnSWGI9PX
+         3FCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789158924; x=1789763724;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1789159010; x=1789763810;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kHBzfgquaXRWdYlhp+0HjCKIr2/nM/SVVPzQiQe/cr0=;
-        b=nAAKgOZaf719tp3oN0zDdLUlLX6Lq2SRC0yh57vEKpaosjq53WWGNarI2v257ehqKG
-         LH2Cx3g/SnuKez1YnwCVrmlkji2z/c1WXd9Q5rS0iloAsNtCnJbG+T3bdkUIDz3mlu03
-         hDG/P2gK9YpD/pRXZl74QgNKzZO68TONtO4+7c0N6y5wYTadSL0GwOH+Hn2NAA2BgMgQ
-         32Cb67n1yfQtHKVFCRcTW2a9mgLPtfk0/aQrkFIviAz/HefHDVOgpTHbO7UI9T5mQceh
-         H3pZT6QNjIH8WdqoZZn6lkGJTJ5eJOlqwiczhDXIy+vMCzYLxvZB3comd/l01L4OJlbj
-         POcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxgFNidi5krhGp5jUJzRqa66qdZ869UcCPWGmo7JTNVl+KXSw+QRiMueExRJZa2l6bpmgP9hddHqvkUUTU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kj7Oa8+G80zwM+Vm/JIm/Le6SkFRxN8wfp6acwdX+2/SZcD2FU
-	+X+5ieW/I+XuT7CcDGC0YlLmDh4h2V29aa1O+MLUWe9f+S8EXNFjze8k
-X-Gm-Gg: AYBFou1G+buqxHYvp8hZ56BHT/bT1e8j7akA7PH5eNKW0tHp6ipdLc0XRPZktswZYNR
-	XRLOOqxtkUeWDnJMM47PbCGWjCmaGVX1r6TFAV1JjD9rTXC6lUqbUwz8VAWulbO7V0lCzebI3wB
-	ghbTTU3ypQfl9MOAnqc08VVqanJktTcNUK8viMo5skXrfq9sEXmtFjrMCyxKyaPXHRMbhYtxltH
-	rejqryP+G62pT9vBUsDTTwb9V8ymdnPC2kJbq9Lw0DHQRPzre01h7k+FPbDLsftB6vFC6aj5XAm
-	/zIUjIqO8YSdWe+E4r0sl3D1X8idrJQ7gRiPfsRO3gdCzEgmGeIOIRt098kFA/acP0TFBdo5QiF
-	6Nyjz/pu9QWk/uM5gz5Dw1tMQQfu1EM/dN8TSwKUch1osyY4eVbp2dkprtKo79fTceDta5kxtCh
-	iksYbaKCw5/nNW814bUGA8tbRBOMznaImrqAkvpXCQSt7kjvZdfF316NzVGzaFdFQKIUU7VFJ5R
-	6OfS/ne3S/NYgxjz68JK5yDPzILlKZG7yZPHOYXI38qhKpVftMzCSe9r/9CHZREsrRHKvmHzv2v
-	QFsUARgbdWAg01/8lr5uYDu18upxjIiDUtS7iMY5wAUUrc6X
-X-Received: by 2002:a17:903:2452:b0:2db:2c05:5d92 with SMTP id d9443c01a7336-2dd2a1fbb4fmr61652715ad.8.1789158924270;
-        Fri, 11 Sep 2026 13:35:24 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cca6b7bsm16865345ad.3.2026.09.11.13.35.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 13:35:23 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: devicetree@vger.kernel.org
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Hauke Mehrtens <hauke@hauke-m.de>,
-	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM BCM5301X ARM ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv2] ARM: dts: BCM5301X: R7000: add nvram node
-Date: Fri, 11 Sep 2026 13:35:22 -0700
-Message-ID: <20260911203522.105474-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        bh=B2f1tyPzUGJPWgoXHlJFI5ih3kMGH8+HrYXagtLin9c=;
+        b=IMZfC3SbL7WqfaFlU5pao2FwBz6/tQJmIoS/b16GIvx4B8voZxLfcWu0OOoMV44mug
+         KrtxO6usvn0KamLpnGy37neBTZIVhpBpo32iGxtN5x2KX4bMVCPS1M0MFJQihNHAVZ5R
+         sQRt+SVrgoVWX/eXlPdETWyJ6a2ovXah4ZxW6Nt48bbY5N+rlXFjiniLK143/T4982ux
+         D3sTnetwKp+0AbhFSqc2gVQDL7rcALJVMRosPKfmLwCp0c6dYEGKN4UDWXE/coeP7t8l
+         r4z+muFpJys4bB3yk9rL6uRv51Ooeh2pcCDWSK5zvJrzvBVT0ykTm/NvLEbizuETrVHu
+         YVYg==
+X-Forwarded-Encrypted: i=1; AKwUvBxIWv1RgWrj2aRgaSOj27v09dyHGtswjMb2m7ndKDRVydPpDP8KIqBDO59mUD57gge2Pxcm0K5SX8ToZTY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mb65AuH0JwAFSsIVQYBP3UtMlxcWWC/q1DzB6CEPx9gBh9aDmi
+	XtoBnSfU5snlSVcl4wXDZnHD+hVqaiZxza7fJW6iCssSX60Qb9U7wGx8++UQXZ86apHspP+y6Cu
+	Agz8MYuAoRVWLlTAJvQ7EXYI5AJ03pz0nTyrjjL6UjNSQWj7/TG3M37JLM8BkJ1bzNlM=
+X-Gm-Gg: AYBFou2X8SOj90cxEskYy7cj2PagNfsu0wjoIH7SmC8LorW9+HOdxLqs/aaYSsP2q7+
+	Ad3r3tjbiUwsawjg6ubU/9MyVcehst98lpuptUpTcgxFDVDzFTsZ2Js94VaaBwgM7poL4cdA2K+
+	Hty8QU8gMok3cUYuOgG/USZsv+kGVaV6/wPgbSjKXR4Z7fHf4QgiS8ASkqOrWluc/U7XjtywHyw
+	xz8TbZsqu++YDLfcFdrGaD/W6ra+3VNGqoW6+w8Vk6ph35hL8HNVpymR9AHJEZ5FMkaP/2xaAnp
+	geNCIOBiptCkzYdsgfbmCvo/359cqyS2fvcN0pBQ7Ff5TonCz2LV4HbGuD8jhOT4nuYHIu7tEVq
+	BQLrGI1hewdYPPc9pZwAXket/ZAFa5ozt3PNLQGz7DgOvQW5Pps39NV5GW++v
+X-Received: by 2002:a05:6a20:9147:b0:3d3:ae50:97cd with SMTP id adf61e73a8af0-3daed880077mr9742067637.26.1789159009578;
+        Fri, 11 Sep 2026 13:36:49 -0700 (PDT)
+X-Received: by 2002:a05:6a20:9147:b0:3d3:ae50:97cd with SMTP id adf61e73a8af0-3daed880077mr9742025637.26.1789159008965;
+        Fri, 11 Sep 2026 13:36:48 -0700 (PDT)
+Received: from [10.227.105.111] (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e9b359sm8535455eec.14.2026.09.11.13.36.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 13:36:48 -0700 (PDT)
+Message-ID: <dded65dd-56df-4637-b3f5-c244651435a6@oss.qualcomm.com>
+Date: Fri, 11 Sep 2026 13:36:47 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 ath-current] wifi: ath12k: convert scan timeout to
+ wiphy delayed work
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>, Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+        linux-kernel@vger.kernel.org,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Jianhao Xu <jianhao.xu@seu.edu.cn>, stable@vger.kernel.org
+References: <20260717025602.262916-1-runyu.xiao@seu.edu.cn>
+ <49600545-3e13-452c-8940-c3e775ac3856@oss.qualcomm.com>
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <49600545-3e13-452c-8940-c3e775ac3856@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: 8C_xqdVB9PmOQBy_4D6qggiTFSJZdMLh
+X-Proofpoint-ORIG-GUID: 8C_xqdVB9PmOQBy_4D6qggiTFSJZdMLh
+X-Authority-Analysis: v=2.4 cv=dakVTnXe c=1 sm=1 tr=0 ts=6aa46662 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=Ucu4zBzE-dK3vCHSYFkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDI5MSBTYWx0ZWRfX0eMGuq8N+2dX
+ t6k+VJ6j2XcDt5kIIwBMZ+XX4hC+ayvL4iVdhNJf64UbhHzckPsAdA2yEuV75LktbcCqL/wbi+z
+ hFJXuvMBMGSMUaM2y2CWIAzDRJxuomHQw3+5rsC+zF956PmPvm73Ol5h+79IRtdw+NuEzUY6QMo
+ Tk5K6r1WLgp1v1nHJ3rgx/uS9HpbdzJ5JNRd4qWaN7BEfBM6aX8f6CjmF8s4Qg1iRixDKwauboh
+ RtMCCw0TQmNlT7HwTmbPqIi5fjtmTm+EWLdRCVyvr3Hz+QNJhuc95H2ypdlRfXB16fBKwp9Go9Y
+ JQaJFic/RAJS8PDGyrXfDNEcdZQ407EKN0T6yCMJiMSI3zct2XUUbVlyGFHG2kAa0lzop+I9NTu
+ rSwDIqJEWrYdDrc0mrWd4Y6Qwn2N1AcJvf6KWvsSPPXY+H6Eo0j7rGbXCxjS4gYHa5rt60swhl1
+ n7/3BVhUFSrDFegYhYA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDI5MSBTYWx0ZWRfX+07O9Pi1tzl6
+ s+JAWgKcq1fEb8lEd+MfwfLWK1aM+GC7+L61ZmEmcuAL7LbSN0ZSHqcbseiiCYb3i+LLIErMrx2
+ AJpFI8UyfOkS6jnpN97KKuGmrSNG6s4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-11_06,2026-09-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501 suspectscore=0
+ clxscore=1015 malwarescore=0 spamscore=0 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110291
 
-Add it and set MAC for gmac2, to avoid having to handle in userspaace.
+On 7/17/2026 7:40 AM, Jeff Johnson wrote:
+> On 7/16/2026 7:56 PM, Runyu Xiao wrote:
+>> ath12k_mac_op_stop() is called with the wiphy mutex held and calls
+>> ath12k_mac_stop(), which cancels ar->scan.timeout. The timeout worker
+> 
+> you are missing a very important detail, namely it is a synchronous cancel
+> 
+>> also takes the wiphy mutex before aborting the scan, so synchronously
+>> cancelling it from the stop path can deadlock if the worker has started
+>> and is waiting for the same mutex.
+>>
+>> Do not drop the wiphy mutex inside the mac80211 stop callback. Convert
+> 
+> What does this mean? Where are we currently dropping the wiphy mutex?
+> 
+> You should describe the patch in terms of the current code, not in terms of
+> any prior versions of your patch.
+> 
+>> ar->scan.timeout to wiphy_delayed_work instead, so the timeout callback
+>> runs in wiphy work context with the wiphy mutex held. This matches the
+>> locking model used by the scan vdev cleanup work and lets stop/cancel
+>> paths use wiphy_delayed_work_cancel() while they already hold the wiphy
+>> mutex.
+>>
+>> The old scan-finish path could cancel the delayed work directly from WMI
+> 
+> what is "old"? There is the current code and the new proposed code.
+> 
+>> event context. With wiphy_delayed_work that cancellation must happen from
+>> wiphy context, so keep it in scan.vdev_clean_wk. Mark scans whose cleanup
+>> work has been queued so a timeout work item that was already queued before
+>> cleanup runs does not abort a scan that is already finishing.
+> 
+> My AI review agent thinks this logic is unnecessary, but I haven't looked at
+> this in detail.
+> 
+> "summary": "finish_queued flag is a redundant substitute for
+> wiphy_delayed_work_cancel: __ath12k_mac_scan_finish is always called under
+> wiphy lock, making direct cancellation safe",
+> 
+> "failure_scenario": "Every caller of __ath12k_mac_scan_finish holds the wiphy
+> lock (directly or via wiphy_work dispatch), so wiphy_delayed_work_cancel could
+> be called there directly — as the old cancel_delayed_work was. The new
+> finish_queued flag instead defers suppression to the timeout work itself.
+> Since ath12k_scan_abort already has an explicit ATH12K_SCAN_IDLE bail-out path
+> (line 5232) with a comment covering the timeout-vs-completion race, the
+> finish_queued guard in ath12k_scan_timeout_work provides no additional safety.
+> The cost is 8 reset sites (lines 5337, 5624, 5681, 5775, 10971, 13969, 14012,
+> 15061) where a future error path that forgets the reset leaves
+> finish_queued=true, silently suppressing the next legitimate timeout abort and
+> leaving the driver wedged in SCAN_RUNNING with no recovery."
 
-nvram size found from a random bootlog online.
+You never responded to my response. However, since this seems to be a
+legitimate issue I did a little more research and now see why the
+finish_queued flag is needed. A better commit text should explain that since
+the current commit text is confusing
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v2: set gmac2 instead.
- .../boot/dts/broadcom/bcm4709-netgear-r7000.dts    | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+I propose something like the following. Yes it is AI-assisted, but IMO it does
+a good job of describing both the existing problem and the reason the new flag
+is needed in the modified version.
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm4709-netgear-r7000.dts b/arch/arm/boot/dts/broadcom/bcm4709-netgear-r7000.dts
-index 24ba8f8f9bf3..6ea845f3ac1d 100644
---- a/arch/arm/boot/dts/broadcom/bcm4709-netgear-r7000.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm4709-netgear-r7000.dts
-@@ -25,6 +25,15 @@ memory@0 {
- 		      <0x88000000 0x08000000>;
- 	};
- 
-+	nvram@1c080000 {
-+		compatible = "brcm,nvram";
-+		reg = <0x1c080000 0x180000>;
-+
-+		et0macaddr: et0macaddr {
-+			#nvmem-cell-cells = <1>;
-+		};
-+	};
-+
- 	leds {
- 		compatible = "gpio-leds";
- 
-@@ -104,3 +113,8 @@ &usb3 {
- &usb3_phy {
- 	status = "okay";
- };
-+
-+&gmac2 {
-+	nvmem-cells = <&et0macaddr 0>;
-+	nvmem-cell-names = "mac-address";
-+};
--- 
-2.55.0
 
+ath12k_mac_op_stop() is called with the wiphy mutex held and calls
+ath12k_mac_stop(), which synchronously cancels ar->scan.timeout via
+cancel_delayed_work_sync(). The timeout worker takes the wiphy mutex
+before aborting the scan, so if the worker has already started and is
+waiting for that mutex, the stop path blocks indefinitely: stop holds
+the wiphy mutex waiting for the worker to finish, and the worker waits
+for the wiphy mutex to proceed.
+
+In order to avoid this deadlock, convert ar->scan.timeout from a
+plain delayed_work to a wiphy_delayed_work. The timeout callback then
+runs in wiphy work context with the wiphy mutex already held,
+matching the locking model used by ar->scan.vdev_clean_wk. Stop and
+cancel paths can use wiphy_delayed_work_cancel() while holding the
+mutex, which removes the _sync wait that caused the deadlock.
+
+There is, however, one additional issue with the scan complete path.
+wiphy_delayed_work_cancel() requires the wiphy mutex, but
+__ath12k_mac_scan_finish() is called from WMI event handlers under
+data_lock only, without the wiphy mutex. The existing code can call
+cancel_delayed_work() there directly, but that is no longer valid when
+using wiphy_delayed_work. Instead, set a finish_queued flag and queue
+vdev_clean_wk, which runs under the wiphy mutex and performs the
+cancel. Add a check in the timeout worker so that if it was already
+queued before finish_queued was set, it exits without aborting a scan
+that is already finishing.
+
+/jeff
