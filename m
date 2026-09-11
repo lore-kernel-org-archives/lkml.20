@@ -1,247 +1,166 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013045.outbound.protection.outlook.com [40.93.196.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2386D327C08;
-	Fri, 11 Sep 2026 14:19:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C1FA34D397
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:20:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.173
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789136357; cv=fail; b=l/dmmECEVn4Gnr8YGtd40yO1LEY5I+HQ7UIvTRWoI55GWCtxJdSuTZDpAOd6o4LdJi5WCr+VE0ek+diL1CLuVAQdhqoVmMe6ps3DhUNk5zyNy1Bu5KyGxiiSnWWaIUAFdH12B35R/Xhk/M//zV6/r/a4LCdbGAlNCI0m6EhOwZ4=
+	t=1789136406; cv=pass; b=BQcgMaWS/6g092/kh3aWhbBWj4IpuuP7MrBs6FeJgTmpz5v0En7DiSmGaUIiX0xSPowe3JzRgbbTqmE29BCrxAKCDF4hKQ8Q+3cQphGlEmKg0PeUO0aq0AK+1NqUYSRQBQx3uEciwXWrSXy4Rhs7XZPFqMxrm9Qq9yislrKVmJo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789136357; c=relaxed/simple;
-	bh=G9z9YkD22Ka0uxooVHbB0/84ZRXPSDyIgEat55U6U7o=;
-	h=Message-ID:Date:Subject:To:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=HQPMvPCgPPtXC27fXOw/X8k9mmRgvcuEiYdyX/59Yfm8RxyftrHWf7WbK1PN5gVbIHuSvWEk9yW9+YLFBBHVZXpcTy4T0jGtL46q3HKMJu0ARkBXbKxd4vcryCuJbFO6D5ecsed1vW7Qtpw4AmtvlXSx8VlDjefbcIesBvXWRf4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=Qcy+BLl4; arc=fail smtp.client-ip=40.93.196.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	s=arc-20240116; t=1789136406; c=relaxed/simple;
+	bh=RMor0UjpnIQerIf6eU/Oyu0zv/c7ZStsziFIsf3kuhk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=J6S+AnAdecUebVMLQWRYdjAy+UQpIc46gSoyUyePKlr0PzLQG69GNLiv1BG34en1GJa8rtxi0lzVOa2O2qOZk1LyXZjTVGmpOVCHe1Hrp6Z4Nu+WC88aL6+m96auKPKb79898lre5wBQQkoXFb2o8SBhyNkmNR78fIa3PWtmOjM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fdL2qifc; arc=pass smtp.client-ip=209.85.128.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="Qcy+BLl4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bTAFZYBZ+C6l8rR7BYc8xdpIwQFMFDxDbHscAys2g7E3JPj7aSfaqDFUhhmAOkOfcvuMfLR2SQ7NVAWjS8Q5KsVvRxj7AS+Vvt50e+10uSUG5Pu1uk2OJqGO2C4wCY9SuGSPoNbat3ugcnbrk7hZhrBE/0WyhLMu9q92ZAyKo5IFwOM6Gxppc/KlQsV9m/CsXXnsMqUiQNri3RnpsuwIvnM+wMV01gi/3/QksduZHOBdvpFytj1xlJtQH1WEDWpfSJr5hJvhg6JcrF2xVxiyCBnddqtdOTJX8oIZqzzoBF2RVVO1Puq0kBIgrswQ4HxXrs3ostCmCAjggEKEaqnzWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=D4EpYyTCShvYO+Y3IaO6PJyoSl5R2KOtoq9wyXlFPLI=;
- b=G55acZbv2MAmynYdZ/m7G23iUz2A5sbv/KOqdgSQ/VEw503erAb82JQI2pR3RJSzdlQyACxJeHjMp+S8CVvgkJ46bmrREAosbzeEAwwtbw0KcFYPO0ugXQ7TcrLSnpYvVJofPBdi6FyILuSuPaHyqpW/DJd3QQwbumJfHO9ZiRerX4J2DW89up3doUv0Owk7b/YCpfKT1AeFihNURwUHe+jlvYx26kv/yf+0owILU2KxI4zf44dxyT1TUv5P/sSY5bRg4vsSCxRvfyrGkSxUT2qSikOqNrENluAH+owzu4yCJLTBEn50i/VuK+1JnMig8abGmaZeYqpgd7g2fCM9LQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=D4EpYyTCShvYO+Y3IaO6PJyoSl5R2KOtoq9wyXlFPLI=;
- b=Qcy+BLl4tvmFnRMeTlj0SjtYRsWNW9Rwjmrhc7QeUEGGWHtJMlRnZgUk4478lZe2pBXxmRoXW68Tu6/t5b6yMnfgdusLPVomhA+ILeaXWbd9hN+75V7x64mFz1HAumJRSy56chvFNY9DBWb2828PbCF/YOUzio5bZx7o/D+B8RVcc6VkzVzGX9RhQRzdWaz1kbFk8LgUPqYS6UbXlEM15nsZ2TDEaYOFV34kIVaiCMME9vybZuDZYjgGmEDgZogBKBLFFIIsM+hfI6RXoo8eBHK0DKzUkqVeXDSu61v/JxAv6kwEANUiawlAYHloayc/b2iENNQnpkIjEyBk6DkIbw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from DM4PR03MB6192.namprd03.prod.outlook.com (2603:10b6:5:39c::23)
- by PH7PR03MB7438.namprd03.prod.outlook.com (2603:10b6:510:2ef::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Fri, 11 Sep
- 2026 14:19:12 +0000
-Received: from DM4PR03MB6192.namprd03.prod.outlook.com
- ([fe80::b75b:5c92:1e9d:514b]) by DM4PR03MB6192.namprd03.prod.outlook.com
- ([fe80::b75b:5c92:1e9d:514b%4]) with mapi id 15.21.0382.012; Fri, 11 Sep 2026
- 14:19:12 +0000
-Message-ID: <9c97aeac-566a-410b-aece-66d5b123d9d2@altera.com>
-Date: Fri, 11 Sep 2026 22:19:05 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] arm64: dts: altera: Move all SoCFPGA files to
- dts/altera
-To: Dinh Nguyen <dinguyen@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <47719884b157863b2253b415daa447b417cd3419.1789048358.git.evon.chiam@altera.com>
- <7055515a-8892-4fc2-ab5c-81283e40e054@kernel.org>
-Content-Language: en-US
-From: "Chiam, Evon" <evon.chiam@altera.com>
-In-Reply-To: <7055515a-8892-4fc2-ab5c-81283e40e054@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SI1PR02CA0024.apcprd02.prod.outlook.com
- (2603:1096:4:1f4::12) To DM4PR03MB6192.namprd03.prod.outlook.com
- (2603:10b6:5:39c::23)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fdL2qifc"
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-866e57f63a3so8668827b3.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:20:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789136403; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bZy0KUFUmvqjT3cIIEK0dPDBJ2dsI5lgwKPFu69qRP/GGlllgD+hjhjaeukzJfxYi4
+         4Bz/l7wEFf1w+kh742al6HRD77vNxEzRCg6CXokvbeBrqrNt85rLIJPVZpap7J0A4zvF
+         ej4qXmMv8gZvQ37iFXgCc1zCqKb06jrJhJxxu69q3HMHATSh87/OjAVuUn/uQU3AhHtZ
+         +N22QBalcr6GBsDTOcWs5h1YUfA1xAWi/7uyVM8L7+9v58NufYTCVxydxKi8/KbJyYos
+         vkwqqzlpuceIvqiXQGdTPIXDB79AtfXNTT/AQ0Hsma1DLEH+7G2iTfbxtWokX1URrItP
+         F7ng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=r3Yt5+Zdt1a8UShs4GHn2PBuNhJp4NwVMMMb48n+Y2U=;
+        fh=ED9EZ5m9O1XlOyOR8DsmX+343elDnX+EW2dCLfOaUVU=;
+        b=efs6nZb1aRDDAvFmFIkdIKBUMagop6WUUdt9k25ZsePSf0n1gU7vPz1+9dJgsw2iNE
+         vlx4HaJGsjVTpDYatLaXD8YiR+0HVbUKjEFqEmmnzxPqoaaqIvANNHsK03eh29HuuFSW
+         XL4mxbihu6bz//UJBrRscEaoHWPmMkm3n3P9v/RoheKEoL2g74EYB91D9y6Qk6dECevI
+         ndx4Ppx/muWyoUv7kN55+YgmSwbsp0JVT8hCPxiyVCVXxd+6kE9NUvKQ2P9ONcp9r6OX
+         Bca38rcaM0SWj9u/cQRfNVI0HbQ3AVQtvMMcAx7bCC1ZUgymg7Rje9nbj/y5P0eP7CcP
+         0VtQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789136403; x=1789741203; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=r3Yt5+Zdt1a8UShs4GHn2PBuNhJp4NwVMMMb48n+Y2U=;
+        b=fdL2qifccc1qJeebD0Gtl/rzve7bzFVTzLIr5T8cvaSX4T5bO4I/b8942VVpD2U2ua
+         9varJyHhP4xEP3VGBU0wQ55Jz648Fs5y9VeywvW9lp68Pfibgb8uxq+PQSbxhfDLpN+i
+         fr7tlM/UVZJCMhoU8ls1E3tFuvzyvLWaBmEo0v0QYNtA5nZ2M7U2npWZ3lCB7k9PsfKK
+         0Et/I2U/9i+mjU4Mow3hHQciwilYKfN6v77NW1lxFdiMudJC5WRrdKVwbWn45C/4p+w+
+         5uVGJP0qklnO45hQk7d9uTucZbUfgH7mdsk83Ha0P7tTKDZ4Z+6ekabhIe2I1CMAtPih
+         84Jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789136403; x=1789741203;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=r3Yt5+Zdt1a8UShs4GHn2PBuNhJp4NwVMMMb48n+Y2U=;
+        b=oLdVilqi69l45SgMbaksKK7BFyloElEXJgff6L8ikIDqzBCOcQUmFgow+eesWyJ0wz
+         GNeIw1k9NzBhdexs4OXQz6bvQ6OstYHBOOC7603764j9K3uJf1Zp1NtzbAbJf9XIzccJ
+         ++5mgwK7ZDqv/pGnoZihwFJXMUMR7EnU9JzwVlBDUB2ezZrduroPmfKFqoN2Jka7COuj
+         2QuDKx4oXkpJUBmJ3Ui8Djvk8ZcrBXhIyW2Ifn1Bvaot310+0ypkq34cEwc4fWPNVOTK
+         ti6YRZzbzMNLz52z3GM5HX7ha0CEFXut0XB4ehH+Jj/409Dcb9BOeADv8VcfrZ0+jAtW
+         SwtQ==
+X-Forwarded-Encrypted: i=1; AKwUvByT9FM7VEuCnj2Un42cUulQp07CgrcBnY8DXKKmc+u9z3dZp0BUuUPd/NqSr2OgdNvHx/jMF/sAMOja8EA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nScs2kW+hll3/ZCawfLyCNQ0bf8M1npp6l4XxOMB9EBfC5wsEB
+	USmd6OxD25Nx8kfYSw5PN0fU/ocsDYxJP30XLdNfSF6CLxfG9Wg/uBwHfMHJ04dTsisNxM/IGbW
+	ny9mT1iCwk5TMSXL1adpIYUS3nqeGNg8=
+X-Gm-Gg: AYBFou1jk9ol26kN+cJ9v6benHygSrcIM6nq3Vf+YEtMAxJptF+6gDuKsDmcphiXDcp
+	AYTdx3aJvpEGOtjElz+kZVzxNDFwZmiwt2BXVrEBSHuIQxsAF17KfA9gLtNPJhe3FcE/1t/CUH1
+	EhIxyGI3yhQee0an8905HPAf4PCw4IYXounC+kPytwVFkK1Dz9Me5+zG44VnaCryI1vdpXDWx7E
+	snW6aDJfuKoOAyepqOCoiqlOoxnGcoMxwL4/2LjPKfhKBFf3tF/vERilOgwaP55vAHS5gZNkWPK
+	otLoHeUzoJkC+8iO9F1n2iK73J9bxPMKz5V/rZY8PW7p3kP4tRDwoKrf58JzFAdi4ZRHT4GNSqL
+	DUSuJ9j8fCgC6pGFHzd0OiU/P28jmdi/mQul2WXi4uQ==
+X-Received: by 2002:a05:690c:e158:b0:853:c23e:9077 with SMTP id
+ 00721157ae682-884b00f4fdamr12294907b3.26.1789136403298; Fri, 11 Sep 2026
+ 07:20:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR03MB6192:EE_|PH7PR03MB7438:EE_
-X-MS-Office365-Filtering-Correlation-Id: f7ab1e6b-a0e4-4c01-b7d2-08df100fa6c9
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|10067099003|11063799006|56012099006|4143699003|4133799003|55112099003|22082099003|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	hmTchVmW1bQlHg8wJSZKbsPOjJAsZxY2XyMULFeQCOHCz/3ANLKWbMAbkt1FhlVVdY4GQUN+XXaYxeHSE516jfK1ZNb5wkQSEG5+Rfjuk5984hM9DTomdycqd4tOlY+EOOYuuFC4ToFTgG19UDDKlus+assqfa/UmHp+mQykmJ9rbkyPNq2+pzPASn8ePcJtq9EGX5lFYR/xzQv8fO4lVA5UxgjZ8VsgxIDOw3cUHGc9JfSZOkJm31loOO8P5WGPjOHa+ktr45cZBh69J/Z0xvI0A5qtZB2oZkjPFB5hr1/063gIOBeffqdcAhvOMEOirch6N5FD+dhY4ub1RHM+0iiiCSbITX15oYUsfDL7/TxSnIJIRaLpsiLcpn5piDRtMxQXHFmtgahtQz1jgLqA8eSJPx8xMM5w1akjmc5f3PUVN1qXGlf5YnJrPSuHfDbk4ihyz1PyybTQqqmIb9k5V5N3QE1fl1S6W2Ph5EoZbjMi7dwm02UtXrxy6gVRorD183mwvOClw4hci4Nol1ClMAjYZ4M7NaBxGl40zOS0GDwJ3rK4mhJf2R/YiLrQnbLa4dEY8Ij729O80/3pwMAuPSjJby7lmEoTEUTRpz/UK5s=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB6192.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(10067099003)(11063799006)(56012099006)(4143699003)(4133799003)(55112099003)(22082099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UVhvbS92VlRnVDdnMDFHSXpvUjRrTENBM1RmLzdTMkljcEdGUXYvVkdraFlI?=
- =?utf-8?B?eHdac0hnMTFhSzhVdlZaendxOTRESElOSUNyUnJiVDA0ZVdJQk1VZTNDQVJO?=
- =?utf-8?B?SGFyTjFmRm8wQmdJbVdWYXUyR1VpTzRISjBRNk1IWXQ1d1ltQzFmM3FkSWhs?=
- =?utf-8?B?OENuRE5LMmNzNGYyYVM2YzQ5V0Q4c0Y5Y2tiN21rZ0I0dnBkYlR6dThvaGNr?=
- =?utf-8?B?ZzdablNGNm9rRnRUMTVIcVRlRCt2UnNzVi8yMXFpa3Q3TkQ0SmdGZUYreGhL?=
- =?utf-8?B?bnJ0ZGJXcGl3SE9ubi9ZbjlxWkl1bW1JekVVWWlDQ25IRituaWVBSGtqWTFZ?=
- =?utf-8?B?WVRGZThUVlVWQU81MWorMHcxaFBLVGkycTU1Z0toazZTMm5qbHNoNVlqSzJx?=
- =?utf-8?B?UFZUa2t3cFlzdGtDN0xYT2ZLYWpVY1FZN0dNaW9qK09pSGIxYjVPWGhKVmx1?=
- =?utf-8?B?STFvSHdmcDAyZnAvVGNQRFRNREZkSmZ6NUp1aUZjdWZqMnMwNW9GQkZWT0w5?=
- =?utf-8?B?ZU4rWnF2TUp0TlJ2Z1B1R2dDa2sxbVRZUTh5ME5GRDdSdHBlSUNLeDhlSWth?=
- =?utf-8?B?eHI3UHMzbk1FMkV2UjY5bEF1cHBiaVM2RUpEblpDWm9INEtGOFZTNWdxbk1o?=
- =?utf-8?B?NlFTUGNNLzVtazdrRDBlKzRiVzh5UXc4eDNSYSt0SVZUaDQzeTNEelEzU3JB?=
- =?utf-8?B?MG93Y2N3bXFEWitabDRBSUp2U3RmbExnMkI3TW1KL1FiUkVueGk0ckxlTmh1?=
- =?utf-8?B?TUFiTmlKWjNNNXpGYlB3bkg3ZUMrenlaNndIVG43U3lPeExTRkZCRFNpdTNF?=
- =?utf-8?B?bXExZ2ZIQkJBS0psdXFoeE5qREpHb0JzSHJ5SGRRYksybkh5NytONFZGdThU?=
- =?utf-8?B?QllGRnk2NFM4bXNhV2krc0twVmIvenNZMUNwSW5XTXBWc0x2d3pwMVlJNE5B?=
- =?utf-8?B?L1RuREJGZitLYmhVZlF0bzFDNUNZM0ttUEZmQkNoMnk2Y3l2d0lGRnQvaVEx?=
- =?utf-8?B?a3ZIeFhrWS9lckFWTTI4TmxBZ0R0UlNzOTNOTFpSdkIxYVVOR010YXplVXdq?=
- =?utf-8?B?YXk1U0t3UUhWbXdkZHlNY2NyVGk0NnZEcUthZFo3K3kwQzc3REpCZGx2SGkw?=
- =?utf-8?B?RjVTcWRKUnNCOVZrclAyUnJDaW9iMFNKSFU3bWFyeVF1bWQ0alZoQnhwcW9r?=
- =?utf-8?B?cmVUTkVMQ0V6cnFJa1E1Z2tGbnRuMWRDVlNSQ2tqZ1RLdXBDanBXMk13a3RB?=
- =?utf-8?B?MHF4M2RDQitoN0FXekRQNzQrSUhTY3BnKyswSk1Pc3BoYlRyMWNrMnpuRHQ0?=
- =?utf-8?B?RjdTRGp0S0NTUmhjNmU3L2ZMWk1taWdFZnFUZ0NxWmhnWHljVEtwZDRJOERM?=
- =?utf-8?B?dVdsN3hkaEdBd0libE5jV3RXdy95OWdXOGdtRVZYL002ZFhYOUgrYytHZFBT?=
- =?utf-8?B?S0ZiNHpSc3htQXczZGttVUZCRW5YM1pPT3AybktCa3JMQlNaLzNIQzhmS3RX?=
- =?utf-8?B?OUpLcjYzUEVEOFZLWU5GV2VaM1poWnFrVDREYTgwNEwxekcvSWhvN01rWmFj?=
- =?utf-8?B?VlZHSlFjbGRQNnlqbnJWenBrRSt4Rys0WU9lWlV5ZU0wOFdVSFp3dEwvZGVq?=
- =?utf-8?B?R2VMQlllKzVNSmF2c0VjU1ArcWU3ekx4ZUFSYXYvWWpjVmNidWJDSUFGYUZq?=
- =?utf-8?B?bCthTHBqV0JGUFhadHFsS0Y4c3VGQ2x6Rk50SjFNb09oT3h4ckNNeGgyaXNi?=
- =?utf-8?B?VVgzWTRXQzVualRFemdKV1VlS0tZNDR6aFp0NXYxd2RocURaZ1UvZEhOblZy?=
- =?utf-8?B?cDJvT1BIS2Noa1FBdHVKQyswUGRCTnpkc2RCUTJ5b0xNZ1J4RXh6TmJxQ1Jw?=
- =?utf-8?B?NVl5dEtLZEt4TE9xWkdNZC9rYUg0bHRPbTdXUS9jS3AwUnRmc2djNGZtMWZl?=
- =?utf-8?B?c0g4VkVhVTIzcnUva3VWTUpGYUcwcS9vQ2pYaEtLeElqNVZFWm9CVDd4OXlG?=
- =?utf-8?B?d0pVd2xMMjdJanhXWmNSbmdiSk1odklEbHluYWQwd3VpcmVvcDRnd2lxOGR6?=
- =?utf-8?B?NjZtVFI5Q2huVG8rVndIOUxBaHlGNlRWTXQ2OW9Cbjc5ekpqcjBXem43UE9U?=
- =?utf-8?B?MEJYcWZGRVRwNHhpSFgxVzFIMkpnUmxCUlVoQUtkTVFoelVNNTFJMTYrbE13?=
- =?utf-8?B?SE1za3NIRDZkcm5qZVpLSmd1ZGZFRUtNNUdVc2FKQ3kwckNzeWdjeGpnd2pB?=
- =?utf-8?B?d1l5V09oV3krdjJyclBMQjkyZEFmVTNsSjRrdlRoYVI4NVZWbUFEWEZHSnhR?=
- =?utf-8?B?U3V2MVhuQzA5NmRRTk5lUXd5WVpkdG9wOWFGZWdOR0xnRE1vQ1NrQT09?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f7ab1e6b-a0e4-4c01-b7d2-08df100fa6c9
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB6192.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 14:19:12.1257
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KjIZy8l1DcSSWlaYGRy70ZuCt/rANFkqwGcJR1WNpTLPtrzg66VP36epMKuT8Gyl8bW51AeA/88mitLuDqPXuw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR03MB7438
+References: <20260717-bcm4356a3-bt-v1-1-ffa2d5233360@gmail.com>
+ <CALHNRZ9ofDZ61YW-ZN07sf8sZ6gx4n-8SusSR_vop7R_vqbGFA@mail.gmail.com>
+ <CALHNRZ-D1Yz1bgp5hJjwBW32Lhd4Lbt0dQj=3wq-xWqp6uSC7g@mail.gmail.com> <CALHNRZ80CF9Rp0SaDzfgSPSBMWMG+QQ-7FphLAYadt=dRv+qGA@mail.gmail.com>
+In-Reply-To: <CALHNRZ80CF9Rp0SaDzfgSPSBMWMG+QQ-7FphLAYadt=dRv+qGA@mail.gmail.com>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Fri, 11 Sep 2026 10:19:51 -0400
+X-Gm-Features: AcwNN1UuOU3RMCORVSwRUX1Ml1EIca_rM0ZS5LZ0LQmn5E9EHcyMUWAgFlVIz8Q
+Message-ID: <CABBYNZK6EUcGD48eEQj_HE7fMAZxOUze-sFgUqP5qLoF7fOc3A@mail.gmail.com>
+Subject: Re: [PATCH] Bluetooth: btbcm: Add entry for BCM4356A3 UART bluetooth
+To: Aaron Kling <webgeek1234@gmail.com>
+Cc: Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Dinh
+Hi Aaron,
 
-On 11/9/2026 5:45 pm, Dinh Nguyen wrote:
-> 
-> 
-> On 9/10/26 09:16, evon.chiam@altera.com wrote:
->> From: "Chiam, Evon" <evon.chiam@altera.com>
->>
->> The dts/intel/ directory contains two distinct families:
->> - Altera SoCFPGA platforms (Stratix 10, Agilex, Agilex5, Agilex72,
->>    Agilex7M, N5X)
->> - Intel Keembay
->>
->> All Altera SoCFPGA device trees already have a home in dts/altera/
->> (Stratix 10 has been there since the directory was introduced). Move
->> the remaining SoCFPGA DTS/DTSI files from dts/intel/ to dts/altera/
->> to consolidate all Altera SoCFPGA device trees under a single
->> directory. Only the Keembay files remain in dts/intel/.
->>
->> Also drop the stale SoCFPGA MAINTAINERS path for
->> arch/arm64/boot/dts/intel/. Keembay DT files there remain covered
->> by ARM/INTEL KEEMBAY ARCHITECTURE
->>
->> All inter-file includes are relative so no include paths need to
->> change. The set of DTBs produced by dtbs_install is unchanged; they
->> are simply built from dts/altera/ instead of dts/intel/.
->>
->> No compatible strings or DTS/DTSI contents are modified; the device
->> tree move is rename-only.
->>
->> Link: https://nam10.safelinks.protection.outlook.com/? 
->> url=https%3A%2F%2Flore.kernel.org%2Fall%2Fcd16fb78-551e-4630-83d6- 
->> a44a68e2e411%40kernel.org%2F&data=05%7C02%7Cevon.chiam%40altera.com%7Cdbebcf1cfb6d48efd95808df0fe96622%7Cfbd72e03d4a54110adce614d51f2077a%7C0%7C0%7C639247167296589037%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=YZT4tZ2b6W3InI1ubN1thEAmAkSy%2BdJXpya1Nknlkjc%3D&reserved=0
->> Signed-off-by: Chiam, Evon <evon.chiam@altera.com>
->> ---
->> Changes in v3:
->> - Drop stale SoCFPGA MAINTAINERS F: entry for arch/arm64/boot/dts/intel/
->>
->> Changes in v2:
->> - Reworded commit subject to drop redundant "device trees" and phrase
->>    the move as "to dts/altera"
->>
->> v1 patch link:
->> https://nam10.safelinks.protection.outlook.com/? 
->> url=https%3A%2F%2Flore.kernel.org%2Fall%2F802bf0d27fbff9b1ddb6b9fc323a1a9f8f050f74.1788512748.git.evon.chiam%40altera.com%2F&data=05%7C02%7Cevon.chiam%40altera.com%7Cdbebcf1cfb6d48efd95808df0fe96622%7Cfbd72e03d4a54110adce614d51f2077a%7C0%7C0%7C639247167296637660%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=vUgJ1yBU8%2FtFnCcXoP30XgamJOr1bhqrMNbqdt9BKTA%3D&reserved=0
->>
->>   MAINTAINERS                                        |  1 -
->>   arch/arm64/boot/dts/altera/Makefile                | 14 +++++++++++++-
->>   .../boot/dts/{intel => altera}/socfpga_agilex.dtsi |  0
->>   .../{intel => altera}/socfpga_agilex3_socdk.dts    |  0
->>   .../dts/{intel => altera}/socfpga_agilex5.dtsi     |  0
->>   .../{intel => altera}/socfpga_agilex5_socdk.dts    |  0
->>   .../socfpga_agilex5_socdk_013b.dts                 |  0
->>   .../socfpga_agilex5_socdk_modular.dts              |  0
->>   .../socfpga_agilex5_socdk_nand.dts                 |  0
->>   .../dts/{intel => altera}/socfpga_agilex72.dtsi    |  0
->>   .../{intel => altera}/socfpga_agilex72_socdk.dts   |  0
->>   .../{intel => altera}/socfpga_agilex7m_socdk.dts   |  0
->>   .../dts/{intel => altera}/socfpga_agilex_n6000.dts |  0
->>   .../dts/{intel => altera}/socfpga_agilex_socdk.dts |  0
->>   .../socfpga_agilex_socdk_emmc.dts                  |  0
->>   .../socfpga_agilex_socdk_nand.dts                  |  0
->>   .../dts/{intel => altera}/socfpga_n5x_socdk.dts    |  0
->>   arch/arm64/boot/dts/intel/Makefile                 | 12 ------------
->>   18 files changed, 13 insertions(+), 14 deletions(-)
->>   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex.dtsi (100%)
->>   rename arch/arm64/boot/dts/{intel => altera}/ 
->> socfpga_agilex3_socdk.dts (100%)
->>   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex5.dtsi 
->> (100%)
->>   rename arch/arm64/boot/dts/{intel => altera}/ 
->> socfpga_agilex5_socdk.dts (100%)
->>   rename arch/arm64/boot/dts/{intel => altera}/ 
->> socfpga_agilex5_socdk_013b.dts (100%)
->>   rename arch/arm64/boot/dts/{intel => altera}/ 
->> socfpga_agilex5_socdk_modular.dts (100%)
->>   rename arch/arm64/boot/dts/{intel => altera}/ 
->> socfpga_agilex5_socdk_nand.dts (100%)
->>   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex72.dtsi 
->> (100%)
->>   rename arch/arm64/boot/dts/{intel => altera}/ 
->> socfpga_agilex72_socdk.dts (100%)
->>   rename arch/arm64/boot/dts/{intel => altera}/ 
->> socfpga_agilex7m_socdk.dts (100%)
->>   rename arch/arm64/boot/dts/{intel => altera}/ 
->> socfpga_agilex_n6000.dts (100%)
->>   rename arch/arm64/boot/dts/{intel => altera}/ 
->> socfpga_agilex_socdk.dts (100%)
->>   rename arch/arm64/boot/dts/{intel => altera}/ 
->> socfpga_agilex_socdk_emmc.dts (100%)
->>   rename arch/arm64/boot/dts/{intel => altera}/ 
->> socfpga_agilex_socdk_nand.dts (100%)
->>   rename arch/arm64/boot/dts/{intel => altera}/socfpga_n5x_socdk.dts 
->> (100%)
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index 15011f5752a9..98f374ae7586 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -3590,7 +3590,6 @@ F:    arch/arm/boot/dts/intel/socfpga/
->>   F:    arch/arm/configs/socfpga_defconfig
->>   F:    arch/arm/mach-socfpga/
->>   F:    arch/arm64/boot/dts/altera/
->> -F:    arch/arm64/boot/dts/intel/
-> Please separate this change into a separate patch. Otherwise, LGTM.
-> 
-I've split this change into a separate patch and sent it in v4:
-https://lore.kernel.org/all/cover.1789123511.git.evon.chiam@altera.com/
+On Thu, Sep 10, 2026 at 10:57=E2=80=AFPM Aaron Kling <webgeek1234@gmail.com=
+> wrote:
+>
+> On Tue, Sep 8, 2026 at 1:16=E2=80=AFAM Aaron Kling <webgeek1234@gmail.com=
+> wrote:
+> >
+> > On Tue, Aug 25, 2026 at 5:34=E2=80=AFPM Aaron Kling <webgeek1234@gmail.=
+com> wrote:
+> > >
+> > > On Fri, Jul 17, 2026 at 4:41=E2=80=AFPM Aaron Kling via B4 Relay
+> > > <devnull+webgeek1234.gmail.com@kernel.org> wrote:
+> > > >
+> > > > From: Aaron Kling <webgeek1234@gmail.com>
+> > > >
+> > > > This patch adds the device ID for the bluetooth chip used in the
+> > > > Nvidia specific Broadcom BCM4356 PCI-E WiFi / UART BT chip.
+> > > >
+> > > > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> > > > ---
+> > > >  drivers/bluetooth/btbcm.c | 1 +
+> > > >  1 file changed, 1 insertion(+)
+> > > >
+> > > > diff --git a/drivers/bluetooth/btbcm.c b/drivers/bluetooth/btbcm.c
+> > > > index 463d59890befe..14acea7325478 100644
+> > > > --- a/drivers/bluetooth/btbcm.c
+> > > > +++ b/drivers/bluetooth/btbcm.c
+> > > > @@ -506,6 +506,7 @@ static const struct bcm_subver_table bcm_uart_s=
+ubver_table[] =3D {
+> > > >         { 0x6606, "BCM4345C5"   },      /* 003.006.006 */
+> > > >         { 0x230f, "BCM4356A2"   },      /* 001.003.015 */
+> > > >         { 0x2310, "BCM4343A2"   },      /* 001.003.016 */
+> > > > +       { 0x2409, "BCM4356A3"   },      /* 001.004.009 */
+> > > >         { 0x220e, "BCM20702A1"  },      /* 001.002.014 */
+> > > >         { 0x420d, "BCM4349B1"   },      /* 002.002.013 */
+> > > >         { 0x420e, "BCM4349B1"   },      /* 002.002.014 */
+> > > >
+> > > > ---
+> > > > base-commit: 49362394dad7df66c274c867a271394c10ca2bb8
+> > > > change-id: 20260717-bcm4356a3-bt-cd78cc0f42e8
+> > > >
+> > > > Best regards,
+> > > > --
+> > > > Aaron Kling <webgeek1234@gmail.com>
+> > >
+> > > Are there any thoughts on this change? If not, could it get picked up=
+ please?
+> >
+> > I see other changes were picked up a few days ago. Is there a reason
+> > this one hasn't been picked up yet?
+>
+> Something appears to have gone very wrong with the automation related
+> to this change. Patchwork reports the id as archived. The
+> auto-generated github pr shows as closed with unmerged changes, and
+> appears to have been pushed over with completely unrelated changes.
+> Can someone please take a look at this?
 
-> Dinh
+It has been archieved, please resend so it can be tested by CI once again.
 
-Thanks and regards,
-Evon
+> Aaron
+
+
+
+--=20
+Luiz Augusto von Dentz
