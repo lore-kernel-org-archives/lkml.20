@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B3C541442B
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:24:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0578413D69
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:24:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789169058; cv=none; b=iDPMnKX7glFwOEPbQ/DgalFMWW6NCXAzM7tJqYl7hZTEq/R+24aYA5vL0afMSJVjC8TQcIPM4vPkKtYL2hyZb7/3njCXIgNNVNLH6rAvoQKY3WhdZmxPpS90nfrX4Aj9yVUfKyE2gbCzSodmxalqtyQx/YHs4PIHghdpk5y8oZI=
+	t=1789169060; cv=none; b=jXggKLknVMPlD8I5998H3LHb4mVjdP0wtq0oIL0stmPQnzVhN3tHkD6beBH3vI70Jmw/PM26tboqWL2MfuAyCEqIk5fPzA/6bxOxXyConMALVzGLCITiVeEEig78nurm0nyRgcT6qq1weFY8gUNJucAAAuxS/isIsshtRe6bqU0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789169058; c=relaxed/simple;
-	bh=EQ/RMD4A/ielfMRB82A5geKj3Me3HDWha3GrMMsScF8=;
+	s=arc-20240116; t=1789169060; c=relaxed/simple;
+	bh=DDsOBKlG7mAqSGPP2lg8Fcq8akaGYXSXy64J5bJV2fc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=E9ynSZDcOSg0G8Nz4iC7YT3i52bbyRXVq1R7nzRIprOLUsF6gyIkvGhjCJ6d5PjfGxYyYvAjK9zhA0G6Dh1IGndz4Yq77B3OhYfL2h/3Q/ysBBX2GSpNuabXJIM0AnF0JD7M1Fr652FRhlnxQIrGinOg6HKhThRtYCBULOiii7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VxcuwtUc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GIl5+6NWNA10SGewz9+k21VpuOjE1kyNzSQ+Gy8kH6MfKkFX01vXjSDFwRAXOyyEMwrkKsKkiux7qUvK2YwEXmuVH7Sz86KstvnnMTghMbo3EpnOCHq3bmCutnki+YsAYL9WMuhJOX83Vk4nCBgjOCK4c1rO9MKzx50drfWJZTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RZfPschB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VxcuwtUc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35BFD1F000FF;
-	Fri, 11 Sep 2026 23:24:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RZfPschB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FB451F00893;
+	Fri, 11 Sep 2026 23:24:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789169057;
-	bh=EZxDJkjdUg8TyHpg98zUCgfj2s3O/UdJGw+dovrRJAc=;
+	s=k20260515; t=1789169058;
+	bh=26VGld++CE5+uKTUqsmQDg9Q+U4jTYZy902HosgT/V0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VxcuwtUcaSg+CezT0BoBOLGPefglthOrQAomQWMpoqG2DDuudJ1hFXFH9+m6rx3+p
-	 QpvDLWlvxyPQHEwPeJYb2nLSoN7CFYdLCdqlKdpqWDK+1P2o4m1P8/hxf1kte71ZPf
-	 AYw76Tp/NkATElU8aWPgYCq+CKqCiZpW2lvjqSPr6LRaIUMhDGqc3z5p47Cz4fmZA/
-	 fKUhSOnsB7LKtxcVWkVb120T0bKFp4IrX81OwUNg774gKzSPm1JwKp88iZxZwfhmL/
-	 uu9mwf3kc9DzkV7L/CNXppwuDgOVpZIXMCXgV1wKwv0YZ+Nlt4WJ95Bm3stSoQclwm
-	 jFWwKWiZAwUxA==
+	b=RZfPschBYZlSNmN1Ag0UL0slGFVleSmhI+J/osrYLT8HbiXpzco7CXjA6n1qu1LrH
+	 RB3GIPR1+8X5VBm7h+2tY9sVZYFTwDXuzSiWxu//Un5H11vIluLcExBAPdYzBwjjdT
+	 IXWumA9bhC7vQRteJHv/vhlt3Og7wM2fmV3NoTDjBMA0gRYivc6kTd6jw119evOdOg
+	 I4nnjSUSIUmsJaZcC4riuTrcedddI4eq3X5GcqLrGj//X7hAKHYWiEDBNFD/9rI15R
+	 hhi9TNFwkb3ueb2Mw+CXyenKOC9Yim8FpCvGojL/6N5Zc7Tan32Pa09nH32AK/VRtt
+	 vCjr6jiMxSbbQ==
 From: Chao Yu <chao@kernel.org>
 To: jaegeuk@kernel.org
 Cc: linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
 	Chao Yu <chao@kernel.org>
-Subject: [PATCH v7 03/12] f2fs: cache: introduce shrinker
-Date: Sat, 12 Sep 2026 07:23:56 +0800
-Message-ID: <20260911232405.1815804-4-chao@kernel.org>
+Subject: [PATCH v7 04/12] f2fs: cache: introduce writeback thread
+Date: Sat, 12 Sep 2026 07:23:57 +0800
+Message-ID: <20260911232405.1815804-5-chao@kernel.org>
 X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
 In-Reply-To: <20260911232405.1815804-1-chao@kernel.org>
 References: <20260911232405.1815804-1-chao@kernel.org>
@@ -47,170 +47,291 @@ Content-Transfer-Encoding: 8bit
 
 From: Chao Yu <chao@kernel.org>
 
-This patch integrates the metadata cache into the F2FS memory shrinker
-subsystem to reclaim clean, unreferenced cached blocks under memory
-pressure.
+This patch introduces a background writeback kthread (f2fs_writeback-x:y)
+to periodically flush dirty metadata cache entries with a default
+interval of 5 seconds.
 
-It implements f2fs_shrink_cache() using a 3-phase cache reclamin method:
-1. isolate clean entries from lru list
-2. truncate from radix tree under lock
-3. splice un-reclaimed entries back
+It manages thread lifecycle across mount, unmount, and remount (rw/ro)
+transitions.
 
-And hooks the new interface into f2fs_shrink_count() and f2fs_shrink_scan().
+It introduces a sysfs entry /sys/fs/f2fs/<disk>/cache_wb_interval to control
+writeback interval.
 
 Signed-off-by: Chao Yu <chao@kernel.org>
 ---
- fs/f2fs/cache.c    | 89 ++++++++++++++++++++++++++++++++++++++++++++++
- fs/f2fs/cache.h    |  3 ++
- fs/f2fs/shrinker.c | 12 +++++++
- 3 files changed, 104 insertions(+)
+ Documentation/ABI/testing/sysfs-fs-f2fs |  6 +++
+ fs/f2fs/cache.c                         | 56 +++++++++++++++++++++++++
+ fs/f2fs/cache.h                         | 12 ++++++
+ fs/f2fs/f2fs.h                          |  3 ++
+ fs/f2fs/super.c                         | 33 ++++++++++++++-
+ fs/f2fs/sysfs.c                         | 13 +++++-
+ 6 files changed, 120 insertions(+), 3 deletions(-)
 
+diff --git a/Documentation/ABI/testing/sysfs-fs-f2fs b/Documentation/ABI/testing/sysfs-fs-f2fs
+index 0cebc89799dd..d2665b7f1f14 100644
+--- a/Documentation/ABI/testing/sysfs-fs-f2fs
++++ b/Documentation/ABI/testing/sysfs-fs-f2fs
+@@ -1020,3 +1020,9 @@ Contact:	"Daeho Jeong" <daehojeong@google.com>
+ Description:	This is a read-only entry to show the upper bound section number
+ 		for pinned files. Pinned files will only be allocated within
+ 		sections 0 to pinned_area_max_secno - 1.
++
++What:		/sys/fs/f2fs/<disk>/cache_wb_interval
++Date:		August 2026
++Contact:	"Chao Yu" <chao@kernel.org>
++Description:	This is a writable entry to control writeback interval of
++		f2fs_writeback-x:y, by default the value is 5000, unit is ms.
 diff --git a/fs/f2fs/cache.c b/fs/f2fs/cache.c
-index fb0ab77d3b49..563615761d11 100644
+index 563615761d11..404ceac9e6bf 100644
 --- a/fs/f2fs/cache.c
 +++ b/fs/f2fs/cache.c
-@@ -537,3 +537,92 @@ void f2fs_destroy_cache(struct f2fs_cached_block_list *cache)
- 	f2fs_put_cache(entry, true);
- 	goto next;
+@@ -626,3 +626,59 @@ unsigned long f2fs_shrink_cache(struct f2fs_sb_info *sbi,
+ {
+ 	return f2fs_do_shrink_cache(META_CACHE(sbi), nr_to_scan);
  }
 +
-+static unsigned long f2fs_do_shrink_cache(struct f2fs_cached_block_list *cache,
-+						unsigned long nr_to_scan)
++static int f2fs_cache_writeback_kthread(void *data)
 +{
-+	struct f2fs_cached_block *entry, *next;
-+	LIST_HEAD(dispose_list);
-+	LIST_HEAD(keep_list);
-+	unsigned long freed = 0;
-+	unsigned long scanned = 0;
++	struct f2fs_sb_info *sbi = data;
++	struct f2fs_cache_kthread *cache_thread = &sbi->cache_thread;
++	wait_queue_head_t *wq = &cache_thread->cache_wb_wq;
++	unsigned int interval = cache_thread->cache_wb_interval;
 +
-+	/* Phase 1: Isolate candidate entries from LRU list into dispose_list */
-+	spin_lock(&cache->list_lock);
-+	list_for_each_entry_safe(entry, next, &cache->lru_list, list) {
-+		if (scanned >= cache->num_entries)
++	set_freezable();
++
++	while (!kthread_should_stop()) {
++		wait_event_freezable_timeout(*wq,
++				kthread_should_stop(),
++				msecs_to_jiffies(interval));
++
++		if (kthread_should_stop())
 +			break;
-+		if (scanned++ >= nr_to_scan)
-+			break;
-+
-+		/* If accessed, give it a second chance to rotate to tail */
-+		if (f2fs_cache_test_and_clear_referenced(entry)) {
-+			list_move_tail(&entry->list, &cache->lru_list);
++		if (f2fs_cp_error(sbi))
 +			continue;
-+		}
-+
-+		if (f2fs_cache_test_dirty(entry) ||
-+		    f2fs_cache_test_writeback(entry) ||
-+		    f2fs_cache_test_locked(entry))
-+			continue;
-+
-+		if (f2fs_cache_refcount(entry) != 1)
-+			continue;
-+
-+		list_move_tail(&entry->list, &dispose_list);
 +	}
-+	spin_unlock(&cache->list_lock);
-+
-+	/* Phase 2: Process isolated candidates one by one */
-+	while (1) {
-+		spin_lock(&cache->list_lock);
-+		entry = list_first_entry_or_null(&dispose_list,
-+						struct f2fs_cached_block, list);
-+		if (!entry) {
-+			spin_unlock(&cache->list_lock);
-+			break;
-+		}
-+		f2fs_cache_get(entry);
-+		list_move_tail(&entry->list, &keep_list);
-+		spin_unlock(&cache->list_lock);
-+
-+		if (!f2fs_trylock_cache(entry)) {
-+			f2fs_put_cache(entry, false);
-+			continue;
-+		}
-+
-+		/* the entry has been truncated */
-+		if (!entry->cache) {
-+			f2fs_put_cache(entry, true);
-+			continue;
-+		}
-+		/*
-+		 * at least there are shrinker, radix tree and another user
-+		 * has referenced the entry.
-+		 */
-+		if (f2fs_cache_refcount(entry) >= 3) {
-+			f2fs_put_cache(entry, true);
-+			continue;
-+		}
-+
-+		f2fs_do_truncate_cache(entry, false);
-+
-+		if (f2fs_put_cache(entry, true))
-+			freed++;
-+	}
-+
-+	/* Phase 3: Splice un-reclaimed entries back onto cache->lru_list */
-+	if (!list_empty(&keep_list)) {
-+		spin_lock(&cache->list_lock);
-+		list_splice_tail(&keep_list, &cache->lru_list);
-+		spin_unlock(&cache->list_lock);
-+	}
-+
-+	return freed;
++	return 0;
 +}
 +
-+unsigned long f2fs_shrink_cache(struct f2fs_sb_info *sbi,
-+					unsigned long nr_to_scan)
++int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi)
 +{
-+	return f2fs_do_shrink_cache(META_CACHE(sbi), nr_to_scan);
++	struct f2fs_cache_kthread *cache_thread = &sbi->cache_thread;
++	struct task_struct *task;
++	dev_t dev = sbi->sb->s_dev;
++	char name[36];
++
++	if (cache_thread->cache_wb_task)
++		return 0;
++
++	init_waitqueue_head(&cache_thread->cache_wb_wq);
++	cache_thread->cache_wb_interval = DEF_DIRTY_CACHE_TIMEOUT;
++	snprintf(name, sizeof(name), "f2fs_writeback-%u:%u",
++			MAJOR(dev), MINOR(dev));
++
++	task = kthread_run(f2fs_cache_writeback_kthread, sbi, "%s", name);
++	if (IS_ERR(task))
++		return PTR_ERR(task);
++
++	cache_thread->cache_wb_task = task;
++	return 0;
++}
++
++void f2fs_stop_cache_wb_thread(struct f2fs_sb_info *sbi)
++{
++	struct f2fs_cache_kthread *cache_thread = &sbi->cache_thread;
++
++	if (!cache_thread->cache_wb_task)
++		return;
++
++	kthread_stop(cache_thread->cache_wb_task);
++	cache_thread->cache_wb_task = NULL;
 +}
 diff --git a/fs/f2fs/cache.h b/fs/f2fs/cache.h
-index d5ee51691fac..5728e2225465 100644
+index 5728e2225465..ea0cf9adf194 100644
 --- a/fs/f2fs/cache.h
 +++ b/fs/f2fs/cache.h
-@@ -206,4 +206,7 @@ void f2fs_stop_cache_wb_thread(struct f2fs_sb_info *sbi);
- #define f2fs_truncate_meta_caches(sbi, start, len)	\
- 	f2fs_drop_cache_range(META_CACHE(sbi), start, len, true)
+@@ -209,4 +209,16 @@ void f2fs_stop_cache_wb_thread(struct f2fs_sb_info *sbi);
+ unsigned long f2fs_shrink_cache(struct f2fs_sb_info *sbi,
+ 				unsigned long nr_to_scan);
  
-+unsigned long f2fs_shrink_cache(struct f2fs_sb_info *sbi,
-+				unsigned long nr_to_scan);
++#define DEF_DIRTY_CACHE_TIMEOUT 5000
++
++struct f2fs_cache_kthread {
++	struct task_struct *cache_wb_task;
++	wait_queue_head_t cache_wb_wq;
++	atomic_t cache_wb_trigger;
++	unsigned int cache_wb_interval;
++};
++
++int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi);
++void f2fs_stop_cache_wb_thread(struct f2fs_sb_info *sbi);
 +
  #endif /* _LINUX_F2FS_CACHE_H */
-diff --git a/fs/f2fs/shrinker.c b/fs/f2fs/shrinker.c
-index e3e0a7e89406..baa09bc63585 100644
---- a/fs/f2fs/shrinker.c
-+++ b/fs/f2fs/shrinker.c
-@@ -37,6 +37,11 @@ static unsigned long __count_extent_cache(struct f2fs_sb_info *sbi,
- 				atomic_read(&eti->total_ext_node);
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 85c4bf40b4aa..c0f82b63d732 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -2110,6 +2110,9 @@ struct f2fs_sb_info {
+ 
+ 	/* f2fs internal cache */
+ 	struct f2fs_cached_block_list meta_blocks;
++
++	/* internal cache flush thread */
++	struct f2fs_cache_kthread cache_thread;
+ };
+ 
+ /* Definitions to access f2fs_sb_info */
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index b731b9bb7b54..516b4ee12564 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -2039,6 +2039,7 @@ static void f2fs_put_super(struct super_block *sb)
+ 	 * flush all issued checkpoints and stop checkpoint issue thread.
+ 	 * after then, all checkpoints should be done by each process context.
+ 	 */
++	f2fs_stop_cache_wb_thread(sbi);
+ 	f2fs_stop_ckpt_thread(sbi);
+ 
+ 	/*
+@@ -2845,6 +2846,7 @@ static int __f2fs_remount(struct fs_context *fc, struct super_block *sb)
+ 	unsigned int flags = fc->sb_flags;
+ 	int err;
+ 	bool need_restart_gc = false, need_stop_gc = false;
++	bool need_restart_wb = false, need_stop_wb = false;
+ 	bool need_restart_flush = false, need_stop_flush = false;
+ 	bool need_restart_discard = false, need_stop_discard = false;
+ 	bool need_enable_checkpoint = false, need_disable_checkpoint = false;
+@@ -3004,6 +3006,18 @@ static int __f2fs_remount(struct fs_context *fc, struct super_block *sb)
+ 		need_stop_gc = true;
+ 	}
+ 
++	if (flags & SB_RDONLY) {
++		if (sbi->cache_thread.cache_wb_task) {
++			f2fs_stop_cache_wb_thread(sbi);
++			need_restart_wb = true;
++		}
++	} else if (!sbi->cache_thread.cache_wb_task) {
++		err = f2fs_start_cache_wb_thread(sbi);
++		if (err)
++			goto restore_gc;
++		need_stop_wb = true;
++	}
++
+ 	if (flags & SB_RDONLY) {
+ 		sync_inodes_sb(sb);
+ 
+@@ -3011,7 +3025,7 @@ static int __f2fs_remount(struct fs_context *fc, struct super_block *sb)
+ 		set_sbi_flag(sbi, SBI_IS_CLOSE);
+ 		err = f2fs_sync_fs(sb, 1);
+ 		if (err)
+-			goto restore_gc;
++			goto restore_wb;
+ 		clear_sbi_flag(sbi, SBI_IS_CLOSE);
+ 	}
+ 
+@@ -3026,7 +3040,7 @@ static int __f2fs_remount(struct fs_context *fc, struct super_block *sb)
+ 	} else {
+ 		err = f2fs_create_flush_cmd_control(sbi);
+ 		if (err)
+-			goto restore_gc;
++			goto restore_wb;
+ 		need_stop_flush = true;
+ 	}
+ 
+@@ -3123,6 +3137,13 @@ static int __f2fs_remount(struct fs_context *fc, struct super_block *sb)
+ 		clear_opt(sbi, FLUSH_MERGE);
+ 		f2fs_destroy_flush_cmd_control(sbi, false);
+ 	}
++restore_wb:
++	if (need_restart_wb) {
++		if (f2fs_start_cache_wb_thread(sbi))
++			f2fs_warn(sbi, "background cache writeback thread has stopped");
++	} else if (need_stop_wb) {
++		f2fs_stop_cache_wb_thread(sbi);
++	}
+ restore_gc:
+ 	if (need_restart_gc) {
+ 		if (f2fs_start_gc_thread(sbi))
+@@ -5529,6 +5550,12 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 			goto sync_free_meta;
+ 	}
+ 
++	if (!f2fs_readonly(sb)) {
++		err = f2fs_start_cache_wb_thread(sbi);
++		if (err)
++			goto stop_gc_thread;
++	}
++
+ 	/* recover broken superblock */
+ 	if (recovery) {
+ 		err = f2fs_commit_super(sbi, true);
+@@ -5551,6 +5578,8 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	sbi->umount_lock_holder = NULL;
+ 	return 0;
+ 
++stop_gc_thread:
++	f2fs_stop_gc_thread(sbi);
+ sync_free_meta:
+ 	/* safe to flush all the data */
+ 	sync_filesystem(sbi->sb);
+diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
+index aaca9ed9b169..ad25733e32c0 100644
+--- a/fs/f2fs/sysfs.c
++++ b/fs/f2fs/sysfs.c
+@@ -40,6 +40,7 @@ enum {
+ 	RESERVED_BLOCKS,	/* struct f2fs_sb_info */
+ 	CPRC_INFO,	/* struct ckpt_req_control */
+ 	ATGC_INFO,	/* struct atgc_management */
++	WB_THREAD,	/* struct f2fs_cache_kthread */
+ };
+ 
+ static const char *gc_mode_names[MAX_GC_MODE] = {
+@@ -98,6 +99,8 @@ static unsigned char *__struct_ptr(struct f2fs_sb_info *sbi, int struct_type)
+ 		return (unsigned char *)&sbi->cprc_info;
+ 	else if (struct_type == ATGC_INFO)
+ 		return (unsigned char *)&sbi->am;
++	else if (struct_type == WB_THREAD)
++		return (unsigned char *)&sbi->cache_thread;
+ 	return NULL;
  }
  
-+static unsigned long __count_cache(struct f2fs_sb_info *sbi)
-+{
-+	return META_CACHE(sbi)->num_entries;
-+}
-+
- unsigned long f2fs_shrink_count(struct shrinker *shrink,
- 				struct shrink_control *sc)
- {
-@@ -68,6 +73,9 @@ unsigned long f2fs_shrink_count(struct shrinker *shrink,
- 		/* count free nids cache entries */
- 		count += __count_free_nids(sbi);
+@@ -1008,7 +1011,8 @@ static ssize_t f2fs_sbi_store(struct f2fs_attr *a,
+ 	bool gc_entry = (!strcmp(a->attr.name, "gc_urgent") ||
+ 					a->struct_type == GC_THREAD);
+ 	bool thread_entry = !strcmp(a->attr.name, "ckpt_thread_ioprio") ||
+-			!strcmp(a->attr.name, "critical_task_priority");
++			!strcmp(a->attr.name, "critical_task_priority") ||
++			!strcmp(a->attr.name, "cache_wb_interval");
  
-+		/* count generic cache entries */
-+		count += __count_cache(sbi);
-+
- 		spin_lock(&f2fs_list_lock);
- 		p = p->next;
- 		mutex_unlock(&sbi->umount_mutex);
-@@ -120,6 +128,10 @@ unsigned long f2fs_shrink_scan(struct shrinker *shrink,
- 		if (freed < nr)
- 			freed += f2fs_try_to_free_nids(sbi, nr - freed);
+ 	if (gc_entry || thread_entry) {
+ 		if (!down_read_trylock(&sbi->sb->s_umount))
+@@ -1218,6 +1222,9 @@ static struct f2fs_attr f2fs_attr_##name = __ATTR(name, 0444, name##_show, NULL)
+ #define ATGC_INFO_RW_ATTR(name, elname)				\
+ 	F2FS_RW_ATTR(ATGC_INFO, atgc_management, name, elname)
  
-+		/* shrink generic cache entries */
-+		if (freed < nr)
-+			freed += f2fs_shrink_cache(sbi, nr - freed);
++#define WB_THREAD_RW_ATTR(name, elname)				\
++	F2FS_RW_ATTR(WB_THREAD, f2fs_cache_kthread, name, elname)
 +
- 		spin_lock(&f2fs_list_lock);
- 		p = p->next;
- 		list_move_tail(&sbi->s_list, &f2fs_list);
+ /* GC_THREAD ATTR */
+ GC_THREAD_RW_ATTR(gc_urgent_sleep_time, urgent_sleep_time);
+ GC_THREAD_RW_ATTR(gc_min_sleep_time, min_sleep_time);
+@@ -1347,6 +1354,9 @@ ATGC_INFO_RW_ATTR(atgc_candidate_count, max_candidate_count);
+ ATGC_INFO_RW_ATTR(atgc_age_weight, age_weight);
+ ATGC_INFO_RW_ATTR(atgc_age_threshold, age_threshold);
+ 
++/* WB_THREAD ATTR */
++WB_THREAD_RW_ATTR(cache_wb_interval, cache_wb_interval);
++
+ F2FS_GENERAL_RO_ATTR(dirty_segments);
+ F2FS_GENERAL_RO_ATTR(free_segments);
+ F2FS_GENERAL_RO_ATTR(ovp_segments);
+@@ -1533,6 +1543,7 @@ static struct attribute *f2fs_attrs[] = {
+ 	ATTR_LIST(lock_duration_priority),
+ 	ATTR_LIST(adjust_lock_priority),
+ 	ATTR_LIST(critical_task_priority),
++	ATTR_LIST(cache_wb_interval),
+ 	NULL,
+ };
+ ATTRIBUTE_GROUPS(f2fs);
 -- 
 2.49.0
 
