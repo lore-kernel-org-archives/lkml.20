@@ -1,118 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58A28377011;
-	Fri, 11 Sep 2026 16:06:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D576E49BD68;
+	Fri, 11 Sep 2026 16:05:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789142761; cv=none; b=IG1Gctvzu1MqtwXs0PjP9a9+BkwVj+TSw1JJvKfPvoV3g3jY3fq0VVwLlWEgu3uqRTVZA2dEVNG9NujuxI5nbeav3bEiA3VEvzXuzORfVtqhOyLEIqfEg9o86KlH6A6DHSQJGyGfdvtnjoXUT/giZYK5BUetR0rRYXYVGuHTta4=
+	t=1789142762; cv=none; b=EcWOCpO2498oTiwNiU7H9H2ysFgI+Omrlwm+yEM/ePTsv5a6EmGoB6fVtCIZk5OitNrPKATpNZaB3CINbTYgnb6ZqNQ+60hgO1ZhnSZDS6xlL0lBbVWVNaDaDLdQprRV5QqvCJP/TDUiB/2EO/vWYNlgAUH9ESywbnpkag1x97I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789142761; c=relaxed/simple;
-	bh=y623zKvj5WFK6vh5rxBcAJnlnTCbTFJ9npK9Jcvpquo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g/SILuMxH6NNUY4y1VXl5DdmpbzD1D9KYxvtvxIXs+eIUwMmy0eXjdybXLX+AZ5T7u2F+0Niss0s/eBXJqYCAWUV1lxl6xaEWN0LcQ2rHvCuXPwIhir1nlTWOQbOUIZ7Z4SXLIPEBVk7UTwJQGJQRMYyegPtm4TfWUPIK4IhzFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fk8BwnwX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789142762; c=relaxed/simple;
+	bh=ZyoDMU6G3eZNpaZLhRifByQ7O2mJsMjwDSX7TXRIQjg=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=KeaAPnGpPEfWRI5fYBo3R6Q9LWZ5sKh2YGxNh4IBlp1p9UavSHDgytBAg50VTghDwQY16xjeHxxSI7R0/hL0jISkH1NLyxe7mgnl8fMNa9qiMUO4MKu8xijCkAN6t8NSXXNyCIA62Un8xgEOJfTP/1GZZ00EiZwcZwYSSkx0nrc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=JGGiA5sq; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fk8BwnwX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB6AF1F000FF;
-	Fri, 11 Sep 2026 16:05:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789142760;
-	bh=2wrOYazY8nQ3ZFXBOJB+1T1IM8luOPP12v0FzLgIrEM=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=Fk8BwnwXMbAajPQfNAkdjM7GxQ05ezHyEjLMSYuUNBGC8V971DgzQAgb+XfbtwtSi
-	 YRUZVNEphDjSzzmYj2i0Kd35FtAlji7d8EjEu2/1mL20AdGMDo+4Qyb5b5KJ8QQckq
-	 mIvY6X0LebJ3EvIdZQYGEZ5Sb/2KwJPD3uhvxEyeEgpY3UxJ17ewDFEmx2CxhT6HA3
-	 rnK24yViqITBG7CjQjMYa1ZtbmpzBENqQwNFUsyh0eKws4ja0X5eTMy6A6k1LXXDic
-	 xAnbS3MfSpgSrnY1xM5yHQBBU3rclPmmDisubHLbptUyRXG85kko9WMKbOjYfjxME1
-	 MfRu6bopojR8Q==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id B3CDBCE1902; Fri, 11 Sep 2026 09:05:59 -0700 (PDT)
-Date: Fri, 11 Sep 2026 09:05:59 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Peng Donglin <dolinux.peng@gmail.com>
-Cc: joelagnelf@nvidia.com, frederic@kernel.org, neeraj.upadhyay@kernel.org,
-	qiang.zhang@linux.dev, rostedt@goodmis.org, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Donglin Peng <pengdonglin@xiaomi.com>
-Subject: Re: [PATCH v2] rcu: Align stall warning 'idle=' output with
- documentation
-Message-ID: <ea36a1e2-2940-4385-9b1d-fb197f1b562a@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260105032112.1156359-1-dolinux.peng@gmail.com>
- <483ad434-4512-442e-ae6c-4108d5af5e49@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="JGGiA5sq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Message-ID:MIME-Version:
+	Content-Type; bh=D8RO0QRG4E2Br/0EmqPhuKnJGH+9/OFKD0ff0d6/hCM=;
+	b=JGGiA5sq1olT/sW26ABQv0Qc73jCAsz2SNWOPmkuTt2okq+8skxSPavdM8+vSP
+	LHbJVQJxhXxEifa53CMgNwExkXVI68+EkNSXbRKKIJS0plH4SkDmsMWsRdaL7ORo
+	5t5im51eDFjw2s2ctcWP0tB9u3izKLkhBnEd8YmlNxn1U=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDHb8uqJqRqfB1jAA--.31618S2;
+	Sat, 12 Sep 2026 00:04:58 +0800 (CST)
+Date: Sat, 12 Sep 2026 00:04:57 +0800
+From: Hao Zhang <hao_zhang_kdev@163.com>
+To: linux-block@vger.kernel.org
+Cc: tj@kernel.org, josef@toxicpanda.com, axboe@kernel.dk, yukuai@fygo.io,
+	ming.lei@redhat.com, cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dm-devel@lists.linux.dev
+Subject: [PATCH] blk-cgroup: save IRQ state in blkg_tryget_closest()
+Message-ID: <aqQmqb1k57PXj8Ef@192.168.1.215>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <483ad434-4512-442e-ae6c-4108d5af5e49@gmail.com>
+X-CM-TRANSID:_____wDHb8uqJqRqfB1jAA--.31618S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7KF4DZF1rZr4Dtw43Wry5CFg_yoW5JFWrpr
+	WvgF90k3y0qry0ga1kGF1qvF1Iga1kKrWUJrWkWwsakF4rtr1fXF1fZ34qvF4FgFZ7Ars8
+	ZF4UA3yvyr4j9w7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UhtxgUUUUU=
+X-CM-SenderInfo: pkdrs65kdqwshngh4qqrwthudrp/xtbC3Qp3amqkJqrNEAAA3V
 
-On Fri, Sep 04, 2026 at 08:24:05PM +0800, Peng Donglin wrote:
-> On 1/5/26 11:21, Donglin Peng wrote:
-> > From: Donglin Peng <pengdonglin@xiaomi.com>
-> > 
-> > The RCU stall warning message includes an "idle=" field to indicate
-> > the dyntick-idle state of a CPU. According to Documentation/RCU/stallwarn.rst,
-> > the hexadecimal number before the first '/' represents the low-order 16
-> > bits of the dynticks counter. An even value denotes that the CPU is in
-> > dyntick-idle mode, while an odd value indicates otherwise.
-> > 
-> > This was valid until commit 171476775d32 ("context_tracking: Convert state to atomic_t"),
-> > which merged the context-tracking state and dynticks counter into a
-> > single atomic variable. In the new layout, the dynticks counter occupies
-> > the higher bits starting from CT_RCU_WATCHING_START.
-> > 
-> > However, the current stall warning code prints the value from
-> > `ct_rcu_watching_cpu()`, which returns `atomic_read(&ct->state) &
-> > CT_RCU_WATCHING_MASK`. This masks out (clears) the lower state bits,
-> > resulting in a value that is always even. This obscures the CPU's true
-> > idle state and makes the output inconsistent with the documentation.
-> > 
-> > To restore consistency between the code's output and the documentation,
-> > shift the atomic value right by CT_RCU_WATCHING_START bits before printing.
-> > This extracts and displays only the relevant dynticks counter portion,
-> > allowing the parity (even/odd) to correctly reflect the CPU's dyntick-idle
-> > state.
-> > 
-> > Fixes: 171476775d32 ("context_tracking: Convert state to atomic_t")
-> > Signed-off-by: Donglin Peng <pengdonglin@xiaomi.com>
-> > Reviewed-by: Joel Fernandes <joelagnelf@nvidia.com>
-> > ---
-> > v2:
-> >   - Use CT_RCU_WATCHING_START to replace ilog2(CT_RCU_WATCHING) to clean
-> >     up the code, thanks to Zqiang.
-> >   - Clarify the commit message.
-> > ---
-> >   kernel/rcu/tree_stall.h | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/kernel/rcu/tree_stall.h b/kernel/rcu/tree_stall.h
-> > index b67532cb8770..fd9d7fd6e17c 100644
-> > --- a/kernel/rcu/tree_stall.h
-> > +++ b/kernel/rcu/tree_stall.h
-> > @@ -555,7 +555,7 @@ static void print_cpu_stall_info(int cpu)
-> >   			rdp->rcu_iw_pending ? (int)min(delta, 9UL) + '0' :
-> >   				"!."[!delta],
-> >   	       ticks_value, ticks_title,
-> > -	       ct_rcu_watching_cpu(cpu) & 0xffff,
-> > +	       (ct_rcu_watching_cpu(cpu) >> CT_RCU_WATCHING_START) & 0xffff,
-> >   	       ct_nesting_cpu(cpu), ct_nmi_nesting_cpu(cpu),
-> >   	       rdp->softirq_snap, kstat_softirqs_cpu(RCU_SOFTIRQ, cpu),
-> >   	       data_race(rcu_state.n_force_qs) - rcu_state.n_force_qs_gpstart,
-> 
-> Gentle ping on this patch. Thanks!
+From: Hao Zhang <zhanghao1@kylinos.cn>
 
-The advantage of the current code is that the CT_STATE_KERNEL,
-CT_STATE_IDLE, CT_STATE_USER, and CT_STATE_GUEST information is visible
-in the lower two bits of that hex number.
+bio_set_dev() associates the bio with a blkg through bio_associate_blkg().
+If the blkg lookup misses, blkg_tryget_closest() takes q->queue_lock with
+spin_lock_irq() and releases it with spin_unlock_irq(), which
+unconditionally enables local interrupts.
 
-Now, if you wanted to print that information symbolically and then
-shift down the counter, that might well be a valuable improvement.
-Given corresponding updates to stallwarn.rst, of course.
+Callers may call bio_set_dev() with interrupts already disabled, e.g.
+dm-thin's pool_map() does so while holding pool->lock taken with
+spin_lock_irq().  The nested spin_unlock_irq() then enables interrupts
+while pool->lock is still held, so an I/O completion softirq can run on
+the same CPU, re-acquire pool->lock (thin_endio(), or overwrite_endio()
+-> complete_mapping_preparation()) and deadlock.  lockdep reports this
+as inconsistent SOFTIRQ-ON-W to IN-SOFTIRQ-W usage.
 
-Or am I missing something subtle here?
+Commit 3a762de55b4e ("block: save irq state in blkg_lookup_create()")
+fixed the same problem while the lock lived in blkg_lookup_create(), but
+commit 9327a865e395 ("blk-cgroup: don't nest queue_lock under rcu in
+blkg_lookup_create()") moved the locking into blkg_tryget_closest() and
+reverted it to spin_lock_irq().
 
-							Thanx, Paul
+Save and restore the caller's IRQ state instead.
+
+Fixes: 9327a865e395 ("blk-cgroup: don't nest queue_lock under rcu in blkg_lookup_create()")
+Cc: Ming Lei <ming.lei@redhat.com>
+Signed-off-by: Hao Zhang <zhanghao1@kylinos.cn>
+---
+ block/blk-cgroup.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/block/blk-cgroup.c b/block/blk-cgroup.c
+index 2b5c29434e42..b56db1cc6778 100644
+--- a/block/blk-cgroup.c
++++ b/block/blk-cgroup.c
+@@ -2091,6 +2091,7 @@ static inline struct blkcg_gq *blkg_tryget_closest(struct bio *bio,
+ 	struct request_queue *q = bio->bi_bdev->bd_queue;
+ 	struct blkcg *blkcg = css_to_blkcg(css);
+ 	struct blkcg_gq *blkg;
++	unsigned long flags;
+ 
+ 	rcu_read_lock();
+ 	blkg = blkg_lookup(blkcg, q);
+@@ -2105,11 +2106,11 @@ static inline struct blkcg_gq *blkg_tryget_closest(struct bio *bio,
+ 	 * Fast path failed, we're probably issuing IO in this cgroup the first
+ 	 * time, hold lock to create new blkg.
+ 	 */
+-	spin_lock_irq(&q->queue_lock);
++	spin_lock_irqsave(&q->queue_lock, flags);
+ 	blkg = blkg_lookup_create(blkcg, bio->bi_bdev->bd_disk);
+ 	if (blkg)
+ 		blkg = blkg_lookup_tryget(blkg);
+-	spin_unlock_irq(&q->queue_lock);
++	spin_unlock_irqrestore(&q->queue_lock, flags);
+ 
+ 	return blkg;
+ }
+
+base-commit: 08df884136f1c1197bab2a27814404fd329d9aac
+-- 
+2.15.0
+
