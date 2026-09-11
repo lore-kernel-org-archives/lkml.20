@@ -1,79 +1,78 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF3143F8D9
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:01:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0408043F4B8
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:02:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789128103; cv=none; b=U0OlBcsvWM5J2CD1I+b0ONjZV/5DyehGUTNhjkaOC6meYa2h4OQsm/4RydittmtItVi6gJN98h8v/nEx5zqEBd14IEcF408uYGdJdaGAjhemqBiUvQx3OIbjV7yD+pT4VKe272Z/Pf/txp18KOvhZSEkx9loqdXVR5F09+lhRTM=
+	t=1789128149; cv=none; b=irHqSjWrHp10/Tkv26AG/wj9MgOyoypthQf17xnalszNgj81dgTgX7jAN7SfryqLjIvsqoHOnxFY24ZL0wHDh2gj+p7swWVc3pNZAmg+1QU0bA7si0z61RVtRm+HR9v5ydPiH5/CT3SbKX0U4MrCYaSW765g6oYs+KowskHmsLM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789128103; c=relaxed/simple;
-	bh=s3UruXpS/KTBGJovzguGpZdeym3vIr7RNIIDPtdn32E=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MykFDQ3ggJQxS8xDyB91QZ6hFML/nmphrR20ntn7eIunFcEYxb/cf3VLr1Nvd000DdkjQvsmHVmBPr51XlnkZiELEJNga5jdN2ypqcKLMVp8ONEwmk3MRwuGKYOQCEAkPt4ATCgmb7wSxQjUFvRYMurKsJdolaGOQvSkN/orXuI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pdHq5BaW; arc=none smtp.client-ip=209.85.221.44
+	s=arc-20240116; t=1789128149; c=relaxed/simple;
+	bh=7oG0qIqfjib0ZFOD/usDGYpM+CgsdyFvb0BJsfbMw6g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OzgBcG1GXaMTgQ3kObk06lqXjwB9zoXABMzpC8bFefOCCdLxx0y8tSiisb9jrUtjsMyEbrYHmNGBbm7QMkywZBBVWqlaoxeSHWJIwBSH23vFyfdqjNWc8WcP1dSnOvjzDnkQ1pz0I/7b2KMWX0nFr8l1z89W8rP0jgZXOPqmpp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JARNk4JU; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pdHq5BaW"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-482e067e908so567308f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:01:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JARNk4JU"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49d0b98d6d0so10323925e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:02:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789128100; x=1789732900; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789128143; x=1789732943; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=3FYS3uxJgkEj1kDQ2zGiFPej21csKYbphEoF4mzTvJw=;
-        b=pdHq5BaWF9Kf6IDKerQ/ev7zyViOpzgyCgznLXnDs6Pcc6giHMVNe4P5a7S+O+LNo/
-         aUlu1NXxRIemDhjeWZdSGOEOEM0YOgwLVSuZZqrtqvNd1RoplACW2tuakCbmKGE5tVTj
-         EUkaLa3v1I0HNpMxaRVWIIZw1ouAuRRC2Namm+i9X3X6axXqNOgzgu478dfx9OXPT8eV
-         GOF016KC9es4sJiA3BAFRBoaA5d2ZIOM10BsGQ8eJze+3FbiyoiMn4SATwjWYryrETOE
-         Y7nz1vhH3n0abdvAFG/IQi95t+zk0Z1anvm9xh+RGqdW8cWOOqPjYVFdkHVVaKGAhmiC
-         ZlkQ==
+        bh=8c604zC3xfPmb8PWs25Lz5gWSP83B2bpj/RLzXfD17w=;
+        b=JARNk4JUberWlvKB26PGHSxKhp5Ww3mzDopMgH5BPq7k37SKS3PHZ6H9WGj3FBMPqL
+         gh+qATQNHAY/7KjF4U/OP4jkQtp0A+ogm+lCmN1KaafyfreIKq33pNUEV8CxmizeDnXW
+         vnU+lRRUhUrwp2mEvPuyQ0LAcduly2kbqVqoiHcxJieS9q8YCVKQIC3hseoxjA7q3eAs
+         Vh63brvwlwqi55YOmeYBQCH5OUuahs3Od73G6Je+D1Z718HW7FP4z2TjsUybsPhuCGzL
+         5s84WBZILVR5H1vS3mDQduOESkC7mA8QAQHKAq9dKk4AXadyH3H3Rt8HILYVsFLU4u5L
+         FYpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789128100; x=1789732900;
+        d=1e100.net; s=20251104; t=1789128143; x=1789732943;
         h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3FYS3uxJgkEj1kDQ2zGiFPej21csKYbphEoF4mzTvJw=;
-        b=oajczQDuIqp9aqtE3KpxFVX7PSmmjoyuLV/+hke4VKh5dzwE83w4OkQ9mnq5CcawaW
-         91fcHi7moWksbCcZIAQsQX6pH5d/ZpTTr8FCUXCFwAcRH98gOkgF17McmgDBgsSAO36c
-         d0cryIC7vaORSKh1xwNC+Ltw3LnHKfMdN2DS1xIW85u+RzYPh/uCHlM4WmdJLz10iyJm
-         rPRyg95bcUrHwUiGWU693fKfGV2vAeG4zyleSp206K5nLzQJvRLhdD8mDOfvG9HY8yM5
-         aFnEOzkJ1/6ppvVf36vsn8IPw5zUsFgOOExPOGCl/+M7vQxijzW68Zf2ptrDgmmgSm0c
-         mHrA==
-X-Forwarded-Encrypted: i=1; AKwUvBzYjm9L62/VYoQOeJbnYM9EEN54JpspgrmLV7yiaCmRh0k1yNEj85ZW3IaELfteOXoL1x+x9hg6KR/7jm4=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2QPoEM0rpsM1/qs5Yl6fTqnAxZL79hNzjZim/noPITOfs0wK+
-	l+kj50vB5EWZnkjSa7yKGDMl2D5YM9V80CF7oq7J8zRBAPToJOdVeF7a
-X-Gm-Gg: AYBFou15LUsyskoPmZ+eWEHb2DTuftbuFKoICqsT0qKWJ8VK/bIKsoaOkvDkaE6Kukh
-	SURBDi2J1W1id7hRh+61Txyq39hc+wb2mhXMTAnFvLw6W//rHPxANujwrnyu0/lA6I/fQY4E1U6
-	6wZjCCz8J91YU34kPyU/8f1EgiiT+Zm+eed7q8p8HalNdUG9wvH55tVDBJgtIH+6CBakX+ff04P
-	XbO0+yaN/RMGCTQY80DwD1N4ydkSl8SaY2OKfQLB/RBD11Hlgrph5saO1bZixusq+mZUihaQogE
-	cdnLWjj05QG5Nj8yO+m2CmGytUfCIOTKN0NpDSXHVBVrcQCuZytn7q0j5MnLPrsa9wQ/3B6rGFs
-	Os59n1VnW1L5I/Pro2WP1IHUqnSIZyQ07ulYqxIhwEIuryuTaZ7JaMbB9yjQtZza7AzSJuwG/sI
-	trO1nu6E2vZk49FoYwyLPW9XXwkowtYLf+NQoxyr3CahWCIdZOFBRHXKD3I/3xljjg20W1u0nad
-	JXISrD7
-X-Received: by 2002:a05:6000:290f:b0:486:f36e:28c4 with SMTP id ffacd0b85a97d-486f36e2a84mr982673f8f.5.1789128099794;
-        Fri, 11 Sep 2026 05:01:39 -0700 (PDT)
-Received: from foxbook (bfg95.neoplus.adsl.tpnet.pl. [83.28.44.95])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb330bdcsm5729836f8f.13.2026.09.11.05.01.38
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Fri, 11 Sep 2026 05:01:39 -0700 (PDT)
-Date: Fri, 11 Sep 2026 14:01:28 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: =?UTF-8?B?6IOh6L+e5Yuk?= <hulianqin@vivo.com>
-Cc: Mathias Nyman <mathias.nyman@intel.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, "quic_wcheng@quicinc.com"
- <quic_wcheng@quicinc.com>, "broonie@kernel.org" <broonie@kernel.org>,
- Selvarasu Ganesan <selvarasu.g@samsung.com>, "linux-usb@vger.kernel.org"
- <linux-usb@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] usb: xhci: clear dangling sideband pointer in
- xhci_free_virt_device()
-Message-ID: <20260911140128.2f05ad5d.michal.pecio@gmail.com>
-In-Reply-To: <TYUPR06MB621762AD5F5F586DD177A77AD2BE2@TYUPR06MB6217.apcprd06.prod.outlook.com>
-References: <TYUPR06MB621762AD5F5F586DD177A77AD2BE2@TYUPR06MB6217.apcprd06.prod.outlook.com>
+        bh=8c604zC3xfPmb8PWs25Lz5gWSP83B2bpj/RLzXfD17w=;
+        b=iKMt42fw7wjNTPBGjVLdTm9g4r35XrOsIFmV5Rj0NXyujyWoTdnh2h0nKwINldGMCx
+         a/Gi3Yc2HtyKIvjKxwrPs/vML4WaSKxq165w1WKRo/5W31QNoNP/ttpfTD0qHpw6167y
+         JoIVxgOi7PTEmOg8r3gcVPkqBpPXZIbiX1y0L7NOWwhXrvwkAyGyfD5Wr88nQXiovWPd
+         WjGn4JVFVELoBbiQP1fotto53C1svbsf8vmIh/qynEZ20TnukM1LN6kMw9B6zYf9dUS3
+         PDbYYRUq33O1lGJhvDL/bvesWtMnSillP1YnVEJK461+N1+Pmu3FoQPvcKL1bJU3OxG7
+         EgoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzpvU/mU7BOxARDYI/7TMrWwSi4g8zGb/aVBdCtgmtlHGYCTRd4OWwz0wMrAlPOfv66zDGy3fXuZvQYoTE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mKpXZs3OOOfbuYd16koREENR96cgZ+7lNZOKsFLCMKd0UX2J90
+	FMufBDxe0bCDoCIKDa4dRiN3/iyFP1qgZRGl774sSPL2J0DC3hZpfmSW
+X-Gm-Gg: AYBFou1jVbL8C711CDxLgSgGkklF8XX/EAF/UN7eQIlsUFXe6nOxZRcpgeyLYIjW805
+	gnKArz8F3vzxBSATlhrhXGGxIo+rq9kgfV+Mw0240GiJk2vQkoU3OvE/K79grPwyNnWswZLA3XB
+	XQ02knt8DUwh9W1MTUTGCJn9JM1boy78MvoNu7MCQrJ6itvHrFeheU906IZV636rrG01sgZ9zgK
+	/B/a87snGxczUWOyooadoae6XUCWwxxkdlY+jNUhNRyq7V7SM1Olw9WKk2INRqXM7JlUR5xkTZ0
+	2DU2aoQi0/1lKu1Dlp0fDOIipBlCfQalpfjhxxRjsAEOSZ25veF+AluhV4xcEWJ08geu+C6QGug
+	BJyFcv0LlidS8sp0L04TPH83PCpO433vkdOy+aQO49YWoHKkq08E6y3DsCsKjcAdOHbihVt+9NG
+	+sZApsjs/5dcWDNcBvboBuds35DbwBr24LyHhRP6twPwRVRHJd1k7jzqFGj3VYziULVpm67axql
+	LSXP6ltoNS+zejdtFtGc1mUED2JPOntcXJfzlQHYCSo5lACiZv6Adgwy8pDWtPo+w==
+X-Received: by 2002:a05:600c:860b:b0:49c:fa21:1c87 with SMTP id 5b1f17b1804b1-49e619d1bddmr38992645e9.28.1789128143018;
+        Fri, 11 Sep 2026 05:02:23 -0700 (PDT)
+Received: from meven-thinkpad.home (2a01cb088745e00090de407b41070a01.ipv6.abo.wanadoo.fr. [2a01:cb08:8745:e000:90de:407b:4107:a01])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c300e2sm165081935e9.8.2026.09.11.05.02.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 05:02:17 -0700 (PDT)
+From: "=?UTF-8?q?M=C3=A9ven=20Car?=" <meven29@gmail.com>
+X-Google-Original-From: =?UTF-8?q?M=C3=A9ven=20Car?= <meven@kde.org>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: =?UTF-8?q?Filipe=20La=C3=ADns?= <lains@riseup.net>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] HID: logitech-headset: add a battery driver for the PRO X 2
+Date: Fri, 11 Sep 2026 14:02:08 +0200
+Message-ID: <20260911120208.21698-1-meven@kde.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260911115346.17133-1-meven@kde.org>
+References: <20260911115346.17133-1-meven@kde.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,176 +80,417 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, 11 Sep 2026 10:22:37 +0000, =E8=83=A1=E8=BF=9E=E5=8B=A4 wrote:
-> xhci_free_virt_device() must not leave any dangling pointers.
-> If vdev->sideband is still set at this point then something is
-> wrong, e.g. the sideband client did not unregister before the
-> virtual device was freed. This can happen when
-> xhci_setup_device() gets COMP_USB_TRANSACTION_ERROR (device not
-> responding to setup address during bus reset recovery), causing
-> xhci_disable_and_free_slot() -> xhci_free_virt_device() to free
-> vdev before the sideband client has a chance to unregister.
+The PRO X 2 LIGHTSPEED receiver does not speak HID++, so hid-logitech-hidpp
+cannot read its battery. Its report descriptor has a consumer collection for
+the media keys and two vendor collections, and no report 0x10 or 0x11.
 
-When and how is the sideband client driver supposed to learn that
-its device has been reset?
+The battery answers on usage page 0xffa0. A single 64 byte frame on report
+0x51 asks for it, with no handshake, and the reply gives the level and
+whether the headset is charging. The driver asks every 120 seconds, and it
+also reads the power frames that the headset sends on its own, so a headset
+that was switched off is reported before the next poll.
 
-There is some code in xhci_discover_or_reset_device() which sends
-notification that endpoints have been removed. Does it run before
-or after vdev can potentially be freed?
+hid-generic sets HID_QUIRK_INPUT_PER_APP, so this receiver had one input
+device per application collection, among them the Consumer Control node for
+the media keys. A driver does not inherit that quirk, so probe sets it and
+the input devices stay as they were.
 
-BEFORE: it seems we had an opportunity to get rid of the sideband
-completely before running into trouble here.
+The power supply is registered with POWER_SUPPLY_SCOPE_DEVICE, and capacity
+returns -ENODATA until the first reply arrives.
 
-AFTER: freeing vdev will break those notifications, is it a bug?
+The G522 LIGHTSPEED uses the same vendor protocol with a different frame
+layout. That device is left out until someone can test it.
 
-The suggestion by Mathias that sideband should be fully destroyed
-by the client *before* USB core begins reset doesn't look bad.
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Méven Car <meven@kde.org>
+---
+Changes since v1: the Signed-off-by line, which v1 was sent without by
+mistake. The patch itself is unchanged.
 
->=20
->   hub_event()
->     xhci_setup_device()                  <-- COMP_USB_TRANSACTION_ERROR
->     xhci_disable_and_free_slot()
->       xhci_free_virt_device()
->         kfree(out_ctx), kfree(vdev)
->         xhci->devs[slot_id] =3D NULL
->     ...
->     usb_disconnect()
->       uaudio_disconnect()
->         xhci_sideband_unregister()
->           xhci_stop_endpoint_sync()
->             xhci_get_ep_ctx()            <-- CRASH (deref freed out_ctx)
->=20
-> Unable to handle kernel paging request at virtual address dead000000000122
-> Call trace:
->  xhci_get_ep_ctx+0x0/0x38
->  xhci_sideband_unregister+0x68/0xf0
->  uaudio_disconnect+0x70/0x144
->  usb_audio_disconnect+0x7c/0x268
->  usb_unbind_interface+0x13c/0x340
->  device_release_driver_internal+0x1c4/0x2bc
->  device_release_driver+0x18/0x28
->  bus_remove_device+0x158/0x170
->  device_del+0x1c8/0x320
->  usb_disable_device+0x84/0x190
->  usb_disconnect+0xe8/0x338
->  hub_event+0xbd8/0x19ac
->  process_scheduled_works+0x200/0x9d8
->  worker_thread+0x154/0x3b0
->  kthread+0x11c/0x1a0
->=20
-> Fix this by clearing any remaining sideband pointer in
-> xhci_free_virt_device() before freeing vdev. If vdev->sideband is
-> still set, set vdev->sideband->vdev =3D NULL to break the dangling
-> pointer at the source.
->=20
-> Additionally, in xhci_sideband_unregister(), check sb->vdev before
-> issuing stop endpoint commands. If vdev is already NULL (cleared by
-> xhci_free_virt_device), skip endpoint cleanup as the xHC has already
-> disabled the slot, but still remove the interrupter and free the
-> sideband instance to avoid leaks.
->=20
-> Fixes: de66754e9f80 ("xhci: sideband: add initial api to register a secon=
-dary interrupter entity")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lianqin Hu <hulianqin@vivo.com>
-> ---
->=20
-> Changes in v2:
->  - Move fix to xhci_free_virt_device() per maintainer suggestion.
->  - Use xhci_dbg per maintainer suggestion.
->  - Ensure interrupter cleanup is unconditional when vdev is NULL.
->  - Clear dangling sb->eps[] when vdev is NULL (per Selva).
->  - Update patch commit message.
->  - Link to v1: https://lore.kernel.org/all/TYUPR06MB6217000B59003EDF233D7=
-246D2B22@TYUPR06MB6217.apcprd06.prod.outlook.com/
->=20
->  drivers/usb/host/xhci-mem.c      |  9 +++++++++
->  drivers/usb/host/xhci-sideband.c | 28 +++++++++++++++++++++-------
->  2 files changed, 30 insertions(+), 7 deletions(-)
->=20
-> diff --git a/drivers/usb/host/xhci-mem.c b/drivers/usb/host/xhci-mem.c
-> index af8d4b74c4ba..448d28aaff3e 100644
-> --- a/drivers/usb/host/xhci-mem.c
-> +++ b/drivers/usb/host/xhci-mem.c
-> @@ -15,6 +15,7 @@
->  #include <linux/dmapool.h>
->  #include <linux/dma-mapping.h>
->  #include <linux/bitfield.h>
-> +#include <linux/usb/xhci-sideband.h>
-> =20
->  #include "xhci.h"
->  #include "xhci-trace.h"
-> @@ -922,6 +923,14 @@ void xhci_free_virt_device(struct xhci_hcd *xhci, st=
-ruct xhci_virt_device *dev,
->  		dev->rhub_port->slot_id =3D 0;
->  	if (xhci->devs[slot_id] =3D=3D dev)
->  		xhci->devs[slot_id] =3D NULL;
-> +
-> +	if (dev->sideband) {
+Tested on a PRO X 2 LIGHTSPEED (046d:0af7) with 7.2.4, built as a module out
+of tree. The driver binds on replug without unbinding hid-generic by hand,
+and one power supply appears for the single HID interface of the receiver.
+present, status and capacity read 1, Discharging and 50, against the same
+frame read through hidraw: 510b000310000600040a3232.
 
-Could be:
+With HID_QUIRK_INPUT_PER_APP the receiver keeps the three input devices it
+had under hid-generic, among them "Logitech PRO X 2 LIGHTSPEED Consumer
+Control". Without the quirk the three became one and that node was gone.
 
-  if (IS_ENABLED(CONFIG_USB_XHCI_SIDEBAND) && dev->sideband)
+UPower exports the supply as an audio-device peripheral, which is what the
+KDE battery applet lists.
 
-> +		xhci_dbg(xhci, "vdev for slot %d has sideband still set at free, clear=
-ing dangling pointer\n",
-> +			 slot_id);
-> +		dev->sideband->vdev =3D NULL;
-> +		dev->sideband =3D NULL;
-> +	}
-> +
->  	kfree(dev);
->  }
-> =20
-> diff --git a/drivers/usb/host/xhci-sideband.c b/drivers/usb/host/xhci-sid=
-eband.c
-> index a5deeee4d5dc..f979ce517163 100644
-> --- a/drivers/usb/host/xhci-sideband.c
-> +++ b/drivers/usb/host/xhci-sideband.c
-> @@ -472,12 +472,25 @@ xhci_sideband_unregister(struct xhci_sideband *sb)
-> =20
->  	scoped_guard(mutex, &sb->mutex) {
->  		vdev =3D sb->vdev;
-> -		if (!vdev)
-> -			return;
-> -
-> -		for (i =3D 0; i < EP_CTX_PER_DEV; i++)
-> -			if (sb->eps[i])
-> -				__xhci_sideband_remove_endpoint(sb, sb->eps[i]);
-> +		/*
-> +		 * If vdev is NULL, xhci_free_virt_device() has already
-> +		 * cleared sb->vdev and freed vdev (e.g. on
-> +		 * COMP_USB_TRANSACTION_ERROR during address device
-> +		 * recovery). Skip endpoint cleanup as the xHC has already
-> +		 * disabled the slot.
-> +		 *
-> +		 * The interrupter and sideband instance are host-level
-> +		 * resources independent of vdev, so still remove and free
-> +		 * them to avoid leaks.
-> +		 */
-> +		if (vdev) {
-> +			for (i =3D 0; i < EP_CTX_PER_DEV; i++)
-> +				if (sb->eps[i])
-> +					__xhci_sideband_remove_endpoint(sb, sb->eps[i]);
-> +		} else {
-> +			for (i =3D 0; i < EP_CTX_PER_DEV; i++)
-> +				sb->eps[i] =3D NULL;
-> +		}
-> =20
->  		__xhci_sideband_remove_interrupter(sb);
-> =20
-> @@ -486,7 +499,8 @@ xhci_sideband_unregister(struct xhci_sideband *sb)
-> =20
->  	spin_lock_irq(&xhci->lock);
->  	sb->xhci =3D NULL;
-> -	vdev->sideband =3D NULL;
-> +	if (vdev)
-> +		vdev->sideband =3D NULL;
->  	spin_unlock_irq(&xhci->lock);
-> =20
->  	kfree(sb);
-> --=20
-> 2.48.1
->=20
+Not tested: the G522 LIGHTSPEED, which is why it is absent from the id
+table, and the hid_hw_raw_request fallback in logi_headset_ask, because this
+receiver has an interrupt out endpoint and always takes the
+hid_hw_output_report path.
+
+The one checkpatch warning that is left is the ENOSYS one, and it matches
+how hid-input.c and hidraw.c test the return of hid_hw_output_report before
+they fall back to hid_hw_raw_request.
+
+Per Documentation/process/generated-content.rst: this patch was written with
+Claude Code, model claude-opus-5. The protocol was read from HeadsetControl
+and confirmed with a python script that sent the frame over hidraw on the
+real device. The model wrote the driver, the Kconfig and Makefile entries
+and this changelog from that, and the result was built and tested on the
+hardware described above.
+
+Based on v7.2.3, so it may need a rebase onto hid.git.
+
+ drivers/hid/Kconfig                |  11 ++
+ drivers/hid/Makefile               |   1 +
+ drivers/hid/hid-ids.h              |   1 +
+ drivers/hid/hid-logitech-headset.c | 292 +++++++++++++++++++++++++++++
+ 4 files changed, 305 insertions(+)
+ create mode 100644 drivers/hid/hid-logitech-headset.c
+
+diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
+index 48934c4f3..5c845b1b8 100644
+--- a/drivers/hid/Kconfig
++++ b/drivers/hid/Kconfig
+@@ -670,6 +670,17 @@ config HID_LOGITECH_DJ
+ 	generic USB_HID driver and all incoming events will be multiplexed
+ 	into a single mouse and a single keyboard device.
+ 
++config HID_LOGITECH_HEADSET
++	tristate "Logitech wireless headset battery"
++	depends on USB_HID
++	select POWER_SUPPLY
++	help
++	Support for the battery of Logitech wireless gaming headsets that
++	report it over a vendor collection instead of HID++.
++
++	Supported devices:
++	- PRO X 2 LIGHTSPEED
++
+ config HID_LOGITECH_HIDPP
+ 	tristate "Logitech HID++ devices support"
+ 	depends on HID_LOGITECH
+diff --git a/drivers/hid/Makefile b/drivers/hid/Makefile
+index 23e6e3dd0..b8576a5ac 100644
+--- a/drivers/hid/Makefile
++++ b/drivers/hid/Makefile
+@@ -82,6 +82,7 @@ obj-$(CONFIG_HID_LETSKETCH)	+= hid-letsketch.o
+ obj-$(CONFIG_HID_LOGITECH)	+= hid-logitech.o
+ obj-$(CONFIG_HID_LOGITECH)	+= hid-lg-g15.o
+ obj-$(CONFIG_HID_LOGITECH_DJ)	+= hid-logitech-dj.o
++obj-$(CONFIG_HID_LOGITECH_HEADSET)	+= hid-logitech-headset.o
+ obj-$(CONFIG_HID_LOGITECH_HIDPP)	+= hid-logitech-hidpp.o
+ obj-$(CONFIG_HID_MACALLY)	+= hid-macally.o
+ obj-$(CONFIG_HID_MAGICMOUSE)	+= hid-magicmouse.o
+diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
+index 1059922ba..0efe30b2f 100644
+--- a/drivers/hid/hid-ids.h
++++ b/drivers/hid/hid-ids.h
+@@ -910,6 +910,7 @@
+ #define USB_VENDOR_ID_LOGITECH		0x046d
+ #define USB_DEVICE_ID_LOGITECH_Z_10_SPK	0x0a07
+ #define USB_DEVICE_ID_LOGITECH_AUDIOHUB 0x0a0e
++#define USB_DEVICE_ID_LOGITECH_PRO_X_2_LIGHTSPEED	0x0af7
+ #define USB_DEVICE_ID_LOGITECH_T651	0xb00c
+ #define USB_DEVICE_ID_LOGITECH_DINOVO_EDGE_KBD	0xb309
+ #define USB_DEVICE_ID_LOGITECH_CASA_TOUCHPAD	0xbb00
+diff --git a/drivers/hid/hid-logitech-headset.c b/drivers/hid/hid-logitech-headset.c
+new file mode 100644
+index 000000000..9081ddf5f
+--- /dev/null
++++ b/drivers/hid/hid-logitech-headset.c
+@@ -0,0 +1,292 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * HID driver for the battery of Logitech wireless gaming headsets that report
++ * it over a vendor collection instead of HID++.
++ *
++ * Copyright (c) 2026 Méven Car <meven@kde.org>
++ */
++
++#include <linux/hid.h>
++#include <linux/module.h>
++#include <linux/power_supply.h>
++#include <linux/slab.h>
++#include <linux/spinlock.h>
++#include <linux/workqueue.h>
++
++#include "hid-ids.h"
++
++/*
++ * The receiver carries a consumer collection for the media keys and two vendor
++ * collections. The battery answers on usage page 0xffa0, which exchanges fixed
++ * size frames on report 0x51. One request is enough, there is no handshake.
++ */
++#define LOGI_HEADSET_REPORT_ID		0x51
++#define LOGI_HEADSET_FRAME_SIZE		64
++
++/* Every frame names its kind in the second byte. */
++#define LOGI_HEADSET_KIND_ACK		0x03
++#define LOGI_HEADSET_KIND_POWER		0x05
++#define LOGI_HEADSET_KIND_BATTERY	0x0b
++
++/* Offsets into a battery frame, which carries a tag of its own. */
++#define LOGI_HEADSET_BATTERY_TAG	8
++#define LOGI_HEADSET_BATTERY_TAG_VALUE	0x04
++#define LOGI_HEADSET_BATTERY_LEVEL	10
++#define LOGI_HEADSET_BATTERY_STATE	12
++#define LOGI_HEADSET_STATE_CHARGING	0x02
++
++/* A power frame carries zero here once the headset has been switched off. */
++#define LOGI_HEADSET_POWER_STATE	6
++
++#define LOGI_HEADSET_POLL_INTERVAL	(120 * HZ)
++
++static const u8 logi_headset_battery_request[] = {
++	LOGI_HEADSET_REPORT_ID, 0x08, 0x00, 0x03, 0x1a, 0x00, 0x03, 0x00, 0x04, 0x0a
++};
++
++struct logi_headset {
++	struct hid_device *hdev;
++	struct power_supply *battery;
++	struct power_supply_desc desc;
++	struct delayed_work poll;
++	spinlock_t lock;	/* guards the values below */
++	int capacity;
++	bool charging;
++	bool present;
++	bool seen;		/* an answer has arrived at least once */
++};
++
++static enum power_supply_property logi_headset_properties[] = {
++	POWER_SUPPLY_PROP_PRESENT,
++	POWER_SUPPLY_PROP_STATUS,
++	POWER_SUPPLY_PROP_CAPACITY,
++	POWER_SUPPLY_PROP_CAPACITY_LEVEL,
++	POWER_SUPPLY_PROP_SCOPE,
++	POWER_SUPPLY_PROP_MODEL_NAME,
++	POWER_SUPPLY_PROP_MANUFACTURER,
++};
++
++static int logi_headset_get_property(struct power_supply *psy,
++				     enum power_supply_property prop,
++				     union power_supply_propval *val)
++{
++	struct logi_headset *headset = power_supply_get_drvdata(psy);
++	unsigned long flags;
++	int ret = 0;
++
++	spin_lock_irqsave(&headset->lock, flags);
++	switch (prop) {
++	case POWER_SUPPLY_PROP_PRESENT:
++		val->intval = headset->present;
++		break;
++	case POWER_SUPPLY_PROP_STATUS:
++		if (!headset->present)
++			val->intval = POWER_SUPPLY_STATUS_UNKNOWN;
++		else if (headset->charging)
++			val->intval = POWER_SUPPLY_STATUS_CHARGING;
++		else
++			val->intval = POWER_SUPPLY_STATUS_DISCHARGING;
++		break;
++	case POWER_SUPPLY_PROP_CAPACITY:
++		if (headset->seen)
++			val->intval = headset->capacity;
++		else
++			ret = -ENODATA;
++		break;
++	case POWER_SUPPLY_PROP_CAPACITY_LEVEL:
++		if (!headset->seen)
++			val->intval = POWER_SUPPLY_CAPACITY_LEVEL_UNKNOWN;
++		else if (headset->capacity <= 10)
++			val->intval = POWER_SUPPLY_CAPACITY_LEVEL_CRITICAL;
++		else if (headset->capacity <= 25)
++			val->intval = POWER_SUPPLY_CAPACITY_LEVEL_LOW;
++		else if (headset->capacity >= 95)
++			val->intval = POWER_SUPPLY_CAPACITY_LEVEL_FULL;
++		else
++			val->intval = POWER_SUPPLY_CAPACITY_LEVEL_NORMAL;
++		break;
++	case POWER_SUPPLY_PROP_SCOPE:
++		/* A peripheral, not the battery of the machine itself. */
++		val->intval = POWER_SUPPLY_SCOPE_DEVICE;
++		break;
++	case POWER_SUPPLY_PROP_MODEL_NAME:
++		val->strval = headset->hdev->name;
++		break;
++	case POWER_SUPPLY_PROP_MANUFACTURER:
++		val->strval = "Logitech";
++		break;
++	default:
++		ret = -EINVAL;
++		break;
++	}
++	spin_unlock_irqrestore(&headset->lock, flags);
++
++	return ret;
++}
++
++static int logi_headset_ask(struct logi_headset *headset)
++{
++	u8 *frame;
++	int ret;
++
++	frame = kzalloc(LOGI_HEADSET_FRAME_SIZE, GFP_KERNEL);
++	if (!frame)
++		return -ENOMEM;
++
++	memcpy(frame, logi_headset_battery_request,
++	       sizeof(logi_headset_battery_request));
++
++	/* Same fallback as hidraw, for a device without an interrupt out endpoint. */
++	ret = hid_hw_output_report(headset->hdev, frame, LOGI_HEADSET_FRAME_SIZE);
++	if (ret == -ENOSYS)
++		ret = hid_hw_raw_request(headset->hdev, frame[0], frame,
++					 LOGI_HEADSET_FRAME_SIZE,
++					 HID_OUTPUT_REPORT, HID_REQ_SET_REPORT);
++	kfree(frame);
++
++	return ret;
++}
++
++static void logi_headset_poll(struct work_struct *work)
++{
++	struct logi_headset *headset = container_of(to_delayed_work(work),
++						    struct logi_headset, poll);
++	int ret;
++
++	ret = logi_headset_ask(headset);
++	if (ret < 0)
++		hid_dbg(headset->hdev, "battery request failed: %d\n", ret);
++
++	schedule_delayed_work(&headset->poll, LOGI_HEADSET_POLL_INTERVAL);
++}
++
++static int logi_headset_raw_event(struct hid_device *hdev,
++				  struct hid_report *report, u8 *data, int size)
++{
++	struct logi_headset *headset = hid_get_drvdata(hdev);
++	unsigned long flags;
++	bool changed = false;
++
++	if (size <= LOGI_HEADSET_BATTERY_STATE ||
++	    data[0] != LOGI_HEADSET_REPORT_ID)
++		return 0;
++
++	spin_lock_irqsave(&headset->lock, flags);
++	switch (data[1]) {
++	case LOGI_HEADSET_KIND_BATTERY:
++		if (data[LOGI_HEADSET_BATTERY_TAG] == LOGI_HEADSET_BATTERY_TAG_VALUE &&
++		    data[LOGI_HEADSET_BATTERY_LEVEL] <= 100) {
++			headset->capacity = data[LOGI_HEADSET_BATTERY_LEVEL];
++			headset->charging = data[LOGI_HEADSET_BATTERY_STATE] ==
++					    LOGI_HEADSET_STATE_CHARGING;
++			headset->present = true;
++			headset->seen = true;
++			changed = true;
++		}
++		break;
++	case LOGI_HEADSET_KIND_POWER:
++		if (data[LOGI_HEADSET_POWER_STATE] == 0x00 && headset->present) {
++			headset->present = false;
++			changed = true;
++		}
++		break;
++	case LOGI_HEADSET_KIND_ACK:
++	default:
++		break;
++	}
++	spin_unlock_irqrestore(&headset->lock, flags);
++
++	if (changed)
++		power_supply_changed(headset->battery);
++
++	/* Let the frame reach hidraw as well, userspace tools read it too. */
++	return 0;
++}
++
++static int logi_headset_probe(struct hid_device *hdev,
++			      const struct hid_device_id *id)
++{
++	struct power_supply_config cfg = {};
++	struct logi_headset *headset;
++	const char *name;
++	int ret;
++
++	headset = devm_kzalloc(&hdev->dev, sizeof(*headset), GFP_KERNEL);
++	if (!headset)
++		return -ENOMEM;
++
++	headset->hdev = hdev;
++	headset->present = true;
++	spin_lock_init(&headset->lock);
++	INIT_DELAYED_WORK(&headset->poll, logi_headset_poll);
++	hid_set_drvdata(hdev, headset);
++
++	/* As hid-generic did, so that the media keys keep their own input device. */
++	hdev->quirks |= HID_QUIRK_INPUT_PER_APP;
++
++	ret = hid_parse(hdev);
++	if (ret)
++		return ret;
++
++	name = devm_kasprintf(&hdev->dev, GFP_KERNEL,
++			      "logitech-headset-%d-battery", hdev->id);
++	if (!name)
++		return -ENOMEM;
++
++	headset->desc.name = name;
++	headset->desc.type = POWER_SUPPLY_TYPE_BATTERY;
++	headset->desc.properties = logi_headset_properties;
++	headset->desc.num_properties = ARRAY_SIZE(logi_headset_properties);
++	headset->desc.get_property = logi_headset_get_property;
++	cfg.drv_data = headset;
++
++	headset->battery = devm_power_supply_register(&hdev->dev, &headset->desc,
++						      &cfg);
++	if (IS_ERR(headset->battery))
++		return dev_err_probe(&hdev->dev, PTR_ERR(headset->battery),
++				     "cannot register the battery\n");
++
++	ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT);
++	if (ret)
++		return ret;
++
++	/* Input reports only arrive while the transport is open. */
++	ret = hid_hw_open(hdev);
++	if (ret) {
++		hid_hw_stop(hdev);
++		return ret;
++	}
++
++	schedule_delayed_work(&headset->poll, HZ);
++
++	return 0;
++}
++
++static void logi_headset_remove(struct hid_device *hdev)
++{
++	struct logi_headset *headset = hid_get_drvdata(hdev);
++
++	cancel_delayed_work_sync(&headset->poll);
++	hid_hw_close(hdev);
++	hid_hw_stop(hdev);
++}
++
++static const struct hid_device_id logi_headset_devices[] = {
++	{ HID_USB_DEVICE(USB_VENDOR_ID_LOGITECH,
++			 USB_DEVICE_ID_LOGITECH_PRO_X_2_LIGHTSPEED) },
++	{ }
++};
++MODULE_DEVICE_TABLE(hid, logi_headset_devices);
++
++static struct hid_driver logi_headset_driver = {
++	.name = "logitech-headset",
++	.id_table = logi_headset_devices,
++	.probe = logi_headset_probe,
++	.remove = logi_headset_remove,
++	.raw_event = logi_headset_raw_event,
++};
++module_hid_driver(logi_headset_driver);
++
++MODULE_AUTHOR("Méven Car <meven@kde.org>");
++MODULE_DESCRIPTION("Battery for Logitech wireless headsets without HID++");
++MODULE_LICENSE("GPL");
+-- 
+2.55.0
+
