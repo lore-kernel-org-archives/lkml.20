@@ -1,252 +1,146 @@
-Received: from mta0.migadu.com (out-123.mta0.migadu.com [91.218.175.123])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 658A730AD05
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:07:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E4A19DF62
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:11:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789103247; cv=none; b=DZvMsjEKoUZJ9nCTiSTaQDGIgGyYqiATEnJzxk6tzAytO0dFCNxTx2PA6DlyhY8eBGeNe941zEgIRGjIelK+LYIsrIx9qPyp9M4LlZ2dGIL026fQRP0XpJUT+4T6ZOXVHvMru7v5qmD+cAE2GbA7u5/0rg+Y7BeW4CvV9RcPWtI=
+	t=1789103467; cv=none; b=C3Jen21r4sipKsLBqQagHl5uAC42KwfXOlYvNS+Xn/8L4YQyQVo94jkanfvSJx6rHgM0oxf9GvDMTVCAw72IjQyCI0i/PLNY1rwBzAS0K262z5xr/ESDNaXgBWukVVxLDQ3sVLv8itF32IKr+mClirZBjQqeN1vYHhWVe9Np2YM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789103247; c=relaxed/simple;
-	bh=g/LrzPMwU2k6a3uVq6mtOPg0IBqdWkXM7p18brGZkUo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VMYwKzCrV6aj99KRvhvJmdQ5785tKhCtzZ99uJeSzClclQOZd3tEbnrheIsvBMH0xgI0KwHdkUzzh9Jyva41/YlW/8c1hqouyuXVqvUWNSCftrRCB7jpoKp/+8tnpGau1TnILfUbi9g6S24KV22LQUXeI+NVohpJ0uyB0Ii8Hzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=m7truXR3; arc=none smtp.client-ip=91.218.175.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789103467; c=relaxed/simple;
+	bh=op8zp3xtqZK1y+5EYbArVhH3q3yVDjwvN7ve9EQ2nqU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z2U5sJe7zvPrg7m2SNc2tKfn6marI3m5xOi3AibFTj7XoLdGZtz2nxNlPVaru/OvCKgAE1V6DuuIl1UIZgABfYD17bJN8Lr6YyNZOh+rBeMsTS4QhiRGIIcOZdUgGuMB5fAK3I0+9NsNJBUfDgIep16jHzkTzditRXnjsbwt6QI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mXFGsnZo; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="m7truXR3"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=g/LrzPMwU2k6a3uVq6mtOPg0IBqdWkXM7p18brGZkUo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789103242; v=1; x=1789708042;
- b=m7truXR36I2P/ByGvOgaBHWOeFlcRGiCCEvt/cLCaREhVF6mt39/qaSZOn0PqKKMIXZaznqt
- TrVFFE/Pprg3fhyy90mVcPuiuAtwuLMLYLGKk4pjSvJHd88nJ6Bw1+IA+hH4S1DDTp0mqhPEWas
- p03Yd7QCOMaq+SP/Y8s8tDeA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8b2f10adbf184df0;
-	Fri, 11 Sep 2026 05:07:22 +0000
-X-Mizu-Trace-ID: 8b2f10adbf184df0
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <242a06a6-dad9-4a0c-83c8-c3cf52707652@linux.dev>
-Date: Fri, 11 Sep 2026 10:37:16 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mXFGsnZo"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso486797a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 22:11:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789103465; x=1789708265; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yMlwh42zfWxw3I8aSGFHE6JsCvmUNQVYKp3fX73TBuY=;
+        b=mXFGsnZoJ0WTGKnPFuk31otCAjD/QZ4ATK6pZmuH03BBWYSE8ukDhIoKI+pxcsM7jo
+         yuA0KBDO+v23vqA2NQ6+83tjF1apnGZJSaJzxqMGmgi+aGxa6/42jOEjIzZgba60uY9C
+         9PCZdnegjcGp3Fy9hEG9BMXyKoIIUootyUf9d6YXvfusoWg6sD1cePqnO8Ltmcrx3o01
+         OA6H+oJVm6z9d/yzprDglOsQadYIovrKVuivaGkfqH4gZmPSlKEyQtlPWInTVIoLhVWg
+         Zcy3Wgk+XxYSBeleHMHlvHQ+qOBgNaDbj3drGXNIu21LIO8r+6drSmvoY7R6FyLLEP0o
+         l4aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789103465; x=1789708265;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yMlwh42zfWxw3I8aSGFHE6JsCvmUNQVYKp3fX73TBuY=;
+        b=oEVxj9sCmkUGJVcl+vEk1O1m62mM0eJTK2ndW5GVPvPRn2bMA7yvrrKTCzr4fcu3Dv
+         9oVuY2+/k04Iu3XnX36Nh4Uvqm6vtjZKPA2a7iO0YdRgiZ+Wl9KHBreqQmOio90D8Vyf
+         0Xy1F1q19hYkNuegjyo6srOcm9CZNlVaGSKhTlwaFwjpxkPgWLiDwOroLG2QreK7pzoB
+         SLmi1JVHvGuys/XHWMqbp95gx9jwIub4WFZYbOIZ9D10Vq8y54nGOtFqBTG49qy5CMNf
+         DnjpxJxXKB+KxwpXr7FcC/MWVPPBWg4Qcx3XhLv+Mf6j2r6Oe05hPYq01SepE9PFP3rR
+         naYA==
+X-Forwarded-Encrypted: i=1; AKwUvByHDO637qr8T4xh5kBVFoIT6pD0qX/7++lAZcZ1Dele16pMXmy8WaLvEjuKJlNLVdMAqfFRVNDa3HoHWrk=@vger.kernel.org
+X-Gm-Message-State: AFuF++l5CpBWDiLsQTf4Tc6j0idJvjTNj7y1oVLfK/D/tpYpN08Vm5iZ
+	d+tVlf6QdyQu1xpNnIcTEVB2OBEWnzsN6/iepoXnMog1AKfeXw5wX7y1
+X-Gm-Gg: AYBFou3V7M1V/daR67YZtVkAxf1ipVWVA3wxSCUyZ5edOgEbadaiu8QZ/OCiT572MUw
+	nsFjCKBiYdFk52Gf0gZuQH24NawIBxrT+YU4Ze5grKYPUZa5UrpujQsTTsJQ+DqGsjn0BqENu1u
+	RpV8wQyxSEOIMJXCiRsHjROseRpeTxspMKreT3TamKVpCnSZFIWlIeyikts5R6iTr00qO8Hv88w
+	TpX/t+MxC3lstvZTOu0EK96mMfkJQH5h2H11GssysdyNRwkNofahnXxHi+aOWyfMTzin914J2C5
+	anVMl/zleyc6SQOs7hmRWT9uEKb1tcxrLD3iqkeavjDynomf8ySVbR15MIenzAF0MSWZ0K+BsBl
+	pyocipv4aHY4FPrs6EWBheodYzx5T82ZGG/aua9vLPfE2vBIl3aOe54dWZw8yOtuVngdpfDlfMD
+	L6GLNyCW6zKSuV+X0kyDY5haHX1Iq1u5csbrxhu1wTzsGg7sfUAWbuHcB1x6emsVacrpIjx3Lco
+	QnKGdDQUauqjyBxt2oJeoDXt+9eSJbUC7dfvvYLGVvOnFOMSpNrI81PyJg/qAKG/d3RbsEU/KE7
+	IOdhc9fboNb3KPw=
+X-Received: by 2002:a17:90b:2641:b0:398:9bd1:3215 with SMTP id 98e67ed59e1d1-39d9c352a63mr4011103a91.22.1789103465343;
+        Thu, 10 Sep 2026 22:11:05 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d995a42a5sm2512810a91.17.2026.09.10.22.11.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 22:11:04 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Peter Chen <peter.chen@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	linux-usb@vger.kernel.org
+Cc: Fabio Estevam <festevam@gmail.com>,
+	imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	bui duc phuc <phucduc.bui@gmail.com>,
+	Sashiko Bot <sashiko-bot@kernel.org>
+Subject: [PATCH v4] usb: chipidea: ci_hdrc_imx: Fix error handling when creating IRQ name
+Date: Fri, 11 Sep 2026 12:10:43 +0700
+Message-ID: <20260911051043.15962-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v2 10/13] selftests/bpf: cover the low-32 link
- for narrowing stack fills
-To: bot+bpf-ci@kernel.org, ast@kernel.org, daniel@iogearbox.net,
- andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com
-Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- martin.lau@kernel.org, mason@kernel.org
-References: <20260910164635.459558-11-vineet.gupta@linux.dev>
- <f5c0c236ba1f062cb0ab363bf6672e7aef2c278ba7193bef5891ab18d86c9b38@mail.kernel.org>
-From: Vineet Gupta <vineet.gupta@linux.dev>
-Content-Language: en-US
-In-Reply-To: <f5c0c236ba1f062cb0ab363bf6672e7aef2c278ba7193bef5891ab18d86c9b38@mail.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+From: bui duc phuc <phucduc.bui@gmail.com>
 
+devm_kasprintf() can fail when allocating the wakeup IRQ name. In this
+case, the probe error path should shut down the PHY before returning.
 
-On 9/10/26 11:01 PM, bot+bpf-ci@kernel.org wrote:
->> diff --git a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
->> index 9d060d8b0c1f..e8a44e7579c8 100644
->> --- a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
->> +++ b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
-> [ ... ]
->
->> @@ -966,6 +966,88 @@ __naked void zext_mov_breaks_add_const_src(void)
->>   	: __clobber_all);
->>   }
->>
->> +/*
->> + * A narrowing fill keeps only the slot's low 32 bits, so a later narrowing of
->> + * the spilled value must still reach the filled register. Same relation as a
->> + * 32-bit mov from a wide source, with the stack slot as the base.
->> + */
->> +SEC("socket")
->> +__success
->> +__naked void zext_fill_narrow_from_wide_spill(void)
->> +{
->> +	asm volatile ("						\
->> +	call %[bpf_get_prandom_u32];				\
->> +	r6 = r0;						\
->> +	call %[bpf_get_prandom_u32];				\
->> +	r0 <<= 32;						\
->> +	r6 |= r0;		/* r6 = full 64-bit unknown */	\
->> +	*(u64 *)(r10 - 8) = r6;	/* slot linked to r6 */		\
->> +	r2 = *(u32 *)(r10 - 8);	/* narrowing fill, forms the link */ \
->> +	if w6 != 0 goto 1f;	/* narrows r6, propagates to r2 */ \
->> +	if r2 == 0 goto 1f;					\
->> +	r0 /= 0;						\
->> +1:								\
->> +	r0 = 0;							\
->> +	exit;							\
->> +"	:
->> +	: __imm(bpf_get_prandom_u32)
->> +	: __clobber_all);
->> +}
->> +
->> +/*
->> + * A full-width fill of a wide slot is a plain 64-bit equality, not a low-32
->> + * link, so it must keep propagating exactly as before.
->> + */
->> +SEC("socket")
->> +__success
->> +__naked void zext_fill_full_width_keeps_full_link(void)
->> +{
->> +	asm volatile ("						\
->> +	call %[bpf_get_prandom_u32];				\
->> +	r6 = r0;						\
->> +	call %[bpf_get_prandom_u32];				\
->> +	r0 <<= 32;						\
->> +	r6 |= r0;						\
->> +	*(u64 *)(r10 - 8) = r6;					\
->> +	r2 = *(u64 *)(r10 - 8);	/* no narrowing */		\
->> +	if r6 != 0 goto 1f;					\
->> +	if r2 == 0 goto 1f;					\
->> +	r0 /= 0;						\
->> +1:								\
->> +	r0 = 0;							\
->> +	exit;							\
->> +"	:
->> +	: __imm(bpf_get_prandom_u32)
->> +	: __clobber_all);
->> +}
->> +
->> +/*
->> + * A sub-word fill is below the low-32 model, so no link is formed and the
->> + * relation is dropped as before.
->> + */
->> +SEC("socket")
->> +__failure __msg("div by zero")
->> +__naked void zext_fill_byte_forms_no_link(void)
->> +{
->> +	asm volatile ("						\
->> +	call %[bpf_get_prandom_u32];				\
->> +	r6 = r0;						\
->> +	call %[bpf_get_prandom_u32];				\
->> +	r0 <<= 32;						\
->> +	r6 |= r0;						\
->> +	*(u64 *)(r10 - 8) = r6;					\
->> +	r2 = *(u8 *)(r10 - 8);	/* 1-byte fill: no link */	\
->> +	if w6 != 0 goto 1f;					\
->> +	if r2 == 0 goto 1f;	/* not deduced */		\
->> +	r0 /= 0;						\
->> +1:								\
->> +	r0 = 0;							\
->> +	exit;							\
->> +"	:
->> +	: __imm(bpf_get_prandom_u32)
->> +	: __clobber_all);
->> +}
->> +
->>   #ifdef CAN_USE_MOVSX
-> Should the guard here be checking for LDSX support instead? The two
-> programs added below (sext_fill_narrow_from_wide_spill and
-> fill_kinds_reach_different_values) both use BPF_LDX | BPF_MEMSX
-> instructions (`r2 = *(s32 *)(r10 - 8)`), not MOVSX.
->
-> Other LDSX users in the suite gate on the LDSX feature - for instance,
-> verifier_ldsx.c checks:
->
->      (__clang_major__ >= 18 || defined(__BPF_FEATURE_LDSX))
->
-> The two macros happen to align for clang >= 18 and gcc-bpf -mcpu=v4, but
-> a compiler advertising MOVSX without LDSX would fail to build these
-> programs rather than skipping them.
+Use the phy_shutdown error path instead of err_clk so that the PHY is
+properly shut down when creating the IRQ name or requesting the wakeup
+IRQ fails.
 
-The bot is right, LDSX needs to be checked here.
-I've introduced the macro in bpf_misc.h and used here as applicable.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Acked-by: Peter Chen <peter.chen@kernel.org>
+Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/all/20260806065755.C9F361F000E9@smtp.kernel.org/
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
 
-There are some other in-tree users of this infra, but I'm holding off on 
-converting them as have slightly different definition which I'd rather 
-deal with separately outside of this series.
+Link v2:
+https://lore.kernel.org/all/20260807065619.30604-2-phucduc.bui@gmail.com/
+Link v3:
+https://lore.kernel.org/all/20260810093112.47807-2-phucduc.bui@gmail.com/
 
+Changes in v3:
+ - Use the phy_shutdown label instead of err_clk as suggested by
+   Sashiko's review.
+ - Add Peter Chen's Acked-by tag.
+ - Add Frank Li's Reviewed-by tag.
+Changes in v4:
+ - Rebased on top of gregkh/usb-testing.
+ - The ret assignment for dev_err_probe() is already handled by
+   1db5c6b0b983 ("usb: chipidea: imx: fix missing ret assignment for
+   dev_err_probe").
+ - Keep this patch focused on the phy_shutdown error path.
 
-> [ ... ]
->
->> @@ -1129,6 +1211,68 @@ __naked void sext_kinds_reach_different_values(void)
->>   	: __clobber_all);
->>   }
->>
->> +/*
->> + * The sign-extending counterpart: the filled register is the sign extension of
->> + * the slot's low 32 bits, so a narrowing of those bits arrives sign-extended.
->> + */
->> +SEC("socket")
->> +__success
->> +__naked void sext_fill_narrow_from_wide_spill(void)
->> +{
->> +	asm volatile ("						\
->> +	call %[bpf_get_prandom_u32];				\
->> +	r6 = r0;						\
->> +	call %[bpf_get_prandom_u32];				\
->> +	r0 <<= 32;						\
->> +	r6 |= r0;		/* r6 = full 64-bit unknown */	\
->> +	*(u64 *)(r10 - 8) = r6;	/* slot linked to r6 */		\
->> +	r2 = *(s32 *)(r10 - 8);	/* narrowing sx fill */		\
->> +	if w6 != -1 goto 1f;	/* narrows r6, propagates to r2 */ \
->> +	if r2 == -1 goto 1f;	/* sign-extended, not 0xffffffff */ \
->> +	r0 /= 0;						\
->> +1:								\
->> +	r0 = 0;							\
->> +	exit;							\
->> +"	:
->> +	: __imm(bpf_get_prandom_u32)
->> +	: __clobber_all);
->> +}
->> +
->> +/*
->> + * The same, for the two fill kinds off one slot.
->> + */
->> +SEC("socket")
->> +__failure __msg("div by zero")
->> +__flag(BPF_F_TEST_STATE_FREQ)
->> +__naked void fill_kinds_reach_different_values(void)
->> +{
->> +	asm volatile ("						\
->> +	call %[bpf_get_prandom_u32];				\
->> +	r6 = r0;						\
->> +	r6 &= 1;						\
->> +	call %[bpf_get_prandom_u32];				\
->> +	r8 = r0;						\
->> +	call %[bpf_get_prandom_u32];				\
->> +	r0 <<= 32;						\
->> +	r8 |= r0;						\
->> +	*(u64 *)(r10 - 8) = r8;					\
->> +	if r6 >= 1 goto 2f;					\
->> +	r2 = *(s32 *)(r10 - 8);	/* sign-extending fill */	\
->> +	goto 1f;						\
->> +2:								\
->> +	r2 = *(u32 *)(r10 - 8);	/* zero-extending fill */	\
->> +1:								\
->> +	if w8 != -1 goto 3f;					\
->> +	if r2 == -1 goto 3f;	/* only the sign-extending path */ \
->> +	r0 /= 0;						\
->> +3:								\
->> +	r0 = 0;							\
->> +	exit;							\
->> +"	:
->> +	: __imm(bpf_get_prandom_u32)
->> +	: __clobber_all);
->> +}
->> +
->>   #endif /* CAN_USE_MOVSX */
->>
->>   char _license[] SEC("license") = "GPL";
-> ---
-> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
->
-> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34506184282
+ drivers/usb/chipidea/ci_hdrc_imx.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/usb/chipidea/ci_hdrc_imx.c b/drivers/usb/chipidea/ci_hdrc_imx.c
+index 6a17b22047b3..edbf9df9b8f2 100644
+--- a/drivers/usb/chipidea/ci_hdrc_imx.c
++++ b/drivers/usb/chipidea/ci_hdrc_imx.c
+@@ -533,7 +533,7 @@ static int ci_hdrc_imx_probe(struct platform_device *pdev)
+ 		irq_name = devm_kasprintf(dev, GFP_KERNEL, "%s:wakeup", pdata.name);
+ 		if (!irq_name) {
+ 			ret = dev_err_probe(dev, -ENOMEM, "failed to create irq_name\n");
+-			goto err_clk;
++			goto phy_shutdown;
+ 		}
+ 
+ 		ret = devm_request_threaded_irq(dev, data->wakeup_irq,
+@@ -541,7 +541,7 @@ static int ci_hdrc_imx_probe(struct platform_device *pdev)
+ 						IRQF_ONESHOT | IRQF_NO_AUTOEN,
+ 						irq_name, data);
+ 		if (ret)
+-			goto err_clk;
++			goto phy_shutdown;
+ 	}
+ 
+ 	ret = imx_usbmisc_init(data->usbmisc_data);
+-- 
+2.43.0
 
