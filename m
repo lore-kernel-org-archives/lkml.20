@@ -1,46 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC6A3EFD21;
-	Fri, 11 Sep 2026 02:26:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD5B3F105B;
+	Fri, 11 Sep 2026 02:26:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789093563; cv=none; b=HbnULrApmrgFWH4T2+SZ4yIFOep8gIovBsxqM2KnIYp2mvrRxLlKc9hIQ1KWbdMsD0ppYbim5zPeSs+udvIN5JNqEc15L+eALAhoRDMi7Eebl5M9tSGtPWzrJUoDj6Fjkxgksv0sBo0qHzyNmFcCD6hvnhyy4o+IBTx1NbGUvaE=
+	t=1789093564; cv=none; b=q2+BRR+mVfd6H7ImpaIzaCsI3RtFJE5MHrqYYGxdPfLrqVEpRv5bwXrAfUIIhMHgg0ep0gQVsLTKaGxoEAuLsyIcEZtrG5yql7QsygyRwbRU/TSfU6Ueoa7tg6fsRYY1kIxDmRqg2zM/6oOdhsv13hmLy70dsS6XuzHKnszcFjY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789093563; c=relaxed/simple;
-	bh=s5dbZPM4dhlBZ2Kd/HSVcMxXVBqIO71o8aHk4ra8/ws=;
+	s=arc-20240116; t=1789093564; c=relaxed/simple;
+	bh=aEnyVZ503oKK0GclRjfd0ZbVHxTBe5mGbzG095GM/rc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=U76DiMTg2xgdsFr6puMACp4ULUQf/Iqx+2x7wfgFfib7AHMz7KACV0DIcZUhOPyy0G2iMo1qYNFJPRus/Q65c1SrLyfzPjtt747aK7ttCuGJ6m9P3EowaX/BRDrZ85nOC6wFqX14PTuGz3Sp5oEcMpsIeyy+lPbGSzUQI0JQNgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ETeJFJXs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=oz2YKS1MerkMWZd0X54YNbzxS/6vdjD8MDpaUVjRv+O2h4NE1gOHIh9M1Jn7RhSXNXzUEOIhd8w7xW0k0AHp+sZnhvmiNj/ElVogEAmw3xaGnnRab0Jo6ii6rABlk+va41ld3Tf19BzWqFhriCB3vAA+RJwqT3Irg8nkG/Cic+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=frtR3+Cu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ETeJFJXs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 374351F00893;
-	Fri, 11 Sep 2026 02:26:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="frtR3+Cu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 150F31F00898;
+	Fri, 11 Sep 2026 02:26:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789093561;
-	bh=9W5MMWSrx6vH0nXH2gneLeOm4A6SMd07kHAGzx4rcw8=;
+	s=k20260515; t=1789093562;
+	bh=G+7tbsW8GhE8Dl3WQ6Y24WskdmuX6RT7fYcuY2w71k4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ETeJFJXsX78P7upxxdbpt/HnPX0o6z9xHLLT5dKCDw1UXqS+9d2oX6u/aY6ADB4qP
-	 7aQnMy+PWF2OSP3rSY0PEEhfErLFEpXh9qRT5bhhpKHfTdNUMHHa66l1Jlto1eLI5A
-	 3mQNS/3V+qdAA8o0HgT6aJtKVReyFZ5kjUrvsmJ/7T3Nf/0ooIrcGsyASa6NzxE/66
-	 OFW3Ht8C7XwKB9ppHm+iKrWnBRlsDxVWcLcS3qsUvHa7/7LwPBXsb18FyTOMj/mlLf
-	 OcBzr2fNMTO8ZnQxMauA0B0aqnpHeiszaqV/KBvg0lqJul6ssL0/9NQR9BgDz8BRhL
-	 e6gSL6VAJEbjw==
+	b=frtR3+CuF+2CyZjh0ovDxpsb0yeESoUcaVrx14ZbvfOKDatMksLU1VI98WD4FoLc7
+	 eljQYTGnBavAQs6zP5QCNzPjLZyBtFI0FfZpbGYiFUTEmLQV4esYIAzpCS5HAuVwKA
+	 js1SttPVw5Colna9PH2c9HXNWFA5MCeGqidMXbsBOQONN2N/geuCe4OOiNZCfxwm+T
+	 di5bnETLtre0RsCWD7TE9uTVT/XoxKNesPLd4bwT86CXuaxjcojLziyXvPrm3/7/oK
+	 KXeAFxg5tdy60yVfM3v8nTrNkzUan0GJDyU5kORw79lbyKCwUyS0Fua+qy1mmE0Ny3
+	 W8j0X0ngyCY9Q==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Rob Herring <robh@kernel.org>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
+	Luca Weiss <luca.weiss@fairphone.com>
+Cc: ~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH] arm64: dts: qcom: x1e80100-medion-sprchrgd-14-s1: Drop NOP override
-Date: Thu, 10 Sep 2026 21:25:38 -0500
-Message-ID: <178909353844.920241.8714672832874657458.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: sm7225-fairphone-fp4: Disable PMK8350 PON
+Date: Thu, 10 Sep 2026 21:25:39 -0500
+Message-ID: <178909353851.920241.10380182243705071206.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907-topic-medion_touchup-v1-1-10267ae55aae@oss.qualcomm.com>
-References: <20260907-topic-medion_touchup-v1-1-10267ae55aae@oss.qualcomm.com>
+In-Reply-To: <20260901-fp4-pmk8350-pon-v1-1-e05937e9c860@fairphone.com>
+References: <20260901-fp4-pmk8350-pon-v1-1-e05937e9c860@fairphone.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,17 +53,17 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Mon, 07 Sep 2026 11:01:17 +0200, Konrad Dybcio wrote:
-> Commit d12cd85a4ff4 ("arm64: dts: qcom: hamoa: Add sound DAI prefixes
-> for DP") took care of adding the prefixes for all Hamoa devices, drop
-> the unnecessary override.
+On Tue, 01 Sep 2026 11:06:13 +0200, Luca Weiss wrote:
+> Two PMICs on this phone have a PON block, the PM6350 and PMK8350. Only
+> one should be enabled at one time, so disable PMK8350 PON and keep the
+> PM6350 PON.
 > 
 > 
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: x1e80100-medion-sprchrgd-14-s1: Drop NOP override
-      commit: abc13fc5ee7f94af0ce982fc4e0a628d859b2614
+[1/1] arm64: dts: qcom: sm7225-fairphone-fp4: Disable PMK8350 PON
+      commit: 5c088a33e3a9bb236c475b7230df275fc1e51eda
 
 Best regards,
 -- 
