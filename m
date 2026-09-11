@@ -1,80 +1,81 @@
-Received: from out-2uec-a106.jellyfish.systems (out-2uec-a106.jellyfish.systems [63.250.43.106])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 819B33955C3
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:45:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=63.250.43.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A0C357CEC;
+	Fri, 11 Sep 2026 16:45:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789145105; cv=none; b=ZwDKJbQca2aiuf8X3eTelx0GgvmefL7xR6aCb8id7SMGlYis2k5407Azo/eTBJUvOpFEAEOiBN9EzAVUi37Nx9lUnXGI4kuVWtuCinmA3RAl5KYB1hVSaszFzhY4sZ5saVAmfF73wbXR6fm/HAvJxm4ZfEXuQ2CVU+oHkQd4YeQ=
+	t=1789145138; cv=none; b=I4ERPIu/EV5nhDG17JV61d5oVMgQ2cWXhhR9heuGTbq256q1Dae1DLYPki07z9wrC0p4leIjOqUMEIiscTIergNsvboAe3jHrZNIBP+anjNgIjFDty/mF6SuAh9PolNdz5Mc4V9UmEsHaXybvWDmkrTQ8KyK7okaLDzHJ6oi/yU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789145105; c=relaxed/simple;
-	bh=x47TK3jUwh3i8c5UgD8DnvakrZ5m0a2pfrY9ATBcHGU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TEOaVzLCdzqIjq4VZFzbY4WgtZnrEVe2vxOm77pDRPbuOfmg2QN3pj0YimkIWQgbfxoXNQ/Lbjy0/+axzP59fhOn0Y8e/0ud2p1T3KyjNVY1sQUy/exx8bSUo/ksBXWBCA2fkRTrTGZnLK/tGoeCYCVX2TQtKTbWaqglJLiRr0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=63.250.43.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
-Received: from mail.privateemail.com (unknown [87.215.145.39])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.privateemail.com (Postfix) with ESMTPSA id 4hhL4H3ZJzzyQ9;
-	Fri, 11 Sep 2026 16:44:47 +0000 (UTC)
-From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
-	Mark Brown <broonie@kernel.org>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-	Ravi Hothi <ravi.hothi@oss.qualcomm.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Julian Braha <julianbraha@gmail.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: add the Qualcomm WCD9378 audio codec
-Date: Fri, 11 Sep 2026 18:44:40 +0200
-Message-ID: <20260911164440.101533-1-jorijnvdgraaf@catcrafts.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260730-impartial-angelic-harrier-ab9192@quoll>
-References: <20260729000649.263426-1-jorijnvdgraaf@catcrafts.net> <20260729000649.263426-2-jorijnvdgraaf@catcrafts.net> <20260730-impartial-angelic-harrier-ab9192@quoll>
+	s=arc-20240116; t=1789145138; c=relaxed/simple;
+	bh=m8uoNNrt+Dm8NpcA9Z/eGfox+DbN2jnefFupKJtAhtM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=G9tl9Jeou8AmxSFINoj0jUwFMXG40iWsEU0X/+zBVv8V6YfrRhR1AOqixp3n4Jkn0nqfLkKhMrHxZDldGzJKIjB/thlEgnNzm7GBbRQobW0fpQlKt3FvBIlLnxV5cucYkRp8b2HIom7yFJ08MwL5seRznd0iaLmaC4FIZD557Vs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h5Dec26m; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h5Dec26m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C35D11F000FF;
+	Fri, 11 Sep 2026 16:45:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789145137;
+	bh=ZwM/MvepTWPwju4uEY6gRB6//NK30WodpXwAjUG4iQE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=h5Dec26mL8sO1uLvcXCHJEpgfU+8e2G7nsW9Hj8lrDpopYSxZVdTIqODnqV7TKlaQ
+	 SmxNn0Fx1X60PfQ1LS8vkjjK66eu2Ym6YbNqYJxtikmFHLLCPWEgV62DOvcCKc97RQ
+	 fAVNjfuyF25aktr/evXYlAk1enAKviGCyNFImiO7Bw7Y0KAjF8o5VffRIUL546eTLw
+	 oG4kVdMWIps3VYzgrrHPMblzzX7wRl5JLm7bgLgZEmap5vWyhf92P/csOLCOQzLxpS
+	 Iw4/N44Ncamb2Ywuv71SuESZb4wQqiSD+PAAbPDpoG3fYrJ40OwwKzqhPhugXRiljK
+	 HcjDq8OSy3GWw==
+Date: Fri, 11 Sep 2026 18:45:34 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: Aditya Garg <aditya.garg@linux.dev>
+cc: Benjamin Tissoires <bentiss@kernel.org>, 
+    Linux Input Mailing List <linux-input@vger.kernel.org>, 
+    Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+    Andre Eikmeyer <dev@deq.rocks>
+Subject: Re: [PATCH v4] HID: appletb-kbd: support layer switching on Fn double
+ press
+In-Reply-To: <cf9ff462-1a77-44c7-92fd-2b11518aeb69@linux.dev>
+Message-ID: <4s5p7s1n-87n6-2833-s73r-s82s45862srs@xreary.bet>
+References: <20260905143733.17819-1-aditya.garg@linux.dev> <cf9ff462-1a77-44c7-92fd-2b11518aeb69@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: jorijnvdgraaf@catcrafts.net
+Content-Type: text/plain; charset=US-ASCII
 
-On Thu, Jul 30, 2026 at 09:09:48AM +0200, Krzysztof Kozlowski wrote:
-> As pointed out by RFC from Srini, this binding/node is not correct. It
-> is a fake node to solve (real) power sequencing issues, but Srini's SDCA
-> patchset points that this should be part of TX.
+On Sat, 5 Sep 2026, Aditya Garg wrote:
+
+> > Holding Fn temporarily switches the Touch Bar between media controls and
+> > function keys. Users who want to keep the alternate layer currently need
+> > to change the mode through sysfs.
+> > 
+> > An optional double_press_switch_time module parameter makes a double press
+> > persistently switch the default layer. Its value specifies the double-press
+> > interval in milliseconds, while zero leaves the behavior disabled.
+> > 
+> > Signed-off-by: Aditya Garg <aditya.garg@linux.dev>
+> > Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
+> > ---
+> > Changes in v2:
+> > - Added a check to ensure negative fn switch times are ignored.
+> > 
+> > Changes in v3:
+> > - Renamed the backing variable to match the module parameter.
+> > - Fixed the reported code style issues.
+> > 
+> > Changes in v4:
+> > - Added missing "break;" in case statements.
+> > - Change author's email to aditya.garg@linux.dev
 > 
-> Bindings should be complete. It is fine to have them incomplete of
-> missing features and extend later, but it is not fine to have them with
-> incorrect and incompatible solution.
-> 
-> Therefore this needs to be sorted out for both patchset - this and SDCA
-> version of WCD9378 codec.
+> Now that I see it, the case statements were ending in return. break was 
+> not needed. Sorry for the brainfart.
 
-I am withdrawing this series. Ravi Hothi (Cc) has RX support working on
-top of it and will take it over from here.
+Please send v5 and I will apply it.
 
-I cannot test the RX path on my hardware, which I personally require
-for all my patches.
+-- 
+Jiri Kosina
+SUSE Labs
 
-Thanks,
-Jorijn
